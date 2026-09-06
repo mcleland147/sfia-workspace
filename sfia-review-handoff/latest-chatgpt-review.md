@@ -1,201 +1,247 @@
-# ChatGPT Critical Design Review — CORR-PROOF-01 D1 Adoption / Delivery Gate
+# ChatGPT Critical Delivery Review — CORR-PROOF-01 D1 Shared-Session Hybrid
 
 ## 1. UTC timestamp
 
-2026-09-06T13:00:56Z
+2026-09-06T13:18:37Z
 
-## 2. Parent Product Proof state
+## 2. Cycle / typology / profile
 
-**OPEN / BLOCKED AT CORR-PROOF-01**
+- Cycle ID: `SFIA-STUDIO-PRODUCT-PROOF-CORR-01-D1-DELIVERY-01`
+- Cycle 8 — Delivery / implémentation
+- Typologie: EVOL
+- Profil: CRITICAL
 
-The Product Proof remains the same iterative REAL validation campaign. Dogfood #1 FAIL did not close the Proof. The Proof resumes after CORR-PROOF-01 is corrected, integrated and revalidated on the same natural user path.
+## 3. Parent Product Proof state
 
-## 3. Morris decision consumed
+OPEN → BLOCKED AT CORR-PROOF-01 → D1 Delivery candidate ready for Critical Delivery Review.
 
-**MORRIS DECISION — CORR-PROOF-01 OPTION D1 SHARED-SESSION HYBRID ADOPTED — PRODUCTSQLITESESSION REMAINS THE SINGLE DURABLE CONVERSATIONAL SoT — NATURAL MULTI-TURN SEMANTICS PRECEDE BLOCKING SFIA POLICY — F2/MW5 ADAPTED AS CONTEXTUAL FORMALIZATION/GOVERNANCE — EXACTLY ONE CANONICAL ASSISTANT TURN PER PILOTE TURN — NO SECOND RUNNER / MEMORY / CONVERSATION SoT — CORRECTIVE DELIVERY AUTHORIZED — T1–T9 + SAME PRODUCT PROOF REAL RETEST REQUIRED.**
+Dogfood #1 retained Evidence. Stage A CLOSED. Stage B NOT JUSTIFIED / NOT AUTHORIZED.
 
-Morris also explicitly requested publication of this Review Handoff.
+## 4. Exact D1 Morris decision consumed
 
-## 4. Inputs reviewed
+CORR-PROOF-01 OPTION D1 SHARED-SESSION HYBRID ADOPTED —
+ProductSqliteSession remains the single durable conversational SoT —
+natural multi-turn semantics precede blocking SFIA policy —
+F2/MW5 adapted as contextual formalization/governance —
+exactly one canonical assistant turn per Pilote turn —
+no second Runner / memory / conversation SoT —
+corrective Delivery authorized —
+T1–T9 + SAME Product Proof REAL retest required.
 
-- `origin/main` = `586480af178df5dd2f7177cae8f6b1ac18fe4acc`
-- Prior Review Handoff tip = `c666f91ea75aa894ae70478990cd29c180d8ce89`
-- Prior handoff blob = `27d5115d89904e2fce74f8339dc9df1b987208e1`
-- Dogfood #1 evidence: natural two-turn contract-tracking conversation blocked by repeated generic `[MW5 CLARIFY]`
-- R22 OpenAI Capability Fit / Functional Design pack
-- Current `@openai/agents` / `openai` package truth
-- Current ProductSqliteSession / Memory B / F2 / MW5 / Nora cognitive path
+## 5. Git truth
 
-## 5. Critical Design Review verdict
+| Field | Value |
+|---|---|
+| Repository | `mcleland147/sfia-workspace` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-proof-corr-01-delivery` |
+| Branch | `delivery/sfia-studio-proof-corr-01-d1-conversation` |
+| HEAD / base / origin/main | `586480af178df5dd2f7177cae8f6b1ac18fe4acc` |
+| Product commit/push/PR | **NONE** (local candidate diff only) |
 
-**PASS**
+## 6. Review Handoff input
 
-The root-cause qualification is sufficient to authorize a bounded corrective Delivery.
+Tip `7c378da5c94eae21f7d13d60927fb2c4a7f4dbd9` · blob `21506211f2a4db8b7adfd0acad56193a0766394a`
 
-Accepted interpretation:
+## 7. Sources read
 
-- the blocker is primarily at the orchestration boundary;
-- no evidence justifies reopening model selection or Stage B;
-- ProductSqliteSession already provides the durable conversational Session contract;
-- no second generic memory/session/conversation engine is justified;
-- MW5 and Structured Outputs remain useful, but must move to the appropriate contextual/formalization boundary rather than gate ordinary natural dialogue mechanically.
+Process/convergence/v3/Nora trajectory as mandated; Dogfood handoff; code seams listed in contract; existing F2/MW5/Memory B tests.
 
-## 6. Adopted architecture — Option D1 Shared-Session Hybrid
+## 8. Convergence qualification
 
-Target principle:
+Capability: natural conversational continuity in Pilote→Nora→formalization (V3-F05), with V3-F02/F04 support and V3-F11/F12 governance preserved. Milestone: PRODUCT PROOF — CORR-PROOF-01. This Delivery does **not** close CORR-PROOF-01 at REAL scope.
 
-```text
-Pilote
-  → natural Nora conversational cognition
-  → shared semantic context backed by ProductSqliteSession / Memory B
-  → contextual qualification / MW5 only when materially needed
-  → structured formalization when needed
-  → HumanDecision / ExecutionContract / Confirmation / authority boundaries
-```
+## 9. Implementation strategy actually selected
 
-### Hard invariants
+**D1 Shared-Session Hybrid (smallest coherent):**
 
-1. `ProductSqliteSession` remains the **single durable conversational SoT**.
-2. One Pilote turn produces **exactly one canonical assistant turn**.
-3. No invisible assistant draft may be durably persisted before the final user-visible response.
-4. Natural multi-turn semantics must be available before a blocking SFIA policy response is emitted.
-5. F2 consumes shared contextual semantics; it must not remain a separate front-door conversational product.
-6. MW5 keeps its hard anti-synthesis / fail-closed governance value, but is adapted to contextual governance rather than canned ordinary-dialogue gating.
-7. Structured Outputs remain for formalization/qualification where appropriate; they do not define the user's conversational grammar.
-8. Conversation/session state **does not become Truth C** by memory alone.
-9. Recommendation ≠ HumanDecision; Nora cannot synthesize GO / Confirmation / Morris decision / Pilote act.
-10. Execution authority remains determined only by governed SFIA contracts and valid human authorization.
-11. No second Runner, second generic memory engine, second durable conversation SoT, duplicate compaction path or duplicate provider abstraction.
-12. Existing Memory B / compaction contracts remain protected unless a separately evidenced decision changes them.
+1. Server reads ProductSqliteSession (`f1-default`) before `analyzeIntent`.
+2. Passes bounded canonical conversation into Structured Outputs formalization.
+3. MW5 policy receives `sessionContextResolvesUncertainty` when the **latest** Session assistant was `[MW5 CLARIFY]` and the Pilote follows up.
+4. On MW5 CONTINUE after that: route to existing F1 Agents Runner + Session (one visible Nora turn).
+5. On MW5 CLARIFY/CHALLENGE/ESCALATE surfaces that skip F1: append exactly one user+assistant pair into ProductSqliteSession so the clarify participates in the canonical conversation.
 
-## 7. Asset disposition
+No OpenAIConversationsSession, no previous_response_id chain, no second Runner, no client-history blind import.
 
-### KEEP
+## 10. Exact one-turn persistence lifecycle
 
-- Agents SDK Runner
-- ProductSqliteSession
-- Memory B / MemoryBSessionView / compaction
-- Truth C / LPS separation
-- HumanDecision pipeline
-- ExecutionContract / Confirmation / authority pipeline
-- current provider family / model-selection state
+1. **User input** arrives at `orchestrateAssistantSend`.
+2. **Non-durable:** Session read + `analyzeIntent` + MW5 fact derive/disposition.
+3. **Policy:** `evaluateF2Mw5` (may CONTINUE / CLARIFY / CHALLENGE / ESCALATE).
+4. **One user-visible response:**
+   - F1 path → Agents Runner persists user+assistant via ProductSqliteSession; OR
+   - F2 surface path → `appendCanonicalConversationTurn` once.
+5. **No invisible assistant draft** is written before the chosen visible response.
 
-### ADAPT / COMPLETE
+## 11. Modified files
 
-- F2 entry/orchestration role — ADAPT
-- `analyzeIntent` role/context boundary — ADAPT
-- MW5 placement — ADAPT
-- CLARIFY episode continuity / contextual resolution — COMPLETE
-- Structured Outputs boundary — ADAPT, not remove
+- `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts`
+- `projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/criticalChallengeClarification.ts`
 
-### NOT BUILT / DEFERRED
+## 12. New files / helpers
 
-- second Runner
-- second conversation engine
-- OpenAIConversationsSession as primary durable SoT
-- `conversationId` / `previousResponseId` as parallel primary history chain
-- stronger-model workaround
-- Stage B
-- package upgrade unless later proven necessary
+- `projects/sfia-studio/app/features/project-assistant/f2/canonicalConversationSession.ts` (**NEW helper**)
+- `projects/sfia-studio/app/__tests__/project-assistant/corrProof01.d1.conversation.d0.test.ts` (**NEW**)
 
-## 8. Delivery scope authorized
+## 13. Useful git diff summary
 
-A bounded corrective Delivery may now implement D1 on the current Studio product path.
+- `orchestrateF2.ts`: Session read → analyzeIntent context; ambiguous CONTINUE→F1; persist F2 surfaces.
+- `intentAnalysis.ts`: `canonicalConversationContext` + continuity instruction block.
+- `criticalChallengeClarification.ts`: `sessionContextResolvesUncertainty` input (alongside existing test marker).
+- Helper: open/format/append/count/extract for ProductSqliteSession SoT.
+- Tests: T1–T9 + persistence assertions with injected Fake provider (ZERO LIVE).
 
-Delivery must prefer coherent end-to-end closure over scattered micro-patches and must not introduce temporary dual conversational authorities without an explicit exit.
+## 14. Why each modification is required
 
-Implementation may modify only the code/tests directly required to:
+Without Session context in analyzeIntent and without persisting CLARIFY into Session, Turn 2 remains an independent ambiguous classification and re-emits the same canned MW5 CLARIFY — the Dogfood blocker.
 
-- make natural multi-turn semantic context available before blocking F2/MW5 disposition;
-- ensure exactly one canonical assistant response is persisted/displayed per Pilote turn;
-- make contextual clarification resolvable from normal user language;
-- preserve existing authority, Truth C, Memory B and Evidence invariants;
-- add deterministic regression coverage T1–T9.
+## 15. ProductSqliteSession disposition
 
-Any structural scope expansion, package upgrade, new persistence architecture or parallel session mechanism requires a distinct Morris gate.
+**KEEP** — single durable conversational SoT (`f1-default`).
 
-## 9. Deterministic acceptance contract
+## 16. Memory B disposition
 
-T1 — exact two-turn Dogfood reproduction: second turn progresses; no identical generic CLARIFY absent a new material reason.
+**KEEP** — F1 still uses MemoryBSessionView/compaction; no duplicate compaction.
 
-T2 — progressive five-turn project description: semantic continuity without formal restatement.
+## 17. F2 disposition
 
-T3 — pronoun/reference continuation: contextual resolution or honest material clarification.
+**ADAPT** — no longer exclusive pre-conversation gate that can finalize blocking CLARIFY without Session continuity.
 
-T4 — genuine structure-changing ambiguity: useful contextual clarification remains possible.
+## 18. analyzeIntent disposition
 
-T5 — trivial acknowledgement after clarification: contextual behavior; no arbitrary state mutation.
+**ADAPT** — Structured Outputs formalization receives canonical Session context; not a hidden wording contract.
 
-T6 — authority boundary: external/write intent triggers strict governance; no HD/GO/Confirmation synthesis.
+## 19. MW5 disposition
 
-T7 — informative conversation: normal analysis/recommendation does not manufacture unnecessary CycleInstance/formal state.
+**KEEP** invariants / **ADAPT** placement — policy after Session facts; anti-synthesis preserved; CLARIFY still allowed when material.
 
-T8 — Memory B / compaction regression remains green.
+## 20. Structured Outputs disposition
 
-T9 — MW5 anti-synthesis / challenge / fail-closed governance regression remains green.
+**KEEP** for formalization; conversation continuity supplied as context, not magic markers.
 
-## 10. REAL Product Proof revalidation contract
+## 21. Authority invariant proof
 
-After deterministic Delivery proof + integration on `main`, Morris resumes the **same Product Proof** on the **Suivi de contrat** scenario with ordinary language and no magic prompt.
+T6 + existing MW5 product tests: no HD/GO/Confirmation synthesis; fail-closed execution labels. `containsSynthesizedHumanAct` assertions green.
 
-Required REAL boundary:
+## 22. Truth C separation proof
 
-- natural Turn 1;
-- natural B2B/MC Consulting Turn 2;
-- former blocker crossed;
-- conversation continues naturally.
+Session helper disclosures mark working context ≠ Truth C; F2 ambiguous/informative paths do not mutate LPS solely for progressive chat (T2/T7).
 
-If that boundary passes, `CORR-PROOF-01` is revalidated at the tested boundary and the Product Proof continues immediately.
+## 23. No-second-SoT proof
 
-If a new UX/functional/product anomaly appears, it becomes the next Product Proof issue; the Proof remains open until Morris accepts end-to-end Exit Proof.
+Only ProductSqliteSession `f1-default`; OpenAIConversationsSession unused; client history not imported.
 
-## 11. Governance / anti-claims
+## 24. No-second-Runner proof
 
-- Stage A = **COMPLETE / CLOSED — Outcome C accepted**
-- Stage B = **NOT JUSTIFIED / NOT AUTHORIZED**
-- Production model routing = **NOT SELECTED**
-- Runtime v3 = **NON ADOPTED**
-- Cognitive Completion = **NOT PROVEN**
-- Production-ready = **NOT CLAIMED**
-- Accounting reserve `R-GMR-AGGREGATE-COUNTER-SEMANTICS-01` = **RETAINED / UNCHANGED**
-- Delivery authorization ≠ merge authorization
-- Delivery authorization ≠ runtime-v3 adoption
-- Recommendation no longer applies to D1 architecture: the architecture decision above is explicitly **ADOPTED BY MORRIS** for CORR-PROOF-01 scope.
+Single Agents Runner path via existing `runNoraCognitiveTurn` / `runNoraAgentsTurn`.
 
-## 12. Git / mutation status at decision time
+## 25–33. T1–T9 results
 
-Current product `main` remains:
+| Test | Result |
+|---|---|
+| T1 dogfood two-turn | **PASS** |
+| T2 progressive five-turn | **PASS** |
+| T3 pronoun/reference | **PASS** |
+| T4 material ambiguity | **PASS** |
+| T5 acknowledgement | **PASS** |
+| T6 authority boundary | **PASS** |
+| T7 informative no cycle | **PASS** |
+| T8 Memory B / isolation | **PASS** |
+| T9 MW5 + persistence | **PASS** |
 
-`586480af178df5dd2f7177cae8f6b1ac18fe4acc`
+Suite file: `corrProof01.d1.conversation.d0.test.ts` — 9/9 PASS.
 
-This decision/publishing action does **not** mutate product `main`.
+## 34. D1 persistence assertions
 
-Only the canonical Review Handoff branch is updated by this publication.
+- users == assistants after turns
+- one assistant per Pilote turn
+- CLARIFY text present in Session after Turn 1
+- project isolation (other projectId empty)
+- no client-history blind import
 
-## 13. Next execution gate
+## 35. Typecheck
 
-**CORR-PROOF-01 CORRECTIVE DELIVERY — AUTHORIZED**
+`npm run typecheck` — **PASS** (`tsc --noEmit`)
 
-Next operational sequence:
+## 36. Wider test result
 
-```text
-Cursor bounded Delivery
-→ deterministic T1–T9
-→ ChatGPT Critical Delivery Review
-→ Morris product push / PR gate if candidate accepted
-→ PR / CI / merge gate
-→ post-merge verification
-→ SAME Product Proof REAL retest
-```
+Targeted regression (109 tests across D1 + F2 orchestrate + MW5 product/session/analyzeIntent + MW5 disposition + MW1 Memory B): **109 PASS / 0 FAIL**.
 
-No automatic product push / PR / merge is authorized by this handoff.
+## 37. Pre-existing failures
 
-## 14. Handoff provenance
+None observed in the targeted set.
 
-Parent canonical handoff tip:
+## 38. Fake/Real qualification
 
-`c666f91ea75aa894ae70478990cd29c180d8ce89`
+DETERMINISTIC ONLY — Fake/injected ConversationProvider, local SQLite, Vitest. ZERO live OpenAI. ZERO hosted search. ZERO Stage A/B campaign.
 
-Publication requested explicitly by Morris after adopting D1 and authorizing corrective Delivery.
+## 39. Actual proof ceiling
 
-The branch tip created by this publication is verified separately after commit; this document intentionally does not self-embed its own resulting tip to avoid a self-referential republish loop.
+**DETERMINISTIC PROVEN** corrective candidate.
+
+≠ CORR-PROOF-01 REAL CLOSED
+≠ Product Proof COMPLETE
+
+## 40. Debt / exit
+
+No TEMPORARY dual-path debt introduced. Single Session SoT; F2 surfaces persist into the same SoT.
+
+## 41. Reservations
+
+- REAL Product Proof retest on Suivi de contrat still required after Morris Git disposition + merge.
+- Live OpenAI classification quality not proven in this Delivery (deterministic provider).
+- Restart continuity of Session remains to be exercised in later Proof (not claimed proven here).
+
+## 42. Anti-claims
+
+- CORR-PROOF-01 REAL CLOSED — **NO**
+- Product Proof COMPLETE — **NO**
+- Cognitive Completion PROVEN — **NO**
+- runtime v3 ADOPTED — **NO**
+- production-ready — **NO**
+- Stage B justified — **NO**
+- production model routing selected — **NO**
+
+## 43. Git status/diff at end
+
+Modified:
+- `f2/orchestrateF2.ts`
+- `f2/intentAnalysis.ts`
+- `criticalChallengeClarification.ts`
+
+Untracked (candidate):
+- `f2/canonicalConversationSession.ts`
+- `__tests__/project-assistant/corrProof01.d1.conversation.d0.test.ts`
+
+Untracked local only: `node_modules` symlink.
+
+Staged: EMPTY. Product commit: NONE.
+
+## 44. NO PRODUCT COMMIT / PUSH / PR / MERGE
+
+Explicitly honored.
+
+## 45. Delivery verdict
+
+**PASS WITH RESERVES**
+
+Reserves = REAL retest still required; live provider not exercised in this cycle.
+
+## 46. Recommended next Morris gate
+
+ChatGPT Critical Delivery Review → Morris product Git disposition → if accepted: commit/push/PR/CI/merge through distinct gates → post-merge verification → SAME Product Proof REAL retest on "Suivi de contrat".
+
+DO NOT start REAL retest automatically. DO NOT create PR automatically.
+
+## 47. Review Handoff publication proof
+
+| Field | Value |
+|---|---|
+| Parent tip | `7c378da5c94eae21f7d13d60927fb2c4a7f4dbd9` |
+| Suggested commit | `docs(review-handoff): CORR-PROOF-01 D1 delivery candidate` |
+| Published content commit | _(publisher)_ |
+| Actual remote branch tip | _(publisher)_ |
+| Canonical blob | _(publisher)_ |
+| Publisher verdict | _(publisher)_ |
+
+No self-referential republish loop.
