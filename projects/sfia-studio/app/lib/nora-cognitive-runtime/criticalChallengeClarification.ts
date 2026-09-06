@@ -553,6 +553,7 @@ export function deriveMw5FactsFromF2Turn(input: DeriveMw5FactsInput): Mw5PolicyI
   const content = input.userContent;
   const cosmetic =
     content.includes(MW5_TEST_MARKERS.cosmetic) || COSMETIC_RE.test(content);
+  // Test-only marker — prior Session CLARIFY alone MUST NOT resolve uncertainty.
   const contextResolves = content.includes(MW5_TEST_MARKERS.contextResolved);
   const authority =
     content.includes(MW5_TEST_MARKERS.authority) ||

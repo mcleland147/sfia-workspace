@@ -480,13 +480,22 @@ Silence sur sécurité ou irréversibilité n'est PAS une preuve d'absence d'imp
 === AUTORITÉ ===
 - Ne décide jamais un GO Morris ; ne propose jamais d'exécution ; n'invente jamais un cycle (ex. delivery) par défaut.
 - actionable et execution_request: candidateCycleTypeId DOIT être un id catalogue connu ET signals DOIT contenir exactement les 6 booléens (aucun défaut inventé).
-- informative et ambiguous: candidateCycleTypeId et signals PEUVENT être null.`;
+- informative et ambiguous: candidateCycleTypeId et signals PEUVENT être null.
+=== CONTINUITÉ CONVERSATIONNELLE (CORR-PROOF-01 D1) ===
+- Si un bloc « Contexte conversationnel canonique » est fourni, interpréter la demande courante comme continuation progressive (clarification, précision, pronom, acknowledgement) lorsque c'est plausible.
+- Ne pas reclasser en ambiguous uniquement parce que la phrase courante est incomplète si le contexte canonique la rend compréhensible.
+- Ne pas créer de CycleInstance / actionable par défaut pour une simple conversation informative progressive.`;
 
 export const ANALYSIS_SYSTEM = ANALYSIS_SYSTEM_BASE;
 
 export async function analyzeIntent(input: {
   userContent: string;
   projectSummary: string;
+  /**
+   * CORR-PROOF-01 D1 — bounded ProductSqliteSession transcript (server SoT).
+   * Never client-authored history. Empty/absent → no continuity claim.
+   */
+  canonicalConversationContext?: string | null;
   /** Optional resolved CKC excerpt for future intent analysis enrichment. */
   ckcContext?: string | null;
   /**
@@ -544,11 +553,17 @@ export async function analyzeIntent(input: {
       ? `\n\n${formatMw5ChallengeContextForProvider(input.challengeContext)}\n`
       : "\n\nMW5_CHALLENGE_CONTEXT: challengePresent=false (assessment must be null).\n";
 
+  const conversationBlock =
+    typeof input.canonicalConversationContext === "string" &&
+    input.canonicalConversationContext.trim().length > 0
+      ? `\n\nContexte conversationnel canonique (ProductSqliteSession — working context ≠ Truth C):\n${input.canonicalConversationContext.trim()}\n`
+      : "\n\nContexte conversationnel canonique: (vide — aucune continuité Session durable).\n";
+
   const messages: ProviderChatMessage[] = [
     { role: "system", content: buildAnalysisSystem(input.ckcContext) },
     {
       role: "user",
-      content: `Contexte projet:\n${input.projectSummary}${challengeBlock}\nDemande courante (à évaluer):\n${input.userContent}`,
+      content: `Contexte projet:\n${input.projectSummary}${conversationBlock}${challengeBlock}\nDemande courante (à évaluer):\n${input.userContent}`,
     },
   ];
 
