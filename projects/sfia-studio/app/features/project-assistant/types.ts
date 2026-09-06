@@ -227,7 +227,11 @@ export type ProjectAssistantSendSuccess = {
     executionContractId: string;
     authorityEvidenceId: string;
     actorId: string;
-    liveHostedDispatchCalls: 0;
+    /**
+     * Factual LIVE hosted web-search dispatch count from turn.hostedSearchObserve.
+     * Fixture/deterministic boundary → 0 (not REAL). Evidence only — not budget SoT.
+     */
+    liveHostedDispatchCalls: number;
   };
 };
 

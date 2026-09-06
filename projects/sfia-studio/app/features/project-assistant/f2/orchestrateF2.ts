@@ -578,18 +578,11 @@ export async function orchestrateAssistantSend(input: {
   }
 
   let project = toContextDto(projectResult);
-  const modeResolution = resolveMode(input.provider);
-  if (!modeResolution.canProceed) {
-    return {
-      ok: false,
-      status: "provider_unavailable",
-      code: "PROVIDER_UNAVAILABLE",
-      message: modeResolution.message ?? "Provider indisponible.",
-      mode: "unavailable",
-      retryable: false,
-    };
-  }
 
+  // CORR-01 — resolve eval cell provider BEFORE mode/availability gating.
+  // Under eval control, evalCellProviderFactory is the required pin source;
+  // global OPENAI_MODEL absence must not fail before the injected cell provider
+  // is assessed (and must never be manufactured via process.env mutation).
   const cellProvider = resolveEvalCellConversationProvider({
     evalModelReasoningControl: input.evalModelReasoningControl,
     evalCellProviderFactory: input.evalCellProviderFactory,
@@ -602,11 +595,22 @@ export async function orchestrateAssistantSend(input: {
       code: "EVAL_CELL_PROVIDER_REQUIRED",
       message:
         "evalModelReasoningControl requires evalCellProviderFactory (no arbitrary provider fallback).",
-      mode: modeResolution.mode,
+      mode: isFakeConversationProviderForced() ? "fixture" : "unavailable",
       retryable: false,
     };
   }
   const effectiveProvider = cellProvider ?? input.provider;
+  const modeResolution = resolveMode(effectiveProvider);
+  if (!modeResolution.canProceed) {
+    return {
+      ok: false,
+      status: "provider_unavailable",
+      code: "PROVIDER_UNAVAILABLE",
+      message: modeResolution.message ?? "Provider indisponible.",
+      mode: "unavailable",
+      retryable: false,
+    };
+  }
 
   let analysisResult: Awaited<ReturnType<typeof analyzeIntent>>;
   let truthCContextForF1: string | undefined;

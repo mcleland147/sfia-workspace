@@ -440,6 +440,11 @@ export type GlobalMrStageACell = {
   isChallenger: boolean;
   /** False for Astra ONE-SHOT challenger cells. */
   selectiveRepeatEligible: boolean;
+  /**
+   * Required for selective-repeat materialization (CORR-03B).
+   * Absent / invalid → repeat denied.
+   */
+  selectiveRepeatTrigger?: GlobalMrStageASelectiveRepeatTrigger;
   executionKind: GlobalMrStageAExecutionKind;
   attachHostedWebSearch: boolean;
   cell: CampaignCellConfig;
@@ -498,13 +503,49 @@ export type GlobalMrStageAStopReason =
   | "AGGREGATE_CAP"
   | "UNSUPPORTED_CELL"
   | "CAMPAIGN_STOP"
-  | "EXECUTOR_DENIED";
+  | "EXECUTOR_DENIED"
+  /** Systemic required-config / provider-binding defect — not cognitive failure. */
+  | "REQUIRED_CONFIG_UNAVAILABLE"
+  /** Observed hosted count ≠ canonical campaign-budget hosted delta. */
+  | "EVIDENCE_INTEGRITY_HOSTED_MISMATCH";
 
 /** Per-cell denial — never latches campaign-wide stop. */
 export type GlobalMrStageACellDenialReason =
   | "SELECTIVE_REPEAT_POOL_EXHAUSTED"
   | "SELECTIVE_REPEAT_DENIED"
   | "RUN_INDEX_INVALID";
+
+/**
+ * Contract-valid selective-repeat triggers (CORR-03B).
+ * Generic passFail_INCONCLUSIVE alone is NOT a trigger.
+ */
+export type GlobalMrStageASelectiveRepeatTrigger =
+  | "TOP_CANDIDATE"
+  | "BORDERLINE"
+  | "SUSPECTED_VARIANCE"
+  | "NEIGHBOR_CONTRADICTION"
+  | "LATENCY_TOKEN_COST_ANOMALY"
+  | "STAGE_B_DEPENDENCY";
+
+export const GLOBAL_MR_STAGE_A_SELECTIVE_REPEAT_TRIGGERS = [
+  "TOP_CANDIDATE",
+  "BORDERLINE",
+  "SUSPECTED_VARIANCE",
+  "NEIGHBOR_CONTRADICTION",
+  "LATENCY_TOKEN_COST_ANOMALY",
+  "STAGE_B_DEPENDENCY",
+] as const satisfies readonly GlobalMrStageASelectiveRepeatTrigger[];
+
+export function isGlobalMrStageASelectiveRepeatTrigger(
+  value: unknown,
+): value is GlobalMrStageASelectiveRepeatTrigger {
+  return (
+    typeof value === "string" &&
+    (GLOBAL_MR_STAGE_A_SELECTIVE_REPEAT_TRIGGERS as readonly string[]).includes(
+      value,
+    )
+  );
+}
 
 export type GlobalMrStageAExecutorResult = {
   passFail: PassFail;
@@ -514,8 +555,9 @@ export type GlobalMrStageAExecutorResult = {
   scorers?: RunEvidence["scorers"];
   productObservation?: Record<string, unknown>;
   /**
-   * DIAGNOSTIC ONLY — not enforcement authority.
-   * Driver compares against canonical NoraCampaignBudget deltas when present.
+   * Observation / Evidence-integrity field — NOT enforcement authority.
+   * Driver compares against canonical NoraCampaignBudget deltas.
+   * Mismatch latches EVIDENCE_INTEGRITY_HOSTED_MISMATCH (CORR-02).
    */
   reportedModelInvocationsConsumed?: number;
   reportedHostedOperationsConsumed?: number;
@@ -772,7 +814,11 @@ export function acknowledgeGlobalMrStageASoftReview(
 export function canScheduleSelectiveRepeat(
   state: GlobalMrStageADriverState,
   baseCell: GlobalMrStageACell,
+  trigger?: GlobalMrStageASelectiveRepeatTrigger | null,
 ): { allowed: boolean; reason?: GlobalMrStageACellDenialReason | string } {
+  if (!isGlobalMrStageASelectiveRepeatTrigger(trigger)) {
+    return { allowed: false, reason: "SELECTIVE_REPEAT_TRIGGER_REQUIRED" };
+  }
   if (baseCell.isSelectiveRepeat) {
     return { allowed: false, reason: "already_a_repeat" };
   }
@@ -795,9 +841,19 @@ export function canScheduleSelectiveRepeat(
   return { allowed: true };
 }
 
+/**
+ * Materialize a selective repeat. Requires an explicit contractual trigger (CORR-03B).
+ * Generic INCONCLUSIVE alone is not a valid trigger.
+ */
 export function materializeSelectiveRepeat(
   baseCell: GlobalMrStageACell,
+  trigger: GlobalMrStageASelectiveRepeatTrigger,
 ): GlobalMrStageACell {
+  if (!isGlobalMrStageASelectiveRepeatTrigger(trigger)) {
+    throw new Error(
+      "SELECTIVE_REPEAT_TRIGGER_REQUIRED: contractual trigger must be provided",
+    );
+  }
   if (baseCell.runIndex > 0 || baseCell.isSelectiveRepeat) {
     throw new Error(
       "SELECTIVE_REPEAT_RUN_INDEX_INVALID: runIndex>0 cannot be re-materialized",
@@ -812,8 +868,60 @@ export function materializeSelectiveRepeat(
     ...baseCell,
     runIndex: 1,
     isSelectiveRepeat: true,
+    selectiveRepeatTrigger: trigger,
     cell: { ...baseCell.cell, runIndex: 1 },
   };
+}
+
+/**
+ * Resolve factual observed hosted-call count for Evidence integrity (CORR-02).
+ * Prefers explicit executor report; falls back to nested MW6 composition field.
+ */
+export function resolveFactualHostedOperationsObserved(
+  result: GlobalMrStageAExecutorResult,
+): number | null {
+  if (typeof result.reportedHostedOperationsConsumed === "number") {
+    return result.reportedHostedOperationsConsumed;
+  }
+  const composition = result.productObservation?.mw6AuthorityComposition;
+  if (
+    composition &&
+    typeof composition === "object" &&
+    typeof (composition as { liveHostedDispatchCalls?: unknown })
+      .liveHostedDispatchCalls === "number"
+  ) {
+    return (composition as { liveHostedDispatchCalls: number })
+      .liveHostedDispatchCalls;
+  }
+  return null;
+}
+
+/**
+ * Narrow systemic required-config / provider-binding defect (CORR-03A).
+ * Differentiated from isolated cognitive INCONCLUSIVE.
+ */
+export function isStageASystemicRequiredConfigDefect(
+  result: GlobalMrStageAExecutorResult,
+): boolean {
+  const code = result.productObservation?.code;
+  if (
+    code === "PROVIDER_UNAVAILABLE" ||
+    code === "EVAL_CELL_PROVIDER_REQUIRED"
+  ) {
+    return true;
+  }
+  if (result.failureClass === "CONFIG") {
+    return true;
+  }
+  if (
+    result.failureClass === "PROVIDER_ERROR" &&
+    (code === "PROVIDER_UNAVAILABLE" ||
+      /\bPROVIDER_UNAVAILABLE\b/.test(result.rawSummary) ||
+      /\bEVAL_CELL_PROVIDER_REQUIRED\b/.test(result.rawSummary))
+  ) {
+    return true;
+  }
+  return false;
 }
 
 function toRunEvidence(
@@ -828,6 +936,7 @@ function toRunEvidence(
     hosted: number;
     aggregate: number;
     reportedMismatch: boolean;
+    factualHostedObserved: number | null;
   },
 ): RunEvidence {
   return {
@@ -865,8 +974,12 @@ function toRunEvidence(
       `executionKind:${cell.executionKind}`,
       `challenger:${cell.isChallenger}`,
       `selectiveRepeatEligible:${cell.selectiveRepeatEligible}`,
+      ...(cell.selectiveRepeatTrigger
+        ? [`selectiveRepeatTrigger:${cell.selectiveRepeatTrigger}`]
+        : []),
       `canonicalDeltaModel:${canonicalDelta.model}`,
       `canonicalDeltaHosted:${canonicalDelta.hosted}`,
+      `factualHostedObserved:${canonicalDelta.factualHostedObserved}`,
       ...softReviewRefs.map((r) => `soft-review-ack:${r}`),
     ],
     productObservation: {
@@ -874,11 +987,15 @@ function toRunEvidence(
       executionKind: cell.executionKind,
       isChallenger: cell.isChallenger,
       selectiveRepeatEligible: cell.selectiveRepeatEligible,
+      ...(cell.selectiveRepeatTrigger
+        ? { selectiveRepeatTrigger: cell.selectiveRepeatTrigger }
+        : {}),
       canonicalDelta,
       reportedModelInvocationsConsumed:
         result.reportedModelInvocationsConsumed ?? null,
       reportedHostedOperationsConsumed:
         result.reportedHostedOperationsConsumed ?? null,
+      factualHostedObserved: canonicalDelta.factualHostedObserved,
     },
   };
 }
@@ -922,9 +1039,14 @@ export async function runGlobalMrStageACell(input: {
       ...input.cell,
       runIndex: 0,
       isSelectiveRepeat: false,
+      selectiveRepeatTrigger: undefined,
       cell: { ...input.cell.cell, runIndex: 0 },
     };
-    const gate = canScheduleSelectiveRepeat(state, baseIdentity);
+    const gate = canScheduleSelectiveRepeat(
+      state,
+      baseIdentity,
+      input.cell.selectiveRepeatTrigger,
+    );
     if (!gate.allowed) {
       const denial: GlobalMrStageACellDenialReason =
         gate.reason === "SELECTIVE_REPEAT_POOL_EXHAUSTED"
@@ -955,7 +1077,13 @@ export async function runGlobalMrStageACell(input: {
       startedAt,
       new Date().toISOString(),
       state.softReviewAcknowledgments,
-      { model: 0, hosted: 0, aggregate: 0, reportedMismatch: false },
+      {
+        model: 0,
+        hosted: 0,
+        aggregate: 0,
+        reportedMismatch: false,
+        factualHostedObserved: null,
+      },
     );
     state.evidence.push(evidence);
     state.stopReason = "UNSUPPORTED_CELL";
@@ -980,11 +1108,51 @@ export async function runGlobalMrStageACell(input: {
   const deltaAgg =
     after.consumedAggregateRealCalls - before.consumedAggregateRealCalls;
 
+  const factualHostedObserved = resolveFactualHostedOperationsObserved(result);
+
+  // CORR-02 — Evidence integrity: observed hosted must match canonical delta.
+  // Missing observation with non-zero canonical consumption is also a mismatch
+  // (prior REAL campaign: liveHosted=0 / reported=null while canonical hosted accrued).
+  let hostedIntegrityMismatch = false;
+  if (input.cell.attachHostedWebSearch) {
+    if (factualHostedObserved === null) {
+      hostedIntegrityMismatch = deltaHosted !== 0;
+    } else {
+      hostedIntegrityMismatch = factualHostedObserved !== deltaHosted;
+    }
+  } else if (factualHostedObserved !== null) {
+    hostedIntegrityMismatch = factualHostedObserved !== deltaHosted;
+  }
+
   const reportedMismatch =
+    hostedIntegrityMismatch ||
     (result.reportedModelInvocationsConsumed != null &&
       result.reportedModelInvocationsConsumed !== deltaModel) ||
     (result.reportedHostedOperationsConsumed != null &&
       result.reportedHostedOperationsConsumed !== deltaHosted);
+
+  // CORR-02E — W-Sources cannot claim hosted REAL PASS with observed 0 / absent.
+  let effectiveResult = result;
+  if (
+    input.cell.attachHostedWebSearch &&
+    result.passFail === "PASS" &&
+    (factualHostedObserved === null || factualHostedObserved === 0)
+  ) {
+    effectiveResult = {
+      ...result,
+      passFail: "NOT_PROVEN",
+      failureClass:
+        result.failureClass === "NONE"
+          ? "MISSING_OBSERVABLE"
+          : result.failureClass,
+      rawSummary: `${result.rawSummary} [HOSTED_REAL_BOUNDARY_NOT_PROVEN: factualHostedObserved=${factualHostedObserved}]`,
+      productObservation: {
+        ...(result.productObservation ?? {}),
+        hostedRealBoundary: "NOT_PROVEN",
+        factualHostedObserved,
+      },
+    };
+  }
 
   // Canonical SoT mirrors — never trust executor-reported counts for enforcement.
   state.modelInvocations = after.consumedModelInvocations;
@@ -1007,7 +1175,7 @@ export async function runGlobalMrStageACell(input: {
 
   const evidence = toRunEvidence(
     input.cell,
-    result,
+    effectiveResult,
     state.budget.cumulativeUsd,
     startedAt,
     finishedAt,
@@ -1017,9 +1185,23 @@ export async function runGlobalMrStageACell(input: {
       hosted: deltaHosted,
       aggregate: deltaAgg,
       reportedMismatch,
+      factualHostedObserved,
     },
   );
   state.evidence.push(evidence);
+
+  // CORR-02D — hosted observation/canonical mismatch → hard stop (not diagnostic).
+  if (hostedIntegrityMismatch) {
+    state.stopReason = "EVIDENCE_INTEGRITY_HOSTED_MISMATCH";
+    return { state, evidence, stopped: true };
+  }
+
+  // CORR-03A — systemic required-config / provider-path defect → campaign stop.
+  // Isolated cognitive INCONCLUSIVE does NOT latch this stop.
+  if (isStageASystemicRequiredConfigDefect(effectiveResult)) {
+    state.stopReason = "REQUIRED_CONFIG_UNAVAILABLE";
+    return { state, evidence, stopped: true };
+  }
 
   if (
     !state.softReviewCleared &&
