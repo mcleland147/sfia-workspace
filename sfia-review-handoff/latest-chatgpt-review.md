@@ -1,110 +1,83 @@
-# SFIA Review Pack FULL — Cycle 14 DOC / Post-merge Stage A Option C truth-sync + REAL readiness
+# SFIA Review Pack FULL — Cycle 14 DOC / Four-doc post-merge truth-sync Git integration
 
 | Field | Value |
 | --- | --- |
-| **Timestamp (UTC)** | `2026-09-06T02:59:19Z` |
-| **Cycle** | 14 — POST-MERGE / DOC |
+| **Timestamp (UTC)** | `2026-09-06T03:19:05Z` |
+| **Cycle** | 14 — DOC / post-merge integration |
 | **Profile** | CRITICAL |
-| **GO** | GO MORRIS — STAGE A OPTION C POST-MERGE TRUTH-SYNC + REAL READINESS QUALIFICATION + REVIEW HANDOFF PUBLISH-IN-CYCLE — ZERO REAL |
-| **Prior handoff** | `2f1587586f462614b1d272a58bd092fce4f7424b` |
+| **GO** | GO MORRIS — GIT INTEGRATION OF FOUR-DOC POST-MERGE TRUTH-SYNC |
+| **Prior accepted handoff** | `7e1537cf20cf47d79a9bd0c520da9011b45ba5f8` (ChatGPT Critical Review PASS) |
 | **ZERO REAL** | **YES** |
-| **Product commit/push/PR** | **NONE** |
+| **Merge** | **NONE / NOT AUTHORIZED** |
 | **Stage A REAL** | **NOT AUTHORIZED** |
 
 ## Verdict
 
-**READY FOR CHATGPT CRITICAL REVIEW — GLOBAL MODEL × REASONING STAGE A OPTION C POST-MERGE TRUTH-SYNC COMPLETE — PR #468 INTEGRATED ON MAIN / POST-MERGE VERIFIED — 78 / 438 / 26 / 464 — FINANCIAL ENVELOPE 15 / 18 / 20 DECIDED — REAL READINESS QUALIFIED — ASTRA ACCOUNT ENTITLEMENT NOT PROVEN — STAGE A REAL NOT AUTHORIZED — ZERO REAL — REVIEW HANDOFF PUBLISHED**
+**READY FOR CHATGPT PR/CI CRITICAL REVIEW — STAGE A OPTION C FOUR-DOC POST-MERGE TRUTH-SYNC COMMITTED + PUSHED + PR OPEN — PR #468 PRODUCT INTEGRATION REMAINS POST-MERGE VERIFIED — 78 / 438 / 26 / 464 — FINANCIAL ENVELOPE 15 / 18 / 20 DECIDED — REAL READINESS DOCUMENTED — ASTRA ACCOUNT ENTITLEMENT NOT PROVEN — STAGE A REAL NOT AUTHORIZED — ZERO REAL — REVIEW HANDOFF REMOTE VERIFIED — MERGE NOT AUTHORIZED**
 
 ### Sub-status
 
 | Item | Status |
 | --- | --- |
-| PR #468 | **MERGED** @ 2026-09-05T22:27:14Z |
-| accepted head | `a5ab44bc4a5dae119b778bc6ba795439934b6f61` |
-| main/merge | `66d93a616ac43f2d952f9c7db7b33d2acfe7553b` |
-| parents | `1dd5d67a…` + `a5ab44bc…` |
-| head→merge product delta | **ZERO** |
-| post-merge CI | `33995952634` **SUCCESS** · Required Gate **PASS** |
-| source branch | PRESERVED @ `a5ab44bc…` |
-| Option C | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** |
-| primary / Astra / base | **54** / **6 medium one-shot** / **60** |
+| product files | **4 docs only** |
+| product code/test change | **NONE** |
+| PRODUCT_SHA | `db5711d6761c22c67d25efb16fdb350ab081abc9` |
+| remote branch SHA | `db5711d6761c22c67d25efb16fdb350ab081abc9` |
+| PR | **#469** — https://github.com/mcleland147/sfia-workspace/pull/469 |
+| PR base | `main` @ `66d93a616ac43f2d952f9c7db7b33d2acfe7553b` |
+| PR head | `db5711d6761c22c67d25efb16fdb350ab081abc9` |
+| CI | **PASS** — run `34008524170` · Required Gate PASS |
+| merge | **NONE** |
+| Option C | INTEGRATED ON MAIN / POST-MERGE VERIFIED (PR #468) |
 | envelope | **78 / 438 / 26 / 464** |
 | financial policy | **15 / 18 / 20 DECIDED** |
-| knownPlannedSubtotalUsd | ≈ **13.32896** |
-| financial feasibility | **PASS / COMPATIBLE_WITH_CURRENT_POLICY** |
-| invoice | **NOT_OBSERVED** |
-| Astra account | **NOT PROVEN** |
-| provider revalidation | **REQUIRED AT FUTURE AUTHORIZED REAL START** |
+| known subtotal | ≈ **13.32896** |
+| Astra entitlement | **NOT PROVEN** |
+| provider revalidation | REQUIRED AT FUTURE AUTHORIZED REAL START |
 | Stage A REAL | **NOT AUTHORIZED** |
-| Stage B Astra-only | CONDITIONAL FUTURE / NOT IMPLEMENTED |
+| Stage B Astra-only | CONDITIONAL / NOT IMPLEMENTED |
 | production routing | NOT SELECTED |
 | Cognitive Completion | NOT PROVEN |
 | runtime v3 | NON ADOPTED |
-| worktree | `/Users/morris/Projects/sfia-workspace-global-mr-stage-a-post-merge-readiness` |
-| branch | `docs/sfia-studio-global-mr-stage-a-post-merge-readiness` @ `66d93a61…` (dirty local docs only) |
-| product Git actions | **NONE** |
+| source branch | PRESERVED (`docs/sfia-studio-global-mr-stage-a-post-merge-readiness`) |
+| Review Handoff | PUBLISHED + REMOTE VERIFIED (this cycle) |
 
-## Convergence Pre-check
+## Git / parity
 
-| Item | Disposition |
+| Item | Value |
 | --- | --- |
-| Capacité v3 | Nora Cognitive Completion — Global Model × Reasoning empirical qualification |
-| Milestone | Stage A Option C — POST-MERGE VERIFIED → REAL READINESS |
-| Build Doctrine | KEEP |
-| Roadmap / 08 / 10 / 11 | KEEP + TRUTH-SYNC |
-| harness / provider / budgets | KEEP / INTEGRATED |
-| C1 | loaded / unchanged |
-| V3-F14/F15 | applicable controlled learning / Evidence debt — no framing edit |
-| CKC Cycle 14 | ABSENT — fallback routing + method v2.6 + template |
+| Worktree | `/Users/morris/Projects/sfia-workspace-global-mr-stage-a-post-merge-readiness` |
+| Branch | `docs/sfia-studio-global-mr-stage-a-post-merge-readiness` |
+| Local candidate ↔ handoff `7e1537cf20cf47d79a9bd0c520da9011b45ba5f8` | **PARITY PASS** (exact four-doc diff match to accepted pack; keys verified) |
+| origin/main before push | `66d93a616ac43f2d952f9c7db7b33d2acfe7553b` |
+| Commit message | `docs(sfia-studio): sync Stage A Option C post-merge readiness` |
 
-## Fake / Real qualification
+## PR #468 product proof (unchanged)
 
-| Layer | Status |
+| Item | Value |
 | --- | --- |
-| Entry proof | DETERMINISTIC + GIT INTEGRATED + POST-MERGE VERIFIED |
-| This cycle | DOCUMENTARY / REPOSITORY READINESS ONLY |
-| Provider dispatch / `/models` / Astra account / hosted / spend | **NONE** |
-| Proof ceiling | ≠ REAL BOUNDARY PROVEN · ≠ END-TO-END REAL PROVEN |
+| state | MERGED |
+| accepted head | `a5ab44bc4a5dae119b778bc6ba795439934b6f61` |
+| merge | `66d93a616ac43f2d952f9c7db7b33d2acfe7553b` |
+| head→merge | ZERO |
+| CI | `33995952634` SUCCESS |
 
-## REAL readiness distinctions
+## Changed files (exact)
 
-| Dimension | Status |
-| --- | --- |
-| A Technical harness | PASS |
-| B Model universe | PASS / DECIDED OPTION C |
-| C Financial envelope | PASS / DECIDED 15/18/20 |
-| D Repository integration | PASS / PR #468 MERGED |
-| E Provider documented capability | PASS AT DOCUMENTED SNAPSHOT SCOPE |
-| F Astra account entitlement | **NOT PROVEN** |
-| G Provider snapshot at REAL start | REVALIDATION REQUIRED |
-| H Stage A REAL auth | **NOT AUTHORIZED** |
-| I Production routing | NOT SELECTED |
-| J Astra-only | NOT SELECTED |
+1. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+2. `projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md`
+3. `projects/sfia-studio/nora-cognitive-completion/10-nora-global-model-reasoning-campaign-execution-contract.md`
+4. `projects/sfia-studio/nora-cognitive-completion/11-nora-global-model-reasoning-stage-a-real-readiness.md`
 
-## Current vs historical classification (summary)
+## Anti-claims / non-actions
 
-| Claim | Classification |
-| --- | --- |
-| PR #468 MERGED / 66d93a61 / a5ab44bc / CI 33995952634 | **CURRENT** |
-| 78/438/26/464 · 15/18/20 · ≈13.32896 | **CURRENT** |
-| LOCAL DIRTY / Git integration candidate / PR #468 OPEN / merge pending | **HISTORICAL** (pre-merge tips) |
-| main@1dd5d67a harness-only Option C pending | **HISTORICAL** |
-| v3-candidate | **CURRENT** = future REAL campaign params (≠ pending repo integration) |
+No Stage A REAL · no OpenAI LIVE · no Astra probe · no hosted LIVE · no spend · no merge · no code/tests · no package/lock · no Stage B/C · no production routing · no Cognitive Completion · no runtime v3 adoption · no HANDOFF_TIP self-injection into product docs.
 
-## Anti-claims
+## Next gate
 
-Do **not** claim: Stage A REAL AUTHORIZED/EXECUTED · Astra account available · Astra-only selected · production routing selected · Cognitive Completion PROVEN · runtime v3 ADOPTED · invoice ≤20 · END-TO-END REAL PROVEN.
+ChatGPT PR/CI Critical Review → **Morris merge decision**
 
-## Product Git non-actions
-
-No product `git commit` · no product push · no PR · no merge · no branch delete.
-
-## Next gates
-
-ChatGPT Critical Review
-→ Morris Git integration GO for four-document post-merge truth-sync
-→ Git integration / post-integration verification
-→ **DISTINCT** Morris Stage A REAL GO
+NOT Stage A REAL.
 
 ---
 
