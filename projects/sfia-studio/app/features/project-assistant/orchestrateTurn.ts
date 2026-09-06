@@ -26,6 +26,7 @@ import { collectToolTelemetry } from "./collectToolTelemetry";
 import { ProjectAssistantMemoryEventSink } from "./memoryEventSink";
 import { resolveAssistantMode } from "./resolveAssistantMode";
 import { resolveRememberedEvidence } from "./mw3AvailableEvidence";
+import type { AdvisoryMethodContext } from "./f2/methodOrientation";
 import type {
   AssistantHistoryMessage,
   Mw3CognitiveSurfaceDto,
@@ -165,6 +166,11 @@ export async function orchestrateProjectAssistantTurn(input: {
    */
   truthCContext?: string | null;
   /**
+   * CORR-PROOF-03 E1 — INTERNAL non-mutating method orientation + optional CKC lens.
+   * Server-side only; never client-authoritative.
+   */
+  methodContext?: AdvisoryMethodContext | null;
+  /**
    * MW3 — optional contradiction assessment (tests/eval/product when facts exist).
    * Server-side; surfaces mw3 DTO without inventing Evidence.
    */
@@ -232,6 +238,7 @@ export async function orchestrateProjectAssistantTurn(input: {
       role: "system",
       content: buildProjectSystemPrompt(project, {
         truthCContext: input.truthCContext,
+        methodContext: input.methodContext ?? null,
       }),
     },
     ...history.map((m) => ({ role: m.role, content: m.content.trim() })),
