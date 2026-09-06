@@ -186,8 +186,16 @@ export class FakeConversationProvider implements ConversationProvider {
       };
     }
 
-    // F2 deterministic structured intent JSON (TEST/FAKE only)
-    if (lastUser?.content.includes("__MW5_HIGH_ASSURANCE__")) {
+    // F2 deterministic structured intent JSON (TEST/FAKE only).
+    // CORR-PROOF-01 D1: probe the current demand only — prior Session user text
+    // in canonical conversation context must not steal fixture-marker matching.
+    const markerProbe = (() => {
+      const raw = lastUser?.content ?? "";
+      const sep = "Demande courante (à évaluer):";
+      const i = raw.indexOf(sep);
+      return i >= 0 ? raw.slice(i + sep.length) : raw;
+    })();
+    if (markerProbe.includes("__MW5_HIGH_ASSURANCE__")) {
       return {
         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
           intentClass: "actionable",
@@ -229,7 +237,7 @@ export class FakeConversationProvider implements ConversationProvider {
         },
       };
     }
-    if (lastUser?.content.includes("__MW5_COSMETIC__")) {
+    if (markerProbe.includes("__MW5_COSMETIC__")) {
       return {
         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
           intentClass: "ambiguous",
@@ -257,7 +265,7 @@ export class FakeConversationProvider implements ConversationProvider {
         },
       };
     }
-    if (lastUser?.content.includes("__MW5_CONTEXT_RESOLVED__")) {
+    if (markerProbe.includes("__MW5_CONTEXT_RESOLVED__")) {
       return {
         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
           intentClass: "ambiguous",
@@ -286,8 +294,8 @@ export class FakeConversationProvider implements ConversationProvider {
       };
     }
     if (
-      lastUser?.content.includes("__MW5_TRUTH_C_ESTABLISHED__") ||
-      lastUser?.content.includes("__MW5_CONSUMED_HD__")
+      markerProbe.includes("__MW5_TRUTH_C_ESTABLISHED__") ||
+      markerProbe.includes("__MW5_CONSUMED_HD__")
     ) {
       return {
         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
@@ -323,7 +331,7 @@ export class FakeConversationProvider implements ConversationProvider {
         },
       };
     }
-    if (lastUser?.content.includes("__MW5_QUESTIONNAIRE_ATTEMPT__")) {
+    if (markerProbe.includes("__MW5_QUESTIONNAIRE_ATTEMPT__")) {
       return {
         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
           intentClass: "ambiguous",
@@ -351,7 +359,7 @@ export class FakeConversationProvider implements ConversationProvider {
         },
       };
     }
-    if (lastUser?.content.includes("__MW5_AUTHORITY__")) {
+    if (markerProbe.includes("__MW5_AUTHORITY__")) {
       return {
         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
           intentClass: "actionable",
@@ -386,7 +394,7 @@ export class FakeConversationProvider implements ConversationProvider {
         },
       };
     }
-    if (lastUser?.content.includes("__MW5_SYNTH_HD__")) {
+    if (markerProbe.includes("__MW5_SYNTH_HD__")) {
       return {
         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
           intentClass: "actionable",
@@ -421,7 +429,7 @@ export class FakeConversationProvider implements ConversationProvider {
         },
       };
     }
-    if (lastUser?.content.includes("__F2_INFORMATIVE__")) {
+    if (markerProbe.includes("__F2_INFORMATIVE__")) {
       return {
         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
           intentClass: "informative",
@@ -449,7 +457,7 @@ export class FakeConversationProvider implements ConversationProvider {
         },
       };
     }
-    if (lastUser?.content.includes("__F2_ACTIONABLE__")) {
+    if (markerProbe.includes("__F2_ACTIONABLE__")) {
       return {
         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
           intentClass: "actionable",
@@ -489,7 +497,7 @@ export class FakeConversationProvider implements ConversationProvider {
      * without Critical profile — ZERO REAL Confirmation reachable.
      * Critical architecture (__F2_STRUCTURING__) remains R-T-A3-1 fail-closed.
      */
-    if (lastUser?.content.includes("__F2_GATED_STANDARD__")) {
+    if (markerProbe.includes("__F2_GATED_STANDARD__")) {
       return {
         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
           intentClass: "actionable",
@@ -524,8 +532,8 @@ export class FakeConversationProvider implements ConversationProvider {
         },
       };
     }
-    if (lastUser?.content.includes("__F2_STRUCTURING__")) {
-      const content = lastUser.content;
+    if (markerProbe.includes("__F2_STRUCTURING__")) {
+      const content = markerProbe;
       let challengeResponseAssessment:
         | "sufficient"
         | "insufficient"
@@ -584,7 +592,7 @@ export class FakeConversationProvider implements ConversationProvider {
         },
       };
     }
-    if (lastUser?.content.includes("__F2_AMBIGUOUS__")) {
+    if (markerProbe.includes("__F2_AMBIGUOUS__")) {
       return {
         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
           intentClass: "ambiguous",
@@ -612,8 +620,8 @@ export class FakeConversationProvider implements ConversationProvider {
         },
       };
     }
-    if (lastUser?.content.includes("__F2_EXECUTION__")) {
-      const content = lastUser.content;
+    if (markerProbe.includes("__F2_EXECUTION__")) {
+      const content = markerProbe;
       let challengeResponseAssessment:
         | "sufficient"
         | "insufficient"
@@ -671,7 +679,7 @@ export class FakeConversationProvider implements ConversationProvider {
         },
       };
     }
-    if (lastUser?.content.includes("__F2_CRITICAL_NO_JUSTIFICATION__")) {
+    if (markerProbe.includes("__F2_CRITICAL_NO_JUSTIFICATION__")) {
       return {
         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
           intentClass: "actionable",

@@ -50,6 +50,10 @@ import {
   getMw5ChallengeSession,
   rememberMw5IssuedChallenge,
 } from "./mw5ChallengeSessionStore";
+import {
+  loadCanonicalConversationForAnalysis,
+  persistCanonicalF2AssistantTurn,
+} from "./canonicalConversationSession";
 import { isPureRepositoryAnalysisIntent } from "./repositoryIntent";
 import { evaluateMorrisGateRequired } from "./gatePolicy";
 import {
@@ -523,6 +527,34 @@ function f2Success(base: {
 }
 
 /**
+ * CORR-PROOF-01 D1 CR-02 — central persist-and-return for F2-owned user-visible
+ * responses. F1 Runner paths must NOT call this (Runner already persists).
+ */
+async function f2ConversationalSuccess(input: {
+  userText: string;
+  sessionDbPath?: string;
+  text: string;
+  mode: "fixture" | "live";
+  presentation: "test_provider" | "openai_live";
+  model: string | null;
+  project: ProjectAssistantContextDto;
+  intentClass: IntentAnalysisDto["intentClass"];
+  qualification?: QualificationDto;
+  proposal?: ProposalDto;
+  executionBlocked?: boolean;
+  mw5?: Mw5TurnSurface | null;
+  turnKind?: "f1_informative" | "f2_clarification" | "f2_proposal" | "f2_blocked";
+}): Promise<ProjectAssistantSendResult> {
+  await persistCanonicalF2AssistantTurn({
+    projectId: input.project.projectId,
+    sessionDbPath: input.sessionDbPath,
+    userText: input.userText,
+    assistantText: input.text,
+  });
+  return f2Success(input);
+}
+
+/**
  * Unified send orchestration: preserves F1 for informative intents.
  * Actionable path creates durable CycleInstance + LPS append, then live snapshot.
  */
@@ -630,6 +662,30 @@ export async function orchestrateAssistantSend(input: {
       cognitive.contextSource === "TRUTH_C_LPS"
         ? cognitive.truthCContext
         : undefined;
+
+    // CORR-PROOF-01 D1 CR-03/CR-04 — Memory B replay semantics; EMPTY ≠ UNAVAILABLE.
+    const canonicalLoad = await loadCanonicalConversationForAnalysis({
+      projectId: project.projectId,
+      sessionDbPath: input.sessionDbPath,
+      truthCRevision: {
+        lpsId: project.lpsId,
+        lpsVersion: project.lpsVersion,
+      },
+    });
+    if (canonicalLoad.availability === "unavailable") {
+      return {
+        ok: false,
+        status: "provider_error",
+        code: "CANONICAL_SESSION_UNAVAILABLE",
+        message:
+          canonicalLoad.message ??
+          "Continuité conversationnelle indisponible. Aucune invention de contexte. AUCUNE EXÉCUTION.",
+        mode: modeResolution.mode,
+        retryable: true,
+      };
+    }
+    const canonicalConversationContext = canonicalLoad.contextText;
+
     const challengeSession = getMw5ChallengeSession(project.projectId);
     const challengeContext =
       challengeSession.latest != null
@@ -647,6 +703,7 @@ export async function orchestrateAssistantSend(input: {
     analysisResult = await analyzeIntent({
       userContent: content,
       projectSummary: cognitive.projectSummary,
+      canonicalConversationContext,
       challengeContext,
       provider: effectiveProvider,
       evalModelReasoningControl: input.evalModelReasoningControl,
@@ -729,6 +786,7 @@ export async function orchestrateAssistantSend(input: {
   }
 
   // C — ambiguous / fail-closed (no Cycle/LPS mutation)
+  // CR-01: prior Session CLARIFY ≠ uncertainty resolved — no product override.
   if (analysis.intentClass === "ambiguous" || !analysis.parseOk) {
     const oaEarly = getRuntimeApplicationService().oa;
     const mw5 = await evaluateF2Mw5({
@@ -741,19 +799,62 @@ export async function orchestrateAssistantSend(input: {
       projectId: project.projectId,
       oa: oaEarly,
     });
+    // Test-marker / cosmetic CONTINUE only — F1 Runner persists that turn.
     if (mw5.surface.disposition === "CONTINUE") {
-      return f2Success({
-        text: `[CONTINUE] ${mw5.surface.disclosure} AUCUNE EXÉCUTION.`,
-        mode: modeResolution.mode as "fixture" | "live",
-        presentation,
-        model,
-        project,
-        intentClass: analysis.parseOk ? analysis.intentClass : "ambiguous",
-        mw5: mw5.surface,
-        turnKind: "f2_blocked",
+      const f1 = await orchestrateProjectAssistantTurn({
+        ...input,
+        provider: effectiveProvider,
+        semanticCognitiveWorkload: analysis.cognitiveWorkload,
+        truthCContext: truthCContextForF1,
+        contradictionAssessment,
+        evalModelReasoningControl: input.evalModelReasoningControl,
+        usdAccounting: input.usdAccounting,
+        campaignBudget: input.campaignBudget,
       });
+      if (!f1.ok) return f1;
+      return {
+        ...f1,
+        f2: {
+          turnKind: "f1_informative",
+          intentClass: analysis.parseOk ? analysis.intentClass : "ambiguous",
+          qualification: null,
+          proposal: null,
+          decision: null,
+          labels: {
+            recommendation: null,
+            proposition: null,
+            decisionRequired: null,
+            decisionTaken: null,
+            noExecution: "AUCUNE EXÉCUTION",
+          },
+          executionBlocked: false,
+          processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
+        },
+        mw5: {
+          disposition: mw5.surface.disposition,
+          structuralChallengeCount: mw5.surface.structuralChallengeCount,
+          questionnaireSuppressed: mw5.surface.questionnaireSuppressed,
+          recommendationAllowed: mw5.surface.recommendationAllowed,
+          challengeGateApplicable: mw5.surface.challengeGateApplicable,
+          challengeSatisfied: mw5.surface.challengeSatisfied,
+          challengeEvidenceBeforeRecommendation:
+            mw5.surface.challengeEvidenceBeforeRecommendation,
+          bypassAttempted: mw5.surface.bypassAttempted,
+          bypassBlocked: mw5.surface.bypassBlocked,
+          synthesizedHumanDecision: false,
+          synthesizedGo: false,
+          synthesizedConfirmation: false,
+          disclosure: mw5.surface.disclosure,
+          reasonCodes: [...mw5.surface.reasonCodes],
+          challenges: [...mw5.surface.challenges],
+          criticalChallengeArmedHookOnly:
+            mw5.surface.criticalChallengeArmedHookOnly,
+        },
+      };
     }
-    return f2Success({
+    return f2ConversationalSuccess({
+      userText: content,
+      sessionDbPath: input.sessionDbPath,
       text: mw5.text,
       mode: modeResolution.mode as "fixture" | "live",
       presentation,
@@ -767,7 +868,9 @@ export async function orchestrateAssistantSend(input: {
 
   // B / D — actionable or execution_request
   if (!analysis.candidateCycleTypeId || !analysis.signals) {
-    return f2Success({
+    return f2ConversationalSuccess({
+      userText: content,
+      sessionDbPath: input.sessionDbPath,
       text:
         "[Clarification requise] Qualification impossible — cycle ou signaux incomplets. AUCUNE EXÉCUTION.",
       mode: modeResolution.mode as "fixture" | "live",
@@ -781,7 +884,9 @@ export async function orchestrateAssistantSend(input: {
   const runtime = getRuntimeApplicationService();
   const oa = runtime.oa;
   if (!oa) {
-    return f2Success({
+    return f2ConversationalSuccess({
+      userText: content,
+      sessionDbPath: input.sessionDbPath,
       text:
         "[Runtime] Services OA indisponibles pour la qualification M2. AUCUNE EXÉCUTION.",
       mode: modeResolution.mode as "fixture" | "live",
@@ -805,7 +910,9 @@ export async function orchestrateAssistantSend(input: {
   });
 
   if (!qualified.ok) {
-    return f2Success({
+    return f2ConversationalSuccess({
+      userText: content,
+      sessionDbPath: input.sessionDbPath,
       text: `[Qualification échouée] ${qualified.message} AUCUNE EXÉCUTION.`,
       mode: modeResolution.mode as "fixture" | "live",
       presentation,
@@ -870,7 +977,9 @@ export async function orchestrateAssistantSend(input: {
     qualification.requiresJustificationForCritical &&
     !(analysis.criticalJustification && analysis.criticalJustification.trim())
   ) {
-    return f2Success({
+    return f2ConversationalSuccess({
+      userText: content,
+      sessionDbPath: input.sessionDbPath,
       text:
         "[Critical] Justification structurante obligatoire avant proposition validable. Critical n'est jamais implicite. AUCUNE EXÉCUTION.",
       mode: modeResolution.mode as "fixture" | "live",
@@ -894,7 +1003,9 @@ export async function orchestrateAssistantSend(input: {
     oa,
   });
   if (!mw5.surface.recommendationAllowed) {
-    return f2Success({
+    return f2ConversationalSuccess({
+      userText: content,
+      sessionDbPath: input.sessionDbPath,
       text: mw5.text,
       mode: modeResolution.mode as "fixture" | "live",
       presentation,
@@ -930,7 +1041,9 @@ export async function orchestrateAssistantSend(input: {
   });
 
   if (!created.ok) {
-    return f2Success({
+    return f2ConversationalSuccess({
+      userText: content,
+      sessionDbPath: input.sessionDbPath,
       text: `[Cycle] Création CycleInstance échouée (${created.error.detailCode}). Aucune mutation partielle. AUCUNE EXÉCUTION.`,
       mode: modeResolution.mode as "fixture" | "live",
       presentation,
@@ -945,7 +1058,9 @@ export async function orchestrateAssistantSend(input: {
   // Live context AFTER mutation — pre-mutation snapshot does not satisfy M2.
   const live = await readLiveProjectContext(oa, project.projectId);
   if (!live.ok) {
-    return f2Success({
+    return f2ConversationalSuccess({
+      userText: content,
+      sessionDbPath: input.sessionDbPath,
       text: `[Contexte] Relecture LPS post-mutation échouée. AUCUNE EXÉCUTION.`,
       mode: modeResolution.mode as "fixture" | "live",
       presentation,
@@ -1026,7 +1141,9 @@ export async function orchestrateAssistantSend(input: {
     "Nora n'émet pas de HumanDecision, GO, Confirmation, décision Morris ou acte Pilote.",
   ];
 
-  return f2Success({
+  return f2ConversationalSuccess({
+    userText: content,
+    sessionDbPath: input.sessionDbPath,
     text: textParts.join(" "),
     mode: modeResolution.mode as "fixture" | "live",
     presentation,
