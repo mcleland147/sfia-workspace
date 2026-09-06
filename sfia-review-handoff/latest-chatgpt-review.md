@@ -176,7 +176,7 @@ Live advisory quality not proven (Fake ceiling). MW0 S03 scorer lag. Worktree br
 ChatGPT Critical Delivery Review → Morris Product Git decision (commit/PR) if accepted → then separate REAL authorization.
 
 ## 64. Review Handoff publication proof
-(to be filled by publisher)
+Parent handoff for this correction cycle: `3d9e5a170933f4955b60c9ca24ff18aec1e918d0`. Publisher proof appended after publish.
 
 ---
 
@@ -1751,6 +1751,300 @@ index 0a8d5412..07ae1be8 100644
 58d0e4545751dbb1efcf7fa9ab4273be0fafd5d9ea593a4d0776b6b80f7d0c6b  projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
 d10dba22d29083e516198a958ce6973dc8824b27158dad110cc156be32e7a7d3  projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
 1f8a9e1579f765400ed2de1385b14ead444aed888e79017992115a84746634b4  projects/sfia-studio/app/__tests__/project-assistant/corrProof02.b1.advisory.d0.test.ts
+3b4ff1b15a48855c56ab0a59b8a01139705a92078ef7d4a17c760120d4d889a9  projects/sfia-studio/app/__tests__/project-assistant/corrProof01.d1.conversation.d0.test.ts
+88741ab25c5691a4ac114a8706fe321031ee9898bd414cb8820a77f43cf23726  projects/sfia-studio/app/__tests__/project-assistant/f2.orchestrate.test.ts
+35943b942dde7c9c4e8715fbc894373a164e875d6619dc6ebe0ecf79031c0459  projects/sfia-studio/app/__tests__/project-assistant/mw5.challenge.clarification.product.d0.test.ts
+611ac4bd15d64c481996badd89423e0aff175f5f2c9c7713018e6c0ce01b1992  projects/sfia-studio/app/__tests__/nora-eval/mw0.corr05.evidenceIntegrity.test.ts
+
+```
+
+
+---
+
+# CORRECTION SECTION — B1-CR-01
+
+## Correction cycle
+`SFIA-STUDIO-PRODUCT-PROOF-CORR-02-B1-CR01-CORRECTION-01`
+UTC: 2026-09-06T17:02:57Z
+
+## B1-CR-01 finding
+Critical Delivery Review NO-GO: safe-advisory branch returned `executionBlocked: false` when trusted parsed analysis had `intentClass = execution_request` but `formalizationReady = false` (missing governed fields).
+
+## Exact ChatGPT Critical Delivery NO-GO
+NO-GO FOR PRODUCT GIT YET — blocking finding B1-CR-01 (authority surface honesty).
+
+## Morris correction GO
+GO MORRIS — B1-CR-01 LOCAL CORRECTION AUTHORIZED WITHIN THE EXISTING CORR-PROOF-02 B1 DELIVERY — NO NEW ARCHITECTURE DECISION — NO PRODUCT COMMIT / PUSH / PR — NO REAL — RETEST + REVIEW HANDOFF REQUIRED.
+
+## Files changed specifically for CR-01
+- `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts`
+- `projects/sfia-studio/app/__tests__/project-assistant/corrProof02.b1.advisory.d0.test.ts`
+- `transitionReadiness.ts` NOT modified
+
+## Before behavior
+Safe advisory F1 return always set `f2.executionBlocked = false`.
+
+## Corrected behavior
+When `analysis.parseOk === true` AND `analysis.intentClass === "execution_request"` (and not forceRepoInformative), F1 advisory result exposes `executionBlocked = true` while remaining: turnKind f1_informative, qualification/proposal/decision null, ZERO durable effect.
+
+## Implementation
+Trusted-intent derivation only — no raw keyword authority; no client decision; parseOk=false never invents trusted execution_request.
+
+## executionBlocked derivation
+```
+executionBlocked =
+  analysis.parseOk === true
+  && analysis.intentClass === "execution_request"
+  && !forceRepoInformative
+```
+
+## Case A evidence — MISSING CYCLE
+parseOk=true, execution_request, signals valid, candidateCycleTypeId=null → formalizationReady=false → F1 + executionBlocked=true + ZERO Cycle/LPS + one pair. **PASS**
+
+## Case B evidence — MISSING SIGNALS
+Exact parser: `needsSignals && !signals` → `ambiguousFallback()` (intentClass=ambiguous, parseOk=false). Cannot trust execution_request without weakening validation. Product path: F1, ZERO effect, executionBlocked=false (no false certainty). Closest trusted incomplete formalization remains missing-cycle (Case A / Case B closest). **PASS** (documented)
+
+## T8 retained evidence
+Fully qualified execution_request → governed F2 / blocked effect. **PASS**
+
+## T1–T15 rerun
+**PASS** (B1 suite 24 tests incl. CR-01 cases)
+
+## Regression totals
+9 files / **127 tests PASS** (was 124; +3 CR-01). typecheck **PASS**.
+
+## No architecture change
+B1 unchanged. No other product source modified for CR-01.
+
+## Manifests
+PREVIOUS_CANDIDATE_MANIFEST_SHA256 = `9f341b4b3df12ccc8e4f8c4548119a35915c3e0b94bcafd1b472c87aff4b5936`
+CORRECTED_CANDIDATE_MANIFEST_SHA256 = `3aca098bda2485633c57b4c0a645aad1f9e59f337a15b18b01885cc114f2bf00`
+
+## Staged EMPTY / Git / REAL
+staged EMPTY · product commit NONE · push NONE · PR NONE · REAL ZERO
+
+## MW0 S03
+NON-BLOCKING LEGACY SCORER RESERVE retained
+
+## Proof ceiling
+DETERMINISTIC PROVEN CANDIDATE
+
+## Product Proof
+OPEN / BLOCKED pending Git integration + REAL revalidation
+
+## Next gate
+ChatGPT Critical Delivery Re-review → Morris Product Git decision only if accepted
+
+## CR-01 exploitable diff
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+index 0a8d5412..b04e219d 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+@@ -55,6 +55,7 @@ import {
+   persistCanonicalF2AssistantTurn,
+ } from "./canonicalConversationSession";
+ import { isPureRepositoryAnalysisIntent } from "./repositoryIntent";
++import { resolveTransitionReadiness } from "./transitionReadiness";
+ import { evaluateMorrisGateRequired } from "./gatePolicy";
+ import {
+   enrichQualificationWithCkcSemantics,
+@@ -746,11 +747,15 @@ export async function orchestrateAssistantSend(input: {
+     isPureRepositoryAnalysisIntent(content) &&
+     analysis.intentClass !== "execution_request";
+
+-  // A — informative → existing F1 path (no Cycle/LPS mutation)
+-  if (
+-    forceRepoInformative ||
+-    (analysis.intentClass === "informative" && analysis.parseOk)
+-  ) {
++  // CORR-PROOF-02 B1 — deterministic transition gate.
++  // Safe advisory (incl. ambiguous / parse-fail / incomplete formalization fields) → F1.
++  // Governed formalization only when readiness is fully established.
++  const transition = resolveTransitionReadiness({
++    analysis,
++    forceRepoInformative,
++  });
++
++  if (!transition.formalizationReady) {
+     const f1 = await orchestrateProjectAssistantTurn({
+       ...input,
+       provider: effectiveProvider,
+@@ -762,13 +767,30 @@ export async function orchestrateAssistantSend(input: {
+       campaignBudget: input.campaignBudget,
+     });
+     if (!f1.ok) return f1;
++    const reportedIntent =
++      analysis.parseOk &&
++      (analysis.intentClass === "informative" ||
++        analysis.intentClass === "ambiguous" ||
++        analysis.intentClass === "actionable" ||
++        analysis.intentClass === "execution_request")
++        ? forceRepoInformative
++          ? "informative"
++          : analysis.intentClass
++        : "ambiguous";
++    // B1-CR-01 — trusted execution_request keeps fail-closed authority surface
++    // even when formalization is not ready (safe F1 advisory, ZERO effect).
++    const executionBlocked =
++      analysis.parseOk === true &&
++      analysis.intentClass === "execution_request" &&
++      !forceRepoInformative;
+     return {
+       ...f1,
+       model: f1.model ?? model,
+       ephemeralNotice: EPHEMERAL_NOTICE,
++      mw5: null,
+       f2: {
+         turnKind: "f1_informative",
+-        intentClass: "informative",
++        intentClass: reportedIntent,
+         qualification: null,
+         proposal: null,
+         decision: null,
+@@ -779,95 +801,17 @@ export async function orchestrateAssistantSend(input: {
+           decisionTaken: null,
+           noExecution: "AUCUNE EXÉCUTION",
+         },
+-        executionBlocked: false,
++        executionBlocked,
+         processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
+       },
+     };
+   }
+
+-  // C — ambiguous / fail-closed (no Cycle/LPS mutation)
+-  // CR-01: prior Session CLARIFY ≠ uncertainty resolved — no product override.
+-  if (analysis.intentClass === "ambiguous" || !analysis.parseOk) {
+-    const oaEarly = getRuntimeApplicationService().oa;
+-    const mw5 = await evaluateF2Mw5({
+-      content,
+-      history: input.history,
+-      analysis,
+-      recommendedProfile: null,
+-      recommendationWouldEmit: false,
+-      projectCriticality: project.criticality,
+-      projectId: project.projectId,
+-      oa: oaEarly,
+-    });
+-    // Test-marker / cosmetic CONTINUE only — F1 Runner persists that turn.
+-    if (mw5.surface.disposition === "CONTINUE") {
+-      const f1 = await orchestrateProjectAssistantTurn({
+-        ...input,
+-        provider: effectiveProvider,
+-        semanticCognitiveWorkload: analysis.cognitiveWorkload,
+-        truthCContext: truthCContextForF1,
+-        contradictionAssessment,
+-        evalModelReasoningControl: input.evalModelReasoningControl,
+-        usdAccounting: input.usdAccounting,
+-        campaignBudget: input.campaignBudget,
+-      });
+-      if (!f1.ok) return f1;
+-      return {
+-        ...f1,
+-        f2: {
+-          turnKind: "f1_informative",
+-          intentClass: analysis.parseOk ? analysis.intentClass : "ambiguous",
+-          qualification: null,
+-          proposal: null,
+-          decision: null,
+-          labels: {
+-            recommendation: null,
+-            proposition: null,
+-            decisionRequired: null,
+-            decisionTaken: null,
+-            noExecution: "AUCUNE EXÉCUTION",
+-          },
+-          executionBlocked: false,
+-          processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
+-        },
+-        mw5: {
+-          disposition: mw5.surface.disposition,
+-          structuralChallengeCount: mw5.surface.structuralChallengeCount,
+-          questionnaireSuppressed: mw5.surface.questionnaireSuppressed,
+-          recommendationAllowed: mw5.surface.recommendationAllowed,
+-          challengeGateApplicable: mw5.surface.challengeGateApplicable,
+-          challengeSatisfied: mw5.surface.challengeSatisfied,
+-          challengeEvidenceBeforeRecommendation:
+-            mw5.surface.challengeEvidenceBeforeRecommendation,
+-          bypassAttempted: mw5.surface.bypassAttempted,
+-          bypassBlocked: mw5.surface.bypassBlocked,
+-          synthesizedHumanDecision: false,
+-          synthesizedGo: false,
+-          synthesizedConfirmation: false,
+-          disclosure: mw5.surface.disclosure,
+-          reasonCodes: [...mw5.surface.reasonCodes],
+-          challenges: [...mw5.surface.challenges],
+-          criticalChallengeArmedHookOnly:
+-            mw5.surface.criticalChallengeArmedHookOnly,
+-        },
+-      };
+-    }
+-    return f2ConversationalSuccess({
+-      userText: content,
+-      sessionDbPath: input.sessionDbPath,
+-      text: mw5.text,
+-      mode: modeResolution.mode as "fixture" | "live",
+-      presentation,
+-      model,
+-      project,
+-      intentClass: "ambiguous",
+-      mw5: mw5.surface,
+-      turnKind: mw5TurnKind(mw5.surface),
+-    });
+-  }
+-
+-  // B / D — actionable or execution_request
+-  if (!analysis.candidateCycleTypeId || !analysis.signals) {
++  // B / D — governed formalization ready (actionable | execution_request + valid fields)
++  const cycleTypeId = analysis.candidateCycleTypeId;
++  const formalizationSignals = analysis.signals;
++  if (!cycleTypeId || !formalizationSignals) {
++    // Defensive: readiness predicate already requires these; never invent defaults.
+     return f2ConversationalSuccess({
+       userText: content,
+       sessionDbPath: input.sessionDbPath,
+@@ -901,8 +845,8 @@ export async function orchestrateAssistantSend(input: {
+   const correlationId = `cor:f2-${randomBytes(8).toString("hex")}`;
+
+   const qualified = await qualifyWithCkc({
+-    cycleTypeId: analysis.candidateCycleTypeId,
+-    signals: analysis.signals,
++    cycleTypeId,
++    signals: formalizationSignals,
+     objective: analysis.objective ?? undefined,
+     scope: analysis.scope ?? undefined,
+     correlationId,
+@@ -1026,7 +970,7 @@ export async function orchestrateAssistantSend(input: {
+     projectId: project.projectId,
+     objective: analysis.objective ?? undefined,
+     scope: analysis.scope ?? undefined,
+-    signals: analysis.signals,
++    signals: formalizationSignals,
+     justification: analysis.criticalJustification ?? undefined,
+     createdBy: {
+       actorId: "actor:nora-f2",
+@@ -1101,7 +1045,7 @@ export async function orchestrateAssistantSend(input: {
+   const morrisGateRequired =
+     evaluateMorrisGateRequired({
+       recommendedProfile: qualification.recommendedProfile,
+-      signals: analysis.signals,
++      signals: formalizationSignals,
+       intent: analysis,
+     }) || mw5.surface.disposition === "ESCALATE";
+
+
+```
+
+## Manifest entries
+
+```
+561b7850fda51140b946c50239dcab97862f43457b4b29189c5dae09e29d5b4b  projects/sfia-studio/app/features/project-assistant/f2/transitionReadiness.ts
+00018d881f831ebc07968b99d01ddc8e6d2a9e3680fcf73da3465cd647fa97b1  projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
+58d0e4545751dbb1efcf7fa9ab4273be0fafd5d9ea593a4d0776b6b80f7d0c6b  projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+144b79d50ee5633f94e11727fac1b6b0535d62c84cf983278886674d088e5a7d  projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+8f1f4e35fe99eabca2ab48765a3304c6da6411278e22e145fcb9fb2e5ee72f61  projects/sfia-studio/app/__tests__/project-assistant/corrProof02.b1.advisory.d0.test.ts
 3b4ff1b15a48855c56ab0a59b8a01139705a92078ef7d4a17c760120d4d889a9  projects/sfia-studio/app/__tests__/project-assistant/corrProof01.d1.conversation.d0.test.ts
 88741ab25c5691a4ac114a8706fe321031ee9898bd414cb8820a77f43cf23726  projects/sfia-studio/app/__tests__/project-assistant/f2.orchestrate.test.ts
 35943b942dde7c9c4e8715fbc894373a164e875d6619dc6ebe0ecf79031c0459  projects/sfia-studio/app/__tests__/project-assistant/mw5.challenge.clarification.product.d0.test.ts
