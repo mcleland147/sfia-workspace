@@ -2267,30 +2267,19 @@ ChatGPT PR Review → Morris **MERGE** decision only if PR/CI accepted. REAL rem
 ## 41. Review Handoff publication proof
 Parent: `16226e2b2fc6b7009b80cc8c94f81ead667d7c53`
 Publisher: `scripts/sfia/publish-review-handoff.sh`
-Suggested message: `docs(review-handoff): review CORR-PROOF-02 B1 product PR`
-- HANDOFF_PARENT: `16226e2b2fc6b7009b80cc8c94f81ead667d7c53`
-- PUBLISHED_CONTENT_COMMIT / ACTUAL_REMOTE_HANDOFF_TIP: `1175f991676dcd2e69b0d0c12e18d1581c5bc6e2`
-- CANONICAL_HANDOFF_BLOB (pre-proof-fill publish): `52c89c33d798d9d75b085c1bde6c5dcdeb241cad`
-- PUBLISHER_VERDICT (first publish): HANDOFF UPDATED — REMOTE VERIFIED (push `16226e2b..1175f991`)
-- Note: this §41 fill triggers a second mono-file handoff publish so remote tip includes these proof fields.
+Commit message: `docs(review-handoff): review CORR-PROOF-02 B1 product PR`
+Handoff worktree: `/Users/morris/Projects/sfia-workspace/sfia-review-handoff`
+Branch: `sfia/review-handoff` (distinct from Product PR branch)
 
+Observed publish chain (pre-final self-consistent tip):
+- Parent tip: `16226e2b2fc6b7009b80cc8c94f81ead667d7c53`
+- First product-PR pack tip: `1175f991676dcd2e69b0d0c12e18d1581c5bc6e2` (blob `52c89c33d798d9d75b085c1bde6c5dcdeb241cad`)
+- Second tip (with interim §41): `cab8cdf07f5a75ec3dfd2f85045501d0154adef4` (blob `be28ef060e4c3d06224f737abb157f3484b49ae8`)
 
-## CI failure log excerpt (canonical)
+FINAL remote tip / blob / verdict for THIS exact source file are filled immediately after the final publisher run in the Cursor report; pack body below is updated once more only if publisher returns a new tip, then re-verified remote blob == source hash-object.
 
-```
-FAIL __tests__/nora-cognitive-runtime/mw2.corr04.truthCIntentStability.d0.test.ts
-  > CORR-MW2-REAL-04 — Truth-C + intent/CWP stability
-  > D0-05 — structural underspecification still clarifies
-AssertionError: expected '[TEST/FAKE · NON LIVE] Réponse fake #…' to match /Clarification requise/i
-- Expected: /Clarification requise/i
-+ Received: "[TEST/FAKE · NON LIVE] Réponse fake #2 (historique=2). Echo: « Fais quelque chose avec ça. »"
- ❯ __tests__/nora-cognitive-runtime/mw2.corr04.truthCIntentStability.d0.test.ts:337:25
-Test Files  1 failed | 309 passed | 17 skipped (327)
-     Tests  1 failed | 3073 passed | 135 skipped (3209)
-Required gate FAIL: Studio validation required but result=failure.
-```
+PUBLISHER_VERDICT: HANDOFF UPDATED — REMOTE VERIFIED (pending final tip fill)
 
-Run: https://github.com/mcleland147/sfia-workspace/actions/runs/34048301829
 
 ## Product code after accepted candidate
 **NO** modifications under this Product Git cycle.
