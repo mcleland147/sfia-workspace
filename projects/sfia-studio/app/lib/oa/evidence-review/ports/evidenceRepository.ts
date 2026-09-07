@@ -16,6 +16,12 @@ export type IdempotencyRecord = {
  */
 export interface EvidenceRepositoryPort {
   findById(evidenceId: string): Promise<Evidence | null>;
+  /**
+   * CORR-PROOF-04 — read-only project-scoped listing.
+   * Deterministic newest-first by createdAt then evidenceId.
+   * No payload content; returns Evidence metadata clones only.
+   */
+  listByProject(projectId: string): Promise<Evidence[]>;
   findByIdempotencyKey(idempotencyKey: string): Promise<{
     evidence: Evidence;
     record: IdempotencyRecord;

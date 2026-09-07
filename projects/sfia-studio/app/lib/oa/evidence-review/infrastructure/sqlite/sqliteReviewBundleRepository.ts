@@ -48,6 +48,19 @@ export class SqliteReviewBundleRepository
     return cloneBundle(JSON.parse(row.payload_json) as ReviewBundle);
   }
 
+  async listByProject(projectId: string): Promise<ReviewBundle[]> {
+    const rows = this.store.db
+      .prepare(
+        `SELECT review_bundle_id, project_id, status, idempotency_key, version, payload_json
+         FROM oa_review_bundles WHERE project_id = ?
+         ORDER BY created_at DESC, review_bundle_id DESC`,
+      )
+      .all(projectId) as BundleRow[];
+    return rows.map((row) =>
+      cloneBundle(JSON.parse(row.payload_json) as ReviewBundle),
+    );
+  }
+
   async findByIdempotencyKey(idempotencyKey: string): Promise<{
     reviewBundle: ReviewBundle;
     record: ReviewBundleIdempotencyRecord;

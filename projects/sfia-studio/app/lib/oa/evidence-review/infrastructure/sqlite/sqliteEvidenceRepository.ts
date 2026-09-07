@@ -45,6 +45,19 @@ export class SqliteEvidenceRepository implements EvidenceRepositoryPort {
     return cloneEvidence(JSON.parse(row.payload_json) as Evidence);
   }
 
+  async listByProject(projectId: string): Promise<Evidence[]> {
+    const rows = this.store.db
+      .prepare(
+        `SELECT evidence_id, project_id, status, idempotency_key, version, payload_json
+         FROM oa_evidence WHERE project_id = ?
+         ORDER BY created_at DESC, evidence_id DESC`,
+      )
+      .all(projectId) as EvidenceRow[];
+    return rows.map((row) =>
+      cloneEvidence(JSON.parse(row.payload_json) as Evidence),
+    );
+  }
+
   async findByIdempotencyKey(idempotencyKey: string): Promise<{
     evidence: Evidence;
     record: IdempotencyRecord;

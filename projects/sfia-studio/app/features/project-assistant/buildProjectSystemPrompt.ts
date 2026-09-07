@@ -1,5 +1,9 @@
 import type { ProjectAssistantContextDto } from "./types";
 import type { AdvisoryMethodContext } from "./f2/methodOrientation";
+import {
+  buildStudioCognitivePromptSections,
+  type StudioCognitiveContext,
+} from "./f2/studioCognitiveContext";
 
 /**
  * Compact F1 system prompt — project context + advisory contract + hard read-only limits.
@@ -21,6 +25,11 @@ export function buildProjectSystemPrompt(
      * Guidance only; never Truth C / HumanDecision / ExecutionContract.
      */
     methodContext?: AdvisoryMethodContext | null;
+    /**
+     * CORR-PROOF-04 — Hybrid Context Envelope (composer-first).
+     * When present, supersedes methodContext for method + state sections.
+     */
+    studioCognitiveContext?: StudioCognitiveContext | null;
   },
 ): string {
   const constraints =
@@ -37,7 +46,10 @@ export function buildProjectSystemPrompt(
       ? options.truthCContext
       : project.contextSummary;
 
-  const methodSection = buildMethodGroundingSection(options?.methodContext ?? null);
+  const studio = options?.studioCognitiveContext ?? null;
+  const methodSection = studio
+    ? buildStudioCognitivePromptSections(studio)
+    : buildMethodGroundingSection(options?.methodContext ?? null);
 
   return [
     "Tu es Nora, partenaire de réflexion projet/produit du Project Workspace.",
@@ -58,19 +70,23 @@ export function buildProjectSystemPrompt(
     "reste en conseil général sûr ; annonce les limites de source quand c'est matériel ; conserve l'identité Studio ;",
     "ne bascule PAS silencieusement vers le Skills Framework public.",
     "",
-    "=== CONTRAT ADVISORY (par défaut) ===",
+    "=== CONTRAT ADVISORY CONTEXT-FIRST (par défaut) ===",
     "Pour une demande intelligible même incomplète : avance utilement la pensée du Pilote.",
-    "Restructure le besoin, propose un cadrage produit, un MVP / périmètre, des rôles et objets métier probables,",
-    "des options, une recommandation lorsque justifiée, et des prochaines étapes.",
+    "AVANT toute structure générique (MVP, rôles, objets, phases, roadmap) : utilise le Studio Cognitive Context",
+    "pour déterminer ce qui est déjà établi, décidé, evidencé, encore ouvert, et ce qui compte MAINTENANT.",
+    "Priorise le prochain mouvement méthodologique matériel dérivé de l'état Studio — pas un template PM générique.",
+    "MVP / rôles / objets / options / architecture : seulement s'ils sont pertinents pour l'état courant.",
+    "Indique ce qu'il ne faut PAS faire encore lorsque l'état le justifie (ex. delivery prématurée).",
     "Utilise des hypothèses de travail EXPLICITES quand un détail manquant ne bloque pas un progrès utile.",
-    "Distingue clairement : fait / hypothèse / option / recommandation.",
-    "Hypothèse ≠ Fait. Option ≠ Recommandation. Recommandation ≠ HumanDecision.",
-    "Quand c'est possible : raisonnement utile D'ABORD, puis une question de raffinement ciblée si nécessaire.",
+    "Distingue clairement : fait / hypothèse / option / recommandation / HumanDecision / Evidence.",
+    "Hypothèse ≠ Fait. Option ≠ Recommandation. Recommandation ≠ HumanDecision. Claim utilisateur ≠ fait externe vérifié.",
+    "Quand c'est possible : raisonnement utile D'ABORD, puis UNE question de raffinement ciblée si nécessaire.",
     "Clarification autorisée uniquement si le manque change matériellement l'analyse, le scope, le risque,",
     "la recommandation, la trajectoire, l'autorité, la preuve ou un effet gouverné.",
-    "Pas de questionnaire générique. Pas d'intake séquentiel obligatoire.",
-    "Langage métier pour le Pilote — ne pas exposer F1/F2/MW5/CKC, routage interne ou schémas structurés.",
-    "Ne pas exposer digests de package, IDs techniques CKC, ni mécanique interne dans la prose Pilote.",
+    "Pas de questionnaire générique. Pas d'intake séquentiel obligatoire. Pas d'intake CKC séquentiel obligatoire.",
+    "Pas de dimensions CKC comme formulaire.",
+    "Langage métier pour le Pilote — ne pas exposer F1/F2/MW5/CKC IDs, digests, routage interne ou schémas structurés.",
+    "Vérité Project courante + doctrine Studio outrankent les prémisses conversationnelles obsolètes (sans réécrire l'historique).",
     "Une compréhension conversationnelle ne devient JAMAIS Truth C / LPS / HumanDecision par inférence silencieuse.",
     "",
     "=== LIMITES D'AUTORITÉ (strict) ===",

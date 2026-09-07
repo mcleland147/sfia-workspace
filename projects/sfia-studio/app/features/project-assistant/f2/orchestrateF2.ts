@@ -64,7 +64,7 @@ import {
   buildCkcCognitivePromptSection,
   reasonWithResolvedCkcContext,
 } from "./ckcCognitiveContext";
-import { composeAdvisoryMethodContext } from "./methodOrientation";
+import { composeStudioCognitiveContext } from "./studioCognitiveContext";
 import { projectCkcResolutionRef, qualifyWithCkc } from "./qualify";
 import { reconcileQualificationSignals } from "./qualificationSignalCoherence";
 import { resolveProductDoctrineRegistryRoot } from "@/lib/vertical-slice-runtime/paths";
@@ -757,18 +757,28 @@ export async function orchestrateAssistantSend(input: {
   });
 
   if (!transition.formalizationReady) {
-    // CORR-PROOF-03 E1 — pure orientation + read-only CKC lens; NO reasonWithResolvedCkcContext.
-    const methodContext = composeAdvisoryMethodContext({
+    // CORR-PROOF-04 — Hybrid Context Envelope (composer-first).
+    // Pure read-only composition; NO reasonWithResolvedCkcContext; NO third model call.
+    const registryRoot = resolveProductDoctrineRegistryRoot();
+    const oa = getRuntimeApplicationService().oa;
+    const studioCognitiveContext = await composeStudioCognitiveContext({
       analysis,
       project,
-      registryRoot: resolveProductDoctrineRegistryRoot(),
+      registryRoot,
+      truthCContext: truthCContextForF1,
+      oa,
+      activeCycleInstanceId: project.activeCycleInstanceId ?? null,
     });
+    // Keep methodContext for CORR-PROOF-03 compatibility surfaces when studio is present
+    // (studio supersedes in prompt builder).
+    const methodContext = studioCognitiveContext.method;
     const f1 = await orchestrateProjectAssistantTurn({
       ...input,
       provider: effectiveProvider,
       semanticCognitiveWorkload: analysis.cognitiveWorkload,
       truthCContext: truthCContextForF1,
       methodContext,
+      studioCognitiveContext,
       contradictionAssessment,
       evalModelReasoningControl: input.evalModelReasoningControl,
       usdAccounting: input.usdAccounting,

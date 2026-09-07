@@ -17,6 +17,11 @@ export type ReviewBundleIdempotencyRecord = {
 
 export interface ReviewBundleRepositoryPort {
   findById(reviewBundleId: string): Promise<ReviewBundle | null>;
+  /**
+   * CORR-PROOF-04 — read-only project-scoped listing.
+   * Deterministic newest-first by createdAt then reviewBundleId.
+   */
+  listByProject(projectId: string): Promise<ReviewBundle[]>;
   findByIdempotencyKey(idempotencyKey: string): Promise<{
     reviewBundle: ReviewBundle;
     record: ReviewBundleIdempotencyRecord;

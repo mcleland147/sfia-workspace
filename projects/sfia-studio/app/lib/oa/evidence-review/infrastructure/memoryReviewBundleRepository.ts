@@ -19,6 +19,21 @@ export class MemoryReviewBundleRepository
     return found ? structuredClone(found) : null;
   }
 
+  async listByProject(projectId: string): Promise<ReviewBundle[]> {
+    const matched: ReviewBundle[] = [];
+    for (const bundle of this.store.bundles.values()) {
+      if (bundle.projectId === projectId) {
+        matched.push(structuredClone(bundle));
+      }
+    }
+    matched.sort((a, b) => {
+      const byCreated = b.createdAt.localeCompare(a.createdAt);
+      if (byCreated !== 0) return byCreated;
+      return b.reviewBundleId.localeCompare(a.reviewBundleId);
+    });
+    return matched;
+  }
+
   async findByIdempotencyKey(idempotencyKey: string): Promise<{
     reviewBundle: ReviewBundle;
     record: ReviewBundleIdempotencyRecord;
