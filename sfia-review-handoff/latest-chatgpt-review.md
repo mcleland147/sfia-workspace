@@ -367,7 +367,10 @@ staged: 0
 - Expected parent: `c7a33041aa3f23c4f96880df0286813af1f06bad`
 - Handoff worktree: `/Users/morris/Projects/sfia-workspace/sfia-review-handoff`
 - Source: `/Users/morris/Projects/sfia-wt-corr05-impl-12d837fd/.tmp-sfia-review/chatgpt-review.md`
-- Remote verification: (filled after publish)
+- After: `6b663bde1d5291dd02c5ca45cae229e05f18aaa5`
+- Parent verified: `c7a33041aa3f23c4f96880df0286813af1f06bad`
+- Remote verification: **HANDOFF UPDATED — REMOTE VERIFIED**
+- Canonical blob: `ebff8f991c34240dd844b7977c3f5c103367f386`
 
 # 43. Final verdict
 **READY FOR CHATGPT CORR-PROOF-05 PR READINESS REVIEW**
