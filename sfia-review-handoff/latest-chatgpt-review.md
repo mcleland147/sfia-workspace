@@ -1,572 +1,462 @@
-# CORR-PROOF-05 — Pilot-Governed Cycle Lifecycle & Exit Transition
-## Functional Delta — FULL Review Pack (exploitable) — AMENDED after ChatGPT Critical Review
+# CORR-PROOF-05 — Delivery Technical Preflight (READ-ONLY)
+## Pilot-Governed Cycle Lifecycle & Exit Transition
 
 | Field | Value |
 | --- | --- |
-| **Timestamp (UTC)** | 2026-09-07T14:26:51Z |
+| **Timestamp (UTC)** | 2026-09-07T15:08:23Z |
 | **Repo** | `mcleland147/sfia-workspace` |
-| **DOC worktree** | `/Users/morris/Projects/sfia-wt-corr05-func-12d837fd` |
-| **Branch (DOC WT)** | `run/sfia-studio-corr05-func-delta-01` |
+| **Analysis worktree** | `/Users/morris/Projects/sfia-wt-corr05-preflight-12d837fd` |
+| **Branch** | `run/sfia-studio-corr05-delivery-preflight-01` |
 | **HEAD** | `12d837fd29a69b3e83155a06ec58dc91b0e15f0b` |
 | **origin/main** | `12d837fd29a69b3e83155a06ec58dc91b0e15f0b` |
 | **Tree** | `142ec00df04b9361d3cffd92600aff8ae39e6976` |
-| **Base** | Merge PR #475 (CORR-PROOF-04 Option D) on main |
-| **Prior handoff tip (amended)** | `c17b475df7ac5db2979f3231aeb2e125c8f3f275` |
-| **Cycle** | CORR-PROOF-05 — SAME functional-design corrective — targeted amendment |
-| **Typology** | DOC |
+| **Functional contract handoff tip** | `6b5a266c2d6702d5712a218b7b9824eba7286480` |
+| **Cycle** | CORR-PROOF-05 — Technical Delivery Preflight |
+| **Typology** | DOC / read-only discovery |
 | **Profile** | CRITICAL |
-| **Campaign** | Product Proof — iterative REAL validation |
-| **Product Proof state** | OPEN / blocked at Suivi de contrat Cadrage exit-transition |
-| **Files modified (Product/project versioned)** | NONE |
-| **Files created/updated (local only)** | `.tmp-sfia-review/chatgpt-review.md` |
-| **Amendment provenance** | ChatGPT Critical Review of prior FULL pack @ handoff `c17b475d…` · Morris GO for targeted correction + re-handoff |
-| **Resolved reserves** | PAUSE HD strength CLOSED; activeCycleInstanceId on PAUSE CLOSED functionally; START+trajectory one-HD CLOSED; enum↔C2 remains DEFERRED TECHNICAL DESIGN |
-| **Remaining reserves** | Morris validation of corrected Functional Contract after ChatGPT re-review |
-| **Decisions already consumed** | GO Morris start CORR-PROOF-05; GO Morris targeted amendment after Critical Review |
-| **Decisions still required** | Morris validation of the corrected CORR-PROOF-05 Functional Contract after ChatGPT re-review |
-| **Verdict** | CORR-PROOF-05 FUNCTIONAL DELTA AMENDED — READY FOR CHATGPT RE-REVIEW — NO DELIVERY — PRODUCT PROOF REMAINS OPEN |
+| **Gap** | `CYCLE_LIFECYCLE_ORCHESTRATION_GAP` |
+| **Product Proof** | OPEN |
+| **runtime v3** | NON ADOPTED |
+| **Product source modified** | ZERO |
+| **Verdict** | READY FOR CHATGPT CORR-PROOF-05 DELIVERY AUTHORIZATION REVIEW |
 
-### Anti-claims (explicit)
-
-- NOT CORR-PROOF-05 VALIDATED
-- NOT READY FOR DELIVERY
-- NOT PRODUCT PROOF COMPLETE
+### Anti-claims
+- NOT DELIVERY AUTHORIZED
+- NOT PRODUCT PROOF CLOSED
+- NOT STAGE B AUTHORIZED
 - NOT runtime v3 ADOPTED
-- NOT Stage B
-- NOT production routing selected
-- NO Product source / schema / UI mutation in this cycle
-- NO REAL execution in this cycle
-- NOT a new cycle — same CORR-PROOF-05 corrective, targeted amendment only
+- NO Product implementation in this cycle
+- NO schema/migration executed
+- NO REAL executed
 
-### Superseded prior wording (do not reuse as current contract)
+---
 
-The following claims from the prior pack (`c17b475d…`) are **superseded** by this amendment:
+# 1. Local Git Truth
 
-1. ~~"No CycleInstance until Pilot START"~~ → replaced by: no **active/authority-bearing** CycleInstance linkage until Pilot START; candidate/non-active pre-START lifecycle remains permitted and C2-compatible.
-2. ~~Systematic HD for START (trajectory already decided) / PAUSE / clean RESUME~~ → replaced by Amendment 2 matrix (HD NO by default for those operational cases).
-3. ~~Open reserve on PAUSE HD strength / activeCycleInstanceId clear-vs-retain~~ → CLOSED as stated in Amendment 4.
-
-### Local Git Truth (DOC WT)
+## Cursor session workspace (observed at start — NOT used as analysis base)
 
 ```
-pwd=/Users/morris/Projects/sfia-wt-corr05-func-12d837fd
+pwd=/Users/morris/Projects/sfia-wt-corr04-real-locked-12d837fd
+branch=delivery/sfia-studio-proof-corr-04-hybrid-envelope-d
+HEAD=1f48dd81c870d3337efd5f2d02af6be0d8602b44   # PRE-MERGE parent of #475 — INCOMPATIBLE
+origin/main=12d837fd29a69b3e83155a06ec58dc91b0e15f0b
+status=?? .tmp-sfia-review/phase-*.json, ready-for-morris.json only (non-functional temps)
+staged=NONE
+diff=NONE
+```
+
+**FACT:** Cursor workspace HEAD ≠ authorized Product baseline.
+**ACTION TAKEN:** Created/used clean analysis worktree at exact `origin/main` (no Product mutation). Did not reset/stash drifted WT.
+
+## Analysis worktree (authoritative for this preflight)
+
+```
+pwd=/Users/morris/Projects/sfia-wt-corr05-preflight-12d837fd
+toplevel=same
+branch=run/sfia-studio-corr05-delivery-preflight-01
 HEAD=12d837fd29a69b3e83155a06ec58dc91b0e15f0b
 origin/main=12d837fd29a69b3e83155a06ec58dc91b0e15f0b
-origin/sfia/review-handoff (pre-publish expected)=c17b475df7ac5db2979f3231aeb2e125c8f3f275
-tree=142ec00df04b9361d3cffd92600aff8ae39e6976
-tracked Product/project source dirty=NO
-authorized local dirty=.tmp-sfia-review/chatgpt-review.md only
+origin/sfia/review-handoff=6b5a266c2d6702d5712a218b7b9824eba7286480
+status=clean at create; only local .tmp-sfia-review write for this pack
+staged=NONE
+Product/project tracked dirty=NONE
 ```
 
-### Sources re-read
-
-**Process (external):** cycle-execution-template; cycle-routing-guide; chatgpt-cursor-operating-model; rules-and-guardrails.
-
-**Convergence / Product Completion:** Build Doctrine; Roadmap; C1 cadrage; C2 conception fonctionnelle (authoritative).
-
-**v3:** 30, 32, 33, 34, 35, 37.
-
-**Product CKC:** `ckc/02-conception-fonctionnelle.md`.
-
-**Runtime inspected (read-only):**
-- `lib/oa/cycle/domain/types.ts`
-- `lib/oa/cycle/application/createCycle.ts`
-- `features/project-assistant/f2/orchestrateF2.ts`
-- `features/project-assistant/f2/gatePolicy.ts` (`evaluateMorrisGateRequired`)
-- prior inspected surfaces (studioCognitiveContext, ProjectAssistantPanel, decision/project types) remain in force for divergence evidence
-
-**Prior review:** local `.tmp-sfia-review/chatgpt-review.md` + remote handoff tip `c17b475d…`
+**FACT:** Analysis base matches expected `main@12d837fd` (PR #475 merge) and handoff tip `6b5a266c…`.
 
 ---
 
-# A. Executive problem statement
+# 2. Sources consulted
 
-## Product Proof observation
-
-On existing Project **Suivi de contrat**, Product Proof reached a **Cadrage maturity / exit-transition** point. Nora may recommend FINALIZE and next-cycle Conception, but the Pilote lacks first-class governed lifecycle actions (START / PAUSE / RESUME / FINALIZE / CANCEL) that:
-
-1. activate a CycleInstance as the **authority-bearing ACTIVE** working cycle only under Pilote control;
-2. engage a governed **exit procedure** without conflating Recommendation, Proposal, HumanDecision, and CycleInstance;
-3. complete a CycleInstance only when **exit obligations** are satisfied/proven;
-4. keep Nora advisory while Studio enforces/persists.
-
-## Expected loop (amended framing)
-
-```
-Nora / Studio qualification
-→ Recommendation
-→ optional candidate/non-active CycleInstance (C2 pre-START continuum permitted)
-→ LPS.activeCycleInstanceId MUST NOT point to candidate
-→ no "cycle started" claim; no execution authority; no next-cycle work content
-→ Pilote explicitly START | PAUSE | RESUME | FINALIZE | CANCEL
-→ Studio validates, enforces, persists
-→ ExecutionContract only if outstanding obligation requires governed execution
-→ Cursor/agent executes only under EC
-→ Evidence/ReviewBundle proves outputs
-→ CycleInstance completed only when applicable obligations SATISFIED
-→ Nora may recommend next cycle type
-→ optional candidate next cycle remains non-active
-→ no next-cycle work content until Pilote START
-```
-
-## Current observed loop (runtime, verified)
-
-```
-user utterance (F2 actionable intent)
-→ analyzeIntent / qualify
-→ CreateCycle (createdBy Nora F2) with linkAsActiveCycle=true
-→ LPS.activeCycleInstanceId stamped BEFORE Pilot START
-→ Proposal saved (process-local)
-→ morrisGateRequired may appear on proposal path (evaluateMorrisGateRequired)
-→ Pilote may later accept HD on proposal / trajectory / EC paths
-```
-
-**Exact code path:** `orchestrateF2.ts` actionable branch calls `createCycle.execute({…, createdBy: actor:nora-f2, linkAsActiveCycle: true})` before Pilot START activation.
-
-**CreateCycle statuses written:** Critical → `proposed`; Light/Standard → `acknowledged`.
-
-**Functional flag on `acknowledged`:** no label/status may semantically claim human acknowledgement/activation if the Pilote did not consume such a gate. Exact enum/schema resolution = **DEFERRED TECHNICAL DESIGN**.
-
-**UI:** shows cycle type / linked id / status when present; **no** Pilot CTAs START/PAUSE/RESUME/FINALIZE/CANCEL.
-
-## Why this blocks end-to-end Product Proof
-
-Without Pilot-governed START/FINALIZE (and pause/resume/cancel), and while F2 auto-links `activeCycleInstanceId` before START, Product Proof cannot demonstrate: **explicit human lifecycle control + non-authority-bearing pre-START candidates + obligation-gated completion + honest next-cycle recommendation**. Cognitive grounding (CORR-PROOF-04) improves advice but **cannot close** the Cadrage exit gate.
+**Governance:** Build Doctrine; Convergence Roadmap (V3-F01…F15; Pilote vs Morris; runtime v3 NON ADOPTED).
+**Product Completion:** C1; C2 (§7 lifecycle, BR-PC-*, HD/Confirmation).
+**v3 framing:** 30, 32, 33, 34, 35, 37.
+**Process:** cycle-execution-template; routing/guardrails awareness.
+**Functional contract:** `sfia-review-handoff/latest-chatgpt-review.md` @ `6b5a266c…` (amended FULL pack; Morris Functional Contract VALIDATED per this preflight GO context).
+**Runtime:**
+- `f2/orchestrateF2.ts`, `studioCognitiveContext.ts`, `gatePolicy.ts`, `recordDecision.ts`, `types.ts`
+- `lib/oa/cycle/**` (types, createCycle, getCycle, index CycleServices, sqliteCycleRepository)
+- `lib/oa/project/**` (types, appendLivingProjectStateVersion — pickLink null-clear)
+- `lib/oa/decision/**` (recordHumanDecision, listDecisionHistory, Confirmation apps)
+- `lib/oa/execution-contract/**` (build/validate/confirm/checkAuthorization; N1/N2/N3)
+- `lib/oa/evidence-review/**` (listByProject Evidence/ReviewBundle)
+- `lib/vertical-slice-runtime/service.ts`
+- `features/project-assistant/actions.ts`, `ProjectAssistantPanel.tsx`
+- tests: `corrProof01…04.d0.test.ts` + F2 orchestrate tests / gatePolicy tests
 
 ---
 
-# B. Authority model
+# 3. Convergence qualification
 
-| Actor / asset | May | Must not |
+| Item | Assessment |
+| --- | --- |
+| Capability | Pilot-Governed Project Lifecycle (cycle authority, governed exit, controlled transition) |
+| Doctrine foundations | V3-F02 LPS · V3-F05 conversation→exécution · V3-F06 ProjectTrajectory · V3-F09 replan · V3-F04/07 epistemology/provenance (exit honesty) |
+| Milestone | Product Completion / Product Proof — Cadrage → Conception transition correction |
+| Build Doctrine | Reuse existing OA + vertical-slice runtime; no parallel engine (R13/R22 keep) |
+| Functional contract | VALIDATED BY MORRIS (this preflight consumes that decision as delivery target) |
+| Delivery | NOT AUTHORIZED yet — this cycle is preflight only |
+| runtime v3 | NON ADOPTED |
+
+---
+
+# 4. Current runtime map
+
+```
+User message
+ → projectAssistantSendAction / orchestrateAssistantSend (F2)
+ → intent analyze + qualify (+ CKC)
+ → IF actionable:
+      createCycle(createdBy: actor:nora-f2, linkAsActiveCycle: true)
+      → CycleRepository.save
+      → AppendLivingProjectStateVersion(activeCycleInstanceId=cycleId)
+      → buildProposal + evaluateMorrisGateRequired → morrisGateRequired on proposal
+ → UI: proposal / decide path (recordDecision gated by morrisGateRequired in places)
+ → Later W2/W3: HD → trajectory promote → EC → Confirmation → Attempt → Evidence/RB
+```
+
+**CycleServices today (FACT):** qualifyCycle, createCycle, getCycle, trajectory CRUD/promote, epistemic, resolveCkc — **no** pause/resume/finalize/cancel/activate transition services.
+
+**Persistence (FACT):** `oa_cycle_instances` with TEXT `status` + `payload_json`; `listByProject` exists. LPS/Project carry `activeCycleInstanceId`. Append supports **explicit clear** via `null` (`pickLink`: `next===null → undefined`).
+
+**Vertical slice (FACT):** wires cycleServices + decisionServices + executionContractServices + evidence/review on ProductSqlite.
+
+---
+
+# 5. Current lifecycle semantics (FACT)
+
+## CycleInstanceStatus (`lib/oa/cycle/domain/types.ts`)
+
+`proposed | acknowledged | active | blocked | completed | cancelled | superseded`
+
+**No `paused`.** ProjectStatus includes `paused` (Project-level) — must not be reused for CycleInstance.
+
+## createCycle initial status (FACT)
+
+- Critical → `proposed` (comment: no auto-acknowledge / no invented Morris decision)
+- Light/Standard → `acknowledged` (+ `acknowledgedAt`)
+
+**FACT:** `acknowledged` is set by CreateCycle without a Pilote gate.
+**INFERENCE:** Label is process/profile shorthand, not proof of human acknowledgement.
+**Contract requirement:** no status may claim human acknowledgement without consumed Pilot gate (enum semantics = DEFERRED TECHNICAL DESIGN).
+
+## activeCycleInstanceId write/read (FACT)
+
+| Write | Read |
+| --- | --- |
+| `CreateCycle` when `linkAsActiveCycle:true` → LPS append | Project/LPS DTOs; F2 context; studioCognitiveContext; Panel proposal snapshot; W2 EC coherence |
+
+## Candidate/non-active notion (FACT)
+
+- Trajectory has `candidate` status.
+- CycleInstance has `proposed`/`acknowledged` but F2 **always** links active when creating on actionable path.
+- **No** first-class “candidate cycle ≠ active link” product path today.
+
+## F2 pre-START divergence (FACT)
+
+`orchestrateF2.ts` ~985–1000: `createCycle(…, createdBy: actor:nora-f2, linkAsActiveCycle: true)` **before** Pilot START.
+
+## Morris gate coupling (FACT)
+
+`evaluateMorrisGateRequired` in `gatePolicy.ts` triggers on Critical profile, structural/security/architecture/irreversible signals, git/PR/merge/doctrine tokens, some execution_request impacts.
+Used in `orchestrateF2` to set `proposal.morrisGateRequired`; UI/`recordDecision` branch on it.
+**INFERENCE:** Coupled to F2 proposal flow, not isolated as SFIA Studio construction-only gate.
+**Contract:** Pilot START/PAUSE/RESUME/FINALIZE/CANCEL must not use this as runtime lifecycle authority.
+
+## Lifecycle CTAs (FACT)
+
+`actions.ts` exposes send/decide/prepare/confirm/execute/rehydrate — **no** startCycle/pause/resume/finalize/cancel actions. Panel shows activeCycle id on proposal; no Pilot lifecycle CTA set.
+
+---
+
+# 6. Contract vs runtime gap matrix
+
+| Contract rule | Runtime | Gap class |
 | --- | --- | --- |
-| **Nora** | Recommend START/PAUSE/RESUME/FINALIZE/CANCEL; assess maturity/obligations; propose EC; analyze Evidence; participate in qualification producing optional candidate CycleInstance | Mutate ACTIVE lifecycle; claim cycle started; create HD; consume Confirmation; invent Facts; control availability of Pilot lifecycle gates |
-| **Pilote** | Own START/PAUSE/RESUME/FINALIZE/CANCEL; HD when structuring; inspect EC; Confirm protected boundaries; request FINALIZE even without Nora recommendation | Delegate HD to Nora; bypass Confirmation; treat Recommendation as ACTIVE cycle |
-| **Studio** | Validate transitions; enforce invariants; persist candidate vs ACTIVE distinction; set/clear `activeCycleInstanceId` per rules; fail-closed | Decide for Pilote; auto-close Cycle on Attempt terminal; invent Confirmation; treat Morris construction gate as generic lifecycle engine |
-| **ExecutionContract** | Bound governed effects when execution required | Exist gratuitously when no obligation needs execution |
-| **Cursor/agent** | Execute only under accepted EC + authority | Decide cycle lifecycle; invent HD/Confirmation |
-| **Evidence / ReviewBundle** | Prove execution/output/artifacts | Promote Claims to Facts; auto-complete Cycle |
-| **ProjectTrajectory / LPS** | Project living truth | Second lifecycle engine; UI-owned truth |
-| **Morris (construction)** | Repo construction/governance gates for SFIA Studio protected effects | Be reused as generic runtime Pilot lifecycle authority for ordinary Projects |
-
-**Amendment 3 boundary:** Runtime Pilot lifecycle authority (START/PAUSE/RESUME/FINALIZE/CANCEL) **IS NOT** governed by `evaluateMorrisGateRequired` / `morrisGateRequired` (`f2/gatePolicy.ts`). Morris gates apply to SFIA Studio construction/governance/protected effects. For Studio construction, gates may coexist independently: Pilot HD (if applicable) + EC + Confirmation-by-effects + Morris construction gate. **No authority substitutes another.**
-
-Preserve C2: Recommendation ≠ HD ≠ Confirmation ≠ Morris construction gate (C2 §10.3).
-
----
-
-# C. Lifecycle model (functional)
-
-## Candidate / pre-START vs ACTIVE
-
-| Concept | Meaning |
-| --- | --- |
-| **Recommended work** | Nora Recommendation / conversational orientation |
-| **Candidate / non-active CycleInstance** | **MAY** exist pre-START for qualification, CKC/context resolution, audit, or proposal continuity (C2-compatible: `intent_captured` / `context_resolving` / `qualifying` / `clarifying` intent) |
-| **ACTIVE (principal)** | Authority-bearing working cycle — exactly one principal ACTIVE per Project (first target) |
-| **LPS.activeCycleInstanceId** | Points **only** to principal ACTIVE — **MUST NOT** point to candidate/non-active |
-
-### Pre-START constraints (Amendment 1)
-
-Before explicit Pilot START:
-
-- no CycleInstance may be authority-bearing as the active working cycle
-- no CycleInstance may claim Pilot acknowledgement/activation that did not occur
-- `LPS.activeCycleInstanceId` MUST NOT point to that candidate
-- Nora Recommendation MUST NOT be presented as "cycle started"
-- no execution authority is created
-- no next-cycle work content is authorized
-
-**Pilot START** is the first authority-bearing **ACTIVATION** transition.
-
-Do **not** remove pre-START candidate lifecycle merely to simplify implementation.
-
-### States (functional; reconcile with C2 vocabulary)
-
-| CORR-PROOF-05 label | Relation to C2 §7.2 | Notes |
-| --- | --- | --- |
-| recommended / candidate (non-instance or non-active instance) | `intent_captured`…`clarifying` continuum permitted | Not ACTIVE; no activeCycleInstanceId |
-| START (transition) | activation into working ACTIVE continuum | Pilote gate |
-| ACTIVE | working continuum (`qualifying`…`replanning` as C2 working states) | One principal ACTIVE |
-| PAUSE → PAUSED | `cycle_paused` (C2) | Voluntary; clears activeCycleInstanceId |
-| RESUME | PAUSED → ACTIVE | Preconditions |
-| BLOCKED | involuntary; ≠ PAUSED | activeCycleInstanceId **remains** unless Pilot pauses/cancels/replans |
-| FINALIZE (decision) | Pilote engages exit procedure | ≠ completed; Nora recommendation NOT a precondition |
-| finalization-in-progress | derived while obligations pending | |
-| COMPLETED | `cycle_closed` / terminal completed | Historical; clears activeCycleInstanceId |
-| CANCEL → CANCELLED | explicit abort | Clears activeCycleInstanceId |
-
-**Disposition:** KEEP C2 names `cycle_paused` / `cycle_closed` as authoritative functional vocabulary; CORR-PROOF-05 START/ACTIVE/FINALIZE labels are **CLARIFICATION / FUNCTIONAL DELTA** of Pilot control semantics — **not** a second competing engine.
-
-**Runtime enum gap:** `CycleInstanceStatus` = `proposed|acknowledged|active|blocked|completed|cancelled|superseded` — **no** `paused` / `cycle_paused`. ProjectStatus includes `paused` (Project-level) — **must not** be reused as CycleInstance pause. Classification: **IMPLEMENTATION GAP ONLY** + **DEFERRED TECHNICAL DESIGN** for enum/schema; C2 remains functional authority.
-
-### activeCycleInstanceId ownership (Amendment 4B — CLOSED functionally)
-
-| Cycle disposition | activeCycleInstanceId |
-| --- | --- |
-| ACTIVE | = that cycle |
-| BLOCKED | remains that cycle unless Pilot pauses/cancels/replans |
-| PAUSED | `null` |
-| COMPLETED | `null` |
-| CANCELLED | `null` |
-| candidate / non-active pre-START | MUST NOT be set |
-
-Exact persistence mechanics = **DEFERRED TECHNICAL DESIGN**.
+| Candidate MAY exist without active link | createCycle can omit link, but F2 always links | ADAPT F2 + COMPLETE START |
+| No activeCycleInstanceId before START | F2 stamps immediately | ADAPT |
+| No “cycle started” claim / no next-cycle work | Cognitive path may recommend; F2 may activate wrongly | ADAPT F2 + context/UI honesty |
+| ≤1 ACTIVE | Single field overwrite; no invariant check on START | COMPLETE application invariant |
+| PAUSED ≠ BLOCKED; PAUSE clears active | No pause transition; no `paused` status | COMPLETE (+ soft status extend OPTIONAL) |
+| BLOCKED retains active pointer | `blocked` enum exists; no transition writer found | COMPLETE transitions |
+| Clean RESUME / drift REPLAN | No resume service; trajectory/HD/Evidence list APIs exist for checks | COMPLETE using existing reads |
+| FINALIZE HD ≠ completed; obligation assessment | No finalize; HD/EC/Evidence/RB list exist | COMPLETE derived assessment |
+| EC 0..N conditional | EC stack exists | KEEP + wire from finalize |
+| Attempt success ≠ cycle completed | No auto-close found (BR-PC-26 aligned by absence) | KEEP; add tests |
+| CANCEL HD terminal | `cancelled` enum; no writer | COMPLETE |
+| No reopen; new instance | createCycle new ids; no reopen API | KEEP pattern; COMPLETE relation/audit |
+| Pilot gates ≠ morrisGateRequired | Coupled in F2 proposal/decide | ADAPT gatePolicy responsibility + call sites |
+| LPS clear on PAUSE/COMPLETE/CANCEL | `pickLink(null)` already supports clear | KEEP LPS append; COMPLETE callers |
 
 ---
 
-# D. Transition table
-
-| # | Source | Trigger | Actor | Preconditions | New HD? | Confirmation N1/N2/N3? | Runtime checks | Side effects | Result | Evidence/audit | Fail-closed |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| T0 | none | qualification / recommendation | Nora/Studio | Valid Project | No | No | honesty on CKC/availability | Optional candidate/non-active CycleInstance; **no** activeCycleInstanceId; no "started" claim | candidate / non-active | Audit qualification | Refuse invented authority |
-| T1a | candidate or none | START — trajectory already decided | Pilote | Valid Project; type; profile; CKC honest; entry deps; trajectory compatible; no other principal ACTIVE | **NO by default** | No | one-ACTIVE; Pilot lifecycle authority (≠ Morris gate) | Activate CycleInstance; set activeCycleInstanceId | ACTIVE | Durable lifecycle audit | Refuse if ACTIVE exists |
-| T1b | candidate or none | START — Pilot chooses/amends structuring trajectory | Pilote | Same + structuring trajectory act | **YES** — one HD MAY cover trajectory adoption + START | No | same | Activate + decided trajectory effects | ACTIVE | HD + lifecycle audit | Fail-closed on HD denial |
-| T2 | ACTIVE | PAUSE | Pilote | ACTIVE exists; pause not forbidden by in-flight protected lock policy | **NO by default**; HD only if separate underlying structuring decision | No | | Mark PAUSED; **clear** activeCycleInstanceId | PAUSED | Durable lifecycle audit | Refuse unknown instance |
-| T3 | PAUSED | RESUME — materially unchanged | Pilote | Same instance; reconcile OK | **NO** | No | stale checks pass | Restore ACTIVE + activeCycleInstanceId | ACTIVE | Durable lifecycle audit | |
-| T3b | PAUSED | RESUME — material drift | Studio+Pilote | Material change detected | **YES if structuring / REPLAN** | Conditional | Drift detectors | No silent ACTIVE restore | stays PAUSED or REPLAN | Audit | Fail-closed to REPLAN |
-| T4 | ACTIVE | involuntary block | Studio | Stop/authority/contradiction | No automatic HD | No | SC-* | Mark BLOCKED; **retain** activeCycleInstanceId | BLOCKED | Audit | No auto-close |
-| T5 | ACTIVE/BLOCKED | FINALIZE (Pilot request; Nora recommendation optional) | Pilote | Pilot may FINALIZE with or without Nora recommendation | **YES** | No gratuitous second Close | Obligation assessment | Enter finalization-in-progress; **not** completed | finalization-in-progress | HD + audit + obligation ledger | Missing/blocking → not completed |
-| T6 | finalization-in-progress | obligation needs execution | Studio/Nora prepare; Pilote inspect | Outstanding execution obligation | Conditional if new structuring | **Yes if protected** after EC inspect | EC complete+inspect | 0..N EC/Attempts | still in-progress | Evidence/RB | No execution without EC gates |
-| T7 | finalization-in-progress | all applicable obligations SATISFIED/N/A | Studio (deterministic) | Accepted FINALIZE HD; obligations ok | **No** second Close | No | Obligation matrix | COMPLETED; clear activeCycleInstanceId | COMPLETED | Evidence/audit | Incomplete → no completed |
-| T8 | ACTIVE/PAUSED/BLOCKED | CANCEL | Pilote | Explicit abort | **YES** | Conditional if irreversible effects exist | Effects inventory | CANCELLED; clear activeCycleInstanceId | CANCELLED | HD + audit | |
-| T9 | COMPLETED | reopen same instance | — | — | — | — | — | **Forbidden by default** | stays COMPLETED | — | Require new CycleInstance (T10) |
-| T10 | COMPLETED + new need same type | START new | Pilote | Impact analysis; trajectory replan as needed | Per T1a/T1b | No unless protected | New id; relation to prior | New ACTIVE CycleInstance | ACTIVE (new) | Audit relation | Never mutate historical completed |
-
----
-
-# E. START assessment
-
-## Preconditions (functional)
-
-1. Valid Project (active, resolvable LPS)
-2. Cycle type from catalog
-3. Profile Light/Standard/Critical with Critical justification rules (KEEP existing qualify semantics)
-4. DoctrinePackage / CKC availability honesty (KEEP; absent CKC ≠ invented authority)
-5. Entry dependencies / blockers visible
-6. Trajectory compatibility when decided trajectory exists
-7. One-ACTIVE invariant
-8. **Pilot lifecycle authority** (not Morris construction gate)
-
-## Exact moments (TARGET)
-
-| Moment | Rule |
-| --- | --- |
-| Nora recommends | No ACTIVE; activeCycleInstanceId unset |
-| Optional candidate CycleInstance | Permitted for qualification/CKC/audit/proposal continuity |
-| Pilote START | First authority-bearing ACTIVATION; set activeCycleInstanceId |
-| "acknowledged" / similar labels | Must not claim human acknowledgement without consumed Pilot gate |
-
-## CURRENT runtime divergence (verified)
-
-| Moment | Observed |
-| --- | --- |
-| F2 actionable | `createCycle` + `linkAsActiveCycle: true`, `createdBy: actor:nora-f2` |
-| CycleInstance.status | `proposed` or `acknowledged` |
-| LPS.activeCycleInstanceId | Set immediately — **before** Pilot START |
-| Pilot START CTA | Absent |
-| morrisGateRequired | May appear on F2 proposal path via `evaluateMorrisGateRequired` — **must not** be the generic Pilot lifecycle engine |
-
-**Classification:** **FUNCTIONAL DELTA** (activation ownership + candidate vs ACTIVE) + **IMPLEMENTATION GAP** (auto-link; missing Pilot CTAs/services) + **DEFERRED TECHNICAL DESIGN** (enum labels).
-
----
-
-# F. PAUSE / RESUME
-
-| Topic | Rule |
-| --- | --- |
-| **PAUSED vs BLOCKED** | PAUSED = voluntary. BLOCKED = involuntary. **≠** |
-| **activeCycleInstanceId on PAUSE** | **CLOSED:** clear (`null`); CycleInstance remains durably PAUSED and visible in trajectory |
-| **activeCycleInstanceId on BLOCKED** | Remains set unless Pilot pauses/cancels/replans |
-| **RESUME reconciliation** | LPS/objective/scope, HD currency, Evidence freshness, trajectory version, doctrine digest |
-| **Stale/superseded HD / changed scope / trajectory** | Silent resume forbidden → REPLAN / structuring HD as needed |
-| **PAUSE HD** | **CLOSED:** NO by default; HD only for separate underlying structuring decision |
-
-C2 `cycle_paused` — **KEEP** / **EXISTING VALIDATED**. Runtime missing pause — **IMPLEMENTATION GAP ONLY**.
-
----
-
-# G. FINALIZE assessment
-
-FINALIZE = Pilote decision to **engage governed exit procedure**. FINALIZE **≠** completed.
-
-**Amendment 10 clarification:** Nora Recommendation to FINALIZE is the **nominal UX path** but is **NOT** an authority precondition. Pilote may request FINALIZE directly. Studio evaluates exit obligations. If missing/blocking: no completed claim; show assessment / remaining obligations. Nora advises; Nora does **not** control availability of the Pilot FINALIZE gate.
-
-## Obligation families
-
-| Family | Examples | Git? |
-| --- | --- | --- |
-| Scope / exit criteria | Cycle-type exit criteria | N/A |
-| Decisions | Required structuring HD recorded/accepted | N/A |
-| Artifacts | Required materializations | Conditional |
-| Execution | Required effects under EC | Conditional |
-| Evidence | Required Evidence with epistemic honesty | Conditional |
-| Review | ReviewBundle when required | Conditional |
-| Repository / Git | Only when obligations require repo effects | **Conditional — not universal** |
-
-## Obligation result labels (functional candidates)
-
-`SATISFIED` · `PENDING` · `MISSING` · `BLOCKING` · `NOT_APPLICABLE`
-
-Not mandatory technical enums (**DEFERRED TECHNICAL DESIGN**).
-
-## Semantic flow
+# 7. Critical path (Product Proof)
 
 ```
-Nora may recommend FINALIZE (optional)
-→ Pilote FINALIZE (HD) — may be direct
-→ Studio builds obligation assessment
-→ if BLOCKING/MISSING applicable → finalization-in-progress (not completed)
-→ EC only for obligations needing execution
-→ when all applicable SATISFIED/NOT_APPLICABLE → Studio completes deterministically
-→ no gratuitous second Close
+Suivi de contrat Cadrage mature
+→ Nora recommends FINALIZE
+→ Pilot FINALIZE (HD)
+→ Studio obligation assessment (derived)
+→ Artifact/EC/Evidence/Review/Git conditional
+→ completed + clear activeCycleInstanceId
+→ Nora recommends Conception
+→ optional candidate non-active (no link, no content)
+→ Pilot START
+→ ACTIVE Conception only then
 ```
 
----
-
-# H. Conditional execution
-
-- During finalization: **0..N** ExecutionContracts
-- EC **not mandatory** when no outstanding obligation requires governed execution
-- Ordering: prepare EC → Pilote inspect → Confirmation if protected → authority → Attempt
-- Protected boundaries per C2 §10 KEEP
-- Git actions only if EC/obligation requires them
-- Confirmation ≠ HumanDecision; BR-PC-08 no micro-confirmations KEEP
+**Blocked today by:** F2 auto-link + missing Pilot lifecycle transitions/CTAs + missing finalize assessment + Morris-gate conflation on F2 path.
 
 ---
 
-# I. Completion semantics
-
-COMPLETED when:
-
-1. Pilote accepted FINALIZE (HD), and
-2. All applicable obligations are SATISFIED or NOT_APPLICABLE, and
-3. No BLOCKING residual for this cycle type exit, and
-4. Studio applies terminal completed / `cycle_closed` semantics
-
-**Automatic deterministic completion** after (1)+(2) — **no** second human Close gate.
-
-**Exceptions requiring new HD:** new structuring scope during finalization; contradiction requiring trajectory change; protected irreversible effect needing new Confirmation/HD.
-
-C2 BR-PC-26 KEEP: Attempt terminal ≠ CycleInstance closed.
-
----
-
-# J. Historical immutability / supplementary cycle
-
-- COMPLETED remains terminal / historical
-- No reopen by default
-- Later need for same cycle type → **new** CycleInstance; relation to prior recorded
-- Impact analysis + ProjectTrajectory replan (Recommendation then HD if structuring)
-- UI must show multiple instances of same type distinctly
-- Next-cycle optional candidate remains **non-active** until Pilot START
-
----
-
-# K. ProjectTrajectory / workspace contract
-
-| Rule | Disposition |
-| --- | --- |
-| Conversation dominant | KEEP |
-| Living trajectory panel = projection of runtime truth | KEEP |
-| Actual history vs ACTIVE vs candidate/Recommendation | COMPLETE visibility |
-| Multiple instances same cycle type distinct | COMPLETE |
-| No UI-owned truth | KEEP |
-| No invented % maturity score | KEEP |
-| Pilot CTA set: START, PAUSE, RESUME, FINALIZE, CANCEL | FUNCTIONAL DELTA / COMPLETE |
-| Visible blockers / remaining exit obligations / Nora recommendation | COMPLETE |
-| Candidate ≠ "started" presentation | COMPLETE |
-
----
-
-# L. HumanDecision / Confirmation matrix (Amendment 2)
-
-| Action | HD required? | Confirmation? | Notes |
-| --- | --- | --- | --- |
-| START — trajectory already decided | **NO by default** | No | Explicit Pilot lifecycle gate/action; durable audit event required |
-| START — Pilot chooses/amends structuring trajectory | **YES** | No | One HD MAY cover trajectory adoption + START when one explicit structuring act; no duplicate HD |
-| PAUSE | **NO by default** | No | Durable lifecycle audit; HD only if separate underlying structuring decision |
-| RESUME — materially unchanged | **NO** | No | Durable lifecycle audit |
-| RESUME — material scope/trajectory/authority drift | Silent resume forbidden; **HD if structuring / REPLAN** | Conditional | |
-| FINALIZE | **YES** | No second Close | Engages exit procedure; ≠ completed |
-| CANCEL | **YES** | Yes if irreversible effects exist | Terminal abandonment / no normal exit |
-| Git / irreversible / protected execution effects | Per structuring need | **Yes N1/N2/N3 per ActionPolicy after EC inspection where applicable** | Confirmation ≠ HD; BR-PC-08 KEEP |
-
----
-
-# M. C2 reconciliation matrix (corrected)
-
-| Principle | Class | C2 source | Runtime | Gap | Disposition | Acceptance criterion |
-| --- | --- | --- | --- | --- | --- | --- |
-| Nora recommends / Pilote decides | EXISTING VALIDATED | §4–5, BR-PC-01 | Partial | F2 auto-activates linkage | COMPLETE | No ACTIVE / no activeCycleInstanceId until Pilot START |
-| Pre-START candidate lifecycle permitted | CLARIFICATION / EXISTING C2 intent | §7.2 intent_captured…clarifying | F2 creates but wrongly links active | Auto-link | COMPLETE | Candidate MAY exist; must be non-authority-bearing |
-| No active/authority-bearing linkage until START | FUNCTIONAL DELTA (corrected) | C2 Pilote authority + §7 | F2 `linkAsActiveCycle=true` before START | Divergence | COMPLETE | Scenario 1 amended |
-| Phrase ≠ auto HD | EXISTING VALIDATED | BR-PC-02 | Mostly | Actionable may still create/link | ADAPT | Actionable utterance ≠ START activation |
-| Project ≠ Cycle | EXISTING VALIDATED | BR-PC-04 | KEEP | — | KEEP | |
-| CycleInstance ≠ Attempt | EXISTING VALIDATED | §7 / BR-PC-26 | KEEP | — | KEEP | Scenario 9 |
-| cycle_paused | EXISTING VALIDATED | §7.2 | Absent in runtime status | No pause service/UI | IMPLEMENTATION GAP ONLY | Scenario 3 |
-| cycle_closed explicit | EXISTING VALIDATED | §7.2 | `completed` enum; no finalize path | No FINALIZE/obligations | COMPLETE | Scenarios 6–8, 11 |
-| Attempt terminal ≠ close cycle | EXISTING VALIDATED | BR-PC-26 | No auto-close writer found | — | KEEP | Scenario 9 |
-| HD for structuring only (not every operational gate) | CLARIFICATION | §10.3 + BR-PC-08 | Over/under use | Systematic HD was overstated | COMPLETE | Matrix L amended |
-| Trajectory ≠ Recommendation ≠ HD | EXISTING VALIDATED | BR-PC-03 | W2 promote KEEP | Lifecycle CTAs missing | ADAPT/COMPLETE | |
-| Confirmation after EC inspect | EXISTING VALIDATED | §5.6–10 | W2/W3 KEEP | — | KEEP | |
-| Morris construction gate ≠ Pilot lifecycle | FUNCTIONAL DELTA / CLARIFICATION | §10.3 | `gatePolicy.ts` / morrisGateRequired in F2 | Boundary conflation risk | ADAPT | Amendment 3 |
-| One principal ACTIVE | FUNCTIONAL DELTA (first target) | Approved framing | Field exists; auto-link undermines | Gap | COMPLETE | Scenarios 2–3 |
-| Conditional Git | EXISTING + clarification | C2 Git SoT | EC conditional in spirit | FINALIZE obligations missing | COMPLETE | Scenarios 7–8 |
-| Conversation dominant | EXISTING VALIDATED | Product Experience | Conversation-first | Missing lifecycle CTAs | COMPLETE | Workspace K |
-| Enum ↔ C2 vocabulary mapping | DEFERRED TECHNICAL DESIGN | C2 functional authority | Runtime enums differ | Delivery adapts without second engine | DEFERRED | No parallel state machine |
-
-**Corrected prior misclassification:** do **not** require "no CycleInstance until Pilot START". Require: **no active/authority-bearing CycleInstance linkage until Pilot START; candidate pre-START lifecycle remains permitted and C2-compatible.**
-
----
-
-# N. Delivery impact map (updated)
+# 8. KEEP / ADAPT / COMPLETE / DEFERRED / FORBIDDEN
 
 ## KEEP
-- Validated C2 lifecycle distinction (`cycle_paused` / `cycle_closed`, Attempt separation)
 - CycleInstance ≠ ExecutionAttempt
-- HumanDecision / Confirmation separation
-- ProjectTrajectory
-- EC / Evidence / Review paths
-- Critical justification / qualify semantics (as non-lifecycle-core)
+- HD / Confirmation / ActionPolicy N1–N3 (EC domain)
+- ProjectTrajectory + promoteDecidedTrajectory
+- ExecutionContract / Attempt stack
+- Evidence + ReviewBundle `listByProject`
+- `AppendLivingProjectStateVersion` null-clear semantics
+- Vertical-slice composition
+- corrProof01–04 + existing F2 deterministic suites (regression)
 
 ## ADAPT
-- `CreateCycle` activation/linking semantics (`linkAsActiveCycle` ownership)
-- F2 `orchestrateF2` auto-link behavior
-- `activeCycleInstanceId` ownership (set/clear rules Amendment 4B)
-- **`f2/gatePolicy.ts` — ADAPT / REQUALIFY responsibility boundary**
-- **usages of `morrisGateRequired` in F2 — ADAPT** (do not delete historical gate machinery in this DOC cycle)
-- `studioCognitiveContext` lifecycle projection (candidate vs ACTIVE; paused vs blocked)
-- `ProjectAssistantPanel` lifecycle presentation (no false "started"; CTAs)
+- `CreateCycle` call sites / linking ownership (keep qualify/Critical rules)
+- `orchestrateF2` actionable auto-link + proposal authority signaling
+- `activeCycleInstanceId` set/clear only via Pilot lifecycle transitions
+- `gatePolicy.ts` + `morrisGateRequired` usages — requalify as construction/impact gate, not Pilot lifecycle engine
+- `studioCognitiveContext` (candidate vs ACTIVE; paused vs blocked; no false started)
+- `ProjectAssistantPanel` / conversation surfaces — present lifecycle honestly; CTA layer later
+- `recordDecision.ts` coupling to `morrisGateRequired` for ordinary lifecycle
 
 ## COMPLETE
-- Pilot lifecycle transition application capability
-- pause/resume/finalize/cancel semantics
-- finalization obligation assessment
-- lifecycle CTA layer (START/PAUSE/RESUME/FINALIZE/CANCEL)
+- Pilot lifecycle application capability: START (activate), PAUSE, RESUME, FINALIZE (assess+engage), CANCEL, deterministic COMPLETE when obligations pass
+- Server actions / API for those transitions
+- Finalization obligation assessment (derived)
+- Lifecycle CTA layer (UI) — functional wiring; visual polish out of preflight detail
+- One-ACTIVE enforcement on START
+- Drift checks on RESUME using existing LPS/HD/Evidence/Trajectory/doctrine reads
 
 ## DEFERRED TECHNICAL DESIGN
-- exact enum names/migration
-- exact service/class names
-- persistence representation of finalization ledger
-- schema/API shapes
-- representation of candidate/non-active vs ACTIVE statuses
+- Exact service/class/action names
+- Exact enum naming vs C2 vocabulary mapping document
+- Whether finalize assessment results are ephemeral vs audited snapshot fields
+- API DTO shapes
+- Optional soft-add of `paused` to `CycleInstanceStatus` union (see §12)
 
 ## FORBIDDEN
-- parallel lifecycle engine
-- multi-ACTIVE redesign in this corrective
+- Second lifecycle engine / parallel architecture
+- Multi-ACTIVE
+- Waterfall stepper / fake maturity %
+- FinalizationLedger as default architecture (see §9)
+- Using Project.paused as CycleInstance pause
+- Delivery without Morris authorization
 
 ---
 
-# O. Deterministic acceptance scenarios (updated)
+# 9. Proposed minimal technical design
 
-## Scenario 1 — Candidate permitted; ACTIVE only after START
-Given no ACTIVE CycleInstance, when Nora recommends Cadrage, then an **optional candidate/non-active** representation MAY exist, BUT:
-- no ACTIVE cycle exists
-- `LPS.activeCycleInstanceId` is unset
-- no Pilot acknowledgement/activation is claimed
-until explicit Pilot START.
+**FACT:** Existing OA domains already cover Decision, Confirmation, EC, Attempt, Evidence, Review, LPS, Cycle create/get, Trajectory.
+**RECOMMENDATION:** Extend Cycle application layer + F2/actions/UI adapters; **do not** invent a parallel engine.
 
-## Scenario 2 — START activates exactly one
-Pilot START activates exactly one principal CycleInstance and sets `activeCycleInstanceId`.
+### 9.1 PRE-START / START
+1. F2 actionable path: either (a) create CycleInstance **without** `linkAsActiveCycle`, or (b) recommend only until Pilot START creates/activates. Prefer (a) if qualification/audit continuity needs durable candidate id; else recommendation-only until START.
+2. START (Pilot): activate chosen instance → status continuum ACTIVE (`active` or mapped working status) → set `activeCycleInstanceId` → enforce no other ACTIVE (listByProject + status/link check).
+3. START + trajectory amend: reuse `recordHumanDecision` + `promoteDecidedTrajectory` when structuring; no HD when trajectory already decided.
 
-## Scenario 3 — PAUSE (no HD by default)
-Pilot PAUSE needs **no HD by default**, marks PAUSED and clears `activeCycleInstanceId`; another cycle may START.
+**FACT vs INFERENCE:** Exact “working status” mapping for ACTIVE vs C2 `qualifying…` remains deferred; first Delivery may use `active` as authority-bearing ACTIVE marker.
 
-## Scenario 4 — clean RESUME (no HD)
-Clean RESUME needs **no HD** and restores ACTIVE/linkage after runtime checks.
+### 9.2 PAUSE / BLOCKED / RESUME
+- PAUSE: set PAUSED representation; `append LPS` with `activeCycleInstanceId: null`; audit event; no HD by default.
+- BLOCKED: transition to `blocked`; **retain** activeCycleInstanceId.
+- RESUME: load LPS + list HD + Evidence + Trajectory + doctrine pin; if clean → restore active + ACTIVE; if material drift → refuse silent resume / REPLAN+HD if structuring.
 
-## Scenario 5 — stale RESUME → REPLAN
-Materially stale RESUME → REPLAN / HD if structuring; silent resume forbidden.
+### 9.3 FINALIZE / obligations / completion
+**RECOMMENDATION (no FinalizationLedger):** Implement **idempotent derived assessment** function:
 
-## Scenario 6 — FINALIZE with missing artifact
-Nora recommends FINALIZE **or** Pilot requests FINALIZE directly → Pilote accepts (HD) → missing required artifact ⇒ finalization-in-progress **not** completed.
-
-## Scenario 7 — FINALIZE docs+Evidence; Git N/A
-Obligations pass with Git NOT_APPLICABLE → completed.
-
-## Scenario 8 — FINALIZE Git required
-Incomplete until required Git/Evidence gates pass.
-
-## Scenario 9 — Attempt success ≠ cycle completed
-ExecutionAttempt terminal_success while exit obligations missing → CycleInstance remains open.
-
-## Scenario 10 — Supplementary same type
-Completed Cadrage later needs more cadrage → **new** CycleInstance; old remains completed.
-
-## Scenario 11 — Suivi de contrat Product Proof (document only; DO NOT execute REAL)
 ```
-Cadrage mature
-→ Nora recommends FINALIZE
-→ Pilot FINALIZE
-→ exit obligations
-→ Artifact / EC / Evidence / Review / Git conditionally
-→ Cadrage completed
-→ Nora recommends Conception fonctionnelle
-→ optional candidate next cycle is non-active
-→ NO Conception fonctionnelle work until Pilot START
+assessFinalizeObligations(projectId, cycleInstanceId) →
+  family → SATISFIED|PENDING|MISSING|BLOCKING|NOT_APPLICABLE
 ```
 
----
+Sources:
+- Cycle type / CKC exit criteria (method guidance + cycle fields)
+- `listDecisionHistory` / get HD for cycle
+- Artifacts: whatever product artifact refs exist for cycle (discover in Delivery; if absent → NOT_APPLICABLE or MISSING per type policy)
+- EC/Attempt via execution-contract services
+- Evidence/RB `listByProject` filtered by cycle linkage where present
+- Git: only if EC/effects require repo — else NOT_APPLICABLE
 
-# P. REAL exit scenario (document only — DO NOT execute)
+FINALIZE: require Pilot HD → persist assessment snapshot in audit (and optionally HD payload) → if any BLOCKING/MISSING applicable → remain open (finalization-in-progress as **derived** state, not necessarily new enum) → spawn 0..N EC only when needed → when all SATISFIED/N/A → set `completed` + `closedAt` + clear activeCycleInstanceId. **No second Close.**
 
-**Later proof (after Delivery of this functional contract + Morris gates):**
+**MORRIS DECISION REQUIRED only if** Delivery later proves derived assessment insufficient for auditability — then reopen ledger question. **Not required to start Delivery** under this preflight.
 
-- Resume existing Suivi de contrat Product Proof at the exact blocked Cadrage exit-transition point
-- **No dogfood restart**
-- Bounded REAL validating amended Scenarios 1/2/6/7/11 as applicable
-- Product Proof remains OPEN until Morris accepts end-to-end exit proof
+### 9.4 CANCEL
+HD required → `cancelled` + clear active + audit.
 
----
+### 9.5 Gate separation
+- Keep `evaluateMorrisGateRequired` for **SFIA Studio construction/governance impact** signals.
+- Pilot lifecycle actions: separate authority checks (Pilot actor + HD matrix + Confirmation when EC protected).
+- Do not delete gatePolicy; ADAPT call sites so START/PAUSE/RESUME/FINALIZE/CANCEL do not key off `morrisGateRequired`.
+- Construction ops may still stack: Pilot HD + EC + Confirmation + Morris gate.
 
-# Key functional rules (amended summary)
+### 9.6 F2 / Nora
+- Stop authority-bearing pre-START activation.
+- Allow Nora to recommend FINALIZE / next cycle without creating ACTIVE or Conception content.
+- studioCognitiveContext: expose candidate vs ACTIVE honestly (“Cycle actif: aucun” when link null even if candidate rows exist).
 
-1. Nora recommends; Pilote owns START/PAUSE/RESUME/FINALIZE/CANCEL; Studio enforces/persists.
-2. Recommendation ≠ CycleInstance ≠ HD ≠ Confirmation ≠ Attempt ≠ Morris construction gate.
-3. Candidate/non-active CycleInstance MAY exist pre-START; **no** activeCycleInstanceId / no "started" claim / no execution authority / no next-cycle work until Pilot START.
-4. Pilot START is the first authority-bearing ACTIVATION.
-5. One principal ACTIVE CycleInstance per Project (first target).
-6. PAUSED ≠ BLOCKED; PAUSE clears activeCycleInstanceId; BLOCKED retains it unless Pilot acts.
-7. FINALIZE engages exit procedure; does not force completed; Nora recommendation is not a precondition.
-8. Completed iff accepted FINALIZE + applicable obligations SATISFIED/NOT_APPLICABLE.
-9. EC conditional (0..N); Git conditional.
-10. No gratuitous second Close after FINALIZE.
-11. Completed immutable; supplementary work = new CycleInstance.
-12. Trajectory UI is projection, not a second state engine.
-13. Conversation dominant; CTAs are lifecycle controls, not a waterfall stepper.
-14. Pilot lifecycle gates ≠ `evaluateMorrisGateRequired` / `morrisGateRequired`.
-15. HD is for structuring acts (FINALIZE/CANCEL/trajectory choice/REPLAN), not for default operational START/PAUSE/clean RESUME.
-16. No status/label may claim human acknowledgement without a consumed Pilot gate (`acknowledged` runtime flag).
-17. Reuse C2 vocabulary; do not invent a parallel lifecycle engine.
-18. Current F2 auto-create+`linkAsActiveCycle` before START remains the primary Product Proof blocker for exit-transition honesty.
+### 9.7 UI
+- Add Pilot CTAs bound to new actions; trajectory panel projects runtime truth (history / ACTIVE / candidate / obligations). No second state machine; no detailed visual redesign in Delivery beyond functional CTAs/projections (**RECOMMENDATION:** minimal CTA + honesty labels).
 
 ---
 
-# Reserves
+# 10. Exact proposed Delivery file scope (candidate)
 
-## Closed by this amendment
-- A. PAUSE HD strength — CLOSED (NO by default)
-- B. activeCycleInstanceId on PAUSE — CLOSED functionally (clear to null; instance remains PAUSED visible)
-- D. START + trajectory adoption — CLOSED (one HD may cover both when one structuring act)
+**MUST touch (expected):**
+- `features/project-assistant/f2/orchestrateF2.ts`
+- `features/project-assistant/f2/gatePolicy.ts` (responsibility docs + separation helpers as needed)
+- `features/project-assistant/f2/recordDecision.ts` (decouple lifecycle from morrisGateRequired where applicable)
+- `features/project-assistant/f2/studioCognitiveContext.ts`
+- `features/project-assistant/actions.ts` (+ types)
+- `features/project-assistant/ProjectAssistantPanel.tsx` and/or pre-m6 conversation surfaces used in Product path
+- `lib/oa/cycle/domain/types.ts` (status union soft-extend if PAUSED added)
+- `lib/oa/cycle/application/*` **new** transition modules + `lib/oa/cycle/index.ts` CycleServices wiring
+- `lib/oa/cycle/domain/invariants.ts` (one-ACTIVE, transition guards)
+- Tests under `__tests__/project-assistant/` and `__tests__/oa/cycle/` for scenarios 1–16
 
-## Remains deferred (not a Morris functional open question)
-- C. runtime enum ↔ C2 vocabulary — **DEFERRED TECHNICAL DESIGN** (C2 functional authority; Delivery adapts without second state machine)
+**LIKELY ADAPT:**
+- `lib/oa/cycle/application/createCycle.ts` (guards/docs; optional default link false on product path)
+- vertical-slice wiring if CycleServices grows
+- presentation labels
 
-## Remaining structural decision required
-- Morris validation of the **corrected** CORR-PROOF-05 Functional Contract after ChatGPT **re-review**
+**Names of new files = DEFERRED** (Delivery chooses within `lib/oa/cycle/application/` + actions).
+
+---
+
+# 11. Files explicitly out of scope
+
+- Build Doctrine / Roadmap / C1 / C2 / v3 framing content rewrites
+- Method SFIA v2.6 baseline
+- Stage B / model routing / FinOps policy
+- Parallel cognitive engines / nora-eval campaign harnesses (except not breaking them)
+- Broad UI redesign / Figma
+- Destructive DB migrations
+- Multi-ACTIVE redesign
+- Runtime v3 adoption claims
 
 ---
 
-# Controls
+# 12. Persistence / migration assessment
 
-- Product HEAD for analysis: `12d837fd29a69b3e83155a06ec58dc91b0e15f0b`
-- Versioned Product/project files modified: **ZERO**
-- Only local review material under `.tmp-sfia-review/`
-- REAL / Stage B / routing / runtime v3: **NOT** performed/claimed
-- Consistency search targets for obsolete claims must be clean except in "Superseded prior wording" quotes
+| Change | Class | Notes |
+| --- | --- | --- |
+| Clear `activeCycleInstanceId` | NOT REQUIRED (schema) | **FACT:** `pickLink(null)` already clears |
+| Store CycleInstance rows | NOT REQUIRED new table | **FACT:** `oa_cycle_instances` + `listByProject` exist |
+| Add `paused` to status union / TEXT column values | OPTIONAL | **FACT:** status is unconstrained TEXT; soft-extend needs **no DDL migration**. **RECOMMENDATION:** include in Delivery as domain union + validators. Exact name DEFERRED. |
+| FinalizationLedger table | NOT REQUIRED for v1 | **RECOMMENDATION:** derived assessment + audit/HD payload. **MORRIS DECISION REQUIRED** only if later evidence demands durable ledger |
+| New second engine / store | FORBIDDEN | |
+
+**No STOP DESIGN DECISION** for persistence: existing model is sufficient for a minimal Delivery under CORR-PROOF-05 with soft status extend OPTIONAL.
 
 ---
+
+# 13. Deterministic test plan (future Delivery)
+
+1. Candidate pre-START: instance may exist; not ACTIVE; activeCycleInstanceId unset
+2. No next-cycle work: Conception recommendation creates no Conception ACTIVE/content
+3. START: activates exactly one; second START refused while ACTIVE
+4. PAUSE: durable PAUSED; activeCycleInstanceId null; no artificial HD
+5. BLOCKED ≠ PAUSED; active pointer retained
+6. RESUME clean: context checks then ACTIVE+link
+7. RESUME drift: no silent resume
+8. FINALIZE requires Pilot HD
+9. FINALIZE ≠ completed when obligations pending
+10. Attempt terminal_success alone does not complete cycle
+11. EC optionality 0..N
+12. Completion only FINALIZE + obligations SATISFIED/N/A + no blocker
+13. CANCEL requires HD; terminal; clears activation
+14. No reopen; new work = new CycleInstance
+15. Lifecycle actions do not use `morrisGateRequired` as authority
+16. Preserve corrProof01–04 + F2 orchestrate/gate regression suites
+
+---
+
+# 14. Future REAL proof (DO NOT EXECUTE)
+
+Resume Suivi de contrat at blocked Cadrage exit — no dogfood restart — sequence per Functional Contract Scenario 11 + START gate before Conception content. Bound: after Delivery + Morris gates only.
+
+---
+
+# 15. Debt + exit strategy
+
+| Debt | Exit |
+| --- | --- |
+| `acknowledged` semantic overload | Delivery honesty + deferred enum mapping doc |
+| F2 Morris-gate conflation | ADAPT call sites; keep construction gate |
+| Missing pause status | Soft-extend or mapped representation; prefer explicit `paused` |
+| Obligation policy per cycle type | Start with conservative N/A + explicit MISSING for known Cadrage exits; enrich via CKC later without new engine |
+| UI trajectory richness | Minimal CTAs first; richer projection later |
+
+---
+
+# 16. Morris gates
+
+| Gate | Status |
+| --- | --- |
+| Functional Contract CORR-PROOF-05 VALIDATED | **CONSUMED** |
+| Delivery authorization | **NOT CONSUMED** — next after ChatGPT preflight review |
+| Structuring persistence/architecture selection | **Not required now**; reopen if ledger demanded |
+| Protected-path Product Git / PR / merge | NOT CONSUMED |
+| Product Proof closure | NOT |
+| Stage B / runtime v3 / routing | NOT |
+
+---
+
+# 17. Risks / reservations
+
+1. **R-PF-01:** Cursor workspace drift off `12d837fd` — mitigated by dedicated analysis WT; Delivery must pin exact main.
+2. **R-PF-02:** Mapping C2 rich states ↔ runtime enum — deferred; risk of over-fitting enums in first slice.
+3. **R-PF-03:** Artifact obligation discovery may find sparse artifact model — may yield many NOT_APPLICABLE initially; must not fake SATISFIED.
+4. **R-PF-04:** Changing F2 auto-link will break tests that assume immediate activeCycle — expect intentional test updates in Delivery.
+5. **R-PF-05:** `recordDecision`/`morrisGateRequired` entangle construction with ordinary decisions — careful ADAPT to avoid regressing real Morris construction gates.
+
+No reservation blocks preflight readiness.
+
+---
+
+# 18. Review pack status
+
+- Path: `/Users/morris/Projects/sfia-wt-corr05-preflight-12d837fd/.tmp-sfia-review/chatgpt-review.md`
+- Local only; **not** Product-committed
+- Handoff L3 publication **not required** by this preflight contract (report-only). ChatGPT reviews this pack / process channel as directed by Morris.
+
+---
+
+# 19. Answers A–I (condensed factual)
+
+**A. Representation:** statuses listed §5; createCycle Critical→proposed else acknowledged; acknowledged ≠ Pilot ack; activeCycle written by createCycle link + LPS append, read widely; candidate exploitable only if create without link; PRE-START needs F2 ADAPT + START COMPLETE.
+**B. Authority:** Nora F2 actor creates/links today; Pilot via decide/confirm/execute paths; START needs new/adapted service — **RECOMMENDATION:** new activate/transition use-case + action, not Morris gate.
+**C. Single ACTIVE:** enforce in application START/create-link — **RECOMMENDATION:** domain invariant + listByProject; no new architecture.
+**D. PAUSE/BLOCKED/RESUME:** blocked/completed/cancelled exist; no pause/resume writers; active clear via LPS null.
+**E. FINALIZE:** derive from HD/EC/Evidence/RB/LPS/Git-conditional; intermediate finalization-in-progress can be derived; missing: assessment module + Pilot FINALIZE HD wiring.
+**F. Gates:** inventory §5; separate Pilot lifecycle from evaluateMorrisGateRequired.
+**G. F2:** documented; minimal prevent = stop `linkAsActiveCycle:true` on auto path; block next-cycle content until START.
+**H. UI/context:** activeCycleIdentity already in cognitive context/Panel; enough to project honesty; CTA COMPLETE.
+**I. Persistence:** MUST none for clear; OPTIONAL soft `paused`; NOT REQUIRED ledger/table.
+
+---
+
+
+### Publication regularization metadata (2026-09-07 handoff L3)
+
+- **FACT:** This pack was originally written as local-only and incorrectly stated handoff L3 was not required.
+- **ACTION:** Canonical publish-in-cycle regularization copies this FULL Technical Delivery Preflight to `sfia/review-handoff`.
+- **MECHANICAL ONLY:** trailing whitespace stripped so `git diff --check` passes; technical conclusions unchanged.
+- Technical verdict below remains authoritative for Delivery Authorization Review.
 
 # Final verdict
 
-**CORR-PROOF-05 FUNCTIONAL DELTA AMENDED — READY FOR CHATGPT RE-REVIEW — NO DELIVERY — PRODUCT PROOF REMAINS OPEN**
+**READY FOR CHATGPT CORR-PROOF-05 DELIVERY AUTHORIZATION REVIEW**
+
+(Delivery itself remains unauthorized until distinct Morris GO.)
