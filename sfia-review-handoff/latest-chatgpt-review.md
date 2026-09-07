@@ -1,139 +1,150 @@
-# CORR-PROOF-05 — DELIVERY ENFORCEMENT CORRECTION
-## FULL Review Pack — exploitable mono-cycle
+# CORR-PROOF-05 — DELIVERY ENFORCEMENT CORRECTION #2
+## FINALIZATION APPLICABILITY PRODUCT WIRING + LIFECYCLE BLOCKER WIRING
+## FULL Review Pack — mono-cycle
 
 | Field | Value |
 | --- | --- |
-| **Timestamp (UTC)** | 2026-09-07T17:18:31Z |
+| **Timestamp (UTC)** | 2026-09-07T18:58:37Z |
 | **Repo** | `mcleland147/sfia-workspace` |
-| **Delivery worktree** | `/Users/morris/Projects/sfia-wt-corr05-impl-12d837fd` |
+| **Worktree** | `/Users/morris/Projects/sfia-wt-corr05-impl-12d837fd` |
 | **Branch** | `delivery/sfia-studio-proof-corr-05-pilot-lifecycle` |
 | **HEAD** | `12d837fd29a69b3e83155a06ec58dc91b0e15f0b` |
 | **origin/main** | `12d837fd29a69b3e83155a06ec58dc91b0e15f0b` |
-| **Handoff input (before)** | `53995b85b6b0a6ee0acad0fb42404607b71e3e39` |
-| **Cycle** | 8 — Delivery / CORR-PROOF-05 DELIVERY ENFORCEMENT CORRECTION |
+| **Handoff input (before)** | `8d5d3a81d721ffaf2e36354a3dfef2b77e4f30b1` |
+| **Cycle** | 8 — Delivery enforcement correction #2 |
 | **Profile** | CRITICAL |
 | **Capability** | Pilot-Governed Project Lifecycle |
-| **Gap** | `CYCLE_LIFECYCLE_ORCHESTRATION_GAP` |
+| **Gaps closed** | FINALIZATION_APPLICABILITY_PRODUCT_WIRING · LIFECYCLE_BLOCKER_WIRING · LIFECYCLE_PROJECTION_SUPERSEDED_STARTABILITY |
 | **Product Proof** | OPEN |
 | **runtime v3** | NON ADOPTED |
-| **Product commit** | NOT PERFORMED (local uncommitted) |
-| **Evidence** | DETERMINISTIC PROVEN (enforcement correction) |
+| **Product commit** | NOT PERFORMED |
+| **Evidence** | DETERMINISTIC PROVEN (Product runtime wiring) |
 | **Verdict** | READY FOR CHATGPT CORR-PROOF-05 DELIVERY RE-REVIEW |
 
 ### Anti-claims
-- NOT READY FOR COMMIT / PR / REAL
-- NOT PRODUCT PROOF CLOSED
-- NOT STAGE B AUTHORIZED
-- NOT runtime v3 ADOPTED
-- NO REAL Suivi executed
-- NO FinalizationLedger / new table / migration / second engine
+NOT READY FOR COMMIT/PR/REAL · NOT PRODUCT PROOF CLOSED · NOT STAGE B · NOT runtime v3 ADOPTED · NO REAL Suivi · NO new table/migration/ledger
 
 ---
 
 # 1. Timestamp UTC
-2026-09-07T17:18:31Z
+2026-09-07T18:58:37Z
 
-# 2. Local Git Truth initial
-- Authoritative WT: `/Users/morris/Projects/sfia-wt-corr05-impl-12d837fd`
-- Branch: `delivery/sfia-studio-proof-corr-05-pilot-lifecycle`
-- HEAD = origin/main = `12d837fd29a69b3e83155a06ec58dc91b0e15f0b`
-- Handoff before: `53995b85b6b0a6ee0acad0fb42404607b71e3e39` (first Delivery publication)
-- Mid-cycle hazard: dirty delta was lost to `stash@{0}` after external interrupt/`reset`; Morris GO restore via `stash apply` recovered exact CORR-PROOF-05 Product delta; stash dropped after verify.
-- No `move_agent_to_root` / reset --hard / clean -fd used for correction.
+# 2. Initial Local Git Truth
+- WT `delivery/sfia-studio-proof-corr-05-pilot-lifecycle` @ `12d837fd29a69b3e83155a06ec58dc91b0e15f0b` (= origin/main)
+- Handoff before `8d5d3a81d721ffaf2e36354a3dfef2b77e4f30b1`
+- Product dirty CORR-PROOF-05 delta intact; staged=0
+- No reset/stash/clean/move_agent_to_root
 
 # 3. Input handoff
-`53995b85b6b0a6ee0acad0fb42404607b71e3e39` — prior CORR-PROOF-05 Delivery implementation (enforcement rejected by ChatGPT).
+`8d5d3a81d721ffaf2e36354a3dfef2b77e4f30b1` — enforcement correction #1 (A–F). Remaining: Product applicability wiring, blocker wiring, superseded startability.
 
-# 4. Morris decisions consumed
-- GO CORRECTION CORR-PROOF-05 (bounded deterministic correction in place)
-- GO restore stash@{0} (recover lost uncommitted delta)
-- Review Handoff L3 publish-in-cycle REQUIRED by template
-NOT consumed: Product commit/push/PR/merge; REAL; Proof closure; Stage B; v3 adopt; doctrine/C1/C2 edits; structural persistence redesign
+# 4. Morris GO consumed
+GO CORRECTION + PUBLISH REVIEW HANDOFF (correction #2). Not consumed: Product commit/push/PR/merge, REAL, Proof closure, Stage B, v3 adopt, doctrine edits, structural persistence.
 
 # 5. Sources read
-- Mission contract CORR-PROOF-05 DELIVERY ENFORCEMENT CORRECTION
-- Prior handoff 53995b85… content as design reference
-- Runtime: assessFinalization, pilotLifecycleTransitions, pilotLifecycleActions, types, errors, createCycle, vertical-slice service, ProjectAssistantPanel, actions, Decision localSingleUserAuthority / VerifyAuthority, Cycle SQLite payload JSON
-- Template v2.6 publish-review-handoff requirements
+- Mission contract correction #2
+- Prior handoffs 6b5a266c / 7bed1588 / 53995b85 / 8d5d3a81
+- Runtime: assessFinalization, derive*, pilotLifecycleTransitions, lifecycleProjection, vertical-slice service, EpistemicItem, ExecutionContract, Evidence, Decision HD
+- Discovery: no Artifact SoT; EC has no git-effects field; best blockers = Epistemic Reservation blocking=true
 
 # 6. Convergence qualification
-- Same corrective / capability / Delivery cycle / baseline 12d837fd
-- KEEP/ADAPT/COMPLETE: enforcement fail-closed without new ledger/table
-- FORBIDDEN avoided: parallel engine, FinalizationLedger, DDL, product push/PR
+Same corrective / capability / Cycle 8 / baseline. KEEP/ADAPT only. No parallel engine.
 
-# 7. ChatGPT blocking findings addressed
-| ID | Defect | Correction |
-| --- | --- | --- |
-| A | Finalization fail-open (absence→N/A; gitApplicable:false hardcode) | Applicability APPLICABLE/NOT_APPLICABLE/UNKNOWN; UNKNOWN→BLOCKING; remove git hardcode |
-| B | START lacks readiness | Server `assessStartReadiness` from durable assets |
-| C | RESUME caller materialDrift SoT | Server `assessResumeReconciliation` + pause JSON snapshot |
-| D | Product `forceEnable:true` | Removed; env fail-closed AUTHORITY_NOT_CONFIGURED; verify N3+Morris |
-| E | Weak HD validation | Project/cycle/subject/CURRENT helpers reused |
-| F | UI from F2 only | `projectPilotLifecycle` + `projectAssistantPilotLifecycleProjection` |
+# 7. Previous accepted A–F preserved
+F2 candidate non-active; ≤1 ACTIVE; PAUSED≠BLOCKED; pauseReconciliation; server RESUME; authority no forceEnable Product; CURRENT HD; FINALIZE/CANCEL HD; no FinalizationLedger; durable projection.
 
-# 8. Before → after enforcement matrix
-| Concern | Before | After |
-| --- | --- | --- |
-| Sparse FINALIZE | could N/A missing models → complete | UNKNOWN/BLOCKING; explicit N/A reasons required |
-| Git | hardcoded false → N/A | UNKNOWN unless explicit rule/proof |
-| START | transition+single ACTIVE only | StartReadiness + trajectory compatibility + authority |
-| RESUME | caller drift boolean SoT | pause snapshot + server reconcile; hint only fail-closed |
-| Authority | forceEnable Product path | register without forceEnable + verify |
-| HD | decisionId presence | match project/cycle/subject/CURRENT |
-| UI lifecycle | F2/proposal | durable CycleRepository+LPS projection |
-| Persistence | soft paused + JSON | + optional pauseReconciliation in CycleInstance JSON (no DDL) |
+# 8. Remaining gaps addressed
+1. Product-derived applicability via `deriveFinalizationApplicability` in buildAssessment (static COMPLETE_APPLICABILITY ignored)
+2. Epistemic blockers wired START/PAUSE/RESUME
+3. `isStartableCandidateStatus` + projection canStart excludes superseded
 
-# 9. Finalization applicability rules
-Per family: derive or accept explicit `FinalizationApplicabilityRules`. Map APPLICABLE+proof→SATISFIED/MISSING/PENDING/BLOCKING; NOT_APPLICABLE only with `notApplicableReason`; UNKNOWN→BLOCKING. `canComplete` requires finalize HD CURRENT + all SATISFIED|rule-backed N/A + zero UNKNOWN/blockers.
+# 9. Product applicability source discovery
+| Family | Durable source |
+| --- | --- |
+| exit_criteria | ProjectTrajectory presence/steps |
+| execution | ExecutionContract list (cycle-bound) |
+| evidence | Evidence rows OR EC.evidenceRequirements |
+| review | ReviewBundle rows |
+| artifact | EC.expectedOutputs~/artifact/i OR Evidence type=artifact OR obligation-policy HD |
+| git | EC.requiredCapabilities~/git/i OR action/target/scope~/git|repository/i OR obligation-policy HD |
+| blockers | EpistemicItem Reservation blocking active |
+| explicit N/A | CURRENT HD subject `pilot.lifecycle.obligation-policy:<cycleId>` selectedOptionId opt:no-* / opt:no-governed-effects |
 
-# 10. UNKNOWN vs NOT_APPLICABLE semantics
-- ABSENCE OF PROOF ≠ N/A
-- ABSENCE OF MODEL ≠ N/A (e.g. artifact model unbound → UNKNOWN)
-- UNKNOWN APPLICABILITY ≠ N/A → fail-closed BLOCKING
-- N/A only via explicit rule + reason string
+No Artifact DB store. No git ledger. Absence alone never → N/A.
 
-# 11. START readiness derivation
-`assessStartReadiness`: project/cycle candidate, LPS readable, ≤1 ACTIVE, pointer free, doctrine readable, usable trajectory (not stale/superseded), no blocked entry steps, blocking reservations, structuring trajectory choice → requires matching CURRENT HD `pilot.lifecycle.start+trajectory:<cycleId>`. Caller `requiresTrajectoryHumanDecision` is never sole SoT.
+# 10. Product applicability derivation design
+`deriveFinalizationApplicability(cycle, trajectory, decisions, evidence, reviews, contracts)` → FinalizationApplicabilityRules.
+`PilotLifecycleTransitions.buildAssessment` always calls derive (not static injection).
+Positive N/A requires CURRENT obligation-policy HD (Decision SoT reuse — not ApplicabilityLedger).
 
-# 12. RESUME reconciliation derivation
-`assessResumeReconciliation` compares pause snapshot vs current LPS objective/context/scope, doctrine pin, trajectory fingerprint, CURRENT HD fingerprint, evidence fingerprint, blockers, sibling ACTIVE/pointer. Caller `materialDriftDetected=true` forces drift; false/undefined never proves clean.
+# 11. Exact durable source per family
+See §9. Provenance for N/A reasons: `pilot_hd_obligation_policy:<optionId>`.
 
-# 13. Pause context persistence
-`PauseReconciliationSnapshot` stored on `CycleInstance.pauseReconciliation` inside existing `payload_json` (SQLite). NO DDL / new table / store. Cleared on successful RESUME/START/COMPLETE/CANCEL.
+# 12. Artifact applicability/proof
+APPLICABLE from EC expectedOutputs / Evidence type=artifact / REQUIRE HD.
+Proof: Evidence type=artifact status available|verified.
+N/A only via obligation-policy HD opt:no-artifact or opt:no-governed-effects.
+Missing model alone → UNKNOWN (AP8).
 
-# 14. Pilot authority enforcement
-Mutating START/PAUSE/RESUME/FINALIZE/CANCEL require `PilotLifecycleAuthorityPort.verify` N3 + Morris gate with `authorityEvidenceId`. Product helper `registerLocalPiloteAuthority` **without** forceEnable; fail-closed when env off.
+# 13. Execution applicability
+EC present → APPLICABLE. Explicit N/A via opt:no-execution / no-governed-effects. Else UNKNOWN (AP7).
 
-# 15. HumanDecision validation
-Helpers: `matchesLifecycleHumanDecision`, `isAcceptedFinalizeDecision/Cancel/StartTrajectory/ResumeReplan` — projectId + cycleId + subject + CURRENT (accepted|amended).
+# 14. Evidence applicability
+Rows or EC.evidenceRequirements → APPLICABLE. N/A only via policy HD.
 
-# 16. forceEnable Product-path audit
-`rg forceEnable pilotLifecycleActions.ts` → only comments stating it must not appear. Static test asserts Product file has no `forceEnable: true`. Tests may forceEnable in test helpers only.
+# 15. Review applicability
+Rows → APPLICABLE. N/A only via policy HD.
 
-# 17. Lifecycle reload / read-model projection
-`projectPilotLifecycle` + server action `projectAssistantPilotLifecycleProjection`. Panel loads projection on mount; CTAs from durable status. F1–F4 proven in corrProof05 tests.
+# 16. Git/repository applicability
+EC capabilities/action/target/scope git signals OR REQUIRE HD → APPLICABLE.
+Proof: Evidence attestation|log_ref|document available|verified.
+N/A via opt:no-git / no-governed-effects. Absence → UNKNOWN (AP5). No gitApplicable:false.
 
-# 18. Single-ACTIVE enforcement
-Kept/tightened: createCycle link + START/RESUME assert ≤1 ACTIVE and LPS pointer. F2 remains `linkAsActiveCycle:false`.
+# 17. Explicit N/A reasons + durable provenance
+Reasons keyed from CURRENT obligation-policy HD selectedOptionId. Example: `pilot_hd_obligation_policy:opt:no-governed-effects`.
 
-# 19. Persistence assessment
-Soft-add `paused` status (TEXT). Pause snapshot in CycleInstance JSON. No migration. No FinalizationLedger / StartLedger.
+# 18. UNKNOWN fail-closed
+UNKNOWN → BLOCKING; canComplete requires zero UNKNOWN.
 
-# 20. Explicit confirmation
-NO new table / migration / store / ledger / second lifecycle engine.
+# 19. Positive completion uses normal Product wiring
+AP1-runtime + SC12: createSqliteCycleServices / createRuntimeApplicationService without applicabilityRules; obligation-policy HD + FINALIZE HD; pilotLifecycle.finalize → completed. No COMPLETE_APPLICABILITY injection on Product path.
 
-# 21. Files created
+# 20. Blockers source discovery
+EpistemicItem type=Reservation status=active blocking=true via cycleServices.epistemic.listByProject / getEpistemicState.
+
+# 21. START blocker wiring
+loadBlockers → assessStartReadiness.blockingReservationStatements; unreadable → blocker_source_unreadable fail-closed.
+
+# 22. PAUSE blocker snapshot
+buildPauseReconciliationSnapshot receives statements → blockerFingerprint.
+
+# 23. RESUME blocker reconciliation
+Re-read epistemic; compare fingerprint; new blocker → CYCLE_RESUME_DRIFT; caller materialDriftDetected=false cannot override.
+
+# 24. Superseded/startability
+isStartableCandidateStatus = proposed|acknowledged only.
+Projection candidateCycles startable-only; canStart false for superseded; SP5 one proposed + many superseded → no false ambiguity.
+
+# 25. Architecture/persistence assessment
+JSON payload adaptations only (qualificationSignals echo, pauseReconciliation). No DDL.
+
+# 26. Confirmation
+NO new table / store / migration / FinalizationLedger / second engine / second authority store.
+
+# 27. Files created
 
 - `projects/sfia-studio/app/__tests__/oa/cycle/corrProof05.pilotLifecycle.d0.test.ts`
 - `projects/sfia-studio/app/features/project-assistant/f2/pilotLifecycleActions.ts`
 - `projects/sfia-studio/app/lib/oa/cycle/application/assessFinalization.ts`
 - `projects/sfia-studio/app/lib/oa/cycle/application/assessResumeReconciliation.ts`
 - `projects/sfia-studio/app/lib/oa/cycle/application/assessStartReadiness.ts`
+- `projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts`
+- `projects/sfia-studio/app/lib/oa/cycle/application/deriveLifecycleBlockers.ts`
 - `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts`
 - `projects/sfia-studio/app/lib/oa/cycle/application/pilotLifecycleTransitions.ts`
 - `projects/sfia-studio/app/lib/oa/cycle/domain/lifecycleInvariants.ts`
 
-# 22. Files modified
+# 28. Files modified
 
 - `projects/sfia-studio/app/__tests__/oa/cycle/m2ProductCycleDurability.test.ts`
 - `projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx`
@@ -154,10 +165,11 @@ NO new table / migration / store / ledger / second lifecycle engine.
 - `projects/sfia-studio/app/lib/oa/cycle/ports/cycleAudit.ts`
 - `projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts`
 
-# 23. Git Review Index
-See name-status / stat below and embedded diffs.
+# 29. Git Review Index
+See name-status/stat and embedded content.
 
-# 24. Full content — created files
+
+# 30. Full created-file content
 
 
 ## CREATED `projects/sfia-studio/app/__tests__/oa/cycle/corrProof05.pilotLifecycle.d0.test.ts`
@@ -189,8 +201,17 @@ import {
   assessStartReadiness,
   buildPauseReconciliationSnapshot,
   createSqliteCycleServices,
+  deriveFinalizationApplicability,
   finalizeSubjectFor,
   cancelSubjectFor,
+  isStartableCandidateStatus,
+  obligationPolicySubjectFor,
+  OBLIGATION_POLICY_NO_GOVERNED_EFFECTS,
+  OBLIGATION_POLICY_NO_ARTIFACT,
+  OBLIGATION_POLICY_NO_GIT,
+  OBLIGATION_POLICY_NO_EXECUTION,
+  OBLIGATION_POLICY_REQUIRE_ARTIFACT,
+  OBLIGATION_POLICY_REQUIRE_GIT,
   projectPilotLifecycle,
   startTrajectorySubjectFor,
   resumeReplanSubjectFor,
@@ -205,8 +226,14 @@ import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
   type DecisionServices,
+  type HumanDecision,
 } from "@/lib/oa/decision";
 import { evaluateMorrisGateRequired } from "@/features/project-assistant/f2/gatePolicy";
+import type { LocalProjectIdSource } from "@/lib/vertical-slice-core";
+import {
+  createRuntimeApplicationService,
+  resetRuntimeApplicationServiceForTests,
+} from "@/lib/vertical-slice-runtime";
 
 const APP_ROOT = path.resolve(__dirname, "../../..");
 const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
@@ -437,6 +464,8 @@ async function recordHd(input: {
   subject: string;
   decisionId: string;
   evidenceId?: string;
+  selectedOptionId?: string;
+  options?: Array<{ optionId: string; label: string }>;
 }) {
   const evidenceId =
     input.evidenceId ??
@@ -447,11 +476,11 @@ async function recordHd(input: {
     projectId: input.projectId,
     cycleInstanceId: input.cycleInstanceId,
     subject: input.subject,
-    options: [
+    options: input.options ?? [
       { optionId: "opt:accept", label: "Accept" },
       { optionId: "opt:refuse", label: "Refuse" },
     ],
-    selectedOptionId: "opt:accept",
+    selectedOptionId: input.selectedOptionId ?? "opt:accept",
     actor: LOCAL_PILOTE_ACTOR,
     authority: "morris",
     status: "accepted",
@@ -459,6 +488,62 @@ async function recordHd(input: {
     scope,
     authorityEvidenceId: evidenceId,
   });
+}
+
+async function recordObligationPolicy(input: {
+  decisions: DecisionServices;
+  authority: MemoryAuthorityResolver;
+  projectId: string;
+  cycleInstanceId: string;
+  decisionId: string;
+  evidenceId?: string;
+  selectedOptionId: string;
+}) {
+  return recordHd({
+    ...input,
+    subject: obligationPolicySubjectFor(input.cycleInstanceId),
+    selectedOptionId: input.selectedOptionId,
+    options: [
+      {
+        optionId: OBLIGATION_POLICY_NO_GOVERNED_EFFECTS,
+        label: "No governed effects",
+      },
+      { optionId: OBLIGATION_POLICY_NO_ARTIFACT, label: "No artifact" },
+      { optionId: OBLIGATION_POLICY_NO_GIT, label: "No git" },
+      { optionId: OBLIGATION_POLICY_NO_EXECUTION, label: "No execution" },
+      {
+        optionId: OBLIGATION_POLICY_REQUIRE_ARTIFACT,
+        label: "Require artifact",
+      },
+      { optionId: OBLIGATION_POLICY_REQUIRE_GIT, label: "Require git" },
+      { optionId: "opt:accept", label: "Accept" },
+    ],
+  });
+}
+
+function makeObligationPolicyDecision(
+  cycleInstanceId: string,
+  projectId: string,
+  selectedOptionId: string,
+): HumanDecision {
+  return {
+    schemaVersion: "0.1.0-oa",
+    decisionId: `dec:policy-${selectedOptionId}`,
+    projectId,
+    cycleInstanceId,
+    subject: obligationPolicySubjectFor(cycleInstanceId),
+    options: [
+      { optionId: selectedOptionId, label: selectedOptionId },
+      { optionId: "opt:accept", label: "Accept" },
+    ],
+    selectedOptionId,
+    actor: LOCAL_PILOTE_ACTOR,
+    authority: "morris",
+    status: "accepted",
+    reversible: false,
+    effectiveAt: "2026-09-07T16:00:00.000Z",
+    recordedAt: "2026-09-07T16:00:00.000Z",
+  } as HumanDecision;
 }
 
 function baseCycle(overrides?: Partial<CycleInstance>): CycleInstance {
@@ -691,9 +776,7 @@ describe("CORR-PROOF-05 Pilot lifecycle (1–16)", () => {
 
   it("8+9+11+12 — FINALIZE requires HD; incomplete ≠ completed; no gratuitous EC; complete when ready", async () => {
     const dbPath = tempDbPath("s8.sqlite");
-    const stack = buildStack(dbPath, {
-      applicabilityRules: COMPLETE_APPLICABILITY,
-    });
+    const stack = buildStack(dbPath);
     await seedProject(stack.project, "prj:corr05-s8");
     await seedTrajectory(stack.cycles, stack.project, "prj:corr05-s8", {
       steps: STEPS_DONE,
@@ -720,9 +803,7 @@ describe("CORR-PROOF-05 Pilot lifecycle (1–16)", () => {
     expect(noHd.error.detailCode).toBe("CYCLE_DECISION_REQUIRED");
 
     // Incomplete path: open trajectory steps → ok but not completed
-    const incompleteStack = buildStack(tempDbPath("s8-inc.sqlite"), {
-      applicabilityRules: COMPLETE_APPLICABILITY,
-    });
+    const incompleteStack = buildStack(tempDbPath("s8-inc.sqlite"));
     await seedProject(incompleteStack.project, "prj:corr05-s8i");
     await seedTrajectory(
       incompleteStack.cycles,
@@ -745,6 +826,16 @@ describe("CORR-PROOF-05 Pilot lifecycle (1–16)", () => {
       createdBy: PILOTE,
       authorityEvidenceId: evI,
     });
+    const policyInc = await recordObligationPolicy({
+      decisions: incompleteStack.decisions,
+      authority: incompleteStack.authority,
+      projectId: "prj:corr05-s8i",
+      cycleInstanceId: "cyc:corr05-s8i",
+      decisionId: "dec:corr05-policy-s8i",
+      evidenceId: evI,
+      selectedOptionId: OBLIGATION_POLICY_NO_GOVERNED_EFFECTS,
+    });
+    expect(policyInc.ok).toBe(true);
     const hdInc = await recordHd({
       decisions: incompleteStack.decisions,
       authority: incompleteStack.authority,
@@ -765,8 +856,19 @@ describe("CORR-PROOF-05 Pilot lifecycle (1–16)", () => {
     expect(incomplete.ok).toBe(true);
     if (!incomplete.ok) return;
     expect(incomplete.assessment?.canComplete).toBe(false);
+    expect(incomplete.assessment?.blockers).toContain("exit_criteria_open");
     expect(incomplete.cycle.status).toBe("active");
 
+    const policy = await recordObligationPolicy({
+      decisions: stack.decisions,
+      authority: stack.authority,
+      projectId: "prj:corr05-s8",
+      cycleInstanceId: "cyc:corr05-s8",
+      decisionId: "dec:corr05-policy-s8",
+      evidenceId: ev,
+      selectedOptionId: OBLIGATION_POLICY_NO_GOVERNED_EFFECTS,
+    });
+    expect(policy.ok).toBe(true);
     const hd = await recordHd({
       decisions: stack.decisions,
       authority: stack.authority,
@@ -795,7 +897,7 @@ describe("CORR-PROOF-05 Pilot lifecycle (1–16)", () => {
       (o) => o.family === "execution_contract",
     );
     expect(ecFamily?.status).toBe("NOT_APPLICABLE");
-    expect(ecFamily?.notApplicableReason).toBeTruthy();
+    expect(ecFamily?.notApplicableReason).toContain("pilot_hd_obligation_policy");
   });
 
   it("10 — ExecutionAttempt terminal_success alone does not complete", () => {
@@ -1586,9 +1688,7 @@ describe("D/E — authority + HD (D/E1–D/E8)", () => {
   });
 
   it("D/E4 — FINALIZE missing HD fails even with authority", async () => {
-    const stack = buildStack(tempDbPath("de4.sqlite"), {
-      applicabilityRules: COMPLETE_APPLICABILITY,
-    });
+    const stack = buildStack(tempDbPath("de4.sqlite"));
     await seedProject(stack.project, "prj:corr05-de4");
     await seedTrajectory(stack.cycles, stack.project, "prj:corr05-de4", {
       steps: STEPS_DONE,
@@ -1600,6 +1700,15 @@ describe("D/E — authority + HD (D/E1–D/E8)", () => {
       projectId: "prj:corr05-de4",
       createdBy: PILOTE,
       authorityEvidenceId: ev,
+    });
+    await recordObligationPolicy({
+      decisions: stack.decisions,
+      authority: stack.authority,
+      projectId: "prj:corr05-de4",
+      cycleInstanceId: "cyc:corr05-de4",
+      decisionId: "dec:corr05-policy-de4",
+      evidenceId: ev,
+      selectedOptionId: OBLIGATION_POLICY_NO_GOVERNED_EFFECTS,
     });
     const fin = await stack.cycles.pilotLifecycle.finalize({
       cycleInstanceId: "cyc:corr05-de4",
@@ -1796,6 +1905,934 @@ describe("F — reload projection (F1–F4)", () => {
     });
     expect(projection.selectionAmbiguous).toBe(true);
     expect(projection.selectedCycleInstanceId).toBeNull();
+  });
+});
+
+describe("AP — Product-derived applicability", () => {
+  it("AP1-runtime — stack without applicabilityRules completes via obligation policy HD", async () => {
+    const stack = buildStack(tempDbPath("ap1.sqlite"));
+    await seedProject(stack.project, "prj:corr05-ap1");
+    await seedTrajectory(stack.cycles, stack.project, "prj:corr05-ap1", {
+      steps: STEPS_DONE,
+    });
+    await createCandidate(stack.cycles, "prj:corr05-ap1", "cyc:corr05-ap1");
+    const ev = await registerPilotAuth(stack.authority, "cyc:corr05-ap1");
+    await stack.cycles.pilotLifecycle.start({
+      cycleInstanceId: "cyc:corr05-ap1",
+      projectId: "prj:corr05-ap1",
+      createdBy: PILOTE,
+      authorityEvidenceId: ev,
+    });
+    expect(
+      (
+        await recordObligationPolicy({
+          decisions: stack.decisions,
+          authority: stack.authority,
+          projectId: "prj:corr05-ap1",
+          cycleInstanceId: "cyc:corr05-ap1",
+          decisionId: "dec:ap1-policy",
+          evidenceId: ev,
+          selectedOptionId: OBLIGATION_POLICY_NO_GOVERNED_EFFECTS,
+        })
+      ).ok,
+    ).toBe(true);
+    expect(
+      (
+        await recordHd({
+          decisions: stack.decisions,
+          authority: stack.authority,
+          projectId: "prj:corr05-ap1",
+          cycleInstanceId: "cyc:corr05-ap1",
+          subject: finalizeSubjectFor("cyc:corr05-ap1"),
+          decisionId: "dec:ap1-finalize",
+          evidenceId: ev,
+        })
+      ).ok,
+    ).toBe(true);
+    const finalized = await stack.cycles.pilotLifecycle.finalize({
+      cycleInstanceId: "cyc:corr05-ap1",
+      projectId: "prj:corr05-ap1",
+      createdBy: PILOTE,
+      decisionId: "dec:ap1-finalize",
+      authorityEvidenceId: ev,
+    });
+    expect(finalized.ok).toBe(true);
+    if (!finalized.ok) return;
+    expect(finalized.assessment?.canComplete).toBe(true);
+    expect(finalized.cycle.status).toBe("completed");
+  });
+
+  it("AP4 — NO_GIT policy → git N/A with pilot_hd_obligation_policy reason", () => {
+    const cycleId = "cyc:corr05-ap4";
+    const projectId = "prj:corr05-ap4";
+    const rules = deriveFinalizationApplicability({
+      cycleInstanceId: cycleId,
+      projectId,
+      trajectory: baseTrajectory({
+        projectId,
+        steps: STEPS_DONE,
+      }),
+      decisions: [
+        makeObligationPolicyDecision(
+          cycleId,
+          projectId,
+          OBLIGATION_POLICY_NO_GIT,
+        ),
+      ],
+      evidence: [],
+      reviewBundles: [],
+      executionContracts: [],
+    });
+    expect(rules.git_repository).toBe("NOT_APPLICABLE");
+    expect(rules.notApplicableReasons?.git_repository).toContain(
+      "pilot_hd_obligation_policy",
+    );
+    const a = assessFinalizationObligations({
+      cycle: baseCycle({ cycleInstanceId: cycleId, projectId }),
+      projectId,
+      assessedAt: "2026-09-07T16:00:00.000Z",
+      decisions: [],
+      evidence: [],
+      reviewBundles: [],
+      trajectory: baseTrajectory({ projectId, steps: STEPS_DONE }),
+      applicability: rules,
+    });
+    const git = a.obligations.find((o) => o.family === "git_repository");
+    expect(git?.status).toBe("NOT_APPLICABLE");
+    expect(git?.notApplicableReason).toContain("pilot_hd_obligation_policy");
+  });
+
+  it("AP5 — no policy/EC git signal → git UNKNOWN blocking", () => {
+    const cycleId = "cyc:corr05-ap5";
+    const projectId = "prj:corr05-ap5";
+    const rules = deriveFinalizationApplicability({
+      cycleInstanceId: cycleId,
+      projectId,
+      trajectory: baseTrajectory({ projectId, steps: STEPS_DONE }),
+      decisions: [],
+      evidence: [],
+      reviewBundles: [],
+      executionContracts: [],
+    });
+    const a = assessFinalizationObligations({
+      cycle: baseCycle({ cycleInstanceId: cycleId, projectId }),
+      projectId,
+      assessedAt: "2026-09-07T16:00:00.000Z",
+      decisions: [],
+      evidence: [],
+      reviewBundles: [],
+      trajectory: baseTrajectory({ projectId, steps: STEPS_DONE }),
+      applicability: rules,
+    });
+    const git = a.obligations.find((o) => o.family === "git_repository");
+    expect(git?.applicability).toBe("UNKNOWN");
+    expect(a.canComplete).toBe(false);
+  });
+
+  it("AP6 — NO_EXECUTION policy → execution N/A", () => {
+    const cycleId = "cyc:corr05-ap6";
+    const projectId = "prj:corr05-ap6";
+    const rules = deriveFinalizationApplicability({
+      cycleInstanceId: cycleId,
+      projectId,
+      trajectory: baseTrajectory({ projectId, steps: STEPS_DONE }),
+      decisions: [
+        makeObligationPolicyDecision(
+          cycleId,
+          projectId,
+          OBLIGATION_POLICY_NO_EXECUTION,
+        ),
+      ],
+      evidence: [],
+      reviewBundles: [],
+      executionContracts: [],
+    });
+    expect(rules.execution_contract).toBe("NOT_APPLICABLE");
+    const a = assessFinalizationObligations({
+      cycle: baseCycle({ cycleInstanceId: cycleId, projectId }),
+      projectId,
+      assessedAt: "2026-09-07T16:00:00.000Z",
+      decisions: [],
+      evidence: [],
+      reviewBundles: [],
+      trajectory: baseTrajectory({ projectId, steps: STEPS_DONE }),
+      applicability: rules,
+    });
+    const ec = a.obligations.find((o) => o.family === "execution_contract");
+    expect(ec?.status).toBe("NOT_APPLICABLE");
+  });
+
+  it("AP7 — no policy no EC → execution UNKNOWN blocking", () => {
+    const cycleId = "cyc:corr05-ap7";
+    const projectId = "prj:corr05-ap7";
+    const rules = deriveFinalizationApplicability({
+      cycleInstanceId: cycleId,
+      projectId,
+      trajectory: baseTrajectory({ projectId, steps: STEPS_DONE }),
+      decisions: [],
+      evidence: [],
+      reviewBundles: [],
+      executionContracts: [],
+    });
+    const a = assessFinalizationObligations({
+      cycle: baseCycle({ cycleInstanceId: cycleId, projectId }),
+      projectId,
+      assessedAt: "2026-09-07T16:00:00.000Z",
+      decisions: [],
+      evidence: [],
+      reviewBundles: [],
+      trajectory: baseTrajectory({ projectId, steps: STEPS_DONE }),
+      applicability: rules,
+    });
+    const ec = a.obligations.find((o) => o.family === "execution_contract");
+    expect(ec?.applicability).toBe("UNKNOWN");
+    expect(a.canComplete).toBe(false);
+  });
+
+  it("AP8 — no artifact model/policy → artifact UNKNOWN not N/A", () => {
+    const cycleId = "cyc:corr05-ap8";
+    const projectId = "prj:corr05-ap8";
+    const rules = deriveFinalizationApplicability({
+      cycleInstanceId: cycleId,
+      projectId,
+      trajectory: baseTrajectory({ projectId, steps: STEPS_DONE }),
+      decisions: [],
+      evidence: [],
+      reviewBundles: [],
+      executionContracts: [],
+    });
+    expect(rules.artifact).not.toBe("NOT_APPLICABLE");
+    const a = assessFinalizationObligations({
+      cycle: baseCycle({ cycleInstanceId: cycleId, projectId }),
+      projectId,
+      assessedAt: "2026-09-07T16:00:00.000Z",
+      decisions: [],
+      evidence: [],
+      reviewBundles: [],
+      trajectory: baseTrajectory({ projectId, steps: STEPS_DONE }),
+      applicability: rules,
+    });
+    const art = a.obligations.find((o) => o.family === "artifact");
+    expect(art?.applicability).toBe("UNKNOWN");
+    expect(art?.status).not.toBe("NOT_APPLICABLE");
+  });
+
+  it("AP2 — REQUIRE_ARTIFACT policy, no evidence → MISSING/BLOCKING", async () => {
+    const stack = buildStack(tempDbPath("ap2.sqlite"));
+    await seedProject(stack.project, "prj:corr05-ap2");
+    await seedTrajectory(stack.cycles, stack.project, "prj:corr05-ap2", {
+      steps: STEPS_DONE,
+    });
+    await createCandidate(stack.cycles, "prj:corr05-ap2", "cyc:corr05-ap2");
+    const ev = await registerPilotAuth(stack.authority, "cyc:corr05-ap2");
+    await stack.cycles.pilotLifecycle.start({
+      cycleInstanceId: "cyc:corr05-ap2",
+      projectId: "prj:corr05-ap2",
+      createdBy: PILOTE,
+      authorityEvidenceId: ev,
+    });
+    await recordObligationPolicy({
+      decisions: stack.decisions,
+      authority: stack.authority,
+      projectId: "prj:corr05-ap2",
+      cycleInstanceId: "cyc:corr05-ap2",
+      decisionId: "dec:ap2-policy",
+      evidenceId: ev,
+      selectedOptionId: OBLIGATION_POLICY_REQUIRE_ARTIFACT,
+    });
+    await recordHd({
+      decisions: stack.decisions,
+      authority: stack.authority,
+      projectId: "prj:corr05-ap2",
+      cycleInstanceId: "cyc:corr05-ap2",
+      subject: finalizeSubjectFor("cyc:corr05-ap2"),
+      decisionId: "dec:ap2-finalize",
+      evidenceId: ev,
+    });
+    const finalized = await stack.cycles.pilotLifecycle.finalize({
+      cycleInstanceId: "cyc:corr05-ap2",
+      projectId: "prj:corr05-ap2",
+      createdBy: PILOTE,
+      decisionId: "dec:ap2-finalize",
+      authorityEvidenceId: ev,
+    });
+    expect(finalized.ok).toBe(true);
+    if (!finalized.ok) return;
+    expect(finalized.assessment?.canComplete).toBe(false);
+    const art = finalized.assessment?.obligations.find(
+      (o) => o.family === "artifact",
+    );
+    expect(art?.status).toBe("MISSING");
+    expect(finalized.cycle.status).not.toBe("completed");
+  });
+
+  it("AP3 — REQUIRE_GIT policy, no git proof → MISSING", async () => {
+    const stack = buildStack(tempDbPath("ap3.sqlite"));
+    await seedProject(stack.project, "prj:corr05-ap3");
+    await seedTrajectory(stack.cycles, stack.project, "prj:corr05-ap3", {
+      steps: STEPS_DONE,
+    });
+    await createCandidate(stack.cycles, "prj:corr05-ap3", "cyc:corr05-ap3");
+    const ev = await registerPilotAuth(stack.authority, "cyc:corr05-ap3");
+    await stack.cycles.pilotLifecycle.start({
+      cycleInstanceId: "cyc:corr05-ap3",
+      projectId: "prj:corr05-ap3",
+      createdBy: PILOTE,
+      authorityEvidenceId: ev,
+    });
+    await recordObligationPolicy({
+      decisions: stack.decisions,
+      authority: stack.authority,
+      projectId: "prj:corr05-ap3",
+      cycleInstanceId: "cyc:corr05-ap3",
+      decisionId: "dec:ap3-policy",
+      evidenceId: ev,
+      selectedOptionId: OBLIGATION_POLICY_REQUIRE_GIT,
+    });
+    const assessed = await stack.cycles.pilotLifecycle.assess({
+      cycleInstanceId: "cyc:corr05-ap3",
+      projectId: "prj:corr05-ap3",
+    });
+    expect(assessed.ok).toBe(true);
+    if (!assessed.ok) return;
+    const git = assessed.assessment.obligations.find(
+      (o) => o.family === "git_repository",
+    );
+    expect(git?.status).toBe("MISSING");
+  });
+
+  it("AP9 — finalize HD required (assess without HD cannot complete)", async () => {
+    const stack = buildStack(tempDbPath("ap9.sqlite"));
+    await seedProject(stack.project, "prj:corr05-ap9");
+    await seedTrajectory(stack.cycles, stack.project, "prj:corr05-ap9", {
+      steps: STEPS_DONE,
+    });
+    await createCandidate(stack.cycles, "prj:corr05-ap9", "cyc:corr05-ap9");
+    const ev = await registerPilotAuth(stack.authority, "cyc:corr05-ap9");
+    await stack.cycles.pilotLifecycle.start({
+      cycleInstanceId: "cyc:corr05-ap9",
+      projectId: "prj:corr05-ap9",
+      createdBy: PILOTE,
+      authorityEvidenceId: ev,
+    });
+    await recordObligationPolicy({
+      decisions: stack.decisions,
+      authority: stack.authority,
+      projectId: "prj:corr05-ap9",
+      cycleInstanceId: "cyc:corr05-ap9",
+      decisionId: "dec:ap9-policy",
+      evidenceId: ev,
+      selectedOptionId: OBLIGATION_POLICY_NO_GOVERNED_EFFECTS,
+    });
+    const assessed = await stack.cycles.pilotLifecycle.assess({
+      cycleInstanceId: "cyc:corr05-ap9",
+      projectId: "prj:corr05-ap9",
+      finalizeDecisionId: "dec:ap9-missing",
+    });
+    expect(assessed.ok).toBe(true);
+    if (!assessed.ok) return;
+    expect(assessed.assessment.canComplete).toBe(false);
+    expect(assessed.assessment.blockers).toContain(
+      "finalize_human_decision_absent",
+    );
+  });
+
+  it("AP10 — ExecutionAttempt terminal_success alone does not complete", () => {
+    const cycle = baseCycle({
+      cycleInstanceId: "cyc:corr05-ap10",
+      projectId: "prj:corr05-ap10",
+    });
+    const assessment = assessFinalizationObligations({
+      cycle,
+      projectId: "prj:corr05-ap10",
+      assessedAt: "2026-09-07T16:00:00.000Z",
+      decisions: [],
+      evidence: [],
+      reviewBundles: [],
+      trajectory: null,
+      executionAttempts: [
+        {
+          attemptId: "att:1",
+          terminalState: "terminal_success",
+        },
+      ],
+    });
+    expect(assessment.canComplete).toBe(false);
+    expect(assessment.finalizeAccepted).toBe(false);
+  });
+
+  it("AP-runtime — createRuntimeApplicationService START then FINALIZE → completed", async () => {
+    class FixedIdSource implements LocalProjectIdSource {
+      private project = 0;
+      private lps = 0;
+      private correlation = 0;
+      nextProjectId(): string {
+        this.project += 1;
+        return `prj:corr05-rt-${this.project}`;
+      }
+      nextLpsVersionId(): string {
+        this.lps += 1;
+        return `lps:corr05-rt-${this.lps}`;
+      }
+      nextCorrelationId(): string {
+        this.correlation += 1;
+        return `cor:corr05-rt-${this.correlation}`;
+      }
+    }
+
+    resetRuntimeApplicationServiceForTests();
+    const runtime = createRuntimeApplicationService({
+      registryRoot: FIXTURES,
+      schemasRoot: SCHEMAS,
+      nowIso: "2026-09-07T16:00:00.000Z",
+      idSource: new FixedIdSource(),
+      auditMode: "noop",
+    });
+    expect(runtime.oa).toBeTruthy();
+    if (!runtime.oa) return;
+
+    const created = await runtime.createProject({
+      name: "CORR-05 runtime AP",
+      objective: "lifecycle",
+      context: "corr05-runtime",
+      criticality: "STANDARD",
+      constraints: [],
+      shortReference: "C05RT",
+      idempotencyKey: "idem:corr05-ap-runtime",
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+    const projectId = created.projectId;
+    const oa = runtime.oa;
+
+    const traj = await oa.cycleServices.createInitialTrajectory.execute({
+      trajectoryId: `trj:${projectId}`,
+      projectId,
+      steps: STEPS_DONE,
+      status: "active",
+      expectedLpsVersion: created.livingState.version,
+      createdBy: ACTOR,
+    });
+    expect(traj.ok).toBe(true);
+
+    const cycleInstanceId = "cyc:corr05-ap-rt";
+    const cycle = await oa.cycleServices.createCycle.execute({
+      cycleInstanceId,
+      cycleTypeId: "cyc:delivery",
+      projectId,
+      signals: { lowRiskBounded: true },
+      createdBy: {
+        actorId: "actor:nora-f2",
+        role: "agent",
+        displayName: "Nora F2",
+        authorityLevel: "N1",
+      },
+      linkAsActiveCycle: false,
+    });
+    expect(cycle.ok).toBe(true);
+
+    const auth = registerLocalPiloteAuthority({
+      authorityResolver: oa.authorityResolver,
+      scope: `pilot-lifecycle:${cycleInstanceId}`,
+      issuedAt: "2026-09-07T16:00:00.000Z",
+      forceEnable: true,
+    });
+    expect(auth.ok).toBe(true);
+    if (!auth.ok) return;
+    const evidenceId = auth.evidenceId;
+
+    const start = await oa.cycleServices.pilotLifecycle.start({
+      cycleInstanceId,
+      projectId,
+      createdBy: PILOTE,
+      authorityEvidenceId: evidenceId,
+    });
+    expect(start.ok).toBe(true);
+
+    const policy = await oa.decisionServices.recordHumanDecision.execute({
+      decisionId: "dec:ap-rt-policy",
+      projectId,
+      cycleInstanceId,
+      subject: obligationPolicySubjectFor(cycleInstanceId),
+      options: [
+        {
+          optionId: OBLIGATION_POLICY_NO_GOVERNED_EFFECTS,
+          label: "No governed effects",
+        },
+        { optionId: "opt:accept", label: "Accept" },
+      ],
+      selectedOptionId: OBLIGATION_POLICY_NO_GOVERNED_EFFECTS,
+      actor: LOCAL_PILOTE_ACTOR,
+      authority: "morris",
+      status: "accepted",
+      reversible: false,
+      scope: `pilot-lifecycle:${cycleInstanceId}`,
+      authorityEvidenceId: evidenceId,
+    });
+    expect(policy.ok).toBe(true);
+
+    const hd = await oa.decisionServices.recordHumanDecision.execute({
+      decisionId: "dec:ap-rt-finalize",
+      projectId,
+      cycleInstanceId,
+      subject: finalizeSubjectFor(cycleInstanceId),
+      options: [
+        { optionId: "opt:accept", label: "Accept" },
+        { optionId: "opt:refuse", label: "Refuse" },
+      ],
+      selectedOptionId: "opt:accept",
+      actor: LOCAL_PILOTE_ACTOR,
+      authority: "morris",
+      status: "accepted",
+      reversible: false,
+      scope: `pilot-lifecycle:${cycleInstanceId}`,
+      authorityEvidenceId: evidenceId,
+    });
+    expect(hd.ok).toBe(true);
+
+    const finalized = await oa.cycleServices.pilotLifecycle.finalize({
+      cycleInstanceId,
+      projectId,
+      createdBy: PILOTE,
+      decisionId: "dec:ap-rt-finalize",
+      authorityEvidenceId: evidenceId,
+    });
+    expect(finalized.ok).toBe(true);
+    if (!finalized.ok) return;
+    expect(finalized.assessment?.canComplete).toBe(true);
+    expect(finalized.cycle.status).toBe("completed");
+    resetRuntimeApplicationServiceForTests();
+  });
+});
+
+describe("BL — blockers", () => {
+  it("BL1 — blocking Reservation → START refused CYCLE_START_NOT_READY", async () => {
+    const stack = buildStack(tempDbPath("bl1.sqlite"));
+    await seedProject(stack.project, "prj:corr05-bl1");
+    await seedTrajectory(stack.cycles, stack.project, "prj:corr05-bl1");
+    await createCandidate(stack.cycles, "prj:corr05-bl1", "cyc:corr05-bl1");
+    const epi = await stack.cycles.updateEpistemicState.execute({
+      projectId: "prj:corr05-bl1",
+      createdBy: ACTOR,
+      items: [
+        {
+          epistemicItemId: "epi:bl1-rsv",
+          type: "Reservation",
+          statement: "blocking_reservation_bl1",
+          status: "active",
+          blocking: true,
+        },
+      ],
+    });
+    expect(epi.ok).toBe(true);
+    const ev = await registerPilotAuth(stack.authority, "cyc:corr05-bl1");
+    const start = await stack.cycles.pilotLifecycle.start({
+      cycleInstanceId: "cyc:corr05-bl1",
+      projectId: "prj:corr05-bl1",
+      createdBy: PILOTE,
+      authorityEvidenceId: ev,
+    });
+    expect(start.ok).toBe(false);
+    if (start.ok) return;
+    expect(start.error.detailCode).toBe("CYCLE_START_NOT_READY");
+    expect(start.error.internalCauseRef ?? "").toContain(
+      "blocking_reservations",
+    );
+  });
+
+  it("BL2 — after START+PAUSE, pauseReconciliation.blockerFingerprint includes reservation", async () => {
+    const stack = buildStack(tempDbPath("bl2.sqlite"));
+    await seedProject(stack.project, "prj:corr05-bl2");
+    await seedTrajectory(stack.cycles, stack.project, "prj:corr05-bl2");
+    await createCandidate(stack.cycles, "prj:corr05-bl2", "cyc:corr05-bl2");
+    const ev = await registerPilotAuth(stack.authority, "cyc:corr05-bl2");
+    await stack.cycles.pilotLifecycle.start({
+      cycleInstanceId: "cyc:corr05-bl2",
+      projectId: "prj:corr05-bl2",
+      createdBy: PILOTE,
+      authorityEvidenceId: ev,
+    });
+    await stack.cycles.updateEpistemicState.execute({
+      projectId: "prj:corr05-bl2",
+      createdBy: ACTOR,
+      items: [
+        {
+          epistemicItemId: "epi:bl2-rsv",
+          type: "Reservation",
+          statement: "pause_blocker_bl2",
+          status: "active",
+          blocking: true,
+        },
+      ],
+    });
+    const paused = await stack.cycles.pilotLifecycle.pause({
+      cycleInstanceId: "cyc:corr05-bl2",
+      projectId: "prj:corr05-bl2",
+      createdBy: PILOTE,
+      authorityEvidenceId: ev,
+    });
+    expect(paused.ok).toBe(true);
+    if (!paused.ok) return;
+    expect(paused.cycle.pauseReconciliation?.blockerFingerprint).toContain(
+      "pause_blocker_bl2",
+    );
+  });
+
+  it("BL3 — PAUSE then new blocking reservation → RESUME CYCLE_RESUME_DRIFT", async () => {
+    const stack = buildStack(tempDbPath("bl3.sqlite"));
+    await seedProject(stack.project, "prj:corr05-bl3");
+    await seedTrajectory(stack.cycles, stack.project, "prj:corr05-bl3");
+    await createCandidate(stack.cycles, "prj:corr05-bl3", "cyc:corr05-bl3");
+    const ev = await registerPilotAuth(stack.authority, "cyc:corr05-bl3");
+    await stack.cycles.pilotLifecycle.start({
+      cycleInstanceId: "cyc:corr05-bl3",
+      projectId: "prj:corr05-bl3",
+      createdBy: PILOTE,
+      authorityEvidenceId: ev,
+    });
+    await stack.cycles.pilotLifecycle.pause({
+      cycleInstanceId: "cyc:corr05-bl3",
+      projectId: "prj:corr05-bl3",
+      createdBy: PILOTE,
+      authorityEvidenceId: ev,
+    });
+    await stack.cycles.updateEpistemicState.execute({
+      projectId: "prj:corr05-bl3",
+      createdBy: ACTOR,
+      items: [
+        {
+          epistemicItemId: "epi:bl3-rsv",
+          type: "Reservation",
+          statement: "introduced_after_pause",
+          status: "active",
+          blocking: true,
+        },
+      ],
+    });
+    const resume = await stack.cycles.pilotLifecycle.resume({
+      cycleInstanceId: "cyc:corr05-bl3",
+      projectId: "prj:corr05-bl3",
+      createdBy: PILOTE,
+      authorityEvidenceId: ev,
+    });
+    expect(resume.ok).toBe(false);
+    if (resume.ok) return;
+    expect(resume.error.detailCode).toBe("CYCLE_RESUME_DRIFT");
+    const cycle = await stack.cycles.getCycle.execute({
+      cycleInstanceId: "cyc:corr05-bl3",
+    });
+    expect(cycle.ok).toBe(true);
+    if (!cycle.ok) return;
+    expect(cycle.cycle.status).toBe("paused");
+    const lps = await stack.project.getCurrentLivingProjectState.execute({
+      projectId: "prj:corr05-bl3",
+    });
+    expect(lps.ok).toBe(true);
+    if (!lps.ok) return;
+    expect(lps.livingProjectState.activeCycleInstanceId).toBeUndefined();
+  });
+
+  it("BL4 — materialDriftDetected:false still drifts when blockers change", async () => {
+    const stack = buildStack(tempDbPath("bl4.sqlite"));
+    await seedProject(stack.project, "prj:corr05-bl4");
+    await seedTrajectory(stack.cycles, stack.project, "prj:corr05-bl4");
+    await createCandidate(stack.cycles, "prj:corr05-bl4", "cyc:corr05-bl4");
+    const ev = await registerPilotAuth(stack.authority, "cyc:corr05-bl4");
+    await stack.cycles.pilotLifecycle.start({
+      cycleInstanceId: "cyc:corr05-bl4",
+      projectId: "prj:corr05-bl4",
+      createdBy: PILOTE,
+      authorityEvidenceId: ev,
+    });
+    await stack.cycles.pilotLifecycle.pause({
+      cycleInstanceId: "cyc:corr05-bl4",
+      projectId: "prj:corr05-bl4",
+      createdBy: PILOTE,
+      authorityEvidenceId: ev,
+    });
+    await stack.cycles.updateEpistemicState.execute({
+      projectId: "prj:corr05-bl4",
+      createdBy: ACTOR,
+      items: [
+        {
+          epistemicItemId: "epi:bl4-rsv",
+          type: "Reservation",
+          statement: "drift_even_if_hint_false",
+          status: "active",
+          blocking: true,
+        },
+      ],
+    });
+    const resume = await stack.cycles.pilotLifecycle.resume({
+      cycleInstanceId: "cyc:corr05-bl4",
+      projectId: "prj:corr05-bl4",
+      createdBy: PILOTE,
+      authorityEvidenceId: ev,
+      materialDriftDetected: false,
+    });
+    expect(resume.ok).toBe(false);
+    if (resume.ok) return;
+    expect(resume.error.detailCode).toBe("CYCLE_RESUME_DRIFT");
+  });
+
+  it("BL6 — clean resume without blockers works", async () => {
+    const stack = buildStack(tempDbPath("bl6.sqlite"));
+    await seedProject(stack.project, "prj:corr05-bl6");
+    await seedTrajectory(stack.cycles, stack.project, "prj:corr05-bl6");
+    await createCandidate(stack.cycles, "prj:corr05-bl6", "cyc:corr05-bl6");
+    const ev = await registerPilotAuth(stack.authority, "cyc:corr05-bl6");
+    await stack.cycles.pilotLifecycle.start({
+      cycleInstanceId: "cyc:corr05-bl6",
+      projectId: "prj:corr05-bl6",
+      createdBy: PILOTE,
+      authorityEvidenceId: ev,
+    });
+    await stack.cycles.pilotLifecycle.pause({
+      cycleInstanceId: "cyc:corr05-bl6",
+      projectId: "prj:corr05-bl6",
+      createdBy: PILOTE,
+      authorityEvidenceId: ev,
+    });
+    const resume = await stack.cycles.pilotLifecycle.resume({
+      cycleInstanceId: "cyc:corr05-bl6",
+      projectId: "prj:corr05-bl6",
+      createdBy: PILOTE,
+      authorityEvidenceId: ev,
+    });
+    expect(resume.ok).toBe(true);
+    if (!resume.ok) return;
+    expect(resume.cycle.status).toBe("active");
+  });
+
+  it("BL7 — trajectory blocked step still blocks START", async () => {
+    const stack = buildStack(tempDbPath("bl7.sqlite"));
+    await seedProject(stack.project, "prj:corr05-bl7");
+    await seedTrajectory(stack.cycles, stack.project, "prj:corr05-bl7", {
+      steps: [{ stepId: "stp:x", order: 1, label: "X", state: "blocked" }],
+    });
+    await createCandidate(stack.cycles, "prj:corr05-bl7", "cyc:corr05-bl7");
+    const ev = await registerPilotAuth(stack.authority, "cyc:corr05-bl7");
+    const start = await stack.cycles.pilotLifecycle.start({
+      cycleInstanceId: "cyc:corr05-bl7",
+      projectId: "prj:corr05-bl7",
+      createdBy: PILOTE,
+      authorityEvidenceId: ev,
+    });
+    expect(start.ok).toBe(false);
+    if (start.ok) return;
+    expect(start.error.detailCode).toBe("CYCLE_START_NOT_READY");
+    expect(start.error.internalCauseRef ?? "").toContain(
+      "trajectory_entry_blocked",
+    );
+  });
+});
+
+describe("SP — superseded", () => {
+  it("SP1/SP2 — proposed/acknowledged canStart true via projectPilotLifecycle", () => {
+    for (const status of ["proposed", "acknowledged"] as const) {
+      expect(isStartableCandidateStatus(status)).toBe(true);
+      const projection = projectPilotLifecycle({
+        projectId: "prj:sp12",
+        cycles: [
+          baseCycle({
+            cycleInstanceId: `cyc:sp12-${status}`,
+            projectId: "prj:sp12",
+            status,
+          }),
+        ],
+        lpsActiveCycleInstanceId: null,
+      });
+      expect(projection.cta.canStart).toBe(true);
+      expect(projection.selectedCycleInstanceId).toBe(`cyc:sp12-${status}`);
+    }
+  });
+
+  it("SP3 — superseded canStart false", () => {
+    expect(isStartableCandidateStatus("superseded")).toBe(false);
+    const projection = projectPilotLifecycle({
+      projectId: "prj:sp3",
+      cycles: [
+        baseCycle({
+          cycleInstanceId: "cyc:sp3",
+          projectId: "prj:sp3",
+          status: "superseded",
+        }),
+      ],
+      lpsActiveCycleInstanceId: null,
+    });
+    expect(projection.cta.canStart).toBe(false);
+    expect(projection.supersededCycles).toHaveLength(1);
+  });
+
+  it("SP4 — server START on superseded fails", async () => {
+    const stack = buildStack(tempDbPath("sp4.sqlite"));
+    await seedProject(stack.project, "prj:corr05-sp4");
+    await seedTrajectory(stack.cycles, stack.project, "prj:corr05-sp4");
+    await createCandidate(stack.cycles, "prj:corr05-sp4", "cyc:corr05-sp4");
+    const got = await stack.cycles.getCycle.execute({
+      cycleInstanceId: "cyc:corr05-sp4",
+    });
+    expect(got.ok).toBe(true);
+    if (!got.ok) return;
+    await stack.cycles.cycles.save({ ...got.cycle, status: "superseded" });
+    const ev = await registerPilotAuth(stack.authority, "cyc:corr05-sp4");
+    const start = await stack.cycles.pilotLifecycle.start({
+      cycleInstanceId: "cyc:corr05-sp4",
+      projectId: "prj:corr05-sp4",
+      createdBy: PILOTE,
+      authorityEvidenceId: ev,
+    });
+    expect(start.ok).toBe(false);
+    if (start.ok) return;
+    expect([
+      "CYCLE_TRANSITION_INVALID",
+      "CYCLE_START_NOT_READY",
+    ]).toContain(start.error.detailCode);
+  });
+
+  it("SP5 — one proposed + two superseded → selected proposed, not ambiguous, canStart", () => {
+    const projection = projectPilotLifecycle({
+      projectId: "prj:sp5",
+      cycles: [
+        baseCycle({
+          cycleInstanceId: "cyc:sp5-a",
+          projectId: "prj:sp5",
+          status: "superseded",
+        }),
+        baseCycle({
+          cycleInstanceId: "cyc:sp5-b",
+          projectId: "prj:sp5",
+          status: "proposed",
+        }),
+        baseCycle({
+          cycleInstanceId: "cyc:sp5-c",
+          projectId: "prj:sp5",
+          status: "superseded",
+        }),
+      ],
+      lpsActiveCycleInstanceId: null,
+    });
+    expect(projection.selectedCycleInstanceId).toBe("cyc:sp5-b");
+    expect(projection.selectionAmbiguous).toBe(false);
+    expect(projection.cta.canStart).toBe(true);
+    expect(projection.supersededCycles).toHaveLength(2);
+  });
+});
+
+describe("SC runtime acceptance", () => {
+  it("SC01–SC06 + SC12 — candidate → start → pause → resume → finalize completed", async () => {
+    const stack = buildStack(tempDbPath("sc.sqlite"));
+    await seedProject(stack.project, "prj:corr05-sc");
+    // SC01/SC02 — candidate, no active link
+    const created = await createCandidate(
+      stack.cycles,
+      "prj:corr05-sc",
+      "cyc:corr05-sc",
+      false,
+    );
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+    expect(isStartableCandidateStatus(created.cycle.status)).toBe(true);
+    expect(created.cycle.status).not.toBe("active");
+    let lps = await stack.project.getCurrentLivingProjectState.execute({
+      projectId: "prj:corr05-sc",
+    });
+    expect(lps.ok).toBe(true);
+    if (!lps.ok) return;
+    expect(lps.livingProjectState.activeCycleInstanceId).toBeUndefined();
+
+    await seedTrajectory(stack.cycles, stack.project, "prj:corr05-sc", {
+      steps: STEPS_DONE,
+    });
+    const ev = await registerPilotAuth(stack.authority, "cyc:corr05-sc");
+
+    // SC03 — START
+    const started = await stack.cycles.pilotLifecycle.start({
+      cycleInstanceId: "cyc:corr05-sc",
+      projectId: "prj:corr05-sc",
+      createdBy: PILOTE,
+      authorityEvidenceId: ev,
+    });
+    expect(started.ok).toBe(true);
+    if (!started.ok) return;
+    expect(started.cycle.status).toBe("active");
+    expect(started.activeCycleInstanceId).toBe("cyc:corr05-sc");
+
+    // SC04 — PAUSE
+    const paused = await stack.cycles.pilotLifecycle.pause({
+      cycleInstanceId: "cyc:corr05-sc",
+      projectId: "prj:corr05-sc",
+      createdBy: PILOTE,
+      authorityEvidenceId: ev,
+    });
+    expect(paused.ok).toBe(true);
+    if (!paused.ok) return;
+    expect(paused.cycle.status).toBe("paused");
+    expect(paused.activeCycleInstanceId).toBeNull();
+
+    // SC05 — RESUME
+    const resumed = await stack.cycles.pilotLifecycle.resume({
+      cycleInstanceId: "cyc:corr05-sc",
+      projectId: "prj:corr05-sc",
+      createdBy: PILOTE,
+      authorityEvidenceId: ev,
+    });
+    expect(resumed.ok).toBe(true);
+    if (!resumed.ok) return;
+    expect(resumed.cycle.status).toBe("active");
+
+    // SC06 — second START refused while active sibling path covered by create+start sibling
+    const sibling = await createCandidate(
+      stack.cycles,
+      "prj:corr05-sc",
+      "cyc:corr05-sc-b",
+    );
+    expect(sibling.ok).toBe(true);
+    const evB = await registerPilotAuth(stack.authority, "cyc:corr05-sc-b");
+    const startB = await stack.cycles.pilotLifecycle.start({
+      cycleInstanceId: "cyc:corr05-sc-b",
+      projectId: "prj:corr05-sc",
+      createdBy: PILOTE,
+      authorityEvidenceId: evB,
+    });
+    expect(startB.ok).toBe(false);
+
+    // SC12 — FINALIZE complete via obligation policy
+    await recordObligationPolicy({
+      decisions: stack.decisions,
+      authority: stack.authority,
+      projectId: "prj:corr05-sc",
+      cycleInstanceId: "cyc:corr05-sc",
+      decisionId: "dec:sc-policy",
+      evidenceId: ev,
+      selectedOptionId: OBLIGATION_POLICY_NO_GOVERNED_EFFECTS,
+    });
+    await recordHd({
+      decisions: stack.decisions,
+      authority: stack.authority,
+      projectId: "prj:corr05-sc",
+      cycleInstanceId: "cyc:corr05-sc",
+      subject: finalizeSubjectFor("cyc:corr05-sc"),
+      decisionId: "dec:sc-finalize",
+      evidenceId: ev,
+    });
+    const finalized = await stack.cycles.pilotLifecycle.finalize({
+      cycleInstanceId: "cyc:corr05-sc",
+      projectId: "prj:corr05-sc",
+      createdBy: PILOTE,
+      decisionId: "dec:sc-finalize",
+      authorityEvidenceId: ev,
+    });
+    expect(finalized.ok).toBe(true);
+    if (!finalized.ok) return;
+    expect(finalized.assessment?.canComplete).toBe(true);
+    expect(finalized.cycle.status).toBe("completed");
+    lps = await stack.project.getCurrentLivingProjectState.execute({
+      projectId: "prj:corr05-sc",
+    });
+    expect(lps.ok).toBe(true);
+    if (!lps.ok) return;
+    expect(lps.livingProjectState.activeCycleInstanceId).toBeUndefined();
   });
 });
 
@@ -3203,7 +4240,7 @@ import type {
   ProjectTrajectory,
   StartReadinessAssessment,
 } from "../domain/types";
-import { isCandidateNonActiveStatus } from "../domain/lifecycleInvariants";
+import { isStartableCandidateStatus } from "../domain/lifecycleInvariants";
 import {
   isAcceptedStartTrajectoryDecision,
   startTrajectorySubjectFor,
@@ -3222,6 +4259,8 @@ export type AssessStartReadinessInput = {
   /** Optional decisionId supplied by caller — validated, never trusted alone. */
   decisionId?: string;
   blockingReservationStatements?: readonly string[];
+  /** Fail-closed when epistemic/blocker reader is unavailable or throws. */
+  blockerSourceUnreadable?: boolean;
   doctrineReadable: boolean;
   /**
    * When true, durable context shows an undecided structuring trajectory choice
@@ -3248,7 +4287,7 @@ export function assessStartReadiness(
     if (input.cycle.projectId !== input.projectId) {
       blockers.push("cycle_project_mismatch");
     }
-    if (!isCandidateNonActiveStatus(input.cycle.status)) {
+    if (!isStartableCandidateStatus(input.cycle.status)) {
       blockers.push(`cycle_not_candidate:${input.cycle.status}`);
     }
     if (!input.cycle.cycleTypeId?.trim()) {
@@ -3283,6 +4322,10 @@ export function assessStartReadiness(
   );
   if (openDeps.length > 0) {
     blockers.push("trajectory_entry_blocked");
+  }
+
+  if (input.blockerSourceUnreadable === true) {
+    blockers.push("blocker_source_unreadable");
   }
 
   const blockingReservations = input.blockingReservationStatements ?? [];
@@ -3350,6 +4393,337 @@ export function assessStartReadiness(
 ```
 
 
+## CREATED `projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts`
+
+```typescript
+/**
+ * CORR-PROOF-05 — Product-derived FinalizationApplicabilityRules.
+ * NEVER invent NOT_APPLICABLE from mere absence of rows/proof.
+ * Explicit N/A requires durable obligation-policy HumanDecision options.
+ */
+import type { HumanDecision } from "@/lib/oa/decision";
+import type { Evidence } from "@/lib/oa/evidence-review";
+import type { ReviewBundle } from "@/lib/oa/evidence-review/domain/reviewBundleTypes";
+import type {
+  FinalizationApplicabilityRules,
+  ObligationApplicability,
+  ProjectTrajectory,
+} from "../domain/types";
+import {
+  isCurrentHumanDecisionStatus,
+  matchesLifecycleHumanDecision,
+} from "./assessFinalization";
+
+export const OBLIGATION_POLICY_SUBJECT_PREFIX =
+  "pilot.lifecycle.obligation-policy:" as const;
+
+export function obligationPolicySubjectFor(cycleInstanceId: string): string {
+  return `${OBLIGATION_POLICY_SUBJECT_PREFIX}${cycleInstanceId}`;
+}
+
+/** N/A artifact + git + execution + evidence + review. */
+export const OBLIGATION_POLICY_NO_GOVERNED_EFFECTS =
+  "opt:no-governed-effects" as const;
+export const OBLIGATION_POLICY_NO_ARTIFACT = "opt:no-artifact" as const;
+export const OBLIGATION_POLICY_NO_GIT = "opt:no-git" as const;
+export const OBLIGATION_POLICY_NO_EXECUTION = "opt:no-execution" as const;
+export const OBLIGATION_POLICY_NO_EVIDENCE = "opt:no-evidence" as const;
+export const OBLIGATION_POLICY_NO_REVIEW = "opt:no-review" as const;
+export const OBLIGATION_POLICY_REQUIRE_ARTIFACT =
+  "opt:require-artifact" as const;
+export const OBLIGATION_POLICY_REQUIRE_GIT = "opt:require-git" as const;
+
+export type DerivableExecutionContract = {
+  contractId: string;
+  cycleInstanceId?: string;
+  status: string;
+  expectedOutputs?: string[];
+  requiredCapabilities?: string[];
+  evidenceRequirements?: string[];
+  action?: string;
+  target?: string;
+  scope?: string;
+};
+
+export type DeriveFinalizationApplicabilityInput = {
+  cycleInstanceId: string;
+  projectId: string;
+  trajectory: ProjectTrajectory | null;
+  decisions: readonly HumanDecision[];
+  evidence: readonly Evidence[];
+  reviewBundles: readonly ReviewBundle[];
+  executionContracts: readonly DerivableExecutionContract[];
+};
+
+function naReasonFor(optionId: string): string {
+  return `pilot_hd_obligation_policy:${optionId}`;
+}
+
+function cycleBoundContracts(
+  contracts: readonly DerivableExecutionContract[],
+  cycleInstanceId: string,
+): DerivableExecutionContract[] {
+  return contracts.filter(
+    (c) => !c.cycleInstanceId || c.cycleInstanceId === cycleInstanceId,
+  );
+}
+
+function cycleBoundEvidence(
+  evidence: readonly Evidence[],
+  cycleInstanceId: string,
+): Evidence[] {
+  return evidence.filter(
+    (e) =>
+      !e.bindings?.cycleInstanceId ||
+      e.bindings.cycleInstanceId === cycleInstanceId,
+  );
+}
+
+function isProofStatus(status: Evidence["status"]): boolean {
+  return status === "available" || status === "verified";
+}
+
+function findCurrentObligationPolicy(
+  decisions: readonly HumanDecision[],
+  projectId: string,
+  cycleInstanceId: string,
+): HumanDecision | null {
+  const subject = obligationPolicySubjectFor(cycleInstanceId);
+  const matches = decisions.filter((d) =>
+    matchesLifecycleHumanDecision({
+      decision: d,
+      projectId,
+      cycleInstanceId,
+      subject,
+    }),
+  );
+  if (matches.length === 0) {
+    // Also accept CURRENT HD with matching subject when cycleInstanceId unset on HD
+    // but project+subject match (mirrors other lifecycle helpers).
+    const loose = decisions.filter(
+      (d) =>
+        d.projectId === projectId &&
+        d.subject === subject &&
+        isCurrentHumanDecisionStatus(d.status) &&
+        (!d.cycleInstanceId || d.cycleInstanceId === cycleInstanceId),
+    );
+    return (
+      [...loose].sort((a, b) =>
+        a.effectiveAt < b.effectiveAt
+          ? 1
+          : a.effectiveAt > b.effectiveAt
+            ? -1
+            : 0,
+      )[0] ?? null
+    );
+  }
+  return (
+    [...matches].sort((a, b) =>
+      a.effectiveAt < b.effectiveAt ? 1 : a.effectiveAt > b.effectiveAt ? -1 : 0,
+    )[0] ?? null
+  );
+}
+
+function setNa(
+  rules: FinalizationApplicabilityRules,
+  family: keyof NonNullable<FinalizationApplicabilityRules["notApplicableReasons"]>,
+  optionId: string,
+): void {
+  rules[family] = "NOT_APPLICABLE";
+  rules.notApplicableReasons = {
+    ...rules.notApplicableReasons,
+    [family]: naReasonFor(optionId),
+  };
+}
+
+function setApplicable(
+  rules: FinalizationApplicabilityRules,
+  family:
+    | "exit_criteria"
+    | "artifact"
+    | "execution_contract"
+    | "evidence"
+    | "review_bundle"
+    | "git_repository",
+): void {
+  if (rules[family] !== "NOT_APPLICABLE") {
+    rules[family] = "APPLICABLE";
+  }
+}
+
+/**
+ * Derive applicability from durable Product facts.
+ * Merge: empty → positive EC/evidence/review/trajectory signals → obligation-policy HD.
+ */
+export function deriveFinalizationApplicability(
+  input: DeriveFinalizationApplicabilityInput,
+): FinalizationApplicabilityRules {
+  const rules: FinalizationApplicabilityRules = {};
+  const cycleId = input.cycleInstanceId;
+  const contracts = cycleBoundContracts(input.executionContracts, cycleId);
+  const evidence = cycleBoundEvidence(input.evidence, cycleId);
+  const reviews = input.reviewBundles.filter(
+    (r) => !r.cycleInstanceId || r.cycleInstanceId === cycleId,
+  );
+
+  // --- Positive signals (APPLICABLE only; never N/A from absence) ---
+  if (input.trajectory) {
+    setApplicable(rules, "exit_criteria");
+  }
+
+  if (contracts.length > 0) {
+    setApplicable(rules, "execution_contract");
+  }
+
+  const anyEvidenceReq = contracts.some(
+    (c) => (c.evidenceRequirements?.length ?? 0) > 0,
+  );
+  if (evidence.length > 0 || anyEvidenceReq) {
+    setApplicable(rules, "evidence");
+  }
+
+  if (reviews.length > 0) {
+    setApplicable(rules, "review_bundle");
+  }
+
+  const artifactFromEc = contracts.some((c) =>
+    (c.expectedOutputs ?? []).some((o) => /artifact/i.test(o)),
+  );
+  const artifactFromEvidence = evidence.some((e) => e.type === "artifact");
+  if (artifactFromEc || artifactFromEvidence) {
+    setApplicable(rules, "artifact");
+  }
+  rules.artifactProofPresent = evidence.some(
+    (e) => e.type === "artifact" && isProofStatus(e.status),
+  );
+
+  const gitFromCaps = contracts.some((c) =>
+    (c.requiredCapabilities ?? []).some((cap) => /git/i.test(cap)),
+  );
+  const gitFromFields = contracts.some((c) =>
+    [c.action, c.target, c.scope].some(
+      (v) => typeof v === "string" && /git|repository/i.test(v),
+    ),
+  );
+  if (gitFromCaps || gitFromFields) {
+    setApplicable(rules, "git_repository");
+  }
+  rules.gitProofPresent = evidence.some(
+    (e) =>
+      (e.type === "attestation" ||
+        e.type === "log_ref" ||
+        e.type === "document") &&
+      isProofStatus(e.status),
+  );
+
+  // --- Obligation policy HD (explicit N/A or REQUIRE) ---
+  const policy = findCurrentObligationPolicy(
+    input.decisions,
+    input.projectId,
+    cycleId,
+  );
+  if (!policy) {
+    return rules;
+  }
+
+  const opt = policy.selectedOptionId;
+
+  const applyNaFamilies = (
+    families: Array<
+      keyof NonNullable<FinalizationApplicabilityRules["notApplicableReasons"]>
+    >,
+    optionId: string,
+  ) => {
+    for (const f of families) {
+      setNa(rules, f, optionId);
+    }
+  };
+
+  switch (opt) {
+    case OBLIGATION_POLICY_NO_GOVERNED_EFFECTS:
+      applyNaFamilies(
+        [
+          "artifact",
+          "git_repository",
+          "execution_contract",
+          "evidence",
+          "review_bundle",
+        ],
+        opt,
+      );
+      break;
+    case OBLIGATION_POLICY_NO_ARTIFACT:
+      setNa(rules, "artifact", opt);
+      break;
+    case OBLIGATION_POLICY_NO_GIT:
+      setNa(rules, "git_repository", opt);
+      break;
+    case OBLIGATION_POLICY_NO_EXECUTION:
+      setNa(rules, "execution_contract", opt);
+      break;
+    case OBLIGATION_POLICY_NO_EVIDENCE:
+      setNa(rules, "evidence", opt);
+      break;
+    case OBLIGATION_POLICY_NO_REVIEW:
+      setNa(rules, "review_bundle", opt);
+      break;
+    case OBLIGATION_POLICY_REQUIRE_ARTIFACT:
+      rules.artifact = "APPLICABLE";
+      break;
+    case OBLIGATION_POLICY_REQUIRE_GIT:
+      rules.git_repository = "APPLICABLE";
+      break;
+    default:
+      break;
+  }
+
+  return rules;
+}
+
+/** Re-export for callers that need the ObligationApplicability union locally. */
+export type { ObligationApplicability };
+
+```
+
+
+## CREATED `projects/sfia-studio/app/lib/oa/cycle/application/deriveLifecycleBlockers.ts`
+
+```typescript
+/**
+ * CORR-PROOF-05 — derive lifecycle blockers from durable epistemic reservations.
+ * No second blockers store; unreadable sources must fail closed at transitions.
+ */
+import type { EpistemicItem } from "../domain/types";
+
+export type LifecycleBlockerSnapshot =
+  | { ok: true; statements: string[]; source: "epistemic_reservation" }
+  | { ok: false; reason: "epistemic_unreadable" | "epistemic_reader_unavailable" };
+
+export function deriveLifecycleBlockersFromEpistemicItems(
+  items: readonly EpistemicItem[],
+): Extract<LifecycleBlockerSnapshot, { ok: true }> {
+  const statements = items
+    .filter(
+      (i) =>
+        i.type === "Reservation" &&
+        i.status === "active" &&
+        i.blocking === true,
+    )
+    .map((i) => i.statement)
+    .sort();
+  return { ok: true, statements, source: "epistemic_reservation" };
+}
+
+/** Helper for transitions when the epistemic reader is missing or throws. */
+export function lifecycleBlockersFromReaderFailure(
+  reason: Extract<LifecycleBlockerSnapshot, { ok: false }>["reason"],
+): Extract<LifecycleBlockerSnapshot, { ok: false }> {
+  return { ok: false, reason };
+}
+
+```
+
+
 ## CREATED `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts`
 
 ```typescript
@@ -3364,8 +4738,8 @@ import type {
   FinalizationAssessment,
 } from "../domain/types";
 import {
-  isCandidateNonActiveStatus,
   isPausedStatus,
+  isStartableCandidateStatus,
   isTerminalCycleStatus,
 } from "../domain/lifecycleInvariants";
 
@@ -3374,11 +4748,15 @@ export type PilotLifecycleProjection = {
   activeCycleInstanceId: string | null;
   activeCycle: CycleInstance | null;
   pausedCycles: CycleInstance[];
+  /** Startable candidates only (proposed | acknowledged). */
   candidateCycles: CycleInstance[];
+  /** Historical superseded — visible, never startable. */
+  supersededCycles: CycleInstance[];
   terminalCycles: CycleInstance[];
   /**
    * Selected cycle for CTA surface.
-   * Preference: LPS active → single paused → single candidate → null (ambiguous).
+   * Preference: LPS active → single paused → single startable candidate → null (ambiguous).
+   * Superseded never selected for canStart; multiple superseded alone do not create ambiguity.
    */
   selectedCycleInstanceId: string | null;
   selectedStatus: CycleInstanceStatus | null;
@@ -3409,7 +4787,10 @@ export function projectPilotLifecycle(input: {
 
   const pausedCycles = input.cycles.filter((c) => isPausedStatus(c.status));
   const candidateCycles = input.cycles.filter((c) =>
-    isCandidateNonActiveStatus(c.status),
+    isStartableCandidateStatus(c.status),
+  );
+  const supersededCycles = input.cycles.filter(
+    (c) => c.status === "superseded",
   );
   const terminalCycles = input.cycles.filter((c) =>
     isTerminalCycleStatus(c.status),
@@ -3437,7 +4818,7 @@ export function projectPilotLifecycle(input: {
 
   const cta = {
     canStart: Boolean(
-      selected && isCandidateNonActiveStatus(selected.status) && !activeCycle,
+      selected && isStartableCandidateStatus(selected.status) && !activeCycle,
     ),
     canPause: Boolean(selected && selected.status === "active"),
     canResume: Boolean(selected && isPausedStatus(selected.status) && !activeCycle),
@@ -3459,6 +4840,7 @@ export function projectPilotLifecycle(input: {
     activeCycle,
     pausedCycles,
     candidateCycles,
+    supersededCycles,
     terminalCycles,
     selectedCycleInstanceId,
     selectedStatus,
@@ -3496,6 +4878,7 @@ import type {
   AssessFinalizationResult,
   CancelCycleRequest,
   CycleInstance,
+  EpistemicItem,
   FinalizationApplicabilityRules,
   FinalizeCycleRequest,
   PauseCycleRequest,
@@ -3520,6 +4903,15 @@ import {
   buildPauseReconciliationSnapshot,
 } from "./assessResumeReconciliation";
 import { assessStartReadiness } from "./assessStartReadiness";
+import {
+  deriveFinalizationApplicability,
+  type DerivableExecutionContract,
+} from "./deriveFinalizationApplicability";
+import {
+  deriveLifecycleBlockersFromEpistemicItems,
+  lifecycleBlockersFromReaderFailure,
+  type LifecycleBlockerSnapshot,
+} from "./deriveLifecycleBlockers";
 
 function newId(prefix: "cor"): string {
   return `${prefix}:${randomBytes(8).toString("hex")}`;
@@ -3538,13 +4930,13 @@ export type LifecycleReviewBundleReader = {
   listByProject(projectId: string): Promise<ReviewBundle[]>;
 };
 
+export type LifecycleEpistemicReader = {
+  listByProject(projectId: string): Promise<EpistemicItem[]>;
+};
+
 export type LifecycleExecutionSnapshotReader = {
   listContractsByProject?(projectId: string): Promise<
-    Array<{
-      contractId: string;
-      cycleInstanceId?: string;
-      status: string;
-    }>
+    Array<DerivableExecutionContract>
   >;
   listAttemptsByProject?(projectId: string): Promise<
     Array<{
@@ -3577,8 +4969,12 @@ export type PilotLifecycleDeps = {
   evidence?: LifecycleEvidenceReader;
   reviewBundles?: LifecycleReviewBundleReader;
   execution?: LifecycleExecutionSnapshotReader;
+  epistemic?: LifecycleEpistemicReader;
   authority?: PilotLifecycleAuthorityPort;
-  /** Optional static default applicability rules for finalization assessments. */
+  /**
+   * Optional static applicability override — test-only / low-level.
+   * Product `buildAssessment` always derives from durable facts and ignores this.
+   */
   applicabilityRules?: FinalizationApplicabilityRules;
 };
 
@@ -3736,6 +5132,7 @@ export class PilotLifecycleTransitions {
         (lps.ok && lps.livingProjectState.doctrinePackageRef),
     );
 
+    const blockersSnap = await this.loadBlockers(request.projectId);
     const readiness = assessStartReadiness({
       assessedAt: timestamp,
       projectOk,
@@ -3748,6 +5145,10 @@ export class PilotLifecycleTransitions {
       decisions,
       decisionId: request.decisionId,
       doctrineReadable,
+      blockingReservationStatements: blockersSnap.ok
+        ? blockersSnap.statements
+        : undefined,
+      blockerSourceUnreadable: !blockersSnap.ok,
     });
 
     const nonHdBlockers = readiness.blockers.filter(
@@ -3906,6 +5307,7 @@ export class PilotLifecycleTransitions {
       projectResult.project.doctrinePackageRef ??
       (lps.ok ? lps.livingProjectState.doctrinePackageRef : undefined);
 
+    const blockersSnap = await this.loadBlockers(request.projectId);
     const pauseReconciliation = buildPauseReconciliationSnapshot({
       pausedAt: timestamp,
       lpsVersion: lps.ok ? lps.livingProjectState.version : 0,
@@ -3921,6 +5323,9 @@ export class PilotLifecycleTransitions {
       trajectory,
       decisions,
       evidence,
+      blockingReservationStatements: blockersSnap.ok
+        ? blockersSnap.statements
+        : [],
       projectId: request.projectId,
       cycleInstanceId: request.cycleInstanceId,
     });
@@ -4042,7 +5447,8 @@ export class PilotLifecycleTransitions {
       projectResult.project.doctrinePackageRef ??
       (lps.ok ? lps.livingProjectState.doctrinePackageRef : undefined);
 
-    const reconciliation = assessResumeReconciliation({
+    const blockersSnap = await this.loadBlockers(request.projectId);
+    let reconciliation = assessResumeReconciliation({
       cycle,
       projectId: request.projectId,
       lpsReadable: lps.ok,
@@ -4059,9 +5465,24 @@ export class PilotLifecycleTransitions {
       trajectory,
       decisions,
       evidence,
+      blockingReservationStatements: blockersSnap.ok
+        ? blockersSnap.statements
+        : [],
       siblingActiveExists: Boolean(single),
       callerMaterialDriftHint: request.materialDriftDetected === true,
     });
+    if (!blockersSnap.ok) {
+      reconciliation = {
+        clean: false,
+        driftReasons: [
+          ...new Set([
+            ...reconciliation.driftReasons,
+            "blocker_source_unreadable",
+          ]),
+        ],
+        requiresReplanHumanDecision: true,
+      };
+    }
 
     if (!reconciliation.clean) {
       // Stay paused; ensure LPS active pointer is cleared.
@@ -4528,6 +5949,22 @@ export class PilotLifecycleTransitions {
       ? await this.deps.execution.listAttemptsByProject(input.projectId)
       : [];
 
+    // Product path: always derive from durable facts (ignore static applicabilityRules).
+    const applicability = deriveFinalizationApplicability({
+      cycleInstanceId: input.cycle.cycleInstanceId,
+      projectId: input.projectId,
+      trajectory,
+      decisions,
+      evidence,
+      reviewBundles,
+      executionContracts,
+    });
+
+    const blockersSnap = await this.loadBlockers(input.projectId);
+    const blockingReservationStatements = blockersSnap.ok
+      ? blockersSnap.statements
+      : ["blocker_source_unreadable"];
+
     const snapshot: AssessFinalizationInput = {
       cycle: input.cycle,
       projectId: input.projectId,
@@ -4539,11 +5976,24 @@ export class PilotLifecycleTransitions {
       finalizeDecisionId: input.finalizeDecisionId,
       executionContracts,
       executionAttempts,
-      ...(this.deps.applicabilityRules
-        ? { applicability: this.deps.applicabilityRules }
-        : {}),
+      applicability,
+      blockingReservationStatements,
     };
     return assessFinalizationObligations(snapshot);
+  }
+
+  private async loadBlockers(
+    projectId: string,
+  ): Promise<LifecycleBlockerSnapshot> {
+    if (!this.deps.epistemic) {
+      return lifecycleBlockersFromReaderFailure("epistemic_reader_unavailable");
+    }
+    try {
+      const items = await this.deps.epistemic.listByProject(projectId);
+      return deriveLifecycleBlockersFromEpistemicItems(items);
+    } catch {
+      return lifecycleBlockersFromReaderFailure("epistemic_unreadable");
+    }
   }
 
   private async loadTrajectory(projectId: string) {
@@ -4947,6 +6397,11 @@ export function isCandidateNonActiveStatus(status: CycleInstanceStatus): boolean
   );
 }
 
+/** Startable non-active statuses only — superseded is historical, not startable. */
+export function isStartableCandidateStatus(status: CycleInstanceStatus): boolean {
+  return status === "proposed" || status === "acknowledged";
+}
+
 export function listActiveAuthorityCycles(
   cycles: readonly CycleInstance[],
 ): CycleInstance[] {
@@ -5067,7 +6522,7 @@ export function targetStatusForAction(
 ```
 
 
-# 25. Modified files — full diffs
+# 31. Modified files — full diffs
 
 
 ## MODIFIED `projects/sfia-studio/app/__tests__/oa/cycle/m2ProductCycleDurability.test.ts`
@@ -5902,10 +7357,18 @@ index 5804633c..eede8eca 100644
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/cycle/application/createCycle.ts b/projects/sfia-studio/app/lib/oa/cycle/application/createCycle.ts
-index f4e14a80..1a9b2929 100644
+index f4e14a80..1858c148 100644
 --- a/projects/sfia-studio/app/lib/oa/cycle/application/createCycle.ts
 +++ b/projects/sfia-studio/app/lib/oa/cycle/application/createCycle.ts
-@@ -137,6 +137,13 @@ export class CreateCycle {
+@@ -128,6 +128,7 @@ export class CreateCycle {
+         acknowledgedAt:
+           status === "acknowledged" ? timestamp : undefined,
+         createdAt: timestamp,
++        qualificationSignals: request.signals,
+       };
+
+       const persist = async () => {
+@@ -137,6 +138,13 @@ export class CreateCycle {
          await this.cycles.save(cycle);
 
          if (request.linkAsActiveCycle) {
@@ -5919,7 +7382,7 @@ index f4e14a80..1a9b2929 100644
            const current =
              await this.projectServices.getCurrentLivingProjectState.execute({
                projectId: request.projectId,
-@@ -144,6 +151,15 @@ export class CreateCycle {
+@@ -144,6 +152,15 @@ export class CreateCycle {
            if (!current.ok) {
              throw new Error("missing_current_lps");
            }
@@ -5935,7 +7398,7 @@ index f4e14a80..1a9b2929 100644
            const expected =
              request.expectedLpsVersion ?? current.livingProjectState.version;
            const appended =
-@@ -181,6 +197,9 @@ export class CreateCycle {
+@@ -181,6 +198,9 @@ export class CreateCycle {
          if (err instanceof Error && err.message === "cycle_id_taken") {
            return fail("CYCLE_ALREADY_EXISTS", "cycle_id_taken");
          }
@@ -6002,7 +7465,7 @@ index 5fe6aaf5..58fb4762 100644
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/cycle/domain/types.ts b/projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
-index c151d57c..baaf827b 100644
+index c151d57c..ba018f8e 100644
 --- a/projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
 +++ b/projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
 @@ -23,11 +23,55 @@ export type CycleInstanceStatus =
@@ -6061,7 +7524,7 @@ index c151d57c..baaf827b 100644
  export type TrajectoryStatus =
    | "candidate"
    | "validated"
-@@ -72,6 +116,28 @@ export type CkcSource =
+@@ -72,6 +116,38 @@ export type CkcSource =
    | "product_package"
    | "unavailable";
 
@@ -6087,15 +7550,27 @@ index c151d57c..baaf827b 100644
 +  blockerFingerprint?: string | null;
 +};
 +
++/** Explicit qualification signals — no invented scores. */
++export type CycleQualificationSignals = {
++  structuralChange?: boolean;
++  securityImpact?: boolean;
++  architectureImpact?: boolean;
++  dataImpact?: boolean;
++  irreversible?: boolean;
++  lowRiskBounded?: boolean;
++};
++
  export type CycleInstance = {
    schemaVersion: "0.1.0-oa";
    cycleInstanceId: string;
-@@ -82,6 +148,48 @@ export type CycleInstance = {
+@@ -82,6 +158,50 @@ export type CycleInstance = {
    acknowledgedAt?: string;
    createdAt: string;
    closedAt?: string;
 +  /** Set on PAUSE; cleared on successful RESUME / terminal close. */
 +  pauseReconciliation?: PauseReconciliationSnapshot | null;
++  /** Durable create-time qualification signals (JSON payload — no DDL). */
++  qualificationSignals?: CycleQualificationSignals;
 +};
 +
 +/** Applicability before proof status (CORR-PROOF-05 enforcement). */
@@ -6139,7 +7614,24 @@ index c151d57c..baaf827b 100644
  };
 
  export type TrajectoryStep = {
-@@ -290,6 +398,15 @@ export type CycleDetailCode =
+@@ -146,16 +266,6 @@ export type CkcResolution = {
+   provenance?: ProvenanceRecord;
+ };
+
+-/** Explicit qualification signals — no invented scores. */
+-export type CycleQualificationSignals = {
+-  structuralChange?: boolean;
+-  securityImpact?: boolean;
+-  architectureImpact?: boolean;
+-  dataImpact?: boolean;
+-  irreversible?: boolean;
+-  lowRiskBounded?: boolean;
+-};
+-
+ export type QualifyCycleRequest = {
+   objective?: string;
+   scope?: string;
+@@ -290,6 +400,15 @@ export type CycleDetailCode =
    | "CYCLE_ALREADY_EXISTS"
    | "CYCLE_NOT_FOUND"
    | "CYCLE_CRITICAL_JUSTIFICATION_REQUIRED"
@@ -6155,7 +7647,7 @@ index c151d57c..baaf827b 100644
    | "PROJECT_NOT_FOUND"
    | "TRAJECTORY_INVALID"
    | "TRAJECTORY_ALREADY_EXISTS"
-@@ -303,6 +420,118 @@ export type CycleDetailCode =
+@@ -303,6 +422,118 @@ export type CycleDetailCode =
    | "STATE_CONFLICT"
    | "PERSISTENCE_FAILURE";
 
@@ -6282,10 +7774,10 @@ index c151d57c..baaf827b 100644
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/cycle/index.ts b/projects/sfia-studio/app/lib/oa/cycle/index.ts
-index 201f8b2b..b8048b42 100644
+index 201f8b2b..ce50b3a6 100644
 --- a/projects/sfia-studio/app/lib/oa/cycle/index.ts
 +++ b/projects/sfia-studio/app/lib/oa/cycle/index.ts
-@@ -30,6 +30,47 @@ export * from "./application/qualifyCycleWithCkc";
+@@ -30,6 +30,68 @@ export * from "./application/qualifyCycleWithCkc";
  export * from "./application/bindCatalogAuthority";
  export { CreateCycle } from "./application/createCycle";
  export { GetCycle } from "./application/getCycle";
@@ -6321,6 +7813,26 @@ index 201f8b2b..b8048b42 100644
 +  type PilotLifecycleProjection,
 +} from "./application/lifecycleProjection";
 +export {
++  deriveLifecycleBlockersFromEpistemicItems,
++  lifecycleBlockersFromReaderFailure,
++  type LifecycleBlockerSnapshot,
++} from "./application/deriveLifecycleBlockers";
++export {
++  deriveFinalizationApplicability,
++  obligationPolicySubjectFor,
++  OBLIGATION_POLICY_SUBJECT_PREFIX,
++  OBLIGATION_POLICY_NO_GOVERNED_EFFECTS,
++  OBLIGATION_POLICY_NO_ARTIFACT,
++  OBLIGATION_POLICY_NO_GIT,
++  OBLIGATION_POLICY_NO_EXECUTION,
++  OBLIGATION_POLICY_NO_EVIDENCE,
++  OBLIGATION_POLICY_NO_REVIEW,
++  OBLIGATION_POLICY_REQUIRE_ARTIFACT,
++  OBLIGATION_POLICY_REQUIRE_GIT,
++  type DerivableExecutionContract,
++  type DeriveFinalizationApplicabilityInput,
++} from "./application/deriveFinalizationApplicability";
++export {
 +  PilotLifecycleTransitions,
 +  type PilotLifecycleDeps,
 +  type PilotLifecycleAuthorityPort,
@@ -6328,12 +7840,13 @@ index 201f8b2b..b8048b42 100644
 +  type LifecycleEvidenceReader,
 +  type LifecycleReviewBundleReader,
 +  type LifecycleExecutionSnapshotReader,
++  type LifecycleEpistemicReader,
 +} from "./application/pilotLifecycleTransitions";
 +export * from "./domain/lifecycleInvariants";
  export { CreateInitialTrajectory } from "./application/createInitialTrajectory";
  export { GetCurrentTrajectory } from "./application/getCurrentTrajectory";
  export { GetTrajectoryVersion } from "./application/getTrajectoryVersion";
-@@ -92,9 +133,18 @@ import {
+@@ -92,9 +154,19 @@ import {
  } from "./application/bindCatalogAuthority";
  import { ResolveCycleKnowledgeContract } from "./application/resolveCycleKnowledgeContract";
  import { UpdateEpistemicState } from "./application/updateEpistemicState";
@@ -6343,6 +7856,7 @@ index 201f8b2b..b8048b42 100644
 +  type LifecycleEvidenceReader,
 +  type LifecycleReviewBundleReader,
 +  type LifecycleExecutionSnapshotReader,
++  type LifecycleEpistemicReader,
 +  type PilotLifecycleAuthorityPort,
 +} from "./application/pilotLifecycleTransitions";
  import { DEFAULT_CYCLE_TYPE_CATALOG_AUTHORITY } from "./domain/catalogFingerprint";
@@ -6352,7 +7866,7 @@ index 201f8b2b..b8048b42 100644
  import { CkcQualificationResolver } from "./infrastructure/ckcQualificationResolver";
  import { MemoryCkcResolver } from "./infrastructure/memoryCkcResolver";
  import { MemoryCycleRepository } from "./infrastructure/memoryCycleRepository";
-@@ -132,6 +182,8 @@ export type CycleServices = {
+@@ -132,6 +204,8 @@ export type CycleServices = {
    getEpistemicState: GetEpistemicState;
    updateEpistemicState: UpdateEpistemicState;
    resolveCycleKnowledgeContract: ResolveCycleKnowledgeContract;
@@ -6361,7 +7875,7 @@ index 201f8b2b..b8048b42 100644
  };
 
  export type CreateInMemoryCycleServicesOptions = {
-@@ -139,6 +191,12 @@ export type CreateInMemoryCycleServicesOptions = {
+@@ -139,6 +213,13 @@ export type CreateInMemoryCycleServicesOptions = {
    clock?: ClockPort;
    audit?: CycleAuditPort;
    ckcResolver?: CkcResolverPort;
@@ -6369,12 +7883,13 @@ index 201f8b2b..b8048b42 100644
 +  evidence?: LifecycleEvidenceReader;
 +  reviewBundles?: LifecycleReviewBundleReader;
 +  execution?: LifecycleExecutionSnapshotReader;
++  epistemic?: LifecycleEpistemicReader;
 +  authority?: PilotLifecycleAuthorityPort;
 +  applicabilityRules?: FinalizationApplicabilityRules;
  };
 
  export type CkcQualificationServices = {
-@@ -329,6 +387,20 @@ export function createInMemoryCycleServices(
+@@ -329,6 +410,23 @@ export function createInMemoryCycleServices(
        clock,
        audit,
      ),
@@ -6389,6 +7904,9 @@ index 201f8b2b..b8048b42 100644
 +      evidence: options.evidence,
 +      reviewBundles: options.reviewBundles,
 +      execution: options.execution,
++      epistemic: options.epistemic ?? {
++        listByProject: (projectId) => epistemic.listByProject(projectId),
++      },
 +      authority: options.authority,
 +      applicabilityRules: options.applicabilityRules,
 +    }),
@@ -6403,10 +7921,10 @@ index 201f8b2b..b8048b42 100644
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/cycle/infrastructure/sqlite/createSqliteCycleServices.ts b/projects/sfia-studio/app/lib/oa/cycle/infrastructure/sqlite/createSqliteCycleServices.ts
-index 8823ec68..3722eed6 100644
+index 8823ec68..cec31f88 100644
 --- a/projects/sfia-studio/app/lib/oa/cycle/infrastructure/sqlite/createSqliteCycleServices.ts
 +++ b/projects/sfia-studio/app/lib/oa/cycle/infrastructure/sqlite/createSqliteCycleServices.ts
-@@ -12,6 +12,15 @@ import { ProposeTrajectoryVersion } from "../../application/proposeTrajectoryVer
+@@ -12,6 +12,16 @@ import { ProposeTrajectoryVersion } from "../../application/proposeTrajectoryVer
  import { QualifyCycle } from "../../application/qualifyCycle";
  import { ResolveCycleKnowledgeContract } from "../../application/resolveCycleKnowledgeContract";
  import { UpdateEpistemicState } from "../../application/updateEpistemicState";
@@ -6416,13 +7934,14 @@ index 8823ec68..3722eed6 100644
 +  type LifecycleEvidenceReader,
 +  type LifecycleReviewBundleReader,
 +  type LifecycleExecutionSnapshotReader,
++  type LifecycleEpistemicReader,
 +  type PilotLifecycleAuthorityPort,
 +} from "../../application/pilotLifecycleTransitions";
 +import type { FinalizationApplicabilityRules } from "../../domain/types";
  import { MemoryCkcResolver } from "../memoryCkcResolver";
  import type { CycleAuditPort } from "../../ports/cycleAudit";
  import type { CyclePersistenceUnitOfWorkPort } from "../../ports/cyclePersistenceUnitOfWorkPort";
-@@ -31,6 +40,12 @@ export type CreateSqliteCycleServicesOptions = {
+@@ -31,6 +41,13 @@ export type CreateSqliteCycleServicesOptions = {
    clock?: ClockPort;
    audit?: CycleAuditPort;
    ckcResolver?: CkcResolverPort;
@@ -6430,12 +7949,13 @@ index 8823ec68..3722eed6 100644
 +  evidence?: LifecycleEvidenceReader;
 +  reviewBundles?: LifecycleReviewBundleReader;
 +  execution?: LifecycleExecutionSnapshotReader;
++  epistemic?: LifecycleEpistemicReader;
 +  authority?: PilotLifecycleAuthorityPort;
 +  applicabilityRules?: FinalizationApplicabilityRules;
  };
 
  export type SqliteCycleServices = {
-@@ -52,6 +67,7 @@ export type SqliteCycleServices = {
+@@ -52,6 +69,7 @@ export type SqliteCycleServices = {
    getEpistemicState: GetEpistemicState;
    updateEpistemicState: UpdateEpistemicState;
    resolveCycleKnowledgeContract: ResolveCycleKnowledgeContract;
@@ -6443,7 +7963,7 @@ index 8823ec68..3722eed6 100644
  };
 
  /**
-@@ -120,6 +136,20 @@ export function createSqliteCycleServices(
+@@ -120,6 +138,23 @@ export function createSqliteCycleServices(
        clock,
        audit,
      ),
@@ -6458,6 +7978,9 @@ index 8823ec68..3722eed6 100644
 +      evidence: options.evidence,
 +      reviewBundles: options.reviewBundles,
 +      execution: options.execution,
++      epistemic: options.epistemic ?? {
++        listByProject: (projectId) => epistemic.listByProject(projectId),
++      },
 +      authority: options.authority,
 +      applicabilityRules: options.applicabilityRules,
 +    }),
@@ -6518,10 +8041,10 @@ index 422b847d..5d915c28 100644
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
-index 81b82ee2..c5d80196 100644
+index 81b82ee2..2c7af594 100644
 --- a/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
 +++ b/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
-@@ -183,21 +183,94 @@ function wireOaStack(
+@@ -183,21 +183,171 @@ function wireOaStack(
      projectServices.store instanceof SqliteProductStore
        ? projectServices.store
        : null;
@@ -6535,36 +8058,112 @@ index 81b82ee2..c5d80196 100644
 +      | SqliteEvidenceReviewServices
 +      | null,
 +    executionContractServices: null as ExecutionContractServices | null,
++    executionAttemptServices: null as ExecutionAttemptServices | null,
++  };
++
++  const mapAttemptTerminalState = (
++    status: string,
++  ): string | undefined => {
++    switch (status) {
++      case "succeeded":
++        return "terminal_success";
++      case "failed":
++        return "terminal_failure";
++      case "timeout":
++        return "terminal_timeout";
++      case "cancelled":
++        return "terminal_cancelled";
++      default:
++        return undefined;
++    }
++  };
++
++  const lateCycle = {
++    services: null as CycleServices | null,
 +  };
 +
 +  const lifecycleReaders = {
 +    decisions: {
-+      getById: (decisionId: string) =>
-+        late.decisionServices!.decisions.findById(decisionId),
-+      listByProject: (projectId: string) =>
-+        late.decisionServices!.decisions.listByProject(projectId),
++      getById: async (decisionId: string) => {
++        if (!late.decisionServices) return null;
++        return late.decisionServices.decisions.findById(decisionId);
++      },
++      listByProject: async (projectId: string) => {
++        if (!late.decisionServices) return [];
++        return late.decisionServices.decisions.listByProject(projectId);
++      },
 +    },
 +    evidence: {
-+      listByProject: (projectId: string) =>
-+        late.evidenceReviewServices!.repository.listByProject(projectId),
++      listByProject: async (projectId: string) => {
++        if (!late.evidenceReviewServices) return [];
++        return late.evidenceReviewServices.repository.listByProject(projectId);
++      },
 +    },
 +    reviewBundles: {
-+      listByProject: (projectId: string) =>
-+        late.evidenceReviewServices!.reviewBundleRepository.listByProject(
++      listByProject: async (projectId: string) => {
++        if (!late.evidenceReviewServices) return [];
++        return late.evidenceReviewServices.reviewBundleRepository.listByProject(
 +          projectId,
-+        ),
++        );
++      },
++    },
++    epistemic: {
++      listByProject: async (projectId: string) => {
++        if (!lateCycle.services) {
++          throw new Error("epistemic_reader_unavailable");
++        }
++        return lateCycle.services.epistemic.listByProject(projectId);
++      },
 +    },
 +    execution: {
 +      listContractsByProject: async (projectId: string) => {
++        if (!late.executionContractServices) return [];
 +        const list =
-+          await late.executionContractServices!.contracts.listByProject(
++          await late.executionContractServices.contracts.listByProject(
 +            projectId,
 +          );
 +        return list.map((c) => ({
 +          contractId: c.executionContractId,
 +          cycleInstanceId: c.cycleInstanceId,
 +          status: c.status,
++          expectedOutputs: c.expectedOutputs,
++          requiredCapabilities: c.requiredCapabilities,
++          evidenceRequirements: c.evidenceRequirements,
++          action: c.action,
++          target: c.target,
++          scope: c.scope,
 +        }));
++      },
++      listAttemptsByProject: async (projectId: string) => {
++        if (
++          !late.executionContractServices ||
++          !late.executionAttemptServices
++        ) {
++          return [];
++        }
++        const contracts =
++          await late.executionContractServices.contracts.listByProject(
++            projectId,
++          );
++        const out: Array<{
++          attemptId: string;
++          contractId?: string;
++          terminalState?: string;
++        }> = [];
++        for (const c of contracts) {
++          const attempts =
++            await late.executionAttemptServices.attempts.listByContract(
++              c.executionContractId,
++            );
++          for (const a of attempts) {
++            out.push({
++              attemptId: a.attemptId,
++              contractId: a.executionContractId,
++              terminalState: mapAttemptTerminalState(a.status),
++            });
++          }
++        }
++        return out;
 +      },
 +    },
 +  };
@@ -6609,6 +8208,7 @@ index 81b82ee2..c5d80196 100644
 +        ...lifecycleReaders,
 +        authority: authorityPort,
 +      });
++  lateCycle.services = cycleServices;
    const ckcQualification = createCkcQualificationServices({
      clock,
      registryRoot: options?.registryRoot,
@@ -6620,7 +8220,7 @@ index 81b82ee2..c5d80196 100644
 
    const decisionServices = productSqlite
      ? createSqliteDecisionServices({
-@@ -213,6 +286,7 @@ function wireOaStack(
+@@ -213,6 +363,7 @@ function wireOaStack(
          clock,
          authorityResolver,
        });
@@ -6628,7 +8228,7 @@ index 81b82ee2..c5d80196 100644
 
    const executionContractServices = productSqlite
      ? createSqliteExecutionContractServices({
-@@ -230,6 +304,7 @@ function wireOaStack(
+@@ -230,6 +381,7 @@ function wireOaStack(
          clock,
          authorityResolver,
        });
@@ -6636,7 +8236,15 @@ index 81b82ee2..c5d80196 100644
 
    // EXPLICIT TestExecutionAdapter — never omit (factory default is NoOp).
    // GAP-3: realBoundary is optional and OFF by default. M4 descriptor is
-@@ -288,6 +363,7 @@ function wireOaStack(
+@@ -273,6 +425,7 @@ function wireOaStack(
+         policy: { defaultMaxRetriesBudget: 0 },
+         realBoundary,
+       });
++  late.executionAttemptServices = executionAttemptServices;
+
+   const evidenceReviewServices = productSqlite
+     ? createSqliteEvidenceReviewServices({
+@@ -288,6 +441,7 @@ function wireOaStack(
            executionAttemptServices.attempts,
          ),
        });
@@ -6648,47 +8256,38 @@ index 81b82ee2..c5d80196 100644
 ```
 
 
-# 26. Focused tests
-`corrProof05.pilotLifecycle.d0.test.ts` — 50/50 PASS (scenarios 1–16 + A1–A10 + B1–B8 + C1–C9 + D/E + F1–F4)
-Related: ProjectAssistantPanel / mw3 panel mocks updated; m2Cognitive; w2TrackD; f2.orchestrate — PASS
+# 32. Focused test results
+corrProof05.pilotLifecycle.d0.test.ts — 72/72 PASS (1–16, A, B, C, D/E, F, AP, BL, SP, SC)
 
-# 27. Full npm test
-From `projects/sfia-studio/app`:
-Test Files  315 passed | 17 skipped (332)
-Tests  3176 passed | 135 skipped (3311)
+# 33. Product runtime acceptance
+AP1-runtime + SC12: normal stack/runtime without synthetic COMPLETE_APPLICABILITY → completed after obligation-policy HD + FINALIZE HD.
+BL1–BL7, SP1–SP5 proven.
 
-# 28. typecheck
-`npm run typecheck` — PASS (tsc --noEmit exit 0)
+# 34. Full npm test
+315 passed | 17 skipped files; **3198 passed** | 135 skipped tests
 
-# 29. build
-`npm run build` — PASS (Next.js 15.5.20 compiled successfully)
+# 35. typecheck
+PASS (tsc --noEmit after build)
 
-# 30. diff-check
-`git diff --check` → OK (exit 0)
+# 36. build
+PASS (Next.js production build)
 
-# 31. Fake/Real qualification
-- Deterministic vitest + in-memory/SQLite Product stores: ALLOWED
-- Product parallel fixture path: NOT introduced
-- REAL BOUNDARY / E2E REAL: OUT OF SCOPE
-- Evidence target: DETERMINISTIC PROVEN (enforcement correction)
+# 37. diff-check
+OK
 
-# 32. Risks / reserves
-- Local Pilot authority still requires `SFIA_STUDIO_M3_LOCAL_AUTHORITY=1` (or equivalent env) in Product runtime — fail-closed by design
-- Applicability for sparse cycles is intentionally strict (UNKNOWN) until explicit rules/proofs exist — may surface more FINALIZE incomplete until Product supplies rules
-- Pause snapshot is minimal refs/fingerprints — not full epistemic ledger
-- Cursor `move_agent_to_root` / wrong-WT checkout remains an operational hazard (mitigated by absolute impl WT path)
+# 38. Fake/Real
+Deterministic SQLite/runtime only. REAL = NOT EXECUTED. Suivi untouched.
 
-# 33. Bounded debt + exit
-Debt: REAL Suivi revalidation on existing Project remains future Morris-gated work.
-Exit this cycle: ChatGPT DELIVERY RE-REVIEW of enforcement correction.
+# 39. Risks/reserves
+- Obligation-policy HD is a Decision convention (no dedicated UI yet) — required for explicit N/A until Artifact/Git SoT exists
+- qualificationSignals persisted but not used alone for N/A (anti-invention)
+- PAUSE with unreadable epistemic snapshots empty blockers; START/RESUME fail-closed
 
-# 34. Product files explicitly not modified
-- Doctrine / C1 / C2 / framing docs
-- Schema migrations / new OA tables
-- Product Proof closure artifacts
-- REAL gateway / Stage B machinery
+# 40. Bounded debt + exit
+Debt: Product UI for obligation-policy HD; future Artifact/Git SoT if Morris decides structural authority.
+Exit: ChatGPT DELIVERY RE-REVIEW of correction #2.
 
-# 35. Local Git Truth final
+# 41. Final Local Git Truth
 ```
  M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/app/__tests__/oa/cycle/m2ProductCycleDurability.test.ts
@@ -6714,6 +8313,8 @@ Exit this cycle: ChatGPT DELIVERY RE-REVIEW of enforcement correction.
 ?? projects/sfia-studio/app/lib/oa/cycle/application/assessFinalization.ts
 ?? projects/sfia-studio/app/lib/oa/cycle/application/assessResumeReconciliation.ts
 ?? projects/sfia-studio/app/lib/oa/cycle/application/assessStartReadiness.ts
+?? projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts
+?? projects/sfia-studio/app/lib/oa/cycle/application/deriveLifecycleBlockers.ts
 ?? projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts
 ?? projects/sfia-studio/app/lib/oa/cycle/application/pilotLifecycleTransitions.ts
 ?? projects/sfia-studio/app/lib/oa/cycle/domain/lifecycleInvariants.ts
@@ -6744,7 +8345,7 @@ M	projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
 ```
 stat:
 ```
- .tmp-sfia-review/chatgpt-review.md                 | 4050 ++++++++++++++++++--
+ .tmp-sfia-review/chatgpt-review.md                 | 6861 +++++++++++++++++++-
  .../oa/cycle/m2ProductCycleDurability.test.ts      |    8 +-
  .../ProjectAssistantPanel.test.tsx                 |   16 +
  .../project-assistant/f2.orchestrate.test.ts       |    2 +-
@@ -6756,30 +8357,28 @@ stat:
  .../app/features/project-assistant/actions.ts      |  194 +
  .../features/project-assistant/f2/orchestrateF2.ts |   13 +-
  .../project-assistant/f2/studioCognitiveContext.ts |    6 +-
- .../app/lib/oa/cycle/application/createCycle.ts    |   19 +
+ .../app/lib/oa/cycle/application/createCycle.ts    |   20 +
  .../sfia-studio/app/lib/oa/cycle/domain/errors.ts  |   24 +
- .../sfia-studio/app/lib/oa/cycle/domain/types.ts   |  229 ++
- projects/sfia-studio/app/lib/oa/cycle/index.ts     |   72 +
- .../sqlite/createSqliteCycleServices.ts            |   30 +
+ .../sfia-studio/app/lib/oa/cycle/domain/types.ts   |  251 +-
+ projects/sfia-studio/app/lib/oa/cycle/index.ts     |   98 +
+ .../sqlite/createSqliteCycleServices.ts            |   35 +
  .../app/lib/oa/cycle/ports/cycleAudit.ts           |   28 +
- .../app/lib/vertical-slice-runtime/service.ts      |   84 +-
- 19 files changed, 4724 insertions(+), 348 deletions(-)
+ .../app/lib/vertical-slice-runtime/service.ts      |  162 +-
+ 19 files changed, 7777 insertions(+), 238 deletions(-)
 
 ```
 cached:
 ```
 (none)
 ```
-HEAD remains `12d837fd29a69b3e83155a06ec58dc91b0e15f0b` — Product uncommitted; staged=0 expected.
+HEAD `12d837fd29a69b3e83155a06ec58dc91b0e15f0b` · staged=0 · Product uncommitted
 
-# 36. Review Handoff publication metadata
-- Publisher: `scripts/sfia/publish-review-handoff.sh`
-- Handoff WT: `/Users/morris/Projects/sfia-workspace/sfia-review-handoff`
-- Branch: `sfia/review-handoff`
-- Canonical: `sfia-review-handoff/latest-chatgpt-review.md`
-- Commit message: `docs(review-handoff): publish CORR-PROOF-05 delivery enforcement correction`
-- Before: `53995b85b6b0a6ee0acad0fb42404607b71e3e39`
-- After: (filled post-publish)
+# 42. Review Handoff publication metadata
+- Publisher scripts/sfia/publish-review-handoff.sh
+- Handoff WT /Users/morris/Projects/sfia-workspace/sfia-review-handoff
+- Message: docs(review-handoff): publish CORR-PROOF-05 delivery enforcement correction 2
+- Before: `8d5d3a81d721ffaf2e36354a3dfef2b77e4f30b1`
+- After: (post-publish)
 
-# 37. Final verdict
+# 43. Final verdict
 **READY FOR CHATGPT CORR-PROOF-05 DELIVERY RE-REVIEW**
