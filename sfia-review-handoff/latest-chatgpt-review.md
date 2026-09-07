@@ -1,137 +1,136 @@
-# CORR-PROOF-05 — DELIVERY ENFORCEMENT CORRECTION #2
-## FINALIZATION APPLICABILITY PRODUCT WIRING + LIFECYCLE BLOCKER WIRING
+# CORR-PROOF-05 — DELIVERY ENFORCEMENT CORRECTION #3
+## CLOSED-WORLD EXIT CONSISTENCY
 ## FULL Review Pack — mono-cycle
 
 | Field | Value |
 | --- | --- |
-| **Timestamp (UTC)** | 2026-09-07T18:58:37Z |
+| **Timestamp (UTC)** | 2026-09-07T19:30:49Z |
 | **Repo** | `mcleland147/sfia-workspace` |
 | **Worktree** | `/Users/morris/Projects/sfia-wt-corr05-impl-12d837fd` |
 | **Branch** | `delivery/sfia-studio-proof-corr-05-pilot-lifecycle` |
 | **HEAD** | `12d837fd29a69b3e83155a06ec58dc91b0e15f0b` |
 | **origin/main** | `12d837fd29a69b3e83155a06ec58dc91b0e15f0b` |
-| **Handoff input (before)** | `8d5d3a81d721ffaf2e36354a3dfef2b77e4f30b1` |
-| **Cycle** | 8 — Delivery enforcement correction #2 |
+| **Handoff input (before)** | `9ae791ca048b8fdacdf22210f360d896107c039f` |
+| **Cycle** | 8 — Delivery enforcement correction #3 |
 | **Profile** | CRITICAL |
 | **Capability** | Pilot-Governed Project Lifecycle |
-| **Gaps closed** | FINALIZATION_APPLICABILITY_PRODUCT_WIRING · LIFECYCLE_BLOCKER_WIRING · LIFECYCLE_PROJECTION_SUPERSEDED_STARTABILITY |
+| **Defects closed** | APPLICABILITY_CONTRADICTION_PRECEDENCE · EXECUTION_CONTRACT_EXIT_SEMANTICS · GIT_EVIDENCE_SEMANTIC_BINDING · REVIEW_BUNDLE_EXIT_SEMANTICS · PAUSE_BLOCKER_BASELINE_UNKNOWN |
 | **Product Proof** | OPEN |
 | **runtime v3** | NON ADOPTED |
 | **Product commit** | NOT PERFORMED |
-| **Evidence** | DETERMINISTIC PROVEN (Product runtime wiring) |
+| **Evidence** | DETERMINISTIC PROVEN (closed-world exit consistency) |
 | **Verdict** | READY FOR CHATGPT CORR-PROOF-05 DELIVERY RE-REVIEW |
 
 ### Anti-claims
-NOT READY FOR COMMIT/PR/REAL · NOT PRODUCT PROOF CLOSED · NOT STAGE B · NOT runtime v3 ADOPTED · NO REAL Suivi · NO new table/migration/ledger
+NOT READY FOR COMMIT/PR/REAL · NOT PRODUCT PROOF CLOSED · NOT STAGE B · NOT runtime v3 ADOPTED · NO REAL · NO new table/migration/ledger
 
 ---
 
 # 1. Timestamp UTC
-2026-09-07T18:58:37Z
+2026-09-07T19:30:49Z
 
 # 2. Initial Local Git Truth
 - WT `delivery/sfia-studio-proof-corr-05-pilot-lifecycle` @ `12d837fd29a69b3e83155a06ec58dc91b0e15f0b` (= origin/main)
-- Handoff before `8d5d3a81d721ffaf2e36354a3dfef2b77e4f30b1`
+- Handoff before `9ae791ca048b8fdacdf22210f360d896107c039f`
 - Product dirty CORR-PROOF-05 delta intact; staged=0
 - No reset/stash/clean/move_agent_to_root
 
 # 3. Input handoff
-`8d5d3a81d721ffaf2e36354a3dfef2b77e4f30b1` — enforcement correction #1 (A–F). Remaining: Product applicability wiring, blocker wiring, superseded startability.
+`9ae791ca048b8fdacdf22210f360d896107c039f` — correction #2 Product wiring. Remaining: closed-world exit consistency (#3).
 
 # 4. Morris GO consumed
-GO CORRECTION + PUBLISH REVIEW HANDOFF (correction #2). Not consumed: Product commit/push/PR/merge, REAL, Proof closure, Stage B, v3 adopt, doctrine edits, structural persistence.
+GO CORRECTION + PUBLISH REVIEW HANDOFF (#3). Not consumed: Product commit/push/PR/merge, REAL, Proof closure, Stage B, v3 adopt, doctrine/C1/C2 edits, structural persistence.
 
 # 5. Sources read
-- Mission contract correction #2
-- Prior handoffs 6b5a266c / 7bed1588 / 53995b85 / 8d5d3a81
-- Runtime: assessFinalization, derive*, pilotLifecycleTransitions, lifecycleProjection, vertical-slice service, EpistemicItem, ExecutionContract, Evidence, Decision HD
-- Discovery: no Artifact SoT; EC has no git-effects field; best blockers = Epistemic Reservation blocking=true
+- Mission contract correction #3
+- Prior handoffs through 9ae791ca…
+- Domain: ExecutionContract statuses, ReviewBundle statuses/synthesisOnly/supersession, Evidence bindings, deriveFinalizationApplicability, assessFinalization, pause reconciliation
 
 # 6. Convergence qualification
-Same corrective / capability / Cycle 8 / baseline. KEEP/ADAPT only. No parallel engine.
+Same corrective / Cycle 8 / baseline. KEEP/ADAPT. No parallel engine.
 
-# 7. Previous accepted A–F preserved
-F2 candidate non-active; ≤1 ACTIVE; PAUSED≠BLOCKED; pauseReconciliation; server RESUME; authority no forceEnable Product; CURRENT HD; FINALIZE/CANCEL HD; no FinalizationLedger; durable projection.
+# 7. Previously accepted implementation preserved
+Candidate pre-START; ≤1 ACTIVE; PAUSED≠BLOCKED; START readiness; pauseReconciliation; server RESUME; authority no forceEnable Product; HD CURRENT; FINALIZE/CANCEL HD; Product-derived applicability; absence≠N/A; UNKNOWN→BLOCKING; epistemic blockers; superseded not startable; durable projection; no FinalizationLedger.
 
-# 8. Remaining gaps addressed
-1. Product-derived applicability via `deriveFinalizationApplicability` in buildAssessment (static COMPLETE_APPLICABILITY ignored)
-2. Epistemic blockers wired START/PAUSE/RESUME
-3. `isStartableCandidateStatus` + projection canStart excludes superseded
+# 8. Five remaining defects
+1. NO_* HD overwrote APPLICABLE (fail-open)
+2. EC confirmed/cancelled/superseded treated as settled
+3. Generic document/attestation/log_ref counted as Git proof
+4. Rejected/superseded ReviewBundle could satisfy
+5. PAUSE unreadable blockers serialized as known-empty fingerprint
 
-# 9. Product applicability source discovery
-| Family | Durable source |
+# 9. Applicability precedence before/after
+Before: setNa overwrote APPLICABLE.
+After: trySetNa — if APPLICABLE from durable fact, keep APPLICABLE + record contradiction; NO_* only converts UNKNOWN→N/A.
+
+# 10. Contradiction representation
+`FinalizationApplicabilityRules.contradictions[]` with family, positiveSource, conflictingDecisionId, conflictingOptionId.
+assessFinalization pushes blockers `*_policy_contradicts_applicability` → canComplete=false.
+
+# 11. Positive applicability source precedence
+POSITIVE DURABLE FACT > contradictory NO_* policy.
+
+# 12. NO_* policy behavior
+UNKNOWN + NO_* → N/A with `pilot_hd_obligation_policy:<opt>`.
+APPLICABLE + NO_* → contradiction BLOCKING, stays APPLICABLE.
+REQUIRE_* → UNKNOWN→APPLICABLE; no contradiction if already APPLICABLE.
+NO_GOVERNED_EFFECTS applies per-family independently.
+
+# 13. ExecutionContract actual domain statuses
+draft|proposed|validated|confirmation_required|confirmed|executing|completed|failed|cancelled|superseded
+
+# 14. Effective/current EC selection
+`selectEffectiveExecutionContracts`: cycle-bound; predecessors referenced by supersedesExecutionContractId excluded; status=superseded without successor → orphanedSuperseded (fail-closed).
+
+# 15. EC status → exit obligation matrix
+| Status | Exit |
 | --- | --- |
-| exit_criteria | ProjectTrajectory presence/steps |
-| execution | ExecutionContract list (cycle-bound) |
-| evidence | Evidence rows OR EC.evidenceRequirements |
-| review | ReviewBundle rows |
-| artifact | EC.expectedOutputs~/artifact/i OR Evidence type=artifact OR obligation-policy HD |
-| git | EC.requiredCapabilities~/git/i OR action/target/scope~/git|repository/i OR obligation-policy HD |
-| blockers | EpistemicItem Reservation blocking active |
-| explicit N/A | CURRENT HD subject `pilot.lifecycle.obligation-policy:<cycleId>` selectedOptionId opt:no-* / opt:no-governed-effects |
+| draft/proposed/validated/confirmation_required/confirmed | PENDING |
+| executing | PENDING |
+| completed | SATISFIED candidate |
+| failed | BLOCKING |
+| cancelled | BLOCKING (not satisfied) |
+| superseded (effective) | should not; orphaned → BLOCKING |
+| terminal_success Attempt alone | never completes EC family |
 
-No Artifact DB store. No git ledger. Absence alone never → N/A.
+# 16. Git applicability source
+EC requiredCapabilities~/git/i or action/target/scope~/git|repository/i or REQUIRE HD.
 
-# 10. Product applicability derivation design
-`deriveFinalizationApplicability(cycle, trajectory, decisions, evidence, reviews, contracts)` → FinalizationApplicabilityRules.
-`PilotLifecycleTransitions.buildAssessment` always calls derive (not static injection).
-Positive N/A requires CURRENT obligation-policy HD (Decision SoT reuse — not ApplicabilityLedger).
+# 17. Git evidence semantic-binding rules
+`isGitQualifyingEvidence`: available|verified AND (bindings.executionContractId ∈ git-applicable ECs OR cycle-bound + location/source explicit /git|repository/i). Type alone insufficient.
 
-# 11. Exact durable source per family
-See §9. Provenance for N/A reasons: `pilot_hd_obligation_policy:<optionId>`.
+# 18. False-positive Git proof tests
+GP1–GP8: unrelated document/EC/generic attestation → MISSING; bound Git-qualified evidence → SATISFIED.
 
-# 12. Artifact applicability/proof
-APPLICABLE from EC expectedOutputs / Evidence type=artifact / REQUIRE HD.
-Proof: Evidence type=artifact status available|verified.
-N/A only via obligation-policy HD opt:no-artifact or opt:no-governed-effects.
-Missing model alone → UNKNOWN (AP8).
+# 19. ReviewBundle actual domain statuses
+draft|ready_for_review|under_review|accepted|rejected|incomplete|superseded + synthesisOnly.
 
-# 13. Execution applicability
-EC present → APPLICABLE. Explicit N/A via opt:no-execution / no-governed-effects. Else UNKNOWN (AP7).
+# 20. Effective/current ReviewBundle selection
+`selectEffectiveReviewBundles`: supersession via supersedesReviewBundleId; synthesisOnly ineligible for satisfaction.
 
-# 14. Evidence applicability
-Rows or EC.evidenceRequirements → APPLICABLE. N/A only via policy HD.
+# 21. Review status → exit matrix
+| Status | Exit |
+| --- | --- |
+| accepted (eligible) | SATISFIED |
+| draft/ready/under_review | PENDING |
+| rejected/incomplete/synthesisOnly | BLOCKING |
+| superseded only / no current | BLOCKING not SATISFIED |
+| superseded + accepted successor | SATISFIED from successor |
 
-# 15. Review applicability
-Rows → APPLICABLE. N/A only via policy HD.
+# 22. PAUSE blocker baseline known/unknown
+`blockerSnapshotState: KNOWN|UNKNOWN` + optional reason on pauseReconciliation JSON.
+Reader fail → UNKNOWN + fingerprint null (never pretend empty-known).
 
-# 16. Git/repository applicability
-EC capabilities/action/target/scope git signals OR REQUIRE HD → APPLICABLE.
-Proof: Evidence attestation|log_ref|document available|verified.
-N/A via opt:no-git / no-governed-effects. Absence → UNKNOWN (AP5). No gitApplicable:false.
+# 23. RESUME from UNKNOWN baseline
+Always CYCLE_RESUME_DRIFT (`blocker_baseline_unknown`) even if current reader recovers empty.
 
-# 17. Explicit N/A reasons + durable provenance
-Reasons keyed from CURRENT obligation-policy HD selectedOptionId. Example: `pilot_hd_obligation_policy:opt:no-governed-effects`.
+# 24. Persistence assessment
+JSON payload fields only. No DDL.
 
-# 18. UNKNOWN fail-closed
-UNKNOWN → BLOCKING; canComplete requires zero UNKNOWN.
+# 25. Confirmation
+NO new table / store / migration / ledger / second engine.
 
-# 19. Positive completion uses normal Product wiring
-AP1-runtime + SC12: createSqliteCycleServices / createRuntimeApplicationService without applicabilityRules; obligation-policy HD + FINALIZE HD; pilotLifecycle.finalize → completed. No COMPLETE_APPLICABILITY injection on Product path.
-
-# 20. Blockers source discovery
-EpistemicItem type=Reservation status=active blocking=true via cycleServices.epistemic.listByProject / getEpistemicState.
-
-# 21. START blocker wiring
-loadBlockers → assessStartReadiness.blockingReservationStatements; unreadable → blocker_source_unreadable fail-closed.
-
-# 22. PAUSE blocker snapshot
-buildPauseReconciliationSnapshot receives statements → blockerFingerprint.
-
-# 23. RESUME blocker reconciliation
-Re-read epistemic; compare fingerprint; new blocker → CYCLE_RESUME_DRIFT; caller materialDriftDetected=false cannot override.
-
-# 24. Superseded/startability
-isStartableCandidateStatus = proposed|acknowledged only.
-Projection candidateCycles startable-only; canStart false for superseded; SP5 one proposed + many superseded → no false ambiguity.
-
-# 25. Architecture/persistence assessment
-JSON payload adaptations only (qualificationSignals echo, pauseReconciliation). No DDL.
-
-# 26. Confirmation
-NO new table / store / migration / FinalizationLedger / second engine / second authority store.
-
-# 27. Files created
+# 26. Files created
 
 - `projects/sfia-studio/app/__tests__/oa/cycle/corrProof05.pilotLifecycle.d0.test.ts`
 - `projects/sfia-studio/app/features/project-assistant/f2/pilotLifecycleActions.ts`
@@ -142,9 +141,12 @@ NO new table / store / migration / FinalizationLedger / second engine / second a
 - `projects/sfia-studio/app/lib/oa/cycle/application/deriveLifecycleBlockers.ts`
 - `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts`
 - `projects/sfia-studio/app/lib/oa/cycle/application/pilotLifecycleTransitions.ts`
+- `projects/sfia-studio/app/lib/oa/cycle/application/qualifyGitEvidence.ts`
+- `projects/sfia-studio/app/lib/oa/cycle/application/selectEffectiveExecutionContracts.ts`
+- `projects/sfia-studio/app/lib/oa/cycle/application/selectEffectiveReviewBundles.ts`
 - `projects/sfia-studio/app/lib/oa/cycle/domain/lifecycleInvariants.ts`
 
-# 28. Files modified
+# 27. Files modified
 
 - `projects/sfia-studio/app/__tests__/oa/cycle/m2ProductCycleDurability.test.ts`
 - `projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx`
@@ -165,14 +167,4088 @@ NO new table / store / migration / FinalizationLedger / second engine / second a
 - `projects/sfia-studio/app/lib/oa/cycle/ports/cycleAudit.ts`
 - `projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts`
 
-# 29. Git Review Index
-See name-status/stat and embedded content.
+# 28. Git Review Index
+See embedded created content + modified diffs.
 
 
-# 30. Full created-file content
+# 29–30. Created file contents + modified diffs
 
 
-## CREATED `projects/sfia-studio/app/__tests__/oa/cycle/corrProof05.pilotLifecycle.d0.test.ts`
+## FILE `projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts`
+
+```typescript
+/**
+ * CORR-PROOF-05 — Product-derived FinalizationApplicabilityRules.
+ * NEVER invent NOT_APPLICABLE from mere absence of rows/proof.
+ * Explicit N/A requires durable obligation-policy HumanDecision options.
+ * Positive durable APPLICABLE is monotone — NO_* cannot erase it (contradiction).
+ */
+import type { HumanDecision } from "@/lib/oa/decision";
+import type { Evidence } from "@/lib/oa/evidence-review";
+import type { ReviewBundle } from "@/lib/oa/evidence-review/domain/reviewBundleTypes";
+import type {
+  FinalizationApplicabilityRules,
+  ObligationApplicability,
+  ProjectTrajectory,
+} from "../domain/types";
+import {
+  isCurrentHumanDecisionStatus,
+  matchesLifecycleHumanDecision,
+} from "./assessFinalization";
+import {
+  isGitApplicableContract,
+  isGitQualifyingEvidence,
+} from "./qualifyGitEvidence";
+
+export const OBLIGATION_POLICY_SUBJECT_PREFIX =
+  "pilot.lifecycle.obligation-policy:" as const;
+
+export function obligationPolicySubjectFor(cycleInstanceId: string): string {
+  return `${OBLIGATION_POLICY_SUBJECT_PREFIX}${cycleInstanceId}`;
+}
+
+/** N/A artifact + git + execution + evidence + review. */
+export const OBLIGATION_POLICY_NO_GOVERNED_EFFECTS =
+  "opt:no-governed-effects" as const;
+export const OBLIGATION_POLICY_NO_ARTIFACT = "opt:no-artifact" as const;
+export const OBLIGATION_POLICY_NO_GIT = "opt:no-git" as const;
+export const OBLIGATION_POLICY_NO_EXECUTION = "opt:no-execution" as const;
+export const OBLIGATION_POLICY_NO_EVIDENCE = "opt:no-evidence" as const;
+export const OBLIGATION_POLICY_NO_REVIEW = "opt:no-review" as const;
+export const OBLIGATION_POLICY_REQUIRE_ARTIFACT =
+  "opt:require-artifact" as const;
+export const OBLIGATION_POLICY_REQUIRE_GIT = "opt:require-git" as const;
+
+export type DerivableExecutionContract = {
+  contractId: string;
+  cycleInstanceId?: string;
+  status: string;
+  expectedOutputs?: string[];
+  requiredCapabilities?: string[];
+  evidenceRequirements?: string[];
+  action?: string;
+  target?: string;
+  scope?: string;
+  supersedesExecutionContractId?: string;
+};
+
+export type DeriveFinalizationApplicabilityInput = {
+  cycleInstanceId: string;
+  projectId: string;
+  trajectory: ProjectTrajectory | null;
+  decisions: readonly HumanDecision[];
+  evidence: readonly Evidence[];
+  reviewBundles: readonly ReviewBundle[];
+  executionContracts: readonly DerivableExecutionContract[];
+};
+
+type PositiveFamily =
+  | "artifact"
+  | "execution_contract"
+  | "evidence"
+  | "review_bundle"
+  | "git_repository";
+
+function naReasonFor(optionId: string): string {
+  return `pilot_hd_obligation_policy:${optionId}`;
+}
+
+function cycleBoundContracts(
+  contracts: readonly DerivableExecutionContract[],
+  cycleInstanceId: string,
+): DerivableExecutionContract[] {
+  return contracts.filter(
+    (c) => !c.cycleInstanceId || c.cycleInstanceId === cycleInstanceId,
+  );
+}
+
+function cycleBoundEvidence(
+  evidence: readonly Evidence[],
+  cycleInstanceId: string,
+): Evidence[] {
+  return evidence.filter(
+    (e) =>
+      !e.bindings?.cycleInstanceId ||
+      e.bindings.cycleInstanceId === cycleInstanceId,
+  );
+}
+
+function isProofStatus(status: Evidence["status"]): boolean {
+  return status === "available" || status === "verified";
+}
+
+function findCurrentObligationPolicy(
+  decisions: readonly HumanDecision[],
+  projectId: string,
+  cycleInstanceId: string,
+): HumanDecision | null {
+  const subject = obligationPolicySubjectFor(cycleInstanceId);
+  const matches = decisions.filter((d) =>
+    matchesLifecycleHumanDecision({
+      decision: d,
+      projectId,
+      cycleInstanceId,
+      subject,
+    }),
+  );
+  if (matches.length === 0) {
+    const loose = decisions.filter(
+      (d) =>
+        d.projectId === projectId &&
+        d.subject === subject &&
+        isCurrentHumanDecisionStatus(d.status) &&
+        (!d.cycleInstanceId || d.cycleInstanceId === cycleInstanceId),
+    );
+    return (
+      [...loose].sort((a, b) =>
+        a.effectiveAt < b.effectiveAt
+          ? 1
+          : a.effectiveAt > b.effectiveAt
+            ? -1
+            : 0,
+      )[0] ?? null
+    );
+  }
+  return (
+    [...matches].sort((a, b) =>
+      a.effectiveAt < b.effectiveAt ? 1 : a.effectiveAt > b.effectiveAt ? -1 : 0,
+    )[0] ?? null
+  );
+}
+
+function markPositiveApplicable(
+  rules: FinalizationApplicabilityRules,
+  positiveSources: Partial<Record<PositiveFamily, string>>,
+  family: PositiveFamily,
+  source: string,
+): void {
+  rules[family] = "APPLICABLE";
+  if (!positiveSources[family]) {
+    positiveSources[family] = source;
+  }
+}
+
+/**
+ * Monotone N/A: refuse to overwrite durable positive APPLICABLE;
+ * record contradiction instead.
+ */
+function trySetNa(
+  rules: FinalizationApplicabilityRules,
+  positiveSources: Partial<Record<PositiveFamily, string>>,
+  family: PositiveFamily,
+  optionId: string,
+  policyDecision: HumanDecision,
+): void {
+  if (rules[family] === "APPLICABLE" && positiveSources[family]) {
+    rules.contradictions = [
+      ...(rules.contradictions ?? []),
+      {
+        family,
+        positiveSource: positiveSources[family]!,
+        conflictingDecisionId: policyDecision.decisionId,
+        conflictingOptionId: optionId,
+      },
+    ];
+    return;
+  }
+  rules[family] = "NOT_APPLICABLE";
+  rules.notApplicableReasons = {
+    ...rules.notApplicableReasons,
+    [family]: naReasonFor(optionId),
+  };
+}
+
+function requireApplicable(
+  rules: FinalizationApplicabilityRules,
+  family: PositiveFamily,
+): void {
+  if (rules[family] === "APPLICABLE") return;
+  rules[family] = "APPLICABLE";
+}
+
+/**
+ * Derive applicability from durable Product facts.
+ * Merge: empty → positive EC/evidence/review/trajectory signals → obligation-policy HD.
+ */
+export function deriveFinalizationApplicability(
+  input: DeriveFinalizationApplicabilityInput,
+): FinalizationApplicabilityRules {
+  const rules: FinalizationApplicabilityRules = {};
+  const positiveSources: Partial<Record<PositiveFamily, string>> = {};
+  const cycleId = input.cycleInstanceId;
+  const contracts = cycleBoundContracts(input.executionContracts, cycleId);
+  const evidence = cycleBoundEvidence(input.evidence, cycleId);
+  const reviews = input.reviewBundles.filter(
+    (r) => !r.cycleInstanceId || r.cycleInstanceId === cycleId,
+  );
+
+  // --- Positive signals (APPLICABLE only; never N/A from absence) ---
+  if (input.trajectory) {
+    rules.exit_criteria = "APPLICABLE";
+  }
+
+  if (contracts.length > 0) {
+    markPositiveApplicable(
+      rules,
+      positiveSources,
+      "execution_contract",
+      "ec_present",
+    );
+  }
+
+  const anyEvidenceReq = contracts.some(
+    (c) => (c.evidenceRequirements?.length ?? 0) > 0,
+  );
+  if (evidence.length > 0) {
+    markPositiveApplicable(rules, positiveSources, "evidence", "rows");
+  } else if (anyEvidenceReq) {
+    markPositiveApplicable(
+      rules,
+      positiveSources,
+      "evidence",
+      "ec_evidence_requirements",
+    );
+  }
+
+  if (reviews.length > 0) {
+    markPositiveApplicable(
+      rules,
+      positiveSources,
+      "review_bundle",
+      "review_present",
+    );
+  }
+
+  const artifactFromEc = contracts.some((c) =>
+    (c.expectedOutputs ?? []).some((o) => /artifact/i.test(o)),
+  );
+  const artifactFromEvidence = evidence.some((e) => e.type === "artifact");
+  if (artifactFromEc) {
+    markPositiveApplicable(
+      rules,
+      positiveSources,
+      "artifact",
+      "ec_expected_outputs",
+    );
+  } else if (artifactFromEvidence) {
+    markPositiveApplicable(
+      rules,
+      positiveSources,
+      "artifact",
+      "evidence_artifact",
+    );
+  }
+  rules.artifactProofPresent = evidence.some(
+    (e) => e.type === "artifact" && isProofStatus(e.status),
+  );
+
+  const gitApplicable = contracts.filter(isGitApplicableContract);
+  if (gitApplicable.length > 0) {
+    markPositiveApplicable(
+      rules,
+      positiveSources,
+      "git_repository",
+      "ec_capability_git",
+    );
+  }
+  const gitIds = new Set(gitApplicable.map((c) => c.contractId));
+  rules.gitProofPresent = evidence.some((e) =>
+    isGitQualifyingEvidence(e, gitIds, cycleId),
+  );
+
+  // --- Obligation policy HD (explicit N/A or REQUIRE) ---
+  const policy = findCurrentObligationPolicy(
+    input.decisions,
+    input.projectId,
+    cycleId,
+  );
+  if (!policy) {
+    return rules;
+  }
+
+  const opt = policy.selectedOptionId;
+
+  switch (opt) {
+    case OBLIGATION_POLICY_NO_GOVERNED_EFFECTS:
+      for (const family of [
+        "artifact",
+        "git_repository",
+        "execution_contract",
+        "evidence",
+        "review_bundle",
+      ] as const) {
+        trySetNa(rules, positiveSources, family, opt, policy);
+      }
+      break;
+    case OBLIGATION_POLICY_NO_ARTIFACT:
+      trySetNa(rules, positiveSources, "artifact", opt, policy);
+      break;
+    case OBLIGATION_POLICY_NO_GIT:
+      trySetNa(rules, positiveSources, "git_repository", opt, policy);
+      break;
+    case OBLIGATION_POLICY_NO_EXECUTION:
+      trySetNa(rules, positiveSources, "execution_contract", opt, policy);
+      break;
+    case OBLIGATION_POLICY_NO_EVIDENCE:
+      trySetNa(rules, positiveSources, "evidence", opt, policy);
+      break;
+    case OBLIGATION_POLICY_NO_REVIEW:
+      trySetNa(rules, positiveSources, "review_bundle", opt, policy);
+      break;
+    case OBLIGATION_POLICY_REQUIRE_ARTIFACT:
+      requireApplicable(rules, "artifact");
+      break;
+    case OBLIGATION_POLICY_REQUIRE_GIT:
+      requireApplicable(rules, "git_repository");
+      break;
+    default:
+      break;
+  }
+
+  return rules;
+}
+
+export { isGitQualifyingEvidence } from "./qualifyGitEvidence";
+
+/** Re-export for callers that need the ObligationApplicability union locally. */
+export type { ObligationApplicability };
+
+```
+
+
+## FILE `projects/sfia-studio/app/lib/oa/cycle/application/assessFinalization.ts`
+
+```typescript
+/**
+ * CORR-PROOF-05 — derived, idempotent finalization obligation assessment.
+ * No FinalizationLedger.
+ * ABSENCE OF PROOF ≠ NOT_APPLICABLE.
+ * ABSENCE OF MODEL ≠ NOT_APPLICABLE.
+ * UNKNOWN APPLICABILITY ≠ NOT_APPLICABLE → fail-closed BLOCKING.
+ */
+import type { HumanDecision } from "@/lib/oa/decision";
+import type { Evidence } from "@/lib/oa/evidence-review";
+import type { ReviewBundle } from "@/lib/oa/evidence-review/domain/reviewBundleTypes";
+import type { ProjectTrajectory } from "../domain/types";
+import type {
+  CycleInstance,
+  FinalizationApplicabilityRules,
+  FinalizationAssessment,
+  FinalizationObligation,
+  FinalizationObligationFamily,
+  ObligationApplicability,
+} from "../domain/types";
+import { selectEffectiveExecutionContracts } from "./selectEffectiveExecutionContracts";
+import { selectEffectiveReviewBundles } from "./selectEffectiveReviewBundles";
+
+const CONTRADICTION_BLOCKER: Record<
+  NonNullable<FinalizationApplicabilityRules["contradictions"]>[number]["family"],
+  string
+> = {
+  artifact: "artifact_policy_contradicts_applicability",
+  git_repository: "git_policy_contradicts_applicability",
+  execution_contract: "execution_policy_contradicts_applicability",
+  evidence: "evidence_policy_contradicts_applicability",
+  review_bundle: "review_policy_contradicts_applicability",
+};
+
+export const FINALIZE_SUBJECT_PREFIX = "pilot.lifecycle.finalize:" as const;
+export const CANCEL_SUBJECT_PREFIX = "pilot.lifecycle.cancel:" as const;
+export const START_TRAJECTORY_SUBJECT_PREFIX =
+  "pilot.lifecycle.start+trajectory:" as const;
+export const RESUME_REPLAN_SUBJECT_PREFIX =
+  "pilot.lifecycle.resume+replan:" as const;
+
+export function finalizeSubjectFor(cycleInstanceId: string): string {
+  return `${FINALIZE_SUBJECT_PREFIX}${cycleInstanceId}`;
+}
+
+export function cancelSubjectFor(cycleInstanceId: string): string {
+  return `${CANCEL_SUBJECT_PREFIX}${cycleInstanceId}`;
+}
+
+export function startTrajectorySubjectFor(cycleInstanceId: string): string {
+  return `${START_TRAJECTORY_SUBJECT_PREFIX}${cycleInstanceId}`;
+}
+
+export function resumeReplanSubjectFor(cycleInstanceId: string): string {
+  return `${RESUME_REPLAN_SUBJECT_PREFIX}${cycleInstanceId}`;
+}
+
+/** Domain-local CURRENT mapping — mirrors CORR-PROOF-04 HD lifecycle. */
+export function isCurrentHumanDecisionStatus(
+  status: HumanDecision["status"],
+): boolean {
+  return status === "accepted" || status === "amended";
+}
+
+export type LifecycleHdMatchInput = {
+  decision: HumanDecision;
+  projectId: string;
+  cycleInstanceId: string;
+  subject: string;
+};
+
+export function matchesLifecycleHumanDecision(
+  input: LifecycleHdMatchInput,
+): boolean {
+  const d = input.decision;
+  if (d.projectId !== input.projectId) return false;
+  if (d.cycleInstanceId && d.cycleInstanceId !== input.cycleInstanceId) {
+    return false;
+  }
+  if (d.subject !== input.subject) return false;
+  return isCurrentHumanDecisionStatus(d.status);
+}
+
+export function isAcceptedFinalizeDecision(
+  decision: HumanDecision,
+  cycleInstanceId: string,
+  projectId?: string,
+): boolean {
+  if (projectId && decision.projectId !== projectId) return false;
+  if (decision.cycleInstanceId && decision.cycleInstanceId !== cycleInstanceId) {
+    return false;
+  }
+  if (decision.subject !== finalizeSubjectFor(cycleInstanceId)) {
+    return false;
+  }
+  return isCurrentHumanDecisionStatus(decision.status);
+}
+
+export function isAcceptedCancelDecision(
+  decision: HumanDecision,
+  cycleInstanceId: string,
+  projectId?: string,
+): boolean {
+  if (projectId && decision.projectId !== projectId) return false;
+  if (decision.cycleInstanceId && decision.cycleInstanceId !== cycleInstanceId) {
+    return false;
+  }
+  if (decision.subject !== cancelSubjectFor(cycleInstanceId)) {
+    return false;
+  }
+  return isCurrentHumanDecisionStatus(decision.status);
+}
+
+export function isAcceptedStartTrajectoryDecision(
+  decision: HumanDecision,
+  cycleInstanceId: string,
+  projectId: string,
+): boolean {
+  return matchesLifecycleHumanDecision({
+    decision,
+    projectId,
+    cycleInstanceId,
+    subject: startTrajectorySubjectFor(cycleInstanceId),
+  });
+}
+
+export function isAcceptedResumeReplanDecision(
+  decision: HumanDecision,
+  cycleInstanceId: string,
+  projectId: string,
+): boolean {
+  return matchesLifecycleHumanDecision({
+    decision,
+    projectId,
+    cycleInstanceId,
+    subject: resumeReplanSubjectFor(cycleInstanceId),
+  });
+}
+
+export type AssessFinalizationInput = {
+  cycle: CycleInstance;
+  projectId: string;
+  assessedAt: string;
+  decisions: readonly HumanDecision[];
+  evidence: readonly Evidence[];
+  reviewBundles: readonly ReviewBundle[];
+  trajectory: ProjectTrajectory | null;
+  /**
+   * Explicit applicability rules / proofs. Client booleans are never sole SoT;
+   * omit → UNKNOWN when derivation cannot prove APPLICABLE or NOT_APPLICABLE.
+   */
+  applicability?: FinalizationApplicabilityRules;
+  executionRequired?: boolean;
+  executionContracts?: ReadonlyArray<{
+    contractId: string;
+    cycleInstanceId?: string;
+    status: string;
+    supersedesExecutionContractId?: string;
+  }>;
+  executionAttempts?: ReadonlyArray<{
+    attemptId: string;
+    contractId?: string;
+    terminalState?: string;
+  }>;
+  finalizeDecisionId?: string | null;
+  blockingReservationStatements?: readonly string[];
+};
+
+function findFinalizeDecision(
+  input: AssessFinalizationInput,
+): HumanDecision | null {
+  if (input.finalizeDecisionId) {
+    return (
+      input.decisions.find((d) => d.decisionId === input.finalizeDecisionId) ??
+      null
+    );
+  }
+  const matches = input.decisions.filter((d) =>
+    isAcceptedFinalizeDecision(d, input.cycle.cycleInstanceId, input.projectId),
+  );
+  return (
+    [...matches].sort((a, b) =>
+      a.effectiveAt < b.effectiveAt ? 1 : a.effectiveAt > b.effectiveAt ? -1 : 0,
+    )[0] ?? null
+  );
+}
+
+function resolveApplicability(
+  family: Exclude<FinalizationObligationFamily, "human_decision">,
+  derived: ObligationApplicability,
+  rules: FinalizationApplicabilityRules | undefined,
+): ObligationApplicability {
+  const override: ObligationApplicability | undefined = {
+    exit_criteria: rules?.exit_criteria,
+    artifact: rules?.artifact,
+    execution_contract: rules?.execution_contract,
+    evidence: rules?.evidence,
+    review_bundle: rules?.review_bundle,
+    git_repository: rules?.git_repository,
+    blockers: rules?.blockers,
+  }[family];
+  if (
+    override === "APPLICABLE" ||
+    override === "NOT_APPLICABLE" ||
+    override === "UNKNOWN"
+  ) {
+    return override;
+  }
+  return derived;
+}
+
+function naReason(
+  family: FinalizationObligationFamily,
+  rules: FinalizationApplicabilityRules | undefined,
+  fallback: string,
+): string {
+  return rules?.notApplicableReasons?.[
+    family as keyof NonNullable<
+      FinalizationApplicabilityRules["notApplicableReasons"]
+    >
+  ] ?? fallback;
+}
+
+function pushUnknownBlocking(
+  obligations: FinalizationObligation[],
+  blockers: string[],
+  family: FinalizationObligationFamily,
+  detail: string,
+): void {
+  obligations.push({
+    family,
+    applicability: "UNKNOWN",
+    status: "BLOCKING",
+    detail,
+    blocking: true,
+  });
+  blockers.push(`${family}_applicability_unknown`);
+}
+
+function pushNa(
+  obligations: FinalizationObligation[],
+  family: FinalizationObligationFamily,
+  reason: string,
+  detail: string,
+): void {
+  obligations.push({
+    family,
+    applicability: "NOT_APPLICABLE",
+    status: "NOT_APPLICABLE",
+    notApplicableReason: reason,
+    detail,
+  });
+}
+
+/**
+ * Pure assessment. Idempotent for the same input snapshot.
+ */
+export function assessFinalizationObligations(
+  input: AssessFinalizationInput,
+): FinalizationAssessment {
+  const obligations: FinalizationObligation[] = [];
+  const blockers: string[] = [];
+  const rules = input.applicability;
+
+  if (rules?.contradictions?.length) {
+    for (const c of rules.contradictions) {
+      blockers.push(CONTRADICTION_BLOCKER[c.family]);
+    }
+  }
+
+  const finalizeDecision = findFinalizeDecision(input);
+  const finalizeAccepted = Boolean(
+    finalizeDecision &&
+      isAcceptedFinalizeDecision(
+        finalizeDecision,
+        input.cycle.cycleInstanceId,
+        input.projectId,
+      ),
+  );
+
+  // 1) HumanDecision FINALIZE — always applicable
+  if (finalizeAccepted && finalizeDecision) {
+    obligations.push({
+      family: "human_decision",
+      applicability: "APPLICABLE",
+      status: "SATISFIED",
+      detail: `finalize_decision:${finalizeDecision.decisionId}`,
+    });
+  } else if (finalizeDecision) {
+    obligations.push({
+      family: "human_decision",
+      applicability: "APPLICABLE",
+      status: "PENDING",
+      detail: `finalize_decision_status:${finalizeDecision.status}`,
+      blocking: true,
+    });
+    blockers.push("finalize_human_decision_not_current");
+  } else {
+    obligations.push({
+      family: "human_decision",
+      applicability: "APPLICABLE",
+      status: "MISSING",
+      detail: "finalize_human_decision_absent",
+      blocking: true,
+    });
+    blockers.push("finalize_human_decision_absent");
+  }
+
+  // 2) Exit criteria / trajectory — Product Completion MUST; absence ≠ N/A
+  {
+    const derived: ObligationApplicability = input.trajectory
+      ? "APPLICABLE"
+      : "UNKNOWN";
+    const applicability = resolveApplicability("exit_criteria", derived, rules);
+    if (applicability === "NOT_APPLICABLE") {
+      pushNa(
+        obligations,
+        "exit_criteria",
+        naReason(
+          "exit_criteria",
+          rules,
+          "explicit_rule_no_exit_criteria_for_cycle",
+        ),
+        "exit_criteria_explicitly_not_applicable",
+      );
+    } else if (applicability === "UNKNOWN" || !input.trajectory) {
+      pushUnknownBlocking(
+        obligations,
+        blockers,
+        "exit_criteria",
+        input.trajectory
+          ? "exit_criteria_applicability_unknown"
+          : "trajectory_absent_applicability_unknown",
+      );
+    } else {
+      const openSteps = input.trajectory.steps.filter(
+        (s) =>
+          s.state === "pending" || s.state === "active" || s.state === "blocked",
+      );
+      if (openSteps.length === 0) {
+        obligations.push({
+          family: "exit_criteria",
+          applicability: "APPLICABLE",
+          status: "SATISFIED",
+          detail: "trajectory_steps_closed_or_skipped",
+        });
+      } else {
+        const blocked = openSteps.some((s) => s.state === "blocked");
+        obligations.push({
+          family: "exit_criteria",
+          applicability: "APPLICABLE",
+          status: blocked ? "BLOCKING" : "PENDING",
+          detail: `open_steps:${openSteps.map((s) => s.stepId).join(",")}`,
+          blocking: true,
+        });
+        blockers.push("exit_criteria_open");
+      }
+    }
+  }
+
+  // 3) Artifacts — missing model ≠ N/A
+  {
+    const derived: ObligationApplicability = "UNKNOWN";
+    const applicability = resolveApplicability("artifact", derived, rules);
+    if (applicability === "NOT_APPLICABLE") {
+      pushNa(
+        obligations,
+        "artifact",
+        naReason("artifact", rules, "explicit_rule_no_artifact_obligation"),
+        "artifact_explicitly_not_applicable",
+      );
+    } else if (applicability === "UNKNOWN") {
+      pushUnknownBlocking(
+        obligations,
+        blockers,
+        "artifact",
+        "artifact_applicability_unknown_or_model_unbound",
+      );
+    } else if (rules?.artifactProofPresent === true) {
+      obligations.push({
+        family: "artifact",
+        applicability: "APPLICABLE",
+        status: "SATISFIED",
+        detail: "artifact_proof_present",
+      });
+    } else {
+      obligations.push({
+        family: "artifact",
+        applicability: "APPLICABLE",
+        status: "MISSING",
+        detail: "artifact_required_but_proof_absent",
+        blocking: true,
+      });
+      blockers.push("artifact_missing");
+    }
+  }
+
+  // 4) ExecutionContract — 0..N; unknown ≠ auto N/A
+  {
+    const rawContracts = input.executionContracts ?? [];
+    const cycleContracts = rawContracts.filter(
+      (c) =>
+        !c.cycleInstanceId || c.cycleInstanceId === input.cycle.cycleInstanceId,
+    );
+    let derived: ObligationApplicability;
+    if (input.executionRequired === false && cycleContracts.length === 0) {
+      derived = "NOT_APPLICABLE";
+    } else if (input.executionRequired === true || cycleContracts.length > 0) {
+      derived = "APPLICABLE";
+    } else {
+      derived = "UNKNOWN";
+    }
+    const applicability = resolveApplicability(
+      "execution_contract",
+      derived,
+      rules,
+    );
+    if (applicability === "NOT_APPLICABLE") {
+      pushNa(
+        obligations,
+        "execution_contract",
+        naReason(
+          "execution_contract",
+          rules,
+          "explicit_rule_no_governed_execution_required",
+        ),
+        "execution_explicitly_not_required",
+      );
+    } else if (applicability === "UNKNOWN") {
+      pushUnknownBlocking(
+        obligations,
+        blockers,
+        "execution_contract",
+        "execution_applicability_unknown",
+      );
+    } else {
+      const { effective, orphanedSuperseded } =
+        selectEffectiveExecutionContracts(
+          rawContracts,
+          input.cycle.cycleInstanceId,
+        );
+
+      // Attempts never alone satisfy the family (EC9).
+      void input.executionAttempts;
+
+      if (orphanedSuperseded.length > 0 && effective.length === 0) {
+        obligations.push({
+          family: "execution_contract",
+          applicability: "APPLICABLE",
+          status: "BLOCKING",
+          detail: `orphaned_superseded:${orphanedSuperseded
+            .map((c) => c.contractId)
+            .join(",")}`,
+          blocking: true,
+        });
+        blockers.push("execution_superseded_unresolved");
+      } else if (effective.length === 0) {
+        obligations.push({
+          family: "execution_contract",
+          applicability: "APPLICABLE",
+          status: "MISSING",
+          detail: "execution_required_but_no_contract",
+          blocking: true,
+        });
+        blockers.push("execution_contract_missing");
+      } else {
+        let anyBlocking = orphanedSuperseded.length > 0;
+        let anyPending = false;
+        let allCompleted = true;
+        const pendingIds: string[] = [];
+        const blockingIds: string[] = [];
+
+        for (const c of effective) {
+          switch (c.status) {
+            case "completed":
+              break;
+            case "failed":
+            case "cancelled":
+            case "superseded":
+              anyBlocking = true;
+              allCompleted = false;
+              blockingIds.push(c.contractId);
+              break;
+            case "draft":
+            case "proposed":
+            case "validated":
+            case "confirmation_required":
+            case "confirmed":
+            case "executing":
+              anyPending = true;
+              allCompleted = false;
+              pendingIds.push(c.contractId);
+              break;
+            default:
+              anyPending = true;
+              allCompleted = false;
+              pendingIds.push(c.contractId);
+              break;
+          }
+        }
+
+        if (anyBlocking) {
+          obligations.push({
+            family: "execution_contract",
+            applicability: "APPLICABLE",
+            status: "BLOCKING",
+            detail:
+              orphanedSuperseded.length > 0 && blockingIds.length === 0
+                ? `orphaned_superseded:${orphanedSuperseded
+                    .map((c) => c.contractId)
+                    .join(",")}`
+                : `blocking_contracts:${blockingIds.join(",")}`,
+            blocking: true,
+          });
+          if (orphanedSuperseded.length > 0 && effective.length > 0) {
+            blockers.push("execution_superseded_unresolved");
+          }
+          blockers.push("execution_contract_blocking");
+        } else if (anyPending) {
+          obligations.push({
+            family: "execution_contract",
+            applicability: "APPLICABLE",
+            status: "PENDING",
+            detail: `open_contracts:${pendingIds.join(",")}`,
+            blocking: true,
+          });
+          blockers.push("execution_contract_open");
+        } else if (allCompleted) {
+          obligations.push({
+            family: "execution_contract",
+            applicability: "APPLICABLE",
+            status: "SATISFIED",
+            detail: "contracts_completed",
+          });
+        }
+      }
+    }
+  }
+
+  // 5) Evidence — zero rows alone ≠ N/A
+  {
+    const cycleEvidence = input.evidence.filter(
+      (e) =>
+        e.bindings?.cycleInstanceId === input.cycle.cycleInstanceId ||
+        !e.bindings?.cycleInstanceId,
+    );
+    let derived: ObligationApplicability = "UNKNOWN";
+    if (cycleEvidence.length > 0) derived = "APPLICABLE";
+    const applicability = resolveApplicability("evidence", derived, rules);
+    if (applicability === "NOT_APPLICABLE") {
+      pushNa(
+        obligations,
+        "evidence",
+        naReason("evidence", rules, "explicit_rule_no_evidence_obligation"),
+        "evidence_explicitly_not_applicable",
+      );
+    } else if (applicability === "UNKNOWN") {
+      pushUnknownBlocking(
+        obligations,
+        blockers,
+        "evidence",
+        "evidence_applicability_unknown",
+      );
+    } else if (cycleEvidence.length === 0) {
+      obligations.push({
+        family: "evidence",
+        applicability: "APPLICABLE",
+        status: "MISSING",
+        detail: "evidence_required_but_absent",
+        blocking: true,
+      });
+      blockers.push("evidence_missing");
+    } else {
+      const weak = cycleEvidence.filter(
+        (e) =>
+          e.status === "rejected" ||
+          e.status === "superseded" ||
+          e.status === "unavailable" ||
+          e.availability === "unavailable",
+      );
+      const pending = cycleEvidence.filter(
+        (e) =>
+          e.status === "expected" ||
+          e.status === "incomplete" ||
+          e.status === "stale",
+      );
+      if (weak.length === cycleEvidence.length) {
+        obligations.push({
+          family: "evidence",
+          applicability: "APPLICABLE",
+          status: "BLOCKING",
+          detail: "all_evidence_non_supporting",
+          blocking: true,
+        });
+        blockers.push("evidence_non_supporting");
+      } else if (pending.length > 0) {
+        obligations.push({
+          family: "evidence",
+          applicability: "APPLICABLE",
+          status: "PENDING",
+          detail: `pending_evidence:${pending.length}`,
+          blocking: true,
+        });
+        blockers.push("evidence_pending");
+      } else {
+        obligations.push({
+          family: "evidence",
+          applicability: "APPLICABLE",
+          status: "SATISFIED",
+          detail: `supporting_evidence:${cycleEvidence.length - weak.length}`,
+        });
+      }
+    }
+  }
+
+  // 6) ReviewBundle — zero rows alone ≠ N/A
+  {
+    const cycleReviews = input.reviewBundles.filter(
+      (r) =>
+        !r.cycleInstanceId || r.cycleInstanceId === input.cycle.cycleInstanceId,
+    );
+    let derived: ObligationApplicability = "UNKNOWN";
+    if (cycleReviews.length > 0) derived = "APPLICABLE";
+    const applicability = resolveApplicability("review_bundle", derived, rules);
+    if (applicability === "NOT_APPLICABLE") {
+      pushNa(
+        obligations,
+        "review_bundle",
+        naReason(
+          "review_bundle",
+          rules,
+          "explicit_rule_no_review_bundle_obligation",
+        ),
+        "review_bundle_explicitly_not_applicable",
+      );
+    } else if (applicability === "UNKNOWN") {
+      pushUnknownBlocking(
+        obligations,
+        blockers,
+        "review_bundle",
+        "review_bundle_applicability_unknown",
+      );
+    } else if (cycleReviews.length === 0) {
+      obligations.push({
+        family: "review_bundle",
+        applicability: "APPLICABLE",
+        status: "MISSING",
+        detail: "review_required_but_absent",
+        blocking: true,
+      });
+      blockers.push("review_bundle_missing");
+    } else {
+      const { effective, ineligible } = selectEffectiveReviewBundles(
+        input.reviewBundles,
+        input.cycle.cycleInstanceId,
+      );
+
+      if (effective.length === 0) {
+        obligations.push({
+          family: "review_bundle",
+          applicability: "APPLICABLE",
+          status: "BLOCKING",
+          detail:
+            ineligible.length > 0
+              ? `ineligible_synthesis_only:${ineligible.length}`
+              : "review_bundle_no_current",
+          blocking: true,
+        });
+        blockers.push(
+          ineligible.length > 0
+            ? "review_bundle_ineligible"
+            : "review_bundle_no_current",
+        );
+      } else {
+        const rejected = effective.filter((r) => r.status === "rejected");
+        const incomplete = effective.filter(
+          (r) =>
+            r.status === "incomplete" ||
+            r.completeness === "incomplete" ||
+            r.synthesisOnly,
+        );
+        const pending = effective.filter(
+          (r) =>
+            r.status === "draft" ||
+            r.status === "ready_for_review" ||
+            r.status === "under_review",
+        );
+        const accepted = effective.filter((r) => r.status === "accepted");
+
+        if (rejected.length > 0 || incomplete.length > 0 || ineligible.length > 0) {
+          obligations.push({
+            family: "review_bundle",
+            applicability: "APPLICABLE",
+            status: "BLOCKING",
+            detail:
+              rejected.length > 0
+                ? `rejected_review_bundles:${rejected.length}`
+                : incomplete.length > 0
+                  ? `incomplete_review_bundles:${incomplete.length}`
+                  : `ineligible_synthesis_only:${ineligible.length}`,
+            blocking: true,
+          });
+          blockers.push(
+            rejected.length > 0
+              ? "review_bundle_rejected"
+              : incomplete.length > 0
+                ? "review_bundle_incomplete"
+                : "review_bundle_ineligible",
+          );
+        } else if (pending.length > 0) {
+          obligations.push({
+            family: "review_bundle",
+            applicability: "APPLICABLE",
+            status: "PENDING",
+            detail: `open_review_bundles:${pending.length}`,
+            blocking: true,
+          });
+          blockers.push("review_bundle_open");
+        } else if (
+          accepted.length === effective.length &&
+          accepted.length > 0
+        ) {
+          obligations.push({
+            family: "review_bundle",
+            applicability: "APPLICABLE",
+            status: "SATISFIED",
+            detail: `accepted_review_bundles:${accepted.length}`,
+          });
+        } else {
+          obligations.push({
+            family: "review_bundle",
+            applicability: "APPLICABLE",
+            status: "BLOCKING",
+            detail: "review_bundle_no_current",
+            blocking: true,
+          });
+          blockers.push("review_bundle_no_current");
+        }
+      }
+    }
+  }
+
+  // 7) Git — never hardcode false; derive or UNKNOWN
+  {
+    const derived: ObligationApplicability = "UNKNOWN";
+    const applicability = resolveApplicability("git_repository", derived, rules);
+    if (applicability === "NOT_APPLICABLE") {
+      pushNa(
+        obligations,
+        "git_repository",
+        naReason(
+          "git_repository",
+          rules,
+          "explicit_rule_git_not_part_of_cycle_effects",
+        ),
+        "git_explicitly_not_applicable",
+      );
+    } else if (applicability === "UNKNOWN") {
+      pushUnknownBlocking(
+        obligations,
+        blockers,
+        "git_repository",
+        "git_applicability_unknown",
+      );
+    } else if (rules?.gitProofPresent === true) {
+      obligations.push({
+        family: "git_repository",
+        applicability: "APPLICABLE",
+        status: "SATISFIED",
+        detail: "git_proof_present",
+      });
+    } else {
+      obligations.push({
+        family: "git_repository",
+        applicability: "APPLICABLE",
+        status: "MISSING",
+        detail: "git_applicable_but_no_proof",
+        blocking: true,
+      });
+      blockers.push("git_proof_missing");
+    }
+  }
+
+  // 8) Blockers / reservations
+  {
+    const blockingReservations = input.blockingReservationStatements ?? [];
+    const applicability = resolveApplicability("blockers", "APPLICABLE", rules);
+    if (applicability === "NOT_APPLICABLE") {
+      pushNa(
+        obligations,
+        "blockers",
+        naReason("blockers", rules, "explicit_rule_blockers_not_applicable"),
+        "blockers_explicitly_not_applicable",
+      );
+    } else if (applicability === "UNKNOWN") {
+      pushUnknownBlocking(
+        obligations,
+        blockers,
+        "blockers",
+        "blockers_applicability_unknown",
+      );
+    } else if (blockingReservations.length > 0) {
+      obligations.push({
+        family: "blockers",
+        applicability: "APPLICABLE",
+        status: "BLOCKING",
+        detail: blockingReservations.join("|"),
+        blocking: true,
+      });
+      blockers.push("blocking_reservations");
+    } else {
+      obligations.push({
+        family: "blockers",
+        applicability: "APPLICABLE",
+        status: "SATISFIED",
+        detail: "no_blocking_reservations",
+      });
+    }
+  }
+
+  // Policy: every N/A must carry reason; UNKNOWN never appears as status
+  for (const o of obligations) {
+    if (o.status === "NOT_APPLICABLE" && !o.notApplicableReason) {
+      o.status = "BLOCKING";
+      o.applicability = "UNKNOWN";
+      o.blocking = true;
+      o.detail = `${o.detail ?? ""}|na_without_reason_fail_closed`;
+      blockers.push(`${o.family}_na_without_reason`);
+    }
+  }
+
+  const hasUnknown = obligations.some((o) => o.applicability === "UNKNOWN");
+  const canComplete =
+    finalizeAccepted &&
+    blockers.length === 0 &&
+    !hasUnknown &&
+    obligations.every(
+      (o) => o.status === "SATISFIED" || o.status === "NOT_APPLICABLE",
+    );
+
+  return {
+    cycleInstanceId: input.cycle.cycleInstanceId,
+    projectId: input.projectId,
+    finalizeDecisionId: finalizeDecision?.decisionId ?? null,
+    finalizeAccepted,
+    obligations,
+    canComplete,
+    blockers,
+    assessedAt: input.assessedAt,
+  };
+}
+
+```
+
+
+## FILE `projects/sfia-studio/app/lib/oa/cycle/application/qualifyGitEvidence.ts`
+
+```typescript
+/**
+ * CORR-PROOF-05 #3 — semantic binding for Git/repository proof Evidence.
+ * Pure; no persistence. Type alone is never sufficient.
+ */
+import type { Evidence } from "@/lib/oa/evidence-review";
+
+export type GitQualifiableContract = {
+  contractId: string;
+  requiredCapabilities?: string[];
+  action?: string;
+  target?: string;
+  scope?: string;
+};
+
+/** EC makes Git applicable via capability or action/target/scope. */
+export function isGitApplicableContract(
+  contract: GitQualifiableContract,
+): boolean {
+  const fromCaps = (contract.requiredCapabilities ?? []).some((cap) =>
+    /git/i.test(cap),
+  );
+  const fromFields = [contract.action, contract.target, contract.scope].some(
+    (v) => typeof v === "string" && /\bgit\b|repository/i.test(v),
+  );
+  return fromCaps || fromFields;
+}
+
+/**
+ * Evidence qualifies as git proof only when status is supporting AND
+ * semantically bound to a git-applicable EC, or (without EC binding)
+ * same-cycle with explicit git/repository location|source.
+ */
+export function isGitQualifyingEvidence(
+  evidence: Evidence,
+  gitApplicableContractIds: ReadonlySet<string> | readonly string[],
+  cycleInstanceId: string,
+): boolean {
+  if (evidence.status !== "available" && evidence.status !== "verified") {
+    return false;
+  }
+
+  const ids =
+    gitApplicableContractIds instanceof Set
+      ? gitApplicableContractIds
+      : new Set(gitApplicableContractIds);
+
+  const ecId =
+    evidence.bindings?.executionContractId ??
+    (evidence as Evidence & { executionContractId?: string }).executionContractId;
+  if (ecId) {
+    // Bound to a specific EC: only a git-applicable EC qualifies (never fall through).
+    return ids.has(ecId);
+  }
+
+  // Attempt→contract linking requires attempts; skip when not available.
+
+  const sameCycle = evidence.bindings?.cycleInstanceId === cycleInstanceId;
+  if (sameCycle) {
+    const location = evidence.location ?? "";
+    const source = evidence.source ?? "";
+    if (/git|repository/i.test(location) || /git|repository/i.test(source)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+```
+
+
+## FILE `projects/sfia-studio/app/lib/oa/cycle/application/selectEffectiveExecutionContracts.ts`
+
+```typescript
+/**
+ * CORR-PROOF-05 #3 — effective ExecutionContract set via supersession.
+ * Pure; no persistence.
+ */
+
+export type SelectableExecutionContract = {
+  contractId: string;
+  status: string;
+  cycleInstanceId?: string;
+  supersedesExecutionContractId?: string;
+};
+
+export type SelectEffectiveExecutionContractsResult<
+  T extends SelectableExecutionContract = SelectableExecutionContract,
+> = {
+  effective: T[];
+  orphanedSuperseded: T[];
+};
+
+/**
+ * Filter to cycle-bound contracts, then:
+ * - effective = not superseded by another in the set AND status !== "superseded"
+ * - orphanedSuperseded = status===superseded with no successor pointing at it
+ */
+export function selectEffectiveExecutionContracts<
+  T extends SelectableExecutionContract,
+>(
+  contracts: readonly T[],
+  cycleInstanceId: string,
+): SelectEffectiveExecutionContractsResult<T> {
+  const cycleBound = contracts.filter(
+    (c) => !c.cycleInstanceId || c.cycleInstanceId === cycleInstanceId,
+  );
+
+  const supersededPredecessorIds = new Set(
+    cycleBound
+      .map((c) => c.supersedesExecutionContractId)
+      .filter((id): id is string => Boolean(id)),
+  );
+
+  const effective = cycleBound.filter(
+    (c) =>
+      !supersededPredecessorIds.has(c.contractId) && c.status !== "superseded",
+  );
+
+  const orphanedSuperseded = cycleBound.filter(
+    (c) =>
+      c.status === "superseded" &&
+      !cycleBound.some(
+        (other) => other.supersedesExecutionContractId === c.contractId,
+      ),
+  );
+
+  return { effective, orphanedSuperseded };
+}
+
+```
+
+
+## FILE `projects/sfia-studio/app/lib/oa/cycle/application/selectEffectiveReviewBundles.ts`
+
+```typescript
+/**
+ * CORR-PROOF-05 #3 — effective ReviewBundle set via supersession.
+ * Pure; no persistence.
+ */
+import type { ReviewBundle } from "@/lib/oa/evidence-review/domain/reviewBundleTypes";
+
+export type SelectEffectiveReviewBundlesResult = {
+  /** Current non-superseded, non-synthesisOnly bundles. */
+  effective: ReviewBundle[];
+  /** Current non-superseded but synthesisOnly (ineligible to satisfy). */
+  ineligible: ReviewBundle[];
+};
+
+/**
+ * Filter to cycle-bound bundles, then:
+ * - current = not superseded by another in the set AND status !== "superseded"
+ * - effective = current ∧ !synthesisOnly
+ * - ineligible = current ∧ synthesisOnly
+ */
+export function selectEffectiveReviewBundles(
+  bundles: readonly ReviewBundle[],
+  cycleInstanceId: string,
+): SelectEffectiveReviewBundlesResult {
+  const cycleBound = bundles.filter(
+    (r) => !r.cycleInstanceId || r.cycleInstanceId === cycleInstanceId,
+  );
+
+  const supersededPredecessorIds = new Set(
+    cycleBound
+      .map((r) => r.supersedesReviewBundleId)
+      .filter((id): id is string => Boolean(id)),
+  );
+
+  const current = cycleBound.filter(
+    (r) =>
+      !supersededPredecessorIds.has(r.reviewBundleId) &&
+      r.status !== "superseded",
+  );
+
+  const effective = current.filter((r) => !r.synthesisOnly);
+  const ineligible = current.filter((r) => r.synthesisOnly);
+
+  return { effective, ineligible };
+}
+
+```
+
+
+## FILE `projects/sfia-studio/app/lib/oa/cycle/application/assessResumeReconciliation.ts`
+
+```typescript
+/**
+ * CORR-PROOF-05 — server-owned PAUSE/RESUME reconciliation (no caller SoT).
+ */
+import type { HumanDecision } from "@/lib/oa/decision";
+import type { Evidence } from "@/lib/oa/evidence-review";
+import type {
+  CycleInstance,
+  PauseReconciliationSnapshot,
+  ProjectTrajectory,
+} from "../domain/types";
+import { isCurrentHumanDecisionStatus } from "./assessFinalization";
+
+export type BuildPauseSnapshotInput = {
+  pausedAt: string;
+  lpsVersion: number;
+  lpsActiveCycleInstanceId: string | null | undefined;
+  objective: string;
+  context: string;
+  scope: string;
+  doctrinePackageId?: string;
+  doctrinePackageVersion?: string;
+  doctrinePackageDigest?: string;
+  trajectory: ProjectTrajectory | null;
+  decisions: readonly HumanDecision[];
+  evidence: readonly Evidence[];
+  blockingReservationStatements?: readonly string[];
+  blockerSnapshotState: "KNOWN" | "UNKNOWN";
+  blockerSnapshotReason?: string;
+  projectId: string;
+  cycleInstanceId: string;
+};
+
+export function trajectoryFingerprint(
+  trajectory: ProjectTrajectory | null,
+): string | null {
+  if (!trajectory) return null;
+  return `${trajectory.trajectoryId}@v${trajectory.version}:${trajectory.status}:${trajectory.steps
+    .map((s) => `${s.stepId}:${s.state}`)
+    .join(",")}`;
+}
+
+function decisionFingerprint(
+  decisions: readonly HumanDecision[],
+  projectId: string,
+  cycleInstanceId: string,
+): string {
+  const relevant = decisions
+    .filter(
+      (d) =>
+        d.projectId === projectId &&
+        (!d.cycleInstanceId || d.cycleInstanceId === cycleInstanceId) &&
+        isCurrentHumanDecisionStatus(d.status),
+    )
+    .map((d) => `${d.decisionId}:${d.status}:${d.subject}`)
+    .sort();
+  return relevant.join("|") || "none";
+}
+
+function evidenceFingerprint(
+  evidence: readonly Evidence[],
+  cycleInstanceId: string,
+): string {
+  const relevant = evidence
+    .filter(
+      (e) =>
+        !e.bindings?.cycleInstanceId ||
+        e.bindings.cycleInstanceId === cycleInstanceId,
+    )
+    .map(
+      (e) =>
+        `${e.evidenceId}:${e.status}:${e.availability ?? ""}:${e.freshness ?? ""}`,
+    )
+    .sort();
+  return relevant.join("|") || "none";
+}
+
+export function buildPauseReconciliationSnapshot(
+  input: BuildPauseSnapshotInput,
+): PauseReconciliationSnapshot {
+  return {
+    pausedAt: input.pausedAt,
+    lpsVersion: input.lpsVersion,
+    lpsActiveCycleInstanceId: input.lpsActiveCycleInstanceId ?? null,
+    objective: input.objective,
+    context: input.context,
+    scope: input.scope,
+    doctrinePackageId: input.doctrinePackageId,
+    doctrinePackageVersion: input.doctrinePackageVersion,
+    doctrinePackageDigest: input.doctrinePackageDigest,
+    trajectoryId: input.trajectory?.trajectoryId ?? null,
+    trajectoryVersion: input.trajectory?.version ?? null,
+    trajectoryFingerprint: trajectoryFingerprint(input.trajectory),
+    currentDecisionFingerprint: decisionFingerprint(
+      input.decisions,
+      input.projectId,
+      input.cycleInstanceId,
+    ),
+    evidenceFingerprint: evidenceFingerprint(
+      input.evidence,
+      input.cycleInstanceId,
+    ),
+    blockerFingerprint:
+      input.blockerSnapshotState === "UNKNOWN"
+        ? null
+        : (input.blockingReservationStatements ?? []).slice().sort().join("|") ||
+          "none",
+    blockerSnapshotState: input.blockerSnapshotState,
+    blockerSnapshotReason: input.blockerSnapshotReason,
+  };
+}
+
+export type ResumeReconciliationInput = {
+  cycle: CycleInstance;
+  projectId: string;
+  lpsReadable: boolean;
+  lpsVersion: number;
+  lpsActiveCycleInstanceId: string | null | undefined;
+  objective: string;
+  context: string;
+  scope: string;
+  doctrinePackageId?: string;
+  doctrinePackageVersion?: string;
+  doctrinePackageDigest?: string;
+  trajectory: ProjectTrajectory | null;
+  decisions: readonly HumanDecision[];
+  evidence: readonly Evidence[];
+  blockingReservationStatements?: readonly string[];
+  /** Current blocker source unreadable → fail-closed drift. */
+  blockerSourceUnreadable?: boolean;
+  siblingActiveExists: boolean;
+  /** Caller hint — forces drift when true; never proves clean when false. */
+  callerMaterialDriftHint?: boolean;
+};
+
+export type ResumeReconciliationResult = {
+  clean: boolean;
+  driftReasons: string[];
+  requiresReplanHumanDecision: boolean;
+};
+
+export function assessResumeReconciliation(
+  input: ResumeReconciliationInput,
+): ResumeReconciliationResult {
+  const driftReasons: string[] = [];
+
+  if (input.callerMaterialDriftHint === true) {
+    driftReasons.push("caller_material_drift_hint");
+  }
+
+  const snap = input.cycle.pauseReconciliation;
+  if (!snap) {
+    driftReasons.push("pause_snapshot_missing");
+  }
+
+  if (!input.lpsReadable) {
+    driftReasons.push("lps_unreadable");
+  }
+
+  if (input.siblingActiveExists) {
+    driftReasons.push("another_active_exists");
+  }
+
+  if (
+    input.lpsActiveCycleInstanceId &&
+    input.lpsActiveCycleInstanceId !== input.cycle.cycleInstanceId
+  ) {
+    driftReasons.push("lps_active_pointer_elsewhere");
+  }
+
+  if (input.blockerSourceUnreadable) {
+    driftReasons.push("blocker_source_unreadable");
+  }
+
+  if (snap) {
+    if (snap.objective !== input.objective) driftReasons.push("objective_drift");
+    if (snap.context !== input.context) driftReasons.push("context_drift");
+    if (snap.scope !== input.scope) driftReasons.push("scope_drift");
+
+    if (
+      (snap.doctrinePackageId ?? "") !== (input.doctrinePackageId ?? "") ||
+      (snap.doctrinePackageVersion ?? "") !==
+        (input.doctrinePackageVersion ?? "") ||
+      (snap.doctrinePackageDigest ?? "") !== (input.doctrinePackageDigest ?? "")
+    ) {
+      driftReasons.push("doctrine_pin_drift");
+    }
+
+    const currentTrajFp = trajectoryFingerprint(input.trajectory);
+    if ((snap.trajectoryFingerprint ?? null) !== currentTrajFp) {
+      driftReasons.push("trajectory_material_drift");
+    }
+
+    const currentDecFp = decisionFingerprint(
+      input.decisions,
+      input.projectId,
+      input.cycle.cycleInstanceId,
+    );
+    if ((snap.currentDecisionFingerprint ?? "none") !== currentDecFp) {
+      driftReasons.push("human_decision_material_drift");
+    }
+
+    const currentEvFp = evidenceFingerprint(
+      input.evidence,
+      input.cycle.cycleInstanceId,
+    );
+    if ((snap.evidenceFingerprint ?? "none") !== currentEvFp) {
+      const stale = input.evidence.some(
+        (e) =>
+          (!e.bindings?.cycleInstanceId ||
+            e.bindings.cycleInstanceId === input.cycle.cycleInstanceId) &&
+          (e.status === "stale" ||
+            e.status === "unavailable" ||
+            e.availability === "unavailable"),
+      );
+      if (stale || currentEvFp !== (snap.evidenceFingerprint ?? "none")) {
+        driftReasons.push("evidence_freshness_drift");
+      }
+    }
+
+    // Blocker baseline: UNKNOWN at pause → refuse RESUME regardless of recovery.
+    if (snap.blockerSnapshotState === "UNKNOWN") {
+      driftReasons.push("blocker_baseline_unknown");
+    } else if (!input.blockerSourceUnreadable) {
+      // KNOWN (or legacy without state — treat fingerprint comparison as today)
+      const blockerFp =
+        (input.blockingReservationStatements ?? []).slice().sort().join("|") ||
+        "none";
+      if ((snap.blockerFingerprint ?? "none") !== blockerFp) {
+        driftReasons.push("blocker_introduced_or_changed");
+      }
+    }
+  }
+
+  // Deduplicate
+  const unique = [...new Set(driftReasons)];
+  return {
+    clean: unique.length === 0,
+    driftReasons: unique,
+    requiresReplanHumanDecision: unique.length > 0,
+  };
+}
+
+```
+
+
+## FILE `projects/sfia-studio/app/lib/oa/cycle/application/deriveLifecycleBlockers.ts`
+
+```typescript
+/**
+ * CORR-PROOF-05 — derive lifecycle blockers from durable epistemic reservations.
+ * No second blockers store; unreadable sources must fail closed at transitions.
+ */
+import type { EpistemicItem } from "../domain/types";
+
+export type LifecycleBlockerSnapshot =
+  | { ok: true; statements: string[]; source: "epistemic_reservation" }
+  | { ok: false; reason: "epistemic_unreadable" | "epistemic_reader_unavailable" };
+
+export function deriveLifecycleBlockersFromEpistemicItems(
+  items: readonly EpistemicItem[],
+): Extract<LifecycleBlockerSnapshot, { ok: true }> {
+  const statements = items
+    .filter(
+      (i) =>
+        i.type === "Reservation" &&
+        i.status === "active" &&
+        i.blocking === true,
+    )
+    .map((i) => i.statement)
+    .sort();
+  return { ok: true, statements, source: "epistemic_reservation" };
+}
+
+/** Helper for transitions when the epistemic reader is missing or throws. */
+export function lifecycleBlockersFromReaderFailure(
+  reason: Extract<LifecycleBlockerSnapshot, { ok: false }>["reason"],
+): Extract<LifecycleBlockerSnapshot, { ok: false }> {
+  return { ok: false, reason };
+}
+
+```
+
+
+## FILE `projects/sfia-studio/app/lib/oa/cycle/application/pilotLifecycleTransitions.ts`
+
+```typescript
+/**
+ * CORR-PROOF-05 — Pilot-governed CycleInstance lifecycle transitions.
+ * START / PAUSE / RESUME / FINALIZE / CANCEL (+ auto-complete when ready).
+ * Never uses evaluateMorrisGateRequired / morrisGateRequired as authority.
+ */
+import { randomBytes } from "node:crypto";
+import type { ClockPort } from "@/lib/oa/doctrine";
+import type { HumanDecision } from "@/lib/oa/decision";
+import type { Evidence } from "@/lib/oa/evidence-review";
+import type { ReviewBundle } from "@/lib/oa/evidence-review/domain/reviewBundleTypes";
+import type { ProjectServices } from "@/lib/oa/project";
+import { createCycleError } from "../domain/errors";
+import {
+  assertAtMostOneActiveCycle,
+  assertLifecycleTransition,
+  targetStatusForAction,
+} from "../domain/lifecycleInvariants";
+import type {
+  AssessFinalizationRequest,
+  AssessFinalizationResult,
+  CancelCycleRequest,
+  CycleInstance,
+  EpistemicItem,
+  FinalizationApplicabilityRules,
+  FinalizeCycleRequest,
+  PauseCycleRequest,
+  PilotLifecycleResult,
+  ResumeCycleRequest,
+  StartCycleRequest,
+} from "../domain/types";
+import type { CycleAuditPort } from "../ports/cycleAudit";
+import type { CyclePersistenceUnitOfWorkPort } from "../ports/cyclePersistenceUnitOfWorkPort";
+import type { CycleRepositoryPort } from "../ports/cycleRepository";
+import type { TrajectoryRepositoryPort } from "../ports/trajectoryRepository";
+import {
+  assessFinalizationObligations,
+  isAcceptedCancelDecision,
+  isAcceptedFinalizeDecision,
+  isAcceptedResumeReplanDecision,
+  isAcceptedStartTrajectoryDecision,
+  type AssessFinalizationInput,
+} from "./assessFinalization";
+import {
+  assessResumeReconciliation,
+  buildPauseReconciliationSnapshot,
+} from "./assessResumeReconciliation";
+import { assessStartReadiness } from "./assessStartReadiness";
+import {
+  deriveFinalizationApplicability,
+  type DerivableExecutionContract,
+} from "./deriveFinalizationApplicability";
+import {
+  deriveLifecycleBlockersFromEpistemicItems,
+  lifecycleBlockersFromReaderFailure,
+  type LifecycleBlockerSnapshot,
+} from "./deriveLifecycleBlockers";
+
+function newId(prefix: "cor"): string {
+  return `${prefix}:${randomBytes(8).toString("hex")}`;
+}
+
+export type LifecycleDecisionReader = {
+  getById(decisionId: string): Promise<HumanDecision | null>;
+  listByProject(projectId: string): Promise<HumanDecision[]>;
+};
+
+export type LifecycleEvidenceReader = {
+  listByProject(projectId: string): Promise<Evidence[]>;
+};
+
+export type LifecycleReviewBundleReader = {
+  listByProject(projectId: string): Promise<ReviewBundle[]>;
+};
+
+export type LifecycleEpistemicReader = {
+  listByProject(projectId: string): Promise<EpistemicItem[]>;
+};
+
+export type LifecycleExecutionSnapshotReader = {
+  listContractsByProject?(projectId: string): Promise<
+    Array<DerivableExecutionContract>
+  >;
+  listAttemptsByProject?(projectId: string): Promise<
+    Array<{
+      attemptId: string;
+      contractId?: string;
+      terminalState?: string;
+    }>
+  >;
+};
+
+/** Narrow authority verify surface for Pilot lifecycle mutations. */
+export type PilotLifecycleAuthorityPort = {
+  verify(request: {
+    actorId: string;
+    scope: string;
+    evidenceId?: string;
+    requiredLevel?: "N1" | "N2" | "N3";
+    requireMorrisGate?: boolean;
+  }): { ok: boolean; reason?: string };
+};
+
+export type PilotLifecycleDeps = {
+  cycles: CycleRepositoryPort;
+  trajectories: TrajectoryRepositoryPort;
+  projectServices: ProjectServices;
+  clock: ClockPort;
+  audit: CycleAuditPort;
+  store?: CyclePersistenceUnitOfWorkPort;
+  decisions?: LifecycleDecisionReader;
+  evidence?: LifecycleEvidenceReader;
+  reviewBundles?: LifecycleReviewBundleReader;
+  execution?: LifecycleExecutionSnapshotReader;
+  epistemic?: LifecycleEpistemicReader;
+  authority?: PilotLifecycleAuthorityPort;
+  /**
+   * Optional static applicability override — test-only / low-level.
+   * Product `buildAssessment` always derives from durable facts and ignores this.
+   */
+  applicabilityRules?: FinalizationApplicabilityRules;
+};
+
+function authorityNotConfiguredReason(reason?: string): boolean {
+  if (!reason) return true;
+  const r = reason.toLowerCase();
+  return (
+    r.includes("no_evidence") ||
+    r.includes("not_configured") ||
+    r.includes("not configured") ||
+    r.includes("evidence_not_found") ||
+    r === "authority_port_unavailable"
+  );
+}
+
+async function appendLpsActiveLink(input: {
+  projectServices: ProjectServices;
+  projectId: string;
+  createdBy: StartCycleRequest["createdBy"];
+  correlationId: string;
+  expectedLpsVersion?: number;
+  activeCycleInstanceId: string | null;
+}): Promise<{ ok: true; version: number } | { ok: false; detail: string; currentVersion?: number }> {
+  const current =
+    await input.projectServices.getCurrentLivingProjectState.execute({
+      projectId: input.projectId,
+    });
+  if (!current.ok) {
+    return { ok: false, detail: "missing_current_lps" };
+  }
+  const expected =
+    input.expectedLpsVersion ?? current.livingProjectState.version;
+  const appended =
+    await input.projectServices.appendLivingProjectStateVersion.execute({
+      projectId: input.projectId,
+      expectedVersion: expected,
+      objective: current.livingProjectState.objective,
+      createdBy: input.createdBy,
+      correlationId: input.correlationId,
+      context: current.livingProjectState.context,
+      scope: current.livingProjectState.scope,
+      activeCycleInstanceId: input.activeCycleInstanceId,
+    });
+  if (!appended.ok) {
+    if (appended.error.detailCode === "LPS_VERSION_CONFLICT") {
+      return {
+        ok: false,
+        detail: "lps_version_conflict",
+        currentVersion: appended.error.currentVersion,
+      };
+    }
+    return { ok: false, detail: "lps_append_failed" };
+  }
+  return { ok: true, version: appended.livingProjectState.version };
+}
+
+export class PilotLifecycleTransitions {
+  constructor(private readonly deps: PilotLifecycleDeps) {}
+
+  async start(request: StartCycleRequest): Promise<PilotLifecycleResult> {
+    const started = Date.now();
+    const timestamp = this.deps.clock.nowIso();
+    const correlationId = request.correlationId ?? newId("cor");
+
+    const fail = (
+      detailCode: Parameters<typeof createCycleError>[0]["detailCode"],
+      internalCauseRef?: string,
+      extra?: Partial<Parameters<typeof createCycleError>[0]>,
+    ): PilotLifecycleResult => {
+      const durationMs = Date.now() - started;
+      const error = createCycleError({
+        detailCode,
+        timestamp,
+        correlationId,
+        projectId: request.projectId,
+        cycleInstanceId: request.cycleInstanceId,
+        internalCauseRef,
+        ...extra,
+      });
+      this.deps.audit.append({
+        event: "oa.cycle.lifecycle_transition",
+        ts: timestamp,
+        correlationId,
+        projectId: request.projectId,
+        cycleInstanceId: request.cycleInstanceId,
+        action: "START",
+        fromStatus: "unknown",
+        toStatus: "unknown",
+        actorId: request.createdBy.actorId,
+        decisionRef: request.decisionId,
+        result: "error",
+        detailCode,
+        durationMs,
+      });
+      return { ok: false, error, durationMs };
+    };
+
+    if (!request.createdBy?.actorId) {
+      return fail("CYCLE_LIFECYCLE_DENIED", "actor_required");
+    }
+
+    const authGate = this.verifyAuthority({
+      actorId: request.createdBy.actorId,
+      cycleInstanceId: request.cycleInstanceId,
+      evidenceId: request.authorityEvidenceId,
+    });
+    if (!authGate.ok) {
+      return fail(authGate.detailCode, authGate.internalCauseRef);
+    }
+
+    const projectResult = await this.deps.projectServices.getProject.execute({
+      projectId: request.projectId,
+    });
+    const projectOk = projectResult.ok;
+    if (!projectOk) {
+      return fail("PROJECT_NOT_FOUND", "missing_project");
+    }
+
+    const cycle = await this.deps.cycles.findById(request.cycleInstanceId);
+    if (!cycle || cycle.projectId !== request.projectId) {
+      return fail("CYCLE_NOT_FOUND", "missing_cycle");
+    }
+    if (isTerminalGuard(cycle)) {
+      return fail("CYCLE_TERMINAL", `terminal_${cycle.status}`);
+    }
+    const transition = assertLifecycleTransition({
+      from: cycle.status,
+      action: "START",
+    });
+    if (transition) return fail(transition.detailCode, transition.reason);
+
+    const siblings = await this.deps.cycles.listByProject(request.projectId);
+    const single = assertAtMostOneActiveCycle({
+      cycles: siblings,
+      excludeCycleInstanceId: request.cycleInstanceId,
+    });
+    const siblingActiveExists = Boolean(single);
+
+    const lps =
+      await this.deps.projectServices.getCurrentLivingProjectState.execute({
+        projectId: request.projectId,
+      });
+    const lpsReadable = lps.ok;
+    const lpsActiveCycleInstanceId = lps.ok
+      ? lps.livingProjectState.activeCycleInstanceId
+      : undefined;
+
+    const trajectory = await this.loadTrajectory(request.projectId);
+    const decisions = this.deps.decisions
+      ? await this.deps.decisions.listByProject(request.projectId)
+      : [];
+
+    const doctrineReadable = Boolean(
+      (projectResult.ok && projectResult.project.doctrinePackageRef) ||
+        (lps.ok && lps.livingProjectState.doctrinePackageRef),
+    );
+
+    const blockersSnap = await this.loadBlockers(request.projectId);
+    const readiness = assessStartReadiness({
+      assessedAt: timestamp,
+      projectOk,
+      cycle,
+      projectId: request.projectId,
+      lpsReadable,
+      lpsActiveCycleInstanceId,
+      siblingActiveExists,
+      trajectory,
+      decisions,
+      decisionId: request.decisionId,
+      doctrineReadable,
+      blockingReservationStatements: blockersSnap.ok
+        ? blockersSnap.statements
+        : undefined,
+      blockerSourceUnreadable: !blockersSnap.ok,
+    });
+
+    const nonHdBlockers = readiness.blockers.filter(
+      (b) => b !== "start_trajectory_hd_missing_or_invalid",
+    );
+    if (nonHdBlockers.length > 0 || (!readiness.ready && !readiness.requiresTrajectoryHumanDecision)) {
+      return fail(
+        "CYCLE_START_NOT_READY",
+        readiness.blockers.join("|") || "start_not_ready",
+      );
+    }
+
+    if (readiness.requiresTrajectoryHumanDecision) {
+      if (!this.deps.decisions) {
+        return fail("CYCLE_DECISION_REQUIRED", "decision_reader_unavailable");
+      }
+      let hd: HumanDecision | null = null;
+      if (request.decisionId) {
+        hd = await this.deps.decisions.getById(request.decisionId);
+      } else {
+        hd =
+          decisions.find((d) =>
+            isAcceptedStartTrajectoryDecision(
+              d,
+              request.cycleInstanceId,
+              request.projectId,
+            ),
+          ) ?? null;
+      }
+      if (
+        !hd ||
+        !isAcceptedStartTrajectoryDecision(
+          hd,
+          request.cycleInstanceId,
+          request.projectId,
+        )
+      ) {
+        return fail(
+          "CYCLE_DECISION_REQUIRED",
+          "start_trajectory_hd_missing_or_invalid",
+        );
+      }
+    }
+
+    if (single) return fail(single.detailCode, single.reason);
+
+    const next: CycleInstance = {
+      ...structuredClone(cycle),
+      status: "active",
+      acknowledgedAt: cycle.acknowledgedAt ?? timestamp,
+      pauseReconciliation: null,
+    };
+
+    return this.persistLifecycleMutation({
+      action: "START",
+      projectId: request.projectId,
+      cycleInstanceId: request.cycleInstanceId,
+      createdBy: request.createdBy,
+      correlationId,
+      expectedLpsVersion: request.expectedLpsVersion,
+      decisionId: request.decisionId,
+      fromStatus: cycle.status,
+      toStatus: "active",
+      next,
+      setActiveLink: request.cycleInstanceId,
+      clearActiveLink: false,
+      started,
+      timestamp,
+      fail,
+    });
+  }
+
+  async pause(request: PauseCycleRequest): Promise<PilotLifecycleResult> {
+    const started = Date.now();
+    const timestamp = this.deps.clock.nowIso();
+    const correlationId = request.correlationId ?? newId("cor");
+
+    const fail = (
+      detailCode: Parameters<typeof createCycleError>[0]["detailCode"],
+      internalCauseRef?: string,
+      extra?: Partial<Parameters<typeof createCycleError>[0]>,
+    ): PilotLifecycleResult => {
+      const durationMs = Date.now() - started;
+      const error = createCycleError({
+        detailCode,
+        timestamp,
+        correlationId,
+        projectId: request.projectId,
+        cycleInstanceId: request.cycleInstanceId,
+        internalCauseRef,
+        ...extra,
+      });
+      this.deps.audit.append({
+        event: "oa.cycle.lifecycle_transition",
+        ts: timestamp,
+        correlationId,
+        projectId: request.projectId,
+        cycleInstanceId: request.cycleInstanceId,
+        action: "PAUSE",
+        fromStatus: "unknown",
+        toStatus: "unknown",
+        actorId: request.createdBy.actorId,
+        result: "error",
+        detailCode,
+        durationMs,
+      });
+      return { ok: false, error, durationMs };
+    };
+
+    if (!request.createdBy?.actorId) {
+      return fail("CYCLE_LIFECYCLE_DENIED", "actor_required");
+    }
+
+    const authGate = this.verifyAuthority({
+      actorId: request.createdBy.actorId,
+      cycleInstanceId: request.cycleInstanceId,
+      evidenceId: request.authorityEvidenceId,
+    });
+    if (!authGate.ok) {
+      return fail(authGate.detailCode, authGate.internalCauseRef);
+    }
+
+    const projectResult = await this.deps.projectServices.getProject.execute({
+      projectId: request.projectId,
+    });
+    if (!projectResult.ok) {
+      return fail("PROJECT_NOT_FOUND", "missing_project");
+    }
+
+    const cycle = await this.deps.cycles.findById(request.cycleInstanceId);
+    if (!cycle || cycle.projectId !== request.projectId) {
+      return fail("CYCLE_NOT_FOUND", "missing_cycle");
+    }
+    if (isTerminalGuard(cycle)) {
+      return fail("CYCLE_TERMINAL", `terminal_${cycle.status}`);
+    }
+    const transition = assertLifecycleTransition({
+      from: cycle.status,
+      action: "PAUSE",
+    });
+    if (transition) return fail(transition.detailCode, transition.reason);
+
+    const lps =
+      await this.deps.projectServices.getCurrentLivingProjectState.execute({
+        projectId: request.projectId,
+      });
+    const trajectory = await this.loadTrajectory(request.projectId);
+    const decisions = this.deps.decisions
+      ? await this.deps.decisions.listByProject(request.projectId)
+      : [];
+    const evidence = this.deps.evidence
+      ? await this.deps.evidence.listByProject(request.projectId)
+      : [];
+
+    const doctrinePin =
+      projectResult.project.doctrinePackageRef ??
+      (lps.ok ? lps.livingProjectState.doctrinePackageRef : undefined);
+
+    const blockersSnap = await this.loadBlockers(request.projectId);
+    const pauseReconciliation = buildPauseReconciliationSnapshot({
+      pausedAt: timestamp,
+      lpsVersion: lps.ok ? lps.livingProjectState.version : 0,
+      lpsActiveCycleInstanceId: lps.ok
+        ? lps.livingProjectState.activeCycleInstanceId
+        : null,
+      objective: lps.ok ? lps.livingProjectState.objective : "",
+      context: lps.ok ? (lps.livingProjectState.context ?? "") : "",
+      scope: lps.ok ? (lps.livingProjectState.scope ?? "") : "",
+      doctrinePackageId: doctrinePin?.doctrinePackageId,
+      doctrinePackageVersion: doctrinePin?.version,
+      doctrinePackageDigest: doctrinePin?.digest,
+      trajectory,
+      decisions,
+      evidence,
+      blockerSnapshotState: blockersSnap.ok ? "KNOWN" : "UNKNOWN",
+      blockerSnapshotReason: blockersSnap.ok ? undefined : blockersSnap.reason,
+      blockingReservationStatements: blockersSnap.ok
+        ? blockersSnap.statements
+        : undefined,
+      projectId: request.projectId,
+      cycleInstanceId: request.cycleInstanceId,
+    });
+
+    const next: CycleInstance = {
+      ...structuredClone(cycle),
+      status: "paused",
+      pauseReconciliation,
+    };
+
+    return this.persistLifecycleMutation({
+      action: "PAUSE",
+      projectId: request.projectId,
+      cycleInstanceId: request.cycleInstanceId,
+      createdBy: request.createdBy,
+      correlationId,
+      expectedLpsVersion: request.expectedLpsVersion,
+      fromStatus: cycle.status,
+      toStatus: "paused",
+      next,
+      setActiveLink: null,
+      clearActiveLink: true,
+      started,
+      timestamp,
+      fail,
+    });
+  }
+
+  async resume(request: ResumeCycleRequest): Promise<PilotLifecycleResult> {
+    const started = Date.now();
+    const timestamp = this.deps.clock.nowIso();
+    const correlationId = request.correlationId ?? newId("cor");
+
+    const fail = (
+      detailCode: Parameters<typeof createCycleError>[0]["detailCode"],
+      internalCauseRef?: string,
+      extra?: Partial<Parameters<typeof createCycleError>[0]>,
+    ): PilotLifecycleResult => {
+      const durationMs = Date.now() - started;
+      const error = createCycleError({
+        detailCode,
+        timestamp,
+        correlationId,
+        projectId: request.projectId,
+        cycleInstanceId: request.cycleInstanceId,
+        internalCauseRef,
+        ...extra,
+      });
+      this.deps.audit.append({
+        event: "oa.cycle.lifecycle_transition",
+        ts: timestamp,
+        correlationId,
+        projectId: request.projectId,
+        cycleInstanceId: request.cycleInstanceId,
+        action: "RESUME",
+        fromStatus: "paused",
+        toStatus: "paused",
+        actorId: request.createdBy.actorId,
+        decisionRef: request.decisionId,
+        result: "error",
+        detailCode,
+        durationMs,
+      });
+      return { ok: false, error, durationMs };
+    };
+
+    if (!request.createdBy?.actorId) {
+      return fail("CYCLE_LIFECYCLE_DENIED", "actor_required");
+    }
+
+    const authGate = this.verifyAuthority({
+      actorId: request.createdBy.actorId,
+      cycleInstanceId: request.cycleInstanceId,
+      evidenceId: request.authorityEvidenceId,
+    });
+    if (!authGate.ok) {
+      return fail(authGate.detailCode, authGate.internalCauseRef);
+    }
+
+    const projectResult = await this.deps.projectServices.getProject.execute({
+      projectId: request.projectId,
+    });
+    if (!projectResult.ok) {
+      return fail("PROJECT_NOT_FOUND", "missing_project");
+    }
+
+    const cycle = await this.deps.cycles.findById(request.cycleInstanceId);
+    if (!cycle || cycle.projectId !== request.projectId) {
+      return fail("CYCLE_NOT_FOUND", "missing_cycle");
+    }
+    if (isTerminalGuard(cycle)) {
+      return fail("CYCLE_TERMINAL", `terminal_${cycle.status}`);
+    }
+    const transition = assertLifecycleTransition({
+      from: cycle.status,
+      action: "RESUME",
+    });
+    if (transition) return fail(transition.detailCode, transition.reason);
+
+    const siblings = await this.deps.cycles.listByProject(request.projectId);
+    const single = assertAtMostOneActiveCycle({
+      cycles: siblings,
+      excludeCycleInstanceId: request.cycleInstanceId,
+    });
+
+    const lps =
+      await this.deps.projectServices.getCurrentLivingProjectState.execute({
+        projectId: request.projectId,
+      });
+    const trajectory = await this.loadTrajectory(request.projectId);
+    const decisions = this.deps.decisions
+      ? await this.deps.decisions.listByProject(request.projectId)
+      : [];
+    const evidence = this.deps.evidence
+      ? await this.deps.evidence.listByProject(request.projectId)
+      : [];
+
+    const doctrinePin =
+      projectResult.project.doctrinePackageRef ??
+      (lps.ok ? lps.livingProjectState.doctrinePackageRef : undefined);
+
+    const blockersSnap = await this.loadBlockers(request.projectId);
+    const reconciliation = assessResumeReconciliation({
+      cycle,
+      projectId: request.projectId,
+      lpsReadable: lps.ok,
+      lpsVersion: lps.ok ? lps.livingProjectState.version : 0,
+      lpsActiveCycleInstanceId: lps.ok
+        ? lps.livingProjectState.activeCycleInstanceId
+        : undefined,
+      objective: lps.ok ? lps.livingProjectState.objective : "",
+      context: lps.ok ? (lps.livingProjectState.context ?? "") : "",
+      scope: lps.ok ? (lps.livingProjectState.scope ?? "") : "",
+      doctrinePackageId: doctrinePin?.doctrinePackageId,
+      doctrinePackageVersion: doctrinePin?.version,
+      doctrinePackageDigest: doctrinePin?.digest,
+      trajectory,
+      decisions,
+      evidence,
+      blockingReservationStatements: blockersSnap.ok
+        ? blockersSnap.statements
+        : undefined,
+      blockerSourceUnreadable: !blockersSnap.ok,
+      siblingActiveExists: Boolean(single),
+      callerMaterialDriftHint: request.materialDriftDetected === true,
+    });
+
+    if (!reconciliation.clean) {
+      // Stay paused; ensure LPS active pointer is cleared.
+      // Only a clean reconciliation may activate — replan HD does not override drift.
+      if (lps.ok && lps.livingProjectState.activeCycleInstanceId != null) {
+        try {
+          await appendLpsActiveLink({
+            projectServices: this.deps.projectServices,
+            projectId: request.projectId,
+            createdBy: request.createdBy,
+            correlationId,
+            expectedLpsVersion: request.expectedLpsVersion,
+            activeCycleInstanceId: null,
+          });
+        } catch {
+          /* best-effort clear; drift denial still returned */
+        }
+      }
+      const replanAsserted =
+        request.requiresReplanHumanDecision === true ||
+        reconciliation.requiresReplanHumanDecision;
+      if (replanAsserted && request.decisionId) {
+        if (!this.deps.decisions) {
+          return fail("CYCLE_DECISION_REQUIRED", "decision_reader_unavailable");
+        }
+        const hd = await this.deps.decisions.getById(request.decisionId);
+        if (
+          !hd ||
+          !isAcceptedResumeReplanDecision(
+            hd,
+            request.cycleInstanceId,
+            request.projectId,
+          )
+        ) {
+          return fail(
+            "CYCLE_DECISION_REQUIRED",
+            "resume_replan_hd_missing_or_invalid",
+          );
+        }
+      }
+      return fail(
+        "CYCLE_RESUME_DRIFT",
+        reconciliation.driftReasons.join("|") || "resume_drift",
+      );
+    }
+
+    // Clean path: no replan HD required.
+    void request.requiresReplanHumanDecision;
+
+    if (single) return fail(single.detailCode, single.reason);
+
+    const next: CycleInstance = {
+      ...structuredClone(cycle),
+      status: "active",
+      acknowledgedAt: cycle.acknowledgedAt ?? timestamp,
+      pauseReconciliation: null,
+    };
+
+    return this.persistLifecycleMutation({
+      action: "RESUME",
+      projectId: request.projectId,
+      cycleInstanceId: request.cycleInstanceId,
+      createdBy: request.createdBy,
+      correlationId,
+      expectedLpsVersion: request.expectedLpsVersion,
+      decisionId: request.decisionId,
+      fromStatus: cycle.status,
+      toStatus: "active",
+      next,
+      setActiveLink: request.cycleInstanceId,
+      clearActiveLink: false,
+      started,
+      timestamp,
+      fail,
+    });
+  }
+
+  async finalize(request: FinalizeCycleRequest): Promise<PilotLifecycleResult> {
+    const started = Date.now();
+    const timestamp = this.deps.clock.nowIso();
+    const correlationId = request.correlationId ?? newId("cor");
+
+    const fail = (
+      detailCode: Parameters<typeof createCycleError>[0]["detailCode"],
+      internalCauseRef?: string,
+      assessment?: AssessFinalizationResult extends { ok: true }
+        ? never
+        : import("../domain/types").FinalizationAssessment,
+    ): PilotLifecycleResult => {
+      const durationMs = Date.now() - started;
+      const error = createCycleError({
+        detailCode,
+        timestamp,
+        correlationId,
+        projectId: request.projectId,
+        cycleInstanceId: request.cycleInstanceId,
+        internalCauseRef,
+      });
+      this.deps.audit.append({
+        event: "oa.cycle.lifecycle_transition",
+        ts: timestamp,
+        correlationId,
+        projectId: request.projectId,
+        cycleInstanceId: request.cycleInstanceId,
+        action: "FINALIZE",
+        fromStatus: "unknown",
+        toStatus: "unknown",
+        actorId: request.createdBy.actorId,
+        decisionRef: request.decisionId,
+        result: "error",
+        detailCode,
+        durationMs,
+      });
+      return { ok: false, error, assessment, durationMs };
+    };
+
+    if (!request.createdBy?.actorId) {
+      return fail("CYCLE_LIFECYCLE_DENIED", "actor_required");
+    }
+
+    const authGate = this.verifyAuthority({
+      actorId: request.createdBy.actorId,
+      cycleInstanceId: request.cycleInstanceId,
+      evidenceId: request.authorityEvidenceId,
+    });
+    if (!authGate.ok) {
+      return fail(authGate.detailCode, authGate.internalCauseRef);
+    }
+
+    if (!this.deps.decisions) {
+      return fail("CYCLE_DECISION_REQUIRED", "decision_reader_unavailable");
+    }
+
+    const cycle = await this.deps.cycles.findById(request.cycleInstanceId);
+    if (!cycle || cycle.projectId !== request.projectId) {
+      return fail("CYCLE_NOT_FOUND", "missing_cycle");
+    }
+    if (isTerminalGuard(cycle)) {
+      return fail("CYCLE_TERMINAL", `terminal_${cycle.status}`);
+    }
+    const transition = assertLifecycleTransition({
+      from: cycle.status,
+      action: "FINALIZE",
+    });
+    if (transition) return fail(transition.detailCode, transition.reason);
+
+    const decision = await this.deps.decisions.getById(request.decisionId);
+    if (
+      !decision ||
+      !isAcceptedFinalizeDecision(
+        decision,
+        request.cycleInstanceId,
+        request.projectId,
+      )
+    ) {
+      return fail("CYCLE_DECISION_REQUIRED", "finalize_hd_missing_or_invalid");
+    }
+
+    const assessment = await this.buildAssessment({
+      cycle,
+      projectId: request.projectId,
+      finalizeDecisionId: request.decisionId,
+      assessedAt: timestamp,
+    });
+
+    this.deps.audit.append({
+      event: "oa.cycle.finalization_assessed",
+      ts: timestamp,
+      correlationId,
+      projectId: request.projectId,
+      cycleInstanceId: request.cycleInstanceId,
+      decisionRef: request.decisionId,
+      canComplete: assessment.canComplete,
+      blockers: assessment.blockers,
+      result: "ok",
+      durationMs: Date.now() - started,
+    });
+
+    if (!assessment.canComplete) {
+      const durationMs = Date.now() - started;
+      this.deps.audit.append({
+        event: "oa.cycle.lifecycle_transition",
+        ts: timestamp,
+        correlationId,
+        projectId: request.projectId,
+        cycleInstanceId: request.cycleInstanceId,
+        action: "FINALIZE",
+        fromStatus: cycle.status,
+        toStatus: cycle.status,
+        actorId: request.createdBy.actorId,
+        decisionRef: request.decisionId,
+        result: "ok",
+        detailCode: "CYCLE_FINALIZE_INCOMPLETE",
+        durationMs,
+      });
+      return {
+        ok: true,
+        cycle: structuredClone(cycle),
+        assessment,
+        durationMs,
+      };
+    }
+
+    // Auto-complete — no second Close click
+    return this.completeFromAssessment({
+      cycle,
+      projectId: request.projectId,
+      createdBy: request.createdBy,
+      correlationId,
+      expectedLpsVersion: request.expectedLpsVersion,
+      decisionId: request.decisionId,
+      assessment,
+      started,
+      timestamp,
+    });
+  }
+
+  async cancel(request: CancelCycleRequest): Promise<PilotLifecycleResult> {
+    const started = Date.now();
+    const timestamp = this.deps.clock.nowIso();
+    const correlationId = request.correlationId ?? newId("cor");
+
+    const fail = (
+      detailCode: Parameters<typeof createCycleError>[0]["detailCode"],
+      internalCauseRef?: string,
+    ): PilotLifecycleResult => {
+      const durationMs = Date.now() - started;
+      const error = createCycleError({
+        detailCode,
+        timestamp,
+        correlationId,
+        projectId: request.projectId,
+        cycleInstanceId: request.cycleInstanceId,
+        internalCauseRef,
+      });
+      this.deps.audit.append({
+        event: "oa.cycle.lifecycle_transition",
+        ts: timestamp,
+        correlationId,
+        projectId: request.projectId,
+        cycleInstanceId: request.cycleInstanceId,
+        action: "CANCEL",
+        fromStatus: "unknown",
+        toStatus: "unknown",
+        actorId: request.createdBy.actorId,
+        decisionRef: request.decisionId,
+        result: "error",
+        detailCode,
+        durationMs,
+      });
+      return { ok: false, error, durationMs };
+    };
+
+    if (!request.createdBy?.actorId) {
+      return fail("CYCLE_LIFECYCLE_DENIED", "actor_required");
+    }
+
+    const authGate = this.verifyAuthority({
+      actorId: request.createdBy.actorId,
+      cycleInstanceId: request.cycleInstanceId,
+      evidenceId: request.authorityEvidenceId,
+    });
+    if (!authGate.ok) {
+      return fail(authGate.detailCode, authGate.internalCauseRef);
+    }
+
+    if (!this.deps.decisions) {
+      return fail("CYCLE_DECISION_REQUIRED", "decision_reader_unavailable");
+    }
+    const decision = await this.deps.decisions.getById(request.decisionId);
+    if (
+      !decision ||
+      !isAcceptedCancelDecision(
+        decision,
+        request.cycleInstanceId,
+        request.projectId,
+      )
+    ) {
+      return fail("CYCLE_DECISION_REQUIRED", "cancel_hd_missing_or_invalid");
+    }
+
+    return this.runTransition({
+      action: "CANCEL",
+      projectId: request.projectId,
+      cycleInstanceId: request.cycleInstanceId,
+      createdBy: request.createdBy,
+      correlationId,
+      expectedLpsVersion: request.expectedLpsVersion,
+      decisionId: request.decisionId,
+      authorityEvidenceId: request.authorityEvidenceId,
+      setActiveLink: null,
+      clearActiveLink: true,
+      setClosedAt: true,
+      skipAuthority: true,
+    });
+  }
+
+  async assess(
+    request: AssessFinalizationRequest,
+  ): Promise<AssessFinalizationResult> {
+    const started = Date.now();
+    const timestamp = this.deps.clock.nowIso();
+    const cycle = await this.deps.cycles.findById(request.cycleInstanceId);
+    if (!cycle || cycle.projectId !== request.projectId) {
+      return {
+        ok: false,
+        error: createCycleError({
+          detailCode: "CYCLE_NOT_FOUND",
+          timestamp,
+          projectId: request.projectId,
+          cycleInstanceId: request.cycleInstanceId,
+        }),
+        durationMs: Date.now() - started,
+      };
+    }
+    const assessment = await this.buildAssessment({
+      cycle,
+      projectId: request.projectId,
+      finalizeDecisionId: request.finalizeDecisionId ?? null,
+      assessedAt: timestamp,
+    });
+    this.deps.audit.append({
+      event: "oa.cycle.finalization_assessed",
+      ts: timestamp,
+      projectId: request.projectId,
+      cycleInstanceId: request.cycleInstanceId,
+      decisionRef: assessment.finalizeDecisionId ?? undefined,
+      canComplete: assessment.canComplete,
+      blockers: assessment.blockers,
+      result: "ok",
+      durationMs: Date.now() - started,
+    });
+    return { ok: true, assessment, durationMs: Date.now() - started };
+  }
+
+  /**
+   * Re-evaluate after obligations change; completes when ready without new FINALIZE.
+   */
+  async reevaluateAndComplete(input: {
+    cycleInstanceId: string;
+    projectId: string;
+    createdBy: StartCycleRequest["createdBy"];
+    correlationId?: string;
+    expectedLpsVersion?: number;
+  }): Promise<PilotLifecycleResult> {
+    const started = Date.now();
+    const timestamp = this.deps.clock.nowIso();
+    const correlationId = input.correlationId ?? newId("cor");
+    const cycle = await this.deps.cycles.findById(input.cycleInstanceId);
+    if (!cycle || cycle.projectId !== input.projectId) {
+      return {
+        ok: false,
+        error: createCycleError({
+          detailCode: "CYCLE_NOT_FOUND",
+          timestamp,
+          correlationId,
+          projectId: input.projectId,
+          cycleInstanceId: input.cycleInstanceId,
+        }),
+        durationMs: Date.now() - started,
+      };
+    }
+    if (cycle.status === "completed" || cycle.status === "cancelled") {
+      return {
+        ok: false,
+        error: createCycleError({
+          detailCode: "CYCLE_TERMINAL",
+          timestamp,
+          correlationId,
+          projectId: input.projectId,
+          cycleInstanceId: input.cycleInstanceId,
+          internalCauseRef: "already_terminal",
+        }),
+        durationMs: Date.now() - started,
+      };
+    }
+    const assessment = await this.buildAssessment({
+      cycle,
+      projectId: input.projectId,
+      assessedAt: timestamp,
+    });
+    if (!assessment.canComplete) {
+      return {
+        ok: true,
+        cycle: structuredClone(cycle),
+        assessment,
+        durationMs: Date.now() - started,
+      };
+    }
+    return this.completeFromAssessment({
+      cycle,
+      projectId: input.projectId,
+      createdBy: input.createdBy,
+      correlationId,
+      expectedLpsVersion: input.expectedLpsVersion,
+      decisionId: assessment.finalizeDecisionId ?? undefined,
+      assessment,
+      started,
+      timestamp,
+    });
+  }
+
+  private verifyAuthority(input: {
+    actorId: string;
+    cycleInstanceId: string;
+    evidenceId?: string;
+  }):
+    | { ok: true }
+    | {
+        ok: false;
+        detailCode: "AUTHORITY_NOT_CONFIGURED" | "CYCLE_LIFECYCLE_DENIED";
+        internalCauseRef: string;
+      } {
+    if (!this.deps.authority) {
+      return {
+        ok: false,
+        detailCode: "AUTHORITY_NOT_CONFIGURED",
+        internalCauseRef: "authority_port_unavailable",
+      };
+    }
+    const result = this.deps.authority.verify({
+      actorId: input.actorId,
+      scope: `pilot-lifecycle:${input.cycleInstanceId}`,
+      evidenceId: input.evidenceId,
+      requiredLevel: "N3",
+      requireMorrisGate: true,
+    });
+    if (result.ok) return { ok: true };
+    if (authorityNotConfiguredReason(result.reason)) {
+      return {
+        ok: false,
+        detailCode: "AUTHORITY_NOT_CONFIGURED",
+        internalCauseRef: result.reason ?? "authority_not_configured",
+      };
+    }
+    return {
+      ok: false,
+      detailCode: "CYCLE_LIFECYCLE_DENIED",
+      internalCauseRef: result.reason ?? "authority_denied",
+    };
+  }
+
+  private async buildAssessment(input: {
+    cycle: CycleInstance;
+    projectId: string;
+    finalizeDecisionId?: string | null;
+    assessedAt: string;
+  }) {
+    const decisions = this.deps.decisions
+      ? await this.deps.decisions.listByProject(input.projectId)
+      : [];
+    const evidence = this.deps.evidence
+      ? await this.deps.evidence.listByProject(input.projectId)
+      : [];
+    const reviewBundles = this.deps.reviewBundles
+      ? await this.deps.reviewBundles.listByProject(input.projectId)
+      : [];
+    const trajectory = await this.loadTrajectory(input.projectId);
+
+    const executionContracts = this.deps.execution?.listContractsByProject
+      ? await this.deps.execution.listContractsByProject(input.projectId)
+      : [];
+    const executionAttempts = this.deps.execution?.listAttemptsByProject
+      ? await this.deps.execution.listAttemptsByProject(input.projectId)
+      : [];
+
+    // Product path: always derive from durable facts (ignore static applicabilityRules).
+    const applicability = deriveFinalizationApplicability({
+      cycleInstanceId: input.cycle.cycleInstanceId,
+      projectId: input.projectId,
+      trajectory,
+      decisions,
+      evidence,
+      reviewBundles,
+      executionContracts,
+    });
+
+    const blockersSnap = await this.loadBlockers(input.projectId);
+    const blockingReservationStatements = blockersSnap.ok
+      ? blockersSnap.statements
+      : ["blocker_source_unreadable"];
+
+    const snapshot: AssessFinalizationInput = {
+      cycle: input.cycle,
+      projectId: input.projectId,
+      assessedAt: input.assessedAt,
+      decisions,
+      evidence,
+      reviewBundles,
+      trajectory,
+      finalizeDecisionId: input.finalizeDecisionId,
+      executionContracts,
+      executionAttempts,
+      applicability,
+      blockingReservationStatements,
+    };
+    return assessFinalizationObligations(snapshot);
+  }
+
+  private async loadBlockers(
+    projectId: string,
+  ): Promise<LifecycleBlockerSnapshot> {
+    if (!this.deps.epistemic) {
+      return lifecycleBlockersFromReaderFailure("epistemic_reader_unavailable");
+    }
+    try {
+      const items = await this.deps.epistemic.listByProject(projectId);
+      return deriveLifecycleBlockersFromEpistemicItems(items);
+    } catch {
+      return lifecycleBlockersFromReaderFailure("epistemic_unreadable");
+    }
+  }
+
+  private async loadTrajectory(projectId: string) {
+    try {
+      return await this.deps.trajectories.findCurrentByProjectId(projectId);
+    } catch {
+      return null;
+    }
+  }
+
+  private async completeFromAssessment(input: {
+    cycle: CycleInstance;
+    projectId: string;
+    createdBy: StartCycleRequest["createdBy"];
+    correlationId: string;
+    expectedLpsVersion?: number;
+    decisionId?: string;
+    assessment: import("../domain/types").FinalizationAssessment;
+    started: number;
+    timestamp: string;
+  }): Promise<PilotLifecycleResult> {
+    const fromStatus = input.cycle.status;
+    const next: CycleInstance = {
+      ...structuredClone(input.cycle),
+      status: "completed",
+      closedAt: input.timestamp,
+      pauseReconciliation: null,
+    };
+
+    try {
+      const persist = async () => {
+        await this.deps.cycles.save(next);
+        const lps = await appendLpsActiveLink({
+          projectServices: this.deps.projectServices,
+          projectId: input.projectId,
+          createdBy: input.createdBy,
+          correlationId: input.correlationId,
+          expectedLpsVersion: input.expectedLpsVersion,
+          activeCycleInstanceId: null,
+        });
+        if (!lps.ok) {
+          const err = new Error(lps.detail) as Error & {
+            currentVersion?: number;
+          };
+          err.currentVersion = lps.currentVersion;
+          throw err;
+        }
+        return lps.version;
+      };
+      let version: number | undefined;
+      if (this.deps.store) {
+        version = await this.deps.store.runInTransaction(persist);
+      } else {
+        version = await persist();
+      }
+      const durationMs = Date.now() - input.started;
+      this.deps.audit.append({
+        event: "oa.cycle.lifecycle_transition",
+        ts: input.timestamp,
+        correlationId: input.correlationId,
+        projectId: input.projectId,
+        cycleInstanceId: input.cycle.cycleInstanceId,
+        action: "COMPLETE",
+        fromStatus,
+        toStatus: "completed",
+        actorId: input.createdBy.actorId,
+        decisionRef: input.decisionId,
+        result: "ok",
+        durationMs,
+      });
+      return {
+        ok: true,
+        cycle: next,
+        livingProjectStateVersion: version,
+        activeCycleInstanceId: null,
+        assessment: input.assessment,
+        durationMs,
+      };
+    } catch (err) {
+      const durationMs = Date.now() - input.started;
+      const detail =
+        err instanceof Error && err.message === "lps_version_conflict"
+          ? "LPS_VERSION_CONFLICT"
+          : "PERSISTENCE_FAILURE";
+      return {
+        ok: false,
+        error: createCycleError({
+          detailCode: detail,
+          timestamp: input.timestamp,
+          correlationId: input.correlationId,
+          projectId: input.projectId,
+          cycleInstanceId: input.cycle.cycleInstanceId,
+          currentVersion:
+            err instanceof Error
+              ? (err as Error & { currentVersion?: number }).currentVersion
+              : undefined,
+        }),
+        assessment: input.assessment,
+        durationMs,
+      };
+    }
+  }
+
+  private async persistLifecycleMutation(input: {
+    action: "START" | "PAUSE" | "RESUME" | "CANCEL";
+    projectId: string;
+    cycleInstanceId: string;
+    createdBy: StartCycleRequest["createdBy"];
+    correlationId: string;
+    expectedLpsVersion?: number;
+    decisionId?: string;
+    fromStatus: CycleInstance["status"];
+    toStatus: CycleInstance["status"];
+    next: CycleInstance;
+    setActiveLink: string | null;
+    clearActiveLink: boolean;
+    started: number;
+    timestamp: string;
+    fail: (
+      detailCode: Parameters<typeof createCycleError>[0]["detailCode"],
+      internalCauseRef?: string,
+      extra?: Partial<Parameters<typeof createCycleError>[0]>,
+    ) => PilotLifecycleResult;
+  }): Promise<PilotLifecycleResult> {
+    try {
+      const persist = async () => {
+        if (input.action === "START" || input.action === "RESUME") {
+          const siblings = await this.deps.cycles.listByProject(input.projectId);
+          const single = assertAtMostOneActiveCycle({
+            cycles: siblings,
+            excludeCycleInstanceId: input.cycleInstanceId,
+          });
+          if (single) {
+            throw new Error(single.reason);
+          }
+        }
+        await this.deps.cycles.save(input.next);
+        if (input.clearActiveLink || input.setActiveLink !== undefined) {
+          const linkTarget = input.clearActiveLink ? null : input.setActiveLink;
+          const lps = await appendLpsActiveLink({
+            projectServices: this.deps.projectServices,
+            projectId: input.projectId,
+            createdBy: input.createdBy,
+            correlationId: input.correlationId,
+            expectedLpsVersion: input.expectedLpsVersion,
+            activeCycleInstanceId: linkTarget,
+          });
+          if (!lps.ok) {
+            const err = new Error(lps.detail) as Error & {
+              currentVersion?: number;
+            };
+            err.currentVersion = lps.currentVersion;
+            throw err;
+          }
+          return lps.version;
+        }
+        return undefined;
+      };
+
+      let version: number | undefined;
+      if (this.deps.store) {
+        version = await this.deps.store.runInTransaction(persist);
+      } else {
+        version = await persist();
+      }
+
+      const durationMs = Date.now() - input.started;
+      this.deps.audit.append({
+        event: "oa.cycle.lifecycle_transition",
+        ts: input.timestamp,
+        correlationId: input.correlationId,
+        projectId: input.projectId,
+        cycleInstanceId: input.cycleInstanceId,
+        action: input.action,
+        fromStatus: input.fromStatus,
+        toStatus: input.toStatus,
+        actorId: input.createdBy.actorId,
+        decisionRef: input.decisionId,
+        result: "ok",
+        durationMs,
+      });
+
+      return {
+        ok: true,
+        cycle: input.next,
+        livingProjectStateVersion: version,
+        activeCycleInstanceId: input.clearActiveLink
+          ? null
+          : input.setActiveLink,
+        durationMs,
+      };
+    } catch (err) {
+      if (err instanceof Error && err.message.startsWith("active_exists")) {
+        return input.fail("CYCLE_ALREADY_ACTIVE_EXISTS", err.message);
+      }
+      if (err instanceof Error && err.message === "lps_version_conflict") {
+        return input.fail("LPS_VERSION_CONFLICT", "expected_version_mismatch", {
+          expectedVersion: input.expectedLpsVersion,
+          currentVersion: (err as Error & { currentVersion?: number })
+            .currentVersion,
+        });
+      }
+      return input.fail("PERSISTENCE_FAILURE", "lifecycle_persist_failed");
+    }
+  }
+
+  private async runTransition(input: {
+    action: "START" | "PAUSE" | "RESUME" | "CANCEL";
+    projectId: string;
+    cycleInstanceId: string;
+    createdBy: StartCycleRequest["createdBy"];
+    correlationId?: string;
+    expectedLpsVersion?: number;
+    decisionId?: string;
+    authorityEvidenceId?: string;
+    setActiveLink: string | null;
+    clearActiveLink: boolean;
+    setClosedAt?: boolean;
+    skipAuthority?: boolean;
+  }): Promise<PilotLifecycleResult> {
+    const started = Date.now();
+    const timestamp = this.deps.clock.nowIso();
+    const correlationId = input.correlationId ?? newId("cor");
+
+    const fail = (
+      detailCode: Parameters<typeof createCycleError>[0]["detailCode"],
+      internalCauseRef?: string,
+      extra?: Partial<Parameters<typeof createCycleError>[0]>,
+    ): PilotLifecycleResult => {
+      const durationMs = Date.now() - started;
+      const error = createCycleError({
+        detailCode,
+        timestamp,
+        correlationId,
+        projectId: input.projectId,
+        cycleInstanceId: input.cycleInstanceId,
+        internalCauseRef,
+        ...extra,
+      });
+      this.deps.audit.append({
+        event: "oa.cycle.lifecycle_transition",
+        ts: timestamp,
+        correlationId,
+        projectId: input.projectId,
+        cycleInstanceId: input.cycleInstanceId,
+        action: input.action,
+        fromStatus: "unknown",
+        toStatus: "unknown",
+        actorId: input.createdBy.actorId,
+        decisionRef: input.decisionId,
+        result: "error",
+        detailCode,
+        durationMs,
+      });
+      return { ok: false, error, durationMs };
+    };
+
+    if (!input.createdBy?.actorId) {
+      return fail("CYCLE_LIFECYCLE_DENIED", "actor_required");
+    }
+
+    if (!input.skipAuthority) {
+      const authGate = this.verifyAuthority({
+        actorId: input.createdBy.actorId,
+        cycleInstanceId: input.cycleInstanceId,
+        evidenceId: input.authorityEvidenceId,
+      });
+      if (!authGate.ok) {
+        return fail(authGate.detailCode, authGate.internalCauseRef);
+      }
+    }
+
+    const projectResult = await this.deps.projectServices.getProject.execute({
+      projectId: input.projectId,
+    });
+    if (!projectResult.ok) {
+      return fail("PROJECT_NOT_FOUND", "missing_project");
+    }
+
+    const cycle = await this.deps.cycles.findById(input.cycleInstanceId);
+    if (!cycle || cycle.projectId !== input.projectId) {
+      return fail("CYCLE_NOT_FOUND", "missing_cycle");
+    }
+
+    if (isTerminalGuard(cycle)) {
+      return fail("CYCLE_TERMINAL", `terminal_${cycle.status}`);
+    }
+
+    const transition = assertLifecycleTransition({
+      from: cycle.status,
+      action: input.action,
+    });
+    if (transition) return fail(transition.detailCode, transition.reason);
+
+    const toStatus = targetStatusForAction(input.action);
+    if (!toStatus) {
+      return fail("CYCLE_TRANSITION_INVALID", "no_target_status");
+    }
+
+    if (input.action === "START" || input.action === "RESUME") {
+      const siblings = await this.deps.cycles.listByProject(input.projectId);
+      const single = assertAtMostOneActiveCycle({
+        cycles: siblings,
+        excludeCycleInstanceId: input.cycleInstanceId,
+      });
+      if (single) return fail(single.detailCode, single.reason);
+
+      const lps =
+        await this.deps.projectServices.getCurrentLivingProjectState.execute({
+          projectId: input.projectId,
+        });
+      if (lps.ok) {
+        const activeId = lps.livingProjectState.activeCycleInstanceId;
+        if (activeId && activeId !== input.cycleInstanceId) {
+          return fail(
+            "CYCLE_ALREADY_ACTIVE_EXISTS",
+            `lps_active_pointer:${activeId}`,
+          );
+        }
+      }
+    }
+
+    const next: CycleInstance = {
+      ...structuredClone(cycle),
+      status: toStatus,
+      closedAt: input.setClosedAt ? timestamp : cycle.closedAt,
+      acknowledgedAt:
+        toStatus === "active" && !cycle.acknowledgedAt
+          ? timestamp
+          : cycle.acknowledgedAt,
+      pauseReconciliation:
+        input.action === "CANCEL" ? null : cycle.pauseReconciliation,
+    };
+
+    return this.persistLifecycleMutation({
+      action: input.action,
+      projectId: input.projectId,
+      cycleInstanceId: input.cycleInstanceId,
+      createdBy: input.createdBy,
+      correlationId,
+      expectedLpsVersion: input.expectedLpsVersion,
+      decisionId: input.decisionId,
+      fromStatus: cycle.status,
+      toStatus,
+      next,
+      setActiveLink: input.setActiveLink,
+      clearActiveLink: input.clearActiveLink,
+      started,
+      timestamp,
+      fail,
+    });
+  }
+}
+
+function isTerminalGuard(cycle: CycleInstance): boolean {
+  return cycle.status === "completed" || cycle.status === "cancelled";
+}
+
+```
+
+
+## FILE `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts`
+
+```typescript
+/**
+ * CORR-PROOF-05 — durable Pilot lifecycle projection (reload-safe).
+ * Derived from CycleRepository + LPS (+ optional trajectory/assessment).
+ * Never owned by F2/proposal process-local state.
+ */
+import type {
+  CycleInstance,
+  CycleInstanceStatus,
+  FinalizationAssessment,
+} from "../domain/types";
+import {
+  isPausedStatus,
+  isStartableCandidateStatus,
+  isTerminalCycleStatus,
+} from "../domain/lifecycleInvariants";
+
+export type PilotLifecycleProjection = {
+  projectId: string;
+  activeCycleInstanceId: string | null;
+  activeCycle: CycleInstance | null;
+  pausedCycles: CycleInstance[];
+  /** Startable candidates only (proposed | acknowledged). */
+  candidateCycles: CycleInstance[];
+  /** Historical superseded — visible, never startable. */
+  supersededCycles: CycleInstance[];
+  terminalCycles: CycleInstance[];
+  /**
+   * Selected cycle for CTA surface.
+   * Preference: LPS active → single paused → single startable candidate → null (ambiguous).
+   * Superseded never selected for canStart; multiple superseded alone do not create ambiguity.
+   */
+  selectedCycleInstanceId: string | null;
+  selectedStatus: CycleInstanceStatus | null;
+  selectionAmbiguous: boolean;
+  assessment?: FinalizationAssessment | null;
+  cta: {
+    canStart: boolean;
+    canPause: boolean;
+    canResume: boolean;
+    canFinalize: boolean;
+    canCancel: boolean;
+  };
+};
+
+export function projectPilotLifecycle(input: {
+  projectId: string;
+  cycles: readonly CycleInstance[];
+  lpsActiveCycleInstanceId: string | null | undefined;
+  assessment?: FinalizationAssessment | null;
+}): PilotLifecycleProjection {
+  const byId = new Map(
+    input.cycles.map((c) => [c.cycleInstanceId, c] as const),
+  );
+  const activeId = input.lpsActiveCycleInstanceId ?? null;
+  const activeFromRepo = input.cycles.find((c) => c.status === "active") ?? null;
+  const activeCycle =
+    (activeId ? byId.get(activeId) ?? null : null) ?? activeFromRepo;
+
+  const pausedCycles = input.cycles.filter((c) => isPausedStatus(c.status));
+  const candidateCycles = input.cycles.filter((c) =>
+    isStartableCandidateStatus(c.status),
+  );
+  const supersededCycles = input.cycles.filter(
+    (c) => c.status === "superseded",
+  );
+  const terminalCycles = input.cycles.filter((c) =>
+    isTerminalCycleStatus(c.status),
+  );
+
+  let selectedCycleInstanceId: string | null = null;
+  let selectionAmbiguous = false;
+
+  if (activeCycle) {
+    selectedCycleInstanceId = activeCycle.cycleInstanceId;
+  } else if (pausedCycles.length === 1) {
+    selectedCycleInstanceId = pausedCycles[0]!.cycleInstanceId;
+  } else if (pausedCycles.length > 1) {
+    selectionAmbiguous = true;
+  } else if (candidateCycles.length === 1) {
+    selectedCycleInstanceId = candidateCycles[0]!.cycleInstanceId;
+  } else if (candidateCycles.length > 1) {
+    selectionAmbiguous = true;
+  }
+
+  const selected = selectedCycleInstanceId
+    ? byId.get(selectedCycleInstanceId) ?? null
+    : null;
+  const selectedStatus = selected?.status ?? null;
+
+  const cta = {
+    canStart: Boolean(
+      selected && isStartableCandidateStatus(selected.status) && !activeCycle,
+    ),
+    canPause: Boolean(selected && selected.status === "active"),
+    canResume: Boolean(selected && isPausedStatus(selected.status) && !activeCycle),
+    canFinalize: Boolean(
+      selected &&
+        !isTerminalCycleStatus(selected.status) &&
+        (selected.status === "active" ||
+          selected.status === "paused" ||
+          selected.status === "blocked"),
+    ),
+    canCancel: Boolean(
+      selected && !isTerminalCycleStatus(selected.status),
+    ),
+  };
+
+  return {
+    projectId: input.projectId,
+    activeCycleInstanceId: activeCycle?.cycleInstanceId ?? activeId,
+    activeCycle,
+    pausedCycles,
+    candidateCycles,
+    supersededCycles,
+    terminalCycles,
+    selectedCycleInstanceId,
+    selectedStatus,
+    selectionAmbiguous,
+    assessment: input.assessment ?? null,
+    cta,
+  };
+}
+
+```
+
+
+## FILE `projects/sfia-studio/app/lib/oa/cycle/application/assessStartReadiness.ts`
+
+```typescript
+/**
+ * CORR-PROOF-05 — pure StartReadiness assessment (no StartLedger).
+ * Caller requiresTrajectoryHumanDecision is never sole SoT.
+ */
+import type { HumanDecision } from "@/lib/oa/decision";
+import type {
+  CycleInstance,
+  ProjectTrajectory,
+  StartReadinessAssessment,
+} from "../domain/types";
+import { isStartableCandidateStatus } from "../domain/lifecycleInvariants";
+import {
+  isAcceptedStartTrajectoryDecision,
+  startTrajectorySubjectFor,
+} from "./assessFinalization";
+
+export type AssessStartReadinessInput = {
+  assessedAt: string;
+  projectOk: boolean;
+  cycle: CycleInstance | null;
+  projectId: string;
+  lpsReadable: boolean;
+  lpsActiveCycleInstanceId: string | null | undefined;
+  siblingActiveExists: boolean;
+  trajectory: ProjectTrajectory | null;
+  decisions: readonly HumanDecision[];
+  /** Optional decisionId supplied by caller — validated, never trusted alone. */
+  decisionId?: string;
+  blockingReservationStatements?: readonly string[];
+  /** Fail-closed when epistemic/blocker reader is unavailable or throws. */
+  blockerSourceUnreadable?: boolean;
+  doctrineReadable: boolean;
+  /**
+   * When true, durable context shows an undecided structuring trajectory choice
+   * that START must consume (candidate trajectory / undecided amendment).
+   */
+  structuringTrajectoryChoiceOpen?: boolean;
+};
+
+function trajectoryFingerprint(t: ProjectTrajectory): string {
+  return `${t.trajectoryId}@v${t.version}:${t.status}:${t.steps
+    .map((s) => `${s.stepId}:${s.state}`)
+    .join(",")}`;
+}
+
+export function assessStartReadiness(
+  input: AssessStartReadinessInput,
+): StartReadinessAssessment {
+  const blockers: string[] = [];
+
+  if (!input.projectOk) blockers.push("project_missing");
+  if (!input.cycle) {
+    blockers.push("cycle_missing");
+  } else {
+    if (input.cycle.projectId !== input.projectId) {
+      blockers.push("cycle_project_mismatch");
+    }
+    if (!isStartableCandidateStatus(input.cycle.status)) {
+      blockers.push(`cycle_not_candidate:${input.cycle.status}`);
+    }
+    if (!input.cycle.cycleTypeId?.trim()) {
+      blockers.push("cycle_type_missing");
+    }
+  }
+
+  if (!input.lpsReadable) blockers.push("lps_unreadable");
+  if (input.siblingActiveExists) blockers.push("another_active_exists");
+  if (
+    input.lpsActiveCycleInstanceId &&
+    input.cycle &&
+    input.lpsActiveCycleInstanceId !== input.cycle.cycleInstanceId
+  ) {
+    blockers.push("lps_active_pointer_elsewhere");
+  }
+
+  if (!input.doctrineReadable) blockers.push("doctrine_unreadable");
+
+  // Product Completion: usable current trajectory required for START compatibility
+  if (!input.trajectory) {
+    blockers.push("trajectory_missing_or_unreadable");
+  } else if (
+    input.trajectory.status === "stale" ||
+    input.trajectory.status === "superseded"
+  ) {
+    blockers.push(`trajectory_incompatible:${input.trajectory.status}`);
+  }
+
+  const openDeps = (input.trajectory?.steps ?? []).filter(
+    (s) => s.state === "blocked",
+  );
+  if (openDeps.length > 0) {
+    blockers.push("trajectory_entry_blocked");
+  }
+
+  if (input.blockerSourceUnreadable === true) {
+    blockers.push("blocker_source_unreadable");
+  }
+
+  const blockingReservations = input.blockingReservationStatements ?? [];
+  if (blockingReservations.length > 0) {
+    blockers.push("blocking_reservations");
+  }
+
+  const structuringOpen =
+    input.structuringTrajectoryChoiceOpen === true ||
+    input.trajectory?.status === "candidate";
+
+  let requiresTrajectoryHumanDecision = structuringOpen;
+
+  if (requiresTrajectoryHumanDecision) {
+    const cycleId = input.cycle?.cycleInstanceId ?? "";
+    let hd: HumanDecision | null = null;
+    if (input.decisionId) {
+      hd =
+        input.decisions.find((d) => d.decisionId === input.decisionId) ?? null;
+    } else {
+      hd =
+        input.decisions.find((d) =>
+          isAcceptedStartTrajectoryDecision(d, cycleId, input.projectId),
+        ) ?? null;
+    }
+    if (
+      !hd ||
+      !isAcceptedStartTrajectoryDecision(hd, cycleId, input.projectId)
+    ) {
+      blockers.push("start_trajectory_hd_missing_or_invalid");
+    }
+  } else if (input.decisionId) {
+    // Arbitrary decisionId must not falsely satisfy when HD not required —
+    // but also must not block START. Ignore unless subject matches.
+    const hd =
+      input.decisions.find((d) => d.decisionId === input.decisionId) ?? null;
+    if (
+      hd &&
+      hd.subject === startTrajectorySubjectFor(input.cycle?.cycleInstanceId ?? "")
+    ) {
+      requiresTrajectoryHumanDecision = true;
+      if (
+        !input.cycle ||
+        !isAcceptedStartTrajectoryDecision(
+          hd,
+          input.cycle.cycleInstanceId,
+          input.projectId,
+        )
+      ) {
+        blockers.push("start_trajectory_hd_missing_or_invalid");
+      }
+    }
+  }
+
+  void trajectoryFingerprint;
+
+  return {
+    ready: blockers.length === 0,
+    blockers,
+    requiresTrajectoryHumanDecision,
+    assessedAt: input.assessedAt,
+  };
+}
+
+```
+
+
+## FILE `projects/sfia-studio/app/lib/oa/cycle/domain/lifecycleInvariants.ts`
+
+```typescript
+/**
+ * CORR-PROOF-05 — Pilot-governed CycleInstance lifecycle invariants.
+ * Application/domain enforcement (not UI-only).
+ */
+import type { CycleInstance, CycleInstanceStatus } from "./types";
+import type { InvariantViolation } from "./invariants";
+
+/** Authority-bearing working status for ≤1 ACTIVE enforcement. */
+export const ACTIVE_AUTHORITY_STATUS: CycleInstanceStatus = "active";
+
+export type PilotLifecycleAction =
+  | "START"
+  | "PAUSE"
+  | "RESUME"
+  | "FINALIZE"
+  | "CANCEL"
+  | "COMPLETE"
+  | "BLOCK";
+
+export function isTerminalCycleStatus(status: CycleInstanceStatus): boolean {
+  return status === "completed" || status === "cancelled";
+}
+
+export function isActiveAuthorityStatus(status: CycleInstanceStatus): boolean {
+  return status === ACTIVE_AUTHORITY_STATUS;
+}
+
+export function isPausedStatus(status: CycleInstanceStatus): boolean {
+  return status === "paused";
+}
+
+export function isCandidateNonActiveStatus(status: CycleInstanceStatus): boolean {
+  return (
+    status === "proposed" ||
+    status === "acknowledged" ||
+    status === "superseded"
+  );
+}
+
+/** Startable non-active statuses only — superseded is historical, not startable. */
+export function isStartableCandidateStatus(status: CycleInstanceStatus): boolean {
+  return status === "proposed" || status === "acknowledged";
+}
+
+export function listActiveAuthorityCycles(
+  cycles: readonly CycleInstance[],
+): CycleInstance[] {
+  return cycles.filter((c) => isActiveAuthorityStatus(c.status));
+}
+
+/**
+ * ≤1 ACTIVE CycleInstance per Project.
+ * Optional excludeId allows the cycle being activated to pass through.
+ */
+export function assertAtMostOneActiveCycle(input: {
+  cycles: readonly CycleInstance[];
+  excludeCycleInstanceId?: string;
+}): InvariantViolation | null {
+  const actives = listActiveAuthorityCycles(input.cycles).filter(
+    (c) => c.cycleInstanceId !== input.excludeCycleInstanceId,
+  );
+  if (actives.length > 0) {
+    return {
+      detailCode: "CYCLE_ALREADY_ACTIVE_EXISTS",
+      reason: `active_exists:${actives.map((c) => c.cycleInstanceId).join(",")}`,
+    };
+  }
+  return null;
+}
+
+export function assertNotTerminal(
+  cycle: CycleInstance,
+): InvariantViolation | null {
+  if (isTerminalCycleStatus(cycle.status)) {
+    return {
+      detailCode: "CYCLE_TERMINAL",
+      reason: `terminal_${cycle.status}`,
+    };
+  }
+  return null;
+}
+
+/**
+ * Allowed Pilot lifecycle transitions (domain matrix).
+ * BLOCKED remains distinct from PAUSED.
+ */
+export function assertLifecycleTransition(input: {
+  from: CycleInstanceStatus;
+  action: PilotLifecycleAction;
+}): InvariantViolation | null {
+  const { from, action } = input;
+  if (isTerminalCycleStatus(from) && action !== "COMPLETE") {
+    return {
+      detailCode: "CYCLE_TERMINAL",
+      reason: `no_transition_from_${from}`,
+    };
+  }
+
+  const ok = (allowed: boolean, reason: string): InvariantViolation | null =>
+    allowed
+      ? null
+      : { detailCode: "CYCLE_TRANSITION_INVALID", reason };
+
+  switch (action) {
+    case "START":
+      return ok(
+        from === "proposed" || from === "acknowledged",
+        `start_from_${from}`,
+      );
+    case "PAUSE":
+      return ok(from === "active", `pause_from_${from}`);
+    case "RESUME":
+      return ok(from === "paused", `resume_from_${from}`);
+    case "FINALIZE":
+      return ok(
+        from === "active" || from === "paused" || from === "blocked",
+        `finalize_from_${from}`,
+      );
+    case "CANCEL":
+      return ok(!isTerminalCycleStatus(from), `cancel_from_${from}`);
+    case "COMPLETE":
+      return ok(
+        from === "active" || from === "paused" || from === "blocked",
+        `complete_from_${from}`,
+      );
+    case "BLOCK":
+      return ok(from === "active" || from === "paused", `block_from_${from}`);
+    default: {
+      const _exhaustive: never = action;
+      void _exhaustive;
+      return { detailCode: "CYCLE_TRANSITION_INVALID", reason: "unknown_action" };
+    }
+  }
+}
+
+export function targetStatusForAction(
+  action: PilotLifecycleAction,
+): CycleInstanceStatus | null {
+  switch (action) {
+    case "START":
+    case "RESUME":
+      return "active";
+    case "PAUSE":
+      return "paused";
+    case "CANCEL":
+      return "cancelled";
+    case "COMPLETE":
+      return "completed";
+    case "BLOCK":
+      return "blocked";
+    case "FINALIZE":
+      // FINALIZE does not by itself complete; status unchanged until COMPLETE.
+      return null;
+    default: {
+      const _exhaustive: never = action;
+      void _exhaustive;
+      return null;
+    }
+  }
+}
+
+```
+
+
+## FILE `projects/sfia-studio/app/features/project-assistant/f2/pilotLifecycleActions.ts`
+
+```typescript
+/**
+ * CORR-PROOF-05 — Project Assistant Pilot lifecycle server helpers.
+ * Pilot lifecycle authority ≠ Morris construction gate.
+ *
+ * Static guard: forceEnable must not appear in this Product file.
+ * registerLocalPiloteAuthority is env-gated fail-closed (AUTHORITY_NOT_CONFIGURED).
+ * Tests may forceEnable only outside this Product path.
+ */
+import { randomUUID } from "node:crypto";
+import {
+  LOCAL_PILOTE_ACTOR,
+  registerLocalPiloteAuthority,
+  type DecisionServices,
+  type MemoryAuthorityResolver,
+} from "@/lib/oa/decision";
+import {
+  cancelSubjectFor,
+  finalizeSubjectFor,
+  startTrajectorySubjectFor,
+  resumeReplanSubjectFor,
+  type CycleServices,
+  type FinalizationAssessment,
+  type PilotLifecycleResult,
+} from "@/lib/oa/cycle";
+import type { ProjectServices } from "@/lib/oa/project";
+
+export type PilotLifecycleActionKind =
+  | "START"
+  | "PAUSE"
+  | "RESUME"
+  | "FINALIZE"
+  | "CANCEL"
+  | "ASSESS"
+  | "REEVALUATE";
+
+const PILOTE = LOCAL_PILOTE_ACTOR;
+
+async function ensurePiloteAuthority(input: {
+  authorityResolver: MemoryAuthorityResolver;
+  scope: string;
+  nowIso: string;
+}): Promise<{ ok: true; evidenceId: string } | { ok: false; code: string; message: string }> {
+  const authority = registerLocalPiloteAuthority({
+    authorityResolver: input.authorityResolver,
+    scope: input.scope,
+    issuedAt: input.nowIso,
+  });
+  if (!authority.ok) {
+    return { ok: false, code: authority.code, message: authority.message };
+  }
+
+  const verified = input.authorityResolver.verify({
+    actorId: LOCAL_PILOTE_ACTOR.actorId,
+    requiredLevel: "N3",
+    scope: input.scope,
+    evidenceId: authority.evidenceId,
+    requireMorrisGate: true,
+  });
+  if (!verified.ok) {
+    const reason = verified.reason ?? "authority_verify_failed";
+    const notConfigured =
+      reason === "no_evidence" ||
+      reason === "evidence_not_found" ||
+      reason.includes("not_configured") ||
+      reason.includes("not configured");
+    return {
+      ok: false,
+      code: notConfigured ? "AUTHORITY_NOT_CONFIGURED" : "CYCLE_LIFECYCLE_DENIED",
+      message: reason,
+    };
+  }
+  return { ok: true, evidenceId: authority.evidenceId };
+}
+
+async function recordLifecycleDecision(input: {
+  decisionServices: DecisionServices;
+  authorityResolver: MemoryAuthorityResolver;
+  projectId: string;
+  cycleInstanceId: string;
+  subject: string;
+  selectedOptionId: string;
+  nowIso: string;
+  /** Reuse evidence already obtained via ensurePiloteAuthority. */
+  authorityEvidenceId?: string;
+}): Promise<
+  | { ok: true; decisionId: string; evidenceId: string }
+  | { ok: false; code: string; message: string }
+> {
+  const scope = `pilot-lifecycle:${input.cycleInstanceId}`;
+  let evidenceId = input.authorityEvidenceId;
+  if (!evidenceId) {
+    const auth = await ensurePiloteAuthority({
+      authorityResolver: input.authorityResolver,
+      scope,
+      nowIso: input.nowIso,
+    });
+    if (!auth.ok) return auth;
+    evidenceId = auth.evidenceId;
+  }
+
+  const decisionId = `dec:pilot-life:${randomUUID()}`;
+  const recorded = await input.decisionServices.recordHumanDecision.execute({
+    decisionId,
+    projectId: input.projectId,
+    cycleInstanceId: input.cycleInstanceId,
+    subject: input.subject,
+    options: [
+      { optionId: "opt:accept", label: "Accept" },
+      { optionId: "opt:refuse", label: "Refuse" },
+    ],
+    selectedOptionId: input.selectedOptionId,
+    actor: PILOTE,
+    // Technical OA authority class for structuring Pilot HD — not Morris runtime UX.
+    authority: "morris",
+    status: "accepted",
+    reversible: false,
+    scope,
+    authorityEvidenceId: evidenceId,
+    rationale: `Pilot lifecycle ${input.subject}`,
+  });
+  if (!recorded.ok) {
+    return {
+      ok: false,
+      code: recorded.error.detailCode,
+      message: recorded.error.message,
+    };
+  }
+  return { ok: true, decisionId, evidenceId };
+}
+
+export async function executePilotLifecycleAction(input: {
+  action: PilotLifecycleActionKind;
+  projectId: string;
+  cycleInstanceId: string;
+  cycleServices: CycleServices;
+  projectServices: ProjectServices;
+  decisionServices: DecisionServices;
+  authorityResolver: MemoryAuthorityResolver;
+  nowIso: () => string;
+  /** RESUME only — caller-detected material drift (hint; server owns SoT). */
+  materialDriftDetected?: boolean;
+  /** START hint only — server assessStartReadiness decides HD requirement. */
+  requiresTrajectoryHumanDecision?: boolean;
+  /** RESUME hint only — server assessResumeReconciliation decides. */
+  requiresReplanHumanDecision?: boolean;
+}): Promise<
+  | {
+      ok: true;
+      action: PilotLifecycleActionKind;
+      result?: PilotLifecycleResult;
+      assessment?: FinalizationAssessment;
+      decisionId?: string;
+      authorityEvidenceId?: string;
+    }
+  | {
+      ok: false;
+      code: string;
+      message: string;
+      assessment?: FinalizationAssessment;
+    }
+> {
+  const createdBy = {
+    actorId: PILOTE.actorId,
+    role: PILOTE.role,
+    displayName: PILOTE.displayName,
+    authorityLevel: PILOTE.authorityLevel,
+  };
+
+  const lps = await input.projectServices.getCurrentLivingProjectState.execute({
+    projectId: input.projectId,
+  });
+  const expectedLpsVersion = lps.ok
+    ? lps.livingProjectState.version
+    : undefined;
+
+  const scope = `pilot-lifecycle:${input.cycleInstanceId}`;
+
+  switch (input.action) {
+    case "START": {
+      const auth = await ensurePiloteAuthority({
+        authorityResolver: input.authorityResolver,
+        scope,
+        nowIso: input.nowIso(),
+      });
+      if (!auth.ok) return auth;
+
+      let decisionId: string | undefined;
+      // Caller hint may pre-record trajectory HD; server still decides readiness.
+      if (input.requiresTrajectoryHumanDecision) {
+        const hd = await recordLifecycleDecision({
+          decisionServices: input.decisionServices,
+          authorityResolver: input.authorityResolver,
+          projectId: input.projectId,
+          cycleInstanceId: input.cycleInstanceId,
+          subject: startTrajectorySubjectFor(input.cycleInstanceId),
+          selectedOptionId: "opt:accept",
+          nowIso: input.nowIso(),
+          authorityEvidenceId: auth.evidenceId,
+        });
+        if (!hd.ok) return hd;
+        decisionId = hd.decisionId;
+      }
+      const result = await input.cycleServices.pilotLifecycle.start({
+        cycleInstanceId: input.cycleInstanceId,
+        projectId: input.projectId,
+        createdBy,
+        expectedLpsVersion,
+        requiresTrajectoryHumanDecision:
+          input.requiresTrajectoryHumanDecision,
+        decisionId,
+        authorityEvidenceId: auth.evidenceId,
+      });
+      if (!result.ok) {
+        return {
+          ok: false,
+          code: result.error.detailCode,
+          message: result.error.message,
+        };
+      }
+      return {
+        ok: true,
+        action: "START",
+        result,
+        decisionId,
+        authorityEvidenceId: auth.evidenceId,
+      };
+    }
+    case "PAUSE": {
+      const auth = await ensurePiloteAuthority({
+        authorityResolver: input.authorityResolver,
+        scope,
+        nowIso: input.nowIso(),
+      });
+      if (!auth.ok) return auth;
+      const result = await input.cycleServices.pilotLifecycle.pause({
+        cycleInstanceId: input.cycleInstanceId,
+        projectId: input.projectId,
+        createdBy,
+        expectedLpsVersion,
+        authorityEvidenceId: auth.evidenceId,
+      });
+      if (!result.ok) {
+        return {
+          ok: false,
+          code: result.error.detailCode,
+          message: result.error.message,
+        };
+      }
+      return {
+        ok: true,
+        action: "PAUSE",
+        result,
+        authorityEvidenceId: auth.evidenceId,
+      };
+    }
+    case "RESUME": {
+      const auth = await ensurePiloteAuthority({
+        authorityResolver: input.authorityResolver,
+        scope,
+        nowIso: input.nowIso(),
+      });
+      if (!auth.ok) return auth;
+
+      let decisionId: string | undefined;
+      if (input.requiresReplanHumanDecision) {
+        const hd = await recordLifecycleDecision({
+          decisionServices: input.decisionServices,
+          authorityResolver: input.authorityResolver,
+          projectId: input.projectId,
+          cycleInstanceId: input.cycleInstanceId,
+          subject: resumeReplanSubjectFor(input.cycleInstanceId),
+          selectedOptionId: "opt:accept",
+          nowIso: input.nowIso(),
+          authorityEvidenceId: auth.evidenceId,
+        });
+        if (!hd.ok) return hd;
+        decisionId = hd.decisionId;
+      }
+      const result = await input.cycleServices.pilotLifecycle.resume({
+        cycleInstanceId: input.cycleInstanceId,
+        projectId: input.projectId,
+        createdBy,
+        expectedLpsVersion,
+        materialDriftDetected: input.materialDriftDetected,
+        requiresReplanHumanDecision: input.requiresReplanHumanDecision,
+        decisionId,
+        authorityEvidenceId: auth.evidenceId,
+      });
+      if (!result.ok) {
+        return {
+          ok: false,
+          code: result.error.detailCode,
+          message: result.error.message,
+          assessment: result.assessment,
+        };
+      }
+      return {
+        ok: true,
+        action: "RESUME",
+        result,
+        decisionId,
+        authorityEvidenceId: auth.evidenceId,
+      };
+    }
+    case "FINALIZE": {
+      const auth = await ensurePiloteAuthority({
+        authorityResolver: input.authorityResolver,
+        scope,
+        nowIso: input.nowIso(),
+      });
+      if (!auth.ok) return auth;
+      const hd = await recordLifecycleDecision({
+        decisionServices: input.decisionServices,
+        authorityResolver: input.authorityResolver,
+        projectId: input.projectId,
+        cycleInstanceId: input.cycleInstanceId,
+        subject: finalizeSubjectFor(input.cycleInstanceId),
+        selectedOptionId: "opt:accept",
+        nowIso: input.nowIso(),
+        authorityEvidenceId: auth.evidenceId,
+      });
+      if (!hd.ok) return hd;
+      const result = await input.cycleServices.pilotLifecycle.finalize({
+        cycleInstanceId: input.cycleInstanceId,
+        projectId: input.projectId,
+        createdBy,
+        decisionId: hd.decisionId,
+        expectedLpsVersion,
+        authorityEvidenceId: auth.evidenceId,
+      });
+      if (!result.ok) {
+        return {
+          ok: false,
+          code: result.error.detailCode,
+          message: result.error.message,
+          assessment: result.assessment,
+        };
+      }
+      return {
+        ok: true,
+        action: "FINALIZE",
+        result,
+        assessment: result.assessment,
+        decisionId: hd.decisionId,
+        authorityEvidenceId: auth.evidenceId,
+      };
+    }
+    case "CANCEL": {
+      const auth = await ensurePiloteAuthority({
+        authorityResolver: input.authorityResolver,
+        scope,
+        nowIso: input.nowIso(),
+      });
+      if (!auth.ok) return auth;
+      const hd = await recordLifecycleDecision({
+        decisionServices: input.decisionServices,
+        authorityResolver: input.authorityResolver,
+        projectId: input.projectId,
+        cycleInstanceId: input.cycleInstanceId,
+        subject: cancelSubjectFor(input.cycleInstanceId),
+        selectedOptionId: "opt:accept",
+        nowIso: input.nowIso(),
+        authorityEvidenceId: auth.evidenceId,
+      });
+      if (!hd.ok) return hd;
+      const result = await input.cycleServices.pilotLifecycle.cancel({
+        cycleInstanceId: input.cycleInstanceId,
+        projectId: input.projectId,
+        createdBy,
+        decisionId: hd.decisionId,
+        expectedLpsVersion,
+        authorityEvidenceId: auth.evidenceId,
+      });
+      if (!result.ok) {
+        return {
+          ok: false,
+          code: result.error.detailCode,
+          message: result.error.message,
+        };
+      }
+      return {
+        ok: true,
+        action: "CANCEL",
+        result,
+        decisionId: hd.decisionId,
+        authorityEvidenceId: auth.evidenceId,
+      };
+    }
+    case "ASSESS": {
+      const assessed = await input.cycleServices.pilotLifecycle.assess({
+        cycleInstanceId: input.cycleInstanceId,
+        projectId: input.projectId,
+      });
+      if (!assessed.ok) {
+        return {
+          ok: false,
+          code: assessed.error.detailCode,
+          message: assessed.error.message,
+        };
+      }
+      return {
+        ok: true,
+        action: "ASSESS",
+        assessment: assessed.assessment,
+      };
+    }
+    case "REEVALUATE": {
+      const result =
+        await input.cycleServices.pilotLifecycle.reevaluateAndComplete({
+          cycleInstanceId: input.cycleInstanceId,
+          projectId: input.projectId,
+          createdBy,
+          expectedLpsVersion,
+        });
+      if (!result.ok) {
+        return {
+          ok: false,
+          code: result.error.detailCode,
+          message: result.error.message,
+          assessment: result.assessment,
+        };
+      }
+      return {
+        ok: true,
+        action: "REEVALUATE",
+        result,
+        assessment: result.assessment,
+      };
+    }
+    default: {
+      const _exhaustive: never = input.action;
+      void _exhaustive;
+      return {
+        ok: false,
+        code: "CYCLE_LIFECYCLE_DENIED",
+        message: "Unknown Pilot lifecycle action.",
+      };
+    }
+  }
+}
+
+```
+
+
+## FILE `projects/sfia-studio/app/__tests__/oa/cycle/corrProof05.pilotLifecycle.d0.test.ts`
 
 ```typescript
 /**
@@ -204,15 +4280,20 @@ import {
   deriveFinalizationApplicability,
   finalizeSubjectFor,
   cancelSubjectFor,
+  isGitQualifyingEvidence,
   isStartableCandidateStatus,
   obligationPolicySubjectFor,
   OBLIGATION_POLICY_NO_GOVERNED_EFFECTS,
   OBLIGATION_POLICY_NO_ARTIFACT,
   OBLIGATION_POLICY_NO_GIT,
   OBLIGATION_POLICY_NO_EXECUTION,
+  OBLIGATION_POLICY_NO_EVIDENCE,
+  OBLIGATION_POLICY_NO_REVIEW,
   OBLIGATION_POLICY_REQUIRE_ARTIFACT,
   OBLIGATION_POLICY_REQUIRE_GIT,
   projectPilotLifecycle,
+  selectEffectiveExecutionContracts,
+  selectEffectiveReviewBundles,
   startTrajectorySubjectFor,
   resumeReplanSubjectFor,
   type CycleInstance,
@@ -220,6 +4301,8 @@ import {
   type ProjectTrajectory,
   type TrajectoryStep,
 } from "@/lib/oa/cycle";
+import type { Evidence } from "@/lib/oa/evidence-review";
+import type { ReviewBundle } from "@/lib/oa/evidence-review/domain/reviewBundleTypes";
 import {
   MemoryAuthorityResolver,
   createSqliteDecisionServices,
@@ -335,7 +4418,20 @@ function authorityAdapter(authority: MemoryAuthorityResolver) {
 
 function buildStack(
   dbPath: string,
-  opts?: { applicabilityRules?: FinalizationApplicabilityRules },
+  opts?: {
+    applicabilityRules?: FinalizationApplicabilityRules;
+    epistemic?: {
+      listByProject: (projectId: string) => Promise<
+        Array<{
+          epistemicItemId: string;
+          type: string;
+          statement: string;
+          status: string;
+          blocking?: boolean;
+        }>
+      >;
+    };
+  },
 ): {
   project: SqliteProductProjectServices;
   cycles: ReturnType<typeof createSqliteCycleServices>;
@@ -365,6 +4461,9 @@ function buildStack(
     },
     authority: authorityAdapter(authority),
     applicabilityRules: opts?.applicabilityRules,
+    epistemic: opts?.epistemic as
+      | { listByProject: (projectId: string) => Promise<never[]> }
+      | undefined,
   });
   decisions = createSqliteDecisionServices({
     projectServices: project,
@@ -1396,8 +5495,11 @@ describe("B — start readiness (B1–B8)", () => {
 });
 
 describe("C — resume reconciliation (C1–C9)", () => {
-  function snap(partial?: Partial<ReturnType<typeof buildPauseReconciliationSnapshot>>) {
-    return buildPauseReconciliationSnapshot({
+  function snap(
+    partial?: Partial<Parameters<typeof buildPauseReconciliationSnapshot>[0]> &
+      Partial<ReturnType<typeof buildPauseReconciliationSnapshot>>,
+  ) {
+    const built = buildPauseReconciliationSnapshot({
       pausedAt: "2026-09-07T16:00:00.000Z",
       lpsVersion: 2,
       lpsActiveCycleInstanceId: "cyc:corr05-base",
@@ -1410,10 +5512,14 @@ describe("C — resume reconciliation (C1–C9)", () => {
       trajectory: baseTrajectory(),
       decisions: [],
       evidence: [],
+      blockerSnapshotState: "KNOWN",
       projectId: "prj:corr05-base",
       cycleInstanceId: "cyc:corr05-base",
-      ...partial,
+      ...(partial as Partial<
+        Parameters<typeof buildPauseReconciliationSnapshot>[0]
+      >),
     });
+    return { ...built, ...partial };
   }
 
   it("C1 — clean when snapshot matches", () => {
@@ -2836,3693 +6942,1127 @@ describe("SC runtime acceptance", () => {
   });
 });
 
-```
-
-
-## CREATED `projects/sfia-studio/app/features/project-assistant/f2/pilotLifecycleActions.ts`
-
-```typescript
-/**
- * CORR-PROOF-05 — Project Assistant Pilot lifecycle server helpers.
- * Pilot lifecycle authority ≠ Morris construction gate.
- *
- * Static guard: forceEnable must not appear in this Product file.
- * registerLocalPiloteAuthority is env-gated fail-closed (AUTHORITY_NOT_CONFIGURED).
- * Tests may forceEnable only outside this Product path.
- */
-import { randomUUID } from "node:crypto";
-import {
-  LOCAL_PILOTE_ACTOR,
-  registerLocalPiloteAuthority,
-  type DecisionServices,
-  type MemoryAuthorityResolver,
-} from "@/lib/oa/decision";
-import {
-  cancelSubjectFor,
-  finalizeSubjectFor,
-  startTrajectorySubjectFor,
-  resumeReplanSubjectFor,
-  type CycleServices,
-  type FinalizationAssessment,
-  type PilotLifecycleResult,
-} from "@/lib/oa/cycle";
-import type { ProjectServices } from "@/lib/oa/project";
-
-export type PilotLifecycleActionKind =
-  | "START"
-  | "PAUSE"
-  | "RESUME"
-  | "FINALIZE"
-  | "CANCEL"
-  | "ASSESS"
-  | "REEVALUATE";
-
-const PILOTE = LOCAL_PILOTE_ACTOR;
-
-async function ensurePiloteAuthority(input: {
-  authorityResolver: MemoryAuthorityResolver;
-  scope: string;
-  nowIso: string;
-}): Promise<{ ok: true; evidenceId: string } | { ok: false; code: string; message: string }> {
-  const authority = registerLocalPiloteAuthority({
-    authorityResolver: input.authorityResolver,
-    scope: input.scope,
-    issuedAt: input.nowIso,
-  });
-  if (!authority.ok) {
-    return { ok: false, code: authority.code, message: authority.message };
-  }
-
-  const verified = input.authorityResolver.verify({
-    actorId: LOCAL_PILOTE_ACTOR.actorId,
-    requiredLevel: "N3",
-    scope: input.scope,
-    evidenceId: authority.evidenceId,
-    requireMorrisGate: true,
-  });
-  if (!verified.ok) {
-    const reason = verified.reason ?? "authority_verify_failed";
-    const notConfigured =
-      reason === "no_evidence" ||
-      reason === "evidence_not_found" ||
-      reason.includes("not_configured") ||
-      reason.includes("not configured");
-    return {
-      ok: false,
-      code: notConfigured ? "AUTHORITY_NOT_CONFIGURED" : "CYCLE_LIFECYCLE_DENIED",
-      message: reason,
-    };
-  }
-  return { ok: true, evidenceId: authority.evidenceId };
-}
-
-async function recordLifecycleDecision(input: {
-  decisionServices: DecisionServices;
-  authorityResolver: MemoryAuthorityResolver;
-  projectId: string;
-  cycleInstanceId: string;
-  subject: string;
-  selectedOptionId: string;
-  nowIso: string;
-  /** Reuse evidence already obtained via ensurePiloteAuthority. */
-  authorityEvidenceId?: string;
-}): Promise<
-  | { ok: true; decisionId: string; evidenceId: string }
-  | { ok: false; code: string; message: string }
-> {
-  const scope = `pilot-lifecycle:${input.cycleInstanceId}`;
-  let evidenceId = input.authorityEvidenceId;
-  if (!evidenceId) {
-    const auth = await ensurePiloteAuthority({
-      authorityResolver: input.authorityResolver,
-      scope,
-      nowIso: input.nowIso,
-    });
-    if (!auth.ok) return auth;
-    evidenceId = auth.evidenceId;
-  }
-
-  const decisionId = `dec:pilot-life:${randomUUID()}`;
-  const recorded = await input.decisionServices.recordHumanDecision.execute({
-    decisionId,
-    projectId: input.projectId,
-    cycleInstanceId: input.cycleInstanceId,
-    subject: input.subject,
-    options: [
-      { optionId: "opt:accept", label: "Accept" },
-      { optionId: "opt:refuse", label: "Refuse" },
-    ],
-    selectedOptionId: input.selectedOptionId,
-    actor: PILOTE,
-    // Technical OA authority class for structuring Pilot HD — not Morris runtime UX.
-    authority: "morris",
-    status: "accepted",
-    reversible: false,
-    scope,
-    authorityEvidenceId: evidenceId,
-    rationale: `Pilot lifecycle ${input.subject}`,
-  });
-  if (!recorded.ok) {
-    return {
-      ok: false,
-      code: recorded.error.detailCode,
-      message: recorded.error.message,
-    };
-  }
-  return { ok: true, decisionId, evidenceId };
-}
-
-export async function executePilotLifecycleAction(input: {
-  action: PilotLifecycleActionKind;
-  projectId: string;
-  cycleInstanceId: string;
-  cycleServices: CycleServices;
-  projectServices: ProjectServices;
-  decisionServices: DecisionServices;
-  authorityResolver: MemoryAuthorityResolver;
-  nowIso: () => string;
-  /** RESUME only — caller-detected material drift (hint; server owns SoT). */
-  materialDriftDetected?: boolean;
-  /** START hint only — server assessStartReadiness decides HD requirement. */
-  requiresTrajectoryHumanDecision?: boolean;
-  /** RESUME hint only — server assessResumeReconciliation decides. */
-  requiresReplanHumanDecision?: boolean;
-}): Promise<
-  | {
-      ok: true;
-      action: PilotLifecycleActionKind;
-      result?: PilotLifecycleResult;
-      assessment?: FinalizationAssessment;
-      decisionId?: string;
-      authorityEvidenceId?: string;
-    }
-  | {
-      ok: false;
-      code: string;
-      message: string;
-      assessment?: FinalizationAssessment;
-    }
-> {
-  const createdBy = {
-    actorId: PILOTE.actorId,
-    role: PILOTE.role,
-    displayName: PILOTE.displayName,
-    authorityLevel: PILOTE.authorityLevel,
-  };
-
-  const lps = await input.projectServices.getCurrentLivingProjectState.execute({
-    projectId: input.projectId,
-  });
-  const expectedLpsVersion = lps.ok
-    ? lps.livingProjectState.version
-    : undefined;
-
-  const scope = `pilot-lifecycle:${input.cycleInstanceId}`;
-
-  switch (input.action) {
-    case "START": {
-      const auth = await ensurePiloteAuthority({
-        authorityResolver: input.authorityResolver,
-        scope,
-        nowIso: input.nowIso(),
-      });
-      if (!auth.ok) return auth;
-
-      let decisionId: string | undefined;
-      // Caller hint may pre-record trajectory HD; server still decides readiness.
-      if (input.requiresTrajectoryHumanDecision) {
-        const hd = await recordLifecycleDecision({
-          decisionServices: input.decisionServices,
-          authorityResolver: input.authorityResolver,
-          projectId: input.projectId,
-          cycleInstanceId: input.cycleInstanceId,
-          subject: startTrajectorySubjectFor(input.cycleInstanceId),
-          selectedOptionId: "opt:accept",
-          nowIso: input.nowIso(),
-          authorityEvidenceId: auth.evidenceId,
-        });
-        if (!hd.ok) return hd;
-        decisionId = hd.decisionId;
-      }
-      const result = await input.cycleServices.pilotLifecycle.start({
-        cycleInstanceId: input.cycleInstanceId,
-        projectId: input.projectId,
-        createdBy,
-        expectedLpsVersion,
-        requiresTrajectoryHumanDecision:
-          input.requiresTrajectoryHumanDecision,
-        decisionId,
-        authorityEvidenceId: auth.evidenceId,
-      });
-      if (!result.ok) {
-        return {
-          ok: false,
-          code: result.error.detailCode,
-          message: result.error.message,
-        };
-      }
-      return {
-        ok: true,
-        action: "START",
-        result,
-        decisionId,
-        authorityEvidenceId: auth.evidenceId,
-      };
-    }
-    case "PAUSE": {
-      const auth = await ensurePiloteAuthority({
-        authorityResolver: input.authorityResolver,
-        scope,
-        nowIso: input.nowIso(),
-      });
-      if (!auth.ok) return auth;
-      const result = await input.cycleServices.pilotLifecycle.pause({
-        cycleInstanceId: input.cycleInstanceId,
-        projectId: input.projectId,
-        createdBy,
-        expectedLpsVersion,
-        authorityEvidenceId: auth.evidenceId,
-      });
-      if (!result.ok) {
-        return {
-          ok: false,
-          code: result.error.detailCode,
-          message: result.error.message,
-        };
-      }
-      return {
-        ok: true,
-        action: "PAUSE",
-        result,
-        authorityEvidenceId: auth.evidenceId,
-      };
-    }
-    case "RESUME": {
-      const auth = await ensurePiloteAuthority({
-        authorityResolver: input.authorityResolver,
-        scope,
-        nowIso: input.nowIso(),
-      });
-      if (!auth.ok) return auth;
-
-      let decisionId: string | undefined;
-      if (input.requiresReplanHumanDecision) {
-        const hd = await recordLifecycleDecision({
-          decisionServices: input.decisionServices,
-          authorityResolver: input.authorityResolver,
-          projectId: input.projectId,
-          cycleInstanceId: input.cycleInstanceId,
-          subject: resumeReplanSubjectFor(input.cycleInstanceId),
-          selectedOptionId: "opt:accept",
-          nowIso: input.nowIso(),
-          authorityEvidenceId: auth.evidenceId,
-        });
-        if (!hd.ok) return hd;
-        decisionId = hd.decisionId;
-      }
-      const result = await input.cycleServices.pilotLifecycle.resume({
-        cycleInstanceId: input.cycleInstanceId,
-        projectId: input.projectId,
-        createdBy,
-        expectedLpsVersion,
-        materialDriftDetected: input.materialDriftDetected,
-        requiresReplanHumanDecision: input.requiresReplanHumanDecision,
-        decisionId,
-        authorityEvidenceId: auth.evidenceId,
-      });
-      if (!result.ok) {
-        return {
-          ok: false,
-          code: result.error.detailCode,
-          message: result.error.message,
-          assessment: result.assessment,
-        };
-      }
-      return {
-        ok: true,
-        action: "RESUME",
-        result,
-        decisionId,
-        authorityEvidenceId: auth.evidenceId,
-      };
-    }
-    case "FINALIZE": {
-      const auth = await ensurePiloteAuthority({
-        authorityResolver: input.authorityResolver,
-        scope,
-        nowIso: input.nowIso(),
-      });
-      if (!auth.ok) return auth;
-      const hd = await recordLifecycleDecision({
-        decisionServices: input.decisionServices,
-        authorityResolver: input.authorityResolver,
-        projectId: input.projectId,
-        cycleInstanceId: input.cycleInstanceId,
-        subject: finalizeSubjectFor(input.cycleInstanceId),
-        selectedOptionId: "opt:accept",
-        nowIso: input.nowIso(),
-        authorityEvidenceId: auth.evidenceId,
-      });
-      if (!hd.ok) return hd;
-      const result = await input.cycleServices.pilotLifecycle.finalize({
-        cycleInstanceId: input.cycleInstanceId,
-        projectId: input.projectId,
-        createdBy,
-        decisionId: hd.decisionId,
-        expectedLpsVersion,
-        authorityEvidenceId: auth.evidenceId,
-      });
-      if (!result.ok) {
-        return {
-          ok: false,
-          code: result.error.detailCode,
-          message: result.error.message,
-          assessment: result.assessment,
-        };
-      }
-      return {
-        ok: true,
-        action: "FINALIZE",
-        result,
-        assessment: result.assessment,
-        decisionId: hd.decisionId,
-        authorityEvidenceId: auth.evidenceId,
-      };
-    }
-    case "CANCEL": {
-      const auth = await ensurePiloteAuthority({
-        authorityResolver: input.authorityResolver,
-        scope,
-        nowIso: input.nowIso(),
-      });
-      if (!auth.ok) return auth;
-      const hd = await recordLifecycleDecision({
-        decisionServices: input.decisionServices,
-        authorityResolver: input.authorityResolver,
-        projectId: input.projectId,
-        cycleInstanceId: input.cycleInstanceId,
-        subject: cancelSubjectFor(input.cycleInstanceId),
-        selectedOptionId: "opt:accept",
-        nowIso: input.nowIso(),
-        authorityEvidenceId: auth.evidenceId,
-      });
-      if (!hd.ok) return hd;
-      const result = await input.cycleServices.pilotLifecycle.cancel({
-        cycleInstanceId: input.cycleInstanceId,
-        projectId: input.projectId,
-        createdBy,
-        decisionId: hd.decisionId,
-        expectedLpsVersion,
-        authorityEvidenceId: auth.evidenceId,
-      });
-      if (!result.ok) {
-        return {
-          ok: false,
-          code: result.error.detailCode,
-          message: result.error.message,
-        };
-      }
-      return {
-        ok: true,
-        action: "CANCEL",
-        result,
-        decisionId: hd.decisionId,
-        authorityEvidenceId: auth.evidenceId,
-      };
-    }
-    case "ASSESS": {
-      const assessed = await input.cycleServices.pilotLifecycle.assess({
-        cycleInstanceId: input.cycleInstanceId,
-        projectId: input.projectId,
-      });
-      if (!assessed.ok) {
-        return {
-          ok: false,
-          code: assessed.error.detailCode,
-          message: assessed.error.message,
-        };
-      }
-      return {
-        ok: true,
-        action: "ASSESS",
-        assessment: assessed.assessment,
-      };
-    }
-    case "REEVALUATE": {
-      const result =
-        await input.cycleServices.pilotLifecycle.reevaluateAndComplete({
-          cycleInstanceId: input.cycleInstanceId,
-          projectId: input.projectId,
-          createdBy,
-          expectedLpsVersion,
-        });
-      if (!result.ok) {
-        return {
-          ok: false,
-          code: result.error.detailCode,
-          message: result.error.message,
-          assessment: result.assessment,
-        };
-      }
-      return {
-        ok: true,
-        action: "REEVALUATE",
-        result,
-        assessment: result.assessment,
-      };
-    }
-    default: {
-      const _exhaustive: never = input.action;
-      void _exhaustive;
-      return {
-        ok: false,
-        code: "CYCLE_LIFECYCLE_DENIED",
-        message: "Unknown Pilot lifecycle action.",
-      };
-    }
-  }
-}
-
-```
-
-
-## CREATED `projects/sfia-studio/app/lib/oa/cycle/application/assessFinalization.ts`
-
-```typescript
-/**
- * CORR-PROOF-05 — derived, idempotent finalization obligation assessment.
- * No FinalizationLedger.
- * ABSENCE OF PROOF ≠ NOT_APPLICABLE.
- * ABSENCE OF MODEL ≠ NOT_APPLICABLE.
- * UNKNOWN APPLICABILITY ≠ NOT_APPLICABLE → fail-closed BLOCKING.
- */
-import type { HumanDecision } from "@/lib/oa/decision";
-import type { Evidence } from "@/lib/oa/evidence-review";
-import type { ReviewBundle } from "@/lib/oa/evidence-review/domain/reviewBundleTypes";
-import type { ProjectTrajectory } from "../domain/types";
-import type {
-  CycleInstance,
-  FinalizationApplicabilityRules,
-  FinalizationAssessment,
-  FinalizationObligation,
-  FinalizationObligationFamily,
-  ObligationApplicability,
-} from "../domain/types";
-
-export const FINALIZE_SUBJECT_PREFIX = "pilot.lifecycle.finalize:" as const;
-export const CANCEL_SUBJECT_PREFIX = "pilot.lifecycle.cancel:" as const;
-export const START_TRAJECTORY_SUBJECT_PREFIX =
-  "pilot.lifecycle.start+trajectory:" as const;
-export const RESUME_REPLAN_SUBJECT_PREFIX =
-  "pilot.lifecycle.resume+replan:" as const;
-
-export function finalizeSubjectFor(cycleInstanceId: string): string {
-  return `${FINALIZE_SUBJECT_PREFIX}${cycleInstanceId}`;
-}
-
-export function cancelSubjectFor(cycleInstanceId: string): string {
-  return `${CANCEL_SUBJECT_PREFIX}${cycleInstanceId}`;
-}
-
-export function startTrajectorySubjectFor(cycleInstanceId: string): string {
-  return `${START_TRAJECTORY_SUBJECT_PREFIX}${cycleInstanceId}`;
-}
-
-export function resumeReplanSubjectFor(cycleInstanceId: string): string {
-  return `${RESUME_REPLAN_SUBJECT_PREFIX}${cycleInstanceId}`;
-}
-
-/** Domain-local CURRENT mapping — mirrors CORR-PROOF-04 HD lifecycle. */
-export function isCurrentHumanDecisionStatus(
-  status: HumanDecision["status"],
-): boolean {
-  return status === "accepted" || status === "amended";
-}
-
-export type LifecycleHdMatchInput = {
-  decision: HumanDecision;
-  projectId: string;
-  cycleInstanceId: string;
-  subject: string;
-};
-
-export function matchesLifecycleHumanDecision(
-  input: LifecycleHdMatchInput,
-): boolean {
-  const d = input.decision;
-  if (d.projectId !== input.projectId) return false;
-  if (d.cycleInstanceId && d.cycleInstanceId !== input.cycleInstanceId) {
-    return false;
-  }
-  if (d.subject !== input.subject) return false;
-  return isCurrentHumanDecisionStatus(d.status);
-}
-
-export function isAcceptedFinalizeDecision(
-  decision: HumanDecision,
-  cycleInstanceId: string,
-  projectId?: string,
-): boolean {
-  if (projectId && decision.projectId !== projectId) return false;
-  if (decision.cycleInstanceId && decision.cycleInstanceId !== cycleInstanceId) {
-    return false;
-  }
-  if (decision.subject !== finalizeSubjectFor(cycleInstanceId)) {
-    return false;
-  }
-  return isCurrentHumanDecisionStatus(decision.status);
-}
-
-export function isAcceptedCancelDecision(
-  decision: HumanDecision,
-  cycleInstanceId: string,
-  projectId?: string,
-): boolean {
-  if (projectId && decision.projectId !== projectId) return false;
-  if (decision.cycleInstanceId && decision.cycleInstanceId !== cycleInstanceId) {
-    return false;
-  }
-  if (decision.subject !== cancelSubjectFor(cycleInstanceId)) {
-    return false;
-  }
-  return isCurrentHumanDecisionStatus(decision.status);
-}
-
-export function isAcceptedStartTrajectoryDecision(
-  decision: HumanDecision,
-  cycleInstanceId: string,
-  projectId: string,
-): boolean {
-  return matchesLifecycleHumanDecision({
-    decision,
-    projectId,
-    cycleInstanceId,
-    subject: startTrajectorySubjectFor(cycleInstanceId),
-  });
-}
-
-export function isAcceptedResumeReplanDecision(
-  decision: HumanDecision,
-  cycleInstanceId: string,
-  projectId: string,
-): boolean {
-  return matchesLifecycleHumanDecision({
-    decision,
-    projectId,
-    cycleInstanceId,
-    subject: resumeReplanSubjectFor(cycleInstanceId),
-  });
-}
-
-export type AssessFinalizationInput = {
-  cycle: CycleInstance;
-  projectId: string;
-  assessedAt: string;
-  decisions: readonly HumanDecision[];
-  evidence: readonly Evidence[];
-  reviewBundles: readonly ReviewBundle[];
-  trajectory: ProjectTrajectory | null;
-  /**
-   * Explicit applicability rules / proofs. Client booleans are never sole SoT;
-   * omit → UNKNOWN when derivation cannot prove APPLICABLE or NOT_APPLICABLE.
-   */
-  applicability?: FinalizationApplicabilityRules;
-  executionRequired?: boolean;
-  executionContracts?: ReadonlyArray<{
-    contractId: string;
-    cycleInstanceId?: string;
-    status: string;
-  }>;
-  executionAttempts?: ReadonlyArray<{
-    attemptId: string;
-    contractId?: string;
-    terminalState?: string;
-  }>;
-  finalizeDecisionId?: string | null;
-  blockingReservationStatements?: readonly string[];
-};
-
-function findFinalizeDecision(
-  input: AssessFinalizationInput,
-): HumanDecision | null {
-  if (input.finalizeDecisionId) {
-    return (
-      input.decisions.find((d) => d.decisionId === input.finalizeDecisionId) ??
-      null
-    );
-  }
-  const matches = input.decisions.filter((d) =>
-    isAcceptedFinalizeDecision(d, input.cycle.cycleInstanceId, input.projectId),
-  );
-  return (
-    [...matches].sort((a, b) =>
-      a.effectiveAt < b.effectiveAt ? 1 : a.effectiveAt > b.effectiveAt ? -1 : 0,
-    )[0] ?? null
-  );
-}
-
-function resolveApplicability(
-  family: Exclude<FinalizationObligationFamily, "human_decision">,
-  derived: ObligationApplicability,
-  rules: FinalizationApplicabilityRules | undefined,
-): ObligationApplicability {
-  const override: ObligationApplicability | undefined = {
-    exit_criteria: rules?.exit_criteria,
-    artifact: rules?.artifact,
-    execution_contract: rules?.execution_contract,
-    evidence: rules?.evidence,
-    review_bundle: rules?.review_bundle,
-    git_repository: rules?.git_repository,
-    blockers: rules?.blockers,
-  }[family];
-  if (
-    override === "APPLICABLE" ||
-    override === "NOT_APPLICABLE" ||
-    override === "UNKNOWN"
-  ) {
-    return override;
-  }
-  return derived;
-}
-
-function naReason(
-  family: FinalizationObligationFamily,
-  rules: FinalizationApplicabilityRules | undefined,
-  fallback: string,
-): string {
-  return rules?.notApplicableReasons?.[
-    family as keyof NonNullable<
-      FinalizationApplicabilityRules["notApplicableReasons"]
-    >
-  ] ?? fallback;
-}
-
-function pushUnknownBlocking(
-  obligations: FinalizationObligation[],
-  blockers: string[],
-  family: FinalizationObligationFamily,
-  detail: string,
-): void {
-  obligations.push({
-    family,
-    applicability: "UNKNOWN",
-    status: "BLOCKING",
-    detail,
-    blocking: true,
-  });
-  blockers.push(`${family}_applicability_unknown`);
-}
-
-function pushNa(
-  obligations: FinalizationObligation[],
-  family: FinalizationObligationFamily,
-  reason: string,
-  detail: string,
-): void {
-  obligations.push({
-    family,
-    applicability: "NOT_APPLICABLE",
-    status: "NOT_APPLICABLE",
-    notApplicableReason: reason,
-    detail,
-  });
-}
-
-/**
- * Pure assessment. Idempotent for the same input snapshot.
- */
-export function assessFinalizationObligations(
-  input: AssessFinalizationInput,
-): FinalizationAssessment {
-  const obligations: FinalizationObligation[] = [];
-  const blockers: string[] = [];
-  const rules = input.applicability;
-
-  const finalizeDecision = findFinalizeDecision(input);
-  const finalizeAccepted = Boolean(
-    finalizeDecision &&
-      isAcceptedFinalizeDecision(
-        finalizeDecision,
-        input.cycle.cycleInstanceId,
-        input.projectId,
-      ),
-  );
-
-  // 1) HumanDecision FINALIZE — always applicable
-  if (finalizeAccepted && finalizeDecision) {
-    obligations.push({
-      family: "human_decision",
-      applicability: "APPLICABLE",
-      status: "SATISFIED",
-      detail: `finalize_decision:${finalizeDecision.decisionId}`,
-    });
-  } else if (finalizeDecision) {
-    obligations.push({
-      family: "human_decision",
-      applicability: "APPLICABLE",
-      status: "PENDING",
-      detail: `finalize_decision_status:${finalizeDecision.status}`,
-      blocking: true,
-    });
-    blockers.push("finalize_human_decision_not_current");
-  } else {
-    obligations.push({
-      family: "human_decision",
-      applicability: "APPLICABLE",
-      status: "MISSING",
-      detail: "finalize_human_decision_absent",
-      blocking: true,
-    });
-    blockers.push("finalize_human_decision_absent");
-  }
-
-  // 2) Exit criteria / trajectory — Product Completion MUST; absence ≠ N/A
-  {
-    const derived: ObligationApplicability = input.trajectory
-      ? "APPLICABLE"
-      : "UNKNOWN";
-    const applicability = resolveApplicability("exit_criteria", derived, rules);
-    if (applicability === "NOT_APPLICABLE") {
-      pushNa(
-        obligations,
-        "exit_criteria",
-        naReason(
-          "exit_criteria",
-          rules,
-          "explicit_rule_no_exit_criteria_for_cycle",
-        ),
-        "exit_criteria_explicitly_not_applicable",
-      );
-    } else if (applicability === "UNKNOWN" || !input.trajectory) {
-      pushUnknownBlocking(
-        obligations,
-        blockers,
-        "exit_criteria",
-        input.trajectory
-          ? "exit_criteria_applicability_unknown"
-          : "trajectory_absent_applicability_unknown",
-      );
-    } else {
-      const openSteps = input.trajectory.steps.filter(
-        (s) =>
-          s.state === "pending" || s.state === "active" || s.state === "blocked",
-      );
-      if (openSteps.length === 0) {
-        obligations.push({
-          family: "exit_criteria",
-          applicability: "APPLICABLE",
-          status: "SATISFIED",
-          detail: "trajectory_steps_closed_or_skipped",
-        });
-      } else {
-        const blocked = openSteps.some((s) => s.state === "blocked");
-        obligations.push({
-          family: "exit_criteria",
-          applicability: "APPLICABLE",
-          status: blocked ? "BLOCKING" : "PENDING",
-          detail: `open_steps:${openSteps.map((s) => s.stepId).join(",")}`,
-          blocking: true,
-        });
-        blockers.push("exit_criteria_open");
-      }
-    }
-  }
-
-  // 3) Artifacts — missing model ≠ N/A
-  {
-    const derived: ObligationApplicability = "UNKNOWN";
-    const applicability = resolveApplicability("artifact", derived, rules);
-    if (applicability === "NOT_APPLICABLE") {
-      pushNa(
-        obligations,
-        "artifact",
-        naReason("artifact", rules, "explicit_rule_no_artifact_obligation"),
-        "artifact_explicitly_not_applicable",
-      );
-    } else if (applicability === "UNKNOWN") {
-      pushUnknownBlocking(
-        obligations,
-        blockers,
-        "artifact",
-        "artifact_applicability_unknown_or_model_unbound",
-      );
-    } else if (rules?.artifactProofPresent === true) {
-      obligations.push({
-        family: "artifact",
-        applicability: "APPLICABLE",
-        status: "SATISFIED",
-        detail: "artifact_proof_present",
-      });
-    } else {
-      obligations.push({
-        family: "artifact",
-        applicability: "APPLICABLE",
-        status: "MISSING",
-        detail: "artifact_required_but_proof_absent",
-        blocking: true,
-      });
-      blockers.push("artifact_missing");
-    }
-  }
-
-  // 4) ExecutionContract — 0..N; unknown ≠ auto N/A
-  {
-    const cycleContracts = (input.executionContracts ?? []).filter(
-      (c) =>
-        !c.cycleInstanceId || c.cycleInstanceId === input.cycle.cycleInstanceId,
-    );
-    let derived: ObligationApplicability;
-    if (input.executionRequired === false && cycleContracts.length === 0) {
-      derived = "NOT_APPLICABLE";
-    } else if (input.executionRequired === true || cycleContracts.length > 0) {
-      derived = "APPLICABLE";
-    } else {
-      derived = "UNKNOWN";
-    }
-    const applicability = resolveApplicability(
-      "execution_contract",
-      derived,
-      rules,
-    );
-    if (applicability === "NOT_APPLICABLE") {
-      pushNa(
-        obligations,
-        "execution_contract",
-        naReason(
-          "execution_contract",
-          rules,
-          "explicit_rule_no_governed_execution_required",
-        ),
-        "execution_explicitly_not_required",
-      );
-    } else if (applicability === "UNKNOWN") {
-      pushUnknownBlocking(
-        obligations,
-        blockers,
-        "execution_contract",
-        "execution_applicability_unknown",
-      );
-    } else {
-      const open = cycleContracts.filter(
-        (c) =>
-          c.status !== "confirmed" &&
-          c.status !== "cancelled" &&
-          c.status !== "superseded",
-      );
-      const terminalSuccessOnly = (input.executionAttempts ?? []).some(
-        (a) => a.terminalState === "terminal_success",
-      );
-      if (open.length > 0) {
-        obligations.push({
-          family: "execution_contract",
-          applicability: "APPLICABLE",
-          status: "PENDING",
-          detail: `open_contracts:${open.map((c) => c.contractId).join(",")}`,
-          blocking: true,
-        });
-        blockers.push("execution_contract_open");
-      } else if (cycleContracts.length === 0) {
-        obligations.push({
-          family: "execution_contract",
-          applicability: "APPLICABLE",
-          status: "MISSING",
-          detail: "execution_required_but_no_contract",
-          blocking: true,
-        });
-        blockers.push("execution_contract_missing");
-      } else {
-        obligations.push({
-          family: "execution_contract",
-          applicability: "APPLICABLE",
-          status: "SATISFIED",
-          detail: terminalSuccessOnly
-            ? "contracts_settled_attempts_not_sufficient_alone"
-            : "contracts_settled",
-        });
-      }
-    }
-  }
-
-  // 5) Evidence — zero rows alone ≠ N/A
-  {
-    const cycleEvidence = input.evidence.filter(
-      (e) =>
-        e.bindings?.cycleInstanceId === input.cycle.cycleInstanceId ||
-        !e.bindings?.cycleInstanceId,
-    );
-    let derived: ObligationApplicability = "UNKNOWN";
-    if (cycleEvidence.length > 0) derived = "APPLICABLE";
-    const applicability = resolveApplicability("evidence", derived, rules);
-    if (applicability === "NOT_APPLICABLE") {
-      pushNa(
-        obligations,
-        "evidence",
-        naReason("evidence", rules, "explicit_rule_no_evidence_obligation"),
-        "evidence_explicitly_not_applicable",
-      );
-    } else if (applicability === "UNKNOWN") {
-      pushUnknownBlocking(
-        obligations,
-        blockers,
-        "evidence",
-        "evidence_applicability_unknown",
-      );
-    } else if (cycleEvidence.length === 0) {
-      obligations.push({
-        family: "evidence",
-        applicability: "APPLICABLE",
-        status: "MISSING",
-        detail: "evidence_required_but_absent",
-        blocking: true,
-      });
-      blockers.push("evidence_missing");
-    } else {
-      const weak = cycleEvidence.filter(
-        (e) =>
-          e.status === "rejected" ||
-          e.status === "superseded" ||
-          e.status === "unavailable" ||
-          e.availability === "unavailable",
-      );
-      const pending = cycleEvidence.filter(
-        (e) =>
-          e.status === "expected" ||
-          e.status === "incomplete" ||
-          e.status === "stale",
-      );
-      if (weak.length === cycleEvidence.length) {
-        obligations.push({
-          family: "evidence",
-          applicability: "APPLICABLE",
-          status: "BLOCKING",
-          detail: "all_evidence_non_supporting",
-          blocking: true,
-        });
-        blockers.push("evidence_non_supporting");
-      } else if (pending.length > 0) {
-        obligations.push({
-          family: "evidence",
-          applicability: "APPLICABLE",
-          status: "PENDING",
-          detail: `pending_evidence:${pending.length}`,
-          blocking: true,
-        });
-        blockers.push("evidence_pending");
-      } else {
-        obligations.push({
-          family: "evidence",
-          applicability: "APPLICABLE",
-          status: "SATISFIED",
-          detail: `supporting_evidence:${cycleEvidence.length - weak.length}`,
-        });
-      }
-    }
-  }
-
-  // 6) ReviewBundle — zero rows alone ≠ N/A
-  {
-    const cycleReviews = input.reviewBundles.filter(
-      (r) =>
-        !r.cycleInstanceId || r.cycleInstanceId === input.cycle.cycleInstanceId,
-    );
-    let derived: ObligationApplicability = "UNKNOWN";
-    if (cycleReviews.length > 0) derived = "APPLICABLE";
-    const applicability = resolveApplicability("review_bundle", derived, rules);
-    if (applicability === "NOT_APPLICABLE") {
-      pushNa(
-        obligations,
-        "review_bundle",
-        naReason(
-          "review_bundle",
-          rules,
-          "explicit_rule_no_review_bundle_obligation",
-        ),
-        "review_bundle_explicitly_not_applicable",
-      );
-    } else if (applicability === "UNKNOWN") {
-      pushUnknownBlocking(
-        obligations,
-        blockers,
-        "review_bundle",
-        "review_bundle_applicability_unknown",
-      );
-    } else if (cycleReviews.length === 0) {
-      obligations.push({
-        family: "review_bundle",
-        applicability: "APPLICABLE",
-        status: "MISSING",
-        detail: "review_required_but_absent",
-        blocking: true,
-      });
-      blockers.push("review_bundle_missing");
-    } else {
-      const open = cycleReviews.filter(
-        (r) =>
-          r.status !== "accepted" &&
-          r.status !== "superseded" &&
-          r.status !== "rejected",
-      );
-      if (open.length > 0) {
-        obligations.push({
-          family: "review_bundle",
-          applicability: "APPLICABLE",
-          status: "PENDING",
-          detail: `open_review_bundles:${open.length}`,
-          blocking: true,
-        });
-        blockers.push("review_bundle_open");
-      } else {
-        obligations.push({
-          family: "review_bundle",
-          applicability: "APPLICABLE",
-          status: "SATISFIED",
-          detail: `review_bundles:${cycleReviews.length}`,
-        });
-      }
-    }
-  }
-
-  // 7) Git — never hardcode false; derive or UNKNOWN
-  {
-    const derived: ObligationApplicability = "UNKNOWN";
-    const applicability = resolveApplicability("git_repository", derived, rules);
-    if (applicability === "NOT_APPLICABLE") {
-      pushNa(
-        obligations,
-        "git_repository",
-        naReason(
-          "git_repository",
-          rules,
-          "explicit_rule_git_not_part_of_cycle_effects",
-        ),
-        "git_explicitly_not_applicable",
-      );
-    } else if (applicability === "UNKNOWN") {
-      pushUnknownBlocking(
-        obligations,
-        blockers,
-        "git_repository",
-        "git_applicability_unknown",
-      );
-    } else if (rules?.gitProofPresent === true) {
-      obligations.push({
-        family: "git_repository",
-        applicability: "APPLICABLE",
-        status: "SATISFIED",
-        detail: "git_proof_present",
-      });
-    } else {
-      obligations.push({
-        family: "git_repository",
-        applicability: "APPLICABLE",
-        status: "MISSING",
-        detail: "git_applicable_but_no_proof",
-        blocking: true,
-      });
-      blockers.push("git_proof_missing");
-    }
-  }
-
-  // 8) Blockers / reservations
-  {
-    const blockingReservations = input.blockingReservationStatements ?? [];
-    const applicability = resolveApplicability("blockers", "APPLICABLE", rules);
-    if (applicability === "NOT_APPLICABLE") {
-      pushNa(
-        obligations,
-        "blockers",
-        naReason("blockers", rules, "explicit_rule_blockers_not_applicable"),
-        "blockers_explicitly_not_applicable",
-      );
-    } else if (applicability === "UNKNOWN") {
-      pushUnknownBlocking(
-        obligations,
-        blockers,
-        "blockers",
-        "blockers_applicability_unknown",
-      );
-    } else if (blockingReservations.length > 0) {
-      obligations.push({
-        family: "blockers",
-        applicability: "APPLICABLE",
-        status: "BLOCKING",
-        detail: blockingReservations.join("|"),
-        blocking: true,
-      });
-      blockers.push("blocking_reservations");
-    } else {
-      obligations.push({
-        family: "blockers",
-        applicability: "APPLICABLE",
-        status: "SATISFIED",
-        detail: "no_blocking_reservations",
-      });
-    }
-  }
-
-  // Policy: every N/A must carry reason; UNKNOWN never appears as status
-  for (const o of obligations) {
-    if (o.status === "NOT_APPLICABLE" && !o.notApplicableReason) {
-      o.status = "BLOCKING";
-      o.applicability = "UNKNOWN";
-      o.blocking = true;
-      o.detail = `${o.detail ?? ""}|na_without_reason_fail_closed`;
-      blockers.push(`${o.family}_na_without_reason`);
-    }
-  }
-
-  const hasUnknown = obligations.some((o) => o.applicability === "UNKNOWN");
-  const canComplete =
-    finalizeAccepted &&
-    blockers.length === 0 &&
-    !hasUnknown &&
-    obligations.every(
-      (o) => o.status === "SATISFIED" || o.status === "NOT_APPLICABLE",
-    );
-
+function makeEvidence(
+  partial: Partial<Evidence> & Pick<Evidence, "evidenceId" | "type" | "status">,
+): Evidence {
   return {
-    cycleInstanceId: input.cycle.cycleInstanceId,
-    projectId: input.projectId,
-    finalizeDecisionId: finalizeDecision?.decisionId ?? null,
-    finalizeAccepted,
-    obligations,
-    canComplete,
-    blockers,
-    assessedAt: input.assessedAt,
-  };
+    schemaVersion: "0.1.0-oa",
+    source: partial.source ?? "test-source",
+    sourceKind: partial.sourceKind ?? "human",
+    producedAt: "2026-09-07T16:00:00.000Z",
+    classification: "supporting",
+    storageMode: "reference",
+    availability: "available",
+    bindings: partial.bindings ?? {},
+    containsSecrets: false,
+    provenance: {
+      recordedAt: "2026-09-07T16:00:00.000Z",
+      recordedBy: { actorId: "actor:test", role: "system" },
+    },
+    version: 1,
+    createdAt: "2026-09-07T16:00:00.000Z",
+    ...partial,
+  } as Evidence;
 }
 
-```
-
-
-## CREATED `projects/sfia-studio/app/lib/oa/cycle/application/assessResumeReconciliation.ts`
-
-```typescript
-/**
- * CORR-PROOF-05 — server-owned PAUSE/RESUME reconciliation (no caller SoT).
- */
-import type { HumanDecision } from "@/lib/oa/decision";
-import type { Evidence } from "@/lib/oa/evidence-review";
-import type {
-  CycleInstance,
-  PauseReconciliationSnapshot,
-  ProjectTrajectory,
-} from "../domain/types";
-import { isCurrentHumanDecisionStatus } from "./assessFinalization";
-
-export type BuildPauseSnapshotInput = {
-  pausedAt: string;
-  lpsVersion: number;
-  lpsActiveCycleInstanceId: string | null | undefined;
-  objective: string;
-  context: string;
-  scope: string;
-  doctrinePackageId?: string;
-  doctrinePackageVersion?: string;
-  doctrinePackageDigest?: string;
-  trajectory: ProjectTrajectory | null;
-  decisions: readonly HumanDecision[];
-  evidence: readonly Evidence[];
-  blockingReservationStatements?: readonly string[];
-  projectId: string;
-  cycleInstanceId: string;
-};
-
-export function trajectoryFingerprint(
-  trajectory: ProjectTrajectory | null,
-): string | null {
-  if (!trajectory) return null;
-  return `${trajectory.trajectoryId}@v${trajectory.version}:${trajectory.status}:${trajectory.steps
-    .map((s) => `${s.stepId}:${s.state}`)
-    .join(",")}`;
-}
-
-function decisionFingerprint(
-  decisions: readonly HumanDecision[],
-  projectId: string,
-  cycleInstanceId: string,
-): string {
-  const relevant = decisions
-    .filter(
-      (d) =>
-        d.projectId === projectId &&
-        (!d.cycleInstanceId || d.cycleInstanceId === cycleInstanceId) &&
-        isCurrentHumanDecisionStatus(d.status),
-    )
-    .map((d) => `${d.decisionId}:${d.status}:${d.subject}`)
-    .sort();
-  return relevant.join("|") || "none";
-}
-
-function evidenceFingerprint(
-  evidence: readonly Evidence[],
-  cycleInstanceId: string,
-): string {
-  const relevant = evidence
-    .filter(
-      (e) =>
-        !e.bindings?.cycleInstanceId ||
-        e.bindings.cycleInstanceId === cycleInstanceId,
-    )
-    .map(
-      (e) =>
-        `${e.evidenceId}:${e.status}:${e.availability ?? ""}:${e.freshness ?? ""}`,
-    )
-    .sort();
-  return relevant.join("|") || "none";
-}
-
-export function buildPauseReconciliationSnapshot(
-  input: BuildPauseSnapshotInput,
-): PauseReconciliationSnapshot {
+function makeReview(
+  partial: Partial<ReviewBundle> &
+    Pick<ReviewBundle, "reviewBundleId" | "status">,
+): ReviewBundle {
   return {
-    pausedAt: input.pausedAt,
-    lpsVersion: input.lpsVersion,
-    lpsActiveCycleInstanceId: input.lpsActiveCycleInstanceId ?? null,
-    objective: input.objective,
-    context: input.context,
-    scope: input.scope,
-    doctrinePackageId: input.doctrinePackageId,
-    doctrinePackageVersion: input.doctrinePackageVersion,
-    doctrinePackageDigest: input.doctrinePackageDigest,
-    trajectoryId: input.trajectory?.trajectoryId ?? null,
-    trajectoryVersion: input.trajectory?.version ?? null,
-    trajectoryFingerprint: trajectoryFingerprint(input.trajectory),
-    currentDecisionFingerprint: decisionFingerprint(
-      input.decisions,
-      input.projectId,
-      input.cycleInstanceId,
-    ),
-    evidenceFingerprint: evidenceFingerprint(
-      input.evidence,
-      input.cycleInstanceId,
-    ),
-    blockerFingerprint: (input.blockingReservationStatements ?? [])
-      .slice()
-      .sort()
-      .join("|") || "none",
-  };
+    schemaVersion: "0.2.0-oa",
+    projectId: partial.projectId ?? "prj:corr05-base",
+    version: 1,
+    evidenceRefs: [],
+    claimEvaluationRefs: [],
+    completeness: partial.completeness ?? "complete",
+    synthesisOnly: partial.synthesisOnly ?? false,
+    createdAt: "2026-09-07T16:00:00.000Z",
+    provenance: {
+      recordedAt: "2026-09-07T16:00:00.000Z",
+      recordedBy: { actorId: "actor:test", role: "system" },
+    },
+    ...partial,
+  } as ReviewBundle;
 }
 
-export type ResumeReconciliationInput = {
-  cycle: CycleInstance;
-  projectId: string;
-  lpsReadable: boolean;
-  lpsVersion: number;
-  lpsActiveCycleInstanceId: string | null | undefined;
-  objective: string;
-  context: string;
-  scope: string;
-  doctrinePackageId?: string;
-  doctrinePackageVersion?: string;
-  doctrinePackageDigest?: string;
-  trajectory: ProjectTrajectory | null;
-  decisions: readonly HumanDecision[];
-  evidence: readonly Evidence[];
-  blockingReservationStatements?: readonly string[];
-  siblingActiveExists: boolean;
-  /** Caller hint — forces drift when true; never proves clean when false. */
-  callerMaterialDriftHint?: boolean;
-};
+describe("CP — contradiction precedence (CP1–CP9)", () => {
+  const traj = () =>
+    baseTrajectory({ projectId: "prj:cp", steps: STEPS_DONE });
 
-export type ResumeReconciliationResult = {
-  clean: boolean;
-  driftReasons: string[];
-  requiresReplanHumanDecision: boolean;
-};
-
-export function assessResumeReconciliation(
-  input: ResumeReconciliationInput,
-): ResumeReconciliationResult {
-  const driftReasons: string[] = [];
-
-  if (input.callerMaterialDriftHint === true) {
-    driftReasons.push("caller_material_drift_hint");
-  }
-
-  const snap = input.cycle.pauseReconciliation;
-  if (!snap) {
-    driftReasons.push("pause_snapshot_missing");
-  }
-
-  if (!input.lpsReadable) {
-    driftReasons.push("lps_unreadable");
-  }
-
-  if (input.siblingActiveExists) {
-    driftReasons.push("another_active_exists");
-  }
-
-  if (
-    input.lpsActiveCycleInstanceId &&
-    input.lpsActiveCycleInstanceId !== input.cycle.cycleInstanceId
-  ) {
-    driftReasons.push("lps_active_pointer_elsewhere");
-  }
-
-  if (snap) {
-    if (snap.objective !== input.objective) driftReasons.push("objective_drift");
-    if (snap.context !== input.context) driftReasons.push("context_drift");
-    if (snap.scope !== input.scope) driftReasons.push("scope_drift");
-
-    if (
-      (snap.doctrinePackageId ?? "") !== (input.doctrinePackageId ?? "") ||
-      (snap.doctrinePackageVersion ?? "") !==
-        (input.doctrinePackageVersion ?? "") ||
-      (snap.doctrinePackageDigest ?? "") !== (input.doctrinePackageDigest ?? "")
-    ) {
-      driftReasons.push("doctrine_pin_drift");
-    }
-
-    const currentTrajFp = trajectoryFingerprint(input.trajectory);
-    if ((snap.trajectoryFingerprint ?? null) !== currentTrajFp) {
-      driftReasons.push("trajectory_material_drift");
-    }
-
-    const currentDecFp = decisionFingerprint(
-      input.decisions,
-      input.projectId,
-      input.cycle.cycleInstanceId,
-    );
-    if ((snap.currentDecisionFingerprint ?? "none") !== currentDecFp) {
-      driftReasons.push("human_decision_material_drift");
-    }
-
-    const currentEvFp = evidenceFingerprint(
-      input.evidence,
-      input.cycle.cycleInstanceId,
-    );
-    if ((snap.evidenceFingerprint ?? "none") !== currentEvFp) {
-      // Stale/unavailable evidence only blocks when fingerprint changed
-      const stale = input.evidence.some(
-        (e) =>
-          (!e.bindings?.cycleInstanceId ||
-            e.bindings.cycleInstanceId === input.cycle.cycleInstanceId) &&
-          (e.status === "stale" ||
-            e.status === "unavailable" ||
-            e.availability === "unavailable"),
-      );
-      if (stale || currentEvFp !== (snap.evidenceFingerprint ?? "none")) {
-        driftReasons.push("evidence_freshness_drift");
-      }
-    }
-
-    const blockerFp =
-      (input.blockingReservationStatements ?? []).slice().sort().join("|") ||
-      "none";
-    if ((snap.blockerFingerprint ?? "none") !== blockerFp) {
-      driftReasons.push("blocker_introduced_or_changed");
-    }
-  }
-
-  // Deduplicate
-  const unique = [...new Set(driftReasons)];
-  return {
-    clean: unique.length === 0,
-    driftReasons: unique,
-    requiresReplanHumanDecision: unique.length > 0,
-  };
-}
-
-```
-
-
-## CREATED `projects/sfia-studio/app/lib/oa/cycle/application/assessStartReadiness.ts`
-
-```typescript
-/**
- * CORR-PROOF-05 — pure StartReadiness assessment (no StartLedger).
- * Caller requiresTrajectoryHumanDecision is never sole SoT.
- */
-import type { HumanDecision } from "@/lib/oa/decision";
-import type {
-  CycleInstance,
-  ProjectTrajectory,
-  StartReadinessAssessment,
-} from "../domain/types";
-import { isStartableCandidateStatus } from "../domain/lifecycleInvariants";
-import {
-  isAcceptedStartTrajectoryDecision,
-  startTrajectorySubjectFor,
-} from "./assessFinalization";
-
-export type AssessStartReadinessInput = {
-  assessedAt: string;
-  projectOk: boolean;
-  cycle: CycleInstance | null;
-  projectId: string;
-  lpsReadable: boolean;
-  lpsActiveCycleInstanceId: string | null | undefined;
-  siblingActiveExists: boolean;
-  trajectory: ProjectTrajectory | null;
-  decisions: readonly HumanDecision[];
-  /** Optional decisionId supplied by caller — validated, never trusted alone. */
-  decisionId?: string;
-  blockingReservationStatements?: readonly string[];
-  /** Fail-closed when epistemic/blocker reader is unavailable or throws. */
-  blockerSourceUnreadable?: boolean;
-  doctrineReadable: boolean;
-  /**
-   * When true, durable context shows an undecided structuring trajectory choice
-   * that START must consume (candidate trajectory / undecided amendment).
-   */
-  structuringTrajectoryChoiceOpen?: boolean;
-};
-
-function trajectoryFingerprint(t: ProjectTrajectory): string {
-  return `${t.trajectoryId}@v${t.version}:${t.status}:${t.steps
-    .map((s) => `${s.stepId}:${s.state}`)
-    .join(",")}`;
-}
-
-export function assessStartReadiness(
-  input: AssessStartReadinessInput,
-): StartReadinessAssessment {
-  const blockers: string[] = [];
-
-  if (!input.projectOk) blockers.push("project_missing");
-  if (!input.cycle) {
-    blockers.push("cycle_missing");
-  } else {
-    if (input.cycle.projectId !== input.projectId) {
-      blockers.push("cycle_project_mismatch");
-    }
-    if (!isStartableCandidateStatus(input.cycle.status)) {
-      blockers.push(`cycle_not_candidate:${input.cycle.status}`);
-    }
-    if (!input.cycle.cycleTypeId?.trim()) {
-      blockers.push("cycle_type_missing");
-    }
-  }
-
-  if (!input.lpsReadable) blockers.push("lps_unreadable");
-  if (input.siblingActiveExists) blockers.push("another_active_exists");
-  if (
-    input.lpsActiveCycleInstanceId &&
-    input.cycle &&
-    input.lpsActiveCycleInstanceId !== input.cycle.cycleInstanceId
-  ) {
-    blockers.push("lps_active_pointer_elsewhere");
-  }
-
-  if (!input.doctrineReadable) blockers.push("doctrine_unreadable");
-
-  // Product Completion: usable current trajectory required for START compatibility
-  if (!input.trajectory) {
-    blockers.push("trajectory_missing_or_unreadable");
-  } else if (
-    input.trajectory.status === "stale" ||
-    input.trajectory.status === "superseded"
-  ) {
-    blockers.push(`trajectory_incompatible:${input.trajectory.status}`);
-  }
-
-  const openDeps = (input.trajectory?.steps ?? []).filter(
-    (s) => s.state === "blocked",
-  );
-  if (openDeps.length > 0) {
-    blockers.push("trajectory_entry_blocked");
-  }
-
-  if (input.blockerSourceUnreadable === true) {
-    blockers.push("blocker_source_unreadable");
-  }
-
-  const blockingReservations = input.blockingReservationStatements ?? [];
-  if (blockingReservations.length > 0) {
-    blockers.push("blocking_reservations");
-  }
-
-  const structuringOpen =
-    input.structuringTrajectoryChoiceOpen === true ||
-    input.trajectory?.status === "candidate";
-
-  let requiresTrajectoryHumanDecision = structuringOpen;
-
-  if (requiresTrajectoryHumanDecision) {
-    const cycleId = input.cycle?.cycleInstanceId ?? "";
-    let hd: HumanDecision | null = null;
-    if (input.decisionId) {
-      hd =
-        input.decisions.find((d) => d.decisionId === input.decisionId) ?? null;
-    } else {
-      hd =
-        input.decisions.find((d) =>
-          isAcceptedStartTrajectoryDecision(d, cycleId, input.projectId),
-        ) ?? null;
-    }
-    if (
-      !hd ||
-      !isAcceptedStartTrajectoryDecision(hd, cycleId, input.projectId)
-    ) {
-      blockers.push("start_trajectory_hd_missing_or_invalid");
-    }
-  } else if (input.decisionId) {
-    // Arbitrary decisionId must not falsely satisfy when HD not required —
-    // but also must not block START. Ignore unless subject matches.
-    const hd =
-      input.decisions.find((d) => d.decisionId === input.decisionId) ?? null;
-    if (
-      hd &&
-      hd.subject === startTrajectorySubjectFor(input.cycle?.cycleInstanceId ?? "")
-    ) {
-      requiresTrajectoryHumanDecision = true;
-      if (
-        !input.cycle ||
-        !isAcceptedStartTrajectoryDecision(
-          hd,
-          input.cycle.cycleInstanceId,
-          input.projectId,
-        )
-      ) {
-        blockers.push("start_trajectory_hd_missing_or_invalid");
-      }
-    }
-  }
-
-  void trajectoryFingerprint;
-
-  return {
-    ready: blockers.length === 0,
-    blockers,
-    requiresTrajectoryHumanDecision,
-    assessedAt: input.assessedAt,
-  };
-}
-
-```
-
-
-## CREATED `projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts`
-
-```typescript
-/**
- * CORR-PROOF-05 — Product-derived FinalizationApplicabilityRules.
- * NEVER invent NOT_APPLICABLE from mere absence of rows/proof.
- * Explicit N/A requires durable obligation-policy HumanDecision options.
- */
-import type { HumanDecision } from "@/lib/oa/decision";
-import type { Evidence } from "@/lib/oa/evidence-review";
-import type { ReviewBundle } from "@/lib/oa/evidence-review/domain/reviewBundleTypes";
-import type {
-  FinalizationApplicabilityRules,
-  ObligationApplicability,
-  ProjectTrajectory,
-} from "../domain/types";
-import {
-  isCurrentHumanDecisionStatus,
-  matchesLifecycleHumanDecision,
-} from "./assessFinalization";
-
-export const OBLIGATION_POLICY_SUBJECT_PREFIX =
-  "pilot.lifecycle.obligation-policy:" as const;
-
-export function obligationPolicySubjectFor(cycleInstanceId: string): string {
-  return `${OBLIGATION_POLICY_SUBJECT_PREFIX}${cycleInstanceId}`;
-}
-
-/** N/A artifact + git + execution + evidence + review. */
-export const OBLIGATION_POLICY_NO_GOVERNED_EFFECTS =
-  "opt:no-governed-effects" as const;
-export const OBLIGATION_POLICY_NO_ARTIFACT = "opt:no-artifact" as const;
-export const OBLIGATION_POLICY_NO_GIT = "opt:no-git" as const;
-export const OBLIGATION_POLICY_NO_EXECUTION = "opt:no-execution" as const;
-export const OBLIGATION_POLICY_NO_EVIDENCE = "opt:no-evidence" as const;
-export const OBLIGATION_POLICY_NO_REVIEW = "opt:no-review" as const;
-export const OBLIGATION_POLICY_REQUIRE_ARTIFACT =
-  "opt:require-artifact" as const;
-export const OBLIGATION_POLICY_REQUIRE_GIT = "opt:require-git" as const;
-
-export type DerivableExecutionContract = {
-  contractId: string;
-  cycleInstanceId?: string;
-  status: string;
-  expectedOutputs?: string[];
-  requiredCapabilities?: string[];
-  evidenceRequirements?: string[];
-  action?: string;
-  target?: string;
-  scope?: string;
-};
-
-export type DeriveFinalizationApplicabilityInput = {
-  cycleInstanceId: string;
-  projectId: string;
-  trajectory: ProjectTrajectory | null;
-  decisions: readonly HumanDecision[];
-  evidence: readonly Evidence[];
-  reviewBundles: readonly ReviewBundle[];
-  executionContracts: readonly DerivableExecutionContract[];
-};
-
-function naReasonFor(optionId: string): string {
-  return `pilot_hd_obligation_policy:${optionId}`;
-}
-
-function cycleBoundContracts(
-  contracts: readonly DerivableExecutionContract[],
-  cycleInstanceId: string,
-): DerivableExecutionContract[] {
-  return contracts.filter(
-    (c) => !c.cycleInstanceId || c.cycleInstanceId === cycleInstanceId,
-  );
-}
-
-function cycleBoundEvidence(
-  evidence: readonly Evidence[],
-  cycleInstanceId: string,
-): Evidence[] {
-  return evidence.filter(
-    (e) =>
-      !e.bindings?.cycleInstanceId ||
-      e.bindings.cycleInstanceId === cycleInstanceId,
-  );
-}
-
-function isProofStatus(status: Evidence["status"]): boolean {
-  return status === "available" || status === "verified";
-}
-
-function findCurrentObligationPolicy(
-  decisions: readonly HumanDecision[],
-  projectId: string,
-  cycleInstanceId: string,
-): HumanDecision | null {
-  const subject = obligationPolicySubjectFor(cycleInstanceId);
-  const matches = decisions.filter((d) =>
-    matchesLifecycleHumanDecision({
-      decision: d,
+  it("CP1 — EC git signal + opt:no-git → Git APPLICABLE + contradiction BLOCKING", () => {
+    const cycleId = "cyc:cp1";
+    const projectId = "prj:cp1";
+    const rules = deriveFinalizationApplicability({
+      cycleInstanceId: cycleId,
       projectId,
-      cycleInstanceId,
-      subject,
-    }),
-  );
-  if (matches.length === 0) {
-    // Also accept CURRENT HD with matching subject when cycleInstanceId unset on HD
-    // but project+subject match (mirrors other lifecycle helpers).
-    const loose = decisions.filter(
-      (d) =>
-        d.projectId === projectId &&
-        d.subject === subject &&
-        isCurrentHumanDecisionStatus(d.status) &&
-        (!d.cycleInstanceId || d.cycleInstanceId === cycleInstanceId),
-    );
-    return (
-      [...loose].sort((a, b) =>
-        a.effectiveAt < b.effectiveAt
-          ? 1
-          : a.effectiveAt > b.effectiveAt
-            ? -1
-            : 0,
-      )[0] ?? null
-    );
-  }
-  return (
-    [...matches].sort((a, b) =>
-      a.effectiveAt < b.effectiveAt ? 1 : a.effectiveAt > b.effectiveAt ? -1 : 0,
-    )[0] ?? null
-  );
-}
-
-function setNa(
-  rules: FinalizationApplicabilityRules,
-  family: keyof NonNullable<FinalizationApplicabilityRules["notApplicableReasons"]>,
-  optionId: string,
-): void {
-  rules[family] = "NOT_APPLICABLE";
-  rules.notApplicableReasons = {
-    ...rules.notApplicableReasons,
-    [family]: naReasonFor(optionId),
-  };
-}
-
-function setApplicable(
-  rules: FinalizationApplicabilityRules,
-  family:
-    | "exit_criteria"
-    | "artifact"
-    | "execution_contract"
-    | "evidence"
-    | "review_bundle"
-    | "git_repository",
-): void {
-  if (rules[family] !== "NOT_APPLICABLE") {
-    rules[family] = "APPLICABLE";
-  }
-}
-
-/**
- * Derive applicability from durable Product facts.
- * Merge: empty → positive EC/evidence/review/trajectory signals → obligation-policy HD.
- */
-export function deriveFinalizationApplicability(
-  input: DeriveFinalizationApplicabilityInput,
-): FinalizationApplicabilityRules {
-  const rules: FinalizationApplicabilityRules = {};
-  const cycleId = input.cycleInstanceId;
-  const contracts = cycleBoundContracts(input.executionContracts, cycleId);
-  const evidence = cycleBoundEvidence(input.evidence, cycleId);
-  const reviews = input.reviewBundles.filter(
-    (r) => !r.cycleInstanceId || r.cycleInstanceId === cycleId,
-  );
-
-  // --- Positive signals (APPLICABLE only; never N/A from absence) ---
-  if (input.trajectory) {
-    setApplicable(rules, "exit_criteria");
-  }
-
-  if (contracts.length > 0) {
-    setApplicable(rules, "execution_contract");
-  }
-
-  const anyEvidenceReq = contracts.some(
-    (c) => (c.evidenceRequirements?.length ?? 0) > 0,
-  );
-  if (evidence.length > 0 || anyEvidenceReq) {
-    setApplicable(rules, "evidence");
-  }
-
-  if (reviews.length > 0) {
-    setApplicable(rules, "review_bundle");
-  }
-
-  const artifactFromEc = contracts.some((c) =>
-    (c.expectedOutputs ?? []).some((o) => /artifact/i.test(o)),
-  );
-  const artifactFromEvidence = evidence.some((e) => e.type === "artifact");
-  if (artifactFromEc || artifactFromEvidence) {
-    setApplicable(rules, "artifact");
-  }
-  rules.artifactProofPresent = evidence.some(
-    (e) => e.type === "artifact" && isProofStatus(e.status),
-  );
-
-  const gitFromCaps = contracts.some((c) =>
-    (c.requiredCapabilities ?? []).some((cap) => /git/i.test(cap)),
-  );
-  const gitFromFields = contracts.some((c) =>
-    [c.action, c.target, c.scope].some(
-      (v) => typeof v === "string" && /git|repository/i.test(v),
-    ),
-  );
-  if (gitFromCaps || gitFromFields) {
-    setApplicable(rules, "git_repository");
-  }
-  rules.gitProofPresent = evidence.some(
-    (e) =>
-      (e.type === "attestation" ||
-        e.type === "log_ref" ||
-        e.type === "document") &&
-      isProofStatus(e.status),
-  );
-
-  // --- Obligation policy HD (explicit N/A or REQUIRE) ---
-  const policy = findCurrentObligationPolicy(
-    input.decisions,
-    input.projectId,
-    cycleId,
-  );
-  if (!policy) {
-    return rules;
-  }
-
-  const opt = policy.selectedOptionId;
-
-  const applyNaFamilies = (
-    families: Array<
-      keyof NonNullable<FinalizationApplicabilityRules["notApplicableReasons"]>
-    >,
-    optionId: string,
-  ) => {
-    for (const f of families) {
-      setNa(rules, f, optionId);
-    }
-  };
-
-  switch (opt) {
-    case OBLIGATION_POLICY_NO_GOVERNED_EFFECTS:
-      applyNaFamilies(
-        [
-          "artifact",
-          "git_repository",
-          "execution_contract",
-          "evidence",
-          "review_bundle",
-        ],
-        opt,
-      );
-      break;
-    case OBLIGATION_POLICY_NO_ARTIFACT:
-      setNa(rules, "artifact", opt);
-      break;
-    case OBLIGATION_POLICY_NO_GIT:
-      setNa(rules, "git_repository", opt);
-      break;
-    case OBLIGATION_POLICY_NO_EXECUTION:
-      setNa(rules, "execution_contract", opt);
-      break;
-    case OBLIGATION_POLICY_NO_EVIDENCE:
-      setNa(rules, "evidence", opt);
-      break;
-    case OBLIGATION_POLICY_NO_REVIEW:
-      setNa(rules, "review_bundle", opt);
-      break;
-    case OBLIGATION_POLICY_REQUIRE_ARTIFACT:
-      rules.artifact = "APPLICABLE";
-      break;
-    case OBLIGATION_POLICY_REQUIRE_GIT:
-      rules.git_repository = "APPLICABLE";
-      break;
-    default:
-      break;
-  }
-
-  return rules;
-}
-
-/** Re-export for callers that need the ObligationApplicability union locally. */
-export type { ObligationApplicability };
-
-```
-
-
-## CREATED `projects/sfia-studio/app/lib/oa/cycle/application/deriveLifecycleBlockers.ts`
-
-```typescript
-/**
- * CORR-PROOF-05 — derive lifecycle blockers from durable epistemic reservations.
- * No second blockers store; unreadable sources must fail closed at transitions.
- */
-import type { EpistemicItem } from "../domain/types";
-
-export type LifecycleBlockerSnapshot =
-  | { ok: true; statements: string[]; source: "epistemic_reservation" }
-  | { ok: false; reason: "epistemic_unreadable" | "epistemic_reader_unavailable" };
-
-export function deriveLifecycleBlockersFromEpistemicItems(
-  items: readonly EpistemicItem[],
-): Extract<LifecycleBlockerSnapshot, { ok: true }> {
-  const statements = items
-    .filter(
-      (i) =>
-        i.type === "Reservation" &&
-        i.status === "active" &&
-        i.blocking === true,
-    )
-    .map((i) => i.statement)
-    .sort();
-  return { ok: true, statements, source: "epistemic_reservation" };
-}
-
-/** Helper for transitions when the epistemic reader is missing or throws. */
-export function lifecycleBlockersFromReaderFailure(
-  reason: Extract<LifecycleBlockerSnapshot, { ok: false }>["reason"],
-): Extract<LifecycleBlockerSnapshot, { ok: false }> {
-  return { ok: false, reason };
-}
-
-```
-
-
-## CREATED `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts`
-
-```typescript
-/**
- * CORR-PROOF-05 — durable Pilot lifecycle projection (reload-safe).
- * Derived from CycleRepository + LPS (+ optional trajectory/assessment).
- * Never owned by F2/proposal process-local state.
- */
-import type {
-  CycleInstance,
-  CycleInstanceStatus,
-  FinalizationAssessment,
-} from "../domain/types";
-import {
-  isPausedStatus,
-  isStartableCandidateStatus,
-  isTerminalCycleStatus,
-} from "../domain/lifecycleInvariants";
-
-export type PilotLifecycleProjection = {
-  projectId: string;
-  activeCycleInstanceId: string | null;
-  activeCycle: CycleInstance | null;
-  pausedCycles: CycleInstance[];
-  /** Startable candidates only (proposed | acknowledged). */
-  candidateCycles: CycleInstance[];
-  /** Historical superseded — visible, never startable. */
-  supersededCycles: CycleInstance[];
-  terminalCycles: CycleInstance[];
-  /**
-   * Selected cycle for CTA surface.
-   * Preference: LPS active → single paused → single startable candidate → null (ambiguous).
-   * Superseded never selected for canStart; multiple superseded alone do not create ambiguity.
-   */
-  selectedCycleInstanceId: string | null;
-  selectedStatus: CycleInstanceStatus | null;
-  selectionAmbiguous: boolean;
-  assessment?: FinalizationAssessment | null;
-  cta: {
-    canStart: boolean;
-    canPause: boolean;
-    canResume: boolean;
-    canFinalize: boolean;
-    canCancel: boolean;
-  };
-};
-
-export function projectPilotLifecycle(input: {
-  projectId: string;
-  cycles: readonly CycleInstance[];
-  lpsActiveCycleInstanceId: string | null | undefined;
-  assessment?: FinalizationAssessment | null;
-}): PilotLifecycleProjection {
-  const byId = new Map(
-    input.cycles.map((c) => [c.cycleInstanceId, c] as const),
-  );
-  const activeId = input.lpsActiveCycleInstanceId ?? null;
-  const activeFromRepo = input.cycles.find((c) => c.status === "active") ?? null;
-  const activeCycle =
-    (activeId ? byId.get(activeId) ?? null : null) ?? activeFromRepo;
-
-  const pausedCycles = input.cycles.filter((c) => isPausedStatus(c.status));
-  const candidateCycles = input.cycles.filter((c) =>
-    isStartableCandidateStatus(c.status),
-  );
-  const supersededCycles = input.cycles.filter(
-    (c) => c.status === "superseded",
-  );
-  const terminalCycles = input.cycles.filter((c) =>
-    isTerminalCycleStatus(c.status),
-  );
-
-  let selectedCycleInstanceId: string | null = null;
-  let selectionAmbiguous = false;
-
-  if (activeCycle) {
-    selectedCycleInstanceId = activeCycle.cycleInstanceId;
-  } else if (pausedCycles.length === 1) {
-    selectedCycleInstanceId = pausedCycles[0]!.cycleInstanceId;
-  } else if (pausedCycles.length > 1) {
-    selectionAmbiguous = true;
-  } else if (candidateCycles.length === 1) {
-    selectedCycleInstanceId = candidateCycles[0]!.cycleInstanceId;
-  } else if (candidateCycles.length > 1) {
-    selectionAmbiguous = true;
-  }
-
-  const selected = selectedCycleInstanceId
-    ? byId.get(selectedCycleInstanceId) ?? null
-    : null;
-  const selectedStatus = selected?.status ?? null;
-
-  const cta = {
-    canStart: Boolean(
-      selected && isStartableCandidateStatus(selected.status) && !activeCycle,
-    ),
-    canPause: Boolean(selected && selected.status === "active"),
-    canResume: Boolean(selected && isPausedStatus(selected.status) && !activeCycle),
-    canFinalize: Boolean(
-      selected &&
-        !isTerminalCycleStatus(selected.status) &&
-        (selected.status === "active" ||
-          selected.status === "paused" ||
-          selected.status === "blocked"),
-    ),
-    canCancel: Boolean(
-      selected && !isTerminalCycleStatus(selected.status),
-    ),
-  };
-
-  return {
-    projectId: input.projectId,
-    activeCycleInstanceId: activeCycle?.cycleInstanceId ?? activeId,
-    activeCycle,
-    pausedCycles,
-    candidateCycles,
-    supersededCycles,
-    terminalCycles,
-    selectedCycleInstanceId,
-    selectedStatus,
-    selectionAmbiguous,
-    assessment: input.assessment ?? null,
-    cta,
-  };
-}
-
-```
-
-
-## CREATED `projects/sfia-studio/app/lib/oa/cycle/application/pilotLifecycleTransitions.ts`
-
-```typescript
-/**
- * CORR-PROOF-05 — Pilot-governed CycleInstance lifecycle transitions.
- * START / PAUSE / RESUME / FINALIZE / CANCEL (+ auto-complete when ready).
- * Never uses evaluateMorrisGateRequired / morrisGateRequired as authority.
- */
-import { randomBytes } from "node:crypto";
-import type { ClockPort } from "@/lib/oa/doctrine";
-import type { HumanDecision } from "@/lib/oa/decision";
-import type { Evidence } from "@/lib/oa/evidence-review";
-import type { ReviewBundle } from "@/lib/oa/evidence-review/domain/reviewBundleTypes";
-import type { ProjectServices } from "@/lib/oa/project";
-import { createCycleError } from "../domain/errors";
-import {
-  assertAtMostOneActiveCycle,
-  assertLifecycleTransition,
-  targetStatusForAction,
-} from "../domain/lifecycleInvariants";
-import type {
-  AssessFinalizationRequest,
-  AssessFinalizationResult,
-  CancelCycleRequest,
-  CycleInstance,
-  EpistemicItem,
-  FinalizationApplicabilityRules,
-  FinalizeCycleRequest,
-  PauseCycleRequest,
-  PilotLifecycleResult,
-  ResumeCycleRequest,
-  StartCycleRequest,
-} from "../domain/types";
-import type { CycleAuditPort } from "../ports/cycleAudit";
-import type { CyclePersistenceUnitOfWorkPort } from "../ports/cyclePersistenceUnitOfWorkPort";
-import type { CycleRepositoryPort } from "../ports/cycleRepository";
-import type { TrajectoryRepositoryPort } from "../ports/trajectoryRepository";
-import {
-  assessFinalizationObligations,
-  isAcceptedCancelDecision,
-  isAcceptedFinalizeDecision,
-  isAcceptedResumeReplanDecision,
-  isAcceptedStartTrajectoryDecision,
-  type AssessFinalizationInput,
-} from "./assessFinalization";
-import {
-  assessResumeReconciliation,
-  buildPauseReconciliationSnapshot,
-} from "./assessResumeReconciliation";
-import { assessStartReadiness } from "./assessStartReadiness";
-import {
-  deriveFinalizationApplicability,
-  type DerivableExecutionContract,
-} from "./deriveFinalizationApplicability";
-import {
-  deriveLifecycleBlockersFromEpistemicItems,
-  lifecycleBlockersFromReaderFailure,
-  type LifecycleBlockerSnapshot,
-} from "./deriveLifecycleBlockers";
-
-function newId(prefix: "cor"): string {
-  return `${prefix}:${randomBytes(8).toString("hex")}`;
-}
-
-export type LifecycleDecisionReader = {
-  getById(decisionId: string): Promise<HumanDecision | null>;
-  listByProject(projectId: string): Promise<HumanDecision[]>;
-};
-
-export type LifecycleEvidenceReader = {
-  listByProject(projectId: string): Promise<Evidence[]>;
-};
-
-export type LifecycleReviewBundleReader = {
-  listByProject(projectId: string): Promise<ReviewBundle[]>;
-};
-
-export type LifecycleEpistemicReader = {
-  listByProject(projectId: string): Promise<EpistemicItem[]>;
-};
-
-export type LifecycleExecutionSnapshotReader = {
-  listContractsByProject?(projectId: string): Promise<
-    Array<DerivableExecutionContract>
-  >;
-  listAttemptsByProject?(projectId: string): Promise<
-    Array<{
-      attemptId: string;
-      contractId?: string;
-      terminalState?: string;
-    }>
-  >;
-};
-
-/** Narrow authority verify surface for Pilot lifecycle mutations. */
-export type PilotLifecycleAuthorityPort = {
-  verify(request: {
-    actorId: string;
-    scope: string;
-    evidenceId?: string;
-    requiredLevel?: "N1" | "N2" | "N3";
-    requireMorrisGate?: boolean;
-  }): { ok: boolean; reason?: string };
-};
-
-export type PilotLifecycleDeps = {
-  cycles: CycleRepositoryPort;
-  trajectories: TrajectoryRepositoryPort;
-  projectServices: ProjectServices;
-  clock: ClockPort;
-  audit: CycleAuditPort;
-  store?: CyclePersistenceUnitOfWorkPort;
-  decisions?: LifecycleDecisionReader;
-  evidence?: LifecycleEvidenceReader;
-  reviewBundles?: LifecycleReviewBundleReader;
-  execution?: LifecycleExecutionSnapshotReader;
-  epistemic?: LifecycleEpistemicReader;
-  authority?: PilotLifecycleAuthorityPort;
-  /**
-   * Optional static applicability override — test-only / low-level.
-   * Product `buildAssessment` always derives from durable facts and ignores this.
-   */
-  applicabilityRules?: FinalizationApplicabilityRules;
-};
-
-function authorityNotConfiguredReason(reason?: string): boolean {
-  if (!reason) return true;
-  const r = reason.toLowerCase();
-  return (
-    r.includes("no_evidence") ||
-    r.includes("not_configured") ||
-    r.includes("not configured") ||
-    r.includes("evidence_not_found") ||
-    r === "authority_port_unavailable"
-  );
-}
-
-async function appendLpsActiveLink(input: {
-  projectServices: ProjectServices;
-  projectId: string;
-  createdBy: StartCycleRequest["createdBy"];
-  correlationId: string;
-  expectedLpsVersion?: number;
-  activeCycleInstanceId: string | null;
-}): Promise<{ ok: true; version: number } | { ok: false; detail: string; currentVersion?: number }> {
-  const current =
-    await input.projectServices.getCurrentLivingProjectState.execute({
-      projectId: input.projectId,
+      trajectory: traj(),
+      decisions: [
+        makeObligationPolicyDecision(cycleId, projectId, OBLIGATION_POLICY_NO_GIT),
+      ],
+      evidence: [],
+      reviewBundles: [],
+      executionContracts: [
+        {
+          contractId: "ec:git",
+          cycleInstanceId: cycleId,
+          status: "completed",
+          requiredCapabilities: ["git.commit"],
+        },
+      ],
     });
-  if (!current.ok) {
-    return { ok: false, detail: "missing_current_lps" };
-  }
-  const expected =
-    input.expectedLpsVersion ?? current.livingProjectState.version;
-  const appended =
-    await input.projectServices.appendLivingProjectStateVersion.execute({
-      projectId: input.projectId,
-      expectedVersion: expected,
-      objective: current.livingProjectState.objective,
-      createdBy: input.createdBy,
-      correlationId: input.correlationId,
-      context: current.livingProjectState.context,
-      scope: current.livingProjectState.scope,
-      activeCycleInstanceId: input.activeCycleInstanceId,
+    expect(rules.git_repository).toBe("APPLICABLE");
+    expect(rules.contradictions?.some((c) => c.family === "git_repository")).toBe(
+      true,
+    );
+    const a = assessFinalizationObligations({
+      cycle: baseCycle({ cycleInstanceId: cycleId, projectId }),
+      projectId,
+      assessedAt: "2026-09-07T16:00:00.000Z",
+      decisions: [],
+      evidence: [],
+      reviewBundles: [],
+      trajectory: traj(),
+      applicability: rules,
+      executionContracts: [
+        {
+          contractId: "ec:git",
+          cycleInstanceId: cycleId,
+          status: "completed",
+        },
+      ],
     });
-  if (!appended.ok) {
-    if (appended.error.detailCode === "LPS_VERSION_CONFLICT") {
-      return {
-        ok: false,
-        detail: "lps_version_conflict",
-        currentVersion: appended.error.currentVersion,
-      };
-    }
-    return { ok: false, detail: "lps_append_failed" };
-  }
-  return { ok: true, version: appended.livingProjectState.version };
-}
+    expect(a.blockers).toContain("git_policy_contradicts_applicability");
+    expect(a.canComplete).toBe(false);
+  });
 
-export class PilotLifecycleTransitions {
-  constructor(private readonly deps: PilotLifecycleDeps) {}
+  it("CP2 — EC git + no-governed-effects → Git APPLICABLE + BLOCKING", () => {
+    const cycleId = "cyc:cp2";
+    const projectId = "prj:cp2";
+    const rules = deriveFinalizationApplicability({
+      cycleInstanceId: cycleId,
+      projectId,
+      trajectory: traj(),
+      decisions: [
+        makeObligationPolicyDecision(
+          cycleId,
+          projectId,
+          OBLIGATION_POLICY_NO_GOVERNED_EFFECTS,
+        ),
+      ],
+      evidence: [],
+      reviewBundles: [],
+      executionContracts: [
+        {
+          contractId: "ec:git",
+          cycleInstanceId: cycleId,
+          status: "completed",
+          requiredCapabilities: ["git"],
+        },
+      ],
+    });
+    expect(rules.git_repository).toBe("APPLICABLE");
+    expect(rules.execution_contract).toBe("APPLICABLE");
+    expect(rules.contradictions?.length).toBeGreaterThan(0);
+    const a = assessFinalizationObligations({
+      cycle: baseCycle({ cycleInstanceId: cycleId, projectId }),
+      projectId,
+      assessedAt: "2026-09-07T16:00:00.000Z",
+      decisions: [],
+      evidence: [],
+      reviewBundles: [],
+      trajectory: traj(),
+      applicability: rules,
+    });
+    expect(a.blockers).toContain("git_policy_contradicts_applicability");
+    expect(a.canComplete).toBe(false);
+  });
 
-  async start(request: StartCycleRequest): Promise<PilotLifecycleResult> {
-    const started = Date.now();
-    const timestamp = this.deps.clock.nowIso();
-    const correlationId = request.correlationId ?? newId("cor");
+  it("CP3 — EC present + no-execution → execution APPLICABLE + BLOCKING", () => {
+    const cycleId = "cyc:cp3";
+    const projectId = "prj:cp3";
+    const rules = deriveFinalizationApplicability({
+      cycleInstanceId: cycleId,
+      projectId,
+      trajectory: traj(),
+      decisions: [
+        makeObligationPolicyDecision(
+          cycleId,
+          projectId,
+          OBLIGATION_POLICY_NO_EXECUTION,
+        ),
+      ],
+      evidence: [],
+      reviewBundles: [],
+      executionContracts: [
+        { contractId: "ec:1", cycleInstanceId: cycleId, status: "completed" },
+      ],
+    });
+    expect(rules.execution_contract).toBe("APPLICABLE");
+    expect(rules.contradictions?.[0]?.family).toBe("execution_contract");
+  });
 
-    const fail = (
-      detailCode: Parameters<typeof createCycleError>[0]["detailCode"],
-      internalCauseRef?: string,
-      extra?: Partial<Parameters<typeof createCycleError>[0]>,
-    ): PilotLifecycleResult => {
-      const durationMs = Date.now() - started;
-      const error = createCycleError({
-        detailCode,
-        timestamp,
-        correlationId,
-        projectId: request.projectId,
-        cycleInstanceId: request.cycleInstanceId,
-        internalCauseRef,
-        ...extra,
-      });
-      this.deps.audit.append({
-        event: "oa.cycle.lifecycle_transition",
-        ts: timestamp,
-        correlationId,
-        projectId: request.projectId,
-        cycleInstanceId: request.cycleInstanceId,
-        action: "START",
-        fromStatus: "unknown",
-        toStatus: "unknown",
-        actorId: request.createdBy.actorId,
-        decisionRef: request.decisionId,
-        result: "error",
-        detailCode,
-        durationMs,
-      });
-      return { ok: false, error, durationMs };
+  it("CP4 — Evidence present + no-evidence → evidence APPLICABLE + BLOCKING", () => {
+    const cycleId = "cyc:cp4";
+    const projectId = "prj:cp4";
+    const rules = deriveFinalizationApplicability({
+      cycleInstanceId: cycleId,
+      projectId,
+      trajectory: traj(),
+      decisions: [
+        makeObligationPolicyDecision(
+          cycleId,
+          projectId,
+          OBLIGATION_POLICY_NO_EVIDENCE,
+        ),
+      ],
+      evidence: [
+        makeEvidence({
+          evidenceId: "ev:1",
+          type: "document",
+          status: "verified",
+          bindings: { cycleInstanceId: cycleId },
+        }),
+      ],
+      reviewBundles: [],
+      executionContracts: [],
+    });
+    expect(rules.evidence).toBe("APPLICABLE");
+    expect(rules.contradictions?.[0]?.family).toBe("evidence");
+  });
+
+  it("CP5 — ReviewBundle present + no-review → review APPLICABLE + BLOCKING", () => {
+    const cycleId = "cyc:cp5";
+    const projectId = "prj:cp5";
+    const rules = deriveFinalizationApplicability({
+      cycleInstanceId: cycleId,
+      projectId,
+      trajectory: traj(),
+      decisions: [
+        makeObligationPolicyDecision(
+          cycleId,
+          projectId,
+          OBLIGATION_POLICY_NO_REVIEW,
+        ),
+      ],
+      evidence: [],
+      reviewBundles: [
+        makeReview({
+          reviewBundleId: "rb:1",
+          status: "accepted",
+          cycleInstanceId: cycleId,
+          projectId,
+        }),
+      ],
+      executionContracts: [],
+    });
+    expect(rules.review_bundle).toBe("APPLICABLE");
+    expect(rules.contradictions?.[0]?.family).toBe("review_bundle");
+  });
+
+  it("CP6 — artifact signal + no-artifact → artifact APPLICABLE + BLOCKING", () => {
+    const cycleId = "cyc:cp6";
+    const projectId = "prj:cp6";
+    const rules = deriveFinalizationApplicability({
+      cycleInstanceId: cycleId,
+      projectId,
+      trajectory: traj(),
+      decisions: [
+        makeObligationPolicyDecision(
+          cycleId,
+          projectId,
+          OBLIGATION_POLICY_NO_ARTIFACT,
+        ),
+      ],
+      evidence: [],
+      reviewBundles: [],
+      executionContracts: [
+        {
+          contractId: "ec:art",
+          cycleInstanceId: cycleId,
+          status: "completed",
+          expectedOutputs: ["artifact:report"],
+        },
+      ],
+    });
+    expect(rules.artifact).toBe("APPLICABLE");
+    expect(rules.contradictions?.[0]?.family).toBe("artifact");
+  });
+
+  it("CP7 — no positive git fact + no-git → explicit NOT_APPLICABLE", () => {
+    const cycleId = "cyc:cp7";
+    const projectId = "prj:cp7";
+    const rules = deriveFinalizationApplicability({
+      cycleInstanceId: cycleId,
+      projectId,
+      trajectory: traj(),
+      decisions: [
+        makeObligationPolicyDecision(cycleId, projectId, OBLIGATION_POLICY_NO_GIT),
+      ],
+      evidence: [],
+      reviewBundles: [],
+      executionContracts: [],
+    });
+    expect(rules.git_repository).toBe("NOT_APPLICABLE");
+    expect(rules.contradictions ?? []).toHaveLength(0);
+    expect(rules.notApplicableReasons?.git_repository).toContain(
+      "pilot_hd_obligation_policy",
+    );
+  });
+
+  it("CP8 — no positive governed facts + no-governed-effects → N/A allowed", () => {
+    const cycleId = "cyc:cp8";
+    const projectId = "prj:cp8";
+    const rules = deriveFinalizationApplicability({
+      cycleInstanceId: cycleId,
+      projectId,
+      trajectory: traj(),
+      decisions: [
+        makeObligationPolicyDecision(
+          cycleId,
+          projectId,
+          OBLIGATION_POLICY_NO_GOVERNED_EFFECTS,
+        ),
+      ],
+      evidence: [],
+      reviewBundles: [],
+      executionContracts: [],
+    });
+    expect(rules.execution_contract).toBe("NOT_APPLICABLE");
+    expect(rules.git_repository).toBe("NOT_APPLICABLE");
+    expect(rules.artifact).toBe("NOT_APPLICABLE");
+    expect(rules.evidence).toBe("NOT_APPLICABLE");
+    expect(rules.review_bundle).toBe("NOT_APPLICABLE");
+    expect(rules.contradictions ?? []).toHaveLength(0);
+  });
+
+  it("CP9 — contradiction re-derived from durable sources", () => {
+    const cycleId = "cyc:cp9";
+    const projectId = "prj:cp9";
+    const input = {
+      cycleInstanceId: cycleId,
+      projectId,
+      trajectory: traj(),
+      decisions: [
+        makeObligationPolicyDecision(cycleId, projectId, OBLIGATION_POLICY_NO_GIT),
+      ],
+      evidence: [] as Evidence[],
+      reviewBundles: [] as ReviewBundle[],
+      executionContracts: [
+        {
+          contractId: "ec:git",
+          cycleInstanceId: cycleId,
+          status: "completed",
+          requiredCapabilities: ["git"],
+        },
+      ],
     };
+    const a = deriveFinalizationApplicability(input);
+    const b = deriveFinalizationApplicability(input);
+    expect(a.contradictions).toEqual(b.contradictions);
+    expect(a.git_repository).toBe("APPLICABLE");
+  });
+});
 
-    if (!request.createdBy?.actorId) {
-      return fail("CYCLE_LIFECYCLE_DENIED", "actor_required");
-    }
-
-    const authGate = this.verifyAuthority({
-      actorId: request.createdBy.actorId,
-      cycleInstanceId: request.cycleInstanceId,
-      evidenceId: request.authorityEvidenceId,
-    });
-    if (!authGate.ok) {
-      return fail(authGate.detailCode, authGate.internalCauseRef);
-    }
-
-    const projectResult = await this.deps.projectServices.getProject.execute({
-      projectId: request.projectId,
-    });
-    const projectOk = projectResult.ok;
-    if (!projectOk) {
-      return fail("PROJECT_NOT_FOUND", "missing_project");
-    }
-
-    const cycle = await this.deps.cycles.findById(request.cycleInstanceId);
-    if (!cycle || cycle.projectId !== request.projectId) {
-      return fail("CYCLE_NOT_FOUND", "missing_cycle");
-    }
-    if (isTerminalGuard(cycle)) {
-      return fail("CYCLE_TERMINAL", `terminal_${cycle.status}`);
-    }
-    const transition = assertLifecycleTransition({
-      from: cycle.status,
-      action: "START",
-    });
-    if (transition) return fail(transition.detailCode, transition.reason);
-
-    const siblings = await this.deps.cycles.listByProject(request.projectId);
-    const single = assertAtMostOneActiveCycle({
-      cycles: siblings,
-      excludeCycleInstanceId: request.cycleInstanceId,
-    });
-    const siblingActiveExists = Boolean(single);
-
-    const lps =
-      await this.deps.projectServices.getCurrentLivingProjectState.execute({
-        projectId: request.projectId,
-      });
-    const lpsReadable = lps.ok;
-    const lpsActiveCycleInstanceId = lps.ok
-      ? lps.livingProjectState.activeCycleInstanceId
-      : undefined;
-
-    const trajectory = await this.loadTrajectory(request.projectId);
-    const decisions = this.deps.decisions
-      ? await this.deps.decisions.listByProject(request.projectId)
-      : [];
-
-    const doctrineReadable = Boolean(
-      (projectResult.ok && projectResult.project.doctrinePackageRef) ||
-        (lps.ok && lps.livingProjectState.doctrinePackageRef),
-    );
-
-    const blockersSnap = await this.loadBlockers(request.projectId);
-    const readiness = assessStartReadiness({
-      assessedAt: timestamp,
-      projectOk,
-      cycle,
-      projectId: request.projectId,
-      lpsReadable,
-      lpsActiveCycleInstanceId,
-      siblingActiveExists,
-      trajectory,
-      decisions,
-      decisionId: request.decisionId,
-      doctrineReadable,
-      blockingReservationStatements: blockersSnap.ok
-        ? blockersSnap.statements
-        : undefined,
-      blockerSourceUnreadable: !blockersSnap.ok,
-    });
-
-    const nonHdBlockers = readiness.blockers.filter(
-      (b) => b !== "start_trajectory_hd_missing_or_invalid",
-    );
-    if (nonHdBlockers.length > 0 || (!readiness.ready && !readiness.requiresTrajectoryHumanDecision)) {
-      return fail(
-        "CYCLE_START_NOT_READY",
-        readiness.blockers.join("|") || "start_not_ready",
-      );
-    }
-
-    if (readiness.requiresTrajectoryHumanDecision) {
-      if (!this.deps.decisions) {
-        return fail("CYCLE_DECISION_REQUIRED", "decision_reader_unavailable");
-      }
-      let hd: HumanDecision | null = null;
-      if (request.decisionId) {
-        hd = await this.deps.decisions.getById(request.decisionId);
-      } else {
-        hd =
-          decisions.find((d) =>
-            isAcceptedStartTrajectoryDecision(
-              d,
-              request.cycleInstanceId,
-              request.projectId,
-            ),
-          ) ?? null;
-      }
-      if (
-        !hd ||
-        !isAcceptedStartTrajectoryDecision(
-          hd,
-          request.cycleInstanceId,
-          request.projectId,
-        )
-      ) {
-        return fail(
-          "CYCLE_DECISION_REQUIRED",
-          "start_trajectory_hd_missing_or_invalid",
-        );
-      }
-    }
-
-    if (single) return fail(single.detailCode, single.reason);
-
-    const next: CycleInstance = {
-      ...structuredClone(cycle),
-      status: "active",
-      acknowledgedAt: cycle.acknowledgedAt ?? timestamp,
-      pauseReconciliation: null,
-    };
-
-    return this.persistLifecycleMutation({
-      action: "START",
-      projectId: request.projectId,
-      cycleInstanceId: request.cycleInstanceId,
-      createdBy: request.createdBy,
-      correlationId,
-      expectedLpsVersion: request.expectedLpsVersion,
-      decisionId: request.decisionId,
-      fromStatus: cycle.status,
-      toStatus: "active",
-      next,
-      setActiveLink: request.cycleInstanceId,
-      clearActiveLink: false,
-      started,
-      timestamp,
-      fail,
-    });
-  }
-
-  async pause(request: PauseCycleRequest): Promise<PilotLifecycleResult> {
-    const started = Date.now();
-    const timestamp = this.deps.clock.nowIso();
-    const correlationId = request.correlationId ?? newId("cor");
-
-    const fail = (
-      detailCode: Parameters<typeof createCycleError>[0]["detailCode"],
-      internalCauseRef?: string,
-      extra?: Partial<Parameters<typeof createCycleError>[0]>,
-    ): PilotLifecycleResult => {
-      const durationMs = Date.now() - started;
-      const error = createCycleError({
-        detailCode,
-        timestamp,
-        correlationId,
-        projectId: request.projectId,
-        cycleInstanceId: request.cycleInstanceId,
-        internalCauseRef,
-        ...extra,
-      });
-      this.deps.audit.append({
-        event: "oa.cycle.lifecycle_transition",
-        ts: timestamp,
-        correlationId,
-        projectId: request.projectId,
-        cycleInstanceId: request.cycleInstanceId,
-        action: "PAUSE",
-        fromStatus: "unknown",
-        toStatus: "unknown",
-        actorId: request.createdBy.actorId,
-        result: "error",
-        detailCode,
-        durationMs,
-      });
-      return { ok: false, error, durationMs };
-    };
-
-    if (!request.createdBy?.actorId) {
-      return fail("CYCLE_LIFECYCLE_DENIED", "actor_required");
-    }
-
-    const authGate = this.verifyAuthority({
-      actorId: request.createdBy.actorId,
-      cycleInstanceId: request.cycleInstanceId,
-      evidenceId: request.authorityEvidenceId,
-    });
-    if (!authGate.ok) {
-      return fail(authGate.detailCode, authGate.internalCauseRef);
-    }
-
-    const projectResult = await this.deps.projectServices.getProject.execute({
-      projectId: request.projectId,
-    });
-    if (!projectResult.ok) {
-      return fail("PROJECT_NOT_FOUND", "missing_project");
-    }
-
-    const cycle = await this.deps.cycles.findById(request.cycleInstanceId);
-    if (!cycle || cycle.projectId !== request.projectId) {
-      return fail("CYCLE_NOT_FOUND", "missing_cycle");
-    }
-    if (isTerminalGuard(cycle)) {
-      return fail("CYCLE_TERMINAL", `terminal_${cycle.status}`);
-    }
-    const transition = assertLifecycleTransition({
-      from: cycle.status,
-      action: "PAUSE",
-    });
-    if (transition) return fail(transition.detailCode, transition.reason);
-
-    const lps =
-      await this.deps.projectServices.getCurrentLivingProjectState.execute({
-        projectId: request.projectId,
-      });
-    const trajectory = await this.loadTrajectory(request.projectId);
-    const decisions = this.deps.decisions
-      ? await this.deps.decisions.listByProject(request.projectId)
-      : [];
-    const evidence = this.deps.evidence
-      ? await this.deps.evidence.listByProject(request.projectId)
-      : [];
-
-    const doctrinePin =
-      projectResult.project.doctrinePackageRef ??
-      (lps.ok ? lps.livingProjectState.doctrinePackageRef : undefined);
-
-    const blockersSnap = await this.loadBlockers(request.projectId);
-    const pauseReconciliation = buildPauseReconciliationSnapshot({
-      pausedAt: timestamp,
-      lpsVersion: lps.ok ? lps.livingProjectState.version : 0,
-      lpsActiveCycleInstanceId: lps.ok
-        ? lps.livingProjectState.activeCycleInstanceId
-        : null,
-      objective: lps.ok ? lps.livingProjectState.objective : "",
-      context: lps.ok ? (lps.livingProjectState.context ?? "") : "",
-      scope: lps.ok ? (lps.livingProjectState.scope ?? "") : "",
-      doctrinePackageId: doctrinePin?.doctrinePackageId,
-      doctrinePackageVersion: doctrinePin?.version,
-      doctrinePackageDigest: doctrinePin?.digest,
-      trajectory,
-      decisions,
-      evidence,
-      blockingReservationStatements: blockersSnap.ok
-        ? blockersSnap.statements
+describe("EC — execution contract exit semantics (EC1–EC10)", () => {
+  function assessEc(
+    status: string,
+    extra?: {
+      contracts?: Array<{
+        contractId: string;
+        status: string;
+        supersedesExecutionContractId?: string;
+        cycleInstanceId?: string;
+      }>;
+      attempts?: Array<{
+        attemptId: string;
+        contractId?: string;
+        terminalState?: string;
+      }>;
+      policy?: string;
+    },
+  ) {
+    const cycleId = "cyc:ec";
+    const projectId = "prj:ec";
+    const contracts =
+      extra?.contracts ??
+      [{ contractId: "ec:1", cycleInstanceId: cycleId, status }];
+    const rules = deriveFinalizationApplicability({
+      cycleInstanceId: cycleId,
+      projectId,
+      trajectory: baseTrajectory({ projectId, steps: STEPS_DONE }),
+      decisions: extra?.policy
+        ? [makeObligationPolicyDecision(cycleId, projectId, extra.policy)]
         : [],
-      projectId: request.projectId,
-      cycleInstanceId: request.cycleInstanceId,
+      evidence: [],
+      reviewBundles: [],
+      executionContracts: contracts,
     });
-
-    const next: CycleInstance = {
-      ...structuredClone(cycle),
-      status: "paused",
-      pauseReconciliation,
-    };
-
-    return this.persistLifecycleMutation({
-      action: "PAUSE",
-      projectId: request.projectId,
-      cycleInstanceId: request.cycleInstanceId,
-      createdBy: request.createdBy,
-      correlationId,
-      expectedLpsVersion: request.expectedLpsVersion,
-      fromStatus: cycle.status,
-      toStatus: "paused",
-      next,
-      setActiveLink: null,
-      clearActiveLink: true,
-      started,
-      timestamp,
-      fail,
+    return assessFinalizationObligations({
+      cycle: baseCycle({ cycleInstanceId: cycleId, projectId }),
+      projectId,
+      assessedAt: "2026-09-07T16:00:00.000Z",
+      decisions: [],
+      evidence: [],
+      reviewBundles: [],
+      trajectory: baseTrajectory({ projectId, steps: STEPS_DONE }),
+      applicability: {
+        ...rules,
+        artifact: "NOT_APPLICABLE",
+        evidence: "NOT_APPLICABLE",
+        review_bundle: "NOT_APPLICABLE",
+        git_repository: "NOT_APPLICABLE",
+        notApplicableReasons: {
+          ...rules.notApplicableReasons,
+          artifact: "test",
+          evidence: "test",
+          review_bundle: "test",
+          git_repository: "test",
+        },
+      },
+      executionContracts: contracts,
+      executionAttempts: extra?.attempts,
     });
   }
 
-  async resume(request: ResumeCycleRequest): Promise<PilotLifecycleResult> {
-    const started = Date.now();
-    const timestamp = this.deps.clock.nowIso();
-    const correlationId = request.correlationId ?? newId("cor");
+  it("EC1 — confirmed only → NOT SATISFIED (PENDING)", () => {
+    const a = assessEc("confirmed");
+    const ec = a.obligations.find((o) => o.family === "execution_contract");
+    expect(ec?.status).toBe("PENDING");
+  });
 
-    const fail = (
-      detailCode: Parameters<typeof createCycleError>[0]["detailCode"],
-      internalCauseRef?: string,
-      extra?: Partial<Parameters<typeof createCycleError>[0]>,
-    ): PilotLifecycleResult => {
-      const durationMs = Date.now() - started;
-      const error = createCycleError({
-        detailCode,
-        timestamp,
-        correlationId,
-        projectId: request.projectId,
-        cycleInstanceId: request.cycleInstanceId,
-        internalCauseRef,
-        ...extra,
-      });
-      this.deps.audit.append({
-        event: "oa.cycle.lifecycle_transition",
-        ts: timestamp,
-        correlationId,
-        projectId: request.projectId,
-        cycleInstanceId: request.cycleInstanceId,
-        action: "RESUME",
-        fromStatus: "paused",
-        toStatus: "paused",
-        actorId: request.createdBy.actorId,
-        decisionRef: request.decisionId,
-        result: "error",
-        detailCode,
-        durationMs,
-      });
-      return { ok: false, error, durationMs };
-    };
+  it("EC2 — executing → PENDING", () => {
+    const a = assessEc("executing");
+    expect(
+      a.obligations.find((o) => o.family === "execution_contract")?.status,
+    ).toBe("PENDING");
+  });
 
-    if (!request.createdBy?.actorId) {
-      return fail("CYCLE_LIFECYCLE_DENIED", "actor_required");
-    }
+  it("EC3 — completed → execution SATISFIED", () => {
+    const a = assessEc("completed");
+    expect(
+      a.obligations.find((o) => o.family === "execution_contract")?.status,
+    ).toBe("SATISFIED");
+    expect(a.canComplete).toBe(false);
+  });
 
-    const authGate = this.verifyAuthority({
-      actorId: request.createdBy.actorId,
-      cycleInstanceId: request.cycleInstanceId,
-      evidenceId: request.authorityEvidenceId,
+  it("EC4 — failed → BLOCKING", () => {
+    const a = assessEc("failed");
+    expect(
+      a.obligations.find((o) => o.family === "execution_contract")?.status,
+    ).toBe("BLOCKING");
+  });
+
+  it("EC5 — cancelled with execution applicable → NOT SATISFIED", () => {
+    const a = assessEc("cancelled");
+    const ec = a.obligations.find((o) => o.family === "execution_contract");
+    expect(ec?.status).not.toBe("SATISFIED");
+    expect(ec?.status).toBe("BLOCKING");
+  });
+
+  it("EC6 — superseded predecessor + successor confirmed → successor PENDING", () => {
+    const a = assessEc("confirmed", {
+      contracts: [
+        {
+          contractId: "ec:old",
+          status: "superseded",
+          cycleInstanceId: "cyc:ec",
+        },
+        {
+          contractId: "ec:new",
+          status: "confirmed",
+          cycleInstanceId: "cyc:ec",
+          supersedesExecutionContractId: "ec:old",
+        },
+      ],
     });
-    if (!authGate.ok) {
-      return fail(authGate.detailCode, authGate.internalCauseRef);
-    }
+    const { effective } = selectEffectiveExecutionContracts(
+      [
+        { contractId: "ec:old", status: "superseded", cycleInstanceId: "cyc:ec" },
+        {
+          contractId: "ec:new",
+          status: "confirmed",
+          cycleInstanceId: "cyc:ec",
+          supersedesExecutionContractId: "ec:old",
+        },
+      ],
+      "cyc:ec",
+    );
+    expect(effective.map((c) => c.contractId)).toEqual(["ec:new"]);
+    expect(
+      a.obligations.find((o) => o.family === "execution_contract")?.status,
+    ).toBe("PENDING");
+  });
 
-    const projectResult = await this.deps.projectServices.getProject.execute({
-      projectId: request.projectId,
+  it("EC7 — superseded predecessor + successor completed → SATISFIED", () => {
+    const a = assessEc("completed", {
+      contracts: [
+        {
+          contractId: "ec:old",
+          status: "superseded",
+          cycleInstanceId: "cyc:ec",
+        },
+        {
+          contractId: "ec:new",
+          status: "completed",
+          cycleInstanceId: "cyc:ec",
+          supersedesExecutionContractId: "ec:old",
+        },
+      ],
     });
-    if (!projectResult.ok) {
-      return fail("PROJECT_NOT_FOUND", "missing_project");
-    }
+    expect(
+      a.obligations.find((o) => o.family === "execution_contract")?.status,
+    ).toBe("SATISFIED");
+  });
 
-    const cycle = await this.deps.cycles.findById(request.cycleInstanceId);
-    if (!cycle || cycle.projectId !== request.projectId) {
-      return fail("CYCLE_NOT_FOUND", "missing_cycle");
-    }
-    if (isTerminalGuard(cycle)) {
-      return fail("CYCLE_TERMINAL", `terminal_${cycle.status}`);
-    }
-    const transition = assertLifecycleTransition({
-      from: cycle.status,
-      action: "RESUME",
+  it("EC8 — superseded with no successor → fail closed", () => {
+    const a = assessEc("superseded", {
+      contracts: [
+        {
+          contractId: "ec:orphan",
+          status: "superseded",
+          cycleInstanceId: "cyc:ec",
+        },
+      ],
     });
-    if (transition) return fail(transition.detailCode, transition.reason);
+    expect(a.blockers).toContain("execution_superseded_unresolved");
+    expect(
+      a.obligations.find((o) => o.family === "execution_contract")?.status,
+    ).toBe("BLOCKING");
+  });
 
-    const siblings = await this.deps.cycles.listByProject(request.projectId);
-    const single = assertAtMostOneActiveCycle({
-      cycles: siblings,
-      excludeCycleInstanceId: request.cycleInstanceId,
+  it("EC9 — terminal_success + confirmed EC → not execution-family complete", () => {
+    const a = assessEc("confirmed", {
+      attempts: [
+        {
+          attemptId: "att:1",
+          contractId: "ec:1",
+          terminalState: "terminal_success",
+        },
+      ],
     });
+    expect(
+      a.obligations.find((o) => o.family === "execution_contract")?.status,
+    ).not.toBe("SATISFIED");
+  });
 
-    const lps =
-      await this.deps.projectServices.getCurrentLivingProjectState.execute({
-        projectId: request.projectId,
-      });
-    const trajectory = await this.loadTrajectory(request.projectId);
-    const decisions = this.deps.decisions
-      ? await this.deps.decisions.listByProject(request.projectId)
-      : [];
-    const evidence = this.deps.evidence
-      ? await this.deps.evidence.listByProject(request.projectId)
-      : [];
+  it("EC10 — no EC + no-execution policy → N/A", () => {
+    const a = assessEc("completed", {
+      contracts: [],
+      policy: OBLIGATION_POLICY_NO_EXECUTION,
+    });
+    expect(
+      a.obligations.find((o) => o.family === "execution_contract")?.status,
+    ).toBe("NOT_APPLICABLE");
+  });
+});
 
-    const doctrinePin =
-      projectResult.project.doctrinePackageRef ??
-      (lps.ok ? lps.livingProjectState.doctrinePackageRef : undefined);
+describe("GP — git evidence semantic binding (GP1–GP8)", () => {
+  const cycleId = "cyc:gp";
+  const projectId = "prj:gp";
+  const gitEc = {
+    contractId: "ec:git",
+    cycleInstanceId: cycleId,
+    status: "completed" as const,
+    requiredCapabilities: ["git"],
+  };
+  const otherEc = {
+    contractId: "ec:other",
+    cycleInstanceId: cycleId,
+    status: "completed" as const,
+  };
 
-    const blockersSnap = await this.loadBlockers(request.projectId);
-    let reconciliation = assessResumeReconciliation({
-      cycle,
-      projectId: request.projectId,
-      lpsReadable: lps.ok,
-      lpsVersion: lps.ok ? lps.livingProjectState.version : 0,
-      lpsActiveCycleInstanceId: lps.ok
-        ? lps.livingProjectState.activeCycleInstanceId
-        : undefined,
-      objective: lps.ok ? lps.livingProjectState.objective : "",
-      context: lps.ok ? (lps.livingProjectState.context ?? "") : "",
-      scope: lps.ok ? (lps.livingProjectState.scope ?? "") : "",
-      doctrinePackageId: doctrinePin?.doctrinePackageId,
-      doctrinePackageVersion: doctrinePin?.version,
-      doctrinePackageDigest: doctrinePin?.digest,
-      trajectory,
-      decisions,
+  function assessGit(evidence: Evidence[], contracts = [gitEc, otherEc]) {
+    const rules = deriveFinalizationApplicability({
+      cycleInstanceId: cycleId,
+      projectId,
+      trajectory: baseTrajectory({ projectId, steps: STEPS_DONE }),
+      decisions: [],
       evidence,
-      blockingReservationStatements: blockersSnap.ok
-        ? blockersSnap.statements
-        : [],
-      siblingActiveExists: Boolean(single),
-      callerMaterialDriftHint: request.materialDriftDetected === true,
+      reviewBundles: [],
+      executionContracts: contracts,
     });
-    if (!blockersSnap.ok) {
-      reconciliation = {
-        clean: false,
-        driftReasons: [
-          ...new Set([
-            ...reconciliation.driftReasons,
-            "blocker_source_unreadable",
-          ]),
-        ],
-        requiresReplanHumanDecision: true,
-      };
-    }
-
-    if (!reconciliation.clean) {
-      // Stay paused; ensure LPS active pointer is cleared.
-      // Only a clean reconciliation may activate — replan HD does not override drift.
-      if (lps.ok && lps.livingProjectState.activeCycleInstanceId != null) {
-        try {
-          await appendLpsActiveLink({
-            projectServices: this.deps.projectServices,
-            projectId: request.projectId,
-            createdBy: request.createdBy,
-            correlationId,
-            expectedLpsVersion: request.expectedLpsVersion,
-            activeCycleInstanceId: null,
-          });
-        } catch {
-          /* best-effort clear; drift denial still returned */
-        }
-      }
-      const replanAsserted =
-        request.requiresReplanHumanDecision === true ||
-        reconciliation.requiresReplanHumanDecision;
-      if (replanAsserted && request.decisionId) {
-        if (!this.deps.decisions) {
-          return fail("CYCLE_DECISION_REQUIRED", "decision_reader_unavailable");
-        }
-        const hd = await this.deps.decisions.getById(request.decisionId);
-        if (
-          !hd ||
-          !isAcceptedResumeReplanDecision(
-            hd,
-            request.cycleInstanceId,
-            request.projectId,
-          )
-        ) {
-          return fail(
-            "CYCLE_DECISION_REQUIRED",
-            "resume_replan_hd_missing_or_invalid",
-          );
-        }
-      }
-      return fail(
-        "CYCLE_RESUME_DRIFT",
-        reconciliation.driftReasons.join("|") || "resume_drift",
-      );
-    }
-
-    // Clean path: no replan HD required.
-    void request.requiresReplanHumanDecision;
-
-    if (single) return fail(single.detailCode, single.reason);
-
-    const next: CycleInstance = {
-      ...structuredClone(cycle),
-      status: "active",
-      acknowledgedAt: cycle.acknowledgedAt ?? timestamp,
-      pauseReconciliation: null,
-    };
-
-    return this.persistLifecycleMutation({
-      action: "RESUME",
-      projectId: request.projectId,
-      cycleInstanceId: request.cycleInstanceId,
-      createdBy: request.createdBy,
-      correlationId,
-      expectedLpsVersion: request.expectedLpsVersion,
-      decisionId: request.decisionId,
-      fromStatus: cycle.status,
-      toStatus: "active",
-      next,
-      setActiveLink: request.cycleInstanceId,
-      clearActiveLink: false,
-      started,
-      timestamp,
-      fail,
-    });
-  }
-
-  async finalize(request: FinalizeCycleRequest): Promise<PilotLifecycleResult> {
-    const started = Date.now();
-    const timestamp = this.deps.clock.nowIso();
-    const correlationId = request.correlationId ?? newId("cor");
-
-    const fail = (
-      detailCode: Parameters<typeof createCycleError>[0]["detailCode"],
-      internalCauseRef?: string,
-      assessment?: AssessFinalizationResult extends { ok: true }
-        ? never
-        : import("../domain/types").FinalizationAssessment,
-    ): PilotLifecycleResult => {
-      const durationMs = Date.now() - started;
-      const error = createCycleError({
-        detailCode,
-        timestamp,
-        correlationId,
-        projectId: request.projectId,
-        cycleInstanceId: request.cycleInstanceId,
-        internalCauseRef,
-      });
-      this.deps.audit.append({
-        event: "oa.cycle.lifecycle_transition",
-        ts: timestamp,
-        correlationId,
-        projectId: request.projectId,
-        cycleInstanceId: request.cycleInstanceId,
-        action: "FINALIZE",
-        fromStatus: "unknown",
-        toStatus: "unknown",
-        actorId: request.createdBy.actorId,
-        decisionRef: request.decisionId,
-        result: "error",
-        detailCode,
-        durationMs,
-      });
-      return { ok: false, error, assessment, durationMs };
-    };
-
-    if (!request.createdBy?.actorId) {
-      return fail("CYCLE_LIFECYCLE_DENIED", "actor_required");
-    }
-
-    const authGate = this.verifyAuthority({
-      actorId: request.createdBy.actorId,
-      cycleInstanceId: request.cycleInstanceId,
-      evidenceId: request.authorityEvidenceId,
-    });
-    if (!authGate.ok) {
-      return fail(authGate.detailCode, authGate.internalCauseRef);
-    }
-
-    if (!this.deps.decisions) {
-      return fail("CYCLE_DECISION_REQUIRED", "decision_reader_unavailable");
-    }
-
-    const cycle = await this.deps.cycles.findById(request.cycleInstanceId);
-    if (!cycle || cycle.projectId !== request.projectId) {
-      return fail("CYCLE_NOT_FOUND", "missing_cycle");
-    }
-    if (isTerminalGuard(cycle)) {
-      return fail("CYCLE_TERMINAL", `terminal_${cycle.status}`);
-    }
-    const transition = assertLifecycleTransition({
-      from: cycle.status,
-      action: "FINALIZE",
-    });
-    if (transition) return fail(transition.detailCode, transition.reason);
-
-    const decision = await this.deps.decisions.getById(request.decisionId);
-    if (
-      !decision ||
-      !isAcceptedFinalizeDecision(
-        decision,
-        request.cycleInstanceId,
-        request.projectId,
-      )
-    ) {
-      return fail("CYCLE_DECISION_REQUIRED", "finalize_hd_missing_or_invalid");
-    }
-
-    const assessment = await this.buildAssessment({
-      cycle,
-      projectId: request.projectId,
-      finalizeDecisionId: request.decisionId,
-      assessedAt: timestamp,
-    });
-
-    this.deps.audit.append({
-      event: "oa.cycle.finalization_assessed",
-      ts: timestamp,
-      correlationId,
-      projectId: request.projectId,
-      cycleInstanceId: request.cycleInstanceId,
-      decisionRef: request.decisionId,
-      canComplete: assessment.canComplete,
-      blockers: assessment.blockers,
-      result: "ok",
-      durationMs: Date.now() - started,
-    });
-
-    if (!assessment.canComplete) {
-      const durationMs = Date.now() - started;
-      this.deps.audit.append({
-        event: "oa.cycle.lifecycle_transition",
-        ts: timestamp,
-        correlationId,
-        projectId: request.projectId,
-        cycleInstanceId: request.cycleInstanceId,
-        action: "FINALIZE",
-        fromStatus: cycle.status,
-        toStatus: cycle.status,
-        actorId: request.createdBy.actorId,
-        decisionRef: request.decisionId,
-        result: "ok",
-        detailCode: "CYCLE_FINALIZE_INCOMPLETE",
-        durationMs,
-      });
-      return {
-        ok: true,
-        cycle: structuredClone(cycle),
-        assessment,
-        durationMs,
-      };
-    }
-
-    // Auto-complete — no second Close click
-    return this.completeFromAssessment({
-      cycle,
-      projectId: request.projectId,
-      createdBy: request.createdBy,
-      correlationId,
-      expectedLpsVersion: request.expectedLpsVersion,
-      decisionId: request.decisionId,
-      assessment,
-      started,
-      timestamp,
-    });
-  }
-
-  async cancel(request: CancelCycleRequest): Promise<PilotLifecycleResult> {
-    const started = Date.now();
-    const timestamp = this.deps.clock.nowIso();
-    const correlationId = request.correlationId ?? newId("cor");
-
-    const fail = (
-      detailCode: Parameters<typeof createCycleError>[0]["detailCode"],
-      internalCauseRef?: string,
-    ): PilotLifecycleResult => {
-      const durationMs = Date.now() - started;
-      const error = createCycleError({
-        detailCode,
-        timestamp,
-        correlationId,
-        projectId: request.projectId,
-        cycleInstanceId: request.cycleInstanceId,
-        internalCauseRef,
-      });
-      this.deps.audit.append({
-        event: "oa.cycle.lifecycle_transition",
-        ts: timestamp,
-        correlationId,
-        projectId: request.projectId,
-        cycleInstanceId: request.cycleInstanceId,
-        action: "CANCEL",
-        fromStatus: "unknown",
-        toStatus: "unknown",
-        actorId: request.createdBy.actorId,
-        decisionRef: request.decisionId,
-        result: "error",
-        detailCode,
-        durationMs,
-      });
-      return { ok: false, error, durationMs };
-    };
-
-    if (!request.createdBy?.actorId) {
-      return fail("CYCLE_LIFECYCLE_DENIED", "actor_required");
-    }
-
-    const authGate = this.verifyAuthority({
-      actorId: request.createdBy.actorId,
-      cycleInstanceId: request.cycleInstanceId,
-      evidenceId: request.authorityEvidenceId,
-    });
-    if (!authGate.ok) {
-      return fail(authGate.detailCode, authGate.internalCauseRef);
-    }
-
-    if (!this.deps.decisions) {
-      return fail("CYCLE_DECISION_REQUIRED", "decision_reader_unavailable");
-    }
-    const decision = await this.deps.decisions.getById(request.decisionId);
-    if (
-      !decision ||
-      !isAcceptedCancelDecision(
-        decision,
-        request.cycleInstanceId,
-        request.projectId,
-      )
-    ) {
-      return fail("CYCLE_DECISION_REQUIRED", "cancel_hd_missing_or_invalid");
-    }
-
-    return this.runTransition({
-      action: "CANCEL",
-      projectId: request.projectId,
-      cycleInstanceId: request.cycleInstanceId,
-      createdBy: request.createdBy,
-      correlationId,
-      expectedLpsVersion: request.expectedLpsVersion,
-      decisionId: request.decisionId,
-      authorityEvidenceId: request.authorityEvidenceId,
-      setActiveLink: null,
-      clearActiveLink: true,
-      setClosedAt: true,
-      skipAuthority: true,
-    });
-  }
-
-  async assess(
-    request: AssessFinalizationRequest,
-  ): Promise<AssessFinalizationResult> {
-    const started = Date.now();
-    const timestamp = this.deps.clock.nowIso();
-    const cycle = await this.deps.cycles.findById(request.cycleInstanceId);
-    if (!cycle || cycle.projectId !== request.projectId) {
-      return {
-        ok: false,
-        error: createCycleError({
-          detailCode: "CYCLE_NOT_FOUND",
-          timestamp,
-          projectId: request.projectId,
-          cycleInstanceId: request.cycleInstanceId,
-        }),
-        durationMs: Date.now() - started,
-      };
-    }
-    const assessment = await this.buildAssessment({
-      cycle,
-      projectId: request.projectId,
-      finalizeDecisionId: request.finalizeDecisionId ?? null,
-      assessedAt: timestamp,
-    });
-    this.deps.audit.append({
-      event: "oa.cycle.finalization_assessed",
-      ts: timestamp,
-      projectId: request.projectId,
-      cycleInstanceId: request.cycleInstanceId,
-      decisionRef: assessment.finalizeDecisionId ?? undefined,
-      canComplete: assessment.canComplete,
-      blockers: assessment.blockers,
-      result: "ok",
-      durationMs: Date.now() - started,
-    });
-    return { ok: true, assessment, durationMs: Date.now() - started };
-  }
-
-  /**
-   * Re-evaluate after obligations change; completes when ready without new FINALIZE.
-   */
-  async reevaluateAndComplete(input: {
-    cycleInstanceId: string;
-    projectId: string;
-    createdBy: StartCycleRequest["createdBy"];
-    correlationId?: string;
-    expectedLpsVersion?: number;
-  }): Promise<PilotLifecycleResult> {
-    const started = Date.now();
-    const timestamp = this.deps.clock.nowIso();
-    const correlationId = input.correlationId ?? newId("cor");
-    const cycle = await this.deps.cycles.findById(input.cycleInstanceId);
-    if (!cycle || cycle.projectId !== input.projectId) {
-      return {
-        ok: false,
-        error: createCycleError({
-          detailCode: "CYCLE_NOT_FOUND",
-          timestamp,
-          correlationId,
-          projectId: input.projectId,
-          cycleInstanceId: input.cycleInstanceId,
-        }),
-        durationMs: Date.now() - started,
-      };
-    }
-    if (cycle.status === "completed" || cycle.status === "cancelled") {
-      return {
-        ok: false,
-        error: createCycleError({
-          detailCode: "CYCLE_TERMINAL",
-          timestamp,
-          correlationId,
-          projectId: input.projectId,
-          cycleInstanceId: input.cycleInstanceId,
-          internalCauseRef: "already_terminal",
-        }),
-        durationMs: Date.now() - started,
-      };
-    }
-    const assessment = await this.buildAssessment({
-      cycle,
-      projectId: input.projectId,
-      assessedAt: timestamp,
-    });
-    if (!assessment.canComplete) {
-      return {
-        ok: true,
-        cycle: structuredClone(cycle),
-        assessment,
-        durationMs: Date.now() - started,
-      };
-    }
-    return this.completeFromAssessment({
-      cycle,
-      projectId: input.projectId,
-      createdBy: input.createdBy,
-      correlationId,
-      expectedLpsVersion: input.expectedLpsVersion,
-      decisionId: assessment.finalizeDecisionId ?? undefined,
-      assessment,
-      started,
-      timestamp,
-    });
-  }
-
-  private verifyAuthority(input: {
-    actorId: string;
-    cycleInstanceId: string;
-    evidenceId?: string;
-  }):
-    | { ok: true }
-    | {
-        ok: false;
-        detailCode: "AUTHORITY_NOT_CONFIGURED" | "CYCLE_LIFECYCLE_DENIED";
-        internalCauseRef: string;
-      } {
-    if (!this.deps.authority) {
-      return {
-        ok: false,
-        detailCode: "AUTHORITY_NOT_CONFIGURED",
-        internalCauseRef: "authority_port_unavailable",
-      };
-    }
-    const result = this.deps.authority.verify({
-      actorId: input.actorId,
-      scope: `pilot-lifecycle:${input.cycleInstanceId}`,
-      evidenceId: input.evidenceId,
-      requiredLevel: "N3",
-      requireMorrisGate: true,
-    });
-    if (result.ok) return { ok: true };
-    if (authorityNotConfiguredReason(result.reason)) {
-      return {
-        ok: false,
-        detailCode: "AUTHORITY_NOT_CONFIGURED",
-        internalCauseRef: result.reason ?? "authority_not_configured",
-      };
-    }
     return {
-      ok: false,
-      detailCode: "CYCLE_LIFECYCLE_DENIED",
-      internalCauseRef: result.reason ?? "authority_denied",
+      rules,
+      assessment: assessFinalizationObligations({
+        cycle: baseCycle({ cycleInstanceId: cycleId, projectId }),
+        projectId,
+        assessedAt: "2026-09-07T16:00:00.000Z",
+        decisions: [],
+        evidence,
+        reviewBundles: [],
+        trajectory: baseTrajectory({ projectId, steps: STEPS_DONE }),
+        applicability: rules,
+        executionContracts: contracts,
+      }),
     };
   }
 
-  private async buildAssessment(input: {
-    cycle: CycleInstance;
-    projectId: string;
-    finalizeDecisionId?: string | null;
-    assessedAt: string;
-  }) {
-    const decisions = this.deps.decisions
-      ? await this.deps.decisions.listByProject(input.projectId)
-      : [];
-    const evidence = this.deps.evidence
-      ? await this.deps.evidence.listByProject(input.projectId)
-      : [];
-    const reviewBundles = this.deps.reviewBundles
-      ? await this.deps.reviewBundles.listByProject(input.projectId)
-      : [];
-    const trajectory = await this.loadTrajectory(input.projectId);
+  it("GP1 — unrelated verified document → Git MISSING", () => {
+    const { rules, assessment } = assessGit([
+      makeEvidence({
+        evidenceId: "ev:doc",
+        type: "document",
+        status: "verified",
+        bindings: { projectId, cycleInstanceId: cycleId },
+        source: "meeting-notes",
+      }),
+    ]);
+    expect(rules.gitProofPresent).toBe(false);
+    expect(
+      assessment.obligations.find((o) => o.family === "git_repository")?.status,
+    ).toBe("MISSING");
+  });
 
-    const executionContracts = this.deps.execution?.listContractsByProject
-      ? await this.deps.execution.listContractsByProject(input.projectId)
-      : [];
-    const executionAttempts = this.deps.execution?.listAttemptsByProject
-      ? await this.deps.execution.listAttemptsByProject(input.projectId)
-      : [];
+  it("GP2 — verified document bound to unrelated EC → Git MISSING", () => {
+    const { rules, assessment } = assessGit([
+      makeEvidence({
+        evidenceId: "ev:doc",
+        type: "document",
+        status: "verified",
+        bindings: {
+          cycleInstanceId: cycleId,
+          executionContractId: "ec:other",
+        },
+        source: "git-log",
+      }),
+    ]);
+    expect(rules.gitProofPresent).toBe(false);
+    expect(
+      assessment.obligations.find((o) => o.family === "git_repository")?.status,
+    ).toBe("MISSING");
+  });
 
-    // Product path: always derive from durable facts (ignore static applicabilityRules).
-    const applicability = deriveFinalizationApplicability({
-      cycleInstanceId: input.cycle.cycleInstanceId,
-      projectId: input.projectId,
-      trajectory,
-      decisions,
-      evidence,
-      reviewBundles,
-      executionContracts,
+  it("GP3 — evidence bound to git EC → Git SATISFIED", () => {
+    const { rules, assessment } = assessGit([
+      makeEvidence({
+        evidenceId: "ev:git",
+        type: "document",
+        status: "verified",
+        bindings: {
+          cycleInstanceId: cycleId,
+          executionContractId: "ec:git",
+        },
+        source: "repo-proof",
+      }),
+    ]);
+    expect(rules.gitProofPresent).toBe(true);
+    expect(
+      assessment.obligations.find((o) => o.family === "git_repository")?.status,
+    ).toBe("SATISFIED");
+  });
+
+  it("GP4 — cycle-bound Git-specific log_ref without EC binding → acceptable", () => {
+    const ev = makeEvidence({
+      evidenceId: "ev:log",
+      type: "log_ref",
+      status: "available",
+      bindings: { cycleInstanceId: cycleId },
+      location: "git://repo/main",
+      source: "repository-ref",
     });
+    expect(isGitQualifyingEvidence(ev, new Set(["ec:git"]), cycleId)).toBe(
+      true,
+    );
+    const { rules } = assessGit([ev]);
+    expect(rules.gitProofPresent).toBe(true);
+  });
 
-    const blockersSnap = await this.loadBlockers(input.projectId);
-    const blockingReservationStatements = blockersSnap.ok
-      ? blockersSnap.statements
-      : ["blocker_source_unreadable"];
+  it("GP5 — generic project attestation → never enough", () => {
+    const ev = makeEvidence({
+      evidenceId: "ev:att",
+      type: "attestation",
+      status: "verified",
+      bindings: { projectId },
+      source: "pilot-attestation",
+    });
+    expect(isGitQualifyingEvidence(ev, new Set(["ec:git"]), cycleId)).toBe(
+      false,
+    );
+  });
 
-    const snapshot: AssessFinalizationInput = {
-      cycle: input.cycle,
-      projectId: input.projectId,
-      assessedAt: input.assessedAt,
-      decisions,
-      evidence,
-      reviewBundles,
-      trajectory,
-      finalizeDecisionId: input.finalizeDecisionId,
-      executionContracts,
-      executionAttempts,
-      applicability,
-      blockingReservationStatements,
-    };
-    return assessFinalizationObligations(snapshot);
+  it("GP6 — unavailable Git evidence → never satisfies", () => {
+    const { rules } = assessGit([
+      makeEvidence({
+        evidenceId: "ev:bad",
+        type: "log_ref",
+        status: "unavailable",
+        bindings: {
+          cycleInstanceId: cycleId,
+          executionContractId: "ec:git",
+        },
+        source: "git",
+      }),
+    ]);
+    expect(rules.gitProofPresent).toBe(false);
+  });
+
+  it("GP7 — proof for non-Git EC must not satisfy Git", () => {
+    const { rules } = assessGit([
+      makeEvidence({
+        evidenceId: "ev:other",
+        type: "document",
+        status: "verified",
+        bindings: {
+          cycleInstanceId: cycleId,
+          executionContractId: "ec:other",
+        },
+        location: "git://spoof",
+      }),
+    ]);
+    expect(rules.gitProofPresent).toBe(false);
+  });
+
+  it("GP8 — APPLICABLE git with zero qualifying evidence → MISSING", () => {
+    const { assessment } = assessGit([]);
+    expect(
+      assessment.obligations.find((o) => o.family === "git_repository")?.status,
+    ).toBe("MISSING");
+  });
+});
+
+describe("RV — review bundle exit semantics (RV1–RV9)", () => {
+  const cycleId = "cyc:rv";
+  const projectId = "prj:rv";
+
+  function assessRv(bundles: ReviewBundle[]) {
+    const rules = deriveFinalizationApplicability({
+      cycleInstanceId: cycleId,
+      projectId,
+      trajectory: baseTrajectory({ projectId, steps: STEPS_DONE }),
+      decisions: [],
+      evidence: [],
+      reviewBundles: bundles,
+      executionContracts: [],
+    });
+    return assessFinalizationObligations({
+      cycle: baseCycle({ cycleInstanceId: cycleId, projectId }),
+      projectId,
+      assessedAt: "2026-09-07T16:00:00.000Z",
+      decisions: [],
+      evidence: [],
+      reviewBundles: bundles,
+      trajectory: baseTrajectory({ projectId, steps: STEPS_DONE }),
+      applicability: {
+        ...rules,
+        artifact: "NOT_APPLICABLE",
+        execution_contract: "NOT_APPLICABLE",
+        evidence: "NOT_APPLICABLE",
+        git_repository: "NOT_APPLICABLE",
+        notApplicableReasons: {
+          artifact: "test",
+          execution_contract: "test",
+          evidence: "test",
+          git_repository: "test",
+        },
+      },
+    });
   }
 
-  private async loadBlockers(
-    projectId: string,
-  ): Promise<LifecycleBlockerSnapshot> {
-    if (!this.deps.epistemic) {
-      return lifecycleBlockersFromReaderFailure("epistemic_reader_unavailable");
-    }
-    try {
-      const items = await this.deps.epistemic.listByProject(projectId);
-      return deriveLifecycleBlockersFromEpistemicItems(items);
-    } catch {
-      return lifecycleBlockersFromReaderFailure("epistemic_unreadable");
-    }
-  }
+  it("RV1 — accepted current review → SATISFIED", () => {
+    const a = assessRv([
+      makeReview({
+        reviewBundleId: "rb:1",
+        status: "accepted",
+        cycleInstanceId: cycleId,
+        projectId,
+      }),
+    ]);
+    expect(
+      a.obligations.find((o) => o.family === "review_bundle")?.status,
+    ).toBe("SATISFIED");
+  });
 
-  private async loadTrajectory(projectId: string) {
-    try {
-      return await this.deps.trajectories.findCurrentByProjectId(projectId);
-    } catch {
-      return null;
-    }
-  }
+  it("RV2 — rejected only → BLOCKING", () => {
+    const a = assessRv([
+      makeReview({
+        reviewBundleId: "rb:1",
+        status: "rejected",
+        cycleInstanceId: cycleId,
+        projectId,
+      }),
+    ]);
+    expect(
+      a.obligations.find((o) => o.family === "review_bundle")?.status,
+    ).toBe("BLOCKING");
+  });
 
-  private async completeFromAssessment(input: {
-    cycle: CycleInstance;
-    projectId: string;
-    createdBy: StartCycleRequest["createdBy"];
-    correlationId: string;
-    expectedLpsVersion?: number;
-    decisionId?: string;
-    assessment: import("../domain/types").FinalizationAssessment;
-    started: number;
-    timestamp: string;
-  }): Promise<PilotLifecycleResult> {
-    const fromStatus = input.cycle.status;
-    const next: CycleInstance = {
-      ...structuredClone(input.cycle),
-      status: "completed",
-      closedAt: input.timestamp,
-      pauseReconciliation: null,
-    };
+  it("RV3 — incomplete only → BLOCKING", () => {
+    const a = assessRv([
+      makeReview({
+        reviewBundleId: "rb:1",
+        status: "incomplete",
+        completeness: "incomplete",
+        cycleInstanceId: cycleId,
+        projectId,
+      }),
+    ]);
+    expect(
+      a.obligations.find((o) => o.family === "review_bundle")?.status,
+    ).toBe("BLOCKING");
+  });
 
-    try {
-      const persist = async () => {
-        await this.deps.cycles.save(next);
-        const lps = await appendLpsActiveLink({
-          projectServices: this.deps.projectServices,
-          projectId: input.projectId,
-          createdBy: input.createdBy,
-          correlationId: input.correlationId,
-          expectedLpsVersion: input.expectedLpsVersion,
-          activeCycleInstanceId: null,
-        });
-        if (!lps.ok) {
-          const err = new Error(lps.detail) as Error & {
-            currentVersion?: number;
-          };
-          err.currentVersion = lps.currentVersion;
-          throw err;
-        }
-        return lps.version;
-      };
-      let version: number | undefined;
-      if (this.deps.store) {
-        version = await this.deps.store.runInTransaction(persist);
-      } else {
-        version = await persist();
-      }
-      const durationMs = Date.now() - input.started;
-      this.deps.audit.append({
-        event: "oa.cycle.lifecycle_transition",
-        ts: input.timestamp,
-        correlationId: input.correlationId,
-        projectId: input.projectId,
-        cycleInstanceId: input.cycle.cycleInstanceId,
-        action: "COMPLETE",
-        fromStatus,
-        toStatus: "completed",
-        actorId: input.createdBy.actorId,
-        decisionRef: input.decisionId,
-        result: "ok",
-        durationMs,
-      });
-      return {
-        ok: true,
-        cycle: next,
-        livingProjectStateVersion: version,
-        activeCycleInstanceId: null,
-        assessment: input.assessment,
-        durationMs,
-      };
-    } catch (err) {
-      const durationMs = Date.now() - input.started;
-      const detail =
-        err instanceof Error && err.message === "lps_version_conflict"
-          ? "LPS_VERSION_CONFLICT"
-          : "PERSISTENCE_FAILURE";
-      return {
-        ok: false,
-        error: createCycleError({
-          detailCode: detail,
-          timestamp: input.timestamp,
-          correlationId: input.correlationId,
-          projectId: input.projectId,
-          cycleInstanceId: input.cycle.cycleInstanceId,
-          currentVersion:
-            err instanceof Error
-              ? (err as Error & { currentVersion?: number }).currentVersion
-              : undefined,
+  it("RV4 — draft / ready / under_review → PENDING", () => {
+    for (const status of [
+      "draft",
+      "ready_for_review",
+      "under_review",
+    ] as const) {
+      const a = assessRv([
+        makeReview({
+          reviewBundleId: `rb:${status}`,
+          status,
+          cycleInstanceId: cycleId,
+          projectId,
         }),
-        assessment: input.assessment,
-        durationMs,
-      };
+      ]);
+      expect(
+        a.obligations.find((o) => o.family === "review_bundle")?.status,
+      ).toBe("PENDING");
     }
-  }
+  });
 
-  private async persistLifecycleMutation(input: {
-    action: "START" | "PAUSE" | "RESUME" | "CANCEL";
-    projectId: string;
-    cycleInstanceId: string;
-    createdBy: StartCycleRequest["createdBy"];
-    correlationId: string;
-    expectedLpsVersion?: number;
-    decisionId?: string;
-    fromStatus: CycleInstance["status"];
-    toStatus: CycleInstance["status"];
-    next: CycleInstance;
-    setActiveLink: string | null;
-    clearActiveLink: boolean;
-    started: number;
-    timestamp: string;
-    fail: (
-      detailCode: Parameters<typeof createCycleError>[0]["detailCode"],
-      internalCauseRef?: string,
-      extra?: Partial<Parameters<typeof createCycleError>[0]>,
-    ) => PilotLifecycleResult;
-  }): Promise<PilotLifecycleResult> {
-    try {
-      const persist = async () => {
-        if (input.action === "START" || input.action === "RESUME") {
-          const siblings = await this.deps.cycles.listByProject(input.projectId);
-          const single = assertAtMostOneActiveCycle({
-            cycles: siblings,
-            excludeCycleInstanceId: input.cycleInstanceId,
-          });
-          if (single) {
-            throw new Error(single.reason);
-          }
-        }
-        await this.deps.cycles.save(input.next);
-        if (input.clearActiveLink || input.setActiveLink !== undefined) {
-          const linkTarget = input.clearActiveLink ? null : input.setActiveLink;
-          const lps = await appendLpsActiveLink({
-            projectServices: this.deps.projectServices,
-            projectId: input.projectId,
-            createdBy: input.createdBy,
-            correlationId: input.correlationId,
-            expectedLpsVersion: input.expectedLpsVersion,
-            activeCycleInstanceId: linkTarget,
-          });
-          if (!lps.ok) {
-            const err = new Error(lps.detail) as Error & {
-              currentVersion?: number;
-            };
-            err.currentVersion = lps.currentVersion;
-            throw err;
-          }
-          return lps.version;
-        }
-        return undefined;
-      };
+  it("RV5 — superseded only → NOT SATISFIED", () => {
+    const a = assessRv([
+      makeReview({
+        reviewBundleId: "rb:old",
+        status: "superseded",
+        cycleInstanceId: cycleId,
+        projectId,
+      }),
+    ]);
+    const rv = a.obligations.find((o) => o.family === "review_bundle");
+    expect(rv?.status).not.toBe("SATISFIED");
+    expect(a.blockers).toContain("review_bundle_no_current");
+  });
 
-      let version: number | undefined;
-      if (this.deps.store) {
-        version = await this.deps.store.runInTransaction(persist);
-      } else {
-        version = await persist();
-      }
+  it("RV6 — superseded predecessor + accepted successor → SATISFIED", () => {
+    const a = assessRv([
+      makeReview({
+        reviewBundleId: "rb:old",
+        status: "superseded",
+        cycleInstanceId: cycleId,
+        projectId,
+      }),
+      makeReview({
+        reviewBundleId: "rb:new",
+        status: "accepted",
+        cycleInstanceId: cycleId,
+        projectId,
+        supersedesReviewBundleId: "rb:old",
+      }),
+    ]);
+    const { effective } = selectEffectiveReviewBundles(
+      [
+        makeReview({
+          reviewBundleId: "rb:old",
+          status: "superseded",
+          cycleInstanceId: cycleId,
+          projectId,
+        }),
+        makeReview({
+          reviewBundleId: "rb:new",
+          status: "accepted",
+          cycleInstanceId: cycleId,
+          projectId,
+          supersedesReviewBundleId: "rb:old",
+        }),
+      ],
+      cycleId,
+    );
+    expect(effective.map((r) => r.reviewBundleId)).toEqual(["rb:new"]);
+    expect(
+      a.obligations.find((o) => o.family === "review_bundle")?.status,
+    ).toBe("SATISFIED");
+  });
 
-      const durationMs = Date.now() - input.started;
-      this.deps.audit.append({
-        event: "oa.cycle.lifecycle_transition",
-        ts: input.timestamp,
-        correlationId: input.correlationId,
-        projectId: input.projectId,
-        cycleInstanceId: input.cycleInstanceId,
-        action: input.action,
-        fromStatus: input.fromStatus,
-        toStatus: input.toStatus,
-        actorId: input.createdBy.actorId,
-        decisionRef: input.decisionId,
-        result: "ok",
-        durationMs,
-      });
+  it("RV7 — superseded predecessor + rejected successor → BLOCKING", () => {
+    const a = assessRv([
+      makeReview({
+        reviewBundleId: "rb:old",
+        status: "superseded",
+        cycleInstanceId: cycleId,
+        projectId,
+      }),
+      makeReview({
+        reviewBundleId: "rb:new",
+        status: "rejected",
+        cycleInstanceId: cycleId,
+        projectId,
+        supersedesReviewBundleId: "rb:old",
+      }),
+    ]);
+    expect(
+      a.obligations.find((o) => o.family === "review_bundle")?.status,
+    ).toBe("BLOCKING");
+  });
 
-      return {
-        ok: true,
-        cycle: input.next,
-        livingProjectStateVersion: version,
-        activeCycleInstanceId: input.clearActiveLink
-          ? null
-          : input.setActiveLink,
-        durationMs,
-      };
-    } catch (err) {
-      if (err instanceof Error && err.message.startsWith("active_exists")) {
-        return input.fail("CYCLE_ALREADY_ACTIVE_EXISTS", err.message);
-      }
-      if (err instanceof Error && err.message === "lps_version_conflict") {
-        return input.fail("LPS_VERSION_CONFLICT", "expected_version_mismatch", {
-          expectedVersion: input.expectedLpsVersion,
-          currentVersion: (err as Error & { currentVersion?: number })
-            .currentVersion,
-        });
-      }
-      return input.fail("PERSISTENCE_FAILURE", "lifecycle_persist_failed");
-    }
-  }
+  it("RV8 — accepted historical superseded + current draft → PENDING", () => {
+    const a = assessRv([
+      makeReview({
+        reviewBundleId: "rb:old",
+        status: "superseded",
+        cycleInstanceId: cycleId,
+        projectId,
+      }),
+      makeReview({
+        reviewBundleId: "rb:new",
+        status: "draft",
+        cycleInstanceId: cycleId,
+        projectId,
+        supersedesReviewBundleId: "rb:old",
+      }),
+    ]);
+    expect(
+      a.obligations.find((o) => o.family === "review_bundle")?.status,
+    ).toBe("PENDING");
+  });
 
-  private async runTransition(input: {
-    action: "START" | "PAUSE" | "RESUME" | "CANCEL";
-    projectId: string;
-    cycleInstanceId: string;
-    createdBy: StartCycleRequest["createdBy"];
-    correlationId?: string;
-    expectedLpsVersion?: number;
-    decisionId?: string;
-    authorityEvidenceId?: string;
-    setActiveLink: string | null;
-    clearActiveLink: boolean;
-    setClosedAt?: boolean;
-    skipAuthority?: boolean;
-  }): Promise<PilotLifecycleResult> {
-    const started = Date.now();
-    const timestamp = this.deps.clock.nowIso();
-    const correlationId = input.correlationId ?? newId("cor");
+  it("RV9 — synthesis-only → never manufacture completion", () => {
+    const a = assessRv([
+      makeReview({
+        reviewBundleId: "rb:syn",
+        status: "accepted",
+        synthesisOnly: true,
+        completeness: "incomplete",
+        cycleInstanceId: cycleId,
+        projectId,
+      }),
+    ]);
+    expect(
+      a.obligations.find((o) => o.family === "review_bundle")?.status,
+    ).not.toBe("SATISFIED");
+  });
+});
 
-    const fail = (
-      detailCode: Parameters<typeof createCycleError>[0]["detailCode"],
-      internalCauseRef?: string,
-      extra?: Partial<Parameters<typeof createCycleError>[0]>,
-    ): PilotLifecycleResult => {
-      const durationMs = Date.now() - started;
-      const error = createCycleError({
-        detailCode,
-        timestamp,
-        correlationId,
-        projectId: input.projectId,
-        cycleInstanceId: input.cycleInstanceId,
-        internalCauseRef,
-        ...extra,
-      });
-      this.deps.audit.append({
-        event: "oa.cycle.lifecycle_transition",
-        ts: timestamp,
-        correlationId,
-        projectId: input.projectId,
-        cycleInstanceId: input.cycleInstanceId,
-        action: input.action,
-        fromStatus: "unknown",
-        toStatus: "unknown",
-        actorId: input.createdBy.actorId,
-        decisionRef: input.decisionId,
-        result: "error",
-        detailCode,
-        durationMs,
-      });
-      return { ok: false, error, durationMs };
-    };
-
-    if (!input.createdBy?.actorId) {
-      return fail("CYCLE_LIFECYCLE_DENIED", "actor_required");
-    }
-
-    if (!input.skipAuthority) {
-      const authGate = this.verifyAuthority({
-        actorId: input.createdBy.actorId,
-        cycleInstanceId: input.cycleInstanceId,
-        evidenceId: input.authorityEvidenceId,
-      });
-      if (!authGate.ok) {
-        return fail(authGate.detailCode, authGate.internalCauseRef);
-      }
-    }
-
-    const projectResult = await this.deps.projectServices.getProject.execute({
-      projectId: input.projectId,
+describe("BL5 — pause blocker baseline UNKNOWN (BL5a–BL5f)", () => {
+  it("BL5a — PAUSE with epistemic unreadable → UNKNOWN baseline", async () => {
+    let fail = false;
+    const stack = buildStack(tempDbPath("bl5a.sqlite"), {
+      epistemic: {
+        listByProject: async () => {
+          if (fail) throw new Error("epistemic_unreadable");
+          return [];
+        },
+      },
     });
-    if (!projectResult.ok) {
-      return fail("PROJECT_NOT_FOUND", "missing_project");
-    }
-
-    const cycle = await this.deps.cycles.findById(input.cycleInstanceId);
-    if (!cycle || cycle.projectId !== input.projectId) {
-      return fail("CYCLE_NOT_FOUND", "missing_cycle");
-    }
-
-    if (isTerminalGuard(cycle)) {
-      return fail("CYCLE_TERMINAL", `terminal_${cycle.status}`);
-    }
-
-    const transition = assertLifecycleTransition({
-      from: cycle.status,
-      action: input.action,
+    await seedProject(stack.project, "prj:corr05-bl5a");
+    await seedTrajectory(stack.cycles, stack.project, "prj:corr05-bl5a");
+    await createCandidate(stack.cycles, "prj:corr05-bl5a", "cyc:corr05-bl5a");
+    const ev = await registerPilotAuth(stack.authority, "cyc:corr05-bl5a");
+    await stack.cycles.pilotLifecycle.start({
+      cycleInstanceId: "cyc:corr05-bl5a",
+      projectId: "prj:corr05-bl5a",
+      createdBy: PILOTE,
+      authorityEvidenceId: ev,
     });
-    if (transition) return fail(transition.detailCode, transition.reason);
-
-    const toStatus = targetStatusForAction(input.action);
-    if (!toStatus) {
-      return fail("CYCLE_TRANSITION_INVALID", "no_target_status");
-    }
-
-    if (input.action === "START" || input.action === "RESUME") {
-      const siblings = await this.deps.cycles.listByProject(input.projectId);
-      const single = assertAtMostOneActiveCycle({
-        cycles: siblings,
-        excludeCycleInstanceId: input.cycleInstanceId,
-      });
-      if (single) return fail(single.detailCode, single.reason);
-
-      const lps =
-        await this.deps.projectServices.getCurrentLivingProjectState.execute({
-          projectId: input.projectId,
-        });
-      if (lps.ok) {
-        const activeId = lps.livingProjectState.activeCycleInstanceId;
-        if (activeId && activeId !== input.cycleInstanceId) {
-          return fail(
-            "CYCLE_ALREADY_ACTIVE_EXISTS",
-            `lps_active_pointer:${activeId}`,
-          );
-        }
-      }
-    }
-
-    const next: CycleInstance = {
-      ...structuredClone(cycle),
-      status: toStatus,
-      closedAt: input.setClosedAt ? timestamp : cycle.closedAt,
-      acknowledgedAt:
-        toStatus === "active" && !cycle.acknowledgedAt
-          ? timestamp
-          : cycle.acknowledgedAt,
-      pauseReconciliation:
-        input.action === "CANCEL" ? null : cycle.pauseReconciliation,
-    };
-
-    return this.persistLifecycleMutation({
-      action: input.action,
-      projectId: input.projectId,
-      cycleInstanceId: input.cycleInstanceId,
-      createdBy: input.createdBy,
-      correlationId,
-      expectedLpsVersion: input.expectedLpsVersion,
-      decisionId: input.decisionId,
-      fromStatus: cycle.status,
-      toStatus,
-      next,
-      setActiveLink: input.setActiveLink,
-      clearActiveLink: input.clearActiveLink,
-      started,
-      timestamp,
-      fail,
+    fail = true;
+    const paused = await stack.cycles.pilotLifecycle.pause({
+      cycleInstanceId: "cyc:corr05-bl5a",
+      projectId: "prj:corr05-bl5a",
+      createdBy: PILOTE,
+      authorityEvidenceId: ev,
     });
-  }
-}
+    expect(paused.ok).toBe(true);
+    if (!paused.ok) return;
+    expect(paused.cycle.pauseReconciliation?.blockerSnapshotState).toBe(
+      "UNKNOWN",
+    );
+    expect(paused.cycle.pauseReconciliation?.blockerFingerprint).toBeNull();
+  });
 
-function isTerminalGuard(cycle: CycleInstance): boolean {
-  return cycle.status === "completed" || cycle.status === "cancelled";
-}
+  it("BL5b — baseline UNKNOWN + later empty → RESUME refused", () => {
+    const snap = buildPauseReconciliationSnapshot({
+      pausedAt: "2026-09-07T16:00:00.000Z",
+      lpsVersion: 2,
+      lpsActiveCycleInstanceId: null,
+      objective: "lifecycle",
+      context: "corr05",
+      scope: "pilot-lifecycle",
+      trajectory: baseTrajectory(),
+      decisions: [],
+      evidence: [],
+      blockerSnapshotState: "UNKNOWN",
+      blockerSnapshotReason: "epistemic_unreadable",
+      projectId: "prj:corr05-base",
+      cycleInstanceId: "cyc:corr05-base",
+    });
+    const r = assessResumeReconciliation({
+      cycle: baseCycle({ status: "paused", pauseReconciliation: snap }),
+      projectId: "prj:corr05-base",
+      lpsReadable: true,
+      lpsVersion: 3,
+      lpsActiveCycleInstanceId: null,
+      objective: "lifecycle",
+      context: "corr05",
+      scope: "pilot-lifecycle",
+      trajectory: baseTrajectory(),
+      decisions: [],
+      evidence: [],
+      blockingReservationStatements: [],
+      siblingActiveExists: false,
+    });
+    expect(r.clean).toBe(false);
+    expect(r.driftReasons).toContain("blocker_baseline_unknown");
+  });
+
+  it("BL5c — baseline UNKNOWN + later blockers → RESUME refused", () => {
+    const snap = buildPauseReconciliationSnapshot({
+      pausedAt: "2026-09-07T16:00:00.000Z",
+      lpsVersion: 2,
+      lpsActiveCycleInstanceId: null,
+      objective: "lifecycle",
+      context: "corr05",
+      scope: "pilot-lifecycle",
+      trajectory: baseTrajectory(),
+      decisions: [],
+      evidence: [],
+      blockerSnapshotState: "UNKNOWN",
+      projectId: "prj:corr05-base",
+      cycleInstanceId: "cyc:corr05-base",
+    });
+    const r = assessResumeReconciliation({
+      cycle: baseCycle({ status: "paused", pauseReconciliation: snap }),
+      projectId: "prj:corr05-base",
+      lpsReadable: true,
+      lpsVersion: 3,
+      lpsActiveCycleInstanceId: null,
+      objective: "lifecycle",
+      context: "corr05",
+      scope: "pilot-lifecycle",
+      trajectory: baseTrajectory(),
+      decisions: [],
+      evidence: [],
+      blockingReservationStatements: ["still_blocking"],
+      siblingActiveExists: false,
+    });
+    expect(r.driftReasons).toContain("blocker_baseline_unknown");
+  });
+
+  it("BL5d — baseline known empty + current known empty → clean", () => {
+    const snap = buildPauseReconciliationSnapshot({
+      pausedAt: "2026-09-07T16:00:00.000Z",
+      lpsVersion: 2,
+      lpsActiveCycleInstanceId: null,
+      objective: "lifecycle",
+      context: "corr05",
+      scope: "pilot-lifecycle",
+      doctrinePackageId: VALID_PIN.doctrinePackageId,
+      doctrinePackageVersion: VALID_PIN.version,
+      doctrinePackageDigest: VALID_PIN.digest,
+      trajectory: baseTrajectory(),
+      decisions: [],
+      evidence: [],
+      blockerSnapshotState: "KNOWN",
+      blockingReservationStatements: [],
+      projectId: "prj:corr05-base",
+      cycleInstanceId: "cyc:corr05-base",
+    });
+    const r = assessResumeReconciliation({
+      cycle: baseCycle({ status: "paused", pauseReconciliation: snap }),
+      projectId: "prj:corr05-base",
+      lpsReadable: true,
+      lpsVersion: 3,
+      lpsActiveCycleInstanceId: null,
+      objective: "lifecycle",
+      context: "corr05",
+      scope: "pilot-lifecycle",
+      doctrinePackageId: VALID_PIN.doctrinePackageId,
+      doctrinePackageVersion: VALID_PIN.version,
+      doctrinePackageDigest: VALID_PIN.digest,
+      trajectory: baseTrajectory(),
+      decisions: [],
+      evidence: [],
+      blockingReservationStatements: [],
+      siblingActiveExists: false,
+    });
+    expect(r.clean).toBe(true);
+  });
+
+  it("BL5e — baseline known same blockers → clean on blocker dimension", () => {
+    const snap = buildPauseReconciliationSnapshot({
+      pausedAt: "2026-09-07T16:00:00.000Z",
+      lpsVersion: 2,
+      lpsActiveCycleInstanceId: null,
+      objective: "lifecycle",
+      context: "corr05",
+      scope: "pilot-lifecycle",
+      doctrinePackageId: VALID_PIN.doctrinePackageId,
+      doctrinePackageVersion: VALID_PIN.version,
+      doctrinePackageDigest: VALID_PIN.digest,
+      trajectory: baseTrajectory(),
+      decisions: [],
+      evidence: [],
+      blockerSnapshotState: "KNOWN",
+      blockingReservationStatements: ["r1", "r2"],
+      projectId: "prj:corr05-base",
+      cycleInstanceId: "cyc:corr05-base",
+    });
+    const r = assessResumeReconciliation({
+      cycle: baseCycle({ status: "paused", pauseReconciliation: snap }),
+      projectId: "prj:corr05-base",
+      lpsReadable: true,
+      lpsVersion: 3,
+      lpsActiveCycleInstanceId: null,
+      objective: "lifecycle",
+      context: "corr05",
+      scope: "pilot-lifecycle",
+      doctrinePackageId: VALID_PIN.doctrinePackageId,
+      doctrinePackageVersion: VALID_PIN.version,
+      doctrinePackageDigest: VALID_PIN.digest,
+      trajectory: baseTrajectory(),
+      decisions: [],
+      evidence: [],
+      blockingReservationStatements: ["r2", "r1"],
+      siblingActiveExists: false,
+    });
+    expect(r.driftReasons).not.toContain("blocker_introduced_or_changed");
+    expect(r.driftReasons).not.toContain("blocker_baseline_unknown");
+    expect(r.clean).toBe(true);
+  });
+
+  it("BL5f — baseline known + changed blocker set → drift", () => {
+    const snap = buildPauseReconciliationSnapshot({
+      pausedAt: "2026-09-07T16:00:00.000Z",
+      lpsVersion: 2,
+      lpsActiveCycleInstanceId: null,
+      objective: "lifecycle",
+      context: "corr05",
+      scope: "pilot-lifecycle",
+      doctrinePackageId: VALID_PIN.doctrinePackageId,
+      doctrinePackageVersion: VALID_PIN.version,
+      doctrinePackageDigest: VALID_PIN.digest,
+      trajectory: baseTrajectory(),
+      decisions: [],
+      evidence: [],
+      blockerSnapshotState: "KNOWN",
+      blockingReservationStatements: [],
+      projectId: "prj:corr05-base",
+      cycleInstanceId: "cyc:corr05-base",
+    });
+    const r = assessResumeReconciliation({
+      cycle: baseCycle({ status: "paused", pauseReconciliation: snap }),
+      projectId: "prj:corr05-base",
+      lpsReadable: true,
+      lpsVersion: 3,
+      lpsActiveCycleInstanceId: null,
+      objective: "lifecycle",
+      context: "corr05",
+      scope: "pilot-lifecycle",
+      doctrinePackageId: VALID_PIN.doctrinePackageId,
+      doctrinePackageVersion: VALID_PIN.version,
+      doctrinePackageDigest: VALID_PIN.digest,
+      trajectory: baseTrajectory(),
+      decisions: [],
+      evidence: [],
+      blockingReservationStatements: ["new_blocker"],
+      siblingActiveExists: false,
+    });
+    expect(r.driftReasons).toContain("blocker_introduced_or_changed");
+  });
+});
 
 ```
-
-
-## CREATED `projects/sfia-studio/app/lib/oa/cycle/domain/lifecycleInvariants.ts`
-
-```typescript
-/**
- * CORR-PROOF-05 — Pilot-governed CycleInstance lifecycle invariants.
- * Application/domain enforcement (not UI-only).
- */
-import type { CycleInstance, CycleInstanceStatus } from "./types";
-import type { InvariantViolation } from "./invariants";
-
-/** Authority-bearing working status for ≤1 ACTIVE enforcement. */
-export const ACTIVE_AUTHORITY_STATUS: CycleInstanceStatus = "active";
-
-export type PilotLifecycleAction =
-  | "START"
-  | "PAUSE"
-  | "RESUME"
-  | "FINALIZE"
-  | "CANCEL"
-  | "COMPLETE"
-  | "BLOCK";
-
-export function isTerminalCycleStatus(status: CycleInstanceStatus): boolean {
-  return status === "completed" || status === "cancelled";
-}
-
-export function isActiveAuthorityStatus(status: CycleInstanceStatus): boolean {
-  return status === ACTIVE_AUTHORITY_STATUS;
-}
-
-export function isPausedStatus(status: CycleInstanceStatus): boolean {
-  return status === "paused";
-}
-
-export function isCandidateNonActiveStatus(status: CycleInstanceStatus): boolean {
-  return (
-    status === "proposed" ||
-    status === "acknowledged" ||
-    status === "superseded"
-  );
-}
-
-/** Startable non-active statuses only — superseded is historical, not startable. */
-export function isStartableCandidateStatus(status: CycleInstanceStatus): boolean {
-  return status === "proposed" || status === "acknowledged";
-}
-
-export function listActiveAuthorityCycles(
-  cycles: readonly CycleInstance[],
-): CycleInstance[] {
-  return cycles.filter((c) => isActiveAuthorityStatus(c.status));
-}
-
-/**
- * ≤1 ACTIVE CycleInstance per Project.
- * Optional excludeId allows the cycle being activated to pass through.
- */
-export function assertAtMostOneActiveCycle(input: {
-  cycles: readonly CycleInstance[];
-  excludeCycleInstanceId?: string;
-}): InvariantViolation | null {
-  const actives = listActiveAuthorityCycles(input.cycles).filter(
-    (c) => c.cycleInstanceId !== input.excludeCycleInstanceId,
-  );
-  if (actives.length > 0) {
-    return {
-      detailCode: "CYCLE_ALREADY_ACTIVE_EXISTS",
-      reason: `active_exists:${actives.map((c) => c.cycleInstanceId).join(",")}`,
-    };
-  }
-  return null;
-}
-
-export function assertNotTerminal(
-  cycle: CycleInstance,
-): InvariantViolation | null {
-  if (isTerminalCycleStatus(cycle.status)) {
-    return {
-      detailCode: "CYCLE_TERMINAL",
-      reason: `terminal_${cycle.status}`,
-    };
-  }
-  return null;
-}
-
-/**
- * Allowed Pilot lifecycle transitions (domain matrix).
- * BLOCKED remains distinct from PAUSED.
- */
-export function assertLifecycleTransition(input: {
-  from: CycleInstanceStatus;
-  action: PilotLifecycleAction;
-}): InvariantViolation | null {
-  const { from, action } = input;
-  if (isTerminalCycleStatus(from) && action !== "COMPLETE") {
-    return {
-      detailCode: "CYCLE_TERMINAL",
-      reason: `no_transition_from_${from}`,
-    };
-  }
-
-  const ok = (allowed: boolean, reason: string): InvariantViolation | null =>
-    allowed
-      ? null
-      : { detailCode: "CYCLE_TRANSITION_INVALID", reason };
-
-  switch (action) {
-    case "START":
-      return ok(
-        from === "proposed" || from === "acknowledged",
-        `start_from_${from}`,
-      );
-    case "PAUSE":
-      return ok(from === "active", `pause_from_${from}`);
-    case "RESUME":
-      return ok(from === "paused", `resume_from_${from}`);
-    case "FINALIZE":
-      return ok(
-        from === "active" || from === "paused" || from === "blocked",
-        `finalize_from_${from}`,
-      );
-    case "CANCEL":
-      return ok(!isTerminalCycleStatus(from), `cancel_from_${from}`);
-    case "COMPLETE":
-      return ok(
-        from === "active" || from === "paused" || from === "blocked",
-        `complete_from_${from}`,
-      );
-    case "BLOCK":
-      return ok(from === "active" || from === "paused", `block_from_${from}`);
-    default: {
-      const _exhaustive: never = action;
-      void _exhaustive;
-      return { detailCode: "CYCLE_TRANSITION_INVALID", reason: "unknown_action" };
-    }
-  }
-}
-
-export function targetStatusForAction(
-  action: PilotLifecycleAction,
-): CycleInstanceStatus | null {
-  switch (action) {
-    case "START":
-    case "RESUME":
-      return "active";
-    case "PAUSE":
-      return "paused";
-    case "CANCEL":
-      return "cancelled";
-    case "COMPLETE":
-      return "completed";
-    case "BLOCK":
-      return "blocked";
-    case "FINALIZE":
-      // FINALIZE does not by itself complete; status unchanged until COMPLETE.
-      return null;
-    default: {
-      const _exhaustive: never = action;
-      void _exhaustive;
-      return null;
-    }
-  }
-}
-
-```
-
-
-# 31. Modified files — full diffs
 
 
 ## MODIFIED `projects/sfia-studio/app/__tests__/oa/cycle/m2ProductCycleDurability.test.ts`
@@ -7465,7 +9005,7 @@ index 5fe6aaf5..58fb4762 100644
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/cycle/domain/types.ts b/projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
-index c151d57c..ba018f8e 100644
+index c151d57c..0a98ae95 100644
 --- a/projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
 +++ b/projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
 @@ -23,11 +23,55 @@ export type CycleInstanceStatus =
@@ -7524,7 +9064,7 @@ index c151d57c..ba018f8e 100644
  export type TrajectoryStatus =
    | "candidate"
    | "validated"
-@@ -72,6 +116,38 @@ export type CkcSource =
+@@ -72,6 +116,41 @@ export type CkcSource =
    | "product_package"
    | "unavailable";
 
@@ -7548,6 +9088,9 @@ index c151d57c..ba018f8e 100644
 +  currentDecisionFingerprint?: string | null;
 +  evidenceFingerprint?: string | null;
 +  blockerFingerprint?: string | null;
++  /** Pause-time knowledge of blocker baseline (CORR-PROOF-05 #3). */
++  blockerSnapshotState?: "KNOWN" | "UNKNOWN";
++  blockerSnapshotReason?: string;
 +};
 +
 +/** Explicit qualification signals — no invented scores. */
@@ -7563,7 +9106,7 @@ index c151d57c..ba018f8e 100644
  export type CycleInstance = {
    schemaVersion: "0.1.0-oa";
    cycleInstanceId: string;
-@@ -82,6 +158,50 @@ export type CycleInstance = {
+@@ -82,6 +161,65 @@ export type CycleInstance = {
    acknowledgedAt?: string;
    createdAt: string;
    closedAt?: string;
@@ -7604,6 +9147,21 @@ index c151d57c..ba018f8e 100644
 +  gitProofPresent?: boolean;
 +  /** When artifact is APPLICABLE, whether durable artifact proof is present. */
 +  artifactProofPresent?: boolean;
++  /**
++   * Derived contradictions: durable APPLICABLE fact vs contradictory NO_* policy.
++   * Transient — never persisted as a second truth store.
++   */
++  contradictions?: Array<{
++    family:
++      | "artifact"
++      | "execution_contract"
++      | "evidence"
++      | "review_bundle"
++      | "git_repository";
++    positiveSource: string;
++    conflictingDecisionId: string;
++    conflictingOptionId: string;
++  }>;
 +};
 +
 +export type StartReadinessAssessment = {
@@ -7614,7 +9172,7 @@ index c151d57c..ba018f8e 100644
  };
 
  export type TrajectoryStep = {
-@@ -146,16 +266,6 @@ export type CkcResolution = {
+@@ -146,16 +284,6 @@ export type CkcResolution = {
    provenance?: ProvenanceRecord;
  };
 
@@ -7631,7 +9189,7 @@ index c151d57c..ba018f8e 100644
  export type QualifyCycleRequest = {
    objective?: string;
    scope?: string;
-@@ -290,6 +400,15 @@ export type CycleDetailCode =
+@@ -290,6 +418,15 @@ export type CycleDetailCode =
    | "CYCLE_ALREADY_EXISTS"
    | "CYCLE_NOT_FOUND"
    | "CYCLE_CRITICAL_JUSTIFICATION_REQUIRED"
@@ -7647,7 +9205,7 @@ index c151d57c..ba018f8e 100644
    | "PROJECT_NOT_FOUND"
    | "TRAJECTORY_INVALID"
    | "TRAJECTORY_ALREADY_EXISTS"
-@@ -303,6 +422,118 @@ export type CycleDetailCode =
+@@ -303,6 +440,118 @@ export type CycleDetailCode =
    | "STATE_CONFLICT"
    | "PERSISTENCE_FAILURE";
 
@@ -7774,10 +9332,10 @@ index c151d57c..ba018f8e 100644
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/cycle/index.ts b/projects/sfia-studio/app/lib/oa/cycle/index.ts
-index 201f8b2b..ce50b3a6 100644
+index 201f8b2b..4b4af311 100644
 --- a/projects/sfia-studio/app/lib/oa/cycle/index.ts
 +++ b/projects/sfia-studio/app/lib/oa/cycle/index.ts
-@@ -30,6 +30,68 @@ export * from "./application/qualifyCycleWithCkc";
+@@ -30,6 +30,82 @@ export * from "./application/qualifyCycleWithCkc";
  export * from "./application/bindCatalogAuthority";
  export { CreateCycle } from "./application/createCycle";
  export { GetCycle } from "./application/getCycle";
@@ -7829,9 +9387,23 @@ index 201f8b2b..ce50b3a6 100644
 +  OBLIGATION_POLICY_NO_REVIEW,
 +  OBLIGATION_POLICY_REQUIRE_ARTIFACT,
 +  OBLIGATION_POLICY_REQUIRE_GIT,
++  isGitQualifyingEvidence,
 +  type DerivableExecutionContract,
 +  type DeriveFinalizationApplicabilityInput,
 +} from "./application/deriveFinalizationApplicability";
++export {
++  selectEffectiveExecutionContracts,
++  type SelectableExecutionContract,
++  type SelectEffectiveExecutionContractsResult,
++} from "./application/selectEffectiveExecutionContracts";
++export {
++  selectEffectiveReviewBundles,
++  type SelectEffectiveReviewBundlesResult,
++} from "./application/selectEffectiveReviewBundles";
++export {
++  isGitApplicableContract,
++  type GitQualifiableContract,
++} from "./application/qualifyGitEvidence";
 +export {
 +  PilotLifecycleTransitions,
 +  type PilotLifecycleDeps,
@@ -7846,7 +9418,7 @@ index 201f8b2b..ce50b3a6 100644
  export { CreateInitialTrajectory } from "./application/createInitialTrajectory";
  export { GetCurrentTrajectory } from "./application/getCurrentTrajectory";
  export { GetTrajectoryVersion } from "./application/getTrajectoryVersion";
-@@ -92,9 +154,19 @@ import {
+@@ -92,9 +168,19 @@ import {
  } from "./application/bindCatalogAuthority";
  import { ResolveCycleKnowledgeContract } from "./application/resolveCycleKnowledgeContract";
  import { UpdateEpistemicState } from "./application/updateEpistemicState";
@@ -7866,7 +9438,7 @@ index 201f8b2b..ce50b3a6 100644
  import { CkcQualificationResolver } from "./infrastructure/ckcQualificationResolver";
  import { MemoryCkcResolver } from "./infrastructure/memoryCkcResolver";
  import { MemoryCycleRepository } from "./infrastructure/memoryCycleRepository";
-@@ -132,6 +204,8 @@ export type CycleServices = {
+@@ -132,6 +218,8 @@ export type CycleServices = {
    getEpistemicState: GetEpistemicState;
    updateEpistemicState: UpdateEpistemicState;
    resolveCycleKnowledgeContract: ResolveCycleKnowledgeContract;
@@ -7875,7 +9447,7 @@ index 201f8b2b..ce50b3a6 100644
  };
 
  export type CreateInMemoryCycleServicesOptions = {
-@@ -139,6 +213,13 @@ export type CreateInMemoryCycleServicesOptions = {
+@@ -139,6 +227,13 @@ export type CreateInMemoryCycleServicesOptions = {
    clock?: ClockPort;
    audit?: CycleAuditPort;
    ckcResolver?: CkcResolverPort;
@@ -7889,7 +9461,7 @@ index 201f8b2b..ce50b3a6 100644
  };
 
  export type CkcQualificationServices = {
-@@ -329,6 +410,23 @@ export function createInMemoryCycleServices(
+@@ -329,6 +424,23 @@ export function createInMemoryCycleServices(
        clock,
        audit,
      ),
@@ -8256,38 +9828,52 @@ index 81b82ee2..2c7af594 100644
 ```
 
 
-# 32. Focused test results
-corrProof05.pilotLifecycle.d0.test.ts — 72/72 PASS (1–16, A, B, C, D/E, F, AP, BL, SP, SC)
+# 31. Focused test results
+corrProof05.pilotLifecycle.d0.test.ts — **114/114 PASS**
 
-# 33. Product runtime acceptance
-AP1-runtime + SC12: normal stack/runtime without synthetic COMPLETE_APPLICABILITY → completed after obligation-policy HD + FINALIZE HD.
-BL1–BL7, SP1–SP5 proven.
+# 32. CP test results
+CP1–CP9 PASS (contradiction precedence)
 
-# 34. Full npm test
-315 passed | 17 skipped files; **3198 passed** | 135 skipped tests
+# 33. EC test results
+EC1–EC10 PASS (execution exit semantics)
 
-# 35. typecheck
+# 34. GP test results
+GP1–GP8 PASS (Git semantic binding)
+
+# 35. RV test results
+RV1–RV9 PASS (ReviewBundle exit semantics)
+
+# 36. BL5 test results
+BL5a–BL5f PASS (pause blocker baseline UNKNOWN/KNOWN)
+
+# 37. Positive runtime path
+AP1-runtime / SC12 still PASS: NO_GOVERNED_EFFECTS only when no contradictory positive facts; FINALIZE → completed; no second Close.
+
+# 38. Full npm test
+315 passed | 17 skipped files; **3240 passed** | 135 skipped tests
+
+# 39. typecheck
 PASS (tsc --noEmit after build)
 
-# 36. build
+# 40. build
 PASS (Next.js production build)
 
-# 37. diff-check
+# 41. diff-check
 OK
 
-# 38. Fake/Real
-Deterministic SQLite/runtime only. REAL = NOT EXECUTED. Suivi untouched.
+# 42. Fake/Real
+Deterministic only. REAL = NOT EXECUTED. Suivi untouched.
 
-# 39. Risks/reserves
-- Obligation-policy HD is a Decision convention (no dedicated UI yet) — required for explicit N/A until Artifact/Git SoT exists
-- qualificationSignals persisted but not used alone for N/A (anti-invention)
-- PAUSE with unreadable epistemic snapshots empty blockers; START/RESUME fail-closed
+# 43. Risks/reserves
+- Obligation-policy HD remains Decision convention for UNKNOWN→N/A (no UI yet)
+- Git binding requires EC id or explicit location/source git semantics
+- Legacy pause snapshots without blockerSnapshotState: RESUME treats missing state conservatively via UNKNOWN check when field present; new pauses always set state
 
-# 40. Bounded debt + exit
-Debt: Product UI for obligation-policy HD; future Artifact/Git SoT if Morris decides structural authority.
-Exit: ChatGPT DELIVERY RE-REVIEW of correction #2.
+# 44. Bounded debt + exit
+Debt: Product UI for obligation-policy; future Artifact/Git SoT if Morris decides.
+Exit: ChatGPT DELIVERY RE-REVIEW of correction #3.
 
-# 41. Final Local Git Truth
+# 45. Final Local Git Truth
 ```
  M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/app/__tests__/oa/cycle/m2ProductCycleDurability.test.ts
@@ -8317,6 +9903,9 @@ Exit: ChatGPT DELIVERY RE-REVIEW of correction #2.
 ?? projects/sfia-studio/app/lib/oa/cycle/application/deriveLifecycleBlockers.ts
 ?? projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts
 ?? projects/sfia-studio/app/lib/oa/cycle/application/pilotLifecycleTransitions.ts
+?? projects/sfia-studio/app/lib/oa/cycle/application/qualifyGitEvidence.ts
+?? projects/sfia-studio/app/lib/oa/cycle/application/selectEffectiveExecutionContracts.ts
+?? projects/sfia-studio/app/lib/oa/cycle/application/selectEffectiveReviewBundles.ts
 ?? projects/sfia-studio/app/lib/oa/cycle/domain/lifecycleInvariants.ts
 
 ```
@@ -8345,7 +9934,7 @@ M	projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
 ```
 stat:
 ```
- .tmp-sfia-review/chatgpt-review.md                 | 6861 +++++++++++++++++++-
+ .tmp-sfia-review/chatgpt-review.md                 | 8460 +++++++++++++++++++-
  .../oa/cycle/m2ProductCycleDurability.test.ts      |    8 +-
  .../ProjectAssistantPanel.test.tsx                 |   16 +
  .../project-assistant/f2.orchestrate.test.ts       |    2 +-
@@ -8359,12 +9948,12 @@ stat:
  .../project-assistant/f2/studioCognitiveContext.ts |    6 +-
  .../app/lib/oa/cycle/application/createCycle.ts    |   20 +
  .../sfia-studio/app/lib/oa/cycle/domain/errors.ts  |   24 +
- .../sfia-studio/app/lib/oa/cycle/domain/types.ts   |  251 +-
- projects/sfia-studio/app/lib/oa/cycle/index.ts     |   98 +
+ .../sfia-studio/app/lib/oa/cycle/domain/types.ts   |  269 +-
+ projects/sfia-studio/app/lib/oa/cycle/index.ts     |  112 +
  .../sqlite/createSqliteCycleServices.ts            |   35 +
  .../app/lib/oa/cycle/ports/cycleAudit.ts           |   28 +
  .../app/lib/vertical-slice-runtime/service.ts      |  162 +-
- 19 files changed, 7777 insertions(+), 238 deletions(-)
+ 19 files changed, 9408 insertions(+), 238 deletions(-)
 
 ```
 cached:
@@ -8373,12 +9962,11 @@ cached:
 ```
 HEAD `12d837fd29a69b3e83155a06ec58dc91b0e15f0b` · staged=0 · Product uncommitted
 
-# 42. Review Handoff publication metadata
-- Publisher scripts/sfia/publish-review-handoff.sh
-- Handoff WT /Users/morris/Projects/sfia-workspace/sfia-review-handoff
-- Message: docs(review-handoff): publish CORR-PROOF-05 delivery enforcement correction 2
-- Before: `8d5d3a81d721ffaf2e36354a3dfef2b77e4f30b1`
+# 46. Review Handoff metadata
+- Publisher: scripts/sfia/publish-review-handoff.sh
+- Message: docs(review-handoff): publish CORR-PROOF-05 delivery enforcement correction 3
+- Before: `9ae791ca048b8fdacdf22210f360d896107c039f`
 - After: (post-publish)
 
-# 43. Final verdict
+# 47. Final verdict
 **READY FOR CHATGPT CORR-PROOF-05 DELIVERY RE-REVIEW**
