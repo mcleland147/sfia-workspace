@@ -65,9 +65,36 @@ export type ExtractedCkcGuidance = {
   readonly posture: string | null;
   readonly signals: string | null;
   readonly antiClaims: string | null;
+  /** CORR-PROOF-04 richer generic projection fields (null when absent). */
+  readonly contextInputs: string | null;
+  readonly guidanceStrategy: string | null;
+  readonly analysisDimensions: string | null;
+  readonly maturityBehavior: string | null;
+  readonly maturitySignals: string | null;
+  readonly evidenceExpectations: string | null;
+  readonly decisionTrajectoryReplan: string | null;
+  readonly resumeAnchors: string | null;
+  readonly risksAntiPatterns: string | null;
   /** Bounded condensed lines for prompt/rationale — derived generically. */
   readonly condensed: readonly string[];
 };
+
+/** Conservative per-section clip budgets for CKC application lens (chars). */
+export const CKC_APPLICATION_SECTION_BUDGET = {
+  finality: 220,
+  posture: 260,
+  contextInputs: 280,
+  guidanceStrategy: 320,
+  analysisDimensions: 360,
+  maturityBehavior: 280,
+  maturitySignals: 280,
+  evidenceExpectations: 280,
+  decisionTrajectoryReplan: 300,
+  resumeAnchors: 260,
+  risksAntiPatterns: 240,
+  antiClaims: 200,
+  signals: 220,
+} as const;
 
 /**
  * Generic CKC Markdown section extraction.
@@ -85,22 +112,73 @@ export function extractCkcGuidanceFromMarkdown(
     /^##\s*Nora posture\s*$/im,
   ]);
   const signals = extractSection(markdown, [
+    /^##\s*Signals?\s*&?\s*adaptive cues\s*$/im,
     /^##\s*Signals?\s*$/im,
     /^##\s*Signaux\s*$/im,
-    /^###\s*Guidance(?:\s*\(condensé\))?\s*$/im,
-    /^###\s*Guidance strategy/im,
   ]);
   const antiClaims = extractSection(markdown, [
     /^##\s*Anti-claims?\s*$/im,
     /^##\s*Anti-claim\s*$/im,
+    /^##\s*Contradiction cues\s*$/im,
     /^##\s*Contradictions?\s*$/im,
+  ]);
+  const contextInputs = extractSection(markdown, [
+    /^##\s*Context inputs\s*$/im,
+    /^##\s*Entrées de contexte\s*$/im,
+  ]);
+  const guidanceStrategy = extractSubSection(markdown, [
+    /^###\s*Guidance strategy(?:\s*\(modes\))?\s*$/im,
+    /^###\s*Guidance(?:\s*\(condensé\))?\s*$/im,
+  ]);
+  const analysisDimensions = extractSection(markdown, [
+    /^##\s*Analysis dimensions\s*$/im,
+    /^##\s*Dimensions d['’]analyse\s*$/im,
+  ]);
+  const maturityBehavior = extractSubSection(markdown, [
+    /^###\s*Maturity\s*→\s*behavior\s*$/im,
+    /^###\s*Maturity\s*->\s*behavior\s*$/im,
+    /^###\s*Maturité\s*→\s*comportement\s*$/im,
+  ]);
+  const maturitySignals = extractSubSection(markdown, [
+    /^###\s*Signaux de maturité\s*$/im,
+    /^###\s*Maturity signals\s*$/im,
+  ]);
+  const evidenceExpectations = extractSection(markdown, [
+    /^##\s*Evidence expectations(?:\s*\(business-first\))?\s*$/im,
+    /^##\s*Attentes Evidence\s*$/im,
+  ]);
+  const decisionTrajectoryReplan = extractSection(markdown, [
+    /^##\s*Decision\s*\/\s*trajectory\s*\/\s*replan\s*$/im,
+    /^##\s*Decision\s*\/\s*trajectoire\s*\/\s*replan\s*$/im,
+  ]);
+  const resumeAnchors = extractSection(markdown, [
+    /^##\s*Resume anchors\s*$/im,
+    /^##\s*Ancres de reprise\s*$/im,
+  ]);
+  const risksAntiPatterns = extractSection(markdown, [
+    /^##\s*Reliability\s*\/\s*risks\s*\/\s*anti-patterns\s*$/im,
+    /^##\s*Risks?\s*\/\s*anti-patterns\s*$/im,
+    /^##\s*Risques\s*\/\s*anti-patterns\s*$/im,
   ]);
 
   const condensed: string[] = [];
   pushCondensed(condensed, finality, 180);
   pushCondensed(condensed, posture, 220);
+  pushCondensed(condensed, contextInputs, 200);
+  pushCondensed(condensed, analysisDimensions, 220);
+  pushCondensed(condensed, maturityBehavior, 200);
+  pushCondensed(condensed, maturitySignals, 180);
+  pushCondensed(condensed, evidenceExpectations, 180);
+  // Condensed feeds Fake CKC causal keys (buildCkcCognitivePromptSection).
+  // Do NOT include guidanceStrategy / resumeAnchors / risksAntiPatterns here:
+  // shared template rows contain « risque résiduel » and would false-trigger
+  // Fake security before QA (W3D-07). Those sections remain in the F1 lens.
   pushCondensed(condensed, signals, 220);
   pushCondensed(condensed, antiClaims, 160);
+  // Keep strategy available as fallback only when Signals absent.
+  if (!signals?.trim()) {
+    pushCondensed(condensed, guidanceStrategy, 220);
+  }
 
   if (condensed.length === 0) {
     const firstMeaningful = markdown
@@ -115,20 +193,90 @@ export function extractCkcGuidanceFromMarkdown(
     posture,
     signals,
     antiClaims,
+    contextInputs,
+    guidanceStrategy,
+    analysisDimensions,
+    maturityBehavior,
+    maturitySignals,
+    evidenceExpectations,
+    decisionTrajectoryReplan,
+    resumeAnchors,
+    risksAntiPatterns,
     condensed: Object.freeze([...condensed]),
   });
+}
+
+/**
+ * CORR-PROOF-04 — F1 application lens: richer CKC semantics without digests/IDs.
+ * Cognitive guidance only. Does not score maturity or select trajectory.
+ */
+export function buildCkcApplicationLensSection(
+  content: ProductCkcCognitiveContent,
+): string {
+  const g = extractCkcGuidanceFromMarkdown(content.markdown);
+  const b = CKC_APPLICATION_SECTION_BUDGET;
+  const lines: string[] = [
+    `Orientation méthodologique (hypothèse non durable) : cycle « ${content.cycleTypeId} ».`,
+    "Lentille cognitive CKC (lecture seule — pas de checklist, pas d'autorité) :",
+  ];
+  const push = (label: string, body: string | null, max: number) => {
+    if (!body?.trim()) return;
+    lines.push(`${label}: ${clip(body, max)}`);
+  };
+  push("Finalité", g.finality, b.finality);
+  push("Context inputs", g.contextInputs, b.contextInputs);
+  push("Nora posture", g.posture, b.posture);
+  push("Guidance strategy", g.guidanceStrategy, b.guidanceStrategy);
+  push("Analysis dimensions", g.analysisDimensions, b.analysisDimensions);
+  push("Maturity → behavior", g.maturityBehavior, b.maturityBehavior);
+  push("Signaux de maturité", g.maturitySignals, b.maturitySignals);
+  push("Evidence expectations", g.evidenceExpectations, b.evidenceExpectations);
+  push(
+    "Decision / trajectory / replan",
+    g.decisionTrajectoryReplan,
+    b.decisionTrajectoryReplan,
+  );
+  push("Resume anchors", g.resumeAnchors, b.resumeAnchors);
+  push("Reliability / risks / anti-patterns", g.risksAntiPatterns, b.risksAntiPatterns);
+  push("Anti-claims / contradictions", g.antiClaims, b.antiClaims);
+  if (lines.length <= 2) {
+    for (const c of g.condensed.slice(0, 6)) {
+      lines.push(`Guidance: ${c}`);
+    }
+  } else {
+    // Keep a short Guidance: line for CORR-PROOF-03 marker compatibility.
+    const first = g.condensed[0];
+    if (first) lines.push(`Guidance: ${first}`);
+  }
+  return lines.join("\n");
 }
 
 function extractSection(
   markdown: string,
   headers: readonly RegExp[],
 ): string | null {
+  return extractHeadingBody(markdown, headers, /\n##\s+/);
+}
+
+/** Extract ### body until next ## or ###. */
+function extractSubSection(
+  markdown: string,
+  headers: readonly RegExp[],
+): string | null {
+  return extractHeadingBody(markdown, headers, /\n#{2,3}\s+/);
+}
+
+function extractHeadingBody(
+  markdown: string,
+  headers: readonly RegExp[],
+  stopPattern: RegExp,
+): string | null {
   for (const header of headers) {
     const match = header.exec(markdown);
     if (!match || match.index === undefined) continue;
     const start = match.index + match[0].length;
     const rest = markdown.slice(start);
-    const nextHeader = rest.search(/\n##\s+/);
+    const nextHeader = rest.search(stopPattern);
     const body = (nextHeader >= 0 ? rest.slice(0, nextHeader) : rest).trim();
     if (body.length > 0) return body;
   }

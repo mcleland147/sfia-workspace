@@ -250,6 +250,7 @@ describe("W3-B contract result correction proofs", () => {
       {
         create: async () => {},
         findById: async () => null,
+        listByProject: async () => [],
         findByIdempotencyKey: async () => null,
         exists: async () => false,
         update: async () => {},

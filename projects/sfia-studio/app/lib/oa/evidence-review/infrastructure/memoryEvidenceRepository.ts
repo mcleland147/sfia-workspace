@@ -15,6 +15,21 @@ export class MemoryEvidenceRepository implements EvidenceRepositoryPort {
     return found ? structuredClone(found) : null;
   }
 
+  async listByProject(projectId: string): Promise<Evidence[]> {
+    const matched: Evidence[] = [];
+    for (const evidence of this.store.evidences.values()) {
+      if (evidence.bindings.projectId === projectId) {
+        matched.push(structuredClone(evidence));
+      }
+    }
+    matched.sort((a, b) => {
+      const byCreated = b.createdAt.localeCompare(a.createdAt);
+      if (byCreated !== 0) return byCreated;
+      return b.evidenceId.localeCompare(a.evidenceId);
+    });
+    return matched;
+  }
+
   async findByIdempotencyKey(idempotencyKey: string): Promise<{
     evidence: Evidence;
     record: IdempotencyRecord;

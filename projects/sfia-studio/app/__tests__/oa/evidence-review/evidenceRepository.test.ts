@@ -121,4 +121,34 @@ describe("T-A6-D1 MemoryEvidenceRepository", () => {
     await a.repo.create(base({ evidenceId: "ev:iso-a" }));
     expect(await b.repo.findById("ev:iso-a")).toBeNull();
   });
+
+  it("CORR-PROOF-04 listByProject returns newest-first project-scoped clones", async () => {
+    const { repo } = buildRepo();
+    await repo.create(
+      base({
+        evidenceId: "ev:p1-old",
+        createdAt: "2026-01-01T00:00:00.000Z",
+        bindings: { projectId: "prj:a" },
+      }),
+    );
+    await repo.create(
+      base({
+        evidenceId: "ev:p1-new",
+        createdAt: "2026-02-01T00:00:00.000Z",
+        bindings: { projectId: "prj:a" },
+      }),
+    );
+    await repo.create(
+      base({
+        evidenceId: "ev:other",
+        createdAt: "2026-03-01T00:00:00.000Z",
+        bindings: { projectId: "prj:b" },
+      }),
+    );
+    const listed = await repo.listByProject("prj:a");
+    expect(listed.map((e) => e.evidenceId)).toEqual(["ev:p1-new", "ev:p1-old"]);
+    listed[0]!.status = "verified";
+    const again = await repo.findById("ev:p1-new");
+    expect(again?.status).toBe("available");
+  });
 });

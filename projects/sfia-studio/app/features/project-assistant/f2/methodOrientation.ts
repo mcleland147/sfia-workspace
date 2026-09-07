@@ -12,7 +12,7 @@ import {
 import type { DoctrinePackagePin } from "@/lib/oa/doctrine";
 import type { ProjectAssistantContextDto } from "../types";
 import {
-  buildCkcCognitivePromptSection,
+  buildCkcApplicationLensSection,
   loadProductCkcCognitiveContent,
 } from "./ckcCognitiveContext";
 import type { IntentAnalysisDto } from "./types";
@@ -136,13 +136,12 @@ export function composeAdvisoryMethodContext(input: {
     });
   }
 
-  // Reuse existing read-only CKC prompt helper. Pilote-facing prose must not echo
-  // digests / CKC IDs — enforced by F1 system-prompt identity & source rules.
-  const ckcLensSection = [
-    `Orientation méthodologique (hypothèse non durable) : cycle « ${cycleLabel ?? cycleTypeId} ».`,
-    "Lentille cognitive CKC (lecture seule — pas de checklist, pas d'autorité) :",
-    buildCkcCognitivePromptSection(ckcContent),
-  ].join("\n");
+  // CORR-PROOF-04 — richer application lens (no digests). Pilote prose must not
+  // echo CKC IDs — enforced by F1 system-prompt identity & source rules.
+  const ckcLensSection = buildCkcApplicationLensSection(ckcContent).replace(
+    `cycle « ${ckcContent.cycleTypeId} »`,
+    `cycle « ${cycleLabel ?? cycleTypeId} »`,
+  );
 
   return Object.freeze({
     orientation,

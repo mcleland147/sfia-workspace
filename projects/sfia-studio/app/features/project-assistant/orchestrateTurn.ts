@@ -27,6 +27,7 @@ import { ProjectAssistantMemoryEventSink } from "./memoryEventSink";
 import { resolveAssistantMode } from "./resolveAssistantMode";
 import { resolveRememberedEvidence } from "./mw3AvailableEvidence";
 import type { AdvisoryMethodContext } from "./f2/methodOrientation";
+import type { StudioCognitiveContext } from "./f2/studioCognitiveContext";
 import type {
   AssistantHistoryMessage,
   Mw3CognitiveSurfaceDto,
@@ -171,6 +172,11 @@ export async function orchestrateProjectAssistantTurn(input: {
    */
   methodContext?: AdvisoryMethodContext | null;
   /**
+   * CORR-PROOF-04 — INTERNAL Studio Cognitive Context envelope.
+   * Server-side only; never client-authoritative. Supersedes methodContext when set.
+   */
+  studioCognitiveContext?: StudioCognitiveContext | null;
+  /**
    * MW3 — optional contradiction assessment (tests/eval/product when facts exist).
    * Server-side; surfaces mw3 DTO without inventing Evidence.
    */
@@ -239,6 +245,7 @@ export async function orchestrateProjectAssistantTurn(input: {
       content: buildProjectSystemPrompt(project, {
         truthCContext: input.truthCContext,
         methodContext: input.methodContext ?? null,
+        studioCognitiveContext: input.studioCognitiveContext ?? null,
       }),
     },
     ...history.map((m) => ({ role: m.role, content: m.content.trim() })),
