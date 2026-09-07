@@ -997,7 +997,7 @@ export async function orchestrateAssistantSend(input: {
       authorityLevel: "N1",
     },
     correlationId,
-    linkAsActiveCycle: true,
+    linkAsActiveCycle: false,
     expectedLpsVersion: preLpsVersion,
     ckcResolutionRef,
   });
@@ -1084,16 +1084,19 @@ export async function orchestrateAssistantSend(input: {
     presentation === "test_provider" ? "[TEST/FAKE · NON LIVE]" : "[LIVE]",
     "Qualification SFIA et proposition structurée générées.",
     `Cycle: ${qualification.cycleTypeId} (${qualification.cycleLabel}).`,
-    `CycleInstance: ${created.cycle.cycleInstanceId} (${created.cycle.status}).`,
+    `CycleInstance candidate: ${created.cycle.cycleInstanceId} (${created.cycle.status}) — NON ACTIVE — Pilot START requis.`,
     `Profil recommandé: ${qualification.recommendedProfile}.`,
-    `LPS v${preLpsVersion} → v${project.lpsVersion}.`,
+    project.lpsVersion === preLpsVersion
+      ? `LPS v${preLpsVersion} inchangé (pas d'activation pre-START).`
+      : `LPS v${preLpsVersion} → v${project.lpsVersion}.`,
     qualification.recommendationLabel,
     ...(qualification.ckcCognitiveRecommendation
       ? [qualification.ckcCognitiveRecommendation]
       : []),
+    "RECOMMANDATION ≠ décision Pilote — AUCUNE activation authority-bearing avant Pilot START.",
     morrisGateRequired
-      ? "DÉCISION REQUISE — gate Morris ouvert."
-      : "NO MORRIS GATE REQUIRED — AUCUNE EXÉCUTION — F2 S'ARRÊTE ICI.",
+      ? "DÉCISION REQUISE — gate Morris construction (≠ Pilot lifecycle START)."
+      : "NO MORRIS CONSTRUCTION GATE REQUIRED — AUCUNE EXÉCUTION — F2 S'ARRÊTE ICI.",
     executionBlocked
       ? "Demande d'exécution détectée — AUCUNE EXÉCUTION (Cursor/PR/merge indisponibles)."
       : "AUCUNE EXÉCUTION.",

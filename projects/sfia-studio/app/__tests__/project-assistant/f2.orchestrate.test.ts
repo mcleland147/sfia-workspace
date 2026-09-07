@@ -105,7 +105,7 @@ describe("F2 orchestration AC coverage", () => {
     expect(result.f2?.qualification?.cycleInstanceId).toMatch(/^cyc:f2-/);
     expect(result.f2?.qualification?.executionAuthority).toBe(false);
     expect(result.f2?.proposal).toBeTruthy();
-    expect(result.f2?.proposal?.contextSnapshot.lpsVersion).toBe(preVersion + 1);
+    expect(result.f2?.proposal?.contextSnapshot.lpsVersion).toBe(preVersion);
     expect(result.f2?.proposal?.outOfScope.length).toBeGreaterThan(0);
     expect(result.f2?.labels.noExecution).toBe("AUCUNE EXÉCUTION");
     expect(result.f2?.proposal?.agentBinding).toBe("NOT_AVAILABLE");

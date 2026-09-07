@@ -25,6 +25,22 @@ vi.mock("@/features/project-assistant/actions", () => ({
   projectAssistantConfirmAndExecuteResolvedM3Action: vi.fn(),
   projectAssistantRehydrateEvidenceOutcomeAction: (...args: unknown[]) =>
     projectAssistantRehydrateEvidenceOutcomeActionMock(...args),
+  projectAssistantPilotLifecycleProjection: vi.fn(async () => ({
+    ok: true,
+    status: "ok",
+    selectedCycleInstanceId: null,
+    selectedStatus: null,
+    activeCycleInstanceId: null,
+    selectionAmbiguous: false,
+    cta: {
+      canStart: false,
+      canPause: false,
+      canResume: false,
+      canFinalize: false,
+      canCancel: false,
+    },
+  })),
+  projectAssistantPilotLifecycleAction: vi.fn(),
 }));
 
 vi.mock("next/link", () => ({

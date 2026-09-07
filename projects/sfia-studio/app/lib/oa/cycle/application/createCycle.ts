@@ -128,6 +128,7 @@ export class CreateCycle {
         acknowledgedAt:
           status === "acknowledged" ? timestamp : undefined,
         createdAt: timestamp,
+        qualificationSignals: request.signals,
       };
 
       const persist = async () => {
@@ -137,12 +138,28 @@ export class CreateCycle {
         await this.cycles.save(cycle);
 
         if (request.linkAsActiveCycle) {
+          const siblings = await this.cycles.listByProject(request.projectId);
+          const activeSibling = siblings.find((c) => c.status === "active");
+          if (activeSibling) {
+            throw new Error(
+              `active_exists:${activeSibling.cycleInstanceId}`,
+            );
+          }
           const current =
             await this.projectServices.getCurrentLivingProjectState.execute({
               projectId: request.projectId,
             });
           if (!current.ok) {
             throw new Error("missing_current_lps");
+          }
+          if (
+            current.livingProjectState.activeCycleInstanceId &&
+            current.livingProjectState.activeCycleInstanceId !==
+              request.cycleInstanceId
+          ) {
+            throw new Error(
+              `active_exists:${current.livingProjectState.activeCycleInstanceId}`,
+            );
           }
           const expected =
             request.expectedLpsVersion ?? current.livingProjectState.version;
@@ -180,6 +197,9 @@ export class CreateCycle {
       } catch (err) {
         if (err instanceof Error && err.message === "cycle_id_taken") {
           return fail("CYCLE_ALREADY_EXISTS", "cycle_id_taken");
+        }
+        if (err instanceof Error && err.message.startsWith("active_exists:")) {
+          return fail("CYCLE_ALREADY_ACTIVE_EXISTS", err.message);
         }
         if (err instanceof Error && err.message === "lps_version_conflict") {
           return fail("LPS_VERSION_CONFLICT", "expected_version_mismatch", {

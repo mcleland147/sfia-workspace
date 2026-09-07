@@ -81,10 +81,11 @@ describe("M2 F2 cognitive piloting e2e", () => {
     expect(result.f2?.qualification?.cycleInstanceId).toMatch(/^cyc:f2-/);
     expect(result.f2?.qualification?.executionAuthority).toBe(false);
     expect(result.f2?.qualification?.ckcResolutionRef).toMatch(/^ckc:m2-/);
+    // CORR-PROOF-05: F2 creates candidate without LPS activation / version bump.
     expect(result.f2?.proposal?.contextSnapshot.lpsVersion).toBe(
-      before.livingState.version + 1,
+      before.livingState.version,
     );
-    expect(result.f2?.proposal?.contextSnapshot.lpsId).not.toBe(
+    expect(result.f2?.proposal?.contextSnapshot.lpsId).toBe(
       before.livingState.id,
     );
     expect(result.f2?.decision).toBeNull();
@@ -93,13 +94,10 @@ describe("M2 F2 cognitive piloting e2e", () => {
     const after = await runtime.getProject(projectId);
     expect(after.ok).toBe(true);
     if (!after.ok) return;
-    expect(after.livingState.version).toBe(before.livingState.version + 1);
-    expect(after.livingState.activeCycleInstanceId).toBe(
-      result.f2?.qualification?.cycleInstanceId,
-    );
-    expect(after.livingState.ckcResolutionRef).toBe(
-      result.f2?.qualification?.ckcResolutionRef,
-    );
+    expect(after.livingState.version).toBe(before.livingState.version);
+    expect(after.livingState.activeCycleInstanceId ?? null).toBeNull();
+    // CKC ref is carried on qualification; not stamped on LPS until Pilot START path.
+    expect(result.f2?.qualification?.ckcResolutionRef).toBeTruthy();
     expect(after.disclosures.persistence).toBe(
       "PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE",
     );
@@ -111,7 +109,7 @@ describe("M2 F2 cognitive piloting e2e", () => {
     });
     expect(cycle.ok).toBe(true);
     if (!cycle.ok) return;
-    expect(cycle.cycle.status).not.toBe("active" as never);
+    expect(cycle.cycle.status).not.toBe("active");
   });
 
   it("D/E — ambiguous and informative do not mutate Cycle/LPS", async () => {

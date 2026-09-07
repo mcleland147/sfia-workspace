@@ -183,21 +183,171 @@ function wireOaStack(
     projectServices.store instanceof SqliteProductStore
       ? projectServices.store
       : null;
+
+  // CORR-PROOF-05 — late-bound readers so CycleServices can assess FINALIZE
+  // without creating a construction-time cycle with Decision/Evidence factories.
+  const late = {
+    decisionServices: null as DecisionServices | null,
+    evidenceReviewServices: null as
+      | EvidenceReviewServices
+      | SqliteEvidenceReviewServices
+      | null,
+    executionContractServices: null as ExecutionContractServices | null,
+    executionAttemptServices: null as ExecutionAttemptServices | null,
+  };
+
+  const mapAttemptTerminalState = (
+    status: string,
+  ): string | undefined => {
+    switch (status) {
+      case "succeeded":
+        return "terminal_success";
+      case "failed":
+        return "terminal_failure";
+      case "timeout":
+        return "terminal_timeout";
+      case "cancelled":
+        return "terminal_cancelled";
+      default:
+        return undefined;
+    }
+  };
+
+  const lateCycle = {
+    services: null as CycleServices | null,
+  };
+
+  const lifecycleReaders = {
+    decisions: {
+      getById: async (decisionId: string) => {
+        if (!late.decisionServices) return null;
+        return late.decisionServices.decisions.findById(decisionId);
+      },
+      listByProject: async (projectId: string) => {
+        if (!late.decisionServices) return [];
+        return late.decisionServices.decisions.listByProject(projectId);
+      },
+    },
+    evidence: {
+      listByProject: async (projectId: string) => {
+        if (!late.evidenceReviewServices) return [];
+        return late.evidenceReviewServices.repository.listByProject(projectId);
+      },
+    },
+    reviewBundles: {
+      listByProject: async (projectId: string) => {
+        if (!late.evidenceReviewServices) return [];
+        return late.evidenceReviewServices.reviewBundleRepository.listByProject(
+          projectId,
+        );
+      },
+    },
+    epistemic: {
+      listByProject: async (projectId: string) => {
+        if (!lateCycle.services) {
+          throw new Error("epistemic_reader_unavailable");
+        }
+        return lateCycle.services.epistemic.listByProject(projectId);
+      },
+    },
+    execution: {
+      listContractsByProject: async (projectId: string) => {
+        if (!late.executionContractServices) return [];
+        const list =
+          await late.executionContractServices.contracts.listByProject(
+            projectId,
+          );
+        return list.map((c) => ({
+          contractId: c.executionContractId,
+          cycleInstanceId: c.cycleInstanceId,
+          status: c.status,
+          expectedOutputs: c.expectedOutputs,
+          requiredCapabilities: c.requiredCapabilities,
+          evidenceRequirements: c.evidenceRequirements,
+          action: c.action,
+          target: c.target,
+          scope: c.scope,
+        }));
+      },
+      listAttemptsByProject: async (projectId: string) => {
+        if (
+          !late.executionContractServices ||
+          !late.executionAttemptServices
+        ) {
+          return [];
+        }
+        const contracts =
+          await late.executionContractServices.contracts.listByProject(
+            projectId,
+          );
+        const out: Array<{
+          attemptId: string;
+          contractId?: string;
+          terminalState?: string;
+        }> = [];
+        for (const c of contracts) {
+          const attempts =
+            await late.executionAttemptServices.attempts.listByContract(
+              c.executionContractId,
+            );
+          for (const a of attempts) {
+            out.push({
+              attemptId: a.attemptId,
+              contractId: a.executionContractId,
+              terminalState: mapAttemptTerminalState(a.status),
+            });
+          }
+        }
+        return out;
+      },
+    },
+  };
+
+  // CORR-PROOF-05 — create authority before CycleServices so Pilot lifecycle
+  // mutations can verify N3 evidence (chicken-egg with decision factory).
+  const authorityResolver = new MemoryAuthorityResolver();
+  // M3 authority is fail-closed unless env enabled; registration happens per-scope in F2/F3.
+  void isM3LocalAuthorityEnabled;
+
+  const authorityPort = {
+    verify: (req: {
+      actorId: string;
+      scope: string;
+      evidenceId?: string;
+      requiredLevel?: "N1" | "N2" | "N3";
+      requireMorrisGate?: boolean;
+    }) => {
+      const r = authorityResolver.verify({
+        actorId: req.actorId,
+        requiredLevel: req.requiredLevel ?? "N3",
+        scope: req.scope,
+        evidenceId: req.evidenceId,
+        requireMorrisGate: req.requireMorrisGate ?? true,
+      });
+      return { ok: r.ok, reason: r.reason };
+    },
+  };
+
   const cycleServices = productSqlite
     ? createSqliteCycleServices({
         projectServices,
         productStore: productSqlite,
         clock,
+        ...lifecycleReaders,
+        authority: authorityPort,
       })
-    : createInMemoryCycleServices({ projectServices, clock });
+    : createInMemoryCycleServices({
+        projectServices,
+        clock,
+        ...lifecycleReaders,
+        authority: authorityPort,
+      });
+  lateCycle.services = cycleServices;
   const ckcQualification = createCkcQualificationServices({
     clock,
     registryRoot: options?.registryRoot,
     doctrinePackagePin: options?.doctrinePackagePin,
   });
-  const authorityResolver = new MemoryAuthorityResolver();
-  // M3 authority is fail-closed unless env enabled; registration happens per-scope in F2/F3.
-  void isM3LocalAuthorityEnabled;
 
   const decisionServices = productSqlite
     ? createSqliteDecisionServices({
@@ -213,6 +363,7 @@ function wireOaStack(
         clock,
         authorityResolver,
       });
+  late.decisionServices = decisionServices;
 
   const executionContractServices = productSqlite
     ? createSqliteExecutionContractServices({
@@ -230,6 +381,7 @@ function wireOaStack(
         clock,
         authorityResolver,
       });
+  late.executionContractServices = executionContractServices;
 
   // EXPLICIT TestExecutionAdapter — never omit (factory default is NoOp).
   // GAP-3: realBoundary is optional and OFF by default. M4 descriptor is
@@ -273,6 +425,7 @@ function wireOaStack(
         policy: { defaultMaxRetriesBudget: 0 },
         realBoundary,
       });
+  late.executionAttemptServices = executionAttemptServices;
 
   const evidenceReviewServices = productSqlite
     ? createSqliteEvidenceReviewServices({
@@ -288,6 +441,7 @@ function wireOaStack(
           executionAttemptServices.attempts,
         ),
       });
+  late.evidenceReviewServices = evidenceReviewServices;
 
   // MW1-S03 / CORR-01 — compose materialization on normal RuntimeOaStack path.
   // Product SQLite: durable materialization audit via SqliteProjectAuditJournal

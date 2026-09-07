@@ -6,11 +6,18 @@ import {
   projectAssistantConfirmAndExecuteF3FixtureAction,
   projectAssistantConfirmAndExecuteResolvedM3Action,
   projectAssistantDecideAction,
+  projectAssistantPilotLifecycleAction,
+  projectAssistantPilotLifecycleProjection,
   projectAssistantPrepareF3FixtureAction,
   projectAssistantPrepareResolvedM3Action,
   projectAssistantRehydrateEvidenceOutcomeAction,
   projectAssistantSendAction,
 } from "./actions";
+import type { PilotLifecycleActionKind } from "./f2/pilotLifecycleActions";
+import type {
+  FinalizationAssessment,
+  PilotLifecycleProjection,
+} from "@/lib/oa/cycle";
 import type {
   AssistantHistoryMessage,
   AssistantToolEventDto,
@@ -128,6 +135,12 @@ export function ProjectAssistantPanel({
     string | null
   >(null);
   const [f3Busy, setF3Busy] = useState(false);
+  const [lifecycleBusy, setLifecycleBusy] = useState(false);
+  const [lifecycleAssessment, setLifecycleAssessment] =
+    useState<FinalizationAssessment | null>(null);
+  const [lifecycleMessage, setLifecycleMessage] = useState<string | null>(null);
+  const [lifecycleProjection, setLifecycleProjection] =
+    useState<PilotLifecycleProjection | null>(null);
   const [isPending, startTransition] = useTransition();
   const listRef = useRef<HTMLDivElement | null>(null);
   const f3InFlightRef = useRef(false);
@@ -172,6 +185,24 @@ export function ProjectAssistantPanel({
   useEffect(() => {
     setUiState((prev) => (prev === "INITIAL" ? "READY" : prev));
   }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    setLifecycleProjection(null);
+    startTransition(() => {
+      void projectAssistantPilotLifecycleProjection({ projectId }).then(
+        (result) => {
+          if (cancelled) return;
+          if (result.ok && result.projection) {
+            setLifecycleProjection(result.projection);
+          }
+        },
+      );
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [projectId]);
 
   useEffect(() => {
     let cancelled = false;
@@ -243,6 +274,7 @@ export function ProjectAssistantPanel({
   const busy =
     isPending ||
     f3Busy ||
+    lifecycleBusy ||
     uiState === "SENDING" ||
     uiState === "ASSISTANT_WORKING" ||
     uiState === "SOURCE_LOOKUP";
@@ -251,6 +283,68 @@ export function ProjectAssistantPanel({
   const gateOpen =
     activeProposal?.morrisGateRequired === true &&
     activeProposal.status === "DECISION_REQUIRED";
+
+  const lifecycleCycleId =
+    lifecycleProjection?.selectedCycleInstanceId ??
+    (f2?.qualification?.cycleInstanceId ??
+      activeProposal?.contextSnapshot.activeCycleInstanceId ??
+      null);
+  const lifecycleStatus =
+    lifecycleProjection?.selectedStatus ??
+    f2?.qualification?.cycleStatus ??
+    null;
+  const lifecycleCta = lifecycleProjection?.cta;
+
+  function applyLifecycleProjection(projection?: PilotLifecycleProjection) {
+    if (projection) setLifecycleProjection(projection);
+  }
+
+  function runPilotLifecycle(action: PilotLifecycleActionKind) {
+    if (!lifecycleCycleId || lifecycleBusy || busy) return;
+    setLifecycleBusy(true);
+    setLifecycleMessage(null);
+    startTransition(async () => {
+      const result = await projectAssistantPilotLifecycleAction({
+        projectId,
+        cycleInstanceId: lifecycleCycleId,
+        action,
+      });
+      setLifecycleBusy(false);
+      if (!result.ok) {
+        setLifecycleMessage(result.message ?? result.code ?? "Lifecycle error");
+        if (result.assessment) {
+          setLifecycleAssessment(
+            result.assessment as FinalizationAssessment,
+          );
+        }
+        applyLifecycleProjection(result.projection);
+        return;
+      }
+      setLifecycleMessage(result.message ?? `OK ${action}`);
+      if (result.assessment) {
+        setLifecycleAssessment(result.assessment as FinalizationAssessment);
+      }
+      if (result.projection) {
+        applyLifecycleProjection(result.projection);
+      } else {
+        const refreshed = await projectAssistantPilotLifecycleProjection({
+          projectId,
+        });
+        if (refreshed.ok && refreshed.projection) {
+          applyLifecycleProjection(refreshed.projection);
+        }
+      }
+      if (result.cycleStatus && f2?.qualification) {
+        setF2({
+          ...f2,
+          qualification: {
+            ...f2.qualification,
+            cycleStatus: result.cycleStatus,
+          },
+        });
+      }
+    });
+  }
 
   function historyForRequest(): AssistantHistoryMessage[] {
     return messages
@@ -740,11 +834,15 @@ export function ProjectAssistantPanel({
             </div>
             {f2.qualification.cycleInstanceId ? (
               <div>
-                <dt>Cycle lié</dt>
+                <dt>Cycle candidate / instance</dt>
                 <dd data-testid="f2-cycle-instance">
                   {f2.qualification.cycleInstanceId}
                   {f2.qualification.cycleStatus
                     ? ` · ${f2.qualification.cycleStatus}`
+                    : ""}
+                  {f2.qualification.cycleStatus &&
+                  f2.qualification.cycleStatus !== "active"
+                    ? " · non authority-bearing jusqu'à Pilot START"
                     : ""}
                 </dd>
               </div>
@@ -777,6 +875,131 @@ export function ProjectAssistantPanel({
               </div>
             </dl>
           </details>
+        </section>
+      ) : null}
+
+      {lifecycleCycleId ? (
+        <section
+          className={styles.qualificationCard}
+          data-testid="pilot-lifecycle-controls"
+          aria-labelledby="pilot-lifecycle-title"
+        >
+          <h3 id="pilot-lifecycle-title" className={styles.cardTitle}>
+            Pilot lifecycle
+          </h3>
+          <p className={styles.cardMeta}>
+            Transitions Pilot-governed — Nora recommande uniquement. Gate Morris
+            construction ≠ lifecycle Pilot.
+          </p>
+          <p className={styles.cardMeta} data-testid="pilot-lifecycle-status">
+            {lifecycleCycleId}
+            {lifecycleStatus ? ` · ${lifecycleStatus}` : ""}
+          </p>
+          <div data-testid="pilot-lifecycle-actions">
+            <button
+              type="button"
+              data-testid="pilot-lifecycle-start"
+              disabled={
+                busy ||
+                (lifecycleCta ? !lifecycleCta.canStart : lifecycleStatus === "active")
+              }
+              onClick={() => runPilotLifecycle("START")}
+            >
+              START
+            </button>
+            <button
+              type="button"
+              data-testid="pilot-lifecycle-pause"
+              disabled={
+                busy ||
+                (lifecycleCta ? !lifecycleCta.canPause : lifecycleStatus !== "active")
+              }
+              onClick={() => runPilotLifecycle("PAUSE")}
+            >
+              PAUSE
+            </button>
+            <button
+              type="button"
+              data-testid="pilot-lifecycle-resume"
+              disabled={
+                busy ||
+                (lifecycleCta
+                  ? !lifecycleCta.canResume
+                  : lifecycleStatus !== "paused")
+              }
+              onClick={() => runPilotLifecycle("RESUME")}
+            >
+              RESUME
+            </button>
+            <button
+              type="button"
+              data-testid="pilot-lifecycle-finalize"
+              disabled={
+                busy ||
+                (lifecycleCta
+                  ? !lifecycleCta.canFinalize
+                  : lifecycleStatus === "completed" ||
+                    lifecycleStatus === "cancelled")
+              }
+              onClick={() => runPilotLifecycle("FINALIZE")}
+            >
+              FINALIZE
+            </button>
+            <button
+              type="button"
+              data-testid="pilot-lifecycle-cancel"
+              disabled={
+                busy ||
+                (lifecycleCta
+                  ? !lifecycleCta.canCancel
+                  : lifecycleStatus === "completed" ||
+                    lifecycleStatus === "cancelled")
+              }
+              onClick={() => runPilotLifecycle("CANCEL")}
+            >
+              CANCEL
+            </button>
+            <button
+              type="button"
+              data-testid="pilot-lifecycle-assess"
+              disabled={busy}
+              onClick={() => runPilotLifecycle("ASSESS")}
+            >
+              Assess exit
+            </button>
+            <button
+              type="button"
+              data-testid="pilot-lifecycle-reevaluate"
+              disabled={busy}
+              onClick={() => runPilotLifecycle("REEVALUATE")}
+            >
+              Re-evaluate
+            </button>
+          </div>
+          {lifecycleMessage ? (
+            <p className={styles.cardMeta} data-testid="pilot-lifecycle-message">
+              {lifecycleMessage}
+            </p>
+          ) : null}
+          {lifecycleAssessment ? (
+            <div data-testid="pilot-lifecycle-assessment">
+              <p className={styles.cardMeta}>
+                canComplete={String(lifecycleAssessment.canComplete)} · blockers=
+                {lifecycleAssessment.blockers.join(",") || "none"}
+              </p>
+              <ul>
+                {lifecycleAssessment.obligations.map((o) => (
+                  <li key={`${o.family}-${o.status}-${o.detail ?? ""}`}>
+                    {o.family}: {o.status}
+                    {o.notApplicableReason
+                      ? ` (${o.notApplicableReason})`
+                      : ""}
+                    {o.detail ? ` — ${o.detail}` : ""}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
         </section>
       ) : null}
 

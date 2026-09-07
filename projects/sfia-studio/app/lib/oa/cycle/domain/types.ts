@@ -23,10 +23,54 @@ export type CycleInstanceStatus =
   | "proposed"
   | "acknowledged"
   | "active"
+  | "paused"
   | "blocked"
   | "completed"
   | "cancelled"
   | "superseded";
+
+/**
+ * CORR-PROOF-05 — derived finalization obligation status (not a persistence enum).
+ * Labels are functional assessment vocabulary; not claimed as migrated schema.
+ */
+export type FinalizationObligationStatus =
+  | "SATISFIED"
+  | "PENDING"
+  | "MISSING"
+  | "BLOCKING"
+  | "NOT_APPLICABLE";
+
+export type FinalizationObligationFamily =
+  | "exit_criteria"
+  | "human_decision"
+  | "artifact"
+  | "execution_contract"
+  | "evidence"
+  | "review_bundle"
+  | "git_repository"
+  | "blockers";
+
+export type FinalizationObligation = {
+  family: FinalizationObligationFamily;
+  status: FinalizationObligationStatus;
+  /** Derived applicability before proof mapping. */
+  applicability?: ObligationApplicability;
+  /** Required whenever status === NOT_APPLICABLE — never a missing-proof fallback. */
+  notApplicableReason?: string;
+  detail?: string;
+  blocking?: boolean;
+};
+
+export type FinalizationAssessment = {
+  cycleInstanceId: string;
+  projectId: string;
+  finalizeDecisionId: string | null;
+  finalizeAccepted: boolean;
+  obligations: FinalizationObligation[];
+  canComplete: boolean;
+  blockers: string[];
+  assessedAt: string;
+};
 
 export type TrajectoryStatus =
   | "candidate"
@@ -72,6 +116,41 @@ export type CkcSource =
   | "product_package"
   | "unavailable";
 
+/**
+ * Minimal pause-time reconciliation basis (CORR-PROOF-05).
+ * Stored in CycleInstance JSON payload — no DDL / no new table.
+ */
+export type PauseReconciliationSnapshot = {
+  pausedAt: string;
+  lpsVersion: number;
+  lpsActiveCycleInstanceId: string | null;
+  objective: string;
+  context: string;
+  scope: string;
+  doctrinePackageId?: string;
+  doctrinePackageVersion?: string;
+  doctrinePackageDigest?: string;
+  trajectoryId?: string | null;
+  trajectoryVersion?: number | null;
+  trajectoryFingerprint?: string | null;
+  currentDecisionFingerprint?: string | null;
+  evidenceFingerprint?: string | null;
+  blockerFingerprint?: string | null;
+  /** Pause-time knowledge of blocker baseline (CORR-PROOF-05 #3). */
+  blockerSnapshotState?: "KNOWN" | "UNKNOWN";
+  blockerSnapshotReason?: string;
+};
+
+/** Explicit qualification signals — no invented scores. */
+export type CycleQualificationSignals = {
+  structuralChange?: boolean;
+  securityImpact?: boolean;
+  architectureImpact?: boolean;
+  dataImpact?: boolean;
+  irreversible?: boolean;
+  lowRiskBounded?: boolean;
+};
+
 export type CycleInstance = {
   schemaVersion: "0.1.0-oa";
   cycleInstanceId: string;
@@ -82,6 +161,65 @@ export type CycleInstance = {
   acknowledgedAt?: string;
   createdAt: string;
   closedAt?: string;
+  /** Set on PAUSE; cleared on successful RESUME / terminal close. */
+  pauseReconciliation?: PauseReconciliationSnapshot | null;
+  /** Durable create-time qualification signals (JSON payload — no DDL). */
+  qualificationSignals?: CycleQualificationSignals;
+};
+
+/** Applicability before proof status (CORR-PROOF-05 enforcement). */
+export type ObligationApplicability =
+  | "APPLICABLE"
+  | "NOT_APPLICABLE"
+  | "UNKNOWN";
+
+export type FinalizationApplicabilityRules = {
+  exit_criteria?: ObligationApplicability;
+  artifact?: ObligationApplicability;
+  execution_contract?: ObligationApplicability;
+  evidence?: ObligationApplicability;
+  review_bundle?: ObligationApplicability;
+  git_repository?: ObligationApplicability;
+  blockers?: ObligationApplicability;
+  /** Required when a family is NOT_APPLICABLE via explicit rule. */
+  notApplicableReasons?: Partial<
+    Record<
+      | "exit_criteria"
+      | "artifact"
+      | "execution_contract"
+      | "evidence"
+      | "review_bundle"
+      | "git_repository"
+      | "blockers",
+      string
+    >
+  >;
+  /** When git is APPLICABLE, whether durable git proof is present. */
+  gitProofPresent?: boolean;
+  /** When artifact is APPLICABLE, whether durable artifact proof is present. */
+  artifactProofPresent?: boolean;
+  /**
+   * Derived contradictions: durable APPLICABLE fact vs contradictory NO_* policy.
+   * Transient — never persisted as a second truth store.
+   */
+  contradictions?: Array<{
+    family:
+      | "artifact"
+      | "execution_contract"
+      | "evidence"
+      | "review_bundle"
+      | "git_repository";
+    positiveSource: string;
+    conflictingDecisionId: string;
+    conflictingOptionId: string;
+  }>;
+};
+
+export type StartReadinessAssessment = {
+  ready: boolean;
+  blockers: string[];
+  requiresTrajectoryHumanDecision: boolean;
+  assessedAt: string;
 };
 
 export type TrajectoryStep = {
@@ -144,16 +282,6 @@ export type CkcResolution = {
   /** Modeled const false — never execution authority. */
   executionAuthority?: false;
   provenance?: ProvenanceRecord;
-};
-
-/** Explicit qualification signals — no invented scores. */
-export type CycleQualificationSignals = {
-  structuralChange?: boolean;
-  securityImpact?: boolean;
-  architectureImpact?: boolean;
-  dataImpact?: boolean;
-  irreversible?: boolean;
-  lowRiskBounded?: boolean;
 };
 
 export type QualifyCycleRequest = {
@@ -290,6 +418,15 @@ export type CycleDetailCode =
   | "CYCLE_ALREADY_EXISTS"
   | "CYCLE_NOT_FOUND"
   | "CYCLE_CRITICAL_JUSTIFICATION_REQUIRED"
+  | "CYCLE_ALREADY_ACTIVE_EXISTS"
+  | "CYCLE_TRANSITION_INVALID"
+  | "CYCLE_TERMINAL"
+  | "CYCLE_RESUME_DRIFT"
+  | "CYCLE_START_NOT_READY"
+  | "CYCLE_FINALIZE_INCOMPLETE"
+  | "CYCLE_DECISION_REQUIRED"
+  | "CYCLE_LIFECYCLE_DENIED"
+  | "AUTHORITY_NOT_CONFIGURED"
   | "PROJECT_NOT_FOUND"
   | "TRAJECTORY_INVALID"
   | "TRAJECTORY_ALREADY_EXISTS"
@@ -302,6 +439,118 @@ export type CycleDetailCode =
   | "CONTEXT_STALE"
   | "STATE_CONFLICT"
   | "PERSISTENCE_FAILURE";
+
+/** CORR-PROOF-05 Pilot lifecycle transition requests. */
+export type PilotLifecycleActor = {
+  actorId: string;
+  role: ActorReference["role"];
+  displayName?: string;
+  authorityLevel?: ActorReference["authorityLevel"];
+};
+
+export type StartCycleRequest = {
+  cycleInstanceId: string;
+  projectId: string;
+  createdBy: PilotLifecycleActor;
+  correlationId?: string;
+  expectedLpsVersion?: number;
+  /** Pilot authority evidence verified server-side (never actorId alone). */
+  authorityEvidenceId?: string;
+  /**
+   * Caller hint only — server derives whether trajectory HD is required.
+   * Never sole authority for skipping HD.
+   */
+  requiresTrajectoryHumanDecision?: boolean;
+  decisionId?: string;
+};
+
+export type PauseCycleRequest = {
+  cycleInstanceId: string;
+  projectId: string;
+  createdBy: PilotLifecycleActor;
+  correlationId?: string;
+  expectedLpsVersion?: number;
+  authorityEvidenceId?: string;
+};
+
+export type ResumeCycleRequest = {
+  cycleInstanceId: string;
+  projectId: string;
+  createdBy: PilotLifecycleActor;
+  correlationId?: string;
+  expectedLpsVersion?: number;
+  authorityEvidenceId?: string;
+  /**
+   * Caller diagnostic hint only — NOT source of truth.
+   * Server reconciles; hint true forces fail-closed drift.
+   */
+  materialDriftDetected?: boolean;
+  requiresReplanHumanDecision?: boolean;
+  decisionId?: string;
+};
+
+export type FinalizeCycleRequest = {
+  cycleInstanceId: string;
+  projectId: string;
+  createdBy: PilotLifecycleActor;
+  /** Required Pilot HumanDecision id for FINALIZE. */
+  decisionId: string;
+  correlationId?: string;
+  expectedLpsVersion?: number;
+  authorityEvidenceId?: string;
+};
+
+export type CancelCycleRequest = {
+  cycleInstanceId: string;
+  projectId: string;
+  createdBy: PilotLifecycleActor;
+  /** Required Pilot HumanDecision id for CANCEL. */
+  decisionId: string;
+  correlationId?: string;
+  expectedLpsVersion?: number;
+  authorityEvidenceId?: string;
+};
+
+export type AssessFinalizationRequest = {
+  cycleInstanceId: string;
+  projectId: string;
+  /** Optional explicit finalize decision id; otherwise discovered from decisions. */
+  finalizeDecisionId?: string | null;
+};
+
+export type PilotLifecycleSuccess = {
+  ok: true;
+  cycle: CycleInstance;
+  livingProjectStateVersion?: number;
+  activeCycleInstanceId?: string | null;
+  assessment?: FinalizationAssessment;
+  durationMs: number;
+};
+
+export type PilotLifecycleFailure = {
+  ok: false;
+  error: CycleStructuredError;
+  assessment?: FinalizationAssessment;
+  durationMs: number;
+};
+
+export type PilotLifecycleResult = PilotLifecycleSuccess | PilotLifecycleFailure;
+
+export type AssessFinalizationSuccess = {
+  ok: true;
+  assessment: FinalizationAssessment;
+  durationMs: number;
+};
+
+export type AssessFinalizationFailure = {
+  ok: false;
+  error: CycleStructuredError;
+  durationMs: number;
+};
+
+export type AssessFinalizationResult =
+  | AssessFinalizationSuccess
+  | AssessFinalizationFailure;
 
 export type CycleStructuredError = {
   code: CycleModeledErrorCode;

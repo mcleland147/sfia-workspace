@@ -4,6 +4,14 @@ import { getRuntimeApplicationService } from "@/lib/vertical-slice-runtime";
 import { loadProjectRuntimeForAssistant } from "@/features/vertical-slice-ui/ProjectWorkspaceView";
 import { orchestrateAssistantSend } from "./f2/orchestrateF2";
 import { recordF2Decision } from "./f2/recordDecision";
+import {
+  executePilotLifecycleAction,
+  type PilotLifecycleActionKind,
+} from "./f2/pilotLifecycleActions";
+import {
+  projectPilotLifecycle,
+  type PilotLifecycleProjection,
+} from "@/lib/oa/cycle";
 import { F2_PROCESS_LOCAL_NOTICE } from "./f2/proposalStore";
 import type { F2DecisionKind } from "./f2/types";
 import { confirmAndExecuteF3Fixture } from "./f3/confirmAndExecuteF3Fixture";
@@ -912,5 +920,191 @@ export async function projectAssistantRehydrateEvidenceOutcomeAction(input: {
     lpsVersion: rehydrated.lpsVersion,
     evidenceIds: rehydrated.evidenceIds,
     reviewBundleIds: rehydrated.reviewBundleIds,
+  };
+}
+
+
+async function buildAssistantPilotLifecycleProjection(
+  projectId: string,
+): Promise<PilotLifecycleProjection | null> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) return null;
+  const cycles = await runtime.oa.cycleServices.cycles.listByProject(projectId);
+  const lps =
+    await runtime.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId,
+    });
+  return projectPilotLifecycle({
+    projectId,
+    cycles,
+    lpsActiveCycleInstanceId: lps.ok
+      ? lps.livingProjectState.activeCycleInstanceId
+      : null,
+  });
+}
+
+/**
+ * CORR-PROOF-05 — durable Pilot lifecycle projection (reload without F2).
+ */
+export async function projectAssistantPilotLifecycleProjection(input: {
+  projectId: string;
+}): Promise<{
+  ok: boolean;
+  status: string;
+  code?: string;
+  message?: string;
+  projection?: PilotLifecycleProjection;
+  selectedCycleInstanceId?: string | null;
+  selectedStatus?: string | null;
+  activeCycleInstanceId?: string | null;
+  selectionAmbiguous?: boolean;
+  cta?: PilotLifecycleProjection["cta"];
+}> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      status: "oa_unavailable",
+      code: "OA_STACK_UNAVAILABLE",
+      message: "Services OA indisponibles pour Pilot lifecycle projection.",
+    };
+  }
+  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
+  if (!projectResult.ok) {
+    return {
+      ok: false,
+      status: "project_not_found",
+      code: projectResult.error.code,
+      message: projectResult.error.message,
+    };
+  }
+  const projection = await buildAssistantPilotLifecycleProjection(
+    input.projectId,
+  );
+  if (!projection) {
+    return {
+      ok: false,
+      status: "projection_unavailable",
+      code: "OA_STACK_UNAVAILABLE",
+      message: "Pilot lifecycle projection unavailable.",
+    };
+  }
+  return {
+    ok: true,
+    status: "ok",
+    projection,
+    selectedCycleInstanceId: projection.selectedCycleInstanceId,
+    selectedStatus: projection.selectedStatus,
+    activeCycleInstanceId: projection.activeCycleInstanceId,
+    selectionAmbiguous: projection.selectionAmbiguous,
+    cta: projection.cta,
+  };
+}
+
+/**
+ * CORR-PROOF-05 — Pilot lifecycle transitions (START/PAUSE/RESUME/FINALIZE/CANCEL).
+ * Never uses morrisGateRequired as Pilot lifecycle authority.
+ */
+export async function projectAssistantPilotLifecycleAction(input: {
+  projectId: string;
+  cycleInstanceId: string;
+  action: PilotLifecycleActionKind;
+  materialDriftDetected?: boolean;
+  requiresTrajectoryHumanDecision?: boolean;
+  requiresReplanHumanDecision?: boolean;
+}): Promise<{
+  ok: boolean;
+  status: string;
+  code?: string;
+  message?: string;
+  action?: PilotLifecycleActionKind;
+  cycleStatus?: string;
+  activeCycleInstanceId?: string | null;
+  assessment?: unknown;
+  decisionId?: string;
+  project?: ProjectAssistantContextDto;
+  projection?: PilotLifecycleProjection;
+  selectedCycleInstanceId?: string | null;
+  selectedStatus?: string | null;
+  selectionAmbiguous?: boolean;
+  cta?: PilotLifecycleProjection["cta"];
+}> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      status: "oa_unavailable",
+      code: "OA_STACK_UNAVAILABLE",
+      message: "Services OA indisponibles pour Pilot lifecycle.",
+    };
+  }
+  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
+  if (!projectResult.ok) {
+    return {
+      ok: false,
+      status: "project_not_found",
+      code: projectResult.error.code,
+      message: projectResult.error.message,
+    };
+  }
+  const project = toContextDto(projectResult);
+  const executed = await executePilotLifecycleAction({
+    action: input.action,
+    projectId: input.projectId,
+    cycleInstanceId: input.cycleInstanceId,
+    cycleServices: runtime.oa.cycleServices,
+    projectServices: runtime.oa.projectServices,
+    decisionServices: runtime.oa.decisionServices,
+    authorityResolver: runtime.oa.authorityResolver,
+    nowIso: () => runtime.oa!.clock.nowIso(),
+    materialDriftDetected: input.materialDriftDetected,
+    requiresTrajectoryHumanDecision: input.requiresTrajectoryHumanDecision,
+    requiresReplanHumanDecision: input.requiresReplanHumanDecision,
+  });
+  if (!executed.ok) {
+    const projection = await buildAssistantPilotLifecycleProjection(
+      input.projectId,
+    );
+    return {
+      ok: false,
+      status: "lifecycle_error",
+      code: executed.code,
+      message: executed.message,
+      assessment: executed.assessment,
+      project,
+      projection: projection ?? undefined,
+      selectedCycleInstanceId: projection?.selectedCycleInstanceId,
+      selectedStatus: projection?.selectedStatus,
+      selectionAmbiguous: projection?.selectionAmbiguous,
+      cta: projection?.cta,
+    };
+  }
+  const reloaded = await loadProjectRuntimeForAssistant(input.projectId);
+  const nextProject = reloaded.ok ? toContextDto(reloaded) : project;
+  const projection = await buildAssistantPilotLifecycleProjection(
+    input.projectId,
+  );
+  return {
+    ok: true,
+    status: "ok",
+    action: executed.action,
+    cycleStatus: executed.result?.ok ? executed.result.cycle.status : undefined,
+    activeCycleInstanceId: executed.result?.ok
+      ? (executed.result.activeCycleInstanceId ??
+        projection?.activeCycleInstanceId ??
+        nextProject.activeCycleInstanceId ??
+        null)
+      : projection?.activeCycleInstanceId ??
+        nextProject.activeCycleInstanceId ??
+        null,
+    assessment: executed.assessment,
+    decisionId: executed.decisionId,
+    project: nextProject,
+    projection: projection ?? undefined,
+    selectedCycleInstanceId: projection?.selectedCycleInstanceId,
+    selectedStatus: projection?.selectedStatus,
+    selectionAmbiguous: projection?.selectionAmbiguous,
+    cta: projection?.cta,
+    message: `Pilot lifecycle ${executed.action} applied.`,
   };
 }
