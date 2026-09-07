@@ -272,7 +272,13 @@ describe("M2 Product SQLite migration + Cycle durability", () => {
     });
     expect(stale.ok).toBe(false);
     if (stale.ok) return;
-    expect(stale.error.detailCode).toBe("LPS_VERSION_CONFLICT");
+    // CORR-PROOF-05: refuse linking a second authority-bearing active pointer
+    // before attempting a stale LPS append. Either fail-closed code proves
+    // no orphan CycleInstance and LPS remains on cyc:m2-std-1 @ v2.
+    expect([
+      "LPS_VERSION_CONFLICT",
+      "CYCLE_ALREADY_ACTIVE_EXISTS",
+    ]).toContain(stale.error.detailCode);
 
     const orphan = await cycleSvc.cycles.findById("cyc:m2-stale-1");
     expect(orphan).toBeNull();

@@ -295,6 +295,26 @@ describe("Phase B P10 — requalification via existing createCycle", () => {
     const overview = await runtime.getProject(seeded.projectId);
     expect(overview.ok).toBe(true);
     if (!overview.ok) return;
+    // CORR-PROOF-05: never overwrite an existing activeCycleInstanceId silently.
+    // Clear the prior active pointer via LPS append, then link the requalified cycle.
+    const currentLps =
+      await runtime.oa!.projectServices.getCurrentLivingProjectState.execute({
+        projectId: seeded.projectId,
+      });
+    expect(currentLps.ok).toBe(true);
+    if (!currentLps.ok) return;
+    const cleared =
+      await runtime.oa!.projectServices.appendLivingProjectStateVersion.execute({
+        projectId: seeded.projectId,
+        expectedVersion: currentLps.livingProjectState.version,
+        objective: currentLps.livingProjectState.objective,
+        createdBy: W2_TEST_ACTOR,
+        context: currentLps.livingProjectState.context,
+        scope: currentLps.livingProjectState.scope,
+        activeCycleInstanceId: null,
+      });
+    expect(cleared.ok).toBe(true);
+    if (!cleared.ok) return;
     const requal = await runtime.oa!.cycleServices.createCycle.execute({
       cycleInstanceId: "cyc:inst:w2-rq-sec",
       cycleTypeId: "cyc:security",
@@ -304,7 +324,7 @@ describe("Phase B P10 — requalification via existing createCycle", () => {
       scope: "w2-requal",
       createdBy: W2_TEST_ACTOR,
       linkAsActiveCycle: true,
-      expectedLpsVersion: overview.livingState.version,
+      expectedLpsVersion: cleared.livingProjectState.version,
       ckcResolutionRef: "ckcres:w2-harness-sec",
     });
     expect(requal.ok).toBe(true);

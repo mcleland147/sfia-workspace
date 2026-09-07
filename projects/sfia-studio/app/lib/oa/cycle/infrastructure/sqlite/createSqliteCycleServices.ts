@@ -12,6 +12,16 @@ import { ProposeTrajectoryVersion } from "../../application/proposeTrajectoryVer
 import { QualifyCycle } from "../../application/qualifyCycle";
 import { ResolveCycleKnowledgeContract } from "../../application/resolveCycleKnowledgeContract";
 import { UpdateEpistemicState } from "../../application/updateEpistemicState";
+import {
+  PilotLifecycleTransitions,
+  type LifecycleDecisionReader,
+  type LifecycleEvidenceReader,
+  type LifecycleReviewBundleReader,
+  type LifecycleExecutionSnapshotReader,
+  type LifecycleEpistemicReader,
+  type PilotLifecycleAuthorityPort,
+} from "../../application/pilotLifecycleTransitions";
+import type { FinalizationApplicabilityRules } from "../../domain/types";
 import { MemoryCkcResolver } from "../memoryCkcResolver";
 import type { CycleAuditPort } from "../../ports/cycleAudit";
 import type { CyclePersistenceUnitOfWorkPort } from "../../ports/cyclePersistenceUnitOfWorkPort";
@@ -31,6 +41,13 @@ export type CreateSqliteCycleServicesOptions = {
   clock?: ClockPort;
   audit?: CycleAuditPort;
   ckcResolver?: CkcResolverPort;
+  decisions?: LifecycleDecisionReader;
+  evidence?: LifecycleEvidenceReader;
+  reviewBundles?: LifecycleReviewBundleReader;
+  execution?: LifecycleExecutionSnapshotReader;
+  epistemic?: LifecycleEpistemicReader;
+  authority?: PilotLifecycleAuthorityPort;
+  applicabilityRules?: FinalizationApplicabilityRules;
 };
 
 export type SqliteCycleServices = {
@@ -52,6 +69,7 @@ export type SqliteCycleServices = {
   getEpistemicState: GetEpistemicState;
   updateEpistemicState: UpdateEpistemicState;
   resolveCycleKnowledgeContract: ResolveCycleKnowledgeContract;
+  pilotLifecycle: PilotLifecycleTransitions;
 };
 
 /**
@@ -120,6 +138,23 @@ export function createSqliteCycleServices(
       clock,
       audit,
     ),
+    pilotLifecycle: new PilotLifecycleTransitions({
+      cycles,
+      trajectories,
+      projectServices: options.projectServices,
+      clock,
+      audit,
+      store: productStore,
+      decisions: options.decisions,
+      evidence: options.evidence,
+      reviewBundles: options.reviewBundles,
+      execution: options.execution,
+      epistemic: options.epistemic ?? {
+        listByProject: (projectId) => epistemic.listByProject(projectId),
+      },
+      authority: options.authority,
+      applicabilityRules: options.applicabilityRules,
+    }),
   };
 }
 

@@ -30,6 +30,83 @@ export * from "./application/qualifyCycleWithCkc";
 export * from "./application/bindCatalogAuthority";
 export { CreateCycle } from "./application/createCycle";
 export { GetCycle } from "./application/getCycle";
+export {
+  assessFinalizationObligations,
+  finalizeSubjectFor,
+  cancelSubjectFor,
+  startTrajectorySubjectFor,
+  resumeReplanSubjectFor,
+  isAcceptedFinalizeDecision,
+  isAcceptedCancelDecision,
+  isAcceptedStartTrajectoryDecision,
+  isAcceptedResumeReplanDecision,
+  FINALIZE_SUBJECT_PREFIX,
+  CANCEL_SUBJECT_PREFIX,
+  START_TRAJECTORY_SUBJECT_PREFIX,
+  RESUME_REPLAN_SUBJECT_PREFIX,
+} from "./application/assessFinalization";
+export {
+  assessStartReadiness,
+  type AssessStartReadinessInput,
+} from "./application/assessStartReadiness";
+export {
+  buildPauseReconciliationSnapshot,
+  assessResumeReconciliation,
+  trajectoryFingerprint,
+  type BuildPauseSnapshotInput,
+  type ResumeReconciliationInput,
+  type ResumeReconciliationResult,
+} from "./application/assessResumeReconciliation";
+export {
+  projectPilotLifecycle,
+  type PilotLifecycleProjection,
+} from "./application/lifecycleProjection";
+export {
+  deriveLifecycleBlockersFromEpistemicItems,
+  lifecycleBlockersFromReaderFailure,
+  type LifecycleBlockerSnapshot,
+} from "./application/deriveLifecycleBlockers";
+export {
+  deriveFinalizationApplicability,
+  obligationPolicySubjectFor,
+  OBLIGATION_POLICY_SUBJECT_PREFIX,
+  OBLIGATION_POLICY_NO_GOVERNED_EFFECTS,
+  OBLIGATION_POLICY_NO_ARTIFACT,
+  OBLIGATION_POLICY_NO_GIT,
+  OBLIGATION_POLICY_NO_EXECUTION,
+  OBLIGATION_POLICY_NO_EVIDENCE,
+  OBLIGATION_POLICY_NO_REVIEW,
+  OBLIGATION_POLICY_REQUIRE_ARTIFACT,
+  OBLIGATION_POLICY_REQUIRE_GIT,
+  type DerivableExecutionContract,
+  type DeriveFinalizationApplicabilityInput,
+} from "./application/deriveFinalizationApplicability";
+export {
+  selectEffectiveExecutionContracts,
+  type SelectableExecutionContract,
+  type SelectEffectiveExecutionContractsResult,
+} from "./application/selectEffectiveExecutionContracts";
+export {
+  selectEffectiveReviewBundles,
+  type SelectEffectiveReviewBundlesResult,
+} from "./application/selectEffectiveReviewBundles";
+export {
+  hasGitRepositorySemanticMarker,
+  isGitApplicableContract,
+  isGitQualifyingEvidence,
+  type GitQualifiableContract,
+} from "./application/qualifyGitEvidence";
+export {
+  PilotLifecycleTransitions,
+  type PilotLifecycleDeps,
+  type PilotLifecycleAuthorityPort,
+  type LifecycleDecisionReader,
+  type LifecycleEvidenceReader,
+  type LifecycleReviewBundleReader,
+  type LifecycleExecutionSnapshotReader,
+  type LifecycleEpistemicReader,
+} from "./application/pilotLifecycleTransitions";
+export * from "./domain/lifecycleInvariants";
 export { CreateInitialTrajectory } from "./application/createInitialTrajectory";
 export { GetCurrentTrajectory } from "./application/getCurrentTrajectory";
 export { GetTrajectoryVersion } from "./application/getTrajectoryVersion";
@@ -92,9 +169,19 @@ import {
 } from "./application/bindCatalogAuthority";
 import { ResolveCycleKnowledgeContract } from "./application/resolveCycleKnowledgeContract";
 import { UpdateEpistemicState } from "./application/updateEpistemicState";
+import {
+  PilotLifecycleTransitions,
+  type LifecycleDecisionReader,
+  type LifecycleEvidenceReader,
+  type LifecycleReviewBundleReader,
+  type LifecycleExecutionSnapshotReader,
+  type LifecycleEpistemicReader,
+  type PilotLifecycleAuthorityPort,
+} from "./application/pilotLifecycleTransitions";
 import { DEFAULT_CYCLE_TYPE_CATALOG_AUTHORITY } from "./domain/catalogFingerprint";
 import type { CycleTypeCatalogAuthority } from "./domain/catalogFingerprint";
 import type { CycleTypeCatalog } from "./domain/cycleTypeCatalog";
+import type { FinalizationApplicabilityRules } from "./domain/types";
 import { CkcQualificationResolver } from "./infrastructure/ckcQualificationResolver";
 import { MemoryCkcResolver } from "./infrastructure/memoryCkcResolver";
 import { MemoryCycleRepository } from "./infrastructure/memoryCycleRepository";
@@ -132,6 +219,8 @@ export type CycleServices = {
   getEpistemicState: GetEpistemicState;
   updateEpistemicState: UpdateEpistemicState;
   resolveCycleKnowledgeContract: ResolveCycleKnowledgeContract;
+  /** CORR-PROOF-05 Pilot lifecycle transitions. */
+  pilotLifecycle: PilotLifecycleTransitions;
 };
 
 export type CreateInMemoryCycleServicesOptions = {
@@ -139,6 +228,13 @@ export type CreateInMemoryCycleServicesOptions = {
   clock?: ClockPort;
   audit?: CycleAuditPort;
   ckcResolver?: CkcResolverPort;
+  decisions?: LifecycleDecisionReader;
+  evidence?: LifecycleEvidenceReader;
+  reviewBundles?: LifecycleReviewBundleReader;
+  execution?: LifecycleExecutionSnapshotReader;
+  epistemic?: LifecycleEpistemicReader;
+  authority?: PilotLifecycleAuthorityPort;
+  applicabilityRules?: FinalizationApplicabilityRules;
 };
 
 export type CkcQualificationServices = {
@@ -329,6 +425,23 @@ export function createInMemoryCycleServices(
       clock,
       audit,
     ),
+    pilotLifecycle: new PilotLifecycleTransitions({
+      cycles,
+      trajectories,
+      projectServices: options.projectServices,
+      clock,
+      audit,
+      store,
+      decisions: options.decisions,
+      evidence: options.evidence,
+      reviewBundles: options.reviewBundles,
+      execution: options.execution,
+      epistemic: options.epistemic ?? {
+        listByProject: (projectId) => epistemic.listByProject(projectId),
+      },
+      authority: options.authority,
+      applicabilityRules: options.applicabilityRules,
+    }),
   };
 }
 

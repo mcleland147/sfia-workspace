@@ -130,6 +130,34 @@ export type CycleAuditEvent =
       result: "error";
       detailCode?: string;
       durationMs: number;
+    }
+  | {
+      event: "oa.cycle.lifecycle_transition";
+      ts: string;
+      correlationId?: string;
+      projectId: string;
+      cycleInstanceId: string;
+      action: string;
+      fromStatus: string;
+      toStatus: string;
+      actorId: string;
+      decisionRef?: string;
+      result: "ok" | "error";
+      detailCode?: string;
+      durationMs: number;
+    }
+  | {
+      event: "oa.cycle.finalization_assessed";
+      ts: string;
+      correlationId?: string;
+      projectId: string;
+      cycleInstanceId: string;
+      decisionRef?: string;
+      canComplete: boolean;
+      blockers: string[];
+      result: "ok" | "error";
+      detailCode?: string;
+      durationMs: number;
     };
 
 export interface CycleAuditPort {

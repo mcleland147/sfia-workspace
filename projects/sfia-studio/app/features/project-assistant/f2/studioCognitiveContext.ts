@@ -469,10 +469,12 @@ export function buildStudioCognitivePromptSections(
   lines.push(`Criticité : ${ctx.projectTruth.criticality}`);
   if (ctx.projectTruth.activeCycleInstanceId) {
     lines.push(
-      `Cycle actif (identité) : présent — ne pas inventer d'activation.`,
+      `Cycle ACTIVE authority-bearing : ${ctx.projectTruth.activeCycleInstanceId} — ne pas inventer d'activation.`,
     );
   } else {
-    lines.push("Cycle actif : aucun.");
+    lines.push(
+      "Cycle ACTIVE : aucun (un CycleInstance candidate peut exister sans LPS.activeCycleInstanceId).",
+    );
   }
   lines.push("");
 
