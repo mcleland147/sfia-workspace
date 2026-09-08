@@ -1,62 +1,39 @@
-# SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-RECOMMENDATION-CORR-QUAL-01
-## CHATGPT CORRECTION QUALIFICATION REVIEW PACK — FULL
-## READ-ONLY — PRODUCT MUTATION NOT PERFORMED
+# SFIA Review Pack — Lifecycle Recommendation Correction Delivery
 
-| Field | Value |
-| --- | --- |
-| **Timestamp (UTC)** | 2026-09-08T08:43:47Z |
-| **Cycle** | 9 — QA / validation · EVOL · CRITICAL · `SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-RECOMMENDATION-CORR-QUAL-01` |
-| **Capability** | Lifecycle Recommendation & Pilot Decision Continuity |
-| **Mode** | READ-ONLY Product qualification + complete Review Handoff |
-| **Product mutation** | FORBIDDEN / NONE PERFORMED |
-| **Product baseline / origin/main** | `e6d7c649e9d0522b60401f11fb8dd1fd4b122637` |
-| **Product branch** | `delivery/sfia-studio-lifecycle-recommendation-product` |
-| **Product HEAD** | `e6d7c649e9d0522b60401f11fb8dd1fd4b122637` (uncommitted candidate) |
-| **Handoff input under review** | `d9d3aa98a31941698455b28e772451e343cf474b` |
-| **Prior Morris decision handoff** | `ef8dec99d8e3f406840f34d51773c25c53f6fe84` |
-| **Workspace** | `/Users/morris/Projects/sfia-lr-delivery-isolated-e6d7c649` |
-| **REAL** | ZERO REAL |
-| **runtime v3** | NON ADOPTED |
-| **Product Proof** | OPEN |
-| **Verdict** | READY FOR MORRIS CORRECTION DECISION — LR-D03 SCHEMA GATE QUALIFIED — RESUME AUTHORITY FIX QUALIFIED — PRODUCT MUTATION NOT PERFORMED — ZERO REAL |
+- timestamp_utc: 2026-09-08T09:08:15Z
+- cycle: SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-RECOMMENDATION-CORR-DELIVERY-01
+- type: 8 — Delivery / implémentation
+- typology: EVOL
+- profile: CRITICAL
+- capability: Lifecycle Recommendation & Pilot Decision Continuity
+- runtime_v3: NON ADOPTED
+- real: ZERO REAL
+- product_git: NO PRODUCT COMMIT / PUSH / PR / MERGE
+- review_handoff_git: REQUIRED — publish-in-cycle
 
-FULL REVIEW PACK SIZE THRESHOLD EXCEEDED — COMPLETE PRODUCT CONTENT PRESERVED
-
-## Anti-claims
-
-- This cycle performs **no** Product code mutation.
-- This cycle does **not** authorize Product commit/push/PR/merge.
-- This cycle does **not** authorize REAL.
-- Schema Decision Pack recommendation ≠ Morris decision.
-- Prior d9 Delivery “all R PASS / READY FOR CHATGPT DELIVERY REVIEW” is **reclassified** under contract scrutiny.
-
----
-
-## 1. Local Git Truth
-
-| Check | Result |
-| --- | --- |
-| pwd | `/Users/morris/Projects/sfia-lr-delivery-isolated-e6d7c649` |
-| remote | `https://github.com/mcleland147/sfia-workspace.git` |
-| branch | `delivery/sfia-studio-lifecycle-recommendation-product` |
-| HEAD | `e6d7c649e9d0522b60401f11fb8dd1fd4b122637` |
-| origin/main | `e6d7c649e9d0522b60401f11fb8dd1fd4b122637` |
-| origin/sfia/review-handoff (input) | `d9d3aa98a31941698455b28e772451e343cf474b` |
-| staged | empty |
-| Product commit | NO |
-| Note | Isolated clone; local alias `delivery/sfia-studio-proof-corr-04-hybrid-envelope-d` also points at same baseline SHA — current checked-out branch is the authorized Product branch. |
-
-### git status --short (captured)
+## 1. Local Git Truth (at Review Pack generation)
 
 ```
- M .tmp-sfia-review/chatgpt-review.md
+pwd: /Users/morris/Projects/sfia-lr-delivery-isolated-e6d7c649
+remote:
+origin	https://github.com/mcleland147/sfia-workspace.git (fetch)
+origin	https://github.com/mcleland147/sfia-workspace.git (push)
+branch: delivery/sfia-studio-lifecycle-recommendation-product
+HEAD: e6d7c649e9d0522b60401f11fb8dd1fd4b122637
+origin/main: e6d7c649e9d0522b60401f11fb8dd1fd4b122637
+status --short:
+M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
  M projects/sfia-studio/app/features/project-assistant/actions.ts
  M projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
  M projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
  M projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts
+ M projects/sfia-studio/app/lib/oa/cycle/application/updateEpistemicState.ts
+ M projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
  M projects/sfia-studio/app/lib/oa/cycle/index.ts
+ M projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/epistemic/epistemic-item.schema.json
 ?? .tmp-sfia-review/discovery-matrix.md
+?? .tmp-sfia-review/product-tracked.diff
 ?? projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.delivery.d0.test.ts
 ?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.module.css
 ?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx
@@ -64,417 +41,425 @@ FULL REVIEW PACK SIZE THRESHOLD EXCEEDED — COMPLETE PRODUCT CONTENT PRESERVED
 ?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecycleVisualContract.ts
 ?? projects/sfia-studio/app/lib/nora-cognitive-runtime/noraLifecycleRecommendationOutputType.ts
 ?? projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/
+?? projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/epistemic/lifecycle-recommendation.schema.json
+diff --stat:
+.tmp-sfia-review/chatgpt-review.md                 | 2783 ++++++++++++++++++--
+ .../pre-m6-product-ui/ProjectWorkspacePage.tsx     |   15 +
+ .../app/features/project-assistant/actions.ts      |  171 +-
+ .../nora-cognitive-runtime/runNoraAgentsTurn.ts    |   25 +-
+ .../app/lib/nora-cognitive-runtime/types.ts        |    5 +
+ .../oa/cycle/application/lifecycleProjection.ts    |   16 +
+ .../oa/cycle/application/updateEpistemicState.ts   |    3 +
+ .../sfia-studio/app/lib/oa/cycle/domain/types.ts   |   32 +
+ projects/sfia-studio/app/lib/oa/cycle/index.ts     |    1 +
+ .../schemas/epistemic/epistemic-item.schema.json   |    3 +
+ 10 files changed, 2844 insertions(+), 210 deletions(-)
+diff --name-status:
+M	.tmp-sfia-review/chatgpt-review.md
+M	projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
+M	projects/sfia-studio/app/features/project-assistant/actions.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/updateEpistemicState.ts
+M	projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
+M	projects/sfia-studio/app/lib/oa/cycle/index.ts
+M	projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/epistemic/epistemic-item.schema.json
+diff --cached --stat:
+(empty)
+untracked:
+.tmp-sfia-review/discovery-matrix.md
+.tmp-sfia-review/product-tracked.diff
+projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.delivery.d0.test.ts
+projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.module.css
+projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx
+projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts
+projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecycleVisualContract.ts
+projects/sfia-studio/app/lib/nora-cognitive-runtime/noraLifecycleRecommendationOutputType.ts
+projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/basisFingerprint.ts
+projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/currentness.ts
+projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/index.ts
+projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/materializeLifecycleRecommendation.ts
+projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/produceLifecycleRecommendation.ts
+projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/types.ts
+projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/validateLifecycleRecommendation.ts
+projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/epistemic/lifecycle-recommendation.schema.json
+log -8:
+e6d7c649 (HEAD -> delivery/sfia-studio-lifecycle-recommendation-product, origin/main, origin/delivery/sfia-studio-lifecycle-recommendation-product, delivery/sfia-studio-proof-corr-04-hybrid-envelope-d) Merge pull request #476 from mcleland147/delivery/sfia-studio-proof-corr-05-pilot-lifecycle
+105f6473 feat(sfia-studio): enforce pilot-governed cycle lifecycle
+12d837fd Merge pull request #475 from mcleland147/recovery/sfia-studio-proof-corr-04-option-d-ac7376d9
+7f7184ca test(sfia-studio): register cognitive context runtime boundary
+95b268c3 feat(sfia-studio): ground Nora reasoning in Studio context
+1f48dd81 Merge pull request #474 from mcleland147/delivery/sfia-studio-proof-corr-03-e1-method-grounded-advisory
+8c6715fe fix(sfia-studio): ground Nora advisory in Studio method
+1b93fca8 Merge pull request #473 from mcleland147/delivery/sfia-studio-proof-corr-02-b1-advisory-default
 ```
 
----
-
-## 2. Sources read
-
-Process: sfia-cycle-execution-template; routing guide; chatgpt-cursor operating model; rules/guardrails; fifteen-cycles synthetic map (Cycle 8 no detailed CKC).
-
-Convergence/product-completion/framing 30,32,33,37 as required by contract.
-
-Handoff d9d3aa98 full canonical file inspected (truncation marker confirmed at line ~681).
-
-Authoritative seams: EpistemicItem TS + modeled schema; assessResumeReconciliation; pilotLifecycleTransitions RESUME path; lifecycleProjection; sqlite Epistemic repository ports; provenance schema; full local Lifecycle Recommendation candidate tree.
-
----
-
-## 3. Morris decisions consumed (context only)
-
-LR-D01 Epistemic+COMBINE+projection · LR-D02 Agents outputType same Runner · LR-D03 Epistemic Recommendation carrier, no new table, no JSON-in-statement, reload-safe typed/structural, CURRENT/STALE derived · LR-D04 LifecycleSurface / TrajectorySurface split · LR-D05 resume+replan HD visible, never overrides CYCLE_RESUME_DRIFT.
-
----
-
-## 4. ChatGPT Delivery Review findings — verification
-
-### FINDING A — relatedObjects machine protocol — **CONFIRMED**
-
-Local `relatedObjectsCodec.ts` persists lifecycle machine semantics as prefixed identifiers:
-`lr:intent:`, `lr:basis:`, `lr:semkey:`, `lr:subject:`, `lr:target:`, `lr:targettype:`.
-
-Reload reconstruction **requires** interpreting this ad-hoc prefix protocol (`parseLifecycleRecommendationRelatedObjects`). That is a serialization protocol hidden in `relatedObjects`, conflicting with the Delivery prohibition against hiding machine payload in source/relatedObjects/provenance.
-
-Modeled `relatedObjects` is `array` of **identifier** refs (`identifier.schema.json`) — intended for genuine object references (prj:/cyc:/…), not opaque machine-state encoding.
-
-### FINDING B — RESUME clean from snapshot presence — **CONFIRMED**
-
-In `actions.ts` `buildAssistantPilotLifecycleProjection`:
-- if pause snapshot **missing** → `clean: false`, `canResume: false`
-- if pause snapshot **present** → `clean: true`, reason `pause_snapshot_present`
-- **does not call** `assessResumeReconciliation`
-
-Authoritative assessor (used by `PilotLifecycleTransitions.resume`) compares objective/context/scope/doctrine/trajectory/HD/evidence/blocker fingerprints against the pause snapshot. Snapshot presence alone never proves clean.
-
-### FINDING C — d9 handoff truncated — **CONFIRMED**
-
-d9 pack contains an explicit handoff-size truncation placeholder (confirmed at approximately line 681 of the canonical handoff file) and embeds only a subset of created Product files (types/validate/relatedObjects partial + visual contract + diffs). Missing full content for: materialize, currentness, produce, index, LifecycleSurface(+css), lifecyclePresentation, delivery test, and remainder of relatedObjectsCodec.
-
----
-
-## 5. Git Review Index — Product candidate inventory
-
-| Path | Tracked? | Role | Created/Modified | Finding relevance | Embed full content | Embed complete diff |
-| --- | --- | --- | --- | --- | --- | --- |
-| lifecycleRecommendation/types.ts | untracked | contract types | created | LR-D03 | YES | n/a |
-| relatedObjectsCodec.ts | untracked | persistence codec | created | FINDING A | YES | n/a |
-| validateLifecycleRecommendation.ts | untracked | deterministic validation | created | R3 | YES | n/a |
-| materializeLifecycleRecommendation.ts | untracked | Epistemic write | created | LR-D03 | YES | n/a |
-| currentness.ts | untracked | CURRENT/STALE derive | created | R5/R6/R13 | YES | n/a |
-| produceLifecycleRecommendation.ts | untracked | post-model path | created | R15 | YES | n/a |
-| index.ts (lr) | untracked | barrel | created | export | YES | n/a |
-| noraLifecycleRecommendationOutputType.ts | untracked | LR-D02 schema | created | R1/R2 | YES | n/a |
-| LifecycleSurface.tsx | untracked | UI Recommend→Decide | created | R14/LR-D04 | YES | n/a |
-| LifecycleSurface.module.css | untracked | UI styles | created | R14 | YES | n/a |
-| lifecyclePresentation.ts | untracked | CTA/status presentation | created | R14/R10 UI | YES | n/a |
-| lifecycleVisualContract.ts | untracked | visual contract | created | R14 | YES | n/a |
-| lifecycleRecommendation.delivery.d0.test.ts | untracked | R proofs | created | R matrix limits | YES | n/a |
-| ProjectWorkspacePage.tsx | tracked M | workspace wire | modified | LR-D04 | via diff | YES |
-| actions.ts | tracked M | PA projection | modified | FINDING B | via diff | YES |
-| runNoraAgentsTurn.ts | tracked M | outputType seam | modified | LR-D02 | via diff | YES |
-| nora types.ts | tracked M | structuredOutput | modified | LR-D02 | via diff | YES |
-| lifecycleProjection.ts | tracked M | companion fields | modified | projection | via diff | YES |
-| cycle/index.ts | tracked M | export | modified | export | via diff | YES |
-| .tmp-sfia-review/* | review-only | qualification/handoff | rewrite | not Product | review pack itself | n/a |
-
-### Comparison to d9 handoff inventory
-
-- Same Product created/modified set as local candidate (aligned).
-- d9 claimed FULL but truncated created-file bodies and omitted several created files’ full content.
-- Extra local review-only: discovery-matrix, product-tracked.diff (qualification aids).
-
----
-
-## 6. Qualification B — LR-D03 carrier analysis
-
-### B1. Machine-readable lifecycle semantics currently persisted
-
-Via EpistemicItem Recommendation + relatedObjects protocol + human statement + epistemic status/supersedes/source/createdBy/createdAt (+ optional provenance):
-intent, basisFingerprint, semanticKey, subjectCycleInstanceId, targetCycleInstanceId, targetCycleTypeId.
-
-basisRefs object itself is **not** stored as structured fields; fingerprint is. CURRENT/STALE derived at read by rebuilding seed facts and comparing fingerprint.
-
-### B2. Persistence locations
-
-| Semantic | Persisted where |
-| --- | --- |
-| intent | `relatedObjects` entry `lr:intent:<INTENT>` |
-| basis fingerprint | `relatedObjects` entry `lr:basis:<sha256>` |
-| semantic key | `relatedObjects` entry `lr:semkey:<hex>` |
-| subject cycle | `relatedObjects` entry `lr:subject:<cyc:…>` |
-| target cycle | `relatedObjects` entry `lr:target:<cyc:…>` |
-| target cycle type | `relatedObjects` entry `lr:targettype:…` |
-| project binding | `relatedObjects` entry `prj:…` |
-| human statement | `statement` (human French; no JSON) |
-| epistemic status | `status` active/superseded/… |
-| supersession link | `supersedes` |
-| producer attribution | `source`=`lifecycle-recommendation:nora`, `createdBy` |
-| provenance | optional `provenance` (not used as payload dump in candidate) |
-| basis refs object | NOT persisted as typed field; reconstructed for currentness |
-
-### B3. relatedObjects beyond genuine object references?
-
-**YES.** Prefixed `lr:*` entries are machine-state encodings, not genuine domain object identifiers the Epistemic model intends relatedObjects to hold.
-
-### B4. Reconstruct without ad-hoc relatedObjects protocol?
-
-**NO.** Decode path is the codec. Without the prefix protocol, structured Recommendation cannot be recovered from EpistemicItem after reload (statement is human-only by design).
-
-### B5. Satisfies LR-D03 “reload-safe typed / structural”?
-
-**NO at architectural-contract level.** Green codec round-trip tests prove the protocol works mechanically; they do **not** prove LR-D03 compliance. LR-D03 forbids hiding machine payload in relatedObjects.
-
-### B6. Existing non-protected typed field that can honestly carry semantics?
-
-Inspected EpistemicItem TS + modeled schema (`additionalProperties: false`):
-
-- `statement` — human only; JSON-in-statement forbidden
-- `source` — free string; using as payload dump = source abuse
-- `relatedObjects` — identifier refs only; protocol abuse = FINDING A
-- `provenance` — ProvenanceRecord with closed properties; not a Recommendation payload carrier; abuse forbidden
-- `confidence`, `blocking`, `supersedes`, `status` — insufficient / wrong semantics
-
-**NO compliant existing field.**
-
-### B7. Conclusion
-
-**PROTECTED MODELED SCHEMA DELTA REQUIRED — MORRIS DECISION REQUIRED**
-
----
-
-## 7. Schema Decision Pack
-
-### OPTION A — bounded additive typed field on EpistemicItem (RECOMMENDED for Morris decision)
-
-Direction (not decided): add an **optional** modeled property on EpistemicItem, e.g. `lifecycleRecommendation` (or dedicated `$ref` schema), holding the structured Recommendation envelope fields required for reload-safe semantics; continue using existing `oa_epistemic_items.payload_json`; **no new table**; **no DDL migration**.
-
-Assess:
-
-| Axis | Assessment |
-| --- | --- |
-| Modeled files | `epistemic-item.schema.json`; likely new `lifecycle-recommendation.schema.json` (or inline object); possibly common identifier refs reuse |
-| TS files | `domain/types.ts` EpistemicItem; lifecycleRecommendation encode/materialize/currentness; sqlite payload round-trip already JSON — likely no DDL |
-| New bounded JSON schema | YES recommended (keeps EpistemicItem readable) |
-| Backward compatibility | Optional property absent on historical items → OK if consumers treat missing as “no structured LR” |
-| Historical Recommendation | Non-lifecycle Recommendations remain valid without the field |
-| additionalProperties | Remains false; field must be explicitly added |
-| schemaVersion | Currently **const `0.1.0-oa`**. Additive optional field **may** keep const if policy treats optional additive as compatible — **OR** require a distinct schemaVersion gate. **Do not silently decide.** Flag as Morris sub-gate if const bump required. |
-| Persistence | Same payload_json; UpdateEpistemicState/validateEpistemicItemInput must accept new field |
-| Migration | **NO DDL** expected for Option A as scoped |
-| Tests | Replace relatedObjects protocol tests; R4/R5/R6/R13 must assert typed field durability without lr:* codec |
-| Exit proof | Reload reconstructs from typed field; relatedObjects only genuine refs (prj/cyc) |
-| Debt | Retire relatedObjectsCodec protocol; migrate any local candidate items (none committed) |
-| Parallelism risk | LOW if single optional field on existing EpistemicItem; HIGH if second entity |
-
-**Hard rule:** if Morris requires schemaVersion const change incompatible with “additive optional only”, that is an **additional distinct gate** — not silently inside Option A implementation.
-
-### OPTION B — smaller compliant existing modeled mechanism proven by Git
-
-**NONE FOUND.** No Option B fabricated.
-
-### OPTION C — separate Recommendation table/entity
-
-**REJECTED** under LR-D03 unless Morris reopens LR-D03. Creates parallel persistence / second carrier. Forbidden by consumed decision.
-
-### Recommendation (≠ decision)
-
-Recommend **OPTION A** as smallest compliant path satisfying LR-D03 + modeled doctrine + no new table. Morris must still decide Option A (and any schemaVersion const implication).
-
----
-
-## 8. Qualification C — RESUME authority
-
-### C1. assessResumeReconciliation evaluates
-
-Pause snapshot presence + comparison of current LPS objective/context/scope, doctrine pin, trajectory fingerprint, HD fingerprint, evidence fingerprint, blockers; sibling active; LPS readability; caller material drift hint. Returns `clean`, `driftReasons`, `requiresReplanHumanDecision`.
-
-### C2. Required facts
-
-Cycle (+pauseReconciliation), projectId, LPS readability/version/active pointer, objective/context/scope, doctrine pin, trajectory, decisions list, evidence list, blocking reservations / blocker readability, siblingActiveExists, optional caller hint.
-
-### C3. Does PA projection invoke it?
-
-**NO.**
-
-### C4. Can candidate set clean=true from snapshot presence alone?
-
-**YES** (`reason: "pause_snapshot_present"`).
-
-### C5. Can canResume remain true when authoritative reconciliation would be dirty?
-
-**YES for the projection CTA surface.** `projectPilotLifecycle` may still set `canResume` from paused status; projection only forces `canResume:false` when snapshot **missing**. When snapshot **present**, it does **not** clear canResume even if material facts drifted. Transition-time assessor would still refuse RESUME — but UI/projection can **lie clean** / offer Resume as eligible.
-
-### C6. Classification
-
-**LIFECYCLE AUTHORITY GAP CONFIRMED.**
-
-### C7. Smallest correction (no mutation this cycle)
-
-Projection must:
-1. gather required readers/facts, **invoke `assessResumeReconciliation`**, map `clean`/`driftReasons` into `resumeReconciliation`, set `canResume = projection.cta.canResume && reconciliation.clean`; **OR**
-2. **fail closed** (`clean:false`, `canResume:false`) if required facts/readers unavailable.
-
-**Forbid:** snapshot presence ⇒ clean.
-
-### C8. Likely fix files (do not edit now)
-
-- `projects/sfia-studio/app/features/project-assistant/actions.ts` (primary)
-- possibly thin helper near lifecycle projection (optional)
-- `LifecycleSurface.tsx` / `lifecyclePresentation.ts` only if they currently trust projection clean without surfacing driftReasons (presentation should remain non-authoritative consumers)
-- tests: extend delivery +/or CORR-PROOF-05 projection-level cases
-
-Authority remains `assessResumeReconciliation` + `PilotLifecycleTransitions` — do not duplicate assessor logic.
-
-### C9. Required tests for later correction cycle
-
-1. pause snapshot present + trajectory changed ⇒ canResume false / clean false
-2. pause snapshot present + relevant HD fingerprint change ⇒ clean false where assessor detects
-3. evidence/blocker drift cases represented by assessor
-4. clean reconciliation ⇒ canResume true
-5. replan HD alone ⇒ cannot clear drift
-6. after durable replan + fresh clean reconciliation ⇒ resume eligible only then
-
----
-
-## 9. R1–R15 reclassification (contract-level)
-
-| ID | Class | Rationale |
-| --- | --- | --- |
-| R1 | PASS | ScriptedModel + outputType FINALIZE on same Runner path — mechanism reviewable |
-| R2 | PASS | NEXT_CYCLE same path |
-| R3 | PASS | validate fail-closed for bad bindings |
-| R4 | **BLOCKED BY ARCHITECTURE GAP** | Durability green only via forbidden relatedObjects protocol; not LR-D03-compliant reload-safe typed durability |
-| R5 | **BLOCKED BY ARCHITECTURE GAP** | Currentness works via same protocol; contract-level invalidation proof tethered to non-compliant carrier |
-| R6 | **BLOCKED BY ARCHITECTURE GAP** | Supersession uses Epistemic status (OK) but primary CURRENT selection still depends on protocol decode |
-| R7 | PASS | Materialize does not mutate Cycle (test + code) |
-| R8 | PASS | NEXT_CYCLE does not create/start Cycle |
-| R9 | PASS | Eligibility can exist without Recommendation |
-| R10 | **FAIL** | Projection can claim clean / leave Resume eligible without authoritative assessResumeReconciliation; HD replan subject string test alone ≠ Product projection proof |
-| R11 | PASS | TrajectorySurface reuse + LifecycleSurface escalate; no model calls in surface |
-| R12 | PASS | Single Runner path; no second cognition engine in candidate |
-| R13 | **BLOCKED BY ARCHITECTURE GAP** | Superseded not selected depends on protocol-aware selectCurrent |
-| R14 | **NOT PROVEN** (functional PRESENTATION REVIEWABLE; strong visual RESERVED) | Surface distinguishes Rec/CTA/drift in code; no runtime PNG comparison vs review-v5 |
-| R15 | **BLOCKED BY ARCHITECTURE GAP** | Post-model path exists, but persistence step uses non-compliant carrier |
-
-Tests green ≠ contract proven.
-
----
-
-## 10. Tests previously observed + limits
-
-Prior Delivery reported: delivery.d0 7/7; CORR-PROOF-05 136/136; Nora runner 11/11; tsc/build/lint PASS.
-
-Limits: those proofs do not authorize LR-D03 relatedObjects protocol; R10 projection gap not covered by CORR-PROOF-05 transition tests alone; this CORR-QUAL cycle did not re-run expensive suites (read-only qualification; no Product mutation).
-
-Fake/Real: ZERO REAL; DETERMINISTIC PROVEN claim from Delivery is **reclassified** — durability/currentness blocked at architecture until schema gate; RESUME projection FAIL.
-
----
-
-## 11. Exact blockers
-
-1. **LR-D03 / FINDING A:** relatedObjects machine protocol — protected modeled schema delta required before compliant durability.
-2. **RESUME / FINDING B:** PA projection clean from snapshot presence — authority gap; correction qualified, not implemented.
-3. **Review completeness / FINDING C:** prior d9 truncated — remediated by this FULL pack.
-
----
-
-## 12. Debt / exit
-
-Debt: Option A schema Morris gate; then Product correction cycle to (1) typed Epistemic field + retire lr:* codec (2) wire assessResumeReconciliation into PA projection fail-closed (3) strengthen R4–R6/R10/R13/R15 tests (4) optional runtime visual comparison.
-
-Exit this cycle: Morris correction decision — **not** Product implementation.
-
----
-
-## 13. Recommendation to Morris (≠ decision)
-
-1. Accept FINDING A/B/C as confirmed against local Product truth.
-2. Decide **OPTION A** protected modeled EpistemicItem additive optional structured Recommendation field (and separately whether schemaVersion const must change).
-3. Authorize a later Product **correction Delivery** cycle only after schema decision: implement typed carrier + RESUME projection authoritative wiring; no Product commit until that correction is reviewed.
-4. Keep ZERO REAL; no PR/merge.
-
----
-
-## 14. Morris decisions required
-
-- Protected modeled schema Option A accept/reject (LR-D03 gate)
-- schemaVersion const bump yes/no if Option A accepted
-- Authorization of subsequent Product correction execution GO (separate from this QA cycle)
-- Still later: Product commit/push/PR gates; REAL gates — not now
-
----
-
-## 15. Review Pack Content Coverage
-
-| Check | Result |
-| --- | --- |
-| created files full content | YES |
-| modified files useful complete diff | YES |
-| synthesis only | NO |
-| artificial truncation present | NO (self-check below) |
-| all declared Product files represented | YES |
-| review pack verdict | **COMPLETE** |
-
----
-
-## 16. Final verdict
-
-**READY FOR MORRIS CORRECTION DECISION — LR-D03 SCHEMA GATE QUALIFIED — RESUME AUTHORITY FIX QUALIFIED — PRODUCT MUTATION NOT PERFORMED — ZERO REAL**
-
----
-
-# APPENDIX A — CREATED PRODUCT FILES (COMPLETE CONTENT)
-
-### CREATED FULL CONTENT — `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/types.ts`
-
-Lines: 78 · Bytes: 2573
-
-```typescript
-/**
- * Lifecycle Recommendation — Product-side envelope (not Epistemic schema extension).
- * Durable carrier = EpistemicItem type Recommendation; structured fields via typed relatedObjects.
- * LR-D01 / LR-D03 — no new table; no JSON-in-statement.
- */
-export const LIFECYCLE_RECOMMENDATION_INTENTS = [
-  "FINALIZE_CURRENT_CYCLE",
-  "NEXT_CYCLE",
-] as const;
-
-export type LifecycleRecommendationIntent =
-  (typeof LIFECYCLE_RECOMMENDATION_INTENTS)[number];
-
-export type LifecycleRecommendationDerivedCurrentness =
-  | "CURRENT"
-  | "STALE"
-  | "SUPERSEDED";
-
-/** Model/cognition candidate — never Product truth until SFIA validation + materialization. */
-export type LifecycleRecommendationCandidate = {
-  intent: LifecycleRecommendationIntent;
-  statement: string;
-  subjectCycleInstanceId?: string | null;
-  targetCycleInstanceId?: string | null;
-  targetCycleTypeId?: string | null;
-  rationale?: string | null;
-};
-
-export type LifecycleRecommendationBasisRefs = {
-  projectId: string;
-  subjectCycleInstanceId?: string | null;
-  subjectCycleStatus?: string | null;
-  targetCycleInstanceId?: string | null;
-  targetCycleTypeId?: string | null;
-  lpsActiveCycleInstanceId?: string | null;
-  lpsVersion?: number | null;
-  trajectoryId?: string | null;
-  trajectoryVersion?: number | null;
-  trajectoryStatus?: string | null;
-  finalizeAccepted?: boolean | null;
-  resumeClean?: boolean | null;
-  reservationBlockingCount?: number | null;
-};
-
-export type LifecycleRecommendationEnvelope = {
-  recommendationId: string;
-  projectId: string;
-  intent: LifecycleRecommendationIntent;
-  subjectCycleInstanceId: string | null;
-  targetCycleInstanceId: string | null;
-  targetCycleTypeId: string | null;
-  producer: "nora";
-  producedAt: string;
-  statement: string;
-  basisFingerprint: string;
-  basisRefs: LifecycleRecommendationBasisRefs;
-  semanticKey: string;
-  authority: "none";
-  isHumanDecision: false;
-  doesNotActivateCycle: true;
-  doesNotFinalize: true;
-  doesNotCreateHumanDecision: true;
-  epistemicStatus: "active" | "superseded" | "rejected" | "resolved";
-  supersedesRecommendationId: string | null;
-  /** Derived at read time — never persisted as Epistemic status. */
-  derivedCurrentness: LifecycleRecommendationDerivedCurrentness;
-};
-
-export type NoraLifecycleRecommendationStructuredOutput = {
-  intent: LifecycleRecommendationIntent;
-  statement: string;
-  subjectCycleInstanceId: string | null;
-  targetCycleInstanceId: string | null;
-  targetCycleTypeId: string | null;
-  rationale: string | null;
-  authority: "none";
-  isHumanDecision: false;
-};
-
+## 2. Incoming Review Handoff
+
+- origin/sfia/review-handoff @ `68fe55347b4b4ac84f8535bc0449b8c358c62fbb`
+- CORR-QUAL findings consumed: FINDING A (lr:* relatedObjects protocol), FINDING B (pause_snapshot_present ⇒ clean), FINDING C (truncated pack)
+
+## 3. Exact Morris GO Consumed
+
+> GO MORRIS — LR CORRECTION OPTION A APPROVED — ADD OPTIONAL TYPED LIFECYCLE RECOMMENDATION FIELD TO EPISTEMICITEM — KEEP SCHEMAVERSION 0.1.0-OA FOR THIS STRICTLY ADDITIVE BACKWARD-COMPATIBLE DELTA — AUTHORIZE BOUNDED PRODUCT CORRECTION DELIVERY FOR TYPED CARRIER + AUTHORITATIVE RESUME RECONCILIATION — ZERO REAL — NO PRODUCT COMMIT/PUSH/PR/MERGE.
+
+## 4. Sources Read
+
+- prompts/templates/sfia-cycle-execution-template.md
+- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
+- method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
+- method/sfia-fast-track/core/sfia-rules-and-guardrails.md
+- method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md
+- projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
+- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+- projects/sfia-studio/product-completion/01-product-completion-cadrage.md
+- projects/sfia-studio/product-completion/02-product-completion-conception-fonctionnelle.md
+- projects/sfia-studio/sfia-v3-framing/30,32,33,37
+- projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/05,10 + epistemic-item + provenance schemas
+- Incoming handoff 68fe5534 latest-chatgpt-review.md
+- Full local Product candidate (uncommitted)
+
+## 5. Convergence Matrix
+
+| Keep | Status |
+|------|--------|
+| CycleInstance lifecycle | KEPT |
+| ProjectTrajectory | KEPT |
+| HumanDecision engine | KEPT |
+| assessResumeReconciliation | KEPT + wired as sole projection authority |
+| PilotLifecycleTransitions | KEPT |
+| SQLite oa_epistemic_items / payload_json | KEPT — no DDL |
+| Nora governed Agents Runner + outputType | KEPT |
+| LifecycleSurface / TrajectorySurface | KEPT |
+| Recommendation ≠ decision; CURRENT/STALE derived | KEPT |
+| single Product cognition path | KEPT |
+
+| Adapt | Status |
+|-------|--------|
+| EpistemicItem modeled + TS | OPTIONAL lifecycleRecommendation |
+| materialize/currentness/produce | typed field; no lr:* |
+| updateEpistemicState | clones typed field |
+| PA lifecycle projection | assessResumeReconciliation + fail-closed |
+| deterministic tests | R1–R15 + R10-A..H |
+
+| Remove | Status |
+|--------|--------|
+| lr:* relatedObjectsCodec | DELETED (uncommitted candidate) |
+| pause_snapshot_present ⇒ clean | REMOVED |
+
+## 6. Files Created / Modified / Deleted
+
+### Created
+- `projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/epistemic/lifecycle-recommendation.schema.json`
+- `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/basisFingerprint.ts`
+- `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/currentness.ts`
+- `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/index.ts`
+- `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/materializeLifecycleRecommendation.ts`
+- `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/produceLifecycleRecommendation.ts`
+- `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/types.ts`
+- `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/validateLifecycleRecommendation.ts`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/noraLifecycleRecommendationOutputType.ts`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.module.css`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecycleVisualContract.ts`
+- `projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.delivery.d0.test.ts`
+
+### Modified
+- `projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/epistemic/epistemic-item.schema.json`
+- `projects/sfia-studio/app/lib/oa/cycle/domain/types.ts`
+- `projects/sfia-studio/app/lib/oa/cycle/application/updateEpistemicState.ts`
+- `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts`
+- `projects/sfia-studio/app/lib/oa/cycle/index.ts`
+- `projects/sfia-studio/app/features/project-assistant/actions.ts`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts`
+
+### Deleted
+- `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/relatedObjectsCodec.ts` (uncommitted candidate retirement of forbidden lr:* protocol)
+
+## 7. Protected Schema Delta
+
+- schemaVersion remains const `0.1.0-oa`
+- optional `lifecycleRecommendation` $ref added to EpistemicItem
+- new sibling schema `lifecycle-recommendation.schema.json`
+- additionalProperties:false retained
+- Breaking change detected: NO
+- DDL/migration: NO
+
+## 8. Final Typed Persisted Contract
+
+Outer EpistemicItem: epistemicItemId, type=Recommendation, statement, status, supersedes, createdAt, createdBy, source, provenance, relatedObjects (genuine domain refs only).
+
+Optional `lifecycleRecommendation`:
+- intent
+- basisFingerprint
+- basisRefs (audit/reload/currentness)
+- semanticKey
+- subjectCycleInstanceId
+- targetCycleInstanceId
+- targetCycleTypeId
+- authority: none (invariant)
+
+NOT persisted: CURRENT/STALE/UI/eligibility/canFinalize/canResume.
+
+## 9. Backward Compatibility / Persistence / Codec Retirement
+
+- Existing EpistemicItem without lifecycleRecommendation validates (AJV proven)
+- Existing non-lifecycle Recommendation validates
+- New lifecycle Recommendation with typed field validates
+- Unknown extra field fails (additionalProperties:false)
+- SQLite payload_json round-trip preserves typed field (R4)
+- No lr:* needed after reload
+- No DDL
+- schemaVersion 0.1.0-oa
+
+### lr:* protocol search (Product app)
+```
+projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.delivery.d0.test.ts:541:      expect(text).not.toMatch(/lr:intent:/);
+projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.delivery.d0.test.ts:542:      expect(text).not.toMatch(/lr:basis:/);
+projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.delivery.d0.test.ts:543:      expect(text).not.toMatch(/lr:semkey:/);
+projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.delivery.d0.test.ts:544:      expect(text).not.toMatch(/lr:subject:/);
+projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.delivery.d0.test.ts:545:      expect(text).not.toMatch(/lr:target:/);
+projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.delivery.d0.test.ts:546:      expect(text).not.toMatch(/lr:targettype:/);
 ```
 
-### CREATED FULL CONTENT — `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/relatedObjectsCodec.ts`
+relatedObjectsCodec.ts exists: False
 
-Lines: 197 · Bytes: 6531
+## 10. Nora outputType
 
+- `NORA_LIFECYCLE_RECOMMENDATION_OUTPUT_TYPE` + ScriptedModel path unchanged
+- Same post-model path: structured → validate → materialize → Epistemic → SQLite → reload → currentness
+- ZERO REAL OpenAI calls
+
+## 11. Currentness / Supersession
+
+- CURRENT/STALE derived from basisFingerprint vs live facts
+- semanticKey typed; Epistemic status authoritative for superseded
+- Reload does not resurrect stale/superseded (R13)
+
+## 12. RESUME Authoritative Wiring
+
+`buildAssistantPilotLifecycleProjection` (actions.ts):
+- when selected cycle paused → collect LPS/project/trajectory/decisions/evidence
+- on reader failure → fail closed (clean=false, canResume=false, honest reason)
+- call `assessResumeReconciliation`
+- map to projection.resumeReconciliation
+- canResume = base eligibility AND reconciliation.clean
+- REMOVED: pause_snapshot_present ⇒ clean
+- NO duplicated drift logic in UI
+
+## 13. R1–R15 Matrix
+
+| ID | Claim | Verdict | Evidence |
+|----|-------|---------|----------|
+| R1 | FINALIZE structured Nora output same Runner | PASS | delivery.d0 ScriptedModel + outputType |
+| R2 | NEXT_CYCLE same path | PASS | delivery.d0 |
+| R3 | invalid binding fail closed | PASS | delivery.d0 |
+| R4 | typed Epistemic durability SQLite reload | PASS | delivery.d0 |
+| R5 | material basis mutation ⇒ STALE | PASS | delivery.d0 |
+| R6 | semanticKey + supersession one current | PASS | delivery.d0 |
+| R7 | FINALIZE Rec does not mutate Cycle | PASS | delivery.d0 |
+| R8 | NEXT_CYCLE does not create Cycle | PASS | delivery.d0 |
+| R9 | Rec ≠ eligibility ≠ HD | PASS | delivery.d0 |
+| R10 | authoritative RESUME at projection | PASS | R10-A..H delivery.d0 + assessor |
+| R10-A | traj change ⇒ dirty / canResume false | PASS | projection |
+| R10-B | HD fingerprint drift | PASS | assessor unit |
+| R10-C | evidence drift | PASS | assessor unit |
+| R10-D | blocker drift | PASS | assessor unit |
+| R10-E | clean facts ⇒ canResume true | PASS | projection |
+| R10-F | replan HD alone never clears drift | PASS | subject + G |
+| R10-G | only clean fresh recon restores Resume | PASS | projection restore |
+| R10-H | reader/snapshot fail-closed | PASS | missing snapshot projection |
+| R11 | TrajectorySurface reused | PASS | delivery.d0 |
+| R12 | no second cognition path | PASS | same Runner |
+| R13 | reload never resurrects stale/superseded | PASS | delivery.d0 |
+| R14 | presentation distinction | PASS (visual RESERVED) | surface copy; no screenshots |
+| R15 | same post-model Product path | PASS | produce path |
+
+## 14. Tests / Typecheck / Build / Lint
+
+- lifecycleRecommendation.delivery.d0.test.ts: 14 passed
+- corrProof05.pilotLifecycle.d0.test.ts: 136 passed
+- nora-cognitive-runtime suite: 478 passed (38 files)
+- adversarialValidation + cycleTrajectoryEpistemicCkc: 44 passed
+- tsc --noEmit: PASS
+- npm run build: PASS
+- npm run lint: PASS (0 warnings)
+- git diff --check: PASS
+
+## 15. Fake/Real
+
+- Applicable: YES (OpenAI/Nora boundary)
+- This cycle: ZERO REAL
+- ScriptedModel substitutes external cognition
+- Forbidden claims NOT made: READY FOR REAL / REAL BOUNDARY PROVEN / END-TO-END REAL / runtime v3 ADOPTED
+- Visual strong R14: RESERVED
+
+## 16. Diff Summary
+
+```
+.tmp-sfia-review/chatgpt-review.md                 | 2783 ++++++++++++++++++--
+ .../pre-m6-product-ui/ProjectWorkspacePage.tsx     |   15 +
+ .../app/features/project-assistant/actions.ts      |  171 +-
+ .../nora-cognitive-runtime/runNoraAgentsTurn.ts    |   25 +-
+ .../app/lib/nora-cognitive-runtime/types.ts        |    5 +
+ .../oa/cycle/application/lifecycleProjection.ts    |   16 +
+ .../oa/cycle/application/updateEpistemicState.ts   |    3 +
+ .../sfia-studio/app/lib/oa/cycle/domain/types.ts   |   32 +
+ projects/sfia-studio/app/lib/oa/cycle/index.ts     |    1 +
+ .../schemas/epistemic/epistemic-item.schema.json   |    3 +
+ 10 files changed, 2844 insertions(+), 210 deletions(-)
+```
+
+```
+M	.tmp-sfia-review/chatgpt-review.md
+M	projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
+M	projects/sfia-studio/app/features/project-assistant/actions.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/updateEpistemicState.ts
+M	projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
+M	projects/sfia-studio/app/lib/oa/cycle/index.ts
+M	projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/epistemic/epistemic-item.schema.json
+A	projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/epistemic/lifecycle-recommendation.schema.json
+A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/basisFingerprint.ts
+A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/currentness.ts
+A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/index.ts
+A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/materializeLifecycleRecommendation.ts
+A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/produceLifecycleRecommendation.ts
+A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/types.ts
+A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/validateLifecycleRecommendation.ts
+A	projects/sfia-studio/app/lib/nora-cognitive-runtime/noraLifecycleRecommendationOutputType.ts
+A	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx
+A	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.module.css
+A	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts
+A	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecycleVisualContract.ts
+A	projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.delivery.d0.test.ts
+D	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/relatedObjectsCodec.ts
+```
+
+## 17. Debt / Exit / Next Gate
+
+- Product remains uncommitted (authorized)
+- Visual R14 strong evidence RESERVED
+- Next Morris gate: ChatGPT correction acceptance → Product Git gate decision
+
+## 18. Final Verdict (local pack; handoff publish follows)
+
+READY FOR CHATGPT CORRECTION DELIVERY REVIEW — LR-D03 TYPED CARRIER IMPLEMENTED — AUTHORITATIVE RESUME RECONCILIATION IMPLEMENTED — DETERMINISTIC PRODUCT CANDIDATE — ZERO REAL — HANDOFF REMOTE VERIFIED — PRODUCT COMMIT/PUSH/PR NOT AUTHORIZED
+
+(Handoff remote verification completed in Cursor final report after publisher.)
+
+---
+
+# COMPLETE PRODUCT CONTENT — CREATED FILES
+
+## CREATED: `projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/epistemic/lifecycle-recommendation.schema.json`
+
+```
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/v3-native-option-a/epistemic/lifecycle-recommendation.schema.json",
+  "title": "LifecycleRecommendation",
+  "description": "Optional typed Lifecycle Recommendation payload on EpistemicItem. Authority remains none; CURRENT/STALE are never persisted here.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "intent",
+    "basisFingerprint",
+    "basisRefs",
+    "semanticKey",
+    "subjectCycleInstanceId",
+    "targetCycleInstanceId",
+    "targetCycleTypeId",
+    "authority"
+  ],
+  "properties": {
+    "intent": {
+      "type": "string",
+      "enum": ["FINALIZE_CURRENT_CYCLE", "NEXT_CYCLE"]
+    },
+    "basisFingerprint": {
+      "type": "string",
+      "minLength": 16,
+      "maxLength": 128
+    },
+    "basisRefs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["projectId"],
+      "properties": {
+        "projectId": {
+          "$ref": "../common/identifier.schema.json"
+        },
+        "subjectCycleInstanceId": {
+          "type": ["string", "null"]
+        },
+        "subjectCycleStatus": {
+          "type": ["string", "null"]
+        },
+        "targetCycleInstanceId": {
+          "type": ["string", "null"]
+        },
+        "targetCycleTypeId": {
+          "type": ["string", "null"]
+        },
+        "lpsActiveCycleInstanceId": {
+          "type": ["string", "null"]
+        },
+        "lpsVersion": {
+          "type": ["integer", "null"]
+        },
+        "trajectoryId": {
+          "type": ["string", "null"]
+        },
+        "trajectoryVersion": {
+          "type": ["integer", "null"]
+        },
+        "trajectoryStatus": {
+          "type": ["string", "null"]
+        },
+        "finalizeAccepted": {
+          "type": ["boolean", "null"]
+        },
+        "resumeClean": {
+          "type": ["boolean", "null"]
+        },
+        "reservationBlockingCount": {
+          "type": ["integer", "null"]
+        }
+      }
+    },
+    "semanticKey": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 128
+    },
+    "subjectCycleInstanceId": {
+      "type": ["string", "null"]
+    },
+    "targetCycleInstanceId": {
+      "type": ["string", "null"]
+    },
+    "targetCycleTypeId": {
+      "type": ["string", "null"]
+    },
+    "authority": {
+      "type": "string",
+      "const": "none"
+    }
+  }
+}
+```
+
+## CREATED: `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/basisFingerprint.ts`
+
+```
 ```typescript
 import { createHash } from "node:crypto";
 import type {
@@ -484,13 +469,6 @@ import type {
 } from "./types";
 import { LIFECYCLE_RECOMMENDATION_INTENTS } from "./types";
 
-const INTENT_PREFIX = "lr:intent:";
-const BASIS_PREFIX = "lr:basis:";
-const SEMKEY_PREFIX = "lr:semkey:";
-const TARGET_TYPE_PREFIX = "lr:targettype:";
-const SUBJECT_PREFIX = "lr:subject:";
-const TARGET_PREFIX = "lr:target:";
-
 export function isLifecycleRecommendationIntent(
   value: unknown,
 ): value is LifecycleRecommendationIntent {
@@ -498,52 +476,6 @@ export function isLifecycleRecommendationIntent(
     typeof value === "string" &&
     (LIFECYCLE_RECOMMENDATION_INTENTS as readonly string[]).includes(value)
   );
-}
-
-export function intentRelatedObject(
-  intent: LifecycleRecommendationIntent,
-): string {
-  return `${INTENT_PREFIX}${intent}`;
-}
-
-export function basisRelatedObject(fingerprint: string): string {
-  return `${BASIS_PREFIX}${fingerprint}`;
-}
-
-export function semanticKeyRelatedObject(semanticKey: string): string {
-  return `${SEMKEY_PREFIX}${semanticKey}`;
-}
-
-/** Encode cycleTypeId without inventing a second id space. */
-export function targetTypeRelatedObject(cycleTypeId: string): string {
-  if (cycleTypeId.includes(":")) {
-    return `${TARGET_TYPE_PREFIX}${cycleTypeId.replace(/:/g, ".")}`;
-  }
-  return `${TARGET_TYPE_PREFIX}${cycleTypeId}`;
-}
-
-export function parseTargetTypeRelatedObject(value: string): string | null {
-  if (!value.startsWith(TARGET_TYPE_PREFIX)) return null;
-  const raw = value.slice(TARGET_TYPE_PREFIX.length);
-  return raw.includes(".") ? raw.replace(/\./g, ":") : raw;
-}
-
-export function subjectRelatedObject(cycleInstanceId: string): string {
-  return `${SUBJECT_PREFIX}${cycleInstanceId}`;
-}
-
-export function targetRelatedObject(cycleInstanceId: string): string {
-  return `${TARGET_PREFIX}${cycleInstanceId}`;
-}
-
-export function parseSubjectRelatedObject(value: string): string | null {
-  if (!value.startsWith(SUBJECT_PREFIX)) return null;
-  return value.slice(SUBJECT_PREFIX.length);
-}
-
-export function parseTargetRelatedObject(value: string): string | null {
-  if (!value.startsWith(TARGET_PREFIX)) return null;
-  return value.slice(TARGET_PREFIX.length);
 }
 
 export function computeBasisFingerprint(
@@ -584,81 +516,16 @@ export function computeSemanticKey(input: {
   return createHash("sha256").update(raw).digest("hex").slice(0, 32);
 }
 
-export function buildRelatedObjects(input: {
+/** Genuine domain-object references only — never machine-state prefixes. */
+export function buildGenuineRelatedObjects(input: {
   projectId: string;
-  intent: LifecycleRecommendationIntent;
   subjectCycleInstanceId?: string | null;
   targetCycleInstanceId?: string | null;
-  targetCycleTypeId?: string | null;
-  basisFingerprint: string;
-  semanticKey: string;
 }): string[] {
-  const out: string[] = [
-    input.projectId,
-    intentRelatedObject(input.intent),
-    basisRelatedObject(input.basisFingerprint),
-    semanticKeyRelatedObject(input.semanticKey),
-  ];
-  if (input.subjectCycleInstanceId) {
-    out.push(subjectRelatedObject(input.subjectCycleInstanceId));
-  }
-  if (input.targetCycleInstanceId) {
-    out.push(targetRelatedObject(input.targetCycleInstanceId));
-  }
-  if (input.targetCycleTypeId) {
-    out.push(targetTypeRelatedObject(input.targetCycleTypeId));
-  }
+  const out: string[] = [input.projectId];
+  if (input.subjectCycleInstanceId) out.push(input.subjectCycleInstanceId);
+  if (input.targetCycleInstanceId) out.push(input.targetCycleInstanceId);
   return out;
-}
-
-export function parseLifecycleRecommendationRelatedObjects(
-  relatedObjects: readonly string[] | undefined,
-): {
-  intent: LifecycleRecommendationIntent | null;
-  basisFingerprint: string | null;
-  semanticKey: string | null;
-  projectId: string | null;
-  subjectCycleInstanceId: string | null;
-  targetCycleInstanceId: string | null;
-  targetCycleTypeId: string | null;
-} {
-  const objs = relatedObjects ?? [];
-  let intent: LifecycleRecommendationIntent | null = null;
-  let basisFingerprint: string | null = null;
-  let semanticKey: string | null = null;
-  let projectId: string | null = null;
-  let targetCycleTypeId: string | null = null;
-  let subjectCycleInstanceId: string | null = null;
-  let targetCycleInstanceId: string | null = null;
-
-  for (const o of objs) {
-    if (o.startsWith(INTENT_PREFIX)) {
-      const v = o.slice(INTENT_PREFIX.length);
-      if (isLifecycleRecommendationIntent(v)) intent = v;
-    } else if (o.startsWith(BASIS_PREFIX)) {
-      basisFingerprint = o.slice(BASIS_PREFIX.length);
-    } else if (o.startsWith(SEMKEY_PREFIX)) {
-      semanticKey = o.slice(SEMKEY_PREFIX.length);
-    } else if (o.startsWith(TARGET_TYPE_PREFIX)) {
-      targetCycleTypeId = parseTargetTypeRelatedObject(o);
-    } else if (o.startsWith(SUBJECT_PREFIX)) {
-      subjectCycleInstanceId = parseSubjectRelatedObject(o);
-    } else if (o.startsWith(TARGET_PREFIX)) {
-      targetCycleInstanceId = parseTargetRelatedObject(o);
-    } else if (o.startsWith("prj:")) {
-      projectId = o;
-    }
-  }
-
-  return {
-    intent,
-    basisFingerprint,
-    semanticKey,
-    projectId,
-    subjectCycleInstanceId,
-    targetCycleInstanceId,
-    targetCycleTypeId,
-  };
 }
 
 export function candidateFromStructuredOutput(
@@ -673,13 +540,554 @@ export function candidateFromStructuredOutput(
     rationale: output.rationale ?? null,
   };
 }
-
 ```
 
-### CREATED FULL CONTENT — `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/validateLifecycleRecommendation.ts`
+## CREATED: `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/currentness.ts`
 
-Lines: 170 · Bytes: 5111
+```
+```typescript
+import type { CycleInstance, EpistemicItem } from "../../domain/types";
+import { computeBasisFingerprint } from "./basisFingerprint";
+import type {
+  LifecycleRecommendationBasisRefs,
+  LifecycleRecommendationDerivedCurrentness,
+  LifecycleRecommendationEnvelope,
+} from "./types";
+import { tryDecodeLifecycleRecommendationItem } from "./materializeLifecycleRecommendation";
 
+export function deriveLifecycleRecommendationCurrentness(input: {
+  item: EpistemicItem;
+  currentBasisRefs: LifecycleRecommendationBasisRefs;
+}): LifecycleRecommendationDerivedCurrentness {
+  if (input.item.status === "superseded") return "SUPERSEDED";
+  if (input.item.status === "rejected" || input.item.status === "resolved") {
+    return "STALE";
+  }
+  const persisted = input.item.lifecycleRecommendation;
+  if (!persisted?.basisFingerprint) return "STALE";
+  const now = computeBasisFingerprint(input.currentBasisRefs);
+  return now === persisted.basisFingerprint ? "CURRENT" : "STALE";
+}
+
+/** Rebuild validation seed shape from current Product facts. */
+export function rebuildBasisRefsForRecommendation(input: {
+  item: EpistemicItem;
+  cycles: readonly CycleInstance[];
+  lpsActiveCycleInstanceId: string | null | undefined;
+}): LifecycleRecommendationBasisRefs | null {
+  const persisted = input.item.lifecycleRecommendation;
+  if (!persisted) return null;
+  const subjectId = persisted.subjectCycleInstanceId;
+  const subject = subjectId
+    ? input.cycles.find((c) => c.cycleInstanceId === subjectId)
+    : undefined;
+  return {
+    projectId: persisted.basisRefs.projectId,
+    subjectCycleInstanceId: subjectId,
+    subjectCycleStatus: subject?.status ?? null,
+    targetCycleInstanceId: persisted.targetCycleInstanceId,
+    targetCycleTypeId: persisted.targetCycleTypeId,
+    lpsActiveCycleInstanceId: input.lpsActiveCycleInstanceId ?? null,
+  };
+}
+
+export function selectCurrentLifecycleRecommendations(input: {
+  items: readonly EpistemicItem[];
+  cycles: readonly CycleInstance[];
+  lpsActiveCycleInstanceId: string | null | undefined;
+}): LifecycleRecommendationEnvelope[] {
+  const decoded: LifecycleRecommendationEnvelope[] = [];
+  for (const item of input.items) {
+    if (item.type !== "Recommendation") continue;
+    if (item.source !== "lifecycle-recommendation:nora") continue;
+    if (!item.lifecycleRecommendation) continue;
+    const basis = rebuildBasisRefsForRecommendation({
+      item,
+      cycles: input.cycles,
+      lpsActiveCycleInstanceId: input.lpsActiveCycleInstanceId,
+    });
+    if (!basis) continue;
+    const currentness = deriveLifecycleRecommendationCurrentness({
+      item,
+      currentBasisRefs: basis,
+    });
+    const env = tryDecodeLifecycleRecommendationItem(item, currentness);
+    if (env) decoded.push({ ...env, basisRefs: basis });
+  }
+
+  const current = decoded.filter((d) => d.derivedCurrentness === "CURRENT");
+  const byKey = new Map<string, LifecycleRecommendationEnvelope>();
+  for (const env of current.sort((a, b) =>
+    a.producedAt < b.producedAt ? 1 : -1,
+  )) {
+    if (!byKey.has(env.semanticKey)) byKey.set(env.semanticKey, env);
+  }
+  return [...byKey.values()];
+}
+```
+
+## CREATED: `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/index.ts`
+
+```
+```typescript
+export * from "./types";
+export * from "./basisFingerprint";
+export * from "./validateLifecycleRecommendation";
+export * from "./materializeLifecycleRecommendation";
+export * from "./currentness";
+export * from "./produceLifecycleRecommendation";
+```
+
+## CREATED: `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/materializeLifecycleRecommendation.ts`
+
+```
+```typescript
+import type {
+  EpistemicItem,
+  EpistemicLifecycleRecommendation,
+  ProvenanceRecord,
+} from "../../domain/types";
+import type { UpdateEpistemicState } from "../updateEpistemicState";
+import {
+  buildGenuineRelatedObjects,
+  computeBasisFingerprint,
+  computeSemanticKey,
+} from "./basisFingerprint";
+import type {
+  LifecycleRecommendationBasisRefs,
+  LifecycleRecommendationEnvelope,
+} from "./types";
+import type { ValidateLifecycleRecommendationResult } from "./validateLifecycleRecommendation";
+
+export function lifecycleRecommendationEpistemicId(input: {
+  projectId: string;
+  semanticKey: string;
+  producedAt: string;
+}): string {
+  const slug = input.semanticKey.slice(0, 16);
+  const ts = input.producedAt.replace(/[^0-9A-Za-z]/g, "").slice(0, 20);
+  return `epi:lr:${slug}:${ts}`;
+}
+
+export function buildPersistedLifecycleRecommendation(input: {
+  intent: EpistemicLifecycleRecommendation["intent"];
+  basisRefs: LifecycleRecommendationBasisRefs;
+  subjectCycleInstanceId: string | null;
+  targetCycleInstanceId: string | null;
+  targetCycleTypeId: string | null;
+  projectId: string;
+}): EpistemicLifecycleRecommendation {
+  const basisFingerprint = computeBasisFingerprint(input.basisRefs);
+  const semanticKey = computeSemanticKey({
+    projectId: input.projectId,
+    intent: input.intent,
+    subjectCycleInstanceId: input.subjectCycleInstanceId,
+    targetCycleInstanceId: input.targetCycleInstanceId,
+    targetCycleTypeId: input.targetCycleTypeId,
+  });
+  return {
+    intent: input.intent,
+    basisFingerprint,
+    basisRefs: { ...input.basisRefs, projectId: input.projectId },
+    semanticKey,
+    subjectCycleInstanceId: input.subjectCycleInstanceId,
+    targetCycleInstanceId: input.targetCycleInstanceId,
+    targetCycleTypeId: input.targetCycleTypeId,
+    authority: "none",
+  };
+}
+
+export function encodeLifecycleRecommendationItem(input: {
+  recommendationId: string;
+  projectId: string;
+  validated: Extract<ValidateLifecycleRecommendationResult, { ok: true }>;
+  basisRefs: LifecycleRecommendationBasisRefs;
+  producedAt: string;
+  createdBy: EpistemicItem["createdBy"];
+  supersedesRecommendationId?: string | null;
+  provenance?: ProvenanceRecord;
+}): EpistemicItem {
+  const persisted = buildPersistedLifecycleRecommendation({
+    intent: input.validated.intent,
+    basisRefs: input.basisRefs,
+    subjectCycleInstanceId: input.validated.subjectCycleInstanceId,
+    targetCycleInstanceId: input.validated.targetCycleInstanceId,
+    targetCycleTypeId: input.validated.targetCycleTypeId,
+    projectId: input.projectId,
+  });
+  return {
+    schemaVersion: "0.1.0-oa",
+    epistemicItemId: input.recommendationId,
+    type: "Recommendation",
+    statement: input.validated.statement,
+    status: "active",
+    source: "lifecycle-recommendation:nora",
+    createdBy: structuredClone(input.createdBy),
+    createdAt: input.producedAt,
+    supersedes: input.supersedesRecommendationId ?? undefined,
+    relatedObjects: buildGenuineRelatedObjects({
+      projectId: input.projectId,
+      subjectCycleInstanceId: input.validated.subjectCycleInstanceId,
+      targetCycleInstanceId: input.validated.targetCycleInstanceId,
+    }),
+    provenance: input.provenance
+      ? structuredClone(input.provenance)
+      : undefined,
+    lifecycleRecommendation: persisted,
+  };
+}
+
+export function tryDecodeLifecycleRecommendationItem(
+  item: EpistemicItem,
+  derivedCurrentness: LifecycleRecommendationEnvelope["derivedCurrentness"],
+): LifecycleRecommendationEnvelope | null {
+  if (item.type !== "Recommendation") return null;
+  if (item.source !== "lifecycle-recommendation:nora") return null;
+  const persisted = item.lifecycleRecommendation;
+  if (!persisted || persisted.authority !== "none") return null;
+  if (!persisted.basisFingerprint || !persisted.semanticKey) return null;
+
+  return {
+    recommendationId: item.epistemicItemId,
+    projectId: persisted.basisRefs.projectId,
+    intent: persisted.intent,
+    subjectCycleInstanceId: persisted.subjectCycleInstanceId,
+    targetCycleInstanceId: persisted.targetCycleInstanceId,
+    targetCycleTypeId: persisted.targetCycleTypeId,
+    producer: "nora",
+    producedAt: item.createdAt,
+    statement: item.statement,
+    basisFingerprint: persisted.basisFingerprint,
+    basisRefs: persisted.basisRefs,
+    semanticKey: persisted.semanticKey,
+    authority: "none",
+    isHumanDecision: false,
+    doesNotActivateCycle: true,
+    doesNotFinalize: true,
+    doesNotCreateHumanDecision: true,
+    epistemicStatus: item.status,
+    supersedesRecommendationId: item.supersedes ?? null,
+    derivedCurrentness,
+  };
+}
+
+export async function materializeLifecycleRecommendation(input: {
+  updateEpistemicState: UpdateEpistemicState;
+  projectId: string;
+  validated: Extract<ValidateLifecycleRecommendationResult, { ok: true }>;
+  basisRefs: LifecycleRecommendationBasisRefs;
+  producedAt: string;
+  createdBy: EpistemicItem["createdBy"];
+  existingItems: readonly EpistemicItem[];
+  provenance?: ProvenanceRecord;
+  correlationId?: string;
+}): Promise<
+  | { ok: true; item: EpistemicItem; supersededId: string | null }
+  | { ok: false; code: string; reason: string }
+> {
+  const semanticKey = computeSemanticKey({
+    projectId: input.projectId,
+    intent: input.validated.intent,
+    subjectCycleInstanceId: input.validated.subjectCycleInstanceId,
+    targetCycleInstanceId: input.validated.targetCycleInstanceId,
+    targetCycleTypeId: input.validated.targetCycleTypeId,
+  });
+
+  const priorActive = input.existingItems.find((e) => {
+    if (e.type !== "Recommendation" || e.status !== "active") return false;
+    if (e.source !== "lifecycle-recommendation:nora") return false;
+    return e.lifecycleRecommendation?.semanticKey === semanticKey;
+  });
+
+  const recommendationId = lifecycleRecommendationEpistemicId({
+    projectId: input.projectId,
+    semanticKey,
+    producedAt: input.producedAt,
+  });
+
+  const item = encodeLifecycleRecommendationItem({
+    recommendationId,
+    projectId: input.projectId,
+    validated: input.validated,
+    basisRefs: input.basisRefs,
+    producedAt: input.producedAt,
+    createdBy: input.createdBy,
+    supersedesRecommendationId: priorActive?.epistemicItemId ?? null,
+    provenance: input.provenance,
+  });
+
+  const result = await input.updateEpistemicState.execute({
+    projectId: input.projectId,
+    createdBy: input.createdBy,
+    correlationId: input.correlationId,
+    items: [
+      {
+        epistemicItemId: item.epistemicItemId,
+        type: "Recommendation",
+        statement: item.statement,
+        status: "active",
+        source: item.source,
+        supersedes: item.supersedes,
+        relatedObjects: item.relatedObjects,
+        provenance: item.provenance,
+        lifecycleRecommendation: item.lifecycleRecommendation,
+      },
+    ],
+  });
+
+  if (!result.ok) {
+    return {
+      ok: false,
+      code: result.error.detailCode,
+      reason: result.error.internalCauseRef ?? "materialize_failed",
+    };
+  }
+
+  return {
+    ok: true,
+    item,
+    supersededId: priorActive?.epistemicItemId ?? null,
+  };
+}
+```
+
+## CREATED: `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/produceLifecycleRecommendation.ts`
+
+```
+```typescript
+import type { EpistemicItem, ProvenanceRecord } from "../../domain/types";
+import type { CycleInstance } from "../../domain/types";
+import type { UpdateEpistemicState } from "../updateEpistemicState";
+import {
+  computeBasisFingerprint,
+  candidateFromStructuredOutput,
+} from "./basisFingerprint";
+import { materializeLifecycleRecommendation } from "./materializeLifecycleRecommendation";
+import { validateLifecycleRecommendation } from "./validateLifecycleRecommendation";
+import type {
+  LifecycleRecommendationBasisRefs,
+  LifecycleRecommendationCandidate,
+  LifecycleRecommendationEnvelope,
+  NoraLifecycleRecommendationStructuredOutput,
+} from "./types";
+import { tryDecodeLifecycleRecommendationItem } from "./materializeLifecycleRecommendation";
+import { deriveLifecycleRecommendationCurrentness } from "./currentness";
+
+export type ProduceLifecycleRecommendationInput = {
+  updateEpistemicState: UpdateEpistemicState;
+  projectId: string;
+  structured:
+    | NoraLifecycleRecommendationStructuredOutput
+    | LifecycleRecommendationCandidate;
+  cycles: readonly CycleInstance[];
+  lpsActiveCycleInstanceId: string | null | undefined;
+  basisRefs: LifecycleRecommendationBasisRefs;
+  producedAt: string;
+  createdBy: EpistemicItem["createdBy"];
+  existingItems: readonly EpistemicItem[];
+  hasTrajectoryContext?: boolean;
+  provenance?: ProvenanceRecord;
+  correlationId?: string;
+};
+
+export type ProduceLifecycleRecommendationResult =
+  | {
+      ok: true;
+      envelope: LifecycleRecommendationEnvelope;
+      item: EpistemicItem;
+      supersededId: string | null;
+    }
+  | { ok: false; code: string; reason: string };
+
+/**
+ * Product path post-model: validate → materialize typed Epistemic → decode envelope.
+ * Used by Fake/deterministic and future REAL boundary alike (R15).
+ */
+export async function produceLifecycleRecommendation(
+  input: ProduceLifecycleRecommendationInput,
+): Promise<ProduceLifecycleRecommendationResult> {
+  if (
+    "authority" in input.structured &&
+    input.structured.authority !== undefined &&
+    input.structured.authority !== "none"
+  ) {
+    return {
+      ok: false,
+      code: "LR_AUTHORITY_FORBIDDEN",
+      reason: "authority_bearing_forbidden",
+    };
+  }
+  if (
+    "isHumanDecision" in input.structured &&
+    input.structured.isHumanDecision !== undefined &&
+    input.structured.isHumanDecision !== false
+  ) {
+    return {
+      ok: false,
+      code: "LR_HD_FORBIDDEN",
+      reason: "recommendation_is_not_human_decision",
+    };
+  }
+
+  const candidate = candidateFromStructuredOutput({
+    intent: input.structured.intent,
+    statement: input.structured.statement,
+    subjectCycleInstanceId: input.structured.subjectCycleInstanceId ?? null,
+    targetCycleInstanceId: input.structured.targetCycleInstanceId ?? null,
+    targetCycleTypeId: input.structured.targetCycleTypeId ?? null,
+    rationale:
+      "rationale" in input.structured
+        ? (input.structured.rationale ?? null)
+        : null,
+  });
+
+  const validated = validateLifecycleRecommendation({
+    projectId: input.projectId,
+    candidate,
+    cycles: input.cycles,
+    lpsActiveCycleInstanceId: input.lpsActiveCycleInstanceId,
+    hasTrajectoryContext: input.hasTrajectoryContext,
+  });
+  if (!validated.ok) {
+    return { ok: false, code: validated.code, reason: validated.reason };
+  }
+
+  const basisRefs: LifecycleRecommendationBasisRefs = {
+    ...validated.basisSeed,
+    projectId: input.projectId,
+  };
+
+  const materialized = await materializeLifecycleRecommendation({
+    updateEpistemicState: input.updateEpistemicState,
+    projectId: input.projectId,
+    validated,
+    basisRefs,
+    producedAt: input.producedAt,
+    createdBy: input.createdBy,
+    existingItems: input.existingItems,
+    provenance: input.provenance,
+    correlationId: input.correlationId,
+  });
+  if (!materialized.ok) {
+    return {
+      ok: false,
+      code: materialized.code,
+      reason: materialized.reason,
+    };
+  }
+
+  const currentness = deriveLifecycleRecommendationCurrentness({
+    item: materialized.item,
+    currentBasisRefs: basisRefs,
+  });
+  const envelope = tryDecodeLifecycleRecommendationItem(
+    materialized.item,
+    currentness,
+  );
+  if (!envelope) {
+    return {
+      ok: false,
+      code: "LR_DECODE_FAILED",
+      reason: "envelope_decode_failed",
+    };
+  }
+
+  if (envelope.basisFingerprint !== computeBasisFingerprint(basisRefs)) {
+    return {
+      ok: false,
+      code: "LR_BASIS_MISMATCH",
+      reason: "basis_fingerprint_mismatch",
+    };
+  }
+
+  return {
+    ok: true,
+    envelope: { ...envelope, basisRefs },
+    item: materialized.item,
+    supersededId: materialized.supersededId,
+  };
+}
+```
+
+## CREATED: `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/types.ts`
+
+```
+```typescript
+/**
+ * Lifecycle Recommendation — Product-side envelope (not Epistemic schema extension alone).
+ * Durable carrier = EpistemicItem type Recommendation + optional typed lifecycleRecommendation.
+ * LR-D01 / LR-D03 Option A — no new table; no JSON-in-statement; no relatedObjects machine protocol.
+ */
+import type { EpistemicLifecycleRecommendation } from "../../domain/types";
+
+export const LIFECYCLE_RECOMMENDATION_INTENTS = [
+  "FINALIZE_CURRENT_CYCLE",
+  "NEXT_CYCLE",
+] as const;
+
+export type LifecycleRecommendationIntent =
+  (typeof LIFECYCLE_RECOMMENDATION_INTENTS)[number];
+
+export type LifecycleRecommendationDerivedCurrentness =
+  | "CURRENT"
+  | "STALE"
+  | "SUPERSEDED";
+
+/** Model/cognition candidate — never Product truth until SFIA validation + materialization. */
+export type LifecycleRecommendationCandidate = {
+  intent: LifecycleRecommendationIntent;
+  statement: string;
+  subjectCycleInstanceId?: string | null;
+  targetCycleInstanceId?: string | null;
+  targetCycleTypeId?: string | null;
+  rationale?: string | null;
+};
+
+export type LifecycleRecommendationBasisRefs =
+  EpistemicLifecycleRecommendation["basisRefs"];
+
+/** Persisted typed payload — aligns with modeled lifecycle-recommendation.schema.json. */
+export type PersistedLifecycleRecommendation = EpistemicLifecycleRecommendation;
+
+export type LifecycleRecommendationEnvelope = {
+  recommendationId: string;
+  projectId: string;
+  intent: LifecycleRecommendationIntent;
+  subjectCycleInstanceId: string | null;
+  targetCycleInstanceId: string | null;
+  targetCycleTypeId: string | null;
+  producer: "nora";
+  producedAt: string;
+  statement: string;
+  basisFingerprint: string;
+  basisRefs: LifecycleRecommendationBasisRefs;
+  semanticKey: string;
+  authority: "none";
+  isHumanDecision: false;
+  doesNotActivateCycle: true;
+  doesNotFinalize: true;
+  doesNotCreateHumanDecision: true;
+  epistemicStatus: "active" | "superseded" | "rejected" | "resolved";
+  supersedesRecommendationId: string | null;
+  /** Derived at read time — never persisted as Epistemic status. */
+  derivedCurrentness: LifecycleRecommendationDerivedCurrentness;
+};
+
+export type NoraLifecycleRecommendationStructuredOutput = {
+  intent: LifecycleRecommendationIntent;
+  statement: string;
+  subjectCycleInstanceId: string | null;
+  targetCycleInstanceId: string | null;
+  targetCycleTypeId: string | null;
+  rationale: string | null;
+  authority: "none";
+  isHumanDecision: false;
+};
+```
+
+## CREATED: `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/validateLifecycleRecommendation.ts`
+
+```
 ```typescript
 import type { CycleInstance } from "../../domain/types";
 import { isTerminalCycleStatus } from "../../domain/lifecycleInvariants";
@@ -851,469 +1259,11 @@ export function validateLifecycleRecommendation(
 
   return { ok: false, code: "LR_INTENT_INVALID", reason: "unknown_intent" };
 }
-
 ```
 
-### CREATED FULL CONTENT — `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/materializeLifecycleRecommendation.ts`
-
-Lines: 182 · Bytes: 6236
-
-```typescript
-import type { EpistemicItem, ProvenanceRecord } from "../../domain/types";
-import type { UpdateEpistemicState } from "../updateEpistemicState";
-import {
-  buildRelatedObjects,
-  computeBasisFingerprint,
-  computeSemanticKey,
-  parseLifecycleRecommendationRelatedObjects,
-} from "./relatedObjectsCodec";
-import type {
-  LifecycleRecommendationBasisRefs,
-  LifecycleRecommendationEnvelope,
-} from "./types";
-import type { ValidateLifecycleRecommendationResult } from "./validateLifecycleRecommendation";
-
-export function lifecycleRecommendationEpistemicId(input: {
-  projectId: string;
-  semanticKey: string;
-  producedAt: string;
-}): string {
-  // Stable-ish unique id; supersession uses semanticKey match among active items.
-  const slug = input.semanticKey.slice(0, 16);
-  const ts = input.producedAt.replace(/[^0-9A-Za-z]/g, "").slice(0, 20);
-  return `epi:lr:${slug}:${ts}`;
-}
-
-export function encodeLifecycleRecommendationItem(input: {
-  recommendationId: string;
-  projectId: string;
-  validated: Extract<ValidateLifecycleRecommendationResult, { ok: true }>;
-  basisRefs: LifecycleRecommendationBasisRefs;
-  producedAt: string;
-  createdBy: EpistemicItem["createdBy"];
-  supersedesRecommendationId?: string | null;
-  provenance?: ProvenanceRecord;
-}): EpistemicItem {
-  const basisFingerprint = computeBasisFingerprint(input.basisRefs);
-  const semanticKey = computeSemanticKey({
-    projectId: input.projectId,
-    intent: input.validated.intent,
-    subjectCycleInstanceId: input.validated.subjectCycleInstanceId,
-    targetCycleInstanceId: input.validated.targetCycleInstanceId,
-    targetCycleTypeId: input.validated.targetCycleTypeId,
-  });
-  return {
-    schemaVersion: "0.1.0-oa",
-    epistemicItemId: input.recommendationId,
-    type: "Recommendation",
-    statement: input.validated.statement,
-    status: "active",
-    source: "lifecycle-recommendation:nora",
-    createdBy: structuredClone(input.createdBy),
-    createdAt: input.producedAt,
-    supersedes: input.supersedesRecommendationId ?? undefined,
-    relatedObjects: buildRelatedObjects({
-      projectId: input.projectId,
-      intent: input.validated.intent,
-      subjectCycleInstanceId: input.validated.subjectCycleInstanceId,
-      targetCycleInstanceId: input.validated.targetCycleInstanceId,
-      targetCycleTypeId: input.validated.targetCycleTypeId,
-      basisFingerprint,
-      semanticKey,
-    }),
-    provenance: input.provenance
-      ? structuredClone(input.provenance)
-      : undefined,
-  };
-}
-
-export function tryDecodeLifecycleRecommendationItem(
-  item: EpistemicItem,
-  derivedCurrentness: LifecycleRecommendationEnvelope["derivedCurrentness"],
-): LifecycleRecommendationEnvelope | null {
-  if (item.type !== "Recommendation") return null;
-  if (item.source !== "lifecycle-recommendation:nora") return null;
-  const parsed = parseLifecycleRecommendationRelatedObjects(item.relatedObjects);
-  if (!parsed.intent || !parsed.basisFingerprint || !parsed.semanticKey) {
-    return null;
-  }
-  if (!parsed.projectId) return null;
-
-  return {
-    recommendationId: item.epistemicItemId,
-    projectId: parsed.projectId,
-    intent: parsed.intent,
-    subjectCycleInstanceId: parsed.subjectCycleInstanceId,
-    targetCycleInstanceId: parsed.targetCycleInstanceId,
-    targetCycleTypeId: parsed.targetCycleTypeId,
-    producer: "nora",
-    producedAt: item.createdAt,
-    statement: item.statement,
-    basisFingerprint: parsed.basisFingerprint,
-    basisRefs: { projectId: parsed.projectId },
-    semanticKey: parsed.semanticKey,
-    authority: "none",
-    isHumanDecision: false,
-    doesNotActivateCycle: true,
-    doesNotFinalize: true,
-    doesNotCreateHumanDecision: true,
-    epistemicStatus: item.status,
-    supersedesRecommendationId: item.supersedes ?? null,
-    derivedCurrentness,
-  };
-}
-
-export async function materializeLifecycleRecommendation(input: {
-  updateEpistemicState: UpdateEpistemicState;
-  projectId: string;
-  validated: Extract<ValidateLifecycleRecommendationResult, { ok: true }>;
-  basisRefs: LifecycleRecommendationBasisRefs;
-  producedAt: string;
-  createdBy: EpistemicItem["createdBy"];
-  existingItems: readonly EpistemicItem[];
-  provenance?: ProvenanceRecord;
-  correlationId?: string;
-}): Promise<
-  | { ok: true; item: EpistemicItem; supersededId: string | null }
-  | { ok: false; code: string; reason: string }
-> {
-  const semanticKey = computeSemanticKey({
-    projectId: input.projectId,
-    intent: input.validated.intent,
-    subjectCycleInstanceId: input.validated.subjectCycleInstanceId,
-    targetCycleInstanceId: input.validated.targetCycleInstanceId,
-    targetCycleTypeId: input.validated.targetCycleTypeId,
-  });
-
-  const priorActive = input.existingItems.find((e) => {
-    if (e.type !== "Recommendation" || e.status !== "active") return false;
-    if (e.source !== "lifecycle-recommendation:nora") return false;
-    const p = parseLifecycleRecommendationRelatedObjects(e.relatedObjects);
-    return p.semanticKey === semanticKey;
-  });
-
-  const recommendationId = lifecycleRecommendationEpistemicId({
-    projectId: input.projectId,
-    semanticKey,
-    producedAt: input.producedAt,
-  });
-
-  const item = encodeLifecycleRecommendationItem({
-    recommendationId,
-    projectId: input.projectId,
-    validated: input.validated,
-    basisRefs: input.basisRefs,
-    producedAt: input.producedAt,
-    createdBy: input.createdBy,
-    supersedesRecommendationId: priorActive?.epistemicItemId ?? null,
-    provenance: input.provenance,
-  });
-
-  const result = await input.updateEpistemicState.execute({
-    projectId: input.projectId,
-    createdBy: input.createdBy,
-    correlationId: input.correlationId,
-    items: [
-      {
-        epistemicItemId: item.epistemicItemId,
-        type: "Recommendation",
-        statement: item.statement,
-        status: "active",
-        source: item.source,
-        supersedes: item.supersedes,
-        relatedObjects: item.relatedObjects,
-        provenance: item.provenance,
-      },
-    ],
-  });
-
-  if (!result.ok) {
-    return {
-      ok: false,
-      code: result.error.detailCode,
-      reason: result.error.internalCauseRef ?? "materialize_failed",
-    };
-  }
-
-  return {
-    ok: true,
-    item,
-    supersededId: priorActive?.epistemicItemId ?? null,
-  };
-}
+## CREATED: `projects/sfia-studio/app/lib/nora-cognitive-runtime/noraLifecycleRecommendationOutputType.ts`
 
 ```
-
-### CREATED FULL CONTENT — `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/currentness.ts`
-
-Lines: 83 · Bytes: 3184
-
-```typescript
-import type { CycleInstance, EpistemicItem } from "../../domain/types";
-import {
-  computeBasisFingerprint,
-  parseLifecycleRecommendationRelatedObjects,
-} from "./relatedObjectsCodec";
-import type {
-  LifecycleRecommendationBasisRefs,
-  LifecycleRecommendationDerivedCurrentness,
-  LifecycleRecommendationEnvelope,
-} from "./types";
-import { tryDecodeLifecycleRecommendationItem } from "./materializeLifecycleRecommendation";
-
-export function deriveLifecycleRecommendationCurrentness(input: {
-  item: EpistemicItem;
-  currentBasisRefs: LifecycleRecommendationBasisRefs;
-}): LifecycleRecommendationDerivedCurrentness {
-  if (input.item.status === "superseded") return "SUPERSEDED";
-  if (input.item.status === "rejected" || input.item.status === "resolved") {
-    return "STALE";
-  }
-  const parsed = parseLifecycleRecommendationRelatedObjects(
-    input.item.relatedObjects,
-  );
-  if (!parsed.basisFingerprint) return "STALE";
-  const now = computeBasisFingerprint(input.currentBasisRefs);
-  return now === parsed.basisFingerprint ? "CURRENT" : "STALE";
-}
-
-/** Rebuild the validation basisSeed shape from current Product facts. */
-export function rebuildBasisRefsForRecommendation(input: {
-  item: EpistemicItem;
-  cycles: readonly CycleInstance[];
-  lpsActiveCycleInstanceId: string | null | undefined;
-}): LifecycleRecommendationBasisRefs {
-  const parsed = parseLifecycleRecommendationRelatedObjects(
-    input.item.relatedObjects,
-  );
-  const subjectId = parsed.subjectCycleInstanceId;
-  const targetId = parsed.targetCycleInstanceId;
-  const subject = subjectId
-    ? input.cycles.find((c) => c.cycleInstanceId === subjectId)
-    : undefined;
-  return {
-    projectId: parsed.projectId ?? input.cycles[0]?.projectId ?? "",
-    subjectCycleInstanceId: subjectId,
-    subjectCycleStatus: subject?.status ?? null,
-    targetCycleInstanceId: targetId,
-    targetCycleTypeId: parsed.targetCycleTypeId,
-    lpsActiveCycleInstanceId: input.lpsActiveCycleInstanceId ?? null,
-  };
-}
-
-export function selectCurrentLifecycleRecommendations(input: {
-  items: readonly EpistemicItem[];
-  cycles: readonly CycleInstance[];
-  lpsActiveCycleInstanceId: string | null | undefined;
-}): LifecycleRecommendationEnvelope[] {
-  const decoded: LifecycleRecommendationEnvelope[] = [];
-  for (const item of input.items) {
-    if (item.type !== "Recommendation") continue;
-    if (item.source !== "lifecycle-recommendation:nora") continue;
-    const basis = rebuildBasisRefsForRecommendation({
-      item,
-      cycles: input.cycles,
-      lpsActiveCycleInstanceId: input.lpsActiveCycleInstanceId,
-    });
-    const currentness = deriveLifecycleRecommendationCurrentness({
-      item,
-      currentBasisRefs: basis,
-    });
-    const env = tryDecodeLifecycleRecommendationItem(item, currentness);
-    if (env) decoded.push({ ...env, basisRefs: basis });
-  }
-
-  const current = decoded.filter((d) => d.derivedCurrentness === "CURRENT");
-  const byKey = new Map<string, LifecycleRecommendationEnvelope>();
-  for (const env of current.sort((a, b) =>
-    a.producedAt < b.producedAt ? 1 : -1,
-  )) {
-    if (!byKey.has(env.semanticKey)) byKey.set(env.semanticKey, env);
-  }
-  return [...byKey.values()];
-}
-
-```
-
-### CREATED FULL CONTENT — `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/produceLifecycleRecommendation.ts`
-
-Lines: 153 · Bytes: 4866
-
-```typescript
-import type { EpistemicItem, ProvenanceRecord } from "../../domain/types";
-import type { CycleInstance } from "../../domain/types";
-import type { UpdateEpistemicState } from "../updateEpistemicState";
-import {
-  computeBasisFingerprint,
-  candidateFromStructuredOutput,
-} from "./relatedObjectsCodec";
-import { materializeLifecycleRecommendation } from "./materializeLifecycleRecommendation";
-import { validateLifecycleRecommendation } from "./validateLifecycleRecommendation";
-import type {
-  LifecycleRecommendationBasisRefs,
-  LifecycleRecommendationCandidate,
-  LifecycleRecommendationEnvelope,
-  NoraLifecycleRecommendationStructuredOutput,
-} from "./types";
-import { tryDecodeLifecycleRecommendationItem } from "./materializeLifecycleRecommendation";
-import { deriveLifecycleRecommendationCurrentness } from "./currentness";
-
-export type ProduceLifecycleRecommendationInput = {
-  updateEpistemicState: UpdateEpistemicState;
-  projectId: string;
-  /** Structured candidate from Nora outputType (or deterministic Fake boundary). */
-  structured: NoraLifecycleRecommendationStructuredOutput | LifecycleRecommendationCandidate;
-  cycles: readonly CycleInstance[];
-  lpsActiveCycleInstanceId: string | null | undefined;
-  basisRefs: LifecycleRecommendationBasisRefs;
-  producedAt: string;
-  createdBy: EpistemicItem["createdBy"];
-  existingItems: readonly EpistemicItem[];
-  hasTrajectoryContext?: boolean;
-  provenance?: ProvenanceRecord;
-  correlationId?: string;
-};
-
-export type ProduceLifecycleRecommendationResult =
-  | {
-      ok: true;
-      envelope: LifecycleRecommendationEnvelope;
-      item: EpistemicItem;
-      supersededId: string | null;
-    }
-  | { ok: false; code: string; reason: string };
-
-/**
- * Product path post-model: validate → materialize → decode envelope.
- * Used by Fake/deterministic and future REAL boundary alike (R15).
- */
-export async function produceLifecycleRecommendation(
-  input: ProduceLifecycleRecommendationInput,
-): Promise<ProduceLifecycleRecommendationResult> {
-  if (
-    "authority" in input.structured &&
-    input.structured.authority !== undefined &&
-    input.structured.authority !== "none"
-  ) {
-    return {
-      ok: false,
-      code: "LR_AUTHORITY_FORBIDDEN",
-      reason: "authority_bearing_forbidden",
-    };
-  }
-  if (
-    "isHumanDecision" in input.structured &&
-    input.structured.isHumanDecision !== undefined &&
-    input.structured.isHumanDecision !== false
-  ) {
-    return {
-      ok: false,
-      code: "LR_HD_FORBIDDEN",
-      reason: "recommendation_is_not_human_decision",
-    };
-  }
-
-  const candidate = candidateFromStructuredOutput({
-    intent: input.structured.intent,
-    statement: input.structured.statement,
-    subjectCycleInstanceId: input.structured.subjectCycleInstanceId ?? null,
-    targetCycleInstanceId: input.structured.targetCycleInstanceId ?? null,
-    targetCycleTypeId: input.structured.targetCycleTypeId ?? null,
-    rationale:
-      "rationale" in input.structured
-        ? (input.structured.rationale ?? null)
-        : null,
-  });
-
-  const validated = validateLifecycleRecommendation({
-    projectId: input.projectId,
-    candidate,
-    cycles: input.cycles,
-    lpsActiveCycleInstanceId: input.lpsActiveCycleInstanceId,
-    hasTrajectoryContext: input.hasTrajectoryContext,
-  });
-  if (!validated.ok) {
-    return { ok: false, code: validated.code, reason: validated.reason };
-  }
-
-  // Fingerprint from validation seed only — read-path rebuild must mirror these fields.
-  const basisRefs: LifecycleRecommendationBasisRefs = {
-    ...validated.basisSeed,
-    projectId: input.projectId,
-  };
-
-  const materialized = await materializeLifecycleRecommendation({
-    updateEpistemicState: input.updateEpistemicState,
-    projectId: input.projectId,
-    validated,
-    basisRefs,
-    producedAt: input.producedAt,
-    createdBy: input.createdBy,
-    existingItems: input.existingItems,
-    provenance: input.provenance,
-    correlationId: input.correlationId,
-  });
-  if (!materialized.ok) {
-    return {
-      ok: false,
-      code: materialized.code,
-      reason: materialized.reason,
-    };
-  }
-
-  const currentness = deriveLifecycleRecommendationCurrentness({
-    item: materialized.item,
-    currentBasisRefs: basisRefs,
-  });
-  const envelope = tryDecodeLifecycleRecommendationItem(
-    materialized.item,
-    currentness,
-  );
-  if (!envelope) {
-    return {
-      ok: false,
-      code: "LR_DECODE_FAILED",
-      reason: "envelope_decode_failed",
-    };
-  }
-
-  // Ensure basisFingerprint matches what we stored.
-  if (envelope.basisFingerprint !== computeBasisFingerprint(basisRefs)) {
-    return {
-      ok: false,
-      code: "LR_BASIS_MISMATCH",
-      reason: "basis_fingerprint_mismatch",
-    };
-  }
-
-  return {
-    ok: true,
-    envelope: { ...envelope, basisRefs },
-    item: materialized.item,
-    supersededId: materialized.supersededId,
-  };
-}
-
-```
-
-### CREATED FULL CONTENT — `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/index.ts`
-
-Lines: 6 · Bytes: 250
-
-```typescript
-export * from "./types";
-export * from "./relatedObjectsCodec";
-export * from "./validateLifecycleRecommendation";
-export * from "./materializeLifecycleRecommendation";
-export * from "./currentness";
-export * from "./produceLifecycleRecommendation";
-
-```
-
-### CREATED FULL CONTENT — `projects/sfia-studio/app/lib/nora-cognitive-runtime/noraLifecycleRecommendationOutputType.ts`
-
-Lines: 52 · Bytes: 1792
-
 ```typescript
 import type { NoraLifecycleRecommendationStructuredOutput } from "@/lib/oa/cycle/application/lifecycleRecommendation/types";
 
@@ -1367,14 +1317,12 @@ export function isNoraLifecycleRecommendationStructuredOutput(
   if (o.isHumanDecision !== false) return false;
   return true;
 }
-
 ```
 
-### CREATED FULL CONTENT — `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx`
+## CREATED: `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx`
 
-Lines: 251 · Bytes: 8054
-
-```typescript
+```
+```tsx
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
@@ -1626,13 +1574,11 @@ export function LifecycleSurface({
     </aside>
   );
 }
-
 ```
 
-### CREATED FULL CONTENT — `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.module.css`
+## CREATED: `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.module.css`
 
-Lines: 125 · Bytes: 2046
-
+```
 ```css
 .panel {
   display: flex;
@@ -1759,13 +1705,11 @@ Lines: 125 · Bytes: 2046
   outline: 2px solid var(--pm6-forest);
   outline-offset: 2px;
 }
-
 ```
 
-### CREATED FULL CONTENT — `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts`
+## CREATED: `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts`
 
-Lines: 118 · Bytes: 3672
-
+```
 ```typescript
 import type { PilotLifecycleProjection } from "@/lib/oa/cycle";
 import type { LifecycleRecommendationEnvelope } from "@/lib/oa/cycle";
@@ -1885,13 +1829,11 @@ export function lifecycleCtaPresentation(projection: PilotLifecycleProjection): 
     resumeEnabled: projection.cta.canResume && resumeClean && !dirtyResume,
   };
 }
-
 ```
 
-### CREATED FULL CONTENT — `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecycleVisualContract.ts`
+## CREATED: `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecycleVisualContract.ts`
 
-Lines: 30 · Bytes: 1542
-
+```
 ```typescript
 /**
  * Visual contract — LifecycleSurface (pre-UI code).
@@ -1923,22 +1865,21 @@ export const LIFECYCLE_SURFACE_VISUAL_CONTRACT = {
   decisionLabel: "Décision Pilote requise",
   antiClaim: "PNG = visual evidence only; not Product SoT",
 } as const;
-
 ```
 
-### CREATED FULL CONTENT — `projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.delivery.d0.test.ts`
+## CREATED: `projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.delivery.d0.test.ts`
 
-Lines: 442 · Bytes: 14253
-
+```
 ```typescript
 /**
- * Lifecycle Recommendation Product Delivery — R1–R15 deterministic proofs.
- * ZERO REAL — ScriptedModel / structured candidate on same post-model path.
+ * Lifecycle Recommendation Correction Delivery — R1–R15 + R10-A..H.
+ * ZERO REAL — ScriptedModel / typed Epistemic Option A / authoritative resume.
  * @vitest-environment node
  */
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import Ajv from "ajv";
 import { afterEach, describe, expect, it } from "vitest";
 import { ScriptedModel, assistantMessage } from "@openai/agents/testing";
 import {
@@ -1953,16 +1894,21 @@ import {
   type SqliteProductProjectServices,
 } from "@/lib/oa/project";
 import {
+  assessResumeReconciliation,
+  buildPauseReconciliationSnapshot,
   createSqliteCycleServices,
   produceLifecycleRecommendation,
   projectPilotLifecycle,
   resumeReplanSubjectFor,
   selectCurrentLifecycleRecommendations,
+  trajectoryFingerprint,
   validateLifecycleRecommendation,
 } from "@/lib/oa/cycle";
 import {
   createSqliteDecisionServices,
   MemoryAuthorityResolver,
+  registerLocalPiloteAuthority,
+  LOCAL_PILOTE_ACTOR,
   type DecisionServices,
 } from "@/lib/oa/decision";
 import { runNoraAgentsTurn } from "@/lib/nora-cognitive-runtime/runNoraAgentsTurn";
@@ -1970,6 +1916,12 @@ import {
   NORA_LIFECYCLE_RECOMMENDATION_OUTPUT_TYPE,
   isNoraLifecycleRecommendationStructuredOutput,
 } from "@/lib/nora-cognitive-runtime/noraLifecycleRecommendationOutputType";
+import {
+  getRuntimeApplicationService,
+  resetRuntimeApplicationServiceForTests,
+} from "@/lib/vertical-slice-runtime";
+import type { LocalProjectIdSource } from "@/lib/vertical-slice-core";
+import { projectAssistantPilotLifecycleProjection } from "@/features/project-assistant/actions";
 
 const APP_ROOT = path.resolve(__dirname, "../../..");
 const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
@@ -2001,10 +1953,22 @@ const NORA_BY = {
   authorityLevel: "N1" as const,
 };
 
+const STEPS_PENDING = [
+  { stepId: "stp:clarify", order: 1, label: "Clarify", state: "pending" as const },
+  {
+    stepId: "stp:decide",
+    order: 2,
+    label: "Decide",
+    state: "pending" as const,
+    dependencies: ["stp:clarify"],
+  },
+];
+
 const tempDirs: string[] = [];
 const openServices: Array<{ dispose: () => void }> = [];
 
 afterEach(() => {
+  resetRuntimeApplicationServiceForTests();
   while (openServices.length) {
     openServices.pop()?.dispose();
   }
@@ -2015,9 +1979,36 @@ afterEach(() => {
 });
 
 function tempDbPath(name: string): string {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-lr-"));
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-lr-corr-"));
   tempDirs.push(dir);
   return path.join(dir, name);
+}
+
+function loadJson(rel: string): object {
+  return JSON.parse(fs.readFileSync(path.join(SCHEMAS, rel), "utf8")) as object;
+}
+
+function createEpistemicAjv(): Ajv.Ajv {
+  const ajv = new Ajv({
+    allErrors: true,
+    schemaId: "auto",
+    meta: true,
+    validateSchema: true,
+    format: "full",
+    unknownFormats: "ignore",
+  });
+  for (const f of [
+    "common/digest.schema.json",
+    "common/identifier.schema.json",
+    "common/timestamp.schema.json",
+    "common/actor-reference.schema.json",
+    "common/provenance-record.schema.json",
+  ]) {
+    ajv.addSchema(loadJson(f));
+  }
+  ajv.addSchema(loadJson("epistemic/lifecycle-recommendation.schema.json"));
+  ajv.addSchema(loadJson("epistemic/epistemic-item.schema.json"));
+  return ajv;
 }
 
 function authorityAdapter(authority: MemoryAuthorityResolver) {
@@ -2081,9 +2072,9 @@ async function seedProject(
 ) {
   const created = await project.createProject.execute({
     projectId,
-    title: "LR Delivery",
+    title: "LR Correction",
     objective: "lifecycle recommendation",
-    context: "lr-delivery",
+    context: "lr-corr",
     scope: "pilot-lifecycle",
     doctrinePackagePin: VALID_PIN,
     createdBy: ACTOR,
@@ -2109,8 +2100,58 @@ async function createCandidate(
   });
 }
 
-describe("Lifecycle Recommendation Delivery R1–R15", () => {
-  it("R1+R2+R12+R15 — FINALIZE and NEXT_CYCLE via same Nora Runner outputType path", async () => {
+describe("Lifecycle Recommendation Correction Delivery", () => {
+  it("schema Option A — additive optional field; schemaVersion 0.1.0-oa; backward compatible", () => {
+    const ajv = createEpistemicAjv();
+    const validate = ajv.getSchema(
+      "https://sfia.local/schemas/v3-modeled/v3-native-option-a/epistemic/epistemic-item.schema.json",
+    );
+    expect(validate).toBeTruthy();
+    if (!validate) return;
+
+    const baseItem = {
+      schemaVersion: "0.1.0-oa",
+      epistemicItemId: "epi:hist-1",
+      type: "Recommendation",
+      statement: "Historical non-lifecycle recommendation.",
+      status: "active",
+      createdBy: {
+        actorId: "actor:morris",
+        role: "project_owner",
+        displayName: "Morris",
+        authorityLevel: "N3",
+      },
+      createdAt: "2026-09-08T08:00:00.000Z",
+      relatedObjects: ["prj:hist"],
+    };
+    expect(validate(baseItem)).toBe(true);
+
+    const withLr = {
+      ...baseItem,
+      epistemicItemId: "epi:lr-1",
+      lifecycleRecommendation: {
+        intent: "FINALIZE_CURRENT_CYCLE",
+        basisFingerprint: "a".repeat(64),
+        basisRefs: { projectId: "prj:hist" },
+        semanticKey: "b".repeat(32),
+        subjectCycleInstanceId: "cyc:hist",
+        targetCycleInstanceId: null,
+        targetCycleTypeId: null,
+        authority: "none",
+      },
+    };
+    expect(validate(withLr)).toBe(true);
+
+    const unknownExtra = { ...baseItem, unexpectedField: true };
+    expect(validate(unknownExtra)).toBe(false);
+
+    const schema = loadJson("epistemic/epistemic-item.schema.json") as {
+      properties: { schemaVersion: { const: string } };
+    };
+    expect(schema.properties.schemaVersion.const).toBe("0.1.0-oa");
+  });
+
+  it("R1+R2+R12 — FINALIZE and NEXT_CYCLE via same Nora Runner outputType", async () => {
     const finalizePayload = {
       intent: "FINALIZE_CURRENT_CYCLE",
       statement: "Envisager la finalisation du cycle actif.",
@@ -2121,17 +2162,6 @@ describe("Lifecycle Recommendation Delivery R1–R15", () => {
       authority: "none",
       isHumanDecision: false,
     };
-    const nextPayload = {
-      intent: "NEXT_CYCLE",
-      statement: "Envisager un prochain cycle UX.",
-      subjectCycleInstanceId: null,
-      targetCycleInstanceId: null,
-      targetCycleTypeId: "cyc:ux-ui",
-      rationale: null,
-      authority: "none",
-      isHumanDecision: false,
-    };
-
     const r1 = await runNoraAgentsTurn({
       correlationId: "cor:lr-r1",
       projectId: "prj:lr-r1",
@@ -2148,14 +2178,21 @@ describe("Lifecycle Recommendation Delivery R1–R15", () => {
       r1.structuredOutput,
     )
       ? r1.structuredOutput
-      : (JSON.parse(r1.text || "{}") as typeof finalizePayload);
+      : JSON.parse(r1.text || "{}");
     expect(structured1.intent).toBe("FINALIZE_CURRENT_CYCLE");
 
+    const nextPayload = {
+      ...finalizePayload,
+      intent: "NEXT_CYCLE",
+      statement: "Envisager un prochain cycle UX.",
+      subjectCycleInstanceId: null,
+      targetCycleTypeId: "cyc:ux-ui",
+    };
     const r2 = await runNoraAgentsTurn({
       correlationId: "cor:lr-r2",
       projectId: "prj:lr-r2",
       systemInstructions: "Emit lifecycle recommendation JSON only.",
-      userContent: "Recommend next cycle",
+      userContent: "Recommend next",
       enableTools: false,
       model: new ScriptedModel([
         [assistantMessage(JSON.stringify(nextPayload))],
@@ -2166,7 +2203,7 @@ describe("Lifecycle Recommendation Delivery R1–R15", () => {
       r2.structuredOutput,
     )
       ? r2.structuredOutput
-      : (JSON.parse(r2.text || "{}") as typeof nextPayload);
+      : JSON.parse(r2.text || "{}");
     expect(structured2.intent).toBe("NEXT_CYCLE");
     expect(r1.cognitiveRuntime).toBe(r2.cognitiveRuntime);
   });
@@ -2189,21 +2226,9 @@ describe("Lifecycle Recommendation Delivery R1–R15", () => {
         lpsActiveCycleInstanceId: "cyc:lr-r3",
       }).ok,
     ).toBe(false);
-    expect(
-      validateLifecycleRecommendation({
-        projectId: "prj:lr-r3",
-        candidate: {
-          intent: "FINALIZE_CURRENT_CYCLE",
-          statement: "x",
-          subjectCycleInstanceId: "cyc:missing",
-        },
-        cycles,
-        lpsActiveCycleInstanceId: "cyc:lr-r3",
-      }).ok,
-    ).toBe(false);
   });
 
-  it("R4+R5+R6+R7+R13 — durable Epistemic, currentness, supersession, no cycle mutation", async () => {
+  it("R4+R5+R6+R7+R13+R15 — typed Epistemic durability, no lr:* protocol", async () => {
     const dbPath = tempDbPath("r4.sqlite");
     const stack = buildStack(dbPath);
     await seedProject(stack.project, "prj:lr-r4");
@@ -2233,13 +2258,20 @@ describe("Lifecycle Recommendation Delivery R1–R15", () => {
     });
     expect(produced.ok).toBe(true);
     if (!produced.ok) return;
+    expect(produced.item.lifecycleRecommendation).toBeTruthy();
     expect(produced.item.statement.includes("{")).toBe(false);
+    expect(JSON.stringify(produced.item.relatedObjects ?? [])).not.toMatch(
+      /lr:(intent|basis|semkey|subject|target|targettype):/,
+    );
     expect(produced.envelope.derivedCurrentness).toBe("CURRENT");
 
     cycles = await stack.cycles.cycles.listByProject("prj:lr-r4");
     expect(cycles[0]!.status).toBe(before.status);
 
     const items = await stack.cycles.epistemic.listByProject("prj:lr-r4");
+    expect(items[0]?.lifecycleRecommendation?.intent).toBe(
+      "FINALIZE_CURRENT_CYCLE",
+    );
     const reloaded = selectCurrentLifecycleRecommendations({
       items,
       cycles,
@@ -2252,7 +2284,7 @@ describe("Lifecycle Recommendation Delivery R1–R15", () => {
       projectId: "prj:lr-r4",
       structured: {
         intent: "FINALIZE_CURRENT_CYCLE",
-        statement: "Nouvelle recommandation de finalisation.",
+        statement: "Nouvelle recommandation.",
         subjectCycleInstanceId: "cyc:lr-r4",
         targetCycleInstanceId: null,
         targetCycleTypeId: null,
@@ -2269,7 +2301,6 @@ describe("Lifecycle Recommendation Delivery R1–R15", () => {
     });
     expect(second.ok).toBe(true);
     if (!second.ok) return;
-
     const afterSuper = await stack.cycles.epistemic.listByProject("prj:lr-r4");
     const current = selectCurrentLifecycleRecommendations({
       items: afterSuper,
@@ -2280,10 +2311,10 @@ describe("Lifecycle Recommendation Delivery R1–R15", () => {
     expect(current[0]!.recommendationId).toBe(
       second.envelope.recommendationId,
     );
-    const prior = afterSuper.find(
-      (i) => i.epistemicItemId === produced.envelope.recommendationId,
-    );
-    expect(prior?.status).toBe("superseded");
+    expect(
+      afterSuper.find((i) => i.epistemicItemId === produced.envelope.recommendationId)
+        ?.status,
+    ).toBe("superseded");
 
     const mutated = { ...cycles[0]!, status: "paused" as const };
     await stack.cycles.cycles.save(mutated);
@@ -2295,7 +2326,7 @@ describe("Lifecycle Recommendation Delivery R1–R15", () => {
     expect(stale.every((s) => s.derivedCurrentness !== "CURRENT")).toBe(true);
   });
 
-  it("R8 — NEXT_CYCLE does not create/start Cycle", async () => {
+  it("R8 — NEXT_CYCLE does not create Cycle", async () => {
     const dbPath = tempDbPath("r8.sqlite");
     const stack = buildStack(dbPath);
     await seedProject(stack.project, "prj:lr-r8");
@@ -2326,36 +2357,25 @@ describe("Lifecycle Recommendation Delivery R1–R15", () => {
     expect(after.length).toBe(before.length);
   });
 
-  it("R9+R14 — Recommendation ≠ eligibility; projection distinguishes", () => {
-    const cycles = [
-      {
-        schemaVersion: "0.1.0-oa" as const,
-        cycleInstanceId: "cyc:lr-r9",
-        projectId: "prj:lr-r9",
-        cycleTypeId: "cyc:delivery",
-        profile: "Standard" as const,
-        status: "active" as const,
-        createdAt: "2026-09-08T08:00:00.000Z",
-        updatedAt: "2026-09-08T08:00:00.000Z",
-        createdBy: ACTOR,
-      },
-    ];
+  it("R9+R14 — Recommendation ≠ eligibility; surface has no model calls", () => {
     const projection = projectPilotLifecycle({
       projectId: "prj:lr-r9",
-      cycles,
+      cycles: [
+        {
+          schemaVersion: "0.1.0-oa",
+          cycleInstanceId: "cyc:lr-r9",
+          projectId: "prj:lr-r9",
+          cycleTypeId: "cyc:delivery",
+          profile: "Standard",
+          status: "active",
+          createdAt: "2026-09-08T08:00:00.000Z",
+        },
+      ],
       lpsActiveCycleInstanceId: "cyc:lr-r9",
       currentRecommendations: [],
     });
     expect(projection.cta.canFinalize).toBe(true);
     expect(projection.currentRecommendations ?? []).toHaveLength(0);
-  });
-
-  it("R10 — resume+replan HD subject never claims drift clearance", () => {
-    expect(resumeReplanSubjectFor("cyc:x")).toContain("cyc:x");
-    expect(resumeReplanSubjectFor("cyc:x")).not.toMatch(/CLEAR|bypass/i);
-  });
-
-  it("R11 — TrajectorySurface reused; LifecycleSurface has no model calls", () => {
     const src = fs.readFileSync(
       path.join(
         APP_ROOT,
@@ -2363,8 +2383,16 @@ describe("Lifecycle Recommendation Delivery R1–R15", () => {
       ),
       "utf8",
     );
-    expect(src).toContain("onEscalateTrajectory");
     expect(src).not.toMatch(/runNoraAgentsTurn|openai|completeRound/);
+    expect(src).not.toMatch(/pause_snapshot_present/);
+  });
+
+  it("R10-F — replan HD subject never claims drift clearance", () => {
+    expect(resumeReplanSubjectFor("cyc:x")).toContain("cyc:x");
+    expect(resumeReplanSubjectFor("cyc:x")).not.toMatch(/CLEAR|bypass/i);
+  });
+
+  it("R11 — TrajectorySurface reused", () => {
     const ws = fs.readFileSync(
       path.join(APP_ROOT, "features/pre-m6-product-ui/ProjectWorkspacePage.tsx"),
       "utf8",
@@ -2372,19 +2400,1625 @@ describe("Lifecycle Recommendation Delivery R1–R15", () => {
     expect(ws).toContain("LifecycleSurface");
     expect(ws).toContain("TrajectorySurface");
   });
+
+  it("lr:* protocol retired from Product implementation", () => {
+    const root = path.join(APP_ROOT, "lib/oa/cycle/application/lifecycleRecommendation");
+    const files = fs.readdirSync(root).map((f) => path.join(root, f));
+    files.push(
+      path.join(APP_ROOT, "features/project-assistant/actions.ts"),
+      path.join(APP_ROOT, "lib/oa/cycle/domain/types.ts"),
+    );
+    for (const f of files) {
+      if (!fs.existsSync(f) || fs.statSync(f).isDirectory()) continue;
+      const text = fs.readFileSync(f, "utf8");
+      expect(text).not.toMatch(/lr:intent:/);
+      expect(text).not.toMatch(/lr:basis:/);
+      expect(text).not.toMatch(/lr:semkey:/);
+      expect(text).not.toMatch(/lr:subject:/);
+      expect(text).not.toMatch(/lr:target:/);
+      expect(text).not.toMatch(/lr:targettype:/);
+    }
+    expect(
+      fs.existsSync(path.join(root, "relatedObjectsCodec.ts")),
+    ).toBe(false);
+  });
 });
 
+describe("R10 authoritative RESUME projection", () => {
+  class FixedIdSource implements LocalProjectIdSource {
+    private n = 0;
+    nextProjectId(): string {
+      this.n += 1;
+      return `prj:lr-r10-${this.n}`;
+    }
+    nextLpsVersionId(): string {
+      return `lps:lr-r10-${this.n}`;
+    }
+    nextCorrelationId(): string {
+      return `cor:lr-r10-${this.n}`;
+    }
+  }
+
+  async function bootPausedProject(suffix: string) {
+    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+    process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
+    resetRuntimeApplicationServiceForTests();
+    // Must use process singleton — PA projection reads getRuntimeApplicationService().
+    const runtime = getRuntimeApplicationService({
+      registryRoot: FIXTURES,
+      schemasRoot: SCHEMAS,
+      nowIso: "2026-09-08T08:00:00.000Z",
+      idSource: new FixedIdSource(),
+      auditMode: "noop",
+      productDbPath: tempDbPath(`r10-${suffix}.sqlite`),
+    });
+    expect(runtime.oa).toBeTruthy();
+    if (!runtime.oa) throw new Error("oa missing");
+    const created = await runtime.createProject({
+      name: `LR R10 ${suffix}`,
+      objective: "lifecycle",
+      context: "lr-r10",
+      criticality: "STANDARD",
+      constraints: [],
+      shortReference: `R10${suffix}`,
+      idempotencyKey: `idem:lr-r10-${suffix}`,
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) throw new Error("create failed");
+    const projectId = created.projectId;
+    const oa = runtime.oa;
+    const traj = await oa.cycleServices.createInitialTrajectory.execute({
+      trajectoryId: `trj:${projectId}`,
+      projectId,
+      steps: STEPS_PENDING,
+      status: "active",
+      expectedLpsVersion: created.livingState.version,
+      createdBy: ACTOR,
+    });
+    expect(traj.ok).toBe(true);
+    const cycleInstanceId = `cyc:lr-r10-${suffix}`;
+    const cycle = await oa.cycleServices.createCycle.execute({
+      cycleInstanceId,
+      cycleTypeId: "cyc:delivery",
+      projectId,
+      signals: { lowRiskBounded: true },
+      createdBy: NORA_BY,
+      linkAsActiveCycle: false,
+    });
+    expect(cycle.ok).toBe(true);
+    const auth = registerLocalPiloteAuthority({
+      authorityResolver: oa.authorityResolver,
+      scope: `pilot-lifecycle:${cycleInstanceId}`,
+      issuedAt: "2026-09-08T08:00:00.000Z",
+      forceEnable: true,
+    });
+    expect(auth.ok).toBe(true);
+    if (!auth.ok) throw new Error(auth.message);
+    const start = await oa.cycleServices.pilotLifecycle.start({
+      cycleInstanceId,
+      projectId,
+      createdBy: LOCAL_PILOTE_ACTOR,
+      authorityEvidenceId: auth.evidenceId,
+    });
+    expect(start.ok).toBe(true);
+    const pause = await oa.cycleServices.pilotLifecycle.pause({
+      cycleInstanceId,
+      projectId,
+      createdBy: LOCAL_PILOTE_ACTOR,
+      authorityEvidenceId: auth.evidenceId,
+    });
+    expect(pause.ok).toBe(true);
+    return { runtime, oa, projectId, cycleInstanceId, authEvidenceId: auth.evidenceId };
+  }
+
+  it("R10-A — snapshot present + trajectory changed => projection canResume false", async () => {
+    const ctx = await bootPausedProject("a");
+    // Candidate propose alone does not move getCurrentTrajectory; mutate the
+    // durable current trajectory so the authoritative assessor sees material drift.
+    const current = await ctx.oa.cycleServices.getCurrentTrajectory.execute({
+      projectId: ctx.projectId,
+    });
+    expect(current.ok).toBe(true);
+    if (!current.ok) return;
+    await ctx.oa.cycleServices.trajectories.save({
+      ...current.trajectory,
+      steps: [
+        ...current.trajectory.steps,
+        { stepId: "stp:extra", order: 3, label: "Extra", state: "pending" },
+      ],
+    });
+
+    const proj = await projectAssistantPilotLifecycleProjection({
+      projectId: ctx.projectId,
+    });
+    expect(proj.ok).toBe(true);
+    expect(proj.projection?.resumeReconciliation?.clean).toBe(false);
+    expect(proj.projection?.cta.canResume).toBe(false);
+    expect(proj.projection?.resumeReconciliation?.reason).not.toBe(
+      "pause_snapshot_present",
+    );
+  });
+
+  it("R10-E — clean matching facts => canResume true", async () => {
+    const ctx = await bootPausedProject("e");
+    const proj = await projectAssistantPilotLifecycleProjection({
+      projectId: ctx.projectId,
+    });
+    expect(proj.ok).toBe(true);
+    expect(proj.projection?.resumeReconciliation?.clean).toBe(true);
+    expect(proj.projection?.cta.canResume).toBe(true);
+  });
+
+  it("R10-G — only clean fresh reconciliation restores Resume eligibility", async () => {
+    const ctx = await bootPausedProject("g");
+    const current = await ctx.oa.cycleServices.getCurrentTrajectory.execute({
+      projectId: ctx.projectId,
+    });
+    expect(current.ok).toBe(true);
+    if (!current.ok) return;
+    const originalSteps = current.trajectory.steps;
+    await ctx.oa.cycleServices.trajectories.save({
+      ...current.trajectory,
+      steps: [
+        ...originalSteps,
+        { stepId: "stp:drift", order: 9, label: "Drift", state: "pending" },
+      ],
+    });
+    const dirty = await projectAssistantPilotLifecycleProjection({
+      projectId: ctx.projectId,
+    });
+    expect(dirty.projection?.resumeReconciliation?.clean).toBe(false);
+    expect(dirty.projection?.cta.canResume).toBe(false);
+
+    // Replan HD subject alone never claims clearance (R10-F / R10-G).
+    expect(resumeReplanSubjectFor(ctx.cycleInstanceId)).not.toMatch(
+      /CLEAR|bypass/i,
+    );
+
+    await ctx.oa.cycleServices.trajectories.save({
+      ...current.trajectory,
+      steps: originalSteps,
+    });
+    const restored = await projectAssistantPilotLifecycleProjection({
+      projectId: ctx.projectId,
+    });
+    expect(restored.projection?.resumeReconciliation?.clean).toBe(true);
+    expect(restored.projection?.cta.canResume).toBe(true);
+  });
+
+  it("R10-B/C/D — assessor detects HD/evidence/blocker drift (unit authoritative)", () => {
+    const cycle = {
+      schemaVersion: "0.1.0-oa" as const,
+      cycleInstanceId: "cyc:r10u",
+      projectId: "prj:r10u",
+      cycleTypeId: "cyc:delivery",
+      profile: "Standard" as const,
+      status: "paused" as const,
+      createdAt: "2026-09-08T08:00:00.000Z",
+      pauseReconciliation: buildPauseReconciliationSnapshot({
+        pausedAt: "2026-09-08T08:00:00.000Z",
+        lpsVersion: 2,
+        lpsActiveCycleInstanceId: null,
+        objective: "o",
+        context: "c",
+        scope: "s",
+        doctrinePackageId: VALID_PIN.doctrinePackageId,
+        doctrinePackageVersion: VALID_PIN.version,
+        doctrinePackageDigest: VALID_PIN.digest,
+        trajectory: {
+          schemaVersion: "0.1.0-oa",
+          trajectoryId: "trj:r10u",
+          projectId: "prj:r10u",
+          version: 1,
+          status: "active",
+          steps: STEPS_PENDING,
+        },
+        decisions: [],
+        evidence: [],
+        blockingReservationStatements: [],
+        blockerSnapshotState: "KNOWN",
+        projectId: "prj:r10u",
+        cycleInstanceId: "cyc:r10u",
+      }),
+    };
+    const traj = {
+      schemaVersion: "0.1.0-oa" as const,
+      trajectoryId: "trj:r10u",
+      projectId: "prj:r10u",
+      version: 1,
+      status: "active" as const,
+      steps: STEPS_PENDING,
+    };
+    const dirtyHd = assessResumeReconciliation({
+      cycle,
+      projectId: "prj:r10u",
+      lpsReadable: true,
+      lpsVersion: 2,
+      lpsActiveCycleInstanceId: null,
+      objective: "o",
+      context: "c",
+      scope: "s",
+      doctrinePackageId: VALID_PIN.doctrinePackageId,
+      doctrinePackageVersion: VALID_PIN.version,
+      doctrinePackageDigest: VALID_PIN.digest,
+      trajectory: traj,
+      decisions: [
+        {
+          schemaVersion: "0.1.0-oa",
+          decisionId: "dec:r10u",
+          projectId: "prj:r10u",
+          cycleInstanceId: "cyc:r10u",
+          subject: resumeReplanSubjectFor("cyc:r10u"),
+          status: "accepted",
+          options: [{ optionId: "opt:accept", label: "Accept" }],
+          selectedOptionId: "opt:accept",
+          effectiveAt: "2026-09-08T08:01:00.000Z",
+          reversible: true,
+          actor: LOCAL_PILOTE_ACTOR,
+          authority: "morris",
+        },
+      ],
+      evidence: [],
+      blockingReservationStatements: [],
+      siblingActiveExists: false,
+    });
+    expect(dirtyHd.clean).toBe(false);
+    expect(dirtyHd.driftReasons).toContain("human_decision_material_drift");
+
+    const dirtyEv = assessResumeReconciliation({
+      cycle,
+      projectId: "prj:r10u",
+      lpsReadable: true,
+      lpsVersion: 2,
+      lpsActiveCycleInstanceId: null,
+      objective: "o",
+      context: "c",
+      scope: "s",
+      doctrinePackageId: VALID_PIN.doctrinePackageId,
+      doctrinePackageVersion: VALID_PIN.version,
+      doctrinePackageDigest: VALID_PIN.digest,
+      trajectory: traj,
+      decisions: [],
+      evidence: [
+        {
+          schemaVersion: "0.1.0-oa",
+          evidenceId: "ev:r10u",
+          projectId: "prj:r10u",
+          kind: "artifact",
+          status: "stale",
+          createdAt: "2026-09-08T08:00:00.000Z",
+          createdBy: ACTOR,
+          bindings: { cycleInstanceId: "cyc:r10u" },
+        } as never,
+      ],
+      blockingReservationStatements: [],
+      siblingActiveExists: false,
+    });
+    expect(dirtyEv.clean).toBe(false);
+
+    const dirtyBlock = assessResumeReconciliation({
+      cycle,
+      projectId: "prj:r10u",
+      lpsReadable: true,
+      lpsVersion: 2,
+      lpsActiveCycleInstanceId: null,
+      objective: "o",
+      context: "c",
+      scope: "s",
+      doctrinePackageId: VALID_PIN.doctrinePackageId,
+      doctrinePackageVersion: VALID_PIN.version,
+      doctrinePackageDigest: VALID_PIN.digest,
+      trajectory: traj,
+      decisions: [],
+      evidence: [],
+      blockingReservationStatements: ["new blocker"],
+      siblingActiveExists: false,
+    });
+    expect(dirtyBlock.clean).toBe(false);
+
+    void trajectoryFingerprint;
+  });
+
+  it("R10-H — missing pause snapshot => fail closed at assessor/projection", async () => {
+    const ctx = await bootPausedProject("h");
+    const cyc = await ctx.oa.cycleServices.cycles.findById(ctx.cycleInstanceId);
+    expect(cyc).toBeTruthy();
+    if (!cyc) return;
+    const stripped = { ...cyc, pauseReconciliation: null };
+    await ctx.oa.cycleServices.cycles.save(stripped);
+    const proj = await projectAssistantPilotLifecycleProjection({
+      projectId: ctx.projectId,
+    });
+    expect(proj.projection?.resumeReconciliation?.clean).toBe(false);
+    expect(proj.projection?.cta.canResume).toBe(false);
+  });
+});
 ```
 
+# COMPLETE PRODUCT CONTENT — MODIFIED FILES (FULL USEFUL DIFF)
 
----
+## MODIFIED: `projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/epistemic/epistemic-item.schema.json`
 
-# APPENDIX B — MODIFIED PRODUCT FILES (COMPLETE DIFFS vs HEAD)
+```diff
+diff --git a/projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/epistemic/epistemic-item.schema.json b/projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/epistemic/epistemic-item.schema.json
+index e4b4ea82..5a8dd10e 100644
+--- a/projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/epistemic/epistemic-item.schema.json
++++ b/projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/epistemic/epistemic-item.schema.json
+@@ -79,6 +79,9 @@
+     },
+     "provenance": {
+       "$ref": "../common/provenance-record.schema.json"
++    },
++    "lifecycleRecommendation": {
++      "$ref": "lifecycle-recommendation.schema.json"
+     }
+   }
+ }
+```
 
+### Full current content: `projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/epistemic/epistemic-item.schema.json`
 
-### MODIFIED COMPLETE DIFF vs HEAD — `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx`
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/v3-native-option-a/epistemic/epistemic-item.schema.json",
+  "title": "EpistemicItem",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "epistemicItemId",
+    "type",
+    "statement",
+    "status",
+    "createdBy",
+    "createdAt"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0-oa"
+    },
+    "epistemicItemId": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "Observation",
+        "Hypothesis",
+        "Option",
+        "Recommendation",
+        "DecisionRef",
+        "Reservation",
+        "Contradiction",
+        "EvidenceRef"
+      ]
+    },
+    "statement": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "superseded",
+        "rejected",
+        "resolved"
+      ]
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low",
+        "none"
+      ]
+    },
+    "source": {
+      "type": "string"
+    },
+    "createdBy": {
+      "$ref": "../common/actor-reference.schema.json"
+    },
+    "createdAt": {
+      "$ref": "../common/timestamp.schema.json"
+    },
+    "supersedes": {
+      "$ref": "../common/identifier.schema.json"
+    },
+    "relatedObjects": {
+      "type": "array",
+      "items": {
+        "$ref": "../common/identifier.schema.json"
+      }
+    },
+    "blocking": {
+      "type": "boolean"
+    },
+    "provenance": {
+      "$ref": "../common/provenance-record.schema.json"
+    },
+    "lifecycleRecommendation": {
+      "$ref": "lifecycle-recommendation.schema.json"
+    }
+  }
+}
+```
 
-Diff bytes: 1830
+## MODIFIED: `projects/sfia-studio/app/lib/oa/cycle/domain/types.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/cycle/domain/types.ts b/projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
+index 0a98ae95..54d10b7f 100644
+--- a/projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
++++ b/projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
+@@ -251,6 +251,35 @@ export type ProjectTrajectory = {
+   decidedOptionRef?: string;
+ };
+
++/**
++ * Optional typed Lifecycle Recommendation payload (Option A).
++ * Persisted on EpistemicItem; CURRENT/STALE never stored here.
++ */
++export type EpistemicLifecycleRecommendation = {
++  intent: "FINALIZE_CURRENT_CYCLE" | "NEXT_CYCLE";
++  basisFingerprint: string;
++  basisRefs: {
++    projectId: string;
++    subjectCycleInstanceId?: string | null;
++    subjectCycleStatus?: string | null;
++    targetCycleInstanceId?: string | null;
++    targetCycleTypeId?: string | null;
++    lpsActiveCycleInstanceId?: string | null;
++    lpsVersion?: number | null;
++    trajectoryId?: string | null;
++    trajectoryVersion?: number | null;
++    trajectoryStatus?: string | null;
++    finalizeAccepted?: boolean | null;
++    resumeClean?: boolean | null;
++    reservationBlockingCount?: number | null;
++  };
++  semanticKey: string;
++  subjectCycleInstanceId: string | null;
++  targetCycleInstanceId: string | null;
++  targetCycleTypeId: string | null;
++  authority: "none";
++};
++
+ export type EpistemicItem = {
+   schemaVersion: "0.1.0-oa";
+   epistemicItemId: string;
+@@ -265,6 +294,8 @@ export type EpistemicItem = {
+   relatedObjects?: string[];
+   blocking?: boolean;
+   provenance?: ProvenanceRecord;
++  /** Optional — absent on historical / non-lifecycle Recommendations. */
++  lifecycleRecommendation?: EpistemicLifecycleRecommendation;
+ };
+
+ export type CkcResolution = {
+@@ -385,6 +416,7 @@ export type UpdateEpistemicStateRequest = {
+     relatedObjects?: string[];
+     blocking?: boolean;
+     provenance?: ProvenanceRecord;
++    lifecycleRecommendation?: EpistemicLifecycleRecommendation;
+     /**
+      * Forbidden auto-promotion signal — if true and type is DecisionRef
+      * while superseding a Hypothesis, refused.
+```
+
+## MODIFIED: `projects/sfia-studio/app/lib/oa/cycle/application/updateEpistemicState.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/cycle/application/updateEpistemicState.ts b/projects/sfia-studio/app/lib/oa/cycle/application/updateEpistemicState.ts
+index 8f7e2378..335e282d 100644
+--- a/projects/sfia-studio/app/lib/oa/cycle/application/updateEpistemicState.ts
++++ b/projects/sfia-studio/app/lib/oa/cycle/application/updateEpistemicState.ts
+@@ -133,6 +133,9 @@ export class UpdateEpistemicState {
+             provenance: raw.provenance
+               ? structuredClone(raw.provenance)
+               : undefined,
++            lifecycleRecommendation: raw.lifecycleRecommendation
++              ? structuredClone(raw.lifecycleRecommendation)
++              : undefined,
+           };
+
+           if (this.epistemic.saveForProject) {
+```
+
+### Full current content: `projects/sfia-studio/app/lib/oa/cycle/application/updateEpistemicState.ts`
+
+```typescript
+import { randomBytes } from "node:crypto";
+import type { ClockPort } from "@/lib/oa/doctrine";
+import { createCycleError } from "../domain/errors";
+import {
+  assertNoHypothesisDecisionPromotion,
+  validateEpistemicItemInput,
+} from "../domain/invariants";
+import type {
+  EpistemicItem,
+  UpdateEpistemicResult,
+  UpdateEpistemicStateRequest,
+} from "../domain/types";
+import type { CyclePersistenceUnitOfWorkPort } from "../ports/cyclePersistenceUnitOfWorkPort";
+import type { MemoryEpistemicRepository } from "../infrastructure/memoryEpistemicRepository";
+import type { CycleAuditPort } from "../ports/cycleAudit";
+import type { EpistemicRepositoryPort } from "../ports/epistemicRepository";
+
+function newId(prefix: "cor"): string {
+  return `${prefix}:${randomBytes(8).toString("hex")}`;
+}
+
+/**
+ * UpdateEpistemicState — appends/supersedes items keyed by projectId.
+ * Refuses Hypothesis→DecisionRef auto-promotion.
+ */
+export class UpdateEpistemicState {
+  constructor(
+    private readonly epistemic: EpistemicRepositoryPort &
+      Partial<Pick<MemoryEpistemicRepository, "saveForProject">>,
+    private readonly clock: ClockPort,
+    private readonly audit: CycleAuditPort,
+    private readonly store?: CyclePersistenceUnitOfWorkPort,
+  ) {}
+
+  async execute(
+    request: UpdateEpistemicStateRequest,
+  ): Promise<UpdateEpistemicResult> {
+    const started = Date.now();
+    const timestamp = this.clock.nowIso();
+    const correlationId = request.correlationId ?? newId("cor");
+
+    const fail = (
+      detailCode: Parameters<typeof createCycleError>[0]["detailCode"],
+      internalCauseRef?: string,
+      extra?: Partial<Parameters<typeof createCycleError>[0]>,
+    ): UpdateEpistemicResult => {
+      const durationMs = Date.now() - started;
+      const error = createCycleError({
+        detailCode,
+        timestamp,
+        correlationId,
+        projectId: request.projectId,
+        internalCauseRef,
+        ...extra,
+      });
+      this.audit.append({
+        event: "oa.epistemic.updated",
+        ts: timestamp,
+        correlationId,
+        projectId: request.projectId,
+        itemCount: request.items.length,
+        result: "error",
+        detailCode,
+        durationMs,
+      });
+      return { ok: false, error, durationMs };
+    };
+
+    try {
+      if (!request.createdBy?.actorId) {
+        return fail("EPISTEMIC_INVALID", "created_by_required");
+      }
+      if (!Array.isArray(request.items) || request.items.length < 1) {
+        return fail("EPISTEMIC_INVALID", "items_required");
+      }
+
+      const persist = async () => {
+        const existing = await this.epistemic.listByProject(request.projectId);
+
+        for (const raw of request.items) {
+          const fieldViolation = validateEpistemicItemInput({
+            epistemicItemId: raw.epistemicItemId,
+            type: raw.type,
+            statement: raw.statement,
+            source: raw.source,
+            provenance: raw.provenance,
+          });
+          if (fieldViolation) {
+            throw Object.assign(new Error(fieldViolation.reason), {
+              detailCode: fieldViolation.detailCode,
+              epistemicItemId: raw.epistemicItemId,
+            });
+          }
+
+          const promotion = assertNoHypothesisDecisionPromotion({
+            epistemicItemId: raw.epistemicItemId,
+            nextType: raw.type,
+            promoteFromHypothesis: raw.promoteFromHypothesis,
+            supersedes: raw.supersedes,
+            existing,
+          });
+          if (promotion) {
+            throw Object.assign(new Error(promotion.reason), {
+              detailCode: promotion.detailCode,
+              epistemicItemId: raw.epistemicItemId,
+            });
+          }
+
+          if (raw.supersedes) {
+            const prior = existing.find(
+              (e) => e.epistemicItemId === raw.supersedes,
+            );
+            if (prior && prior.status === "active") {
+              await this.epistemic.markSuperseded(raw.supersedes);
+            }
+          }
+
+          const item: EpistemicItem = {
+            schemaVersion: "0.1.0-oa",
+            epistemicItemId: raw.epistemicItemId,
+            type: raw.type,
+            statement: raw.statement.trim(),
+            status: raw.status ?? "active",
+            confidence: raw.confidence,
+            source: raw.source,
+            createdBy: structuredClone(request.createdBy),
+            createdAt: timestamp,
+            supersedes: raw.supersedes,
+            relatedObjects: raw.relatedObjects
+              ? [...raw.relatedObjects]
+              : [request.projectId],
+            blocking: raw.blocking,
+            provenance: raw.provenance
+              ? structuredClone(raw.provenance)
+              : undefined,
+            lifecycleRecommendation: raw.lifecycleRecommendation
+              ? structuredClone(raw.lifecycleRecommendation)
+              : undefined,
+          };
+
+          if (this.epistemic.saveForProject) {
+            await this.epistemic.saveForProject(request.projectId, item);
+          } else {
+            await this.epistemic.save(item);
+          }
+          existing.push(item);
+        }
+      };
+
+      try {
+        if (this.store) {
+          await this.store.runInTransaction(persist);
+        } else {
+          await persist();
+        }
+      } catch (err) {
+        if (
+          err &&
+          typeof err === "object" &&
+          "detailCode" in err &&
+          typeof (err as { detailCode: unknown }).detailCode === "string"
+        ) {
+          return fail(
+            (
+              err as {
+                detailCode: Parameters<typeof createCycleError>[0]["detailCode"];
+              }
+            ).detailCode,
+            err instanceof Error ? err.message : "epistemic_rule",
+            {
+              epistemicItemId: (err as { epistemicItemId?: string })
+                .epistemicItemId,
+            },
+          );
+        }
+        return fail("PERSISTENCE_FAILURE", "atomic_update_failed");
+      }
+
+      const items = await this.epistemic.listByProject(request.projectId);
+      const durationMs = Date.now() - started;
+      this.audit.append({
+        event: "oa.epistemic.updated",
+        ts: timestamp,
+        correlationId,
+        projectId: request.projectId,
+        itemCount: items.length,
+        result: "ok",
+        durationMs,
+      });
+
+      return {
+        ok: true,
+        state: {
+          projectId: request.projectId,
+          items: structuredClone(items),
+        },
+        durationMs,
+      };
+    } catch {
+      return fail("PERSISTENCE_FAILURE", "unexpected_exception");
+    }
+  }
+}
+```
+
+## MODIFIED: `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts b/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts
+index 29375d8c..45ff1334 100644
+--- a/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts
++++ b/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts
+@@ -13,6 +13,7 @@ import {
+   isStartableCandidateStatus,
+   isTerminalCycleStatus,
+ } from "../domain/lifecycleInvariants";
++import type { LifecycleRecommendationEnvelope } from "./lifecycleRecommendation/types";
+
+ export type PilotLifecycleProjection = {
+   projectId: string;
+@@ -40,6 +41,17 @@ export type PilotLifecycleProjection = {
+     canFinalize: boolean;
+     canCancel: boolean;
+   };
++  /**
++   * Companion — CURRENT Nora lifecycle Recommendations (never eligibility).
++   * Recommendation ≠ canFinalize / canStart / HumanDecision.
++   */
++  currentRecommendations?: LifecycleRecommendationEnvelope[];
++  /** Resume reconciliation when selected cycle is paused — never cleared by HD alone. */
++  resumeReconciliation?: {
++    clean: boolean;
++    detailCode?: string | null;
++    reason?: string | null;
++  } | null;
+ };
+
+ export function projectPilotLifecycle(input: {
+@@ -47,6 +59,8 @@ export function projectPilotLifecycle(input: {
+   cycles: readonly CycleInstance[];
+   lpsActiveCycleInstanceId: string | null | undefined;
+   assessment?: FinalizationAssessment | null;
++  currentRecommendations?: LifecycleRecommendationEnvelope[];
++  resumeReconciliation?: PilotLifecycleProjection["resumeReconciliation"];
+ }): PilotLifecycleProjection {
+   const byId = new Map(
+     input.cycles.map((c) => [c.cycleInstanceId, c] as const),
+@@ -118,5 +132,7 @@ export function projectPilotLifecycle(input: {
+     selectionAmbiguous,
+     assessment: input.assessment ?? null,
+     cta,
++    currentRecommendations: input.currentRecommendations ?? [],
++    resumeReconciliation: input.resumeReconciliation ?? null,
+   };
+ }
+```
+
+### Full current content: `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts`
+
+```typescript
+/**
+ * CORR-PROOF-05 — durable Pilot lifecycle projection (reload-safe).
+ * Derived from CycleRepository + LPS (+ optional trajectory/assessment).
+ * Never owned by F2/proposal process-local state.
+ */
+import type {
+  CycleInstance,
+  CycleInstanceStatus,
+  FinalizationAssessment,
+} from "../domain/types";
+import {
+  isPausedStatus,
+  isStartableCandidateStatus,
+  isTerminalCycleStatus,
+} from "../domain/lifecycleInvariants";
+import type { LifecycleRecommendationEnvelope } from "./lifecycleRecommendation/types";
+
+export type PilotLifecycleProjection = {
+  projectId: string;
+  activeCycleInstanceId: string | null;
+  activeCycle: CycleInstance | null;
+  pausedCycles: CycleInstance[];
+  /** Startable candidates only (proposed | acknowledged). */
+  candidateCycles: CycleInstance[];
+  /** Historical superseded — visible, never startable. */
+  supersededCycles: CycleInstance[];
+  terminalCycles: CycleInstance[];
+  /**
+   * Selected cycle for CTA surface.
+   * Preference: LPS active → single paused → single startable candidate → null (ambiguous).
+   * Superseded never selected for canStart; multiple superseded alone do not create ambiguity.
+   */
+  selectedCycleInstanceId: string | null;
+  selectedStatus: CycleInstanceStatus | null;
+  selectionAmbiguous: boolean;
+  assessment?: FinalizationAssessment | null;
+  cta: {
+    canStart: boolean;
+    canPause: boolean;
+    canResume: boolean;
+    canFinalize: boolean;
+    canCancel: boolean;
+  };
+  /**
+   * Companion — CURRENT Nora lifecycle Recommendations (never eligibility).
+   * Recommendation ≠ canFinalize / canStart / HumanDecision.
+   */
+  currentRecommendations?: LifecycleRecommendationEnvelope[];
+  /** Resume reconciliation when selected cycle is paused — never cleared by HD alone. */
+  resumeReconciliation?: {
+    clean: boolean;
+    detailCode?: string | null;
+    reason?: string | null;
+  } | null;
+};
+
+export function projectPilotLifecycle(input: {
+  projectId: string;
+  cycles: readonly CycleInstance[];
+  lpsActiveCycleInstanceId: string | null | undefined;
+  assessment?: FinalizationAssessment | null;
+  currentRecommendations?: LifecycleRecommendationEnvelope[];
+  resumeReconciliation?: PilotLifecycleProjection["resumeReconciliation"];
+}): PilotLifecycleProjection {
+  const byId = new Map(
+    input.cycles.map((c) => [c.cycleInstanceId, c] as const),
+  );
+  const activeId = input.lpsActiveCycleInstanceId ?? null;
+  const activeFromRepo = input.cycles.find((c) => c.status === "active") ?? null;
+  const activeCycle =
+    (activeId ? byId.get(activeId) ?? null : null) ?? activeFromRepo;
+
+  const pausedCycles = input.cycles.filter((c) => isPausedStatus(c.status));
+  const candidateCycles = input.cycles.filter((c) =>
+    isStartableCandidateStatus(c.status),
+  );
+  const supersededCycles = input.cycles.filter(
+    (c) => c.status === "superseded",
+  );
+  const terminalCycles = input.cycles.filter((c) =>
+    isTerminalCycleStatus(c.status),
+  );
+
+  let selectedCycleInstanceId: string | null = null;
+  let selectionAmbiguous = false;
+
+  if (activeCycle) {
+    selectedCycleInstanceId = activeCycle.cycleInstanceId;
+  } else if (pausedCycles.length === 1) {
+    selectedCycleInstanceId = pausedCycles[0]!.cycleInstanceId;
+  } else if (pausedCycles.length > 1) {
+    selectionAmbiguous = true;
+  } else if (candidateCycles.length === 1) {
+    selectedCycleInstanceId = candidateCycles[0]!.cycleInstanceId;
+  } else if (candidateCycles.length > 1) {
+    selectionAmbiguous = true;
+  }
+
+  const selected = selectedCycleInstanceId
+    ? byId.get(selectedCycleInstanceId) ?? null
+    : null;
+  const selectedStatus = selected?.status ?? null;
+
+  const cta = {
+    canStart: Boolean(
+      selected && isStartableCandidateStatus(selected.status) && !activeCycle,
+    ),
+    canPause: Boolean(selected && selected.status === "active"),
+    canResume: Boolean(selected && isPausedStatus(selected.status) && !activeCycle),
+    canFinalize: Boolean(
+      selected &&
+        !isTerminalCycleStatus(selected.status) &&
+        (selected.status === "active" ||
+          selected.status === "paused" ||
+          selected.status === "blocked"),
+    ),
+    canCancel: Boolean(
+      selected && !isTerminalCycleStatus(selected.status),
+    ),
+  };
+
+  return {
+    projectId: input.projectId,
+    activeCycleInstanceId: activeCycle?.cycleInstanceId ?? activeId,
+    activeCycle,
+    pausedCycles,
+    candidateCycles,
+    supersededCycles,
+    terminalCycles,
+    selectedCycleInstanceId,
+    selectedStatus,
+    selectionAmbiguous,
+    assessment: input.assessment ?? null,
+    cta,
+    currentRecommendations: input.currentRecommendations ?? [],
+    resumeReconciliation: input.resumeReconciliation ?? null,
+  };
+}
+```
+
+## MODIFIED: `projects/sfia-studio/app/lib/oa/cycle/index.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/cycle/index.ts b/projects/sfia-studio/app/lib/oa/cycle/index.ts
+index 09d58153..9a779465 100644
+--- a/projects/sfia-studio/app/lib/oa/cycle/index.ts
++++ b/projects/sfia-studio/app/lib/oa/cycle/index.ts
+@@ -61,6 +61,7 @@ export {
+   projectPilotLifecycle,
+   type PilotLifecycleProjection,
+ } from "./application/lifecycleProjection";
++export * from "./application/lifecycleRecommendation";
+ export {
+   deriveLifecycleBlockersFromEpistemicItems,
+   lifecycleBlockersFromReaderFailure,
+```
+
+### Full current content: `projects/sfia-studio/app/lib/oa/cycle/index.ts`
+
+```typescript
+/**
+ * T-A2 Cycle / Trajectory / Epistemic / CKC Foundation — public barrel.
+ *
+ * Isolated Option A v3-native module. Consumes T-A1 project + T-A0 doctrine
+ * public APIs only. Does not replace d1 / OPS1 / MethodMode. In-memory only.
+ */
+
+export * from "./domain/types";
+export * from "./domain/errors";
+export * from "./domain/invariants";
+export * from "./domain/qualification";
+export * from "./domain/cycleTypeCatalog";
+export * from "./domain/ckcQualificationContracts";
+export * from "./domain/ckcQualificationErrors";
+export * from "./domain/ckcConsumptionProof";
+export * from "./domain/ckcQualificationResult";
+export * from "./domain/catalogFingerprint";
+export * from "./domain/catalogProjection";
+
+export * from "./ports/cycleRepository";
+export * from "./ports/cyclePersistenceUnitOfWorkPort";
+export * from "./ports/trajectoryRepository";
+export * from "./ports/epistemicRepository";
+export * from "./ports/ckcResolver";
+export * from "./ports/ckcQualificationResolver";
+export * from "./ports/cycleAudit";
+
+export { QualifyCycle } from "./application/qualifyCycle";
+export * from "./application/qualifyCycleWithCkc";
+export * from "./application/bindCatalogAuthority";
+export { CreateCycle } from "./application/createCycle";
+export { GetCycle } from "./application/getCycle";
+export {
+  assessFinalizationObligations,
+  finalizeSubjectFor,
+  cancelSubjectFor,
+  startTrajectorySubjectFor,
+  resumeReplanSubjectFor,
+  isAcceptedFinalizeDecision,
+  isAcceptedCancelDecision,
+  isAcceptedStartTrajectoryDecision,
+  isAcceptedResumeReplanDecision,
+  FINALIZE_SUBJECT_PREFIX,
+  CANCEL_SUBJECT_PREFIX,
+  START_TRAJECTORY_SUBJECT_PREFIX,
+  RESUME_REPLAN_SUBJECT_PREFIX,
+} from "./application/assessFinalization";
+export {
+  assessStartReadiness,
+  type AssessStartReadinessInput,
+} from "./application/assessStartReadiness";
+export {
+  buildPauseReconciliationSnapshot,
+  assessResumeReconciliation,
+  trajectoryFingerprint,
+  type BuildPauseSnapshotInput,
+  type ResumeReconciliationInput,
+  type ResumeReconciliationResult,
+} from "./application/assessResumeReconciliation";
+export {
+  projectPilotLifecycle,
+  type PilotLifecycleProjection,
+} from "./application/lifecycleProjection";
+export * from "./application/lifecycleRecommendation";
+export {
+  deriveLifecycleBlockersFromEpistemicItems,
+  lifecycleBlockersFromReaderFailure,
+  type LifecycleBlockerSnapshot,
+} from "./application/deriveLifecycleBlockers";
+export {
+  deriveFinalizationApplicability,
+  obligationPolicySubjectFor,
+  OBLIGATION_POLICY_SUBJECT_PREFIX,
+  OBLIGATION_POLICY_NO_GOVERNED_EFFECTS,
+  OBLIGATION_POLICY_NO_ARTIFACT,
+  OBLIGATION_POLICY_NO_GIT,
+  OBLIGATION_POLICY_NO_EXECUTION,
+  OBLIGATION_POLICY_NO_EVIDENCE,
+  OBLIGATION_POLICY_NO_REVIEW,
+  OBLIGATION_POLICY_REQUIRE_ARTIFACT,
+  OBLIGATION_POLICY_REQUIRE_GIT,
+  type DerivableExecutionContract,
+  type DeriveFinalizationApplicabilityInput,
+} from "./application/deriveFinalizationApplicability";
+export {
+  selectEffectiveExecutionContracts,
+  type SelectableExecutionContract,
+  type SelectEffectiveExecutionContractsResult,
+} from "./application/selectEffectiveExecutionContracts";
+export {
+  selectEffectiveReviewBundles,
+  type SelectEffectiveReviewBundlesResult,
+} from "./application/selectEffectiveReviewBundles";
+export {
+  hasGitRepositorySemanticMarker,
+  isGitApplicableContract,
+  isGitQualifyingEvidence,
+  type GitQualifiableContract,
+} from "./application/qualifyGitEvidence";
+export {
+  PilotLifecycleTransitions,
+  type PilotLifecycleDeps,
+  type PilotLifecycleAuthorityPort,
+  type LifecycleDecisionReader,
+  type LifecycleEvidenceReader,
+  type LifecycleReviewBundleReader,
+  type LifecycleExecutionSnapshotReader,
+  type LifecycleEpistemicReader,
+} from "./application/pilotLifecycleTransitions";
+export * from "./domain/lifecycleInvariants";
+export { CreateInitialTrajectory } from "./application/createInitialTrajectory";
+export { GetCurrentTrajectory } from "./application/getCurrentTrajectory";
+export { GetTrajectoryVersion } from "./application/getTrajectoryVersion";
+export {
+  ProposeTrajectoryVersion,
+  TrajectoryVersionConflictSignal,
+  resolveTrajectoryLineageHead,
+} from "./application/proposeTrajectoryVersion";
+export { PromoteDecidedTrajectory } from "./application/promoteDecidedTrajectory";
+export { GetEpistemicState } from "./application/getEpistemicState";
+export { UpdateEpistemicState } from "./application/updateEpistemicState";
+export { ResolveCycleKnowledgeContract } from "./application/resolveCycleKnowledgeContract";
+
+export { MemoryCycleStore } from "./infrastructure/memoryCycleStore";
+export { MemoryCycleRepository } from "./infrastructure/memoryCycleRepository";
+export { MemoryTrajectoryRepository } from "./infrastructure/memoryTrajectoryRepository";
+export { MemoryEpistemicRepository } from "./infrastructure/memoryEpistemicRepository";
+export {
+  MemoryCkcResolver,
+  type CkcRegistryEntry,
+} from "./infrastructure/memoryCkcResolver";
+export {
+  ConsoleCycleAuditJournal,
+  MemoryCycleAuditJournal,
+} from "./infrastructure/observability";
+export * from "./infrastructure/ckcReferenceManifest";
+export * from "./infrastructure/ckcQualificationResolver";
+export {
+  createSqliteCycleServices,
+  createTestSqliteCycleServices,
+  type CreateSqliteCycleServicesOptions,
+  type SqliteCycleServices,
+} from "./infrastructure/sqlite/createSqliteCycleServices";
+export { SqliteCycleRepository } from "./infrastructure/sqlite/sqliteCycleRepository";
+export { SqliteCycleAuditJournal } from "./infrastructure/sqlite/sqliteCycleAuditJournal";
+
+import type { ClockPort, DoctrinePackagePin } from "@/lib/oa/doctrine";
+import {
+  FixedClock,
+  PRODUCT_DOCTRINE_PACKAGE_ID,
+  SystemClock,
+} from "@/lib/oa/doctrine";
+import type { ProjectServices } from "@/lib/oa/project";
+import { CreateCycle } from "./application/createCycle";
+import { CreateInitialTrajectory } from "./application/createInitialTrajectory";
+import { GetCurrentTrajectory } from "./application/getCurrentTrajectory";
+import { GetCycle } from "./application/getCycle";
+import { GetEpistemicState } from "./application/getEpistemicState";
+import { GetTrajectoryVersion } from "./application/getTrajectoryVersion";
+import { PromoteDecidedTrajectory } from "./application/promoteDecidedTrajectory";
+import { ProposeTrajectoryVersion } from "./application/proposeTrajectoryVersion";
+import { QualifyCycle } from "./application/qualifyCycle";
+import {
+  QualifyCycleWithCkc,
+  type QualifyCycleExecutor,
+} from "./application/qualifyCycleWithCkc";
+import {
+  bindCycleTypeCatalogAuthority,
+  verifyCycleTypeCatalogAuthority,
+} from "./application/bindCatalogAuthority";
+import { ResolveCycleKnowledgeContract } from "./application/resolveCycleKnowledgeContract";
+import { UpdateEpistemicState } from "./application/updateEpistemicState";
+import {
+  PilotLifecycleTransitions,
+  type LifecycleDecisionReader,
+  type LifecycleEvidenceReader,
+  type LifecycleReviewBundleReader,
+  type LifecycleExecutionSnapshotReader,
+  type LifecycleEpistemicReader,
+  type PilotLifecycleAuthorityPort,
+} from "./application/pilotLifecycleTransitions";
+import { DEFAULT_CYCLE_TYPE_CATALOG_AUTHORITY } from "./domain/catalogFingerprint";
+import type { CycleTypeCatalogAuthority } from "./domain/catalogFingerprint";
+import type { CycleTypeCatalog } from "./domain/cycleTypeCatalog";
+import type { FinalizationApplicabilityRules } from "./domain/types";
+import { CkcQualificationResolver } from "./infrastructure/ckcQualificationResolver";
+import { MemoryCkcResolver } from "./infrastructure/memoryCkcResolver";
+import { MemoryCycleRepository } from "./infrastructure/memoryCycleRepository";
+import { MemoryCycleStore } from "./infrastructure/memoryCycleStore";
+import { MemoryEpistemicRepository } from "./infrastructure/memoryEpistemicRepository";
+import { MemoryTrajectoryRepository } from "./infrastructure/memoryTrajectoryRepository";
+import {
+  ConsoleCycleAuditJournal,
+  MemoryCycleAuditJournal,
+} from "./infrastructure/observability";
+import type { CycleAuditPort } from "./ports/cycleAudit";
+import type { CyclePersistenceUnitOfWorkPort } from "./ports/cyclePersistenceUnitOfWorkPort";
+import type { CycleRepositoryPort } from "./ports/cycleRepository";
+import type { CkcResolverPort } from "./ports/ckcResolver";
+import type { CkcQualificationResolverPort } from "./ports/ckcQualificationResolver";
+import type { EpistemicRepositoryPort } from "./ports/epistemicRepository";
+import type { TrajectoryRepositoryPort } from "./ports/trajectoryRepository";
+
+export type CycleServices = {
+  store: CyclePersistenceUnitOfWorkPort;
+  cycles: CycleRepositoryPort;
+  trajectories: TrajectoryRepositoryPort;
+  epistemic: EpistemicRepositoryPort;
+  ckc: CkcResolverPort;
+  audit: CycleAuditPort;
+  qualifyCycle: QualifyCycle;
+  createCycle: CreateCycle;
+  getCycle: GetCycle;
+  createInitialTrajectory: CreateInitialTrajectory;
+  getCurrentTrajectory: GetCurrentTrajectory;
+  getTrajectoryVersion: GetTrajectoryVersion;
+  proposeTrajectoryVersion: ProposeTrajectoryVersion;
+  /** W2: candidate → decided/current promotion, decisionRef mandatory. */
+  promoteDecidedTrajectory: PromoteDecidedTrajectory;
+  getEpistemicState: GetEpistemicState;
+  updateEpistemicState: UpdateEpistemicState;
+  resolveCycleKnowledgeContract: ResolveCycleKnowledgeContract;
+  /** CORR-PROOF-05 Pilot lifecycle transitions. */
+  pilotLifecycle: PilotLifecycleTransitions;
+};
+
+export type CreateInMemoryCycleServicesOptions = {
+  projectServices: ProjectServices;
+  clock?: ClockPort;
+  audit?: CycleAuditPort;
+  ckcResolver?: CkcResolverPort;
+  decisions?: LifecycleDecisionReader;
+  evidence?: LifecycleEvidenceReader;
+  reviewBundles?: LifecycleReviewBundleReader;
+  execution?: LifecycleExecutionSnapshotReader;
+  epistemic?: LifecycleEpistemicReader;
+  authority?: PilotLifecycleAuthorityPort;
+  applicabilityRules?: FinalizationApplicabilityRules;
+};
+
+export type CkcQualificationServices = {
+  readonly audit: CycleAuditPort;
+  readonly resolver: CkcQualificationResolverPort;
+  readonly qualifyCycleWithCkc: QualifyCycleWithCkc;
+};
+
+export type CreateCkcQualificationServicesOptions = {
+  readonly clock?: ClockPort;
+  readonly audit?: CycleAuditPort;
+  readonly resolver?: CkcQualificationResolverPort;
+  readonly registryRoot?: string;
+  readonly doctrinePackagePin?: DoctrinePackagePin;
+  readonly productResolverFactory?: (
+    audit: CycleAuditPort,
+    registryRoot: string,
+  ) => CkcQualificationResolverPort;
+  readonly qualifyCycle?: QualifyCycleExecutor;
+  /**
+   * Optional HASH-A-bound catalog authority (test-only future snapshots).
+   * Cryptographically verified before use; forged fingerprints fail closed
+   * on QualifyCycleWithCkc (R-W3D-03). Prefer {@link catalogSnapshot} when
+   * injecting N+1 content — factory binds HASH-A itself.
+   */
+  readonly catalogAuthority?: CycleTypeCatalogAuthority;
+  /**
+   * Optional raw catalog snapshot. Factory binds HASH-A via
+   * bindCycleTypeCatalogAuthority — callers cannot supply a forged fingerprint.
+   * Mutually preferred over an unverified catalogAuthority when both are set.
+   */
+  readonly catalogSnapshot?: Pick<CycleTypeCatalog, "entries">;
+};
+
+function resolveCkcQualificationCatalogAuthority(
+  options: CreateCkcQualificationServicesOptions,
+): CycleTypeCatalogAuthority {
+  if (options.catalogSnapshot) {
+    return bindCycleTypeCatalogAuthority(options.catalogSnapshot);
+  }
+  if (options.catalogAuthority) {
+    // Do not re-bind silently: QualifyCycleWithCkc verifies cryptographically
+    // and returns CATALOG_FINGERPRINT_STALE for forged authorities.
+    if (!verifyCycleTypeCatalogAuthority(options.catalogAuthority)) {
+      return options.catalogAuthority;
+    }
+    return options.catalogAuthority;
+  }
+  return DEFAULT_CYCLE_TYPE_CATALOG_AUTHORITY;
+}
+
+function usesProductDoctrinePin(pin?: DoctrinePackagePin): boolean {
+  return pin?.doctrinePackageId === PRODUCT_DOCTRINE_PACKAGE_ID;
+}
+
+function createFailureAwareAudit(audit: CycleAuditPort): CycleAuditPort & {
+  readonly hasFailed: () => boolean;
+} {
+  let failed = false;
+  return {
+    append(event): void {
+      if (failed) {
+        throw new Error("Audit sink unavailable.");
+      }
+      try {
+        audit.append(event);
+      } catch {
+        failed = true;
+        throw new Error("Audit sink unavailable.");
+      }
+    },
+    hasFailed: () => failed,
+  };
+}
+
+/**
+ * Default CKC resolver selection (COR-W1-07).
+ *
+ * Product doctrine pin (`pkg:sfia-studio-doctrine-v3`) ALWAYS selects the
+ * product-bound resolver path. Missing/invalid registryRoot must fail closed
+ * as Product CKC unavailable — NEVER silently fall back to method-candidate.
+ *
+ * Explicit `options.resolver` injection remains for deliberate test/DI only.
+ */
+function createDefaultCkcQualificationResolver(
+  options: CreateCkcQualificationServicesOptions,
+  audit: CycleAuditPort,
+): CkcQualificationResolverPort {
+  if (usesProductDoctrinePin(options.doctrinePackagePin)) {
+    const pin = options.doctrinePackagePin!;
+    return new CkcQualificationResolver(undefined, audit, {
+      // Empty/absent root is handled fail-closed inside product index load.
+      registryRoot: options.registryRoot ?? "",
+      doctrinePackageId: pin.doctrinePackageId,
+      packageVersion: pin.version,
+      packageDigest: pin.digest,
+    });
+  }
+  return new CkcQualificationResolver(undefined, audit);
+}
+
+/** Read-only D2-A → D2-B → D2-C composition without repositories or mutation. */
+export function createCkcQualificationServices(
+  options: CreateCkcQualificationServicesOptions = {},
+): CkcQualificationServices {
+  const clock = options.clock ?? new SystemClock();
+  const audit = options.audit ?? new ConsoleCycleAuditJournal();
+  const failureAwareAudit = createFailureAwareAudit(audit);
+  const resolver =
+    options.resolver ??
+    createDefaultCkcQualificationResolver(options, failureAwareAudit);
+  const qualifyCycle =
+    options.qualifyCycle ?? new QualifyCycle(clock, failureAwareAudit);
+
+  return Object.freeze({
+    audit,
+    resolver,
+    qualifyCycleWithCkc: new QualifyCycleWithCkc(
+      resolver,
+      qualifyCycle,
+      clock,
+      failureAwareAudit,
+      resolveCkcQualificationCatalogAuthority(options),
+    ),
+  });
+}
+
+/** Factory for in-memory Cycle/Trajectory/Epistemic/CKC services. */
+export function createInMemoryCycleServices(
+  options: CreateInMemoryCycleServicesOptions,
+): CycleServices {
+  const store = new MemoryCycleStore();
+  const cycles = new MemoryCycleRepository(store);
+  const trajectories = new MemoryTrajectoryRepository(store);
+  const epistemic = new MemoryEpistemicRepository(store);
+  const clock = options.clock ?? new SystemClock();
+  const audit = options.audit ?? new ConsoleCycleAuditJournal();
+  const ckc = options.ckcResolver ?? new MemoryCkcResolver();
+
+  return {
+    store,
+    cycles,
+    trajectories,
+    epistemic,
+    ckc,
+    audit,
+    qualifyCycle: new QualifyCycle(clock, audit),
+    createCycle: new CreateCycle(
+      cycles,
+      options.projectServices,
+      clock,
+      audit,
+      store,
+    ),
+    getCycle: new GetCycle(cycles, clock, audit),
+    createInitialTrajectory: new CreateInitialTrajectory(
+      trajectories,
+      options.projectServices,
+      clock,
+      audit,
+      store,
+    ),
+    getCurrentTrajectory: new GetCurrentTrajectory(trajectories, clock, audit),
+    getTrajectoryVersion: new GetTrajectoryVersion(trajectories, clock, audit),
+    proposeTrajectoryVersion: new ProposeTrajectoryVersion(
+      trajectories,
+      options.projectServices,
+      clock,
+      audit,
+      store,
+    ),
+    promoteDecidedTrajectory: new PromoteDecidedTrajectory(
+      trajectories,
+      options.projectServices,
+      clock,
+      audit,
+      store,
+    ),
+    getEpistemicState: new GetEpistemicState(epistemic, clock, audit),
+    updateEpistemicState: new UpdateEpistemicState(
+      epistemic,
+      clock,
+      audit,
+      store,
+    ),
+    resolveCycleKnowledgeContract: new ResolveCycleKnowledgeContract(
+      ckc,
+      clock,
+      audit,
+    ),
+    pilotLifecycle: new PilotLifecycleTransitions({
+      cycles,
+      trajectories,
+      projectServices: options.projectServices,
+      clock,
+      audit,
+      store,
+      decisions: options.decisions,
+      evidence: options.evidence,
+      reviewBundles: options.reviewBundles,
+      execution: options.execution,
+      epistemic: options.epistemic ?? {
+        listByProject: (projectId) => epistemic.listByProject(projectId),
+      },
+      authority: options.authority,
+      applicabilityRules: options.applicabilityRules,
+    }),
+  };
+}
+
+export function createTestCycleServices(
+  options: CreateInMemoryCycleServicesOptions & {
+    audit?: MemoryCycleAuditJournal;
+    fixedNowIso?: string;
+    ckcResolver?: MemoryCkcResolver;
+  },
+): CycleServices & { audit: MemoryCycleAuditJournal } {
+  const audit = options.audit ?? new MemoryCycleAuditJournal();
+  const clock =
+    options.clock ??
+    (options.fixedNowIso
+      ? new FixedClock(options.fixedNowIso)
+      : new FixedClock("2026-07-24T06:00:00.000Z"));
+  return createInMemoryCycleServices({
+    ...options,
+    clock,
+    audit,
+  }) as CycleServices & { audit: MemoryCycleAuditJournal };
+}
+```
+
+## MODIFIED: `projects/sfia-studio/app/features/project-assistant/actions.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/actions.ts b/projects/sfia-studio/app/features/project-assistant/actions.ts
+index ed66148b..aa00d5e8 100644
+--- a/projects/sfia-studio/app/features/project-assistant/actions.ts
++++ b/projects/sfia-studio/app/features/project-assistant/actions.ts
+@@ -11,6 +11,10 @@ import {
+ import {
+   projectPilotLifecycle,
+   type PilotLifecycleProjection,
++  selectCurrentLifecycleRecommendations,
++  isPausedStatus,
++  assessResumeReconciliation,
++  deriveLifecycleBlockersFromEpistemicItems,
+ } from "@/lib/oa/cycle";
+ import { F2_PROCESS_LOCAL_NOTICE } from "./f2/proposalStore";
+ import type { F2DecisionKind } from "./f2/types";
+@@ -934,13 +938,172 @@ async function buildAssistantPilotLifecycleProjection(
+     await runtime.oa.projectServices.getCurrentLivingProjectState.execute({
+       projectId,
+     });
+-  return projectPilotLifecycle({
++  const lpsActive = lps.ok
++    ? lps.livingProjectState.activeCycleInstanceId
++    : null;
++  let epistemicItems: Awaited<
++    ReturnType<typeof runtime.oa.cycleServices.epistemic.listByProject>
++  > = [];
++  try {
++    epistemicItems = await runtime.oa.cycleServices.epistemic.listByProject(
++      projectId,
++    );
++  } catch {
++    epistemicItems = [];
++  }
++
++  const currentRecommendations = selectCurrentLifecycleRecommendations({
++    items: epistemicItems,
++    cycles,
++    lpsActiveCycleInstanceId: lpsActive,
++  });
++
++  const projection = projectPilotLifecycle({
+     projectId,
+     cycles,
+-    lpsActiveCycleInstanceId: lps.ok
+-      ? lps.livingProjectState.activeCycleInstanceId
+-      : null,
++    lpsActiveCycleInstanceId: lpsActive,
++    currentRecommendations,
+   });
++
++  if (
++    projection.selectedStatus &&
++    isPausedStatus(projection.selectedStatus) &&
++    projection.selectedCycleInstanceId
++  ) {
++    const selected = cycles.find(
++      (c) => c.cycleInstanceId === projection.selectedCycleInstanceId,
++    );
++    if (!selected) {
++      projection.resumeReconciliation = {
++        clean: false,
++        detailCode: "CYCLE_RESUME_DRIFT",
++        reason: "selected_cycle_missing",
++      };
++      projection.cta = { ...projection.cta, canResume: false };
++      return projection;
++    }
++
++    try {
++      const projectResult =
++        await runtime.oa.projectServices.getProject.execute({ projectId });
++      if (!projectResult.ok) {
++        projection.resumeReconciliation = {
++          clean: false,
++          detailCode: "CYCLE_RESUME_DRIFT",
++          reason: "project_unreadable",
++        };
++        projection.cta = { ...projection.cta, canResume: false };
++        return projection;
++      }
++
++      let trajectory = null;
++      try {
++        const traj =
++          await runtime.oa.cycleServices.getCurrentTrajectory.execute({
++            projectId,
++          });
++        trajectory = traj.ok ? traj.trajectory : null;
++      } catch {
++        projection.resumeReconciliation = {
++          clean: false,
++          detailCode: "CYCLE_RESUME_DRIFT",
++          reason: "trajectory_reader_unavailable",
++        };
++        projection.cta = { ...projection.cta, canResume: false };
++        return projection;
++      }
++
++      let decisions: Awaited<
++        ReturnType<
++          typeof runtime.oa.decisionServices.decisions.listByProject
++        >
++      > = [];
++      try {
++        decisions =
++          await runtime.oa.decisionServices.decisions.listByProject(projectId);
++      } catch {
++        projection.resumeReconciliation = {
++          clean: false,
++          detailCode: "CYCLE_RESUME_DRIFT",
++          reason: "decision_reader_unavailable",
++        };
++        projection.cta = { ...projection.cta, canResume: false };
++        return projection;
++      }
++
++      let evidence: Awaited<
++        ReturnType<
++          typeof runtime.oa.evidenceReviewServices.repository.listByProject
++        >
++      > = [];
++      try {
++        evidence =
++          await runtime.oa.evidenceReviewServices.repository.listByProject(
++            projectId,
++          );
++      } catch {
++        projection.resumeReconciliation = {
++          clean: false,
++          detailCode: "CYCLE_RESUME_DRIFT",
++          reason: "evidence_reader_unavailable",
++        };
++        projection.cta = { ...projection.cta, canResume: false };
++        return projection;
++      }
++
++      const blockersSnap =
++        deriveLifecycleBlockersFromEpistemicItems(epistemicItems);
++      const doctrinePin =
++        projectResult.project.doctrinePackageRef ??
++        (lps.ok ? lps.livingProjectState.doctrinePackageRef : undefined);
++      const siblingActiveExists = cycles.some(
++        (c) =>
++          c.status === "active" &&
++          c.cycleInstanceId !== selected.cycleInstanceId,
++      );
++
++      const reconciliation = assessResumeReconciliation({
++        cycle: selected,
++        projectId,
++        lpsReadable: lps.ok,
++        lpsVersion: lps.ok ? lps.livingProjectState.version : 0,
++        lpsActiveCycleInstanceId: lpsActive,
++        objective: lps.ok ? lps.livingProjectState.objective : "",
++        context: lps.ok ? (lps.livingProjectState.context ?? "") : "",
++        scope: lps.ok ? (lps.livingProjectState.scope ?? "") : "",
++        doctrinePackageId: doctrinePin?.doctrinePackageId,
++        doctrinePackageVersion: doctrinePin?.version,
++        doctrinePackageDigest: doctrinePin?.digest,
++        trajectory,
++        decisions,
++        evidence,
++        blockingReservationStatements: blockersSnap.statements,
++        blockerSourceUnreadable: false,
++        siblingActiveExists,
++      });
++
++      projection.resumeReconciliation = {
++        clean: reconciliation.clean,
++        detailCode: reconciliation.clean ? null : "CYCLE_RESUME_DRIFT",
++        reason: reconciliation.clean
++          ? "assess_resume_reconciliation_clean"
++          : reconciliation.driftReasons.join(",") || "dirty",
++      };
++      projection.cta = {
++        ...projection.cta,
++        canResume: projection.cta.canResume && reconciliation.clean,
++      };
++    } catch {
++      projection.resumeReconciliation = {
++        clean: false,
++        detailCode: "CYCLE_RESUME_DRIFT",
++        reason: "reconciliation_facts_unavailable",
++      };
++      projection.cta = { ...projection.cta, canResume: false };
++    }
++  }
++
++  return projection;
+ }
+
+ /**
+```
+
+## MODIFIED: `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx`
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
@@ -2420,99 +4054,9 @@ index 4836a276..fba20c82 100644
                  <LpsSurface result={success} />
                  <TrajectorySurface
                    projectId={projectId}
-
 ```
 
-### MODIFIED COMPLETE DIFF vs HEAD — `projects/sfia-studio/app/features/project-assistant/actions.ts`
-
-Diff bytes: 2641
-
-```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/actions.ts b/projects/sfia-studio/app/features/project-assistant/actions.ts
-index ed66148b..afb930e5 100644
---- a/projects/sfia-studio/app/features/project-assistant/actions.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/actions.ts
-@@ -11,6 +11,8 @@ import {
- import {
-   projectPilotLifecycle,
-   type PilotLifecycleProjection,
-+  selectCurrentLifecycleRecommendations,
-+  isPausedStatus,
- } from "@/lib/oa/cycle";
- import { F2_PROCESS_LOCAL_NOTICE } from "./f2/proposalStore";
- import type { F2DecisionKind } from "./f2/types";
-@@ -934,13 +936,61 @@ async function buildAssistantPilotLifecycleProjection(
-     await runtime.oa.projectServices.getCurrentLivingProjectState.execute({
-       projectId,
-     });
--  return projectPilotLifecycle({
-+  const lpsActive = lps.ok
-+    ? lps.livingProjectState.activeCycleInstanceId
-+    : null;
-+  let epistemicItems: Awaited<
-+    ReturnType<typeof runtime.oa.cycleServices.epistemic.listByProject>
-+  > = [];
-+  try {
-+    epistemicItems = await runtime.oa.cycleServices.epistemic.listByProject(
-+      projectId,
-+    );
-+  } catch {
-+    epistemicItems = [];
-+  }
-+
-+  const currentRecommendations = selectCurrentLifecycleRecommendations({
-+    items: epistemicItems,
-+    cycles,
-+    lpsActiveCycleInstanceId: lpsActive,
-+  });
-+
-+  const projection = projectPilotLifecycle({
-     projectId,
-     cycles,
--    lpsActiveCycleInstanceId: lps.ok
--      ? lps.livingProjectState.activeCycleInstanceId
--      : null,
-+    lpsActiveCycleInstanceId: lpsActive,
-+    currentRecommendations,
-   });
-+
-+  // Honest resume gate: if paused without clean reconciliation signal, mark dirty unknown-safe.
-+  if (
-+    projection.selectedStatus &&
-+    isPausedStatus(projection.selectedStatus)
-+  ) {
-+    const selected = cycles.find(
-+      (c) => c.cycleInstanceId === projection.selectedCycleInstanceId,
-+    );
-+    const snap = selected?.pauseReconciliation;
-+    if (!snap) {
-+      projection.resumeReconciliation = {
-+        clean: false,
-+        detailCode: "CYCLE_RESUME_DRIFT",
-+        reason: "pause_snapshot_missing",
-+      };
-+      projection.cta = { ...projection.cta, canResume: false };
-+    } else {
-+      // Without full decision/evidence readers here, absence of materialDrift alone is not claimed clean.
-+      // Surface known snapshot presence as clean-capable; PilotLifecycleTransitions remains authority.
-+      projection.resumeReconciliation = {
-+        clean: true,
-+        detailCode: null,
-+        reason: "pause_snapshot_present",
-+      };
-+    }
-+  }
-+
-+  return projection;
- }
-
- /**
-
-```
-
-### MODIFIED COMPLETE DIFF vs HEAD — `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts`
-
-Diff bytes: 2940
+## MODIFIED: `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
@@ -2586,12 +4130,9 @@ index d941406b..c1c46dd8 100644
      ...(hostedSearchObserve ? { hostedSearchObserve } : {}),
      ...(budgetObserve ? { budgetObserve } : {}),
      ...(usdObserve ? { usdObserve } : {}),
-
 ```
 
-### MODIFIED COMPLETE DIFF vs HEAD — `projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts`
-
-Diff bytes: 906
+## MODIFIED: `projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
@@ -2610,94 +4151,118 @@ index 95448a25..dec56300 100644
    /**
     * MW6↔Auth — authority binding axes from preflight (composition proof).
     * Present when campaign + governedAuthority composition evaluated.
-
 ```
 
-### MODIFIED COMPLETE DIFF vs HEAD — `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts`
+### Full current content: `projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts`
 
-Diff bytes: 1988
+```typescript
+/**
+ * Nora Option C cognitive runtime — types.
+ * Session is conversational continuity only — never Truth C / LPS / HD.
+ * Single Runner path after legacy Nora runtime retirement.
+ */
 
-```diff
-diff --git a/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts b/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts
-index 29375d8c..45ff1334 100644
---- a/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts
-+++ b/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts
-@@ -13,6 +13,7 @@ import {
-   isStartableCandidateStatus,
-   isTerminalCycleStatus,
- } from "../domain/lifecycleInvariants";
-+import type { LifecycleRecommendationEnvelope } from "./lifecycleRecommendation/types";
+import type { OpenAiReasoningEffort } from "@/lib/platform/ai";
+import type { CognitiveStrategyClass } from "./cognitiveWorkloadPolicy";
+import type { ContradictionDispositionResult } from "./contradictionDisposition";
+import type { CognitiveStopDecision } from "./cognitiveStop";
+import type { MemoryBAvailability } from "./memoryBAvailability";
+import type {
+  MemoryBCompactionDetails,
+  MemoryBCompactionState,
+  TruthCRevision,
+} from "./memoryBCompaction";
+import type { Mw4GroundingTurnSurface } from "./groundingDurability";
+import type { Mw6SourceIntelligenceSurface } from "./sourceIntelligenceContract";
 
- export type PilotLifecycleProjection = {
-   projectId: string;
-@@ -40,6 +41,17 @@ export type PilotLifecycleProjection = {
-     canFinalize: boolean;
-     canCancel: boolean;
-   };
-+  /**
-+   * Companion — CURRENT Nora lifecycle Recommendations (never eligibility).
-+   * Recommendation ≠ canFinalize / canStart / HumanDecision.
-+   */
-+  currentRecommendations?: LifecycleRecommendationEnvelope[];
-+  /** Resume reconciliation when selected cycle is paused — never cleared by HD alone. */
-+  resumeReconciliation?: {
-+    clean: boolean;
-+    detailCode?: string | null;
-+    reason?: string | null;
-+  } | null;
- };
+/** F1/Nora cognitive runtime kind — Agents SDK Runner only. */
+export type NoraCognitiveRuntimeKind = "agents";
 
- export function projectPilotLifecycle(input: {
-@@ -47,6 +59,8 @@ export function projectPilotLifecycle(input: {
-   cycles: readonly CycleInstance[];
-   lpsActiveCycleInstanceId: string | null | undefined;
-   assessment?: FinalizationAssessment | null;
-+  currentRecommendations?: LifecycleRecommendationEnvelope[];
-+  resumeReconciliation?: PilotLifecycleProjection["resumeReconciliation"];
- }): PilotLifecycleProjection {
-   const byId = new Map(
-     input.cycles.map((c) => [c.cycleInstanceId, c] as const),
-@@ -118,5 +132,7 @@ export function projectPilotLifecycle(input: {
-     selectionAmbiguous,
-     assessment: input.assessment ?? null,
-     cta,
-+    currentRecommendations: input.currentRecommendations ?? [],
-+    resumeReconciliation: input.resumeReconciliation ?? null,
-   };
- }
+export type NoraCognitiveTurnResult = {
+  text: string;
+  usage: {
+    inputTokens: number | null;
+    outputTokens: number | null;
+    totalTokens: number | null;
+    model: string | null;
+    providerResponseId: string | null;
+  };
+  toolRounds: number;
+  toolCalls: number;
+  limitReached: boolean;
+  /** Always "agents" after Nora legacy retirement (honest observability). */
+  cognitiveRuntime: NoraCognitiveRuntimeKind;
+  sessionId: string | null;
+  /** MW1-S01 — honest Memory B availability for this turn. */
+  memoryBAvailability: MemoryBAvailability;
+  /** MW1-S02 — compaction / stale state for this turn. */
+  memoryBCompactionState: MemoryBCompactionState;
+  /** MW1-S02 — optional compaction details when relevant. */
+  memoryBCompactionDetails: MemoryBCompactionDetails | null;
+  /** MW2-S01 — internal strategy telemetry (not Pilote authority). */
+  cognitiveStrategyClass?: CognitiveStrategyClass;
+  /**
+   * Effective reasoning effort applied to Runner (eval pin when present, else CWP).
+   */
+  selectedReasoningEffort?: OpenAiReasoningEffort;
+  /**
+   * CWP-derived effort when strategy ran — observable even when eval pin overrides.
+   */
+  cwpDerivedReasoningEffort?: OpenAiReasoningEffort;
+  /** Eval-only pin identity when Stage A / campaign cell control is active. */
+  evalPinnedModelId?: string;
+  evalPinnedReasoningEffort?: OpenAiReasoningEffort;
+  criticalChallengeArmed?: boolean;
+  /** MW3 — present only when contradictionAssessment was supplied. */
+  contradictionDisposition?: ContradictionDispositionResult;
+  /** MW3 — present only when contradictionAssessment was supplied. */
+  cognitiveStopDecision?: CognitiveStopDecision;
+  /** MW4 — grounding durability surface when Session refs were assessed. */
+  mw4Grounding?: Mw4GroundingTurnSurface;
+  /** MW6 — source strategy + normalized external observations (non-authoritative). */
+  mw6SourceIntelligence?: Mw6SourceIntelligenceSurface;
+  /**
+   * LR-D02 — structured Agents finalOutput when outputType was requested.
+   * Candidate data only — never Product truth until SFIA validation.
+   */
+  structuredOutput?: unknown;
+  /**
+   * MW6↔Auth — authority binding axes from preflight (composition proof).
+   * Present when campaign + governedAuthority composition evaluated.
+   */
+  mw6AuthorityBinding?: {
+    authorityBound: boolean;
+    realAuthorized: boolean;
+    realPreflightCode: string;
+    realPreflightBlocked: boolean;
+    realPreflightReasons: string[];
+    eligible: boolean;
+  };
+};
 
+export type { TruthCRevision, MemoryBCompactionState, MemoryBCompactionDetails };
 ```
 
-### MODIFIED COMPLETE DIFF vs HEAD — `projects/sfia-studio/app/lib/oa/cycle/index.ts`
+# DELETED FILE
 
-Diff bytes: 530
+## DELETED: `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/relatedObjectsCodec.ts`
 
-```diff
-diff --git a/projects/sfia-studio/app/lib/oa/cycle/index.ts b/projects/sfia-studio/app/lib/oa/cycle/index.ts
-index 09d58153..9a779465 100644
---- a/projects/sfia-studio/app/lib/oa/cycle/index.ts
-+++ b/projects/sfia-studio/app/lib/oa/cycle/index.ts
-@@ -61,6 +61,7 @@ export {
-   projectPilotLifecycle,
-   type PilotLifecycleProjection,
- } from "./application/lifecycleProjection";
-+export * from "./application/lifecycleRecommendation";
- export {
-   deriveLifecycleBlockersFromEpistemicItems,
-   lifecycleBlockersFromReaderFailure,
+File removed from uncommitted Product candidate. Replacement: `basisFingerprint.ts` (deterministic hashing + genuine `prj:`/`cyc:` relatedObjects only). No lr:* encoder/decoder remains.
 
-```
-
+Deletion proof: path absent on disk = `True`
 
 ---
 
-# APPENDIX C — Anti-truncation self-check
 
-This document was generated without inserting truncation placeholders.
-Post-write scan for artificial truncation marker patterns: zero hits in Product appendix content; this appendix does not restate marker literals.
+FULL REVIEW PACK SIZE THRESHOLD EXCEEDED — COMPLETE PRODUCT CONTENT PRESERVED
 
-# APPENDIX D — Fake/Real Qualification
+## Review Pack Content Coverage
 
-Applicable: YES (Nora/OpenAI boundary exists at capability level).
-This cycle: READ-ONLY; ZERO REAL; no model execution required.
-Forbidden claims: READY FOR REAL; REAL BOUNDARY PROVEN; END-TO-END REAL PROVEN; runtime v3 ADOPTED.
+- created files full content: YES
+- modified files useful complete diff: YES
+- deleted files complete diff: YES (deletion + replacement explanation; prior uncommitted codec removed)
+- modeled schema content complete: YES
+- synthesis only: NO
+- artificial truncation present: NO
+- all Product files represented: YES
+- review pack verdict: COMPLETE
