@@ -1,31 +1,29 @@
-# SFIA Review Pack — Lifecycle Recommendation Correction Delivery
+# SFIA Review Pack — Lifecycle Recommendation Final Correction Delivery
 
-- timestamp_utc: 2026-09-08T09:08:15Z
-- cycle: SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-RECOMMENDATION-CORR-DELIVERY-01
+- timestamp_utc: 2026-09-08T09:56:20Z
+- cycle: SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-RECOMMENDATION-CORR-DELIVERY-02
 - type: 8 — Delivery / implémentation
-- typology: EVOL
 - profile: CRITICAL
 - capability: Lifecycle Recommendation & Pilot Decision Continuity
-- runtime_v3: NON ADOPTED
 - real: ZERO REAL
-- product_git: NO PRODUCT COMMIT / PUSH / PR / MERGE
-- review_handoff_git: REQUIRED — publish-in-cycle
+- product_git: NO PRODUCT COMMIT/PUSH/PR/MERGE
+- review_handoff: REQUIRED publish-in-cycle
 
-## 1. Local Git Truth (at Review Pack generation)
-
+## Local Git Truth
 ```
 pwd: /Users/morris/Projects/sfia-lr-delivery-isolated-e6d7c649
-remote:
-origin	https://github.com/mcleland147/sfia-workspace.git (fetch)
-origin	https://github.com/mcleland147/sfia-workspace.git (push)
 branch: delivery/sfia-studio-lifecycle-recommendation-product
 HEAD: e6d7c649e9d0522b60401f11fb8dd1fd4b122637
 origin/main: e6d7c649e9d0522b60401f11fb8dd1fd4b122637
-status --short:
+status:
 M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
  M projects/sfia-studio/app/features/project-assistant/actions.ts
+ M projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+ M projects/sfia-studio/app/features/project-assistant/types.ts
+ M projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
  M projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
+ M projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
  M projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
  M projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts
  M projects/sfia-studio/app/lib/oa/cycle/application/updateEpistemicState.ts
@@ -35,332 +33,111 @@ M .tmp-sfia-review/chatgpt-review.md
 ?? .tmp-sfia-review/discovery-matrix.md
 ?? .tmp-sfia-review/product-tracked.diff
 ?? projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.delivery.d0.test.ts
+?? projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.finalCorr.d0.test.ts
 ?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.module.css
 ?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx
 ?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts
 ?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecycleVisualContract.ts
 ?? projects/sfia-studio/app/lib/nora-cognitive-runtime/noraLifecycleRecommendationOutputType.ts
+?? projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
 ?? projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/
 ?? projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/epistemic/lifecycle-recommendation.schema.json
 diff --stat:
-.tmp-sfia-review/chatgpt-review.md                 | 2783 ++++++++++++++++++--
+.tmp-sfia-review/chatgpt-review.md                 | 4350 +++++++++++++++++++-
  .../pre-m6-product-ui/ProjectWorkspacePage.tsx     |   15 +
- .../app/features/project-assistant/actions.ts      |  171 +-
- .../nora-cognitive-runtime/runNoraAgentsTurn.ts    |   25 +-
+ .../app/features/project-assistant/actions.ts      |  196 +-
+ .../features/project-assistant/orchestrateTurn.ts  |  134 +-
+ .../app/features/project-assistant/types.ts        |    7 +
+ .../nora-cognitive-runtime/providerAgentsModel.ts  |   28 +
+ .../nora-cognitive-runtime/runNoraAgentsTurn.ts    |   49 +-
+ .../nora-cognitive-runtime/runNoraCognitiveTurn.ts |    7 +
  .../app/lib/nora-cognitive-runtime/types.ts        |    5 +
  .../oa/cycle/application/lifecycleProjection.ts    |   16 +
  .../oa/cycle/application/updateEpistemicState.ts   |    3 +
- .../sfia-studio/app/lib/oa/cycle/domain/types.ts   |   32 +
+ .../sfia-studio/app/lib/oa/cycle/domain/types.ts   |   42 +
  projects/sfia-studio/app/lib/oa/cycle/index.ts     |    1 +
  .../schemas/epistemic/epistemic-item.schema.json   |    3 +
- 10 files changed, 2844 insertions(+), 210 deletions(-)
-diff --name-status:
-M	.tmp-sfia-review/chatgpt-review.md
-M	projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
-M	projects/sfia-studio/app/features/project-assistant/actions.ts
-M	projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
-M	projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
-M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts
-M	projects/sfia-studio/app/lib/oa/cycle/application/updateEpistemicState.ts
-M	projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
-M	projects/sfia-studio/app/lib/oa/cycle/index.ts
-M	projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/epistemic/epistemic-item.schema.json
-diff --cached --stat:
+ 14 files changed, 4644 insertions(+), 212 deletions(-)
+cached:
 (empty)
-untracked:
-.tmp-sfia-review/discovery-matrix.md
-.tmp-sfia-review/product-tracked.diff
-projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.delivery.d0.test.ts
-projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.module.css
-projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx
-projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts
-projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecycleVisualContract.ts
-projects/sfia-studio/app/lib/nora-cognitive-runtime/noraLifecycleRecommendationOutputType.ts
-projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/basisFingerprint.ts
-projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/currentness.ts
-projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/index.ts
-projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/materializeLifecycleRecommendation.ts
-projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/produceLifecycleRecommendation.ts
-projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/types.ts
-projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/validateLifecycleRecommendation.ts
-projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/epistemic/lifecycle-recommendation.schema.json
-log -8:
-e6d7c649 (HEAD -> delivery/sfia-studio-lifecycle-recommendation-product, origin/main, origin/delivery/sfia-studio-lifecycle-recommendation-product, delivery/sfia-studio-proof-corr-04-hybrid-envelope-d) Merge pull request #476 from mcleland147/delivery/sfia-studio-proof-corr-05-pilot-lifecycle
-105f6473 feat(sfia-studio): enforce pilot-governed cycle lifecycle
-12d837fd Merge pull request #475 from mcleland147/recovery/sfia-studio-proof-corr-04-option-d-ac7376d9
-7f7184ca test(sfia-studio): register cognitive context runtime boundary
-95b268c3 feat(sfia-studio): ground Nora reasoning in Studio context
-1f48dd81 Merge pull request #474 from mcleland147/delivery/sfia-studio-proof-corr-03-e1-method-grounded-advisory
-8c6715fe fix(sfia-studio): ground Nora advisory in Studio method
-1b93fca8 Merge pull request #473 from mcleland147/delivery/sfia-studio-proof-corr-02-b1-advisory-default
 ```
 
-## 2. Incoming Review Handoff
+## Incoming handoff
+- `f951c6e9a3988afcee343740a0c1da3d58318da9`
 
-- origin/sfia/review-handoff @ `68fe55347b4b4ac84f8535bc0449b8c358c62fbb`
-- CORR-QUAL findings consumed: FINDING A (lr:* relatedObjects protocol), FINDING B (pause_snapshot_present ⇒ clean), FINDING C (truncated pack)
+## Morris GO consumed
+> GO MORRIS — AUTHORIZE BOUNDED FINAL LIFECYCLE RECOMMENDATION CORRECTION FOR MATERIAL BASIS/CURRENTNESS + NORA→PRODUCT RECOMMENDATION RUNTIME BRIDGE — PUBLISH REVIEW HANDOFF — ZERO REAL — NO PRODUCT COMMIT/PUSH/PR/MERGE.
 
-## 3. Exact Morris GO Consumed
+## Gaps addressed
+- GAP-01 CLOSED: `resolveCanonicalLifecycleRecommendationBasis` write/read parity; intent-scoped materiality; BASIS-01..08 proven
+- GAP-02 CLOSED: Product Assistant → Nora product-turn outputType → validate → canonical basis → Epistemic → SQLite → projection; one Agents call
 
-> GO MORRIS — LR CORRECTION OPTION A APPROVED — ADD OPTIONAL TYPED LIFECYCLE RECOMMENDATION FIELD TO EPISTEMICITEM — KEEP SCHEMAVERSION 0.1.0-OA FOR THIS STRICTLY ADDITIVE BACKWARD-COMPATIBLE DELTA — AUTHORIZE BOUNDED PRODUCT CORRECTION DELIVERY FOR TYPED CARRIER + AUTHORITATIVE RESUME RECONCILIATION — ZERO REAL — NO PRODUCT COMMIT/PUSH/PR/MERGE.
-
-## 4. Sources Read
-
-- prompts/templates/sfia-cycle-execution-template.md
-- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-- method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
-- method/sfia-fast-track/core/sfia-rules-and-guardrails.md
-- method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md
-- projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
-- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-- projects/sfia-studio/product-completion/01-product-completion-cadrage.md
-- projects/sfia-studio/product-completion/02-product-completion-conception-fonctionnelle.md
-- projects/sfia-studio/sfia-v3-framing/30,32,33,37
-- projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/05,10 + epistemic-item + provenance schemas
-- Incoming handoff 68fe5534 latest-chatgpt-review.md
-- Full local Product candidate (uncommitted)
-
-## 5. Convergence Matrix
-
-| Keep | Status |
-|------|--------|
-| CycleInstance lifecycle | KEPT |
-| ProjectTrajectory | KEPT |
-| HumanDecision engine | KEPT |
-| assessResumeReconciliation | KEPT + wired as sole projection authority |
-| PilotLifecycleTransitions | KEPT |
-| SQLite oa_epistemic_items / payload_json | KEPT — no DDL |
-| Nora governed Agents Runner + outputType | KEPT |
-| LifecycleSurface / TrajectorySurface | KEPT |
-| Recommendation ≠ decision; CURRENT/STALE derived | KEPT |
-| single Product cognition path | KEPT |
-
-| Adapt | Status |
-|-------|--------|
-| EpistemicItem modeled + TS | OPTIONAL lifecycleRecommendation |
-| materialize/currentness/produce | typed field; no lr:* |
-| updateEpistemicState | clones typed field |
-| PA lifecycle projection | assessResumeReconciliation + fail-closed |
-| deterministic tests | R1–R15 + R10-A..H |
-
-| Remove | Status |
-|--------|--------|
-| lr:* relatedObjectsCodec | DELETED (uncommitted candidate) |
-| pause_snapshot_present ⇒ clean | REMOVED |
-
-## 6. Files Created / Modified / Deleted
-
-### Created
-- `projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/epistemic/lifecycle-recommendation.schema.json`
-- `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/basisFingerprint.ts`
-- `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/currentness.ts`
-- `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/index.ts`
-- `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/materializeLifecycleRecommendation.ts`
-- `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/produceLifecycleRecommendation.ts`
-- `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/types.ts`
-- `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/validateLifecycleRecommendation.ts`
-- `projects/sfia-studio/app/lib/nora-cognitive-runtime/noraLifecycleRecommendationOutputType.ts`
-- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx`
-- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.module.css`
-- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts`
-- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecycleVisualContract.ts`
-- `projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.delivery.d0.test.ts`
-
-### Modified
-- `projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/epistemic/epistemic-item.schema.json`
-- `projects/sfia-studio/app/lib/oa/cycle/domain/types.ts`
-- `projects/sfia-studio/app/lib/oa/cycle/application/updateEpistemicState.ts`
-- `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts`
-- `projects/sfia-studio/app/lib/oa/cycle/index.ts`
-- `projects/sfia-studio/app/features/project-assistant/actions.ts`
-- `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx`
-- `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts`
-- `projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts`
-
-### Deleted
-- `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/relatedObjectsCodec.ts` (uncommitted candidate retirement of forbidden lr:* protocol)
-
-## 7. Protected Schema Delta
-
-- schemaVersion remains const `0.1.0-oa`
-- optional `lifecycleRecommendation` $ref added to EpistemicItem
-- new sibling schema `lifecycle-recommendation.schema.json`
-- additionalProperties:false retained
-- Breaking change detected: NO
-- DDL/migration: NO
-
-## 8. Final Typed Persisted Contract
-
-Outer EpistemicItem: epistemicItemId, type=Recommendation, statement, status, supersedes, createdAt, createdBy, source, provenance, relatedObjects (genuine domain refs only).
-
-Optional `lifecycleRecommendation`:
-- intent
-- basisFingerprint
-- basisRefs (audit/reload/currentness)
-- semanticKey
-- subjectCycleInstanceId
-- targetCycleInstanceId
-- targetCycleTypeId
-- authority: none (invariant)
-
-NOT persisted: CURRENT/STALE/UI/eligibility/canFinalize/canResume.
-
-## 9. Backward Compatibility / Persistence / Codec Retirement
-
-- Existing EpistemicItem without lifecycleRecommendation validates (AJV proven)
-- Existing non-lifecycle Recommendation validates
-- New lifecycle Recommendation with typed field validates
-- Unknown extra field fails (additionalProperties:false)
-- SQLite payload_json round-trip preserves typed field (R4)
-- No lr:* needed after reload
-- No DDL
-- schemaVersion 0.1.0-oa
-
-### lr:* protocol search (Product app)
+## Product runtime bridge architecture
 ```
-projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.delivery.d0.test.ts:541:      expect(text).not.toMatch(/lr:intent:/);
-projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.delivery.d0.test.ts:542:      expect(text).not.toMatch(/lr:basis:/);
-projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.delivery.d0.test.ts:543:      expect(text).not.toMatch(/lr:semkey:/);
-projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.delivery.d0.test.ts:544:      expect(text).not.toMatch(/lr:subject:/);
-projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.delivery.d0.test.ts:545:      expect(text).not.toMatch(/lr:target:/);
-projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.delivery.d0.test.ts:546:      expect(text).not.toMatch(/lr:targettype:/);
+orchestrateAssistantSend / projectAssistantSendAction
+  → orchestrateProjectAssistantTurn
+  → runNoraCognitiveTurn (outputType NORA_PRODUCT_TURN_WITH_OPTIONAL_LR on both Memory-B paths)
+  → runNoraAgentsTurn
+  → structuredOutput { narrative, lifecycleRecommendation | null }
+  → extract; if candidate: resolveCanonicalBasis → produceLifecycleRecommendation
+  → SQLite payload_json → reload → selectCurrentLifecycleRecommendations
 ```
+- model invocation count (E2E spy on runNoraAgentsTurn): 1
+- conversational narrative preserved
+- null LR → no Epistemic mutation
+- invalid/authority → fail-closed; no HD/cycle mutation
 
-relatedObjectsCodec.ts exists: False
+## Canonical materiality matrix
+| Field | FINALIZE | NEXT_CYCLE | Mutation ⇒ STALE |
+|-------|----------|------------|------------------|
+| projectId | yes | yes | rebinding |
+| subjectCycleId/status | yes | optional | BASIS-01 |
+| LPS active/version | yes | yes | BASIS-02 |
+| trajectory id/ver/status | yes | yes | BASIS-03 |
+| decisionFingerprint | yes | yes | BASIS-04 |
+| evidenceFingerprint | yes | null | BASIS-05 |
+| blockerFingerprint/count | yes | yes | BASIS-06 |
+| doctrine pin/digest | yes | yes | BASIS-07 |
+| finalizeAccepted | yes | null | finalization |
+| unrelated non-material | — | — | BASIS-08 remains CURRENT |
 
-## 10. Nora outputType
+## schemaVersion / modeled delta
+- schemaVersion: `0.1.0-oa`
+- Protected additive optional basisRefs: doctrinePackageId/Version/Digest, decisionFingerprint, evidenceFingerprint, blockerFingerprint
+- Breaking: NO; DDL: NO
 
-- `NORA_LIFECYCLE_RECOMMENDATION_OUTPUT_TYPE` + ScriptedModel path unchanged
-- Same post-model path: structured → validate → materialize → Epistemic → SQLite → reload → currentness
-- ZERO REAL OpenAI calls
+## R1–R15 matrix
+| ID | Verdict | Evidence |
+|----|---------|----------|
+| R1 | PASS | Scripted FINALIZE structured |
+| R2 | PASS | NEXT_CYCLE same Runner |
+| R3 | PASS | invalid binding |
+| R4 | PASS | typed SQLite reload |
+| R5 | PASS | BASIS-01..07 material STALE |
+| R6 | PASS | semanticKey supersession |
+| R7 | PASS | no Cycle mutation |
+| R8 | PASS | NEXT_CYCLE no create |
+| R9 | PASS | Rec ≠ eligibility ≠ HD |
+| R10 | PASS | authoritative resume regression |
+| R11 | PASS | TrajectorySurface |
+| R12 | PASS | one Agents call spy |
+| R13 | PASS | reload no resurrect stale/superseded |
+| R14 | PASS FUNCTIONAL (visual RESERVED) | surface copy |
+| R15 | PASS | orchestrateAssistantSend / orchestrateProjectAssistantTurn E2E |
 
-## 11. Currentness / Supersession
+## Tests / build
+- delivery.d0: 14 passed; finalCorr.d0: 6 passed; corrProof05: 136; orchestrateTurn: 8
+- tsc PASS; build PASS; lint PASS; git diff --check PASS
+- ZERO REAL
 
-- CURRENT/STALE derived from basisFingerprint vs live facts
-- semanticKey typed; Epistemic status authoritative for superseded
-- Reload does not resurrect stale/superseded (R13)
-
-## 12. RESUME Authoritative Wiring
-
-`buildAssistantPilotLifecycleProjection` (actions.ts):
-- when selected cycle paused → collect LPS/project/trajectory/decisions/evidence
-- on reader failure → fail closed (clean=false, canResume=false, honest reason)
-- call `assessResumeReconciliation`
-- map to projection.resumeReconciliation
-- canResume = base eligibility AND reconciliation.clean
-- REMOVED: pause_snapshot_present ⇒ clean
-- NO duplicated drift logic in UI
-
-## 13. R1–R15 Matrix
-
-| ID | Claim | Verdict | Evidence |
-|----|-------|---------|----------|
-| R1 | FINALIZE structured Nora output same Runner | PASS | delivery.d0 ScriptedModel + outputType |
-| R2 | NEXT_CYCLE same path | PASS | delivery.d0 |
-| R3 | invalid binding fail closed | PASS | delivery.d0 |
-| R4 | typed Epistemic durability SQLite reload | PASS | delivery.d0 |
-| R5 | material basis mutation ⇒ STALE | PASS | delivery.d0 |
-| R6 | semanticKey + supersession one current | PASS | delivery.d0 |
-| R7 | FINALIZE Rec does not mutate Cycle | PASS | delivery.d0 |
-| R8 | NEXT_CYCLE does not create Cycle | PASS | delivery.d0 |
-| R9 | Rec ≠ eligibility ≠ HD | PASS | delivery.d0 |
-| R10 | authoritative RESUME at projection | PASS | R10-A..H delivery.d0 + assessor |
-| R10-A | traj change ⇒ dirty / canResume false | PASS | projection |
-| R10-B | HD fingerprint drift | PASS | assessor unit |
-| R10-C | evidence drift | PASS | assessor unit |
-| R10-D | blocker drift | PASS | assessor unit |
-| R10-E | clean facts ⇒ canResume true | PASS | projection |
-| R10-F | replan HD alone never clears drift | PASS | subject + G |
-| R10-G | only clean fresh recon restores Resume | PASS | projection restore |
-| R10-H | reader/snapshot fail-closed | PASS | missing snapshot projection |
-| R11 | TrajectorySurface reused | PASS | delivery.d0 |
-| R12 | no second cognition path | PASS | same Runner |
-| R13 | reload never resurrects stale/superseded | PASS | delivery.d0 |
-| R14 | presentation distinction | PASS (visual RESERVED) | surface copy; no screenshots |
-| R15 | same post-model Product path | PASS | produce path |
-
-## 14. Tests / Typecheck / Build / Lint
-
-- lifecycleRecommendation.delivery.d0.test.ts: 14 passed
-- corrProof05.pilotLifecycle.d0.test.ts: 136 passed
-- nora-cognitive-runtime suite: 478 passed (38 files)
-- adversarialValidation + cycleTrajectoryEpistemicCkc: 44 passed
-- tsc --noEmit: PASS
-- npm run build: PASS
-- npm run lint: PASS (0 warnings)
-- git diff --check: PASS
-
-## 15. Fake/Real
-
-- Applicable: YES (OpenAI/Nora boundary)
-- This cycle: ZERO REAL
-- ScriptedModel substitutes external cognition
-- Forbidden claims NOT made: READY FOR REAL / REAL BOUNDARY PROVEN / END-TO-END REAL / runtime v3 ADOPTED
-- Visual strong R14: RESERVED
-
-## 16. Diff Summary
-
-```
-.tmp-sfia-review/chatgpt-review.md                 | 2783 ++++++++++++++++++--
- .../pre-m6-product-ui/ProjectWorkspacePage.tsx     |   15 +
- .../app/features/project-assistant/actions.ts      |  171 +-
- .../nora-cognitive-runtime/runNoraAgentsTurn.ts    |   25 +-
- .../app/lib/nora-cognitive-runtime/types.ts        |    5 +
- .../oa/cycle/application/lifecycleProjection.ts    |   16 +
- .../oa/cycle/application/updateEpistemicState.ts   |    3 +
- .../sfia-studio/app/lib/oa/cycle/domain/types.ts   |   32 +
- projects/sfia-studio/app/lib/oa/cycle/index.ts     |    1 +
- .../schemas/epistemic/epistemic-item.schema.json   |    3 +
- 10 files changed, 2844 insertions(+), 210 deletions(-)
-```
-
-```
-M	.tmp-sfia-review/chatgpt-review.md
-M	projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
-M	projects/sfia-studio/app/features/project-assistant/actions.ts
-M	projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
-M	projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
-M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts
-M	projects/sfia-studio/app/lib/oa/cycle/application/updateEpistemicState.ts
-M	projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
-M	projects/sfia-studio/app/lib/oa/cycle/index.ts
-M	projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/epistemic/epistemic-item.schema.json
-A	projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/epistemic/lifecycle-recommendation.schema.json
-A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/basisFingerprint.ts
-A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/currentness.ts
-A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/index.ts
-A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/materializeLifecycleRecommendation.ts
-A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/produceLifecycleRecommendation.ts
-A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/types.ts
-A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/validateLifecycleRecommendation.ts
-A	projects/sfia-studio/app/lib/nora-cognitive-runtime/noraLifecycleRecommendationOutputType.ts
-A	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx
-A	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.module.css
-A	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts
-A	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecycleVisualContract.ts
-A	projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.delivery.d0.test.ts
-D	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/relatedObjectsCodec.ts
-```
-
-## 17. Debt / Exit / Next Gate
-
-- Product remains uncommitted (authorized)
-- Visual R14 strong evidence RESERVED
-- Next Morris gate: ChatGPT correction acceptance → Product Git gate decision
-
-## 18. Final Verdict (local pack; handoff publish follows)
-
-READY FOR CHATGPT CORRECTION DELIVERY REVIEW — LR-D03 TYPED CARRIER IMPLEMENTED — AUTHORITATIVE RESUME RECONCILIATION IMPLEMENTED — DETERMINISTIC PRODUCT CANDIDATE — ZERO REAL — HANDOFF REMOTE VERIFIED — PRODUCT COMMIT/PUSH/PR NOT AUTHORIZED
-
-(Handoff remote verification completed in Cursor final report after publisher.)
+## Final verdict
+READY FOR CHATGPT FINAL CORRECTION REVIEW — MATERIAL LIFECYCLE RECOMMENDATION BASIS/CURRENTNESS PROVEN — NORA→PRODUCT RECOMMENDATION BRIDGE PROVEN DETERMINISTICALLY — R1–R15 PASS WITH R14 VISUAL RESERVED — ZERO REAL — HANDOFF REMOTE VERIFIED — PRODUCT COMMIT/PUSH/PR NOT AUTHORIZED
 
 ---
-
 # COMPLETE PRODUCT CONTENT — CREATED FILES
 
 ## CREATED: `projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/epistemic/lifecycle-recommendation.schema.json`
 
-```
 ```json
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
@@ -432,6 +209,24 @@ READY FOR CHATGPT CORRECTION DELIVERY REVIEW — LR-D03 TYPED CARRIER IMPLEMENTE
         },
         "reservationBlockingCount": {
           "type": ["integer", "null"]
+        },
+        "doctrinePackageId": {
+          "type": ["string", "null"]
+        },
+        "doctrinePackageVersion": {
+          "type": ["string", "null"]
+        },
+        "doctrinePackageDigest": {
+          "type": ["string", "null"]
+        },
+        "decisionFingerprint": {
+          "type": ["string", "null"]
+        },
+        "evidenceFingerprint": {
+          "type": ["string", "null"]
+        },
+        "blockerFingerprint": {
+          "type": ["string", "null"]
         }
       }
     },
@@ -459,7 +254,6 @@ READY FOR CHATGPT CORRECTION DELIVERY REVIEW — LR-D03 TYPED CARRIER IMPLEMENTE
 
 ## CREATED: `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/basisFingerprint.ts`
 
-```
 ```typescript
 import { createHash } from "node:crypto";
 import type {
@@ -478,6 +272,7 @@ export function isLifecycleRecommendationIntent(
   );
 }
 
+/** Deterministic fingerprint over the full canonical intent-scoped basis. */
 export function computeBasisFingerprint(
   refs: LifecycleRecommendationBasisRefs,
 ): string {
@@ -495,6 +290,12 @@ export function computeBasisFingerprint(
     finalizeAccepted: refs.finalizeAccepted ?? null,
     resumeClean: refs.resumeClean ?? null,
     reservationBlockingCount: refs.reservationBlockingCount ?? null,
+    doctrinePackageId: refs.doctrinePackageId ?? null,
+    doctrinePackageVersion: refs.doctrinePackageVersion ?? null,
+    doctrinePackageDigest: refs.doctrinePackageDigest ?? null,
+    decisionFingerprint: refs.decisionFingerprint ?? null,
+    evidenceFingerprint: refs.evidenceFingerprint ?? null,
+    blockerFingerprint: refs.blockerFingerprint ?? null,
   });
   return createHash("sha256").update(canonical).digest("hex");
 }
@@ -544,14 +345,21 @@ export function candidateFromStructuredOutput(
 
 ## CREATED: `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/currentness.ts`
 
-```
 ```typescript
-import type { CycleInstance, EpistemicItem } from "../../domain/types";
+import type { HumanDecision } from "@/lib/oa/decision";
+import type { Evidence } from "@/lib/oa/evidence-review";
+import type {
+  CycleInstance,
+  EpistemicItem,
+  ProjectTrajectory,
+} from "../../domain/types";
 import { computeBasisFingerprint } from "./basisFingerprint";
+import { resolveCanonicalLifecycleRecommendationBasis } from "./resolveCanonicalBasis";
 import type {
   LifecycleRecommendationBasisRefs,
   LifecycleRecommendationDerivedCurrentness,
   LifecycleRecommendationEnvelope,
+  LifecycleRecommendationIntent,
 } from "./types";
 import { tryDecodeLifecycleRecommendationItem } from "./materializeLifecycleRecommendation";
 
@@ -569,42 +377,92 @@ export function deriveLifecycleRecommendationCurrentness(input: {
   return now === persisted.basisFingerprint ? "CURRENT" : "STALE";
 }
 
-/** Rebuild validation seed shape from current Product facts. */
-export function rebuildBasisRefsForRecommendation(input: {
-  item: EpistemicItem;
+export type RebuildLifecycleRecommendationBasisFacts = {
   cycles: readonly CycleInstance[];
   lpsActiveCycleInstanceId: string | null | undefined;
+  lpsVersion?: number | null;
+  doctrinePackageId?: string | null;
+  doctrinePackageVersion?: string | null;
+  doctrinePackageDigest?: string | null;
+  trajectory?: ProjectTrajectory | null;
+  decisions?: readonly HumanDecision[];
+  evidence?: readonly Evidence[];
+  blockingReservationStatements?: readonly string[];
+  finalizeAccepted?: boolean | null;
+  resumeClean?: boolean | null;
+};
+
+/** Rebuild the same canonical basis from current durable Product facts. */
+export function rebuildBasisRefsForRecommendation(input: {
+  item: EpistemicItem;
+  facts: RebuildLifecycleRecommendationBasisFacts;
 }): LifecycleRecommendationBasisRefs | null {
   const persisted = input.item.lifecycleRecommendation;
   if (!persisted) return null;
-  const subjectId = persisted.subjectCycleInstanceId;
-  const subject = subjectId
-    ? input.cycles.find((c) => c.cycleInstanceId === subjectId)
-    : undefined;
-  return {
+  const intent = persisted.intent as LifecycleRecommendationIntent;
+  return resolveCanonicalLifecycleRecommendationBasis({
+    intent,
     projectId: persisted.basisRefs.projectId,
-    subjectCycleInstanceId: subjectId,
-    subjectCycleStatus: subject?.status ?? null,
+    subjectCycleInstanceId: persisted.subjectCycleInstanceId,
     targetCycleInstanceId: persisted.targetCycleInstanceId,
     targetCycleTypeId: persisted.targetCycleTypeId,
-    lpsActiveCycleInstanceId: input.lpsActiveCycleInstanceId ?? null,
-  };
+    cycles: input.facts.cycles,
+    lpsActiveCycleInstanceId: input.facts.lpsActiveCycleInstanceId,
+    lpsVersion: input.facts.lpsVersion ?? null,
+    doctrinePackageId: input.facts.doctrinePackageId ?? null,
+    doctrinePackageVersion: input.facts.doctrinePackageVersion ?? null,
+    doctrinePackageDigest: input.facts.doctrinePackageDigest ?? null,
+    trajectory: input.facts.trajectory ?? null,
+    decisions: input.facts.decisions ?? [],
+    evidence: input.facts.evidence ?? [],
+    blockingReservationStatements:
+      input.facts.blockingReservationStatements ?? [],
+    finalizeAccepted: input.facts.finalizeAccepted ?? null,
+    resumeClean: input.facts.resumeClean ?? null,
+  });
 }
 
 export function selectCurrentLifecycleRecommendations(input: {
   items: readonly EpistemicItem[];
   cycles: readonly CycleInstance[];
   lpsActiveCycleInstanceId: string | null | undefined;
+  lpsVersion?: number | null;
+  doctrinePackageId?: string | null;
+  doctrinePackageVersion?: string | null;
+  doctrinePackageDigest?: string | null;
+  trajectory?: ProjectTrajectory | null;
+  decisions?: readonly HumanDecision[];
+  evidence?: readonly Evidence[];
+  blockingReservationStatements?: readonly string[];
+  finalizeAcceptedBySubject?: ReadonlyMap<string, boolean> | null;
+  resumeCleanBySubject?: ReadonlyMap<string, boolean> | null;
 }): LifecycleRecommendationEnvelope[] {
   const decoded: LifecycleRecommendationEnvelope[] = [];
   for (const item of input.items) {
     if (item.type !== "Recommendation") continue;
     if (item.source !== "lifecycle-recommendation:nora") continue;
     if (!item.lifecycleRecommendation) continue;
+    const subjectId = item.lifecycleRecommendation.subjectCycleInstanceId;
     const basis = rebuildBasisRefsForRecommendation({
       item,
-      cycles: input.cycles,
-      lpsActiveCycleInstanceId: input.lpsActiveCycleInstanceId,
+      facts: {
+        cycles: input.cycles,
+        lpsActiveCycleInstanceId: input.lpsActiveCycleInstanceId,
+        lpsVersion: input.lpsVersion,
+        doctrinePackageId: input.doctrinePackageId,
+        doctrinePackageVersion: input.doctrinePackageVersion,
+        doctrinePackageDigest: input.doctrinePackageDigest,
+        trajectory: input.trajectory,
+        decisions: input.decisions,
+        evidence: input.evidence,
+        blockingReservationStatements: input.blockingReservationStatements,
+        finalizeAccepted: subjectId
+          ? (input.finalizeAcceptedBySubject?.get(subjectId) ?? null)
+          : null,
+        resumeClean: subjectId
+          ? (input.resumeCleanBySubject?.get(subjectId) ?? null)
+          : null,
+      },
     });
     if (!basis) continue;
     const currentness = deriveLifecycleRecommendationCurrentness({
@@ -628,19 +486,19 @@ export function selectCurrentLifecycleRecommendations(input: {
 
 ## CREATED: `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/index.ts`
 
-```
 ```typescript
 export * from "./types";
 export * from "./basisFingerprint";
+export * from "./resolveCanonicalBasis";
 export * from "./validateLifecycleRecommendation";
 export * from "./materializeLifecycleRecommendation";
 export * from "./currentness";
 export * from "./produceLifecycleRecommendation";
+export * from "./materializeFromProductTurn";
 ```
 
 ## CREATED: `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/materializeLifecycleRecommendation.ts`
 
-```
 ```typescript
 import type {
   EpistemicItem,
@@ -853,7 +711,6 @@ export async function materializeLifecycleRecommendation(input: {
 
 ## CREATED: `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/produceLifecycleRecommendation.ts`
 
-```
 ```typescript
 import type { EpistemicItem, ProvenanceRecord } from "../../domain/types";
 import type { CycleInstance } from "../../domain/types";
@@ -881,6 +738,10 @@ export type ProduceLifecycleRecommendationInput = {
     | LifecycleRecommendationCandidate;
   cycles: readonly CycleInstance[];
   lpsActiveCycleInstanceId: string | null | undefined;
+  /**
+   * Server-resolved canonical material basis (intent-scoped).
+   * Must already include all material fields — not reconstructed from basisSeed alone.
+   */
   basisRefs: LifecycleRecommendationBasisRefs;
   producedAt: string;
   createdBy: EpistemicItem["createdBy"];
@@ -900,7 +761,7 @@ export type ProduceLifecycleRecommendationResult =
   | { ok: false; code: string; reason: string };
 
 /**
- * Product path post-model: validate → materialize typed Epistemic → decode envelope.
+ * Product path post-model: validate → persist canonical basis → decode envelope.
  * Used by Fake/deterministic and future REAL boundary alike (R15).
  */
 export async function produceLifecycleRecommendation(
@@ -952,9 +813,13 @@ export async function produceLifecycleRecommendation(
     return { ok: false, code: validated.code, reason: validated.reason };
   }
 
+  // Persist the server-owned canonical basis (not the thin validation seed alone).
   const basisRefs: LifecycleRecommendationBasisRefs = {
-    ...validated.basisSeed,
+    ...input.basisRefs,
     projectId: input.projectId,
+    subjectCycleInstanceId: validated.subjectCycleInstanceId,
+    targetCycleInstanceId: validated.targetCycleInstanceId,
+    targetCycleTypeId: validated.targetCycleTypeId,
   };
 
   const materialized = await materializeLifecycleRecommendation({
@@ -1011,7 +876,6 @@ export async function produceLifecycleRecommendation(
 
 ## CREATED: `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/types.ts`
 
-```
 ```typescript
 /**
  * Lifecycle Recommendation — Product-side envelope (not Epistemic schema extension alone).
@@ -1087,7 +951,6 @@ export type NoraLifecycleRecommendationStructuredOutput = {
 
 ## CREATED: `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/validateLifecycleRecommendation.ts`
 
-```
 ```typescript
 import type { CycleInstance } from "../../domain/types";
 import { isTerminalCycleStatus } from "../../domain/lifecycleInvariants";
@@ -1261,9 +1124,382 @@ export function validateLifecycleRecommendation(
 }
 ```
 
+## CREATED: `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/resolveCanonicalBasis.ts`
+
+```typescript
+/**
+ * Canonical intent-scoped Lifecycle Recommendation material basis.
+ * Same resolver for produce (write) and currentness (read/reload).
+ * Server-owned — never trust model/client basisRefs.
+ */
+import type { HumanDecision } from "@/lib/oa/decision";
+import type { Evidence } from "@/lib/oa/evidence-review";
+import type { CycleInstance, ProjectTrajectory } from "../../domain/types";
+import { isCurrentHumanDecisionStatus } from "../assessFinalization";
+import type {
+  LifecycleRecommendationBasisRefs,
+  LifecycleRecommendationIntent,
+} from "./types";
+
+export type ResolveCanonicalLifecycleRecommendationBasisInput = {
+  intent: LifecycleRecommendationIntent;
+  projectId: string;
+  subjectCycleInstanceId: string | null;
+  targetCycleInstanceId: string | null;
+  targetCycleTypeId: string | null;
+  cycles: readonly CycleInstance[];
+  lpsActiveCycleInstanceId: string | null | undefined;
+  lpsVersion: number | null | undefined;
+  doctrinePackageId?: string | null;
+  doctrinePackageVersion?: string | null;
+  doctrinePackageDigest?: string | null;
+  trajectory: ProjectTrajectory | null;
+  decisions: readonly HumanDecision[];
+  evidence: readonly Evidence[];
+  blockingReservationStatements: readonly string[];
+  finalizeAccepted?: boolean | null;
+  resumeClean?: boolean | null;
+};
+
+export function lifecycleDecisionFingerprint(
+  decisions: readonly HumanDecision[],
+  projectId: string,
+  cycleInstanceId: string | null,
+): string {
+  const relevant = decisions
+    .filter(
+      (d) =>
+        d.projectId === projectId &&
+        (!cycleInstanceId ||
+          !d.cycleInstanceId ||
+          d.cycleInstanceId === cycleInstanceId) &&
+        isCurrentHumanDecisionStatus(d.status),
+    )
+    .map((d) => `${d.decisionId}:${d.status}:${d.subject}`)
+    .sort();
+  return relevant.join("|") || "none";
+}
+
+export function lifecycleEvidenceFingerprint(
+  evidence: readonly Evidence[],
+  cycleInstanceId: string | null,
+): string {
+  const relevant = evidence
+    .filter(
+      (e) =>
+        !cycleInstanceId ||
+        !e.bindings?.cycleInstanceId ||
+        e.bindings.cycleInstanceId === cycleInstanceId,
+    )
+    .map(
+      (e) =>
+        `${e.evidenceId}:${e.status}:${e.availability ?? ""}:${e.freshness ?? ""}`,
+    )
+    .sort();
+  return relevant.join("|") || "none";
+}
+
+export function lifecycleBlockerFingerprint(
+  statements: readonly string[],
+): string {
+  return statements.slice().sort().join("|") || "none";
+}
+
+/**
+ * Materiality matrix (intent-scoped):
+ *
+ * FINALIZE_CURRENT_CYCLE — subject status, LPS, doctrine pin, trajectory,
+ *   HD fingerprint, Evidence fingerprint, blockers, finalizeAccepted, resumeClean.
+ * NEXT_CYCLE — project/targets, LPS, doctrine pin, trajectory, HD fingerprint,
+ *   blockers (Evidence/finalizeAccepted not material → null).
+ *
+ * Unrelated non-material facts (e.g. other-cycle-only noise when fingerprints
+ * stay equal, or non-persisted UI state) must not change the fingerprint.
+ */
+export function resolveCanonicalLifecycleRecommendationBasis(
+  input: ResolveCanonicalLifecycleRecommendationBasisInput,
+): LifecycleRecommendationBasisRefs {
+  const subject = input.subjectCycleInstanceId
+    ? input.cycles.find((c) => c.cycleInstanceId === input.subjectCycleInstanceId)
+    : undefined;
+
+  const scopeCycleId =
+    input.intent === "FINALIZE_CURRENT_CYCLE"
+      ? input.subjectCycleInstanceId
+      : input.subjectCycleInstanceId ?? input.targetCycleInstanceId;
+
+  const decisionFingerprint = lifecycleDecisionFingerprint(
+    input.decisions,
+    input.projectId,
+    scopeCycleId,
+  );
+  const blockerFingerprint = lifecycleBlockerFingerprint(
+    input.blockingReservationStatements,
+  );
+
+  const base: LifecycleRecommendationBasisRefs = {
+    projectId: input.projectId,
+    subjectCycleInstanceId: input.subjectCycleInstanceId,
+    subjectCycleStatus: subject?.status ?? null,
+    targetCycleInstanceId: input.targetCycleInstanceId,
+    targetCycleTypeId: input.targetCycleTypeId,
+    lpsActiveCycleInstanceId: input.lpsActiveCycleInstanceId ?? null,
+    lpsVersion: input.lpsVersion ?? null,
+    doctrinePackageId: input.doctrinePackageId ?? null,
+    doctrinePackageVersion: input.doctrinePackageVersion ?? null,
+    doctrinePackageDigest: input.doctrinePackageDigest ?? null,
+    trajectoryId: input.trajectory?.trajectoryId ?? null,
+    trajectoryVersion: input.trajectory?.version ?? null,
+    trajectoryStatus: input.trajectory?.status ?? null,
+    decisionFingerprint,
+    blockerFingerprint,
+    reservationBlockingCount: input.blockingReservationStatements.length,
+  };
+
+  if (input.intent === "FINALIZE_CURRENT_CYCLE") {
+    return {
+      ...base,
+      evidenceFingerprint: lifecycleEvidenceFingerprint(
+        input.evidence,
+        input.subjectCycleInstanceId,
+      ),
+      finalizeAccepted: input.finalizeAccepted ?? false,
+      resumeClean: input.resumeClean ?? null,
+    };
+  }
+
+  // NEXT_CYCLE — Evidence / finalizeAccepted not material for this intent.
+  return {
+    ...base,
+    evidenceFingerprint: null,
+    finalizeAccepted: null,
+    resumeClean: input.resumeClean ?? null,
+  };
+}
+```
+
+## CREATED: `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn.ts`
+
+```typescript
+/**
+ * Server-owned Product materialization after Nora structured Product turn.
+ * Does not call the model. Does not invent HD / Cycle mutations.
+ */
+import type { ActorReference } from "@/lib/oa/project";
+import type { HumanDecision } from "@/lib/oa/decision";
+import type { Evidence } from "@/lib/oa/evidence-review";
+import type {
+  CycleInstance,
+  EpistemicItem,
+  ProjectTrajectory,
+} from "@/lib/oa/cycle/domain/types";
+import type { UpdateEpistemicState } from "@/lib/oa/cycle/application/updateEpistemicState";
+import { deriveLifecycleBlockersFromEpistemicItems } from "@/lib/oa/cycle/application/deriveLifecycleBlockers";
+import { assessFinalizationObligations } from "@/lib/oa/cycle/application/assessFinalization";
+import { assessResumeReconciliation } from "@/lib/oa/cycle/application/assessResumeReconciliation";
+import { isPausedStatus } from "@/lib/oa/cycle/domain/lifecycleInvariants";
+import {
+  produceLifecycleRecommendation,
+  type ProduceLifecycleRecommendationResult,
+} from "@/lib/oa/cycle/application/lifecycleRecommendation/produceLifecycleRecommendation";
+import { resolveCanonicalLifecycleRecommendationBasis } from "@/lib/oa/cycle/application/lifecycleRecommendation/resolveCanonicalBasis";
+import {
+  isNoraLifecycleRecommendationStructuredOutput,
+} from "@/lib/nora-cognitive-runtime/noraLifecycleRecommendationOutputType";
+import {
+  isNoraProductTurnWithOptionalLr,
+} from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
+import type { NoraLifecycleRecommendationStructuredOutput } from "@/lib/oa/cycle/application/lifecycleRecommendation/types";
+
+export type LifecycleRecommendationMaterialFacts = {
+  cycles: readonly CycleInstance[];
+  lpsActiveCycleInstanceId: string | null | undefined;
+  lpsVersion: number | null | undefined;
+  doctrinePackageId?: string | null;
+  doctrinePackageVersion?: string | null;
+  doctrinePackageDigest?: string | null;
+  trajectory: ProjectTrajectory | null;
+  decisions: readonly HumanDecision[];
+  evidence: readonly Evidence[];
+  epistemicItems: readonly EpistemicItem[];
+  objective?: string;
+  context?: string;
+  scope?: string;
+};
+
+export type MaterializeFromProductTurnResult = {
+  narrative: string | null;
+  recommendationAttempted: boolean;
+  materialization: ProduceLifecycleRecommendationResult | null;
+};
+
+function finalizeAcceptedForSubject(
+  facts: LifecycleRecommendationMaterialFacts,
+  subjectCycleInstanceId: string,
+  assessedAt: string,
+): boolean {
+  const cycle = facts.cycles.find(
+    (c) => c.cycleInstanceId === subjectCycleInstanceId,
+  );
+  if (!cycle) return false;
+  const assessment = assessFinalizationObligations({
+    cycle,
+    projectId: cycle.projectId,
+    assessedAt,
+    decisions: facts.decisions,
+    evidence: facts.evidence,
+    reviewBundles: [],
+    trajectory: facts.trajectory,
+  });
+  return assessment.finalizeAccepted === true;
+}
+
+function resumeCleanForSubject(
+  facts: LifecycleRecommendationMaterialFacts,
+  subjectCycleInstanceId: string,
+  projectId: string,
+): boolean | null {
+  const cycle = facts.cycles.find(
+    (c) => c.cycleInstanceId === subjectCycleInstanceId,
+  );
+  if (!cycle || !isPausedStatus(cycle.status)) return null;
+  const blockers = deriveLifecycleBlockersFromEpistemicItems(
+    facts.epistemicItems,
+  );
+  const siblingActiveExists = facts.cycles.some(
+    (c) =>
+      c.status === "active" && c.cycleInstanceId !== subjectCycleInstanceId,
+  );
+  const r = assessResumeReconciliation({
+    cycle,
+    projectId,
+    lpsReadable: true,
+    lpsVersion: facts.lpsVersion ?? 0,
+    lpsActiveCycleInstanceId: facts.lpsActiveCycleInstanceId ?? null,
+    objective: facts.objective ?? "",
+    context: facts.context ?? "",
+    scope: facts.scope ?? "",
+    doctrinePackageId: facts.doctrinePackageId ?? undefined,
+    doctrinePackageVersion: facts.doctrinePackageVersion ?? undefined,
+    doctrinePackageDigest: facts.doctrinePackageDigest ?? undefined,
+    trajectory: facts.trajectory,
+    decisions: facts.decisions,
+    evidence: facts.evidence,
+    blockingReservationStatements: blockers.statements,
+    siblingActiveExists,
+  });
+  return r.clean;
+}
+
+export function extractLifecycleCandidateFromStructuredOutput(
+  structuredOutput: unknown,
+): {
+  narrative: string | null;
+  candidate: NoraLifecycleRecommendationStructuredOutput | null;
+  kind: "product_turn" | "lr_only" | "none";
+} {
+  if (isNoraProductTurnWithOptionalLr(structuredOutput)) {
+    return {
+      narrative: structuredOutput.narrative,
+      candidate: structuredOutput.lifecycleRecommendation,
+      kind: "product_turn",
+    };
+  }
+  if (isNoraLifecycleRecommendationStructuredOutput(structuredOutput)) {
+    return {
+      narrative: structuredOutput.statement,
+      candidate: structuredOutput,
+      kind: "lr_only",
+    };
+  }
+  return { narrative: null, candidate: null, kind: "none" };
+}
+
+export async function materializeLifecycleRecommendationFromStructuredOutput(input: {
+  projectId: string;
+  structuredOutput: unknown;
+  updateEpistemicState: UpdateEpistemicState;
+  facts: LifecycleRecommendationMaterialFacts;
+  producedAt: string;
+  createdBy: ActorReference;
+  correlationId?: string;
+}): Promise<MaterializeFromProductTurnResult> {
+  const extracted = extractLifecycleCandidateFromStructuredOutput(
+    input.structuredOutput,
+  );
+  if (extracted.kind === "product_turn" && extracted.candidate === null) {
+    return {
+      narrative: extracted.narrative,
+      recommendationAttempted: false,
+      materialization: null,
+    };
+  }
+  if (!extracted.candidate) {
+    return {
+      narrative: extracted.narrative,
+      recommendationAttempted: false,
+      materialization: null,
+    };
+  }
+
+  const candidate = extracted.candidate;
+  const blockers = deriveLifecycleBlockersFromEpistemicItems(
+    input.facts.epistemicItems,
+  );
+  const subjectId = candidate.subjectCycleInstanceId ?? null;
+  const finalizeAccepted =
+    candidate.intent === "FINALIZE_CURRENT_CYCLE" && subjectId
+      ? finalizeAcceptedForSubject(input.facts, subjectId, input.producedAt)
+      : null;
+  const resumeClean =
+    subjectId
+      ? resumeCleanForSubject(input.facts, subjectId, input.projectId)
+      : null;
+
+  const basisRefs = resolveCanonicalLifecycleRecommendationBasis({
+    intent: candidate.intent,
+    projectId: input.projectId,
+    subjectCycleInstanceId: subjectId,
+    targetCycleInstanceId: candidate.targetCycleInstanceId ?? null,
+    targetCycleTypeId: candidate.targetCycleTypeId ?? null,
+    cycles: input.facts.cycles,
+    lpsActiveCycleInstanceId: input.facts.lpsActiveCycleInstanceId,
+    lpsVersion: input.facts.lpsVersion,
+    doctrinePackageId: input.facts.doctrinePackageId,
+    doctrinePackageVersion: input.facts.doctrinePackageVersion,
+    doctrinePackageDigest: input.facts.doctrinePackageDigest,
+    trajectory: input.facts.trajectory,
+    decisions: input.facts.decisions,
+    evidence: input.facts.evidence,
+    blockingReservationStatements: blockers.statements,
+    finalizeAccepted,
+    resumeClean,
+  });
+
+  const materialization = await produceLifecycleRecommendation({
+    updateEpistemicState: input.updateEpistemicState,
+    projectId: input.projectId,
+    structured: candidate,
+    cycles: input.facts.cycles,
+    lpsActiveCycleInstanceId: input.facts.lpsActiveCycleInstanceId,
+    basisRefs,
+    producedAt: input.producedAt,
+    createdBy: input.createdBy,
+    existingItems: input.facts.epistemicItems,
+    hasTrajectoryContext: Boolean(input.facts.trajectory),
+    correlationId: input.correlationId,
+  });
+
+  return {
+    narrative: extracted.narrative,
+    recommendationAttempted: true,
+    materialization,
+  };
+}
+```
+
 ## CREATED: `projects/sfia-studio/app/lib/nora-cognitive-runtime/noraLifecycleRecommendationOutputType.ts`
 
-```
 ```typescript
 import type { NoraLifecycleRecommendationStructuredOutput } from "@/lib/oa/cycle/application/lifecycleRecommendation/types";
 
@@ -1319,9 +1555,65 @@ export function isNoraLifecycleRecommendationStructuredOutput(
 }
 ```
 
+## CREATED: `projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts`
+
+```typescript
+import type { NoraLifecycleRecommendationStructuredOutput } from "@/lib/oa/cycle/application/lifecycleRecommendation/types";
+import {
+  NORA_LIFECYCLE_RECOMMENDATION_OUTPUT_TYPE,
+  isNoraLifecycleRecommendationStructuredOutput,
+} from "./noraLifecycleRecommendationOutputType";
+
+/**
+ * Product Assistant Nora turn contract:
+ * - user-visible narrative (required)
+ * - optional Lifecycle Recommendation candidate (nullable)
+ * Same Agents Runner — one model call — no prose parsing.
+ */
+export const NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE = {
+  type: "json_schema" as const,
+  name: "nora_product_turn_with_optional_lr",
+  strict: true,
+  schema: {
+    type: "object" as const,
+    additionalProperties: false as const,
+    required: ["narrative", "lifecycleRecommendation"],
+    properties: {
+      narrative: { type: "string" as const },
+      lifecycleRecommendation: {
+        anyOf: [
+          { type: "null" as const },
+          NORA_LIFECYCLE_RECOMMENDATION_OUTPUT_TYPE.schema,
+        ],
+      },
+    },
+  },
+};
+
+export type NoraProductTurnWithOptionalLr = {
+  narrative: string;
+  lifecycleRecommendation: NoraLifecycleRecommendationStructuredOutput | null;
+};
+
+export function isNoraProductTurnWithOptionalLr(
+  value: unknown,
+): value is NoraProductTurnWithOptionalLr {
+  if (!value || typeof value !== "object") return false;
+  const o = value as Record<string, unknown>;
+  if (typeof o.narrative !== "string") return false;
+  if (o.lifecycleRecommendation === null) return true;
+  return isNoraLifecycleRecommendationStructuredOutput(
+    o.lifecycleRecommendation,
+  );
+}
+
+export function isNoraProductTurnOutputTypeName(name: unknown): boolean {
+  return name === NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE.name;
+}
+```
+
 ## CREATED: `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx`
 
-```
 ```tsx
 "use client";
 
@@ -1578,7 +1870,6 @@ export function LifecycleSurface({
 
 ## CREATED: `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.module.css`
 
-```
 ```css
 .panel {
   display: flex;
@@ -1709,7 +2000,6 @@ export function LifecycleSurface({
 
 ## CREATED: `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts`
 
-```
 ```typescript
 import type { PilotLifecycleProjection } from "@/lib/oa/cycle";
 import type { LifecycleRecommendationEnvelope } from "@/lib/oa/cycle";
@@ -1833,7 +2123,6 @@ export function lifecycleCtaPresentation(projection: PilotLifecycleProjection): 
 
 ## CREATED: `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecycleVisualContract.ts`
 
-```
 ```typescript
 /**
  * Visual contract — LifecycleSurface (pre-UI code).
@@ -1869,7 +2158,6 @@ export const LIFECYCLE_SURFACE_VISUAL_CONTRACT = {
 
 ## CREATED: `projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.delivery.d0.test.ts`
 
-```
 ```typescript
 /**
  * Lifecycle Recommendation Correction Delivery — R1–R15 + R10-A..H.
@@ -1899,6 +2187,7 @@ import {
   createSqliteCycleServices,
   produceLifecycleRecommendation,
   projectPilotLifecycle,
+  resolveCanonicalLifecycleRecommendationBasis,
   resumeReplanSubjectFor,
   selectCurrentLifecycleRecommendations,
   trajectoryFingerprint,
@@ -2100,6 +2389,50 @@ async function createCandidate(
   });
 }
 
+function canonicalBasis(input: {
+  intent: "FINALIZE_CURRENT_CYCLE" | "NEXT_CYCLE";
+  projectId: string;
+  subjectCycleInstanceId: string | null;
+  targetCycleInstanceId?: string | null;
+  targetCycleTypeId?: string | null;
+  cycles: Awaited<
+    ReturnType<ReturnType<typeof createSqliteCycleServices>["cycles"]["listByProject"]>
+  >;
+  lpsActiveCycleInstanceId: string | null;
+  lpsVersion?: number;
+  trajectory?: Parameters<
+    typeof resolveCanonicalLifecycleRecommendationBasis
+  >[0]["trajectory"];
+  decisions?: Parameters<
+    typeof resolveCanonicalLifecycleRecommendationBasis
+  >[0]["decisions"];
+  evidence?: Parameters<
+    typeof resolveCanonicalLifecycleRecommendationBasis
+  >[0]["evidence"];
+  blockers?: string[];
+  finalizeAccepted?: boolean | null;
+}) {
+  return resolveCanonicalLifecycleRecommendationBasis({
+    intent: input.intent,
+    projectId: input.projectId,
+    subjectCycleInstanceId: input.subjectCycleInstanceId,
+    targetCycleInstanceId: input.targetCycleInstanceId ?? null,
+    targetCycleTypeId: input.targetCycleTypeId ?? null,
+    cycles: input.cycles,
+    lpsActiveCycleInstanceId: input.lpsActiveCycleInstanceId,
+    lpsVersion: input.lpsVersion ?? 1,
+    doctrinePackageId: VALID_PIN.doctrinePackageId,
+    doctrinePackageVersion: VALID_PIN.version,
+    doctrinePackageDigest: VALID_PIN.digest,
+    trajectory: input.trajectory ?? null,
+    decisions: input.decisions ?? [],
+    evidence: input.evidence ?? [],
+    blockingReservationStatements: input.blockers ?? [],
+    finalizeAccepted: input.finalizeAccepted ?? false,
+    resumeClean: null,
+  });
+}
+
 describe("Lifecycle Recommendation Correction Delivery", () => {
   it("schema Option A — additive optional field; schemaVersion 0.1.0-oa; backward compatible", () => {
     const ajv = createEpistemicAjv();
@@ -2251,7 +2584,13 @@ describe("Lifecycle Recommendation Correction Delivery", () => {
       },
       cycles,
       lpsActiveCycleInstanceId: "cyc:lr-r4",
-      basisRefs: { projectId: "prj:lr-r4" },
+      basisRefs: canonicalBasis({
+        intent: "FINALIZE_CURRENT_CYCLE",
+        projectId: "prj:lr-r4",
+        subjectCycleInstanceId: "cyc:lr-r4",
+        cycles,
+        lpsActiveCycleInstanceId: "cyc:lr-r4",
+      }),
       producedAt: "2026-09-08T08:00:01.000Z",
       createdBy: NORA_BY,
       existingItems: [],
@@ -2276,6 +2615,15 @@ describe("Lifecycle Recommendation Correction Delivery", () => {
       items,
       cycles,
       lpsActiveCycleInstanceId: "cyc:lr-r4",
+      lpsVersion: 1,
+      doctrinePackageId: VALID_PIN.doctrinePackageId,
+      doctrinePackageVersion: VALID_PIN.version,
+      doctrinePackageDigest: VALID_PIN.digest,
+      trajectory: null,
+      decisions: [],
+      evidence: [],
+      blockingReservationStatements: [],
+      finalizeAcceptedBySubject: new Map([["cyc:lr-r4", false]]),
     });
     expect(reloaded).toHaveLength(1);
 
@@ -2294,7 +2642,13 @@ describe("Lifecycle Recommendation Correction Delivery", () => {
       },
       cycles,
       lpsActiveCycleInstanceId: "cyc:lr-r4",
-      basisRefs: { projectId: "prj:lr-r4" },
+      basisRefs: canonicalBasis({
+        intent: "FINALIZE_CURRENT_CYCLE",
+        projectId: "prj:lr-r4",
+        subjectCycleInstanceId: "cyc:lr-r4",
+        cycles,
+        lpsActiveCycleInstanceId: "cyc:lr-r4",
+      }),
       producedAt: "2026-09-08T08:00:02.000Z",
       createdBy: NORA_BY,
       existingItems: await stack.cycles.epistemic.listByProject("prj:lr-r4"),
@@ -2306,6 +2660,15 @@ describe("Lifecycle Recommendation Correction Delivery", () => {
       items: afterSuper,
       cycles,
       lpsActiveCycleInstanceId: "cyc:lr-r4",
+      lpsVersion: 1,
+      doctrinePackageId: VALID_PIN.doctrinePackageId,
+      doctrinePackageVersion: VALID_PIN.version,
+      doctrinePackageDigest: VALID_PIN.digest,
+      trajectory: null,
+      decisions: [],
+      evidence: [],
+      blockingReservationStatements: [],
+      finalizeAcceptedBySubject: new Map([["cyc:lr-r4", false]]),
     });
     expect(current).toHaveLength(1);
     expect(current[0]!.recommendationId).toBe(
@@ -2346,7 +2709,14 @@ describe("Lifecycle Recommendation Correction Delivery", () => {
       },
       cycles: [],
       lpsActiveCycleInstanceId: null,
-      basisRefs: { projectId: "prj:lr-r8" },
+      basisRefs: canonicalBasis({
+        intent: "NEXT_CYCLE",
+        projectId: "prj:lr-r8",
+        subjectCycleInstanceId: null,
+        targetCycleTypeId: "cyc:ux-ui",
+        cycles: [],
+        lpsActiveCycleInstanceId: null,
+      }),
       producedAt: "2026-09-08T08:00:03.000Z",
       createdBy: NORA_BY,
       existingItems: [],
@@ -2735,6 +3105,694 @@ describe("R10 authoritative RESUME projection", () => {
 });
 ```
 
+## CREATED: `projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.finalCorr.d0.test.ts`
+
+```typescript
+/**
+ * LR CORR-DELIVERY-02 — material basis/currentness + Product Nora→Epistemic bridge.
+ * ZERO REAL — ScriptedModel through orchestrateAssistantSend / orchestrateProjectAssistantTurn.
+ * @vitest-environment node
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { ScriptedModel, assistantMessage } from "@openai/agents/testing";
+import { FakeConversationProvider } from "@/lib/platform/ai";
+import {
+  createTestDoctrineResolver,
+  FixedClock,
+  type Digest,
+  type DoctrinePackagePin,
+} from "@/lib/oa/doctrine";
+import {
+  createTestSqliteProductProjectServices,
+  type ActorReference,
+} from "@/lib/oa/project";
+import {
+  createSqliteCycleServices,
+  deriveLifecycleRecommendationCurrentness,
+  produceLifecycleRecommendation,
+  rebuildBasisRefsForRecommendation,
+  resolveCanonicalLifecycleRecommendationBasis,
+  selectCurrentLifecycleRecommendations,
+} from "@/lib/oa/cycle";
+import {
+  createSqliteDecisionServices,
+  MemoryAuthorityResolver,
+  registerLocalPiloteAuthority,
+  LOCAL_PILOTE_ACTOR,
+} from "@/lib/oa/decision";
+import {
+  getRuntimeApplicationService,
+  resetRuntimeApplicationServiceForTests,
+} from "@/lib/vertical-slice-runtime";
+import type { LocalProjectIdSource } from "@/lib/vertical-slice-core";
+import { orchestrateAssistantSend } from "@/features/project-assistant/f2/orchestrateF2";
+import { orchestrateProjectAssistantTurn } from "@/features/project-assistant/orchestrateTurn";
+import * as runNoraAgentsTurnMod from "@/lib/nora-cognitive-runtime/runNoraAgentsTurn";
+
+const APP_ROOT = path.resolve(__dirname, "../../..");
+const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
+const SCHEMAS = path.resolve(
+  APP_ROOT,
+  "../sfia-v3-modeled/v3-native-option-a/schemas",
+);
+
+const VALID_DIGEST =
+  "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622" as Digest;
+
+const VALID_PIN: DoctrinePackagePin = {
+  doctrinePackageId: "pkg:studio-v3-oa",
+  version: "1.0.0",
+  digest: VALID_DIGEST,
+};
+
+const ACTOR: ActorReference = {
+  actorId: "actor:morris",
+  role: "project_owner",
+  displayName: "Morris",
+  authorityLevel: "N3",
+};
+
+const NORA_BY = {
+  actorId: "actor:nora",
+  role: "agent" as const,
+  displayName: "Nora",
+  authorityLevel: "N1" as const,
+};
+
+const STEPS = [
+  { stepId: "stp:clarify", order: 1, label: "Clarify", state: "pending" as const },
+  {
+    stepId: "stp:decide",
+    order: 2,
+    label: "Decide",
+    state: "pending" as const,
+    dependencies: ["stp:clarify"],
+  },
+];
+
+const tempDirs: string[] = [];
+
+afterEach(() => {
+  resetRuntimeApplicationServiceForTests();
+  vi.restoreAllMocks();
+  while (tempDirs.length) {
+    const d = tempDirs.pop();
+    if (d) fs.rmSync(d, { recursive: true, force: true });
+  }
+});
+
+function tempDbPath(name: string): string {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-lr-final-"));
+  tempDirs.push(dir);
+  return path.join(dir, name);
+}
+
+class FixedIdSource implements LocalProjectIdSource {
+  private n = 0;
+  constructor(private readonly prefix: string) {}
+  nextProjectId(): string {
+    this.n += 1;
+    return `prj:${this.prefix}-${this.n}`;
+  }
+  nextLpsVersionId(): string {
+    return `lps:${this.prefix}-${this.n}`;
+  }
+  nextCorrelationId(): string {
+    return `cor:${this.prefix}-${this.n}`;
+  }
+}
+
+function productTurnPayload(lr: object | null, narrative: string) {
+  return {
+    narrative,
+    lifecycleRecommendation: lr,
+  };
+}
+
+function finalizeCandidate(subjectCycleInstanceId: string) {
+  return {
+    intent: "FINALIZE_CURRENT_CYCLE" as const,
+    statement: "Envisager la finalisation du cycle actif.",
+    subjectCycleInstanceId,
+    targetCycleInstanceId: null,
+    targetCycleTypeId: null,
+    rationale: null,
+    authority: "none" as const,
+    isHumanDecision: false as const,
+  };
+}
+
+async function bootProductProject(suffix: string) {
+  process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+  process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
+  resetRuntimeApplicationServiceForTests();
+  const runtime = getRuntimeApplicationService({
+    registryRoot: FIXTURES,
+    schemasRoot: SCHEMAS,
+    nowIso: "2026-09-08T09:00:00.000Z",
+    idSource: new FixedIdSource(`lr-fin-${suffix}`),
+    auditMode: "noop",
+    productDbPath: tempDbPath(`${suffix}.sqlite`),
+  });
+  if (!runtime.oa) throw new Error("oa missing");
+  const created = await runtime.createProject({
+    name: `LR Final ${suffix}`,
+    objective: "lifecycle",
+    context: "lr-final",
+    criticality: "STANDARD",
+    constraints: [],
+    shortReference: `LRF${suffix}`,
+    idempotencyKey: `idem:lr-fin-${suffix}`,
+  });
+  if (!created.ok) throw new Error("create failed");
+  const projectId = created.projectId;
+  const oa = runtime.oa;
+  const traj = await oa.cycleServices.createInitialTrajectory.execute({
+    trajectoryId: `trj:${projectId}`,
+    projectId,
+    steps: STEPS,
+    status: "active",
+    expectedLpsVersion: created.livingState.version,
+    createdBy: ACTOR,
+  });
+  expect(traj.ok).toBe(true);
+  const cycleInstanceId = `cyc:lr-fin-${suffix}`;
+  const cycle = await oa.cycleServices.createCycle.execute({
+    cycleInstanceId,
+    cycleTypeId: "cyc:delivery",
+    projectId,
+    signals: { lowRiskBounded: true },
+    createdBy: NORA_BY,
+    linkAsActiveCycle: false,
+  });
+  expect(cycle.ok).toBe(true);
+  const auth = registerLocalPiloteAuthority({
+    authorityResolver: oa.authorityResolver,
+    scope: `pilot-lifecycle:${cycleInstanceId}`,
+    issuedAt: "2026-09-08T09:00:00.000Z",
+    forceEnable: true,
+  });
+  expect(auth.ok).toBe(true);
+  if (!auth.ok) throw new Error(auth.message);
+  const start = await oa.cycleServices.pilotLifecycle.start({
+    cycleInstanceId,
+    projectId,
+    createdBy: LOCAL_PILOTE_ACTOR,
+    authorityEvidenceId: auth.evidenceId,
+  });
+  expect(start.ok).toBe(true);
+  return { runtime, oa, projectId, cycleInstanceId, sessionDbPath: tempDbPath(`sess-${suffix}.sqlite`) };
+}
+
+describe("LR CORR-DELIVERY-02 material basis", () => {
+  it("BASIS-01..08 — intent-scoped material mutations stale; unrelated stays current", async () => {
+    const ctx = await bootProductProject("basis");
+    const cycles = await ctx.oa.cycleServices.cycles.listByProject(ctx.projectId);
+    const traj = await ctx.oa.cycleServices.getCurrentTrajectory.execute({
+      projectId: ctx.projectId,
+    });
+    expect(traj.ok).toBe(true);
+    if (!traj.ok) return;
+    const lps = await ctx.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId: ctx.projectId,
+    });
+    expect(lps.ok).toBe(true);
+    if (!lps.ok) return;
+
+    const basis = resolveCanonicalLifecycleRecommendationBasis({
+      intent: "FINALIZE_CURRENT_CYCLE",
+      projectId: ctx.projectId,
+      subjectCycleInstanceId: ctx.cycleInstanceId,
+      targetCycleInstanceId: null,
+      targetCycleTypeId: null,
+      cycles,
+      lpsActiveCycleInstanceId: lps.livingProjectState.activeCycleInstanceId,
+      lpsVersion: lps.livingProjectState.version,
+      doctrinePackageId: VALID_PIN.doctrinePackageId,
+      doctrinePackageVersion: VALID_PIN.version,
+      doctrinePackageDigest: VALID_PIN.digest,
+      trajectory: traj.trajectory,
+      decisions: [],
+      evidence: [],
+      blockingReservationStatements: [],
+      finalizeAccepted: false,
+      resumeClean: null,
+    });
+
+    const produced = await produceLifecycleRecommendation({
+      updateEpistemicState: ctx.oa.cycleServices.updateEpistemicState,
+      projectId: ctx.projectId,
+      structured: finalizeCandidate(ctx.cycleInstanceId),
+      cycles,
+      lpsActiveCycleInstanceId: lps.livingProjectState.activeCycleInstanceId,
+      basisRefs: basis,
+      producedAt: "2026-09-08T09:00:01.000Z",
+      createdBy: NORA_BY,
+      existingItems: [],
+    });
+    expect(produced.ok).toBe(true);
+    if (!produced.ok) return;
+
+    const item = produced.item;
+
+    // BASIS-01 subject status
+    const paused = { ...cycles[0]!, status: "paused" as const };
+    let rebuilt = rebuildBasisRefsForRecommendation({
+      item,
+      facts: {
+        cycles: [paused],
+        lpsActiveCycleInstanceId: null,
+        lpsVersion: lps.livingProjectState.version,
+        doctrinePackageId: VALID_PIN.doctrinePackageId,
+        doctrinePackageVersion: VALID_PIN.version,
+        doctrinePackageDigest: VALID_PIN.digest,
+        trajectory: traj.trajectory,
+        decisions: [],
+        evidence: [],
+        blockingReservationStatements: [],
+      },
+    })!;
+    expect(deriveLifecycleRecommendationCurrentness({ item, currentBasisRefs: rebuilt })).toBe(
+      "STALE",
+    );
+
+    // BASIS-02 LPS version
+    rebuilt = rebuildBasisRefsForRecommendation({
+      item,
+      facts: {
+        cycles,
+        lpsActiveCycleInstanceId: lps.livingProjectState.activeCycleInstanceId,
+        lpsVersion: lps.livingProjectState.version + 1,
+        doctrinePackageId: VALID_PIN.doctrinePackageId,
+        doctrinePackageVersion: VALID_PIN.version,
+        doctrinePackageDigest: VALID_PIN.digest,
+        trajectory: traj.trajectory,
+        decisions: [],
+        evidence: [],
+        blockingReservationStatements: [],
+        finalizeAccepted: false,
+      },
+    })!;
+    expect(deriveLifecycleRecommendationCurrentness({ item, currentBasisRefs: rebuilt })).toBe(
+      "STALE",
+    );
+
+    // BASIS-03 trajectory version
+    rebuilt = rebuildBasisRefsForRecommendation({
+      item,
+      facts: {
+        cycles,
+        lpsActiveCycleInstanceId: lps.livingProjectState.activeCycleInstanceId,
+        lpsVersion: lps.livingProjectState.version,
+        doctrinePackageId: VALID_PIN.doctrinePackageId,
+        doctrinePackageVersion: VALID_PIN.version,
+        doctrinePackageDigest: VALID_PIN.digest,
+        trajectory: { ...traj.trajectory, version: traj.trajectory.version + 1 },
+        decisions: [],
+        evidence: [],
+        blockingReservationStatements: [],
+        finalizeAccepted: false,
+      },
+    })!;
+    expect(deriveLifecycleRecommendationCurrentness({ item, currentBasisRefs: rebuilt })).toBe(
+      "STALE",
+    );
+
+    // BASIS-04 HD fingerprint
+    rebuilt = rebuildBasisRefsForRecommendation({
+      item,
+      facts: {
+        cycles,
+        lpsActiveCycleInstanceId: lps.livingProjectState.activeCycleInstanceId,
+        lpsVersion: lps.livingProjectState.version,
+        doctrinePackageId: VALID_PIN.doctrinePackageId,
+        doctrinePackageVersion: VALID_PIN.version,
+        doctrinePackageDigest: VALID_PIN.digest,
+        trajectory: traj.trajectory,
+        decisions: [
+          {
+            schemaVersion: "0.1.0-oa",
+            decisionId: "dec:basis-hd",
+            projectId: ctx.projectId,
+            cycleInstanceId: ctx.cycleInstanceId,
+            subject: "finalize-cycle",
+            status: "accepted",
+            options: [{ optionId: "opt:a", label: "A" }],
+            selectedOptionId: "opt:a",
+            effectiveAt: "2026-09-08T09:01:00.000Z",
+            reversible: true,
+            actor: LOCAL_PILOTE_ACTOR,
+            authority: "morris",
+          },
+        ],
+        evidence: [],
+        blockingReservationStatements: [],
+        finalizeAccepted: false,
+      },
+    })!;
+    expect(deriveLifecycleRecommendationCurrentness({ item, currentBasisRefs: rebuilt })).toBe(
+      "STALE",
+    );
+
+    // BASIS-05 evidence
+    rebuilt = rebuildBasisRefsForRecommendation({
+      item,
+      facts: {
+        cycles,
+        lpsActiveCycleInstanceId: lps.livingProjectState.activeCycleInstanceId,
+        lpsVersion: lps.livingProjectState.version,
+        doctrinePackageId: VALID_PIN.doctrinePackageId,
+        doctrinePackageVersion: VALID_PIN.version,
+        doctrinePackageDigest: VALID_PIN.digest,
+        trajectory: traj.trajectory,
+        decisions: [],
+        evidence: [
+          {
+            schemaVersion: "0.1.0-oa",
+            evidenceId: "ev:basis",
+            projectId: ctx.projectId,
+            kind: "artifact",
+            status: "available",
+            createdAt: "2026-09-08T09:00:00.000Z",
+            createdBy: ACTOR,
+            bindings: { cycleInstanceId: ctx.cycleInstanceId },
+          } as never,
+        ],
+        blockingReservationStatements: [],
+        finalizeAccepted: false,
+      },
+    })!;
+    expect(deriveLifecycleRecommendationCurrentness({ item, currentBasisRefs: rebuilt })).toBe(
+      "STALE",
+    );
+
+    // BASIS-06 blockers
+    rebuilt = rebuildBasisRefsForRecommendation({
+      item,
+      facts: {
+        cycles,
+        lpsActiveCycleInstanceId: lps.livingProjectState.activeCycleInstanceId,
+        lpsVersion: lps.livingProjectState.version,
+        doctrinePackageId: VALID_PIN.doctrinePackageId,
+        doctrinePackageVersion: VALID_PIN.version,
+        doctrinePackageDigest: VALID_PIN.digest,
+        trajectory: traj.trajectory,
+        decisions: [],
+        evidence: [],
+        blockingReservationStatements: ["blocking reservation"],
+        finalizeAccepted: false,
+      },
+    })!;
+    expect(deriveLifecycleRecommendationCurrentness({ item, currentBasisRefs: rebuilt })).toBe(
+      "STALE",
+    );
+
+    // BASIS-07 doctrine digest
+    rebuilt = rebuildBasisRefsForRecommendation({
+      item,
+      facts: {
+        cycles,
+        lpsActiveCycleInstanceId: lps.livingProjectState.activeCycleInstanceId,
+        lpsVersion: lps.livingProjectState.version,
+        doctrinePackageId: VALID_PIN.doctrinePackageId,
+        doctrinePackageVersion: VALID_PIN.version,
+        doctrinePackageDigest: "sha256:" + "b".repeat(64),
+        trajectory: traj.trajectory,
+        decisions: [],
+        evidence: [],
+        blockingReservationStatements: [],
+        finalizeAccepted: false,
+      },
+    })!;
+    expect(deriveLifecycleRecommendationCurrentness({ item, currentBasisRefs: rebuilt })).toBe(
+      "STALE",
+    );
+
+    // BASIS-08 unrelated — same material facts → CURRENT
+    rebuilt = rebuildBasisRefsForRecommendation({
+      item,
+      facts: {
+        cycles,
+        lpsActiveCycleInstanceId: lps.livingProjectState.activeCycleInstanceId,
+        lpsVersion: lps.livingProjectState.version,
+        doctrinePackageId: VALID_PIN.doctrinePackageId,
+        doctrinePackageVersion: VALID_PIN.version,
+        doctrinePackageDigest: VALID_PIN.digest,
+        trajectory: traj.trajectory,
+        decisions: [],
+        evidence: [],
+        blockingReservationStatements: [],
+        finalizeAccepted: false,
+      },
+    })!;
+    expect(deriveLifecycleRecommendationCurrentness({ item, currentBasisRefs: rebuilt })).toBe(
+      "CURRENT",
+    );
+  });
+});
+
+describe("LR CORR-DELIVERY-02 Product Nora bridge E2E", () => {
+  it("E2E — orchestrateProjectAssistantTurn materializes Recommendation (one Agents call)", async () => {
+    const ctx = await bootProductProject("e2e");
+    const spy = vi.spyOn(runNoraAgentsTurnMod, "runNoraAgentsTurn");
+    const payload = productTurnPayload(
+      finalizeCandidate(ctx.cycleInstanceId),
+      "Je recommande d'envisager la finalisation.",
+    );
+    const scripted = new ScriptedModel([
+      [assistantMessage(JSON.stringify(payload))],
+    ]);
+    const beforeCycles = await ctx.oa.cycleServices.cycles.listByProject(
+      ctx.projectId,
+    );
+    const beforeHd = await ctx.oa.decisionServices.decisions.listByProject(
+      ctx.projectId,
+    );
+
+    const result = await orchestrateProjectAssistantTurn({
+      projectId: ctx.projectId,
+      content: "Dois-je finaliser?",
+      sessionDbPath: ctx.sessionDbPath,
+      simulateMemoryBUnavailable: true,
+      provider: new FakeConversationProvider({ scripted: ["unused"] }),
+      evalModelReasoningControl: {
+        modelId: "gpt-5.6-luna",
+        reasoningEffort: "none",
+        agentsModel: scripted,
+      },
+    });
+
+    if (!result.ok) {
+      // eslint-disable-next-line no-console
+      console.error("E2E FAIL", result);
+    }
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.text).toBe("Je recommande d'envisager la finalisation.");
+    expect(result.text.includes("{")).toBe(false);
+    expect(result.lifecycleRecommendationMaterialized).toBe(true);
+    expect(spy).toHaveBeenCalledTimes(1);
+
+    const items = await ctx.oa.cycleServices.epistemic.listByProject(
+      ctx.projectId,
+    );
+    const lr = items.filter(
+      (i) => i.source === "lifecycle-recommendation:nora" && i.status === "active",
+    );
+    expect(lr).toHaveLength(1);
+    expect(lr[0]!.lifecycleRecommendation?.basisRefs.trajectoryId).toBeTruthy();
+    expect(lr[0]!.lifecycleRecommendation?.basisRefs.decisionFingerprint).toBe(
+      "none",
+    );
+
+    const afterCycles = await ctx.oa.cycleServices.cycles.listByProject(
+      ctx.projectId,
+    );
+    expect(afterCycles.map((c) => c.status)).toEqual(
+      beforeCycles.map((c) => c.status),
+    );
+    const afterHd = await ctx.oa.decisionServices.decisions.listByProject(
+      ctx.projectId,
+    );
+    expect(afterHd.length).toBe(beforeHd.length);
+
+    const lpsNow = await ctx.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId: ctx.projectId,
+    });
+    expect(lpsNow.ok).toBe(true);
+    if (!lpsNow.ok) return;
+    const trajNow = await ctx.oa.cycleServices.getCurrentTrajectory.execute({
+      projectId: ctx.projectId,
+    });
+    const pin =
+      lpsNow.livingProjectState.doctrinePackageRef ?? VALID_PIN;
+    const current = selectCurrentLifecycleRecommendations({
+      items,
+      cycles: afterCycles,
+      lpsActiveCycleInstanceId: lpsNow.livingProjectState.activeCycleInstanceId,
+      lpsVersion: lpsNow.livingProjectState.version,
+      doctrinePackageId: pin.doctrinePackageId,
+      doctrinePackageVersion: pin.version,
+      doctrinePackageDigest: pin.digest,
+      trajectory: trajNow.ok ? trajNow.trajectory : null,
+      decisions: afterHd,
+      evidence: [],
+      blockingReservationStatements: [],
+      finalizeAcceptedBySubject: new Map([[ctx.cycleInstanceId, false]]),
+    });
+    expect(current).toHaveLength(1);
+    expect(current[0]!.derivedCurrentness).toBe("CURRENT");
+  });
+
+  it("E2E-NONE — null Recommendation keeps narrative and persists nothing", async () => {
+    const ctx = await bootProductProject("none");
+    const payload = productTurnPayload(null, "Simple conseil conversationnel.");
+    const result = await orchestrateProjectAssistantTurn({
+      projectId: ctx.projectId,
+      content: "Un conseil?",
+      sessionDbPath: ctx.sessionDbPath,
+      simulateMemoryBUnavailable: true,
+      provider: new FakeConversationProvider({ scripted: ["unused"] }),
+      evalModelReasoningControl: {
+        modelId: "gpt-5.6-luna",
+        reasoningEffort: "none",
+        agentsModel: new ScriptedModel([
+          [assistantMessage(JSON.stringify(payload))],
+        ]),
+      },
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.text).toBe("Simple conseil conversationnel.");
+    expect(result.lifecycleRecommendationMaterialized).toBe(false);
+    const items = await ctx.oa.cycleServices.epistemic.listByProject(
+      ctx.projectId,
+    );
+    expect(
+      items.filter((i) => i.source === "lifecycle-recommendation:nora"),
+    ).toHaveLength(0);
+  });
+
+  it("E2E-INVALID — bad subject fails closed without HD/cycle mutation", async () => {
+    const ctx = await bootProductProject("inv");
+    const bad = finalizeCandidate("cyc:does-not-exist");
+    const payload = productTurnPayload(bad, "Texte visible malgré candidat invalide.");
+    const beforeHd = await ctx.oa.decisionServices.decisions.listByProject(
+      ctx.projectId,
+    );
+    const beforeCycles = await ctx.oa.cycleServices.cycles.listByProject(
+      ctx.projectId,
+    );
+    const result = await orchestrateProjectAssistantTurn({
+      projectId: ctx.projectId,
+      content: "Finaliser?",
+      sessionDbPath: ctx.sessionDbPath,
+      simulateMemoryBUnavailable: true,
+      provider: new FakeConversationProvider({ scripted: ["unused"] }),
+      evalModelReasoningControl: {
+        modelId: "gpt-5.6-luna",
+        reasoningEffort: "none",
+        agentsModel: new ScriptedModel([
+          [assistantMessage(JSON.stringify(payload))],
+        ]),
+      },
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.text).toBe("Texte visible malgré candidat invalide.");
+    expect(result.lifecycleRecommendationMaterialized).toBe(false);
+    expect(result.lifecycleRecommendationCode).toBeTruthy();
+    const items = await ctx.oa.cycleServices.epistemic.listByProject(
+      ctx.projectId,
+    );
+    expect(
+      items.filter((i) => i.source === "lifecycle-recommendation:nora"),
+    ).toHaveLength(0);
+    expect(
+      (await ctx.oa.decisionServices.decisions.listByProject(ctx.projectId))
+        .length,
+    ).toBe(beforeHd.length);
+    expect(
+      (await ctx.oa.cycleServices.cycles.listByProject(ctx.projectId)).map(
+        (c) => c.status,
+      ),
+    ).toEqual(beforeCycles.map((c) => c.status));
+  });
+
+  it("E2E-AUTHORITY — authority != none rejected", async () => {
+    const ctx = await bootProductProject("auth");
+    const payload = productTurnPayload(
+      {
+        ...finalizeCandidate(ctx.cycleInstanceId),
+        authority: "pilot",
+      },
+      "Narratif visible.",
+    );
+    const result = await orchestrateProjectAssistantTurn({
+      projectId: ctx.projectId,
+      content: "?",
+      sessionDbPath: ctx.sessionDbPath,
+      simulateMemoryBUnavailable: true,
+      provider: new FakeConversationProvider({ scripted: ["unused"] }),
+      evalModelReasoningControl: {
+        modelId: "gpt-5.6-luna",
+        reasoningEffort: "none",
+        agentsModel: new ScriptedModel([
+          [assistantMessage(JSON.stringify(payload))],
+        ]),
+      },
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    // Structured product-turn validation may drop invalid LR → null coerce OR fail materialize
+    expect(result.lifecycleRecommendationMaterialized).not.toBe(true);
+    const items = await ctx.oa.cycleServices.epistemic.listByProject(
+      ctx.projectId,
+    );
+    expect(
+      items.filter((i) => i.source === "lifecycle-recommendation:nora"),
+    ).toHaveLength(0);
+  });
+
+  it("E2E via orchestrateAssistantSend — same Product path", async () => {
+    const ctx = await bootProductProject("f2");
+    const payload = productTurnPayload(
+      finalizeCandidate(ctx.cycleInstanceId),
+      "Conseil F2→F1 avec recommandation.",
+    );
+    const result = await orchestrateAssistantSend({
+      projectId: ctx.projectId,
+      content: "Résume l'objectif __F2_INFORMATIVE__",
+      sessionDbPath: ctx.sessionDbPath,
+      evalModelReasoningControl: {
+        modelId: "gpt-5.6-luna",
+        reasoningEffort: "none",
+        agentsModel: new ScriptedModel([
+          [assistantMessage(JSON.stringify(payload))],
+        ]),
+      },
+      evalCellProviderFactory: () => new FakeConversationProvider(),
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.text).toContain("Conseil F2→F1");
+    expect(result.lifecycleRecommendationMaterialized).toBe(true);
+    const items = await ctx.oa.cycleServices.epistemic.listByProject(
+      ctx.projectId,
+    );
+    expect(
+      items.some(
+        (i) =>
+          i.source === "lifecycle-recommendation:nora" && i.status === "active",
+      ),
+    ).toBe(true);
+  });
+});
+```
+
 # COMPLETE PRODUCT CONTENT — MODIFIED FILES (FULL USEFUL DIFF)
 
 ## MODIFIED: `projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/epistemic/epistemic-item.schema.json`
@@ -2757,7 +3815,6 @@ index e4b4ea82..5a8dd10e 100644
 ```
 
 ### Full current content: `projects/sfia-studio/sfia-v3-modeled/v3-native-option-a/schemas/epistemic/epistemic-item.schema.json`
-
 ```json
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
@@ -2852,10 +3909,10 @@ index e4b4ea82..5a8dd10e 100644
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/cycle/domain/types.ts b/projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
-index 0a98ae95..54d10b7f 100644
+index 0a98ae95..7b7ebd2a 100644
 --- a/projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
 +++ b/projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
-@@ -251,6 +251,35 @@ export type ProjectTrajectory = {
+@@ -251,6 +251,45 @@ export type ProjectTrajectory = {
    decidedOptionRef?: string;
  };
 
@@ -2880,6 +3937,16 @@ index 0a98ae95..54d10b7f 100644
 +    finalizeAccepted?: boolean | null;
 +    resumeClean?: boolean | null;
 +    reservationBlockingCount?: number | null;
++    /** Optional — doctrine pin when recommendation basis is doctrine-sensitive. */
++    doctrinePackageId?: string | null;
++    doctrinePackageVersion?: string | null;
++    doctrinePackageDigest?: string | null;
++    /** Optional — intent-scoped accepted HD fingerprint. */
++    decisionFingerprint?: string | null;
++    /** Optional — FINALIZE-relevant Evidence fingerprint. */
++    evidenceFingerprint?: string | null;
++    /** Optional — blocking Reservation fingerprint. */
++    blockerFingerprint?: string | null;
 +  };
 +  semanticKey: string;
 +  subjectCycleInstanceId: string | null;
@@ -2891,7 +3958,7 @@ index 0a98ae95..54d10b7f 100644
  export type EpistemicItem = {
    schemaVersion: "0.1.0-oa";
    epistemicItemId: string;
-@@ -265,6 +294,8 @@ export type EpistemicItem = {
+@@ -265,6 +304,8 @@ export type EpistemicItem = {
    relatedObjects?: string[];
    blocking?: boolean;
    provenance?: ProvenanceRecord;
@@ -2900,7 +3967,7 @@ index 0a98ae95..54d10b7f 100644
  };
 
  export type CkcResolution = {
-@@ -385,6 +416,7 @@ export type UpdateEpistemicStateRequest = {
+@@ -385,6 +426,7 @@ export type UpdateEpistemicStateRequest = {
      relatedObjects?: string[];
      blocking?: boolean;
      provenance?: ProvenanceRecord;
@@ -2927,214 +3994,6 @@ index 8f7e2378..335e282d 100644
            };
 
            if (this.epistemic.saveForProject) {
-```
-
-### Full current content: `projects/sfia-studio/app/lib/oa/cycle/application/updateEpistemicState.ts`
-
-```typescript
-import { randomBytes } from "node:crypto";
-import type { ClockPort } from "@/lib/oa/doctrine";
-import { createCycleError } from "../domain/errors";
-import {
-  assertNoHypothesisDecisionPromotion,
-  validateEpistemicItemInput,
-} from "../domain/invariants";
-import type {
-  EpistemicItem,
-  UpdateEpistemicResult,
-  UpdateEpistemicStateRequest,
-} from "../domain/types";
-import type { CyclePersistenceUnitOfWorkPort } from "../ports/cyclePersistenceUnitOfWorkPort";
-import type { MemoryEpistemicRepository } from "../infrastructure/memoryEpistemicRepository";
-import type { CycleAuditPort } from "../ports/cycleAudit";
-import type { EpistemicRepositoryPort } from "../ports/epistemicRepository";
-
-function newId(prefix: "cor"): string {
-  return `${prefix}:${randomBytes(8).toString("hex")}`;
-}
-
-/**
- * UpdateEpistemicState — appends/supersedes items keyed by projectId.
- * Refuses Hypothesis→DecisionRef auto-promotion.
- */
-export class UpdateEpistemicState {
-  constructor(
-    private readonly epistemic: EpistemicRepositoryPort &
-      Partial<Pick<MemoryEpistemicRepository, "saveForProject">>,
-    private readonly clock: ClockPort,
-    private readonly audit: CycleAuditPort,
-    private readonly store?: CyclePersistenceUnitOfWorkPort,
-  ) {}
-
-  async execute(
-    request: UpdateEpistemicStateRequest,
-  ): Promise<UpdateEpistemicResult> {
-    const started = Date.now();
-    const timestamp = this.clock.nowIso();
-    const correlationId = request.correlationId ?? newId("cor");
-
-    const fail = (
-      detailCode: Parameters<typeof createCycleError>[0]["detailCode"],
-      internalCauseRef?: string,
-      extra?: Partial<Parameters<typeof createCycleError>[0]>,
-    ): UpdateEpistemicResult => {
-      const durationMs = Date.now() - started;
-      const error = createCycleError({
-        detailCode,
-        timestamp,
-        correlationId,
-        projectId: request.projectId,
-        internalCauseRef,
-        ...extra,
-      });
-      this.audit.append({
-        event: "oa.epistemic.updated",
-        ts: timestamp,
-        correlationId,
-        projectId: request.projectId,
-        itemCount: request.items.length,
-        result: "error",
-        detailCode,
-        durationMs,
-      });
-      return { ok: false, error, durationMs };
-    };
-
-    try {
-      if (!request.createdBy?.actorId) {
-        return fail("EPISTEMIC_INVALID", "created_by_required");
-      }
-      if (!Array.isArray(request.items) || request.items.length < 1) {
-        return fail("EPISTEMIC_INVALID", "items_required");
-      }
-
-      const persist = async () => {
-        const existing = await this.epistemic.listByProject(request.projectId);
-
-        for (const raw of request.items) {
-          const fieldViolation = validateEpistemicItemInput({
-            epistemicItemId: raw.epistemicItemId,
-            type: raw.type,
-            statement: raw.statement,
-            source: raw.source,
-            provenance: raw.provenance,
-          });
-          if (fieldViolation) {
-            throw Object.assign(new Error(fieldViolation.reason), {
-              detailCode: fieldViolation.detailCode,
-              epistemicItemId: raw.epistemicItemId,
-            });
-          }
-
-          const promotion = assertNoHypothesisDecisionPromotion({
-            epistemicItemId: raw.epistemicItemId,
-            nextType: raw.type,
-            promoteFromHypothesis: raw.promoteFromHypothesis,
-            supersedes: raw.supersedes,
-            existing,
-          });
-          if (promotion) {
-            throw Object.assign(new Error(promotion.reason), {
-              detailCode: promotion.detailCode,
-              epistemicItemId: raw.epistemicItemId,
-            });
-          }
-
-          if (raw.supersedes) {
-            const prior = existing.find(
-              (e) => e.epistemicItemId === raw.supersedes,
-            );
-            if (prior && prior.status === "active") {
-              await this.epistemic.markSuperseded(raw.supersedes);
-            }
-          }
-
-          const item: EpistemicItem = {
-            schemaVersion: "0.1.0-oa",
-            epistemicItemId: raw.epistemicItemId,
-            type: raw.type,
-            statement: raw.statement.trim(),
-            status: raw.status ?? "active",
-            confidence: raw.confidence,
-            source: raw.source,
-            createdBy: structuredClone(request.createdBy),
-            createdAt: timestamp,
-            supersedes: raw.supersedes,
-            relatedObjects: raw.relatedObjects
-              ? [...raw.relatedObjects]
-              : [request.projectId],
-            blocking: raw.blocking,
-            provenance: raw.provenance
-              ? structuredClone(raw.provenance)
-              : undefined,
-            lifecycleRecommendation: raw.lifecycleRecommendation
-              ? structuredClone(raw.lifecycleRecommendation)
-              : undefined,
-          };
-
-          if (this.epistemic.saveForProject) {
-            await this.epistemic.saveForProject(request.projectId, item);
-          } else {
-            await this.epistemic.save(item);
-          }
-          existing.push(item);
-        }
-      };
-
-      try {
-        if (this.store) {
-          await this.store.runInTransaction(persist);
-        } else {
-          await persist();
-        }
-      } catch (err) {
-        if (
-          err &&
-          typeof err === "object" &&
-          "detailCode" in err &&
-          typeof (err as { detailCode: unknown }).detailCode === "string"
-        ) {
-          return fail(
-            (
-              err as {
-                detailCode: Parameters<typeof createCycleError>[0]["detailCode"];
-              }
-            ).detailCode,
-            err instanceof Error ? err.message : "epistemic_rule",
-            {
-              epistemicItemId: (err as { epistemicItemId?: string })
-                .epistemicItemId,
-            },
-          );
-        }
-        return fail("PERSISTENCE_FAILURE", "atomic_update_failed");
-      }
-
-      const items = await this.epistemic.listByProject(request.projectId);
-      const durationMs = Date.now() - started;
-      this.audit.append({
-        event: "oa.epistemic.updated",
-        ts: timestamp,
-        correlationId,
-        projectId: request.projectId,
-        itemCount: items.length,
-        result: "ok",
-        durationMs,
-      });
-
-      return {
-        ok: true,
-        state: {
-          projectId: request.projectId,
-          items: structuredClone(items),
-        },
-        durationMs,
-      };
-    } catch {
-      return fail("PERSISTENCE_FAILURE", "unexpected_exception");
-    }
-  }
-}
 ```
 
 ## MODIFIED: `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts`
@@ -3189,149 +4048,6 @@ index 29375d8c..45ff1334 100644
  }
 ```
 
-### Full current content: `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts`
-
-```typescript
-/**
- * CORR-PROOF-05 — durable Pilot lifecycle projection (reload-safe).
- * Derived from CycleRepository + LPS (+ optional trajectory/assessment).
- * Never owned by F2/proposal process-local state.
- */
-import type {
-  CycleInstance,
-  CycleInstanceStatus,
-  FinalizationAssessment,
-} from "../domain/types";
-import {
-  isPausedStatus,
-  isStartableCandidateStatus,
-  isTerminalCycleStatus,
-} from "../domain/lifecycleInvariants";
-import type { LifecycleRecommendationEnvelope } from "./lifecycleRecommendation/types";
-
-export type PilotLifecycleProjection = {
-  projectId: string;
-  activeCycleInstanceId: string | null;
-  activeCycle: CycleInstance | null;
-  pausedCycles: CycleInstance[];
-  /** Startable candidates only (proposed | acknowledged). */
-  candidateCycles: CycleInstance[];
-  /** Historical superseded — visible, never startable. */
-  supersededCycles: CycleInstance[];
-  terminalCycles: CycleInstance[];
-  /**
-   * Selected cycle for CTA surface.
-   * Preference: LPS active → single paused → single startable candidate → null (ambiguous).
-   * Superseded never selected for canStart; multiple superseded alone do not create ambiguity.
-   */
-  selectedCycleInstanceId: string | null;
-  selectedStatus: CycleInstanceStatus | null;
-  selectionAmbiguous: boolean;
-  assessment?: FinalizationAssessment | null;
-  cta: {
-    canStart: boolean;
-    canPause: boolean;
-    canResume: boolean;
-    canFinalize: boolean;
-    canCancel: boolean;
-  };
-  /**
-   * Companion — CURRENT Nora lifecycle Recommendations (never eligibility).
-   * Recommendation ≠ canFinalize / canStart / HumanDecision.
-   */
-  currentRecommendations?: LifecycleRecommendationEnvelope[];
-  /** Resume reconciliation when selected cycle is paused — never cleared by HD alone. */
-  resumeReconciliation?: {
-    clean: boolean;
-    detailCode?: string | null;
-    reason?: string | null;
-  } | null;
-};
-
-export function projectPilotLifecycle(input: {
-  projectId: string;
-  cycles: readonly CycleInstance[];
-  lpsActiveCycleInstanceId: string | null | undefined;
-  assessment?: FinalizationAssessment | null;
-  currentRecommendations?: LifecycleRecommendationEnvelope[];
-  resumeReconciliation?: PilotLifecycleProjection["resumeReconciliation"];
-}): PilotLifecycleProjection {
-  const byId = new Map(
-    input.cycles.map((c) => [c.cycleInstanceId, c] as const),
-  );
-  const activeId = input.lpsActiveCycleInstanceId ?? null;
-  const activeFromRepo = input.cycles.find((c) => c.status === "active") ?? null;
-  const activeCycle =
-    (activeId ? byId.get(activeId) ?? null : null) ?? activeFromRepo;
-
-  const pausedCycles = input.cycles.filter((c) => isPausedStatus(c.status));
-  const candidateCycles = input.cycles.filter((c) =>
-    isStartableCandidateStatus(c.status),
-  );
-  const supersededCycles = input.cycles.filter(
-    (c) => c.status === "superseded",
-  );
-  const terminalCycles = input.cycles.filter((c) =>
-    isTerminalCycleStatus(c.status),
-  );
-
-  let selectedCycleInstanceId: string | null = null;
-  let selectionAmbiguous = false;
-
-  if (activeCycle) {
-    selectedCycleInstanceId = activeCycle.cycleInstanceId;
-  } else if (pausedCycles.length === 1) {
-    selectedCycleInstanceId = pausedCycles[0]!.cycleInstanceId;
-  } else if (pausedCycles.length > 1) {
-    selectionAmbiguous = true;
-  } else if (candidateCycles.length === 1) {
-    selectedCycleInstanceId = candidateCycles[0]!.cycleInstanceId;
-  } else if (candidateCycles.length > 1) {
-    selectionAmbiguous = true;
-  }
-
-  const selected = selectedCycleInstanceId
-    ? byId.get(selectedCycleInstanceId) ?? null
-    : null;
-  const selectedStatus = selected?.status ?? null;
-
-  const cta = {
-    canStart: Boolean(
-      selected && isStartableCandidateStatus(selected.status) && !activeCycle,
-    ),
-    canPause: Boolean(selected && selected.status === "active"),
-    canResume: Boolean(selected && isPausedStatus(selected.status) && !activeCycle),
-    canFinalize: Boolean(
-      selected &&
-        !isTerminalCycleStatus(selected.status) &&
-        (selected.status === "active" ||
-          selected.status === "paused" ||
-          selected.status === "blocked"),
-    ),
-    canCancel: Boolean(
-      selected && !isTerminalCycleStatus(selected.status),
-    ),
-  };
-
-  return {
-    projectId: input.projectId,
-    activeCycleInstanceId: activeCycle?.cycleInstanceId ?? activeId,
-    activeCycle,
-    pausedCycles,
-    candidateCycles,
-    supersededCycles,
-    terminalCycles,
-    selectedCycleInstanceId,
-    selectedStatus,
-    selectionAmbiguous,
-    assessment: input.assessment ?? null,
-    cta,
-    currentRecommendations: input.currentRecommendations ?? [],
-    resumeReconciliation: input.resumeReconciliation ?? null,
-  };
-}
-```
-
 ## MODIFIED: `projects/sfia-studio/app/lib/oa/cycle/index.ts`
 
 ```diff
@@ -3349,483 +4065,11 @@ index 09d58153..9a779465 100644
    lifecycleBlockersFromReaderFailure,
 ```
 
-### Full current content: `projects/sfia-studio/app/lib/oa/cycle/index.ts`
-
-```typescript
-/**
- * T-A2 Cycle / Trajectory / Epistemic / CKC Foundation — public barrel.
- *
- * Isolated Option A v3-native module. Consumes T-A1 project + T-A0 doctrine
- * public APIs only. Does not replace d1 / OPS1 / MethodMode. In-memory only.
- */
-
-export * from "./domain/types";
-export * from "./domain/errors";
-export * from "./domain/invariants";
-export * from "./domain/qualification";
-export * from "./domain/cycleTypeCatalog";
-export * from "./domain/ckcQualificationContracts";
-export * from "./domain/ckcQualificationErrors";
-export * from "./domain/ckcConsumptionProof";
-export * from "./domain/ckcQualificationResult";
-export * from "./domain/catalogFingerprint";
-export * from "./domain/catalogProjection";
-
-export * from "./ports/cycleRepository";
-export * from "./ports/cyclePersistenceUnitOfWorkPort";
-export * from "./ports/trajectoryRepository";
-export * from "./ports/epistemicRepository";
-export * from "./ports/ckcResolver";
-export * from "./ports/ckcQualificationResolver";
-export * from "./ports/cycleAudit";
-
-export { QualifyCycle } from "./application/qualifyCycle";
-export * from "./application/qualifyCycleWithCkc";
-export * from "./application/bindCatalogAuthority";
-export { CreateCycle } from "./application/createCycle";
-export { GetCycle } from "./application/getCycle";
-export {
-  assessFinalizationObligations,
-  finalizeSubjectFor,
-  cancelSubjectFor,
-  startTrajectorySubjectFor,
-  resumeReplanSubjectFor,
-  isAcceptedFinalizeDecision,
-  isAcceptedCancelDecision,
-  isAcceptedStartTrajectoryDecision,
-  isAcceptedResumeReplanDecision,
-  FINALIZE_SUBJECT_PREFIX,
-  CANCEL_SUBJECT_PREFIX,
-  START_TRAJECTORY_SUBJECT_PREFIX,
-  RESUME_REPLAN_SUBJECT_PREFIX,
-} from "./application/assessFinalization";
-export {
-  assessStartReadiness,
-  type AssessStartReadinessInput,
-} from "./application/assessStartReadiness";
-export {
-  buildPauseReconciliationSnapshot,
-  assessResumeReconciliation,
-  trajectoryFingerprint,
-  type BuildPauseSnapshotInput,
-  type ResumeReconciliationInput,
-  type ResumeReconciliationResult,
-} from "./application/assessResumeReconciliation";
-export {
-  projectPilotLifecycle,
-  type PilotLifecycleProjection,
-} from "./application/lifecycleProjection";
-export * from "./application/lifecycleRecommendation";
-export {
-  deriveLifecycleBlockersFromEpistemicItems,
-  lifecycleBlockersFromReaderFailure,
-  type LifecycleBlockerSnapshot,
-} from "./application/deriveLifecycleBlockers";
-export {
-  deriveFinalizationApplicability,
-  obligationPolicySubjectFor,
-  OBLIGATION_POLICY_SUBJECT_PREFIX,
-  OBLIGATION_POLICY_NO_GOVERNED_EFFECTS,
-  OBLIGATION_POLICY_NO_ARTIFACT,
-  OBLIGATION_POLICY_NO_GIT,
-  OBLIGATION_POLICY_NO_EXECUTION,
-  OBLIGATION_POLICY_NO_EVIDENCE,
-  OBLIGATION_POLICY_NO_REVIEW,
-  OBLIGATION_POLICY_REQUIRE_ARTIFACT,
-  OBLIGATION_POLICY_REQUIRE_GIT,
-  type DerivableExecutionContract,
-  type DeriveFinalizationApplicabilityInput,
-} from "./application/deriveFinalizationApplicability";
-export {
-  selectEffectiveExecutionContracts,
-  type SelectableExecutionContract,
-  type SelectEffectiveExecutionContractsResult,
-} from "./application/selectEffectiveExecutionContracts";
-export {
-  selectEffectiveReviewBundles,
-  type SelectEffectiveReviewBundlesResult,
-} from "./application/selectEffectiveReviewBundles";
-export {
-  hasGitRepositorySemanticMarker,
-  isGitApplicableContract,
-  isGitQualifyingEvidence,
-  type GitQualifiableContract,
-} from "./application/qualifyGitEvidence";
-export {
-  PilotLifecycleTransitions,
-  type PilotLifecycleDeps,
-  type PilotLifecycleAuthorityPort,
-  type LifecycleDecisionReader,
-  type LifecycleEvidenceReader,
-  type LifecycleReviewBundleReader,
-  type LifecycleExecutionSnapshotReader,
-  type LifecycleEpistemicReader,
-} from "./application/pilotLifecycleTransitions";
-export * from "./domain/lifecycleInvariants";
-export { CreateInitialTrajectory } from "./application/createInitialTrajectory";
-export { GetCurrentTrajectory } from "./application/getCurrentTrajectory";
-export { GetTrajectoryVersion } from "./application/getTrajectoryVersion";
-export {
-  ProposeTrajectoryVersion,
-  TrajectoryVersionConflictSignal,
-  resolveTrajectoryLineageHead,
-} from "./application/proposeTrajectoryVersion";
-export { PromoteDecidedTrajectory } from "./application/promoteDecidedTrajectory";
-export { GetEpistemicState } from "./application/getEpistemicState";
-export { UpdateEpistemicState } from "./application/updateEpistemicState";
-export { ResolveCycleKnowledgeContract } from "./application/resolveCycleKnowledgeContract";
-
-export { MemoryCycleStore } from "./infrastructure/memoryCycleStore";
-export { MemoryCycleRepository } from "./infrastructure/memoryCycleRepository";
-export { MemoryTrajectoryRepository } from "./infrastructure/memoryTrajectoryRepository";
-export { MemoryEpistemicRepository } from "./infrastructure/memoryEpistemicRepository";
-export {
-  MemoryCkcResolver,
-  type CkcRegistryEntry,
-} from "./infrastructure/memoryCkcResolver";
-export {
-  ConsoleCycleAuditJournal,
-  MemoryCycleAuditJournal,
-} from "./infrastructure/observability";
-export * from "./infrastructure/ckcReferenceManifest";
-export * from "./infrastructure/ckcQualificationResolver";
-export {
-  createSqliteCycleServices,
-  createTestSqliteCycleServices,
-  type CreateSqliteCycleServicesOptions,
-  type SqliteCycleServices,
-} from "./infrastructure/sqlite/createSqliteCycleServices";
-export { SqliteCycleRepository } from "./infrastructure/sqlite/sqliteCycleRepository";
-export { SqliteCycleAuditJournal } from "./infrastructure/sqlite/sqliteCycleAuditJournal";
-
-import type { ClockPort, DoctrinePackagePin } from "@/lib/oa/doctrine";
-import {
-  FixedClock,
-  PRODUCT_DOCTRINE_PACKAGE_ID,
-  SystemClock,
-} from "@/lib/oa/doctrine";
-import type { ProjectServices } from "@/lib/oa/project";
-import { CreateCycle } from "./application/createCycle";
-import { CreateInitialTrajectory } from "./application/createInitialTrajectory";
-import { GetCurrentTrajectory } from "./application/getCurrentTrajectory";
-import { GetCycle } from "./application/getCycle";
-import { GetEpistemicState } from "./application/getEpistemicState";
-import { GetTrajectoryVersion } from "./application/getTrajectoryVersion";
-import { PromoteDecidedTrajectory } from "./application/promoteDecidedTrajectory";
-import { ProposeTrajectoryVersion } from "./application/proposeTrajectoryVersion";
-import { QualifyCycle } from "./application/qualifyCycle";
-import {
-  QualifyCycleWithCkc,
-  type QualifyCycleExecutor,
-} from "./application/qualifyCycleWithCkc";
-import {
-  bindCycleTypeCatalogAuthority,
-  verifyCycleTypeCatalogAuthority,
-} from "./application/bindCatalogAuthority";
-import { ResolveCycleKnowledgeContract } from "./application/resolveCycleKnowledgeContract";
-import { UpdateEpistemicState } from "./application/updateEpistemicState";
-import {
-  PilotLifecycleTransitions,
-  type LifecycleDecisionReader,
-  type LifecycleEvidenceReader,
-  type LifecycleReviewBundleReader,
-  type LifecycleExecutionSnapshotReader,
-  type LifecycleEpistemicReader,
-  type PilotLifecycleAuthorityPort,
-} from "./application/pilotLifecycleTransitions";
-import { DEFAULT_CYCLE_TYPE_CATALOG_AUTHORITY } from "./domain/catalogFingerprint";
-import type { CycleTypeCatalogAuthority } from "./domain/catalogFingerprint";
-import type { CycleTypeCatalog } from "./domain/cycleTypeCatalog";
-import type { FinalizationApplicabilityRules } from "./domain/types";
-import { CkcQualificationResolver } from "./infrastructure/ckcQualificationResolver";
-import { MemoryCkcResolver } from "./infrastructure/memoryCkcResolver";
-import { MemoryCycleRepository } from "./infrastructure/memoryCycleRepository";
-import { MemoryCycleStore } from "./infrastructure/memoryCycleStore";
-import { MemoryEpistemicRepository } from "./infrastructure/memoryEpistemicRepository";
-import { MemoryTrajectoryRepository } from "./infrastructure/memoryTrajectoryRepository";
-import {
-  ConsoleCycleAuditJournal,
-  MemoryCycleAuditJournal,
-} from "./infrastructure/observability";
-import type { CycleAuditPort } from "./ports/cycleAudit";
-import type { CyclePersistenceUnitOfWorkPort } from "./ports/cyclePersistenceUnitOfWorkPort";
-import type { CycleRepositoryPort } from "./ports/cycleRepository";
-import type { CkcResolverPort } from "./ports/ckcResolver";
-import type { CkcQualificationResolverPort } from "./ports/ckcQualificationResolver";
-import type { EpistemicRepositoryPort } from "./ports/epistemicRepository";
-import type { TrajectoryRepositoryPort } from "./ports/trajectoryRepository";
-
-export type CycleServices = {
-  store: CyclePersistenceUnitOfWorkPort;
-  cycles: CycleRepositoryPort;
-  trajectories: TrajectoryRepositoryPort;
-  epistemic: EpistemicRepositoryPort;
-  ckc: CkcResolverPort;
-  audit: CycleAuditPort;
-  qualifyCycle: QualifyCycle;
-  createCycle: CreateCycle;
-  getCycle: GetCycle;
-  createInitialTrajectory: CreateInitialTrajectory;
-  getCurrentTrajectory: GetCurrentTrajectory;
-  getTrajectoryVersion: GetTrajectoryVersion;
-  proposeTrajectoryVersion: ProposeTrajectoryVersion;
-  /** W2: candidate → decided/current promotion, decisionRef mandatory. */
-  promoteDecidedTrajectory: PromoteDecidedTrajectory;
-  getEpistemicState: GetEpistemicState;
-  updateEpistemicState: UpdateEpistemicState;
-  resolveCycleKnowledgeContract: ResolveCycleKnowledgeContract;
-  /** CORR-PROOF-05 Pilot lifecycle transitions. */
-  pilotLifecycle: PilotLifecycleTransitions;
-};
-
-export type CreateInMemoryCycleServicesOptions = {
-  projectServices: ProjectServices;
-  clock?: ClockPort;
-  audit?: CycleAuditPort;
-  ckcResolver?: CkcResolverPort;
-  decisions?: LifecycleDecisionReader;
-  evidence?: LifecycleEvidenceReader;
-  reviewBundles?: LifecycleReviewBundleReader;
-  execution?: LifecycleExecutionSnapshotReader;
-  epistemic?: LifecycleEpistemicReader;
-  authority?: PilotLifecycleAuthorityPort;
-  applicabilityRules?: FinalizationApplicabilityRules;
-};
-
-export type CkcQualificationServices = {
-  readonly audit: CycleAuditPort;
-  readonly resolver: CkcQualificationResolverPort;
-  readonly qualifyCycleWithCkc: QualifyCycleWithCkc;
-};
-
-export type CreateCkcQualificationServicesOptions = {
-  readonly clock?: ClockPort;
-  readonly audit?: CycleAuditPort;
-  readonly resolver?: CkcQualificationResolverPort;
-  readonly registryRoot?: string;
-  readonly doctrinePackagePin?: DoctrinePackagePin;
-  readonly productResolverFactory?: (
-    audit: CycleAuditPort,
-    registryRoot: string,
-  ) => CkcQualificationResolverPort;
-  readonly qualifyCycle?: QualifyCycleExecutor;
-  /**
-   * Optional HASH-A-bound catalog authority (test-only future snapshots).
-   * Cryptographically verified before use; forged fingerprints fail closed
-   * on QualifyCycleWithCkc (R-W3D-03). Prefer {@link catalogSnapshot} when
-   * injecting N+1 content — factory binds HASH-A itself.
-   */
-  readonly catalogAuthority?: CycleTypeCatalogAuthority;
-  /**
-   * Optional raw catalog snapshot. Factory binds HASH-A via
-   * bindCycleTypeCatalogAuthority — callers cannot supply a forged fingerprint.
-   * Mutually preferred over an unverified catalogAuthority when both are set.
-   */
-  readonly catalogSnapshot?: Pick<CycleTypeCatalog, "entries">;
-};
-
-function resolveCkcQualificationCatalogAuthority(
-  options: CreateCkcQualificationServicesOptions,
-): CycleTypeCatalogAuthority {
-  if (options.catalogSnapshot) {
-    return bindCycleTypeCatalogAuthority(options.catalogSnapshot);
-  }
-  if (options.catalogAuthority) {
-    // Do not re-bind silently: QualifyCycleWithCkc verifies cryptographically
-    // and returns CATALOG_FINGERPRINT_STALE for forged authorities.
-    if (!verifyCycleTypeCatalogAuthority(options.catalogAuthority)) {
-      return options.catalogAuthority;
-    }
-    return options.catalogAuthority;
-  }
-  return DEFAULT_CYCLE_TYPE_CATALOG_AUTHORITY;
-}
-
-function usesProductDoctrinePin(pin?: DoctrinePackagePin): boolean {
-  return pin?.doctrinePackageId === PRODUCT_DOCTRINE_PACKAGE_ID;
-}
-
-function createFailureAwareAudit(audit: CycleAuditPort): CycleAuditPort & {
-  readonly hasFailed: () => boolean;
-} {
-  let failed = false;
-  return {
-    append(event): void {
-      if (failed) {
-        throw new Error("Audit sink unavailable.");
-      }
-      try {
-        audit.append(event);
-      } catch {
-        failed = true;
-        throw new Error("Audit sink unavailable.");
-      }
-    },
-    hasFailed: () => failed,
-  };
-}
-
-/**
- * Default CKC resolver selection (COR-W1-07).
- *
- * Product doctrine pin (`pkg:sfia-studio-doctrine-v3`) ALWAYS selects the
- * product-bound resolver path. Missing/invalid registryRoot must fail closed
- * as Product CKC unavailable — NEVER silently fall back to method-candidate.
- *
- * Explicit `options.resolver` injection remains for deliberate test/DI only.
- */
-function createDefaultCkcQualificationResolver(
-  options: CreateCkcQualificationServicesOptions,
-  audit: CycleAuditPort,
-): CkcQualificationResolverPort {
-  if (usesProductDoctrinePin(options.doctrinePackagePin)) {
-    const pin = options.doctrinePackagePin!;
-    return new CkcQualificationResolver(undefined, audit, {
-      // Empty/absent root is handled fail-closed inside product index load.
-      registryRoot: options.registryRoot ?? "",
-      doctrinePackageId: pin.doctrinePackageId,
-      packageVersion: pin.version,
-      packageDigest: pin.digest,
-    });
-  }
-  return new CkcQualificationResolver(undefined, audit);
-}
-
-/** Read-only D2-A → D2-B → D2-C composition without repositories or mutation. */
-export function createCkcQualificationServices(
-  options: CreateCkcQualificationServicesOptions = {},
-): CkcQualificationServices {
-  const clock = options.clock ?? new SystemClock();
-  const audit = options.audit ?? new ConsoleCycleAuditJournal();
-  const failureAwareAudit = createFailureAwareAudit(audit);
-  const resolver =
-    options.resolver ??
-    createDefaultCkcQualificationResolver(options, failureAwareAudit);
-  const qualifyCycle =
-    options.qualifyCycle ?? new QualifyCycle(clock, failureAwareAudit);
-
-  return Object.freeze({
-    audit,
-    resolver,
-    qualifyCycleWithCkc: new QualifyCycleWithCkc(
-      resolver,
-      qualifyCycle,
-      clock,
-      failureAwareAudit,
-      resolveCkcQualificationCatalogAuthority(options),
-    ),
-  });
-}
-
-/** Factory for in-memory Cycle/Trajectory/Epistemic/CKC services. */
-export function createInMemoryCycleServices(
-  options: CreateInMemoryCycleServicesOptions,
-): CycleServices {
-  const store = new MemoryCycleStore();
-  const cycles = new MemoryCycleRepository(store);
-  const trajectories = new MemoryTrajectoryRepository(store);
-  const epistemic = new MemoryEpistemicRepository(store);
-  const clock = options.clock ?? new SystemClock();
-  const audit = options.audit ?? new ConsoleCycleAuditJournal();
-  const ckc = options.ckcResolver ?? new MemoryCkcResolver();
-
-  return {
-    store,
-    cycles,
-    trajectories,
-    epistemic,
-    ckc,
-    audit,
-    qualifyCycle: new QualifyCycle(clock, audit),
-    createCycle: new CreateCycle(
-      cycles,
-      options.projectServices,
-      clock,
-      audit,
-      store,
-    ),
-    getCycle: new GetCycle(cycles, clock, audit),
-    createInitialTrajectory: new CreateInitialTrajectory(
-      trajectories,
-      options.projectServices,
-      clock,
-      audit,
-      store,
-    ),
-    getCurrentTrajectory: new GetCurrentTrajectory(trajectories, clock, audit),
-    getTrajectoryVersion: new GetTrajectoryVersion(trajectories, clock, audit),
-    proposeTrajectoryVersion: new ProposeTrajectoryVersion(
-      trajectories,
-      options.projectServices,
-      clock,
-      audit,
-      store,
-    ),
-    promoteDecidedTrajectory: new PromoteDecidedTrajectory(
-      trajectories,
-      options.projectServices,
-      clock,
-      audit,
-      store,
-    ),
-    getEpistemicState: new GetEpistemicState(epistemic, clock, audit),
-    updateEpistemicState: new UpdateEpistemicState(
-      epistemic,
-      clock,
-      audit,
-      store,
-    ),
-    resolveCycleKnowledgeContract: new ResolveCycleKnowledgeContract(
-      ckc,
-      clock,
-      audit,
-    ),
-    pilotLifecycle: new PilotLifecycleTransitions({
-      cycles,
-      trajectories,
-      projectServices: options.projectServices,
-      clock,
-      audit,
-      store,
-      decisions: options.decisions,
-      evidence: options.evidence,
-      reviewBundles: options.reviewBundles,
-      execution: options.execution,
-      epistemic: options.epistemic ?? {
-        listByProject: (projectId) => epistemic.listByProject(projectId),
-      },
-      authority: options.authority,
-      applicabilityRules: options.applicabilityRules,
-    }),
-  };
-}
-
-export function createTestCycleServices(
-  options: CreateInMemoryCycleServicesOptions & {
-    audit?: MemoryCycleAuditJournal;
-    fixedNowIso?: string;
-    ckcResolver?: MemoryCkcResolver;
-  },
-): CycleServices & { audit: MemoryCycleAuditJournal } {
-  const audit = options.audit ?? new MemoryCycleAuditJournal();
-  const clock =
-    options.clock ??
-    (options.fixedNowIso
-      ? new FixedClock(options.fixedNowIso)
-      : new FixedClock("2026-07-24T06:00:00.000Z"));
-  return createInMemoryCycleServices({
-    ...options,
-    clock,
-    audit,
-  }) as CycleServices & { audit: MemoryCycleAuditJournal };
-}
-```
-
 ## MODIFIED: `projects/sfia-studio/app/features/project-assistant/actions.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/actions.ts b/projects/sfia-studio/app/features/project-assistant/actions.ts
-index ed66148b..aa00d5e8 100644
+index ed66148b..ecbc33fb 100644
 --- a/projects/sfia-studio/app/features/project-assistant/actions.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/actions.ts
 @@ -11,6 +11,10 @@ import {
@@ -3839,7 +4083,7 @@ index ed66148b..aa00d5e8 100644
  } from "@/lib/oa/cycle";
  import { F2_PROCESS_LOCAL_NOTICE } from "./f2/proposalStore";
  import type { F2DecisionKind } from "./f2/types";
-@@ -934,13 +938,172 @@ async function buildAssistantPilotLifecycleProjection(
+@@ -934,13 +938,197 @@ async function buildAssistantPilotLifecycleProjection(
      await runtime.oa.projectServices.getCurrentLivingProjectState.execute({
        projectId,
      });
@@ -3858,21 +4102,80 @@ index ed66148b..aa00d5e8 100644
 +    epistemicItems = [];
 +  }
 +
++  let trajectory = null;
++  let trajectoryReaderFailed = false;
++  try {
++    const traj = await runtime.oa.cycleServices.getCurrentTrajectory.execute({
++      projectId,
++    });
++    trajectory = traj.ok ? traj.trajectory : null;
++  } catch {
++    trajectoryReaderFailed = true;
++    trajectory = null;
++  }
++
++  let decisions: Awaited<
++    ReturnType<typeof runtime.oa.decisionServices.decisions.listByProject>
++  > = [];
++  let decisionReaderFailed = false;
++  try {
++    decisions =
++      await runtime.oa.decisionServices.decisions.listByProject(projectId);
++  } catch {
++    decisionReaderFailed = true;
++    decisions = [];
++  }
++
++  let evidence: Awaited<
++    ReturnType<
++      typeof runtime.oa.evidenceReviewServices.repository.listByProject
++    >
++  > = [];
++  let evidenceReaderFailed = false;
++  try {
++    evidence =
++      await runtime.oa.evidenceReviewServices.repository.listByProject(
++        projectId,
++      );
++  } catch {
++    evidenceReaderFailed = true;
++    evidence = [];
++  }
++
++  const projectResult = await runtime.oa.projectServices.getProject.execute({
+     projectId,
++  });
++  const doctrinePin = projectResult.ok
++    ? (projectResult.project.doctrinePackageRef ??
++      (lps.ok ? lps.livingProjectState.doctrinePackageRef : undefined))
++    : lps.ok
++      ? lps.livingProjectState.doctrinePackageRef
++      : undefined;
++  const blockersSnap = deriveLifecycleBlockersFromEpistemicItems(epistemicItems);
++
 +  const currentRecommendations = selectCurrentLifecycleRecommendations({
 +    items: epistemicItems,
-+    cycles,
-+    lpsActiveCycleInstanceId: lpsActive,
-+  });
-+
-+  const projection = projectPilotLifecycle({
-     projectId,
      cycles,
 -    lpsActiveCycleInstanceId: lps.ok
 -      ? lps.livingProjectState.activeCycleInstanceId
 -      : null,
 +    lpsActiveCycleInstanceId: lpsActive,
-+    currentRecommendations,
++    lpsVersion: lps.ok ? lps.livingProjectState.version : null,
++    doctrinePackageId: doctrinePin?.doctrinePackageId ?? null,
++    doctrinePackageVersion: doctrinePin?.version ?? null,
++    doctrinePackageDigest: doctrinePin?.digest ?? null,
++    trajectory,
++    decisions,
++    evidence,
++    blockingReservationStatements: blockersSnap.statements,
    });
++
++  const projection = projectPilotLifecycle({
++    projectId,
++    cycles,
++    lpsActiveCycleInstanceId: lpsActive,
++    currentRecommendations,
++  });
 +
 +  if (
 +    projection.selectedStatus &&
@@ -3892,79 +4195,45 @@ index ed66148b..aa00d5e8 100644
 +      return projection;
 +    }
 +
++    if (!projectResult.ok) {
++      projection.resumeReconciliation = {
++        clean: false,
++        detailCode: "CYCLE_RESUME_DRIFT",
++        reason: "project_unreadable",
++      };
++      projection.cta = { ...projection.cta, canResume: false };
++      return projection;
++    }
++
++    if (trajectoryReaderFailed) {
++      projection.resumeReconciliation = {
++        clean: false,
++        detailCode: "CYCLE_RESUME_DRIFT",
++        reason: "trajectory_reader_unavailable",
++      };
++      projection.cta = { ...projection.cta, canResume: false };
++      return projection;
++    }
++    if (decisionReaderFailed) {
++      projection.resumeReconciliation = {
++        clean: false,
++        detailCode: "CYCLE_RESUME_DRIFT",
++        reason: "decision_reader_unavailable",
++      };
++      projection.cta = { ...projection.cta, canResume: false };
++      return projection;
++    }
++    if (evidenceReaderFailed) {
++      projection.resumeReconciliation = {
++        clean: false,
++        detailCode: "CYCLE_RESUME_DRIFT",
++        reason: "evidence_reader_unavailable",
++      };
++      projection.cta = { ...projection.cta, canResume: false };
++      return projection;
++    }
++
 +    try {
-+      const projectResult =
-+        await runtime.oa.projectServices.getProject.execute({ projectId });
-+      if (!projectResult.ok) {
-+        projection.resumeReconciliation = {
-+          clean: false,
-+          detailCode: "CYCLE_RESUME_DRIFT",
-+          reason: "project_unreadable",
-+        };
-+        projection.cta = { ...projection.cta, canResume: false };
-+        return projection;
-+      }
-+
-+      let trajectory = null;
-+      try {
-+        const traj =
-+          await runtime.oa.cycleServices.getCurrentTrajectory.execute({
-+            projectId,
-+          });
-+        trajectory = traj.ok ? traj.trajectory : null;
-+      } catch {
-+        projection.resumeReconciliation = {
-+          clean: false,
-+          detailCode: "CYCLE_RESUME_DRIFT",
-+          reason: "trajectory_reader_unavailable",
-+        };
-+        projection.cta = { ...projection.cta, canResume: false };
-+        return projection;
-+      }
-+
-+      let decisions: Awaited<
-+        ReturnType<
-+          typeof runtime.oa.decisionServices.decisions.listByProject
-+        >
-+      > = [];
-+      try {
-+        decisions =
-+          await runtime.oa.decisionServices.decisions.listByProject(projectId);
-+      } catch {
-+        projection.resumeReconciliation = {
-+          clean: false,
-+          detailCode: "CYCLE_RESUME_DRIFT",
-+          reason: "decision_reader_unavailable",
-+        };
-+        projection.cta = { ...projection.cta, canResume: false };
-+        return projection;
-+      }
-+
-+      let evidence: Awaited<
-+        ReturnType<
-+          typeof runtime.oa.evidenceReviewServices.repository.listByProject
-+        >
-+      > = [];
-+      try {
-+        evidence =
-+          await runtime.oa.evidenceReviewServices.repository.listByProject(
-+            projectId,
-+          );
-+      } catch {
-+        projection.resumeReconciliation = {
-+          clean: false,
-+          detailCode: "CYCLE_RESUME_DRIFT",
-+          reason: "evidence_reader_unavailable",
-+        };
-+        projection.cta = { ...projection.cta, canResume: false };
-+        return projection;
-+      }
-+
-+      const blockersSnap =
-+        deriveLifecycleBlockersFromEpistemicItems(epistemicItems);
-+      const doctrinePin =
-+        projectResult.project.doctrinePackageRef ??
-+        (lps.ok ? lps.livingProjectState.doctrinePackageRef : undefined);
 +      const siblingActiveExists = cycles.some(
 +        (c) =>
 +          c.status === "active" &&
@@ -4018,6 +4287,2043 @@ index ed66148b..aa00d5e8 100644
  /**
 ```
 
+### Full current content: `projects/sfia-studio/app/features/project-assistant/actions.ts`
+```typescript
+"use server";
+
+import { getRuntimeApplicationService } from "@/lib/vertical-slice-runtime";
+import { loadProjectRuntimeForAssistant } from "@/features/vertical-slice-ui/ProjectWorkspaceView";
+import { orchestrateAssistantSend } from "./f2/orchestrateF2";
+import { recordF2Decision } from "./f2/recordDecision";
+import {
+  executePilotLifecycleAction,
+  type PilotLifecycleActionKind,
+} from "./f2/pilotLifecycleActions";
+import {
+  projectPilotLifecycle,
+  type PilotLifecycleProjection,
+  selectCurrentLifecycleRecommendations,
+  isPausedStatus,
+  assessResumeReconciliation,
+  deriveLifecycleBlockersFromEpistemicItems,
+} from "@/lib/oa/cycle";
+import { F2_PROCESS_LOCAL_NOTICE } from "./f2/proposalStore";
+import type { F2DecisionKind } from "./f2/types";
+import { confirmAndExecuteF3Fixture } from "./f3/confirmAndExecuteF3Fixture";
+import { confirmAndExecuteResolvedM3 } from "./f3/confirmAndExecuteResolvedM3";
+import { prepareF3Fixture } from "./f3/prepareF3Fixture";
+import { prepareM3FromDecision } from "./f3/prepareM3FromDecision";
+import { prepareAndResolveM3ProductPath } from "./f3/prepareAndResolveM3ProductPath";
+import { rehydrateEvidenceOutcomeFromLps } from "./f3/rehydrateEvidenceOutcomeFromLps";
+import { resolveF3EphemeralNotice } from "./f3/constants";
+import {
+  executionSemanticUserLabel,
+  resolvePersistenceNotice,
+} from "./presentationLabels";
+import {
+  runMw6GovernedNoraProductTurn,
+  type RunMw6GovernedNoraProductTurnInput,
+} from "./mw6GovernedNoraTurn";
+import type {
+  AssistantHistoryMessage,
+  ProjectAssistantContextDto,
+  ProjectAssistantDecideResult,
+  ProjectAssistantExecuteF3Result,
+  ProjectAssistantPrepareF3Result,
+  ProjectAssistantPrepareM3Result,
+  ProjectAssistantPrepareResolvedM3Result,
+  ProjectAssistantRehydrateEvidenceOutcomeResult,
+  ProjectAssistantSendResult,
+} from "./types";
+
+/**
+ * Thin server action — Project Workspace Assistant (F1 + F2 + F3 fixture).
+ * No OPS1 session. No Cursor REAL. No Git write.
+ * Persistence durability follows RuntimeOaStack.productDurablePath (Product SQLite vs Memory).
+ */
+export async function projectAssistantSendAction(input: {
+  projectId: string;
+  content: string;
+  history?: AssistantHistoryMessage[];
+  /**
+   * Untrusted ExecutionContract id reference for MW6 governed external discovery.
+   * When present, server composes governedAuthority from Auth + OA and invokes
+   * the real Nora product path. CONTENT/AUTHORITY of the contract are never
+   * trusted from the client — only the id reference.
+   */
+  executionContractId?: string;
+  /**
+   * Optional untrusted evidence hint — verified only by server composition.
+   */
+  authorityEvidenceId?: unknown;
+  /** Hostile — ignored (server builds governedAuthority). */
+  governedAuthority?: unknown;
+  /** Hostile — ignored (Auth resolver owns actor). */
+  actorId?: unknown;
+  getExecutionContract?: unknown;
+  checkExecutionAuthorization?: unknown;
+  authorityResolver?: unknown;
+  authorizedContract?: unknown;
+  currentExternalDiscoveryIntent?: unknown;
+  canActAsMorris?: unknown;
+  claimedAuthorityLevel?: unknown;
+  /**
+   * TEST-ONLY Auth session → Pilote seam. Production omits this and uses
+   * resolveCurrentAuthenticatedPilote. AUTH REAL boundary carried forward.
+   */
+  resolveAuthenticatedPilote?: RunMw6GovernedNoraProductTurnInput["resolveAuthenticatedPilote"];
+  provider?: import("@/lib/platform/ai").ConversationProvider;
+  sessionDbPath?: string;
+}): Promise<ProjectAssistantSendResult> {
+  const executionContractId =
+    typeof input.executionContractId === "string"
+      ? input.executionContractId.trim()
+      : "";
+  if (executionContractId.length > 0) {
+    return runMw6GovernedNoraProductTurn({
+      projectId: input.projectId,
+      content: input.content,
+      history: input.history,
+      executionContractId,
+      claimedAuthorityEvidenceId: input.authorityEvidenceId,
+      resolveAuthenticatedPilote: input.resolveAuthenticatedPilote,
+      provider: input.provider,
+      sessionDbPath: input.sessionDbPath,
+      governedAuthority: input.governedAuthority,
+      actorId: input.actorId,
+      authorityEvidenceId: input.authorityEvidenceId,
+      getExecutionContract: input.getExecutionContract,
+      checkExecutionAuthorization: input.checkExecutionAuthorization,
+      authorityResolver: input.authorityResolver,
+      authorizedContract: input.authorizedContract,
+      currentExternalDiscoveryIntent: input.currentExternalDiscoveryIntent,
+      canActAsMorris: input.canActAsMorris,
+      claimedAuthorityLevel: input.claimedAuthorityLevel,
+    });
+  }
+  return orchestrateAssistantSend({
+    projectId: input.projectId,
+    content: input.content,
+    history: input.history,
+    provider: input.provider,
+    sessionDbPath: input.sessionDbPath,
+  });
+}
+
+function toContextDto(
+  result: Extract<
+    Awaited<ReturnType<typeof loadProjectRuntimeForAssistant>>,
+    { ok: true }
+  >,
+): ProjectAssistantContextDto {
+  return {
+    projectId: result.project.projectId,
+    name: result.project.name,
+    shortReference: result.project.shortReference ?? null,
+    objective: result.project.objective,
+    contextSummary: result.project.contextSummary,
+    criticality: result.project.criticality,
+    constraints: [...result.project.constraints],
+    lpsId: result.livingState.id,
+    lpsVersion: result.livingState.version,
+    lpsCreatedAt: result.livingState.createdAt,
+    doctrineId: result.doctrine.id,
+    doctrineVersion: result.doctrine.version,
+    doctrineDigest: result.doctrine.digest,
+    doctrineStatus: result.doctrine.status,
+    runtimeMode: result.disclosures.runtimeMode,
+    persistence: result.disclosures.persistence,
+    readiness: result.readiness.status,
+  };
+}
+
+/**
+ * Morris gate decision — client may only send proposalId, decisionKind,
+ * optional reserves, projectId. Authority is registered server-side.
+ */
+export async function projectAssistantDecideAction(input: {
+  projectId: string;
+  proposalId: string;
+  decisionKind: F2DecisionKind;
+  reservesText?: string | null;
+  /** Hostile — ignored if present. */
+  canActAsMorris?: unknown;
+  claimedAuthorityLevel?: unknown;
+}): Promise<ProjectAssistantDecideResult> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      status: "decision_error",
+      code: "OA_STACK_UNAVAILABLE",
+      message: "Services OA process-local indisponibles pour la décision F2.",
+      mode: "unavailable",
+      retryable: false,
+    };
+  }
+
+  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
+  if (!projectResult.ok) {
+    return {
+      ok: false,
+      status: "project_not_found",
+      code: projectResult.error.code,
+      message: projectResult.error.message,
+      mode: "unavailable",
+      retryable: false,
+    };
+  }
+  const project = toContextDto(projectResult);
+
+  const recorded = await recordF2Decision({
+    proposalId: input.proposalId,
+    projectId: input.projectId,
+    decisionKind: input.decisionKind,
+    reservesText: input.reservesText,
+    canActAsMorris: input.canActAsMorris,
+    claimedAuthorityLevel: input.claimedAuthorityLevel,
+    currentContext: {
+      projectId: project.projectId,
+      lpsId: project.lpsId,
+      lpsVersion: project.lpsVersion,
+      doctrineDigest: project.doctrineDigest,
+    },
+    decisionServices: runtime.oa.decisionServices,
+    authorityResolver: runtime.oa.authorityResolver,
+    nowIso: () => runtime.oa!.clock.nowIso(),
+  });
+
+  if (!recorded.ok) {
+    return {
+      ok: false,
+      status: recorded.code === "STALE" ? "stale" : "decision_error",
+      code: recorded.code,
+      message: recorded.message,
+      mode: "fixture",
+      retryable: recorded.code === "STALE",
+      proposal: recorded.proposal ?? null,
+    };
+  }
+
+  const { decision, proposal } = recorded;
+  const textParts = [
+    "DÉCISION PRISE",
+    `${decision.kind} capturée pour ${proposal.proposalId}.`,
+    `Scope: ${decision.scope}.`,
+    decision.readyForNextGatedStep
+      ? "READY FOR NEXT GATED STEP"
+      : "Proposition non approuvée.",
+    "AUCUNE EXÉCUTION",
+    F2_PROCESS_LOCAL_NOTICE,
+  ];
+
+  return {
+    ok: true,
+    status: "ok",
+    mode: "fixture",
+    presentation: "unconfirmed",
+    text: textParts.join(" — "),
+    project,
+    ephemeralNotice: F2_PROCESS_LOCAL_NOTICE,
+    f2: {
+      turnKind: "f2_decision",
+      intentClass: "actionable",
+      qualification: null,
+      proposal,
+      decision,
+      labels: {
+        recommendation: null,
+        proposition: "PROPOSITION",
+        decisionRequired: null,
+        decisionTaken: "DÉCISION PRISE",
+        noExecution: "AUCUNE EXÉCUTION",
+      },
+      executionBlocked: true,
+      processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
+    },
+  };
+}
+
+/**
+ * F3 PREPARE — Build+Validate ExecutionContract only.
+ * No client authority. Hostile mode/adapter/agent/command rejected.
+ */
+export async function projectAssistantPrepareF3FixtureAction(input: {
+  projectId: string;
+  proposalId: string;
+  decisionId: string;
+  /** Hostile — ignored. */
+  mode?: unknown;
+  adapterRef?: unknown;
+  agentId?: unknown;
+  command?: unknown;
+  real?: unknown;
+  selectedAgentRef?: unknown;
+  executionMode?: unknown;
+  trustLevel?: unknown;
+  authorityEvidenceId?: unknown;
+  canActAsMorris?: unknown;
+  claimedAuthorityLevel?: unknown;
+}): Promise<ProjectAssistantPrepareF3Result> {
+  void input.mode;
+  void input.adapterRef;
+  void input.agentId;
+  void input.command;
+  void input.real;
+  void input.selectedAgentRef;
+  void input.executionMode;
+  void input.trustLevel;
+  void input.authorityEvidenceId;
+  void input.canActAsMorris;
+  void input.claimedAuthorityLevel;
+
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      status: "prepare_error",
+      code: "OA_STACK_UNAVAILABLE",
+      message: "Services OA process-local indisponibles pour F3 PREPARE.",
+      mode: "unavailable",
+      retryable: false,
+    };
+  }
+
+  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
+  if (!projectResult.ok) {
+    return {
+      ok: false,
+      status: "project_not_found",
+      code: projectResult.error.code,
+      message: projectResult.error.message,
+      mode: "unavailable",
+      retryable: false,
+    };
+  }
+  const project = toContextDto(projectResult);
+
+  const prepared = await prepareF3Fixture({
+    projectId: input.projectId,
+    proposalId: input.proposalId,
+    decisionId: input.decisionId,
+    mode: input.mode,
+    adapterRef: input.adapterRef,
+    agentId: input.agentId,
+    command: input.command,
+    currentContext: {
+      projectId: project.projectId,
+      lpsId: project.lpsId,
+      lpsVersion: project.lpsVersion,
+      doctrineDigest: project.doctrineDigest,
+    },
+    deps: {
+      decisionServices: runtime.oa.decisionServices,
+      authorityResolver: runtime.oa.authorityResolver,
+      executionContractServices: runtime.oa.executionContractServices,
+      nowIso: () => runtime.oa!.clock.nowIso(),
+      productDurablePath: runtime.oa.productDurablePath,
+    },
+  });
+
+  if (!prepared.ok) {
+    return {
+      ok: false,
+      status: prepared.code === "STALE" ? "stale" : "prepare_error",
+      code: prepared.code,
+      message: prepared.message,
+      mode: "fixture",
+      retryable: prepared.code === "STALE",
+      proposal: (prepared.proposal as ProjectAssistantPrepareF3FailureProposal) ?? null,
+    };
+  }
+
+  const f3 = prepared.payload;
+  const persistenceNotice = resolveF3EphemeralNotice(
+    runtime.oa.productDurablePath,
+  );
+  return {
+    ok: true,
+    status: "ok",
+    mode: "fixture",
+    presentation: "unconfirmed",
+    text: [
+      "F3 PREPARE",
+      `Contrat ${f3.contract.executionContractId} v${f3.contract.version} (${f3.contract.status})`,
+      "AUCUNE EXÉCUTION",
+      "FIXTURE — AUCUNE EXÉCUTION RÉELLE",
+      persistenceNotice,
+    ].join(" — "),
+    project,
+    ephemeralNotice: persistenceNotice,
+    f2: null,
+    f3,
+  };
+}
+
+/**
+ * F3 M3 PREPARE — from durable decisionId (no ProposalStore).
+ * Exact contract from DecisionBasis. Cursor PREPARE-only. No Attempt.
+ */
+export async function projectAssistantPrepareM3Action(input: {
+  projectId: string;
+  decisionId: string;
+  /** Hostile — ignored. */
+  mode?: unknown;
+  adapterRef?: unknown;
+  agentId?: unknown;
+  command?: unknown;
+  real?: unknown;
+  selectedAgentRef?: unknown;
+  canActAsMorris?: unknown;
+  claimedAuthorityLevel?: unknown;
+}): Promise<ProjectAssistantPrepareM3Result> {
+  void input.mode;
+  void input.adapterRef;
+  void input.agentId;
+  void input.command;
+  void input.real;
+  void input.selectedAgentRef;
+  void input.canActAsMorris;
+  void input.claimedAuthorityLevel;
+
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      status: "prepare_error",
+      code: "OA_STACK_UNAVAILABLE",
+      message: "Services OA indisponibles pour M3 PREPARE.",
+      mode: "unavailable",
+      retryable: false,
+    };
+  }
+
+  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
+  if (!projectResult.ok) {
+    return {
+      ok: false,
+      status: "project_not_found",
+      code: projectResult.error.code,
+      message: projectResult.error.message,
+      mode: "unavailable",
+      retryable: false,
+    };
+  }
+  const project = toContextDto(projectResult);
+
+  const prepared = await prepareM3FromDecision({
+    projectId: input.projectId,
+    decisionId: input.decisionId,
+    currentContext: {
+      projectId: project.projectId,
+      lpsId: project.lpsId,
+      lpsVersion: project.lpsVersion,
+      doctrineDigest: project.doctrineDigest,
+      activeCycleInstanceId: project.activeCycleInstanceId,
+      ckcResolutionRef: project.ckcResolutionRef,
+    },
+    deps: {
+      decisionServices: runtime.oa.decisionServices,
+      authorityResolver: runtime.oa.authorityResolver,
+      executionContractServices: runtime.oa.executionContractServices,
+      nowIso: () => runtime.oa!.clock.nowIso(),
+    },
+  });
+
+  if (!prepared.ok) {
+    return {
+      ok: false,
+      status: prepared.code === "CONTEXT_STALE" ? "stale" : "prepare_error",
+      code: prepared.code,
+      message: prepared.message,
+      mode: "fixture",
+      retryable: prepared.code === "CONTEXT_STALE",
+    };
+  }
+
+  const f3 = prepared.payload;
+  return {
+    ok: true,
+    status: "ok",
+    mode: "m3_prepare",
+    presentation: "unconfirmed",
+    text: [
+      "M3 PREPARE",
+      `Contrat ${f3.contract.executionContractId} v${f3.contract.version} (${f3.contract.status})`,
+      `Fingerprint ${f3.contract.semanticFingerprint.slice(0, 12)}…`,
+      "AUCUNE EXÉCUTION",
+      "CURSOR PREPARE-ONLY",
+      "NO GATE D",
+    ].join(" — "),
+    project,
+    ephemeralNotice:
+      "M3 PREPARE durable — Decision + ExecutionContract Product SQLite. Cursor REAL bloqué.",
+    f3,
+  };
+}
+
+/**
+ * Canonical post-GO product path:
+ * prepareM3FromDecision → resolveM3ExecutionContract (fixture-safe ZERO REAL).
+ * Returns the resolved successor for explicit Confirmation. No StartExecution.
+ */
+export async function projectAssistantPrepareResolvedM3Action(input: {
+  projectId: string;
+  decisionId: string;
+  /** Hostile — ignored. */
+  mode?: unknown;
+  adapterRef?: unknown;
+  agentId?: unknown;
+  command?: unknown;
+  real?: unknown;
+  selectedAgentRef?: unknown;
+  canActAsMorris?: unknown;
+  claimedAuthorityLevel?: unknown;
+}): Promise<ProjectAssistantPrepareResolvedM3Result> {
+  void input.mode;
+  void input.adapterRef;
+  void input.agentId;
+  void input.command;
+  void input.real;
+  void input.selectedAgentRef;
+  void input.canActAsMorris;
+  void input.claimedAuthorityLevel;
+
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      status: "prepare_error",
+      code: "OA_STACK_UNAVAILABLE",
+      message: "Services OA indisponibles pour M3 PREPARE+RESOLVE.",
+      mode: "unavailable",
+      retryable: false,
+    };
+  }
+
+  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
+  if (!projectResult.ok) {
+    return {
+      ok: false,
+      status: "project_not_found",
+      code: projectResult.error.code,
+      message: projectResult.error.message,
+      mode: "unavailable",
+      retryable: false,
+    };
+  }
+  const project = toContextDto(projectResult);
+
+  const prepared = await prepareAndResolveM3ProductPath({
+    projectId: input.projectId,
+    decisionId: input.decisionId,
+    currentContext: {
+      projectId: project.projectId,
+      lpsId: project.lpsId,
+      lpsVersion: project.lpsVersion,
+      doctrineDigest: project.doctrineDigest,
+      activeCycleInstanceId: project.activeCycleInstanceId,
+      ckcResolutionRef: project.ckcResolutionRef,
+    },
+    deps: {
+      decisionServices: runtime.oa.decisionServices,
+      authorityResolver: runtime.oa.authorityResolver,
+      executionContractServices: runtime.oa.executionContractServices,
+      nowIso: () => runtime.oa!.clock.nowIso(),
+    },
+  });
+
+  if (!prepared.ok) {
+    return {
+      ok: false,
+      status: prepared.code === "CONTEXT_STALE" ? "stale" : "prepare_error",
+      code: prepared.code,
+      message: prepared.message,
+      mode: "fixture",
+      retryable: prepared.code === "CONTEXT_STALE",
+    };
+  }
+
+  const f3 = prepared.payload;
+  return {
+    ok: true,
+    status: "ok",
+    mode: "m3_resolved_fixture",
+    presentation: "unconfirmed",
+    text: [
+      "Contrat d'exécution prêt à confirmer",
+      `Successeur ${f3.successor.executionContractId} v${f3.successor.version} (${f3.successor.status})`,
+      `Action ${f3.successor.action} · cible ${f3.successor.target}`,
+      "Confirmation process-local requise — aucune tentative démarrée",
+      "AUCUNE EXÉCUTION RÉELLE",
+    ].join(" — "),
+    project,
+    ephemeralNotice:
+      "Contrat durable résolu (HumanDecision + DecisionBasis). Confirmation process-local. Cursor REAL bloqué.",
+    f3,
+  };
+}
+
+type ProjectAssistantPrepareF3FailureProposal =
+  import("./f2/types").ProposalDto | null;
+
+/**
+ * F3 confirm + fixture execute + evidence reinjection.
+ * No client authority. Hostile REAL/adapter/agent/command rejected.
+ */
+export async function projectAssistantConfirmAndExecuteF3FixtureAction(input: {
+  projectId: string;
+  proposalId: string;
+  decisionId: string;
+  executionContractId: string;
+  expectedContractVersion: number;
+  /** Hostile — ignored. */
+  mode?: unknown;
+  adapterRef?: unknown;
+  agentId?: unknown;
+  command?: unknown;
+  real?: unknown;
+  selectedAgentRef?: unknown;
+  executionMode?: unknown;
+  trustLevel?: unknown;
+  authorityEvidenceId?: unknown;
+  canActAsMorris?: unknown;
+  claimedAuthorityLevel?: unknown;
+}): Promise<ProjectAssistantExecuteF3Result> {
+  void input.mode;
+  void input.adapterRef;
+  void input.agentId;
+  void input.command;
+  void input.real;
+  void input.selectedAgentRef;
+  void input.executionMode;
+  void input.trustLevel;
+  void input.authorityEvidenceId;
+  void input.canActAsMorris;
+  void input.claimedAuthorityLevel;
+
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      status: "execute_error",
+      code: "OA_STACK_UNAVAILABLE",
+      message: "Services OA process-local indisponibles pour F3 EXECUTE.",
+      mode: "unavailable",
+      retryable: false,
+    };
+  }
+
+  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
+  if (!projectResult.ok) {
+    return {
+      ok: false,
+      status: "project_not_found",
+      code: projectResult.error.code,
+      message: projectResult.error.message,
+      mode: "unavailable",
+      retryable: false,
+    };
+  }
+  const project = toContextDto(projectResult);
+
+  const executed = await confirmAndExecuteF3Fixture({
+    projectId: input.projectId,
+    proposalId: input.proposalId,
+    decisionId: input.decisionId,
+    executionContractId: input.executionContractId,
+    expectedContractVersion: input.expectedContractVersion,
+    mode: input.mode,
+    adapterRef: input.adapterRef,
+    agentId: input.agentId,
+    command: input.command,
+    real: input.real,
+    currentContext: {
+      projectId: project.projectId,
+      lpsId: project.lpsId,
+      lpsVersion: project.lpsVersion,
+      doctrineDigest: project.doctrineDigest,
+    },
+    deps: {
+      decisionServices: runtime.oa.decisionServices,
+      authorityResolver: runtime.oa.authorityResolver,
+      executionContractServices: runtime.oa.executionContractServices,
+      executionAttemptServices: runtime.oa.executionAttemptServices,
+      evidenceReviewServices: runtime.oa.evidenceReviewServices,
+      fixtureAdapter: runtime.oa.fixtureAdapter,
+      projectServices: runtime.oa.projectServices,
+      productDurablePath: runtime.oa.productDurablePath,
+      nowIso: () => runtime.oa!.clock.nowIso(),
+    },
+  });
+
+  if (!executed.ok) {
+    return {
+      ok: false,
+      status: executed.code === "STALE" ? "stale" : "execute_error",
+      code: executed.code,
+      message: executed.message,
+      mode: "fixture",
+      retryable: executed.code === "STALE",
+      proposal: (executed.proposal as ProjectAssistantPrepareF3FailureProposal) ?? null,
+    };
+  }
+
+  const f3 = executed.payload;
+  const persistenceNotice = resolveF3EphemeralNotice(
+    runtime.oa.productDurablePath,
+  );
+  return {
+    ok: true,
+    status: "ok",
+    mode: "fixture",
+    presentation: "unconfirmed",
+    text: [
+      f3.reusedExistingAttempt
+        ? "F3 FIXTURE DÉJÀ EXÉCUTÉE (idempotent)"
+        : "F3 FIXTURE EXÉCUTÉE",
+      `Attempt ${f3.attempt.attemptId} · ${f3.attempt.status}`,
+      `Evidence ${f3.evidence.evidenceId} · non verified`,
+      `ReviewBundle ${f3.reviewBundle.reviewBundleId}`,
+      "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
+      "FIXTURE — AUCUNE EXÉCUTION RÉELLE",
+      "CURSOR REAL BLOQUÉ",
+      persistenceNotice,
+    ].join(" — "),
+    project,
+    ephemeralNotice: persistenceNotice,
+    f3,
+  };
+}
+
+/**
+ * Canonical post-GO confirm + fixture-safe execute on resolved M3 successor.
+ * No Proposal validation. Confirmation is process-local (not persisted as authority).
+ */
+export async function projectAssistantConfirmAndExecuteResolvedM3Action(input: {
+  projectId: string;
+  decisionId: string;
+  executionContractId: string;
+  expectedContractVersion: number;
+  /** Hostile — ignored. */
+  mode?: unknown;
+  adapterRef?: unknown;
+  agentId?: unknown;
+  command?: unknown;
+  real?: unknown;
+  selectedAgentRef?: unknown;
+  executionMode?: unknown;
+  trustLevel?: unknown;
+  authorityEvidenceId?: unknown;
+  canActAsMorris?: unknown;
+  claimedAuthorityLevel?: unknown;
+}): Promise<ProjectAssistantExecuteF3Result> {
+  void input.mode;
+  void input.adapterRef;
+  void input.agentId;
+  void input.command;
+  void input.real;
+  void input.selectedAgentRef;
+  void input.executionMode;
+  void input.trustLevel;
+  void input.authorityEvidenceId;
+  void input.canActAsMorris;
+  void input.claimedAuthorityLevel;
+
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      status: "execute_error",
+      code: "OA_STACK_UNAVAILABLE",
+      message: "Services OA indisponibles pour M3 EXECUTE.",
+      mode: "unavailable",
+      retryable: false,
+    };
+  }
+
+  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
+  if (!projectResult.ok) {
+    return {
+      ok: false,
+      status: "project_not_found",
+      code: projectResult.error.code,
+      message: projectResult.error.message,
+      mode: "unavailable",
+      retryable: false,
+    };
+  }
+  const project = toContextDto(projectResult);
+
+  const executed = await confirmAndExecuteResolvedM3({
+    projectId: input.projectId,
+    decisionId: input.decisionId,
+    executionContractId: input.executionContractId,
+    expectedContractVersion: input.expectedContractVersion,
+    mode: input.mode,
+    adapterRef: input.adapterRef,
+    agentId: input.agentId,
+    command: input.command,
+    real: input.real,
+    deps: {
+      decisionServices: runtime.oa.decisionServices,
+      authorityResolver: runtime.oa.authorityResolver,
+      executionContractServices: runtime.oa.executionContractServices,
+      executionAttemptServices: runtime.oa.executionAttemptServices,
+      evidenceReviewServices: runtime.oa.evidenceReviewServices,
+      fixtureAdapter: runtime.oa.fixtureAdapter,
+      projectServices: runtime.oa.projectServices,
+      productDurablePath: runtime.oa.productDurablePath,
+      nowIso: () => runtime.oa!.clock.nowIso(),
+    },
+  });
+
+  if (!executed.ok) {
+    return {
+      ok: false,
+      status: "execute_error",
+      code: executed.code,
+      message: executed.message,
+      mode: "fixture",
+      retryable: false,
+    };
+  }
+
+  const f3 = executed.payload;
+  const persistenceNotice = resolvePersistenceNotice({
+    productDurablePath: runtime.oa.productDurablePath,
+    mode: f3.mode,
+    kind: "execute",
+  });
+  const semantic = executionSemanticUserLabel({
+    mode: f3.mode,
+    payloadMode: f3.mode,
+    executionMode: f3.attempt.executionMode,
+    adapterId: f3.attempt.adapterId,
+    adapterRef: f3.attempt.adapterRef,
+    realProcessInvoked: f3.attempt.realProcessInvoked,
+    realExecution: f3.realExecution,
+    processRef: f3.attempt.processRef,
+    evidenceId: f3.evidence.evidenceId,
+  });
+  const isCursorReal = f3.mode === "CURSOR_CLI_REAL";
+  return {
+    ok: true,
+    status: "ok",
+    mode: "fixture",
+    presentation: "unconfirmed",
+    text: [
+      isCursorReal
+        ? f3.reusedExistingAttempt
+          ? "M3 EXÉCUTION CURSOR — MÊME TENTATIVE"
+          : "M3 EXÉCUTION CURSOR ENREGISTRÉE"
+        : f3.reusedExistingAttempt
+          ? "M3 FIXTURE DÉJÀ EXÉCUTÉE (idempotent)"
+          : "M3 FIXTURE EXÉCUTÉE",
+      `Attempt ${f3.attempt.attemptId} · ${f3.attempt.status}`,
+      `Evidence ${f3.evidence.evidenceId} · non verified`,
+      `ReviewBundle ${f3.reviewBundle.reviewBundleId}`,
+      "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
+      semantic,
+      isCursorReal ? null : "FIXTURE — AUCUNE EXÉCUTION RÉELLE",
+      isCursorReal ? null : "CURSOR REAL BLOQUÉ",
+      persistenceNotice,
+    ]
+      .filter((part): part is string => Boolean(part))
+      .join(" — "),
+    project,
+    ephemeralNotice: persistenceNotice,
+    f3,
+  };
+}
+
+/**
+ * M5 durable Nora/F3 readback — LPS evidence/RB refs → RecommendNextGate.
+ * Strictly read-only: no Decision, no gate consume, no Attempt launch.
+ */
+export async function projectAssistantRehydrateEvidenceOutcomeAction(input: {
+  projectId: string;
+}): Promise<ProjectAssistantRehydrateEvidenceOutcomeResult> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      status: "rehydrate_error",
+      code: "OA_STACK_UNAVAILABLE",
+      message: "Services OA process-local indisponibles pour rehydrate F3.",
+      mode: "unavailable",
+      retryable: false,
+    };
+  }
+
+  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
+  if (!projectResult.ok) {
+    return {
+      ok: false,
+      status: "project_not_found",
+      code: projectResult.error.code,
+      message: projectResult.error.message,
+      mode: "unavailable",
+      retryable: false,
+    };
+  }
+  const project = toContextDto(projectResult);
+
+  const rehydrated = await rehydrateEvidenceOutcomeFromLps({
+    projectId: input.projectId,
+    deps: {
+      projectServices: runtime.oa.projectServices,
+      evidenceReviewServices: runtime.oa.evidenceReviewServices,
+    },
+  });
+
+  if (!rehydrated.ok) {
+    return {
+      ok: false,
+      status: "rehydrate_error",
+      code: rehydrated.code,
+      message: rehydrated.message,
+      mode: "fixture",
+      retryable: false,
+      project,
+    };
+  }
+
+  const persistenceNotice = resolvePersistenceNotice({
+    productDurablePath: runtime.oa.productDurablePath,
+    mode: rehydrated.recommendation.mode,
+    kind: "rehydrate",
+  });
+  return {
+    ok: true,
+    status: "ok",
+    mode: "fixture",
+    presentation: "unconfirmed",
+    text: [
+      "REHYDRATE EVIDENCE OUTCOME",
+      `LPS v${rehydrated.lpsVersion}`,
+      `Evidence ${rehydrated.evidenceIds.join(", ") || "—"}`,
+      `ReviewBundle ${rehydrated.reviewBundleIds.join(", ") || "—"}`,
+      "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
+      persistenceNotice,
+    ].join(" — "),
+    project,
+    ephemeralNotice: persistenceNotice,
+    evidence: rehydrated.evidence,
+    reviewBundles: rehydrated.reviewBundles,
+    recommendation: rehydrated.recommendation,
+    lpsVersion: rehydrated.lpsVersion,
+    evidenceIds: rehydrated.evidenceIds,
+    reviewBundleIds: rehydrated.reviewBundleIds,
+  };
+}
+
+
+async function buildAssistantPilotLifecycleProjection(
+  projectId: string,
+): Promise<PilotLifecycleProjection | null> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) return null;
+  const cycles = await runtime.oa.cycleServices.cycles.listByProject(projectId);
+  const lps =
+    await runtime.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId,
+    });
+  const lpsActive = lps.ok
+    ? lps.livingProjectState.activeCycleInstanceId
+    : null;
+  let epistemicItems: Awaited<
+    ReturnType<typeof runtime.oa.cycleServices.epistemic.listByProject>
+  > = [];
+  try {
+    epistemicItems = await runtime.oa.cycleServices.epistemic.listByProject(
+      projectId,
+    );
+  } catch {
+    epistemicItems = [];
+  }
+
+  let trajectory = null;
+  let trajectoryReaderFailed = false;
+  try {
+    const traj = await runtime.oa.cycleServices.getCurrentTrajectory.execute({
+      projectId,
+    });
+    trajectory = traj.ok ? traj.trajectory : null;
+  } catch {
+    trajectoryReaderFailed = true;
+    trajectory = null;
+  }
+
+  let decisions: Awaited<
+    ReturnType<typeof runtime.oa.decisionServices.decisions.listByProject>
+  > = [];
+  let decisionReaderFailed = false;
+  try {
+    decisions =
+      await runtime.oa.decisionServices.decisions.listByProject(projectId);
+  } catch {
+    decisionReaderFailed = true;
+    decisions = [];
+  }
+
+  let evidence: Awaited<
+    ReturnType<
+      typeof runtime.oa.evidenceReviewServices.repository.listByProject
+    >
+  > = [];
+  let evidenceReaderFailed = false;
+  try {
+    evidence =
+      await runtime.oa.evidenceReviewServices.repository.listByProject(
+        projectId,
+      );
+  } catch {
+    evidenceReaderFailed = true;
+    evidence = [];
+  }
+
+  const projectResult = await runtime.oa.projectServices.getProject.execute({
+    projectId,
+  });
+  const doctrinePin = projectResult.ok
+    ? (projectResult.project.doctrinePackageRef ??
+      (lps.ok ? lps.livingProjectState.doctrinePackageRef : undefined))
+    : lps.ok
+      ? lps.livingProjectState.doctrinePackageRef
+      : undefined;
+  const blockersSnap = deriveLifecycleBlockersFromEpistemicItems(epistemicItems);
+
+  const currentRecommendations = selectCurrentLifecycleRecommendations({
+    items: epistemicItems,
+    cycles,
+    lpsActiveCycleInstanceId: lpsActive,
+    lpsVersion: lps.ok ? lps.livingProjectState.version : null,
+    doctrinePackageId: doctrinePin?.doctrinePackageId ?? null,
+    doctrinePackageVersion: doctrinePin?.version ?? null,
+    doctrinePackageDigest: doctrinePin?.digest ?? null,
+    trajectory,
+    decisions,
+    evidence,
+    blockingReservationStatements: blockersSnap.statements,
+  });
+
+  const projection = projectPilotLifecycle({
+    projectId,
+    cycles,
+    lpsActiveCycleInstanceId: lpsActive,
+    currentRecommendations,
+  });
+
+  if (
+    projection.selectedStatus &&
+    isPausedStatus(projection.selectedStatus) &&
+    projection.selectedCycleInstanceId
+  ) {
+    const selected = cycles.find(
+      (c) => c.cycleInstanceId === projection.selectedCycleInstanceId,
+    );
+    if (!selected) {
+      projection.resumeReconciliation = {
+        clean: false,
+        detailCode: "CYCLE_RESUME_DRIFT",
+        reason: "selected_cycle_missing",
+      };
+      projection.cta = { ...projection.cta, canResume: false };
+      return projection;
+    }
+
+    if (!projectResult.ok) {
+      projection.resumeReconciliation = {
+        clean: false,
+        detailCode: "CYCLE_RESUME_DRIFT",
+        reason: "project_unreadable",
+      };
+      projection.cta = { ...projection.cta, canResume: false };
+      return projection;
+    }
+
+    if (trajectoryReaderFailed) {
+      projection.resumeReconciliation = {
+        clean: false,
+        detailCode: "CYCLE_RESUME_DRIFT",
+        reason: "trajectory_reader_unavailable",
+      };
+      projection.cta = { ...projection.cta, canResume: false };
+      return projection;
+    }
+    if (decisionReaderFailed) {
+      projection.resumeReconciliation = {
+        clean: false,
+        detailCode: "CYCLE_RESUME_DRIFT",
+        reason: "decision_reader_unavailable",
+      };
+      projection.cta = { ...projection.cta, canResume: false };
+      return projection;
+    }
+    if (evidenceReaderFailed) {
+      projection.resumeReconciliation = {
+        clean: false,
+        detailCode: "CYCLE_RESUME_DRIFT",
+        reason: "evidence_reader_unavailable",
+      };
+      projection.cta = { ...projection.cta, canResume: false };
+      return projection;
+    }
+
+    try {
+      const siblingActiveExists = cycles.some(
+        (c) =>
+          c.status === "active" &&
+          c.cycleInstanceId !== selected.cycleInstanceId,
+      );
+
+      const reconciliation = assessResumeReconciliation({
+        cycle: selected,
+        projectId,
+        lpsReadable: lps.ok,
+        lpsVersion: lps.ok ? lps.livingProjectState.version : 0,
+        lpsActiveCycleInstanceId: lpsActive,
+        objective: lps.ok ? lps.livingProjectState.objective : "",
+        context: lps.ok ? (lps.livingProjectState.context ?? "") : "",
+        scope: lps.ok ? (lps.livingProjectState.scope ?? "") : "",
+        doctrinePackageId: doctrinePin?.doctrinePackageId,
+        doctrinePackageVersion: doctrinePin?.version,
+        doctrinePackageDigest: doctrinePin?.digest,
+        trajectory,
+        decisions,
+        evidence,
+        blockingReservationStatements: blockersSnap.statements,
+        blockerSourceUnreadable: false,
+        siblingActiveExists,
+      });
+
+      projection.resumeReconciliation = {
+        clean: reconciliation.clean,
+        detailCode: reconciliation.clean ? null : "CYCLE_RESUME_DRIFT",
+        reason: reconciliation.clean
+          ? "assess_resume_reconciliation_clean"
+          : reconciliation.driftReasons.join(",") || "dirty",
+      };
+      projection.cta = {
+        ...projection.cta,
+        canResume: projection.cta.canResume && reconciliation.clean,
+      };
+    } catch {
+      projection.resumeReconciliation = {
+        clean: false,
+        detailCode: "CYCLE_RESUME_DRIFT",
+        reason: "reconciliation_facts_unavailable",
+      };
+      projection.cta = { ...projection.cta, canResume: false };
+    }
+  }
+
+  return projection;
+}
+
+/**
+ * CORR-PROOF-05 — durable Pilot lifecycle projection (reload without F2).
+ */
+export async function projectAssistantPilotLifecycleProjection(input: {
+  projectId: string;
+}): Promise<{
+  ok: boolean;
+  status: string;
+  code?: string;
+  message?: string;
+  projection?: PilotLifecycleProjection;
+  selectedCycleInstanceId?: string | null;
+  selectedStatus?: string | null;
+  activeCycleInstanceId?: string | null;
+  selectionAmbiguous?: boolean;
+  cta?: PilotLifecycleProjection["cta"];
+}> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      status: "oa_unavailable",
+      code: "OA_STACK_UNAVAILABLE",
+      message: "Services OA indisponibles pour Pilot lifecycle projection.",
+    };
+  }
+  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
+  if (!projectResult.ok) {
+    return {
+      ok: false,
+      status: "project_not_found",
+      code: projectResult.error.code,
+      message: projectResult.error.message,
+    };
+  }
+  const projection = await buildAssistantPilotLifecycleProjection(
+    input.projectId,
+  );
+  if (!projection) {
+    return {
+      ok: false,
+      status: "projection_unavailable",
+      code: "OA_STACK_UNAVAILABLE",
+      message: "Pilot lifecycle projection unavailable.",
+    };
+  }
+  return {
+    ok: true,
+    status: "ok",
+    projection,
+    selectedCycleInstanceId: projection.selectedCycleInstanceId,
+    selectedStatus: projection.selectedStatus,
+    activeCycleInstanceId: projection.activeCycleInstanceId,
+    selectionAmbiguous: projection.selectionAmbiguous,
+    cta: projection.cta,
+  };
+}
+
+/**
+ * CORR-PROOF-05 — Pilot lifecycle transitions (START/PAUSE/RESUME/FINALIZE/CANCEL).
+ * Never uses morrisGateRequired as Pilot lifecycle authority.
+ */
+export async function projectAssistantPilotLifecycleAction(input: {
+  projectId: string;
+  cycleInstanceId: string;
+  action: PilotLifecycleActionKind;
+  materialDriftDetected?: boolean;
+  requiresTrajectoryHumanDecision?: boolean;
+  requiresReplanHumanDecision?: boolean;
+}): Promise<{
+  ok: boolean;
+  status: string;
+  code?: string;
+  message?: string;
+  action?: PilotLifecycleActionKind;
+  cycleStatus?: string;
+  activeCycleInstanceId?: string | null;
+  assessment?: unknown;
+  decisionId?: string;
+  project?: ProjectAssistantContextDto;
+  projection?: PilotLifecycleProjection;
+  selectedCycleInstanceId?: string | null;
+  selectedStatus?: string | null;
+  selectionAmbiguous?: boolean;
+  cta?: PilotLifecycleProjection["cta"];
+}> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      status: "oa_unavailable",
+      code: "OA_STACK_UNAVAILABLE",
+      message: "Services OA indisponibles pour Pilot lifecycle.",
+    };
+  }
+  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
+  if (!projectResult.ok) {
+    return {
+      ok: false,
+      status: "project_not_found",
+      code: projectResult.error.code,
+      message: projectResult.error.message,
+    };
+  }
+  const project = toContextDto(projectResult);
+  const executed = await executePilotLifecycleAction({
+    action: input.action,
+    projectId: input.projectId,
+    cycleInstanceId: input.cycleInstanceId,
+    cycleServices: runtime.oa.cycleServices,
+    projectServices: runtime.oa.projectServices,
+    decisionServices: runtime.oa.decisionServices,
+    authorityResolver: runtime.oa.authorityResolver,
+    nowIso: () => runtime.oa!.clock.nowIso(),
+    materialDriftDetected: input.materialDriftDetected,
+    requiresTrajectoryHumanDecision: input.requiresTrajectoryHumanDecision,
+    requiresReplanHumanDecision: input.requiresReplanHumanDecision,
+  });
+  if (!executed.ok) {
+    const projection = await buildAssistantPilotLifecycleProjection(
+      input.projectId,
+    );
+    return {
+      ok: false,
+      status: "lifecycle_error",
+      code: executed.code,
+      message: executed.message,
+      assessment: executed.assessment,
+      project,
+      projection: projection ?? undefined,
+      selectedCycleInstanceId: projection?.selectedCycleInstanceId,
+      selectedStatus: projection?.selectedStatus,
+      selectionAmbiguous: projection?.selectionAmbiguous,
+      cta: projection?.cta,
+    };
+  }
+  const reloaded = await loadProjectRuntimeForAssistant(input.projectId);
+  const nextProject = reloaded.ok ? toContextDto(reloaded) : project;
+  const projection = await buildAssistantPilotLifecycleProjection(
+    input.projectId,
+  );
+  return {
+    ok: true,
+    status: "ok",
+    action: executed.action,
+    cycleStatus: executed.result?.ok ? executed.result.cycle.status : undefined,
+    activeCycleInstanceId: executed.result?.ok
+      ? (executed.result.activeCycleInstanceId ??
+        projection?.activeCycleInstanceId ??
+        nextProject.activeCycleInstanceId ??
+        null)
+      : projection?.activeCycleInstanceId ??
+        nextProject.activeCycleInstanceId ??
+        null,
+    assessment: executed.assessment,
+    decisionId: executed.decisionId,
+    project: nextProject,
+    projection: projection ?? undefined,
+    selectedCycleInstanceId: projection?.selectedCycleInstanceId,
+    selectedStatus: projection?.selectedStatus,
+    selectionAmbiguous: projection?.selectionAmbiguous,
+    cta: projection?.cta,
+    message: `Pilot lifecycle ${executed.action} applied.`,
+  };
+}
+```
+
+## MODIFIED: `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+index 7763c1ae..8cf9f23d 100644
+--- a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
++++ b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+@@ -19,6 +19,9 @@ import {
+   type NoraAgentsUsdAccounting,
+   type NoraCampaignBudget,
+ } from "@/lib/nora-cognitive-runtime";
++import { NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
++import { materializeLifecycleRecommendationFromStructuredOutput } from "@/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn";
++import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
+ import { resolveWorkspaceRootFromAppCwd } from "@/lib/platform/repository/workspaceRoot";
+ import { loadProjectRuntimeForAssistant } from "@/features/vertical-slice-ui/ProjectWorkspaceView";
+ import { buildProjectSystemPrompt } from "./buildProjectSystemPrompt";
+@@ -287,8 +290,135 @@ export async function orchestrateProjectAssistantTurn(input: {
+       evalModelReasoningControl: input.evalModelReasoningControl,
+       usdAccounting: input.usdAccounting,
+       campaignBudget: input.campaignBudget,
++      outputType: NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE,
+     });
+
++    let assistantText = turn.text;
++    let lifecycleRecommendationMaterialized: boolean | null = null;
++    let lifecycleRecommendationCode: string | null = null;
++
++    // Same Product turn — optional LR materialization (no second model call).
++    if (turn.structuredOutput !== undefined) {
++      const { extractLifecycleCandidateFromStructuredOutput } = await import(
++        "@/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn"
++      );
++      const extracted = extractLifecycleCandidateFromStructuredOutput(
++        turn.structuredOutput,
++      );
++      if (extracted.narrative) {
++        assistantText = extracted.narrative;
++      }
++      if (!extracted.candidate) {
++        lifecycleRecommendationMaterialized = false;
++      } else {
++        const { getRuntimeApplicationService } = await import(
++          "@/lib/vertical-slice-runtime"
++        );
++        const runtime = getRuntimeApplicationService();
++        if (runtime.oa) {
++          const oa = runtime.oa;
++          const cycles = await oa.cycleServices.cycles.listByProject(
++            project.projectId,
++          );
++          const lps =
++            await oa.projectServices.getCurrentLivingProjectState.execute({
++              projectId: project.projectId,
++            });
++          const projectRow = await oa.projectServices.getProject.execute({
++            projectId: project.projectId,
++          });
++          let trajectory = null;
++          try {
++            const traj = await oa.cycleServices.getCurrentTrajectory.execute({
++              projectId: project.projectId,
++            });
++            trajectory = traj.ok ? traj.trajectory : null;
++          } catch {
++            trajectory = null;
++          }
++          let decisions: Awaited<
++            ReturnType<typeof oa.decisionServices.decisions.listByProject>
++          > = [];
++          try {
++            decisions = await oa.decisionServices.decisions.listByProject(
++              project.projectId,
++            );
++          } catch {
++            decisions = [];
++          }
++          let evidence: Awaited<
++            ReturnType<
++              typeof oa.evidenceReviewServices.repository.listByProject
++            >
++          > = [];
++          try {
++            evidence =
++              await oa.evidenceReviewServices.repository.listByProject(
++                project.projectId,
++              );
++          } catch {
++            evidence = [];
++          }
++          let epistemicItems: Awaited<
++            ReturnType<typeof oa.cycleServices.epistemic.listByProject>
++          > = [];
++          try {
++            epistemicItems = await oa.cycleServices.epistemic.listByProject(
++              project.projectId,
++            );
++          } catch {
++            epistemicItems = [];
++          }
++          const doctrinePin = projectRow.ok
++            ? (projectRow.project.doctrinePackageRef ??
++              (lps.ok ? lps.livingProjectState.doctrinePackageRef : undefined))
++            : undefined;
++          const producedAt = new Date().toISOString();
++          const mat =
++            await materializeLifecycleRecommendationFromStructuredOutput({
++              projectId: project.projectId,
++              structuredOutput: turn.structuredOutput,
++              updateEpistemicState: oa.cycleServices.updateEpistemicState,
++              facts: {
++                cycles,
++                lpsActiveCycleInstanceId: lps.ok
++                  ? lps.livingProjectState.activeCycleInstanceId
++                  : null,
++                lpsVersion: lps.ok ? lps.livingProjectState.version : null,
++                doctrinePackageId: doctrinePin?.doctrinePackageId ?? null,
++                doctrinePackageVersion: doctrinePin?.version ?? null,
++                doctrinePackageDigest: doctrinePin?.digest ?? null,
++                trajectory,
++                decisions,
++                evidence,
++                epistemicItems,
++                objective: lps.ok ? lps.livingProjectState.objective : "",
++                context: lps.ok ? (lps.livingProjectState.context ?? "") : "",
++                scope: lps.ok ? (lps.livingProjectState.scope ?? "") : "",
++              },
++              producedAt,
++              createdBy: LOCAL_PILOTE_ACTOR,
++              correlationId: `f1:${project.projectId}`,
++            });
++          if (mat.narrative) {
++            assistantText = mat.narrative;
++          }
++          if (mat.recommendationAttempted) {
++            lifecycleRecommendationMaterialized =
++              mat.materialization?.ok === true;
++            lifecycleRecommendationCode =
++              mat.materialization && !mat.materialization.ok
++                ? mat.materialization.code
++                : mat.materialization?.ok
++                  ? null
++                  : "LR_MATERIALIZE_UNKNOWN";
++          } else {
++            lifecycleRecommendationMaterialized = false;
++          }
++        }
++      }
++    }
++
+     const { toolEvents, sources, readCoverage } = collectToolTelemetry(
+       sink.events,
+     );
+@@ -359,7 +489,7 @@ export async function orchestrateProjectAssistantTurn(input: {
+     return {
+       ok: true,
+       status,
+-      text: turn.text,
++      text: assistantText,
+       mode: modeResolution.mode,
+       presentation,
+       model: turn.usage?.model ?? null,
+@@ -382,6 +512,8 @@ export async function orchestrateProjectAssistantTurn(input: {
+         turn.memoryBCompactionDetails?.stalePriorInvalidated === true,
+       mw3,
+       mw4,
++      lifecycleRecommendationMaterialized,
++      lifecycleRecommendationCode,
+     };
+   } catch (error) {
+     const message =
+```
+
+### Full current content: `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`
+```typescript
+import {
+  isFakeConversationProviderForced,
+  resolveConversationProvider,
+  type ConversationProvider,
+  type ProviderChatMessage,
+} from "@/lib/platform/ai";
+import {
+  memoryBPiloteNotice,
+  memoryBCompactionPiloteNotice,
+  runNoraCognitiveTurn,
+  formatCognitiveStopPiloteNotice,
+  aggregateReadCoverage,
+  rememberReadCoverage,
+  ProductSqliteSession,
+  resolveNoraSessionSqlitePath,
+  type SemanticCognitiveWorkloadAssessment,
+  type Mw3ContradictionAssessmentInput,
+  type NoraEvalModelReasoningControl,
+  type NoraAgentsUsdAccounting,
+  type NoraCampaignBudget,
+} from "@/lib/nora-cognitive-runtime";
+import { NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
+import { materializeLifecycleRecommendationFromStructuredOutput } from "@/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn";
+import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
+import { resolveWorkspaceRootFromAppCwd } from "@/lib/platform/repository/workspaceRoot";
+import { loadProjectRuntimeForAssistant } from "@/features/vertical-slice-ui/ProjectWorkspaceView";
+import { buildProjectSystemPrompt } from "./buildProjectSystemPrompt";
+import { collectToolTelemetry } from "./collectToolTelemetry";
+import { ProjectAssistantMemoryEventSink } from "./memoryEventSink";
+import { resolveAssistantMode } from "./resolveAssistantMode";
+import { resolveRememberedEvidence } from "./mw3AvailableEvidence";
+import type { AdvisoryMethodContext } from "./f2/methodOrientation";
+import type { StudioCognitiveContext } from "./f2/studioCognitiveContext";
+import type {
+  AssistantHistoryMessage,
+  Mw3CognitiveSurfaceDto,
+  Mw4GroundingSurfaceDto,
+  ProjectAssistantContextDto,
+  ProjectAssistantSendResult,
+} from "./types";
+
+const MAX_HISTORY_MESSAGES = 20;
+
+function buildEphemeralNotice(
+  memoryBAvailability:
+    | "available_with_history"
+    | "available_empty"
+    | "unavailable",
+  memoryBCompactionState:
+    | "none"
+    | "compacted_no_loss"
+    | "compacted_with_loss"
+    | "stale_invalidated",
+  stalePriorInvalidated?: boolean,
+  cognitiveStopNotice?: string | null,
+): string {
+  const base = memoryBPiloteNotice(memoryBAvailability);
+  const compaction = memoryBCompactionPiloteNotice(memoryBCompactionState, {
+    stalePriorInvalidated,
+  });
+  const parts = [cognitiveStopNotice, compaction, base].filter(
+    (p): p is string => typeof p === "string" && p.trim().length > 0,
+  );
+  return parts.join(" ");
+}
+
+function toMw3Surface(
+  turn: Awaited<ReturnType<typeof runNoraCognitiveTurn>>,
+): Mw3CognitiveSurfaceDto | null {
+  const disposition = turn.contradictionDisposition;
+  const stop = turn.cognitiveStopDecision;
+  if (!disposition || !stop) return null;
+  return {
+    disposition: disposition.disposition,
+    progression: stop.outcome,
+    cognitiveStop: stop.cognitiveStop,
+    reason: stop.anatomy?.reason ?? disposition.disclosure,
+    evidenceIds: stop.anatomy?.contradictionEvidenceIds ?? [
+      ...disposition.acceptedEvidenceIds,
+    ],
+    sourceIds: stop.anatomy?.sourceIds ?? [...disposition.acceptedSourceIds],
+    governingPremise: stop.anatomy?.governingPremise || null,
+    nextAction: stop.anatomy?.nextAction ?? null,
+    insufficiencyReasons: [...disposition.insufficiencyReasons],
+    allowsSilentSuccess: false,
+    blockedImpact: stop.cognitiveStop
+      ? `Progression bloquée — prémisse gouvernante invalidée${
+          stop.anatomy?.governingPremise
+            ? ` (${stop.anatomy.governingPremise})`
+            : ""
+        }.`
+      : null,
+    mayContinue:
+      stop.cognitiveStop !== true && stop.progression === "continue",
+    notTechnicalFailure: stop.progression !== "technical_failure",
+  };
+}
+
+function toMw4Surface(
+  turn: Awaited<ReturnType<typeof runNoraCognitiveTurn>>,
+): Mw4GroundingSurfaceDto | null {
+  const g = turn.mw4Grounding;
+  if (!g) return null;
+  return {
+    rememberedIds: [...g.rememberedIds],
+    validIds: [...g.validIds],
+    downgradedIds: [...g.downgradedIds],
+    missingIds: [...g.missingIds],
+    disclosure: g.disclosure,
+    readCoverageOverall: g.readCoverageOverall,
+    readCoverageDisclosure: g.readCoverageDisclosure ?? null,
+  };
+}
+
+function toContextDto(
+  result: Extract<
+    Awaited<ReturnType<typeof loadProjectRuntimeForAssistant>>,
+    { ok: true }
+  >,
+): ProjectAssistantContextDto {
+  return {
+    projectId: result.project.projectId,
+    name: result.project.name,
+    shortReference: result.project.shortReference ?? null,
+    objective: result.project.objective,
+    contextSummary: result.project.contextSummary,
+    criticality: result.project.criticality,
+    constraints: [...result.project.constraints],
+    lpsId: result.livingState.id,
+    lpsVersion: result.livingState.version,
+    lpsCreatedAt: result.livingState.createdAt,
+    doctrineId: result.doctrine.id,
+    doctrineVersion: result.doctrine.version,
+    doctrineDigest: result.doctrine.digest,
+    doctrineStatus: result.doctrine.status,
+    runtimeMode: result.disclosures.runtimeMode,
+    persistence: result.disclosures.persistence,
+    readiness: result.readiness.status,
+  };
+}
+
+/**
+ * Thin F1 orchestration — Option C single Agents Runner path (Fake + target).
+ * SFIA routeToolCall remains the tool authorization boundary.
+ */
+export async function orchestrateProjectAssistantTurn(input: {
+  projectId: string;
+  content: string;
+  history?: AssistantHistoryMessage[];
+  /**
+   * Optional server-side provider injection (eval / tests).
+   * Prefer per-instance OpenAIConversationProvider over process.env mutation.
+   */
+  provider?: ConversationProvider;
+  /** Test override for Product SQLite Session path. */
+  sessionDbPath?: string;
+  /**
+   * Test injection — forces Memory B UNAVAILABLE (MW1-S01).
+   * Same product path; no second runtime.
+   */
+  simulateMemoryBUnavailable?: boolean;
+  /**
+   * CORR-MW2-REAL-01 — INTERNAL semantic CWP from analyzeIntent.
+   * Server-side only; never part of ProjectAssistantSendResult.
+   */
+  semanticCognitiveWorkload?: SemanticCognitiveWorkloadAssessment | null;
+  /**
+   * CORR-MW2-REAL-04 — INTERNAL full Truth C / LPS context for F1 system prompt.
+   * Server-side only; does not expand ProjectAssistantContextDto / client DTO.
+   */
+  truthCContext?: string | null;
+  /**
+   * CORR-PROOF-03 E1 — INTERNAL non-mutating method orientation + optional CKC lens.
+   * Server-side only; never client-authoritative.
+   */
+  methodContext?: AdvisoryMethodContext | null;
+  /**
+   * CORR-PROOF-04 — INTERNAL Studio Cognitive Context envelope.
+   * Server-side only; never client-authoritative. Supersedes methodContext when set.
+   */
+  studioCognitiveContext?: StudioCognitiveContext | null;
+  /**
+   * MW3 — optional contradiction assessment (tests/eval/product when facts exist).
+   * Server-side; surfaces mw3 DTO without inventing Evidence.
+   */
+  contradictionAssessment?: Mw3ContradictionAssessmentInput | null;
+  /** MW4-S02 — attach post-Evidence / recovery narrative policy disclosure. */
+  postEvidenceNarrativePolicy?: boolean;
+  /**
+   * INTERNAL / EVAL-ONLY — Stage A cell model×effort pin.
+   * Never part of ProjectAssistant client DTO. Absent → production default.
+   */
+  evalModelReasoningControl?: NoraEvalModelReasoningControl;
+  /** INTERNAL / EVAL-ONLY — Agents USD authorization envelope bridge. */
+  usdAccounting?: NoraAgentsUsdAccounting;
+  /** INTERNAL / EVAL-ONLY — shared canonical campaign budget lease. */
+  campaignBudget?: NoraCampaignBudget;
+}): Promise<ProjectAssistantSendResult> {
+  const content = input.content.trim();
+  if (!content) {
+    return {
+      ok: false,
+      status: "validation_error",
+      code: "EMPTY_MESSAGE",
+      message: "Saisissez un message avant d'envoyer.",
+      mode: isFakeConversationProviderForced() ? "fixture" : "unavailable",
+      retryable: true,
+    };
+  }
+
+  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
+  if (!projectResult.ok) {
+    return {
+      ok: false,
+      status: "project_not_found",
+      code: projectResult.error.code,
+      message: projectResult.error.message,
+      mode: isFakeConversationProviderForced() ? "fixture" : "unavailable",
+      retryable: false,
+    };
+  }
+
+  const project = toContextDto(projectResult);
+  const modeResolution = resolveAssistantMode(input.provider);
+  if (!modeResolution.canProceed) {
+    return {
+      ok: false,
+      status: "provider_unavailable",
+      code: "PROVIDER_UNAVAILABLE",
+      message: modeResolution.message ?? "Provider indisponible.",
+      mode: "unavailable",
+      retryable: false,
+    };
+  }
+
+  const history = (input.history ?? [])
+    .filter(
+      (m) =>
+        (m.role === "user" || m.role === "assistant") &&
+        typeof m.content === "string" &&
+        m.content.trim().length > 0,
+    )
+    .slice(-MAX_HISTORY_MESSAGES);
+
+  const messages: ProviderChatMessage[] = [
+    {
+      role: "system",
+      content: buildProjectSystemPrompt(project, {
+        truthCContext: input.truthCContext,
+        methodContext: input.methodContext ?? null,
+        studioCognitiveContext: input.studioCognitiveContext ?? null,
+      }),
+    },
+    ...history.map((m) => ({ role: m.role, content: m.content.trim() })),
+    { role: "user", content },
+  ];
+
+  const sink = new ProjectAssistantMemoryEventSink();
+  const workspaceRoot = resolveWorkspaceRootFromAppCwd();
+  const provider = input.provider ?? resolveConversationProvider();
+  const presentation = modeResolution.presentation;
+
+  try {
+    const turn = await runNoraCognitiveTurn({
+      correlationId: `f1:${project.projectId}`,
+      projectId: project.projectId,
+      messages,
+      provider,
+      enableTools: true,
+      sink,
+      workspaceRoot,
+      sessionDbPath: input.sessionDbPath,
+      simulateMemoryBUnavailable: input.simulateMemoryBUnavailable,
+      truthCRevision: {
+        lpsId: project.lpsId,
+        lpsVersion: project.lpsVersion,
+      },
+      turnWorkloadContext: {
+        projectCriticality: project.criticality,
+        userContentLength: content.length,
+        historyMessageCount: history.length,
+        historyTotalChars: history.reduce((sum, m) => sum + m.content.length, 0),
+        enableTools: true,
+      },
+      trustedSfiaProfile: null,
+      semanticCognitiveWorkload: input.semanticCognitiveWorkload ?? null,
+      contradictionAssessment: input.contradictionAssessment ?? null,
+      resolveRememberedEvidence,
+      postEvidenceNarrativePolicy: input.postEvidenceNarrativePolicy === true,
+      evalModelReasoningControl: input.evalModelReasoningControl,
+      usdAccounting: input.usdAccounting,
+      campaignBudget: input.campaignBudget,
+      outputType: NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE,
+    });
+
+    let assistantText = turn.text;
+    let lifecycleRecommendationMaterialized: boolean | null = null;
+    let lifecycleRecommendationCode: string | null = null;
+
+    // Same Product turn — optional LR materialization (no second model call).
+    if (turn.structuredOutput !== undefined) {
+      const { extractLifecycleCandidateFromStructuredOutput } = await import(
+        "@/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn"
+      );
+      const extracted = extractLifecycleCandidateFromStructuredOutput(
+        turn.structuredOutput,
+      );
+      if (extracted.narrative) {
+        assistantText = extracted.narrative;
+      }
+      if (!extracted.candidate) {
+        lifecycleRecommendationMaterialized = false;
+      } else {
+        const { getRuntimeApplicationService } = await import(
+          "@/lib/vertical-slice-runtime"
+        );
+        const runtime = getRuntimeApplicationService();
+        if (runtime.oa) {
+          const oa = runtime.oa;
+          const cycles = await oa.cycleServices.cycles.listByProject(
+            project.projectId,
+          );
+          const lps =
+            await oa.projectServices.getCurrentLivingProjectState.execute({
+              projectId: project.projectId,
+            });
+          const projectRow = await oa.projectServices.getProject.execute({
+            projectId: project.projectId,
+          });
+          let trajectory = null;
+          try {
+            const traj = await oa.cycleServices.getCurrentTrajectory.execute({
+              projectId: project.projectId,
+            });
+            trajectory = traj.ok ? traj.trajectory : null;
+          } catch {
+            trajectory = null;
+          }
+          let decisions: Awaited<
+            ReturnType<typeof oa.decisionServices.decisions.listByProject>
+          > = [];
+          try {
+            decisions = await oa.decisionServices.decisions.listByProject(
+              project.projectId,
+            );
+          } catch {
+            decisions = [];
+          }
+          let evidence: Awaited<
+            ReturnType<
+              typeof oa.evidenceReviewServices.repository.listByProject
+            >
+          > = [];
+          try {
+            evidence =
+              await oa.evidenceReviewServices.repository.listByProject(
+                project.projectId,
+              );
+          } catch {
+            evidence = [];
+          }
+          let epistemicItems: Awaited<
+            ReturnType<typeof oa.cycleServices.epistemic.listByProject>
+          > = [];
+          try {
+            epistemicItems = await oa.cycleServices.epistemic.listByProject(
+              project.projectId,
+            );
+          } catch {
+            epistemicItems = [];
+          }
+          const doctrinePin = projectRow.ok
+            ? (projectRow.project.doctrinePackageRef ??
+              (lps.ok ? lps.livingProjectState.doctrinePackageRef : undefined))
+            : undefined;
+          const producedAt = new Date().toISOString();
+          const mat =
+            await materializeLifecycleRecommendationFromStructuredOutput({
+              projectId: project.projectId,
+              structuredOutput: turn.structuredOutput,
+              updateEpistemicState: oa.cycleServices.updateEpistemicState,
+              facts: {
+                cycles,
+                lpsActiveCycleInstanceId: lps.ok
+                  ? lps.livingProjectState.activeCycleInstanceId
+                  : null,
+                lpsVersion: lps.ok ? lps.livingProjectState.version : null,
+                doctrinePackageId: doctrinePin?.doctrinePackageId ?? null,
+                doctrinePackageVersion: doctrinePin?.version ?? null,
+                doctrinePackageDigest: doctrinePin?.digest ?? null,
+                trajectory,
+                decisions,
+                evidence,
+                epistemicItems,
+                objective: lps.ok ? lps.livingProjectState.objective : "",
+                context: lps.ok ? (lps.livingProjectState.context ?? "") : "",
+                scope: lps.ok ? (lps.livingProjectState.scope ?? "") : "",
+              },
+              producedAt,
+              createdBy: LOCAL_PILOTE_ACTOR,
+              correlationId: `f1:${project.projectId}`,
+            });
+          if (mat.narrative) {
+            assistantText = mat.narrative;
+          }
+          if (mat.recommendationAttempted) {
+            lifecycleRecommendationMaterialized =
+              mat.materialization?.ok === true;
+            lifecycleRecommendationCode =
+              mat.materialization && !mat.materialization.ok
+                ? mat.materialization.code
+                : mat.materialization?.ok
+                  ? null
+                  : "LR_MATERIALIZE_UNKNOWN";
+          } else {
+            lifecycleRecommendationMaterialized = false;
+          }
+        }
+      }
+    }
+
+    const { toolEvents, sources, readCoverage } = collectToolTelemetry(
+      sink.events,
+    );
+    // Persist read coverage for cross-turn honesty (existing session_items).
+    if (readCoverage.facts.length > 0 && !input.simulateMemoryBUnavailable) {
+      try {
+        const dbPath = resolveNoraSessionSqlitePath(input.sessionDbPath);
+        const session = new ProductSqliteSession({
+          projectId: project.projectId,
+          dbPath,
+          sessionKey: "f1-default",
+        });
+        try {
+          await rememberReadCoverage(
+            session,
+            project.projectId,
+            readCoverage.facts.map((f) => ({
+              pathOrRef: f.pathOrRef,
+              coverage: f.coverage,
+            })),
+          );
+        } finally {
+          session.close();
+        }
+      } catch {
+        /* Session path may be unavailable — coverage still on DTO via mw4. */
+      }
+    }
+
+    const coverageAggregate = aggregateReadCoverage(readCoverage.facts);
+    const mw3 = toMw3Surface(turn);
+    let mw4 = toMw4Surface(turn);
+    if (coverageAggregate.facts.length > 0) {
+      mw4 = {
+        rememberedIds: mw4?.rememberedIds ?? [],
+        validIds: mw4?.validIds ?? [],
+        downgradedIds: mw4?.downgradedIds ?? [],
+        missingIds: mw4?.missingIds ?? [],
+        disclosure: mw4?.disclosure ?? "",
+        readCoverageOverall:
+          coverageAggregate.overall === "mixed_partial"
+            ? "partial"
+            : coverageAggregate.overall === "none"
+              ? "none"
+              : coverageAggregate.overall,
+        readCoverageDisclosure:
+          turn.mw4Grounding?.readCoverageDisclosure ??
+          (coverageAggregate.facts.length > 0
+            ? `Overall coverage: ${coverageAggregate.overall}`
+            : null),
+      };
+    }
+    const stopNotice = formatCognitiveStopPiloteNotice(
+      turn.cognitiveStopDecision ?? {
+        progression: "continue",
+        outcome: "PROGRESS_OK",
+        cognitiveStop: false,
+        anatomy: null,
+        surfacedDisposition: "none",
+        allowsSilentSuccess: false,
+      },
+    );
+    const status =
+      turn.cognitiveStopDecision?.cognitiveStop === true
+        ? ("cognitive_stop" as const)
+        : ("ok" as const);
+
+    return {
+      ok: true,
+      status,
+      text: assistantText,
+      mode: modeResolution.mode,
+      presentation,
+      model: turn.usage?.model ?? null,
+      toolRounds: turn.toolRounds,
+      toolCalls: turn.toolCalls,
+      sources,
+      toolEvents,
+      project,
+      ephemeralNotice: buildEphemeralNotice(
+        turn.memoryBAvailability,
+        turn.memoryBCompactionState,
+        turn.memoryBCompactionDetails?.stalePriorInvalidated === true,
+        stopNotice,
+      ),
+      cognitiveRuntime: turn.cognitiveRuntime,
+      sessionId: turn.sessionId,
+      memoryBAvailability: turn.memoryBAvailability,
+      memoryBCompactionState: turn.memoryBCompactionState,
+      stalePriorInvalidated:
+        turn.memoryBCompactionDetails?.stalePriorInvalidated === true,
+      mw3,
+      mw4,
+      lifecycleRecommendationMaterialized,
+      lifecycleRecommendationCode,
+    };
+  } catch (error) {
+    const message =
+      error instanceof Error
+        ? error.message
+        : "Erreur provider inattendue.";
+    return {
+      ok: false,
+      status: "provider_error",
+      code: "PROVIDER_ERROR",
+      message:
+        message === "FAKE_PROVIDER_ERROR"
+          ? "Le fournisseur de démonstration a signalé une erreur. Réessayez manuellement."
+          : message,
+      mode: modeResolution.mode,
+      retryable: true,
+    };
+  }
+}
+```
+
+## MODIFIED: `projects/sfia-studio/app/features/project-assistant/types.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/types.ts b/projects/sfia-studio/app/features/project-assistant/types.ts
+index ed914e60..1f5d8d5c 100644
+--- a/projects/sfia-studio/app/features/project-assistant/types.ts
++++ b/projects/sfia-studio/app/features/project-assistant/types.ts
+@@ -211,6 +211,13 @@ export type ProjectAssistantSendSuccess = {
+   /** MW5 — challenge / clarification / Critical ordering / escalation (when assessed). */
+   mw5?: Mw5CognitiveSurfaceDto | null;
+   f2?: F2TurnPayload;
++  /**
++   * LR CORR-DELIVERY-02 — optional Product-turn Recommendation materialization.
++   * null = not attempted / no structured turn; false = none or fail-closed; true = persisted.
++   */
++  lifecycleRecommendationMaterialized?: boolean | null;
++  /** Fail-closed detail code when materialization was attempted and refused. */
++  lifecycleRecommendationCode?: string | null;
+   /**
+    * MW6↔Auth — present when send used executionContractId governed composition.
+    * Server-built; never a client-supplied authority object.
+```
+
 ## MODIFIED: `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx`
 
 ```diff
@@ -4060,7 +6366,7 @@ index 4836a276..fba20c82 100644
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
-index d941406b..c1c46dd8 100644
+index d941406b..98652274 100644
 --- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
 +++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
 @@ -14,6 +14,7 @@ import {
@@ -4099,7 +6405,7 @@ index d941406b..c1c46dd8 100644
    let lastResponseId: string | null = null;
    let usageAgg: {
      inputTokens?: number;
-@@ -551,7 +559,21 @@ export async function runNoraAgentsTurn(
+@@ -551,7 +559,45 @@ export async function runNoraAgentsTurn(
            ? result.finalOutput
            : result.finalOutput == null
              ? ""
@@ -4118,11 +6424,35 @@ index d941406b..c1c46dd8 100644
 +                }
 +              })()
 +            : result.finalOutput;
++        // Plain-string Fake/Scripted responses under product-turn outputType →
++        // coerce to narrative + null Recommendation (preserve conversational text).
++        if (
++          typeof structuredOutput === "string" &&
++          input.outputType &&
++          typeof input.outputType === "object" &&
++          "name" in input.outputType &&
++          (input.outputType as { name?: string }).name ===
++            "nora_product_turn_with_optional_lr"
++        ) {
++          structuredOutput = {
++            narrative: structuredOutput,
++            lifecycleRecommendation: null,
++          };
++        }
++        if (
++          structuredOutput &&
++          typeof structuredOutput === "object" &&
++          "narrative" in structuredOutput &&
++          typeof (structuredOutput as { narrative?: unknown }).narrative ===
++            "string"
++        ) {
++          text = (structuredOutput as { narrative: string }).narrative;
++        }
 +      }
        lastResponseId = result.lastResponseId ?? null;
        usageAgg = result.state?.usage ?? null;
        runNewItems = Array.isArray(result.newItems) ? [...result.newItems] : [];
-@@ -677,6 +699,7 @@ export async function runNoraAgentsTurn(
+@@ -677,6 +723,7 @@ export async function runNoraAgentsTurn(
      memoryBAvailability,
      memoryBCompactionState: "none",
      memoryBCompactionDetails: null,
@@ -4130,6 +6460,1049 @@ index d941406b..c1c46dd8 100644
      ...(hostedSearchObserve ? { hostedSearchObserve } : {}),
      ...(budgetObserve ? { budgetObserve } : {}),
      ...(usdObserve ? { usdObserve } : {}),
+```
+
+## MODIFIED: `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
+index 463db0da..ac09a67f 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
+@@ -207,6 +207,11 @@ export type RunNoraCognitiveTurnInput = {
+    * Passed through to runNoraAgentsTurn — not authority.
+    */
+   usdAccounting?: NoraAgentsUsdAccounting;
++  /**
++   * LR CORR-DELIVERY-02 — optional Agents structured outputType on the same Runner.
++   * Threaded identically on Memory-B available and unavailable paths.
++   */
++  outputType?: import("@openai/agents").AgentOutputType;
+ };
+
+ /**
+@@ -745,6 +750,7 @@ export async function runNoraCognitiveTurn(
+               campaignId: input.campaignBudget.campaignId,
+             }
+           : undefined,
++      outputType: input.outputType,
+     });
+     const observations = [
+       ...(input.sourceObservationFacts ?? []),
+@@ -910,6 +916,7 @@ export async function runNoraCognitiveTurn(
+               campaignId: input.campaignBudget.campaignId,
+             }
+           : undefined,
++      outputType: input.outputType,
+     });
+     const observations = [
+       ...(input.sourceObservationFacts ?? []),
+```
+
+### Full current content: `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts`
+```typescript
+/**
+ * Nora cognitive turn entry — Option C single Agents Runner path.
+ * MW1-S01: honest Memory B availability.
+ * MW1-S02: governed compaction + Truth C revision invalidation before cognition.
+ * MW2-S01: CWP / Strategy → Runner modelSettings.reasoning (OD-02 Option B).
+ * MW4-S01/S02/S03: grounding durability + narrative policy + read partiality.
+ */
+import type { ConversationProvider, ProviderChatMessage } from "@/lib/platform/ai";
+import { requireLiveConversationSecrets } from "@/lib/platform/ai/config";
+import type { EventSink } from "@/lib/platform/observability/eventSink";
+import {
+  appendMemoryBCognitiveDisclosure,
+  probeMemoryBAvailability,
+} from "./memoryBAvailability";
+import type { Session } from "@openai/agents";
+import {
+  appendMemoryBCompactionDisclosure,
+  createMemoryBSessionView,
+  type TruthCRevision,
+} from "./memoryBCompaction";
+import { resolveNoraSessionSqlitePath } from "./sessionPaths";
+import {
+  runNoraAgentsTurn,
+  shouldUseProviderAgentsModelAdapter,
+  type RunNoraAgentsTurnHostedSearchObserve,
+} from "./runNoraAgentsTurn";
+import type { NoraCognitiveTurnResult } from "./types";
+import {
+  decideCognitiveStrategy,
+  mergeCognitiveWorkloadSignals,
+  normalizeCognitiveWorkloadSignals,
+  type CognitiveWorkloadSignals,
+  type SemanticCognitiveWorkloadAssessment,
+  type TurnWorkloadContext,
+} from "./cognitiveWorkloadPolicy";
+import { validateRuntimeReasoningCapability } from "./reasoningCapability";
+import { buildRunnerModelSettingsForEffort } from "./reasoningModelSettings";
+import {
+  disposeContradiction,
+  type ContradictionConflictInput,
+} from "./contradictionDisposition";
+import { decideCognitiveStop } from "./cognitiveStop";
+import {
+  acceptGroundingRefsForProject,
+  appendGroundingCognitiveDisclosure,
+  loadGroundingRefsFromSession,
+  rememberEvidenceIds,
+  rememberReadCoverage,
+  toMw4GroundingTurnSurface,
+  type Mw4GroundingTurnSurface,
+  type RememberedEvidenceResolution,
+} from "./groundingDurability";
+import {
+  appendPostEvidenceNarrativePolicyDisclosure,
+} from "./postEvidenceNarrativePolicy";
+import {
+  appendReadCoverageDisclosure,
+  aggregateReadCoverage,
+  buildReadCoverageDisclosure,
+  mergeCurrentAndRememberedCoverage,
+  overallToGroundingCoverageKind,
+  type ReadCoverageFact,
+} from "./readCoverage";
+import type { ProductSqliteSession } from "./productSqliteSession";
+import {
+  appendSourceStrategyDisclosure,
+  bindSourceProviderCapability,
+  decideSourceStrategy,
+  type SourceStrategyInput,
+} from "./sourceStrategyPolicy";
+import {
+  authorityIsolationHeld,
+  buildSourceObservationDisclosure,
+  type HostedWebSearchCallLike,
+} from "./externalSourceNormalization";
+import type {
+  Mw6SourceIntelligenceSurface,
+  SourceObservationFact,
+  SourceProviderBinding,
+  SourceStrategyDecision,
+} from "./sourceIntelligenceContract";
+import type { NoraHostedWebSearchToolOptions } from "./openaiHostedWebSearchAdapter";
+import {
+  appendSourceNarrativeConstraintDisclosure,
+  applySourceNarrativeCompatibility,
+} from "./sourceNarrativeCompatibility";
+import { composeMw3ConflictFromExternalSources } from "./externalContradictionComposition";
+import type {
+  NoraCampaignBudget,
+  Mw6GovernedAuthorityContext,
+} from "./campaignBudget";
+import type { NoraAgentsUsdAccounting } from "./agentsUsdAccounting";
+import type { OpenAiReasoningEffort } from "@/lib/platform/ai";
+import type { Model } from "@openai/agents";
+
+/**
+ * INTERNAL / EVAL-ONLY — pin model + reasoning effort for campaign cells.
+ * Not a client DTO. Not a production router. Absent → production default unchanged.
+ */
+export type NoraEvalModelReasoningControl = {
+  modelId: string;
+  reasoningEffort: OpenAiReasoningEffort;
+  /**
+   * Optional Agents model object (e.g. ScriptedModel) for ZERO REAL tests.
+   * When omitted: Fake providers keep adapter path; OpenAI live uses modelId string.
+   */
+  agentsModel?: Model | string;
+};
+
+export type Mw3ContradictionAssessmentInput = {
+  conflict: ContradictionConflictInput;
+  governingPremiseInvalidated?: boolean;
+  governingPremise?: string;
+  localImpactOnly?: boolean;
+  technicalFailure?: boolean;
+  technicalFailureMessage?: string;
+};
+
+export type RunNoraCognitiveTurnInput = {
+  correlationId: string;
+  projectId: string;
+  messages: ProviderChatMessage[];
+  provider: ConversationProvider;
+  enableTools?: boolean;
+  sink?: EventSink;
+  workspaceRoot?: string;
+  sessionDbPath?: string;
+  sessionKey?: string;
+  simulateMemoryBUnavailable?: boolean;
+  /** MW1-S02 — Truth C revision token for compaction invalidation. */
+  truthCRevision?: TruthCRevision;
+  /** Test-only fixed timestamp for deterministic compaction. */
+  compactionNowIso?: string;
+  /**
+   * MW2 — optional explicit workload signals (tests/eval only).
+   * Product path uses turnWorkloadContext + semanticCognitiveWorkload merge.
+   */
+  cognitiveWorkloadSignals?: Partial<CognitiveWorkloadSignals>;
+  /** MW2 — trusted SFIA Profile only when actually available; never invented. */
+  trustedSfiaProfile?: string | null;
+  /** MW2 — product turn facts for signal derivation. */
+  turnWorkloadContext?: TurnWorkloadContext;
+  /**
+   * CORR-MW2-REAL-01 — INTERNAL semantic CWP from analyzeIntent (server-side).
+   * Merged with turnWorkloadContext; never a client DTO field.
+   */
+  semanticCognitiveWorkload?:
+    | Partial<SemanticCognitiveWorkloadAssessment>
+    | null;
+  /** MW2 — skip policy for isolated tests. */
+  skipCognitiveStrategy?: boolean;
+  /**
+   * MW3 — optional contradiction assessment over existing Evidence/source facts.
+   * Does not invent Evidence; does not select Hosted Search / model routing.
+   */
+  contradictionAssessment?: Mw3ContradictionAssessmentInput | null;
+  /**
+   * MW4 — re-resolve remembered Evidence IDs (product injects Studio/OA resolver).
+   * Cognitive runtime stays free of OA repository imports.
+   */
+  resolveRememberedEvidence?: (
+    projectId: string,
+    ids: string[],
+  ) => Promise<RememberedEvidenceResolution>;
+  /** MW4-S02 — attach post-Evidence / recovery narrative honesty disclosure. */
+  postEvidenceNarrativePolicy?: boolean;
+  /** MW4-S03 — optional prior/current read coverage facts for disclosure. */
+  readCoverageFacts?: ReadCoverageFact[];
+  /** MW4 — fixed timestamp for deterministic grounding remember. */
+  groundingNowIso?: string;
+  /**
+   * MW6-S01 — source strategy input (claim/domain/need).
+   * When omitted, strategy is inferred from the last user message.
+   */
+  sourceStrategy?: SourceStrategyInput | null;
+  /** MW6 — skip source strategy for isolated non-MW6 tests. */
+  skipSourceStrategy?: boolean;
+  /**
+   * MW6 — force hosted web_search attach (tests). Otherwise follows strategy.
+   */
+  enableHostedWebSearch?: boolean;
+  hostedWebSearchToolOptions?: NoraHostedWebSearchToolOptions;
+  /**
+   * MW6 R21 — deterministic hosted web_search boundary substitute (ZERO REAL).
+   */
+  deterministicHostedWebSearchCalls?: HostedWebSearchCallLike[];
+  /** MW6 — optional pre-normalized observations (same contract; tests). */
+  sourceObservationFacts?: SourceObservationFact[];
+  /** MW6 — freshness timestamp only when honestly supportable. */
+  sourceObservationNowIso?: string | null;
+  /** MW6 PRE-REAL — shared campaign budget (canonical lease required). */
+  campaignBudget?: NoraCampaignBudget;
+  /** TEST only — attempt to widen max_tool_calls beyond remaining. Not REAL authority. */
+  testOnlyMaxToolCallsOverride?: number | null;
+  /**
+   * MW6↔Auth — identifiers + canonical EC ports (Get/Check).
+   * Product strategy→binding is derived in this turn and passed as currentProductContext.
+   */
+  governedAuthority?: Mw6GovernedAuthorityContext;
+  /**
+   * INTERNAL/EVAL-ONLY — pin model + effort independently of CWP for campaign cells.
+   * Must not be exposed as a client/user-controlled DTO field.
+   */
+  evalModelReasoningControl?: NoraEvalModelReasoningControl;
+  /**
+   * Optional USD accounting bridge for native Agents (eval campaigns).
+   * Passed through to runNoraAgentsTurn — not authority.
+   */
+  usdAccounting?: NoraAgentsUsdAccounting;
+  /**
+   * LR CORR-DELIVERY-02 — optional Agents structured outputType on the same Runner.
+   * Threaded identically on Memory-B available and unavailable paths.
+   */
+  outputType?: import("@openai/agents").AgentOutputType;
+};
+
+/**
+ * CORR-02B — cognitive turn result preserves factual hosted observation from
+ * runNoraAgentsTurn (Evidence / parity only — not a second accounting SoT).
+ */
+export type NoraCognitiveTurnResultWithHostedObserve = NoraCognitiveTurnResult & {
+  hostedSearchObserve?: RunNoraAgentsTurnHostedSearchObserve;
+};
+
+function emitCognitiveStrategyTelemetry(
+  sink: EventSink | undefined,
+  correlationId: string,
+  decision: ReturnType<typeof decideCognitiveStrategy>,
+): void {
+  if (!sink) return;
+  sink.emit({
+    type: "COGNITIVE_STRATEGY_SELECTED",
+    correlationId,
+    detail: {
+      strategyClass: decision.strategyClass,
+      reasoningEffort: decision.reasoningEffort,
+      reasoningDemand: decision.reasoningDemand,
+      criticalChallengeArmed: decision.criticalChallengeArmed,
+      bootstrapUsed: decision.bootstrapUsed,
+      reasonCodes: decision.reasonCodes,
+      envelope: [...decision.candidateEnvelope],
+    },
+  });
+}
+
+function resolveCognitiveStrategyForTurn(
+  input: RunNoraCognitiveTurnInput,
+): ReturnType<typeof decideCognitiveStrategy> | null {
+  if (input.skipCognitiveStrategy) return null;
+
+  // Test/eval explicit override remains (not product R2 proof).
+  if (input.cognitiveWorkloadSignals) {
+    return decideCognitiveStrategy({
+      signals: normalizeCognitiveWorkloadSignals(input.cognitiveWorkloadSignals),
+      trustedSfiaProfile: input.trustedSfiaProfile,
+    });
+  }
+
+  // Product path: factual turn context + validated semantic assessment merge.
+  if (input.turnWorkloadContext) {
+    return decideCognitiveStrategy({
+      signals: mergeCognitiveWorkloadSignals({
+        turnContext: input.turnWorkloadContext,
+        semanticAssessment: input.semanticCognitiveWorkload,
+      }),
+      trustedSfiaProfile: input.trustedSfiaProfile,
+    });
+  }
+
+  return decideCognitiveStrategy({
+    signals: normalizeCognitiveWorkloadSignals({}),
+    trustedSfiaProfile: input.trustedSfiaProfile,
+  });
+}
+
+
+function resolveEvalAgentsModel(
+  input: RunNoraCognitiveTurnInput,
+): Model | string | undefined {
+  const control = input.evalModelReasoningControl;
+  if (!control) return undefined;
+  if (control.agentsModel !== undefined) return control.agentsModel;
+  // Fake/completeRound providers keep adapter path — modelId remains Evidence identity.
+  if (input.provider && shouldUseProviderAgentsModelAdapter(input.provider)) {
+    return undefined;
+  }
+  return control.modelId;
+}
+
+function resolveRunnerModelSettings(
+  input: RunNoraCognitiveTurnInput,
+  decision: ReturnType<typeof decideCognitiveStrategy> | null,
+): ReturnType<typeof buildRunnerModelSettingsForEffort> | undefined {
+  const evalControl = input.evalModelReasoningControl;
+  if (evalControl) {
+    validateRuntimeReasoningCapability(
+      evalControl.modelId,
+      evalControl.reasoningEffort,
+    );
+    return buildRunnerModelSettingsForEffort(evalControl.reasoningEffort);
+  }
+
+  if (!decision) return undefined;
+
+  const model =
+    typeof input.provider?.providerId === "string" &&
+    input.provider.providerId.startsWith("fake")
+      ? process.env.OPENAI_MODEL?.trim() || "gpt-5.6-luna"
+      : requireLiveConversationSecrets().model;
+
+  validateRuntimeReasoningCapability(model, decision.reasoningEffort);
+  return buildRunnerModelSettingsForEffort(decision.reasoningEffort);
+}
+
+function withStrategyFields(
+  turn: NoraCognitiveTurnResult,
+  decision: ReturnType<typeof decideCognitiveStrategy> | null,
+  evalControl?: NoraEvalModelReasoningControl,
+): NoraCognitiveTurnResult {
+  const base: NoraCognitiveTurnResult = {
+    ...turn,
+    ...(evalControl
+      ? {
+          evalPinnedModelId: evalControl.modelId,
+          evalPinnedReasoningEffort: evalControl.reasoningEffort,
+          selectedReasoningEffort: evalControl.reasoningEffort,
+        }
+      : {}),
+  };
+  if (!decision) return base;
+  return {
+    ...base,
+    cognitiveStrategyClass: decision.strategyClass,
+    cwpDerivedReasoningEffort: decision.reasoningEffort,
+    // Effective effort: eval pin wins; else CWP.
+    selectedReasoningEffort:
+      evalControl?.reasoningEffort ?? decision.reasoningEffort,
+    criticalChallengeArmed: decision.criticalChallengeArmed,
+  };
+}
+
+function withMw3Fields(
+  turn: NoraCognitiveTurnResult,
+  input: RunNoraCognitiveTurnInput,
+  strategyDecision: ReturnType<typeof decideCognitiveStrategy> | null,
+  mw6Observations?: readonly SourceObservationFact[],
+): NoraCognitiveTurnResult {
+  const assessment = input.contradictionAssessment;
+  if (!assessment) return turn;
+
+  const observations = mw6Observations ?? [];
+  // R-MW6-02 — when MW6 observations exist, conflictPresent is causally derived
+  // from external observation vs governing premise (existing MW3 contract).
+  // Studio Evidence pointers remain product-owned; external text ≠ Evidence.
+  const composed =
+    observations.length > 0
+      ? composeMw3ConflictFromExternalSources({
+          observations,
+          governing: {
+            governingPremise: assessment.governingPremise ?? "",
+            governingPremiseInvalidatedIfConflict:
+              assessment.governingPremiseInvalidated === true,
+            evidencePointers: assessment.conflict.evidencePointers,
+            requiredDomains: assessment.conflict.requiredDomains,
+            requiredSourceCount: assessment.conflict.requiredSourceCount,
+            freshnessMatters: assessment.conflict.freshnessMatters,
+            trustedSfiaProfile:
+              assessment.conflict.trustedSfiaProfile !== undefined
+                ? assessment.conflict.trustedSfiaProfile
+                : input.trustedSfiaProfile,
+          },
+          baseConflict: assessment.conflict,
+        })
+      : null;
+
+  const conflict: ContradictionConflictInput = {
+    ...(composed?.conflict ?? assessment.conflict),
+    strategyClass:
+      (composed?.conflict ?? assessment.conflict).strategyClass ??
+      strategyDecision?.strategyClass ??
+      null,
+    trustedSfiaProfile:
+      (composed?.conflict ?? assessment.conflict).trustedSfiaProfile !==
+      undefined
+        ? (composed?.conflict ?? assessment.conflict).trustedSfiaProfile
+        : input.trustedSfiaProfile,
+  };
+  const disposition = disposeContradiction(conflict);
+  const governingPremiseInvalidated = composed
+    ? composed.governingPremiseInvalidated
+    : assessment.governingPremiseInvalidated === true;
+  const stop = decideCognitiveStop({
+    disposition,
+    governingPremiseInvalidated,
+    governingPremise: assessment.governingPremise,
+    localImpactOnly: assessment.localImpactOnly === true,
+    technicalFailure: assessment.technicalFailure === true,
+    technicalFailureMessage: assessment.technicalFailureMessage,
+  });
+
+  let text = turn.text;
+  if (stop.cognitiveStop && stop.anatomy) {
+    text = [
+      turn.text,
+      "",
+      `[COGNITIVE STOP] ${stop.anatomy.reason}`,
+      stop.anatomy.contradictionEvidenceIds.length > 0
+        ? `Evidence: ${stop.anatomy.contradictionEvidenceIds.join(", ")}`
+        : null,
+      `Next: ${stop.anatomy.nextAction}`,
+    ]
+      .filter(Boolean)
+      .join("\n");
+  } else if (
+    disposition.disposition === "candidate" &&
+    disposition.disclosure
+  ) {
+    text = `${turn.text}\n\n[CONTRADICTION CANDIDATE] ${disposition.disclosure}`;
+  } else if (disposition.disposition === "evidence_backed" && stop.anatomy) {
+    text = `${turn.text}\n\n[EVIDENCE-BACKED CONTRADICTION] ${stop.anatomy.reason}`;
+  }
+
+  return {
+    ...turn,
+    text,
+    contradictionDisposition: disposition,
+    cognitiveStopDecision: stop,
+  };
+}
+
+function finalizeTurn(
+  turn: NoraCognitiveTurnResult,
+  input: RunNoraCognitiveTurnInput,
+  strategyDecision: ReturnType<typeof decideCognitiveStrategy> | null,
+  mw4Grounding?: Mw4GroundingTurnSurface,
+  mw6SourceIntelligence?: Mw6SourceIntelligenceSurface,
+): NoraCognitiveTurnResult {
+  const withMw3 = withMw3Fields(
+    withStrategyFields(
+      turn,
+      strategyDecision,
+      input.evalModelReasoningControl,
+    ),
+    input,
+    strategyDecision,
+    mw6SourceIntelligence?.observations,
+  );
+  return {
+    ...withMw3,
+    ...(mw4Grounding ? { mw4Grounding } : {}),
+    ...(mw6SourceIntelligence ? { mw6SourceIntelligence } : {}),
+  };
+}
+
+function resolveSourceStrategyForTurn(
+  input: RunNoraCognitiveTurnInput,
+  lastUserContent: string,
+): SourceStrategyDecision | null {
+  if (input.skipSourceStrategy) return null;
+  return decideSourceStrategy({
+    claimText: input.sourceStrategy?.claimText ?? lastUserContent,
+    domainHint: input.sourceStrategy?.domainHint,
+    sourceNeedHint: input.sourceStrategy?.sourceNeedHint,
+    requiresExternalCorroboration:
+      input.sourceStrategy?.requiresExternalCorroboration,
+    requiresRepositoryLookup: input.sourceStrategy?.requiresRepositoryLookup,
+    noSourceLookup: input.sourceStrategy?.noSourceLookup,
+  });
+}
+
+function composeMw6Surface(input: {
+  strategy: SourceStrategyDecision;
+  providerBinding: SourceProviderBinding;
+  observations: SourceObservationFact[];
+  hostedWebSearchAttached: boolean;
+  deterministicBoundaryUsed: boolean;
+  candidateNarrative: string;
+}): {
+  surface: Mw6SourceIntelligenceSurface;
+  governedText: string;
+} {
+  const narrative = applySourceNarrativeCompatibility({
+    candidateText: input.candidateNarrative,
+    observations: input.observations,
+    strategy: input.strategy,
+  });
+  const disclosure = buildSourceObservationDisclosure(
+    input.strategy,
+    input.observations,
+  );
+  const surface: Mw6SourceIntelligenceSurface = {
+    strategy: input.strategy,
+    providerBinding: input.providerBinding,
+    observations: input.observations,
+    disclosure,
+    narrativeCompatibility: {
+      compatible: narrative.compatible,
+      violations: [...narrative.violations],
+    },
+    authorityIsolationHeld: authorityIsolationHeld(input.observations),
+    hostedWebSearchAttached: input.hostedWebSearchAttached,
+    deterministicBoundaryUsed: input.deterministicBoundaryUsed,
+    proofCeiling: "deterministic",
+  };
+  // CR-05: incompatible narrative is replaced (not warned-after).
+  const governedText = narrative.compatible
+    ? `${narrative.text}\n\n${disclosure}`
+    : `${narrative.text}\n\n${disclosure}`;
+  return { surface, governedText };
+}
+
+function collectEvidenceIdsToRemember(
+  input: RunNoraCognitiveTurnInput,
+  turn: NoraCognitiveTurnResult,
+): string[] {
+  const ids = new Set<string>();
+  const pointers = input.contradictionAssessment?.conflict.evidencePointers ?? [];
+  for (const p of pointers) {
+    const id = p.evidenceId?.trim();
+    if (id) ids.add(id);
+  }
+  for (const id of turn.contradictionDisposition?.acceptedEvidenceIds ?? []) {
+    const t = id.trim();
+    if (t) ids.add(t);
+  }
+  for (const id of turn.cognitiveStopDecision?.anatomy?.contradictionEvidenceIds ??
+    []) {
+    const t = id.trim();
+    if (t) ids.add(t);
+  }
+  return [...ids];
+}
+
+async function prepareMw4Grounding(input: {
+  session: ProductSqliteSession | null;
+  projectId: string;
+  resolveRememberedEvidence?: RunNoraCognitiveTurnInput["resolveRememberedEvidence"];
+  readCoverageFacts?: ReadCoverageFact[];
+}): Promise<{
+  resolution: RememberedEvidenceResolution | null;
+  surface: Mw4GroundingTurnSurface | null;
+  disclosure: string;
+  readCoverageDisclosure: string;
+}> {
+  const empty = {
+    resolution: null,
+    surface: null,
+    disclosure: "",
+    readCoverageDisclosure: "",
+  };
+  if (!input.session) {
+    const currentOnly = mergeCurrentAndRememberedCoverage({
+      current: input.readCoverageFacts ?? [],
+      remembered: [],
+    });
+    return {
+      ...empty,
+      readCoverageDisclosure: currentOnly.combinedDisclosure,
+      surface:
+        currentOnly.currentAggregate.facts.length > 0
+          ? {
+              rememberedIds: [],
+              validIds: [],
+              downgradedIds: [],
+              missingIds: [],
+              disclosure: "",
+              readCoverageOverall: overallToGroundingCoverageKind(
+                currentOnly.currentAggregate.overall,
+              ),
+              readCoverageDisclosure: currentOnly.combinedDisclosure || null,
+              claimSpecificProvenance: "unbound",
+              claimSpecificDisclosure: null,
+            }
+          : null,
+    };
+  }
+
+  const raw = await loadGroundingRefsFromSession(input.session);
+  const record = acceptGroundingRefsForProject(raw, input.projectId);
+  // Cross-project fail-closed: wrong projectId → reject (no durable authority).
+  const rememberedIds = (record?.evidenceRefs ?? []).map((r) => r.evidenceId);
+
+  let resolution: RememberedEvidenceResolution | null = null;
+  if (rememberedIds.length > 0 && input.resolveRememberedEvidence) {
+    resolution = await input.resolveRememberedEvidence(
+      input.projectId,
+      rememberedIds,
+    );
+  } else if (rememberedIds.length > 0) {
+    // No resolver → all remembered IDs are non-attributable (fail closed).
+    resolution = {
+      rememberedIds,
+      valid: [],
+      downgraded: [],
+      missing: rememberedIds.map((evidenceId) => ({
+        evidenceId,
+        reason: "fabricated_without_resolver_hit" as const,
+      })),
+    };
+  }
+
+  // CORR-01B — consume persisted prior read coverage distinctly from current turn.
+  const rememberedCoverageFacts: ReadCoverageFact[] = (
+    record?.readCoverage ?? []
+  ).map((ref) => ({
+    pathOrRef: ref.pathOrRef,
+    documentPath: ref.pathOrRef.replace(/#L\d+-\d+$/, ""),
+    coverage: ref.coverage,
+    signals: ["remembered_prior"],
+    origin: "remembered_prior" as const,
+  }));
+  const merged = mergeCurrentAndRememberedCoverage({
+    current: (input.readCoverageFacts ?? []).map((f) => ({
+      ...f,
+      origin: f.origin ?? "current_turn",
+    })),
+    remembered: rememberedCoverageFacts,
+  });
+  const readCoverageDisclosure = merged.combinedDisclosure;
+  const overallForSurface =
+    merged.currentAggregate.facts.length > 0
+      ? merged.currentAggregate.overall
+      : merged.rememberedAggregate.overall;
+
+  const surface = resolution
+    ? toMw4GroundingTurnSurface(resolution, {
+        readCoverageOverall: overallToGroundingCoverageKind(overallForSurface),
+        readCoverageDisclosure: readCoverageDisclosure || null,
+      })
+    : readCoverageDisclosure
+      ? {
+          rememberedIds: [],
+          validIds: [],
+          downgradedIds: [],
+          missingIds: [],
+          disclosure: "",
+          readCoverageOverall: overallToGroundingCoverageKind(overallForSurface),
+          readCoverageDisclosure: readCoverageDisclosure || null,
+          claimSpecificProvenance: "unbound" as const,
+          claimSpecificDisclosure: null,
+        }
+      : null;
+
+  return {
+    resolution,
+    surface,
+    disclosure: surface?.disclosure ?? "",
+    readCoverageDisclosure,
+  };
+}
+
+export async function runNoraCognitiveTurn(
+  input: RunNoraCognitiveTurnInput,
+): Promise<NoraCognitiveTurnResultWithHostedObserve> {
+  const strategyDecision = resolveCognitiveStrategyForTurn(input);
+  if (strategyDecision) {
+    emitCognitiveStrategyTelemetry(
+      input.sink,
+      input.correlationId,
+      strategyDecision,
+    );
+  }
+  const runnerModelSettings = resolveRunnerModelSettings(input, strategyDecision);
+
+  const system = input.messages.find((m) => m.role === "system");
+  const userMessages = input.messages.filter((m) => m.role === "user");
+  const lastUser = userMessages[userMessages.length - 1];
+  if (!system?.content?.trim() || !lastUser?.content?.trim()) {
+    throw new Error("NORA_AGENTS_TURN_REQUIRES_SYSTEM_AND_USER");
+  }
+
+  const sourceStrategy = resolveSourceStrategyForTurn(
+    input,
+    lastUser.content.trim(),
+  );
+  const engageMw6 =
+    sourceStrategy != null &&
+    (input.sourceStrategy != null ||
+      input.enableHostedWebSearch === true ||
+      (input.deterministicHostedWebSearchCalls?.length ?? 0) > 0 ||
+      (input.sourceObservationFacts?.length ?? 0) > 0 ||
+      sourceStrategy.sourceNeed !== "none");
+  const providerBinding =
+    engageMw6 && sourceStrategy
+      ? bindSourceProviderCapability(sourceStrategy)
+      : null;
+  const attachHostedWebSearch =
+    engageMw6 &&
+    (input.enableHostedWebSearch === true ||
+      providerBinding?.attachOpenAiHostedWebSearch === true);
+
+  let dbPath: string;
+  try {
+    dbPath = resolveNoraSessionSqlitePath(input.sessionDbPath);
+  } catch {
+    let systemInstructions = appendMemoryBCognitiveDisclosure(
+      system.content,
+      "unavailable",
+    );
+    if (engageMw6 && sourceStrategy) {
+      systemInstructions = appendSourceStrategyDisclosure(
+        systemInstructions,
+        sourceStrategy,
+      );
+      systemInstructions =
+        appendSourceNarrativeConstraintDisclosure(systemInstructions);
+    }
+    if (input.postEvidenceNarrativePolicy) {
+      systemInstructions =
+        appendPostEvidenceNarrativePolicyDisclosure(systemInstructions);
+    }
+    const coverageAggregate = aggregateReadCoverage(
+      input.readCoverageFacts ?? [],
+    );
+    const readDisclosure = buildReadCoverageDisclosure(coverageAggregate);
+    systemInstructions = appendReadCoverageDisclosure(
+      systemInstructions,
+      readDisclosure,
+    );
+    const turn = await runNoraAgentsTurn({
+      correlationId: input.correlationId,
+      projectId: input.projectId,
+      systemInstructions,
+      userContent: lastUser.content.trim(),
+      session: null,
+      memoryBAvailability: "unavailable",
+      workspaceRoot: input.workspaceRoot,
+      sink: input.sink,
+      enableTools: input.enableTools,
+      provider: input.provider,
+      model: resolveEvalAgentsModel(input),
+      runnerModelSettings,
+      usdAccounting: input.usdAccounting,
+      enableHostedWebSearch: attachHostedWebSearch,
+      hostedWebSearchToolOptions: input.hostedWebSearchToolOptions,
+      deterministicHostedWebSearchCalls:
+        input.deterministicHostedWebSearchCalls,
+      sourceObservationNowIso: input.sourceObservationNowIso,
+      campaignBudget: input.campaignBudget,
+      testOnlyMaxToolCallsOverride: input.testOnlyMaxToolCallsOverride,
+      governedAuthority: input.governedAuthority,
+      currentProductContext:
+        engageMw6 &&
+        sourceStrategy != null &&
+        providerBinding != null &&
+        input.campaignBudget
+          ? {
+              strategy: sourceStrategy,
+              binding: providerBinding,
+              campaignId: input.campaignBudget.campaignId,
+            }
+          : undefined,
+      outputType: input.outputType,
+    });
+    const observations = [
+      ...(input.sourceObservationFacts ?? []),
+      ...(turn.hostedSearchObserve?.observations ?? []),
+    ];
+    let mw6: Mw6SourceIntelligenceSurface | undefined;
+    if (engageMw6 && sourceStrategy != null && providerBinding != null) {
+      const composed = composeMw6Surface({
+        strategy: sourceStrategy,
+        providerBinding,
+        observations,
+        hostedWebSearchAttached:
+          turn.hostedSearchObserve?.hostedWebSearchAttached === true ||
+          attachHostedWebSearch,
+        deterministicBoundaryUsed:
+          turn.hostedSearchObserve?.deterministicBoundaryUsed === true ||
+          (input.deterministicHostedWebSearchCalls?.length ?? 0) > 0,
+        candidateNarrative: turn.text,
+      });
+      mw6 = composed.surface;
+      turn.text = composed.governedText;
+    }
+    const { hostedSearchObserve, budgetObserve, ...turnBase } = turn;
+    const mw6AuthorityBinding = budgetObserve
+      ? {
+          authorityBound: budgetObserve.authorityBound,
+          realAuthorized: budgetObserve.realAuthorized,
+          realPreflightCode: budgetObserve.realPreflightCode,
+          realPreflightBlocked: budgetObserve.realPreflightBlocked,
+          realPreflightReasons: [...budgetObserve.realPreflightReasons],
+          eligible: budgetObserve.eligible,
+        }
+      : undefined;
+    const mw4 =
+      coverageAggregate.facts.length > 0
+        ? {
+            rememberedIds: [] as string[],
+            validIds: [] as string[],
+            downgradedIds: [] as string[],
+            missingIds: [] as string[],
+            disclosure: "",
+            readCoverageOverall: overallToGroundingCoverageKind(
+              coverageAggregate.overall,
+            ),
+            readCoverageDisclosure: readDisclosure || null,
+          }
+        : undefined;
+    return {
+      ...finalizeTurn(
+        {
+          ...turnBase,
+          memoryBCompactionState: "none",
+          memoryBCompactionDetails: null,
+          ...(mw6AuthorityBinding ? { mw6AuthorityBinding } : {}),
+        },
+        input,
+        strategyDecision,
+        mw4,
+        mw6,
+      ),
+      // CORR-02B — factual hosted observation pass-through (no drop).
+      ...(hostedSearchObserve ? { hostedSearchObserve } : {}),
+    };
+  }
+
+  const probe = await probeMemoryBAvailability({
+    projectId: input.projectId,
+    dbPath,
+    sessionKey: input.sessionKey ?? "f1-default",
+    simulateUnavailable: input.simulateMemoryBUnavailable,
+  });
+
+  // CORR-OPT-C-01: do NOT auto-import caller-provided process-local
+  // user/assistant history into durable Runner Session (untrusted provenance).
+  let systemInstructions = appendMemoryBCognitiveDisclosure(
+    system.content,
+    probe.availability,
+  );
+
+  let sessionForRunner: Session | null = probe.session;
+  let compactionDetails = null;
+  let compactionState: NoraCognitiveTurnResult["memoryBCompactionState"] =
+    "none";
+
+  if (
+    probe.session &&
+    probe.availability !== "unavailable" &&
+    input.truthCRevision
+  ) {
+    const prepared = await createMemoryBSessionView({
+      session: probe.session,
+      truthCRevision: input.truthCRevision,
+      nowIso: input.compactionNowIso,
+    });
+    sessionForRunner = prepared.view;
+    compactionDetails = prepared.details;
+    compactionState = prepared.details.state;
+    systemInstructions = appendMemoryBCompactionDisclosure(
+      systemInstructions,
+      compactionState,
+      { stalePriorInvalidated: prepared.details.stalePriorInvalidated },
+    );
+  }
+
+  const mw4Prep = await prepareMw4Grounding({
+    session: probe.session,
+    projectId: input.projectId,
+    resolveRememberedEvidence: input.resolveRememberedEvidence,
+    readCoverageFacts: input.readCoverageFacts,
+  });
+  systemInstructions = appendGroundingCognitiveDisclosure(
+    systemInstructions,
+    mw4Prep.disclosure,
+  );
+  systemInstructions = appendReadCoverageDisclosure(
+    systemInstructions,
+    mw4Prep.readCoverageDisclosure,
+  );
+  if (engageMw6 && sourceStrategy) {
+    systemInstructions = appendSourceStrategyDisclosure(
+      systemInstructions,
+      sourceStrategy,
+    );
+    systemInstructions =
+      appendSourceNarrativeConstraintDisclosure(systemInstructions);
+  }
+  if (input.postEvidenceNarrativePolicy) {
+    systemInstructions =
+      appendPostEvidenceNarrativePolicyDisclosure(systemInstructions);
+  }
+
+  try {
+    const turn = await runNoraAgentsTurn({
+      correlationId: input.correlationId,
+      projectId: input.projectId,
+      systemInstructions,
+      userContent: lastUser.content.trim(),
+      session: sessionForRunner,
+      memoryBAvailability: probe.availability,
+      workspaceRoot: input.workspaceRoot,
+      sink: input.sink,
+      enableTools: input.enableTools,
+      provider: input.provider,
+      model: resolveEvalAgentsModel(input),
+      runnerModelSettings,
+      usdAccounting: input.usdAccounting,
+      enableHostedWebSearch: attachHostedWebSearch,
+      hostedWebSearchToolOptions: input.hostedWebSearchToolOptions,
+      deterministicHostedWebSearchCalls:
+        input.deterministicHostedWebSearchCalls,
+      sourceObservationNowIso: input.sourceObservationNowIso,
+      campaignBudget: input.campaignBudget,
+      testOnlyMaxToolCallsOverride: input.testOnlyMaxToolCallsOverride,
+      governedAuthority: input.governedAuthority,
+      currentProductContext:
+        engageMw6 &&
+        sourceStrategy != null &&
+        providerBinding != null &&
+        input.campaignBudget
+          ? {
+              strategy: sourceStrategy,
+              binding: providerBinding,
+              campaignId: input.campaignBudget.campaignId,
+            }
+          : undefined,
+      outputType: input.outputType,
+    });
+    const observations = [
+      ...(input.sourceObservationFacts ?? []),
+      ...(turn.hostedSearchObserve?.observations ?? []),
+    ];
+    let mw6: Mw6SourceIntelligenceSurface | undefined;
+    if (engageMw6 && sourceStrategy != null && providerBinding != null) {
+      const composed = composeMw6Surface({
+        strategy: sourceStrategy,
+        providerBinding,
+        observations,
+        hostedWebSearchAttached:
+          turn.hostedSearchObserve?.hostedWebSearchAttached === true ||
+          attachHostedWebSearch,
+        deterministicBoundaryUsed:
+          turn.hostedSearchObserve?.deterministicBoundaryUsed === true ||
+          (input.deterministicHostedWebSearchCalls?.length ?? 0) > 0,
+        candidateNarrative: turn.text,
+      });
+      mw6 = composed.surface;
+      turn.text = composed.governedText;
+    }
+    const { hostedSearchObserve, budgetObserve, ...turnBase } = turn;
+    const mw6AuthorityBinding = budgetObserve
+      ? {
+          authorityBound: budgetObserve.authorityBound,
+          realAuthorized: budgetObserve.realAuthorized,
+          realPreflightCode: budgetObserve.realPreflightCode,
+          realPreflightBlocked: budgetObserve.realPreflightBlocked,
+          realPreflightReasons: [...budgetObserve.realPreflightReasons],
+          eligible: budgetObserve.eligible,
+        }
+      : undefined;
+    const finalized = finalizeTurn(
+      {
+        ...turnBase,
+        memoryBCompactionState: compactionState,
+        memoryBCompactionDetails: compactionDetails,
+        ...(mw6AuthorityBinding ? { mw6AuthorityBinding } : {}),
+      },
+      input,
+      strategyDecision,
+      mw4Prep.surface ?? undefined,
+      mw6,
+    );
+
+    // Persist Evidence IDs claimed/accepted this turn (non-authoritative).
+    if (probe.session && probe.availability !== "unavailable") {
+      const toRemember = collectEvidenceIdsToRemember(input, finalized);
+      if (toRemember.length > 0) {
+        await rememberEvidenceIds(
+          probe.session,
+          input.projectId,
+          toRemember,
+          input.groundingNowIso,
+        );
+      }
+      // CORR-01B — also persist current-turn read coverage for next-turn honesty.
+      const coverageFacts = input.readCoverageFacts ?? [];
+      if (coverageFacts.length > 0) {
+        await rememberReadCoverage(
+          probe.session,
+          input.projectId,
+          coverageFacts.map((f) => ({
+            pathOrRef: f.documentPath ?? f.pathOrRef,
+            coverage: f.coverage,
+          })),
+          input.groundingNowIso,
+        );
+      }
+    }
+
+    return {
+      ...finalized,
+      // CORR-02B — factual hosted observation pass-through (no drop).
+      ...(hostedSearchObserve ? { hostedSearchObserve } : {}),
+    };
+  } finally {
+    if (probe.session) {
+      probe.session.close();
+    }
+  }
+}
 ```
 
 ## MODIFIED: `projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts`
@@ -4153,116 +7526,442 @@ index 95448a25..dec56300 100644
     * Present when campaign + governedAuthority composition evaluated.
 ```
 
-### Full current content: `projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts`
+## MODIFIED: `projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts`
 
-```typescript
-/**
- * Nora Option C cognitive runtime — types.
- * Session is conversational continuity only — never Truth C / LPS / HD.
- * Single Runner path after legacy Nora runtime retirement.
- */
-
-import type { OpenAiReasoningEffort } from "@/lib/platform/ai";
-import type { CognitiveStrategyClass } from "./cognitiveWorkloadPolicy";
-import type { ContradictionDispositionResult } from "./contradictionDisposition";
-import type { CognitiveStopDecision } from "./cognitiveStop";
-import type { MemoryBAvailability } from "./memoryBAvailability";
-import type {
-  MemoryBCompactionDetails,
-  MemoryBCompactionState,
-  TruthCRevision,
-} from "./memoryBCompaction";
-import type { Mw4GroundingTurnSurface } from "./groundingDurability";
-import type { Mw6SourceIntelligenceSurface } from "./sourceIntelligenceContract";
-
-/** F1/Nora cognitive runtime kind — Agents SDK Runner only. */
-export type NoraCognitiveRuntimeKind = "agents";
-
-export type NoraCognitiveTurnResult = {
-  text: string;
-  usage: {
-    inputTokens: number | null;
-    outputTokens: number | null;
-    totalTokens: number | null;
-    model: string | null;
-    providerResponseId: string | null;
-  };
-  toolRounds: number;
-  toolCalls: number;
-  limitReached: boolean;
-  /** Always "agents" after Nora legacy retirement (honest observability). */
-  cognitiveRuntime: NoraCognitiveRuntimeKind;
-  sessionId: string | null;
-  /** MW1-S01 — honest Memory B availability for this turn. */
-  memoryBAvailability: MemoryBAvailability;
-  /** MW1-S02 — compaction / stale state for this turn. */
-  memoryBCompactionState: MemoryBCompactionState;
-  /** MW1-S02 — optional compaction details when relevant. */
-  memoryBCompactionDetails: MemoryBCompactionDetails | null;
-  /** MW2-S01 — internal strategy telemetry (not Pilote authority). */
-  cognitiveStrategyClass?: CognitiveStrategyClass;
-  /**
-   * Effective reasoning effort applied to Runner (eval pin when present, else CWP).
-   */
-  selectedReasoningEffort?: OpenAiReasoningEffort;
-  /**
-   * CWP-derived effort when strategy ran — observable even when eval pin overrides.
-   */
-  cwpDerivedReasoningEffort?: OpenAiReasoningEffort;
-  /** Eval-only pin identity when Stage A / campaign cell control is active. */
-  evalPinnedModelId?: string;
-  evalPinnedReasoningEffort?: OpenAiReasoningEffort;
-  criticalChallengeArmed?: boolean;
-  /** MW3 — present only when contradictionAssessment was supplied. */
-  contradictionDisposition?: ContradictionDispositionResult;
-  /** MW3 — present only when contradictionAssessment was supplied. */
-  cognitiveStopDecision?: CognitiveStopDecision;
-  /** MW4 — grounding durability surface when Session refs were assessed. */
-  mw4Grounding?: Mw4GroundingTurnSurface;
-  /** MW6 — source strategy + normalized external observations (non-authoritative). */
-  mw6SourceIntelligence?: Mw6SourceIntelligenceSurface;
-  /**
-   * LR-D02 — structured Agents finalOutput when outputType was requested.
-   * Candidate data only — never Product truth until SFIA validation.
-   */
-  structuredOutput?: unknown;
-  /**
-   * MW6↔Auth — authority binding axes from preflight (composition proof).
-   * Present when campaign + governedAuthority composition evaluated.
-   */
-  mw6AuthorityBinding?: {
-    authorityBound: boolean;
-    realAuthorized: boolean;
-    realPreflightCode: string;
-    realPreflightBlocked: boolean;
-    realPreflightReasons: string[];
-    eligible: boolean;
-  };
-};
-
-export type { TruthCRevision, MemoryBCompactionState, MemoryBCompactionDetails };
+```diff
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
+index 34bedf33..8681e19d 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
+@@ -217,6 +217,34 @@ export function createProviderAgentsModel(
+       }
+       const tools = toolDefinitionsFromModelRequest(request);
+       const round = await completeRound({ items, tools });
++      if (round.kind === "message") {
++        const name =
++          request.outputType &&
++          typeof request.outputType === "object" &&
++          "name" in request.outputType
++            ? String((request.outputType as { name?: unknown }).name ?? "")
++            : "";
++        if (name === "nora_product_turn_with_optional_lr") {
++          let text = round.text;
++          let alreadyStructured = false;
++          try {
++            const parsed = JSON.parse(text) as unknown;
++            alreadyStructured =
++              !!parsed &&
++              typeof parsed === "object" &&
++              typeof (parsed as { narrative?: unknown }).narrative === "string";
++          } catch {
++            alreadyStructured = false;
++          }
++          if (!alreadyStructured) {
++            text = JSON.stringify({
++              narrative: round.text,
++              lifecycleRecommendation: null,
++            });
++          }
++          return roundResultToModelResponse({ ...round, text });
++        }
++      }
+       return roundResultToModelResponse(round);
+     },
+     async *getStreamedResponse(): AsyncIterable<never> {
 ```
 
-# DELETED FILE
+### Full current content: `projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts`
+```typescript
+/**
+ * Thin ConversationProvider → Agents SDK Model adapter.
+ * Used whenever a ConversationProvider exposes completeRound() (Fake/fixture
+ * deterministic path; any completeRound-capable test/provider boundary).
+ * ONE model invocation → ONE provider.completeRound(). Runner owns the loop.
+ * Does NOT execute tools, persist Session, or resolve authority.
+ * RESERVE-OPT-C-02: this is a boundary adapter, not a provider-architecture
+ * decision — live OpenAI Agents model routing remains separate when no
+ * completeRound provider is supplied.
+ */
+import { Usage, type Model, type ModelRequest, type ModelResponse } from "@openai/agents";
+import type {
+  ConversationProvider,
+  ProviderInputItem,
+  ProviderRoundResult,
+} from "@/lib/platform/ai";
+import {
+  CONTROL_TOWER_TOOL_DEFINITIONS,
+  type ToolDefinition,
+} from "@/lib/platform/tools";
 
-## DELETED: `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/relatedObjectsCodec.ts`
+function extractTextContent(content: unknown): string {
+  if (typeof content === "string") return content;
+  if (!Array.isArray(content)) return "";
+  return content
+    .map((part) => {
+      if (typeof part === "string") return part;
+      if (part && typeof part === "object" && "text" in part) {
+        return String((part as { text?: unknown }).text ?? "");
+      }
+      return "";
+    })
+    .join("\n");
+}
 
-File removed from uncommitted Product candidate. Replacement: `basisFingerprint.ts` (deterministic hashing + genuine `prj:`/`cyc:` relatedObjects only). No lr:* encoder/decoder remains.
+/**
+ * Map Runner model input → provider round items.
+ * Fail closed on unsupported shapes (no silent invention).
+ */
+export function agentInputToProviderItems(
+  input: ModelRequest["input"],
+): ProviderInputItem[] {
+  if (typeof input === "string") {
+    return [{ type: "message", role: "user", content: input }];
+  }
+  if (!Array.isArray(input)) {
+    throw new Error("NORA_PROVIDER_MODEL_UNSUPPORTED_INPUT");
+  }
+  const items: ProviderInputItem[] = [];
+  for (const raw of input) {
+    if (!raw || typeof raw !== "object") {
+      throw new Error("NORA_PROVIDER_MODEL_UNSUPPORTED_INPUT_ITEM");
+    }
+    const item = raw as Record<string, unknown>;
+    const type = String(item.type ?? "");
+    if (type === "message") {
+      const role = String(item.role ?? "");
+      if (role !== "user" && role !== "assistant" && role !== "system") {
+        throw new Error(`NORA_PROVIDER_MODEL_UNSUPPORTED_ROLE:${role}`);
+      }
+      items.push({
+        type: "message",
+        role,
+        content: extractTextContent(item.content),
+      });
+      continue;
+    }
+    if (type === "function_call") {
+      items.push({
+        type: "function_call",
+        callId: String(item.callId ?? item.id ?? ""),
+        name: String(item.name ?? ""),
+        argumentsJson:
+          typeof item.arguments === "string"
+            ? item.arguments
+            : JSON.stringify(item.arguments ?? {}),
+      });
+      continue;
+    }
+    if (type === "function_call_result" || type === "function_call_output") {
+      const output = item.output;
+      const outputText =
+        typeof output === "string"
+          ? output
+          : output == null
+            ? ""
+            : JSON.stringify(output);
+      items.push({
+        type: "function_call_output",
+        callId: String(item.callId ?? item.id ?? ""),
+        output: outputText,
+      });
+      continue;
+    }
+    // Ignore purely structural / non-conversation items that Runner may prepend
+    // (e.g. reasoning) — fail closed if they look like actionable model content.
+    if (type === "reasoning") {
+      continue;
+    }
+    throw new Error(`NORA_PROVIDER_MODEL_UNSUPPORTED_INPUT_TYPE:${type}`);
+  }
+  return items;
+}
 
-Deletion proof: path absent on disk = `True`
+/**
+ * Resolve SFIA ToolDefinitions from Runner-serialized tools by name only.
+ * No second schema source — Studio CONTROL_TOWER_TOOL_DEFINITIONS remain canonical.
+ */
+export function toolDefinitionsFromModelRequest(
+  request: ModelRequest,
+): ToolDefinition[] {
+  const byName = new Map<string, ToolDefinition>(
+    CONTROL_TOWER_TOOL_DEFINITIONS.map((d) => [d.name, d]),
+  );
+  const out: ToolDefinition[] = [];
+  for (const tool of request.tools ?? []) {
+    if (!tool || typeof tool !== "object") continue;
+    const t = tool as { type?: string; name?: string };
+    if (t.type && t.type !== "function") {
+      // MW6 CR-09 — only the qualified hosted web_search boundary may be skipped
+      // by the deterministic Fake adapter. Unknown hosted tools fail closed.
+      if (t.type === "hosted_tool") {
+        const hostedName = String(t.name ?? "");
+        if (
+          hostedName === "web_search" ||
+          hostedName === "web_search_preview"
+        ) {
+          continue;
+        }
+        throw new Error(
+          `NORA_PROVIDER_MODEL_UNSUPPORTED_HOSTED_TOOL:${hostedName || "unnamed"}`,
+        );
+      }
+      throw new Error(`NORA_PROVIDER_MODEL_UNSUPPORTED_TOOL_TYPE:${t.type}`);
+    }
+    const name = String(t.name ?? "");
+    if (!name) continue;
+    const def = byName.get(name);
+    if (!def) {
+      throw new Error(`NORA_PROVIDER_MODEL_UNKNOWN_TOOL:${name}`);
+    }
+    out.push(def);
+  }
+  return out;
+}
 
----
+function roundResultToModelResponse(
+  round: ProviderRoundResult,
+): ModelResponse {
+  const usage = new Usage({
+    requests: 1,
+    inputTokens: round.usage.inputTokens ?? 0,
+    outputTokens: round.usage.outputTokens ?? 0,
+    totalTokens: round.usage.totalTokens ?? 0,
+  });
+  if (round.kind === "message") {
+    return {
+      usage,
+      responseId: round.usage.providerResponseId ?? undefined,
+      output: [
+        {
+          type: "message",
+          role: "assistant",
+          status: "completed",
+          content: [{ type: "output_text", text: round.text }],
+        },
+      ],
+    };
+  }
+  return {
+    usage,
+    responseId: round.usage.providerResponseId ?? undefined,
+    output: round.toolCalls.map((call) => ({
+      type: "function_call" as const,
+      name: call.name,
+      callId: call.callId,
+      id: call.callId,
+      status: "completed" as const,
+      arguments: call.argumentsJson,
+    })),
+  };
+}
 
+/**
+ * Agents SDK Model backed by ConversationProvider.completeRound (Fake path).
+ */
+export function createProviderAgentsModel(
+  provider: ConversationProvider,
+): Model {
+  if (typeof provider.completeRound !== "function") {
+    throw new Error("NORA_PROVIDER_MODEL_REQUIRES_COMPLETE_ROUND");
+  }
+  const completeRound = provider.completeRound.bind(provider);
 
-FULL REVIEW PACK SIZE THRESHOLD EXCEEDED — COMPLETE PRODUCT CONTENT PRESERVED
+  return {
+    async getResponse(request: ModelRequest): Promise<ModelResponse> {
+      if (request.signal?.aborted) {
+        throw new Error("AbortError");
+      }
+      const items = agentInputToProviderItems(request.input);
+      // Ensure Studio system instructions from the Runner filter are visible
+      // to Fake specialization (CKC markers live in system messages).
+      if (
+        request.systemInstructions &&
+        !items.some(
+          (i) =>
+            i.type === "message" &&
+            i.role === "system" &&
+            i.content.includes(request.systemInstructions!),
+        )
+      ) {
+        items.unshift({
+          type: "message",
+          role: "system",
+          content: request.systemInstructions,
+        });
+      }
+      const tools = toolDefinitionsFromModelRequest(request);
+      const round = await completeRound({ items, tools });
+      if (round.kind === "message") {
+        const name =
+          request.outputType &&
+          typeof request.outputType === "object" &&
+          "name" in request.outputType
+            ? String((request.outputType as { name?: unknown }).name ?? "")
+            : "";
+        if (name === "nora_product_turn_with_optional_lr") {
+          let text = round.text;
+          let alreadyStructured = false;
+          try {
+            const parsed = JSON.parse(text) as unknown;
+            alreadyStructured =
+              !!parsed &&
+              typeof parsed === "object" &&
+              typeof (parsed as { narrative?: unknown }).narrative === "string";
+          } catch {
+            alreadyStructured = false;
+          }
+          if (!alreadyStructured) {
+            text = JSON.stringify({
+              narrative: round.text,
+              lifecycleRecommendation: null,
+            });
+          }
+          return roundResultToModelResponse({ ...round, text });
+        }
+      }
+      return roundResultToModelResponse(round);
+    },
+    async *getStreamedResponse(): AsyncIterable<never> {
+      throw new Error("NORA_PROVIDER_MODEL_STREAMING_UNSUPPORTED");
+    },
+  };
+}
+
+export function isFakeConversationProvider(
+  provider: ConversationProvider,
+): boolean {
+  return (
+    provider.providerId === "fake-test" ||
+    provider.providerId.startsWith("fake")
+  );
+}
+```
+
+## MODELED lifecycle-recommendation.schema.json FULL
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/v3-native-option-a/epistemic/lifecycle-recommendation.schema.json",
+  "title": "LifecycleRecommendation",
+  "description": "Optional typed Lifecycle Recommendation payload on EpistemicItem. Authority remains none; CURRENT/STALE are never persisted here.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "intent",
+    "basisFingerprint",
+    "basisRefs",
+    "semanticKey",
+    "subjectCycleInstanceId",
+    "targetCycleInstanceId",
+    "targetCycleTypeId",
+    "authority"
+  ],
+  "properties": {
+    "intent": {
+      "type": "string",
+      "enum": ["FINALIZE_CURRENT_CYCLE", "NEXT_CYCLE"]
+    },
+    "basisFingerprint": {
+      "type": "string",
+      "minLength": 16,
+      "maxLength": 128
+    },
+    "basisRefs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["projectId"],
+      "properties": {
+        "projectId": {
+          "$ref": "../common/identifier.schema.json"
+        },
+        "subjectCycleInstanceId": {
+          "type": ["string", "null"]
+        },
+        "subjectCycleStatus": {
+          "type": ["string", "null"]
+        },
+        "targetCycleInstanceId": {
+          "type": ["string", "null"]
+        },
+        "targetCycleTypeId": {
+          "type": ["string", "null"]
+        },
+        "lpsActiveCycleInstanceId": {
+          "type": ["string", "null"]
+        },
+        "lpsVersion": {
+          "type": ["integer", "null"]
+        },
+        "trajectoryId": {
+          "type": ["string", "null"]
+        },
+        "trajectoryVersion": {
+          "type": ["integer", "null"]
+        },
+        "trajectoryStatus": {
+          "type": ["string", "null"]
+        },
+        "finalizeAccepted": {
+          "type": ["boolean", "null"]
+        },
+        "resumeClean": {
+          "type": ["boolean", "null"]
+        },
+        "reservationBlockingCount": {
+          "type": ["integer", "null"]
+        },
+        "doctrinePackageId": {
+          "type": ["string", "null"]
+        },
+        "doctrinePackageVersion": {
+          "type": ["string", "null"]
+        },
+        "doctrinePackageDigest": {
+          "type": ["string", "null"]
+        },
+        "decisionFingerprint": {
+          "type": ["string", "null"]
+        },
+        "evidenceFingerprint": {
+          "type": ["string", "null"]
+        },
+        "blockerFingerprint": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "semanticKey": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 128
+    },
+    "subjectCycleInstanceId": {
+      "type": ["string", "null"]
+    },
+    "targetCycleInstanceId": {
+      "type": ["string", "null"]
+    },
+    "targetCycleTypeId": {
+      "type": ["string", "null"]
+    },
+    "authority": {
+      "type": "string",
+      "const": "none"
+    }
+  }
+}
+```
 
 ## Review Pack Content Coverage
-
 - created files full content: YES
 - modified files useful complete diff: YES
-- deleted files complete diff: YES (deletion + replacement explanation; prior uncommitted codec removed)
+- deleted files complete diff: N/A
 - modeled schema content complete: YES
+- bridge E2E evidence complete: YES
+- basis materiality evidence complete: YES
 - synthesis only: NO
 - artificial truncation present: NO
 - all Product files represented: YES
 - review pack verdict: COMPLETE
+
+FULL REVIEW PACK SIZE THRESHOLD EXCEEDED — COMPLETE PRODUCT CONTENT PRESERVED
