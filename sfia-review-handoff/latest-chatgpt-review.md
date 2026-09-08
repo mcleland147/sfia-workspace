@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| UTC timestamp | 2026-09-08T20:52:30Z |
+| UTC timestamp | 2026-09-08T20:58:30Z |
 | Cycle ID | SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-RECOMMENDATION-PR-CI-RERUN-01 |
 | Cycle | 9 — QA / Validation |
 | Typology | EVOL |
@@ -30,7 +30,7 @@ GO MORRIS — AUTHORIZE CI RERUN ONLY FOR PR #477 @ 2081ce477182d133cc71c93dd7d5
 | Product dirty paths | none |
 | Review-only dirty | .tmp-sfia-review/** present (authorized) |
 
-## 4. PR #477 initial / final metadata
+## 4. PR #477 metadata (initial = final)
 
 | Field | Value |
 |---|---|
@@ -42,7 +42,7 @@ GO MORRIS — AUTHORIZE CI RERUN ONLY FOR PR #477 @ 2081ce477182d133cc71c93dd7d5
 | Head SHA | 2081ce477182d133cc71c93dd7d547433bd6a976 |
 | URL | https://github.com/mcleland147/sfia-workspace/pull/477 |
 
-Head SHA unchanged through cycle. No PR mutation. No mark-ready. No merge.
+No PR mutation. No mark-ready. No merge.
 
 ## 5. Incoming handoff / timeout qualification consumed
 
@@ -58,9 +58,9 @@ Head SHA unchanged through cycle. No PR mutation. No mark-ready. No merge.
 - method/sfia-fast-track/core/sfia-cycle-routing-guide.md
 - Studio convergence doctrine/roadmap
 - projects/sfia-studio/product-completion/01-product-completion-cadrage.md
-- Applicable v3 framing sufficient to retain Recommendation != HumanDecision; runtime v3 NON ADOPTED
+- Applicable v3 framing: Recommendation != HumanDecision; runtime v3 NON ADOPTED
 - Canonical handoff at ba82c05f...
-- GitHub PR #477 + Actions run 34262518389 attempt 1 and attempt 2
+- GitHub PR #477 + Actions run 34262518389 attempts 1, 2, and 3
 
 ## 7. Convergence qualification
 
@@ -68,32 +68,38 @@ Head SHA unchanged through cycle. No PR mutation. No mark-ready. No merge.
 |---|---|
 | Capability | Lifecycle Recommendation & Pilot Decision Continuity |
 | Milestone | PR #477 required CI closure |
-| Product source/test/config | KEEP / FREEZE |
-| PR #477 | KEEP / FROZEN |
+| Product/PR | KEEP / FREEZE |
 | CI workflow | REUSE |
-| Failed run as rerun target | REUSE 34262518389 |
-| ADAPT / Product correction | NOT authorized; not performed |
-| Gap closed this cycle | Required CI terminal proof obtained (PASS) |
-| Next | ChatGPT PR readiness review (distinct from mark-ready/merge) |
+| Rerun target | REUSE 34262518389 |
+| Gap this cycle | Required CI terminal proof |
+| Outcome | Required CI GREEN at same head SHA |
 
-## 8. Rerun target and action
+## 8. Rerun action (authorized)
 
 | Field | Value |
 |---|---|
 | Prior run ID | 34262518389 |
 | Prior attempt | 1 |
 | Prior conclusion | failure |
-| Prior head SHA | 2081ce477182d133cc71c93dd7d547433bd6a976 |
-| Command | gh run rerun 34262518389 --repo mcleland147/sfia-workspace |
-| Rerun count this cycle | ONE (no second rerun) |
-| Rerun run ID | 34262518389 (same run) |
-| Rerun attempt | 2 |
-| Rerun head SHA | 2081ce477182d133cc71c93dd7d547433bd6a976 |
-| Event | pull_request |
+| Authorized command | gh run rerun 34262518389 --repo mcleland147/sfia-workspace |
+| Cursor-issued rerun commands | ONE only |
+| Authorized attempt created | attempt 2 |
+| Head SHA throughout | 2081ce477182d133cc71c93dd7d547433bd6a976 |
 | Workflow | SFIA Studio CI |
-| Rerun URL | https://github.com/mcleland147/sfia-workspace/actions/runs/34262518389 |
+| Event | pull_request |
+| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/34262518389 |
 
-## 9. Runner environment (attempt 2 Build job)
+## 9. Attempt chronology (honest)
+
+| Attempt | Origin | Terminal conclusion |
+|---|---|---|
+| 1 | original PR CI | failure (3x 5000ms timeouts) |
+| 2 | authorized gh run rerun from this cycle | success |
+| 3 | appeared AFTER attempt-2 terminal success and AFTER first handoff publish; Cursor did NOT issue a second gh run rerun; GitHub triggering_actor=mcleland147 | success |
+
+Governance note: Morris GO authorized exactly one rerun. Cursor issued exactly one gh run rerun (attempt 2). Attempt 3 was observed only (no cancel, no additional rerun command). Final GitHub tip of the run is attempt 3 success. Required checks on PR #477 are green.
+
+## 10. Runner environment (attempt 2 Build; attempt 3 same image class)
 
 - Runner version: 2.337.0
 - OS: Ubuntu
@@ -101,7 +107,7 @@ Head SHA unchanged through cycle. No PR mutation. No mark-ready. No merge.
 - Image release: ubuntu24/20260907.300
 - Node: workflow default Node 24 note present
 
-## 10. Job matrix (attempt 2)
+## 11. Authorized attempt 2 — job / step matrix
 
 | Job | Job ID | Conclusion |
 |---|---|---|
@@ -109,61 +115,58 @@ Head SHA unchanged through cycle. No PR mutation. No mark-ready. No merge.
 | Build and validate SFIA Studio | 102231786199 | success |
 | SFIA Studio Required Gate | 102233108761 | success |
 
-Workflow final conclusion: success
+Build steps attempt 2: Typecheck/Lint/Build/Unit tests (Vitest) = success.
 
-## 11. Build and validate step matrix (attempt 2)
+Unit tests attempt 2:
+- 317 files passed / 17 skipped
+- 3286 tests passed / 135 skipped
+- Duration 144.31s
+- Failed/timed out: none
 
-| Step | Conclusion |
-|---|---|
-| Checkout | success |
-| Setup Node.js | success |
-| Install dependencies | success |
-| Typecheck | success |
-| Lint | success |
-| Build | success |
-| Unit tests (Vitest) | success |
-| FinOps/T7 freeze notice | success |
-| Modeled governance tests | success |
-| Secret pattern scan (targeted) | success |
-| Trailing whitespace check | success |
+Former timeout trio attempt 2:
+- g2 historical D0...: PASS 1152 ms (was timeout)
+- mw0 full D0 suite PASS: PASS 638 ms (was timeout)
+- w3c R04/R05...: PASS 416 ms (was timeout)
 
-Required Gate: Aggregate required gate = success
+## 12. Observed attempt 3 — terminal (not Cursor-commanded)
 
-## 12. Unit tests (attempt 2)
-
-- Test Files: 317 passed | 17 skipped (334)
-- Tests: 3286 passed | 135 skipped (3421)
-- Duration: 144.31s (tests agg 129.10s)
-- Failed Tests: none
-- timed out: none observed
-
-### Former attempt-1 timeout trio on attempt 2
-
-| Test | Attempt 1 | Attempt 2 |
+| Job | Job ID | Conclusion |
 |---|---|---|
-| g2 historical D0 suite still PASS; global suite includes MW6 | FAIL timeout 5000 ms | PASS 1152 ms |
-| mw0 full D0 suite PASS | FAIL timeout 5000 ms | PASS 638 ms |
-| w3c R04/R05: terminal B rehydrates correctly... | FAIL timeout ~5423 ms | PASS 416 ms |
+| Detect | 102233627809 | success |
+| Build and validate | 102233675118 | success |
+| Required Gate | 102234915818 | success |
 
-Timeout recurrence classification: N/A — no failure (attempt-1 timeout set did not recur).
+Build steps attempt 3: Typecheck/Lint/Build/Unit tests = success.
+
+Unit tests attempt 3:
+- 317 files passed / 17 skipped
+- 3286 tests passed / 135 skipped
+- Duration 129.47s
+- Failed/timed out: none
+
+Former timeout trio attempt 3:
+- g2: PASS 973 ms
+- mw0: PASS 494 ms
+- w3c R04/R05: PASS 312 ms
 
 ## 13. Comparison with attempt 1
 
-| Metric | Attempt 1 | Attempt 2 |
-|---|---|---|
-| Workflow conclusion | failure | success |
-| Unit tests | 3 failed / 3283 passed | 0 failed / 3286 passed |
-| Suite Duration | 267.72s (tests agg 577.79s) | 144.31s (tests agg 129.10s) |
-| Required Gate | FAIL | PASS |
-| Head SHA | 2081ce47... | 2081ce47... (unchanged) |
-| Image release | ubuntu24/20260907.300 | ubuntu24/20260907.300 (same) |
+| Metric | Attempt 1 | Attempt 2 (authorized) | Attempt 3 (observed) |
+|---|---|---|---|
+| Workflow | failure | success | success |
+| Unit tests | 3 fail / 3283 pass | 0 fail / 3286 pass | 0 fail / 3286 pass |
+| Suite Duration | 267.72s (tests agg 577.79s) | 144.31s (129.10s) | 129.47s (108.31s) |
+| Required Gate | FAIL | PASS | PASS |
+| Head SHA | 2081ce47... | 2081ce47... | 2081ce47... |
+
+Timeout recurrence classification: N/A — timeouts did not recur on attempt 2 or 3.
 
 ## 14. GAP-01 / GAP-02
 
 | Gap | Status |
 |---|---|
-| GAP-01 importBoundaries | Remains CLOSED (absent from attempt-1 failure set after correction; not reopened on attempt 2) |
-| GAP-02 e2 product-equivalent-control | Remains CLOSED (same) |
+| GAP-01 importBoundaries | CLOSED (not reopened) |
+| GAP-02 e2 product-equivalent-control | CLOSED (not reopened) |
 
 ## 15. Freeze / mutation evidence
 
@@ -175,14 +178,15 @@ Timeout recurrence classification: N/A — no failure (attempt-1 timeout set did
 | PR mutation | NO |
 | mark-ready | NO |
 | merge | NO |
-| Second CI rerun | NO |
+| Cursor second gh run rerun | NO |
 | Final Product SHA | 2081ce477182d133cc71c93dd7d547433bd6a976 |
 | Final PR head SHA | 2081ce477182d133cc71c93dd7d547433bd6a976 |
 | Final main SHA | e6d7c649e9d0522b60401f11fb8dd1fd4b122637 |
+| Final run tip | attempt 3 success |
 
 ## 16. ZERO REAL / reserves
 
-- ZERO REAL = YES (GitHub Actions CI rerun + Review Handoff only; no live Product business side-effect)
+- ZERO REAL = YES
 - RESERVE-UX-01 = retained OPEN
 - RESERVE-PROOF-01 = retained OPEN
 - Runtime v3 = NON ADOPTED
@@ -192,7 +196,7 @@ Timeout recurrence classification: N/A — no failure (attempt-1 timeout set did
 
 CHATGPT PR READINESS REVIEW for PR #477 at 2081ce47...
 
-Do not mark-ready. Do not merge. Distinct Morris readiness/merge decisions remain required after ChatGPT review.
+Do not mark-ready. Do not merge.
 
 ## 18. Final verdict
 
@@ -206,6 +210,7 @@ CI RERUN PASS — PR #477 REQUIRED CI GREEN AT 2081ce477182d133cc71c93dd7d547433
 - failure evidence complete: N/A (PASS)
 - PR state evidence complete: YES
 - Product freeze evidence complete: YES
+- attempt-3 anomaly disclosed: YES
 - synthesis only: NO
 - artificial truncation: NO
 - review pack verdict: COMPLETE
