@@ -29,7 +29,10 @@ import { buildProjectSystemPrompt } from "./buildProjectSystemPrompt";
 import { collectToolTelemetry } from "./collectToolTelemetry";
 import { ProjectAssistantMemoryEventSink } from "./memoryEventSink";
 import { resolveAssistantMode } from "./resolveAssistantMode";
-import { resolveRememberedEvidence } from "./mw3AvailableEvidence";
+import {
+  resolveRememberedEvidence,
+  resolveOaStackForLifecycleRecommendation,
+} from "./mw3AvailableEvidence";
 import type { AdvisoryMethodContext } from "./f2/methodOrientation";
 import type { StudioCognitiveContext } from "./f2/studioCognitiveContext";
 import type {
@@ -312,12 +315,11 @@ export async function orchestrateProjectAssistantTurn(input: {
       if (!extracted.candidate) {
         lifecycleRecommendationMaterialized = false;
       } else {
-        const { getRuntimeApplicationService } = await import(
-          "@/lib/vertical-slice-runtime"
-        );
-        const runtime = getRuntimeApplicationService();
-        if (runtime.oa) {
-          const oa = runtime.oa;
+        // OA access via authorized Project Assistant seam (mw3AvailableEvidence
+        // lazy runtime import) — never import vertical-slice-runtime here.
+        const oaResolved = await resolveOaStackForLifecycleRecommendation();
+        if (oaResolved.ok) {
+          const oa = oaResolved.oa;
           const cycles = await oa.cycleServices.cycles.listByProject(
             project.projectId,
           );
@@ -431,6 +433,9 @@ export async function orchestrateProjectAssistantTurn(input: {
           } else {
             lifecycleRecommendationMaterialized = false;
           }
+        } else {
+          lifecycleRecommendationMaterialized = false;
+          lifecycleRecommendationCode = "LR_BASIS_UNAVAILABLE";
         }
       }
     }

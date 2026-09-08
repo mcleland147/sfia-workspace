@@ -282,3 +282,29 @@ async function lookupEvidenceRecord(
     return { kind: "resolution_failed", reason: "repository_error" };
   }
 }
+
+/**
+ * Project Assistant OA access for Lifecycle Recommendation materialization.
+ * Reuses the same lazy `@/lib/vertical-slice-runtime` seam already authorized
+ * for this module (Evidence lookup). Callers such as orchestrateTurn must NOT
+ * import the global runtime themselves.
+ */
+export async function resolveOaStackForLifecycleRecommendation(): Promise<{
+  ok: true;
+  oa: NonNullable<
+    ReturnType<
+      typeof import("@/lib/vertical-slice-runtime").getRuntimeApplicationService
+    >["oa"]
+  >;
+} | { ok: false; reason: "runtime_unavailable" | "oa_unavailable" }> {
+  try {
+    const { getRuntimeApplicationService } = await import(
+      "@/lib/vertical-slice-runtime"
+    );
+    const oa = getRuntimeApplicationService().oa;
+    if (!oa) return { ok: false, reason: "oa_unavailable" };
+    return { ok: true, oa };
+  } catch {
+    return { ok: false, reason: "runtime_unavailable" };
+  }
+}

@@ -181,6 +181,108 @@ function roundResultToModelResponse(
   };
 }
 
+/** Coerce plain assistant text into product-turn JSON when outputType requires it. */
+export function coercePlainTextToProductTurnJson(text: string): string {
+  let alreadyStructured = false;
+  try {
+    const parsed = JSON.parse(text) as unknown;
+    alreadyStructured =
+      !!parsed &&
+      typeof parsed === "object" &&
+      typeof (parsed as { narrative?: unknown }).narrative === "string";
+  } catch {
+    alreadyStructured = false;
+  }
+  if (alreadyStructured) return text;
+  return JSON.stringify({
+    narrative: text,
+    lifecycleRecommendation: null,
+  });
+}
+
+function productTurnOutputTypeName(request: ModelRequest): string {
+  return request.outputType &&
+    typeof request.outputType === "object" &&
+    "name" in request.outputType
+    ? String((request.outputType as { name?: unknown }).name ?? "")
+    : "";
+}
+
+function coerceModelResponseForProductTurn(
+  response: ModelResponse,
+  request: ModelRequest,
+): ModelResponse {
+  if (productTurnOutputTypeName(request) !== "nora_product_turn_with_optional_lr") {
+    return response;
+  }
+  const output = Array.isArray(response.output) ? [...response.output] : [];
+  let changed = false;
+  for (let i = 0; i < output.length; i += 1) {
+    const item = output[i];
+    if (!item || typeof item !== "object") continue;
+    const msg = item as {
+      type?: string;
+      role?: string;
+      status?: string;
+      content?: unknown;
+      providerData?: Record<string, unknown>;
+      id?: string;
+    };
+    if (msg.type !== "message" || msg.role !== "assistant") continue;
+    if (!Array.isArray(msg.content)) continue;
+    const nextContent = msg.content.map((part) => {
+      if (
+        part &&
+        typeof part === "object" &&
+        (part as { type?: string }).type === "output_text" &&
+        typeof (part as { text?: unknown }).text === "string"
+      ) {
+        const text = (part as { text: string }).text;
+        const coerced = coercePlainTextToProductTurnJson(text);
+        if (coerced !== text) changed = true;
+        return {
+          ...(part as Record<string, unknown>),
+          type: "output_text" as const,
+          text: coerced,
+        };
+      }
+      return part;
+    });
+    output[i] = {
+      ...msg,
+      type: "message" as const,
+      role: "assistant" as const,
+      status: (msg.status as "completed" | "in_progress" | "incomplete") ?? "completed",
+      content: nextContent,
+    } as (typeof output)[number];
+  }
+  return changed ? { ...response, output } : response;
+}
+
+/**
+ * Wrap an injected Agents Model (e.g. ScriptedModel) so plain-text Fake/eval
+ * responses satisfy product-turn outputType — same coerce as Fake completeRound.
+ * Live OpenAI string models are unaffected (caller passes string, not Model).
+ */
+export function wrapAgentsModelForProductTurnPlainTextCoercion(
+  model: Model,
+): Model {
+  return {
+    async getResponse(request: ModelRequest): Promise<ModelResponse> {
+      const response = await model.getResponse(request);
+      return coerceModelResponseForProductTurn(response, request);
+    },
+    async *getStreamedResponse(
+      ...args: Parameters<Model["getStreamedResponse"]>
+    ) {
+      const stream = model.getStreamedResponse(...args);
+      for await (const event of stream) {
+        yield event;
+      }
+    },
+  };
+}
+
 /**
  * Agents SDK Model backed by ConversationProvider.completeRound (Fake path).
  */
@@ -218,30 +320,11 @@ export function createProviderAgentsModel(
       const tools = toolDefinitionsFromModelRequest(request);
       const round = await completeRound({ items, tools });
       if (round.kind === "message") {
-        const name =
-          request.outputType &&
-          typeof request.outputType === "object" &&
-          "name" in request.outputType
-            ? String((request.outputType as { name?: unknown }).name ?? "")
-            : "";
-        if (name === "nora_product_turn_with_optional_lr") {
-          let text = round.text;
-          let alreadyStructured = false;
-          try {
-            const parsed = JSON.parse(text) as unknown;
-            alreadyStructured =
-              !!parsed &&
-              typeof parsed === "object" &&
-              typeof (parsed as { narrative?: unknown }).narrative === "string";
-          } catch {
-            alreadyStructured = false;
-          }
-          if (!alreadyStructured) {
-            text = JSON.stringify({
-              narrative: round.text,
-              lifecycleRecommendation: null,
-            });
-          }
+        if (
+          productTurnOutputTypeName(request) ===
+          "nora_product_turn_with_optional_lr"
+        ) {
+          const text = coercePlainTextToProductTurnJson(round.text);
           return roundResultToModelResponse({ ...round, text });
         }
       }

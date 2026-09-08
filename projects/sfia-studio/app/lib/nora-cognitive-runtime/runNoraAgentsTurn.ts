@@ -30,6 +30,7 @@ import type { NoraAgentsUsdSettleResult } from "./agentsUsdAccounting";
 import {
   createProviderAgentsModel,
   isFakeConversationProvider,
+  wrapAgentsModelForProductTurnPlainTextCoercion,
 } from "./providerAgentsModel";
 import { createSfiaRouteToolAdapters } from "./sfiaAgentsTools";
 import type { MemoryBAvailability } from "./memoryBAvailability";
@@ -214,7 +215,13 @@ export function shouldUseProviderAgentsModelAdapter(
 export function resolveNoraAgentsF1Model(
   input: Pick<RunNoraAgentsTurnInput, "model" | "provider">,
 ): Model | string {
-  if (input.model !== undefined) return input.model;
+  if (input.model !== undefined) {
+    // Injected ScriptedModel (Model object) must coerce plain text under
+    // product-turn outputType — same contract as Fake completeRound adapter.
+    // Live model strings are unchanged.
+    if (typeof input.model === "string") return input.model;
+    return wrapAgentsModelForProductTurnPlainTextCoercion(input.model);
+  }
   if (input.provider && shouldUseProviderAgentsModelAdapter(input.provider)) {
     return createProviderAgentsModel(input.provider);
   }
