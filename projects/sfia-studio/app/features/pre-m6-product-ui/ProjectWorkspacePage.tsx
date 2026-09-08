@@ -10,6 +10,7 @@ import { ConversationSurface } from "./surfaces/ConversationSurface";
 import { HistorySurface } from "./surfaces/HistorySurface";
 import { LpsSurface } from "./surfaces/LpsSurface";
 import { RecoverySurface } from "./surfaces/RecoverySurface";
+import { LifecycleSurface } from "./surfaces/LifecycleSurface";
 import { TrajectorySurface } from "./surfaces/TrajectorySurface";
 import type { GetProjectResult, GetProjectSuccess } from "./types";
 import styles from "./ProjectWorkspacePage.module.css";
@@ -192,6 +193,20 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
                 className={styles.stateTrajectoryStack}
                 data-testid="h01-lps-trajectory-composition"
               >
+                <LifecycleSurface
+                  projectId={projectId}
+                  onDurableFactsChanged={() => {
+                    void loadProject();
+                  }}
+                  onEscalateTrajectory={() => {
+                    const el = document.querySelector(
+                      "[data-testid='trajectory-surface']",
+                    );
+                    if (el instanceof HTMLElement) {
+                      el.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
+                  }}
+                />
                 <LpsSurface result={success} />
                 <TrajectorySurface
                   projectId={projectId}

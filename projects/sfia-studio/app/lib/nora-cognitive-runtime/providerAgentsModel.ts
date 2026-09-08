@@ -217,6 +217,34 @@ export function createProviderAgentsModel(
       }
       const tools = toolDefinitionsFromModelRequest(request);
       const round = await completeRound({ items, tools });
+      if (round.kind === "message") {
+        const name =
+          request.outputType &&
+          typeof request.outputType === "object" &&
+          "name" in request.outputType
+            ? String((request.outputType as { name?: unknown }).name ?? "")
+            : "";
+        if (name === "nora_product_turn_with_optional_lr") {
+          let text = round.text;
+          let alreadyStructured = false;
+          try {
+            const parsed = JSON.parse(text) as unknown;
+            alreadyStructured =
+              !!parsed &&
+              typeof parsed === "object" &&
+              typeof (parsed as { narrative?: unknown }).narrative === "string";
+          } catch {
+            alreadyStructured = false;
+          }
+          if (!alreadyStructured) {
+            text = JSON.stringify({
+              narrative: round.text,
+              lifecycleRecommendation: null,
+            });
+          }
+          return roundResultToModelResponse({ ...round, text });
+        }
+      }
       return roundResultToModelResponse(round);
     },
     async *getStreamedResponse(): AsyncIterable<never> {

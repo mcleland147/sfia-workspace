@@ -207,6 +207,11 @@ export type RunNoraCognitiveTurnInput = {
    * Passed through to runNoraAgentsTurn — not authority.
    */
   usdAccounting?: NoraAgentsUsdAccounting;
+  /**
+   * LR CORR-DELIVERY-02 — optional Agents structured outputType on the same Runner.
+   * Threaded identically on Memory-B available and unavailable paths.
+   */
+  outputType?: import("@openai/agents").AgentOutputType;
 };
 
 /**
@@ -745,6 +750,7 @@ export async function runNoraCognitiveTurn(
               campaignId: input.campaignBudget.campaignId,
             }
           : undefined,
+      outputType: input.outputType,
     });
     const observations = [
       ...(input.sourceObservationFacts ?? []),
@@ -910,6 +916,7 @@ export async function runNoraCognitiveTurn(
               campaignId: input.campaignBudget.campaignId,
             }
           : undefined,
+      outputType: input.outputType,
     });
     const observations = [
       ...(input.sourceObservationFacts ?? []),

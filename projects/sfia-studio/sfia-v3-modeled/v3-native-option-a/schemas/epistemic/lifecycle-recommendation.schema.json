@@ -1,0 +1,111 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sfia.local/schemas/v3-modeled/v3-native-option-a/epistemic/lifecycle-recommendation.schema.json",
+  "title": "LifecycleRecommendation",
+  "description": "Optional typed Lifecycle Recommendation payload on EpistemicItem. Authority remains none; CURRENT/STALE are never persisted here.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "intent",
+    "basisFingerprint",
+    "basisRefs",
+    "semanticKey",
+    "subjectCycleInstanceId",
+    "targetCycleInstanceId",
+    "targetCycleTypeId",
+    "authority"
+  ],
+  "properties": {
+    "intent": {
+      "type": "string",
+      "enum": ["FINALIZE_CURRENT_CYCLE", "NEXT_CYCLE"]
+    },
+    "basisFingerprint": {
+      "type": "string",
+      "minLength": 16,
+      "maxLength": 128
+    },
+    "basisRefs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["projectId"],
+      "properties": {
+        "projectId": {
+          "$ref": "../common/identifier.schema.json"
+        },
+        "subjectCycleInstanceId": {
+          "type": ["string", "null"]
+        },
+        "subjectCycleStatus": {
+          "type": ["string", "null"]
+        },
+        "targetCycleInstanceId": {
+          "type": ["string", "null"]
+        },
+        "targetCycleTypeId": {
+          "type": ["string", "null"]
+        },
+        "lpsActiveCycleInstanceId": {
+          "type": ["string", "null"]
+        },
+        "lpsVersion": {
+          "type": ["integer", "null"]
+        },
+        "trajectoryId": {
+          "type": ["string", "null"]
+        },
+        "trajectoryVersion": {
+          "type": ["integer", "null"]
+        },
+        "trajectoryStatus": {
+          "type": ["string", "null"]
+        },
+        "finalizeAccepted": {
+          "type": ["boolean", "null"]
+        },
+        "resumeClean": {
+          "type": ["boolean", "null"]
+        },
+        "reservationBlockingCount": {
+          "type": ["integer", "null"]
+        },
+        "doctrinePackageId": {
+          "type": ["string", "null"]
+        },
+        "doctrinePackageVersion": {
+          "type": ["string", "null"]
+        },
+        "doctrinePackageDigest": {
+          "type": ["string", "null"]
+        },
+        "decisionFingerprint": {
+          "type": ["string", "null"]
+        },
+        "evidenceFingerprint": {
+          "type": ["string", "null"]
+        },
+        "blockerFingerprint": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "semanticKey": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 128
+    },
+    "subjectCycleInstanceId": {
+      "type": ["string", "null"]
+    },
+    "targetCycleInstanceId": {
+      "type": ["string", "null"]
+    },
+    "targetCycleTypeId": {
+      "type": ["string", "null"]
+    },
+    "authority": {
+      "type": "string",
+      "const": "none"
+    }
+  }
+}

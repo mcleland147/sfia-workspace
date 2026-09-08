@@ -251,6 +251,45 @@ export type ProjectTrajectory = {
   decidedOptionRef?: string;
 };
 
+/**
+ * Optional typed Lifecycle Recommendation payload (Option A).
+ * Persisted on EpistemicItem; CURRENT/STALE never stored here.
+ */
+export type EpistemicLifecycleRecommendation = {
+  intent: "FINALIZE_CURRENT_CYCLE" | "NEXT_CYCLE";
+  basisFingerprint: string;
+  basisRefs: {
+    projectId: string;
+    subjectCycleInstanceId?: string | null;
+    subjectCycleStatus?: string | null;
+    targetCycleInstanceId?: string | null;
+    targetCycleTypeId?: string | null;
+    lpsActiveCycleInstanceId?: string | null;
+    lpsVersion?: number | null;
+    trajectoryId?: string | null;
+    trajectoryVersion?: number | null;
+    trajectoryStatus?: string | null;
+    finalizeAccepted?: boolean | null;
+    resumeClean?: boolean | null;
+    reservationBlockingCount?: number | null;
+    /** Optional — doctrine pin when recommendation basis is doctrine-sensitive. */
+    doctrinePackageId?: string | null;
+    doctrinePackageVersion?: string | null;
+    doctrinePackageDigest?: string | null;
+    /** Optional — intent-scoped accepted HD fingerprint. */
+    decisionFingerprint?: string | null;
+    /** Optional — FINALIZE-relevant Evidence fingerprint. */
+    evidenceFingerprint?: string | null;
+    /** Optional — blocking Reservation fingerprint. */
+    blockerFingerprint?: string | null;
+  };
+  semanticKey: string;
+  subjectCycleInstanceId: string | null;
+  targetCycleInstanceId: string | null;
+  targetCycleTypeId: string | null;
+  authority: "none";
+};
+
 export type EpistemicItem = {
   schemaVersion: "0.1.0-oa";
   epistemicItemId: string;
@@ -265,6 +304,8 @@ export type EpistemicItem = {
   relatedObjects?: string[];
   blocking?: boolean;
   provenance?: ProvenanceRecord;
+  /** Optional — absent on historical / non-lifecycle Recommendations. */
+  lifecycleRecommendation?: EpistemicLifecycleRecommendation;
 };
 
 export type CkcResolution = {
@@ -385,6 +426,7 @@ export type UpdateEpistemicStateRequest = {
     relatedObjects?: string[];
     blocking?: boolean;
     provenance?: ProvenanceRecord;
+    lifecycleRecommendation?: EpistemicLifecycleRecommendation;
     /**
      * Forbidden auto-promotion signal — if true and type is DecisionRef
      * while superseding a Hypothesis, refused.

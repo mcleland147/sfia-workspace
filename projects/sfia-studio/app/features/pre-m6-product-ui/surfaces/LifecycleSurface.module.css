@@ -1,0 +1,125 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-4);
+  background: var(--pm6-surface);
+  border: 1px solid var(--pm6-border-soft);
+  border-radius: var(--pm6-radius-lg);
+  box-shadow: var(--pm6-shadow-card);
+  padding: var(--pm6-space-5);
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-1);
+  padding-bottom: var(--pm6-space-3);
+  border-bottom: 1px solid var(--pm6-border-soft);
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--pm6-forest);
+}
+
+.title {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--pm6-ink);
+}
+
+.badge {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--pm6-ink-soft);
+}
+
+.badgeLabel {
+  font-weight: 600;
+}
+
+.badgeMeta {
+  color: var(--pm6-muted);
+}
+
+.block,
+.recBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-1);
+}
+
+.blockTitle {
+  margin: 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--pm6-muted);
+}
+
+.recStatement {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--pm6-ink);
+}
+
+.recMeta,
+.distinction,
+.muted {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--pm6-muted);
+  line-height: 1.45;
+}
+
+.error {
+  margin: 0;
+  font-size: 0.86rem;
+  color: var(--pm6-danger, #8b2e2e);
+}
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pm6-space-2);
+}
+
+.btnPrimary,
+.btnSecondary {
+  appearance: none;
+  border-radius: var(--pm6-radius-md, 8px);
+  padding: 0.55rem 0.9rem;
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btnPrimary {
+  border: 1px solid var(--pm6-forest);
+  background: var(--pm6-forest);
+  color: #fff;
+}
+
+.btnSecondary {
+  border: 1px solid var(--pm6-border-soft);
+  background: transparent;
+  color: var(--pm6-ink);
+}
+
+.btnPrimary:disabled,
+.btnSecondary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btnPrimary:focus-visible,
+.btnSecondary:focus-visible {
+  outline: 2px solid var(--pm6-forest);
+  outline-offset: 2px;
+}

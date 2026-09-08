@@ -14,6 +14,7 @@ import {
   Runner,
   type Model,
   type Session,
+  type AgentOutputType,
 } from "@openai/agents";
 import type { ConversationProvider } from "@/lib/platform/ai";
 import type { EventSink } from "@/lib/platform/observability/eventSink";
@@ -136,6 +137,11 @@ export type RunNoraAgentsTurnInput = {
    * Runtime-generic hook — nora-eval injects BudgetTracker bridge. Not authority.
    */
   usdAccounting?: NoraAgentsUsdAccounting;
+  /**
+   * LR-D02 — optional Agents SDK structured outputType on the same Runner.
+   * When set, finalOutput may be a structured object (candidate data only).
+   */
+  outputType?: AgentOutputType;
 };
 
 export type RunNoraAgentsTurnHostedSearchObserve = {
@@ -469,6 +475,7 @@ export async function runNoraAgentsTurn(
     instructions: input.systemInstructions,
     model: model as never,
     tools,
+    ...(input.outputType ? { outputType: input.outputType } : {}),
   });
 
   const runner = createNoraAgentsRunner(
@@ -485,6 +492,7 @@ export async function runNoraAgentsTurn(
     (session ? "available_with_history" : "unavailable");
 
   let text = "";
+  let structuredOutput: unknown = undefined;
   let lastResponseId: string | null = null;
   let usageAgg: {
     inputTokens?: number;
@@ -551,7 +559,45 @@ export async function runNoraAgentsTurn(
           ? result.finalOutput
           : result.finalOutput == null
             ? ""
-            : String(result.finalOutput);
+            : typeof result.finalOutput === "object"
+              ? JSON.stringify(result.finalOutput)
+              : String(result.finalOutput);
+      if (input.outputType && result.finalOutput != null) {
+        structuredOutput =
+          typeof result.finalOutput === "string"
+            ? (() => {
+                try {
+                  return JSON.parse(result.finalOutput) as unknown;
+                } catch {
+                  return result.finalOutput;
+                }
+              })()
+            : result.finalOutput;
+        // Plain-string Fake/Scripted responses under product-turn outputType →
+        // coerce to narrative + null Recommendation (preserve conversational text).
+        if (
+          typeof structuredOutput === "string" &&
+          input.outputType &&
+          typeof input.outputType === "object" &&
+          "name" in input.outputType &&
+          (input.outputType as { name?: string }).name ===
+            "nora_product_turn_with_optional_lr"
+        ) {
+          structuredOutput = {
+            narrative: structuredOutput,
+            lifecycleRecommendation: null,
+          };
+        }
+        if (
+          structuredOutput &&
+          typeof structuredOutput === "object" &&
+          "narrative" in structuredOutput &&
+          typeof (structuredOutput as { narrative?: unknown }).narrative ===
+            "string"
+        ) {
+          text = (structuredOutput as { narrative: string }).narrative;
+        }
+      }
       lastResponseId = result.lastResponseId ?? null;
       usageAgg = result.state?.usage ?? null;
       runNewItems = Array.isArray(result.newItems) ? [...result.newItems] : [];
@@ -677,6 +723,7 @@ export async function runNoraAgentsTurn(
     memoryBAvailability,
     memoryBCompactionState: "none",
     memoryBCompactionDetails: null,
+    ...(structuredOutput !== undefined ? { structuredOutput } : {}),
     ...(hostedSearchObserve ? { hostedSearchObserve } : {}),
     ...(budgetObserve ? { budgetObserve } : {}),
     ...(usdObserve ? { usdObserve } : {}),

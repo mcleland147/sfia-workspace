@@ -79,6 +79,9 @@
     },
     "provenance": {
       "$ref": "../common/provenance-record.schema.json"
+    },
+    "lifecycleRecommendation": {
+      "$ref": "lifecycle-recommendation.schema.json"
     }
   }
 }

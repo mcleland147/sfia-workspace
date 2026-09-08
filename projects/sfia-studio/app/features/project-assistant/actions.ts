@@ -11,7 +11,12 @@ import {
 import {
   projectPilotLifecycle,
   type PilotLifecycleProjection,
+  selectCurrentLifecycleRecommendations,
+  isPausedStatus,
+  assessResumeReconciliation,
+  deriveLifecycleBlockersFromEpistemicItems,
 } from "@/lib/oa/cycle";
+import type { LifecycleRecommendationMaterialDimension } from "@/lib/oa/cycle/application/lifecycleRecommendation/materialReaderContract";
 import { F2_PROCESS_LOCAL_NOTICE } from "./f2/proposalStore";
 import type { F2DecisionKind } from "./f2/types";
 import { confirmAndExecuteF3Fixture } from "./f3/confirmAndExecuteF3Fixture";
@@ -934,13 +939,208 @@ async function buildAssistantPilotLifecycleProjection(
     await runtime.oa.projectServices.getCurrentLivingProjectState.execute({
       projectId,
     });
-  return projectPilotLifecycle({
+  const lpsActive = lps.ok
+    ? lps.livingProjectState.activeCycleInstanceId
+    : null;
+  let epistemicItems: Awaited<
+    ReturnType<typeof runtime.oa.cycleServices.epistemic.listByProject>
+  > = [];
+  let epistemicReaderFailed = false;
+  try {
+    epistemicItems = await runtime.oa.cycleServices.epistemic.listByProject(
+      projectId,
+    );
+  } catch {
+    epistemicReaderFailed = true;
+    epistemicItems = [];
+  }
+
+  let trajectory = null;
+  let trajectoryReaderFailed = false;
+  try {
+    const traj = await runtime.oa.cycleServices.getCurrentTrajectory.execute({
+      projectId,
+    });
+    trajectory = traj.ok ? traj.trajectory : null;
+  } catch {
+    trajectoryReaderFailed = true;
+    trajectory = null;
+  }
+
+  let decisions: Awaited<
+    ReturnType<typeof runtime.oa.decisionServices.decisions.listByProject>
+  > = [];
+  let decisionReaderFailed = false;
+  try {
+    decisions =
+      await runtime.oa.decisionServices.decisions.listByProject(projectId);
+  } catch {
+    decisionReaderFailed = true;
+    decisions = [];
+  }
+
+  let evidence: Awaited<
+    ReturnType<
+      typeof runtime.oa.evidenceReviewServices.repository.listByProject
+    >
+  > = [];
+  let evidenceReaderFailed = false;
+  try {
+    evidence =
+      await runtime.oa.evidenceReviewServices.repository.listByProject(
+        projectId,
+      );
+  } catch {
+    evidenceReaderFailed = true;
+    evidence = [];
+  }
+
+  const projectResult = await runtime.oa.projectServices.getProject.execute({
+    projectId,
+  });
+  const doctrinePin = projectResult.ok
+    ? (projectResult.project.doctrinePackageRef ??
+      (lps.ok ? lps.livingProjectState.doctrinePackageRef : undefined))
+    : lps.ok
+      ? lps.livingProjectState.doctrinePackageRef
+      : undefined;
+  const blockersSnap = deriveLifecycleBlockersFromEpistemicItems(epistemicItems);
+
+  const failedMaterialDimensions =
+    new Set<LifecycleRecommendationMaterialDimension>();
+  if (!lps.ok) failedMaterialDimensions.add("lps");
+  if (trajectoryReaderFailed) failedMaterialDimensions.add("trajectory");
+  if (decisionReaderFailed) failedMaterialDimensions.add("decisions");
+  if (evidenceReaderFailed) failedMaterialDimensions.add("evidence");
+  if (epistemicReaderFailed) failedMaterialDimensions.add("epistemic_blockers");
+
+  const currentRecommendations = selectCurrentLifecycleRecommendations({
+    items: epistemicItems,
+    cycles,
+    lpsActiveCycleInstanceId: lpsActive,
+    lpsVersion: lps.ok ? lps.livingProjectState.version : null,
+    doctrinePackageId: doctrinePin?.doctrinePackageId ?? null,
+    doctrinePackageVersion: doctrinePin?.version ?? null,
+    doctrinePackageDigest: doctrinePin?.digest ?? null,
+    trajectory,
+    decisions,
+    evidence,
+    blockingReservationStatements: blockersSnap.statements,
+    failedMaterialDimensions,
+  });
+
+  const projection = projectPilotLifecycle({
     projectId,
     cycles,
-    lpsActiveCycleInstanceId: lps.ok
-      ? lps.livingProjectState.activeCycleInstanceId
-      : null,
+    lpsActiveCycleInstanceId: lpsActive,
+    currentRecommendations,
   });
+
+  if (
+    projection.selectedStatus &&
+    isPausedStatus(projection.selectedStatus) &&
+    projection.selectedCycleInstanceId
+  ) {
+    const selected = cycles.find(
+      (c) => c.cycleInstanceId === projection.selectedCycleInstanceId,
+    );
+    if (!selected) {
+      projection.resumeReconciliation = {
+        clean: false,
+        detailCode: "CYCLE_RESUME_DRIFT",
+        reason: "selected_cycle_missing",
+      };
+      projection.cta = { ...projection.cta, canResume: false };
+      return projection;
+    }
+
+    if (!projectResult.ok) {
+      projection.resumeReconciliation = {
+        clean: false,
+        detailCode: "CYCLE_RESUME_DRIFT",
+        reason: "project_unreadable",
+      };
+      projection.cta = { ...projection.cta, canResume: false };
+      return projection;
+    }
+
+    if (trajectoryReaderFailed) {
+      projection.resumeReconciliation = {
+        clean: false,
+        detailCode: "CYCLE_RESUME_DRIFT",
+        reason: "trajectory_reader_unavailable",
+      };
+      projection.cta = { ...projection.cta, canResume: false };
+      return projection;
+    }
+    if (decisionReaderFailed) {
+      projection.resumeReconciliation = {
+        clean: false,
+        detailCode: "CYCLE_RESUME_DRIFT",
+        reason: "decision_reader_unavailable",
+      };
+      projection.cta = { ...projection.cta, canResume: false };
+      return projection;
+    }
+    if (evidenceReaderFailed) {
+      projection.resumeReconciliation = {
+        clean: false,
+        detailCode: "CYCLE_RESUME_DRIFT",
+        reason: "evidence_reader_unavailable",
+      };
+      projection.cta = { ...projection.cta, canResume: false };
+      return projection;
+    }
+
+    try {
+      const siblingActiveExists = cycles.some(
+        (c) =>
+          c.status === "active" &&
+          c.cycleInstanceId !== selected.cycleInstanceId,
+      );
+
+      const reconciliation = assessResumeReconciliation({
+        cycle: selected,
+        projectId,
+        lpsReadable: lps.ok,
+        lpsVersion: lps.ok ? lps.livingProjectState.version : 0,
+        lpsActiveCycleInstanceId: lpsActive,
+        objective: lps.ok ? lps.livingProjectState.objective : "",
+        context: lps.ok ? (lps.livingProjectState.context ?? "") : "",
+        scope: lps.ok ? (lps.livingProjectState.scope ?? "") : "",
+        doctrinePackageId: doctrinePin?.doctrinePackageId,
+        doctrinePackageVersion: doctrinePin?.version,
+        doctrinePackageDigest: doctrinePin?.digest,
+        trajectory,
+        decisions,
+        evidence,
+        blockingReservationStatements: blockersSnap.statements,
+        blockerSourceUnreadable: epistemicReaderFailed,
+        siblingActiveExists,
+      });
+
+      projection.resumeReconciliation = {
+        clean: reconciliation.clean,
+        detailCode: reconciliation.clean ? null : "CYCLE_RESUME_DRIFT",
+        reason: reconciliation.clean
+          ? "assess_resume_reconciliation_clean"
+          : reconciliation.driftReasons.join(",") || "dirty",
+      };
+      projection.cta = {
+        ...projection.cta,
+        canResume: projection.cta.canResume && reconciliation.clean,
+      };
+    } catch {
+      projection.resumeReconciliation = {
+        clean: false,
+        detailCode: "CYCLE_RESUME_DRIFT",
+        reason: "reconciliation_facts_unavailable",
+      };
+      projection.cta = { ...projection.cta, canResume: false };
+    }
+  }
+
+  return projection;
 }
 
 /**

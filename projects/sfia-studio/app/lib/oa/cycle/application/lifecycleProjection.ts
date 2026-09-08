@@ -13,6 +13,7 @@ import {
   isStartableCandidateStatus,
   isTerminalCycleStatus,
 } from "../domain/lifecycleInvariants";
+import type { LifecycleRecommendationEnvelope } from "./lifecycleRecommendation/types";
 
 export type PilotLifecycleProjection = {
   projectId: string;
@@ -40,6 +41,17 @@ export type PilotLifecycleProjection = {
     canFinalize: boolean;
     canCancel: boolean;
   };
+  /**
+   * Companion — CURRENT Nora lifecycle Recommendations (never eligibility).
+   * Recommendation ≠ canFinalize / canStart / HumanDecision.
+   */
+  currentRecommendations?: LifecycleRecommendationEnvelope[];
+  /** Resume reconciliation when selected cycle is paused — never cleared by HD alone. */
+  resumeReconciliation?: {
+    clean: boolean;
+    detailCode?: string | null;
+    reason?: string | null;
+  } | null;
 };
 
 export function projectPilotLifecycle(input: {
@@ -47,6 +59,8 @@ export function projectPilotLifecycle(input: {
   cycles: readonly CycleInstance[];
   lpsActiveCycleInstanceId: string | null | undefined;
   assessment?: FinalizationAssessment | null;
+  currentRecommendations?: LifecycleRecommendationEnvelope[];
+  resumeReconciliation?: PilotLifecycleProjection["resumeReconciliation"];
 }): PilotLifecycleProjection {
   const byId = new Map(
     input.cycles.map((c) => [c.cycleInstanceId, c] as const),
@@ -118,5 +132,7 @@ export function projectPilotLifecycle(input: {
     selectionAmbiguous,
     assessment: input.assessment ?? null,
     cta,
+    currentRecommendations: input.currentRecommendations ?? [],
+    resumeReconciliation: input.resumeReconciliation ?? null,
   };
 }
