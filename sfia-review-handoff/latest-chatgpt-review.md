@@ -1,22 +1,23 @@
-# SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01-CORR-FINAL-03
-## FINAL BOUNDED UX MICRO-CORRECTION + REVIEW-V4 + REVIEW HANDOFF
+# SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01-CORR-PRESENTATION-04
+## FINAL PRESENTATION MICRO-FIX — STATUS BADGE CONTAINMENT + NEUTRAL CYCLE HEADING
 ## FULL Review Pack — mono-cycle
 
 | Field | Value |
 | --- | --- |
-| **Timestamp (UTC)** | 2026-09-08T03:42:07Z |
-| **Cycle** | 4 UX/UI / cyc:ux-ui / SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01-CORR-FINAL-03 |
+| **Timestamp (UTC)** | 2026-09-08T04:10:11Z |
+| **Cycle** | 4 UX/UI / cyc:ux-ui / SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01-CORR-PRESENTATION-04 |
 | **Profile** | CRITICAL |
 | **Product baseline** | e6d7c649e9d0522b60401f11fb8dd1fd4b122637 |
-| **Prior handoff** | 8aafacd59e9b05a760e343edfcbdcc040e4136b5 |
-| **Prior visual-v3** | b50002572f18bf6c3235aa335da4e2ac9bb9ef0e |
-| **VISUAL_V4_SHA** | ffc2345253242b6339c3db532bab5cf2e488d41f |
+| **Prior handoff** | 0a1519c13ebd2925e889c05f36cbb1aeb2564a3f |
+| **Prior visual-v4** | ffc2345253242b6339c3db532bab5cf2e488d41f |
+| **VISUAL_V5_SHA** | 66f826c7843621852089942f5d7ff8a1f37e8fad |
+| **FINAL_HANDOFF_SHA** | __FINAL_HANDOFF_SHA__ |
 | **Figma** | NOT USED |
 | **Product Proof** | OPEN |
 | **REAL** | ZERO REAL |
 | **runtime v3** | NON ADOPTED |
 | **Product implementation** | NOT AUTHORIZED / NOT PERFORMED |
-| **Verdict** | HANDOFF UPDATED — REMOTE VERIFIED · LIFECYCLE UX FINAL MICRO-CORRECTION COMPLETE · FINALIZATION CONTAINMENT PASS · RESPONSIVE AUTHORITY PARITY PASS · BUSINESS-FIRST COPY PASS · HIGH-FIDELITY REVIEW-V4 EVIDENCE PUBLISHED · READY FOR CHATGPT FINAL STRONG VISUAL REVIEW |
+| **Verdict** | HANDOFF UPDATED — REMOTE VERIFIED · LIFECYCLE UX FINAL PRESENTATION CORRECTION COMPLETE · FINALIZATION STATUS BADGE CONTAINMENT PASS · NEUTRAL CYCLE HEADING PASS · NO VISUAL REGRESSION · HIGH-FIDELITY REVIEW-V5 EVIDENCE PUBLISHED · READY FOR CHATGPT FINAL VISUAL ACCEPTANCE REVIEW |
 
 ### Anti-claims
 NOT UX ADOPTED · NOT PRODUCT IMPLEMENTATION AUTHORIZED · NOT READY FOR REAL · PRODUCT PROOF OPEN · ZERO REAL · runtime v3 NON ADOPTED · publisher UNCHANGED
@@ -24,63 +25,60 @@ NOT UX ADOPTED · NOT PRODUCT IMPLEMENTATION AUTHORIZED · NOT READY FOR REAL ·
 ---
 
 # 1. Timestamp UTC
-2026-09-08T03:42:07Z
+2026-09-08T04:10:11Z
 
 # 2. Cycle / profile
-4 — UX/UI / CRITICAL · `SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01-CORR-FINAL-03`
+4 — UX/UI / CRITICAL · `SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01-CORR-PRESENTATION-04`
 
 # 3. Morris GO consumed
-GO MORRIS — FINAL BOUNDED PENPOT UX MICRO-CORRECTION + HIGH-FIDELITY VISUAL EVIDENCE + REVIEW HANDOFF.
+GO MORRIS — FINAL BOUNDED UX PRESENTATION CORRECTION + HIGH-FIDELITY VISUAL EVIDENCE + REVIEW HANDOFF.
 
 # 4. Product baseline / current main
 `e6d7c649e9d0522b60401f11fb8dd1fd4b122637`
 
 # 5. Prior handoff
-`8aafacd59e9b05a760e343edfcbdcc040e4136b5`
+`0a1519c13ebd2925e889c05f36cbb1aeb2564a3f`
 
-# 6. Prior visual-v3 SHA
-`b50002572f18bf6c3235aa335da4e2ac9bb9ef0e`
+# 6. Prior visual-v4 SHA
+`ffc2345253242b6339c3db532bab5cf2e488d41f`
 
 # 7. Sources read
-execution template; convergence doctrine/roadmap; product-completion 01/02; v3 30/32/33/34/35/37; CKC 04-ux-ui; prior handoff; publish-review-handoff.sh (unchanged).
+execution template; convergence doctrine/roadmap; product-completion 01/02; v3 framing 30/32/33/37; CKC 04-ux-ui; prior handoff `0a1519c1…`; publish-review-handoff.sh (unchanged).
 
 # 8. Convergence qualification
-CORR-PROOF-05 → UX design → semantic correction → layout correction → strong visual re-review → THIS final micro-correction → ChatGPT final strong visual review → possible Morris Product implementation gate later.
+CORR-PROOF-05 → UX design → semantic → layout → final visual micro-correction v4 → ChatGPT residual P1/P2 → THIS presentation correction → ChatGPT final visual acceptance → possible Morris Product implementation gate later.
 
-# 9. Previously accepted UX dimensions
-conversation-dominant; ~1060/380 panel; Recommendation≠HD; Candidate START; Active normal; B2 Nora; Blocked/drift; Finalization obligations; auto Completed; drawer pattern; PENPOT_LAYOUT fix accepted.
+# 9. Accepted UX contract
+KEEP: conversation dominant; context panel geometry; text widths; CTA stack; Active Finaliser secondary without Nora; B2 Finaliser primary with Nora Recommendation; Candidate START; Blocked/drift; Decision du Pilote; Finalization obligations; bottom containment; automatic completion; Completed→next; responsive Finaliser secondary; business-first copy; technical niveau 3; Recommendation ≠ decision; no Close button.
 
-# 10. Prior strong visual re-review findings
-Accepted layout; residual: D bottom clipping; F Finaliser primary; residual technical copy in L1/L2.
+# 10. ChatGPT residual findings
+P1: Frame D "Finalisation en cours" right-edge clip. P2: heading "Cycle en cours" misleading on Candidate/Completed.
 
-# 11. Finalization clipping correction
-Option A compress + sticky bottom CTA stack; Annuler fully visible in 1440×900.
+# 11. P1 badge clipping diagnosis
+Pill geometry overflowed frame right (~x=1460, w≈146 past usable head/card edge at frameRight=1480). Bottom CTA containment was already PASS; defect was status-row horizontal containment only.
 
-# 12. Containment mechanism selected
-Option A (no internal scroll).
+# 12. Exact P1 mutation
+Reposition/resize D status pill inside head usable width 328; keep label `Finalisation en cours`; no truncation; fully inside card/frame.
 
-# 13. Proof no bottom clipping
-export_shape + review-v4/05 PNG show Traiter, Voir les détails, Annuler fully visible.
+# 13. Proof P1 closed
+export_shape + review-v5/05 PNG: badge fully visible; geometry insideFrame/insideHead true; Traiter / Voir les détails / Annuler fully visible (P5-04).
 
-# 14. Responsive CTA hierarchy correction
-Finaliser fill #ffffff stroke #1d4e89 (secondary).
+# 14. P2 misleading heading diagnosis
+"Cycle en cours" as card heading contradicts Candidate (not started) and Completed (terminal).
 
-# 15. Proof responsive parity
-review-v4/07 + export_shape: Finaliser outline; Mettre en pause outline; Annuler destructive; technical line Finaliser=secondary.
+# 15. Exact P2 mutation
+All seven head texts: `Cycle en cours` → `Cycle`. Status badges unchanged.
 
-# 16. Business-first copy mapping
-See contract §31.
+# 16. Proof P2 closed across all seven frames
+Penpot remainCycleEnCours=[]; headTexts all `Cycle`; review-v5 PNGs confirm.
 
-# 17. Proof internal labels moved to level 3
-Leak scan empty for Pilot-Governed / canFinalize= / HumanDecision / fail-closed in non-details parents.
+# 17. Semantic no-drift
+YES — presentation labels only; Product state machine / Recommendation / HD / CTAs unchanged.
 
-# 18. Semantic no-drift statement
-YES — semantics unchanged; copy only.
+# 18. Accessibility self-check
+Badge readable + text status (not color-only); padding retained; heading Cycle associated with card; no WCAG claim.
 
-# 19. Accessibility self-check
-Status text+pill; readable CTAs; destructive distinct; ≥44px intent; no WCAG claim.
-
-# 20. Seven final frame IDs
+# 19. Seven frame IDs
 - B `0432ca94-7902-80a4-8008-9ab99f8abc2e`
 - B2 `314c79dd-bac6-80a9-8008-9ac6f426cbfa`
 - C1 `0432ca94-7902-80a4-8008-9ab9a0027d13`
@@ -89,34 +87,32 @@ Status text+pill; readable CTAs; destructive distinct; ≥44px intent; no WCAG c
 - C4 `0432ca94-7902-80a4-8008-9ab9ba4c6254`
 - F `0432ca94-7902-80a4-8008-9ab9ed5c6a37`
 
-# 21. Exact PNG dimensions
+# 20. Exact PNG dimensions
 Desktop 1440×900 · Drawer 1100×908
 
-# 22. PNG hashes
-- `01-active-1440.png` · 1440x900 · 80491 B · `fd12c26571069ef886486afaf7ad39cd7d8cad859657d8696b071116c8b89f93`
-- `02-active-nora-finalize-recommendation-1440.png` · 1440x900 · 97254 B · `03eb77980bf575dd48f7776938c0145d24c31086d60c430f1cd04288bbeb5df8`
-- `03-candidate-1440.png` · 1440x900 · 76557 B · `51b07b7957d12c9d65339dc7af94b74a4762f993caf43096cca44e1a8470b9ed`
-- `04-blocked-drift-1440.png` · 1440x900 · 82614 B · `68b0ae757b5f208060a7765551be01820aca477d276c165c6a1b08c37e8d8f0e`
-- `05-finalization-exit-open-1440.png` · 1440x900 · 100379 B · `ad088638dc0e58439ad03e2599fa29038713d3fe23c45529d4ab885b4521f223`
-- `06-completed-next-1440.png` · 1440x900 · 92021 B · `18ced51f68a923bd1822465216a815e40907288c765879cad207102decbd1e08`
-- `07-responsive-drawer.png` · 1100x908 · 40705 B · `c8c5baea2c016dc068884178c193920b0f1a8b6f3f9575aa6919d0a148260f7e`
+# 21. PNG hashes
+- `01-active-1440.png` · 1440x900 · 79741 B · `0f9eeb60c90da1820528ba1a0446520d4b612761f4e692a11ad5a4b557ff04bc`
+- `02-active-nora-finalize-recommendation-1440.png` · 1440x900 · 96481 B · `c7cef06261a0b7a6b615e830bf6d8718865e045ea4c5339d404cbe0c326bd4f5`
+- `03-candidate-1440.png` · 1440x900 · 76127 B · `44c88409bc23e476b698af6a992a15ac368d17462660ac6026551d86b0f82b60`
+- `04-blocked-drift-1440.png` · 1440x900 · 81899 B · `9ec0de92c38e9b61b8e70cac79298fa9f10cef7ac2bfe12e2040d2ab6cba27a9`
+- `05-finalization-exit-open-1440.png` · 1440x900 · 100976 B · `5b3aee7208b0a8269cda1a5d35db57be1250b0085b045ff1ee00bb03788641b5`
+- `06-completed-next-1440.png` · 1440x900 · 91323 B · `b4723345198e0da22c2d39b00d6496adb6424dcaf0dce369c64ffa5531106e92`
+- `07-responsive-drawer.png` · 1100x908 · 39998 B · `c5e41c0b7ca207d3128024426b7a4e785f3ad8bfcee995f54956a02e037505c9`
 
-# 23. FULL review-v4 manifest
+# 22. FULL review-v5 manifest
 ```markdown
-# Lifecycle UX Visual Evidence Manifest — review-v4
+# Lifecycle UX Visual Evidence Manifest — review-v5
 
-- cycle: SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01-CORR-FINAL-03
+- cycle: SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01-CORR-PRESENTATION-04
 - Product baseline: e6d7c649e9d0522b60401f11fb8dd1fd4b122637
+- prior handoff SHA: 0a1519c13ebd2925e889c05f36cbb1aeb2564a3f
+- prior visual-v4 SHA: ffc2345253242b6339c3db532bab5cf2e488d41f
 - Penpot file: Nouveau fichier 1
 - Penpot fileId: 63bdc57a-636a-81ba-8008-82d2a50d5233
 - Penpot page: Lifecycle UX Completion — Candidate
 - Penpot pageId: 0432ca94-7902-80a4-8008-9ab94bddd07a
-- timestamp UTC: 2026-09-08T03:40:51Z
-- prior visual SHA: b50002572f18bf6c3235aa335da4e2ac9bb9ef0e
-- correction type: FINAL MICRO-CORRECTION
-- containment mechanism: Option A — compress + sticky bottom CTA stack within 1440×900 (no internal scroll)
-- responsive authority-parity: Finaliser demoted to secondary outline on Active normal drawer
-- business-copy: Pilot-facing FR labels; raw Product internals retained only in niveau 3
+- timestamp UTC: 2026-09-08T04:08:24Z
+- correction scope: P1 badge containment; P2 neutral heading Cycle
 - capture method: Penpot generateMarkup(SVG) post-correction (width1=0) + Brave headless clip to exact design bounds
 - fidelity: PASS (SVG width1=0; PNG dims exact; spot-check vs export_shape)
 - no secrets/tokens observed
@@ -124,26 +120,28 @@ Desktop 1440×900 · Drawer 1100×908
 
 | filename | frame name | frame id | design | PNG dims | bytes | SHA-256 | fidelity |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 01-active-1440.png | B — PRIMARY DESKTOP 1440 · ACTIVE (no Nora FINALIZE rec) | 0432ca94-7902-80a4-8008-9ab99f8abc2e | 1440x900 | 1440x900 | 80491 | fd12c26571069ef886486afaf7ad39cd7d8cad859657d8696b071116c8b89f93 | PASS |
-| 02-active-nora-finalize-recommendation-1440.png | B2 — ACTIVE / NORA RECOMMENDS FINALIZE · 1440 | 314c79dd-bac6-80a9-8008-9ac6f426cbfa | 1440x900 | 1440x900 | 97254 | 03eb77980bf575dd48f7776938c0145d24c31086d60c430f1cd04288bbeb5df8 | PASS |
-| 03-candidate-1440.png | C1 — CANDIDATE · 1440 | 0432ca94-7902-80a4-8008-9ab9a0027d13 | 1440x900 | 1440x900 | 76557 | 51b07b7957d12c9d65339dc7af94b74a4762f993caf43096cca44e1a8470b9ed | PASS |
-| 04-blocked-drift-1440.png | C3 — BLOCKED / DRIFT · 1440 | 0432ca94-7902-80a4-8008-9ab9a089772a | 1440x900 | 1440x900 | 82614 | 68b0ae757b5f208060a7765551be01820aca477d276c165c6a1b08c37e8d8f0e | PASS |
-| 05-finalization-exit-open-1440.png | D — FINALIZATION / EXIT OPEN · 1440 | 0432ca94-7902-80a4-8008-9ab9b95a2503 | 1440x900 | 1440x900 | 100379 | ad088638dc0e58439ad03e2599fa29038713d3fe23c45529d4ab885b4521f223 | PASS |
-| 06-completed-next-1440.png | C4 — COMPLETED → NEXT CYCLE · 1440 | 0432ca94-7902-80a4-8008-9ab9ba4c6254 | 1440x900 | 1440x900 | 92021 | 18ced51f68a923bd1822465216a815e40907288c765879cad207102decbd1e08 | PASS |
-| 07-responsive-drawer.png | F — RESPONSIVE ≤1024 · DRAWER / SHEET | 0432ca94-7902-80a4-8008-9ab9ed5c6a37 | 1100x908 | 1100x908 | 40705 | c8c5baea2c016dc068884178c193920b0f1a8b6f3f9575aa6919d0a148260f7e | PASS |
+| 01-active-1440.png | B — PRIMARY DESKTOP 1440 · ACTIVE (no Nora FINALIZE rec) | 0432ca94-7902-80a4-8008-9ab99f8abc2e | 1440x900 | 1440x900 | 79741 | 0f9eeb60c90da1820528ba1a0446520d4b612761f4e692a11ad5a4b557ff04bc | PASS |
+| 02-active-nora-finalize-recommendation-1440.png | B2 — ACTIVE / NORA RECOMMENDS FINALIZE · 1440 | 314c79dd-bac6-80a9-8008-9ac6f426cbfa | 1440x900 | 1440x900 | 96481 | c7cef06261a0b7a6b615e830bf6d8718865e045ea4c5339d404cbe0c326bd4f5 | PASS |
+| 03-candidate-1440.png | C1 — CANDIDATE · 1440 | 0432ca94-7902-80a4-8008-9ab9a0027d13 | 1440x900 | 1440x900 | 76127 | 44c88409bc23e476b698af6a992a15ac368d17462660ac6026551d86b0f82b60 | PASS |
+| 04-blocked-drift-1440.png | C3 — BLOCKED / DRIFT · 1440 | 0432ca94-7902-80a4-8008-9ab9a089772a | 1440x900 | 1440x900 | 81899 | 9ec0de92c38e9b61b8e70cac79298fa9f10cef7ac2bfe12e2040d2ab6cba27a9 | PASS |
+| 05-finalization-exit-open-1440.png | D — FINALIZATION / EXIT OPEN · 1440 | 0432ca94-7902-80a4-8008-9ab9b95a2503 | 1440x900 | 1440x900 | 100976 | 5b3aee7208b0a8269cda1a5d35db57be1250b0085b045ff1ee00bb03788641b5 | PASS |
+| 06-completed-next-1440.png | C4 — COMPLETED → NEXT CYCLE · 1440 | 0432ca94-7902-80a4-8008-9ab9ba4c6254 | 1440x900 | 1440x900 | 91323 | b4723345198e0da22c2d39b00d6496adb6424dcaf0dce369c64ffa5531106e92 | PASS |
+| 07-responsive-drawer.png | F — RESPONSIVE ≤1024 · DRAWER / SHEET | 0432ca94-7902-80a4-8008-9ab9ed5c6a37 | 1100x908 | 1100x908 | 39998 | c5e41c0b7ca207d3128024426b7a4e785f3ad8bfcee995f54956a02e037505c9 | PASS |
 
-## V4 hard-check status
-- V4-D-01 Finalization ZERO partially clipped button/content at bottom: PASS
-- V4-D-02 Internal scroll: NOT USED (Option A natural fit + sticky bottom CTA stack): PASS
-- V4-D-03 No material obligation removed: PASS
-- V4-F-01 Responsive Finaliser secondary: PASS
-- V4-F-02 Responsive no Nora FINALIZE Recommendation: PASS
-- V4-F-03 Responsive authority parity with desktop Active normal: PASS
-- V4-COPY-01 No Pilot-Governed Project Lifecycle in primary UI: PASS
-- V4-COPY-02 No raw canFinalize in L1/L2: PASS
-- V4-COPY-03 No raw HumanDecision as primary Pilot label: PASS
-- V4-COPY-04 Recommendation clearly not a decision: PASS
-- V4-COPY-05 Raw internals only in level-3 details: PASS
+## P5 hard-check status
+- P5-01 Frame D status badge fully inside frame/card: PASS
+- P5-02 Finalisation en cours fully readable: PASS
+- P5-03 No right-edge clipping or overflow: PASS
+- P5-04 No bottom regression (Traiter / Voir détails / Annuler): PASS
+- P5-05 All seven frames show neutral heading Cycle: PASS
+- P5-06 C1 Candidate Cycle proposé + not started: PASS
+- P5-07 C4 Terminé + next candidate not active: PASS
+- P5-08 B En cours + Finaliser secondary: PASS
+- P5-09 B2 En cours + Nora Recommendation + Finaliser primary: PASS
+- P5-10 F En cours + Finaliser secondary: PASS
+- P5-11 No text-width regression (width1=0): PASS
+- P5-12 No CTA overlap regression: PASS
+- P5-13 No Product-internal terminology leaks beyond accepted copy: PASS
 
 ## Statements
 - no secrets/tokens observed
@@ -153,73 +151,75 @@ Desktop 1440×900 · Drawer 1100×908
 
 ```
 
-# 24. V4 hard-check matrix
+# 23. P5-01…P5-13 matrix
 | Check | Result |
 | --- | --- |
-| V4-D-01 Finalization no partial bottom clip | PASS |
-| V4-D-02 Internal scroll explicit if used | PASS (N/A — Option A) |
-| V4-D-03 No material obligation removed | PASS |
-| V4-F-01 Responsive Finaliser secondary | PASS |
-| V4-F-02 No Nora FINALIZE rec on F | PASS |
-| V4-F-03 Desktop/responsive authority parity | PASS |
-| V4-COPY-01 No Pilot-Governed primary UI | PASS |
-| V4-COPY-02 No raw canFinalize L1/L2 | PASS |
-| V4-COPY-03 No raw HumanDecision primary label | PASS |
-| V4-COPY-04 Recommendation ≠ decision visible | PASS |
-| V4-COPY-05 Raw internals only niveau 3 | PASS |
+| P5-01 Frame D status badge fully inside frame/card | PASS |
+| P5-02 Finalisation en cours fully readable | PASS |
+| P5-03 No right-edge clipping or overflow | PASS |
+| P5-04 No bottom regression (Traiter / Voir détails / Annuler) | PASS |
+| P5-05 All seven frames show neutral heading Cycle | PASS |
+| P5-06 C1 Candidate Cycle proposé + not started | PASS |
+| P5-07 C4 Terminé + next candidate not active | PASS |
+| P5-08 B En cours + Finaliser secondary | PASS |
+| P5-09 B2 En cours + Nora Recommendation + Finaliser primary | PASS |
+| P5-10 F En cours + Finaliser secondary | PASS |
+| P5-11 No text-width regression (width1=0) | PASS |
+| P5-12 No CTA overlap regression | PASS |
+| P5-13 No Product-internal terminology leaks beyond accepted copy | PASS |
 
-# 25. VISUAL_V4_SHA
-ffc2345253242b6339c3db532bab5cf2e488d41f
+# 24. VISUAL_V5_SHA
+66f826c7843621852089942f5d7ff8a1f37e8fad
 
-# 26. Visual commit parent
-`8aafacd59e9b05a760e343edfcbdcc040e4136b5`
+# 25. Visual commit parent
+`0a1519c13ebd2925e889c05f36cbb1aeb2564a3f`
 
-# 27. Exact eight-file remote manifest
+# 26. Exact 8-path remote manifest
 ```
-sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v4/01-active-1440.png
-sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v4/02-active-nora-finalize-recommendation-1440.png
-sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v4/03-candidate-1440.png
-sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v4/04-blocked-drift-1440.png
-sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v4/05-finalization-exit-open-1440.png
-sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v4/06-completed-next-1440.png
-sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v4/07-responsive-drawer.png
-sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v4/manifest.md
+sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v5/01-active-1440.png
+sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v5/02-active-nora-finalize-recommendation-1440.png
+sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v5/03-candidate-1440.png
+sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v5/04-blocked-drift-1440.png
+sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v5/05-finalization-exit-open-1440.png
+sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v5/06-completed-next-1440.png
+sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v5/07-responsive-drawer.png
+sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v5/manifest.md
 ```
 
-# 28. Pinned evidence refs
-- `01-active-1440.png` → https://raw.githubusercontent.com/mcleland147/sfia-workspace/ffc2345253242b6339c3db532bab5cf2e488d41f/sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v4/01-active-1440.png · `fd12c26571069ef886486afaf7ad39cd7d8cad859657d8696b071116c8b89f93`
-- `02-active-nora-finalize-recommendation-1440.png` → https://raw.githubusercontent.com/mcleland147/sfia-workspace/ffc2345253242b6339c3db532bab5cf2e488d41f/sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v4/02-active-nora-finalize-recommendation-1440.png · `03eb77980bf575dd48f7776938c0145d24c31086d60c430f1cd04288bbeb5df8`
-- `03-candidate-1440.png` → https://raw.githubusercontent.com/mcleland147/sfia-workspace/ffc2345253242b6339c3db532bab5cf2e488d41f/sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v4/03-candidate-1440.png · `51b07b7957d12c9d65339dc7af94b74a4762f993caf43096cca44e1a8470b9ed`
-- `04-blocked-drift-1440.png` → https://raw.githubusercontent.com/mcleland147/sfia-workspace/ffc2345253242b6339c3db532bab5cf2e488d41f/sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v4/04-blocked-drift-1440.png · `68b0ae757b5f208060a7765551be01820aca477d276c165c6a1b08c37e8d8f0e`
-- `05-finalization-exit-open-1440.png` → https://raw.githubusercontent.com/mcleland147/sfia-workspace/ffc2345253242b6339c3db532bab5cf2e488d41f/sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v4/05-finalization-exit-open-1440.png · `ad088638dc0e58439ad03e2599fa29038713d3fe23c45529d4ab885b4521f223`
-- `06-completed-next-1440.png` → https://raw.githubusercontent.com/mcleland147/sfia-workspace/ffc2345253242b6339c3db532bab5cf2e488d41f/sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v4/06-completed-next-1440.png · `18ced51f68a923bd1822465216a815e40907288c765879cad207102decbd1e08`
-- `07-responsive-drawer.png` → https://raw.githubusercontent.com/mcleland147/sfia-workspace/ffc2345253242b6339c3db532bab5cf2e488d41f/sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v4/07-responsive-drawer.png · `c8c5baea2c016dc068884178c193920b0f1a8b6f3f9575aa6919d0a148260f7e`
+# 27. Pinned visual refs
+- `01-active-1440.png` → https://raw.githubusercontent.com/mcleland147/sfia-workspace/66f826c7843621852089942f5d7ff8a1f37e8fad/sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v5/01-active-1440.png · `0f9eeb60c90da1820528ba1a0446520d4b612761f4e692a11ad5a4b557ff04bc`
+- `02-active-nora-finalize-recommendation-1440.png` → https://raw.githubusercontent.com/mcleland147/sfia-workspace/66f826c7843621852089942f5d7ff8a1f37e8fad/sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v5/02-active-nora-finalize-recommendation-1440.png · `c7cef06261a0b7a6b615e830bf6d8718865e045ea4c5339d404cbe0c326bd4f5`
+- `03-candidate-1440.png` → https://raw.githubusercontent.com/mcleland147/sfia-workspace/66f826c7843621852089942f5d7ff8a1f37e8fad/sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v5/03-candidate-1440.png · `44c88409bc23e476b698af6a992a15ac368d17462660ac6026551d86b0f82b60`
+- `04-blocked-drift-1440.png` → https://raw.githubusercontent.com/mcleland147/sfia-workspace/66f826c7843621852089942f5d7ff8a1f37e8fad/sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v5/04-blocked-drift-1440.png · `9ec0de92c38e9b61b8e70cac79298fa9f10cef7ac2bfe12e2040d2ab6cba27a9`
+- `05-finalization-exit-open-1440.png` → https://raw.githubusercontent.com/mcleland147/sfia-workspace/66f826c7843621852089942f5d7ff8a1f37e8fad/sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v5/05-finalization-exit-open-1440.png · `5b3aee7208b0a8269cda1a5d35db57be1250b0085b045ff1ee00bb03788641b5`
+- `06-completed-next-1440.png` → https://raw.githubusercontent.com/mcleland147/sfia-workspace/66f826c7843621852089942f5d7ff8a1f37e8fad/sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v5/06-completed-next-1440.png · `b4723345198e0da22c2d39b00d6496adb6424dcaf0dce369c64ffa5531106e92`
+- `07-responsive-drawer.png` → https://raw.githubusercontent.com/mcleland147/sfia-workspace/66f826c7843621852089942f5d7ff8a1f37e8fad/sfia-review-handoff/assets/SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01/review-v5/07-responsive-drawer.png · `c5e41c0b7ca207d3128024426b7a4e785f3ad8bfcee995f54956a02e037505c9`
 
-# 29. Product tracked diff ZERO
+# 28. Product tracked diff ZERO
 YES
 
-# 30. Product implementation NOT PERFORMED
+# 29. Product implementation NOT PERFORMED
 YES
 
-# 31. Product commit/push/PR NOT PERFORMED
+# 30. Product commit/push/PR NOT PERFORMED
 YES
 
-# 32. Figma NOT USED
+# 31. Figma NOT USED
 YES
 
-# 33. ZERO REAL
+# 32. ZERO REAL
 YES
 
-# 34. Suivi untouched
+# 33. Suivi untouched
 YES (design-only label)
 
-# 35. Product Proof OPEN
+# 34. Product Proof OPEN
 YES
 
-# 36. runtime v3 NON ADOPTED
+# 35. runtime v3 NON ADOPTED
 YES
 
-# 37. FULL lifecycle-ux-contract.md
+# 36. FULL lifecycle-ux-contract.md
 ```markdown
 # Lifecycle UX Contract — Penpot-ready
 # SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-UX-01
@@ -495,29 +495,62 @@ Status text+pill; readable CTAs; destructive distinct; ≥44px intent; disabled+
 - WCAG unmeasured
 - NOT UX ADOPTED
 
+## 32. Final Presentation Correction — P1/P2 (CORR-PRESENTATION-04)
+
+### Prior accepted review-v4 baseline
+- visual SHA `ffc2345253242b6339c3db532bab5cf2e488d41f`
+- prior handoff `0a1519c13ebd2925e889c05f36cbb1aeb2564a3f`
+- Finalization bottom containment, responsive authority parity, business-first copy ACCEPTED
+
+### ChatGPT residual findings (review-v4)
+1. P1 — Frame D orange status badge "Finalisation en cours" partially clipped at the right edge of the 1440×900 frame (bottom CTA containment already PASS).
+2. P2 — Lifecycle-card small heading "Cycle en cours" is non-neutral / misleading on Candidate (Cycle proposé, not started) and Completed (Terminé, terminal).
+
+### Exact P1 badge correction
+- Shape: status pill on frame D (`0432ca94-7902-80a4-8008-9ab9b98ffa21`)
+- Label unchanged: `Finalisation en cours`
+- Geometry: pill right-aligned within head row usable width 328; fully inside LifecycleCard and frame (pill.right ≤ frame.right − padding); no truncation/ellipsis; readable 11px label with padding
+- No Product state-semantics change
+
+### Exact P2 neutral-heading decision
+- Replace presentation label `Cycle en cours` → `Cycle` on all seven reviewed variants (B, B2, C1, C3, D, C4, F)
+- Status badges remain state-specific truth (En cours / Cycle proposé / Bloqué / Finalisation en cours / Terminé)
+- Presentation label only — CycleInstance status / state machine untouched
+
+### Semantic no-drift
+YES — no CTA, Recommendation, HumanDecision, IA, or Product semantics changes authorized or performed.
+
+### Seven-frame check
+All seven frames: heading=`Cycle`; status badges unchanged; no width1 regression; no CTA overlap regression.
+
+### Residual reserves
+- MCP text metrics estimated
+- WCAG unmeasured
+- NOT UX ADOPTED
+- Product implementation NOT AUTHORIZED
+
 ```
 
-# 38. Remaining hypotheses/reserves
-- Finalization bottom padding tight but Annuler fully visible
+# 37. Remaining reserves
 - MCP text metrics estimated
 - WCAG unmeasured
 - NOT UX ADOPTED
 
-# 39. Next gate recommendation
-ChatGPT **final strong visual review** of review-v4. Cursor created evidence; ChatGPT judges.
+# 38. Next gate recommendation
+ChatGPT **final visual acceptance review** of review-v5. Cursor created evidence; ChatGPT judges. Product implementation remains a separate Morris gate.
 
-# 40. Canonical Review Handoff metadata
-Ancestry: `8aafacd59e9b05a760e343edfcbdcc040e4136b5` → VISUAL_V4_SHA → FINAL_HANDOFF_SHA
-Publisher unchanged · message: docs(review-handoff): publish lifecycle UX final visual correction review
+# 39. Canonical Review Handoff metadata
+Ancestry: `0a1519c13ebd2925e889c05f36cbb1aeb2564a3f` → VISUAL_V5_SHA → FINAL_HANDOFF_SHA
+Publisher unchanged · message: docs(review-handoff): publish lifecycle UX final presentation correction review
 
-# 41. Final verdict
+# 40. Final verdict
 HANDOFF UPDATED — REMOTE VERIFIED
-LIFECYCLE UX FINAL MICRO-CORRECTION COMPLETE
-FINALIZATION CONTAINMENT PASS
-RESPONSIVE AUTHORITY PARITY PASS
-BUSINESS-FIRST COPY PASS
-HIGH-FIDELITY REVIEW-V4 EVIDENCE PUBLISHED
-READY FOR CHATGPT FINAL STRONG VISUAL REVIEW
+LIFECYCLE UX FINAL PRESENTATION CORRECTION COMPLETE
+FINALIZATION STATUS BADGE CONTAINMENT PASS
+NEUTRAL CYCLE HEADING PASS
+NO VISUAL REGRESSION
+HIGH-FIDELITY REVIEW-V5 EVIDENCE PUBLISHED
+READY FOR CHATGPT FINAL VISUAL ACCEPTANCE REVIEW
 PRODUCT IMPLEMENTATION NOT YET AUTHORIZED
 PRODUCT PROOF OPEN
 ZERO REAL
