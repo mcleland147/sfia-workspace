@@ -5,6 +5,7 @@ import {
   projectAssistantPilotLifecycleAction,
   projectAssistantPilotLifecycleProjection,
 } from "@/features/project-assistant/actions";
+import { projectAssistantPrepareCandidateTrajectoryAction } from "@/features/project-assistant/preCycleCandidateTrajectoryActions";
 import type { PilotLifecycleProjection } from "@/lib/oa/cycle";
 import { SFIA_ASSISTANT_ANSWERED_EVENT } from "@/features/project-assistant/presentationLabels";
 import {
@@ -251,9 +252,38 @@ export function LifecycleSurface({
             type="button"
             className={styles.btnSecondary}
             data-testid="lifecycle-trajectory-escalate"
-            onClick={() => onEscalateTrajectory?.()}
+            disabled={busy !== null}
+            onClick={() => {
+              if (nextRec) {
+                void (async () => {
+                  setBusy("PREPARE_TRAJECTORY");
+                  try {
+                    const result =
+                      await projectAssistantPrepareCandidateTrajectoryAction({
+                        projectId,
+                      });
+                    if (!result.ok) {
+                      setError(
+                        result.message ??
+                          result.code ??
+                          "Préparation de trajectoire refusée.",
+                      );
+                      return;
+                    }
+                    setError(null);
+                    await refresh();
+                    onDurableFactsChanged?.();
+                    onEscalateTrajectory?.();
+                  } finally {
+                    setBusy(null);
+                  }
+                })();
+                return;
+              }
+              onEscalateTrajectory?.();
+            }}
           >
-            Trajectoire
+            {nextRec ? "Préparer la trajectoire" : "Trajectoire"}
           </button>
         ) : null}
       </div>

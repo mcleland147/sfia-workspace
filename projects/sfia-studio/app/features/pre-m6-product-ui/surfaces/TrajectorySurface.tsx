@@ -26,6 +26,7 @@ import {
   w2ProposeTrajectoryOptionsAction,
   w2RehydrateProductOutcomeAction,
 } from "@/features/project-assistant/w2/actions";
+import { projectAssistantReadPreCycleCandidateTrajectoryAction } from "@/features/project-assistant/preCycleCandidateTrajectoryActions";
 import type {
   AmendExecutionContractSuccess,
   ContractInspectionStateDto,
@@ -129,12 +130,15 @@ export function TrajectorySurface({
   projectId,
   onDurableFactsChanged,
   recoveryProposeSignal = 0,
+  durableRefreshSignal = 0,
   composition = "standalone",
 }: {
   projectId: string;
   onDurableFactsChanged?: () => void;
   /** B1 — increment from RecoverySurface requalify to reuse proposeOptions(). */
   recoveryProposeSignal?: number;
+  /** Increment after Lifecycle bridge / durable mutations to rehydrate candidate. */
+  durableRefreshSignal?: number;
   /**
    * H-01 Option A: embed visually in the LPS piloting region.
    * Presentation-only — does not change ProjectTrajectory domain identity.
@@ -143,6 +147,17 @@ export function TrajectorySurface({
 }) {
   const [busy, setBusy] = useState<Busy>(null);
   const [error, setError] = useState<string | null>(null);
+  const [preCycleCandidate, setPreCycleCandidate] = useState<{
+    trajectoryId: string;
+    version: number;
+    status: "candidate";
+    steps: readonly { stepId: string; order: number; label: string; state: string }[];
+    catalogLabel: string | null;
+    targetCycleTypeId: string | null;
+  } | null>(null);
+  const [activeCycleInstanceId, setActiveCycleInstanceId] = useState<
+    string | null
+  >(null);
   const [optionSet, setOptionSet] = useState<TrajectoryOptionSetDto | null>(
     null,
   );
@@ -216,6 +231,29 @@ export function TrajectorySurface({
     setPostEvidence(null);
     onDurableFactsChanged?.();
   }, [projectId, onDurableFactsChanged]);
+
+  const refreshPreCycleCandidate = useCallback(async () => {
+    const result = await projectAssistantReadPreCycleCandidateTrajectoryAction({
+      projectId,
+    });
+    if (!result.ok) {
+      setPreCycleCandidate(null);
+      setActiveCycleInstanceId(null);
+      return;
+    }
+    setActiveCycleInstanceId(result.activeCycleInstanceId ?? null);
+    setPreCycleCandidate(result.candidate ?? null);
+  }, [projectId]);
+
+  useEffect(() => {
+    void refreshPreCycleCandidate();
+  }, [refreshPreCycleCandidate]);
+
+  useEffect(() => {
+    if (durableRefreshSignal > 0) {
+      void refreshPreCycleCandidate();
+    }
+  }, [durableRefreshSignal, refreshPreCycleCandidate]);
 
   useEffect(() => {
     if (recoveryProposeSignal > 0) {
@@ -621,6 +659,40 @@ export function TrajectorySurface({
         </p>
       ) : null}
 
+      {preCycleCandidate && !activeCycleInstanceId ? (
+        <section
+          className={styles.block}
+          aria-labelledby="pre-cycle-candidate-title"
+          data-testid="pre-cycle-candidate-trajectory"
+        >
+          <h3 id="pre-cycle-candidate-title" className={styles.blockTitle}>
+            Trajectoire proposée
+          </h3>
+          <p className={styles.blockNote}>
+            Cycle proposé :{" "}
+            {preCycleCandidate.catalogLabel ??
+              preCycleCandidate.steps[0]?.label ??
+              "—"}
+          </p>
+          <p className={styles.blockNote} data-testid="pre-cycle-candidate-status">
+            Statut : candidate / en attente de décision · Non décidée · Aucun
+            cycle démarré
+          </p>
+          <ul className={styles.optionList} data-testid="pre-cycle-candidate-steps">
+            {preCycleCandidate.steps.map((step) => (
+              <li key={step.stepId} className={styles.option}>
+                <div className={styles.optionHead}>
+                  <span className={styles.optionBadge}>Étape {step.order}</span>
+                  <span className={styles.optionLabel}>{step.label}</span>
+                </div>
+                <p className={styles.optionIntent}>En attente</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {activeCycleInstanceId || !preCycleCandidate ? (
       <div className={styles.actions}>
         <button
           type="button"
@@ -637,6 +709,7 @@ export function TrajectorySurface({
           </span>
         ) : null}
       </div>
+      ) : null}
 
       {optionSet ? (
         <>

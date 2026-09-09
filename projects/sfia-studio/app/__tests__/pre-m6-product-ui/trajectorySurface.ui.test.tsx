@@ -48,6 +48,17 @@ vi.mock("@/features/project-assistant/w2/actions", () => ({
   }),
 }));
 
+vi.mock("@/features/project-assistant/preCycleCandidateTrajectoryActions", () => ({
+  projectAssistantReadPreCycleCandidateTrajectoryAction: vi
+    .fn()
+    .mockResolvedValue({
+      ok: true,
+      candidate: null,
+      activeCycleInstanceId: "cycinst:test-active",
+    }),
+  projectAssistantPrepareCandidateTrajectoryAction: vi.fn(),
+}));
+
 afterEach(() => {
   cleanup();
 });

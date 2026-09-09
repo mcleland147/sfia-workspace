@@ -9,3 +9,4 @@ export * from "./materializeFromProductTurn";
 export * from "./materialReaderContract";
 export * from "./noraActor";
 export * from "./greenfieldLifecycleBootstrap";
+export * from "./prepareCandidateTrajectoryFromCurrentRecommendation";

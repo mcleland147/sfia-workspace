@@ -26,6 +26,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
     useState<ProjectAssistantRehydrateEvidenceOutcomeSuccess | null>(null);
   const [lpsOpen, setLpsOpen] = useState(false);
   const [recoveryProposeSignal, setRecoveryProposeSignal] = useState(0);
+  const [trajectoryRefreshSignal, setTrajectoryRefreshSignal] = useState(0);
   const conversationRef = useRef<HTMLDivElement | null>(null);
   const refreshInFlight = useRef(false);
 
@@ -197,10 +198,11 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
                   projectId={projectId}
                   onDurableFactsChanged={() => {
                     void loadProject();
+                    setTrajectoryRefreshSignal((n) => n + 1);
                   }}
                   onEscalateTrajectory={() => {
                     const el = document.querySelector(
-                      "[data-testid='trajectory-surface']",
+                      "[data-testid='w2-trajectory-panel']",
                     );
                     if (el instanceof HTMLElement) {
                       el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -212,8 +214,10 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
                   projectId={projectId}
                   composition="lps-embedded"
                   recoveryProposeSignal={recoveryProposeSignal}
+                  durableRefreshSignal={trajectoryRefreshSignal}
                   onDurableFactsChanged={() => {
                     void loadProject();
+                    setTrajectoryRefreshSignal((n) => n + 1);
                   }}
                 />
               </div>
