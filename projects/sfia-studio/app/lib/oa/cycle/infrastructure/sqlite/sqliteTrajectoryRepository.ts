@@ -72,6 +72,17 @@ export class SqliteTrajectoryRepository implements TrajectoryRepositoryPort {
     return this.findByProjectAndVersion(projectId, current.version);
   }
 
+  async hasAnyByProjectId(projectId: string): Promise<boolean> {
+    const row = this.store.db
+      .prepare(
+        `SELECT 1 AS ok FROM oa_project_trajectories
+         WHERE project_id = ?
+         LIMIT 1`,
+      )
+      .get(projectId) as { ok?: number } | undefined;
+    return row?.ok === 1;
+  }
+
   async exists(trajectoryId: string): Promise<boolean> {
     const row = this.store.db
       .prepare(`SELECT 1 AS ok FROM oa_project_trajectories WHERE trajectory_id = ?`)

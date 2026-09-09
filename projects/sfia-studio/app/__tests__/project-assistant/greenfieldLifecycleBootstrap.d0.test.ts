@@ -26,7 +26,12 @@ import {
   validateLifecycleRecommendation,
   deriveLifecycleRecommendationCurrentness,
   rebuildBasisRefsForRecommendation,
+  MemoryTrajectoryRepository,
 } from "@/lib/oa/cycle";
+import { MemoryCycleStore } from "@/lib/oa/cycle/infrastructure/memoryCycleStore";
+import type { TrajectoryRepositoryPort } from "@/lib/oa/cycle/ports/trajectoryRepository";
+import type { ProjectTrajectory } from "@/lib/oa/cycle/domain/types";
+import * as greenfieldBootstrapMod from "@/lib/oa/cycle/application/lifecycleRecommendation/greenfieldLifecycleBootstrap";
 import type { ActorReference } from "@/lib/oa/project";
 import type { Digest, DoctrinePackagePin } from "@/lib/oa/doctrine";
 import {
@@ -693,5 +698,152 @@ describe("GREENFIELD LIFECYCLE BOOTSTRAP — BAR-BOOT", () => {
     expect(prompt).toMatch(/cyc:framing/);
     expect(prompt).toMatch(/identifiant catalogue Studio exact/);
     expect(prompt).not.toMatch(/Cadrage → cyc:framing/);
+  });
+
+  it("BAR-BOOT-19 — exact history above old ceiling 64 → history_without_current", async () => {
+    const { runtime, projectId } = await bootFreshProject("19");
+    const traj: ProjectTrajectory = {
+      schemaVersion: "0.1.0-oa",
+      trajectoryId: `trj:${projectId}-v65`,
+      projectId,
+      version: 65,
+      status: "candidate",
+      steps: [
+        { stepId: "stp:a", order: 1, label: "A", state: "pending" },
+      ],
+    };
+    await runtime.oa!.cycleServices.trajectories.save(traj);
+    // No rows 1..64, no current pointer — old probe would have falsely said never.
+    for (let v = 1; v <= 64; v += 1) {
+      expect(
+        await runtime.oa!.cycleServices.trajectories.findByProjectAndVersion(
+          projectId,
+          v,
+        ),
+      ).toBeNull();
+    }
+    expect(
+      await runtime.oa!.cycleServices.trajectories.findCurrentByProjectId(
+        projectId,
+      ),
+    ).toBeNull();
+    expect(
+      await runtime.oa!.cycleServices.trajectories.hasAnyByProjectId(projectId),
+    ).toBe(true);
+
+    const presence = await resolveTrajectoryBootstrapPresence(
+      runtime.oa!.cycleServices.trajectories,
+      projectId,
+    );
+    expect(presence.kind).toBe("history_without_current");
+    expect(presence.kind).not.toBe("never");
+
+    const mat = await materializeFreshNext(
+      runtime,
+      projectId,
+      nextCycleLr("cyc:framing", "Must refuse history above old ceiling."),
+      { presence },
+    );
+    expect(mat.materialization?.ok).toBe(false);
+    if (mat.materialization && !mat.materialization.ok) {
+      expect(mat.materialization.code).toBe("LR_BOOTSTRAP_HISTORY_PRESENT");
+    }
+  });
+
+  it("BAR-BOOT-20 — exact project-scoped hasAnyByProjectId (SQLite + Memory)", async () => {
+    const { runtime, projectId } = await bootFreshProject("20");
+    const otherCreated = await runtime.createProject({
+      name: "Other project for hasAny isolation",
+      objective: "isolation",
+      context: "other",
+      criticality: "STANDARD",
+      constraints: [],
+      shortReference: "BOOT20O",
+      idempotencyKey: "idem:boot-20-other",
+    });
+    expect(otherCreated.ok).toBe(true);
+    if (!otherCreated.ok) return;
+    const otherId = otherCreated.projectId;
+    const trajRepo = runtime.oa!.cycleServices.trajectories;
+    expect(await trajRepo.hasAnyByProjectId(projectId)).toBe(false);
+    expect(await trajRepo.hasAnyByProjectId(otherId)).toBe(false);
+    await trajRepo.save({
+      schemaVersion: "0.1.0-oa",
+      trajectoryId: `trj:${projectId}-any`,
+      projectId,
+      version: 3,
+      status: "candidate",
+      steps: [{ stepId: "stp:a", order: 1, label: "A", state: "pending" }],
+    });
+    expect(await trajRepo.hasAnyByProjectId(projectId)).toBe(true);
+    expect(await trajRepo.hasAnyByProjectId(otherId)).toBe(false);
+
+    const memStore = new MemoryCycleStore();
+    const mem = new MemoryTrajectoryRepository(memStore);
+    expect(await mem.hasAnyByProjectId("prj:mem-a")).toBe(false);
+    await mem.save({
+      schemaVersion: "0.1.0-oa",
+      trajectoryId: "trj:mem-a",
+      projectId: "prj:mem-a",
+      version: 99,
+      status: "candidate",
+      steps: [{ stepId: "stp:a", order: 1, label: "A", state: "pending" }],
+    });
+    expect(await mem.hasAnyByProjectId("prj:mem-a")).toBe(true);
+    expect(await mem.hasAnyByProjectId("prj:mem-b")).toBe(false);
+  });
+
+  it("BAR-BOOT-21 — existence reader failure → unknown fail-closed (never coerced)", async () => {
+    const { runtime, projectId } = await bootFreshProject("21");
+    const base = runtime.oa!.cycleServices.trajectories;
+    const failing: TrajectoryRepositoryPort = {
+      findById: (id) => base.findById(id),
+      findByProjectAndVersion: (p, v) => base.findByProjectAndVersion(p, v),
+      findCurrentByProjectId: async () => null,
+      hasAnyByProjectId: async () => {
+        throw new Error("forced_has_any_failure");
+      },
+      exists: (id) => base.exists(id),
+      save: (t) => base.save(t),
+      markSuperseded: (id, v) => base.markSuperseded(id, v),
+    };
+    const presence = await resolveTrajectoryBootstrapPresence(
+      failing,
+      projectId,
+    );
+    expect(presence.kind).toBe("unknown");
+    if (presence.kind === "unknown") {
+      expect(presence.reason).toMatch(/forced_has_any_failure/);
+    }
+
+    const validated = validateLifecycleRecommendation({
+      projectId,
+      candidate: nextCycleLr("cyc:framing", "x"),
+      cycles: [],
+      lpsActiveCycleInstanceId: null,
+      hasTrajectoryContext: false,
+      trajectoryBootstrapPresence: presence,
+      decisions: [],
+    });
+    expect(validated.ok).toBe(false);
+    if (!validated.ok) {
+      expect(validated.code).toBe("LR_BASIS_TRAJECTORY_UNAVAILABLE");
+    }
+  });
+
+  it("BAR-BOOT-22 — no version probe / no TRAJECTORY_HISTORY_PROBE_MAX_VERSION", () => {
+    expect(
+      "TRAJECTORY_HISTORY_PROBE_MAX_VERSION" in greenfieldBootstrapMod,
+    ).toBe(false);
+    const srcPath = path.resolve(
+      APP_ROOT,
+      "lib/oa/cycle/application/lifecycleRecommendation/greenfieldLifecycleBootstrap.ts",
+    );
+    const src = fs.readFileSync(srcPath, "utf8");
+    expect(src).not.toMatch(/TRAJECTORY_HISTORY_PROBE_MAX_VERSION/);
+    expect(src).not.toMatch(/for\s*\(\s*let\s+version\s*=\s*1/);
+    expect(src).not.toMatch(/findByProjectAndVersion/);
+    expect(src).toMatch(/hasAnyByProjectId/);
+    expect(src).toMatch(/findCurrentByProjectId/);
   });
 });

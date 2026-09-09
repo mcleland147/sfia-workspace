@@ -3,6 +3,8 @@
  * on a genuine fresh Project (D-RB-BOOT-01).
  *
  * Never treats reader failure as absence. Never auto-creates ProjectTrajectory.
+ * Historical presence is exact via TrajectoryRepositoryPort.hasAnyByProjectId —
+ * no version-window probe.
  */
 import type { HumanDecision } from "@/lib/oa/decision";
 import type { CycleInstance, ProjectTrajectory } from "../../domain/types";
@@ -10,9 +12,6 @@ import type { TrajectoryRepositoryPort } from "../../ports/trajectoryRepository"
 import { isCurrentHumanDecisionStatus } from "../assessFinalization";
 import { getCycleTypeById } from "../../domain/cycleTypeCatalog";
 import type { LifecycleRecommendationCandidate } from "./types";
-
-/** Max version probe — lineages are sequential; avoids unbounded scans. */
-export const TRAJECTORY_HISTORY_PROBE_MAX_VERSION = 64 as const;
 
 export type TrajectoryBootstrapPresenceKind =
   | "current"
@@ -53,8 +52,9 @@ export function classifyTrajectoryBootstrapPresence(input: {
 }
 
 /**
- * Resolve presence using existing TrajectoryRepositoryPort only.
- * findCurrentByProjectId + findByProjectAndVersion — no new store / list API.
+ * Resolve presence using TrajectoryRepositoryPort only.
+ * findCurrentByProjectId + hasAnyByProjectId — exact project-scoped existence.
+ * No version-number ceiling. Failures → unknown (never coerced to never).
  */
 export async function resolveTrajectoryBootstrapPresence(
   trajectories: TrajectoryRepositoryPort,
@@ -65,14 +65,7 @@ export async function resolveTrajectoryBootstrapPresence(
     if (current) {
       return { kind: "current", trajectory: current };
     }
-    let anyVersionExists = false;
-    for (let version = 1; version <= TRAJECTORY_HISTORY_PROBE_MAX_VERSION; version += 1) {
-      const row = await trajectories.findByProjectAndVersion(projectId, version);
-      if (row) {
-        anyVersionExists = true;
-        break;
-      }
-    }
+    const anyVersionExists = await trajectories.hasAnyByProjectId(projectId);
     return classifyTrajectoryBootstrapPresence({
       readerFailed: false,
       current: null,
