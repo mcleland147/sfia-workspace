@@ -1,216 +1,270 @@
-# ChatGPT Review Pack — LIGHT — CI Rerun Evidence
+# ChatGPT Review Pack — FULL — Greenfield Task-App Campaign Environment Readiness
 
 ## 1. Identity
 
 | Field | Value |
 |---|---|
-| UTC timestamp | 2026-09-08T20:58:30Z |
-| Cycle ID | SFIA-STUDIO-PRODUCT-PROOF-LIFECYCLE-RECOMMENDATION-PR-CI-RERUN-01 |
-| Cycle | 9 — QA / Validation |
-| Typology | EVOL |
+| UTC timestamp | 2026-09-09T08:51:21Z |
+| Cycle ID | SFIA-STUDIO-PRODUCT-PROOF-GREENFIELD-TASK-APP-ENV-READINESS-01 |
+| Cycle | 9 — QA / validation |
+| Typology | EVOL — Product Proof campaign readiness / environment preparation |
 | Profile | CRITICAL |
-| Level | LIGHT — CI-RERUN EVIDENCE FOCUSED |
+| Baseline / origin/main | a9f6c310a0826d0e5bd6f7264603382a86564db1 (Merge PR #477) |
+| Post-merge CI known | run 34323636543 SUCCESS |
 | Runtime v3 | NON ADOPTED |
 | ZERO REAL | YES |
 
-## 2. Morris GO consumed (verbatim)
+## 2. Morris intent
 
-GO MORRIS — AUTHORIZE CI RERUN ONLY FOR PR #477 @ 2081ce477182d133cc71c93dd7d547433bd6a976 — NO PRODUCT/TEST/CONFIG MUTATION — NO MARK-READY — NO MERGE
+Prepare a clean isolated local environment for a new SFIA Studio Product Proof Greenfield Full Product Dogfood campaign.
 
-## 3. Initial Local Git Truth
+Future Project subject (not created in this cycle): application de gestion de tâches.
+
+This cycle MUST NOT:
+- create the Project in Studio;
+- message Nora / call OpenAI;
+- launch Cursor via Studio;
+- develop the task app;
+- fix discovered Product gaps.
+
+## 3. Local Git Truth
+
+### Source workspace (preserved)
 
 | Field | Value |
 |---|---|
-| Workspace | /Users/morris/Projects/sfia-lr-delivery-isolated-e6d7c649 |
-| Repository | https://github.com/mcleland147/sfia-workspace.git |
+| Path | /Users/morris/Projects/sfia-lr-delivery-isolated-e6d7c649 |
+| Remote | https://github.com/mcleland147/sfia-workspace.git |
 | Branch | delivery/sfia-studio-lifecycle-recommendation-product |
 | HEAD | 2081ce477182d133cc71c93dd7d547433bd6a976 |
-| origin/main | e6d7c649e9d0522b60401f11fb8dd1fd4b122637 |
-| Staged Product | none |
-| Product dirty paths | none |
-| Review-only dirty | .tmp-sfia-review/** present (authorized) |
+| Dirty | review-only .tmp-sfia-review/** (pre-existing); no Product source dirty |
+| origin/main (after fetch) | a9f6c310a0826d0e5bd6f7264603382a86564db1 |
 
-## 4. PR #477 metadata (initial = final)
+No stash/reset/checkout of source workspace. Historical worktrees preserved.
 
-| Field | Value |
-|---|---|
-| State | OPEN |
-| Draft | YES |
-| Merged | NO |
-| Base | main @ e6d7c649e9d0522b60401f11fb8dd1fd4b122637 |
-| Head branch | delivery/sfia-studio-lifecycle-recommendation-product |
-| Head SHA | 2081ce477182d133cc71c93dd7d547433bd6a976 |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/477 |
-
-No PR mutation. No mark-ready. No merge.
-
-## 5. Incoming handoff / timeout qualification consumed
+### Campaign worktree (created this cycle)
 
 | Field | Value |
 |---|---|
-| Incoming handoff SHA | ba82c05fc1e94acd5d545ae50cf5d3889b2baf2a |
-| Timeout qualification verdict | TIMEOUT QUALIFICATION COMPLETE — RERUN-ONLY CANDIDATE — PRODUCT UNCHANGED — ZERO REAL |
-| Supports rerun | YES |
+| Path | /Users/morris/Projects/sfia-product-proof-greenfield-task-app-a9f6c310 |
+| Mode | git worktree add --detach on exact a9f6c310... |
+| HEAD | a9f6c310a0826d0e5bd6f7264603382a86564db1 |
+| Delivery branch created | NO |
+| Tracked Product mutation | NONE (npm ci/build artifacts ignored; .env.local ignored; .sfia-exec ignored) |
 
-## 6. Sources read
+## 4. Sources consumed
 
-- prompts/templates/sfia-cycle-execution-template.md
-- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-- Studio convergence doctrine/roadmap
-- projects/sfia-studio/product-completion/01-product-completion-cadrage.md
-- Applicable v3 framing: Recommendation != HumanDecision; runtime v3 NON ADOPTED
-- Canonical handoff at ba82c05f...
-- GitHub PR #477 + Actions run 34262518389 attempts 1, 2, and 3
+PROCESS v2.6: sfia-cycle-execution-template; cycle-routing-guide; pilots/04-qa-validation; sfia-validation-checklist.
 
-## 7. Convergence qualification
+CONVERGENCE: build-doctrine; roadmap.
 
-| Item | State |
+PRODUCT COMPLETION: 01-cadrage; 14-integrated-proof-final-qualification.
+
+v3 framing: 32, 33, 34, 35 (NON ADOPTED runtime).
+
+RUNTIME: package.json; NewProjectIntentionPage; ProjectWorkspacePage; platform/ai/config.ts; vertical-slice-runtime/service.ts; localProjectComposition.ts; composeStudioProductRealBoundary.ts; deterministicExternalLaunchBoundary.ts; m4BoundedReadOnlyCursorAgent.ts; studioGitWorktreeWorkspace.ts; product sqlite paths.ts; middleware.ts; .gitignore.
+
+## 5. Convergence qualification
+
+| Item | Value |
 |---|---|
-| Capability | Lifecycle Recommendation & Pilot Decision Continuity |
-| Milestone | PR #477 required CI closure |
-| Product/PR | KEEP / FREEZE |
-| CI workflow | REUSE |
-| Rerun target | REUSE 34262518389 |
-| Gap this cycle | Required CI terminal proof |
-| Outcome | Required CI GREEN at same head SHA |
+| Capability v3 | Greenfield full Product loop / Pilot-governed Project lifecycle |
+| Milestone | PRODUCT PROOF — GREENFIELD FULL PRODUCT DOGFOOD — ENVIRONMENT READINESS |
+| Product scenario | fresh Project whose business intention is to build a task-management application |
+| Assets | Project create path KEEP/VERIFY; Product SQLite KEEP/ISOLATE; Nora live KEEP/VERIFY; lifecycle/recommendation KEEP/VERIFY; Cursor REAL KEEP/QUALIFY; M4 bounded RO KEEP AS CURRENT TRUTH / DO NOT EXPAND; deterministic external TEST-ONLY / MUST BE OFF; old suivi-de-contrat PRESERVE/HISTORICAL |
+| Gap closed this cycle | campaign environment readiness only |
+| Critical-path next | Morris manually creates new greenfield Project and begins ordinary Product interaction — AFTER resolving config blockers below |
+| Exit proof | isolated DB path + Git baseline + Studio boots + create route reachable at HTTP layer + Fake/Real classified + executor capability known + ZERO REAL |
+| Debt | no new intentional debt |
+| Reserves | RESERVE-UX-01 OPEN; RESERVE-PROOF-01 OPEN |
 
-## 8. Rerun action (authorized)
+## 6. Environment preparation evidence
+
+Commands executed (campaign app dir):
+- npm ci → exit 0
+- npm run typecheck → exit 0
+- npm run build → exit 0
+- git status after → no tracked Product mutations
+
+Node v24.16.0 / npm 11.13.0
+
+Studio server:
+- Port 3020 was FREE; used 3020
+- Command: cd .../projects/sfia-studio/app && SFIA_STUDIO_PRODUCT_DB_PATH=<campaign db> SFIA_STUDIO_CURSOR_REAL=1 npx next start --port 3020
+- At report time: next-server PID 24785 LISTEN on *:3020 (ALIVE)
+- Launch command for Morris if process ends: same as above from campaign app directory with .env.local loaded
+
+Smoke GETs (no form submit):
+- GET / → HTTP 307 Location /login?error=AUTH_CONFIG_ERROR
+- GET /studio → HTTP 307 Location /login?error=AUTH_CONFIG_ERROR
+- GET /studio/projects/new → HTTP 307 Location /login?error=AUTH_CONFIG_ERROR
+- GET -L /studio and /studio/projects/new → HTTP 200 login page (~6686 bytes)
+- Interpretation: HTTP served; routes exist; Studio protection redirects because BETTER_AUTH_SECRET (auth config) is missing in campaign env — not a Product code mutation cycle
+
+## 7. Product DB isolation
 
 | Field | Value |
 |---|---|
-| Prior run ID | 34262518389 |
-| Prior attempt | 1 |
-| Prior conclusion | failure |
-| Authorized command | gh run rerun 34262518389 --repo mcleland147/sfia-workspace |
-| Cursor-issued rerun commands | ONE only |
-| Authorized attempt created | attempt 2 |
-| Head SHA throughout | 2081ce477182d133cc71c93dd7d547433bd6a976 |
-| Workflow | SFIA Studio CI |
-| Event | pull_request |
-| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/34262518389 |
+| Campaign DB path | /Users/morris/Projects/sfia-product-proof-greenfield-task-app-a9f6c310/projects/sfia-studio/.sfia-exec/product-proof-greenfield-task-app/product.sqlite |
+| Mechanism | SFIA_STUDIO_PRODUCT_DB_PATH |
+| Ignored | YES (.gitignore projects/sfia-studio/.sfia-exec/**) |
+| Exists after smokes | NO (ABSENT_OK — no Project create; dir prepared empty) |
+| Historical DB 1 | /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/product/oa-product.sqlite |
+| Historical DB 1 sha256 pre=post | efe059393d3b4e0f3a6e7e7a270165d52d506f8a02cdee1f506da60d7467d704 |
+| Historical DB 2 | /Users/morris/Projects/sfia-workspace-studio-dogfood-01/.sfia-exec/product/oa-product.sqlite |
+| Historical DB 2 sha256 pre=post | 7d06d7a66a6e22e414ea69fb3e1da3da90004c20214dff33e99101ecbffd93e4 |
+| Reset / delete / SFIA_V2_RUNTIME_ALLOW_RESET | NOT used |
 
-## 9. Attempt chronology (honest)
+## 8. Nora live configuration (no secret values)
 
-| Attempt | Origin | Terminal conclusion |
-|---|---|---|
-| 1 | original PR CI | failure (3x 5000ms timeouts) |
-| 2 | authorized gh run rerun from this cycle | success |
-| 3 | appeared AFTER attempt-2 terminal success and AFTER first handoff publish; Cursor did NOT issue a second gh run rerun; GitHub triggering_actor=mcleland147 | success |
+| Variable | Campaign status |
+|---|---|
+| OPENAI_API_KEY | MISSING in campaign .env.local and campaign shell |
+| OPENAI_MODEL | MISSING in campaign env |
+| OPENAI_REASONING_EFFORT | unset |
+| OPS1_CONVERSATION_PROVIDER | unset (fake NOT forced) |
+| OpenAI calls this cycle | ZERO |
 
-Governance note: Morris GO authorized exactly one rerun. Cursor issued exactly one gh run rerun (attempt 2). Attempt 3 was observed only (no cancel, no additional rerun command). Final GitHub tip of the run is attempt 3 success. Required checks on PR #477 are green.
+Sibling historical workspace env (non-campaign) was inspected for presence only: OPENAI_API_KEY=PRESENT, OPENAI_MODEL=gpt-5.6-luna. Those secrets were NOT copied into the campaign env by this cycle.
 
-## 10. Runner environment (attempt 2 Build; attempt 3 same image class)
+Nora conclusion for campaign env:
+LIVE NORA ENVIRONMENT BLOCKED — CONFIGURATION MISSING
 
-- Runner version: 2.337.0
-- OS: Ubuntu
-- Image: ubuntu-24.04
-- Image release: ubuntu24/20260907.300
-- Node: workflow default Node 24 note present
+## 9. Cursor REAL boundary qualification
 
-## 11. Authorized attempt 2 — job / step matrix
+| Flag / item | Status |
+|---|---|
+| SFIA_STUDIO_CURSOR_REAL | configured = 1 in campaign .env.local (compose-only; no StartExecution) |
+| OPS1_CURSOR_REAL | unset |
+| SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY | OFF / unset |
+| SFIA_STUDIO_E2E_QA_CONTROL | unset |
+| FakeConversationProvider forced | NO |
+| Deterministic + REAL simultaneous | NO (safe) |
+| Cursor CLI discoverable | YES — /Applications/Cursor.app/Contents/Resources/app/bin/cursor |
+| command -v cursor | empty (not on PATH); app bin present |
+| Cursor process launched via Studio | ZERO |
+| StartExecution | ZERO |
 
-| Job | Job ID | Conclusion |
-|---|---|---|
-| Detect SFIA Studio changes | 102231744306 | success |
-| Build and validate SFIA Studio | 102231786199 | success |
-| SFIA Studio Required Gate | 102233108761 | success |
+Composition note (composeStudioProductRealBoundary.ts): when REAL=1, constructs M4 wiring without launching process/git/bin search until gated StartExecution.
 
-Build steps attempt 2: Typecheck/Lint/Build/Unit tests (Vitest) = success.
+## 10. Current executor capability finding (CRITICAL)
 
-Unit tests attempt 2:
-- 317 files passed / 17 skipped
-- 3286 tests passed / 135 skipped
-- Duration 144.31s
-- Failed/timed out: none
+When SFIA_STUDIO_CURSOR_REAL=1, RuntimeOaStack registers exactly one REAL AgentDescriptor (plus fixture descriptors that must NOT be claimed as REAL):
 
-Former timeout trio attempt 2:
-- g2 historical D0...: PASS 1152 ms (was timeout)
-- mw0 full D0 suite PASS: PASS 638 ms (was timeout)
-- w3c R04/R05...: PASS 416 ms (was timeout)
+REAL agent:
+- agentId: agt:m4.cursor.bounded_readonly
+- agentType: cursor_cli_bounded_readonly
+- adapterRef: adp:m4-cursor-cli-real
+- supportedCapabilities: [cap:cursor.read_only]
+- allowedActions: [cursor.read_only.inspect]
+- allowedTargets: [workspace.isolated.read]
+- allowedScopes: [studio.m4.real_off]
+- trustLevel: bounded
+- executionMode: cursor_cli_real
 
-## 12. Observed attempt 3 — terminal (not Cursor-commanded)
+Answers:
+1. REAL AgentDescriptors registered under REAL=1: M4 bounded read-only only (fixtures also registered but are TestExecutionAdapter path — not REAL proof).
+2. Capabilities as above — read-only inspect only; no write capability.
+3. Normal runtime does NOT today support local mutation needed to build a task-management application via governed Cursor REAL writes.
+4. StudioGitWorktreeWorkspace is composed on repoRoot = current SFIA git toplevel (findGitToplevelByDotGit / Studio cwd). It prepares isolated worktrees under .sfia-exec/m4-worktrees from that repoRoot. It does NOT natively target an external/task-app project root as a first-class Product destination.
+5. No repo-current native Product path for delivery REAL write onto an application project was found on main a9f6c310.
+6. N/A — no such mechanism proven.
+7. No workaround implemented (forbidden).
 
-| Job | Job ID | Conclusion |
-|---|---|---|
-| Detect | 102233627809 | success |
-| Build and validate | 102233675118 | success |
-| Required Gate | 102234915818 | success |
+FULL REAL TASK-APP DELIVERY = NOT READY / CAPABILITY GAP
 
-Build steps attempt 3: Typecheck/Lint/Build/Unit tests = success.
+This is a Product Proof input for the future campaign (honest STOP on executor insufficiency), not a defect corrected here.
 
-Unit tests attempt 3:
-- 317 files passed / 17 skipped
-- 3286 tests passed / 135 skipped
-- Duration 129.47s
-- Failed/timed out: none
+## 11. Fake / Real matrix
 
-Former timeout trio attempt 3:
-- g2: PASS 973 ms
-- mw0: PASS 494 ms
-- w3c R04/R05: PASS 312 ms
-
-## 13. Comparison with attempt 1
-
-| Metric | Attempt 1 | Attempt 2 (authorized) | Attempt 3 (observed) |
+| Frontier | Fake/mock forbidden for campaign | REAL counterpart | This cycle proof |
 |---|---|---|---|
-| Workflow | failure | success | success |
-| Unit tests | 3 fail / 3283 pass | 0 fail / 3286 pass | 0 fail / 3286 pass |
-| Suite Duration | 267.72s (tests agg 577.79s) | 144.31s (129.10s) | 129.47s (108.31s) |
-| Required Gate | FAIL | PASS | PASS |
-| Head SHA | 2081ce47... | 2081ce47... | 2081ce47... |
+| Nora/OpenAI | FakeConversationProvider must stay OFF | live OpenAI provider | config missing in campaign env; ZERO calls |
+| Cursor CLI | deterministic boundary OFF; fixture adapter ≠ REAL | NodeCursorProcessRunner / StudioCursorRealLaunchGateway | REAL flag set; ZERO launches |
+| Git workspace | N/A | StudioGitWorktreeWorkspace on SFIA repoRoot | qualified; external app targeting NOT native |
+| Product SQLite | must not reuse historical DB | isolated campaign path | path prepared; historical hashes unchanged |
 
-Timeout recurrence classification: N/A — timeouts did not recur on attempt 2 or 3.
+Entry proof: #477 deterministic Product / ZERO REAL.
+This cycle expected proof: ENVIRONMENT READINESS QUALIFIED only (with config blockers disclosed).
+Not claimed: REAL BOUNDARY PROVEN; E2E REAL PROVEN; Product Proof COMPLETE; runtime v3 ADOPTED.
 
-## 14. GAP-01 / GAP-02
+## 12. Anti-claims
 
-| Gap | Status |
-|---|---|
-| GAP-01 importBoundaries | CLOSED (not reopened) |
-| GAP-02 e2 product-equivalent-control | CLOSED (not reopened) |
+NOT claimed:
+- READY FOR FULL REAL DELIVERY
+- REAL PROVEN
+- task app build supported without new development
+- production routing selected / ADOPTED
+- runtime v3 ADOPTED
+- DETERMINISTIC PROVEN implies READY FOR REAL
 
-## 15. Freeze / mutation evidence
+## 13. R1 — Greenfield Campaign Start Readiness
 
-| Action | Result |
-|---|---|
-| Product mutation | NO |
-| Product commit | NO |
-| Product push | NO |
-| PR mutation | NO |
-| mark-ready | NO |
-| merge | NO |
-| Cursor second gh run rerun | NO |
-| Final Product SHA | 2081ce477182d133cc71c93dd7d547433bd6a976 |
-| Final PR head SHA | 2081ce477182d133cc71c93dd7d547433bd6a976 |
-| Final main SHA | e6d7c649e9d0522b60401f11fb8dd1fd4b122637 |
-| Final run tip | attempt 3 success |
+Question: Can Morris open /studio, manually create a new empty Project in an isolated DB, then converse with Nora live without contaminating the historical campaign?
 
-## 16. ZERO REAL / reserves
+Verdict: GREENFIELD CAMPAIGN START BLOCKED
 
-- ZERO REAL = YES
-- RESERVE-UX-01 = retained OPEN
-- RESERVE-PROOF-01 = retained OPEN
-- Runtime v3 = NON ADOPTED
-- Green CI is not merge authorization
+Blockers (environment/config — not Product mutation authorized here):
+1. BETTER_AUTH_SECRET / auth config missing → protected routes redirect to /login?error=AUTH_CONFIG_ERROR
+2. OPENAI_API_KEY + OPENAI_MODEL missing in campaign env → LIVE NORA ENVIRONMENT BLOCKED
 
-## 17. Recommended next gate
+Already ready structurally:
+- isolated campaign worktree on a9f6c310
+- isolated SFIA_STUDIO_PRODUCT_DB_PATH
+- fake provider OFF; deterministic Cursor boundary OFF
+- build/typecheck OK
+- historical Product DBs untouched
+- Studio HTTP server boots on :3020
 
-CHATGPT PR READINESS REVIEW for PR #477 at 2081ce47...
+## 14. R2 — Full Real Task-App Delivery Readiness
 
-Do not mark-ready. Do not merge.
+Question: If Delivery requires creating/modifying application files, does current Product runtime already have governed Cursor REAL write capability?
 
-## 18. Final verdict
+Verdict: FULL REAL TASK-APP DELIVERY NOT READY — EXECUTOR CAPABILITY GAP
 
-CI RERUN PASS — PR #477 REQUIRED CI GREEN AT 2081ce477182d133cc71c93dd7d547433bd6a976 — PRODUCT/PR UNCHANGED — ZERO REAL — HANDOFF REMOTE VERIFIED — READY FOR CHATGPT PR READINESS REVIEW — NO MARK-READY — NO MERGE
+Evidence: only agt:m4.cursor.bounded_readonly with cap:cursor.read_only / cursor.read_only.inspect / workspace.isolated.read; worktree targeting is SFIA repoRoot-based.
+
+## 15. Next Morris gate
+
+No implicit authorization.
+
+Required before campaign start:
+1. Morris supplies campaign-local auth secrets (BETTER_AUTH_SECRET, BETTER_AUTH_URL as required by Product) into ignored campaign .env.local — without committing.
+2. Morris supplies OPENAI_API_KEY + OPENAI_MODEL into the same ignored campaign env (values never to be published).
+3. Morris authenticates as Pilote and manually creates the greenfield Project.
+
+Then:
+NEXT = MORRIS MANUALLY CREATES NEW GREENFIELD PROJECT
+Campaign proceeds until first meaningful gate/defect.
+
+If a REAL write/effect is later proposed:
+STOP FOR DISTINCT MORRIS REAL GATE (not authorized by this cycle).
+Do not expand M4; do not invent write AgentDescriptor; do not bypass ExecutionContract.
+
+## 16. Final state
+
+- ZERO REAL consumed
+- ZERO OpenAI calls
+- ZERO Cursor runtime executions via Studio
+- ZERO new Product Projects created
+- ZERO tracked Product mutations
+- runtime v3 NON ADOPTED
+- RESERVE-UX-01 OPEN
+- RESERVE-PROOF-01 OPEN
+
+## 17. Cycle global verdict
+
+ENVIRONMENT READINESS QUALIFIED
+
+(This does not replace R1/R2. R1 is BLOCKED on auth/Nora config; R2 is NOT READY on executor capability.)
+
+## 18. Instruction ChatGPT
+
+Lire sfia/review-handoff/latest-chatgpt-review.md depuis origin/sfia/review-handoff et effectuer une Critical Review de SFIA-STUDIO-PRODUCT-PROOF-GREENFIELD-TASK-APP-ENV-READINESS-01. Vérifier en particulier l isolation de la Product DB, ZERO REAL, l absence de fake provider, la configuration Nora live, le boundary Cursor REAL, les capacités exactes de l agent REAL, le targeting workspace/repo et la séparation des verdicts R1 Greenfield Campaign Start Readiness et R2 Full Real Task-App Delivery Readiness. Ne pas autoriser implicitement la campagne REAL, de write capability, de production routing ou runtime v3 ADOPTED.
 
 ### Coverage
 
-- Product content mutation this cycle: NONE
-- CI rerun evidence complete: YES
-- terminal CI evidence complete: YES
-- failure evidence complete: N/A (PASS)
-- PR state evidence complete: YES
-- Product freeze evidence complete: YES
-- attempt-3 anomaly disclosed: YES
-- synthesis only: NO
+- synthesis-only: NO
 - artificial truncation: NO
+- Product tracked mutation: NONE
 - review pack verdict: COMPLETE
