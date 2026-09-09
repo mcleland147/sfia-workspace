@@ -4,7 +4,7 @@ import {
   buildStudioCognitivePromptSections,
   type StudioCognitiveContext,
 } from "./f2/studioCognitiveContext";
-
+import { listCycleTypes } from "@/lib/oa/cycle/domain/cycleTypeCatalog";
 /**
  * Compact F1 system prompt — project context + advisory contract + hard read-only limits.
  * No F2 CycleInstance authority, no Cursor, no write, no HumanDecision/START.
@@ -128,6 +128,13 @@ export function buildProjectSystemPrompt(
     "états métier ou signaux d'urgence appartenant au cycle candidat.",
     "lifecycleRecommendation (si émise) : intent NEXT_CYCLE ou FINALIZE_CURRENT_CYCLE ;",
     "authority conceptuelle aucune ; isHumanDecision false ; statement et rationale lisibles Pilote ;",
+    "targetCycleTypeId DOIT être un identifiant catalogue Studio exact (ex. cyc:framing pour le label « Cadrage »).",
+    "Jamais un label humain seul (« Cadrage », « Delivery ») ni un id inventé.",
+    "Identifiants catalogue actifs : " +
+      listCycleTypes()
+        .map((e) => `${e.cycleTypeId} (« ${e.label} »)`)
+        .join(", ") +
+      ".",
     "targetCycleTypeId seulement s'il est supportable (jamais inventé ; jamais forcé cyc:framing).",
     "Ne dis PAS « je ne peux pas l'enregistrer dans Studio » si le chemin structured Recommendation est disponible.",
     "Si tu émets lifecycleRecommendation : le serveur peut la matérialiser ; ne prétends jamais qu'elle est",

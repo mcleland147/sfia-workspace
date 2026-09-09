@@ -1,3 +1,4 @@
+import type { HumanDecision } from "@/lib/oa/decision";
 import type { EpistemicItem, ProvenanceRecord } from "../../domain/types";
 import type { CycleInstance } from "../../domain/types";
 import type { UpdateEpistemicState } from "../updateEpistemicState";
@@ -15,6 +16,7 @@ import type {
 } from "./types";
 import { tryDecodeLifecycleRecommendationItem } from "./materializeLifecycleRecommendation";
 import { deriveLifecycleRecommendationCurrentness } from "./currentness";
+import type { TrajectoryBootstrapPresence } from "./greenfieldLifecycleBootstrap";
 
 export type ProduceLifecycleRecommendationInput = {
   updateEpistemicState: UpdateEpistemicState;
@@ -33,6 +35,8 @@ export type ProduceLifecycleRecommendationInput = {
   createdBy: EpistemicItem["createdBy"];
   existingItems: readonly EpistemicItem[];
   hasTrajectoryContext?: boolean;
+  trajectoryBootstrapPresence?: TrajectoryBootstrapPresence;
+  decisions?: readonly HumanDecision[];
   provenance?: ProvenanceRecord;
   correlationId?: string;
 };
@@ -94,6 +98,8 @@ export async function produceLifecycleRecommendation(
     cycles: input.cycles,
     lpsActiveCycleInstanceId: input.lpsActiveCycleInstanceId,
     hasTrajectoryContext: input.hasTrajectoryContext,
+    trajectoryBootstrapPresence: input.trajectoryBootstrapPresence,
+    decisions: input.decisions,
   });
   if (!validated.ok) {
     return { ok: false, code: validated.code, reason: validated.reason };

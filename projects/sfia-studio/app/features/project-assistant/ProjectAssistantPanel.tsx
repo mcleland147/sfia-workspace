@@ -38,6 +38,9 @@ import {
   executionSemanticUserLabel,
   isBoundedRunningAttemptRefreshable,
 } from "./presentationLabels";
+import {
+  lifecycleRecommendationMaterializeFailurePiloteNotice,
+} from "./lifecycleRecommendationPiloteNotice";
 import styles from "./project-assistant.module.css";
 
 type UiMessage = {
@@ -117,6 +120,12 @@ export function ProjectAssistantPanel({
   const [modeLabel, setModeLabel] = useState("MODE À CONFIRMER");
   const [ephemeralNotice, setEphemeralNotice] = useState(
     "Conversation, proposition et confirmation restent process-local (non durables). L’état projet enregistré peut être relu ; rien n’est inventé.",
+  );
+  const [lrMaterializeNotice, setLrMaterializeNotice] = useState<string | null>(
+    null,
+  );
+  const [lrMaterializeCode, setLrMaterializeCode] = useState<string | null>(
+    null,
   );
   const [f2, setF2] = useState<F2TurnPayload | null>(null);
   const [mw3Surface, setMw3Surface] = useState<Mw3CognitiveSurfaceDto | null>(
@@ -388,6 +397,16 @@ export function ProjectAssistantPanel({
 
       setModeLabel(modeFromResult(result));
       setEphemeralNotice(result.ephemeralNotice);
+      setLrMaterializeNotice(
+        lifecycleRecommendationMaterializeFailurePiloteNotice({
+          recommendationAttempted:
+            result.lifecycleRecommendationMaterialized === false &&
+            Boolean(result.lifecycleRecommendationCode),
+          materialized: result.lifecycleRecommendationMaterialized,
+          code: result.lifecycleRecommendationCode,
+        }),
+      );
+      setLrMaterializeCode(result.lifecycleRecommendationCode ?? null);
       setMw3Surface(result.mw3 ?? null);
       setToolEvents((prev) => [...prev, ...result.toolEvents]);
       if (result.toolEvents.length > 0) {
@@ -742,7 +761,25 @@ export function ProjectAssistantPanel({
           confirmation · tentative · recommandation. Aucune exécution
           automatique. {ephemeralNotice}
         </p>
+        {lrMaterializeCode ? (
+          <p
+            className={styles.ephemeral}
+            data-testid="project-assistant-lr-materialize-code"
+          >
+            Code technique (diagnostic) : {lrMaterializeCode}
+          </p>
+        ) : null}
       </details>
+
+      {lrMaterializeNotice ? (
+        <p
+          className={styles.ephemeral}
+          data-testid="project-assistant-lr-materialize-notice"
+          role="status"
+        >
+          {lrMaterializeNotice}
+        </p>
+      ) : null}
 
       <div
         ref={listRef}

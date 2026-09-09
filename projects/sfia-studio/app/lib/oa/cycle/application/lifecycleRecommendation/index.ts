@@ -8,3 +8,4 @@ export * from "./produceLifecycleRecommendation";
 export * from "./materializeFromProductTurn";
 export * from "./materialReaderContract";
 export * from "./noraActor";
+export * from "./greenfieldLifecycleBootstrap";

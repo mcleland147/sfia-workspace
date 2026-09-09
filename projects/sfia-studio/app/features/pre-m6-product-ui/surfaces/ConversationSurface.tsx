@@ -81,6 +81,8 @@ export function ConversationSurface({
     error,
     modeLabel,
     ephemeralNotice,
+    lrMaterializeNotice,
+    lrMaterializeCode,
     f2,
     activeProposal,
     reservesText,
@@ -1222,6 +1224,16 @@ export function ConversationSurface({
         </div>
       ) : null}
 
+      {lrMaterializeNotice ? (
+        <p
+          className={styles.cardNote}
+          data-testid="project-assistant-lr-materialize-notice"
+          role="status"
+        >
+          {lrMaterializeNotice}
+        </p>
+      ) : null}
+
       <details className={styles.detailsFlat}>
         <summary>Sources et limites</summary>
         <p className={styles.cardNote} data-testid="project-assistant-scope">
@@ -1229,6 +1241,14 @@ export function ConversationSurface({
           confirmation · tentative · recommandation. Aucune exécution
           automatique. {ephemeralNotice}
         </p>
+        {lrMaterializeCode ? (
+          <p
+            className={styles.cardNote}
+            data-testid="project-assistant-lr-materialize-code"
+          >
+            Code technique (diagnostic) : {lrMaterializeCode}
+          </p>
+        ) : null}
         <section
           className={styles.sources}
           aria-label="Sources consultées"

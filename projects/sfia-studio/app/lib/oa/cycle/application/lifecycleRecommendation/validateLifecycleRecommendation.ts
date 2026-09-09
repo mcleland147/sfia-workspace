@@ -1,3 +1,4 @@
+import type { HumanDecision } from "@/lib/oa/decision";
 import type { CycleInstance } from "../../domain/types";
 import { isTerminalCycleStatus } from "../../domain/lifecycleInvariants";
 import type {
@@ -5,14 +6,30 @@ import type {
   LifecycleRecommendationCandidate,
   LifecycleRecommendationIntent,
 } from "./types";
+import {
+  assessGreenfieldPreTrajectoryBootstrapEligibility,
+  validateCanonicalTargetCycleTypeId,
+  type TrajectoryBootstrapPresence,
+} from "./greenfieldLifecycleBootstrap";
 
 export type ValidateLifecycleRecommendationInput = {
   projectId: string;
   candidate: LifecycleRecommendationCandidate;
   cycles: readonly CycleInstance[];
   lpsActiveCycleInstanceId: string | null | undefined;
-  /** When known — trajectory must be trajectory-aware for NEXT_CYCLE. */
+  /**
+   * When known true — current trajectory present (standard non-bootstrap path).
+   * When false — absence of current; bootstrap may still apply if presence=never.
+   * When undefined — legacy callers; trajectory rule not enforced here.
+   */
   hasTrajectoryContext?: boolean;
+  /**
+   * Explicit presence classification. Required to allow bootstrap.
+   * unknown → fail closed (never treat as never).
+   */
+  trajectoryBootstrapPresence?: TrajectoryBootstrapPresence;
+  /** Decisions used only for bootstrap incompatibility gate. */
+  decisions?: readonly HumanDecision[];
 };
 
 export type ValidateLifecycleRecommendationResult =
@@ -24,6 +41,8 @@ export type ValidateLifecycleRecommendationResult =
       targetCycleTypeId: string | null;
       statement: string;
       basisSeed: LifecycleRecommendationBasisRefs;
+      /** True when NEXT_CYCLE accepted via strict greenfield bootstrap. */
+      greenfieldBootstrap?: boolean;
     }
   | {
       ok: false;
@@ -100,6 +119,17 @@ export function validateLifecycleRecommendation(
         reason: "next_cycle_needs_target",
       };
     }
+    // Type-based NEXT_CYCLE must use a canonical catalog cycleTypeId (D-RB-BOOT-02).
+    if (targetType) {
+      const typeGate = validateCanonicalTargetCycleTypeId(targetType);
+      if (!typeGate.ok) {
+        return {
+          ok: false,
+          code: typeGate.code,
+          reason: typeGate.reason,
+        };
+      }
+    }
     if (targetId) {
       const target = byId.get(targetId);
       if (!target) {
@@ -142,13 +172,73 @@ export function validateLifecycleRecommendation(
         };
       }
     }
-    if (input.hasTrajectoryContext === false) {
-      return {
-        ok: false,
-        code: "LR_TRAJECTORY_REQUIRED",
-        reason: "next_cycle_requires_trajectory",
-      };
+
+    const presence = input.trajectoryBootstrapPresence;
+    const hasCurrent =
+      input.hasTrajectoryContext === true || presence?.kind === "current";
+
+    if (!hasCurrent) {
+      // Strict greenfield bootstrap (D-RB-BOOT-01) — never generic null fallback.
+      if (!presence) {
+        // Legacy callers without presence: preserve prior fail-closed when
+        // hasTrajectoryContext === false; allow when undefined (older tests).
+        if (input.hasTrajectoryContext === false) {
+          return {
+            ok: false,
+            code: "LR_TRAJECTORY_REQUIRED",
+            reason: "next_cycle_requires_trajectory",
+          };
+        }
+      } else if (presence.kind === "unknown") {
+        return {
+          ok: false,
+          code: "LR_BASIS_TRAJECTORY_UNAVAILABLE",
+          reason: "trajectory_presence_unknown",
+        };
+      } else {
+        const bootstrap = assessGreenfieldPreTrajectoryBootstrapEligibility({
+          candidate,
+          presence,
+          cycles,
+          lpsActiveCycleInstanceId: input.lpsActiveCycleInstanceId,
+          decisions: input.decisions ?? [],
+        });
+        if (!bootstrap.eligible) {
+          if (bootstrap.code.startsWith("LR_BOOTSTRAP_") || bootstrap.code.startsWith("LR_TARGET_CYCLE_TYPE_") || bootstrap.code.startsWith("LR_BASIS_")) {
+            return {
+              ok: false,
+              code: bootstrap.code,
+              reason: bootstrap.reason,
+            };
+          }
+          return {
+            ok: false,
+            code: "LR_TRAJECTORY_REQUIRED",
+            reason: bootstrap.reason,
+          };
+        }
+        return {
+          ok: true,
+          intent: candidate.intent,
+          subjectCycleInstanceId: null,
+          targetCycleInstanceId: null,
+          targetCycleTypeId: targetType,
+          statement,
+          greenfieldBootstrap: true,
+          basisSeed: {
+            projectId,
+            subjectCycleInstanceId: null,
+            targetCycleInstanceId: null,
+            targetCycleTypeId: targetType,
+            lpsActiveCycleInstanceId: input.lpsActiveCycleInstanceId ?? null,
+            trajectoryId: null,
+            trajectoryVersion: null,
+            trajectoryStatus: null,
+          },
+        };
+      }
     }
+
     return {
       ok: true,
       intent: candidate.intent,

@@ -31,6 +31,7 @@ import {
   isBoundedRunningAttemptRefreshable,
   type RecommendationFreshness,
 } from "@/features/project-assistant/presentationLabels";
+import { lifecycleRecommendationMaterializeFailurePiloteNotice } from "@/features/project-assistant/lifecycleRecommendationPiloteNotice";
 import { useRunningAttemptO3Observation } from "./useRunningAttemptO3Observation";
 
 export type ProductMessage = {
@@ -100,6 +101,12 @@ export function useProductConversation({
   const [modeLabel, setModeLabel] = useState("MODE À CONFIRMER");
   const [ephemeralNotice, setEphemeralNotice] = useState(
     "Conversation, proposition et confirmation restent process-local (non durables). L’état projet enregistré peut être relu ; rien n’est inventé.",
+  );
+  const [lrMaterializeNotice, setLrMaterializeNotice] = useState<string | null>(
+    null,
+  );
+  const [lrMaterializeCode, setLrMaterializeCode] = useState<string | null>(
+    null,
   );
   const [f2, setF2] = useState<F2TurnPayload | null>(null);
   const [activeProposal, setActiveProposal] = useState<ProposalDto | null>(null);
@@ -279,6 +286,16 @@ export function useProductConversation({
 
       setModeLabel(modeFromResult(result));
       setEphemeralNotice(result.ephemeralNotice);
+      setLrMaterializeNotice(
+        lifecycleRecommendationMaterializeFailurePiloteNotice({
+          recommendationAttempted:
+            result.lifecycleRecommendationMaterialized === false &&
+            Boolean(result.lifecycleRecommendationCode),
+          materialized: result.lifecycleRecommendationMaterialized,
+          code: result.lifecycleRecommendationCode,
+        }),
+      );
+      setLrMaterializeCode(result.lifecycleRecommendationCode ?? null);
       setToolEvents((prev) => [...prev, ...result.toolEvents]);
       if (result.toolEvents.length > 0) {
         setUiState("SOURCE_LOOKUP");
@@ -564,6 +581,8 @@ export function useProductConversation({
     error,
     modeLabel,
     ephemeralNotice,
+    lrMaterializeNotice,
+    lrMaterializeCode,
     f2,
     activeProposal,
     reservesText,

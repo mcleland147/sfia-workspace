@@ -31,6 +31,7 @@ import {
   materialBasisUnavailableCode,
   type LifecycleRecommendationMaterialDimension,
 } from "./materialReaderContract";
+import type { TrajectoryBootstrapPresence } from "./greenfieldLifecycleBootstrap";
 
 export type LifecycleRecommendationMaterialFacts = {
   cycles: readonly CycleInstance[];
@@ -40,6 +41,11 @@ export type LifecycleRecommendationMaterialFacts = {
   doctrinePackageVersion?: string | null;
   doctrinePackageDigest?: string | null;
   trajectory: ProjectTrajectory | null;
+  /**
+   * Explicit trajectory presence for greenfield bootstrap (D-RB-BOOT-01).
+   * UNKNOWN must never be coerced to never/absence.
+   */
+  trajectoryBootstrapPresence?: TrajectoryBootstrapPresence;
   decisions: readonly HumanDecision[];
   evidence: readonly Evidence[];
   epistemicItems: readonly EpistemicItem[];
@@ -202,6 +208,14 @@ export async function materializeLifecycleRecommendationFromStructuredOutput(inp
     blockingReservationStatements: blockers.statements,
   });
 
+  const presence =
+    input.facts.trajectoryBootstrapPresence ??
+    (input.facts.trajectory
+      ? ({ kind: "current", trajectory: input.facts.trajectory } as const)
+      : failed.has("trajectory")
+        ? ({ kind: "unknown", reason: "trajectory_dimension_failed" } as const)
+        : undefined);
+
   const materialization = await produceLifecycleRecommendation({
     updateEpistemicState: input.updateEpistemicState,
     projectId: input.projectId,
@@ -213,6 +227,8 @@ export async function materializeLifecycleRecommendationFromStructuredOutput(inp
     createdBy: input.createdBy,
     existingItems: input.facts.epistemicItems,
     hasTrajectoryContext: Boolean(input.facts.trajectory),
+    trajectoryBootstrapPresence: presence,
+    decisions: input.facts.decisions,
     correlationId: input.correlationId,
   });
 

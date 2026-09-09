@@ -26,6 +26,10 @@ import {
 import { materializeLifecycleRecommendationFromStructuredOutput } from "@/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn";
 import { NORA_LIFECYCLE_RECOMMENDATION_ACTOR } from "@/lib/oa/cycle/application/lifecycleRecommendation/noraActor";
 import type { LifecycleRecommendationMaterialDimension } from "@/lib/oa/cycle/application/lifecycleRecommendation/materialReaderContract";
+import {
+  LIFECYCLE_RECOMMENDATION_MATERIALIZE_FAILURE_PILOTE_NOTICE,
+  lifecycleRecommendationMaterializeFailurePiloteNotice,
+} from "./lifecycleRecommendationPiloteNotice";
 import { resolveWorkspaceRootFromAppCwd } from "@/lib/platform/repository/workspaceRoot";
 import { loadProjectRuntimeForAssistant } from "@/features/vertical-slice-ui/ProjectWorkspaceView";
 import { buildProjectSystemPrompt } from "./buildProjectSystemPrompt";
@@ -45,6 +49,7 @@ import type {
   ProjectAssistantContextDto,
   ProjectAssistantSendResult,
 } from "./types";
+import { resolveTrajectoryBootstrapPresence } from "@/lib/oa/cycle/application/lifecycleRecommendation/greenfieldLifecycleBootstrap";
 
 const MAX_HISTORY_MESSAGES = 20;
 
@@ -60,14 +65,18 @@ function buildEphemeralNotice(
     | "stale_invalidated",
   stalePriorInvalidated?: boolean,
   cognitiveStopNotice?: string | null,
+  lifecycleMaterializeNotice?: string | null,
 ): string {
   const base = memoryBPiloteNotice(memoryBAvailability);
   const compaction = memoryBCompactionPiloteNotice(memoryBCompactionState, {
     stalePriorInvalidated,
   });
-  const parts = [cognitiveStopNotice, compaction, base].filter(
-    (p): p is string => typeof p === "string" && p.trim().length > 0,
-  );
+  const parts = [
+    lifecycleMaterializeNotice,
+    cognitiveStopNotice,
+    compaction,
+    base,
+  ].filter((p): p is string => typeof p === "string" && p.trim().length > 0);
   return parts.join(" ");
 }
 
@@ -328,8 +337,7 @@ export async function orchestrateProjectAssistantTurn(input: {
           ok: false,
           status: "validation_error",
           code: MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
-          message:
-            "Contradiction de frontière de routage : une Recommendation lifecycle était requise (EMIT) mais absente. Aucune Recommendation n'a été inventée côté serveur.",
+          message: LIFECYCLE_RECOMMENDATION_MATERIALIZE_FAILURE_PILOTE_NOTICE,
           mode: modeResolution.mode,
           retryable: false,
         };
@@ -362,13 +370,16 @@ export async function orchestrateProjectAssistantTurn(input: {
           }
 
           let trajectory = null;
-          try {
-            const traj = await oa.cycleServices.getCurrentTrajectory.execute({
-              projectId: project.projectId,
-            });
-            trajectory = traj.ok ? traj.trajectory : null;
-          } catch {
+          let trajectoryBootstrapPresence = await resolveTrajectoryBootstrapPresence(
+            oa.cycleServices.trajectories,
+            project.projectId,
+          );
+          if (trajectoryBootstrapPresence.kind === "unknown") {
             failedMaterialDimensions.add("trajectory");
+            trajectory = null;
+          } else if (trajectoryBootstrapPresence.kind === "current") {
+            trajectory = trajectoryBootstrapPresence.trajectory;
+          } else {
             trajectory = null;
           }
 
@@ -431,6 +442,7 @@ export async function orchestrateProjectAssistantTurn(input: {
                 doctrinePackageVersion: doctrinePin?.version ?? null,
                 doctrinePackageDigest: doctrinePin?.digest ?? null,
                 trajectory,
+                trajectoryBootstrapPresence,
                 decisions,
                 evidence,
                 epistemicItems,
@@ -524,6 +536,21 @@ export async function orchestrateProjectAssistantTurn(input: {
         allowsSilentSuccess: false,
       },
     );
+    const lrMaterializeNotice =
+      lifecycleRecommendationMaterializeFailurePiloteNotice({
+        recommendationAttempted:
+          lifecycleRecommendationMaterialized === false &&
+          Boolean(lifecycleRecommendationCode),
+        materialized: lifecycleRecommendationMaterialized,
+        code: lifecycleRecommendationCode,
+      });
+    const ephemeralNotice = buildEphemeralNotice(
+      turn.memoryBAvailability,
+      turn.memoryBCompactionState,
+      turn.memoryBCompactionDetails?.stalePriorInvalidated === true,
+      stopNotice,
+      lrMaterializeNotice,
+    );
     const status =
       turn.cognitiveStopDecision?.cognitiveStop === true
         ? ("cognitive_stop" as const)
@@ -541,12 +568,7 @@ export async function orchestrateProjectAssistantTurn(input: {
       sources,
       toolEvents,
       project,
-      ephemeralNotice: buildEphemeralNotice(
-        turn.memoryBAvailability,
-        turn.memoryBCompactionState,
-        turn.memoryBCompactionDetails?.stalePriorInvalidated === true,
-        stopNotice,
-      ),
+      ephemeralNotice,
       cognitiveRuntime: turn.cognitiveRuntime,
       sessionId: turn.sessionId,
       memoryBAvailability: turn.memoryBAvailability,
