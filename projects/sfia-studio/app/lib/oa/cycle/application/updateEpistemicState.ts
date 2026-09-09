@@ -133,6 +133,9 @@ export class UpdateEpistemicState {
             provenance: raw.provenance
               ? structuredClone(raw.provenance)
               : undefined,
+            lifecycleRecommendation: raw.lifecycleRecommendation
+              ? structuredClone(raw.lifecycleRecommendation)
+              : undefined,
           };
 
           if (this.epistemic.saveForProject) {

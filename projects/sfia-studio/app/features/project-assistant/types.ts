@@ -212,6 +212,13 @@ export type ProjectAssistantSendSuccess = {
   mw5?: Mw5CognitiveSurfaceDto | null;
   f2?: F2TurnPayload;
   /**
+   * LR CORR-DELIVERY-02 — optional Product-turn Recommendation materialization.
+   * null = not attempted / no structured turn; false = none or fail-closed; true = persisted.
+   */
+  lifecycleRecommendationMaterialized?: boolean | null;
+  /** Fail-closed detail code when materialization was attempted and refused. */
+  lifecycleRecommendationCode?: string | null;
+  /**
    * MW6↔Auth — present when send used executionContractId governed composition.
    * Server-built; never a client-supplied authority object.
    */

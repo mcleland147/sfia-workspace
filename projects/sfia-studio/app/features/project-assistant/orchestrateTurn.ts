@@ -19,13 +19,20 @@ import {
   type NoraAgentsUsdAccounting,
   type NoraCampaignBudget,
 } from "@/lib/nora-cognitive-runtime";
+import { NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
+import { materializeLifecycleRecommendationFromStructuredOutput } from "@/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn";
+import { NORA_LIFECYCLE_RECOMMENDATION_ACTOR } from "@/lib/oa/cycle/application/lifecycleRecommendation/noraActor";
+import type { LifecycleRecommendationMaterialDimension } from "@/lib/oa/cycle/application/lifecycleRecommendation/materialReaderContract";
 import { resolveWorkspaceRootFromAppCwd } from "@/lib/platform/repository/workspaceRoot";
 import { loadProjectRuntimeForAssistant } from "@/features/vertical-slice-ui/ProjectWorkspaceView";
 import { buildProjectSystemPrompt } from "./buildProjectSystemPrompt";
 import { collectToolTelemetry } from "./collectToolTelemetry";
 import { ProjectAssistantMemoryEventSink } from "./memoryEventSink";
 import { resolveAssistantMode } from "./resolveAssistantMode";
-import { resolveRememberedEvidence } from "./mw3AvailableEvidence";
+import {
+  resolveRememberedEvidence,
+  resolveOaStackForLifecycleRecommendation,
+} from "./mw3AvailableEvidence";
 import type { AdvisoryMethodContext } from "./f2/methodOrientation";
 import type { StudioCognitiveContext } from "./f2/studioCognitiveContext";
 import type {
@@ -287,7 +294,151 @@ export async function orchestrateProjectAssistantTurn(input: {
       evalModelReasoningControl: input.evalModelReasoningControl,
       usdAccounting: input.usdAccounting,
       campaignBudget: input.campaignBudget,
+      outputType: NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE,
     });
+
+    let assistantText = turn.text;
+    let lifecycleRecommendationMaterialized: boolean | null = null;
+    let lifecycleRecommendationCode: string | null = null;
+
+    // Same Product turn — optional LR materialization (no second model call).
+    if (turn.structuredOutput !== undefined) {
+      const { extractLifecycleCandidateFromStructuredOutput } = await import(
+        "@/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn"
+      );
+      const extracted = extractLifecycleCandidateFromStructuredOutput(
+        turn.structuredOutput,
+      );
+      if (extracted.narrative) {
+        assistantText = extracted.narrative;
+      }
+      if (!extracted.candidate) {
+        lifecycleRecommendationMaterialized = false;
+      } else {
+        // OA access via authorized Project Assistant seam (mw3AvailableEvidence
+        // lazy runtime import) — never import vertical-slice-runtime here.
+        const oaResolved = await resolveOaStackForLifecycleRecommendation();
+        if (oaResolved.ok) {
+          const oa = oaResolved.oa;
+          const cycles = await oa.cycleServices.cycles.listByProject(
+            project.projectId,
+          );
+          const lps =
+            await oa.projectServices.getCurrentLivingProjectState.execute({
+              projectId: project.projectId,
+            });
+          const projectRow = await oa.projectServices.getProject.execute({
+            projectId: project.projectId,
+          });
+          const failedMaterialDimensions =
+            new Set<LifecycleRecommendationMaterialDimension>();
+          if (!lps.ok) {
+            failedMaterialDimensions.add("lps");
+          }
+          if (!projectRow.ok) {
+            failedMaterialDimensions.add("doctrine");
+          }
+
+          let trajectory = null;
+          try {
+            const traj = await oa.cycleServices.getCurrentTrajectory.execute({
+              projectId: project.projectId,
+            });
+            trajectory = traj.ok ? traj.trajectory : null;
+          } catch {
+            failedMaterialDimensions.add("trajectory");
+            trajectory = null;
+          }
+
+          let decisions: Awaited<
+            ReturnType<typeof oa.decisionServices.decisions.listByProject>
+          > = [];
+          try {
+            decisions = await oa.decisionServices.decisions.listByProject(
+              project.projectId,
+            );
+          } catch {
+            failedMaterialDimensions.add("decisions");
+            decisions = [];
+          }
+
+          let evidence: Awaited<
+            ReturnType<
+              typeof oa.evidenceReviewServices.repository.listByProject
+            >
+          > = [];
+          try {
+            evidence =
+              await oa.evidenceReviewServices.repository.listByProject(
+                project.projectId,
+              );
+          } catch {
+            failedMaterialDimensions.add("evidence");
+            evidence = [];
+          }
+
+          let epistemicItems: Awaited<
+            ReturnType<typeof oa.cycleServices.epistemic.listByProject>
+          > = [];
+          try {
+            epistemicItems = await oa.cycleServices.epistemic.listByProject(
+              project.projectId,
+            );
+          } catch {
+            failedMaterialDimensions.add("epistemic_blockers");
+            epistemicItems = [];
+          }
+
+          const doctrinePin = projectRow.ok
+            ? (projectRow.project.doctrinePackageRef ??
+              (lps.ok ? lps.livingProjectState.doctrinePackageRef : undefined))
+            : undefined;
+          const producedAt = new Date().toISOString();
+          const mat =
+            await materializeLifecycleRecommendationFromStructuredOutput({
+              projectId: project.projectId,
+              structuredOutput: turn.structuredOutput,
+              updateEpistemicState: oa.cycleServices.updateEpistemicState,
+              facts: {
+                cycles,
+                lpsActiveCycleInstanceId: lps.ok
+                  ? lps.livingProjectState.activeCycleInstanceId
+                  : null,
+                lpsVersion: lps.ok ? lps.livingProjectState.version : null,
+                doctrinePackageId: doctrinePin?.doctrinePackageId ?? null,
+                doctrinePackageVersion: doctrinePin?.version ?? null,
+                doctrinePackageDigest: doctrinePin?.digest ?? null,
+                trajectory,
+                decisions,
+                evidence,
+                epistemicItems,
+                failedMaterialDimensions,
+              },
+              producedAt,
+              createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
+              correlationId: `f1:${project.projectId}`,
+            });
+          if (mat.narrative) {
+            assistantText = mat.narrative;
+          }
+          if (mat.recommendationAttempted) {
+            lifecycleRecommendationMaterialized =
+              mat.materialization?.ok === true;
+            lifecycleRecommendationCode =
+              mat.materialization && !mat.materialization.ok
+                ? mat.materialization.code
+                : mat.materialization?.ok
+                  ? null
+                  : "LR_MATERIALIZE_UNKNOWN";
+          } else {
+            lifecycleRecommendationMaterialized = false;
+          }
+        } else {
+          lifecycleRecommendationMaterialized = false;
+          lifecycleRecommendationCode = "LR_BASIS_UNAVAILABLE";
+        }
+      }
+    }
 
     const { toolEvents, sources, readCoverage } = collectToolTelemetry(
       sink.events,
@@ -359,7 +510,7 @@ export async function orchestrateProjectAssistantTurn(input: {
     return {
       ok: true,
       status,
-      text: turn.text,
+      text: assistantText,
       mode: modeResolution.mode,
       presentation,
       model: turn.usage?.model ?? null,
@@ -382,6 +533,8 @@ export async function orchestrateProjectAssistantTurn(input: {
         turn.memoryBCompactionDetails?.stalePriorInvalidated === true,
       mw3,
       mw4,
+      lifecycleRecommendationMaterialized,
+      lifecycleRecommendationCode,
     };
   } catch (error) {
     const message =

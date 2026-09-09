@@ -61,6 +61,7 @@ export {
   projectPilotLifecycle,
   type PilotLifecycleProjection,
 } from "./application/lifecycleProjection";
+export * from "./application/lifecycleRecommendation";
 export {
   deriveLifecycleBlockersFromEpistemicItems,
   lifecycleBlockersFromReaderFailure,

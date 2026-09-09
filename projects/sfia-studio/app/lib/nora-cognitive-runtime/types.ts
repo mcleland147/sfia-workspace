@@ -64,6 +64,11 @@ export type NoraCognitiveTurnResult = {
   /** MW6 — source strategy + normalized external observations (non-authoritative). */
   mw6SourceIntelligence?: Mw6SourceIntelligenceSurface;
   /**
+   * LR-D02 — structured Agents finalOutput when outputType was requested.
+   * Candidate data only — never Product truth until SFIA validation.
+   */
+  structuredOutput?: unknown;
+  /**
    * MW6↔Auth — authority binding axes from preflight (composition proof).
    * Present when campaign + governedAuthority composition evaluated.
    */
