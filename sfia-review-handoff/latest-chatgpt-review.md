@@ -2,431 +2,635 @@
 
 | Champ | Valeur |
 | --- | --- |
-| **Timestamp** | 2026-09-09 20:13:44 CEST |
-| **Cycle ID** | `SFIA-STUDIO-PRE-CYCLE-ROUTING-BOUNDARY-LIVE-DIAGNOSTIC-01` |
-| **Type** | 9 — QA / validation · RUN · CRITICAL |
-| **Décision Morris consommée** | `GO MORRIS — LIVE ROUTING-BOUNDARY ROOT-CAUSE READ-ONLY DIAGNOSTIC` |
-| **Product files changed** | **ZERO** |
-| **ZERO NEW REAL** | OUI — aucun nouvel appel OpenAI/Nora |
-| **Verdict** | LIVE ROUTING-BOUNDARY ROOT CAUSE — PROVEN |
+| **Timestamp** | 2026-09-09 21:19:49 CEST |
+| **Cycle ID** | `SFIA-STUDIO-GREENFIELD-LIFECYCLE-BOOTSTRAP-CORRECTIVE-01` |
+| **Type** | 8 — Delivery · EVOL · CRITICAL |
+| **Décisions Morris** | `D-RB-BOOT-01` · `D-RB-BOOT-02` · `D-RB-BOOT-03` |
+| **GO Morris consommé** | GO MORRIS — GREENFIELD LIFECYCLE BOOTSTRAP CORRECTIVE (via D-RB-BOOT-01/02/03 ADOPTED) |
+| **Milestone** | Product Proof — Qualification → Governed Cycle Transition |
+| **ZERO NEW REAL** | OUI — aucun appel OpenAI / Nora live / Cursor REAL |
+| **Verdict** | GREENFIELD PRE-TRAJECTORY LIFECYCLE BOOTSTRAP — DETERMINISTIC CANDIDATE READY FOR CHATGPT CRITICAL REVIEW |
 
 ---
 
-## 1. Local Git Truth
+## 1. Local Git Truth — BEFORE
 
 | Check | Observed |
 | --- | --- |
-| toplevel | `/Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310` |
+| worktree | `/Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310` |
 | branch | `delivery/sfia-studio-product-proof-qual-to-governed-cycle` |
-| HEAD | `e79f16ba467c227470328d7f723f1c2b53fdf2fb` |
-| parent | `f35ae52a2fa5004f6b79e5f4db50d1494df8cee0` |
+| HEAD (anchor) | `e79f16ba467c227470328d7f723f1c2b53fdf2fb` |
+| parent of e79 | `f35ae52a2fa5004f6b79e5f4db50d1494df8cee0` |
 | origin/main | `a9f6c310a0826d0e5bd6f7264603382a86564db1` |
-| staged | empty |
-| dirty | `.tmp-sfia-review/*` only (review + prior captures + this diagnostic texts) |
+| dirty | `.tmp-sfia-review/*` only (review + live diagnostic captures) |
+| Product divergence | NONE |
 
-**PASS** — no unexplained Product divergence.
+## 2. Local Git Truth — AFTER
 
----
-
-## 2. Project identity proof
-
-| Field | Value | Evidence class |
-| --- | --- | --- |
-| projectId | `prj:8d86862e-5ba2-4f4d-a749-76f60189c32c` | OBSERVED |
-| title | `Application de gestion de tâches — routing boundary replay` | OBSERVED |
-| createdAt | `2026-09-09T17:48:11.169Z` | OBSERVED |
-| LPS | `lps:2833396b-8608-425c-afbd-99553430e664` · version **1** | OBSERVED |
-| objective | matches live intent (quotidien / progressive) | OBSERVED |
-| context | `Projet personnel / application web` | OBSERVED |
-| session | `nora-session.sqlite` · `project_id` + `session_key=f1-default` · 11 items | OBSERVED |
-| session timestamps vs product DB | both mtime `2026-09-09T19:59:26+0200` | OBSERVED |
-
-Rejected siblings (same DB, different titles/times):
-- `prj:3240c12d-…` — “corrective replay” @ 15:14Z
-- `prj:f2d16280-…` — earlier “Application de gestion de tâches” @ 11:13Z
-
-**Identity: UNIQUE / NOT AMBIGUOUS.**
-
----
-
-## 3. Read-only proof
-
-| Artifact | sha256 before | sha256 after | mtime |
-| --- | --- | --- | --- |
-| product.sqlite (greenfield path via env) | `74b0a7a9005f2fb2db71989f395d6921322dd08418aa3ca892de1a09bcf28b52` | identical | 2026-09-09T19:59:26+0200 |
-| nora-session.sqlite (corr `.sfia-exec/product`) | `c5405e39cd848c49e27d1cf629a4e37c3dcb9c90ae578d42cd90f0bc451ee5f8` | identical | 2026-09-09T19:59:26+0200 |
-
-Access method: `sqlite3 file:…?mode=ro` / `sqlite3.connect(uri, uri=True)` — no writes.
-
----
-
-## 4. Durable Truth Check (OBSERVED)
-
-For `prj:8d86862e-…`:
-
-| Fact | Count / value |
+| Check | Observed |
 | --- | --- |
-| CycleInstance | **0** |
-| activeCycleInstanceId | **null** |
-| HumanDecision | **0** |
-| EpistemicItem (all) | **0** |
-| EpistemicItem lifecycle-recommendation | **0** |
-| ProjectTrajectory rows | **0** |
-| trajectory current | **0** |
-| LPS version | **1** |
-| Audit events | 24 × `oa.cycle.load_failed` / `TRAJECTORY_NOT_FOUND` |
+| candidate SHA | `f70dc8ae9c25b237654a6db9ec44a875880afdde` |
+| parent | `e79f16ba467c227470328d7f723f1c2b53fdf2fb` (= e79f16ba exact) |
+| amend e79 | **NO** — new child commit |
+| Product push | NONE |
 
-UI observation (aucune LR CURRENT / aucun cycle) is **confirmed by durable state**.
+```
+f70dc8ae fix(sfia-studio): enable governed greenfield lifecycle bootstrap
+A	projects/sfia-studio/app/__tests__/project-assistant/greenfieldLifecycleBootstrap.d0.test.ts
+M	projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+M	projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
+M	projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
+A	projects/sfia-studio/app/features/project-assistant/lifecycleRecommendationPiloteNotice.ts
+M	projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/greenfieldLifecycleBootstrap.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/index.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/produceLifecycleRecommendation.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/validateLifecycleRecommendation.ts
+```
 
 ---
 
-## 5. Raw structured output recovery
+## 3. Sources
 
-**Result: RECOVERABLE (OBSERVED).**
-
-Source: Memory B / ProductSqliteSession `session_items.item_json` for assistant messages.
-Content is the **Agents product-turn JSON string** (narrative + preCycleRoutingAssessment + lifecycleRecommendation).
-
-Artifacts written (text only, under `.tmp-sfia-review/live-diagnostic/`):
-- `timeline.json`
-- `assistant-seq-{1,4,7,10}.json`
-
-No new model call.
-
-Note: session contains **4** assistant structured turns. User-facing campaign described 3; seq7+seq10 are two “formalise…” attempts (seq5 and seq8 identical user text). Turn-3 narrative quoted by Morris matches **seq10**.
+Processus / méthode / convergence / doctrine v3 / Nora cognitive / LIVE diagnostic handoff (previous) / seams @ e79 then candidate.
 
 ---
 
-## 6. Per-turn evidence matrix
+## 4. Convergence qualification
 
-| Turn | User (OBSERVED) | Asst seq | Assessment | Disposition (DERIVED) | LR present raw? | Coherence | Materialize (DERIVED) | Durable LR |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | “Je veux commencer…” | 1 | READY_TO_EMIT booleans | EMIT | YES NEXT_CYCLE target=`Cadrage` | keep | `LR_TRAJECTORY_REQUIRED` | none |
-| 2 | “Oui… Cadrage” | 4 | READY_TO_EMIT | EMIT | YES | keep | `LR_TRAJECTORY_REQUIRED` | none |
-| 3a | “formalise… Cadrage…” | 7 | READY_TO_EMIT | EMIT | YES | keep | `LR_TRAJECTORY_REQUIRED` | none |
-| 3b | same formalise (retry) | 10 | READY_TO_EMIT | EMIT | YES | keep | `LR_TRAJECTORY_REQUIRED` | none |
+**Capacité v3 :** natural intent → routing qualification → NEXT_CYCLE Recommendation → durable/current epistemic Recommendation → *(future)* candidate ProjectTrajectory → *(future)* Pilot HD.
 
-Hypothesis A (CONTINUE + null): **REJECTED** — OBSERVED assessment is EMIT with LR non-null.
-Hypothesis B (suppressed by coherence): **REJECTED** — DERIVED coherence keeps LR.
-Hypothesis C (EMIT+LR but materialization fails): **PROVEN**.
-Hypothesis D (persisted but not CURRENT): **REJECTED** — epistemic count 0.
-Hypothesis E (output not recoverable): **REJECTED** — recovered from session.
+**Fondations :** V3-F02 LPS · V3-F04 epistemology · V3-F06 ProjectTrajectory · V3-F09 governed replanning.
 
+**État d'entrée (LIVE):** EMIT+LR PASS · CURRENT LR FAIL · root cause `LR_TRAJECTORY_REQUIRED` · label `Cadrage` · failure UI inadequate.
 
-#### Assistant seq=1 (OBSERVED from session_items)
+**Gap fermé ce cycle :** first greenfield LR materializable + CURRENT before trajectory (deterministic).
 
-**narrative (OBSERVED):**
-> Le besoin établi est de disposer d’une application web personnelle pour suivre les tâches quotidiennes et construire progressivement une première version utile. Pour avancer sans présumer de la solution, le prochain travail pertinent est de clarifier la valeur recherchée, le périmètre utile, les situations concrètes à soutenir et les critères de réussite. Je recommande donc un cycle de Cadrage ; nous n’avons pas encore à choisir la technologie, l’architecture ou les fonctionnalités détaillées.
-
-**preCycleRoutingAssessment (OBSERVED):**
-```json
-{
-  "routingBlockingUnknownPresent": false,
-  "candidateCycleSupportable": true,
-  "remainingUnknownsAreCycleOwned": true,
-  "multiplePlausibleCycles": false,
-  "activeCycleAlreadyCoversWork": false
-}
-```
-
-**lifecycleRecommendation BEFORE coherence (OBSERVED = session raw):**
-```json
-{
-  "intent": "NEXT_CYCLE",
-  "statement": "Passer à un cycle de Cadrage pour transformer le besoin de suivi quotidien en périmètre utile et vérifiable.",
-  "subjectCycleInstanceId": null,
-  "targetCycleInstanceId": null,
-  "targetCycleTypeId": "Cadrage",
-  "rationale": "L’intention est claire, mais la valeur, le périmètre, les contraintes et les critères de succès restent à clarifier ; ces inconnues appartiennent au Cadrage.",
-  "authority": "none",
-  "isHumanDecision": false
-}
-```
-
-**derivePreCycleRoutingDisposition (DERIVED FROM CODE + OBSERVED assessment):** `EMIT_LIFECYCLE_RECOMMENDATION`
-
-**AFTER coherence (DERIVED):** LR preserved; `lifecycleRecommendationSuppressed=false`; `boundaryContradiction=null`
-
-**validateLifecycleRecommendation with hasTrajectoryContext=false (DERIVED / reproducible offline):**
-`ok:false` · code=`LR_TRAJECTORY_REQUIRED` · reason=`next_cycle_requires_trajectory`
-
-**validate with hasTrajectoryContext=true (DERIVED):** `ok:true` · targetCycleTypeId=`Cadrage` (accepted by validator; no catalog ID check)
-
-
-#### Assistant seq=4 (OBSERVED from session_items)
-
-**narrative (OBSERVED):**
-> D’accord. Le Cadrage est le prochain travail recommandé. Ton accord confirme l’orientation dans notre échange, mais n’ouvre pas automatiquement un cycle actif. Une fois le Cadrage matérialisé par Studio, nous pourrons clarifier la valeur recherchée, le périmètre utile et les critères de réussite.
-
-**preCycleRoutingAssessment (OBSERVED):**
-```json
-{
-  "routingBlockingUnknownPresent": false,
-  "candidateCycleSupportable": true,
-  "remainingUnknownsAreCycleOwned": true,
-  "multiplePlausibleCycles": false,
-  "activeCycleAlreadyCoversWork": false
-}
-```
-
-**lifecycleRecommendation BEFORE coherence (OBSERVED = session raw):**
-```json
-{
-  "intent": "NEXT_CYCLE",
-  "statement": "Ouvrir un cycle de Cadrage pour clarifier le besoin et définir une première version utile.",
-  "subjectCycleInstanceId": null,
-  "targetCycleInstanceId": null,
-  "targetCycleTypeId": "Cadrage",
-  "rationale": "L’orientation a été acceptée dans la conversation ; le travail de clarification reste à mener dans le cycle candidat.",
-  "authority": "none",
-  "isHumanDecision": false
-}
-```
-
-**derivePreCycleRoutingDisposition (DERIVED FROM CODE + OBSERVED assessment):** `EMIT_LIFECYCLE_RECOMMENDATION`
-
-**AFTER coherence (DERIVED):** LR preserved; `lifecycleRecommendationSuppressed=false`; `boundaryContradiction=null`
-
-**validateLifecycleRecommendation with hasTrajectoryContext=false (DERIVED / reproducible offline):**
-`ok:false` · code=`LR_TRAJECTORY_REQUIRED` · reason=`next_cycle_requires_trajectory`
-
-**validate with hasTrajectoryContext=true (DERIVED):** `ok:true` · targetCycleTypeId=`Cadrage` (accepted by validator; no catalog ID check)
-
-
-#### Assistant seq=7 (OBSERVED from session_items)
-
-**narrative (OBSERVED):**
-> Recommandation de Cadrage formalisée pour transmission à Studio, sans ouverture ni démarrage de cycle. Elle vise à clarifier le besoin réel, la valeur attendue, le périmètre utile et les critères de réussite avant toute conception ou réalisation. Aucun cycle n’est actuellement actif.
-
-**preCycleRoutingAssessment (OBSERVED):**
-```json
-{
-  "routingBlockingUnknownPresent": false,
-  "candidateCycleSupportable": true,
-  "remainingUnknownsAreCycleOwned": true,
-  "multiplePlausibleCycles": false,
-  "activeCycleAlreadyCoversWork": false
-}
-```
-
-**lifecycleRecommendation BEFORE coherence (OBSERVED = session raw):**
-```json
-{
-  "intent": "NEXT_CYCLE",
-  "statement": "Recommander un cycle de Cadrage pour clarifier le besoin et définir une première version utile de l’application de gestion de tâches.",
-  "subjectCycleInstanceId": null,
-  "targetCycleInstanceId": null,
-  "targetCycleTypeId": "Cadrage",
-  "rationale": "L’intention est suffisamment claire pour recommander le Cadrage ; les inconnues restantes — valeur, périmètre, contraintes et succès — relèvent de ce cycle. Cette recommandation n’ouvre ni ne démarre le cycle.",
-  "authority": "none",
-  "isHumanDecision": false
-}
-```
-
-**derivePreCycleRoutingDisposition (DERIVED FROM CODE + OBSERVED assessment):** `EMIT_LIFECYCLE_RECOMMENDATION`
-
-**AFTER coherence (DERIVED):** LR preserved; `lifecycleRecommendationSuppressed=false`; `boundaryContradiction=null`
-
-**validateLifecycleRecommendation with hasTrajectoryContext=false (DERIVED / reproducible offline):**
-`ok:false` · code=`LR_TRAJECTORY_REQUIRED` · reason=`next_cycle_requires_trajectory`
-
-**validate with hasTrajectoryContext=true (DERIVED):** `ok:true` · targetCycleTypeId=`Cadrage` (accepted by validator; no catalog ID check)
-
-
-#### Assistant seq=10 (OBSERVED from session_items)
-
-**narrative (OBSERVED):**
-> La recommandation structurée de Cadrage est émise pour matérialisation éventuelle par Studio. Je ne prétends pas qu’elle a été enregistrée ; aucun cycle n’est ouvert ni démarré.
-
-**preCycleRoutingAssessment (OBSERVED):**
-```json
-{
-  "routingBlockingUnknownPresent": false,
-  "candidateCycleSupportable": true,
-  "remainingUnknownsAreCycleOwned": true,
-  "multiplePlausibleCycles": false,
-  "activeCycleAlreadyCoversWork": false
-}
-```
-
-**lifecycleRecommendation BEFORE coherence (OBSERVED = session raw):**
-```json
-{
-  "intent": "NEXT_CYCLE",
-  "statement": "Recommander un cycle de Cadrage pour clarifier le besoin et définir une première version utile.",
-  "subjectCycleInstanceId": null,
-  "targetCycleInstanceId": null,
-  "targetCycleTypeId": "Cadrage",
-  "rationale": "Les inconnues restantes — valeur, périmètre, contraintes et critères de succès — relèvent du Cadrage. Cette recommandation n’autorise ni l’ouverture ni le démarrage du cycle.",
-  "authority": "none",
-  "isHumanDecision": false
-}
-```
-
-**derivePreCycleRoutingDisposition (DERIVED FROM CODE + OBSERVED assessment):** `EMIT_LIFECYCLE_RECOMMENDATION`
-
-**AFTER coherence (DERIVED):** LR preserved; `lifecycleRecommendationSuppressed=false`; `boundaryContradiction=null`
-
-**validateLifecycleRecommendation with hasTrajectoryContext=false (DERIVED / reproducible offline):**
-`ok:false` · code=`LR_TRAJECTORY_REQUIRED` · reason=`next_cycle_requires_trajectory`
-
-**validate with hasTrajectoryContext=true (DERIVED):** `ok:true` · targetCycleTypeId=`Cadrage` (accepted by validator; no catalog ID check)
-
+**Hors scope / next capability :** prepare non-authoritative candidate ProjectTrajectory from CURRENT Recommendation before HD — **NOT implemented**.
 
 ---
 
-## 7. Code execution trace (INFERRED FROM CODE @ e79f16ba + OBSERVED inputs)
+## 5. Root cause addressed (preserved)
+
+LIVE: fresh Project trajectory=0 → Nora EMIT+NEXT_CYCLE → coherence KEEP → materialize `LR_TRAJECTORY_REQUIRED` → 0 EpistemicItem.
+
+Cognition **not** reworked. Product bootstrap + catalog + Pilote surface corrected.
+
+---
+
+## 6. Implementation
+
+### A — Strict pre-trajectory bootstrap (D-RB-BOOT-01)
+
+New module `greenfieldLifecycleBootstrap.ts`:
+
+- `resolveTrajectoryBootstrapPresence` via existing `TrajectoryRepositoryPort` (`findCurrentByProjectId` + probe `findByProjectAndVersion` 1..64)
+- kinds: `current` | `never` | `history_without_current` | `unknown`
+- `assessGreenfieldPreTrajectoryBootstrapEligibility` — NEXT_CYCLE only; never/history/unknown fail-closed distinctly; zero cycles; null active; null subject/target instance ids; no current HD; canonical type required
+- **NOT** `if trajectory == null => allow`
+
+`validateLifecycleRecommendation` / `produce` / `materializeFromProductTurn` / `orchestrateTurn` wire presence.
+
+After success: EpistemicItem durable; trajectory basis refs null; CURRENT while facts unchanged; trajectory/cycle/HD rows remain 0.
+
+### B — Canonical cycle type (D-RB-BOOT-02)
+
+`validateCanonicalTargetCycleTypeId` uses `getCycleTypeById` from `cycleTypeCatalog` (active only).
+Labels like `Cadrage` → `LR_TARGET_CYCLE_TYPE_UNKNOWN`.
+Prompt lists catalog IDs via `listCycleTypes()` — no fuzzy / no `Cadrage → cyc:framing` mapper.
+
+### C — Pilote failure surface (D-RB-BOOT-03)
+
+Client-safe `lifecycleRecommendationPiloteNotice.ts`:
+> La prochaine étape a été recommandée, mais Studio n'a pas pu l'enregistrer. Aucun cycle n'a été ouvert.
+
+Surfaced via `ephemeralNotice` + visible status in ProjectAssistantPanel / ConversationSurface; technical code in diagnostics details. EMIT+null `validation_error` message also business-first (code preserved).
+
+**RESERVE-RB-UX-01 :** CLOSED at deterministic scope (business-first wording tested BAR-BOOT-14).
+
+---
+
+## 7. Exact changed files
 
 ```
-User send
-→ projectAssistantSendAction / orchestrateProjectAssistantTurn
-→ runNoraCognitiveTurn → runNoraAgentsTurn (Agents Runner + NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE)
-→ finalOutput object/string → structuredOutput
-→ normalizeNoraProductTurnStructuredOutput / applyPreCycleRoutingBoundaryCoherence
-→ extractLifecycleCandidateFromStructuredOutput
-→ materializeLifecycleRecommendationFromStructuredOutput
-   → facts.trajectory = null (getCurrentTrajectory not ok; TRAJECTORY_NOT_FOUND audited)
-   → hasTrajectoryContext = Boolean(null) = false
-   → produceLifecycleRecommendation → validateLifecycleRecommendation
-   → FAIL LR_TRAJECTORY_REQUIRED
-→ NO updateEpistemicState persist
-→ selectCurrentLifecycleRecommendations → empty
-→ LifecycleSurface CURRENT empty
+A	projects/sfia-studio/app/__tests__/project-assistant/greenfieldLifecycleBootstrap.d0.test.ts
+M	projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+M	projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
+M	projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
+A	projects/sfia-studio/app/features/project-assistant/lifecycleRecommendationPiloteNotice.ts
+M	projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/greenfieldLifecycleBootstrap.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/index.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/produceLifecycleRecommendation.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/validateLifecycleRecommendation.ts
 ```
 
-Important orchestration detail (CODE):
-When `getCurrentTrajectory` returns `ok:false`, `orchestrateTurn` sets `trajectory=null` **without** adding `"trajectory"` to `failedMaterialDimensions` (only catch-path does). Failure therefore surfaces as **`LR_TRAJECTORY_REQUIRED`** (validator), not `LR_BASIS_TRAJECTORY_UNAVAILABLE` (material reader).
+---
 
-`lifecycleRecommendationCode` is returned on the send DTO but **not rendered** in pre-m6 Lifecycle/Conversation UI (CODE search) — Pilot sees narrative only + empty CURRENT.
+## 8. Exploitable diffs (key seams)
 
-Materialization runs **after** the model turn. Nora cannot observe materializer success when writing narrative (CODE).
+### greenfieldLifecycleBootstrap.ts (new — eligibility + presence)
+
+```typescript
+/**
+ * Strict pre-trajectory bootstrap for the first NEXT_CYCLE Lifecycle Recommendation
+ * on a genuine fresh Project (D-RB-BOOT-01).
+ *
+ * Never treats reader failure as absence. Never auto-creates ProjectTrajectory.
+ */
+import type { HumanDecision } from "@/lib/oa/decision";
+import type { CycleInstance, ProjectTrajectory } from "../../domain/types";
+import type { TrajectoryRepositoryPort } from "../../ports/trajectoryRepository";
+import { isCurrentHumanDecisionStatus } from "../assessFinalization";
+import { getCycleTypeById } from "../../domain/cycleTypeCatalog";
+import type { LifecycleRecommendationCandidate } from "./types";
+
+/** Max version probe — lineages are sequential; avoids unbounded scans. */
+export const TRAJECTORY_HISTORY_PROBE_MAX_VERSION = 64 as const;
+
+export type TrajectoryBootstrapPresenceKind =
+  | "current"
+  | "never"
+  | "history_without_current"
+  | "unknown";
+
+export type TrajectoryBootstrapPresence =
+  | { kind: "current"; trajectory: ProjectTrajectory }
+  | { kind: "never" }
+  | { kind: "history_without_current" }
+  | { kind: "unknown"; reason: string };
+
+export type GreenfieldBootstrapEligibilityResult =
+  | { eligible: true }
+  | { eligible: false; code: string; reason: string };
+
+/**
+ * Pure classification from already-resolved reads.
+ * Callers must pass unknown when any required reader threw / failed.
+ */
+export function classifyTrajectoryBootstrapPresence(input: {
+  readerFailed: boolean;
+  current: ProjectTrajectory | null;
+  /** True when any historical/candidate row exists for the project. */
+  anyVersionExists: boolean;
+}): TrajectoryBootstrapPresence {
+  if (input.readerFailed) {
+    return { kind: "unknown", reason: "trajectory_reader_failed" };
+  }
+  if (input.current) {
+    return { kind: "current", trajectory: input.current };
+  }
+  if (input.anyVersionExists) {
+    return { kind: "history_without_current" };
+  }
+  return { kind: "never" };
+}
+
+/**
+ * Resolve presence using existing TrajectoryRepositoryPort only.
+ * findCurrentByProjectId + findByProjectAndVersion — no new store / list API.
+ */
+export async function resolveTrajectoryBootstrapPresence(
+  trajectories: TrajectoryRepositoryPort,
+  projectId: string,
+): Promise<TrajectoryBootstrapPresence> {
+  try {
+    const current = await trajectories.findCurrentByProjectId(projectId);
+    if (current) {
+      return { kind: "current", trajectory: current };
+    }
+    let anyVersionExists = false;
+    for (let version = 1; version <= TRAJECTORY_HISTORY_PROBE_MAX_VERSION; version += 1) {
+      const row = await trajectories.findByProjectAndVersion(projectId, version);
+      if (row) {
+        anyVersionExists = true;
+        break;
+      }
+    }
+    return classifyTrajectoryBootstrapPresence({
+      readerFailed: false,
+      current: null,
+      anyVersionExists,
+    });
+  } catch (error) {
+    return {
+      kind: "unknown",
+      reason:
+        error instanceof Error ? error.message : "trajectory_presence_unresolved",
+    };
+  }
+}
+
+/** Canonical catalog gate for targetCycleTypeId (D-RB-BOOT-02). */
+export function validateCanonicalTargetCycleTypeId(
+  targetCycleTypeId: string | null,
+): { ok: true; cycleTypeId: string } | { ok: false; code: string; reason: string } {
+  if (!targetCycleTypeId || targetCycleTypeId.trim().length < 1) {
+    return {
+      ok: false,
+      code: "LR_TARGET_CYCLE_TYPE_MISSING",
+      reason: "target_cycle_type_required_for_type_based_next",
+    };
+  }
+  const entry = getCycleTypeById(targetCycleTypeId);
+  if (!entry) {
+    return {
+      ok: false,
+      code: "LR_TARGET_CYCLE_TYPE_UNKNOWN",
+      reason: "target_cycle_type_not_in_catalog",
+    };
+  }
+  if (entry.lifecycleStatus !== "active") {
+    return {
+      ok: false,
+      code: "LR_TARGET_CYCLE_TYPE_NOT_SELECTABLE",
+      reason: "target_cycle_type_not_selectable",
+    };
+  }
+  return { ok: true, cycleTypeId: entry.cycleTypeId };
+}
+
+/**
+ * Strict bootstrap eligibility — first NEXT_CYCLE on a Project that never had
+```
+
+### validateLifecycleRecommendation.ts (NEXT_CYCLE bootstrap + catalog)
+
+```
+commit f70dc8ae9c25b237654a6db9ec44a875880afdde
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Wed Sep 9 21:19:05 2026 +0200
+
+    fix(sfia-studio): enable governed greenfield lifecycle bootstrap
+
+    Allow the first NEXT_CYCLE Lifecycle Recommendation on a genuine fresh Project without inventing trajectory or authority, enforce catalog cycleTypeIds, and surface materialization failures in Pilote-safe wording.
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+diff --git a/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/validateLifecycleRecommendation.ts b/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/validateLifecycleRecommendation.ts
+index 5d83c63f..214327e9 100644
+--- a/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/validateLifecycleRecommendation.ts
++++ b/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/validateLifecycleRecommendation.ts
+@@ -1,3 +1,4 @@
++import type { HumanDecision } from "@/lib/oa/decision";
+ import type { CycleInstance } from "../../domain/types";
+ import { isTerminalCycleStatus } from "../../domain/lifecycleInvariants";
+ import type {
+@@ -5,14 +6,30 @@ import type {
+   LifecycleRecommendationCandidate,
+   LifecycleRecommendationIntent,
+ } from "./types";
++import {
++  assessGreenfieldPreTrajectoryBootstrapEligibility,
++  validateCanonicalTargetCycleTypeId,
++  type TrajectoryBootstrapPresence,
++} from "./greenfieldLifecycleBootstrap";
+
+ export type ValidateLifecycleRecommendationInput = {
+   projectId: string;
+   candidate: LifecycleRecommendationCandidate;
+   cycles: readonly CycleInstance[];
+   lpsActiveCycleInstanceId: string | null | undefined;
+-  /** When known — trajectory must be trajectory-aware for NEXT_CYCLE. */
++  /**
++   * When known true — current trajectory present (standard non-bootstrap path).
++   * When false — absence of current; bootstrap may still apply if presence=never.
++   * When undefined — legacy callers; trajectory rule not enforced here.
++   */
+   hasTrajectoryContext?: boolean;
++  /**
++   * Explicit presence classification. Required to allow bootstrap.
++   * unknown → fail closed (never treat as never).
++   */
++  trajectoryBootstrapPresence?: TrajectoryBootstrapPresence;
++  /** Decisions used only for bootstrap incompatibility gate. */
++  decisions?: readonly HumanDecision[];
+ };
+
+ export type ValidateLifecycleRecommendationResult =
+@@ -24,6 +41,8 @@ export type ValidateLifecycleRecommendationResult =
+       targetCycleTypeId: string | null;
+       statement: string;
+       basisSeed: LifecycleRecommendationBasisRefs;
++      /** True when NEXT_CYCLE accepted via strict greenfield bootstrap. */
++      greenfieldBootstrap?: boolean;
+     }
+   | {
+       ok: false;
+@@ -100,6 +119,17 @@ export function validateLifecycleRecommendation(
+         reason: "next_cycle_needs_target",
+       };
+     }
++    // Type-based NEXT_CYCLE must use a canonical catalog cycleTypeId (D-RB-BOOT-02).
++    if (targetType) {
++      const typeGate = validateCanonicalTargetCycleTypeId(targetType);
++      if (!typeGate.ok) {
++        return {
++          ok: false,
++          code: typeGate.code,
++          reason: typeGate.reason,
++        };
++      }
++    }
+     if (targetId) {
+       const target = byId.get(targetId);
+       if (!target) {
+@@ -142,13 +172,73 @@ export function validateLifecycleRecommendation(
+         };
+       }
+     }
+-    if (input.hasTrajectoryContext === false) {
+-      return {
+-        ok: false,
+-        code: "LR_TRAJECTORY_REQUIRED",
+-        reason: "next_cycle_requires_trajectory",
+-      };
++
++    const presence = input.trajectoryBootstrapPresence;
++    const hasCurrent =
++      input.hasTrajectoryContext === true || presence?.kind === "current";
++
++    if (!hasCurrent) {
++      // Strict greenfield bootstrap (D-RB-BOOT-01) — never generic null fallback.
++      if (!presence) {
++        // Legacy callers without presence: preserve prior fail-closed when
++        // hasTrajectoryContext === false; allow when undefined (older tests).
++        if (input.hasTrajectoryContext === false) {
++          return {
++            ok: false,
++            code: "LR_TRAJECTORY_REQUIRED",
++            reason: "next_cycle_requires_trajectory",
++          };
++        }
++      } else if (presence.kind === "unknown") {
++        return {
++          ok: false,
++          code: "LR_BASIS_TRAJECTORY_UNAVAILABLE",
++          reason: "trajectory_presence_unknown",
++        };
++      } else {
++        const bootstrap = assessGreenfieldPreTrajectoryBootstrapEligibility({
++          candidate,
++          presence,
++          cycles,
++          lpsActiveCycleInstanceId: input.lpsActiveCycleInstanceId,
++          decisions: input.decisions ?? [],
++        });
++        if (!bootstrap.eligible) {
++          if (bootstrap.code.startsWith("LR_BOOTSTRAP_") || bootstrap.code.startsWith("LR_TARGET_CYCLE_TYPE_") || bootstrap.code.startsWith("LR_BASIS_")) {
++            return {
++              ok: false,
++              code: bootstrap.code,
++              reason: bootstrap.reason,
++            };
++          }
++          return {
++            ok: false,
++            code: "LR_TRAJECTORY_REQUIRED",
++            reason: bootstrap.reason,
++          };
++        }
++        return {
++          ok: true,
++          intent: candidate.intent,
++          subjectCycleInstanceId: null,
++          targetCycleInstanceId: null,
++          targetCycleTypeId: targetType,
++          statement,
++          greenfieldBootstrap: true,
++          basisSeed: {
++            projectId,
++            subjectCycleInstanceId: null,
++            targetCycleInstanceId: null,
++            targetCycleTypeId: targetType,
++            lpsActiveCycleInstanceId: input.lpsActiveCycleInstanceId ?? null,
++            trajectoryId: null,
++            trajectoryVersion: null,
++            trajectoryStatus: null,
++          },
++        };
++      }
+     }
++
+     return {
+       ok: true,
+       intent: candidate.intent,
+```
+
+### orchestrateTurn.ts (presence resolve + Pilote notice)
+
+```
+18- import type { LifecycleRecommendationMaterialDimension } from "@/lib/oa/cycle/application/lifecycleRecommendation/materialReaderContract";
+19-+import {
+20:+  LIFECYCLE_RECOMMENDATION_MATERIALIZE_FAILURE_PILOTE_NOTICE,
+21-+  lifecycleRecommendationMaterializeFailurePiloteNotice,
+22-+} from "./lifecycleRecommendationPiloteNotice";
+--
+28-   ProjectAssistantSendResult,
+29- } from "./types";
+30:+import { resolveTrajectoryBootstrapPresence } from "@/lib/oa/cycle/application/lifecycleRecommendation/greenfieldLifecycleBootstrap";
+31-
+32- const MAX_HISTORY_MESSAGES = 20;
+--
+60--          message:
+61--            "Contradiction de frontière de routage : une Recommendation lifecycle était requise (EMIT) mais absente. Aucune Recommendation n'a été inventée côté serveur.",
+62:+          message: LIFECYCLE_RECOMMENDATION_MATERIALIZE_FAILURE_PILOTE_NOTICE,
+63-           mode: modeResolution.mode,
+64-           retryable: false,
+--
+74--            trajectory = traj.ok ? traj.trajectory : null;
+75--          } catch {
+76:+          let trajectoryBootstrapPresence = await resolveTrajectoryBootstrapPresence(
+77-+            oa.cycleServices.trajectories,
+78-+            project.projectId,
+79-+          );
+80:+          if (trajectoryBootstrapPresence.kind === "unknown") {
+81-             failedMaterialDimensions.add("trajectory");
+82-             trajectory = null;
+83:+          } else if (trajectoryBootstrapPresence.kind === "current") {
+84:+            trajectory = trajectoryBootstrapPresence.trajectory;
+85-+          } else {
+86-+            trajectory = null;
+--
+92-                 doctrinePackageDigest: doctrinePin?.digest ?? null,
+93-                 trajectory,
+94:+                trajectoryBootstrapPresence,
+95-                 decisions,
+96-                 evidence,
+--
+100-       },
+101-     );
+102:+    const lrMaterializeNotice =
+103-+      lifecycleRecommendationMaterializeFailurePiloteNotice({
+104-+        recommendationAttempted:
+--
+113-+      turn.memoryBCompactionDetails?.stalePriorInvalidated === true,
+114-+      stopNotice,
+115:+      lrMaterializeNotice,
+116-+    );
+117-     const status =
+```
+
+### lifecycleRecommendationPiloteNotice.ts (new — client-safe)
+
+```typescript
+/**
+ * Pilote-facing Lifecycle Recommendation materialization notices (D-RB-BOOT-03).
+ * Client-safe — no OA / Node imports.
+ */
+
+export const LIFECYCLE_RECOMMENDATION_MATERIALIZE_FAILURE_PILOTE_NOTICE =
+  "La prochaine étape a été recommandée, mais Studio n'a pas pu l'enregistrer. Aucun cycle n'a été ouvert." as const;
+
+export function lifecycleRecommendationMaterializeFailurePiloteNotice(input: {
+  recommendationAttempted: boolean;
+  materialized: boolean | null | undefined;
+  code: string | null | undefined;
+}): string | null {
+  if (!input.recommendationAttempted) return null;
+  if (input.materialized === true) return null;
+  if (!input.code) return null;
+  return LIFECYCLE_RECOMMENDATION_MATERIALIZE_FAILURE_PILOTE_NOTICE;
+}
+```
+
+### buildProjectSystemPrompt.ts (canonical IDs)
+
+```
+19--
+20:+import { listCycleTypes } from "@/lib/oa/cycle/domain/cycleTypeCatalog";
+21- /**
+--
+27-     "authority conceptuelle aucune ; isHumanDecision false ; statement et rationale lisibles Pilote ;",
+28:+    "targetCycleTypeId DOIT être un identifiant catalogue Studio exact (ex. cyc:framing pour le label « Cadrage »).",
+29-+    "Jamais un label humain seul (« Cadrage », « Delivery ») ni un id inventé.",
+30-+    "Identifiants catalogue actifs : " +
+31:+      listCycleTypes()
+32-+        .map((e) => `${e.cycleTypeId} (« ${e.label} »)`)
+--
+34-+      ".",
+35:     "targetCycleTypeId seulement s'il est supportable (jamais inventé ; jamais forcé cyc:framing).",
+36-     "Ne dis PAS « je ne peux pas l'enregistrer dans Studio » si le chemin structured Recommendation est disponible.",
+```
 
 ---
 
-## 8. Persistence / observability map
+## 9. Architecture / OpenAI-native fit
 
-| Seam | Persist? | Post-turn recoverable? |
-| --- | --- | --- |
-| Agents structured product turn JSON | Session message content | **YES** (this diagnostic) |
-| coherence disposition / suppressReason | No durable field | DERIVED only |
-| materialization code | DTO ephemeral only | NOT durable; not UI-visible |
-| EpistemicItem LR | durable if ok | none present |
-| CURRENT projection | derived from epistemic | empty |
-| TRAJECTORY_NOT_FOUND | oa_audit_events | **YES** (24 events) |
-
----
-
-## 9. Fake vs Real delta
-
-| Aspect | Deterministic BAR path | This LIVE path |
-| --- | --- | --- |
-| Trajectory before LR | BAR-RB creates `createInitialTrajectory` | Fresh Project create → **no trajectory** |
-| targetCycleTypeId | tests use `cyc:framing` / `cyc:delivery` | LIVE model emitted label **`Cadrage`** |
-| Materialization | succeeds when READY+LR+trajectory | fails `LR_TRAJECTORY_REQUIRED` |
-| UI | not the BAR focus | CURRENT empty; failure code invisible |
-
-Routing-boundary cognitive property (EMIT when ready) **held in REAL**.
-Lifecycle durable materialization **did not**.
-
-Secondary (non-blocking for this failure, but real risk): validator accepts non-catalog `targetCycleTypeId="Cadrage"`. If trajectory existed, a LR might persist with non-canonical type id unless another gate rejects later.
-
----
-
-## 10. Narrative / structured coherence
-
-Contract **allows** narrative “je recommande Cadrage” with EMIT+LR (observed).
-Contract also allows contradictory CONTINUE+null (server does not parse narrative) — **not** what happened here.
-
-Prompt @ e79f16ba already says: do not claim Recommendation is **enregistrée** without product confirmation; server may materialize.
-
-Turn 3b narrative:
-> “La recommandation structurée de Cadrage est émise pour matérialisation éventuelle… Je ne prétends pas qu’elle a été enregistrée”
-
-### Structured-emission claim verdict
-
-| Claim layer | Verdict |
+| Item | Disposition |
 | --- | --- |
-| Structured field `lifecycleRecommendation` present in model output | **SUPPORTED CLAIM** (OBSERVED) |
-| Studio durable/CURRENT LR materialized | **UNSUPPORTED** relative to Product truth (OBSERVED empty epistemic) |
-| LIVE-RB-FINDING-02 as absolute “unsupported structured emission” | **PARTIALLY MISFRAMED** — emission structured **did** occur; durable materialization **did not** |
+| Agents Runner / same-turn SO | KEEP |
+| preCycleRoutingAssessment + EMIT+null | KEEP |
+| EpistemicItem LR model / currentness | KEEP / ADAPT basis null traj |
+| Cycle catalog | KEEP / consume |
+| Second model / prose parser / new store | **NOT built** |
+| Auto ProjectTrajectory | **NOT built** (next capability) |
 
 ---
 
-## 11. Root cause
+## 10. BAR-BOOT matrix
 
-**PRIMARY ROOT CAUSE (PROVEN):**
-
-> Fresh greenfield Project has **no ProjectTrajectory**.
-> Every LIVE turn emitted EMIT + NEXT_CYCLE LR, but server materialization fail-closed with **`LR_TRAJECTORY_REQUIRED`**.
-> Therefore no EpistemicItem / no CURRENT Lifecycle Recommendation, despite correct routing-boundary structured emission.
-
-**Contributing factors:**
-1. Project create path does not initialize a trajectory (CODE + OBSERVED empty tables).
-2. Materialization failure code not surfaced in Pilote UI (CODE).
-3. Model uses human label `Cadrage` as `targetCycleTypeId` (OBSERVED) — secondary catalog hygiene risk.
-
-**Confidence:** **HIGH** — raw structured payloads OBSERVED + durable empty LR OBSERVED + offline validator reproduction + audit TRAJECTORY_NOT_FOUND OBSERVED.
-
----
-
-## 12. Recommended next corrective scope (NO CODE THIS CYCLE)
-
-Candidate scope after Morris GO (distinct gate):
-
-1. **Greenfield trajectory precondition for NEXT_CYCLE materialization**
-   - either create initial trajectory at Project create / first Product path;
-   - or redefine validator policy for greenfield NEXT_CYCLE without trajectory (architecture decision);
-   - or fail closed with Pilote-visible explanation.
-
-2. **Surface materialization failure** to Pilote (code + short reason) without claiming authority.
-
-3. **Canonicalize `targetCycleTypeId`** to catalog ids (`cyc:framing`) — prompt and/or server validation — without domain keyword matrices.
-
-4. Optional observability: persist materialization attempt result (non-authoritative) for diagnostics.
-
-**NOT recommended here:** prose parser; second model; new cognitive engine.
-
-**Architecture non-decision:** whether NEXT_CYCLE may exist without trajectory remains a Morris/doctrine question if changing validator semantics.
+| ID | Result |
+| --- | --- |
+| BAR-BOOT-01 fresh materialize | PASS |
+| BAR-BOOT-02 durable CURRENT + null traj refs + zero authority | PASS |
+| BAR-BOOT-03 current traj standard path | PASS |
+| BAR-BOOT-04 candidate history refuses | PASS |
+| BAR-BOOT-05 cycle present refuses | PASS |
+| BAR-BOOT-06 current HD refuses | PASS |
+| BAR-BOOT-07 UNKNOWN ≠ absence | PASS |
+| BAR-BOOT-08 label Cadrage FAIL | PASS |
+| BAR-BOOT-09 cyc:framing OK | PASS |
+| BAR-BOOT-10 unknown cyc:* FAIL | PASS |
+| BAR-BOOT-11 EMIT+null | PASS |
+| BAR-BOOT-12 CONTINUE | PASS |
+| BAR-BOOT-13 one Agents call | PASS |
+| BAR-BOOT-14 Pilote wording | PASS |
+| BAR-BOOT-15 CURRENT→STALE when traj appears | PASS |
+| BAR-BOOT-16 zero Cycle/HD/START | PASS |
+| BAR-BOOT-17 non-bootstrap still requires traj | PASS |
+| BAR-BOOT-18 no auto traj + prompt catalog | PASS |
 
 ---
 
-## 13. Files potentially involved (future corrective — not modified)
+## 11. Validation results
 
-- `orchestrateTurn.ts` (trajectory reader → failedMaterialDimensions / visible code)
-- `validateLifecycleRecommendation.ts` / `materializeFromProductTurn.ts`
-- Project create / runtime composition (trajectory initialization)
-- `buildProjectSystemPrompt.ts` (targetCycleTypeId catalog guidance) — optional
-- Lifecycle UI presentation of `lifecycleRecommendationCode`
-
----
-
-## 14. ZERO NEW REAL
-
-- No OpenAI/Nora live call in this cycle.
-- Only read-only SQLite + code inspection + offline pure functions on OBSERVED payloads.
+| Gate | Result |
+| --- | --- |
+| Focused BAR-BOOT | **18/18 PASS** |
+| Focused RB + LR + presentation | **85/85 PASS** |
+| Full Vitest | **3347 passed · 135 skipped · 0 failed** (320 files passed · 17 skipped) |
+| typecheck | PASS |
+| lint | PASS |
+| build | PASS |
+| git diff --check | PASS |
 
 ---
 
-## 15. Reserves
+## 12. Fake / Real
 
-- RESERVE-QA-MOCK-01
-- RESERVE-RB-UX-01
-- LIVE LIFECYCLE MATERIALIZATION NOT PROVEN
-- R2 OPEN
-- runtime v3 NON ADOPTED
+| Item | Value |
+| --- | --- |
+| Applicable | OUI |
+| External boundary | OpenAI Agents structured Product turn |
+| This cycle | DETERMINISTIC ONLY |
+| ZERO NEW REAL | PROVEN |
+| LIVE bootstrap | **NOT claimed** |
+
+Claims authorized:
+- GREENFIELD PRE-TRAJECTORY LR BOOTSTRAP DETERMINISTICALLY PROVEN
+- CANONICAL CYCLE TYPE VALIDATION DETERMINISTICALLY PROVEN
+- PILOT-SAFE MATERIALIZATION FAILURE SURFACE DETERMINISTICALLY PROVEN
+
+Claims forbidden: LIVE BOOTSTRAP · E2E REAL · R2 CLOSED · Product Proof COMPLETE · READY FOR PR · runtime v3 ADOPTED.
 
 ---
 
-## 16. Instruction to ChatGPT
+## 13. Product DB / session non-mutation
 
-Lire ce handoff et confirmer la root cause.
-Si PASS: proposer un gate Morris distinct pour le corrective trajectoire / materialization visibility / catalog type id — **pas** un nouveau REAL avant design.
+Live replay DBs **not modified** this cycle.
+
+| Artifact | sha256 |
+| --- | --- |
+| product.sqlite (greenfield live) | `74b0a7a9005f2fb2db71989f395d6921322dd08418aa3ca892de1a09bcf28b52` |
+| nora-session.sqlite | `c5405e39cd848c49e27d1cf629a4e37c3dcb9c90ae578d42cd90f0bc451ee5f8` |
+
+---
+
+## 14. Anti-claims
+
+Bootstrap LR creates: **0** CycleInstance · **0** HumanDecision · **0** ProjectTrajectory · no START · no ExecutionContract · authority=none.
+
+---
+
+## 15. Next capability (OUT OF SCOPE)
+
+Prepare non-authoritative **candidate ProjectTrajectory** from accepted/current Recommendation **before** Pilot HumanDecision.
+
+Requires distinct Morris GO. Not coupled into this commit.
+
+---
+
+## 16. Reserves
+
+| Reserve | Disposition |
+| --- | --- |
+| RESERVE-QA-MOCK-01 | OPEN / NON-BLOCKING / untouched |
+| RESERVE-RB-UX-01 | **CLOSED** (deterministic Pilote business-first surface) |
+| LIVE LIFECYCLE MATERIALIZATION NOT PROVEN | OPEN — needs fresh LIVE GO |
+| R2 OPEN | OPEN |
+| runtime v3 NON ADOPTED | OPEN |
 
 ---
 
 ## 17. Verdict
 
-**LIVE ROUTING-BOUNDARY ROOT CAUSE — PROVEN**
+**GREENFIELD PRE-TRAJECTORY LIFECYCLE BOOTSTRAP — DETERMINISTIC CANDIDATE READY FOR CHATGPT CRITICAL REVIEW**
 
-Routing boundary cognitive emission worked in REAL.
-Durable Lifecycle Recommendation failed because **trajectory missing** → `LR_TRAJECTORY_REQUIRED`.
+Candidate: `f70dc8ae9c25b237654a6db9ec44a875880afdde` · Parent: `e79f16ba467c227470328d7f723f1c2b53fdf2fb`
+
+Await ChatGPT Critical Review + distinct Morris GO before LIVE replay / PR.
