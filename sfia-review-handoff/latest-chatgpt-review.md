@@ -2,273 +2,585 @@
 
 ## 1. Identity
 
-- **timestamp_utc:** 2026-09-09T11:06:23Z
-- **cycle_id:** SFIA-STUDIO-PRODUCT-PROOF-GREENFIELD-TASK-APP-R1-ENV-REG-01
-- **repository:** mcleland147/sfia-workspace
-- **campaign_worktree:** `/Users/morris/Projects/sfia-product-proof-greenfield-task-app-a9f6c310`
-- **campaign_app:** `…/projects/sfia-studio/app`
-- **baseline_git:** `a9f6c310a0826d0e5bd6f7264603382a86564db1` (`origin/main` match)
+- **timestamp_utc:** 2026-09-09T13:45:11Z
+- **cycle_id:** SFIA-STUDIO-PRODUCT-PROOF-CORR-QUAL-TO-GOVERNED-CYCLE-01
+- **baseline:** a9f6c310a0826d0e5bd6f7264603382a86564db1
+- **branch:** delivery/sfia-studio-product-proof-qual-to-governed-cycle
+- **worktree:** /Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310
+- **type:** 8 — Delivery / implémentation
+- **typology:** EVOL — Product Proof corrective
 - **profile:** CRITICAL
-- **typology_v2.4:** RUN — environment / readiness regularization
-- **project_cycle_type:** 9 — QA / validation
-- **proof_level:** AUTH + NORA CONFIGURATION READINESS — **ZERO REAL**
-- **prior_cycle:** SFIA-STUDIO-PRODUCT-PROOF-GREENFIELD-TASK-APP-ENV-READINESS-01
-- **prior_handoff:** `06b6fa6967ac6e757abe71ea1c67abdab27cb2f7` / blob `10a1b13a5f1099a8408fa99f40abf4d2f95a89c6`
+- **ZERO NEW REAL:** YES
 
 ## 2. Morris GO consumed
 
-- Scope: **R1 environment regularization only** (local campaign `.env.local` + Studio restart on :3020 + unauthenticated auth smoke).
-- **No** Product source mutation.
-- **No** Project creation.
-- **No** OpenAI / Nora model call.
-- **No** Cursor via Studio / StartExecution.
-- **No** R2 executor capability gap fix.
-- Git write authorized: **L3 bounded** Review Handoff publish only (`sfia/review-handoff`).
+- GO for bounded local Delivery corrective described in cycle prompt
+- GO MORRIS — REUSE EXISTING CORRECTIVE WORKTREE — QUALIFICATION TO GOVERNED CYCLE
+- Authorized: local commit of corrective if bars pass; handoff L3 only
+- Forbidden: corrective branch push, PR, merge, OpenAI REAL, Cursor REAL, Task-App build, R2 write, doctrine/v3 adoption
 
 ## 3. Local Git Truth
 
-Executed from campaign worktree (first action of cycle; re-verified at exit evidence):
-
 | Check | Result |
 | --- | --- |
-| `pwd` / toplevel | `/Users/morris/Projects/sfia-product-proof-greenfield-task-app-a9f6c310` |
-| remote | `origin` → `https://github.com/mcleland147/sfia-workspace.git` |
-| branch | detached HEAD (expected) |
-| `HEAD` | `a9f6c310a0826d0e5bd6f7264603382a86564db1` |
-| `origin/main` (after fetch) | `a9f6c310a0826d0e5bd6f7264603382a86564db1` |
-| tracked Product diff | **none** caused by this cycle |
-| working tree note | only `.tmp-sfia-review/chatgpt-review.md` (ignored review pack source) dirty/local |
-
-**STOP condition baseline drift:** NOT TRIGGERED.
+| origin/main | a9f6c310a0826d0e5bd6f7264603382a86564db1 |
+| corrective HEAD (pre-commit) | a9f6c310… |
+| branch | delivery/sfia-studio-product-proof-qual-to-governed-cycle (no remote) |
+| campaign worktree | PRESERVED READ-ONLY |
+| source workspace dirty | PRESERVED (not modified by this cycle) |
 
 ## 4. Sources consumed
 
-**Process / contracts**
-- `prompts/templates/sfia-cycle-execution-template.md`
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md` (candidate; experimental guidance; no execution authority)
-- `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
+Process v2.6 templates/routing/checklist/guardrails; Convergence Build Doctrine + Roadmap; Product Completion 01+14; Doctrine v3 32–35 (NON ADOPTED); code seams listed in cycle prompt; prior greenfield observations OBS-01…07.
 
-**Convergence / Product Completion**
-- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
-- `projects/sfia-studio/product-completion/14-product-completion-integrated-proof-final-qualification.md`
-
-**Doctrine v3 (applicable framing; not adopted as runtime)**
-- `32-living-project-state-and-dynamic-trajectory.md`
-- `33-epistemology-provenance-and-contradiction-model.md`
-- `34-agent-capabilities-reversibility-and-execution-governance.md`
-- `35-artifact-evidence-debt-and-controlled-learning.md`
-
-**Auth / live config (read-only)**
-- `app/middleware.ts`, `lib/auth/auth.ts`, `allowlist.ts`, `constants.ts`, `resolveCurrentPilote.ts`
-- `lib/platform/ai/config.ts`
-- `app/.gitignore` (`.env.local` ignored)
-
-**Previous review**
-- `origin/sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md` (Critical finding: incomplete Next Gate — required Better Auth + GitHub client + allowlist; `BETTER_AUTH_URL` not mandatory blocker)
+CKC Cycle 8: absent — fallback synthetic card + method v2.6 (no invented CKC).
 
 ## 5. Convergence qualification
 
-- **capability:** Greenfield Product entry / authenticated Pilote / live Nora readiness serving the full Project loop (prep only).
-- **milestone:** PRODUCT PROOF — GREENFIELD TASK APP — R1 ENV REGULARIZATION
-- **assets:**
-  - campaign worktree = KEEP
-  - isolated Product DB path = KEEP
-  - Better Auth / GitHub auth path = KEEP / CONFIGURED (local)
-  - server-side GitHub allowlist = KEEP / CONFIGURED (local)
-  - Nora live provider = KEEP / CONFIGURED (local; zero calls)
-  - FakeConversationProvider = MUST REMAIN OFF (UNSET)
-  - deterministic Cursor boundary = MUST REMAIN OFF (UNSET)
-  - Cursor REAL = OFF / UNSET for campaign start
-  - M4 bounded read-only agent = KEEP AS CURRENT TRUTH / DO NOT EXPAND
-  - historical Product DBs = PRESERVE
-  - old “suivi de contrat” Project = HISTORICAL / DO NOT TOUCH
-- **gap closed by this cycle:** local campaign auth + Nora configuration readiness only
-- **dependency after exit:** Morris manually authenticates as Pilote
-- **then:** Morris may create the fresh Project under the already authorized greenfield scenario
-- **first Nora live turn:** DISTINCT MORRIS REAL GATE REQUIRED before consuming the first OpenAI call
-- **R2 executor capability gap:** PRESERVED AS FINDING — not fixed
-- **exit proof:** see §§7–11
-- **next capability:** MANUAL PILOTE AUTH CHECK
+- **capability:** Natural intention → proportionate qualification → governed next-cycle Recommendation
+- **milestone:** PRODUCT PROOF — GREENFIELD FULL PRODUCT DOGFOOD — QUALIFICATION TO GOVERNED CYCLE TRANSITION CORRECTIVE
+- **KEEP:** session, Nora Runner, structured Product turn + optional LR, materializer, LifecycleSurface, F2 candidate cycle path, Pilot START, global recommendProfile invariant
+- **ADAPT:** F1 prompt boundary, intent formalization semantics, MW5 Pilote presentation, signal coherence for lifecycle formalization, conversation/Pourquoi presentation, Lifecycle refresh-on-answer
+- **PROOF ONLY:** LPS/History — NO CHANGE REQUIRED
+- **gap closed:** conversational qualification yields to structured NEXT_CYCLE Recommendation before silently doing the cycle; Pilote-safe presentation; false-Critical formalization dampened without weakening genuine Critical
+- **next:** bounded REAL greenfield replay after ChatGPT Critical Review + distinct Morris REAL gate
+- **exit proof:** DETERMINISTIC CORRECTIVE CANDIDATE
 - **debt:** none intentional
+- **runtime v3:** NON ADOPTED
+- **R2:** still OPEN
 
-## 6. Secret-safe source discovery
+## 6. Greenfield observations (campaign evidence ≠ Git)
 
-Scanned local SFIA `.env.local` candidates under `/Users/morris/Projects` (paths + PRESENT/MISSING only; **no values**).
+OBS-01…OBS-07 as in cycle prompt (qualification depth; LR not materialized; Critical on formalize; MW5 leak; raw escapes; honest stop; LPS v1).
 
-Reuse policy applied: copy only qualified auth + Nora keys from a known functional Studio local config; **do not** copy `SFIA_STUDIO_PRODUCT_DB_PATH`, fake flags, Cursor REAL, reset flags.
+## 7. Root Cause Matrix
 
-**Reference source used for qualified keys:**
-`/Users/morris/Projects/sfia-workspace-studio-dogfood-01/projects/sfia-studio/app/.env.local`
+| ID | Seam | Cause | Patch | Test |
+|---|---|---|---|---|
+| OBS-01/06 | buildProjectSystemPrompt | Prompt denied cycle qualification while LR schema exists; no semantic boundary | LR contract + authority clarification | qualToGovernedCycle.presentation + prompt asserts |
+| OBS-02 | F1 coerce null + Lifecycle mount-only | No emit guidance; no post-answer refresh | Prompt LR + ConversationSurface CustomEvent → LifecycleSurface refresh | BAR-08 existing LR tests + event wiring |
+| OBS-03 | intent actionable + structuralChange | Formalize treated as F2/structural | intent informative examples + signal contract + lifecycle formalization dampener (not invariants.ts) | BAR-05/06 unit |
+| OBS-04 | formatMw5AssistantText | Machine markers as user text | formatMw5PiloteText vs MachineText; session keeps machine | BAR-07 + MW5 product tests |
+| OBS-05 | ConversationSurface / CKC derive | Raw content + engine codes in Pourquoi | formatNoraAssistantDisplayText + profileRationalePiloteLabel + CKC derive | BAR-11/12 |
+| OBS-07 | LPS | Conversation ≠ Truth promotion | NO CHANGE | BAR-13 / existing #477 |
 
-**OPENAI_MODEL ambiguity check:** all 17 discovered Studio `.env.local` files that define `OPENAI_MODEL` share the same non-secret value `gpt-5.6-luna` → **not ambiguous**.
+## 8. Architecture preservation
 
-| Path | BETTER_AUTH_SECRET | GITHUB_CLIENT_ID | GITHUB_CLIENT_SECRET | ALLOWLIST | OPENAI_API_KEY | OPENAI_MODEL | OPENAI_REASONING_EFFORT | BETTER_AUTH_URL |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| campaign `…/product-proof…/app/.env.local` (final) | PRESENT | PRESENT | PRESENT | PRESENT | PRESENT | PRESENT | MISSING | MISSING |
-| `sfia-workspace-studio-dogfood-01/…/.env.local` | PRESENT | PRESENT | PRESENT | PRESENT | PRESENT | PRESENT | MISSING | PRESENT |
-| `sfia-workspace-auth-better-auth-github-multi-user-foundation/…` | PRESENT | PRESENT | PRESENT | PRESENT | PRESENT | PRESENT | MISSING | PRESENT |
-| `sfia-workspace-proof-corr-03-e1-real/…` | PRESENT | PRESENT | PRESENT | PRESENT | PRESENT | PRESENT | MISSING | PRESENT |
-| `sfia-wt-corr04-real-*/…` (3 paths) | PRESENT | PRESENT | PRESENT | PRESENT | PRESENT | PRESENT | MISSING | PRESENT |
-| other SFIA Studio `.env.local` (Nora-only / partial) | mostly MISSING auth | — | — | — | PRESENT | PRESENT | MISSING | MISSING |
+- Same Nora Runner / same structured output / same lifecycle store
+- No second model / no prose parser / no migration / no new table
+- #477 R8 NEXT_CYCLE ≠ Cycle creation — PRESERVED (lifecycleRecommendation.delivery R8 PASS)
+- invariants.ts / recommendProfile — NOT MODIFIED
 
-`BETTER_AUTH_SECRET` = PRESENT (reused from known local Studio config; not generated this cycle).
-Allowlist syntax validated locally as non-empty comma-separated positive numeric GitHub user IDs — **IDs never printed**.
+## 9. Qualification boundary correction
 
-## 7. Final campaign environment SANITIZED matrix
+F1 prompt now: semantic boundary when continuing = doing next cycle → emit structured lifecycleRecommendation; no N-turn rule; no forced framing; may emit LR without Cycle/HD authority; must not claim “cannot record” when structured path available.
 
-Target file (gitignored): `projects/sfia-studio/app/.env.local`
+## 10. Profile / Critical correction
+
+- Original cause: formalize → actionable F2 + structuralChange true → recommendProfile Critical
+- Correction: formalize Recommendation = informative (F1); signals describe project work impact not bookkeeping; dampen lone structuralChange on lifecycle formalization envelope; genuine security/arch/data/irreversible preserved
+- global recommendProfile unchanged
+
+## 11. MW5 presentation correction
+
+Pilote text business-first; machine markers retained for session/audit via formatMw5MachineText; default challenges no longer say “Truth C”.
+
+## 12. Conversation / rationale presentation
+
+UI boundary formatter unescapes `\\n` / softens `**`; Pourquoi maps critical_signal_present; technical rationale under Détails techniques; CKC derive no longer prepends engine codes when guidance exists.
+
+## 13. Lifecycle Recommendation materialization
+
+Existing #477 path reused. LifecycleSurface listens for `sfia:project-assistant-answered` to refresh CURRENT projection. NEXT_CYCLE still does not create CycleInstance.
+
+## 14. LPS / History
+
+**NO CHANGE REQUIRED** — conversation/Recommendation remain non-Truth; activeCycleInstanceId unchanged by LR alone.
+
+## 15. Tests
 
 ```
-BETTER_AUTH_SECRET = PRESENT
-GITHUB_CLIENT_ID = PRESENT
-GITHUB_CLIENT_SECRET = PRESENT
-SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS = PRESENT / VALID
-BETTER_AUTH_URL = UNSET_DEFAULT_3020
-OPENAI_API_KEY = PRESENT
-OPENAI_MODEL = gpt-5.6-luna
-OPENAI_REASONING_EFFORT = UNSET
-OPS1_CONVERSATION_PROVIDER = UNSET / NOT_FAKE
-SFIA_STUDIO_PRODUCT_DB_PATH = campaign isolated path
-SFIA_STUDIO_CURSOR_REAL = OFF / UNSET
-OPS1_CURSOR_REAL = OFF / UNSET
-SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY = OFF / UNSET
-SFIA_STUDIO_E2E_QA_CONTROL = OFF / UNSET
-SFIA_V2_RUNTIME_ALLOW_RESET = OFF / UNSET
+npm run typecheck → PASS
+npm run lint → PASS
+npm run build → PASS
+vitest project-assistant + oa/cycle + nora-cognitive-runtime → 105 files / 1441 tests PASS
+vitest full suite → 318 passed | 17 skipped files; 3294 passed | 135 skipped tests
 ```
 
-Isolated DB path retained exactly:
-`/Users/morris/Projects/sfia-product-proof-greenfield-task-app-a9f6c310/projects/sfia-studio/.sfia-exec/product-proof-greenfield-task-app/product.sqlite`
+## 16. Runtime visual proof
 
-Prior campaign `SFIA_STUDIO_CURSOR_REAL=1` **removed** for least privilege at campaign start.
+- Mode: deterministic presentation fixture using production formatters (file:// HTML + Playwright Chromium)
+- Disclosure: Full `/studio` interactive path requires Better Auth session; Playwright e2e historically has no auth bypass — honest limitation
+- Viewport: 1440×1024 + 390×844 non-regression
+- Paths: `.tmp-sfia-review/runtime-captures/qual-to-governed-cycle/01-presentation-desktop.png` (sha256 5e352e896d53cd8eaa7a827fc2612369e46e6df9d269322adc07c029334f42f7), `02-presentation-390.png`
+- Observations: no literal `\\n`/`\\*\\*`; no MW5/Truth C/count= in primary MW5 card; business Pourquoi; Lifecycle Recommendation CURRENT ≠ décision
 
-## 8. Auth smoke evidence
+## 17. Modified files (roles)
 
-Server: `npx next start --port 3020` from campaign app; listener PID cwd confirmed campaign app directory. Prior campaign listener on 3020 stopped gracefully (same campaign cwd).
+M	projects/sfia-studio/app/__tests__/project-assistant/mw5.challenge.clarification.product.d0.test.ts
+M	projects/sfia-studio/app/e2e/studio-option-a.spec.ts
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx
+M	projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
+M	projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts
+M	projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+M	projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+M	projects/sfia-studio/app/features/project-assistant/f2/qualificationSignalCoherence.ts
+M	projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/criticalChallengeClarification.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/qualToGovernedCycle.presentation.d0.test.ts
+?? projects/sfia-studio/app/e2e/studio-qual-to-governed-visual.spec.ts
 
-| Request | HTTP | Location / note |
-| --- | --- | --- |
-| `GET /login` | **200** | Login page presents GitHub mechanism (`GitHub` / `Se connecter` markers present). **No OAuth performed.** |
-| `GET /studio` (no session) | **307** | `/login?error=NO_SESSION&from=%2Fstudio` |
-| `GET /studio/projects/new` (no session) | **307** | `/login?error=NO_SESSION&from=%2Fstudio%2Fprojects%2Fnew` |
+### Diff excerpts (exploitable)
+```diff
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+index 80e253d8..7dfcb6ab 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+@@ -1,22 +1,25 @@
+ "use client";
 
-- **AUTH_CONFIG_ERROR:** ABSENT on all three checks (body + redirect query).
-- **NO_SESSION:** EXPECTED pre-login state; proves server auth composition progressed past config failure to session requirement.
-- Interactive GitHub OAuth / callback URL mismatch: **not exercised**; if later revealed → Morris action (out of scope for auto-fix).
+-import { useId } from "react";
+ import {
+   BOUNDED_RUNNING_REFRESH_ACTION,
+   BOUNDED_RUNNING_REFRESH_HELP,
+   BOUNDED_RUNNING_REFRESH_TITLE,
+   G_UX_08_AMEND_DEFERRED_MESSAGE,
++  SFIA_ASSISTANT_ANSWERED_EVENT,
+   attemptStatusUserLabel,
+   confirmationPathChip,
+   contractUserFacingFacts,
+   evidenceVerifiedUserLabel,
+   executionSemanticKind,
+   executionSemanticUserLabel,
++  formatNoraAssistantDisplayText,
+   isBoundedRunningAttemptRefreshable,
+   postExecutionUserSummary,
++  profileRationalePiloteLabel,
+ } from "@/features/project-assistant/presentationLabels";
+ import type { AssistantToolEventDto } from "@/features/project-assistant/types";
+ import type { F2DecisionKind } from "@/features/project-assistant/f2/types";
++import { useEffect, useId } from "react";
+ import type { ProductConversationController } from "../hooks/useProductConversation";
+ import styles from "./ConversationSurface.module.css";
 
-## 9. Nora configuration evidence
+@@ -109,6 +112,13 @@ export function ConversationSurface({
+     retryLastUserMessage,
+   } = controller;
 
-- `OPENAI_API_KEY` = PRESENT (value never shown)
-- `OPENAI_MODEL` = `gpt-5.6-luna` (reused exact local Studio value; no new model selection)
-- `OPENAI_REASONING_EFFORT` = UNSET
-- `OPS1_CONVERSATION_PROVIDER` = UNSET / NOT_FAKE
-- **OpenAI / Responses / Agents SDK calls this cycle:** **ZERO**
-- Verdict: **LIVE NORA CONFIGURATION READY — ZERO CALLS**
-  (configuration availability only — **not** OpenAI REAL proven, **not** first live turn authorized)
++  // Notify LifecycleSurface after Nora answers so CURRENT LR can reproject.
++  useEffect(() => {
++    if (uiState !== "ANSWERED") return;
++    if (typeof window === "undefined") return;
++    window.dispatchEvent(new CustomEvent(SFIA_ASSISTANT_ANSWERED_EVENT));
++  }, [uiState, messages.length]);
++
+   const attemptLabel = f3Execute
+     ? attemptStatusUserLabel(f3Execute.attempt.status)
+     : null;
+@@ -248,7 +258,11 @@ export function ConversationSurface({
+                 <p className={styles.bubbleAuthor}>
+                   {message.role === "user" ? "Pilote" : "Nora"}
+                 </p>
+-                <p className={styles.bubbleText}>{message.content}</p>
++                <p className={styles.bubbleText}>
++                  {message.role === "assistant"
++                    ? formatNoraAssistantDisplayText(message.content)
++                    : message.content}
++                </p>
+               </div>
+             </article>
+           ))
+@@ -309,12 +323,20 @@ export function ConversationSurface({
+             </div>
+             <div className={styles.factWide}>
+               <dt>Pourquoi</dt>
+-              <dd data-testid="f2-rationale">{f2.qualification.rationale}</dd>
++              <dd data-testid="f2-rationale">
++                {profileRationalePiloteLabel(f2.qualification.rationale)}
++              </dd>
+             </div>
+           </dl>
+           <details className={styles.details}>
+             <summary>Détails techniques</summary>
+             <dl className={styles.facts}>
++              <div className={styles.factWide}>
++                <dt>Rationale technique</dt>
++                <dd data-testid="f2-rationale-technical">
++                  {f2.qualification.rationale}
++                </dd>
++              </div>
+               <div className={styles.factWide}>
+                 <dt>Identifiant de cycle</dt>
+                 <dd>{f2.qualification.cycleTypeId}</dd>
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx
+index fcf0fe75..3409d00f 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx
+@@ -6,6 +6,7 @@ import {
+   projectAssistantPilotLifecycleProjection,
+ } from "@/features/project-assistant/actions";
+ import type { PilotLifecycleProjection } from "@/lib/oa/cycle";
++import { SFIA_ASSISTANT_ANSWERED_EVENT } from "@/features/project-assistant/presentationLabels";
+ import {
+   lifecycleCtaPresentation,
+   lifecycleStatusBadge,
+@@ -48,6 +49,16 @@ export function LifecycleSurface({
+     void refresh();
+   }, [refresh]);
 
-## 10. Cursor boundary
++  useEffect(() => {
++    const onAnswered = () => {
++      void refresh();
++    };
++    window.addEventListener(SFIA_ASSISTANT_ANSWERED_EVENT, onAnswered);
++    return () => {
++      window.removeEventListener(SFIA_ASSISTANT_ANSWERED_EVENT, onAnswered);
++    };
++  }, [refresh]);
++
+   async function runAction(
+     action: "START" | "PAUSE" | "RESUME" | "FINALIZE" | "CANCEL" | "REEVALUATE",
+     opts?: { requiresReplanHumanDecision?: boolean },
+diff --git a/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts b/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
+index feba58f9..512c2f4e 100644
+--- a/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
++++ b/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
+@@ -7,9 +7,11 @@ import {
 
-- `SFIA_STUDIO_CURSOR_REAL` = UNSET / OFF
-- `OPS1_CURSOR_REAL` = UNSET / OFF
-- `SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY` = UNSET / OFF
-- StartExecution / Cursor via Studio this cycle: **ZERO**
-- Future Cursor REAL requires distinct Morris gate if Product reaches an execution boundary.
+ /**
+  * Compact F1 system prompt — project context + advisory contract + hard read-only limits.
+- * No F2 qualification, no Cursor, no write, no durable persistence claims.
++ * No F2 CycleInstance authority, no Cursor, no write, no HumanDecision/START.
++ * Structured lifecycle Recommendation emission is allowed (authority none) via Product turn output.
+  * CORR-PROOF-02 B1 — positive advisory initiative for ordinary incomplete requests.
+  * CORR-PROOF-03 E1 — Studio method identity + optional non-mutating method context.
++ * QUAL-TO-GOVERNED-CYCLE — semantic boundary before silent pre-cycle deepening.
+  */
+ export function buildProjectSystemPrompt(
+   project: ProjectAssistantContextDto,
+@@ -54,7 +56,11 @@ export function buildProjectSystemPrompt(
+   return [
+     "Tu es Nora, partenaire de réflexion projet/produit du Project Workspace.",
+     "Périmètre : ANALYSE / CONVERSATION / CONSEIL / LECTURE SEULE.",
+-    "Tu n'as aucune autorité de décision, d'exécution Cursor, d'écriture Git/GitHub, ni de qualification de cycle SFIA.",
++    "Tu n'as aucune autorité de décision Pilote, d'exécution Cursor, d'écriture Git/GitHub,",
++    "ni de création / START / HumanDecision / CycleInstance actif.",
++    "Tu PEUX émettre une Recommendation lifecycle structurée SANS autorité (champ lifecycleRecommendation)",
++    "lorsque la frontière sémantique ci-dessous est atteinte — le serveur valide et matérialise ;",
++    "émettre ≠ qualifier formellement un CycleInstance ≠ décider.",
+     "Une intention utilisateur n'est jamais une autorisation d'exécution.",
+     "",
+     "=== IDENTITÉ SFIA STUDIO (priorité source) ===",
+@@ -89,6 +95,22 @@ export function buildProjectSystemPrompt(
+     "Vérité Project courante + doctrine Studio outrankent les prémisses conversationnelles obsolètes (sans réécrire l'historique).",
+     "Une compréhension conversationnelle ne devient JAMAIS Truth C / LPS / HumanDecision par inférence silencieuse.",
+     "",
++    "=== FRONTIÈRE QUALIFICATION → RECOMMANDATION DE CYCLE (sémantique) ===",
++    "Pas de règle « après N messages ». Pas de « toujours Cadrage en premier ».",
++    "Intention naturelle incomplète : reste advisory ; au plus UNE clarification ciblée pertinente.",
++    "Lorsque (1) le besoin est assez compris pour identifier avec confiance le prochain type de cycle,",
++    "(2) continuer approfondir reviendrait à effectuer substantiellement ce cycle,",
++    "(3) aucun cycle actif ne couvre déjà ce travail :",
++    "→ cesse l'approfondissement pré-cycle ; produis narrative + lifecycleRecommendation structurée.",
++    "lifecycleRecommendation (si émise) : intent NEXT_CYCLE ou FINALIZE_CURRENT_CYCLE ;",
++    "authority conceptuelle aucune ; isHumanDecision false ; statement et rationale lisibles Pilote ;",
++    "targetCycleTypeId seulement s'il est supportable (jamais inventé ; jamais forcé cyc:framing).",
++    "Si plusieurs cycles sont vraiment plausibles ou le contexte est insuffisant :",
++    "clarification ciblée OU lifecycleRecommendation = null — pas de choix arbitraire.",
++    "Ne dis PAS « je ne peux pas l'enregistrer dans Studio » si le chemin structured Recommendation est disponible.",
++    "Si tu émets lifecycleRecommendation : le serveur peut la matérialiser ; ne prétends jamais qu'elle est",
++    "enregistrée si tu n'as pas de confirmation produit ; ne crée pas de CycleInstance / HD / START.",
++    "",
+     "=== LIMITES D'AUTORITÉ (strict) ===",
+     "Distingue vérité courante / historique / superseded / réserve ouverte.",
+     "Tu peux utiliser uniquement les outils de lecture (Git/GitHub read) exposés.",
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts b/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+index daaf87d3..fb8c859c 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+@@ -409,6 +409,9 @@ Exemples informative:
+ - « Donne-moi les risques avant que je décide. »
+ - « Peux-tu m'aider à créer cette application ? » (avec ou sans détails MVP complets)
+ - « J'aimerais créer un outil pour suivre mes contrats » / « tu ferais quoi comme MVP ? »
++- « Quelle est la meilleure prochaine étape méthodologique ? » / « Que me recommandes-tu comme prochain cycle ? »
++- « Formalise maintenant dans Studio la prochaine étape que tu me recommandes, afin que je puisse la décider. »
++  (effet = Recommendation lifecycle advisory pour décision Pilote — PAS création de CycleInstance)
+ - Repository READ / résumé / recherche / vérité Git SANS mutation ni qualification de cycle.
 
-## 11. Product DB / Project isolation
+ actionable — l'effet demandé est une opération SFIA gouvernée (qualifier/créer/changer un CycleInstance ; créer une proposition F2 parce que l'utilisateur demande une transition de processus ; préparer un changement structurel Project nécessitant une transition d'état ; capturer/préparer un workflow de décision où une qualification de cycle est réellement requise) ET candidateCycleTypeId + signals sont supportables.
+@@ -416,6 +419,7 @@ Exemples actionable:
+ - « Qualifie ce chantier en cycle Delivery et prépare la proposition. »
+ - « Crée le cycle correspondant et prépare le passage au prochain gate. »
+ - « Prépare l'ExecutionContract pour cette décision déjà enregistrée. »
++Ne PAS classer actionable uniquement parce que le Pilote demande d'enregistrer / formaliser une Recommendation lifecycle advisory.
 
-- Campaign `product.sqlite`: **ABSENT_OK** after smokes (no Project create; no form submit).
-- Historical Product DBs: not touched.
-- Zero Project creation; zero tracked Product mutation.
+ execution_request — uniquement si l'utilisateur demande explicitement une exécution / mutation / action externe franchissant la frontière d'exécution.
+ Exemple: « Exécute ce contrat. »
+@@ -479,12 +483,19 @@ JAMAIS Truth C, Evidence, HumanDecision, GO, Confirmation ou autorité.
+ missing/unknown/insufficient ⇒ le challenge n'est PAS satisfait (fail-closed).
+ Ne PAS inventer un challenge absent du message.
 
-## 12. Fake / Real matrix
+-=== Qualification signals (effet réel, pas le label utilisateur) ===
++=== Qualification signals (effet réel du chantier projet, pas le label utilisateur) ===
++Les signals décrivent l'impact matériel réel du travail projet sous-jacent — PAS le simple fait qu'une
++mutation de bookkeeping lifecycle / formalisation de Recommendation / candidate formalization soit durable.
++Formaliser / matérialiser une Recommendation NEXT_CYCLE ou un enregistrement de processus advisory
++sans impact sécurité / architecture / données / irréversibilité / changement structurel produit établi
++⇒ structuralChange, securityImpact, architectureImpact, dataImpact, irreversible = false.
++Ne PAS assimiler « formaliser une Recommendation dans Studio » à « changement structurant du Project ».
+ Si la demande est uniquement un wording / libellé d'interface, explicitement sans impact sur le comportement, les données, l'architecture, la sécurité, l'autorité, l'exécution et sans irréversibilité : structuralChange, securityImpact, architectureImpact, dataImpact, irreversible = false ; lowRiskBounded = true lorsqu'établi.
+ Un utilisateur qui QUALIFIE verbalement une opération de « cosmétique » ou « wording » ne rend PAS une mutation structurante, de données, d'architecture, de sécurité ou irréversible cosmétique.
+ Classifie d'après l'effet réel demandé, pas le label donné par l'utilisateur.
+ Le seul mot « cosmétique » ou « wording » ne force aucun signal safe.
+ Silence sur sécurité ou irréversibilité n'est PAS une preuve d'absence d'impact.
++Sécurité réelle / architecture structurante / impact données / action irréversible → conserver les signals critiques correspondants.
 
-| Boundary | Fake this cycle | REAL this cycle | Notes |
-| --- | --- | --- | --- |
-| GitHub OAuth / Pilote identity | N/A | **not consumed** | Manual Morris login next |
-| OpenAI / Nora | fake provider OFF | **not consumed** | Config ready; distinct REAL gate before first call |
-| Cursor CLI | deterministic OFF | REAL OFF | Zero executions |
-| Product SQLite | N/A | local path reserved | DB absent OK; no Project |
+ === ORIENTATION MÉTHODE (CORR-PROOF-03 E1 — cognitive only) ===
+ Pour une demande informative de conseil / méthode projet, lorsque le type de travail courant est raisonnablement
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/qualificationSignalCoherence.ts b/projects/sfia-studio/app/features/project-assistant/f2/qualificationSignalCoherence.ts
+index 17619441..ce6b0a26 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/qualificationSignalCoherence.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/qualificationSignalCoherence.ts
+@@ -34,7 +34,10 @@ export type QualificationSignalCoherenceReason =
+   | "unknown_substantive_residual"
+   | "signals_already_safe"
+   | "false_critical_neutralized"
+-  | "safe_cosmetic_envelope_confirmed";
++  | "safe_cosmetic_envelope_confirmed"
++  | "not_lifecycle_formalization_envelope"
++  | "genuine_critical_preserved"
++  | "false_structural_lifecycle_formalization_neutralized";
 
-Entry proof prior cycle: ENVIRONMENT READINESS QUALIFIED / DETERMINISTIC PRODUCT PROOF AVAILABLE / ZERO REAL.
-This cycle proof: **AUTH + NORA CONFIGURATION READINESS / ZERO REAL**.
-Hard rule: DETERMINISTIC PROVEN ≠ READY FOR REAL.
+ export type CosmeticSafeClauseRole =
+   | "cycle_meta"
+@@ -42,12 +45,34 @@ export type CosmeticSafeClauseRole =
+   | "no_impact"
+   | "governance";
 
-## 13. R1A verdict
++export type LifecycleFormalizationClauseRole =
++  | "lifecycle_rec_formalize"
++  | "decision_handoff"
++  | "no_product_critical_impact"
++  | "governance";
++
++/** Neutralize structuralChange only — do not invent lowRiskBounded/Light. */
++export const LIFECYCLE_FORMALIZATION_DAMPENED_SIGNALS: Pick<
++  F2QualificationSignals,
++  | "structuralChange"
++  | "securityImpact"
++  | "architectureImpact"
++  | "dataImpact"
++  | "irreversible"
++> = {
++  structuralChange: false,
++  securityImpact: false,
++  architectureImpact: false,
++  dataImpact: false,
++  irreversible: false,
++};
++
+ export type QualificationSignalCoherenceResult = {
+   signals: F2QualificationSignals;
+   cosmeticSafeToSuppress: boolean;
+   reason: QualificationSignalCoherenceReason;
+   residual: string;
+-  recognizedRoles: CosmeticSafeClauseRole[];
++  recognizedRoles: Array<CosmeticSafeClauseRole | LifecycleFormalizationClauseRole>;
+ };
 
-**R1A PASS**
+ const ARTICLE = "(?:le |la |les |l['’]|the )?";
+@@ -76,6 +101,23 @@ const GOVERNANCE_RES: readonly RegExp[] = [
+   /\baucune\s+ex[eé]cution\b/i,
+ ];
 
-Evidence: auth composition composable; redirects use `NO_SESSION` not `AUTH_CONFIG_ERROR`; allowlist PRESENT/VALID (IDs undisclosed); Nora keys PRESENT; fake OFF; Cursor REAL OFF; ZERO REAL.
++/** Effect = record/formalize advisory lifecycle recommendation for Pilote decision. */
++const LIFECYCLE_REC_FORMALIZE_RES: readonly RegExp[] = [
++  /\b(?:formalise|formaliser|enregistre|enregistrer|mat[eé]rialise|mat[eé]rialiser)\b[\s\S]{0,80}\b(?:recommandation|prochaine\s+[eé]tape)\b/i,
++  /\b(?:recommandation|prochaine\s+[eé]tape)\b[\s\S]{0,80}\b(?:formalise|formaliser|enregistre|enregistrer|mat[eé]rialise|mat[eé]rialiser)\b/i,
++];
++
++const DECISION_HANDOFF_RES: readonly RegExp[] = [
++  /\b(?:afin|pour)\s+que\s+je\s+(?:puisse\s+)?(?:la\s+)?d[eé]cider\b/i,
++  /\bsans\s+(?:cr[eé]er|d[eé]marrer|activer)\s+(?:de\s+|un\s+)?cycle\b/i,
++  /\brecommandation\s*(?:n['’]est\s+pas|≠|!=)\s*(?:une\s+)?d[eé]cision\b/i,
++];
++
++const NO_PRODUCT_CRITICAL_IMPACT_RES: readonly RegExp[] = [
++  /\bsans\s+(?:impact\s+)?(?:s[eé]curit[eé]|security|architecture|donn[eé]es|data|irr[eé]versib)/i,
++  /\bwithout\s+(?:security|architecture|data|irreversib)/i,
++];
++
+ const CONNECTOR_OR_PUNCT_RE =
+   /[.,;:!?()[\]«»""''’]+|\b(?:et|and|puis|then|ou|or|ni)\b/gi;
 
-## 14. R1 verdict
+@@ -215,36 +257,133 @@ function signalsAlreadySafe(signals: F2QualificationSignals): boolean {
+ /**
+  * Neutralize false Critical provider signals only when the request is a
+  * positively proven closed-world pure-cosmetic envelope. Otherwise return
+- * the exact original provider signals.
++ * the exact original provider signals — except a bounded lifecycle-formalization
++ * dampener that clears structuralChange alone when other critical impacts are absent.
+  */
+ export function reconcileQualificationSignals(input: {
+   userContent: string;
+   signals: F2QualificationSignals;
+ }): QualificationSignalCoherenceResult {
+   const classification = classifyClosedWorldCosmeticRequest(input.userContent);
+-  if (!classification.cosmeticSafeToSuppress) {
++  if (classification.cosmeticSafeToSuppress) {
++    if (signalsAlreadySafe(input.signals)) {
++      return {
++        signals: input.signals,
++        cosmeticSafeToSuppress: true,
++        reason: "signals_already_safe",
++        residual: classification.residual,
++        recognizedRoles: classification.recognizedRoles,
++      };
++    }
+     return {
+-      signals: input.signals,
+-      cosmeticSafeToSuppress: false,
+-      reason: classification.reason,
++      signals: { ...COSMETIC_SAFE_SIGNALS },
++      cosmeticSafeToSuppress: true,
++      reason: "false_critical_neutralized",
+       residual: classification.residual,
+       recognizedRoles: classification.recognizedRoles,
+     };
+   }
+-  if (signalsAlreadySafe(input.signals)) {
++
++  const lifecycle = classifyLifecycleFormalizationRequest(input.userContent);
++  if (lifecycle.lifecycleFormalizationEnvelope) {
++    const s = input.signals;
++    if (
++      s.securityImpact === true ||
++      s.architectureImpact === true ||
++      s.dataImpact === true ||
++      s.irreversible === true
++    ) {
++      return {
++        signals: s,
++        cosmeticSafeToSuppress: false,
++        reason: "genuine_critical_preserved",
++        residual: lifecycle.residual,
++        recognizedRoles: lifecycle.recognizedRoles,
++      };
++    }
++    if (s.structuralChange !== true) {
++      return {
++        signals: s,
++        cosmeticSafeToSuppress: false,
++        reason: "signals_already_safe",
++        residual: lifecycle.residual,
++        recognizedRoles: lifecycle.recognizedRoles,
++      };
++    }
+     return {
+-      signals: input.signals,
+-      cosmeticSafeToSuppress: true,
+-      reason: "signals_already_safe",
+-      residual: classification.residual,
+-      recognizedRoles: classification.recognizedRoles,
++      signals: {
++        ...s,
++        ...LIFECYCLE_FORMALIZATION_DAMPENED_SIGNALS,
++        lowRiskBounded: s.lowRiskBounded,
++      },
++      cosmeticSafeToSuppress: false,
++      reason: "false_structural_lifecycle_formalization_neutralized",
++      residual: lifecycle.residual,
++      recognizedRoles: lifecycle.recognizedRoles,
+     };
+   }
++
+   return {
+-    signals: { ...COSMETIC_SAFE_SIGNALS },
+-    cosmeticSafeToSuppress: true,
+-    reason: "false_critical_neutralized",
++    signals: input.signals,
++    cosmeticSafeToSuppress: false,
++    reason: classification.reason,
+     residual: classification.residual,
+     recognizedRoles: classification.recognizedRoles,
+   };
+ }
++
++/**
++ * Bounded closed-world classifier: advisory lifecycle recommendation formalization
++ * for Pilote decision — not a Task-App-specific phrase, not product Critical work.
++ */
++export function classifyLifecycleFormalizationRequest(userContent: string): {
++  lifecycleFormalizationEnvelope: boolean;
++  residual: string;
++  recognizedRoles: LifecycleFormalizationClauseRole[];
++} {
++  let cursor = normalizeRequest(userContent);
++  const recognizedRoles: LifecycleFormalizationClauseRole[] = [];
++  const specs: Array<{
++    role: LifecycleFormalizationClauseRole;
++    res: readonly RegExp[];
++  }> = [
++    { role: "lifecycle_rec_formalize", res: LIFECYCLE_REC_FORMALIZE_RES },
++    { role: "decision_handoff", res: DECISION_HANDOFF_RES },
++    { role: "no_product_critical_impact", res: NO_PRODUCT_CRITICAL_IMPACT_RES },
++    { role: "governance", res: GOVERNANCE_RES },
++  ];
++  for (let i = 0; i < 32; i += 1) {
++    let best: {
++      start: number;
++      end: number;
++      role: LifecycleFormalizationClauseRole;
++    } | null = null;
+```
 
-**GREENFIELD CAMPAIGN START — READY FOR MANUAL PILOTE AUTH CHECK**
+### Untracked test file summary
+- `qualToGovernedCycle.presentation.d0.test.ts` — BAR-05/06/07/11/12 + prompt contracts
+- `studio-qual-to-governed-visual.spec.ts` — optional Studio e2e (requires auth session)
 
-Explicitly **not** “GREENFIELD CAMPAIGN START READY” without human GitHub login proof.
+## 18. Git diff / commit
 
-## 15. R2 carried verdict
+- local commit: `88e4921bd5041efaf0bf66edc2a455613e1ddb37`
+- message: `fix(sfia-studio): govern qualification-to-cycle transition`
+- ahead of origin/main: 1 commit
+- corrective branch push: NOT DONE (forbidden)
+- diff: 14 files, +626 / −33
 
-**FULL REAL TASK-APP DELIVERY NOT READY — EXECUTOR CAPABILITY GAP**
+## 19. Fake / Real qualification
 
-No new repo evidence this cycle changes the prior finding (M4 bounded read-only remains current REAL agent truth; no write capability added). Not fixed; not re-scoped as development.
+- ZERO NEW REAL
+- Deterministic/fake tests + presentation fixture
+- OpenAI/Cursor REAL not consumed
+- DETERMINISTIC CORRECTIVE CANDIDATE PROVEN
+- LIVE GREENFIELD REPLAY NOT YET PROVEN
 
-## 16. Manual next checkpoint
+## 20. Reserves / anti-claims
 
-1. Morris opens `http://localhost:3020/login` and completes GitHub OAuth as Pilote (human-only).
-2. Confirm session reaches `/studio` without `AUTH_CONFIG_ERROR` / allowlist denial.
-3. Only after Pilote auth: Morris may create the fresh greenfield Project (separate action).
-4. **First Nora live turn:** STOP FOR DISTINCT MORRIS REAL GATE before any OpenAI consumption.
-5. Cursor REAL remains OFF until a future distinct gate.
+- Does NOT claim Product Proof COMPLETE / REAL corrective proven / R2 closed / runtime v3 ADOPTED / all Nora qualification solved / full /studio auth’d visual dogfood
+- RESERVE: full authenticated Studio browser exercise deferred to Morris session / future live gate
+- RESERVE-UX-01 / RESERVE-PROOF-01 remain OPEN (untouched)
 
-## 17. Anti-claims
+## 21. Next gate
 
-This cycle does **not** claim:
-- Greenfield Campaign Start READY (without manual Pilote auth)
-- GitHub OAuth end-to-end proven by Cursor
-- Nora / OpenAI REAL proven
-- Cursor REAL proven
-- Full task-app delivery ready
-- Product Proof COMPLETE
-- runtime v3 ADOPTED
-- R2 gap closed
-- RESERVE-UX-01 / RESERVE-PROOF-01 closed
-- first OpenAI call authorized
+GO MORRIS — GREENFIELD CORRECTIVE BOUNDED LIVE REPLAY — only if ChatGPT Critical Review accepts this deterministic candidate. First OpenAI live turn = distinct REAL gate. Do not auto-authorize.
 
-## 18. Final state
+## 22. Final verdict
 
-- runtime v3 **NON ADOPTED**
-- RESERVE-UX-01 **OPEN**
-- RESERVE-PROOF-01 **OPEN**
-- **ZERO REAL** (this cycle)
-- Global cycle verdict: **R1 ENVIRONMENT REGULARIZATION QUALIFIED** (does not replace R1A/R1/R2)
+**QUALIFICATION → GOVERNED CYCLE TRANSITION CORRECTIVE — DETERMINISTIC CANDIDATE READY FOR CHATGPT CRITICAL REVIEW**
+
+- ZERO NEW REAL
+- LIVE GREENFIELD REPLAY NOT YET PROVEN
+- R2 EXECUTOR GAP STILL OPEN
+- RUNTIME V3 NON ADOPTED
 
 ---
 
 ## ChatGPT Critical Review instruction
 
-Lire `sfia-review-handoff/latest-chatgpt-review.md` depuis `origin/sfia/review-handoff` et effectuer une Critical Review de **SFIA-STUDIO-PRODUCT-PROOF-GREENFIELD-TASK-APP-R1-ENV-REG-01**.
+Lire `sfia-review-handoff/latest-chatgpt-review.md` depuis `origin/sfia/review-handoff` et effectuer une Critical Review de **SFIA-STUDIO-PRODUCT-PROOF-CORR-QUAL-TO-GOVERNED-CYCLE-01**.
 
-Vérifier particulièrement :
-- baseline `a9f6c310`
-- aucune mutation Product
-- aucune exposition de secret
-- Better Auth config complète
-- `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` présents
-- `SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS` présent et valide sans valeur exposée
-- `AUTH_CONFIG_ERROR` disparu
-- `NO_SESSION` attendu avant login
-- Nora config présente
-- Fake provider OFF
-- Cursor REAL OFF
-- deterministic boundary OFF
-- ZERO OpenAI calls
-- ZERO Cursor executions
-- ZERO Project creation
-- R1A séparé de R1
-- R2 toujours séparé
-- runtime v3 NON ADOPTED
+Vérifier particulièrement les 25 points du prompt cycle (baseline a9f6c310, scope global, semantic boundary sans N-turn, pas toujours Cadrage, F1 structured LR, no second model, no prose parser, NEXT_CYCLE ≠ CycleInstance, no HD/START auto, false Critical fixed without weakening genuine Critical, invariants untouched, MW5 not in primary UX, formatting sans HTML unsafe, F2 Pourquoi business-first, LPS unchanged, reload/currentness, #476/#477 non-régressés, runtime capture, ZERO NEW REAL, no Task-App built, R2 OPEN, runtime v3 NON ADOPTED, exploitable diff, no parallel architecture).
 
-Ne pas transformer READY FOR MANUAL PILOTE AUTH CHECK en GREENFIELD CAMPAIGN START READY sans preuve du login humain.
-
-Ne pas autoriser implicitement le premier Nora live turn : premier appel OpenAI = gate Morris REAL distinct.
+Ne pas autoriser le bounded live replay automatiquement.
