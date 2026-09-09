@@ -1,1253 +1,237 @@
-# SFIA Studio Review Pack — FULL (COMPLETENESS REGULARIZATION)
+# SFIA Studio Review Pack — FULL
 
 | Champ | Valeur |
 | --- | --- |
-| **Timestamp** | 2026-09-09 21:27:19 CEST |
-| **Cycle ID** | `SFIA-STUDIO-GREENFIELD-LIFECYCLE-BOOTSTRAP-CORRECTIVE-01` |
-| **Mode** | Review Pack / Handoff completeness regularization only |
-| **Type** | 8 — Delivery · EVOL · CRITICAL |
-| **Décisions Morris** | `D-RB-BOOT-01` · `D-RB-BOOT-02` · `D-RB-BOOT-03` |
-| **Candidate Product** | `f70dc8ae9c25b237654a6db9ec44a875880afdde` |
-| **Parent** | `e79f16ba467c227470328d7f723f1c2b53fdf2fb` |
-| **Product mutation this regularization** | **ZERO** — no Product commit, no Product file edit |
+| **Timestamp** | 2026-09-09 21:39:26 CEST |
+| **Cycle ID** | `SFIA-STUDIO-GREENFIELD-BOOTSTRAP-EXACT-TRAJECTORY-PRESENCE-MICRO-CORRECTIVE-01` |
+| **Type** | 8 — Delivery · RUN micro-corrective · CRITICAL |
+| **GO Morris consommé** | `GO MORRIS — GREENFIELD BOOTSTRAP EXACT TRAJECTORY PRESENCE MICRO-CORRECTIVE` |
+| **Critical Review blocker** | `CR-BOOT-01 — EXACT GREENFIELD TRAJECTORY PRESENCE` |
+| **Parent candidate** | `f70dc8ae9c25b237654a6db9ec44a875880afdde` |
+| **New candidate** | `0b9a7370f04de9f1b6ebb3aca84d1dd6f15541ee` |
 | **ZERO NEW REAL** | OUI |
-| **Motif** | ChatGPT CR blocked by `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING` |
-| **Verdict** | REVIEW HANDOFF COMPLETENESS REGULARIZED — READY FOR CHATGPT CRITICAL REVIEW |
+| **Verdict** | GREENFIELD BOOTSTRAP EXACT TRAJECTORY PRESENCE — DETERMINISTIC CANDIDATE READY FOR CHATGPT CRITICAL REVIEW |
 
 ---
 
-## 0. Regularization statement
-
-This pack **re-publishes** the Critical Review materials for the **unchanged** Product candidate `f70dc8ae9c25b237654a6db9ec44a875880afdde`.
-
-- No Product code was modified during this regularization.
-- No new Product commit was created.
-- No REAL call was made.
-- No Product branch push / PR.
-
-The previous handoff summarized seams but did not embed enough exploitable Product content for an offline Critical Review. This pack embeds the **exact** `git diff e79f16ba467c227470328d7f723f1c2b53fdf2fb..f70dc8ae9c25b237654a6db9ec44a875880afdde` (and full file bodies for new files) for all **12** Product paths.
-
----
-
-## 1. Local Git Truth (regularization)
+## 1. Local Git Truth — BEFORE
 
 | Check | Observed |
 | --- | --- |
 | worktree | `/Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310` |
 | branch | `delivery/sfia-studio-product-proof-qual-to-governed-cycle` |
-| HEAD | `f70dc8ae9c25b237654a6db9ec44a875880afdde` |
-| parent | `e79f16ba467c227470328d7f723f1c2b53fdf2fb` |
-| dirty Product | NONE |
-| dirty local | `.tmp-sfia-review/*` only |
+| HEAD (anchor) | `f70dc8ae9c25b237654a6db9ec44a875880afdde` |
+| parent of f70 | `e79f16ba467c227470328d7f723f1c2b53fdf2fb` |
+| origin/main | `a9f6c310a0826d0e5bd6f7264603382a86564db1` |
+| dirty Product | NONE (`.tmp-sfia-review/*` only) |
+| amend f70 | **NO** |
+
+## 2. Local Git Truth — AFTER
+
+| Check | Observed |
+| --- | --- |
+| new SHA | `0b9a7370f04de9f1b6ebb3aca84d1dd6f15541ee` |
+| parent | `f70dc8ae9c25b237654a6db9ec44a875880afdde` (= f70 exact) |
+| Product push | NONE |
 
 ```
-f70dc8ae fix(sfia-studio): enable governed greenfield lifecycle bootstrap
-A	projects/sfia-studio/app/__tests__/project-assistant/greenfieldLifecycleBootstrap.d0.test.ts
-M	projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
-M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-M	projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
-M	projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
-A	projects/sfia-studio/app/features/project-assistant/lifecycleRecommendationPiloteNotice.ts
-M	projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/greenfieldLifecycleBootstrap.ts
-M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/index.ts
-M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn.ts
-M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/produceLifecycleRecommendation.ts
-M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/validateLifecycleRecommendation.ts
+0b9a7370 fix(sfia-studio): make greenfield trajectory presence exact
+M	projects/sfia-studio/app/__tests__/project-assistant/greenfieldLifecycleBootstrap.d0.test.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/greenfieldLifecycleBootstrap.ts
+M	projects/sfia-studio/app/lib/oa/cycle/infrastructure/memoryTrajectoryRepository.ts
+M	projects/sfia-studio/app/lib/oa/cycle/infrastructure/sqlite/sqliteTrajectoryRepository.ts
+M	projects/sfia-studio/app/lib/oa/cycle/ports/trajectoryRepository.ts
 ```
 
 ```
-.../greenfieldLifecycleBootstrap.d0.test.ts        | 697 +++++++++++++++++++++
- .../hooks/useProductConversation.ts                |  19 +
- .../surfaces/ConversationSurface.tsx               |  20 +
- .../project-assistant/ProjectAssistantPanel.tsx    |  37 ++
- .../project-assistant/buildProjectSystemPrompt.ts  |   9 +-
- .../lifecycleRecommendationPiloteNotice.ts         |  18 +
- .../features/project-assistant/orchestrateTurn.ts  |  56 +-
- .../greenfieldLifecycleBootstrap.ts                | 208 ++++++
- .../application/lifecycleRecommendation/index.ts   |   1 +
- .../materializeFromProductTurn.ts                  |  16 +
- .../produceLifecycleRecommendation.ts              |   6 +
- .../validateLifecycleRecommendation.ts             | 104 ++-
- 12 files changed, 1166 insertions(+), 25 deletions(-)
+.../greenfieldLifecycleBootstrap.d0.test.ts        | 152 +++++++++++++++++++++
+ .../greenfieldLifecycleBootstrap.ts                |  19 +--
+ .../infrastructure/memoryTrajectoryRepository.ts   |   7 +
+ .../sqlite/sqliteTrajectoryRepository.ts           |  11 ++
+ .../app/lib/oa/cycle/ports/trajectoryRepository.ts |   6 +
+ 5 files changed, 182 insertions(+), 13 deletions(-)
 ```
 
 ---
 
-## 2. Functional summary (unchanged candidate)
+## 3. CR-BOOT-01 root issue
 
-### D-RB-BOOT-01 — strict pre-trajectory bootstrap
-Genuine fresh Project (`trajectory presence = never`) may materialize first `NEXT_CYCLE` LR without creating ProjectTrajectory / CycleInstance / HD / START. Not a generic `trajectory == null` allow.
+f70 classified historical trajectory absence via `TRAJECTORY_HISTORY_PROBE_MAX_VERSION = 64` + `findByProjectAndVersion(1..64)`.
 
-### D-RB-BOOT-02 — canonical cycleTypeId
-`targetCycleTypeId` validated via `getCycleTypeById` + `lifecycleStatus === "active"`. Human label `"Cadrage"` fails. Prompt lists catalog IDs via `listCycleTypes()`.
+64 is **not** a domain invariant. A row at version >64 with empty 1..64 could be misclassified as `never`, incorrectly authorizing bootstrap.
 
-### D-RB-BOOT-03 — Pilote-safe failure surface
-Business-first notice; technical codes remain in diagnostics. RESERVE-RB-UX-01 closed at deterministic scope.
+## 4. Exact repository API
 
-### Validation (already proven on candidate; not re-run as Product mutation)
-- BAR-BOOT 18/18 PASS
-- Focused RB+LR+presentation+BOOT 85/85 PASS
-- Full Vitest 3347 passed / 135 skipped
-- typecheck / lint / build / git diff --check PASS
-- ZERO NEW REAL
+`TrajectoryRepositoryPort.hasAnyByProjectId(projectId): Promise<boolean>`
 
-### Next capability (OUT OF SCOPE)
-Prepare non-authoritative candidate ProjectTrajectory from CURRENT Recommendation before Pilot HD.
+- Exact project-scoped existence (any version/status).
+- No version window.
+- Failures propagate → caller maps to `unknown` (never coerced to `never`).
 
-### Reserves
-- RESERVE-QA-MOCK-01 OPEN
-- RESERVE-RB-UX-01 CLOSED (deterministic)
-- LIVE materialization NOT PROVEN
-- R2 OPEN
-- runtime v3 NON ADOPTED
-- **NEW for CR:** Trajectory history probe ceiling 64 — see §4
+## 5. Semantics after fix
 
----
+1. `findCurrentByProjectId` → if found: `current`
+2. else `hasAnyByProjectId` → true: `history_without_current` / false: `never`
+3. catch → `unknown` → fail-closed
 
-## 3. Modified Product files checklist (12/12)
+`TRAJECTORY_HISTORY_PROBE_MAX_VERSION` **removed**.
+`findByProjectAndVersion` **no longer used** in bootstrap presence resolution.
 
-| # | Path | Representation |
-| --- | --- | --- |
-| 1 | `__tests__/.../greenfieldLifecycleBootstrap.d0.test.ts` | FULL file @ f70 |
-| 2 | `useProductConversation.ts` | FULL diff |
-| 3 | `ConversationSurface.tsx` | FULL diff |
-| 4 | `ProjectAssistantPanel.tsx` | FULL diff |
-| 5 | `buildProjectSystemPrompt.ts` | FULL diff |
-| 6 | `lifecycleRecommendationPiloteNotice.ts` | FULL file @ f70 |
-| 7 | `orchestrateTurn.ts` | FULL diff |
-| 8 | `greenfieldLifecycleBootstrap.ts` | FULL file @ f70 |
-| 9 | `lifecycleRecommendation/index.ts` | FULL diff |
-| 10 | `materializeFromProductTurn.ts` | FULL diff |
-| 11 | `produceLifecycleRecommendation.ts` | FULL diff |
-| 12 | `validateLifecycleRecommendation.ts` | FULL diff |
+## 6. RESERVE-BOOT-PROBE-01
 
----
+**CLOSED DETERMINISTICALLY** — BAR-BOOT-19 proves version 65-only history → `history_without_current`; BAR-BOOT-22 proves no version probe remains.
 
-## 4. Trajectory history probe — review context
+## 7. Validation
 
-**Source in candidate:** `TRAJECTORY_HISTORY_PROBE_MAX_VERSION = 64` in `greenfieldLifecycleBootstrap.ts`.
+| Gate | Result |
+| --- | --- |
+| BAR-BOOT-01…18 | PASS (regression) |
+| BAR-BOOT-19 exact history >64 | PASS |
+| BAR-BOOT-20 hasAny SQLite+Memory | PASS |
+| BAR-BOOT-21 existence failure → unknown | PASS |
+| BAR-BOOT-22 no version probe | PASS |
+| Focused related | PASS |
+| Full Vitest | **3351 passed · 135 skipped · 0 failed** |
+| typecheck | PASS |
+| lint | PASS |
+| build | PASS |
+| git diff --check | PASS |
+| ZERO NEW REAL | PROVEN |
 
-**Why 64 was chosen (implementation rationale, not proven domain law):**
-- Existing `TrajectoryRepositoryPort` has no `listByProject`.
-- Detection of “any historical/candidate row” reuses `findByProjectAndVersion(projectId, version)` sequentially from 1.
-- `proposeTrajectoryVersion.resolveTrajectoryLineageHead` also probes forward version-by-version from a known head — sequential versions are the local operational model.
-- 64 is a defensive scan ceiling to avoid unbounded awaits on a fresh Project expected to have 0 rows.
+## 8. Authority anti-claims
 
-**What repo invariants exist:**
-- `MAX_TRAJECTORY_SNAPSHOT_BYTES` (size of a snapshot) — **not** a max version count.
-- `assertTrajectorySize` — bytes, not version ceiling.
-- No catalogued/domain constant for “max trajectory version = 64” was found under `lib/oa/cycle`.
+Unchanged: bootstrap still creates 0 CycleInstance / 0 HD / 0 ProjectTrajectory / no START / authority=none.
 
-**Behavior if a trajectory version >64 exists while versions 1..64 are empty:**
-- Probe would return `kind: "never"` incorrectly (false greenfield).
-- That state is pathological under the sequential lineage model (createInitial starts at v1; propose increments head+1). Still, the ceiling is **not** an enforced Product invariant.
+## 9. Other reserves
 
-**Classification for Critical Review:**
-- **Hypothesis / implementation policy**, not an invariant prouvé.
-- Recommend treating as **RESERVE-BOOT-PROBE-01** for Critical Review: either accept as fail-closed-enough for greenfield practical paths, or require a follow-up that uses a true project-scoped existence query without inventing a second store (if such a read seam is later authorized).
-
-**No Product change in this regularization** to address this point.
+| Reserve | Disposition |
+| --- | --- |
+| RESERVE-BOOT-PROBE-01 | **CLOSED DETERMINISTICALLY** |
+| RESERVE-QA-MOCK-01 | OPEN / non-blocking |
+| LIVE materialization | OPEN |
+| R2 | OPEN |
+| runtime v3 | NON ADOPTED |
 
 ---
 
-## 5. EXPLOITABLE MODIFIED CONTENT — exact candidate f70dc8ae
-
-Content below is copied from `git show f70dc8ae:<path>` (new files) or `git diff e79f16ba..f70dc8ae -- <path>` (modified files). SHA verified at pack generation: `f70dc8ae9c25b237654a6db9ec44a875880afdde`.
+## 10. EXPLOITABLE MODIFIED CONTENT — exact candidate 0b9a7370f04de9f1b6ebb3aca84d1dd6f15541ee
 
 
-### FILE 01/12 — `projects/sfia-studio/app/__tests__/project-assistant/greenfieldLifecycleBootstrap.d0.test.ts`
+### FILE 1/5 — `projects/sfia-studio/app/lib/oa/cycle/ports/trajectoryRepository.ts`
 
-- Candidate: `f70dc8ae9c25b237654a6db9ec44a875880afdde`
-- Representation: **FULL FILE**
+- Candidate: `0b9a7370f04de9f1b6ebb3aca84d1dd6f15541ee`
+- Representation: **FULL FILE @ candidate** + unified diff
+
+#### Full file
 
 ```ts
-/** @vitest-environment node */
-/**
- * GREENFIELD LIFECYCLE BOOTSTRAP — BAR-BOOT-01…18 (deterministic).
- * ZERO NEW REAL. D-RB-BOOT-01/02/03.
- */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, describe, expect, it, vi } from "vitest";
-import { ScriptedModel, assistantMessage } from "@openai/agents/testing";
-import { FakeConversationProvider } from "@/lib/platform/ai";
-import { orchestrateProjectAssistantTurn } from "@/features/project-assistant/orchestrateTurn";
-import {
-  PRE_CYCLE_ROUTING_ASSESSMENT_CONTINUE_DEFAULT,
-  PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT,
-  MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
-  normalizeNoraProductTurnStructuredOutput,
-} from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
-import {
-  classifyTrajectoryBootstrapPresence,
-  materializeLifecycleRecommendationFromStructuredOutput,
-  NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
-  resolveTrajectoryBootstrapPresence,
-  selectCurrentLifecycleRecommendations,
-  validateCanonicalTargetCycleTypeId,
-  validateLifecycleRecommendation,
-  deriveLifecycleRecommendationCurrentness,
-  rebuildBasisRefsForRecommendation,
-} from "@/lib/oa/cycle";
-import type { ActorReference } from "@/lib/oa/project";
-import type { Digest, DoctrinePackagePin } from "@/lib/oa/doctrine";
-import {
-  getRuntimeApplicationService,
-  resetRuntimeApplicationServiceForTests,
-} from "@/lib/vertical-slice-runtime";
-import type { LocalProjectIdSource } from "@/lib/vertical-slice-core";
-import * as runNoraAgentsTurnMod from "@/lib/nora-cognitive-runtime/runNoraAgentsTurn";
-import {
-  LIFECYCLE_RECOMMENDATION_MATERIALIZE_FAILURE_PILOTE_NOTICE,
-  lifecycleRecommendationMaterializeFailurePiloteNotice,
-} from "@/features/project-assistant/lifecycleRecommendationPiloteNotice";
-import { buildProjectSystemPrompt } from "@/features/project-assistant/buildProjectSystemPrompt";
-import { getCycleTypeById } from "@/lib/oa/cycle/domain/cycleTypeCatalog";
+import type { ProjectTrajectory } from "../domain/types";
 
-const APP_ROOT = path.resolve(__dirname, "../..");
-const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
-const SCHEMAS = path.resolve(
-  APP_ROOT,
-  "../sfia-v3-modeled/v3-native-option-a/schemas",
-);
-
-const VALID_DIGEST =
-  "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622" as Digest;
-
-const VALID_PIN: DoctrinePackagePin = {
-  doctrinePackageId: "pkg:studio-v3-oa",
-  version: "1.0.0",
-  digest: VALID_DIGEST,
-};
-
-const ACTOR: ActorReference = {
-  actorId: "actor:morris",
-  role: "project_owner",
-  displayName: "Morris",
-  authorityLevel: "N3",
-};
-
-const tempDirs: string[] = [];
-
-afterEach(() => {
-  resetRuntimeApplicationServiceForTests();
-  vi.restoreAllMocks();
-  while (tempDirs.length) {
-    const d = tempDirs.pop();
-    if (d) fs.rmSync(d, { recursive: true, force: true });
-  }
-});
-
-function tempDbPath(name: string): string {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "boot-"));
-  tempDirs.push(dir);
-  return path.join(dir, name);
+export interface TrajectoryRepositoryPort {
+  findById(trajectoryId: string): Promise<ProjectTrajectory | null>;
+  findByProjectAndVersion(
+    projectId: string,
+    version: number,
+  ): Promise<ProjectTrajectory | null>;
+  findCurrentByProjectId(
+    projectId: string,
+  ): Promise<ProjectTrajectory | null>;
+  /**
+   * Exact project-scoped existence: true iff any ProjectTrajectory row exists
+   * for this projectId (any version/status). Not version-windowed.
+   * Failures must propagate to the caller (UNKNOWN ≠ absence).
+   */
+  hasAnyByProjectId(projectId: string): Promise<boolean>;
+  exists(trajectoryId: string): Promise<boolean>;
+  save(trajectory: ProjectTrajectory): Promise<void>;
+  markSuperseded(trajectoryId: string, version: number): Promise<void>;
 }
-
-class FixedIdSource implements LocalProjectIdSource {
-  private n = 0;
-  constructor(private readonly prefix: string) {}
-  nextProjectId(): string {
-    this.n += 1;
-    return `prj:${this.prefix}-${this.n}`;
-  }
-  nextLpsVersionId(): string {
-    return `lps:${this.prefix}-${this.n}`;
-  }
-  nextCorrelationId(): string {
-    return `cor:${this.prefix}-${this.n}`;
-  }
-}
-
-function nextCycleLr(targetCycleTypeId: string, statement: string) {
-  return {
-    intent: "NEXT_CYCLE" as const,
-    statement,
-    subjectCycleInstanceId: null,
-    targetCycleInstanceId: null,
-    targetCycleTypeId,
-    rationale: "Prochain travail gouverné supportable.",
-    authority: "none" as const,
-    isHumanDecision: false as const,
-  };
-}
-
-function productTurn(
-  lr: ReturnType<typeof nextCycleLr> | null,
-  narrative: string,
-  assessment = lr
-    ? { ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT }
-    : { ...PRE_CYCLE_ROUTING_ASSESSMENT_CONTINUE_DEFAULT },
-) {
-  return {
-    narrative,
-    preCycleRoutingAssessment: assessment,
-    lifecycleRecommendation: lr,
-  };
-}
-
-async function bootFreshProject(suffix: string) {
-  process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
-  process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
-  resetRuntimeApplicationServiceForTests();
-  const runtime = getRuntimeApplicationService({
-    registryRoot: FIXTURES,
-    schemasRoot: SCHEMAS,
-    nowIso: "2026-09-09T18:00:00.000Z",
-    idSource: new FixedIdSource(`boot-${suffix}`),
-    auditMode: "noop",
-    productDbPath: tempDbPath(`${suffix}.sqlite`),
-  });
-  if (!runtime.oa) throw new Error("oa missing");
-  const created = await runtime.createProject({
-    name: `Fresh bootstrap ${suffix}`,
-    objective: "gestion de tâches",
-    context: "application web personnelle",
-    criticality: "STANDARD",
-    constraints: [],
-    shortReference: `BOOT${suffix}`,
-    idempotencyKey: `idem:boot-${suffix}`,
-  });
-  if (!created.ok) throw new Error("create failed");
-  return { runtime, projectId: created.projectId, created };
-}
-
-async function materializeFreshNext(
-  runtime: Awaited<ReturnType<typeof bootFreshProject>>["runtime"],
-  projectId: string,
-  lr: ReturnType<typeof nextCycleLr>,
-  extras?: {
-    cycles?: Awaited<
-      ReturnType<
-        NonNullable<
-          Awaited<ReturnType<typeof bootFreshProject>>["runtime"]["oa"]
-        >["cycleServices"]["cycles"]["listByProject"]
-      >
-    >;
-    decisions?: Awaited<
-      ReturnType<
-        NonNullable<
-          Awaited<ReturnType<typeof bootFreshProject>>["runtime"]["oa"]
-        >["decisionServices"]["decisions"]["listByProject"]
-      >
-    >;
-    presence?: Awaited<ReturnType<typeof resolveTrajectoryBootstrapPresence>>;
-    failed?: Set<"trajectory" | "lps" | "decisions">;
-  },
-) {
-  const oa = runtime.oa;
-  if (!oa) throw new Error("oa missing");
-  const cycles =
-    extras?.cycles ?? (await oa.cycleServices.cycles.listByProject(projectId));
-  const decisions =
-    extras?.decisions ??
-    (await oa.decisionServices.decisions.listByProject(projectId));
-  const lps = await oa.projectServices.getCurrentLivingProjectState.execute({
-    projectId,
-  });
-  if (!lps.ok) throw new Error("lps missing");
-  const presence =
-    extras?.presence ??
-    (await resolveTrajectoryBootstrapPresence(
-      oa.cycleServices.trajectories,
-      projectId,
-    ));
-  const trajectory =
-    presence.kind === "current" ? presence.trajectory : null;
-  return materializeLifecycleRecommendationFromStructuredOutput({
-    projectId,
-    structuredOutput: productTurn(lr, "Narrative Cadrage recommandée."),
-    updateEpistemicState: oa.cycleServices.updateEpistemicState,
-    facts: {
-      cycles,
-      lpsActiveCycleInstanceId: lps.livingProjectState.activeCycleInstanceId,
-      lpsVersion: lps.livingProjectState.version,
-      doctrinePackageId: VALID_PIN.doctrinePackageId,
-      doctrinePackageVersion: VALID_PIN.version,
-      doctrinePackageDigest: VALID_PIN.digest,
-      trajectory,
-      trajectoryBootstrapPresence: presence,
-      decisions,
-      evidence: [],
-      epistemicItems: await oa.cycleServices.epistemic.listByProject(projectId),
-      failedMaterialDimensions: extras?.failed,
-    },
-    producedAt: "2026-09-09T18:01:00.000Z",
-    createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
-  });
-}
-
-describe("GREENFIELD LIFECYCLE BOOTSTRAP — BAR-BOOT", () => {
-  it("BAR-BOOT-01 — genuine fresh Project materializes NEXT_CYCLE without trajectory", async () => {
-    const { runtime, projectId } = await bootFreshProject("01");
-    const presence = await resolveTrajectoryBootstrapPresence(
-      runtime.oa!.cycleServices.trajectories,
-      projectId,
-    );
-    expect(presence.kind).toBe("never");
-    const framing = getCycleTypeById("cyc:framing");
-    expect(framing?.label).toBe("Cadrage");
-
-    const mat = await materializeFreshNext(
-      runtime,
-      projectId,
-      nextCycleLr("cyc:framing", "Envisager un Cadrage."),
-      { presence },
-    );
-    expect(mat.recommendationAttempted).toBe(true);
-    expect(mat.materialization?.ok).toBe(true);
-  });
-
-  it("BAR-BOOT-02 — durable CURRENT LR with null trajectory refs and zero authority", async () => {
-    const { runtime, projectId } = await bootFreshProject("02");
-    const mat = await materializeFreshNext(
-      runtime,
-      projectId,
-      nextCycleLr("cyc:framing", "Envisager un Cadrage."),
-    );
-    expect(mat.materialization?.ok).toBe(true);
-    if (!mat.materialization || !mat.materialization.ok) return;
-
-    const oa = runtime.oa!;
-    const items = await oa.cycleServices.epistemic.listByProject(projectId);
-    const lrItems = items.filter(
-      (i) => i.source === "lifecycle-recommendation:nora",
-    );
-    expect(lrItems).toHaveLength(1);
-    const lr = lrItems[0]!.lifecycleRecommendation!;
-    expect(lr.authority).toBe("none");
-    expect(lr.basisRefs.trajectoryId).toBeNull();
-    expect(lr.basisRefs.trajectoryVersion).toBeNull();
-    expect(lr.basisRefs.trajectoryStatus).toBeNull();
-    expect(lr.targetCycleTypeId).toBe("cyc:framing");
-
-    const cycles = await oa.cycleServices.cycles.listByProject(projectId);
-    expect(cycles).toHaveLength(0);
-    const hd = await oa.decisionServices.decisions.listByProject(projectId);
-    expect(hd).toHaveLength(0);
-    const trajRows = await oa.cycleServices.trajectories.findByProjectAndVersion(
-      projectId,
-      1,
-    );
-    expect(trajRows).toBeNull();
-    const lps = await oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId,
-    });
-    expect(lps.ok).toBe(true);
-    if (!lps.ok) return;
-    expect(lps.livingProjectState.activeCycleInstanceId ?? null).toBeNull();
-
-    const current = selectCurrentLifecycleRecommendations({
-      items,
-      cycles,
-      lpsActiveCycleInstanceId: null,
-      lpsVersion: lps.livingProjectState.version,
-      doctrinePackageId: VALID_PIN.doctrinePackageId,
-      doctrinePackageVersion: VALID_PIN.version,
-      doctrinePackageDigest: VALID_PIN.digest,
-      trajectory: null,
-      decisions: hd,
-      evidence: [],
-      blockingReservationStatements: [],
-    });
-    expect(current).toHaveLength(1);
-    expect(current[0]!.derivedCurrentness).toBe("CURRENT");
-    expect(current[0]!.authority).toBe("none");
-    expect(current[0]!.doesNotActivateCycle).toBe(true);
-    expect(current[0]!.doesNotCreateHumanDecision).toBe(true);
-  });
-
-  it("BAR-BOOT-03 — current trajectory keeps standard non-bootstrap path", async () => {
-    const { runtime, projectId, created } = await bootFreshProject("03");
-    const traj = await runtime.oa!.cycleServices.createInitialTrajectory.execute({
-      trajectoryId: `trj:${projectId}`,
-      projectId,
-      steps: [
-        { stepId: "stp:a", order: 1, label: "A", state: "pending" },
-      ],
-      status: "active",
-      expectedLpsVersion: created.livingState.version,
-      createdBy: ACTOR,
-    });
-    expect(traj.ok).toBe(true);
-    const mat = await materializeFreshNext(
-      runtime,
-      projectId,
-      nextCycleLr("cyc:framing", "Cadrage avec trajectory."),
-    );
-    expect(mat.materialization?.ok).toBe(true);
-    if (!mat.materialization || !mat.materialization.ok) return;
-    expect(
-      mat.materialization.envelope.basisRefs.trajectoryId,
-    ).toBeTruthy();
-  });
-
-  it("BAR-BOOT-04 — candidate trajectory without CURRENT refuses bootstrap", async () => {
-    const { runtime, projectId, created } = await bootFreshProject("04");
-    const candidate =
-      await runtime.oa!.cycleServices.createInitialTrajectory.execute({
-        trajectoryId: `trj:${projectId}`,
-        projectId,
-        steps: [
-          { stepId: "stp:a", order: 1, label: "A", state: "pending" },
-        ],
-        status: "candidate",
-        expectedLpsVersion: created.livingState.version,
-        createdBy: ACTOR,
-      });
-    expect(candidate.ok).toBe(true);
-    const presence = await resolveTrajectoryBootstrapPresence(
-      runtime.oa!.cycleServices.trajectories,
-      projectId,
-    );
-    expect(presence.kind).toBe("history_without_current");
-    const mat = await materializeFreshNext(
-      runtime,
-      projectId,
-      nextCycleLr("cyc:framing", "Should refuse."),
-      { presence },
-    );
-    expect(mat.materialization?.ok).toBe(false);
-    if (mat.materialization && !mat.materialization.ok) {
-      expect(mat.materialization.code).toBe("LR_BOOTSTRAP_HISTORY_PRESENT");
-    }
-    const items = await runtime.oa!.cycleServices.epistemic.listByProject(
-      projectId,
-    );
-    expect(
-      items.filter((i) => i.source === "lifecycle-recommendation:nora"),
-    ).toHaveLength(0);
-  });
-
-  it("BAR-BOOT-05 — CycleInstance without trajectory refuses bootstrap", async () => {
-    const { runtime, projectId } = await bootFreshProject("05");
-    const cycle = await runtime.oa!.cycleServices.createCycle.execute({
-      cycleInstanceId: `cyc:boot-05`,
-      cycleTypeId: "cyc:framing",
-      projectId,
-      signals: { lowRiskBounded: true },
-      createdBy: {
-        actorId: "actor:system",
-        role: "system",
-        displayName: "System",
-        authorityLevel: "N1",
-      },
-      linkAsActiveCycle: false,
-    });
-    expect(cycle.ok).toBe(true);
-    const mat = await materializeFreshNext(
-      runtime,
-      projectId,
-      nextCycleLr("cyc:framing", "Should refuse with cycle."),
-    );
-    expect(mat.materialization?.ok).toBe(false);
-    if (mat.materialization && !mat.materialization.ok) {
-      expect(mat.materialization.code).toBe("LR_BOOTSTRAP_CYCLE_PRESENT");
-    }
-  });
-
-  it("BAR-BOOT-06 — current HumanDecision refuses bootstrap", async () => {
-    const { runtime, projectId } = await bootFreshProject("06");
-    const decisions = [
-      {
-        decisionId: "hd:boot-06",
-        projectId,
-        cycleInstanceId: null,
-        subject: "subject:bootstrap-gate",
-        status: "accepted" as const,
-        statement: "Décision structurante incompatible avec bootstrap.",
-        options: [{ optionId: "opt:a", label: "A" }],
-        chosenOptionId: "opt:a",
-        createdBy: ACTOR,
-        createdAt: "2026-09-09T18:00:00.000Z",
-        updatedAt: "2026-09-09T18:00:00.000Z",
-        authority: "delegated" as const,
-      },
-    ];
-    const mat = await materializeFreshNext(
-      runtime,
-      projectId,
-      nextCycleLr("cyc:framing", "Should refuse with HD."),
-      { decisions: decisions as never },
-    );
-    expect(mat.materialization?.ok).toBe(false);
-    if (mat.materialization && !mat.materialization.ok) {
-      expect(mat.materialization.code).toBe("LR_BOOTSTRAP_HD_PRESENT");
-    }
-  });
-
-  it("BAR-BOOT-07 — trajectory reader UNKNOWN refuses bootstrap (not absence)", () => {
-    const presence = classifyTrajectoryBootstrapPresence({
-      readerFailed: true,
-      current: null,
-      anyVersionExists: false,
-    });
-    expect(presence.kind).toBe("unknown");
-    const validated = validateLifecycleRecommendation({
-      projectId: "prj:boot-07",
-      candidate: nextCycleLr("cyc:framing", "x"),
-      cycles: [],
-      lpsActiveCycleInstanceId: null,
-      hasTrajectoryContext: false,
-      trajectoryBootstrapPresence: presence,
-      decisions: [],
-    });
-    expect(validated.ok).toBe(false);
-    if (!validated.ok) {
-      expect(validated.code).toBe("LR_BASIS_TRAJECTORY_UNAVAILABLE");
-    }
-  });
-
-  it("BAR-BOOT-08 — human label Cadrage fails catalog validation", async () => {
-    const { runtime, projectId } = await bootFreshProject("08");
-    const mat = await materializeFreshNext(
-      runtime,
-      projectId,
-      nextCycleLr("Cadrage", "Label humain interdit."),
-    );
-    expect(mat.materialization?.ok).toBe(false);
-    if (mat.materialization && !mat.materialization.ok) {
-      expect(mat.materialization.code).toBe("LR_TARGET_CYCLE_TYPE_UNKNOWN");
-    }
-    const items = await runtime.oa!.cycleServices.epistemic.listByProject(
-      projectId,
-    );
-    expect(
-      items.filter((i) => i.source === "lifecycle-recommendation:nora"),
-    ).toHaveLength(0);
-  });
-
-  it("BAR-BOOT-09 — canonical catalog ID accepted", () => {
-    const gate = validateCanonicalTargetCycleTypeId("cyc:framing");
-    expect(gate.ok).toBe(true);
-    if (gate.ok) expect(gate.cycleTypeId).toBe("cyc:framing");
-  });
-
-  it("BAR-BOOT-10 — unknown OA-looking cycleTypeId fails", () => {
-    const gate = validateCanonicalTargetCycleTypeId("cyc:not-a-real-cycle");
-    expect(gate.ok).toBe(false);
-    if (!gate.ok) expect(gate.code).toBe("LR_TARGET_CYCLE_TYPE_UNKNOWN");
-  });
-
-  it("BAR-BOOT-11 — EMIT + null LR remains fail-closed", () => {
-    const coherent = normalizeNoraProductTurnStructuredOutput({
-      narrative: "Je recommande.",
-      preCycleRoutingAssessment: {
-        ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT,
-      },
-      lifecycleRecommendation: null,
-    });
-    expect(coherent?.boundaryContradiction).toBe(
-      MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
-    );
-  });
-
-  it("BAR-BOOT-12 — CONTINUE/HOLD does not materialize LR", async () => {
-    const { runtime, projectId } = await bootFreshProject("12");
-    const mat = await materializeLifecycleRecommendationFromStructuredOutput({
-      projectId,
-      structuredOutput: productTurn(
-        null,
-        "Clarifions encore.",
-        { ...PRE_CYCLE_ROUTING_ASSESSMENT_CONTINUE_DEFAULT },
-      ),
-      updateEpistemicState: runtime.oa!.cycleServices.updateEpistemicState,
-      facts: {
-        cycles: [],
-        lpsActiveCycleInstanceId: null,
-        lpsVersion: 1,
-        doctrinePackageId: VALID_PIN.doctrinePackageId,
-        doctrinePackageVersion: VALID_PIN.version,
-        doctrinePackageDigest: VALID_PIN.digest,
-        trajectory: null,
-        trajectoryBootstrapPresence: { kind: "never" },
-        decisions: [],
-        evidence: [],
-        epistemicItems: [],
-      },
-      producedAt: "2026-09-09T18:01:00.000Z",
-      createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
-    });
-    expect(mat.recommendationAttempted).toBe(false);
-    expect(mat.materialization).toBeNull();
-  });
-
-  it("BAR-BOOT-13 — one product turn = one Agents call (orchestrate)", async () => {
-    const spy = vi.spyOn(runNoraAgentsTurnMod, "runNoraAgentsTurn");
-    const { runtime, projectId } = await bootFreshProject("13");
-    const payload = productTurn(
-      nextCycleLr("cyc:framing", "Envisager un Cadrage."),
-      "Besoin clair. Recommandation de Cadrage.",
-    );
-    const scripted = new ScriptedModel([
-      [assistantMessage(JSON.stringify(payload))],
-    ]);
-    const result = await orchestrateProjectAssistantTurn({
-      projectId,
-      content: "Aide-moi à avancer depuis le besoin.",
-      sessionDbPath: tempDbPath("13-sess.sqlite"),
-      simulateMemoryBUnavailable: true,
-      provider: new FakeConversationProvider({ scripted: ["unused"] }),
-      evalModelReasoningControl: {
-        modelId: "gpt-5.6-luna",
-        reasoningEffort: "none",
-        agentsModel: scripted,
-      },
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) return;
-    expect(spy).toHaveBeenCalledTimes(1);
-    expect(result.lifecycleRecommendationMaterialized).toBe(true);
-  });
-
-  it("BAR-BOOT-14 — business-first failure notice keeps technical code", () => {
-    const notice = lifecycleRecommendationMaterializeFailurePiloteNotice({
-      recommendationAttempted: true,
-      materialized: false,
-      code: "LR_TARGET_CYCLE_TYPE_UNKNOWN",
-    });
-    expect(notice).toBe(
-      LIFECYCLE_RECOMMENDATION_MATERIALIZE_FAILURE_PILOTE_NOTICE,
-    );
-    expect(notice).not.toMatch(/EMIT|materializer|structured output|serveur/i);
-    expect(notice).toMatch(/Aucun cycle n'a été ouvert/);
-  });
-
-  it("BAR-BOOT-15 — bootstrap CURRENT becomes STALE when trajectory appears", async () => {
-    const { runtime, projectId, created } = await bootFreshProject("15");
-    const mat = await materializeFreshNext(
-      runtime,
-      projectId,
-      nextCycleLr("cyc:framing", "Bootstrap LR."),
-    );
-    expect(mat.materialization?.ok).toBe(true);
-    if (!mat.materialization || !mat.materialization.ok) return;
-    const item = mat.materialization.item;
-    const withNull = deriveLifecycleRecommendationCurrentness({
-      item,
-      currentBasisRefs: rebuildBasisRefsForRecommendation({
-        item,
-        facts: {
-          cycles: [],
-          lpsActiveCycleInstanceId: null,
-          lpsVersion: created.livingState.version,
-          doctrinePackageId: VALID_PIN.doctrinePackageId,
-          doctrinePackageVersion: VALID_PIN.version,
-          doctrinePackageDigest: VALID_PIN.digest,
-          trajectory: null,
-          decisions: [],
-          evidence: [],
-          blockingReservationStatements: [],
-        },
-      })!,
-    });
-    expect(withNull).toBe("CURRENT");
-
-    const traj = await runtime.oa!.cycleServices.createInitialTrajectory.execute({
-      trajectoryId: `trj:${projectId}`,
-      projectId,
-      steps: [
-        { stepId: "stp:a", order: 1, label: "A", state: "pending" },
-      ],
-      status: "active",
-      expectedLpsVersion: created.livingState.version,
-      createdBy: ACTOR,
-    });
-    expect(traj.ok).toBe(true);
-    if (!traj.ok) return;
-    const stale = deriveLifecycleRecommendationCurrentness({
-      item,
-      currentBasisRefs: rebuildBasisRefsForRecommendation({
-        item,
-        facts: {
-          cycles: [],
-          lpsActiveCycleInstanceId: null,
-          lpsVersion: created.livingState.version + 1,
-          doctrinePackageId: VALID_PIN.doctrinePackageId,
-          doctrinePackageVersion: VALID_PIN.version,
-          doctrinePackageDigest: VALID_PIN.digest,
-          trajectory: traj.trajectory,
-          decisions: [],
-          evidence: [],
-          blockingReservationStatements: [],
-        },
-      })!,
-    });
-    expect(stale).toBe("STALE");
-  });
-
-  it("BAR-BOOT-16 — bootstrap LR never creates Cycle/HD/START authority", async () => {
-    const { runtime, projectId } = await bootFreshProject("16");
-    const beforeCycles = await runtime.oa!.cycleServices.cycles.listByProject(
-      projectId,
-    );
-    const beforeHd = await runtime.oa!.decisionServices.decisions.listByProject(
-      projectId,
-    );
-    await materializeFreshNext(
-      runtime,
-      projectId,
-      nextCycleLr("cyc:framing", "Cadrage."),
-    );
-    expect(
-      (await runtime.oa!.cycleServices.cycles.listByProject(projectId)).length,
-    ).toBe(beforeCycles.length);
-    expect(
-      (await runtime.oa!.decisionServices.decisions.listByProject(projectId))
-        .length,
-    ).toBe(beforeHd.length);
-    const lps = await runtime.oa!.projectServices.getCurrentLivingProjectState.execute(
-      { projectId },
-    );
-    expect(lps.ok && (lps.livingProjectState.activeCycleInstanceId ?? null)).toBe(
-      null,
-    );
-  });
-
-  it("BAR-BOOT-17 — non-greenfield NEXT_CYCLE still requires trajectory when not bootstrap-eligible", async () => {
-    const validated = validateLifecycleRecommendation({
-      projectId: "prj:boot-17",
-      candidate: nextCycleLr("cyc:delivery", "Delivery."),
-      cycles: [],
-      lpsActiveCycleInstanceId: null,
-      hasTrajectoryContext: false,
-      // no presence → legacy fail-closed
-      decisions: [],
-    });
-    expect(validated.ok).toBe(false);
-    if (!validated.ok) {
-      expect(validated.code).toBe("LR_TRAJECTORY_REQUIRED");
-    }
-  });
-
-  it("BAR-BOOT-18 — no automatic ProjectTrajectory creation + prompt lists canonical IDs", async () => {
-    const { runtime, projectId } = await bootFreshProject("18");
-    await materializeFreshNext(
-      runtime,
-      projectId,
-      nextCycleLr("cyc:framing", "Cadrage."),
-    );
-    expect(
-      await runtime.oa!.cycleServices.trajectories.findByProjectAndVersion(
-        projectId,
-        1,
-      ),
-    ).toBeNull();
-    const prompt = buildProjectSystemPrompt({
-      projectId,
-      name: "x",
-      shortReference: "X",
-      objective: "y",
-      contextSummary: "z",
-      criticality: "STANDARD",
-      constraints: [],
-      lpsId: "lps:x",
-      lpsVersion: 1,
-      lpsCreatedAt: "2026-09-09T18:00:00.000Z",
-      doctrineId: "doc:1",
-      doctrineVersion: "1",
-      doctrineDigest: "sha256:abc",
-      doctrineStatus: "active",
-      runtimeMode: "product",
-      persistence: "sqlite",
-      readiness: "ready",
-    });
-    expect(prompt).toMatch(/cyc:framing/);
-    expect(prompt).toMatch(/identifiant catalogue Studio exact/);
-    expect(prompt).not.toMatch(/Cadrage → cyc:framing/);
-  });
-});
 ```
 
-### FILE 02/12 — `projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts`
+#### Unified diff
 
-- Candidate: `f70dc8ae9c25b237654a6db9ec44a875880afdde`
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/cycle/ports/trajectoryRepository.ts b/projects/sfia-studio/app/lib/oa/cycle/ports/trajectoryRepository.ts
+index d7b63c3b..876de33a 100644
+--- a/projects/sfia-studio/app/lib/oa/cycle/ports/trajectoryRepository.ts
++++ b/projects/sfia-studio/app/lib/oa/cycle/ports/trajectoryRepository.ts
+@@ -9,6 +9,12 @@ export interface TrajectoryRepositoryPort {
+   findCurrentByProjectId(
+     projectId: string,
+   ): Promise<ProjectTrajectory | null>;
++  /**
++   * Exact project-scoped existence: true iff any ProjectTrajectory row exists
++   * for this projectId (any version/status). Not version-windowed.
++   * Failures must propagate to the caller (UNKNOWN ≠ absence).
++   */
++  hasAnyByProjectId(projectId: string): Promise<boolean>;
+   exists(trajectoryId: string): Promise<boolean>;
+   save(trajectory: ProjectTrajectory): Promise<void>;
+   markSuperseded(trajectoryId: string, version: number): Promise<void>;
+```
+
+### FILE 2/5 — `projects/sfia-studio/app/lib/oa/cycle/infrastructure/memoryTrajectoryRepository.ts`
+
+- Candidate: `0b9a7370f04de9f1b6ebb3aca84d1dd6f15541ee`
 - Representation: **FULL UNIFIED DIFF**
 
 ```diff
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
-index b194f670..992e0037 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
-@@ -31,6 +31,7 @@ import {
-   isBoundedRunningAttemptRefreshable,
-   type RecommendationFreshness,
- } from "@/features/project-assistant/presentationLabels";
-+import { lifecycleRecommendationMaterializeFailurePiloteNotice } from "@/features/project-assistant/lifecycleRecommendationPiloteNotice";
- import { useRunningAttemptO3Observation } from "./useRunningAttemptO3Observation";
+diff --git a/projects/sfia-studio/app/lib/oa/cycle/infrastructure/memoryTrajectoryRepository.ts b/projects/sfia-studio/app/lib/oa/cycle/infrastructure/memoryTrajectoryRepository.ts
+index 50c774e4..0cecc6f1 100644
+--- a/projects/sfia-studio/app/lib/oa/cycle/infrastructure/memoryTrajectoryRepository.ts
++++ b/projects/sfia-studio/app/lib/oa/cycle/infrastructure/memoryTrajectoryRepository.ts
+@@ -46,6 +46,13 @@ export class MemoryTrajectoryRepository implements TrajectoryRepositoryPort {
+     return found ? structuredClone(found) : null;
+   }
 
- export type ProductMessage = {
-@@ -101,6 +102,12 @@ export function useProductConversation({
-   const [ephemeralNotice, setEphemeralNotice] = useState(
-     "Conversation, proposition et confirmation restent process-local (non durables). L’état projet enregistré peut être relu ; rien n’est inventé.",
-   );
-+  const [lrMaterializeNotice, setLrMaterializeNotice] = useState<string | null>(
-+    null,
-+  );
-+  const [lrMaterializeCode, setLrMaterializeCode] = useState<string | null>(
-+    null,
-+  );
-   const [f2, setF2] = useState<F2TurnPayload | null>(null);
-   const [activeProposal, setActiveProposal] = useState<ProposalDto | null>(null);
-   const [reservesText, setReservesText] = useState("");
-@@ -279,6 +286,16 @@ export function useProductConversation({
-
-       setModeLabel(modeFromResult(result));
-       setEphemeralNotice(result.ephemeralNotice);
-+      setLrMaterializeNotice(
-+        lifecycleRecommendationMaterializeFailurePiloteNotice({
-+          recommendationAttempted:
-+            result.lifecycleRecommendationMaterialized === false &&
-+            Boolean(result.lifecycleRecommendationCode),
-+          materialized: result.lifecycleRecommendationMaterialized,
-+          code: result.lifecycleRecommendationCode,
-+        }),
-+      );
-+      setLrMaterializeCode(result.lifecycleRecommendationCode ?? null);
-       setToolEvents((prev) => [...prev, ...result.toolEvents]);
-       if (result.toolEvents.length > 0) {
-         setUiState("SOURCE_LOOKUP");
-@@ -564,6 +581,8 @@ export function useProductConversation({
-     error,
-     modeLabel,
-     ephemeralNotice,
-+    lrMaterializeNotice,
-+    lrMaterializeCode,
-     f2,
-     activeProposal,
-     reservesText,
-```
-
-### FILE 03/12 — `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx`
-
-- Candidate: `f70dc8ae9c25b237654a6db9ec44a875880afdde`
-- Representation: **FULL UNIFIED DIFF**
-
-```diff
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-index 7dfcb6ab..6a2811d3 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-@@ -81,6 +81,8 @@ export function ConversationSurface({
-     error,
-     modeLabel,
-     ephemeralNotice,
-+    lrMaterializeNotice,
-+    lrMaterializeCode,
-     f2,
-     activeProposal,
-     reservesText,
-@@ -1222,6 +1224,16 @@ export function ConversationSurface({
-         </div>
-       ) : null}
-
-+      {lrMaterializeNotice ? (
-+        <p
-+          className={styles.cardNote}
-+          data-testid="project-assistant-lr-materialize-notice"
-+          role="status"
-+        >
-+          {lrMaterializeNotice}
-+        </p>
-+      ) : null}
++  async hasAnyByProjectId(projectId: string): Promise<boolean> {
++    for (const traj of this.store.trajectoriesByKey.values()) {
++      if (traj.projectId === projectId) return true;
++    }
++    return false;
++  }
 +
-       <details className={styles.detailsFlat}>
-         <summary>Sources et limites</summary>
-         <p className={styles.cardNote} data-testid="project-assistant-scope">
-@@ -1229,6 +1241,14 @@ export function ConversationSurface({
-           confirmation · tentative · recommandation. Aucune exécution
-           automatique. {ephemeralNotice}
-         </p>
-+        {lrMaterializeCode ? (
-+          <p
-+            className={styles.cardNote}
-+            data-testid="project-assistant-lr-materialize-code"
-+          >
-+            Code technique (diagnostic) : {lrMaterializeCode}
-+          </p>
-+        ) : null}
-         <section
-           className={styles.sources}
-           aria-label="Sources consultées"
+   async exists(trajectoryId: string): Promise<boolean> {
+     for (const traj of this.store.trajectoriesByKey.values()) {
+       if (traj.trajectoryId === trajectoryId) return true;
 ```
 
-### FILE 04/12 — `projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx`
+### FILE 3/5 — `projects/sfia-studio/app/lib/oa/cycle/infrastructure/sqlite/sqliteTrajectoryRepository.ts`
 
-- Candidate: `f70dc8ae9c25b237654a6db9ec44a875880afdde`
+- Candidate: `0b9a7370f04de9f1b6ebb3aca84d1dd6f15541ee`
 - Representation: **FULL UNIFIED DIFF**
 
 ```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx b/projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
-index 640cb16b..a0e4378e 100644
---- a/projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
-+++ b/projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
-@@ -38,6 +38,9 @@ import {
-   executionSemanticUserLabel,
-   isBoundedRunningAttemptRefreshable,
- } from "./presentationLabels";
-+import {
-+  lifecycleRecommendationMaterializeFailurePiloteNotice,
-+} from "./lifecycleRecommendationPiloteNotice";
- import styles from "./project-assistant.module.css";
+diff --git a/projects/sfia-studio/app/lib/oa/cycle/infrastructure/sqlite/sqliteTrajectoryRepository.ts b/projects/sfia-studio/app/lib/oa/cycle/infrastructure/sqlite/sqliteTrajectoryRepository.ts
+index c8fec163..bf18a755 100644
+--- a/projects/sfia-studio/app/lib/oa/cycle/infrastructure/sqlite/sqliteTrajectoryRepository.ts
++++ b/projects/sfia-studio/app/lib/oa/cycle/infrastructure/sqlite/sqliteTrajectoryRepository.ts
+@@ -72,6 +72,17 @@ export class SqliteTrajectoryRepository implements TrajectoryRepositoryPort {
+     return this.findByProjectAndVersion(projectId, current.version);
+   }
 
- type UiMessage = {
-@@ -118,6 +121,12 @@ export function ProjectAssistantPanel({
-   const [ephemeralNotice, setEphemeralNotice] = useState(
-     "Conversation, proposition et confirmation restent process-local (non durables). L’état projet enregistré peut être relu ; rien n’est inventé.",
-   );
-+  const [lrMaterializeNotice, setLrMaterializeNotice] = useState<string | null>(
-+    null,
-+  );
-+  const [lrMaterializeCode, setLrMaterializeCode] = useState<string | null>(
-+    null,
-+  );
-   const [f2, setF2] = useState<F2TurnPayload | null>(null);
-   const [mw3Surface, setMw3Surface] = useState<Mw3CognitiveSurfaceDto | null>(
-     null,
-@@ -388,6 +397,16 @@ export function ProjectAssistantPanel({
-
-       setModeLabel(modeFromResult(result));
-       setEphemeralNotice(result.ephemeralNotice);
-+      setLrMaterializeNotice(
-+        lifecycleRecommendationMaterializeFailurePiloteNotice({
-+          recommendationAttempted:
-+            result.lifecycleRecommendationMaterialized === false &&
-+            Boolean(result.lifecycleRecommendationCode),
-+          materialized: result.lifecycleRecommendationMaterialized,
-+          code: result.lifecycleRecommendationCode,
-+        }),
-+      );
-+      setLrMaterializeCode(result.lifecycleRecommendationCode ?? null);
-       setMw3Surface(result.mw3 ?? null);
-       setToolEvents((prev) => [...prev, ...result.toolEvents]);
-       if (result.toolEvents.length > 0) {
-@@ -742,8 +761,26 @@ export function ProjectAssistantPanel({
-           confirmation · tentative · recommandation. Aucune exécution
-           automatique. {ephemeralNotice}
-         </p>
-+        {lrMaterializeCode ? (
-+          <p
-+            className={styles.ephemeral}
-+            data-testid="project-assistant-lr-materialize-code"
-+          >
-+            Code technique (diagnostic) : {lrMaterializeCode}
-+          </p>
-+        ) : null}
-       </details>
-
-+      {lrMaterializeNotice ? (
-+        <p
-+          className={styles.ephemeral}
-+          data-testid="project-assistant-lr-materialize-notice"
-+          role="status"
-+        >
-+          {lrMaterializeNotice}
-+        </p>
-+      ) : null}
++  async hasAnyByProjectId(projectId: string): Promise<boolean> {
++    const row = this.store.db
++      .prepare(
++        `SELECT 1 AS ok FROM oa_project_trajectories
++         WHERE project_id = ?
++         LIMIT 1`,
++      )
++      .get(projectId) as { ok?: number } | undefined;
++    return row?.ok === 1;
++  }
 +
-       <div
-         ref={listRef}
-         className={styles.messages}
+   async exists(trajectoryId: string): Promise<boolean> {
+     const row = this.store.db
+       .prepare(`SELECT 1 AS ok FROM oa_project_trajectories WHERE trajectory_id = ?`)
 ```
 
-### FILE 05/12 — `projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts`
+### FILE 4/5 — `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/greenfieldLifecycleBootstrap.ts`
 
-- Candidate: `f70dc8ae9c25b237654a6db9ec44a875880afdde`
-- Representation: **FULL UNIFIED DIFF**
+- Candidate: `0b9a7370f04de9f1b6ebb3aca84d1dd6f15541ee`
+- Representation: **FULL FILE @ candidate** + unified diff
 
-```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts b/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
-index 73cf3333..e5921984 100644
---- a/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
-@@ -4,7 +4,7 @@ import {
-   buildStudioCognitivePromptSections,
-   type StudioCognitiveContext,
- } from "./f2/studioCognitiveContext";
--
-+import { listCycleTypes } from "@/lib/oa/cycle/domain/cycleTypeCatalog";
- /**
-  * Compact F1 system prompt — project context + advisory contract + hard read-only limits.
-  * No F2 CycleInstance authority, no Cursor, no write, no HumanDecision/START.
-@@ -128,6 +128,13 @@ export function buildProjectSystemPrompt(
-     "états métier ou signaux d'urgence appartenant au cycle candidat.",
-     "lifecycleRecommendation (si émise) : intent NEXT_CYCLE ou FINALIZE_CURRENT_CYCLE ;",
-     "authority conceptuelle aucune ; isHumanDecision false ; statement et rationale lisibles Pilote ;",
-+    "targetCycleTypeId DOIT être un identifiant catalogue Studio exact (ex. cyc:framing pour le label « Cadrage »).",
-+    "Jamais un label humain seul (« Cadrage », « Delivery ») ni un id inventé.",
-+    "Identifiants catalogue actifs : " +
-+      listCycleTypes()
-+        .map((e) => `${e.cycleTypeId} (« ${e.label} »)`)
-+        .join(", ") +
-+      ".",
-     "targetCycleTypeId seulement s'il est supportable (jamais inventé ; jamais forcé cyc:framing).",
-     "Ne dis PAS « je ne peux pas l'enregistrer dans Studio » si le chemin structured Recommendation est disponible.",
-     "Si tu émets lifecycleRecommendation : le serveur peut la matérialiser ; ne prétends jamais qu'elle est",
-```
-
-### FILE 06/12 — `projects/sfia-studio/app/features/project-assistant/lifecycleRecommendationPiloteNotice.ts`
-
-- Candidate: `f70dc8ae9c25b237654a6db9ec44a875880afdde`
-- Representation: **FULL FILE**
-
-```ts
-/**
- * Pilote-facing Lifecycle Recommendation materialization notices (D-RB-BOOT-03).
- * Client-safe — no OA / Node imports.
- */
-
-export const LIFECYCLE_RECOMMENDATION_MATERIALIZE_FAILURE_PILOTE_NOTICE =
-  "La prochaine étape a été recommandée, mais Studio n'a pas pu l'enregistrer. Aucun cycle n'a été ouvert." as const;
-
-export function lifecycleRecommendationMaterializeFailurePiloteNotice(input: {
-  recommendationAttempted: boolean;
-  materialized: boolean | null | undefined;
-  code: string | null | undefined;
-}): string | null {
-  if (!input.recommendationAttempted) return null;
-  if (input.materialized === true) return null;
-  if (!input.code) return null;
-  return LIFECYCLE_RECOMMENDATION_MATERIALIZE_FAILURE_PILOTE_NOTICE;
-}
-```
-
-### FILE 07/12 — `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`
-
-- Candidate: `f70dc8ae9c25b237654a6db9ec44a875880afdde`
-- Representation: **FULL UNIFIED DIFF**
-
-```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-index 0d6ef3af..407484f1 100644
---- a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-@@ -26,6 +26,10 @@ import {
- import { materializeLifecycleRecommendationFromStructuredOutput } from "@/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn";
- import { NORA_LIFECYCLE_RECOMMENDATION_ACTOR } from "@/lib/oa/cycle/application/lifecycleRecommendation/noraActor";
- import type { LifecycleRecommendationMaterialDimension } from "@/lib/oa/cycle/application/lifecycleRecommendation/materialReaderContract";
-+import {
-+  LIFECYCLE_RECOMMENDATION_MATERIALIZE_FAILURE_PILOTE_NOTICE,
-+  lifecycleRecommendationMaterializeFailurePiloteNotice,
-+} from "./lifecycleRecommendationPiloteNotice";
- import { resolveWorkspaceRootFromAppCwd } from "@/lib/platform/repository/workspaceRoot";
- import { loadProjectRuntimeForAssistant } from "@/features/vertical-slice-ui/ProjectWorkspaceView";
- import { buildProjectSystemPrompt } from "./buildProjectSystemPrompt";
-@@ -45,6 +49,7 @@ import type {
-   ProjectAssistantContextDto,
-   ProjectAssistantSendResult,
- } from "./types";
-+import { resolveTrajectoryBootstrapPresence } from "@/lib/oa/cycle/application/lifecycleRecommendation/greenfieldLifecycleBootstrap";
-
- const MAX_HISTORY_MESSAGES = 20;
-
-@@ -60,14 +65,18 @@ function buildEphemeralNotice(
-     | "stale_invalidated",
-   stalePriorInvalidated?: boolean,
-   cognitiveStopNotice?: string | null,
-+  lifecycleMaterializeNotice?: string | null,
- ): string {
-   const base = memoryBPiloteNotice(memoryBAvailability);
-   const compaction = memoryBCompactionPiloteNotice(memoryBCompactionState, {
-     stalePriorInvalidated,
-   });
--  const parts = [cognitiveStopNotice, compaction, base].filter(
--    (p): p is string => typeof p === "string" && p.trim().length > 0,
--  );
-+  const parts = [
-+    lifecycleMaterializeNotice,
-+    cognitiveStopNotice,
-+    compaction,
-+    base,
-+  ].filter((p): p is string => typeof p === "string" && p.trim().length > 0);
-   return parts.join(" ");
- }
-
-@@ -328,8 +337,7 @@ export async function orchestrateProjectAssistantTurn(input: {
-           ok: false,
-           status: "validation_error",
-           code: MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
--          message:
--            "Contradiction de frontière de routage : une Recommendation lifecycle était requise (EMIT) mais absente. Aucune Recommendation n'a été inventée côté serveur.",
-+          message: LIFECYCLE_RECOMMENDATION_MATERIALIZE_FAILURE_PILOTE_NOTICE,
-           mode: modeResolution.mode,
-           retryable: false,
-         };
-@@ -362,14 +370,17 @@ export async function orchestrateProjectAssistantTurn(input: {
-           }
-
-           let trajectory = null;
--          try {
--            const traj = await oa.cycleServices.getCurrentTrajectory.execute({
--              projectId: project.projectId,
--            });
--            trajectory = traj.ok ? traj.trajectory : null;
--          } catch {
-+          let trajectoryBootstrapPresence = await resolveTrajectoryBootstrapPresence(
-+            oa.cycleServices.trajectories,
-+            project.projectId,
-+          );
-+          if (trajectoryBootstrapPresence.kind === "unknown") {
-             failedMaterialDimensions.add("trajectory");
-             trajectory = null;
-+          } else if (trajectoryBootstrapPresence.kind === "current") {
-+            trajectory = trajectoryBootstrapPresence.trajectory;
-+          } else {
-+            trajectory = null;
-           }
-
-           let decisions: Awaited<
-@@ -431,6 +442,7 @@ export async function orchestrateProjectAssistantTurn(input: {
-                 doctrinePackageVersion: doctrinePin?.version ?? null,
-                 doctrinePackageDigest: doctrinePin?.digest ?? null,
-                 trajectory,
-+                trajectoryBootstrapPresence,
-                 decisions,
-                 evidence,
-                 epistemicItems,
-@@ -524,6 +536,21 @@ export async function orchestrateProjectAssistantTurn(input: {
-         allowsSilentSuccess: false,
-       },
-     );
-+    const lrMaterializeNotice =
-+      lifecycleRecommendationMaterializeFailurePiloteNotice({
-+        recommendationAttempted:
-+          lifecycleRecommendationMaterialized === false &&
-+          Boolean(lifecycleRecommendationCode),
-+        materialized: lifecycleRecommendationMaterialized,
-+        code: lifecycleRecommendationCode,
-+      });
-+    const ephemeralNotice = buildEphemeralNotice(
-+      turn.memoryBAvailability,
-+      turn.memoryBCompactionState,
-+      turn.memoryBCompactionDetails?.stalePriorInvalidated === true,
-+      stopNotice,
-+      lrMaterializeNotice,
-+    );
-     const status =
-       turn.cognitiveStopDecision?.cognitiveStop === true
-         ? ("cognitive_stop" as const)
-@@ -541,12 +568,7 @@ export async function orchestrateProjectAssistantTurn(input: {
-       sources,
-       toolEvents,
-       project,
--      ephemeralNotice: buildEphemeralNotice(
--        turn.memoryBAvailability,
--        turn.memoryBCompactionState,
--        turn.memoryBCompactionDetails?.stalePriorInvalidated === true,
--        stopNotice,
--      ),
-+      ephemeralNotice,
-       cognitiveRuntime: turn.cognitiveRuntime,
-       sessionId: turn.sessionId,
-       memoryBAvailability: turn.memoryBAvailability,
-```
-
-### FILE 08/12 — `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/greenfieldLifecycleBootstrap.ts`
-
-- Candidate: `f70dc8ae9c25b237654a6db9ec44a875880afdde`
-- Representation: **FULL FILE**
+#### Full file
 
 ```ts
 /**
@@ -1255,6 +239,8 @@ index 0d6ef3af..407484f1 100644
  * on a genuine fresh Project (D-RB-BOOT-01).
  *
  * Never treats reader failure as absence. Never auto-creates ProjectTrajectory.
+ * Historical presence is exact via TrajectoryRepositoryPort.hasAnyByProjectId —
+ * no version-window probe.
  */
 import type { HumanDecision } from "@/lib/oa/decision";
 import type { CycleInstance, ProjectTrajectory } from "../../domain/types";
@@ -1262,9 +248,6 @@ import type { TrajectoryRepositoryPort } from "../../ports/trajectoryRepository"
 import { isCurrentHumanDecisionStatus } from "../assessFinalization";
 import { getCycleTypeById } from "../../domain/cycleTypeCatalog";
 import type { LifecycleRecommendationCandidate } from "./types";
-
-/** Max version probe — lineages are sequential; avoids unbounded scans. */
-export const TRAJECTORY_HISTORY_PROBE_MAX_VERSION = 64 as const;
 
 export type TrajectoryBootstrapPresenceKind =
   | "current"
@@ -1305,8 +288,9 @@ export function classifyTrajectoryBootstrapPresence(input: {
 }
 
 /**
- * Resolve presence using existing TrajectoryRepositoryPort only.
- * findCurrentByProjectId + findByProjectAndVersion — no new store / list API.
+ * Resolve presence using TrajectoryRepositoryPort only.
+ * findCurrentByProjectId + hasAnyByProjectId — exact project-scoped existence.
+ * No version-number ceiling. Failures → unknown (never coerced to never).
  */
 export async function resolveTrajectoryBootstrapPresence(
   trajectories: TrajectoryRepositoryPort,
@@ -1317,14 +301,7 @@ export async function resolveTrajectoryBootstrapPresence(
     if (current) {
       return { kind: "current", trajectory: current };
     }
-    let anyVersionExists = false;
-    for (let version = 1; version <= TRAJECTORY_HISTORY_PROBE_MAX_VERSION; version += 1) {
-      const row = await trajectories.findByProjectAndVersion(projectId, version);
-      if (row) {
-        anyVersionExists = true;
-        break;
-      }
-    }
+    const anyVersionExists = await trajectories.hasAnyByProjectId(projectId);
     return classifyTrajectoryBootstrapPresence({
       readerFailed: false,
       current: null,
@@ -1460,294 +437,253 @@ export function assessGreenfieldPreTrajectoryBootstrapEligibility(input: {
 }
 ```
 
-### FILE 09/12 — `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/index.ts`
-
-- Candidate: `f70dc8ae9c25b237654a6db9ec44a875880afdde`
-- Representation: **FULL UNIFIED DIFF**
+#### Unified diff
 
 ```diff
-diff --git a/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/index.ts b/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/index.ts
-index 428dd234..b96fa119 100644
---- a/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/index.ts
-+++ b/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/index.ts
-@@ -8,3 +8,4 @@ export * from "./produceLifecycleRecommendation";
- export * from "./materializeFromProductTurn";
- export * from "./materialReaderContract";
- export * from "./noraActor";
-+export * from "./greenfieldLifecycleBootstrap";
+diff --git a/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/greenfieldLifecycleBootstrap.ts b/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/greenfieldLifecycleBootstrap.ts
+index 5d16abe2..bbbf8c38 100644
+--- a/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/greenfieldLifecycleBootstrap.ts
++++ b/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/greenfieldLifecycleBootstrap.ts
+@@ -3,6 +3,8 @@
+  * on a genuine fresh Project (D-RB-BOOT-01).
+  *
+  * Never treats reader failure as absence. Never auto-creates ProjectTrajectory.
++ * Historical presence is exact via TrajectoryRepositoryPort.hasAnyByProjectId —
++ * no version-window probe.
+  */
+ import type { HumanDecision } from "@/lib/oa/decision";
+ import type { CycleInstance, ProjectTrajectory } from "../../domain/types";
+@@ -11,9 +13,6 @@ import { isCurrentHumanDecisionStatus } from "../assessFinalization";
+ import { getCycleTypeById } from "../../domain/cycleTypeCatalog";
+ import type { LifecycleRecommendationCandidate } from "./types";
+
+-/** Max version probe — lineages are sequential; avoids unbounded scans. */
+-export const TRAJECTORY_HISTORY_PROBE_MAX_VERSION = 64 as const;
+-
+ export type TrajectoryBootstrapPresenceKind =
+   | "current"
+   | "never"
+@@ -53,8 +52,9 @@ export function classifyTrajectoryBootstrapPresence(input: {
+ }
+
+ /**
+- * Resolve presence using existing TrajectoryRepositoryPort only.
+- * findCurrentByProjectId + findByProjectAndVersion — no new store / list API.
++ * Resolve presence using TrajectoryRepositoryPort only.
++ * findCurrentByProjectId + hasAnyByProjectId — exact project-scoped existence.
++ * No version-number ceiling. Failures → unknown (never coerced to never).
+  */
+ export async function resolveTrajectoryBootstrapPresence(
+   trajectories: TrajectoryRepositoryPort,
+@@ -65,14 +65,7 @@ export async function resolveTrajectoryBootstrapPresence(
+     if (current) {
+       return { kind: "current", trajectory: current };
+     }
+-    let anyVersionExists = false;
+-    for (let version = 1; version <= TRAJECTORY_HISTORY_PROBE_MAX_VERSION; version += 1) {
+-      const row = await trajectories.findByProjectAndVersion(projectId, version);
+-      if (row) {
+-        anyVersionExists = true;
+-        break;
+-      }
+-    }
++    const anyVersionExists = await trajectories.hasAnyByProjectId(projectId);
+     return classifyTrajectoryBootstrapPresence({
+       readerFailed: false,
+       current: null,
 ```
 
-### FILE 10/12 — `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn.ts`
+### FILE 5/5 — `projects/sfia-studio/app/__tests__/project-assistant/greenfieldLifecycleBootstrap.d0.test.ts`
 
-- Candidate: `f70dc8ae9c25b237654a6db9ec44a875880afdde`
+- Candidate: `0b9a7370f04de9f1b6ebb3aca84d1dd6f15541ee`
 - Representation: **FULL UNIFIED DIFF**
 
 ```diff
-diff --git a/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn.ts b/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn.ts
-index f2914e4b..f8f707de 100644
---- a/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn.ts
-+++ b/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn.ts
-@@ -31,6 +31,7 @@ import {
-   materialBasisUnavailableCode,
-   type LifecycleRecommendationMaterialDimension,
- } from "./materialReaderContract";
-+import type { TrajectoryBootstrapPresence } from "./greenfieldLifecycleBootstrap";
-
- export type LifecycleRecommendationMaterialFacts = {
-   cycles: readonly CycleInstance[];
-@@ -40,6 +41,11 @@ export type LifecycleRecommendationMaterialFacts = {
-   doctrinePackageVersion?: string | null;
-   doctrinePackageDigest?: string | null;
-   trajectory: ProjectTrajectory | null;
-+  /**
-+   * Explicit trajectory presence for greenfield bootstrap (D-RB-BOOT-01).
-+   * UNKNOWN must never be coerced to never/absence.
-+   */
-+  trajectoryBootstrapPresence?: TrajectoryBootstrapPresence;
-   decisions: readonly HumanDecision[];
-   evidence: readonly Evidence[];
-   epistemicItems: readonly EpistemicItem[];
-@@ -202,6 +208,14 @@ export async function materializeLifecycleRecommendationFromStructuredOutput(inp
-     blockingReservationStatements: blockers.statements,
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/greenfieldLifecycleBootstrap.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/greenfieldLifecycleBootstrap.d0.test.ts
+index 9b9f1dc2..15235a33 100644
+--- a/projects/sfia-studio/app/__tests__/project-assistant/greenfieldLifecycleBootstrap.d0.test.ts
++++ b/projects/sfia-studio/app/__tests__/project-assistant/greenfieldLifecycleBootstrap.d0.test.ts
+@@ -26,7 +26,12 @@ import {
+   validateLifecycleRecommendation,
+   deriveLifecycleRecommendationCurrentness,
+   rebuildBasisRefsForRecommendation,
++  MemoryTrajectoryRepository,
+ } from "@/lib/oa/cycle";
++import { MemoryCycleStore } from "@/lib/oa/cycle/infrastructure/memoryCycleStore";
++import type { TrajectoryRepositoryPort } from "@/lib/oa/cycle/ports/trajectoryRepository";
++import type { ProjectTrajectory } from "@/lib/oa/cycle/domain/types";
++import * as greenfieldBootstrapMod from "@/lib/oa/cycle/application/lifecycleRecommendation/greenfieldLifecycleBootstrap";
+ import type { ActorReference } from "@/lib/oa/project";
+ import type { Digest, DoctrinePackagePin } from "@/lib/oa/doctrine";
+ import {
+@@ -694,4 +699,151 @@ describe("GREENFIELD LIFECYCLE BOOTSTRAP — BAR-BOOT", () => {
+     expect(prompt).toMatch(/identifiant catalogue Studio exact/);
+     expect(prompt).not.toMatch(/Cadrage → cyc:framing/);
    });
-
-+  const presence =
-+    input.facts.trajectoryBootstrapPresence ??
-+    (input.facts.trajectory
-+      ? ({ kind: "current", trajectory: input.facts.trajectory } as const)
-+      : failed.has("trajectory")
-+        ? ({ kind: "unknown", reason: "trajectory_dimension_failed" } as const)
-+        : undefined);
 +
-   const materialization = await produceLifecycleRecommendation({
-     updateEpistemicState: input.updateEpistemicState,
-     projectId: input.projectId,
-@@ -213,6 +227,8 @@ export async function materializeLifecycleRecommendationFromStructuredOutput(inp
-     createdBy: input.createdBy,
-     existingItems: input.facts.epistemicItems,
-     hasTrajectoryContext: Boolean(input.facts.trajectory),
-+    trajectoryBootstrapPresence: presence,
-+    decisions: input.facts.decisions,
-     correlationId: input.correlationId,
-   });
-```
-
-### FILE 11/12 — `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/produceLifecycleRecommendation.ts`
-
-- Candidate: `f70dc8ae9c25b237654a6db9ec44a875880afdde`
-- Representation: **FULL UNIFIED DIFF**
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/produceLifecycleRecommendation.ts b/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/produceLifecycleRecommendation.ts
-index 27411bd9..ab159309 100644
---- a/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/produceLifecycleRecommendation.ts
-+++ b/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/produceLifecycleRecommendation.ts
-@@ -1,3 +1,4 @@
-+import type { HumanDecision } from "@/lib/oa/decision";
- import type { EpistemicItem, ProvenanceRecord } from "../../domain/types";
- import type { CycleInstance } from "../../domain/types";
- import type { UpdateEpistemicState } from "../updateEpistemicState";
-@@ -15,6 +16,7 @@ import type {
- } from "./types";
- import { tryDecodeLifecycleRecommendationItem } from "./materializeLifecycleRecommendation";
- import { deriveLifecycleRecommendationCurrentness } from "./currentness";
-+import type { TrajectoryBootstrapPresence } from "./greenfieldLifecycleBootstrap";
-
- export type ProduceLifecycleRecommendationInput = {
-   updateEpistemicState: UpdateEpistemicState;
-@@ -33,6 +35,8 @@ export type ProduceLifecycleRecommendationInput = {
-   createdBy: EpistemicItem["createdBy"];
-   existingItems: readonly EpistemicItem[];
-   hasTrajectoryContext?: boolean;
-+  trajectoryBootstrapPresence?: TrajectoryBootstrapPresence;
-+  decisions?: readonly HumanDecision[];
-   provenance?: ProvenanceRecord;
-   correlationId?: string;
- };
-@@ -94,6 +98,8 @@ export async function produceLifecycleRecommendation(
-     cycles: input.cycles,
-     lpsActiveCycleInstanceId: input.lpsActiveCycleInstanceId,
-     hasTrajectoryContext: input.hasTrajectoryContext,
-+    trajectoryBootstrapPresence: input.trajectoryBootstrapPresence,
-+    decisions: input.decisions,
-   });
-   if (!validated.ok) {
-     return { ok: false, code: validated.code, reason: validated.reason };
-```
-
-### FILE 12/12 — `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/validateLifecycleRecommendation.ts`
-
-- Candidate: `f70dc8ae9c25b237654a6db9ec44a875880afdde`
-- Representation: **FULL UNIFIED DIFF**
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/validateLifecycleRecommendation.ts b/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/validateLifecycleRecommendation.ts
-index 5d83c63f..214327e9 100644
---- a/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/validateLifecycleRecommendation.ts
-+++ b/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/validateLifecycleRecommendation.ts
-@@ -1,3 +1,4 @@
-+import type { HumanDecision } from "@/lib/oa/decision";
- import type { CycleInstance } from "../../domain/types";
- import { isTerminalCycleStatus } from "../../domain/lifecycleInvariants";
- import type {
-@@ -5,14 +6,30 @@ import type {
-   LifecycleRecommendationCandidate,
-   LifecycleRecommendationIntent,
- } from "./types";
-+import {
-+  assessGreenfieldPreTrajectoryBootstrapEligibility,
-+  validateCanonicalTargetCycleTypeId,
-+  type TrajectoryBootstrapPresence,
-+} from "./greenfieldLifecycleBootstrap";
-
- export type ValidateLifecycleRecommendationInput = {
-   projectId: string;
-   candidate: LifecycleRecommendationCandidate;
-   cycles: readonly CycleInstance[];
-   lpsActiveCycleInstanceId: string | null | undefined;
--  /** When known — trajectory must be trajectory-aware for NEXT_CYCLE. */
-+  /**
-+   * When known true — current trajectory present (standard non-bootstrap path).
-+   * When false — absence of current; bootstrap may still apply if presence=never.
-+   * When undefined — legacy callers; trajectory rule not enforced here.
-+   */
-   hasTrajectoryContext?: boolean;
-+  /**
-+   * Explicit presence classification. Required to allow bootstrap.
-+   * unknown → fail closed (never treat as never).
-+   */
-+  trajectoryBootstrapPresence?: TrajectoryBootstrapPresence;
-+  /** Decisions used only for bootstrap incompatibility gate. */
-+  decisions?: readonly HumanDecision[];
- };
-
- export type ValidateLifecycleRecommendationResult =
-@@ -24,6 +41,8 @@ export type ValidateLifecycleRecommendationResult =
-       targetCycleTypeId: string | null;
-       statement: string;
-       basisSeed: LifecycleRecommendationBasisRefs;
-+      /** True when NEXT_CYCLE accepted via strict greenfield bootstrap. */
-+      greenfieldBootstrap?: boolean;
-     }
-   | {
-       ok: false;
-@@ -100,6 +119,17 @@ export function validateLifecycleRecommendation(
-         reason: "next_cycle_needs_target",
-       };
-     }
-+    // Type-based NEXT_CYCLE must use a canonical catalog cycleTypeId (D-RB-BOOT-02).
-+    if (targetType) {
-+      const typeGate = validateCanonicalTargetCycleTypeId(targetType);
-+      if (!typeGate.ok) {
-+        return {
-+          ok: false,
-+          code: typeGate.code,
-+          reason: typeGate.reason,
-+        };
-+      }
++  it("BAR-BOOT-19 — exact history above old ceiling 64 → history_without_current", async () => {
++    const { runtime, projectId } = await bootFreshProject("19");
++    const traj: ProjectTrajectory = {
++      schemaVersion: "0.1.0-oa",
++      trajectoryId: `trj:${projectId}-v65`,
++      projectId,
++      version: 65,
++      status: "candidate",
++      steps: [
++        { stepId: "stp:a", order: 1, label: "A", state: "pending" },
++      ],
++    };
++    await runtime.oa!.cycleServices.trajectories.save(traj);
++    // No rows 1..64, no current pointer — old probe would have falsely said never.
++    for (let v = 1; v <= 64; v += 1) {
++      expect(
++        await runtime.oa!.cycleServices.trajectories.findByProjectAndVersion(
++          projectId,
++          v,
++        ),
++      ).toBeNull();
 +    }
-     if (targetId) {
-       const target = byId.get(targetId);
-       if (!target) {
-@@ -142,13 +172,73 @@ export function validateLifecycleRecommendation(
-         };
-       }
-     }
--    if (input.hasTrajectoryContext === false) {
--      return {
--        ok: false,
--        code: "LR_TRAJECTORY_REQUIRED",
--        reason: "next_cycle_requires_trajectory",
--      };
++    expect(
++      await runtime.oa!.cycleServices.trajectories.findCurrentByProjectId(
++        projectId,
++      ),
++    ).toBeNull();
++    expect(
++      await runtime.oa!.cycleServices.trajectories.hasAnyByProjectId(projectId),
++    ).toBe(true);
 +
-+    const presence = input.trajectoryBootstrapPresence;
-+    const hasCurrent =
-+      input.hasTrajectoryContext === true || presence?.kind === "current";
++    const presence = await resolveTrajectoryBootstrapPresence(
++      runtime.oa!.cycleServices.trajectories,
++      projectId,
++    );
++    expect(presence.kind).toBe("history_without_current");
++    expect(presence.kind).not.toBe("never");
 +
-+    if (!hasCurrent) {
-+      // Strict greenfield bootstrap (D-RB-BOOT-01) — never generic null fallback.
-+      if (!presence) {
-+        // Legacy callers without presence: preserve prior fail-closed when
-+        // hasTrajectoryContext === false; allow when undefined (older tests).
-+        if (input.hasTrajectoryContext === false) {
-+          return {
-+            ok: false,
-+            code: "LR_TRAJECTORY_REQUIRED",
-+            reason: "next_cycle_requires_trajectory",
-+          };
-+        }
-+      } else if (presence.kind === "unknown") {
-+        return {
-+          ok: false,
-+          code: "LR_BASIS_TRAJECTORY_UNAVAILABLE",
-+          reason: "trajectory_presence_unknown",
-+        };
-+      } else {
-+        const bootstrap = assessGreenfieldPreTrajectoryBootstrapEligibility({
-+          candidate,
-+          presence,
-+          cycles,
-+          lpsActiveCycleInstanceId: input.lpsActiveCycleInstanceId,
-+          decisions: input.decisions ?? [],
-+        });
-+        if (!bootstrap.eligible) {
-+          if (bootstrap.code.startsWith("LR_BOOTSTRAP_") || bootstrap.code.startsWith("LR_TARGET_CYCLE_TYPE_") || bootstrap.code.startsWith("LR_BASIS_")) {
-+            return {
-+              ok: false,
-+              code: bootstrap.code,
-+              reason: bootstrap.reason,
-+            };
-+          }
-+          return {
-+            ok: false,
-+            code: "LR_TRAJECTORY_REQUIRED",
-+            reason: bootstrap.reason,
-+          };
-+        }
-+        return {
-+          ok: true,
-+          intent: candidate.intent,
-+          subjectCycleInstanceId: null,
-+          targetCycleInstanceId: null,
-+          targetCycleTypeId: targetType,
-+          statement,
-+          greenfieldBootstrap: true,
-+          basisSeed: {
-+            projectId,
-+            subjectCycleInstanceId: null,
-+            targetCycleInstanceId: null,
-+            targetCycleTypeId: targetType,
-+            lpsActiveCycleInstanceId: input.lpsActiveCycleInstanceId ?? null,
-+            trajectoryId: null,
-+            trajectoryVersion: null,
-+            trajectoryStatus: null,
-+          },
-+        };
-+      }
-     }
++    const mat = await materializeFreshNext(
++      runtime,
++      projectId,
++      nextCycleLr("cyc:framing", "Must refuse history above old ceiling."),
++      { presence },
++    );
++    expect(mat.materialization?.ok).toBe(false);
++    if (mat.materialization && !mat.materialization.ok) {
++      expect(mat.materialization.code).toBe("LR_BOOTSTRAP_HISTORY_PRESENT");
++    }
++  });
 +
-     return {
-       ok: true,
-       intent: candidate.intent,
++  it("BAR-BOOT-20 — exact project-scoped hasAnyByProjectId (SQLite + Memory)", async () => {
++    const { runtime, projectId } = await bootFreshProject("20");
++    const otherCreated = await runtime.createProject({
++      name: "Other project for hasAny isolation",
++      objective: "isolation",
++      context: "other",
++      criticality: "STANDARD",
++      constraints: [],
++      shortReference: "BOOT20O",
++      idempotencyKey: "idem:boot-20-other",
++    });
++    expect(otherCreated.ok).toBe(true);
++    if (!otherCreated.ok) return;
++    const otherId = otherCreated.projectId;
++    const trajRepo = runtime.oa!.cycleServices.trajectories;
++    expect(await trajRepo.hasAnyByProjectId(projectId)).toBe(false);
++    expect(await trajRepo.hasAnyByProjectId(otherId)).toBe(false);
++    await trajRepo.save({
++      schemaVersion: "0.1.0-oa",
++      trajectoryId: `trj:${projectId}-any`,
++      projectId,
++      version: 3,
++      status: "candidate",
++      steps: [{ stepId: "stp:a", order: 1, label: "A", state: "pending" }],
++    });
++    expect(await trajRepo.hasAnyByProjectId(projectId)).toBe(true);
++    expect(await trajRepo.hasAnyByProjectId(otherId)).toBe(false);
++
++    const memStore = new MemoryCycleStore();
++    const mem = new MemoryTrajectoryRepository(memStore);
++    expect(await mem.hasAnyByProjectId("prj:mem-a")).toBe(false);
++    await mem.save({
++      schemaVersion: "0.1.0-oa",
++      trajectoryId: "trj:mem-a",
++      projectId: "prj:mem-a",
++      version: 99,
++      status: "candidate",
++      steps: [{ stepId: "stp:a", order: 1, label: "A", state: "pending" }],
++    });
++    expect(await mem.hasAnyByProjectId("prj:mem-a")).toBe(true);
++    expect(await mem.hasAnyByProjectId("prj:mem-b")).toBe(false);
++  });
++
++  it("BAR-BOOT-21 — existence reader failure → unknown fail-closed (never coerced)", async () => {
++    const { runtime, projectId } = await bootFreshProject("21");
++    const base = runtime.oa!.cycleServices.trajectories;
++    const failing: TrajectoryRepositoryPort = {
++      findById: (id) => base.findById(id),
++      findByProjectAndVersion: (p, v) => base.findByProjectAndVersion(p, v),
++      findCurrentByProjectId: async () => null,
++      hasAnyByProjectId: async () => {
++        throw new Error("forced_has_any_failure");
++      },
++      exists: (id) => base.exists(id),
++      save: (t) => base.save(t),
++      markSuperseded: (id, v) => base.markSuperseded(id, v),
++    };
++    const presence = await resolveTrajectoryBootstrapPresence(
++      failing,
++      projectId,
++    );
++    expect(presence.kind).toBe("unknown");
++    if (presence.kind === "unknown") {
++      expect(presence.reason).toMatch(/forced_has_any_failure/);
++    }
++
++    const validated = validateLifecycleRecommendation({
++      projectId,
++      candidate: nextCycleLr("cyc:framing", "x"),
++      cycles: [],
++      lpsActiveCycleInstanceId: null,
++      hasTrajectoryContext: false,
++      trajectoryBootstrapPresence: presence,
++      decisions: [],
++    });
++    expect(validated.ok).toBe(false);
++    if (!validated.ok) {
++      expect(validated.code).toBe("LR_BASIS_TRAJECTORY_UNAVAILABLE");
++    }
++  });
++
++  it("BAR-BOOT-22 — no version probe / no TRAJECTORY_HISTORY_PROBE_MAX_VERSION", () => {
++    expect(
++      "TRAJECTORY_HISTORY_PROBE_MAX_VERSION" in greenfieldBootstrapMod,
++    ).toBe(false);
++    const srcPath = path.resolve(
++      APP_ROOT,
++      "lib/oa/cycle/application/lifecycleRecommendation/greenfieldLifecycleBootstrap.ts",
++    );
++    const src = fs.readFileSync(srcPath, "utf8");
++    expect(src).not.toMatch(/TRAJECTORY_HISTORY_PROBE_MAX_VERSION/);
++    expect(src).not.toMatch(/for\s*\(\s*let\s+version\s*=\s*1/);
++    expect(src).not.toMatch(/findByProjectAndVersion/);
++    expect(src).toMatch(/hasAnyByProjectId/);
++    expect(src).toMatch(/findCurrentByProjectId/);
++  });
+ });
 ```
 
 
 ---
 
-## 6. Integrity proof of pack vs candidate
+## 11. Integrity
 
 | Check | Result |
 | --- | --- |
-| `git rev-parse HEAD` | `f70dc8ae9c25b237654a6db9ec44a875880afdde` |
-| parent | `e79f16ba467c227470328d7f723f1c2b53fdf2fb` |
-| 12 paths from `git diff --name-only e79f16ba467c227470328d7f723f1c2b53fdf2fb f70dc8ae9c25b237654a6db9ec44a875880afdde` | all embedded above |
-| Product files changed during regularization | **ZERO** |
-| ZERO NEW REAL | PROVEN |
+| parent | `f70dc8ae9c25b237654a6db9ec44a875880afdde` |
+| candidate | `0b9a7370f04de9f1b6ebb3aca84d1dd6f15541ee` |
+| 5/5 files embedded | YES |
+| ZERO NEW REAL | YES |
 
----
+## 12. Verdict
 
-## 7. Verdict
+**GREENFIELD BOOTSTRAP EXACT TRAJECTORY PRESENCE — DETERMINISTIC CANDIDATE READY FOR CHATGPT CRITICAL REVIEW**
 
-**REVIEW HANDOFF COMPLETENESS REGULARIZED — READY FOR CHATGPT CRITICAL REVIEW**
-
-This does **not** mean Critical Review PASS, LIVE proven, PR ready, R2 closed, or runtime v3 ADOPTED.
+Does **not** mean LIVE proven, PR ready, R2 closed, or runtime v3 ADOPTED.
