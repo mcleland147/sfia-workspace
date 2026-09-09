@@ -188,6 +188,7 @@ function bridgeDeps(
   extras?: {
     newTrajectoryId?: () => string;
     newStepId?: (k: string) => string;
+    newProvenanceObservationId?: () => string;
     correlationId?: string;
   },
 ) {
@@ -195,6 +196,11 @@ function bridgeDeps(
   return {
     trajectories: oa.cycleServices.trajectories,
     createInitialTrajectory: oa.cycleServices.createInitialTrajectory,
+    updateEpistemicState: oa.cycleServices.updateEpistemicState,
+    runInTransaction: ((fn: () => Promise<unknown>) =>
+      oa.projectServices.store.runInTransaction(fn)) as <T>(
+      fn: () => Promise<T>,
+    ) => Promise<T>,
     listEpistemicByProject: (projectId: string) =>
       oa.cycleServices.epistemic.listByProject(projectId),
     listCyclesByProject: (projectId: string) =>
@@ -675,6 +681,8 @@ describe("GREENFIELD LR → CANDIDATE TRAJECTORY BRIDGE — BAR-TRJ", () => {
         }),
       listCyclesByProject: (pid) =>
         runtime.oa!.cycleServices.cycles.listByProject(pid),
+      listEpistemicByProject: (pid) =>
+        runtime.oa!.cycleServices.epistemic.listByProject(pid),
     });
     expect(read1.ok).toBe(true);
     if (!read1.ok || !read1.candidate) throw new Error("missing candidate");
@@ -682,6 +690,8 @@ describe("GREENFIELD LR → CANDIDATE TRAJECTORY BRIDGE — BAR-TRJ", () => {
     expect(read1.candidate.isEffectiveCurrent).toBe(false);
     expect(read1.candidate.catalogLabel).toBe("Cadrage");
     expect(read1.candidate.steps).toHaveLength(1);
+    expect(read1.candidate.provenanceStatus).toBe("RESOLVED");
+    expect(read1.candidate.targetCycleTypeId).toBe("cyc:framing");
 
     // Fresh reader path (no React) — second call equals first.
     const read2 = await readPreCycleCandidateTrajectory({
@@ -693,6 +703,8 @@ describe("GREENFIELD LR → CANDIDATE TRAJECTORY BRIDGE — BAR-TRJ", () => {
         }),
       listCyclesByProject: (pid) =>
         runtime.oa!.cycleServices.cycles.listByProject(pid),
+      listEpistemicByProject: (pid) =>
+        runtime.oa!.cycleServices.epistemic.listByProject(pid),
     });
     expect(read2.ok && read2.candidate?.trajectoryId).toBe(
       read1.candidate.trajectoryId,

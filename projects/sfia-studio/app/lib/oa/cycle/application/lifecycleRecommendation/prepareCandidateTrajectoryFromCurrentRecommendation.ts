@@ -1,6 +1,7 @@
 /**
  * Greenfield bridge (D-RB-BOOT-01 / Option B2):
- * CURRENT NEXT_CYCLE Lifecycle Recommendation → durable candidate ProjectTrajectory.
+ * CURRENT NEXT_CYCLE Lifecycle Recommendation → durable candidate ProjectTrajectory
+ * + Option B provenance Observation (atomic Product UoW).
  *
  * Deterministic Product mechanics only — no model call, no HD, no CycleInstance, no START.
  * Reuses greenfield bootstrap eligibility + CreateInitialTrajectory.
@@ -9,10 +10,7 @@ import { randomBytes } from "node:crypto";
 import type { HumanDecision } from "@/lib/oa/decision";
 import type { Evidence } from "@/lib/oa/evidence-review";
 import type { ActorReference } from "@/lib/oa/doctrine";
-import {
-  CYCLE_TYPE_CATALOG,
-  getCycleTypeById,
-} from "../../domain/cycleTypeCatalog";
+import { getCycleTypeById } from "../../domain/cycleTypeCatalog";
 import type {
   CycleInstance,
   EpistemicItem,
@@ -20,7 +18,9 @@ import type {
   TrajectoryStep,
 } from "../../domain/types";
 import type { CreateInitialTrajectory } from "../createInitialTrajectory";
+import type { UpdateEpistemicState } from "../updateEpistemicState";
 import type { TrajectoryRepositoryPort } from "../../ports/trajectoryRepository";
+import type { CyclePersistenceUnitOfWorkPort } from "../../ports/cyclePersistenceUnitOfWorkPort";
 import {
   assessGreenfieldPreTrajectoryBootstrapEligibility,
   resolveTrajectoryBootstrapPresence,
@@ -34,6 +34,25 @@ import {
 import type { LifecycleRecommendationMaterialDimension } from "./materialReaderContract";
 import { NORA_LIFECYCLE_RECOMMENDATION_ACTOR } from "./noraActor";
 import type { LifecycleRecommendationEnvelope } from "./types";
+import {
+  buildCandidateTrajectoryProvenanceObservationItem,
+  CANDIDATE_TRAJECTORY_PROVENANCE_ACTOR,
+  newProvenanceObservationId,
+  resolveCandidateTrajectoryProvenance,
+  type CandidateTrajectoryProvenanceStatus,
+} from "./candidateTrajectoryProvenance";
+
+/** Thrown inside outer Product UoW so nested writes roll back together. */
+export class CandidateTrajectoryBridgeAtomicFailure extends Error {
+  readonly code: string;
+  readonly reason: string;
+  constructor(code: string, reason: string) {
+    super(`${code}:${reason}`);
+    this.name = "CandidateTrajectoryBridgeAtomicFailure";
+    this.code = code;
+    this.reason = reason;
+  }
+}
 
 function newCorId(): string {
   return `cor:${randomBytes(8).toString("hex")}`;
@@ -51,6 +70,12 @@ function newStepId(canonicalKey: string): string {
 export type PrepareCandidateTrajectoryDeps = {
   trajectories: TrajectoryRepositoryPort;
   createInitialTrajectory: CreateInitialTrajectory;
+  updateEpistemicState: UpdateEpistemicState;
+  /**
+   * Outer Product UoW (projectServices.store / SqliteProductStore).
+   * Nested CreateInitialTrajectory + UpdateEpistemicState join the same TX.
+   */
+  runInTransaction: CyclePersistenceUnitOfWorkPort["runInTransaction"];
   listEpistemicByProject: (projectId: string) => Promise<EpistemicItem[]>;
   listCyclesByProject: (projectId: string) => Promise<CycleInstance[]>;
   listDecisionsByProject: (projectId: string) => Promise<HumanDecision[]>;
@@ -79,9 +104,12 @@ export type PrepareCandidateTrajectoryDeps = {
   } | null>;
   /** Injected for tests — defaults to Nora lifecycle non-authoritative actor. */
   createdBy?: ActorReference;
+  /** System actor for provenance Observation — defaults to sys:candidate-trajectory-provenance. */
+  provenanceCreatedBy?: ActorReference;
   /** Injected ids for deterministic tests. */
   newTrajectoryId?: () => string;
   newStepId?: (canonicalKey: string) => string;
+  newProvenanceObservationId?: () => string;
   correlationId?: string;
 };
 
@@ -95,6 +123,7 @@ export type PrepareCandidateTrajectorySuccess = {
   trajectoryId: string;
   trajectoryVersion: number;
   stepId: string;
+  provenanceObservationId: string;
   correlationId: string;
   lpsVersionAfter: number;
   sourceDerivedCurrentnessBefore: "CURRENT";
@@ -349,31 +378,93 @@ export async function prepareCandidateTrajectoryFromCurrentRecommendation(input:
   }
 
   const trajectoryId = (input.deps.newTrajectoryId ?? newTrajectoryId)();
+  const provenanceObservationId = (
+    input.deps.newProvenanceObservationId ?? newProvenanceObservationId
+  )();
   const createdBy =
     input.deps.createdBy ?? NORA_LIFECYCLE_RECOMMENDATION_ACTOR;
+  const provenanceCreatedBy =
+    input.deps.provenanceCreatedBy ?? CANDIDATE_TRAJECTORY_PROVENANCE_ACTOR;
 
-  const created = await input.deps.createInitialTrajectory.execute({
-    trajectoryId,
-    projectId,
-    steps: [stepBuild.step],
-    status: "candidate",
-    createdBy,
-    correlationId,
-    expectedLpsVersion,
-  });
-
-  if (!created.ok) {
+  if (typeof input.deps.runInTransaction !== "function") {
     return fail(
-      created.error.detailCode,
-      created.error.internalCauseRef ?? "create_initial_trajectory_failed",
+      "TRJ_BRIDGE_UOW_UNAVAILABLE",
+      "product_uow_required_for_provenance_atomicity",
+    );
+  }
+  if (!input.deps.updateEpistemicState) {
+    return fail(
+      "TRJ_BRIDGE_EPISTEMIC_WRITER_UNAVAILABLE",
+      "update_epistemic_state_required",
     );
   }
 
-  const trajectory = created.trajectory;
-  if (trajectory.decidedByDecisionRef) {
+  const provenanceItem = buildCandidateTrajectoryProvenanceObservationItem({
+    epistemicItemId: provenanceObservationId,
+    projectId,
+    recommendationId: recommendation.recommendationId,
+    trajectoryId,
+  });
+
+  let trajectory: ProjectTrajectory;
+  let lpsVersionAfter: number;
+
+  try {
+    const atomic = await input.deps.runInTransaction(async () => {
+      const created = await input.deps.createInitialTrajectory.execute({
+        trajectoryId,
+        projectId,
+        steps: [stepBuild.step],
+        status: "candidate",
+        createdBy,
+        correlationId,
+        expectedLpsVersion,
+      });
+
+      if (!created.ok) {
+        throw new CandidateTrajectoryBridgeAtomicFailure(
+          created.error.detailCode,
+          created.error.internalCauseRef ?? "create_initial_trajectory_failed",
+        );
+      }
+
+      if (created.trajectory.decidedByDecisionRef) {
+        throw new CandidateTrajectoryBridgeAtomicFailure(
+          "TRJ_BRIDGE_DECISION_REF_LEAK",
+          "candidate_must_not_carry_decision_ref",
+        );
+      }
+
+      const provenanceWrite = await input.deps.updateEpistemicState.execute({
+        projectId,
+        items: [provenanceItem],
+        createdBy: provenanceCreatedBy,
+        correlationId,
+      });
+
+      if (!provenanceWrite.ok) {
+        throw new CandidateTrajectoryBridgeAtomicFailure(
+          provenanceWrite.error.detailCode,
+          provenanceWrite.error.internalCauseRef ??
+            "provenance_observation_write_failed",
+        );
+      }
+
+      return {
+        trajectory: created.trajectory,
+        lpsVersionAfter:
+          created.livingProjectStateVersion ?? expectedLpsVersion + 1,
+      };
+    });
+    trajectory = atomic.trajectory;
+    lpsVersionAfter = atomic.lpsVersionAfter;
+  } catch (err) {
+    if (err instanceof CandidateTrajectoryBridgeAtomicFailure) {
+      return fail(err.code, err.reason);
+    }
     return fail(
-      "TRJ_BRIDGE_DECISION_REF_LEAK",
-      "candidate_must_not_carry_decision_ref",
+      "TRJ_BRIDGE_ATOMIC_PERSISTENCE_FAILURE",
+      err instanceof Error ? err.message : "atomic_bridge_failed",
     );
   }
 
@@ -387,8 +478,9 @@ export async function prepareCandidateTrajectoryFromCurrentRecommendation(input:
     trajectoryId: trajectory.trajectoryId,
     trajectoryVersion: trajectory.version,
     stepId: stepBuild.step.stepId,
+    provenanceObservationId,
     correlationId,
-    lpsVersionAfter: created.livingProjectStateVersion ?? expectedLpsVersion + 1,
+    lpsVersionAfter,
     sourceDerivedCurrentnessBefore: "CURRENT",
   };
 }
@@ -396,12 +488,14 @@ export async function prepareCandidateTrajectoryFromCurrentRecommendation(input:
 /**
  * Durable read of a pre-cycle candidate ProjectTrajectory (not current).
  * Prefer LPS trajectory pointer when present; never coerces candidate to current.
+ * Authoritative targetCycleTypeId comes only from Option B provenance (never label map).
  */
 export async function readPreCycleCandidateTrajectory(input: {
   projectId: string;
   trajectories: TrajectoryRepositoryPort;
   getCurrentLps: PrepareCandidateTrajectoryDeps["getCurrentLps"];
   listCyclesByProject: (projectId: string) => Promise<CycleInstance[]>;
+  listEpistemicByProject: (projectId: string) => Promise<EpistemicItem[]>;
 }): Promise<
   | {
       ok: true;
@@ -412,7 +506,12 @@ export async function readPreCycleCandidateTrajectory(input: {
         projectId: string;
         steps: readonly TrajectoryStep[];
         catalogLabel: string | null;
+        /** Authoritative only when provenanceStatus === "RESOLVED". */
         targetCycleTypeId: string | null;
+        provenanceStatus: CandidateTrajectoryProvenanceStatus;
+        provenanceObservationId: string | null;
+        recommendationId: string | null;
+        semanticKey: string | null;
         decidedByDecisionRef: null;
         isEffectiveCurrent: false;
       };
@@ -494,18 +593,46 @@ export async function readPreCycleCandidateTrajectory(input: {
   }
 
   const first = trajectory.steps[0] ?? null;
-  let targetCycleTypeId: string | null = null;
-  let catalogLabel: string | null = first?.label ?? null;
-  if (first?.label) {
-    // Reverse-resolve catalog label → id when unique (presentation aid only).
-    // Canonical identity remains the source Recommendation / bridge result.
-    const matches = CYCLE_TYPE_CATALOG.entries.filter(
-      (e) => e.label === first.label && e.lifecycleStatus === "active",
-    );
-    if (matches.length === 1) {
-      targetCycleTypeId = matches[0]!.cycleTypeId;
-      catalogLabel = matches[0]!.label;
-    }
+  // Presentation only — never identity.
+  const catalogLabel = first?.label ?? null;
+
+  let epistemicItems: EpistemicItem[];
+  try {
+    epistemicItems = await input.listEpistemicByProject(input.projectId);
+  } catch {
+    return {
+      ok: false,
+      code: "TRJ_BRIDGE_EPISTEMIC_UNAVAILABLE",
+      reason: "epistemic_reader_failed",
+    };
+  }
+
+  const provenance = resolveCandidateTrajectoryProvenance({
+    projectId: input.projectId,
+    trajectoryId: trajectory.trajectoryId,
+    epistemicItems,
+  });
+
+  if (provenance.status === "RESOLVED") {
+    const entry = getCycleTypeById(provenance.targetCycleTypeId);
+    return {
+      ok: true,
+      candidate: {
+        trajectoryId: trajectory.trajectoryId,
+        version: trajectory.version,
+        status: "candidate",
+        projectId: trajectory.projectId,
+        steps: trajectory.steps,
+        catalogLabel: entry?.label ?? catalogLabel,
+        targetCycleTypeId: provenance.targetCycleTypeId,
+        provenanceStatus: "RESOLVED",
+        provenanceObservationId: provenance.provenanceObservationId,
+        recommendationId: provenance.recommendationId,
+        semanticKey: provenance.semanticKey,
+        decidedByDecisionRef: null,
+        isEffectiveCurrent: false,
+      },
+    };
   }
 
   return {
@@ -517,7 +644,12 @@ export async function readPreCycleCandidateTrajectory(input: {
       projectId: trajectory.projectId,
       steps: trajectory.steps,
       catalogLabel,
-      targetCycleTypeId,
+      // Do not invent cyc:* from label.
+      targetCycleTypeId: null,
+      provenanceStatus: provenance.status,
+      provenanceObservationId: null,
+      recommendationId: null,
+      semanticKey: null,
       decidedByDecisionRef: null,
       isEffectiveCurrent: false,
     },

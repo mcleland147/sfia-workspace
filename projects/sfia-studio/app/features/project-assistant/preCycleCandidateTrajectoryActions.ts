@@ -13,6 +13,7 @@ import {
   selectCurrentLifecycleRecommendations,
 } from "@/lib/oa/cycle";
 import type { LifecycleRecommendationMaterialDimension } from "@/lib/oa/cycle/application/lifecycleRecommendation/materialReaderContract";
+import type { CandidateTrajectoryProvenanceStatus } from "@/lib/oa/cycle/application/lifecycleRecommendation/candidateTrajectoryProvenance";
 
 export async function projectAssistantPrepareCandidateTrajectoryAction(input: {
   projectId: string;
@@ -27,6 +28,7 @@ export async function projectAssistantPrepareCandidateTrajectoryAction(input: {
   trajectoryId?: string;
   trajectoryVersion?: number;
   stepId?: string;
+  provenanceObservationId?: string;
   correlationId?: string;
   lpsVersionAfter?: number;
 }> {
@@ -44,6 +46,8 @@ export async function projectAssistantPrepareCandidateTrajectoryAction(input: {
     deps: {
       trajectories: oa.cycleServices.trajectories,
       createInitialTrajectory: oa.cycleServices.createInitialTrajectory,
+      updateEpistemicState: oa.cycleServices.updateEpistemicState,
+      runInTransaction: (fn) => oa.projectServices.store.runInTransaction(fn),
       listEpistemicByProject: (projectId) =>
         oa.cycleServices.epistemic.listByProject(projectId),
       listCyclesByProject: (projectId) =>
@@ -87,6 +91,7 @@ export async function projectAssistantPrepareCandidateTrajectoryAction(input: {
     trajectoryId: result.trajectoryId,
     trajectoryVersion: result.trajectoryVersion,
     stepId: result.stepId,
+    provenanceObservationId: result.provenanceObservationId,
     correlationId: result.correlationId,
     lpsVersionAfter: result.lpsVersionAfter,
   };
@@ -95,6 +100,7 @@ export async function projectAssistantPrepareCandidateTrajectoryAction(input: {
 /**
  * Durable pre-cycle projection: candidate trajectory + CURRENT NEXT_CYCLE flag.
  * CURRENT flag uses the same material basis as lifecycle read-side (incl. blockers).
+ * Authoritative targetCycleTypeId only when provenanceStatus === RESOLVED.
  */
 export async function projectAssistantReadPreCycleCandidateTrajectoryAction(input: {
   projectId: string;
@@ -115,6 +121,10 @@ export async function projectAssistantReadPreCycleCandidateTrajectoryAction(inpu
     }[];
     catalogLabel: string | null;
     targetCycleTypeId: string | null;
+    provenanceStatus: CandidateTrajectoryProvenanceStatus;
+    provenanceObservationId: string | null;
+    recommendationId: string | null;
+    semanticKey: string | null;
     decidedByDecisionRef: null;
     isEffectiveCurrent: false;
   } | null;
@@ -145,6 +155,8 @@ export async function projectAssistantReadPreCycleCandidateTrajectoryAction(inpu
       oa.projectServices.getCurrentLivingProjectState.execute({ projectId }),
     listCyclesByProject: (projectId) =>
       oa.cycleServices.cycles.listByProject(projectId),
+    listEpistemicByProject: (projectId) =>
+      oa.cycleServices.epistemic.listByProject(projectId),
   });
   if (!result.ok) {
     return {

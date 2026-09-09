@@ -154,6 +154,10 @@ export function TrajectorySurface({
     steps: readonly { stepId: string; order: number; label: string; state: string }[];
     catalogLabel: string | null;
     targetCycleTypeId: string | null;
+    provenanceStatus?: string;
+    provenanceObservationId?: string | null;
+    recommendationId?: string | null;
+    semanticKey?: string | null;
   } | null>(null);
   const [activeCycleInstanceId, setActiveCycleInstanceId] = useState<
     string | null
