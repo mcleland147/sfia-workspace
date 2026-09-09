@@ -19,7 +19,12 @@ import {
 } from "@/lib/oa/cycle/application/lifecycleRecommendation/produceLifecycleRecommendation";
 import { resolveCanonicalLifecycleRecommendationBasis } from "@/lib/oa/cycle/application/lifecycleRecommendation/resolveCanonicalBasis";
 import { isNoraLifecycleRecommendationStructuredOutput } from "@/lib/nora-cognitive-runtime/noraLifecycleRecommendationOutputType";
-import { isNoraProductTurnWithOptionalLr } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
+import {
+  normalizeNoraProductTurnStructuredOutput,
+  MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
+  type PreCycleRoutingAssessment,
+  type PreCycleRoutingDisposition,
+} from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
 import type { NoraLifecycleRecommendationStructuredOutput } from "@/lib/oa/cycle/application/lifecycleRecommendation/types";
 import {
   firstFailedRequiredMaterialDimension,
@@ -49,6 +54,12 @@ export type MaterializeFromProductTurnResult = {
   narrative: string | null;
   recommendationAttempted: boolean;
   materialization: ProduceLifecycleRecommendationResult | null;
+  /** Non-authoritative boundary disposition when Product turn was used. */
+  routingDisposition?: PreCycleRoutingDisposition | null;
+  preCycleRoutingAssessment?: PreCycleRoutingAssessment | null;
+  lifecycleRecommendationSuppressed?: boolean;
+  /** Structured boundary contradiction code when Product turn is incoherent. */
+  boundaryContradiction?: string | null;
 };
 
 export function extractLifecycleCandidateFromStructuredOutput(
@@ -57,12 +68,22 @@ export function extractLifecycleCandidateFromStructuredOutput(
   narrative: string | null;
   candidate: NoraLifecycleRecommendationStructuredOutput | null;
   kind: "product_turn" | "lr_only" | "none";
+  preCycleRoutingAssessment?: PreCycleRoutingAssessment | null;
+  routingDisposition?: PreCycleRoutingDisposition | null;
+  lifecycleRecommendationSuppressed?: boolean;
+  boundaryContradiction?: string | null;
 } {
-  if (isNoraProductTurnWithOptionalLr(structuredOutput)) {
+  const coherent = normalizeNoraProductTurnStructuredOutput(structuredOutput);
+  if (coherent) {
     return {
-      narrative: structuredOutput.narrative,
-      candidate: structuredOutput.lifecycleRecommendation,
+      narrative: coherent.narrative,
+      candidate: coherent.lifecycleRecommendation,
       kind: "product_turn",
+      preCycleRoutingAssessment: coherent.preCycleRoutingAssessment,
+      routingDisposition: coherent.disposition,
+      lifecycleRecommendationSuppressed:
+        coherent.lifecycleRecommendationSuppressed,
+      boundaryContradiction: coherent.boundaryContradiction,
     };
   }
   if (isNoraLifecycleRecommendationStructuredOutput(structuredOutput)) {
@@ -87,11 +108,47 @@ export async function materializeLifecycleRecommendationFromStructuredOutput(inp
   const extracted = extractLifecycleCandidateFromStructuredOutput(
     input.structuredOutput,
   );
+  const boundaryMeta =
+    extracted.kind === "product_turn"
+      ? {
+          routingDisposition: extracted.routingDisposition ?? null,
+          preCycleRoutingAssessment:
+            extracted.preCycleRoutingAssessment ?? null,
+          lifecycleRecommendationSuppressed:
+            extracted.lifecycleRecommendationSuppressed === true,
+          boundaryContradiction: extracted.boundaryContradiction ?? null,
+        }
+      : {
+          routingDisposition: null,
+          preCycleRoutingAssessment: null,
+          lifecycleRecommendationSuppressed: false,
+          boundaryContradiction: null,
+        };
+
+  if (
+    extracted.kind === "product_turn" &&
+    extracted.boundaryContradiction ===
+      MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION
+  ) {
+    // EMIT without LR — fail closed; never invent a Recommendation.
+    return {
+      narrative: extracted.narrative,
+      recommendationAttempted: true,
+      materialization: {
+        ok: false,
+        code: MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
+        reason: "emit_disposition_without_lifecycle_recommendation",
+      },
+      ...boundaryMeta,
+    };
+  }
+
   if (extracted.kind === "product_turn" && extracted.candidate === null) {
     return {
       narrative: extracted.narrative,
       recommendationAttempted: false,
       materialization: null,
+      ...boundaryMeta,
     };
   }
   if (!extracted.candidate) {
@@ -99,6 +156,7 @@ export async function materializeLifecycleRecommendationFromStructuredOutput(inp
       narrative: extracted.narrative,
       recommendationAttempted: false,
       materialization: null,
+      ...boundaryMeta,
     };
   }
 
@@ -117,6 +175,7 @@ export async function materializeLifecycleRecommendationFromStructuredOutput(inp
         code: materialBasisUnavailableCode(failedRequired),
         reason: `material_reader_unavailable:${failedRequired}`,
       },
+      ...boundaryMeta,
     };
   }
 
@@ -161,5 +220,6 @@ export async function materializeLifecycleRecommendationFromStructuredOutput(inp
     narrative: extracted.narrative,
     recommendationAttempted: true,
     materialization,
+    ...boundaryMeta,
   };
 }

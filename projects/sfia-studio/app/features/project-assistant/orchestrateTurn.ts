@@ -19,7 +19,10 @@ import {
   type NoraAgentsUsdAccounting,
   type NoraCampaignBudget,
 } from "@/lib/nora-cognitive-runtime";
-import { NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
+import {
+  MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
+  NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE,
+} from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
 import { materializeLifecycleRecommendationFromStructuredOutput } from "@/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn";
 import { NORA_LIFECYCLE_RECOMMENDATION_ACTOR } from "@/lib/oa/cycle/application/lifecycleRecommendation/noraActor";
 import type { LifecycleRecommendationMaterialDimension } from "@/lib/oa/cycle/application/lifecycleRecommendation/materialReaderContract";
@@ -311,6 +314,25 @@ export async function orchestrateProjectAssistantTurn(input: {
       );
       if (extracted.narrative) {
         assistantText = extracted.narrative;
+      }
+      // Positive enforcement: EMIT without LR is a structured contradiction.
+      // Never invent LR; never treat as normal conversational success.
+      // Seams 1–3 alone are insufficient because this short-circuit previously
+      // skipped materialize and returned ok:true silently.
+      if (
+        extracted.kind === "product_turn" &&
+        extracted.boundaryContradiction ===
+          MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION
+      ) {
+        return {
+          ok: false,
+          status: "validation_error",
+          code: MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
+          message:
+            "Contradiction de frontière de routage : une Recommendation lifecycle était requise (EMIT) mais absente. Aucune Recommendation n'a été inventée côté serveur.",
+          mode: modeResolution.mode,
+          retryable: false,
+        };
       }
       if (!extracted.candidate) {
         lifecycleRecommendationMaterialized = false;

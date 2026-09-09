@@ -70,6 +70,10 @@ describe("qual-to-governed-cycle — prompt + presentation contracts", () => {
     expect(prompt).toMatch(/NEXT_CYCLE/);
     expect(prompt).toMatch(/Pas de règle « après N messages »/);
     expect(prompt).toMatch(/jamais forcé cyc:framing/);
+    expect(prompt).toMatch(/TEST DE PERTINENCE DE ROUTAGE/);
+    expect(prompt).toMatch(/TEST DE PROPRIÉTÉ DE CYCLE/);
+    expect(prompt).toMatch(/preCycleRoutingAssessment/);
+    expect(prompt).toMatch(/remainingUnknownsAreCycleOwned/);
     expect(prompt).not.toMatch(
       /aucune autorité de décision, d'exécution Cursor, d'écriture Git\/GitHub, ni de qualification de cycle SFIA/,
     );

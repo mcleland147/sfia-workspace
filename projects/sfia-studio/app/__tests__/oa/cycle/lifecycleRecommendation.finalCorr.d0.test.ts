@@ -119,9 +119,34 @@ class FixedIdSource implements LocalProjectIdSource {
   }
 }
 
-function productTurnPayload(lr: object | null, narrative: string) {
+function productTurnPayload(
+  lr: object | null,
+  narrative: string,
+  assessment: {
+    routingBlockingUnknownPresent: boolean;
+    candidateCycleSupportable: boolean;
+    remainingUnknownsAreCycleOwned: boolean;
+    multiplePlausibleCycles: boolean;
+    activeCycleAlreadyCoversWork: boolean;
+  } = lr
+    ? {
+        routingBlockingUnknownPresent: false,
+        candidateCycleSupportable: true,
+        remainingUnknownsAreCycleOwned: true,
+        multiplePlausibleCycles: false,
+        activeCycleAlreadyCoversWork: false,
+      }
+    : {
+        routingBlockingUnknownPresent: true,
+        candidateCycleSupportable: false,
+        remainingUnknownsAreCycleOwned: false,
+        multiplePlausibleCycles: false,
+        activeCycleAlreadyCoversWork: false,
+      },
+) {
   return {
     narrative,
+    preCycleRoutingAssessment: assessment,
     lifecycleRecommendation: lr,
   };
 }

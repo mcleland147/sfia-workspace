@@ -32,6 +32,10 @@ import {
   isFakeConversationProvider,
   wrapAgentsModelForProductTurnPlainTextCoercion,
 } from "./providerAgentsModel";
+import {
+  buildFailClosedProductTurnJson,
+  normalizeNoraProductTurnStructuredOutput,
+} from "./noraProductTurnOutputType";
 import { createSfiaRouteToolAdapters } from "./sfiaAgentsTools";
 import type { MemoryBAvailability } from "./memoryBAvailability";
 import {
@@ -580,20 +584,28 @@ export async function runNoraAgentsTurn(
                 }
               })()
             : result.finalOutput;
-        // Plain-string Fake/Scripted responses under product-turn outputType →
-        // coerce to narrative + null Recommendation (preserve conversational text).
-        if (
-          typeof structuredOutput === "string" &&
+        // Plain-string / partial Fake responses under product-turn outputType →
+        // coerce to fail-closed assessment + null Recommendation (same turn).
+        const isProductTurnOutput =
           input.outputType &&
           typeof input.outputType === "object" &&
           "name" in input.outputType &&
           (input.outputType as { name?: string }).name ===
-            "nora_product_turn_with_optional_lr"
-        ) {
-          structuredOutput = {
-            narrative: structuredOutput,
-            lifecycleRecommendation: null,
-          };
+            "nora_product_turn_with_optional_lr";
+        if (isProductTurnOutput && typeof structuredOutput === "string") {
+          structuredOutput = JSON.parse(
+            buildFailClosedProductTurnJson(structuredOutput),
+          ) as unknown;
+        } else if (isProductTurnOutput && structuredOutput) {
+          const coherent =
+            normalizeNoraProductTurnStructuredOutput(structuredOutput);
+          if (coherent) {
+            structuredOutput = {
+              narrative: coherent.narrative,
+              preCycleRoutingAssessment: coherent.preCycleRoutingAssessment,
+              lifecycleRecommendation: coherent.lifecycleRecommendation,
+            };
+          }
         }
         if (
           structuredOutput &&
