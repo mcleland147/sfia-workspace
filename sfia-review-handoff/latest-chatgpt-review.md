@@ -2,284 +2,183 @@
 
 | Champ | Valeur |
 | --- | --- |
-| **Timestamp** | 2026-09-09 18:42:49 CEST |
+| **Timestamp** | 2026-09-09 19:11:55 CEST |
 | **Cycle ID** | `SFIA-STUDIO-PRE-CYCLE-ROUTING-BOUNDARY-CORRECTIVE-01` |
-| **Type** | 8 — Delivery / implémentation · EVOL · CRITICAL |
-| **Décision Morris consommée** | `GO MORRIS — PRE-CYCLE ROUTING QUALIFICATION BOUNDARY CORRECTIVE` |
+| **Type** | 8 — Delivery · EVOL · CRITICAL |
+| **Décision Morris consommée** | `GO MORRIS — PRE-CYCLE ROUTING BOUNDARY POSITIVE ENFORCEMENT MICRO-CORRECTIVE` |
 | **Milestone** | PRODUCT PROOF — PRE-CYCLE ROUTING BOUNDARY CORRECTIVE |
 | **Review pack** | FULL |
 | **ZERO NEW REAL** | OUI |
-| **Verdict** | PRE-CYCLE ROUTING BOUNDARY CORRECTIVE — DETERMINISTIC CANDIDATE READY FOR CHATGPT CRITICAL REVIEW |
+| **Verdict** | PRE-CYCLE ROUTING BOUNDARY POSITIVE ENFORCEMENT — DETERMINISTIC CANDIDATE READY FOR CHATGPT CRITICAL REVIEW |
 
 ---
 
-## 1. Local Git Truth — BEFORE
+## 1. Critical Review blockers addressed
+
+| ID | Blocker | Disposition |
+| --- | --- | --- |
+| **CR-01** | PRE-CYCLE ROUTING BOUNDARY POSITIVE ENFORCEMENT INCOMPLETE — EMIT+null accepted silently | **CLOSED** — `MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION` fail-closed |
+| **CR-02** | `remainingUnknownsAreCycleOwned` unused in `derivePreCycleRoutingDisposition` | **QUALIFIED** — no schema expansion; false ≠ automatic incoherence; documented + BAR-RB-18 |
+
+---
+
+## 2. Local Git Truth — BEFORE
 
 | Check | Observed |
 | --- | --- |
 | toplevel | `/Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310` |
 | branch | `delivery/sfia-studio-product-proof-qual-to-governed-cycle` |
-| HEAD | `f35ae52a2fa5004f6b79e5f4db50d1494df8cee0` |
-| origin/main (after fetch) | `a9f6c310a0826d0e5bd6f7264603382a86564db1` |
-| staged | (empty) |
-| tracked dirty at start | `M .tmp-sfia-review/chatgpt-review.md` |
-| untracked at start | `.tmp-sfia-review/runtime-captures/` (bounded live replay evidence — READ-ONLY) |
-| parent of HEAD | `a9f6c310a0826d0e5bd6f7264603382a86564db1` (= origin/main) |
+| HEAD (old candidate) | `1bbfecb2ff43ed4a0ecbc21cb647c4054ee321a9` |
+| parent | `f35ae52a2fa5004f6b79e5f4db50d1494df8cee0` |
+| origin/main | `a9f6c310a0826d0e5bd6f7264603382a86564db1` |
+| upstream | NONE (no project push) |
+| staged | empty |
+| dirty | `.tmp-sfia-review/*` only + this micro-corrective Product edits |
+| live captures | `.tmp-sfia-review/runtime-captures/` READ-ONLY preserved |
+| handoff tip at start | `6febd57835487ff88e98005048d957419bd69f8a` / blob `5fb5468f…` |
 
-**Verdict Local Git Truth :** PASS — identity matches expected parent `f35ae52a2fa5004f6b79e5f4db50d1494df8cee0`. No unexpected Product staged changes. Live replay artefacts preserved read-only.
-
----
-
-## 2. Bounded live replay evidence (READ-ONLY — not reused as fixture)
-
-Preserved under `.tmp-sfia-review/runtime-captures/qual-to-governed-cycle/`:
-
-- `01-presentation-desktop.png`
-- `02-presentation-390.png`
-- `fixture.html` / `fixture-meta.json` / `manifest.jsonl`
-
-Live semantic failure (prior campaign against f35):
-
-1. Fresh Project « application de gestion de tâches »
-2. Turn 1 clarification situation concrète — **accepted** (routing-relevant)
-3. After Pilote situation (tâches quotidiennes / oubli / vue simple) — Nora continued into priorité/urgence signals then task-state taxonomy (En retard / Aujourd'hui / …) and « due aujourd'hui → retard demain ou heure ? »
-4. No spontaneous Lifecycle Recommendation
-
-**Live verdict carried :** QUALIFICATION BOUNDARY NOT PROVEN IN REAL.
+**Verdict :** PASS — no unexplained Product divergence.
 
 ---
 
-## 3. Sources read
+## 3. Root cause (micro)
 
-### Processus externe
-- `prompts/templates/sfia-cycle-execution-template.md` (routing obligations referenced via method guide)
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- CKC Delivery / méthode cycles projet (catalogue `cyc:*`)
+Negative enforcement already stripped premature LR (CONTINUE/HOLD/DEFER-NEXT).
 
-### Convergence / doctrine / v3 / R22
-- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md` (scope: capacity framing)
-- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
-- `projects/sfia-studio/sfia-v3-framing/32|33|34|35-*.md` (read for invariants; **not modified**)
-- `projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md`
+Positive branch incomplete:
 
-### Candidate + seams
-- commit `f35ae52a2fa5004f6b79e5f4db50d1494df8cee0`
-- `buildProjectSystemPrompt.ts`
-- `noraProductTurnOutputType.ts` / `noraLifecycleRecommendationOutputType.ts`
-- `orchestrateTurn.ts` (consumer of `NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE`)
-- `materializeFromProductTurn.ts`
-- `providerAgentsModel.ts` / `runNoraAgentsTurn.ts` (plain-text coerce)
-- tests qual-to-governed-cycle + lifecycleRecommendation #477
+`EMIT_LIFECYCLE_RECOMMENDATION` + `lifecycleRecommendation=null`
+→ `recommendationAttempted=false`
+→ silent conversational `ok:true`
+→ no contradiction.
+
+Additionally, `orchestrateTurn` short-circuited when `!extracted.candidate` and **never called** materialize — so seams 1–3 alone could not make the contradiction Product-observable.
 
 ---
 
-## 4. Root Cause Matrix
+## 4. Fail-closed design retained
 
-### A. Same-turn Nora context (actual)
-
-| Context | Available same turn? | Notes |
+| Disposition | LR null | LR present |
 | --- | --- | --- |
-| Project / LPS / criticality | YES | via `buildProjectSystemPrompt` |
-| Active cycle | YES (Truth C / studio cognitive) | when present |
-| Candidate cycle cognitive orientation | YES (method/CKC lens if resolved) | advisory only |
-| CKC applicable | YES when resolved | guidance; not authority |
-| Signals / profile | Via F2 path when used | **not** root cause this cycle (`qualificationSignalCoherence` untouched) |
-| Trajectory / lifecycle facts | YES for materialization after turn | readers fail-closed |
-| Conversation history | YES | Memory B / messages |
-| Structured Product output | YES | narrative + optional LR — **before this corrective**: no explicit routing-boundary facts |
+| CONTINUE | OK (clarify) | strip LR |
+| HOLD | OK (routing clarify) | strip LR |
+| DEFER | FINALIZE may remain; NEXT_CYCLE stripped | — |
+| **EMIT** | **`MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION`** | keep + materialize |
 
-### B. Why prompt-only failed in REAL
+- Server **never invents** LR.
+- Same Nora turn / one model call.
+- Assessment remains non-durable / non-authoritative.
 
-f35 already added a semantic prompt section (« lorsque besoin assez compris… cesse approfondissement »). In REAL, Nora treated residual unknowns (priority signals, task states, overdue rules) as sufficient reason to keep clarifying. The model had **no structured obligation** to classify unknowns as routing-blocking vs cycle-owned, and **no server coherence** to strip a premature posture or force the LR field when ready. Prompt prose alone is soft; the live path showed continued Cadrage/Conception content without LR.
+### Propagation seam
 
-### C. Least new mechanics for routing-blocking vs cycle-owned
+1. `applyPreCycleRoutingBoundaryCoherence` sets `boundaryContradiction`
+2. `normalize` / `extractLifecycleCandidateFromStructuredOutput` surfaces it
+3. `materializeLifecycleRecommendationFromStructuredOutput` returns `recommendationAttempted=true` + `materialization.ok=false` + code
+4. `orchestrateTurn` returns `ok:false` / `status:validation_error` / same code — **not** normal conversational success
 
-Represent the two cognitive tests as **required boolean facts** inside the existing Product turn structured output (`preCycleRoutingAssessment`), then apply **deterministic coherence** before LR materialization. No second model, no prose parser, no new store.
-
-### D/E. Options
-
-| Option | Covers capacity? | Fail-closed | Debt | Tests | Parallel arch? | Same-turn? | Persistence? | Authority? |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Prompt-only wording | Partial (already failed REAL) | Weak | Low | Soft | No | Yes | No | No |
-| **Structured-output extension + coherence (CHOSEN)** | Yes at deterministic scope | Strong (strip LR on CONTINUE/HOLD/DEFER-NEXT) | Low schema additive | BAR-RB-01…15 | No | Yes | No (assessment ephemeral) | No |
-| Server-only inference from existing facts without SO fields | Incomplete (cannot know model's unknown classification without narrative parse) | Would require prose parse (forbidden) | High | Hard | Risk | Yes | No | No |
-
-### F. Chosen solution
-
-**ADAPT EXISTING OPENAI-NATIVE STRUCTURED OUTPUT SEAM**
-
-1. Extend `NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE` with required `preCycleRoutingAssessment`.
-2. Prompt encodes Routing Relevance Test + Cycle Ownership Test mapped to those booleans.
-3. `derivePreCycleRoutingDisposition` + `applyPreCycleRoutingBoundaryCoherence` gate `lifecycleRecommendation` deterministically.
-4. Plain-text Fake coerce → fail-closed CONTINUE defaults (never invent readiness).
-5. Never invent LR server-side when disposition=EMIT but LR=null (model must emit; Fake proves path).
-
-### OpenAI-native fit disposition
-
-**ADAPT EXISTING OPENAI-NATIVE STRUCTURED OUTPUT SEAM**
-
-- existing Agents SDK outputType = KEEP
-- strict structured output = ADAPT (additive fields)
-- no provider primitive gap requiring new internal generic engine
-- no second call / parallel planner / prose parser
+**Why orchestrateTurn (file 4) was required:** without it, EMIT+null still returned `ok:true` via the `!candidate` short-circuit.
 
 ---
 
-## 5. Generic cognitive tests (contract)
+## 5. remainingUnknownsAreCycleOwned semantics
 
-### ROUTING RELEVANCE TEST
-
-> Une réponse différente à cette question peut-elle matériellement changer : le cycle candidat ; le profil ; un gate / frontière d'autorité ; ou provoquer un STOP ?
-
-- OUI → clarification pré-cycle autorisée (`routingBlockingUnknownPresent=true`)
-- NON → inconnue cycle-owned / non routing-blocking
-
-### CYCLE OWNERSHIP TEST
-
-> Cette inconnue relève-t-elle normalement du travail du cycle que Nora est déjà capable de recommander ?
-
-- OUI → STOP pré-cycle ; Lifecycle Recommendation (`remainingUnknownsAreCycleOwned=true` + candidate supportable)
-
----
-
-## 6. Architecture chosen — coherence rules
-
-`derivePreCycleRoutingDisposition(assessment)`:
-
-1. `activeCycleAlreadyCoversWork` → `DEFER_TO_ACTIVE_CYCLE`
-2. else `multiplePlausibleCycles` → `HOLD_FOR_ROUTING_AMBIGUITY`
-3. else `routingBlockingUnknownPresent` → `CONTINUE_PRE_CYCLE`
-4. else `candidateCycleSupportable` → `EMIT_LIFECYCLE_RECOMMENDATION`
-5. else → `CONTINUE_PRE_CYCLE`
-
-`applyPreCycleRoutingBoundaryCoherence`:
-
-- CONTINUE / HOLD → strip any LR
-- DEFER → strip `NEXT_CYCLE` only (FINALIZE may remain)
-- EMIT → keep LR as-is (never invent)
-
-Assessment is **non-durable**, **non-authoritative**, not Fact/HD/Cycle/LPS.
-
----
-
-## 7. Alternatives rejected
-
-- Prompt-only (REAL already falsified)
-- Second model / classifier / planner
-- Domain keyword matrix / N-turn / always-Cadrage
-- New Qualification cycle / LPS phase / persistence
-- Parsing narrative for « did Nora ask a question? »
-- Touching `qualificationSignalCoherence` / recommendProfile / invariants
-
----
-
-## 8. Files changed (Product)
-
-| Path | Change |
+| Value | Meaning |
 | --- | --- |
-| `projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts` | schema + disposition + coherence |
-| `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn.ts` | extract via normalize/coherence |
-| `projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts` | fail-closed coerce |
-| `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts` | product-turn normalize |
-| `projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts` | boundary tests in prompt |
-| `projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.finalCorr.d0.test.ts` | productTurnPayload + assessment |
-| `projects/sfia-studio/app/__tests__/project-assistant/qualToGovernedCycle.presentation.d0.test.ts` | prompt assertions |
-| `projects/sfia-studio/app/__tests__/project-assistant/preCycleRoutingBoundary.d0.test.ts` | **NEW** BAR-RB-01…15 |
+| `true` | Remaining unknowns exist and belong to the candidate cycle |
+| `false` | No materially remaining unknowns (or none cycle-owned) |
 
-**Protected untouched:** qualificationSignalCoherence, invariants, recommendProfile, LPS/migrations, package.json, method/, prompts/, convergence docs, v3 framing, UI (except no new UX this cycle).
+`derivePreCycleRoutingDisposition` does **not** require `true` for EMIT.
+`candidateCycleSupportable` + no routing blocker / multi-cycle / active-cycle → EMIT is legitimate even when `remainingUnknownsAreCycleOwned=false` (BAR-RB-18).
+No sixth schema field required.
 
 ---
 
-## 9. BAR-RB-01…15 mapping
+## 6. Files changed
 
-| BAR | Coverage in `preCycleRoutingBoundary.d0.test.ts` |
+| Path | Why |
 | --- | --- |
-| RB-01 | CONTINUE + LR stripped when routing blocking |
-| RB-02 | routing block / multiple plausible HOLD |
-| RB-03 | READY_TO_EMIT keeps LR with cycle-owned unknowns |
-| RB-04 | many unknowns → EMIT; prompt forbids always-Cadrage N-turn |
-| RB-05 | delivery-bounded candidate not forced to framing |
-| RB-06 | routing vs cycle-owned pair |
-| RB-07 | Fake same-turn task-app semantic regression → LR materialized |
-| RB-08 | functional details stay cycle-owned (EMIT) |
-| RB-09 | genuine Critical unknown → CONTINUE |
-| RB-10 | active cycle strips NEXT_CYCLE |
-| RB-11 | multiple plausible → HOLD |
-| RB-12 | coerce same-turn; no prose parser in SO module |
-| RB-13+14 | NEXT_CYCLE materialize; cycle/HD count unchanged; CURRENT select |
-| RB-15 | assessment non-authority; fail-closed defaults |
+| `noraProductTurnOutputType.ts` | contradiction on EMIT+null |
+| `materializeFromProductTurn.ts` | fail-closed materialization result |
+| `orchestrateTurn.ts` | observable Product turn failure (required) |
+| `preCycleRoutingBoundary.d0.test.ts` | BAR-RB-16…20 |
+
+Protected untouched: prompt, providerAgentsModel, runNoraAgentsTurn, qualificationSignalCoherence, recommendProfile, invariants, persistence, package.json, method/, UI, etc.
 
 ---
 
-## 10. Validation results (EXACT)
+## 7. BAR mapping
+
+| BAR | Status |
+| --- | --- |
+| RB-01…15 | Non-regression PASS (22-file suite includes them) |
+| RB-16 | EMIT without LR → contradiction + orchestrate `ok:false` |
+| RB-17 | EMIT with LR → materialize OK |
+| RB-18 | remainingUnknownsAreCycleOwned=false still EMIT |
+| RB-19 | CONTINUE/HOLD + null remain valid |
+| RB-20 | one Agents call; EMIT+null fails; no prose parser |
+
+---
+
+## 8. Validation results (EXACT)
 
 | Gate | Result |
 | --- | --- |
-| Focused RB + qual + LR #477 | **62 passed** (4 files) |
-| Full Vitest | **Test Files 319 passed \| 17 skipped (336)** · **Tests 3324 passed \| 135 skipped (3459)** |
-| typecheck | PASS (`tsc --noEmit`) |
-| lint | PASS (No ESLint warnings or errors) |
-| build | PASS (`next build`) |
-| git diff --check | clean on Product files (review pack whitespace only pre-final) |
-| ZERO NEW REAL | **PROVEN** — Fake/ScriptedModel only |
-
-### Deterministic runtime proof
-
-BAR-RB-07: `orchestrateProjectAssistantTurn` + ScriptedModel product-turn JSON → `lifecycleRecommendationMaterialized=true`, `runNoraAgentsTurn` called **once**, CycleInstance/HD counts unchanged.
+| Focused (4 files) | **67 passed** |
+| preCycleRoutingBoundary alone | **22 passed** |
+| Full Vitest | **Test Files 319 passed \| 17 skipped (336)** · **Tests 3329 passed \| 135 skipped (3464)** |
+| typecheck | PASS |
+| lint | PASS |
+| build | PASS |
+| git diff --check (Product) | clean |
+| ZERO NEW REAL | PROVEN |
 
 ---
 
-## 11. Proof statements
+## 9. Proofs
 
-- **Same-turn:** single `outputType` Product turn; coerce/normalize only; spy count = 1 in RB-07
-- **No prose parser:** coherence uses structured booleans only
-- **No new persistence:** assessment not written as Fact/HD/Cycle
-- **NEXT_CYCLE ≠ Cycle:** RB-13 + existing R8 #477 delivery tests
-- **Recommendation ≠ HD ≠ START:** authority none / isHumanDecision false preserved
-
----
-
-## 12. Reserves
-
-- `RESERVE-QA-MOCK-01` — OPEN / NON-BLOCKING / OUT OF SCOPE
-- **LIVE REPLAY AFTER CORRECTIVE NOT YET PROVEN**
-- **R2 OPEN**
-- **runtime v3 NON ADOPTED**
+- Same-turn / one-model: BAR-RB-16/20 spy `runNoraAgentsTurn` = 1
+- No prose parser: coherence uses structured booleans only
+- No server-generated LR: EMIT+null returns error; epistemic LR count stays 0
+- No persistence schema change
+- NEXT_CYCLE ≠ Cycle: RB-13/17 cycle counts unchanged
+- Recommendation ≠ HD/START: authority none preserved on valid path
 
 ---
 
-## 13. Claims
+## 10. Reserves
+
+- RESERVE-QA-MOCK-01 — OPEN / NON-BLOCKING / OUT OF SCOPE
+- LIVE REPLAY AFTER CORRECTIVE NOT YET PROVEN
+- R2 OPEN
+- runtime v3 NON ADOPTED
+
+---
+
+## 11. Claims
 
 ### Authorized
-- ROUTING RELEVANCE / CYCLE OWNERSHIP BOUNDARY DETERMINISTICALLY PROVEN AT TESTED SCOPE
+- ROUTING BOUNDARY POSITIVE ENFORCEMENT DETERMINISTICALLY PROVEN AT TESTED SCOPE
+- EMIT WITHOUT LR FAILS CLOSED
 - SAME-TURN OPENAI-NATIVE PATH PRESERVED
 - ZERO NEW REAL
 
-### Forbidden (not claimed)
-- LIVE BOUNDARY PROVEN
-- GREENFIELD PRODUCT PROOF COMPLETE
-- END-TO-END REAL PROVEN
-- R2 CLOSED
-- RUNTIME V3 ADOPTED
-- READY FOR PR
+### Forbidden
+- LIVE BOUNDARY PROVEN / GREENFIELD COMPLETE / E2E REAL / R2 CLOSED / RUNTIME V3 ADOPTED / READY FOR PR
 
 ---
 
-## 14. Commit / Git after (filled after commit)
+## 12. Commit strategy
 
-| Field | Value |
-| --- | --- |
-| parent | `f35ae52a2fa5004f6b79e5f4db50d1494df8cee0` |
-| new commit | `1bbfecb2ff43ed4a0ecbc21cb647c4054ee321a9` |
-| origin/main | `a9f6c310a0826d0e5bd6f7264603382a86564db1` |
+- Old rejected candidate: `1bbfecb2ff43ed4a0ecbc21cb647c4054ee321a9`
+- Amend mono-cycle (`--no-edit`) — no live replay on 1bbfecb2; not project-pushed
+- Parent must remain `f35ae52a2fa5004f6b79e5f4db50d1494df8cee0`
+- New amended SHA: `e79f16ba467c227470328d7f723f1c2b53fdf2fb`
 
 ---
 
-## 15. Modified Product content (FULL)
+## 13. Modified Product content (FULL)
 
-
-### 15.1 noraProductTurnOutputType.ts
+### 13.1 noraProductTurnOutputType.ts
 ```typescript
 import type { NoraLifecycleRecommendationStructuredOutput } from "@/lib/oa/cycle/application/lifecycleRecommendation/types";
 import {
@@ -438,14 +337,31 @@ export type PreCycleRoutingBoundaryCoherenceResult = {
   /** True when a candidate LR was stripped by boundary coherence. */
   lifecycleRecommendationSuppressed: boolean;
   suppressReason: string | null;
+  /**
+   * Structured boundary contradiction (e.g. EMIT without LR).
+   * Non-null ⇒ fail-closed — never invent LR; never silent conversational success.
+   */
+  boundaryContradiction: string | null;
 };
+
+/** Explicit contract code — EMIT disposition requires a Nora-produced LR. */
+export const MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION =
+  "MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION" as const;
 
 /**
  * Deterministic coherence between assessment and lifecycleRecommendation.
  * - CONTINUE / HOLD → strip any LR (no premature recommendation).
  * - DEFER_TO_ACTIVE_CYCLE → strip NEXT_CYCLE only (FINALIZE may remain).
- * - EMIT → keep LR as emitted (never invent one server-side).
+ * - EMIT + LR → keep as emitted (never invent one server-side).
+ * - EMIT + null → MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION (fail-closed).
  * Does not parse narrative. Does not create Cycle/HD/START.
+ *
+ * remainingUnknownsAreCycleOwned semantics:
+ * - true  → remaining unknowns exist and belong to the candidate cycle
+ * - false → no materially remaining unknowns (or none that are cycle-owned)
+ * Either value is compatible with EMIT when candidateCycleSupportable and
+ * no routing blocker / multi-cycle / active-cycle deferral. false is NOT
+ * automatically incoherent.
  */
 export function applyPreCycleRoutingBoundaryCoherence(input: {
   narrative: string;
@@ -468,6 +384,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
         candidate !== null
           ? "routing_blocking_unknown_present"
           : null,
+      boundaryContradiction: null,
     };
   }
   if (disposition === "HOLD_FOR_ROUTING_AMBIGUITY") {
@@ -479,6 +396,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
       lifecycleRecommendationSuppressed: candidate !== null,
       suppressReason:
         candidate !== null ? "multiple_plausible_cycles" : null,
+      boundaryContradiction: null,
     };
   }
   if (disposition === "DEFER_TO_ACTIVE_CYCLE") {
@@ -490,6 +408,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
         lifecycleRecommendation: null,
         lifecycleRecommendationSuppressed: true,
         suppressReason: "active_cycle_covers_work",
+        boundaryContradiction: null,
       };
     }
     return {
@@ -499,9 +418,21 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
       lifecycleRecommendation: candidate,
       lifecycleRecommendationSuppressed: false,
       suppressReason: null,
+      boundaryContradiction: null,
     };
   }
-  // EMIT_LIFECYCLE_RECOMMENDATION — keep as-is; never invent LR.
+  // EMIT_LIFECYCLE_RECOMMENDATION — never invent LR.
+  if (candidate === null) {
+    return {
+      narrative: input.narrative,
+      preCycleRoutingAssessment: input.preCycleRoutingAssessment,
+      disposition,
+      lifecycleRecommendation: null,
+      lifecycleRecommendationSuppressed: false,
+      suppressReason: null,
+      boundaryContradiction: MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
+    };
+  }
   return {
     narrative: input.narrative,
     preCycleRoutingAssessment: input.preCycleRoutingAssessment,
@@ -509,6 +440,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
     lifecycleRecommendation: candidate,
     lifecycleRecommendationSuppressed: false,
     suppressReason: null,
+    boundaryContradiction: null,
   };
 }
 
@@ -571,7 +503,7 @@ export function buildFailClosedProductTurnJson(narrative: string): string {
 }
 ```
 
-### 15.2 materializeFromProductTurn.ts
+### 13.2 materializeFromProductTurn.ts
 ```typescript
 /**
  * Server-owned Product materialization after Nora structured Product turn.
@@ -596,6 +528,7 @@ import { resolveCanonicalLifecycleRecommendationBasis } from "@/lib/oa/cycle/app
 import { isNoraLifecycleRecommendationStructuredOutput } from "@/lib/nora-cognitive-runtime/noraLifecycleRecommendationOutputType";
 import {
   normalizeNoraProductTurnStructuredOutput,
+  MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
   type PreCycleRoutingAssessment,
   type PreCycleRoutingDisposition,
 } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
@@ -632,6 +565,8 @@ export type MaterializeFromProductTurnResult = {
   routingDisposition?: PreCycleRoutingDisposition | null;
   preCycleRoutingAssessment?: PreCycleRoutingAssessment | null;
   lifecycleRecommendationSuppressed?: boolean;
+  /** Structured boundary contradiction code when Product turn is incoherent. */
+  boundaryContradiction?: string | null;
 };
 
 export function extractLifecycleCandidateFromStructuredOutput(
@@ -643,6 +578,7 @@ export function extractLifecycleCandidateFromStructuredOutput(
   preCycleRoutingAssessment?: PreCycleRoutingAssessment | null;
   routingDisposition?: PreCycleRoutingDisposition | null;
   lifecycleRecommendationSuppressed?: boolean;
+  boundaryContradiction?: string | null;
 } {
   const coherent = normalizeNoraProductTurnStructuredOutput(structuredOutput);
   if (coherent) {
@@ -654,6 +590,7 @@ export function extractLifecycleCandidateFromStructuredOutput(
       routingDisposition: coherent.disposition,
       lifecycleRecommendationSuppressed:
         coherent.lifecycleRecommendationSuppressed,
+      boundaryContradiction: coherent.boundaryContradiction,
     };
   }
   if (isNoraLifecycleRecommendationStructuredOutput(structuredOutput)) {
@@ -686,12 +623,32 @@ export async function materializeLifecycleRecommendationFromStructuredOutput(inp
             extracted.preCycleRoutingAssessment ?? null,
           lifecycleRecommendationSuppressed:
             extracted.lifecycleRecommendationSuppressed === true,
+          boundaryContradiction: extracted.boundaryContradiction ?? null,
         }
       : {
           routingDisposition: null,
           preCycleRoutingAssessment: null,
           lifecycleRecommendationSuppressed: false,
+          boundaryContradiction: null,
         };
+
+  if (
+    extracted.kind === "product_turn" &&
+    extracted.boundaryContradiction ===
+      MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION
+  ) {
+    // EMIT without LR — fail closed; never invent a Recommendation.
+    return {
+      narrative: extracted.narrative,
+      recommendationAttempted: true,
+      materialization: {
+        ok: false,
+        code: MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
+        reason: "emit_disposition_without_lifecycle_recommendation",
+      },
+      ...boundaryMeta,
+    };
+  }
 
   if (extracted.kind === "product_turn" && extracted.candidate === null) {
     return {
@@ -775,666 +732,53 @@ export async function materializeLifecycleRecommendationFromStructuredOutput(inp
 }
 ```
 
-### 15.3 buildProjectSystemPrompt.ts
-```typescript
-import type { ProjectAssistantContextDto } from "./types";
-import type { AdvisoryMethodContext } from "./f2/methodOrientation";
-import {
-  buildStudioCognitivePromptSections,
-  type StudioCognitiveContext,
-} from "./f2/studioCognitiveContext";
-
-/**
- * Compact F1 system prompt — project context + advisory contract + hard read-only limits.
- * No F2 CycleInstance authority, no Cursor, no write, no HumanDecision/START.
- * Structured lifecycle Recommendation emission is allowed (authority none) via Product turn output.
- * CORR-PROOF-02 B1 — positive advisory initiative for ordinary incomplete requests.
- * CORR-PROOF-03 E1 — Studio method identity + optional non-mutating method context.
- * QUAL-TO-GOVERNED-CYCLE — semantic boundary before silent pre-cycle deepening.
- */
-export function buildProjectSystemPrompt(
-  project: ProjectAssistantContextDto,
-  options?: {
-    /**
-     * CORR-MW2-REAL-04 — optional full Truth C / LPS context for F1 cognitive turns.
-     * When set, replaces UI contextSummary in the Contexte line only.
-     * Does not mutate ProjectAssistantContextDto / client boundary.
-     */
-    truthCContext?: string | null;
-    /**
-     * CORR-PROOF-03 E1 — bounded non-mutating method orientation + optional CKC lens.
-     * Guidance only; never Truth C / HumanDecision / ExecutionContract.
-     */
-    methodContext?: AdvisoryMethodContext | null;
-    /**
-     * CORR-PROOF-04 — Hybrid Context Envelope (composer-first).
-     * When present, supersedes methodContext for method + state sections.
-     */
-    studioCognitiveContext?: StudioCognitiveContext | null;
-  },
-): string {
-  const constraints =
-    project.constraints.length > 0
-      ? project.constraints.map((c) => `- ${c}`).join("\n")
-      : "- (aucune contrainte listée)";
-
-  const shortRef = project.shortReference
-    ? `Référence courte : ${project.shortReference}`
-    : "Référence courte : (absente)";
-
-  const contextLine =
-    options?.truthCContext != null && options.truthCContext !== ""
-      ? options.truthCContext
-      : project.contextSummary;
-
-  const studio = options?.studioCognitiveContext ?? null;
-  const methodSection = studio
-    ? buildStudioCognitivePromptSections(studio)
-    : buildMethodGroundingSection(options?.methodContext ?? null);
-
-  return [
-    "Tu es Nora, partenaire de réflexion projet/produit du Project Workspace.",
-    "Périmètre : ANALYSE / CONVERSATION / CONSEIL / LECTURE SEULE.",
-    "Tu n'as aucune autorité de décision Pilote, d'exécution Cursor, d'écriture Git/GitHub,",
-    "ni de création / START / HumanDecision / CycleInstance actif.",
-    "Tu PEUX émettre une Recommendation lifecycle structurée SANS autorité (champ lifecycleRecommendation)",
-    "lorsque la frontière sémantique ci-dessous est atteinte — le serveur valide et matérialise ;",
-    "émettre ≠ qualifier formellement un CycleInstance ≠ décider.",
-    "Une intention utilisateur n'est jamais une autorisation d'exécution.",
-    "",
-    "=== IDENTITÉ SFIA STUDIO (priorité source) ===",
-    "À l'intérieur de SFIA Studio, « SFIA » désigne PAR DÉFAUT la méthodologie / doctrine produit SFIA Studio",
-    "applicable au projet courant (DoctrinePackage / CKC produit), PAS le Skills Framework for the Information Age.",
-    "Si le Pilote demande explicitement le Skills Framework for the Information Age, le référentiel public/externe",
-    "de compétences SFIA, ou le framework SFIA externe : tu peux en parler, en le distinguant clairement de la méthodologie Studio.",
-    "Ne traite JAMAIS le Skills Framework public comme la méthodologie Studio par défaut.",
-    "Pour toute claim de méthode Studio : DoctrinePackage / CKC produit résolu > état Project / Truth C de confiance",
-    "> contexte conversationnel > connaissance préentraînée générique.",
-    "La connaissance préentraînée du SFIA public ne doit JAMAIS surcharger une doctrine Studio résolue.",
-    "Si la source méthodologique exacte n'est pas résolue : ne fabrique pas de claims détaillées de méthode Studio ;",
-    "reste en conseil général sûr ; annonce les limites de source quand c'est matériel ; conserve l'identité Studio ;",
-    "ne bascule PAS silencieusement vers le Skills Framework public.",
-    "",
-    "=== CONTRAT ADVISORY CONTEXT-FIRST (par défaut) ===",
-    "Pour une demande intelligible même incomplète : avance utilement la pensée du Pilote.",
-    "AVANT toute structure générique (MVP, rôles, objets, phases, roadmap) : utilise le Studio Cognitive Context",
-    "pour déterminer ce qui est déjà établi, décidé, evidencé, encore ouvert, et ce qui compte MAINTENANT.",
-    "Priorise le prochain mouvement méthodologique matériel dérivé de l'état Studio — pas un template PM générique.",
-    "MVP / rôles / objets / options / architecture : seulement s'ils sont pertinents pour l'état courant.",
-    "Indique ce qu'il ne faut PAS faire encore lorsque l'état le justifie (ex. delivery prématurée).",
-    "Utilise des hypothèses de travail EXPLICITES quand un détail manquant ne bloque pas un progrès utile.",
-    "Distingue clairement : fait / hypothèse / option / recommandation / HumanDecision / Evidence.",
-    "Hypothèse ≠ Fait. Option ≠ Recommandation. Recommandation ≠ HumanDecision. Claim utilisateur ≠ fait externe vérifié.",
-    "Quand c'est possible : raisonnement utile D'ABORD, puis UNE question de raffinement ciblée si nécessaire.",
-    "Clarification autorisée uniquement si le manque change matériellement l'analyse, le scope, le risque,",
-    "la recommandation, la trajectoire, l'autorité, la preuve ou un effet gouverné.",
-    "Pas de questionnaire générique. Pas d'intake séquentiel obligatoire. Pas d'intake CKC séquentiel obligatoire.",
-    "Pas de dimensions CKC comme formulaire.",
-    "Langage métier pour le Pilote — ne pas exposer F1/F2/MW5/CKC IDs, digests, routage interne ou schémas structurés.",
-    "Vérité Project courante + doctrine Studio outrankent les prémisses conversationnelles obsolètes (sans réécrire l'historique).",
-    "Une compréhension conversationnelle ne devient JAMAIS Truth C / LPS / HumanDecision par inférence silencieuse.",
-    "",
-    "=== FRONTIÈRE QUALIFICATION PRÉ-CYCLE → RECOMMANDATION DE CYCLE ===",
-    "Qualification pré-cycle ≠ Cadrage ≠ CycleInstance ≠ « Cycle 0 » ≠ workflow durable.",
-    "Elle sert UNIQUEMENT à déterminer honnêtement le prochain travail gouverné.",
-    "Pas de règle « après N messages ». Pas de « toujours Cadrage en premier ».",
-    "Pas de matrice métier par domaine. Pas de limite arbitraire de questions.",
-    "",
-    "TEST DE PERTINENCE DE ROUTAGE (avant toute clarification pré-cycle) :",
-    "Une réponse différente à CETTE question peut-elle matériellement changer",
-    "le cycle candidat, le profil SFIA, un gate / une frontière d'autorité, ou provoquer un STOP ?",
-    "Si OUI → clarification pré-cycle autorisée (au plus une, ciblée).",
-    "Si NON → l'inconnue appartient au cycle candidat ; ne la poursuis PAS en pré-cycle.",
-    "",
-    "TEST DE PROPRIÉTÉ DE CYCLE :",
-    "Cette inconnue relève-t-elle normalement du travail du cycle que tu es déjà capable de recommander ?",
-    "Si OUI → STOP qualification pré-cycle ; émets narrative + lifecycleRecommendation.",
-    "« Il reste beaucoup à préciser » NE signifie PAS « continuer la qualification » —",
-    "cela peut être exactement la raison de recommander le cycle (ex. Cadrage) qui possède ces inconnues.",
-    "",
-    "Champ structuré obligatoire preCycleRoutingAssessment (même tour ; non durable ; sans autorité) :",
-    "- routingBlockingUnknownPresent = true ssi une inconnue bloque encore le routage (test de pertinence).",
-    "- candidateCycleSupportable = true ssi un prochain type de cycle est honnêtement supportable.",
-    "- remainingUnknownsAreCycleOwned = true ssi les inconnues restantes appartiennent à ce cycle.",
-    "- multiplePlausibleCycles = true ssi plusieurs cycles restent vraiment plausibles.",
-    "- activeCycleAlreadyCoversWork = true ssi un cycle actif couvre déjà le travail.",
-    "Cohérence obligatoire avec lifecycleRecommendation :",
-    "- si routingBlockingUnknownPresent OU multiplePlausibleCycles → lifecycleRecommendation = null ; clarification ciblée seulement.",
-    "- si activeCycleAlreadyCoversWork → ne pas émettre NEXT_CYCLE pour « sortir » de la qualification.",
-    "- si candidateCycleSupportable ET NOT routingBlockingUnknownPresent ET NOT multiplePlausibleCycles",
-    "  ET NOT activeCycleAlreadyCoversWork → cesse l'approfondissement ; lifecycleRecommendation NEXT_CYCLE (ou FINALIZE si pertinent).",
-    "Ne résous PAS en pré-cycle le périmètre détaillé, critères de succès, règles de comportement,",
-    "états métier ou signaux d'urgence appartenant au cycle candidat.",
-    "lifecycleRecommendation (si émise) : intent NEXT_CYCLE ou FINALIZE_CURRENT_CYCLE ;",
-    "authority conceptuelle aucune ; isHumanDecision false ; statement et rationale lisibles Pilote ;",
-    "targetCycleTypeId seulement s'il est supportable (jamais inventé ; jamais forcé cyc:framing).",
-    "Ne dis PAS « je ne peux pas l'enregistrer dans Studio » si le chemin structured Recommendation est disponible.",
-    "Si tu émets lifecycleRecommendation : le serveur peut la matérialiser ; ne prétends jamais qu'elle est",
-    "enregistrée si tu n'as pas de confirmation produit ; ne crée pas de CycleInstance / HD / START.",
-    "",
-    "=== LIMITES D'AUTORITÉ (strict) ===",
-    "Distingue vérité courante / historique / superseded / réserve ouverte.",
-    "Tu peux utiliser uniquement les outils de lecture (Git/GitHub read) exposés.",
-    "Session conversationnelle (si présente) = continuité de chat uniquement — jamais Truth C / LPS / HumanDecision.",
-    "Si Memory B est indisponible : n'invente pas de transcript, de HumanDecision, d'autorisation ni d'Evidence.",
-    "Project/LPS/Cycle restent Product SQLite Truth C (autorité métier). AUCUNE EXÉCUTION.",
-    "Ne propose pas d'ouvrir OPS1, Cursor, ni un gate d'exécution.",
-    "",
-    "=== SOURCE INTEGRITY (fail-closed) ===",
-    "- Un FAIT repository nécessite une source réellement obtenue via un outil réussi.",
-    "- Ne jamais prétendre avoir lu un document si git_local_read_file n'a pas réussi pour ce chemin.",
-    "- search hit (git_local_search_files / git_local_search_content) ≠ file read.",
-    "- failed / denied / PATH_NOT_ALLOWED / TRANSPORT_UNAVAILABLE ≠ source.",
-    "- truncated / hasMore ≠ document complet ; annonce explicitement la limite.",
-    "- outil unavailable ≠ information vérifiée.",
-    "- Si la preuve est insuffisante : annonce la limite ; ne reconstruis PAS un contenu depuis la mémoire du modèle.",
-    "- FAILED/DENIED/UNRESOLVED SOURCE ne doit JAMAIS devenir un fact source-backed.",
-    "",
-    "=== GIT / REPOSITORY PRIORITY ===",
-    "- Pour HEAD / status / branche / vérité Git locale : utilise git_local_get_head / git_local_get_status (ne demande pas à l'humain d'exécuter git si l'outil est disponible).",
-    "- Pour comparer main distant : utilise github_get_branch lorsque GitHub READ est disponible ; sinon déclare la limite réelle.",
-    "- Pour un identifiant technique inconnu du chemin : utilise git_local_search_content (pas seulement search_files).",
-    "- Pour une section profonde d'un long document : utilise git_local_read_file avec startLine/endLine.",
-    "",
-    ...methodSection,
-    "Contexte projet (autorité Project/LPS runtime Studio) :",
-    `Project ID : ${project.projectId}`,
-    `Nom : ${project.name}`,
-    shortRef,
-    `Objectif : ${project.objective}`,
-    `Contexte : ${contextLine}`,
-    `Criticité : ${project.criticality}`,
-    "Contraintes :",
-    constraints,
-    `LPS : ${project.lpsId} (v${project.lpsVersion}, ${project.lpsCreatedAt})`,
-    `Doctrine : ${project.doctrineId} ${project.doctrineVersion} · ${project.doctrineStatus} · ${project.doctrineDigest}`,
-    `Runtime : ${project.runtimeMode} · persistence ${project.persistence} · readiness ${project.readiness}`,
-  ].join("\n");
-}
-
-function buildMethodGroundingSection(
-  methodContext: AdvisoryMethodContext | null,
-): string[] {
-  const lines = [
-    "=== ANCRAGE MÉTHODOLOGIQUE (guidance seulement — non mutante) ===",
-    "Ce bloc oriente le conseil. Il n'est PAS Truth C, PAS CycleInstance actif, PAS HumanDecision,",
-    "PAS ExecutionContract, PAS autorité d'exécution. Orientation candidat = hypothèse / lentille.",
-    "Utilise la méthodologie pour décider ce qui compte maintenant, quoi enchaîner, quels risques/décisions approchent.",
-    "Ne force pas un waterfall fixe (« toujours commencer au Cycle 1 »). Ne prétends pas une trajectoire dynamique",
-    "si aucune trajectoire n'est fournie ici. Pas d'intake séquentiel obligatoire.",
-  ];
-
-  if (!methodContext) {
-    lines.push(
-      "Orientation : non fournie pour ce tour — conserve l'identité Studio ; conseil général sûr.",
-    );
-    lines.push("");
-    return lines;
-  }
-
-  if (methodContext.orientation.state === "RESOLVED_FROM_INTENT_CANDIDATE") {
-    lines.push(
-      `État orientation : RESOLVED_FROM_INTENT_CANDIDATE` +
-        (methodContext.cycleLabel
-          ? ` · cycle candidat « ${methodContext.cycleLabel} »`
-          : "") +
-        " (hypothèse non durable).",
-    );
-  } else {
-    lines.push(
-      "État orientation : UNRESOLVED — n'invente pas de cycle ; pose une question ciblée seulement si matériel.",
-    );
-  }
-
-  if (methodContext.sourceLimit === "doctrine_unavailable") {
-    lines.push(
-      "Limite source : DoctrinePackage produit non résolu — aucune claim Studio détaillée source-backed.",
-    );
-  } else if (methodContext.sourceLimit === "ckc_unavailable") {
-    lines.push(
-      "Limite source : lentille CKC détaillée indisponible pour l'orientation — dégradation gouvernée ;",
-      "pas de bascule vers le Skills Framework public ; pas de fabrication de CKC.",
-    );
-  }
-
-  if (methodContext.ckcLensSection?.trim()) {
-    lines.push("Lentille CKC (interne) :");
-    lines.push(methodContext.ckcLensSection.trim());
-  }
-
-  lines.push("");
-  return lines;
-}
-```
-
-### 15.4 providerAgentsModel.ts (coerce section — full file)
-```typescript
-/**
- * Thin ConversationProvider → Agents SDK Model adapter.
- * Used whenever a ConversationProvider exposes completeRound() (Fake/fixture
- * deterministic path; any completeRound-capable test/provider boundary).
- * ONE model invocation → ONE provider.completeRound(). Runner owns the loop.
- * Does NOT execute tools, persist Session, or resolve authority.
- * RESERVE-OPT-C-02: this is a boundary adapter, not a provider-architecture
- * decision — live OpenAI Agents model routing remains separate when no
- * completeRound provider is supplied.
- */
-import { Usage, type Model, type ModelRequest, type ModelResponse } from "@openai/agents";
-import type {
-  ConversationProvider,
-  ProviderInputItem,
-  ProviderRoundResult,
-} from "@/lib/platform/ai";
-import {
-  CONTROL_TOWER_TOOL_DEFINITIONS,
-  type ToolDefinition,
-} from "@/lib/platform/tools";
-import {
-  buildFailClosedProductTurnJson,
-  isPreCycleRoutingAssessment,
-  normalizeNoraProductTurnStructuredOutput,
-} from "./noraProductTurnOutputType";
-
-function extractTextContent(content: unknown): string {
-  if (typeof content === "string") return content;
-  if (!Array.isArray(content)) return "";
-  return content
-    .map((part) => {
-      if (typeof part === "string") return part;
-      if (part && typeof part === "object" && "text" in part) {
-        return String((part as { text?: unknown }).text ?? "");
-      }
-      return "";
-    })
-    .join("\n");
-}
-
-/**
- * Map Runner model input → provider round items.
- * Fail closed on unsupported shapes (no silent invention).
- */
-export function agentInputToProviderItems(
-  input: ModelRequest["input"],
-): ProviderInputItem[] {
-  if (typeof input === "string") {
-    return [{ type: "message", role: "user", content: input }];
-  }
-  if (!Array.isArray(input)) {
-    throw new Error("NORA_PROVIDER_MODEL_UNSUPPORTED_INPUT");
-  }
-  const items: ProviderInputItem[] = [];
-  for (const raw of input) {
-    if (!raw || typeof raw !== "object") {
-      throw new Error("NORA_PROVIDER_MODEL_UNSUPPORTED_INPUT_ITEM");
-    }
-    const item = raw as Record<string, unknown>;
-    const type = String(item.type ?? "");
-    if (type === "message") {
-      const role = String(item.role ?? "");
-      if (role !== "user" && role !== "assistant" && role !== "system") {
-        throw new Error(`NORA_PROVIDER_MODEL_UNSUPPORTED_ROLE:${role}`);
-      }
-      items.push({
-        type: "message",
-        role,
-        content: extractTextContent(item.content),
-      });
-      continue;
-    }
-    if (type === "function_call") {
-      items.push({
-        type: "function_call",
-        callId: String(item.callId ?? item.id ?? ""),
-        name: String(item.name ?? ""),
-        argumentsJson:
-          typeof item.arguments === "string"
-            ? item.arguments
-            : JSON.stringify(item.arguments ?? {}),
-      });
-      continue;
-    }
-    if (type === "function_call_result" || type === "function_call_output") {
-      const output = item.output;
-      const outputText =
-        typeof output === "string"
-          ? output
-          : output == null
-            ? ""
-            : JSON.stringify(output);
-      items.push({
-        type: "function_call_output",
-        callId: String(item.callId ?? item.id ?? ""),
-        output: outputText,
-      });
-      continue;
-    }
-    // Ignore purely structural / non-conversation items that Runner may prepend
-    // (e.g. reasoning) — fail closed if they look like actionable model content.
-    if (type === "reasoning") {
-      continue;
-    }
-    throw new Error(`NORA_PROVIDER_MODEL_UNSUPPORTED_INPUT_TYPE:${type}`);
-  }
-  return items;
-}
-
-/**
- * Resolve SFIA ToolDefinitions from Runner-serialized tools by name only.
- * No second schema source — Studio CONTROL_TOWER_TOOL_DEFINITIONS remain canonical.
- */
-export function toolDefinitionsFromModelRequest(
-  request: ModelRequest,
-): ToolDefinition[] {
-  const byName = new Map<string, ToolDefinition>(
-    CONTROL_TOWER_TOOL_DEFINITIONS.map((d) => [d.name, d]),
-  );
-  const out: ToolDefinition[] = [];
-  for (const tool of request.tools ?? []) {
-    if (!tool || typeof tool !== "object") continue;
-    const t = tool as { type?: string; name?: string };
-    if (t.type && t.type !== "function") {
-      // MW6 CR-09 — only the qualified hosted web_search boundary may be skipped
-      // by the deterministic Fake adapter. Unknown hosted tools fail closed.
-      if (t.type === "hosted_tool") {
-        const hostedName = String(t.name ?? "");
-        if (
-          hostedName === "web_search" ||
-          hostedName === "web_search_preview"
-        ) {
-          continue;
-        }
-        throw new Error(
-          `NORA_PROVIDER_MODEL_UNSUPPORTED_HOSTED_TOOL:${hostedName || "unnamed"}`,
-        );
-      }
-      throw new Error(`NORA_PROVIDER_MODEL_UNSUPPORTED_TOOL_TYPE:${t.type}`);
-    }
-    const name = String(t.name ?? "");
-    if (!name) continue;
-    const def = byName.get(name);
-    if (!def) {
-      throw new Error(`NORA_PROVIDER_MODEL_UNKNOWN_TOOL:${name}`);
-    }
-    out.push(def);
-  }
-  return out;
-}
-
-function roundResultToModelResponse(
-  round: ProviderRoundResult,
-): ModelResponse {
-  const usage = new Usage({
-    requests: 1,
-    inputTokens: round.usage.inputTokens ?? 0,
-    outputTokens: round.usage.outputTokens ?? 0,
-    totalTokens: round.usage.totalTokens ?? 0,
-  });
-  if (round.kind === "message") {
-    return {
-      usage,
-      responseId: round.usage.providerResponseId ?? undefined,
-      output: [
-        {
-          type: "message",
-          role: "assistant",
-          status: "completed",
-          content: [{ type: "output_text", text: round.text }],
-        },
-      ],
-    };
-  }
-  return {
-    usage,
-    responseId: round.usage.providerResponseId ?? undefined,
-    output: round.toolCalls.map((call) => ({
-      type: "function_call" as const,
-      name: call.name,
-      callId: call.callId,
-      id: call.callId,
-      status: "completed" as const,
-      arguments: call.argumentsJson,
-    })),
-  };
-}
-
-/** Coerce plain assistant text into product-turn JSON when outputType requires it. */
-export function coercePlainTextToProductTurnJson(text: string): string {
-  try {
-    const parsed = JSON.parse(text) as unknown;
-    if (
-      parsed &&
-      typeof parsed === "object" &&
-      typeof (parsed as { narrative?: unknown }).narrative === "string"
-    ) {
-      const o = parsed as Record<string, unknown>;
-      if (isPreCycleRoutingAssessment(o.preCycleRoutingAssessment)) {
-        return text;
-      }
-      const coherent = normalizeNoraProductTurnStructuredOutput({
-        narrative: o.narrative,
-        lifecycleRecommendation: o.lifecycleRecommendation ?? null,
-        preCycleRoutingAssessment: o.preCycleRoutingAssessment,
-      });
-      if (coherent) {
-        return JSON.stringify({
-          narrative: coherent.narrative,
-          preCycleRoutingAssessment: coherent.preCycleRoutingAssessment,
-          lifecycleRecommendation: coherent.lifecycleRecommendation,
-        });
-      }
-      return buildFailClosedProductTurnJson(String(o.narrative));
-    }
-  } catch {
-    // plain text
-  }
-  return buildFailClosedProductTurnJson(text);
-}
-
-function productTurnOutputTypeName(request: ModelRequest): string {
-  return request.outputType &&
-    typeof request.outputType === "object" &&
-    "name" in request.outputType
-    ? String((request.outputType as { name?: unknown }).name ?? "")
-    : "";
-}
-
-function coerceModelResponseForProductTurn(
-  response: ModelResponse,
-  request: ModelRequest,
-): ModelResponse {
-  if (productTurnOutputTypeName(request) !== "nora_product_turn_with_optional_lr") {
-    return response;
-  }
-  const output = Array.isArray(response.output) ? [...response.output] : [];
-  let changed = false;
-  for (let i = 0; i < output.length; i += 1) {
-    const item = output[i];
-    if (!item || typeof item !== "object") continue;
-    const msg = item as {
-      type?: string;
-      role?: string;
-      status?: string;
-      content?: unknown;
-      providerData?: Record<string, unknown>;
-      id?: string;
-    };
-    if (msg.type !== "message" || msg.role !== "assistant") continue;
-    if (!Array.isArray(msg.content)) continue;
-    const nextContent = msg.content.map((part) => {
-      if (
-        part &&
-        typeof part === "object" &&
-        (part as { type?: string }).type === "output_text" &&
-        typeof (part as { text?: unknown }).text === "string"
-      ) {
-        const text = (part as { text: string }).text;
-        const coerced = coercePlainTextToProductTurnJson(text);
-        if (coerced !== text) changed = true;
-        return {
-          ...(part as Record<string, unknown>),
-          type: "output_text" as const,
-          text: coerced,
-        };
-      }
-      return part;
-    });
-    output[i] = {
-      ...msg,
-      type: "message" as const,
-      role: "assistant" as const,
-      status: (msg.status as "completed" | "in_progress" | "incomplete") ?? "completed",
-      content: nextContent,
-    } as (typeof output)[number];
-  }
-  return changed ? { ...response, output } : response;
-}
-
-/**
- * Wrap an injected Agents Model (e.g. ScriptedModel) so plain-text Fake/eval
- * responses satisfy product-turn outputType — same coerce as Fake completeRound.
- * Live OpenAI string models are unaffected (caller passes string, not Model).
- */
-export function wrapAgentsModelForProductTurnPlainTextCoercion(
-  model: Model,
-): Model {
-  return {
-    async getResponse(request: ModelRequest): Promise<ModelResponse> {
-      const response = await model.getResponse(request);
-      return coerceModelResponseForProductTurn(response, request);
-    },
-    async *getStreamedResponse(
-      ...args: Parameters<Model["getStreamedResponse"]>
-    ) {
-      const stream = model.getStreamedResponse(...args);
-      for await (const event of stream) {
-        yield event;
-      }
-    },
-  };
-}
-
-/**
- * Agents SDK Model backed by ConversationProvider.completeRound (Fake path).
- */
-export function createProviderAgentsModel(
-  provider: ConversationProvider,
-): Model {
-  if (typeof provider.completeRound !== "function") {
-    throw new Error("NORA_PROVIDER_MODEL_REQUIRES_COMPLETE_ROUND");
-  }
-  const completeRound = provider.completeRound.bind(provider);
-
-  return {
-    async getResponse(request: ModelRequest): Promise<ModelResponse> {
-      if (request.signal?.aborted) {
-        throw new Error("AbortError");
-      }
-      const items = agentInputToProviderItems(request.input);
-      // Ensure Studio system instructions from the Runner filter are visible
-      // to Fake specialization (CKC markers live in system messages).
-      if (
-        request.systemInstructions &&
-        !items.some(
-          (i) =>
-            i.type === "message" &&
-            i.role === "system" &&
-            i.content.includes(request.systemInstructions!),
-        )
-      ) {
-        items.unshift({
-          type: "message",
-          role: "system",
-          content: request.systemInstructions,
-        });
-      }
-      const tools = toolDefinitionsFromModelRequest(request);
-      const round = await completeRound({ items, tools });
-      if (round.kind === "message") {
-        if (
-          productTurnOutputTypeName(request) ===
-          "nora_product_turn_with_optional_lr"
-        ) {
-          const text = coercePlainTextToProductTurnJson(round.text);
-          return roundResultToModelResponse({ ...round, text });
-        }
-      }
-      return roundResultToModelResponse(round);
-    },
-    async *getStreamedResponse(): AsyncIterable<never> {
-      throw new Error("NORA_PROVIDER_MODEL_STREAMING_UNSUPPORTED");
-    },
-  };
-}
-
-export function isFakeConversationProvider(
-  provider: ConversationProvider,
-): boolean {
-  return (
-    provider.providerId === "fake-test" ||
-    provider.providerId.startsWith("fake")
-  );
-}
-```
-
-### 15.5 runNoraAgentsTurn.ts — product-turn normalize hunk (file large; exploitable diff)
+### 13.3 orchestrateTurn.ts — positive-enforcement hunk
 ```diff
-diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
-index fd775909..d7853c64 100644
---- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
-+++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
-@@ -32,6 +32,10 @@ import {
-   isFakeConversationProvider,
-   wrapAgentsModelForProductTurnPlainTextCoercion,
- } from "./providerAgentsModel";
+diff --git a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+index c03c4732..0d6ef3af 100644
+--- a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
++++ b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+@@ -19,7 +19,10 @@ import {
+   type NoraAgentsUsdAccounting,
+   type NoraCampaignBudget,
+ } from "@/lib/nora-cognitive-runtime";
+-import { NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
 +import {
-+  buildFailClosedProductTurnJson,
-+  normalizeNoraProductTurnStructuredOutput,
-+} from "./noraProductTurnOutputType";
- import { createSfiaRouteToolAdapters } from "./sfiaAgentsTools";
- import type { MemoryBAvailability } from "./memoryBAvailability";
- import {
-@@ -580,20 +584,28 @@ export async function runNoraAgentsTurn(
-                 }
-               })()
-             : result.finalOutput;
--        // Plain-string Fake/Scripted responses under product-turn outputType →
--        // coerce to narrative + null Recommendation (preserve conversational text).
--        if (
--          typeof structuredOutput === "string" &&
-+        // Plain-string / partial Fake responses under product-turn outputType →
-+        // coerce to fail-closed assessment + null Recommendation (same turn).
-+        const isProductTurnOutput =
-           input.outputType &&
-           typeof input.outputType === "object" &&
-           "name" in input.outputType &&
-           (input.outputType as { name?: string }).name ===
--            "nora_product_turn_with_optional_lr"
--        ) {
--          structuredOutput = {
--            narrative: structuredOutput,
--            lifecycleRecommendation: null,
--          };
-+            "nora_product_turn_with_optional_lr";
-+        if (isProductTurnOutput && typeof structuredOutput === "string") {
-+          structuredOutput = JSON.parse(
-+            buildFailClosedProductTurnJson(structuredOutput),
-+          ) as unknown;
-+        } else if (isProductTurnOutput && structuredOutput) {
-+          const coherent =
-+            normalizeNoraProductTurnStructuredOutput(structuredOutput);
-+          if (coherent) {
-+            structuredOutput = {
-+              narrative: coherent.narrative,
-+              preCycleRoutingAssessment: coherent.preCycleRoutingAssessment,
-+              lifecycleRecommendation: coherent.lifecycleRecommendation,
-+            };
-+          }
-         }
-         if (
-           structuredOutput &&
++  MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
++  NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE,
++} from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
+ import { materializeLifecycleRecommendationFromStructuredOutput } from "@/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn";
+ import { NORA_LIFECYCLE_RECOMMENDATION_ACTOR } from "@/lib/oa/cycle/application/lifecycleRecommendation/noraActor";
+ import type { LifecycleRecommendationMaterialDimension } from "@/lib/oa/cycle/application/lifecycleRecommendation/materialReaderContract";
+@@ -312,6 +315,25 @@ export async function orchestrateProjectAssistantTurn(input: {
+       if (extracted.narrative) {
+         assistantText = extracted.narrative;
+       }
++      // Positive enforcement: EMIT without LR is a structured contradiction.
++      // Never invent LR; never treat as normal conversational success.
++      // Seams 1–3 alone are insufficient because this short-circuit previously
++      // skipped materialize and returned ok:true silently.
++      if (
++        extracted.kind === "product_turn" &&
++        extracted.boundaryContradiction ===
++          MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION
++      ) {
++        return {
++          ok: false,
++          status: "validation_error",
++          code: MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
++          message:
++            "Contradiction de frontière de routage : une Recommendation lifecycle était requise (EMIT) mais absente. Aucune Recommendation n'a été inventée côté serveur.",
++          mode: modeResolution.mode,
++          retryable: false,
++        };
++      }
+       if (!extracted.candidate) {
+         lifecycleRecommendationMaterialized = false;
+       } else {
 ```
 
-### 15.6 preCycleRoutingBoundary.d0.test.ts (NEW — full)
+### 13.4 preCycleRoutingBoundary.d0.test.ts (full)
 ```typescript
 /** @vitest-environment node */
 /**
@@ -1450,6 +794,20 @@ import { FakeConversationProvider } from "@/lib/platform/ai";
 import { buildProjectSystemPrompt } from "@/features/project-assistant/buildProjectSystemPrompt";
 import { orchestrateProjectAssistantTurn } from "@/features/project-assistant/orchestrateTurn";
 import {
+  NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE,
+  PRE_CYCLE_ROUTING_ASSESSMENT_CONTINUE_DEFAULT,
+  PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT,
+  MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
+  applyPreCycleRoutingBoundaryCoherence,
+  buildFailClosedProductTurnJson,
+  derivePreCycleRoutingDisposition,
+  isNoraProductTurnWithOptionalLr,
+  normalizeNoraProductTurnStructuredOutput,
+  type PreCycleRoutingAssessment,
+} from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
+import { coercePlainTextToProductTurnJson } from "@/lib/nora-cognitive-runtime/providerAgentsModel";
+import {
+  extractLifecycleCandidateFromStructuredOutput,
   materializeLifecycleRecommendationFromStructuredOutput,
   NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
   selectCurrentLifecycleRecommendations,
@@ -1462,19 +820,6 @@ import {
 } from "@/lib/vertical-slice-runtime";
 import type { LocalProjectIdSource } from "@/lib/vertical-slice-core";
 import * as runNoraAgentsTurnMod from "@/lib/nora-cognitive-runtime/runNoraAgentsTurn";
-import {
-  NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE,
-  PRE_CYCLE_ROUTING_ASSESSMENT_CONTINUE_DEFAULT,
-  PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT,
-  applyPreCycleRoutingBoundaryCoherence,
-  buildFailClosedProductTurnJson,
-  derivePreCycleRoutingDisposition,
-  isNoraProductTurnWithOptionalLr,
-  normalizeNoraProductTurnStructuredOutput,
-  type PreCycleRoutingAssessment,
-} from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
-import { coercePlainTextToProductTurnJson } from "@/lib/nora-cognitive-runtime/providerAgentsModel";
-
 const APP_ROOT = path.resolve(__dirname, "../..");
 const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
 const SCHEMAS = path.resolve(
@@ -2058,77 +1403,392 @@ describe("BAR-RB — pre-cycle routing boundary (deterministic)", () => {
     );
     expect(coherent?.lifecycleRecommendation).toBeNull();
   });
+
+  it("BAR-RB-16 — EMIT without LR fails closed (materialize + orchestrate)", async () => {
+    const assessment = { ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT };
+    expect(derivePreCycleRoutingDisposition(assessment)).toBe(
+      "EMIT_LIFECYCLE_RECOMMENDATION",
+    );
+    const coherent = applyPreCycleRoutingBoundaryCoherence({
+      narrative: "Besoin compris — mais LR manquante.",
+      preCycleRoutingAssessment: assessment,
+      lifecycleRecommendation: null,
+    });
+    expect(coherent.boundaryContradiction).toBe(
+      MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
+    );
+    expect(coherent.lifecycleRecommendation).toBeNull();
+
+    const structured = productTurn(assessment, null, "Besoin compris.");
+    const extracted = extractLifecycleCandidateFromStructuredOutput(structured);
+    expect(extracted.boundaryContradiction).toBe(
+      MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
+    );
+    expect(extracted.candidate).toBeNull();
+
+    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+    process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
+    resetRuntimeApplicationServiceForTests();
+    const runtime = getRuntimeApplicationService({
+      registryRoot: FIXTURES,
+      schemasRoot: SCHEMAS,
+      nowIso: "2026-09-09T18:00:00.000Z",
+      idSource: new FixedIdSource("rb16"),
+      auditMode: "noop",
+      productDbPath: tempDbPath("rb16.sqlite"),
+    });
+    if (!runtime.oa) throw new Error("oa missing");
+    const created = await runtime.createProject({
+      name: "RB16",
+      objective: "greenfield",
+      context: "rb16",
+      criticality: "STANDARD",
+      constraints: [],
+      shortReference: "RB16",
+      idempotencyKey: "idem:rb16",
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+    const projectId = created.projectId;
+    await runtime.oa.cycleServices.createInitialTrajectory.execute({
+      trajectoryId: `trj:${projectId}`,
+      projectId,
+      steps: [
+        {
+          stepId: "stp:clarify",
+          order: 1,
+          label: "Clarify",
+          state: "pending",
+        },
+      ],
+      status: "active",
+      expectedLpsVersion: created.livingState.version,
+      createdBy: ACTOR,
+    });
+    const beforeCycles = await runtime.oa.cycleServices.cycles.listByProject(
+      projectId,
+    );
+    const beforeHd = await runtime.oa.decisionServices.decisions.listByProject(
+      projectId,
+    );
+    const lps =
+      await runtime.oa.projectServices.getCurrentLivingProjectState.execute({
+        projectId,
+      });
+    expect(lps.ok).toBe(true);
+    if (!lps.ok) return;
+    const trajNow = await runtime.oa.cycleServices.getCurrentTrajectory.execute({
+      projectId,
+    });
+    expect(trajNow.ok).toBe(true);
+    if (!trajNow.ok) return;
+
+    const mat = await materializeLifecycleRecommendationFromStructuredOutput({
+      projectId,
+      structuredOutput: structured,
+      updateEpistemicState: runtime.oa.cycleServices.updateEpistemicState,
+      facts: {
+        cycles: beforeCycles,
+        lpsActiveCycleInstanceId: lps.livingProjectState.activeCycleInstanceId,
+        lpsVersion: lps.livingProjectState.version,
+        doctrinePackageId: VALID_PIN.doctrinePackageId,
+        doctrinePackageVersion: VALID_PIN.version,
+        doctrinePackageDigest: VALID_PIN.digest,
+        trajectory: trajNow.trajectory,
+        decisions: beforeHd,
+        evidence: [],
+        epistemicItems: [],
+      },
+      producedAt: "2026-09-09T18:01:00.000Z",
+      createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
+    });
+    expect(mat.recommendationAttempted).toBe(true);
+    expect(mat.materialization?.ok).toBe(false);
+    if (mat.materialization && !mat.materialization.ok) {
+      expect(mat.materialization.code).toBe(
+        MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
+      );
+    }
+    expect(mat.boundaryContradiction).toBe(
+      MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
+    );
+    // No invented LR / Cycle / HD
+    expect(
+      (await runtime.oa.cycleServices.cycles.listByProject(projectId)).length,
+    ).toBe(beforeCycles.length);
+    expect(
+      (await runtime.oa.decisionServices.decisions.listByProject(projectId))
+        .length,
+    ).toBe(beforeHd.length);
+    expect(
+      (await runtime.oa.cycleServices.epistemic.listByProject(projectId)).filter(
+        (i) => i.source === "lifecycle-recommendation:nora",
+      ).length,
+    ).toBe(0);
+
+    const spy = vi.spyOn(runNoraAgentsTurnMod, "runNoraAgentsTurn");
+    const scripted = new ScriptedModel([
+      [assistantMessage(JSON.stringify(structured))],
+    ]);
+    const orch = await orchestrateProjectAssistantTurn({
+      projectId,
+      content: "situation comprise",
+      sessionDbPath: tempDbPath("rb16-sess.sqlite"),
+      simulateMemoryBUnavailable: true,
+      provider: new FakeConversationProvider({ scripted: ["unused"] }),
+      evalModelReasoningControl: {
+        modelId: "gpt-5.6-luna",
+        reasoningEffort: "none",
+        agentsModel: scripted,
+      },
+    });
+    expect(orch.ok).toBe(false);
+    if (orch.ok) return;
+    expect(orch.status).toBe("validation_error");
+    expect(orch.code).toBe(MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION);
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(
+      (await runtime.oa.cycleServices.cycles.listByProject(projectId)).length,
+    ).toBe(beforeCycles.length);
+    expect(
+      (await runtime.oa.decisionServices.decisions.listByProject(projectId))
+        .length,
+    ).toBe(beforeHd.length);
+  });
+
+  it("BAR-RB-17 — EMIT with LR remains valid (materialize)", async () => {
+    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+    process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
+    resetRuntimeApplicationServiceForTests();
+    const runtime = getRuntimeApplicationService({
+      registryRoot: FIXTURES,
+      schemasRoot: SCHEMAS,
+      nowIso: "2026-09-09T18:10:00.000Z",
+      idSource: new FixedIdSource("rb17"),
+      auditMode: "noop",
+      productDbPath: tempDbPath("rb17.sqlite"),
+    });
+    if (!runtime.oa) throw new Error("oa missing");
+    const created = await runtime.createProject({
+      name: "RB17",
+      objective: "greenfield",
+      context: "rb17",
+      criticality: "STANDARD",
+      constraints: [],
+      shortReference: "RB17",
+      idempotencyKey: "idem:rb17",
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+    const projectId = created.projectId;
+    await runtime.oa.cycleServices.createInitialTrajectory.execute({
+      trajectoryId: `trj:${projectId}`,
+      projectId,
+      steps: [
+        {
+          stepId: "stp:clarify",
+          order: 1,
+          label: "Clarify",
+          state: "pending",
+        },
+      ],
+      status: "active",
+      expectedLpsVersion: created.livingState.version,
+      createdBy: ACTOR,
+    });
+    const beforeCycles = await runtime.oa.cycleServices.cycles.listByProject(
+      projectId,
+    );
+    const beforeHd = await runtime.oa.decisionServices.decisions.listByProject(
+      projectId,
+    );
+    const lps =
+      await runtime.oa.projectServices.getCurrentLivingProjectState.execute({
+        projectId,
+      });
+    expect(lps.ok).toBe(true);
+    if (!lps.ok) return;
+    const trajNow = await runtime.oa.cycleServices.getCurrentTrajectory.execute({
+      projectId,
+    });
+    expect(trajNow.ok).toBe(true);
+    if (!trajNow.ok) return;
+
+    const structured = productTurn(
+      { ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT },
+      nextCycleLr("cyc:framing", "Envisager un Cadrage."),
+      "Recommendation narrative.",
+    );
+    const coherent = normalizeNoraProductTurnStructuredOutput(structured);
+    expect(coherent?.boundaryContradiction).toBeNull();
+    expect(coherent?.lifecycleRecommendation).not.toBeNull();
+
+    const mat = await materializeLifecycleRecommendationFromStructuredOutput({
+      projectId,
+      structuredOutput: structured,
+      updateEpistemicState: runtime.oa.cycleServices.updateEpistemicState,
+      facts: {
+        cycles: beforeCycles,
+        lpsActiveCycleInstanceId: lps.livingProjectState.activeCycleInstanceId,
+        lpsVersion: lps.livingProjectState.version,
+        doctrinePackageId: VALID_PIN.doctrinePackageId,
+        doctrinePackageVersion: VALID_PIN.version,
+        doctrinePackageDigest: VALID_PIN.digest,
+        trajectory: trajNow.trajectory,
+        decisions: beforeHd,
+        evidence: [],
+        epistemicItems: [],
+      },
+      producedAt: "2026-09-09T18:11:00.000Z",
+      createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
+    });
+    expect(mat.boundaryContradiction ?? null).toBeNull();
+    expect(mat.recommendationAttempted).toBe(true);
+    expect(mat.materialization?.ok).toBe(true);
+    expect(
+      (await runtime.oa.cycleServices.cycles.listByProject(projectId)).length,
+    ).toBe(beforeCycles.length);
+    expect(
+      (await runtime.oa.decisionServices.decisions.listByProject(projectId))
+        .length,
+    ).toBe(beforeHd.length);
+  });
+
+  it("BAR-RB-18 — no remaining unknown is not a false block", () => {
+    const assessment: PreCycleRoutingAssessment = {
+      routingBlockingUnknownPresent: false,
+      candidateCycleSupportable: true,
+      remainingUnknownsAreCycleOwned: false,
+      multiplePlausibleCycles: false,
+      activeCycleAlreadyCoversWork: false,
+    };
+    expect(derivePreCycleRoutingDisposition(assessment)).toBe(
+      "EMIT_LIFECYCLE_RECOMMENDATION",
+    );
+    const lr = nextCycleLr("cyc:ux-ui", "Changement UX borné.");
+    const coherent = applyPreCycleRoutingBoundaryCoherence({
+      narrative: "Travail déjà suffisamment borné.",
+      preCycleRoutingAssessment: assessment,
+      lifecycleRecommendation: lr,
+    });
+    expect(coherent.boundaryContradiction).toBeNull();
+    expect(coherent.lifecycleRecommendation).toEqual(lr);
+  });
+
+  it("BAR-RB-19 — CONTINUE/HOLD without LR remain valid (not errors)", () => {
+    const continueOk = applyPreCycleRoutingBoundaryCoherence({
+      narrative: "Quelle situation concrète ?",
+      preCycleRoutingAssessment: {
+        ...PRE_CYCLE_ROUTING_ASSESSMENT_CONTINUE_DEFAULT,
+      },
+      lifecycleRecommendation: null,
+    });
+    expect(continueOk.disposition).toBe("CONTINUE_PRE_CYCLE");
+    expect(continueOk.boundaryContradiction).toBeNull();
+    expect(continueOk.lifecycleRecommendation).toBeNull();
+
+    const holdOk = applyPreCycleRoutingBoundaryCoherence({
+      narrative: "Cadrage ou Conception ?",
+      preCycleRoutingAssessment: {
+        routingBlockingUnknownPresent: false,
+        candidateCycleSupportable: false,
+        remainingUnknownsAreCycleOwned: false,
+        multiplePlausibleCycles: true,
+        activeCycleAlreadyCoversWork: false,
+      },
+      lifecycleRecommendation: null,
+    });
+    expect(holdOk.disposition).toBe("HOLD_FOR_ROUTING_AMBIGUITY");
+    expect(holdOk.boundaryContradiction).toBeNull();
+    expect(holdOk.lifecycleRecommendation).toBeNull();
+  });
+
+  it("BAR-RB-20 — same-turn positive enforcement (one Agents call, no retry)", async () => {
+    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+    process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
+    resetRuntimeApplicationServiceForTests();
+    const runtime = getRuntimeApplicationService({
+      registryRoot: FIXTURES,
+      schemasRoot: SCHEMAS,
+      nowIso: "2026-09-09T18:20:00.000Z",
+      idSource: new FixedIdSource("rb20"),
+      auditMode: "noop",
+      productDbPath: tempDbPath("rb20.sqlite"),
+    });
+    if (!runtime.oa) throw new Error("oa missing");
+    const created = await runtime.createProject({
+      name: "RB20",
+      objective: "greenfield",
+      context: "rb20",
+      criticality: "STANDARD",
+      constraints: [],
+      shortReference: "RB20",
+      idempotencyKey: "idem:rb20",
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+    await runtime.oa.cycleServices.createInitialTrajectory.execute({
+      trajectoryId: `trj:${created.projectId}`,
+      projectId: created.projectId,
+      steps: [
+        {
+          stepId: "stp:clarify",
+          order: 1,
+          label: "Clarify",
+          state: "pending",
+        },
+      ],
+      status: "active",
+      expectedLpsVersion: created.livingState.version,
+      createdBy: ACTOR,
+    });
+
+    const spy = vi.spyOn(runNoraAgentsTurnMod, "runNoraAgentsTurn");
+    const emitNull = productTurn(
+      { ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT },
+      null,
+      "Ready but missing LR.",
+    );
+    const scripted = new ScriptedModel([
+      [assistantMessage(JSON.stringify(emitNull))],
+    ]);
+    const orch = await orchestrateProjectAssistantTurn({
+      projectId: created.projectId,
+      content: "ok",
+      sessionDbPath: tempDbPath("rb20-sess.sqlite"),
+      simulateMemoryBUnavailable: true,
+      provider: new FakeConversationProvider({ scripted: ["unused"] }),
+      evalModelReasoningControl: {
+        modelId: "gpt-5.6-luna",
+        reasoningEffort: "none",
+        agentsModel: scripted,
+      },
+    });
+    expect(orch.ok).toBe(false);
+    if (!orch.ok) {
+      expect(orch.code).toBe(MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION);
+    }
+    expect(spy).toHaveBeenCalledTimes(1);
+    // No second model / retry — ScriptedModel queue exhausted after one call.
+    expect(spy.mock.calls.length).toBe(1);
+
+    const src = fs.readFileSync(
+      path.join(
+        APP_ROOT,
+        "lib/nora-cognitive-runtime/noraProductTurnOutputType.ts",
+      ),
+      "utf8",
+    );
+    expect(src).not.toMatch(/narrative\.includes|new RegExp|match\(\//);
+  });
 });
-```
-
-### 15.7 finalCorr productTurnPayload helper diff
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.finalCorr.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.finalCorr.d0.test.ts
-index 98552975..ab2aa4be 100644
---- a/projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.finalCorr.d0.test.ts
-+++ b/projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.finalCorr.d0.test.ts
-@@ -119,9 +119,34 @@ class FixedIdSource implements LocalProjectIdSource {
-   }
- }
-
--function productTurnPayload(lr: object | null, narrative: string) {
-+function productTurnPayload(
-+  lr: object | null,
-+  narrative: string,
-+  assessment: {
-+    routingBlockingUnknownPresent: boolean;
-+    candidateCycleSupportable: boolean;
-+    remainingUnknownsAreCycleOwned: boolean;
-+    multiplePlausibleCycles: boolean;
-+    activeCycleAlreadyCoversWork: boolean;
-+  } = lr
-+    ? {
-+        routingBlockingUnknownPresent: false,
-+        candidateCycleSupportable: true,
-+        remainingUnknownsAreCycleOwned: true,
-+        multiplePlausibleCycles: false,
-+        activeCycleAlreadyCoversWork: false,
-+      }
-+    : {
-+        routingBlockingUnknownPresent: true,
-+        candidateCycleSupportable: false,
-+        remainingUnknownsAreCycleOwned: false,
-+        multiplePlausibleCycles: false,
-+        activeCycleAlreadyCoversWork: false,
-+      },
-+) {
-   return {
-     narrative,
-+    preCycleRoutingAssessment: assessment,
-     lifecycleRecommendation: lr,
-   };
- }
-```
-
-### 15.8 qualToGovernedCycle.presentation.d0.test.ts diff
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/qualToGovernedCycle.presentation.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/qualToGovernedCycle.presentation.d0.test.ts
-index a965bfe3..dcc35203 100644
---- a/projects/sfia-studio/app/__tests__/project-assistant/qualToGovernedCycle.presentation.d0.test.ts
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/qualToGovernedCycle.presentation.d0.test.ts
-@@ -70,6 +70,10 @@ describe("qual-to-governed-cycle — prompt + presentation contracts", () => {
-     expect(prompt).toMatch(/NEXT_CYCLE/);
-     expect(prompt).toMatch(/Pas de règle « après N messages »/);
-     expect(prompt).toMatch(/jamais forcé cyc:framing/);
-+    expect(prompt).toMatch(/TEST DE PERTINENCE DE ROUTAGE/);
-+    expect(prompt).toMatch(/TEST DE PROPRIÉTÉ DE CYCLE/);
-+    expect(prompt).toMatch(/preCycleRoutingAssessment/);
-+    expect(prompt).toMatch(/remainingUnknownsAreCycleOwned/);
-     expect(prompt).not.toMatch(
-       /aucune autorité de décision, d'exécution Cursor, d'écriture Git\/GitHub, ni de qualification de cycle SFIA/,
-     );
 ```
 
 ---
 
-## 16. Instruction to ChatGPT
+## 14. Instruction to ChatGPT
 
-Lire ce Review Handoff distant et effectuer une Critical Review complète.
+Lire ce Review Handoff distant et effectuer une Critical Review complète du candidate amendé.
 
 Si PASS, le prochain gate pourra être proposé :
 
@@ -2138,9 +1798,10 @@ Ce gate REAL n’est PAS consommé par ce cycle.
 
 ---
 
-## 17. Verdict
+## 15. Verdict
 
-**PRE-CYCLE ROUTING BOUNDARY CORRECTIVE — DETERMINISTIC CANDIDATE READY FOR CHATGPT CRITICAL REVIEW**
+**PRE-CYCLE ROUTING BOUNDARY POSITIVE ENFORCEMENT — DETERMINISTIC CANDIDATE READY FOR CHATGPT CRITICAL REVIEW**
+
 
 
 ---
@@ -2149,21 +1810,22 @@ Ce gate REAL n’est PAS consommé par ce cycle.
 
 | Check | Observed |
 | --- | --- |
-| HEAD | `1bbfecb2ff43ed4a0ecbc21cb647c4054ee321a9` |
+| old candidate (superseded) | `1bbfecb2ff43ed4a0ecbc21cb647c4054ee321a9` |
+| new amended SHA | `e79f16ba467c227470328d7f723f1c2b53fdf2fb` |
 | parent | `f35ae52a2fa5004f6b79e5f4db50d1494df8cee0` (exact) |
 | branch | `delivery/sfia-studio-product-proof-qual-to-governed-cycle` |
-| origin/main | `a9f6c310a0826d0e5bd6f7264603382a86564db1` |
 | project push | NONE |
-| live replay artefacts | still untracked read-only under `.tmp-sfia-review/runtime-captures/` |
 
 ```
-1bbfecb2 fix(sfia-studio): bound pre-cycle routing qualification
+e79f16ba fix(sfia-studio): bound pre-cycle routing qualification
 M	projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.finalCorr.d0.test.ts
 A	projects/sfia-studio/app/__tests__/project-assistant/preCycleRoutingBoundary.d0.test.ts
 M	projects/sfia-studio/app/__tests__/project-assistant/qualToGovernedCycle.presentation.d0.test.ts
 M	projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
+M	projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
 M	projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
 M	projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
 M	projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
 M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn.ts
+
 ```
