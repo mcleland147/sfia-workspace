@@ -1,22 +1,25 @@
 "use client";
 
-import { useId } from "react";
 import {
   BOUNDED_RUNNING_REFRESH_ACTION,
   BOUNDED_RUNNING_REFRESH_HELP,
   BOUNDED_RUNNING_REFRESH_TITLE,
   G_UX_08_AMEND_DEFERRED_MESSAGE,
+  SFIA_ASSISTANT_ANSWERED_EVENT,
   attemptStatusUserLabel,
   confirmationPathChip,
   contractUserFacingFacts,
   evidenceVerifiedUserLabel,
   executionSemanticKind,
   executionSemanticUserLabel,
+  formatNoraAssistantDisplayText,
   isBoundedRunningAttemptRefreshable,
   postExecutionUserSummary,
+  profileRationalePiloteLabel,
 } from "@/features/project-assistant/presentationLabels";
 import type { AssistantToolEventDto } from "@/features/project-assistant/types";
 import type { F2DecisionKind } from "@/features/project-assistant/f2/types";
+import { useEffect, useId } from "react";
 import type { ProductConversationController } from "../hooks/useProductConversation";
 import styles from "./ConversationSurface.module.css";
 
@@ -108,6 +111,13 @@ export function ConversationSurface({
     refreshResolvedM3RunningAttempt,
     retryLastUserMessage,
   } = controller;
+
+  // Notify LifecycleSurface after Nora answers so CURRENT LR can reproject.
+  useEffect(() => {
+    if (uiState !== "ANSWERED") return;
+    if (typeof window === "undefined") return;
+    window.dispatchEvent(new CustomEvent(SFIA_ASSISTANT_ANSWERED_EVENT));
+  }, [uiState, messages.length]);
 
   const attemptLabel = f3Execute
     ? attemptStatusUserLabel(f3Execute.attempt.status)
@@ -248,7 +258,11 @@ export function ConversationSurface({
                 <p className={styles.bubbleAuthor}>
                   {message.role === "user" ? "Pilote" : "Nora"}
                 </p>
-                <p className={styles.bubbleText}>{message.content}</p>
+                <p className={styles.bubbleText}>
+                  {message.role === "assistant"
+                    ? formatNoraAssistantDisplayText(message.content)
+                    : message.content}
+                </p>
               </div>
             </article>
           ))
@@ -309,12 +323,20 @@ export function ConversationSurface({
             </div>
             <div className={styles.factWide}>
               <dt>Pourquoi</dt>
-              <dd data-testid="f2-rationale">{f2.qualification.rationale}</dd>
+              <dd data-testid="f2-rationale">
+                {profileRationalePiloteLabel(f2.qualification.rationale)}
+              </dd>
             </div>
           </dl>
           <details className={styles.details}>
             <summary>Détails techniques</summary>
             <dl className={styles.facts}>
+              <div className={styles.factWide}>
+                <dt>Rationale technique</dt>
+                <dd data-testid="f2-rationale-technical">
+                  {f2.qualification.rationale}
+                </dd>
+              </div>
               <div className={styles.factWide}>
                 <dt>Identifiant de cycle</dt>
                 <dd>{f2.qualification.cycleTypeId}</dd>

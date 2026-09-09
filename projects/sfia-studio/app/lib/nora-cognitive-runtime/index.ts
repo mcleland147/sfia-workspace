@@ -185,6 +185,8 @@ export {
   decideMw5Disposition,
   deriveMw5FactsFromF2Turn,
   formatMw5AssistantText,
+  formatMw5MachineText,
+  formatMw5PiloteText,
   isCriticalProfile,
   isMw5ChallengeSatisfied,
   looksLikeQuestionnaire,

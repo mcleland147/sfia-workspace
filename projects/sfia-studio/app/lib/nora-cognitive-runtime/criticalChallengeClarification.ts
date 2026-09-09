@@ -114,8 +114,8 @@ export type Mw5TurnSurface = {
 
 const DEFAULT_STRUCTURAL_CHALLENGES: readonly string[] = [
   "Quelle prémisse structurante n'est pas encore établie pour cette recommandation ?",
-  "Quel périmètre ou impact reste non fondé dans le contexte Truth C disponible ?",
-  "Quelle frontière d'autorité humaine reste ouverte — sans confondre Recommandation et HumanDecision ?",
+  "Quel périmètre ou impact reste non fondé dans le contexte projet disponible ?",
+  "Quelle frontière d'autorité humaine reste ouverte — sans confondre recommandation et décision Pilote ?",
 ];
 
 const DEFAULT_STRUCTURAL_CLARIFICATIONS: readonly string[] = [
@@ -464,7 +464,7 @@ export function parseIssuedChallengeCount(text: string): number {
   return 0;
 }
 
-export function formatMw5AssistantText(result: Mw5PolicyResult): string {
+export function formatMw5MachineText(result: Mw5PolicyResult): string {
   const anti =
     "AUCUNE EXÉCUTION. Nora n'émet pas de HumanDecision, GO, Confirmation, décision Morris ou acte Pilote.";
   if (result.disposition === "CHALLENGE") {
@@ -497,6 +497,42 @@ export function formatMw5AssistantText(result: Mw5PolicyResult): string {
     ].join(" ");
   }
   return result.disclosure;
+}
+
+/**
+ * Pilote-facing MW5 copy — business-first; no MW5/Truth C/count=/engine jargon.
+ * Machine markers remain available via formatMw5MachineText for session/audit.
+ */
+export function formatMw5PiloteText(result: Mw5PolicyResult): string {
+  if (result.disposition === "CHALLENGE") {
+    const lines = result.challenges.map((c, i) => `${i + 1}. ${c}`);
+    return [
+      "Avant de formaliser cette recommandation, il me manque encore un élément structurant sur son périmètre ou son impact.",
+      ...lines,
+      "Je ne décide pas à votre place. AUCUNE EXÉCUTION.",
+      "La recommandation n'est pas encore émise.",
+    ].join("\n");
+  }
+  if (result.disposition === "CLARIFY") {
+    const lines = result.challenges.map((c, i) => `${i + 1}. ${c}`);
+    return [
+      "Une clarification structurante est encore nécessaire avant de poursuivre.",
+      ...lines,
+      "Je ne décide pas à votre place. AUCUNE EXÉCUTION.",
+    ].join("\n");
+  }
+  if (result.disposition === "ESCALATE") {
+    return [
+      "Cette situation nécessite une décision Pilote explicite sur le chemin de gouvernance existant.",
+      "Je ne synthétise pas cette décision. AUCUNE EXÉCUTION.",
+    ].join("\n");
+  }
+  return "AUCUNE EXÉCUTION. La recommandation suit les règles de gouvernance Studio.";
+}
+
+/** @deprecated Prefer formatMw5PiloteText for UI; formatMw5MachineText for session. */
+export function formatMw5AssistantText(result: Mw5PolicyResult): string {
+  return formatMw5PiloteText(result);
 }
 
 /**

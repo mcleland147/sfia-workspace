@@ -6,6 +6,7 @@ import {
   projectAssistantPilotLifecycleProjection,
 } from "@/features/project-assistant/actions";
 import type { PilotLifecycleProjection } from "@/lib/oa/cycle";
+import { SFIA_ASSISTANT_ANSWERED_EVENT } from "@/features/project-assistant/presentationLabels";
 import {
   lifecycleCtaPresentation,
   lifecycleStatusBadge,
@@ -46,6 +47,16 @@ export function LifecycleSurface({
 
   useEffect(() => {
     void refresh();
+  }, [refresh]);
+
+  useEffect(() => {
+    const onAnswered = () => {
+      void refresh();
+    };
+    window.addEventListener(SFIA_ASSISTANT_ANSWERED_EVENT, onAnswered);
+    return () => {
+      window.removeEventListener(SFIA_ASSISTANT_ANSWERED_EVENT, onAnswered);
+    };
   }, [refresh]);
 
   async function runAction(

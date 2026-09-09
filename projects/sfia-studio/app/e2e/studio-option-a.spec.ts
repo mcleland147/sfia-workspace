@@ -91,8 +91,13 @@ async function sendStructuring(page: Page) {
   );
   await page.getByTestId("project-assistant-send").click();
   await expect(
-    page.getByTestId("project-assistant-messages").getByText(/\[MW5 CHALLENGE/),
+    page
+      .getByTestId("project-assistant-messages")
+      .getByText(/périmètre|impact|structurant|clarification/i),
   ).toBeVisible({ timeout: 45_000 });
+  await expect(
+    page.getByTestId("project-assistant-messages").getByText(/\[MW5 CHALLENGE/),
+  ).toHaveCount(0);
   await expect(page.getByTestId("project-assistant-proposal")).toHaveCount(0);
   await expect(page.getByTestId("project-assistant-decision")).toHaveCount(0);
 
@@ -438,9 +443,13 @@ test.describe("MW5 — Critical Challenge structuring UX (CORR-MW5-03)", () => {
     await page.getByTestId("project-assistant-send").click();
 
     const messages = page.getByTestId("project-assistant-messages");
-    await expect(messages.getByText(/\[MW5 CHALLENGE/)).toBeVisible({
+    await expect(
+      messages.getByText(/périmètre|impact|structurant|clarification/i),
+    ).toBeVisible({
       timeout: 45_000,
     });
+    await expect(messages.getByText(/\[MW5 CHALLENGE/)).toHaveCount(0);
+    await expect(messages.getByText(/\bMW5\b/)).toHaveCount(0);
     await expect(page.getByTestId("project-assistant-proposal")).toHaveCount(0);
     await expect(page.getByTestId("project-assistant-gate")).toHaveCount(0);
     await expect(page.getByTestId("project-assistant-decision")).toHaveCount(0);

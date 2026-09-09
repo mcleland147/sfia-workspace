@@ -85,7 +85,12 @@ describe("MW5 F2 product path D0", () => {
     expect(result.mw5?.structuralChallengeCount).toBeLessThanOrEqual(
       MW5_MAX_STRUCTURAL_CHALLENGES,
     );
-    expect(result.text).toMatch(/\[MW5 CHALLENGE/);
+    expect(result.text).not.toMatch(/\[MW5 CHALLENGE/);
+    expect(result.text).not.toMatch(/\bMW5\b/);
+    expect(result.text).not.toMatch(/\bTruth C\b/i);
+    expect(result.text).not.toMatch(/\bcount=\d+/);
+    expect(result.text).toMatch(/périmètre|impact|structurant/i);
+    expect(result.mw5?.disposition).toBe("CHALLENGE");
     expect(result.f2?.labels.recommendation).toBeNull();
   });
 
@@ -256,7 +261,9 @@ describe("MW5 F2 product path D0", () => {
     expect(episodeB.mw5?.structuralChallengeCount).toBeLessThanOrEqual(
       MW5_MAX_STRUCTURAL_CHALLENGES,
     );
-    expect(episodeB.text).toMatch(/\[MW5 CHALLENGE/);
+    expect(episodeB.text).not.toMatch(/\[MW5 CHALLENGE/);
+    expect(episodeB.text).not.toMatch(/\bMW5\b/);
+    expect(episodeB.text).toMatch(/périmètre|impact|structurant/i);
     // Must not inherit A's exhausted quota as immediate escalate.
     expect(episodeB.mw5?.reasonCodes ?? []).not.toContain(
       "challenge_cap_reached_escalate",

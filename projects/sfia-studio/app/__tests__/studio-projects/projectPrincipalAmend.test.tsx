@@ -23,6 +23,22 @@ vi.mock("@/features/project-assistant/actions", () => ({
   projectAssistantPrepareF3FixtureAction: vi.fn(),
   projectAssistantPrepareM3Action: vi.fn(),
   projectAssistantConfirmAndExecuteF3FixtureAction: vi.fn(),
+  // Nominal empty Pilot lifecycle projection — no cycle / Recommendation / decision.
+  projectAssistantPilotLifecycleProjection: vi.fn(async () => ({
+    ok: true,
+    status: "ok",
+    selectedCycleInstanceId: null,
+    selectedStatus: null,
+    activeCycleInstanceId: null,
+    selectionAmbiguous: false,
+    cta: {
+      canStart: false,
+      canPause: false,
+      canResume: false,
+      canFinalize: false,
+      canCancel: false,
+    },
+  })),
 }));
 
 const BASE_PROJECT = {

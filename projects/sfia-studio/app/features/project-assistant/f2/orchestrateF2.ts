@@ -37,7 +37,8 @@ import {
   decideCognitiveStrategy,
   decideMw5Disposition,
   deriveMw5FactsFromF2Turn,
-  formatMw5AssistantText,
+  formatMw5MachineText,
+  formatMw5PiloteText,
   mergeCognitiveWorkloadSignals,
   toMw5TurnSurface,
   MW5_TEST_MARKERS,
@@ -349,12 +350,13 @@ async function evaluateF2Mw5(input: {
       priorStructuralChallengeCount: session.priorStructuralChallengeCount,
     }),
   );
-  const text = formatMw5AssistantText(decision);
+  const machineText = formatMw5MachineText(decision);
+  const text = formatMw5PiloteText(decision);
   if (decision.disposition === "CHALLENGE") {
     rememberMw5IssuedChallenge({
       projectId: input.projectId,
       challenges: decision.challenges,
-      challengeText: text,
+      challengeText: machineText,
     });
   } else if (
     decision.recommendationAllowed &&
