@@ -1,270 +1,274 @@
-# ChatGPT Review Pack — FULL — Greenfield Task-App Campaign Environment Readiness
+# SFIA Review Pack — FULL
 
 ## 1. Identity
 
-| Field | Value |
-|---|---|
-| UTC timestamp | 2026-09-09T08:51:21Z |
-| Cycle ID | SFIA-STUDIO-PRODUCT-PROOF-GREENFIELD-TASK-APP-ENV-READINESS-01 |
-| Cycle | 9 — QA / validation |
-| Typology | EVOL — Product Proof campaign readiness / environment preparation |
-| Profile | CRITICAL |
-| Baseline / origin/main | a9f6c310a0826d0e5bd6f7264603382a86564db1 (Merge PR #477) |
-| Post-merge CI known | run 34323636543 SUCCESS |
-| Runtime v3 | NON ADOPTED |
-| ZERO REAL | YES |
+- **timestamp_utc:** 2026-09-09T11:06:23Z
+- **cycle_id:** SFIA-STUDIO-PRODUCT-PROOF-GREENFIELD-TASK-APP-R1-ENV-REG-01
+- **repository:** mcleland147/sfia-workspace
+- **campaign_worktree:** `/Users/morris/Projects/sfia-product-proof-greenfield-task-app-a9f6c310`
+- **campaign_app:** `…/projects/sfia-studio/app`
+- **baseline_git:** `a9f6c310a0826d0e5bd6f7264603382a86564db1` (`origin/main` match)
+- **profile:** CRITICAL
+- **typology_v2.4:** RUN — environment / readiness regularization
+- **project_cycle_type:** 9 — QA / validation
+- **proof_level:** AUTH + NORA CONFIGURATION READINESS — **ZERO REAL**
+- **prior_cycle:** SFIA-STUDIO-PRODUCT-PROOF-GREENFIELD-TASK-APP-ENV-READINESS-01
+- **prior_handoff:** `06b6fa6967ac6e757abe71ea1c67abdab27cb2f7` / blob `10a1b13a5f1099a8408fa99f40abf4d2f95a89c6`
 
-## 2. Morris intent
+## 2. Morris GO consumed
 
-Prepare a clean isolated local environment for a new SFIA Studio Product Proof Greenfield Full Product Dogfood campaign.
-
-Future Project subject (not created in this cycle): application de gestion de tâches.
-
-This cycle MUST NOT:
-- create the Project in Studio;
-- message Nora / call OpenAI;
-- launch Cursor via Studio;
-- develop the task app;
-- fix discovered Product gaps.
+- Scope: **R1 environment regularization only** (local campaign `.env.local` + Studio restart on :3020 + unauthenticated auth smoke).
+- **No** Product source mutation.
+- **No** Project creation.
+- **No** OpenAI / Nora model call.
+- **No** Cursor via Studio / StartExecution.
+- **No** R2 executor capability gap fix.
+- Git write authorized: **L3 bounded** Review Handoff publish only (`sfia/review-handoff`).
 
 ## 3. Local Git Truth
 
-### Source workspace (preserved)
+Executed from campaign worktree (first action of cycle; re-verified at exit evidence):
 
-| Field | Value |
-|---|---|
-| Path | /Users/morris/Projects/sfia-lr-delivery-isolated-e6d7c649 |
-| Remote | https://github.com/mcleland147/sfia-workspace.git |
-| Branch | delivery/sfia-studio-lifecycle-recommendation-product |
-| HEAD | 2081ce477182d133cc71c93dd7d547433bd6a976 |
-| Dirty | review-only .tmp-sfia-review/** (pre-existing); no Product source dirty |
-| origin/main (after fetch) | a9f6c310a0826d0e5bd6f7264603382a86564db1 |
+| Check | Result |
+| --- | --- |
+| `pwd` / toplevel | `/Users/morris/Projects/sfia-product-proof-greenfield-task-app-a9f6c310` |
+| remote | `origin` → `https://github.com/mcleland147/sfia-workspace.git` |
+| branch | detached HEAD (expected) |
+| `HEAD` | `a9f6c310a0826d0e5bd6f7264603382a86564db1` |
+| `origin/main` (after fetch) | `a9f6c310a0826d0e5bd6f7264603382a86564db1` |
+| tracked Product diff | **none** caused by this cycle |
+| working tree note | only `.tmp-sfia-review/chatgpt-review.md` (ignored review pack source) dirty/local |
 
-No stash/reset/checkout of source workspace. Historical worktrees preserved.
-
-### Campaign worktree (created this cycle)
-
-| Field | Value |
-|---|---|
-| Path | /Users/morris/Projects/sfia-product-proof-greenfield-task-app-a9f6c310 |
-| Mode | git worktree add --detach on exact a9f6c310... |
-| HEAD | a9f6c310a0826d0e5bd6f7264603382a86564db1 |
-| Delivery branch created | NO |
-| Tracked Product mutation | NONE (npm ci/build artifacts ignored; .env.local ignored; .sfia-exec ignored) |
+**STOP condition baseline drift:** NOT TRIGGERED.
 
 ## 4. Sources consumed
 
-PROCESS v2.6: sfia-cycle-execution-template; cycle-routing-guide; pilots/04-qa-validation; sfia-validation-checklist.
+**Process / contracts**
+- `prompts/templates/sfia-cycle-execution-template.md`
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md` (candidate; experimental guidance; no execution authority)
+- `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
 
-CONVERGENCE: build-doctrine; roadmap.
+**Convergence / Product Completion**
+- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
+- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
+- `projects/sfia-studio/product-completion/14-product-completion-integrated-proof-final-qualification.md`
 
-PRODUCT COMPLETION: 01-cadrage; 14-integrated-proof-final-qualification.
+**Doctrine v3 (applicable framing; not adopted as runtime)**
+- `32-living-project-state-and-dynamic-trajectory.md`
+- `33-epistemology-provenance-and-contradiction-model.md`
+- `34-agent-capabilities-reversibility-and-execution-governance.md`
+- `35-artifact-evidence-debt-and-controlled-learning.md`
 
-v3 framing: 32, 33, 34, 35 (NON ADOPTED runtime).
+**Auth / live config (read-only)**
+- `app/middleware.ts`, `lib/auth/auth.ts`, `allowlist.ts`, `constants.ts`, `resolveCurrentPilote.ts`
+- `lib/platform/ai/config.ts`
+- `app/.gitignore` (`.env.local` ignored)
 
-RUNTIME: package.json; NewProjectIntentionPage; ProjectWorkspacePage; platform/ai/config.ts; vertical-slice-runtime/service.ts; localProjectComposition.ts; composeStudioProductRealBoundary.ts; deterministicExternalLaunchBoundary.ts; m4BoundedReadOnlyCursorAgent.ts; studioGitWorktreeWorkspace.ts; product sqlite paths.ts; middleware.ts; .gitignore.
+**Previous review**
+- `origin/sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md` (Critical finding: incomplete Next Gate — required Better Auth + GitHub client + allowlist; `BETTER_AUTH_URL` not mandatory blocker)
 
 ## 5. Convergence qualification
 
-| Item | Value |
-|---|---|
-| Capability v3 | Greenfield full Product loop / Pilot-governed Project lifecycle |
-| Milestone | PRODUCT PROOF — GREENFIELD FULL PRODUCT DOGFOOD — ENVIRONMENT READINESS |
-| Product scenario | fresh Project whose business intention is to build a task-management application |
-| Assets | Project create path KEEP/VERIFY; Product SQLite KEEP/ISOLATE; Nora live KEEP/VERIFY; lifecycle/recommendation KEEP/VERIFY; Cursor REAL KEEP/QUALIFY; M4 bounded RO KEEP AS CURRENT TRUTH / DO NOT EXPAND; deterministic external TEST-ONLY / MUST BE OFF; old suivi-de-contrat PRESERVE/HISTORICAL |
-| Gap closed this cycle | campaign environment readiness only |
-| Critical-path next | Morris manually creates new greenfield Project and begins ordinary Product interaction — AFTER resolving config blockers below |
-| Exit proof | isolated DB path + Git baseline + Studio boots + create route reachable at HTTP layer + Fake/Real classified + executor capability known + ZERO REAL |
-| Debt | no new intentional debt |
-| Reserves | RESERVE-UX-01 OPEN; RESERVE-PROOF-01 OPEN |
+- **capability:** Greenfield Product entry / authenticated Pilote / live Nora readiness serving the full Project loop (prep only).
+- **milestone:** PRODUCT PROOF — GREENFIELD TASK APP — R1 ENV REGULARIZATION
+- **assets:**
+  - campaign worktree = KEEP
+  - isolated Product DB path = KEEP
+  - Better Auth / GitHub auth path = KEEP / CONFIGURED (local)
+  - server-side GitHub allowlist = KEEP / CONFIGURED (local)
+  - Nora live provider = KEEP / CONFIGURED (local; zero calls)
+  - FakeConversationProvider = MUST REMAIN OFF (UNSET)
+  - deterministic Cursor boundary = MUST REMAIN OFF (UNSET)
+  - Cursor REAL = OFF / UNSET for campaign start
+  - M4 bounded read-only agent = KEEP AS CURRENT TRUTH / DO NOT EXPAND
+  - historical Product DBs = PRESERVE
+  - old “suivi de contrat” Project = HISTORICAL / DO NOT TOUCH
+- **gap closed by this cycle:** local campaign auth + Nora configuration readiness only
+- **dependency after exit:** Morris manually authenticates as Pilote
+- **then:** Morris may create the fresh Project under the already authorized greenfield scenario
+- **first Nora live turn:** DISTINCT MORRIS REAL GATE REQUIRED before consuming the first OpenAI call
+- **R2 executor capability gap:** PRESERVED AS FINDING — not fixed
+- **exit proof:** see §§7–11
+- **next capability:** MANUAL PILOTE AUTH CHECK
+- **debt:** none intentional
 
-## 6. Environment preparation evidence
+## 6. Secret-safe source discovery
 
-Commands executed (campaign app dir):
-- npm ci → exit 0
-- npm run typecheck → exit 0
-- npm run build → exit 0
-- git status after → no tracked Product mutations
+Scanned local SFIA `.env.local` candidates under `/Users/morris/Projects` (paths + PRESENT/MISSING only; **no values**).
 
-Node v24.16.0 / npm 11.13.0
+Reuse policy applied: copy only qualified auth + Nora keys from a known functional Studio local config; **do not** copy `SFIA_STUDIO_PRODUCT_DB_PATH`, fake flags, Cursor REAL, reset flags.
 
-Studio server:
-- Port 3020 was FREE; used 3020
-- Command: cd .../projects/sfia-studio/app && SFIA_STUDIO_PRODUCT_DB_PATH=<campaign db> SFIA_STUDIO_CURSOR_REAL=1 npx next start --port 3020
-- At report time: next-server PID 24785 LISTEN on *:3020 (ALIVE)
-- Launch command for Morris if process ends: same as above from campaign app directory with .env.local loaded
+**Reference source used for qualified keys:**
+`/Users/morris/Projects/sfia-workspace-studio-dogfood-01/projects/sfia-studio/app/.env.local`
 
-Smoke GETs (no form submit):
-- GET / → HTTP 307 Location /login?error=AUTH_CONFIG_ERROR
-- GET /studio → HTTP 307 Location /login?error=AUTH_CONFIG_ERROR
-- GET /studio/projects/new → HTTP 307 Location /login?error=AUTH_CONFIG_ERROR
-- GET -L /studio and /studio/projects/new → HTTP 200 login page (~6686 bytes)
-- Interpretation: HTTP served; routes exist; Studio protection redirects because BETTER_AUTH_SECRET (auth config) is missing in campaign env — not a Product code mutation cycle
+**OPENAI_MODEL ambiguity check:** all 17 discovered Studio `.env.local` files that define `OPENAI_MODEL` share the same non-secret value `gpt-5.6-luna` → **not ambiguous**.
 
-## 7. Product DB isolation
+| Path | BETTER_AUTH_SECRET | GITHUB_CLIENT_ID | GITHUB_CLIENT_SECRET | ALLOWLIST | OPENAI_API_KEY | OPENAI_MODEL | OPENAI_REASONING_EFFORT | BETTER_AUTH_URL |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| campaign `…/product-proof…/app/.env.local` (final) | PRESENT | PRESENT | PRESENT | PRESENT | PRESENT | PRESENT | MISSING | MISSING |
+| `sfia-workspace-studio-dogfood-01/…/.env.local` | PRESENT | PRESENT | PRESENT | PRESENT | PRESENT | PRESENT | MISSING | PRESENT |
+| `sfia-workspace-auth-better-auth-github-multi-user-foundation/…` | PRESENT | PRESENT | PRESENT | PRESENT | PRESENT | PRESENT | MISSING | PRESENT |
+| `sfia-workspace-proof-corr-03-e1-real/…` | PRESENT | PRESENT | PRESENT | PRESENT | PRESENT | PRESENT | MISSING | PRESENT |
+| `sfia-wt-corr04-real-*/…` (3 paths) | PRESENT | PRESENT | PRESENT | PRESENT | PRESENT | PRESENT | MISSING | PRESENT |
+| other SFIA Studio `.env.local` (Nora-only / partial) | mostly MISSING auth | — | — | — | PRESENT | PRESENT | MISSING | MISSING |
 
-| Field | Value |
-|---|---|
-| Campaign DB path | /Users/morris/Projects/sfia-product-proof-greenfield-task-app-a9f6c310/projects/sfia-studio/.sfia-exec/product-proof-greenfield-task-app/product.sqlite |
-| Mechanism | SFIA_STUDIO_PRODUCT_DB_PATH |
-| Ignored | YES (.gitignore projects/sfia-studio/.sfia-exec/**) |
-| Exists after smokes | NO (ABSENT_OK — no Project create; dir prepared empty) |
-| Historical DB 1 | /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/product/oa-product.sqlite |
-| Historical DB 1 sha256 pre=post | efe059393d3b4e0f3a6e7e7a270165d52d506f8a02cdee1f506da60d7467d704 |
-| Historical DB 2 | /Users/morris/Projects/sfia-workspace-studio-dogfood-01/.sfia-exec/product/oa-product.sqlite |
-| Historical DB 2 sha256 pre=post | 7d06d7a66a6e22e414ea69fb3e1da3da90004c20214dff33e99101ecbffd93e4 |
-| Reset / delete / SFIA_V2_RUNTIME_ALLOW_RESET | NOT used |
+`BETTER_AUTH_SECRET` = PRESENT (reused from known local Studio config; not generated this cycle).
+Allowlist syntax validated locally as non-empty comma-separated positive numeric GitHub user IDs — **IDs never printed**.
 
-## 8. Nora live configuration (no secret values)
+## 7. Final campaign environment SANITIZED matrix
 
-| Variable | Campaign status |
-|---|---|
-| OPENAI_API_KEY | MISSING in campaign .env.local and campaign shell |
-| OPENAI_MODEL | MISSING in campaign env |
-| OPENAI_REASONING_EFFORT | unset |
-| OPS1_CONVERSATION_PROVIDER | unset (fake NOT forced) |
-| OpenAI calls this cycle | ZERO |
+Target file (gitignored): `projects/sfia-studio/app/.env.local`
 
-Sibling historical workspace env (non-campaign) was inspected for presence only: OPENAI_API_KEY=PRESENT, OPENAI_MODEL=gpt-5.6-luna. Those secrets were NOT copied into the campaign env by this cycle.
+```
+BETTER_AUTH_SECRET = PRESENT
+GITHUB_CLIENT_ID = PRESENT
+GITHUB_CLIENT_SECRET = PRESENT
+SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS = PRESENT / VALID
+BETTER_AUTH_URL = UNSET_DEFAULT_3020
+OPENAI_API_KEY = PRESENT
+OPENAI_MODEL = gpt-5.6-luna
+OPENAI_REASONING_EFFORT = UNSET
+OPS1_CONVERSATION_PROVIDER = UNSET / NOT_FAKE
+SFIA_STUDIO_PRODUCT_DB_PATH = campaign isolated path
+SFIA_STUDIO_CURSOR_REAL = OFF / UNSET
+OPS1_CURSOR_REAL = OFF / UNSET
+SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY = OFF / UNSET
+SFIA_STUDIO_E2E_QA_CONTROL = OFF / UNSET
+SFIA_V2_RUNTIME_ALLOW_RESET = OFF / UNSET
+```
 
-Nora conclusion for campaign env:
-LIVE NORA ENVIRONMENT BLOCKED — CONFIGURATION MISSING
+Isolated DB path retained exactly:
+`/Users/morris/Projects/sfia-product-proof-greenfield-task-app-a9f6c310/projects/sfia-studio/.sfia-exec/product-proof-greenfield-task-app/product.sqlite`
 
-## 9. Cursor REAL boundary qualification
+Prior campaign `SFIA_STUDIO_CURSOR_REAL=1` **removed** for least privilege at campaign start.
 
-| Flag / item | Status |
-|---|---|
-| SFIA_STUDIO_CURSOR_REAL | configured = 1 in campaign .env.local (compose-only; no StartExecution) |
-| OPS1_CURSOR_REAL | unset |
-| SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY | OFF / unset |
-| SFIA_STUDIO_E2E_QA_CONTROL | unset |
-| FakeConversationProvider forced | NO |
-| Deterministic + REAL simultaneous | NO (safe) |
-| Cursor CLI discoverable | YES — /Applications/Cursor.app/Contents/Resources/app/bin/cursor |
-| command -v cursor | empty (not on PATH); app bin present |
-| Cursor process launched via Studio | ZERO |
-| StartExecution | ZERO |
+## 8. Auth smoke evidence
 
-Composition note (composeStudioProductRealBoundary.ts): when REAL=1, constructs M4 wiring without launching process/git/bin search until gated StartExecution.
+Server: `npx next start --port 3020` from campaign app; listener PID cwd confirmed campaign app directory. Prior campaign listener on 3020 stopped gracefully (same campaign cwd).
 
-## 10. Current executor capability finding (CRITICAL)
+| Request | HTTP | Location / note |
+| --- | --- | --- |
+| `GET /login` | **200** | Login page presents GitHub mechanism (`GitHub` / `Se connecter` markers present). **No OAuth performed.** |
+| `GET /studio` (no session) | **307** | `/login?error=NO_SESSION&from=%2Fstudio` |
+| `GET /studio/projects/new` (no session) | **307** | `/login?error=NO_SESSION&from=%2Fstudio%2Fprojects%2Fnew` |
 
-When SFIA_STUDIO_CURSOR_REAL=1, RuntimeOaStack registers exactly one REAL AgentDescriptor (plus fixture descriptors that must NOT be claimed as REAL):
+- **AUTH_CONFIG_ERROR:** ABSENT on all three checks (body + redirect query).
+- **NO_SESSION:** EXPECTED pre-login state; proves server auth composition progressed past config failure to session requirement.
+- Interactive GitHub OAuth / callback URL mismatch: **not exercised**; if later revealed → Morris action (out of scope for auto-fix).
 
-REAL agent:
-- agentId: agt:m4.cursor.bounded_readonly
-- agentType: cursor_cli_bounded_readonly
-- adapterRef: adp:m4-cursor-cli-real
-- supportedCapabilities: [cap:cursor.read_only]
-- allowedActions: [cursor.read_only.inspect]
-- allowedTargets: [workspace.isolated.read]
-- allowedScopes: [studio.m4.real_off]
-- trustLevel: bounded
-- executionMode: cursor_cli_real
+## 9. Nora configuration evidence
 
-Answers:
-1. REAL AgentDescriptors registered under REAL=1: M4 bounded read-only only (fixtures also registered but are TestExecutionAdapter path — not REAL proof).
-2. Capabilities as above — read-only inspect only; no write capability.
-3. Normal runtime does NOT today support local mutation needed to build a task-management application via governed Cursor REAL writes.
-4. StudioGitWorktreeWorkspace is composed on repoRoot = current SFIA git toplevel (findGitToplevelByDotGit / Studio cwd). It prepares isolated worktrees under .sfia-exec/m4-worktrees from that repoRoot. It does NOT natively target an external/task-app project root as a first-class Product destination.
-5. No repo-current native Product path for delivery REAL write onto an application project was found on main a9f6c310.
-6. N/A — no such mechanism proven.
-7. No workaround implemented (forbidden).
+- `OPENAI_API_KEY` = PRESENT (value never shown)
+- `OPENAI_MODEL` = `gpt-5.6-luna` (reused exact local Studio value; no new model selection)
+- `OPENAI_REASONING_EFFORT` = UNSET
+- `OPS1_CONVERSATION_PROVIDER` = UNSET / NOT_FAKE
+- **OpenAI / Responses / Agents SDK calls this cycle:** **ZERO**
+- Verdict: **LIVE NORA CONFIGURATION READY — ZERO CALLS**
+  (configuration availability only — **not** OpenAI REAL proven, **not** first live turn authorized)
 
-FULL REAL TASK-APP DELIVERY = NOT READY / CAPABILITY GAP
+## 10. Cursor boundary
 
-This is a Product Proof input for the future campaign (honest STOP on executor insufficiency), not a defect corrected here.
+- `SFIA_STUDIO_CURSOR_REAL` = UNSET / OFF
+- `OPS1_CURSOR_REAL` = UNSET / OFF
+- `SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY` = UNSET / OFF
+- StartExecution / Cursor via Studio this cycle: **ZERO**
+- Future Cursor REAL requires distinct Morris gate if Product reaches an execution boundary.
 
-## 11. Fake / Real matrix
+## 11. Product DB / Project isolation
 
-| Frontier | Fake/mock forbidden for campaign | REAL counterpart | This cycle proof |
-|---|---|---|---|
-| Nora/OpenAI | FakeConversationProvider must stay OFF | live OpenAI provider | config missing in campaign env; ZERO calls |
-| Cursor CLI | deterministic boundary OFF; fixture adapter ≠ REAL | NodeCursorProcessRunner / StudioCursorRealLaunchGateway | REAL flag set; ZERO launches |
-| Git workspace | N/A | StudioGitWorktreeWorkspace on SFIA repoRoot | qualified; external app targeting NOT native |
-| Product SQLite | must not reuse historical DB | isolated campaign path | path prepared; historical hashes unchanged |
+- Campaign `product.sqlite`: **ABSENT_OK** after smokes (no Project create; no form submit).
+- Historical Product DBs: not touched.
+- Zero Project creation; zero tracked Product mutation.
 
-Entry proof: #477 deterministic Product / ZERO REAL.
-This cycle expected proof: ENVIRONMENT READINESS QUALIFIED only (with config blockers disclosed).
-Not claimed: REAL BOUNDARY PROVEN; E2E REAL PROVEN; Product Proof COMPLETE; runtime v3 ADOPTED.
+## 12. Fake / Real matrix
 
-## 12. Anti-claims
+| Boundary | Fake this cycle | REAL this cycle | Notes |
+| --- | --- | --- | --- |
+| GitHub OAuth / Pilote identity | N/A | **not consumed** | Manual Morris login next |
+| OpenAI / Nora | fake provider OFF | **not consumed** | Config ready; distinct REAL gate before first call |
+| Cursor CLI | deterministic OFF | REAL OFF | Zero executions |
+| Product SQLite | N/A | local path reserved | DB absent OK; no Project |
 
-NOT claimed:
-- READY FOR FULL REAL DELIVERY
-- REAL PROVEN
-- task app build supported without new development
-- production routing selected / ADOPTED
+Entry proof prior cycle: ENVIRONMENT READINESS QUALIFIED / DETERMINISTIC PRODUCT PROOF AVAILABLE / ZERO REAL.
+This cycle proof: **AUTH + NORA CONFIGURATION READINESS / ZERO REAL**.
+Hard rule: DETERMINISTIC PROVEN ≠ READY FOR REAL.
+
+## 13. R1A verdict
+
+**R1A PASS**
+
+Evidence: auth composition composable; redirects use `NO_SESSION` not `AUTH_CONFIG_ERROR`; allowlist PRESENT/VALID (IDs undisclosed); Nora keys PRESENT; fake OFF; Cursor REAL OFF; ZERO REAL.
+
+## 14. R1 verdict
+
+**GREENFIELD CAMPAIGN START — READY FOR MANUAL PILOTE AUTH CHECK**
+
+Explicitly **not** “GREENFIELD CAMPAIGN START READY” without human GitHub login proof.
+
+## 15. R2 carried verdict
+
+**FULL REAL TASK-APP DELIVERY NOT READY — EXECUTOR CAPABILITY GAP**
+
+No new repo evidence this cycle changes the prior finding (M4 bounded read-only remains current REAL agent truth; no write capability added). Not fixed; not re-scoped as development.
+
+## 16. Manual next checkpoint
+
+1. Morris opens `http://localhost:3020/login` and completes GitHub OAuth as Pilote (human-only).
+2. Confirm session reaches `/studio` without `AUTH_CONFIG_ERROR` / allowlist denial.
+3. Only after Pilote auth: Morris may create the fresh greenfield Project (separate action).
+4. **First Nora live turn:** STOP FOR DISTINCT MORRIS REAL GATE before any OpenAI consumption.
+5. Cursor REAL remains OFF until a future distinct gate.
+
+## 17. Anti-claims
+
+This cycle does **not** claim:
+- Greenfield Campaign Start READY (without manual Pilote auth)
+- GitHub OAuth end-to-end proven by Cursor
+- Nora / OpenAI REAL proven
+- Cursor REAL proven
+- Full task-app delivery ready
+- Product Proof COMPLETE
 - runtime v3 ADOPTED
-- DETERMINISTIC PROVEN implies READY FOR REAL
+- R2 gap closed
+- RESERVE-UX-01 / RESERVE-PROOF-01 closed
+- first OpenAI call authorized
 
-## 13. R1 — Greenfield Campaign Start Readiness
+## 18. Final state
 
-Question: Can Morris open /studio, manually create a new empty Project in an isolated DB, then converse with Nora live without contaminating the historical campaign?
+- runtime v3 **NON ADOPTED**
+- RESERVE-UX-01 **OPEN**
+- RESERVE-PROOF-01 **OPEN**
+- **ZERO REAL** (this cycle)
+- Global cycle verdict: **R1 ENVIRONMENT REGULARIZATION QUALIFIED** (does not replace R1A/R1/R2)
 
-Verdict: GREENFIELD CAMPAIGN START BLOCKED
+---
 
-Blockers (environment/config — not Product mutation authorized here):
-1. BETTER_AUTH_SECRET / auth config missing → protected routes redirect to /login?error=AUTH_CONFIG_ERROR
-2. OPENAI_API_KEY + OPENAI_MODEL missing in campaign env → LIVE NORA ENVIRONMENT BLOCKED
+## ChatGPT Critical Review instruction
 
-Already ready structurally:
-- isolated campaign worktree on a9f6c310
-- isolated SFIA_STUDIO_PRODUCT_DB_PATH
-- fake provider OFF; deterministic Cursor boundary OFF
-- build/typecheck OK
-- historical Product DBs untouched
-- Studio HTTP server boots on :3020
+Lire `sfia-review-handoff/latest-chatgpt-review.md` depuis `origin/sfia/review-handoff` et effectuer une Critical Review de **SFIA-STUDIO-PRODUCT-PROOF-GREENFIELD-TASK-APP-R1-ENV-REG-01**.
 
-## 14. R2 — Full Real Task-App Delivery Readiness
-
-Question: If Delivery requires creating/modifying application files, does current Product runtime already have governed Cursor REAL write capability?
-
-Verdict: FULL REAL TASK-APP DELIVERY NOT READY — EXECUTOR CAPABILITY GAP
-
-Evidence: only agt:m4.cursor.bounded_readonly with cap:cursor.read_only / cursor.read_only.inspect / workspace.isolated.read; worktree targeting is SFIA repoRoot-based.
-
-## 15. Next Morris gate
-
-No implicit authorization.
-
-Required before campaign start:
-1. Morris supplies campaign-local auth secrets (BETTER_AUTH_SECRET, BETTER_AUTH_URL as required by Product) into ignored campaign .env.local — without committing.
-2. Morris supplies OPENAI_API_KEY + OPENAI_MODEL into the same ignored campaign env (values never to be published).
-3. Morris authenticates as Pilote and manually creates the greenfield Project.
-
-Then:
-NEXT = MORRIS MANUALLY CREATES NEW GREENFIELD PROJECT
-Campaign proceeds until first meaningful gate/defect.
-
-If a REAL write/effect is later proposed:
-STOP FOR DISTINCT MORRIS REAL GATE (not authorized by this cycle).
-Do not expand M4; do not invent write AgentDescriptor; do not bypass ExecutionContract.
-
-## 16. Final state
-
-- ZERO REAL consumed
+Vérifier particulièrement :
+- baseline `a9f6c310`
+- aucune mutation Product
+- aucune exposition de secret
+- Better Auth config complète
+- `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` présents
+- `SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS` présent et valide sans valeur exposée
+- `AUTH_CONFIG_ERROR` disparu
+- `NO_SESSION` attendu avant login
+- Nora config présente
+- Fake provider OFF
+- Cursor REAL OFF
+- deterministic boundary OFF
 - ZERO OpenAI calls
-- ZERO Cursor runtime executions via Studio
-- ZERO new Product Projects created
-- ZERO tracked Product mutations
+- ZERO Cursor executions
+- ZERO Project creation
+- R1A séparé de R1
+- R2 toujours séparé
 - runtime v3 NON ADOPTED
-- RESERVE-UX-01 OPEN
-- RESERVE-PROOF-01 OPEN
 
-## 17. Cycle global verdict
+Ne pas transformer READY FOR MANUAL PILOTE AUTH CHECK en GREENFIELD CAMPAIGN START READY sans preuve du login humain.
 
-ENVIRONMENT READINESS QUALIFIED
-
-(This does not replace R1/R2. R1 is BLOCKED on auth/Nora config; R2 is NOT READY on executor capability.)
-
-## 18. Instruction ChatGPT
-
-Lire sfia/review-handoff/latest-chatgpt-review.md depuis origin/sfia/review-handoff et effectuer une Critical Review de SFIA-STUDIO-PRODUCT-PROOF-GREENFIELD-TASK-APP-ENV-READINESS-01. Vérifier en particulier l isolation de la Product DB, ZERO REAL, l absence de fake provider, la configuration Nora live, le boundary Cursor REAL, les capacités exactes de l agent REAL, le targeting workspace/repo et la séparation des verdicts R1 Greenfield Campaign Start Readiness et R2 Full Real Task-App Delivery Readiness. Ne pas autoriser implicitement la campagne REAL, de write capability, de production routing ou runtime v3 ADOPTED.
-
-### Coverage
-
-- synthesis-only: NO
-- artificial truncation: NO
-- Product tracked mutation: NONE
-- review pack verdict: COMPLETE
+Ne pas autoriser implicitement le premier Nora live turn : premier appel OpenAI = gate Morris REAL distinct.
