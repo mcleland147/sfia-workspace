@@ -26,6 +26,7 @@ import {
   resolveTrajectoryBootstrapPresence,
   validateCanonicalTargetCycleTypeId,
 } from "./greenfieldLifecycleBootstrap";
+import { deriveLifecycleBlockersFromEpistemicItems } from "../deriveLifecycleBlockers";
 import {
   selectCurrentLifecycleRecommendations,
   type RebuildLifecycleRecommendationBasisFacts,
@@ -177,7 +178,6 @@ export function buildSingleRecommendedCycleStep(input: {
 export async function prepareCandidateTrajectoryFromCurrentRecommendation(input: {
   projectId: string;
   deps: PrepareCandidateTrajectoryDeps;
-  blockingReservationStatements?: readonly string[];
   failedMaterialDimensions?: ReadonlySet<LifecycleRecommendationMaterialDimension>;
 }): Promise<PrepareCandidateTrajectoryResult> {
   const correlationId = input.deps.correlationId ?? newCorId();
@@ -254,6 +254,10 @@ export async function prepareCandidateTrajectoryFromCurrentRecommendation(input:
     lps.doctrinePackageRef ??
     null;
 
+  // Same material basis as lifecycle read-side: derive blockers from durable
+  // EpistemicItems — never default to [] when the reader succeeded.
+  const blockersSnap = deriveLifecycleBlockersFromEpistemicItems(epistemicItems);
+
   const facts: RebuildLifecycleRecommendationBasisFacts = {
     cycles,
     lpsActiveCycleInstanceId: lps.activeCycleInstanceId ?? null,
@@ -264,7 +268,7 @@ export async function prepareCandidateTrajectoryFromCurrentRecommendation(input:
     trajectory: null,
     decisions,
     evidence,
-    blockingReservationStatements: input.blockingReservationStatements ?? [],
+    blockingReservationStatements: blockersSnap.statements,
   };
 
   const current = selectCurrentLifecycleRecommendations({

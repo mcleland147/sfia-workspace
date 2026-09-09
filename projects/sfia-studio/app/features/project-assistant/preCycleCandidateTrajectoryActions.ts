@@ -7,9 +7,12 @@
 
 import { getRuntimeApplicationService } from "@/lib/vertical-slice-runtime";
 import {
+  deriveLifecycleBlockersFromEpistemicItems,
   prepareCandidateTrajectoryFromCurrentRecommendation,
   readPreCycleCandidateTrajectory,
+  selectCurrentLifecycleRecommendations,
 } from "@/lib/oa/cycle";
+import type { LifecycleRecommendationMaterialDimension } from "@/lib/oa/cycle/application/lifecycleRecommendation/materialReaderContract";
 
 export async function projectAssistantPrepareCandidateTrajectoryAction(input: {
   projectId: string;
@@ -89,6 +92,10 @@ export async function projectAssistantPrepareCandidateTrajectoryAction(input: {
   };
 }
 
+/**
+ * Durable pre-cycle projection: candidate trajectory + CURRENT NEXT_CYCLE flag.
+ * CURRENT flag uses the same material basis as lifecycle read-side (incl. blockers).
+ */
 export async function projectAssistantReadPreCycleCandidateTrajectoryAction(input: {
   projectId: string;
 }): Promise<{
@@ -112,6 +119,8 @@ export async function projectAssistantReadPreCycleCandidateTrajectoryAction(inpu
     isEffectiveCurrent: false;
   } | null;
   activeCycleInstanceId?: string | null;
+  /** Server-derived via selectCurrentLifecycleRecommendations (canonical basis). */
+  hasCurrentNextCycleRecommendation?: boolean;
 }> {
   const runtime = getRuntimeApplicationService();
   if (!runtime.oa) {
@@ -143,11 +152,79 @@ export async function projectAssistantReadPreCycleCandidateTrajectoryAction(inpu
       code: result.code,
       message: result.reason,
       activeCycleInstanceId,
+      hasCurrentNextCycleRecommendation: false,
     };
   }
+
+  let hasCurrentNextCycleRecommendation = false;
+  try {
+    const epistemicItems = await oa.cycleServices.epistemic.listByProject(
+      input.projectId,
+    );
+    const cycles = await oa.cycleServices.cycles.listByProject(input.projectId);
+    const decisions =
+      await oa.decisionServices.decisions.listByProject(input.projectId);
+    let evidence: Awaited<
+      ReturnType<typeof oa.evidenceReviewServices.repository.listByProject>
+    > = [];
+    const failed = new Set<LifecycleRecommendationMaterialDimension>();
+    try {
+      evidence = await oa.evidenceReviewServices.repository.listByProject(
+        input.projectId,
+      );
+    } catch {
+      failed.add("evidence");
+    }
+
+    let trajectory = null;
+    try {
+      const traj = await oa.cycleServices.getCurrentTrajectory.execute({
+        projectId: input.projectId,
+      });
+      trajectory = traj.ok ? traj.trajectory : null;
+    } catch {
+      failed.add("trajectory");
+    }
+
+    const project = await oa.projectServices.getProject.execute({
+      projectId: input.projectId,
+    });
+    const doctrinePin = project.ok
+      ? (project.project.doctrinePackageRef ??
+        (lps.ok ? lps.livingProjectState.doctrinePackageRef : undefined))
+      : lps.ok
+        ? lps.livingProjectState.doctrinePackageRef
+        : undefined;
+
+    const blockersSnap =
+      deriveLifecycleBlockersFromEpistemicItems(epistemicItems);
+    const current = selectCurrentLifecycleRecommendations({
+      items: epistemicItems,
+      cycles,
+      lpsActiveCycleInstanceId: activeCycleInstanceId,
+      lpsVersion: lps.ok ? lps.livingProjectState.version : null,
+      doctrinePackageId: doctrinePin?.doctrinePackageId ?? null,
+      doctrinePackageVersion: doctrinePin?.version ?? null,
+      doctrinePackageDigest: doctrinePin?.digest ?? null,
+      trajectory,
+      decisions,
+      evidence,
+      blockingReservationStatements: blockersSnap.statements,
+      failedMaterialDimensions: failed,
+    });
+    hasCurrentNextCycleRecommendation = current.some(
+      (r) =>
+        r.intent === "NEXT_CYCLE" && r.derivedCurrentness === "CURRENT",
+    );
+  } catch {
+    // Fail closed for the flag — do not invent CURRENT.
+    hasCurrentNextCycleRecommendation = false;
+  }
+
   return {
     ok: true,
     candidate: result.candidate,
     activeCycleInstanceId,
+    hasCurrentNextCycleRecommendation,
   };
 }

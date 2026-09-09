@@ -13,6 +13,7 @@ const {
   executeSelectMock,
   executeStartMock,
   executeCompleteMock,
+  readPreCycleMock,
 } = vi.hoisted(() => ({
   proposeMock: vi.fn(),
   decideMock: vi.fn(),
@@ -23,6 +24,7 @@ const {
   executeSelectMock: vi.fn(),
   executeStartMock: vi.fn(),
   executeCompleteMock: vi.fn(),
+  readPreCycleMock: vi.fn(),
 }));
 
 vi.mock("@/features/project-assistant/w2/actions", () => ({
@@ -49,13 +51,8 @@ vi.mock("@/features/project-assistant/w2/actions", () => ({
 }));
 
 vi.mock("@/features/project-assistant/preCycleCandidateTrajectoryActions", () => ({
-  projectAssistantReadPreCycleCandidateTrajectoryAction: vi
-    .fn()
-    .mockResolvedValue({
-      ok: true,
-      candidate: null,
-      activeCycleInstanceId: "cycinst:test-active",
-    }),
+  projectAssistantReadPreCycleCandidateTrajectoryAction: (...args: unknown[]) =>
+    readPreCycleMock(...args),
   projectAssistantPrepareCandidateTrajectoryAction: vi.fn(),
 }));
 
@@ -73,6 +70,13 @@ beforeEach(() => {
   executeSelectMock.mockReset();
   executeStartMock.mockReset();
   executeCompleteMock.mockReset();
+  readPreCycleMock.mockReset();
+  readPreCycleMock.mockResolvedValue({
+    ok: true,
+    candidate: null,
+    activeCycleInstanceId: "cycinst:test-active",
+    hasCurrentNextCycleRecommendation: false,
+  });
 });
 
 describe("W2 TrajectorySurface", () => {
@@ -125,6 +129,7 @@ describe("W2 TrajectorySurface", () => {
 
     render(<TrajectorySurface projectId="prj:w2-ui" />);
 
+    expect(await screen.findByTestId("w2-propose-options")).toBeVisible();
     fireEvent.click(screen.getByTestId("w2-propose-options"));
     expect(await screen.findByTestId("w2-options")).toBeVisible();
     expect(screen.getAllByText("OPTION").length).toBeGreaterThan(0);
@@ -202,6 +207,7 @@ describe("W2 TrajectorySurface", () => {
     });
 
     render(<TrajectorySurface projectId="prj:w2-ui" />);
+    expect(await screen.findByTestId("w2-propose-options")).toBeVisible();
     fireEvent.click(screen.getByTestId("w2-propose-options"));
     await screen.findByTestId("w2-options");
     fireEvent.click(

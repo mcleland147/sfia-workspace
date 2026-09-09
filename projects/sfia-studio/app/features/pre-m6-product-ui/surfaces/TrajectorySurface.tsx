@@ -158,6 +158,8 @@ export function TrajectorySurface({
   const [activeCycleInstanceId, setActiveCycleInstanceId] = useState<
     string | null
   >(null);
+  const [hasCurrentNextCycleRecommendation, setHasCurrentNextCycleRecommendation] =
+    useState(false);
   const [optionSet, setOptionSet] = useState<TrajectoryOptionSetDto | null>(
     null,
   );
@@ -239,10 +241,14 @@ export function TrajectorySurface({
     if (!result.ok) {
       setPreCycleCandidate(null);
       setActiveCycleInstanceId(null);
+      setHasCurrentNextCycleRecommendation(false);
       return;
     }
     setActiveCycleInstanceId(result.activeCycleInstanceId ?? null);
     setPreCycleCandidate(result.candidate ?? null);
+    setHasCurrentNextCycleRecommendation(
+      result.hasCurrentNextCycleRecommendation === true,
+    );
   }, [projectId]);
 
   useEffect(() => {
@@ -692,7 +698,12 @@ export function TrajectorySurface({
         </section>
       ) : null}
 
-      {activeCycleInstanceId || !preCycleCandidate ? (
+      {/*
+        W2 OptionSet requires an active CycleInstance. Hide the CTA in all
+        pre-cycle states (CURRENT NEXT_CYCLE LR, candidate-only, or empty)
+        so the Pilote is never offered a path known to return CYCLE_NOT_QUALIFIED.
+      */}
+      {activeCycleInstanceId ? (
       <div className={styles.actions}>
         <button
           type="button"
@@ -709,6 +720,18 @@ export function TrajectorySurface({
           </span>
         ) : null}
       </div>
+      ) : null}
+
+      {!activeCycleInstanceId &&
+      !preCycleCandidate &&
+      hasCurrentNextCycleRecommendation ? (
+        <p
+          className={styles.blockNote}
+          data-testid="pre-cycle-prepare-trajectory-hint"
+        >
+          Préparez d&apos;abord la trajectoire depuis la recommandation lifecycle
+          courante — les options W2 nécessitent un cycle actif.
+        </p>
       ) : null}
 
       {optionSet ? (

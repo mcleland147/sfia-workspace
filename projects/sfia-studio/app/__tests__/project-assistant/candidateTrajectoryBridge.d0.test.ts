@@ -749,6 +749,10 @@ describe("GREENFIELD LR → CANDIDATE TRAJECTORY BRIDGE — BAR-TRJ", () => {
     expect(bridgeSrc).not.toMatch(/openai|OpenAI|runNora|Agents/i);
     expect(bridgeSrc).toContain("createInitialTrajectory.execute");
     expect(bridgeSrc).toContain("NORA_LIFECYCLE_RECOMMENDATION_ACTOR");
+    expect(bridgeSrc).toContain("deriveLifecycleBlockersFromEpistemicItems");
+    expect(bridgeSrc).not.toMatch(
+      /blockingReservationStatements:\s*input\.blockingReservationStatements\s*\?\?\s*\[\]/,
+    );
   });
 
   it("BAR-TRJ-19 — W2 proposeTrajectoryOptions module still requires active cycle (regression)", () => {
@@ -760,5 +764,172 @@ describe("GREENFIELD LR → CANDIDATE TRAJECTORY BRIDGE — BAR-TRJ", () => {
       "utf8",
     );
     expect(src).toMatch(/Aucun cycle qualifié n'est actif/);
+  });
+
+  it("BAR-TRJ-25 — blocking Reservation stales LR and bridge refuses", async () => {
+    const { runtime, projectId } = await bootFreshProject("25");
+    const materialized = expectMaterialized(
+      await materializeFreshNext(
+        runtime,
+        projectId,
+        nextCycleLr("cyc:framing", "Envisager un Cadrage."),
+      ),
+    );
+
+    const epi = await runtime.oa!.cycleServices.updateEpistemicState.execute({
+      projectId,
+      createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
+      items: [
+        {
+          epistemicItemId: "epi:rsv-blocking-25",
+          type: "Reservation",
+          statement: "blocking_reservation_trj25",
+          status: "active",
+          blocking: true,
+        },
+      ],
+    });
+    expect(epi.ok).toBe(true);
+
+    const oa = runtime.oa!;
+    const project = await oa.projectServices.getProject.execute({ projectId });
+    const doctrine =
+      (project.ok ? project.project.doctrinePackageRef : null) ?? VALID_PIN;
+    const lps = await oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId,
+    });
+    expect(lps.ok).toBe(true);
+    if (!lps.ok) return;
+    const items = await oa.cycleServices.epistemic.listByProject(projectId);
+    const { deriveLifecycleBlockersFromEpistemicItems } = await import(
+      "@/lib/oa/cycle"
+    );
+    const blockers = deriveLifecycleBlockersFromEpistemicItems(items);
+    expect(blockers.statements).toContain("blocking_reservation_trj25");
+
+    const current = selectCurrentLifecycleRecommendations({
+      items,
+      cycles: await oa.cycleServices.cycles.listByProject(projectId),
+      lpsActiveCycleInstanceId: lps.livingProjectState.activeCycleInstanceId,
+      lpsVersion: lps.livingProjectState.version,
+      doctrinePackageId: doctrine.doctrinePackageId,
+      doctrinePackageVersion: doctrine.version,
+      doctrinePackageDigest: doctrine.digest,
+      trajectory: null,
+      decisions: await oa.decisionServices.decisions.listByProject(projectId),
+      evidence: [],
+      blockingReservationStatements: blockers.statements,
+    });
+    expect(current.filter((r) => r.intent === "NEXT_CYCLE")).toHaveLength(0);
+
+    const rebuilt = rebuildBasisRefsForRecommendation({
+      item: materialized.item,
+      facts: {
+        cycles: [],
+        lpsActiveCycleInstanceId: null,
+        lpsVersion: lps.livingProjectState.version,
+        doctrinePackageId: doctrine.doctrinePackageId,
+        doctrinePackageVersion: doctrine.version,
+        doctrinePackageDigest: doctrine.digest,
+        trajectory: null,
+        decisions: [],
+        evidence: [],
+        blockingReservationStatements: blockers.statements,
+      },
+    });
+    expect(rebuilt).not.toBeNull();
+    expect(
+      deriveLifecycleRecommendationCurrentness({
+        item: materialized.item,
+        currentBasisRefs: rebuilt!,
+      }),
+    ).toBe("STALE");
+
+    const prepared = await prepareCandidateTrajectoryFromCurrentRecommendation({
+      projectId,
+      deps: bridgeDeps(runtime, {
+        newTrajectoryId: () => "trj:lr-bridge-should-not-25",
+        newStepId: () => "stp:should-not-25",
+      }),
+    });
+    expect(prepared.ok).toBe(false);
+    if (!prepared.ok) {
+      expect(prepared.code).toBe("TRJ_BRIDGE_NO_CURRENT_NEXT_CYCLE");
+    }
+    expect(
+      await oa.cycleServices.trajectories.hasAnyByProjectId(projectId),
+    ).toBe(false);
+    expect((await oa.cycleServices.cycles.listByProject(projectId)).length).toBe(
+      0,
+    );
+    expect(
+      (await oa.decisionServices.decisions.listByProject(projectId)).length,
+    ).toBe(0);
+  });
+
+  it("BAR-TRJ-26 — non-blocking Reservation does not stale LR / bridge still succeeds", async () => {
+    const { runtime, projectId } = await bootFreshProject("26");
+    expectMaterialized(
+      await materializeFreshNext(
+        runtime,
+        projectId,
+        nextCycleLr("cyc:framing", "Envisager un Cadrage."),
+      ),
+    );
+    const epi = await runtime.oa!.cycleServices.updateEpistemicState.execute({
+      projectId,
+      createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
+      items: [
+        {
+          epistemicItemId: "epi:rsv-nonblocking-26",
+          type: "Reservation",
+          statement: "non_blocking_note_trj26",
+          status: "active",
+          blocking: false,
+        },
+      ],
+    });
+    expect(epi.ok).toBe(true);
+
+    const { deriveLifecycleBlockersFromEpistemicItems } = await import(
+      "@/lib/oa/cycle"
+    );
+    const items = await runtime.oa!.cycleServices.epistemic.listByProject(
+      projectId,
+    );
+    const blockers = deriveLifecycleBlockersFromEpistemicItems(items);
+    expect(blockers.statements).not.toContain("non_blocking_note_trj26");
+    expect(blockers.statements).toHaveLength(0);
+
+    const prepared = await prepareCandidateTrajectoryFromCurrentRecommendation({
+      projectId,
+      deps: bridgeDeps(runtime, {
+        newTrajectoryId: () => "trj:lr-bridge-fixed26",
+        newStepId: () => "stp:cadrage-fixed26",
+      }),
+    });
+    expect(prepared.ok).toBe(true);
+  });
+
+  it("BAR-TRJ-29 — W2 active-cycle qualification contract unchanged (structural)", () => {
+    const src = fs.readFileSync(
+      path.resolve(
+        APP_ROOT,
+        "features/project-assistant/w2/qualificationInputs.ts",
+      ),
+      "utf8",
+    );
+    expect(src).toContain("CYCLE_NOT_QUALIFIED");
+    expect(src).toContain("activeCycleInstanceId");
+    const trajSrc = fs.readFileSync(
+      path.resolve(
+        APP_ROOT,
+        "features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx",
+      ),
+      "utf8",
+    );
+    // W2 CTA gated strictly on activeCycleInstanceId truth.
+    expect(trajSrc).toMatch(/activeCycleInstanceId \? \(/);
+    expect(trajSrc).toContain("hasCurrentNextCycleRecommendation");
   });
 });
