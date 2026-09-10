@@ -10310,6 +10310,22 @@ export async function observeMw1S01FromRuntime(): Promise<DeterministicObservati
 
 ```
 
+
+## Review Handoff publication — REMOTE VERIFIED
+
+- Mode: publish-in-cycle (L3 bounded — `sfia/review-handoff` only)
+- Publisher: `scripts/sfia/publish-review-handoff.sh`
+- Handoff worktree: `/Users/morris/Projects/sfia-lr-handoff-corrqual-18555`
+- Remote branch: `origin/sfia/review-handoff`
+- Remote HEAD: `117a230d1a860ff9e24e70c1566c95004b113f0d`
+- Canonical path: `sfia-review-handoff/latest-chatgpt-review.md`
+- Blob: `f9bc487da1affc31752ef8166e76e9f1ab9ba583`
+- `git hash-object` source == remote blob: MATCH
+- `git ls-remote origin refs/heads/sfia/review-handoff`: `117a230d…`
+- Product branch push: NOT PERFORMED
+
+Note: first publisher run reported `HANDOFF REPUBLISHED — CANONICAL REMOTE VERIFICATION FAILED` because the handoff worktree remote-tracking ref lagged (`efe145be`) while `git ls-remote` already showed `117a230d`. Force-fetch of `origin/sfia/review-handoff` confirmed remote/blob match; this republish records verified truth.
+
 ## Verdict
 
 ```
