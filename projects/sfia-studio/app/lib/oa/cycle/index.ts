@@ -235,6 +235,11 @@ export type CreateInMemoryCycleServicesOptions = {
   execution?: LifecycleExecutionSnapshotReader;
   epistemic?: LifecycleEpistemicReader;
   authority?: PilotLifecycleAuthorityPort;
+  /**
+   * CR-START-01 — inject QualifyCycleWithCkc so trajectory-bound START cannot
+   * bypass CKC revalidation (single adjacent wiring point).
+   */
+  qualifyCycleWithCkc?: import("./application/lifecycleRecommendation/assertTrajectoryBoundCycleStartReady").QualifyCycleWithCkcPort;
   applicabilityRules?: FinalizationApplicabilityRules;
 };
 
@@ -441,6 +446,7 @@ export function createInMemoryCycleServices(
         listByProject: (projectId) => epistemic.listByProject(projectId),
       },
       authority: options.authority,
+      qualifyCycleWithCkc: options.qualifyCycleWithCkc,
       applicabilityRules: options.applicabilityRules,
     }),
   };

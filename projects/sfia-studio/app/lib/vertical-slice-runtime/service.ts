@@ -328,6 +328,14 @@ function wireOaStack(
     },
   };
 
+  // CR-START-01 — create CKC qualifier before CycleServices so PilotLifecycle
+  // trajectory-bound START can revalidate without a second START engine.
+  const ckcQualification = createCkcQualificationServices({
+    clock,
+    registryRoot: options?.registryRoot,
+    doctrinePackagePin: options?.doctrinePackagePin,
+  });
+
   const cycleServices = productSqlite
     ? createSqliteCycleServices({
         projectServices,
@@ -335,19 +343,16 @@ function wireOaStack(
         clock,
         ...lifecycleReaders,
         authority: authorityPort,
+        qualifyCycleWithCkc: ckcQualification.qualifyCycleWithCkc,
       })
     : createInMemoryCycleServices({
         projectServices,
         clock,
         ...lifecycleReaders,
         authority: authorityPort,
+        qualifyCycleWithCkc: ckcQualification.qualifyCycleWithCkc,
       });
   lateCycle.services = cycleServices;
-  const ckcQualification = createCkcQualificationServices({
-    clock,
-    registryRoot: options?.registryRoot,
-    doctrinePackagePin: options?.doctrinePackagePin,
-  });
 
   const decisionServices = productSqlite
     ? createSqliteDecisionServices({

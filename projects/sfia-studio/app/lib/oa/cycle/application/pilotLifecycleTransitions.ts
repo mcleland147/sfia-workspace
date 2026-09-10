@@ -54,6 +54,11 @@ import {
   lifecycleBlockersFromReaderFailure,
   type LifecycleBlockerSnapshot,
 } from "./deriveLifecycleBlockers";
+import {
+  assertTrajectoryBoundCycleStartReady,
+  isTrajectoryBoundCycle,
+  type QualifyCycleWithCkcPort,
+} from "./lifecycleRecommendation/assertTrajectoryBoundCycleStartReady";
 
 function newId(prefix: "cor"): string {
   return `${prefix}:${randomBytes(8).toString("hex")}`;
@@ -113,6 +118,11 @@ export type PilotLifecycleDeps = {
   execution?: LifecycleExecutionSnapshotReader;
   epistemic?: LifecycleEpistemicReader;
   authority?: PilotLifecycleAuthorityPort;
+  /**
+   * CR-START-01 — required for trajectory-bound START (fail-closed if missing).
+   * Wired once from vertical-slice-runtime via create*CycleServices.
+   */
+  qualifyCycleWithCkc?: QualifyCycleWithCkcPort;
   /**
    * Optional static applicability override — test-only / low-level.
    * Product `buildAssessment` always derives from durable facts and ignores this.
@@ -269,6 +279,26 @@ export class PilotLifecycleTransitions {
       ? lps.livingProjectState.activeCycleInstanceId
       : undefined;
 
+    // CR-START-01 — trajectory-bound START must pass shared strong guard before
+    // any mutation (historical executePilotLifecycleAction path cannot bypass).
+    const trajectoryBound = isTrajectoryBoundCycle(cycle);
+    let guardedCkcResolutionRef: string | undefined;
+    if (trajectoryBound) {
+      const ready = await assertTrajectoryBoundCycleStartReady({
+        projectId: request.projectId,
+        cycle,
+        projectServices: this.deps.projectServices,
+        trajectories: this.deps.trajectories,
+        decisions: this.deps.decisions,
+        epistemic: this.deps.epistemic,
+        qualifyCycleWithCkc: this.deps.qualifyCycleWithCkc,
+      });
+      if (!ready.ok) {
+        return fail("CYCLE_START_NOT_READY", ready.code);
+      }
+      guardedCkcResolutionRef = ready.ckcResolutionRef;
+    }
+
     const trajectory = await this.loadTrajectory(request.projectId);
     const decisions = this.deps.decisions
       ? await this.deps.decisions.listByProject(request.projectId)
@@ -349,11 +379,6 @@ export class PilotLifecycleTransitions {
       pauseReconciliation: null,
     };
 
-    const trajectoryBound =
-      Boolean(cycle.trajectoryId) &&
-      typeof cycle.trajectoryVersion === "number" &&
-      Boolean(cycle.trajectoryStepId);
-
     return this.persistLifecycleMutation({
       action: "START",
       projectId: request.projectId,
@@ -372,7 +397,8 @@ export class PilotLifecycleTransitions {
       fail,
       ...(trajectoryBound
         ? {
-            ckcResolutionRef: cycle.ckcResolutionRef,
+            ckcResolutionRef:
+              guardedCkcResolutionRef ?? cycle.ckcResolutionRef,
             activateTrajectoryStep: {
               trajectoryId: cycle.trajectoryId!,
               trajectoryVersion: cycle.trajectoryVersion!,

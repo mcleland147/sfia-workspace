@@ -1,8 +1,9 @@
 /**
  * D-GF-START-01 — START a prepared trajectory-bound CycleInstance.
  *
- * N3 Pilote via registerLocalPiloteAuthority + PilotLifecycleTransitions.start.
- * No second HD, no Confirmation, no EC. Revalidates sealed signals + CKC ref.
+ * Facade: resolve prepared cycle + registerLocalPiloteAuthority +
+ * PilotLifecycleTransitions.start. Strong invariants live in
+ * assertTrajectoryBoundCycleStartReady (invoked inside start).
  */
 
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
@@ -10,21 +11,10 @@ import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
 } from "@/lib/oa/decision";
-import {
-  CYCLE_TYPE_CATALOG_FINGERPRINT,
-} from "../../domain/catalogFingerprint";
-import { CYCLE_TYPE_CATALOG_VERSION, getCycleTypeById } from "../../domain/cycleTypeCatalog";
+import { getCycleTypeById } from "../../domain/cycleTypeCatalog";
 import type { CycleInstance } from "../../domain/types";
-import {
-  isTargetCycleCurrentlySelectable,
-  resolveCandidateTrajectoryProvenance,
-} from "./candidateTrajectoryProvenance";
-import { projectCkcResolutionRef } from "./ckcResolutionRef";
-import {
-  mintPrepareCycleCorrelationId,
-  selectExactPrepareStep,
-} from "./prepareCycleFromValidatedTrajectory";
-import { parseExplicitQualificationSignals } from "./qualificationSignals";
+import { isTrajectoryBoundCycle } from "./assertTrajectoryBoundCycleStartReady";
+import { selectExactPrepareStep } from "./prepareCycleFromValidatedTrajectory";
 
 export class StartPreparedCycleAtomicFailure extends Error {
   readonly code: string;
@@ -106,107 +96,41 @@ export async function startPreparedTrajectoryCycle(input: {
           "current_trajectory_missing",
         );
       }
-      if (trajectory.status !== "validated" && trajectory.status !== "active") {
-        throw new StartPreparedCycleAtomicFailure(
-          "TRAJECTORY_NOT_VALIDATED",
-          `trajectory_status_${trajectory.status}`,
-        );
-      }
-      if (!trajectory.decidedByDecisionRef?.trim()) {
-        throw new StartPreparedCycleAtomicFailure(
-          "TRAJECTORY_DECISION_REF_MISSING",
-          "decided_by_decision_ref_required",
-        );
-      }
 
-      const hdResult = await oa.decisionServices.getHumanDecision.execute({
-        decisionId: trajectory.decidedByDecisionRef,
-      });
-      if (!hdResult.ok || hdResult.decision.status !== "accepted") {
-        throw new StartPreparedCycleAtomicFailure(
-          "HUMAN_DECISION_MISSING",
-          "deciding_hd_unreadable_or_not_accepted",
-        );
-      }
-      const decision = hdResult.decision;
-      if (decision.decisionBasis?.sourceType !== "candidate_trajectory") {
-        throw new StartPreparedCycleAtomicFailure(
-          "HUMAN_DECISION_SOURCE_MISMATCH",
-          "expected_candidate_trajectory_basis",
-        );
-      }
-      const ctx = decision.decisionBasis.candidateTrajectoryContext;
-      if (!ctx) {
-        throw new StartPreparedCycleAtomicFailure(
-          "HUMAN_DECISION_CONTEXT_MISSING",
-          "candidate_trajectory_context_missing",
-        );
-      }
-
-      const qualificationSignals = parseExplicitQualificationSignals(
-        ctx.qualificationSignals,
-      );
-      if (!qualificationSignals) {
-        throw new StartPreparedCycleAtomicFailure(
-          "PROFILE_SIGNALS_MISSING",
-          "complete_qualification_signals_required",
-        );
-      }
-
-      const epistemic = await oa.cycleServices.epistemic.listByProject(projectId);
-      const provenance = resolveCandidateTrajectoryProvenance({
-        projectId,
-        trajectoryId: trajectory.trajectoryId,
-        epistemicItems: epistemic,
-      });
-      if (provenance.status !== "RESOLVED") {
-        throw new StartPreparedCycleAtomicFailure(
-          `PROVENANCE_${provenance.status}`,
-          "provenance_not_resolved",
-        );
-      }
-      if (
-        provenance.recommendationId !== ctx.recommendationId ||
-        provenance.semanticKey !== ctx.semanticKey ||
-        provenance.targetCycleTypeId !== ctx.targetCycleTypeId
-      ) {
-        throw new StartPreparedCycleAtomicFailure(
-          "PROVENANCE_HD_MISMATCH",
-          "provenance_does_not_match_human_decision",
-        );
-      }
-
-      const stepSelect = selectExactPrepareStep({
-        trajectory,
-        targetCycleTypeId: ctx.targetCycleTypeId,
-      });
-      if (!stepSelect.ok) {
-        throw new StartPreparedCycleAtomicFailure(
-          stepSelect.code,
-          stepSelect.reason,
-        );
-      }
-      const step = stepSelect.step;
-      const cycleTypeId = step.cycleTypeId!;
-      if (!isTargetCycleCurrentlySelectable(cycleTypeId)) {
-        throw new StartPreparedCycleAtomicFailure(
-          "TARGET_CYCLE_NOT_SELECTABLE",
-          "cycle_type_not_selectable",
-        );
-      }
-
-      const cycles = await oa.cycleServices.cycles.listByProject(projectId);
+      // Thin resolution only — full readiness is enforced inside pilotLifecycle.start.
       let cycle: CycleInstance | null = null;
+      const cycles = await oa.cycleServices.cycles.listByProject(projectId);
       if (input.cycleInstanceId) {
         cycle =
           cycles.find((c) => c.cycleInstanceId === input.cycleInstanceId) ??
           null;
       } else {
+        const hdResult = trajectory.decidedByDecisionRef
+          ? await oa.decisionServices.getHumanDecision.execute({
+              decisionId: trajectory.decidedByDecisionRef,
+            })
+          : null;
+        const targetCycleTypeId =
+          hdResult?.ok &&
+          hdResult.decision.decisionBasis?.candidateTrajectoryContext
+            ?.targetCycleTypeId
+            ? hdResult.decision.decisionBasis.candidateTrajectoryContext
+                .targetCycleTypeId
+            : null;
+        const stepSelect = targetCycleTypeId
+          ? selectExactPrepareStep({
+              trajectory,
+              targetCycleTypeId,
+            })
+          : null;
+        const stepId =
+          stepSelect && stepSelect.ok ? stepSelect.step.stepId : null;
         const matches = cycles.filter(
           (c) =>
+            isTrajectoryBoundCycle(c) &&
             c.trajectoryId === trajectory.trajectoryId &&
             c.trajectoryVersion === trajectory.version &&
-            c.trajectoryStepId === step.stepId &&
+            (stepId == null || c.trajectoryStepId === stepId) &&
             (c.status === "proposed" || c.status === "acknowledged"),
         );
         if (matches.length > 1) {
@@ -223,65 +147,16 @@ export async function startPreparedTrajectoryCycle(input: {
           "prepared_cycle_not_found",
         );
       }
-      if (
-        cycle.trajectoryId !== trajectory.trajectoryId ||
-        cycle.trajectoryVersion !== trajectory.version ||
-        cycle.trajectoryStepId !== step.stepId ||
-        cycle.cycleTypeId !== cycleTypeId
-      ) {
+      if (!isTrajectoryBoundCycle(cycle)) {
         throw new StartPreparedCycleAtomicFailure(
           "CYCLE_BINDING_MISMATCH",
-          "cycle_trajectory_binding_mismatch",
+          "cycle_not_trajectory_bound",
         );
       }
-      if (!cycle.ckcResolutionRef?.trim()) {
+      if (cycle.status !== "proposed" && cycle.status !== "acknowledged") {
         throw new StartPreparedCycleAtomicFailure(
-          "CKC_RESOLUTION_REF_MISSING",
-          "prepared_cycle_missing_ckc_ref",
-        );
-      }
-
-      const sealedOnCycle = parseExplicitQualificationSignals(
-        cycle.qualificationSignals,
-      );
-      if (!sealedOnCycle) {
-        throw new StartPreparedCycleAtomicFailure(
-          "PROFILE_SIGNALS_MISSING",
-          "cycle_qualification_signals_incomplete",
-        );
-      }
-
-      const correlationId = mintPrepareCycleCorrelationId({
-        projectId,
-        trajectoryId: trajectory.trajectoryId,
-        trajectoryVersion: trajectory.version,
-        stepId: step.stepId,
-      });
-      const requalified = await oa.ckcQualification.qualifyCycleWithCkc.execute({
-        cycleTypeId,
-        catalogVersion: CYCLE_TYPE_CATALOG_VERSION,
-        catalogHash: CYCLE_TYPE_CATALOG_FINGERPRINT,
-        correlationId,
-        signals: sealedOnCycle,
-        objective: lps.livingProjectState.objective,
-      });
-      if (requalified.state !== "success") {
-        throw new StartPreparedCycleAtomicFailure(
-          requalified.code,
-          "requalify_failed",
-        );
-      }
-      if (requalified.recommendedProfile !== cycle.profile) {
-        throw new StartPreparedCycleAtomicFailure(
-          "PROFILE_MISMATCH",
-          "requalified_profile_differs",
-        );
-      }
-      const expectedRef = projectCkcResolutionRef(requalified.proof);
-      if (expectedRef !== cycle.ckcResolutionRef) {
-        throw new StartPreparedCycleAtomicFailure(
-          "CKC_RESOLUTION_REF_MISMATCH",
-          "ckc_ref_does_not_match_requalify",
+          "PREPARED_CYCLE_MISSING",
+          `cycle_status_${cycle.status}`,
         );
       }
 
@@ -314,8 +189,14 @@ export async function startPreparedTrajectoryCycle(input: {
         correlationId: `cor:gf-start-${cycle.cycleInstanceId.slice(-12)}`,
       });
       if (!started.ok) {
+        // Surface strong-guard codes (internalCauseRef) when detail is closed enum.
+        const code =
+          started.error.detailCode === "CYCLE_START_NOT_READY" &&
+          started.error.internalCauseRef
+            ? started.error.internalCauseRef
+            : started.error.detailCode;
         throw new StartPreparedCycleAtomicFailure(
-          started.error.detailCode,
+          code,
           started.error.internalCauseRef ?? "start_failed",
         );
       }
@@ -324,9 +205,9 @@ export async function startPreparedTrajectoryCycle(input: {
       return {
         ok: true as const,
         cycle: structuredClone(started.cycle),
-        trajectoryId: trajectory.trajectoryId,
-        trajectoryVersion: trajectory.version,
-        stepId: step.stepId,
+        trajectoryId: cycle.trajectoryId!,
+        trajectoryVersion: cycle.trajectoryVersion!,
+        stepId: cycle.trajectoryStepId!,
         catalogLabel: entry?.label ?? null,
         lpsVersionAfter: started.livingProjectStateVersion,
         activeCycleInstanceId: started.cycle.cycleInstanceId,

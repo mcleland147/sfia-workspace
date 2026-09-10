@@ -21,6 +21,7 @@ import {
   type LifecycleEpistemicReader,
   type PilotLifecycleAuthorityPort,
 } from "../../application/pilotLifecycleTransitions";
+import type { QualifyCycleWithCkcPort } from "../../application/lifecycleRecommendation/assertTrajectoryBoundCycleStartReady";
 import type { FinalizationApplicabilityRules } from "../../domain/types";
 import { MemoryCkcResolver } from "../memoryCkcResolver";
 import type { CycleAuditPort } from "../../ports/cycleAudit";
@@ -47,6 +48,11 @@ export type CreateSqliteCycleServicesOptions = {
   execution?: LifecycleExecutionSnapshotReader;
   epistemic?: LifecycleEpistemicReader;
   authority?: PilotLifecycleAuthorityPort;
+  /**
+   * CR-START-01 — inject QualifyCycleWithCkc so trajectory-bound START cannot
+   * bypass CKC revalidation (single adjacent wiring point).
+   */
+  qualifyCycleWithCkc?: QualifyCycleWithCkcPort;
   applicabilityRules?: FinalizationApplicabilityRules;
 };
 
@@ -153,6 +159,7 @@ export function createSqliteCycleServices(
         listByProject: (projectId) => epistemic.listByProject(projectId),
       },
       authority: options.authority,
+      qualifyCycleWithCkc: options.qualifyCycleWithCkc,
       applicabilityRules: options.applicabilityRules,
     }),
   };

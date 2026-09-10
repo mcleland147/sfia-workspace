@@ -10,6 +10,7 @@ import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   buildSingleRecommendedCycleStep,
+  computeCandidateContentDigest,
   computeCandidateTrajectoryPresentationDigest,
   buildCandidateTrajectoryPresentationMaterial,
   materializeLifecycleRecommendationFromStructuredOutput,
@@ -25,6 +26,10 @@ import {
   startPreparedTrajectoryCycle,
   validateLifecycleRecommendation,
 } from "@/lib/oa/cycle";
+import {
+  LOCAL_PILOTE_ACTOR,
+  registerLocalPiloteAuthority,
+} from "@/lib/oa/decision";
 import {
   approveCandidateTrajectory,
   buildPreCycleCandidateApprovalPresentation,
@@ -365,6 +370,80 @@ async function seedPrepared(
   return { ...seeded, prep };
 }
 
+/** Re-seal HD candidateContentDigest after intentional step mutations in tests. */
+async function resealHdCandidateContentDigest(input: {
+  oa: Awaited<ReturnType<typeof bootFreshProject>>["runtime"]["oa"];
+  decisionId: string;
+  trajectory: {
+    trajectoryId: string;
+    version: number;
+    steps: readonly {
+      stepId: string;
+      order: number;
+      label: string;
+      state: string;
+      cycleTypeId?: string;
+      dependencies?: string[];
+      gate?: string;
+      exitCriteria?: string[];
+      risks?: string[];
+      reservations?: string[];
+    }[];
+  };
+}) {
+  const oa = input.oa!;
+  const hd = await oa.decisionServices.getHumanDecision.execute({
+    decisionId: input.decisionId,
+  });
+  if (!hd.ok) throw new Error("hd missing for reseal");
+  const digest = computeCandidateContentDigest({
+    trajectoryId: input.trajectory.trajectoryId,
+    version: input.trajectory.version,
+    status: "candidate",
+    steps: input.trajectory.steps as never,
+  });
+  const next = structuredClone(hd.decision);
+  next.decisionBasis!.candidateTrajectoryContext!.candidateContentDigest =
+    digest;
+  await oa.decisionServices.decisions.save(next);
+}
+
+/** Durable epistemic overwrite — epistemic.save is intentionally a no-op. */
+async function persistEpistemicItem(
+  oa: NonNullable<Awaited<ReturnType<typeof bootFreshProject>>["runtime"]["oa"]>,
+  projectId: string,
+  item: {
+    epistemicItemId: string;
+    type: string;
+    statement: string;
+    status?: string;
+    source?: string;
+    relatedObjects?: string[];
+    blocking?: boolean;
+    lifecycleRecommendation?: unknown;
+  },
+) {
+  const updated = await oa.cycleServices.updateEpistemicState.execute({
+    projectId,
+    items: [
+      {
+        epistemicItemId: item.epistemicItemId,
+        type: item.type as "Recommendation",
+        statement: item.statement,
+        status: (item.status as "active") ?? "active",
+        source: item.source,
+        relatedObjects: item.relatedObjects,
+        blocking: item.blocking,
+        lifecycleRecommendation: item.lifecycleRecommendation as never,
+      },
+    ],
+    createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
+  });
+  if (!updated.ok) {
+    throw new Error(`persist epistemic failed: ${updated.error.detailCode}`);
+  }
+}
+
 describe("GREENFIELD VALIDATED → PREPARE → START — BAR-START", () => {
   it("BAR-START-01/02 — step.cycleTypeId written; no label reverse-map", async () => {
     // BAR-START-01
@@ -383,26 +462,34 @@ describe("GREENFIELD VALIDATED → PREPARE → START — BAR-START", () => {
       );
     expect(traj?.steps[0]?.cycleTypeId).toBe("cyc:framing");
 
-    // BAR-START-02 — corrupt label OK while cycleTypeId valid
+    // BAR-START-02 — label change is material (CR-START-03 digest); not a cycleType reverse-map
     const corrupted = structuredClone(traj!);
     corrupted.steps = corrupted.steps.map((s) => ({
       ...s,
       label: "NOT-A-CATALOG-LABEL-XYZ",
     }));
     await seeded.oa.cycleServices.trajectories.save(corrupted);
-    const prepOk = await prepareCycleFromValidatedTrajectory({
+    const prepLabelDrift = await prepareCycleFromValidatedTrajectory({
       oa: seeded.oa,
       projectId: seeded.projectId,
     });
-    expect(prepOk.ok).toBe(true);
+    expect(prepLabelDrift.ok).toBe(false);
+    if (!prepLabelDrift.ok) {
+      expect(prepLabelDrift.code).toBe("DECISION_SEALED_TRAJECTORY_DRIFT");
+    }
 
-    // Remove cycleTypeId while label looks like Cadrage → fail
+    // Remove cycleTypeId while label looks like Cadrage → fail (no reverse-map)
     const stripped = structuredClone(corrupted);
     stripped.steps = stripped.steps.map((s) => {
       const { cycleTypeId: _drop, ...rest } = s;
       return { ...rest, label: "Cadrage" };
     });
     await seeded.oa.cycleServices.trajectories.save(stripped);
+    await resealHdCandidateContentDigest({
+      oa: seeded.oa,
+      decisionId: seeded.approved.decisionId,
+      trajectory: stripped,
+    });
     const prepFail = await prepareCycleFromValidatedTrajectory({
       oa: seeded.oa,
       projectId: seeded.projectId,
@@ -1446,6 +1533,11 @@ describe("GREENFIELD VALIDATED → PREPARE → START — BAR-START", () => {
       },
     ];
     await seeded.oa.cycleServices.trajectories.save(dual);
+    await resealHdCandidateContentDigest({
+      oa: seeded.oa,
+      decisionId: seeded.approved.decisionId,
+      trajectory: dual,
+    });
     const ambPrep = await prepareCycleFromValidatedTrajectory({
       oa: seeded.oa,
       projectId: seeded.projectId,
@@ -1468,6 +1560,11 @@ describe("GREENFIELD VALIDATED → PREPARE → START — BAR-START", () => {
       return rest;
     });
     await seeded55.oa.cycleServices.trajectories.save(legacy);
+    await resealHdCandidateContentDigest({
+      oa: seeded55.oa,
+      decisionId: seeded55.approved.decisionId,
+      trajectory: legacy,
+    });
     const still =
       await seeded55.oa.cycleServices.trajectories.findCurrentByProjectId(
         seeded55.projectId,
@@ -1482,5 +1579,399 @@ describe("GREENFIELD VALIDATED → PREPARE → START — BAR-START", () => {
     if (!fail55.ok) {
       expect(fail55.code).toBe("TRAJECTORY_STEP_SELECTION_REQUIRED");
     }
+  });
+
+  it("BAR-START-CORR-01…15 — CR-START fail-closed + reuse + legacy smoke", async () => {
+    // CORR-01 — historical pilotLifecycle.start cannot bypass strong guard
+    const seeded01 = await seedPrepared("corr01");
+    const hd01 = await seeded01.oa.decisionServices.getHumanDecision.execute({
+      decisionId: seeded01.approved.decisionId,
+    });
+    expect(hd01.ok).toBe(true);
+    if (!hd01.ok) return;
+    const epi01 = await seeded01.oa.cycleServices.epistemic.listByProject(
+      seeded01.projectId,
+    );
+    const lr01 = epi01.find(
+      (e) => e.epistemicItemId === hd01.decision.decisionBasis!
+        .candidateTrajectoryContext!.recommendationId,
+    );
+    expect(lr01?.lifecycleRecommendation).toBeTruthy();
+    if (lr01?.lifecycleRecommendation) {
+      const lrBody = lr01.lifecycleRecommendation;
+      await persistEpistemicItem(seeded01.oa, seeded01.projectId, {
+        epistemicItemId: lr01.epistemicItemId,
+        type: lr01.type,
+        statement: lr01.statement,
+        status: lr01.status,
+        source: lr01.source,
+        relatedObjects: lr01.relatedObjects,
+        lifecycleRecommendation: {
+          intent: lrBody.intent,
+          basisFingerprint: lrBody.basisFingerprint,
+          basisRefs: lrBody.basisRefs,
+          semanticKey: lrBody.semanticKey,
+          subjectCycleInstanceId: lrBody.subjectCycleInstanceId,
+          targetCycleInstanceId: lrBody.targetCycleInstanceId,
+          targetCycleTypeId: lrBody.targetCycleTypeId,
+          authority: "none",
+          // omit qualificationSignals — missing LR must fail closed
+        },
+      });
+    }
+    const auth01 = registerLocalPiloteAuthority({
+      authorityResolver: seeded01.oa.authorityResolver,
+      scope: `pilot-lifecycle:${seeded01.prep.cycle.cycleInstanceId}`,
+      issuedAt: "2026-09-10T08:00:00.000Z",
+      forceEnable: true,
+    });
+    expect(auth01.ok).toBe(true);
+    if (!auth01.ok) return;
+    const lps01 =
+      await seeded01.oa.projectServices.getCurrentLivingProjectState.execute({
+        projectId: seeded01.projectId,
+      });
+    expect(lps01.ok).toBe(true);
+    if (!lps01.ok) return;
+    const epiAfter = await seeded01.oa.cycleServices.epistemic.listByProject(
+      seeded01.projectId,
+    );
+    const lrAfter = epiAfter.find(
+      (e) =>
+        e.epistemicItemId ===
+        hd01.decision.decisionBasis!.candidateTrajectoryContext!.recommendationId,
+    );
+    expect(
+      lrAfter?.lifecycleRecommendation?.qualificationSignals,
+    ).toBeUndefined();
+    expect(seeded01.prep.cycle.trajectoryId).toBeTruthy();
+    expect(typeof seeded01.prep.cycle.trajectoryVersion).toBe("number");
+    const bypass = await seeded01.oa.cycleServices.pilotLifecycle.start({
+      cycleInstanceId: seeded01.prep.cycle.cycleInstanceId,
+      projectId: seeded01.projectId,
+      createdBy: {
+        actorId: LOCAL_PILOTE_ACTOR.actorId,
+        role: LOCAL_PILOTE_ACTOR.role,
+        displayName: LOCAL_PILOTE_ACTOR.displayName,
+        authorityLevel: LOCAL_PILOTE_ACTOR.authorityLevel,
+      },
+      authorityEvidenceId: auth01.evidenceId,
+      expectedLpsVersion: lps01.livingProjectState.version,
+    });
+    expect(bypass.ok).toBe(false);
+    if (!bypass.ok) {
+      expect(bypass.error.detailCode).toBe("CYCLE_START_NOT_READY");
+      expect(bypass.error.internalCauseRef).toBe("PROFILE_SIGNALS_MISSING");
+    }
+    const cyc01 = await seeded01.oa.cycleServices.cycles.findById(
+      seeded01.prep.cycle.cycleInstanceId,
+    );
+    expect(cyc01?.status).not.toBe("active");
+    const lps01b =
+      await seeded01.oa.projectServices.getCurrentLivingProjectState.execute({
+        projectId: seeded01.projectId,
+      });
+    expect(lps01b.ok).toBe(true);
+    if (lps01b.ok) {
+      expect(lps01b.livingProjectState.activeCycleInstanceId ?? null).toBeNull();
+    }
+
+    // CORR-02 — missing LR signals → PREPARE fail
+    const seeded02 = await seedValidated("corr02");
+    const hd02 = await seeded02.oa.decisionServices.getHumanDecision.execute({
+      decisionId: seeded02.approved.decisionId,
+    });
+    expect(hd02.ok).toBe(true);
+    if (!hd02.ok) return;
+    const epi02 = await seeded02.oa.cycleServices.epistemic.listByProject(
+      seeded02.projectId,
+    );
+    const lr02 = epi02.find(
+      (e) =>
+        e.epistemicItemId ===
+        hd02.decision.decisionBasis!.candidateTrajectoryContext!.recommendationId,
+    );
+    if (lr02?.lifecycleRecommendation) {
+      const lrBody = lr02.lifecycleRecommendation;
+      await persistEpistemicItem(seeded02.oa, seeded02.projectId, {
+        epistemicItemId: lr02.epistemicItemId,
+        type: lr02.type,
+        statement: lr02.statement,
+        status: lr02.status,
+        source: lr02.source,
+        relatedObjects: lr02.relatedObjects,
+        lifecycleRecommendation: {
+          intent: lrBody.intent,
+          basisFingerprint: lrBody.basisFingerprint,
+          basisRefs: lrBody.basisRefs,
+          semanticKey: lrBody.semanticKey,
+          subjectCycleInstanceId: lrBody.subjectCycleInstanceId,
+          targetCycleInstanceId: lrBody.targetCycleInstanceId,
+          targetCycleTypeId: lrBody.targetCycleTypeId,
+          authority: "none",
+        },
+      });
+    }
+    const prep02 = await prepareCycleFromValidatedTrajectory({
+      oa: seeded02.oa,
+      projectId: seeded02.projectId,
+    });
+    expect(prep02.ok).toBe(false);
+    if (!prep02.ok) expect(prep02.code).toBe("PROFILE_SIGNALS_MISSING");
+
+    // CORR-03 — LR≠HD → PREPARE fail
+    const seeded03 = await seedValidated("corr03");
+    const hd03 = await seeded03.oa.decisionServices.getHumanDecision.execute({
+      decisionId: seeded03.approved.decisionId,
+    });
+    expect(hd03.ok).toBe(true);
+    if (!hd03.ok) return;
+    const epi03 = await seeded03.oa.cycleServices.epistemic.listByProject(
+      seeded03.projectId,
+    );
+    const lr03 = epi03.find(
+      (e) =>
+        e.epistemicItemId ===
+        hd03.decision.decisionBasis!.candidateTrajectoryContext!.recommendationId,
+    );
+    if (lr03?.lifecycleRecommendation) {
+      const lrBody = lr03.lifecycleRecommendation;
+      await persistEpistemicItem(seeded03.oa, seeded03.projectId, {
+        epistemicItemId: lr03.epistemicItemId,
+        type: lr03.type,
+        statement: lr03.statement,
+        status: lr03.status,
+        source: lr03.source,
+        relatedObjects: lr03.relatedObjects,
+        lifecycleRecommendation: {
+          ...lrBody,
+          qualificationSignals: { ...SIGNALS_CRITICAL },
+        },
+      });
+    }
+    const prep03 = await prepareCycleFromValidatedTrajectory({
+      oa: seeded03.oa,
+      projectId: seeded03.projectId,
+    });
+    expect(prep03.ok).toBe(false);
+    if (!prep03.ok) expect(prep03.code).toBe("PROVENANCE_SIGNAL_MISMATCH");
+
+    // CORR-04 — Cycle≠HD signals after PREPARE → START fail
+    const seeded04 = await seedPrepared("corr04");
+    const cyc04 = structuredClone(seeded04.prep.cycle);
+    cyc04.qualificationSignals = { ...SIGNALS_CRITICAL };
+    await seeded04.oa.cycleServices.cycles.save(cyc04);
+    const start04 = await startPreparedTrajectoryCycle({
+      oa: seeded04.oa,
+      projectId: seeded04.projectId,
+      forceLocalAuthority: true,
+    });
+    expect(start04.ok).toBe(false);
+    if (!start04.ok) expect(start04.code).toBe("PROVENANCE_SIGNAL_MISMATCH");
+
+    // CORR-05 — LR drift after PREPARE → START fail
+    const seeded05 = await seedPrepared("corr05");
+    const hd05 = await seeded05.oa.decisionServices.getHumanDecision.execute({
+      decisionId: seeded05.approved.decisionId,
+    });
+    expect(hd05.ok).toBe(true);
+    if (!hd05.ok) return;
+    const epi05 = await seeded05.oa.cycleServices.epistemic.listByProject(
+      seeded05.projectId,
+    );
+    const lr05 = epi05.find(
+      (e) =>
+        e.epistemicItemId ===
+        hd05.decision.decisionBasis!.candidateTrajectoryContext!.recommendationId,
+    );
+    if (lr05?.lifecycleRecommendation) {
+      const lrBody = lr05.lifecycleRecommendation;
+      await persistEpistemicItem(seeded05.oa, seeded05.projectId, {
+        epistemicItemId: lr05.epistemicItemId,
+        type: lr05.type,
+        statement: lr05.statement,
+        status: lr05.status,
+        source: lr05.source,
+        relatedObjects: lr05.relatedObjects,
+        lifecycleRecommendation: {
+          ...lrBody,
+          qualificationSignals: { ...SIGNALS_CRITICAL },
+        },
+      });
+    }
+    const start05 = await startPreparedTrajectoryCycle({
+      oa: seeded05.oa,
+      projectId: seeded05.projectId,
+      forceLocalAuthority: true,
+    });
+    expect(start05.ok).toBe(false);
+    if (!start05.ok) expect(start05.code).toBe("PROVENANCE_SIGNAL_MISMATCH");
+
+    // CORR-06 — material step drift after HD → PREPARE fail
+    const seeded06 = await seedValidated("corr06");
+    const traj06 =
+      await seeded06.oa.cycleServices.trajectories.findCurrentByProjectId(
+        seeded06.projectId,
+      );
+    const drifted06 = structuredClone(traj06!);
+    drifted06.steps = drifted06.steps.map((s, i) =>
+      i === 0 ? { ...s, label: `${s.label} TAMPERED` } : s,
+    );
+    await seeded06.oa.cycleServices.trajectories.save(drifted06);
+    const prep06 = await prepareCycleFromValidatedTrajectory({
+      oa: seeded06.oa,
+      projectId: seeded06.projectId,
+    });
+    expect(prep06.ok).toBe(false);
+    if (!prep06.ok) expect(prep06.code).toBe("DECISION_SEALED_TRAJECTORY_DRIFT");
+
+    // CORR-07 — material step drift after PREPARE → START fail
+    const seeded07 = await seedPrepared("corr07");
+    const traj07 =
+      await seeded07.oa.cycleServices.trajectories.findCurrentByProjectId(
+        seeded07.projectId,
+      );
+    const drifted07 = structuredClone(traj07!);
+    drifted07.steps = drifted07.steps.map((s, i) =>
+      i === 0 ? { ...s, label: `${s.label} POST-PREP` } : s,
+    );
+    await seeded07.oa.cycleServices.trajectories.save(drifted07);
+    const start07 = await startPreparedTrajectoryCycle({
+      oa: seeded07.oa,
+      projectId: seeded07.projectId,
+      forceLocalAuthority: true,
+    });
+    expect(start07.ok).toBe(false);
+    if (!start07.ok) expect(start07.code).toBe("DECISION_SEALED_TRAJECTORY_DRIFT");
+
+    // CORR-08 — candidate→validated only (lifecycle status) → PREPARE OK
+    const seeded08 = await seedValidated("corr08");
+    const traj08 =
+      await seeded08.oa.cycleServices.trajectories.findCurrentByProjectId(
+        seeded08.projectId,
+      );
+    expect(traj08?.status).toBe("validated");
+    const prep08 = await prepareCycleFromValidatedTrajectory({
+      oa: seeded08.oa,
+      projectId: seeded08.projectId,
+    });
+    expect(prep08.ok).toBe(true);
+
+    // CORR-09 — reuse requires exact signals
+    const seeded09 = await seedPrepared("corr09");
+    const cyc09 = structuredClone(seeded09.prep.cycle);
+    cyc09.qualificationSignals = { ...SIGNALS_STANDARD };
+    await seeded09.oa.cycleServices.cycles.save(cyc09);
+    const reuse09 = await prepareCycleFromValidatedTrajectory({
+      oa: seeded09.oa,
+      projectId: seeded09.projectId,
+    });
+    expect(reuse09.ok).toBe(false);
+    if (!reuse09.ok) expect(reuse09.code).toBe("PREPARE_REUSE_CONTRACT_MISMATCH");
+
+    // CORR-10 — reuse requires exact profile
+    const seeded10 = await seedPrepared("corr10");
+    const cyc10 = structuredClone(seeded10.prep.cycle);
+    cyc10.profile = cyc10.profile === "Light" ? "Standard" : "Light";
+    await seeded10.oa.cycleServices.cycles.save(cyc10);
+    const reuse10 = await prepareCycleFromValidatedTrajectory({
+      oa: seeded10.oa,
+      projectId: seeded10.projectId,
+    });
+    expect(reuse10.ok).toBe(false);
+    if (!reuse10.ok) expect(reuse10.code).toBe("PREPARE_REUSE_CONTRACT_MISMATCH");
+
+    // CORR-11 — reuse requires exact CKC
+    const seeded11 = await seedPrepared("corr11");
+    const cyc11 = structuredClone(seeded11.prep.cycle);
+    cyc11.ckcResolutionRef = "ckc:m2-tampered-reuse";
+    await seeded11.oa.cycleServices.cycles.save(cyc11);
+    const reuse11 = await prepareCycleFromValidatedTrajectory({
+      oa: seeded11.oa,
+      projectId: seeded11.projectId,
+    });
+    expect(reuse11.ok).toBe(false);
+    if (!reuse11.ok) expect(reuse11.code).toBe("PREPARE_REUSE_CONTRACT_MISMATCH");
+
+    // CORR-12 — active/terminal cannot reused success
+    const seeded12a = await seedPrepared("corr12a");
+    const active = structuredClone(seeded12a.prep.cycle);
+    active.status = "active";
+    await seeded12a.oa.cycleServices.cycles.save(active);
+    const reuseActive = await prepareCycleFromValidatedTrajectory({
+      oa: seeded12a.oa,
+      projectId: seeded12a.projectId,
+    });
+    expect(reuseActive.ok).toBe(false);
+    if (!reuseActive.ok) expect(reuseActive.code).toBe("PREPARE_REUSE_ACTIVE");
+
+    const seeded12t = await seedPrepared("corr12t");
+    const terminal = structuredClone(seeded12t.prep.cycle);
+    terminal.status = "completed";
+    await seeded12t.oa.cycleServices.cycles.save(terminal);
+    const reuseTerm = await prepareCycleFromValidatedTrajectory({
+      oa: seeded12t.oa,
+      projectId: seeded12t.projectId,
+    });
+    expect(reuseTerm.ok).toBe(false);
+    if (!reuseTerm.ok) expect(reuseTerm.code).toBe("PREPARE_REUSE_TERMINAL");
+
+    // CORR-13 concurrent PREPARE ≤1 — covered by BAR-START-19
+    // CORR-14 atomicity — covered by BAR-START-36/37/38
+
+    // CORR-15 — legacy unbound START still works
+    const { runtime: rt15, projectId: pid15 } = await bootFreshProject("corr15");
+    const oa15 = rt15.oa!;
+    const lps15 = await oa15.projectServices.getCurrentLivingProjectState.execute({
+      projectId: pid15,
+    });
+    expect(lps15.ok).toBe(true);
+    if (!lps15.ok) return;
+    const traj15 = await oa15.cycleServices.createInitialTrajectory.execute({
+      trajectoryId: `trj:corr15-${pid15}`,
+      projectId: pid15,
+      steps: [
+        { stepId: "stp:corr15-a", order: 1, label: "Clarify", state: "pending" },
+        { stepId: "stp:corr15-b", order: 2, label: "Decide", state: "pending" },
+      ],
+      status: "active",
+      expectedLpsVersion: lps15.livingProjectState.version,
+      createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
+    });
+    expect(traj15.ok).toBe(true);
+    const unboundId = "cyc:corr15-unbound";
+    const created15 = await oa15.cycleServices.createCycle.execute({
+      cycleInstanceId: unboundId,
+      cycleTypeId: "cyc:delivery",
+      projectId: pid15,
+      signals: { lowRiskBounded: true },
+      createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
+      linkAsActiveCycle: false,
+    });
+    expect(created15.ok).toBe(true);
+    if (!created15.ok) return;
+    expect(created15.cycle.trajectoryId).toBeUndefined();
+    expect(created15.cycle.trajectoryStepId).toBeUndefined();
+    const auth15 = registerLocalPiloteAuthority({
+      authorityResolver: oa15.authorityResolver,
+      scope: `pilot-lifecycle:${unboundId}`,
+      issuedAt: "2026-09-10T08:00:00.000Z",
+      forceEnable: true,
+    });
+    expect(auth15.ok).toBe(true);
+    if (!auth15.ok) return;
+    const start15 = await oa15.cycleServices.pilotLifecycle.start({
+      cycleInstanceId: unboundId,
+      projectId: pid15,
+      createdBy: {
+        actorId: LOCAL_PILOTE_ACTOR.actorId,
+        role: LOCAL_PILOTE_ACTOR.role,
+        displayName: LOCAL_PILOTE_ACTOR.displayName,
+        authorityLevel: LOCAL_PILOTE_ACTOR.authorityLevel,
+      },
+      authorityEvidenceId: auth15.evidenceId,
+    });
+    expect(start15.ok).toBe(true);
+    if (start15.ok) expect(start15.cycle.status).toBe("active");
   });
 });

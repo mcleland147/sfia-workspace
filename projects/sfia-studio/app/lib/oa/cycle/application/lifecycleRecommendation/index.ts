@@ -15,5 +15,6 @@ export * from "./candidateTrajectoryDecisionBasis";
 export * from "./qualificationSignals";
 export * from "./ckcResolutionRef";
 export * from "./prepareCycleFromValidatedTrajectory";
+export * from "./assertTrajectoryBoundCycleStartReady";
 export * from "./readPreparedTrajectoryCycle";
 export * from "./startPreparedTrajectoryCycle";

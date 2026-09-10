@@ -3,6 +3,8 @@
  *
  * CreateCycle linkAsActiveCycle=false; no LPS mutation; no step state change; no START.
  * Profile from sealed HD/LR qualificationSignals — never invented defaults.
+ *
+ * CR-START-02/03/04 — fail-closed LR signals, sealed digest, delayed reuse.
  */
 
 import { createHash } from "node:crypto";
@@ -15,10 +17,15 @@ import {
 import { CYCLE_TYPE_CATALOG_VERSION, getCycleTypeById } from "../../domain/cycleTypeCatalog";
 import type {
   CycleInstance,
+  CycleProfile,
   ExplicitCycleQualificationSignals,
   ProjectTrajectory,
   TrajectoryStep,
 } from "../../domain/types";
+import {
+  assertDecisionSealedTrajectoryBasis,
+  assertGreenfieldSignalParity,
+} from "./assertTrajectoryBoundCycleStartReady";
 import {
   isTargetCycleCurrentlySelectable,
   resolveCandidateTrajectoryProvenance,
@@ -158,6 +165,84 @@ function cycleBindingCompatible(
   );
 }
 
+function isReusablePreparedStatus(status: CycleInstance["status"]): boolean {
+  return status === "proposed" || status === "acknowledged";
+}
+
+function isTerminalCycleStatus(status: CycleInstance["status"]): boolean {
+  return (
+    status === "completed" ||
+    status === "cancelled" ||
+    status === "superseded"
+  );
+}
+
+function assertReusablePreparedCycle(input: {
+  existing: CycleInstance;
+  expectedBinding: {
+    projectId: string;
+    trajectoryId: string;
+    trajectoryVersion: number;
+    trajectoryStepId: string;
+    cycleTypeId: string;
+  };
+  qualificationSignals: ExplicitCycleQualificationSignals;
+  recommendedProfile: CycleProfile;
+  ckcResolutionRef: string;
+}): void {
+  const { existing } = input;
+  if (
+    !cycleBindingCompatible(existing, input.expectedBinding)
+  ) {
+    throw new PrepareCycleAtomicFailure(
+      "CYCLE_BINDING_CONFLICT",
+      "existing_cycle_incompatible_binding",
+    );
+  }
+  if (existing.status === "active") {
+    throw new PrepareCycleAtomicFailure(
+      "PREPARE_REUSE_ACTIVE",
+      "active_cycle_cannot_be_reused",
+    );
+  }
+  if (isTerminalCycleStatus(existing.status)) {
+    throw new PrepareCycleAtomicFailure(
+      "PREPARE_REUSE_TERMINAL",
+      `terminal_cycle_${existing.status}`,
+    );
+  }
+  if (!isReusablePreparedStatus(existing.status)) {
+    throw new PrepareCycleAtomicFailure(
+      "PREPARE_REUSE_CONTRACT_MISMATCH",
+      `status_not_reusable_${existing.status}`,
+    );
+  }
+  const existingSignals = parseExplicitQualificationSignals(
+    existing.qualificationSignals,
+  );
+  if (
+    !existingSignals ||
+    !qualificationSignalsEqual(existingSignals, input.qualificationSignals)
+  ) {
+    throw new PrepareCycleAtomicFailure(
+      "PREPARE_REUSE_CONTRACT_MISMATCH",
+      "existing_signals_do_not_match",
+    );
+  }
+  if (existing.profile !== input.recommendedProfile) {
+    throw new PrepareCycleAtomicFailure(
+      "PREPARE_REUSE_CONTRACT_MISMATCH",
+      "existing_profile_does_not_match",
+    );
+  }
+  if (existing.ckcResolutionRef !== input.ckcResolutionRef) {
+    throw new PrepareCycleAtomicFailure(
+      "PREPARE_REUSE_CONTRACT_MISMATCH",
+      "existing_ckc_ref_does_not_match",
+    );
+  }
+}
+
 function extractSealedSignalsFromDecision(
   decision: HumanDecision,
 ): ExplicitCycleQualificationSignals | null {
@@ -287,12 +372,24 @@ export async function prepareCycleFromValidatedTrajectory(input: {
         );
       }
 
-      // D-GF-START-01 — HD must seal signals; legacy HD without signals cannot prepare.
+      // CR-START-02 — HD signals required; LR signals required and must equal HD.
       const qualificationSignals = extractSealedSignalsFromDecision(decision);
       if (!qualificationSignals) {
         throw new PrepareCycleAtomicFailure(
           "PROFILE_SIGNALS_MISSING",
           "complete_qualification_signals_required",
+        );
+      }
+
+      // CR-START-03 — sealed material content must still match HD digest.
+      const sealedBasis = assertDecisionSealedTrajectoryBasis({
+        trajectory,
+        sealedCandidateContentDigest: ctx.candidateContentDigest,
+      });
+      if (!sealedBasis.ok) {
+        throw new PrepareCycleAtomicFailure(
+          sealedBasis.code,
+          sealedBasis.reason,
         );
       }
 
@@ -303,15 +400,17 @@ export async function prepareCycleFromValidatedTrajectory(input: {
       const lrSignals = parseExplicitQualificationSignals(
         sourceLr?.lifecycleRecommendation?.qualificationSignals,
       );
-      if (
-        lrSignals &&
-        !qualificationSignalsEqual(qualificationSignals, lrSignals)
-      ) {
+      const signalParity = assertGreenfieldSignalParity({
+        lrSignals,
+        hdSignals: qualificationSignals,
+      });
+      if (!signalParity.ok) {
         throw new PrepareCycleAtomicFailure(
-          "PROVENANCE_SIGNAL_MISMATCH",
-          "hd_signals_do_not_match_source_lr",
+          signalParity.code,
+          signalParity.reason,
         );
       }
+
       const provenance = resolveCandidateTrajectoryProvenance({
         projectId,
         trajectoryId: trajectory.trajectoryId,
@@ -371,22 +470,40 @@ export async function prepareCycleFromValidatedTrajectory(input: {
         stepId: step.stepId,
       });
 
+      // CR-START-04 — qualify BEFORE reuse; never early-return on id/binding alone.
+      const qualified = await oa.ckcQualification.qualifyCycleWithCkc.execute({
+        cycleTypeId,
+        catalogVersion: CYCLE_TYPE_CATALOG_VERSION,
+        catalogHash: CYCLE_TYPE_CATALOG_FINGERPRINT,
+        correlationId,
+        signals: signalParity.signals,
+        objective: lps.livingProjectState.objective,
+      });
+      if (qualified.state !== "success") {
+        throw new PrepareCycleAtomicFailure(
+          qualified.code,
+          "qualify_cycle_with_ckc_failed",
+        );
+      }
+
+      const ckcResolutionRef = projectCkcResolutionRef(qualified.proof);
+      const expectedBinding = {
+        projectId,
+        trajectoryId: trajectory.trajectoryId,
+        trajectoryVersion: trajectory.version,
+        trajectoryStepId: step.stepId,
+        cycleTypeId,
+      };
+
       const existing = await oa.cycleServices.cycles.findById(cycleInstanceId);
       if (existing) {
-        if (
-          !cycleBindingCompatible(existing, {
-            projectId,
-            trajectoryId: trajectory.trajectoryId,
-            trajectoryVersion: trajectory.version,
-            trajectoryStepId: step.stepId,
-            cycleTypeId,
-          })
-        ) {
-          throw new PrepareCycleAtomicFailure(
-            "CYCLE_BINDING_CONFLICT",
-            "existing_cycle_incompatible_binding",
-          );
-        }
+        assertReusablePreparedCycle({
+          existing,
+          expectedBinding,
+          qualificationSignals: signalParity.signals,
+          recommendedProfile: qualified.recommendedProfile,
+          ckcResolutionRef,
+        });
         const entry = getCycleTypeById(existing.cycleTypeId);
         return {
           ok: true as const,
@@ -400,22 +517,18 @@ export async function prepareCycleFromValidatedTrajectory(input: {
         };
       }
 
-      // Also idempotent by exact binding scan (different mint / legacy id).
       const siblings = await oa.cycleServices.cycles.listByProject(projectId);
-      const byBinding = siblings.find(
-        (c) =>
-          cycleBindingCompatible(c, {
-            projectId,
-            trajectoryId: trajectory.trajectoryId,
-            trajectoryVersion: trajectory.version,
-            trajectoryStepId: step.stepId,
-            cycleTypeId,
-          }) &&
-          (c.status === "proposed" ||
-            c.status === "acknowledged" ||
-            c.status === "active"),
+      const byBinding = siblings.find((c) =>
+        cycleBindingCompatible(c, expectedBinding),
       );
       if (byBinding) {
+        assertReusablePreparedCycle({
+          existing: byBinding,
+          expectedBinding,
+          qualificationSignals: signalParity.signals,
+          recommendedProfile: qualified.recommendedProfile,
+          ckcResolutionRef,
+        });
         const entry = getCycleTypeById(byBinding.cycleTypeId);
         return {
           ok: true as const,
@@ -429,29 +542,13 @@ export async function prepareCycleFromValidatedTrajectory(input: {
         };
       }
 
-      const qualified = await oa.ckcQualification.qualifyCycleWithCkc.execute({
-        cycleTypeId,
-        catalogVersion: CYCLE_TYPE_CATALOG_VERSION,
-        catalogHash: CYCLE_TYPE_CATALOG_FINGERPRINT,
-        correlationId,
-        signals: qualificationSignals,
-        objective: lps.livingProjectState.objective,
-      });
-      if (qualified.state !== "success") {
-        throw new PrepareCycleAtomicFailure(
-          qualified.code,
-          "qualify_cycle_with_ckc_failed",
-        );
-      }
-
-      const ckcResolutionRef = projectCkcResolutionRef(qualified.proof);
       const created = await oa.cycleServices.createCycle.execute({
         cycleInstanceId,
         cycleTypeId,
         projectId,
-        signals: toCreateCycleSignals(qualificationSignals),
+        signals: toCreateCycleSignals(signalParity.signals),
         justification: buildCriticalProfileJustificationFromSignals(
-          qualificationSignals,
+          signalParity.signals,
         ),
         objective: lps.livingProjectState.objective,
         createdBy: SYSTEM_PREPARE_CYCLE_ACTOR,
