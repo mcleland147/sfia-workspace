@@ -1,969 +1,140 @@
 # ChatGPT Review Pack — FULL
 
 - Cycle ID: SFIA-STUDIO-GREENFIELD-GENERIC-ACTIVE-CYCLE-COGNITIVE-WORK-FOUNDATION-SAME-LOT-CORRECTIVE
-- Continuation: YES — same Cycle 8 / same ACW lot (NOT a micro-cycle; NOT CR-ACW-05)
-- Timestamp (UTC): 2026-09-10T16:59:33Z
+- Continuation: YES — same Cycle 8 / same ACW lot (NOT CR-ACW-05 / NOT a micro-cycle)
+- Timestamp (UTC): 2026-09-10T17:24:36Z
 - Milestone: Greenfield Product Proof — Active Cycle Cognitive Work Foundation
 - Cycle SFIA: 8 — Delivery / implémentation
 - Typologie: EVOL
 - Profile: CRITICAL
-- D-GF-ACW-01: ADOPTED BY MORRIS — UNCHANGED — DO NOT REOPEN
-- D-GF-ACW-02: ADOPTED BY MORRIS — OPTION A BOUNDED — PRESERVED (no new structural decision)
-- Morris authorization: continuation of SAME lot after ChatGPT Critical Review rejection of 16b03323396f0fb34c4246e83f4d192bbbea773e
-- Prior candidate: 16b03323396f0fb34c4246e83f4d192bbbea773e — self-verdict PASS was NOT accepted by ChatGPT Critical Review
-- Prior remote handoff rejected: bffcc8211982741043f507b180a46e1428a01585
-- Blocking finding consumed: CR-ACW-02 OPEN — silent response loss before logicalTurnId delivery minted a new ltu
-- This candidate HEAD: 0ac7b54b677cc7182fd36189fcc186202e8a2232
-- Parent: 16b03323396f0fb34c4246e83f4d192bbbea773e (= prior candidate)
+- D-GF-ACW-01: ADOPTED BY MORRIS — UNCHANGED
+- D-GF-ACW-02: ADOPTED BY MORRIS — OPTION A BOUNDED — PRESERVED (no Option C / no new aggregate)
+- Prior candidate rejected by ChatGPT Critical Review: 0ac7b54b677cc7182fd36189fcc186202e8a2232
+- Prior handoff: 175b02a8896c0e13aa3e2cb13edf7c24c396c815
+- Blocking findings consumed:
+  1. Retry envelope — history rebuilt from React state could diverge from first send
+  2. Cycle binding — K/ltu accepted under cycle A could be replayed under cycle B
+- This candidate HEAD: 624642fff960b41be27fe0476404cf570cfa8b22
+- Parent: 0ac7b54b677cc7182fd36189fcc186202e8a2232
 - Product Completion: CLOSED — not reopened
 - Runtime v3: NON ADOPTED
 - Model calls REAL: ZERO
 - Nora LIVE: ZERO
 
-## Critical Review consumption
-
-ChatGPT Critical Review of bffcc821 / 16b03323396f0fb34c4246e83f4d192bbbea773e:
-
-| Requirement | Review result |
-|---|---|
-| CR-ACW-01 | PASS / closure evidence acceptable |
-| CR-ACW-02 | OPEN / BLOCKING (silent response-loss gap) |
-| CR-ACW-03 | PASS / closure evidence acceptable |
-| CR-ACW-04 | PASS / closure evidence acceptable |
-
-Do NOT treat the PASS wording in bffcc821 as final ChatGPT acceptance.
-
 ## Local Git Truth
 
-### Before mutation (Phase 0)
+### Before
 - Worktree: /Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310
 - Branch: delivery/sfia-studio-product-proof-qual-to-governed-cycle
-- HEAD: 16b03323396f0fb34c4246e83f4d192bbbea773e — MATCH
-- Parent: 85d7a7982d08f5b0aa706c36cd9d1ca9a86c2456 — MATCH
+- HEAD: 0ac7b54b677cc7182fd36189fcc186202e8a2232 — MATCH
+- Parent: 16b03323396f0fb34c4246e83f4d192bbbea773e — MATCH
 - origin/main: a9f6c310a0826d0e5bd6f7264603382a86564db1 — MATCH a9f6c310…
-- origin/sfia/review-handoff: bffcc8211982741043f507b180a46e1428a01585 (expected bffcc821 at start)
+- origin/sfia/review-handoff: 175b02a8896c0e13aa3e2cb13edf7c24c396c815 — MATCH
 - Dirty: .tmp-sfia-review/** only
-- No reset / clean / stash / rebase / amend of 16b03323396f0fb34c4246e83f4d192bbbea773e
 
-### After Product commit
-- HEAD: 0ac7b54b677cc7182fd36189fcc186202e8a2232
-- Parent: 16b03323396f0fb34c4246e83f4d192bbbea773e
-- Branch: delivery/sfia-studio-product-proof-qual-to-governed-cycle
-- Product push / PR / merge: NOT PERFORMED / NOT AUTHORIZED
+### After
+- HEAD: 624642fff960b41be27fe0476404cf570cfa8b22
+- Parent: 0ac7b54b677cc7182fd36189fcc186202e8a2232
+- Product push / PR / merge: NOT PERFORMED
 
 ## Sources read
 - prompts/templates/sfia-cycle-execution-template.md (as applicable)
 - method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-- applicable Cycle 8 / Delivery / synthetic CKC map
-- method/.../pilots/04-qa-validation.md
-- projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
-- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-- projects/sfia-studio/product-completion/01-product-completion-cadrage.md
-- v3 framing 30/32/33/34/35/37 (v3 NON ADOPTED)
-- nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md
-- origin/sfia/review-handoff latest pack (bffcc821)
-- Product logical-turn / Session / useProductConversation paths from 16b03323396f0fb34c4246e83f4d192bbbea773e
+- method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md / rules-and-guardrails (as applicable)
+- method/.../02-fifteen-cycles-synthetic-map.md
+- convergence build doctrine + roadmap
+- product-completion cadrage (CLOSED)
+- v3 framing 30/32/33/35/37 (NON ADOPTED)
+- origin/sfia/review-handoff latest pack
+- Product files at 0ac7b54b677cc7182fd36189fcc186202e8a2232 for logical-turn / hook / Session
 
-## Convergence / trajectory
-- Capability: generic active-cycle cognitive work
-- Trajectory: Greenfield → ACW foundation → QA → D-GF-ACW-02 Option A → candidate 16b03323396f0fb34c4246e83f4d192bbbea773e → ChatGPT Critical Review finds silent-loss gap → THIS same-lot correction → deterministic Critical Review → distinct Morris REAL gate → resume campaign
-- R22: KEEP / ADAPT — no second cognitive engine
+## Correction exacte
 
-## Exact retry-correlation contract implemented
+### A — Stable retry envelope
+- `preparePendingTurnRetryEnvelope` + hook `pendingRetryEnvelopeRef` store `{ turnRetryKey, content, history }` BEFORE transport.
+- `retryLastUserMessage` reuses the sealed envelope explicitly — does NOT rebuild history from React `messages` after async `setMessages`.
+- Shared `normalizeProductTurnHistory` / `PRODUCT_TURN_MAX_HISTORY_MESSAGES=20` aligned with `orchestrateProjectAssistantTurn`.
 
-### Authority boundary
-- **Server alone** mints/owns `ltu:…` (logical Product turn identity).
-- Client `turnRetryKey` (`trk:…`) is **untrusted opaque transport correlation only**.
-- Client key MUST NOT become Product turn identity, Truth C, HD, or SFIA authorization.
-- Payload digest (`sha256` of `{content}`) is **conflict detection only** — NEVER turn identity.
-- `providerResponseId` remains irrelevant to Product turn identity.
-- Client-invented `ltu:` still → `LOGICAL_TURN_UNKNOWN`.
+### B — Canonical payload digest
+- Digest = sha256(JSON.stringify({ content, history })) after shared normalization.
+- Conflict detection ONLY — never Product identity.
+- Same K + different content OR history → `LOGICAL_TURN_RETRY_CONFLICT` before provider.
 
-### Flow
-1. Client allocates `turnRetryKey` **before** Server Action (`createTurnRetryKey` in `turnRetryKey.ts` — client-safe, no Session import).
-2. First submit: no binding for K → server mints `ltu:A`, durably binds `K → ltu:A` + payload digest in Session-adjacent `logical_product_turn_retry_bindings`.
-3. Silent response loss: client retains K (and may lack `logicalTurnId`).
-4. Retry sends K (optionally without `logicalTurnId`) → server recovers `ltu:A` → ACW correlation remains `ltu:A` → exactly-once materialization.
-5. New deliberate submit (even identical text) uses new K2 → new `ltu:B`.
-6. Same K + different content → `LOGICAL_TURN_RETRY_CONFLICT` (fail closed).
-
-### Schema / persistence delta
-Session-adjacent table (NOT Truth C):
-
-```
-logical_product_turn_retry_bindings (
-  project_id, session_key, retry_key,  -- PK
-  logical_turn_id, payload_digest, created_at
-)
-```
-
-Plus existing `logical_product_turns` / `session_items`.
-
-### Cognition honesty
-Silent-loss retry **re-invokes** FakeConversationProvider / model path (2 provider calls proven).
-**Product ACW materialization remains exactly-once** via logical-turn correlation + existing IDEM path.
-Do not claim model-call suppression that was not proven.
-
-### Realism gap (documented)
-Deterministic proof is below the Next.js Server Action transport boundary for the Product correlation contract.
-Client hook retains `pendingTurnRetryKeyRef` across structured `{ok:false}` and thrown Promise rejections.
-Full browser network-partition REALISM is not claimed (ZERO REAL).
+### C — Cycle binding
+- Accepted `cycleInstanceId` stored on `logical_product_turns` at mint.
+- Replay via presented `ltu` or retry key requires `(accepted ?? null) === (current ?? null)`.
+- A→B, null↔non-null → `LOGICAL_TURN_RETRY_CONFLICT` reason `retry_cycle_mismatch:…`.
+- LPS version bump in the same cycle does NOT conflict (ACW-CORR-02N).
 
 ## CR status
 
 | Req | Status |
 |---|---|
-| CR-ACW-01 | CLOSED — carried + regression proven |
-| CR-ACW-02 | CLOSED CANDIDATE — silent response-loss replay proven |
-| CR-ACW-03 | CLOSED — carried + regression proven |
-| CR-ACW-04 | CLOSED — carried + regression proven (catalog N=15 dynamic) |
+| CR-ACW-01 | CLOSED — regression proven |
+| CR-ACW-02 | CLOSED CANDIDATE — stable retry envelope + silent loss + cycle binding proven |
+| CR-ACW-03 | CLOSED — regression proven |
+| CR-ACW-04 | CLOSED — regression proven / catalog dynamic |
 
-## Exit proof matrix
+## Evidence 02K..02O
+- ACW-CORR-02K stable envelope / history parity / no user dup / same ltu / ACW once
+- ACW-CORR-02L history mismatch → CONFLICT before provider
+- ACW-CORR-02M cycle mismatch → CONFLICT; no ACW on B
+- ACW-CORR-02N LPS bump same-cycle retry OK
+- ACW-CORR-02O new K deliberate submit → new ltu
+- Prior 02A..02J retained (silent loss, restart, etc.)
 
-| # | Requirement | Result | Evidence |
-|---|---|---|---|
-| 1 | Retry key before transport | PASS | useProductConversation + createTurnRetryKey |
-| 2 | Server owns/mints ltu | PASS | mintLogicalProductTurn |
-| 3 | Durable K→ltu binding | PASS | logical_product_turn_retry_bindings |
-| 4 | Full response may be lost | PASS | ACW-CORR-02G (retry without logicalTurnId) |
-| 5 | Retry recovers ltu | PASS | ACW-CORR-02G |
-| 6 | No second ACW materialization | PASS | ACW-CORR-02G epi count=1 |
-| 7 | Process restart recovery | PASS | ACW-CORR-02H |
-| 8 | Identical text + K2 distinct | PASS | ACW-CORR-02I / 02D |
-| 9 | Token reuse conflict | PASS | ACW-CORR-02J LOGICAL_TURN_RETRY_CONFLICT |
-| 10 | Client cannot invent ltu | PASS | ACW-CORR-02F |
-| 11 | Provider independence | PASS | key = ltu / retry binding |
-| 12 | Session ≠ Truth C | PASS | allowlist tables; no oa_* |
-| 13 | CR-ACW-01 green | PASS | ACW-CORR-01A..H |
-| 14 | CR-ACW-03 green | PASS | ACW-CORR-03 |
-| 15 | CR-ACW-04 green dynamic | PASS | CR-ACW-04; N=15 observed |
-| 16 | Full suite / quality gates | PASS | see tests |
-| 17 | ZERO REAL | PASS | Fake only |
-
-## Tests executed (fresh post-correction)
+## Tests (fresh post-correction)
 
 ```
 npx vitest run __tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts
-→ 52 passed
-
-npx vitest run (focused Session/MW1 + ACW)
-→ 94 passed (earlier focused set)
+→ 57 passed
 
 npx vitest run
 → Test Files 327 passed | 17 skipped (344)
-→ Tests 3479 passed | 135 skipped (3614)
+→ Tests 3484 passed | 135 skipped (3619)
 
 npx tsc --noEmit → 0
 npm run lint → No ESLint warnings or errors
-npm run build → success (after client-safe turnRetryKey split)
+npm run build → BUILD:0
 git diff --check (Product) → clean
 ```
 
 ## Fake / Real
-- DETERMINISTIC PROVEN target only
-- ZERO REAL / ZERO Nora LIVE / ZERO paid provider
+- DETERMINISTIC PROVEN CANDIDATE
+- ZERO REAL
+- Realism gap: browser/network partition not injected (hook envelope + Server Action path proven deterministically; no E2E browser claim)
+- Morris REAL gate NOT consumed
 
 ## Claims allowed
-- DETERMINISTIC SAME-LOT COMPLETION **CANDIDATE**
-- CR-ACW-02 CLOSED CANDIDATE — silent response-loss replay proven
+- CR-ACW-02 CLOSED CANDIDATE with stable retry envelope + cycle binding
 - READY FOR CHATGPT CRITICAL REVIEW
 
 ## Claims prohibited
-- Final ACW governance closure until ChatGPT accepts this pack
-- LIVE / REAL BOUNDARY / E2E REAL / PRODUCT PROOF COMPLETE / COGNITIVE COMPLETION PROVEN / runtime v3 ADOPTED
-- Product push / PR / merge authorized
-- Morris REAL gate consumed
+- Final governance closure until ChatGPT accepts
+- LIVE / REAL / E2E REAL / PRODUCT PROOF COMPLETE / COGNITIVE COMPLETION / runtime v3 ADOPTED
+- Product push / PR / merge
 
-## Reservations
-- Cognition may re-run on retry; only Product ACW write is exactly-once proven.
-- Transport REALISM beyond Server Action / thrown Promise path not REAL-proven.
-- Publisher may still report false-negative remote verification (FETCH_HEAD vs origin/*); independent ls-remote required.
-
-## Next gate
-1. ChatGPT Critical Review of this FULL pack
-2. Only if accepted → Morris distinct REAL gate for Greenfield Product Proof resumption
-3. Product push / PR / merge remain unauthorized
-
-## Changed files (commit 0ac7b54b677cc7182fd36189fcc186202e8a2232)
+## Changed files (624642fff960b41be27fe0476404cf570cfa8b22)
 
 ```
-.../mw1.s01.honestMemoryB.d0.test.ts               |   6 +-
- .../nora-cognitive-runtime/session.d0.test.ts      |   6 +-
- .../sessionTruthC.d0.test.ts                       |   6 +-
- .../activeCycleCognitiveWork.d0.test.ts            | 153 ++++++++++++++++++++-
- .../hooks/useProductConversation.ts                |  57 ++++++--
- .../app/features/project-assistant/actions.ts      |   6 +
- .../features/project-assistant/f2/orchestrateF2.ts |   4 +
- .../project-assistant/logicalProductTurn.ts        | 152 +++++++++++++++++++-
- .../features/project-assistant/orchestrateTurn.ts  |  19 +++
- .../app/features/project-assistant/turnRetryKey.ts |  17 +++
- .../app/lib/nora-cognitive-runtime/index.ts        |   3 +-
- .../nora-cognitive-runtime/productSqliteSession.ts | 105 ++++++++++++++
- .../sfia-studio/app/lib/nora-eval/mw1S01Observe.ts |   1 +
- 13 files changed, 515 insertions(+), 20 deletions(-)
+.../activeCycleCognitiveWork.d0.test.ts            | 381 ++++++++++++++++++++-
+ .../hooks/useProductConversation.ts                |  73 ++--
+ .../project-assistant/logicalProductTurn.ts        |  73 +++-
+ .../features/project-assistant/orchestrateTurn.ts  |  20 +-
+ .../project-assistant/turnPayloadCanonical.ts      |  95 +++++
+ .../app/features/project-assistant/turnRetryKey.ts |  11 +
+ 6 files changed, 610 insertions(+), 43 deletions(-)
 ```
 
-- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw1.s01.honestMemoryB.d0.test.ts`
-- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/session.d0.test.ts`
-- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/sessionTruthC.d0.test.ts`
 - `projects/sfia-studio/app/__tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts`
 - `projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts`
-- `projects/sfia-studio/app/features/project-assistant/actions.ts`
-- `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts`
 - `projects/sfia-studio/app/features/project-assistant/logicalProductTurn.ts`
 - `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`
+- `projects/sfia-studio/app/features/project-assistant/turnPayloadCanonical.ts`
 - `projects/sfia-studio/app/features/project-assistant/turnRetryKey.ts`
-- `projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts`
-- `projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts`
-- `projects/sfia-studio/app/lib/nora-eval/mw1S01Observe.ts`
 
 ## FULL modified content
 
-
-### FILE: `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw1.s01.honestMemoryB.d0.test.ts`
-
-```ts
-/** @vitest-environment node */
-/**
- * MW1-S01 — Honest Memory B availability (DETERMINISTIC E2E + BOUNDARY).
- * Source-lock: Resume from Truth C with honest Memory B availability.
- * No S02 compaction. No S03 materialization.
- */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { DatabaseSync } from "node:sqlite";
-import { afterEach, describe, expect, it } from "vitest";
-import { Agent } from "@openai/agents";
-import {
-  ScriptedModel,
-  assistantMessage,
-} from "@openai/agents/testing";
-import { FakeConversationProvider } from "@/lib/platform/ai/fakeProvider";
-import {
-  MEMORY_B_COGNITIVE_DISCLOSURE,
-  MEMORY_B_PILOTE_NOTICE,
-  ProductSqliteSession,
-  appendMemoryBCognitiveDisclosure,
-  createNoraAgentsRunner,
-  memoryBPiloteNotice,
-  probeMemoryBAvailability,
-  resolveNoraSessionSqlitePath,
-  runNoraAgentsTurn,
-  runNoraCognitiveTurn,
-  sfiaBoundaryInstructions,
-  userTextItem,
-} from "@/lib/nora-cognitive-runtime";
-
-const tempDirs: string[] = [];
-
-function tempDir(prefix: string): string {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), prefix));
-  tempDirs.push(dir);
-  return dir;
-}
-
-afterEach(() => {
-  while (tempDirs.length) {
-    const d = tempDirs.pop();
-    if (d) fs.rmSync(d, { recursive: true, force: true });
-  }
-});
-
-describe("MW1-S01 — Memory B availability probe", () => {
-  it("AVAILABLE_EMPTY when Session opens with no items", async () => {
-    const dir = tempDir("sfia-s01-empty-");
-    const dbPath = path.join(dir, "nora-session.sqlite");
-    const probe = await probeMemoryBAvailability({
-      projectId: "prj:empty",
-      dbPath,
-      sessionKey: "f1-default",
-    });
-    expect(probe.availability).toBe("available_empty");
-    expect(probe.session).not.toBeNull();
-    expect(probe.itemCount).toBe(0);
-    probe.session?.close();
-  });
-
-  it("AVAILABLE_WITH_HISTORY when prior items exist", async () => {
-    const dir = tempDir("sfia-s01-hist-");
-    const dbPath = path.join(dir, "nora-session.sqlite");
-    const seed = new ProductSqliteSession({
-      projectId: "prj:hist",
-      dbPath,
-      sessionKey: "f1-default",
-    });
-    await seed.addItems([userTextItem("prior-token-ABC")]);
-    seed.close();
-
-    const probe = await probeMemoryBAvailability({
-      projectId: "prj:hist",
-      dbPath,
-      sessionKey: "f1-default",
-    });
-    expect(probe.availability).toBe("available_with_history");
-    expect(probe.itemCount).toBeGreaterThan(0);
-    expect(JSON.stringify(await probe.session!.getItems())).toContain(
-      "prior-token-ABC",
-    );
-    probe.session?.close();
-  });
-
-  it("UNAVAILABLE when open fails (filesystem) — not empty", async () => {
-    const dir = tempDir("sfia-s01-fs-");
-    // Parent path is a file → SQLite open fails → UNAVAILABLE (≠ empty)
-    const blocker = path.join(dir, "not-a-dir");
-    fs.writeFileSync(blocker, "blocker");
-    const dbPath = path.join(blocker, "nora-session.sqlite");
-    const probe = await probeMemoryBAvailability({
-      projectId: "prj:fs",
-      dbPath,
-    });
-    expect(probe.availability).toBe("unavailable");
-    expect(probe.session).toBeNull();
-    expect(probe.itemCount).toBe(0);
-  });
-
-  it("UNAVAILABLE when initial read fails — not empty", async () => {
-    const dir = tempDir("sfia-s01-readfail-");
-    const dbPath = path.join(dir, "nora-session.sqlite");
-    const session = new ProductSqliteSession({
-      projectId: "prj:rf",
-      dbPath,
-    });
-    session.simulateNextRetrievalFailure();
-    // Probe via manual path mirroring probeMemoryBAvailability catch semantics
-    let availability: string;
-    try {
-      await session.getItems();
-      availability = "available_empty";
-    } catch {
-      session.close();
-      availability = "unavailable";
-    }
-    expect(availability).toBe("unavailable");
-
-    const probe = await probeMemoryBAvailability({
-      projectId: "prj:rf-sim",
-      dbPath: path.join(dir, "other.sqlite"),
-      simulateUnavailable: true,
-    });
-    expect(probe.availability).toBe("unavailable");
-    expect(probe.session).toBeNull();
-  });
-
-  it("project isolation — A history not visible to B", async () => {
-    const dir = tempDir("sfia-s01-iso-");
-    const dbPath = path.join(dir, "nora-session.sqlite");
-    const a = new ProductSqliteSession({ projectId: "prj:a", dbPath });
-    await a.addItems([userTextItem("secret-a")]);
-    a.close();
-    const probeB = await probeMemoryBAvailability({
-      projectId: "prj:b",
-      dbPath,
-    });
-    expect(probeB.availability).toBe("available_empty");
-    expect(JSON.stringify(await probeB.session!.getItems())).not.toContain(
-      "secret-a",
-    );
-    probeB.session?.close();
-  });
-});
-
-describe("MW1-S01 — cognitive + Pilote disclosures", () => {
-  it("cognitive disclosure is explicit per availability state", () => {
-    for (const state of [
-      "available_with_history",
-      "available_empty",
-      "unavailable",
-    ] as const) {
-      const text = appendMemoryBCognitiveDisclosure("BASE", state);
-      expect(text).toContain("BASE");
-      expect(text).toContain(MEMORY_B_COGNITIVE_DISCLOSURE[state]);
-      expect(text).toMatch(/Truth C/i);
-    }
-    expect(MEMORY_B_COGNITIVE_DISCLOSURE.unavailable).toMatch(
-      /Do not reconstruct or invent/i,
-    );
-  });
-
-  it("Pilote notices distinguish empty vs unavailable", () => {
-    expect(memoryBPiloteNotice("available_empty")).toMatch(
-      /Aucun contexte conversationnel antérieur/i,
-    );
-    expect(memoryBPiloteNotice("unavailable")).toMatch(
-      /Contexte conversationnel non disponible/i,
-    );
-    expect(memoryBPiloteNotice("unavailable")).not.toMatch(/historique perdu/i);
-    expect(memoryBPiloteNotice("available_with_history")).toBe(
-      MEMORY_B_PILOTE_NOTICE.available_with_history,
-    );
-  });
-});
-
-describe("MW1-S01 — DETERMINISTIC E2E via runNoraCognitiveTurn", () => {
-  it("E2E-S01-A — restart with available B resumes history", async () => {
-    const dir = tempDir("sfia-s01-e2e-a-");
-    const dbPath = path.join(dir, "nora-session.sqlite");
-    const provider1 = new FakeConversationProvider({
-      scripted: ["[TEST/FAKE] Noted city=Paris"],
-    });
-    const t1 = await runNoraCognitiveTurn({
-      correlationId: "s01-a-1",
-      projectId: "prj:e2e-a",
-      messages: [
-        { role: "system", content: sfiaBoundaryInstructions() },
-        { role: "user", content: "City is Paris" },
-      ],
-      provider: provider1,
-      enableTools: false,
-      sessionDbPath: dbPath,
-    });
-    expect(t1.memoryBAvailability).toBe("available_empty");
-    expect(t1.sessionId).toMatch(/^sess:/);
-    expect(t1.cognitiveRuntime).toBe("agents");
-
-    // Destroy in-memory objects; durable Session remains on disk
-    const provider2 = new FakeConversationProvider({
-      scripted: ["[TEST/FAKE] Paris is in France"],
-    });
-    const t2 = await runNoraCognitiveTurn({
-      correlationId: "s01-a-2",
-      projectId: "prj:e2e-a",
-      messages: [
-        { role: "system", content: sfiaBoundaryInstructions() },
-        { role: "user", content: "What country?" },
-      ],
-      provider: provider2,
-      enableTools: false,
-      sessionDbPath: dbPath,
-    });
-    expect(t2.memoryBAvailability).toBe("available_with_history");
-    expect(t2.sessionId).toBe(t1.sessionId);
-    expect(t2.cognitiveRuntime).toBe("agents");
-  });
-
-  it("E2E-S01-B — available empty does not invent transcript", async () => {
-    const dir = tempDir("sfia-s01-e2e-b-");
-    const dbPath = path.join(dir, "nora-session.sqlite");
-    // Create empty Session DB
-    const empty = new ProductSqliteSession({
-      projectId: "prj:e2e-b",
-      dbPath,
-    });
-    empty.close();
-
-    const turn = await runNoraCognitiveTurn({
-      correlationId: "s01-b",
-      projectId: "prj:e2e-b",
-      messages: [
-        {
-          role: "system",
-          content: `${sfiaBoundaryInstructions()}\nProject ID : prj:e2e-b`,
-        },
-        { role: "user", content: "What did we discuss earlier?" },
-      ],
-      provider: new FakeConversationProvider({
-        scripted: ["[TEST/FAKE] No prior Memory B items; using Truth C only."],
-      }),
-      enableTools: false,
-      sessionDbPath: dbPath,
-    });
-    expect(turn.memoryBAvailability).toBe("available_empty");
-    expect(turn.sessionId).toMatch(/^sess:/);
-    expect(turn.cognitiveRuntime).toBe("agents");
-  });
-
-  it("E2E-S01-C — unavailable B continues same Runner without Session replay", async () => {
-    const dir = tempDir("sfia-s01-e2e-c-");
-    // Truth C stub exists separately (not touched by Session)
-    const truthPath = path.join(dir, "oa-product.sqlite");
-    const truth = new DatabaseSync(truthPath);
-    truth.exec(
-      `CREATE TABLE oa_projects (project_id TEXT PRIMARY KEY, payload_json TEXT NOT NULL);`,
-    );
-    truth
-      .prepare(`INSERT INTO oa_projects(project_id, payload_json) VALUES (?, ?)`)
-      .run("prj:e2e-c", JSON.stringify({ name: "TruthC" }));
-    truth.close();
-
-    const turn = await runNoraCognitiveTurn({
-      correlationId: "s01-c",
-      projectId: "prj:e2e-c",
-      messages: [
-        {
-          role: "system",
-          content: `${sfiaBoundaryInstructions()}\nProject ID : prj:e2e-c\nLPS : lps:1`,
-        },
-        { role: "user", content: "Resume from durable project state." },
-      ],
-      provider: new FakeConversationProvider({
-        scripted: [
-          "[TEST/FAKE] Proceeding from Truth C only — no Memory B replay.",
-        ],
-      }),
-      enableTools: false,
-      sessionDbPath: path.join(dir, "unused.sqlite"),
-      simulateMemoryBUnavailable: true,
-    });
-    expect(turn.memoryBAvailability).toBe("unavailable");
-    expect(turn.sessionId).toBeNull();
-    expect(turn.cognitiveRuntime).toBe("agents");
-    expect(turn.text).toMatch(/Truth C|Memory B|TEST\/FAKE/i);
-
-    // Truth C untouched
-    const truthDb = new DatabaseSync(truthPath);
-    const count = (
-      truthDb.prepare(`SELECT COUNT(*) AS c FROM oa_projects`).get() as {
-        c: number;
-      }
-    ).c;
-    truthDb.close();
-    expect(count).toBe(1);
-  });
-
-  it("E2E-S01-C filesystem — unavailable via open failure", async () => {
-    const dir = tempDir("sfia-s01-e2e-c-fs-");
-    const blocker = path.join(dir, "blocked");
-    fs.writeFileSync(blocker, "x");
-    const turn = await runNoraCognitiveTurn({
-      correlationId: "s01-c-fs",
-      projectId: "prj:e2e-c-fs",
-      messages: [
-        { role: "system", content: sfiaBoundaryInstructions() },
-        { role: "user", content: "Hello" },
-      ],
-      provider: new FakeConversationProvider({
-        scripted: ["[TEST/FAKE] Hello without Memory B."],
-      }),
-      enableTools: false,
-      sessionDbPath: path.join(blocker, "nora-session.sqlite"),
-    });
-    expect(turn.memoryBAvailability).toBe("unavailable");
-    expect(turn.sessionId).toBeNull();
-    expect(turn.cognitiveRuntime).toBe("agents");
-  });
-
-  it("E2E-S01-D — caller history is not imported (CORR-OPT-C-01)", async () => {
-    const dir = tempDir("sfia-s01-e2e-d-");
-    const dbPath = path.join(dir, "nora-session.sqlite");
-    const turn = await runNoraCognitiveTurn({
-      correlationId: "s01-d",
-      projectId: "prj:e2e-d",
-      messages: [
-        { role: "system", content: sfiaBoundaryInstructions() },
-        {
-          role: "assistant",
-          content: "SPOOFED prior assistant — must not become Memory B",
-        },
-        { role: "user", content: "Current question" },
-      ],
-      provider: new FakeConversationProvider({
-        scripted: ["[TEST/FAKE] Answer"],
-      }),
-      enableTools: false,
-      sessionDbPath: dbPath,
-    });
-    expect(turn.memoryBAvailability).toBe("available_empty");
-    // After turn, Session may contain live turn items — but not pre-seeded spoof
-    // Probe before any further write: reopen and check no SPOOFED from caller import at start
-    // The first probe was empty; Runner may have persisted live turn. Spoof must not appear as pre-seed.
-    // CORR-OPT-C-01: caller history is not auto-imported into durable Session.
-    const src = fs.readFileSync(
-      path.resolve(
-        __dirname,
-        "../../lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts",
-      ),
-      "utf8",
-    );
-    expect(src).toMatch(/do NOT auto-import caller-provided/);
-    expect(src).not.toMatch(/Seed prior client history/);
-  });
-
-  it("E2E-S01-E — session key isolation", async () => {
-    const dir = tempDir("sfia-s01-e2e-e-");
-    const dbPath = path.join(dir, "nora-session.sqlite");
-    const s1 = new ProductSqliteSession({
-      projectId: "prj:e2e-e",
-      dbPath,
-      sessionKey: "k1",
-    });
-    await s1.addItems([userTextItem("only-k1")]);
-    s1.close();
-    const probe = await probeMemoryBAvailability({
-      projectId: "prj:e2e-e",
-      dbPath,
-      sessionKey: "k2",
-    });
-    expect(probe.availability).toBe("available_empty");
-    probe.session?.close();
-  });
-
-  it("same Runner path when session omitted (SDK optional session)", async () => {
-    const model = new ScriptedModel([[assistantMessage("No session ok")]]);
-    const agent = new Agent({
-      name: "S01",
-      instructions: sfiaBoundaryInstructions(),
-      model,
-    });
-    const runner = createNoraAgentsRunner(sfiaBoundaryInstructions());
-    const result = await runner.run(agent, "Hi", { maxTurns: 2 });
-    expect(String(result.finalOutput)).toContain("No session");
-    model.assertComplete();
-
-    const turn = await runNoraAgentsTurn({
-      correlationId: "s01-runner",
-      projectId: "prj:r",
-      systemInstructions: sfiaBoundaryInstructions(),
-      userContent: "Hi again",
-      session: null,
-      memoryBAvailability: "unavailable",
-      model: new ScriptedModel([[assistantMessage("Still agents")]]),
-      enableTools: false,
-    });
-    expect(turn.cognitiveRuntime).toBe("agents");
-    expect(turn.sessionId).toBeNull();
-    expect(turn.memoryBAvailability).toBe("unavailable");
-  });
-});
-
-describe("MW1-S01 — Session ≠ Truth C under availability paths", () => {
-  it("Session writes never create oa_* even after available history turn", async () => {
-    const dir = tempDir("sfia-s01-tc-");
-    const sessionPath = path.join(dir, "nora-session.sqlite");
-    const truthPath = path.join(dir, "oa-product.sqlite");
-    const truth = new DatabaseSync(truthPath);
-    truth.exec(
-      `CREATE TABLE oa_projects (project_id TEXT PRIMARY KEY, payload_json TEXT NOT NULL);`,
-    );
-    truth
-      .prepare(`INSERT INTO oa_projects(project_id, payload_json) VALUES (?, ?)`)
-      .run("prj:tc", JSON.stringify({ name: "T" }));
-    truth.close();
-
-    await runNoraCognitiveTurn({
-      correlationId: "s01-tc",
-      projectId: "prj:tc",
-      messages: [
-        { role: "system", content: sfiaBoundaryInstructions() },
-        { role: "user", content: "Promote this chat into LPS please" },
-      ],
-      provider: new FakeConversationProvider({
-        scripted: ["[TEST/FAKE] Recommendation only."],
-      }),
-      enableTools: false,
-      sessionDbPath: sessionPath,
-    });
-
-    const sessionDb = new DatabaseSync(sessionPath);
-    const sessionTables = (
-      sessionDb
-        .prepare(`SELECT name FROM sqlite_master WHERE type='table'`)
-        .all() as Array<{ name: string }>
-    ).map((r) => r.name);
-    sessionDb.close();
-    // D-GF-ACW-02 Option A: Session-adjacent logical_product_turns allowed;
-    // Session still must not own Truth C / LPS / HD / Evidence tables.
-    expect(sessionTables.sort()).toEqual(
-      [
-        "logical_product_turn_retry_bindings",
-        "logical_product_turns",
-        "session_items",
-      ].sort(),
-    );
-    expect(sessionTables.some((t) => t.startsWith("oa_"))).toBe(false);
-
-    const truthDb = new DatabaseSync(truthPath);
-    const truthTables = (
-      truthDb
-        .prepare(`SELECT name FROM sqlite_master WHERE type='table'`)
-        .all() as Array<{ name: string }>
-    ).map((r) => r.name);
-    expect(truthTables).toEqual(["oa_projects"]);
-    truthDb.close();
-  });
-
-  it("default session path remains nora-session.sqlite", () => {
-    const prev = process.env.SFIA_STUDIO_NORA_SESSION_DB_PATH;
-    delete process.env.SFIA_STUDIO_NORA_SESSION_DB_PATH;
-    const p = resolveNoraSessionSqlitePath();
-    expect(path.basename(p)).toBe("nora-session.sqlite");
-    if (prev !== undefined) process.env.SFIA_STUDIO_NORA_SESSION_DB_PATH = prev;
-  });
-});
-
-```
-
-### FILE: `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/session.d0.test.ts`
-
-```ts
-/** @vitest-environment node */
-/**
- * MW1 Option C corrections — Product SQLite Session D0 (incl. CORR-OPT-C-03).
- */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, describe, expect, it } from "vitest";
-import { Agent } from "@openai/agents";
-import {
-  ScriptedModel,
-  assistantMessage,
-} from "@openai/agents/testing";
-import {
-  ProductSqliteSession,
-  createNoraAgentsRunner,
-  resolveNoraSessionSqlitePath,
-  sfiaBoundaryInstructions,
-  userTextItem,
-} from "@/lib/nora-cognitive-runtime";
-
-const tempDirs: string[] = [];
-
-function tempDb(name: string): string {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-optc-sess-"));
-  tempDirs.push(dir);
-  return path.join(dir, name);
-}
-
-afterEach(() => {
-  while (tempDirs.length) {
-    const d = tempDirs.pop();
-    if (d) fs.rmSync(d, { recursive: true, force: true });
-  }
-});
-
-describe("MW1 Option C — ProductSqliteSession D0 (corrected)", () => {
-  it("S1 — project A cannot read project B history", async () => {
-    const dbPath = tempDb("iso.sqlite");
-    const a = new ProductSqliteSession({ projectId: "prj:a", dbPath });
-    const b = new ProductSqliteSession({ projectId: "prj:b", dbPath });
-    await a.addItems([userTextItem("secret-of-a")]);
-    expect(await b.getItems()).toEqual([]);
-    expect(JSON.stringify(await a.getItems())).toContain("secret-of-a");
-    a.close();
-    b.close();
-  });
-
-  it("S2 — two turns recover conversation via Session + Runner", async () => {
-    const dbPath = tempDb("turns.sqlite");
-    const session = new ProductSqliteSession({
-      projectId: "prj:t",
-      dbPath,
-    });
-    const model = new ScriptedModel([
-      [assistantMessage("Noted city=Paris")],
-      [assistantMessage("Paris is in France")],
-    ]);
-    const agent = new Agent({
-      name: "Proof",
-      instructions: sfiaBoundaryInstructions(),
-      model,
-    });
-    const runner = createNoraAgentsRunner(sfiaBoundaryInstructions());
-    const t1 = await runner.run(agent, "City is Paris", { session });
-    expect(String(t1.finalOutput)).toContain("Paris");
-    const t2 = await runner.run(agent, "What country?", { session });
-    expect(String(t2.finalOutput)).toMatch(/France|Paris/i);
-    expect((await session.getItems()).length).toBeGreaterThan(0);
-    model.assertComplete();
-    session.close();
-  });
-
-  it("S2 — recreate Session from same SQLite resumes", async () => {
-    const dbPath = tempDb("resume.sqlite");
-    const s1 = new ProductSqliteSession({
-      projectId: "prj:r",
-      dbPath,
-      sessionKey: "k1",
-    });
-    await s1.addItems([userTextItem("continuity-token-XYZ")]);
-    s1.close();
-    const s2 = new ProductSqliteSession({
-      projectId: "prj:r",
-      dbPath,
-      sessionKey: "k1",
-    });
-    expect(JSON.stringify(await s2.getItems())).toContain(
-      "continuity-token-XYZ",
-    );
-    s2.close();
-  });
-
-  it("S4 — Session DB has session continuity + Option A turn identity — not Truth C oa_*", async () => {
-    const dbPath = tempDb("schema.sqlite");
-    const s = new ProductSqliteSession({ projectId: "prj:s", dbPath });
-    await s.addItems([userTextItem("x")]);
-    const tables = s.listTables();
-    // D-GF-ACW-02 Option A: logical_product_turns is Session-adjacent identity/replay
-    // coordination only — never Epistemic/LPS/HD/Evidence/Truth C storage.
-    expect(tables.sort()).toEqual(
-      [
-        "logical_product_turn_retry_bindings",
-        "logical_product_turns",
-        "session_items",
-      ].sort(),
-    );
-    expect(tables.some((t) => t.startsWith("oa_"))).toBe(false);
-    s.close();
-  });
-
-  it("S3 — retrieval failure distinguishable from empty history", async () => {
-    const dbPath = tempDb("err.sqlite");
-    const empty = new ProductSqliteSession({
-      projectId: "prj:empty",
-      dbPath,
-    });
-    expect(await empty.getItems()).toEqual([]);
-    empty.simulateNextRetrievalFailure();
-    await expect(empty.getItems()).rejects.toThrow(/SESSION_RETRIEVAL_ERROR/);
-    empty.close();
-  });
-
-  it("S6 — addItems atomic rollback on mid-batch failure (SQLite trigger)", async () => {
-    const dbPath = tempDb("atomic.sqlite");
-    const s = new ProductSqliteSession({ projectId: "prj:atom", dbPath });
-    await s.addItems([userTextItem("pre-existing")]);
-    const before = await s.getItems();
-    expect(before).toHaveLength(1);
-
-    // Fail the second INSERT in a multi-item batch via DB trigger.
-    // Before batch: 1 row. First insert succeeds (count=1). Second insert aborts (count≥2).
-    s.getSqlite().exec(`
-      CREATE TRIGGER fail_second_batch_insert
-      BEFORE INSERT ON session_items
-      WHEN (
-        SELECT COUNT(*) FROM session_items
-        WHERE project_id = NEW.project_id AND session_key = NEW.session_key
-      ) >= 2
-      BEGIN
-        SELECT RAISE(ABORT, 'TEST_FORCED_INSERT_FAILURE');
-      END;
-    `);
-
-    await expect(
-      s.addItems([userTextItem("batch-1"), userTextItem("batch-2")]),
-    ).rejects.toThrow(/TEST_FORCED_INSERT_FAILURE/);
-
-    const after = await s.getItems();
-    expect(after).toHaveLength(1);
-    expect(JSON.stringify(after)).toContain("pre-existing");
-    expect(JSON.stringify(after)).not.toContain("batch-1");
-    expect(JSON.stringify(after)).not.toContain("batch-2");
-    s.close();
-  });
-
-  it("default session path does not collide with oa-product.sqlite", () => {
-    const prev = process.env.SFIA_STUDIO_NORA_SESSION_DB_PATH;
-    delete process.env.SFIA_STUDIO_NORA_SESSION_DB_PATH;
-    const p = resolveNoraSessionSqlitePath();
-    expect(path.basename(p)).toBe("nora-session.sqlite");
-    expect(p.includes("oa-product.sqlite")).toBe(false);
-    if (prev !== undefined) process.env.SFIA_STUDIO_NORA_SESSION_DB_PATH = prev;
-  });
-});
-
-```
-
-### FILE: `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/sessionTruthC.d0.test.ts`
-
-```ts
-/** @vitest-environment node */
-/**
- * MW1 Option C — Session ≠ Truth C; no Session→oa_* materialization.
- */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, describe, expect, it } from "vitest";
-import { DatabaseSync } from "node:sqlite";
-import {
-  ProductSqliteSession,
-  userTextItem,
-} from "@/lib/nora-cognitive-runtime";
-import { optionCRuntimeObservables } from "@/lib/nora-eval";
-
-const tempDirs: string[] = [];
-
-afterEach(() => {
-  while (tempDirs.length) {
-    const d = tempDirs.pop();
-    if (d) fs.rmSync(d, { recursive: true, force: true });
-  }
-});
-
-describe("MW1 Option C — Session ≠ Truth C D0", () => {
-  it("Session writes never create oa_* Truth C tables", async () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-optc-tc-"));
-    tempDirs.push(dir);
-    const sessionPath = path.join(dir, "nora-session.sqlite");
-    const truthCPath = path.join(dir, "oa-product.sqlite");
-
-    // Minimal Truth C stub
-    const truth = new DatabaseSync(truthCPath);
-    truth.exec(`
-      CREATE TABLE oa_projects (
-        project_id TEXT PRIMARY KEY NOT NULL,
-        payload_json TEXT NOT NULL
-      );
-    `);
-    truth
-      .prepare(`INSERT INTO oa_projects(project_id, payload_json) VALUES (?, ?)`)
-      .run("prj:x", JSON.stringify({ name: "Truth" }));
-    truth.close();
-
-    const session = new ProductSqliteSession({
-      projectId: "prj:x",
-      dbPath: sessionPath,
-    });
-    await session.addItems([
-      userTextItem("Please promote this chat into LPS and HumanDecision"),
-    ]);
-    session.close();
-
-    const sessionDb = new DatabaseSync(sessionPath);
-    const sessionTables = (
-      sessionDb
-        .prepare(`SELECT name FROM sqlite_master WHERE type='table'`)
-        .all() as Array<{ name: string }>
-    ).map((r) => r.name);
-    sessionDb.close();
-    // D-GF-ACW-02 Option A: Session may hold logical_product_turns identity rows;
-    // still must never hold oa_* Truth C / LPS / HD / Evidence tables.
-    expect(sessionTables.sort()).toEqual(
-      [
-        "logical_product_turn_retry_bindings",
-        "logical_product_turns",
-        "session_items",
-      ].sort(),
-    );
-    expect(sessionTables.some((t) => t.startsWith("oa_"))).toBe(false);
-
-    const truthDb = new DatabaseSync(truthCPath);
-    const truthTables = (
-      truthDb
-        .prepare(`SELECT name FROM sqlite_master WHERE type='table'`)
-        .all() as Array<{ name: string }>
-    ).map((r) => r.name);
-    const projectCount = (
-      truthDb.prepare(`SELECT COUNT(*) AS c FROM oa_projects`).get() as {
-        c: number;
-      }
-    ).c;
-    truthDb.close();
-    expect(truthTables).toEqual(["oa_projects"]);
-    expect(projectCount).toBe(1);
-  });
-
-  it("nora-eval Option C observables never claim compaction or second eval framework", () => {
-    const obs = optionCRuntimeObservables("agents");
-    expect(obs.responsesCompactionAdopted).toBe(false);
-    expect(obs.toolExecutionPath).toBe("routeToolCall");
-    expect(obs.sessionPath).toBe("product_sqlite_session");
-  });
-});
-
-```
 
 ### FILE: `projects/sfia-studio/app/__tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts`
 
@@ -1029,7 +200,14 @@ import {
   buildActiveCycleWorkContextSeal,
   type ActiveCycleWorkContextSeal,
 } from "@/features/project-assistant/f2/activeCycleCognitiveContext";
-import { resolveOrMintLogicalProductTurn, createTurnRetryKey } from "@/features/project-assistant/logicalProductTurn";
+import {
+  resolveOrMintLogicalProductTurn,
+  createTurnRetryKey,
+  preparePendingTurnRetryEnvelope,
+  serializeCanonicalTurnPayload,
+  canonicalTurnPayloadDigest,
+} from "@/features/project-assistant/logicalProductTurn";
+import type { ProviderChatMessage } from "@/lib/platform/ai";
 import { ProductSqliteSession } from "@/lib/nora-cognitive-runtime/productSqliteSession";
 import { orchestrateProjectAssistantTurn } from "@/features/project-assistant/orchestrateTurn";
 import type { ProjectAssistantContextDto } from "@/features/project-assistant/types";
@@ -2771,6 +1949,7 @@ describe("CR-ACW-02 logical Product turn (ACW-CORR-02A..F)", () => {
       projectId: s.projectId,
       sessionDbPath,
       presentedLogicalTurnId: minted.logicalTurnId,
+      cycleInstanceId: s.cycle.cycleInstanceId,
     });
     expect(reopened.ok).toBe(true);
     if (!reopened.ok) throw new Error(reopened.reason);
@@ -3031,6 +2210,7 @@ describe("CR-ACW-02 logical Product turn (ACW-CORR-02A..F)", () => {
       sessionDbPath,
       turnRetryKey,
       content,
+      cycleInstanceId: s.cycle.cycleInstanceId,
     });
     expect(recovered.ok).toBe(true);
     if (!recovered.ok) throw new Error(recovered.reason);
@@ -3083,6 +2263,376 @@ describe("CR-ACW-02 logical Product turn (ACW-CORR-02A..F)", () => {
     expect(conflict.ok).toBe(false);
     if (conflict.ok) throw new Error("expected conflict");
     expect(conflict.code).toBe("LOGICAL_TURN_RETRY_CONFLICT");
+  });
+
+  it("ACW-CORR-02K: stable retry envelope — same history+content recovers same ltu; no user dup", async () => {
+    const s = await seedStarted("corr02k");
+    const dto = await projectDtoFromOa(s.oa, s.projectId);
+    const composed = await composeStudioCognitiveContext({
+      analysis: analysisStub({ intentClass: "informative", parseOk: true }),
+      project: dto,
+      registryRoot: PRODUCT_REGISTRY,
+      oa: s.oa,
+    });
+    expect(composed.ok).toBe(true);
+    if (!composed.ok) throw new Error(composed.code);
+
+    const historyH = [
+      { role: "user" as const, content: "prior context alpha" },
+      { role: "assistant" as const, content: "prior reply beta" },
+    ];
+    const contentC = "Observations MVP stable envelope";
+    const turnRetryKey = createTurnRetryKey();
+    const envelope = preparePendingTurnRetryEnvelope({
+      content: contentC,
+      history: historyH,
+      turnRetryKey,
+    });
+    expect(envelope.history).toEqual(historyH);
+    expect(envelope.content).toBe(contentC);
+
+    const sessionDbPath = tempDbPath("corr02k-sess.sqlite");
+    const payload = JSON.stringify(acwTurn(MVP_OBS.slice(0, 1), "Envelope."));
+    const recorded: ProviderChatMessage[][] = [];
+    class RecordingFake extends FakeConversationProvider {
+      override async complete(messages: ProviderChatMessage[]) {
+        recorded.push(messages.map((m) => ({ ...m })));
+        return super.complete(messages);
+      }
+      override async completeStructured(input: {
+        messages: ProviderChatMessage[];
+        schemaName: string;
+        jsonSchema: Record<string, unknown>;
+      }) {
+        recorded.push(input.messages.map((m) => ({ ...m })));
+        return super.completeStructured(input);
+      }
+    }
+    const provider = new RecordingFake({ scripted: [payload, payload] });
+
+    const first = await orchestrateProjectAssistantTurn({
+      projectId: s.projectId,
+      content: envelope.content,
+      history: [...envelope.history],
+      sessionDbPath,
+      simulateMemoryBUnavailable: true,
+      provider,
+      studioCognitiveContext: composed.context,
+      turnRetryKey: envelope.turnRetryKey,
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) throw new Error(first.message);
+    const ltu = first.logicalTurnId!;
+
+    const dto2 = await projectDtoFromOa(s.oa, s.projectId);
+    const composed2 = await composeStudioCognitiveContext({
+      analysis: analysisStub({ intentClass: "informative", parseOk: true }),
+      project: dto2,
+      registryRoot: PRODUCT_REGISTRY,
+      oa: s.oa,
+    });
+    expect(composed2.ok).toBe(true);
+    if (!composed2.ok) throw new Error(composed2.code);
+
+    const retry = await orchestrateProjectAssistantTurn({
+      projectId: s.projectId,
+      content: envelope.content,
+      history: [...envelope.history],
+      sessionDbPath,
+      simulateMemoryBUnavailable: true,
+      provider,
+      studioCognitiveContext: composed2.context,
+      turnRetryKey: envelope.turnRetryKey,
+    });
+    expect(retry.ok).toBe(true);
+    if (!retry.ok) throw new Error(retry.message);
+    expect(retry.logicalTurnId).toBe(ltu);
+    expect(provider.getCallCountForTests()).toBe(2);
+
+    expect(recorded.length).toBeGreaterThanOrEqual(2);
+    const userRoles = (msgs: ProviderChatMessage[]) =>
+      msgs.filter((m) => m.role === "user").map((m) => m.content);
+    // Same logical user content once per call — not duplicated from history.
+    expect(userRoles(recorded[0]!).filter((c) => c === contentC)).toHaveLength(1);
+    expect(userRoles(recorded[1]!).filter((c) => c === contentC)).toHaveLength(1);
+    expect(serializeCanonicalTurnPayload(envelope.content, envelope.history)).toBe(
+      serializeCanonicalTurnPayload(contentC, historyH),
+    );
+
+    const epi = (
+      await s.oa.cycleServices.epistemic.listByProject(s.projectId)
+    ).filter((e) => e.source === ACTIVE_CYCLE_WORK_SOURCE);
+    expect(epi).toHaveLength(1);
+  });
+
+  it("ACW-CORR-02L: same K + same content + different history → CONFLICT before provider", async () => {
+    const s = await seedStarted("corr02l");
+    const dto = await projectDtoFromOa(s.oa, s.projectId);
+    const composed = await composeStudioCognitiveContext({
+      analysis: analysisStub({ intentClass: "informative", parseOk: true }),
+      project: dto,
+      registryRoot: PRODUCT_REGISTRY,
+      oa: s.oa,
+    });
+    expect(composed.ok).toBe(true);
+    if (!composed.ok) throw new Error(composed.code);
+
+    const turnRetryKey = createTurnRetryKey();
+    const content = "same content different history";
+    const historyA = [{ role: "user" as const, content: "history A only" }];
+    const historyB = [{ role: "user" as const, content: "history B only" }];
+    expect(canonicalTurnPayloadDigest(content, historyA)).not.toBe(
+      canonicalTurnPayloadDigest(content, historyB),
+    );
+
+    const sessionDbPath = tempDbPath("corr02l-sess.sqlite");
+    const payload = JSON.stringify(acwTurn(MVP_OBS.slice(0, 1)));
+    const provider = new FakeConversationProvider({ scripted: [payload] });
+
+    const first = await orchestrateProjectAssistantTurn({
+      projectId: s.projectId,
+      content,
+      history: historyA,
+      sessionDbPath,
+      simulateMemoryBUnavailable: true,
+      provider,
+      studioCognitiveContext: composed.context,
+      turnRetryKey,
+    });
+    expect(first.ok).toBe(true);
+    const callsAfterFirst = provider.getCallCountForTests();
+
+    const conflict = await orchestrateProjectAssistantTurn({
+      projectId: s.projectId,
+      content,
+      history: historyB,
+      sessionDbPath,
+      simulateMemoryBUnavailable: true,
+      provider,
+      studioCognitiveContext: composed.context,
+      turnRetryKey,
+    });
+    expect(conflict.ok).toBe(false);
+    if (conflict.ok) throw new Error("expected conflict");
+    expect(conflict.code).toBe("LOGICAL_TURN_RETRY_CONFLICT");
+    expect(provider.getCallCountForTests()).toBe(callsAfterFirst);
+
+    const epi = (
+      await s.oa.cycleServices.epistemic.listByProject(s.projectId)
+    ).filter((e) => e.source === ACTIVE_CYCLE_WORK_SOURCE);
+    expect(epi).toHaveLength(1);
+  });
+
+  it("ACW-CORR-02M: same K under different active cycle → CONFLICT; no ACW on B", async () => {
+    const s = await seedStarted("corr02m");
+    const sessionDbPath = tempDbPath("corr02m-sess.sqlite");
+    const turnRetryKey = createTurnRetryKey();
+    const content = "cycle binding probe";
+    const history = [{ role: "user" as const, content: "h0" }];
+    const cycleA = s.cycle.cycleInstanceId;
+    const cycleB = "cycinst:other-active-cycle-b";
+
+    const first = resolveOrMintLogicalProductTurn({
+      projectId: s.projectId,
+      sessionDbPath,
+      turnRetryKey,
+      content,
+      history,
+      cycleInstanceId: cycleA,
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) throw new Error(first.reason);
+
+    const conflict = resolveOrMintLogicalProductTurn({
+      projectId: s.projectId,
+      sessionDbPath,
+      turnRetryKey,
+      content,
+      history,
+      cycleInstanceId: cycleB,
+    });
+    expect(conflict.ok).toBe(false);
+    if (conflict.ok) throw new Error("expected cycle conflict");
+    expect(conflict.code).toBe("LOGICAL_TURN_RETRY_CONFLICT");
+    expect(conflict.reason).toMatch(/retry_cycle_mismatch/);
+
+    // Orchestrate path: accept under A then retry under forged B context.
+    const dto = await projectDtoFromOa(s.oa, s.projectId);
+    const composed = await composeStudioCognitiveContext({
+      analysis: analysisStub({ intentClass: "informative", parseOk: true }),
+      project: dto,
+      registryRoot: PRODUCT_REGISTRY,
+      oa: s.oa,
+    });
+    expect(composed.ok).toBe(true);
+    if (!composed.ok) throw new Error(composed.code);
+    const k2 = createTurnRetryKey();
+    const payload = JSON.stringify(acwTurn(MVP_OBS.slice(0, 1)));
+    const provider = new FakeConversationProvider({ scripted: [payload] });
+    const sessionDbPath2 = tempDbPath("corr02m-orch.sqlite");
+    const r1 = await orchestrateProjectAssistantTurn({
+      projectId: s.projectId,
+      content: "orch cycle probe",
+      history,
+      sessionDbPath: sessionDbPath2,
+      simulateMemoryBUnavailable: true,
+      provider,
+      studioCognitiveContext: composed.context,
+      turnRetryKey: k2,
+    });
+    expect(r1.ok).toBe(true);
+    const epiA = (
+      await s.oa.cycleServices.epistemic.listByProject(s.projectId)
+    ).filter((e) => e.source === ACTIVE_CYCLE_WORK_SOURCE);
+    const idsA = new Set(epiA.map((e) => e.epistemicItemId));
+
+    const forgedB = {
+      ...composed.context,
+      activeCycle: {
+        ...composed.context.activeCycle!,
+        cycleInstanceId: cycleB,
+      },
+    };
+    const r2 = await orchestrateProjectAssistantTurn({
+      projectId: s.projectId,
+      content: "orch cycle probe",
+      history,
+      sessionDbPath: sessionDbPath2,
+      simulateMemoryBUnavailable: true,
+      provider,
+      studioCognitiveContext: forgedB,
+      turnRetryKey: k2,
+    });
+    expect(r2.ok).toBe(false);
+    if (r2.ok) throw new Error("expected conflict");
+    expect(r2.code).toBe("LOGICAL_TURN_RETRY_CONFLICT");
+    const epiAfter = (
+      await s.oa.cycleServices.epistemic.listByProject(s.projectId)
+    ).filter((e) => e.source === ACTIVE_CYCLE_WORK_SOURCE);
+    expect(epiAfter.every((e) => idsA.has(e.epistemicItemId))).toBe(true);
+    expect(epiAfter.some((e) => e.relatedObjects?.includes(cycleB))).toBe(false);
+  });
+
+  it("ACW-CORR-02N: LPS bump same-cycle replay remains valid (not conflicted by lpsVersion)", async () => {
+    const s = await seedStarted("corr02n");
+    const dto = await projectDtoFromOa(s.oa, s.projectId);
+    const composed = await composeStudioCognitiveContext({
+      analysis: analysisStub({ intentClass: "informative", parseOk: true }),
+      project: dto,
+      registryRoot: PRODUCT_REGISTRY,
+      oa: s.oa,
+    });
+    expect(composed.ok).toBe(true);
+    if (!composed.ok) throw new Error(composed.code);
+
+    const turnRetryKey = createTurnRetryKey();
+    const content = "lps bump same cycle";
+    const history = [{ role: "assistant" as const, content: "prior" }];
+    const sessionDbPath = tempDbPath("corr02n-sess.sqlite");
+    const payload = JSON.stringify(acwTurn(MVP_OBS.slice(0, 1)));
+    const provider = new FakeConversationProvider({ scripted: [payload, payload] });
+
+    const lpsBefore = await s.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId: s.projectId,
+    });
+    expect(lpsBefore.ok).toBe(true);
+    if (!lpsBefore.ok) throw new Error("lps");
+
+    const first = await orchestrateProjectAssistantTurn({
+      projectId: s.projectId,
+      content,
+      history,
+      sessionDbPath,
+      simulateMemoryBUnavailable: true,
+      provider,
+      studioCognitiveContext: composed.context,
+      turnRetryKey,
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) throw new Error(first.message);
+
+    const lpsAfter = await s.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId: s.projectId,
+    });
+    expect(lpsAfter.ok).toBe(true);
+    if (!lpsAfter.ok) throw new Error("lps after");
+    expect(lpsAfter.livingProjectState.version).toBeGreaterThan(
+      lpsBefore.livingProjectState.version,
+    );
+
+    const dto2 = await projectDtoFromOa(s.oa, s.projectId);
+    expect(dto2.lpsVersion).toBe(lpsAfter.livingProjectState.version);
+    const composed2 = await composeStudioCognitiveContext({
+      analysis: analysisStub({ intentClass: "informative", parseOk: true }),
+      project: dto2,
+      registryRoot: PRODUCT_REGISTRY,
+      oa: s.oa,
+    });
+    expect(composed2.ok).toBe(true);
+    if (!composed2.ok) throw new Error(composed2.code);
+    expect(composed2.context.activeCycle?.cycleInstanceId).toBe(
+      s.cycle.cycleInstanceId,
+    );
+
+    const retry = await orchestrateProjectAssistantTurn({
+      projectId: s.projectId,
+      content,
+      history,
+      sessionDbPath,
+      simulateMemoryBUnavailable: true,
+      provider,
+      studioCognitiveContext: composed2.context,
+      turnRetryKey,
+    });
+    expect(retry.ok).toBe(true);
+    if (!retry.ok) throw new Error(retry.message);
+    expect(retry.logicalTurnId).toBe(first.logicalTurnId);
+
+    const epi = (
+      await s.oa.cycleServices.epistemic.listByProject(s.projectId)
+    ).filter((e) => e.source === ACTIVE_CYCLE_WORK_SOURCE);
+    expect(epi).toHaveLength(1);
+  });
+
+  it("ACW-CORR-02O: deliberate new submit same content/history + new K → new ltu", async () => {
+    const s = await seedStarted("corr02o");
+    const sessionDbPath = tempDbPath("corr02o-sess.sqlite");
+    const content = "deliberate new submit";
+    const history = [{ role: "user" as const, content: "shared prior" }];
+    const env1 = preparePendingTurnRetryEnvelope({
+      content,
+      history,
+      turnRetryKey: createTurnRetryKey(),
+    });
+    const env2 = preparePendingTurnRetryEnvelope({
+      content,
+      history,
+      turnRetryKey: createTurnRetryKey(),
+    });
+    expect(env1.turnRetryKey).not.toBe(env2.turnRetryKey);
+    expect(serializeCanonicalTurnPayload(env1.content, env1.history)).toBe(
+      serializeCanonicalTurnPayload(env2.content, env2.history),
+    );
+
+    const a = resolveOrMintLogicalProductTurn({
+      projectId: s.projectId,
+      sessionDbPath,
+      turnRetryKey: env1.turnRetryKey,
+      content: env1.content,
+      history: env1.history,
+      cycleInstanceId: s.cycle.cycleInstanceId,
+    });
+    const b = resolveOrMintLogicalProductTurn({
+      projectId: s.projectId,
+      sessionDbPath,
+      turnRetryKey: env2.turnRetryKey,
+      content: env2.content,
+      history: env2.history,
+      cycleInstanceId: s.cycle.cycleInstanceId,
+    });
+    expect(a.ok && b.ok).toBe(true);
+    if (!a.ok || !b.ok) throw new Error("expected ok");
+    expect(a.logicalTurnId).not.toBe(b.logicalTurnId);
   });
 });
 
@@ -3277,6 +2827,10 @@ import {
 } from "@/features/project-assistant/presentationLabels";
 import { lifecycleRecommendationMaterializeFailurePiloteNotice } from "@/features/project-assistant/lifecycleRecommendationPiloteNotice";
 import { createTurnRetryKey } from "@/features/project-assistant/turnRetryKey";
+import {
+  preparePendingTurnRetryEnvelope,
+  type PendingTurnRetryEnvelope,
+} from "@/features/project-assistant/turnPayloadCanonical";
 import { useRunningAttemptO3Observation } from "./useRunningAttemptO3Observation";
 
 export type ProductMessage = {
@@ -3372,11 +2926,12 @@ export function useProductConversation({
   const lastLogicalTurnIdRef = useRef<string | null>(null);
   const lastSendFailedRef = useRef(false);
   /**
-   * Opaque transport retry key allocated BEFORE the server action.
-   * Untrusted correlation only — never Product turn identity.
-   * Retained until the logical submission reaches a terminal client-observed success.
+   * Process-local pending retry envelope allocated BEFORE the server action.
+   * Holds opaque turnRetryKey + exact content/history snapshot for retransmission.
+   * Untrusted correlation only — never Product turn identity / Truth C.
+   * Retained until terminal client-observed success.
    */
-  const pendingTurnRetryKeyRef = useRef<string | null>(null);
+  const pendingRetryEnvelopeRef = useRef<PendingTurnRetryEnvelope | null>(null);
 
   const listRef = useRef<HTMLDivElement | null>(null);
   const f3InFlightRef = useRef(false);
@@ -3510,17 +3065,34 @@ export function useProductConversation({
       logicalTurnId?: string | null;
       /** Reuse pending opaque retry key after silent loss / failed send. */
       turnRetryKey?: string | null;
+      /**
+       * Exact history snapshot from pending retry envelope.
+       * When set (retry path), do NOT rebuild from React messages state.
+       */
+      history?: PendingTurnRetryEnvelope["history"] | null;
+      /** Exact content from pending retry envelope (retry path). */
+      content?: string | null;
     },
   ) {
-    const content = (contentOverride ?? draft).trim();
+    const usingRetryEnvelope = Boolean(options?.turnRetryKey?.trim());
+    const content = (
+      usingRetryEnvelope
+        ? (options?.content ?? contentOverride ?? "")
+        : (contentOverride ?? draft)
+    ).trim();
     if (!content || busy || blocked) return;
+
+    // First send: snapshot history BEFORE appending the user message.
+    // Retry: reuse the sealed envelope history — never re-read React messages.
+    const history = usingRetryEnvelope
+      ? [...(options?.history ?? [])]
+      : historyForRequest();
 
     const userMessage: ProductMessage = {
       id: nextId("user"),
       role: "user",
       content,
     };
-    const history = historyForRequest();
     setMessages((prev) => [...prev, userMessage]);
     setDraft("");
     setError(null);
@@ -3529,12 +3101,15 @@ export function useProductConversation({
     // New distinct send: do not auto-replay prior logicalTurnId unless retry opts in.
     const presentedLogicalTurnId =
       options?.logicalTurnId?.trim() || undefined;
-    // Allocate BEFORE transport. Reuse only when retry explicitly passes the key
-    // (retryLastUserMessage). A new user submit always gets a fresh opaque key —
-    // never treat pending as Product authority for a distinct submission.
+    // Allocate BEFORE transport. Reuse only when retry explicitly passes the key.
     const turnRetryKey =
       options?.turnRetryKey?.trim() || createTurnRetryKey();
-    pendingTurnRetryKeyRef.current = turnRetryKey;
+    const envelope = preparePendingTurnRetryEnvelope({
+      content,
+      history,
+      turnRetryKey,
+    });
+    pendingRetryEnvelopeRef.current = envelope;
 
     startTransition(async () => {
       setUiState("ASSISTANT_WORKING");
@@ -3542,16 +3117,16 @@ export function useProductConversation({
       try {
         result = await projectAssistantSendAction({
           projectId,
-          content,
-          history,
-          turnRetryKey,
+          content: envelope.content,
+          history: [...envelope.history],
+          turnRetryKey: envelope.turnRetryKey,
           ...(presentedLogicalTurnId
             ? { logicalTurnId: presentedLogicalTurnId }
             : {}),
         });
       } catch {
         // Transport / Server Action rejection before structured response.
-        // Retain pendingTurnRetryKeyRef so retry can recover server ltu binding.
+        // Retain pendingRetryEnvelopeRef so retry can recover server ltu binding.
         lastSendFailedRef.current = true;
         setUiState("ERROR_RECOVERABLE");
         setError(
@@ -3579,8 +3154,8 @@ export function useProductConversation({
 
       lastSendFailedRef.current = false;
       lastLogicalTurnIdRef.current = result.logicalTurnId ?? null;
-      // Terminal client-observed success — clear transport retry key.
-      pendingTurnRetryKeyRef.current = null;
+      // Terminal client-observed success — clear transport retry envelope.
+      pendingRetryEnvelopeRef.current = null;
       setModeLabel(modeFromResult(result));
       setEphemeralNotice(result.ephemeralNotice);
       setLrMaterializeNotice(
@@ -3862,18 +3437,22 @@ export function useProductConversation({
   });
 
   function retryLastUserMessage() {
+    const envelope = pendingRetryEnvelopeRef.current;
+    if (!envelope) return;
     const lastUser = [...messages].reverse().find((m) => m.role === "user");
-    if (!lastUser) return;
-    setMessages((prev) => prev.filter((m) => m.id !== lastUser.id));
+    if (lastUser) {
+      setMessages((prev) => prev.filter((m) => m.id !== lastUser.id));
+    }
     const replayId =
       lastSendFailedRef.current && lastLogicalTurnIdRef.current
         ? lastLogicalTurnIdRef.current
         : undefined;
-    // Prefer opaque pending retry key (covers silent loss before ltu delivery).
-    const retryKey = pendingTurnRetryKeyRef.current ?? undefined;
-    sendMessage(lastUser.content, {
+    // Explicitly reuse sealed content + history — do not rebuild from React state.
+    sendMessage(envelope.content, {
       logicalTurnId: replayId,
-      turnRetryKey: retryKey,
+      turnRetryKey: envelope.turnRetryKey,
+      content: envelope.content,
+      history: envelope.history,
     });
   }
 
@@ -3927,2484 +3506,6 @@ export type ProductConversationController = ReturnType<
 
 ```
 
-### FILE: `projects/sfia-studio/app/features/project-assistant/actions.ts`
-
-```ts
-"use server";
-
-import { getRuntimeApplicationService } from "@/lib/vertical-slice-runtime";
-import { loadProjectRuntimeForAssistant } from "@/features/vertical-slice-ui/ProjectWorkspaceView";
-import { orchestrateAssistantSend } from "./f2/orchestrateF2";
-import { recordF2Decision } from "./f2/recordDecision";
-import {
-  executePilotLifecycleAction,
-  type PilotLifecycleActionKind,
-} from "./f2/pilotLifecycleActions";
-import {
-  projectPilotLifecycle,
-  type PilotLifecycleProjection,
-  selectCurrentLifecycleRecommendations,
-  isPausedStatus,
-  assessResumeReconciliation,
-  deriveLifecycleBlockersFromEpistemicItems,
-} from "@/lib/oa/cycle";
-import type { LifecycleRecommendationMaterialDimension } from "@/lib/oa/cycle/application/lifecycleRecommendation/materialReaderContract";
-import { F2_PROCESS_LOCAL_NOTICE } from "./f2/proposalStore";
-import type { F2DecisionKind } from "./f2/types";
-import { confirmAndExecuteF3Fixture } from "./f3/confirmAndExecuteF3Fixture";
-import { confirmAndExecuteResolvedM3 } from "./f3/confirmAndExecuteResolvedM3";
-import { prepareF3Fixture } from "./f3/prepareF3Fixture";
-import { prepareM3FromDecision } from "./f3/prepareM3FromDecision";
-import { prepareAndResolveM3ProductPath } from "./f3/prepareAndResolveM3ProductPath";
-import { rehydrateEvidenceOutcomeFromLps } from "./f3/rehydrateEvidenceOutcomeFromLps";
-import { resolveF3EphemeralNotice } from "./f3/constants";
-import {
-  executionSemanticUserLabel,
-  resolvePersistenceNotice,
-} from "./presentationLabels";
-import {
-  runMw6GovernedNoraProductTurn,
-  type RunMw6GovernedNoraProductTurnInput,
-} from "./mw6GovernedNoraTurn";
-import type {
-  AssistantHistoryMessage,
-  ProjectAssistantContextDto,
-  ProjectAssistantDecideResult,
-  ProjectAssistantExecuteF3Result,
-  ProjectAssistantPrepareF3Result,
-  ProjectAssistantPrepareM3Result,
-  ProjectAssistantPrepareResolvedM3Result,
-  ProjectAssistantRehydrateEvidenceOutcomeResult,
-  ProjectAssistantSendResult,
-} from "./types";
-
-/**
- * Thin server action — Project Workspace Assistant (F1 + F2 + F3 fixture).
- * No OPS1 session. No Cursor REAL. No Git write.
- * Persistence durability follows RuntimeOaStack.productDurablePath (Product SQLite vs Memory).
- */
-export async function projectAssistantSendAction(input: {
-  projectId: string;
-  content: string;
-  history?: AssistantHistoryMessage[];
-  /**
-   * Untrusted ExecutionContract id reference for MW6 governed external discovery.
-   * When present, server composes governedAuthority from Auth + OA and invokes
-   * the real Nora product path. CONTENT/AUTHORITY of the contract are never
-   * trusted from the client — only the id reference.
-   */
-  executionContractId?: string;
-  /**
-   * Optional untrusted evidence hint — verified only by server composition.
-   */
-  authorityEvidenceId?: unknown;
-  /** Hostile — ignored (server builds governedAuthority). */
-  governedAuthority?: unknown;
-  /** Hostile — ignored (Auth resolver owns actor). */
-  actorId?: unknown;
-  getExecutionContract?: unknown;
-  checkExecutionAuthorization?: unknown;
-  authorityResolver?: unknown;
-  authorizedContract?: unknown;
-  currentExternalDiscoveryIntent?: unknown;
-  canActAsMorris?: unknown;
-  claimedAuthorityLevel?: unknown;
-  /**
-   * TEST-ONLY Auth session → Pilote seam. Production omits this and uses
-   * resolveCurrentAuthenticatedPilote. AUTH REAL boundary carried forward.
-   */
-  resolveAuthenticatedPilote?: RunMw6GovernedNoraProductTurnInput["resolveAuthenticatedPilote"];
-  provider?: import("@/lib/platform/ai").ConversationProvider;
-  sessionDbPath?: string;
-  /**
-   * D-GF-ACW-02 — optional re-present of server-issued logical Product turn id.
-   * Untrusted until Session lookup; client-invented ids fail LOGICAL_TURN_UNKNOWN.
-   */
-  logicalTurnId?: string;
-  /**
-   * Opaque client transport retry correlation (untrusted).
-   * NOT Product turn identity / SFIA authority — Session-adjacent lookup only.
-   */
-  turnRetryKey?: string;
-}): Promise<ProjectAssistantSendResult> {
-  const executionContractId =
-    typeof input.executionContractId === "string"
-      ? input.executionContractId.trim()
-      : "";
-  if (executionContractId.length > 0) {
-    return runMw6GovernedNoraProductTurn({
-      projectId: input.projectId,
-      content: input.content,
-      history: input.history,
-      executionContractId,
-      claimedAuthorityEvidenceId: input.authorityEvidenceId,
-      resolveAuthenticatedPilote: input.resolveAuthenticatedPilote,
-      provider: input.provider,
-      sessionDbPath: input.sessionDbPath,
-      governedAuthority: input.governedAuthority,
-      actorId: input.actorId,
-      authorityEvidenceId: input.authorityEvidenceId,
-      getExecutionContract: input.getExecutionContract,
-      checkExecutionAuthorization: input.checkExecutionAuthorization,
-      authorityResolver: input.authorityResolver,
-      authorizedContract: input.authorizedContract,
-      currentExternalDiscoveryIntent: input.currentExternalDiscoveryIntent,
-      canActAsMorris: input.canActAsMorris,
-      claimedAuthorityLevel: input.claimedAuthorityLevel,
-    });
-  }
-  return orchestrateAssistantSend({
-    projectId: input.projectId,
-    content: input.content,
-    history: input.history,
-    provider: input.provider,
-    sessionDbPath: input.sessionDbPath,
-    logicalTurnId: input.logicalTurnId,
-    turnRetryKey: input.turnRetryKey,
-  });
-}
-
-function toContextDto(
-  result: Extract<
-    Awaited<ReturnType<typeof loadProjectRuntimeForAssistant>>,
-    { ok: true }
-  >,
-): ProjectAssistantContextDto {
-  return {
-    projectId: result.project.projectId,
-    name: result.project.name,
-    shortReference: result.project.shortReference ?? null,
-    objective: result.project.objective,
-    contextSummary: result.project.contextSummary,
-    criticality: result.project.criticality,
-    constraints: [...result.project.constraints],
-    lpsId: result.livingState.id,
-    lpsVersion: result.livingState.version,
-    lpsCreatedAt: result.livingState.createdAt,
-    doctrineId: result.doctrine.id,
-    doctrineVersion: result.doctrine.version,
-    doctrineDigest: result.doctrine.digest,
-    doctrineStatus: result.doctrine.status,
-    runtimeMode: result.disclosures.runtimeMode,
-    persistence: result.disclosures.persistence,
-    readiness: result.readiness.status,
-  };
-}
-
-/**
- * Morris gate decision — client may only send proposalId, decisionKind,
- * optional reserves, projectId. Authority is registered server-side.
- */
-export async function projectAssistantDecideAction(input: {
-  projectId: string;
-  proposalId: string;
-  decisionKind: F2DecisionKind;
-  reservesText?: string | null;
-  /** Hostile — ignored if present. */
-  canActAsMorris?: unknown;
-  claimedAuthorityLevel?: unknown;
-}): Promise<ProjectAssistantDecideResult> {
-  const runtime = getRuntimeApplicationService();
-  if (!runtime.oa) {
-    return {
-      ok: false,
-      status: "decision_error",
-      code: "OA_STACK_UNAVAILABLE",
-      message: "Services OA process-local indisponibles pour la décision F2.",
-      mode: "unavailable",
-      retryable: false,
-    };
-  }
-
-  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
-  if (!projectResult.ok) {
-    return {
-      ok: false,
-      status: "project_not_found",
-      code: projectResult.error.code,
-      message: projectResult.error.message,
-      mode: "unavailable",
-      retryable: false,
-    };
-  }
-  const project = toContextDto(projectResult);
-
-  const recorded = await recordF2Decision({
-    proposalId: input.proposalId,
-    projectId: input.projectId,
-    decisionKind: input.decisionKind,
-    reservesText: input.reservesText,
-    canActAsMorris: input.canActAsMorris,
-    claimedAuthorityLevel: input.claimedAuthorityLevel,
-    currentContext: {
-      projectId: project.projectId,
-      lpsId: project.lpsId,
-      lpsVersion: project.lpsVersion,
-      doctrineDigest: project.doctrineDigest,
-    },
-    decisionServices: runtime.oa.decisionServices,
-    authorityResolver: runtime.oa.authorityResolver,
-    nowIso: () => runtime.oa!.clock.nowIso(),
-  });
-
-  if (!recorded.ok) {
-    return {
-      ok: false,
-      status: recorded.code === "STALE" ? "stale" : "decision_error",
-      code: recorded.code,
-      message: recorded.message,
-      mode: "fixture",
-      retryable: recorded.code === "STALE",
-      proposal: recorded.proposal ?? null,
-    };
-  }
-
-  const { decision, proposal } = recorded;
-  const textParts = [
-    "DÉCISION PRISE",
-    `${decision.kind} capturée pour ${proposal.proposalId}.`,
-    `Scope: ${decision.scope}.`,
-    decision.readyForNextGatedStep
-      ? "READY FOR NEXT GATED STEP"
-      : "Proposition non approuvée.",
-    "AUCUNE EXÉCUTION",
-    F2_PROCESS_LOCAL_NOTICE,
-  ];
-
-  return {
-    ok: true,
-    status: "ok",
-    mode: "fixture",
-    presentation: "unconfirmed",
-    text: textParts.join(" — "),
-    project,
-    ephemeralNotice: F2_PROCESS_LOCAL_NOTICE,
-    f2: {
-      turnKind: "f2_decision",
-      intentClass: "actionable",
-      qualification: null,
-      proposal,
-      decision,
-      labels: {
-        recommendation: null,
-        proposition: "PROPOSITION",
-        decisionRequired: null,
-        decisionTaken: "DÉCISION PRISE",
-        noExecution: "AUCUNE EXÉCUTION",
-      },
-      executionBlocked: true,
-      processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
-    },
-  };
-}
-
-/**
- * F3 PREPARE — Build+Validate ExecutionContract only.
- * No client authority. Hostile mode/adapter/agent/command rejected.
- */
-export async function projectAssistantPrepareF3FixtureAction(input: {
-  projectId: string;
-  proposalId: string;
-  decisionId: string;
-  /** Hostile — ignored. */
-  mode?: unknown;
-  adapterRef?: unknown;
-  agentId?: unknown;
-  command?: unknown;
-  real?: unknown;
-  selectedAgentRef?: unknown;
-  executionMode?: unknown;
-  trustLevel?: unknown;
-  authorityEvidenceId?: unknown;
-  canActAsMorris?: unknown;
-  claimedAuthorityLevel?: unknown;
-}): Promise<ProjectAssistantPrepareF3Result> {
-  void input.mode;
-  void input.adapterRef;
-  void input.agentId;
-  void input.command;
-  void input.real;
-  void input.selectedAgentRef;
-  void input.executionMode;
-  void input.trustLevel;
-  void input.authorityEvidenceId;
-  void input.canActAsMorris;
-  void input.claimedAuthorityLevel;
-
-  const runtime = getRuntimeApplicationService();
-  if (!runtime.oa) {
-    return {
-      ok: false,
-      status: "prepare_error",
-      code: "OA_STACK_UNAVAILABLE",
-      message: "Services OA process-local indisponibles pour F3 PREPARE.",
-      mode: "unavailable",
-      retryable: false,
-    };
-  }
-
-  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
-  if (!projectResult.ok) {
-    return {
-      ok: false,
-      status: "project_not_found",
-      code: projectResult.error.code,
-      message: projectResult.error.message,
-      mode: "unavailable",
-      retryable: false,
-    };
-  }
-  const project = toContextDto(projectResult);
-
-  const prepared = await prepareF3Fixture({
-    projectId: input.projectId,
-    proposalId: input.proposalId,
-    decisionId: input.decisionId,
-    mode: input.mode,
-    adapterRef: input.adapterRef,
-    agentId: input.agentId,
-    command: input.command,
-    currentContext: {
-      projectId: project.projectId,
-      lpsId: project.lpsId,
-      lpsVersion: project.lpsVersion,
-      doctrineDigest: project.doctrineDigest,
-    },
-    deps: {
-      decisionServices: runtime.oa.decisionServices,
-      authorityResolver: runtime.oa.authorityResolver,
-      executionContractServices: runtime.oa.executionContractServices,
-      nowIso: () => runtime.oa!.clock.nowIso(),
-      productDurablePath: runtime.oa.productDurablePath,
-    },
-  });
-
-  if (!prepared.ok) {
-    return {
-      ok: false,
-      status: prepared.code === "STALE" ? "stale" : "prepare_error",
-      code: prepared.code,
-      message: prepared.message,
-      mode: "fixture",
-      retryable: prepared.code === "STALE",
-      proposal: (prepared.proposal as ProjectAssistantPrepareF3FailureProposal) ?? null,
-    };
-  }
-
-  const f3 = prepared.payload;
-  const persistenceNotice = resolveF3EphemeralNotice(
-    runtime.oa.productDurablePath,
-  );
-  return {
-    ok: true,
-    status: "ok",
-    mode: "fixture",
-    presentation: "unconfirmed",
-    text: [
-      "F3 PREPARE",
-      `Contrat ${f3.contract.executionContractId} v${f3.contract.version} (${f3.contract.status})`,
-      "AUCUNE EXÉCUTION",
-      "FIXTURE — AUCUNE EXÉCUTION RÉELLE",
-      persistenceNotice,
-    ].join(" — "),
-    project,
-    ephemeralNotice: persistenceNotice,
-    f2: null,
-    f3,
-  };
-}
-
-/**
- * F3 M3 PREPARE — from durable decisionId (no ProposalStore).
- * Exact contract from DecisionBasis. Cursor PREPARE-only. No Attempt.
- */
-export async function projectAssistantPrepareM3Action(input: {
-  projectId: string;
-  decisionId: string;
-  /** Hostile — ignored. */
-  mode?: unknown;
-  adapterRef?: unknown;
-  agentId?: unknown;
-  command?: unknown;
-  real?: unknown;
-  selectedAgentRef?: unknown;
-  canActAsMorris?: unknown;
-  claimedAuthorityLevel?: unknown;
-}): Promise<ProjectAssistantPrepareM3Result> {
-  void input.mode;
-  void input.adapterRef;
-  void input.agentId;
-  void input.command;
-  void input.real;
-  void input.selectedAgentRef;
-  void input.canActAsMorris;
-  void input.claimedAuthorityLevel;
-
-  const runtime = getRuntimeApplicationService();
-  if (!runtime.oa) {
-    return {
-      ok: false,
-      status: "prepare_error",
-      code: "OA_STACK_UNAVAILABLE",
-      message: "Services OA indisponibles pour M3 PREPARE.",
-      mode: "unavailable",
-      retryable: false,
-    };
-  }
-
-  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
-  if (!projectResult.ok) {
-    return {
-      ok: false,
-      status: "project_not_found",
-      code: projectResult.error.code,
-      message: projectResult.error.message,
-      mode: "unavailable",
-      retryable: false,
-    };
-  }
-  const project = toContextDto(projectResult);
-
-  const prepared = await prepareM3FromDecision({
-    projectId: input.projectId,
-    decisionId: input.decisionId,
-    currentContext: {
-      projectId: project.projectId,
-      lpsId: project.lpsId,
-      lpsVersion: project.lpsVersion,
-      doctrineDigest: project.doctrineDigest,
-      activeCycleInstanceId: project.activeCycleInstanceId,
-      ckcResolutionRef: project.ckcResolutionRef,
-    },
-    deps: {
-      decisionServices: runtime.oa.decisionServices,
-      authorityResolver: runtime.oa.authorityResolver,
-      executionContractServices: runtime.oa.executionContractServices,
-      nowIso: () => runtime.oa!.clock.nowIso(),
-    },
-  });
-
-  if (!prepared.ok) {
-    return {
-      ok: false,
-      status: prepared.code === "CONTEXT_STALE" ? "stale" : "prepare_error",
-      code: prepared.code,
-      message: prepared.message,
-      mode: "fixture",
-      retryable: prepared.code === "CONTEXT_STALE",
-    };
-  }
-
-  const f3 = prepared.payload;
-  return {
-    ok: true,
-    status: "ok",
-    mode: "m3_prepare",
-    presentation: "unconfirmed",
-    text: [
-      "M3 PREPARE",
-      `Contrat ${f3.contract.executionContractId} v${f3.contract.version} (${f3.contract.status})`,
-      `Fingerprint ${f3.contract.semanticFingerprint.slice(0, 12)}…`,
-      "AUCUNE EXÉCUTION",
-      "CURSOR PREPARE-ONLY",
-      "NO GATE D",
-    ].join(" — "),
-    project,
-    ephemeralNotice:
-      "M3 PREPARE durable — Decision + ExecutionContract Product SQLite. Cursor REAL bloqué.",
-    f3,
-  };
-}
-
-/**
- * Canonical post-GO product path:
- * prepareM3FromDecision → resolveM3ExecutionContract (fixture-safe ZERO REAL).
- * Returns the resolved successor for explicit Confirmation. No StartExecution.
- */
-export async function projectAssistantPrepareResolvedM3Action(input: {
-  projectId: string;
-  decisionId: string;
-  /** Hostile — ignored. */
-  mode?: unknown;
-  adapterRef?: unknown;
-  agentId?: unknown;
-  command?: unknown;
-  real?: unknown;
-  selectedAgentRef?: unknown;
-  canActAsMorris?: unknown;
-  claimedAuthorityLevel?: unknown;
-}): Promise<ProjectAssistantPrepareResolvedM3Result> {
-  void input.mode;
-  void input.adapterRef;
-  void input.agentId;
-  void input.command;
-  void input.real;
-  void input.selectedAgentRef;
-  void input.canActAsMorris;
-  void input.claimedAuthorityLevel;
-
-  const runtime = getRuntimeApplicationService();
-  if (!runtime.oa) {
-    return {
-      ok: false,
-      status: "prepare_error",
-      code: "OA_STACK_UNAVAILABLE",
-      message: "Services OA indisponibles pour M3 PREPARE+RESOLVE.",
-      mode: "unavailable",
-      retryable: false,
-    };
-  }
-
-  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
-  if (!projectResult.ok) {
-    return {
-      ok: false,
-      status: "project_not_found",
-      code: projectResult.error.code,
-      message: projectResult.error.message,
-      mode: "unavailable",
-      retryable: false,
-    };
-  }
-  const project = toContextDto(projectResult);
-
-  const prepared = await prepareAndResolveM3ProductPath({
-    projectId: input.projectId,
-    decisionId: input.decisionId,
-    currentContext: {
-      projectId: project.projectId,
-      lpsId: project.lpsId,
-      lpsVersion: project.lpsVersion,
-      doctrineDigest: project.doctrineDigest,
-      activeCycleInstanceId: project.activeCycleInstanceId,
-      ckcResolutionRef: project.ckcResolutionRef,
-    },
-    deps: {
-      decisionServices: runtime.oa.decisionServices,
-      authorityResolver: runtime.oa.authorityResolver,
-      executionContractServices: runtime.oa.executionContractServices,
-      nowIso: () => runtime.oa!.clock.nowIso(),
-    },
-  });
-
-  if (!prepared.ok) {
-    return {
-      ok: false,
-      status: prepared.code === "CONTEXT_STALE" ? "stale" : "prepare_error",
-      code: prepared.code,
-      message: prepared.message,
-      mode: "fixture",
-      retryable: prepared.code === "CONTEXT_STALE",
-    };
-  }
-
-  const f3 = prepared.payload;
-  return {
-    ok: true,
-    status: "ok",
-    mode: "m3_resolved_fixture",
-    presentation: "unconfirmed",
-    text: [
-      "Contrat d'exécution prêt à confirmer",
-      `Successeur ${f3.successor.executionContractId} v${f3.successor.version} (${f3.successor.status})`,
-      `Action ${f3.successor.action} · cible ${f3.successor.target}`,
-      "Confirmation process-local requise — aucune tentative démarrée",
-      "AUCUNE EXÉCUTION RÉELLE",
-    ].join(" — "),
-    project,
-    ephemeralNotice:
-      "Contrat durable résolu (HumanDecision + DecisionBasis). Confirmation process-local. Cursor REAL bloqué.",
-    f3,
-  };
-}
-
-type ProjectAssistantPrepareF3FailureProposal =
-  import("./f2/types").ProposalDto | null;
-
-/**
- * F3 confirm + fixture execute + evidence reinjection.
- * No client authority. Hostile REAL/adapter/agent/command rejected.
- */
-export async function projectAssistantConfirmAndExecuteF3FixtureAction(input: {
-  projectId: string;
-  proposalId: string;
-  decisionId: string;
-  executionContractId: string;
-  expectedContractVersion: number;
-  /** Hostile — ignored. */
-  mode?: unknown;
-  adapterRef?: unknown;
-  agentId?: unknown;
-  command?: unknown;
-  real?: unknown;
-  selectedAgentRef?: unknown;
-  executionMode?: unknown;
-  trustLevel?: unknown;
-  authorityEvidenceId?: unknown;
-  canActAsMorris?: unknown;
-  claimedAuthorityLevel?: unknown;
-}): Promise<ProjectAssistantExecuteF3Result> {
-  void input.mode;
-  void input.adapterRef;
-  void input.agentId;
-  void input.command;
-  void input.real;
-  void input.selectedAgentRef;
-  void input.executionMode;
-  void input.trustLevel;
-  void input.authorityEvidenceId;
-  void input.canActAsMorris;
-  void input.claimedAuthorityLevel;
-
-  const runtime = getRuntimeApplicationService();
-  if (!runtime.oa) {
-    return {
-      ok: false,
-      status: "execute_error",
-      code: "OA_STACK_UNAVAILABLE",
-      message: "Services OA process-local indisponibles pour F3 EXECUTE.",
-      mode: "unavailable",
-      retryable: false,
-    };
-  }
-
-  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
-  if (!projectResult.ok) {
-    return {
-      ok: false,
-      status: "project_not_found",
-      code: projectResult.error.code,
-      message: projectResult.error.message,
-      mode: "unavailable",
-      retryable: false,
-    };
-  }
-  const project = toContextDto(projectResult);
-
-  const executed = await confirmAndExecuteF3Fixture({
-    projectId: input.projectId,
-    proposalId: input.proposalId,
-    decisionId: input.decisionId,
-    executionContractId: input.executionContractId,
-    expectedContractVersion: input.expectedContractVersion,
-    mode: input.mode,
-    adapterRef: input.adapterRef,
-    agentId: input.agentId,
-    command: input.command,
-    real: input.real,
-    currentContext: {
-      projectId: project.projectId,
-      lpsId: project.lpsId,
-      lpsVersion: project.lpsVersion,
-      doctrineDigest: project.doctrineDigest,
-    },
-    deps: {
-      decisionServices: runtime.oa.decisionServices,
-      authorityResolver: runtime.oa.authorityResolver,
-      executionContractServices: runtime.oa.executionContractServices,
-      executionAttemptServices: runtime.oa.executionAttemptServices,
-      evidenceReviewServices: runtime.oa.evidenceReviewServices,
-      fixtureAdapter: runtime.oa.fixtureAdapter,
-      projectServices: runtime.oa.projectServices,
-      productDurablePath: runtime.oa.productDurablePath,
-      nowIso: () => runtime.oa!.clock.nowIso(),
-    },
-  });
-
-  if (!executed.ok) {
-    return {
-      ok: false,
-      status: executed.code === "STALE" ? "stale" : "execute_error",
-      code: executed.code,
-      message: executed.message,
-      mode: "fixture",
-      retryable: executed.code === "STALE",
-      proposal: (executed.proposal as ProjectAssistantPrepareF3FailureProposal) ?? null,
-    };
-  }
-
-  const f3 = executed.payload;
-  const persistenceNotice = resolveF3EphemeralNotice(
-    runtime.oa.productDurablePath,
-  );
-  return {
-    ok: true,
-    status: "ok",
-    mode: "fixture",
-    presentation: "unconfirmed",
-    text: [
-      f3.reusedExistingAttempt
-        ? "F3 FIXTURE DÉJÀ EXÉCUTÉE (idempotent)"
-        : "F3 FIXTURE EXÉCUTÉE",
-      `Attempt ${f3.attempt.attemptId} · ${f3.attempt.status}`,
-      `Evidence ${f3.evidence.evidenceId} · non verified`,
-      `ReviewBundle ${f3.reviewBundle.reviewBundleId}`,
-      "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
-      "FIXTURE — AUCUNE EXÉCUTION RÉELLE",
-      "CURSOR REAL BLOQUÉ",
-      persistenceNotice,
-    ].join(" — "),
-    project,
-    ephemeralNotice: persistenceNotice,
-    f3,
-  };
-}
-
-/**
- * Canonical post-GO confirm + fixture-safe execute on resolved M3 successor.
- * No Proposal validation. Confirmation is process-local (not persisted as authority).
- */
-export async function projectAssistantConfirmAndExecuteResolvedM3Action(input: {
-  projectId: string;
-  decisionId: string;
-  executionContractId: string;
-  expectedContractVersion: number;
-  /** Hostile — ignored. */
-  mode?: unknown;
-  adapterRef?: unknown;
-  agentId?: unknown;
-  command?: unknown;
-  real?: unknown;
-  selectedAgentRef?: unknown;
-  executionMode?: unknown;
-  trustLevel?: unknown;
-  authorityEvidenceId?: unknown;
-  canActAsMorris?: unknown;
-  claimedAuthorityLevel?: unknown;
-}): Promise<ProjectAssistantExecuteF3Result> {
-  void input.mode;
-  void input.adapterRef;
-  void input.agentId;
-  void input.command;
-  void input.real;
-  void input.selectedAgentRef;
-  void input.executionMode;
-  void input.trustLevel;
-  void input.authorityEvidenceId;
-  void input.canActAsMorris;
-  void input.claimedAuthorityLevel;
-
-  const runtime = getRuntimeApplicationService();
-  if (!runtime.oa) {
-    return {
-      ok: false,
-      status: "execute_error",
-      code: "OA_STACK_UNAVAILABLE",
-      message: "Services OA indisponibles pour M3 EXECUTE.",
-      mode: "unavailable",
-      retryable: false,
-    };
-  }
-
-  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
-  if (!projectResult.ok) {
-    return {
-      ok: false,
-      status: "project_not_found",
-      code: projectResult.error.code,
-      message: projectResult.error.message,
-      mode: "unavailable",
-      retryable: false,
-    };
-  }
-  const project = toContextDto(projectResult);
-
-  const executed = await confirmAndExecuteResolvedM3({
-    projectId: input.projectId,
-    decisionId: input.decisionId,
-    executionContractId: input.executionContractId,
-    expectedContractVersion: input.expectedContractVersion,
-    mode: input.mode,
-    adapterRef: input.adapterRef,
-    agentId: input.agentId,
-    command: input.command,
-    real: input.real,
-    deps: {
-      decisionServices: runtime.oa.decisionServices,
-      authorityResolver: runtime.oa.authorityResolver,
-      executionContractServices: runtime.oa.executionContractServices,
-      executionAttemptServices: runtime.oa.executionAttemptServices,
-      evidenceReviewServices: runtime.oa.evidenceReviewServices,
-      fixtureAdapter: runtime.oa.fixtureAdapter,
-      projectServices: runtime.oa.projectServices,
-      productDurablePath: runtime.oa.productDurablePath,
-      nowIso: () => runtime.oa!.clock.nowIso(),
-    },
-  });
-
-  if (!executed.ok) {
-    return {
-      ok: false,
-      status: "execute_error",
-      code: executed.code,
-      message: executed.message,
-      mode: "fixture",
-      retryable: false,
-    };
-  }
-
-  const f3 = executed.payload;
-  const persistenceNotice = resolvePersistenceNotice({
-    productDurablePath: runtime.oa.productDurablePath,
-    mode: f3.mode,
-    kind: "execute",
-  });
-  const semantic = executionSemanticUserLabel({
-    mode: f3.mode,
-    payloadMode: f3.mode,
-    executionMode: f3.attempt.executionMode,
-    adapterId: f3.attempt.adapterId,
-    adapterRef: f3.attempt.adapterRef,
-    realProcessInvoked: f3.attempt.realProcessInvoked,
-    realExecution: f3.realExecution,
-    processRef: f3.attempt.processRef,
-    evidenceId: f3.evidence.evidenceId,
-  });
-  const isCursorReal = f3.mode === "CURSOR_CLI_REAL";
-  return {
-    ok: true,
-    status: "ok",
-    mode: "fixture",
-    presentation: "unconfirmed",
-    text: [
-      isCursorReal
-        ? f3.reusedExistingAttempt
-          ? "M3 EXÉCUTION CURSOR — MÊME TENTATIVE"
-          : "M3 EXÉCUTION CURSOR ENREGISTRÉE"
-        : f3.reusedExistingAttempt
-          ? "M3 FIXTURE DÉJÀ EXÉCUTÉE (idempotent)"
-          : "M3 FIXTURE EXÉCUTÉE",
-      `Attempt ${f3.attempt.attemptId} · ${f3.attempt.status}`,
-      `Evidence ${f3.evidence.evidenceId} · non verified`,
-      `ReviewBundle ${f3.reviewBundle.reviewBundleId}`,
-      "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
-      semantic,
-      isCursorReal ? null : "FIXTURE — AUCUNE EXÉCUTION RÉELLE",
-      isCursorReal ? null : "CURSOR REAL BLOQUÉ",
-      persistenceNotice,
-    ]
-      .filter((part): part is string => Boolean(part))
-      .join(" — "),
-    project,
-    ephemeralNotice: persistenceNotice,
-    f3,
-  };
-}
-
-/**
- * M5 durable Nora/F3 readback — LPS evidence/RB refs → RecommendNextGate.
- * Strictly read-only: no Decision, no gate consume, no Attempt launch.
- */
-export async function projectAssistantRehydrateEvidenceOutcomeAction(input: {
-  projectId: string;
-}): Promise<ProjectAssistantRehydrateEvidenceOutcomeResult> {
-  const runtime = getRuntimeApplicationService();
-  if (!runtime.oa) {
-    return {
-      ok: false,
-      status: "rehydrate_error",
-      code: "OA_STACK_UNAVAILABLE",
-      message: "Services OA process-local indisponibles pour rehydrate F3.",
-      mode: "unavailable",
-      retryable: false,
-    };
-  }
-
-  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
-  if (!projectResult.ok) {
-    return {
-      ok: false,
-      status: "project_not_found",
-      code: projectResult.error.code,
-      message: projectResult.error.message,
-      mode: "unavailable",
-      retryable: false,
-    };
-  }
-  const project = toContextDto(projectResult);
-
-  const rehydrated = await rehydrateEvidenceOutcomeFromLps({
-    projectId: input.projectId,
-    deps: {
-      projectServices: runtime.oa.projectServices,
-      evidenceReviewServices: runtime.oa.evidenceReviewServices,
-    },
-  });
-
-  if (!rehydrated.ok) {
-    return {
-      ok: false,
-      status: "rehydrate_error",
-      code: rehydrated.code,
-      message: rehydrated.message,
-      mode: "fixture",
-      retryable: false,
-      project,
-    };
-  }
-
-  const persistenceNotice = resolvePersistenceNotice({
-    productDurablePath: runtime.oa.productDurablePath,
-    mode: rehydrated.recommendation.mode,
-    kind: "rehydrate",
-  });
-  return {
-    ok: true,
-    status: "ok",
-    mode: "fixture",
-    presentation: "unconfirmed",
-    text: [
-      "REHYDRATE EVIDENCE OUTCOME",
-      `LPS v${rehydrated.lpsVersion}`,
-      `Evidence ${rehydrated.evidenceIds.join(", ") || "—"}`,
-      `ReviewBundle ${rehydrated.reviewBundleIds.join(", ") || "—"}`,
-      "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
-      persistenceNotice,
-    ].join(" — "),
-    project,
-    ephemeralNotice: persistenceNotice,
-    evidence: rehydrated.evidence,
-    reviewBundles: rehydrated.reviewBundles,
-    recommendation: rehydrated.recommendation,
-    lpsVersion: rehydrated.lpsVersion,
-    evidenceIds: rehydrated.evidenceIds,
-    reviewBundleIds: rehydrated.reviewBundleIds,
-  };
-}
-
-
-async function buildAssistantPilotLifecycleProjection(
-  projectId: string,
-): Promise<PilotLifecycleProjection | null> {
-  const runtime = getRuntimeApplicationService();
-  if (!runtime.oa) return null;
-  const cycles = await runtime.oa.cycleServices.cycles.listByProject(projectId);
-  const lps =
-    await runtime.oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId,
-    });
-  const lpsActive = lps.ok
-    ? lps.livingProjectState.activeCycleInstanceId
-    : null;
-  let epistemicItems: Awaited<
-    ReturnType<typeof runtime.oa.cycleServices.epistemic.listByProject>
-  > = [];
-  let epistemicReaderFailed = false;
-  try {
-    epistemicItems = await runtime.oa.cycleServices.epistemic.listByProject(
-      projectId,
-    );
-  } catch {
-    epistemicReaderFailed = true;
-    epistemicItems = [];
-  }
-
-  let trajectory = null;
-  let trajectoryReaderFailed = false;
-  try {
-    const traj = await runtime.oa.cycleServices.getCurrentTrajectory.execute({
-      projectId,
-    });
-    trajectory = traj.ok ? traj.trajectory : null;
-  } catch {
-    trajectoryReaderFailed = true;
-    trajectory = null;
-  }
-
-  let decisions: Awaited<
-    ReturnType<typeof runtime.oa.decisionServices.decisions.listByProject>
-  > = [];
-  let decisionReaderFailed = false;
-  try {
-    decisions =
-      await runtime.oa.decisionServices.decisions.listByProject(projectId);
-  } catch {
-    decisionReaderFailed = true;
-    decisions = [];
-  }
-
-  let evidence: Awaited<
-    ReturnType<
-      typeof runtime.oa.evidenceReviewServices.repository.listByProject
-    >
-  > = [];
-  let evidenceReaderFailed = false;
-  try {
-    evidence =
-      await runtime.oa.evidenceReviewServices.repository.listByProject(
-        projectId,
-      );
-  } catch {
-    evidenceReaderFailed = true;
-    evidence = [];
-  }
-
-  const projectResult = await runtime.oa.projectServices.getProject.execute({
-    projectId,
-  });
-  const doctrinePin = projectResult.ok
-    ? (projectResult.project.doctrinePackageRef ??
-      (lps.ok ? lps.livingProjectState.doctrinePackageRef : undefined))
-    : lps.ok
-      ? lps.livingProjectState.doctrinePackageRef
-      : undefined;
-  const blockersSnap = deriveLifecycleBlockersFromEpistemicItems(epistemicItems);
-
-  const failedMaterialDimensions =
-    new Set<LifecycleRecommendationMaterialDimension>();
-  if (!lps.ok) failedMaterialDimensions.add("lps");
-  if (trajectoryReaderFailed) failedMaterialDimensions.add("trajectory");
-  if (decisionReaderFailed) failedMaterialDimensions.add("decisions");
-  if (evidenceReaderFailed) failedMaterialDimensions.add("evidence");
-  if (epistemicReaderFailed) failedMaterialDimensions.add("epistemic_blockers");
-
-  const currentRecommendations = selectCurrentLifecycleRecommendations({
-    items: epistemicItems,
-    cycles,
-    lpsActiveCycleInstanceId: lpsActive,
-    lpsVersion: lps.ok ? lps.livingProjectState.version : null,
-    doctrinePackageId: doctrinePin?.doctrinePackageId ?? null,
-    doctrinePackageVersion: doctrinePin?.version ?? null,
-    doctrinePackageDigest: doctrinePin?.digest ?? null,
-    trajectory,
-    decisions,
-    evidence,
-    blockingReservationStatements: blockersSnap.statements,
-    failedMaterialDimensions,
-  });
-
-  const projection = projectPilotLifecycle({
-    projectId,
-    cycles,
-    lpsActiveCycleInstanceId: lpsActive,
-    currentRecommendations,
-  });
-
-  if (
-    projection.selectedStatus &&
-    isPausedStatus(projection.selectedStatus) &&
-    projection.selectedCycleInstanceId
-  ) {
-    const selected = cycles.find(
-      (c) => c.cycleInstanceId === projection.selectedCycleInstanceId,
-    );
-    if (!selected) {
-      projection.resumeReconciliation = {
-        clean: false,
-        detailCode: "CYCLE_RESUME_DRIFT",
-        reason: "selected_cycle_missing",
-      };
-      projection.cta = { ...projection.cta, canResume: false };
-      return projection;
-    }
-
-    if (!projectResult.ok) {
-      projection.resumeReconciliation = {
-        clean: false,
-        detailCode: "CYCLE_RESUME_DRIFT",
-        reason: "project_unreadable",
-      };
-      projection.cta = { ...projection.cta, canResume: false };
-      return projection;
-    }
-
-    if (trajectoryReaderFailed) {
-      projection.resumeReconciliation = {
-        clean: false,
-        detailCode: "CYCLE_RESUME_DRIFT",
-        reason: "trajectory_reader_unavailable",
-      };
-      projection.cta = { ...projection.cta, canResume: false };
-      return projection;
-    }
-    if (decisionReaderFailed) {
-      projection.resumeReconciliation = {
-        clean: false,
-        detailCode: "CYCLE_RESUME_DRIFT",
-        reason: "decision_reader_unavailable",
-      };
-      projection.cta = { ...projection.cta, canResume: false };
-      return projection;
-    }
-    if (evidenceReaderFailed) {
-      projection.resumeReconciliation = {
-        clean: false,
-        detailCode: "CYCLE_RESUME_DRIFT",
-        reason: "evidence_reader_unavailable",
-      };
-      projection.cta = { ...projection.cta, canResume: false };
-      return projection;
-    }
-
-    try {
-      const siblingActiveExists = cycles.some(
-        (c) =>
-          c.status === "active" &&
-          c.cycleInstanceId !== selected.cycleInstanceId,
-      );
-
-      const reconciliation = assessResumeReconciliation({
-        cycle: selected,
-        projectId,
-        lpsReadable: lps.ok,
-        lpsVersion: lps.ok ? lps.livingProjectState.version : 0,
-        lpsActiveCycleInstanceId: lpsActive,
-        objective: lps.ok ? lps.livingProjectState.objective : "",
-        context: lps.ok ? (lps.livingProjectState.context ?? "") : "",
-        scope: lps.ok ? (lps.livingProjectState.scope ?? "") : "",
-        doctrinePackageId: doctrinePin?.doctrinePackageId,
-        doctrinePackageVersion: doctrinePin?.version,
-        doctrinePackageDigest: doctrinePin?.digest,
-        trajectory,
-        decisions,
-        evidence,
-        blockingReservationStatements: blockersSnap.statements,
-        blockerSourceUnreadable: epistemicReaderFailed,
-        siblingActiveExists,
-      });
-
-      projection.resumeReconciliation = {
-        clean: reconciliation.clean,
-        detailCode: reconciliation.clean ? null : "CYCLE_RESUME_DRIFT",
-        reason: reconciliation.clean
-          ? "assess_resume_reconciliation_clean"
-          : reconciliation.driftReasons.join(",") || "dirty",
-      };
-      projection.cta = {
-        ...projection.cta,
-        canResume: projection.cta.canResume && reconciliation.clean,
-      };
-    } catch {
-      projection.resumeReconciliation = {
-        clean: false,
-        detailCode: "CYCLE_RESUME_DRIFT",
-        reason: "reconciliation_facts_unavailable",
-      };
-      projection.cta = { ...projection.cta, canResume: false };
-    }
-  }
-
-  return projection;
-}
-
-/**
- * CORR-PROOF-05 — durable Pilot lifecycle projection (reload without F2).
- */
-export async function projectAssistantPilotLifecycleProjection(input: {
-  projectId: string;
-}): Promise<{
-  ok: boolean;
-  status: string;
-  code?: string;
-  message?: string;
-  projection?: PilotLifecycleProjection;
-  selectedCycleInstanceId?: string | null;
-  selectedStatus?: string | null;
-  activeCycleInstanceId?: string | null;
-  selectionAmbiguous?: boolean;
-  cta?: PilotLifecycleProjection["cta"];
-}> {
-  const runtime = getRuntimeApplicationService();
-  if (!runtime.oa) {
-    return {
-      ok: false,
-      status: "oa_unavailable",
-      code: "OA_STACK_UNAVAILABLE",
-      message: "Services OA indisponibles pour Pilot lifecycle projection.",
-    };
-  }
-  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
-  if (!projectResult.ok) {
-    return {
-      ok: false,
-      status: "project_not_found",
-      code: projectResult.error.code,
-      message: projectResult.error.message,
-    };
-  }
-  const projection = await buildAssistantPilotLifecycleProjection(
-    input.projectId,
-  );
-  if (!projection) {
-    return {
-      ok: false,
-      status: "projection_unavailable",
-      code: "OA_STACK_UNAVAILABLE",
-      message: "Pilot lifecycle projection unavailable.",
-    };
-  }
-  return {
-    ok: true,
-    status: "ok",
-    projection,
-    selectedCycleInstanceId: projection.selectedCycleInstanceId,
-    selectedStatus: projection.selectedStatus,
-    activeCycleInstanceId: projection.activeCycleInstanceId,
-    selectionAmbiguous: projection.selectionAmbiguous,
-    cta: projection.cta,
-  };
-}
-
-/**
- * CORR-PROOF-05 — Pilot lifecycle transitions (START/PAUSE/RESUME/FINALIZE/CANCEL).
- * Never uses morrisGateRequired as Pilot lifecycle authority.
- */
-export async function projectAssistantPilotLifecycleAction(input: {
-  projectId: string;
-  cycleInstanceId: string;
-  action: PilotLifecycleActionKind;
-  materialDriftDetected?: boolean;
-  requiresTrajectoryHumanDecision?: boolean;
-  requiresReplanHumanDecision?: boolean;
-}): Promise<{
-  ok: boolean;
-  status: string;
-  code?: string;
-  message?: string;
-  action?: PilotLifecycleActionKind;
-  cycleStatus?: string;
-  activeCycleInstanceId?: string | null;
-  assessment?: unknown;
-  decisionId?: string;
-  project?: ProjectAssistantContextDto;
-  projection?: PilotLifecycleProjection;
-  selectedCycleInstanceId?: string | null;
-  selectedStatus?: string | null;
-  selectionAmbiguous?: boolean;
-  cta?: PilotLifecycleProjection["cta"];
-}> {
-  const runtime = getRuntimeApplicationService();
-  if (!runtime.oa) {
-    return {
-      ok: false,
-      status: "oa_unavailable",
-      code: "OA_STACK_UNAVAILABLE",
-      message: "Services OA indisponibles pour Pilot lifecycle.",
-    };
-  }
-  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
-  if (!projectResult.ok) {
-    return {
-      ok: false,
-      status: "project_not_found",
-      code: projectResult.error.code,
-      message: projectResult.error.message,
-    };
-  }
-  const project = toContextDto(projectResult);
-  const executed = await executePilotLifecycleAction({
-    action: input.action,
-    projectId: input.projectId,
-    cycleInstanceId: input.cycleInstanceId,
-    cycleServices: runtime.oa.cycleServices,
-    projectServices: runtime.oa.projectServices,
-    decisionServices: runtime.oa.decisionServices,
-    authorityResolver: runtime.oa.authorityResolver,
-    nowIso: () => runtime.oa!.clock.nowIso(),
-    materialDriftDetected: input.materialDriftDetected,
-    requiresTrajectoryHumanDecision: input.requiresTrajectoryHumanDecision,
-    requiresReplanHumanDecision: input.requiresReplanHumanDecision,
-  });
-  if (!executed.ok) {
-    const projection = await buildAssistantPilotLifecycleProjection(
-      input.projectId,
-    );
-    return {
-      ok: false,
-      status: "lifecycle_error",
-      code: executed.code,
-      message: executed.message,
-      assessment: executed.assessment,
-      project,
-      projection: projection ?? undefined,
-      selectedCycleInstanceId: projection?.selectedCycleInstanceId,
-      selectedStatus: projection?.selectedStatus,
-      selectionAmbiguous: projection?.selectionAmbiguous,
-      cta: projection?.cta,
-    };
-  }
-  const reloaded = await loadProjectRuntimeForAssistant(input.projectId);
-  const nextProject = reloaded.ok ? toContextDto(reloaded) : project;
-  const projection = await buildAssistantPilotLifecycleProjection(
-    input.projectId,
-  );
-  return {
-    ok: true,
-    status: "ok",
-    action: executed.action,
-    cycleStatus: executed.result?.ok ? executed.result.cycle.status : undefined,
-    activeCycleInstanceId: executed.result?.ok
-      ? (executed.result.activeCycleInstanceId ??
-        projection?.activeCycleInstanceId ??
-        nextProject.activeCycleInstanceId ??
-        null)
-      : projection?.activeCycleInstanceId ??
-        nextProject.activeCycleInstanceId ??
-        null,
-    assessment: executed.assessment,
-    decisionId: executed.decisionId,
-    project: nextProject,
-    projection: projection ?? undefined,
-    selectedCycleInstanceId: projection?.selectedCycleInstanceId,
-    selectedStatus: projection?.selectedStatus,
-    selectionAmbiguous: projection?.selectionAmbiguous,
-    cta: projection?.cta,
-    message: `Pilot lifecycle ${executed.action} applied.`,
-  };
-}
-
-```
-
-### FILE: `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts`
-
-```ts
-/**
- * F2 pipeline: intent → qualify → durable CycleInstance + LPS → live ContextSnapshot → proposal.
- * Stops before any execution. M2: Cycle/LPS/CKC linkage durable; conversation/proposal process-local.
- */
-
-import { randomBytes, randomUUID } from "node:crypto";
-import {
-  isFakeConversationProviderForced,
-  type ConversationProvider,
-} from "@/lib/platform/ai";
-import type {
-  NoraAgentsUsdAccounting,
-  NoraCampaignBudget,
-  NoraEvalModelReasoningControl,
-} from "@/lib/nora-cognitive-runtime";
-import {
-  resolveEvalCellConversationProvider,
-  type EvalCellProviderFactory,
-} from "@/lib/nora-eval/evalCellProvider";
-import {
-  getRuntimeApplicationService,
-  readLiveProjectContext,
-  type RuntimeOaStack,
-} from "@/lib/vertical-slice-runtime";
-import { loadProjectRuntimeForAssistant } from "@/features/vertical-slice-ui/ProjectWorkspaceView";
-import type {
-  AssistantHistoryMessage,
-  ProjectAssistantContextDto,
-  ProjectAssistantSendResult,
-} from "../types";
-import { orchestrateProjectAssistantTurn } from "../orchestrateTurn";
-import { resolveAssistantMode } from "../resolveAssistantMode";
-import { analyzeIntent } from "./intentAnalysis";
-import { resolveAvailableContradictionPointers } from "../mw3AvailableEvidence";
-import {
-  deriveMw3ContradictionAssessment,
-  decideCognitiveStrategy,
-  decideMw5Disposition,
-  deriveMw5FactsFromF2Turn,
-  formatMw5MachineText,
-  formatMw5PiloteText,
-  mergeCognitiveWorkloadSignals,
-  toMw5TurnSurface,
-  MW5_TEST_MARKERS,
-  type Mw3ContradictionAssessmentInput,
-  type Mw5TurnSurface,
-} from "@/lib/nora-cognitive-runtime";
-import { resolveMw5ProductAuthorityFromOa } from "./resolveMw5ProductAuthorityFromOa";
-import {
-  clearMw5IssuedChallenge,
-  getMw5ChallengeSession,
-  rememberMw5IssuedChallenge,
-} from "./mw5ChallengeSessionStore";
-import {
-  loadCanonicalConversationForAnalysis,
-  persistCanonicalF2AssistantTurn,
-} from "./canonicalConversationSession";
-import { isPureRepositoryAnalysisIntent } from "./repositoryIntent";
-import { resolveTransitionReadiness } from "./transitionReadiness";
-import { evaluateMorrisGateRequired } from "./gatePolicy";
-import {
-  enrichQualificationWithCkcSemantics,
-  isProductStudioNativeCkcProof,
-  loadProductCkcCognitiveContent,
-  buildCkcCognitivePromptSection,
-  reasonWithResolvedCkcContext,
-} from "./ckcCognitiveContext";
-import { composeStudioCognitiveContext } from "./studioCognitiveContext";
-import { projectCkcResolutionRef, qualifyWithCkc } from "./qualify";
-import { reconcileQualificationSignals } from "./qualificationSignalCoherence";
-import { resolveProductDoctrineRegistryRoot } from "@/lib/vertical-slice-runtime/paths";
-import type { DoctrinePackagePin } from "@/lib/oa/doctrine";
-import {
-  F2_PROCESS_LOCAL_NOTICE,
-  createProposalId,
-  saveProposal,
-} from "./proposalStore";
-import type {
-  F2ContextSnapshot,
-  IntentAnalysisDto,
-  ProposalDto,
-  QualificationDto,
-} from "./types";
-
-const EPHEMERAL_NOTICE =
-  "Conversation et Proposal F2 restent process-local ; Project/LPS/Cycle linkage M2 est persisté dans Product SQLite. AUCUNE EXÉCUTION.";
-
-async function deriveProductPathMw3Assessment(
-  analysis: IntentAnalysisDto,
-  projectId: string,
-): Promise<Mw3ContradictionAssessmentInput | null> {
-  const candidate = analysis.contradictionCandidate;
-  if (!candidate || candidate.conflictPresent !== true) return null;
-  const availablePointers = await resolveAvailableContradictionPointers({
-    projectId,
-    claimedEvidenceIds: candidate.claimedEvidenceIds,
-  });
-  return deriveMw3ContradictionAssessment({
-    candidate,
-    availablePointers,
-    projectId,
-    sourceBreadth: analysis.cognitiveWorkload?.sourceBreadth ?? null,
-    trustedSfiaProfile: null,
-  });
-}
-
-function toContextDto(
-  result: Extract<
-    Awaited<ReturnType<typeof loadProjectRuntimeForAssistant>>,
-    { ok: true }
-  >,
-): ProjectAssistantContextDto {
-  return {
-    projectId: result.project.projectId,
-    name: result.project.name,
-    shortReference: result.project.shortReference ?? null,
-    objective: result.project.objective,
-    contextSummary: result.project.contextSummary,
-    criticality: result.project.criticality,
-    constraints: [...result.project.constraints],
-    lpsId: result.livingState.id,
-    lpsVersion: result.livingState.version,
-    lpsCreatedAt: result.livingState.createdAt,
-    doctrineId: result.doctrine.id,
-    doctrineVersion: result.doctrine.version,
-    doctrineDigest: result.doctrine.digest,
-    doctrineStatus: result.doctrine.status,
-    runtimeMode: result.disclosures.runtimeMode,
-    persistence: result.disclosures.persistence,
-    readiness: result.readiness.status,
-    activeCycleInstanceId: result.livingState.activeCycleInstanceId ?? null,
-    ckcResolutionRef: result.livingState.ckcResolutionRef ?? null,
-  };
-}
-
-/**
- * CORR-MW2-REAL-03/04 — deterministic Project summary for analyzeIntent.
- * Prefer Truth C / LPS full context (contextSource=TRUTH_C_LPS).
- * UI contextSummary is a 240-char projection — not the cognitive authority.
- */
-export type CognitiveIntentContextInput = {
-  name: string;
-  objective: string;
-  /** Full Truth C / LPS context when available; never invent. */
-  context: string;
-  constraints: readonly string[];
-  criticality: string;
-  lpsId: string;
-  lpsVersion: number;
-  shortReference?: string | null;
-  activeCycleInstanceId?: string | null;
-  ckcResolutionRef?: string | null;
-  /**
-   * Internal provenance for evidence/tests — NOT a client DTO field.
-   * TRUTH_C_LPS = readLiveProjectContext / lps.context
-   * TEST_FALLBACK_UI_SUMMARY = truncated UI projection only (not REAL evidence)
-   */
-  contextSource: "TRUTH_C_LPS" | "TEST_FALLBACK_UI_SUMMARY";
-};
-
-export function buildIntentProjectSummary(
-  input: CognitiveIntentContextInput,
-): string {
-  const constraints =
-    input.constraints.length > 0
-      ? input.constraints.join("; ")
-      : "(none)";
-  const parts = [
-    `name=${input.name}`,
-    `objective=${input.objective}`,
-    `context=${input.context}`,
-    `constraints=${constraints}`,
-    `criticality=${input.criticality}`,
-  ];
-  if (input.shortReference != null && input.shortReference.trim() !== "") {
-    parts.push(`shortReference=${input.shortReference}`);
-  }
-  parts.push(`lps=${input.lpsId}@${input.lpsVersion}`);
-  if (input.activeCycleInstanceId) {
-    parts.push(`activeCycle=${input.activeCycleInstanceId}`);
-  }
-  if (input.ckcResolutionRef) {
-    parts.push(`ckcRef=${input.ckcResolutionRef}`);
-  }
-  parts.push(`contextSource=${input.contextSource}`);
-  return parts.join(" | ");
-}
-
-/**
- * Resolve analyzeIntent Project summary from Truth C (LPS) when OA is available.
- * Fail-closed for product path: do not silently downgrade to UI 240 summary.
- * Fake/test without OA may use TEST_FALLBACK_UI_SUMMARY only.
- */
-export async function resolveCognitiveIntentProjectSummary(
-  project: ProjectAssistantContextDto,
-): Promise<
-  | { ok: true; projectSummary: string; contextSource: CognitiveIntentContextInput["contextSource"]; truthCContext: string }
-  | { ok: false; code: string; message: string }
-> {
-  const runtime = getRuntimeApplicationService();
-  const oa = runtime.oa;
-  if (!oa) {
-    if (isFakeConversationProviderForced()) {
-      const projectSummary = buildIntentProjectSummary({
-        name: project.name,
-        objective: project.objective,
-        context: project.contextSummary,
-        constraints: project.constraints,
-        criticality: project.criticality,
-        lpsId: project.lpsId,
-        lpsVersion: project.lpsVersion,
-        shortReference: project.shortReference,
-        activeCycleInstanceId: project.activeCycleInstanceId ?? null,
-        ckcResolutionRef: project.ckcResolutionRef ?? null,
-        contextSource: "TEST_FALLBACK_UI_SUMMARY",
-      });
-      return {
-        ok: true,
-        projectSummary,
-        contextSource: "TEST_FALLBACK_UI_SUMMARY",
-        truthCContext: project.contextSummary,
-      };
-    }
-    return {
-      ok: false,
-      code: "TRUTH_C_UNAVAILABLE",
-      message:
-        "Services OA indisponibles pour le contexte cognitif Truth C. AUCUNE EXÉCUTION.",
-    };
-  }
-
-  const live = await readLiveProjectContext(oa, project.projectId);
-  if (!live.ok) {
-    return {
-      ok: false,
-      code: live.code,
-      message: `Contexte Truth C / LPS illisible (${live.code}). AUCUNE EXÉCUTION.`,
-    };
-  }
-
-  const truthCContext = live.context.context ?? "";
-  const projectSummary = buildIntentProjectSummary({
-    name: project.name,
-    objective: live.context.objective || project.objective,
-    context: truthCContext,
-    constraints: project.constraints,
-    criticality: project.criticality,
-    lpsId: live.context.lpsId,
-    lpsVersion: live.context.lpsVersion,
-    shortReference: project.shortReference,
-    activeCycleInstanceId: live.context.activeCycleInstanceId,
-    ckcResolutionRef: live.context.ckcResolutionRef,
-    contextSource: "TRUTH_C_LPS",
-  });
-  return {
-    ok: true,
-    projectSummary,
-    contextSource: "TRUTH_C_LPS",
-    truthCContext,
-  };
-}
-
-function doctrinePackagePinFromProject(
-  project: ProjectAssistantContextDto,
-): DoctrinePackagePin {
-  return Object.freeze({
-    doctrinePackageId: project.doctrineId,
-    version: project.doctrineVersion,
-    digest: project.doctrineDigest as DoctrinePackagePin["digest"],
-  });
-}
-
-function snapshotFrom(project: ProjectAssistantContextDto): F2ContextSnapshot {
-  return {
-    projectId: project.projectId,
-    lpsId: project.lpsId,
-    lpsVersion: project.lpsVersion,
-    doctrineDigest: project.doctrineDigest,
-    activeCycleInstanceId: project.activeCycleInstanceId ?? null,
-    ckcResolutionRef: project.ckcResolutionRef ?? null,
-  };
-}
-
-function resolveF2CriticalChallengeArmed(input: {
-  analysis: IntentAnalysisDto;
-  content: string;
-  historyCount: number;
-  projectCriticality: string;
-}): boolean {
-  if (input.content.includes(MW5_TEST_MARKERS.highAssurance)) return true;
-  const merged = mergeCognitiveWorkloadSignals({
-    turnContext: {
-      projectCriticality: input.projectCriticality,
-      userContentLength: input.content.length,
-      historyMessageCount: input.historyCount,
-    },
-    semanticAssessment: input.analysis.cognitiveWorkload,
-  });
-  return decideCognitiveStrategy({
-    signals: merged,
-    trustedSfiaProfile: null,
-  }).criticalChallengeArmed;
-}
-
-async function evaluateF2Mw5(input: {
-  content: string;
-  history?: AssistantHistoryMessage[];
-  analysis: IntentAnalysisDto;
-  recommendedProfile: string | null;
-  recommendationWouldEmit: boolean;
-  projectCriticality: string;
-  projectId: string;
-  oa: RuntimeOaStack | null | undefined;
-}): Promise<{ armed: boolean; surface: Mw5TurnSurface; text: string }> {
-  const armed = resolveF2CriticalChallengeArmed({
-    analysis: input.analysis,
-    content: input.content,
-    historyCount: input.history?.length ?? 0,
-    projectCriticality: input.projectCriticality,
-  });
-  const authority = await resolveMw5ProductAuthorityFromOa({
-    oa: input.oa,
-    projectId: input.projectId,
-    claim: {
-      objective: input.analysis.objective,
-      scope: input.analysis.scope,
-      recommendedProfile: input.recommendedProfile,
-      requestedOperation: input.analysis.requestedOperation,
-    },
-    newContradictionSignalPresent: Boolean(
-      input.analysis.contradictionCandidate?.conflictPresent,
-    ),
-  });
-  const session = getMw5ChallengeSession(input.projectId);
-  const decision = decideMw5Disposition(
-    deriveMw5FactsFromF2Turn({
-      userContent: input.content,
-      history: input.history,
-      intentClass: input.analysis.intentClass,
-      parseOk: input.analysis.parseOk,
-      recommendedProfile: input.recommendedProfile,
-      criticalChallengeArmed: armed,
-      recommendationWouldEmit: input.recommendationWouldEmit,
-      truthCEstablishedForClaim: authority.truthCEstablishedForClaim,
-      consumedHumanDecisionWithoutNewContradiction:
-        authority.consumedHumanDecisionWithoutNewContradiction,
-      challengeResponseAssessment:
-        input.analysis.challengeResponseAssessment ?? null,
-      openChallengePresent: session.latest != null,
-      priorStructuralChallengeCount: session.priorStructuralChallengeCount,
-    }),
-  );
-  const machineText = formatMw5MachineText(decision);
-  const text = formatMw5PiloteText(decision);
-  if (decision.disposition === "CHALLENGE") {
-    rememberMw5IssuedChallenge({
-      projectId: input.projectId,
-      challenges: decision.challenges,
-      challengeText: machineText,
-    });
-  } else if (
-    decision.recommendationAllowed &&
-    decision.challengeSatisfied &&
-    session.latest != null
-  ) {
-    clearMw5IssuedChallenge(input.projectId);
-  }
-  return {
-    armed,
-    surface: toMw5TurnSurface(decision, armed),
-    text,
-  };
-}
-
-function mw5TurnKind(
-  surface: Mw5TurnSurface,
-): "f2_clarification" | "f2_blocked" {
-  return surface.disposition === "CLARIFY" ? "f2_clarification" : "f2_blocked";
-}
-
-function resolveMode(explicitProvider?: ConversationProvider): {
-  mode: "fixture" | "live" | "unavailable";
-  canProceed: boolean;
-  message?: string;
-  presentation: "test_provider" | "openai_live";
-} {
-  return resolveAssistantMode(explicitProvider);
-}
-
-function buildProposal(input: {
-  intent: IntentAnalysisDto;
-  qualification: QualificationDto;
-  project: ProjectAssistantContextDto;
-  morrisGateRequired: boolean;
-  executionRequest: boolean;
-  status: ProposalDto["status"];
-}): ProposalDto {
-  return {
-    proposalId: createProposalId(),
-    status: input.status,
-    rephrasedRequest:
-      input.intent.rephrasedRequest ??
-      input.intent.objective ??
-      "Demande reformulée indisponible",
-    objective: input.intent.objective ?? input.qualification.rationale,
-    cycleTypeId: input.qualification.cycleTypeId,
-    recommendedProfile: input.qualification.recommendedProfile,
-    rationale: input.qualification.rationale,
-    scope: input.intent.scope ?? `Périmètre borné — ${input.qualification.cycleTypeId}`,
-    outOfScope:
-      input.intent.outOfScope.length > 0
-        ? input.intent.outOfScope
-        : [
-            "Exécution Cursor",
-            "Écriture Git/GitHub",
-            "Exécution agent (hors F2)",
-            "Navigation OPS1 comme destination",
-          ],
-    activatedBlocks:
-      input.intent.activatedBlocks.length > 0
-        ? input.intent.activatedBlocks
-        : ["qualification", "proposition", "gate"],
-    expectedOutcome:
-      input.intent.expectedOutcome ??
-      "Décision humaine capturée — aucune exécution F2",
-    sources: [
-      `catalogue:${input.qualification.catalogVersion}`,
-      `ckc:${input.qualification.detailedStatus}`,
-      `project:${input.project.projectId}`,
-      `lps:${input.project.lpsId}@${input.project.lpsVersion}`,
-      ...(input.qualification.cycleInstanceId
-        ? [`cycle:${input.qualification.cycleInstanceId}`]
-        : []),
-      ...(input.qualification.ckcResolutionRef
-        ? [`ckcRef:${input.qualification.ckcResolutionRef}`]
-        : []),
-    ],
-    risks: input.intent.risks,
-    reservations: input.intent.reservations,
-    stopConditions:
-      input.intent.stopConditions.length > 0
-        ? input.intent.stopConditions
-        : ["AUCUNE EXÉCUTION", "STOP avant F3"],
-    morrisGateRequired: input.morrisGateRequired,
-    nextPossibleStep: input.morrisGateRequired
-      ? "Décision Morris explicite requise"
-      : "AUCUNE EXÉCUTION — F2 S'ARRÊTE ICI",
-    contextSnapshot: snapshotFrom(input.project),
-    processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
-    executionForbidden: true,
-    noExecutingStatus: true,
-    agentBinding: "NOT_AVAILABLE",
-    criticalJustification: input.intent.criticalJustification,
-  };
-}
-
-function f2Success(base: {
-  text: string;
-  mode: "fixture" | "live";
-  presentation: "test_provider" | "openai_live";
-  model: string | null;
-  project: ProjectAssistantContextDto;
-  intentClass: IntentAnalysisDto["intentClass"];
-  qualification?: QualificationDto;
-  proposal?: ProposalDto;
-  executionBlocked?: boolean;
-  mw5?: Mw5TurnSurface | null;
-  turnKind?: "f1_informative" | "f2_clarification" | "f2_proposal" | "f2_blocked";
-}): ProjectAssistantSendResult {
-  const turnKind =
-    base.turnKind ??
-    (base.qualification && base.proposal
-      ? "f2_proposal"
-      : base.mw5?.disposition === "CLARIFY" || base.intentClass === "ambiguous"
-        ? "f2_clarification"
-        : "f2_blocked");
-  return {
-    ok: true,
-    status: "ok",
-    text: base.text,
-    mode: base.mode,
-    presentation: base.presentation,
-    model: base.model,
-    toolRounds: 0,
-    toolCalls: 0,
-    sources: [],
-    toolEvents: [],
-    project: base.project,
-    ephemeralNotice: EPHEMERAL_NOTICE,
-    mw5: base.mw5
-      ? {
-          disposition: base.mw5.disposition,
-          structuralChallengeCount: base.mw5.structuralChallengeCount,
-          questionnaireSuppressed: base.mw5.questionnaireSuppressed,
-          recommendationAllowed: base.mw5.recommendationAllowed,
-          challengeGateApplicable: base.mw5.challengeGateApplicable,
-          challengeSatisfied: base.mw5.challengeSatisfied,
-          challengeEvidenceBeforeRecommendation:
-            base.mw5.challengeEvidenceBeforeRecommendation,
-          bypassAttempted: base.mw5.bypassAttempted,
-          bypassBlocked: base.mw5.bypassBlocked,
-          synthesizedHumanDecision: false,
-          synthesizedGo: false,
-          synthesizedConfirmation: false,
-          disclosure: base.mw5.disclosure,
-          reasonCodes: [...base.mw5.reasonCodes],
-          challenges: [...base.mw5.challenges],
-          criticalChallengeArmedHookOnly: base.mw5.criticalChallengeArmedHookOnly,
-        }
-      : null,
-    f2: {
-      turnKind,
-      intentClass: base.intentClass,
-      qualification: base.qualification ?? null,
-      proposal: base.proposal ?? null,
-      decision: null,
-      labels: {
-        recommendation:
-          base.proposal && base.qualification ? "RECOMMANDATION" : null,
-        proposition: base.proposal ? "PROPOSITION" : null,
-        decisionRequired: base.proposal?.morrisGateRequired
-          ? "DÉCISION REQUISE"
-          : null,
-        decisionTaken: null,
-        noExecution: "AUCUNE EXÉCUTION",
-      },
-      executionBlocked: base.executionBlocked === true,
-      processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
-    },
-  };
-}
-
-/**
- * CORR-PROOF-01 D1 CR-02 — central persist-and-return for F2-owned user-visible
- * responses. F1 Runner paths must NOT call this (Runner already persists).
- */
-async function f2ConversationalSuccess(input: {
-  userText: string;
-  sessionDbPath?: string;
-  text: string;
-  mode: "fixture" | "live";
-  presentation: "test_provider" | "openai_live";
-  model: string | null;
-  project: ProjectAssistantContextDto;
-  intentClass: IntentAnalysisDto["intentClass"];
-  qualification?: QualificationDto;
-  proposal?: ProposalDto;
-  executionBlocked?: boolean;
-  mw5?: Mw5TurnSurface | null;
-  turnKind?: "f1_informative" | "f2_clarification" | "f2_proposal" | "f2_blocked";
-}): Promise<ProjectAssistantSendResult> {
-  await persistCanonicalF2AssistantTurn({
-    projectId: input.project.projectId,
-    sessionDbPath: input.sessionDbPath,
-    userText: input.userText,
-    assistantText: input.text,
-  });
-  return f2Success(input);
-}
-
-/**
- * Unified send orchestration: preserves F1 for informative intents.
- * Actionable path creates durable CycleInstance + LPS append, then live snapshot.
- */
-export async function orchestrateAssistantSend(input: {
-  projectId: string;
-  content: string;
-  history?: AssistantHistoryMessage[];
-  /**
-   * Optional server-side provider injection (eval / tests).
-   * Prefer per-instance OpenAIConversationProvider over process.env mutation.
-   * For Stage A cells: inject the cell-specific ConversationProvider here.
-   */
-  provider?: ConversationProvider;
-  /** Test override for Product SQLite Session path (MW1/MW4 durability). */
-  sessionDbPath?: string;
-  /**
-   * D-GF-ACW-02 — optional re-present of server-issued logical Product turn id.
-   */
-  logicalTurnId?: string;
-  /**
-   * Opaque client transport retry correlation (untrusted; not Product identity).
-   */
-  turnRetryKey?: string;
-  /**
-   * INTERNAL / EVAL-ONLY — Stage A constitutive model×effort pin.
-   * Propagated to analyzeIntent + F1 cognitive path. Never a client DTO field.
-   */
-  evalModelReasoningControl?: NoraEvalModelReasoningControl;
-  /**
-   * INTERNAL / EVAL-ONLY — factory(modelId, effort) → ConversationProvider.
-   * Required with evalModelReasoningControl for honest structured binding.
-   */
-  evalCellProviderFactory?: EvalCellProviderFactory;
-  /** INTERNAL / EVAL-ONLY — USD authorization envelope (Agents path). */
-  usdAccounting?: NoraAgentsUsdAccounting;
-  /** INTERNAL / EVAL-ONLY — shared canonical campaign budget lease. */
-  campaignBudget?: NoraCampaignBudget;
-}): Promise<ProjectAssistantSendResult> {
-  const content = input.content.trim();
-  if (!content) {
-    return {
-      ok: false,
-      status: "validation_error",
-      code: "EMPTY_MESSAGE",
-      message: "Saisissez un message avant d'envoyer.",
-      mode: isFakeConversationProviderForced() ? "fixture" : "unavailable",
-      retryable: true,
-    };
-  }
-
-  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
-  if (!projectResult.ok) {
-    return {
-      ok: false,
-      status: "project_not_found",
-      code: projectResult.error.code,
-      message: projectResult.error.message,
-      mode: isFakeConversationProviderForced() ? "fixture" : "unavailable",
-      retryable: false,
-    };
-  }
-
-  let project = toContextDto(projectResult);
-
-  // CORR-01 — resolve eval cell provider BEFORE mode/availability gating.
-  // Under eval control, evalCellProviderFactory is the required pin source;
-  // global OPENAI_MODEL absence must not fail before the injected cell provider
-  // is assessed (and must never be manufactured via process.env mutation).
-  const cellProvider = resolveEvalCellConversationProvider({
-    evalModelReasoningControl: input.evalModelReasoningControl,
-    evalCellProviderFactory: input.evalCellProviderFactory,
-    provider: input.provider,
-  });
-  if (input.evalModelReasoningControl && !cellProvider) {
-    return {
-      ok: false,
-      status: "provider_error",
-      code: "EVAL_CELL_PROVIDER_REQUIRED",
-      message:
-        "evalModelReasoningControl requires evalCellProviderFactory (no arbitrary provider fallback).",
-      mode: isFakeConversationProviderForced() ? "fixture" : "unavailable",
-      retryable: false,
-    };
-  }
-  const effectiveProvider = cellProvider ?? input.provider;
-  const modeResolution = resolveMode(effectiveProvider);
-  if (!modeResolution.canProceed) {
-    return {
-      ok: false,
-      status: "provider_unavailable",
-      code: "PROVIDER_UNAVAILABLE",
-      message: modeResolution.message ?? "Provider indisponible.",
-      mode: "unavailable",
-      retryable: false,
-    };
-  }
-
-  let analysisResult: Awaited<ReturnType<typeof analyzeIntent>>;
-  let truthCContextForF1: string | undefined;
-  try {
-    const cognitive = await resolveCognitiveIntentProjectSummary(project);
-    if (!cognitive.ok) {
-      return {
-        ok: false,
-        status: "provider_error",
-        code: cognitive.code,
-        message: cognitive.message,
-        mode: modeResolution.mode,
-        retryable: true,
-      };
-    }
-    truthCContextForF1 =
-      cognitive.contextSource === "TRUTH_C_LPS"
-        ? cognitive.truthCContext
-        : undefined;
-
-    // CORR-PROOF-01 D1 CR-03/CR-04 — Memory B replay semantics; EMPTY ≠ UNAVAILABLE.
-    const canonicalLoad = await loadCanonicalConversationForAnalysis({
-      projectId: project.projectId,
-      sessionDbPath: input.sessionDbPath,
-      truthCRevision: {
-        lpsId: project.lpsId,
-        lpsVersion: project.lpsVersion,
-      },
-    });
-    if (canonicalLoad.availability === "unavailable") {
-      return {
-        ok: false,
-        status: "provider_error",
-        code: "CANONICAL_SESSION_UNAVAILABLE",
-        message:
-          canonicalLoad.message ??
-          "Continuité conversationnelle indisponible. Aucune invention de contexte. AUCUNE EXÉCUTION.",
-        mode: modeResolution.mode,
-        retryable: true,
-      };
-    }
-    const canonicalConversationContext = canonicalLoad.contextText;
-
-    const challengeSession = getMw5ChallengeSession(project.projectId);
-    const challengeContext =
-      challengeSession.latest != null
-        ? {
-            challengePresent: true as const,
-            challenges: challengeSession.latest.challenges,
-            challengedPremise: challengeSession.latest.challengeText.slice(
-              0,
-              500,
-            ),
-            structuralChallengeCount:
-              challengeSession.latest.structuralChallengeCount,
-          }
-        : { challengePresent: false as const };
-    analysisResult = await analyzeIntent({
-      userContent: content,
-      projectSummary: cognitive.projectSummary,
-      canonicalConversationContext,
-      challengeContext,
-      provider: effectiveProvider,
-      evalModelReasoningControl: input.evalModelReasoningControl,
-    });
-  } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "Erreur provider inattendue.";
-    return {
-      ok: false,
-      status: "provider_error",
-      code: "PROVIDER_ERROR",
-      message:
-        message === "FAKE_PROVIDER_ERROR"
-          ? "Le fournisseur de démonstration a signalé une erreur. Réessayez manuellement."
-          : message,
-      mode: modeResolution.mode,
-      retryable: true,
-    };
-  }
-
-  let { analysis, model } = analysisResult;
-  if (analysis.signals) {
-    analysis = {
-      ...analysis,
-      signals: reconcileQualificationSignals({
-        userContent: content,
-        signals: analysis.signals,
-      }).signals,
-    };
-  }
-  const presentation = modeResolution.presentation;
-  const contradictionAssessment = await deriveProductPathMw3Assessment(
-    analysis,
-    project.projectId,
-  );
-
-  // Repository read/search/Git-truth without mutation → F1 (no Cycle/LPS mutation).
-  // Deterministic override when the classifier drifts to ambiguous/actionable for pure reads.
-  const forceRepoInformative =
-    isPureRepositoryAnalysisIntent(content) &&
-    analysis.intentClass !== "execution_request";
-
-  // CORR-PROOF-02 B1 — deterministic transition gate.
-  // Safe advisory (incl. ambiguous / parse-fail / incomplete formalization fields) → F1.
-  // Governed formalization only when readiness is fully established.
-  const transition = resolveTransitionReadiness({
-    analysis,
-    forceRepoInformative,
-  });
-
-  if (!transition.formalizationReady) {
-    // CORR-PROOF-04 — Hybrid Context Envelope (composer-first).
-    // Pure read-only composition; NO reasonWithResolvedCkcContext; NO third model call.
-    const registryRoot = resolveProductDoctrineRegistryRoot();
-    const oa = getRuntimeApplicationService().oa;
-    const studioComposed = await composeStudioCognitiveContext({
-      analysis,
-      project,
-      registryRoot,
-      truthCContext: truthCContextForF1,
-      oa,
-      activeCycleInstanceId: project.activeCycleInstanceId ?? null,
-    });
-    if (!studioComposed.ok) {
-      return {
-        ok: false,
-        status: "validation_error",
-        code: studioComposed.code,
-        message: studioComposed.message,
-        mode: modeResolution.mode,
-        retryable: false,
-      };
-    }
-    const studioCognitiveContext = studioComposed.context;
-    // Keep methodContext for CORR-PROOF-03 compatibility surfaces when studio is present
-    // (studio supersedes in prompt builder).
-    const methodContext = studioCognitiveContext.method;
-    const f1 = await orchestrateProjectAssistantTurn({
-      ...input,
-      provider: effectiveProvider,
-      semanticCognitiveWorkload: analysis.cognitiveWorkload,
-      truthCContext: truthCContextForF1,
-      methodContext,
-      studioCognitiveContext,
-      contradictionAssessment,
-      evalModelReasoningControl: input.evalModelReasoningControl,
-      usdAccounting: input.usdAccounting,
-      campaignBudget: input.campaignBudget,
-    });
-    if (!f1.ok) return f1;
-    const reportedIntent =
-      analysis.parseOk &&
-      (analysis.intentClass === "informative" ||
-        analysis.intentClass === "ambiguous" ||
-        analysis.intentClass === "actionable" ||
-        analysis.intentClass === "execution_request")
-        ? forceRepoInformative
-          ? "informative"
-          : analysis.intentClass
-        : "ambiguous";
-    // B1-CR-01 — trusted execution_request keeps fail-closed authority surface
-    // even when formalization is not ready (safe F1 advisory, ZERO effect).
-    const executionBlocked =
-      analysis.parseOk === true &&
-      analysis.intentClass === "execution_request" &&
-      !forceRepoInformative;
-    return {
-      ...f1,
-      model: f1.model ?? model,
-      ephemeralNotice: EPHEMERAL_NOTICE,
-      mw5: null,
-      f2: {
-        turnKind: "f1_informative",
-        intentClass: reportedIntent,
-        qualification: null,
-        proposal: null,
-        decision: null,
-        labels: {
-          recommendation: null,
-          proposition: null,
-          decisionRequired: null,
-          decisionTaken: null,
-          noExecution: "AUCUNE EXÉCUTION",
-        },
-        executionBlocked,
-        processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
-      },
-    };
-  }
-
-  // B / D — governed formalization ready (actionable | execution_request + valid fields)
-  const cycleTypeId = analysis.candidateCycleTypeId;
-  const formalizationSignals = analysis.signals;
-  if (!cycleTypeId || !formalizationSignals) {
-    // Defensive: readiness predicate already requires these; never invent defaults.
-    return f2ConversationalSuccess({
-      userText: content,
-      sessionDbPath: input.sessionDbPath,
-      text:
-        "[Clarification requise] Qualification impossible — cycle ou signaux incomplets. AUCUNE EXÉCUTION.",
-      mode: modeResolution.mode as "fixture" | "live",
-      presentation,
-      model,
-      project,
-      intentClass: analysis.intentClass,
-    });
-  }
-
-  const runtime = getRuntimeApplicationService();
-  const oa = runtime.oa;
-  if (!oa) {
-    return f2ConversationalSuccess({
-      userText: content,
-      sessionDbPath: input.sessionDbPath,
-      text:
-        "[Runtime] Services OA indisponibles pour la qualification M2. AUCUNE EXÉCUTION.",
-      mode: modeResolution.mode as "fixture" | "live",
-      presentation,
-      model,
-      project,
-      intentClass: analysis.intentClass,
-    });
-  }
-
-  const preLpsVersion = project.lpsVersion;
-  const correlationId = `cor:f2-${randomBytes(8).toString("hex")}`;
-
-  const qualified = await qualifyWithCkc({
-    cycleTypeId,
-    signals: formalizationSignals,
-    objective: analysis.objective ?? undefined,
-    scope: analysis.scope ?? undefined,
-    correlationId,
-    ckcQualification: oa.ckcQualification,
-  });
-
-  if (!qualified.ok) {
-    return f2ConversationalSuccess({
-      userText: content,
-      sessionDbPath: input.sessionDbPath,
-      text: `[Qualification échouée] ${qualified.message} AUCUNE EXÉCUTION.`,
-      mode: modeResolution.mode as "fixture" | "live",
-      presentation,
-      model,
-      project,
-      intentClass: analysis.intentClass,
-    });
-  }
-
-  let { qualification } = qualified;
-  const cognitiveSummary = await resolveCognitiveIntentProjectSummary(project);
-  const projectSummary = cognitiveSummary.ok
-    ? cognitiveSummary.projectSummary
-    : buildIntentProjectSummary({
-        name: project.name,
-        objective: project.objective,
-        context: project.contextSummary,
-        constraints: project.constraints,
-        criticality: project.criticality,
-        lpsId: project.lpsId,
-        lpsVersion: project.lpsVersion,
-        shortReference: project.shortReference,
-        contextSource: "TEST_FALLBACK_UI_SUMMARY",
-      });
-
-  if (isProductStudioNativeCkcProof(qualified.raw.proof)) {
-    const packagePin = doctrinePackagePinFromProject(project);
-    const registryRoot = resolveProductDoctrineRegistryRoot();
-    const ckcContent = loadProductCkcCognitiveContent({
-      registryRoot,
-      cycleTypeId: qualification.cycleTypeId,
-      packagePin,
-    });
-    let ckcCognitiveRecommendation: string | undefined;
-    if (ckcContent) {
-      const reasoning = await reasonWithResolvedCkcContext({
-        userContent: content,
-        projectSummary,
-        intentSummary:
-          analysis.rephrasedRequest ??
-          analysis.objective ??
-          "Intention actionable",
-        ckcPromptSection: buildCkcCognitivePromptSection(ckcContent),
-        provider: input.provider,
-      });
-      ckcCognitiveRecommendation = reasoning.recommendation;
-    }
-    qualification = enrichQualificationWithCkcSemantics({
-      qualification,
-      proof: qualified.raw.proof,
-      registryRoot,
-      packagePin,
-      ckcCognitiveRecommendation,
-    });
-  }
-
-  const ckcResolutionRef =
-    qualification.ckcResolutionRef ??
-    projectCkcResolutionRef(qualified.raw.proof);
-
-  if (
-    qualification.requiresJustificationForCritical &&
-    !(analysis.criticalJustification && analysis.criticalJustification.trim())
-  ) {
-    return f2ConversationalSuccess({
-      userText: content,
-      sessionDbPath: input.sessionDbPath,
-      text:
-        "[Critical] Justification structurante obligatoire avant proposition validable. Critical n'est jamais implicite. AUCUNE EXÉCUTION.",
-      mode: modeResolution.mode as "fixture" | "live",
-      presentation,
-      model,
-      project,
-      intentClass: analysis.intentClass,
-      qualification,
-      executionBlocked: analysis.intentClass === "execution_request",
-    });
-  }
-
-  const mw5 = await evaluateF2Mw5({
-    content,
-    history: input.history,
-    analysis,
-    recommendedProfile: qualification.recommendedProfile,
-    recommendationWouldEmit: true,
-    projectCriticality: project.criticality,
-    projectId: project.projectId,
-    oa,
-  });
-  if (!mw5.surface.recommendationAllowed) {
-    return f2ConversationalSuccess({
-      userText: content,
-      sessionDbPath: input.sessionDbPath,
-      text: mw5.text,
-      mode: modeResolution.mode as "fixture" | "live",
-      presentation,
-      model,
-      project,
-      intentClass: analysis.intentClass,
-      qualification,
-      executionBlocked: analysis.intentClass === "execution_request",
-      mw5: mw5.surface,
-      turnKind: mw5TurnKind(mw5.surface),
-    });
-  }
-
-  const cycleInstanceId = `cyc:f2-${randomBytes(8).toString("hex")}`;
-  const created = await oa.cycleServices.createCycle.execute({
-    cycleInstanceId,
-    cycleTypeId: qualification.cycleTypeId,
-    projectId: project.projectId,
-    objective: analysis.objective ?? undefined,
-    scope: analysis.scope ?? undefined,
-    signals: formalizationSignals,
-    justification: analysis.criticalJustification ?? undefined,
-    createdBy: {
-      actorId: "actor:nora-f2",
-      role: "agent",
-      displayName: "Nora F2",
-      authorityLevel: "N1",
-    },
-    correlationId,
-    linkAsActiveCycle: false,
-    expectedLpsVersion: preLpsVersion,
-    ckcResolutionRef,
-  });
-
-  if (!created.ok) {
-    return f2ConversationalSuccess({
-      userText: content,
-      sessionDbPath: input.sessionDbPath,
-      text: `[Cycle] Création CycleInstance échouée (${created.error.detailCode}). Aucune mutation partielle. AUCUNE EXÉCUTION.`,
-      mode: modeResolution.mode as "fixture" | "live",
-      presentation,
-      model,
-      project,
-      intentClass: analysis.intentClass,
-      qualification,
-      executionBlocked: analysis.intentClass === "execution_request",
-    });
-  }
-
-  // Live context AFTER mutation — pre-mutation snapshot does not satisfy M2.
-  const live = await readLiveProjectContext(oa, project.projectId);
-  if (!live.ok) {
-    return f2ConversationalSuccess({
-      userText: content,
-      sessionDbPath: input.sessionDbPath,
-      text: `[Contexte] Relecture LPS post-mutation échouée. AUCUNE EXÉCUTION.`,
-      mode: modeResolution.mode as "fixture" | "live",
-      presentation,
-      model,
-      project,
-      intentClass: analysis.intentClass,
-      qualification: {
-        ...qualification,
-        cycleInstanceId: created.cycle.cycleInstanceId,
-        cycleStatus: created.cycle.status,
-        ckcResolutionRef,
-      },
-    });
-  }
-
-  const reloaded = await loadProjectRuntimeForAssistant(project.projectId);
-  if (reloaded.ok) {
-    project = toContextDto(reloaded);
-  } else {
-    project = {
-      ...project,
-      lpsId: live.context.lpsId,
-      lpsVersion: live.context.lpsVersion,
-      doctrineDigest: live.context.doctrineDigest,
-      activeCycleInstanceId: live.context.activeCycleInstanceId,
-      ckcResolutionRef: live.context.ckcResolutionRef,
-    };
-  }
-
-  qualification = {
-    ...qualification,
-    cycleInstanceId: created.cycle.cycleInstanceId,
-    cycleStatus: created.cycle.status,
-    ckcResolutionRef,
-    recommendedProfile: created.cycle.profile,
-  };
-
-  const morrisGateRequired =
-    evaluateMorrisGateRequired({
-      recommendedProfile: qualification.recommendedProfile,
-      signals: formalizationSignals,
-      intent: analysis,
-    }) || mw5.surface.disposition === "ESCALATE";
-
-  const status = morrisGateRequired ? "DECISION_REQUIRED" : "READY_NO_GATE";
-  const proposal = saveProposal(
-    buildProposal({
-      intent: analysis,
-      qualification,
-      project,
-      morrisGateRequired,
-      executionRequest: analysis.intentClass === "execution_request",
-      status,
-    }),
-  );
-
-  const executionBlocked = analysis.intentClass === "execution_request";
-  const textParts = [
-    presentation === "test_provider" ? "[TEST/FAKE · NON LIVE]" : "[LIVE]",
-    "Qualification SFIA et proposition structurée générées.",
-    `Cycle: ${qualification.cycleTypeId} (${qualification.cycleLabel}).`,
-    `CycleInstance candidate: ${created.cycle.cycleInstanceId} (${created.cycle.status}) — NON ACTIVE — Pilot START requis.`,
-    `Profil recommandé: ${qualification.recommendedProfile}.`,
-    project.lpsVersion === preLpsVersion
-      ? `LPS v${preLpsVersion} inchangé (pas d'activation pre-START).`
-      : `LPS v${preLpsVersion} → v${project.lpsVersion}.`,
-    qualification.recommendationLabel,
-    ...(qualification.ckcCognitiveRecommendation
-      ? [qualification.ckcCognitiveRecommendation]
-      : []),
-    "RECOMMANDATION ≠ décision Pilote — AUCUNE activation authority-bearing avant Pilot START.",
-    morrisGateRequired
-      ? "DÉCISION REQUISE — gate Morris construction (≠ Pilot lifecycle START)."
-      : "NO MORRIS CONSTRUCTION GATE REQUIRED — AUCUNE EXÉCUTION — F2 S'ARRÊTE ICI.",
-    executionBlocked
-      ? "Demande d'exécution détectée — AUCUNE EXÉCUTION (Cursor/PR/merge indisponibles)."
-      : "AUCUNE EXÉCUTION.",
-    mw5.surface.disposition === "ESCALATE"
-      ? mw5.text
-      : mw5.surface.disclosure,
-    "Nora n'émet pas de HumanDecision, GO, Confirmation, décision Morris ou acte Pilote.",
-  ];
-
-  return f2ConversationalSuccess({
-    userText: content,
-    sessionDbPath: input.sessionDbPath,
-    text: textParts.join(" "),
-    mode: modeResolution.mode as "fixture" | "live",
-    presentation,
-    model,
-    project,
-    intentClass: analysis.intentClass,
-    qualification,
-    proposal,
-    executionBlocked,
-    mw5: mw5.surface,
-  });
-}
-
-```
-
 ### FILE: `projects/sfia-studio/app/features/project-assistant/logicalProductTurn.ts`
 
 ```ts
@@ -6418,7 +3519,9 @@ export async function orchestrateAssistantSend(input: {
  * - Server alone mints/owns `ltu:…` (logical Product turn identity).
  * - Optional client `turnRetryKey` is an untrusted opaque transport correlation
  *   token only — it MUST NOT become Product turn identity or SFIA authority.
- * - Payload digest may detect retry conflicts; it is NEVER turn identity.
+ * - Payload digest (content + normalized history) may detect retry conflicts;
+ *   it is NEVER turn identity.
+ * - Accepted cycleInstanceId is binding for replay — no silent inter-cycle migrate.
  */
 
 import { createHash } from "node:crypto";
@@ -6428,8 +3531,19 @@ import {
 } from "@/lib/nora-cognitive-runtime/productSqliteSession";
 import { resolveNoraSessionSqlitePath } from "@/lib/nora-cognitive-runtime/sessionPaths";
 import { CANONICAL_CONVERSATION_SESSION_KEY } from "./f2/canonicalConversationSession";
+import { serializeCanonicalTurnPayload } from "./turnPayloadCanonical";
 
 export { createTurnRetryKey } from "./turnRetryKey";
+export {
+  PRODUCT_TURN_MAX_HISTORY_MESSAGES,
+  buildCanonicalTurnPayload,
+  normalizeProductTurnHistory,
+  preparePendingTurnRetryEnvelope,
+  serializeCanonicalTurnPayload,
+  type CanonicalHistoryMessage,
+  type CanonicalTurnPayload,
+  type PendingTurnRetryEnvelope,
+} from "./turnPayloadCanonical";
 
 export type ResolveOrMintLogicalProductTurnOk = {
   readonly ok: true;
@@ -6452,23 +3566,44 @@ export type ResolveOrMintLogicalProductTurnResult =
   | ResolveOrMintLogicalProductTurnOk
   | ResolveOrMintLogicalProductTurnErr;
 
-/** Client-side opaque transport retry token (untrusted; not Product identity). */
-// createTurnRetryKey re-exported from ./turnRetryKey (client-safe).
-
 /**
  * Conflict-detection digest for a logical submission payload.
+ * Covers content + history as consumed by the Product Assistant path.
  * NOT Product turn identity — only guards same-retry-key remaps.
  */
-export function canonicalTurnPayloadDigest(content: string): string {
+export function canonicalTurnPayloadDigest(
+  content: string,
+  history?: readonly { role: string; content: string }[] | null,
+): string {
   return createHash("sha256")
-    .update(JSON.stringify({ content: content.trim() }), "utf8")
+    .update(serializeCanonicalTurnPayload(content, history), "utf8")
     .digest("hex");
+}
+
+/** Same-cycle replay only; null↔non-null and A↔B are material context changes. */
+export function isLogicalTurnCycleCompatible(
+  acceptedCycleInstanceId: string | null | undefined,
+  currentCycleInstanceId: string | null | undefined,
+): boolean {
+  return (acceptedCycleInstanceId ?? null) === (currentCycleInstanceId ?? null);
+}
+
+function cycleMismatchResult(
+  accepted: string | null | undefined,
+  current: string | null | undefined,
+): ResolveOrMintLogicalProductTurnErr {
+  return {
+    ok: false,
+    code: "LOGICAL_TURN_RETRY_CONFLICT",
+    reason: `retry_cycle_mismatch:accepted=${accepted ?? "null"}:current=${current ?? "null"}`,
+  };
 }
 
 /**
  * Accept boundary for ACW turn identity:
  * - presented `ltu:` MUST already exist (reject client-invented)
  * - opaque `turnRetryKey` may recover an existing server binding after silent loss
+ * - recovered turns MUST match current active cycleInstanceId
  * - else mint server-owned `ltu:…` and optionally bind retry key
  * - Session open failure → fail-closed for ACW path
  */
@@ -6481,6 +3616,8 @@ export function resolveOrMintLogicalProductTurn(input: {
   turnRetryKey?: string | null;
   /** User content for conflict digest when retry key is present. */
   content?: string | null;
+  /** History actually destined for the Product path (same bounding as provider). */
+  history?: readonly { role: string; content: string }[] | null;
   cycleInstanceId?: string | null;
   nowIso?: string;
 }): ResolveOrMintLogicalProductTurnResult {
@@ -6489,9 +3626,10 @@ export function resolveOrMintLogicalProductTurn(input: {
     input.sessionKey?.trim() || CANONICAL_CONVERSATION_SESSION_KEY;
   const presented = input.presentedLogicalTurnId?.trim() || null;
   const retryKey = input.turnRetryKey?.trim() || null;
+  const currentCycle = input.cycleInstanceId?.trim() || null;
   const payloadDigest =
     retryKey !== null
-      ? canonicalTurnPayloadDigest(input.content ?? "")
+      ? canonicalTurnPayloadDigest(input.content ?? "", input.history)
       : null;
 
   let session: ProductSqliteSession | null = null;
@@ -6512,6 +3650,11 @@ export function resolveOrMintLogicalProductTurn(input: {
           code: "LOGICAL_TURN_UNKNOWN",
           reason: "presented_logical_turn_not_found_for_project_session",
         };
+      }
+      if (
+        !isLogicalTurnCycleCompatible(existing.cycleInstanceId, currentCycle)
+      ) {
+        return cycleMismatchResult(existing.cycleInstanceId, currentCycle);
       }
       if (retryKey && payloadDigest) {
         const binding = session.getLogicalProductTurnRetryBinding(retryKey);
@@ -6559,6 +3702,11 @@ export function resolveOrMintLogicalProductTurn(input: {
             reason: "retry_binding_points_to_missing_logical_turn",
           };
         }
+        if (
+          !isLogicalTurnCycleCompatible(existing.cycleInstanceId, currentCycle)
+        ) {
+          return cycleMismatchResult(existing.cycleInstanceId, currentCycle);
+        }
         return {
           ok: true,
           logicalTurnId: existing.logicalTurnId,
@@ -6590,6 +3738,14 @@ export function resolveOrMintLogicalProductTurn(input: {
               reason: "retry_binding_points_to_missing_logical_turn",
             };
           }
+          if (
+            !isLogicalTurnCycleCompatible(
+              existing.cycleInstanceId,
+              currentCycle,
+            )
+          ) {
+            return cycleMismatchResult(existing.cycleInstanceId, currentCycle);
+          }
           return {
             ok: true,
             logicalTurnId: existing.logicalTurnId,
@@ -6599,7 +3755,7 @@ export function resolveOrMintLogicalProductTurn(input: {
           };
         }
         const row = session.mintLogicalProductTurn({
-          cycleInstanceId: input.cycleInstanceId,
+          cycleInstanceId: currentCycle,
           status: "accepted",
           nowIso: input.nowIso,
         });
@@ -6628,7 +3784,7 @@ export function resolveOrMintLogicalProductTurn(input: {
     }
 
     const row = session.mintLogicalProductTurn({
-      cycleInstanceId: input.cycleInstanceId,
+      cycleInstanceId: currentCycle,
       status: "accepted",
       nowIso: input.nowIso,
     });
@@ -6697,6 +3853,9 @@ import {
 } from "./lifecycleRecommendationPiloteNotice";
 import { materializeActiveCycleWork } from "./materializeActiveCycleWork";
 import { resolveOrMintLogicalProductTurn } from "./logicalProductTurn";
+import {
+  normalizeProductTurnHistory,
+} from "./turnPayloadCanonical";
 import { buildActiveCycleWorkContextSeal } from "./f2/activeCycleCognitiveContext";
 import { resolveWorkspaceRootFromAppCwd } from "@/lib/platform/repository/workspaceRoot";
 import { loadProjectRuntimeForAssistant } from "@/features/vertical-slice-ui/ProjectWorkspaceView";
@@ -6719,7 +3878,7 @@ import type {
 } from "./types";
 import { resolveTrajectoryBootstrapPresence } from "@/lib/oa/cycle/application/lifecycleRecommendation/greenfieldLifecycleBootstrap";
 
-const MAX_HISTORY_MESSAGES = 20;
+// PRODUCT_TURN_MAX_HISTORY_MESSAGES imported from turnPayloadCanonical (shared).
 
 function buildEphemeralNotice(
   memoryBAvailability:
@@ -6939,6 +4098,9 @@ export async function orchestrateProjectAssistantTurn(input: {
   // Session open failure must NOT abort Truth C / conversational continuity
   // (MW1 Memory B unavailable). ACW materialization remains fail-closed when
   // no durable logicalTurnId is available.
+  //
+  // Normalize history FIRST so conflict digest seals the exact provider envelope.
+  const history = normalizeProductTurnHistory(input.history);
   let logicalTurnId: string | null = null;
   const testCorrOverride = input.turnCorrelationId?.trim() || null;
   if (testCorrOverride) {
@@ -6950,6 +4112,7 @@ export async function orchestrateProjectAssistantTurn(input: {
       presentedLogicalTurnId: input.logicalTurnId,
       turnRetryKey: input.turnRetryKey,
       content,
+      history,
       cycleInstanceId:
         input.studioCognitiveContext?.activeCycle?.cycleInstanceId ?? null,
       nowIso: new Date().toISOString(),
@@ -6986,15 +4149,6 @@ export async function orchestrateProjectAssistantTurn(input: {
     }
   }
 
-  const history = (input.history ?? [])
-    .filter(
-      (m) =>
-        (m.role === "user" || m.role === "assistant") &&
-        typeof m.content === "string" &&
-        m.content.trim().length > 0,
-    )
-    .slice(-MAX_HISTORY_MESSAGES);
-
   const messages: ProviderChatMessage[] = [
     {
       role: "system",
@@ -7004,7 +4158,7 @@ export async function orchestrateProjectAssistantTurn(input: {
         studioCognitiveContext: input.studioCognitiveContext ?? null,
       }),
     },
-    ...history.map((m) => ({ role: m.role, content: m.content.trim() })),
+    ...history.map((m) => ({ role: m.role, content: m.content })),
     { role: "user", content },
   ];
 
@@ -7526,6 +4680,107 @@ export async function orchestrateProjectAssistantTurn(input: {
 
 ```
 
+### FILE: `projects/sfia-studio/app/features/project-assistant/turnPayloadCanonical.ts`
+
+```ts
+/**
+ * Client-safe canonical Product-turn submission envelope helpers.
+ *
+ * Used by:
+ * - Product UI pending retry envelope (process-local, non-authoritative)
+ * - Server conflict digest (sha256 of this canonical form)
+ *
+ * MUST stay free of node:sqlite / Session imports.
+ * MUST stay aligned with orchestrateProjectAssistantTurn history bounding.
+ *
+ * Digest/payload is conflict detection ONLY — never Product turn identity.
+ */
+
+export const PRODUCT_TURN_MAX_HISTORY_MESSAGES = 20;
+
+export type CanonicalHistoryMessage = {
+  readonly role: "user" | "assistant";
+  readonly content: string;
+};
+
+export type CanonicalTurnPayload = {
+  readonly content: string;
+  readonly history: readonly CanonicalHistoryMessage[];
+};
+
+/**
+ * Pending retry envelope retained by the Product conversation hook until
+ * terminal client-observed success. Untrusted transport correlation only —
+ * never HumanDecision / Truth C / Product authority.
+ */
+export type PendingTurnRetryEnvelope = {
+  readonly turnRetryKey: string;
+  readonly content: string;
+  readonly history: readonly CanonicalHistoryMessage[];
+};
+
+/** Normalize history exactly as the Product Assistant provider path does. */
+export function normalizeProductTurnHistory(
+  history: readonly { role: string; content: string }[] | null | undefined,
+): CanonicalHistoryMessage[] {
+  return (history ?? [])
+    .filter(
+      (m) =>
+        (m.role === "user" || m.role === "assistant") &&
+        typeof m.content === "string" &&
+        m.content.trim().length > 0,
+    )
+    .map((m) => ({
+      role: m.role as "user" | "assistant",
+      content: m.content.trim(),
+    }))
+    .slice(-PRODUCT_TURN_MAX_HISTORY_MESSAGES);
+}
+
+export function buildCanonicalTurnPayload(
+  content: string,
+  history?: readonly { role: string; content: string }[] | null,
+): CanonicalTurnPayload {
+  return {
+    content: content.trim(),
+    history: normalizeProductTurnHistory(history),
+  };
+}
+
+/** Stable JSON serialization for conflict digests (deterministic key order). */
+export function serializeCanonicalTurnPayload(
+  content: string,
+  history?: readonly { role: string; content: string }[] | null,
+): string {
+  const payload = buildCanonicalTurnPayload(content, history);
+  return JSON.stringify({
+    content: payload.content,
+    history: payload.history.map((m) => ({
+      role: m.role,
+      content: m.content,
+    })),
+  });
+}
+
+/**
+ * Allocate/reuse a process-local pending retry envelope for one logical submit.
+ * Pure helper — no React / Session / Product authority.
+ */
+export function preparePendingTurnRetryEnvelope(input: {
+  content: string;
+  history?: readonly { role: string; content: string }[] | null;
+  turnRetryKey: string;
+}): PendingTurnRetryEnvelope {
+  const payload = buildCanonicalTurnPayload(input.content, input.history);
+  return {
+    turnRetryKey: input.turnRetryKey.trim(),
+    content: payload.content,
+    history: payload.history,
+  };
+}
+
+```
+
 ### FILE: `projects/sfia-studio/app/features/project-assistant/turnRetryKey.ts`
 
 ```ts
@@ -7539,6 +4794,17 @@ export async function orchestrateProjectAssistantTurn(input: {
  * the key BEFORE the Server Action without bundling Session persistence.
  */
 
+export {
+  PRODUCT_TURN_MAX_HISTORY_MESSAGES,
+  buildCanonicalTurnPayload,
+  normalizeProductTurnHistory,
+  preparePendingTurnRetryEnvelope,
+  serializeCanonicalTurnPayload,
+  type CanonicalHistoryMessage,
+  type CanonicalTurnPayload,
+  type PendingTurnRetryEnvelope,
+} from "./turnPayloadCanonical";
+
 export function createTurnRetryKey(): string {
   const uuid =
     typeof globalThis.crypto?.randomUUID === "function"
@@ -7549,1180 +4815,19 @@ export function createTurnRetryKey(): string {
 
 ```
 
-### FILE: `projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts`
-
-```ts
-/**
- * Nora Option C cognitive runtime — public surface.
- * OD-04: Runner + Product SQLite Session + callModelInputFilter + routeToolCall.
- * Single Agents path (Fake + target). No Nora runtime selector.
- */
-
-export type {
-  NoraCognitiveRuntimeKind,
-  NoraCognitiveTurnResult,
-} from "./types";
-export { ProductSqliteSession, userTextItem, assistantTextItem, PRODUCT_SESSION_ALLOWED_TABLES } from "./productSqliteSession";
-export type {
-  ProductSqliteSessionOptions,
-  LogicalProductTurnRow,
-  LogicalProductTurnStatus,
-  LogicalProductTurnRetryBinding,
-} from "./productSqliteSession";
-export {
-  probeMemoryBAvailability,
-  appendMemoryBCognitiveDisclosure,
-  memoryBPiloteNotice,
-  MEMORY_B_COGNITIVE_DISCLOSURE,
-  MEMORY_B_PILOTE_NOTICE,
-} from "./memoryBAvailability";
-export type {
-  MemoryBAvailability,
-  MemoryBProbeResult,
-  ProbeMemoryBAvailabilityOptions,
-} from "./memoryBAvailability";
-export {
-  COMPACTION_COGNITIVE_DISCLOSURE,
-  COMPACTION_PILOTE_NOTICE,
-  DEFAULT_COMPACTION_POLICY,
-  MemoryBSessionView,
-  STALE_PRIOR_INVALIDATED_COGNITIVE_ADDENDUM,
-  STALE_PRIOR_INVALIDATED_PILOTE_ADDENDUM,
-  applyCompactionIfNeeded,
-  appendMemoryBCompactionDisclosure,
-  buildCompactionRecord,
-  buildInvalidatedPriorMeta,
-  computeRawProvenanceCoverage,
-  contentHash,
-  createMemoryBSessionView,
-  extractItemText,
-  loadSessionRows,
-  memoryBCompactionPiloteNotice,
-  parseStoredCompactionRecord,
-  partitionMemoryBForCompaction,
-  prepareMemoryBForTurn,
-  resolveReplayItems,
-  shouldCompactItemCount,
-  staleDisclosureMatchesReplaySemantics,
-  truthCRevisionKey,
-  truthCRevisionsMatch,
-} from "./memoryBCompaction";
-export type {
-  CompactionPolicy,
-  CompactionProvenanceEntry,
-  InvalidatedPriorCompactionMeta,
-  LoadedSessionRows,
-  MemoryBCompactionDetails,
-  MemoryBCompactionLoss,
-  MemoryBCompactionRecord,
-  MemoryBCompactionState,
-  ProvenanceCoverageFacts,
-  TruthCRevision,
-} from "./memoryBCompaction";
-export { resolveNoraSessionSqlitePath } from "./sessionPaths";
-export {
-  sfiaBoundaryInstructions,
-  createSfiaRouteToolAdapters,
-  invokeSfiaToolViaRoute,
-  assertRawJsonObjectSchema,
-  sdkToolParametersOf,
-} from "./sfiaAgentsTools";
-export type { SfiaJsonObjectSchema, SfiaAgentsToolOptions } from "./sfiaAgentsTools";
-export {
-  createNoraTurnBudget,
-  claimToolSlot,
-  markModelTurn,
-  toolRoundsFromBudget,
-  TOOL_TURN_BUDGET_EXCEEDED_RESULT,
-} from "./turnBudget";
-export type { NoraTurnBudget } from "./turnBudget";
-export {
-  createNoraCampaignBudget,
-  acquireNoraCampaignBudget,
-  isCanonicalCampaignBudget,
-  requireCanonicalCampaignBudget,
-  markCampaignBudgetBlocked,
-  claimModelInvocation,
-  claimHostedWebOperations,
-  clampRunnerBudgetForCampaign,
-  resolveMaxToolCallsProviderData,
-  evaluateCampaignBudgetCapabilityOnly,
-  evaluateRealSourceExecutionPreflight,
-  remainingModelInvocations,
-  remainingHostedWebOperations,
-  remainingAggregateRealCalls,
-  campaignBudgetSnapshot,
-  requireSafeNonNegativeInteger,
-  CampaignLeaseError,
-  H17_HISTORICAL_AUTHORIZED_AGGREGATE_CALLS,
-  H17_HISTORICAL_OBSERVED_AGGREGATE_CALLS,
-} from "./campaignBudget";
-export type {
-  NoraCampaignBudget,
-  NoraCampaignBudgetSpec,
-  CampaignBudgetDenialCode,
-  HostedHardCapCapability,
-  RealSourceExecutionPreflightResult,
-  Mw6GovernedAuthorityContext,
-  Mw6CurrentProductContext,
-  Mw6GetExecutionContractPort,
-  Mw6CheckExecutionAuthorizationPort,
-  Mw6AuthorizedExternalDiscoveryContract,
-  Mw6ExternalDiscoveryContractInput,
-  RunnerBudgetClamp,
-  CreateNoraCampaignBudgetInput,
-} from "./campaignBudget";
-export {
-  MW6_REAL_PROOF_GRANT_ENV,
-  MW6_REAL_PROOF_PURPOSE,
-  MW6_REAL_PROOF_GRANT_VERSION,
-  parseMw6RealProofGrantJson,
-  matchMw6RealProofGrant,
-  resolveMw6RealAuthorization,
-} from "./mw6RealAuthorization";
-export type {
-  Mw6RealProofGrantV1,
-  Mw6RealAuthorizationMatchContext,
-  Mw6RealAuthorizationDecision,
-} from "./mw6RealAuthorization";
-export {
-  CampaignModelInvocationDeniedError,
-  CampaignUsdHardCapDeniedError,
-  createSfiaCallModelInputFilter,
-  preserveStructuralRoles,
-} from "./callModelInputFilter";
-export type {
-  NoraAgentsUsdAccounting,
-  NoraAgentsUsdSettleObservation,
-  NoraAgentsUsdSettleResult,
-} from "./agentsUsdAccounting";
-// R-PRE-REAL-07: withMaxToolCallsProviderData intentionally NOT exported from barrel.
-export {
-  createProviderAgentsModel,
-  isFakeConversationProvider,
-  agentInputToProviderItems,
-  toolDefinitionsFromModelRequest,
-} from "./providerAgentsModel";
-export {
-  createNoraAgentsRunner,
-  runNoraAgentsTurn,
-  resolveNoraAgentsF1Model,
-  shouldUseProviderAgentsModelAdapter,
-  isOpenAiLiveF1Provider,
-} from "./runNoraAgentsTurn";
-export type {
-  RunNoraAgentsTurnInput,
-  RunNoraAgentsTurnUsdObserve,
-} from "./runNoraAgentsTurn";
-export { runNoraCognitiveTurn } from "./runNoraCognitiveTurn";
-export type {
-  RunNoraCognitiveTurnInput,
-  Mw3ContradictionAssessmentInput,
-  NoraEvalModelReasoningControl,
-} from "./runNoraCognitiveTurn";
-export {
-  disposeContradiction,
-  dispositionIndependentOfStrategy,
-} from "./contradictionDisposition";
-export type {
-  ContradictionConflictInput,
-  ContradictionEvidencePointer,
-} from "./contradictionDisposition";
-export {
-  decideCognitiveStop,
-  cognitiveStopAllowsProductSuccess,
-  formatCognitiveStopPiloteNotice,
-} from "./cognitiveStop";
-export {
-  MW5_MAX_STRUCTURAL_CHALLENGES,
-  MW5_CHALLENGE_MARKER,
-  MW5_CLARIFY_MARKER,
-  MW5_ESCALATE_MARKER,
-  MW5_TEST_MARKERS,
-  capStructuralChallenges,
-  containsSynthesizedHumanAct,
-  decideMw5Disposition,
-  deriveMw5FactsFromF2Turn,
-  formatMw5AssistantText,
-  formatMw5MachineText,
-  formatMw5PiloteText,
-  isCriticalProfile,
-  isMw5ChallengeSatisfied,
-  looksLikeQuestionnaire,
-  parseIssuedChallengeCount,
-  toMw5TurnSurface,
-} from "./criticalChallengeClarification";
-export type {
-  DeriveMw5FactsInput,
-  Mw5Disposition,
-  Mw5PolicyInput,
-  Mw5PolicyResult,
-  Mw5TurnSurface,
-  Mw5UncertaintyClass,
-} from "./criticalChallengeClarification";
-export {
-  parseChallengeResponseAssessment,
-  resolveMw5ProductAuthorityFacts,
-  truthCMatchesClaimStructured,
-  decisionBasisMatchesClaimStructured,
-  formatMw5ChallengeContextForProvider,
-} from "./mw5ProductAuthorityFacts";
-export type {
-  ChallengeResponseAssessment,
-  Mw5ChallengeContextForAnalysis,
-  Mw5ChallengeContextInput,
-  Mw5ClaimProjection,
-  Mw5ConsumedDecisionProjection,
-  Mw5ProductAuthorityFacts,
-  Mw5TruthCProjection,
-} from "./mw5ProductAuthorityFacts";
-export {
-  deriveMw3ContradictionAssessment,
-  MW3_STUDIO_REQUIRED_SOURCE_COUNT,
-  MW3_STUDIO_FRESHNESS_MATTERS,
-  type Mw3ContradictionCandidateSignal,
-} from "./deriveMw3Assessment";
-export {
-  decideCognitiveStrategy,
-  normalizeCognitiveWorkloadSignals,
-  buildSignalsFromTurnContext,
-  mergeCognitiveWorkloadSignals,
-  normalizeSemanticCognitiveWorkloadAssessment,
-  isRoutineEligible,
-  STRATEGY_REASONING_ENVELOPES,
-  COGNITIVE_STRATEGY_CLASSES,
-  ROUTINE_KNOWN_LOW_DIMENSIONS,
-  SEMANTIC_CWP_DIMENSIONS,
-} from "./cognitiveWorkloadPolicy";
-export type {
-  CognitiveStrategyClass,
-  CognitiveStrategyDecision,
-  CognitiveWorkloadSignals,
-  SemanticCognitiveWorkloadAssessment,
-  TurnWorkloadContext,
-} from "./cognitiveWorkloadPolicy";
-export { validateRuntimeReasoningCapability } from "./reasoningCapability";
-export {
-  buildRunnerModelSettingsForEffort,
-  type NoraRunnerModelSettings,
-} from "./reasoningModelSettings";
-export {
-  GROUNDING_REFS_TYPE,
-  acceptGroundingRefsForProject,
-  appendGroundingCognitiveDisclosure,
-  buildClaimSpecificProvenanceDisclosure,
-  buildGroundingCognitiveDisclosure,
-  classifyRememberedEvidence,
-  groundingRecordToStoredItem,
-  isGroundingRefsRecord,
-  isNonReplaySessionMarker,
-  loadGroundingRefsFromSession,
-  parseStoredGroundingRefsRecord,
-  rememberEvidenceIds,
-  rememberReadCoverage,
-  toMw4GroundingTurnSurface,
-  upsertGroundingRefsRecord,
-} from "./groundingDurability";
-export type {
-  GroundingEvidenceRef,
-  GroundingReadCoverageKind,
-  GroundingReadCoverageRef,
-  GroundingRefsRecord,
-  Mw4GroundingTurnSurface,
-  RememberedEvidenceDowngradeReason,
-  RememberedEvidenceMissingReason,
-  RememberedEvidenceResolution,
-} from "./groundingDurability";
-export {
-  POST_EVIDENCE_NARRATIVE_POLICY,
-  appendPostEvidenceNarrativePolicyDisclosure,
-  buildPostEvidenceNarrativePolicyDisclosure,
-} from "./postEvidenceNarrativePolicy";
-export type { PostEvidenceNarrativePolicy } from "./postEvidenceNarrativePolicy";
-export {
-  aggregateReadCoverage,
-  appendReadCoverageDisclosure,
-  buildReadCoverageDisclosure,
-  classifyGitLocalReadCompleteness,
-  deriveReadCoverageFromToolEvent,
-  mergeCurrentAndRememberedCoverage,
-  MW4_DOCUMENT_READ_TOOL,
-  overallToGroundingCoverageKind,
-  parseGitLocalReadCoverageSignals,
-} from "./readCoverage";
-export type {
-  ParsedReadRange,
-  ReadCoverageAggregate,
-  ReadCoverageFact,
-  ReadCoverageKind,
-} from "./readCoverage";
-
-/* MW6 — External Source Intelligence */
-export type {
-  Mw6SourceIntelligenceSurface,
-  SemanticSourceClass,
-  SourceAccessState,
-  SourceAcquisitionRequirement,
-  SourceClass,
-  SourceCoverageKind,
-  SourceFreshnessRequirement,
-  SourceFreshnessState,
-  SourceKind,
-  SourceNeedKind,
-  SourceObservationFact,
-  SourceOperationIntent,
-  SourceOperationKind,
-  SourceProvenancePlan,
-  SourceProvenanceState,
-  SourceProviderBinding,
-  SourceProviderId,
-  SourceStrategyDecision,
-} from "./sourceIntelligenceContract";
-export {
-  MW6_SOURCE_AUTHORITY_BOUNDARY,
-  SOURCE_STRATEGY_PROVIDER_LEAK_PATTERNS,
-} from "./sourceIntelligenceContract";
-export {
-  appendSourceStrategyDisclosure,
-  bindSourceProviderCapability,
-  buildSourceStrategyDisclosure,
-  decideSourceStrategy,
-  inferClaimDomain,
-  planForDomainNeed,
-  strategyContractLeaksProviderIdentity,
-} from "./sourceStrategyPolicy";
-export type { SourceStrategyInput } from "./sourceStrategyPolicy";
-export {
-  appendSourceObservationDisclosure,
-  authorityIsolationHeld,
-  buildSourceObservationDisclosure,
-  coverageForExternalOperation,
-  freshnessForExternalObservation,
-  normalizeHostedWebSearchCall,
-  observationsRefuseFabrication,
-} from "./externalSourceNormalization";
-export type { HostedWebSearchCallLike } from "./externalSourceNormalization";
-export {
-  assertExternalSourceHasZeroAuthority,
-  buildAuthorityIsolationDisclosure,
-  detectAuthorityEscalationAttempts,
-} from "./externalSourceAuthority";
-export {
-  appendSourceNarrativeConstraintDisclosure,
-  applySourceNarrativeCompatibility,
-  buildSourceNarrativeConstraintDisclosure,
-  requiredSourceEvidenceMissing,
-} from "./sourceNarrativeCompatibility";
-export type {
-  SourceNarrativeCompatibilityResult,
-  SourceNarrativeViolation,
-} from "./sourceNarrativeCompatibility";
-export {
-  composeMw3ConflictFromExternalSources,
-  deriveConflictPresentFromExternalObservations,
-} from "./externalContradictionComposition";
-export type {
-  DerivedExternalConflict,
-  ExternalGoverningContext,
-} from "./externalContradictionComposition";
-export {
-  createNoraHostedWebSearchTool,
-  describeNoraHostedWebSearchPublicSurface,
-  extractHostedWebSearchCallsFromRunItems,
-  normalizeOpenAiHostedWebSearchObservations,
-} from "./openaiHostedWebSearchAdapter";
-export type { NoraHostedWebSearchToolOptions } from "./openaiHostedWebSearchAdapter";
-
-```
-
-### FILE: `projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts`
-
-```ts
-/**
- * Product SQLite Session — Agents SDK Session contract.
- * Conversational continuity only. NEVER Truth C / LPS / HumanDecision / Evidence.
- *
- * Harvested/adapted from Option C A/B spike ProductSqliteSession shape.
- * Does NOT adopt Baseline A M9 Memory B schema.
- *
- * logical_product_turns (D-GF-ACW-02 Option A): Session-adjacent identity for
- * Product-turn replay / ACW idempotence coordination ONLY.
- * logical_product_turn_retry_bindings: opaque client retry-key → server ltu
- * lookup (untrusted correlation; never Product authority / Truth C).
- * Never Epistemic / LPS / HD / Evidence SoT.
- */
-import { randomBytes } from "node:crypto";
-import { DatabaseSync } from "node:sqlite";
-import type { AgentInputItem, Session } from "@openai/agents";
-
-export type ProductSqliteSessionOptions = {
-  projectId: string;
-  dbPath: string;
-  sessionKey?: string;
-};
-
-export type LogicalProductTurnStatus =
-  | "accepted"
-  | "completed"
-  | "failed"
-  | string;
-
-export type LogicalProductTurnRow = {
-  readonly projectId: string;
-  readonly sessionKey: string;
-  readonly logicalTurnId: string;
-  readonly status: string;
-  readonly createdAt: string;
-  readonly cycleInstanceId: string | null;
-};
-
-/** Session-adjacent retry correlation binding (untrusted key → server ltu). */
-export type LogicalProductTurnRetryBinding = {
-  readonly projectId: string;
-  readonly sessionKey: string;
-  readonly retryKey: string;
-  readonly logicalTurnId: string;
-  readonly payloadDigest: string;
-  readonly createdAt: string;
-};
-
-/** Tables permitted in Product Session SQLite (Session ≠ Truth C). */
-export const PRODUCT_SESSION_ALLOWED_TABLES = [
-  "session_items",
-  "logical_product_turns",
-  "logical_product_turn_retry_bindings",
-] as const;
-
-/**
- * Project-scoped Session. Cross-project keys never share rows.
- * Persistence is product-owned Session SQLite — no oa_* Truth C writes.
- */
-export class ProductSqliteSession implements Session {
-  readonly projectId: string;
-  readonly sessionKey: string;
-  private readonly dbPath: string;
-  private db: DatabaseSync;
-  private forceNextGetFail = false;
-  private forceNextReplaceFail = false;
-
-  constructor(options: ProductSqliteSessionOptions) {
-    this.projectId = options.projectId;
-    this.sessionKey = options.sessionKey ?? "default";
-    this.dbPath = options.dbPath;
-    this.db = new DatabaseSync(this.dbPath);
-    this.db.exec(`
-      CREATE TABLE IF NOT EXISTS session_items (
-        project_id TEXT NOT NULL,
-        session_key TEXT NOT NULL,
-        seq INTEGER NOT NULL,
-        item_json TEXT NOT NULL,
-        PRIMARY KEY (project_id, session_key, seq)
-      );
-    `);
-    this.ensureLogicalTurnSchema();
-  }
-
-  /**
-   * Session-adjacent logical Product turn identity (D-GF-ACW-02 Option A).
-   * Continuity / replay coordination ONLY — never Epistemic/LPS/HD/Evidence SoT.
-   */
-  ensureLogicalTurnSchema(): void {
-    this.db.exec(`
-      CREATE TABLE IF NOT EXISTS logical_product_turns (
-        project_id TEXT NOT NULL,
-        session_key TEXT NOT NULL,
-        logical_turn_id TEXT NOT NULL,
-        status TEXT NOT NULL,
-        created_at TEXT NOT NULL,
-        cycle_instance_id TEXT,
-        PRIMARY KEY (project_id, session_key, logical_turn_id)
-      );
-      CREATE TABLE IF NOT EXISTS logical_product_turn_retry_bindings (
-        project_id TEXT NOT NULL,
-        session_key TEXT NOT NULL,
-        retry_key TEXT NOT NULL,
-        logical_turn_id TEXT NOT NULL,
-        payload_digest TEXT NOT NULL,
-        created_at TEXT NOT NULL,
-        PRIMARY KEY (project_id, session_key, retry_key)
-      );
-    `);
-  }
-
-  getLogicalProductTurnRetryBinding(
-    retryKey: string,
-  ): LogicalProductTurnRetryBinding | null {
-    this.ensureLogicalTurnSchema();
-    const key = retryKey.trim();
-    if (!key) return null;
-    const row = this.db
-      .prepare(
-        `SELECT project_id, session_key, retry_key, logical_turn_id,
-                payload_digest, created_at
-         FROM logical_product_turn_retry_bindings
-         WHERE project_id = ? AND session_key = ? AND retry_key = ?`,
-      )
-      .get(this.projectId, this.sessionKey, key) as
-      | {
-          project_id: string;
-          session_key: string;
-          retry_key: string;
-          logical_turn_id: string;
-          payload_digest: string;
-          created_at: string;
-        }
-      | undefined;
-    if (!row) return null;
-    return {
-      projectId: row.project_id,
-      sessionKey: row.session_key,
-      retryKey: row.retry_key,
-      logicalTurnId: row.logical_turn_id,
-      payloadDigest: row.payload_digest,
-      createdAt: row.created_at,
-    };
-  }
-
-  /**
-   * Bind opaque transport retry key → server-owned logical turn.
-   * Caller must hold a transaction when used with mint for atomic accept.
-   */
-  bindLogicalProductTurnRetry(input: {
-    retryKey: string;
-    logicalTurnId: string;
-    payloadDigest: string;
-    nowIso?: string;
-  }): LogicalProductTurnRetryBinding {
-    this.ensureLogicalTurnSchema();
-    const retryKey = input.retryKey.trim();
-    const logicalTurnId = input.logicalTurnId.trim();
-    const payloadDigest = input.payloadDigest.trim();
-    if (!retryKey || !logicalTurnId || !payloadDigest) {
-      throw new Error("LOGICAL_TURN_RETRY_BIND_INVALID");
-    }
-    const createdAt = input.nowIso ?? new Date().toISOString();
-    this.db
-      .prepare(
-        `INSERT INTO logical_product_turn_retry_bindings(
-           project_id, session_key, retry_key, logical_turn_id,
-           payload_digest, created_at
-         ) VALUES (?, ?, ?, ?, ?, ?)`,
-      )
-      .run(
-        this.projectId,
-        this.sessionKey,
-        retryKey,
-        logicalTurnId,
-        payloadDigest,
-        createdAt,
-      );
-    return {
-      projectId: this.projectId,
-      sessionKey: this.sessionKey,
-      retryKey,
-      logicalTurnId,
-      payloadDigest,
-      createdAt,
-    };
-  }
-
-  /**
-   * Mint a server-owned logical Product turn id (`ltu:` + randomBytes hex).
-   * Session continuity / ACW rematerialize coordination ONLY.
-   */
-  mintLogicalProductTurn(input?: {
-    cycleInstanceId?: string | null;
-    status?: LogicalProductTurnStatus;
-    nowIso?: string;
-  }): LogicalProductTurnRow {
-    this.ensureLogicalTurnSchema();
-    const logicalTurnId = `ltu:${randomBytes(16).toString("hex")}`;
-    const createdAt = input?.nowIso ?? new Date().toISOString();
-    const status = input?.status ?? "accepted";
-    const cycleInstanceId = input?.cycleInstanceId?.trim() || null;
-    this.db
-      .prepare(
-        `INSERT INTO logical_product_turns(
-           project_id, session_key, logical_turn_id, status, created_at, cycle_instance_id
-         ) VALUES (?, ?, ?, ?, ?, ?)`,
-      )
-      .run(
-        this.projectId,
-        this.sessionKey,
-        logicalTurnId,
-        status,
-        createdAt,
-        cycleInstanceId,
-      );
-    return {
-      projectId: this.projectId,
-      sessionKey: this.sessionKey,
-      logicalTurnId,
-      status,
-      createdAt,
-      cycleInstanceId,
-    };
-  }
-
-  getLogicalProductTurn(
-    logicalTurnId: string,
-  ): LogicalProductTurnRow | null {
-    this.ensureLogicalTurnSchema();
-    const id = logicalTurnId.trim();
-    if (!id) return null;
-    const row = this.db
-      .prepare(
-        `SELECT project_id, session_key, logical_turn_id, status, created_at, cycle_instance_id
-         FROM logical_product_turns
-         WHERE project_id = ? AND session_key = ? AND logical_turn_id = ?`,
-      )
-      .get(this.projectId, this.sessionKey, id) as
-      | {
-          project_id: string;
-          session_key: string;
-          logical_turn_id: string;
-          status: string;
-          created_at: string;
-          cycle_instance_id: string | null;
-        }
-      | undefined;
-    if (!row) return null;
-    return {
-      projectId: row.project_id,
-      sessionKey: row.session_key,
-      logicalTurnId: row.logical_turn_id,
-      status: row.status,
-      createdAt: row.created_at,
-      cycleInstanceId: row.cycle_instance_id,
-    };
-  }
-
-  markLogicalProductTurnStatus(
-    logicalTurnId: string,
-    status: LogicalProductTurnStatus,
-  ): boolean {
-    this.ensureLogicalTurnSchema();
-    const id = logicalTurnId.trim();
-    if (!id) return false;
-    const result = this.db
-      .prepare(
-        `UPDATE logical_product_turns SET status = ?
-         WHERE project_id = ? AND session_key = ? AND logical_turn_id = ?`,
-      )
-      .run(status, this.projectId, this.sessionKey, id);
-    return Number(result.changes) > 0;
-  }
-
-  /** Test hook — next getItems throws (retrieval failure ≠ empty). */
-  simulateNextRetrievalFailure(): void {
-    this.forceNextGetFail = true;
-  }
-
-  /** Test hook — next replaceItemsAtomically fails after DELETE (rollback). */
-  simulateNextReplaceFailure(): void {
-    this.forceNextReplaceFail = true;
-  }
-
-  /** Test/inspection access for atomicity proofs (triggers, etc.). */
-  getSqlite(): DatabaseSync {
-    return this.db;
-  }
-
-  async getSessionId(): Promise<string> {
-    return `sess:${this.projectId}:${this.sessionKey}`;
-  }
-
-  async getItems(limit?: number): Promise<AgentInputItem[]> {
-    if (this.forceNextGetFail) {
-      this.forceNextGetFail = false;
-      throw new Error("SESSION_RETRIEVAL_ERROR: sqlite read failure");
-    }
-    const rows = this.db
-      .prepare(
-        `SELECT item_json FROM session_items
-         WHERE project_id = ? AND session_key = ?
-         ORDER BY seq ASC`,
-      )
-      .all(this.projectId, this.sessionKey) as Array<{ item_json: string }>;
-    let items = rows.map((r) => JSON.parse(r.item_json) as AgentInputItem);
-    if (limit !== undefined) {
-      if (limit <= 0) return [];
-      items = items.slice(-limit);
-    }
-    return items.map((i) => structuredClone(i));
-  }
-
-  /**
-   * Batch append is atomic (BEGIN IMMEDIATE → inserts → COMMIT).
-   * Any failure ROLLBACKs so no partial batch remains.
-   */
-  async addItems(items: AgentInputItem[]): Promise<void> {
-    if (items.length === 0) return;
-    this.db.exec("BEGIN IMMEDIATE");
-    try {
-      const maxRow = this.db
-        .prepare(
-          `SELECT COALESCE(MAX(seq), -1) AS m FROM session_items
-           WHERE project_id = ? AND session_key = ?`,
-        )
-        .get(this.projectId, this.sessionKey) as { m: number };
-      let seq = Number(maxRow.m) + 1;
-      const insert = this.db.prepare(
-        `INSERT INTO session_items(project_id, session_key, seq, item_json)
-         VALUES (?, ?, ?, ?)`,
-      );
-      for (const item of items) {
-        insert.run(
-          this.projectId,
-          this.sessionKey,
-          seq,
-          JSON.stringify(item),
-        );
-        seq += 1;
-      }
-      this.db.exec("COMMIT");
-    } catch (error) {
-      try {
-        this.db.exec("ROLLBACK");
-      } catch {
-        /* ignore nested rollback errors */
-      }
-      throw error;
-    }
-  }
-
-  async popItem(): Promise<AgentInputItem | undefined> {
-    const row = this.db
-      .prepare(
-        `SELECT seq, item_json FROM session_items
-         WHERE project_id = ? AND session_key = ?
-         ORDER BY seq DESC LIMIT 1`,
-      )
-      .get(this.projectId, this.sessionKey) as
-      | { seq: number; item_json: string }
-      | undefined;
-    if (!row) return undefined;
-    this.db
-      .prepare(
-        `DELETE FROM session_items
-         WHERE project_id = ? AND session_key = ? AND seq = ?`,
-      )
-      .run(this.projectId, this.sessionKey, row.seq);
-    return JSON.parse(row.item_json) as AgentInputItem;
-  }
-
-  async clearSession(): Promise<void> {
-    this.db
-      .prepare(
-        `DELETE FROM session_items WHERE project_id = ? AND session_key = ?`,
-      )
-      .run(this.projectId, this.sessionKey);
-  }
-
-  /** Inspection — ordered raw rows for compaction (MW1-S02). */
-  listItemRows(): Array<{ seq: number; item_json: string }> {
-    return this.db
-      .prepare(
-        `SELECT seq, item_json FROM session_items
-         WHERE project_id = ? AND session_key = ?
-         ORDER BY seq ASC`,
-      )
-      .all(this.projectId, this.sessionKey) as Array<{
-      seq: number;
-      item_json: string;
-    }>;
-  }
-
-  /**
-   * Atomic replace of all session items (MW1-S02 compaction).
-   * BEGIN IMMEDIATE → DELETE → INSERT → COMMIT; ROLLBACK on failure.
-   */
-  async replaceItemsAtomically(items: AgentInputItem[]): Promise<void> {
-    this.db.exec("BEGIN IMMEDIATE");
-    try {
-      this.db
-        .prepare(
-          `DELETE FROM session_items WHERE project_id = ? AND session_key = ?`,
-        )
-        .run(this.projectId, this.sessionKey);
-      const insert = this.db.prepare(
-        `INSERT INTO session_items(project_id, session_key, seq, item_json)
-         VALUES (?, ?, ?, ?)`,
-      );
-      let seq = 0;
-      for (const item of items) {
-        if (this.forceNextReplaceFail) {
-          this.forceNextReplaceFail = false;
-          throw new Error("SESSION_REPLACE_SIMULATED_FAILURE");
-        }
-        insert.run(
-          this.projectId,
-          this.sessionKey,
-          seq,
-          JSON.stringify(item),
-        );
-        seq += 1;
-      }
-      this.db.exec("COMMIT");
-    } catch (error) {
-      try {
-        this.db.exec("ROLLBACK");
-      } catch {
-        /* ignore */
-      }
-      throw error;
-    }
-  }
-
-  /** Inspection — tables must not be Truth C / oa_*. */
-  listTables(): string[] {
-    const rows = this.db
-      .prepare(
-        `SELECT name FROM sqlite_master WHERE type='table' ORDER BY name`,
-      )
-      .all() as Array<{ name: string }>;
-    return rows.map((r) => r.name);
-  }
-
-  close(): void {
-    this.db.close();
-  }
-}
-
-export function userTextItem(text: string): AgentInputItem {
-  return {
-    type: "message",
-    role: "user",
-    content: [{ type: "input_text", text }],
-  };
-}
-
-export function assistantTextItem(text: string): AgentInputItem {
-  return {
-    type: "message",
-    role: "assistant",
-    status: "completed",
-    content: [{ type: "output_text", text }],
-  };
-}
-
-```
-
-### FILE: `projects/sfia-studio/app/lib/nora-eval/mw1S01Observe.ts`
-
-```ts
-/**
- * MW1-S01 / CE-03 — runtime-derived DeterministicObservation.
- * Executes real Memory B probes + F1 product orchestration; does NOT hardcode
- * availability states or observable IDs as constants for scoring.
- */
-
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { DatabaseSync } from "node:sqlite";
-import { FakeConversationProvider } from "@/lib/platform/ai/fakeProvider";
-import type { ProviderInputItem } from "@/lib/platform/ai";
-import {
-  ProductSqliteSession,
-  probeMemoryBAvailability,
-  userTextItem,
-} from "@/lib/nora-cognitive-runtime";
-import { orchestrateProjectAssistantTurn } from "@/features/project-assistant/orchestrateTurn";
-import {
-  getRuntimeApplicationService,
-  resetRuntimeApplicationServiceForTests,
-} from "@/lib/vertical-slice-runtime";
-import type { DeterministicObservation } from "./scorers";
-
-/** Captures Agents→completeRound payloads (same Fake path as production). */
-export class CapturingRoundFakeProvider extends FakeConversationProvider {
-  readonly roundItems: ProviderInputItem[][] = [];
-
-  override async completeRound(input: {
-    items: ProviderInputItem[];
-    tools: import("@/lib/platform/tools").ToolDefinition[];
-  }) {
-    this.roundItems.push(
-      input.items.map((item) =>
-        item.type === "message"
-          ? { ...item, content: item.content }
-          : { ...item },
-      ) as ProviderInputItem[],
-    );
-    return super.completeRound(input);
-  }
-
-  capturedText(): string {
-    return this.roundItems
-      .flat()
-      .map((item) =>
-        item.type === "message" ? `${item.role}:${item.content}` : "",
-      )
-      .join("\n");
-  }
-}
-
-export type Mw1S01RuntimeFacts = {
-  memoryBAvailabilityStates: string[];
-  unavailableNeqEmpty: boolean;
-  sessionNeqTruthC: boolean;
-  noInventedTranscript: boolean;
-  truthCReachedCognition: boolean;
-  agentsRuntimeUsed: boolean;
-  sessionIdNullWhenUnavailable: boolean;
-  piloteDisclosureHonest: boolean;
-};
-
-/**
- * Pure derivation — observable credited only when runtime facts satisfy CE-03.
- * Used by the observer and by negative fail-closed tests.
- */
-export function observationFromMw1S01Facts(
-  facts: Mw1S01RuntimeFacts,
-): DeterministicObservation {
-  const states = new Set(facts.memoryBAvailabilityStates);
-  const criteriaOk =
-    states.has("available_with_history") &&
-    states.has("available_empty") &&
-    states.has("unavailable") &&
-    facts.unavailableNeqEmpty &&
-    facts.sessionNeqTruthC &&
-    facts.noInventedTranscript &&
-    facts.truthCReachedCognition &&
-    facts.agentsRuntimeUsed &&
-    facts.sessionIdNullWhenUnavailable &&
-    facts.piloteDisclosureHonest;
-
-  return {
-    productPath: facts.agentsRuntimeUsed ? "agents" : "none",
-    memoryBAvailabilityStates: [...states],
-    unavailableNeqEmpty: facts.unavailableNeqEmpty,
-    sessionNeqTruthC: facts.sessionNeqTruthC,
-    noInventedTranscript: facts.noInventedTranscript,
-    observedObservableIds: criteriaOk
-      ? ["obs.memory.honest_continuity"]
-      : [],
-  };
-}
-
-/**
- * Execute actual S01 product/runtime proofs and build DeterministicObservation
- * from observed results (causal chain for NCC-BAR-07 / CE-03).
- */
-export async function observeMw1S01FromRuntime(): Promise<DeterministicObservation> {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-s01-obs-"));
-  const sessionDbPath = path.join(dir, "nora-session.sqlite");
-  const productDbPath = path.join(dir, "oa-product.sqlite");
-  const prevReset = process.env.SFIA_V2_RUNTIME_ALLOW_RESET;
-  const prevProvider = process.env.OPS1_CONVERSATION_PROVIDER;
-  const prevProductDb = process.env.SFIA_STUDIO_PRODUCT_DB_PATH;
-
-  try {
-    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
-    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-    delete process.env.SFIA_STUDIO_PRODUCT_DB_PATH;
-
-    // --- AVAILABLE_WITH_HISTORY ---
-    const seed = new ProductSqliteSession({
-      projectId: "prj:s01-obs-hist",
-      dbPath: sessionDbPath,
-      sessionKey: "f1-default",
-    });
-    await seed.addItems([userTextItem("s01-obs-seed-token")]);
-    seed.close();
-    const histProbe = await probeMemoryBAvailability({
-      projectId: "prj:s01-obs-hist",
-      dbPath: sessionDbPath,
-      sessionKey: "f1-default",
-    });
-    const histState = histProbe.availability;
-    histProbe.session?.close();
-
-    // --- AVAILABLE_EMPTY (different project, same DB) ---
-    const emptyProbe = await probeMemoryBAvailability({
-      projectId: "prj:s01-obs-empty",
-      dbPath: sessionDbPath,
-      sessionKey: "f1-default",
-    });
-    const emptyState = emptyProbe.availability;
-    emptyProbe.session?.close();
-
-    // --- Durable Truth C via product API + remount ---
-    resetRuntimeApplicationServiceForTests();
-    const runtime = getRuntimeApplicationService({
-      productDbPath,
-      auditMode: "noop",
-    });
-    const marker = `S01-OBS-TRUTH-C-MARKER-${Date.now()}`;
-    const created = await runtime.createProject({
-      name: "S01 Eval Observe",
-      objective: marker,
-      context: "MW1-S01 runtime-derived observation",
-      criticality: "STANDARD",
-      constraints: ["AUCUNE EXÉCUTION", "LECTURE SEULE"],
-      shortReference: "S01OBS",
-      idempotencyKey: `s01-obs-${Date.now()}-${Math.random()}`,
-    });
-    if (!created.ok) {
-      return observationFromMw1S01Facts({
-        memoryBAvailabilityStates: [histState, emptyState],
-        unavailableNeqEmpty: false,
-        sessionNeqTruthC: false,
-        noInventedTranscript: false,
-        truthCReachedCognition: false,
-        agentsRuntimeUsed: false,
-        sessionIdNullWhenUnavailable: false,
-        piloteDisclosureHonest: false,
-      });
-    }
-    const projectId = created.project.projectId;
-
-    // Simulate process-local restart: destroy singleton, remount same Product DB
-    resetRuntimeApplicationServiceForTests();
-    getRuntimeApplicationService({
-      productDbPath,
-      auditMode: "noop",
-    });
-
-    const truthBefore = fs.readFileSync(productDbPath);
-
-    // UNAVAILABLE via real filesystem open failure (≠ empty)
-    const blocker = path.join(dir, "session-blocked");
-    fs.writeFileSync(blocker, "blocker");
-    const blockedSessionPath = path.join(blocker, "nora-session.sqlite");
-
-    const capturing = new CapturingRoundFakeProvider({
-      scripted: [
-        "[TEST/FAKE] Proceeding from Truth C only — no Memory B transcript invented.",
-      ],
-    });
-
-    const result = await orchestrateProjectAssistantTurn({
-      projectId,
-      content: "Resume from durable Project / Truth C state.",
-      provider: capturing,
-      sessionDbPath: blockedSessionPath,
-    });
-
-    const truthAfter = fs.readFileSync(productDbPath);
-    const truthUnchanged = Buffer.compare(truthBefore, truthAfter) === 0;
-
-    // Session DB (if any) must not grow oa_* product tables.
-    // D-GF-ACW-02 Option A: logical_product_turns is Session-adjacent identity
-    // coordination only — never Truth C / LPS / HD / Evidence.
-    const SESSION_ALLOWED_TABLES = new Set([
-      "session_items",
-      "logical_product_turns",
-      "logical_product_turn_retry_bindings",
-    ]);
-    let sessionNeqTruthC = truthUnchanged;
-    if (fs.existsSync(sessionDbPath)) {
-      const sessionDb = new DatabaseSync(sessionDbPath);
-      const tables = (
-        sessionDb
-          .prepare(`SELECT name FROM sqlite_master WHERE type='table'`)
-          .all() as Array<{ name: string }>
-      ).map((r) => r.name);
-      sessionDb.close();
-      sessionNeqTruthC =
-        sessionNeqTruthC &&
-        tables.every((t) => SESSION_ALLOWED_TABLES.has(t)) &&
-        !tables.some((t) => t.startsWith("oa_"));
-    }
-
-    const captured = capturing.capturedText();
-    const truthCReachedCognition =
-      result.ok === true &&
-      captured.includes(marker) &&
-      captured.includes(projectId) &&
-      (result.project?.objective === marker);
-
-    const unavailableState =
-      result.ok && result.memoryBAvailability
-        ? result.memoryBAvailability
-        : "unavailable_not_observed";
-
-    const unavailableNeqEmpty =
-      histState === "available_with_history" &&
-      emptyState === "available_empty" &&
-      unavailableState === "unavailable";
-
-    const agentsRuntimeUsed =
-      result.ok === true && result.cognitiveRuntime === "agents";
-
-    const sessionIdNullWhenUnavailable =
-      result.ok === true &&
-      result.memoryBAvailability === "unavailable" &&
-      result.sessionId === null;
-
-    const piloteDisclosureHonest =
-      result.ok === true &&
-      typeof result.ephemeralNotice === "string" &&
-      /non disponible/i.test(result.ephemeralNotice) &&
-      !/historique perdu/i.test(result.ephemeralNotice);
-
-    const noInventedTranscript =
-      result.ok === true &&
-      result.memoryBAvailability === "unavailable" &&
-      sessionIdNullWhenUnavailable &&
-      piloteDisclosureHonest &&
-      !/HumanDecision|autorisation GO/i.test(result.text ?? "");
-
-    const states = [histState, emptyState, unavailableState].filter(
-      (s) =>
-        s === "available_with_history" ||
-        s === "available_empty" ||
-        s === "unavailable",
-    );
-
-    return observationFromMw1S01Facts({
-      memoryBAvailabilityStates: states,
-      unavailableNeqEmpty,
-      sessionNeqTruthC,
-      noInventedTranscript,
-      truthCReachedCognition,
-      agentsRuntimeUsed,
-      sessionIdNullWhenUnavailable,
-      piloteDisclosureHonest,
-    });
-  } finally {
-    if (prevReset === undefined) delete process.env.SFIA_V2_RUNTIME_ALLOW_RESET;
-    else process.env.SFIA_V2_RUNTIME_ALLOW_RESET = prevReset;
-    if (prevProvider === undefined) {
-      delete process.env.OPS1_CONVERSATION_PROVIDER;
-    } else {
-      process.env.OPS1_CONVERSATION_PROVIDER = prevProvider;
-    }
-    if (prevProductDb === undefined) {
-      delete process.env.SFIA_STUDIO_PRODUCT_DB_PATH;
-    } else {
-      process.env.SFIA_STUDIO_PRODUCT_DB_PATH = prevProductDb;
-    }
-    try {
-      resetRuntimeApplicationServiceForTests();
-    } catch {
-      /* ignore */
-    }
-    fs.rmSync(dir, { recursive: true, force: true });
-  }
-}
-
-```
-
 ## Verdict
 
 ```
 PASS — ACW SAME-LOT DETERMINISTIC COMPLETION CANDIDATE
-
-CR-ACW-01 CLOSED — CARRIED + REGRESSION PROVEN
-CR-ACW-02 CLOSED CANDIDATE — SILENT RESPONSE-LOSS REPLAY PROVEN
-CR-ACW-03 CLOSED — CARRIED + REGRESSION PROVEN
-CR-ACW-04 CLOSED — CARRIED + REGRESSION PROVEN
-D-GF-ACW-02 OPTION A PRESERVED
+CR-ACW-01 CLOSED — REGRESSION PROVEN
+CR-ACW-02 CLOSED CANDIDATE — STABLE RETRY ENVELOPE + SILENT LOSS + CYCLE BINDING PROVEN
+CR-ACW-03 CLOSED — REGRESSION PROVEN
+CR-ACW-04 CLOSED — REGRESSION PROVEN / CATALOG DYNAMIC
+D-GF-ACW-01 PRESERVED
+D-GF-ACW-02 OPTION A BOUNDED PRESERVED
 DETERMINISTIC PROVEN
 ZERO REAL
 READY FOR CHATGPT CRITICAL REVIEW
 PRODUCT PUSH / PR / MERGE NOT AUTHORIZED
-MORRIS REAL GATE NOT YET CONSUMED
+MORRIS REAL GATE NOT CONSUMED
 ```
