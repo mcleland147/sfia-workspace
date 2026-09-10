@@ -55,12 +55,43 @@ export type QualifyCycleWithCkcPort = {
   execute(request: QualifyCycleWithCkcRequest): Promise<CkcQualificationResult>;
 };
 
-export function isTrajectoryBoundCycle(cycle: CycleInstance): boolean {
-  return (
-    Boolean(cycle.trajectoryId?.trim()) &&
-    typeof cycle.trajectoryVersion === "number" &&
-    Boolean(cycle.trajectoryStepId?.trim())
+/** Minted by prepareCycleFromValidatedTrajectory — never legacy unbound. */
+export const TRAJECTORY_BOUND_CYCLE_ID_PREFIX = "cyc:trj-";
+
+export type TrajectoryBindingClass =
+  | "LEGACY_UNBOUND"
+  | "COMPLETE_TRAJECTORY_BOUND"
+  | "INCOMPLETE_TRAJECTORY_BINDING";
+
+/**
+ * CR-START-01B — ternary binding classifier.
+ * Partial binding or `cyc:trj-*` without full fields must NOT fall through to legacy.
+ */
+export function classifyTrajectoryBinding(cycle: {
+  cycleInstanceId: string;
+  trajectoryId?: string;
+  trajectoryVersion?: number;
+  trajectoryStepId?: string;
+}): TrajectoryBindingClass {
+  const trajId = cycle.trajectoryId?.trim() ?? "";
+  const stepId = cycle.trajectoryStepId?.trim() ?? "";
+  const hasId = trajId.length > 0;
+  const hasVersion = typeof cycle.trajectoryVersion === "number";
+  const hasStep = stepId.length > 0;
+  const complete = hasId && hasVersion && hasStep;
+  if (complete) return "COMPLETE_TRAJECTORY_BOUND";
+
+  const anyPresent = hasId || hasVersion || hasStep;
+  const mintedPrefix = cycle.cycleInstanceId.startsWith(
+    TRAJECTORY_BOUND_CYCLE_ID_PREFIX,
   );
+  if (anyPresent || mintedPrefix) return "INCOMPLETE_TRAJECTORY_BINDING";
+  return "LEGACY_UNBOUND";
+}
+
+/** Alias: true only for COMPLETE_TRAJECTORY_BOUND (backward compatible). */
+export function isTrajectoryBoundCycle(cycle: CycleInstance): boolean {
+  return classifyTrajectoryBinding(cycle) === "COMPLETE_TRAJECTORY_BOUND";
 }
 
 /**
@@ -191,7 +222,7 @@ export async function assertTrajectoryBoundCycleStartReady(
     reason: string,
   ): AssertTrajectoryBoundCycleStartReadyFailure => ({ ok: false, code, reason });
 
-  if (!isTrajectoryBoundCycle(cycle)) {
+  if (classifyTrajectoryBinding(cycle) !== "COMPLETE_TRAJECTORY_BOUND") {
     return fail("CYCLE_NOT_TRAJECTORY_BOUND", "trajectory_binding_incomplete");
   }
   if (cycle.projectId !== projectId) {

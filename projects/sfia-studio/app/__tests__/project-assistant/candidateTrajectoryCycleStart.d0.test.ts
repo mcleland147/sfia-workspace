@@ -10,6 +10,7 @@ import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   buildSingleRecommendedCycleStep,
+  classifyTrajectoryBinding,
   computeCandidateContentDigest,
   computeCandidateTrajectoryPresentationDigest,
   buildCandidateTrajectoryPresentationMaterial,
@@ -24,6 +25,7 @@ import {
   selectEligiblePendingTrajectorySteps,
   selectExactPrepareStep,
   startPreparedTrajectoryCycle,
+  TRAJECTORY_BOUND_CYCLE_ID_PREFIX,
   validateLifecycleRecommendation,
 } from "@/lib/oa/cycle";
 import {
@@ -34,6 +36,7 @@ import {
   approveCandidateTrajectory,
   buildPreCycleCandidateApprovalPresentation,
 } from "@/features/project-assistant/approveCandidateTrajectory";
+import { executePilotLifecycleAction } from "@/features/project-assistant/f2/pilotLifecycleActions";
 import { PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
 import type { Digest, DoctrinePackagePin } from "@/lib/oa/doctrine";
 import { createProjectError } from "@/lib/oa/project";
@@ -44,6 +47,7 @@ import {
 import type { LocalProjectIdSource } from "@/lib/vertical-slice-core";
 import * as cycleTypeCatalog from "@/lib/oa/cycle/domain/cycleTypeCatalog";
 import type { SqliteProductStore } from "@/lib/oa/project/infrastructure/sqlite/sqliteProductStore";
+import type { CycleInstance } from "@/lib/oa/cycle";
 
 const APP_ROOT = path.resolve(__dirname, "../..");
 const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
@@ -442,6 +446,80 @@ async function persistEpistemicItem(
   if (!updated.ok) {
     throw new Error(`persist epistemic failed: ${updated.error.detailCode}`);
   }
+}
+
+async function directPilotStart(input: {
+  oa: NonNullable<Awaited<ReturnType<typeof bootFreshProject>>["runtime"]["oa"]>;
+  projectId: string;
+  cycleInstanceId: string;
+  expectedLpsVersion?: number;
+}) {
+  const auth = registerLocalPiloteAuthority({
+    authorityResolver: input.oa.authorityResolver,
+    scope: `pilot-lifecycle:${input.cycleInstanceId}`,
+    issuedAt: "2026-09-10T08:00:00.000Z",
+    forceEnable: true,
+  });
+  if (!auth.ok) throw new Error(`auth failed: ${auth.code}`);
+  let expectedLpsVersion = input.expectedLpsVersion;
+  if (expectedLpsVersion === undefined) {
+    const lps = await input.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId: input.projectId,
+    });
+    if (!lps.ok) throw new Error("lps missing");
+    expectedLpsVersion = lps.livingProjectState.version;
+  }
+  return input.oa.cycleServices.pilotLifecycle.start({
+    cycleInstanceId: input.cycleInstanceId,
+    projectId: input.projectId,
+    createdBy: {
+      actorId: LOCAL_PILOTE_ACTOR.actorId,
+      role: LOCAL_PILOTE_ACTOR.role,
+      displayName: LOCAL_PILOTE_ACTOR.displayName,
+      authorityLevel: LOCAL_PILOTE_ACTOR.authorityLevel,
+    },
+    authorityEvidenceId: auth.evidenceId,
+    expectedLpsVersion,
+  });
+}
+
+function installTxDepthSpies(store: SqliteProductStore) {
+  let depth = 0;
+  let outerOpens = 0;
+  let joins = 0;
+  const saveDepths: number[] = [];
+  const qualifyDepths: number[] = [];
+  const orig = store.runInTransaction.bind(store);
+  vi.spyOn(store, "runInTransaction").mockImplementation(async (fn) => {
+    const wasOuter = depth === 0;
+    if (wasOuter) outerOpens += 1;
+    else joins += 1;
+    depth += 1;
+    try {
+      return await orig(async () => fn());
+    } finally {
+      depth -= 1;
+    }
+  });
+  return {
+    get depth() {
+      return depth;
+    },
+    get outerOpens() {
+      return outerOpens;
+    },
+    get joins() {
+      return joins;
+    },
+    saveDepths,
+    qualifyDepths,
+    noteSave() {
+      saveDepths.push(depth);
+    },
+    noteQualify() {
+      qualifyDepths.push(depth);
+    },
+  };
 }
 
 describe("GREENFIELD VALIDATED → PREPARE → START — BAR-START", () => {
@@ -1973,5 +2051,372 @@ describe("GREENFIELD VALIDATED → PREPARE → START — BAR-START", () => {
     });
     expect(start15.ok).toBe(true);
     if (start15.ok) expect(start15.cycle.status).toBe("active");
+  });
+
+  it("BAR-START-CORR2-01…15 — atomic UoW + binding classifier + no parasite HD", async () => {
+    // CORR2-01 — direct start: cycle.save + qualify run inside store txn
+    const seeded01 = await seedPrepared("c2-01");
+    const store01 = seeded01.oa.projectServices.store as SqliteProductStore;
+    const tx01 = installTxDepthSpies(store01);
+    const origSave01 = seeded01.oa.cycleServices.cycles.save.bind(
+      seeded01.oa.cycleServices.cycles,
+    );
+    vi.spyOn(seeded01.oa.cycleServices.cycles, "save").mockImplementation(
+      async (cycle) => {
+        tx01.noteSave();
+        return origSave01(cycle);
+      },
+    );
+    // Guard + trajectory load both call findCurrentByProjectId inside the UoW.
+    const origFind01 =
+      seeded01.oa.cycleServices.trajectories.findCurrentByProjectId.bind(
+        seeded01.oa.cycleServices.trajectories,
+      );
+    vi.spyOn(
+      seeded01.oa.cycleServices.trajectories,
+      "findCurrentByProjectId",
+    ).mockImplementation(async (projectId) => {
+      if (tx01.depth >= 1) tx01.noteQualify();
+      return origFind01(projectId);
+    });
+    const start01 = await directPilotStart({
+      oa: seeded01.oa,
+      projectId: seeded01.projectId,
+      cycleInstanceId: seeded01.prep.cycle.cycleInstanceId,
+    });
+    expect(start01.ok).toBe(true);
+    expect(tx01.saveDepths.some((d) => d >= 1)).toBe(true);
+    expect(tx01.qualifyDepths.some((d) => d >= 1)).toBe(true);
+    expect(tx01.outerOpens).toBeGreaterThanOrEqual(1);
+
+    // CORR2-02 — direct core: trajectory save fail mid-start → rollback
+    const seeded02 = await seedPrepared("c2-02");
+    const store02 = seeded02.oa.projectServices.store as SqliteProductStore;
+    const lps02a =
+      await seeded02.oa.projectServices.getCurrentLivingProjectState.execute({
+        projectId: seeded02.projectId,
+      });
+    expect(lps02a.ok).toBe(true);
+    if (!lps02a.ok) return;
+    store02.failNextSave = "trajectory";
+    const fail02 = await directPilotStart({
+      oa: seeded02.oa,
+      projectId: seeded02.projectId,
+      cycleInstanceId: seeded02.prep.cycle.cycleInstanceId,
+      expectedLpsVersion: lps02a.livingProjectState.version,
+    });
+    store02.failNextSave = null;
+    expect(fail02.ok).toBe(false);
+    const cyc02 = await seeded02.oa.cycleServices.cycles.findById(
+      seeded02.prep.cycle.cycleInstanceId,
+    );
+    expect(cyc02?.status).not.toBe("active");
+    const traj02 =
+      await seeded02.oa.cycleServices.trajectories.findCurrentByProjectId(
+        seeded02.projectId,
+      );
+    expect(
+      traj02?.steps.find(
+        (s) => s.stepId === seeded02.prep.cycle.trajectoryStepId,
+      )?.state,
+    ).toBe("pending");
+    const lps02b =
+      await seeded02.oa.projectServices.getCurrentLivingProjectState.execute({
+        projectId: seeded02.projectId,
+      });
+    expect(lps02b.ok).toBe(true);
+    if (lps02b.ok) {
+      expect(lps02b.livingProjectState.activeCycleInstanceId ?? null).toBeNull();
+    }
+
+    // CORR2-03/04/05 — strip one binding field → incomplete, no mutation
+    async function expectIncompleteStrip(
+      suffix: string,
+      mutate: (c: CycleInstance) => void,
+    ) {
+      const seeded = await seedPrepared(suffix);
+      const corrupted = structuredClone(seeded.prep.cycle);
+      mutate(corrupted);
+      await seeded.oa.cycleServices.cycles.save(corrupted);
+      expect(classifyTrajectoryBinding(corrupted)).toBe(
+        "INCOMPLETE_TRAJECTORY_BINDING",
+      );
+      const before = await seeded.oa.cycleServices.cycles.findById(
+        corrupted.cycleInstanceId,
+      );
+      const start = await directPilotStart({
+        oa: seeded.oa,
+        projectId: seeded.projectId,
+        cycleInstanceId: corrupted.cycleInstanceId,
+      });
+      expect(start.ok).toBe(false);
+      if (!start.ok) {
+        expect(start.error.detailCode).toBe("CYCLE_START_NOT_READY");
+        expect(start.error.internalCauseRef).toBe(
+          "TRAJECTORY_BINDING_INCOMPLETE",
+        );
+      }
+      const after = await seeded.oa.cycleServices.cycles.findById(
+        corrupted.cycleInstanceId,
+      );
+      expect(after?.status).toBe(before?.status);
+      expect(after?.status).not.toBe("active");
+      const lps =
+        await seeded.oa.projectServices.getCurrentLivingProjectState.execute({
+          projectId: seeded.projectId,
+        });
+      expect(lps.ok).toBe(true);
+      if (lps.ok) {
+        expect(lps.livingProjectState.activeCycleInstanceId ?? null).toBeNull();
+      }
+    }
+    await expectIncompleteStrip("c2-03", (c) => {
+      delete c.trajectoryStepId;
+    });
+    await expectIncompleteStrip("c2-04", (c) => {
+      delete c.trajectoryId;
+    });
+    await expectIncompleteStrip("c2-05", (c) => {
+      delete (c as { trajectoryVersion?: number }).trajectoryVersion;
+    });
+
+    // CORR2-06 — clear all three but keep cyc:trj-* id → incomplete (not legacy)
+    const seeded06 = await seedPrepared("c2-06");
+    expect(
+      seeded06.prep.cycle.cycleInstanceId.startsWith(
+        TRAJECTORY_BOUND_CYCLE_ID_PREFIX,
+      ),
+    ).toBe(true);
+    const cleared06 = structuredClone(seeded06.prep.cycle);
+    delete cleared06.trajectoryId;
+    delete cleared06.trajectoryStepId;
+    delete (cleared06 as { trajectoryVersion?: number }).trajectoryVersion;
+    await seeded06.oa.cycleServices.cycles.save(cleared06);
+    expect(classifyTrajectoryBinding(cleared06)).toBe(
+      "INCOMPLETE_TRAJECTORY_BINDING",
+    );
+    const start06 = await directPilotStart({
+      oa: seeded06.oa,
+      projectId: seeded06.projectId,
+      cycleInstanceId: cleared06.cycleInstanceId,
+    });
+    expect(start06.ok).toBe(false);
+    if (!start06.ok) {
+      expect(start06.error.internalCauseRef).toBe(
+        "TRAJECTORY_BINDING_INCOMPLETE",
+      );
+    }
+    const cyc06 = await seeded06.oa.cycleServices.cycles.findById(
+      cleared06.cycleInstanceId,
+    );
+    expect(cyc06?.status).not.toBe("active");
+
+    // CORR2-07 — facade on incomplete → fail
+    const seeded07 = await seedPrepared("c2-07");
+    const cleared07 = structuredClone(seeded07.prep.cycle);
+    delete cleared07.trajectoryStepId;
+    await seeded07.oa.cycleServices.cycles.save(cleared07);
+    const facade07 = await startPreparedTrajectoryCycle({
+      oa: seeded07.oa,
+      projectId: seeded07.projectId,
+      cycleInstanceId: cleared07.cycleInstanceId,
+      forceLocalAuthority: true,
+    });
+    expect(facade07.ok).toBe(false);
+    if (!facade07.ok) {
+      expect(facade07.code).toBe("TRAJECTORY_BINDING_INCOMPLETE");
+    }
+
+    // CORR2-08 — true legacy unbound start still green
+    const { runtime: rt08, projectId: pid08 } = await bootFreshProject("c2-08");
+    const oa08 = rt08.oa!;
+    const lps08 = await oa08.projectServices.getCurrentLivingProjectState.execute({
+      projectId: pid08,
+    });
+    expect(lps08.ok).toBe(true);
+    if (!lps08.ok) return;
+    const traj08 = await oa08.cycleServices.createInitialTrajectory.execute({
+      trajectoryId: `trj:c2-08-${pid08}`,
+      projectId: pid08,
+      steps: [
+        { stepId: "stp:c2-08-a", order: 1, label: "Clarify", state: "pending" },
+        { stepId: "stp:c2-08-b", order: 2, label: "Decide", state: "pending" },
+      ],
+      status: "active",
+      expectedLpsVersion: lps08.livingProjectState.version,
+      createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
+    });
+    expect(traj08.ok).toBe(true);
+    const unboundId08 = "cyc:c2-08-unbound";
+    const created08 = await oa08.cycleServices.createCycle.execute({
+      cycleInstanceId: unboundId08,
+      cycleTypeId: "cyc:delivery",
+      projectId: pid08,
+      signals: { lowRiskBounded: true },
+      createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
+      linkAsActiveCycle: false,
+    });
+    expect(created08.ok).toBe(true);
+    if (!created08.ok) return;
+    expect(classifyTrajectoryBinding(created08.cycle)).toBe("LEGACY_UNBOUND");
+    const start08 = await directPilotStart({
+      oa: oa08,
+      projectId: pid08,
+      cycleInstanceId: unboundId08,
+    });
+    expect(start08.ok).toBe(true);
+
+    // CORR2-09 — executePilotLifecycleAction + requiresTrajectoryHumanDecision on prepared → HD delta 0
+    const seeded09 = await seedPrepared("c2-09");
+    const hdBefore09 = await seeded09.oa.decisionServices.decisions.listByProject(
+      seeded09.projectId,
+    );
+    const action09 = await executePilotLifecycleAction({
+      action: "START",
+      projectId: seeded09.projectId,
+      cycleInstanceId: seeded09.prep.cycle.cycleInstanceId,
+      cycleServices: seeded09.oa.cycleServices,
+      projectServices: seeded09.oa.projectServices,
+      decisionServices: seeded09.oa.decisionServices,
+      authorityResolver: seeded09.oa.authorityResolver,
+      nowIso: () => "2026-09-10T08:00:00.000Z",
+      requiresTrajectoryHumanDecision: true,
+    });
+    // May succeed or fail on readiness — but must not create parasite start HD
+    const hdAfter09 = await seeded09.oa.decisionServices.decisions.listByProject(
+      seeded09.projectId,
+    );
+    expect(hdAfter09.length - hdBefore09.length).toBe(0);
+    if (action09.ok) {
+      expect(action09.decisionId).toBeUndefined();
+    }
+
+    // CORR2-10 — helper valid → START success, no second HD
+    const seeded10 = await seedPrepared("c2-10");
+    const hdBefore10 = await seeded10.oa.decisionServices.decisions.listByProject(
+      seeded10.projectId,
+    );
+    const action10 = await executePilotLifecycleAction({
+      action: "START",
+      projectId: seeded10.projectId,
+      cycleInstanceId: seeded10.prep.cycle.cycleInstanceId,
+      cycleServices: seeded10.oa.cycleServices,
+      projectServices: seeded10.oa.projectServices,
+      decisionServices: seeded10.oa.decisionServices,
+      authorityResolver: seeded10.oa.authorityResolver,
+      nowIso: () => "2026-09-10T08:00:00.000Z",
+      requiresTrajectoryHumanDecision: true,
+    });
+    expect(action10.ok).toBe(true);
+    const hdAfter10 = await seeded10.oa.decisionServices.decisions.listByProject(
+      seeded10.projectId,
+    );
+    expect(hdAfter10.length - hdBefore10.length).toBe(0);
+
+    // CORR2-11 — helper + corrupted signals → fail, HD delta 0, no mutation
+    const seeded11 = await seedPrepared("c2-11");
+    const cyc11 = structuredClone(seeded11.prep.cycle);
+    cyc11.qualificationSignals = { ...SIGNALS_CRITICAL };
+    await seeded11.oa.cycleServices.cycles.save(cyc11);
+    const hdBefore11 = await seeded11.oa.decisionServices.decisions.listByProject(
+      seeded11.projectId,
+    );
+    const action11 = await executePilotLifecycleAction({
+      action: "START",
+      projectId: seeded11.projectId,
+      cycleInstanceId: cyc11.cycleInstanceId,
+      cycleServices: seeded11.oa.cycleServices,
+      projectServices: seeded11.oa.projectServices,
+      decisionServices: seeded11.oa.decisionServices,
+      authorityResolver: seeded11.oa.authorityResolver,
+      nowIso: () => "2026-09-10T08:00:00.000Z",
+      requiresTrajectoryHumanDecision: true,
+    });
+    expect(action11.ok).toBe(false);
+    const hdAfter11 = await seeded11.oa.decisionServices.decisions.listByProject(
+      seeded11.projectId,
+    );
+    expect(hdAfter11.length - hdBefore11.length).toBe(0);
+    const after11 = await seeded11.oa.cycleServices.cycles.findById(
+      cyc11.cycleInstanceId,
+    );
+    expect(after11?.status).not.toBe("active");
+
+    // CORR2-12 — signal parity via direct core still enforced
+    const seeded12 = await seedPrepared("c2-12");
+    const cyc12 = structuredClone(seeded12.prep.cycle);
+    cyc12.qualificationSignals = { ...SIGNALS_CRITICAL };
+    await seeded12.oa.cycleServices.cycles.save(cyc12);
+    const start12 = await directPilotStart({
+      oa: seeded12.oa,
+      projectId: seeded12.projectId,
+      cycleInstanceId: cyc12.cycleInstanceId,
+    });
+    expect(start12.ok).toBe(false);
+    if (!start12.ok) {
+      expect(start12.error.detailCode).toBe("CYCLE_START_NOT_READY");
+      expect(start12.error.internalCauseRef).toBe("PROVENANCE_SIGNAL_MISMATCH");
+    }
+
+    // CORR2-13 — sealed digest via direct core still enforced
+    const seeded13 = await seedPrepared("c2-13");
+    const traj13 =
+      await seeded13.oa.cycleServices.trajectories.findCurrentByProjectId(
+        seeded13.projectId,
+      );
+    const drifted13 = structuredClone(traj13!);
+    drifted13.steps = drifted13.steps.map((s, i) =>
+      i === 0 ? { ...s, label: `${s.label} POST-PREP` } : s,
+    );
+    await seeded13.oa.cycleServices.trajectories.save(drifted13);
+    const start13 = await directPilotStart({
+      oa: seeded13.oa,
+      projectId: seeded13.projectId,
+      cycleInstanceId: seeded13.prep.cycle.cycleInstanceId,
+    });
+    expect(start13.ok).toBe(false);
+    if (!start13.ok) {
+      expect(start13.error.internalCauseRef).toBe(
+        "DECISION_SEALED_TRAJECTORY_DRIFT",
+      );
+    }
+
+    // CORR2-14 — nested facade→core: outer txn joins (one logical outer open)
+    const seeded14 = await seedPrepared("c2-14");
+    const store14 = seeded14.oa.projectServices.store as SqliteProductStore;
+    const tx14 = installTxDepthSpies(store14);
+    const origSave14 = seeded14.oa.cycleServices.cycles.save.bind(
+      seeded14.oa.cycleServices.cycles,
+    );
+    vi.spyOn(seeded14.oa.cycleServices.cycles, "save").mockImplementation(
+      async (cycle) => {
+        tx14.noteSave();
+        return origSave14(cycle);
+      },
+    );
+    const start14 = await startPreparedTrajectoryCycle({
+      oa: seeded14.oa,
+      projectId: seeded14.projectId,
+      forceLocalAuthority: true,
+    });
+    expect(start14.ok).toBe(true);
+    expect(tx14.outerOpens).toBe(1);
+    expect(tx14.joins).toBeGreaterThanOrEqual(1);
+    expect(tx14.saveDepths.every((d) => d >= 1)).toBe(true);
+    // Nested join: save runs under facade outer (depth >= 1), not a second outer BEGIN
+    expect(tx14.saveDepths.some((d) => d >= 1)).toBe(true);
+
+    // CORR2-15 — prepare reuse still green
+    const seeded15 = await seedPrepared("c2-15");
+    const reuse15 = await prepareCycleFromValidatedTrajectory({
+      oa: seeded15.oa,
+      projectId: seeded15.projectId,
+    });
+    expect(reuse15.ok).toBe(true);
+    if (reuse15.ok) {
+      expect(reuse15.cycle.cycleInstanceId).toBe(
+        seeded15.prep.cycle.cycleInstanceId,
+      );
+    }
   });
 });

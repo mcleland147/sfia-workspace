@@ -15,6 +15,7 @@ import {
 } from "@/lib/oa/decision";
 import {
   cancelSubjectFor,
+  classifyTrajectoryBinding,
   finalizeSubjectFor,
   startTrajectorySubjectFor,
   resumeReplanSubjectFor,
@@ -184,9 +185,32 @@ export async function executePilotLifecycleAction(input: {
       });
       if (!auth.ok) return auth;
 
+      // CR-START-01B/C — classify before any recordLifecycleDecision.
+      const cycle = await input.cycleServices.cycles.findById(
+        input.cycleInstanceId,
+      );
+      if (!cycle || cycle.projectId !== input.projectId) {
+        return {
+          ok: false,
+          code: "CYCLE_NOT_FOUND",
+          message: "Cycle instance was not found.",
+        };
+      }
+      const binding = classifyTrajectoryBinding(cycle);
+      if (binding === "INCOMPLETE_TRAJECTORY_BINDING") {
+        return {
+          ok: false,
+          code: "TRAJECTORY_BINDING_INCOMPLETE",
+          message: "Trajectory binding is incomplete.",
+        };
+      }
+
       let decisionId: string | undefined;
-      // Caller hint may pre-record trajectory HD; server still decides readiness.
-      if (input.requiresTrajectoryHumanDecision) {
+      if (binding === "COMPLETE_TRAJECTORY_BOUND") {
+        // CR-START-01C — never parasite-create start+trajectory HD for greenfield.
+        // Ignore requiresTrajectoryHumanDecision hint; do not auto-create HD after.
+      } else if (input.requiresTrajectoryHumanDecision) {
+        // LEGACY_UNBOUND — preserve historical pre-record behavior.
         const hd = await recordLifecycleDecision({
           decisionServices: input.decisionServices,
           authorityResolver: input.authorityResolver,
@@ -206,8 +230,11 @@ export async function executePilotLifecycleAction(input: {
         createdBy,
         expectedLpsVersion,
         requiresTrajectoryHumanDecision:
-          input.requiresTrajectoryHumanDecision,
-        decisionId,
+          binding === "COMPLETE_TRAJECTORY_BOUND"
+            ? false
+            : input.requiresTrajectoryHumanDecision,
+        decisionId:
+          binding === "COMPLETE_TRAJECTORY_BOUND" ? undefined : decisionId,
         authorityEvidenceId: auth.evidenceId,
       });
       if (!result.ok) {

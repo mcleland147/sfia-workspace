@@ -13,7 +13,7 @@ import {
 } from "@/lib/oa/decision";
 import { getCycleTypeById } from "../../domain/cycleTypeCatalog";
 import type { CycleInstance } from "../../domain/types";
-import { isTrajectoryBoundCycle } from "./assertTrajectoryBoundCycleStartReady";
+import { classifyTrajectoryBinding } from "./assertTrajectoryBoundCycleStartReady";
 import { selectExactPrepareStep } from "./prepareCycleFromValidatedTrajectory";
 
 export class StartPreparedCycleAtomicFailure extends Error {
@@ -127,7 +127,7 @@ export async function startPreparedTrajectoryCycle(input: {
           stepSelect && stepSelect.ok ? stepSelect.step.stepId : null;
         const matches = cycles.filter(
           (c) =>
-            isTrajectoryBoundCycle(c) &&
+            classifyTrajectoryBinding(c) === "COMPLETE_TRAJECTORY_BOUND" &&
             c.trajectoryId === trajectory.trajectoryId &&
             c.trajectoryVersion === trajectory.version &&
             (stepId == null || c.trajectoryStepId === stepId) &&
@@ -147,7 +147,14 @@ export async function startPreparedTrajectoryCycle(input: {
           "prepared_cycle_not_found",
         );
       }
-      if (!isTrajectoryBoundCycle(cycle)) {
+      const binding = classifyTrajectoryBinding(cycle);
+      if (binding === "INCOMPLETE_TRAJECTORY_BINDING") {
+        throw new StartPreparedCycleAtomicFailure(
+          "TRAJECTORY_BINDING_INCOMPLETE",
+          "trajectory_binding_incomplete",
+        );
+      }
+      if (binding === "LEGACY_UNBOUND") {
         throw new StartPreparedCycleAtomicFailure(
           "CYCLE_BINDING_MISMATCH",
           "cycle_not_trajectory_bound",
