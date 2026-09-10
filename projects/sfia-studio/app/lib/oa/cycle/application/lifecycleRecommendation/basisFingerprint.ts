@@ -83,5 +83,11 @@ export function candidateFromStructuredOutput(
     targetCycleInstanceId: output.targetCycleInstanceId ?? null,
     targetCycleTypeId: output.targetCycleTypeId ?? null,
     rationale: output.rationale ?? null,
+    qualificationSignals:
+      output.qualificationSignals === undefined
+        ? undefined
+        : output.qualificationSignals === null
+          ? null
+          : { ...output.qualificationSignals },
   };
 }

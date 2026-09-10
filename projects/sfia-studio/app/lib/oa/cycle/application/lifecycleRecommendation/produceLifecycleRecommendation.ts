@@ -90,6 +90,10 @@ export async function produceLifecycleRecommendation(
       "rationale" in input.structured
         ? (input.structured.rationale ?? null)
         : null,
+    qualificationSignals:
+      "qualificationSignals" in input.structured
+        ? (input.structured.qualificationSignals ?? null)
+        : undefined,
   });
 
   const validated = validateLifecycleRecommendation({

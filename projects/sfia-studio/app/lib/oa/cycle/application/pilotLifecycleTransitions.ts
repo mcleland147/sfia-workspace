@@ -139,6 +139,8 @@ async function appendLpsActiveLink(input: {
   correlationId: string;
   expectedLpsVersion?: number;
   activeCycleInstanceId: string | null;
+  /** D-GF-START-01 — bind CKC on LPS at START for trajectory-derived cycles. */
+  ckcResolutionRef?: string;
 }): Promise<{ ok: true; version: number } | { ok: false; detail: string; currentVersion?: number }> {
   const current =
     await input.projectServices.getCurrentLivingProjectState.execute({
@@ -159,6 +161,9 @@ async function appendLpsActiveLink(input: {
       context: current.livingProjectState.context,
       scope: current.livingProjectState.scope,
       activeCycleInstanceId: input.activeCycleInstanceId,
+      ...(input.ckcResolutionRef !== undefined
+        ? { ckcResolutionRef: input.ckcResolutionRef }
+        : {}),
     });
   if (!appended.ok) {
     if (appended.error.detailCode === "LPS_VERSION_CONFLICT") {
@@ -344,6 +349,11 @@ export class PilotLifecycleTransitions {
       pauseReconciliation: null,
     };
 
+    const trajectoryBound =
+      Boolean(cycle.trajectoryId) &&
+      typeof cycle.trajectoryVersion === "number" &&
+      Boolean(cycle.trajectoryStepId);
+
     return this.persistLifecycleMutation({
       action: "START",
       projectId: request.projectId,
@@ -360,6 +370,16 @@ export class PilotLifecycleTransitions {
       started,
       timestamp,
       fail,
+      ...(trajectoryBound
+        ? {
+            ckcResolutionRef: cycle.ckcResolutionRef,
+            activateTrajectoryStep: {
+              trajectoryId: cycle.trajectoryId!,
+              trajectoryVersion: cycle.trajectoryVersion!,
+              stepId: cycle.trajectoryStepId!,
+            },
+          }
+        : {}),
     });
   }
 
@@ -1250,6 +1270,14 @@ export class PilotLifecycleTransitions {
       internalCauseRef?: string,
       extra?: Partial<Parameters<typeof createCycleError>[0]>,
     ) => PilotLifecycleResult;
+    /** D-GF-START-01 — written to LPS on START for trajectory-derived cycles. */
+    ckcResolutionRef?: string;
+    /** D-GF-START-01 — activate exact pending step in the same UoW. */
+    activateTrajectoryStep?: {
+      trajectoryId: string;
+      trajectoryVersion: number;
+      stepId: string;
+    };
   }): Promise<PilotLifecycleResult> {
     try {
       const persist = async () => {
@@ -1264,6 +1292,35 @@ export class PilotLifecycleTransitions {
           }
         }
         await this.deps.cycles.save(input.next);
+
+        if (input.action === "START" && input.activateTrajectoryStep) {
+          const binding = input.activateTrajectoryStep;
+          const traj = await this.deps.trajectories.findByProjectAndVersion(
+            input.projectId,
+            binding.trajectoryVersion,
+          );
+          if (!traj || traj.trajectoryId !== binding.trajectoryId) {
+            throw new Error("trajectory_binding_missing");
+          }
+          const stepIdx = traj.steps.findIndex(
+            (s) => s.stepId === binding.stepId,
+          );
+          if (stepIdx < 0) {
+            throw new Error("trajectory_step_missing");
+          }
+          const step = traj.steps[stepIdx]!;
+          if (step.state !== "pending") {
+            throw new Error(`trajectory_step_not_pending:${step.state}`);
+          }
+          const nextSteps = traj.steps.map((s, i) =>
+            i === stepIdx ? { ...s, state: "active" as const } : s,
+          );
+          await this.deps.trajectories.save({
+            ...traj,
+            steps: nextSteps,
+          });
+        }
+
         if (input.clearActiveLink || input.setActiveLink !== undefined) {
           const linkTarget = input.clearActiveLink ? null : input.setActiveLink;
           const lps = await appendLpsActiveLink({
@@ -1273,6 +1330,9 @@ export class PilotLifecycleTransitions {
             correlationId: input.correlationId,
             expectedLpsVersion: input.expectedLpsVersion,
             activeCycleInstanceId: linkTarget,
+            ...(input.action === "START" && input.ckcResolutionRef
+              ? { ckcResolutionRef: input.ckcResolutionRef }
+              : {}),
           });
           if (!lps.ok) {
             const err = new Error(lps.detail) as Error & {
@@ -1328,6 +1388,13 @@ export class PilotLifecycleTransitions {
           currentVersion: (err as Error & { currentVersion?: number })
             .currentVersion,
         });
+      }
+      if (
+        err instanceof Error &&
+        (err.message.startsWith("trajectory_") ||
+          err.message.startsWith("trajectory_step_"))
+      ) {
+        return input.fail("CYCLE_START_NOT_READY", err.message);
       }
       return input.fail("PERSISTENCE_FAILURE", "lifecycle_persist_failed");
     }

@@ -26,6 +26,15 @@ export type LifecycleRecommendationCandidate = {
   targetCycleInstanceId?: string | null;
   targetCycleTypeId?: string | null;
   rationale?: string | null;
+  /** D-GF-START-01 — required complete for prepareable NEXT_CYCLE. */
+  qualificationSignals?: {
+    structuralChange: boolean;
+    securityImpact: boolean;
+    architectureImpact: boolean;
+    dataImpact: boolean;
+    irreversible: boolean;
+    lowRiskBounded: boolean;
+  } | null;
 };
 
 export type LifecycleRecommendationBasisRefs =
@@ -56,6 +65,15 @@ export type LifecycleRecommendationEnvelope = {
   supersedesRecommendationId: string | null;
   /** Derived at read time — never persisted as Epistemic status. */
   derivedCurrentness: LifecycleRecommendationDerivedCurrentness;
+  /** D-GF-START-01 — surfaced when persisted on the LR item. */
+  qualificationSignals?: {
+    structuralChange: boolean;
+    securityImpact: boolean;
+    architectureImpact: boolean;
+    dataImpact: boolean;
+    irreversible: boolean;
+    lowRiskBounded: boolean;
+  };
 };
 
 export type NoraLifecycleRecommendationStructuredOutput = {
@@ -67,4 +85,16 @@ export type NoraLifecycleRecommendationStructuredOutput = {
   rationale: string | null;
   authority: "none";
   isHumanDecision: false;
+  /**
+   * D-GF-START-01 — six explicit signals for NEXT_CYCLE when prepareable.
+   * null for FINALIZE_CURRENT_CYCLE / incomplete qualification.
+   */
+  qualificationSignals: {
+    structuralChange: boolean;
+    securityImpact: boolean;
+    architectureImpact: boolean;
+    dataImpact: boolean;
+    irreversible: boolean;
+    lowRiskBounded: boolean;
+  } | null;
 };

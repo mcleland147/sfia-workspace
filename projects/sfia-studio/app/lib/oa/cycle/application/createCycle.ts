@@ -129,6 +129,18 @@ export class CreateCycle {
           status === "acknowledged" ? timestamp : undefined,
         createdAt: timestamp,
         qualificationSignals: request.signals,
+        ...(request.trajectoryId !== undefined
+          ? { trajectoryId: request.trajectoryId }
+          : {}),
+        ...(request.trajectoryVersion !== undefined
+          ? { trajectoryVersion: request.trajectoryVersion }
+          : {}),
+        ...(request.trajectoryStepId !== undefined
+          ? { trajectoryStepId: request.trajectoryStepId }
+          : {}),
+        ...(request.ckcResolutionRef !== undefined
+          ? { ckcResolutionRef: request.ckcResolutionRef }
+          : {}),
       };
 
       const persist = async () => {

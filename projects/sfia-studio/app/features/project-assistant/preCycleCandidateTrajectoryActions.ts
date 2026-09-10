@@ -19,6 +19,11 @@ import {
   approveCandidateTrajectory,
   buildPreCycleCandidateApprovalPresentation,
 } from "@/features/project-assistant/approveCandidateTrajectory";
+import {
+  prepareCycleFromValidatedTrajectory,
+  readPreparedTrajectoryCycle,
+  startPreparedTrajectoryCycle,
+} from "@/lib/oa/cycle";
 
 export async function projectAssistantPrepareCandidateTrajectoryAction(input: {
   projectId: string;
@@ -359,5 +364,151 @@ export async function projectAssistantApprovePreCycleCandidateTrajectoryAction(i
     catalogLabel: result.catalogLabel,
     lpsVersionAfter: result.lpsVersionAfter,
     activeCycleInstanceId: null,
+  };
+}
+
+/**
+ * D-GF-START-01 — prepare CycleInstance from validated trajectory (non-active).
+ * Client: projectId only.
+ */
+export async function prepareCycleFromValidatedTrajectoryAction(input: {
+  projectId: string;
+}): Promise<{
+  ok: boolean;
+  code?: string;
+  message?: string;
+  cycleInstanceId?: string;
+  cycleTypeId?: string;
+  catalogLabel?: string | null;
+  profile?: string;
+  status?: string;
+  trajectoryId?: string;
+  trajectoryVersion?: number;
+  stepId?: string;
+  ckcResolutionRef?: string;
+  reused?: boolean;
+}> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      code: "OA_UNAVAILABLE",
+      message: "Runtime OA indisponible.",
+    };
+  }
+  const result = await prepareCycleFromValidatedTrajectory({
+    oa: runtime.oa,
+    projectId: input.projectId,
+  });
+  if (!result.ok) {
+    return { ok: false, code: result.code, message: result.reason };
+  }
+  return {
+    ok: true,
+    cycleInstanceId: result.cycle.cycleInstanceId,
+    cycleTypeId: result.cycle.cycleTypeId,
+    catalogLabel: result.catalogLabel,
+    profile: result.cycle.profile,
+    status: result.cycle.status,
+    trajectoryId: result.trajectoryId,
+    trajectoryVersion: result.trajectoryVersion,
+    stepId: result.stepId,
+    ckcResolutionRef: result.cycle.ckcResolutionRef,
+    reused: result.reused,
+  };
+}
+
+/**
+ * D-GF-START-01 — read prepared (non-active) trajectory-bound cycle.
+ */
+export async function readPreparedTrajectoryCycleAction(input: {
+  projectId: string;
+}): Promise<{
+  ok: boolean;
+  code?: string;
+  message?: string;
+  prepared?: {
+    cycleInstanceId: string;
+    cycleTypeId: string;
+    catalogLabel: string | null;
+    profile: string;
+    status: string;
+    trajectoryId: string;
+    trajectoryVersion: number;
+    trajectoryStepId: string;
+    ckcResolutionRef: string | null;
+    qualificationSignals: {
+      structuralChange: boolean;
+      securityImpact: boolean;
+      architectureImpact: boolean;
+      dataImpact: boolean;
+      irreversible: boolean;
+      lowRiskBounded: boolean;
+    } | null;
+    isActive: false;
+  } | null;
+}> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      code: "OA_UNAVAILABLE",
+      message: "Runtime OA indisponible.",
+    };
+  }
+  const result = await readPreparedTrajectoryCycle({
+    oa: runtime.oa,
+    projectId: input.projectId,
+  });
+  if (!result.ok) {
+    return { ok: false, code: result.code, message: result.reason };
+  }
+  return { ok: true, prepared: result.prepared };
+}
+
+/**
+ * D-GF-START-01 — START prepared trajectory-bound cycle (N3 Pilote).
+ * Client: projectId (+ optional cycleInstanceId).
+ */
+export async function startPreparedTrajectoryCycleAction(input: {
+  projectId: string;
+  cycleInstanceId?: string;
+}): Promise<{
+  ok: boolean;
+  code?: string;
+  message?: string;
+  cycleInstanceId?: string;
+  catalogLabel?: string | null;
+  trajectoryId?: string;
+  trajectoryVersion?: number;
+  stepId?: string;
+  activeCycleInstanceId?: string;
+  lpsVersionAfter?: number;
+}> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      code: "OA_UNAVAILABLE",
+      message: "Runtime OA indisponible.",
+    };
+  }
+  const result = await startPreparedTrajectoryCycle({
+    oa: runtime.oa,
+    projectId: input.projectId,
+    cycleInstanceId: input.cycleInstanceId,
+  });
+  if (!result.ok) {
+    return { ok: false, code: result.code, message: result.reason };
+  }
+  return {
+    ok: true,
+    cycleInstanceId: result.cycle.cycleInstanceId,
+    catalogLabel: result.catalogLabel,
+    trajectoryId: result.trajectoryId,
+    trajectoryVersion: result.trajectoryVersion,
+    stepId: result.stepId,
+    activeCycleInstanceId: result.activeCycleInstanceId,
+    lpsVersionAfter: result.lpsVersionAfter,
   };
 }

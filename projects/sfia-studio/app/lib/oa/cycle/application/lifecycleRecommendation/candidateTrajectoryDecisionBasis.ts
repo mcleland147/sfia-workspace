@@ -32,6 +32,9 @@ export function materialTrajectoryStepsProjection(
     order: step.order,
     label: step.label,
     state: step.state,
+    ...(step.cycleTypeId !== undefined
+      ? { cycleTypeId: step.cycleTypeId }
+      : {}),
     ...(step.dependencies !== undefined
       ? { dependencies: [...step.dependencies] }
       : {}),
@@ -79,6 +82,18 @@ export type CandidateTrajectoryPresentationMaterial = {
     semanticKey: string;
     targetCycleTypeId: string;
   };
+  /**
+   * D-GF-START-01 — sealed qualification signals when provided on the new path.
+   * Included in presentationDigest so a signal flip invalidates approval.
+   */
+  qualificationSignals?: {
+    structuralChange: boolean;
+    securityImpact: boolean;
+    architectureImpact: boolean;
+    dataImpact: boolean;
+    irreversible: boolean;
+    lowRiskBounded: boolean;
+  };
   approvalKind: typeof CANDIDATE_TRAJECTORY_APPROVAL_KIND;
 };
 
@@ -92,6 +107,14 @@ export function buildCandidateTrajectoryPresentationMaterial(input: {
   recommendationId: string;
   semanticKey: string;
   targetCycleTypeId: string;
+  qualificationSignals?: {
+    structuralChange: boolean;
+    securityImpact: boolean;
+    architectureImpact: boolean;
+    dataImpact: boolean;
+    irreversible: boolean;
+    lowRiskBounded: boolean;
+  };
 }): CandidateTrajectoryPresentationMaterial {
   const candidateContentDigest = computeCandidateContentDigest({
     trajectoryId: input.trajectory.trajectoryId,
@@ -120,6 +143,9 @@ export function buildCandidateTrajectoryPresentationMaterial(input: {
       semanticKey: input.semanticKey,
       targetCycleTypeId: input.targetCycleTypeId,
     },
+    ...(input.qualificationSignals
+      ? { qualificationSignals: { ...input.qualificationSignals } }
+      : {}),
     approvalKind: CANDIDATE_TRAJECTORY_APPROVAL_KIND,
   };
 }

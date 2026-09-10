@@ -111,6 +111,18 @@ export type DecisionBasisCandidateTrajectoryContext = {
   candidateContentDigest: string;
   /** Digest of the exact material object presented to the Pilote. */
   presentationDigest: string;
+  /**
+   * D-GF-START-01 — six sealed qualification signals from the source LR.
+   * Optional for legacy HD; REQUIRED for new greenfield prepare path.
+   */
+  qualificationSignals?: {
+    structuralChange: boolean;
+    securityImpact: boolean;
+    architectureImpact: boolean;
+    dataImpact: boolean;
+    irreversible: boolean;
+    lowRiskBounded: boolean;
+  };
 };
 
 export type DecisionBasisSourceType =

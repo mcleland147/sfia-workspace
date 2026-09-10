@@ -151,6 +151,19 @@ export type CycleQualificationSignals = {
   lowRiskBounded?: boolean;
 };
 
+/**
+ * D-GF-START-01 — six explicit booleans required on the new greenfield path.
+ * Legacy objects may still carry partial CycleQualificationSignals.
+ */
+export type ExplicitCycleQualificationSignals = {
+  structuralChange: boolean;
+  securityImpact: boolean;
+  architectureImpact: boolean;
+  dataImpact: boolean;
+  irreversible: boolean;
+  lowRiskBounded: boolean;
+};
+
 export type CycleInstance = {
   schemaVersion: "0.1.0-oa";
   cycleInstanceId: string;
@@ -165,6 +178,18 @@ export type CycleInstance = {
   pauseReconciliation?: PauseReconciliationSnapshot | null;
   /** Durable create-time qualification signals (JSON payload — no DDL). */
   qualificationSignals?: CycleQualificationSignals;
+  /**
+   * D-GF-START-01 — exact ProjectTrajectory binding for trajectory-derived cycles.
+   * Optional for legacy CycleInstance; REQUIRED on new greenfield prepare path.
+   */
+  trajectoryId?: string;
+  trajectoryVersion?: number;
+  trajectoryStepId?: string;
+  /**
+   * D-GF-START-01 — durable CKC resolution ref on the prepared CycleInstance.
+   * Written at PREPARE (linkAsActiveCycle=false); LPS receives it at START.
+   */
+  ckcResolutionRef?: string;
 };
 
 /** Applicability before proof status (CORR-PROOF-05 enforcement). */
@@ -227,6 +252,12 @@ export type TrajectoryStep = {
   order: number;
   label: string;
   state: TrajectoryStepState;
+  /**
+   * D-GF-START-01 — canonical cycle type for greenfield steps.
+   * Optional for legacy/W2 steps; REQUIRED on new greenfield bridge path.
+   * Authority: never derived from label.
+   */
+  cycleTypeId?: string;
   dependencies?: string[];
   gate?: string;
   exitCriteria?: string[];
@@ -288,6 +319,11 @@ export type EpistemicLifecycleRecommendation = {
   targetCycleInstanceId: string | null;
   targetCycleTypeId: string | null;
   authority: "none";
+  /**
+   * D-GF-START-01 — six explicit signals when a prepareable NEXT_CYCLE was emitted.
+   * Optional for historical / FINALIZE / incomplete qualification reads.
+   */
+  qualificationSignals?: ExplicitCycleQualificationSignals;
 };
 
 export type EpistemicItem = {
@@ -362,8 +398,13 @@ export type CreateCycleRequest = {
   /**
    * Durable CKC binding projection (no raw CKC dimensions).
    * Written to LPS when linkAsActiveCycle is true.
+   * Also persisted on CycleInstance.ckcResolutionRef when provided (D-GF-START-01).
    */
   ckcResolutionRef?: string;
+  /** D-GF-START-01 — trajectory-derived binding (optional for legacy F2). */
+  trajectoryId?: string;
+  trajectoryVersion?: number;
+  trajectoryStepId?: string;
 };
 
 export type CreateInitialTrajectoryRequest = {

@@ -1,5 +1,8 @@
 import type { HumanDecision } from "@/lib/oa/decision";
-import type { CycleInstance } from "../../domain/types";
+import type {
+  CycleInstance,
+  ExplicitCycleQualificationSignals,
+} from "../../domain/types";
 import { isTerminalCycleStatus } from "../../domain/lifecycleInvariants";
 import type {
   LifecycleRecommendationBasisRefs,
@@ -11,6 +14,7 @@ import {
   validateCanonicalTargetCycleTypeId,
   type TrajectoryBootstrapPresence,
 } from "./greenfieldLifecycleBootstrap";
+import { parseExplicitQualificationSignals } from "./qualificationSignals";
 
 export type ValidateLifecycleRecommendationInput = {
   projectId: string;
@@ -43,12 +47,35 @@ export type ValidateLifecycleRecommendationResult =
       basisSeed: LifecycleRecommendationBasisRefs;
       /** True when NEXT_CYCLE accepted via strict greenfield bootstrap. */
       greenfieldBootstrap?: boolean;
+      /**
+       * D-GF-START-01 — complete six booleans on NEXT_CYCLE success.
+       * Absent on FINALIZE (signals ignored).
+       */
+      qualificationSignals?: ExplicitCycleQualificationSignals;
     }
   | {
       ok: false;
       code: string;
       reason: string;
     };
+
+function requireNextCycleQualificationSignals(
+  candidate: LifecycleRecommendationCandidate,
+):
+  | { ok: true; signals: ExplicitCycleQualificationSignals }
+  | { ok: false; code: string; reason: string } {
+  const signals = parseExplicitQualificationSignals(
+    candidate.qualificationSignals,
+  );
+  if (!signals) {
+    return {
+      ok: false,
+      code: "LR_QUALIFICATION_SIGNALS_INCOMPLETE",
+      reason: "next_cycle_requires_complete_qualification_signals",
+    };
+  }
+  return { ok: true, signals };
+}
 
 /**
  * Deterministic SFIA validation — fail closed.
@@ -93,6 +120,7 @@ export function validateLifecycleRecommendation(
       };
     }
     // Eligibility is NOT required — Recommendation ≠ canFinalize.
+    // FINALIZE: ignore qualificationSignals / allow null or absent.
     return {
       ok: true,
       intent: candidate.intent,
@@ -217,6 +245,14 @@ export function validateLifecycleRecommendation(
             reason: bootstrap.reason,
           };
         }
+        const signalsGate = requireNextCycleQualificationSignals(candidate);
+        if (!signalsGate.ok) {
+          return {
+            ok: false,
+            code: signalsGate.code,
+            reason: signalsGate.reason,
+          };
+        }
         return {
           ok: true,
           intent: candidate.intent,
@@ -225,6 +261,7 @@ export function validateLifecycleRecommendation(
           targetCycleTypeId: targetType,
           statement,
           greenfieldBootstrap: true,
+          qualificationSignals: signalsGate.signals,
           basisSeed: {
             projectId,
             subjectCycleInstanceId: null,
@@ -239,6 +276,14 @@ export function validateLifecycleRecommendation(
       }
     }
 
+    const signalsGate = requireNextCycleQualificationSignals(candidate);
+    if (!signalsGate.ok) {
+      return {
+        ok: false,
+        code: signalsGate.code,
+        reason: signalsGate.reason,
+      };
+    }
     return {
       ok: true,
       intent: candidate.intent,
@@ -246,6 +291,7 @@ export function validateLifecycleRecommendation(
       targetCycleInstanceId: targetId,
       targetCycleTypeId: targetType,
       statement,
+      qualificationSignals: signalsGate.signals,
       basisSeed: {
         projectId,
         subjectCycleInstanceId: candidate.subjectCycleInstanceId ?? null,

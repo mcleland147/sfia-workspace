@@ -26,10 +26,47 @@ import {
   candidateTrajectoryApprovalSubject,
   computeCandidateContentDigest,
   computeCandidateTrajectoryPresentationDigest,
+  parseExplicitQualificationSignals,
   type CandidateTrajectoryApprovalPresentationDto,
   getCycleTypeById,
 } from "@/lib/oa/cycle";
 import { assertCandidateTrajectoryDecisionAuthorizesPromotion } from "./candidateTrajectoryPromotionGuard";
+
+function loadQualificationSignalsFromRecommendation(
+  epistemic: Awaited<
+    ReturnType<RuntimeOaStack["cycleServices"]["epistemic"]["listByProject"]>
+  >,
+  recommendationId: string,
+):
+  | {
+      ok: true;
+      signals: NonNullable<
+        ReturnType<typeof parseExplicitQualificationSignals>
+      >;
+    }
+  | { ok: false; code: string; message: string } {
+  const lrItem = epistemic.find((e) => e.epistemicItemId === recommendationId);
+  if (!lrItem || lrItem.type !== "Recommendation") {
+    return {
+      ok: false,
+      code: "PROFILE_SIGNALS_MISSING",
+      message:
+        "Recommandation source introuvable — signaux de qualification requis.",
+    };
+  }
+  const signals = parseExplicitQualificationSignals(
+    lrItem.lifecycleRecommendation?.qualificationSignals,
+  );
+  if (!signals) {
+    return {
+      ok: false,
+      code: "PROFILE_SIGNALS_MISSING",
+      message:
+        "Signaux de qualification incomplets sur la recommandation lifecycle.",
+    };
+  }
+  return { ok: true, signals };
+}
 
 export type ApproveCandidateTrajectoryInput = {
   readonly oa: RuntimeOaStack;
@@ -224,6 +261,19 @@ export async function buildPreCycleCandidateApprovalPresentation(input: {
     };
   }
 
+  const signalsGate = loadQualificationSignalsFromRecommendation(
+    epistemic,
+    provenance.recommendationId,
+  );
+  if (!signalsGate.ok) {
+    return {
+      ok: true,
+      presentation: null,
+      alreadyDecided: null,
+      activeCycleInstanceId,
+    };
+  }
+
   const material = buildCandidateTrajectoryPresentationMaterial({
     projectId,
     lpsId: live.context.lpsId,
@@ -234,6 +284,7 @@ export async function buildPreCycleCandidateApprovalPresentation(input: {
     recommendationId: provenance.recommendationId,
     semanticKey: provenance.semanticKey,
     targetCycleTypeId: provenance.targetCycleTypeId,
+    qualificationSignals: signalsGate.signals,
   });
   const presentationDigest =
     computeCandidateTrajectoryPresentationDigest(material);
@@ -400,6 +451,15 @@ export async function approveCandidateTrajectory(
     };
   }
 
+  const signalsGate = loadQualificationSignalsFromRecommendation(
+    epistemic,
+    provenance.recommendationId,
+  );
+  if (!signalsGate.ok) {
+    return signalsGate;
+  }
+  const qualificationSignals = signalsGate.signals;
+
   const material = buildCandidateTrajectoryPresentationMaterial({
     projectId,
     lpsId: live.context.lpsId,
@@ -410,6 +470,7 @@ export async function approveCandidateTrajectory(
     recommendationId: provenance.recommendationId,
     semanticKey: provenance.semanticKey,
     targetCycleTypeId: provenance.targetCycleTypeId,
+    qualificationSignals,
   });
   const presentationDigest =
     computeCandidateTrajectoryPresentationDigest(material);
@@ -486,6 +547,7 @@ export async function approveCandidateTrajectory(
       targetCycleTypeId: provenance.targetCycleTypeId,
       candidateContentDigest,
       presentationDigest,
+      qualificationSignals,
     },
     executionBasis: {
       objective: live.context.objective,

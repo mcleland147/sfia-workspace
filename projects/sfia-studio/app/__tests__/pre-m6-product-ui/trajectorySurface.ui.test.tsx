@@ -14,6 +14,10 @@ const {
   executeStartMock,
   executeCompleteMock,
   readPreCycleMock,
+  readApprovalMock,
+  prepareCycleMock,
+  readPreparedCycleMock,
+  startPreparedCycleMock,
 } = vi.hoisted(() => ({
   proposeMock: vi.fn(),
   decideMock: vi.fn(),
@@ -25,6 +29,10 @@ const {
   executeStartMock: vi.fn(),
   executeCompleteMock: vi.fn(),
   readPreCycleMock: vi.fn(),
+  readApprovalMock: vi.fn(),
+  prepareCycleMock: vi.fn(),
+  readPreparedCycleMock: vi.fn(),
+  startPreparedCycleMock: vi.fn(),
 }));
 
 vi.mock("@/features/project-assistant/w2/actions", () => ({
@@ -54,15 +62,16 @@ vi.mock("@/features/project-assistant/preCycleCandidateTrajectoryActions", () =>
   projectAssistantReadPreCycleCandidateTrajectoryAction: (...args: unknown[]) =>
     readPreCycleMock(...args),
   projectAssistantPrepareCandidateTrajectoryAction: vi.fn(),
-  projectAssistantReadCandidateTrajectoryApprovalPresentationAction: vi
-    .fn()
-    .mockResolvedValue({
-      ok: true,
-      presentation: null,
-      alreadyDecided: null,
-      activeCycleInstanceId: null,
-    }),
+  projectAssistantReadCandidateTrajectoryApprovalPresentationAction: (
+    ...args: unknown[]
+  ) => readApprovalMock(...args),
   projectAssistantApprovePreCycleCandidateTrajectoryAction: vi.fn(),
+  prepareCycleFromValidatedTrajectoryAction: (...args: unknown[]) =>
+    prepareCycleMock(...args),
+  readPreparedTrajectoryCycleAction: (...args: unknown[]) =>
+    readPreparedCycleMock(...args),
+  startPreparedTrajectoryCycleAction: (...args: unknown[]) =>
+    startPreparedCycleMock(...args),
 }));
 
 afterEach(() => {
@@ -80,12 +89,23 @@ beforeEach(() => {
   executeStartMock.mockReset();
   executeCompleteMock.mockReset();
   readPreCycleMock.mockReset();
+  readApprovalMock.mockReset();
+  prepareCycleMock.mockReset();
+  readPreparedCycleMock.mockReset();
+  startPreparedCycleMock.mockReset();
   readPreCycleMock.mockResolvedValue({
     ok: true,
     candidate: null,
     activeCycleInstanceId: "cycinst:test-active",
     hasCurrentNextCycleRecommendation: false,
   });
+  readApprovalMock.mockResolvedValue({
+    ok: true,
+    presentation: null,
+    alreadyDecided: null,
+    activeCycleInstanceId: "cycinst:test-active",
+  });
+  readPreparedCycleMock.mockResolvedValue({ ok: true, prepared: null });
 });
 
 describe("W2 TrajectorySurface", () => {
@@ -526,5 +546,128 @@ describe("W2 TrajectorySurface", () => {
     );
     // W3-A: BLOCKED must not expose Execute CTA.
     expect(screen.queryByTestId("w3a-governed-execute")).toBeNull();
+  });
+});
+
+describe("D-GF-START-01 TrajectorySurface prepare/start CTAs", () => {
+  it("shows Préparer le cycle after greenfield decided with no prepared cycle", async () => {
+    readPreCycleMock.mockResolvedValue({
+      ok: true,
+      candidate: null,
+      activeCycleInstanceId: null,
+      hasCurrentNextCycleRecommendation: false,
+    });
+    readApprovalMock.mockResolvedValue({
+      ok: true,
+      presentation: null,
+      alreadyDecided: {
+        trajectoryId: "trj:gf-ui",
+        version: 1,
+        status: "validated",
+        decidedByDecisionRef: "dec:gf-ui",
+        targetCycleTypeId: "cyc:framing",
+        catalogLabel: "Cadrage",
+      },
+      activeCycleInstanceId: null,
+    });
+    readPreparedCycleMock.mockResolvedValue({ ok: true, prepared: null });
+
+    render(<TrajectorySurface projectId="prj:gf-prep" />);
+    expect(await screen.findByTestId("pre-cycle-decided-trajectory")).toBeVisible();
+    expect(screen.getByTestId("pre-cycle-prepare-cycle")).toHaveTextContent(
+      "Préparer le cycle",
+    );
+    expect(screen.queryByTestId("pre-cycle-start-cycle")).toBeNull();
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+  });
+
+  it("shows profile + Démarrer le cadrage when prepared; clears CTAs after active", async () => {
+    readPreCycleMock.mockResolvedValue({
+      ok: true,
+      candidate: null,
+      activeCycleInstanceId: null,
+      hasCurrentNextCycleRecommendation: false,
+    });
+    readApprovalMock.mockResolvedValue({
+      ok: true,
+      presentation: null,
+      alreadyDecided: {
+        trajectoryId: "trj:gf-ui",
+        version: 1,
+        status: "validated",
+        decidedByDecisionRef: "dec:gf-ui",
+        targetCycleTypeId: "cyc:framing",
+        catalogLabel: "Cadrage",
+      },
+      activeCycleInstanceId: null,
+    });
+    readPreparedCycleMock.mockResolvedValue({
+      ok: true,
+      prepared: {
+        cycleInstanceId: "cyc:trj-prepared",
+        cycleTypeId: "cyc:framing",
+        catalogLabel: "Cadrage",
+        profile: "Light",
+        status: "acknowledged",
+        trajectoryId: "trj:gf-ui",
+        trajectoryVersion: 1,
+        trajectoryStepId: "stp:1",
+        ckcResolutionRef: "ckc:m2-x",
+        qualificationSignals: null,
+        isActive: false,
+      },
+    });
+
+    render(<TrajectorySurface projectId="prj:gf-start" />);
+    expect(await screen.findByTestId("pre-cycle-prepared-cycle")).toHaveTextContent(
+      "profil Light",
+    );
+    expect(screen.getByTestId("pre-cycle-start-cycle")).toHaveTextContent(
+      "Démarrer le cadrage",
+    );
+    expect(screen.queryByTestId("pre-cycle-prepare-cycle")).toBeNull();
+
+    startPreparedCycleMock.mockResolvedValue({
+      ok: true,
+      cycleInstanceId: "cyc:trj-prepared",
+      catalogLabel: "Cadrage",
+      activeCycleInstanceId: "cyc:trj-prepared",
+    });
+    fireEvent.click(screen.getByTestId("pre-cycle-start-cycle"));
+
+    await waitFor(() => {
+      expect(startPreparedCycleMock).toHaveBeenCalled();
+    });
+
+    // After START refresh: active cycle → no prepare/start CTAs
+    readPreCycleMock.mockResolvedValue({
+      ok: true,
+      candidate: null,
+      activeCycleInstanceId: "cyc:trj-prepared",
+      hasCurrentNextCycleRecommendation: false,
+    });
+    readApprovalMock.mockResolvedValue({
+      ok: true,
+      presentation: null,
+      alreadyDecided: {
+        trajectoryId: "trj:gf-ui",
+        version: 1,
+        status: "validated",
+        decidedByDecisionRef: "dec:gf-ui",
+        targetCycleTypeId: "cyc:framing",
+        catalogLabel: "Cadrage",
+      },
+      activeCycleInstanceId: "cyc:trj-prepared",
+    });
+    readPreparedCycleMock.mockResolvedValue({ ok: true, prepared: null });
+
+    // Re-render via durableRefreshSignal path: remount
+    cleanup();
+    render(<TrajectorySurface projectId="prj:gf-start" />);
+    await waitFor(() => {
+      expect(screen.queryByTestId("pre-cycle-prepare-cycle")).toBeNull();
+      expect(screen.queryByTestId("pre-cycle-start-cycle")).toBeNull();
+    });
+    expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
   });
 });

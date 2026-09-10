@@ -161,6 +161,7 @@ function finalizeCandidate(subjectCycleInstanceId: string) {
     rationale: null,
     authority: "none" as const,
     isHumanDecision: false as const,
+    qualificationSignals: null,
   };
 }
 
@@ -1016,6 +1017,14 @@ describe("LR CORR-DELIVERY-03 provenance + fail-closed", () => {
         rationale: null,
         authority: "none" as const,
         isHumanDecision: false as const,
+        qualificationSignals: {
+          structuralChange: false,
+          securityImpact: false,
+          architectureImpact: false,
+          dataImpact: false,
+          irreversible: false,
+          lowRiskBounded: true,
+        },
       },
       "Narratif next.",
     );

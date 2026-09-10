@@ -30,6 +30,9 @@ import {
   projectAssistantApprovePreCycleCandidateTrajectoryAction,
   projectAssistantReadCandidateTrajectoryApprovalPresentationAction,
   projectAssistantReadPreCycleCandidateTrajectoryAction,
+  prepareCycleFromValidatedTrajectoryAction,
+  readPreparedTrajectoryCycleAction,
+  startPreparedTrajectoryCycleAction,
 } from "@/features/project-assistant/preCycleCandidateTrajectoryActions";
 import type {
   AmendExecutionContractSuccess,
@@ -115,7 +118,9 @@ type Busy =
   | "authorization"
   | "amendment"
   | "execute"
-  | "approve-candidate";
+  | "approve-candidate"
+  | "prepare-cycle"
+  | "start-cycle";
 
 /**
  * Yield so React can commit and the browser can paint each Attempt phase.
@@ -178,6 +183,13 @@ export function TrajectorySurface({
     decidedByDecisionRef: string | null;
     targetCycleTypeId: string | null;
     catalogLabel: string | null;
+  } | null>(null);
+  const [preparedCycle, setPreparedCycle] = useState<{
+    cycleInstanceId: string;
+    cycleTypeId: string;
+    catalogLabel: string | null;
+    profile: string;
+    status: string;
   } | null>(null);
   const [activeCycleInstanceId, setActiveCycleInstanceId] = useState<
     string | null
@@ -268,6 +280,7 @@ export function TrajectorySurface({
       setHasCurrentNextCycleRecommendation(false);
       setApprovalPresentation(null);
       setGreenfieldDecided(null);
+      setPreparedCycle(null);
       return;
     }
     setActiveCycleInstanceId(result.activeCycleInstanceId ?? null);
@@ -283,6 +296,7 @@ export function TrajectorySurface({
     if (!approval.ok) {
       setApprovalPresentation(null);
       setGreenfieldDecided(null);
+      setPreparedCycle(null);
       return;
     }
     setGreenfieldDecided(approval.alreadyDecided ?? null);
@@ -296,6 +310,23 @@ export function TrajectorySurface({
       });
     } else {
       setApprovalPresentation(null);
+    }
+
+    if (approval.alreadyDecided && !result.activeCycleInstanceId) {
+      const prepared = await readPreparedTrajectoryCycleAction({ projectId });
+      if (prepared.ok && prepared.prepared) {
+        setPreparedCycle({
+          cycleInstanceId: prepared.prepared.cycleInstanceId,
+          cycleTypeId: prepared.prepared.cycleTypeId,
+          catalogLabel: prepared.prepared.catalogLabel,
+          profile: prepared.prepared.profile,
+          status: prepared.prepared.status,
+        });
+      } else {
+        setPreparedCycle(null);
+      }
+    } else {
+      setPreparedCycle(null);
     }
   }, [projectId]);
 
@@ -323,10 +354,59 @@ export function TrajectorySurface({
     });
     setPreCycleCandidate(null);
     setApprovalPresentation(null);
+    setPreparedCycle(null);
     onDurableFactsChanged?.();
     await refreshPreCycleCandidate();
   }, [
     approvalPresentation,
+    projectId,
+    onDurableFactsChanged,
+    refreshPreCycleCandidate,
+  ]);
+
+  const prepareValidatedCycle = useCallback(async () => {
+    setBusy("prepare-cycle");
+    setError(null);
+    const result = await prepareCycleFromValidatedTrajectoryAction({
+      projectId,
+    });
+    setBusy(null);
+    if (!result.ok) {
+      setError(result.message ?? result.code ?? "Préparation du cycle refusée.");
+      await refreshPreCycleCandidate();
+      return;
+    }
+    setPreparedCycle({
+      cycleInstanceId: result.cycleInstanceId!,
+      cycleTypeId: result.cycleTypeId!,
+      catalogLabel: result.catalogLabel ?? null,
+      profile: result.profile!,
+      status: result.status!,
+    });
+    onDurableFactsChanged?.();
+    await refreshPreCycleCandidate();
+  }, [projectId, onDurableFactsChanged, refreshPreCycleCandidate]);
+
+  const startPreparedCycle = useCallback(async () => {
+    if (!preparedCycle) return;
+    setBusy("start-cycle");
+    setError(null);
+    const result = await startPreparedTrajectoryCycleAction({
+      projectId,
+      cycleInstanceId: preparedCycle.cycleInstanceId,
+    });
+    setBusy(null);
+    if (!result.ok) {
+      setError(result.message ?? result.code ?? "Démarrage du cycle refusé.");
+      await refreshPreCycleCandidate();
+      return;
+    }
+    setPreparedCycle(null);
+    setActiveCycleInstanceId(result.activeCycleInstanceId ?? null);
+    onDurableFactsChanged?.();
+    await refreshPreCycleCandidate();
+  }, [
+    preparedCycle,
     projectId,
     onDurableFactsChanged,
     refreshPreCycleCandidate,
@@ -830,6 +910,63 @@ export function TrajectorySurface({
             Trajectoire décidée / courante · Cycle :{" "}
             {greenfieldDecided.catalogLabel ?? "—"} · Aucun cycle démarré
           </p>
+          {/*
+            FIGMA SOURCE NOT APPLICABLE — D-GF-START-01 prepare/start CTAs follow
+            existing TrajectorySurface action patterns (no Figma handoff).
+          */}
+          {!preparedCycle ? (
+            <div className={styles.actions}>
+              <button
+                type="button"
+                className={styles.primaryAction}
+                data-testid="pre-cycle-prepare-cycle"
+                onClick={() => void prepareValidatedCycle()}
+                disabled={busy !== null}
+              >
+                Préparer le cycle
+              </button>
+              {busy === "prepare-cycle" ? (
+                <span
+                  className={styles.busy}
+                  role="status"
+                  data-testid="pre-cycle-prepare-busy"
+                >
+                  Préparation en cours…
+                </span>
+              ) : null}
+            </div>
+          ) : (
+            <div className={styles.actions}>
+              <p
+                className={styles.blockNote}
+                data-testid="pre-cycle-prepared-cycle"
+              >
+                Cycle préparé · {preparedCycle.catalogLabel ?? preparedCycle.cycleTypeId}{" "}
+                · profil {preparedCycle.profile} · {preparedCycle.status}
+              </p>
+              <button
+                type="button"
+                className={styles.primaryAction}
+                data-testid="pre-cycle-start-cycle"
+                onClick={() => void startPreparedCycle()}
+                disabled={busy !== null}
+              >
+                {preparedCycle.cycleTypeId === "cyc:framing" ||
+                preparedCycle.catalogLabel === "Cadrage"
+                  ? "Démarrer le cadrage"
+                  : "Démarrer le cycle"}
+              </button>
+              {busy === "start-cycle" ? (
+                <span
+                  className={styles.busy}
+                  role="status"
+                  data-testid="pre-cycle-start-busy"
+                >
+                  Démarrage en cours…
+                </span>
+              ) : null}
+            </div>
+          )}
         </section>
       ) : null}
 

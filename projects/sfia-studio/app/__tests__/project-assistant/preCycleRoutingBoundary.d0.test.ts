@@ -103,6 +103,14 @@ function nextCycleLr(targetCycleTypeId: string, statement: string) {
     rationale: "Prochain travail gouverné supportable.",
     authority: "none" as const,
     isHumanDecision: false as const,
+    qualificationSignals: {
+      structuralChange: false,
+      securityImpact: false,
+      architectureImpact: false,
+      dataImpact: false,
+      irreversible: false,
+      lowRiskBounded: true,
+    },
   };
 }
 

@@ -1,8 +1,31 @@
 import type { NoraLifecycleRecommendationStructuredOutput } from "@/lib/oa/cycle/application/lifecycleRecommendation/types";
+import { isExplicitCycleQualificationSignals } from "@/lib/oa/cycle/application/lifecycleRecommendation/qualificationSignals";
+
+const QUALIFICATION_SIGNALS_SCHEMA = {
+  type: "object" as const,
+  additionalProperties: false as const,
+  required: [
+    "structuralChange",
+    "securityImpact",
+    "architectureImpact",
+    "dataImpact",
+    "irreversible",
+    "lowRiskBounded",
+  ],
+  properties: {
+    structuralChange: { type: "boolean" as const },
+    securityImpact: { type: "boolean" as const },
+    architectureImpact: { type: "boolean" as const },
+    dataImpact: { type: "boolean" as const },
+    irreversible: { type: "boolean" as const },
+    lowRiskBounded: { type: "boolean" as const },
+  },
+};
 
 /**
  * Agents SDK outputType for Lifecycle Recommendation candidates.
  * Same Nora Runner path — no second model call / prose parser.
+ * D-GF-START-01: qualificationSignals (object | null) on the same turn.
  */
 export const NORA_LIFECYCLE_RECOMMENDATION_OUTPUT_TYPE = {
   type: "json_schema" as const,
@@ -20,6 +43,7 @@ export const NORA_LIFECYCLE_RECOMMENDATION_OUTPUT_TYPE = {
       "rationale",
       "authority",
       "isHumanDecision",
+      "qualificationSignals",
     ],
     properties: {
       intent: {
@@ -33,6 +57,9 @@ export const NORA_LIFECYCLE_RECOMMENDATION_OUTPUT_TYPE = {
       rationale: { type: ["string", "null"] as const },
       authority: { type: "string" as const, enum: ["none"] },
       isHumanDecision: { type: "boolean" as const, enum: [false] },
+      qualificationSignals: {
+        anyOf: [QUALIFICATION_SIGNALS_SCHEMA, { type: "null" as const }],
+      },
     },
   },
 };
@@ -48,5 +75,13 @@ export function isNoraLifecycleRecommendationStructuredOutput(
   if (typeof o.statement !== "string") return false;
   if (o.authority !== "none") return false;
   if (o.isHumanDecision !== false) return false;
+  if (
+    !(
+      o.qualificationSignals === null ||
+      isExplicitCycleQualificationSignals(o.qualificationSignals)
+    )
+  ) {
+    return false;
+  }
   return true;
 }

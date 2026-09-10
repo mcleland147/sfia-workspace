@@ -330,6 +330,7 @@ describe("Lifecycle Recommendation Correction Delivery", () => {
       rationale: null,
       authority: "none",
       isHumanDecision: false,
+      qualificationSignals: null,
     };
     const r1 = await runNoraAgentsTurn({
       correlationId: "cor:lr-r1",
@@ -356,6 +357,14 @@ describe("Lifecycle Recommendation Correction Delivery", () => {
       statement: "Envisager un prochain cycle UX.",
       subjectCycleInstanceId: null,
       targetCycleTypeId: "cyc:ux-ui",
+      qualificationSignals: {
+        structuralChange: false,
+        securityImpact: false,
+        architectureImpact: false,
+        dataImpact: false,
+        irreversible: false,
+        lowRiskBounded: true,
+      },
     };
     const r2 = await runNoraAgentsTurn({
       correlationId: "cor:lr-r2",
@@ -540,6 +549,14 @@ describe("Lifecycle Recommendation Correction Delivery", () => {
         rationale: null,
         authority: "none",
         isHumanDecision: false,
+        qualificationSignals: {
+          structuralChange: false,
+          securityImpact: false,
+          architectureImpact: false,
+          dataImpact: false,
+          irreversible: false,
+          lowRiskBounded: true,
+        },
       },
       cycles: [],
       lpsActiveCycleInstanceId: null,

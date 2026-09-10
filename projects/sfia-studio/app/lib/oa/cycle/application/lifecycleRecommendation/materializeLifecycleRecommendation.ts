@@ -1,6 +1,7 @@
 import type {
   EpistemicItem,
   EpistemicLifecycleRecommendation,
+  ExplicitCycleQualificationSignals,
   ProvenanceRecord,
 } from "../../domain/types";
 import type { UpdateEpistemicState } from "../updateEpistemicState";
@@ -14,6 +15,7 @@ import type {
   LifecycleRecommendationEnvelope,
 } from "./types";
 import type { ValidateLifecycleRecommendationResult } from "./validateLifecycleRecommendation";
+import { parseExplicitQualificationSignals } from "./qualificationSignals";
 
 export function lifecycleRecommendationEpistemicId(input: {
   projectId: string;
@@ -32,6 +34,7 @@ export function buildPersistedLifecycleRecommendation(input: {
   targetCycleInstanceId: string | null;
   targetCycleTypeId: string | null;
   projectId: string;
+  qualificationSignals?: ExplicitCycleQualificationSignals;
 }): EpistemicLifecycleRecommendation {
   const basisFingerprint = computeBasisFingerprint(input.basisRefs);
   const semanticKey = computeSemanticKey({
@@ -50,6 +53,9 @@ export function buildPersistedLifecycleRecommendation(input: {
     targetCycleInstanceId: input.targetCycleInstanceId,
     targetCycleTypeId: input.targetCycleTypeId,
     authority: "none",
+    ...(input.qualificationSignals
+      ? { qualificationSignals: { ...input.qualificationSignals } }
+      : {}),
   };
 }
 
@@ -70,6 +76,7 @@ export function encodeLifecycleRecommendationItem(input: {
     targetCycleInstanceId: input.validated.targetCycleInstanceId,
     targetCycleTypeId: input.validated.targetCycleTypeId,
     projectId: input.projectId,
+    qualificationSignals: input.validated.qualificationSignals,
   });
   return {
     schemaVersion: "0.1.0-oa",
@@ -103,6 +110,10 @@ export function tryDecodeLifecycleRecommendationItem(
   if (!persisted || persisted.authority !== "none") return null;
   if (!persisted.basisFingerprint || !persisted.semanticKey) return null;
 
+  const qualificationSignals = parseExplicitQualificationSignals(
+    persisted.qualificationSignals,
+  );
+
   return {
     recommendationId: item.epistemicItemId,
     projectId: persisted.basisRefs.projectId,
@@ -124,6 +135,7 @@ export function tryDecodeLifecycleRecommendationItem(
     epistemicStatus: item.status,
     supersedesRecommendationId: item.supersedes ?? null,
     derivedCurrentness,
+    ...(qualificationSignals ? { qualificationSignals } : {}),
   };
 }
 

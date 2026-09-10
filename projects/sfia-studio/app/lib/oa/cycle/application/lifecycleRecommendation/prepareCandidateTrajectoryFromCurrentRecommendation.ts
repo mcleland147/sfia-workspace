@@ -197,6 +197,7 @@ export function buildSingleRecommendedCycleStep(input: {
       order: 1,
       label: entry.label,
       state: "pending",
+      cycleTypeId: entry.cycleTypeId,
     },
   };
 }

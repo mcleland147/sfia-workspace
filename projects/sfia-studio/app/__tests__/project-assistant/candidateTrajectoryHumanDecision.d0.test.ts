@@ -101,6 +101,14 @@ function nextCycleLr(targetCycleTypeId: string, statement: string) {
     rationale: "Prochain travail gouverné supportable.",
     authority: "none" as const,
     isHumanDecision: false as const,
+    qualificationSignals: {
+      structuralChange: false,
+      securityImpact: false,
+      architectureImpact: false,
+      dataImpact: false,
+      irreversible: false,
+      lowRiskBounded: true,
+    },
   };
 }
 
@@ -1024,6 +1032,10 @@ describe("GREENFIELD CANDIDATE → HUMANDECISION — BAR-HD", () => {
     });
     expect(provenance.status).toBe("RESOLVED");
     if (provenance.status !== "RESOLVED") return;
+    const lrItem = epi.find((e) => e.epistemicItemId === provenance.recommendationId);
+    const qualificationSignals =
+      lrItem?.lifecycleRecommendation?.qualificationSignals;
+    expect(qualificationSignals).toBeTruthy();
     const material = buildCandidateTrajectoryPresentationMaterial({
       projectId: seeded.projectId,
       lpsId: live.livingProjectState.lpsVersionId,
@@ -1034,6 +1046,7 @@ describe("GREENFIELD CANDIDATE → HUMANDECISION — BAR-HD", () => {
       recommendationId: provenance.recommendationId,
       semanticKey: provenance.semanticKey,
       targetCycleTypeId: provenance.targetCycleTypeId,
+      qualificationSignals: qualificationSignals!,
     });
     const presentationDigest =
       computeCandidateTrajectoryPresentationDigest(material);
