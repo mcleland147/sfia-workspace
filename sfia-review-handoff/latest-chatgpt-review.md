@@ -1,214 +1,227 @@
 # ChatGPT Review Pack — FULL
 
-- Cycle ID: SFIA-STUDIO-GREENFIELD-GENERIC-ACTIVE-CYCLE-COGNITIVE-WORK-FOUNDATION-SAME-LOT-CORRECTIVE-02
-- Timestamp (UTC): 2026-09-10T15:46:42Z
-- Milestone: Greenfield Product Proof — Active Cycle Cognitive Work Foundation corrective completion
+- Cycle ID: SFIA-STUDIO-GREENFIELD-GENERIC-ACTIVE-CYCLE-COGNITIVE-WORK-FOUNDATION-SAME-LOT-CORRECTIVE
+- Continuation: YES — same Cycle 8 / same ACW lot (NOT a micro-cycle; NOT CR-ACW-05)
+- Timestamp (UTC): 2026-09-10T16:59:33Z
+- Milestone: Greenfield Product Proof — Active Cycle Cognitive Work Foundation
 - Cycle SFIA: 8 — Delivery / implémentation
 - Typologie: EVOL
 - Profile: CRITICAL
-- D-GF-ACW-01: ADOPTED BY MORRIS — UNCHANGED — MUST NOT REOPEN
-- D-GF-ACW-02: ADOPTED BY MORRIS — OPTION A BOUNDED — CONSUMED THIS CYCLE
-- GO: ACW SAME-LOT CORRECTIVE DELIVERY AFTER D-GF-ACW-02
-- Same-lot atomicity: CR-ACW-01..04 ONE capability lot (no micro-commits / no partial closure)
+- D-GF-ACW-01: ADOPTED BY MORRIS — UNCHANGED — DO NOT REOPEN
+- D-GF-ACW-02: ADOPTED BY MORRIS — OPTION A BOUNDED — PRESERVED (no new structural decision)
+- Morris authorization: continuation of SAME lot after ChatGPT Critical Review rejection of 16b03323396f0fb34c4246e83f4d192bbbea773e
+- Prior candidate: 16b03323396f0fb34c4246e83f4d192bbbea773e — self-verdict PASS was NOT accepted by ChatGPT Critical Review
+- Prior remote handoff rejected: bffcc8211982741043f507b180a46e1428a01585
+- Blocking finding consumed: CR-ACW-02 OPEN — silent response loss before logicalTurnId delivery minted a new ltu
+- This candidate HEAD: 0ac7b54b677cc7182fd36189fcc186202e8a2232
+- Parent: 16b03323396f0fb34c4246e83f4d192bbbea773e (= prior candidate)
 - Product Completion: CLOSED — not reopened
 - Runtime v3: NON ADOPTED
 - Model calls REAL: ZERO
 - Nora LIVE: ZERO
-- Env delta: ZERO paid/provider campaign
+
+## Critical Review consumption
+
+ChatGPT Critical Review of bffcc821 / 16b03323396f0fb34c4246e83f4d192bbbea773e:
+
+| Requirement | Review result |
+|---|---|
+| CR-ACW-01 | PASS / closure evidence acceptable |
+| CR-ACW-02 | OPEN / BLOCKING (silent response-loss gap) |
+| CR-ACW-03 | PASS / closure evidence acceptable |
+| CR-ACW-04 | PASS / closure evidence acceptable |
+
+Do NOT treat the PASS wording in bffcc821 as final ChatGPT acceptance.
 
 ## Local Git Truth
 
 ### Before mutation (Phase 0)
 - Worktree: /Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310
 - Branch: delivery/sfia-studio-product-proof-qual-to-governed-cycle
-- HEAD: 85d7a7982d08f5b0aa706c36cd9d1ca9a86c2456 — MATCH Review Handoff Product candidate
-- Parent: 2b595718eafec1a902650619040b21f75e86031e — MATCH
+- HEAD: 16b03323396f0fb34c4246e83f4d192bbbea773e — MATCH
+- Parent: 85d7a7982d08f5b0aa706c36cd9d1ca9a86c2456 — MATCH
 - origin/main: a9f6c310a0826d0e5bd6f7264603382a86564db1 — MATCH a9f6c310…
-- origin/sfia/review-handoff (pre-publish): efe145beb89b6e014098a562d0a05dcc86578fdf — MATCH efe145be… (prior STOP pack)
-- Dirty expected: .tmp-sfia-review/** + ACW corrective WIP — no destructive git ops
+- origin/sfia/review-handoff: bffcc8211982741043f507b180a46e1428a01585 (expected bffcc821 at start)
+- Dirty: .tmp-sfia-review/** only
+- No reset / clean / stash / rebase / amend of 16b03323396f0fb34c4246e83f4d192bbbea773e
 
 ### After Product commit
-- HEAD: 16b03323396f0fb34c4246e83f4d192bbbea773e
-- Parent: 85d7a7982d08f5b0aa706c36cd9d1ca9a86c2456 (= prior ACW foundation Delivery)
+- HEAD: 0ac7b54b677cc7182fd36189fcc186202e8a2232
+- Parent: 16b03323396f0fb34c4246e83f4d192bbbea773e
 - Branch: delivery/sfia-studio-product-proof-qual-to-governed-cycle
 - Product push / PR / merge: NOT PERFORMED / NOT AUTHORIZED
-- Staged after commit: clean for Product paths
-- Remaining dirty: .tmp-sfia-review/** only (review artifacts)
 
 ## Sources read
-- prompts/templates/sfia-cycle-execution-template.md
+- prompts/templates/sfia-cycle-execution-template.md (as applicable)
 - method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-- applicable 15-cycle synthetic map / Delivery guidance
-- method/.../pilots/04-qa-validation.md (blocking-QA → Delivery)
+- applicable Cycle 8 / Delivery / synthetic CKC map
+- method/.../pilots/04-qa-validation.md
 - projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
 - projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 - projects/sfia-studio/product-completion/01-product-completion-cadrage.md
-- v3 framing 30 / 32 / 33 / 34 / 35 / 37 (as applicable; v3 NON ADOPTED)
-- projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md
-- origin/sfia/review-handoff latest-chatgpt-review.md (prior STOP — D-GF-ACW-02 pack)
-- Candidate ACW path + productSqliteSession + Project Assistant orchestration
+- v3 framing 30/32/33/34/35/37 (v3 NON ADOPTED)
+- nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md
+- origin/sfia/review-handoff latest pack (bffcc821)
+- Product logical-turn / Session / useProductConversation paths from 16b03323396f0fb34c4246e83f4d192bbbea773e
 
-## Convergence Pre-check
-- Build Doctrine / Roadmap: VALIDATED ACTIVE
-- Product Completion: COMPLETE / CLOSED — not restarted
-- Capability: Generic Greenfield active-cycle cognitive work (Pilote → Nora → context → qualification/LPS/trajectory → HD → execution)
-- Foundations (requalified, not broadened): V3-F01 / F02 / F04 / F05 / F06 / F08 / F09
-- Trajectory link: Greenfield Product Proof → ACW candidate 85d7a798 → blocking QA → D-GF-ACW-02 Option A → SAME-LOT CR-ACW-01..04 → deterministic QA → distinct Morris REAL gate → resume campaign
-- R22: KEEP / ADAPT existing Nora/OpenAI runtime — no second LLM/classifier/engine
+## Convergence / trajectory
+- Capability: generic active-cycle cognitive work
+- Trajectory: Greenfield → ACW foundation → QA → D-GF-ACW-02 Option A → candidate 16b03323396f0fb34c4246e83f4d192bbbea773e → ChatGPT Critical Review finds silent-loss gap → THIS same-lot correction → deterministic Critical Review → distinct Morris REAL gate → resume campaign
+- R22: KEEP / ADAPT — no second cognitive engine
 
-## CKC Cycle 8
-- detailed CKC absent; synthetic map + method-candidate; executionAuthority none for Studio runtime doctrine
-- External CKC guides Cursor execution only
+## Exact retry-correlation contract implemented
 
-## Decision status
-- **D-GF-ACW-01**: ADOPTED BY MORRIS — UNCHANGED
-- **D-GF-ACW-02**: ADOPTED BY MORRIS — OPTION A BOUNDED
-  - server-owned durable logical Product turn identity
-  - Project Assistant accepted-turn / Session-adjacent boundary
-  - ProductSqliteSession / Session-adjacent table `logical_product_turns`
-  - Session ≠ Truth C / LPS / HD / Evidence / ACW outcome aggregate
-  - Rejected: providerResponseId-alone, user-text hash, client UUID as authority, random production correlation keys, CycleWork/event-sourcing aggregate
+### Authority boundary
+- **Server alone** mints/owns `ltu:…` (logical Product turn identity).
+- Client `turnRetryKey` (`trk:…`) is **untrusted opaque transport correlation only**.
+- Client key MUST NOT become Product turn identity, Truth C, HD, or SFIA authorization.
+- Payload digest (`sha256` of `{content}`) is **conflict detection only** — NEVER turn identity.
+- `providerResponseId` remains irrelevant to Product turn identity.
+- Client-invented `ltu:` still → `LOGICAL_TURN_UNKNOWN`.
 
-## Option A logical-turn contract (exact)
+### Flow
+1. Client allocates `turnRetryKey` **before** Server Action (`createTurnRetryKey` in `turnRetryKey.ts` — client-safe, no Session import).
+2. First submit: no binding for K → server mints `ltu:A`, durably binds `K → ltu:A` + payload digest in Session-adjacent `logical_product_turn_retry_bindings`.
+3. Silent response loss: client retains K (and may lack `logicalTurnId`).
+4. Retry sends K (optionally without `logicalTurnId`) → server recovers `ltu:A` → ACW correlation remains `ltu:A` → exactly-once materialization.
+5. New deliberate submit (even identical text) uses new K2 → new `ltu:B`.
+6. Same K + different content → `LOGICAL_TURN_RETRY_CONFLICT` (fail closed).
 
-| Point | Implementation |
-|---|---|
-| Accept boundary | `orchestrateProjectAssistantTurn` before model call |
-| Mint point | `resolveOrMintLogicalProductTurn` → `ProductSqliteSession.mintLogicalProductTurn` → `ltu:` + server randomBytes |
-| Persistence | Session-adjacent table `logical_product_turns` (project_id, session_key, logical_turn_id PK) |
-| Lookup / reconstruction | presented `logicalTurnId` must already exist for project+session; else `LOGICAL_TURN_UNKNOWN` |
-| Correlation to ACW | `turnCorrelationId = logicalTurnId` in `materializeActiveCycleWork` |
-| Process restart | reopen same Session SQLite → `getLogicalProductTurn` reconstructs same id |
-| Lost response / rematerialize | client re-presents server-issued `logicalTurnId` (useProductConversation retry); same id → idempotent ACW |
-| Silent HTTP loss before any id delivery | new turn by design (no client-invented authority) |
-| Identical-text distinct turns | two mints → two `ltu:` ids (text never identity) |
-| Provider independence | providerResponseId unused as Product turn identity |
-| Session unavailable (Memory B path blocked) | conversational Truth C path continues with `logicalTurnId=null`; ACW write fail-closed (`LOGICAL_TURN_SESSION_UNAVAILABLE`) |
-| Test seam | `turnCorrelationId` override may skip Session mint for BAR-WORK only — not production proof |
-
-## CR-ACW-01 — CONTEXT SEAL / FAIL CLOSED — CLOSED
-- Removed permissive `project.activeCycleInstanceId` fallback for automatic ACW materialization
-- Requires studio cognitive-context `activeCycle` + `workEligible` + `buildActiveCycleWorkContextSeal`
-- UoW revalidates seal fields vs durable Cycle/LPS → `ACTIVE_CYCLE_CONTEXT_STALE` / `ACTIVE_CYCLE_CONTEXT_REQUIRED`
-- Evidence: ACW-CORR-01A..H in `activeCycleCognitiveWork.d0.test.ts`
-
-## CR-ACW-02 — PRODUCTION IDEMPOTENCE (Option A) — CLOSED
-- Session-adjacent `logical_product_turns` + `logicalProductTurn.ts` + orchestrateTurn mint/replay
-- Evidence: ACW-CORR-02A..F (mint `ltu:`, rematerialize, reopen Session, identical text distinct, IDEM_CONFLICT, client-invented UNKNOWN)
-
-## CR-ACW-03 — NEWEST-N RECENT CONTINUITY — CLOSED
-- `studioCognitiveContext` read path exposes newest-N ACW type+content rows (createdAt DESC + id, take N, reverse ASC)
-- Evidence: ACW-CORR-03A/B/C/D
-
-## CR-ACW-04 — CATALOG-WIDE DETERMINISTIC PROOF — CLOSED
-- Parameterized over `listCycleTypes()` filtered by `lifecycleStatus==='active'` + `isTargetCycleCurrentlySelectable`
-- **Catalog count observed dynamically: 15** (CURRENT DATA — not hardcoded invariant)
-- Evidence: CR-ACW-04 describe block; unresolved=[] across all current selectable types
-- Source assertion: no Cadrage-only / hardcoded cycle-type branch in `activeCycleCognitiveContext.ts`
-
-## Exit proof matrix (P1–P12)
-
-| ID | Result | Evidence |
-|---|---|---|
-| P1 Context seal | PASS | ACW-CORR-01A..H |
-| P2 Same logical turn replay | PASS | ACW-CORR-02B |
-| P3 Restart durability | PASS | ACW-CORR-02C |
-| P4 Identical text distinct | PASS | ACW-CORR-02D |
-| P5 Provider independence | PASS | production key = logicalTurnId; BAR-WORK-12 single provider call; no providerResponseId identity |
-| P6 Material conflict | PASS | ACW-CORR-02E / BAR-WORK-26 IDEM_CONFLICT |
-| P7 Newest-N continuity | PASS | ACW-CORR-03A..D |
-| P8 Catalog-wide genericity | PASS | CR-ACW-04; observed N=15 dynamic |
-| P9 Session ≠ Truth C | PASS | schema comments + session.d0 / sessionTruthC / mw1S01Observe allowlist session_items+logical_product_turns only; no oa_* |
-| P10 Governance non-regression | PASS | focused LR/START suites + full Vitest green; no HD/EC auto-promotion |
-| P11 Generic path | PASS | no Cadrage-only branch; catalog loop |
-| P12 No REAL | PASS | FakeConversationProvider / deterministic only |
-
-## Tests executed
+### Schema / persistence delta
+Session-adjacent table (NOT Truth C):
 
 ```
-# Focused ACW + regressions
-npx vitest run \
-  __tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts \
-  __tests__/project-assistant/studioCognitiveContext.test.ts \
-  __tests__/project-assistant/preCycleRoutingBoundary.d0.test.ts \
-  __tests__/project-assistant/candidateTrajectoryCycleStart.d0.test.ts \
-  __tests__/oa/cycle/lifecycleRecommendation.finalCorr.d0.test.ts
-→ 5 files / 101 tests PASS
+logical_product_turn_retry_bindings (
+  project_id, session_key, retry_key,  -- PK
+  logical_turn_id, payload_digest, created_at
+)
+```
 
-# Session boundary + MW1 + eval cascade after Option A schema
-npx vitest run session.d0 / sessionTruthC / mw1.s01.* / mw1.final / mw1.s01.eval / mw0* / g2 / ACW
-→ 13 files / 158 tests PASS
+Plus existing `logical_product_turns` / `session_items`.
 
-# Full suite
+### Cognition honesty
+Silent-loss retry **re-invokes** FakeConversationProvider / model path (2 provider calls proven).
+**Product ACW materialization remains exactly-once** via logical-turn correlation + existing IDEM path.
+Do not claim model-call suppression that was not proven.
+
+### Realism gap (documented)
+Deterministic proof is below the Next.js Server Action transport boundary for the Product correlation contract.
+Client hook retains `pendingTurnRetryKeyRef` across structured `{ok:false}` and thrown Promise rejections.
+Full browser network-partition REALISM is not claimed (ZERO REAL).
+
+## CR status
+
+| Req | Status |
+|---|---|
+| CR-ACW-01 | CLOSED — carried + regression proven |
+| CR-ACW-02 | CLOSED CANDIDATE — silent response-loss replay proven |
+| CR-ACW-03 | CLOSED — carried + regression proven |
+| CR-ACW-04 | CLOSED — carried + regression proven (catalog N=15 dynamic) |
+
+## Exit proof matrix
+
+| # | Requirement | Result | Evidence |
+|---|---|---|---|
+| 1 | Retry key before transport | PASS | useProductConversation + createTurnRetryKey |
+| 2 | Server owns/mints ltu | PASS | mintLogicalProductTurn |
+| 3 | Durable K→ltu binding | PASS | logical_product_turn_retry_bindings |
+| 4 | Full response may be lost | PASS | ACW-CORR-02G (retry without logicalTurnId) |
+| 5 | Retry recovers ltu | PASS | ACW-CORR-02G |
+| 6 | No second ACW materialization | PASS | ACW-CORR-02G epi count=1 |
+| 7 | Process restart recovery | PASS | ACW-CORR-02H |
+| 8 | Identical text + K2 distinct | PASS | ACW-CORR-02I / 02D |
+| 9 | Token reuse conflict | PASS | ACW-CORR-02J LOGICAL_TURN_RETRY_CONFLICT |
+| 10 | Client cannot invent ltu | PASS | ACW-CORR-02F |
+| 11 | Provider independence | PASS | key = ltu / retry binding |
+| 12 | Session ≠ Truth C | PASS | allowlist tables; no oa_* |
+| 13 | CR-ACW-01 green | PASS | ACW-CORR-01A..H |
+| 14 | CR-ACW-03 green | PASS | ACW-CORR-03 |
+| 15 | CR-ACW-04 green dynamic | PASS | CR-ACW-04; N=15 observed |
+| 16 | Full suite / quality gates | PASS | see tests |
+| 17 | ZERO REAL | PASS | Fake only |
+
+## Tests executed (fresh post-correction)
+
+```
+npx vitest run __tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts
+→ 52 passed
+
+npx vitest run (focused Session/MW1 + ACW)
+→ 94 passed (earlier focused set)
+
 npx vitest run
 → Test Files 327 passed | 17 skipped (344)
-→ Tests 3475 passed | 135 skipped (3610)
+→ Tests 3479 passed | 135 skipped (3614)
 
-# Quality gates
 npx tsc --noEmit → 0
 npm run lint → No ESLint warnings or errors
-npm run build → BUILD:0
+npm run build → success (after client-safe turnRetryKey split)
 git diff --check (Product) → clean
 ```
 
-## Fake / Real qualification
-- Applicable: YES
-- This cycle target: **DETERMINISTIC PROVEN** for CR-ACW-01..04 same-lot package
-- Explicitly outside: REAL BOUNDARY PROVEN / END-TO-END REAL / Nora LIVE Product Proof continuation
-- **ZERO REAL** executed
+## Fake / Real
+- DETERMINISTIC PROVEN target only
+- ZERO REAL / ZERO Nora LIVE / ZERO paid provider
 
 ## Claims allowed
-- DETERMINISTIC SAME-LOT COMPLETE — READY FOR MORRIS REAL GATE (after ChatGPT Critical Review)
-- CR-ACW-01..04 CLOSED at deterministic scope under D-GF-ACW-02 Option A
+- DETERMINISTIC SAME-LOT COMPLETION **CANDIDATE**
+- CR-ACW-02 CLOSED CANDIDATE — silent response-loss replay proven
 - READY FOR CHATGPT CRITICAL REVIEW
 
 ## Claims prohibited
-- LIVE PROVEN
-- PRODUCT PROOF COMPLETE
-- COGNITIVE COMPLETION PROVEN
-- runtime v3 ADOPTED
-- DETERMINISTIC PROVEN ⇒ automatically READY FOR REAL without distinct Morris REAL gate
+- Final ACW governance closure until ChatGPT accepts this pack
+- LIVE / REAL BOUNDARY / E2E REAL / PRODUCT PROOF COMPLETE / COGNITIVE COMPLETION PROVEN / runtime v3 ADOPTED
 - Product push / PR / merge authorized
+- Morris REAL gate consumed
 
-## Reservations / debt
-- Silent transport loss before any `logicalTurnId` is returned to the client necessarily mints a new logical turn on retry (by Option A design — no client-invented authority). Documented; not a fake closure.
-- Test `turnCorrelationId` override remains a BAR-WORK seam only.
-- No intentional architecture debt requiring a new Morris decision.
+## Reservations
+- Cognition may re-run on retry; only Product ACW write is exactly-once proven.
+- Transport REALISM beyond Server Action / thrown Promise path not REAL-proven.
+- Publisher may still report false-negative remote verification (FETCH_HEAD vs origin/*); independent ls-remote required.
 
 ## Next gate
-1. ChatGPT Critical Review of this FULL pack / Review Handoff
-2. Distinct Morris REAL gate before Greenfield Product Proof real resumption
-3. Product push / PR / merge remain unauthorized until Morris authorizes
+1. ChatGPT Critical Review of this FULL pack
+2. Only if accepted → Morris distinct REAL gate for Greenfield Product Proof resumption
+3. Product push / PR / merge remain unauthorized
 
-## Changed files (Product commit 16b03323396f0fb34c4246e83f4d192bbbea773e)
+## Changed files (commit 0ac7b54b677cc7182fd36189fcc186202e8a2232)
 
 ```
-.../mw1.s01.honestMemoryB.d0.test.ts               |   7 +-
- .../nora-cognitive-runtime/session.d0.test.ts      |   8 +-
- .../sessionTruthC.d0.test.ts                       |   7 +-
- .../activeCycleCognitiveWork.d0.test.ts            | 642 ++++++++++++++++++++-
- .../hooks/useProductConversation.ts                |  29 +-
+.../mw1.s01.honestMemoryB.d0.test.ts               |   6 +-
+ .../nora-cognitive-runtime/session.d0.test.ts      |   6 +-
+ .../sessionTruthC.d0.test.ts                       |   6 +-
+ .../activeCycleCognitiveWork.d0.test.ts            | 153 ++++++++++++++++++++-
+ .../hooks/useProductConversation.ts                |  57 ++++++--
  .../app/features/project-assistant/actions.ts      |   6 +
- .../f2/activeCycleCognitiveContext.ts              |  42 ++
  .../features/project-assistant/f2/orchestrateF2.ts |   4 +
- .../project-assistant/f2/studioCognitiveContext.ts |  12 +-
- .../project-assistant/logicalProductTurn.ts        | 106 ++++
- .../materializeActiveCycleWork.ts                  | 129 +++++
- .../features/project-assistant/orchestrateTurn.ts  | 114 +++-
- .../app/features/project-assistant/types.ts        |   7 +
- .../app/lib/nora-cognitive-runtime/index.ts        |   6 +-
- .../nora-cognitive-runtime/productSqliteSession.ts | 126 ++++
- .../sfia-studio/app/lib/nora-eval/mw1S01Observe.ts |  10 +-
- 16 files changed, 1223 insertions(+), 32 deletions(-)
+ .../project-assistant/logicalProductTurn.ts        | 152 +++++++++++++++++++-
+ .../features/project-assistant/orchestrateTurn.ts  |  19 +++
+ .../app/features/project-assistant/turnRetryKey.ts |  17 +++
+ .../app/lib/nora-cognitive-runtime/index.ts        |   3 +-
+ .../nora-cognitive-runtime/productSqliteSession.ts | 105 ++++++++++++++
+ .../sfia-studio/app/lib/nora-eval/mw1S01Observe.ts |   1 +
+ 13 files changed, 515 insertions(+), 20 deletions(-)
 ```
 
-Files:
-- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw1.s01.honestMemoryB.d0.test.ts`- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/session.d0.test.ts`- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/sessionTruthC.d0.test.ts`- `projects/sfia-studio/app/__tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts`- `projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts`- `projects/sfia-studio/app/features/project-assistant/actions.ts`- `projects/sfia-studio/app/features/project-assistant/f2/activeCycleCognitiveContext.ts`- `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts`- `projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts`- `projects/sfia-studio/app/features/project-assistant/logicalProductTurn.ts`- `projects/sfia-studio/app/features/project-assistant/materializeActiveCycleWork.ts`- `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`- `projects/sfia-studio/app/features/project-assistant/types.ts`- `projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts`- `projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts`- `projects/sfia-studio/app/lib/nora-eval/mw1S01Observe.ts`
+- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw1.s01.honestMemoryB.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/session.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/sessionTruthC.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts`
+- `projects/sfia-studio/app/features/project-assistant/actions.ts`
+- `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts`
+- `projects/sfia-studio/app/features/project-assistant/logicalProductTurn.ts`
+- `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`
+- `projects/sfia-studio/app/features/project-assistant/turnRetryKey.ts`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts`
+- `projects/sfia-studio/app/lib/nora-eval/mw1S01Observe.ts`
+
 ## FULL modified content
-Complete post-commit file bodies for every Product path in this lot follow.
-Also mirrored under `.tmp-sfia-review/acw-same-lot-corr-diffs/`.
+
 
 ### FILE: `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw1.s01.honestMemoryB.d0.test.ts`
+
 ```ts
 /** @vitest-environment node */
 /**
@@ -652,7 +665,11 @@ describe("MW1-S01 — Session ≠ Truth C under availability paths", () => {
     // D-GF-ACW-02 Option A: Session-adjacent logical_product_turns allowed;
     // Session still must not own Truth C / LPS / HD / Evidence tables.
     expect(sessionTables.sort()).toEqual(
-      ["logical_product_turns", "session_items"].sort(),
+      [
+        "logical_product_turn_retry_bindings",
+        "logical_product_turns",
+        "session_items",
+      ].sort(),
     );
     expect(sessionTables.some((t) => t.startsWith("oa_"))).toBe(false);
 
@@ -678,6 +695,7 @@ describe("MW1-S01 — Session ≠ Truth C under availability paths", () => {
 ```
 
 ### FILE: `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/session.d0.test.ts`
+
 ```ts
 /** @vitest-environment node */
 /**
@@ -780,7 +798,11 @@ describe("MW1 Option C — ProductSqliteSession D0 (corrected)", () => {
     // D-GF-ACW-02 Option A: logical_product_turns is Session-adjacent identity/replay
     // coordination only — never Epistemic/LPS/HD/Evidence/Truth C storage.
     expect(tables.sort()).toEqual(
-      ["logical_product_turns", "session_items"].sort(),
+      [
+        "logical_product_turn_retry_bindings",
+        "logical_product_turns",
+        "session_items",
+      ].sort(),
     );
     expect(tables.some((t) => t.startsWith("oa_"))).toBe(false);
     s.close();
@@ -844,6 +866,7 @@ describe("MW1 Option C — ProductSqliteSession D0 (corrected)", () => {
 ```
 
 ### FILE: `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/sessionTruthC.d0.test.ts`
+
 ```ts
 /** @vitest-environment node */
 /**
@@ -908,7 +931,11 @@ describe("MW1 Option C — Session ≠ Truth C D0", () => {
     // D-GF-ACW-02 Option A: Session may hold logical_product_turns identity rows;
     // still must never hold oa_* Truth C / LPS / HD / Evidence tables.
     expect(sessionTables.sort()).toEqual(
-      ["logical_product_turns", "session_items"].sort(),
+      [
+        "logical_product_turn_retry_bindings",
+        "logical_product_turns",
+        "session_items",
+      ].sort(),
     );
     expect(sessionTables.some((t) => t.startsWith("oa_"))).toBe(false);
 
@@ -939,6 +966,7 @@ describe("MW1 Option C — Session ≠ Truth C D0", () => {
 ```
 
 ### FILE: `projects/sfia-studio/app/__tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts`
+
 ```ts
 /** @vitest-environment node */
 /**
@@ -1001,7 +1029,7 @@ import {
   buildActiveCycleWorkContextSeal,
   type ActiveCycleWorkContextSeal,
 } from "@/features/project-assistant/f2/activeCycleCognitiveContext";
-import { resolveOrMintLogicalProductTurn } from "@/features/project-assistant/logicalProductTurn";
+import { resolveOrMintLogicalProductTurn, createTurnRetryKey } from "@/features/project-assistant/logicalProductTurn";
 import { ProductSqliteSession } from "@/lib/nora-cognitive-runtime/productSqliteSession";
 import { orchestrateProjectAssistantTurn } from "@/features/project-assistant/orchestrateTurn";
 import type { ProjectAssistantContextDto } from "@/features/project-assistant/types";
@@ -2905,6 +2933,157 @@ describe("CR-ACW-02 logical Product turn (ACW-CORR-02A..F)", () => {
     if (result.ok) throw new Error("expected fail");
     expect(result.code).toBe("LOGICAL_TURN_UNKNOWN");
   });
+
+  it("ACW-CORR-02G: silent response-loss + retry key recovers same ltu (no client ltu)", async () => {
+    const s = await seedStarted("corr02g");
+    const dto = await projectDtoFromOa(s.oa, s.projectId);
+    const composed = await composeStudioCognitiveContext({
+      analysis: analysisStub({ intentClass: "informative", parseOk: true }),
+      project: dto,
+      registryRoot: PRODUCT_REGISTRY,
+      oa: s.oa,
+    });
+    expect(composed.ok).toBe(true);
+    if (!composed.ok) throw new Error(composed.code);
+
+    // Client allocates opaque retry key BEFORE transport (never Product identity).
+    const turnRetryKey = createTurnRetryKey();
+    expect(turnRetryKey).toMatch(/^trk:/);
+    const sessionDbPath = tempDbPath("corr02g-sess.sqlite");
+    const userText = "Observations MVP after silent loss";
+    const payload = JSON.stringify(acwTurn(MVP_OBS.slice(0, 1), "Silent loss."));
+    const provider = new FakeConversationProvider({
+      scripted: [payload, payload],
+    });
+
+    const first = await orchestrateProjectAssistantTurn({
+      projectId: s.projectId,
+      content: userText,
+      sessionDbPath,
+      simulateMemoryBUnavailable: true,
+      provider,
+      studioCognitiveContext: composed.context,
+      turnRetryKey,
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) throw new Error(first.message);
+    // Harness observes server-issued id for assertion only — NOT passed to retry.
+    const serverOwnedLtu = first.logicalTurnId!;
+    expect(serverOwnedLtu).toMatch(/^ltu:/);
+    const epiAfterFirst = (
+      await s.oa.cycleServices.epistemic.listByProject(s.projectId)
+    ).filter((e) => e.source === ACTIVE_CYCLE_WORK_SOURCE);
+    expect(epiAfterFirst.length).toBe(1);
+
+    // Silent loss: client retains only turnRetryKey (no logicalTurnId).
+    const dto2 = await projectDtoFromOa(s.oa, s.projectId);
+    const composed2 = await composeStudioCognitiveContext({
+      analysis: analysisStub({ intentClass: "informative", parseOk: true }),
+      project: dto2,
+      registryRoot: PRODUCT_REGISTRY,
+      oa: s.oa,
+    });
+    expect(composed2.ok).toBe(true);
+    if (!composed2.ok) throw new Error(composed2.code);
+
+    const retry = await orchestrateProjectAssistantTurn({
+      projectId: s.projectId,
+      content: userText,
+      sessionDbPath,
+      simulateMemoryBUnavailable: true,
+      provider,
+      studioCognitiveContext: composed2.context,
+      turnRetryKey,
+      // intentional: no logicalTurnId — simulates total response loss
+    });
+    expect(retry.ok).toBe(true);
+    if (!retry.ok) throw new Error(retry.message);
+    expect(retry.logicalTurnId).toBe(serverOwnedLtu);
+    // Cognition may re-run; Product ACW materialization remains exactly-once.
+    expect(provider.getCallCountForTests()).toBe(2);
+    const epiAfterRetry = (
+      await s.oa.cycleServices.epistemic.listByProject(s.projectId)
+    ).filter((e) => e.source === ACTIVE_CYCLE_WORK_SOURCE);
+    expect(epiAfterRetry.length).toBe(1);
+    expect(epiAfterRetry.map((e) => e.epistemicItemId).sort()).toEqual(
+      epiAfterFirst.map((e) => e.epistemicItemId).sort(),
+    );
+  });
+
+  it("ACW-CORR-02H: process restart — retry key still resolves same ltu", async () => {
+    const s = await seedStarted("corr02h");
+    const sessionDbPath = tempDbPath("corr02h-sess.sqlite");
+    const turnRetryKey = createTurnRetryKey();
+    const content = "restart durable binding";
+    const first = resolveOrMintLogicalProductTurn({
+      projectId: s.projectId,
+      sessionDbPath,
+      turnRetryKey,
+      content,
+      cycleInstanceId: s.cycle.cycleInstanceId,
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) throw new Error(first.reason);
+    expect(first.minted).toBe(true);
+
+    const recovered = resolveOrMintLogicalProductTurn({
+      projectId: s.projectId,
+      sessionDbPath,
+      turnRetryKey,
+      content,
+    });
+    expect(recovered.ok).toBe(true);
+    if (!recovered.ok) throw new Error(recovered.reason);
+    expect(recovered.minted).toBe(false);
+    expect(recovered.recoveredViaRetryKey).toBe(true);
+    expect(recovered.logicalTurnId).toBe(first.logicalTurnId);
+  });
+
+  it("ACW-CORR-02I: identical text + new retry key → distinct ltu", async () => {
+    const s = await seedStarted("corr02i");
+    const sessionDbPath = tempDbPath("corr02i-sess.sqlite");
+    const content = "same user text deliberate new submit";
+    const k1 = createTurnRetryKey();
+    const k2 = createTurnRetryKey();
+    expect(k1).not.toBe(k2);
+    const a = resolveOrMintLogicalProductTurn({
+      projectId: s.projectId,
+      sessionDbPath,
+      turnRetryKey: k1,
+      content,
+    });
+    const b = resolveOrMintLogicalProductTurn({
+      projectId: s.projectId,
+      sessionDbPath,
+      turnRetryKey: k2,
+      content,
+    });
+    expect(a.ok && b.ok).toBe(true);
+    if (!a.ok || !b.ok) throw new Error("expected ok");
+    expect(a.logicalTurnId).not.toBe(b.logicalTurnId);
+  });
+
+  it("ACW-CORR-02J: same retry key + different payload → LOGICAL_TURN_RETRY_CONFLICT", async () => {
+    const s = await seedStarted("corr02j");
+    const sessionDbPath = tempDbPath("corr02j-sess.sqlite");
+    const turnRetryKey = createTurnRetryKey();
+    const first = resolveOrMintLogicalProductTurn({
+      projectId: s.projectId,
+      sessionDbPath,
+      turnRetryKey,
+      content: "original submission",
+    });
+    expect(first.ok).toBe(true);
+    const conflict = resolveOrMintLogicalProductTurn({
+      projectId: s.projectId,
+      sessionDbPath,
+      turnRetryKey,
+      content: "materially different submission",
+    });
+    expect(conflict.ok).toBe(false);
+    if (conflict.ok) throw new Error("expected conflict");
+    expect(conflict.code).toBe("LOGICAL_TURN_RETRY_CONFLICT");
+  });
 });
 
 // ─── CR-ACW-03 newest-N ──────────────────────────────────────────────────────
@@ -3061,6 +3240,7 @@ describe("CR-ACW-04 catalog-wide active-cycle cognitive context", () => {
 ```
 
 ### FILE: `projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts`
+
 ```ts
 "use client";
 
@@ -3096,6 +3276,7 @@ import {
   type RecommendationFreshness,
 } from "@/features/project-assistant/presentationLabels";
 import { lifecycleRecommendationMaterializeFailurePiloteNotice } from "@/features/project-assistant/lifecycleRecommendationPiloteNotice";
+import { createTurnRetryKey } from "@/features/project-assistant/turnRetryKey";
 import { useRunningAttemptO3Observation } from "./useRunningAttemptO3Observation";
 
 export type ProductMessage = {
@@ -3190,6 +3371,12 @@ export function useProductConversation({
   /** D-GF-ACW-02 — last server-issued logical turn; re-present only on failed retry. */
   const lastLogicalTurnIdRef = useRef<string | null>(null);
   const lastSendFailedRef = useRef(false);
+  /**
+   * Opaque transport retry key allocated BEFORE the server action.
+   * Untrusted correlation only — never Product turn identity.
+   * Retained until the logical submission reaches a terminal client-observed success.
+   */
+  const pendingTurnRetryKeyRef = useRef<string | null>(null);
 
   const listRef = useRef<HTMLDivElement | null>(null);
   const f3InFlightRef = useRef(false);
@@ -3319,7 +3506,11 @@ export function useProductConversation({
 
   function sendMessage(
     contentOverride?: string,
-    options?: { logicalTurnId?: string | null },
+    options?: {
+      logicalTurnId?: string | null;
+      /** Reuse pending opaque retry key after silent loss / failed send. */
+      turnRetryKey?: string | null;
+    },
   ) {
     const content = (contentOverride ?? draft).trim();
     if (!content || busy || blocked) return;
@@ -3338,17 +3529,36 @@ export function useProductConversation({
     // New distinct send: do not auto-replay prior logicalTurnId unless retry opts in.
     const presentedLogicalTurnId =
       options?.logicalTurnId?.trim() || undefined;
+    // Allocate BEFORE transport. Reuse only when retry explicitly passes the key
+    // (retryLastUserMessage). A new user submit always gets a fresh opaque key —
+    // never treat pending as Product authority for a distinct submission.
+    const turnRetryKey =
+      options?.turnRetryKey?.trim() || createTurnRetryKey();
+    pendingTurnRetryKeyRef.current = turnRetryKey;
 
     startTransition(async () => {
       setUiState("ASSISTANT_WORKING");
-      const result = await projectAssistantSendAction({
-        projectId,
-        content,
-        history,
-        ...(presentedLogicalTurnId
-          ? { logicalTurnId: presentedLogicalTurnId }
-          : {}),
-      });
+      let result: Awaited<ReturnType<typeof projectAssistantSendAction>>;
+      try {
+        result = await projectAssistantSendAction({
+          projectId,
+          content,
+          history,
+          turnRetryKey,
+          ...(presentedLogicalTurnId
+            ? { logicalTurnId: presentedLogicalTurnId }
+            : {}),
+        });
+      } catch {
+        // Transport / Server Action rejection before structured response.
+        // Retain pendingTurnRetryKeyRef so retry can recover server ltu binding.
+        lastSendFailedRef.current = true;
+        setUiState("ERROR_RECOVERABLE");
+        setError(
+          "Échec de transport — réessayez. La corrélation de reprise est conservée.",
+        );
+        return;
+      }
 
       if (!result.ok) {
         lastSendFailedRef.current = true;
@@ -3369,6 +3579,8 @@ export function useProductConversation({
 
       lastSendFailedRef.current = false;
       lastLogicalTurnIdRef.current = result.logicalTurnId ?? null;
+      // Terminal client-observed success — clear transport retry key.
+      pendingTurnRetryKeyRef.current = null;
       setModeLabel(modeFromResult(result));
       setEphemeralNotice(result.ephemeralNotice);
       setLrMaterializeNotice(
@@ -3657,7 +3869,12 @@ export function useProductConversation({
       lastSendFailedRef.current && lastLogicalTurnIdRef.current
         ? lastLogicalTurnIdRef.current
         : undefined;
-    sendMessage(lastUser.content, { logicalTurnId: replayId });
+    // Prefer opaque pending retry key (covers silent loss before ltu delivery).
+    const retryKey = pendingTurnRetryKeyRef.current ?? undefined;
+    sendMessage(lastUser.content, {
+      logicalTurnId: replayId,
+      turnRetryKey: retryKey,
+    });
   }
 
   return {
@@ -3711,6 +3928,7 @@ export type ProductConversationController = ReturnType<
 ```
 
 ### FILE: `projects/sfia-studio/app/features/project-assistant/actions.ts`
+
 ```ts
 "use server";
 
@@ -3803,6 +4021,11 @@ export async function projectAssistantSendAction(input: {
    * Untrusted until Session lookup; client-invented ids fail LOGICAL_TURN_UNKNOWN.
    */
   logicalTurnId?: string;
+  /**
+   * Opaque client transport retry correlation (untrusted).
+   * NOT Product turn identity / SFIA authority — Session-adjacent lookup only.
+   */
+  turnRetryKey?: string;
 }): Promise<ProjectAssistantSendResult> {
   const executionContractId =
     typeof input.executionContractId === "string"
@@ -3837,6 +4060,7 @@ export async function projectAssistantSendAction(input: {
     provider: input.provider,
     sessionDbPath: input.sessionDbPath,
     logicalTurnId: input.logicalTurnId,
+    turnRetryKey: input.turnRetryKey,
   });
 }
 
@@ -5031,310 +5255,8 @@ export async function projectAssistantPilotLifecycleAction(input: {
 
 ```
 
-### FILE: `projects/sfia-studio/app/features/project-assistant/f2/activeCycleCognitiveContext.ts`
-```ts
-/**
- * D-GF-ACW-01 — server-owned active CycleInstance + exact CKC grounding.
- *
- * Generic path: LPS.activeCycleInstanceId → CycleInstance → cycleTypeId →
- * Product CKC registry. No cycleTypeId branching. No label reverse-mapping.
- * Fail-closed before model call when binding/ref is incoherent.
- */
-
-import type { DoctrinePackagePin } from "@/lib/oa/doctrine";
-import type { CycleInstance, CycleInstanceStatus, CycleProfile } from "@/lib/oa/cycle";
-import {
-  CYCLE_TYPE_CATALOG_FINGERPRINT,
-} from "@/lib/oa/cycle/domain/catalogFingerprint";
-import { getCycleTypeById } from "@/lib/oa/cycle/domain/cycleTypeCatalog";
-import { mintPrepareCycleCorrelationId } from "@/lib/oa/cycle/application/lifecycleRecommendation/prepareCycleFromValidatedTrajectory";
-import { projectCkcResolutionRef } from "@/lib/oa/cycle/application/lifecycleRecommendation/ckcResolutionRef";
-import { classifyTrajectoryBinding } from "@/lib/oa/cycle/application/lifecycleRecommendation/assertTrajectoryBoundCycleStartReady";
-import type { GetCycle } from "@/lib/oa/cycle/application/getCycle";
-import {
-  buildCkcApplicationLensSection,
-  loadProductCkcCognitiveContent,
-  type ProductCkcCognitiveContent,
-} from "./ckcCognitiveContext";
-import { doctrinePackagePinFromProjectContext } from "./methodOrientation";
-import type { ProjectAssistantContextDto } from "../types";
-
-export type ActiveCycleCognitiveProjection = {
-  readonly cycleInstanceId: string;
-  readonly cycleTypeId: string;
-  readonly profile: CycleProfile;
-  readonly status: CycleInstanceStatus;
-  readonly trajectoryId: string | null;
-  readonly trajectoryVersion: number | null;
-  readonly trajectoryStepId: string | null;
-  readonly ckcResolutionRef: string | null;
-  readonly cycleLabel: string | null;
-  /** True only when status === "active" — gates active-cycle work materialization. */
-  readonly workEligible: boolean;
-};
-
-/**
- * CR-ACW-01 — sealed active-cycle context for ACW materialization.
- * Derived ONLY from studioCognitiveContext.activeCycle (server projection).
- * Compared inside Product UoW before any Epistemic/LPS write.
- */
-export type ActiveCycleWorkContextSeal = {
-  readonly projectId: string;
-  readonly cycleInstanceId: string;
-  readonly cycleTypeId: string;
-  readonly profile: CycleProfile;
-  readonly status: "active";
-  readonly trajectoryId: string | null;
-  readonly trajectoryVersion: number | null;
-  readonly trajectoryStepId: string | null;
-  readonly ckcResolutionRef: string | null;
-};
-
-/**
- * Build ACW context seal from studio activeCycle projection.
- * Returns null when projection missing or not work-eligible.
- */
-export function buildActiveCycleWorkContextSeal(input: {
-  projectId: string;
-  activeCycle: ActiveCycleCognitiveProjection | null | undefined;
-}): ActiveCycleWorkContextSeal | null {
-  const ac = input.activeCycle;
-  if (!ac || ac.workEligible !== true || ac.status !== "active") {
-    return null;
-  }
-  return Object.freeze({
-    projectId: input.projectId,
-    cycleInstanceId: ac.cycleInstanceId,
-    cycleTypeId: ac.cycleTypeId,
-    profile: ac.profile,
-    status: "active" as const,
-    trajectoryId: ac.trajectoryId,
-    trajectoryVersion: ac.trajectoryVersion,
-    trajectoryStepId: ac.trajectoryStepId,
-    ckcResolutionRef: ac.ckcResolutionRef,
-  });
-}
-
-export type ActiveCycleCkcGrounding = {
-  readonly cycleTypeId: string;
-  readonly cycleLabel: string | null;
-  readonly ckcLensSection: string | null;
-  readonly ckcLoaded: boolean;
-  readonly ckcId: string | null;
-  readonly sourceLimit: "none" | "ckc_unavailable" | "doctrine_unavailable";
-  readonly durableCkcResolutionRef: string | null;
-};
-
-export type ResolveActiveCycleCognitiveOk = {
-  readonly ok: true;
-  readonly projection: ActiveCycleCognitiveProjection | null;
-  readonly ckc: ActiveCycleCkcGrounding | null;
-};
-
-export type ResolveActiveCycleCognitiveErr = {
-  readonly ok: false;
-  readonly code: string;
-  readonly reason: string;
-};
-
-export type ResolveActiveCycleCognitiveResult =
-  | ResolveActiveCycleCognitiveOk
-  | ResolveActiveCycleCognitiveErr;
-
-function expectedTrajectoryBoundCkcRef(cycle: CycleInstance): string | null {
-  const binding = classifyTrajectoryBinding(cycle);
-  if (binding !== "COMPLETE_TRAJECTORY_BOUND") return null;
-  const trajectoryId = cycle.trajectoryId!.trim();
-  const trajectoryVersion = cycle.trajectoryVersion!;
-  const stepId = cycle.trajectoryStepId!.trim();
-  const correlationId = mintPrepareCycleCorrelationId({
-    projectId: cycle.projectId,
-    trajectoryId,
-    trajectoryVersion,
-    stepId,
-  });
-  return projectCkcResolutionRef({
-    catalogHash: CYCLE_TYPE_CATALOG_FINGERPRINT,
-    correlationId,
-  });
-}
-
-function projectActiveCycle(cycle: CycleInstance): ActiveCycleCognitiveProjection {
-  const entry = getCycleTypeById(cycle.cycleTypeId);
-  return Object.freeze({
-    cycleInstanceId: cycle.cycleInstanceId,
-    cycleTypeId: cycle.cycleTypeId,
-    profile: cycle.profile,
-    status: cycle.status,
-    trajectoryId: cycle.trajectoryId?.trim() || null,
-    trajectoryVersion:
-      typeof cycle.trajectoryVersion === "number" ? cycle.trajectoryVersion : null,
-    trajectoryStepId: cycle.trajectoryStepId?.trim() || null,
-    ckcResolutionRef: cycle.ckcResolutionRef?.trim() || null,
-    cycleLabel: entry?.label ?? null,
-    workEligible: cycle.status === "active",
-  });
-}
-
-function buildCkcGrounding(input: {
-  projection: ActiveCycleCognitiveProjection;
-  packagePin: DoctrinePackagePin | null;
-  registryRoot: string;
-}): ActiveCycleCkcGrounding {
-  if (!input.packagePin) {
-    return Object.freeze({
-      cycleTypeId: input.projection.cycleTypeId,
-      cycleLabel: input.projection.cycleLabel,
-      ckcLensSection: null,
-      ckcLoaded: false,
-      ckcId: null,
-      sourceLimit: "doctrine_unavailable" as const,
-      durableCkcResolutionRef: input.projection.ckcResolutionRef,
-    });
-  }
-
-  const ckcContent: ProductCkcCognitiveContent | null =
-    loadProductCkcCognitiveContent({
-      registryRoot: input.registryRoot,
-      cycleTypeId: input.projection.cycleTypeId,
-      packagePin: input.packagePin,
-    });
-
-  if (!ckcContent) {
-    return Object.freeze({
-      cycleTypeId: input.projection.cycleTypeId,
-      cycleLabel: input.projection.cycleLabel,
-      ckcLensSection: null,
-      ckcLoaded: false,
-      ckcId: null,
-      sourceLimit: "ckc_unavailable" as const,
-      durableCkcResolutionRef: input.projection.ckcResolutionRef,
-    });
-  }
-
-  const label = input.projection.cycleLabel ?? input.projection.cycleTypeId;
-  const ckcLensSection = buildCkcApplicationLensSection(ckcContent).replace(
-    `cycle « ${ckcContent.cycleTypeId} »`,
-    `cycle « ${label} »`,
-  );
-
-  return Object.freeze({
-    cycleTypeId: input.projection.cycleTypeId,
-    cycleLabel: input.projection.cycleLabel,
-    ckcLensSection,
-    ckcLoaded: true,
-    ckcId: ckcContent.ckcId,
-    sourceLimit: "none" as const,
-    durableCkcResolutionRef: input.projection.ckcResolutionRef,
-  });
-}
-
-/**
- * Resolve server-owned active-cycle identity + exact CKC lens.
- * When LPS has no activeCycleInstanceId → ok with null projection (pre-cycle path).
- */
-export async function resolveActiveCycleCognitiveContext(input: {
-  project: ProjectAssistantContextDto;
-  activeCycleInstanceId?: string | null;
-  registryRoot: string;
-  getCycle: GetCycle;
-}): Promise<ResolveActiveCycleCognitiveResult> {
-  const activeId =
-    (input.activeCycleInstanceId ?? input.project.activeCycleInstanceId ?? null)
-      ?.trim() || null;
-
-  if (!activeId) {
-    return { ok: true, projection: null, ckc: null };
-  }
-
-  const loaded = await input.getCycle.execute({ cycleInstanceId: activeId });
-  if (!loaded.ok) {
-    return {
-      ok: false,
-      code: "ACTIVE_CYCLE_NOT_FOUND",
-      reason: "lps_active_cycle_instance_missing",
-    };
-  }
-
-  const cycle = loaded.cycle;
-  if (cycle.projectId !== input.project.projectId) {
-    return {
-      ok: false,
-      code: "ACTIVE_CYCLE_PROJECT_MISMATCH",
-      reason: "cycle_project_id_mismatch",
-    };
-  }
-
-  const binding = classifyTrajectoryBinding(cycle);
-  if (binding === "INCOMPLETE_TRAJECTORY_BINDING") {
-    return {
-      ok: false,
-      code: "ACTIVE_CYCLE_TRAJECTORY_BINDING_INCOMPLETE",
-      reason: "incomplete_trajectory_binding",
-    };
-  }
-
-  const durableRef = cycle.ckcResolutionRef?.trim() || null;
-  const lpsRef = input.project.ckcResolutionRef?.trim() || null;
-
-  if (binding === "COMPLETE_TRAJECTORY_BOUND") {
-    if (!durableRef) {
-      return {
-        ok: false,
-        code: "ACTIVE_CYCLE_CKC_REF_MISSING",
-        reason: "trajectory_bound_cycle_missing_ckc_resolution_ref",
-      };
-    }
-    const expected = expectedTrajectoryBoundCkcRef(cycle);
-    if (expected && expected !== durableRef) {
-      return {
-        ok: false,
-        code: "ACTIVE_CYCLE_CKC_REF_DRIFT",
-        reason: "durable_ckc_resolution_ref_diverges_from_expected",
-      };
-    }
-  }
-
-  if (lpsRef && durableRef && lpsRef !== durableRef) {
-    return {
-      ok: false,
-      code: "ACTIVE_CYCLE_CKC_REF_DRIFT",
-      reason: "lps_ckc_resolution_ref_diverges_from_cycle",
-    };
-  }
-
-  const projection = projectActiveCycle(cycle);
-  const packagePin = doctrinePackagePinFromProjectContext(input.project);
-  const ckc = buildCkcGrounding({
-    projection,
-    packagePin,
-    registryRoot: input.registryRoot,
-  });
-
-  // Trajectory-bound greenfield active cycles must have loadable CKC.
-  // LEGACY_UNBOUND may degrade to ckc_unavailable without blocking the turn
-  // (historical F2/LR fixtures use non-product doctrine pins).
-  if (
-    projection.workEligible &&
-    !ckc.ckcLoaded &&
-    binding === "COMPLETE_TRAJECTORY_BOUND"
-  ) {
-    return {
-      ok: false,
-      code: "ACTIVE_CYCLE_CKC_UNAVAILABLE",
-      reason:
-        ckc.sourceLimit === "doctrine_unavailable"
-          ? "doctrine_pin_unavailable"
-          : "ckc_content_unavailable_for_active_cycle_type",
-    };
-  }
-
-  return { ok: true, projection, ckc };
-}
-
-```
-
 ### FILE: `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts`
+
 ```ts
 /**
  * F2 pipeline: intent → qualify → durable CycleInstance + LPS → live ContextSnapshot → proposal.
@@ -5917,6 +5839,10 @@ export async function orchestrateAssistantSend(input: {
    */
   logicalTurnId?: string;
   /**
+   * Opaque client transport retry correlation (untrusted; not Product identity).
+   */
+  turnRetryKey?: string;
+  /**
    * INTERNAL / EVAL-ONLY — Stage A constitutive model×effort pin.
    * Propagated to analyzeIntent + F1 cognitive path. Never a client DTO field.
    */
@@ -6479,846 +6405,23 @@ export async function orchestrateAssistantSend(input: {
 
 ```
 
-### FILE: `projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts`
-```ts
-/**
- * CORR-PROOF-04 Option D — Hybrid Context Envelope (composer-first slice).
- *
- * Pure / read-only Studio cognitive context composition for ordinary F1.
- * Assembles authoritative Project/LPS + method/CKC + conditional HD/Evidence/
- * ReviewBundle + conditional ProjectTrajectory when readable.
- * D-GF-ACW-01 — also active CycleInstance + active-cycle work EpistemicItems.
- *
- * MUST NOT: call a model, score maturity, select trajectory, create HD/Evidence/
- * Cycle/LPS mutations, invent Recommendations, or become a second planner.
- */
-
-import type { HumanDecision } from "@/lib/oa/decision";
-import type { Evidence } from "@/lib/oa/evidence-review";
-import type { ReviewBundle } from "@/lib/oa/evidence-review/domain/reviewBundleTypes";
-import type {
-  EpistemicItem,
-  EpistemicItemStatus,
-  ProjectTrajectory,
-} from "@/lib/oa/cycle";
-import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
-import type { ProjectAssistantContextDto } from "../types";
-import type { IntentAnalysisDto } from "./types";
-import {
-  composeAdvisoryMethodContext,
-  type AdvisoryMethodContext,
-} from "./methodOrientation";
-import {
-  resolveActiveCycleCognitiveContext,
-  type ActiveCycleCognitiveProjection,
-} from "./activeCycleCognitiveContext";
-import { ACTIVE_CYCLE_WORK_SOURCE } from "../materializeActiveCycleWork";
-
-/** Conservative composition budgets — implementation policy, not doctrine. */
-export const STUDIO_COGNITIVE_CONTEXT_BUDGET = Object.freeze({
-  maxDecisions: 8,
-  maxEvidence: 8,
-  maxReviewBundles: 4,
-  maxActiveCycleWorkItems: 12,
-  decisionSubjectChars: 160,
-  decisionOptionChars: 120,
-  evidenceLabelChars: 120,
-  reviewLabelChars: 120,
-  trajectoryStepChars: 100,
-  maxTrajectorySteps: 6,
-  activeCycleWorkStatementChars: 240,
-});
-
-export type PresenceState = "PRESENT" | "NONE" | "UNAVAILABLE";
-export type TrajectoryPresenceState =
-  | "PRESENT"
-  | "ABSENT"
-  | "DEFERRED"
-  | "UNAVAILABLE";
-
-export type StudioProjectTruthProjection = {
-  readonly projectId: string;
-  readonly name: string;
-  readonly objective: string;
-  readonly context: string;
-  readonly constraints: readonly string[];
-  readonly criticality: string;
-  readonly shortReference: string | null;
-  readonly lpsId: string;
-  readonly lpsVersion: number;
-  readonly activeCycleInstanceId: string | null;
-  readonly doctrineId: string;
-  readonly doctrineVersion: string;
-  readonly doctrineStatus: string;
-};
-
-/**
- * Deterministic cognitive lifecycle for HumanDecision.
- * Derived from existing domain contract only (see domain-mapping.md).
- * PRESENT ≠ CURRENT.
- */
-export type DecisionCognitiveLifecycle = "CURRENT" | "PENDING" | "NON_ACTIVE";
-
-/**
- * Domain-derived mapping (CORR-PROOF-04 status-aware):
- * - accepted → CURRENT (findAcceptedBySubject / supersede writes accepted)
- * - amended → CURRENT (MW5 CONSUMED_HD_STATUSES; supersedable like accepted)
- * - proposed | required → PENDING (supersedable but not accepted)
- * - refused | superseded | revoked → NON_ACTIVE (terminal / history)
- */
-export function classifyHumanDecisionLifecycle(
-  status: HumanDecision["status"],
-): DecisionCognitiveLifecycle {
-  switch (status) {
-    case "accepted":
-    case "amended":
-      return "CURRENT";
-    case "proposed":
-    case "required":
-      return "PENDING";
-    case "refused":
-    case "superseded":
-    case "revoked":
-      return "NON_ACTIVE";
-    default: {
-      const _exhaustive: never = status;
-      void _exhaustive;
-      return "NON_ACTIVE";
-    }
-  }
-}
-
-export type StudioDecisionProjection = {
-  readonly subject: string;
-  readonly selectedOptionLabel: string | null;
-  /** Raw domain HumanDecisionStatus — always preserved. */
-  readonly status: HumanDecision["status"];
-  /** Deterministic cognitive class — never invents beyond domain mapping. */
-  readonly lifecycle: DecisionCognitiveLifecycle;
-  readonly effectiveAt: string;
-  readonly reversible: boolean;
-  readonly supersedesPresent: boolean;
-};
-
-/**
- * Deterministic epistemic stance from Evidence status/availability/freshness.
- * Does NOT claim which proposition is proven. Presence ≠ Fact.
- */
-export type EvidenceEpistemicStance =
-  | "STRONGER_SUPPORT"
-  | "LIMITED_SUPPORT"
-  | "PENDING_SUPPORT"
-  | "WEAKENED_SUPPORT"
-  | "NON_SUPPORTING"
-  | "UNCERTAIN_SUPPORT";
-
-export function classifyEvidenceEpistemicStance(input: {
-  status: Evidence["status"];
-  availability: Evidence["availability"];
-  freshness: Evidence["freshness"] | null | undefined;
-}): EvidenceEpistemicStance {
-  const { status, availability, freshness } = input;
-  if (
-    status === "rejected" ||
-    status === "superseded" ||
-    status === "unavailable" ||
-    availability === "unavailable"
-  ) {
-    return "NON_SUPPORTING";
-  }
-  if (status === "stale" || freshness === "stale") {
-    return "WEAKENED_SUPPORT";
-  }
-  if (status === "expected") {
-    return "PENDING_SUPPORT";
-  }
-  if (availability === "unknown" || freshness === "unknown") {
-    return "UNCERTAIN_SUPPORT";
-  }
-  if (status === "verified" && availability === "available") {
-    return "STRONGER_SUPPORT";
-  }
-  if (status === "incomplete" || status === "available") {
-    return "LIMITED_SUPPORT";
-  }
-  return "UNCERTAIN_SUPPORT";
-}
-
-export type StudioEvidenceProjection = {
-  readonly type: string;
-  /** Raw EvidenceStatus — always preserved. */
-  readonly status: Evidence["status"];
-  /** Raw EvidenceAvailability — always preserved. */
-  readonly availability: Evidence["availability"];
-  /** Raw freshness when present. */
-  readonly freshness: Evidence["freshness"] | null;
-  readonly sourceKind: string;
-  readonly producedAt: string | null;
-  /** Deterministic stance — never converts Evidence into Fact. */
-  readonly epistemicStance: EvidenceEpistemicStance;
-};
-
-export type StudioReviewProjection = {
-  readonly status: string;
-  readonly evidenceRefCount: number;
-  readonly completeness: string;
-  readonly supersedesPresent: boolean;
-  readonly createdAt: string;
-};
-
-export type StudioTrajectoryProjection = {
-  readonly status: string;
-  readonly version: number;
-  readonly stepSummaries: readonly string[];
-  readonly decidedByDecisionPresent: boolean;
-};
-
-/** Clipped projection of durable active-cycle work EpistemicItems (D-GF-ACW-01). */
-export type StudioActiveCycleWorkProjection = {
-  readonly type: string;
-  readonly statement: string;
-  readonly confidence?: string;
-  readonly blocking?: boolean;
-  readonly status: EpistemicItemStatus;
-};
-
-export type StudioCognitiveContext = {
-  readonly projectTruth: StudioProjectTruthProjection;
-  readonly method: AdvisoryMethodContext;
-  readonly activeCycle: ActiveCycleCognitiveProjection | null;
-  readonly activeCycleWorkItems: {
-    readonly state: PresenceState;
-    readonly items: readonly StudioActiveCycleWorkProjection[];
-  };
-  readonly decisions: {
-    readonly state: PresenceState;
-    readonly items: readonly StudioDecisionProjection[];
-  };
-  readonly evidence: {
-    readonly state: PresenceState;
-    readonly items: readonly StudioEvidenceProjection[];
-  };
-  readonly review: {
-    readonly state: PresenceState;
-    readonly items: readonly StudioReviewProjection[];
-  };
-  readonly trajectory: {
-    readonly state: TrajectoryPresenceState;
-    readonly current: StudioTrajectoryProjection | null;
-  };
-  readonly limits: {
-    readonly oaAvailable: boolean;
-    readonly truthOutranksConversation: true;
-    readonly composerDoesNotScoreMaturity: true;
-    readonly composerDoesNotSelectTrajectory: true;
-  };
-};
-
-export type ComposeStudioCognitiveContextResult =
-  | { readonly ok: true; readonly context: StudioCognitiveContext }
-  | { readonly ok: false; readonly code: string; readonly message: string };
-
-function clip(text: string, max: number): string {
-  const compact = text.replace(/\s+/g, " ").trim();
-  return compact.length <= max ? compact : `${compact.slice(0, max - 1)}…`;
-}
-
-function projectDecision(d: HumanDecision): StudioDecisionProjection {
-  const selected =
-    d.options.find((o) => o.optionId === d.selectedOptionId)?.label ?? null;
-  return Object.freeze({
-    subject: clip(d.subject, STUDIO_COGNITIVE_CONTEXT_BUDGET.decisionSubjectChars),
-    selectedOptionLabel: selected
-      ? clip(selected, STUDIO_COGNITIVE_CONTEXT_BUDGET.decisionOptionChars)
-      : null,
-    status: d.status,
-    lifecycle: classifyHumanDecisionLifecycle(d.status),
-    effectiveAt: d.effectiveAt,
-    reversible: d.reversible,
-    supersedesPresent: Boolean(d.supersedes),
-  });
-}
-
-function projectEvidence(e: Evidence): StudioEvidenceProjection {
-  const freshness = e.freshness ?? null;
-  return Object.freeze({
-    type: e.type,
-    status: e.status,
-    availability: e.availability,
-    freshness,
-    sourceKind: e.sourceKind,
-    producedAt: e.producedAt ?? null,
-    epistemicStance: classifyEvidenceEpistemicStance({
-      status: e.status,
-      availability: e.availability,
-      freshness,
-    }),
-  });
-}
-
-function projectReview(r: ReviewBundle): StudioReviewProjection {
-  return Object.freeze({
-    status: r.status,
-    evidenceRefCount: r.evidenceRefs.length,
-    completeness: r.completeness,
-    supersedesPresent: Boolean(r.supersedesReviewBundleId),
-    createdAt: r.createdAt,
-  });
-}
-
-function projectTrajectory(t: ProjectTrajectory): StudioTrajectoryProjection {
-  const steps = t.steps
-    .slice(0, STUDIO_COGNITIVE_CONTEXT_BUDGET.maxTrajectorySteps)
-    .map((s) =>
-      clip(
-        `${s.order}:${s.label}[${s.state}]`,
-        STUDIO_COGNITIVE_CONTEXT_BUDGET.trajectoryStepChars,
-      ),
-    );
-  return Object.freeze({
-    status: t.status,
-    version: t.version,
-    stepSummaries: Object.freeze(steps),
-    decidedByDecisionPresent: Boolean(t.decidedByDecisionRef),
-  });
-}
-
-function projectActiveCycleWorkItem(
-  item: EpistemicItem,
-): StudioActiveCycleWorkProjection {
-  return Object.freeze({
-    type: item.type,
-    statement: clip(
-      item.statement,
-      STUDIO_COGNITIVE_CONTEXT_BUDGET.activeCycleWorkStatementChars,
-    ),
-    ...(item.confidence !== undefined ? { confidence: item.confidence } : {}),
-    ...(item.blocking !== undefined ? { blocking: item.blocking } : {}),
-    status: item.status,
-  });
-}
-
-function relatedToActiveCycle(
-  item: EpistemicItem,
-  cycleInstanceId: string,
-): boolean {
-  const related = item.relatedObjects ?? [];
-  return related.includes(cycleInstanceId);
-}
-
-/**
- * Read-only composition. No provider call. No persistence. No Recommendation.
- * Fail-closed when an LPS-pointed active cycle cannot be resolved coherently.
- */
-export async function composeStudioCognitiveContext(input: {
-  analysis: IntentAnalysisDto;
-  project: ProjectAssistantContextDto;
-  registryRoot: string;
-  truthCContext?: string | null;
-  oa: RuntimeOaStack | null;
-  activeCycleInstanceId?: string | null;
-}): Promise<ComposeStudioCognitiveContextResult> {
-  const activeCycleInstanceId =
-    input.activeCycleInstanceId ??
-    input.project.activeCycleInstanceId ??
-    null;
-
-  let activeCycle: ActiveCycleCognitiveProjection | null = null;
-  let activeCycleCkcForMethod: Parameters<
-    typeof composeAdvisoryMethodContext
-  >[0]["activeCycleCkc"] = null;
-
-  if (input.oa && activeCycleInstanceId) {
-    const resolved = await resolveActiveCycleCognitiveContext({
-      project: input.project,
-      activeCycleInstanceId,
-      registryRoot: input.registryRoot,
-      getCycle: input.oa.cycleServices.getCycle,
-    });
-    if (!resolved.ok) {
-      return {
-        ok: false,
-        code: resolved.code,
-        message: resolved.reason,
-      };
-    }
-    activeCycle = resolved.projection;
-    if (resolved.ckc) {
-      activeCycleCkcForMethod = {
-        cycleTypeId: resolved.ckc.cycleTypeId,
-        cycleLabel: resolved.ckc.cycleLabel,
-        ckcLensSection: resolved.ckc.ckcLensSection,
-        ckcLoaded: resolved.ckc.ckcLoaded,
-        sourceLimit: resolved.ckc.sourceLimit,
-      };
-    }
-  }
-
-  const method = composeAdvisoryMethodContext({
-    analysis: input.analysis,
-    project: input.project,
-    registryRoot: input.registryRoot,
-    activeCycleCkc: activeCycleCkcForMethod,
-  });
-
-  const contextBody =
-    input.truthCContext != null && input.truthCContext !== ""
-      ? input.truthCContext
-      : input.project.contextSummary;
-
-  const projectTruth: StudioProjectTruthProjection = Object.freeze({
-    projectId: input.project.projectId,
-    name: input.project.name,
-    objective: input.project.objective,
-    context: contextBody,
-    constraints: Object.freeze([...input.project.constraints]),
-    criticality: input.project.criticality,
-    shortReference: input.project.shortReference ?? null,
-    lpsId: input.project.lpsId,
-    lpsVersion: input.project.lpsVersion,
-    activeCycleInstanceId,
-    doctrineId: input.project.doctrineId,
-    doctrineVersion: input.project.doctrineVersion,
-    doctrineStatus: input.project.doctrineStatus,
-  });
-
-  if (!input.oa) {
-    return {
-      ok: true,
-      context: Object.freeze({
-        projectTruth,
-        method,
-        activeCycle,
-        activeCycleWorkItems: Object.freeze({
-          state: "UNAVAILABLE" as const,
-          items: Object.freeze([]),
-        }),
-        decisions: Object.freeze({
-          state: "UNAVAILABLE" as const,
-          items: Object.freeze([]),
-        }),
-        evidence: Object.freeze({
-          state: "UNAVAILABLE" as const,
-          items: Object.freeze([]),
-        }),
-        review: Object.freeze({
-          state: "UNAVAILABLE" as const,
-          items: Object.freeze([]),
-        }),
-        trajectory: Object.freeze({
-          state: "UNAVAILABLE" as const,
-          current: null,
-        }),
-        limits: Object.freeze({
-          oaAvailable: false,
-          truthOutranksConversation: true as const,
-          composerDoesNotScoreMaturity: true as const,
-          composerDoesNotSelectTrajectory: true as const,
-        }),
-      }),
-    };
-  }
-
-  const oa = input.oa;
-  const budget = STUDIO_COGNITIVE_CONTEXT_BUDGET;
-  const projectId = input.project.projectId;
-
-  let decisionsState: PresenceState = "NONE";
-  let decisionItems: StudioDecisionProjection[] = [];
-  try {
-    const history = await oa.decisionServices.listDecisionHistory.execute({
-      projectId,
-    });
-    if (!history.ok) {
-      decisionsState = "UNAVAILABLE";
-    } else if (history.decisions.length === 0) {
-      decisionsState = "NONE";
-    } else {
-      decisionsState = "PRESENT";
-      const sorted = [...history.decisions].sort((a, b) =>
-        b.effectiveAt.localeCompare(a.effectiveAt),
-      );
-      decisionItems = sorted.slice(0, budget.maxDecisions).map(projectDecision);
-    }
-  } catch {
-    decisionsState = "UNAVAILABLE";
-  }
-
-  let evidenceState: PresenceState = "NONE";
-  let evidenceItems: StudioEvidenceProjection[] = [];
-  try {
-    const listed =
-      await oa.evidenceReviewServices.repository.listByProject(projectId);
-    if (listed.length === 0) {
-      evidenceState = "NONE";
-    } else {
-      evidenceState = "PRESENT";
-      evidenceItems = listed.slice(0, budget.maxEvidence).map(projectEvidence);
-    }
-  } catch {
-    evidenceState = "UNAVAILABLE";
-  }
-
-  let reviewState: PresenceState = "NONE";
-  let reviewItems: StudioReviewProjection[] = [];
-  try {
-    const listed =
-      await oa.evidenceReviewServices.reviewBundleRepository.listByProject(
-        projectId,
-      );
-    if (listed.length === 0) {
-      reviewState = "NONE";
-    } else {
-      reviewState = "PRESENT";
-      reviewItems = listed
-        .slice(0, budget.maxReviewBundles)
-        .map(projectReview);
-    }
-  } catch {
-    reviewState = "UNAVAILABLE";
-  }
-
-  let trajectoryState: TrajectoryPresenceState = "ABSENT";
-  let trajectoryCurrent: StudioTrajectoryProjection | null = null;
-  try {
-    const traj = await oa.cycleServices.getCurrentTrajectory.execute({
-      projectId,
-    });
-    if (traj.ok) {
-      trajectoryState = "PRESENT";
-      trajectoryCurrent = projectTrajectory(traj.trajectory);
-    } else if (traj.error?.detailCode === "TRAJECTORY_NOT_FOUND") {
-      trajectoryState = "ABSENT";
-    } else {
-      trajectoryState = "UNAVAILABLE";
-    }
-  } catch {
-    trajectoryState = "UNAVAILABLE";
-  }
-
-  let acwState: PresenceState = "NONE";
-  let acwItems: StudioActiveCycleWorkProjection[] = [];
-  if (activeCycle) {
-    try {
-      const epistemic = await oa.cycleServices.epistemic.listByProject(projectId);
-      const filtered = epistemic.filter(
-        (item) =>
-          item.source === ACTIVE_CYCLE_WORK_SOURCE &&
-          relatedToActiveCycle(item, activeCycle.cycleInstanceId),
-      );
-      if (filtered.length === 0) {
-        acwState = "NONE";
-      } else {
-        acwState = "PRESENT";
-        // CR-ACW-03 — newest-N for prompt only; do not reorder global epistemic repo.
-        const newestFirst = [...filtered].sort((a, b) => {
-          const byCreated = b.createdAt.localeCompare(a.createdAt);
-          if (byCreated !== 0) return byCreated;
-          return b.epistemicItemId.localeCompare(a.epistemicItemId);
-        });
-        const newestN = newestFirst.slice(0, budget.maxActiveCycleWorkItems);
-        // Chronological ASC for prompt display.
-        acwItems = newestN
-          .reverse()
-          .map(projectActiveCycleWorkItem);
-      }
-    } catch {
-      acwState = "UNAVAILABLE";
-    }
-  }
-
-  return {
-    ok: true,
-    context: Object.freeze({
-      projectTruth,
-      method,
-      activeCycle,
-      activeCycleWorkItems: Object.freeze({
-        state: acwState,
-        items: Object.freeze(acwItems),
-      }),
-      decisions: Object.freeze({
-        state: decisionsState,
-        items: Object.freeze(decisionItems),
-      }),
-      evidence: Object.freeze({
-        state: evidenceState,
-        items: Object.freeze(evidenceItems),
-      }),
-      review: Object.freeze({
-        state: reviewState,
-        items: Object.freeze(reviewItems),
-      }),
-      trajectory: Object.freeze({
-        state: trajectoryState,
-        current: trajectoryCurrent,
-      }),
-      limits: Object.freeze({
-        oaAvailable: true,
-        truthOutranksConversation: true as const,
-        composerDoesNotScoreMaturity: true as const,
-        composerDoesNotSelectTrajectory: true as const,
-      }),
-    }),
-  };
-}
-
-/**
- * Render StudioCognitiveContext into F1 system-prompt sections.
- * Business-first; no digests / repository mechanics / F1-F2-MW5 jargon.
- */
-export function buildStudioCognitivePromptSections(
-  ctx: StudioCognitiveContext,
-): string[] {
-  const lines: string[] = [
-    "=== STUDIO COGNITIVE CONTEXT (autorité / guidance séparées) ===",
-    "Présence d'un enregistrement ≠ autorité courante / fait établi.",
-    "Autorité projet courante = Truth C / LPS courant + HumanDecisions CURRENT (effective).",
-    "Evidence = support épistémique (poids selon status/availability/freshness) — jamais un Fact automatique.",
-    "DoctrinePackage/CKC = guidance méthodologique seulement — ne remplace jamais la vérité projet.",
-    "Conversation = continuité ; outrankée par vérité Project courante + doctrine Studio.",
-    "Recommendation / ProjectTrajectory ≠ HumanDecision sauf décision séparée.",
-    "Ne réécris pas l'historique Session. Ne score pas de bande de maturité comme fait.",
-    "",
-  ];
-
-  lines.push("— Vérité projet (Truth C / LPS) —");
-  lines.push(`Nom : ${ctx.projectTruth.name}`);
-  lines.push(`Objectif : ${ctx.projectTruth.objective}`);
-  lines.push(`Contexte : ${ctx.projectTruth.context}`);
-  lines.push(
-    `Contraintes : ${
-      ctx.projectTruth.constraints.length > 0
-        ? ctx.projectTruth.constraints.join("; ")
-        : "(aucune)"
-    }`,
-  );
-  lines.push(`Criticité : ${ctx.projectTruth.criticality}`);
-  if (ctx.projectTruth.activeCycleInstanceId) {
-    lines.push(
-      `Cycle ACTIVE authority-bearing : ${ctx.projectTruth.activeCycleInstanceId} — ne pas inventer d'activation.`,
-    );
-  } else {
-    lines.push(
-      "Cycle ACTIVE : aucun (un CycleInstance candidate peut exister sans LPS.activeCycleInstanceId).",
-    );
-  }
-  lines.push("");
-
-  // Active cycle (rich block — D-GF-ACW-01)
-  lines.push("— Cycle ACTIVE (identité serveur) —");
-  if (!ctx.activeCycle) {
-    lines.push(
-      "Aucun cycle ACTIVE résolu pour ce tour — travail pré-cycle / hors cycle.",
-    );
-    lines.push(
-      "activeCycleAlreadyCoversWork doit rester false sauf preuve contraire dans le LPS.",
-    );
-  } else {
-    const ac = ctx.activeCycle;
-    lines.push(
-      `cycleTypeId=${ac.cycleTypeId}` +
-        (ac.cycleLabel ? ` (« ${ac.cycleLabel} »)` : "") +
-        ` · profile=${ac.profile} · status=${ac.status}` +
-        (ac.workEligible ? " · workEligible=true" : " · workEligible=false"),
-    );
-    if (ac.trajectoryId) {
-      lines.push(
-        `Trajectoire liée : ${ac.trajectoryId}` +
-          (ac.trajectoryVersion != null ? `@v${ac.trajectoryVersion}` : "") +
-          (ac.trajectoryStepId ? ` · step=${ac.trajectoryStepId}` : ""),
-      );
-    } else {
-      lines.push("Trajectoire liée : (aucune binding complète).");
-    }
-    if (ac.ckcResolutionRef) {
-      lines.push(`ckcResolutionRef durable : ${ac.ckcResolutionRef}`);
-    }
-    lines.push(
-      "CKC du cycle ACTIVE = guidance méthodologique AUTORITATIVE pour le travail in-cycle.",
-    );
-    lines.push(
-      "Orientation candidat d'intent (ci-dessous) = SECONDAIRE — ne pas l'utiliser pour remplacer la CKC du cycle actif.",
-    );
-    if (ctx.activeCycleWorkItems.state === "PRESENT") {
-      lines.push("Travail cognitif déjà matérialisé pour ce cycle ACTIVE :");
-      for (const w of ctx.activeCycleWorkItems.items) {
-        lines.push(
-          `• [${w.type}${w.status !== "active" ? `/${w.status}` : ""}]` +
-            (w.confidence ? ` conf=${w.confidence}` : "") +
-            (w.blocking === true ? " blocking" : "") +
-            ` — ${w.statement}`,
-        );
-      }
-    } else if (ctx.activeCycleWorkItems.state === "UNAVAILABLE") {
-      lines.push(
-        "Travail cognitif cycle ACTIVE : UNAVAILABLE — ne pas inventer d'items.",
-      );
-    } else {
-      lines.push("Travail cognitif cycle ACTIVE : aucun item matérialisé encore.");
-    }
-  }
-  lines.push("");
-
-  // Method / CKC
-  lines.push("— Méthode (guidance) —");
-  if (ctx.method.activeCycleCkcAuthoritative) {
-    lines.push(
-      "Source CKC : cycle ACTIVE (autoritative in-cycle)." +
-        (ctx.method.cycleLabel ? ` · « ${ctx.method.cycleLabel} »` : ""),
-    );
-  }
-  if (ctx.method.orientation.state === "RESOLVED_FROM_INTENT_CANDIDATE") {
-    lines.push(
-      `État orientation (secondaire) : RESOLVED_FROM_INTENT_CANDIDATE` +
-        (ctx.method.cycleLabel && !ctx.method.activeCycleCkcAuthoritative
-          ? ` · cycle candidat « ${ctx.method.cycleLabel} »`
-          : ctx.method.orientation.candidateCycleTypeId
-            ? ` · candidat intent « ${ctx.method.orientation.candidateCycleTypeId} »`
-            : "") +
-        " (hypothèse non durable).",
-    );
-  } else {
-    lines.push(
-      "État orientation : UNRESOLVED — n'invente pas de cycle ; question ciblée seulement si matérielle.",
-    );
-  }
-  if (ctx.method.sourceLimit === "doctrine_unavailable") {
-    lines.push("Limite : DoctrinePackage non résolu.");
-  } else if (ctx.method.sourceLimit === "ckc_unavailable") {
-    lines.push(
-      "Limite : CKC détaillée indisponible — dégradation gouvernée ; pas de Skills Framework public.",
-    );
-  }
-  if (ctx.method.ckcLensSection?.trim()) {
-    lines.push(ctx.method.ckcLensSection.trim());
-  }
-  lines.push("");
-
-  lines.push("— HumanDecisions —");
-  if (ctx.decisions.state === "NONE") {
-    lines.push("État enregistrements : NONE — aucune HumanDecision.");
-  } else if (ctx.decisions.state === "UNAVAILABLE") {
-    lines.push("État enregistrements : UNAVAILABLE — ne pas inventer de décision.");
-  } else {
-    lines.push(
-      "État enregistrements : PRESENT — des HumanDecisions existent ; PRESENT ≠ toutes CURRENT.",
-    );
-    const current = ctx.decisions.items.filter((d) => d.lifecycle === "CURRENT");
-    const pending = ctx.decisions.items.filter((d) => d.lifecycle === "PENDING");
-    const nonActive = ctx.decisions.items.filter(
-      (d) => d.lifecycle === "NON_ACTIVE",
-    );
-    lines.push("CURRENT (effective) — respecter ; ne pas rouvrir comme Option libre sans contradiction/replan:");
-    if (current.length === 0) {
-      lines.push("• (aucune HumanDecision CURRENT)");
-    } else {
-      for (const d of current) {
-        lines.push(
-          `• ${d.subject} → ${d.selectedOptionLabel ?? "(option)"} [raw=${d.status} lifecycle=CURRENT]` +
-            (d.supersedesPresent ? " (remplace une décision antérieure)" : ""),
-        );
-      }
-    }
-    lines.push("PENDING — non décidé ; ne pas narrer comme GO/current:");
-    if (pending.length === 0) {
-      lines.push("• (aucune HumanDecision PENDING)");
-    } else {
-      for (const d of pending) {
-        lines.push(
-          `• ${d.subject} → ${d.selectedOptionLabel ?? "(option)"} [raw=${d.status} lifecycle=PENDING]`,
-        );
-      }
-    }
-    lines.push("NON_ACTIVE — historique / provenance seulement ; jamais GO courant:");
-    if (nonActive.length === 0) {
-      lines.push("• (aucune HumanDecision NON_ACTIVE)");
-    } else {
-      for (const d of nonActive) {
-        lines.push(
-          `• ${d.subject} → ${d.selectedOptionLabel ?? "(option)"} [raw=${d.status} lifecycle=NON_ACTIVE]`,
-        );
-      }
-    }
-  }
-  lines.push("");
-
-  lines.push("— Evidence —");
-  if (ctx.evidence.state === "NONE") {
-    lines.push("État enregistrements : NONE — aucune Evidence projet liée.");
-  } else if (ctx.evidence.state === "UNAVAILABLE") {
-    lines.push("État enregistrements : UNAVAILABLE — ne pas inventer d'Evidence.");
-  } else {
-    lines.push(
-      "État enregistrements : PRESENT — des Evidence existent ; PRESENT ≠ Fact / preuve établie.",
-    );
-    lines.push(
-      "Règles : Evidence = support, pas la proposition ; status/availability/freshness pèsent ; rejected/superseded/unavailable = non-support courant ; stale = affaibli ; expected/incomplete/unverified ≠ verified ; unknown reste incertitude ; même verified ne prouve pas une claim utilisateur non liée.",
-    );
-    for (const e of ctx.evidence.items) {
-      lines.push(
-        `• type=${e.type} status=${e.status} availability=${e.availability}` +
-          (e.freshness ? ` freshness=${e.freshness}` : "") +
-          ` stance=${e.epistemicStance}`,
-      );
-    }
-  }
-  lines.push("");
-
-  lines.push("— ReviewBundle —");
-  if (ctx.review.state === "NONE") {
-    lines.push("État enregistrements : NONE.");
-  } else if (ctx.review.state === "UNAVAILABLE") {
-    lines.push("État enregistrements : UNAVAILABLE.");
-  } else {
-    lines.push(
-      "État enregistrements : PRESENT — pas une validation Fact automatique ; lire status/completeness.",
-    );
-    for (const r of ctx.review.items) {
-      lines.push(
-        `• status=${r.status} evidenceRefs=${r.evidenceRefCount} completeness=${r.completeness}` +
-          (r.supersedesPresent ? " (supersédé/lié)" : ""),
-      );
-    }
-  }
-  lines.push("");
-
-  lines.push("— ProjectTrajectory —");
-  if (ctx.trajectory.state === "ABSENT") {
-    lines.push("État : ABSENT — n'invente pas de trajectoire.");
-  } else if (ctx.trajectory.state === "UNAVAILABLE") {
-    lines.push("État : UNAVAILABLE — n'invente pas de trajectoire.");
-  } else if (ctx.trajectory.state === "DEFERRED") {
-    lines.push("État : DEFERRED — non consommé dans ce tour.");
-  } else if (ctx.trajectory.current) {
-    const t = ctx.trajectory.current;
-    lines.push(
-      `État : PRESENT · status=${t.status} version=${t.version}` +
-        (t.decidedByDecisionPresent
-          ? " · liée à une HumanDecision"
-          : " · Recommendation/candidate ≠ HumanDecision"),
-    );
-    if (t.stepSummaries.length > 0) {
-      lines.push(`Étapes : ${t.stepSummaries.join(" → ")}`);
-    }
-  }
-  lines.push("");
-
-  return lines;
-}
-
-```
-
 ### FILE: `projects/sfia-studio/app/features/project-assistant/logicalProductTurn.ts`
+
 ```ts
 /**
  * D-GF-ACW-02 Option A — resolve or mint Session-adjacent logical Product turn id.
  *
- * Continuity / rematerialize coordination ONLY.
+ * Continuity / rematerialize / silent-response-loss retry coordination ONLY.
  * Never Epistemic / LPS / HD / Evidence SoT.
- * Opening Session DB is independent of Memory B Runner attachment.
+ *
+ * Authority boundary:
+ * - Server alone mints/owns `ltu:…` (logical Product turn identity).
+ * - Optional client `turnRetryKey` is an untrusted opaque transport correlation
+ *   token only — it MUST NOT become Product turn identity or SFIA authority.
+ * - Payload digest may detect retry conflicts; it is NEVER turn identity.
  */
 
+import { createHash } from "node:crypto";
 import {
   ProductSqliteSession,
   type LogicalProductTurnRow,
@@ -7326,16 +6429,22 @@ import {
 import { resolveNoraSessionSqlitePath } from "@/lib/nora-cognitive-runtime/sessionPaths";
 import { CANONICAL_CONVERSATION_SESSION_KEY } from "./f2/canonicalConversationSession";
 
+export { createTurnRetryKey } from "./turnRetryKey";
+
 export type ResolveOrMintLogicalProductTurnOk = {
   readonly ok: true;
   readonly logicalTurnId: string;
   readonly minted: boolean;
   readonly row: LogicalProductTurnRow;
+  readonly recoveredViaRetryKey: boolean;
 };
 
 export type ResolveOrMintLogicalProductTurnErr = {
   readonly ok: false;
-  readonly code: "LOGICAL_TURN_UNKNOWN" | "LOGICAL_TURN_SESSION_UNAVAILABLE";
+  readonly code:
+    | "LOGICAL_TURN_UNKNOWN"
+    | "LOGICAL_TURN_SESSION_UNAVAILABLE"
+    | "LOGICAL_TURN_RETRY_CONFLICT";
   readonly reason: string;
 };
 
@@ -7343,10 +6452,24 @@ export type ResolveOrMintLogicalProductTurnResult =
   | ResolveOrMintLogicalProductTurnOk
   | ResolveOrMintLogicalProductTurnErr;
 
+/** Client-side opaque transport retry token (untrusted; not Product identity). */
+// createTurnRetryKey re-exported from ./turnRetryKey (client-safe).
+
+/**
+ * Conflict-detection digest for a logical submission payload.
+ * NOT Product turn identity — only guards same-retry-key remaps.
+ */
+export function canonicalTurnPayloadDigest(content: string): string {
+  return createHash("sha256")
+    .update(JSON.stringify({ content: content.trim() }), "utf8")
+    .digest("hex");
+}
+
 /**
  * Accept boundary for ACW turn identity:
- * - presented id MUST already exist for project+session (reject client-invented)
- * - else mint server-owned `ltu:…` with status `accepted`
+ * - presented `ltu:` MUST already exist (reject client-invented)
+ * - opaque `turnRetryKey` may recover an existing server binding after silent loss
+ * - else mint server-owned `ltu:…` and optionally bind retry key
  * - Session open failure → fail-closed for ACW path
  */
 export function resolveOrMintLogicalProductTurn(input: {
@@ -7354,6 +6477,10 @@ export function resolveOrMintLogicalProductTurn(input: {
   sessionDbPath?: string;
   sessionKey?: string;
   presentedLogicalTurnId?: string | null;
+  /** Untrusted opaque transport retry correlation — never Product authority. */
+  turnRetryKey?: string | null;
+  /** User content for conflict digest when retry key is present. */
+  content?: string | null;
   cycleInstanceId?: string | null;
   nowIso?: string;
 }): ResolveOrMintLogicalProductTurnResult {
@@ -7361,6 +6488,11 @@ export function resolveOrMintLogicalProductTurn(input: {
   const sessionKey =
     input.sessionKey?.trim() || CANONICAL_CONVERSATION_SESSION_KEY;
   const presented = input.presentedLogicalTurnId?.trim() || null;
+  const retryKey = input.turnRetryKey?.trim() || null;
+  const payloadDigest =
+    retryKey !== null
+      ? canonicalTurnPayloadDigest(input.content ?? "")
+      : null;
 
   let session: ProductSqliteSession | null = null;
   try {
@@ -7381,12 +6513,118 @@ export function resolveOrMintLogicalProductTurn(input: {
           reason: "presented_logical_turn_not_found_for_project_session",
         };
       }
+      if (retryKey && payloadDigest) {
+        const binding = session.getLogicalProductTurnRetryBinding(retryKey);
+        if (binding) {
+          if (binding.logicalTurnId !== existing.logicalTurnId) {
+            return {
+              ok: false,
+              code: "LOGICAL_TURN_RETRY_CONFLICT",
+              reason: "retry_key_bound_to_different_logical_turn",
+            };
+          }
+          if (binding.payloadDigest !== payloadDigest) {
+            return {
+              ok: false,
+              code: "LOGICAL_TURN_RETRY_CONFLICT",
+              reason: "retry_key_payload_digest_mismatch",
+            };
+          }
+        }
+      }
       return {
         ok: true,
         logicalTurnId: existing.logicalTurnId,
         minted: false,
         row: existing,
+        recoveredViaRetryKey: false,
       };
+    }
+
+    if (retryKey && payloadDigest) {
+      const binding = session.getLogicalProductTurnRetryBinding(retryKey);
+      if (binding) {
+        if (binding.payloadDigest !== payloadDigest) {
+          return {
+            ok: false,
+            code: "LOGICAL_TURN_RETRY_CONFLICT",
+            reason: "retry_key_payload_digest_mismatch",
+          };
+        }
+        const existing = session.getLogicalProductTurn(binding.logicalTurnId);
+        if (!existing) {
+          return {
+            ok: false,
+            code: "LOGICAL_TURN_RETRY_CONFLICT",
+            reason: "retry_binding_points_to_missing_logical_turn",
+          };
+        }
+        return {
+          ok: true,
+          logicalTurnId: existing.logicalTurnId,
+          minted: false,
+          row: existing,
+          recoveredViaRetryKey: true,
+        };
+      }
+
+      // First accept for this retry key — mint + bind atomically.
+      const db = session.getSqlite();
+      db.exec("BEGIN IMMEDIATE");
+      try {
+        const raced = session.getLogicalProductTurnRetryBinding(retryKey);
+        if (raced) {
+          db.exec("ROLLBACK");
+          if (raced.payloadDigest !== payloadDigest) {
+            return {
+              ok: false,
+              code: "LOGICAL_TURN_RETRY_CONFLICT",
+              reason: "retry_key_payload_digest_mismatch",
+            };
+          }
+          const existing = session.getLogicalProductTurn(raced.logicalTurnId);
+          if (!existing) {
+            return {
+              ok: false,
+              code: "LOGICAL_TURN_RETRY_CONFLICT",
+              reason: "retry_binding_points_to_missing_logical_turn",
+            };
+          }
+          return {
+            ok: true,
+            logicalTurnId: existing.logicalTurnId,
+            minted: false,
+            row: existing,
+            recoveredViaRetryKey: true,
+          };
+        }
+        const row = session.mintLogicalProductTurn({
+          cycleInstanceId: input.cycleInstanceId,
+          status: "accepted",
+          nowIso: input.nowIso,
+        });
+        session.bindLogicalProductTurnRetry({
+          retryKey,
+          logicalTurnId: row.logicalTurnId,
+          payloadDigest,
+          nowIso: input.nowIso,
+        });
+        db.exec("COMMIT");
+        return {
+          ok: true,
+          logicalTurnId: row.logicalTurnId,
+          minted: true,
+          row,
+          recoveredViaRetryKey: false,
+        };
+      } catch (err) {
+        try {
+          db.exec("ROLLBACK");
+        } catch {
+          /* ignore */
+        }
+        throw err;
+      }
     }
 
     const row = session.mintLogicalProductTurn({
@@ -7399,6 +6637,7 @@ export function resolveOrMintLogicalProductTurn(input: {
       logicalTurnId: row.logicalTurnId,
       minted: true,
       row,
+      recoveredViaRetryKey: false,
     };
   } catch (err) {
     return {
@@ -7420,585 +6659,8 @@ export function resolveOrMintLogicalProductTurn(input: {
 
 ```
 
-### FILE: `projects/sfia-studio/app/features/project-assistant/materializeActiveCycleWork.ts`
-```ts
-/**
- * D-GF-ACW-01 — materialize non-authoritative active-cycle EpistemicItems
- * and link them into LPS.epistemicItemIds atomically (Product SQLite UoW).
- *
- * NOT a new aggregate. HARVEST UpdateEpistemicState + AppendLivingProjectStateVersion.
- * No HumanDecision / ExecutionContract / trajectory / LPS structural rewrite.
- */
-
-import { createHash } from "node:crypto";
-import type { ActorReference, ProvenanceRecord } from "@/lib/oa/doctrine";
-import type {
-  EpistemicConfidence,
-  EpistemicItem,
-  EpistemicItemType,
-} from "@/lib/oa/cycle";
-import type { UpdateEpistemicState } from "@/lib/oa/cycle/application/updateEpistemicState";
-import type { AppendLivingProjectStateVersion } from "@/lib/oa/project/application/appendLivingProjectStateVersion";
-import type { GetCurrentLivingProjectState } from "@/lib/oa/project/application/getCurrentLivingProjectState";
-import type { CyclePersistenceUnitOfWorkPort } from "@/lib/oa/cycle/ports/cyclePersistenceUnitOfWorkPort";
-import type { GetCycle } from "@/lib/oa/cycle/application/getCycle";
-import type { NoraActiveCycleWorkItem } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
-import { NORA_LIFECYCLE_RECOMMENDATION_ACTOR } from "@/lib/oa/cycle/application/lifecycleRecommendation/noraActor";
-import type { ActiveCycleWorkContextSeal } from "./f2/activeCycleCognitiveContext";
-
-/** Stable Product source for Nora active-cycle cognitive work. */
-export const ACTIVE_CYCLE_WORK_SOURCE = "active-cycle-work:nora" as const;
-
-/** Same Nora agent actor as LR — authority remains none on items. */
-export const NORA_ACTIVE_CYCLE_WORK_ACTOR: ActorReference =
-  NORA_LIFECYCLE_RECOMMENDATION_ACTOR;
-
-export const ACTIVE_CYCLE_WORK_ALLOWED_TYPES: ReadonlySet<EpistemicItemType> =
-  new Set([
-    "Observation",
-    "Hypothesis",
-    "Option",
-    "Recommendation",
-    "Reservation",
-    "Contradiction",
-  ]);
-
-export type ActiveCycleWorkMaterializationFacts = {
-  readonly projectId: string;
-  readonly activeCycleInstanceId: string;
-  readonly lpsVersion: number;
-  readonly lpsObjective: string;
-  readonly existingEpistemicItemIds: readonly string[];
-  readonly existingItems: readonly EpistemicItem[];
-  /** Production key = durable logical Product turn id (ltu:…). */
-  readonly turnCorrelationId: string;
-  /** CR-ACW-01 — sealed studio activeCycle projection; validated in UoW. */
-  readonly contextSeal: ActiveCycleWorkContextSeal;
-};
-
-export type MaterializeActiveCycleWorkResult =
-  | {
-      readonly ok: true;
-      readonly items: readonly EpistemicItem[];
-      readonly createdIds: readonly string[];
-      readonly reusedIds: readonly string[];
-      readonly lpsVersionAfter: number;
-      readonly idempotent: boolean;
-    }
-  | { readonly ok: false; readonly code: string; readonly reason: string };
-
-function statementDigest(statement: string): string {
-  return createHash("sha256")
-    .update(statement.trim(), "utf8")
-    .digest("hex")
-    .slice(0, 16);
-}
-
-export function activeCycleWorkEpistemicItemId(input: {
-  projectId: string;
-  cycleInstanceId: string;
-  turnCorrelationId: string;
-  index: number;
-  type: string;
-  statement: string;
-}): string {
-  const raw = [
-    input.projectId,
-    input.cycleInstanceId,
-    input.turnCorrelationId,
-    String(input.index),
-    input.type,
-    statementDigest(input.statement),
-  ].join("|");
-  const digest = createHash("sha256")
-    .update(raw, "utf8")
-    .digest("hex")
-    .slice(0, 20);
-  return `epi:acw:${digest}`;
-}
-
-function buildProvenance(input: {
-  projectId: string;
-  cycleInstanceId: string;
-  turnCorrelationId: string;
-  producedAt: string;
-  index: number;
-}): ProvenanceRecord {
-  return {
-    schemaVersion: "0.1.0-oa",
-    provenanceRecordId: `prov:acw:${createHash("sha256")
-      .update(
-        `${input.turnCorrelationId}|${input.index}|${input.cycleInstanceId}`,
-        "utf8",
-      )
-      .digest("hex")
-      .slice(0, 16)}`,
-    actor: structuredClone(NORA_ACTIVE_CYCLE_WORK_ACTOR),
-    source: "conversation",
-    timestamp: input.producedAt,
-    correlationId: input.turnCorrelationId,
-    projectId: input.projectId,
-    cycleInstanceId: input.cycleInstanceId,
-  };
-}
-
-function materialParity(
-  existing: EpistemicItem,
-  next: {
-    type: EpistemicItemType;
-    statement: string;
-    confidence?: EpistemicConfidence;
-    blocking?: boolean;
-  },
-): boolean {
-  if (existing.type !== next.type) return false;
-  if (existing.statement.trim() !== next.statement.trim()) return false;
-  if ((existing.confidence ?? undefined) !== (next.confidence ?? undefined)) {
-    return false;
-  }
-  if ((existing.blocking ?? undefined) !== (next.blocking ?? undefined)) {
-    return false;
-  }
-  if (existing.source !== ACTIVE_CYCLE_WORK_SOURCE) return false;
-  return true;
-}
-
-function normNullable(value: string | null | undefined): string | null {
-  const t = value?.trim();
-  return t ? t : null;
-}
-
-class ActiveCycleWorkAtomicFailure extends Error {
-  constructor(
-    readonly code: string,
-    readonly reason: string,
-  ) {
-    super(reason);
-    this.name = "ActiveCycleWorkAtomicFailure";
-  }
-}
-
-function assertContextSealAgainstLiveState(input: {
-  seal: ActiveCycleWorkContextSeal;
-  projectId: string;
-  cycle: {
-    projectId: string;
-    cycleInstanceId: string;
-    cycleTypeId: string;
-    profile: string;
-    status: string;
-    trajectoryId?: string;
-    trajectoryVersion?: number;
-    trajectoryStepId?: string;
-    ckcResolutionRef?: string;
-  };
-  lps: {
-    version: number;
-    activeCycleInstanceId?: string | null;
-    ckcResolutionRef?: string | null;
-  };
-  expectedLpsVersion: number;
-}): void {
-  const { seal, cycle, lps } = input;
-  if (seal.projectId !== input.projectId || cycle.projectId !== seal.projectId) {
-    throw new ActiveCycleWorkAtomicFailure(
-      "ACTIVE_CYCLE_CONTEXT_STALE",
-      "seal_field:projectId",
-    );
-  }
-  if (cycle.cycleInstanceId !== seal.cycleInstanceId) {
-    throw new ActiveCycleWorkAtomicFailure(
-      "ACTIVE_CYCLE_CONTEXT_STALE",
-      "seal_field:cycleInstanceId",
-    );
-  }
-  if (cycle.cycleTypeId !== seal.cycleTypeId) {
-    throw new ActiveCycleWorkAtomicFailure(
-      "ACTIVE_CYCLE_CONTEXT_STALE",
-      "seal_field:cycleTypeId",
-    );
-  }
-  if (cycle.profile !== seal.profile) {
-    throw new ActiveCycleWorkAtomicFailure(
-      "ACTIVE_CYCLE_CONTEXT_STALE",
-      "seal_field:profile",
-    );
-  }
-  if (cycle.status !== "active" || seal.status !== "active") {
-    throw new ActiveCycleWorkAtomicFailure(
-      "ACTIVE_CYCLE_CONTEXT_STALE",
-      "seal_field:status",
-    );
-  }
-  if (normNullable(cycle.trajectoryId) !== seal.trajectoryId) {
-    throw new ActiveCycleWorkAtomicFailure(
-      "ACTIVE_CYCLE_CONTEXT_STALE",
-      "seal_field:trajectoryId",
-    );
-  }
-  const liveTrajVer =
-    typeof cycle.trajectoryVersion === "number" ? cycle.trajectoryVersion : null;
-  if (liveTrajVer !== seal.trajectoryVersion) {
-    throw new ActiveCycleWorkAtomicFailure(
-      "ACTIVE_CYCLE_CONTEXT_STALE",
-      "seal_field:trajectoryVersion",
-    );
-  }
-  if (normNullable(cycle.trajectoryStepId) !== seal.trajectoryStepId) {
-    throw new ActiveCycleWorkAtomicFailure(
-      "ACTIVE_CYCLE_CONTEXT_STALE",
-      "seal_field:trajectoryStepId",
-    );
-  }
-  if (normNullable(cycle.ckcResolutionRef) !== seal.ckcResolutionRef) {
-    throw new ActiveCycleWorkAtomicFailure(
-      "ACTIVE_CYCLE_CONTEXT_STALE",
-      "seal_field:ckcResolutionRef",
-    );
-  }
-  if ((lps.activeCycleInstanceId ?? null) !== seal.cycleInstanceId) {
-    throw new ActiveCycleWorkAtomicFailure(
-      "ACTIVE_CYCLE_CONTEXT_STALE",
-      "seal_field:lps.activeCycleInstanceId",
-    );
-  }
-  if (lps.version !== input.expectedLpsVersion) {
-    throw new ActiveCycleWorkAtomicFailure(
-      "ACTIVE_CYCLE_CONTEXT_STALE",
-      "seal_field:lps.version",
-    );
-  }
-  const lpsRef = normNullable(lps.ckcResolutionRef ?? null);
-  if (lpsRef && seal.ckcResolutionRef && lpsRef !== seal.ckcResolutionRef) {
-    throw new ActiveCycleWorkAtomicFailure(
-      "ACTIVE_CYCLE_CONTEXT_STALE",
-      "seal_field:lps.ckcResolutionRef",
-    );
-  }
-}
-
-/**
- * Persist active-cycle work items + LPS epistemicItemIds in one Product UoW.
- */
-export async function materializeActiveCycleWork(input: {
-  items: readonly NoraActiveCycleWorkItem[];
-  facts: ActiveCycleWorkMaterializationFacts;
-  updateEpistemicState: UpdateEpistemicState;
-  appendLivingProjectStateVersion: AppendLivingProjectStateVersion;
-  getCurrentLivingProjectState: GetCurrentLivingProjectState;
-  getCycle: GetCycle;
-  runInTransaction: CyclePersistenceUnitOfWorkPort["runInTransaction"];
-  producedAt: string;
-  createdBy?: ActorReference;
-}): Promise<MaterializeActiveCycleWorkResult> {
-  if (!input.items || input.items.length === 0) {
-    return {
-      ok: true,
-      items: [],
-      createdIds: [],
-      reusedIds: [],
-      lpsVersionAfter: input.facts.lpsVersion,
-      idempotent: true,
-    };
-  }
-
-  for (const item of input.items) {
-    if (!ACTIVE_CYCLE_WORK_ALLOWED_TYPES.has(item.type as EpistemicItemType)) {
-      return {
-        ok: false,
-        code: "ACTIVE_CYCLE_WORK_FORBIDDEN_TYPE",
-        reason: `forbidden_epistemic_type:${item.type}`,
-      };
-    }
-  }
-
-  const createdBy = input.createdBy ?? NORA_ACTIVE_CYCLE_WORK_ACTOR;
-  const { facts } = input;
-
-  if (
-    facts.contextSeal.projectId !== facts.projectId ||
-    facts.contextSeal.cycleInstanceId !== facts.activeCycleInstanceId
-  ) {
-    return {
-      ok: false,
-      code: "ACTIVE_CYCLE_CONTEXT_STALE",
-      reason: "seal_mismatch_vs_materialization_facts",
-    };
-  }
-
-  try {
-    const atomic = await input.runInTransaction(async () => {
-      const cycleLoad = await input.getCycle.execute({
-        cycleInstanceId: facts.activeCycleInstanceId,
-      });
-      if (!cycleLoad.ok) {
-        throw new ActiveCycleWorkAtomicFailure(
-          "ACTIVE_CYCLE_NOT_FOUND",
-          "cycle_missing_at_materialization",
-        );
-      }
-      const cycle = cycleLoad.cycle;
-      if (cycle.projectId !== facts.projectId) {
-        throw new ActiveCycleWorkAtomicFailure(
-          "ACTIVE_CYCLE_PROJECT_MISMATCH",
-          "cycle_project_mismatch_at_materialization",
-        );
-      }
-      if (cycle.status !== "active") {
-        throw new ActiveCycleWorkAtomicFailure(
-          "ACTIVE_CYCLE_NOT_ELIGIBLE",
-          "cycle_not_active_at_materialization",
-        );
-      }
-
-      const lpsNow = await input.getCurrentLivingProjectState.execute({
-        projectId: facts.projectId,
-      });
-      if (!lpsNow.ok) {
-        throw new ActiveCycleWorkAtomicFailure(
-          "LPS_UNAVAILABLE",
-          "lps_missing_at_materialization",
-        );
-      }
-
-      // CR-ACW-01 — exact seal compare before any write; ZERO writes on mismatch.
-      assertContextSealAgainstLiveState({
-        seal: facts.contextSeal,
-        projectId: facts.projectId,
-        cycle,
-        lps: lpsNow.livingProjectState,
-        expectedLpsVersion: facts.lpsVersion,
-      });
-
-      if (
-        (lpsNow.livingProjectState.activeCycleInstanceId ?? null) !==
-        facts.activeCycleInstanceId
-      ) {
-        throw new ActiveCycleWorkAtomicFailure(
-          "ACTIVE_CYCLE_LPS_POINTER_STALE",
-          "lps_active_cycle_changed_before_materialization",
-        );
-      }
-      if (lpsNow.livingProjectState.version !== facts.lpsVersion) {
-        throw new ActiveCycleWorkAtomicFailure(
-          "LPS_VERSION_CONFLICT",
-          "lps_version_changed_before_materialization",
-        );
-      }
-
-      const planned: Array<{
-        epistemicItemId: string;
-        type: EpistemicItemType;
-        statement: string;
-        confidence?: EpistemicConfidence;
-        blocking?: boolean;
-        relatedObjects: string[];
-        provenance: ProvenanceRecord;
-        reuse: boolean;
-      }> = [];
-
-      const existingById = new Map(
-        facts.existingItems.map((e) => [e.epistemicItemId, e]),
-      );
-
-      for (let index = 0; index < input.items.length; index += 1) {
-        const raw = input.items[index]!;
-        const type = raw.type as EpistemicItemType;
-        const statement = raw.statement.trim();
-        if (!statement) {
-          throw new ActiveCycleWorkAtomicFailure(
-            "ACTIVE_CYCLE_WORK_INVALID",
-            "empty_statement",
-          );
-        }
-        const epistemicItemId = activeCycleWorkEpistemicItemId({
-          projectId: facts.projectId,
-          cycleInstanceId: facts.activeCycleInstanceId,
-          turnCorrelationId: facts.turnCorrelationId,
-          index,
-          type,
-          statement,
-        });
-        const existing = existingById.get(epistemicItemId);
-        const confidence =
-          raw.confidence === null || raw.confidence === undefined
-            ? undefined
-            : (raw.confidence as EpistemicConfidence);
-        const blocking =
-          raw.blocking === null || raw.blocking === undefined
-            ? undefined
-            : raw.blocking;
-
-        if (existing) {
-          if (
-            !materialParity(existing, {
-              type,
-              statement,
-              confidence,
-              blocking,
-            })
-          ) {
-            throw new ActiveCycleWorkAtomicFailure(
-              "ACTIVE_CYCLE_WORK_IDEM_CONFLICT",
-              "same_id_different_material",
-            );
-          }
-          planned.push({
-            epistemicItemId,
-            type,
-            statement,
-            confidence,
-            blocking,
-            relatedObjects: existing.relatedObjects
-              ? [...existing.relatedObjects]
-              : [facts.projectId, facts.activeCycleInstanceId],
-            provenance: existing.provenance
-              ? structuredClone(existing.provenance)
-              : buildProvenance({
-                  projectId: facts.projectId,
-                  cycleInstanceId: facts.activeCycleInstanceId,
-                  turnCorrelationId: facts.turnCorrelationId,
-                  producedAt: input.producedAt,
-                  index,
-                }),
-            reuse: true,
-          });
-          continue;
-        }
-
-        const relatedObjects = [
-          facts.projectId,
-          facts.activeCycleInstanceId,
-          ...(cycle.trajectoryId ? [cycle.trajectoryId] : []),
-          ...(cycle.trajectoryStepId ? [cycle.trajectoryStepId] : []),
-        ];
-
-        planned.push({
-          epistemicItemId,
-          type,
-          statement,
-          confidence,
-          blocking,
-          relatedObjects,
-          provenance: buildProvenance({
-            projectId: facts.projectId,
-            cycleInstanceId: facts.activeCycleInstanceId,
-            turnCorrelationId: facts.turnCorrelationId,
-            producedAt: input.producedAt,
-            index,
-          }),
-          reuse: false,
-        });
-      }
-
-      const toWrite = planned.filter((p) => !p.reuse);
-      if (toWrite.length > 0) {
-        const write = await input.updateEpistemicState.execute({
-          projectId: facts.projectId,
-          createdBy,
-          correlationId: facts.turnCorrelationId,
-          items: toWrite.map((p) => ({
-            epistemicItemId: p.epistemicItemId,
-            type: p.type,
-            statement: p.statement,
-            status: "active" as const,
-            source: ACTIVE_CYCLE_WORK_SOURCE,
-            confidence: p.confidence,
-            blocking: p.blocking,
-            relatedObjects: p.relatedObjects,
-            provenance: p.provenance,
-          })),
-        });
-        if (!write.ok) {
-          throw new ActiveCycleWorkAtomicFailure(
-            write.error.detailCode,
-            write.error.internalCauseRef ?? "epistemic_write_failed",
-          );
-        }
-      }
-
-      const newIds = planned.map((p) => p.epistemicItemId);
-      const carriedIds = lpsNow.livingProjectState.epistemicItemIds ?? [
-        ...facts.existingEpistemicItemIds,
-      ];
-      const mergedIds = [
-        ...carriedIds.filter((id) => !newIds.includes(id)),
-        ...newIds,
-      ];
-
-      const needsLpsLink = newIds.some((id) => !carriedIds.includes(id));
-      let lpsVersionAfter = facts.lpsVersion;
-      if (needsLpsLink) {
-        const appended =
-          await input.appendLivingProjectStateVersion.execute({
-            projectId: facts.projectId,
-            expectedVersion: facts.lpsVersion,
-            objective: facts.lpsObjective,
-            createdBy,
-            correlationId: facts.turnCorrelationId,
-            epistemicItemIds: mergedIds,
-            activeCycleInstanceId: facts.activeCycleInstanceId,
-          });
-        if (!appended.ok) {
-          throw new ActiveCycleWorkAtomicFailure(
-            appended.error.detailCode,
-            appended.error.internalCauseRef ?? "lps_append_failed",
-          );
-        }
-        lpsVersionAfter = appended.livingProjectState.version;
-      }
-
-      return {
-        planned,
-        lpsVersionAfter,
-      };
-    });
-
-    const createdIds = atomic.planned
-      .filter((p) => !p.reuse)
-      .map((p) => p.epistemicItemId);
-    const reusedIds = atomic.planned
-      .filter((p) => p.reuse)
-      .map((p) => p.epistemicItemId);
-
-    const items: EpistemicItem[] = atomic.planned.map((p) => ({
-      schemaVersion: "0.1.0-oa",
-      epistemicItemId: p.epistemicItemId,
-      type: p.type,
-      statement: p.statement,
-      status: "active",
-      confidence: p.confidence,
-      source: ACTIVE_CYCLE_WORK_SOURCE,
-      createdBy: structuredClone(createdBy),
-      createdAt: input.producedAt,
-      relatedObjects: p.relatedObjects,
-      blocking: p.blocking,
-      provenance: p.provenance,
-    }));
-
-    return {
-      ok: true,
-      items,
-      createdIds,
-      reusedIds,
-      lpsVersionAfter: atomic.lpsVersionAfter,
-      idempotent: createdIds.length === 0,
-    };
-  } catch (err) {
-    if (err instanceof ActiveCycleWorkAtomicFailure) {
-      return { ok: false, code: err.code, reason: err.reason };
-    }
-    return {
-      ok: false,
-      code: "ACTIVE_CYCLE_WORK_ATOMIC_FAILURE",
-      reason: err instanceof Error ? err.message : "atomic_materialize_failed",
-    };
-  }
-}
-
-```
-
 ### FILE: `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`
+
 ```ts
 import {
   isFakeConversationProviderForced,
@@ -8225,6 +6887,11 @@ export async function orchestrateProjectAssistantTurn(input: {
    */
   logicalTurnId?: string;
   /**
+   * Opaque client transport retry correlation (untrusted).
+   * NOT Product turn identity — Session-adjacent lookup only.
+   */
+  turnRetryKey?: string;
+  /**
    * TEST-ONLY — explicit correlation override (skips Session mint).
    * Prefer logicalTurnId for production and new tests.
    */
@@ -8281,6 +6948,8 @@ export async function orchestrateProjectAssistantTurn(input: {
       projectId: project.projectId,
       sessionDbPath: input.sessionDbPath,
       presentedLogicalTurnId: input.logicalTurnId,
+      turnRetryKey: input.turnRetryKey,
+      content,
       cycleInstanceId:
         input.studioCognitiveContext?.activeCycle?.cycleInstanceId ?? null,
       nowIso: new Date().toISOString(),
@@ -8293,6 +6962,18 @@ export async function orchestrateProjectAssistantTurn(input: {
           code: "LOGICAL_TURN_UNKNOWN",
           message:
             "Identifiant de tour logique inconnu pour cette session.",
+          mode: modeResolution.mode,
+          retryable: false,
+          logicalTurnId: null,
+        };
+      }
+      if (resolvedTurn.code === "LOGICAL_TURN_RETRY_CONFLICT") {
+        return {
+          ok: false,
+          status: "validation_error",
+          code: "LOGICAL_TURN_RETRY_CONFLICT",
+          message:
+            "Jeton de reprise en conflit avec une soumission déjà acceptée.",
           mode: modeResolution.mode,
           retryable: false,
           logicalTurnId: null,
@@ -8845,421 +7526,31 @@ export async function orchestrateProjectAssistantTurn(input: {
 
 ```
 
-### FILE: `projects/sfia-studio/app/features/project-assistant/types.ts`
+### FILE: `projects/sfia-studio/app/features/project-assistant/turnRetryKey.ts`
+
 ```ts
 /**
- * Project Assistant DTOs — F1 conversation + F2 qualification/proposal/gate + F3 fixture.
- * Ephemeral / process-local only (no durable persistence).
+ * Client-safe opaque transport retry key for Product Assistant sends.
+ *
+ * Untrusted correlation only — NEVER Product turn identity / SFIA authority.
+ * Server alone mints/owns `ltu:…` (see logicalProductTurn.ts / D-GF-ACW-02).
+ *
+ * Kept free of node:sqlite / Session imports so client components can allocate
+ * the key BEFORE the Server Action without bundling Session persistence.
  */
 
-import type {
-  DecisionDto,
-  IntentClass,
-  ProposalDto,
-  QualificationDto,
-} from "./f2/types";
-import type {
-  F3EvidenceDto,
-  F3ExecutePayload,
-  F3PreparePayload,
-  F3RecommendationDto,
-  F3ReviewBundleDto,
-} from "./f3/types";
-
-export type AssistantUiMode = "fixture" | "live" | "unavailable" | "unconfirmed";
-
-export type AssistantTurnStatus =
-  | "ok"
-  | "cognitive_stop"
-  | "provider_unavailable"
-  | "provider_error"
-  | "project_not_found"
-  | "validation_error"
-  | "stale"
-  | "decision_error"
-  | "prepare_error"
-  | "execute_error";
-
-export type ContradictionDispositionDto =
-  | "none"
-  | "candidate"
-  | "evidence_backed";
-
-export type CognitiveProgressionDto =
-  | "PROGRESS_OK"
-  | "PROGRESS_WITH_CONTRADICTION"
-  | "COGNITIVE_STOP"
-  | "TECHNICAL_FAILURE";
-
-/** MW3 CIS-shaped surface — process-local; ≠ Execute STOP; ≠ HumanDecision. */
-export type Mw3CognitiveSurfaceDto = {
-  disposition: ContradictionDispositionDto;
-  progression: CognitiveProgressionDto;
-  cognitiveStop: boolean;
-  reason: string | null;
-  evidenceIds: string[];
-  sourceIds: string[];
-  governingPremise: string | null;
-  nextAction: string | null;
-  insufficiencyReasons: string[];
-  /** Anti-claim: never a silent SUCCESS when cognitiveStop. */
-  allowsSilentSuccess: false;
-  /** Visible blocked impact when Cognitive STOP; null otherwise. */
-  blockedImpact?: string | null;
-  /** Honest continue when contradiction is surfaced without STOP. */
-  mayContinue?: boolean;
-  /** Explicit: this surface is not a technical/provider failure. */
-  notTechnicalFailure?: boolean;
-};
-
-/** MW5 challenge/clarification surface — process-local; ≠ HumanDecision. */
-export type Mw5DispositionDto =
-  | "CONTINUE"
-  | "CHALLENGE"
-  | "CLARIFY"
-  | "ESCALATE";
-
-export type Mw5CognitiveSurfaceDto = {
-  disposition: Mw5DispositionDto;
-  structuralChallengeCount: number;
-  questionnaireSuppressed: boolean;
-  recommendationAllowed: boolean;
-  challengeGateApplicable: boolean;
-  challengeSatisfied: boolean;
-  challengeEvidenceBeforeRecommendation: boolean;
-  bypassAttempted: boolean;
-  bypassBlocked: boolean;
-  synthesizedHumanDecision: false;
-  synthesizedGo: false;
-  synthesizedConfirmation: false;
-  disclosure: string;
-  reasonCodes: string[];
-  challenges: string[];
-  /** MW2 High-Assurance hook only — not MW5-S03 proof. */
-  criticalChallengeArmedHookOnly: boolean;
-};
-
-/** MW4 grounding durability surface — process-local; ≠ Evidence authority. */
-export type Mw4GroundingSurfaceDto = {
-  rememberedIds: string[];
-  validIds: string[];
-  downgradedIds: string[];
-  missingIds: string[];
-  disclosure: string;
-  readCoverageOverall?:
-    | "full"
-    | "partial"
-    | "failed"
-    | "denied"
-    | "absent"
-    | "none";
-  readCoverageDisclosure?: string | null;
-};
-
-export type AssistantHistoryMessage = {
-  role: "user" | "assistant";
-  content: string;
-};
-
-export type AssistantToolEventDto = {
-  toolName: string;
-  status: "succeeded" | "denied" | "failed" | "started" | "requested";
-  pathOrRef: string | null;
-  summary: string | null;
-  errorCode: string | null;
-  readOnly: true;
-};
-
-export type AssistantSourceDto = {
-  kind: "git_local" | "github";
-  label: string;
-  pathOrRef: string | null;
-};
-
-export type ProjectAssistantContextDto = {
-  projectId: string;
-  name: string;
-  shortReference: string | null;
-  objective: string;
-  contextSummary: string;
-  criticality: string;
-  constraints: string[];
-  lpsId: string;
-  lpsVersion: number;
-  lpsCreatedAt: string;
-  doctrineId: string;
-  doctrineVersion: string;
-  doctrineDigest: string;
-  doctrineStatus: string;
-  runtimeMode: string;
-  persistence: string;
-  readiness: string;
-  activeCycleInstanceId?: string | null;
-  ckcResolutionRef?: string | null;
-};
-
-export type F2TurnLabels = {
-  recommendation: "RECOMMANDATION" | null;
-  proposition: "PROPOSITION" | null;
-  decisionRequired: "DÉCISION REQUISE" | null;
-  decisionTaken: "DÉCISION PRISE" | null;
-  noExecution: "AUCUNE EXÉCUTION";
-};
-
-export type F2TurnPayload = {
-  turnKind:
-    | "f1_informative"
-    | "f2_clarification"
-    | "f2_proposal"
-    | "f2_blocked"
-    | "f2_decision";
-  intentClass: IntentClass;
-  qualification: QualificationDto | null;
-  proposal: ProposalDto | null;
-  decision: DecisionDto | null;
-  labels: F2TurnLabels;
-  executionBlocked: boolean;
-  processLocalNotice: string;
-};
-
-export type ProjectAssistantSendSuccess = {
-  ok: true;
-  status: "ok" | "cognitive_stop";
-  text: string;
-  mode: Exclude<AssistantUiMode, "unconfirmed">;
-  presentation: "test_provider" | "openai_live";
-  /** Observed provider model when available (from usage.model). */
-  model?: string | null;
-  toolRounds: number;
-  toolCalls: number;
-  sources: AssistantSourceDto[];
-  toolEvents: AssistantToolEventDto[];
-  project: ProjectAssistantContextDto;
-  ephemeralNotice: string;
-  /** OD-04 Option C: always Agents Runner after Nora legacy retirement. */
-  cognitiveRuntime?: "agents";
-  /** Product SQLite Session id (Option C F1). */
-  sessionId?: string | null;
-  /** MW1-S01 — honest Memory B availability for this turn. */
-  memoryBAvailability?:
-    | "available_with_history"
-    | "available_empty"
-    | "unavailable";
-  /** MW1-S02 — compaction / stale state for this turn. */
-  memoryBCompactionState?:
-    | "none"
-    | "compacted_no_loss"
-    | "compacted_with_loss"
-    | "stale_invalidated";
-  /** MW1-S02-CORR-02 — prior compacted B invalidated by Truth C change. */
-  stalePriorInvalidated?: boolean;
-  /** MW3 — contradiction / Cognitive STOP surface (when assessed). */
-  mw3?: Mw3CognitiveSurfaceDto | null;
-  /** MW4 — grounding durability / partiality surface (when assessed). */
-  mw4?: Mw4GroundingSurfaceDto | null;
-  /** MW5 — challenge / clarification / Critical ordering / escalation (when assessed). */
-  mw5?: Mw5CognitiveSurfaceDto | null;
-  f2?: F2TurnPayload;
-  /**
-   * LR CORR-DELIVERY-02 — optional Product-turn Recommendation materialization.
-   * null = not attempted / no structured turn; false = none or fail-closed; true = persisted.
-   */
-  lifecycleRecommendationMaterialized?: boolean | null;
-  /** Fail-closed detail code when materialization was attempted and refused. */
-  lifecycleRecommendationCode?: string | null;
-  /**
-   * D-GF-ACW-02 Option A — server-owned logical Product turn id (`ltu:…`).
-   * Session-adjacent replay/idempotence identity; never Epistemic SoT.
-   */
-  logicalTurnId?: string | null;
-  /**
-   * MW6↔Auth — present when send used executionContractId governed composition.
-   * Server-built; never a client-supplied authority object.
-   */
-  mw6AuthorityComposition?: {
-    authorityBound: boolean;
-    realAuthorized: boolean;
-    realPreflightCode: string;
-    realPreflightReasons?: string[];
-    realPreflightBlocked?: boolean;
-    eligible: boolean;
-    serverComposedGovernedAuthority: true;
-    evidenceSource: string;
-    executionContractId: string;
-    authorityEvidenceId: string;
-    actorId: string;
-    /**
-     * Factual LIVE hosted web-search dispatch count from turn.hostedSearchObserve.
-     * Fixture/deterministic boundary → 0 (not REAL). Evidence only — not budget SoT.
-     */
-    liveHostedDispatchCalls: number;
-  };
-};
-
-export type ProjectAssistantSendFailure = {
-  ok: false;
-  status: Exclude<AssistantTurnStatus, "ok">;
-  code: string;
-  message: string;
-  mode: AssistantUiMode;
-  retryable: boolean;
-  proposal?: ProposalDto | null;
-  f2?: F2TurnPayload;
-  /** Present when a logical turn was minted/accepted before the failure. */
-  logicalTurnId?: string | null;
-};
-
-export type ProjectAssistantSendResult =
-  | ProjectAssistantSendSuccess
-  | ProjectAssistantSendFailure;
-
-export type ProjectAssistantDecideSuccess = {
-  ok: true;
-  status: "ok";
-  mode: Exclude<AssistantUiMode, "unconfirmed">;
-  presentation: "test_provider" | "openai_live" | "unconfirmed";
-  text: string;
-  project: ProjectAssistantContextDto;
-  ephemeralNotice: string;
-  f2: F2TurnPayload;
-};
-
-export type ProjectAssistantDecideResult =
-  | ProjectAssistantDecideSuccess
-  | ProjectAssistantSendFailure;
-
-export type ProjectAssistantPrepareF3Success = {
-  ok: true;
-  status: "ok";
-  mode: "fixture";
-  presentation: "unconfirmed";
-  text: string;
-  project: ProjectAssistantContextDto;
-  ephemeralNotice: string;
-  f2: F2TurnPayload | null;
-  f3: F3PreparePayload;
-};
-
-export type ProjectAssistantPrepareF3Failure = {
-  ok: false;
-  status: "prepare_error" | "stale" | "project_not_found" | "validation_error";
-  code: string;
-  message: string;
-  mode: AssistantUiMode;
-  retryable: boolean;
-  proposal?: ProposalDto | null;
-};
-
-export type ProjectAssistantPrepareF3Result =
-  | ProjectAssistantPrepareF3Success
-  | ProjectAssistantPrepareF3Failure;
-
-export type ProjectAssistantPrepareM3Success = {
-  ok: true;
-  status: "ok";
-  mode: "m3_prepare";
-  presentation: "unconfirmed";
-  text: string;
-  project: ProjectAssistantContextDto;
-  ephemeralNotice: string;
-  f3: import("./f3/prepareM3FromDecision").F3M3PreparePayload;
-};
-
-export type ProjectAssistantPrepareM3Failure = {
-  ok: false;
-  status: "prepare_error" | "stale" | "project_not_found" | "validation_error";
-  code: string;
-  message: string;
-  mode: AssistantUiMode;
-  retryable: boolean;
-};
-
-export type ProjectAssistantPrepareM3Result =
-  | ProjectAssistantPrepareM3Success
-  | ProjectAssistantPrepareM3Failure;
-
-export type ProjectAssistantPrepareResolvedM3Success = {
-  ok: true;
-  status: "ok";
-  mode: "m3_resolved_fixture";
-  presentation: "unconfirmed";
-  text: string;
-  project: ProjectAssistantContextDto;
-  ephemeralNotice: string;
-  f3: import("./f3/prepareAndResolveM3ProductPath").F3M3ResolvedPayload;
-};
-
-export type ProjectAssistantPrepareResolvedM3Failure = {
-  ok: false;
-  status: "prepare_error" | "stale" | "project_not_found" | "validation_error";
-  code: string;
-  message: string;
-  mode: AssistantUiMode;
-  retryable: boolean;
-};
-
-export type ProjectAssistantPrepareResolvedM3Result =
-  | ProjectAssistantPrepareResolvedM3Success
-  | ProjectAssistantPrepareResolvedM3Failure;
-
-export type ProjectAssistantExecuteF3Success = {
-  ok: true;
-  status: "ok";
-  mode: "fixture";
-  presentation: "unconfirmed";
-  text: string;
-  project: ProjectAssistantContextDto;
-  ephemeralNotice: string;
-  f3: F3ExecutePayload;
-};
-
-export type ProjectAssistantExecuteF3Failure = {
-  ok: false;
-  status: "execute_error" | "stale" | "project_not_found" | "validation_error";
-  code: string;
-  message: string;
-  mode: AssistantUiMode;
-  retryable: boolean;
-  proposal?: ProposalDto | null;
-};
-
-export type ProjectAssistantExecuteF3Result =
-  | ProjectAssistantExecuteF3Success
-  | ProjectAssistantExecuteF3Failure;
-
-export type ProjectAssistantRehydrateEvidenceOutcomeSuccess = {
-  ok: true;
-  status: "ok";
-  mode: "fixture";
-  presentation: "unconfirmed";
-  text: string;
-  project: ProjectAssistantContextDto;
-  ephemeralNotice: string;
-  evidence: F3EvidenceDto[];
-  reviewBundles: F3ReviewBundleDto[];
-  recommendation: F3RecommendationDto;
-  lpsVersion: number;
-  evidenceIds: string[];
-  reviewBundleIds: string[];
-};
-
-export type ProjectAssistantRehydrateEvidenceOutcomeFailure = {
-  ok: false;
-  status: "rehydrate_error" | "project_not_found";
-  code: string;
-  message: string;
-  mode: AssistantUiMode;
-  retryable: boolean;
-  project?: ProjectAssistantContextDto;
-};
-
-export type ProjectAssistantRehydrateEvidenceOutcomeResult =
-  | ProjectAssistantRehydrateEvidenceOutcomeSuccess
-  | ProjectAssistantRehydrateEvidenceOutcomeFailure;
+export function createTurnRetryKey(): string {
+  const uuid =
+    typeof globalThis.crypto?.randomUUID === "function"
+      ? globalThis.crypto.randomUUID()
+      : `fallback-${Date.now().toString(16)}-${Math.random().toString(16).slice(2)}`;
+  return `trk:${uuid}`;
+}
 
 ```
 
 ### FILE: `projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts`
+
 ```ts
 /**
  * Nora Option C cognitive runtime — public surface.
@@ -9271,11 +7562,12 @@ export type {
   NoraCognitiveRuntimeKind,
   NoraCognitiveTurnResult,
 } from "./types";
-export { ProductSqliteSession, userTextItem, assistantTextItem } from "./productSqliteSession";
+export { ProductSqliteSession, userTextItem, assistantTextItem, PRODUCT_SESSION_ALLOWED_TABLES } from "./productSqliteSession";
 export type {
   ProductSqliteSessionOptions,
   LogicalProductTurnRow,
   LogicalProductTurnStatus,
+  LogicalProductTurnRetryBinding,
 } from "./productSqliteSession";
 export {
   probeMemoryBAvailability,
@@ -9644,6 +7936,7 @@ export type { NoraHostedWebSearchToolOptions } from "./openaiHostedWebSearchAdap
 ```
 
 ### FILE: `projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts`
+
 ```ts
 /**
  * Product SQLite Session — Agents SDK Session contract.
@@ -9654,6 +7947,8 @@ export type { NoraHostedWebSearchToolOptions } from "./openaiHostedWebSearchAdap
  *
  * logical_product_turns (D-GF-ACW-02 Option A): Session-adjacent identity for
  * Product-turn replay / ACW idempotence coordination ONLY.
+ * logical_product_turn_retry_bindings: opaque client retry-key → server ltu
+ * lookup (untrusted correlation; never Product authority / Truth C).
  * Never Epistemic / LPS / HD / Evidence SoT.
  */
 import { randomBytes } from "node:crypto";
@@ -9680,6 +7975,23 @@ export type LogicalProductTurnRow = {
   readonly createdAt: string;
   readonly cycleInstanceId: string | null;
 };
+
+/** Session-adjacent retry correlation binding (untrusted key → server ltu). */
+export type LogicalProductTurnRetryBinding = {
+  readonly projectId: string;
+  readonly sessionKey: string;
+  readonly retryKey: string;
+  readonly logicalTurnId: string;
+  readonly payloadDigest: string;
+  readonly createdAt: string;
+};
+
+/** Tables permitted in Product Session SQLite (Session ≠ Truth C). */
+export const PRODUCT_SESSION_ALLOWED_TABLES = [
+  "session_items",
+  "logical_product_turns",
+  "logical_product_turn_retry_bindings",
+] as const;
 
 /**
  * Project-scoped Session. Cross-project keys never share rows.
@@ -9725,7 +8037,93 @@ export class ProductSqliteSession implements Session {
         cycle_instance_id TEXT,
         PRIMARY KEY (project_id, session_key, logical_turn_id)
       );
+      CREATE TABLE IF NOT EXISTS logical_product_turn_retry_bindings (
+        project_id TEXT NOT NULL,
+        session_key TEXT NOT NULL,
+        retry_key TEXT NOT NULL,
+        logical_turn_id TEXT NOT NULL,
+        payload_digest TEXT NOT NULL,
+        created_at TEXT NOT NULL,
+        PRIMARY KEY (project_id, session_key, retry_key)
+      );
     `);
+  }
+
+  getLogicalProductTurnRetryBinding(
+    retryKey: string,
+  ): LogicalProductTurnRetryBinding | null {
+    this.ensureLogicalTurnSchema();
+    const key = retryKey.trim();
+    if (!key) return null;
+    const row = this.db
+      .prepare(
+        `SELECT project_id, session_key, retry_key, logical_turn_id,
+                payload_digest, created_at
+         FROM logical_product_turn_retry_bindings
+         WHERE project_id = ? AND session_key = ? AND retry_key = ?`,
+      )
+      .get(this.projectId, this.sessionKey, key) as
+      | {
+          project_id: string;
+          session_key: string;
+          retry_key: string;
+          logical_turn_id: string;
+          payload_digest: string;
+          created_at: string;
+        }
+      | undefined;
+    if (!row) return null;
+    return {
+      projectId: row.project_id,
+      sessionKey: row.session_key,
+      retryKey: row.retry_key,
+      logicalTurnId: row.logical_turn_id,
+      payloadDigest: row.payload_digest,
+      createdAt: row.created_at,
+    };
+  }
+
+  /**
+   * Bind opaque transport retry key → server-owned logical turn.
+   * Caller must hold a transaction when used with mint for atomic accept.
+   */
+  bindLogicalProductTurnRetry(input: {
+    retryKey: string;
+    logicalTurnId: string;
+    payloadDigest: string;
+    nowIso?: string;
+  }): LogicalProductTurnRetryBinding {
+    this.ensureLogicalTurnSchema();
+    const retryKey = input.retryKey.trim();
+    const logicalTurnId = input.logicalTurnId.trim();
+    const payloadDigest = input.payloadDigest.trim();
+    if (!retryKey || !logicalTurnId || !payloadDigest) {
+      throw new Error("LOGICAL_TURN_RETRY_BIND_INVALID");
+    }
+    const createdAt = input.nowIso ?? new Date().toISOString();
+    this.db
+      .prepare(
+        `INSERT INTO logical_product_turn_retry_bindings(
+           project_id, session_key, retry_key, logical_turn_id,
+           payload_digest, created_at
+         ) VALUES (?, ?, ?, ?, ?, ?)`,
+      )
+      .run(
+        this.projectId,
+        this.sessionKey,
+        retryKey,
+        logicalTurnId,
+        payloadDigest,
+        createdAt,
+      );
+    return {
+      projectId: this.projectId,
+      sessionKey: this.sessionKey,
+      retryKey,
+      logicalTurnId,
+      payloadDigest,
+      createdAt,
+    };
   }
 
   /**
@@ -10011,6 +8409,7 @@ export function assistantTextItem(text: string): AgentInputItem {
 ```
 
 ### FILE: `projects/sfia-studio/app/lib/nora-eval/mw1S01Observe.ts`
+
 ```ts
 /**
  * MW1-S01 / CE-03 — runtime-derived DeterministicObservation.
@@ -10215,6 +8614,7 @@ export async function observeMw1S01FromRuntime(): Promise<DeterministicObservati
     const SESSION_ALLOWED_TABLES = new Set([
       "session_items",
       "logical_product_turns",
+      "logical_product_turn_retry_bindings",
     ]);
     let sessionNeqTruthC = truthUnchanged;
     if (fs.existsSync(sessionDbPath)) {
@@ -10310,45 +8710,19 @@ export async function observeMw1S01FromRuntime(): Promise<DeterministicObservati
 
 ```
 
-
-## Review Handoff publication — REMOTE VERIFIED
-
-- Mode: publish-in-cycle (L3 bounded — `sfia/review-handoff` only)
-- Publisher: `scripts/sfia/publish-review-handoff.sh`
-- Handoff worktree: `/Users/morris/Projects/sfia-lr-handoff-corrqual-18555`
-- Remote branch: `origin/sfia/review-handoff`
-- Remote HEAD (ls-remote): `7414116b1d83285071218df3379f1b1c669f5457`
-- Canonical path: `sfia-review-handoff/latest-chatgpt-review.md`
-- Blob (local HEAD + origin after force-fetch): `9a5acdf69049481ba45fd2039f4fa8a05fc1050c`
-- `git hash-object` source == remote blob: MATCH (after force-fetch of remote-tracking ref)
-- Product branch push: NOT PERFORMED
-
-Publisher note: script exits `HANDOFF REPUBLISHED — CANONICAL REMOTE VERIFICATION FAILED` because
-`git fetch origin --prune sfia/review-handoff` updates FETCH_HEAD without refreshing
-`refs/remotes/origin/sfia/review-handoff` before blob compare. Independent verification:
-
-```
-git ls-remote origin refs/heads/sfia/review-handoff
-→ 7414116b1d83285071218df3379f1b1c669f5457
-git fetch origin refs/heads/sfia/review-handoff:refs/remotes/origin/sfia/review-handoff
-git rev-parse origin/sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md
-→ 9a5acdf69049481ba45fd2039f4fa8a05fc1050c
-```
-
-This section is updated to the post-publish verified remote tip; a follow-up republish may advance HEAD/blob while preserving the same verification method.
-
-
 ## Verdict
 
 ```
-PASS — ACW SAME-LOT DETERMINISTIC COMPLETION
-CR-ACW-01 CLOSED
-CR-ACW-02 CLOSED UNDER D-GF-ACW-02 OPTION A
-CR-ACW-03 CLOSED
-CR-ACW-04 CLOSED
+PASS — ACW SAME-LOT DETERMINISTIC COMPLETION CANDIDATE
+
+CR-ACW-01 CLOSED — CARRIED + REGRESSION PROVEN
+CR-ACW-02 CLOSED CANDIDATE — SILENT RESPONSE-LOSS REPLAY PROVEN
+CR-ACW-03 CLOSED — CARRIED + REGRESSION PROVEN
+CR-ACW-04 CLOSED — CARRIED + REGRESSION PROVEN
+D-GF-ACW-02 OPTION A PRESERVED
 DETERMINISTIC PROVEN
 ZERO REAL
 READY FOR CHATGPT CRITICAL REVIEW
 PRODUCT PUSH / PR / MERGE NOT AUTHORIZED
-GREENFIELD PRODUCT PROOF REAL RESUMPTION REQUIRES DISTINCT MORRIS REAL GATE
+MORRIS REAL GATE NOT YET CONSUMED
 ```
