@@ -1,354 +1,380 @@
 # ChatGPT Critical Review Pack — FULL
 
 ## Meta
-- **timestamp**: 2026-09-10T02:19:27Z
-- **local timestamp**: 2026-09-10 04:19:27
-- **Cycle ID**: SFIA-STUDIO-GREENFIELD-CANDIDATE-TRAJECTORY-HUMANDECISION-VALIDATED-TRAJECTORY-FRESH-LIVE-REPLAY-RETRY-01
+- **timestamp**: 2026-09-10T04:39:43Z
+- **local timestamp**: 2026-09-10 06:39:43
+- **Cycle ID**: SFIA-STUDIO-GREENFIELD-VALIDATED-TRAJECTORY-CYCLEINSTANCE-START-CONTRACT-QUALIFICATION-01
 - **Milestone**: Greenfield Product Proof — Governed Cycle Entry
-- **SFIA Cycle**: 9 — QA / validation
-- **Typologie**: RUN — bounded LIVE validation
+- **SFIA Cycle**: 3 — Architecture fonctionnelle / qualification de contrat
+- **Typologie**: RUN — read-only qualification
 - **Profile**: CRITICAL
-- **GO Morris consumed**: GO MORRIS — GREENFIELD CANDIDATE TRAJECTORY → HUMANDECISION + VALIDATED TRAJECTORY — FRESH BOUNDED LIVE REPLAY — RETRY AFTER AUTHORITY ENV ENABLEMENT
-- **D-GF-HD-01**: ADOPTED BY MORRIS (carried)
+- **Justification CRITICAL**: contrat gouvernera ProjectTrajectory décidée → CycleInstance authority-bearing via START (identité cycle, profil, CKC, autorité Pilote, activeCycleInstanceId, cohérence Trajectory↔Cycle↔LPS)
+- **GO Morris consumed**: GO MORRIS — GREENFIELD VALIDATED TRAJECTORY → CYCLEINSTANCE / START CONTRACT — READ-ONLY QUALIFICATION
 - **Candidate Product**: `d436c31468f66b33cc4110ab9c64601938fa5732`
 - **Parent**: `4c8733bf80e25060241c49157bded9813842e1ce`
 - **origin/main**: `a9f6c310a0826d0e5bd6f7264603382a86564db1`
+- **Latest LIVE handoff**: `02c94daf` / blob `e3f6c09b` — GREENFIELD … LIVE BOUNDARY PROVEN
 
 ## Local Git Truth
 - worktree: `/Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310`
 - branch: `delivery/sfia-studio-product-proof-qual-to-governed-cycle`
-- HEAD: `d436c31468f66b33cc4110ab9c64601938fa5732` — MATCH expected anchor
-- parent: `4c8733bf80e25060241c49157bded9813842e1ce` — MATCH
-- origin/main: `a9f6c310a0826d0e5bd6f7264603382a86564db1` — MATCH
-- Product tracked diff vs HEAD during replay: **ZERO**
-- Product commits: **ZERO**
-- Product push / PR: **NONE**
-- Dirty paths limited to `.tmp-sfia-review/**` review artifacts (expected)
+- HEAD: `d436c31468f66b33cc4110ab9c64601938fa5732` — MATCH
+- parent / origin/main: MATCH
+- Product tracked diff vs HEAD: **ZERO** (dirty limited to `.tmp-sfia-review/**`)
+- Product commits / push / PR: **NONE**
+- Candidate not on GitHub main — local HEAD is SoT
 
-## Sources read (mandatory)
-- `prompts/templates/sfia-cycle-execution-template.md`
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
-- `projects/sfia-studio/sfia-v3-framing/30-knowledge-context-human-decision-doctrine.md`
-- `projects/sfia-studio/sfia-v3-framing/32-living-project-state-and-dynamic-trajectory.md`
-- `projects/sfia-studio/sfia-v3-framing/33-epistemology-provenance-and-contradiction-model.md`
-- `projects/sfia-studio/app/lib/oa/decision/infrastructure/localSingleUserAuthority.ts`
-- prior handoff: `sfia-review-handoff/latest-chatgpt-review.md`
-- READ-ONLY inspect: approveCandidateTrajectory, candidateTrajectoryPromotionGuard, candidateTrajectoryDecisionBasis, candidateTrajectoryProvenance, preCycleCandidateTrajectoryActions, TrajectorySurface, RecordHumanDecision, PromoteDecidedTrajectory, PilotLifecycleTransitions.start
+## Sources read
+- cycle execution template; cycle routing guide
+- CKC routing matrix 04; synthetic map 02; method §4.3 fallback only
+- convergence doctrine + roadmap; product-completion cadrage
+- framing 30 / 32 / 33 / 34
+- latest handoff LIVE BOUNDARY PROVEN
+- CKC Cycle 3 (Architecture fonctionnelle): detailed CKC **absent** · fallback synthetic map + §4.3 · status candidate/experimental · executionAuthority=none
 
 ## Convergence Pre-check
-- Capacities served: V3-F02 LPS · V3-F04 provenance · V3-F05 conversation→HD · V3-F06 ProjectTrajectory · V3-F09 governed trajectory evolution
-- Entry state closed by this LIVE retry: HumanDecision + promotion on real Product LIVE path = **LIVE BOUNDARY PROVEN**
-- Next capability (HORS SCOPE): validated/current → CycleInstance / START contract qualification
+- Capacities: V3-F02 / F05 / F06 / F09 served; prepare upstream of V3-F11/F12 only (no EC)
+- Entry LIVE PROVEN: intention → LR → candidate traj → provenance → HD → validated/current
+- Gap: validated/current → exact CycleInstance materialization → explicit START → active + LPS link
+- **AUCUN START in this cycle**
 
-## Fake / Real qualification
-- Level: **REAL BOUNDARY PROVEN**
-- Allowed REAL: exactly **1** Nora/OpenAI Product call
-- Bridge / HD / promotion / restart / repository reads: **0** model calls
-- Model: `gpt-5.6-luna`
-- Cursor REAL: OFF · Execution REAL: OFF · START: none · EC: none
-- Total additional REAL: **+1**
-
-## Authority env verification (READ-ONLY)
-- Active `.env.local`: exactly one `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1`
-- No rewrite during replay · no second occurrence · no forceLocalAuthority / forceEnable / client authority claim
-- Product path: `registerLocalPiloteAuthority` → `actor:local-pilote` / `decision_maker` → authority `morris`
-- Accepted HD proves env gate **LIVE-CONSUMED**
-
-## Next.js restart evidence
-- Pre-replay restart: **yes** (stop prior process; relaunch with `.env.local`; port 3020 Ready)
-- Post-decision restart: stop listen PID 49904 → relaunch shell 54175 / listen 54204 → Ready ~1132ms · Environments `.env.local` · port 3020
-- Same worktree `d436c314` · same Product/Session DB paths · same `.env.local`
-
-## Fresh Project
-- name: `Application de gestion de tâches — HumanDecision LIVE retry`
+## LIVE entry state (READ-ONLY verified)
 - projectId: `prj:08f868d7-a859-4c5c-9a56-e0f7a71b7c58`
-- Product DB: `/Users/morris/Projects/sfia-product-proof-greenfield-task-app-a9f6c310/projects/sfia-studio/.sfia-exec/product-proof-greenfield-task-app/product.sqlite`
-- Session DB: `/Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310/projects/sfia-studio/.sfia-exec/product/nora-session.sqlite`
-- Initial LPS: `lps:bf2826e0-222d-4289-9291-2c0e758f2871` version **1**
-- Initial counts: traj=0 current=none LR=0 provenance=0 HD=0 Cycle=0 Confirmation=0 EC=0 activeCycle=null START=none
-- Screenshot 01: `/Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310/.tmp-sfia-review/runtime-captures/hd-validated-trajectory-live-retry/01-fresh-project-initial.png`
+- trajectory: `trj:lr-bridge-ecb3c4704c48` status=validated effective current=true version=1
+- decidedByDecisionRef: `dec:gf-trj:80be687f-b88b-4fb6-b987-0517c06adb25`
+- HD: accepted · actor:local-pilote · authority=morris · sourceType=candidate_trajectory · targetCycleTypeId=`cyc:framing`
+- steps: one step `stp:cadrage-c9ddb562` order=1 label=Cadrage state=pending (no cycleTypeId field on step)
+- provenance: `epi:trj-prov-62c6c74d5d07da15` RESOLVED
+- LPS: v4 · trajectoryId set · decisionIds contains HD · **activeCycleInstanceId=null** · ckcResolutionRef absent
+- CycleInstance=0 · Confirmation=0 · START=none · EC=0
+- Optional LIVE RO: **PASS** (no UI mutation / no write)
 
-## Phase A — unique Nora LIVE turn
-- Exact user message: `Je veux commencer à avancer sur cette application. Aide-moi à partir du besoin et de ce que je cherche réellement à faire.`
-- Exact Nora narrative:
-```
-Le besoin de départ est clair : construire progressivement une application web personnelle pour mieux suivre les tâches quotidiennes. À ce stade, il faut éviter de choisir une technologie ou de détailler des écrans. Le prochain travail utile est de clarifier le problème réel : dans quelles situations vous perdez le fil, ce que vous voulez mieux réussir, quelles tâches doivent être suivies et à quoi ressemblerait une première version réellement utile. Les détails de périmètre, les critères de succès et les priorités pourront être établis pendant ce travail de cadrage.
-```
+## Files inspected (local HEAD)
+- `lib/oa/cycle/domain/types.ts`, invariants, lifecycleInvariants, cycleTypeCatalog, qualification
+- createCycle, qualifyCycleWithCkc, resolveCycleKnowledgeContract, assessStartReadiness, pilotLifecycleTransitions, assessFinalization, promoteDecidedTrajectory
+- appendLivingProjectStateVersion
+- f2/pilotLifecycleActions, orchestrateF2, qualify, qualificationSignalCoherence, proposalStore
+- project-assistant/actions, ProjectAssistantPanel
+- greenfield: approveCandidateTrajectory, candidateTrajectoryDecisionBasis, candidateTrajectoryProvenance, prepareCandidateTrajectoryFromCurrentRecommendation, preCycleCandidateTrajectoryActions, TrajectorySurface
+- LifecycleSurface (START UI)
 
-- Model: `gpt-5.6-luna`
-- Model-call accounting: before Nora 0 → after Nora +1 → after bridge 0 → after approval 0 → after restart 0 · **total delta +1**
-- Session items remained at count 3 after bridge/approval/restart
-- Routing assessment: blockingUnknown=false · supportable=true · cycleOwned=true · multiple=false · activeCovers=false
-- LR: intent=NEXT_CYCLE · CURRENT=true · authority=none · isHumanDecision=false
-- recommendationId: `epi:lr:91f1293a5d35bc74:20260910T020831086Z`
-- semanticKey: `91f1293a5d35bc74ae9cc7679e02a9cd`
-- targetCycleTypeId: `cyc:framing` (observed, not forced)
-- statement: Recommander l’ouverture d’un cycle de Cadrage pour transformer l’intention générale en besoin, valeur, périmètre utile et critères de succès explicites.
-- rationale: L’intention est suffisamment établie pour commencer, tandis que les inconnues restantes — usages quotidiens, problème prioritaire, périmètre de la première version et définition de l’utilité — relèvent précisément du cadrage.
-- UI: NEXT CYCLE · CURRENT · Préparer la trajectoire · W2 CTA ABSENT
-- Screenshot 02: `/Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310/.tmp-sfia-review/runtime-captures/hd-validated-trajectory-live-retry/02-current-lifecycle-recommendation.png`
+## Call-site map (Product, non-test)
+### createCycle.execute
+- **Only**: `f2/orchestrateF2.ts` (~987) with linkAsActiveCycle=false, id cyc:f2-{hex}, signals from Nora F2 analysis
 
-## Phase B — UI Préparer la trajectoire
-- bridge invocation count: 1 · bridge model calls: 0
-- trajectoryId: `trj:lr-bridge-ecb3c4704c48` · version 1 · status candidate · effective current false
-- Candidate steps:
-```json
-[
-  {
-    "stepId": "stp:cadrage-c9ddb562",
-    "order": 1,
-    "label": "Cadrage",
-    "state": "pending"
-  }
-]
-```
+### qualifyCycleWithCkc.execute
+- **Only**: `f2/qualify.ts` → orchestrateF2 (~867)
 
-- provenanceObservationId: `epi:trj-prov-62c6c74d5d07da15`
-- provenance source: `candidate-trajectory-provenance:bridge` · authority none
-- resolver: RESOLVED · recommendationId/semanticKey/targetCycleTypeId match Phase A
-- LPS after bridge: version 2 · trajectoryId set · activeCycle=null · HD=0 · Cycle=0
-- Screenshot 03: `/Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310/.tmp-sfia-review/runtime-captures/hd-validated-trajectory-live-retry/03-candidate-trajectory-before-decision.png`
+### pilotLifecycle.start / START
+- `f2/pilotLifecycleActions.ts` executePilotLifecycleAction START
+- `actions.ts` projectAssistantPilotLifecycleAction
+- UI: ProjectAssistantPanel · LifecycleSurface
+- **No greenfield TrajectorySurface START CTA** after decided trajectory (shows “Aucun cycle démarré” only)
 
-## Phase C — HumanDecision presentation
-- UI: Trajectoire proposée · Cycle proposé Cadrage · En attente de décision · Valider cette trajectoire · no START · no Confirmation · no W2
-- presentationDigest: `b4eb2309098f1eca729b2a604c2186753ccf7e4182062bc259228fe52afe598a`
-- candidateContentDigest: `0fcc0ca9c7568d6524e7506a01c3df4f00b21a604f5eabb7537b615af5cd017f`
-- selectability: true
-- Presentation DTO:
-```json
-{
-  "projectId": "prj:08f868d7-a859-4c5c-9a56-e0f7a71b7c58",
-  "trajectoryId": "trj:lr-bridge-ecb3c4704c48",
-  "catalogLabel": "Cadrage",
-  "targetCycleTypeId": "cyc:framing",
-  "steps": [
-    {
-      "stepId": "stp:cadrage-c9ddb562",
-      "order": 1,
-      "label": "Cadrage",
-      "state": "pending"
-    }
-  ],
-  "provenanceStatus": "RESOLVED",
-  "recommendationId": "epi:lr:91f1293a5d35bc74:20260910T020831086Z",
-  "semanticKey": "91f1293a5d35bc74ae9cc7679e02a9cd",
-  "provenanceObservationId": "epi:trj-prov-62c6c74d5d07da15",
-  "awaitingDecision": true,
-  "cycleStarted": false,
-  "targetCycleSelectable": true,
-  "approvalOptionLabel": "Valider cette trajectoire",
-  "presentationDigest": "b4eb2309098f1eca729b2a604c2186753ccf7e4182062bc259228fe52afe598a",
-  "displayCandidateVersionHint": 1
-}
-```
+### TrajectoryStep.state writers
+- Full trajectory save only: CreateInitialTrajectory / ProposeTrajectoryVersion / PromoteDecidedTrajectory
+- Product constructors set state=pending at bridge / W2 options
+- **START does not mutate step.state**
 
-- Screenshot 04: `/Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310/.tmp-sfia-review/runtime-captures/hd-validated-trajectory-live-retry/04-human-decision-ready.png`
+### CycleInstance ↔ trajectory durable links found
+- LPS sibling pointers only: trajectoryId / trajectoryVersion / activeCycleInstanceId / ckcResolutionRef
+- **No** trajectoryStepId on CycleInstance
+- **No** cycleTypeId / cycleInstanceId on TrajectoryStep
+- Epistemic relatedObjects on provenance: project + LR + trajectory (no stepId)
+- Verdict: **LINK GAP**
 
-## Phase D — Explicit Pilote approval
-- approval UI invocation count: 1 · approval model calls: 0 · result SUCCESS
-- runtime authority: registerLocalPiloteAuthority env-gated success → RecordHumanDecision accepted · no forceEnable
+---
 
-## Phase E — Durable HumanDecision
-- decisionId: `dec:gf-trj:80be687f-b88b-4fb6-b987-0517c06adb25`
-- status: accepted
-- subject: `project.trajectory.approval:trj:lr-bridge-ecb3c4704c48:v1`
-- actor: actor:local-pilote / decision_maker
-- authority: morris
-- options: one — opt:approve-candidate-trajectory-as-is / Valider cette trajectoire
-- selectedOptionId: opt:approve-candidate-trajectory-as-is
-- cycleInstanceId: null
+## Existing contracts (revalidated on d436c314)
 
-### DecisionBasis
-- sourceType: candidate_trajectory
-- sourceRef: trj:lr-bridge-ecb3c4704c48
-- sourceDigest: `b4eb2309098f1eca729b2a604c2186753ccf7e4182062bc259228fe52afe598a`
-- sourceDigest === presentationDigest: true
-- proposalContext:
-```json
-{
-  "lpsId": "lps:b40f48de53c31c5f",
-  "lpsVersion": 2,
-  "doctrineDigest": "sha256:4c8a85cf684331720c34a01f9e1dfe3a91305dd1e6f52306c50fc59bd3355608"
-}
-```
-candidateTrajectoryContext:
-```json
-{
-  "trajectoryId": "trj:lr-bridge-ecb3c4704c48",
-  "candidateVersion": 1,
-  "provenanceObservationId": "epi:trj-prov-62c6c74d5d07da15",
-  "recommendationId": "epi:lr:91f1293a5d35bc74:20260910T020831086Z",
-  "semanticKey": "91f1293a5d35bc74ae9cc7679e02a9cd",
-  "targetCycleTypeId": "cyc:framing",
-  "candidateContentDigest": "0fcc0ca9c7568d6524e7506a01c3df4f00b21a604f5eabb7537b615af5cd017f",
-  "presentationDigest": "b4eb2309098f1eca729b2a604c2186753ccf7e4182062bc259228fe52afe598a"
-}
-```
+### CycleInstance
+- Fields: cycleInstanceId, cycleTypeId, projectId, profile, status, acknowledgedAt?, createdAt, closedAt?, pauseReconciliation?, qualificationSignals?
+- Critical create → proposed; Light/Standard → acknowledged
 
-- trajectoryContext: ABSENT
-- W2 OptionSet: ABSENT
+### CreateCycle
+- Inputs: cycleInstanceId (caller-supplied), cycleTypeId, projectId, signals(6), requestedProfile?, justification?, objective?, scope?, createdBy, linkAsActiveCycle?, expectedLpsVersion?, ckcResolutionRef?
+- ckcResolutionRef written to LPS **only if** linkAsActiveCycle===true (also sets activeCycleInstanceId)
+- Server does **not** mint cycleInstanceId
 
-## Phase F — Trajectory promotion
-- status validated · effective current true · decidedByDecisionRef = decisionId · decidedOptionRef null
-- steps parity material fields: PASS
+### Qualification / profile
+- QualifyCycleWithCkc requires six explicit boolean signals + catalog/CKC resolution
+- recommendProfile derives Critical/Light/Standard from signals only
+- F2 harvests signals from Nora intent analysis — **not available on greenfield post-HD path without new REAL or other durable source**
 
-## LPS after approval
-```json
-[
-  {
-    "lpsVersionId": "lps:bf2826e0-222d-4289-9291-2c0e758f2871",
-    "version": 1,
-    "trajectoryId": null,
-    "trajectoryVersion": null,
-    "activeCycleInstanceId": null,
-    "decisionIds": []
-  },
-  {
-    "lpsVersionId": "lps:b40f48de53c31c5f",
-    "version": 2,
-    "trajectoryId": "trj:lr-bridge-ecb3c4704c48",
-    "trajectoryVersion": 1,
-    "activeCycleInstanceId": null,
-    "decisionIds": []
-  },
-  {
-    "lpsVersionId": "lps:1f2876b8364c35d0",
-    "version": 3,
-    "trajectoryId": "trj:lr-bridge-ecb3c4704c48",
-    "trajectoryVersion": 1,
-    "activeCycleInstanceId": null,
-    "decisionIds": [
-      "dec:gf-trj:80be687f-b88b-4fb6-b987-0517c06adb25"
-    ]
-  },
-  {
-    "lpsVersionId": "lps:889116848b89cf34",
-    "version": 4,
-    "trajectoryId": "trj:lr-bridge-ecb3c4704c48",
-    "trajectoryVersion": 1,
-    "activeCycleInstanceId": null,
-    "decisionIds": [
-      "dec:gf-trj:80be687f-b88b-4fb6-b987-0517c06adb25"
-    ]
-  }
-]
-```
+### CKC
+- Catalog `cyc:framing` → detailed pilot CKC path (Product doctrine registry)
+- Method matrix: Cadrage CKC detailed=yes, consumption candidate
+- Cycle 3 Architecture (this qualification cycle): detailed absent · fallback only · executionAuthority=none
+- Runtime: CKC = cognitive guidance · executionAuthority=false
 
-## Post-decision counts
-- HD=1 · Confirmation=0 · CycleInstance=0 · activeCycle=null · START=none · EC=0 · ExecutionAttempt=0/absent
-- Screenshot 05: `/Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310/.tmp-sfia-review/runtime-captures/hd-validated-trajectory-live-retry/05-human-decision-accepted-trajectory-current.png`
+### START (PilotLifecycleTransitions.start)
+- Requires existing CycleInstance in proposed|acknowledged
+- Authority: N3 + requireMorrisGate on pilot-lifecycle:{cycleInstanceId}
+- assessStartReadiness then activate cycle + LPS activeCycleInstanceId only
+- **Does not** accept/bind ckcResolutionRef
+- **Does not** mutate trajectory/steps
+- Trajectory HD required only if trajectory.status===candidate OR structuringTrajectoryChoiceOpen; **validated → requiresTrajectoryHumanDecision=false**
 
-## Restart / rehydrate
-- mechanism: stop/start Next.js same worktree/env/DBs · reopen project · 0 Nora turns
-- post-restart: HD/DecisionBasis/trajectory/provenance/LPS/counts preserved
-- model calls after restart: unchanged (session count 3)
-- ID/digest parity matrix: ALL MATCH
-```json
-{
-  "projectId": {
-    "before": "prj:08f868d7-a859-4c5c-9a56-e0f7a71b7c58",
-    "after": "prj:08f868d7-a859-4c5c-9a56-e0f7a71b7c58",
-    "result": "MATCH"
-  },
-  "recommendationId": {
-    "before": "epi:lr:91f1293a5d35bc74:20260910T020831086Z",
-    "after": "epi:lr:91f1293a5d35bc74:20260910T020831086Z",
-    "result": "MATCH"
-  },
-  "semanticKey": {
-    "before": "91f1293a5d35bc74ae9cc7679e02a9cd",
-    "after": "91f1293a5d35bc74ae9cc7679e02a9cd",
-    "result": "MATCH"
-  },
-  "targetCycleTypeId": {
-    "before": "cyc:framing",
-    "after": "cyc:framing",
-    "result": "MATCH"
-  },
-  "trajectoryId": {
-    "before": "trj:lr-bridge-ecb3c4704c48",
-    "after": "trj:lr-bridge-ecb3c4704c48",
-    "result": "MATCH"
-  },
-  "candidateVersion": {
-    "before": 1,
-    "after": 1,
-    "result": "MATCH"
-  },
-  "provenanceObservationId": {
-    "before": "epi:trj-prov-62c6c74d5d07da15",
-    "after": "epi:trj-prov-62c6c74d5d07da15",
-    "result": "MATCH"
-  },
-  "presentationDigest": {
-    "before": "b4eb2309098f1eca729b2a604c2186753ccf7e4182062bc259228fe52afe598a",
-    "after": "b4eb2309098f1eca729b2a604c2186753ccf7e4182062bc259228fe52afe598a",
-    "result": "MATCH"
-  },
-  "candidateContentDigest": {
-    "before": "0fcc0ca9c7568d6524e7506a01c3df4f00b21a604f5eabb7537b615af5cd017f",
-    "after": "0fcc0ca9c7568d6524e7506a01c3df4f00b21a604f5eabb7537b615af5cd017f",
-    "result": "MATCH"
-  },
-  "decisionId": {
-    "before": "dec:gf-trj:80be687f-b88b-4fb6-b987-0517c06adb25",
-    "after": "dec:gf-trj:80be687f-b88b-4fb6-b987-0517c06adb25",
-    "result": "MATCH"
-  },
-  "sourceDigest": {
-    "before": "b4eb2309098f1eca729b2a604c2186753ccf7e4182062bc259228fe52afe598a",
-    "after": "b4eb2309098f1eca729b2a604c2186753ccf7e4182062bc259228fe52afe598a",
-    "result": "MATCH"
-  },
-  "decidedByDecisionRef": {
-    "before": "dec:gf-trj:80be687f-b88b-4fb6-b987-0517c06adb25",
-    "after": "dec:gf-trj:80be687f-b88b-4fb6-b987-0517c06adb25",
-    "result": "MATCH"
-  },
-  "lpsTrajectoryId": {
-    "before": "trj:lr-bridge-ecb3c4704c48",
-    "after": "trj:lr-bridge-ecb3c4704c48",
-    "result": "MATCH"
-  },
-  "lpsDecisionId": {
-    "before": "dec:gf-trj:80be687f-b88b-4fb6-b987-0517c06adb25",
-    "after": "dec:gf-trj:80be687f-b88b-4fb6-b987-0517c06adb25",
-    "result": "MATCH"
-  },
-  "sessionCount": {
-    "before": 3,
-    "after": 3,
-    "result": "MATCH"
-  }
-}
-```
+### Authority
+- LOCAL_PILOTE_ACTOR + morris gate; env TEMPORARY WITH EXIT already LIVE-CONSUMED
+- GREENFIELD START AUTHORITY: **EXISTING CONTRACT SUFFICIENT**
 
-- Screenshot 06: `/Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310/.tmp-sfia-review/runtime-captures/hd-validated-trajectory-live-retry/06-post-restart-decided-trajectory.png`
+### Legacy F2
+- Cycle-first before decided ProjectTrajectory; ProposalStore process-local; linkAsActiveCycle=false; Nora-driven signals
+- **REJECT FOR GREENFIELD PATH** as workflow; **HARVEST** CreateCycle/qualify/START/readiness/authority/tests only
 
-## Product / env scope
-- Product files changed: ZERO
-- Env delta during replay: ZERO
-- Additional REAL: exact +1
+---
+
+## Q1 — Contrat métier exact
+Recommended functional sequence (pending Morris on structural deltas):
+
+validated/current trajectory
+→ server PREPARE non-active CycleInstance (exact type/profile/CKC qualified)
+→ Pilote sees prepared cycle (no active authority)
+→ explicit Pilote START
+→ CycleInstance active + LPS.activeCycleInstanceId
+→ STOP before ExecutionContract
+
+Preparation = materialize + qualify (non-authority-bearing).
+Structuring already done = trajectory HD candidate_trajectory.
+Authority-bearing mutation = START (N3), not a second trajectory choice HD.
+Prefer **two-step PREPARE then START (Option A)** once gaps closed; prepared non-active cycle is legitimate retryable state.
+
+## Q2 — Source canonique cycleTypeId
+Authoritative chain:
+validated current trajectory → decidedByDecisionRef → accepted HD → sourceType=candidate_trajectory → candidateTrajectoryContext.targetCycleTypeId → cross-check provenance → catalog selectability
+FORBIDDEN as authority: step.label reverse map.
+Provenance: REQUIRED FOR CORRECTNESS as cross-check.
+Live observed type: `cyc:framing`.
+
+## Q3 — CycleInstance ↔ TrajectoryStep
+**LINK GAP** — EXACT LINK DOES NOT EXIST.
+Single-step LIVE reconstructible only by heuristic (unique pending step) — not durable generic relation.
+Multi-step future cannot be honest without stored cycleTypeId or step↔cycle link.
+→ **MORRIS STRUCTURAL DECISION REQUIRED**
+
+## Q4 — Trajectory step state at START
+Runtime today: START does not flip step.state or trajectory.status.
+active Cycle + LPS pointer + step still pending without contracted semantics = **INVALID** for governed path (or at best TEMPORARY INCONSISTENCY).
+No existing use-case activates step on START. Blocked on Q3 for which step to activate.
+
+## Q5 — Materialization CreateCycle
+| Input | Class |
+|---|---|
+| cycleInstanceId | SERVER GENERATED (today caller-supplied; should mint server-side) |
+| cycleTypeId | DERIVABLE EXACTLY from HD context |
+| projectId | DERIVABLE |
+| signals | NOT reconstructible honestly today → PROFILE GAP |
+| requestedProfile | DERIVABLE once signals honest |
+| justification | HUMAN if Critical |
+| objective/scope | DERIVABLE from LPS/project |
+| createdBy | SERVER (not Nora) |
+| linkAsActiveCycle | MUST be false for prepare |
+| ckcResolutionRef | DERIVABLE via QualifyCycleWithCkc; persistence gap if linkAsActiveCycle false |
+
+## Q6 — Runtime CycleProfile
+Studio construction CRITICAL ≠ Task-App Cadrage profile.
+Six signals: F2 from Nora; greenfield HD path has no durable sealed signals.
+Hardcoding Standard / six-false: FORBIDDEN.
+**PROFILE QUALIFICATION CONTRACT GAP**
+
+## Q7 — QualifyCycleWithCkc
+HARVEST as canonical pre-Create qualification (catalog, selectability, six signals, CKC resolution, recommendedProfile, executionAuthority=false).
+
+## Q8 — CKC binding
+1. Non-active CycleInstance does not store CKC ref on aggregate.
+2. LPS ckcResolutionRef today only via CreateCycle.linkAsActiveCycle=true or carry-forward.
+3. Prepare with linkAsActiveCycle=false → CKC not durable on LPS.
+4. No other durable CKC store for the instance.
+5. linkAsActiveCycle=true before START → semantic incoherence.
+6. START does not currently accept ckcResolutionRef — ADAPT START to pass ref into LPS append is minimal non-schema fix.
+7. For cyc:framing, unavailable/invalid CKC resolution should fail-close at prepare/START.
+
+## Q9 — linkAsActiveCycle
+**KEEP FALSE** for prepare. ACTIVE pointer before explicit START = invalid.
+
+## Q10 — START vs HumanDecision
+validated → requiresTrajectoryHumanDecision false (revalidated).
+candidate_trajectory HD already decided which cycle type to follow.
+**GREENFIELD START HUMANDECISION: NOT REQUIRED**
+START = explicit Pilote lifecycle action + N3 evidence + readiness. Do not reuse trajectory.approval HD under fake start+trajectory subject.
+
+## Q11 — Explicit Pilote START
+Technical START CTA sufficient once CycleInstance exists; métier label “Démarrer le cadrage/cycle” with type/profile/objective/CKC guidance; no Cursor/EC/agent.
+TrajectorySurface today has no Start CTA post-HD — Delivery must add honest presentation after prepare.
+
+## Q12 — Confirmation
+**GREENFIELD START CONFIRMATION: NOT REQUIRED** (N3 authority verify already gates; avoid gratuitous micro-confirmation; not EC Confirmation).
+
+## Q13 — Authority
+**GREENFIELD START AUTHORITY: EXISTING CONTRACT SUFFICIENT**
+Reuse registerLocalPiloteAuthority; RESERVE-HD-LIVE-AUTHORITY-ENV-01 remains CLOSED AT ENV-CONFIGURED + LIVE-CONSUMED SCOPE.
+
+## Q14 — Start readiness
+Existing assessStartReadiness adequate for generic START; greenfield extras in prepare/orchestration guard: validated current · decidedByDecisionRef · accepted candidate_trajectory HD · targetCycleTypeId match · catalog selectable · provenance cross-check.
+
+## Q15 — DecisionBasis revalidation
+Server must re-read at prepare and re-check at START. Mismatch → refuse. No heuristic recovery.
+
+## Q16 — cycleInstanceId / idempotence
+Generate server-side. Prefer stable key from projectId+trajectoryId+version+targetCycleTypeId+stepId once step link exists. exists → idempotent or refuse foreign.
+
+## Q17 — Create vs START atomicity
+MODEL A recommended: prepare durable non-active CycleInstance; START separately. Failed START leaving proposed/acknowledged = legitimate retryable prepared state if UI honest.
+MODEL B only with outer UoW; current Create/START UoWs separate.
+
+## Q18 — Critical vs Standard instance
+Critical→proposed, Standard/Light→acknowledged; both startable; no auto-start; explicit Pilote START activates.
+
+## Q19 — TOCTOU / fail-closed (summary)
+no/non-validated/stale traj, HD drift, provenance invalid, type mismatch/deprecated, missing signals, CKC invalid, sibling active, LPS OCC, reservation/blocked step, authority denied, step link missing → PREPARE/START REFUSED or RETRY as applicable. Label reverse-map → STOP. Invent profile → STOP.
+
+## Q20 — Step/active coherence
+active Cycle + LPS pointer + corresponding step pending without contract = **INVALID**.
+Minimal delta after link exists: same START UoW updates step.state pending→active.
+
+## Q21 — LPS map
+- Entry: v4 · traj+decision · active=null · no ckc
+- After PREPARE (target): traj/decision unchanged · active=null · CycleInstance non-active · CKC binding TBD
+- After START: active=cycleId · traj+decision retained · ckc ref set · cycle active
+
+## Q22 — CKC & START
+Framing detailed CKC inaccessible → fail-close prepare/START. Still executionAuthority=false.
+
+## Q23 — Legacy F2
+REJECT workflow; HARVEST primitives.
+
+## Q24 — UI surface
+Primary: TrajectorySurface greenfield post-decided block. Legacy panel secondary. Figma N/A.
+
+## Q25 — START ≠ EC
+Max: active CycleInstance + LPS active + trajectory coherence. Must NOT create EC/Attempt/Cursor/Nora auto.
+
+---
+
+## Options A→F
+| Option | Verdict |
+|---|---|
+| A PREPARE then START | RECOMMENDED shape after structural gaps closed |
+| B Atomic create+START | Possible later; higher complexity |
+| C Reuse F2 path | REJECT |
+| D Minimal product orchestration | REQUIRED companion |
+| E New domain relation/schema | REQUIRED minimal for Cycle↔step link (+ maybe profile seal) |
+| F New parallel store | REJECT |
+
+## Minimum durable facts classification
+| Fact | Class |
+|---|---|
+| projectId, trajectoryId/version, decidedByDecisionRef | MATERIAL DURABLE |
+| cycleTypeId (from HD context) | DERIVABLE EXACTLY |
+| trajectoryStepId link | MISSING — must become MATERIAL |
+| cycleInstanceId | SERVER GENERATED durable |
+| CycleProfile + qualificationSignals | MATERIAL on CycleInstance once honest source exists |
+| ckcResolutionRef | MATERIAL on LPS at/after START |
+| catalog version/hash | DERIVABLE at qualify (seal in resolution) |
+| cycle status, activeCycleInstanceId | MATERIAL |
+| HD ref | MATERIAL |
+| authority evidence | SERVER |
+| LPS version / step state | MATERIAL |
+
+## Future BAR-START matrix
+BAR-START-01…32 as listed in GO — required for future Delivery; not implemented here.
+
+---
+
+## Structural gate
+
+# MORRIS STRUCTURAL DECISION REQUIRED
+
+Cannot claim EXISTING CONTRACT SUFFICIENT / DELIVERY QUALIFIED without inventing:
+- Cycle↔step exact link (multi-step honesty)
+- honest profile signal source for greenfield
+- CKC durability without pre-START active pointer (START ADAPT may suffice for CKC alone — still blocked by other gaps)
+
+---
+
+## MORRIS DECISION PACK
+
+### Decision ID proposed
+**D-GF-START-01** — Greenfield validated trajectory → CycleInstance / START exact identity & coherence
+
+### Problem
+Validated/current ProjectTrajectory + accepted candidate_trajectory HD prove which cycle type was decided, but Product cannot yet: (1) durably bind CycleInstance to exact TrajectoryStep; (2) qualify honest runtime CycleProfile without Nora F2 signals or invented booleans; (3) bind CKC on LPS without activeCycleInstanceId before explicit START (unless START extended).
+
+### Existing contract
+CreateCycle + QualifyCycleWithCkc + PilotLifecycleTransitions.start + assessStartReadiness; LPS pointers; HD candidate_trajectory context with targetCycleTypeId; bridge builds single step with catalog label only (no cycleTypeId on step).
+
+### Gap
+LINK GAP · PROFILE QUALIFICATION CONTRACT GAP · CKC bind-without-active gap
+
+### Why primitives insufficient
+No trajectoryStepId / cycleTypeId on step; six signals not sealed on greenfield HD path; CreateCycle writes ckcResolutionRef only with linkAsActiveCycle; StartCycleRequest has no ckcResolutionRef.
+
+### Options
+1. First-pending-only + invent Standard + linkAsActiveCycle true — REJECT
+2. Application ADAPT only without step link — INSUFFICIENT for multi-step
+3. Minimal structural: durable step↔cycle relation + profile source contract + START CKC bind — RECOMMENDED
+4. New parallel lifecycle store — REJECT
+
+### Recommended option
+- **E-min**: persist cycleTypeId on each TrajectoryStep at candidate bridge/promote (and/or trajectoryStepId on CycleInstance at prepare). Prefer step.cycleTypeId for multi-step.
+- **Profile**: Pilote-confirmed signal set at prepare/start (HUMAN INPUT) OR sealed prior qualificationSignals on HD/context if already produced — never invent/hardcode framing=Standard.
+- **CKC**: ADAPT StartCycleRequest + START LPS append to accept server-resolved ckcResolutionRef; CreateCycle linkAsActiveCycle=false on prepare.
+- **Orchestration D**: product-level prepare from validated traj+HD; explicit START; reuse authority/readiness.
+
+### Exact minimal delta
+1. Domain: TrajectoryStep.cycleTypeId (required for bridge-produced steps) OR CycleInstance.trajectoryStepId
+2. Bridge/promote writes cycleTypeId onto step(s)
+3. Prepare guard: match HD targetCycleTypeId to step.cycleTypeId (fail if 0/ambiguous)
+4. Profile source as above
+5. START accepts ckcResolutionRef into LPS append
+6. Same START UoW: step.state pending→active for linked step
+7. Likely no new SQL table if payload_json stores aggregates
+
+### Why now / why simpler fails
+Without this, LIVE START invents type/step/profile or activates LPS before START. Label map forbidden; first-pending not multi-step-safe; six-false forbidden; linkAsActiveCycle true breaks START semantics; F2 wrong order.
+
+### Impacts
+Domain TrajectoryStep/CycleInstance field; JSON payload evolution; LPS ckc via START; step state on START; START HD not required; authority unchanged; F2 regression keep; multi-step enabled via step.cycleTypeId.
+
+### Debt / exit
+If Morris prefers temporary first-cycle-only without step.cycleTypeId: RESERVE-START-STEP-LINK-01 OPEN with exit=add cycleTypeId before second step. Still need profile+CKC answers.
+
+### Anti-claims
+Does not authorize START LIVE, EC, Cursor, Nora auto, or Product Delivery code in this cycle.
+
+### Decision wording ready for Morris
+> Adopt D-GF-START-01: (1) durable exact link CycleInstance↔TrajectoryStep via step.cycleTypeId (bridge-written) [or trajectoryStepId on CycleInstance]; (2) greenfield CycleProfile signals must be honestly sourced (Pilote-confirmed or sealed prior fact)—never invented; (3) CKC LPS bind occurs at explicit START (extend START), never via linkAsActiveCycle before START; (4) prepare uses CreateCycle linkAsActiveCycle=false; (5) START remains N3 Pilote action without second trajectory HD when trajectory is validated/current.
+
+---
+
+## Future Delivery boundary (only after Morris adopts)
+validated/current → exact type/profile/CKC → prepare CycleInstance non-active → explicit START → active + LPS link + step coherence → STOP.
+Hors scope: Nora post-START, cycle work, EC, Confirmation d’exécution, Cursor, Evidence, FINALIZE.
+**Not qualified for Delivery until D-GF-START-01 decided.**
+
+## Product / REAL scope this cycle
+- Product files changed: **ZERO**
+- Env changed: **ZERO**
+- Model / REAL: **ZERO**
+- CycleInstance / START / HD / Confirmation / EC / Attempt: **ZERO**
 
 ## Reserve dispositions
 - RESERVE-HD-LIVE-AUTHORITY-ENV-01 = CLOSED AT ENV-CONFIGURED + LIVE-CONSUMED SCOPE
-- RESERVE-TRJ-PROVENANCE-01 = CLOSED AT LIVE BOUNDARY PROVEN SCOPE
-- CR-HD-01 = CLOSED DETERMINISTICALLY
-- CR-HD-02 = CLOSED DETERMINISTICALLY
 - RESERVE-HD-LIVE-01 = CLOSED AT LIVE BOUNDARY PROVEN SCOPE
+- RESERVE-TRJ-PROVENANCE-01 = CLOSED AT LIVE BOUNDARY PROVEN SCOPE
+- CR-HD-01 / CR-HD-02 = CLOSED DETERMINISTICALLY
 - RESERVE-HD-CONCURRENCY-REALISM-01 = OPEN
 - RESERVE-QA-MOCK-01 = OPEN / NON-BLOCKING
-- New reserves: none
+- **New**: RESERVE-START-STEP-LINK-01 = OPEN (LINK GAP) — pending D-GF-START-01
+- **New**: RESERVE-START-PROFILE-SIGNAL-01 = OPEN (PROFILE QUALIFICATION CONTRACT GAP)
+- **New**: RESERVE-START-CKC-BIND-01 = OPEN (CKC bind without pre-START active) — closable by START ADAPT if Morris agrees
 
 ## Next capability
-- validated/current → CycleInstance / START contract qualification — HORS SCOPE
+Morris decides D-GF-START-01 → then Delivery deterministic of prepare/START boundary → Critical Review → LIVE only under separate GO.
 
 ## Anti-claims
-Does NOT claim: CycleInstance LIVE PROVEN · START LIVE PROVEN · ExecutionContract LIVE PROVEN · execution ready · END-TO-END REAL · Task App delivered · Greenfield Product Proof COMPLETE · R2 CLOSED · PR READY · runtime v3 ADOPTED · RESERVE-HD-CONCURRENCY-REALISM-01 closed · RESERVE-QA-MOCK-01 closed.
+Does NOT claim: CycleInstance LIVE · START LIVE · EC · execution ready · E2E REAL · Task App delivered · Greenfield complete · R2 closed · PR ready · runtime v3 ADOPTED · Delivery qualified without Morris.
 
 ## Final verdict
-**GREENFIELD CANDIDATE TRAJECTORY → HUMANDECISION + VALIDATED TRAJECTORY — LIVE BOUNDARY PROVEN**
+**GREENFIELD VALIDATED TRAJECTORY → CYCLEINSTANCE / START CONTRACT — STRUCTURAL DECISION REQUIRED**
