@@ -2,7 +2,8 @@
 
 /**
  * Greenfield pre-cycle candidate trajectory bridge — thin server actions.
- * Client may send projectId only. ZERO model calls. No HD / Cycle / START.
+ * Client may send projectId (+ presentationDigest for approval). ZERO model calls.
+ * No Cycle / START / EC / Confirmation. HD only via approve path.
  */
 
 import { getRuntimeApplicationService } from "@/lib/vertical-slice-runtime";
@@ -14,6 +15,10 @@ import {
 } from "@/lib/oa/cycle";
 import type { LifecycleRecommendationMaterialDimension } from "@/lib/oa/cycle/application/lifecycleRecommendation/materialReaderContract";
 import type { CandidateTrajectoryProvenanceStatus } from "@/lib/oa/cycle/application/lifecycleRecommendation/candidateTrajectoryProvenance";
+import {
+  approveCandidateTrajectory,
+  buildPreCycleCandidateApprovalPresentation,
+} from "@/features/project-assistant/approveCandidateTrajectory";
 
 export async function projectAssistantPrepareCandidateTrajectoryAction(input: {
   projectId: string;
@@ -238,5 +243,121 @@ export async function projectAssistantReadPreCycleCandidateTrajectoryAction(inpu
     candidate: result.candidate,
     activeCycleInstanceId,
     hasCurrentNextCycleRecommendation,
+  };
+}
+
+/**
+ * Server-owned approval presentation (digest + selectability).
+ * Client must not treat sealed fields as SoT beyond display + digest round-trip.
+ */
+export async function projectAssistantReadCandidateTrajectoryApprovalPresentationAction(input: {
+  projectId: string;
+}): Promise<{
+  ok: boolean;
+  code?: string;
+  message?: string;
+  presentation?: {
+    projectId: string;
+    trajectoryId: string;
+    catalogLabel: string | null;
+    targetCycleTypeId: string;
+    steps: readonly {
+      stepId: string;
+      order: number;
+      label: string;
+      state: string;
+    }[];
+    provenanceStatus: "RESOLVED";
+    recommendationId: string;
+    semanticKey: string;
+    provenanceObservationId: string;
+    awaitingDecision: true;
+    cycleStarted: false;
+    targetCycleSelectable: boolean;
+    approvalOptionLabel: string;
+    presentationDigest: string;
+    displayCandidateVersionHint: number;
+  } | null;
+  alreadyDecided?: {
+    trajectoryId: string;
+    version: number;
+    status: string;
+    decidedByDecisionRef: string | null;
+    targetCycleTypeId: string | null;
+    catalogLabel: string | null;
+  } | null;
+  activeCycleInstanceId?: string | null;
+}> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      code: "OA_UNAVAILABLE",
+      message: "Runtime OA indisponible.",
+    };
+  }
+  const built = await buildPreCycleCandidateApprovalPresentation({
+    oa: runtime.oa,
+    projectId: input.projectId,
+  });
+  if (!built.ok) {
+    return { ok: false, code: built.code, message: built.message };
+  }
+  return {
+    ok: true,
+    presentation: built.presentation,
+    alreadyDecided: built.alreadyDecided,
+    activeCycleInstanceId: built.activeCycleInstanceId,
+  };
+}
+
+/**
+ * Unary Pilote approval: "Valider cette trajectoire".
+ * Client input max: projectId + presentationDigest. All else server-resolved.
+ */
+export async function projectAssistantApprovePreCycleCandidateTrajectoryAction(input: {
+  projectId: string;
+  presentationDigest: string;
+}): Promise<{
+  ok: boolean;
+  code?: string;
+  message?: string;
+  decisionId?: string;
+  trajectoryId?: string;
+  trajectoryVersion?: number;
+  status?: string;
+  decidedByDecisionRef?: string;
+  targetCycleTypeId?: string;
+  catalogLabel?: string | null;
+  lpsVersionAfter?: number;
+  activeCycleInstanceId?: null;
+}> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      code: "OA_UNAVAILABLE",
+      message: "Runtime OA indisponible.",
+    };
+  }
+  const result = await approveCandidateTrajectory({
+    oa: runtime.oa,
+    projectId: input.projectId,
+    presentationDigest: input.presentationDigest,
+  });
+  if (!result.ok) {
+    return { ok: false, code: result.code, message: result.message };
+  }
+  return {
+    ok: true,
+    decisionId: result.decisionId,
+    trajectoryId: result.trajectoryId,
+    trajectoryVersion: result.trajectoryVersion,
+    status: result.status,
+    decidedByDecisionRef: result.decidedByDecisionRef,
+    targetCycleTypeId: result.targetCycleTypeId,
+    catalogLabel: result.catalogLabel,
+    lpsVersionAfter: result.lpsVersionAfter,
+    activeCycleInstanceId: null,
   };
 }

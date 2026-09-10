@@ -26,7 +26,11 @@ import {
   w2ProposeTrajectoryOptionsAction,
   w2RehydrateProductOutcomeAction,
 } from "@/features/project-assistant/w2/actions";
-import { projectAssistantReadPreCycleCandidateTrajectoryAction } from "@/features/project-assistant/preCycleCandidateTrajectoryActions";
+import {
+  projectAssistantApprovePreCycleCandidateTrajectoryAction,
+  projectAssistantReadCandidateTrajectoryApprovalPresentationAction,
+  projectAssistantReadPreCycleCandidateTrajectoryAction,
+} from "@/features/project-assistant/preCycleCandidateTrajectoryActions";
 import type {
   AmendExecutionContractSuccess,
   ContractInspectionStateDto,
@@ -110,7 +114,8 @@ type Busy =
   | "confirmation"
   | "authorization"
   | "amendment"
-  | "execute";
+  | "execute"
+  | "approve-candidate";
 
 /**
  * Yield so React can commit and the browser can paint each Attempt phase.
@@ -158,6 +163,21 @@ export function TrajectorySurface({
     provenanceObservationId?: string | null;
     recommendationId?: string | null;
     semanticKey?: string | null;
+  } | null>(null);
+  const [approvalPresentation, setApprovalPresentation] = useState<{
+    presentationDigest: string;
+    targetCycleSelectable: boolean;
+    catalogLabel: string | null;
+    targetCycleTypeId: string;
+    approvalOptionLabel: string;
+  } | null>(null);
+  const [greenfieldDecided, setGreenfieldDecided] = useState<{
+    trajectoryId: string;
+    version: number;
+    status: string;
+    decidedByDecisionRef: string | null;
+    targetCycleTypeId: string | null;
+    catalogLabel: string | null;
   } | null>(null);
   const [activeCycleInstanceId, setActiveCycleInstanceId] = useState<
     string | null
@@ -246,6 +266,8 @@ export function TrajectorySurface({
       setPreCycleCandidate(null);
       setActiveCycleInstanceId(null);
       setHasCurrentNextCycleRecommendation(false);
+      setApprovalPresentation(null);
+      setGreenfieldDecided(null);
       return;
     }
     setActiveCycleInstanceId(result.activeCycleInstanceId ?? null);
@@ -253,7 +275,62 @@ export function TrajectorySurface({
     setHasCurrentNextCycleRecommendation(
       result.hasCurrentNextCycleRecommendation === true,
     );
+
+    const approval =
+      await projectAssistantReadCandidateTrajectoryApprovalPresentationAction({
+        projectId,
+      });
+    if (!approval.ok) {
+      setApprovalPresentation(null);
+      setGreenfieldDecided(null);
+      return;
+    }
+    setGreenfieldDecided(approval.alreadyDecided ?? null);
+    if (approval.presentation) {
+      setApprovalPresentation({
+        presentationDigest: approval.presentation.presentationDigest,
+        targetCycleSelectable: approval.presentation.targetCycleSelectable,
+        catalogLabel: approval.presentation.catalogLabel,
+        targetCycleTypeId: approval.presentation.targetCycleTypeId,
+        approvalOptionLabel: approval.presentation.approvalOptionLabel,
+      });
+    } else {
+      setApprovalPresentation(null);
+    }
   }, [projectId]);
+
+  const approveCandidate = useCallback(async () => {
+    if (!approvalPresentation) return;
+    setBusy("approve-candidate");
+    setError(null);
+    const result = await projectAssistantApprovePreCycleCandidateTrajectoryAction({
+      projectId,
+      presentationDigest: approvalPresentation.presentationDigest,
+    });
+    setBusy(null);
+    if (!result.ok) {
+      setError(result.message ?? result.code ?? "Approbation refusée.");
+      await refreshPreCycleCandidate();
+      return;
+    }
+    setGreenfieldDecided({
+      trajectoryId: result.trajectoryId!,
+      version: result.trajectoryVersion!,
+      status: result.status!,
+      decidedByDecisionRef: result.decidedByDecisionRef ?? null,
+      targetCycleTypeId: result.targetCycleTypeId ?? null,
+      catalogLabel: result.catalogLabel ?? null,
+    });
+    setPreCycleCandidate(null);
+    setApprovalPresentation(null);
+    onDurableFactsChanged?.();
+    await refreshPreCycleCandidate();
+  }, [
+    approvalPresentation,
+    projectId,
+    onDurableFactsChanged,
+    refreshPreCycleCandidate,
+  ]);
 
   useEffect(() => {
     void refreshPreCycleCandidate();
@@ -680,13 +757,14 @@ export function TrajectorySurface({
           </h3>
           <p className={styles.blockNote}>
             Cycle proposé :{" "}
-            {preCycleCandidate.catalogLabel ??
+            {approvalPresentation?.catalogLabel ??
+              preCycleCandidate.catalogLabel ??
               preCycleCandidate.steps[0]?.label ??
               "—"}
           </p>
           <p className={styles.blockNote} data-testid="pre-cycle-candidate-status">
-            Statut : candidate / en attente de décision · Non décidée · Aucun
-            cycle démarré
+            En attente de décision · Nora recommande cette trajectoire ; le
+            Pilote décide · Aucun cycle démarré
           </p>
           <ul className={styles.optionList} data-testid="pre-cycle-candidate-steps">
             {preCycleCandidate.steps.map((step) => (
@@ -699,6 +777,59 @@ export function TrajectorySurface({
               </li>
             ))}
           </ul>
+          {approvalPresentation &&
+          !approvalPresentation.targetCycleSelectable ? (
+            <p
+              className={styles.blockNote}
+              role="status"
+              data-testid="pre-cycle-candidate-not-selectable"
+            >
+              Le cycle proposé n&apos;est plus sélectionnable. La proposition
+              doit être réévaluée avant toute validation.
+            </p>
+          ) : null}
+          {approvalPresentation?.targetCycleSelectable ? (
+            <div className={styles.actions}>
+              <button
+                type="button"
+                className={styles.primaryAction}
+                data-testid="pre-cycle-validate-trajectory"
+                onClick={() => void approveCandidate()}
+                disabled={busy !== null}
+              >
+                Valider cette trajectoire
+              </button>
+              <p className={styles.blockNote} data-testid="pre-cycle-validate-hint">
+                Valider rendra cette trajectoire décidée/courante. Cela ne
+                démarre pas encore le cycle.
+              </p>
+              {busy === "approve-candidate" ? (
+                <span
+                  className={styles.busy}
+                  role="status"
+                  data-testid="pre-cycle-approve-busy"
+                >
+                  Validation en cours…
+                </span>
+              ) : null}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {greenfieldDecided && !activeCycleInstanceId && !preCycleCandidate ? (
+        <section
+          className={styles.block}
+          aria-labelledby="pre-cycle-decided-title"
+          data-testid="pre-cycle-decided-trajectory"
+        >
+          <h3 id="pre-cycle-decided-title" className={styles.blockTitle}>
+            Décision humaine enregistrée
+          </h3>
+          <p className={styles.blockNote}>
+            Trajectoire décidée / courante · Cycle :{" "}
+            {greenfieldDecided.catalogLabel ?? "—"} · Aucun cycle démarré
+          </p>
         </section>
       ) : null}
 

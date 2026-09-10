@@ -737,8 +737,10 @@ describe("GREENFIELD LR → CANDIDATE TRAJECTORY BRIDGE — BAR-TRJ", () => {
       "utf8",
     );
     expect(trajSrc).toContain("Trajectoire proposée");
-    expect(trajSrc).toContain("en attente de décision");
+    expect(trajSrc.toLowerCase()).toContain("en attente de décision");
     expect(trajSrc).toContain("pre-cycle-candidate-trajectory");
+    expect(trajSrc).toContain("Valider cette trajectoire");
+    expect(trajSrc).toContain("pre-cycle-validate-trajectory");
     expect(trajSrc).toContain("activeCycleInstanceId");
     // Pre-cycle candidate hides W2 propose (gated), does not weaken qualificationInputs.
     const qualSrc = fs.readFileSync(

@@ -90,6 +90,7 @@ describe("V2-A1 vertical-slice-runtime import boundaries", () => {
       "features/project-assistant/f3/e2eOptionATerminalAttempt.ts:@/lib/vertical-slice-runtime/e2eOptionAQaScenarioControl",
       "features/project-assistant/mw3AvailableEvidence.ts:@/lib/vertical-slice-runtime",
       "features/project-assistant/preCycleCandidateTrajectoryActions.ts:@/lib/vertical-slice-runtime",
+      "features/project-assistant/approveCandidateTrajectory.ts:@/lib/vertical-slice-runtime",
       "features/project-assistant/w2/actions.ts:@/lib/vertical-slice-runtime",
       "features/project-assistant/w2/actions.ts:@/lib/vertical-slice-runtime/liveProjectContext",
       "features/project-assistant/w2/amendExecutionContract.ts:@/lib/vertical-slice-runtime",

@@ -11,3 +11,4 @@ export * from "./noraActor";
 export * from "./greenfieldLifecycleBootstrap";
 export * from "./prepareCandidateTrajectoryFromCurrentRecommendation";
 export * from "./candidateTrajectoryProvenance";
+export * from "./candidateTrajectoryDecisionBasis";

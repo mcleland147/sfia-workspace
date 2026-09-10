@@ -6,6 +6,7 @@ import { createDecisionError } from "../domain/errors";
 import {
   assertRecommendationIsNotDecision,
   cloneDecisionArrays,
+  validateDecisionBasis,
   validateDecisionFields,
 } from "../domain/invariants";
 import type {
@@ -167,6 +168,15 @@ export class RecordHumanDecision {
       });
       if (fieldViolation) {
         return fail(fieldViolation.detailCode, fieldViolation.reason, {
+          projectId: snap.projectId,
+          decisionId: snap.decisionId,
+          subject: snap.subject,
+        });
+      }
+
+      const basisViolation = validateDecisionBasis(snap.decisionBasis);
+      if (basisViolation) {
+        return fail(basisViolation.detailCode, basisViolation.reason, {
           projectId: snap.projectId,
           decisionId: snap.decisionId,
           subject: snap.subject,

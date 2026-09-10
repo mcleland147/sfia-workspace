@@ -95,17 +95,47 @@ export type DecisionBasisTrajectoryContext = {
   optionSetDigest?: string;
 };
 
+/**
+ * D-GF-HD-01 — greenfield unary APPROVAL of a pre-cycle candidate trajectory.
+ * Links the Pilote HumanDecision to the exact candidate + provenance Observation.
+ * Not a W2 OptionSet. Not a proposal.
+ */
+export type DecisionBasisCandidateTrajectoryContext = {
+  trajectoryId: string;
+  candidateVersion: number;
+  provenanceObservationId: string;
+  recommendationId: string;
+  semanticKey: string;
+  targetCycleTypeId: string;
+  /** Digest of material candidate fields (id/version/status/steps). */
+  candidateContentDigest: string;
+  /** Digest of the exact material object presented to the Pilote. */
+  presentationDigest: string;
+};
+
+export type DecisionBasisSourceType =
+  | "proposal"
+  | "trajectory_option"
+  | "candidate_trajectory";
+
 export type DecisionBasis = {
-  sourceType: "proposal" | "trajectory_option";
-  /** Opaque source id (proposal id or trajectory option-set ref) — not an F2 type import. */
+  sourceType: DecisionBasisSourceType;
+  /**
+   * Opaque source id:
+   * - proposal id, or
+   * - trajectory option-set ref, or
+   * - candidate trajectoryId (D-GF-HD-01).
+   */
   sourceRef: string;
   /** SHA-256 hex of canonical JSON over stable source fields. */
   sourceDigest: string;
   projectId: string;
   cycleInstanceId?: string;
   proposalContext: DecisionBasisProposalContext;
-  /** Present when sourceType is `trajectory_option`. */
+  /** Present when sourceType is `trajectory_option` (W2 only). */
   trajectoryContext?: DecisionBasisTrajectoryContext;
+  /** Present when sourceType is `candidate_trajectory` (greenfield only). */
+  candidateTrajectoryContext?: DecisionBasisCandidateTrajectoryContext;
   executionBasis: {
     objective?: string;
     scope?: string;

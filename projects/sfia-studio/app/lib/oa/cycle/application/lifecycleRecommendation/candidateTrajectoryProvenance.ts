@@ -235,9 +235,10 @@ export function resolveCandidateTrajectoryProvenance(input: {
       [observation.epistemicItemId],
     );
   }
-  // Canonical cycle id check — no label reverse map.
+  // Historical identity only — catalog entry must exist as a known id.
+  // Current selectability (lifecycleStatus === active) is a SEPARATE HD gate.
   const catalog = getCycleTypeById(lr.targetCycleTypeId);
-  if (!catalog || catalog.lifecycleStatus !== "active") {
+  if (!catalog) {
     return unresolved(
       "INVALID",
       "source_target_cycle_type_not_canonical",
@@ -254,4 +255,15 @@ export function resolveCandidateTrajectoryProvenance(input: {
     trajectoryId,
     sourceRecommendationEpistemicStatus: recommendation.status,
   };
+}
+
+/**
+ * Current selectability of a canonical cycle type for a new Pilote decision.
+ * Distinct from historical provenance RESOLVED.
+ */
+export function isTargetCycleCurrentlySelectable(
+  targetCycleTypeId: string,
+): boolean {
+  const catalog = getCycleTypeById(targetCycleTypeId);
+  return Boolean(catalog && catalog.lifecycleStatus === "active");
 }

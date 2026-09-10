@@ -46,6 +46,15 @@ vi.mock("@/features/project-assistant/preCycleCandidateTrajectoryActions", () =>
     readPreCycleMock(...args),
   projectAssistantPrepareCandidateTrajectoryAction: (...args: unknown[]) =>
     prepareMock(...args),
+  projectAssistantReadCandidateTrajectoryApprovalPresentationAction: vi
+    .fn()
+    .mockResolvedValue({
+      ok: true,
+      presentation: null,
+      alreadyDecided: null,
+      activeCycleInstanceId: null,
+    }),
+  projectAssistantApprovePreCycleCandidateTrajectoryAction: vi.fn(),
 }));
 
 vi.mock("@/features/project-assistant/actions", () => ({
