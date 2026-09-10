@@ -561,6 +561,35 @@ export async function approveCandidateTrajectory(
         );
       }
 
+      // CR-HD-01 — fresh durable Epistemic read + provenance re-resolution
+      // AFTER logical HD write / durable readback, BEFORE promotion.
+      const freshEpistemic =
+        await oa.cycleServices.epistemic.listByProject(projectId);
+      const freshProvenance = resolveCandidateTrajectoryProvenance({
+        projectId,
+        trajectoryId,
+        epistemicItems: freshEpistemic,
+      });
+      if (freshProvenance.status !== "RESOLVED") {
+        throw new ApprovalAtomicFailure(
+          `PROVENANCE_${freshProvenance.status}`,
+          `Provenance candidate non résolue au recheck in-transaction (${freshProvenance.status}).`,
+        );
+      }
+      if (
+        freshProvenance.trajectoryId !== trajectoryId ||
+        freshProvenance.provenanceObservationId !==
+          provenance.provenanceObservationId ||
+        freshProvenance.recommendationId !== provenance.recommendationId ||
+        freshProvenance.semanticKey !== provenance.semanticKey ||
+        freshProvenance.targetCycleTypeId !== provenance.targetCycleTypeId
+      ) {
+        throw new ApprovalAtomicFailure(
+          "CANDIDATE_TRAJECTORY_DECISION_STALE",
+          "Provenance durable dérivée depuis le snapshot présenté — aucune promotion.",
+        );
+      }
+
       let decisionForGuard = readback.decision;
       if (input.__testMutateDecisionBeforeGuard) {
         decisionForGuard = input.__testMutateDecisionBeforeGuard(
@@ -575,10 +604,10 @@ export async function approveCandidateTrajectory(
         candidateVersion,
         presentationDigest,
         candidateContentDigest,
-        provenanceObservationId: provenance.provenanceObservationId,
-        recommendationId: provenance.recommendationId,
-        semanticKey: provenance.semanticKey,
-        targetCycleTypeId,
+        provenanceObservationId: freshProvenance.provenanceObservationId,
+        recommendationId: freshProvenance.recommendationId,
+        semanticKey: freshProvenance.semanticKey,
+        targetCycleTypeId: freshProvenance.targetCycleTypeId,
         expectedLpsId: live.context.lpsId,
         expectedLpsVersionAtDecision: live.context.lpsVersion,
       });
@@ -587,7 +616,9 @@ export async function approveCandidateTrajectory(
       }
 
       // Re-check selectability + candidate status inside the UoW.
-      if (!isTargetCycleCurrentlySelectable(targetCycleTypeId)) {
+      if (
+        !isTargetCycleCurrentlySelectable(freshProvenance.targetCycleTypeId)
+      ) {
         throw new ApprovalAtomicFailure(
           "TARGET_CYCLE_NOT_SELECTABLE",
           "Le type de cycle n'est plus sélectionnable au moment de la promotion.",
@@ -638,6 +669,16 @@ export async function approveCandidateTrajectory(
         );
       }
 
+      // CR-HD-02 — steps parity BEFORE outer UoW commit (not post-commit).
+      const priorSteps = JSON.stringify(preDecisionSteps);
+      const promotedSteps = JSON.stringify(promoted.trajectory.steps);
+      if (promotedSteps !== priorSteps) {
+        throw new ApprovalAtomicFailure(
+          "STEPS_CHANGED",
+          "Les steps post-promotion diffèrent de la candidate approuvée — rollback.",
+        );
+      }
+
       return {
         decisionId,
         promoted: promoted.trajectory,
@@ -657,19 +698,8 @@ export async function approveCandidateTrajectory(
     };
   }
 
-  // Steps parity (post-commit assertion surface for callers/tests).
-  const promotedSteps = JSON.stringify(atomic.promoted.steps);
-  const priorSteps = JSON.stringify(preDecisionSteps);
-  if (promotedSteps !== priorSteps) {
-    // Should be unreachable if PromoteDecidedTrajectory omitted steps correctly.
-    return {
-      ok: false,
-      code: "STEPS_CHANGED",
-      message:
-        "Les steps post-promotion diffèrent de la candidate approuvée — état incohérent.",
-    };
-  }
-
+  // Post-commit: format success only — no business failure path for
+  // provenance / content / steps parity / promotion authorization.
   return {
     ok: true,
     decisionId: atomic.decisionId,

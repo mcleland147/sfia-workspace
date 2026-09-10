@@ -1,6 +1,6 @@
 /** @vitest-environment node */
 /**
- * GREENFIELD CANDIDATE TRAJECTORY → HUMANDECISION — BAR-HD-01…42
+ * GREENFIELD CANDIDATE TRAJECTORY → HUMANDECISION — BAR-HD-01…45
  * ZERO NEW REAL. Deterministic Product SQLite only.
  */
 import fs from "node:fs";
@@ -1080,5 +1080,262 @@ describe("GREENFIELD CANDIDATE → HUMANDECISION — BAR-HD", () => {
     void promotedContent;
     void candidateTrajectoryApprovalSubject;
     void assertCandidateTrajectoryDecisionAuthorizesPromotion;
+  });
+
+  it("BAR-HD-43 — in-transaction provenance recheck MISSING rolls back HD", async () => {
+    const seeded = await seedCandidate("43");
+    const preLps =
+      await seeded.oa.projectServices.getCurrentLivingProjectState.execute({
+        projectId: seeded.projectId,
+      });
+    expect(preLps.ok).toBe(true);
+    if (!preLps.ok) return;
+
+    const realList = seeded.oa.cycleServices.epistemic.listByProject.bind(
+      seeded.oa.cycleServices.epistemic,
+    );
+    let listCalls = 0;
+    const spy = vi
+      .spyOn(seeded.oa.cycleServices.epistemic, "listByProject")
+      .mockImplementation(async (projectId: string) => {
+        listCalls += 1;
+        const items = await realList(projectId);
+        // First call = preflight RESOLVED; subsequent in-UoW call strips provenance.
+        if (listCalls === 1) return items;
+        return items.filter(
+          (i) => i.source !== "candidate-trajectory-provenance:bridge",
+        );
+      });
+
+    const failed = await approveCandidateTrajectory({
+      oa: seeded.oa,
+      projectId: seeded.projectId,
+      presentationDigest: seeded.presentation.presentationDigest,
+      forceLocalAuthority: true,
+    });
+    spy.mockRestore();
+
+    expect(listCalls).toBeGreaterThanOrEqual(2);
+    expect(failed.ok).toBe(false);
+    if (failed.ok) return;
+    expect(failed.code).toBe("PROVENANCE_MISSING");
+
+    expect(
+      (
+        await seeded.oa.decisionServices.decisions.listByProject(
+          seeded.projectId,
+        )
+      ).filter((d) => d.status === "accepted"),
+    ).toHaveLength(0);
+
+    const traj =
+      await seeded.oa.cycleServices.trajectories.findByProjectAndVersion(
+        seeded.projectId,
+        1,
+      );
+    expect(traj?.status).toBe("candidate");
+    expect(traj?.decidedByDecisionRef).toBeUndefined();
+
+    const current = await seeded.oa.cycleServices.getCurrentTrajectory.execute({
+      projectId: seeded.projectId,
+    });
+    expect(current.ok).toBe(false);
+
+    const postLps =
+      await seeded.oa.projectServices.getCurrentLivingProjectState.execute({
+        projectId: seeded.projectId,
+      });
+    expect(postLps.ok).toBe(true);
+    if (postLps.ok) {
+      expect(postLps.livingProjectState.version).toBe(
+        preLps.livingProjectState.version,
+      );
+    }
+    expect(
+      await seeded.oa.cycleServices.cycles.listByProject(seeded.projectId),
+    ).toHaveLength(0);
+  });
+
+  it("BAR-HD-44 — in-transaction provenance identity drift rolls back", async () => {
+    const seeded = await seedCandidate("44");
+    const preLps =
+      await seeded.oa.projectServices.getCurrentLivingProjectState.execute({
+        projectId: seeded.projectId,
+      });
+    expect(preLps.ok).toBe(true);
+    if (!preLps.ok) return;
+
+    const realList = seeded.oa.cycleServices.epistemic.listByProject.bind(
+      seeded.oa.cycleServices.epistemic,
+    );
+    let listCalls = 0;
+    const spy = vi
+      .spyOn(seeded.oa.cycleServices.epistemic, "listByProject")
+      .mockImplementation(async (projectId: string) => {
+        listCalls += 1;
+        const items = await realList(projectId);
+        if (listCalls === 1) return items;
+        return items.map((item) => {
+          if (
+            item.type !== "Recommendation" ||
+            !item.lifecycleRecommendation
+          ) {
+            return item;
+          }
+          return {
+            ...item,
+            lifecycleRecommendation: {
+              ...item.lifecycleRecommendation,
+              semanticKey: `${item.lifecycleRecommendation.semanticKey}-drifted`,
+            },
+          };
+        });
+      });
+
+    const failed = await approveCandidateTrajectory({
+      oa: seeded.oa,
+      projectId: seeded.projectId,
+      presentationDigest: seeded.presentation.presentationDigest,
+      forceLocalAuthority: true,
+    });
+    spy.mockRestore();
+
+    expect(listCalls).toBeGreaterThanOrEqual(2);
+    expect(failed.ok).toBe(false);
+    if (failed.ok) return;
+    expect(failed.code).toBe("CANDIDATE_TRAJECTORY_DECISION_STALE");
+
+    expect(
+      (
+        await seeded.oa.decisionServices.decisions.listByProject(
+          seeded.projectId,
+        )
+      ).filter((d) => d.status === "accepted"),
+    ).toHaveLength(0);
+    const traj =
+      await seeded.oa.cycleServices.trajectories.findByProjectAndVersion(
+        seeded.projectId,
+        1,
+      );
+    expect(traj?.status).toBe("candidate");
+    expect(traj?.decidedByDecisionRef).toBeUndefined();
+    const current = await seeded.oa.cycleServices.getCurrentTrajectory.execute({
+      projectId: seeded.projectId,
+    });
+    expect(current.ok).toBe(false);
+    const postLps =
+      await seeded.oa.projectServices.getCurrentLivingProjectState.execute({
+        projectId: seeded.projectId,
+      });
+    expect(postLps.ok && preLps.ok).toBe(true);
+    if (postLps.ok && preLps.ok) {
+      expect(postLps.livingProjectState.version).toBe(
+        preLps.livingProjectState.version,
+      );
+    }
+  });
+
+  it("BAR-HD-45 — STEPS_CHANGED inside UoW rolls back real promotion", async () => {
+    const seeded = await seedCandidate("45");
+    const preLps =
+      await seeded.oa.projectServices.getCurrentLivingProjectState.execute({
+        projectId: seeded.projectId,
+      });
+    expect(preLps.ok).toBe(true);
+    if (!preLps.ok) return;
+    const preTraj =
+      await seeded.oa.cycleServices.trajectories.findByProjectAndVersion(
+        seeded.projectId,
+        1,
+      );
+    expect(preTraj?.status).toBe("candidate");
+    const preSteps = JSON.stringify(preTraj!.steps);
+
+    const promoteUc = seeded.oa.cycleServices.promoteDecidedTrajectory;
+    const realExecute = promoteUc.execute.bind(promoteUc);
+    const spy = vi.spyOn(promoteUc, "execute").mockImplementation(async (req) => {
+      const result = await realExecute(req);
+      if (!result.ok) return result;
+      // Real save already happened inside outer UoW; return mutated steps to
+      // trip in-transaction parity → outer rollback must undo promotion + HD.
+      return {
+        ...result,
+        trajectory: {
+          ...result.trajectory,
+          steps: [
+            ...result.trajectory.steps,
+            {
+              stepId: "stp:parity-tamper",
+              order: 99,
+              label: "Tampered",
+              state: "pending" as const,
+            },
+          ],
+        },
+      };
+    });
+
+    const failed = await approveCandidateTrajectory({
+      oa: seeded.oa,
+      projectId: seeded.projectId,
+      presentationDigest: seeded.presentation.presentationDigest,
+      forceLocalAuthority: true,
+    });
+    spy.mockRestore();
+
+    expect(failed.ok).toBe(false);
+    if (failed.ok) return;
+    expect(failed.code).toBe("STEPS_CHANGED");
+
+    const accepted = (
+      await seeded.oa.decisionServices.decisions.listByProject(seeded.projectId)
+    ).filter((d) => d.status === "accepted");
+    expect(accepted).toHaveLength(0);
+
+    const traj =
+      await seeded.oa.cycleServices.trajectories.findByProjectAndVersion(
+        seeded.projectId,
+        1,
+      );
+    expect(traj?.status).toBe("candidate");
+    expect(traj?.decidedByDecisionRef).toBeUndefined();
+    expect(JSON.stringify(traj?.steps)).toBe(preSteps);
+
+    const current = await seeded.oa.cycleServices.getCurrentTrajectory.execute({
+      projectId: seeded.projectId,
+    });
+    expect(current.ok).toBe(false);
+
+    const postLps =
+      await seeded.oa.projectServices.getCurrentLivingProjectState.execute({
+        projectId: seeded.projectId,
+      });
+    expect(postLps.ok).toBe(true);
+    if (postLps.ok) {
+      expect(postLps.livingProjectState.version).toBe(
+        preLps.livingProjectState.version,
+      );
+      expect(postLps.livingProjectState.decisionIds ?? []).not.toEqual(
+        expect.arrayContaining([expect.stringMatching(/^dec:gf-trj:/)]),
+      );
+    }
+
+    // Structural: no post-commit STEPS_CHANGED business failure path remains.
+    const approveSrc = fs.readFileSync(
+      path.join(
+        APP_ROOT,
+        "features/project-assistant/approveCandidateTrajectory.ts",
+      ),
+      "utf8",
+    );
+    const postCommitIdx = approveSrc.indexOf(
+      "// Post-commit: format success only",
+    );
+    expect(postCommitIdx).toBeGreaterThan(0);
+    const afterCommit = approveSrc.slice(postCommitIdx);
+    expect(afterCommit).not.toContain("STEPS_CHANGED");
+    expect(approveSrc).toContain(
+      "CR-HD-02 — steps parity BEFORE outer UoW commit",
+    );
   });
 });
