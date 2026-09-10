@@ -1,22 +1,25 @@
 # ChatGPT Critical Review Pack — FULL
 
-- timestamp: 2026-09-10T07:12:20Z
-- Cycle ID: SFIA-STUDIO-GREENFIELD-START-CANONICAL-GUARD-SEALED-BASIS-PREPARE-REUSE-CORRECTIVE-01
+- timestamp: 2026-09-10T07:38:53Z
+- Cycle ID: SFIA-STUDIO-GREENFIELD-START-CORE-ATOMIC-INCOMPLETE-BINDING-NO-PRESTART-HD-CORRECTIVE-01
 - Level: FULL
-- GO Morris: CONSUMED — GREENFIELD START CANONICAL GUARD + SEALED BASIS PARITY + PREPARE REUSE MICRO-CORRECTIVE
-- D-GF-START-01: remains ADOPTED BY MORRIS (not reopened)
-- D-GF-HD-01: remains ADOPTED (not reopened)
+- GO Morris: CONSUMED — GREENFIELD START CORE ATOMIC GUARD + INCOMPLETE-BINDING FAIL-CLOSED + NO PRE-START LEGACY HD MICRO-CORRECTIVE
+- D-GF-START-01: remains ADOPTED BY MORRIS
+- D-GF-HD-01: remains ADOPTED
+- CR-START-02: CLOSED DETERMINISTICALLY (carried)
+- CR-START-03: CLOSED DETERMINISTICALLY (carried)
+- CR-START-04: CLOSED DETERMINISTICALLY (carried)
 
 ## Local Git Truth
 
 - worktree: /Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310
 - branch: delivery/sfia-studio-product-proof-qual-to-governed-cycle
-- before HEAD (parent of corrective): dfb4f019e80e2cf879dad0a46af6f7ec7a99d333
-- after candidate SHA: 2506775578c04d6aab069b7d5f9d42b4f02a56be
-- parent SHA: dfb4f019e80e2cf879dad0a46af6f7ec7a99d333
+- before HEAD (anchor): 2506775578c04d6aab069b7d5f9d42b4f02a56be
+- after candidate SHA: 2b595718eafec1a902650619040b21f75e86031e
+- parent SHA: 2506775578c04d6aab069b7d5f9d42b4f02a56be
 - origin/main: a9f6c310a0826d0e5bd6f7264603382a86564db1
-- origin/sfia/review-handoff before publish: b2df4663be2d03be63460f0bd5cb4fead9b77064
-- expected parent of candidate: dfb4f019 — MATCH
+- origin/sfia/review-handoff before publish: 62466b041009277ddc3a906b3088b9e775def8fb
+- expected parent of candidate: 25067755 — MATCH
 
 ```
  M .tmp-sfia-review/chatgpt-review.md
@@ -28,78 +31,105 @@
 
 ## Convergence Pre-check
 
-- Capacities: V3-F01, V3-F02, V3-F04, V3-F05, V3-F06, V3-F09; F11/F12 preparation only
-- Typology: EVOL / Cycle 8 Delivery / CRITICAL
-- CRITICAL justification: START authority boundary, durable LR/HD/Cycle/CKC coherence, atomic activation, bypass prevention
+- Capacities: V3-F02, V3-F04, V3-F05, V3-F06, V3-F09; F11/F12 preparation only
+- Typologie: RUN / Cycle 8 Delivery corrective / CRITICAL
+- CRITICAL justification: START authority boundary — atomicity, incomplete binding fail-closed, no parasite pre-start HD
 - CKC Cycle 8: detailed absent; synthetic map fallback; experimental; executionAuthority=none
-- Fake/Real: DETERMINISTIC ONLY; ZERO NEW REAL; READY FOR REAL not claimed
+- Fake/Real: DETERMINISTIC ONLY; ZERO NEW REAL
 
-## Root causes CR-START-01→04
+## START call-site inventory
 
-### CR-START-01
-Strong greenfield START checks lived only in `startPreparedTrajectoryCycle`; historical `executePilotLifecycleAction` → `pilotLifecycle.start` bypassed them for trajectory-bound CycleInstance.
+| Call site | Path |
+|---|---|
+| `PilotLifecycleTransitions.start` | core — NOW owns COMPLETE UoW + classifier |
+| `startPreparedTrajectoryCycle` | façade — outer UoW joins nested core |
+| `executePilotLifecycleAction(START)` | historical helper — classifies before any HD |
+| tests / corrProof05 | direct `pilotLifecycle.start` |
 
-### CR-START-02
-PREPARE used permissive `if (lrSignals && compare)` — missing LR signals skipped parity. START did not require LR===HD===Cycle exact six-field equality.
+## Root causes
 
-### CR-START-03
-PREPARE/START did not revalidate HD-sealed `candidateContentDigest` after material trajectory drift; candidate→validated lifecycle status alone must remain accepted.
+### CR-START-01A
+Strong guard ran outside persist UoW on direct `pilotLifecycle.start`; façade outer txn masked the gap.
 
-### CR-START-04
-PREPARE early-returned `reused=true` on deterministic id/binding before QualifyCycleWithCkc and before exact signals/profile/CKC/prepared-status contract comparison; active/terminal could be incorrectly reused.
+### CR-START-01B
+`isTrajectoryBoundCycle` all-AND: partial binding or `cyc:trj-*` without fields fell through to legacy.
+
+### CR-START-01C
+`executePilotLifecycleAction` could `recordLifecycleDecision` on `requiresTrajectoryHumanDecision` hint before core START for trajectory-derived cycles.
 
 ## Architecture implemented
 
-- NEW shared guard: `assertTrajectoryBoundCycleStartReady` (+ helpers `isTrajectoryBoundCycle`, `assertDecisionSealedTrajectoryBasis`, `assertGreenfieldSignalParity`)
-- `PilotLifecycleTransitions.start` invokes shared guard for every trajectory-bound CycleInstance before mutation — historical path cannot bypass
-- Wiring: `qualifyCycleWithCkc` injected into PilotLifecycleDeps via createSqlite/InMemoryCycleServices + vertical-slice-runtime (single adjacent wiring change; qualifier created before CycleServices)
-- `startPreparedTrajectoryCycle` remains thin facade (resolve + authority + start)
-- PREPARE: LR signals required; sealed digest recheck; qualify BEFORE reuse; reuse = exact contract equality; active/terminal fail closed
-- Sealed basis: recompute digest with status normalized to `"candidate"` only (not step-state normalization)
-- Legacy unbound START unchanged
+### Binding classifier
+`classifyTrajectoryBinding` → LEGACY_UNBOUND | COMPLETE_TRAJECTORY_BOUND | INCOMPLETE_TRAJECTORY_BINDING
+- COMPLETE: trajectoryId + trajectoryVersion(number) + trajectoryStepId
+- INCOMPLETE: any partial fields OR `cyc:trj-*` without COMPLETE
+- LEGACY: none of three AND id not `cyc:trj-*`
+
+### Core START COMPLETE path
+authority verify (no Product mutation) → require store → `store.runInTransaction`:
+fresh Project/Cycle/LPS → re-classify → strong guard → assessStartReadiness → persistLifecycleMutation (nested join) → COMMIT
+On `!ok` result inside UoW: rethrow to force ROLLBACK.
+Missing store: START_UOW_UNAVAILABLE fail-closed.
+
+### INCOMPLETE
+CYCLE_START_NOT_READY / TRAJECTORY_BINDING_INCOMPLETE before legacy readiness/mutation.
+
+### LEGACY
+Historical unbound path unchanged.
+
+### executePilotLifecycleAction
+Fresh cycle classify before HD:
+- COMPLETE: never recordLifecycleDecision; ignore requiresTrajectoryHumanDecision hint
+- INCOMPLETE: fail before HD
+- LEGACY: preserve historical pre-record if hint set
+
+### Nested UoW
+SqliteProductStore AsyncLocalStorage nested reentrance — façade outer + core inner join same BEGIN/COMMIT.
 
 ## KEEP / ADAPT / HARVEST / REJECT
 
-- KEEP: PilotLifecycleTransitions.start engine, CreateCycle, QualifyCycleWithCkc, assessStartReadiness, payload_json, D-GF-START-01/D-GF-HD-01
-- ADAPT: shared START guard, PREPARE reuse, signal parity, sealed digest recheck, PilotLifecycleDeps qualifyCycleWithCkc
-- HARVEST: qualificationSignals helpers, computeCandidateContentDigest, provenance resolver, projectCkcResolutionRef
-- REJECT: second START engine, new stores/DDL, label→type, false defaults, 2nd HD, Confirmation, EC
+- KEEP: PilotLifecycleTransitions.start, assertTrajectoryBoundCycleStartReady, façade, assessStartReadiness, QualifyCycleWithCkc, Product SQLite UoW, N3, D-GF-START-01/HD-01
+- ADAPT: classifier, COMPLETE UoW boundary, pilotLifecycleActions START routing, BAR-START-CORR2
+- HARVEST: nested AsyncLocal txn, failNextSave hooks, existing guards
+- REJECT: second START engine, façade-only guard, client hint authority, new HD/Confirmation/store/DDL
 
 ## Figma
 
-FIGMA SOURCE NOT APPLICABLE — no UX/UI change
+FIGMA SOURCE NOT APPLICABLE — NO UI CHANGE
 
 ## CR ↔ BAR matrix
 
-| CR | BAR-START-CORR | Coverage |
+| CR | BAR-START-CORR2 | Coverage |
 |---|---|---|
-| CR-START-01 | 01, 15 | historical/core START cannot bypass; legacy unbound START green |
-| CR-START-02 | 02, 03, 04, 05 | missing LR / LR≠HD PREPARE fail; Cycle/HD/LR drift START fail |
-| CR-START-03 | 06, 07, 08 | material drift PREPARE/START fail; candidate→validated OK |
-| CR-START-04 | 09, 10, 11, 12, 13 | reuse exact signals/profile/CKC; active/terminal not reused; concurrent ≤1 |
-| Atomicity | 14 | cycle/step/LPS rollback preserved |
+| 01A | 01, 02, 14 | guard+persist same UoW; direct core rollback; nested façade join |
+| 01B | 03–08 | missing fields incomplete; cyc:trj-* empty fields; façade incomplete; legacy green |
+| 01C | 09–11 | executePilotLifecycleAction HD delta 0; valid/invalid helper |
+| 02/03/04 | 12, 13, 15 | signal parity; sealed digest; PREPARE reuse preserved |
 
 ## Validation
 
-- Focused BAR + HD/PROV/TRJ/LR/lifecycle: 226 passed
-- Full Vitest: 3426 passed | 135 skipped (3561)
+- Focused + affected: 227 passed
+- Full Vitest: 3427 passed | 135 skipped (3562)
 - typecheck: PASS
 - lint: PASS
 - build: PASS
 - git diff --check: PASS
-- ZERO NEW REAL: confirmed
-- No second HD / Confirmation / EC / Attempt introduced
+- ZERO NEW REAL
+- Confirmation/EC/Attempt: 0 introduced
+- Model calls PREPARE/START: 0
 
-## CR-START dispositions
+## CR dispositions
 
-- CR-START-01 = CANDIDATE CLOSED — PENDING CHATGPT CRITICAL REVIEW
-- CR-START-02 = CANDIDATE CLOSED — PENDING CHATGPT CRITICAL REVIEW
-- CR-START-03 = CANDIDATE CLOSED — PENDING CHATGPT CRITICAL REVIEW
-- CR-START-04 = CANDIDATE CLOSED — PENDING CHATGPT CRITICAL REVIEW
+- CR-START-01A = CANDIDATE CLOSED — PENDING CHATGPT CRITICAL REVIEW
+- CR-START-01B = CANDIDATE CLOSED — PENDING CHATGPT CRITICAL REVIEW
+- CR-START-01C = CANDIDATE CLOSED — PENDING CHATGPT CRITICAL REVIEW
+- CR-START-02 = CLOSED DETERMINISTICALLY
+- CR-START-03 = CLOSED DETERMINISTICALLY
+- CR-START-04 = CLOSED DETERMINISTICALLY
 
 ## Reserves
 
-- RESERVE-START-STEP-LINK-01 / PROFILE-SIGNAL-01 / CKC-BIND-01: not declared definitively CLOSED pending ChatGPT accept of global candidate
+- RESERVE-START-STEP-LINK / PROFILE-SIGNAL / CKC-BIND: not definitively CLOSED pending ChatGPT accept
 - RESERVE-START-LIVE-01 = OPEN
 - RESERVE-START-PROFILE-SIGNAL-LIVE-01 = OPEN
 - RESERVE-START-CONCURRENCY-REALISM-01 = OPEN
@@ -108,23 +138,23 @@ FIGMA SOURCE NOT APPLICABLE — no UX/UI change
 
 ## Anti-claims
 
-Do NOT claim: START LIVE PROVEN; CycleInstance LIVE PROVEN; profile signals LIVE PROVEN; CKC START LIVE PROVEN; END-TO-END REAL; Task App delivered; Greenfield Product Proof COMPLETE; R2 CLOSED; PR READY; runtime v3 ADOPTED; concurrency realism closed; ExecutionContract PROVEN; READY FOR REAL.
+Do NOT claim: START LIVE PROVEN; CycleInstance LIVE PROVEN; profile signals LIVE; CKC START LIVE; END-TO-END REAL; Task App delivered; Greenfield COMPLETE; R2 CLOSED; PR READY; runtime v3 ADOPTED; concurrency realism closed; ExecutionContract PROVEN; READY FOR REAL.
+
+## Next capability
+
+Fresh Bounded LIVE START only after ChatGPT Critical Review PASS + distinct GO Morris LIVE.
 
 ## Final verdict
 
-GREENFIELD START CANONICAL GUARD + SEALED BASIS PARITY + PREPARE REUSE MICRO-CORRECTIVE — DETERMINISTIC CANDIDATE READY FOR CHATGPT CRITICAL REVIEW
+GREENFIELD START CORE ATOMIC GUARD + INCOMPLETE-BINDING FAIL-CLOSED + NO PRE-START LEGACY HD — DETERMINISTIC CANDIDATE READY FOR CHATGPT CRITICAL REVIEW
 
 ## Product files modified (exact list)
 
 - `projects/sfia-studio/app/__tests__/project-assistant/candidateTrajectoryCycleStart.d0.test.ts`
+- `projects/sfia-studio/app/features/project-assistant/f2/pilotLifecycleActions.ts`
 - `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/assertTrajectoryBoundCycleStartReady.ts`
-- `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/index.ts`
-- `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/prepareCycleFromValidatedTrajectory.ts`
 - `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/startPreparedTrajectoryCycle.ts`
 - `projects/sfia-studio/app/lib/oa/cycle/application/pilotLifecycleTransitions.ts`
-- `projects/sfia-studio/app/lib/oa/cycle/index.ts`
-- `projects/sfia-studio/app/lib/oa/cycle/infrastructure/sqlite/createSqliteCycleServices.ts`
-- `projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts`
 
 ## FULL usable modified content for EVERY Product file
 
@@ -145,6 +175,7 @@ import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   buildSingleRecommendedCycleStep,
+  classifyTrajectoryBinding,
   computeCandidateContentDigest,
   computeCandidateTrajectoryPresentationDigest,
   buildCandidateTrajectoryPresentationMaterial,
@@ -159,6 +190,7 @@ import {
   selectEligiblePendingTrajectorySteps,
   selectExactPrepareStep,
   startPreparedTrajectoryCycle,
+  TRAJECTORY_BOUND_CYCLE_ID_PREFIX,
   validateLifecycleRecommendation,
 } from "@/lib/oa/cycle";
 import {
@@ -169,6 +201,7 @@ import {
   approveCandidateTrajectory,
   buildPreCycleCandidateApprovalPresentation,
 } from "@/features/project-assistant/approveCandidateTrajectory";
+import { executePilotLifecycleAction } from "@/features/project-assistant/f2/pilotLifecycleActions";
 import { PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
 import type { Digest, DoctrinePackagePin } from "@/lib/oa/doctrine";
 import { createProjectError } from "@/lib/oa/project";
@@ -179,6 +212,7 @@ import {
 import type { LocalProjectIdSource } from "@/lib/vertical-slice-core";
 import * as cycleTypeCatalog from "@/lib/oa/cycle/domain/cycleTypeCatalog";
 import type { SqliteProductStore } from "@/lib/oa/project/infrastructure/sqlite/sqliteProductStore";
+import type { CycleInstance } from "@/lib/oa/cycle";
 
 const APP_ROOT = path.resolve(__dirname, "../..");
 const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
@@ -577,6 +611,80 @@ async function persistEpistemicItem(
   if (!updated.ok) {
     throw new Error(`persist epistemic failed: ${updated.error.detailCode}`);
   }
+}
+
+async function directPilotStart(input: {
+  oa: NonNullable<Awaited<ReturnType<typeof bootFreshProject>>["runtime"]["oa"]>;
+  projectId: string;
+  cycleInstanceId: string;
+  expectedLpsVersion?: number;
+}) {
+  const auth = registerLocalPiloteAuthority({
+    authorityResolver: input.oa.authorityResolver,
+    scope: `pilot-lifecycle:${input.cycleInstanceId}`,
+    issuedAt: "2026-09-10T08:00:00.000Z",
+    forceEnable: true,
+  });
+  if (!auth.ok) throw new Error(`auth failed: ${auth.code}`);
+  let expectedLpsVersion = input.expectedLpsVersion;
+  if (expectedLpsVersion === undefined) {
+    const lps = await input.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId: input.projectId,
+    });
+    if (!lps.ok) throw new Error("lps missing");
+    expectedLpsVersion = lps.livingProjectState.version;
+  }
+  return input.oa.cycleServices.pilotLifecycle.start({
+    cycleInstanceId: input.cycleInstanceId,
+    projectId: input.projectId,
+    createdBy: {
+      actorId: LOCAL_PILOTE_ACTOR.actorId,
+      role: LOCAL_PILOTE_ACTOR.role,
+      displayName: LOCAL_PILOTE_ACTOR.displayName,
+      authorityLevel: LOCAL_PILOTE_ACTOR.authorityLevel,
+    },
+    authorityEvidenceId: auth.evidenceId,
+    expectedLpsVersion,
+  });
+}
+
+function installTxDepthSpies(store: SqliteProductStore) {
+  let depth = 0;
+  let outerOpens = 0;
+  let joins = 0;
+  const saveDepths: number[] = [];
+  const qualifyDepths: number[] = [];
+  const orig = store.runInTransaction.bind(store);
+  vi.spyOn(store, "runInTransaction").mockImplementation(async (fn) => {
+    const wasOuter = depth === 0;
+    if (wasOuter) outerOpens += 1;
+    else joins += 1;
+    depth += 1;
+    try {
+      return await orig(async () => fn());
+    } finally {
+      depth -= 1;
+    }
+  });
+  return {
+    get depth() {
+      return depth;
+    },
+    get outerOpens() {
+      return outerOpens;
+    },
+    get joins() {
+      return joins;
+    },
+    saveDepths,
+    qualifyDepths,
+    noteSave() {
+      saveDepths.push(depth);
+    },
+    noteQualify() {
+      qualifyDepths.push(depth);
+    },
+  };
 }
 
 describe("GREENFIELD VALIDATED → PREPARE → START — BAR-START", () => {
@@ -2109,7 +2217,846 @@ describe("GREENFIELD VALIDATED → PREPARE → START — BAR-START", () => {
     expect(start15.ok).toBe(true);
     if (start15.ok) expect(start15.cycle.status).toBe("active");
   });
+
+  it("BAR-START-CORR2-01…15 — atomic UoW + binding classifier + no parasite HD", async () => {
+    // CORR2-01 — direct start: cycle.save + qualify run inside store txn
+    const seeded01 = await seedPrepared("c2-01");
+    const store01 = seeded01.oa.projectServices.store as SqliteProductStore;
+    const tx01 = installTxDepthSpies(store01);
+    const origSave01 = seeded01.oa.cycleServices.cycles.save.bind(
+      seeded01.oa.cycleServices.cycles,
+    );
+    vi.spyOn(seeded01.oa.cycleServices.cycles, "save").mockImplementation(
+      async (cycle) => {
+        tx01.noteSave();
+        return origSave01(cycle);
+      },
+    );
+    // Guard + trajectory load both call findCurrentByProjectId inside the UoW.
+    const origFind01 =
+      seeded01.oa.cycleServices.trajectories.findCurrentByProjectId.bind(
+        seeded01.oa.cycleServices.trajectories,
+      );
+    vi.spyOn(
+      seeded01.oa.cycleServices.trajectories,
+      "findCurrentByProjectId",
+    ).mockImplementation(async (projectId) => {
+      if (tx01.depth >= 1) tx01.noteQualify();
+      return origFind01(projectId);
+    });
+    const start01 = await directPilotStart({
+      oa: seeded01.oa,
+      projectId: seeded01.projectId,
+      cycleInstanceId: seeded01.prep.cycle.cycleInstanceId,
+    });
+    expect(start01.ok).toBe(true);
+    expect(tx01.saveDepths.some((d) => d >= 1)).toBe(true);
+    expect(tx01.qualifyDepths.some((d) => d >= 1)).toBe(true);
+    expect(tx01.outerOpens).toBeGreaterThanOrEqual(1);
+
+    // CORR2-02 — direct core: trajectory save fail mid-start → rollback
+    const seeded02 = await seedPrepared("c2-02");
+    const store02 = seeded02.oa.projectServices.store as SqliteProductStore;
+    const lps02a =
+      await seeded02.oa.projectServices.getCurrentLivingProjectState.execute({
+        projectId: seeded02.projectId,
+      });
+    expect(lps02a.ok).toBe(true);
+    if (!lps02a.ok) return;
+    store02.failNextSave = "trajectory";
+    const fail02 = await directPilotStart({
+      oa: seeded02.oa,
+      projectId: seeded02.projectId,
+      cycleInstanceId: seeded02.prep.cycle.cycleInstanceId,
+      expectedLpsVersion: lps02a.livingProjectState.version,
+    });
+    store02.failNextSave = null;
+    expect(fail02.ok).toBe(false);
+    const cyc02 = await seeded02.oa.cycleServices.cycles.findById(
+      seeded02.prep.cycle.cycleInstanceId,
+    );
+    expect(cyc02?.status).not.toBe("active");
+    const traj02 =
+      await seeded02.oa.cycleServices.trajectories.findCurrentByProjectId(
+        seeded02.projectId,
+      );
+    expect(
+      traj02?.steps.find(
+        (s) => s.stepId === seeded02.prep.cycle.trajectoryStepId,
+      )?.state,
+    ).toBe("pending");
+    const lps02b =
+      await seeded02.oa.projectServices.getCurrentLivingProjectState.execute({
+        projectId: seeded02.projectId,
+      });
+    expect(lps02b.ok).toBe(true);
+    if (lps02b.ok) {
+      expect(lps02b.livingProjectState.activeCycleInstanceId ?? null).toBeNull();
+    }
+
+    // CORR2-03/04/05 — strip one binding field → incomplete, no mutation
+    async function expectIncompleteStrip(
+      suffix: string,
+      mutate: (c: CycleInstance) => void,
+    ) {
+      const seeded = await seedPrepared(suffix);
+      const corrupted = structuredClone(seeded.prep.cycle);
+      mutate(corrupted);
+      await seeded.oa.cycleServices.cycles.save(corrupted);
+      expect(classifyTrajectoryBinding(corrupted)).toBe(
+        "INCOMPLETE_TRAJECTORY_BINDING",
+      );
+      const before = await seeded.oa.cycleServices.cycles.findById(
+        corrupted.cycleInstanceId,
+      );
+      const start = await directPilotStart({
+        oa: seeded.oa,
+        projectId: seeded.projectId,
+        cycleInstanceId: corrupted.cycleInstanceId,
+      });
+      expect(start.ok).toBe(false);
+      if (!start.ok) {
+        expect(start.error.detailCode).toBe("CYCLE_START_NOT_READY");
+        expect(start.error.internalCauseRef).toBe(
+          "TRAJECTORY_BINDING_INCOMPLETE",
+        );
+      }
+      const after = await seeded.oa.cycleServices.cycles.findById(
+        corrupted.cycleInstanceId,
+      );
+      expect(after?.status).toBe(before?.status);
+      expect(after?.status).not.toBe("active");
+      const lps =
+        await seeded.oa.projectServices.getCurrentLivingProjectState.execute({
+          projectId: seeded.projectId,
+        });
+      expect(lps.ok).toBe(true);
+      if (lps.ok) {
+        expect(lps.livingProjectState.activeCycleInstanceId ?? null).toBeNull();
+      }
+    }
+    await expectIncompleteStrip("c2-03", (c) => {
+      delete c.trajectoryStepId;
+    });
+    await expectIncompleteStrip("c2-04", (c) => {
+      delete c.trajectoryId;
+    });
+    await expectIncompleteStrip("c2-05", (c) => {
+      delete (c as { trajectoryVersion?: number }).trajectoryVersion;
+    });
+
+    // CORR2-06 — clear all three but keep cyc:trj-* id → incomplete (not legacy)
+    const seeded06 = await seedPrepared("c2-06");
+    expect(
+      seeded06.prep.cycle.cycleInstanceId.startsWith(
+        TRAJECTORY_BOUND_CYCLE_ID_PREFIX,
+      ),
+    ).toBe(true);
+    const cleared06 = structuredClone(seeded06.prep.cycle);
+    delete cleared06.trajectoryId;
+    delete cleared06.trajectoryStepId;
+    delete (cleared06 as { trajectoryVersion?: number }).trajectoryVersion;
+    await seeded06.oa.cycleServices.cycles.save(cleared06);
+    expect(classifyTrajectoryBinding(cleared06)).toBe(
+      "INCOMPLETE_TRAJECTORY_BINDING",
+    );
+    const start06 = await directPilotStart({
+      oa: seeded06.oa,
+      projectId: seeded06.projectId,
+      cycleInstanceId: cleared06.cycleInstanceId,
+    });
+    expect(start06.ok).toBe(false);
+    if (!start06.ok) {
+      expect(start06.error.internalCauseRef).toBe(
+        "TRAJECTORY_BINDING_INCOMPLETE",
+      );
+    }
+    const cyc06 = await seeded06.oa.cycleServices.cycles.findById(
+      cleared06.cycleInstanceId,
+    );
+    expect(cyc06?.status).not.toBe("active");
+
+    // CORR2-07 — facade on incomplete → fail
+    const seeded07 = await seedPrepared("c2-07");
+    const cleared07 = structuredClone(seeded07.prep.cycle);
+    delete cleared07.trajectoryStepId;
+    await seeded07.oa.cycleServices.cycles.save(cleared07);
+    const facade07 = await startPreparedTrajectoryCycle({
+      oa: seeded07.oa,
+      projectId: seeded07.projectId,
+      cycleInstanceId: cleared07.cycleInstanceId,
+      forceLocalAuthority: true,
+    });
+    expect(facade07.ok).toBe(false);
+    if (!facade07.ok) {
+      expect(facade07.code).toBe("TRAJECTORY_BINDING_INCOMPLETE");
+    }
+
+    // CORR2-08 — true legacy unbound start still green
+    const { runtime: rt08, projectId: pid08 } = await bootFreshProject("c2-08");
+    const oa08 = rt08.oa!;
+    const lps08 = await oa08.projectServices.getCurrentLivingProjectState.execute({
+      projectId: pid08,
+    });
+    expect(lps08.ok).toBe(true);
+    if (!lps08.ok) return;
+    const traj08 = await oa08.cycleServices.createInitialTrajectory.execute({
+      trajectoryId: `trj:c2-08-${pid08}`,
+      projectId: pid08,
+      steps: [
+        { stepId: "stp:c2-08-a", order: 1, label: "Clarify", state: "pending" },
+        { stepId: "stp:c2-08-b", order: 2, label: "Decide", state: "pending" },
+      ],
+      status: "active",
+      expectedLpsVersion: lps08.livingProjectState.version,
+      createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
+    });
+    expect(traj08.ok).toBe(true);
+    const unboundId08 = "cyc:c2-08-unbound";
+    const created08 = await oa08.cycleServices.createCycle.execute({
+      cycleInstanceId: unboundId08,
+      cycleTypeId: "cyc:delivery",
+      projectId: pid08,
+      signals: { lowRiskBounded: true },
+      createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
+      linkAsActiveCycle: false,
+    });
+    expect(created08.ok).toBe(true);
+    if (!created08.ok) return;
+    expect(classifyTrajectoryBinding(created08.cycle)).toBe("LEGACY_UNBOUND");
+    const start08 = await directPilotStart({
+      oa: oa08,
+      projectId: pid08,
+      cycleInstanceId: unboundId08,
+    });
+    expect(start08.ok).toBe(true);
+
+    // CORR2-09 — executePilotLifecycleAction + requiresTrajectoryHumanDecision on prepared → HD delta 0
+    const seeded09 = await seedPrepared("c2-09");
+    const hdBefore09 = await seeded09.oa.decisionServices.decisions.listByProject(
+      seeded09.projectId,
+    );
+    const action09 = await executePilotLifecycleAction({
+      action: "START",
+      projectId: seeded09.projectId,
+      cycleInstanceId: seeded09.prep.cycle.cycleInstanceId,
+      cycleServices: seeded09.oa.cycleServices,
+      projectServices: seeded09.oa.projectServices,
+      decisionServices: seeded09.oa.decisionServices,
+      authorityResolver: seeded09.oa.authorityResolver,
+      nowIso: () => "2026-09-10T08:00:00.000Z",
+      requiresTrajectoryHumanDecision: true,
+    });
+    // May succeed or fail on readiness — but must not create parasite start HD
+    const hdAfter09 = await seeded09.oa.decisionServices.decisions.listByProject(
+      seeded09.projectId,
+    );
+    expect(hdAfter09.length - hdBefore09.length).toBe(0);
+    if (action09.ok) {
+      expect(action09.decisionId).toBeUndefined();
+    }
+
+    // CORR2-10 — helper valid → START success, no second HD
+    const seeded10 = await seedPrepared("c2-10");
+    const hdBefore10 = await seeded10.oa.decisionServices.decisions.listByProject(
+      seeded10.projectId,
+    );
+    const action10 = await executePilotLifecycleAction({
+      action: "START",
+      projectId: seeded10.projectId,
+      cycleInstanceId: seeded10.prep.cycle.cycleInstanceId,
+      cycleServices: seeded10.oa.cycleServices,
+      projectServices: seeded10.oa.projectServices,
+      decisionServices: seeded10.oa.decisionServices,
+      authorityResolver: seeded10.oa.authorityResolver,
+      nowIso: () => "2026-09-10T08:00:00.000Z",
+      requiresTrajectoryHumanDecision: true,
+    });
+    expect(action10.ok).toBe(true);
+    const hdAfter10 = await seeded10.oa.decisionServices.decisions.listByProject(
+      seeded10.projectId,
+    );
+    expect(hdAfter10.length - hdBefore10.length).toBe(0);
+
+    // CORR2-11 — helper + corrupted signals → fail, HD delta 0, no mutation
+    const seeded11 = await seedPrepared("c2-11");
+    const cyc11 = structuredClone(seeded11.prep.cycle);
+    cyc11.qualificationSignals = { ...SIGNALS_CRITICAL };
+    await seeded11.oa.cycleServices.cycles.save(cyc11);
+    const hdBefore11 = await seeded11.oa.decisionServices.decisions.listByProject(
+      seeded11.projectId,
+    );
+    const action11 = await executePilotLifecycleAction({
+      action: "START",
+      projectId: seeded11.projectId,
+      cycleInstanceId: cyc11.cycleInstanceId,
+      cycleServices: seeded11.oa.cycleServices,
+      projectServices: seeded11.oa.projectServices,
+      decisionServices: seeded11.oa.decisionServices,
+      authorityResolver: seeded11.oa.authorityResolver,
+      nowIso: () => "2026-09-10T08:00:00.000Z",
+      requiresTrajectoryHumanDecision: true,
+    });
+    expect(action11.ok).toBe(false);
+    const hdAfter11 = await seeded11.oa.decisionServices.decisions.listByProject(
+      seeded11.projectId,
+    );
+    expect(hdAfter11.length - hdBefore11.length).toBe(0);
+    const after11 = await seeded11.oa.cycleServices.cycles.findById(
+      cyc11.cycleInstanceId,
+    );
+    expect(after11?.status).not.toBe("active");
+
+    // CORR2-12 — signal parity via direct core still enforced
+    const seeded12 = await seedPrepared("c2-12");
+    const cyc12 = structuredClone(seeded12.prep.cycle);
+    cyc12.qualificationSignals = { ...SIGNALS_CRITICAL };
+    await seeded12.oa.cycleServices.cycles.save(cyc12);
+    const start12 = await directPilotStart({
+      oa: seeded12.oa,
+      projectId: seeded12.projectId,
+      cycleInstanceId: cyc12.cycleInstanceId,
+    });
+    expect(start12.ok).toBe(false);
+    if (!start12.ok) {
+      expect(start12.error.detailCode).toBe("CYCLE_START_NOT_READY");
+      expect(start12.error.internalCauseRef).toBe("PROVENANCE_SIGNAL_MISMATCH");
+    }
+
+    // CORR2-13 — sealed digest via direct core still enforced
+    const seeded13 = await seedPrepared("c2-13");
+    const traj13 =
+      await seeded13.oa.cycleServices.trajectories.findCurrentByProjectId(
+        seeded13.projectId,
+      );
+    const drifted13 = structuredClone(traj13!);
+    drifted13.steps = drifted13.steps.map((s, i) =>
+      i === 0 ? { ...s, label: `${s.label} POST-PREP` } : s,
+    );
+    await seeded13.oa.cycleServices.trajectories.save(drifted13);
+    const start13 = await directPilotStart({
+      oa: seeded13.oa,
+      projectId: seeded13.projectId,
+      cycleInstanceId: seeded13.prep.cycle.cycleInstanceId,
+    });
+    expect(start13.ok).toBe(false);
+    if (!start13.ok) {
+      expect(start13.error.internalCauseRef).toBe(
+        "DECISION_SEALED_TRAJECTORY_DRIFT",
+      );
+    }
+
+    // CORR2-14 — nested facade→core: outer txn joins (one logical outer open)
+    const seeded14 = await seedPrepared("c2-14");
+    const store14 = seeded14.oa.projectServices.store as SqliteProductStore;
+    const tx14 = installTxDepthSpies(store14);
+    const origSave14 = seeded14.oa.cycleServices.cycles.save.bind(
+      seeded14.oa.cycleServices.cycles,
+    );
+    vi.spyOn(seeded14.oa.cycleServices.cycles, "save").mockImplementation(
+      async (cycle) => {
+        tx14.noteSave();
+        return origSave14(cycle);
+      },
+    );
+    const start14 = await startPreparedTrajectoryCycle({
+      oa: seeded14.oa,
+      projectId: seeded14.projectId,
+      forceLocalAuthority: true,
+    });
+    expect(start14.ok).toBe(true);
+    expect(tx14.outerOpens).toBe(1);
+    expect(tx14.joins).toBeGreaterThanOrEqual(1);
+    expect(tx14.saveDepths.every((d) => d >= 1)).toBe(true);
+    // Nested join: save runs under facade outer (depth >= 1), not a second outer BEGIN
+    expect(tx14.saveDepths.some((d) => d >= 1)).toBe(true);
+
+    // CORR2-15 — prepare reuse still green
+    const seeded15 = await seedPrepared("c2-15");
+    const reuse15 = await prepareCycleFromValidatedTrajectory({
+      oa: seeded15.oa,
+      projectId: seeded15.projectId,
+    });
+    expect(reuse15.ok).toBe(true);
+    if (reuse15.ok) {
+      expect(reuse15.cycle.cycleInstanceId).toBe(
+        seeded15.prep.cycle.cycleInstanceId,
+      );
+    }
+  });
 });
+```
+
+### `projects/sfia-studio/app/features/project-assistant/f2/pilotLifecycleActions.ts`
+
+```typescript
+/**
+ * CORR-PROOF-05 — Project Assistant Pilot lifecycle server helpers.
+ * Pilot lifecycle authority ≠ Morris construction gate.
+ *
+ * Static guard: forceEnable must not appear in this Product file.
+ * registerLocalPiloteAuthority is env-gated fail-closed (AUTHORITY_NOT_CONFIGURED).
+ * Tests may forceEnable only outside this Product path.
+ */
+import { randomUUID } from "node:crypto";
+import {
+  LOCAL_PILOTE_ACTOR,
+  registerLocalPiloteAuthority,
+  type DecisionServices,
+  type MemoryAuthorityResolver,
+} from "@/lib/oa/decision";
+import {
+  cancelSubjectFor,
+  classifyTrajectoryBinding,
+  finalizeSubjectFor,
+  startTrajectorySubjectFor,
+  resumeReplanSubjectFor,
+  type CycleServices,
+  type FinalizationAssessment,
+  type PilotLifecycleResult,
+} from "@/lib/oa/cycle";
+import type { ProjectServices } from "@/lib/oa/project";
+
+export type PilotLifecycleActionKind =
+  | "START"
+  | "PAUSE"
+  | "RESUME"
+  | "FINALIZE"
+  | "CANCEL"
+  | "ASSESS"
+  | "REEVALUATE";
+
+const PILOTE = LOCAL_PILOTE_ACTOR;
+
+async function ensurePiloteAuthority(input: {
+  authorityResolver: MemoryAuthorityResolver;
+  scope: string;
+  nowIso: string;
+}): Promise<{ ok: true; evidenceId: string } | { ok: false; code: string; message: string }> {
+  const authority = registerLocalPiloteAuthority({
+    authorityResolver: input.authorityResolver,
+    scope: input.scope,
+    issuedAt: input.nowIso,
+  });
+  if (!authority.ok) {
+    return { ok: false, code: authority.code, message: authority.message };
+  }
+
+  const verified = input.authorityResolver.verify({
+    actorId: LOCAL_PILOTE_ACTOR.actorId,
+    requiredLevel: "N3",
+    scope: input.scope,
+    evidenceId: authority.evidenceId,
+    requireMorrisGate: true,
+  });
+  if (!verified.ok) {
+    const reason = verified.reason ?? "authority_verify_failed";
+    const notConfigured =
+      reason === "no_evidence" ||
+      reason === "evidence_not_found" ||
+      reason.includes("not_configured") ||
+      reason.includes("not configured");
+    return {
+      ok: false,
+      code: notConfigured ? "AUTHORITY_NOT_CONFIGURED" : "CYCLE_LIFECYCLE_DENIED",
+      message: reason,
+    };
+  }
+  return { ok: true, evidenceId: authority.evidenceId };
+}
+
+async function recordLifecycleDecision(input: {
+  decisionServices: DecisionServices;
+  authorityResolver: MemoryAuthorityResolver;
+  projectId: string;
+  cycleInstanceId: string;
+  subject: string;
+  selectedOptionId: string;
+  nowIso: string;
+  /** Reuse evidence already obtained via ensurePiloteAuthority. */
+  authorityEvidenceId?: string;
+}): Promise<
+  | { ok: true; decisionId: string; evidenceId: string }
+  | { ok: false; code: string; message: string }
+> {
+  const scope = `pilot-lifecycle:${input.cycleInstanceId}`;
+  let evidenceId = input.authorityEvidenceId;
+  if (!evidenceId) {
+    const auth = await ensurePiloteAuthority({
+      authorityResolver: input.authorityResolver,
+      scope,
+      nowIso: input.nowIso,
+    });
+    if (!auth.ok) return auth;
+    evidenceId = auth.evidenceId;
+  }
+
+  const decisionId = `dec:pilot-life:${randomUUID()}`;
+  const recorded = await input.decisionServices.recordHumanDecision.execute({
+    decisionId,
+    projectId: input.projectId,
+    cycleInstanceId: input.cycleInstanceId,
+    subject: input.subject,
+    options: [
+      { optionId: "opt:accept", label: "Accept" },
+      { optionId: "opt:refuse", label: "Refuse" },
+    ],
+    selectedOptionId: input.selectedOptionId,
+    actor: PILOTE,
+    // Technical OA authority class for structuring Pilot HD — not Morris runtime UX.
+    authority: "morris",
+    status: "accepted",
+    reversible: false,
+    scope,
+    authorityEvidenceId: evidenceId,
+    rationale: `Pilot lifecycle ${input.subject}`,
+  });
+  if (!recorded.ok) {
+    return {
+      ok: false,
+      code: recorded.error.detailCode,
+      message: recorded.error.message,
+    };
+  }
+  return { ok: true, decisionId, evidenceId };
+}
+
+export async function executePilotLifecycleAction(input: {
+  action: PilotLifecycleActionKind;
+  projectId: string;
+  cycleInstanceId: string;
+  cycleServices: CycleServices;
+  projectServices: ProjectServices;
+  decisionServices: DecisionServices;
+  authorityResolver: MemoryAuthorityResolver;
+  nowIso: () => string;
+  /** RESUME only — caller-detected material drift (hint; server owns SoT). */
+  materialDriftDetected?: boolean;
+  /** START hint only — server assessStartReadiness decides HD requirement. */
+  requiresTrajectoryHumanDecision?: boolean;
+  /** RESUME hint only — server assessResumeReconciliation decides. */
+  requiresReplanHumanDecision?: boolean;
+}): Promise<
+  | {
+      ok: true;
+      action: PilotLifecycleActionKind;
+      result?: PilotLifecycleResult;
+      assessment?: FinalizationAssessment;
+      decisionId?: string;
+      authorityEvidenceId?: string;
+    }
+  | {
+      ok: false;
+      code: string;
+      message: string;
+      assessment?: FinalizationAssessment;
+    }
+> {
+  const createdBy = {
+    actorId: PILOTE.actorId,
+    role: PILOTE.role,
+    displayName: PILOTE.displayName,
+    authorityLevel: PILOTE.authorityLevel,
+  };
+
+  const lps = await input.projectServices.getCurrentLivingProjectState.execute({
+    projectId: input.projectId,
+  });
+  const expectedLpsVersion = lps.ok
+    ? lps.livingProjectState.version
+    : undefined;
+
+  const scope = `pilot-lifecycle:${input.cycleInstanceId}`;
+
+  switch (input.action) {
+    case "START": {
+      const auth = await ensurePiloteAuthority({
+        authorityResolver: input.authorityResolver,
+        scope,
+        nowIso: input.nowIso(),
+      });
+      if (!auth.ok) return auth;
+
+      // CR-START-01B/C — classify before any recordLifecycleDecision.
+      const cycle = await input.cycleServices.cycles.findById(
+        input.cycleInstanceId,
+      );
+      if (!cycle || cycle.projectId !== input.projectId) {
+        return {
+          ok: false,
+          code: "CYCLE_NOT_FOUND",
+          message: "Cycle instance was not found.",
+        };
+      }
+      const binding = classifyTrajectoryBinding(cycle);
+      if (binding === "INCOMPLETE_TRAJECTORY_BINDING") {
+        return {
+          ok: false,
+          code: "TRAJECTORY_BINDING_INCOMPLETE",
+          message: "Trajectory binding is incomplete.",
+        };
+      }
+
+      let decisionId: string | undefined;
+      if (binding === "COMPLETE_TRAJECTORY_BOUND") {
+        // CR-START-01C — never parasite-create start+trajectory HD for greenfield.
+        // Ignore requiresTrajectoryHumanDecision hint; do not auto-create HD after.
+      } else if (input.requiresTrajectoryHumanDecision) {
+        // LEGACY_UNBOUND — preserve historical pre-record behavior.
+        const hd = await recordLifecycleDecision({
+          decisionServices: input.decisionServices,
+          authorityResolver: input.authorityResolver,
+          projectId: input.projectId,
+          cycleInstanceId: input.cycleInstanceId,
+          subject: startTrajectorySubjectFor(input.cycleInstanceId),
+          selectedOptionId: "opt:accept",
+          nowIso: input.nowIso(),
+          authorityEvidenceId: auth.evidenceId,
+        });
+        if (!hd.ok) return hd;
+        decisionId = hd.decisionId;
+      }
+      const result = await input.cycleServices.pilotLifecycle.start({
+        cycleInstanceId: input.cycleInstanceId,
+        projectId: input.projectId,
+        createdBy,
+        expectedLpsVersion,
+        requiresTrajectoryHumanDecision:
+          binding === "COMPLETE_TRAJECTORY_BOUND"
+            ? false
+            : input.requiresTrajectoryHumanDecision,
+        decisionId:
+          binding === "COMPLETE_TRAJECTORY_BOUND" ? undefined : decisionId,
+        authorityEvidenceId: auth.evidenceId,
+      });
+      if (!result.ok) {
+        return {
+          ok: false,
+          code: result.error.detailCode,
+          message: result.error.message,
+        };
+      }
+      return {
+        ok: true,
+        action: "START",
+        result,
+        decisionId,
+        authorityEvidenceId: auth.evidenceId,
+      };
+    }
+    case "PAUSE": {
+      const auth = await ensurePiloteAuthority({
+        authorityResolver: input.authorityResolver,
+        scope,
+        nowIso: input.nowIso(),
+      });
+      if (!auth.ok) return auth;
+      const result = await input.cycleServices.pilotLifecycle.pause({
+        cycleInstanceId: input.cycleInstanceId,
+        projectId: input.projectId,
+        createdBy,
+        expectedLpsVersion,
+        authorityEvidenceId: auth.evidenceId,
+      });
+      if (!result.ok) {
+        return {
+          ok: false,
+          code: result.error.detailCode,
+          message: result.error.message,
+        };
+      }
+      return {
+        ok: true,
+        action: "PAUSE",
+        result,
+        authorityEvidenceId: auth.evidenceId,
+      };
+    }
+    case "RESUME": {
+      const auth = await ensurePiloteAuthority({
+        authorityResolver: input.authorityResolver,
+        scope,
+        nowIso: input.nowIso(),
+      });
+      if (!auth.ok) return auth;
+
+      let decisionId: string | undefined;
+      if (input.requiresReplanHumanDecision) {
+        const hd = await recordLifecycleDecision({
+          decisionServices: input.decisionServices,
+          authorityResolver: input.authorityResolver,
+          projectId: input.projectId,
+          cycleInstanceId: input.cycleInstanceId,
+          subject: resumeReplanSubjectFor(input.cycleInstanceId),
+          selectedOptionId: "opt:accept",
+          nowIso: input.nowIso(),
+          authorityEvidenceId: auth.evidenceId,
+        });
+        if (!hd.ok) return hd;
+        decisionId = hd.decisionId;
+      }
+      const result = await input.cycleServices.pilotLifecycle.resume({
+        cycleInstanceId: input.cycleInstanceId,
+        projectId: input.projectId,
+        createdBy,
+        expectedLpsVersion,
+        materialDriftDetected: input.materialDriftDetected,
+        requiresReplanHumanDecision: input.requiresReplanHumanDecision,
+        decisionId,
+        authorityEvidenceId: auth.evidenceId,
+      });
+      if (!result.ok) {
+        return {
+          ok: false,
+          code: result.error.detailCode,
+          message: result.error.message,
+          assessment: result.assessment,
+        };
+      }
+      return {
+        ok: true,
+        action: "RESUME",
+        result,
+        decisionId,
+        authorityEvidenceId: auth.evidenceId,
+      };
+    }
+    case "FINALIZE": {
+      const auth = await ensurePiloteAuthority({
+        authorityResolver: input.authorityResolver,
+        scope,
+        nowIso: input.nowIso(),
+      });
+      if (!auth.ok) return auth;
+      const hd = await recordLifecycleDecision({
+        decisionServices: input.decisionServices,
+        authorityResolver: input.authorityResolver,
+        projectId: input.projectId,
+        cycleInstanceId: input.cycleInstanceId,
+        subject: finalizeSubjectFor(input.cycleInstanceId),
+        selectedOptionId: "opt:accept",
+        nowIso: input.nowIso(),
+        authorityEvidenceId: auth.evidenceId,
+      });
+      if (!hd.ok) return hd;
+      const result = await input.cycleServices.pilotLifecycle.finalize({
+        cycleInstanceId: input.cycleInstanceId,
+        projectId: input.projectId,
+        createdBy,
+        decisionId: hd.decisionId,
+        expectedLpsVersion,
+        authorityEvidenceId: auth.evidenceId,
+      });
+      if (!result.ok) {
+        return {
+          ok: false,
+          code: result.error.detailCode,
+          message: result.error.message,
+          assessment: result.assessment,
+        };
+      }
+      return {
+        ok: true,
+        action: "FINALIZE",
+        result,
+        assessment: result.assessment,
+        decisionId: hd.decisionId,
+        authorityEvidenceId: auth.evidenceId,
+      };
+    }
+    case "CANCEL": {
+      const auth = await ensurePiloteAuthority({
+        authorityResolver: input.authorityResolver,
+        scope,
+        nowIso: input.nowIso(),
+      });
+      if (!auth.ok) return auth;
+      const hd = await recordLifecycleDecision({
+        decisionServices: input.decisionServices,
+        authorityResolver: input.authorityResolver,
+        projectId: input.projectId,
+        cycleInstanceId: input.cycleInstanceId,
+        subject: cancelSubjectFor(input.cycleInstanceId),
+        selectedOptionId: "opt:accept",
+        nowIso: input.nowIso(),
+        authorityEvidenceId: auth.evidenceId,
+      });
+      if (!hd.ok) return hd;
+      const result = await input.cycleServices.pilotLifecycle.cancel({
+        cycleInstanceId: input.cycleInstanceId,
+        projectId: input.projectId,
+        createdBy,
+        decisionId: hd.decisionId,
+        expectedLpsVersion,
+        authorityEvidenceId: auth.evidenceId,
+      });
+      if (!result.ok) {
+        return {
+          ok: false,
+          code: result.error.detailCode,
+          message: result.error.message,
+        };
+      }
+      return {
+        ok: true,
+        action: "CANCEL",
+        result,
+        decisionId: hd.decisionId,
+        authorityEvidenceId: auth.evidenceId,
+      };
+    }
+    case "ASSESS": {
+      const assessed = await input.cycleServices.pilotLifecycle.assess({
+        cycleInstanceId: input.cycleInstanceId,
+        projectId: input.projectId,
+      });
+      if (!assessed.ok) {
+        return {
+          ok: false,
+          code: assessed.error.detailCode,
+          message: assessed.error.message,
+        };
+      }
+      return {
+        ok: true,
+        action: "ASSESS",
+        assessment: assessed.assessment,
+      };
+    }
+    case "REEVALUATE": {
+      const result =
+        await input.cycleServices.pilotLifecycle.reevaluateAndComplete({
+          cycleInstanceId: input.cycleInstanceId,
+          projectId: input.projectId,
+          createdBy,
+          expectedLpsVersion,
+        });
+      if (!result.ok) {
+        return {
+          ok: false,
+          code: result.error.detailCode,
+          message: result.error.message,
+          assessment: result.assessment,
+        };
+      }
+      return {
+        ok: true,
+        action: "REEVALUATE",
+        result,
+        assessment: result.assessment,
+      };
+    }
+    default: {
+      const _exhaustive: never = input.action;
+      void _exhaustive;
+      return {
+        ok: false,
+        code: "CYCLE_LIFECYCLE_DENIED",
+        message: "Unknown Pilot lifecycle action.",
+      };
+    }
+  }
+}
 ```
 
 ### `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/assertTrajectoryBoundCycleStartReady.ts`
@@ -2172,12 +3119,43 @@ export type QualifyCycleWithCkcPort = {
   execute(request: QualifyCycleWithCkcRequest): Promise<CkcQualificationResult>;
 };
 
-export function isTrajectoryBoundCycle(cycle: CycleInstance): boolean {
-  return (
-    Boolean(cycle.trajectoryId?.trim()) &&
-    typeof cycle.trajectoryVersion === "number" &&
-    Boolean(cycle.trajectoryStepId?.trim())
+/** Minted by prepareCycleFromValidatedTrajectory — never legacy unbound. */
+export const TRAJECTORY_BOUND_CYCLE_ID_PREFIX = "cyc:trj-";
+
+export type TrajectoryBindingClass =
+  | "LEGACY_UNBOUND"
+  | "COMPLETE_TRAJECTORY_BOUND"
+  | "INCOMPLETE_TRAJECTORY_BINDING";
+
+/**
+ * CR-START-01B — ternary binding classifier.
+ * Partial binding or `cyc:trj-*` without full fields must NOT fall through to legacy.
+ */
+export function classifyTrajectoryBinding(cycle: {
+  cycleInstanceId: string;
+  trajectoryId?: string;
+  trajectoryVersion?: number;
+  trajectoryStepId?: string;
+}): TrajectoryBindingClass {
+  const trajId = cycle.trajectoryId?.trim() ?? "";
+  const stepId = cycle.trajectoryStepId?.trim() ?? "";
+  const hasId = trajId.length > 0;
+  const hasVersion = typeof cycle.trajectoryVersion === "number";
+  const hasStep = stepId.length > 0;
+  const complete = hasId && hasVersion && hasStep;
+  if (complete) return "COMPLETE_TRAJECTORY_BOUND";
+
+  const anyPresent = hasId || hasVersion || hasStep;
+  const mintedPrefix = cycle.cycleInstanceId.startsWith(
+    TRAJECTORY_BOUND_CYCLE_ID_PREFIX,
   );
+  if (anyPresent || mintedPrefix) return "INCOMPLETE_TRAJECTORY_BINDING";
+  return "LEGACY_UNBOUND";
+}
+
+/** Alias: true only for COMPLETE_TRAJECTORY_BOUND (backward compatible). */
+export function isTrajectoryBoundCycle(cycle: CycleInstance): boolean {
+  return classifyTrajectoryBinding(cycle) === "COMPLETE_TRAJECTORY_BOUND";
 }
 
 /**
@@ -2308,7 +3286,7 @@ export async function assertTrajectoryBoundCycleStartReady(
     reason: string,
   ): AssertTrajectoryBoundCycleStartReadyFailure => ({ ok: false, code, reason });
 
-  if (!isTrajectoryBoundCycle(cycle)) {
+  if (classifyTrajectoryBinding(cycle) !== "COMPLETE_TRAJECTORY_BOUND") {
     return fail("CYCLE_NOT_TRAJECTORY_BOUND", "trajectory_binding_incomplete");
   }
   if (cycle.projectId !== projectId) {
@@ -2588,641 +3566,6 @@ export function extractAcceptedCandidateTrajectoryDecision(
 }
 ```
 
-### `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/index.ts`
-
-```typescript
-export * from "./types";
-export * from "./basisFingerprint";
-export * from "./resolveCanonicalBasis";
-export * from "./validateLifecycleRecommendation";
-export * from "./materializeLifecycleRecommendation";
-export * from "./currentness";
-export * from "./produceLifecycleRecommendation";
-export * from "./materializeFromProductTurn";
-export * from "./materialReaderContract";
-export * from "./noraActor";
-export * from "./greenfieldLifecycleBootstrap";
-export * from "./prepareCandidateTrajectoryFromCurrentRecommendation";
-export * from "./candidateTrajectoryProvenance";
-export * from "./candidateTrajectoryDecisionBasis";
-export * from "./qualificationSignals";
-export * from "./ckcResolutionRef";
-export * from "./prepareCycleFromValidatedTrajectory";
-export * from "./assertTrajectoryBoundCycleStartReady";
-export * from "./readPreparedTrajectoryCycle";
-export * from "./startPreparedTrajectoryCycle";
-```
-
-### `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/prepareCycleFromValidatedTrajectory.ts`
-
-```typescript
-/**
- * D-GF-START-01 — prepare CycleInstance from validated/current greenfield trajectory.
- *
- * CreateCycle linkAsActiveCycle=false; no LPS mutation; no step state change; no START.
- * Profile from sealed HD/LR qualificationSignals — never invented defaults.
- *
- * CR-START-02/03/04 — fail-closed LR signals, sealed digest, delayed reuse.
- */
-
-import { createHash } from "node:crypto";
-import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
-import type { ActorReference } from "@/lib/oa/doctrine";
-import type { HumanDecision } from "@/lib/oa/decision";
-import {
-  CYCLE_TYPE_CATALOG_FINGERPRINT,
-} from "../../domain/catalogFingerprint";
-import { CYCLE_TYPE_CATALOG_VERSION, getCycleTypeById } from "../../domain/cycleTypeCatalog";
-import type {
-  CycleInstance,
-  CycleProfile,
-  ExplicitCycleQualificationSignals,
-  ProjectTrajectory,
-  TrajectoryStep,
-} from "../../domain/types";
-import {
-  assertDecisionSealedTrajectoryBasis,
-  assertGreenfieldSignalParity,
-} from "./assertTrajectoryBoundCycleStartReady";
-import {
-  isTargetCycleCurrentlySelectable,
-  resolveCandidateTrajectoryProvenance,
-} from "./candidateTrajectoryProvenance";
-import { projectCkcResolutionRef } from "./ckcResolutionRef";
-import {
-  buildCriticalProfileJustificationFromSignals,
-  parseExplicitQualificationSignals,
-  qualificationSignalsEqual,
-  toCreateCycleSignals,
-} from "./qualificationSignals";
-
-export const SYSTEM_PREPARE_CYCLE_ACTOR: ActorReference = Object.freeze({
-  actorId: "actor:system-prepare",
-  role: "system",
-  displayName: "System Prepare",
-  authorityLevel: "none",
-});
-
-export class PrepareCycleAtomicFailure extends Error {
-  readonly code: string;
-  readonly reason: string;
-  constructor(code: string, reason: string) {
-    super(`${code}:${reason}`);
-    this.name = "PrepareCycleAtomicFailure";
-    this.code = code;
-    this.reason = reason;
-  }
-}
-
-export function mintTrajectoryBoundCycleInstanceId(input: {
-  projectId: string;
-  trajectoryId: string;
-  trajectoryVersion: number;
-  stepId: string;
-  cycleTypeId: string;
-}): string {
-  const raw = [
-    input.projectId,
-    input.trajectoryId,
-    String(input.trajectoryVersion),
-    input.stepId,
-    input.cycleTypeId,
-  ].join("|");
-  const digest = createHash("sha256").update(raw).digest("hex").slice(0, 24);
-  return `cyc:trj-${digest}`;
-}
-
-/** Stable correlation so prepare/start requalify produce the same CKC ref. */
-export function mintPrepareCycleCorrelationId(input: {
-  projectId: string;
-  trajectoryId: string;
-  trajectoryVersion: number;
-  stepId: string;
-}): string {
-  const raw = [
-    input.projectId,
-    input.trajectoryId,
-    String(input.trajectoryVersion),
-    input.stepId,
-  ].join("|");
-  return `cor:gf-prep-${createHash("sha256").update(raw).digest("hex").slice(0, 16)}`;
-}
-
-function dependencySatisfied(
-  depId: string,
-  steps: readonly TrajectoryStep[],
-): boolean {
-  const dep = steps.find((s) => s.stepId === depId);
-  if (!dep) return false;
-  return dep.state === "done" || dep.state === "skipped";
-}
-
-/**
- * Eligible pending steps: pending + all dependencies satisfied + cycleTypeId present.
- */
-export function selectEligiblePendingTrajectorySteps(
-  trajectory: ProjectTrajectory,
-): TrajectoryStep[] {
-  return trajectory.steps.filter((step) => {
-    if (step.state !== "pending") return false;
-    if (!step.cycleTypeId?.trim()) return false;
-    const deps = step.dependencies ?? [];
-    return deps.every((d) => dependencySatisfied(d, trajectory.steps));
-  });
-}
-
-export function selectExactPrepareStep(input: {
-  trajectory: ProjectTrajectory;
-  targetCycleTypeId: string;
-}):
-  | { ok: true; step: TrajectoryStep }
-  | { ok: false; code: string; reason: string } {
-  // D-GF-START-01: all eligible pending steps first — never pick by order/label.
-  const eligible = selectEligiblePendingTrajectorySteps(input.trajectory);
-  if (eligible.length === 0) {
-    return {
-      ok: false,
-      code: "TRAJECTORY_STEP_SELECTION_REQUIRED",
-      reason: "no_eligible_pending_step",
-    };
-  }
-  if (eligible.length > 1) {
-    return {
-      ok: false,
-      code: "TRAJECTORY_STEP_SELECTION_REQUIRED",
-      reason: "ambiguous_eligible_pending_steps",
-    };
-  }
-  const step = eligible[0]!;
-  if (step.cycleTypeId !== input.targetCycleTypeId) {
-    return {
-      ok: false,
-      code: "TRAJECTORY_STEP_TYPE_MISMATCH",
-      reason: "eligible_step_cycle_type_mismatch_hd_target",
-    };
-  }
-  return { ok: true, step };
-}
-
-function cycleBindingCompatible(
-  existing: CycleInstance,
-  expected: {
-    trajectoryId: string;
-    trajectoryVersion: number;
-    trajectoryStepId: string;
-    cycleTypeId: string;
-    projectId: string;
-  },
-): boolean {
-  return (
-    existing.projectId === expected.projectId &&
-    existing.trajectoryId === expected.trajectoryId &&
-    existing.trajectoryVersion === expected.trajectoryVersion &&
-    existing.trajectoryStepId === expected.trajectoryStepId &&
-    existing.cycleTypeId === expected.cycleTypeId
-  );
-}
-
-function isReusablePreparedStatus(status: CycleInstance["status"]): boolean {
-  return status === "proposed" || status === "acknowledged";
-}
-
-function isTerminalCycleStatus(status: CycleInstance["status"]): boolean {
-  return (
-    status === "completed" ||
-    status === "cancelled" ||
-    status === "superseded"
-  );
-}
-
-function assertReusablePreparedCycle(input: {
-  existing: CycleInstance;
-  expectedBinding: {
-    projectId: string;
-    trajectoryId: string;
-    trajectoryVersion: number;
-    trajectoryStepId: string;
-    cycleTypeId: string;
-  };
-  qualificationSignals: ExplicitCycleQualificationSignals;
-  recommendedProfile: CycleProfile;
-  ckcResolutionRef: string;
-}): void {
-  const { existing } = input;
-  if (
-    !cycleBindingCompatible(existing, input.expectedBinding)
-  ) {
-    throw new PrepareCycleAtomicFailure(
-      "CYCLE_BINDING_CONFLICT",
-      "existing_cycle_incompatible_binding",
-    );
-  }
-  if (existing.status === "active") {
-    throw new PrepareCycleAtomicFailure(
-      "PREPARE_REUSE_ACTIVE",
-      "active_cycle_cannot_be_reused",
-    );
-  }
-  if (isTerminalCycleStatus(existing.status)) {
-    throw new PrepareCycleAtomicFailure(
-      "PREPARE_REUSE_TERMINAL",
-      `terminal_cycle_${existing.status}`,
-    );
-  }
-  if (!isReusablePreparedStatus(existing.status)) {
-    throw new PrepareCycleAtomicFailure(
-      "PREPARE_REUSE_CONTRACT_MISMATCH",
-      `status_not_reusable_${existing.status}`,
-    );
-  }
-  const existingSignals = parseExplicitQualificationSignals(
-    existing.qualificationSignals,
-  );
-  if (
-    !existingSignals ||
-    !qualificationSignalsEqual(existingSignals, input.qualificationSignals)
-  ) {
-    throw new PrepareCycleAtomicFailure(
-      "PREPARE_REUSE_CONTRACT_MISMATCH",
-      "existing_signals_do_not_match",
-    );
-  }
-  if (existing.profile !== input.recommendedProfile) {
-    throw new PrepareCycleAtomicFailure(
-      "PREPARE_REUSE_CONTRACT_MISMATCH",
-      "existing_profile_does_not_match",
-    );
-  }
-  if (existing.ckcResolutionRef !== input.ckcResolutionRef) {
-    throw new PrepareCycleAtomicFailure(
-      "PREPARE_REUSE_CONTRACT_MISMATCH",
-      "existing_ckc_ref_does_not_match",
-    );
-  }
-}
-
-function extractSealedSignalsFromDecision(
-  decision: HumanDecision,
-): ExplicitCycleQualificationSignals | null {
-  const ctx = decision.decisionBasis?.candidateTrajectoryContext;
-  return parseExplicitQualificationSignals(ctx?.qualificationSignals);
-}
-
-export type PrepareCycleFromValidatedTrajectoryResult =
-  | {
-      ok: true;
-      cycle: CycleInstance;
-      reused: boolean;
-      catalogLabel: string | null;
-      stepId: string;
-      trajectoryId: string;
-      trajectoryVersion: number;
-      correlationId: string;
-    }
-  | { ok: false; code: string; reason: string };
-
-export async function prepareCycleFromValidatedTrajectory(input: {
-  oa: RuntimeOaStack;
-  projectId: string;
-}): Promise<PrepareCycleFromValidatedTrajectoryResult> {
-  const { oa, projectId } = input;
-  if (!projectId?.startsWith("prj:")) {
-    return {
-      ok: false,
-      code: "PROJECT_INVALID",
-      reason: "project_id_invalid",
-    };
-  }
-
-  const fail = (code: string, reason: string): PrepareCycleFromValidatedTrajectoryResult => ({
-    ok: false,
-    code,
-    reason,
-  });
-
-  try {
-    return await oa.projectServices.store.runInTransaction(async () => {
-      const project = await oa.projectServices.getProject.execute({ projectId });
-      if (!project.ok) {
-        throw new PrepareCycleAtomicFailure("PROJECT_NOT_FOUND", "missing_project");
-      }
-
-      const lps = await oa.projectServices.getCurrentLivingProjectState.execute({
-        projectId,
-      });
-      if (!lps.ok) {
-        throw new PrepareCycleAtomicFailure("LPS_UNAVAILABLE", "lps_unreadable");
-      }
-      if (lps.livingProjectState.activeCycleInstanceId) {
-        throw new PrepareCycleAtomicFailure(
-          "ACTIVE_CYCLE_PRESENT",
-          "active_cycle_already_linked",
-        );
-      }
-
-      const trajectory =
-        await oa.cycleServices.trajectories.findCurrentByProjectId(projectId);
-      if (!trajectory) {
-        throw new PrepareCycleAtomicFailure(
-          "TRAJECTORY_MISSING",
-          "current_trajectory_missing",
-        );
-      }
-      if (trajectory.status !== "validated" && trajectory.status !== "active") {
-        throw new PrepareCycleAtomicFailure(
-          "TRAJECTORY_NOT_VALIDATED",
-          `trajectory_status_${trajectory.status}`,
-        );
-      }
-      if (!trajectory.decidedByDecisionRef?.trim()) {
-        throw new PrepareCycleAtomicFailure(
-          "TRAJECTORY_DECISION_REF_MISSING",
-          "decided_by_decision_ref_required",
-        );
-      }
-
-      const hdResult = await oa.decisionServices.getHumanDecision.execute({
-        decisionId: trajectory.decidedByDecisionRef,
-      });
-      if (!hdResult.ok) {
-        throw new PrepareCycleAtomicFailure(
-          "HUMAN_DECISION_MISSING",
-          "deciding_hd_unreadable",
-        );
-      }
-      const decision = hdResult.decision;
-      if (decision.status !== "accepted") {
-        throw new PrepareCycleAtomicFailure(
-          "HUMAN_DECISION_NOT_ACCEPTED",
-          "deciding_hd_not_accepted",
-        );
-      }
-      if (decision.decisionBasis?.sourceType !== "candidate_trajectory") {
-        throw new PrepareCycleAtomicFailure(
-          "HUMAN_DECISION_SOURCE_MISMATCH",
-          "expected_candidate_trajectory_basis",
-        );
-      }
-      if (decision.projectId !== projectId) {
-        throw new PrepareCycleAtomicFailure(
-          "HUMAN_DECISION_PROJECT_MISMATCH",
-          "hd_wrong_project",
-        );
-      }
-
-      const ctx = decision.decisionBasis.candidateTrajectoryContext;
-      if (!ctx) {
-        throw new PrepareCycleAtomicFailure(
-          "HUMAN_DECISION_CONTEXT_MISSING",
-          "candidate_trajectory_context_missing",
-        );
-      }
-      if (ctx.trajectoryId !== trajectory.trajectoryId) {
-        throw new PrepareCycleAtomicFailure(
-          "PROVENANCE_TRAJECTORY_MISMATCH",
-          "hd_trajectory_mismatch",
-        );
-      }
-      if (ctx.candidateVersion !== trajectory.version) {
-        throw new PrepareCycleAtomicFailure(
-          "TRAJECTORY_VERSION_MISMATCH",
-          "hd_candidate_version_mismatch",
-        );
-      }
-
-      // CR-START-02 — HD signals required; LR signals required and must equal HD.
-      const qualificationSignals = extractSealedSignalsFromDecision(decision);
-      if (!qualificationSignals) {
-        throw new PrepareCycleAtomicFailure(
-          "PROFILE_SIGNALS_MISSING",
-          "complete_qualification_signals_required",
-        );
-      }
-
-      // CR-START-03 — sealed material content must still match HD digest.
-      const sealedBasis = assertDecisionSealedTrajectoryBasis({
-        trajectory,
-        sealedCandidateContentDigest: ctx.candidateContentDigest,
-      });
-      if (!sealedBasis.ok) {
-        throw new PrepareCycleAtomicFailure(
-          sealedBasis.code,
-          sealedBasis.reason,
-        );
-      }
-
-      const epistemic = await oa.cycleServices.epistemic.listByProject(projectId);
-      const sourceLr = epistemic.find(
-        (e) => e.epistemicItemId === ctx.recommendationId,
-      );
-      const lrSignals = parseExplicitQualificationSignals(
-        sourceLr?.lifecycleRecommendation?.qualificationSignals,
-      );
-      const signalParity = assertGreenfieldSignalParity({
-        lrSignals,
-        hdSignals: qualificationSignals,
-      });
-      if (!signalParity.ok) {
-        throw new PrepareCycleAtomicFailure(
-          signalParity.code,
-          signalParity.reason,
-        );
-      }
-
-      const provenance = resolveCandidateTrajectoryProvenance({
-        projectId,
-        trajectoryId: trajectory.trajectoryId,
-        epistemicItems: epistemic,
-      });
-      if (provenance.status !== "RESOLVED") {
-        throw new PrepareCycleAtomicFailure(
-          `PROVENANCE_${provenance.status}`,
-          "provenance_not_resolved",
-        );
-      }
-      if (
-        provenance.recommendationId !== ctx.recommendationId ||
-        provenance.semanticKey !== ctx.semanticKey ||
-        provenance.targetCycleTypeId !== ctx.targetCycleTypeId ||
-        provenance.provenanceObservationId !== ctx.provenanceObservationId
-      ) {
-        throw new PrepareCycleAtomicFailure(
-          "PROVENANCE_HD_MISMATCH",
-          "provenance_does_not_match_human_decision",
-        );
-      }
-
-      const stepSelect = selectExactPrepareStep({
-        trajectory,
-        targetCycleTypeId: ctx.targetCycleTypeId,
-      });
-      if (!stepSelect.ok) {
-        throw new PrepareCycleAtomicFailure(stepSelect.code, stepSelect.reason);
-      }
-      const step = stepSelect.step;
-      const cycleTypeId = step.cycleTypeId!;
-      if (cycleTypeId !== ctx.targetCycleTypeId) {
-        throw new PrepareCycleAtomicFailure(
-          "TARGET_CYCLE_TYPE_MISMATCH",
-          "step_cycle_type_does_not_match_hd",
-        );
-      }
-      if (!isTargetCycleCurrentlySelectable(cycleTypeId)) {
-        throw new PrepareCycleAtomicFailure(
-          "TARGET_CYCLE_NOT_SELECTABLE",
-          "cycle_type_not_selectable",
-        );
-      }
-
-      const cycleInstanceId = mintTrajectoryBoundCycleInstanceId({
-        projectId,
-        trajectoryId: trajectory.trajectoryId,
-        trajectoryVersion: trajectory.version,
-        stepId: step.stepId,
-        cycleTypeId,
-      });
-      const correlationId = mintPrepareCycleCorrelationId({
-        projectId,
-        trajectoryId: trajectory.trajectoryId,
-        trajectoryVersion: trajectory.version,
-        stepId: step.stepId,
-      });
-
-      // CR-START-04 — qualify BEFORE reuse; never early-return on id/binding alone.
-      const qualified = await oa.ckcQualification.qualifyCycleWithCkc.execute({
-        cycleTypeId,
-        catalogVersion: CYCLE_TYPE_CATALOG_VERSION,
-        catalogHash: CYCLE_TYPE_CATALOG_FINGERPRINT,
-        correlationId,
-        signals: signalParity.signals,
-        objective: lps.livingProjectState.objective,
-      });
-      if (qualified.state !== "success") {
-        throw new PrepareCycleAtomicFailure(
-          qualified.code,
-          "qualify_cycle_with_ckc_failed",
-        );
-      }
-
-      const ckcResolutionRef = projectCkcResolutionRef(qualified.proof);
-      const expectedBinding = {
-        projectId,
-        trajectoryId: trajectory.trajectoryId,
-        trajectoryVersion: trajectory.version,
-        trajectoryStepId: step.stepId,
-        cycleTypeId,
-      };
-
-      const existing = await oa.cycleServices.cycles.findById(cycleInstanceId);
-      if (existing) {
-        assertReusablePreparedCycle({
-          existing,
-          expectedBinding,
-          qualificationSignals: signalParity.signals,
-          recommendedProfile: qualified.recommendedProfile,
-          ckcResolutionRef,
-        });
-        const entry = getCycleTypeById(existing.cycleTypeId);
-        return {
-          ok: true as const,
-          cycle: structuredClone(existing),
-          reused: true,
-          catalogLabel: entry?.label ?? null,
-          stepId: step.stepId,
-          trajectoryId: trajectory.trajectoryId,
-          trajectoryVersion: trajectory.version,
-          correlationId,
-        };
-      }
-
-      const siblings = await oa.cycleServices.cycles.listByProject(projectId);
-      const byBinding = siblings.find((c) =>
-        cycleBindingCompatible(c, expectedBinding),
-      );
-      if (byBinding) {
-        assertReusablePreparedCycle({
-          existing: byBinding,
-          expectedBinding,
-          qualificationSignals: signalParity.signals,
-          recommendedProfile: qualified.recommendedProfile,
-          ckcResolutionRef,
-        });
-        const entry = getCycleTypeById(byBinding.cycleTypeId);
-        return {
-          ok: true as const,
-          cycle: structuredClone(byBinding),
-          reused: true,
-          catalogLabel: entry?.label ?? null,
-          stepId: step.stepId,
-          trajectoryId: trajectory.trajectoryId,
-          trajectoryVersion: trajectory.version,
-          correlationId,
-        };
-      }
-
-      const created = await oa.cycleServices.createCycle.execute({
-        cycleInstanceId,
-        cycleTypeId,
-        projectId,
-        signals: toCreateCycleSignals(signalParity.signals),
-        justification: buildCriticalProfileJustificationFromSignals(
-          signalParity.signals,
-        ),
-        objective: lps.livingProjectState.objective,
-        createdBy: SYSTEM_PREPARE_CYCLE_ACTOR,
-        correlationId,
-        linkAsActiveCycle: false,
-        ckcResolutionRef,
-        trajectoryId: trajectory.trajectoryId,
-        trajectoryVersion: trajectory.version,
-        trajectoryStepId: step.stepId,
-      });
-      if (!created.ok) {
-        throw new PrepareCycleAtomicFailure(
-          created.error.detailCode,
-          created.error.internalCauseRef ?? "create_cycle_failed",
-        );
-      }
-
-      // Guard: prepare must not have mutated LPS active pointer.
-      const lpsAfter =
-        await oa.projectServices.getCurrentLivingProjectState.execute({
-          projectId,
-        });
-      if (
-        lpsAfter.ok &&
-        lpsAfter.livingProjectState.activeCycleInstanceId
-      ) {
-        throw new PrepareCycleAtomicFailure(
-          "LPS_ACTIVE_MUTATED",
-          "prepare_must_not_link_active_cycle",
-        );
-      }
-
-      const entry = getCycleTypeById(created.cycle.cycleTypeId);
-      return {
-        ok: true as const,
-        cycle: structuredClone(created.cycle),
-        reused: false,
-        catalogLabel: entry?.label ?? null,
-        stepId: step.stepId,
-        trajectoryId: trajectory.trajectoryId,
-        trajectoryVersion: trajectory.version,
-        correlationId,
-      };
-    });
-  } catch (err) {
-    if (err instanceof PrepareCycleAtomicFailure) {
-      return fail(err.code, err.reason);
-    }
-    return fail(
-      "PERSISTENCE_FAILURE",
-      err instanceof Error ? err.message : "prepare_cycle_failed",
-    );
-  }
-}
-```
-
 ### `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/startPreparedTrajectoryCycle.ts`
 
 ```typescript
@@ -3241,7 +3584,7 @@ import {
 } from "@/lib/oa/decision";
 import { getCycleTypeById } from "../../domain/cycleTypeCatalog";
 import type { CycleInstance } from "../../domain/types";
-import { isTrajectoryBoundCycle } from "./assertTrajectoryBoundCycleStartReady";
+import { classifyTrajectoryBinding } from "./assertTrajectoryBoundCycleStartReady";
 import { selectExactPrepareStep } from "./prepareCycleFromValidatedTrajectory";
 
 export class StartPreparedCycleAtomicFailure extends Error {
@@ -3355,7 +3698,7 @@ export async function startPreparedTrajectoryCycle(input: {
           stepSelect && stepSelect.ok ? stepSelect.step.stepId : null;
         const matches = cycles.filter(
           (c) =>
-            isTrajectoryBoundCycle(c) &&
+            classifyTrajectoryBinding(c) === "COMPLETE_TRAJECTORY_BOUND" &&
             c.trajectoryId === trajectory.trajectoryId &&
             c.trajectoryVersion === trajectory.version &&
             (stepId == null || c.trajectoryStepId === stepId) &&
@@ -3375,7 +3718,14 @@ export async function startPreparedTrajectoryCycle(input: {
           "prepared_cycle_not_found",
         );
       }
-      if (!isTrajectoryBoundCycle(cycle)) {
+      const binding = classifyTrajectoryBinding(cycle);
+      if (binding === "INCOMPLETE_TRAJECTORY_BINDING") {
+        throw new StartPreparedCycleAtomicFailure(
+          "TRAJECTORY_BINDING_INCOMPLETE",
+          "trajectory_binding_incomplete",
+        );
+      }
+      if (binding === "LEGACY_UNBOUND") {
         throw new StartPreparedCycleAtomicFailure(
           "CYCLE_BINDING_MISMATCH",
           "cycle_not_trajectory_bound",
@@ -3514,8 +3864,9 @@ import {
 } from "./deriveLifecycleBlockers";
 import {
   assertTrajectoryBoundCycleStartReady,
-  isTrajectoryBoundCycle,
+  classifyTrajectoryBinding,
   type QualifyCycleWithCkcPort,
+  type TrajectoryBindingClass,
 } from "./lifecycleRecommendation/assertTrajectoryBoundCycleStartReady";
 
 function newId(prefix: "cor"): string {
@@ -3700,6 +4051,85 @@ export class PilotLifecycleTransitions {
       return fail(authGate.detailCode, authGate.internalCauseRef);
     }
 
+    // Peek binding before mutation — INCOMPLETE must not fall through to legacy.
+    const peek = await this.deps.cycles.findById(request.cycleInstanceId);
+    if (!peek || peek.projectId !== request.projectId) {
+      return fail("CYCLE_NOT_FOUND", "missing_cycle");
+    }
+    const peekBinding = classifyTrajectoryBinding(peek);
+    if (peekBinding === "INCOMPLETE_TRAJECTORY_BINDING") {
+      return fail("CYCLE_START_NOT_READY", "TRAJECTORY_BINDING_INCOMPLETE");
+    }
+
+    if (peekBinding === "COMPLETE_TRAJECTORY_BOUND") {
+      // CR-START-01A — guard + readiness + persist must share one Product UoW.
+      if (!this.deps.store) {
+        return fail("CYCLE_START_NOT_READY", "START_UOW_UNAVAILABLE");
+      }
+      // persistLifecycleMutation catches and returns ok:false without rethrowing.
+      // Re-throw !ok inside the outer UoW so BEGIN/COMMIT rolls back any writes
+      // (same pattern as startPreparedTrajectoryCycle facade).
+      try {
+        return await this.deps.store.runInTransaction(async () => {
+          const result = await this.startCompleteTrajectoryBoundInsideUow({
+            request,
+            started,
+            timestamp,
+            correlationId,
+            fail,
+          });
+          if (!result.ok) {
+            const err = new Error("COMPLETE_START_UOW_ROLLBACK") as Error & {
+              pilotResult: PilotLifecycleResult;
+            };
+            err.pilotResult = result;
+            throw err;
+          }
+          return result;
+        });
+      } catch (err) {
+        if (
+          err instanceof Error &&
+          err.message === "COMPLETE_START_UOW_ROLLBACK" &&
+          "pilotResult" in err
+        ) {
+          return (err as Error & { pilotResult: PilotLifecycleResult })
+            .pilotResult;
+        }
+        return fail(
+          "PERSISTENCE_FAILURE",
+          err instanceof Error ? err.message : "complete_start_uow_failed",
+        );
+      }
+    }
+
+    return this.startLegacyUnbound({
+      request,
+      started,
+      timestamp,
+      correlationId,
+      fail,
+      cycle: peek,
+    });
+  }
+
+  /**
+   * COMPLETE_TRAJECTORY_BOUND START body — caller must already be inside
+   * `store.runInTransaction`. Nested `persistLifecycleMutation` joins the same UoW.
+   */
+  private async startCompleteTrajectoryBoundInsideUow(input: {
+    request: StartCycleRequest;
+    started: number;
+    timestamp: string;
+    correlationId: string;
+    fail: (
+      detailCode: Parameters<typeof createCycleError>[0]["detailCode"],
+      internalCauseRef?: string,
+      extra?: Partial<Parameters<typeof createCycleError>[0]>,
+    ) => PilotLifecycleResult;
+  }): Promise<PilotLifecycleResult> {
+    const { request, started, timestamp, correlationId, fail } = input;
+
     const projectResult = await this.deps.projectServices.getProject.execute({
       projectId: request.projectId,
     });
@@ -3712,6 +4142,15 @@ export class PilotLifecycleTransitions {
     if (!cycle || cycle.projectId !== request.projectId) {
       return fail("CYCLE_NOT_FOUND", "missing_cycle");
     }
+
+    const binding: TrajectoryBindingClass = classifyTrajectoryBinding(cycle);
+    if (binding === "INCOMPLETE_TRAJECTORY_BINDING") {
+      return fail("CYCLE_START_NOT_READY", "TRAJECTORY_BINDING_INCOMPLETE");
+    }
+    if (binding !== "COMPLETE_TRAJECTORY_BOUND") {
+      return fail("CYCLE_START_NOT_READY", "TRAJECTORY_BINDING_INCOMPLETE");
+    }
+
     if (isTerminalGuard(cycle)) {
       return fail("CYCLE_TERMINAL", `terminal_${cycle.status}`);
     }
@@ -3737,25 +4176,163 @@ export class PilotLifecycleTransitions {
       ? lps.livingProjectState.activeCycleInstanceId
       : undefined;
 
-    // CR-START-01 — trajectory-bound START must pass shared strong guard before
-    // any mutation (historical executePilotLifecycleAction path cannot bypass).
-    const trajectoryBound = isTrajectoryBoundCycle(cycle);
-    let guardedCkcResolutionRef: string | undefined;
-    if (trajectoryBound) {
-      const ready = await assertTrajectoryBoundCycleStartReady({
-        projectId: request.projectId,
-        cycle,
-        projectServices: this.deps.projectServices,
-        trajectories: this.deps.trajectories,
-        decisions: this.deps.decisions,
-        epistemic: this.deps.epistemic,
-        qualifyCycleWithCkc: this.deps.qualifyCycleWithCkc,
-      });
-      if (!ready.ok) {
-        return fail("CYCLE_START_NOT_READY", ready.code);
-      }
-      guardedCkcResolutionRef = ready.ckcResolutionRef;
+    const ready = await assertTrajectoryBoundCycleStartReady({
+      projectId: request.projectId,
+      cycle,
+      projectServices: this.deps.projectServices,
+      trajectories: this.deps.trajectories,
+      decisions: this.deps.decisions,
+      epistemic: this.deps.epistemic,
+      qualifyCycleWithCkc: this.deps.qualifyCycleWithCkc,
+    });
+    if (!ready.ok) {
+      return fail("CYCLE_START_NOT_READY", ready.code);
     }
+    const guardedCkcResolutionRef = ready.ckcResolutionRef;
+
+    const trajectory = await this.loadTrajectory(request.projectId);
+    const decisions = this.deps.decisions
+      ? await this.deps.decisions.listByProject(request.projectId)
+      : [];
+
+    const doctrineReadable = Boolean(
+      (projectResult.ok && projectResult.project.doctrinePackageRef) ||
+        (lps.ok && lps.livingProjectState.doctrinePackageRef),
+    );
+
+    const blockersSnap = await this.loadBlockers(request.projectId);
+    // COMPLETE greenfield: ignore start-trajectory HD hints — candidate HD is SoT.
+    const readiness = assessStartReadiness({
+      assessedAt: timestamp,
+      projectOk,
+      cycle,
+      projectId: request.projectId,
+      lpsReadable,
+      lpsActiveCycleInstanceId,
+      siblingActiveExists,
+      trajectory,
+      decisions,
+      doctrineReadable,
+      blockingReservationStatements: blockersSnap.ok
+        ? blockersSnap.statements
+        : undefined,
+      blockerSourceUnreadable: !blockersSnap.ok,
+    });
+
+    const nonHdBlockers = readiness.blockers.filter(
+      (b) => b !== "start_trajectory_hd_missing_or_invalid",
+    );
+    if (
+      nonHdBlockers.length > 0 ||
+      (!readiness.ready && !readiness.requiresTrajectoryHumanDecision)
+    ) {
+      return fail(
+        "CYCLE_START_NOT_READY",
+        readiness.blockers.join("|") || "start_not_ready",
+      );
+    }
+
+    // COMPLETE must not create/consume start-trajectory HD; fail closed if readiness asks.
+    if (readiness.requiresTrajectoryHumanDecision) {
+      return fail(
+        "CYCLE_DECISION_REQUIRED",
+        "start_trajectory_hd_not_applicable_for_complete_binding",
+      );
+    }
+
+    if (single) return fail(single.detailCode, single.reason);
+
+    const next: CycleInstance = {
+      ...structuredClone(cycle),
+      status: "active",
+      acknowledgedAt: cycle.acknowledgedAt ?? timestamp,
+      pauseReconciliation: null,
+    };
+
+    return this.persistLifecycleMutation({
+      action: "START",
+      projectId: request.projectId,
+      cycleInstanceId: request.cycleInstanceId,
+      createdBy: request.createdBy,
+      correlationId,
+      expectedLpsVersion: request.expectedLpsVersion,
+      decisionId: request.decisionId,
+      fromStatus: cycle.status,
+      toStatus: "active",
+      next,
+      setActiveLink: request.cycleInstanceId,
+      clearActiveLink: false,
+      started,
+      timestamp,
+      fail,
+      ckcResolutionRef: guardedCkcResolutionRef ?? cycle.ckcResolutionRef,
+      activateTrajectoryStep: {
+        trajectoryId: cycle.trajectoryId!,
+        trajectoryVersion: cycle.trajectoryVersion!,
+        stepId: cycle.trajectoryStepId!,
+      },
+    });
+  }
+
+  /** LEGACY_UNBOUND START — unchanged persist shape (no trajectory strong guard). */
+  private async startLegacyUnbound(input: {
+    request: StartCycleRequest;
+    started: number;
+    timestamp: string;
+    correlationId: string;
+    fail: (
+      detailCode: Parameters<typeof createCycleError>[0]["detailCode"],
+      internalCauseRef?: string,
+      extra?: Partial<Parameters<typeof createCycleError>[0]>,
+    ) => PilotLifecycleResult;
+    cycle: CycleInstance;
+  }): Promise<PilotLifecycleResult> {
+    const { request, started, timestamp, correlationId, fail } = input;
+    let cycle = input.cycle;
+
+    const projectResult = await this.deps.projectServices.getProject.execute({
+      projectId: request.projectId,
+    });
+    const projectOk = projectResult.ok;
+    if (!projectOk) {
+      return fail("PROJECT_NOT_FOUND", "missing_project");
+    }
+
+    // Fresh re-read — refuse if binding became incomplete/complete mid-flight.
+    const fresh = await this.deps.cycles.findById(request.cycleInstanceId);
+    if (!fresh || fresh.projectId !== request.projectId) {
+      return fail("CYCLE_NOT_FOUND", "missing_cycle");
+    }
+    const freshBinding = classifyTrajectoryBinding(fresh);
+    if (freshBinding !== "LEGACY_UNBOUND") {
+      return fail("CYCLE_START_NOT_READY", "TRAJECTORY_BINDING_INCOMPLETE");
+    }
+    cycle = fresh;
+
+    if (isTerminalGuard(cycle)) {
+      return fail("CYCLE_TERMINAL", `terminal_${cycle.status}`);
+    }
+    const transition = assertLifecycleTransition({
+      from: cycle.status,
+      action: "START",
+    });
+    if (transition) return fail(transition.detailCode, transition.reason);
+
+    const siblings = await this.deps.cycles.listByProject(request.projectId);
+    const single = assertAtMostOneActiveCycle({
+      cycles: siblings,
+      excludeCycleInstanceId: request.cycleInstanceId,
+    });
+    const siblingActiveExists = Boolean(single);
+
+    const lps =
+      await this.deps.projectServices.getCurrentLivingProjectState.execute({
+        projectId: request.projectId,
+      });
+    const lpsReadable = lps.ok;
+    const lpsActiveCycleInstanceId = lps.ok
+      ? lps.livingProjectState.activeCycleInstanceId
+      : undefined;
 
     const trajectory = await this.loadTrajectory(request.projectId);
     const decisions = this.deps.decisions
@@ -3789,7 +4366,10 @@ export class PilotLifecycleTransitions {
     const nonHdBlockers = readiness.blockers.filter(
       (b) => b !== "start_trajectory_hd_missing_or_invalid",
     );
-    if (nonHdBlockers.length > 0 || (!readiness.ready && !readiness.requiresTrajectoryHumanDecision)) {
+    if (
+      nonHdBlockers.length > 0 ||
+      (!readiness.ready && !readiness.requiresTrajectoryHumanDecision)
+    ) {
       return fail(
         "CYCLE_START_NOT_READY",
         readiness.blockers.join("|") || "start_not_ready",
@@ -3853,17 +4433,6 @@ export class PilotLifecycleTransitions {
       started,
       timestamp,
       fail,
-      ...(trajectoryBound
-        ? {
-            ckcResolutionRef:
-              guardedCkcResolutionRef ?? cycle.ckcResolutionRef,
-            activateTrajectoryStep: {
-              trajectoryId: cycle.trajectoryId!,
-              trajectoryVersion: cycle.trajectoryVersion!,
-              stepId: cycle.trajectoryStepId!,
-            },
-          }
-        : {}),
     });
   }
 
@@ -5034,1303 +5603,5 @@ export class PilotLifecycleTransitions {
 
 function isTerminalGuard(cycle: CycleInstance): boolean {
   return cycle.status === "completed" || cycle.status === "cancelled";
-}
-```
-
-### `projects/sfia-studio/app/lib/oa/cycle/index.ts`
-
-```typescript
-/**
- * T-A2 Cycle / Trajectory / Epistemic / CKC Foundation — public barrel.
- *
- * Isolated Option A v3-native module. Consumes T-A1 project + T-A0 doctrine
- * public APIs only. Does not replace d1 / OPS1 / MethodMode. In-memory only.
- */
-
-export * from "./domain/types";
-export * from "./domain/errors";
-export * from "./domain/invariants";
-export * from "./domain/qualification";
-export * from "./domain/cycleTypeCatalog";
-export * from "./domain/ckcQualificationContracts";
-export * from "./domain/ckcQualificationErrors";
-export * from "./domain/ckcConsumptionProof";
-export * from "./domain/ckcQualificationResult";
-export * from "./domain/catalogFingerprint";
-export * from "./domain/catalogProjection";
-
-export * from "./ports/cycleRepository";
-export * from "./ports/cyclePersistenceUnitOfWorkPort";
-export * from "./ports/trajectoryRepository";
-export * from "./ports/epistemicRepository";
-export * from "./ports/ckcResolver";
-export * from "./ports/ckcQualificationResolver";
-export * from "./ports/cycleAudit";
-
-export { QualifyCycle } from "./application/qualifyCycle";
-export * from "./application/qualifyCycleWithCkc";
-export * from "./application/bindCatalogAuthority";
-export { CreateCycle } from "./application/createCycle";
-export { GetCycle } from "./application/getCycle";
-export {
-  assessFinalizationObligations,
-  finalizeSubjectFor,
-  cancelSubjectFor,
-  startTrajectorySubjectFor,
-  resumeReplanSubjectFor,
-  isAcceptedFinalizeDecision,
-  isAcceptedCancelDecision,
-  isAcceptedStartTrajectoryDecision,
-  isAcceptedResumeReplanDecision,
-  FINALIZE_SUBJECT_PREFIX,
-  CANCEL_SUBJECT_PREFIX,
-  START_TRAJECTORY_SUBJECT_PREFIX,
-  RESUME_REPLAN_SUBJECT_PREFIX,
-} from "./application/assessFinalization";
-export {
-  assessStartReadiness,
-  type AssessStartReadinessInput,
-} from "./application/assessStartReadiness";
-export {
-  buildPauseReconciliationSnapshot,
-  assessResumeReconciliation,
-  trajectoryFingerprint,
-  type BuildPauseSnapshotInput,
-  type ResumeReconciliationInput,
-  type ResumeReconciliationResult,
-} from "./application/assessResumeReconciliation";
-export {
-  projectPilotLifecycle,
-  type PilotLifecycleProjection,
-} from "./application/lifecycleProjection";
-export * from "./application/lifecycleRecommendation";
-export {
-  deriveLifecycleBlockersFromEpistemicItems,
-  lifecycleBlockersFromReaderFailure,
-  type LifecycleBlockerSnapshot,
-} from "./application/deriveLifecycleBlockers";
-export {
-  deriveFinalizationApplicability,
-  obligationPolicySubjectFor,
-  OBLIGATION_POLICY_SUBJECT_PREFIX,
-  OBLIGATION_POLICY_NO_GOVERNED_EFFECTS,
-  OBLIGATION_POLICY_NO_ARTIFACT,
-  OBLIGATION_POLICY_NO_GIT,
-  OBLIGATION_POLICY_NO_EXECUTION,
-  OBLIGATION_POLICY_NO_EVIDENCE,
-  OBLIGATION_POLICY_NO_REVIEW,
-  OBLIGATION_POLICY_REQUIRE_ARTIFACT,
-  OBLIGATION_POLICY_REQUIRE_GIT,
-  type DerivableExecutionContract,
-  type DeriveFinalizationApplicabilityInput,
-} from "./application/deriveFinalizationApplicability";
-export {
-  selectEffectiveExecutionContracts,
-  type SelectableExecutionContract,
-  type SelectEffectiveExecutionContractsResult,
-} from "./application/selectEffectiveExecutionContracts";
-export {
-  selectEffectiveReviewBundles,
-  type SelectEffectiveReviewBundlesResult,
-} from "./application/selectEffectiveReviewBundles";
-export {
-  hasGitRepositorySemanticMarker,
-  isGitApplicableContract,
-  isGitQualifyingEvidence,
-  type GitQualifiableContract,
-} from "./application/qualifyGitEvidence";
-export {
-  PilotLifecycleTransitions,
-  type PilotLifecycleDeps,
-  type PilotLifecycleAuthorityPort,
-  type LifecycleDecisionReader,
-  type LifecycleEvidenceReader,
-  type LifecycleReviewBundleReader,
-  type LifecycleExecutionSnapshotReader,
-  type LifecycleEpistemicReader,
-} from "./application/pilotLifecycleTransitions";
-export * from "./domain/lifecycleInvariants";
-export { CreateInitialTrajectory } from "./application/createInitialTrajectory";
-export { GetCurrentTrajectory } from "./application/getCurrentTrajectory";
-export { GetTrajectoryVersion } from "./application/getTrajectoryVersion";
-export {
-  ProposeTrajectoryVersion,
-  TrajectoryVersionConflictSignal,
-  resolveTrajectoryLineageHead,
-} from "./application/proposeTrajectoryVersion";
-export { PromoteDecidedTrajectory } from "./application/promoteDecidedTrajectory";
-export { GetEpistemicState } from "./application/getEpistemicState";
-export { UpdateEpistemicState } from "./application/updateEpistemicState";
-export { ResolveCycleKnowledgeContract } from "./application/resolveCycleKnowledgeContract";
-
-export { MemoryCycleStore } from "./infrastructure/memoryCycleStore";
-export { MemoryCycleRepository } from "./infrastructure/memoryCycleRepository";
-export { MemoryTrajectoryRepository } from "./infrastructure/memoryTrajectoryRepository";
-export { MemoryEpistemicRepository } from "./infrastructure/memoryEpistemicRepository";
-export {
-  MemoryCkcResolver,
-  type CkcRegistryEntry,
-} from "./infrastructure/memoryCkcResolver";
-export {
-  ConsoleCycleAuditJournal,
-  MemoryCycleAuditJournal,
-} from "./infrastructure/observability";
-export * from "./infrastructure/ckcReferenceManifest";
-export * from "./infrastructure/ckcQualificationResolver";
-export {
-  createSqliteCycleServices,
-  createTestSqliteCycleServices,
-  type CreateSqliteCycleServicesOptions,
-  type SqliteCycleServices,
-} from "./infrastructure/sqlite/createSqliteCycleServices";
-export { SqliteCycleRepository } from "./infrastructure/sqlite/sqliteCycleRepository";
-export { SqliteCycleAuditJournal } from "./infrastructure/sqlite/sqliteCycleAuditJournal";
-
-import type { ClockPort, DoctrinePackagePin } from "@/lib/oa/doctrine";
-import {
-  FixedClock,
-  PRODUCT_DOCTRINE_PACKAGE_ID,
-  SystemClock,
-} from "@/lib/oa/doctrine";
-import type { ProjectServices } from "@/lib/oa/project";
-import { CreateCycle } from "./application/createCycle";
-import { CreateInitialTrajectory } from "./application/createInitialTrajectory";
-import { GetCurrentTrajectory } from "./application/getCurrentTrajectory";
-import { GetCycle } from "./application/getCycle";
-import { GetEpistemicState } from "./application/getEpistemicState";
-import { GetTrajectoryVersion } from "./application/getTrajectoryVersion";
-import { PromoteDecidedTrajectory } from "./application/promoteDecidedTrajectory";
-import { ProposeTrajectoryVersion } from "./application/proposeTrajectoryVersion";
-import { QualifyCycle } from "./application/qualifyCycle";
-import {
-  QualifyCycleWithCkc,
-  type QualifyCycleExecutor,
-} from "./application/qualifyCycleWithCkc";
-import {
-  bindCycleTypeCatalogAuthority,
-  verifyCycleTypeCatalogAuthority,
-} from "./application/bindCatalogAuthority";
-import { ResolveCycleKnowledgeContract } from "./application/resolveCycleKnowledgeContract";
-import { UpdateEpistemicState } from "./application/updateEpistemicState";
-import {
-  PilotLifecycleTransitions,
-  type LifecycleDecisionReader,
-  type LifecycleEvidenceReader,
-  type LifecycleReviewBundleReader,
-  type LifecycleExecutionSnapshotReader,
-  type LifecycleEpistemicReader,
-  type PilotLifecycleAuthorityPort,
-} from "./application/pilotLifecycleTransitions";
-import { DEFAULT_CYCLE_TYPE_CATALOG_AUTHORITY } from "./domain/catalogFingerprint";
-import type { CycleTypeCatalogAuthority } from "./domain/catalogFingerprint";
-import type { CycleTypeCatalog } from "./domain/cycleTypeCatalog";
-import type { FinalizationApplicabilityRules } from "./domain/types";
-import { CkcQualificationResolver } from "./infrastructure/ckcQualificationResolver";
-import { MemoryCkcResolver } from "./infrastructure/memoryCkcResolver";
-import { MemoryCycleRepository } from "./infrastructure/memoryCycleRepository";
-import { MemoryCycleStore } from "./infrastructure/memoryCycleStore";
-import { MemoryEpistemicRepository } from "./infrastructure/memoryEpistemicRepository";
-import { MemoryTrajectoryRepository } from "./infrastructure/memoryTrajectoryRepository";
-import {
-  ConsoleCycleAuditJournal,
-  MemoryCycleAuditJournal,
-} from "./infrastructure/observability";
-import type { CycleAuditPort } from "./ports/cycleAudit";
-import type { CyclePersistenceUnitOfWorkPort } from "./ports/cyclePersistenceUnitOfWorkPort";
-import type { CycleRepositoryPort } from "./ports/cycleRepository";
-import type { CkcResolverPort } from "./ports/ckcResolver";
-import type { CkcQualificationResolverPort } from "./ports/ckcQualificationResolver";
-import type { EpistemicRepositoryPort } from "./ports/epistemicRepository";
-import type { TrajectoryRepositoryPort } from "./ports/trajectoryRepository";
-
-export type CycleServices = {
-  store: CyclePersistenceUnitOfWorkPort;
-  cycles: CycleRepositoryPort;
-  trajectories: TrajectoryRepositoryPort;
-  epistemic: EpistemicRepositoryPort;
-  ckc: CkcResolverPort;
-  audit: CycleAuditPort;
-  qualifyCycle: QualifyCycle;
-  createCycle: CreateCycle;
-  getCycle: GetCycle;
-  createInitialTrajectory: CreateInitialTrajectory;
-  getCurrentTrajectory: GetCurrentTrajectory;
-  getTrajectoryVersion: GetTrajectoryVersion;
-  proposeTrajectoryVersion: ProposeTrajectoryVersion;
-  /** W2: candidate → decided/current promotion, decisionRef mandatory. */
-  promoteDecidedTrajectory: PromoteDecidedTrajectory;
-  getEpistemicState: GetEpistemicState;
-  updateEpistemicState: UpdateEpistemicState;
-  resolveCycleKnowledgeContract: ResolveCycleKnowledgeContract;
-  /** CORR-PROOF-05 Pilot lifecycle transitions. */
-  pilotLifecycle: PilotLifecycleTransitions;
-};
-
-export type CreateInMemoryCycleServicesOptions = {
-  projectServices: ProjectServices;
-  clock?: ClockPort;
-  audit?: CycleAuditPort;
-  ckcResolver?: CkcResolverPort;
-  decisions?: LifecycleDecisionReader;
-  evidence?: LifecycleEvidenceReader;
-  reviewBundles?: LifecycleReviewBundleReader;
-  execution?: LifecycleExecutionSnapshotReader;
-  epistemic?: LifecycleEpistemicReader;
-  authority?: PilotLifecycleAuthorityPort;
-  /**
-   * CR-START-01 — inject QualifyCycleWithCkc so trajectory-bound START cannot
-   * bypass CKC revalidation (single adjacent wiring point).
-   */
-  qualifyCycleWithCkc?: import("./application/lifecycleRecommendation/assertTrajectoryBoundCycleStartReady").QualifyCycleWithCkcPort;
-  applicabilityRules?: FinalizationApplicabilityRules;
-};
-
-export type CkcQualificationServices = {
-  readonly audit: CycleAuditPort;
-  readonly resolver: CkcQualificationResolverPort;
-  readonly qualifyCycleWithCkc: QualifyCycleWithCkc;
-};
-
-export type CreateCkcQualificationServicesOptions = {
-  readonly clock?: ClockPort;
-  readonly audit?: CycleAuditPort;
-  readonly resolver?: CkcQualificationResolverPort;
-  readonly registryRoot?: string;
-  readonly doctrinePackagePin?: DoctrinePackagePin;
-  readonly productResolverFactory?: (
-    audit: CycleAuditPort,
-    registryRoot: string,
-  ) => CkcQualificationResolverPort;
-  readonly qualifyCycle?: QualifyCycleExecutor;
-  /**
-   * Optional HASH-A-bound catalog authority (test-only future snapshots).
-   * Cryptographically verified before use; forged fingerprints fail closed
-   * on QualifyCycleWithCkc (R-W3D-03). Prefer {@link catalogSnapshot} when
-   * injecting N+1 content — factory binds HASH-A itself.
-   */
-  readonly catalogAuthority?: CycleTypeCatalogAuthority;
-  /**
-   * Optional raw catalog snapshot. Factory binds HASH-A via
-   * bindCycleTypeCatalogAuthority — callers cannot supply a forged fingerprint.
-   * Mutually preferred over an unverified catalogAuthority when both are set.
-   */
-  readonly catalogSnapshot?: Pick<CycleTypeCatalog, "entries">;
-};
-
-function resolveCkcQualificationCatalogAuthority(
-  options: CreateCkcQualificationServicesOptions,
-): CycleTypeCatalogAuthority {
-  if (options.catalogSnapshot) {
-    return bindCycleTypeCatalogAuthority(options.catalogSnapshot);
-  }
-  if (options.catalogAuthority) {
-    // Do not re-bind silently: QualifyCycleWithCkc verifies cryptographically
-    // and returns CATALOG_FINGERPRINT_STALE for forged authorities.
-    if (!verifyCycleTypeCatalogAuthority(options.catalogAuthority)) {
-      return options.catalogAuthority;
-    }
-    return options.catalogAuthority;
-  }
-  return DEFAULT_CYCLE_TYPE_CATALOG_AUTHORITY;
-}
-
-function usesProductDoctrinePin(pin?: DoctrinePackagePin): boolean {
-  return pin?.doctrinePackageId === PRODUCT_DOCTRINE_PACKAGE_ID;
-}
-
-function createFailureAwareAudit(audit: CycleAuditPort): CycleAuditPort & {
-  readonly hasFailed: () => boolean;
-} {
-  let failed = false;
-  return {
-    append(event): void {
-      if (failed) {
-        throw new Error("Audit sink unavailable.");
-      }
-      try {
-        audit.append(event);
-      } catch {
-        failed = true;
-        throw new Error("Audit sink unavailable.");
-      }
-    },
-    hasFailed: () => failed,
-  };
-}
-
-/**
- * Default CKC resolver selection (COR-W1-07).
- *
- * Product doctrine pin (`pkg:sfia-studio-doctrine-v3`) ALWAYS selects the
- * product-bound resolver path. Missing/invalid registryRoot must fail closed
- * as Product CKC unavailable — NEVER silently fall back to method-candidate.
- *
- * Explicit `options.resolver` injection remains for deliberate test/DI only.
- */
-function createDefaultCkcQualificationResolver(
-  options: CreateCkcQualificationServicesOptions,
-  audit: CycleAuditPort,
-): CkcQualificationResolverPort {
-  if (usesProductDoctrinePin(options.doctrinePackagePin)) {
-    const pin = options.doctrinePackagePin!;
-    return new CkcQualificationResolver(undefined, audit, {
-      // Empty/absent root is handled fail-closed inside product index load.
-      registryRoot: options.registryRoot ?? "",
-      doctrinePackageId: pin.doctrinePackageId,
-      packageVersion: pin.version,
-      packageDigest: pin.digest,
-    });
-  }
-  return new CkcQualificationResolver(undefined, audit);
-}
-
-/** Read-only D2-A → D2-B → D2-C composition without repositories or mutation. */
-export function createCkcQualificationServices(
-  options: CreateCkcQualificationServicesOptions = {},
-): CkcQualificationServices {
-  const clock = options.clock ?? new SystemClock();
-  const audit = options.audit ?? new ConsoleCycleAuditJournal();
-  const failureAwareAudit = createFailureAwareAudit(audit);
-  const resolver =
-    options.resolver ??
-    createDefaultCkcQualificationResolver(options, failureAwareAudit);
-  const qualifyCycle =
-    options.qualifyCycle ?? new QualifyCycle(clock, failureAwareAudit);
-
-  return Object.freeze({
-    audit,
-    resolver,
-    qualifyCycleWithCkc: new QualifyCycleWithCkc(
-      resolver,
-      qualifyCycle,
-      clock,
-      failureAwareAudit,
-      resolveCkcQualificationCatalogAuthority(options),
-    ),
-  });
-}
-
-/** Factory for in-memory Cycle/Trajectory/Epistemic/CKC services. */
-export function createInMemoryCycleServices(
-  options: CreateInMemoryCycleServicesOptions,
-): CycleServices {
-  const store = new MemoryCycleStore();
-  const cycles = new MemoryCycleRepository(store);
-  const trajectories = new MemoryTrajectoryRepository(store);
-  const epistemic = new MemoryEpistemicRepository(store);
-  const clock = options.clock ?? new SystemClock();
-  const audit = options.audit ?? new ConsoleCycleAuditJournal();
-  const ckc = options.ckcResolver ?? new MemoryCkcResolver();
-
-  return {
-    store,
-    cycles,
-    trajectories,
-    epistemic,
-    ckc,
-    audit,
-    qualifyCycle: new QualifyCycle(clock, audit),
-    createCycle: new CreateCycle(
-      cycles,
-      options.projectServices,
-      clock,
-      audit,
-      store,
-    ),
-    getCycle: new GetCycle(cycles, clock, audit),
-    createInitialTrajectory: new CreateInitialTrajectory(
-      trajectories,
-      options.projectServices,
-      clock,
-      audit,
-      store,
-    ),
-    getCurrentTrajectory: new GetCurrentTrajectory(trajectories, clock, audit),
-    getTrajectoryVersion: new GetTrajectoryVersion(trajectories, clock, audit),
-    proposeTrajectoryVersion: new ProposeTrajectoryVersion(
-      trajectories,
-      options.projectServices,
-      clock,
-      audit,
-      store,
-    ),
-    promoteDecidedTrajectory: new PromoteDecidedTrajectory(
-      trajectories,
-      options.projectServices,
-      clock,
-      audit,
-      store,
-    ),
-    getEpistemicState: new GetEpistemicState(epistemic, clock, audit),
-    updateEpistemicState: new UpdateEpistemicState(
-      epistemic,
-      clock,
-      audit,
-      store,
-    ),
-    resolveCycleKnowledgeContract: new ResolveCycleKnowledgeContract(
-      ckc,
-      clock,
-      audit,
-    ),
-    pilotLifecycle: new PilotLifecycleTransitions({
-      cycles,
-      trajectories,
-      projectServices: options.projectServices,
-      clock,
-      audit,
-      store,
-      decisions: options.decisions,
-      evidence: options.evidence,
-      reviewBundles: options.reviewBundles,
-      execution: options.execution,
-      epistemic: options.epistemic ?? {
-        listByProject: (projectId) => epistemic.listByProject(projectId),
-      },
-      authority: options.authority,
-      qualifyCycleWithCkc: options.qualifyCycleWithCkc,
-      applicabilityRules: options.applicabilityRules,
-    }),
-  };
-}
-
-export function createTestCycleServices(
-  options: CreateInMemoryCycleServicesOptions & {
-    audit?: MemoryCycleAuditJournal;
-    fixedNowIso?: string;
-    ckcResolver?: MemoryCkcResolver;
-  },
-): CycleServices & { audit: MemoryCycleAuditJournal } {
-  const audit = options.audit ?? new MemoryCycleAuditJournal();
-  const clock =
-    options.clock ??
-    (options.fixedNowIso
-      ? new FixedClock(options.fixedNowIso)
-      : new FixedClock("2026-07-24T06:00:00.000Z"));
-  return createInMemoryCycleServices({
-    ...options,
-    clock,
-    audit,
-  }) as CycleServices & { audit: MemoryCycleAuditJournal };
-}
-```
-
-### `projects/sfia-studio/app/lib/oa/cycle/infrastructure/sqlite/createSqliteCycleServices.ts`
-
-```typescript
-import type { ClockPort } from "@/lib/oa/doctrine";
-import { FixedClock, SystemClock } from "@/lib/oa/doctrine";
-import type { ProjectServices, ProductSqliteHandle } from "@/lib/oa/project";
-import { CreateCycle } from "../../application/createCycle";
-import { CreateInitialTrajectory } from "../../application/createInitialTrajectory";
-import { GetCurrentTrajectory } from "../../application/getCurrentTrajectory";
-import { GetCycle } from "../../application/getCycle";
-import { GetEpistemicState } from "../../application/getEpistemicState";
-import { GetTrajectoryVersion } from "../../application/getTrajectoryVersion";
-import { PromoteDecidedTrajectory } from "../../application/promoteDecidedTrajectory";
-import { ProposeTrajectoryVersion } from "../../application/proposeTrajectoryVersion";
-import { QualifyCycle } from "../../application/qualifyCycle";
-import { ResolveCycleKnowledgeContract } from "../../application/resolveCycleKnowledgeContract";
-import { UpdateEpistemicState } from "../../application/updateEpistemicState";
-import {
-  PilotLifecycleTransitions,
-  type LifecycleDecisionReader,
-  type LifecycleEvidenceReader,
-  type LifecycleReviewBundleReader,
-  type LifecycleExecutionSnapshotReader,
-  type LifecycleEpistemicReader,
-  type PilotLifecycleAuthorityPort,
-} from "../../application/pilotLifecycleTransitions";
-import type { QualifyCycleWithCkcPort } from "../../application/lifecycleRecommendation/assertTrajectoryBoundCycleStartReady";
-import type { FinalizationApplicabilityRules } from "../../domain/types";
-import { MemoryCkcResolver } from "../memoryCkcResolver";
-import type { CycleAuditPort } from "../../ports/cycleAudit";
-import type { CyclePersistenceUnitOfWorkPort } from "../../ports/cyclePersistenceUnitOfWorkPort";
-import type { CycleRepositoryPort } from "../../ports/cycleRepository";
-import type { CkcResolverPort } from "../../ports/ckcResolver";
-import type { EpistemicRepositoryPort } from "../../ports/epistemicRepository";
-import type { TrajectoryRepositoryPort } from "../../ports/trajectoryRepository";
-import { SqliteCycleAuditJournal } from "./sqliteCycleAuditJournal";
-import { SqliteCycleRepository } from "./sqliteCycleRepository";
-import { SqliteEpistemicRepository } from "./sqliteEpistemicRepository";
-import { SqliteTrajectoryRepository } from "./sqliteTrajectoryRepository";
-
-export type CreateSqliteCycleServicesOptions = {
-  projectServices: ProjectServices;
-  /** Shared Product SQLite handle (same DB / UoW as Project T-A1). */
-  productStore: ProductSqliteHandle & CyclePersistenceUnitOfWorkPort;
-  clock?: ClockPort;
-  audit?: CycleAuditPort;
-  ckcResolver?: CkcResolverPort;
-  decisions?: LifecycleDecisionReader;
-  evidence?: LifecycleEvidenceReader;
-  reviewBundles?: LifecycleReviewBundleReader;
-  execution?: LifecycleExecutionSnapshotReader;
-  epistemic?: LifecycleEpistemicReader;
-  authority?: PilotLifecycleAuthorityPort;
-  /**
-   * CR-START-01 — inject QualifyCycleWithCkc so trajectory-bound START cannot
-   * bypass CKC revalidation (single adjacent wiring point).
-   */
-  qualifyCycleWithCkc?: QualifyCycleWithCkcPort;
-  applicabilityRules?: FinalizationApplicabilityRules;
-};
-
-export type SqliteCycleServices = {
-  store: CyclePersistenceUnitOfWorkPort;
-  cycles: CycleRepositoryPort;
-  productStore: ProductSqliteHandle;
-  trajectories: TrajectoryRepositoryPort;
-  epistemic: EpistemicRepositoryPort;
-  ckc: CkcResolverPort;
-  audit: CycleAuditPort;
-  qualifyCycle: QualifyCycle;
-  createCycle: CreateCycle;
-  getCycle: GetCycle;
-  createInitialTrajectory: CreateInitialTrajectory;
-  getCurrentTrajectory: GetCurrentTrajectory;
-  getTrajectoryVersion: GetTrajectoryVersion;
-  proposeTrajectoryVersion: ProposeTrajectoryVersion;
-  promoteDecidedTrajectory: PromoteDecidedTrajectory;
-  getEpistemicState: GetEpistemicState;
-  updateEpistemicState: UpdateEpistemicState;
-  resolveCycleKnowledgeContract: ResolveCycleKnowledgeContract;
-  pilotLifecycle: PilotLifecycleTransitions;
-};
-
-/**
- * CycleInstance + Trajectory + Epistemic durable services on Product SQLite (M2/M6).
- */
-export function createSqliteCycleServices(
-  options: CreateSqliteCycleServicesOptions,
-): SqliteCycleServices {
-  const productStore = options.productStore;
-  const cycles = new SqliteCycleRepository(productStore);
-  const trajectories = new SqliteTrajectoryRepository(productStore);
-  const epistemic = new SqliteEpistemicRepository(productStore);
-  const clock = options.clock ?? new SystemClock();
-  const audit = options.audit ?? new SqliteCycleAuditJournal(productStore);
-  const ckc = options.ckcResolver ?? new MemoryCkcResolver();
-
-  return {
-    store: productStore,
-    cycles,
-    productStore,
-    trajectories,
-    epistemic,
-    ckc,
-    audit,
-    qualifyCycle: new QualifyCycle(clock, audit),
-    createCycle: new CreateCycle(
-      cycles,
-      options.projectServices,
-      clock,
-      audit,
-      productStore,
-    ),
-    getCycle: new GetCycle(cycles, clock, audit),
-    createInitialTrajectory: new CreateInitialTrajectory(
-      trajectories,
-      options.projectServices,
-      clock,
-      audit,
-      productStore,
-    ),
-    getCurrentTrajectory: new GetCurrentTrajectory(trajectories, clock, audit),
-    getTrajectoryVersion: new GetTrajectoryVersion(trajectories, clock, audit),
-    proposeTrajectoryVersion: new ProposeTrajectoryVersion(
-      trajectories,
-      options.projectServices,
-      clock,
-      audit,
-      productStore,
-    ),
-    promoteDecidedTrajectory: new PromoteDecidedTrajectory(
-      trajectories,
-      options.projectServices,
-      clock,
-      audit,
-      productStore,
-    ),
-    getEpistemicState: new GetEpistemicState(epistemic, clock, audit),
-    updateEpistemicState: new UpdateEpistemicState(
-      epistemic,
-      clock,
-      audit,
-      productStore,
-    ),
-    resolveCycleKnowledgeContract: new ResolveCycleKnowledgeContract(
-      ckc,
-      clock,
-      audit,
-    ),
-    pilotLifecycle: new PilotLifecycleTransitions({
-      cycles,
-      trajectories,
-      projectServices: options.projectServices,
-      clock,
-      audit,
-      store: productStore,
-      decisions: options.decisions,
-      evidence: options.evidence,
-      reviewBundles: options.reviewBundles,
-      execution: options.execution,
-      epistemic: options.epistemic ?? {
-        listByProject: (projectId) => epistemic.listByProject(projectId),
-      },
-      authority: options.authority,
-      qualifyCycleWithCkc: options.qualifyCycleWithCkc,
-      applicabilityRules: options.applicabilityRules,
-    }),
-  };
-}
-
-export function createTestSqliteCycleServices(
-  options: CreateSqliteCycleServicesOptions & {
-    fixedNowIso?: string;
-  },
-): SqliteCycleServices {
-  const clock =
-    options.clock ??
-    (options.fixedNowIso
-      ? new FixedClock(options.fixedNowIso)
-      : new FixedClock("2026-07-24T06:00:00.000Z"));
-  return createSqliteCycleServices({ ...options, clock });
-}
-```
-
-### `projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts`
-
-```typescript
-import "./serverGuard";
-import {
-  BoundedSqliteLocalProjectCreationAudit,
-  LOCAL_VERTICAL_SLICE_ARCHITECTURE,
-  MemoryLocalProjectCreationAudit,
-  NoOpLocalProjectCreationAudit,
-  createLocalVerticalSliceServices,
-  resolveDoctrinePackagePinForRegistry,
-  type LocalProjectFacade,
-  type LocalProjectIdSource,
-  type LocalVerticalSliceCompositionOptions,
-  type LocalVerticalSliceServices,
-} from "@/lib/vertical-slice-core";
-import type { BoundedAtomicAuditStore } from "@/lib/d1/boundedAtomicAudit";
-import type { DoctrinePackagePin, ClockPort } from "@/lib/oa/doctrine";
-import {
-  createCkcQualificationServices,
-  createInMemoryCycleServices,
-  createSqliteCycleServices,
-  type CkcQualificationServices,
-  type CycleServices,
-} from "@/lib/oa/cycle";
-import {
-  MemoryAuthorityResolver,
-  createInMemoryDecisionServices,
-  createSqliteDecisionServices,
-  isM3LocalAuthorityEnabled,
-  type DecisionServices,
-} from "@/lib/oa/decision";
-import {
-  createInMemoryExecutionContractServices,
-  createSqliteExecutionContractServices,
-  type ExecutionContractServices,
-} from "@/lib/oa/execution-contract";
-import {
-  createInMemoryExecutionAttemptServices,
-  createSqliteExecutionAttemptServices,
-  createM4BoundedReadOnlyCursorAgentDescriptor,
-  isStudioCursorRealEnabled,
-  type ExecutionAttemptServices,
-  type RealBoundaryWiring,
-  type TestExecutionAdapter,
-} from "@/lib/oa/execution-attempt";
-import {
-  composeStudioProductRealBoundary,
-  type ComposeStudioProductRealBoundaryInput,
-} from "./composeStudioProductRealBoundary";
-import {
-  createInMemoryEvidenceReviewServices,
-  createSqliteEvidenceReviewServices,
-  type EvidenceReviewServices,
-  type SqliteEvidenceReviewServices,
-} from "@/lib/oa/evidence-review";
-import type { ProjectServices } from "@/lib/oa/project";
-import {
-  createMaterializeFromMemoryB,
-  MaterializeFromMemoryB,
-  SqliteProjectAuditJournal,
-} from "@/lib/oa/project";
-import { SqliteProductStore } from "@/lib/oa/project/infrastructure/sqlite/sqliteProductStore";
-import {
-  createAttemptReaderBridge,
-  createF3FixtureAgentDescriptor,
-  createF3TestExecutionAdapter,
-} from "./f3FixtureWiring";
-import { createW3ABoundedFixtureAgentDescriptor } from "./w3aProductFixtureWiring";
-import { MemoryAgentRegistry } from "@/lib/oa/execution-attempt";
-import {
-  toCreateLocalProjectCommand,
-  toCreateProjectRuntimeFailure,
-  toCreateProjectRuntimeSuccess,
-  toGetProjectRuntimeFailure,
-  toGetProjectRuntimeSuccess,
-  toListProjectsRuntimeFailure,
-  toListProjectsRuntimeSuccess,
-} from "./mapping";
-import { resolveDefaultVerticalSliceRoots } from "./paths";
-import { registerW3bFixtureAdapterForE2eReset } from "./w3bE2eBoundaryControl";
-import type {
-  CreateProjectRuntimeInput,
-  CreateProjectRuntimeResult,
-  GetProjectRuntimeResult,
-  ListProjectsRuntimeResult,
-} from "./types";
-
-export type RuntimeAuditMode = "noop" | "memory" | "sqlite";
-
-export interface RuntimeApplicationServiceOptions {
-  readonly registryRoot?: string;
-  readonly schemasRoot?: string;
-  readonly doctrinePackagePin?: DoctrinePackagePin;
-  readonly idSource?: LocalProjectIdSource;
-  readonly nowIso?: string;
-  /**
-   * D-V2-03: default noop. `sqlite` requires `sqliteAuditStore`.
-   * Audit never rehydrates business state.
-   */
-  readonly auditMode?: RuntimeAuditMode;
-  readonly sqliteAuditStore?: BoundedAtomicAuditStore;
-  /**
-   * OA Product SQLite path (M1). Isolated from D1/OPS1/FinOps.
-   */
-  readonly productDbPath?: string;
-  /**
-   * Escape hatch for tests: inject a fully built V1 facade.
-   * Production path builds via createLocalVerticalSliceServices.
-   */
-  readonly facade?: LocalProjectFacade;
-  /**
-   * Optional M4 REAL boundary. Explicit inject wins (tests).
-   * Otherwise composed OFF-by-default from SFIA_STUDIO_CURSOR_REAL.
-   */
-  readonly realBoundary?: RealBoundaryWiring;
-  /**
-   * Env snapshot for live-boundary composition only. Never used to spawn.
-   * Tests inject `{ SFIA_STUDIO_CURSOR_REAL: "1" }` with fake deps.
-   */
-  readonly realBoundaryEnv?: NodeJS.ProcessEnv;
-  /**
-   * Test/production overrides for composeStudioProductRealBoundary.
-   * Construction still launches nothing.
-   */
-  readonly realBoundaryComposition?: ComposeStudioProductRealBoundaryInput;
-}
-
-export type MaterializationServices = {
-  readonly materializeFromMemoryB: MaterializeFromMemoryB;
-};
-
-export type RuntimeOaStack = {
-  readonly projectServices: ProjectServices;
-  readonly clock: ClockPort;
-  readonly cycleServices: CycleServices;
-  readonly ckcQualification: CkcQualificationServices;
-  readonly decisionServices: DecisionServices;
-  readonly authorityResolver: MemoryAuthorityResolver;
-  readonly executionContractServices: ExecutionContractServices;
-  readonly executionAttemptServices: ExecutionAttemptServices;
-  readonly evidenceReviewServices: EvidenceReviewServices | SqliteEvidenceReviewServices;
-  /**
-   * MW1-S03 — Studio-owned governed Memory B → Truth C materialization.
-   * Composed after Decision + Evidence services. Not a Nora write tool.
-   */
-  readonly materializationServices: MaterializationServices;
-  /** Explicit TestExecutionAdapter — never silent NoOp. */
-  readonly fixtureAdapter: TestExecutionAdapter;
-  /**
-   * True when OA Attempt/Evidence/ReviewBundle/LPS path uses Product SQLite.
-   * Distinguishes persistence durability from fixture execution mode.
-   */
-  readonly productDurablePath: boolean;
-};
-
-function resolveAudit(
-  mode: RuntimeAuditMode,
-  sqliteAuditStore: BoundedAtomicAuditStore | undefined,
-): LocalVerticalSliceCompositionOptions["audit"] {
-  if (mode === "memory") {
-    return new MemoryLocalProjectCreationAudit();
-  }
-  if (mode === "sqlite") {
-    if (!sqliteAuditStore) {
-      throw new Error(
-        "sqlite audit mode requires sqliteAuditStore (bounded D1 audit table).",
-      );
-    }
-    return new BoundedSqliteLocalProjectCreationAudit(sqliteAuditStore);
-  }
-  return new NoOpLocalProjectCreationAudit();
-}
-
-function wireOaStack(
-  projectServices: ProjectServices,
-  clock: ClockPort,
-  options?: {
-    realBoundary?: RealBoundaryWiring;
-    registryRoot?: string;
-    doctrinePackagePin?: DoctrinePackagePin;
-  },
-): RuntimeOaStack {
-  // M2/M3: same Product SQLite store for Project/LPS + Cycle + Decision + Contract.
-  const productSqlite =
-    projectServices.store instanceof SqliteProductStore
-      ? projectServices.store
-      : null;
-
-  // CORR-PROOF-05 — late-bound readers so CycleServices can assess FINALIZE
-  // without creating a construction-time cycle with Decision/Evidence factories.
-  const late = {
-    decisionServices: null as DecisionServices | null,
-    evidenceReviewServices: null as
-      | EvidenceReviewServices
-      | SqliteEvidenceReviewServices
-      | null,
-    executionContractServices: null as ExecutionContractServices | null,
-    executionAttemptServices: null as ExecutionAttemptServices | null,
-  };
-
-  const mapAttemptTerminalState = (
-    status: string,
-  ): string | undefined => {
-    switch (status) {
-      case "succeeded":
-        return "terminal_success";
-      case "failed":
-        return "terminal_failure";
-      case "timeout":
-        return "terminal_timeout";
-      case "cancelled":
-        return "terminal_cancelled";
-      default:
-        return undefined;
-    }
-  };
-
-  const lateCycle = {
-    services: null as CycleServices | null,
-  };
-
-  const lifecycleReaders = {
-    decisions: {
-      getById: async (decisionId: string) => {
-        if (!late.decisionServices) return null;
-        return late.decisionServices.decisions.findById(decisionId);
-      },
-      listByProject: async (projectId: string) => {
-        if (!late.decisionServices) return [];
-        return late.decisionServices.decisions.listByProject(projectId);
-      },
-    },
-    evidence: {
-      listByProject: async (projectId: string) => {
-        if (!late.evidenceReviewServices) return [];
-        return late.evidenceReviewServices.repository.listByProject(projectId);
-      },
-    },
-    reviewBundles: {
-      listByProject: async (projectId: string) => {
-        if (!late.evidenceReviewServices) return [];
-        return late.evidenceReviewServices.reviewBundleRepository.listByProject(
-          projectId,
-        );
-      },
-    },
-    epistemic: {
-      listByProject: async (projectId: string) => {
-        if (!lateCycle.services) {
-          throw new Error("epistemic_reader_unavailable");
-        }
-        return lateCycle.services.epistemic.listByProject(projectId);
-      },
-    },
-    execution: {
-      listContractsByProject: async (projectId: string) => {
-        if (!late.executionContractServices) return [];
-        const list =
-          await late.executionContractServices.contracts.listByProject(
-            projectId,
-          );
-        return list.map((c) => ({
-          contractId: c.executionContractId,
-          cycleInstanceId: c.cycleInstanceId,
-          status: c.status,
-          expectedOutputs: c.expectedOutputs,
-          requiredCapabilities: c.requiredCapabilities,
-          evidenceRequirements: c.evidenceRequirements,
-          action: c.action,
-          target: c.target,
-          scope: c.scope,
-        }));
-      },
-      listAttemptsByProject: async (projectId: string) => {
-        if (
-          !late.executionContractServices ||
-          !late.executionAttemptServices
-        ) {
-          return [];
-        }
-        const contracts =
-          await late.executionContractServices.contracts.listByProject(
-            projectId,
-          );
-        const out: Array<{
-          attemptId: string;
-          contractId?: string;
-          terminalState?: string;
-        }> = [];
-        for (const c of contracts) {
-          const attempts =
-            await late.executionAttemptServices.attempts.listByContract(
-              c.executionContractId,
-            );
-          for (const a of attempts) {
-            out.push({
-              attemptId: a.attemptId,
-              contractId: a.executionContractId,
-              terminalState: mapAttemptTerminalState(a.status),
-            });
-          }
-        }
-        return out;
-      },
-    },
-  };
-
-  // CORR-PROOF-05 — create authority before CycleServices so Pilot lifecycle
-  // mutations can verify N3 evidence (chicken-egg with decision factory).
-  const authorityResolver = new MemoryAuthorityResolver();
-  // M3 authority is fail-closed unless env enabled; registration happens per-scope in F2/F3.
-  void isM3LocalAuthorityEnabled;
-
-  const authorityPort = {
-    verify: (req: {
-      actorId: string;
-      scope: string;
-      evidenceId?: string;
-      requiredLevel?: "N1" | "N2" | "N3";
-      requireMorrisGate?: boolean;
-    }) => {
-      const r = authorityResolver.verify({
-        actorId: req.actorId,
-        requiredLevel: req.requiredLevel ?? "N3",
-        scope: req.scope,
-        evidenceId: req.evidenceId,
-        requireMorrisGate: req.requireMorrisGate ?? true,
-      });
-      return { ok: r.ok, reason: r.reason };
-    },
-  };
-
-  // CR-START-01 — create CKC qualifier before CycleServices so PilotLifecycle
-  // trajectory-bound START can revalidate without a second START engine.
-  const ckcQualification = createCkcQualificationServices({
-    clock,
-    registryRoot: options?.registryRoot,
-    doctrinePackagePin: options?.doctrinePackagePin,
-  });
-
-  const cycleServices = productSqlite
-    ? createSqliteCycleServices({
-        projectServices,
-        productStore: productSqlite,
-        clock,
-        ...lifecycleReaders,
-        authority: authorityPort,
-        qualifyCycleWithCkc: ckcQualification.qualifyCycleWithCkc,
-      })
-    : createInMemoryCycleServices({
-        projectServices,
-        clock,
-        ...lifecycleReaders,
-        authority: authorityPort,
-        qualifyCycleWithCkc: ckcQualification.qualifyCycleWithCkc,
-      });
-  lateCycle.services = cycleServices;
-
-  const decisionServices = productSqlite
-    ? createSqliteDecisionServices({
-        projectServices,
-        cycleServices,
-        productStore: productSqlite,
-        clock,
-        authorityResolver,
-      })
-    : createInMemoryDecisionServices({
-        projectServices,
-        cycleServices,
-        clock,
-        authorityResolver,
-      });
-  late.decisionServices = decisionServices;
-
-  const executionContractServices = productSqlite
-    ? createSqliteExecutionContractServices({
-        projectServices,
-        decisionServices,
-        cycleServices,
-        productStore: productSqlite,
-        clock,
-        authorityResolver,
-      })
-    : createInMemoryExecutionContractServices({
-        projectServices,
-        decisionServices,
-        cycleServices,
-        clock,
-        authorityResolver,
-      });
-  late.executionContractServices = executionContractServices;
-
-  // EXPLICIT TestExecutionAdapter — never omit (factory default is NoOp).
-  // GAP-3: realBoundary is optional and OFF by default. M4 descriptor is
-  // registered only on the governed path (injected boundary or REAL flag).
-  // This composition does not instantiate StudioCursorRealLaunchGateway.
-  const fixtureAdapter = createF3TestExecutionAdapter();
-  registerW3bFixtureAdapterForE2eReset(fixtureAdapter);
-  const fixtureAgent = createF3FixtureAgentDescriptor(clock.nowIso());
-  const w3aBoundedAgent = createW3ABoundedFixtureAgentDescriptor(clock.nowIso());
-  const realBoundary = options?.realBoundary;
-  const registerM4 =
-    realBoundary !== undefined || isStudioCursorRealEnabled();
-  // Bounded W3-A fixture: explicit supported actions/caps ONLY (no universal synthesis).
-  const agents = registerM4
-    ? [
-        fixtureAgent,
-        w3aBoundedAgent,
-        createM4BoundedReadOnlyCursorAgentDescriptor(clock.nowIso()),
-      ]
-    : [fixtureAgent, w3aBoundedAgent];
-  const registry = new MemoryAgentRegistry(agents);
-  const executionAttemptServices = productSqlite
-    ? createSqliteExecutionAttemptServices({
-        decisionServices,
-        executionContractServices,
-        productStore: productSqlite,
-        registry,
-        adapter: fixtureAdapter,
-        clock,
-        authorityResolver,
-        policy: { defaultMaxRetriesBudget: 0 },
-        realBoundary,
-      })
-    : createInMemoryExecutionAttemptServices({
-        decisionServices,
-        executionContractServices,
-        registry,
-        adapter: fixtureAdapter,
-        clock,
-        authorityResolver,
-        policy: { defaultMaxRetriesBudget: 0 },
-        realBoundary,
-      });
-  late.executionAttemptServices = executionAttemptServices;
-
-  const evidenceReviewServices = productSqlite
-    ? createSqliteEvidenceReviewServices({
-        productStore: productSqlite,
-        clock,
-        attemptReader: createAttemptReaderBridge(
-          executionAttemptServices.attempts,
-        ),
-      })
-    : createInMemoryEvidenceReviewServices({
-        clock,
-        attemptReader: createAttemptReaderBridge(
-          executionAttemptServices.attempts,
-        ),
-      });
-  late.evidenceReviewServices = evidenceReviewServices;
-
-  // MW1-S03 / CORR-01 — compose materialization on normal RuntimeOaStack path.
-  // Product SQLite: durable materialization audit via SqliteProjectAuditJournal
-  // on the same Product store / oa_audit_events (no new table). LPS create/append
-  // may still use MemoryProjectAuditJournal from local composition.
-  const materializationAudit =
-    productSqlite !== null
-      ? new SqliteProjectAuditJournal(productSqlite)
-      : projectServices.audit;
-
-  const materializationServices: MaterializationServices = Object.freeze({
-    materializeFromMemoryB: createMaterializeFromMemoryB({
-      projectServices: {
-        getProject: projectServices.getProject,
-        getCurrentLivingProjectState:
-          projectServices.getCurrentLivingProjectState,
-        appendLivingProjectStateVersion:
-          projectServices.appendLivingProjectStateVersion,
-        audit: materializationAudit,
-      },
-      getHumanDecision: decisionServices.getHumanDecision,
-      getEvidenceById: async (evidenceId) => {
-        const ev =
-          await evidenceReviewServices.repository.findById(evidenceId);
-        if (!ev) return null;
-        return {
-          evidenceId: ev.evidenceId,
-          status: ev.status,
-          availability: ev.availability,
-          freshness: ev.freshness,
-          bindings: { projectId: ev.bindings.projectId },
-        };
-      },
-    }),
-  });
-
-  return Object.freeze({
-    projectServices,
-    clock,
-    cycleServices,
-    ckcQualification,
-    decisionServices,
-    authorityResolver,
-    executionContractServices,
-    executionAttemptServices,
-    evidenceReviewServices,
-    materializationServices,
-    fixtureAdapter,
-    productDurablePath: productSqlite !== null,
-  });
-}
-
-/**
- * Application runtime service over V1 LocalProjectFacade.
- * Does not duplicate T-A0/T-A1 rules; maps serializable DTOs only.
- * Exposes shared OA stack for F2 + F3 (same ProjectServices instance).
- */
-export class RuntimeApplicationService {
-  private readonly facade: LocalProjectFacade;
-  readonly architecture: LocalVerticalSliceServices["architecture"];
-  readonly oa: RuntimeOaStack | null;
-  private readonly disposeProduct?: () => void;
-
-  constructor(
-    facade: LocalProjectFacade,
-    architecture: LocalVerticalSliceServices["architecture"],
-    oa: RuntimeOaStack | null = null,
-    disposeProduct?: () => void,
-  ) {
-    this.facade = facade;
-    this.architecture = architecture;
-    this.oa = oa;
-    this.disposeProduct = disposeProduct;
-  }
-
-  /** Release durable Product SQLite handles (tests / shutdown). */
-  dispose(): void {
-    try {
-      this.disposeProduct?.();
-    } catch {
-      /* ignore */
-    }
-  }
-
-  /** Use case: Create Project via V1 facade. */
-  async createProject(
-    input: CreateProjectRuntimeInput,
-  ): Promise<CreateProjectRuntimeResult> {
-    const result = await this.facade.createProject(
-      toCreateLocalProjectCommand(input),
-    );
-    if (!result.ok) {
-      return toCreateProjectRuntimeFailure(result.error, result.auditStatus);
-    }
-    return toCreateProjectRuntimeSuccess(
-      result.project,
-      result.reusedFromIdempotencyKey,
-      result.auditStatus,
-    );
-  }
-
-  /** Use case: Get Project Overview via V1 facade. */
-  async getProject(projectId: string): Promise<GetProjectRuntimeResult> {
-    const result = await this.facade.getProjectOverview(projectId);
-    if (!result.ok) {
-      return toGetProjectRuntimeFailure(result.error);
-    }
-    return toGetProjectRuntimeSuccess(result.project);
-  }
-
-  /**
-   * Thin product list via OA ProjectServices over existing oa_projects.
-   * Requires OA stack (Product SQLite / in-memory); facade-only runtimes fail closed.
-   */
-  async listProjects(): Promise<ListProjectsRuntimeResult> {
-    if (!this.oa) {
-      return toListProjectsRuntimeFailure({
-        code: "STATE_CONFLICT",
-        detailCode: "PERSISTENCE_FAILURE",
-        message: "Project list is unavailable in this runtime composition.",
-        severity: "error",
-        retryable: false,
-        blocking: true,
-        recoverable: false,
-        domain: "C",
-        timestamp: new Date().toISOString(),
-        internalCauseRef: "oa_stack_missing",
-      });
-    }
-    const result = await this.oa.projectServices.listProjects.execute();
-    if (!result.ok) {
-      return toListProjectsRuntimeFailure(result.error);
-    }
-    return toListProjectsRuntimeSuccess(result.projects);
-  }
-}
-
-export function createRuntimeApplicationService(
-  options: RuntimeApplicationServiceOptions = {},
-): RuntimeApplicationService {
-  if (options.facade) {
-    return new RuntimeApplicationService(
-      options.facade,
-      LOCAL_VERTICAL_SLICE_ARCHITECTURE,
-      null,
-    );
-  }
-
-  const roots = resolveDefaultVerticalSliceRoots();
-  const registryRoot = options.registryRoot ?? roots.registryRoot;
-  const doctrinePackagePin = resolveDoctrinePackagePinForRegistry(
-    registryRoot,
-    options.doctrinePackagePin,
-  );
-  const services = createLocalVerticalSliceServices({
-    registryRoot,
-    schemasRoot: options.schemasRoot ?? roots.schemasRoot,
-    doctrinePackagePin,
-    idSource: options.idSource,
-    nowIso: options.nowIso,
-    audit: resolveAudit(options.auditMode ?? "noop", options.sqliteAuditStore),
-    productDbPath: options.productDbPath,
-  });
-
-  const composedBoundary =
-    options.realBoundary ??
-    composeStudioProductRealBoundary({
-      ...(options.realBoundaryComposition ?? {}),
-      env: options.realBoundaryEnv ?? options.realBoundaryComposition?.env,
-    });
-  const oa = wireOaStack(services.projectServices, services.clock, {
-    realBoundary: composedBoundary,
-    registryRoot,
-    doctrinePackagePin,
-  });
-  return new RuntimeApplicationService(
-    services.facade,
-    services.architecture,
-    oa,
-    services.projectServices.dispose,
-  );
 }
 ```
