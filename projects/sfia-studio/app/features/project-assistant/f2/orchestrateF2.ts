@@ -763,7 +763,7 @@ export async function orchestrateAssistantSend(input: {
     // Pure read-only composition; NO reasonWithResolvedCkcContext; NO third model call.
     const registryRoot = resolveProductDoctrineRegistryRoot();
     const oa = getRuntimeApplicationService().oa;
-    const studioCognitiveContext = await composeStudioCognitiveContext({
+    const studioComposed = await composeStudioCognitiveContext({
       analysis,
       project,
       registryRoot,
@@ -771,6 +771,17 @@ export async function orchestrateAssistantSend(input: {
       oa,
       activeCycleInstanceId: project.activeCycleInstanceId ?? null,
     });
+    if (!studioComposed.ok) {
+      return {
+        ok: false,
+        status: "validation_error",
+        code: studioComposed.code,
+        message: studioComposed.message,
+        mode: modeResolution.mode,
+        retryable: false,
+      };
+    }
+    const studioCognitiveContext = studioComposed.context;
     // Keep methodContext for CORR-PROOF-03 compatibility surfaces when studio is present
     // (studio supersedes in prompt builder).
     const methodContext = studioCognitiveContext.method;

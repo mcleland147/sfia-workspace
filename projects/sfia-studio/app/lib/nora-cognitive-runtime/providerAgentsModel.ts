@@ -197,18 +197,24 @@ export function coercePlainTextToProductTurnJson(text: string): string {
     ) {
       const o = parsed as Record<string, unknown>;
       if (isPreCycleRoutingAssessment(o.preCycleRoutingAssessment)) {
+        // Ensure schema-required activeCycleWork key (default null).
+        if (!("activeCycleWork" in o)) {
+          return JSON.stringify({ ...o, activeCycleWork: null });
+        }
         return text;
       }
       const coherent = normalizeNoraProductTurnStructuredOutput({
         narrative: o.narrative,
         lifecycleRecommendation: o.lifecycleRecommendation ?? null,
         preCycleRoutingAssessment: o.preCycleRoutingAssessment,
+        activeCycleWork: o.activeCycleWork ?? null,
       });
       if (coherent) {
         return JSON.stringify({
           narrative: coherent.narrative,
           preCycleRoutingAssessment: coherent.preCycleRoutingAssessment,
           lifecycleRecommendation: coherent.lifecycleRecommendation,
+          activeCycleWork: coherent.activeCycleWork ?? null,
         });
       }
       return buildFailClosedProductTurnJson(String(o.narrative));

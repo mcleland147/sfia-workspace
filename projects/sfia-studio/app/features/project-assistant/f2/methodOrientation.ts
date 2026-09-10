@@ -41,6 +41,20 @@ export type AdvisoryMethodContext = {
   readonly sourceLimit: "none" | "ckc_unavailable" | "doctrine_unavailable";
   /** Reserved — ProjectTrajectory-on-F1 deferred from CORR-PROOF-03 E1. */
   readonly trajectory?: null;
+  /**
+   * D-GF-ACW-01 — when true, method CKC comes from the active CycleInstance
+   * (authoritative for in-cycle work). Intent candidate orientation remains secondary.
+   */
+  readonly activeCycleCkcAuthoritative?: boolean;
+};
+
+/** Active-cycle CKC grounding passed into method composition (D-GF-ACW-01). */
+export type ActiveCycleCkcMethodInput = {
+  readonly cycleTypeId: string;
+  readonly cycleLabel: string | null;
+  readonly ckcLensSection: string | null;
+  readonly ckcLoaded: boolean;
+  readonly sourceLimit: "none" | "ckc_unavailable" | "doctrine_unavailable";
 };
 
 export function resolveMethodOrientation(
@@ -81,14 +95,35 @@ export function doctrinePackagePinFromProjectContext(
 /**
  * Read-only composition for ordinary F1 advisory.
  * Does NOT call reasonWithResolvedCkcContext. Does NOT qualify or create cycles.
+ *
+ * When `activeCycleCkc` is present: its CKC lens is authoritative for in-cycle
+ * method grounding; intent orientation is still computed as secondary.
+ * When absent: current behavior (intent candidate CKC).
  */
 export function composeAdvisoryMethodContext(input: {
   analysis: IntentAnalysisDto;
   project: ProjectAssistantContextDto;
   registryRoot: string;
+  activeCycleCkc?: ActiveCycleCkcMethodInput | null;
 }): AdvisoryMethodContext {
   const orientation = resolveMethodOrientation(input.analysis);
   const packagePin = doctrinePackagePinFromProjectContext(input.project);
+  const active = input.activeCycleCkc ?? null;
+
+  if (active) {
+    return Object.freeze({
+      orientation,
+      cycleLabel: active.cycleLabel,
+      ckcLensSection: active.ckcLensSection,
+      ckcLoaded: active.ckcLoaded,
+      doctrinePinPresent: Boolean(packagePin),
+      sourceLimit: packagePin
+        ? active.sourceLimit
+        : ("doctrine_unavailable" as const),
+      trajectory: null,
+      activeCycleCkcAuthoritative: true,
+    });
+  }
 
   if (!packagePin) {
     return Object.freeze({

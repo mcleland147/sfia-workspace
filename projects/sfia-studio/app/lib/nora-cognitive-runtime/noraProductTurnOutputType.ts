@@ -72,11 +72,72 @@ export const PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT: PreCycleRoutingAssessme
     activeCycleAlreadyCoversWork: false,
   });
 
+/** D-GF-ACW-01 — non-authoritative active-cycle cognitive work items (no ids). */
+export const NORA_ACTIVE_CYCLE_WORK_ITEM_SCHEMA = {
+  type: "object" as const,
+  additionalProperties: false as const,
+  required: ["type", "statement", "confidence", "blocking"],
+  properties: {
+    type: {
+      type: "string" as const,
+      enum: [
+        "Observation",
+        "Hypothesis",
+        "Option",
+        "Recommendation",
+        "Reservation",
+        "Contradiction",
+      ],
+    },
+    statement: { type: "string" as const },
+    confidence: {
+      anyOf: [
+        {
+          type: "string" as const,
+          enum: ["high", "medium", "low", "none"],
+        },
+        { type: "null" as const },
+      ],
+    },
+    blocking: { anyOf: [{ type: "boolean" as const }, { type: "null" as const }] },
+  },
+} as const;
+
+export const NORA_ACTIVE_CYCLE_WORK_OUTPUT_SCHEMA = {
+  type: "object" as const,
+  additionalProperties: false as const,
+  required: ["items"],
+  properties: {
+    items: {
+      type: "array" as const,
+      items: NORA_ACTIVE_CYCLE_WORK_ITEM_SCHEMA,
+    },
+  },
+} as const;
+
+export type NoraActiveCycleWorkItem = {
+  type:
+    | "Observation"
+    | "Hypothesis"
+    | "Option"
+    | "Recommendation"
+    | "Reservation"
+    | "Contradiction";
+  statement: string;
+  confidence: "high" | "medium" | "low" | "none" | null;
+  blocking: boolean | null;
+};
+
+export type NoraActiveCycleWorkOutput = {
+  items: NoraActiveCycleWorkItem[];
+};
+
 /**
  * Product Assistant Nora turn contract:
  * - user-visible narrative (required)
  * - pre-cycle routing assessment (required, non-authoritative)
  * - optional Lifecycle Recommendation candidate (nullable)
+ * - optional active-cycle work items (nullable; D-GF-ACW-01)
  * Same Agents Runner — one model call — no prose parsing.
  */
 export const NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE = {
@@ -90,6 +151,7 @@ export const NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE = {
       "narrative",
       "preCycleRoutingAssessment",
       "lifecycleRecommendation",
+      "activeCycleWork",
     ],
     properties: {
       narrative: { type: "string" as const },
@@ -100,6 +162,12 @@ export const NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE = {
           NORA_LIFECYCLE_RECOMMENDATION_OUTPUT_TYPE.schema,
         ],
       },
+      activeCycleWork: {
+        anyOf: [
+          { type: "null" as const },
+          NORA_ACTIVE_CYCLE_WORK_OUTPUT_SCHEMA,
+        ],
+      },
     },
   },
 };
@@ -108,6 +176,7 @@ export type NoraProductTurnWithOptionalLr = {
   narrative: string;
   preCycleRoutingAssessment: PreCycleRoutingAssessment;
   lifecycleRecommendation: NoraLifecycleRecommendationStructuredOutput | null;
+  activeCycleWork: NoraActiveCycleWorkOutput | null;
 };
 
 export function isPreCycleRoutingAssessment(
@@ -122,6 +191,51 @@ export function isPreCycleRoutingAssessment(
     typeof o.multiplePlausibleCycles === "boolean" &&
     typeof o.activeCycleAlreadyCoversWork === "boolean"
   );
+}
+
+const ACTIVE_CYCLE_WORK_ITEM_TYPES = new Set([
+  "Observation",
+  "Hypothesis",
+  "Option",
+  "Recommendation",
+  "Reservation",
+  "Contradiction",
+]);
+
+const ACTIVE_CYCLE_WORK_CONFIDENCES = new Set([
+  "high",
+  "medium",
+  "low",
+  "none",
+]);
+
+export function isNoraActiveCycleWorkItem(
+  value: unknown,
+): value is NoraActiveCycleWorkItem {
+  if (!value || typeof value !== "object") return false;
+  const o = value as Record<string, unknown>;
+  if (!ACTIVE_CYCLE_WORK_ITEM_TYPES.has(String(o.type))) return false;
+  if (typeof o.statement !== "string") return false;
+  if (
+    o.confidence !== null &&
+    !(
+      typeof o.confidence === "string" &&
+      ACTIVE_CYCLE_WORK_CONFIDENCES.has(o.confidence)
+    )
+  ) {
+    return false;
+  }
+  if (o.blocking !== null && typeof o.blocking !== "boolean") return false;
+  return true;
+}
+
+export function isNoraActiveCycleWorkOutput(
+  value: unknown,
+): value is NoraActiveCycleWorkOutput {
+  if (!value || typeof value !== "object") return false;
+  const o = value as Record<string, unknown>;
+  if (!Array.isArray(o.items)) return false;
+  return o.items.every(isNoraActiveCycleWorkItem);
 }
 
 /**
@@ -152,6 +266,8 @@ export type PreCycleRoutingBoundaryCoherenceResult = {
   preCycleRoutingAssessment: PreCycleRoutingAssessment;
   disposition: PreCycleRoutingDisposition;
   lifecycleRecommendation: NoraLifecycleRecommendationStructuredOutput | null;
+  /** Passthrough — not stripped by routing coherence (D-GF-ACW-01). */
+  activeCycleWork: NoraActiveCycleWorkOutput | null;
   /** True when a candidate LR was stripped by boundary coherence. */
   lifecycleRecommendationSuppressed: boolean;
   suppressReason: string | null;
@@ -173,6 +289,7 @@ export const MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION =
  * - EMIT + LR → keep as emitted (never invent one server-side).
  * - EMIT + null → MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION (fail-closed).
  * Does not parse narrative. Does not create Cycle/HD/START.
+ * activeCycleWork is preserved on all return paths (passthrough).
  *
  * remainingUnknownsAreCycleOwned semantics:
  * - true  → remaining unknowns exist and belong to the candidate cycle
@@ -185,11 +302,13 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
   narrative: string;
   preCycleRoutingAssessment: PreCycleRoutingAssessment;
   lifecycleRecommendation: NoraLifecycleRecommendationStructuredOutput | null;
+  activeCycleWork?: NoraActiveCycleWorkOutput | null;
 }): PreCycleRoutingBoundaryCoherenceResult {
   const disposition = derivePreCycleRoutingDisposition(
     input.preCycleRoutingAssessment,
   );
   const candidate = input.lifecycleRecommendation;
+  const activeCycleWork = input.activeCycleWork ?? null;
 
   if (disposition === "CONTINUE_PRE_CYCLE") {
     return {
@@ -197,6 +316,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
       preCycleRoutingAssessment: input.preCycleRoutingAssessment,
       disposition,
       lifecycleRecommendation: null,
+      activeCycleWork,
       lifecycleRecommendationSuppressed: candidate !== null,
       suppressReason:
         candidate !== null
@@ -211,6 +331,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
       preCycleRoutingAssessment: input.preCycleRoutingAssessment,
       disposition,
       lifecycleRecommendation: null,
+      activeCycleWork,
       lifecycleRecommendationSuppressed: candidate !== null,
       suppressReason:
         candidate !== null ? "multiple_plausible_cycles" : null,
@@ -224,6 +345,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
         preCycleRoutingAssessment: input.preCycleRoutingAssessment,
         disposition,
         lifecycleRecommendation: null,
+        activeCycleWork,
         lifecycleRecommendationSuppressed: true,
         suppressReason: "active_cycle_covers_work",
         boundaryContradiction: null,
@@ -234,6 +356,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
       preCycleRoutingAssessment: input.preCycleRoutingAssessment,
       disposition,
       lifecycleRecommendation: candidate,
+      activeCycleWork,
       lifecycleRecommendationSuppressed: false,
       suppressReason: null,
       boundaryContradiction: null,
@@ -246,6 +369,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
       preCycleRoutingAssessment: input.preCycleRoutingAssessment,
       disposition,
       lifecycleRecommendation: null,
+      activeCycleWork,
       lifecycleRecommendationSuppressed: false,
       suppressReason: null,
       boundaryContradiction: MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
@@ -256,6 +380,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
     preCycleRoutingAssessment: input.preCycleRoutingAssessment,
     disposition,
     lifecycleRecommendation: candidate,
+    activeCycleWork,
     lifecycleRecommendationSuppressed: false,
     suppressReason: null,
     boundaryContradiction: null,
@@ -265,6 +390,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
 /**
  * Normalize raw structured output into a coherent Product turn.
  * Missing assessment → fail-closed CONTINUE defaults (plain-text Fake path).
+ * Missing activeCycleWork → null (backward compatible).
  */
 export function normalizeNoraProductTurnStructuredOutput(
   value: unknown,
@@ -287,10 +413,19 @@ export function normalizeNoraProductTurnStructuredOutput(
     lr = o.lifecycleRecommendation;
   }
 
+  let activeCycleWork: NoraActiveCycleWorkOutput | null = null;
+  if (o.activeCycleWork != null) {
+    if (!isNoraActiveCycleWorkOutput(o.activeCycleWork)) {
+      return null;
+    }
+    activeCycleWork = o.activeCycleWork;
+  }
+
   return applyPreCycleRoutingBoundaryCoherence({
     narrative: o.narrative,
     preCycleRoutingAssessment: assessment,
     lifecycleRecommendation: lr,
+    activeCycleWork,
   });
 }
 
@@ -301,6 +436,13 @@ export function isNoraProductTurnWithOptionalLr(
   const o = value as Record<string, unknown>;
   if (typeof o.narrative !== "string") return false;
   if (!isPreCycleRoutingAssessment(o.preCycleRoutingAssessment)) return false;
+  // Backward compat: missing activeCycleWork treated as null.
+  if (
+    o.activeCycleWork != null &&
+    !isNoraActiveCycleWorkOutput(o.activeCycleWork)
+  ) {
+    return false;
+  }
   if (o.lifecycleRecommendation === null) return true;
   return isNoraLifecycleRecommendationStructuredOutput(
     o.lifecycleRecommendation,
@@ -317,5 +459,6 @@ export function buildFailClosedProductTurnJson(narrative: string): string {
     narrative,
     preCycleRoutingAssessment: PRE_CYCLE_ROUTING_ASSESSMENT_CONTINUE_DEFAULT,
     lifecycleRecommendation: null,
+    activeCycleWork: null,
   });
 }

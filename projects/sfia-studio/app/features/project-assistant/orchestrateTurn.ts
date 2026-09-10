@@ -22,6 +22,7 @@ import {
 import {
   MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
   NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE,
+  normalizeNoraProductTurnStructuredOutput,
 } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
 import { materializeLifecycleRecommendationFromStructuredOutput } from "@/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn";
 import { NORA_LIFECYCLE_RECOMMENDATION_ACTOR } from "@/lib/oa/cycle/application/lifecycleRecommendation/noraActor";
@@ -30,6 +31,8 @@ import {
   LIFECYCLE_RECOMMENDATION_MATERIALIZE_FAILURE_PILOTE_NOTICE,
   lifecycleRecommendationMaterializeFailurePiloteNotice,
 } from "./lifecycleRecommendationPiloteNotice";
+import { materializeActiveCycleWork } from "./materializeActiveCycleWork";
+import { randomBytes } from "node:crypto";
 import { resolveWorkspaceRootFromAppCwd } from "@/lib/platform/repository/workspaceRoot";
 import { loadProjectRuntimeForAssistant } from "@/features/vertical-slice-ui/ProjectWorkspaceView";
 import { buildProjectSystemPrompt } from "./buildProjectSystemPrompt";
@@ -152,6 +155,8 @@ function toContextDto(
     runtimeMode: result.disclosures.runtimeMode,
     persistence: result.disclosures.persistence,
     readiness: result.readiness.status,
+    activeCycleInstanceId: result.livingState.activeCycleInstanceId ?? null,
+    ckcResolutionRef: result.livingState.ckcResolutionRef ?? null,
   };
 }
 
@@ -211,6 +216,11 @@ export async function orchestrateProjectAssistantTurn(input: {
   usdAccounting?: NoraAgentsUsdAccounting;
   /** INTERNAL / EVAL-ONLY — shared canonical campaign budget lease. */
   campaignBudget?: NoraCampaignBudget;
+  /**
+   * D-GF-ACW-01 — optional turn correlation id (tests).
+   * Production mints `f1-acw:${projectId}:${randomBytes(8).hex}`.
+   */
+  turnCorrelationId?: string;
 }): Promise<ProjectAssistantSendResult> {
   const content = input.content.trim();
   if (!content) {
@@ -470,6 +480,158 @@ export async function orchestrateProjectAssistantTurn(input: {
         } else {
           lifecycleRecommendationMaterialized = false;
           lifecycleRecommendationCode = "LR_BASIS_UNAVAILABLE";
+        }
+      }
+    }
+
+    // D-GF-ACW-01 — same Product turn structured output; no second model call.
+    // Materialize non-authoritative active-cycle EpistemicItems when eligible.
+    if (turn.structuredOutput !== undefined) {
+      const coherent = normalizeNoraProductTurnStructuredOutput(
+        turn.structuredOutput,
+      );
+      const acwItems = coherent?.activeCycleWork?.items ?? [];
+      if (acwItems.length > 0) {
+        const assessment = coherent?.preCycleRoutingAssessment;
+        const disposition = coherent?.disposition;
+        const eligibleDefer =
+          disposition === "DEFER_TO_ACTIVE_CYCLE" ||
+          assessment?.activeCycleAlreadyCoversWork === true;
+        const activeCycleId =
+          input.studioCognitiveContext?.activeCycle?.cycleInstanceId ??
+          project.activeCycleInstanceId ??
+          null;
+        // Fail closed: model must not emit activeCycleWork outside an eligible
+        // active-cycle deferral — never silently drop proposed durable items.
+        if (!eligibleDefer || !activeCycleId) {
+          return {
+            ok: false,
+            status: "validation_error",
+            code: "ACTIVE_CYCLE_WORK_NOT_ELIGIBLE",
+            message:
+              "Travail de cycle actif émis hors contexte éligible — aucune écriture partielle.",
+            mode: modeResolution.mode,
+            retryable: false,
+          };
+        }
+        if (eligibleDefer && activeCycleId) {
+          const oaResolved = await resolveOaStackForLifecycleRecommendation();
+          if (!oaResolved.ok) {
+            return {
+              ok: false,
+              status: "validation_error",
+              code: "ACTIVE_CYCLE_WORK_OA_UNAVAILABLE",
+              message:
+                "Impossible de matérialiser le travail du cycle actif (runtime indisponible).",
+              mode: modeResolution.mode,
+              retryable: false,
+            };
+          }
+          const oa = oaResolved.oa;
+          const cycleLoad = await oa.cycleServices.getCycle.execute({
+            cycleInstanceId: activeCycleId,
+          });
+          const lpsNow =
+            await oa.projectServices.getCurrentLivingProjectState.execute({
+              projectId: project.projectId,
+            });
+          if (!cycleLoad.ok) {
+            return {
+              ok: false,
+              status: "validation_error",
+              code: "ACTIVE_CYCLE_NOT_FOUND",
+              message: "Cycle actif introuvable avant matérialisation.",
+              mode: modeResolution.mode,
+              retryable: false,
+            };
+          }
+          if (!lpsNow.ok) {
+            return {
+              ok: false,
+              status: "validation_error",
+              code: "LPS_UNAVAILABLE",
+              message: "LPS indisponible avant matérialisation du travail cycle.",
+              mode: modeResolution.mode,
+              retryable: false,
+            };
+          }
+          if (cycleLoad.cycle.status !== "active") {
+            return {
+              ok: false,
+              status: "validation_error",
+              code: "ACTIVE_CYCLE_NOT_ELIGIBLE",
+              message:
+                "Le cycle n'est plus actif — aucune écriture partielle du travail cognitif.",
+              mode: modeResolution.mode,
+              retryable: false,
+            };
+          }
+          if (
+            (lpsNow.livingProjectState.activeCycleInstanceId ?? null) !==
+            activeCycleId
+          ) {
+            return {
+              ok: false,
+              status: "validation_error",
+              code: "ACTIVE_CYCLE_LPS_POINTER_STALE",
+              message:
+                "Pointeur LPS du cycle actif modifié — aucune écriture partielle.",
+              mode: modeResolution.mode,
+              retryable: false,
+            };
+          }
+
+          let existingItems: Awaited<
+            ReturnType<typeof oa.cycleServices.epistemic.listByProject>
+          > = [];
+          try {
+            existingItems = await oa.cycleServices.epistemic.listByProject(
+              project.projectId,
+            );
+          } catch {
+            existingItems = [];
+          }
+
+          const turnCorrelationId =
+            input.turnCorrelationId?.trim() ||
+            `f1-acw:${project.projectId}:${randomBytes(8).toString("hex")}`;
+          const producedAt = new Date().toISOString();
+          const mat = await materializeActiveCycleWork({
+            items: acwItems,
+            facts: {
+              projectId: project.projectId,
+              activeCycleInstanceId: activeCycleId,
+              lpsVersion: lpsNow.livingProjectState.version,
+              lpsObjective: lpsNow.livingProjectState.objective,
+              existingEpistemicItemIds:
+                lpsNow.livingProjectState.epistemicItemIds ?? [],
+              existingItems,
+              turnCorrelationId,
+            },
+            updateEpistemicState: oa.cycleServices.updateEpistemicState,
+            appendLivingProjectStateVersion:
+              oa.projectServices.appendLivingProjectStateVersion,
+            getCurrentLivingProjectState:
+              oa.projectServices.getCurrentLivingProjectState,
+            getCycle: oa.cycleServices.getCycle,
+            runInTransaction: oa.cycleServices.store.runInTransaction.bind(
+              oa.cycleServices.store,
+            ),
+            producedAt,
+            createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
+          });
+          if (!mat.ok) {
+            return {
+              ok: false,
+              status: "validation_error",
+              code: mat.code,
+              message:
+                mat.reason ||
+                "Échec de matérialisation du travail cognitif du cycle actif.",
+              mode: modeResolution.mode,
+              retryable: false,
+            };
+          }
         }
       }
     }

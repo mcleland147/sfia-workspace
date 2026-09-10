@@ -140,6 +140,7 @@ export function buildProjectSystemPrompt(
     "Si tu émets lifecycleRecommendation : le serveur peut la matérialiser ; ne prétends jamais qu'elle est",
     "enregistrée si tu n'as pas de confirmation produit ; ne crée pas de CycleInstance / HD / START.",
     "",
+    ...buildActiveCycleWorkOutputSection(studio),
     "=== LIMITES D'AUTORITÉ (strict) ===",
     "Distingue vérité courante / historique / superseded / réserve ouverte.",
     "Tu peux utiliser uniquement les outils de lecture (Git/GitHub read) exposés.",
@@ -178,6 +179,51 @@ export function buildProjectSystemPrompt(
     `Doctrine : ${project.doctrineId} ${project.doctrineVersion} · ${project.doctrineStatus} · ${project.doctrineDigest}`,
     `Runtime : ${project.runtimeMode} · persistence ${project.persistence} · readiness ${project.readiness}`,
   ].join("\n");
+}
+
+function buildActiveCycleWorkOutputSection(
+  studio: StudioCognitiveContext | null,
+): string[] {
+  const lines = [
+    "=== SORTIE STRUCTURÉE activeCycleWork (D-GF-ACW-01) ===",
+    "Champ structuré obligatoire activeCycleWork (même tour ; nullable) :",
+  ];
+
+  const active = studio?.activeCycle ?? null;
+  if (!active) {
+    lines.push(
+      "Aucun cycle ACTIVE dans le contexte Studio → activeCycleWork DOIT être null.",
+    );
+    lines.push(
+      "Ne matérialise pas d'Observation/Hypothesis/Option/Recommendation/Reservation/Contradiction",
+      "via activeCycleWork hors cycle actif.",
+    );
+    lines.push("");
+    return lines;
+  }
+
+  if (active.workEligible) {
+    lines.push(
+      "Cycle ACTIVE workEligible : émets activeCycleWork.items pour le travail cognitif",
+      "ancré utilisateur dans ce cycle (Observation | Hypothesis | Option | Recommendation |",
+      "Reservation | Contradiction uniquement).",
+    );
+    lines.push(
+      "INTERDIT dans activeCycleWork : DecisionRef, EvidenceRef, HumanDecision, Fact,",
+      "ExecutionContract ; jamais d'ids, d'authority, ni de provenance (le serveur les mints).",
+    );
+    lines.push(
+      "Si activeCycleAlreadyCoversWork = true (ou disposition DEFER_TO_ACTIVE_CYCLE) :",
+      "préfère activeCycleWork plutôt qu'une lifecycleRecommendation NEXT_CYCLE.",
+    );
+  } else {
+    lines.push(
+      `Cycle ACTIVE présent mais non workEligible (status=${active.status}) →`,
+      "activeCycleWork DOIT être null pour ce tour.",
+    );
+  }
+  lines.push("");
+  return lines;
 }
 
 function buildMethodGroundingSection(

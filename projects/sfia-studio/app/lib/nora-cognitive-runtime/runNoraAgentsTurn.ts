@@ -604,6 +604,7 @@ export async function runNoraAgentsTurn(
               narrative: coherent.narrative,
               preCycleRoutingAssessment: coherent.preCycleRoutingAssessment,
               lifecycleRecommendation: coherent.lifecycleRecommendation,
+              activeCycleWork: coherent.activeCycleWork ?? null,
             };
           }
         }
