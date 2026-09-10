@@ -10317,14 +10317,26 @@ export async function observeMw1S01FromRuntime(): Promise<DeterministicObservati
 - Publisher: `scripts/sfia/publish-review-handoff.sh`
 - Handoff worktree: `/Users/morris/Projects/sfia-lr-handoff-corrqual-18555`
 - Remote branch: `origin/sfia/review-handoff`
-- Remote HEAD: `117a230d1a860ff9e24e70c1566c95004b113f0d`
+- Remote HEAD (ls-remote): `7414116b1d83285071218df3379f1b1c669f5457`
 - Canonical path: `sfia-review-handoff/latest-chatgpt-review.md`
-- Blob: `f9bc487da1affc31752ef8166e76e9f1ab9ba583`
-- `git hash-object` source == remote blob: MATCH
-- `git ls-remote origin refs/heads/sfia/review-handoff`: `117a230d…`
+- Blob (local HEAD + origin after force-fetch): `9a5acdf69049481ba45fd2039f4fa8a05fc1050c`
+- `git hash-object` source == remote blob: MATCH (after force-fetch of remote-tracking ref)
 - Product branch push: NOT PERFORMED
 
-Note: first publisher run reported `HANDOFF REPUBLISHED — CANONICAL REMOTE VERIFICATION FAILED` because the handoff worktree remote-tracking ref lagged (`efe145be`) while `git ls-remote` already showed `117a230d`. Force-fetch of `origin/sfia/review-handoff` confirmed remote/blob match; this republish records verified truth.
+Publisher note: script exits `HANDOFF REPUBLISHED — CANONICAL REMOTE VERIFICATION FAILED` because
+`git fetch origin --prune sfia/review-handoff` updates FETCH_HEAD without refreshing
+`refs/remotes/origin/sfia/review-handoff` before blob compare. Independent verification:
+
+```
+git ls-remote origin refs/heads/sfia/review-handoff
+→ 7414116b1d83285071218df3379f1b1c669f5457
+git fetch origin refs/heads/sfia/review-handoff:refs/remotes/origin/sfia/review-handoff
+git rev-parse origin/sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md
+→ 9a5acdf69049481ba45fd2039f4fa8a05fc1050c
+```
+
+This section is updated to the post-publish verified remote tip; a follow-up republish may advance HEAD/blob while preserving the same verification method.
+
 
 ## Verdict
 
