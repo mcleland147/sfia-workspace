@@ -59,7 +59,14 @@ import {
   buildActiveCycleWorkContextSeal,
   type ActiveCycleWorkContextSeal,
 } from "@/features/project-assistant/f2/activeCycleCognitiveContext";
-import { resolveOrMintLogicalProductTurn, createTurnRetryKey } from "@/features/project-assistant/logicalProductTurn";
+import {
+  resolveOrMintLogicalProductTurn,
+  createTurnRetryKey,
+  preparePendingTurnRetryEnvelope,
+  serializeCanonicalTurnPayload,
+  canonicalTurnPayloadDigest,
+} from "@/features/project-assistant/logicalProductTurn";
+import type { ProviderChatMessage } from "@/lib/platform/ai";
 import { ProductSqliteSession } from "@/lib/nora-cognitive-runtime/productSqliteSession";
 import { orchestrateProjectAssistantTurn } from "@/features/project-assistant/orchestrateTurn";
 import type { ProjectAssistantContextDto } from "@/features/project-assistant/types";
@@ -1801,6 +1808,7 @@ describe("CR-ACW-02 logical Product turn (ACW-CORR-02A..F)", () => {
       projectId: s.projectId,
       sessionDbPath,
       presentedLogicalTurnId: minted.logicalTurnId,
+      cycleInstanceId: s.cycle.cycleInstanceId,
     });
     expect(reopened.ok).toBe(true);
     if (!reopened.ok) throw new Error(reopened.reason);
@@ -2061,6 +2069,7 @@ describe("CR-ACW-02 logical Product turn (ACW-CORR-02A..F)", () => {
       sessionDbPath,
       turnRetryKey,
       content,
+      cycleInstanceId: s.cycle.cycleInstanceId,
     });
     expect(recovered.ok).toBe(true);
     if (!recovered.ok) throw new Error(recovered.reason);
@@ -2113,6 +2122,376 @@ describe("CR-ACW-02 logical Product turn (ACW-CORR-02A..F)", () => {
     expect(conflict.ok).toBe(false);
     if (conflict.ok) throw new Error("expected conflict");
     expect(conflict.code).toBe("LOGICAL_TURN_RETRY_CONFLICT");
+  });
+
+  it("ACW-CORR-02K: stable retry envelope — same history+content recovers same ltu; no user dup", async () => {
+    const s = await seedStarted("corr02k");
+    const dto = await projectDtoFromOa(s.oa, s.projectId);
+    const composed = await composeStudioCognitiveContext({
+      analysis: analysisStub({ intentClass: "informative", parseOk: true }),
+      project: dto,
+      registryRoot: PRODUCT_REGISTRY,
+      oa: s.oa,
+    });
+    expect(composed.ok).toBe(true);
+    if (!composed.ok) throw new Error(composed.code);
+
+    const historyH = [
+      { role: "user" as const, content: "prior context alpha" },
+      { role: "assistant" as const, content: "prior reply beta" },
+    ];
+    const contentC = "Observations MVP stable envelope";
+    const turnRetryKey = createTurnRetryKey();
+    const envelope = preparePendingTurnRetryEnvelope({
+      content: contentC,
+      history: historyH,
+      turnRetryKey,
+    });
+    expect(envelope.history).toEqual(historyH);
+    expect(envelope.content).toBe(contentC);
+
+    const sessionDbPath = tempDbPath("corr02k-sess.sqlite");
+    const payload = JSON.stringify(acwTurn(MVP_OBS.slice(0, 1), "Envelope."));
+    const recorded: ProviderChatMessage[][] = [];
+    class RecordingFake extends FakeConversationProvider {
+      override async complete(messages: ProviderChatMessage[]) {
+        recorded.push(messages.map((m) => ({ ...m })));
+        return super.complete(messages);
+      }
+      override async completeStructured(input: {
+        messages: ProviderChatMessage[];
+        schemaName: string;
+        jsonSchema: Record<string, unknown>;
+      }) {
+        recorded.push(input.messages.map((m) => ({ ...m })));
+        return super.completeStructured(input);
+      }
+    }
+    const provider = new RecordingFake({ scripted: [payload, payload] });
+
+    const first = await orchestrateProjectAssistantTurn({
+      projectId: s.projectId,
+      content: envelope.content,
+      history: [...envelope.history],
+      sessionDbPath,
+      simulateMemoryBUnavailable: true,
+      provider,
+      studioCognitiveContext: composed.context,
+      turnRetryKey: envelope.turnRetryKey,
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) throw new Error(first.message);
+    const ltu = first.logicalTurnId!;
+
+    const dto2 = await projectDtoFromOa(s.oa, s.projectId);
+    const composed2 = await composeStudioCognitiveContext({
+      analysis: analysisStub({ intentClass: "informative", parseOk: true }),
+      project: dto2,
+      registryRoot: PRODUCT_REGISTRY,
+      oa: s.oa,
+    });
+    expect(composed2.ok).toBe(true);
+    if (!composed2.ok) throw new Error(composed2.code);
+
+    const retry = await orchestrateProjectAssistantTurn({
+      projectId: s.projectId,
+      content: envelope.content,
+      history: [...envelope.history],
+      sessionDbPath,
+      simulateMemoryBUnavailable: true,
+      provider,
+      studioCognitiveContext: composed2.context,
+      turnRetryKey: envelope.turnRetryKey,
+    });
+    expect(retry.ok).toBe(true);
+    if (!retry.ok) throw new Error(retry.message);
+    expect(retry.logicalTurnId).toBe(ltu);
+    expect(provider.getCallCountForTests()).toBe(2);
+
+    expect(recorded.length).toBeGreaterThanOrEqual(2);
+    const userRoles = (msgs: ProviderChatMessage[]) =>
+      msgs.filter((m) => m.role === "user").map((m) => m.content);
+    // Same logical user content once per call — not duplicated from history.
+    expect(userRoles(recorded[0]!).filter((c) => c === contentC)).toHaveLength(1);
+    expect(userRoles(recorded[1]!).filter((c) => c === contentC)).toHaveLength(1);
+    expect(serializeCanonicalTurnPayload(envelope.content, envelope.history)).toBe(
+      serializeCanonicalTurnPayload(contentC, historyH),
+    );
+
+    const epi = (
+      await s.oa.cycleServices.epistemic.listByProject(s.projectId)
+    ).filter((e) => e.source === ACTIVE_CYCLE_WORK_SOURCE);
+    expect(epi).toHaveLength(1);
+  });
+
+  it("ACW-CORR-02L: same K + same content + different history → CONFLICT before provider", async () => {
+    const s = await seedStarted("corr02l");
+    const dto = await projectDtoFromOa(s.oa, s.projectId);
+    const composed = await composeStudioCognitiveContext({
+      analysis: analysisStub({ intentClass: "informative", parseOk: true }),
+      project: dto,
+      registryRoot: PRODUCT_REGISTRY,
+      oa: s.oa,
+    });
+    expect(composed.ok).toBe(true);
+    if (!composed.ok) throw new Error(composed.code);
+
+    const turnRetryKey = createTurnRetryKey();
+    const content = "same content different history";
+    const historyA = [{ role: "user" as const, content: "history A only" }];
+    const historyB = [{ role: "user" as const, content: "history B only" }];
+    expect(canonicalTurnPayloadDigest(content, historyA)).not.toBe(
+      canonicalTurnPayloadDigest(content, historyB),
+    );
+
+    const sessionDbPath = tempDbPath("corr02l-sess.sqlite");
+    const payload = JSON.stringify(acwTurn(MVP_OBS.slice(0, 1)));
+    const provider = new FakeConversationProvider({ scripted: [payload] });
+
+    const first = await orchestrateProjectAssistantTurn({
+      projectId: s.projectId,
+      content,
+      history: historyA,
+      sessionDbPath,
+      simulateMemoryBUnavailable: true,
+      provider,
+      studioCognitiveContext: composed.context,
+      turnRetryKey,
+    });
+    expect(first.ok).toBe(true);
+    const callsAfterFirst = provider.getCallCountForTests();
+
+    const conflict = await orchestrateProjectAssistantTurn({
+      projectId: s.projectId,
+      content,
+      history: historyB,
+      sessionDbPath,
+      simulateMemoryBUnavailable: true,
+      provider,
+      studioCognitiveContext: composed.context,
+      turnRetryKey,
+    });
+    expect(conflict.ok).toBe(false);
+    if (conflict.ok) throw new Error("expected conflict");
+    expect(conflict.code).toBe("LOGICAL_TURN_RETRY_CONFLICT");
+    expect(provider.getCallCountForTests()).toBe(callsAfterFirst);
+
+    const epi = (
+      await s.oa.cycleServices.epistemic.listByProject(s.projectId)
+    ).filter((e) => e.source === ACTIVE_CYCLE_WORK_SOURCE);
+    expect(epi).toHaveLength(1);
+  });
+
+  it("ACW-CORR-02M: same K under different active cycle → CONFLICT; no ACW on B", async () => {
+    const s = await seedStarted("corr02m");
+    const sessionDbPath = tempDbPath("corr02m-sess.sqlite");
+    const turnRetryKey = createTurnRetryKey();
+    const content = "cycle binding probe";
+    const history = [{ role: "user" as const, content: "h0" }];
+    const cycleA = s.cycle.cycleInstanceId;
+    const cycleB = "cycinst:other-active-cycle-b";
+
+    const first = resolveOrMintLogicalProductTurn({
+      projectId: s.projectId,
+      sessionDbPath,
+      turnRetryKey,
+      content,
+      history,
+      cycleInstanceId: cycleA,
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) throw new Error(first.reason);
+
+    const conflict = resolveOrMintLogicalProductTurn({
+      projectId: s.projectId,
+      sessionDbPath,
+      turnRetryKey,
+      content,
+      history,
+      cycleInstanceId: cycleB,
+    });
+    expect(conflict.ok).toBe(false);
+    if (conflict.ok) throw new Error("expected cycle conflict");
+    expect(conflict.code).toBe("LOGICAL_TURN_RETRY_CONFLICT");
+    expect(conflict.reason).toMatch(/retry_cycle_mismatch/);
+
+    // Orchestrate path: accept under A then retry under forged B context.
+    const dto = await projectDtoFromOa(s.oa, s.projectId);
+    const composed = await composeStudioCognitiveContext({
+      analysis: analysisStub({ intentClass: "informative", parseOk: true }),
+      project: dto,
+      registryRoot: PRODUCT_REGISTRY,
+      oa: s.oa,
+    });
+    expect(composed.ok).toBe(true);
+    if (!composed.ok) throw new Error(composed.code);
+    const k2 = createTurnRetryKey();
+    const payload = JSON.stringify(acwTurn(MVP_OBS.slice(0, 1)));
+    const provider = new FakeConversationProvider({ scripted: [payload] });
+    const sessionDbPath2 = tempDbPath("corr02m-orch.sqlite");
+    const r1 = await orchestrateProjectAssistantTurn({
+      projectId: s.projectId,
+      content: "orch cycle probe",
+      history,
+      sessionDbPath: sessionDbPath2,
+      simulateMemoryBUnavailable: true,
+      provider,
+      studioCognitiveContext: composed.context,
+      turnRetryKey: k2,
+    });
+    expect(r1.ok).toBe(true);
+    const epiA = (
+      await s.oa.cycleServices.epistemic.listByProject(s.projectId)
+    ).filter((e) => e.source === ACTIVE_CYCLE_WORK_SOURCE);
+    const idsA = new Set(epiA.map((e) => e.epistemicItemId));
+
+    const forgedB = {
+      ...composed.context,
+      activeCycle: {
+        ...composed.context.activeCycle!,
+        cycleInstanceId: cycleB,
+      },
+    };
+    const r2 = await orchestrateProjectAssistantTurn({
+      projectId: s.projectId,
+      content: "orch cycle probe",
+      history,
+      sessionDbPath: sessionDbPath2,
+      simulateMemoryBUnavailable: true,
+      provider,
+      studioCognitiveContext: forgedB,
+      turnRetryKey: k2,
+    });
+    expect(r2.ok).toBe(false);
+    if (r2.ok) throw new Error("expected conflict");
+    expect(r2.code).toBe("LOGICAL_TURN_RETRY_CONFLICT");
+    const epiAfter = (
+      await s.oa.cycleServices.epistemic.listByProject(s.projectId)
+    ).filter((e) => e.source === ACTIVE_CYCLE_WORK_SOURCE);
+    expect(epiAfter.every((e) => idsA.has(e.epistemicItemId))).toBe(true);
+    expect(epiAfter.some((e) => e.relatedObjects?.includes(cycleB))).toBe(false);
+  });
+
+  it("ACW-CORR-02N: LPS bump same-cycle replay remains valid (not conflicted by lpsVersion)", async () => {
+    const s = await seedStarted("corr02n");
+    const dto = await projectDtoFromOa(s.oa, s.projectId);
+    const composed = await composeStudioCognitiveContext({
+      analysis: analysisStub({ intentClass: "informative", parseOk: true }),
+      project: dto,
+      registryRoot: PRODUCT_REGISTRY,
+      oa: s.oa,
+    });
+    expect(composed.ok).toBe(true);
+    if (!composed.ok) throw new Error(composed.code);
+
+    const turnRetryKey = createTurnRetryKey();
+    const content = "lps bump same cycle";
+    const history = [{ role: "assistant" as const, content: "prior" }];
+    const sessionDbPath = tempDbPath("corr02n-sess.sqlite");
+    const payload = JSON.stringify(acwTurn(MVP_OBS.slice(0, 1)));
+    const provider = new FakeConversationProvider({ scripted: [payload, payload] });
+
+    const lpsBefore = await s.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId: s.projectId,
+    });
+    expect(lpsBefore.ok).toBe(true);
+    if (!lpsBefore.ok) throw new Error("lps");
+
+    const first = await orchestrateProjectAssistantTurn({
+      projectId: s.projectId,
+      content,
+      history,
+      sessionDbPath,
+      simulateMemoryBUnavailable: true,
+      provider,
+      studioCognitiveContext: composed.context,
+      turnRetryKey,
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) throw new Error(first.message);
+
+    const lpsAfter = await s.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId: s.projectId,
+    });
+    expect(lpsAfter.ok).toBe(true);
+    if (!lpsAfter.ok) throw new Error("lps after");
+    expect(lpsAfter.livingProjectState.version).toBeGreaterThan(
+      lpsBefore.livingProjectState.version,
+    );
+
+    const dto2 = await projectDtoFromOa(s.oa, s.projectId);
+    expect(dto2.lpsVersion).toBe(lpsAfter.livingProjectState.version);
+    const composed2 = await composeStudioCognitiveContext({
+      analysis: analysisStub({ intentClass: "informative", parseOk: true }),
+      project: dto2,
+      registryRoot: PRODUCT_REGISTRY,
+      oa: s.oa,
+    });
+    expect(composed2.ok).toBe(true);
+    if (!composed2.ok) throw new Error(composed2.code);
+    expect(composed2.context.activeCycle?.cycleInstanceId).toBe(
+      s.cycle.cycleInstanceId,
+    );
+
+    const retry = await orchestrateProjectAssistantTurn({
+      projectId: s.projectId,
+      content,
+      history,
+      sessionDbPath,
+      simulateMemoryBUnavailable: true,
+      provider,
+      studioCognitiveContext: composed2.context,
+      turnRetryKey,
+    });
+    expect(retry.ok).toBe(true);
+    if (!retry.ok) throw new Error(retry.message);
+    expect(retry.logicalTurnId).toBe(first.logicalTurnId);
+
+    const epi = (
+      await s.oa.cycleServices.epistemic.listByProject(s.projectId)
+    ).filter((e) => e.source === ACTIVE_CYCLE_WORK_SOURCE);
+    expect(epi).toHaveLength(1);
+  });
+
+  it("ACW-CORR-02O: deliberate new submit same content/history + new K → new ltu", async () => {
+    const s = await seedStarted("corr02o");
+    const sessionDbPath = tempDbPath("corr02o-sess.sqlite");
+    const content = "deliberate new submit";
+    const history = [{ role: "user" as const, content: "shared prior" }];
+    const env1 = preparePendingTurnRetryEnvelope({
+      content,
+      history,
+      turnRetryKey: createTurnRetryKey(),
+    });
+    const env2 = preparePendingTurnRetryEnvelope({
+      content,
+      history,
+      turnRetryKey: createTurnRetryKey(),
+    });
+    expect(env1.turnRetryKey).not.toBe(env2.turnRetryKey);
+    expect(serializeCanonicalTurnPayload(env1.content, env1.history)).toBe(
+      serializeCanonicalTurnPayload(env2.content, env2.history),
+    );
+
+    const a = resolveOrMintLogicalProductTurn({
+      projectId: s.projectId,
+      sessionDbPath,
+      turnRetryKey: env1.turnRetryKey,
+      content: env1.content,
+      history: env1.history,
+      cycleInstanceId: s.cycle.cycleInstanceId,
+    });
+    const b = resolveOrMintLogicalProductTurn({
+      projectId: s.projectId,
+      sessionDbPath,
+      turnRetryKey: env2.turnRetryKey,
+      content: env2.content,
+      history: env2.history,
+      cycleInstanceId: s.cycle.cycleInstanceId,
+    });
+    expect(a.ok && b.ok).toBe(true);
+    if (!a.ok || !b.ok) throw new Error("expected ok");
+    expect(a.logicalTurnId).not.toBe(b.logicalTurnId);
   });
 });
 

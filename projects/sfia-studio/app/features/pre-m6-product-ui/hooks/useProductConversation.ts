@@ -33,6 +33,10 @@ import {
 } from "@/features/project-assistant/presentationLabels";
 import { lifecycleRecommendationMaterializeFailurePiloteNotice } from "@/features/project-assistant/lifecycleRecommendationPiloteNotice";
 import { createTurnRetryKey } from "@/features/project-assistant/turnRetryKey";
+import {
+  preparePendingTurnRetryEnvelope,
+  type PendingTurnRetryEnvelope,
+} from "@/features/project-assistant/turnPayloadCanonical";
 import { useRunningAttemptO3Observation } from "./useRunningAttemptO3Observation";
 
 export type ProductMessage = {
@@ -128,11 +132,12 @@ export function useProductConversation({
   const lastLogicalTurnIdRef = useRef<string | null>(null);
   const lastSendFailedRef = useRef(false);
   /**
-   * Opaque transport retry key allocated BEFORE the server action.
-   * Untrusted correlation only — never Product turn identity.
-   * Retained until the logical submission reaches a terminal client-observed success.
+   * Process-local pending retry envelope allocated BEFORE the server action.
+   * Holds opaque turnRetryKey + exact content/history snapshot for retransmission.
+   * Untrusted correlation only — never Product turn identity / Truth C.
+   * Retained until terminal client-observed success.
    */
-  const pendingTurnRetryKeyRef = useRef<string | null>(null);
+  const pendingRetryEnvelopeRef = useRef<PendingTurnRetryEnvelope | null>(null);
 
   const listRef = useRef<HTMLDivElement | null>(null);
   const f3InFlightRef = useRef(false);
@@ -266,17 +271,34 @@ export function useProductConversation({
       logicalTurnId?: string | null;
       /** Reuse pending opaque retry key after silent loss / failed send. */
       turnRetryKey?: string | null;
+      /**
+       * Exact history snapshot from pending retry envelope.
+       * When set (retry path), do NOT rebuild from React messages state.
+       */
+      history?: PendingTurnRetryEnvelope["history"] | null;
+      /** Exact content from pending retry envelope (retry path). */
+      content?: string | null;
     },
   ) {
-    const content = (contentOverride ?? draft).trim();
+    const usingRetryEnvelope = Boolean(options?.turnRetryKey?.trim());
+    const content = (
+      usingRetryEnvelope
+        ? (options?.content ?? contentOverride ?? "")
+        : (contentOverride ?? draft)
+    ).trim();
     if (!content || busy || blocked) return;
+
+    // First send: snapshot history BEFORE appending the user message.
+    // Retry: reuse the sealed envelope history — never re-read React messages.
+    const history = usingRetryEnvelope
+      ? [...(options?.history ?? [])]
+      : historyForRequest();
 
     const userMessage: ProductMessage = {
       id: nextId("user"),
       role: "user",
       content,
     };
-    const history = historyForRequest();
     setMessages((prev) => [...prev, userMessage]);
     setDraft("");
     setError(null);
@@ -285,12 +307,15 @@ export function useProductConversation({
     // New distinct send: do not auto-replay prior logicalTurnId unless retry opts in.
     const presentedLogicalTurnId =
       options?.logicalTurnId?.trim() || undefined;
-    // Allocate BEFORE transport. Reuse only when retry explicitly passes the key
-    // (retryLastUserMessage). A new user submit always gets a fresh opaque key —
-    // never treat pending as Product authority for a distinct submission.
+    // Allocate BEFORE transport. Reuse only when retry explicitly passes the key.
     const turnRetryKey =
       options?.turnRetryKey?.trim() || createTurnRetryKey();
-    pendingTurnRetryKeyRef.current = turnRetryKey;
+    const envelope = preparePendingTurnRetryEnvelope({
+      content,
+      history,
+      turnRetryKey,
+    });
+    pendingRetryEnvelopeRef.current = envelope;
 
     startTransition(async () => {
       setUiState("ASSISTANT_WORKING");
@@ -298,16 +323,16 @@ export function useProductConversation({
       try {
         result = await projectAssistantSendAction({
           projectId,
-          content,
-          history,
-          turnRetryKey,
+          content: envelope.content,
+          history: [...envelope.history],
+          turnRetryKey: envelope.turnRetryKey,
           ...(presentedLogicalTurnId
             ? { logicalTurnId: presentedLogicalTurnId }
             : {}),
         });
       } catch {
         // Transport / Server Action rejection before structured response.
-        // Retain pendingTurnRetryKeyRef so retry can recover server ltu binding.
+        // Retain pendingRetryEnvelopeRef so retry can recover server ltu binding.
         lastSendFailedRef.current = true;
         setUiState("ERROR_RECOVERABLE");
         setError(
@@ -335,8 +360,8 @@ export function useProductConversation({
 
       lastSendFailedRef.current = false;
       lastLogicalTurnIdRef.current = result.logicalTurnId ?? null;
-      // Terminal client-observed success — clear transport retry key.
-      pendingTurnRetryKeyRef.current = null;
+      // Terminal client-observed success — clear transport retry envelope.
+      pendingRetryEnvelopeRef.current = null;
       setModeLabel(modeFromResult(result));
       setEphemeralNotice(result.ephemeralNotice);
       setLrMaterializeNotice(
@@ -618,18 +643,22 @@ export function useProductConversation({
   });
 
   function retryLastUserMessage() {
+    const envelope = pendingRetryEnvelopeRef.current;
+    if (!envelope) return;
     const lastUser = [...messages].reverse().find((m) => m.role === "user");
-    if (!lastUser) return;
-    setMessages((prev) => prev.filter((m) => m.id !== lastUser.id));
+    if (lastUser) {
+      setMessages((prev) => prev.filter((m) => m.id !== lastUser.id));
+    }
     const replayId =
       lastSendFailedRef.current && lastLogicalTurnIdRef.current
         ? lastLogicalTurnIdRef.current
         : undefined;
-    // Prefer opaque pending retry key (covers silent loss before ltu delivery).
-    const retryKey = pendingTurnRetryKeyRef.current ?? undefined;
-    sendMessage(lastUser.content, {
+    // Explicitly reuse sealed content + history — do not rebuild from React state.
+    sendMessage(envelope.content, {
       logicalTurnId: replayId,
-      turnRetryKey: retryKey,
+      turnRetryKey: envelope.turnRetryKey,
+      content: envelope.content,
+      history: envelope.history,
     });
   }
 

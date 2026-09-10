@@ -8,7 +8,9 @@
  * - Server alone mints/owns `ltu:…` (logical Product turn identity).
  * - Optional client `turnRetryKey` is an untrusted opaque transport correlation
  *   token only — it MUST NOT become Product turn identity or SFIA authority.
- * - Payload digest may detect retry conflicts; it is NEVER turn identity.
+ * - Payload digest (content + normalized history) may detect retry conflicts;
+ *   it is NEVER turn identity.
+ * - Accepted cycleInstanceId is binding for replay — no silent inter-cycle migrate.
  */
 
 import { createHash } from "node:crypto";
@@ -18,8 +20,19 @@ import {
 } from "@/lib/nora-cognitive-runtime/productSqliteSession";
 import { resolveNoraSessionSqlitePath } from "@/lib/nora-cognitive-runtime/sessionPaths";
 import { CANONICAL_CONVERSATION_SESSION_KEY } from "./f2/canonicalConversationSession";
+import { serializeCanonicalTurnPayload } from "./turnPayloadCanonical";
 
 export { createTurnRetryKey } from "./turnRetryKey";
+export {
+  PRODUCT_TURN_MAX_HISTORY_MESSAGES,
+  buildCanonicalTurnPayload,
+  normalizeProductTurnHistory,
+  preparePendingTurnRetryEnvelope,
+  serializeCanonicalTurnPayload,
+  type CanonicalHistoryMessage,
+  type CanonicalTurnPayload,
+  type PendingTurnRetryEnvelope,
+} from "./turnPayloadCanonical";
 
 export type ResolveOrMintLogicalProductTurnOk = {
   readonly ok: true;
@@ -42,23 +55,44 @@ export type ResolveOrMintLogicalProductTurnResult =
   | ResolveOrMintLogicalProductTurnOk
   | ResolveOrMintLogicalProductTurnErr;
 
-/** Client-side opaque transport retry token (untrusted; not Product identity). */
-// createTurnRetryKey re-exported from ./turnRetryKey (client-safe).
-
 /**
  * Conflict-detection digest for a logical submission payload.
+ * Covers content + history as consumed by the Product Assistant path.
  * NOT Product turn identity — only guards same-retry-key remaps.
  */
-export function canonicalTurnPayloadDigest(content: string): string {
+export function canonicalTurnPayloadDigest(
+  content: string,
+  history?: readonly { role: string; content: string }[] | null,
+): string {
   return createHash("sha256")
-    .update(JSON.stringify({ content: content.trim() }), "utf8")
+    .update(serializeCanonicalTurnPayload(content, history), "utf8")
     .digest("hex");
+}
+
+/** Same-cycle replay only; null↔non-null and A↔B are material context changes. */
+export function isLogicalTurnCycleCompatible(
+  acceptedCycleInstanceId: string | null | undefined,
+  currentCycleInstanceId: string | null | undefined,
+): boolean {
+  return (acceptedCycleInstanceId ?? null) === (currentCycleInstanceId ?? null);
+}
+
+function cycleMismatchResult(
+  accepted: string | null | undefined,
+  current: string | null | undefined,
+): ResolveOrMintLogicalProductTurnErr {
+  return {
+    ok: false,
+    code: "LOGICAL_TURN_RETRY_CONFLICT",
+    reason: `retry_cycle_mismatch:accepted=${accepted ?? "null"}:current=${current ?? "null"}`,
+  };
 }
 
 /**
  * Accept boundary for ACW turn identity:
  * - presented `ltu:` MUST already exist (reject client-invented)
  * - opaque `turnRetryKey` may recover an existing server binding after silent loss
+ * - recovered turns MUST match current active cycleInstanceId
  * - else mint server-owned `ltu:…` and optionally bind retry key
  * - Session open failure → fail-closed for ACW path
  */
@@ -71,6 +105,8 @@ export function resolveOrMintLogicalProductTurn(input: {
   turnRetryKey?: string | null;
   /** User content for conflict digest when retry key is present. */
   content?: string | null;
+  /** History actually destined for the Product path (same bounding as provider). */
+  history?: readonly { role: string; content: string }[] | null;
   cycleInstanceId?: string | null;
   nowIso?: string;
 }): ResolveOrMintLogicalProductTurnResult {
@@ -79,9 +115,10 @@ export function resolveOrMintLogicalProductTurn(input: {
     input.sessionKey?.trim() || CANONICAL_CONVERSATION_SESSION_KEY;
   const presented = input.presentedLogicalTurnId?.trim() || null;
   const retryKey = input.turnRetryKey?.trim() || null;
+  const currentCycle = input.cycleInstanceId?.trim() || null;
   const payloadDigest =
     retryKey !== null
-      ? canonicalTurnPayloadDigest(input.content ?? "")
+      ? canonicalTurnPayloadDigest(input.content ?? "", input.history)
       : null;
 
   let session: ProductSqliteSession | null = null;
@@ -102,6 +139,11 @@ export function resolveOrMintLogicalProductTurn(input: {
           code: "LOGICAL_TURN_UNKNOWN",
           reason: "presented_logical_turn_not_found_for_project_session",
         };
+      }
+      if (
+        !isLogicalTurnCycleCompatible(existing.cycleInstanceId, currentCycle)
+      ) {
+        return cycleMismatchResult(existing.cycleInstanceId, currentCycle);
       }
       if (retryKey && payloadDigest) {
         const binding = session.getLogicalProductTurnRetryBinding(retryKey);
@@ -149,6 +191,11 @@ export function resolveOrMintLogicalProductTurn(input: {
             reason: "retry_binding_points_to_missing_logical_turn",
           };
         }
+        if (
+          !isLogicalTurnCycleCompatible(existing.cycleInstanceId, currentCycle)
+        ) {
+          return cycleMismatchResult(existing.cycleInstanceId, currentCycle);
+        }
         return {
           ok: true,
           logicalTurnId: existing.logicalTurnId,
@@ -180,6 +227,14 @@ export function resolveOrMintLogicalProductTurn(input: {
               reason: "retry_binding_points_to_missing_logical_turn",
             };
           }
+          if (
+            !isLogicalTurnCycleCompatible(
+              existing.cycleInstanceId,
+              currentCycle,
+            )
+          ) {
+            return cycleMismatchResult(existing.cycleInstanceId, currentCycle);
+          }
           return {
             ok: true,
             logicalTurnId: existing.logicalTurnId,
@@ -189,7 +244,7 @@ export function resolveOrMintLogicalProductTurn(input: {
           };
         }
         const row = session.mintLogicalProductTurn({
-          cycleInstanceId: input.cycleInstanceId,
+          cycleInstanceId: currentCycle,
           status: "accepted",
           nowIso: input.nowIso,
         });
@@ -218,7 +273,7 @@ export function resolveOrMintLogicalProductTurn(input: {
     }
 
     const row = session.mintLogicalProductTurn({
-      cycleInstanceId: input.cycleInstanceId,
+      cycleInstanceId: currentCycle,
       status: "accepted",
       nowIso: input.nowIso,
     });

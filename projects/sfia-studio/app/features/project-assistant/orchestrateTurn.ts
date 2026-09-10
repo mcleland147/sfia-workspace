@@ -33,6 +33,9 @@ import {
 } from "./lifecycleRecommendationPiloteNotice";
 import { materializeActiveCycleWork } from "./materializeActiveCycleWork";
 import { resolveOrMintLogicalProductTurn } from "./logicalProductTurn";
+import {
+  normalizeProductTurnHistory,
+} from "./turnPayloadCanonical";
 import { buildActiveCycleWorkContextSeal } from "./f2/activeCycleCognitiveContext";
 import { resolveWorkspaceRootFromAppCwd } from "@/lib/platform/repository/workspaceRoot";
 import { loadProjectRuntimeForAssistant } from "@/features/vertical-slice-ui/ProjectWorkspaceView";
@@ -55,7 +58,7 @@ import type {
 } from "./types";
 import { resolveTrajectoryBootstrapPresence } from "@/lib/oa/cycle/application/lifecycleRecommendation/greenfieldLifecycleBootstrap";
 
-const MAX_HISTORY_MESSAGES = 20;
+// PRODUCT_TURN_MAX_HISTORY_MESSAGES imported from turnPayloadCanonical (shared).
 
 function buildEphemeralNotice(
   memoryBAvailability:
@@ -275,6 +278,9 @@ export async function orchestrateProjectAssistantTurn(input: {
   // Session open failure must NOT abort Truth C / conversational continuity
   // (MW1 Memory B unavailable). ACW materialization remains fail-closed when
   // no durable logicalTurnId is available.
+  //
+  // Normalize history FIRST so conflict digest seals the exact provider envelope.
+  const history = normalizeProductTurnHistory(input.history);
   let logicalTurnId: string | null = null;
   const testCorrOverride = input.turnCorrelationId?.trim() || null;
   if (testCorrOverride) {
@@ -286,6 +292,7 @@ export async function orchestrateProjectAssistantTurn(input: {
       presentedLogicalTurnId: input.logicalTurnId,
       turnRetryKey: input.turnRetryKey,
       content,
+      history,
       cycleInstanceId:
         input.studioCognitiveContext?.activeCycle?.cycleInstanceId ?? null,
       nowIso: new Date().toISOString(),
@@ -322,15 +329,6 @@ export async function orchestrateProjectAssistantTurn(input: {
     }
   }
 
-  const history = (input.history ?? [])
-    .filter(
-      (m) =>
-        (m.role === "user" || m.role === "assistant") &&
-        typeof m.content === "string" &&
-        m.content.trim().length > 0,
-    )
-    .slice(-MAX_HISTORY_MESSAGES);
-
   const messages: ProviderChatMessage[] = [
     {
       role: "system",
@@ -340,7 +338,7 @@ export async function orchestrateProjectAssistantTurn(input: {
         studioCognitiveContext: input.studioCognitiveContext ?? null,
       }),
     },
-    ...history.map((m) => ({ role: m.role, content: m.content.trim() })),
+    ...history.map((m) => ({ role: m.role, content: m.content })),
     { role: "user", content },
   ];
 

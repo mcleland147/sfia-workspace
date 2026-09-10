@@ -8,6 +8,17 @@
  * the key BEFORE the Server Action without bundling Session persistence.
  */
 
+export {
+  PRODUCT_TURN_MAX_HISTORY_MESSAGES,
+  buildCanonicalTurnPayload,
+  normalizeProductTurnHistory,
+  preparePendingTurnRetryEnvelope,
+  serializeCanonicalTurnPayload,
+  type CanonicalHistoryMessage,
+  type CanonicalTurnPayload,
+  type PendingTurnRetryEnvelope,
+} from "./turnPayloadCanonical";
+
 export function createTurnRetryKey(): string {
   const uuid =
     typeof globalThis.crypto?.randomUUID === "function"
