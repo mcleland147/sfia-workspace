@@ -579,6 +579,10 @@ export async function orchestrateAssistantSend(input: {
    */
   logicalTurnId?: string;
   /**
+   * Opaque client transport retry correlation (untrusted; not Product identity).
+   */
+  turnRetryKey?: string;
+  /**
    * INTERNAL / EVAL-ONLY — Stage A constitutive model×effort pin.
    * Propagated to analyzeIntent + F1 cognitive path. Never a client DTO field.
    */

@@ -223,6 +223,11 @@ export async function orchestrateProjectAssistantTurn(input: {
    */
   logicalTurnId?: string;
   /**
+   * Opaque client transport retry correlation (untrusted).
+   * NOT Product turn identity — Session-adjacent lookup only.
+   */
+  turnRetryKey?: string;
+  /**
    * TEST-ONLY — explicit correlation override (skips Session mint).
    * Prefer logicalTurnId for production and new tests.
    */
@@ -279,6 +284,8 @@ export async function orchestrateProjectAssistantTurn(input: {
       projectId: project.projectId,
       sessionDbPath: input.sessionDbPath,
       presentedLogicalTurnId: input.logicalTurnId,
+      turnRetryKey: input.turnRetryKey,
+      content,
       cycleInstanceId:
         input.studioCognitiveContext?.activeCycle?.cycleInstanceId ?? null,
       nowIso: new Date().toISOString(),
@@ -291,6 +298,18 @@ export async function orchestrateProjectAssistantTurn(input: {
           code: "LOGICAL_TURN_UNKNOWN",
           message:
             "Identifiant de tour logique inconnu pour cette session.",
+          mode: modeResolution.mode,
+          retryable: false,
+          logicalTurnId: null,
+        };
+      }
+      if (resolvedTurn.code === "LOGICAL_TURN_RETRY_CONFLICT") {
+        return {
+          ok: false,
+          status: "validation_error",
+          code: "LOGICAL_TURN_RETRY_CONFLICT",
+          message:
+            "Jeton de reprise en conflit avec une soumission déjà acceptée.",
           mode: modeResolution.mode,
           retryable: false,
           logicalTurnId: null,

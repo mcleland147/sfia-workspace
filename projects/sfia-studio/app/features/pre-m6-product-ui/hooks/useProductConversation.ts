@@ -32,6 +32,7 @@ import {
   type RecommendationFreshness,
 } from "@/features/project-assistant/presentationLabels";
 import { lifecycleRecommendationMaterializeFailurePiloteNotice } from "@/features/project-assistant/lifecycleRecommendationPiloteNotice";
+import { createTurnRetryKey } from "@/features/project-assistant/turnRetryKey";
 import { useRunningAttemptO3Observation } from "./useRunningAttemptO3Observation";
 
 export type ProductMessage = {
@@ -126,6 +127,12 @@ export function useProductConversation({
   /** D-GF-ACW-02 — last server-issued logical turn; re-present only on failed retry. */
   const lastLogicalTurnIdRef = useRef<string | null>(null);
   const lastSendFailedRef = useRef(false);
+  /**
+   * Opaque transport retry key allocated BEFORE the server action.
+   * Untrusted correlation only — never Product turn identity.
+   * Retained until the logical submission reaches a terminal client-observed success.
+   */
+  const pendingTurnRetryKeyRef = useRef<string | null>(null);
 
   const listRef = useRef<HTMLDivElement | null>(null);
   const f3InFlightRef = useRef(false);
@@ -255,7 +262,11 @@ export function useProductConversation({
 
   function sendMessage(
     contentOverride?: string,
-    options?: { logicalTurnId?: string | null },
+    options?: {
+      logicalTurnId?: string | null;
+      /** Reuse pending opaque retry key after silent loss / failed send. */
+      turnRetryKey?: string | null;
+    },
   ) {
     const content = (contentOverride ?? draft).trim();
     if (!content || busy || blocked) return;
@@ -274,17 +285,36 @@ export function useProductConversation({
     // New distinct send: do not auto-replay prior logicalTurnId unless retry opts in.
     const presentedLogicalTurnId =
       options?.logicalTurnId?.trim() || undefined;
+    // Allocate BEFORE transport. Reuse only when retry explicitly passes the key
+    // (retryLastUserMessage). A new user submit always gets a fresh opaque key —
+    // never treat pending as Product authority for a distinct submission.
+    const turnRetryKey =
+      options?.turnRetryKey?.trim() || createTurnRetryKey();
+    pendingTurnRetryKeyRef.current = turnRetryKey;
 
     startTransition(async () => {
       setUiState("ASSISTANT_WORKING");
-      const result = await projectAssistantSendAction({
-        projectId,
-        content,
-        history,
-        ...(presentedLogicalTurnId
-          ? { logicalTurnId: presentedLogicalTurnId }
-          : {}),
-      });
+      let result: Awaited<ReturnType<typeof projectAssistantSendAction>>;
+      try {
+        result = await projectAssistantSendAction({
+          projectId,
+          content,
+          history,
+          turnRetryKey,
+          ...(presentedLogicalTurnId
+            ? { logicalTurnId: presentedLogicalTurnId }
+            : {}),
+        });
+      } catch {
+        // Transport / Server Action rejection before structured response.
+        // Retain pendingTurnRetryKeyRef so retry can recover server ltu binding.
+        lastSendFailedRef.current = true;
+        setUiState("ERROR_RECOVERABLE");
+        setError(
+          "Échec de transport — réessayez. La corrélation de reprise est conservée.",
+        );
+        return;
+      }
 
       if (!result.ok) {
         lastSendFailedRef.current = true;
@@ -305,6 +335,8 @@ export function useProductConversation({
 
       lastSendFailedRef.current = false;
       lastLogicalTurnIdRef.current = result.logicalTurnId ?? null;
+      // Terminal client-observed success — clear transport retry key.
+      pendingTurnRetryKeyRef.current = null;
       setModeLabel(modeFromResult(result));
       setEphemeralNotice(result.ephemeralNotice);
       setLrMaterializeNotice(
@@ -593,7 +625,12 @@ export function useProductConversation({
       lastSendFailedRef.current && lastLogicalTurnIdRef.current
         ? lastLogicalTurnIdRef.current
         : undefined;
-    sendMessage(lastUser.content, { logicalTurnId: replayId });
+    // Prefer opaque pending retry key (covers silent loss before ltu delivery).
+    const retryKey = pendingTurnRetryKeyRef.current ?? undefined;
+    sendMessage(lastUser.content, {
+      logicalTurnId: replayId,
+      turnRetryKey: retryKey,
+    });
   }
 
   return {

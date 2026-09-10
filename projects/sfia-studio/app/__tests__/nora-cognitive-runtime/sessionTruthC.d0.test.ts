@@ -61,7 +61,11 @@ describe("MW1 Option C — Session ≠ Truth C D0", () => {
     // D-GF-ACW-02 Option A: Session may hold logical_product_turns identity rows;
     // still must never hold oa_* Truth C / LPS / HD / Evidence tables.
     expect(sessionTables.sort()).toEqual(
-      ["logical_product_turns", "session_items"].sort(),
+      [
+        "logical_product_turn_retry_bindings",
+        "logical_product_turns",
+        "session_items",
+      ].sort(),
     );
     expect(sessionTables.some((t) => t.startsWith("oa_"))).toBe(false);
 

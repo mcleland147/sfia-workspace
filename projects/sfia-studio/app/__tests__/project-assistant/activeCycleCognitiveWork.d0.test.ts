@@ -59,7 +59,7 @@ import {
   buildActiveCycleWorkContextSeal,
   type ActiveCycleWorkContextSeal,
 } from "@/features/project-assistant/f2/activeCycleCognitiveContext";
-import { resolveOrMintLogicalProductTurn } from "@/features/project-assistant/logicalProductTurn";
+import { resolveOrMintLogicalProductTurn, createTurnRetryKey } from "@/features/project-assistant/logicalProductTurn";
 import { ProductSqliteSession } from "@/lib/nora-cognitive-runtime/productSqliteSession";
 import { orchestrateProjectAssistantTurn } from "@/features/project-assistant/orchestrateTurn";
 import type { ProjectAssistantContextDto } from "@/features/project-assistant/types";
@@ -1962,6 +1962,157 @@ describe("CR-ACW-02 logical Product turn (ACW-CORR-02A..F)", () => {
     expect(result.ok).toBe(false);
     if (result.ok) throw new Error("expected fail");
     expect(result.code).toBe("LOGICAL_TURN_UNKNOWN");
+  });
+
+  it("ACW-CORR-02G: silent response-loss + retry key recovers same ltu (no client ltu)", async () => {
+    const s = await seedStarted("corr02g");
+    const dto = await projectDtoFromOa(s.oa, s.projectId);
+    const composed = await composeStudioCognitiveContext({
+      analysis: analysisStub({ intentClass: "informative", parseOk: true }),
+      project: dto,
+      registryRoot: PRODUCT_REGISTRY,
+      oa: s.oa,
+    });
+    expect(composed.ok).toBe(true);
+    if (!composed.ok) throw new Error(composed.code);
+
+    // Client allocates opaque retry key BEFORE transport (never Product identity).
+    const turnRetryKey = createTurnRetryKey();
+    expect(turnRetryKey).toMatch(/^trk:/);
+    const sessionDbPath = tempDbPath("corr02g-sess.sqlite");
+    const userText = "Observations MVP after silent loss";
+    const payload = JSON.stringify(acwTurn(MVP_OBS.slice(0, 1), "Silent loss."));
+    const provider = new FakeConversationProvider({
+      scripted: [payload, payload],
+    });
+
+    const first = await orchestrateProjectAssistantTurn({
+      projectId: s.projectId,
+      content: userText,
+      sessionDbPath,
+      simulateMemoryBUnavailable: true,
+      provider,
+      studioCognitiveContext: composed.context,
+      turnRetryKey,
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) throw new Error(first.message);
+    // Harness observes server-issued id for assertion only — NOT passed to retry.
+    const serverOwnedLtu = first.logicalTurnId!;
+    expect(serverOwnedLtu).toMatch(/^ltu:/);
+    const epiAfterFirst = (
+      await s.oa.cycleServices.epistemic.listByProject(s.projectId)
+    ).filter((e) => e.source === ACTIVE_CYCLE_WORK_SOURCE);
+    expect(epiAfterFirst.length).toBe(1);
+
+    // Silent loss: client retains only turnRetryKey (no logicalTurnId).
+    const dto2 = await projectDtoFromOa(s.oa, s.projectId);
+    const composed2 = await composeStudioCognitiveContext({
+      analysis: analysisStub({ intentClass: "informative", parseOk: true }),
+      project: dto2,
+      registryRoot: PRODUCT_REGISTRY,
+      oa: s.oa,
+    });
+    expect(composed2.ok).toBe(true);
+    if (!composed2.ok) throw new Error(composed2.code);
+
+    const retry = await orchestrateProjectAssistantTurn({
+      projectId: s.projectId,
+      content: userText,
+      sessionDbPath,
+      simulateMemoryBUnavailable: true,
+      provider,
+      studioCognitiveContext: composed2.context,
+      turnRetryKey,
+      // intentional: no logicalTurnId — simulates total response loss
+    });
+    expect(retry.ok).toBe(true);
+    if (!retry.ok) throw new Error(retry.message);
+    expect(retry.logicalTurnId).toBe(serverOwnedLtu);
+    // Cognition may re-run; Product ACW materialization remains exactly-once.
+    expect(provider.getCallCountForTests()).toBe(2);
+    const epiAfterRetry = (
+      await s.oa.cycleServices.epistemic.listByProject(s.projectId)
+    ).filter((e) => e.source === ACTIVE_CYCLE_WORK_SOURCE);
+    expect(epiAfterRetry.length).toBe(1);
+    expect(epiAfterRetry.map((e) => e.epistemicItemId).sort()).toEqual(
+      epiAfterFirst.map((e) => e.epistemicItemId).sort(),
+    );
+  });
+
+  it("ACW-CORR-02H: process restart — retry key still resolves same ltu", async () => {
+    const s = await seedStarted("corr02h");
+    const sessionDbPath = tempDbPath("corr02h-sess.sqlite");
+    const turnRetryKey = createTurnRetryKey();
+    const content = "restart durable binding";
+    const first = resolveOrMintLogicalProductTurn({
+      projectId: s.projectId,
+      sessionDbPath,
+      turnRetryKey,
+      content,
+      cycleInstanceId: s.cycle.cycleInstanceId,
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) throw new Error(first.reason);
+    expect(first.minted).toBe(true);
+
+    const recovered = resolveOrMintLogicalProductTurn({
+      projectId: s.projectId,
+      sessionDbPath,
+      turnRetryKey,
+      content,
+    });
+    expect(recovered.ok).toBe(true);
+    if (!recovered.ok) throw new Error(recovered.reason);
+    expect(recovered.minted).toBe(false);
+    expect(recovered.recoveredViaRetryKey).toBe(true);
+    expect(recovered.logicalTurnId).toBe(first.logicalTurnId);
+  });
+
+  it("ACW-CORR-02I: identical text + new retry key → distinct ltu", async () => {
+    const s = await seedStarted("corr02i");
+    const sessionDbPath = tempDbPath("corr02i-sess.sqlite");
+    const content = "same user text deliberate new submit";
+    const k1 = createTurnRetryKey();
+    const k2 = createTurnRetryKey();
+    expect(k1).not.toBe(k2);
+    const a = resolveOrMintLogicalProductTurn({
+      projectId: s.projectId,
+      sessionDbPath,
+      turnRetryKey: k1,
+      content,
+    });
+    const b = resolveOrMintLogicalProductTurn({
+      projectId: s.projectId,
+      sessionDbPath,
+      turnRetryKey: k2,
+      content,
+    });
+    expect(a.ok && b.ok).toBe(true);
+    if (!a.ok || !b.ok) throw new Error("expected ok");
+    expect(a.logicalTurnId).not.toBe(b.logicalTurnId);
+  });
+
+  it("ACW-CORR-02J: same retry key + different payload → LOGICAL_TURN_RETRY_CONFLICT", async () => {
+    const s = await seedStarted("corr02j");
+    const sessionDbPath = tempDbPath("corr02j-sess.sqlite");
+    const turnRetryKey = createTurnRetryKey();
+    const first = resolveOrMintLogicalProductTurn({
+      projectId: s.projectId,
+      sessionDbPath,
+      turnRetryKey,
+      content: "original submission",
+    });
+    expect(first.ok).toBe(true);
+    const conflict = resolveOrMintLogicalProductTurn({
+      projectId: s.projectId,
+      sessionDbPath,
+      turnRetryKey,
+      content: "materially different submission",
+    });
+    expect(conflict.ok).toBe(false);
+    if (conflict.ok) throw new Error("expected conflict");
+    expect(conflict.code).toBe("LOGICAL_TURN_RETRY_CONFLICT");
   });
 });
 

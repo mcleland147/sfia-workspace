@@ -201,6 +201,7 @@ export async function observeMw1S01FromRuntime(): Promise<DeterministicObservati
     const SESSION_ALLOWED_TABLES = new Set([
       "session_items",
       "logical_product_turns",
+      "logical_product_turn_retry_bindings",
     ]);
     let sessionNeqTruthC = truthUnchanged;
     if (fs.existsSync(sessionDbPath)) {

@@ -99,7 +99,11 @@ describe("MW1 Option C — ProductSqliteSession D0 (corrected)", () => {
     // D-GF-ACW-02 Option A: logical_product_turns is Session-adjacent identity/replay
     // coordination only — never Epistemic/LPS/HD/Evidence/Truth C storage.
     expect(tables.sort()).toEqual(
-      ["logical_product_turns", "session_items"].sort(),
+      [
+        "logical_product_turn_retry_bindings",
+        "logical_product_turns",
+        "session_items",
+      ].sort(),
     );
     expect(tables.some((t) => t.startsWith("oa_"))).toBe(false);
     s.close();

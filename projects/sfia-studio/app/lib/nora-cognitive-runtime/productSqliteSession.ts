@@ -7,6 +7,8 @@
  *
  * logical_product_turns (D-GF-ACW-02 Option A): Session-adjacent identity for
  * Product-turn replay / ACW idempotence coordination ONLY.
+ * logical_product_turn_retry_bindings: opaque client retry-key → server ltu
+ * lookup (untrusted correlation; never Product authority / Truth C).
  * Never Epistemic / LPS / HD / Evidence SoT.
  */
 import { randomBytes } from "node:crypto";
@@ -33,6 +35,23 @@ export type LogicalProductTurnRow = {
   readonly createdAt: string;
   readonly cycleInstanceId: string | null;
 };
+
+/** Session-adjacent retry correlation binding (untrusted key → server ltu). */
+export type LogicalProductTurnRetryBinding = {
+  readonly projectId: string;
+  readonly sessionKey: string;
+  readonly retryKey: string;
+  readonly logicalTurnId: string;
+  readonly payloadDigest: string;
+  readonly createdAt: string;
+};
+
+/** Tables permitted in Product Session SQLite (Session ≠ Truth C). */
+export const PRODUCT_SESSION_ALLOWED_TABLES = [
+  "session_items",
+  "logical_product_turns",
+  "logical_product_turn_retry_bindings",
+] as const;
 
 /**
  * Project-scoped Session. Cross-project keys never share rows.
@@ -78,7 +97,93 @@ export class ProductSqliteSession implements Session {
         cycle_instance_id TEXT,
         PRIMARY KEY (project_id, session_key, logical_turn_id)
       );
+      CREATE TABLE IF NOT EXISTS logical_product_turn_retry_bindings (
+        project_id TEXT NOT NULL,
+        session_key TEXT NOT NULL,
+        retry_key TEXT NOT NULL,
+        logical_turn_id TEXT NOT NULL,
+        payload_digest TEXT NOT NULL,
+        created_at TEXT NOT NULL,
+        PRIMARY KEY (project_id, session_key, retry_key)
+      );
     `);
+  }
+
+  getLogicalProductTurnRetryBinding(
+    retryKey: string,
+  ): LogicalProductTurnRetryBinding | null {
+    this.ensureLogicalTurnSchema();
+    const key = retryKey.trim();
+    if (!key) return null;
+    const row = this.db
+      .prepare(
+        `SELECT project_id, session_key, retry_key, logical_turn_id,
+                payload_digest, created_at
+         FROM logical_product_turn_retry_bindings
+         WHERE project_id = ? AND session_key = ? AND retry_key = ?`,
+      )
+      .get(this.projectId, this.sessionKey, key) as
+      | {
+          project_id: string;
+          session_key: string;
+          retry_key: string;
+          logical_turn_id: string;
+          payload_digest: string;
+          created_at: string;
+        }
+      | undefined;
+    if (!row) return null;
+    return {
+      projectId: row.project_id,
+      sessionKey: row.session_key,
+      retryKey: row.retry_key,
+      logicalTurnId: row.logical_turn_id,
+      payloadDigest: row.payload_digest,
+      createdAt: row.created_at,
+    };
+  }
+
+  /**
+   * Bind opaque transport retry key → server-owned logical turn.
+   * Caller must hold a transaction when used with mint for atomic accept.
+   */
+  bindLogicalProductTurnRetry(input: {
+    retryKey: string;
+    logicalTurnId: string;
+    payloadDigest: string;
+    nowIso?: string;
+  }): LogicalProductTurnRetryBinding {
+    this.ensureLogicalTurnSchema();
+    const retryKey = input.retryKey.trim();
+    const logicalTurnId = input.logicalTurnId.trim();
+    const payloadDigest = input.payloadDigest.trim();
+    if (!retryKey || !logicalTurnId || !payloadDigest) {
+      throw new Error("LOGICAL_TURN_RETRY_BIND_INVALID");
+    }
+    const createdAt = input.nowIso ?? new Date().toISOString();
+    this.db
+      .prepare(
+        `INSERT INTO logical_product_turn_retry_bindings(
+           project_id, session_key, retry_key, logical_turn_id,
+           payload_digest, created_at
+         ) VALUES (?, ?, ?, ?, ?, ?)`,
+      )
+      .run(
+        this.projectId,
+        this.sessionKey,
+        retryKey,
+        logicalTurnId,
+        payloadDigest,
+        createdAt,
+      );
+    return {
+      projectId: this.projectId,
+      sessionKey: this.sessionKey,
+      retryKey,
+      logicalTurnId,
+      payloadDigest,
+      createdAt,
+    };
   }
 
   /**

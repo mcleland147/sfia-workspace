@@ -89,6 +89,11 @@ export async function projectAssistantSendAction(input: {
    * Untrusted until Session lookup; client-invented ids fail LOGICAL_TURN_UNKNOWN.
    */
   logicalTurnId?: string;
+  /**
+   * Opaque client transport retry correlation (untrusted).
+   * NOT Product turn identity / SFIA authority — Session-adjacent lookup only.
+   */
+  turnRetryKey?: string;
 }): Promise<ProjectAssistantSendResult> {
   const executionContractId =
     typeof input.executionContractId === "string"
@@ -123,6 +128,7 @@ export async function projectAssistantSendAction(input: {
     provider: input.provider,
     sessionDbPath: input.sessionDbPath,
     logicalTurnId: input.logicalTurnId,
+    turnRetryKey: input.turnRetryKey,
   });
 }
 
