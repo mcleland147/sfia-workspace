@@ -32,7 +32,8 @@ import {
   lifecycleRecommendationMaterializeFailurePiloteNotice,
 } from "./lifecycleRecommendationPiloteNotice";
 import { materializeActiveCycleWork } from "./materializeActiveCycleWork";
-import { randomBytes } from "node:crypto";
+import { resolveOrMintLogicalProductTurn } from "./logicalProductTurn";
+import { buildActiveCycleWorkContextSeal } from "./f2/activeCycleCognitiveContext";
 import { resolveWorkspaceRootFromAppCwd } from "@/lib/platform/repository/workspaceRoot";
 import { loadProjectRuntimeForAssistant } from "@/features/vertical-slice-ui/ProjectWorkspaceView";
 import { buildProjectSystemPrompt } from "./buildProjectSystemPrompt";
@@ -217,8 +218,13 @@ export async function orchestrateProjectAssistantTurn(input: {
   /** INTERNAL / EVAL-ONLY — shared canonical campaign budget lease. */
   campaignBudget?: NoraCampaignBudget;
   /**
-   * D-GF-ACW-01 — optional turn correlation id (tests).
-   * Production mints `f1-acw:${projectId}:${randomBytes(8).hex}`.
+   * D-GF-ACW-02 Option A — optional re-present of server-issued logical turn id.
+   * Production ACW identity; never client-invented.
+   */
+  logicalTurnId?: string;
+  /**
+   * TEST-ONLY — explicit correlation override (skips Session mint).
+   * Prefer logicalTurnId for production and new tests.
    */
   turnCorrelationId?: string;
 }): Promise<ProjectAssistantSendResult> {
@@ -257,6 +263,44 @@ export async function orchestrateProjectAssistantTurn(input: {
       mode: "unavailable",
       retryable: false,
     };
+  }
+
+  // D-GF-ACW-02 — accept-boundary logical turn id BEFORE model call.
+  // Test turnCorrelationId override skips Session mint (BAR-WORK compatibility).
+  // Session open failure must NOT abort Truth C / conversational continuity
+  // (MW1 Memory B unavailable). ACW materialization remains fail-closed when
+  // no durable logicalTurnId is available.
+  let logicalTurnId: string | null = null;
+  const testCorrOverride = input.turnCorrelationId?.trim() || null;
+  if (testCorrOverride) {
+    logicalTurnId = testCorrOverride;
+  } else {
+    const resolvedTurn = resolveOrMintLogicalProductTurn({
+      projectId: project.projectId,
+      sessionDbPath: input.sessionDbPath,
+      presentedLogicalTurnId: input.logicalTurnId,
+      cycleInstanceId:
+        input.studioCognitiveContext?.activeCycle?.cycleInstanceId ?? null,
+      nowIso: new Date().toISOString(),
+    });
+    if (!resolvedTurn.ok) {
+      if (resolvedTurn.code === "LOGICAL_TURN_UNKNOWN") {
+        return {
+          ok: false,
+          status: "validation_error",
+          code: "LOGICAL_TURN_UNKNOWN",
+          message:
+            "Identifiant de tour logique inconnu pour cette session.",
+          mode: modeResolution.mode,
+          retryable: false,
+          logicalTurnId: null,
+        };
+      }
+      // LOGICAL_TURN_SESSION_UNAVAILABLE — continue without ACW identity.
+      logicalTurnId = null;
+    } else {
+      logicalTurnId = resolvedTurn.logicalTurnId;
+    }
   }
 
   const history = (input.history ?? [])
@@ -484,7 +528,7 @@ export async function orchestrateProjectAssistantTurn(input: {
       }
     }
 
-    // D-GF-ACW-01 — same Product turn structured output; no second model call.
+    // D-GF-ACW-01/02 — same Product turn structured output; no second model call.
     // Materialize non-authoritative active-cycle EpistemicItems when eligible.
     if (turn.structuredOutput !== undefined) {
       const coherent = normalizeNoraProductTurnStructuredOutput(
@@ -497,24 +541,52 @@ export async function orchestrateProjectAssistantTurn(input: {
         const eligibleDefer =
           disposition === "DEFER_TO_ACTIVE_CYCLE" ||
           assessment?.activeCycleAlreadyCoversWork === true;
-        const activeCycleId =
-          input.studioCognitiveContext?.activeCycle?.cycleInstanceId ??
-          project.activeCycleInstanceId ??
-          null;
-        // Fail closed: model must not emit activeCycleWork outside an eligible
-        // active-cycle deferral — never silently drop proposed durable items.
-        if (!eligibleDefer || !activeCycleId) {
+
+        // CR-ACW-01 — FORBIDDEN fallback to project.activeCycleInstanceId.
+        // Require studioCognitiveContext + activeCycle + workEligible + seal.
+        const studio = input.studioCognitiveContext ?? null;
+        const contextSeal = buildActiveCycleWorkContextSeal({
+          projectId: project.projectId,
+          activeCycle: studio?.activeCycle ?? null,
+        });
+        if (
+          !eligibleDefer ||
+          !studio ||
+          !studio.activeCycle ||
+          studio.activeCycle.workEligible !== true ||
+          !contextSeal
+        ) {
           return {
             ok: false,
             status: "validation_error",
-            code: "ACTIVE_CYCLE_WORK_NOT_ELIGIBLE",
-            message:
-              "Travail de cycle actif émis hors contexte éligible — aucune écriture partielle.",
+            code: !eligibleDefer
+              ? "ACTIVE_CYCLE_WORK_NOT_ELIGIBLE"
+              : "ACTIVE_CYCLE_CONTEXT_REQUIRED",
+            message: !eligibleDefer
+              ? "Travail de cycle actif émis hors contexte éligible — aucune écriture partielle."
+              : "Contexte cycle actif studio requis pour matérialiser le travail cognitif — aucune écriture partielle.",
             mode: modeResolution.mode,
             retryable: false,
+            logicalTurnId,
           };
         }
-        if (eligibleDefer && activeCycleId) {
+
+        // Option A: ACW write requires durable Session-adjacent logical turn id.
+        if (!logicalTurnId) {
+          return {
+            ok: false,
+            status: "validation_error",
+            code: "LOGICAL_TURN_SESSION_UNAVAILABLE",
+            message:
+              "Session indisponible pour l'identité de tour logique — aucune écriture ACW.",
+            mode: modeResolution.mode,
+            retryable: false,
+            logicalTurnId: null,
+          };
+        }
+
+        const activeCycleId = contextSeal.cycleInstanceId;
+        {
           const oaResolved = await resolveOaStackForLifecycleRecommendation();
           if (!oaResolved.ok) {
             return {
@@ -525,6 +597,7 @@ export async function orchestrateProjectAssistantTurn(input: {
                 "Impossible de matérialiser le travail du cycle actif (runtime indisponible).",
               mode: modeResolution.mode,
               retryable: false,
+              logicalTurnId,
             };
           }
           const oa = oaResolved.oa;
@@ -543,6 +616,7 @@ export async function orchestrateProjectAssistantTurn(input: {
               message: "Cycle actif introuvable avant matérialisation.",
               mode: modeResolution.mode,
               retryable: false,
+              logicalTurnId,
             };
           }
           if (!lpsNow.ok) {
@@ -553,6 +627,7 @@ export async function orchestrateProjectAssistantTurn(input: {
               message: "LPS indisponible avant matérialisation du travail cycle.",
               mode: modeResolution.mode,
               retryable: false,
+              logicalTurnId,
             };
           }
           if (cycleLoad.cycle.status !== "active") {
@@ -564,6 +639,7 @@ export async function orchestrateProjectAssistantTurn(input: {
                 "Le cycle n'est plus actif — aucune écriture partielle du travail cognitif.",
               mode: modeResolution.mode,
               retryable: false,
+              logicalTurnId,
             };
           }
           if (
@@ -578,6 +654,7 @@ export async function orchestrateProjectAssistantTurn(input: {
                 "Pointeur LPS du cycle actif modifié — aucune écriture partielle.",
               mode: modeResolution.mode,
               retryable: false,
+              logicalTurnId,
             };
           }
 
@@ -592,9 +669,8 @@ export async function orchestrateProjectAssistantTurn(input: {
             existingItems = [];
           }
 
-          const turnCorrelationId =
-            input.turnCorrelationId?.trim() ||
-            `f1-acw:${project.projectId}:${randomBytes(8).toString("hex")}`;
+          // Production key = durable logical turn id (no random f1-acw keys).
+          const turnCorrelationId = logicalTurnId!;
           const producedAt = new Date().toISOString();
           const mat = await materializeActiveCycleWork({
             items: acwItems,
@@ -607,6 +683,7 @@ export async function orchestrateProjectAssistantTurn(input: {
                 lpsNow.livingProjectState.epistemicItemIds ?? [],
               existingItems,
               turnCorrelationId,
+              contextSeal,
             },
             updateEpistemicState: oa.cycleServices.updateEpistemicState,
             appendLivingProjectStateVersion:
@@ -630,6 +707,7 @@ export async function orchestrateProjectAssistantTurn(input: {
                 "Échec de matérialisation du travail cognitif du cycle actif.",
               mode: modeResolution.mode,
               retryable: false,
+              logicalTurnId,
             };
           }
         }
@@ -741,6 +819,7 @@ export async function orchestrateProjectAssistantTurn(input: {
       mw4,
       lifecycleRecommendationMaterialized,
       lifecycleRecommendationCode,
+      logicalTurnId,
     };
   } catch (error) {
     const message =
@@ -757,6 +836,7 @@ export async function orchestrateProjectAssistantTurn(input: {
           : message,
       mode: modeResolution.mode,
       retryable: true,
+      logicalTurnId,
     };
   }
 }

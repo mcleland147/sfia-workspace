@@ -84,6 +84,11 @@ export async function projectAssistantSendAction(input: {
   resolveAuthenticatedPilote?: RunMw6GovernedNoraProductTurnInput["resolveAuthenticatedPilote"];
   provider?: import("@/lib/platform/ai").ConversationProvider;
   sessionDbPath?: string;
+  /**
+   * D-GF-ACW-02 — optional re-present of server-issued logical Product turn id.
+   * Untrusted until Session lookup; client-invented ids fail LOGICAL_TURN_UNKNOWN.
+   */
+  logicalTurnId?: string;
 }): Promise<ProjectAssistantSendResult> {
   const executionContractId =
     typeof input.executionContractId === "string"
@@ -117,6 +122,7 @@ export async function projectAssistantSendAction(input: {
     history: input.history,
     provider: input.provider,
     sessionDbPath: input.sessionDbPath,
+    logicalTurnId: input.logicalTurnId,
   });
 }
 

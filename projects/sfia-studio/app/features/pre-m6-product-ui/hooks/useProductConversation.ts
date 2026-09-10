@@ -123,6 +123,9 @@ export function useProductConversation({
   >(null);
   const [f3Busy, setF3Busy] = useState(false);
   const [isPending, startTransition] = useTransition();
+  /** D-GF-ACW-02 — last server-issued logical turn; re-present only on failed retry. */
+  const lastLogicalTurnIdRef = useRef<string | null>(null);
+  const lastSendFailedRef = useRef(false);
 
   const listRef = useRef<HTMLDivElement | null>(null);
   const f3InFlightRef = useRef(false);
@@ -250,7 +253,10 @@ export function useProductConversation({
       .map((m) => ({ role: m.role as "user" | "assistant", content: m.content }));
   }
 
-  function sendMessage(contentOverride?: string) {
+  function sendMessage(
+    contentOverride?: string,
+    options?: { logicalTurnId?: string | null },
+  ) {
     const content = (contentOverride ?? draft).trim();
     if (!content || busy || blocked) return;
 
@@ -265,15 +271,28 @@ export function useProductConversation({
     setError(null);
     setUiState("SENDING");
 
+    // New distinct send: do not auto-replay prior logicalTurnId unless retry opts in.
+    const presentedLogicalTurnId =
+      options?.logicalTurnId?.trim() || undefined;
+
     startTransition(async () => {
       setUiState("ASSISTANT_WORKING");
       const result = await projectAssistantSendAction({
         projectId,
         content,
         history,
+        ...(presentedLogicalTurnId
+          ? { logicalTurnId: presentedLogicalTurnId }
+          : {}),
       });
 
       if (!result.ok) {
+        lastSendFailedRef.current = true;
+        if (result.logicalTurnId) {
+          lastLogicalTurnIdRef.current = result.logicalTurnId;
+        } else if (presentedLogicalTurnId) {
+          lastLogicalTurnIdRef.current = presentedLogicalTurnId;
+        }
         if (result.status === "provider_unavailable") {
           setUiState("BLOCKED");
           setModeLabel("Assistant indisponible");
@@ -284,6 +303,8 @@ export function useProductConversation({
         return;
       }
 
+      lastSendFailedRef.current = false;
+      lastLogicalTurnIdRef.current = result.logicalTurnId ?? null;
       setModeLabel(modeFromResult(result));
       setEphemeralNotice(result.ephemeralNotice);
       setLrMaterializeNotice(
@@ -568,7 +589,11 @@ export function useProductConversation({
     const lastUser = [...messages].reverse().find((m) => m.role === "user");
     if (!lastUser) return;
     setMessages((prev) => prev.filter((m) => m.id !== lastUser.id));
-    sendMessage(lastUser.content);
+    const replayId =
+      lastSendFailedRef.current && lastLogicalTurnIdRef.current
+        ? lastLogicalTurnIdRef.current
+        : undefined;
+    sendMessage(lastUser.content, { logicalTurnId: replayId });
   }
 
   return {

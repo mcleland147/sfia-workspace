@@ -19,6 +19,7 @@ import {
   startPreparedTrajectoryCycle,
   listCycleTypes,
   getCycleTypeById,
+  isTargetCycleCurrentlySelectable,
 } from "@/lib/oa/cycle";
 import {
   approveCandidateTrajectory,
@@ -46,6 +47,7 @@ import { FakeConversationProvider } from "@/lib/platform/ai";
 import {
   composeStudioCognitiveContext,
   buildStudioCognitivePromptSections,
+  STUDIO_COGNITIVE_CONTEXT_BUDGET,
 } from "@/features/project-assistant/f2/studioCognitiveContext";
 import { loadProductCkcCognitiveContent } from "@/features/project-assistant/f2/ckcCognitiveContext";
 import {
@@ -53,10 +55,17 @@ import {
   activeCycleWorkEpistemicItemId,
   ACTIVE_CYCLE_WORK_SOURCE,
 } from "@/features/project-assistant/materializeActiveCycleWork";
+import {
+  buildActiveCycleWorkContextSeal,
+  type ActiveCycleWorkContextSeal,
+} from "@/features/project-assistant/f2/activeCycleCognitiveContext";
+import { resolveOrMintLogicalProductTurn } from "@/features/project-assistant/logicalProductTurn";
+import { ProductSqliteSession } from "@/lib/nora-cognitive-runtime/productSqliteSession";
 import { orchestrateProjectAssistantTurn } from "@/features/project-assistant/orchestrateTurn";
 import type { ProjectAssistantContextDto } from "@/features/project-assistant/types";
 import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
 import type { EpistemicItem } from "@/lib/oa/cycle";
+import type { EpistemicRepositoryPort } from "@/lib/oa/cycle/ports/epistemicRepository";
 
 const APP_ROOT = path.resolve(__dirname, "../..");
 const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
@@ -440,12 +449,32 @@ async function materializeFacts(
   projectId: string,
   cycleInstanceId: string,
   turnCorrelationId: string,
+  sealOverride?: ActiveCycleWorkContextSeal,
 ) {
   const lps = await oa.projectServices.getCurrentLivingProjectState.execute({
     projectId,
   });
   if (!lps.ok) throw new Error("lps missing");
   const existingItems = await oa.cycleServices.epistemic.listByProject(projectId);
+  const cycleLoad = await oa.cycleServices.getCycle.execute({ cycleInstanceId });
+  if (!cycleLoad.ok) throw new Error("cycle missing");
+  const cycle = cycleLoad.cycle;
+  const contextSeal =
+    sealOverride ??
+    Object.freeze({
+      projectId,
+      cycleInstanceId: cycle.cycleInstanceId,
+      cycleTypeId: cycle.cycleTypeId,
+      profile: cycle.profile,
+      status: "active" as const,
+      trajectoryId: cycle.trajectoryId?.trim() || null,
+      trajectoryVersion:
+        typeof cycle.trajectoryVersion === "number"
+          ? cycle.trajectoryVersion
+          : null,
+      trajectoryStepId: cycle.trajectoryStepId?.trim() || null,
+      ckcResolutionRef: cycle.ckcResolutionRef?.trim() || null,
+    });
   return {
     projectId,
     activeCycleInstanceId: cycleInstanceId,
@@ -454,6 +483,7 @@ async function materializeFacts(
     existingEpistemicItemIds: lps.livingProjectState.epistemicItemIds ?? [],
     existingItems,
     turnCorrelationId,
+    contextSeal,
   };
 }
 
@@ -959,9 +989,12 @@ describe("D-GF-ACW-01 atomicity (BAR-WORK-21..24)", () => {
     );
     expect(mat.ok).toBe(false);
     if (!mat.ok) {
-      expect(["LPS_VERSION_CONFLICT", "ACTIVE_CYCLE_WORK_ATOMIC_FAILURE"]).toContain(
-        mat.code,
-      );
+      // CR-ACW-01 seal compares lps.version first → CONTEXT_STALE; OCC remains valid alt.
+      expect([
+        "ACTIVE_CYCLE_CONTEXT_STALE",
+        "LPS_VERSION_CONFLICT",
+        "ACTIVE_CYCLE_WORK_ATOMIC_FAILURE",
+      ]).toContain(mat.code);
     }
 
     const after = await s.oa.projectServices.getCurrentLivingProjectState.execute({
@@ -1123,7 +1156,13 @@ describe("D-GF-ACW-01 idempotence / stale (BAR-WORK-25..28)", () => {
       acwMaterializeInput(s.oa, facts, MVP_OBS.slice(0, 1)),
     );
     expect(mat.ok).toBe(false);
-    if (!mat.ok) expect(mat.code).toBe("ACTIVE_CYCLE_LPS_POINTER_STALE");
+    // CR-ACW-01 seal catches LPS pointer drift as CONTEXT_STALE before pointer-specific code.
+    if (!mat.ok) {
+      expect([
+        "ACTIVE_CYCLE_CONTEXT_STALE",
+        "ACTIVE_CYCLE_LPS_POINTER_STALE",
+      ]).toContain(mat.code);
+    }
   });
 });
 
@@ -1479,5 +1518,600 @@ describe("D-GF-ACW-01 regressions smoke (BAR-WORK-46..50)", () => {
     expect(lps.ok && lps.livingProjectState.activeCycleInstanceId).toBe(
       s.cycle.cycleInstanceId,
     );
+  });
+});
+
+// ─── CR-ACW-01 context seal ──────────────────────────────────────────────────
+
+describe("CR-ACW-01 context seal (ACW-CORR-01A..H)", () => {
+  async function sealFromStarted(
+    s: Awaited<ReturnType<typeof seedStarted>>,
+  ): Promise<ActiveCycleWorkContextSeal> {
+    const facts = await materializeFacts(
+      s.oa,
+      s.projectId,
+      s.cycle.cycleInstanceId,
+      "ltu:seal-base",
+    );
+    return facts.contextSeal;
+  }
+
+  it("ACW-CORR-01A: seal cycleInstanceId drift → ACTIVE_CYCLE_CONTEXT_STALE", async () => {
+    const s = await seedStarted("corr01a");
+    const seal = await sealFromStarted(s);
+    const facts = await materializeFacts(
+      s.oa,
+      s.projectId,
+      s.cycle.cycleInstanceId,
+      "ltu:corr01a",
+      { ...seal, cycleInstanceId: "cycinst:forged-other" },
+    );
+    // facts.activeCycleInstanceId still points at real cycle; seal id forged.
+    const mat = await materializeActiveCycleWork(
+      acwMaterializeInput(s.oa, {
+        ...facts,
+        activeCycleInstanceId: s.cycle.cycleInstanceId,
+      }, MVP_OBS.slice(0, 1)),
+    );
+    expect(mat.ok).toBe(false);
+    if (mat.ok) throw new Error("expected fail");
+    expect(mat.code).toBe("ACTIVE_CYCLE_CONTEXT_STALE");
+  });
+
+  it("ACW-CORR-01B: seal cycleTypeId drift → STALE", async () => {
+    const s = await seedStarted("corr01b");
+    const seal = await sealFromStarted(s);
+    const facts = await materializeFacts(
+      s.oa,
+      s.projectId,
+      s.cycle.cycleInstanceId,
+      "ltu:corr01b",
+      { ...seal, cycleTypeId: "cyc:delivery" },
+    );
+    const mat = await materializeActiveCycleWork(
+      acwMaterializeInput(s.oa, facts, MVP_OBS.slice(0, 1)),
+    );
+    expect(mat.ok).toBe(false);
+    if (mat.ok) throw new Error("expected fail");
+    expect(mat.code).toBe("ACTIVE_CYCLE_CONTEXT_STALE");
+    expect(mat.reason).toContain("cycleTypeId");
+  });
+
+  it("ACW-CORR-01C: seal trajectoryId drift → STALE", async () => {
+    const s = await seedStarted("corr01c");
+    const seal = await sealFromStarted(s);
+    const facts = await materializeFacts(
+      s.oa,
+      s.projectId,
+      s.cycle.cycleInstanceId,
+      "ltu:corr01c",
+      { ...seal, trajectoryId: "trj:forged" },
+    );
+    const mat = await materializeActiveCycleWork(
+      acwMaterializeInput(s.oa, facts, MVP_OBS.slice(0, 1)),
+    );
+    expect(mat.ok).toBe(false);
+    if (mat.ok) throw new Error("expected fail");
+    expect(mat.code).toBe("ACTIVE_CYCLE_CONTEXT_STALE");
+    expect(mat.reason).toContain("trajectoryId");
+  });
+
+  it("ACW-CORR-01D: seal ckcResolutionRef drift → STALE", async () => {
+    const s = await seedStarted("corr01d");
+    const seal = await sealFromStarted(s);
+    const facts = await materializeFacts(
+      s.oa,
+      s.projectId,
+      s.cycle.cycleInstanceId,
+      "ltu:corr01d",
+      { ...seal, ckcResolutionRef: "ckc-res:forged" },
+    );
+    const mat = await materializeActiveCycleWork(
+      acwMaterializeInput(s.oa, facts, MVP_OBS.slice(0, 1)),
+    );
+    expect(mat.ok).toBe(false);
+    if (mat.ok) throw new Error("expected fail");
+    expect(mat.code).toBe("ACTIVE_CYCLE_CONTEXT_STALE");
+    expect(mat.reason).toContain("ckcResolutionRef");
+  });
+
+  it("ACW-CORR-01E: seal lps.version drift → STALE (zero writes)", async () => {
+    const s = await seedStarted("corr01e");
+    const facts = await materializeFacts(
+      s.oa,
+      s.projectId,
+      s.cycle.cycleInstanceId,
+      "ltu:corr01e",
+    );
+    const before = await s.oa.cycleServices.epistemic.listByProject(s.projectId);
+    const mat = await materializeActiveCycleWork(
+      acwMaterializeInput(s.oa, { ...facts, lpsVersion: facts.lpsVersion + 99 }, MVP_OBS.slice(0, 1)),
+    );
+    expect(mat.ok).toBe(false);
+    if (mat.ok) throw new Error("expected fail");
+    expect(mat.code).toBe("ACTIVE_CYCLE_CONTEXT_STALE");
+    expect(mat.reason).toContain("lps.version");
+    const after = await s.oa.cycleServices.epistemic.listByProject(s.projectId);
+    expect(after.length).toBe(before.length);
+  });
+
+  it("ACW-CORR-01F: matching seal → materialize success", async () => {
+    const s = await seedStarted("corr01f");
+    const facts = await materializeFacts(
+      s.oa,
+      s.projectId,
+      s.cycle.cycleInstanceId,
+      "ltu:corr01f",
+    );
+    const mat = await materializeActiveCycleWork(
+      acwMaterializeInput(s.oa, facts, MVP_OBS.slice(0, 2)),
+    );
+    expect(mat.ok).toBe(true);
+    if (!mat.ok) throw new Error(mat.reason);
+    expect(mat.createdIds.length).toBe(2);
+  });
+
+  it("ACW-CORR-01G: ACW emit without studio activeCycle → ACTIVE_CYCLE_CONTEXT_REQUIRED", async () => {
+    const s = await seedStarted("corr01g");
+    const provider = new FakeConversationProvider({
+      scripted: [JSON.stringify(acwTurn(MVP_OBS.slice(0, 1), "No studio."))],
+    });
+    const result = await orchestrateProjectAssistantTurn({
+      projectId: s.projectId,
+      content: "observe",
+      sessionDbPath: tempDbPath("corr01g-sess.sqlite"),
+      simulateMemoryBUnavailable: true,
+      provider,
+      studioCognitiveContext: null,
+    });
+    expect(result.ok).toBe(false);
+    if (result.ok) throw new Error("expected fail");
+    expect(result.code).toBe("ACTIVE_CYCLE_CONTEXT_REQUIRED");
+    expect(result.logicalTurnId).toMatch(/^ltu:/);
+  });
+
+  it("ACW-CORR-01H: buildActiveCycleWorkContextSeal null when not workEligible", async () => {
+    const s = await seedStarted("corr01h");
+    const dto = await projectDtoFromOa(s.oa, s.projectId);
+    const composed = await composeStudioCognitiveContext({
+      analysis: analysisStub({ intentClass: "informative", parseOk: true }),
+      project: dto,
+      registryRoot: PRODUCT_REGISTRY,
+      oa: s.oa,
+    });
+    expect(composed.ok).toBe(true);
+    if (!composed.ok) throw new Error(composed.code);
+    const sealOk = buildActiveCycleWorkContextSeal({
+      projectId: s.projectId,
+      activeCycle: composed.context.activeCycle,
+    });
+    expect(sealOk).not.toBeNull();
+    expect(sealOk!.status).toBe("active");
+    const sealBad = buildActiveCycleWorkContextSeal({
+      projectId: s.projectId,
+      activeCycle: composed.context.activeCycle
+        ? { ...composed.context.activeCycle, workEligible: false, status: "paused" }
+        : null,
+    });
+    expect(sealBad).toBeNull();
+  });
+});
+
+// ─── CR-ACW-02 logical Product turn ──────────────────────────────────────────
+
+describe("CR-ACW-02 logical Product turn (ACW-CORR-02A..F)", () => {
+  it("ACW-CORR-02A: default path mints durable logicalTurnId (ltu:) via Session", async () => {
+    const s = await seedStarted("corr02a");
+    const dto = await projectDtoFromOa(s.oa, s.projectId);
+    const composed = await composeStudioCognitiveContext({
+      analysis: analysisStub({ intentClass: "informative", parseOk: true }),
+      project: dto,
+      registryRoot: PRODUCT_REGISTRY,
+      oa: s.oa,
+    });
+    expect(composed.ok).toBe(true);
+    if (!composed.ok) throw new Error(composed.code);
+    const sessionDbPath = tempDbPath("corr02a-sess.sqlite");
+    const result = await orchestrateProjectAssistantTurn({
+      projectId: s.projectId,
+      content: "Observations MVP",
+      sessionDbPath,
+      simulateMemoryBUnavailable: true,
+      provider: new FakeConversationProvider({
+        scripted: [JSON.stringify(acwTurn(MVP_OBS.slice(0, 1)))],
+      }),
+      studioCognitiveContext: composed.context,
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) throw new Error(result.message);
+    expect(result.logicalTurnId).toMatch(/^ltu:[0-9a-f]+$/);
+    const session = new ProductSqliteSession({
+      projectId: s.projectId,
+      dbPath: sessionDbPath,
+      sessionKey: "f1-default",
+    });
+    try {
+      const row = session.getLogicalProductTurn(result.logicalTurnId!);
+      expect(row).not.toBeNull();
+      expect(row!.logicalTurnId).toBe(result.logicalTurnId);
+    } finally {
+      session.close();
+    }
+  });
+
+  it("ACW-CORR-02B: same logicalTurnId rematerialize → no duplicate items", async () => {
+    const s = await seedStarted("corr02b");
+    const sessionDbPath = tempDbPath("corr02b-sess.sqlite");
+    const minted = resolveOrMintLogicalProductTurn({
+      projectId: s.projectId,
+      sessionDbPath,
+      cycleInstanceId: s.cycle.cycleInstanceId,
+    });
+    expect(minted.ok).toBe(true);
+    if (!minted.ok) throw new Error(minted.reason);
+    const facts1 = await materializeFacts(
+      s.oa,
+      s.projectId,
+      s.cycle.cycleInstanceId,
+      minted.logicalTurnId,
+    );
+    const first = await materializeActiveCycleWork(
+      acwMaterializeInput(s.oa, facts1, MVP_OBS.slice(0, 2)),
+    );
+    expect(first.ok).toBe(true);
+    if (!first.ok) throw new Error(first.reason);
+    const facts2 = await materializeFacts(
+      s.oa,
+      s.projectId,
+      s.cycle.cycleInstanceId,
+      minted.logicalTurnId,
+    );
+    const second = await materializeActiveCycleWork(
+      acwMaterializeInput(s.oa, facts2, MVP_OBS.slice(0, 2)),
+    );
+    expect(second.ok).toBe(true);
+    if (!second.ok) throw new Error(second.reason);
+    expect(second.idempotent).toBe(true);
+    expect(second.createdIds).toHaveLength(0);
+    expect(second.reusedIds).toEqual(first.createdIds);
+  });
+
+  it("ACW-CORR-02C: reopen Session DB → same logicalTurnId reconstructible + idempotent", async () => {
+    const s = await seedStarted("corr02c");
+    const sessionDbPath = tempDbPath("corr02c-sess.sqlite");
+    const minted = resolveOrMintLogicalProductTurn({
+      projectId: s.projectId,
+      sessionDbPath,
+      cycleInstanceId: s.cycle.cycleInstanceId,
+    });
+    expect(minted.ok).toBe(true);
+    if (!minted.ok) throw new Error(minted.reason);
+    const facts1 = await materializeFacts(
+      s.oa,
+      s.projectId,
+      s.cycle.cycleInstanceId,
+      minted.logicalTurnId,
+    );
+    const first = await materializeActiveCycleWork(
+      acwMaterializeInput(s.oa, facts1, MVP_OBS.slice(0, 1)),
+    );
+    expect(first.ok).toBe(true);
+
+    const reopened = resolveOrMintLogicalProductTurn({
+      projectId: s.projectId,
+      sessionDbPath,
+      presentedLogicalTurnId: minted.logicalTurnId,
+    });
+    expect(reopened.ok).toBe(true);
+    if (!reopened.ok) throw new Error(reopened.reason);
+    expect(reopened.logicalTurnId).toBe(minted.logicalTurnId);
+    expect(reopened.minted).toBe(false);
+
+    const facts2 = await materializeFacts(
+      s.oa,
+      s.projectId,
+      s.cycle.cycleInstanceId,
+      reopened.logicalTurnId,
+    );
+    const second = await materializeActiveCycleWork(
+      acwMaterializeInput(s.oa, facts2, MVP_OBS.slice(0, 1)),
+    );
+    expect(second.ok).toBe(true);
+    if (!second.ok) throw new Error(second.reason);
+    expect(second.idempotent).toBe(true);
+  });
+
+  it("ACW-CORR-02D: two new turns same user text → two distinct logicalTurnIds", async () => {
+    const s = await seedStarted("corr02d");
+    const dto = await projectDtoFromOa(s.oa, s.projectId);
+    const composed = await composeStudioCognitiveContext({
+      analysis: analysisStub({ intentClass: "informative", parseOk: true }),
+      project: dto,
+      registryRoot: PRODUCT_REGISTRY,
+      oa: s.oa,
+    });
+    expect(composed.ok).toBe(true);
+    if (!composed.ok) throw new Error(composed.code);
+    const sessionDbPath = tempDbPath("corr02d-sess.sqlite");
+    const payload = JSON.stringify(acwTurn(MVP_OBS.slice(0, 1), "Same text."));
+    const r1 = await orchestrateProjectAssistantTurn({
+      projectId: s.projectId,
+      content: "same user text",
+      sessionDbPath,
+      simulateMemoryBUnavailable: true,
+      provider: new FakeConversationProvider({ scripted: [payload] }),
+      studioCognitiveContext: composed.context,
+    });
+    const dto2 = await projectDtoFromOa(s.oa, s.projectId);
+    const composed2 = await composeStudioCognitiveContext({
+      analysis: analysisStub({ intentClass: "informative", parseOk: true }),
+      project: dto2,
+      registryRoot: PRODUCT_REGISTRY,
+      oa: s.oa,
+    });
+    expect(composed2.ok).toBe(true);
+    if (!composed2.ok) throw new Error(composed2.code);
+    const r2 = await orchestrateProjectAssistantTurn({
+      projectId: s.projectId,
+      content: "same user text",
+      sessionDbPath,
+      simulateMemoryBUnavailable: true,
+      provider: new FakeConversationProvider({ scripted: [payload] }),
+      studioCognitiveContext: composed2.context,
+    });
+    expect(r1.ok && r2.ok).toBe(true);
+    if (!r1.ok || !r2.ok) throw new Error("expected ok");
+    expect(r1.logicalTurnId).toMatch(/^ltu:/);
+    expect(r2.logicalTurnId).toMatch(/^ltu:/);
+    expect(r1.logicalTurnId).not.toBe(r2.logicalTurnId);
+  });
+
+  it("ACW-CORR-02E: same logicalTurnId + changed material → IDEM_CONFLICT", async () => {
+    const s = await seedStarted("corr02e");
+    const corr = "ltu:corr02e-fixed";
+    const sessionDbPath = tempDbPath("corr02e-sess.sqlite");
+    const session = new ProductSqliteSession({
+      projectId: s.projectId,
+      dbPath: sessionDbPath,
+      sessionKey: "f1-default",
+    });
+    try {
+      session.ensureLogicalTurnSchema();
+      session.getSqlite()
+        .prepare(
+          `INSERT INTO logical_product_turns(
+             project_id, session_key, logical_turn_id, status, created_at, cycle_instance_id
+           ) VALUES (?, ?, ?, ?, ?, ?)`,
+        )
+        .run(
+          s.projectId,
+          "f1-default",
+          corr,
+          "accepted",
+          "2026-09-10T10:00:00.000Z",
+          s.cycle.cycleInstanceId,
+        );
+    } finally {
+      session.close();
+    }
+    const facts1 = await materializeFacts(
+      s.oa,
+      s.projectId,
+      s.cycle.cycleInstanceId,
+      corr,
+    );
+    const first = await materializeActiveCycleWork(
+      acwMaterializeInput(s.oa, facts1, [
+        {
+          type: "Observation",
+          statement: "Original statement for conflict test.",
+          confidence: "high",
+          blocking: false,
+        },
+      ]),
+    );
+    expect(first.ok).toBe(true);
+    const facts2 = await materializeFacts(
+      s.oa,
+      s.projectId,
+      s.cycle.cycleInstanceId,
+      corr,
+    );
+    // Same id formula uses statement digest — different statement → different id,
+    // so force conflict via same index+type but mutate after creating same id path:
+    // Use identical type/index/statement digest key by using same statement text
+    // is impossible for conflict. Instead reuse first item id material via
+    // different confidence on same statement (parity check).
+    const conflict = await materializeActiveCycleWork(
+      acwMaterializeInput(s.oa, facts2, [
+        {
+          type: "Observation",
+          statement: "Original statement for conflict test.",
+          confidence: "low",
+          blocking: false,
+        },
+      ]),
+    );
+    expect(conflict.ok).toBe(false);
+    if (conflict.ok) throw new Error("expected conflict");
+    expect(conflict.code).toBe("ACTIVE_CYCLE_WORK_IDEM_CONFLICT");
+  });
+
+  it("ACW-CORR-02F: client-invented logicalTurnId → LOGICAL_TURN_UNKNOWN", async () => {
+    const s = await seedStarted("corr02f");
+    const dto = await projectDtoFromOa(s.oa, s.projectId);
+    const composed = await composeStudioCognitiveContext({
+      analysis: analysisStub({ intentClass: "informative", parseOk: true }),
+      project: dto,
+      registryRoot: PRODUCT_REGISTRY,
+      oa: s.oa,
+    });
+    expect(composed.ok).toBe(true);
+    if (!composed.ok) throw new Error(composed.code);
+    const result = await orchestrateProjectAssistantTurn({
+      projectId: s.projectId,
+      content: "hi",
+      sessionDbPath: tempDbPath("corr02f-sess.sqlite"),
+      simulateMemoryBUnavailable: true,
+      provider: new FakeConversationProvider({
+        scripted: [JSON.stringify(acwTurn(MVP_OBS.slice(0, 1)))],
+      }),
+      studioCognitiveContext: composed.context,
+      logicalTurnId: "ltu:client-invented-deadbeef",
+    });
+    expect(result.ok).toBe(false);
+    if (result.ok) throw new Error("expected fail");
+    expect(result.code).toBe("LOGICAL_TURN_UNKNOWN");
+  });
+});
+
+// ─── CR-ACW-03 newest-N ──────────────────────────────────────────────────────
+
+describe("CR-ACW-03 newest-N prompt budget (ACW-CORR-03A..D)", () => {
+  it("ACW-CORR-03A/B/C/D: >budget items → newest retained, oldest evicted, chronological ASC, restart parity", async () => {
+    const budget = STUDIO_COGNITIVE_CONTEXT_BUDGET.maxActiveCycleWorkItems;
+    const total = budget + 3;
+    const dbPath = tempDbPath("corr03.sqlite");
+    const s = await seedStarted("corr03", { dbPath });
+
+    for (let i = 0; i < total; i += 1) {
+      const facts = await materializeFacts(
+        s.oa,
+        s.projectId,
+        s.cycle.cycleInstanceId,
+        `ltu:corr03-${String(i).padStart(2, "0")}`,
+      );
+      const mat = await materializeActiveCycleWork({
+        ...acwMaterializeInput(s.oa, facts, [
+          {
+            type: "Observation",
+            statement: `ACW newest-N item ${String(i).padStart(2, "0")}`,
+            confidence: "medium",
+            blocking: false,
+          },
+        ]),
+        producedAt: `2026-09-10T10:${String(i).padStart(2, "0")}:00.000Z`,
+      });
+      expect(mat.ok).toBe(true);
+      if (!mat.ok) throw new Error(mat.reason);
+      // Runtime clock is fixed — patch durable createdAt so newest-N sort is observable.
+      // Note: EpistemicRepositoryPort.save() is a no-op; Product SQLite uses saveForProject.
+      const written = await s.oa.cycleServices.epistemic.listByProject(s.projectId);
+      const epistemicStore = s.oa.cycleServices.epistemic as EpistemicRepositoryPort & {
+        saveForProject: (projectId: string, item: EpistemicItem) => Promise<void>;
+      };
+      for (const id of mat.createdIds) {
+        const item = written.find((e) => e.epistemicItemId === id);
+        if (!item) throw new Error(`missing ${id}`);
+        await epistemicStore.saveForProject(s.projectId, {
+          ...item,
+          createdAt: `2026-09-10T10:${String(i).padStart(2, "0")}:00.000Z`,
+        });
+      }
+    }
+
+    const all = (
+      await s.oa.cycleServices.epistemic.listByProject(s.projectId)
+    ).filter((e) => e.source === ACTIVE_CYCLE_WORK_SOURCE);
+    expect(all.length).toBe(total);
+
+    const dto = await projectDtoFromOa(s.oa, s.projectId);
+    const composed = await composeStudioCognitiveContext({
+      analysis: analysisStub({ intentClass: "informative", parseOk: true }),
+      project: dto,
+      registryRoot: PRODUCT_REGISTRY,
+      oa: s.oa,
+    });
+    expect(composed.ok).toBe(true);
+    if (!composed.ok) throw new Error(composed.code);
+    expect(composed.context.activeCycleWorkItems.state).toBe("PRESENT");
+    const items = composed.context.activeCycleWorkItems.items;
+    expect(items.length).toBe(budget);
+    // Oldest of retained should be index 3 (0..2 evicted); chronological ASC.
+    expect(items[0]!.statement).toContain(
+      `item ${String(3).padStart(2, "0")}`,
+    );
+    expect(items[items.length - 1]!.statement).toContain(
+      `item ${String(total - 1).padStart(2, "0")}`,
+    );
+    for (let i = 1; i < items.length; i += 1) {
+      expect(items[i]!.statement > items[i - 1]!.statement).toBe(true);
+    }
+    // Global epistemic repository order unchanged (still has all items).
+    expect(all.length).toBe(total);
+
+    const reopened = await reopenRuntime("corr03", dbPath);
+    const dto2 = await projectDtoFromOa(reopened.oa!, s.projectId);
+    const composed2 = await composeStudioCognitiveContext({
+      analysis: analysisStub({ intentClass: "informative", parseOk: true }),
+      project: dto2,
+      registryRoot: PRODUCT_REGISTRY,
+      oa: reopened.oa!,
+    });
+    expect(composed2.ok).toBe(true);
+    if (!composed2.ok) throw new Error(composed2.code);
+    expect(composed2.context.activeCycleWorkItems.items.map((i) => i.statement)).toEqual(
+      items.map((i) => i.statement),
+    );
+  });
+});
+
+// ─── CR-ACW-04 catalog-wide proof ────────────────────────────────────────────
+
+describe("CR-ACW-04 catalog-wide active-cycle cognitive context", () => {
+  it("for each selectable cycle type: START → compose workEligible + CKC + no unresolved", async () => {
+    const selectable = listCycleTypes().filter(
+      (t) =>
+        t.lifecycleStatus === "active" &&
+        isTargetCycleCurrentlySelectable(t.cycleTypeId),
+    );
+    expect(selectable.length).toBeGreaterThan(0);
+    // Do NOT hardcode catalog length === 15
+    expect(selectable.length).not.toBe(0);
+
+    const unresolved: string[] = [];
+    for (const entry of selectable) {
+      const suffix = entry.cycleTypeId.replace(/[^a-z0-9]+/gi, "").slice(-8);
+      const s = await seedStarted(`c4-${suffix}`, {
+        targetCycleTypeId: entry.cycleTypeId,
+      });
+      expect(s.cycle.cycleTypeId).toBe(entry.cycleTypeId);
+      const dto = await projectDtoFromOa(s.oa, s.projectId);
+      const composed = await composeStudioCognitiveContext({
+        analysis: analysisStub({ intentClass: "informative", parseOk: true }),
+        project: dto,
+        registryRoot: PRODUCT_REGISTRY,
+        oa: s.oa,
+      });
+      if (!composed.ok) {
+        unresolved.push(`${entry.cycleTypeId}:${composed.code}`);
+        continue;
+      }
+      const ac = composed.context.activeCycle;
+      if (!ac) {
+        unresolved.push(`${entry.cycleTypeId}:missing_activeCycle`);
+        continue;
+      }
+      expect(ac.cycleTypeId).toBe(entry.cycleTypeId);
+      expect(ac.workEligible).toBe(true);
+      expect(ac.trajectoryId).toBeTruthy();
+      expect(ac.trajectoryVersion).toEqual(expect.any(Number));
+      expect(ac.trajectoryStepId).toBeTruthy();
+      expect(ac.ckcResolutionRef).toBeTruthy();
+      expect(composed.context.method.activeCycleCkcAuthoritative).toBe(true);
+      expect(composed.context.method.ckcLoaded).toBe(true);
+    }
+    expect(unresolved, `unresolved=[${unresolved.join(",")}]`).toEqual([]);
+
+    const acwSrc = fs.readFileSync(
+      path.join(
+        APP_ROOT,
+        "features/project-assistant/f2/activeCycleCognitiveContext.ts",
+      ),
+      "utf8",
+    );
+    expect(acwSrc).not.toMatch(/cyc:framing|cyc:delivery|cyc:architecture/);
+    expect(acwSrc).not.toMatch(/switch\s*\(\s*cycleTypeId\s*\)/);
+    expect(acwSrc).not.toMatch(/if\s*\(\s*cycleTypeId\s*===/);
   });
 });

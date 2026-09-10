@@ -91,12 +91,16 @@ describe("MW1 Option C — ProductSqliteSession D0 (corrected)", () => {
     s2.close();
   });
 
-  it("S4 — Session DB has only session_items — not Truth C oa_*", async () => {
+  it("S4 — Session DB has session continuity + Option A turn identity — not Truth C oa_*", async () => {
     const dbPath = tempDb("schema.sqlite");
     const s = new ProductSqliteSession({ projectId: "prj:s", dbPath });
     await s.addItems([userTextItem("x")]);
     const tables = s.listTables();
-    expect(tables).toEqual(["session_items"]);
+    // D-GF-ACW-02 Option A: logical_product_turns is Session-adjacent identity/replay
+    // coordination only — never Epistemic/LPS/HD/Evidence/Truth C storage.
+    expect(tables.sort()).toEqual(
+      ["logical_product_turns", "session_items"].sort(),
+    );
     expect(tables.some((t) => t.startsWith("oa_"))).toBe(false);
     s.close();
   });

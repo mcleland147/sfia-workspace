@@ -9,7 +9,11 @@ export type {
   NoraCognitiveTurnResult,
 } from "./types";
 export { ProductSqliteSession, userTextItem, assistantTextItem } from "./productSqliteSession";
-export type { ProductSqliteSessionOptions } from "./productSqliteSession";
+export type {
+  ProductSqliteSessionOptions,
+  LogicalProductTurnRow,
+  LogicalProductTurnStatus,
+} from "./productSqliteSession";
 export {
   probeMemoryBAvailability,
   appendMemoryBCognitiveDisclosure,

@@ -575,6 +575,10 @@ export async function orchestrateAssistantSend(input: {
   /** Test override for Product SQLite Session path (MW1/MW4 durability). */
   sessionDbPath?: string;
   /**
+   * D-GF-ACW-02 — optional re-present of server-issued logical Product turn id.
+   */
+  logicalTurnId?: string;
+  /**
    * INTERNAL / EVAL-ONLY — Stage A constitutive model×effort pin.
    * Propagated to analyzeIntent + F1 cognitive path. Never a client DTO field.
    */

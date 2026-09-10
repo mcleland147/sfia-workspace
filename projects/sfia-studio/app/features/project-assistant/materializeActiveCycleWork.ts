@@ -20,6 +20,7 @@ import type { CyclePersistenceUnitOfWorkPort } from "@/lib/oa/cycle/ports/cycleP
 import type { GetCycle } from "@/lib/oa/cycle/application/getCycle";
 import type { NoraActiveCycleWorkItem } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
 import { NORA_LIFECYCLE_RECOMMENDATION_ACTOR } from "@/lib/oa/cycle/application/lifecycleRecommendation/noraActor";
+import type { ActiveCycleWorkContextSeal } from "./f2/activeCycleCognitiveContext";
 
 /** Stable Product source for Nora active-cycle cognitive work. */
 export const ACTIVE_CYCLE_WORK_SOURCE = "active-cycle-work:nora" as const;
@@ -45,7 +46,10 @@ export type ActiveCycleWorkMaterializationFacts = {
   readonly lpsObjective: string;
   readonly existingEpistemicItemIds: readonly string[];
   readonly existingItems: readonly EpistemicItem[];
+  /** Production key = durable logical Product turn id (ltu:…). */
   readonly turnCorrelationId: string;
+  /** CR-ACW-01 — sealed studio activeCycle projection; validated in UoW. */
+  readonly contextSeal: ActiveCycleWorkContextSeal;
 };
 
 export type MaterializeActiveCycleWorkResult =
@@ -135,6 +139,11 @@ function materialParity(
   return true;
 }
 
+function normNullable(value: string | null | undefined): string | null {
+  const t = value?.trim();
+  return t ? t : null;
+}
+
 class ActiveCycleWorkAtomicFailure extends Error {
   constructor(
     readonly code: string,
@@ -142,6 +151,105 @@ class ActiveCycleWorkAtomicFailure extends Error {
   ) {
     super(reason);
     this.name = "ActiveCycleWorkAtomicFailure";
+  }
+}
+
+function assertContextSealAgainstLiveState(input: {
+  seal: ActiveCycleWorkContextSeal;
+  projectId: string;
+  cycle: {
+    projectId: string;
+    cycleInstanceId: string;
+    cycleTypeId: string;
+    profile: string;
+    status: string;
+    trajectoryId?: string;
+    trajectoryVersion?: number;
+    trajectoryStepId?: string;
+    ckcResolutionRef?: string;
+  };
+  lps: {
+    version: number;
+    activeCycleInstanceId?: string | null;
+    ckcResolutionRef?: string | null;
+  };
+  expectedLpsVersion: number;
+}): void {
+  const { seal, cycle, lps } = input;
+  if (seal.projectId !== input.projectId || cycle.projectId !== seal.projectId) {
+    throw new ActiveCycleWorkAtomicFailure(
+      "ACTIVE_CYCLE_CONTEXT_STALE",
+      "seal_field:projectId",
+    );
+  }
+  if (cycle.cycleInstanceId !== seal.cycleInstanceId) {
+    throw new ActiveCycleWorkAtomicFailure(
+      "ACTIVE_CYCLE_CONTEXT_STALE",
+      "seal_field:cycleInstanceId",
+    );
+  }
+  if (cycle.cycleTypeId !== seal.cycleTypeId) {
+    throw new ActiveCycleWorkAtomicFailure(
+      "ACTIVE_CYCLE_CONTEXT_STALE",
+      "seal_field:cycleTypeId",
+    );
+  }
+  if (cycle.profile !== seal.profile) {
+    throw new ActiveCycleWorkAtomicFailure(
+      "ACTIVE_CYCLE_CONTEXT_STALE",
+      "seal_field:profile",
+    );
+  }
+  if (cycle.status !== "active" || seal.status !== "active") {
+    throw new ActiveCycleWorkAtomicFailure(
+      "ACTIVE_CYCLE_CONTEXT_STALE",
+      "seal_field:status",
+    );
+  }
+  if (normNullable(cycle.trajectoryId) !== seal.trajectoryId) {
+    throw new ActiveCycleWorkAtomicFailure(
+      "ACTIVE_CYCLE_CONTEXT_STALE",
+      "seal_field:trajectoryId",
+    );
+  }
+  const liveTrajVer =
+    typeof cycle.trajectoryVersion === "number" ? cycle.trajectoryVersion : null;
+  if (liveTrajVer !== seal.trajectoryVersion) {
+    throw new ActiveCycleWorkAtomicFailure(
+      "ACTIVE_CYCLE_CONTEXT_STALE",
+      "seal_field:trajectoryVersion",
+    );
+  }
+  if (normNullable(cycle.trajectoryStepId) !== seal.trajectoryStepId) {
+    throw new ActiveCycleWorkAtomicFailure(
+      "ACTIVE_CYCLE_CONTEXT_STALE",
+      "seal_field:trajectoryStepId",
+    );
+  }
+  if (normNullable(cycle.ckcResolutionRef) !== seal.ckcResolutionRef) {
+    throw new ActiveCycleWorkAtomicFailure(
+      "ACTIVE_CYCLE_CONTEXT_STALE",
+      "seal_field:ckcResolutionRef",
+    );
+  }
+  if ((lps.activeCycleInstanceId ?? null) !== seal.cycleInstanceId) {
+    throw new ActiveCycleWorkAtomicFailure(
+      "ACTIVE_CYCLE_CONTEXT_STALE",
+      "seal_field:lps.activeCycleInstanceId",
+    );
+  }
+  if (lps.version !== input.expectedLpsVersion) {
+    throw new ActiveCycleWorkAtomicFailure(
+      "ACTIVE_CYCLE_CONTEXT_STALE",
+      "seal_field:lps.version",
+    );
+  }
+  const lpsRef = normNullable(lps.ckcResolutionRef ?? null);
+  if (lpsRef && seal.ckcResolutionRef && lpsRef !== seal.ckcResolutionRef) {
+    throw new ActiveCycleWorkAtomicFailure(
+      "ACTIVE_CYCLE_CONTEXT_STALE",
+      "seal_field:lps.ckcResolutionRef",
+    );
   }
 }
 
@@ -183,6 +291,17 @@ export async function materializeActiveCycleWork(input: {
   const createdBy = input.createdBy ?? NORA_ACTIVE_CYCLE_WORK_ACTOR;
   const { facts } = input;
 
+  if (
+    facts.contextSeal.projectId !== facts.projectId ||
+    facts.contextSeal.cycleInstanceId !== facts.activeCycleInstanceId
+  ) {
+    return {
+      ok: false,
+      code: "ACTIVE_CYCLE_CONTEXT_STALE",
+      reason: "seal_mismatch_vs_materialization_facts",
+    };
+  }
+
   try {
     const atomic = await input.runInTransaction(async () => {
       const cycleLoad = await input.getCycle.execute({
@@ -217,6 +336,16 @@ export async function materializeActiveCycleWork(input: {
           "lps_missing_at_materialization",
         );
       }
+
+      // CR-ACW-01 — exact seal compare before any write; ZERO writes on mismatch.
+      assertContextSealAgainstLiveState({
+        seal: facts.contextSeal,
+        projectId: facts.projectId,
+        cycle,
+        lps: lpsNow.livingProjectState,
+        expectedLpsVersion: facts.lpsVersion,
+      });
+
       if (
         (lpsNow.livingProjectState.activeCycleInstanceId ?? null) !==
         facts.activeCycleInstanceId

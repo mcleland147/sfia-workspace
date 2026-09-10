@@ -58,7 +58,12 @@ describe("MW1 Option C — Session ≠ Truth C D0", () => {
         .all() as Array<{ name: string }>
     ).map((r) => r.name);
     sessionDb.close();
-    expect(sessionTables).toEqual(["session_items"]);
+    // D-GF-ACW-02 Option A: Session may hold logical_product_turns identity rows;
+    // still must never hold oa_* Truth C / LPS / HD / Evidence tables.
+    expect(sessionTables.sort()).toEqual(
+      ["logical_product_turns", "session_items"].sort(),
+    );
+    expect(sessionTables.some((t) => t.startsWith("oa_"))).toBe(false);
 
     const truthDb = new DatabaseSync(truthCPath);
     const truthTables = (

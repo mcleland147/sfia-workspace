@@ -4,7 +4,12 @@
  *
  * Harvested/adapted from Option C A/B spike ProductSqliteSession shape.
  * Does NOT adopt Baseline A M9 Memory B schema.
+ *
+ * logical_product_turns (D-GF-ACW-02 Option A): Session-adjacent identity for
+ * Product-turn replay / ACW idempotence coordination ONLY.
+ * Never Epistemic / LPS / HD / Evidence SoT.
  */
+import { randomBytes } from "node:crypto";
 import { DatabaseSync } from "node:sqlite";
 import type { AgentInputItem, Session } from "@openai/agents";
 
@@ -12,6 +17,21 @@ export type ProductSqliteSessionOptions = {
   projectId: string;
   dbPath: string;
   sessionKey?: string;
+};
+
+export type LogicalProductTurnStatus =
+  | "accepted"
+  | "completed"
+  | "failed"
+  | string;
+
+export type LogicalProductTurnRow = {
+  readonly projectId: string;
+  readonly sessionKey: string;
+  readonly logicalTurnId: string;
+  readonly status: string;
+  readonly createdAt: string;
+  readonly cycleInstanceId: string | null;
 };
 
 /**
@@ -40,6 +60,112 @@ export class ProductSqliteSession implements Session {
         PRIMARY KEY (project_id, session_key, seq)
       );
     `);
+    this.ensureLogicalTurnSchema();
+  }
+
+  /**
+   * Session-adjacent logical Product turn identity (D-GF-ACW-02 Option A).
+   * Continuity / replay coordination ONLY — never Epistemic/LPS/HD/Evidence SoT.
+   */
+  ensureLogicalTurnSchema(): void {
+    this.db.exec(`
+      CREATE TABLE IF NOT EXISTS logical_product_turns (
+        project_id TEXT NOT NULL,
+        session_key TEXT NOT NULL,
+        logical_turn_id TEXT NOT NULL,
+        status TEXT NOT NULL,
+        created_at TEXT NOT NULL,
+        cycle_instance_id TEXT,
+        PRIMARY KEY (project_id, session_key, logical_turn_id)
+      );
+    `);
+  }
+
+  /**
+   * Mint a server-owned logical Product turn id (`ltu:` + randomBytes hex).
+   * Session continuity / ACW rematerialize coordination ONLY.
+   */
+  mintLogicalProductTurn(input?: {
+    cycleInstanceId?: string | null;
+    status?: LogicalProductTurnStatus;
+    nowIso?: string;
+  }): LogicalProductTurnRow {
+    this.ensureLogicalTurnSchema();
+    const logicalTurnId = `ltu:${randomBytes(16).toString("hex")}`;
+    const createdAt = input?.nowIso ?? new Date().toISOString();
+    const status = input?.status ?? "accepted";
+    const cycleInstanceId = input?.cycleInstanceId?.trim() || null;
+    this.db
+      .prepare(
+        `INSERT INTO logical_product_turns(
+           project_id, session_key, logical_turn_id, status, created_at, cycle_instance_id
+         ) VALUES (?, ?, ?, ?, ?, ?)`,
+      )
+      .run(
+        this.projectId,
+        this.sessionKey,
+        logicalTurnId,
+        status,
+        createdAt,
+        cycleInstanceId,
+      );
+    return {
+      projectId: this.projectId,
+      sessionKey: this.sessionKey,
+      logicalTurnId,
+      status,
+      createdAt,
+      cycleInstanceId,
+    };
+  }
+
+  getLogicalProductTurn(
+    logicalTurnId: string,
+  ): LogicalProductTurnRow | null {
+    this.ensureLogicalTurnSchema();
+    const id = logicalTurnId.trim();
+    if (!id) return null;
+    const row = this.db
+      .prepare(
+        `SELECT project_id, session_key, logical_turn_id, status, created_at, cycle_instance_id
+         FROM logical_product_turns
+         WHERE project_id = ? AND session_key = ? AND logical_turn_id = ?`,
+      )
+      .get(this.projectId, this.sessionKey, id) as
+      | {
+          project_id: string;
+          session_key: string;
+          logical_turn_id: string;
+          status: string;
+          created_at: string;
+          cycle_instance_id: string | null;
+        }
+      | undefined;
+    if (!row) return null;
+    return {
+      projectId: row.project_id,
+      sessionKey: row.session_key,
+      logicalTurnId: row.logical_turn_id,
+      status: row.status,
+      createdAt: row.created_at,
+      cycleInstanceId: row.cycle_instance_id,
+    };
+  }
+
+  markLogicalProductTurnStatus(
+    logicalTurnId: string,
+    status: LogicalProductTurnStatus,
+  ): boolean {
+    this.ensureLogicalTurnSchema();
+    const id = logicalTurnId.trim();
+    if (!id) return false;
+    const result = this.db
+      .prepare(
+        `UPDATE logical_product_turns SET status = ?
+         WHERE project_id = ? AND session_key = ? AND logical_turn_id = ?`,
+      )
+      .run(status, this.projectId, this.sessionKey, id);
+    return Number(result.changes) > 0;
   }
 
   /** Test hook — next getItems throws (retrieval failure ≠ empty). */

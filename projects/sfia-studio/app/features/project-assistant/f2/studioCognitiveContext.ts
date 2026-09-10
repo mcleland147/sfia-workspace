@@ -527,8 +527,16 @@ export async function composeStudioCognitiveContext(input: {
         acwState = "NONE";
       } else {
         acwState = "PRESENT";
-        acwItems = filtered
-          .slice(0, budget.maxActiveCycleWorkItems)
+        // CR-ACW-03 — newest-N for prompt only; do not reorder global epistemic repo.
+        const newestFirst = [...filtered].sort((a, b) => {
+          const byCreated = b.createdAt.localeCompare(a.createdAt);
+          if (byCreated !== 0) return byCreated;
+          return b.epistemicItemId.localeCompare(a.epistemicItemId);
+        });
+        const newestN = newestFirst.slice(0, budget.maxActiveCycleWorkItems);
+        // Chronological ASC for prompt display.
+        acwItems = newestN
+          .reverse()
           .map(projectActiveCycleWorkItem);
       }
     } catch {

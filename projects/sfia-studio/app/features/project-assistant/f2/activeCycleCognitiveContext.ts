@@ -38,6 +38,48 @@ export type ActiveCycleCognitiveProjection = {
   readonly workEligible: boolean;
 };
 
+/**
+ * CR-ACW-01 — sealed active-cycle context for ACW materialization.
+ * Derived ONLY from studioCognitiveContext.activeCycle (server projection).
+ * Compared inside Product UoW before any Epistemic/LPS write.
+ */
+export type ActiveCycleWorkContextSeal = {
+  readonly projectId: string;
+  readonly cycleInstanceId: string;
+  readonly cycleTypeId: string;
+  readonly profile: CycleProfile;
+  readonly status: "active";
+  readonly trajectoryId: string | null;
+  readonly trajectoryVersion: number | null;
+  readonly trajectoryStepId: string | null;
+  readonly ckcResolutionRef: string | null;
+};
+
+/**
+ * Build ACW context seal from studio activeCycle projection.
+ * Returns null when projection missing or not work-eligible.
+ */
+export function buildActiveCycleWorkContextSeal(input: {
+  projectId: string;
+  activeCycle: ActiveCycleCognitiveProjection | null | undefined;
+}): ActiveCycleWorkContextSeal | null {
+  const ac = input.activeCycle;
+  if (!ac || ac.workEligible !== true || ac.status !== "active") {
+    return null;
+  }
+  return Object.freeze({
+    projectId: input.projectId,
+    cycleInstanceId: ac.cycleInstanceId,
+    cycleTypeId: ac.cycleTypeId,
+    profile: ac.profile,
+    status: "active" as const,
+    trajectoryId: ac.trajectoryId,
+    trajectoryVersion: ac.trajectoryVersion,
+    trajectoryStepId: ac.trajectoryStepId,
+    ckcResolutionRef: ac.ckcResolutionRef,
+  });
+}
+
 export type ActiveCycleCkcGrounding = {
   readonly cycleTypeId: string;
   readonly cycleLabel: string | null;
