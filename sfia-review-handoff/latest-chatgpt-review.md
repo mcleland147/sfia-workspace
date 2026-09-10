@@ -1,31 +1,31 @@
 # ChatGPT Critical Review Pack — FULL
 
 ## Meta
-- timestamp: 2026-09-10T01:42:14Z
-- Cycle ID: SFIA-STUDIO-GREENFIELD-CANDIDATE-TRAJECTORY-HUMANDECISION-VALIDATED-TRAJECTORY-FRESH-LIVE-REPLAY-01
+- timestamp: 2026-09-10T01:56:06Z
+- Cycle ID: SFIA-STUDIO-GREENFIELD-HD-LOCAL-PILOTE-AUTHORITY-ENV-ENABLEMENT-01
 - Milestone: Greenfield Product Proof — Governed Cycle Entry
-- Cycle SFIA: 9 — QA / validation
-- Typology: RUN — bounded LIVE validation
+- Cycle SFIA: 7 — Intégration / DevOps
+- Typology: RUN — environment configuration
 - Profile: CRITICAL
-- GO Morris consumed: GO MORRIS — GREENFIELD CANDIDATE TRAJECTORY → HUMANDECISION + VALIDATED TRAJECTORY — FRESH BOUNDED LIVE REPLAY
-- D-GF-HD-01: ADOPTED BY MORRIS (carried — not reopened)
+- Justification CRITICAL: activates local Pilote structuring authority used by HumanDecision runtime; no domain change allowed; misconfiguration could widen authority boundary.
+- GO Morris consumed: GO MORRIS — ENABLE LOCAL PILOTE AUTHORITY FOR GREENFIELD HD LIVE REPLAY — ENV ONLY
+- Candidate Product HEAD: d436c31468f66b33cc4110ab9c64601938fa5732
 - Level: FULL
 - Product files changed: ZERO
 - Product commit / push / PR: NONE
-- Final verdict: GREENFIELD CANDIDATE TRAJECTORY → HUMANDECISION + VALIDATED TRAJECTORY — LIVE FAIL
+- REAL calls: ZERO
+- Final verdict: LOCAL PILOTE AUTHORITY ENV — CONFIGURED FOR NEXT LIVE REPLAY
 
 ## Local Git Truth
 - worktree: /Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310
 - branch: delivery/sfia-studio-product-proof-qual-to-governed-cycle
-- HEAD: d436c31468f66b33cc4110ab9c64601938fa5732
-- parent: 4c8733bf80e25060241c49157bded9813842e1ce
-- origin/main: a9f6c310a0826d0e5bd6f7264603382a86564db1
-- expected HEAD: d436c31468f66b33cc4110ab9c64601938fa5732 — MATCH
-- expected parent: 4c8733bf80e25060241c49157bded9813842e1ce — MATCH
+- HEAD: d436c31468f66b33cc4110ab9c64601938fa5732 (= expected d436c314)
+- parent: 4c8733bf80e25060241c49157bded9813842e1ce (= expected 4c8733bf)
+- origin/main: a9f6c310a0826d0e5bd6f7264603382a86564db1 (= expected a9f6c310)
 - staged: empty
-- Product dirty: none (only .tmp-sfia-review/* artifacts)
+- Product versioned dirty: none
 - No stash / reset / clean / discard / amend / rebase
-- No Product commit created this cycle
+- No Product commit
 
 ## Sources read
 - prompts/templates/sfia-cycle-execution-template.md
@@ -36,85 +36,99 @@
 - projects/sfia-studio/product-completion/01-product-completion-cadrage.md
 - projects/sfia-studio/sfia-v3-framing/30-knowledge-context-human-decision-doctrine.md
 - projects/sfia-studio/sfia-v3-framing/32-living-project-state-and-dynamic-trajectory.md
-- projects/sfia-studio/sfia-v3-framing/33-epistemology-provenance-and-contradiction-model.md
-- sfia-review-handoff/latest-chatgpt-review.md
-- READ-ONLY inspect: approveCandidateTrajectory.ts, candidateTrajectoryPromotionGuard.ts, candidateTrajectoryDecisionBasis.ts, candidateTrajectoryProvenance.ts, preCycleCandidateTrajectoryActions.ts, TrajectorySurface.tsx, RecordHumanDecision, PromoteDecidedTrajectory, localSingleUserAuthority.ts
+- projects/sfia-studio/app/lib/oa/decision/infrastructure/localSingleUserAuthority.ts
+- sfia-review-handoff/latest-chatgpt-review.md (previous LIVE FAIL)
 
 ## Convergence Pre-check
-- V3-F02 / F04 / F05 / F06 / F09 served
-- LR LIVE PROVEN · candidate LIVE PROVEN · provenance LIVE PROVEN
-- HD→validated DETERMINISTIC PROVEN on d436c314 (CR-HD-01/02 CLOSED DETERMINISTICALLY)
-- Gap: LIVE Pilote HumanDecision + promotion not yet LIVE PROVEN
-- This cycle attempted Fresh Bounded LIVE Replay — blocked at Pilote authority precheck
+- V3-F05 served
+- LR / candidate / provenance LIVE PROVEN
+- HD+validated DETERMINISTIC PROVEN (CR-HD-01/02 CLOSED DETERMINISTICALLY)
+- Previous LIVE FAIL stop code: STOP — LIVE PILOTE AUTHORITY NOT CONFIGURED
+- RESERVE-HD-LIVE-AUTHORITY-ENV-01 was OPEN / BLOCKING
+- This cycle configures env precondition only — does NOT prove HumanDecision LIVE
 
-## Fake / Real qualification
-- Entry level: HD+promotion DETERMINISTIC PROVEN
-- Expected: REAL BOUNDARY PROVEN
-- REAL authorized: exactly 1 Nora/OpenAI turn + UI prepare + UI validate + restart
-- Cursor REAL: OFF
-- Execution REAL: OFF
-- Campaign model observed in .env.local: gpt-5.6-luna (unchanged)
-- OPENAI_API_KEY: present (not printed)
-- Product DB path (configured): /Users/morris/Projects/sfia-product-proof-greenfield-task-app-a9f6c310/projects/sfia-studio/.sfia-exec/product-proof-greenfield-task-app/product.sqlite
+## Previous LIVE FAIL
+- Cycle: SFIA-STUDIO-GREENFIELD-CANDIDATE-TRAJECTORY-HUMANDECISION-VALIDATED-TRAJECTORY-FRESH-LIVE-REPLAY-01
+- Verdict: LIVE FAIL
+- Cause: SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY absent from active Studio .env.local
+- GO LIVE previous consumed by FAIL → next LIVE requires new Morris GO after this precondition PASS
 
-## STOP — LIVE PILOTE AUTHORITY NOT CONFIGURED
+## Target env path
+- UNIQUE target: /Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310/projects/sfia-studio/app/.env.local
+- NOT modified: .env.example
+- NOT modified: sibling greenfield .env.local
+- NOT modified: any Product source file
 
-### Authority precheck (READ-ONLY)
-- Contract: `registerLocalPiloteAuthority` requires `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY === "1"` (TEMPORARY WITH EXIT) unless `forceLocalAuthority` (tests only).
-- Product LIVE path must NOT use forceLocalAuthority / client authority claims.
-- Observed Studio env files:
-  - `projects/sfia-studio/app/.env.local`: key **ABSENT**
-  - `projects/sfia-studio/app/.env.example`: key **ABSENT**
-  - sibling greenfield `.env.local` (compare only): key **ABSENT**
-- Instruction obeyed: **did not modify** env to make the replay pass.
-- Therefore the LIVE HumanDecision approval path cannot be honestly exercised under the already-configured Studio environment.
+## Tracked / ignore checks
+- git ls-files --error-unmatch projects/sfia-studio/app/.env.local → not tracked (pathspec did not match)
+- git check-ignore -v → projects/sfia-studio/app/.gitignore:22:.env.* covers .env.local
+- Conclusion: AUTHORITY ENV TARGET IS NOT VERSIONED — OK
 
-### What was NOT done (fail-closed)
-- No fresh Project created
-- No Nora/OpenAI turn launched
-- No "Préparer la trajectoire" click
-- No "Valider cette trajectoire" click
-- No Product code change
-- No Product commit / push / PR
-- Historical LIVE project `prj:6962aa82-4d49-4452-b113-670c37fc889c` left READ-ONLY / untouched
+## Pre-state
+- file exists: yes
+- SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY occurrences: 0 (absent)
+- non-comment key count before: 8
+- file bytes before: 1041
+- sha256 before (file integrity only): 2d4e5276b5b4d868a5fb12e1c5e82a767a28d60679ca78e311fc53366de737b1
+- SECURITY: no secrets printed; full .env.local content not copied into this pack
 
-### Why this is LIVE FAIL (not INCONCLUSIVE)
-- The cycle's unique LIVE claim depends on server-owned Pilote morris authority evidence.
-- Precheck proves the campaign Studio env does not enable that authority.
-- Continuing would either fail at approval or require forbidden env mutation / forceLocalAuthority bypass.
+## Authorized mutation
+- Action: append exactly one line to end of existing file (preserve prior bytes)
+- Added line: SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1
+- No reorder / quote normalize / other variable rewrite / DB path / model / API key / routing / budget / forceLocalAuthority
 
-## Phases not reached
-- Phase A Nora LIVE turn: NOT EXECUTED
-- Phase B Prepare trajectory: NOT EXECUTED
-- Phase C Decision presentation: NOT EXECUTED
-- Phase D Explicit Pilote HD: NOT EXECUTED
-- Phase E HD durable proof: NOT EXECUTED
-- Phase F Promoted trajectory: NOT EXECUTED
-- Restart / rehydrate: NOT EXECUTED
-- Model-call accounting: N/A (0 REAL calls this cycle)
+## Post-state
+- occurrences of ^SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=: 1
+- value: exactly 1
+- duplicate count: 0
+- non-comment key count after: 9 (= 8 preserved + 1 authorized)
+- file bytes after: 1081 (delta +40 = length of appended line including newline)
+- sha256 after: afb5a011f1d5d6384bb5903bbe416be777aa64bde43c07c8d1a1a2965fcc894f
+- subshell source test: SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1 → PASS
+- Other env delta: NONE beyond the authorized key
+- Sibling greenfield .env.local: untouched
+- .env.example: untouched
 
-## Product files changed
-ZERO
+## Authority contract (READ-ONLY code verification)
+- M3_LOCAL_AUTHORITY_ENV = "SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY"
+- isM3LocalAuthorityEnabled → env[key] === "1"
+- registerLocalPiloteAuthority → server-owned registration
+- actor = LOCAL_PILOTE_ACTOR (actor:local-pilote / decision_maker)
+- downstream authority class = morris
+- forceEnable = test inject only
+- Source comment: TEMPORARY WITH EXIT — unchanged; this GO does not make it permanent
+
+## Product / REAL assertions
+- Product HEAD after: d436c31468f66b33cc4110ab9c64601938fa5732 (unchanged)
+- git diff -- projects/sfia-studio/app: empty
+- git diff --cached: empty
+- Product files changed: ZERO
+- Projects created: 0
+- Nora/OpenAI calls: 0
+- HumanDecision: 0
+- CycleInstance: 0
+- START: none
+- ExecutionContract: 0
+- Confirmation: 0
+- ZERO REAL: YES
+- LIVE replay: NOT STARTED (forbidden this cycle)
 
 ## Reserves
-- RESERVE-TRJ-PROVENANCE-01: CLOSED AT LIVE BOUNDARY PROVEN SCOPE (carried)
-- CR-HD-01: CLOSED DETERMINISTICALLY (carried)
-- CR-HD-02: CLOSED DETERMINISTICALLY (carried)
-- RESERVE-HD-LIVE-01: **OPEN** (LIVE proof not reached)
+- RESERVE-HD-LIVE-AUTHORITY-ENV-01: CLOSED AT ENV-CONFIGURED SCOPE
+- RESERVE-HD-LIVE-01: OPEN
 - RESERVE-HD-CONCURRENCY-REALISM-01: OPEN
 - RESERVE-QA-MOCK-01: OPEN / NON-BLOCKING
-- New reserve observed: **RESERVE-HD-LIVE-AUTHORITY-ENV-01** — Studio campaign `.env.local` lacks `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1`; LIVE HD requires Morris GO to configure authority WITHOUT rewriting Product code, or explicit acceptance of env enablement as campaign precondition.
+- RESERVE-TRJ-PROVENANCE-01: CLOSED AT LIVE BOUNDARY PROVEN SCOPE (carried)
+- CR-HD-01 / CR-HD-02: CLOSED DETERMINISTICALLY (carried)
 
-## Next capability
-After Morris GO to configure local Pilote authority for Studio LIVE (env enablement only — no Product Delivery), re-attempt:
-SFIA-STUDIO-GREENFIELD-CANDIDATE-TRAJECTORY-HUMANDECISION-VALIDATED-TRAJECTORY-FRESH-LIVE-REPLAY-01
-
-Then (only after LIVE PASS): validated/current → CycleInstance / START qualification (HORS SCOPE).
+## Next gate
+Requires NEW Morris GO for:
+SFIA-STUDIO-GREENFIELD-CANDIDATE-TRAJECTORY-HUMANDECISION-VALIDATED-TRAJECTORY-FRESH-LIVE-REPLAY
+(re-attempt), because the previous LIVE GO was consumed by FAIL.
+Note: Studio Next.js process may need restart to load the new env for LIVE — that belongs to the next LIVE cycle, not this env-enablement cycle.
 
 ## Anti-claims
-NOT claimed: HumanDecision LIVE PROVEN; validated trajectory LIVE PROVEN; CycleInstance; START; EC; END-TO-END REAL; Greenfield COMPLETE; R2 CLOSED; PR READY; runtime v3 ADOPTED; RESERVE-HD-LIVE-01 closed.
+NOT claimed: authority LIVE proven; HumanDecision LIVE proven; trajectory promotion LIVE; START; EC; Greenfield COMPLETE; R2 CLOSED; PR READY; runtime v3 ADOPTED; permanent authority model.
 
 ## Final verdict
-GREENFIELD CANDIDATE TRAJECTORY → HUMANDECISION + VALIDATED TRAJECTORY — LIVE FAIL
-
-Stop code: STOP — LIVE PILOTE AUTHORITY NOT CONFIGURED
+LOCAL PILOTE AUTHORITY ENV — CONFIGURED FOR NEXT LIVE REPLAY
