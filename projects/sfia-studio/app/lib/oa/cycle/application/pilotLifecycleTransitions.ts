@@ -1217,6 +1217,138 @@ export class PilotLifecycleTransitions {
   }
 
   /**
+   * D-LC-05 — close the cycle-bound active trajectory step (active → done).
+   * Completes existing domain step states used by exit_criteria assessment.
+   * Does not FINALIZE the cycle and does not invent a new aggregate.
+   */
+  async completeBoundActiveTrajectoryStep(request: {
+    projectId: string;
+    cycleInstanceId: string;
+    createdBy: StartCycleRequest["createdBy"];
+    correlationId?: string;
+  }): Promise<
+    | {
+        ok: true;
+        trajectory: import("../domain/types").ProjectTrajectory;
+        stepId: string;
+        durationMs: number;
+      }
+    | {
+        ok: false;
+        error: ReturnType<typeof createCycleError>;
+        durationMs: number;
+      }
+  > {
+    const started = Date.now();
+    const timestamp = this.deps.clock.nowIso();
+    const correlationId = request.correlationId ?? `cor:traj-step-${Date.now()}`;
+    const cycle = await this.deps.cycles.findById(request.cycleInstanceId);
+    if (!cycle || cycle.projectId !== request.projectId) {
+      return {
+        ok: false,
+        error: createCycleError({
+          detailCode: "CYCLE_NOT_FOUND",
+          timestamp,
+          projectId: request.projectId,
+          cycleInstanceId: request.cycleInstanceId,
+        }),
+        durationMs: Date.now() - started,
+      };
+    }
+    if (cycle.status !== "active") {
+      return {
+        ok: false,
+        error: createCycleError({
+          detailCode: "CYCLE_LIFECYCLE_DENIED",
+          timestamp,
+          projectId: request.projectId,
+          cycleInstanceId: request.cycleInstanceId,
+          internalCauseRef: "trajectory_step_close_requires_active_cycle",
+        }),
+        durationMs: Date.now() - started,
+      };
+    }
+    const trajectoryId = cycle.trajectoryId;
+    const trajectoryVersion = cycle.trajectoryVersion;
+    const stepId = cycle.trajectoryStepId;
+    if (!trajectoryId || trajectoryVersion == null || !stepId) {
+      return {
+        ok: false,
+        error: createCycleError({
+          detailCode: "CYCLE_LIFECYCLE_DENIED",
+          timestamp,
+          projectId: request.projectId,
+          cycleInstanceId: request.cycleInstanceId,
+          internalCauseRef: "cycle_trajectory_binding_missing",
+        }),
+        durationMs: Date.now() - started,
+      };
+    }
+
+    try {
+      const persist = async () => {
+        const traj = await this.deps.trajectories.findByProjectAndVersion(
+          request.projectId,
+          trajectoryVersion,
+        );
+        if (!traj || traj.trajectoryId !== trajectoryId) {
+          throw new Error("trajectory_binding_missing");
+        }
+        const stepIdx = traj.steps.findIndex((s) => s.stepId === stepId);
+        if (stepIdx < 0) throw new Error("trajectory_step_missing");
+        const step = traj.steps[stepIdx]!;
+        if (step.state === "done" || step.state === "skipped") {
+          return traj;
+        }
+        if (step.state !== "active") {
+          throw new Error(`trajectory_step_not_active:${step.state}`);
+        }
+        const nextSteps = traj.steps.map((s, i) =>
+          i === stepIdx ? { ...s, state: "done" as const } : s,
+        );
+        const next = { ...traj, steps: nextSteps };
+        await this.deps.trajectories.save(next);
+        return next;
+      };
+
+      const next =
+        this.deps.store != null
+          ? await this.deps.store.runInTransaction(persist)
+          : await persist();
+      const durationMs = Date.now() - started;
+      this.deps.audit.append({
+        event: "oa.cycle.lifecycle_transition",
+        ts: timestamp,
+        correlationId,
+        projectId: request.projectId,
+        cycleInstanceId: request.cycleInstanceId,
+        action: "COMPLETE_TRAJECTORY_STEP",
+        fromStatus: cycle.status,
+        toStatus: cycle.status,
+        actorId: request.createdBy.actorId,
+        result: "ok",
+        detailCode: "TRAJECTORY_STEP_DONE",
+        durationMs,
+      });
+      return { ok: true, trajectory: next, stepId, durationMs };
+    } catch (err) {
+      const durationMs = Date.now() - started;
+      return {
+        ok: false,
+        error: createCycleError({
+          detailCode: "PERSISTENCE_FAILURE",
+          timestamp,
+          projectId: request.projectId,
+          cycleInstanceId: request.cycleInstanceId,
+          internalCauseRef:
+            err instanceof Error ? err.message : "trajectory_step_close_failed",
+        }),
+        durationMs,
+      };
+    }
+  }
+
+  /**
    * Re-evaluate after obligations change; completes when ready without new FINALIZE.
    */
   async reevaluateAndComplete(input: {

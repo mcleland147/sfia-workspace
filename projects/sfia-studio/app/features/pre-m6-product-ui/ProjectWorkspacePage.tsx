@@ -27,6 +27,8 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
   const [lpsOpen, setLpsOpen] = useState(false);
   const [recoveryProposeSignal, setRecoveryProposeSignal] = useState(0);
   const [trajectoryRefreshSignal, setTrajectoryRefreshSignal] = useState(0);
+  /** B1 — bump so LifecycleSurface reloads after Trajectory (or other) durable mutations. */
+  const [lifecycleRefreshSignal, setLifecycleRefreshSignal] = useState(0);
   const conversationRef = useRef<HTMLDivElement | null>(null);
   const refreshInFlight = useRef(false);
 
@@ -40,6 +42,12 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
       refreshInFlight.current = false;
     }
   }, [projectId]);
+
+  const notifyDurableFactsChanged = useCallback(() => {
+    void loadProject();
+    setTrajectoryRefreshSignal((n) => n + 1);
+    setLifecycleRefreshSignal((n) => n + 1);
+  }, [loadProject]);
 
   useEffect(() => {
     let cancelled = false;
@@ -72,9 +80,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
 
   const controller = useProductConversation({
     projectId,
-    onDurableFactsChanged: () => {
-      void loadProject();
-    },
+    onDurableFactsChanged: notifyDurableFactsChanged,
     onDurableEvidenceOutcomeChange: setDurableOutcome,
   });
 
@@ -196,10 +202,8 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
               >
                 <LifecycleSurface
                   projectId={projectId}
-                  onDurableFactsChanged={() => {
-                    void loadProject();
-                    setTrajectoryRefreshSignal((n) => n + 1);
-                  }}
+                  durableRefreshSignal={lifecycleRefreshSignal}
+                  onDurableFactsChanged={notifyDurableFactsChanged}
                   onEscalateTrajectory={() => {
                     const el = document.querySelector(
                       "[data-testid='w2-trajectory-panel']",
@@ -215,10 +219,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
                   composition="lps-embedded"
                   recoveryProposeSignal={recoveryProposeSignal}
                   durableRefreshSignal={trajectoryRefreshSignal}
-                  onDurableFactsChanged={() => {
-                    void loadProject();
-                    setTrajectoryRefreshSignal((n) => n + 1);
-                  }}
+                  onDurableFactsChanged={notifyDurableFactsChanged}
                 />
               </div>
             </section>

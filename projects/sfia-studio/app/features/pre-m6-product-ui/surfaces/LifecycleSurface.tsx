@@ -2,17 +2,25 @@
 
 import { useCallback, useEffect, useState } from "react";
 import {
+  projectAssistantCompleteTrajectoryStepAction,
   projectAssistantPilotLifecycleAction,
   projectAssistantPilotLifecycleProjection,
+  projectAssistantRecordObligationPolicyAction,
+  projectAssistantResolveBlockingReservationAction,
 } from "@/features/project-assistant/actions";
 import { projectAssistantPrepareCandidateTrajectoryAction } from "@/features/project-assistant/preCycleCandidateTrajectoryActions";
 import type { PilotLifecycleProjection } from "@/lib/oa/cycle";
 import { SFIA_ASSISTANT_ANSWERED_EVENT } from "@/features/project-assistant/presentationLabels";
 import {
+  blockerLabel,
   lifecycleCtaPresentation,
   lifecycleStatusBadge,
+  nonHumanDecisionBlockers,
+  obligationFamilyLabel,
+  obligationStatusLabel,
   primaryFinalizeRecommendation,
   primaryNextCycleRecommendation,
+  readyExceptFinalizeDecision,
 } from "./lifecyclePresentation";
 import styles from "./LifecycleSurface.module.css";
 
@@ -22,10 +30,13 @@ import styles from "./LifecycleSurface.module.css";
  */
 export function LifecycleSurface({
   projectId,
+  durableRefreshSignal = 0,
   onDurableFactsChanged,
   onEscalateTrajectory,
 }: {
   projectId: string;
+  /** B1 — parent bumps after Trajectory (or other) durable mutations. */
+  durableRefreshSignal?: number;
   onDurableFactsChanged?: () => void;
   onEscalateTrajectory?: () => void;
 }) {
@@ -33,7 +44,9 @@ export function LifecycleSurface({
     null,
   );
   const [error, setError] = useState<string | null>(null);
+  const [info, setInfo] = useState<string | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
+  const [policyConfirmOpen, setPolicyConfirmOpen] = useState(false);
 
   const refresh = useCallback(async () => {
     const result = await projectAssistantPilotLifecycleProjection({ projectId });
@@ -51,6 +64,12 @@ export function LifecycleSurface({
   }, [refresh]);
 
   useEffect(() => {
+    if (durableRefreshSignal > 0) {
+      void refresh();
+    }
+  }, [durableRefreshSignal, refresh]);
+
+  useEffect(() => {
     const onAnswered = () => {
       void refresh();
     };
@@ -61,11 +80,12 @@ export function LifecycleSurface({
   }, [refresh]);
 
   async function runAction(
-    action: "START" | "PAUSE" | "RESUME" | "FINALIZE" | "CANCEL" | "REEVALUATE",
+    action: "START" | "PAUSE" | "RESUME" | "FINALIZE" | "CANCEL" | "ASSESS" | "REEVALUATE",
     opts?: { requiresReplanHumanDecision?: boolean },
   ) {
     if (!projection?.selectedCycleInstanceId) return;
     setBusy(action);
+    setInfo(null);
     try {
       const result = await projectAssistantPilotLifecycleAction({
         projectId,
@@ -77,7 +97,95 @@ export function LifecycleSurface({
         setError(result.message ?? result.code ?? "Action refusée.");
       } else {
         setError(null);
-        await refresh();
+        if (result.status === "finalize_incomplete") {
+          setInfo(
+            result.message ??
+              "Finalisation incomplète — des conditions restent ouvertes.",
+          );
+        } else if (action === "ASSESS") {
+          setInfo("Conditions de finalisation actualisées.");
+        } else {
+          setInfo(null);
+        }
+        if (result.projection) {
+          setProjection(result.projection);
+        } else {
+          await refresh();
+        }
+        onDurableFactsChanged?.();
+      }
+    } finally {
+      setBusy(null);
+    }
+  }
+
+  async function confirmObligationPolicy() {
+    if (!projection?.selectedCycleInstanceId) return;
+    setBusy("OBLIGATION_POLICY");
+    setInfo(null);
+    try {
+      const result = await projectAssistantRecordObligationPolicyAction({
+        projectId,
+        cycleInstanceId: projection.selectedCycleInstanceId,
+      });
+      if (!result.ok) {
+        setError(result.message ?? result.code ?? "Politique refusée.");
+      } else {
+        setError(null);
+        setPolicyConfirmOpen(false);
+        setInfo(
+          result.message ??
+            "Politique d’obligations enregistrée — aucune finalisation automatique.",
+        );
+        if (result.projection) setProjection(result.projection);
+        else await refresh();
+        onDurableFactsChanged?.();
+      }
+    } finally {
+      setBusy(null);
+    }
+  }
+
+  async function completeTrajectoryStep() {
+    if (!projection?.selectedCycleInstanceId) return;
+    setBusy("COMPLETE_TRAJECTORY_STEP");
+    setInfo(null);
+    try {
+      const result = await projectAssistantCompleteTrajectoryStepAction({
+        projectId,
+        cycleInstanceId: projection.selectedCycleInstanceId,
+      });
+      if (!result.ok) {
+        setError(result.message ?? result.code ?? "Clôture d’étape refusée.");
+      } else {
+        setError(null);
+        setInfo(result.message ?? "Critère de sortie clôturé.");
+        if (result.projection) setProjection(result.projection);
+        else await refresh();
+        onDurableFactsChanged?.();
+      }
+    } finally {
+      setBusy(null);
+    }
+  }
+
+  async function resolveReservation(epistemicItemId: string) {
+    if (!projection?.selectedCycleInstanceId) return;
+    setBusy(`RESOLVE_RESERVATION:${epistemicItemId}`);
+    setInfo(null);
+    try {
+      const result = await projectAssistantResolveBlockingReservationAction({
+        projectId,
+        cycleInstanceId: projection.selectedCycleInstanceId,
+        epistemicItemId,
+      });
+      if (!result.ok) {
+        setError(result.message ?? result.code ?? "Résolution refusée.");
+      } else {
+        setError(null);
+        setInfo(result.message ?? "Réserve résolue.");
+        if (result.projection) setProjection(result.projection);
+        else await refresh();
         onDurableFactsChanged?.();
       }
     } finally {
@@ -107,6 +215,10 @@ export function LifecycleSurface({
   const cta = lifecycleCtaPresentation(projection);
   const finalizeRec = primaryFinalizeRecommendation(projection);
   const nextRec = primaryNextCycleRecommendation(projection);
+  const nonHd = nonHumanDecisionBlockers(projection.assessment);
+  const ready = readyExceptFinalizeDecision(projection.assessment);
+  const exitOpen = nonHd.includes("exit_criteria_open");
+  const reservations = projection.blockingReservations ?? [];
 
   return (
     <aside
@@ -134,6 +246,11 @@ export function LifecycleSurface({
           {error}
         </p>
       ) : null}
+      {info ? (
+        <p className={styles.muted} data-testid="lifecycle-info" role="status">
+          {info}
+        </p>
+      ) : null}
 
       {finalizeRec || nextRec ? (
         <section
@@ -145,10 +262,15 @@ export function LifecycleSurface({
           <p className={styles.recStatement}>
             {(finalizeRec ?? nextRec)!.statement}
           </p>
-          <p className={styles.recMeta}>
-            {(finalizeRec ?? nextRec)!.intent.replace(/_/g, " ")} ·{" "}
-            {(finalizeRec ?? nextRec)!.derivedCurrentness}
-          </p>
+          {finalizeRec ? (
+            <p className={styles.recMeta} data-testid="lifecycle-finalize-rec-notice">
+              Nora recommande de finaliser ce cycle
+            </p>
+          ) : (
+            <p className={styles.recMeta}>
+              {(nextRec)!.intent.replace(/_/g, " ")}
+            </p>
+          )}
           <p className={styles.distinction}>
             Recommandation ≠ décision Pilote · n’active pas le cycle
           </p>
@@ -162,13 +284,128 @@ export function LifecycleSurface({
         </section>
       )}
 
-      {projection.assessment && !projection.assessment.canComplete ? (
-        <section className={styles.block} data-testid="lifecycle-finalization-obligations">
-          <h3 className={styles.blockTitle}>Obligations de finalisation</h3>
+      {projection.assessment ? (
+        <section
+          className={styles.block}
+          data-testid="lifecycle-finalization-obligations"
+        >
+          <h3 className={styles.blockTitle}>Conditions de finalisation</h3>
+          {ready ? (
+            <p className={styles.muted} data-testid="lifecycle-ready-finalize">
+              Prêt pour décision de finalisation — seule la décision Pilote
+              « Finaliser » reste requise.
+            </p>
+          ) : nonHd.length > 0 ? (
+            <ul data-testid="lifecycle-blocker-list">
+              {nonHd.map((b) => (
+                <li key={b} data-blocker={b}>
+                  {blockerLabel(b)}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className={styles.muted}>
+              Assessment disponible — vérifiez les obligations ci-dessous.
+            </p>
+          )}
+          <ul data-testid="lifecycle-obligation-list">
+            {projection.assessment.obligations.map((o) => (
+              <li key={o.family} data-family={o.family} data-status={o.status}>
+                {obligationFamilyLabel(o.family)} — {obligationStatusLabel(o)}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : projection.selectedStatus === "active" ||
+        projection.selectedStatus === "paused" ||
+        projection.selectedStatus === "blocked" ? (
+        <section className={styles.block} data-testid="lifecycle-assessment-unavailable">
+          <h3 className={styles.blockTitle}>Conditions de finalisation</h3>
           <p className={styles.muted}>
-            Des obligations restent ouvertes — la recommandation FINALIZE n’est
-            pas une éligibilité.
+            Assessment indisponible — fail-closed (aucune finalisation).
           </p>
+        </section>
+      ) : null}
+
+      {exitOpen ? (
+        <section className={styles.block} data-testid="lifecycle-exit-criteria-resolve">
+          <h3 className={styles.blockTitle}>Critères de sortie</h3>
+          <p className={styles.muted}>
+            L’étape de trajectoire liée au cycle est encore ouverte.
+          </p>
+          <button
+            type="button"
+            className={styles.btnSecondary}
+            disabled={busy !== null}
+            data-testid="lifecycle-complete-trajectory-step"
+            onClick={() => void completeTrajectoryStep()}
+          >
+            Clôturer l’étape de trajectoire liée
+          </button>
+        </section>
+      ) : null}
+
+      {reservations.length > 0 ? (
+        <section className={styles.block} data-testid="lifecycle-reservation-resolve">
+          <h3 className={styles.blockTitle}>Réserves bloquantes</h3>
+          {reservations.map((r) => (
+            <div key={r.epistemicItemId} data-testid="lifecycle-blocking-reservation">
+              <p className={styles.muted}>{r.statement}</p>
+              <button
+                type="button"
+                className={styles.btnSecondary}
+                disabled={busy !== null}
+                data-testid="lifecycle-resolve-reservation"
+                data-epistemic-id={r.epistemicItemId}
+                onClick={() => void resolveReservation(r.epistemicItemId)}
+              >
+                Marquer la réserve comme résolue
+              </button>
+            </div>
+          ))}
+        </section>
+      ) : null}
+
+      {cta.showGroupedObligationPolicy ? (
+        <section className={styles.block} data-testid="lifecycle-obligation-policy">
+          <h3 className={styles.blockTitle}>Effets gouvernés</h3>
+          {!policyConfirmOpen ? (
+            <button
+              type="button"
+              className={styles.btnSecondary}
+              disabled={busy !== null}
+              data-testid="lifecycle-obligation-policy-cta"
+              onClick={() => setPolicyConfirmOpen(true)}
+            >
+              Confirmer qu’aucun effet gouverné n’est requis pour ce cycle
+            </button>
+          ) : (
+            <div data-testid="lifecycle-obligation-policy-confirm">
+              <p className={styles.muted}>
+                Cette décision signifie que ce cycle ne requiert pas d’artefact,
+                d’exécution gouvernée, d’Evidence, de ReviewBundle ni d’effet
+                Git. Elle n’est jamais automatique et ne finalise pas le cycle.
+              </p>
+              <button
+                type="button"
+                className={styles.btnPrimary}
+                disabled={busy !== null}
+                data-testid="lifecycle-obligation-policy-confirm-cta"
+                onClick={() => void confirmObligationPolicy()}
+              >
+                Confirmer explicitement
+              </button>
+              <button
+                type="button"
+                className={styles.btnSecondary}
+                disabled={busy !== null}
+                data-testid="lifecycle-obligation-policy-cancel"
+                onClick={() => setPolicyConfirmOpen(false)}
+              >
+                Annuler
+              </button>
+            </div>
+          )}
         </section>
       ) : null}
 
@@ -212,6 +449,17 @@ export function LifecycleSurface({
             onClick={() => void runAction("START")}
           >
             Démarrer
+          </button>
+        ) : null}
+        {cta.showAssess ? (
+          <button
+            type="button"
+            className={styles.btnSecondary}
+            disabled={busy !== null}
+            data-testid="lifecycle-assess-cta"
+            onClick={() => void runAction("ASSESS")}
+          >
+            Vérifier les conditions de finalisation
           </button>
         ) : null}
         {cta.showFinalizePrimary ? (

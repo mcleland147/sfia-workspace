@@ -128,6 +128,10 @@ export function buildProjectSystemPrompt(
     "états métier ou signaux d'urgence appartenant au cycle candidat.",
     "lifecycleRecommendation (si émise) : intent NEXT_CYCLE ou FINALIZE_CURRENT_CYCLE ;",
     "authority conceptuelle aucune ; isHumanDecision false ; statement et rationale lisibles Pilote ;",
+    "PRIORITÉ D'INTENT (D-LC-04) :",
+    "- Tant qu'un cycle courant non terminal doit se clore → FINALIZE_CURRENT_CYCLE uniquement ;",
+    "  un prochain cycle peut être expliqué dans la narrative, jamais typé NEXT_CYCLE concurrent.",
+    "- NEXT_CYCLE seulement après cycle courant completed / aucune clôture courante en attente.",
     "targetCycleTypeId DOIT être un identifiant catalogue Studio exact (ex. cyc:framing pour le label « Cadrage »).",
     "Jamais un label humain seul (« Cadrage », « Delivery ») ni un id inventé.",
     "Identifiants catalogue actifs : " +

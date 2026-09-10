@@ -46,6 +46,11 @@ export type PilotLifecycleProjection = {
    * Recommendation ≠ canFinalize / canStart / HumanDecision.
    */
   currentRecommendations?: LifecycleRecommendationEnvelope[];
+  /** D-LC-05 aids — blocking reservations visible for explicit Pilot resolve. */
+  blockingReservations?: ReadonlyArray<{
+    epistemicItemId: string;
+    statement: string;
+  }>;
   /** Resume reconciliation when selected cycle is paused — never cleared by HD alone. */
   resumeReconciliation?: {
     clean: boolean;

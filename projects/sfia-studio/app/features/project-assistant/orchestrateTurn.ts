@@ -384,7 +384,9 @@ export async function orchestrateProjectAssistantTurn(input: {
     let lifecycleRecommendationMaterialized: boolean | null = null;
     let lifecycleRecommendationCode: string | null = null;
 
-    // Same Product turn — optional LR materialization (no second model call).
+    // D-LC-01 — same Product turn: extract → fail-closed contradiction →
+    // ACW first (when present) → then LR against final post-ACW basis.
+    // No second model call. No fingerprint rewrite.
     if (turn.structuredOutput !== undefined) {
       const { extractLifecycleCandidateFromStructuredOutput } = await import(
         "@/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn"
@@ -396,9 +398,8 @@ export async function orchestrateProjectAssistantTurn(input: {
         assistantText = extracted.narrative;
       }
       // Positive enforcement: EMIT without LR is a structured contradiction.
+      // Fail BEFORE any durable writes (ACW or LR).
       // Never invent LR; never treat as normal conversational success.
-      // Seams 1–3 alone are insufficient because this short-circuit previously
-      // skipped materialize and returned ok:true silently.
       if (
         extracted.kind === "product_turn" &&
         extracted.boundaryContradiction ===
@@ -413,141 +414,8 @@ export async function orchestrateProjectAssistantTurn(input: {
           retryable: false,
         };
       }
-      if (!extracted.candidate) {
-        lifecycleRecommendationMaterialized = false;
-      } else {
-        // OA access via authorized Project Assistant seam (mw3AvailableEvidence
-        // lazy runtime import) — never import vertical-slice-runtime here.
-        const oaResolved = await resolveOaStackForLifecycleRecommendation();
-        if (oaResolved.ok) {
-          const oa = oaResolved.oa;
-          const cycles = await oa.cycleServices.cycles.listByProject(
-            project.projectId,
-          );
-          const lps =
-            await oa.projectServices.getCurrentLivingProjectState.execute({
-              projectId: project.projectId,
-            });
-          const projectRow = await oa.projectServices.getProject.execute({
-            projectId: project.projectId,
-          });
-          const failedMaterialDimensions =
-            new Set<LifecycleRecommendationMaterialDimension>();
-          if (!lps.ok) {
-            failedMaterialDimensions.add("lps");
-          }
-          if (!projectRow.ok) {
-            failedMaterialDimensions.add("doctrine");
-          }
 
-          let trajectory = null;
-          let trajectoryBootstrapPresence = await resolveTrajectoryBootstrapPresence(
-            oa.cycleServices.trajectories,
-            project.projectId,
-          );
-          if (trajectoryBootstrapPresence.kind === "unknown") {
-            failedMaterialDimensions.add("trajectory");
-            trajectory = null;
-          } else if (trajectoryBootstrapPresence.kind === "current") {
-            trajectory = trajectoryBootstrapPresence.trajectory;
-          } else {
-            trajectory = null;
-          }
-
-          let decisions: Awaited<
-            ReturnType<typeof oa.decisionServices.decisions.listByProject>
-          > = [];
-          try {
-            decisions = await oa.decisionServices.decisions.listByProject(
-              project.projectId,
-            );
-          } catch {
-            failedMaterialDimensions.add("decisions");
-            decisions = [];
-          }
-
-          let evidence: Awaited<
-            ReturnType<
-              typeof oa.evidenceReviewServices.repository.listByProject
-            >
-          > = [];
-          try {
-            evidence =
-              await oa.evidenceReviewServices.repository.listByProject(
-                project.projectId,
-              );
-          } catch {
-            failedMaterialDimensions.add("evidence");
-            evidence = [];
-          }
-
-          let epistemicItems: Awaited<
-            ReturnType<typeof oa.cycleServices.epistemic.listByProject>
-          > = [];
-          try {
-            epistemicItems = await oa.cycleServices.epistemic.listByProject(
-              project.projectId,
-            );
-          } catch {
-            failedMaterialDimensions.add("epistemic_blockers");
-            epistemicItems = [];
-          }
-
-          const doctrinePin = projectRow.ok
-            ? (projectRow.project.doctrinePackageRef ??
-              (lps.ok ? lps.livingProjectState.doctrinePackageRef : undefined))
-            : undefined;
-          const producedAt = new Date().toISOString();
-          const mat =
-            await materializeLifecycleRecommendationFromStructuredOutput({
-              projectId: project.projectId,
-              structuredOutput: turn.structuredOutput,
-              updateEpistemicState: oa.cycleServices.updateEpistemicState,
-              facts: {
-                cycles,
-                lpsActiveCycleInstanceId: lps.ok
-                  ? lps.livingProjectState.activeCycleInstanceId
-                  : null,
-                lpsVersion: lps.ok ? lps.livingProjectState.version : null,
-                doctrinePackageId: doctrinePin?.doctrinePackageId ?? null,
-                doctrinePackageVersion: doctrinePin?.version ?? null,
-                doctrinePackageDigest: doctrinePin?.digest ?? null,
-                trajectory,
-                trajectoryBootstrapPresence,
-                decisions,
-                evidence,
-                epistemicItems,
-                failedMaterialDimensions,
-              },
-              producedAt,
-              createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
-              correlationId: `f1:${project.projectId}`,
-            });
-          if (mat.narrative) {
-            assistantText = mat.narrative;
-          }
-          if (mat.recommendationAttempted) {
-            lifecycleRecommendationMaterialized =
-              mat.materialization?.ok === true;
-            lifecycleRecommendationCode =
-              mat.materialization && !mat.materialization.ok
-                ? mat.materialization.code
-                : mat.materialization?.ok
-                  ? null
-                  : "LR_MATERIALIZE_UNKNOWN";
-          } else {
-            lifecycleRecommendationMaterialized = false;
-          }
-        } else {
-          lifecycleRecommendationMaterialized = false;
-          lifecycleRecommendationCode = "LR_BASIS_UNAVAILABLE";
-        }
-      }
-    }
-
-    // D-GF-ACW-01/02 — same Product turn structured output; no second model call.
-    // Materialize non-authoritative active-cycle EpistemicItems when eligible.
-    if (turn.structuredOutput !== undefined) {
+      // D-GF-ACW-01/02 — materialize ACW FIRST when items present + eligible.
       const coherent = normalizeNoraProductTurnStructuredOutput(
         turn.structuredOutput,
       );
@@ -727,6 +595,139 @@ export async function orchestrateProjectAssistantTurn(input: {
               logicalTurnId,
             };
           }
+        }
+      }
+
+      // D-LC-01 — LR AFTER ACW (or with current facts when no ACW items).
+      // Reload durable basis so currentness binds post-ACW LPS version / epistemic.
+      if (!extracted.candidate) {
+        lifecycleRecommendationMaterialized = false;
+      } else {
+        // OA access via authorized Project Assistant seam (mw3AvailableEvidence
+        // lazy runtime import) — never import vertical-slice-runtime here.
+        const oaResolved = await resolveOaStackForLifecycleRecommendation();
+        if (oaResolved.ok) {
+          const oa = oaResolved.oa;
+          const cycles = await oa.cycleServices.cycles.listByProject(
+            project.projectId,
+          );
+          const lps =
+            await oa.projectServices.getCurrentLivingProjectState.execute({
+              projectId: project.projectId,
+            });
+          const projectRow = await oa.projectServices.getProject.execute({
+            projectId: project.projectId,
+          });
+          const failedMaterialDimensions =
+            new Set<LifecycleRecommendationMaterialDimension>();
+          if (!lps.ok) {
+            failedMaterialDimensions.add("lps");
+          }
+          if (!projectRow.ok) {
+            failedMaterialDimensions.add("doctrine");
+          }
+
+          let trajectory = null;
+          let trajectoryBootstrapPresence = await resolveTrajectoryBootstrapPresence(
+            oa.cycleServices.trajectories,
+            project.projectId,
+          );
+          if (trajectoryBootstrapPresence.kind === "unknown") {
+            failedMaterialDimensions.add("trajectory");
+            trajectory = null;
+          } else if (trajectoryBootstrapPresence.kind === "current") {
+            trajectory = trajectoryBootstrapPresence.trajectory;
+          } else {
+            trajectory = null;
+          }
+
+          let decisions: Awaited<
+            ReturnType<typeof oa.decisionServices.decisions.listByProject>
+          > = [];
+          try {
+            decisions = await oa.decisionServices.decisions.listByProject(
+              project.projectId,
+            );
+          } catch {
+            failedMaterialDimensions.add("decisions");
+            decisions = [];
+          }
+
+          let evidence: Awaited<
+            ReturnType<
+              typeof oa.evidenceReviewServices.repository.listByProject
+            >
+          > = [];
+          try {
+            evidence =
+              await oa.evidenceReviewServices.repository.listByProject(
+                project.projectId,
+              );
+          } catch {
+            failedMaterialDimensions.add("evidence");
+            evidence = [];
+          }
+
+          let epistemicItems: Awaited<
+            ReturnType<typeof oa.cycleServices.epistemic.listByProject>
+          > = [];
+          try {
+            epistemicItems = await oa.cycleServices.epistemic.listByProject(
+              project.projectId,
+            );
+          } catch {
+            failedMaterialDimensions.add("epistemic_blockers");
+            epistemicItems = [];
+          }
+
+          const doctrinePin = projectRow.ok
+            ? (projectRow.project.doctrinePackageRef ??
+              (lps.ok ? lps.livingProjectState.doctrinePackageRef : undefined))
+            : undefined;
+          const producedAt = new Date().toISOString();
+          const mat =
+            await materializeLifecycleRecommendationFromStructuredOutput({
+              projectId: project.projectId,
+              structuredOutput: turn.structuredOutput,
+              updateEpistemicState: oa.cycleServices.updateEpistemicState,
+              facts: {
+                cycles,
+                lpsActiveCycleInstanceId: lps.ok
+                  ? lps.livingProjectState.activeCycleInstanceId
+                  : null,
+                lpsVersion: lps.ok ? lps.livingProjectState.version : null,
+                doctrinePackageId: doctrinePin?.doctrinePackageId ?? null,
+                doctrinePackageVersion: doctrinePin?.version ?? null,
+                doctrinePackageDigest: doctrinePin?.digest ?? null,
+                trajectory,
+                trajectoryBootstrapPresence,
+                decisions,
+                evidence,
+                epistemicItems,
+                failedMaterialDimensions,
+              },
+              producedAt,
+              createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
+              correlationId: `f1:${project.projectId}`,
+            });
+          if (mat.narrative) {
+            assistantText = mat.narrative;
+          }
+          if (mat.recommendationAttempted) {
+            lifecycleRecommendationMaterialized =
+              mat.materialization?.ok === true;
+            lifecycleRecommendationCode =
+              mat.materialization && !mat.materialization.ok
+                ? mat.materialization.code
+                : mat.materialization?.ok
+                  ? null
+                  : "LR_MATERIALIZE_UNKNOWN";
+          } else {
+            lifecycleRecommendationMaterialized = false;
+          }
+        } else {
+          lifecycleRecommendationMaterialized = false;
+          lifecycleRecommendationCode = "LR_BASIS_UNAVAILABLE";
         }
       }
     }
