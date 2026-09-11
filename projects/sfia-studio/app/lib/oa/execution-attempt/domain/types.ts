@@ -211,6 +211,16 @@ export type StartExecutionRequest = {
    * Git effects require explicit granted Confirmation; never inferred.
    */
   confirmations?: readonly Confirmation[];
+  /**
+   * CR-GCEC-19 — contextual Confirmation target identity (repo/branch/PR/actor).
+   * Combined with docsWriteSpec.repositoryRef when deriving the slice.
+   */
+  confirmationMatch?: {
+    repositoryRef?: string;
+    branchOrRef?: string;
+    prNumber?: number;
+    actorId?: string;
+  };
   /** Effects already independently verified — excluded from re-authorization. */
   verifiedEffects?: readonly CursorAuthorizedEffectId[];
   /** Hostile — ignored, never trusted. */

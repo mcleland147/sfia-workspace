@@ -3,7 +3,10 @@
  * Derived from EC ∩ agent capabilities ∩ HD ∩ Confirmations ∩ runtime policy.
  * Future gated effects are NOT granted in advance.
  * CR-GCEC-15: cap:cursor.docs_write does NOT imply Git effects.
+ * CR-GCEC-19: protected Git effects require effect-target-bound Confirmation
+ * (EC + effect + repo + branch/PR when applicable) — generic scope ≠ target identity.
  */
+import { createHash } from "node:crypto";
 import type { Confirmation } from "@/lib/oa/decision";
 import type { CursorAuthorizedEffectId } from "./cursorExecutionReport";
 
@@ -21,6 +24,9 @@ const FILE_EFFECTS: CursorAuthorizedEffectId[] = [
   "validation.run",
 ];
 
+/** OA identifier max length — actionRef must stay within bound. */
+export const OA_ACTION_REF_MAX_LENGTH = 128;
+
 const GIT_EFFECT_CONFIRMATION_SCOPE: Record<
   Extract<
     CursorAuthorizedEffectId,
@@ -34,6 +40,20 @@ const GIT_EFFECT_CONFIRMATION_SCOPE: Record<
   "github.pr.merge": "git:merge",
 };
 
+function sanitizeIdPart(value: string): string {
+  return value.replace(/[^a-zA-Z0-9:._-]+/g, "");
+}
+
+function sanitizeRepoPart(value: string): string {
+  return value.replace(/[^a-zA-Z0-9._-]+/g, "__");
+}
+
+/**
+ * Canonical Confirmation actionRef for a protected Git effect.
+ * Collision-safe under OA_ACTION_REF_MAX_LENGTH: when the plain form exceeds
+ * the bound, use stable effect prefix + bounded EC + digest of the full
+ * canonical target tuple (never truncate the distinguishing suffix alone).
+ */
 export function buildGitEffectActionRef(input: {
   executionContractId: string;
   effect:
@@ -46,22 +66,60 @@ export function buildGitEffectActionRef(input: {
   prNumber?: number;
 }): string {
   const scope = GIT_EFFECT_CONFIRMATION_SCOPE[input.effect];
-  const safeRepo = input.repositoryRef.replace(/[^a-zA-Z0-9._-]+/g, "__");
-  const safeContract = input.executionContractId.replace(
-    /[^a-zA-Z0-9:._-]+/g,
-    "",
-  );
-  const parts = ["act", scope.replace(/:/g, "-"), safeContract, safeRepo];
+  const scopeToken = scope.replace(/:/g, "-");
+  const safeContract = sanitizeIdPart(input.executionContractId);
+  const safeRepo = sanitizeRepoPart(input.repositoryRef);
+  const parts = ["act", scopeToken, safeContract, safeRepo];
   if (input.branchOrRef) {
-    parts.push(`ref:${input.branchOrRef.replace(/[^a-zA-Z0-9._-]+/g, "__")}`);
+    parts.push(`ref:${sanitizeRepoPart(input.branchOrRef)}`);
   }
   if (input.prNumber != null) parts.push(`pr:${input.prNumber}`);
-  const joined = parts.join(":");
-  // OA identifier max length 128 — keep prefix discriminative.
-  return joined.length <= 128 ? joined : joined.slice(0, 128);
+  const plain = parts.join(":");
+  if (plain.length <= OA_ACTION_REF_MAX_LENGTH) return plain;
+
+  const tuple = [
+    input.executionContractId,
+    input.effect,
+    input.repositoryRef,
+    input.branchOrRef ?? "",
+    input.prNumber != null ? String(input.prNumber) : "",
+  ].join("|");
+  const digest = createHash("sha256").update(tuple).digest("hex").slice(0, 24);
+  const ecBound =
+    safeContract.length <= 48 ? safeContract : safeContract.slice(0, 48);
+  const compact = `act:${scopeToken}:${ecBound}:${digest}`;
+  return compact.length <= OA_ACTION_REF_MAX_LENGTH
+    ? compact
+    : compact.slice(0, OA_ACTION_REF_MAX_LENGTH);
 }
 
-function confirmationGrantsEffect(
+export type GitEffectConfirmationMatch = {
+  executionContractId: string;
+  repositoryRef?: string;
+  branchOrRef?: string;
+  prNumber?: number;
+  actorId?: string;
+};
+
+function scopeIndicatesEffectClass(
+  scope: string,
+  scopeNeedle: string,
+  expectedActionRef: string,
+): boolean {
+  const hyphen = scopeNeedle.replace(/:/g, "-");
+  return (
+    scope.includes(scopeNeedle) ||
+    scope.includes(hyphen) ||
+    scope === expectedActionRef
+  );
+}
+
+/**
+ * CR-GCEC-19 — exact target binding. No startsWith / includes fallback on
+ * actionRef. Generic actionRef or generic scope alone never authorizes a
+ * concrete repo/branch/PR effect.
+ */
+export function confirmationGrantsEffect(
   confirmations: readonly Confirmation[],
   effect:
     | "git.commit"
@@ -69,71 +127,33 @@ function confirmationGrantsEffect(
     | "github.pr.create"
     | "github.pr.merge",
   nowIso: string,
-  match?: {
-    executionContractId?: string;
-    repositoryRef?: string;
-    branchOrRef?: string;
-    prNumber?: number;
-    actorId?: string;
-  },
+  match: GitEffectConfirmationMatch,
 ): boolean {
   const scopeNeedle = GIT_EFFECT_CONFIRMATION_SCOPE[effect];
+  const expected = buildGitEffectActionRef({
+    executionContractId: match.executionContractId,
+    effect,
+    repositoryRef: match.repositoryRef ?? "",
+    branchOrRef: match.branchOrRef,
+    prNumber: match.prNumber,
+  });
+
   return confirmations.some((c) => {
     if (c.status !== "granted") return false;
     if (c.expiresAt && c.expiresAt < nowIso) return false;
     if (
-      match?.actorId &&
+      match.actorId &&
       c.requestedTo &&
       c.requestedTo.actorId !== match.actorId
     ) {
       return false;
     }
-    const scopeOk =
-      c.scope.includes(scopeNeedle) || c.actionRef === scopeNeedle;
-    if (!scopeOk && match?.executionContractId) {
-      const expected = buildGitEffectActionRef({
-        executionContractId: match.executionContractId,
-        effect,
-        repositoryRef: match.repositoryRef ?? "",
-        branchOrRef: match.branchOrRef,
-        prNumber: match.prNumber,
-      });
-      if (c.actionRef !== expected && !c.actionRef.startsWith(expected)) {
-        // Allow exact actionRef built for this effect+target
-        if (
-          !c.actionRef.includes(scopeNeedle.replace(/:/g, "-")) ||
-          (match.repositoryRef &&
-            !c.actionRef.includes(match.repositoryRef.replace(/\//g, "__")))
-        ) {
-          return false;
-        }
-        if (
-          match.prNumber != null &&
-          !c.actionRef.includes(`pr:${match.prNumber}`)
-        ) {
-          return false;
-        }
-        if (
-          match.repositoryRef &&
-          c.actionRef.includes("__") &&
-          !c.actionRef.includes(match.repositoryRef.replace(/\//g, "__"))
-        ) {
-          return false;
-        }
-      }
-    } else if (!scopeOk) {
+    // Generic actionRef / scope must not substitute target identity.
+    if (c.actionRef === scopeNeedle) return false;
+    if (!scopeIndicatesEffectClass(c.scope, scopeNeedle, expected)) {
       return false;
     }
-    // Target binding: if actionRef encodes repo/PR, enforce match
-    if (match?.repositoryRef && c.actionRef.includes("__")) {
-      if (!c.actionRef.includes(match.repositoryRef.replace(/\//g, "__"))) {
-        return false;
-      }
-    }
-    if (match?.prNumber != null && c.actionRef.includes("pr:")) {
-      if (!c.actionRef.includes(`pr:${match.prNumber}`)) return false;
-    }
-    return true;
+    return c.actionRef === expected;
   });
 }
 

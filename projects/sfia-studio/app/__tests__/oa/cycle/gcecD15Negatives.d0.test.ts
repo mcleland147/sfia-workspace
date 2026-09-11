@@ -188,11 +188,14 @@ describe("gcecD15Negatives — N1–N28", () => {
     const q = qualifyExecutionContractCompletion({
       contract: {
         executionContractId: "xct:n1",
+        projectId: "prj:gcec",
+        cycleInstanceId: CYCLE,
         evidenceRequirements: [...GCEC_GIT_COMPLETION_PROOF_FAMILIES],
         expectedOutputs: ["artifact"],
         requiredCapabilities: ["cap:cursor.docs_write"],
       },
       evidence: [],
+      cycleInstanceId: CYCLE,
     });
     expect(q.complete).toBe(false);
     expect(q.nextStatusAfterSuccessfulAttempt).toBe("confirmed");
@@ -514,7 +517,7 @@ describe("gcecD15Negatives — N1–N28", () => {
     expect(r.status).toBe("BLOCKING");
   });
 
-  it("N20 complete when artifact+git effects verified → nextStatus completed", () => {
+  it("N20 CR-GCEC-20 foreign-EC verified Evidence must NOT complete xct:n20", () => {
     const evidence = [
       baseEvidence({
         evidenceId: "ev:art",
@@ -523,12 +526,19 @@ describe("gcecD15Negatives — N1–N28", () => {
         digest: DIGEST,
         location: PATH,
         source: "execution_attempt:docs_write",
+        bindings: {
+          cycleInstanceId: CYCLE,
+          projectId: "prj:gcec",
+          executionContractId: "xct:gcec",
+        },
       }),
       ...fullVerifiedSet(),
     ];
     const q = qualifyExecutionContractCompletion({
       contract: {
         executionContractId: "xct:n20",
+        projectId: "prj:gcec",
+        cycleInstanceId: CYCLE,
         evidenceRequirements: [...GCEC_GIT_COMPLETION_PROOF_FAMILIES],
         expectedOutputs: ["artifact"],
         requiredCapabilities: ["cap:cursor.docs_write"],
@@ -536,8 +546,8 @@ describe("gcecD15Negatives — N1–N28", () => {
       evidence,
       cycleInstanceId: CYCLE,
     });
-    expect(q.complete).toBe(true);
-    expect(q.nextStatusAfterSuccessfulAttempt).toBe("completed");
+    expect(q.complete).toBe(false);
+    expect(q.nextStatusAfterSuccessfulAttempt).toBe("confirmed");
   });
 
   it("N21 verifiedEffects exclude FS from re-authorization", () => {
@@ -638,5 +648,572 @@ describe("gcecD15Negatives — N1–N28", () => {
       "utf8",
     );
     expect(src).toMatch(/confirmations:\s*request\.confirmations\s*\?\?\s*\[\]/);
+  });
+
+  function grantedCnf(partial: {
+    confirmationId: string;
+    actionRef: string;
+    scope: string;
+    requestedTo?: { actorId: string; role: string };
+    expiresAt?: string;
+  }) {
+    return {
+      confirmationId: partial.confirmationId,
+      status: "granted" as const,
+      actionRef: partial.actionRef,
+      scope: partial.scope,
+      level: "N3" as const,
+      requestedBy: { actorId: "a", role: "system" },
+      requestedTo: partial.requestedTo ?? { actorId: "a", role: "system" },
+      version: 1,
+      createdAt: "2026-09-11T10:00:00.000Z",
+      updatedAt: "2026-09-11T10:00:00.000Z",
+      expiresAt: partial.expiresAt,
+    } as never;
+  }
+
+  it("C19-N1 generic actionRef git:merge + correct scope + concrete match → REFUSED", () => {
+    const slice = deriveAuthorizedExecutionSlice({
+      executionContractId: "xct:c19n1",
+      evidenceRequirements: ["git:merge"],
+      confirmations: [
+        grantedCnf({
+          confirmationId: "cnf:c19n1",
+          actionRef: "git:merge",
+          scope: "git:merge",
+        }),
+      ],
+      confirmationMatch: {
+        repositoryRef: REPO,
+        prNumber: 7,
+        branchOrRef: "main",
+      },
+    });
+    expect(slice.authorizedEffects).not.toContain("github.pr.merge");
+    expect(slice.blockedEffects).toContain("github.pr.merge");
+  });
+
+  it("C19-N2 correct effect wrong executionContractId → REFUSED", () => {
+    const actionRef = buildGitEffectActionRef({
+      executionContractId: "xct:other",
+      effect: "git.push",
+      repositoryRef: REPO,
+      branchOrRef: "gcec/docs",
+    });
+    const slice = deriveAuthorizedExecutionSlice({
+      executionContractId: "xct:c19n2",
+      evidenceRequirements: ["git:remote_push"],
+      confirmations: [
+        grantedCnf({
+          confirmationId: "cnf:c19n2",
+          actionRef,
+          scope: "git:remote_push",
+        }),
+      ],
+      confirmationMatch: { repositoryRef: REPO, branchOrRef: "gcec/docs" },
+    });
+    expect(slice.authorizedEffects).not.toContain("git.push");
+  });
+
+  it("C19-N3 correct EC wrong repository → REFUSED", () => {
+    const actionRef = buildGitEffectActionRef({
+      executionContractId: "xct:c19n3",
+      effect: "git.commit",
+      repositoryRef: "other/repo",
+      branchOrRef: "gcec/docs",
+    });
+    const slice = deriveAuthorizedExecutionSlice({
+      executionContractId: "xct:c19n3",
+      evidenceRequirements: ["git:local_commit"],
+      confirmations: [
+        grantedCnf({
+          confirmationId: "cnf:c19n3",
+          actionRef,
+          scope: "git:local_commit",
+        }),
+      ],
+      confirmationMatch: { repositoryRef: REPO, branchOrRef: "gcec/docs" },
+    });
+    expect(slice.authorizedEffects).not.toContain("git.commit");
+  });
+
+  it("C19-N4 correct repo wrong branch for push → REFUSED", () => {
+    const actionRef = buildGitEffectActionRef({
+      executionContractId: "xct:c19n4",
+      effect: "git.push",
+      repositoryRef: REPO,
+      branchOrRef: "wrong/branch",
+    });
+    const slice = deriveAuthorizedExecutionSlice({
+      executionContractId: "xct:c19n4",
+      evidenceRequirements: ["git:remote_push"],
+      confirmations: [
+        grantedCnf({
+          confirmationId: "cnf:c19n4",
+          actionRef,
+          scope: "git:remote_push",
+        }),
+      ],
+      confirmationMatch: { repositoryRef: REPO, branchOrRef: "gcec/docs" },
+    });
+    expect(slice.authorizedEffects).not.toContain("git.push");
+  });
+
+  it("C19-N5 correct repo wrong PR number for merge → REFUSED", () => {
+    const actionRef = buildGitEffectActionRef({
+      executionContractId: "xct:c19n5",
+      effect: "github.pr.merge",
+      repositoryRef: REPO,
+      prNumber: 99,
+    });
+    const slice = deriveAuthorizedExecutionSlice({
+      executionContractId: "xct:c19n5",
+      evidenceRequirements: ["git:merge"],
+      confirmations: [
+        grantedCnf({
+          confirmationId: "cnf:c19n5",
+          actionRef,
+          scope: "git:merge",
+        }),
+      ],
+      confirmationMatch: { repositoryRef: REPO, prNumber: 1 },
+    });
+    expect(slice.authorizedEffects).not.toContain("github.pr.merge");
+  });
+
+  it("C19-N6 correct target wrong requestedTo actor → REFUSED", () => {
+    const actionRef = buildGitEffectActionRef({
+      executionContractId: "xct:c19n6",
+      effect: "git.commit",
+      repositoryRef: REPO,
+      branchOrRef: "gcec/docs",
+    });
+    const slice = deriveAuthorizedExecutionSlice({
+      executionContractId: "xct:c19n6",
+      evidenceRequirements: ["git:local_commit"],
+      confirmations: [
+        grantedCnf({
+          confirmationId: "cnf:c19n6",
+          actionRef,
+          scope: "git:local_commit",
+          requestedTo: { actorId: "actor:other", role: "human" },
+        }),
+      ],
+      confirmationMatch: {
+        repositoryRef: REPO,
+        branchOrRef: "gcec/docs",
+        actorId: "actor:pilote",
+      },
+    });
+    expect(slice.authorizedEffects).not.toContain("git.commit");
+  });
+
+  it("C19-N7 expired Confirmation → REFUSED", () => {
+    const actionRef = buildGitEffectActionRef({
+      executionContractId: "xct:c19n7",
+      effect: "git.commit",
+      repositoryRef: REPO,
+      branchOrRef: "gcec/docs",
+    });
+    const slice = deriveAuthorizedExecutionSlice({
+      executionContractId: "xct:c19n7",
+      evidenceRequirements: ["git:local_commit"],
+      nowIso: "2026-09-11T12:00:00.000Z",
+      confirmations: [
+        grantedCnf({
+          confirmationId: "cnf:c19n7",
+          actionRef,
+          scope: "git:local_commit",
+          expiresAt: "2026-09-11T11:00:00.000Z",
+        }),
+      ],
+      confirmationMatch: { repositoryRef: REPO, branchOrRef: "gcec/docs" },
+    });
+    expect(slice.authorizedEffects).not.toContain("git.commit");
+  });
+
+  it("C19-N8 exact canonical actionRef + correct scope/actor → AUTHORIZED", () => {
+    const actionRef = buildGitEffectActionRef({
+      executionContractId: "xct:c19n8",
+      effect: "github.pr.merge",
+      repositoryRef: REPO,
+      prNumber: 1,
+      branchOrRef: "main",
+    });
+    const slice = deriveAuthorizedExecutionSlice({
+      executionContractId: "xct:c19n8",
+      evidenceRequirements: ["git:merge"],
+      confirmations: [
+        grantedCnf({
+          confirmationId: "cnf:c19n8",
+          actionRef,
+          scope: "git:merge",
+          requestedTo: { actorId: "actor:pilote", role: "human" },
+        }),
+      ],
+      confirmationMatch: {
+        repositoryRef: REPO,
+        prNumber: 1,
+        branchOrRef: "main",
+        actorId: "actor:pilote",
+      },
+    });
+    expect(slice.authorizedEffects).toContain("github.pr.merge");
+  });
+
+  it("C19 collision-safe actionRef: different PR → different refs under length bound", () => {
+    const longEc = `xct:${"n".repeat(80)}`;
+    const a = buildGitEffectActionRef({
+      executionContractId: longEc,
+      effect: "github.pr.merge",
+      repositoryRef: "org/very-long-repository-name-for-collision-test",
+      branchOrRef: "feature/very-long-branch-name-aaaaaaaa",
+      prNumber: 1,
+    });
+    const b = buildGitEffectActionRef({
+      executionContractId: longEc,
+      effect: "github.pr.merge",
+      repositoryRef: "org/very-long-repository-name-for-collision-test",
+      branchOrRef: "feature/very-long-branch-name-aaaaaaaa",
+      prNumber: 2,
+    });
+    expect(a.length).toBeLessThanOrEqual(128);
+    expect(b.length).toBeLessThanOrEqual(128);
+    expect(a).not.toBe(b);
+  });
+
+  function evidenceForContract(
+    executionContractId: string,
+    extras?: Partial<Evidence>,
+  ): Evidence[] {
+    const art = baseEvidence({
+      evidenceId: `ev:art:${executionContractId}`,
+      type: "artifact",
+      status: "verified",
+      digest: DIGEST,
+      location: PATH,
+      source: "execution_attempt:docs_write",
+      bindings: {
+        cycleInstanceId: CYCLE,
+        projectId: "prj:gcec",
+        executionContractId,
+      },
+      ...extras,
+    });
+    const git = fullVerifiedSet().map((e) => ({
+      ...e,
+      evidenceId: `${e.evidenceId}:${executionContractId}`,
+      bindings: {
+        cycleInstanceId: CYCLE,
+        projectId: "prj:gcec",
+        executionContractId,
+      },
+    }));
+    return [art, ...git];
+  }
+
+  it("C20-N1 all Evidence verified but foreign EC → complete=false", () => {
+    const q = qualifyExecutionContractCompletion({
+      contract: {
+        executionContractId: "xct:c20n1",
+        projectId: "prj:gcec",
+        cycleInstanceId: CYCLE,
+        evidenceRequirements: [...GCEC_GIT_COMPLETION_PROOF_FAMILIES],
+        expectedOutputs: ["artifact"],
+        requiredCapabilities: ["cap:cursor.docs_write"],
+      },
+      evidence: evidenceForContract("xct:foreign"),
+      cycleInstanceId: CYCLE,
+    });
+    expect(q.complete).toBe(false);
+  });
+
+  it("C20-N2 all Evidence verified but foreign project → complete=false", () => {
+    const evidence = evidenceForContract("xct:c20n2").map((e) => ({
+      ...e,
+      bindings: {
+        ...e.bindings!,
+        projectId: "prj:foreign",
+        executionContractId: "xct:c20n2",
+      },
+    }));
+    const q = qualifyExecutionContractCompletion({
+      contract: {
+        executionContractId: "xct:c20n2",
+        projectId: "prj:gcec",
+        cycleInstanceId: CYCLE,
+        evidenceRequirements: [...GCEC_GIT_COMPLETION_PROOF_FAMILIES],
+        expectedOutputs: ["artifact"],
+        requiredCapabilities: ["cap:cursor.docs_write"],
+      },
+      evidence,
+      cycleInstanceId: CYCLE,
+    });
+    expect(q.complete).toBe(false);
+  });
+
+  it("C20-N3 all Evidence verified but foreign cycle → complete=false", () => {
+    const evidence = evidenceForContract("xct:c20n3").map((e) => ({
+      ...e,
+      bindings: {
+        ...e.bindings!,
+        cycleInstanceId: "cyc:foreign",
+        executionContractId: "xct:c20n3",
+      },
+    }));
+    const q = qualifyExecutionContractCompletion({
+      contract: {
+        executionContractId: "xct:c20n3",
+        projectId: "prj:gcec",
+        cycleInstanceId: CYCLE,
+        evidenceRequirements: [...GCEC_GIT_COMPLETION_PROOF_FAMILIES],
+        expectedOutputs: ["artifact"],
+        requiredCapabilities: ["cap:cursor.docs_write"],
+      },
+      evidence,
+      cycleInstanceId: CYCLE,
+    });
+    expect(q.complete).toBe(false);
+  });
+
+  it("C20-N4 binding absent → complete=false", () => {
+    const evidence = evidenceForContract("xct:c20n4").map((e) => {
+      const { bindings: _b, ...rest } = e;
+      return rest as Evidence;
+    });
+    const q = qualifyExecutionContractCompletion({
+      contract: {
+        executionContractId: "xct:c20n4",
+        projectId: "prj:gcec",
+        cycleInstanceId: CYCLE,
+        evidenceRequirements: [...GCEC_GIT_COMPLETION_PROOF_FAMILIES],
+        expectedOutputs: ["artifact"],
+        requiredCapabilities: ["cap:cursor.docs_write"],
+      },
+      evidence,
+      cycleInstanceId: CYCLE,
+    });
+    expect(q.complete).toBe(false);
+  });
+
+  it("C20-P1 exact project/cycle/EC bindings → complete=true", () => {
+    const q = qualifyExecutionContractCompletion({
+      contract: {
+        executionContractId: "xct:c20p1",
+        projectId: "prj:gcec",
+        cycleInstanceId: CYCLE,
+        evidenceRequirements: [...GCEC_GIT_COMPLETION_PROOF_FAMILIES],
+        expectedOutputs: ["artifact"],
+        requiredCapabilities: ["cap:cursor.docs_write"],
+      },
+      evidence: evidenceForContract("xct:c20p1"),
+      cycleInstanceId: CYCLE,
+    });
+    expect(q.complete).toBe(true);
+    expect(q.nextStatusAfterSuccessfulAttempt).toBe("completed");
+  });
+
+  it("C21-N1 VERIFIED Artifact only + explicit validation → NOT complete", () => {
+    const q = qualifyExecutionContractCompletion({
+      contract: {
+        executionContractId: "xct:c21n1",
+        projectId: "prj:gcec",
+        cycleInstanceId: CYCLE,
+        evidenceRequirements: ["artifact", "validation"],
+        expectedOutputs: ["artifact"],
+        requiredCapabilities: ["cap:cursor.docs_write"],
+      },
+      evidence: [
+        baseEvidence({
+          evidenceId: "ev:c21n1-art",
+          type: "artifact",
+          status: "verified",
+          digest: DIGEST,
+          location: PATH,
+          source: "execution_attempt:docs_write",
+          bindings: {
+            cycleInstanceId: CYCLE,
+            projectId: "prj:gcec",
+            executionContractId: "xct:c21n1",
+          },
+        }),
+      ],
+      cycleInstanceId: CYCLE,
+    });
+    expect(q.complete).toBe(false);
+    expect(q.remainingRequiredEffects).toContain("validation.run");
+  });
+
+  it("C21-N2 VERIFIED Artifact only + no validation requirement → validation does not block", () => {
+    const q = qualifyExecutionContractCompletion({
+      contract: {
+        executionContractId: "xct:c21n2",
+        projectId: "prj:gcec",
+        cycleInstanceId: CYCLE,
+        evidenceRequirements: ["artifact"],
+        expectedOutputs: ["artifact"],
+        requiredCapabilities: ["cap:cursor.docs_write"],
+      },
+      evidence: [
+        baseEvidence({
+          evidenceId: "ev:c21n2-art",
+          type: "artifact",
+          status: "verified",
+          digest: DIGEST,
+          location: PATH,
+          source: "execution_attempt:docs_write",
+          bindings: {
+            cycleInstanceId: CYCLE,
+            projectId: "prj:gcec",
+            executionContractId: "xct:c21n2",
+          },
+        }),
+      ],
+      cycleInstanceId: CYCLE,
+    });
+    expect(q.complete).toBe(true);
+    expect(q.remainingRequiredEffects).not.toContain("validation.run");
+  });
+
+  it("C21-N3 VERIFIED validation + missing Artifact when required → NOT complete", () => {
+    const q = qualifyExecutionContractCompletion({
+      contract: {
+        executionContractId: "xct:c21n3",
+        projectId: "prj:gcec",
+        cycleInstanceId: CYCLE,
+        evidenceRequirements: ["artifact", "validation"],
+        expectedOutputs: ["artifact"],
+        requiredCapabilities: ["cap:cursor.docs_write"],
+      },
+      evidence: [
+        baseEvidence({
+          evidenceId: "ev:c21n3-val",
+          type: "other",
+          status: "verified",
+          source: "validation.run",
+          bindings: {
+            cycleInstanceId: CYCLE,
+            projectId: "prj:gcec",
+            executionContractId: "xct:c21n3",
+          },
+        }),
+      ],
+      cycleInstanceId: CYCLE,
+    });
+    expect(q.complete).toBe(false);
+    expect(q.remainingRequiredEffects).toContain("filesystem.create");
+  });
+
+  it("C21-P1 Artifact + validation verified → complete", () => {
+    const q = qualifyExecutionContractCompletion({
+      contract: {
+        executionContractId: "xct:c21p1",
+        projectId: "prj:gcec",
+        cycleInstanceId: CYCLE,
+        evidenceRequirements: ["artifact", "validation"],
+        expectedOutputs: ["artifact"],
+        requiredCapabilities: ["cap:cursor.docs_write"],
+      },
+      evidence: [
+        baseEvidence({
+          evidenceId: "ev:c21p1-art",
+          type: "artifact",
+          status: "verified",
+          digest: DIGEST,
+          location: PATH,
+          source: "execution_attempt:docs_write",
+          bindings: {
+            cycleInstanceId: CYCLE,
+            projectId: "prj:gcec",
+            executionContractId: "xct:c21p1",
+          },
+        }),
+        baseEvidence({
+          evidenceId: "ev:c21p1-val",
+          type: "other",
+          status: "verified",
+          source: "validation.run",
+          bindings: {
+            cycleInstanceId: CYCLE,
+            projectId: "prj:gcec",
+            executionContractId: "xct:c21p1",
+          },
+        }),
+      ],
+      cycleInstanceId: CYCLE,
+    });
+    expect(q.complete).toBe(true);
+  });
+
+  it("C21-N4 Artifact source cannot be interpreted as validation/tests", () => {
+    const q = qualifyExecutionContractCompletion({
+      contract: {
+        executionContractId: "xct:c21n4",
+        projectId: "prj:gcec",
+        cycleInstanceId: CYCLE,
+        evidenceRequirements: ["validation"],
+        requiredCapabilities: [],
+      },
+      evidence: [
+        baseEvidence({
+          evidenceId: "ev:c21n4-art",
+          type: "artifact",
+          status: "verified",
+          digest: DIGEST,
+          location: PATH,
+          source: "artifact",
+          bindings: {
+            cycleInstanceId: CYCLE,
+            projectId: "prj:gcec",
+            executionContractId: "xct:c21n4",
+          },
+        }),
+      ],
+      cycleInstanceId: CYCLE,
+    });
+    expect(q.complete).toBe(false);
+    expect(q.remainingRequiredEffects).toContain("validation.run");
+  });
+
+  it("C21-N5 validation Evidence from foreign EC → cannot satisfy", () => {
+    const q = qualifyExecutionContractCompletion({
+      contract: {
+        executionContractId: "xct:c21n5",
+        projectId: "prj:gcec",
+        cycleInstanceId: CYCLE,
+        evidenceRequirements: ["artifact", "validation"],
+        expectedOutputs: ["artifact"],
+        requiredCapabilities: ["cap:cursor.docs_write"],
+      },
+      evidence: [
+        baseEvidence({
+          evidenceId: "ev:c21n5-art",
+          type: "artifact",
+          status: "verified",
+          digest: DIGEST,
+          location: PATH,
+          source: "execution_attempt:docs_write",
+          bindings: {
+            cycleInstanceId: CYCLE,
+            projectId: "prj:gcec",
+            executionContractId: "xct:c21n5",
+          },
+        }),
+        baseEvidence({
+          evidenceId: "ev:c21n5-val",
+          type: "other",
+          status: "verified",
+          source: "validation.run",
+          bindings: {
+            cycleInstanceId: CYCLE,
+            projectId: "prj:gcec",
+            executionContractId: "xct:foreign",
+          },
+        }),
+      ],
+      cycleInstanceId: CYCLE,
+    });
+    expect(q.complete).toBe(false);
+    expect(q.remainingRequiredEffects).toContain("validation.run");
   });
 });

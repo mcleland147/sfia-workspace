@@ -885,14 +885,43 @@ export class StartExecution {
       (Array.isArray(contract.evidenceRequirements)
         ? contract.evidenceRequirements.map(String)
         : []);
+    const inputsBranch =
+      contract.inputs && typeof contract.inputs === "object"
+        ? (contract.inputs as Record<string, unknown>)
+        : {};
+    const branchFromInputs =
+      (typeof inputsBranch.workingBranch === "string" &&
+      inputsBranch.workingBranch.trim()
+        ? inputsBranch.workingBranch.trim()
+        : undefined) ??
+      (typeof inputsBranch.branchName === "string" &&
+      inputsBranch.branchName.trim()
+        ? inputsBranch.branchName.trim()
+        : undefined) ??
+      (typeof inputsBranch.headRef === "string" && inputsBranch.headRef.trim()
+        ? inputsBranch.headRef.trim()
+        : undefined);
+    const prFromInputs =
+      typeof inputsBranch.prNumber === "number"
+        ? inputsBranch.prNumber
+        : typeof inputsBranch.prNumber === "string" &&
+            /^\d+$/.test(inputsBranch.prNumber)
+          ? Number(inputsBranch.prNumber)
+          : undefined;
     const authorizedSlice = deriveAuthorizedExecutionSlice({
       executionContractId: contract.executionContractId,
       evidenceRequirements,
       confirmations: request.confirmations ?? [],
       verifiedEffects: request.verifiedEffects,
-      confirmationMatch: docsWriteSpec
-        ? { repositoryRef: docsWriteSpec.repositoryRef }
-        : undefined,
+      confirmationMatch: {
+        repositoryRef:
+          request.confirmationMatch?.repositoryRef ??
+          docsWriteSpec?.repositoryRef,
+        branchOrRef:
+          request.confirmationMatch?.branchOrRef ?? branchFromInputs,
+        prNumber: request.confirmationMatch?.prNumber ?? prFromInputs,
+        actorId: request.confirmationMatch?.actorId,
+      },
     });
     if (
       authorizedSlice.authorizedEffects.length === 0 &&

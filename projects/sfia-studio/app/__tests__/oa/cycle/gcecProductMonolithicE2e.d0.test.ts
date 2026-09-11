@@ -26,6 +26,9 @@ import {
   qualifyGitCompletionProofSet,
   type TrajectoryStep,
 } from "@/lib/oa/cycle";
+import { prepareCycleFromValidatedTrajectory, selectEligiblePendingTrajectorySteps } from "@/lib/oa/cycle/application/lifecycleRecommendation/prepareCycleFromValidatedTrajectory";
+import { validateLifecycleRecommendation } from "@/lib/oa/cycle/application/lifecycleRecommendation/validateLifecycleRecommendation";
+import { completeBoundTrajectoryStepAction } from "@/features/project-assistant/f2/pilotLifecycleActions";
 import {
   advanceExecutionContractCompletion,
   buildGitEffectActionRef,
@@ -98,6 +101,7 @@ afterEach(() => {
 
 beforeEach(() => {
   process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+  process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
   resetF2ProposalStoreForTests();
   resetRuntimeApplicationServiceForTests();
 });
@@ -234,6 +238,12 @@ async function selectGateStartSlice(input: {
   grantId: string;
   authorityEvidenceId: string;
   confirmations?: readonly Confirmation[];
+  confirmationMatch?: {
+    repositoryRef?: string;
+    branchOrRef?: string;
+    prNumber?: number;
+    actorId?: string;
+  };
   verifiedEffects?: readonly (
     | "filesystem.create"
     | "filesystem.modify"
@@ -276,6 +286,7 @@ async function selectGateStartSlice(input: {
     actor: PILOTE,
     authorityEvidenceId: input.authorityEvidenceId,
     confirmations: input.confirmations ?? [],
+    confirmationMatch: input.confirmationMatch,
     verifiedEffects: input.verifiedEffects,
   });
   expect(started.ok).toBe(true);
@@ -352,13 +363,13 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () => 
     });
     expect(bound.ok).toBe(true);
 
-    // 3 Create + START cycle (functional-design) with done trajectory for finalize
-    const stepsDone: TrajectoryStep[] = [
+    // 3 Create + START cycle — trajectory step starts active (not pre-done).
+    const stepsInFlight: TrajectoryStep[] = [
       {
         stepId: "stp:fd",
         order: 1,
         label: "Functional design",
-        state: "done",
+        state: "active",
         cycleTypeId: "cyc:functional-design",
       },
     ];
@@ -370,12 +381,13 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () => 
     const traj = await oa.cycleServices.createInitialTrajectory.execute({
       trajectoryId: `trj:${projectId}`,
       projectId,
-      steps: stepsDone,
+      steps: stepsInFlight,
       status: "active",
       expectedLpsVersion: lps0.livingProjectState.version,
       createdBy: PILOTE,
     });
     expect(traj.ok).toBe(true);
+    if (!traj.ok) return;
 
     const cycleInstanceId = `cyc:gcec-prod-${Date.now()}`;
     const cycleCreated = await oa.cycleServices.createCycle.execute({
@@ -409,6 +421,17 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () => 
     expect(startedCycle.ok).toBe(true);
     if (!startedCycle.ok) return;
     expect(startedCycle.cycle.status).toBe("active");
+
+    // Bind trajectory after LEGACY START so Product completeBoundTrajectoryStep
+    // can close the active step without COMPLETE greenfield START readiness.
+    const cycleForBind = await oa.cycleServices.cycles.findById(cycleInstanceId);
+    expect(cycleForBind).toBeTruthy();
+    await oa.cycleServices.cycles.save({
+      ...cycleForBind!,
+      trajectoryId: traj.trajectory.trajectoryId,
+      trajectoryVersion: traj.trajectory.version,
+      trajectoryStepId: "stp:fd",
+    });
 
     // 4–5 F2 Fake → Proposal → recordF2Decision (HD)
     const overview = await runtime.getProject(projectId);
@@ -875,7 +898,9 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () => 
         executionContractId: contract.executionContractId,
         effect: slice.effect,
         repositoryRef: IDENTITY,
-        branchOrRef: BRANCH,
+        branchOrRef:
+          slice.effect === "github.pr.merge" ? "main" : BRANCH,
+        prNumber: slice.effect === "github.pr.merge" ? 1 : undefined,
       });
       const cnf = await grantEffectConfirmation({
         runtime,
@@ -911,6 +936,13 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () => 
         grantId: `gd:${slice.attemptSuffix}:${attemptId}`,
         authorityEvidenceId: requireAuthEvidenceId(execAuth),
         confirmations: [...grantedGitConfirmations],
+        confirmationMatch: {
+          repositoryRef: IDENTITY,
+          branchOrRef:
+            slice.effect === "github.pr.merge" ? "main" : BRANCH,
+          prNumber: slice.effect === "github.pr.merge" ? 1 : undefined,
+          actorId: PILOTE.actorId,
+        },
         // D-GCEC-15 — prior FS + completed git effects excluded; only current slice runs.
         verifiedEffects: [
           "filesystem.create",
@@ -1008,6 +1040,24 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () => 
     if (!advanced.ok) return;
     expect(advanced.status).toBe("completed");
 
+    // 19b CR-GCEC-22 — close active trajectory step via Product use-case before FINALIZE
+    const closedStep = await completeBoundTrajectoryStepAction({
+      projectId,
+      cycleInstanceId,
+      cycleServices: oa.cycleServices,
+      authorityResolver: oa.authorityResolver,
+      nowIso: () => NOW,
+    });
+    if (!closedStep.ok) {
+      throw new Error(`close step: ${closedStep.code} ${closedStep.message}`);
+    }
+    expect(closedStep.ok).toBe(true);
+    const trajClosed =
+      await oa.cycleServices.trajectories.findCurrentByProjectId(projectId);
+    expect(
+      trajClosed?.steps.find((s) => s.stepId === "stp:fd")?.state,
+    ).toBe("done");
+
     // 20 FinalizationAssessment + FINALIZE HD + finalize
     // Do NOT waive governed families with NO_GOVERNED_EFFECTS — GCEC proofs are present.
     const finalizeHd = await oa.decisionServices.recordHumanDecision.execute({
@@ -1029,6 +1079,11 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () => 
     });
     expect(finalizeHd.ok).toBe(true);
 
+    const cyclesBeforeFinalize = await oa.cycleServices.cycles.listByProject(
+      projectId,
+    );
+    const cycleCountBefore = cyclesBeforeFinalize.length;
+
     const finalized = await oa.cycleServices.pilotLifecycle.finalize({
       cycleInstanceId,
       projectId,
@@ -1041,10 +1096,84 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () => 
     expect(finalized.assessment?.canComplete).toBe(true);
     expect(finalized.cycle.status).toBe("completed");
 
-    // 21 no reprepare of completed trajectory step
+    // 21 CR-GCEC-22 — actual Product reprepare refusal + no implicit next cycle
+    const cyclesAfter = await oa.cycleServices.cycles.listByProject(projectId);
+    expect(cyclesAfter).toHaveLength(cycleCountBefore);
+    expect(cyclesAfter.every((c) => c.cycleInstanceId === cycleInstanceId || c.status !== "active")).toBe(
+      true,
+    );
+    expect(cyclesAfter.filter((c) => c.status === "active")).toHaveLength(0);
+    expect(
+      cyclesAfter.find((c) => c.cycleInstanceId === cycleInstanceId)?.status,
+    ).toBe("completed");
+
+    const lpsAfter =
+      await oa.projectServices.getCurrentLivingProjectState.execute({
+        projectId,
+      });
+    expect(lpsAfter.ok).toBe(true);
+    if (!lpsAfter.ok) return;
+    expect(
+      lpsAfter.livingProjectState.activeCycleInstanceId == null,
+    ).toBe(true);
+
     const trajAfter =
       await oa.cycleServices.trajectories.findCurrentByProjectId(projectId);
-    expect(trajAfter?.steps.every((s) => s.state === "done")).toBe(true);
+    expect(trajAfter?.steps.find((s) => s.stepId === "stp:fd")?.state).toBe(
+      "done",
+    );
+
+    const reprepare = await prepareCycleFromValidatedTrajectory({
+      oa,
+      projectId,
+    });
+    expect(reprepare.ok).toBe(false);
+    if (!reprepare.ok) {
+      // Same completed step is not preparable (no eligible pending for fd;
+      // or missing candidate-trajectory HD — either is Product refusal).
+      expect([
+        "TRAJECTORY_STEP_SELECTION_REQUIRED",
+        "TRAJECTORY_DECISION_REF_MISSING",
+        "HUMAN_DECISION_SOURCE_MISMATCH",
+        "HUMAN_DECISION_MISSING",
+        "PREPARE_REUSE_TERMINAL",
+        "TRAJECTORY_NOT_VALIDATED",
+      ]).toContain(reprepare.code);
+    }
+
+    const eligible = selectEligiblePendingTrajectorySteps(trajAfter!);
+    expect(eligible.some((s) => s.stepId === "stp:fd")).toBe(false);
+    expect(eligible).toHaveLength(0);
+
+    // No implicit next CycleInstance created / started.
+    expect(cyclesAfter).toHaveLength(1);
+
+    const lrRefuse = validateLifecycleRecommendation({
+      projectId,
+      cycles: cyclesAfter,
+      lpsActiveCycleInstanceId:
+        lpsAfter.livingProjectState.activeCycleInstanceId ?? null,
+      hasTrajectoryContext: true,
+      candidate: {
+        intent: "NEXT_CYCLE",
+        subjectCycleInstanceId: null,
+        targetCycleInstanceId: cycleInstanceId,
+        targetCycleTypeId: null,
+        statement: "Reopen completed cycle",
+        qualificationSignals: {
+          structuralChange: false,
+          securityImpact: false,
+          architectureImpact: false,
+          dataImpact: false,
+          irreversible: false,
+          lowRiskBounded: true,
+        },
+      },
+    });
+    expect(lrRefuse.ok).toBe(false);
+    if (!lrRefuse.ok) {
+      expect(lrRefuse.code).toBe("LR_TARGET_STATUS");
+    }
 
     // Fake Cursor owned mutations — Studio never ran git write after fixture
     expect(fakeLaunch.calls.length).toBeGreaterThanOrEqual(2);
