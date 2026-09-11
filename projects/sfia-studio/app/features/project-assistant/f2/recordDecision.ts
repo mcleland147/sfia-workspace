@@ -120,6 +120,7 @@ function buildDecisionBasis(input: {
             reversibilityExpectation: ei.reversibilityExpectation ?? null,
             artifactBrief: ei.artifactBrief ?? null,
             contentRequirements: ei.contentRequirements ?? [],
+            exitRequirementKinds: ei.exitRequirementKinds ?? [],
           },
         }
       : {}),
@@ -183,6 +184,9 @@ function buildDecisionBasis(input: {
             artifactBrief: ei.artifactBrief ?? undefined,
             contentRequirements: ei.contentRequirements
               ? [...ei.contentRequirements]
+              : undefined,
+            exitRequirementKinds: ei.exitRequirementKinds
+              ? [...ei.exitRequirementKinds]
               : undefined,
           }
         : {}),

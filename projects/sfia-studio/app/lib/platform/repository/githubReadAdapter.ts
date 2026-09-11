@@ -71,6 +71,22 @@ export interface GithubReadPort {
     name: string,
     ref: string,
   ): Promise<GithubCheckView[]>;
+  /** Optional — Nora repository context (read-only). */
+  listPullRequests?(
+    owner: string,
+    name: string,
+    options?: { limit?: number; state?: "open" | "closed" | "all" },
+  ): Promise<GithubPullRequestView[]>;
+  listPullRequestFiles?(
+    owner: string,
+    name: string,
+    number: number,
+  ): Promise<string[]>;
+  getPullRequestDiff?(
+    owner: string,
+    name: string,
+    number: number,
+  ): Promise<string>;
 }
 
 function assertRepo(owner: string, name: string): void {
@@ -258,6 +274,81 @@ export class GhCliGithubReadAdapter implements GithubReadPort {
       status: c.status,
       conclusion: c.conclusion,
     }));
+  }
+
+  async listPullRequests(
+    owner: string,
+    name: string,
+    options?: { limit?: number; state?: "open" | "closed" | "all" },
+  ): Promise<GithubPullRequestView[]> {
+    assertRepo(owner, name);
+    const limit = Math.min(Math.max(options?.limit ?? 5, 1), 20);
+    const state = options?.state ?? "open";
+    const data = ghJson([
+      "pr",
+      "list",
+      "--repo",
+      `${owner}/${name}`,
+      "--limit",
+      String(limit),
+      "--state",
+      state,
+      "--json",
+      "number,title,state,headRefName,baseRefName,url",
+    ]) as Array<{
+      number: number;
+      title: string;
+      state: string;
+      headRefName: string;
+      baseRefName: string;
+      url: string;
+    }>;
+    return data.map((p) => ({
+      number: p.number,
+      title: redactSecrets(p.title),
+      state: p.state,
+      headRef: p.headRefName,
+      baseRef: p.baseRefName,
+      url: p.url,
+    }));
+  }
+
+  async listPullRequestFiles(
+    owner: string,
+    name: string,
+    number: number,
+  ): Promise<string[]> {
+    assertRepo(owner, name);
+    const data = ghJson([
+      "pr",
+      "view",
+      String(number),
+      "--repo",
+      `${owner}/${name}`,
+      "--json",
+      "files",
+    ]) as { files?: Array<{ path: string }> };
+    return (data.files ?? []).map((f) => f.path);
+  }
+
+  async getPullRequestDiff(
+    owner: string,
+    name: string,
+    number: number,
+  ): Promise<string> {
+    assertRepo(owner, name);
+    const out = execFileSync(
+      "gh",
+      ["pr", "diff", String(number), "--repo", `${owner}/${name}`],
+      {
+        encoding: "utf8",
+        timeout: CT_TOOL_TIMEOUT_MS,
+        maxBuffer: 2 * 1024 * 1024,
+        stdio: ["ignore", "pipe", "pipe"],
+        env: { ...process.env },
+      },
+    );
+    return truncateText(redactSecrets(out), CT_MAX_TOOL_RESULT_CHARS).text;
   }
 }
 

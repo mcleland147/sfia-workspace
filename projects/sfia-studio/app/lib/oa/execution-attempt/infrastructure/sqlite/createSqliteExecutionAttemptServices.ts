@@ -69,6 +69,7 @@ export type CreateSqliteExecutionAttemptServicesOptions = {
   realBoundary?: {
     readonly launchPort: RealExecutionLaunchPort;
     readonly safetyJournal: RealLaunchSafetyJournalPort;
+    readonly managedRepoRootBase?: string;
   };
 };
 
@@ -185,6 +186,7 @@ export function createSqliteExecutionAttemptServices(
       store,
       realBoundary?.launchPort,
       realBoundary?.safetyJournal,
+      realBoundary?.managedRepoRootBase,
     ),
     cancelExecutionAttempt: new CancelExecutionAttempt(
       attempts,

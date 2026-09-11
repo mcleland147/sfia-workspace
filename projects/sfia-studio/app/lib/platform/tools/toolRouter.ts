@@ -284,6 +284,16 @@ export function resolveToolPathOrRef(
           : asOptionalPositiveInt(args.number);
       return number ? `github:pr:#${number}` : "github:pr";
     }
+    case "github_list_pull_requests":
+      return "github:pr-list";
+    case "github_list_pr_files": {
+      const number = asOptionalPositiveInt(args.number);
+      return number ? `github:pr-files:#${number}` : "github:pr-files";
+    }
+    case "github_get_pr_diff": {
+      const number = asOptionalPositiveInt(args.number);
+      return number ? `github:pr-diff:#${number}` : "github:pr-diff";
+    }
     case "github_list_checks": {
       const ref = asString(args.ref);
       return ref ? `github:checks:${ref}` : "github:checks";
@@ -616,6 +626,75 @@ export async function routeToolCall(
             );
             data = r;
             summary = `PR #${r.number} ${r.state}`;
+            break;
+          }
+          case "github_list_pull_requests": {
+            if (!adapter.listPullRequests) {
+              return failResult(
+                request.toolCallId,
+                name,
+                "TRANSPORT_UNAVAILABLE",
+                "listPullRequests not available on this adapter",
+                started,
+                transport,
+                "failed",
+              );
+            }
+            const limit = asInt(request.arguments.limit, 5);
+            const stateRaw = asString(request.arguments.state);
+            const state =
+              stateRaw === "closed" || stateRaw === "all" || stateRaw === "open"
+                ? stateRaw
+                : "open";
+            const r = await withTimeout(
+              adapter.listPullRequests(owner, repoName, { limit, state }),
+            );
+            data = { pullRequests: r };
+            summary = `${r.length} PR(s)`;
+            break;
+          }
+          case "github_list_pr_files": {
+            const number = asInt(request.arguments.number, 0);
+            if (number < 1 || !adapter.listPullRequestFiles) {
+              return failResult(
+                request.toolCallId,
+                name,
+                number < 1 ? "INVALID_ARGUMENTS" : "TRANSPORT_UNAVAILABLE",
+                number < 1
+                  ? "number requis"
+                  : "listPullRequestFiles not available",
+                started,
+                transport,
+                "denied",
+              );
+            }
+            const r = await withTimeout(
+              adapter.listPullRequestFiles(owner, repoName, number),
+            );
+            data = { files: r };
+            summary = `${r.length} file(s)`;
+            break;
+          }
+          case "github_get_pr_diff": {
+            const number = asInt(request.arguments.number, 0);
+            if (number < 1 || !adapter.getPullRequestDiff) {
+              return failResult(
+                request.toolCallId,
+                name,
+                number < 1 ? "INVALID_ARGUMENTS" : "TRANSPORT_UNAVAILABLE",
+                number < 1
+                  ? "number requis"
+                  : "getPullRequestDiff not available",
+                started,
+                transport,
+                "denied",
+              );
+            }
+            const r = await withTimeout(
+              adapter.getPullRequestDiff(owner, repoName, number),
+            );
+            data = { diff: r };
+            summary = `PR #${number} diff`;
             break;
           }
           case "github_list_checks": {

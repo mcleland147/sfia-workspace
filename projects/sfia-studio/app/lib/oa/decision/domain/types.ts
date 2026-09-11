@@ -179,6 +179,8 @@ export type DecisionBasis = {
     artifactBrief?: string;
     /** GCEC — non-authoritative content requirements from Nora executionIntent. */
     contentRequirements?: string[];
+    /** GCEC — Nora-proposed exit requirement kinds (non-authoritative). */
+    exitRequirementKinds?: string[];
   };
 };
 

@@ -245,7 +245,12 @@ export function buildTypedGitEvidenceFields<S extends TypedGitEvidenceSource>(
     }
     case "git:pull_request": {
       const pr = payload as GitPullRequestPayload;
-      location = `git:pull_request?repo=${encodeURIComponent(pr.repositoryRef)}&prNumber=${encodeURIComponent(String(pr.prNumber))}`;
+      location =
+        `git:pull_request?repo=${encodeURIComponent(pr.repositoryRef)}` +
+        `&prNumber=${encodeURIComponent(String(pr.prNumber))}` +
+        (pr.headSha
+          ? `&headSha=${encodeURIComponent(pr.headSha)}`
+          : "");
       break;
     }
     case "git:ci_status": {

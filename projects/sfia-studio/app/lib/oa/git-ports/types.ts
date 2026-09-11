@@ -1,15 +1,13 @@
 /**
- * GCEC D-GCEC-08 / §16 — narrow Git effect ports (no broad execute).
+ * GCEC D-GCEC-09..14 — Studio repository READ ports only.
  *
- * Authority notes (comments only):
- * - N2 Pilote: LocalGitCommitPort
- * - N3: GitRemotePushPort / GitPullRequestPort / GitMergePort
- * - Read ports: status/diff, CI, review, post-merge verify
+ * Cursor / governed agent owns all Project repository mutations.
+ * Studio MUST NOT expose commit / push / open PR / merge methods.
  */
 
 import type { Digest } from "@/lib/oa/doctrine";
 
-/** Phase B — local status / diff read. */
+/** Local status / diff read. */
 export type LocalGitStatusDiffInput = {
   repoPath: string;
   /** Optional pathspec filter. */
@@ -28,66 +26,7 @@ export type LocalGitStatusDiffPort = {
   statusDiff(input: LocalGitStatusDiffInput): Promise<LocalGitStatusDiffOutput>;
 };
 
-/** Phase C — local commit (N2). Never push. */
-export type LocalGitCommitInput = {
-  repoPath: string;
-  message: string;
-  /** Paths to stage; empty/omit = fail-closed (no `git add -A`). */
-  paths: string[];
-  authorName?: string;
-  authorEmail?: string;
-};
-
-export type LocalGitCommitOutput = {
-  commitSha: string;
-  message: string;
-};
-
-export type LocalGitCommitPort = {
-  commit(input: LocalGitCommitInput): Promise<LocalGitCommitOutput>;
-};
-
-/** Phase D — remote push (N3). Force push never. */
-export type GitRemotePushInput = {
-  repositoryRef: string;
-  remote: string;
-  refName: string;
-  commitSha: string;
-  /** Must never be true — fail-closed if set. */
-  force?: boolean;
-};
-
-export type GitRemotePushOutput = {
-  remote: string;
-  refName: string;
-  commitSha: string;
-};
-
-export type GitRemotePushPort = {
-  push(input: GitRemotePushInput): Promise<GitRemotePushOutput>;
-};
-
-/** Phase E — open / update PR (N3). */
-export type GitPullRequestInput = {
-  repositoryRef: string;
-  title: string;
-  headRef: string;
-  baseRef: string;
-  body?: string;
-};
-
-export type GitPullRequestOutput = {
-  prNumber: number;
-  url: string;
-  headSha: string;
-  baseRef: string;
-};
-
-export type GitPullRequestPort = {
-  openPullRequest(input: GitPullRequestInput): Promise<GitPullRequestOutput>;
-};
-
-/** Phase F — CI status read. */
+/** CI status read. */
 export type GitCiStatusInput = {
   repositoryRef: string;
   commitSha: string;
@@ -103,7 +42,7 @@ export type GitCiStatusPort = {
   getCiStatus(input: GitCiStatusInput): Promise<GitCiStatusOutput>;
 };
 
-/** Phase F — review status read. */
+/** Review status read. */
 export type GitReviewStatusInput = {
   repositoryRef: string;
   prNumber: number;
@@ -117,25 +56,7 @@ export type GitReviewStatusPort = {
   getReviewStatus(input: GitReviewStatusInput): Promise<GitReviewStatusOutput>;
 };
 
-/** Phase G — merge (N3). Never auto. */
-export type GitMergeInput = {
-  repositoryRef: string;
-  prNumber: number;
-  /** Explicit human/system merge confirmation token — required. */
-  mergeConfirmationId: string;
-};
-
-export type GitMergeOutput = {
-  mergeCommitSha: string;
-  baseRef: string;
-  prNumber: number;
-};
-
-export type GitMergePort = {
-  mergePullRequest(input: GitMergeInput): Promise<GitMergeOutput>;
-};
-
-/** Phase H — post-merge verify (pure compare inputs). */
+/** Post-merge verify (pure compare of independently observed facts). */
 export type PostMergeVerifyInput = {
   expectedTargetSha: string;
   observedTargetSha: string;
@@ -151,4 +72,94 @@ export type PostMergeVerifyOutput = {
 
 export type PostMergeVerifyPort = {
   verify(input: PostMergeVerifyInput): PostMergeVerifyOutput;
+};
+
+/**
+ * Bounded Studio repository READ capability (D-GCEC-10).
+ * All methods are read-only. No create/update/delete/merge/push/commit.
+ */
+export type RepositoryReadRef = {
+  repositoryRef: string;
+};
+
+export type RepositoryPullRequestSummary = {
+  number: number;
+  title: string;
+  state: "open" | "closed" | "merged";
+  headSha: string;
+  baseBranch: string;
+  url: string;
+};
+
+export type RepositoryCommitSummary = {
+  sha: string;
+  message: string;
+  parents: string[];
+};
+
+export type RepositoryFileContent = {
+  path: string;
+  ref: string;
+  content: string;
+  digest: Digest;
+};
+
+export type RepositoryCompareResult = {
+  base: string;
+  head: string;
+  aheadBy: number;
+  behindBy: number;
+  files: string[];
+};
+
+export type RepositoryMergeInfo = {
+  prNumber: number;
+  state: "open" | "closed" | "merged";
+  mergeSha: string | null;
+  targetBranch: string;
+  headSha: string;
+};
+
+export type RepositoryReadPort = {
+  listPullRequests(
+    input: RepositoryReadRef & {
+      limit?: number;
+      state?: "open" | "closed" | "all";
+    },
+  ): Promise<RepositoryPullRequestSummary[]>;
+  getPullRequest(
+    input: RepositoryReadRef & { number: number },
+  ): Promise<RepositoryPullRequestSummary | null>;
+  listPullRequestFiles(
+    input: RepositoryReadRef & { number: number },
+  ): Promise<string[]>;
+  getPullRequestDiff(
+    input: RepositoryReadRef & { number: number },
+  ): Promise<string>;
+  listCommits(
+    input: RepositoryReadRef & { ref?: string; limit?: number },
+  ): Promise<RepositoryCommitSummary[]>;
+  getCommit(
+    input: RepositoryReadRef & { sha: string },
+  ): Promise<RepositoryCommitSummary | null>;
+  readFileAtRef(
+    input: RepositoryReadRef & { path: string; ref: string },
+  ): Promise<RepositoryFileContent | null>;
+  listPathAtRef(
+    input: RepositoryReadRef & { path: string; ref: string },
+  ): Promise<string[]>;
+  compareRefs(
+    input: RepositoryReadRef & { base: string; head: string },
+  ): Promise<RepositoryCompareResult>;
+  getBranchHead(
+    input: RepositoryReadRef & { branch: string },
+  ): Promise<string | null>;
+  getCiStatus(input: GitCiStatusInput): Promise<GitCiStatusOutput>;
+  getReviewStatus(input: GitReviewStatusInput): Promise<GitReviewStatusOutput>;
+  getMergeInfo(
+    input: RepositoryReadRef & { prNumber: number },
+  ): Promise<RepositoryMergeInfo | null>;
+  readArtifactDigestAtRef?(
+    input: RepositoryReadRef & { path: string; ref: string },
+  ): Promise<Digest | null>;
 };

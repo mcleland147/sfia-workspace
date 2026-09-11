@@ -899,6 +899,7 @@ describe("11–12 — git completion proof progression", () => {
         type: "other",
         status: "available",
         source,
+        technicalResultRef: `studio:repository_read_verified:${source}`,
         location:
           source === "git:post_merge_verification"
             ? `git:post_merge_verification?repo=${encodeURIComponent(VALID_BINDING.identity)}&targetBranch=main&targetSha=${MERGE_SHA}&artifactPath=${encodeURIComponent("docs/functional-design.md")}&digest=${encodeURIComponent(VALID_DIGEST)}`
@@ -906,9 +907,15 @@ describe("11–12 — git completion proof progression", () => {
               ? `git:ci_status?repo=${encodeURIComponent(VALID_BINDING.identity)}&commitSha=${FULL_SHA}&conclusion=success`
               : source === "git:review_status"
                 ? `git:review_status?repo=${encodeURIComponent(VALID_BINDING.identity)}&prNumber=1&state=approved`
-                : `${source}?repo=${encodeURIComponent(VALID_BINDING.identity)}&commitSha=${FULL_SHA}`,
+                : source === "git:pull_request"
+                  ? `git:pull_request?repo=${encodeURIComponent(VALID_BINDING.identity)}&prNumber=1&headSha=${FULL_SHA}`
+                  : source === "git:merge"
+                    ? `git:merge?repo=${encodeURIComponent(VALID_BINDING.identity)}&mergeCommitSha=${MERGE_SHA}&prNumber=1`
+                    : source === "git:remote_push"
+                      ? `git:remote_push?repo=${encodeURIComponent(VALID_BINDING.identity)}&remote=origin&refName=gcec%2Fdocs&commitSha=${FULL_SHA}`
+                      : `git:local_commit?repo=${encodeURIComponent(VALID_BINDING.identity)}&commitSha=${FULL_SHA}`,
         digest:
-          source === "git:post_merge_verification" ? VALID_DIGEST : undefined,
+          source === "git:post_merge_verification" ? VALID_DIGEST : VALID_DIGEST,
         bindings: {
           cycleInstanceId: cycleId,
           projectId,

@@ -84,8 +84,17 @@ function evidenceMatchesExpected(
   evidence: Evidence,
   expected: QualifyGitCompletionProofSetExpected,
   family: GitCompletionProofFamily,
+  requireVerified: boolean,
 ): { ok: true } | { ok: false; reason: string } {
-  if (evidence.status !== "available" && evidence.status !== "verified") {
+  if (requireVerified) {
+    // D-GCEC-11 — verified Evidence.status OR Studio repository-read verification marker.
+    const studioVerified =
+      typeof evidence.technicalResultRef === "string" &&
+      evidence.technicalResultRef.startsWith("studio:repository_read_verified:");
+    if (evidence.status !== "verified" && !studioVerified) {
+      return { ok: false, reason: "status_not_verified" };
+    }
+  } else if (evidence.status !== "available" && evidence.status !== "verified") {
     return { ok: false, reason: "status_not_proof" };
   }
   if (evidence.bindings?.cycleInstanceId !== expected.cycleInstanceId) {
@@ -145,17 +154,24 @@ function evidenceMatchesExpected(
 
 /**
  * Qualify the full git completion proof SET for a GCEC-bound cycle.
+ * Default requireVerified=true (D-GCEC-11): REPORTED ≠ VERIFIED.
  */
 export function qualifyGitCompletionProofSet(input: {
   evidence: readonly Evidence[];
   requirements?: readonly GitCompletionProofFamily[];
   expected: QualifyGitCompletionProofSetExpected;
+  /** When true (default), only status=verified rows satisfy. */
+  requireVerified?: boolean;
 }): QualifyGitCompletionProofSetResult {
+  const requireVerified = input.requireVerified !== false;
   const requirements = [
     ...(input.requirements ?? GCEC_GIT_COMPLETION_PROOF_FAMILIES),
   ];
   const present: GitCompletionProofFamily[] = [];
   const missing: GitCompletionProofFamily[] = [];
+
+  // Coherence: commit SHA must match push / PR head when present in locations.
+  const shaByFamily = new Map<string, string>();
 
   for (const family of requirements) {
     const matches = input.evidence.filter((e) => {
@@ -169,8 +185,22 @@ export function qualifyGitCompletionProofSet(input: {
     let anyOk = false;
     let lastReason = "family_unmatched";
     for (const m of matches) {
-      const check = evidenceMatchesExpected(m, input.expected, family);
+      const check = evidenceMatchesExpected(
+        m,
+        input.expected,
+        family,
+        requireVerified,
+      );
       if (check.ok) {
+        const q = parseLocationQuery(m.location ?? "");
+        const sha =
+          q.commitSha ??
+          q.headSha ??
+          q.mergeCommitSha ??
+          q.targetSha ??
+          q.sha ??
+          "";
+        if (sha) shaByFamily.set(family, sha.toLowerCase());
         anyOk = true;
         break;
       }
@@ -195,6 +225,37 @@ export function qualifyGitCompletionProofSet(input: {
       missing,
     };
   }
+
+  // Coherent chain: commit → push → PR head should share the same SHA when present.
+  const commitSha = shaByFamily.get("git:local_commit");
+  const pushSha = shaByFamily.get("git:remote_push");
+  const prSha = shaByFamily.get("git:pull_request");
+  const ciSha = shaByFamily.get("git:ci_status");
+  if (commitSha && pushSha && commitSha !== pushSha) {
+    return {
+      status: "BLOCKING",
+      reason: "commit_push_sha_incoherent",
+      present,
+      missing: [],
+    };
+  }
+  if (pushSha && prSha && pushSha !== prSha) {
+    return {
+      status: "BLOCKING",
+      reason: "push_pr_sha_incoherent",
+      present,
+      missing: [],
+    };
+  }
+  if (prSha && ciSha && prSha !== ciSha) {
+    return {
+      status: "BLOCKING",
+      reason: "pr_ci_sha_incoherent",
+      present,
+      missing: [],
+    };
+  }
+
   return { status: "SATISFIED", present };
 }
 

@@ -1,6 +1,7 @@
 /**
- * GCEC deterministic E2E — Product path A→Y as far as feasible with fakes.
- * ZERO OpenAI. ZERO REAL Cursor. ZERO remote Git.
+ * GCEC deterministic E2E — ownership realignment (D-GCEC-09..14).
+ * Cursor writes (Fake) → Studio reads/verifies → Nora reasons.
+ * ZERO OpenAI REAL. ZERO Cursor REAL. ZERO remote Product Git.
  * @vitest-environment node
  */
 import { execFileSync } from "node:child_process";
@@ -19,6 +20,7 @@ import {
   type SqliteProductProjectServices,
 } from "@/lib/oa/project";
 import {
+  deriveCycleExitState,
   deriveFinalizationApplicability,
   qualifyGitCompletionProofSet,
   GCEC_GIT_COMPLETION_PROOF_FAMILIES,
@@ -32,27 +34,25 @@ import {
   FakeDocsWriteLaunchPort,
   ManagedProjectRepositoryResolver,
   M4_BOUNDED_DOCS_WRITE_ACTION,
+  deriveAuthorizedExecutionSlice,
   extractDocsWriteLaunchSpec,
+  verifyWorkspaceFileEffects,
   type DocsWriteLaunchSpec,
 } from "@/lib/oa/execution-attempt";
-import {
-  FakeConversationProvider,
-} from "@/lib/platform/ai";
+import { FakeConversationProvider } from "@/lib/platform/ai";
 import { analyzeIntent } from "@/features/project-assistant/f2/intentAnalysis";
 import { validateExecutionIntentPayload } from "@/features/project-assistant/f2/executionIntentSchema";
 import {
-  FakeGitProviderPorts,
+  FakeRepositoryReadPorts,
   recordCiStatusEvidence,
   recordReviewStatusEvidence,
-  openPullRequestEvidence,
-  pushBranchEvidence,
-  mergePullRequestEvidence,
+  verifyCommitClaim,
+  verifyMergeClaim,
   verifyPostMergeEvidence,
+  verifyPullRequestClaim,
+  verifyPushClaim,
 } from "@/lib/oa/git-ports";
-import {
-  createTestDecisionServices,
-  type Confirmation,
-} from "@/lib/oa/decision";
+import { createTestDecisionServices } from "@/lib/oa/decision";
 
 const APP_ROOT = path.resolve(__dirname, "../../..");
 const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
@@ -124,44 +124,15 @@ function initManagedRepo(managedBase: string, identity: string): {
   git(repoRoot, ["add", "README.md"]);
   git(repoRoot, ["commit", "-m", "init"]);
   const baseHeadSha = git(repoRoot, ["rev-parse", "HEAD"]);
-  const resolved = resolver.resolveLocalRepoRoot({ identity }, managedBase);
-  expect(resolved).toBe(repoRoot);
+  expect(resolver.resolveLocalRepoRoot({ identity }, managedBase)).toBe(
+    repoRoot,
+  );
   return { repoRoot, baseHeadSha };
 }
 
-async function grantConfirmation(input: {
-  decisions: ReturnType<typeof createTestDecisionServices>;
-  confirmationId: string;
-  scope: string;
-  actionRef: string;
-}): Promise<void> {
-  const now = "2026-09-11T12:00:00.000Z";
-  const confirmation: Confirmation = {
-    schemaVersion: "0.1.0-oa",
-    confirmationId: input.confirmationId,
-    level: "N3",
-    actionRef: input.actionRef,
-    requestedBy: {
-      actorId: ACTOR.actorId,
-      role: "project_owner",
-      authorityLevel: "N3",
-    },
-    requestedTo: {
-      actorId: ACTOR.actorId,
-      role: "project_owner",
-      authorityLevel: "N3",
-    },
-    scope: input.scope,
-    status: "granted",
-    idempotencyKey: `idem:${input.confirmationId}`,
-    confirmedAt: now,
-  };
-  await input.decisions.confirmations.save(confirmation);
-}
-
-describe("gcecDeterministicE2e — Product A→Y (fake boundary)", () => {
-  it("binding → F2 docs_write intent → docsWriteSpec → fake write → artifact → git SET → SATISFIED", async () => {
-    const root = tempDir("sfia-gcec-e2e-");
+describe("gcecDeterministicE2e — Cursor writes / Studio verifies", () => {
+  it("A→AC: F2 intent → Fake Cursor → independent verify → CycleExit VERIFIED", async () => {
+    const root = tempDir("sfia-gcec-own-");
     const managedBase = path.join(root, "managed");
     const dbPath = path.join(root, "product.sqlite");
     const identity = "acme/widget";
@@ -177,7 +148,7 @@ describe("gcecDeterministicE2e — Product A→Y (fake boundary)", () => {
         dbPath,
         fixedNowIso: "2026-09-11T12:00:00.000Z",
       });
-    const decisions = createTestDecisionServices({
+    createTestDecisionServices({
       projectServices: projects,
       fixedNowIso: "2026-09-11T12:00:00.000Z",
     });
@@ -185,6 +156,7 @@ describe("gcecDeterministicE2e — Product A→Y (fake boundary)", () => {
       fixedNowIso: "2026-09-11T12:00:00.000Z",
     });
 
+    // A–B Project + repositoryBinding
     const created = await projects.createProject.execute({
       projectId: "prj:gcec-e2e",
       title: "GCEC E2E",
@@ -211,6 +183,7 @@ describe("gcecDeterministicE2e — Product A→Y (fake boundary)", () => {
     });
     expect(bound.ok).toBe(true);
 
+    // D–E Fake OpenAI → F2 structured intent
     const provider = new FakeConversationProvider();
     const analyzed = await analyzeIntent({
       userContent: "__F2_DOCS_WRITE_GCEC__ produce functional design",
@@ -218,12 +191,12 @@ describe("gcecDeterministicE2e — Product A→Y (fake boundary)", () => {
       provider,
     });
     expect(analyzed.analysis.parseOk).toBe(true);
-    expect(analyzed.analysis.executionIntent?.intentKind).toBe("docs_write");
     const ei = validateExecutionIntentPayload(
       analyzed.analysis.executionIntent,
     );
     expect(ei.ok).toBe(true);
     if (!ei.ok) return;
+    expect(ei.payload.exitRequirementKinds?.length).toBeGreaterThan(0);
 
     const docsWriteSpec: DocsWriteLaunchSpec = {
       repositoryRef: ei.payload.targetRepositoryRef!,
@@ -234,9 +207,7 @@ describe("gcecDeterministicE2e — Product A→Y (fake boundary)", () => {
       contentRequirements: ei.payload.contentRequirements ?? [],
       scopeIn: ei.payload.scopeIn ?? ["docs/"],
       scopeOut: ei.payload.scopeOut ?? [],
-      expectedOutputs: ei.payload.expectedOutputs ?? [
-        ei.payload.targetPath!,
-      ],
+      expectedOutputs: ei.payload.expectedOutputs ?? [ei.payload.targetPath!],
       validationExpectations: ei.payload.validationExpectations ?? [],
       evidenceRequirements: ei.payload.evidenceRequirements ?? [
         ...GCEC_GIT_COMPLETION_PROOF_FAMILIES,
@@ -245,7 +216,7 @@ describe("gcecDeterministicE2e — Product A→Y (fake boundary)", () => {
       noDelete: true,
     };
 
-    // Simulate EC.inputs after PREPARE/resolve (binding + managed root + baseSha).
+    // H — EC inputs MUST NOT carry managedRepoRoot (server resolves).
     const contractLike = {
       action: M4_BOUNDED_DOCS_WRITE_ACTION,
       expectedOutputs: docsWriteSpec.expectedOutputs,
@@ -262,7 +233,6 @@ describe("gcecDeterministicE2e — Product A→Y (fake boundary)", () => {
         expectedOutputs: docsWriteSpec.expectedOutputs,
         validationExpectations: docsWriteSpec.validationExpectations,
         evidenceRequirements: docsWriteSpec.evidenceRequirements,
-        managedRepoRoot: repoRoot,
         repositoryIdentity: identity,
         remoteUrl: `https://github.com/${identity}.git`,
         defaultBranch: "main",
@@ -270,9 +240,18 @@ describe("gcecDeterministicE2e — Product A→Y (fake boundary)", () => {
         baseHeadSha,
       },
     };
-    const extracted = extractDocsWriteLaunchSpec(contractLike as never);
-    expect(extracted.ok).toBe(true);
+    expect(extractDocsWriteLaunchSpec(contractLike as never).ok).toBe(true);
 
+    // I–J AuthorizedExecutionSlice — filesystem only initially
+    const slice0 = deriveAuthorizedExecutionSlice({
+      executionContractId: "xct:gcec-e2e",
+      evidenceRequirements: docsWriteSpec.evidenceRequirements,
+      confirmations: [],
+    });
+    expect(slice0.authorizedEffects).toContain("filesystem.create");
+    expect(slice0.blockedEffects).toContain("git.commit");
+
+    // K–M Fake Cursor docs-write; stops before Git effects
     const worktreeRoot = path.join(root, "wt");
     fs.mkdirSync(worktreeRoot, { recursive: true });
     const fakeLaunch = new FakeDocsWriteLaunchPort({
@@ -293,7 +272,6 @@ describe("gcecDeterministicE2e — Product A→Y (fake boundary)", () => {
       scope: "studio.gcec.docs_write",
       timeoutMs: 60_000,
       docsWriteSpec,
-      managedRepoRoot: repoRoot,
       repositoryBinding: {
         identity,
         remoteUrl: `https://github.com/${identity}.git`,
@@ -302,19 +280,30 @@ describe("gcecDeterministicE2e — Product A→Y (fake boundary)", () => {
       },
     });
     expect(launch.outcome).toBe("ack");
-    expect(fakeLaunch.lastDigest).toMatch(/^sha256:[a-f0-9]{64}$/);
-    const artifactDigest = fakeLaunch.lastDigest!;
+    expect(fakeLaunch.lastReport?.stoppedBeforeEffects).toContain("git.commit");
 
-    // Copy written artifact into managed repo for local commit proof.
-    const written = path.join(worktreeRoot, docsWriteSpec.targetPath);
-    const dest = path.join(repoRoot, docsWriteSpec.targetPath);
-    fs.mkdirSync(path.dirname(dest), { recursive: true });
-    fs.copyFileSync(written, dest);
+    // N — Studio independent workspace verification
+    const ws = await verifyWorkspaceFileEffects({
+      worktreePath: worktreeRoot,
+      pathAllowlist: docsWriteSpec.pathAllowlist,
+      targetPath: docsWriteSpec.targetPath,
+      report: fakeLaunch.lastReport,
+      nameStatusText: `A\t${docsWriteSpec.targetPath}`,
+    });
+    expect(ws.ok).toBe(true);
+    if (!ws.ok) return;
+    const artifactDigest = ws.digest;
 
     const cycleInstanceId = "cyc:gcec-e2e";
     const projectId = "prj:gcec-e2e";
     const executionContractId = "xct:gcec-e2e";
     const executionAttemptId = "xat:gcec-e2e";
+    const bindings = {
+      projectId,
+      cycleInstanceId,
+      executionContractId,
+      executionAttemptId,
+    };
 
     const art = await evidence.registerEvidence.execute({
       evidenceId: "ev:gcec-e2e-art",
@@ -328,12 +317,7 @@ describe("gcecDeterministicE2e — Product A→Y (fake boundary)", () => {
       status: "available",
       digest: artifactDigest as Digest,
       location: docsWriteSpec.targetPath,
-      bindings: {
-        projectId,
-        cycleInstanceId,
-        executionContractId,
-        executionAttemptId,
-      },
+      bindings,
     });
     expect(art.ok).toBe(true);
     if (!art.ok) return;
@@ -350,36 +334,72 @@ describe("gcecDeterministicE2e — Product A→Y (fake boundary)", () => {
     });
     expect(rb.ok).toBe(true);
 
-    const gitPorts = new FakeGitProviderPorts();
-    const bindings = {
+    // O — CycleExitState: artifact VERIFIED, Git REQUIRED
+    let exitState = deriveCycleExitState({
       projectId,
       cycleInstanceId,
-      executionContractId,
-      executionAttemptId,
-    };
-    const collected: Evidence[] = [art.evidence];
+      cycleTypeId: "cyc:functional-design",
+      repositoryBinding: {
+        provider: "github",
+        identity,
+        remoteUrl: `https://github.com/${identity}.git`,
+        defaultBranch: "main",
+      },
+      executionContracts: [
+        {
+          contractId: executionContractId,
+          status: "executing",
+          requiredCapabilities: ["cap:cursor.docs_write"],
+          evidenceRequirements: [...GCEC_GIT_COMPLETION_PROOF_FAMILIES],
+          expectedOutputs: ["artifact"],
+        },
+      ],
+      evidence: [art.evidence],
+      proposedExitRequirementKinds: ei.payload.exitRequirementKinds,
+    });
+    expect(
+      exitState.requirements.find((r) => r.kind === "artifact")?.status,
+    ).toBe("VERIFIED");
+    expect(exitState.requirements.find((r) => r.kind === "commit")?.status).toBe(
+      "REQUIRED",
+    );
+    expect(exitState.allRequiredVerified).toBe(false);
 
-    // Local commit via real git in disposable repo (local only).
+    // Q–X — Cursor-reported Git claims verified via FakeRepositoryRead (not Studio mutate)
+    // Emulate Cursor having committed in disposable repo, then seed read adapter.
+    const written = path.join(worktreeRoot, docsWriteSpec.targetPath);
+    const dest = path.join(repoRoot, docsWriteSpec.targetPath);
+    fs.mkdirSync(path.dirname(dest), { recursive: true });
+    fs.copyFileSync(written, dest);
     git(repoRoot, ["add", docsWriteSpec.targetPath]);
     git(repoRoot, ["commit", "-m", "docs: functional design"]);
     const commitSha = git(repoRoot, ["rev-parse", "HEAD"]);
+    const mergeSha = commitSha; // deterministic same-tree merge stand-in
 
-    const commitEv = await evidence.registerEvidence.execute({
-      evidenceId: "ev:gcec-commit",
-      idempotencyKey: "idem:gcec-commit",
-      actor: ACTOR,
-      type: "other",
-      source: "git:local_commit",
-      sourceKind: "external",
-      classification: "internal",
-      storageMode: "metadata_only",
-      status: "available",
-      location: `git:local_commit?repo=${encodeURIComponent(identity)}&commitSha=${commitSha}`,
-      bindings,
+    const repoRead = new FakeRepositoryReadPorts();
+    repoRead.seedCommit({
+      sha: commitSha,
+      message: "docs: functional design",
+      parents: [baseHeadSha],
     });
-    expect(commitEv.ok).toBe(true);
-    if (commitEv.ok) collected.push(commitEv.evidence);
+    repoRead.seedBranchHead("gcec/docs", commitSha);
+    repoRead.seedBranchHead("main", mergeSha);
+    repoRead.seedPullRequest({
+      number: 42,
+      title: "FD",
+      state: "open",
+      headSha: commitSha,
+      baseBranch: "main",
+      url: `https://github.com/${identity}/pull/42`,
+    });
+    repoRead.ciByCommit.set(commitSha, {
+      conclusion: "success",
+      checkName: "fake-ci",
+    });
+    repoRead.reviewByPr.set(42, { state: "approved" });
+    repoRead.seedFileAtRef(mergeSha, docsWriteSpec.targetPath, fs.readFileSync(dest, "utf8"));
 
+    const collected: Evidence[] = [art.evidence];
     const expected = {
       repositoryRef: identity,
       targetPath: docsWriteSpec.targetPath,
@@ -388,122 +408,119 @@ describe("gcecDeterministicE2e — Product A→Y (fake boundary)", () => {
       executionContractId,
       projectId,
     };
-    expect(
-      qualifyGitCompletionProofSet({ evidence: collected, expected }).status,
-    ).toBe("BLOCKING");
 
-    await grantConfirmation({
-      decisions,
-      confirmationId: "conf:gcec-push",
-      scope: "git:remote_push",
-      actionRef: "git:remote_push",
-    });
-    const pushed = await pushBranchEvidence({
-      pushPort: gitPorts,
+    // P — after confirmation, Cursor would resume; Studio only verifies claims
+    const vCommit = await verifyCommitClaim({
+      repositoryRead: repoRead,
       evidenceServices: evidence,
       repositoryRef: identity,
-      remote: "origin",
-      refName: "gcec/docs",
-      commitSha,
+      claimedCommitSha: commitSha,
+      message: "docs: functional design",
       bindings,
       actor: ACTOR,
-      confirmationId: "conf:gcec-push",
-      confirmations: decisions.confirmations,
       nowIso: "2026-09-11T12:00:00.000Z",
     });
-    expect(pushed.ok).toBe(true);
-    if (pushed.ok) {
-      const loaded = await evidence.evidenceReader.findById(pushed.evidenceId);
+    expect(vCommit.ok).toBe(true);
+    if (vCommit.ok) {
+      const loaded = await evidence.evidenceReader.findById(vCommit.evidenceId);
       if (loaded) collected.push(loaded);
     }
     expect(
       qualifyGitCompletionProofSet({ evidence: collected, expected }).status,
     ).toBe("BLOCKING");
 
-    await grantConfirmation({
-      decisions,
-      confirmationId: "conf:gcec-pr",
-      scope: "git:pull_request",
-      actionRef: "git:pull_request",
-    });
-    const pr = await openPullRequestEvidence({
-      prPort: gitPorts,
+    const vPush = await verifyPushClaim({
+      repositoryRead: repoRead,
       evidenceServices: evidence,
       repositoryRef: identity,
-      title: "FD",
-      headRef: "gcec/docs",
-      baseRef: "main",
+      branch: "gcec/docs",
+      claimedCommitSha: commitSha,
       bindings,
       actor: ACTOR,
-      confirmationId: "conf:gcec-pr",
-      confirmations: decisions.confirmations,
       nowIso: "2026-09-11T12:00:00.000Z",
     });
-    expect(pr.ok).toBe(true);
-    if (!pr.ok) return;
-    {
-      const loaded = await evidence.evidenceReader.findById(pr.evidenceId);
+    expect(vPush.ok).toBe(true);
+    if (vPush.ok) {
+      const loaded = await evidence.evidenceReader.findById(vPush.evidenceId);
       if (loaded) collected.push(loaded);
     }
 
-    gitPorts.ciByCommit.set(commitSha, {
-      conclusion: "success",
-      checkName: "fake-ci",
+    const vPr = await verifyPullRequestClaim({
+      repositoryRead: repoRead,
+      evidenceServices: evidence,
+      repositoryRef: identity,
+      claimedPrNumber: 42,
+      claimedHeadSha: commitSha,
+      bindings,
+      actor: ACTOR,
+      nowIso: "2026-09-11T12:00:00.000Z",
     });
+    expect(vPr.ok).toBe(true);
+    if (vPr.ok) {
+      const loaded = await evidence.evidenceReader.findById(vPr.evidenceId);
+      if (loaded) collected.push(loaded);
+    }
+
     const ci = await recordCiStatusEvidence({
-      ciPort: gitPorts,
+      ciPort: repoRead,
       evidenceServices: evidence,
       repositoryRef: identity,
       commitSha,
       bindings,
       actor: ACTOR,
-      forcedConclusion: "success",
       nowIso: "2026-09-11T12:00:00.000Z",
     });
-    expect(ci.ok).toBe(true);
+    expect(ci.ok && ci.status === "verified").toBe(true);
     if (ci.ok) {
       const loaded = await evidence.evidenceReader.findById(ci.evidenceId);
       if (loaded) collected.push(loaded);
     }
 
-    gitPorts.reviewByPr.set(pr.prNumber, { state: "approved" });
     const review = await recordReviewStatusEvidence({
-      reviewPort: gitPorts,
+      reviewPort: repoRead,
       evidenceServices: evidence,
       repositoryRef: identity,
-      prNumber: pr.prNumber,
+      prNumber: 42,
       bindings,
       actor: ACTOR,
-      forcedState: "approved",
       nowIso: "2026-09-11T12:00:00.000Z",
     });
-    expect(review.ok).toBe(true);
+    expect(review.ok && review.status === "verified").toBe(true);
     if (review.ok) {
       const loaded = await evidence.evidenceReader.findById(review.evidenceId);
       if (loaded) collected.push(loaded);
     }
 
-    await grantConfirmation({
-      decisions,
-      confirmationId: "conf:gcec-merge",
-      scope: "git:merge",
-      actionRef: "git:merge",
+    // V — merge executed by Fake Cursor boundary (seeded), not Studio
+    repoRead.seedMergeInfo({
+      prNumber: 42,
+      state: "merged",
+      mergeSha,
+      targetBranch: "main",
+      headSha: commitSha,
     });
-    const merged = await mergePullRequestEvidence({
-      mergePort: gitPorts,
+    repoRead.seedPullRequest({
+      number: 42,
+      title: "FD",
+      state: "merged",
+      headSha: commitSha,
+      baseBranch: "main",
+      url: `https://github.com/${identity}/pull/42`,
+    });
+
+    const vMerge = await verifyMergeClaim({
+      repositoryRead: repoRead,
       evidenceServices: evidence,
       repositoryRef: identity,
-      prNumber: pr.prNumber,
-      confirmationId: "conf:gcec-merge",
-      confirmations: decisions.confirmations,
+      claimedPrNumber: 42,
+      claimedMergeSha: mergeSha,
       bindings,
       actor: ACTOR,
       nowIso: "2026-09-11T12:00:00.000Z",
     });
-    expect(merged.ok).toBe(true);
-    if (!merged.ok) return;
-    {
-      const loaded = await evidence.evidenceReader.findById(merged.evidenceId);
+    expect(vMerge.ok).toBe(true);
+    if (vMerge.ok) {
+      const loaded = await evidence.evidenceReader.findById(vMerge.evidenceId);
       if (loaded) collected.push(loaded);
     }
 
@@ -513,13 +530,14 @@ describe("gcecDeterministicE2e — Product A→Y (fake boundary)", () => {
 
     const post = await verifyPostMergeEvidence({
       evidenceServices: evidence,
+      repositoryRead: repoRead,
       repositoryRef: identity,
       targetBranch: "main",
-      targetSha: merged.mergeCommitSha,
+      targetSha: mergeSha,
       artifactPath: docsWriteSpec.targetPath,
       artifactDigest: artifactDigest as Digest,
-      expectedTargetSha: merged.mergeCommitSha,
-      observedTargetSha: merged.mergeCommitSha,
+      expectedTargetSha: mergeSha,
+      observedTargetSha: mergeSha,
       expectedArtifactDigest: artifactDigest as Digest,
       observedArtifactDigest: artifactDigest as Digest,
       bindings,
@@ -532,11 +550,34 @@ describe("gcecDeterministicE2e — Product A→Y (fake boundary)", () => {
       if (loaded) collected.push(loaded);
     }
 
-    const finalSet = qualifyGitCompletionProofSet({
+    // Y — full verified proof set
+    expect(
+      qualifyGitCompletionProofSet({ evidence: collected, expected }).status,
+    ).toBe("SATISFIED");
+
+    exitState = deriveCycleExitState({
+      projectId,
+      cycleInstanceId,
+      cycleTypeId: "cyc:functional-design",
+      repositoryBinding: {
+        provider: "github",
+        identity,
+        remoteUrl: `https://github.com/${identity}.git`,
+        defaultBranch: "main",
+      },
+      executionContracts: [
+        {
+          contractId: executionContractId,
+          status: "completed",
+          requiredCapabilities: ["cap:cursor.docs_write"],
+          evidenceRequirements: [...GCEC_GIT_COMPLETION_PROOF_FAMILIES],
+          expectedOutputs: ["artifact"],
+        },
+      ],
       evidence: collected,
-      expected,
+      proposedExitRequirementKinds: ei.payload.exitRequirementKinds,
     });
-    expect(finalSet.status).toBe("SATISFIED");
+    expect(exitState.allRequiredVerified).toBe(true);
 
     const rules = deriveFinalizationApplicability({
       cycleInstanceId,
@@ -565,6 +606,9 @@ describe("gcecDeterministicE2e — Product A→Y (fake boundary)", () => {
     });
     expect(rules.gitProofPresent).toBe(true);
     expect(rules.artifactProofPresent).toBe(true);
+
+    // Z — without FINALIZE HD, cycle remains incomplete (assessment only here)
+    expect(rules.git_repository).toBe("APPLICABLE");
 
     projects.dispose();
   });

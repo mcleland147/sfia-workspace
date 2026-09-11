@@ -39,6 +39,9 @@ export type ControlTowerToolName =
   | "github_get_branch"
   | "github_get_commit"
   | "github_get_pull_request"
+  | "github_list_pull_requests"
+  | "github_list_pr_files"
+  | "github_get_pr_diff"
   | "github_list_checks"
   | "github_list_pr_comments";
 
@@ -253,6 +256,44 @@ export const CONTROL_TOWER_TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     name: "github_get_pull_request",
     description: "Read a pull request summary. Read-only.",
+    parameters: {
+      type: "object",
+      properties: {
+        number: { type: "integer", minimum: 1 },
+      },
+      required: ["number"],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "github_list_pull_requests",
+    description:
+      "List recent pull requests for the bound repository (Nora repository context). Read-only. Does not create Evidence.",
+    parameters: {
+      type: "object",
+      properties: {
+        limit: { type: "integer", minimum: 1, maximum: 20 },
+        state: { type: "string", enum: ["open", "closed", "all"] },
+      },
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "github_list_pr_files",
+    description:
+      "List files changed in a pull request. Read-only. Context only — not Evidence.",
+    parameters: {
+      type: "object",
+      properties: {
+        number: { type: "integer", minimum: 1 },
+      },
+      required: ["number"],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "github_get_pr_diff",
+    description: "Read a pull request diff. Read-only. Context only.",
     parameters: {
       type: "object",
       properties: {

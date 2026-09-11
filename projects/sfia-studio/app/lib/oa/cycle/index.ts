@@ -115,6 +115,16 @@ export {
   type QualifyGitCompletionProofSetExpected,
   type QualifyGitCompletionProofSetResult,
 } from "./application/qualifyGitCompletionProofSet";
+export {
+  deriveCycleExitState,
+  summarizeCycleExitState,
+  cycleExitGitFamiliesRequired,
+  type CycleExitState,
+  type CycleExitRequirement,
+  type CycleExitRequirementKind,
+  type CycleExitRequirementStatus,
+  type DeriveCycleExitStateInput,
+} from "./application/cycleExitState";
 export { isTypedGitEvidenceSource } from "@/lib/oa/evidence-review";
 export {
   PilotLifecycleTransitions,

@@ -131,13 +131,14 @@ export class RegisterEvidence {
           availability: request.availability,
           status: request.status,
           freshness: request.freshness,
-          location: request.location,
-          digest: request.digest,
-          verifiablePayload: request.verifiablePayload,
-          retentionClass: request.retentionClass,
-          legalHold: request.legalHold,
-          actor: request.actor,
-        }),
+        location: request.location,
+        digest: request.digest,
+        verifiablePayload: request.verifiablePayload,
+        retentionClass: request.retentionClass,
+        legalHold: request.legalHold,
+        actor: request.actor,
+        technicalResultRef: request.technicalResultRef,
+      }),
       );
 
       const existingIdem = await this.repo.findByIdempotencyKey(
@@ -181,6 +182,9 @@ export class RegisterEvidence {
         sourceKind: request.sourceKind,
         location: request.location,
         digest: request.digest,
+        ...(request.technicalResultRef
+          ? { technicalResultRef: request.technicalResultRef }
+          : {}),
         verifiablePayload: request.verifiablePayload,
         producedBy: request.producedBy ?? request.actor,
         producedAt: timestamp,

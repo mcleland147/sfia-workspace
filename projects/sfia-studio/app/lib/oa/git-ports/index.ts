@@ -1,49 +1,55 @@
 /**
- * GCEC git effect ports — narrow phase ports, no broad execute.
+ * GCEC git-ports — Studio READ / verify only (D-GCEC-09..11).
+ * Cursor owns commit / push / PR / merge mutations.
  */
 export type {
   LocalGitStatusDiffInput,
   LocalGitStatusDiffOutput,
   LocalGitStatusDiffPort,
-  LocalGitCommitInput,
-  LocalGitCommitOutput,
-  LocalGitCommitPort,
-  GitRemotePushInput,
-  GitRemotePushOutput,
-  GitRemotePushPort,
-  GitPullRequestInput,
-  GitPullRequestOutput,
-  GitPullRequestPort,
   GitCiStatusInput,
   GitCiStatusOutput,
   GitCiStatusPort,
   GitReviewStatusInput,
   GitReviewStatusOutput,
   GitReviewStatusPort,
-  GitMergeInput,
-  GitMergeOutput,
-  GitMergePort,
   PostMergeVerifyInput,
   PostMergeVerifyOutput,
   PostMergeVerifyPort,
+  RepositoryReadPort,
+  RepositoryReadRef,
+  RepositoryPullRequestSummary,
+  RepositoryCommitSummary,
+  RepositoryFileContent,
+  RepositoryCompareResult,
+  RepositoryMergeInfo,
 } from "./types";
 
-export { FakeGitProviderPorts } from "./fakeGitProviderPorts";
-export { NodeLocalGitCommitPort } from "./localGitCommitPort";
+export { FakeRepositoryReadPorts, FakeGitProviderPorts } from "./fakeGitProviderPorts";
 export { NodeLocalGitStatusDiffPort } from "./localGitStatusDiffPort";
-export { GithubCliRemotePorts } from "./githubCliRemotePorts";
-export type { GithubCliRemotePortsOptions } from "./githubCliRemotePorts";
+export {
+  GithubCliRepositoryReadAdapter,
+  GithubCliRemotePorts,
+  GITHUB_CLI_READ_FORBIDDEN_ARGV_TOKENS,
+} from "./githubCliRemotePorts";
+export type {
+  GithubCliRepositoryReadAdapterOptions,
+  GithubCliRemotePortsOptions,
+} from "./githubCliRemotePorts";
 export { verifyPostMerge, postMergeVerifyPort } from "./postMergeVerify";
 export {
-  commitArtifactEvidence,
-  pushBranchEvidence,
-  openPullRequestEvidence,
+  registerReportedGitClaimEvidence,
+  verifyCommitClaim,
+  verifyPushClaim,
+  verifyPullRequestClaim,
   recordCiStatusEvidence,
   recordReviewStatusEvidence,
-  mergePullRequestEvidence,
+  verifyMergeClaim,
   verifyPostMergeEvidence,
+  STUDIO_REPO_READ_VERIFIED_PREFIX,
 } from "./application/gitEffectEvidenceActions";
 export type {
+  GitVerifyActor,
+  GitVerifyBindings,
   GitEffectActor,
   GitEffectBindings,
 } from "./application/gitEffectEvidenceActions";

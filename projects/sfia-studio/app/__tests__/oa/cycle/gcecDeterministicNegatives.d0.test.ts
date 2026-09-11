@@ -41,6 +41,7 @@ function baseEvidence(partial: Partial<Evidence> & { evidenceId: string }): Evid
     version: partial.version ?? 1,
     location: partial.location,
     digest: partial.digest,
+    technicalResultRef: partial.technicalResultRef,
     producedAt: "2026-09-11T10:00:00.000Z",
     availability: "available",
     containsSecrets: false,
@@ -59,6 +60,7 @@ function typed(
   source: TypedGitEvidenceSource,
   payload: Record<string, unknown>,
   evidenceId: string,
+  status: Evidence["status"] = "available",
 ): Evidence {
   const fields = buildTypedGitEvidenceFields(source, payload as never);
   if (!fields.ok) throw new Error(fields.reason);
@@ -66,8 +68,9 @@ function typed(
     evidenceId,
     source: fields.fields.source,
     location: fields.fields.location,
-    digest: fields.fields.digest,
-    status: "available",
+    digest: fields.fields.digest ?? DIGEST,
+    status,
+    technicalResultRef: `studio:repository_read_verified:${source}`,
     bindings: {
       cycleInstanceId: CYCLE,
       projectId: "prj:gcec",
@@ -234,7 +237,23 @@ describe("CR-GCEC-05 qualifyGitCompletionProofSet matrix", () => {
     }
   });
 
-  it("full set → SATISFIED", () => {
+  it("reported (available, no studio verify marker) full set → BLOCKING", () => {
+    const reported = fullSet().map((e) => ({
+      ...e,
+      status: "available" as const,
+      technicalResultRef: undefined,
+    }));
+    const r = qualifyGitCompletionProofSet({
+      evidence: reported,
+      expected,
+    });
+    expect(r.status).toBe("BLOCKING");
+    if (r.status === "BLOCKING") {
+      expect(r.reason).toBe("status_not_verified");
+    }
+  });
+
+  it("full studio-verified set → SATISFIED", () => {
     const r = qualifyGitCompletionProofSet({
       evidence: fullSet(),
       requirements: [...GCEC_GIT_COMPLETION_PROOF_FAMILIES],

@@ -52,6 +52,8 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
   readonly calls: RealLaunchRequest[] = [];
   readonly touchedFiles: string[] = [];
   lastDigest: string | null = null;
+  lastReport: import("../domain/cursorExecutionReport").CursorExecutionReport | null =
+    null;
   private readonly options: FakeDocsWriteLaunchPortOptions;
   private readonly observations = new Map<string, RealProcessObservation>();
 
@@ -144,12 +146,48 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
     const digest = `sha256:${createHash("sha256").update(body).digest("hex")}`;
     this.lastDigest = digest;
 
+    const report = {
+      schemaVersion: "oa.cursor-execution-report.1" as const,
+      attemptId: request.attemptId,
+      executionContractId: request.executionContractId,
+      repositoryRef,
+      baseSha: request.baseHeadSha,
+      status: "stopped" as const,
+      fileEffects: {
+        created: [rel],
+        modified: [] as string[],
+        deleted: [] as string[],
+        digests: { [rel]: digest },
+      },
+      validationEffects: [
+        {
+          identity: "docs-write-path-allowlist",
+          result: "pass" as const,
+          summary: "allowlist ok",
+        },
+      ],
+      authorizedEffectsExecuted: [
+        "filesystem.create" as const,
+        "filesystem.modify" as const,
+        "validation.run" as const,
+      ],
+      stoppedBeforeEffects: [
+        "git.commit" as const,
+        "git.push" as const,
+        "github.pr.create" as const,
+        "github.pr.merge" as const,
+      ],
+    };
+    this.lastReport = report;
+
     const processRef = `proc:fake-docs-write:${request.attemptId}`;
     this.observations.set(processRef, {
       processRef,
       exitCode: 0,
       timedOut: false,
-      stdout: `FAKE_DOCS_WRITE_OK\nfiles=${rel}\ndigest=${digest}\n`,
+      stdout:
+        `FAKE_DOCS_WRITE_OK\nfiles=${rel}\ndigest=${digest}\n` +
+        `CURSOR_EXECUTION_REPORT_JSON=${JSON.stringify(report)}\n`,
       stderr: "",
       durationMs: 1,
       realProcessInvoked: true,

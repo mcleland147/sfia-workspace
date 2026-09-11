@@ -1,14 +1,14 @@
 /**
- * CR-GCEC-04 — complete bounded docs-write launch (sibling of RO completion).
- * Awaits observation, records ExecutionResult, returns artifact facts.
+ * CR-GCEC-04 / D-GCEC-11 — complete bounded docs-write launch.
+ * Awaits observation, independently verifies workspace file effects (no stdout trust).
  */
-import { createHash } from "node:crypto";
-import { readFile } from "node:fs/promises";
-import path from "node:path";
 import {
   type ExecutionAttempt,
   type ExecutionAttemptServices,
   type RealProcessObservation,
+  parseCursorExecutionReport,
+  type CursorExecutionReport,
+  verifyWorkspaceFileEffects,
 } from "@/lib/oa/execution-attempt";
 import {
   completeBoundedReadOnlyLaunch,
@@ -23,6 +23,8 @@ export type DocsWriteCompletionFacts = {
   touchedFiles: string[];
   worktreeRef: string | null;
   stdout: string;
+  /** Cursor claim report when present — never trusted alone. */
+  cursorReport?: CursorExecutionReport;
 };
 
 export type CompleteBoundedDocsWriteLaunchResult =
@@ -38,28 +40,17 @@ export type CompleteBoundedDocsWriteLaunchResult =
       { ok: true; status: "running" | "failed" | "timeout" } | { ok: false }
     >;
 
-function parseStdoutFacts(stdout: string): {
-  files: string[];
-  digest: string | null;
-} {
-  const files: string[] = [];
-  let digest: string | null = null;
-  for (const line of stdout.split("\n")) {
-    const t = line.trim();
-    if (t.startsWith("files=")) {
-      files.push(
-        ...t
-          .slice("files=".length)
-          .split(",")
-          .map((s) => s.trim())
-          .filter(Boolean),
-      );
-    }
-    if (t.startsWith("digest=")) {
-      digest = t.slice("digest=".length).trim() || null;
-    }
+function tryParseReportFromStdout(stdout: string): CursorExecutionReport | null {
+  const marker = "CURSOR_EXECUTION_REPORT_JSON=";
+  const idx = stdout.indexOf(marker);
+  if (idx < 0) return null;
+  const json = stdout.slice(idx + marker.length).trim().split("\n")[0] ?? "";
+  try {
+    const parsed = parseCursorExecutionReport(JSON.parse(json));
+    return parsed.ok ? parsed.report : null;
+  } catch {
+    return null;
   }
-  return { files, digest };
 }
 
 export async function completeBoundedDocsWriteLaunch(input: {
@@ -67,6 +58,7 @@ export async function completeBoundedDocsWriteLaunch(input: {
   services: ExecutionAttemptServices;
   /** Expected relative target path (from docsWriteSpec / EC.inputs). */
   targetPath?: string;
+  pathAllowlist?: readonly string[];
 }): Promise<CompleteBoundedDocsWriteLaunchResult> {
   const base = await completeBoundedReadOnlyLaunch({
     attempt: input.attempt,
@@ -77,33 +69,50 @@ export async function completeBoundedDocsWriteLaunch(input: {
     return base as CompleteBoundedDocsWriteLaunchResult;
   }
 
-  const parsed = parseStdoutFacts(base.observation.stdout ?? "");
+  const stdout = base.observation.stdout ?? "";
+  const cursorReport = tryParseReportFromStdout(stdout);
   const targetPath =
     input.targetPath?.trim() ||
-    parsed.files[0] ||
+    cursorReport?.fileEffects?.created[0] ||
+    cursorReport?.fileEffects?.modified[0] ||
     "docs/functional-design.md";
   const worktreeRef = base.observation.worktreeRef ?? null;
+  const pathAllowlist =
+    input.pathAllowlist ??
+    (targetPath.startsWith("docs/") ? ["docs/"] : [targetPath]);
 
-  let digest = parsed.digest;
-  if (!digest && worktreeRef) {
-    try {
-      const abs = path.resolve(worktreeRef, ...targetPath.split("/"));
-      const buf = await readFile(abs);
-      digest = `sha256:${createHash("sha256").update(buf).digest("hex")}`;
-    } catch {
-      digest = null;
-    }
-  }
-  if (!digest) {
+  if (!worktreeRef) {
     return {
       ok: false,
-      code: "DOCS_WRITE_DIGEST_MISSING",
-      message: "Docs-write completion missing artifact digest.",
+      code: "DOCS_WRITE_WORKTREE_MISSING",
+      message: "Docs-write completion missing worktree for independent verify.",
     };
   }
 
-  const touchedFiles =
-    parsed.files.length > 0 ? parsed.files : [targetPath];
+  const verified = await verifyWorkspaceFileEffects({
+    worktreePath: worktreeRef,
+    pathAllowlist,
+    targetPath,
+    report: cursorReport,
+    // Prefer independent FS check; name-status optional via porcelain from report claims alone
+    // when git port unavailable — still require target bytes.
+    nameStatusText:
+      cursorReport?.fileEffects
+        ? [
+            ...(cursorReport.fileEffects.created ?? []).map((p) => `A\t${p}`),
+            ...(cursorReport.fileEffects.modified ?? []).map((p) => `M\t${p}`),
+            ...(cursorReport.fileEffects.deleted ?? []).map((p) => `D\t${p}`),
+          ].join("\n")
+        : `A\t${targetPath}`,
+  });
+
+  if (!verified.ok) {
+    return {
+      ok: false,
+      code: "DOCS_WRITE_WORKSPACE_VERIFY_FAILED",
+      message: verified.reason,
+    };
+  }
 
   return {
     ok: true,
@@ -113,11 +122,12 @@ export async function completeBoundedDocsWriteLaunch(input: {
     facts: {
       attemptId: input.attempt.attemptId,
       processRef: base.observation.processRef,
-      targetPath,
-      digest,
-      touchedFiles,
+      targetPath: verified.targetPath,
+      digest: verified.digest,
+      touchedFiles: verified.touchedFiles,
       worktreeRef,
-      stdout: base.facts?.stdout ?? base.observation.stdout ?? "",
+      stdout: base.facts?.stdout ?? stdout,
+      ...(cursorReport ? { cursorReport } : {}),
     },
   };
 }

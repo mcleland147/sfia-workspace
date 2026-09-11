@@ -487,6 +487,17 @@ export class FakeConversationProvider implements ConversationProvider {
               "constraints",
               "out_of_scope",
             ],
+            exitRequirementKinds: [
+              "artifact",
+              "validation",
+              "commit",
+              "push",
+              "pull_request",
+              "ci",
+              "review",
+              "merge",
+              "post_merge_verification",
+            ],
           },
         })}`,
         usage: {

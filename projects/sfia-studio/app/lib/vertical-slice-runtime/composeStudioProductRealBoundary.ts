@@ -125,5 +125,8 @@ export function composeStudioProductRealBoundary(
   return Object.freeze({
     launchPort,
     safetyJournal,
+    ...(input.managedRepoRootBase
+      ? { managedRepoRootBase: path.resolve(input.managedRepoRootBase) }
+      : {}),
   });
 }

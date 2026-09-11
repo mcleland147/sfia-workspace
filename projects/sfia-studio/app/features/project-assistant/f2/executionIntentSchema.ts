@@ -49,6 +49,7 @@ export const F2_EXECUTION_INTENT_JSON_SCHEMA: Record<string, unknown> = {
     },
     artifactBrief: NULLABLE_STRING,
     contentRequirements: STRING_ARRAY,
+    exitRequirementKinds: STRING_ARRAY,
   },
   required: [
     "intentKind",
@@ -65,6 +66,7 @@ export const F2_EXECUTION_INTENT_JSON_SCHEMA: Record<string, unknown> = {
     "reversibilityExpectation",
     "artifactBrief",
     "contentRequirements",
+    "exitRequirementKinds",
   ],
 };
 
@@ -83,6 +85,8 @@ export type ExecutionIntentPayload = {
   reversibilityExpectation?: "reversible" | "irreversible" | "unknown" | null;
   artifactBrief?: string | null;
   contentRequirements?: string[];
+  /** Nora-proposed exit requirement kinds (non-authoritative). */
+  exitRequirementKinds?: string[];
 };
 
 function asStringArray(value: unknown): string[] | undefined {
@@ -172,6 +176,13 @@ export function validateExecutionIntentPayload(
   ) {
     return { ok: false, reason: "content_requirements_invalid" };
   }
+  const exitRequirementKinds = asStringArray(r.exitRequirementKinds);
+  if (
+    r.exitRequirementKinds !== undefined &&
+    exitRequirementKinds === undefined
+  ) {
+    return { ok: false, reason: "exit_requirement_kinds_invalid" };
+  }
 
   return {
     ok: true,
@@ -192,6 +203,7 @@ export function validateExecutionIntentPayload(
         null,
       artifactBrief: asNullableString(r.artifactBrief) ?? null,
       contentRequirements: contentRequirements ?? [],
+      exitRequirementKinds: exitRequirementKinds ?? [],
     },
   };
 }

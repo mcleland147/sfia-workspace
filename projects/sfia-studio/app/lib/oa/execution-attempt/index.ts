@@ -44,6 +44,10 @@ export * from "./domain/types";
 export * from "./domain/errors";
 export * from "./domain/invariants";
 export * from "./domain/realLaunchSafety";
+export * from "./domain/cursorExecutionReport";
+export * from "./domain/authorizedExecutionSlice";
+export { verifyWorkspaceFileEffects } from "./application/verifyWorkspaceFileEffects";
+export type { WorkspaceFileVerificationResult } from "./application/verifyWorkspaceFileEffects";
 
 export * from "./ports/executionAttemptRepository";
 export * from "./ports/executionAttemptTechnicalStorePort";
@@ -241,6 +245,8 @@ export function isInjectableExecutionAdapter(
 export type RealBoundaryWiring = {
   readonly launchPort: RealExecutionLaunchPort;
   readonly safetyJournal: RealLaunchSafetyJournalPort;
+  /** Server-only managed clone base for docs-write workspace resolution. */
+  readonly managedRepoRootBase?: string;
 };
 
 export type ExecutionAttemptServices = {
@@ -381,6 +387,7 @@ export function createInMemoryExecutionAttemptServices(
       store,
       realBoundary?.launchPort,
       realBoundary?.safetyJournal,
+      realBoundary?.managedRepoRootBase,
     ),
     cancelExecutionAttempt: new CancelExecutionAttempt(
       attempts,

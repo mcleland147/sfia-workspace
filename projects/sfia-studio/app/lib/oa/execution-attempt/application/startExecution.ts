@@ -65,6 +65,7 @@ import type { ExecutionAttemptRepositoryPort } from "../ports/executionAttemptRe
 import type { RealExecutionLaunchPort } from "../ports/realExecutionLaunchPort";
 import type { DocsWriteLaunchSpec } from "../ports/realExecutionLaunchPort";
 import { M4_BOUNDED_DOCS_WRITE_ACTION } from "../infrastructure/m4BoundedDocsWriteCursorAgent";
+import { ManagedProjectRepositoryResolver } from "../infrastructure/managedProjectRepositoryResolver";
 import type { RealLaunchSafetyJournalPort } from "../ports/realLaunchSafetyJournalPort";
 import {
   authorityFailureDetail,
@@ -248,6 +249,12 @@ export class StartExecution {
     private readonly store?: ExecutionAttemptTechnicalStorePort,
     private readonly realLaunchPort?: RealExecutionLaunchPort,
     private readonly safetyJournal?: RealLaunchSafetyJournalPort,
+    /**
+     * D-GCEC-09/13 — server-only managed repository root base.
+     * Resolves Project.repositoryBinding.identity → local clone.
+     * MUST NOT come from ExecutionContract / client.
+     */
+    private readonly managedRepoRootBase?: string,
   ) {}
 
   async execute(
@@ -687,18 +694,17 @@ export class StartExecution {
         contract.inputs && typeof contract.inputs === "object"
           ? (contract.inputs as Record<string, unknown>)
           : {};
-      const managed =
-        typeof inputs.managedRepoRoot === "string"
-          ? inputs.managedRepoRoot.trim()
-          : "";
-      if (!managed) {
+      // D-GCEC-09 — reject client/EC-supplied absolute managed roots.
+      if (
+        typeof inputs.managedRepoRoot === "string" &&
+        inputs.managedRepoRoot.trim()
+      ) {
         return fail(
           "REAL_WORKSPACE_INVALID",
-          "docs_write_managed_repo_root_missing",
+          "docs_write_managed_repo_root_not_ec_controlled",
           { executionContractId: contract.executionContractId },
         );
       }
-      managedRepoRoot = managed;
 
       const identity =
         (typeof inputs.repositoryIdentity === "string" &&
@@ -730,6 +736,28 @@ export class StartExecution {
         defaultBranch,
         ...(pathRoot ? { pathRoot } : {}),
       };
+
+      // Server-side resolution only (D-GCEC-09/13).
+      if (!this.managedRepoRootBase?.trim()) {
+        return fail(
+          "REAL_WORKSPACE_INVALID",
+          "docs_write_managed_repo_root_base_unconfigured",
+          { executionContractId: contract.executionContractId },
+        );
+      }
+      const resolver = new ManagedProjectRepositoryResolver();
+      const resolved = resolver.resolveLocalRepoRoot(
+        { identity },
+        this.managedRepoRootBase,
+      );
+      if (!resolved) {
+        return fail(
+          "REAL_WORKSPACE_INVALID",
+          "docs_write_managed_repo_unresolved",
+          { executionContractId: contract.executionContractId },
+        );
+      }
+      managedRepoRoot = resolved;
     }
 
     const fingerprint =

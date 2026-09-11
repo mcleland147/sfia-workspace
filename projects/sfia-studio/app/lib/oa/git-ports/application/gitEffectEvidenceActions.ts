@@ -1,12 +1,13 @@
 /**
- * CR-GCEC-06 — git effect application actions (one effect each).
- * Mutating effects require a real Confirmation id (confirmed, in-scope, not expired).
+ * D-GCEC-09/11 — Studio Git verification actions (READ + Evidence only).
+ * Cursor owns mutations. Studio observes via RepositoryReadPort and upgrades claims.
+ *
+ * Evidence.register forbids status=verified at create time. Verified Git proof is
+ * represented schema-free as status=available + technicalResultRef marker
+ * `studio:repository_read_verified:*` after independent RepositoryRead observation.
  */
+import { createHash } from "node:crypto";
 import type { Digest } from "@/lib/oa/doctrine";
-import type {
-  Confirmation,
-  ConfirmationRepositoryPort,
-} from "@/lib/oa/decision";
 import type { EvidenceReviewServices } from "@/lib/oa/evidence-review";
 import {
   buildTypedGitEvidenceFields,
@@ -14,53 +15,31 @@ import {
 } from "@/lib/oa/evidence-review";
 import type {
   GitCiStatusPort,
-  GitMergePort,
-  GitPullRequestPort,
-  GitRemotePushPort,
   GitReviewStatusPort,
-  LocalGitCommitPort,
   PostMergeVerifyPort,
+  RepositoryReadPort,
 } from "../types";
 import { verifyPostMerge } from "../postMergeVerify";
 
-export type GitEffectActor = {
+export const STUDIO_REPO_READ_VERIFIED_PREFIX =
+  "studio:repository_read_verified:" as const;
+
+export type GitVerifyActor = {
   actorId: string;
   role: string;
   displayName?: string;
   authorityLevel?: string;
 };
 
-export type GitEffectBindings = {
+export type GitVerifyBindings = {
   projectId: string;
   cycleInstanceId: string;
   executionContractId?: string;
   executionAttemptId?: string;
 };
 
-async function assertConfirmed(
-  confirmations: ConfirmationRepositoryPort | undefined,
-  confirmationId: string | undefined,
-  scopeNeedle: string,
-  nowIso: string,
-): Promise<{ ok: true; confirmation: Confirmation } | { ok: false; reason: string }> {
-  if (!confirmationId?.trim()) {
-    return { ok: false, reason: "confirmation_id_required" };
-  }
-  if (!confirmations) {
-    return { ok: false, reason: "confirmation_repository_required" };
-  }
-  const c = await confirmations.findById(confirmationId.trim());
-  if (!c) return { ok: false, reason: "confirmation_not_found" };
-  if (c.status !== "granted") {
-    return { ok: false, reason: "confirmation_not_confirmed" };
-  }
-  if (c.expiresAt && c.expiresAt < nowIso) {
-    return { ok: false, reason: "confirmation_expired" };
-  }
-  if (!c.scope.includes(scopeNeedle) && c.actionRef !== scopeNeedle) {
-    return { ok: false, reason: "confirmation_scope_mismatch" };
-  }
-  return { ok: true, confirmation: c };
+function claimDigest(location: string): Digest {
+  return `sha256:${createHash("sha256").update(location, "utf8").digest("hex")}` as Digest;
 }
 
 async function registerTypedGitEvidence(input: {
@@ -68,8 +47,10 @@ async function registerTypedGitEvidence(input: {
   evidenceId: string;
   source: TypedGitEvidenceSource;
   payload: Record<string, unknown>;
-  bindings: GitEffectBindings;
-  actor: GitEffectActor;
+  bindings: GitVerifyBindings;
+  actor: GitVerifyActor;
+  /** When true, mark as Studio-read verified (not Cursor report alone). */
+  studioVerified: boolean;
   nowIso?: string;
 }): Promise<{ ok: true; evidenceId: string } | { ok: false; reason: string }> {
   const built = buildTypedGitEvidenceFields(
@@ -77,6 +58,9 @@ async function registerTypedGitEvidence(input: {
     input.payload as never,
   );
   if (!built.ok) return { ok: false, reason: built.reason };
+
+  const location = built.fields.location ?? `git:${input.source}`;
+  const digest = built.fields.digest ?? claimDigest(location);
 
   const result = await input.services.registerEvidence.execute({
     evidenceId: input.evidenceId,
@@ -88,8 +72,15 @@ async function registerTypedGitEvidence(input: {
     classification: "internal",
     storageMode: "metadata_only",
     status: "available",
-    location: built.fields.location,
-    digest: built.fields.digest,
+    location,
+    digest,
+    ...(input.studioVerified
+      ? {
+          technicalResultRef: `${STUDIO_REPO_READ_VERIFIED_PREFIX}${input.source}`,
+        }
+      : {
+          technicalResultRef: `studio:cursor_report_claim:${input.source}`,
+        }),
     bindings: {
       projectId: input.bindings.projectId,
       cycleInstanceId: input.bindings.cycleInstanceId,
@@ -108,145 +99,162 @@ async function registerTypedGitEvidence(input: {
   return { ok: true, evidenceId: input.evidenceId };
 }
 
-export async function commitArtifactEvidence(input: {
-  commitPort: LocalGitCommitPort;
+/** Register a Cursor-reported claim as AVAILABLE (not verified). */
+export async function registerReportedGitClaimEvidence(input: {
   evidenceServices: EvidenceReviewServices;
-  repoPath: string;
-  repositoryRef: string;
-  paths: string[];
-  message: string;
-  bindings: GitEffectBindings;
-  actor: GitEffectActor;
-  confirmationId?: string;
-  confirmations?: ConfirmationRepositoryPort;
+  source: TypedGitEvidenceSource;
+  payload: Record<string, unknown>;
+  bindings: GitVerifyBindings;
+  actor: GitVerifyActor;
+  evidenceId: string;
   nowIso?: string;
-}): Promise<{ ok: true; evidenceId: string; commitSha: string } | { ok: false; reason: string }> {
-  const nowIso = input.nowIso ?? new Date().toISOString();
-  const conf = await assertConfirmed(
-    input.confirmations,
-    input.confirmationId,
-    "git:local_commit",
-    nowIso,
-  );
-  if (!conf.ok) return conf;
-
-  const committed = await input.commitPort.commit({
-    repoPath: input.repoPath,
-    message: input.message,
-    paths: input.paths,
+}): Promise<{ ok: true; evidenceId: string } | { ok: false; reason: string }> {
+  return registerTypedGitEvidence({
+    services: input.evidenceServices,
+    evidenceId: input.evidenceId,
+    source: input.source,
+    payload: input.payload,
+    bindings: input.bindings,
+    actor: input.actor,
+    studioVerified: false,
+    nowIso: input.nowIso,
   });
-  const evidenceId = `ev:git-commit:${committed.commitSha.slice(0, 12)}`;
+}
+
+export async function verifyCommitClaim(input: {
+  repositoryRead: RepositoryReadPort;
+  evidenceServices: EvidenceReviewServices;
+  repositoryRef: string;
+  claimedCommitSha: string;
+  message?: string;
+  bindings: GitVerifyBindings;
+  actor: GitVerifyActor;
+  nowIso?: string;
+}): Promise<
+  | { ok: true; evidenceId: string; status: "verified" }
+  | { ok: false; reason: string; status: "reported" | "failed" }
+> {
+  const observed = await input.repositoryRead.getCommit({
+    repositoryRef: input.repositoryRef,
+    sha: input.claimedCommitSha,
+  });
+  if (!observed) {
+    return { ok: false, reason: "commit_sha_not_found", status: "reported" };
+  }
+  if (observed.sha.toLowerCase() !== input.claimedCommitSha.toLowerCase()) {
+    return { ok: false, reason: "commit_sha_mismatch", status: "failed" };
+  }
+  const evidenceId = `ev:git-commit-verified:${observed.sha.slice(0, 12)}`;
   const reg = await registerTypedGitEvidence({
     services: input.evidenceServices,
     evidenceId,
     source: "git:local_commit",
     payload: {
       repositoryRef: input.repositoryRef,
-      commitSha: committed.commitSha,
-      message: committed.message,
+      commitSha: observed.sha,
+      message: input.message ?? observed.message,
     },
     bindings: input.bindings,
     actor: input.actor,
-    nowIso,
+    studioVerified: true,
+    nowIso: input.nowIso,
   });
-  if (!reg.ok) return reg;
-  return { ok: true, evidenceId, commitSha: committed.commitSha };
+  if (!reg.ok) return { ok: false, reason: reg.reason, status: "failed" };
+  return { ok: true, evidenceId, status: "verified" };
 }
 
-export async function pushBranchEvidence(input: {
-  pushPort: GitRemotePushPort;
+export async function verifyPushClaim(input: {
+  repositoryRead: RepositoryReadPort;
   evidenceServices: EvidenceReviewServices;
   repositoryRef: string;
-  remote: string;
-  refName: string;
-  commitSha: string;
-  bindings: GitEffectBindings;
-  actor: GitEffectActor;
-  confirmationId?: string;
-  confirmations?: ConfirmationRepositoryPort;
+  branch: string;
+  claimedCommitSha: string;
+  remote?: string;
+  bindings: GitVerifyBindings;
+  actor: GitVerifyActor;
   nowIso?: string;
-}): Promise<{ ok: true; evidenceId: string } | { ok: false; reason: string }> {
-  const nowIso = input.nowIso ?? new Date().toISOString();
-  const conf = await assertConfirmed(
-    input.confirmations,
-    input.confirmationId,
-    "git:remote_push",
-    nowIso,
-  );
-  if (!conf.ok) return conf;
-
-  const pushed = await input.pushPort.push({
+}): Promise<
+  | { ok: true; evidenceId: string; status: "verified" }
+  | { ok: false; reason: string; status: "reported" | "failed" }
+> {
+  const head = await input.repositoryRead.getBranchHead({
     repositoryRef: input.repositoryRef,
-    remote: input.remote,
-    refName: input.refName,
-    commitSha: input.commitSha,
+    branch: input.branch,
   });
-  const evidenceId = `ev:git-push:${pushed.commitSha.slice(0, 12)}`;
-  return registerTypedGitEvidence({
+  if (!head) {
+    return { ok: false, reason: "branch_head_not_found", status: "reported" };
+  }
+  if (head.toLowerCase() !== input.claimedCommitSha.toLowerCase()) {
+    return { ok: false, reason: "push_sha_mismatch", status: "failed" };
+  }
+  const evidenceId = `ev:git-push-verified:${head.slice(0, 12)}`;
+  const reg = await registerTypedGitEvidence({
     services: input.evidenceServices,
     evidenceId,
     source: "git:remote_push",
     payload: {
       repositoryRef: input.repositoryRef,
-      remote: pushed.remote,
-      refName: pushed.refName,
-      commitSha: pushed.commitSha,
+      remote: input.remote ?? "origin",
+      refName: `refs/heads/${input.branch}`,
+      commitSha: head,
     },
     bindings: input.bindings,
     actor: input.actor,
-    nowIso,
+    studioVerified: true,
+    nowIso: input.nowIso,
   });
+  if (!reg.ok) return { ok: false, reason: reg.reason, status: "failed" };
+  return { ok: true, evidenceId, status: "verified" };
 }
 
-export async function openPullRequestEvidence(input: {
-  prPort: GitPullRequestPort;
+export async function verifyPullRequestClaim(input: {
+  repositoryRead: RepositoryReadPort;
   evidenceServices: EvidenceReviewServices;
   repositoryRef: string;
-  title: string;
-  headRef: string;
-  baseRef: string;
-  bindings: GitEffectBindings;
-  actor: GitEffectActor;
-  confirmationId?: string;
-  confirmations?: ConfirmationRepositoryPort;
+  claimedPrNumber: number;
+  claimedHeadSha: string;
+  bindings: GitVerifyBindings;
+  actor: GitVerifyActor;
   nowIso?: string;
 }): Promise<
-  | { ok: true; evidenceId: string; prNumber: number; headSha: string }
-  | { ok: false; reason: string }
+  | { ok: true; evidenceId: string; status: "verified"; prNumber: number; headSha: string }
+  | { ok: false; reason: string; status: "reported" | "failed" }
 > {
-  const nowIso = input.nowIso ?? new Date().toISOString();
-  const conf = await assertConfirmed(
-    input.confirmations,
-    input.confirmationId,
-    "git:pull_request",
-    nowIso,
-  );
-  if (!conf.ok) return conf;
-
-  const pr = await input.prPort.openPullRequest({
+  const pr = await input.repositoryRead.getPullRequest({
     repositoryRef: input.repositoryRef,
-    title: input.title,
-    headRef: input.headRef,
-    baseRef: input.baseRef,
+    number: input.claimedPrNumber,
   });
-  const evidenceId = `ev:git-pr:${pr.prNumber}`;
+  if (!pr) {
+    return { ok: false, reason: "pr_not_found", status: "reported" };
+  }
+  if (pr.headSha.toLowerCase() !== input.claimedHeadSha.toLowerCase()) {
+    return { ok: false, reason: "pr_head_mismatch", status: "failed" };
+  }
+  const evidenceId = `ev:git-pr-verified:${pr.number}`;
   const reg = await registerTypedGitEvidence({
     services: input.evidenceServices,
     evidenceId,
     source: "git:pull_request",
     payload: {
       repositoryRef: input.repositoryRef,
-      prNumber: pr.prNumber,
+      prNumber: pr.number,
       url: pr.url,
       headSha: pr.headSha,
-      state: "open",
+      state: pr.state,
     },
     bindings: input.bindings,
     actor: input.actor,
-    nowIso,
+    studioVerified: true,
+    nowIso: input.nowIso,
   });
-  if (!reg.ok) return reg;
-  return { ok: true, evidenceId, prNumber: pr.prNumber, headSha: pr.headSha };
+  if (!reg.ok) return { ok: false, reason: reg.reason, status: "failed" };
+  return {
+    ok: true,
+    evidenceId,
+    status: "verified",
+    prNumber: pr.number,
+    headSha: pr.headSha,
+  };
 }
 
 export async function recordCiStatusEvidence(input: {
@@ -254,12 +262,15 @@ export async function recordCiStatusEvidence(input: {
   evidenceServices: EvidenceReviewServices;
   repositoryRef: string;
   commitSha: string;
-  bindings: GitEffectBindings;
-  actor: GitEffectActor;
+  bindings: GitVerifyBindings;
+  actor: GitVerifyActor;
   nowIso?: string;
   /** Test inject — skip live CI read. */
   forcedConclusion?: "success" | "failure" | "pending";
-}): Promise<{ ok: true; evidenceId: string; conclusion: string } | { ok: false; reason: string }> {
+}): Promise<
+  | { ok: true; evidenceId: string; conclusion: string; status: "verified" | "failed" }
+  | { ok: false; reason: string }
+> {
   const nowIso = input.nowIso ?? new Date().toISOString();
   const status =
     input.forcedConclusion != null
@@ -268,6 +279,7 @@ export async function recordCiStatusEvidence(input: {
           repositoryRef: input.repositoryRef,
           commitSha: input.commitSha,
         });
+  const verified = status.conclusion === "success";
   const evidenceId = `ev:git-ci:${input.commitSha.slice(0, 12)}`;
   const reg = await registerTypedGitEvidence({
     services: input.evidenceServices,
@@ -281,10 +293,16 @@ export async function recordCiStatusEvidence(input: {
     },
     bindings: input.bindings,
     actor: input.actor,
+    studioVerified: verified,
     nowIso,
   });
-  if (!reg.ok) return reg;
-  return { ok: true, evidenceId, conclusion: status.conclusion };
+  if (!reg.ok) return { ok: false, reason: reg.reason };
+  return {
+    ok: true,
+    evidenceId,
+    conclusion: status.conclusion,
+    status: verified ? "verified" : "failed",
+  };
 }
 
 export async function recordReviewStatusEvidence(input: {
@@ -292,11 +310,14 @@ export async function recordReviewStatusEvidence(input: {
   evidenceServices: EvidenceReviewServices;
   repositoryRef: string;
   prNumber: number;
-  bindings: GitEffectBindings;
-  actor: GitEffectActor;
+  bindings: GitVerifyBindings;
+  actor: GitVerifyActor;
   nowIso?: string;
   forcedState?: "approved" | "changes_requested" | "commented" | "pending";
-}): Promise<{ ok: true; evidenceId: string; state: string } | { ok: false; reason: string }> {
+}): Promise<
+  | { ok: true; evidenceId: string; state: string; status: "verified" | "failed" }
+  | { ok: false; reason: string }
+> {
   const nowIso = input.nowIso ?? new Date().toISOString();
   const status =
     input.forcedState != null
@@ -305,6 +326,7 @@ export async function recordReviewStatusEvidence(input: {
           repositoryRef: input.repositoryRef,
           prNumber: input.prNumber,
         });
+  const verified = status.state === "approved";
   const evidenceId = `ev:git-review:${input.prNumber}`;
   const reg = await registerTypedGitEvidence({
     services: input.evidenceServices,
@@ -317,65 +339,75 @@ export async function recordReviewStatusEvidence(input: {
     },
     bindings: input.bindings,
     actor: input.actor,
+    studioVerified: verified,
     nowIso,
   });
-  if (!reg.ok) return reg;
-  return { ok: true, evidenceId, state: status.state };
+  if (!reg.ok) return { ok: false, reason: reg.reason };
+  return {
+    ok: true,
+    evidenceId,
+    state: status.state,
+    status: verified ? "verified" : "failed",
+  };
 }
 
-export async function mergePullRequestEvidence(input: {
-  mergePort: GitMergePort;
+export async function verifyMergeClaim(input: {
+  repositoryRead: RepositoryReadPort;
   evidenceServices: EvidenceReviewServices;
   repositoryRef: string;
-  prNumber: number;
-  confirmationId: string;
-  confirmations: ConfirmationRepositoryPort;
-  bindings: GitEffectBindings;
-  actor: GitEffectActor;
+  claimedPrNumber: number;
+  claimedMergeSha?: string;
+  bindings: GitVerifyBindings;
+  actor: GitVerifyActor;
   nowIso?: string;
 }): Promise<
-  | { ok: true; evidenceId: string; mergeCommitSha: string }
-  | { ok: false; reason: string }
+  | { ok: true; evidenceId: string; mergeCommitSha: string; status: "verified" }
+  | { ok: false; reason: string; status: "reported" | "failed" }
 > {
-  const nowIso = input.nowIso ?? new Date().toISOString();
-  const conf = await assertConfirmed(
-    input.confirmations,
-    input.confirmationId,
-    "git:merge",
-    nowIso,
-  );
-  if (!conf.ok) return conf;
-
-  const merged = await input.mergePort.mergePullRequest({
+  const info = await input.repositoryRead.getMergeInfo({
     repositoryRef: input.repositoryRef,
-    prNumber: input.prNumber,
-    mergeConfirmationId: input.confirmationId,
+    prNumber: input.claimedPrNumber,
   });
-  const evidenceId = `ev:git-merge:${merged.mergeCommitSha.slice(0, 12)}`;
+  if (!info) {
+    return { ok: false, reason: "merge_info_not_found", status: "reported" };
+  }
+  if (info.state !== "merged" || !info.mergeSha) {
+    return { ok: false, reason: "pr_not_merged", status: "failed" };
+  }
+  if (
+    input.claimedMergeSha &&
+    info.mergeSha.toLowerCase() !== input.claimedMergeSha.toLowerCase()
+  ) {
+    return { ok: false, reason: "merge_sha_mismatch", status: "failed" };
+  }
+  const evidenceId = `ev:git-merge-verified:${info.mergeSha.slice(0, 12)}`;
   const reg = await registerTypedGitEvidence({
     services: input.evidenceServices,
     evidenceId,
     source: "git:merge",
     payload: {
       repositoryRef: input.repositoryRef,
-      mergeCommitSha: merged.mergeCommitSha,
-      baseRef: merged.baseRef,
-      prNumber: merged.prNumber,
+      mergeCommitSha: info.mergeSha,
+      baseRef: info.targetBranch,
+      prNumber: info.prNumber,
     },
     bindings: input.bindings,
     actor: input.actor,
-    nowIso,
+    studioVerified: true,
+    nowIso: input.nowIso,
   });
-  if (!reg.ok) return reg;
+  if (!reg.ok) return { ok: false, reason: reg.reason, status: "failed" };
   return {
     ok: true,
     evidenceId,
-    mergeCommitSha: merged.mergeCommitSha,
+    mergeCommitSha: info.mergeSha,
+    status: "verified",
   };
 }
 
 export async function verifyPostMergeEvidence(input: {
   evidenceServices: EvidenceReviewServices;
+  repositoryRead?: RepositoryReadPort;
   repositoryRef: string;
   targetBranch: string;
   targetSha: string;
@@ -385,18 +417,37 @@ export async function verifyPostMergeEvidence(input: {
   observedTargetSha: string;
   expectedArtifactDigest: Digest;
   observedArtifactDigest: Digest;
-  bindings: GitEffectBindings;
-  actor: GitEffectActor;
+  bindings: GitVerifyBindings;
+  actor: GitVerifyActor;
   nowIso?: string;
   verifyPort?: PostMergeVerifyPort;
 }): Promise<{ ok: true; evidenceId: string } | { ok: false; reason: string }> {
+  // When a read port is supplied, prefer independently observed facts.
+  let observedTargetSha = input.observedTargetSha;
+  let observedArtifactDigest = input.observedArtifactDigest;
+  if (input.repositoryRead) {
+    const head = await input.repositoryRead.getBranchHead({
+      repositoryRef: input.repositoryRef,
+      branch: input.targetBranch,
+    });
+    if (head) observedTargetSha = head;
+    if (input.repositoryRead.readArtifactDigestAtRef) {
+      const dig = await input.repositoryRead.readArtifactDigestAtRef({
+        repositoryRef: input.repositoryRef,
+        path: input.artifactPath,
+        ref: observedTargetSha,
+      });
+      if (dig) observedArtifactDigest = dig;
+    }
+  }
+
   const nowIso = input.nowIso ?? new Date().toISOString();
   const verify = input.verifyPort?.verify ?? verifyPostMerge;
   const result = verify({
     expectedTargetSha: input.expectedTargetSha,
-    observedTargetSha: input.observedTargetSha,
+    observedTargetSha,
     expectedArtifactDigest: input.expectedArtifactDigest,
-    observedArtifactDigest: input.observedArtifactDigest,
+    observedArtifactDigest,
     artifactPath: input.artifactPath,
   });
   if (!result.ok) {
@@ -410,12 +461,17 @@ export async function verifyPostMergeEvidence(input: {
     payload: {
       repositoryRef: input.repositoryRef,
       targetBranch: input.targetBranch,
-      targetSha: input.targetSha,
+      targetSha: observedTargetSha,
       artifactPath: input.artifactPath,
-      artifactDigest: input.artifactDigest,
+      artifactDigest: observedArtifactDigest,
     },
     bindings: input.bindings,
     actor: input.actor,
+    studioVerified: true,
     nowIso,
   });
 }
+
+/** @deprecated Aliases — mutation evidence actions removed (D-GCEC-09). */
+export type GitEffectActor = GitVerifyActor;
+export type GitEffectBindings = GitVerifyBindings;

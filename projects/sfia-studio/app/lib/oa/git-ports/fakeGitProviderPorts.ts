@@ -1,80 +1,167 @@
 /**
- * In-memory fake remote Git ports for deterministic tests.
- * Does not touch network or real git remotes.
+ * FakeRepositoryReadPorts — in-memory READ-ONLY Git/GitHub observation for tests.
+ * D-GCEC-09: NO commit / push / open PR / merge methods.
+ *
+ * Seeded state emulates external Cursor mutations observed by Studio.
  */
+import { createHash } from "node:crypto";
+import type { Digest } from "@/lib/oa/doctrine";
 import type {
   GitCiStatusInput,
   GitCiStatusOutput,
   GitCiStatusPort,
-  GitMergeInput,
-  GitMergeOutput,
-  GitMergePort,
-  GitPullRequestInput,
-  GitPullRequestOutput,
-  GitPullRequestPort,
-  GitRemotePushInput,
-  GitRemotePushOutput,
-  GitRemotePushPort,
   GitReviewStatusInput,
   GitReviewStatusOutput,
   GitReviewStatusPort,
+  RepositoryCommitSummary,
+  RepositoryCompareResult,
+  RepositoryFileContent,
+  RepositoryMergeInfo,
+  RepositoryPullRequestSummary,
+  RepositoryReadPort,
+  RepositoryReadRef,
 } from "./types";
 
-function fakeSha(seed: string): string {
-  let h = 0;
-  for (let i = 0; i < seed.length; i += 1) {
-    h = (h * 31 + seed.charCodeAt(i)) >>> 0;
-  }
-  return h.toString(16).padStart(8, "0").repeat(5).slice(0, 40);
+function digestOf(content: string): Digest {
+  return `sha256:${createHash("sha256").update(content, "utf8").digest("hex")}` as Digest;
 }
 
-export class FakeGitProviderPorts
-  implements
-    GitRemotePushPort,
-    GitPullRequestPort,
-    GitCiStatusPort,
-    GitReviewStatusPort,
-    GitMergePort
+export class FakeRepositoryReadPorts
+  implements RepositoryReadPort, GitCiStatusPort, GitReviewStatusPort
 {
-  readonly pushes: GitRemotePushOutput[] = [];
-  readonly pullRequests: GitPullRequestOutput[] = [];
-  readonly merges: GitMergeOutput[] = [];
+  readonly pullRequests = new Map<number, RepositoryPullRequestSummary>();
+  readonly prFiles = new Map<number, string[]>();
+  readonly prDiffs = new Map<number, string>();
+  readonly commits = new Map<string, RepositoryCommitSummary>();
+  readonly filesByRefPath = new Map<string, string>();
+  readonly pathsByRef = new Map<string, string[]>();
+  readonly branchHeads = new Map<string, string>();
+  readonly compares = new Map<string, RepositoryCompareResult>();
   ciByCommit = new Map<string, GitCiStatusOutput>();
   reviewByPr = new Map<number, GitReviewStatusOutput>();
-  private nextPr = 1;
+  mergeByPr = new Map<number, RepositoryMergeInfo>();
 
-  async push(input: GitRemotePushInput): Promise<GitRemotePushOutput> {
-    if (input.force === true) {
-      throw new Error("git_force_push_forbidden");
-    }
-    const out: GitRemotePushOutput = {
-      remote: input.remote,
-      refName: input.refName,
-      commitSha: input.commitSha,
-    };
-    this.pushes.push(out);
-    return out;
+  seedPullRequest(pr: RepositoryPullRequestSummary): void {
+    this.pullRequests.set(pr.number, pr);
   }
 
-  async openPullRequest(
-    input: GitPullRequestInput,
-  ): Promise<GitPullRequestOutput> {
-    const prNumber = this.nextPr;
-    this.nextPr += 1;
-    const out: GitPullRequestOutput = {
-      prNumber,
-      url: `https://github.com/${input.repositoryRef}/pull/${prNumber}`,
-      headSha: fakeSha(`${input.repositoryRef}:${input.headRef}:${prNumber}`),
-      baseRef: input.baseRef,
+  seedCommit(commit: RepositoryCommitSummary): void {
+    this.commits.set(commit.sha.toLowerCase(), {
+      ...commit,
+      sha: commit.sha.toLowerCase(),
+    });
+  }
+
+  seedFileAtRef(ref: string, path: string, content: string): void {
+    this.filesByRefPath.set(`${ref}:${path}`, content);
+  }
+
+  seedBranchHead(branch: string, sha: string): void {
+    this.branchHeads.set(branch, sha.toLowerCase());
+  }
+
+  seedMergeInfo(info: RepositoryMergeInfo): void {
+    this.mergeByPr.set(info.prNumber, info);
+  }
+
+  async listPullRequests(
+    input: RepositoryReadRef & {
+      limit?: number;
+      state?: "open" | "closed" | "all";
+    },
+  ): Promise<RepositoryPullRequestSummary[]> {
+    void input.repositoryRef;
+    const all = [...this.pullRequests.values()];
+    const filtered =
+      !input.state || input.state === "all"
+        ? all
+        : all.filter((p) => p.state === input.state);
+    return filtered.slice(0, input.limit ?? 20);
+  }
+
+  async getPullRequest(
+    input: RepositoryReadRef & { number: number },
+  ): Promise<RepositoryPullRequestSummary | null> {
+    void input.repositoryRef;
+    return this.pullRequests.get(input.number) ?? null;
+  }
+
+  async listPullRequestFiles(
+    input: RepositoryReadRef & { number: number },
+  ): Promise<string[]> {
+    void input.repositoryRef;
+    return this.prFiles.get(input.number) ?? [];
+  }
+
+  async getPullRequestDiff(
+    input: RepositoryReadRef & { number: number },
+  ): Promise<string> {
+    void input.repositoryRef;
+    return this.prDiffs.get(input.number) ?? "";
+  }
+
+  async listCommits(
+    input: RepositoryReadRef & { ref?: string; limit?: number },
+  ): Promise<RepositoryCommitSummary[]> {
+    void input.repositoryRef;
+    const all = [...this.commits.values()];
+    return all.slice(0, input.limit ?? 20);
+  }
+
+  async getCommit(
+    input: RepositoryReadRef & { sha: string },
+  ): Promise<RepositoryCommitSummary | null> {
+    void input.repositoryRef;
+    return this.commits.get(input.sha.toLowerCase()) ?? null;
+  }
+
+  async readFileAtRef(
+    input: RepositoryReadRef & { path: string; ref: string },
+  ): Promise<RepositoryFileContent | null> {
+    void input.repositoryRef;
+    const content = this.filesByRefPath.get(`${input.ref}:${input.path}`);
+    if (content == null) return null;
+    return {
+      path: input.path,
+      ref: input.ref,
+      content,
+      digest: digestOf(content),
     };
-    this.pullRequests.push(out);
-    this.reviewByPr.set(prNumber, { state: "pending" });
-    return out;
+  }
+
+  async listPathAtRef(
+    input: RepositoryReadRef & { path: string; ref: string },
+  ): Promise<string[]> {
+    void input.path;
+    return this.pathsByRef.get(input.ref) ?? [];
+  }
+
+  async compareRefs(
+    input: RepositoryReadRef & { base: string; head: string },
+  ): Promise<RepositoryCompareResult> {
+    void input.repositoryRef;
+    const key = `${input.base}..${input.head}`;
+    return (
+      this.compares.get(key) ?? {
+        base: input.base,
+        head: input.head,
+        aheadBy: 0,
+        behindBy: 0,
+        files: [],
+      }
+    );
+  }
+
+  async getBranchHead(
+    input: RepositoryReadRef & { branch: string },
+  ): Promise<string | null> {
+    void input.repositoryRef;
+    return this.branchHeads.get(input.branch) ?? null;
   }
 
   async getCiStatus(input: GitCiStatusInput): Promise<GitCiStatusOutput> {
     return (
-      this.ciByCommit.get(input.commitSha) ?? {
+      this.ciByCommit.get(input.commitSha.toLowerCase()) ?? {
         conclusion: "pending",
         checkName: "fake-ci",
       }
@@ -87,18 +174,20 @@ export class FakeGitProviderPorts
     return this.reviewByPr.get(input.prNumber) ?? { state: "pending" };
   }
 
-  async mergePullRequest(input: GitMergeInput): Promise<GitMergeOutput> {
-    if (!input.mergeConfirmationId.trim()) {
-      throw new Error("git_merge_confirmation_required");
-    }
-    const out: GitMergeOutput = {
-      mergeCommitSha: fakeSha(
-        `merge:${input.repositoryRef}:${input.prNumber}:${input.mergeConfirmationId}`,
-      ),
-      baseRef: "main",
-      prNumber: input.prNumber,
-    };
-    this.merges.push(out);
-    return out;
+  async getMergeInfo(
+    input: RepositoryReadRef & { prNumber: number },
+  ): Promise<RepositoryMergeInfo | null> {
+    void input.repositoryRef;
+    return this.mergeByPr.get(input.prNumber) ?? null;
+  }
+
+  async readArtifactDigestAtRef(
+    input: RepositoryReadRef & { path: string; ref: string },
+  ): Promise<Digest | null> {
+    const file = await this.readFileAtRef(input);
+    return file?.digest ?? null;
   }
 }
+
+/** @deprecated Use FakeRepositoryReadPorts — mutation surface retired (D-GCEC-09). */
+export const FakeGitProviderPorts = FakeRepositoryReadPorts;
