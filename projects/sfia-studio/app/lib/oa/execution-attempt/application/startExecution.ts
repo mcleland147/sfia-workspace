@@ -74,6 +74,8 @@ import {
   resolvedTargetToConfirmationMatch,
 } from "../domain/resolveGitEffectTarget";
 import { deriveExecutableEffectsFromContractRequirements } from "../domain/contractEffectClassification";
+import { resolvePreCommitWorkspaceContinuation } from "../domain/resolvePreCommitWorkspaceContinuation";
+import type { CursorAuthorizedEffectId } from "../domain/cursorExecutionReport";
 import {
   authorityFailureDetail,
   contractGateDetail,
@@ -1070,6 +1072,50 @@ export class StartExecution {
       });
     }
 
+    // D-GCEC-CONT-01 — pre-commit workspace continuation (server-derived only).
+    let workspaceContinuation:
+      | {
+          priorAttemptId: string;
+          expectedHeadSha: string;
+          expectedVerifiedFiles: readonly {
+            path: string;
+            digest: string;
+          }[];
+        }
+      | undefined;
+    {
+      const peerAttempts = await this.attempts.listByContract(
+        contract.executionContractId,
+      );
+      const evidenceList = this.listProjectEvidence
+        ? await this.listProjectEvidence(contract.projectId)
+        : [];
+      const cont = resolvePreCommitWorkspaceContinuation({
+        currentAttemptId: attempt.attemptId,
+        executionContractId: contract.executionContractId,
+        projectId: contract.projectId,
+        cycleInstanceId: contract.cycleInstanceId ?? "",
+        expectedHeadSha: baseHeadSha,
+        attempts: peerAttempts,
+        evidence: evidenceList,
+        authorizedEffects:
+          authorizedSlice.authorizedEffects as CursorAuthorizedEffectId[],
+        verifiedEffects: request.verifiedEffects,
+      });
+      if (cont.required) {
+        if (!cont.ok) {
+          return fail("ATTEMPT_INVALID", cont.reason, {
+            executionContractId: contract.executionContractId,
+          });
+        }
+        workspaceContinuation = {
+          priorAttemptId: cont.descriptor.priorAttemptId,
+          expectedHeadSha: cont.descriptor.expectedHeadSha,
+          expectedVerifiedFiles: cont.descriptor.expectedVerifiedFiles,
+        };
+      }
+    }
+
     let launch;
     try {
       launch = await this.realLaunchPort.launch({
@@ -1097,6 +1143,9 @@ export class StartExecution {
           blockedEffects: authorizedSlice.blockedEffects,
           reasons: authorizedSlice.reasons,
         },
+        ...(workspaceContinuation
+          ? { workspaceContinuation }
+          : {}),
       });
     } catch {
       return this.failRealLaunch({

@@ -167,17 +167,59 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
 
     let workspacePath: string;
     try {
-      const prepared = await this.workspacePort.prepareWorkspace({
-        attemptId: request.attemptId,
-        baseHeadSha,
-        ...(request.managedRepoRoot
-          ? { managedRepoRoot: request.managedRepoRoot }
-          : {}),
-        ...(request.repositoryBinding
-          ? { repositoryBinding: request.repositoryBinding }
-          : {}),
-      });
-      workspacePath = prepared.workspacePath;
+      const continuation = request.workspaceContinuation;
+      if (continuation) {
+        if (
+          typeof continuation.priorAttemptId !== "string" ||
+          !continuation.priorAttemptId.trim() ||
+          typeof (continuation as { workspacePath?: unknown }).workspacePath ===
+            "string"
+        ) {
+          return {
+            outcome: "reject",
+            gatewayId: this.gatewayId,
+            attemptId: request.attemptId,
+            reason: "REAL_WORKSPACE_INVALID:continuation_descriptor_invalid",
+            realProcessInvoked: false,
+            detailCode: "REAL_WORKSPACE_INVALID",
+          };
+        }
+        if (!this.workspacePort.resumeVerifiedWorkspace) {
+          return {
+            outcome: "reject",
+            gatewayId: this.gatewayId,
+            attemptId: request.attemptId,
+            reason: "REAL_WORKSPACE_INVALID:resume_unsupported",
+            realProcessInvoked: false,
+            detailCode: "REAL_WORKSPACE_INVALID",
+          };
+        }
+        const resumed = await this.workspacePort.resumeVerifiedWorkspace({
+          currentAttemptId: request.attemptId,
+          priorAttemptId: continuation.priorAttemptId,
+          expectedHeadSha: continuation.expectedHeadSha,
+          expectedVerifiedFiles: continuation.expectedVerifiedFiles,
+          ...(request.managedRepoRoot
+            ? { managedRepoRoot: request.managedRepoRoot }
+            : {}),
+          ...(request.repositoryBinding
+            ? { repositoryBinding: request.repositoryBinding }
+            : {}),
+        });
+        workspacePath = resumed.workspacePath;
+      } else {
+        const prepared = await this.workspacePort.prepareWorkspace({
+          attemptId: request.attemptId,
+          baseHeadSha,
+          ...(request.managedRepoRoot
+            ? { managedRepoRoot: request.managedRepoRoot }
+            : {}),
+          ...(request.repositoryBinding
+            ? { repositoryBinding: request.repositoryBinding }
+            : {}),
+        });
+        workspacePath = prepared.workspacePath;
+      }
     } catch (err) {
       const message = err instanceof Error ? err.message : "workspace_failed";
       return {

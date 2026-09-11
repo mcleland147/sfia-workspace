@@ -2,6 +2,8 @@
  * TEST-ONLY spawn / git doubles — no OS process, no real git.
  */
 import { EventEmitter } from "node:events";
+import { mkdirSync } from "node:fs";
+import path from "node:path";
 import type { ChildProcess } from "node:child_process";
 import type {
   GitCommandResult,
@@ -160,12 +162,16 @@ export class FakeGitCommandRunner implements GitCommandRunner {
   private readonly scripted: GitCommandResult[];
   private headOverride: string | null = null;
   private repoRootOverride: string | null = null;
+  private remoteUrl: string | null = null;
+  private readonly registeredWorktrees = new Set<string>();
   private failOn?: (argv: readonly string[]) => GitCommandResult | null;
 
   constructor(
     options: {
       baseHeadSha?: string;
       repoRoot?: string;
+      remoteUrl?: string;
+      registeredWorktrees?: string[];
       results?: GitCommandResult[];
       failOn?: (argv: readonly string[]) => GitCommandResult | null;
     } = {},
@@ -173,11 +179,19 @@ export class FakeGitCommandRunner implements GitCommandRunner {
     this.scripted = options.results ?? [];
     this.headOverride = options.baseHeadSha ?? null;
     this.repoRootOverride = options.repoRoot ?? null;
+    this.remoteUrl = options.remoteUrl ?? null;
     this.failOn = options.failOn;
+    for (const p of options.registeredWorktrees ?? []) {
+      this.registeredWorktrees.add(path.resolve(p));
+    }
   }
 
   setHeadSha(sha: string): void {
     this.headOverride = sha;
+  }
+
+  registerWorktree(workspacePath: string): void {
+    this.registeredWorktrees.add(path.resolve(workspacePath));
   }
 
   async run(
@@ -197,11 +211,28 @@ export class FakeGitCommandRunner implements GitCommandRunner {
       return { stdout: "commit\n", stderr: "", exitCode: 0 };
     }
     if (argv[0] === "worktree" && argv[1] === "add") {
+      const wtPath = argv[3] ? path.resolve(String(argv[3])) : "";
+      if (wtPath) {
+        this.registeredWorktrees.add(wtPath);
+        mkdirSync(wtPath, { recursive: true });
+      }
       return { stdout: "", stderr: "", exitCode: 0 };
+    }
+    if (argv[0] === "worktree" && argv[1] === "list") {
+      const lines = [...this.registeredWorktrees]
+        .map((p) => `worktree ${p}`)
+        .join("\n");
+      return { stdout: `${lines}\n`, stderr: "", exitCode: 0 };
+    }
+    if (argv[0] === "remote" && argv[1] === "get-url") {
+      if (!this.remoteUrl) {
+        return { stdout: "", stderr: "no_remote", exitCode: 1 };
+      }
+      return { stdout: `${this.remoteUrl}\n`, stderr: "", exitCode: 0 };
     }
     if (argv[0] === "rev-parse" && argv[1] === "--show-toplevel") {
       return {
-        stdout: `${this.repoRootOverride ?? cwd}\n`,
+        stdout: `${path.resolve(cwd)}\n`,
         stderr: "",
         exitCode: 0,
       };
@@ -217,21 +248,36 @@ export class FakeGitCommandRunner implements GitCommandRunner {
   }
 }
 
-/** TEST-ONLY workspace port that records prepare calls. */
+/** TEST-ONLY workspace port that records prepare/resume calls. */
 export class FakeRealExecutionWorkspacePort {
   readonly prepares: Array<{ attemptId: string; baseHeadSha: string }> = [];
+  readonly resumes: Array<{
+    priorAttemptId: string;
+    expectedHeadSha: string;
+  }> = [];
   private fail = false;
+  private resumeFail: string | null = null;
   private workspacePath = "/tmp/fake-exec-root/wt-test";
+  private resumePath = "/tmp/fake-exec-root/wt-prior";
 
   constructor(
-    options: { workspacePath?: string; fail?: boolean } = {},
+    options: {
+      workspacePath?: string;
+      resumePath?: string;
+      fail?: boolean;
+    } = {},
   ) {
     if (options.workspacePath) this.workspacePath = options.workspacePath;
+    if (options.resumePath) this.resumePath = options.resumePath;
     this.fail = options.fail ?? false;
   }
 
   setFail(fail: boolean): void {
     this.fail = fail;
+  }
+
+  setResumeFail(reason: string | null): void {
+    this.resumeFail = reason;
   }
 
   async prepareWorkspace(request: {
@@ -245,6 +291,30 @@ export class FakeRealExecutionWorkspacePort {
     return {
       workspacePath: this.workspacePath,
       verifiedHeadSha: request.baseHeadSha.toLowerCase(),
+    };
+  }
+
+  async resumeVerifiedWorkspace(request: {
+    currentAttemptId: string;
+    priorAttemptId: string;
+    expectedHeadSha: string;
+    expectedVerifiedFiles: readonly { path: string; digest: string }[];
+  }): Promise<{
+    workspacePath: string;
+    verifiedHeadSha: string;
+    priorAttemptId: string;
+  }> {
+    this.resumes.push({
+      priorAttemptId: request.priorAttemptId,
+      expectedHeadSha: request.expectedHeadSha,
+    });
+    if (this.resumeFail) {
+      throw new Error(this.resumeFail);
+    }
+    return {
+      workspacePath: this.resumePath,
+      verifiedHeadSha: request.expectedHeadSha.toLowerCase(),
+      priorAttemptId: request.priorAttemptId,
     };
   }
 }

@@ -74,6 +74,19 @@ export type RealLaunchRequest = {
     blockedEffects: readonly string[];
     reasons?: readonly string[];
   };
+  /**
+   * D-GCEC-CONT-01 — server-derived pre-commit workspace continuation.
+   * Produced only by StartExecution from Attempt/Evidence Product truth.
+   * MUST NOT contain a free workspace path / cwd.
+   */
+  readonly workspaceContinuation?: {
+    readonly priorAttemptId: string;
+    readonly expectedHeadSha: string;
+    readonly expectedVerifiedFiles: readonly {
+      readonly path: string;
+      readonly digest: string;
+    }[];
+  };
 };
 
 export type RealLaunchAck = {

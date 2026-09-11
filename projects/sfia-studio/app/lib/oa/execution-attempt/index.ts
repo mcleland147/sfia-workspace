@@ -48,6 +48,7 @@ export * from "./domain/cursorExecutionReport";
 export * from "./domain/authorizedExecutionSlice";
 export * from "./domain/contractEffectClassification";
 export * from "./domain/resolveGitEffectTarget";
+export * from "./domain/resolvePreCommitWorkspaceContinuation";
 export { verifyWorkspaceFileEffects } from "./application/verifyWorkspaceFileEffects";
 export type { WorkspaceFileVerificationResult } from "./application/verifyWorkspaceFileEffects";
 
