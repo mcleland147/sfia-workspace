@@ -1,158 +1,436 @@
 # SFIA STUDIO — GCEC
-BOUNDED LOCAL COMMIT OF REVIEWED REAL DOCS-WRITE ADAPTATIONS
+GCEC-CURSOR-REAL
+SECOND BOUNDED CURSOR REAL DOCS-WRITE ATTEMPT
 
 ## TIMESTAMP
-2026-09-11T19:46:37+02:00
+2026-09-11T20:10:45+02:00
 
 ## GO MORRIS
-bounded local GCEC REAL candidate commit consumed
-
-## REAL
-ZERO
-
-No StartExecution REAL.
-No Cursor child REAL business invocation.
-Env unset: `SFIA_STUDIO_CURSOR_REAL`, `SFIA_GCEC_CURSOR_REAL_PROOF`, `SFIA_GCEC_MANAGED_REPO_BASE`.
+GCEC-CURSOR-REAL one-attempt GO consumed
 
 ## GIT TRUTH BEFORE
 - worktree: `/Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310`
 - branch: `delivery/sfia-studio-product-proof-qual-to-governed-cycle`
-- HEAD: `290eca6544f93a898fc3920f99142dc6130ba05e`
-- parent: `8d05732c0be7eced7a6acee71d1e1d990a1e8db0`
+- HEAD: `92ad3fd41e065d0ebe76c59b4eedb622715a11e2`
+- parent: `290eca6544f93a898fc3920f99142dc6130ba05e`
 - origin/main: `a9f6c310a0826d0e5bd6f7264603382a86564db1`
-- Review Handoff input: `3b4a15ff03eab37690eee8a18c2648dd808b1a21`
-- Product dirt exactly four candidate files (+ `.tmp-sfia-review` only)
+- Product tracked: clean
+- Review Handoff input: `910d15d9be231ce82c0553b589e5a360c79c5343`
+
+## GIT TRUTH AFTER
+- HEAD unchanged: `92ad3fd41e065d0ebe76c59b4eedb622715a11e2`
+- Product tracked: clean
+- Product commit: NONE
+- Product push: NONE
 
 ## SOURCES
-- prompts/templates/sfia-cycle-execution-template.md
-- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-- method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
-- method/sfia-fast-track/core/sfia-rules-and-guardrails.md
-- projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
-- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-- projects/sfia-studio/product-completion/01-product-completion-cadrage.md
-- projects/sfia-studio/sfia-v3-framing/34-agent-capabilities-reversibility-and-execution-governance.md
-- projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md
-- handoff `sfia-review-handoff/latest-chatgpt-review.md` @ `3b4a15ff…`
+Cycle template, routing guide, ChatGPT–Cursor operating model, rules/guardrails,
+v2.5 method candidate, Build Doctrine, roadmap, Product Completion cadrage,
+framing 34/35, prior handoff @ `910d15d9…`.
 
 ## CONVERGENCE PRE-CHECK
 - Build Doctrine: VALIDATED / ACTIVE
 - Product Completion: COMPLETE / CLOSED
 - Runtime v3: NON ADOPTED
-- GCEC deterministic: PROVEN
-- Proof repository: PROVISIONED REAL
 - CR-GCEC-REAL-01: CLOSED
-- GCEC-CURSOR-REAL: OPEN (not consumed by this commit)
+- Candidate: COMMITTED @ `92ad3fd4`
 
-## CHATGPT CRITICAL REVIEW INPUT
-**PASS — GCEC REAL HARNESS RECONCILIATION-SAFE**
+## PRODUCT CANDIDATE
+`92ad3fd41e065d0ebe76c59b4eedb622715a11e2`
 
-Accepted candidate unchanged:
-1. `studioCursorRealLaunchGateway.ts` — docs-write instruction hardening
-2. `completeBoundedReadOnlyLaunch.ts` — `awaitIfPending` opt-in (default false)
-3. `completeBoundedDocsWriteLaunch.ts` — propagates `awaitIfPending`
-4. `gcecCursorRealDocsWrite.real.d0.test.ts` — LAUNCHED/processRef + reconciliation-safe harness
+## PRE-REAL CHECKS
+- Deterministic harness smoke (REAL OFF): **3 passed | 1 skipped**
+- Proof repo pre-state exact
+- Fresh managed clone @ base SHA
+- Cursor CLI qualified
+- No identifiable prior GCEC business child (IDE processes only; not killed)
+- Preflight checklist: `.tmp-sfia-review/gcec-cursor-real-proof/preflight-checklist.txt`
 
-## REVIEWED CONTENT INTEGRITY
-**PASS**
+## PROOF REPOSITORY BEFORE
+- identity: `mcleland147/sfia-gcec-proof-task-manager`
+- visibility: PRIVATE
+- default branch: main
+- main: `32c7c2008197e5c61b32c16479144e9863291358`
+- branches: main only
+- remote `docs/functional-design.md`: ABSENT
 
-- Harness working-tree content byte-identical to FULL embed in handoff `3b4a15ff…`
-- Harness byte-identical to CR-GCEC-REAL-01 reviewable full snapshot
-- Three tracked adaptations byte-identical to STOP-enrich / CR-GCEC-REAL-01 candidate
-- No Product code edits in this cycle (commit-only integration)
+## CURSOR CLI
+- binary: `/Applications/Cursor.app/Contents/Resources/app/bin/cursor`
+- IDE version: `3.19.19` (`6496ea8a…`, arm64)
+- agent version: `2026.08.11-e8db854`
+- auth: logged in as `m.cleland@live.fr`
+- mode/sandbox: default agent write (omit `--mode ask`); `--print`; `--sandbox enabled`; `--trust`; `--workspace` (per committed gateway)
 
-Local SHA-256 before commit:
-- `completeBoundedDocsWriteLaunch.ts` → `77f13ba1…`
-- `completeBoundedReadOnlyLaunch.ts` → `0968d573…`
-- `studioCursorRealLaunchGateway.ts` → `9af617c6…`
-- `gcecCursorRealDocsWrite.real.d0.test.ts` → `b40d66f4…`
+## MANAGED CLONE
+- managed base: `/tmp/sfia-gcec-managed-OlEFT9`
+- clone: `/tmp/sfia-gcec-managed-OlEFT9/mcleland147__sfia-gcec-proof-task-manager`
+- HEAD: `32c7c2008197e5c61b32c16479144e9863291358`
+- status: clean
+- artifact: ABSENT (before and after)
 
-## PRE-COMMIT TESTS
-REAL flags unset.
+## PRODUCT PROJECT
+`prj:gcec-real-docs-1`
 
-Focused:
+## CYCLE
+`cyc:trj-755b53ab8301065139e0fafa` (status after: `active`)
+
+## TRAJECTORY
+Product path: LifecycleRecommendation → candidate trajectory → Pilot approval →
+prepareCycleFromValidatedTrajectory → startPreparedTrajectoryCycle → F2 → HumanDecision GO →
+prepareAndResolveM3ProductPath → EC confirm → agent select → Gate D → StartExecution.
+
+## HUMAN DECISION
+F2 GO (local Morris authority force) preceding M3 prepare.
+
+## EXECUTION CONTRACT
+- id: `xct:m3-res:dec:f2:55ff23ff-e24b-417d-8a87-53b1fdb6059f`
+- status before StartExecution: confirmed (after Confirmation)
+- requirements: bounded docs-write + outstanding Git evidence requirements remain on EC
+- status after Attempt: `confirmed` (confirmed — Git requirements outstanding; NOT completed)
+
+## ATTEMPT
+`xat:gcec-real:xct:m3-res:dec:f2:55ff23ff-e24b-417d-8a87-53b1fdb6059f`
+
+## GATE D
+`gd:gcec-real:xat:gcec-real:xct:m3-res:dec:f2:55ff23ff-e24b-417d-8a87-53b1fdb6059f`
+
+## AUTHORIZED EXECUTION SLICE
+- filesystem docs-write only
+- target: `docs/functional-design.md`
+- path allowlist: `docs/`
+- no Git Confirmations supplied
+
+## BLOCKED EFFECTS
+- git commit / push / branch / PR / merge
+- README mutation
+- Shell (gateway instruction)
+- Product workspace mutation
+- remote proof mutation
+
+## REAL
+- realProcessInvoked: `True`
+- processRef: `pid:50290`
+- exitCode: `0`
+- timedOut: `False`
+- durationMs: `43102`
+- stdoutCap: (bounded)
 ```
-npx vitest run \
-  __tests__/oa/cycle/gcecCursorRealDocsWrite.real.d0.test.ts \
-  __tests__/project-assistant/preM6.realProductWiringResidual.test.ts \
-  __tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts \
-  __tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts \
-  __tests__/oa/cycle/gcecD15Negatives.d0.test.ts
-```
-```
-Test Files  5 passed (5)
-Tests  101 passed | 1 skipped (102)
-```
+`docs/functional-design.md` is created (only file touched).
 
-Related residual/spawn/gateway:
+It covers:
+- **Actor:** single end user
+- **Task fields:** identifier, mandatory title, optional description, status, optional due date
+- **Statuses:** `TODO`, `IN_PROGRESS`, `DONE`
+- **Flows:** create, list, filter by status, edit, change status
+- **Rules:** blank title refused; status closed set; due date optional
+- **Acceptance criteria:** testable ACs per flow
+- **Out of scope:** auth, multi-user, notifications, architecture/DB/API/framework, pixel UX
+
 ```
-Test Files  4 passed (4)
-Tests  42 passed (42)
-```
+- stderrCap: empty
 
-Full Vitest:
-```
-Test Files  340 passed | 17 skipped (357)
-Tests  3655 passed | 136 skipped (3791)
-```
-REAL harness file: `(4 tests | 1 skipped)` — scenario SKIPPED.
+## LAUNCH FRONTIER
+Written before post-launch await:
 
-- typecheck: PASS
-- lint: PASS
-- build: PASS
-- git diff --check (four files): PASS
-
-## STAGED FILES
-Exactly four:
-1. `projects/sfia-studio/app/features/project-assistant/f3/completeBoundedDocsWriteLaunch.ts`
-2. `projects/sfia-studio/app/features/project-assistant/f3/completeBoundedReadOnlyLaunch.ts`
-3. `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts`
-4. `projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealDocsWrite.real.d0.test.ts`
-
-No `.tmp-sfia-review/**` staged.
-
-## COMMIT
-- SHA: `92ad3fd41e065d0ebe76c59b4eedb622715a11e2`
-- parent: `290eca6544f93a898fc3920f99142dc6130ba05e`
-- tree: `69a70bc43e08f067636d37320b9cc61b5132ada9`
-- message: `feat(sfia-studio): prepare bounded Cursor real docs write`
-
-## COMMIT FILE LIST
-Exactly four (see STAGED FILES).
-
-`git show --stat`:
-```
-4 files changed, 1118 insertions(+), 7 deletions(-)
- create mode 100644 .../gcecCursorRealDocsWrite.real.d0.test.ts
+```json
+{
+  "timestamp": "2026-09-11T18:08:47.290Z",
+  "attemptId": "xat:gcec-real:xct:m3-res:dec:f2:55ff23ff-e24b-417d-8a87-53b1fdb6059f",
+  "executionContractId": "xct:m3-res:dec:f2:55ff23ff-e24b-417d-8a87-53b1fdb6059f",
+  "processRef": "pid:50290",
+  "proofRoot": "/var/folders/b9/5c00r70d7_l8kjth6vpfmn8m0000gn/T/sfia-gcec-real-J6dmNr",
+  "execRoot": "/var/folders/b9/5c00r70d7_l8kjth6vpfmn8m0000gn/T/sfia-gcec-real-J6dmNr/m4-worktrees",
+  "safetyJournalPath": "/var/folders/b9/5c00r70d7_l8kjth6vpfmn8m0000gn/T/sfia-gcec-real-J6dmNr/m4/launch-safety.sqlite",
+  "productDbPath": "/var/folders/b9/5c00r70d7_l8kjth6vpfmn8m0000gn/T/sfia-gcec-real-J6dmNr/oa.sqlite",
+  "managedClonePath": "/tmp/sfia-gcec-managed-OlEFT9/mcleland147__sfia-gcec-proof-task-manager",
+  "remoteBaseSha": "32c7c2008197e5c61b32c16479144e9863291358",
+  "phase": "LAUNCHED_UNRECONCILED"
+}
 ```
 
-## POST-COMMIT STATUS
-- Product tracked tree: clean
-- `.tmp-sfia-review` dirt may remain (not Product)
-- Product push: NONE
-- branch remains local relative to prior remote (no push performed)
+## WORKTREE
+- path: `/var/folders/b9/5c00r70d7_l8kjth6vpfmn8m0000gn/T/sfia-gcec-real-J6dmNr/m4-worktrees/wt-53edc7fbda620a9599fc4341`
+- not sfia-workspace / not Product proof worktree
+- HEAD (verified in harness): `32c7c2008197e5c61b32c16479144e9863291358`
+- after success + reconciliationComplete: disposable proofRoot cleaned by harness policy (CASE C); durable copies retained under `.tmp-sfia-review/gcec-cursor-real-proof/`
+
+## ARTIFACT
+- path: `docs/functional-design.md`
+- bytes: `7183`
+- digest: `sha256:e9d5cc7711f67455a6621dd02a548d895e3de848bdb721c3fca31982b4be375d`
+- independent recomputed digest match: YES
+
+### FULL ARTIFACT CONTENT
+
+```markdown
+# Functional Design — Personal Task Manager (Gestion de tâches)
+
+## 1. Purpose
+
+This document describes the functional design of a simple personal task manager for a single end user. It defines the business object **Task**, user-visible flows, business rules, and acceptance criteria. It does not cover authentication, multi-user collaboration, notifications, technical architecture, databases, APIs, frameworks, or pixel-level UX.
+
+## 2. Actor
+
+| Actor | Description |
+| --- | --- |
+| End user | A single person who creates, views, filters, edits, and updates the status of their own tasks. |
+
+There is no other actor in scope.
+
+## 3. Business object — Task
+
+A **Task** is the only business object in scope.
+
+### 3.1 Fields
+
+| Field | Mandatory | Description |
+| --- | --- | --- |
+| Identifier | Yes | Unique identifier of the task within the user's task set. Assigned when the task is created; not editable by the user as free text. |
+| Title | Yes | Short name of the task. Must be non-blank (see rules). |
+| Description | No | Longer free-text details about the task. May be empty or omitted. |
+| Status | Yes | Current progress state of the task. Must be one of the defined statuses. |
+| Due date | No | Optional calendar date by which the task is expected to be completed. May be empty or omitted. |
+
+### 3.2 Statuses
+
+Allowed status values (closed set):
+
+| Status | Meaning |
+| --- | --- |
+| `TODO` | Task is created and not started. |
+| `IN_PROGRESS` | Task is actively being worked on. |
+| `DONE` | Task is completed. |
+
+No other status values are permitted.
+
+### 3.3 Default values on creation
+
+Unless the user explicitly chooses otherwise at creation time:
+
+- **Status** defaults to `TODO`.
+- **Description** may be empty.
+- **Due date** may be empty.
+
+## 4. Functional flows
+
+### 4.1 Create task
+
+**Goal:** The user adds a new task to their personal list.
+
+**Steps (functional):**
+
+1. User provides a title (mandatory).
+2. User may optionally provide a description and/or a due date.
+3. User may optionally set an initial status from the allowed set; otherwise status is `TODO`.
+4. System validates the title and status (see rules).
+5. On success, system assigns an identifier and stores the new task.
+6. On failure (blank title or invalid status), creation is refused and no new task is created.
+
+### 4.2 List tasks
+
+**Goal:** The user sees their tasks.
+
+**Steps (functional):**
+
+1. User requests the list of tasks.
+2. System presents all tasks belonging to the user, each showing at least identifier, title, status, and due date when present.
+3. An empty list is a valid outcome when the user has no tasks.
+
+### 4.3 Filter by status
+
+**Goal:** The user narrows the list to tasks with a given status.
+
+**Steps (functional):**
+
+1. User selects one allowed status (`TODO`, `IN_PROGRESS`, or `DONE`), or clears the filter to show all.
+2. System presents only tasks whose status matches the selected value (or all tasks if no filter).
+3. If no task matches, the filtered result is empty.
+
+### 4.4 Edit task
+
+**Goal:** The user updates editable attributes of an existing task.
+
+**Steps (functional):**
+
+1. User selects an existing task by its identifier.
+2. User may change title, description, and/or due date.
+3. System validates the new title if provided (must not be blank).
+4. On success, the task is updated and remains identifiable by the same identifier.
+5. On failure, the task is left unchanged.
+
+Status change may be performed as part of edit or via the dedicated flow below; either way, status must remain in the allowed set.
+
+### 4.5 Change status
+
+**Goal:** The user moves a task to another allowed status.
+
+**Steps (functional):**
+
+1. User selects an existing task by its identifier.
+2. User chooses a new status from `{TODO, IN_PROGRESS, DONE}`.
+3. System validates the status is in the defined set.
+4. On success, the task’s status is updated to the chosen value.
+5. On failure (invalid status or unknown task), the status is left unchanged.
+
+## 5. Business rules
+
+| ID | Rule |
+| --- | --- |
+| R1 | A blank or whitespace-only title is refused for create and edit. |
+| R2 | Status must always be one of `TODO`, `IN_PROGRESS`, `DONE`. Any other value is refused. |
+| R3 | Description is optional; empty description is allowed. |
+| R4 | Due date is optional; absence of a due date is allowed. |
+| R5 | Every task has a stable identifier assigned at creation. |
+| R6 | Create and edit that violate R1 or R2 must not persist invalid data. |
+
+## 6. Acceptance criteria
+
+Criteria are observable and testable against the flows above.
+
+### Create task
+
+- **AC-C1:** Given a non-blank title, when the user creates a task, then a task exists with that title, an assigned identifier, and status `TODO` (unless another allowed status was supplied).
+- **AC-C2:** Given a blank or whitespace-only title, when the user attempts to create a task, then creation is refused and the task count is unchanged.
+- **AC-C3:** Given an optional description and/or due date, when the user creates a task with them, then those values are stored on the new task.
+- **AC-C4:** Given an invalid status value, when the user attempts to create a task with that status, then creation is refused.
+
+### List tasks
+
+- **AC-L1:** Given one or more existing tasks, when the user lists tasks, then each task’s identifier, title, status, and due date (if any) are visible.
+- **AC-L2:** Given no tasks, when the user lists tasks, then the result is an empty list.
+
+### Filter by status
+
+- **AC-F1:** Given tasks in mixed statuses, when the user filters by `TODO` (respectively `IN_PROGRESS` or `DONE`), then only tasks with that status appear.
+- **AC-F2:** Given a status filter with no matching tasks, when the user applies that filter, then the result is empty.
+- **AC-F3:** When the user clears the status filter, then all tasks are listed again.
+
+### Edit task
+
+- **AC-E1:** Given an existing task, when the user changes title, description, and/or due date with a non-blank title, then the stored task reflects the new values and keeps the same identifier.
+- **AC-E2:** Given an existing task, when the user attempts to set a blank title, then the edit is refused and the task is unchanged.
+
+### Change status
+
+- **AC-S1:** Given an existing task, when the user sets status to another value in `{TODO, IN_PROGRESS, DONE}`, then the task’s status becomes that value.
+- **AC-S2:** Given an existing task, when the user attempts to set a status outside the defined set, then the change is refused and the previous status is retained.
+
+## 7. Out of scope
+
+The following are explicitly **out of scope** for this functional design:
+
+- Authentication and identity management
+- Multi-user or shared task lists
+- Notifications and reminders
+- Technical architecture, persistence (database), APIs, and frameworks
+- Pixel-level or visual UX specifications
+
+## 8. Summary
+
+A single end user manages personal **Task** items with identifier, mandatory title, optional description, status (`TODO` | `IN_PROGRESS` | `DONE`), and optional due date. Supported flows are create, list, filter by status, edit, and change status. Blank titles and undefined statuses are refused; due date remains optional.
+
+```
+
+## README
+UNCHANGED (harness asserted worktree README == managed clone README)
+
+## INDEPENDENT VERIFICATION
+PASS (harness assertions + retained digest/content + managed clone still clean/artifact absent + remote unchanged)
+
+## EVIDENCE
+- id: `ev:docs-write:xat:gcec-real:xct:m3-res:dec:f2:55ff23ff-e24b-417d-8a87-53b1fdb6059f`
+- bindings: project `prj:gcec-real-docs-1` / cycle `cyc:trj-755b53ab8301065139e0fafa` / EC `xct:m3-res:dec:f2:55ff23ff-e24b-417d-8a87-53b1fdb6059f` / Attempt `xat:gcec-real:xct:m3-res:dec:f2:55ff23ff-e24b-417d-8a87-53b1fdb6059f`
+- integrity: VERIFIED (available → verified)
+
+## EXECUTION ATTEMPT FINAL STATUS
+succeeded
+
+## EXECUTION CONTRACT FINAL STATUS
+confirmed (Git requirements outstanding — D-GCEC-15 honest)
+
+## CYCLE FINAL STATUS
+active (not finalized / not closed)
+
+## RECONCILIATION
+SUCCESS
+
+```json
+{
+  "phase": "RECONCILED_SUCCESS",
+  "attemptId": "xat:gcec-real:xct:m3-res:dec:f2:55ff23ff-e24b-417d-8a87-53b1fdb6059f",
+  "executionContractId": "xct:m3-res:dec:f2:55ff23ff-e24b-417d-8a87-53b1fdb6059f",
+  "processRef": "pid:50290",
+  "worktreePath": "/var/folders/b9/5c00r70d7_l8kjth6vpfmn8m0000gn/T/sfia-gcec-real-J6dmNr/m4-worktrees/wt-53edc7fbda620a9599fc4341",
+  "artifactExists": true,
+  "evidenceId": "ev:docs-write:xat:gcec-real:xct:m3-res:dec:f2:55ff23ff-e24b-417d-8a87-53b1fdb6059f",
+  "reconciliationComplete": true
+}
+```
+
+Snapshot paths:
+- `.tmp-sfia-review/gcec-cursor-real-proof/launch-frontier.json`
+- `.tmp-sfia-review/gcec-cursor-real-proof/facts.json`
+- `.tmp-sfia-review/gcec-cursor-real-proof/functional-design.md`
+- `.tmp-sfia-review/gcec-cursor-real-proof/reconciliation-state.json`
+
+## REAL CONTINUATION
+**GAP CONFIRMED**
+
+Docs-write Attempt used an isolated per-run worktree under disposable `execRoot`.
+After reconciliationComplete, forensic temps may be cleaned; managed clone never received the artifact.
+A later Attempt under the SAME EC for Git effects would need durable workspace continuity
+that is not yet Product-persisted. No structural fix in this GO.
+
+→ REAL_CONTINUATION_GAP remains OPEN.
+→ GCEC-PUSH NOT READY / NOT AUTHORIZED by this proof alone.
+
+## PROOF REPOSITORY AFTER
+- main: `32c7c2008197e5c61b32c16479144e9863291358`
+- branches: main only
+- remote artifact: ABSENT
+
+## REMOTE MUTATION
+NONE
+
+## PRODUCT HEAD AFTER
+`92ad3fd41e065d0ebe76c59b4eedb622715a11e2`
+
+## PRODUCT CODE CHANGES
+NONE
+
+## PRODUCT COMMIT
+NONE
 
 ## PRODUCT PUSH
 NONE
 
-## PROOF REPO MUTATION
-NONE — main still `32c7c2008197e5c61b32c16479144e9863291358`
+## PROOF-REPO COMMIT / PUSH / PR / MERGE
+NONE / NONE / NONE / NONE
 
-## CURSOR REAL
-ZERO
+## TEST RESULTS
+Pre-REAL smoke (REAL OFF):
+```
+Tests  3 passed | 1 skipped (4)
+```
 
-## CR-GCEC-REAL-01
-CLOSED
+REAL harness invocation (flags ON, this file only):
+```
+Test Files  1 passed (1)
+Tests  4 passed (4)
+Duration ~44.78s (REAL scenario ~43387ms)
+```
+
+Post-REAL focused (REAL OFF):
+```
+Test Files  4 passed (4)
+Tests  89 passed | 1 skipped (90)
+```
 
 ## GCEC-CURSOR-REAL
-OPEN
-
-## REAL_CONTINUATION_GAP
-OPEN
+**CLOSED BY EVIDENCE**
 
 ## OPEN GATES
-- GCEC-CURSOR-REAL
-- GCEC-PUSH
+- GCEC-PUSH (NOT READY — continuation GAP)
 - GCEC-PR
 - GCEC-MERGE
 - GCEC-RUNTIME-V3
@@ -163,1198 +441,11 @@ OPEN
 - REAL_CONTINUATION_GAP
 
 ## ANTI-CLAIMS
-- local commit ≠ GCEC-CURSOR-REAL closed
-- local commit ≠ REAL boundary proven
-- local commit ≠ READY FOR GCEC-PUSH / PR / MERGE
-- local commit ≠ end-to-end REAL
-- runtime v3 NOT adopted
-- this GO does not authorize a REAL StartExecution
+- docs-write REAL boundary proven ≠ Git commit/push/PR/merge REAL
+- ≠ END-TO-END REAL GCEC
+- ≠ READY FOR GCEC-PUSH while REAL_CONTINUATION_GAP open
+- ≠ runtime v3 ADOPTED
+- ≠ Product push authorized
 
 ## VERDICT
-**PASS — GCEC REAL DOCS-WRITE CANDIDATE LOCALLY COMMITTED / READY FOR CHATGPT COMMIT VERIFICATION AND DISTINCT GCEC-CURSOR-REAL GO**
-
----
-
-## PRIOR HANDOFF REFERENCE
-Critical Review handoff tip: `3b4a15ff03eab37690eee8a18c2648dd808b1a21`
-No-drift proof: working tree matched that handoff FULL harness embed + three prior adaptations before commit.
-
-## EMBEDDED COMMIT DIFF (`92ad3fd4` vs `290eca65`)
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealDocsWrite.real.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealDocsWrite.real.d0.test.ts
-new file mode 100644
-index 00000000..e6f9dd1b
---- /dev/null
-+++ b/projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealDocsWrite.real.d0.test.ts
-@@ -0,0 +1,1092 @@
-+/**
-+ * GCEC-CURSOR-REAL — bounded REAL Cursor docs-write proof.
-+ *
-+ * NEVER runs the REAL scenario in ordinary vitest suites.
-+ * Requires BOTH:
-+ *   SFIA_STUDIO_CURSOR_REAL=1
-+ *   SFIA_GCEC_CURSOR_REAL_PROOF=1
-+ * Plus env:
-+ *   SFIA_GCEC_MANAGED_REPO_BASE=/path/to/managed/base
-+ *   (clone at {base}/mcleland147__sfia-gcec-proof-task-manager @ BASE_SHA)
-+ *
-+ * CR-GCEC-REAL-01: after LAUNCHED + processRef, forensic roots are preserved on
-+ * post-launch failure (no blind afterEach rm of DB/journal/worktree/proofRoot).
-+ *
-+ * Outer harness MUST NOT create docs/functional-design.md — only runtime Cursor.
-+ * @vitest-environment node
-+ */
-+import fs from "node:fs";
-+import os from "node:os";
-+import path from "node:path";
-+import { createHash } from "node:crypto";
-+import { execFileSync } from "node:child_process";
-+import { afterEach, beforeEach, describe, expect, it } from "vitest";
-+import type { Confirmation } from "@/lib/oa/decision";
-+import {
-+  LOCAL_PILOTE_ACTOR,
-+  registerLocalPiloteAuthority,
-+} from "@/lib/oa/decision";
-+import {
-+  M4_BOUNDED_DOCS_WRITE_ACTION,
-+  M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
-+  ManagedProjectRepositoryResolver,
-+  sanitizeManagedRepoIdentity,
-+} from "@/lib/oa/execution-attempt";
-+import { NodeLocalGitStatusDiffPort } from "@/lib/oa/git-ports";
-+import { F3_CONFIRM_ACTION_REF } from "@/features/project-assistant/f3/constants";
-+import { prepareAndResolveM3ProductPath } from "@/features/project-assistant/f3/prepareAndResolveM3ProductPath";
-+import { completeBoundedDocsWriteLaunch } from "@/features/project-assistant/f3/completeBoundedDocsWriteLaunch";
-+import { ingestDocsWriteArtifactEvidence } from "@/features/project-assistant/f3/ingestDocsWriteArtifactEvidence";
-+import { analyzeIntent } from "@/features/project-assistant/f2/intentAnalysis";
-+import {
-+  createProposalId,
-+  F2_PROCESS_LOCAL_NOTICE,
-+  resetF2ProposalStoreForTests,
-+  saveProposal,
-+} from "@/features/project-assistant/f2/proposalStore";
-+import { recordF2Decision } from "@/features/project-assistant/f2/recordDecision";
-+import { FakeConversationProvider } from "@/lib/platform/ai";
-+import type { LocalProjectIdSource } from "@/lib/vertical-slice-core";
-+import {
-+  getRuntimeApplicationService,
-+  resetRuntimeApplicationServiceForTests,
-+} from "@/lib/vertical-slice-runtime";
-+import {
-+  NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
-+  prepareCandidateTrajectoryFromCurrentRecommendation,
-+  prepareCycleFromValidatedTrajectory,
-+  startPreparedTrajectoryCycle,
-+  materializeLifecycleRecommendationFromStructuredOutput,
-+  resolveTrajectoryBootstrapPresence,
-+} from "@/lib/oa/cycle";
-+import { PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
-+import {
-+  approveCandidateTrajectory,
-+  buildPreCycleCandidateApprovalPresentation,
-+} from "@/features/project-assistant/approveCandidateTrajectory";
-+
-+const ENABLED =
-+  process.env.SFIA_STUDIO_CURSOR_REAL === "1" &&
-+  process.env.SFIA_GCEC_CURSOR_REAL_PROOF === "1";
-+
-+const APP_ROOT = path.resolve(__dirname, "../../..");
-+/** Product worktree root (sfia-product-proof-…). */
-+const WORKSPACE_ROOT = path.resolve(APP_ROOT, "../../..");
-+const PROOF_REVIEW_DIR = path.join(
-+  WORKSPACE_ROOT,
-+  ".tmp-sfia-review/gcec-cursor-real-proof",
-+);
-+const REGISTRY_ROOT = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
-+const SCHEMAS_ROOT = path.resolve(
-+  APP_ROOT,
-+  "../sfia-v3-modeled/v3-native-option-a/schemas",
-+);
-+
-+const IDENTITY = "mcleland147/sfia-gcec-proof-task-manager";
-+const BASE_SHA = "32c7c2008197e5c61b32c16479144e9863291358";
-+const TARGET_PATH = "docs/functional-design.md";
-+const BRANCH = "main";
-+const NOW = "2026-09-11T17:00:00.000Z";
-+const PILOTE = LOCAL_PILOTE_ACTOR;
-+
-+const SIGNALS_LIGHT = {
-+  structuralChange: false,
-+  securityImpact: false,
-+  architectureImpact: false,
-+  dataImpact: false,
-+  irreversible: false,
-+  lowRiskBounded: true,
-+} as const;
-+
-+const ARTIFACT_BRIEF =
-+  "Functional design for a simple personal task manager (Gestion de tâches). Actor: single end user. Business object: Task.";
-+
-+const CONTENT_REQUIREMENTS = [
-+  "Task fields: identifier, mandatory title, optional description, status, optional due date",
-+  "Statuses: TODO, IN_PROGRESS, DONE",
-+  "Flows: create task, list tasks, filter by status, edit task, change status",
-+  "Rules: blank title refused; status must be in defined set; due date optional",
-+  "Acceptance criteria: observable/testable for the flows above",
-+  "OUT OF SCOPE: authentication, multi-user, notifications, architecture, DB, API, framework, pixel UX",
-+];
-+
-+/** Harness-local only — not Product domain persistence. */
-+export type RealProofHarnessState = {
-+  realLaunchConsumed: boolean;
-+  reconciliationComplete: boolean;
-+  attemptId?: string;
-+  processRef?: string;
-+  proofRoot?: string;
-+  execRoot?: string;
-+  safetyJournalPath?: string;
-+  productDbPath?: string;
-+  worktreeRef?: string;
-+  managedClonePath?: string;
-+  executionContractId?: string;
-+  failure?: string;
-+  durableReviewSnapshotWritten: boolean;
-+};
-+
-+export function createRealProofHarnessState(): RealProofHarnessState {
-+  return {
-+    realLaunchConsumed: false,
-+    reconciliationComplete: false,
-+    durableReviewSnapshotWritten: false,
-+  };
-+}
-+
-+/**
-+ * Cleanup predicate (CR-GCEC-REAL-01):
-+ * - before LAUNCHED → cleanup allowed
-+ * - after LAUNCHED until reconciliationComplete → PRESERVE
-+ * - after reconciliationComplete (implies durable review snapshot) → cleanup allowed
-+ */
-+export function shouldPreserveRealProofState(input: {
-+  realLaunchConsumed: boolean;
-+  reconciliationComplete: boolean;
-+}): boolean {
-+  return input.realLaunchConsumed === true && input.reconciliationComplete !== true;
-+}
-+
-+/** Apply temp-root cleanup policy; returns whether roots were deleted. */
-+export function applyRealProofTempCleanup(input: {
-+  realLaunchConsumed: boolean;
-+  reconciliationComplete: boolean;
-+  roots: readonly string[];
-+}): { preserved: boolean; deleted: string[] } {
-+  if (shouldPreserveRealProofState(input)) {
-+    return { preserved: true, deleted: [] };
-+  }
-+  const deleted: string[] = [];
-+  for (const root of input.roots) {
-+    try {
-+      fs.rmSync(root, { recursive: true, force: true });
-+      deleted.push(root);
-+    } catch {
-+      /* ignore */
-+    }
-+  }
-+  return { preserved: false, deleted };
-+}
-+
-+function writeJson(filePath: string, value: unknown): void {
-+  fs.mkdirSync(path.dirname(filePath), { recursive: true });
-+  fs.writeFileSync(filePath, `${JSON.stringify(value, null, 2)}\n`, "utf8");
-+}
-+
-+function sha256FileOrMissing(filePath: string): string | null {
-+  if (!fs.existsSync(filePath)) return null;
-+  return createHash("sha256").update(fs.readFileSync(filePath)).digest("hex");
-+}
-+
-+function safeGit(cwd: string, args: string[]): string | null {
-+  try {
-+    return execFileSync("git", args, {
-+      cwd,
-+      encoding: "utf8",
-+      shell: false,
-+    }).trim();
-+  } catch {
-+    return null;
-+  }
-+}
-+
-+const temps: string[] = [];
-+const harnessState = createRealProofHarnessState();
-+
-+/**
-+ * resetRuntimeApplicationServiceForTests (inspected):
-+ * - calls service.dispose() → product SQLite store.close()
-+ * - nulls process-local singleton
-+ * - does NOT unlink productDbPath / safety journal / worktrees
-+ * Safe for handle release during preserve; file paths must remain on disk.
-+ */
-+afterEach(() => {
-+  resetF2ProposalStoreForTests();
-+  resetRuntimeApplicationServiceForTests();
-+  const preserve = shouldPreserveRealProofState(harnessState);
-+  if (preserve) {
-+    // Abandon tracking without deleting forensic roots.
-+    temps.length = 0;
-+    return;
-+  }
-+  for (const t of temps.splice(0)) {
-+    try {
-+      fs.rmSync(t, { recursive: true, force: true });
-+    } catch {
-+      /* ignore */
-+    }
-+  }
-+});
-+
-+beforeEach(() => {
-+  process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
-+  process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
-+  resetF2ProposalStoreForTests();
-+  resetRuntimeApplicationServiceForTests();
-+  // Do not clear harnessState here if a prior REAL failure is still unreconciled
-+  // in the same process — preservation must survive afterEach for that run.
-+  if (!shouldPreserveRealProofState(harnessState)) {
-+    Object.assign(harnessState, createRealProofHarnessState());
-+  }
-+});
-+
-+function tempDir(prefix: string): string {
-+  const d = fs.mkdtempSync(path.join(os.tmpdir(), prefix));
-+  temps.push(d);
-+  return d;
-+}
-+
-+function git(cwd: string, args: string[]): string {
-+  return execFileSync("git", args, {
-+    cwd,
-+    encoding: "utf8",
-+    shell: false,
-+  }).trim();
-+}
-+
-+class FixedIdSource implements LocalProjectIdSource {
-+  private n = 0;
-+  constructor(private readonly prefix: string) {}
-+  nextProjectId(): string {
-+    this.n += 1;
-+    return `prj:gcec-real-${this.prefix}-${this.n}`;
-+  }
-+  nextLpsVersionId(): string {
-+    return `lps:gcec-real-${this.prefix}-${this.n}`;
-+  }
-+  nextCorrelationId(): string {
-+    return `cor:gcec-real-${this.prefix}-${this.n}`;
-+  }
-+}
-+
-+function requireAuth(
-+  auth: ReturnType<typeof registerLocalPiloteAuthority>,
-+): string {
-+  if (!auth.ok) throw new Error(`auth: ${auth.code}`);
-+  return auth.evidenceId;
-+}
-+
-+async function writeLaunchFrontierSnapshot(input: {
-+  state: RealProofHarnessState;
-+  phase?: string;
-+}): Promise<void> {
-+  writeJson(path.join(PROOF_REVIEW_DIR, "launch-frontier.json"), {
-+    timestamp: new Date().toISOString(),
-+    attemptId: input.state.attemptId ?? null,
-+    executionContractId: input.state.executionContractId ?? null,
-+    processRef: input.state.processRef ?? null,
-+    proofRoot: input.state.proofRoot ?? null,
-+    execRoot: input.state.execRoot ?? null,
-+    safetyJournalPath: input.state.safetyJournalPath ?? null,
-+    productDbPath: input.state.productDbPath ?? null,
-+    managedClonePath: input.state.managedClonePath ?? null,
-+    remoteBaseSha: BASE_SHA,
-+    phase: input.phase ?? "LAUNCHED_UNRECONCILED",
-+  });
-+}
-+
-+async function writeFailureReconciliationSnapshot(input: {
-+  state: RealProofHarnessState;
-+  error: unknown;
-+  observationSummary: Record<string, unknown> | null;
-+  gitFacts: Record<string, unknown> | null;
-+}): Promise<void> {
-+  const failure =
-+    input.error instanceof Error
-+      ? `${input.error.name}: ${input.error.message}`
-+      : String(input.error);
-+  input.state.failure = failure;
-+  const artifactPath = input.state.worktreeRef
-+    ? path.join(input.state.worktreeRef, TARGET_PATH)
-+    : null;
-+  writeJson(path.join(PROOF_REVIEW_DIR, "reconciliation-state.json"), {
-+    phase: "POST_LAUNCH_FAILURE_PRESERVED",
-+    attemptId: input.state.attemptId ?? null,
-+    executionContractId: input.state.executionContractId ?? null,
-+    processRef: input.state.processRef ?? null,
-+    observationSummary: input.observationSummary,
-+    worktreePath: input.state.worktreeRef ?? null,
-+    filesystemPathsRetained: {
-+      proofRoot: input.state.proofRoot ?? null,
-+      execRoot: input.state.execRoot ?? null,
-+      safetyJournalPath: input.state.safetyJournalPath ?? null,
-+      productDbPath: input.state.productDbPath ?? null,
-+      worktreeRef: input.state.worktreeRef ?? null,
-+    },
-+    pathsExist: {
-+      proofRoot: Boolean(
-+        input.state.proofRoot && fs.existsSync(input.state.proofRoot),
-+      ),
-+      execRoot: Boolean(
-+        input.state.execRoot && fs.existsSync(input.state.execRoot),
-+      ),
-+      safetyJournalPath: Boolean(
-+        input.state.safetyJournalPath &&
-+          fs.existsSync(input.state.safetyJournalPath),
-+      ),
-+      productDbPath: Boolean(
-+        input.state.productDbPath && fs.existsSync(input.state.productDbPath),
-+      ),
-+      worktreeRef: Boolean(
-+        input.state.worktreeRef && fs.existsSync(input.state.worktreeRef),
-+      ),
-+    },
-+    artifactExists: Boolean(artifactPath && fs.existsSync(artifactPath)),
-+    gitFacts: input.gitFacts,
-+    failure,
-+    reconciliationComplete: false,
-+  });
-+}
-+
-+// ---------------------------------------------------------------------------
-+// Deterministic harness-safety tests (ALWAYS run; REAL flags OFF)
-+// ---------------------------------------------------------------------------
-+describe("gcecCursorRealDocsWrite — harness reconciliation safety", () => {
-+  it("shouldPreserveRealProofState matrix", () => {
-+    expect(
-+      shouldPreserveRealProofState({
-+        realLaunchConsumed: false,
-+        reconciliationComplete: false,
-+      }),
-+    ).toBe(false);
-+    expect(
-+      shouldPreserveRealProofState({
-+        realLaunchConsumed: false,
-+        reconciliationComplete: true,
-+      }),
-+    ).toBe(false);
-+    expect(
-+      shouldPreserveRealProofState({
-+        realLaunchConsumed: true,
-+        reconciliationComplete: false,
-+      }),
-+    ).toBe(true);
-+    expect(
-+      shouldPreserveRealProofState({
-+        realLaunchConsumed: true,
-+        reconciliationComplete: true,
-+      }),
-+    ).toBe(false);
-+  });
-+
-+  it("preserve-on-failure does not delete temp root after LAUNCHED", () => {
-+    const root = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-gcec-preserve-"));
-+    const marker = path.join(root, "forensic-marker.txt");
-+    fs.writeFileSync(marker, "keep-me\n", "utf8");
-+    const result = applyRealProofTempCleanup({
-+      realLaunchConsumed: true,
-+      reconciliationComplete: false,
-+      roots: [root],
-+    });
-+    expect(result.preserved).toBe(true);
-+    expect(result.deleted).toEqual([]);
-+    expect(fs.existsSync(marker)).toBe(true);
-+    // Test hygiene only — not production cleanup policy
-+    fs.rmSync(root, { recursive: true, force: true });
-+  });
-+
-+  it("cleanup allowed before LAUNCHED and after reconciliationComplete", () => {
-+    const before = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-gcec-pre-"));
-+    fs.writeFileSync(path.join(before, "x"), "1");
-+    const r1 = applyRealProofTempCleanup({
-+      realLaunchConsumed: false,
-+      reconciliationComplete: false,
-+      roots: [before],
-+    });
-+    expect(r1.preserved).toBe(false);
-+    expect(fs.existsSync(before)).toBe(false);
-+
-+    const after = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-gcec-post-"));
-+    fs.writeFileSync(path.join(after, "x"), "1");
-+    const r2 = applyRealProofTempCleanup({
-+      realLaunchConsumed: true,
-+      reconciliationComplete: true,
-+      roots: [after],
-+    });
-+    expect(r2.preserved).toBe(false);
-+    expect(fs.existsSync(after)).toBe(false);
-+  });
-+});
-+
-+// ---------------------------------------------------------------------------
-+// REAL Product path (SKIPPED unless dual env gate ON)
-+// ---------------------------------------------------------------------------
-+describe.skipIf(!ENABLED)("gcecCursorRealDocsWrite — REAL Product path", () => {
-+  it(
-+    "ONE StartExecution REAL Cursor creates docs/functional-design.md only",
-+    async () => {
-+      const managedBase = process.env.SFIA_GCEC_MANAGED_REPO_BASE?.trim();
-+      expect(managedBase, "SFIA_GCEC_MANAGED_REPO_BASE required").toBeTruthy();
-+      const sanitized = sanitizeManagedRepoIdentity(IDENTITY);
-+      const cloneRoot = path.join(managedBase!, sanitized);
-+      expect(fs.existsSync(path.join(cloneRoot, ".git"))).toBe(true);
-+      expect(git(cloneRoot, ["rev-parse", "HEAD"])).toBe(BASE_SHA);
-+      expect(fs.existsSync(path.join(cloneRoot, TARGET_PATH))).toBe(false);
-+      const resolved =
-+        new ManagedProjectRepositoryResolver().resolveLocalRepoRoot(
-+          { identity: IDENTITY },
-+          managedBase!,
-+        );
-+      expect(resolved).toBe(cloneRoot);
-+      // Must never target sfia-workspace
-+      expect(cloneRoot.includes("sfia-product-proof")).toBe(false);
-+      expect(cloneRoot.includes("sfia-workspace")).toBe(false);
-+
-+      const root = tempDir("sfia-gcec-real-");
-+      const execRoot = path.join(root, "m4-worktrees");
-+      const safetyJournalPath = path.join(root, "m4", "launch-safety.sqlite");
-+      fs.mkdirSync(execRoot, { recursive: true });
-+      fs.mkdirSync(path.dirname(safetyJournalPath), { recursive: true });
-+
-+      const runtime = getRuntimeApplicationService({
-+        registryRoot: REGISTRY_ROOT,
-+        schemasRoot: SCHEMAS_ROOT,
-+        nowIso: NOW,
-+        idSource: new FixedIdSource("docs"),
-+        auditMode: "noop",
-+        productDbPath: path.join(root, "oa.sqlite"),
-+        realBoundaryEnv: {
-+          ...process.env,
-+          SFIA_STUDIO_CURSOR_REAL: "1",
-+        },
-+        realBoundaryComposition: {
-+          managedRepoRootBase: managedBase!,
-+          execRoot,
-+          safetyJournalPath,
-+          // Ambient RO root must not be used for docs-write; still set away from Product.
-+          repoRoot: cloneRoot,
-+          studioRoot: path.resolve(APP_ROOT, ".."),
-+        },
-+      });
-+      const oa = runtime.oa!;
-+      expect(oa.executionAttemptServices.realBoundary).toBeTruthy();
-+      expect(
-+        oa.executionAttemptServices.realBoundary?.managedRepoRootBase,
-+      ).toBe(path.resolve(managedBase!));
-+
-+      const created = await runtime.createProject({
-+        name: "Gestion de tâches",
-+        objective: "GCEC Cursor REAL docs-write proof",
-+        context: "proof-vehicle",
-+        criticality: "STANDARD",
-+        constraints: ["BOUNDED REAL DOCS-WRITE ONLY"],
-+        shortReference: "GCECREAL",
-+        idempotencyKey: "idem:gcec-cursor-real",
-+      });
-+      expect(created.ok).toBe(true);
-+      if (!created.ok) throw new Error("createProject failed");
-+      const projectId = created.project.projectId;
-+
-+      const bound = await oa.projectServices.setProjectRepositoryBinding.execute({
-+        projectId,
-+        actor: PILOTE,
-+        binding: {
-+          provider: "github",
-+          identity: IDENTITY,
-+          remoteUrl: `https://github.com/${IDENTITY}.git`,
-+          defaultBranch: BRANCH,
-+          pathRoot: "docs",
-+          baseSha: BASE_SHA,
-+        },
-+      });
-+      expect(bound.ok).toBe(true);
-+
-+      const cycles0 = await oa.cycleServices.cycles.listByProject(projectId);
-+      const decisions0 = await oa.decisionServices.decisions.listByProject(
-+        projectId,
-+      );
-+      const lpsBoot =
-+        await oa.projectServices.getCurrentLivingProjectState.execute({
-+          projectId,
-+        });
-+      if (!lpsBoot.ok) throw new Error("lps");
-+      const presence = await resolveTrajectoryBootstrapPresence(
-+        oa.cycleServices.trajectories,
-+        projectId,
-+      );
-+      const projectBoot = await oa.projectServices.getProject.execute({
-+        projectId,
-+      });
-+      if (!projectBoot.ok || !projectBoot.project.doctrinePackageRef) {
-+        throw new Error("doctrine pin missing");
-+      }
-+      const pin = projectBoot.project.doctrinePackageRef;
-+
-+      const mat = await materializeLifecycleRecommendationFromStructuredOutput({
-+        projectId,
-+        structuredOutput: {
-+          narrative: "Next cycle: Conception fonctionnelle.",
-+          preCycleRoutingAssessment: {
-+            ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT,
-+          },
-+          lifecycleRecommendation: {
-+            intent: "NEXT_CYCLE" as const,
-+            statement: "Conception fonctionnelle task manager.",
-+            subjectCycleInstanceId: null,
-+            targetCycleInstanceId: null,
-+            targetCycleTypeId: "cyc:functional-design",
-+            rationale: "GCEC-CURSOR-REAL",
-+            authority: "none" as const,
-+            isHumanDecision: false as const,
-+            qualificationSignals: { ...SIGNALS_LIGHT },
-+          },
-+        },
-+        updateEpistemicState: oa.cycleServices.updateEpistemicState,
-+        facts: {
-+          cycles: cycles0,
-+          lpsActiveCycleInstanceId:
-+            lpsBoot.livingProjectState.activeCycleInstanceId,
-+          lpsVersion: lpsBoot.livingProjectState.version,
-+          doctrinePackageId: pin.doctrinePackageId,
-+          doctrinePackageVersion: pin.version,
-+          doctrinePackageDigest: pin.digest,
-+          trajectory: null,
-+          trajectoryBootstrapPresence: presence,
-+          decisions: decisions0,
-+          evidence: [],
-+          epistemicItems: await oa.cycleServices.epistemic.listByProject(
-+            projectId,
-+          ),
-+        },
-+        producedAt: NOW,
-+        createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
-+      });
-+      expect(mat.materialization?.ok).toBe(true);
-+
-+      const bridgeDeps = {
-+        trajectories: oa.cycleServices.trajectories,
-+        createInitialTrajectory: oa.cycleServices.createInitialTrajectory,
-+        updateEpistemicState: oa.cycleServices.updateEpistemicState,
-+        runInTransaction: ((fn: () => Promise<unknown>) =>
-+          oa.projectServices.store.runInTransaction(fn)) as <T>(
-+          fn: () => Promise<T>,
-+        ) => Promise<T>,
-+        listEpistemicByProject: (pid: string) =>
-+          oa.cycleServices.epistemic.listByProject(pid),
-+        listCyclesByProject: (pid: string) =>
-+          oa.cycleServices.cycles.listByProject(pid),
-+        listDecisionsByProject: (pid: string) =>
-+          oa.decisionServices.decisions.listByProject(pid),
-+        listEvidenceByProject: (pid: string) =>
-+          oa.evidenceReviewServices.repository.listByProject(pid),
-+        getCurrentLps: (pid: string) =>
-+          oa.projectServices.getCurrentLivingProjectState.execute({
-+            projectId: pid,
-+          }),
-+        getProjectDoctrinePin: async (pid: string) => {
-+          const p = await oa.projectServices.getProject.execute({
-+            projectId: pid,
-+          });
-+          if (!p.ok) return null;
-+          const d = p.project.doctrinePackageRef;
-+          return d
-+            ? {
-+                doctrinePackageId: d.doctrinePackageId,
-+                version: d.version,
-+                digest: d.digest,
-+              }
-+            : null;
-+        },
-+        newTrajectoryId: () => `trj:gcec-real-${projectId}`,
-+        newStepId: () => `stp:fd-real`,
-+        newProvenanceObservationId: () => `epi:gcec-real-trj`,
-+        correlationId: `cor:gcec-real-bridge`,
-+      };
-+
-+      const candidatePrepared =
-+        await prepareCandidateTrajectoryFromCurrentRecommendation({
-+          projectId,
-+          deps: bridgeDeps,
-+        });
-+      expect(candidatePrepared.ok).toBe(true);
-+      if (!candidatePrepared.ok) throw new Error(String(candidatePrepared));
-+
-+      const presentation = await buildPreCycleCandidateApprovalPresentation({
-+        oa,
-+        projectId,
-+      });
-+      expect(presentation.ok && presentation.presentation).toBeTruthy();
-+      if (!presentation.ok || !presentation.presentation) {
-+        throw new Error("presentation");
-+      }
-+      const approved = await approveCandidateTrajectory({
-+        oa,
-+        projectId,
-+        presentationDigest: presentation.presentation.presentationDigest,
-+        forceLocalAuthority: true,
-+      });
-+      expect(approved.ok).toBe(true);
-+      if (!approved.ok) throw new Error(String(approved));
-+
-+      const prep = await prepareCycleFromValidatedTrajectory({ oa, projectId });
-+      expect(prep.ok).toBe(true);
-+      if (!prep.ok) throw new Error(prep.code);
-+      const startedCycle = await startPreparedTrajectoryCycle({
-+        oa,
-+        projectId,
-+        cycleInstanceId: prep.cycle.cycleInstanceId,
-+        forceLocalAuthority: true,
-+      });
-+      expect(startedCycle.ok).toBe(true);
-+      if (!startedCycle.ok) throw new Error(startedCycle.code);
-+      const cycleInstanceId = startedCycle.cycle.cycleInstanceId;
-+
-+      const overview = await runtime.getProject(projectId);
-+      expect(overview.ok).toBe(true);
-+      if (!overview.ok) throw new Error("overview");
-+      const provider = new FakeConversationProvider();
-+      const analyzed = await analyzeIntent({
-+        userContent:
-+          "__F2_DOCS_WRITE_GCEC__ produce functional design for personal task manager",
-+        projectSummary: overview.project.name ?? "Gestion de tâches",
-+        provider,
-+      });
-+      const snapshot = {
-+        projectId,
-+        lpsId: overview.livingState.id,
-+        lpsVersion: overview.livingState.version,
-+        doctrineDigest: overview.doctrine.digest,
-+        activeCycleInstanceId: cycleInstanceId,
-+        ckcResolutionRef: null as string | null,
-+      };
-+      const ei = analyzed.analysis.executionIntent;
-+      const proposal = saveProposal({
-+        proposalId: createProposalId(),
-+        status: "DECISION_REQUIRED",
-+        rephrasedRequest:
-+          analyzed.analysis.rephrasedRequest ?? "docs write task manager",
-+        objective:
-+          analyzed.analysis.objective ?? "Functional design task manager",
-+        cycleTypeId:
-+          analyzed.analysis.candidateCycleTypeId ?? "cyc:functional-design",
-+        recommendedProfile: "Standard",
-+        rationale: "GCEC-CURSOR-REAL",
-+        scope: "docs/functional-design.md uniquement",
-+        outOfScope: analyzed.analysis.outOfScope,
-+        activatedBlocks: analyzed.analysis.activatedBlocks,
-+        expectedOutcome: "docs/functional-design.md",
-+        sources: [],
-+        risks: analyzed.analysis.risks,
-+        reservations: analyzed.analysis.reservations,
-+        stopConditions: analyzed.analysis.stopConditions,
-+        morrisGateRequired: true,
-+        nextPossibleStep: "F3 PREPARE",
-+        contextSnapshot: snapshot,
-+        processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
-+        executionForbidden: true,
-+        noExecutingStatus: true,
-+        agentBinding: "NOT_AVAILABLE",
-+        requestedOperation: "cursor.docs_write.apply",
-+        executionIntent: {
-+          ...(ei && typeof ei === "object" ? ei : {}),
-+          intentKind: "docs_write",
-+          artifactType: "functional_design",
-+          targetRepositoryRef: IDENTITY,
-+          targetPath: TARGET_PATH,
-+          scopeIn: ["docs/"],
-+          scopeOut: ["src/", ".github/", "README.md"],
-+          expectedOutputs: [TARGET_PATH],
-+          requiredCapabilities: ["cap:cursor.docs_write"],
-+          validationExpectations: ["path_allowlist", "no_delete"],
-+          evidenceRequirements: [
-+            "git:local_commit",
-+            "git:remote_push",
-+            "git:pull_request",
-+            "git:ci_status",
-+            "git:review_status",
-+            "git:merge",
-+            "git:post_merge_verification",
-+          ],
-+          requestedOperation: "cursor.docs_write.apply",
-+          reversibilityExpectation: "reversible",
-+          artifactBrief: ARTIFACT_BRIEF,
-+          contentRequirements: CONTENT_REQUIREMENTS,
-+        },
-+      });
-+      const go = await recordF2Decision({
-+        proposalId: proposal.proposalId,
-+        projectId,
-+        decisionKind: "GO",
-+        currentContext: snapshot,
-+        decisionServices: oa.decisionServices,
-+        authorityResolver: oa.authorityResolver,
-+        nowIso: () => oa.clock.nowIso(),
-+        forceM3Authority: true,
-+      });
-+      expect(go.ok).toBe(true);
-+      if (!go.ok) throw new Error("go");
-+      const decisionId = go.decision.decisionId;
-+
-+      const overviewAfter = await runtime.getProject(projectId);
-+      if (!overviewAfter.ok) throw new Error("overviewAfter");
-+      const prepared = await prepareAndResolveM3ProductPath({
-+        projectId,
-+        decisionId,
-+        currentContext: {
-+          projectId,
-+          lpsId: overviewAfter.livingState.id,
-+          lpsVersion: overviewAfter.livingState.version,
-+          doctrineDigest: overviewAfter.doctrine.digest,
-+          activeCycleInstanceId: cycleInstanceId,
-+        },
-+        deps: {
-+          decisionServices: oa.decisionServices,
-+          authorityResolver: oa.authorityResolver,
-+          executionContractServices: oa.executionContractServices,
-+          nowIso: () => oa.clock.nowIso(),
-+          forceM3Authority: true,
-+          preferBoundedDocsWriteProfile: true,
-+          boundedDocsWriteBaseHeadSha: BASE_SHA,
-+        },
-+      });
-+      expect(prepared.ok).toBe(true);
-+      if (!prepared.ok) throw new Error("prepareM3");
-+      const durableEc =
-+        await oa.executionContractServices.getExecutionContract.execute({
-+          executionContractId: prepared.payload.successor.executionContractId,
-+        });
-+      expect(durableEc.ok).toBe(true);
-+      if (!durableEc.ok) throw new Error("ec missing");
-+      let contract = durableEc.contract;
-+      expect(contract.action).toBe(M4_BOUNDED_DOCS_WRITE_ACTION);
-+      const inputs = (contract.inputs ?? {}) as Record<string, unknown>;
-+      expect(inputs.repositoryRef ?? inputs.targetRepositoryRef).toBe(IDENTITY);
-+      expect(inputs.targetPath).toBe(TARGET_PATH);
-+      expect(inputs.baseHeadSha).toBe(BASE_SHA);
-+
-+      const execAuth = registerLocalPiloteAuthority({
-+        authorityResolver: oa.authorityResolver,
-+        scope: contract.scope,
-+        issuedAt: NOW,
-+        evidenceId: `evd:gcec-real-exec:${contract.executionContractId}`,
-+        forceEnable: true,
-+      });
-+      const gateConfirmId = `cfm:gate:${contract.executionContractId}`;
-+      const requested =
-+        await oa.decisionServices.requestConfirmation.execute({
-+          confirmationId: gateConfirmId,
-+          level: "N3",
-+          actionRef: F3_CONFIRM_ACTION_REF,
-+          requestedBy: PILOTE,
-+          requestedTo: PILOTE,
-+          scope: contract.scope,
-+          idempotencyKey: `idem:${gateConfirmId}`,
-+          decisionRef: decisionId,
-+        });
-+      expect(requested.ok).toBe(true);
-+      const grantedGate =
-+        await oa.decisionServices.grantConfirmation.execute({
-+          confirmationId: gateConfirmId,
-+          actor: PILOTE,
-+          authorityEvidenceId: requireAuth(execAuth),
-+        });
-+      expect(grantedGate.ok).toBe(true);
-+      const confirmed =
-+        await oa.executionContractServices.confirmExecutionContract.execute({
-+          executionContractId: contract.executionContractId,
-+          confirmationId: gateConfirmId,
-+          actor: PILOTE,
-+          authorityEvidenceId: requireAuth(execAuth),
-+          expectedVersion: contract.version,
-+        });
-+      expect(confirmed.ok).toBe(true);
-+      if (!confirmed.ok) throw new Error("confirm");
-+      contract = confirmed.contract;
-+
-+      // Pre-flight: target still absent in clone (outer Cursor must not write)
-+      expect(fs.existsSync(path.join(cloneRoot, TARGET_PATH))).toBe(false);
-+
-+      const attemptId = `xat:gcec-real:${contract.executionContractId}`.slice(
-+        0,
-+        128,
-+      );
-+      const attempts = oa.executionAttemptServices;
-+      const selected = await attempts.selectExecutionAgent.execute({
-+        attemptId,
-+        executionContractId: contract.executionContractId,
-+        idempotencyKey: `idem:sel:${attemptId}`,
-+        actor: PILOTE,
-+        authorityEvidenceId: requireAuth(execAuth),
-+        expectedContractVersion: contract.version,
-+        selectionProfile: "standard",
-+        selectionStrategy: "capabilities_deterministic",
-+        requestedAgentRef: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
-+        systemInitiated: true,
-+      });
-+      expect(selected.ok).toBe(true);
-+      if (!selected.ok) throw new Error(selected.error.message);
-+
-+      const expiresAt = new Date(Date.parse(NOW) + 60 * 60 * 1000).toISOString();
-+      const grantId = `gd:gcec-real:${attemptId}`.slice(0, 128);
-+      const gate = await attempts.grantRealExecutionGate!.execute({
-+        grantId,
-+        attemptId,
-+        actor: PILOTE,
-+        expiresAt,
-+        authorityEvidenceId: requireAuth(execAuth),
-+      });
-+      expect(gate.ok).toBe(true);
-+      if (!gate.ok) throw new Error(gate.error.message);
-+
-+      // ONE REAL StartExecution — no Git Confirmations → FS slice only
-+      const started = await attempts.startExecution.execute({
-+        attemptId,
-+        actor: PILOTE,
-+        authorityEvidenceId: requireAuth(execAuth),
-+        confirmations: [] as Confirmation[],
-+      });
-+      expect(started.ok).toBe(true);
-+      if (!started.ok) {
-+        throw new Error(
-+          `StartExecution failed: ${started.error.detailCode} ${started.error.internalCauseRef ?? ""} ${started.error.message}`,
-+        );
-+      }
-+      expect(started.attempt.status).toBe("running");
-+      // REAL spawn-ACK is proven via safety journal LAUNCHED + gateway path
-+      // (Attempt aggregate may not surface realProcessInvoked as a field).
-+      const frontiers =
-+        await attempts.realBoundary!.safetyJournal.findFrontierByAttempt(
-+          attemptId,
-+        );
-+      const launched = frontiers.find(
-+        (row) =>
-+          row.kind === "LAUNCHED" &&
-+          typeof row.processRef === "string" &&
-+          row.processRef.trim().length > 0,
-+      );
-+      expect(launched?.processRef).toBeTruthy();
-+      expect(String(launched!.processRef)).toMatch(/^(pid:|proc:)/);
-+
-+      // LAUNCHED + processRef established — cleanup boundary crossed.
-+      const processRef = String(launched!.processRef);
-+      harnessState.realLaunchConsumed = true;
-+      harnessState.attemptId = attemptId;
-+      harnessState.processRef = processRef;
-+      harnessState.executionContractId = contract.executionContractId;
-+      harnessState.proofRoot = root;
-+      harnessState.execRoot = execRoot;
-+      harnessState.safetyJournalPath = safetyJournalPath;
-+      harnessState.productDbPath = path.join(root, "oa.sqlite");
-+      harnessState.managedClonePath = cloneRoot;
-+      await writeLaunchFrontierSnapshot({ state: harnessState });
-+
-+      try {
-+        const attemptRunning =
-+          await attempts.getExecutionAttempt.execute({ attemptId });
-+        expect(attemptRunning.ok).toBe(true);
-+        if (!attemptRunning.ok) throw new Error("attempt missing");
-+
-+        const completed = await completeBoundedDocsWriteLaunch({
-+          attempt: attemptRunning.attempt,
-+          services: attempts,
-+          targetPath: TARGET_PATH,
-+          pathAllowlist: ["docs/"],
-+          statusDiffPort: new NodeLocalGitStatusDiffPort(),
-+          awaitIfPending: true,
-+        });
-+        expect(completed.ok).toBe(true);
-+        if (!completed.ok) {
-+          throw new Error(`complete failed: ${completed.code} ${completed.message}`);
-+        }
-+        expect(completed.status).toBe("succeeded");
-+        if (completed.status !== "succeeded") throw new Error("not succeeded");
-+
-+        const worktree = completed.facts.worktreeRef!;
-+        harnessState.worktreeRef = worktree;
-+        expect(worktree).toBeTruthy();
-+        expect(worktree.includes("sfia-product-proof")).toBe(false);
-+        expect(fs.existsSync(path.join(worktree, TARGET_PATH))).toBe(true);
-+        const artifactText = fs.readFileSync(
-+          path.join(worktree, TARGET_PATH),
-+          "utf8",
-+        );
-+        expect(artifactText.trim().length).toBeGreaterThan(80);
-+        expect(artifactText.toLowerCase()).toMatch(/task|tâche/);
-+        expect(fs.readFileSync(path.join(worktree, "README.md"), "utf8")).toBe(
-+          fs.readFileSync(path.join(cloneRoot, "README.md"), "utf8"),
-+        );
-+        expect(git(worktree, ["rev-parse", "HEAD"])).toBe(BASE_SHA);
-+        // No commit in worktree / clone
-+        expect(git(cloneRoot, ["rev-parse", "HEAD"])).toBe(BASE_SHA);
-+        expect(git(cloneRoot, ["status", "--porcelain"])).toMatch(/^$/);
-+
-+        // Outer harness must not have created the artifact in clone root either
-+        // (worktree is isolated; clone stays clean)
-+        expect(fs.existsSync(path.join(cloneRoot, TARGET_PATH))).toBe(false);
-+
-+        const ingested = await ingestDocsWriteArtifactEvidence({
-+          evidenceReviewServices: oa.evidenceReviewServices,
-+          projectId,
-+          cycleInstanceId,
-+          executionContractId: contract.executionContractId,
-+          executionAttemptId: attemptId,
-+          targetPath: TARGET_PATH,
-+          digest: completed.facts.digest,
-+          actor: PILOTE,
-+          nowIso: oa.clock.nowIso(),
-+        });
-+        expect(ingested.ok).toBe(true);
-+        if (!ingested.ok) throw new Error(ingested.code);
-+
-+        const artLoaded = await oa.evidenceReviewServices.evidenceReader.findById(
-+          ingested.evidenceId,
-+        );
-+        expect(artLoaded).toBeTruthy();
-+        // Payload script for integrity (same pattern as deterministic E2E)
-+        const evidenceSvc = oa.evidenceReviewServices as typeof oa.evidenceReviewServices & {
-+          payload?: {
-+            setScript?: (
-+              id: string,
-+              s: { availability: "available"; digest: string },
-+            ) => void;
-+          };
-+        };
-+        evidenceSvc.payload?.setScript?.(ingested.evidenceId, {
-+          availability: "available",
-+          digest: completed.facts.digest,
-+        });
-+        const artVerified =
-+          await oa.evidenceReviewServices.verifyEvidenceIntegrity.execute({
-+            evidenceId: ingested.evidenceId,
-+            expectedVersion: artLoaded!.version,
-+            actor: PILOTE,
-+          });
-+        expect(artVerified.ok).toBe(true);
-+
-+        const ecAfter =
-+          await oa.executionContractServices.getExecutionContract.execute({
-+            executionContractId: contract.executionContractId,
-+          });
-+        expect(ecAfter.ok).toBe(true);
-+        if (!ecAfter.ok) throw new Error("ec after");
-+        // Git requirements remain → EC must NOT be completed
-+        expect(ecAfter.contract.status).toBe("confirmed");
-+        expect(completed.attempt.status).toBe("succeeded");
-+
-+        const cycleAfter = await oa.cycleServices.cycles.findById(cycleInstanceId);
-+        expect(cycleAfter?.status).not.toBe("closed");
-+        expect(cycleAfter?.status).not.toBe("finalized");
-+
-+
-+      // Persist proof facts for Review Pack BEFORE reconciliationComplete.
-+      fs.mkdirSync(PROOF_REVIEW_DIR, { recursive: true });
-+      fs.writeFileSync(
-+        path.join(PROOF_REVIEW_DIR, "facts.json"),
-+        JSON.stringify(
-+          {
-+            projectId,
-+            cycleInstanceId,
-+            executionContractId: contract.executionContractId,
-+            attemptId,
-+            grantId,
-+            processRef: completed.facts.processRef,
-+            worktreeRef: worktree,
-+            digest: completed.facts.digest,
-+            realProcessInvoked: true,
-+            exitCode: completed.observation.exitCode,
-+            timedOut: completed.observation.timedOut,
-+            durationMs: completed.observation.durationMs,
-+            authorizedEffectsHint: "filesystem only (no git Confirmation)",
-+            artifactPath: TARGET_PATH,
-+            artifactBytes: Buffer.byteLength(artifactText, "utf8"),
-+            workspaceHead: BASE_SHA,
-+            cloneHead: git(cloneRoot, ["rev-parse", "HEAD"]),
-+            evidenceId: ingested.evidenceId,
-+            ecStatus: ecAfter.contract.status,
-+            cycleStatus: cycleAfter?.status,
-+            stdoutCap: (completed.observation.stdout ?? "").slice(0, 2000),
-+            stderrCap: (completed.observation.stderr ?? "").slice(0, 1000),
-+          },
-+          null,
-+          2,
-+        ),
-+      );
-+      fs.writeFileSync(
-+        path.join(PROOF_REVIEW_DIR, "functional-design.md"),
-+        artifactText,
-+      );
-+      writeJson(path.join(PROOF_REVIEW_DIR, "reconciliation-state.json"), {
-+        phase: "RECONCILED_SUCCESS",
-+        attemptId,
-+        executionContractId: contract.executionContractId,
-+        processRef: completed.facts.processRef,
-+        worktreePath: worktree,
-+        artifactExists: true,
-+        evidenceId: ingested.evidenceId,
-+        reconciliationComplete: true,
-+      });
-+      harnessState.durableReviewSnapshotWritten = true;
-+      harnessState.reconciliationComplete = true;
-+      harnessState.worktreeRef = worktree;
-+      } catch (err) {
-+        // Best-effort observe + Git facts; never convert failure into PASS.
-+        let observationSummary: Record<string, unknown> | null = null;
-+        try {
-+          const port = attempts.realBoundary?.launchPort;
-+          if (port && typeof port.observe === "function" && processRef) {
-+            const obs = await port.observe(processRef);
-+            if (obs) {
-+              observationSummary = {
-+                processRef: obs.processRef,
-+                exitCode: obs.exitCode,
-+                timedOut: obs.timedOut,
-+                durationMs: obs.durationMs,
-+                realProcessInvoked: obs.realProcessInvoked,
-+                worktreeRef: obs.worktreeRef ?? null,
-+                stdoutCap: (obs.stdout ?? "").slice(0, 1000),
-+                stderrCap: (obs.stderr ?? "").slice(0, 1000),
-+              };
-+              if (obs.worktreeRef) {
-+                harnessState.worktreeRef = obs.worktreeRef;
-+              }
-+            }
-+          }
-+        } catch {
-+          /* ignore observe errors */
-+        }
-+        if (!harnessState.worktreeRef && harnessState.execRoot) {
-+          // Best-effort: first child dir under execRoot if present
-+          try {
-+            const kids = fs.readdirSync(harnessState.execRoot);
-+            if (kids.length === 1) {
-+              harnessState.worktreeRef = path.join(
-+                harnessState.execRoot,
-+                kids[0]!,
-+              );
-+            }
-+          } catch {
-+            /* ignore */
-+          }
-+        }
-+        let gitFacts: Record<string, unknown> | null = null;
-+        const wt = harnessState.worktreeRef;
-+        if (wt && fs.existsSync(wt)) {
-+          const readmeWt = path.join(wt, "README.md");
-+          const readmeClone = path.join(cloneRoot, "README.md");
-+          gitFacts = {
-+            head: safeGit(wt, ["rev-parse", "HEAD"]),
-+            statusPorcelain: safeGit(wt, ["status", "--porcelain"]),
-+            diffNameStatus: safeGit(wt, ["diff", "--name-status"]),
-+            targetArtifactExists: fs.existsSync(path.join(wt, TARGET_PATH)),
-+            readmeSha256: sha256FileOrMissing(readmeWt),
-+            cloneReadmeSha256: sha256FileOrMissing(readmeClone),
-+            readmeMatchesClone:
-+              sha256FileOrMissing(readmeWt) != null &&
-+              sha256FileOrMissing(readmeWt) ===
-+                sha256FileOrMissing(readmeClone),
-+          };
-+        }
-+        await writeFailureReconciliationSnapshot({
-+          state: harnessState,
-+          error: err,
-+          observationSummary,
-+          gitFacts,
-+        });
-+        throw err;
-+      }
-+
-+    },
-+    20 * 60 * 1000,
-+  );
-+});
-diff --git a/projects/sfia-studio/app/features/project-assistant/f3/completeBoundedDocsWriteLaunch.ts b/projects/sfia-studio/app/features/project-assistant/f3/completeBoundedDocsWriteLaunch.ts
-index 9670400a..d7ba8b05 100644
---- a/projects/sfia-studio/app/features/project-assistant/f3/completeBoundedDocsWriteLaunch.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f3/completeBoundedDocsWriteLaunch.ts
-@@ -67,10 +67,13 @@ export async function completeBoundedDocsWriteLaunch(input: {
-   statusDiffPort?: LocalGitStatusDiffPort;
-   /** Test-only injectable porcelain when git unavailable. */
-   nameStatusText?: string;
-+  /** See completeBoundedReadOnlyLaunch.awaitIfPending. */
-+  awaitIfPending?: boolean;
- }): Promise<CompleteBoundedDocsWriteLaunchResult> {
-   const base = await completeBoundedReadOnlyLaunch({
-     attempt: input.attempt,
-     services: input.services,
-+    awaitIfPending: input.awaitIfPending,
-   });
-   if (!base.ok) return base;
-   if (base.status !== "succeeded") {
-diff --git a/projects/sfia-studio/app/features/project-assistant/f3/completeBoundedReadOnlyLaunch.ts b/projects/sfia-studio/app/features/project-assistant/f3/completeBoundedReadOnlyLaunch.ts
-index eeab483a..33010ac2 100644
---- a/projects/sfia-studio/app/features/project-assistant/f3/completeBoundedReadOnlyLaunch.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f3/completeBoundedReadOnlyLaunch.ts
-@@ -92,6 +92,12 @@ export function toNoraObservationFacts(input: {
- export async function completeBoundedReadOnlyLaunch(input: {
-   attempt: ExecutionAttempt;
-   services: ExecutionAttemptServices;
-+  /**
-+   * When true and the process is still live after spawn-ACK, await terminal
-+   * observation instead of returning status "running". Default false preserves
-+   * async continuation (T-R3-PENDING / T-R3-ASYNC-CONTINUATION).
-+   */
-+  awaitIfPending?: boolean;
- }): Promise<CompleteBoundedReadOnlyLaunchResult> {
-   const realBoundary = input.services.realBoundary;
-   if (!realBoundary) {
-@@ -147,13 +153,20 @@ export async function completeBoundedReadOnlyLaunch(input: {
-     observation.timedOut !== true &&
-     observation.exitCode === null;
-   if (pendingObservation) {
--    return {
--      ok: true,
--      status: "running",
--      attempt: input.attempt,
--      observation,
--      facts: null,
--    };
-+    if (input.awaitIfPending === true) {
-+      // Opt-in for REAL harness / callers that want a single await-to-terminal.
-+      observation = await realBoundary.launchPort.awaitCompletion(
-+        launched.processRef,
-+      );
-+    } else {
-+      return {
-+        ok: true,
-+        status: "running",
-+        attempt: input.attempt,
-+        observation,
-+        facts: null,
-+      };
-+    }
-   }
-
-   if (!observation) {
-diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
-index ad2cfa6d..4e2af8ae 100644
---- a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
-+++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
-@@ -236,6 +236,9 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
-         "Ne créer/modifier AUCUN autre fichier.",
-         "Ne supprimer AUCUN fichier (noDelete=true).",
-         "Ne pas commit, push, PR, merge, ni remote git.",
-+        "Ne lancer aucune commande Shell.",
-+        "Utiliser uniquement les outils d'édition de fichiers (Write/StrReplace).",
-+        "Ne pas modifier README.md.",
-         "En cas d'ambiguïté ou de chemin hors allowlist: STOP immédiatement.",
-         `target=${request.target ?? ""}`,
-         `action=${request.action ?? ""}`,
-```
+**PASS WITH RESERVE — GCEC CURSOR REAL DOCS-WRITE BOUNDARY PROVEN / REAL_CONTINUATION_GAP REMAINS OPEN**
