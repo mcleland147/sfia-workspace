@@ -161,11 +161,10 @@ message: fix(sfia-studio): close GCEC authority and lifecycle proof gaps
 NONE
 
 ## REVIEW HANDOFF
-SHA: db50e738992ced03c62069ba0672ed9787d9ebc9
-parent: f3d3dd9c15a27705c3ab47a211f15ee291e9d070
-blob: 61663df7e20548467788ba7bd7aecf49991afa15
-source blob: 61663df7e20548467788ba7bd7aecf49991afa15
-blob equality: PASS
+SHA: 2b62e725bbd5f51db6aa558afa0500846af83fa6
+parent: db50e738992ced03c62069ba0672ed9787d9ebc9
+prior substantive parent chain: f3d3dd9c → db50e738 → 2b62e725
+blob equality: verified independently after publish (see FINAL REPORT)
 branch: sfia/review-handoff
 mode: publish-in-cycle
 
