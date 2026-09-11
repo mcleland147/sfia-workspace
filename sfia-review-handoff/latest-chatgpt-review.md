@@ -1,2216 +1,2613 @@
 # SFIA STUDIO — GCEC ONE-LOT DELIVERY
-# GOVERNED CYCLE EXECUTION COMPLETION
-# DETERMINISTIC IMPLEMENTATION — FULL REVIEW PACK
+# SAME-LOT CRITICAL REVIEW CORRECTION
+# CR-GCEC-01 → CR-GCEC-06 — FULL REVIEW PACK
 
 ## TIMESTAMP
 
-- **timestamp (Europe/Paris):** 2026-09-11 10:08:49 CEST
+- **timestamp (Europe/Paris):** 2026-09-11 11:03:17 CEST
 - **worktree:** `/Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310`
 - **branch:** `delivery/sfia-studio-product-proof-qual-to-governed-cycle`
-- **External cycle:** 8 — Delivery / implémentation · EVOL · CRITICAL
-- **Delivery contract handoff:** `562ad2554dc2b03ea7d76fdf7ea72da14f1eaa3f`
-- **Authorized base:** `6a2e3c9d71275145b20b514d02ab54533a72a2a7`
+- **Cycle:** 8 — Delivery / implémentation · EVOL · CRITICAL
+- **Prior candidate:** `2b5dcaf1`
+- **Prior handoff:** `d1dc8339`
+- **Correction HEAD:** `ed7becca1486c20e69be7b98db2d057f3b08e5ef`
 
 ## GO MORRIS CONSUMED
 
-GO MORRIS — AUTHORIZE GCEC ONE-LOT DELIVERY IMPLEMENTATION ON 6a2e3c9d,
-SCHEMA-FREE, UNDER DELIVERY CONTRACT 562ad255.
-KEEP GCEC-PERSIST CLOSED.
-NO PROOF REPO CREATION, NO CURSOR REAL, NO REMOTE PUSH/PR/MERGE WITHOUT SEPARATE GATES.
+GO — CLOSE GCEC CRITICAL REVIEW FINDINGS IN SAME DELIVERY LOT.
+
+Prior GO remains binding: AUTHORIZE GCEC ONE-LOT DELIVERY ON 6a2e3c9d, SCHEMA-FREE, UNDER 562ad255.
+KEEP GCEC-PERSIST CLOSED. NO PROOF REPO / CURSOR REAL / REMOTE PUSH-PR-MERGE without separate gates.
 
 ## GIT TRUTH BEFORE
 
 ```
-branch = delivery/sfia-studio-product-proof-qual-to-governed-cycle
-HEAD   = 6a2e3c9d71275145b20b514d02ab54533a72a2a7
-HEAD^  = 4a80965a5f1687f805544c56be66e5d2ead3ea29
+HEAD   = 2b5dcaf1a5506e68616f04adb1570edae483928b
+parent = 6a2e3c9d71275145b20b514d02ab54533a72a2a7
 origin/main = a9f6c310a0826d0e5bd6f7264603382a86564db1
-handoff = 562ad255 (parent df51a6e5)
-tracked Product = clean (.tmp-sfia-review dirt only)
+handoff = d1dc8339 (parent 562ad255)
+tracked Product clean
 ```
 
 ## GIT TRUTH AFTER
 
 ```
-HEAD   = 2b5dcaf1a5506e68616f04adb1570edae483928b
-parent = 6a2e3c9d71275145b20b514d02ab54533a72a2a7
-tree   = 2df085b757dc3d255c179257d35fdf7a1e5a08fe
-message = feat(sfia-studio): add governed cycle execution completion
+HEAD   = ed7becca1486c20e69be7b98db2d057f3b08e5ef
+parent = 2b5dcaf1a5506e68616f04adb1570edae483928b
+tree   = 5b7af19879deac7a1e178d7cd1f1302d2a8e379e
+message = fix(sfia-studio): close GCEC deterministic end-to-end gaps
 Product push = NONE
 ```
 
-### Name-status (Product)
+### Name-status (correction delta 2b5dcaf1..HEAD)
 
 ```
-A	projects/sfia-studio/app/__tests__/oa/cycle/gcecOneLotDelivery.d0.test.ts
-A	projects/sfia-studio/app/__tests__/oa/git-ports/gcecGitPorts.d0.test.ts
-M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
-M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts
-M	projects/sfia-studio/app/features/project-assistant/approveCandidateTrajectory.ts
-A	projects/sfia-studio/app/features/project-assistant/f2/executionIntentSchema.ts
-A	projects/sfia-studio/app/features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile.ts
+M	projects/sfia-studio/app/__tests__/oa/cycle/corrProof05.pilotLifecycle.d0.test.ts
+A	projects/sfia-studio/app/__tests__/oa/cycle/gcecCr01F2DecisionBasis.d0.test.ts
+A	projects/sfia-studio/app/__tests__/oa/cycle/gcecDeterministicE2e.d0.test.ts
+A	projects/sfia-studio/app/__tests__/oa/cycle/gcecDeterministicNegatives.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/cycle/gcecOneLotDelivery.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/cycle/lifecycleClosure.phaseB.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/corrProof02.b1.advisory.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/corrProof03.e1.methodGroundedAdvisory.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/f2.orchestrate.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/methodOrientation.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/studioCognitiveContext.test.ts
+M	projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
+M	projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
+A	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/RepositoryBindingForm.tsx
+M	projects/sfia-studio/app/features/project-assistant/f2/executionIntentSchema.ts
+M	projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+M	projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+M	projects/sfia-studio/app/features/project-assistant/f2/recordDecision.ts
+M	projects/sfia-studio/app/features/project-assistant/f2/types.ts
+M	projects/sfia-studio/app/features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile.ts
+A	projects/sfia-studio/app/features/project-assistant/f3/completeBoundedDocsWriteLaunch.ts
+A	projects/sfia-studio/app/features/project-assistant/f3/ingestDocsWriteArtifactEvidence.ts
 M	projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
-M	projects/sfia-studio/app/features/project-assistant/f3/selectProductM3ResolutionProfile.ts
-M	projects/sfia-studio/app/features/project-assistant/preCycleCandidateTrajectoryActions.ts
-A	projects/sfia-studio/app/lib/oa/cycle/application/deriveCycleObligationSnapshot.ts
+M	projects/sfia-studio/app/lib/nora-eval/d0Runner.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/deriveCycleObligationSnapshot.ts
 M	projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts
-M	projects/sfia-studio/app/lib/oa/cycle/application/pilotLifecycleTransitions.ts
+A	projects/sfia-studio/app/lib/oa/cycle/application/qualifyGitCompletionProofSet.ts
 M	projects/sfia-studio/app/lib/oa/cycle/application/qualifyGitEvidence.ts
 M	projects/sfia-studio/app/lib/oa/cycle/index.ts
 M	projects/sfia-studio/app/lib/oa/decision/domain/types.ts
-A	projects/sfia-studio/app/lib/oa/evidence-review/application/artifactCompleteness.ts
-A	projects/sfia-studio/app/lib/oa/evidence-review/application/typedGitEvidence.ts
+M	projects/sfia-studio/app/lib/oa/evidence-review/application/artifactCompleteness.ts
+M	projects/sfia-studio/app/lib/oa/evidence-review/application/typedGitEvidence.ts
 M	projects/sfia-studio/app/lib/oa/evidence-review/index.ts
-M	projects/sfia-studio/app/lib/oa/execution-attempt/application/grantGateD.ts
 M	projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
-M	projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts
 M	projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
-A	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts
-A	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts
+A	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/managedProjectRepositoryResolver.ts
 M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
-A	projects/sfia-studio/app/lib/oa/git-ports/fakeGitProviderPorts.ts
-A	projects/sfia-studio/app/lib/oa/git-ports/index.ts
-A	projects/sfia-studio/app/lib/oa/git-ports/localGitCommitPort.ts
-A	projects/sfia-studio/app/lib/oa/git-ports/localGitStatusDiffPort.ts
-A	projects/sfia-studio/app/lib/oa/git-ports/postMergeVerify.ts
-A	projects/sfia-studio/app/lib/oa/git-ports/types.ts
-M	projects/sfia-studio/app/lib/oa/project/domain/invariants.ts
-M	projects/sfia-studio/app/lib/oa/project/domain/types.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioGitWorktreeWorkspace.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionWorkspacePort.ts
+A	projects/sfia-studio/app/lib/oa/git-ports/application/gitEffectEvidenceActions.ts
+A	projects/sfia-studio/app/lib/oa/git-ports/githubCliRemotePorts.ts
+M	projects/sfia-studio/app/lib/oa/git-ports/index.ts
+A	projects/sfia-studio/app/lib/oa/git-ports/nodeLocalGitPorts.ts
+A	projects/sfia-studio/app/lib/oa/project/application/setProjectRepositoryBinding.ts
+M	projects/sfia-studio/app/lib/oa/project/index.ts
+M	projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/createSqliteProductProjectServices.ts
+M	projects/sfia-studio/app/lib/oa/project/ports/projectAuditJournalPort.ts
+M	projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
+M	projects/sfia-studio/app/lib/vertical-slice-runtime/actions.ts
+M	projects/sfia-studio/app/lib/vertical-slice-runtime/composeStudioProductRealBoundary.ts
 M	projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+M	projects/sfia-studio/app/lib/vertical-slice-runtime/types.ts
 ```
 
 ### Stat
 
 ```
-.../oa/cycle/gcecOneLotDelivery.d0.test.ts         | 1024 ++++++++++++++++++++
- .../__tests__/oa/git-ports/gcecGitPorts.d0.test.ts |  134 +++
- .../trajectorySurface.ui.test.tsx                  |   31 +
- .../surfaces/TrajectorySurface.tsx                 |   13 +-
- .../surfaces/lifecyclePresentation.ts              |   15 +
- .../approveCandidateTrajectory.ts                  |   22 +
- .../project-assistant/f2/executionIntentSchema.ts  |  182 ++++
- .../f3/boundedDocsWriteM3ResolutionProfile.ts      |   55 ++
- .../project-assistant/f3/prepareM3FromDecision.ts  |   90 +-
- .../f3/selectProductM3ResolutionProfile.ts         |   22 +-
- .../preCycleCandidateTrajectoryActions.ts          |    2 +
- .../application/deriveCycleObligationSnapshot.ts   |  162 ++++
- .../application/deriveFinalizationApplicability.ts |   40 +-
- .../cycle/application/pilotLifecycleTransitions.ts |   10 +
- .../lib/oa/cycle/application/qualifyGitEvidence.ts |   28 +-
- projects/sfia-studio/app/lib/oa/cycle/index.ts     |   10 +
- .../app/lib/oa/decision/domain/types.ts            |   15 +
- .../application/artifactCompleteness.ts            |   58 ++
- .../application/typedGitEvidence.ts                |  273 ++++++
- .../app/lib/oa/evidence-review/index.ts            |   22 +
- .../oa/execution-attempt/application/grantGateD.ts |    6 +-
- .../application/startExecution.ts                  |   10 +-
- .../execution-attempt/domain/realLaunchSafety.ts   |    3 +
- .../app/lib/oa/execution-attempt/index.ts          |   21 +-
- .../infrastructure/fakeDocsWriteLaunchPort.ts      |  175 ++++
- .../m4BoundedDocsWriteCursorAgent.ts               |   94 ++
- .../studioCursorRealLaunchGateway.ts               |   38 +-
- .../app/lib/oa/git-ports/fakeGitProviderPorts.ts   |  104 ++
- projects/sfia-studio/app/lib/oa/git-ports/index.ts |   34 +
- .../app/lib/oa/git-ports/localGitCommitPort.ts     |   98 ++
- .../app/lib/oa/git-ports/localGitStatusDiffPort.ts |   86 ++
- .../app/lib/oa/git-ports/postMergeVerify.ts        |   47 +
- projects/sfia-studio/app/lib/oa/git-ports/types.ts |  154 +++
- .../app/lib/oa/project/domain/invariants.ts        |   69 ++
- .../sfia-studio/app/lib/oa/project/domain/types.ts |   21 +
- .../app/lib/vertical-slice-runtime/service.ts      |    2 +
- 36 files changed, 3122 insertions(+), 48 deletions(-)
+.../oa/cycle/corrProof05.pilotLifecycle.d0.test.ts |   1 +
+ .../oa/cycle/gcecCr01F2DecisionBasis.d0.test.ts    | 293 +++++++++++
+ .../oa/cycle/gcecDeterministicE2e.d0.test.ts       | 571 +++++++++++++++++++++
+ .../oa/cycle/gcecDeterministicNegatives.d0.test.ts | 298 +++++++++++
+ .../oa/cycle/gcecOneLotDelivery.d0.test.ts         | 111 +++-
+ .../oa/cycle/lifecycleClosure.phaseB.d0.test.ts    |   1 +
+ .../activeCycleCognitiveWork.d0.test.ts            |   1 +
+ .../corrProof02.b1.advisory.d0.test.ts             |   1 +
+ ...orrProof03.e1.methodGroundedAdvisory.d0.test.ts |   1 +
+ .../project-assistant/f2.orchestrate.test.ts       |   1 +
+ .../project-assistant/methodOrientation.test.ts    |   1 +
+ .../studioCognitiveContext.test.ts                 |   1 +
+ .../importBoundaries.test.ts                       |   1 +
+ .../pre-m6-product-ui/ProjectWorkspacePage.tsx     |  18 +
+ .../surfaces/RepositoryBindingForm.tsx             |  94 ++++
+ .../project-assistant/f2/executionIntentSchema.ts  |  15 +
+ .../project-assistant/f2/intentAnalysis.ts         |  26 +-
+ .../features/project-assistant/f2/orchestrateF2.ts |   2 +
+ .../project-assistant/f2/recordDecision.ts         |  56 +-
+ .../app/features/project-assistant/f2/types.ts     |  16 +
+ .../f3/boundedDocsWriteM3ResolutionProfile.ts      |  13 +
+ .../f3/completeBoundedDocsWriteLaunch.ts           | 123 +++++
+ .../f3/ingestDocsWriteArtifactEvidence.ts          |  96 ++++
+ .../project-assistant/f3/prepareM3FromDecision.ts  |  30 +-
+ projects/sfia-studio/app/lib/nora-eval/d0Runner.ts |   1 +
+ .../application/deriveCycleObligationSnapshot.ts   |   4 +
+ .../application/deriveFinalizationApplicability.ts |  66 ++-
+ .../application/qualifyGitCompletionProofSet.ts    | 230 +++++++++
+ .../lib/oa/cycle/application/qualifyGitEvidence.ts |   3 +
+ projects/sfia-studio/app/lib/oa/cycle/index.ts     |   8 +
+ .../app/lib/oa/decision/domain/types.ts            |   4 +
+ .../application/artifactCompleteness.ts            |  50 +-
+ .../application/typedGitEvidence.ts                |  50 +-
+ .../app/lib/oa/evidence-review/index.ts            |   1 +
+ .../application/startExecution.ts                  | 178 +++++++
+ .../app/lib/oa/execution-attempt/index.ts          |   8 +-
+ .../infrastructure/fakeDocsWriteLaunchPort.ts      |  30 +-
+ .../managedProjectRepositoryResolver.ts            |  57 ++
+ .../studioCursorRealLaunchGateway.ts               |  84 ++-
+ .../infrastructure/studioGitWorktreeWorkspace.ts   |  41 +-
+ .../ports/realExecutionLaunchPort.ts               |  34 ++
+ .../ports/realExecutionWorkspacePort.ts            |  11 +
+ .../application/gitEffectEvidenceActions.ts        | 421 +++++++++++++++
+ .../app/lib/oa/git-ports/githubCliRemotePorts.ts   | 245 +++++++++
+ projects/sfia-studio/app/lib/oa/git-ports/index.ts |  15 +
+ .../app/lib/oa/git-ports/nodeLocalGitPorts.ts      |   6 +
+ .../application/setProjectRepositoryBinding.ts     | 114 ++++
+ projects/sfia-studio/app/lib/oa/project/index.ts   |  12 +
+ .../sqlite/createSqliteProductProjectServices.ts   |  12 +
+ .../oa/project/ports/projectAuditJournalPort.ts    |  10 +
+ .../app/lib/platform/ai/fakeProvider.ts            |  76 +++
+ .../app/lib/vertical-slice-runtime/actions.ts      |  32 ++
+ .../composeStudioProductRealBoundary.ts            |   2 +
+ .../app/lib/vertical-slice-runtime/service.ts      |  51 ++
+ .../app/lib/vertical-slice-runtime/types.ts        |   9 +
+ 55 files changed, 3561 insertions(+), 75 deletions(-)
 ```
 
-## SOURCES READ
+## SOURCES
 
-Process template · routing · operating model · guardrails · v2.5 Delivery · CKC synthetic map · Build Doctrine · Roadmap · Product Completion · v3 23/30–35/37 · Delivery contract `562ad255` · Product sources as implemented.
-
-Hierarchy: local Git candidate > Morris GO > governance > HD > sources > memory > hypothesis.
-v2.6 = PROCESS only.
+Process template · routing · operating model · guardrails · v2.5 · CKC synthetic map · Build Doctrine · Roadmap · Product Completion · v3 23/30–35/37 · handoff d1dc833 · local candidate 2b5dcaf1 implementation.
 
 ## CONVERGENCE PRE-CHECK
 
-Build Doctrine ACTIVE · Product Completion CLOSED · runtime v3 NON ADOPTED · F3 Product path SoT · Recommendation ≠ HD · Nora ≠ execution authority.
+Build Doctrine ACTIVE · Product Completion CLOSED · runtime v3 NON ADOPTED · Fake = external boundary only · GCEC-PERSIST CLOSED.
 
-## CYCLE / TYPE / PROFILE
+## CRITICAL REVIEW INPUT
 
-Cycle 8 — Delivery / implémentation · EVOL · CRITICAL
+FAIL — GCEC ONE-LOT DELIVERY DETERMINISTIC EXIT NOT MET — SAME-LOT CORRECTION REQUIRED.
 
-## CKC FALLBACK
+| ID | Finding |
+|----|---------|
+| CR-GCEC-01 | Nora structured intent not wired into F2→DecisionBasis |
+| CR-GCEC-02 | Docs-write gateway still used RO instruction; no structured write contract |
+| CR-GCEC-03 | repositoryBinding did not reach workspace; ambient repoRoot |
+| CR-GCEC-04 | Weak Artifact Evidence; docs-write not ingested as strong proof |
+| CR-GCEC-05 | Single post-merge / lexical evidence could falsely SATISFY Git |
+| CR-GCEC-06 | Git ports lacked concrete Product REAL adapters/actions |
 
-No detailed Delivery CKC. Used synthetic map + v2.5 Delivery section as process guidance only. No invented Delivery CKC. No runtime markdown dependency.
+## CR CLOSURE MATRIX
 
-## D-GCEC DECISIONS CONSUMED
+| CR | Status | Proof |
+|----|--------|-------|
+| CR-GCEC-01 | **CLOSED** | `gcecCr01F2DecisionBasis.d0.test.ts` — fake provider → analyzeIntent → saveProposal → recordF2Decision → durable DecisionBasis → prepareM3FromDecision (action/target/caps/inputs) |
+| CR-GCEC-02 | **CLOSED** | `DocsWriteLaunchSpec` on RealLaunchRequest; extract before Gate D; WRITE instruction in gateway; FakeDocsWrite consumes same spec |
+| CR-GCEC-03 | **CLOSED** | PrepareWorkspaceRequest binding/managedRepoRoot; ManagedProjectRepositoryResolver; setProjectRepositoryBinding + RepositoryBindingForm UI; no ambient fallback for docs-write |
+| CR-GCEC-04 | **CLOSED** | evaluateGcecArtifactEvidence requires project+cycle+EC+attempt; completeBoundedDocsWriteLaunch + ingestDocsWriteArtifactEvidence |
+| CR-GCEC-05 | **CLOSED** | qualifyGitCompletionProofSet; durable git:*?query= locations; Git MUST uses SET only; legacy GP path preserved |
+| CR-GCEC-06 | **CLOSED** | GithubCliRemotePorts (injectable, ZERO invoke); gitEffectEvidenceActions with Confirmation grants; FakeGitProviderPorts substitute |
 
-| ID | Status |
-|----|--------|
-| D-GCEC-01 A BOUNDED | CONSUMED — deriveCycleObligationSnapshot |
-| D-GCEC-02 explicit binding + dedicated proof vehicle | CONSUMED — Project.repositoryBinding; repo NOT created |
-| D-GCEC-03 sibling docs-write | CONSUMED — cap:cursor.docs_write |
-| D-GCEC-04 doctrine-resolved effect separation | CONSUMED — git-ports phases |
-| D-GCEC-05 Option 1 temporary | CONSUMED — TEMP-GCEC-PRPM-01 retained |
-| D-GCEC-06 ADAPT Artifact via Evidence | CONSUMED — no Artifact table |
-| D-GCEC-07 typed Git Evidence | CONSUMED — git:* sources |
-| D-GCEC-08 trajectory reprepare same-lot | CONSUMED |
+## IMPLEMENTED CAPABILITY SUMMARY
 
-## IMPLEMENTED CAPABILITY
+### CR-GCEC-01 — Nora → DecisionBasis
+- executionIntent nested in F2_INTENT_JSON_SCHEMA
+- artifactBrief / contentRequirements additive
+- ProposalDto.executionIntent → buildDecisionBasis → executionBasis
+- Fake `__F2_DOCS_WRITE_GCEC__`
 
-Target loop infrastructure for Governed Cycle Execution Completion — **deterministic only**.
+### CR-GCEC-02 — Launch parity
+- docsWriteSpec built from EC.inputs before Gate D
+- REAL gateway WRITE instruction (not RO)
+- FakeDocsWriteLaunchPort prefers request.docsWriteSpec
 
-### Stage 1 — obligations / repo / DecisionBasis / trajectory
+### CR-GCEC-03 — Repo-bound workspace + UX
+- managedRepoRoot / binding on prepareWorkspace
+- SetProjectRepositoryBinding Product command
+- Minimal RepositoryBindingForm on ProjectWorkspacePage
 
-- `ProjectRepositoryBinding` + `validateRepositoryBinding` (payload_json only)
-- `deriveCycleObligationSnapshot` — pre-row F14 MUST for repo-backed `cyc:functional-design`
-- `deriveFinalizationApplicability` consumes snapshot before positive rows
-- DecisionBasis `executionBasis` additive intent fields
-- F2 `executionIntentSchema.ts` SFIA-specific structured-output delta
-- Trajectory: completed matching cycle ⇒ no « Préparer le cycle »
-- `mustBlocksNoGovernedEffects` helper
+### CR-GCEC-04 — Artifact chain
+- Strict GCEC bindings
+- Docs-write completion + ingest sibling path
 
-### Stage 2 — docs-write / worktree / Artifact Evidence
+### CR-GCEC-05 — Git proof SET
+- qualifyGitCompletionProofSet
+- Intermediate git:* not sufficient alone
+- TEMP-GCEC-F14-BIND-01 noted on deriveCycleObligationSnapshot
 
-- `boundedDocsWriteM3ResolutionProfile` sibling (RO unchanged)
-- `m4BoundedDocsWriteCursorAgent` + `isM4AuthorizedCursorRealAgent`
-- PREPARE maps docs_write fail-closed; RESOLVE kind `bounded_docs_write`
-- Gateway branches: RO=`--mode ask`; docs-write omits ask
-- Registry registers docs-write with RO when M4 path on
-- `FakeDocsWriteLaunchPort` for deterministic external boundary
-- `evaluateFunctionalDesignArtifactCompleteness` on Evidence
-- artifactProofPresent requires completeness.ok
+### CR-GCEC-06 — Concrete adapters
+- githubCliRemotePorts + nodeLocalGitPorts
+- Effect actions: push/PR/CI/review/merge/post-merge with Confirmation
+- ZERO REAL invocation
 
-### Stage 3 — typed Git Evidence / ports
+## DETERMINISTIC E2E TRACE (A→Y)
 
-- `typedGitEvidence.ts` validators/builders for 8 discriminators
-- `isGitCompletionProofEvidence` — only `git:post_merge_verification` (typed) or legacy lexical satisfies
-- Intermediate git:* facts do not SATISFY Git obligation
-- `lib/oa/git-ports` — status/diff, local commit, fake remote push/PR/CI/review/merge, postMergeVerify
-- Force push forbidden; merge requires confirmation id
+Covered by:
+- `gcecCr01F2DecisionBasis.d0.test.ts` (A–H Product F2→PREPARE)
+- `gcecDeterministicE2e.d0.test.ts` (binding → FakeDocsWrite same docsWriteSpec → Artifact Evidence → RB → fake Git effects → proof SET SATISFIED; intermediate BLOCKING)
+- Negatives in `gcecDeterministicNegatives.d0.test.ts`
 
-### Stage 4 — Finalization / UI / tests
+Reserve (non-blocking): full StartExecution+Gate D micro-orchestration inside one single test file not duplicated where CR01+E2E already cover the same contracts; REAL campaign remains gated.
 
-- pilotLifecycleTransitions passes cycleTypeId + repositoryBinding into derive
-- TrajectorySurface + lifecyclePresentation adapted
-- Focused + related + full Vitest + typecheck + lint + build PASS
+## PERSISTENCE
 
-## PERSISTENCE IMPACT
+NO TABLE · NO MIGRATION · NO NEW STORE · GCEC-PERSIST CLOSED
 
-| Check | Result |
-|-------|--------|
-| New table | **NO** |
-| Migration / DDL | **NO** |
-| New store | **NO** |
-| Additive payload_json | YES (Project.repositoryBinding, DecisionBasis.executionBasis) |
-| GCEC-PERSIST | **CLOSED / PASS** |
+## FAKE/REAL PARITY
 
-## F14 OBLIGATION BINDING
+Same RealLaunchRequest.docsWriteSpec for Fake and REAL gateway. Fake substitutes Cursor only.
 
-On-demand snapshot Option A. Repo-backed functional-design ⇒ artifact/EC/evidence/RB/git/exit APPLICABLE before rows. MUST + no-governed-effects ⇒ monotone contradiction.
+## TEMPORARY DEBT
 
-## PROJECT→REPO BINDING
-
-Optional `repositoryBinding` on Project. No ambient sfia-workspace fallback. Proof repo NOT created.
-
-## DECISIONBASIS EXECUTION INTENT
-
-Additive optional fields; Nora schema COMBINE/SFIA delta only; ZERO OpenAI REAL.
-
-## EXECUTIONCONTRACT RESOLUTION
-
-PREPARE→RESOLVE preserved. `bounded_docs_write` profile. Fail-closed unresolved target/path/repo.
-
-## DOCS-WRITE AGENT
-
-`cap:cursor.docs_write` · `agt:m4.cursor.bounded_docs_write` · sibling of RO · REAL path structural only · ZERO launches.
-
-## WORKTREE ENFORCEMENT
-
-KEEP studioGitWorktreeWorkspace. Fake docs-write uses disposable worktreeRoot + pathAllowlist + escape checks.
-
-## ARTIFACT COMPLETENESS
-
-Evidence type=artifact + digest + location + bindings + status; no Artifact table.
-
-## TYPED GIT EVIDENCE
-
-source discriminators git:* ; completion proof = post_merge_verification.
-
-## GIT PORTS
-
-Effect-separated A–H. Fake provider for remote. Local commit port for disposable repos only in tests.
-
-## AUTHORITY / CONFIRMATIONS
-
-HD ∩ EC ∩ cap ∩ policy ∩ Confirmation. Docs-write ≠ Git write. No autonomous merge.
-
-## FINALIZATION
-
-Git BLOCKING until post-merge verification evidence. Pilot FINALIZE explicit (unchanged assessFinalization KEEP).
-
-## TRAJECTORY REPREPARE
-
-completedMatchingCycle / prepareBlockedReason hides Préparer le cycle.
-
-## FAKE/REAL QUALIFICATION
-
-| Boundary | Status |
-|----------|--------|
-| FakeDocsWriteLaunchPort | USED in tests |
-| FakeGitProviderPorts | USED in tests |
-| Cursor REAL | **ZERO** |
-| OpenAI/Nora REAL | **ZERO** |
-| Product remote Git | **ZERO** |
-| Proof repo | **NOT CREATED** |
-| Review Handoff push | L3 reporting only (not Product Git proof) |
-
-## SECURITY CONTROLS
-
-path traversal · allowlist · symlink/containment checks in fake write · force push ban · merge confirmation required · secret non-logging · base SHA fields on RealLaunchRequest preserved.
-
-## FAILURE / RECOVERY
-
-Fake launch reject paths · out-of-scope · digest/sha mismatch in postMergeVerify · no false Evidence/SATISFIED/FINALIZE from intermediate git facts · durable EC/Attempt/Evidence remain SoT (no second orchestration engine).
+- TEMP-GCEC-PRPM-01 (Option 1) retained
+- TEMP-GCEC-F14-BIND-01 (first-vertical F14 binder) retained
 
 ## TESTS
 
-### Focused
-
+### Focused GCEC
 ```
-npx vitest run __tests__/oa/cycle/gcecOneLotDelivery.d0.test.ts __tests__/oa/git-ports/gcecGitPorts.d0.test.ts
-→ 26 passed / 2 files
-```
-
-### Related
-
-```
-corrProof05 + lifecycleClosure CR/PhaseB + trajectorySurface + lifecyclePresentation + m1ProductSqlite
-→ 210 passed / 8 files
+gcecCr01 + gcecDeterministicE2e + negatives + gcecOneLotDelivery + gcecGitPorts + corrProof05 + importBoundaries
+→ PASS
 ```
 
 ### Full Vitest
-
 ```
 npx vitest run
-→ Test Files  332 passed | 17 skipped
-→ Tests       3546 passed | 135 skipped
+→ Test Files  335 passed | 17 skipped
+→ Tests       3556 passed | 135 skipped
 ```
 
-### Typecheck / Lint / Build / diff --check
-
+### Gates
 ```
 npm run typecheck → PASS
-npm run lint → PASS (No ESLint warnings or errors)
+npm run lint → PASS
 npm run build → PASS
 git diff --check → PASS
 ```
 
-## NON-REGRESSION
-
-corrProof05 136 PASS · lifecycle Phase B / CR follow-up PASS · trajectory UI PASS · RO profile constants asserted unchanged · Product SQLite durability PASS.
-
-## LOCAL COMMIT
+## LOCAL CORRECTION COMMIT
 
 ```
-SHA    = 2b5dcaf1a5506e68616f04adb1570edae483928b
-parent = 6a2e3c9d71275145b20b514d02ab54533a72a2a7
-tree   = 2df085b757dc3d255c179257d35fdf7a1e5a08fe
-message = feat(sfia-studio): add governed cycle execution completion
+SHA    = ed7becca1486c20e69be7b98db2d057f3b08e5ef
+parent = 2b5dcaf1a5506e68616f04adb1570edae483928b
+tree   = 5b7af19879deac7a1e178d7cd1f1302d2a8e379e
+message = fix(sfia-studio): close GCEC deterministic end-to-end gaps
 ```
+
+Lineage: 6a2e3c9d → 2b5dcaf1 → ed7becca1486c20e69be7b98db2d057f3b08e5ef
 
 ## REMOTE EFFECTS
 
-Product push = NONE · proof repo = NOT CREATED · PR = NONE · merge = NONE · Cursor REAL = ZERO · OpenAI REAL = ZERO.
+Product push = NONE · proof repo = NOT CREATED · Cursor REAL = ZERO · OpenAI REAL = ZERO · PR = NONE · merge = NONE
 
-## TEMP-GCEC-PRPM-01
+## OPEN GATES
 
-Retained. Exit unchanged: after first END-TO-END REAL GCEC proof, requalify PR-readiness/post-merge cycle relationship. Owner: Morris.
-
-## RESERVES (NON-BLOCKING)
-
-1. Project UI edit surface for repositoryBinding not expanded beyond payload/type — binding set via persistence/tests; Product UI may follow later lot.
-2. Full Product orchestration StartExecution→Attempt→Evidence→RB with FakeDocsWriteLaunchPort end-to-end harness covered at port/unit level; deeper Gate D wiring smoke left for REAL campaign under GCEC-CURSOR-REAL.
-3. Option 1 temporary model remains debt — not global doctrine.
-
-## DEBT
-
-TEMP-GCEC-PRPM-01 · docs-only write first vertical · typed Evidence by source convention (enum not expanded).
+GCEC-REPO-CREATE · GCEC-CURSOR-REAL · GCEC-PUSH · GCEC-PR · GCEC-MERGE · GCEC-RUNTIME-V3 · GCEC-PERSIST stays CLOSED
 
 ## ANTI-CLAIMS
 
-deterministic candidate ≠ REAL boundary proven · docs-write implementation ≠ Cursor REAL · Git ports ≠ remote Git proven · local candidate commit ≠ PR readiness · Review Handoff push ≠ Product Git proof · proof-repo decision ≠ repository created · Product Completion CLOSED · runtime v3 NON ADOPTED.
-
-## NEXT GATES
-
-GCEC-REPO-CREATE · GCEC-CURSOR-REAL · GCEC-PUSH · GCEC-PR · GCEC-MERGE · GCEC-RUNTIME-V3 (no promotion) · GCEC-PERSIST must stay closed.
+deterministic E2E ≠ Cursor REAL · concrete remote adapters ≠ remote Git proven · fake provider ≠ OpenAI REAL · local correction ≠ PR readiness · review handoff ≠ Product Git proof · proof repo NOT CREATED · Product Completion CLOSED · runtime v3 NON ADOPTED
 
 ## VERDICT
 
-**PASS — GCEC ONE-LOT DELIVERY DETERMINISTIC CANDIDATE READY FOR CHATGPT CRITICAL REVIEW**
+**PASS — GCEC SAME-LOT CR CORRECTION DETERMINISTIC E2E CANDIDATE READY FOR CHATGPT CRITICAL REVIEW**
 
 ---
 
-## EXACT FILES CREATED
+## FILES CREATED / MODIFIED
 
-| Path | Responsibility |
-|------|----------------|
-| deriveCycleObligationSnapshot.ts | F14 on-demand binder |
-| boundedDocsWriteM3ResolutionProfile.ts | M3 resolve profile |
-| m4BoundedDocsWriteCursorAgent.ts | Sibling AgentCapability |
-| fakeDocsWriteLaunchPort.ts | Deterministic write boundary |
-| executionIntentSchema.ts | Nora structured intent delta |
-| artifactCompleteness.ts | F14 Evidence completeness |
-| typedGitEvidence.ts | Typed git:* Evidence |
-| git-ports/* | Effect-separated Git ports |
-| gcecOneLotDelivery.d0.test.ts | Focused unit/integration |
-| gcecGitPorts.d0.test.ts | Git ports unit |
-
-## EXACT FILES MODIFIED
-
-See name-status above. Key: Project types/invariants · DecisionBasis · deriveFinalizationApplicability · qualifyGitEvidence · prepareM3FromDecision · selectProductM3ResolutionProfile · startExecution/grantGateD · studioCursorRealLaunchGateway · vertical-slice service · approveCandidateTrajectory · TrajectorySurface · lifecyclePresentation · pilotLifecycleTransitions · barrels.
-
----
+See name-status above.
 
 ## REVIEWABLE NEW FILE CONTENTS
 
-### FULL NEW FILE: `projects/sfia-studio/app/lib/oa/cycle/application/deriveCycleObligationSnapshot.ts`
+### FULL NEW: `projects/sfia-studio/app/lib/oa/cycle/application/qualifyGitCompletionProofSet.ts`
 
 ```typescript
 /**
- * GCEC D-GCEC-01 — on-demand F14 cycle obligation snapshot (schema-free).
- * Derives APPLICABLE before EC/Evidence/RB rows exist.
- * Absence of rows ≠ N/A. Nora does not own applicability.
+ * CR-GCEC-05 — qualify a SET of typed git evidence for completion proof.
+ * Single-row post_merge alone is NOT enough for GCEC-bound cycles.
  */
-import type { ProjectRepositoryBinding } from "@/lib/oa/project";
-import type {
-  FinalizationApplicabilityRules,
-  ObligationApplicability,
-} from "../domain/types";
+import type { Evidence } from "@/lib/oa/evidence-review";
+import {
+  isTypedGitEvidenceSource,
+  type TypedGitEvidenceSource,
+} from "@/lib/oa/evidence-review";
 
-export type CycleObligationFamily =
-  | "artifact"
-  | "execution_contract"
-  | "evidence"
-  | "review_bundle"
-  | "git_repository"
-  | "exit_criteria";
+export type GitCompletionProofFamily =
+  | "git:local_commit"
+  | "git:remote_push"
+  | "git:pull_request"
+  | "git:ci_status"
+  | "git:review_status"
+  | "git:merge"
+  | "git:post_merge_verification";
 
-export type CycleObligationSourceKind =
-  | "intrinsic"
-  | "contextual"
-  | "unknown";
+export const GCEC_GIT_COMPLETION_PROOF_FAMILIES: readonly GitCompletionProofFamily[] =
+  [
+    "git:local_commit",
+    "git:remote_push",
+    "git:pull_request",
+    "git:ci_status",
+    "git:review_status",
+    "git:merge",
+    "git:post_merge_verification",
+  ] as const;
 
-export type CycleObligationEntry = {
-  family: CycleObligationFamily;
-  applicability: ObligationApplicability;
-  sourceKind: CycleObligationSourceKind;
-  reason: string;
+export type QualifyGitCompletionProofSetExpected = {
+  repositoryRef: string;
+  targetPath: string;
+  artifactDigest: string;
+  cycleInstanceId: string;
+  executionContractId?: string;
+  projectId?: string;
 };
 
-export type CycleObligationSnapshot = {
-  cycleTypeId: string;
-  projectId: string;
-  cycleInstanceId?: string;
-  repositoryBound: boolean;
-  entries: CycleObligationEntry[];
-  /** Families with deterministic MUST / APPLICABLE before rows exist. */
-  mustFamilies: CycleObligationFamily[];
-};
+export type QualifyGitCompletionProofSetResult =
+  | { status: "SATISFIED"; present: GitCompletionProofFamily[] }
+  | {
+      status: "BLOCKING";
+      reason: string;
+      present: GitCompletionProofFamily[];
+      missing: GitCompletionProofFamily[];
+    };
 
-export type DeriveCycleObligationSnapshotInput = {
-  projectId: string;
-  cycleTypeId: string;
-  cycleInstanceId?: string;
-  repositoryBinding?: ProjectRepositoryBinding | null;
-  /**
-   * When true, treat as repo-backed even without binding (tests only).
-   * Production callers should rely on repositoryBinding presence.
-   */
-  forceRepoBacked?: boolean;
-};
-
-const REPO_BACKED_FUNCTIONAL_DESIGN_MUST: readonly CycleObligationFamily[] = [
-  "artifact",
-  "execution_contract",
-  "evidence",
-  "review_bundle",
-  "git_repository",
-  "exit_criteria",
-] as const;
-
-/**
- * On-demand binder: DoctrinePackage/catalog semantics + Project context.
- * First vertical: repo-backed `cyc:functional-design` ⇒ governed MUST set.
- * Unknown/unmodeled: UNKNOWN (fail-closed for proof presence).
- */
-export function deriveCycleObligationSnapshot(
-  input: DeriveCycleObligationSnapshotInput,
-): CycleObligationSnapshot {
-  const cycleTypeId = input.cycleTypeId.trim();
-  const repositoryBound =
-    input.forceRepoBacked === true ||
-    (input.repositoryBinding != null &&
-      typeof input.repositoryBinding.identity === "string" &&
-      input.repositoryBinding.identity.trim().length > 0);
-
-  const entries: CycleObligationEntry[] = [];
-  const mustFamilies: CycleObligationFamily[] = [];
-
-  if (cycleTypeId === "cyc:functional-design" && repositoryBound) {
-    for (const family of REPO_BACKED_FUNCTIONAL_DESIGN_MUST) {
-      const sourceKind: CycleObligationSourceKind =
-        family === "git_repository" || family === "artifact"
-          ? "contextual"
-          : "intrinsic";
-      entries.push({
-        family,
-        applicability: "APPLICABLE",
-        sourceKind,
-        reason:
-          family === "git_repository"
-            ? "repo_backed_functional_design_git_must"
-            : `repo_backed_functional_design_${family}_must`,
-      });
-      mustFamilies.push(family);
-    }
-  } else if (!cycleTypeId) {
-    for (const family of REPO_BACKED_FUNCTIONAL_DESIGN_MUST) {
-      entries.push({
-        family,
-        applicability: "UNKNOWN",
-        sourceKind: "unknown",
-        reason: "cycle_type_missing",
-      });
-    }
-  } else {
-    // Known cycle without repo-backed functional-design GCEC vertical:
-    // do not invent global Git MUST. Leave families unset (UNKNOWN by absence).
-    entries.push({
-      family: "exit_criteria",
-      applicability: "APPLICABLE",
-      sourceKind: "intrinsic",
-      reason: "cycle_has_exit_criteria",
-    });
-    mustFamilies.push("exit_criteria");
-  }
-
-  return {
-    cycleTypeId,
-    projectId: input.projectId,
-    cycleInstanceId: input.cycleInstanceId,
-    repositoryBound,
-    entries,
-    mustFamilies,
-  };
-}
-
-/** Apply MUST/APPLICABLE snapshot into FinalizationApplicabilityRules (monotone). */
-export function applyCycleObligationSnapshotToRules(
-  rules: FinalizationApplicabilityRules,
-  snapshot: CycleObligationSnapshot,
-  positiveSources: Partial<
-    Record<
-      | "artifact"
-      | "execution_contract"
-      | "evidence"
-      | "review_bundle"
-      | "git_repository",
-      string
-    >
-  >,
-): void {
-  for (const entry of snapshot.entries) {
-    if (entry.applicability !== "APPLICABLE") continue;
-    if (entry.family === "exit_criteria") {
-      rules.exit_criteria = "APPLICABLE";
+function parseLocationQuery(location: string): Record<string, string> {
+  const qIndex = location.indexOf("?");
+  if (qIndex < 0) return {};
+  const query = location.slice(qIndex + 1);
+  const out: Record<string, string> = {};
+  for (const part of query.split("&")) {
+    if (!part) continue;
+    const eq = part.indexOf("=");
+    if (eq < 0) {
+      out[decodeURIComponent(part)] = "";
       continue;
     }
-    const family = entry.family;
-    rules[family] = "APPLICABLE";
-    if (!positiveSources[family]) {
-      positiveSources[family] = `obligation_snapshot:${entry.reason}`;
+    out[decodeURIComponent(part.slice(0, eq))] = decodeURIComponent(
+      part.slice(eq + 1),
+    );
+  }
+  return out;
+}
+
+function sourceFamily(source: string): GitCompletionProofFamily | null {
+  if (
+    source === "git:local_commit" ||
+    source === "git:remote_push" ||
+    source === "git:pull_request" ||
+    source === "git:ci_status" ||
+    source === "git:review_status" ||
+    source === "git:merge" ||
+    source === "git:post_merge_verification"
+  ) {
+    return source;
+  }
+  return null;
+}
+
+function evidenceMatchesExpected(
+  evidence: Evidence,
+  expected: QualifyGitCompletionProofSetExpected,
+  family: GitCompletionProofFamily,
+): { ok: true } | { ok: false; reason: string } {
+  if (evidence.status !== "available" && evidence.status !== "verified") {
+    return { ok: false, reason: "status_not_proof" };
+  }
+  if (evidence.bindings?.cycleInstanceId !== expected.cycleInstanceId) {
+    return { ok: false, reason: "cycle_mismatch" };
+  }
+  if (
+    expected.projectId &&
+    evidence.bindings?.projectId &&
+    evidence.bindings.projectId !== expected.projectId
+  ) {
+    return { ok: false, reason: "project_mismatch" };
+  }
+  if (
+    expected.executionContractId &&
+    evidence.bindings?.executionContractId &&
+    evidence.bindings.executionContractId !== expected.executionContractId
+  ) {
+    return { ok: false, reason: "contract_mismatch" };
+  }
+
+  const loc = evidence.location ?? "";
+  const q = parseLocationQuery(loc);
+  const repo =
+    q.repo ??
+    q.repositoryRef ??
+    (loc.includes(expected.repositoryRef) ? expected.repositoryRef : "");
+  if (repo && repo !== expected.repositoryRef) {
+    return { ok: false, reason: "repo_mismatch" };
+  }
+
+  if (family === "git:post_merge_verification") {
+    const digest = q.digest ?? evidence.digest ?? "";
+    if (digest && digest !== expected.artifactDigest) {
+      return { ok: false, reason: "digest_mismatch" };
+    }
+    const artifactPath = q.artifactPath ?? q.targetPath ?? "";
+    if (artifactPath && artifactPath !== expected.targetPath) {
+      return { ok: false, reason: "target_path_mismatch" };
+    }
+  }
+
+  if (family === "git:ci_status") {
+    const conclusion = (q.conclusion ?? "").toLowerCase();
+    if (conclusion && conclusion !== "success") {
+      return { ok: false, reason: "ci_not_success" };
+    }
+  }
+  if (family === "git:review_status") {
+    const state = (q.state ?? "").toLowerCase();
+    if (state && state !== "approved") {
+      return { ok: false, reason: "review_not_approved" };
+    }
+  }
+
+  return { ok: true };
+}
+
+/**
+ * Qualify the full git completion proof SET for a GCEC-bound cycle.
+ */
+export function qualifyGitCompletionProofSet(input: {
+  evidence: readonly Evidence[];
+  requirements?: readonly GitCompletionProofFamily[];
+  expected: QualifyGitCompletionProofSetExpected;
+}): QualifyGitCompletionProofSetResult {
+  const requirements = [
+    ...(input.requirements ?? GCEC_GIT_COMPLETION_PROOF_FAMILIES),
+  ];
+  const present: GitCompletionProofFamily[] = [];
+  const missing: GitCompletionProofFamily[] = [];
+
+  for (const family of requirements) {
+    const matches = input.evidence.filter((e) => {
+      if (!isTypedGitEvidenceSource(e.source)) return false;
+      return sourceFamily(e.source) === family;
+    });
+    if (matches.length === 0) {
+      missing.push(family);
+      continue;
+    }
+    let anyOk = false;
+    let lastReason = "family_unmatched";
+    for (const m of matches) {
+      const check = evidenceMatchesExpected(m, input.expected, family);
+      if (check.ok) {
+        anyOk = true;
+        break;
+      }
+      lastReason = check.reason;
+    }
+    if (!anyOk) {
+      return {
+        status: "BLOCKING",
+        reason: lastReason,
+        present,
+        missing: [family, ...requirements.filter((f) => !present.includes(f) && f !== family)],
+      };
+    }
+    present.push(family);
+  }
+
+  if (missing.length > 0) {
+    return {
+      status: "BLOCKING",
+      reason: "incomplete_git_proof_set",
+      present,
+      missing,
+    };
+  }
+  return { status: "SATISFIED", present };
+}
+
+/** Map evidenceRequirements strings (git:*) onto proof families. */
+export function gitProofFamiliesFromRequirements(
+  requirements: readonly string[],
+): GitCompletionProofFamily[] {
+  const out: GitCompletionProofFamily[] = [];
+  for (const r of requirements) {
+    const t = r.trim();
+    // Accept both git:local_commit and git:commit aliases from Nora intent.
+    const normalized =
+      t === "git:commit"
+        ? "git:local_commit"
+        : t === "git:push"
+          ? "git:remote_push"
+          : t;
+    if (
+      normalized === "git:local_commit" ||
+      normalized === "git:remote_push" ||
+      normalized === "git:pull_request" ||
+      normalized === "git:ci_status" ||
+      normalized === "git:review_status" ||
+      normalized === "git:merge" ||
+      normalized === "git:post_merge_verification"
+    ) {
+      if (!out.includes(normalized)) out.push(normalized);
+    }
+  }
+  return out.length > 0 ? out : [...GCEC_GIT_COMPLETION_PROOF_FAMILIES];
+}
+
+export type { TypedGitEvidenceSource };
+
+```
+### FULL NEW: `projects/sfia-studio/app/lib/oa/project/application/setProjectRepositoryBinding.ts`
+
+```typescript
+/**
+ * SetProjectRepositoryBinding — persist explicit Product target repository
+ * on Project (CR-GCEC-03). No network. Ambient Studio repo is NEVER implied.
+ */
+import type { ClockPort } from "@/lib/oa/doctrine";
+import { createProjectError } from "../domain/errors";
+import { validateRepositoryBinding } from "../domain/invariants";
+import type {
+  ActorReference,
+  Project,
+  ProjectRepositoryBinding,
+  ProjectStructuredError,
+} from "../domain/types";
+import type { ProjectAuditJournalPort } from "../ports/projectAuditJournalPort";
+import type { ProjectRepositoryPort } from "../ports/projectRepositoryPort";
+
+export type SetProjectRepositoryBindingRequest = {
+  projectId: string;
+  binding: ProjectRepositoryBinding;
+  actor: ActorReference;
+  correlationId?: string;
+};
+
+export type SetProjectRepositoryBindingResult =
+  | { ok: true; project: Project; durationMs: number }
+  | { ok: false; error: ProjectStructuredError; durationMs: number };
+
+export class SetProjectRepositoryBinding {
+  constructor(
+    private readonly projects: ProjectRepositoryPort,
+    private readonly clock: ClockPort,
+    private readonly audit: ProjectAuditJournalPort,
+  ) {}
+
+  async execute(
+    request: SetProjectRepositoryBindingRequest,
+  ): Promise<SetProjectRepositoryBindingResult> {
+    const started = Date.now();
+    const timestamp = this.clock.nowIso();
+    const correlationId =
+      request.correlationId ?? `cor:set-repo-binding:${request.projectId}`;
+
+    const fail = (
+      detailCode: Parameters<typeof createProjectError>[0]["detailCode"],
+      reason?: string,
+    ): SetProjectRepositoryBindingResult => {
+      const durationMs = Date.now() - started;
+      const error = createProjectError({
+        detailCode,
+        timestamp,
+        correlationId,
+        projectId: request.projectId,
+        internalCauseRef: reason,
+      });
+      this.audit.append({
+        event: "oa.project.repository_binding_set",
+        ts: timestamp,
+        correlationId,
+        projectId: request.projectId,
+        result: "error",
+        detailCode,
+        durationMs,
+      });
+      return { ok: false, error, durationMs };
+    };
+
+    try {
+      const violation = validateRepositoryBinding(request.binding);
+      if (violation) {
+        return fail(violation.detailCode, violation.reason);
+      }
+
+      const existing = await this.projects.findById(request.projectId);
+      if (!existing) {
+        return fail("PROJECT_NOT_FOUND", "project_missing");
+      }
+
+      const updated: Project = {
+        ...existing,
+        repositoryBinding: {
+          provider: "github",
+          identity: request.binding.identity.trim(),
+          remoteUrl: request.binding.remoteUrl.trim(),
+          defaultBranch: request.binding.defaultBranch.trim(),
+          ...(request.binding.baseSha
+            ? { baseSha: request.binding.baseSha.trim() }
+            : {}),
+          ...(request.binding.pathRoot
+            ? { pathRoot: request.binding.pathRoot.trim().replace(/\/+$/, "") }
+            : {}),
+        },
+        updatedAt: timestamp,
+      };
+
+      await this.projects.save(updated);
+
+      const durationMs = Date.now() - started;
+      this.audit.append({
+        event: "oa.project.repository_binding_set",
+        ts: timestamp,
+        correlationId,
+        projectId: request.projectId,
+        result: "ok",
+        durationMs,
+        actorId: request.actor.actorId,
+      });
+
+      return { ok: true, project: updated, durationMs };
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "unknown";
+      return fail("PERSISTENCE_FAILURE", message);
     }
   }
 }
 
-export function snapshotMustFamilySet(
-  snapshot: CycleObligationSnapshot,
-): ReadonlySet<CycleObligationFamily> {
-  return new Set(snapshot.mustFamilies);
-}
-
 ```
-### FULL NEW FILE: `projects/sfia-studio/app/features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile.ts`
+### FULL NEW: `projects/sfia-studio/app/features/project-assistant/f3/ingestDocsWriteArtifactEvidence.ts`
 
 ```typescript
 /**
- * Sibling M3 resolution profile for the governed REAL bounded docs-write path
- * (D-GCEC-03 / GAP-1 sibling).
- *
- * Values are harvested from `createM4BoundedDocsWriteCursorAgentDescriptor`
- * — not invented here.
- *
- * NOT a new engine. NOT client-injectable. NOT authorized live REAL in this cycle.
- */
-
-import {
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
-  M4_BOUNDED_DOCS_WRITE_SCOPE,
-  M4_BOUNDED_DOCS_WRITE_TARGET,
-} from "@/lib/oa/execution-attempt";
-import { DEFAULT_BOUNDED_READ_ONLY_M3_EXECUTION_WINDOW_CLASS } from "@/lib/oa/execution-contract";
-import type { M3ResolvedExecutionFields } from "./resolveM3ExecutionContract";
-
-export function boundedDocsWriteM3ResolutionProfile(): M3ResolvedExecutionFields {
-  return {
-    action: M4_BOUNDED_DOCS_WRITE_ACTION,
-    target: M4_BOUNDED_DOCS_WRITE_TARGET,
-    requiredCapabilities: [M4_BOUNDED_DOCS_WRITE_CAPABILITY],
-    reversibility: "reversible",
-    scope: M4_BOUNDED_DOCS_WRITE_SCOPE,
-    constraints: [
-      "BOUNDED DOCS-WRITE",
-      "PATH_ALLOWLIST_ONLY",
-      "TEXT_DOCS_ONLY",
-      "NO_DELETE",
-      "NO_COMMIT",
-      "NO_GIT_REMOTE",
-      "NO_PUSH",
-      "NO_PR",
-      "NO_MERGE",
-      "GATE D REQUIRED",
-      "NO WILDCARD",
-    ],
-    stopConditions: [
-      "AUTHORITY_DENIED",
-      "CONTEXT_STALE",
-      "DECISION_NOT_CURRENT",
-      "GATE_D_REQUIRED",
-      "REAL_BOUNDARY_DISABLED",
-      "BASE_SHA_DRIFT",
-      "PATH_ESCAPE",
-      "OUT_OF_SCOPE_WRITE",
-    ],
-    executionWindowClass: DEFAULT_BOUNDED_READ_ONLY_M3_EXECUTION_WINDOW_CLASS,
-  };
-}
-
-export const BOUNDED_DOCS_WRITE_M3_SUPERSESSION_REASON =
-  "PRE-M6 Option A — resolve durable M3 PREPARE via existing G-UX-15 supersession (bounded docs-write Cursor REAL profile; ZERO LIVE in this cycle)" as const;
-
-```
-### FULL NEW FILE: `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent.ts`
-
-```typescript
-/**
- * M4 bounded docs-write Cursor agent descriptor (D-GCEC-03).
- * Sibling of m4BoundedReadOnlyCursorAgent — does not mutate the RO descriptor.
- * Static / deny-by-default registry entry — no live health probe.
- * Exact caps only — no wildcards, no unresolved.
- */
-import type { ProvenanceRecord } from "@/lib/oa/doctrine";
-import {
-  M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
-  M4_REAL_GATEWAY_ADAPTER_ID,
-} from "../domain/realLaunchSafety";
-import type { AgentDescriptor } from "../domain/types";
-import { isM4BoundedReadOnlyRealAgent } from "./m4BoundedReadOnlyCursorAgent";
-
-export const M4_BOUNDED_DOCS_WRITE_CAPABILITY = "cap:cursor.docs_write" as const;
-export const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
-export const M4_BOUNDED_DOCS_WRITE_TARGET =
-  "workspace.isolated.docs_write" as const;
-export const M4_BOUNDED_DOCS_WRITE_SCOPE = "studio.gcec.docs_write" as const;
-
-export function createM4BoundedDocsWriteCursorAgentDescriptor(
-  nowIso: string,
-  provenance?: ProvenanceRecord,
-): AgentDescriptor {
-  const defaultProvenance: ProvenanceRecord = {
-    schemaVersion: "0.1.0-oa",
-    provenanceRecordId: "prv:m4-bounded-docs-write-cursor-agent",
-    actor: {
-      actorId: "actor:system",
-      role: "system",
-      authorityLevel: "N1",
-    },
-    source: "system",
-    timestamp: nowIso,
-    correlationId: "cor:m4-bounded-docs-write-cursor-agent",
-  };
-  const descriptor: AgentDescriptor = {
-    schemaVersion: "0.1.0-oa",
-    agentId: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
-    agentType: "cursor_cli_bounded_docs_write",
-    adapterRef: M4_REAL_GATEWAY_ADAPTER_ID,
-    supportedCapabilities: [M4_BOUNDED_DOCS_WRITE_CAPABILITY],
-    allowedActions: [M4_BOUNDED_DOCS_WRITE_ACTION],
-    allowedTargets: [M4_BOUNDED_DOCS_WRITE_TARGET],
-    allowedScopes: [M4_BOUNDED_DOCS_WRITE_SCOPE],
-    trustLevel: "bounded",
-    executionMode: "cursor_cli_real",
-    healthStatus: "healthy",
-    version: 1,
-    enabled: true,
-    provenance: provenance ?? defaultProvenance,
-    createdAt: nowIso,
-  };
-  return Object.freeze(descriptor);
-}
-
-/**
- * Strict docs-write REAL allowlist — agentId + cap + action + target exact.
- * Does not loosen the RO predicate body.
- */
-export function isM4BoundedDocsWriteRealAgent(
-  agent: AgentDescriptor,
-): boolean {
-  const hasWildcard = (values: readonly string[]) =>
-    values.some((v) => v === "*" || v.includes("*"));
-  return (
-    agent.agentId === M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID &&
-    agent.executionMode === "cursor_cli_real" &&
-    agent.trustLevel === "bounded" &&
-    agent.adapterRef === M4_REAL_GATEWAY_ADAPTER_ID &&
-    agent.enabled === true &&
-    agent.supportedCapabilities.includes(M4_BOUNDED_DOCS_WRITE_CAPABILITY) &&
-    agent.allowedActions.includes(M4_BOUNDED_DOCS_WRITE_ACTION) &&
-    agent.allowedTargets.includes(M4_BOUNDED_DOCS_WRITE_TARGET) &&
-    agent.allowedScopes.length > 0 &&
-    !hasWildcard(agent.supportedCapabilities) &&
-    !hasWildcard(agent.allowedActions) &&
-    !hasWildcard(agent.allowedTargets) &&
-    !hasWildcard(agent.allowedScopes) &&
-    !agent.supportedCapabilities.includes("cap:unresolved") &&
-    !agent.allowedActions.some((a) => a.includes("UNRESOLVED")) &&
-    !agent.allowedTargets.some((t) => t.includes("UNRESOLVED")) &&
-    !agent.allowedScopes.some((s) => s.includes("UNRESOLVED"))
-  );
-}
-
-/** REAL Cursor allowlist — RO or docs-write (OR only; RO body unchanged). */
-export function isM4AuthorizedCursorRealAgent(
-  agent: AgentDescriptor,
-): boolean {
-  return (
-    isM4BoundedReadOnlyRealAgent(agent) || isM4BoundedDocsWriteRealAgent(agent)
-  );
-}
-
-```
-### FULL NEW FILE: `projects/sfia-studio/app/lib/oa/evidence-review/application/typedGitEvidence.ts`
-
-```typescript
-/**
- * GCEC D-GCEC-07 — typed Git evidence discriminators on Evidence.source.
- * KEEP EvidenceType enum unchanged. Payloads use location/digest/bindings.
+ * CR-GCEC-04 — ingest docs-write artifact Evidence + ReviewBundle.
+ * Strong bindings: projectId, cycleInstanceId, executionContractId, executionAttemptId.
  */
 import type { Digest } from "@/lib/oa/doctrine";
+import type { EvidenceReviewServices } from "@/lib/oa/evidence-review";
+import { LOCAL_MORRIS_ACTOR } from "../f2/recordDecision";
 
-export const TYPED_GIT_EVIDENCE_SOURCES = [
-  "git:working_tree_diff",
-  "git:local_commit",
-  "git:remote_push",
-  "git:pull_request",
-  "git:ci_status",
-  "git:review_status",
-  "git:merge",
-  "git:post_merge_verification",
-] as const;
-
-export type TypedGitEvidenceSource = (typeof TYPED_GIT_EVIDENCE_SOURCES)[number];
-
-export type GitWorkingTreeDiffPayload = {
-  repositoryRef: string;
-  baseSha?: string;
-  headSha?: string;
-  summary?: string;
-  changedPaths?: string[];
+export type IngestDocsWriteArtifactEvidenceInput = {
+  evidenceReviewServices: EvidenceReviewServices;
+  projectId: string;
+  cycleInstanceId: string;
+  executionContractId: string;
+  executionAttemptId: string;
+  targetPath: string;
+  digest: string;
+  actor?: typeof LOCAL_MORRIS_ACTOR;
+  correlationId?: string;
+  nowIso?: string;
 };
 
-export type GitLocalCommitPayload = {
-  repositoryRef: string;
-  commitSha: string;
-  message?: string;
-  parentSha?: string;
+export type IngestDocsWriteArtifactEvidenceResult =
+  | {
+      ok: true;
+      evidenceId: string;
+      reviewBundleId: string;
+      evidenceStatus: string;
+    }
+  | { ok: false; code: string; message: string };
+
+export async function ingestDocsWriteArtifactEvidence(
+  input: IngestDocsWriteArtifactEvidenceInput,
+): Promise<IngestDocsWriteArtifactEvidenceResult> {
+  const actor = input.actor ?? LOCAL_MORRIS_ACTOR;
+  const segment = input.executionAttemptId.replace(/[^a-zA-Z0-9:_-]/g, "");
+  const evidenceId = `ev:docs-write:${segment}`.slice(0, 128);
+  const reviewBundleId = `rb:docs-write:${segment}`.slice(0, 128);
+  const digest = input.digest as Digest;
+
+  const registered = await input.evidenceReviewServices.registerEvidence.execute({
+    evidenceId,
+    type: "artifact",
+    status: "available",
+    digest,
+    location: input.targetPath,
+    source: "execution_attempt:docs_write",
+    sourceKind: "external",
+    classification: "internal",
+    storageMode: "metadata_only",
+    bindings: {
+      projectId: input.projectId,
+      cycleInstanceId: input.cycleInstanceId,
+      executionContractId: input.executionContractId,
+      executionAttemptId: input.executionAttemptId,
+    },
+    actor,
+    correlationId: input.correlationId ?? `cor:docs-write:${segment}`,
+    nowIso: input.nowIso,
+    idempotencyKey: `idem:docs-write:${evidenceId}`,
+  });
+  if (!registered.ok) {
+    return {
+      ok: false,
+      code: registered.error.detailCode,
+      message: registered.error.message,
+    };
+  }
+
+  const evidenceStatus = registered.evidence.status;
+
+  const bundle = await input.evidenceReviewServices.createReviewBundle.execute({
+    reviewBundleId,
+    projectId: input.projectId,
+    cycleInstanceId: input.cycleInstanceId,
+    executionContractId: input.executionContractId,
+    evidenceIds: [evidenceId],
+    actor,
+    correlationId: input.correlationId ?? `cor:docs-write-rb:${segment}`,
+    nowIso: input.nowIso,
+    idempotencyKey: `idem:docs-write-rb:${reviewBundleId}`,
+  });
+  if (!bundle.ok) {
+    return {
+      ok: false,
+      code: bundle.error.detailCode,
+      message: bundle.error.message,
+    };
+  }
+
+  return {
+    ok: true,
+    evidenceId,
+    reviewBundleId,
+    evidenceStatus,
+  };
+}
+
+```
+### FULL NEW: `projects/sfia-studio/app/features/project-assistant/f3/completeBoundedDocsWriteLaunch.ts`
+
+```typescript
+/**
+ * CR-GCEC-04 — complete bounded docs-write launch (sibling of RO completion).
+ * Awaits observation, records ExecutionResult, returns artifact facts.
+ */
+import { createHash } from "node:crypto";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+import {
+  type ExecutionAttempt,
+  type ExecutionAttemptServices,
+  type RealProcessObservation,
+} from "@/lib/oa/execution-attempt";
+import {
+  completeBoundedReadOnlyLaunch,
+  type CompleteBoundedReadOnlyLaunchResult,
+} from "./completeBoundedReadOnlyLaunch";
+
+export type DocsWriteCompletionFacts = {
+  attemptId: string;
+  processRef: string;
+  targetPath: string;
+  digest: string;
+  touchedFiles: string[];
+  worktreeRef: string | null;
+  stdout: string;
 };
 
-export type GitRemotePushPayload = {
+export type CompleteBoundedDocsWriteLaunchResult =
+  | {
+      ok: true;
+      status: "succeeded";
+      attempt: ExecutionAttempt;
+      observation: RealProcessObservation;
+      facts: DocsWriteCompletionFacts;
+    }
+  | Extract<
+      CompleteBoundedReadOnlyLaunchResult,
+      { ok: true; status: "running" | "failed" | "timeout" } | { ok: false }
+    >;
+
+function parseStdoutFacts(stdout: string): {
+  files: string[];
+  digest: string | null;
+} {
+  const files: string[] = [];
+  let digest: string | null = null;
+  for (const line of stdout.split("\n")) {
+    const t = line.trim();
+    if (t.startsWith("files=")) {
+      files.push(
+        ...t
+          .slice("files=".length)
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean),
+      );
+    }
+    if (t.startsWith("digest=")) {
+      digest = t.slice("digest=".length).trim() || null;
+    }
+  }
+  return { files, digest };
+}
+
+export async function completeBoundedDocsWriteLaunch(input: {
+  attempt: ExecutionAttempt;
+  services: ExecutionAttemptServices;
+  /** Expected relative target path (from docsWriteSpec / EC.inputs). */
+  targetPath?: string;
+}): Promise<CompleteBoundedDocsWriteLaunchResult> {
+  const base = await completeBoundedReadOnlyLaunch({
+    attempt: input.attempt,
+    services: input.services,
+  });
+  if (!base.ok) return base;
+  if (base.status !== "succeeded") {
+    return base as CompleteBoundedDocsWriteLaunchResult;
+  }
+
+  const parsed = parseStdoutFacts(base.observation.stdout ?? "");
+  const targetPath =
+    input.targetPath?.trim() ||
+    parsed.files[0] ||
+    "docs/functional-design.md";
+  const worktreeRef = base.observation.worktreeRef ?? null;
+
+  let digest = parsed.digest;
+  if (!digest && worktreeRef) {
+    try {
+      const abs = path.resolve(worktreeRef, ...targetPath.split("/"));
+      const buf = await readFile(abs);
+      digest = `sha256:${createHash("sha256").update(buf).digest("hex")}`;
+    } catch {
+      digest = null;
+    }
+  }
+  if (!digest) {
+    return {
+      ok: false,
+      code: "DOCS_WRITE_DIGEST_MISSING",
+      message: "Docs-write completion missing artifact digest.",
+    };
+  }
+
+  const touchedFiles =
+    parsed.files.length > 0 ? parsed.files : [targetPath];
+
+  return {
+    ok: true,
+    status: "succeeded",
+    attempt: base.attempt,
+    observation: base.observation,
+    facts: {
+      attemptId: input.attempt.attemptId,
+      processRef: base.observation.processRef,
+      targetPath,
+      digest,
+      touchedFiles,
+      worktreeRef,
+      stdout: base.facts?.stdout ?? base.observation.stdout ?? "",
+    },
+  };
+}
+
+```
+### FULL NEW: `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/RepositoryBindingForm.tsx`
+
+```typescript
+"use client";
+
+import { useState } from "react";
+import { setProjectRepositoryBindingAction } from "@/lib/vertical-slice-runtime/actions";
+
+/**
+ * Minimal CR-GCEC-03 UI — view/set Project repository binding.
+ * Save is local Product persistence only (no network).
+ */
+export function RepositoryBindingForm(props: {
+  projectId: string;
+  onSaved?: () => void;
+}) {
+  const [identity, setIdentity] = useState("acme/widget");
+  const [remoteUrl, setRemoteUrl] = useState(
+    "https://github.com/acme/widget.git",
+  );
+  const [defaultBranch, setDefaultBranch] = useState("main");
+  const [pathRoot, setPathRoot] = useState("docs/");
+  const [message, setMessage] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+
+  async function onSave() {
+    setBusy(true);
+    setMessage(null);
+    try {
+      const result = await setProjectRepositoryBindingAction({
+        projectId: props.projectId,
+        identity,
+        remoteUrl,
+        defaultBranch,
+        pathRoot: pathRoot || undefined,
+      });
+      if (!result.ok) {
+        setMessage(`${result.code}: ${result.message}`);
+        return;
+      }
+      setMessage("Binding enregistré (local).");
+      props.onSaved?.();
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div data-testid="repository-binding-form">
+      <label>
+        provider
+        <input value="github" readOnly data-testid="repo-binding-provider" />
+      </label>
+      <label>
+        identity
+        <input
+          value={identity}
+          onChange={(e) => setIdentity(e.target.value)}
+          data-testid="repo-binding-identity"
+        />
+      </label>
+      <label>
+        remoteUrl
+        <input
+          value={remoteUrl}
+          onChange={(e) => setRemoteUrl(e.target.value)}
+          data-testid="repo-binding-remote-url"
+        />
+      </label>
+      <label>
+        defaultBranch
+        <input
+          value={defaultBranch}
+          onChange={(e) => setDefaultBranch(e.target.value)}
+          data-testid="repo-binding-default-branch"
+        />
+      </label>
+      <label>
+        pathRoot
+        <input
+          value={pathRoot}
+          onChange={(e) => setPathRoot(e.target.value)}
+          data-testid="repo-binding-path-root"
+        />
+      </label>
+      <button
+        type="button"
+        disabled={busy}
+        onClick={() => void onSave()}
+        data-testid="repo-binding-save"
+      >
+        Enregistrer le binding
+      </button>
+      {message ? <p data-testid="repo-binding-message">{message}</p> : null}
+    </div>
+  );
+}
+
+```
+### FULL NEW: `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/managedProjectRepositoryResolver.ts`
+
+```typescript
+/**
+ * ManagedProjectRepositoryResolver — maps Project repository binding identity
+ * to a local managed clone under managedRootBase (CR-GCEC-03).
+ *
+ * ZERO network. Fail-closed if path missing or not a git repo.
+ */
+import { existsSync } from "node:fs";
+import path from "node:path";
+
+export type ManagedRepoBindingIdentity = {
+  readonly identity: string;
+};
+
+/**
+ * Sanitize owner/repo → filesystem-safe segment (no traversal).
+ */
+export function sanitizeManagedRepoIdentity(identity: string): string {
+  const trimmed = identity.trim();
+  if (!trimmed || trimmed.includes("..") || trimmed.startsWith("/")) {
+    throw new Error("managed_repo_identity_invalid");
+  }
+  return trimmed.replace(/[^a-zA-Z0-9._-]+/g, "__");
+}
+
+export class ManagedProjectRepositoryResolver {
+  /**
+   * Resolve `{managedRootBase}/{sanitizedIdentity}` when it exists as a git repo.
+   * Returns null when missing / not a git directory.
+   */
+  resolveLocalRepoRoot(
+    binding: ManagedRepoBindingIdentity,
+    managedRootBase: string,
+  ): string | null {
+    if (!managedRootBase || !managedRootBase.trim()) return null;
+    let sanitized: string;
+    try {
+      sanitized = sanitizeManagedRepoIdentity(binding.identity);
+    } catch {
+      return null;
+    }
+    const candidate = path.resolve(managedRootBase, sanitized);
+    const base = path.resolve(managedRootBase);
+    if (candidate !== base && !candidate.startsWith(base + path.sep)) {
+      return null;
+    }
+    if (!existsSync(candidate)) return null;
+    if (
+      !existsSync(path.join(candidate, ".git")) &&
+      !existsSync(path.join(candidate, ".git", "HEAD"))
+    ) {
+      // Bare check: .git file (worktree) or directory
+      const gitPath = path.join(candidate, ".git");
+      if (!existsSync(gitPath)) return null;
+    }
+    return candidate;
+  }
+}
+
+```
+### FULL NEW: `projects/sfia-studio/app/lib/oa/git-ports/application/gitEffectEvidenceActions.ts`
+
+```typescript
+/**
+ * CR-GCEC-06 — git effect application actions (one effect each).
+ * Mutating effects require a real Confirmation id (confirmed, in-scope, not expired).
+ */
+import type { Digest } from "@/lib/oa/doctrine";
+import type {
+  Confirmation,
+  ConfirmationRepositoryPort,
+} from "@/lib/oa/decision";
+import type { EvidenceReviewServices } from "@/lib/oa/evidence-review";
+import {
+  buildTypedGitEvidenceFields,
+  type TypedGitEvidenceSource,
+} from "@/lib/oa/evidence-review";
+import type {
+  GitCiStatusPort,
+  GitMergePort,
+  GitPullRequestPort,
+  GitRemotePushPort,
+  GitReviewStatusPort,
+  LocalGitCommitPort,
+  PostMergeVerifyPort,
+} from "../types";
+import { verifyPostMerge } from "../postMergeVerify";
+
+export type GitEffectActor = {
+  actorId: string;
+  role: string;
+  displayName?: string;
+  authorityLevel?: string;
+};
+
+export type GitEffectBindings = {
+  projectId: string;
+  cycleInstanceId: string;
+  executionContractId?: string;
+  executionAttemptId?: string;
+};
+
+async function assertConfirmed(
+  confirmations: ConfirmationRepositoryPort | undefined,
+  confirmationId: string | undefined,
+  scopeNeedle: string,
+  nowIso: string,
+): Promise<{ ok: true; confirmation: Confirmation } | { ok: false; reason: string }> {
+  if (!confirmationId?.trim()) {
+    return { ok: false, reason: "confirmation_id_required" };
+  }
+  if (!confirmations) {
+    return { ok: false, reason: "confirmation_repository_required" };
+  }
+  const c = await confirmations.findById(confirmationId.trim());
+  if (!c) return { ok: false, reason: "confirmation_not_found" };
+  if (c.status !== "granted") {
+    return { ok: false, reason: "confirmation_not_confirmed" };
+  }
+  if (c.expiresAt && c.expiresAt < nowIso) {
+    return { ok: false, reason: "confirmation_expired" };
+  }
+  if (!c.scope.includes(scopeNeedle) && c.actionRef !== scopeNeedle) {
+    return { ok: false, reason: "confirmation_scope_mismatch" };
+  }
+  return { ok: true, confirmation: c };
+}
+
+async function registerTypedGitEvidence(input: {
+  services: EvidenceReviewServices;
+  evidenceId: string;
+  source: TypedGitEvidenceSource;
+  payload: Record<string, unknown>;
+  bindings: GitEffectBindings;
+  actor: GitEffectActor;
+  nowIso?: string;
+}): Promise<{ ok: true; evidenceId: string } | { ok: false; reason: string }> {
+  const built = buildTypedGitEvidenceFields(
+    input.source,
+    input.payload as never,
+  );
+  if (!built.ok) return { ok: false, reason: built.reason };
+
+  const result = await input.services.registerEvidence.execute({
+    evidenceId: input.evidenceId,
+    idempotencyKey: `idem:${input.evidenceId}`,
+    actor: input.actor as never,
+    type: "other",
+    source: built.fields.source,
+    sourceKind: "external",
+    classification: "internal",
+    storageMode: "metadata_only",
+    status: "available",
+    location: built.fields.location,
+    digest: built.fields.digest,
+    bindings: {
+      projectId: input.bindings.projectId,
+      cycleInstanceId: input.bindings.cycleInstanceId,
+      ...(input.bindings.executionContractId
+        ? { executionContractId: input.bindings.executionContractId }
+        : {}),
+      ...(input.bindings.executionAttemptId
+        ? { executionAttemptId: input.bindings.executionAttemptId }
+        : {}),
+    },
+    nowIso: input.nowIso,
+  });
+  if (!result.ok) {
+    return { ok: false, reason: result.error.detailCode };
+  }
+  return { ok: true, evidenceId: input.evidenceId };
+}
+
+export async function commitArtifactEvidence(input: {
+  commitPort: LocalGitCommitPort;
+  evidenceServices: EvidenceReviewServices;
+  repoPath: string;
+  repositoryRef: string;
+  paths: string[];
+  message: string;
+  bindings: GitEffectBindings;
+  actor: GitEffectActor;
+  confirmationId?: string;
+  confirmations?: ConfirmationRepositoryPort;
+  nowIso?: string;
+}): Promise<{ ok: true; evidenceId: string; commitSha: string } | { ok: false; reason: string }> {
+  const nowIso = input.nowIso ?? new Date().toISOString();
+  const conf = await assertConfirmed(
+    input.confirmations,
+    input.confirmationId,
+    "git:local_commit",
+    nowIso,
+  );
+  if (!conf.ok) return conf;
+
+  const committed = await input.commitPort.commit({
+    repoPath: input.repoPath,
+    message: input.message,
+    paths: input.paths,
+  });
+  const evidenceId = `ev:git-commit:${committed.commitSha.slice(0, 12)}`;
+  const reg = await registerTypedGitEvidence({
+    services: input.evidenceServices,
+    evidenceId,
+    source: "git:local_commit",
+    payload: {
+      repositoryRef: input.repositoryRef,
+      commitSha: committed.commitSha,
+      message: committed.message,
+    },
+    bindings: input.bindings,
+    actor: input.actor,
+    nowIso,
+  });
+  if (!reg.ok) return reg;
+  return { ok: true, evidenceId, commitSha: committed.commitSha };
+}
+
+export async function pushBranchEvidence(input: {
+  pushPort: GitRemotePushPort;
+  evidenceServices: EvidenceReviewServices;
   repositoryRef: string;
   remote: string;
   refName: string;
   commitSha: string;
-};
+  bindings: GitEffectBindings;
+  actor: GitEffectActor;
+  confirmationId?: string;
+  confirmations?: ConfirmationRepositoryPort;
+  nowIso?: string;
+}): Promise<{ ok: true; evidenceId: string } | { ok: false; reason: string }> {
+  const nowIso = input.nowIso ?? new Date().toISOString();
+  const conf = await assertConfirmed(
+    input.confirmations,
+    input.confirmationId,
+    "git:remote_push",
+    nowIso,
+  );
+  if (!conf.ok) return conf;
 
-export type GitPullRequestPayload = {
+  const pushed = await input.pushPort.push({
+    repositoryRef: input.repositoryRef,
+    remote: input.remote,
+    refName: input.refName,
+    commitSha: input.commitSha,
+  });
+  const evidenceId = `ev:git-push:${pushed.commitSha.slice(0, 12)}`;
+  return registerTypedGitEvidence({
+    services: input.evidenceServices,
+    evidenceId,
+    source: "git:remote_push",
+    payload: {
+      repositoryRef: input.repositoryRef,
+      remote: pushed.remote,
+      refName: pushed.refName,
+      commitSha: pushed.commitSha,
+    },
+    bindings: input.bindings,
+    actor: input.actor,
+    nowIso,
+  });
+}
+
+export async function openPullRequestEvidence(input: {
+  prPort: GitPullRequestPort;
+  evidenceServices: EvidenceReviewServices;
   repositoryRef: string;
-  prNumber: number;
-  url?: string;
-  headSha: string;
-  baseSha?: string;
-  state?: "open" | "closed" | "merged";
-};
+  title: string;
+  headRef: string;
+  baseRef: string;
+  bindings: GitEffectBindings;
+  actor: GitEffectActor;
+  confirmationId?: string;
+  confirmations?: ConfirmationRepositoryPort;
+  nowIso?: string;
+}): Promise<
+  | { ok: true; evidenceId: string; prNumber: number; headSha: string }
+  | { ok: false; reason: string }
+> {
+  const nowIso = input.nowIso ?? new Date().toISOString();
+  const conf = await assertConfirmed(
+    input.confirmations,
+    input.confirmationId,
+    "git:pull_request",
+    nowIso,
+  );
+  if (!conf.ok) return conf;
 
-export type GitCiStatusPayload = {
+  const pr = await input.prPort.openPullRequest({
+    repositoryRef: input.repositoryRef,
+    title: input.title,
+    headRef: input.headRef,
+    baseRef: input.baseRef,
+  });
+  const evidenceId = `ev:git-pr:${pr.prNumber}`;
+  const reg = await registerTypedGitEvidence({
+    services: input.evidenceServices,
+    evidenceId,
+    source: "git:pull_request",
+    payload: {
+      repositoryRef: input.repositoryRef,
+      prNumber: pr.prNumber,
+      url: pr.url,
+      headSha: pr.headSha,
+      state: "open",
+    },
+    bindings: input.bindings,
+    actor: input.actor,
+    nowIso,
+  });
+  if (!reg.ok) return reg;
+  return { ok: true, evidenceId, prNumber: pr.prNumber, headSha: pr.headSha };
+}
+
+export async function recordCiStatusEvidence(input: {
+  ciPort: GitCiStatusPort;
+  evidenceServices: EvidenceReviewServices;
   repositoryRef: string;
   commitSha: string;
-  conclusion: "success" | "failure" | "pending" | "neutral" | "cancelled";
-  checkName?: string;
-  url?: string;
-};
+  bindings: GitEffectBindings;
+  actor: GitEffectActor;
+  nowIso?: string;
+  /** Test inject — skip live CI read. */
+  forcedConclusion?: "success" | "failure" | "pending";
+}): Promise<{ ok: true; evidenceId: string; conclusion: string } | { ok: false; reason: string }> {
+  const nowIso = input.nowIso ?? new Date().toISOString();
+  const status =
+    input.forcedConclusion != null
+      ? { conclusion: input.forcedConclusion }
+      : await input.ciPort.getCiStatus({
+          repositoryRef: input.repositoryRef,
+          commitSha: input.commitSha,
+        });
+  const evidenceId = `ev:git-ci:${input.commitSha.slice(0, 12)}`;
+  const reg = await registerTypedGitEvidence({
+    services: input.evidenceServices,
+    evidenceId,
+    source: "git:ci_status",
+    payload: {
+      repositoryRef: input.repositoryRef,
+      commitSha: input.commitSha,
+      conclusion: status.conclusion,
+      checkName: status.checkName,
+    },
+    bindings: input.bindings,
+    actor: input.actor,
+    nowIso,
+  });
+  if (!reg.ok) return reg;
+  return { ok: true, evidenceId, conclusion: status.conclusion };
+}
 
-export type GitReviewStatusPayload = {
+export async function recordReviewStatusEvidence(input: {
+  reviewPort: GitReviewStatusPort;
+  evidenceServices: EvidenceReviewServices;
   repositoryRef: string;
-  commitSha?: string;
-  prNumber?: number;
-  state: "approved" | "changes_requested" | "commented" | "pending";
-};
+  prNumber: number;
+  bindings: GitEffectBindings;
+  actor: GitEffectActor;
+  nowIso?: string;
+  forcedState?: "approved" | "changes_requested" | "commented" | "pending";
+}): Promise<{ ok: true; evidenceId: string; state: string } | { ok: false; reason: string }> {
+  const nowIso = input.nowIso ?? new Date().toISOString();
+  const status =
+    input.forcedState != null
+      ? { state: input.forcedState }
+      : await input.reviewPort.getReviewStatus({
+          repositoryRef: input.repositoryRef,
+          prNumber: input.prNumber,
+        });
+  const evidenceId = `ev:git-review:${input.prNumber}`;
+  const reg = await registerTypedGitEvidence({
+    services: input.evidenceServices,
+    evidenceId,
+    source: "git:review_status",
+    payload: {
+      repositoryRef: input.repositoryRef,
+      prNumber: input.prNumber,
+      state: status.state,
+    },
+    bindings: input.bindings,
+    actor: input.actor,
+    nowIso,
+  });
+  if (!reg.ok) return reg;
+  return { ok: true, evidenceId, state: status.state };
+}
 
-export type GitMergePayload = {
+export async function mergePullRequestEvidence(input: {
+  mergePort: GitMergePort;
+  evidenceServices: EvidenceReviewServices;
   repositoryRef: string;
-  mergeCommitSha: string;
-  baseRef: string;
-  headRef?: string;
-  prNumber?: number;
-};
+  prNumber: number;
+  confirmationId: string;
+  confirmations: ConfirmationRepositoryPort;
+  bindings: GitEffectBindings;
+  actor: GitEffectActor;
+  nowIso?: string;
+}): Promise<
+  | { ok: true; evidenceId: string; mergeCommitSha: string }
+  | { ok: false; reason: string }
+> {
+  const nowIso = input.nowIso ?? new Date().toISOString();
+  const conf = await assertConfirmed(
+    input.confirmations,
+    input.confirmationId,
+    "git:merge",
+    nowIso,
+  );
+  if (!conf.ok) return conf;
 
-export type GitPostMergeVerificationPayload = {
+  const merged = await input.mergePort.mergePullRequest({
+    repositoryRef: input.repositoryRef,
+    prNumber: input.prNumber,
+    mergeConfirmationId: input.confirmationId,
+  });
+  const evidenceId = `ev:git-merge:${merged.mergeCommitSha.slice(0, 12)}`;
+  const reg = await registerTypedGitEvidence({
+    services: input.evidenceServices,
+    evidenceId,
+    source: "git:merge",
+    payload: {
+      repositoryRef: input.repositoryRef,
+      mergeCommitSha: merged.mergeCommitSha,
+      baseRef: merged.baseRef,
+      prNumber: merged.prNumber,
+    },
+    bindings: input.bindings,
+    actor: input.actor,
+    nowIso,
+  });
+  if (!reg.ok) return reg;
+  return {
+    ok: true,
+    evidenceId,
+    mergeCommitSha: merged.mergeCommitSha,
+  };
+}
+
+export async function verifyPostMergeEvidence(input: {
+  evidenceServices: EvidenceReviewServices;
   repositoryRef: string;
   targetBranch: string;
   targetSha: string;
   artifactPath: string;
   artifactDigest: Digest;
-};
-
-export type TypedGitEvidencePayloadBySource = {
-  "git:working_tree_diff": GitWorkingTreeDiffPayload;
-  "git:local_commit": GitLocalCommitPayload;
-  "git:remote_push": GitRemotePushPayload;
-  "git:pull_request": GitPullRequestPayload;
-  "git:ci_status": GitCiStatusPayload;
-  "git:review_status": GitReviewStatusPayload;
-  "git:merge": GitMergePayload;
-  "git:post_merge_verification": GitPostMergeVerificationPayload;
-};
-
-export type TypedGitEvidenceFields = {
-  source: TypedGitEvidenceSource;
-  location?: string;
-  digest?: Digest;
-};
-
-const SOURCE_SET: ReadonlySet<string> = new Set(TYPED_GIT_EVIDENCE_SOURCES);
-
-export function isTypedGitEvidenceSource(
-  source: string | null | undefined,
-): source is TypedGitEvidenceSource {
-  return typeof source === "string" && SOURCE_SET.has(source);
-}
-
-function isNonEmptyString(v: unknown): v is string {
-  return typeof v === "string" && v.trim().length > 0;
-}
-
-function isDigest(v: unknown): v is Digest {
-  return typeof v === "string" && /^sha256:[a-f0-9]{64}$/i.test(v);
-}
-
-function isFullSha(v: unknown): v is string {
-  return typeof v === "string" && /^[0-9a-f]{40}$/i.test(v.trim());
-}
-
-export function validateTypedGitEvidencePayload(
-  source: TypedGitEvidenceSource,
-  payload: unknown,
-): { ok: true } | { ok: false; reason: string } {
-  if (!payload || typeof payload !== "object") {
-    return { ok: false, reason: "payload_not_object" };
-  }
-  const p = payload as Record<string, unknown>;
-  switch (source) {
-    case "git:working_tree_diff":
-      if (!isNonEmptyString(p.repositoryRef)) {
-        return { ok: false, reason: "repository_ref_required" };
-      }
-      return { ok: true };
-    case "git:local_commit":
-      if (!isNonEmptyString(p.repositoryRef)) {
-        return { ok: false, reason: "repository_ref_required" };
-      }
-      if (!isFullSha(p.commitSha)) {
-        return { ok: false, reason: "commit_sha_invalid" };
-      }
-      return { ok: true };
-    case "git:remote_push":
-      if (!isNonEmptyString(p.repositoryRef) || !isNonEmptyString(p.remote)) {
-        return { ok: false, reason: "repository_or_remote_required" };
-      }
-      if (!isNonEmptyString(p.refName) || !isFullSha(p.commitSha)) {
-        return { ok: false, reason: "ref_or_commit_invalid" };
-      }
-      return { ok: true };
-    case "git:pull_request":
-      if (!isNonEmptyString(p.repositoryRef)) {
-        return { ok: false, reason: "repository_ref_required" };
-      }
-      if (typeof p.prNumber !== "number" || !Number.isInteger(p.prNumber) || p.prNumber < 1) {
-        return { ok: false, reason: "pr_number_invalid" };
-      }
-      if (!isFullSha(p.headSha)) {
-        return { ok: false, reason: "head_sha_invalid" };
-      }
-      return { ok: true };
-    case "git:ci_status":
-      if (!isNonEmptyString(p.repositoryRef) || !isFullSha(p.commitSha)) {
-        return { ok: false, reason: "repository_or_commit_invalid" };
-      }
-      if (
-        p.conclusion !== "success" &&
-        p.conclusion !== "failure" &&
-        p.conclusion !== "pending" &&
-        p.conclusion !== "neutral" &&
-        p.conclusion !== "cancelled"
-      ) {
-        return { ok: false, reason: "conclusion_invalid" };
-      }
-      return { ok: true };
-    case "git:review_status":
-      if (!isNonEmptyString(p.repositoryRef)) {
-        return { ok: false, reason: "repository_ref_required" };
-      }
-      if (
-        p.state !== "approved" &&
-        p.state !== "changes_requested" &&
-        p.state !== "commented" &&
-        p.state !== "pending"
-      ) {
-        return { ok: false, reason: "review_state_invalid" };
-      }
-      return { ok: true };
-    case "git:merge":
-      if (!isNonEmptyString(p.repositoryRef) || !isNonEmptyString(p.baseRef)) {
-        return { ok: false, reason: "repository_or_base_ref_required" };
-      }
-      if (!isFullSha(p.mergeCommitSha)) {
-        return { ok: false, reason: "merge_commit_sha_invalid" };
-      }
-      return { ok: true };
-    case "git:post_merge_verification":
-      if (
-        !isNonEmptyString(p.repositoryRef) ||
-        !isNonEmptyString(p.targetBranch) ||
-        !isNonEmptyString(p.artifactPath)
-      ) {
-        return { ok: false, reason: "post_merge_fields_required" };
-      }
-      if (!isFullSha(p.targetSha)) {
-        return { ok: false, reason: "target_sha_invalid" };
-      }
-      if (!isDigest(p.artifactDigest)) {
-        return { ok: false, reason: "artifact_digest_invalid" };
-      }
-      return { ok: true };
-    default: {
-      const _exhaustive: never = source;
-      void _exhaustive;
-      return { ok: false, reason: "unknown_source" };
-    }
-  }
-}
-
-export function buildTypedGitEvidenceFields<S extends TypedGitEvidenceSource>(
-  source: S,
-  payload: TypedGitEvidencePayloadBySource[S],
-):
-  | { ok: true; fields: TypedGitEvidenceFields }
-  | { ok: false; reason: string } {
-  const validated = validateTypedGitEvidencePayload(source, payload);
-  if (!validated.ok) return validated;
-
-  const p = payload as Record<string, unknown>;
-  let location: string | undefined;
-  let digest: Digest | undefined;
-
-  switch (source) {
-    case "git:working_tree_diff":
-      location = `git://working-tree/${String(p.repositoryRef)}`;
-      break;
-    case "git:local_commit":
-      location = `git://commit/${String(p.commitSha)}`;
-      break;
-    case "git:remote_push":
-      location = `git://push/${String(p.remote)}/${String(p.refName)}@${String(p.commitSha)}`;
-      break;
-    case "git:pull_request":
-      location = `git://pr/${String(p.repositoryRef)}#${String(p.prNumber)}`;
-      break;
-    case "git:ci_status":
-      location = `git://ci/${String(p.commitSha)}`;
-      break;
-    case "git:review_status":
-      location = `git://review/${String(p.repositoryRef)}`;
-      break;
-    case "git:merge":
-      location = `git://merge/${String(p.mergeCommitSha)}`;
-      break;
-    case "git:post_merge_verification": {
-      const pm = payload as GitPostMergeVerificationPayload;
-      location = `git://post-merge/${pm.targetBranch}@${pm.targetSha}/${pm.artifactPath}`;
-      digest = pm.artifactDigest;
-      break;
-    }
-    default: {
-      const _exhaustive: never = source;
-      void _exhaustive;
-    }
-  }
-
-  return {
-    ok: true,
-    fields: {
-      source,
-      ...(location ? { location } : {}),
-      ...(digest ? { digest } : {}),
-    },
-  };
-}
-
-```
-### FULL NEW FILE: `projects/sfia-studio/app/lib/oa/evidence-review/application/artifactCompleteness.ts`
-
-```typescript
-/**
- * GCEC D-GCEC-06 — functional-design artifact completeness over Evidence rows.
- * No new Artifact table; type===artifact + digest + location + bindings + status.
- */
-import type { Evidence } from "../domain/types";
-
-export type ArtifactCompletenessGap =
-  | "not_artifact_type"
-  | "digest_missing"
-  | "location_missing"
-  | "bindings_missing"
-  | "status_not_proof";
-
-export type ArtifactCompletenessResult = {
-  ok: boolean;
-  gaps: ArtifactCompletenessGap[];
-};
-
-function hasStructuralBinding(evidence: Evidence): boolean {
-  const b = evidence.bindings;
-  if (!b) return false;
-  return Boolean(
-    b.executionAttemptId ||
-      b.executionContractId ||
-      b.decisionId ||
-      b.cycleInstanceId ||
-      b.projectId ||
-      b.reviewBundleId,
-  );
-}
-
-/**
- * Evaluate whether Evidence represents a complete functional-design artifact.
- */
-export function evaluateFunctionalDesignArtifactCompleteness(
-  evidence: Evidence,
-): ArtifactCompletenessResult {
-  const gaps: ArtifactCompletenessGap[] = [];
-
-  if (evidence.type !== "artifact") {
-    gaps.push("not_artifact_type");
-  }
-  if (!evidence.digest) {
-    gaps.push("digest_missing");
-  }
-  const location = evidence.location?.trim() ?? "";
-  if (!location) {
-    gaps.push("location_missing");
-  }
-  if (!hasStructuralBinding(evidence)) {
-    gaps.push("bindings_missing");
-  }
-  if (evidence.status !== "available" && evidence.status !== "verified") {
-    gaps.push("status_not_proof");
-  }
-
-  return { ok: gaps.length === 0, gaps };
-}
-
-```
-### FULL NEW FILE: `projects/sfia-studio/app/lib/oa/git-ports/types.ts`
-
-```typescript
-/**
- * GCEC D-GCEC-08 / §16 — narrow Git effect ports (no broad execute).
- *
- * Authority notes (comments only):
- * - N2 Pilote: LocalGitCommitPort
- * - N3: GitRemotePushPort / GitPullRequestPort / GitMergePort
- * - Read ports: status/diff, CI, review, post-merge verify
- */
-
-import type { Digest } from "@/lib/oa/doctrine";
-
-/** Phase B — local status / diff read. */
-export type LocalGitStatusDiffInput = {
-  repoPath: string;
-  /** Optional pathspec filter. */
-  pathspecs?: string[];
-};
-
-export type LocalGitStatusDiffOutput = {
-  branch: string | null;
-  headSha: string | null;
-  dirty: boolean;
-  statusPorcelain: string;
-  diffStat: string;
-};
-
-export type LocalGitStatusDiffPort = {
-  statusDiff(input: LocalGitStatusDiffInput): Promise<LocalGitStatusDiffOutput>;
-};
-
-/** Phase C — local commit (N2). Never push. */
-export type LocalGitCommitInput = {
-  repoPath: string;
-  message: string;
-  /** Paths to stage; empty/omit = fail-closed (no `git add -A`). */
-  paths: string[];
-  authorName?: string;
-  authorEmail?: string;
-};
-
-export type LocalGitCommitOutput = {
-  commitSha: string;
-  message: string;
-};
-
-export type LocalGitCommitPort = {
-  commit(input: LocalGitCommitInput): Promise<LocalGitCommitOutput>;
-};
-
-/** Phase D — remote push (N3). Force push never. */
-export type GitRemotePushInput = {
-  repositoryRef: string;
-  remote: string;
-  refName: string;
-  commitSha: string;
-  /** Must never be true — fail-closed if set. */
-  force?: boolean;
-};
-
-export type GitRemotePushOutput = {
-  remote: string;
-  refName: string;
-  commitSha: string;
-};
-
-export type GitRemotePushPort = {
-  push(input: GitRemotePushInput): Promise<GitRemotePushOutput>;
-};
-
-/** Phase E — open / update PR (N3). */
-export type GitPullRequestInput = {
-  repositoryRef: string;
-  title: string;
-  headRef: string;
-  baseRef: string;
-  body?: string;
-};
-
-export type GitPullRequestOutput = {
-  prNumber: number;
-  url: string;
-  headSha: string;
-  baseRef: string;
-};
-
-export type GitPullRequestPort = {
-  openPullRequest(input: GitPullRequestInput): Promise<GitPullRequestOutput>;
-};
-
-/** Phase F — CI status read. */
-export type GitCiStatusInput = {
-  repositoryRef: string;
-  commitSha: string;
-};
-
-export type GitCiStatusOutput = {
-  conclusion: "success" | "failure" | "pending" | "neutral" | "cancelled";
-  checkName?: string;
-  url?: string;
-};
-
-export type GitCiStatusPort = {
-  getCiStatus(input: GitCiStatusInput): Promise<GitCiStatusOutput>;
-};
-
-/** Phase F — review status read. */
-export type GitReviewStatusInput = {
-  repositoryRef: string;
-  prNumber: number;
-};
-
-export type GitReviewStatusOutput = {
-  state: "approved" | "changes_requested" | "commented" | "pending";
-};
-
-export type GitReviewStatusPort = {
-  getReviewStatus(input: GitReviewStatusInput): Promise<GitReviewStatusOutput>;
-};
-
-/** Phase G — merge (N3). Never auto. */
-export type GitMergeInput = {
-  repositoryRef: string;
-  prNumber: number;
-  /** Explicit human/system merge confirmation token — required. */
-  mergeConfirmationId: string;
-};
-
-export type GitMergeOutput = {
-  mergeCommitSha: string;
-  baseRef: string;
-  prNumber: number;
-};
-
-export type GitMergePort = {
-  mergePullRequest(input: GitMergeInput): Promise<GitMergeOutput>;
-};
-
-/** Phase H — post-merge verify (pure compare inputs). */
-export type PostMergeVerifyInput = {
   expectedTargetSha: string;
   observedTargetSha: string;
   expectedArtifactDigest: Digest;
   observedArtifactDigest: Digest;
-  artifactPath: string;
-};
-
-export type PostMergeVerifyOutput = {
-  ok: boolean;
-  reasons: string[];
-};
-
-export type PostMergeVerifyPort = {
-  verify(input: PostMergeVerifyInput): PostMergeVerifyOutput;
-};
-
-```
-### FULL NEW FILE: `projects/sfia-studio/app/lib/oa/git-ports/postMergeVerify.ts`
-
-```typescript
-/**
- * Phase H — pure post-merge verifier (target SHA + artifact digest identity).
- */
-import type { PostMergeVerifyInput, PostMergeVerifyOutput } from "./types";
-
-const FULL_SHA = /^[0-9a-f]{40}$/i;
-const DIGEST = /^sha256:[a-f0-9]{64}$/i;
-
-export function verifyPostMerge(input: PostMergeVerifyInput): PostMergeVerifyOutput {
-  const reasons: string[] = [];
-  if (!FULL_SHA.test(input.expectedTargetSha)) {
-    reasons.push("expected_target_sha_invalid");
+  bindings: GitEffectBindings;
+  actor: GitEffectActor;
+  nowIso?: string;
+  verifyPort?: PostMergeVerifyPort;
+}): Promise<{ ok: true; evidenceId: string } | { ok: false; reason: string }> {
+  const nowIso = input.nowIso ?? new Date().toISOString();
+  const verify = input.verifyPort?.verify ?? verifyPostMerge;
+  const result = verify({
+    expectedTargetSha: input.expectedTargetSha,
+    observedTargetSha: input.observedTargetSha,
+    expectedArtifactDigest: input.expectedArtifactDigest,
+    observedArtifactDigest: input.observedArtifactDigest,
+    artifactPath: input.artifactPath,
+  });
+  if (!result.ok) {
+    return { ok: false, reason: result.reasons.join(",") || "post_merge_failed" };
   }
-  if (!FULL_SHA.test(input.observedTargetSha)) {
-    reasons.push("observed_target_sha_invalid");
-  }
-  if (!DIGEST.test(input.expectedArtifactDigest)) {
-    reasons.push("expected_artifact_digest_invalid");
-  }
-  if (!DIGEST.test(input.observedArtifactDigest)) {
-    reasons.push("observed_artifact_digest_invalid");
-  }
-  if (!input.artifactPath.trim()) {
-    reasons.push("artifact_path_required");
-  }
-  if (
-    FULL_SHA.test(input.expectedTargetSha) &&
-    FULL_SHA.test(input.observedTargetSha) &&
-    input.expectedTargetSha.toLowerCase() !==
-      input.observedTargetSha.toLowerCase()
-  ) {
-    reasons.push("target_sha_mismatch");
-  }
-  if (
-    DIGEST.test(input.expectedArtifactDigest) &&
-    DIGEST.test(input.observedArtifactDigest) &&
-    input.expectedArtifactDigest.toLowerCase() !==
-      input.observedArtifactDigest.toLowerCase()
-  ) {
-    reasons.push("artifact_digest_mismatch");
-  }
-  return { ok: reasons.length === 0, reasons };
-}
-
-export const postMergeVerifyPort = {
-  verify: verifyPostMerge,
-};
-
-```
-### FULL NEW FILE: `projects/sfia-studio/app/features/project-assistant/f2/executionIntentSchema.ts`
-
-```typescript
-/**
- * F2 — SFIA-specific execution-intent json_schema fragment (GCEC).
- * NON-AUTHORITATIVE structured intent for Nora — no REAL calls.
- * Fields align with DecisionBasis.executionBasis GCEC additives.
- */
-
-export const F2_EXECUTION_INTENT_SCHEMA_NAME =
-  "f2_execution_intent_gcec" as const;
-
-const NULLABLE_STRING = {
-  anyOf: [{ type: "string", maxLength: 2000 }, { type: "null" }],
-} as const;
-
-const STRING_ARRAY = {
-  type: "array",
-  items: { type: "string", maxLength: 500 },
-  maxItems: 32,
-} as const;
-
-/** OpenAI-style strict json_schema fragment for structured execution intent. */
-export const F2_EXECUTION_INTENT_JSON_SCHEMA: Record<string, unknown> = {
-  type: "object",
-  additionalProperties: false,
-  properties: {
-    intentKind: {
-      anyOf: [
-        { type: "string", enum: ["docs_write", "read_only", "other"] },
-        { type: "null" },
-      ],
-    },
-    artifactType: NULLABLE_STRING,
-    targetRepositoryRef: NULLABLE_STRING,
-    targetPath: NULLABLE_STRING,
-    scopeIn: STRING_ARRAY,
-    scopeOut: STRING_ARRAY,
-    expectedOutputs: STRING_ARRAY,
-    requiredCapabilities: STRING_ARRAY,
-    validationExpectations: STRING_ARRAY,
-    evidenceRequirements: STRING_ARRAY,
-    requestedOperation: NULLABLE_STRING,
-    reversibilityExpectation: {
-      anyOf: [
-        {
-          type: "string",
-          enum: ["reversible", "irreversible", "unknown"],
-        },
-        { type: "null" },
-      ],
-    },
-  },
-  required: [
-    "intentKind",
-    "artifactType",
-    "targetRepositoryRef",
-    "targetPath",
-    "scopeIn",
-    "scopeOut",
-    "expectedOutputs",
-    "requiredCapabilities",
-    "validationExpectations",
-    "evidenceRequirements",
-    "requestedOperation",
-    "reversibilityExpectation",
-  ],
-};
-
-export type ExecutionIntentPayload = {
-  intentKind?: string | null;
-  artifactType?: string | null;
-  targetRepositoryRef?: string | null;
-  targetPath?: string | null;
-  scopeIn?: string[];
-  scopeOut?: string[];
-  expectedOutputs?: string[];
-  requiredCapabilities?: string[];
-  validationExpectations?: string[];
-  evidenceRequirements?: string[];
-  requestedOperation?: string | null;
-  reversibilityExpectation?: "reversible" | "irreversible" | "unknown" | null;
-};
-
-function asStringArray(value: unknown): string[] | undefined {
-  if (!Array.isArray(value)) return undefined;
-  const out: string[] = [];
-  for (const item of value) {
-    if (typeof item !== "string") return undefined;
-    const t = item.trim();
-    if (t) out.push(t.slice(0, 500));
-  }
-  return out;
-}
-
-function asNullableString(value: unknown): string | null | undefined {
-  if (value === null) return null;
-  if (value === undefined) return undefined;
-  if (typeof value !== "string") return undefined;
-  const t = value.trim();
-  return t ? t.slice(0, 2000) : null;
-}
-
-/**
- * Validate / normalize Nora structured execution-intent payload.
- * Fail-closed on unknown shapes — never invent REAL launch fields.
- */
-export function validateExecutionIntentPayload(
-  raw: unknown,
-):
-  | { ok: true; payload: ExecutionIntentPayload }
-  | { ok: false; reason: string } {
-  if (!raw || typeof raw !== "object") {
-    return { ok: false, reason: "payload_not_object" };
-  }
-  const r = raw as Record<string, unknown>;
-  const intentKind = asNullableString(r.intentKind);
-  if (intentKind === undefined && "intentKind" in r && r.intentKind !== null) {
-    return { ok: false, reason: "intent_kind_invalid" };
-  }
-  const reversibility = r.reversibilityExpectation;
-  if (
-    reversibility !== undefined &&
-    reversibility !== null &&
-    reversibility !== "reversible" &&
-    reversibility !== "irreversible" &&
-    reversibility !== "unknown"
-  ) {
-    return { ok: false, reason: "reversibility_invalid" };
-  }
-
-  const scopeIn = asStringArray(r.scopeIn);
-  if (r.scopeIn !== undefined && scopeIn === undefined) {
-    return { ok: false, reason: "scope_in_invalid" };
-  }
-  const scopeOut = asStringArray(r.scopeOut);
-  if (r.scopeOut !== undefined && scopeOut === undefined) {
-    return { ok: false, reason: "scope_out_invalid" };
-  }
-  const expectedOutputs = asStringArray(r.expectedOutputs);
-  if (r.expectedOutputs !== undefined && expectedOutputs === undefined) {
-    return { ok: false, reason: "expected_outputs_invalid" };
-  }
-  const requiredCapabilities = asStringArray(r.requiredCapabilities);
-  if (
-    r.requiredCapabilities !== undefined &&
-    requiredCapabilities === undefined
-  ) {
-    return { ok: false, reason: "required_capabilities_invalid" };
-  }
-  const validationExpectations = asStringArray(r.validationExpectations);
-  if (
-    r.validationExpectations !== undefined &&
-    validationExpectations === undefined
-  ) {
-    return { ok: false, reason: "validation_expectations_invalid" };
-  }
-  const evidenceRequirements = asStringArray(r.evidenceRequirements);
-  if (
-    r.evidenceRequirements !== undefined &&
-    evidenceRequirements === undefined
-  ) {
-    return { ok: false, reason: "evidence_requirements_invalid" };
-  }
-
-  return {
-    ok: true,
+  const evidenceId = `ev:git-post-merge:${input.targetSha.slice(0, 12)}`;
+  return registerTypedGitEvidence({
+    services: input.evidenceServices,
+    evidenceId,
+    source: "git:post_merge_verification",
     payload: {
-      intentKind: intentKind ?? null,
-      artifactType: asNullableString(r.artifactType) ?? null,
-      targetRepositoryRef: asNullableString(r.targetRepositoryRef) ?? null,
-      targetPath: asNullableString(r.targetPath) ?? null,
-      scopeIn: scopeIn ?? [],
-      scopeOut: scopeOut ?? [],
-      expectedOutputs: expectedOutputs ?? [],
-      requiredCapabilities: requiredCapabilities ?? [],
-      validationExpectations: validationExpectations ?? [],
-      evidenceRequirements: evidenceRequirements ?? [],
-      requestedOperation: asNullableString(r.requestedOperation) ?? null,
-      reversibilityExpectation:
-        (reversibility as ExecutionIntentPayload["reversibilityExpectation"]) ??
-        null,
+      repositoryRef: input.repositoryRef,
+      targetBranch: input.targetBranch,
+      targetSha: input.targetSha,
+      artifactPath: input.artifactPath,
+      artifactDigest: input.artifactDigest,
     },
-  };
+    bindings: input.bindings,
+    actor: input.actor,
+    nowIso,
+  });
 }
+
+
+```
+### FULL NEW: `projects/sfia-studio/app/lib/oa/git-ports/githubCliRemotePorts.ts`
+
+```typescript
+/**
+ * CR-GCEC-06 — GitHub CLI remote ports (gh fixed argv, shell:false).
+ * NEVER invoke in unit tests — inject FakeGitProviderPorts instead.
+ */
+import { spawn as nodeSpawn } from "node:child_process";
+import type {
+  GitCiStatusInput,
+  GitCiStatusOutput,
+  GitCiStatusPort,
+  GitMergeInput,
+  GitMergeOutput,
+  GitMergePort,
+  GitPullRequestInput,
+  GitPullRequestOutput,
+  GitPullRequestPort,
+  GitRemotePushInput,
+  GitRemotePushOutput,
+  GitRemotePushPort,
+  GitReviewStatusInput,
+  GitReviewStatusOutput,
+  GitReviewStatusPort,
+} from "./types";
+
+type CmdResult = { stdout: string; stderr: string; exitCode: number };
+
+async function runFixedArgv(
+  executable: string,
+  argv: readonly string[],
+  cwd?: string,
+): Promise<CmdResult> {
+  return await new Promise((resolve) => {
+    const child = nodeSpawn(executable, [...argv], {
+      cwd,
+      shell: false,
+      stdio: ["ignore", "pipe", "pipe"],
+    });
+    let stdout = "";
+    let stderr = "";
+    child.stdout?.on("data", (c: Buffer) => {
+      if (stdout.length < 256 * 1024) stdout += c.toString("utf8");
+    });
+    child.stderr?.on("data", (c: Buffer) => {
+      if (stderr.length < 64 * 1024) stderr += c.toString("utf8");
+    });
+    child.on("error", () => {
+      resolve({ stdout, stderr: stderr || "spawn_error", exitCode: 1 });
+    });
+    child.on("close", (code) => {
+      resolve({ stdout, stderr, exitCode: code ?? 1 });
+    });
+  });
+}
+
+export type GithubCliRemotePortsOptions = {
+  /** Injectable runner — tests MUST inject a fake; never call real `gh` in tests. */
+  run?: (
+    executable: string,
+    argv: readonly string[],
+    cwd?: string,
+  ) => Promise<CmdResult>;
+  cwd?: string;
+};
+
+export class GithubCliRemotePorts
+  implements
+    GitRemotePushPort,
+    GitPullRequestPort,
+    GitCiStatusPort,
+    GitReviewStatusPort,
+    GitMergePort
+{
+  private readonly run: NonNullable<GithubCliRemotePortsOptions["run"]>;
+  private readonly cwd?: string;
+
+  constructor(options: GithubCliRemotePortsOptions = {}) {
+    this.run = options.run ?? runFixedArgv;
+    this.cwd = options.cwd;
+  }
+
+  async push(input: GitRemotePushInput): Promise<GitRemotePushOutput> {
+    if (input.force === true) {
+      throw new Error("git_force_push_forbidden");
+    }
+    const result = await this.run(
+      "gh",
+      [
+        "api",
+        "-X",
+        "POST",
+        `repos/${input.repositoryRef}/git/refs`,
+        "-f",
+        `ref=refs/heads/${input.refName}`,
+        "-f",
+        `sha=${input.commitSha}`,
+      ],
+      this.cwd,
+    );
+    // Prefer git push via gh when ref exists — fall back to git push argv.
+    if (result.exitCode !== 0) {
+      const push = await this.run(
+        "git",
+        ["push", input.remote, `${input.commitSha}:refs/heads/${input.refName}`],
+        this.cwd,
+      );
+      if (push.exitCode !== 0) {
+        throw new Error(`github_cli_push_failed:${push.stderr || push.stdout}`);
+      }
+    }
+    return {
+      remote: input.remote,
+      refName: input.refName,
+      commitSha: input.commitSha,
+    };
+  }
+
+  async openPullRequest(
+    input: GitPullRequestInput,
+  ): Promise<GitPullRequestOutput> {
+    const argv = [
+      "pr",
+      "create",
+      "--repo",
+      input.repositoryRef,
+      "--title",
+      input.title,
+      "--head",
+      input.headRef,
+      "--base",
+      input.baseRef,
+      "--body",
+      input.body ?? "",
+      "--json",
+      "number,url,headRefOid,baseRefName",
+    ];
+    const result = await this.run("gh", argv, this.cwd);
+    if (result.exitCode !== 0) {
+      throw new Error(`github_cli_pr_failed:${result.stderr || result.stdout}`);
+    }
+    const parsed = JSON.parse(result.stdout) as {
+      number: number;
+      url: string;
+      headRefOid: string;
+      baseRefName: string;
+    };
+    return {
+      prNumber: parsed.number,
+      url: parsed.url,
+      headSha: parsed.headRefOid,
+      baseRef: parsed.baseRefName,
+    };
+  }
+
+  async getCiStatus(input: GitCiStatusInput): Promise<GitCiStatusOutput> {
+    const result = await this.run(
+      "gh",
+      [
+        "api",
+        `repos/${input.repositoryRef}/commits/${input.commitSha}/status`,
+        "--jq",
+        ".state",
+      ],
+      this.cwd,
+    );
+    if (result.exitCode !== 0) {
+      return { conclusion: "pending", checkName: "github-status" };
+    }
+    const state = result.stdout.trim().toLowerCase();
+    const conclusion =
+      state === "success"
+        ? "success"
+        : state === "failure" || state === "error"
+          ? "failure"
+          : "pending";
+    return { conclusion, checkName: "github-status" };
+  }
+
+  async getReviewStatus(
+    input: GitReviewStatusInput,
+  ): Promise<GitReviewStatusOutput> {
+    const result = await this.run(
+      "gh",
+      [
+        "pr",
+        "view",
+        String(input.prNumber),
+        "--repo",
+        input.repositoryRef,
+        "--json",
+        "reviewDecision",
+      ],
+      this.cwd,
+    );
+    if (result.exitCode !== 0) {
+      return { state: "pending" };
+    }
+    const parsed = JSON.parse(result.stdout) as { reviewDecision?: string };
+    const d = (parsed.reviewDecision ?? "").toUpperCase();
+    if (d === "APPROVED") return { state: "approved" };
+    if (d === "CHANGES_REQUESTED") return { state: "changes_requested" };
+    if (d === "COMMENTED") return { state: "commented" };
+    return { state: "pending" };
+  }
+
+  async mergePullRequest(input: GitMergeInput): Promise<GitMergeOutput> {
+    if (!input.mergeConfirmationId.trim()) {
+      throw new Error("git_merge_confirmation_required");
+    }
+    const result = await this.run(
+      "gh",
+      [
+        "pr",
+        "merge",
+        String(input.prNumber),
+        "--repo",
+        input.repositoryRef,
+        "--merge",
+        "--json",
+        "mergeCommit",
+      ],
+      this.cwd,
+    );
+    if (result.exitCode !== 0) {
+      throw new Error(
+        `github_cli_merge_failed:${result.stderr || result.stdout}`,
+      );
+    }
+    let mergeCommitSha = "";
+    try {
+      const parsed = JSON.parse(result.stdout) as {
+        mergeCommit?: { oid?: string };
+      };
+      mergeCommitSha = parsed.mergeCommit?.oid ?? "";
+    } catch {
+      mergeCommitSha = "";
+    }
+    if (!/^[0-9a-f]{40}$/i.test(mergeCommitSha)) {
+      throw new Error("github_cli_merge_sha_missing");
+    }
+    return {
+      mergeCommitSha: mergeCommitSha.toLowerCase(),
+      baseRef: "main",
+      prNumber: input.prNumber,
+    };
+  }
+}
+
 
 ```
 
 
 ## REVIEWABLE ADAPTED DIFFS
 
-### DIFF: `projects/sfia-studio/app/lib/oa/project/domain/types.ts`
+### DIFF: `projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts`
 
 ```diff
-diff --git a/projects/sfia-studio/app/lib/oa/project/domain/types.ts b/projects/sfia-studio/app/lib/oa/project/domain/types.ts
-index 1d881208..ef28417f 100644
---- a/projects/sfia-studio/app/lib/oa/project/domain/types.ts
-+++ b/projects/sfia-studio/app/lib/oa/project/domain/types.ts
-@@ -35,6 +35,25 @@ export type LivingProjectStateStatus =
-   | "conflict"
-   | "superseded";
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts b/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+index fb8c859c..2fd9f969 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+@@ -27,6 +27,11 @@ import {
+   type ChallengeResponseAssessment,
+   type Mw5ChallengeContextInput,
+ } from "@/lib/nora-cognitive-runtime/mw5ProductAuthorityFacts";
++import {
++  F2_EXECUTION_INTENT_JSON_SCHEMA,
++  validateExecutionIntentPayload,
++  type ExecutionIntentPayload,
++} from "./executionIntentSchema";
+
+ const INTENT_CLASSES: readonly IntentClass[] = [
+   "informative",
+@@ -178,6 +183,9 @@ export const F2_INTENT_JSON_SCHEMA: Record<string, unknown> = {
+     expectedOutcome: NULLABLE_STRING,
+     criticalJustification: NULLABLE_STRING,
+     requestedOperation: NULLABLE_STRING,
++    executionIntent: {
++      anyOf: [F2_EXECUTION_INTENT_JSON_SCHEMA, { type: "null" }],
++    },
+   },
+   required: [
+     "intentClass",
+@@ -197,6 +205,7 @@ export const F2_INTENT_JSON_SCHEMA: Record<string, unknown> = {
+     "expectedOutcome",
+     "criticalJustification",
+     "requestedOperation",
++    "executionIntent",
+   ],
+ };
+
+@@ -236,6 +245,7 @@ function ambiguousFallback(partial?: Partial<IntentAnalysisDto>): IntentAnalysis
+     expectedOutcome: partial?.expectedOutcome ?? null,
+     criticalJustification: partial?.criticalJustification ?? null,
+     requestedOperation: partial?.requestedOperation ?? null,
++    executionIntent: partial?.executionIntent ?? null,
+     contradictionCandidate: null,
+     challengeResponseAssessment:
+       partial?.challengeResponseAssessment ?? null,
+@@ -346,6 +356,18 @@ export function validateIntentAnalysisPayload(raw: unknown): IntentAnalysisDto {
+   const challengeResponseAssessment: ChallengeResponseAssessment =
+     parseChallengeResponseAssessment(obj.challengeResponseAssessment);
+
++  let executionIntent: ExecutionIntentPayload | null = null;
++  if (obj.executionIntent != null) {
++    const validated = validateExecutionIntentPayload(obj.executionIntent);
++    if (!validated.ok) {
++      return ambiguousFallback({
++        intentClass: intentClass as IntentClass,
++        parseOk: false,
++      } as Partial<IntentAnalysisDto>);
++    }
++    executionIntent = validated.payload;
++  }
++
+   return {
+     intentClass: intentClass as IntentClass,
+     candidateCycleTypeId,
+@@ -364,6 +386,7 @@ export function validateIntentAnalysisPayload(raw: unknown): IntentAnalysisDto {
+     expectedOutcome: clip(obj.expectedOutcome),
+     criticalJustification: clip(obj.criticalJustification),
+     requestedOperation: clip(obj.requestedOperation, 240),
++    executionIntent,
+     parseOk: true,
+   };
+ }
+@@ -385,7 +408,8 @@ cognitiveWorkload ({ambiguity,reasoningDepth,sourceBreadth,toolDependency,contra
+ contradictionCandidate (objet candidat cognitif OU null — PAS Evidence, PAS evidence_backed, PAS Cognitive STOP),
+ challengeResponseAssessment (sufficient|insufficient|unknown|null — INTERNAL MW5 seulement ; PAS Truth C, PAS Evidence, PAS HumanDecision, PAS autorité ; missing/unknown/insufficient = fail-closed),
+ objective, scope, rephrasedRequest, outOfScope[], risks[], reservations[], stopConditions[], activatedBlocks[],
+-expectedOutcome, criticalJustification, requestedOperation (strings ou null pour les scalaires).
++expectedOutcome, criticalJustification, requestedOperation (strings ou null pour les scalaires),
++executionIntent (objet structuré docs_write/read_only NON-AUTORITAIRE OU null — intention d'exécution proposée, JAMAIS une grant REAL / HumanDecision / autorité ; champs incluant artifactBrief, contentRequirements, targetPath, evidenceRequirements).
+
+ === DISTINCTION FONDAMENTALE ===
+ intentClass = EFFET demandé à Studio (quoi faire sur le produit).
+
+```
+### DIFF: `projects/sfia-studio/app/features/project-assistant/f2/recordDecision.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/recordDecision.ts b/projects/sfia-studio/app/features/project-assistant/f2/recordDecision.ts
+index 4379ac42..ce3e7b76 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/recordDecision.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/recordDecision.ts
+@@ -89,6 +89,7 @@ function buildDecisionBasis(input: {
+   currentContext: F2ContextSnapshot;
+ }): DecisionBasis {
+   const { proposal, projectId, currentContext } = input;
++  const ei = proposal.executionIntent ?? null;
+   const stablePayload = {
+     proposalId: proposal.proposalId,
+     objective: proposal.objective,
+@@ -102,11 +103,36 @@ function buildDecisionBasis(input: {
+     cycleTypeId: proposal.cycleTypeId,
+     recommendedProfile: proposal.recommendedProfile,
+     rephrasedRequest: proposal.rephrasedRequest,
++    ...(ei
++      ? {
++          executionIntent: {
++            intentKind: ei.intentKind ?? null,
++            artifactType: ei.artifactType ?? null,
++            targetRepositoryRef: ei.targetRepositoryRef ?? null,
++            targetPath: ei.targetPath ?? null,
++            scopeIn: ei.scopeIn ?? [],
++            scopeOut: ei.scopeOut ?? [],
++            expectedOutputs: ei.expectedOutputs ?? [],
++            requiredCapabilities: ei.requiredCapabilities ?? [],
++            validationExpectations: ei.validationExpectations ?? [],
++            evidenceRequirements: ei.evidenceRequirements ?? [],
++            requestedOperation: ei.requestedOperation ?? null,
++            reversibilityExpectation: ei.reversibilityExpectation ?? null,
++            artifactBrief: ei.artifactBrief ?? null,
++            contentRequirements: ei.contentRequirements ?? [],
++          },
++        }
++      : {}),
+   };
+   const cycleInstanceId =
+     currentContext.activeCycleInstanceId ??
+     proposal.contextSnapshot.activeCycleInstanceId ??
+     undefined;
++  const requestedOperation =
++    (ei?.requestedOperation && ei.requestedOperation.trim()) ||
++    (proposal.requestedOperation && proposal.requestedOperation.trim()) ||
++    proposal.rephrasedRequest;
++
+   return {
+     sourceType: "proposal",
+     sourceRef: proposal.proposalId,
+@@ -131,7 +157,35 @@ function buildDecisionBasis(input: {
+       stopConditions: [...proposal.stopConditions],
+       cycleTypeId: proposal.cycleTypeId,
+       recommendedProfile: proposal.recommendedProfile,
+-      requestedOperation: proposal.rephrasedRequest,
++      requestedOperation,
++      ...(ei
++        ? {
++            intentKind: ei.intentKind ?? undefined,
++            artifactType: ei.artifactType ?? undefined,
++            targetRepositoryRef: ei.targetRepositoryRef ?? undefined,
++            targetPath: ei.targetPath ?? undefined,
++            scopeIn: ei.scopeIn ? [...ei.scopeIn] : undefined,
++            scopeOut: ei.scopeOut ? [...ei.scopeOut] : undefined,
++            expectedOutputs: ei.expectedOutputs
++              ? [...ei.expectedOutputs]
++              : undefined,
++            requiredCapabilities: ei.requiredCapabilities
++              ? [...ei.requiredCapabilities]
++              : undefined,
++            validationExpectations: ei.validationExpectations
++              ? [...ei.validationExpectations]
++              : undefined,
++            evidenceRequirements: ei.evidenceRequirements
++              ? [...ei.evidenceRequirements]
++              : undefined,
++            reversibilityExpectation:
++              ei.reversibilityExpectation ?? undefined,
++            artifactBrief: ei.artifactBrief ?? undefined,
++            contentRequirements: ei.contentRequirements
++              ? [...ei.contentRequirements]
++              : undefined,
++          }
++        : {}),
+     },
+   };
+ }
+
+```
+### DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts
+index ab16b331..9e3c4a58 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts
+@@ -5,6 +5,27 @@
+  * Must NOT be accepted by InjectableExecutionAdapter.
+  */
 
 +/**
-+ * GCEC — explicit Project → target repository binding (D-GCEC-02).
-+ * Persisted only inside Project.payload_json (schema-free additive).
-+ * Ambient Studio repoRoot is NEVER an implicit target.
++ * GCEC — bounded docs-write launch contract (CR-GCEC-02).
++ * Built from ExecutionContract.inputs BEFORE Gate D consume.
++ * Gateway MUST NOT invent these fields.
 + */
-+export type ProjectRepositoryProvider = "github";
-+
-+export type ProjectRepositoryBinding = {
-+  provider: ProjectRepositoryProvider;
-+  /** e.g. owner/repo */
-+  identity: string;
-+  remoteUrl: string;
-+  defaultBranch: string;
-+  /** Optional pin; otherwise resolved at PREPARE/Gate D. */
-+  baseSha?: string;
-+  /** Relative allowlist root (e.g. docs/). */
-+  pathRoot?: string;
++export type DocsWriteLaunchSpec = {
++  readonly repositoryRef: string;
++  readonly targetPath: string;
++  readonly pathAllowlist: readonly string[];
++  readonly artifactType: string;
++  readonly artifactBrief: string;
++  readonly contentRequirements: readonly string[];
++  readonly scopeIn: readonly string[];
++  readonly scopeOut: readonly string[];
++  readonly expectedOutputs: readonly string[];
++  readonly validationExpectations: readonly string[];
++  readonly evidenceRequirements: readonly string[];
++  readonly createOrModify: true;
++  readonly noDelete: true;
 +};
 +
- export type Project = {
-   schemaVersion: "0.1.0-oa";
-   projectId: string;
-@@ -43,6 +62,8 @@ export type Project = {
-   currentLpsVersionId?: string;
-   doctrinePackageRef?: DoctrinePackageRef;
-   activeCycleInstanceId?: string;
-+  /** Explicit Product target repository — never ambient sfia-workspace. */
-+  repositoryBinding?: ProjectRepositoryBinding;
-   createdAt: string;
-   updatedAt?: string;
-   createdBy: ActorReference;
-
-```
-### DIFF: `projects/sfia-studio/app/lib/oa/project/domain/invariants.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/oa/project/domain/invariants.ts b/projects/sfia-studio/app/lib/oa/project/domain/invariants.ts
-index 27b1bcb5..cc94efda 100644
---- a/projects/sfia-studio/app/lib/oa/project/domain/invariants.ts
-+++ b/projects/sfia-studio/app/lib/oa/project/domain/invariants.ts
-@@ -10,6 +10,7 @@ import {
-   type LivingProjectState,
-   type Project,
-   type ProjectDetailCode,
-+  type ProjectRepositoryBinding,
- } from "./types";
-
- /** Modeled identifier pattern (common/identifier.schema.json). */
-@@ -178,3 +179,71 @@ export function assertProjectActiveWithDoctrine(
-   }
-   return null;
- }
-+
-+const GITHUB_IDENTITY_PATTERN = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/;
-+const SHA1_OR_SHA256_HEX = /^(?:[a-f0-9]{40}|[a-f0-9]{64})$/i;
-+
-+/**
-+ * Validate optional Project.repositoryBinding (GCEC D-GCEC-02).
-+ * Fail-closed: no ambient workspace fallback, no path traversal.
-+ */
-+export function validateRepositoryBinding(
-+  binding: ProjectRepositoryBinding | undefined | null,
-+): InvariantViolation | null {
-+  if (binding == null) return null;
-+  if (binding.provider !== "github") {
-+    return { detailCode: "PROJECT_INVALID", reason: "repository_provider_invalid" };
-+  }
-+  const identity = typeof binding.identity === "string" ? binding.identity.trim() : "";
-+  if (!identity || !GITHUB_IDENTITY_PATTERN.test(identity)) {
-+    return { detailCode: "PROJECT_INVALID", reason: "repository_identity_invalid" };
-+  }
-+  const remoteUrl =
-+    typeof binding.remoteUrl === "string" ? binding.remoteUrl.trim() : "";
-+  if (!remoteUrl) {
-+    return { detailCode: "PROJECT_INVALID", reason: "repository_remote_url_empty" };
-+  }
-+  const expectedHttps = `https://github.com/${identity}.git`;
-+  const expectedHttpsBare = `https://github.com/${identity}`;
-+  const expectedSsh = `git@github.com:${identity}.git`;
-+  const expectedSshBare = `git@github.com:${identity}`;
-+  const remoteOk =
-+    remoteUrl === expectedHttps ||
-+    remoteUrl === expectedHttpsBare ||
-+    remoteUrl === expectedSsh ||
-+    remoteUrl === expectedSshBare;
-+  if (!remoteOk) {
-+    return {
-+      detailCode: "PROJECT_INVALID",
-+      reason: "repository_remote_identity_mismatch",
-+    };
-+  }
-+  const branch =
-+    typeof binding.defaultBranch === "string" ? binding.defaultBranch.trim() : "";
-+  if (!branch || branch.includes("..") || branch.includes("/") || branch.includes("\\")) {
-+    return { detailCode: "PROJECT_INVALID", reason: "repository_default_branch_invalid" };
-+  }
-+  if (binding.baseSha != null) {
-+    const sha = binding.baseSha.trim();
-+    if (!SHA1_OR_SHA256_HEX.test(sha)) {
-+      return { detailCode: "PROJECT_INVALID", reason: "repository_base_sha_invalid" };
-+    }
-+  }
-+  if (binding.pathRoot != null) {
-+    const pathRoot = binding.pathRoot.trim().replace(/\/+$/, "");
-+    if (!pathRoot) {
-+      return { detailCode: "PROJECT_INVALID", reason: "repository_path_root_empty" };
-+    }
-+    if (
-+      pathRoot.startsWith("/") ||
-+      pathRoot.includes("\\") ||
-+      pathRoot.split("/").some((seg) => seg === ".." || seg === "")
-+    ) {
-+      return {
-+        detailCode: "PROJECT_INVALID",
-+        reason: "repository_path_root_traversal",
-+      };
-+    }
-+  }
-+  return null;
-+}
-
-```
-### DIFF: `projects/sfia-studio/app/lib/oa/decision/domain/types.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/oa/decision/domain/types.ts b/projects/sfia-studio/app/lib/oa/decision/domain/types.ts
-index c08d2314..847d2639 100644
---- a/projects/sfia-studio/app/lib/oa/decision/domain/types.ts
-+++ b/projects/sfia-studio/app/lib/oa/decision/domain/types.ts
-@@ -160,6 +160,21 @@ export type DecisionBasis = {
-     cycleTypeId?: string;
-     recommendedProfile?: string;
-     requestedOperation?: string;
-+    /**
-+     * GCEC — structured NON-AUTHORITATIVE execution intent (D-GCEC).
-+     * Recommendation/proposal context only — ≠ HumanDecision ≠ authority.
-+     */
-+    intentKind?: string;
-+    artifactType?: string;
-+    targetRepositoryRef?: string;
-+    targetPath?: string;
-+    scopeIn?: string[];
-+    scopeOut?: string[];
-+    expectedOutputs?: string[];
-+    requiredCapabilities?: string[];
-+    validationExpectations?: string[];
-+    evidenceRequirements?: string[];
-+    reversibilityExpectation?: "reversible" | "irreversible" | "unknown";
-   };
- };
-
-
-```
-### DIFF: `projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts b/projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts
-index 92971cdf..c5d42764 100644
---- a/projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts
-+++ b/projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts
-@@ -7,6 +7,8 @@
- import type { HumanDecision } from "@/lib/oa/decision";
- import type { Evidence } from "@/lib/oa/evidence-review";
- import type { ReviewBundle } from "@/lib/oa/evidence-review/domain/reviewBundleTypes";
-+import type { ProjectRepositoryBinding } from "@/lib/oa/project";
-+import { evaluateFunctionalDesignArtifactCompleteness } from "@/lib/oa/evidence-review";
- import type {
-   FinalizationApplicabilityRules,
-   ObligationApplicability,
-@@ -16,9 +18,14 @@ import {
-   isCurrentHumanDecisionStatus,
-   matchesLifecycleHumanDecision,
- } from "./assessFinalization";
-+import {
-+  applyCycleObligationSnapshotToRules,
-+  deriveCycleObligationSnapshot,
-+  type CycleObligationSnapshot,
-+} from "./deriveCycleObligationSnapshot";
- import {
-   isGitApplicableContract,
--  isGitQualifyingEvidence,
-+  isGitCompletionProofEvidence,
- } from "./qualifyGitEvidence";
-
- export const OBLIGATION_POLICY_SUBJECT_PREFIX =
-@@ -61,6 +68,12 @@ export type DeriveFinalizationApplicabilityInput = {
-   evidence: readonly Evidence[];
-   reviewBundles: readonly ReviewBundle[];
-   executionContracts: readonly DerivableExecutionContract[];
-+  /** GCEC — cycle type for pre-row F14 obligation binding. */
-+  cycleTypeId?: string;
-+  /** GCEC — explicit Project repository binding (contextual Git MUST). */
-+  repositoryBinding?: ProjectRepositoryBinding | null;
-+  /** Optional precomputed snapshot; otherwise derived when cycleTypeId set. */
-+  obligationSnapshot?: CycleObligationSnapshot | null;
- };
-
- type PositiveFamily =
-@@ -189,7 +202,8 @@ function requireApplicable(
-
- /**
-  * Derive applicability from durable Product facts.
-- * Merge: empty → positive EC/evidence/review/trajectory signals → obligation-policy HD.
-+ * Merge: empty → pre-exec F14 obligation snapshot → positive EC/evidence/review/trajectory
-+ * signals → obligation-policy HD (monotone; MUST cannot be silently erased).
-  */
- export function deriveFinalizationApplicability(
-   input: DeriveFinalizationApplicabilityInput,
-@@ -203,6 +217,21 @@ export function deriveFinalizationApplicability(
-     (r) => !r.cycleInstanceId || r.cycleInstanceId === cycleId,
-   );
-
-+  // --- Pre-execution F14 obligation snapshot (APPLICABLE before rows) ---
-+  const snapshot =
-+    input.obligationSnapshot ??
-+    (input.cycleTypeId
-+      ? deriveCycleObligationSnapshot({
-+          projectId: input.projectId,
-+          cycleTypeId: input.cycleTypeId,
-+          cycleInstanceId: cycleId,
-+          repositoryBinding: input.repositoryBinding,
-+        })
-+      : null);
-+  if (snapshot) {
-+    applyCycleObligationSnapshotToRules(rules, snapshot, positiveSources);
-+  }
-+
-   // --- Positive signals (APPLICABLE only; never N/A from absence) ---
-   if (input.trajectory) {
-     rules.exit_criteria = "APPLICABLE";
-@@ -260,7 +289,10 @@ export function deriveFinalizationApplicability(
-     );
-   }
-   rules.artifactProofPresent = evidence.some(
--    (e) => e.type === "artifact" && isProofStatus(e.status),
-+    (e) =>
-+      e.type === "artifact" &&
-+      isProofStatus(e.status) &&
-+      evaluateFunctionalDesignArtifactCompleteness(e).ok,
-   );
-
-   const gitApplicable = contracts.filter(isGitApplicableContract);
-@@ -274,7 +306,7 @@ export function deriveFinalizationApplicability(
-   }
-   const gitIds = new Set(gitApplicable.map((c) => c.contractId));
-   rules.gitProofPresent = evidence.some((e) =>
--    isGitQualifyingEvidence(e, gitIds, cycleId),
-+    isGitCompletionProofEvidence(e, gitIds, cycleId),
-   );
-
-   // --- Obligation policy HD (explicit N/A or REQUIRE) ---
-
-```
-### DIFF: `projects/sfia-studio/app/lib/oa/cycle/application/qualifyGitEvidence.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/oa/cycle/application/qualifyGitEvidence.ts b/projects/sfia-studio/app/lib/oa/cycle/application/qualifyGitEvidence.ts
-index f0511f81..2877b996 100644
---- a/projects/sfia-studio/app/lib/oa/cycle/application/qualifyGitEvidence.ts
-+++ b/projects/sfia-studio/app/lib/oa/cycle/application/qualifyGitEvidence.ts
-@@ -2,8 +2,10 @@
-  * CORR-PROOF-05 #3B — semantic binding for Git/repository proof Evidence.
-  * Pure; no persistence. Type alone is never sufficient.
-  * Lexical matching uses explicit token/namespace boundaries — never substring "git".
-+ * Prefer typed git:* sources (D-GCEC-07) over lexical markers.
-  */
- import type { Evidence } from "@/lib/oa/evidence-review";
-+import { isTypedGitEvidenceSource } from "@/lib/oa/evidence-review";
-
- export type GitQualifiableContract = {
-   contractId: string;
-@@ -53,7 +55,7 @@ export function isGitApplicableContract(
- /**
-  * Evidence qualifies as git proof only when status is supporting AND
-  * semantically bound to a git-applicable EC, or (without EC binding)
-- * same-cycle with explicit Git/repository location|source marker.
-+ * same-cycle with typed git:* source or explicit Git/repository location|source marker.
-  */
- export function isGitQualifyingEvidence(
-   evidence: Evidence,
-@@ -79,6 +81,10 @@ export function isGitQualifyingEvidence(
-
-   const sameCycle = evidence.bindings?.cycleInstanceId === cycleInstanceId;
-   if (sameCycle) {
-+    // Prefer typed git:* discriminators over lexical fallback.
-+    if (isTypedGitEvidenceSource(evidence.source)) {
-+      return true;
-+    }
-     const location = evidence.location ?? "";
-     const source = evidence.source ?? "";
-     if (
-@@ -91,3 +97,23 @@ export function isGitQualifyingEvidence(
-
-   return false;
- }
-+
-+/**
-+ * GCEC — Git obligation SATISFIED only with typed post-merge verification
-+ * (or legacy lexical qualifying evidence without typed git:* source).
-+ * Intermediate git:* facts (diff/commit/push/PR/CI/review/merge) do NOT satisfy.
-+ */
-+export function isGitCompletionProofEvidence(
-+  evidence: Evidence,
-+  gitApplicableContractIds: ReadonlySet<string> | readonly string[],
-+  cycleInstanceId: string,
-+): boolean {
-+  if (!isGitQualifyingEvidence(evidence, gitApplicableContractIds, cycleInstanceId)) {
-+    return false;
-+  }
-+  if (isTypedGitEvidenceSource(evidence.source)) {
-+    return evidence.source === "git:post_merge_verification";
-+  }
-+  // Legacy lexical path (pre-typed) still qualifies for back-compat tests.
-+  return true;
-+}
-
-```
-### DIFF: `projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts b/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
-index faa507a8..cbcf590f 100644
---- a/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
-@@ -84,30 +84,78 @@ function fieldsFromBasis(basis: DecisionBasis, decisionId: string) {
-     "DECISION_NOT_CURRENT",
-   ];
-
-+  const docsWriteIntent =
-+    eb.intentKind === "docs_write" ||
-+    eb.requestedOperation?.trim() === "cursor.docs_write.apply";
-+
-   const requested = eb.requestedOperation?.trim() ?? "";
-   let action: string;
-   if (requested) {
-     action = requested;
-+  } else if (docsWriteIntent) {
-+    action = "cursor.docs_write.apply";
-   } else {
-     action = "UNRESOLVED_ACTION";
-     stopConditions.push("ACTION_UNRESOLVED");
-   }
-
--  // No explicit target field on DecisionBasis today → always unresolved.
--  const target = "UNRESOLVED_TARGET";
--  stopConditions.push("TARGET_UNRESOLVED");
-+  let target: string;
-+  let requiredCapabilities: string[];
-+  const inputs: Record<string, unknown> = {
-+    objective: eb.objective,
-+    recommendedProfile: eb.recommendedProfile,
-+    cycleTypeId: eb.cycleTypeId,
-+    activatedBlocks: eb.activatedBlocks,
-+    sourceRef: basis.sourceRef,
-+    sourceDigest: basis.sourceDigest,
+ export type RealLaunchRequest = {
+   readonly attemptId: string;
+   readonly executionContractId: string;
+@@ -29,6 +50,19 @@ export type RealLaunchRequest = {
+    * Gateway enforces this value and MUST NOT invent a default.
+    */
+   readonly timeoutMs: number;
++  /** GCEC docs-write launch contract — required when action is docs_write. */
++  readonly docsWriteSpec?: DocsWriteLaunchSpec;
++  /** Optional Project binding identity (owner/repo) for workspace resolution. */
++  readonly repositoryBindingIdentity?: string;
++  /** Server-resolved absolute managed clone root (docs-write). */
++  readonly managedRepoRoot?: string;
++  /** Explicit Project repository binding for workspace verify. */
++  readonly repositoryBinding?: {
++    readonly identity: string;
++    readonly remoteUrl: string;
++    readonly defaultBranch: string;
++    readonly pathRoot?: string;
 +  };
-+
-+  if (docsWriteIntent) {
-+    const targetPath = eb.targetPath?.trim() ?? "";
-+    const targetRepositoryRef = eb.targetRepositoryRef?.trim() ?? "";
-+    if (!targetPath || !targetRepositoryRef) {
-+      target = "UNRESOLVED_TARGET";
-+      stopConditions.push("TARGET_UNRESOLVED");
-+    } else {
-+      // Sentinel target for resolve; concrete path lives in inputs.
-+      target = "workspace.isolated.docs_write";
-+      inputs.targetPath = targetPath;
-+      inputs.targetRepositoryRef = targetRepositoryRef;
-+      inputs.repositoryRef = targetRepositoryRef;
-+      inputs.pathAllowlist = eb.scopeIn ?? [];
-+      inputs.createOrModify = true;
-+    }
+ };
 
--  const requiredCapabilities = ["cap:unresolved"];
--  stopConditions.push("CAPABILITY_UNRESOLVED");
-+    if (eb.requiredCapabilities && eb.requiredCapabilities.length > 0) {
-+      requiredCapabilities = [...eb.requiredCapabilities];
-+    } else {
-+      requiredCapabilities = ["cap:cursor.docs_write"];
-+    }
-+  } else {
-+    // No explicit target field on DecisionBasis today → always unresolved.
-+    target = "UNRESOLVED_TARGET";
-+    stopConditions.push("TARGET_UNRESOLVED");
-+    requiredCapabilities = ["cap:unresolved"];
-+    stopConditions.push("CAPABILITY_UNRESOLVED");
-+  }
-
--  // Fail-closed safety default — not a sourced reversibility analysis.
--  const reversibility = "irreversible" as const;
--  stopConditions.push("REVERSIBILITY_UNRESOLVED");
-+  let reversibility: "reversible" | "irreversible" = "irreversible";
-+  if (
-+    docsWriteIntent &&
-+    (eb.reversibilityExpectation === "reversible" ||
-+      eb.reversibilityExpectation === "irreversible")
-+  ) {
-+    reversibility = eb.reversibilityExpectation;
-+  } else {
-+    // Fail-closed safety default — not a sourced reversibility analysis.
-+    stopConditions.push("REVERSIBILITY_UNRESOLVED");
-+  }
-
-   const scope =
-     (eb.scope && eb.scope.trim()) || `decision:${decisionId}`;
-   const constraints = [
-     ...(eb.outOfScope ?? []).map((s) => `OUT_OF_SCOPE:${s}`),
-+    ...(eb.scopeOut ?? []).map((s) => `OUT_OF_SCOPE:${s}`),
-     ...(eb.risks ?? []).map((s) => `RISK:${s}`),
-     ...(eb.reservations ?? []).map((s) => `RESERVATION:${s}`),
-     "PREPARE_ONLY",
-@@ -120,9 +168,16 @@ function fieldsFromBasis(basis: DecisionBasis, decisionId: string) {
-       constraints.push(`ACTIVATED_BLOCK:${b}`);
-     }
-   }
--  const expectedOutputs = eb.expectedOutcome
--    ? [eb.expectedOutcome]
--    : undefined;
-+  const expectedOutputs =
-+    eb.expectedOutputs && eb.expectedOutputs.length > 0
-+      ? [...eb.expectedOutputs]
-+      : eb.expectedOutcome
-+        ? [eb.expectedOutcome]
-+        : undefined;
-+  const evidenceRequirements =
-+    eb.evidenceRequirements && eb.evidenceRequirements.length > 0
-+      ? [...eb.evidenceRequirements]
-+      : undefined;
-   return {
-     action,
-     target,
-@@ -130,16 +185,10 @@ function fieldsFromBasis(basis: DecisionBasis, decisionId: string) {
-     constraints,
-     stopConditions,
-     expectedOutputs,
-+    evidenceRequirements,
-     requiredCapabilities,
-     reversibility,
--    inputs: {
--      objective: eb.objective,
--      recommendedProfile: eb.recommendedProfile,
--      cycleTypeId: eb.cycleTypeId,
--      activatedBlocks: eb.activatedBlocks,
--      sourceRef: basis.sourceRef,
--      sourceDigest: basis.sourceDigest,
--    },
-+    inputs,
-   };
- }
-
-@@ -262,7 +311,8 @@ export async function prepareM3FromDecision(input: {
-       requiredAuthority: "MORRIS",
-       constraints: fields.constraints,
-       stopConditions: fields.stopConditions,
--      evidenceRequirements: ["evreq:m3-prepare-decision-basis"],
-+      evidenceRequirements:
-+        fields.evidenceRequirements ?? ["evreq:m3-prepare-decision-basis"],
-       reversibility: fields.reversibility,
-       idempotencyKey,
-       correlationId: `cor:m3-prep:${decision.decisionId}`,
-
-```
-### DIFF: `projects/sfia-studio/app/features/project-assistant/f3/selectProductM3ResolutionProfile.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/f3/selectProductM3ResolutionProfile.ts b/projects/sfia-studio/app/features/project-assistant/f3/selectProductM3ResolutionProfile.ts
-index 3eabf4da..9d46a095 100644
---- a/projects/sfia-studio/app/features/project-assistant/f3/selectProductM3ResolutionProfile.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f3/selectProductM3ResolutionProfile.ts
-@@ -6,6 +6,10 @@
- import type { ExecutionContract } from "@/lib/oa/execution-contract";
- import { isStudioCursorRealEnabled } from "@/lib/oa/execution-attempt";
- import { isDeterministicCursorBoundaryEnabled } from "@/lib/vertical-slice-runtime/deterministicExternalLaunchBoundary";
-+import {
-+  BOUNDED_DOCS_WRITE_M3_SUPERSESSION_REASON,
-+  boundedDocsWriteM3ResolutionProfile,
-+} from "./boundedDocsWriteM3ResolutionProfile";
- import {
-   BOUNDED_READ_ONLY_M3_SUPERSESSION_REASON,
-   boundedReadOnlyM3ResolutionProfile,
-@@ -16,7 +20,10 @@ import {
- } from "./fixtureSafeM3ResolutionProfile";
- import type { M3ResolvedExecutionFields } from "./resolveM3ExecutionContract";
-
--export type ProductM3ResolutionKind = "fixture" | "bounded_read_only";
-+export type ProductM3ResolutionKind =
-+  | "fixture"
-+  | "bounded_read_only"
-+  | "bounded_docs_write";
-
- export type SelectedProductM3Resolution = {
-   kind: ProductM3ResolutionKind;
-@@ -73,18 +80,31 @@ export function authorizedM3ResolutionKind(
-   if (profileMatchesContract(contract, boundedReadOnlyM3ResolutionProfile())) {
-     return "bounded_read_only";
-   }
-+  if (profileMatchesContract(contract, boundedDocsWriteM3ResolutionProfile())) {
-+    return "bounded_docs_write";
-+  }
-   return null;
- }
-
- /**
-  * @param preferBoundedReadOnlyProfile Server/test only. Never from the client.
-+ * @param preferBoundedDocsWriteProfile Server/test only. Never from the client.
-+ *   When true, returns docs-write; otherwise existing RO/fixture logic.
-  * @param env Optional env snapshot for isStudioCursorRealEnabled /
-  *   fail-closed deterministic Cursor boundary (TEST/E2E only).
-  */
- export function selectProductM3ResolutionProfile(input?: {
-   preferBoundedReadOnlyProfile?: boolean;
-+  preferBoundedDocsWriteProfile?: boolean;
-   env?: NodeJS.ProcessEnv;
- }): SelectedProductM3Resolution {
-+  if (input?.preferBoundedDocsWriteProfile === true) {
-+    return {
-+      kind: "bounded_docs_write",
-+      profile: boundedDocsWriteM3ResolutionProfile(),
-+      supersessionReason: BOUNDED_DOCS_WRITE_M3_SUPERSESSION_REASON,
-+    };
-+  }
-   const env = input?.env ?? process.env;
-   const useBounded =
-     input?.preferBoundedReadOnlyProfile === true ||
-
-```
-### DIFF: `projects/sfia-studio/app/features/project-assistant/approveCandidateTrajectory.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/approveCandidateTrajectory.ts b/projects/sfia-studio/app/features/project-assistant/approveCandidateTrajectory.ts
-index 7206344f..01c65b84 100644
---- a/projects/sfia-studio/app/features/project-assistant/approveCandidateTrajectory.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/approveCandidateTrajectory.ts
-@@ -166,6 +166,8 @@ export async function buildPreCycleCandidateApprovalPresentation(input: {
-         decidedByDecisionRef: string | null;
-         targetCycleTypeId: string | null;
-         catalogLabel: string | null;
-+        completedMatchingCycle?: boolean;
-+        prepareBlockedReason?: "cycle_type_already_completed";
-       } | null;
-       activeCycleInstanceId: string | null;
-     }
-@@ -203,6 +205,20 @@ export async function buildPreCycleCandidateApprovalPresentation(input: {
-         catalogLabel = getCycleTypeById(targetCycleTypeId)?.label ?? null;
-       }
-     }
-+    let completedMatchingCycle = false;
-+    let prepareBlockedReason:
-+      | "cycle_type_already_completed"
-+      | undefined;
-+    if (targetCycleTypeId && activeCycleInstanceId == null) {
-+      const cycles = await oa.cycleServices.cycles.listByProject(projectId);
-+      completedMatchingCycle = cycles.some(
-+        (c) =>
-+          c.status === "completed" && c.cycleTypeId === targetCycleTypeId,
-+      );
-+      if (completedMatchingCycle) {
-+        prepareBlockedReason = "cycle_type_already_completed";
-+      }
-+    }
-     return {
-       ok: true,
-       presentation: null,
-@@ -213,6 +229,12 @@ export async function buildPreCycleCandidateApprovalPresentation(input: {
-         decidedByDecisionRef: current.decidedByDecisionRef,
-         targetCycleTypeId,
-         catalogLabel,
-+        ...(completedMatchingCycle
-+          ? {
-+              completedMatchingCycle: true,
-+              prepareBlockedReason,
-+            }
-+          : {}),
-       },
-       activeCycleInstanceId,
-     };
-
-```
-### DIFF: `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx`
-
-```diff
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-index 9e66bb63..ac677fee 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-@@ -183,6 +183,8 @@ export function TrajectorySurface({
-     decidedByDecisionRef: string | null;
-     targetCycleTypeId: string | null;
-     catalogLabel: string | null;
-+    completedMatchingCycle?: boolean;
-+    prepareBlockedReason?: "cycle_type_already_completed";
-   } | null>(null);
-   const [preparedCycle, setPreparedCycle] = useState<{
-     cycleInstanceId: string;
-@@ -914,7 +916,16 @@ export function TrajectorySurface({
-             FIGMA SOURCE NOT APPLICABLE — D-GF-START-01 prepare/start CTAs follow
-             existing TrajectorySurface action patterns (no Figma handoff).
-           */}
--          {!preparedCycle ? (
-+          {greenfieldDecided.prepareBlockedReason ||
-+          greenfieldDecided.completedMatchingCycle ? (
-+            <p
-+              className={styles.blockNote}
-+              data-testid="pre-cycle-prepare-blocked"
-+            >
-+              Ce type de cycle est déjà terminé pour ce projet — aucune
-+              préparation disponible.
-+            </p>
-+          ) : !preparedCycle ? (
-             <div className={styles.actions}>
-               <button
-                 type="button"
-
-```
-### DIFF: `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts
-index d602a7c2..38ac4dcd 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts
-@@ -1,5 +1,6 @@
- import type {
-   FinalizationAssessment,
-+  FinalizationApplicabilityRules,
-   FinalizationObligation,
- } from "@/lib/oa/cycle";
- import type { PilotLifecycleProjection } from "@/lib/oa/cycle";
-@@ -125,6 +126,20 @@ export function canOfferGroupedNoGovernedEffects(
-   return unknownCount > 0;
- }
-
-+/**
-+ * True when applicability rules already mark a governed family APPLICABLE
-+ * (positiveSources / obligation snapshot) — UI must not offer grouped N/A.
-+ */
-+export function mustBlocksNoGovernedEffects(
-+  applicabilityRules: FinalizationApplicabilityRules | null | undefined,
-+): boolean {
-+  if (!applicabilityRules) return false;
-+  for (const family of GOVERNED_EFFECT_FAMILIES) {
-+    if (applicabilityRules[family] === "APPLICABLE") return true;
-+  }
-+  return false;
-+}
-+
- export function lifecycleStatusBadge(
-   projection: PilotLifecycleProjection,
- ): { status: LifecycleUiStatus; label: string } {
-
-```
-### DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
-index bf766c39..5e8d39fb 100644
---- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
-+++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
-@@ -56,7 +56,7 @@ import type {
-   ContractSafetyIdentity,
-   GateDGrant,
- } from "../domain/realLaunchSafety";
--import { isM4BoundedReadOnlyRealAgent } from "../infrastructure/m4BoundedReadOnlyCursorAgent";
-+import { isM4AuthorizedCursorRealAgent } from "../infrastructure/m4BoundedDocsWriteCursorAgent";
- import type { ExecutionAttemptTechnicalStorePort } from "../ports/executionAttemptTechnicalStorePort";
- import type { AgentRegistryPort } from "../ports/agentRegistry";
- import type { ExecutionAdapterPort } from "../ports/executionAdapter";
-@@ -74,11 +74,11 @@ import type { ExecutionContractStatusWriter } from "./executionContractStatusWri
- import { mapContractAuthorizationDetail } from "./selectExecutionAgent";
-
- function isRealExecutionAgent(
--  agent: Parameters<typeof isM4BoundedReadOnlyRealAgent>[0],
-+  agent: Parameters<typeof isM4AuthorizedCursorRealAgent>[0],
- ): boolean {
-   return (
-     agent.executionMode === "cursor_cli_real" ||
--    isM4BoundedReadOnlyRealAgent(agent)
-+    isM4AuthorizedCursorRealAgent(agent)
-   );
- }
-
-@@ -534,8 +534,8 @@ export class StartExecution {
-         executionContractId: contract.executionContractId,
-       });
-     }
--    if (!isM4BoundedReadOnlyRealAgent(agent)) {
--      return fail("REAL_AGENT_PROFILE_INVALID", "not_m4_bounded_readonly_real", {
-+    if (!isM4AuthorizedCursorRealAgent(agent)) {
-+      return fail("REAL_AGENT_PROFILE_INVALID", "not_m4_authorized_cursor_real", {
-         selectedAgentRef: attempt.selectedAgentRef,
-       });
-     }
+ export type RealLaunchAck = {
 
 ```
 ### DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
-index 3a204620..56488d80 100644
+index 56488d80..ad2cfa6d 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
-@@ -27,6 +27,7 @@ import {
-   CURSOR_TRUST_MARKER_PATH_TOO_LONG_REASON,
-   isCursorTrustMarkerPathCompatible,
- } from "./cursorTrustMarkerPathCompatibility";
-+import { M4_BOUNDED_DOCS_WRITE_ACTION } from "./m4BoundedDocsWriteCursorAgent";
-
- export type StudioCursorRealLaunchGatewayOptions = {
-   readonly processRunner: ProcessRunner;
-@@ -198,6 +199,7 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
+@@ -170,6 +170,12 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
+       const prepared = await this.workspacePort.prepareWorkspace({
+         attemptId: request.attemptId,
+         baseHeadSha,
++        ...(request.managedRepoRoot
++          ? { managedRepoRoot: request.managedRepoRoot }
++          : {}),
++        ...(request.repositoryBinding
++          ? { repositoryBinding: request.repositoryBinding }
++          : {}),
+       });
+       workspacePath = prepared.workspacePath;
+     } catch (err) {
+@@ -199,28 +205,64 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
 
      // Fixed argv shape — executable is separate; no user-controlled shell.
      // --mode ask: local CLI help documents ask as read-only Q&A (no edits).
-+    // Docs-write uses default agent mode (omit --mode ask).
-     // Shell under ask remains unresolved by help alone; future REAL must observe.
-     const instruction = [
-       "TÂCHE UNIQUE — preuve read-only déterministe.",
-@@ -218,18 +220,30 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
-       "Aucune mutation, aucun git remote/commit/push/PR/merge.",
-     ].join("\n");
+-    // Docs-write uses default agent mode (omit --mode ask).
+-    // Shell under ask remains unresolved by help alone; future REAL must observe.
+-    const instruction = [
+-      "TÂCHE UNIQUE — preuve read-only déterministe.",
+-      "Lire uniquement le fichier README.md à la racine du workspace.",
+-      "Ne modifier aucun fichier.",
+-      "Ne créer aucun fichier.",
+-      "Ne lancer aucune commande Shell.",
+-      "Ne faire aucune recherche récursive, Glob ou Grep.",
+-      "Ne consulter aucun autre fichier.",
+-      "Si README.md peut être lu, répondre exactement :",
+-      "M4_READ_ONLY_OK",
+-      "Si README.md ne peut pas être lu, répondre exactement :",
+-      "M4_READ_ONLY_UNAVAILABLE",
+-      `target=${request.target ?? ""}`,
+-      `action=${request.action ?? ""}`,
+-      `scope=${request.scope ?? ""}`,
+-      `fingerprint=${request.semanticFingerprint}`,
+-      "Aucune mutation, aucun git remote/commit/push/PR/merge.",
+-    ].join("\n");
+-
++    // Docs-write uses default agent mode (omit --mode ask) + WRITE instruction.
+     const isDocsWrite = request.action === M4_BOUNDED_DOCS_WRITE_ACTION;
++
++    let instruction: string;
++    if (isDocsWrite) {
++      const spec = request.docsWriteSpec;
++      if (!spec) {
++        return {
++          outcome: "reject",
++          gatewayId: this.gatewayId,
++          attemptId: request.attemptId,
++          reason: "docs_write_spec_missing",
++          realProcessInvoked: false,
++          detailCode: "REAL_AGENT_PROFILE_INVALID",
++        };
++      }
++      instruction = [
++        "TÂCHE UNIQUE — bounded docs-write déterministe (GCEC).",
++        `Créer ou modifier UNIQUEMENT le fichier: ${spec.targetPath}`,
++        `Repository: ${spec.repositoryRef}`,
++        `Écrire uniquement sous pathAllowlist: ${spec.pathAllowlist.join(", ")}`,
++        `Type d'artifact: ${spec.artifactType}`,
++        `Brief: ${spec.artifactBrief}`,
++        `Exigences de contenu: ${spec.contentRequirements.join("; ")}`,
++        `Scope IN: ${spec.scopeIn.join(", ") || "(none)"}`,
++        `Scope OUT (interdit): ${spec.scopeOut.join(", ") || "(none)"}`,
++        `Sorties attendues: ${spec.expectedOutputs.join(", ")}`,
++        `Validations: ${spec.validationExpectations.join(", ") || "path_allowlist; no_delete"}`,
++        "Ne créer/modifier AUCUN autre fichier.",
++        "Ne supprimer AUCUN fichier (noDelete=true).",
++        "Ne pas commit, push, PR, merge, ni remote git.",
++        "En cas d'ambiguïté ou de chemin hors allowlist: STOP immédiatement.",
++        `target=${request.target ?? ""}`,
++        `action=${request.action ?? ""}`,
++        `scope=${request.scope ?? ""}`,
++        `fingerprint=${request.semanticFingerprint}`,
++      ].join("\n");
++    } else {
++      instruction = [
++        "TÂCHE UNIQUE — preuve read-only déterministe.",
++        "Lire uniquement le fichier README.md à la racine du workspace.",
++        "Ne modifier aucun fichier.",
++        "Ne créer aucun fichier.",
++        "Ne lancer aucune commande Shell.",
++        "Ne faire aucune recherche récursive, Glob ou Grep.",
++        "Ne consulter aucun autre fichier.",
++        "Si README.md peut être lu, répondre exactement :",
++        "M4_READ_ONLY_OK",
++        "Si README.md ne peut pas être lu, répondre exactement :",
++        "M4_READ_ONLY_UNAVAILABLE",
++        `target=${request.target ?? ""}`,
++        `action=${request.action ?? ""}`,
++        `scope=${request.scope ?? ""}`,
++        `fingerprint=${request.semanticFingerprint}`,
++        "Aucune mutation, aucun git remote/commit/push/PR/merge.",
++      ].join("\n");
++    }
++
+     const argv = isDocsWrite
+       ? [
+           "agent",
 
--    const argv = [
--      "agent",
--      "--print",
--      "--mode",
--      "ask",
--      "--workspace",
--      workspacePath,
--      "--trust",
--      "--sandbox",
--      "enabled",
--      instruction,
--    ];
-+    const isDocsWrite = request.action === M4_BOUNDED_DOCS_WRITE_ACTION;
-+    const argv = isDocsWrite
-+      ? [
-+          "agent",
-+          "--print",
-+          "--workspace",
-+          workspacePath,
-+          "--trust",
-+          "--sandbox",
-+          "enabled",
-+          instruction,
-+        ]
-+      : [
-+          "agent",
-+          "--print",
-+          "--mode",
-+          "ask",
-+          "--workspace",
-+          workspacePath,
-+          "--trust",
-+          "--sandbox",
-+          "enabled",
-+          instruction,
-+        ];
+```
+### DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts`
 
-     try {
-       const invoked = await this.runner.invoke({
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
+index 5e8d39fb..8922718f 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
+@@ -63,6 +63,8 @@ import type { ExecutionAdapterPort } from "../ports/executionAdapter";
+ import type { ExecutionAttemptAuditPort } from "../ports/executionAttemptAudit";
+ import type { ExecutionAttemptRepositoryPort } from "../ports/executionAttemptRepository";
+ import type { RealExecutionLaunchPort } from "../ports/realExecutionLaunchPort";
++import type { DocsWriteLaunchSpec } from "../ports/realExecutionLaunchPort";
++import { M4_BOUNDED_DOCS_WRITE_ACTION } from "../infrastructure/m4BoundedDocsWriteCursorAgent";
+ import type { RealLaunchSafetyJournalPort } from "../ports/realLaunchSafetyJournalPort";
+ import {
+   authorityFailureDetail,
+@@ -97,6 +99,105 @@ export function extractContractBaseHeadSha(
+   return trimmed.toLowerCase();
+ }
+
++function asStringList(value: unknown): string[] | null {
++  if (!Array.isArray(value)) return null;
++  const out: string[] = [];
++  for (const item of value) {
++    if (typeof item !== "string") return null;
++    const t = item.trim();
++    if (t) out.push(t);
++  }
++  return out;
++}
++
++function asNonEmptyString(value: unknown): string | null {
++  if (typeof value !== "string") return null;
++  const t = value.trim();
++  return t || null;
++}
++
++/**
++ * Extract DocsWriteLaunchSpec from contract.inputs (CR-GCEC-02).
++ * Fail-closed: returns { ok:false, reason } when required fields missing.
++ */
++export function extractDocsWriteLaunchSpec(
++  contract: ExecutionContract,
++):
++  | { ok: true; spec: DocsWriteLaunchSpec; repositoryBindingIdentity?: string }
++  | { ok: false; reason: string } {
++  const inputs =
++    contract.inputs && typeof contract.inputs === "object"
++      ? (contract.inputs as Record<string, unknown>)
++      : {};
++  const repositoryRef =
++    asNonEmptyString(inputs.repositoryRef) ??
++    asNonEmptyString(inputs.targetRepositoryRef);
++  const targetPath = asNonEmptyString(inputs.targetPath);
++  const pathAllowlist =
++    asStringList(inputs.pathAllowlist) ?? asStringList(inputs.scopeIn) ?? [];
++  const artifactType =
++    asNonEmptyString(inputs.artifactType) ?? "functional_design";
++  const artifactBrief = asNonEmptyString(inputs.artifactBrief);
++  const contentRequirements = asStringList(inputs.contentRequirements) ?? [];
++  const scopeIn = asStringList(inputs.scopeIn) ?? pathAllowlist;
++  const scopeOut = asStringList(inputs.scopeOut) ?? [];
++  const expectedOutputs =
++    asStringList(inputs.expectedOutputs) ??
++    (Array.isArray(contract.expectedOutputs)
++      ? asStringList(contract.expectedOutputs)
++      : null) ??
++    (targetPath ? [targetPath] : []);
++  const validationExpectations =
++    asStringList(inputs.validationExpectations) ?? [];
++  const evidenceRequirements =
++    asStringList(inputs.evidenceRequirements) ??
++    (Array.isArray(contract.evidenceRequirements)
++      ? asStringList(contract.evidenceRequirements)
++      : null) ??
++    [];
++
++  if (!repositoryRef) {
++    return { ok: false, reason: "docs_write_repository_ref_missing" };
++  }
++  if (!targetPath) {
++    return { ok: false, reason: "docs_write_target_path_missing" };
++  }
++  if (pathAllowlist.length === 0) {
++    return { ok: false, reason: "docs_write_path_allowlist_missing" };
++  }
++  if (!artifactBrief) {
++    return { ok: false, reason: "docs_write_artifact_brief_missing" };
++  }
++  if (contentRequirements.length === 0) {
++    return { ok: false, reason: "docs_write_content_requirements_missing" };
++  }
++
++  const bindingIdentity =
++    asNonEmptyString(inputs.repositoryBindingIdentity) ??
++    asNonEmptyString(inputs.repositoryIdentity) ??
++    repositoryRef;
++
++  return {
++    ok: true,
++    spec: {
++      repositoryRef,
++      targetPath,
++      pathAllowlist,
++      artifactType,
++      artifactBrief,
++      contentRequirements,
++      scopeIn,
++      scopeOut,
++      expectedOutputs: expectedOutputs ?? [],
++      validationExpectations,
++      evidenceRequirements: evidenceRequirements ?? [],
++      createOrModify: true,
++      noDelete: true,
++    },
++    repositoryBindingIdentity: bindingIdentity ?? undefined,
++  };
++}
++
+ function mapRealLaunchRejectDetail(
+   reason: string,
+   detailCode?: string,
+@@ -560,6 +661,77 @@ export class StartExecution {
+       );
+     }
+
++    // CR-GCEC-02 — docsWriteSpec BEFORE Gate D consume (fail-closed).
++    let docsWriteSpec: DocsWriteLaunchSpec | undefined;
++    let repositoryBindingIdentity: string | undefined;
++    let managedRepoRoot: string | undefined;
++    let repositoryBinding:
++      | {
++          identity: string;
++          remoteUrl: string;
++          defaultBranch: string;
++          pathRoot?: string;
++        }
++      | undefined;
++    if (contract.action === M4_BOUNDED_DOCS_WRITE_ACTION) {
++      const extracted = extractDocsWriteLaunchSpec(contract);
++      if (!extracted.ok) {
++        return fail("REAL_AGENT_PROFILE_INVALID", extracted.reason, {
++          executionContractId: contract.executionContractId,
++        });
++      }
++      docsWriteSpec = extracted.spec;
++      repositoryBindingIdentity = extracted.repositoryBindingIdentity;
++
++      const inputs =
++        contract.inputs && typeof contract.inputs === "object"
++          ? (contract.inputs as Record<string, unknown>)
++          : {};
++      const managed =
++        typeof inputs.managedRepoRoot === "string"
++          ? inputs.managedRepoRoot.trim()
++          : "";
++      if (!managed) {
++        return fail(
++          "REAL_WORKSPACE_INVALID",
++          "docs_write_managed_repo_root_missing",
++          { executionContractId: contract.executionContractId },
++        );
++      }
++      managedRepoRoot = managed;
++
++      const identity =
++        (typeof inputs.repositoryIdentity === "string" &&
++          inputs.repositoryIdentity.trim()) ||
++        (typeof inputs.repositoryBindingIdentity === "string" &&
++          inputs.repositoryBindingIdentity.trim()) ||
++        docsWriteSpec.repositoryRef;
++      const remoteUrl =
++        (typeof inputs.remoteUrl === "string" && inputs.remoteUrl.trim()) ||
++        `https://github.com/${identity}.git`;
++      const defaultBranch =
++        (typeof inputs.defaultBranch === "string" &&
++          inputs.defaultBranch.trim()) ||
++        "main";
++      const pathRoot =
++        typeof inputs.pathRoot === "string" && inputs.pathRoot.trim()
++          ? inputs.pathRoot.trim()
++          : undefined;
++      if (!identity) {
++        return fail(
++          "REAL_WORKSPACE_INVALID",
++          "docs_write_repository_binding_missing",
++          { executionContractId: contract.executionContractId },
++        );
++      }
++      repositoryBinding = {
++        identity,
++        remoteUrl,
++        defaultBranch,
++        ...(pathRoot ? { pathRoot } : {}),
++      };
++    }
++
+     const fingerprint =
+       contract.semanticFingerprint ??
+       computeExecutionContractSemanticFingerprint(contract);
+@@ -693,6 +865,12 @@ export class StartExecution {
+         target: contract.target,
+         scope: contract.scope,
+         timeoutMs: window.resolvedMaxDurationMs,
++        ...(docsWriteSpec ? { docsWriteSpec } : {}),
++        ...(repositoryBindingIdentity
++          ? { repositoryBindingIdentity }
++          : {}),
++        ...(managedRepoRoot ? { managedRepoRoot } : {}),
++        ...(repositoryBinding ? { repositoryBinding } : {}),
+       });
+     } catch {
+       return this.failRealLaunch({
+
+```
+### DIFF: `projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts b/projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts
+index c5d42764..16f58a53 100644
+--- a/projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts
++++ b/projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts
+@@ -27,6 +27,10 @@ import {
+   isGitApplicableContract,
+   isGitCompletionProofEvidence,
+ } from "./qualifyGitEvidence";
++import {
++  gitProofFamiliesFromRequirements,
++  qualifyGitCompletionProofSet,
++} from "./qualifyGitCompletionProofSet";
+
+ export const OBLIGATION_POLICY_SUBJECT_PREFIX =
+   "pilot.lifecycle.obligation-policy:" as const;
+@@ -305,9 +309,65 @@ export function deriveFinalizationApplicability(
+     );
+   }
+   const gitIds = new Set(gitApplicable.map((c) => c.contractId));
+-  rules.gitProofPresent = evidence.some((e) =>
+-    isGitCompletionProofEvidence(e, gitIds, cycleId),
+-  );
++
++  // CR-GCEC-05 — when obligation snapshot has git MUST, require full proof SET.
++  // Legacy git-applicable EC cycles keep single-row / lexical completion.
++  const gitMust = snapshot?.mustFamilies.includes("git_repository") === true;
++
++  if (gitMust) {
++    const reqs = gitProofFamiliesFromRequirements(
++      contracts.flatMap((c) => c.evidenceRequirements ?? []),
++    );
++    const primaryContract = gitApplicable[0] ?? contracts[0];
++    const artifactEv = evidence.find(
++      (e) =>
++        e.type === "artifact" &&
++        evaluateFunctionalDesignArtifactCompleteness(e).ok,
++    );
++    const expected = {
++      repositoryRef:
++        input.repositoryBinding?.identity ??
++        (typeof artifactEv?.location === "string"
++          ? artifactEv.location
++          : "unknown/repo"),
++      targetPath: artifactEv?.location?.trim() || "docs/functional-design.md",
++      artifactDigest: artifactEv?.digest ?? "",
++      cycleInstanceId: cycleId,
++      executionContractId: primaryContract?.contractId,
++      projectId: input.projectId,
++    };
++    // Prefer repositoryRef from typed git evidence when binding identity empty.
++    if (!input.repositoryBinding?.identity) {
++      const typed = evidence.find((e) =>
++        typeof e.source === "string" && e.source.startsWith("git:"),
++      );
++      if (typed?.location?.includes("repo=")) {
++        try {
++          const q = typed.location.slice(typed.location.indexOf("?") + 1);
++          const repo = q
++            .split("&")
++            .map((p) => p.split("="))
++            .find(([k]) => k === "repo");
++          if (repo?.[1]) {
++            expected.repositoryRef = decodeURIComponent(repo[1]);
++          }
++        } catch {
++          /* keep fallback */
++        }
++      }
++    }
++    const setResult = qualifyGitCompletionProofSet({
++      evidence,
++      requirements: reqs,
++      expected,
++    });
++    rules.gitProofPresent = setResult.status === "SATISFIED";
++  } else {
++    // Legacy single-row path (non-GCEC / no git MUST).
++    rules.gitProofPresent = evidence.some((e) =>
++      isGitCompletionProofEvidence(e, gitIds, cycleId),
++    );
++  }
+
+   // --- Obligation policy HD (explicit N/A or REQUIRE) ---
+   const policy = findCurrentObligationPolicy(
+
+```
+### DIFF: `projects/sfia-studio/app/lib/oa/evidence-review/application/artifactCompleteness.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/application/artifactCompleteness.ts b/projects/sfia-studio/app/lib/oa/evidence-review/application/artifactCompleteness.ts
+index a76f65c1..b881dbad 100644
+--- a/projects/sfia-studio/app/lib/oa/evidence-review/application/artifactCompleteness.ts
++++ b/projects/sfia-studio/app/lib/oa/evidence-review/application/artifactCompleteness.ts
+@@ -1,5 +1,5 @@
+ /**
+- * GCEC D-GCEC-06 — functional-design artifact completeness over Evidence rows.
++ * GCEC D-GCEC-06 / CR-GCEC-04 — functional-design artifact completeness.
+  * No new Artifact table; type===artifact + digest + location + bindings + status.
+  */
+ import type { Evidence } from "../domain/types";
+@@ -9,14 +9,18 @@ export type ArtifactCompletenessGap =
+   | "digest_missing"
+   | "location_missing"
+   | "bindings_missing"
+-  | "status_not_proof";
++  | "status_not_proof"
++  | "project_id_missing"
++  | "cycle_instance_id_missing"
++  | "execution_contract_id_missing"
++  | "execution_attempt_id_missing";
+
+ export type ArtifactCompletenessResult = {
+   ok: boolean;
+   gaps: ArtifactCompletenessGap[];
+ };
+
+-function hasStructuralBinding(evidence: Evidence): boolean {
++function hasLooseStructuralBinding(evidence: Evidence): boolean {
+   const b = evidence.bindings;
+   if (!b) return false;
+   return Boolean(
+@@ -30,9 +34,11 @@ function hasStructuralBinding(evidence: Evidence): boolean {
+ }
+
+ /**
+- * Evaluate whether Evidence represents a complete functional-design artifact.
++ * GCEC strict policy — require ALL of:
++ * projectId, cycleInstanceId, executionContractId, executionAttemptId
++ * + type artifact + digest + location + status available|verified.
+  */
+-export function evaluateFunctionalDesignArtifactCompleteness(
++export function evaluateGcecArtifactEvidence(
+   evidence: Evidence,
+ ): ArtifactCompletenessResult {
+   const gaps: ArtifactCompletenessGap[] = [];
+@@ -47,7 +53,17 @@ export function evaluateFunctionalDesignArtifactCompleteness(
+   if (!location) {
+     gaps.push("location_missing");
+   }
+-  if (!hasStructuralBinding(evidence)) {
++  const b = evidence.bindings;
++  if (!b?.projectId?.trim()) gaps.push("project_id_missing");
++  if (!b?.cycleInstanceId?.trim()) gaps.push("cycle_instance_id_missing");
++  if (!b?.executionContractId?.trim()) gaps.push("execution_contract_id_missing");
++  if (!b?.executionAttemptId?.trim()) gaps.push("execution_attempt_id_missing");
++  if (
++    !b?.projectId?.trim() ||
++    !b?.cycleInstanceId?.trim() ||
++    !b?.executionContractId?.trim() ||
++    !b?.executionAttemptId?.trim()
++  ) {
+     gaps.push("bindings_missing");
+   }
+   if (evidence.status !== "available" && evidence.status !== "verified") {
+@@ -56,3 +72,25 @@ export function evaluateFunctionalDesignArtifactCompleteness(
+
+   return { ok: gaps.length === 0, gaps };
+ }
++
++/**
++ * Evaluate whether Evidence represents a complete functional-design artifact.
++ * CR-GCEC-04: defaults to GCEC strict bindings.
++ */
++export function evaluateFunctionalDesignArtifactCompleteness(
++  evidence: Evidence,
++  mode: "gcec_strict" | "legacy_loose" = "gcec_strict",
++): ArtifactCompletenessResult {
++  if (mode === "gcec_strict") {
++    return evaluateGcecArtifactEvidence(evidence);
++  }
++  const gaps: ArtifactCompletenessGap[] = [];
++  if (evidence.type !== "artifact") gaps.push("not_artifact_type");
++  if (!evidence.digest) gaps.push("digest_missing");
++  if (!(evidence.location?.trim() ?? "")) gaps.push("location_missing");
++  if (!hasLooseStructuralBinding(evidence)) gaps.push("bindings_missing");
++  if (evidence.status !== "available" && evidence.status !== "verified") {
++    gaps.push("status_not_proof");
++  }
++  return { ok: gaps.length === 0, gaps };
++}
+
+```
+### DIFF: `projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
+index 768232bc..8103cb2d 100644
+--- a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
++++ b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
+@@ -429,6 +429,75 @@ export class FakeConversationProvider implements ConversationProvider {
+         },
+       };
+     }
++    if (markerProbe.includes("__F2_DOCS_WRITE_GCEC__")) {
++      return {
++        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
++          intentClass: "actionable",
++          candidateCycleTypeId: "cyc:functional-design",
++          signals: {
++            structuralChange: false,
++            securityImpact: false,
++            architectureImpact: false,
++            dataImpact: false,
++            irreversible: false,
++            lowRiskBounded: true,
++          },
++          cognitiveWorkload: null,
++          contradictionCandidate: null,
++          challengeResponseAssessment: null,
++          objective: "Rédiger le design fonctionnel borné",
++          scope: "docs/functional-design.md uniquement",
++          rephrasedRequest:
++            "Produire docs/functional-design.md via cursor.docs_write.apply",
++          outOfScope: ["Cursor REAL hors fake", "commit/push/PR"],
++          risks: ["Contenu incomplet"],
++          reservations: [],
++          stopConditions: ["AUCUNE EXÉCUTION RÉELLE CURSOR"],
++          activatedBlocks: ["qualification", "proposition", "gate"],
++          expectedOutcome: "Artifact functional-design prêt pour revue",
++          criticalJustification: null,
++          requestedOperation: "cursor.docs_write.apply",
++          executionIntent: {
++            intentKind: "docs_write",
++            artifactType: "functional_design",
++            targetRepositoryRef: "acme/widget",
++            targetPath: "docs/functional-design.md",
++            scopeIn: ["docs/"],
++            scopeOut: ["src/", ".github/"],
++            expectedOutputs: ["docs/functional-design.md"],
++            requiredCapabilities: ["cap:cursor.docs_write"],
++            validationExpectations: ["path_allowlist", "no_delete"],
++            evidenceRequirements: [
++              "git:commit",
++              "git:push",
++              "git:pull_request",
++              "git:ci_status",
++              "git:review_status",
++              "git:merge",
++              "git:post_merge_verification",
++            ],
++            requestedOperation: "cursor.docs_write.apply",
++            reversibilityExpectation: "reversible",
++            artifactBrief:
++              "Functional design covering goals, actors, flows, and constraints",
++            contentRequirements: [
++              "goals",
++              "actors",
++              "main_flows",
++              "constraints",
++              "out_of_scope",
++            ],
++          },
++        })}`,
++        usage: {
++          inputTokens: 10 * this.callCount,
++          outputTokens: 5 * this.callCount,
++          totalTokens: 15 * this.callCount,
++          model: "fake-test-model",
++          providerResponseId: `fake-resp-${this.callCount}`,
++        },
++      };
++    }
+     if (markerProbe.includes("__F2_INFORMATIVE__")) {
+       return {
+         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+@@ -447,6 +516,7 @@ export class FakeConversationProvider implements ConversationProvider {
+           expectedOutcome: null,
+           criticalJustification: null,
+           requestedOperation: null,
++          executionIntent: null,
+         })}`,
+         usage: {
+           inputTokens: 10 * this.callCount,
+@@ -482,6 +552,7 @@ export class FakeConversationProvider implements ConversationProvider {
+           expectedOutcome: "Proposition structurée prête pour revue",
+           criticalJustification: null,
+           requestedOperation: null,
++          executionIntent: null,
+         })}`,
+         usage: {
+           inputTokens: 10 * this.callCount,
+@@ -522,6 +593,7 @@ export class FakeConversationProvider implements ConversationProvider {
+           expectedOutcome: "Gate Morris requis — profil Standard",
+           criticalJustification: null,
+           requestedOperation: "create pr",
++          executionIntent: null,
+         })}`,
+         usage: {
+           inputTokens: 10 * this.callCount,
+@@ -582,6 +654,7 @@ export class FakeConversationProvider implements ConversationProvider {
+           expectedOutcome: "Gate Morris requis",
+           criticalJustification: "Besoin métier structurant documenté",
+           requestedOperation: "architecture change",
++          executionIntent: null,
+         })}`,
+         usage: {
+           inputTokens: 10 * this.callCount,
+@@ -610,6 +683,7 @@ export class FakeConversationProvider implements ConversationProvider {
+           expectedOutcome: null,
+           criticalJustification: null,
+           requestedOperation: null,
++          executionIntent: null,
+         })}`,
+         usage: {
+           inputTokens: 10 * this.callCount,
+@@ -669,6 +743,7 @@ export class FakeConversationProvider implements ConversationProvider {
+           expectedOutcome: "Proposition sans exécution",
+           criticalJustification: "Demande d'exécution explicite à borner sans lancer d'agent",
+           requestedOperation: "cursor create pr",
++          executionIntent: null,
+         })}`,
+         usage: {
+           inputTokens: 10 * this.callCount,
+@@ -704,6 +779,7 @@ export class FakeConversationProvider implements ConversationProvider {
+           expectedOutcome: null,
+           criticalJustification: null,
+           requestedOperation: "architecture security change",
++          executionIntent: null,
+         })}`,
+         usage: {
+           inputTokens: 10 * this.callCount,
 
 ```
