@@ -1,488 +1,494 @@
 # SFIA STUDIO — GOVERNED CYCLE EXECUTION COMPLETION
-# CAPABILITY QUALIFICATION / END-TO-END GAP ANALYSIS
+# ONE-LOT CONSTRUCTION QUALIFICATION
+# ARCHITECTURE-TO-DELIVERY CONTRACT
 # REVIEW PACK — FULL (READ-ONLY)
 
-## 0. TIMESTAMP / META
+## 0. TIMESTAMP
 
-- **timestamp (Europe/Paris):** 2026-09-11 09:07:38 CEST
+- **timestamp (Europe/Paris):** 2026-09-11 09:24:13 CEST
 - **worktree:** `/Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310`
 - **branch:** `delivery/sfia-studio-product-proof-qual-to-governed-cycle`
 - **HEAD:** `6a2e3c9d71275145b20b514d02ab54533a72a2a7`
 - **parent:** `4a80965a5f1687f805544c56be66e5d2ead3ea29`
 - **origin/main:** `a9f6c310a0826d0e5bd6f7264603382a86564db1`
-- **prior readiness handoff (stale for runtime):** `sfia/review-handoff` `0163ba31bbb573ac181c2f888378ce4470c78e55`
-- **Capability:** GOVERNED CYCLE EXECUTION COMPLETION
-- **External SFIA cycle for this analysis:** Cycle 1 — Cadrage (qualification only)
-- **Typologie:** EVOL · Profile CRITICAL
-- **GO Morris consumed:** `GO — GOVERNED CYCLE EXECUTION COMPLETION CAPABILITY QUALIFICATION`
-- **Product Completion:** COMPLETE / CLOSED
-- **Runtime v3:** NON ADOPTED
-- **Product implementation:** NONE
-- **Product DB mutation intent:** NONE (read-only inspect)
-- **Nora/OpenAI / Cursor REAL / Product Git:** ZERO
+- **prior GCEC capability handoff:** `sfia/review-handoff` `df51a6e5f66f364dfadf185a19ca48f75a70ce15`
+- **External cycle:** 6 — Architecture technique · EVOL · CRITICAL
+- **GO Morris:** ADOPT D-GCEC-01 A BOUNDED, D-GCEC-02 EXPLICIT BINDING + DEDICATED PROOF REPO, D-GCEC-03 A BOUNDED DOCS-WRITE, D-GCEC-05 OPTION 1 TEMPORARY WITH EXIT, D-GCEC-06/07 ADAPT EXISTING, D-GCEC-08 SAME-LOT · AUTHORIZE GCEC ONE-LOT CONSTRUCTION QUALIFICATION
+- **Product Completion:** CLOSED · **runtime v3:** NON ADOPTED
+- **Implementation in this cycle:** NONE
 
 ## 1. GIT TRUTH
 
 ```
-pwd: /Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310
-branch: delivery/sfia-studio-product-proof-qual-to-governed-cycle
-HEAD:   6a2e3c9d71275145b20b514d02ab54533a72a2a7
-HEAD^:  4a80965a5f1687f805544c56be66e5d2ead3ea29
-origin/main: a9f6c310a0826d0e5bd6f7264603382a86564db1
+branch = delivery/sfia-studio-product-proof-qual-to-governed-cycle
+HEAD   = 6a2e3c9d71275145b20b514d02ab54533a72a2a7
+HEAD^  = 4a80965a5f1687f805544c56be66e5d2ead3ea29
+origin/main = a9f6c310a0826d0e5bd6f7264603382a86564db1
+handoff tip at start = df51a6e5 (parent 0163ba31)
 ```
 
-Tracked Product tree clean. Dirt only under `.tmp-sfia-review/**`.
-No reset/stash/rebase/merge/Product commit.
+Tracked Product tree clean. Dirt only `.tmp-sfia-review/**`.
 
-## 2. CONVERGENCE PRE-CHECK
+## 2. SOURCES
 
-Hierarchy applied: Git current > Morris/HD facts > project sources > memory > hypothesis.
+Process template · routing · operating model · guardrails · v2.5 cycles · CKC architecture technique · Build Doctrine · Roadmap · Product Completion cadrage · v3 23/30–35/37 · GCEC qualification handoff `df51a6e5` · Product traces (Project/Decision/EC/Evidence/Attempt/F3/M4/TrajectorySurface).
 
-Binding:
-- Git = technical SoT
-- Build Doctrine = HOW
-- Roadmap = WHERE
-- v3 = Product destination (NON ADOPTED runtime)
-- v2.6 / method CKC = external qualification only — **not** runtime Studio doctrine dependency
-- Recommendation ≠ HumanDecision
-- Nora does not own lifecycle/execution authority
-- Pilote owns runtime structural decisions
-- Morris owns construction/gates/promotions
-- ABSENCE OF A ROW ≠ N/A
+Hierarchy: Git > Morris decisions consumed > HD facts > sources > memory > hypothesis.
+v2.6 = PROCESS only — no runtime markdown dependency.
 
-## 3. CURRENT REAL PROJECT STATE (READ-ONLY — POST MANUAL CAMPAIGN)
+## 3. CONVERGENCE PRE-CHECK
 
-Resolved DB from `.env.local` `SFIA_STUDIO_PRODUCT_DB_PATH`:
-`/Users/morris/Projects/sfia-product-proof-greenfield-task-app-a9f6c310/projects/sfia-studio/.sfia-exec/product-proof-greenfield-task-app/product.sqlite`
+Build Doctrine ACTIVE · Product Completion CLOSED · runtime v3 NON ADOPTED · F3 Product path SoT · execution-run OUT as completion SoT · Recommendation ≠ HD · Nora ≠ execution authority.
 
-| Fact | Value |
-|------|-------|
-| projectId | `prj:22fc4a03-ff89-4f97-98a2-877dc9ea781e` |
-| title | Gestion de tâches |
-| LPS | **v12** · `activeCycleInstanceId = null` |
-| Cycle | `cyc:trj-bc8bfdc19942868116fc4b53` · `cyc:framing` · **completed** · closedAt `2026-09-11T05:57:03.132Z` |
-| Trajectory | `trj:lr-bridge-4db9f4b59463` v1 validated · step Cadrage **done** · decidedBy `dec:gf-trj:833b39ac-…` |
-| Obligation-policy HD | `dec:pilot-life:11078500-…` accepted · **`opt:no-governed-effects`** |
-| Finalizing HD | `dec:pilot-life:95150b17-…` accepted (prior finalize HDs superseded) |
-| ExecutionContracts | **0** |
-| Evidence | **0** |
-| ReviewBundles | **0** |
-| Reservation | 1 **resolved** |
+## 4. MORRIS DECISIONS CONSUMED
 
-**Interpretation of completed framing:**
-Valid proof of lifecycle mechanics (START → blockers → obligation-policy → step close → FINALIZE → Terminé · completed → reload).
-**Not** proof of a methodologically complete repository-backed Cadrage with durable deliverable/Git.
-The `opt:no-governed-effects` path made artifact/EC/evidence/review/git **NOT_APPLICABLE** by explicit Pilot HD — not by absence of rows.
+| ID | Adoption | Bound meaning |
+|----|----------|---------------|
+| D-GCEC-01 | A BOUNDED | DoctrinePackage + F14 semantics + cycle/context binding; no parallel obligation engine |
+| D-GCEC-02 | Explicit Project binding + dedicated proof repo vehicle | Ambient sfia-workspace ≠ target; dedicated Gestion de tâches repo = first vehicle only |
+| D-GCEC-03 | A BOUNDED DOCS-WRITE | Sibling AgentCapability; do not break RO contract |
+| D-GCEC-04 | Doctrine-resolved | Local write/commit/push/PR/CI read/merge/post-merge under gates; no autonomous merge |
+| D-GCEC-05 | Option 1 TEMPORARY + EXIT | Producing CycleInstance stays active through post-merge for first vertical only |
+| D-GCEC-06 | ADAPT existing | No new Artifact aggregate/table unless forced |
+| D-GCEC-07 | Typed Git via existing Evidence | Merge + target verify + artifact identity + CI/review when Git APPLICABLE |
+| D-GCEC-08 | Same-lot ADAPT | Trajectory reprepare fix inside Delivery lot |
 
-**Known Product Proof findings preserved:**
-- PP-REAL-UX-RESERVE — FINALIZE decision vs command wording
-- PP-REAL-GAP — POST-COMPLETION TRAJECTORY REPREPARE
-- PP-REAL-GAP — CYCLE OBLIGATION CONTRACT / APPLICABILITY GROUNDING (qualified herein)
+## 5. CURRENT REAL PROJECT STATE (RO)
 
-Do **not** treat handoff `0163ba31` as current runtime truth (it precedes these manual advances).
+`prj:22fc4a03-ff89-4f97-98a2-877dc9ea781e` Gestion de tâches · LPS **v12** · active=null · framing **completed** · step **done** · `opt:no-governed-effects` · FINALIZE accepted · EC/Evidence/RB=0.
 
-## 4. CAPABILITY TARGET / V3 TRAJECTORY LINK
+Lifecycle-mechanics evidence only — not repo-backed Cadrage completeness. Do not reopen.
 
-Target loop (capability, not this cycle's execution):
-Pilot → Studio/Nora → Cycle+v3 context → cognitive work → deliverable → structured intent → HD → ExecutionContract → Confirmation → Cursor → Artifact → Attempt → Evidence → ReviewBundle → Nora post-Evidence → Git gates → commit/push/PR/CI/merge/post-merge → LPS → FinalizationAssessment → Pilot FINALIZE → completed → trajectory.
+## 6. CAN ONE-LOT BE IMPLEMENTED WITHOUT NEW PERSISTENCE?
 
-Doctrine anchors: V3-F11/F12 (34), V3-F14 ArtifactCompletenessContract (35), ReviewBundle (23), LPS/trajectory (32), epistemology (33), applicability (15), CKC catalog including `cyc:pr-readiness` / `cyc:post-merge` as **distinct cycle types**.
+# **YES**
 
-## 5. SOURCES READ
+All required durable state fits existing SQLite aggregates as `payload_json` / existing columns. No new table. No migration. No new persistence boundary.
 
-Process: sfia-cycle-execution-template · routing-guide · chatgpt-cursor-operating-model · rules-and-guardrails · v2.5 cycles candidate · CKC pilots (cadrage / functional-design via studio CKC) · QA validation pilot reference.
-
-Studio: build-doctrine · roadmap · product-completion cadrage (CLOSED).
-
-v3: 15 applicability · 23 ReviewBundle · 30 HD doctrine · 32 LPS/trajectory · 33 epistemology · 34 AgentCapability · 35 Artifact/Evidence · 37 foundations (ArtifactCompletenessContract named) · CKC 01/13/14 + validation matrices.
-
-Handoff: `0163ba31` readiness pack (context only).
-
-Code traced (non-exhaustive): `deriveFinalizationApplicability.ts` · `assessFinalization.ts` · `qualifyGitEvidence.ts` · `pilotLifecycleTransitions.ts` · `prepareM3FromDecision.ts` · `resolveM3ExecutionContract.ts` · `prepareAndResolveM3ProductPath.ts` · `validateResolvedM3ExecutionBoundary.ts` · `m4BoundedReadOnlyCursorAgent.ts` · `studioGitWorktreeWorkspace.ts` · `studioCursorRealLaunchGateway.ts` · `execution-run/**` · `evidence-review/**` · `TrajectorySurface.tsx` · `approveCandidateTrajectory.ts` · cycleTypeCatalog · F3 ingest/postEvidence.
+If Delivery invents a first-class `oa_artifacts` table → **GATE GCEC-PERSIST / STOP**. Not required under D-GCEC-06.
 
 ---
 
-## 6. END-TO-END CAPABILITY MAP (KEEP / ADAPT / BUILD / OUT / DEBT)
+## 7. PERSISTENCE IMPACT MATRIX
 
-| ID | Capability | Maturity | Class | Authority | Persistence | Gap |
-|----|------------|----------|-------|-----------|-------------|-----|
-| A | Cycle semantic contract | Partial | ADAPT | DoctrinePackage/CKC | cycleTypeCatalog IDs only | No machine obligations on type |
-| B | CKC / DoctrinePackage knowledge | KEEP | KEEP | Morris doctrine pin | DoctrinePackage | Narrative; executionAuthority false |
-| C | Expected cycle deliverables | Missing | BUILD | Doctrine + Pilot exceptions | None runtime | No pre-exec SoT |
-| D | ArtifactCompletenessContract | Doctrine VALIDATED | BUILD runtime | Doctrine F14 | Not implemented as Product object | Named in 37; no module |
-| E | Nora cognitive context | KEEP | KEEP | Nora recommend | Session + LPS/ACW | Not execution authority |
-| F | Structured execution intent | Partial | ADAPT | DecisionBasis | Decision | No target/caps fields |
-| G | DecisionBasis | Partial | ADAPT | HD path | Decision | Insufficient for write EC |
-| H | HumanDecision | KEEP | KEEP | Pilote | oa_human_decisions | — |
-| I | EC PREPARE | KEEP bridge | ADAPT | F3 prepare | oa_execution_contracts | Always UNRESOLVED_TARGET |
-| J | EC resolve/supersede | KEEP | ADAPT | Server profiles | supersession | Fixture/RO only |
-| K | Confirmation / Gate D | KEEP | KEEP | Pilote | confirmations | — |
-| L | AgentCapability | Doctrine KEEP / Product partial | ADAPT+BUILD | Deny-by-default registry | Memory registry | Only RO/fixture |
-| M | Cursor agent selection | KEEP RO | ADAPT | Registry | selectedAgentRef | No write agent |
-| N | Isolated worktree | KEEP primitive | ADAPT | Server compose | ephemeral worktree | Ambient repoRoot |
-| O | Filesystem write | Missing Product | BUILD | Would need AgentCapability | — | Hard-denied today |
-| P | Local tests/validation | Partial | ADAPT | Attempt/policy | attempt result | RO inspect oriented |
-| Q | Artifact registration | Partial/inferred | BUILD | Evidence type artifact | evidence rows | No first-class Artifact aggregate |
-| R | ExecutionAttempt | KEEP F3 | KEEP | Attempt FSM | oa_execution_attempts | Product path |
-| S | Evidence ingestion | KEEP | ADAPT | F3 ingest | oa_evidence | No git lifecycle types |
-| T | ReviewBundle | KEEP | ADAPT | Review object | oa_review_bundles | Not authority |
-| U | Nora post-Evidence | KEEP | KEEP | Analysis only | epistemic | — |
-| V | Git diff qualification | Lexical | ADAPT | qualifyGitEvidence | evidence markers | Not SHA/PR/CI proof |
-| W | Local commit | Doctrine allows L3 | BUILD Product | N2 human | — | No Product executor |
-| X | Push | Doctrine L3 N3 | BUILD Product | Morris for Studio repo | — | No Product executor |
-| Y | PR creation | Doctrine L3 N3 | BUILD Product | Morris for Studio repo | — | No Product executor |
-| Z | CI/review read | Partial read adapters | ADAPT | Git read ports | — | Not completion ledger |
-| AA | Merge | Doctrine L3 N3 | BUILD Product | Morris; no autonomous | — | Forbidden autonomous |
-| AB | Post-merge verification | CKC separate type | BUILD+DECISION | Pilote/Morris | — | Semantics open |
-| AC | GitEvidence typed | Missing | BUILD | Evidence model | — | Lexical only |
-| AD | LPS reinjection | KEEP | KEEP | appendEvidenceOutcomeToLps | LPS | — |
-| AE | FinalizationApplicability | KEEP fail-closed | ADAPT | deriveFinalizationApplicability | derived | Needs obligation contract input |
-| AF | FinalizationAssessment | KEEP | KEEP | assessFinalization | audit+UI | — |
-| AG | Pilot FINALIZE | KEEP | KEEP | PilotLifecycle | cycle+LPS | Proven REAL |
-| AH | Trajectory after completion | Bug | ADAPT | TrajectorySurface | decided traj | Reprepare Cadrage |
+| OBJECT | CURRENT STORE | PROPOSED DELTA | SCHEMA CHANGE? | MIGRATION? | BACK-COMPAT | STATUS |
+|--------|---------------|----------------|----------------|------------|-------------|--------|
+| Project | `oa_projects.payload_json` | Add optional `repositoryBinding` object | **NO** | **NO** | Additive JSON | READY |
+| DecisionBasis | inside `oa_human_decisions.payload_json` | Extend `executionBasis` fields | **NO** | **NO** | Additive | READY |
+| ExecutionContract | `oa_execution_contracts` + payload | Use existing action/target/scope/inputs/EO/caps/constraints | **NO** | **NO** | — | READY |
+| ExecutionAttempt | `oa_execution_attempts` | Allow docs-write agent class in start/grant paths | **NO** | **NO** | — | READY |
+| Evidence | `oa_evidence` + payload | Typed Git via `source`/`location` discriminators; KEEP EvidenceType enum | **NO** | **NO** | Additive convention | READY |
+| ReviewBundle | `oa_review_bundles` | Reference artifact/git evidence ids | **NO** | **NO** | — | READY |
+| CycleInstance | `oa_cycle_instances` | No required delta for Option 1 | **NO** | **NO** | — | READY |
+| LPS | `oa_lps` | Links only; no new columns | **NO** | **NO** | — | READY |
+| ProjectTrajectory | `oa_project_trajectories` | No schema; presentation ADAPT | **NO** | **NO** | — | READY |
+| AgentCapability | in-memory registry | Sibling descriptor | N/A SQL | N/A | — | READY |
+| F14 obligations | derived (no table) | On-demand binder module | **NO** | **NO** | — | READY |
 
-**OUT:** ops1 Cursor adapter as OA authority · execution-run as Product completion SoT · v2.6 markdown as runtime doctrine · handoff publisher as cycle Git proof · autonomous merge · global L5.
-
-**DEBT:** Project↔repo binding · DecisionBasis target/caps · fine-grained obligation-policy UI · ArtifactCompletenessContract runtime · typed Git evidence · write AgentCapability · Git write ports · post-completion trajectory gating · F3 vs execution-run duality (treat F3 as Product path).
+**PERSISTENCE VERDICT: NO SCHEMA CHANGE REQUIRED → Delivery qualification may proceed.**
 
 ---
 
-## 7. CYCLE OBLIGATION CONTRACT ANALYSIS (PRIMARY GAP)
+## 8. F14 / OBLIGATION BINDING (D-GCEC-01)
 
-### Proven current behavior
-`deriveFinalizationApplicability`:
-- **Absence → UNKNOWN → BLOCKING** (not N/A)
-- **N/A only** via current obligation-policy HD options (`opt:no-governed-effects`, fine-grained `opt:no-*` / `opt:require-*`)
-- Positive APPLICABLE from: trajectory presence (exit), cycle-bound EC, evidence/review rows, EC expectedOutputs/evidenceRequirements, git semantic markers on EC/evidence
+### Chosen option: **A — derive on demand** (schema-free)
 
-REAL framing closed with `opt:no-governed-effects` → all governed families NOT_APPLICABLE without EC/Evidence/RB rows. Methodologically valid as **explicit exception**, invalid as proof that Cadrage needed no durable deliverable.
+Do **not** create Cycle Obligation Engine or new table.
 
-### Does Cycle Obligation Contract already exist?
-| Candidate | Verdict |
-|-----------|---------|
-| cycleTypeCatalog | IDs/CKC map only — no required outputs |
-| Studio CKC markdown | Narrative Sortie / candidates — not machine obligations; executionAuthority false |
-| DoctrinePackage | Pin/source resolution — not per-cycle obligation matrix |
-| ArtifactCompletenessContract | **Doctrine F14 VALIDATED** · **runtime ABSENT** |
-| Trajectory step | Progress/state only |
-| ExecutionContract expectedOutputs | Post-PREPARE strings; not pre-exec cycle SoT |
-| DecisionBasis | Decision path; not cycle-type obligations |
+**Runtime binder (new module):** compose from:
+1. DoctrinePackage pin + cycle type (`cycleTypeCatalog` + CKC cognitive refs — narrative → machine mapping table in TS, not markdown parse)
+2. Project context class (esp. `repositoryBinding` present ⇒ repo-backed)
+3. Intrinsic defaults for proof vehicle `cyc:functional-design` (or catalog key) when repo-backed: artifact/EC/evidence/review/git **APPLICABLE**
+4. Human exception HD (obligation-policy) with **monotone contradiction**: MUST cannot be silently erased by `opt:no-governed-effects`
 
-**Answer:** Concept exists in doctrine as **ArtifactCompletenessContract (F14)** + CKC narrative exits, but **no runtime Cycle Obligation Contract object** binds expected Artifact/EC/Evidence/Review/Git **before** rows exist.
+**Integration:** `deriveFinalizationApplicability` consumes binder snapshot **before** row presence. Absence → UNKNOWN/missing proof → BLOCKING.
 
-### Target semantics (design only)
-1. Canonical v3-native source: DoctrinePackage-modeled cycle obligation / ArtifactCompletenessContract binding (not method/v2.6 markdown parsing).
-2. Pre-exec obligation matrix: intrinsic (from cycle type + project context class) vs contextual (repo-backed vs ephemeral).
-3. Applicability becomes APPLICABLE from obligation contract / require-* HD / positive EC intent — **not** waiting for rows.
-4. Generic `no-governed-effects` must not silently contradict mandatory outputs: either fail-closed contradiction, or require explicit exception + DebtItem, or disallow when obligation contract marks MUST.
-5. Intrinsic vs contextual: e.g. framing may MUST produce a durable framing artifact in repo-backed Product Proof; Git MAY be required when artifact is repo-integrated; ephemeral contexts may differ if doctrine permits.
-6. ArtifactCompletenessContract owns artifact completeness; ExecutionContract owns how/who executes; FinalizationApplicability consumes both.
-7. Accepted exceptions: current obligation-policy HD (KEEP) + monotone contradiction rules (KEEP) + structural DebtItem when exception is accepted against MUST.
-8. Pilot owns exceptions/FINALIZE; deterministic doctrine owns default obligations for cycle+context class.
+**Rules:**
+- deterministic MUST > generic no-governed-effects
+- N/A against MUST → fail-closed contradiction or explicit governed exception UX (Pilot-owned; no auto DebtItem)
+- Nora does not own applicability
 
-**HARD RULE retained:** ABSENCE OF A ROW IS NOT A REASON FOR N/A.
-
-**Structural:** introducing a durable obligation contract aggregate / schema → Morris decision (D-GCEC-01 / possibly D-GCEC-06). Prefer ADAPT existing modeled F14 into runtime without parallel object names.
+**Files:** BUILD `deriveCycleObligationSnapshot.ts` (name flexible) · ADAPT `deriveFinalizationApplicability.ts` · ADAPT obligation-policy UI to disable/contradict generic N/A when MUST bound · KEEP HD subject model.
 
 ---
 
-## 8. COGNITIVE WORK → EXECUTION INTENT
+## 9. PROJECT → REPOSITORY BINDING (D-GCEC-02)
 
-Path: Nora turn → F2 orchestrate → DecisionBasis/HD → `prepareM3FromDecision.fieldsFromBasis` → draft EC → `selectProductM3ResolutionProfile` → `resolveM3ExecutionContract` (supersede).
+### Minimum durable fields (on Project.payload_json)
 
-`fieldsFromBasis` hard-codes:
-- `target = "UNRESOLVED_TARGET"`
-- `requiredCapabilities = ["cap:unresolved"]`
-- stop sentinels TARGET_UNRESOLVED / CAPABILITY_UNRESOLVED
-- constraints PREPARE_ONLY / NO_CURSOR_REAL / …
+```ts
+repositoryBinding?: {
+  provider: "github"; // first slice
+  identity: string;   // "owner/repo"
+  remoteUrl: string;  // https://github.com/owner/repo.git
+  defaultBranch: string; // "main"
+  baseSha?: string;   // optional pin; else resolve at prepare
+  pathRoot?: string;  // e.g. "docs/" allowlist root
+}
+```
 
-Resolution profiles today: **fixtureSafe** or **boundedReadOnly** only. Client cannot inject write targets. Two-stage PREPARE→resolve is intentional fail-closed design.
+Ambient `repoRoot` from Studio compose remains **Studio implementation workspace**, never Project target.
 
-**Gap:** Nora can conclude cognitively what should be produced, but DecisionBasis cannot carry structured target/path/caps/validation/scope into EC without schema ADAPT. Must not parse prose as authority; must not add second LLM.
+### First proof vehicle (DO NOT CREATE NOW)
 
-**Recommendation:** ADAPT DecisionBasis.executionBasis (structured, non-authoritative proposal) + BUILD write-capable resolution profile gated by AgentCapability + Confirmation.
+| Item | Recommendation |
+|------|----------------|
+| Name | `sfia-pp-gestion-de-taches` (or `gestion-de-taches-product-proof`) |
+| Host | GitHub under Morris-controlled org/user |
+| Default branch | `main` |
+| Bootstrap | README + `docs/` directory; empty or minimal LICENSE |
+| Auth | existing GitHub credentials via Product/git provider ports — never print secrets |
+| Creation gate | **GATE GCEC-REPO-CREATE** separate GO |
 
----
+Validation: remote reachable · defaultBranch exists · pathRoot inside repo · no sfia-workspace identity unless explicitly bound (forbidden for this vehicle).
 
-## 9. EXECUTIONCONTRACT BACKBONE
-
-Usable today: decision/cycle/project refs, action/target/scope, inputs, expectedOutputs, requiredCapabilities/authority, constraints, stopConditions, evidenceRequirements, reversibility, idempotency, correlation, confirmation, supersession, selectedAgentRef, baseHeadSha in inputs (RO).
-
-Missing for real doc+git: durable repo identity, base branch, write allowlist, commit/PR/merge intent fields, typed expected artifact path, write capability IDs, structured Git proof requirements.
-
-**KEEP** EC as canonical contract. Markdown Cursor export = adapter only (doctrine 34).
-
----
-
-## 10. CURSOR WRITE CAPABILITY
-
-REAL Product agent: **M4 bounded read-only** (`cap:cursor.read_only`, inspect, isolated read).
-Registry deny-by-default. Gateways ACL for RO/fixture. execution-run policy rejects mutation/gitWrite.
-ops1 adapter explicitly forbids commit/push/PR/merge — **OUT** as OA authority.
-
-**No governed filesystem-write or git-local-write AgentCapability is registered/executable.**
-
-Doctrine 34 **allows** local write L3 / commit L3 / push-PR-merge L3 with N2–N3 gates — Product has not implemented those capabilities.
-
-**D-GCEC-03 STRUCTURAL** before adding write agent profile.
+Stale-base: EC `inputs.baseHeadSha` must match worktree HEAD at Gate D; mismatch → STOP / re-confirm.
 
 ---
 
-## 11. WORKSPACE / REPOSITORY BINDING
+## 10. DECISIONBASIS EXECUTION INTENT
 
-`studioGitWorktreeWorkspace`: reusable primitive (worktree add --detach at baseHeadSha) — **KEEP/ADAPT**.
-Compose binds `repoRoot` from **ambient server env/cwd**, not Project/LPS.
-Project model has **no** repository URL / base branch / pin SHA.
+KEEP DecisionBasis on HumanDecision. ADAPT `executionBasis` additively:
 
-Gestion de tâches deliverable must **not** silently assume sfia-workspace contamination.
+| Field | Purpose |
+|-------|---------|
+| `intentKind` | e.g. `docs_write` |
+| `artifactType` | e.g. `functional_design` |
+| `targetRepositoryRef` | binding identity |
+| `targetPath` | relative path under pathRoot |
+| `scopeIn` / `scopeOut` | strings/lists |
+| `expectedOutputs` | paths/digests claims |
+| `requiredCapabilities` | e.g. `cap:cursor.docs_write` |
+| `validationExpectations` | commands/checks |
+| `evidenceRequirements` | `evreq:*` |
+| existing `stopConditions` / extend `reversibility` | |
+| provenance | HD provenance + cycle/Nora refs already available |
 
-Proof-target options (no creation now):
-- **A** dedicated throwaway Product Proof Git repo for Gestion de tâches — realistic, isolatable, cleanup clear
-- **B** bounded area inside authorized existing repo — lower setup, contamination risk
-- **C** reuse Studio worktree only — **reject** for this campaign deliverable
+Nora structured output: **ADAPT** existing F2 strict `json_schema` pattern (`intentAnalysis.ts`) — **COMBINE** / **BUILD ONLY SFIA-SPECIFIC DELTA** for execution-intent schema. No second LLM. No prose parser. Unresolved fields remain fail-closed at PREPARE.
 
-**Recommendation:** Option A for first REAL write/Git proof vehicle.
-**D-GCEC-02 STRUCTURAL.**
-
----
-
-## 12. ARTIFACT / EVIDENCE / REVIEWBUNDLE
-
-ArtifactCompletenessContract: doctrine VALIDATED; runtime = inferred Evidence `type=artifact` + EC expectedOutputs — **no first-class Artifact store**.
-Evidence types: document/screenshot/log_ref/artifact/attestation/other — **no** commit/PR/CI/merge types.
-Git “proof” via lexical markers + binding (`qualifyGitEvidence`) — insufficient for SHA/PR/CI/merge/post-merge ledger.
-ReviewBundle remains review object, not authority — **KEEP**.
-Ingest + postEvidenceNoraAnalysis + LPS append — **KEEP** path.
-
-Schema/new evidence types / Artifact aggregate → **STOP STRUCTURAL** (D-GCEC-06/07).
+Persistence: additive JSON in HD payload — **no migration**.
 
 ---
 
-## 13. GIT LOCAL / REMOTE CLASSIFICATION
+## 11. EXECUTIONCONTRACT RESOLUTION
 
-| Action | Product runtime | Class |
-|--------|-----------------|-------|
-| worktree isolate | Yes | E reusable |
-| git read / status / rev-parse | Partial | E |
-| filesystem write | No governed | BUILD |
-| commit | No Product | BUILD + gates |
-| push | No Product | BUILD + Morris for Studio |
-| PR | No Product | BUILD + Morris for Studio |
-| CI/review read | Partial adapters | ADAPT |
-| merge | No Product; doctrine forbids autonomous | BUILD gated |
-| force push | Forbidden | OUT |
+Preserve PREPARE → RESOLVE.
 
-External `publish-review-handoff.sh` = handoff only (A), not cycle Git proof.
+**PREPARE:** map DecisionBasis → draft EC; fail-closed if target/caps unresolved when intent claims docs_write.
 
----
+**RESOLVE profile:** `boundedDocsWrite` (sibling of `boundedReadOnlyM3ResolutionProfile`):
+- action: `cursor.docs_write.apply` (exact ID locked in Delivery)
+- target: isolated worktree target id / path
+- requiredCapabilities: `[cap:cursor.docs_write]`
+- inputs: `baseHeadSha`, `repositoryIdentity`, `pathAllowlist`, `createOrModify`
+- expectedOutputs: artifact path
+- constraints: `NO_GIT_REMOTE`, `NO_COMMIT`, `PATH_ALLOWLIST_ONLY`, `TEXT_DOCS_ONLY`
+- evidenceRequirements: artifact digest + touched files
+- Confirmation / Gate D required before start
 
-## 14. PR-READINESS / POST-MERGE RELATIONSHIP
-
-CKC catalog treats `cyc:pr-readiness` and `cyc:post-merge` as **distinct cycle types** with own exits.
-Product Cycle model is flat CycleInstances + trajectory steps — **no nesting**.
-
-Options:
-1. Producing cycle stays active; PR/merge/post-merge = **EC phases/controls** inside one obligation contract for first vertical slice
-2. Close producer before separate PR-readiness/post-merge CycleInstances
-3. Linked/parent cycle relationship (not in current model → higher structural cost)
-4. Other doctrine-backed hybrid
-
-**Recommendation for first proof lot:** Option **1** (temporary thin vertical) with explicit exit proof P15–P20 inside the producing cycle’s obligation contract when repo-backed; catalog types remain valid for later multi-cycle campaigns. Document exit to Option 2 when trajectory sequencing is honest.
-
-**D-GCEC-05 STRUCTURAL** (semantic choice).
-
-When can producer FINALIZE?
-- Only when its obligation contract’s applicable families are satisfied (including Git/post-merge **if** marked APPLICABLE for that vehicle).
-- Merge-complete is **not** a universal hard-code; it is obligation-driven.
+EC schema: **KEEP** — no new columns.
 
 ---
 
-## 15. FINALIZATION APPLICABILITY TARGET (DESIGN ONLY)
+## 12. DOCS-WRITE AGENT (D-GCEC-03)
 
-For repo-backed cycle with MUST artifact:
-- Artifact APPLICABLE missing → BLOCKING
-- EC APPLICABLE no successful contract → BLOCKING
-- Evidence APPLICABLE missing/unverified (policy) → BLOCKING
-- ReviewBundle APPLICABLE missing → BLOCKING
-- Git APPLICABLE not integrated to required state → BLOCKING
-- Post-merge required but target lacks artifact/digest → BLOCKING
-- Pilot FINALIZE HD absent → BLOCKING
+| Item | Spec |
+|------|------|
+| Capability ID | `cap:cursor.docs_write` |
+| Agent type | sibling of M4 RO — **do not mutate** RO descriptor |
+| Action | `cursor.docs_write.apply` |
+| Target | `workspace.isolated.docs_write` |
+| Scope | project-bound repo + pathAllowlist |
+| Mode | Cursor REAL agent mode (not `--mode ask`) — branched in gateway |
+| Files | text/markdown/docs only; create/modify explicit; no delete in v1 |
+| Forbidden | protected paths · arbitrary shell · commit/push/PR · repo-wide write |
+| Validation | bounded allowlisted commands only |
+| Evidence | exact touched files + digests |
+| Fail | dirty unexpected · out-of-scope · digest mismatch · base SHA drift |
+| Cleanup | worktree remove per existing workspace port |
 
-Clarify in construction (D-GCEC-07): verified vs available Evidence; Git completion bar (commit / push / PR / merge / target verify) from obligation contract, not universal shortcut.
-
-Current assess/derive: **KEEP** fail-closed core; **ADAPT** to consume obligation contract.
-
----
-
-## 16. POST-COMPLETION TRAJECTORY REPREPARE
-
-**Root path:**
-1. FINALIZE clears LPS `activeCycleInstanceId`
-2. `buildPreCycleCandidateApprovalPresentation` returns `alreadyDecided` for validated/decided trajectory **without** checking that framing CycleInstance is completed
-3. `TrajectorySurface` shows « Préparer le cycle » when `greenfieldDecided && !activeCycleInstanceId && !preparedCycle`
-
-**Files:** `approveCandidateTrajectory.ts` · `TrajectorySurface.tsx`
-
-**Class:** ADAPT enabling fix inside same coherent lot (D-GCEC-08 — **not** a new architecture; required before honest next proof vehicle).
-
-Do not reopen completed framing. Do not standalone microcycle unless Morris insists.
+Reuse: `studioGitWorktreeWorkspace`, Attempt FSM, registry, Gate D. ADAPT: `startExecution` / `grantGateD` / `studioCursorRealLaunchGateway` / `vertical-slice-runtime/service.ts` registration.
 
 ---
 
-## 17. PARALLEL ARCHITECTURE CHECK
+## 13. WORKTREE
 
-Reuse: HD · DecisionBasis · EC · Attempt · AgentCapability · worktree · Evidence · ReviewBundle · LPS · Trajectory · qualifyGitEvidence.
-Reject: second execution engine as SoT (execution-run = OUT for completion) · second Git engine · second Artifact store name if F14 can be completed · second authority · second Nora/LLM · v2.6 runtime parse · prompt-as-authority.
-
----
-
-## 18. AUTOMATION LEVELS (TARGET)
-
-| Action | Target L | Confirmation | Morris gate |
-|--------|----------|--------------|-------------|
-| Generate artifact (propose) | L2–L3 | N1 inspect | — |
-| Local write | L3 | N1–N2 | if Studio repo protected paths |
-| Tests/validation | L3 | auto+fail-closed | — |
-| Commit | L3 | N2 human | Studio repo: yes |
-| Push | L3 | N3 | Studio repo: yes; proof repo: Pilote+policy |
-| PR | L3 | N3 | same |
-| Merge | L3 | N3 | **never autonomous** |
-
-No global L5. No autonomous merge.
+KEEP `studioGitWorktreeWorkspace`. ADAPT compose to take Project `repositoryBinding` + clone/worktree of **proof repo**, not ambient sfia-workspace. Containment: execRoot ≠ repoRoot; path allowlist under pathRoot; symlink escape checks.
 
 ---
 
-## 19. MORRIS DECISION MATRIX
+## 14. ARTIFACT COMPLETENESS (D-GCEC-06)
 
-| ID | Topic | Status | Recommendation |
-|----|-------|--------|----------------|
-| D-GCEC-01 | Canonical Cycle Obligation Contract source | **UNRESOLVED STRUCTURAL** | Option A: runtime-bind DoctrinePackage/F14 ArtifactCompletenessContract per cycle+context · Option B: extend cycleTypeCatalog machine fields · Option C: only HD require-* (insufficient). **Rec: A** |
-| D-GCEC-02 | Project↔repository binding | **UNRESOLVED STRUCTURAL** | A dedicated proof repo · B bounded area in existing repo · C Studio worktree only (reject). **Rec: A** for Gestion de tâches proof |
-| D-GCEC-03 | Writable Cursor AgentCapability | **UNRESOLVED STRUCTURAL** | A new write-capable agent profile under existing registry · B extend M4 (reject — RO contract) · C external manual Cursor only (fails Product proof). **Rec: A** bounded docs-write first |
-| D-GCEC-04 | Which Git ops Studio executes | **PARTIALLY RESOLVED by doctrine** | Product must implement gated commit/push/PR/merge ports; scope for first lot = proof repo only. **Rec:** implement gated local commit+push+PR+merge verification for proof repo; keep Morris gates for sfia-workspace |
-| D-GCEC-05 | PR/post-merge vs producing CycleInstance | **UNRESOLVED STRUCTURAL** | Options 1/2/3 above. **Rec: Option 1** for first vertical slice with exit to multi-cycle later |
-| D-GCEC-06 | Artifact runtime representation | **UNRESOLVED if new aggregate** | Prefer Evidence+F14 metadata ADAPT before new table; if new table → structural |
-| D-GCEC-07 | Evidence strength for Git/post-merge | **UNRESOLVED** | Rec: verified Evidence + structured refs (SHA/PR/CI/merge) required when Git APPLICABLE |
-| D-GCEC-08 | Trajectory reprepare fix before proof | **RESOLVED as enabling ADAPT** | Include in same lot; not standalone architecture decision |
+No new Artifact table.
+
+Representation:
+- Evidence `type: "artifact"` + digest + location path + bindings (project/cycle/EC/attempt)
+- F14 checklist evaluated in completeness function (sections/sources/status/reserves)
+- ReviewBundle refs artifact evidence ids
+- FinalizationAssessment: artifact family SATISFIED only when completeness evaluator PASS + evidence available/verified per policy
 
 ---
 
-## 20. RECOMMENDED PROOF VEHICLE
+## 15. TYPED GIT EVIDENCE (D-GCEC-07)
 
-**A — Conception fonctionnelle for Gestion de tâches** (recommended)
+KEEP EvidenceType enum. Discriminator on `source` (and `location` git:// markers):
 
-Pros: natural next after framing; durable design doc; exercises write Cursor + Artifact + Git + PR + merge + post-merge at lower risk than app code.
-Cons: needs trajectory reprepare fix; needs target repo binding (D-GCEC-02).
+`git:working_tree_diff` · `git:local_commit` · `git:remote_push` · `git:pull_request` · `git:ci_status` · `git:review_status` · `git:merge` · `git:post_merge_verification`
 
-Reject: fake fixture-only cycle; POC-only infrastructure cycle; reopening completed framing.
+Payloads carried in existing fields (location/source/digest/bindings/provenance/technicalResultRef as needed) — document typed JSON conventions in TS validators.
 
----
+**First vertical Git SATISFIED only when:**
+merge evidence exists **AND** post_merge_verification proves target branch SHA + artifact path/digest identity **AND** required CI/review evidence satisfied.
 
-## 21. RECOMMENDED ONE-LOT CONSTRUCTION
+Local diff/commit/push/PR alone → still BLOCKING.
 
-One coherent thin vertical lot:
-
-1. ADAPT trajectory post-completion gating (D-GCEC-08)
-2. BUILD/ADAPT Cycle Obligation Contract binding from F14/DoctrinePackage (D-GCEC-01)
-3. ADAPT DecisionBasis → EC resolution for docs write
-4. BUILD bounded writable Cursor agent + EC profile (D-GCEC-03)
-5. ADAPT worktree to project-bound proof repo (D-GCEC-02)
-6. ADAPT Evidence/Artifact completeness + typed Git proof (D-GCEC-06/07)
-7. BUILD gated Git commit/push/PR + post-merge verify ports for proof repo (D-GCEC-04/05 Option 1)
-8. ADAPT FinalizationApplicability to consume obligation contract
-9. REAL proof on Conception fonctionnelle vehicle
-10. Docs/roadmap truth sync only if trajectory materially changes
-
-Temporary limitations need target+exit (e.g. docs-only write; proof-repo-only Git; Option 1 PR/merge phases).
+ADAPT `qualifyGitEvidence` accordingly.
 
 ---
 
-## 22. CANDIDATE FILE SCOPE (NO EDITS NOW)
+## 16. GIT PORTS / EFFECT BOUNDARIES
 
-**A domain/v3:** ArtifactCompletenessContract runtime binding · obligation matrix (new modeled or ADAPT catalog) — structural if schema
-**B Project Assistant:** DecisionBasis fields · prepareM3FromDecision · resolution profiles · system prompt constraints
-**C EC:** types/fields for repo/artifact intent
-**D Attempt/AgentCapability:** new write agent · registry · launch gateway ACL
-**E worktree:** compose from Project binding
-**F Evidence/Review:** typed git evidence · completeness checks · ingest
-**G Git integration:** commit/push/PR/merge/verify ports (new Product adapters)
-**H finalization:** deriveFinalizationApplicability consume obligations
-**I UI:** TrajectorySurface · obligation require-* options · EC inspect · Git gate CTAs
-**J tests:** see §23
-**K docs:** roadmap sync post-implementation only
+| Phase | Port | Authority | Confirmation | Evidence |
+|-------|------|-----------|--------------|----------|
+| A Workspace mutation | docs-write agent | EC∩cap∩Gate D | Gate D | touched files + digest |
+| B Local Git review | status/diff read | read | — | working_tree_diff |
+| C Local commit | gitCommitPort | N2 Pilote | explicit | local_commit |
+| D Push | gitPushPort | N3 | explicit | remote_push |
+| E PR | gitHubPrPort | N3 | explicit | pull_request |
+| F CI/review | status read | read | — | ci_status / review_status |
+| G Merge | gitMergePort | N3 | explicit; never auto | merge |
+| H Post-merge verify | verifyPort | read | — | post_merge_verification |
 
----
+Classify existing: worktree/git read = KEEP/HARVEST · ops1 commit deny = OUT · handoff publisher = OUT for cycle · execution-run write reject = OUT SoT.
 
-## 23. TEST STRATEGY (FUTURE)
-
-Unit: derive applicability with obligation contract; DecisionBasis→EC; agent deny/allow; qualifyGitEvidence typed.
-Integration/SQLite: PREPARE/resolve supersession; attempt RO regression; write agent containment; idempotent retry; partial failure.
-Agent/worktree: path allowlist; dirty git; stale baseHeadSha; workspace cleanup.
-Git: commit/push/PR/CI fail/merge deny/post-merge mismatch (deterministic fakes + gated REAL).
-Lifecycle: no premature FINALIZE; reload; trajectory reprepare regression; no auto NEXT_CYCLE start.
-Authority: Confirmation denial; Morris gate denial; cap insufficient SC-CAP.
-
-Distinguish DETERMINISTIC · LOCAL REAL CURSOR · REMOTE GIT REAL · POST-MERGE REAL.
+No broad "execute Git" permission.
 
 ---
 
-## 24. EXIT PROOF P1–P25 (FUTURE)
+## 17. AUTHORITY / CONFIRMATIONS
 
-| ID | Observable | Source | Min accept | Gate | Class |
-|----|------------|--------|------------|------|-------|
-| P1 | Cycle START durable | CycleInstance active | status=active | Pilote | DET/REAL |
-| P2 | Nora cycle context | ACW/LPS | correct cycleType | — | DET |
-| P3 | Expected deliverable identified | Obligation+DecisionBasis | typed deliverable | — | DET |
-| P4 | Structured execution intent | DecisionBasis/EC draft | fields complete or unresolved fail-closed | — | DET |
-| P5 | Required HD | oa_human_decisions | accepted current | Pilote | REAL |
-| P6 | EC complete | oa_execution_contracts | resolved write profile | inspect | DET/REAL |
-| P7 | AgentCapability sufficient | registry+EC | write caps match | — | DET |
-| P8 | Confirmations/gates | Confirmation | Gate D consumed | Pilote | REAL |
-| P9 | Cursor REAL executes | Attempt | succeeded | — | LOCAL REAL |
-| P10 | Artifact exists+matches | FS+digest+Evidence | path+digest | — | LOCAL REAL |
-| P11 | Validation pass | Attempt/tests | green | — | DET/REAL |
-| P12 | Evidence linked | oa_evidence | bound to cycle/EC | — | DET |
-| P13 | ReviewBundle complete | oa_review_bundles | reviewable | — | DET |
-| P14 | Git diff correct | worktree diff Evidence | matches contract paths | Pilote review | LOCAL REAL |
-| P15 | Commit proven | GitEvidence SHA | commit on proof branch | N2 | REMOTE/LOCAL |
-| P16 | Push proven | remote ref | branch on origin | N3 | REMOTE |
-| P17 | PR proven | PR id/url | open/ready | N3 | REMOTE |
-| P18 | CI/review proven | status checks | required green | — | REMOTE |
-| P19 | Merge proven | merge SHA | merged | N3 Morris/Pilote | REMOTE |
-| P20 | Post-merge target verified | target branch digest | artifact present | — | REMOTE |
-| P21 | LPS updated | LPS links | evidence/outcome linked | — | DET |
-| P22 | FinalizationAssessment | assess | all APPLICABLE satisfied | — | DET |
-| P23 | Explicit FINALIZE | HD+transition | completed | Pilote | REAL |
-| P24 | Reload persistence | UI+DB | Terminé · completed | — | REAL |
-| P25 | No auto next start | trajectory/LR | no auto START | — | DET |
+`valid HD ∩ EC scope ∩ AgentCapability ∩ runtime policy ∩ Confirmations = effective authority`.
+
+| Effect | Gate |
+|--------|------|
+| docs write | Gate D + EC |
+| validation | fail-closed auto |
+| commit | Pilote N2 Confirmation |
+| push | Pilote N3 Confirmation |
+| PR | Pilote N3 Confirmation |
+| merge | Pilote N3 Confirmation; campaign Morris control for Product Proof |
+
+Morris: Studio construction / sfia-workspace gates.
+Pilot: runtime Product project + proof repo.
+Do not transplant Morris-only Studio rules onto proof repo as automatic identity — but remote/irreversible still need N3 Confirmations.
 
 ---
 
-## 25. RISKS / DEBT / EXIT
+## 18. OPTION 1 TEMPORARY MODEL (D-GCEC-05)
 
-Risks: silent N/A via over-broad no-governed-effects; Studio repo contamination; dual F3/execution-run confusion; implementing Git platform before thin vertical; autonomous merge creep; runtime v2.6 dependency.
+Producing CycleInstance stays **active** through A→H. Progress = EC/Attempt/Evidence/RB accumulation + FinalizationAssessment blockers — **not** new CycleInstances / nesting / catalog change.
 
-Debt/exit examples:
-- Option 1 PR/merge-in-producer → exit when multi-cycle trajectory honest
-- Docs-only write agent → exit when code write capability proven
-- Proof-repo-only Git → exit when Project binding supports customer repos
-- Lexical git evidence → exit when typed GitEvidence adopted
+**TEMP-GCEC-PRPM-01**
+- Target: requalify with distinct `cyc:pr-readiness` / `cyc:post-merge` after first E2E REAL GCEC proof
+- Exit: first END-TO-END REAL GCEC accepted + dedicated architecture qualification
+- Owner: Morris construction
+- Not global doctrine
 
 ---
 
-## 26. ANTI-CLAIMS
+## 19. FINALIZATION
 
-- Not READY FOR REAL write/Git proof
-- Not runtime v3 ADOPTED
-- Not Product Completion reopen
-- Not implemented
-- Not autonomous merge authorized
-- Completed framing ≠ governed execution completion proof
-- Handoff 0163ba31 ≠ current runtime state
-- Deterministic qualification ≠ REAL Cursor/Git proof
+At obligation bind (repo-backed functional-design):
+Artifact/EC/Evidence/RB/Git/Exit = **APPLICABLE**.
 
-## 27. VERDICT
+Progression:
+write → artifact may SATISFIED · Git BLOCKING
+… through commit/push/PR/CI … Git BLOCKING
+merge + post-merge verify + artifact identity → Git SATISFIED
+Pilot FINALIZE explicit.
 
-**PASS WITH RESERVES — CAPABILITY QUALIFIED WITH EXPLICIT UNRESOLVED STRUCTURAL DECISIONS**
+Generic `no-governed-effects`: unavailable or contradiction when MUST bound. Minimum UI: hide/disable or fail with explicit contradiction code — no silent exception.
 
-Construction options are ready for Morris decisions D-GCEC-01/02/03/05 (and 06/07 if schema), with D-GCEC-04 doctrine-aligned and D-GCEC-08 as same-lot enabling ADAPT.
+---
+
+## 20. TRAJECTORY REPREPARE (D-GCEC-08)
+
+Root: `buildPreCycleCandidateApprovalPresentation` returns `alreadyDecided` without checking completed CycleInstance; `TrajectorySurface` shows « Préparer le cycle ».
+
+Desired: completed step + no active → **no prepare CTA** for that completed type; may show terminal history / separate next candidate when qualified; **no** auto-start / fabricated trajectory.
+
+Files: `approveCandidateTrajectory.ts` · `TrajectorySurface.tsx` · tests ADAPT.
+
+---
+
+## 21. SECURITY BOUNDARY
+
+path traversal · symlink · repoRoot/worktree containment · dirty tree · protected paths · command injection · branch/remote validation · force-push ban · no secret logging · GitHub token via existing secret channels · PR/merge target validation · stale SHA · Confirmation→effect TOCTOU re-check baseSha · retry idempotency · partial failure leave Attempt failed + no false Evidence.
+
+---
+
+## 22. FAILURE / RECOVERY (summary)
+
+Cursor fail / OOS write / validation fail / dirty / digest mismatch → Attempt failed; no Git phase; retry needs new Confirmation if Gate D consumed.
+Evidence ingest fail after Attempt success → durable Attempt truth; retry ingest without rewrite if idempotent.
+commit/push/PR/CI/merge fail → phase Evidence absent; stay active; re-confirm for remote effects.
+merge success + Evidence fail → Git remote true; Studio must recover Evidence recording before FINALIZE.
+post-merge mismatch → Git BLOCKING; no FINALIZE.
+Studio restart → resume from durable EC/Attempt/Evidence; no phantom progress.
+
+No second orchestration engine.
+
+---
+
+## 23. TEST PLAN
+
+UNIT: obligation derive · N/A contradiction · repo binding validation · DecisionBasis map · EC resolve · path allowlist · typed Git qualify · finalization blockers · trajectory reprepare.
+INTEGRATION: SQLite Project binding · EC+cap · worktree docs-write · unexpected file · Attempt/Evidence/RB · commit boundary.
+DETERMINISTIC fake Git provider at boundary.
+LOCAL REAL CURSOR: docs-write on disposable proof clone (**GATE GCEC-CURSOR-REAL**).
+REMOTE GIT REAL: push/PR/CI/merge (**gates**).
+POST-MERGE REAL: SHA+digest.
+RECOVERY: restart after each durable phase.
+
+---
+
+## 24. ONE-LOT INTERNAL STAGES
+
+1. Obligation binder + Project repositoryBinding + DecisionBasis intent + trajectory reprepare
+2. boundedDocsWrite profile + agent + worktree binding + Artifact/Evidence completeness
+3. Git ports (commit/push/PR/CI/merge/verify) + typed Evidence
+4. Finalization wiring + UI gates + deterministic suites
+5. REAL readiness (separate campaign GOs)
+
+Stages ≠ separate readiness claims.
+
+---
+
+## 25. ARCHITECTURE PARALLELISM CHECK
+
+Reuse HD · DecisionBasis · EC · Attempt · AgentCapability · F3 · worktree · Evidence · RB · LPS · Trajectory · deriveFinalizationApplicability.
+Reject: execution-run SoT · second worktree engine · second Git SoT · new Artifact DB · parallel obligation engine · Nora authority · v2.6 runtime parse.
+
+Why existing insufficient alone: Project lacks repo binding; DecisionBasis lacks target/caps; only RO agent; Evidence lacks typed Git convention; applicability lacks pre-exec F14 bind; trajectory UI ignores completed cycle.
+
+---
+
+## 26. OPENAI FIT CHECK (R22)
+
+Current Product already uses OpenAI **strict json_schema** for F2 intent (`intentAnalysis.ts`).
+**Disposition: COMBINE / BUILD ONLY SFIA-SPECIFIC DELTA** — extend structured-output schema for non-authoritative execution intent; reuse same provider path.
+ZERO REAL calls this cycle. No second LLM. No provider campaign.
+
+---
+
+## 27. EXACT FILE SCOPE
+
+| Path | Exist | Class | Reason | Persistence |
+|------|-------|-------|--------|-------------|
+| `lib/oa/project/domain/types.ts` | Y | ADAPT | repositoryBinding | payload JSON |
+| `lib/oa/project/domain/invariants.ts` | Y | ADAPT | validate binding | — |
+| `lib/oa/project/infrastructure/sqlite/*` | Y | KEEP | opaque JSON | none |
+| project UI create/edit binding | Y/partial | ADAPT | set binding | — |
+| `lib/oa/decision/domain/types.ts` | Y | ADAPT | executionBasis | HD JSON |
+| `lib/oa/decision/domain/invariants.ts` | Y | ADAPT | validate intent | — |
+| F2 structured output schema / prompt | Y | ADAPT | emit intent | — |
+| `f3/prepareM3FromDecision.ts` | Y | ADAPT | map intent | — |
+| `f3/selectProductM3ResolutionProfile.ts` | Y | ADAPT | add docsWrite kind | — |
+| `f3/boundedReadOnlyM3ResolutionProfile.ts` | Y | KEEP | RO untouched | — |
+| `f3/boundedDocsWriteM3ResolutionProfile.ts` | N | BUILD | resolve profile | — |
+| `f3/resolveM3ExecutionContract.ts` | Y | KEEP/light ADAPT | supersede | — |
+| `f3/validateResolvedM3ExecutionBoundary.ts` | Y | ADAPT | docs-write boundary | — |
+| `lib/oa/execution-contract/domain/types.ts` | Y | KEEP | existing fields | — |
+| `lib/oa/cycle/application/deriveCycleObligationSnapshot.ts` | N | BUILD | F14 on-demand | none |
+| `lib/oa/cycle/application/deriveFinalizationApplicability.ts` | Y | ADAPT | consume snapshot | — |
+| `lib/oa/cycle/application/assessFinalization.ts` | Y | KEEP | — | — |
+| `lib/oa/cycle/application/qualifyGitEvidence.ts` | Y | ADAPT | typed sources | — |
+| `lib/oa/evidence-review/domain/types.ts` | Y | KEEP | no enum expand | — |
+| evidence ingest helpers | Y | ADAPT | typed git builders | — |
+| `f3/ingestEvidenceAndRecommend.ts` | Y | ADAPT | — | — |
+| `f3/postEvidenceNoraAnalysis.ts` | Y | KEEP | — | — |
+| `m4BoundedReadOnlyCursorAgent.ts` | Y | KEEP | RO contract | — |
+| `m4BoundedDocsWriteCursorAgent.ts` (name flex) | N | BUILD | sibling agent | memory |
+| `memoryAgentRegistry.ts` / `vertical-slice-runtime/service.ts` | Y | ADAPT | register | — |
+| `studioCursorRealLaunchGateway.ts` | Y | ADAPT | branch write mode | — |
+| `startExecution.ts` / `grantGateD.ts` | Y | ADAPT | allow write agent | — |
+| `studioGitWorktreeWorkspace.ts` | Y | KEEP | — | — |
+| compose Product real boundary | Y | ADAPT | project-bound repo | — |
+| NEW git ports: commit/push/pr/ci/merge/verify | N | BUILD | effect-separated | — |
+| harvest existing git read adapters | Y | HARVEST | — | — |
+| `approveCandidateTrajectory.ts` | Y | ADAPT | reprepare | — |
+| `TrajectorySurface.tsx` | Y | ADAPT | CTA gate | — |
+| LifecycleSurface obligation UI | Y | ADAPT | MUST vs N/A | — |
+| focused/unit/integration tests | Y/N | BUILD/ADAPT | matrix §23 | — |
+| modeled project.schema.json (optional) | Y | ADAPT | non-DDL | — |
+| roadmap truth-sync | Y | DEFER | only if Delivery materially changes | — |
+
+---
+
+## 28. GATES
+
+| Gate | Trigger |
+|------|---------|
+| **GCEC-PERSIST** | any new table/migration → Morris before implement |
+| **GCEC-REPO-CREATE** | create dedicated proof repo → separate GO |
+| **GCEC-CURSOR-REAL** | first write Cursor REAL → campaign GO |
+| **GCEC-PUSH** | first remote push → Confirmation + campaign GO |
+| **GCEC-PR** | PR create → Confirmation + campaign GO |
+| **GCEC-MERGE** | merge → Confirmation + Morris campaign control; never autonomous |
+| **GCEC-RUNTIME-V3** | no promotion; NON ADOPTED |
+
+---
+
+## 29. TEMPORARY DEBT / EXIT
+
+**TEMP-GCEC-PRPM-01** — Option 1 PR/merge/post-merge inside producing cycle.
+Exit: first E2E REAL GCEC accepted → requalify catalog cycle relationship.
+Owner: Morris.
+
+Other temporary: docs-only write · proof-repo-only Git · typed Evidence by convention not enum — exits when later lots expand.
+
+---
+
+## 30. DELIVERY READINESS CONTRACT
+
+**NAME:** GCEC ONE-LOT DELIVERY
+**CAPABILITY:** Governed Cycle Execution Completion
+**TYPE:** EVOL · **PROFILE:** CRITICAL
+
+**OBJECTIVE:** Implement one thin vertical enabling Gestion de tâches Conception fonctionnelle to produce a durable functional-design artifact via bounded Cursor docs-write and gated Git integration through post-merge verification, then explicit Pilot FINALIZE.
+
+**IN:** F14 on-demand obligations · Project repositoryBinding · DecisionBasis intent · boundedDocsWrite EC/agent · typed Evidence · Git phase ports · Finalization ADAPT · trajectory reprepare · tests
+
+**OUT:** new Artifact table · nested cycles · catalog rewrite · RO agent mutation · autonomous merge · force push · arbitrary shell · sfia-workspace as target · reopen Product Completion · runtime v3 promotion · REAL Cursor/Git in Delivery without gates
+
+**STRUCTURAL DECISIONS:** D-GCEC-01/02/03/05/06/07/08 consumed · D-GCEC-04 doctrine-resolved
+
+**OPEN GATES:** GCEC-PERSIST (must stay closed) · REPO-CREATE · CURSOR-REAL · PUSH · PR · MERGE · RUNTIME-V3
+
+**PERSISTENCE:** **schema-free**
+
+**AGENT:** `cap:cursor.docs_write` sibling
+
+**PROOF VEHICLE:** Gestion de tâches / Conception fonctionnelle / dedicated proof repo (not created here)
+
+**DETERMINISTIC EXIT:** unit+integration+fake provider PASS; trajectory reprepare PASS; obligation MUST blocks N/A; EC resolve docsWrite PASS
+
+**REAL BOUNDARY EXIT:** LOCAL REAL Cursor docs-write on proof clone under GCEC-CURSOR-REAL
+
+**END-TO-END REAL EXIT:** P1–P25 including merge+post-merge artifact identity under remote gates
+
+**TEMPORARY DEBT:** TEMP-GCEC-PRPM-01
+
+**NEXT:** Product Proof campaign after construction accepted
+
+---
+
+## 31. ANTI-CLAIMS
+
+qualification ≠ implementation · design ≠ REAL · proof-repo decision ≠ repo created · write agent design ≠ Cursor REAL · Git ports ≠ push/PR/merge authorized · Product Completion CLOSED · runtime v3 NON ADOPTED · no Product commit/push
+
+## 32. VERDICT
+
+**PASS — GCEC ONE-LOT CONSTRUCTION QUALIFIED / DELIVERY CONTRACT READY**
+
+Schema-free path proven. Delivery may proceed under consumed D-GCEC decisions and listed gates without reopening architecture unless a Delivery discovery forces GCEC-PERSIST.
