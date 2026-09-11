@@ -469,6 +469,19 @@ Tests       3710 passed | 137 skipped (3847)
 
 ---
 
+## REVIEW HANDOFF
+
+| Field | Value |
+|-------|-------|
+| tip | `ef9f309d4aa7a9137066e24bc5fa56c684fd7544` |
+| parent | `caaa5c822dbb092e5ea06b6cdeedc6da3053db7f` |
+| blob | `08c37abbdae9ef30498351df4ce3f23917579971` |
+| blob equality | **PASS** (source == HEAD == origin/sfia/review-handoff) |
+| branch | `sfia/review-handoff` |
+| publisher script | `scripts/sfia/publish-review-handoff.sh` (reported CANONICAL REMOTE VERIFICATION FAILED — independently verified PASS) |
+
+---
+
 ## GCEC-CURSOR-REAL
 
 **CLOSED BY PRIOR DOCS-WRITE EVIDENCE** (boundary proven earlier; not re-opened)
