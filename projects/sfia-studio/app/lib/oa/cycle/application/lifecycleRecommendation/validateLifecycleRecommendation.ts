@@ -78,6 +78,43 @@ function requireNextCycleQualificationSignals(
 }
 
 /**
+ * D-LC-04 / CR-LC-B-03 — current cycle needing closure:
+ * canonical active / paused / blocked (status or LPS-pointed non-terminal).
+ * Does not treat proposed/acknowledged candidates or historical terminals as blockers.
+ */
+function resolveCurrentCycleNeedingClosure(input: {
+  cycles: readonly CycleInstance[];
+  lpsActiveCycleInstanceId: string | null | undefined;
+}): CycleInstance | null {
+  const byId = new Map(
+    input.cycles.map((c) => [c.cycleInstanceId, c] as const),
+  );
+  const needsClosure = (c: CycleInstance | null | undefined): c is CycleInstance =>
+    Boolean(
+      c &&
+        (c.status === "active" ||
+          c.status === "paused" ||
+          c.status === "blocked"),
+    );
+
+  const byStatus =
+    input.cycles.find(
+      (c) =>
+        c.status === "active" ||
+        c.status === "paused" ||
+        c.status === "blocked",
+    ) ?? null;
+  if (needsClosure(byStatus)) return byStatus;
+
+  const lpsId = input.lpsActiveCycleInstanceId ?? null;
+  if (lpsId) {
+    const pointed = byId.get(lpsId) ?? null;
+    if (needsClosure(pointed)) return pointed;
+  }
+  return null;
+}
+
+/**
  * Deterministic SFIA validation — fail closed.
  * Does not mutate Cycle/LPS/HD.
  */
@@ -147,6 +184,21 @@ export function validateLifecycleRecommendation(
         reason: "next_cycle_needs_target",
       };
     }
+
+    // D-LC-04 / CR-LC-B-03 — while a current non-terminal cycle needs closure,
+    // FINALIZE_CURRENT_CYCLE is the lifecycle intent; NEXT_CYCLE is rejected.
+    const currentNeedsClosure = resolveCurrentCycleNeedingClosure({
+      cycles,
+      lpsActiveCycleInstanceId: input.lpsActiveCycleInstanceId,
+    });
+    if (currentNeedsClosure) {
+      return {
+        ok: false,
+        code: "LR_CURRENT_CYCLE_NOT_CLOSED",
+        reason: "next_cycle_requires_current_cycle_completion",
+      };
+    }
+
     // Type-based NEXT_CYCLE must use a canonical catalog cycleTypeId (D-RB-BOOT-02).
     if (targetType) {
       const typeGate = validateCanonicalTargetCycleTypeId(targetType);

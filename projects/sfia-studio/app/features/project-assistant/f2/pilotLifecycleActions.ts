@@ -600,6 +600,7 @@ export async function completeBoundTrajectoryStepAction(input: {
       projectId: input.projectId,
       cycleInstanceId: input.cycleInstanceId,
       createdBy: PILOTE,
+      authorityEvidenceId: auth.evidenceId,
     });
   if (!closed.ok) {
     return {

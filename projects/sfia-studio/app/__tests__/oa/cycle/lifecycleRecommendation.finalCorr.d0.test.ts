@@ -1006,7 +1006,7 @@ describe("LR CORR-DELIVERY-03 provenance + fail-closed", () => {
     });
     expect(mat.materialization?.ok).toBe(true);
 
-    // FAIL-07 evidence failure irrelevant for NEXT_CYCLE
+    // FAIL-07 — D-LC-04: NEXT_CYCLE while current active is rejected (not an evidence issue).
     const nextStructured = productTurnPayload(
       {
         intent: "NEXT_CYCLE" as const,
@@ -1037,6 +1037,34 @@ describe("LR CORR-DELIVERY-03 provenance + fail-closed", () => {
         failedMaterialDimensions: new Set(["evidence"]),
       },
       producedAt: "2026-09-08T10:00:05.000Z",
+      createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
+    });
+    expect(mat.materialization?.ok).toBe(false);
+    if (mat.materialization && !mat.materialization.ok) {
+      expect(mat.materialization.code).toBe("LR_CURRENT_CYCLE_NOT_CLOSED");
+    }
+
+    // FAIL-07b — evidence failure irrelevant for NEXT_CYCLE once current cycle is closed.
+    const completedCycles = cycles.map((c) =>
+      c.cycleInstanceId === ctx.cycleInstanceId
+        ? {
+            ...c,
+            status: "completed" as const,
+            closedAt: "2026-09-08T10:00:00.000Z",
+          }
+        : c,
+    );
+    mat = await materializeLifecycleRecommendationFromStructuredOutput({
+      projectId: ctx.projectId,
+      structuredOutput: nextStructured,
+      updateEpistemicState: ctx.oa.cycleServices.updateEpistemicState,
+      facts: {
+        ...baseFacts,
+        cycles: completedCycles,
+        lpsActiveCycleInstanceId: null,
+        failedMaterialDimensions: new Set(["evidence"]),
+      },
+      producedAt: "2026-09-08T10:00:06.000Z",
       createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
     });
     expect(mat.materialization?.ok).toBe(true);

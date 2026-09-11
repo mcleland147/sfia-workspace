@@ -59,6 +59,7 @@ export {
 } from "./application/assessResumeReconciliation";
 export {
   projectPilotLifecycle,
+  selectLatestTerminalCycle,
   type PilotLifecycleProjection,
 } from "./application/lifecycleProjection";
 export * from "./application/lifecycleRecommendation";

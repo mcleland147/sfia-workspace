@@ -1225,6 +1225,8 @@ export class PilotLifecycleTransitions {
     projectId: string;
     cycleInstanceId: string;
     createdBy: StartCycleRequest["createdBy"];
+    /** Required — Pilot authority evidence (defense-in-depth at mutation boundary). */
+    authorityEvidenceId?: string;
     correlationId?: string;
   }): Promise<
     | {
@@ -1242,6 +1244,56 @@ export class PilotLifecycleTransitions {
     const started = Date.now();
     const timestamp = this.deps.clock.nowIso();
     const correlationId = request.correlationId ?? `cor:traj-step-${Date.now()}`;
+
+    if (!request.createdBy?.actorId) {
+      return {
+        ok: false,
+        error: createCycleError({
+          detailCode: "CYCLE_LIFECYCLE_DENIED",
+          timestamp,
+          projectId: request.projectId,
+          cycleInstanceId: request.cycleInstanceId,
+          internalCauseRef: "actor_required",
+        }),
+        durationMs: Date.now() - started,
+      };
+    }
+
+    // CR-LC-B-02 — explicit evidence required on the request (createdBy alone insufficient).
+    if (!request.authorityEvidenceId) {
+      return {
+        ok: false,
+        error: createCycleError({
+          detailCode: "CYCLE_LIFECYCLE_DENIED",
+          timestamp,
+          projectId: request.projectId,
+          cycleInstanceId: request.cycleInstanceId,
+          internalCauseRef: "authority_evidence_required",
+        }),
+        durationMs: Date.now() - started,
+      };
+    }
+
+    // CR-LC-B-02 — authority gate at mutation service boundary (before any write).
+    const authGate = this.verifyAuthority({
+      actorId: request.createdBy.actorId,
+      cycleInstanceId: request.cycleInstanceId,
+      evidenceId: request.authorityEvidenceId,
+    });
+    if (!authGate.ok) {
+      return {
+        ok: false,
+        error: createCycleError({
+          detailCode: authGate.detailCode,
+          timestamp,
+          projectId: request.projectId,
+          cycleInstanceId: request.cycleInstanceId,
+          internalCauseRef: authGate.internalCauseRef,
+        }),
+        durationMs: Date.now() - started,
+      };
+    }
+
     const cycle = await this.deps.cycles.findById(request.cycleInstanceId);
     if (!cycle || cycle.projectId !== request.projectId) {
       return {

@@ -217,8 +217,18 @@ export function LifecycleSurface({
   const nextRec = primaryNextCycleRecommendation(projection);
   const nonHd = nonHumanDecisionBlockers(projection.assessment);
   const ready = readyExceptFinalizeDecision(projection.assessment);
-  const exitOpen = nonHd.includes("exit_criteria_open");
-  const reservations = projection.blockingReservations ?? [];
+  const terminalDisplay =
+    projection.selectedStatus === "completed" ||
+    projection.selectedStatus === "cancelled" ||
+    projection.selectedStatus === "superseded";
+  // CR-LC-B-01 — no mutation aids / assessment obligation UI on terminal display.
+  const exitOpen =
+    !terminalDisplay && nonHd.includes("exit_criteria_open");
+  const reservations = terminalDisplay
+    ? []
+    : (projection.blockingReservations ?? []);
+  const showAssessment =
+    !terminalDisplay && Boolean(projection.assessment);
 
   return (
     <aside
@@ -284,7 +294,7 @@ export function LifecycleSurface({
         </section>
       )}
 
-      {projection.assessment ? (
+      {showAssessment ? (
         <section
           className={styles.block}
           data-testid="lifecycle-finalization-obligations"
@@ -309,16 +319,17 @@ export function LifecycleSurface({
             </p>
           )}
           <ul data-testid="lifecycle-obligation-list">
-            {projection.assessment.obligations.map((o) => (
+            {projection.assessment!.obligations.map((o) => (
               <li key={o.family} data-family={o.family} data-status={o.status}>
                 {obligationFamilyLabel(o.family)} — {obligationStatusLabel(o)}
               </li>
             ))}
           </ul>
         </section>
-      ) : projection.selectedStatus === "active" ||
-        projection.selectedStatus === "paused" ||
-        projection.selectedStatus === "blocked" ? (
+      ) : !terminalDisplay &&
+        (projection.selectedStatus === "active" ||
+          projection.selectedStatus === "paused" ||
+          projection.selectedStatus === "blocked") ? (
         <section className={styles.block} data-testid="lifecycle-assessment-unavailable">
           <h3 className={styles.blockTitle}>Conditions de finalisation</h3>
           <p className={styles.muted}>

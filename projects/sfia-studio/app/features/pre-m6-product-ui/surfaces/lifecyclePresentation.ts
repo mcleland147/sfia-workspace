@@ -12,6 +12,8 @@ export type LifecycleUiStatus =
   | "finalization_open"
   | "ready_finalize"
   | "completed_next"
+  | "cancelled"
+  | "superseded"
   | "paused"
   | "empty";
 
@@ -158,6 +160,12 @@ export function lifecycleStatusBadge(
   if (projection.selectedStatus === "completed") {
     return { status: "completed_next", label: "Terminé" };
   }
+  if (projection.selectedStatus === "cancelled") {
+    return { status: "cancelled", label: "Annulé" };
+  }
+  if (projection.selectedStatus === "superseded") {
+    return { status: "superseded", label: "Remplacé" };
+  }
   if (projection.selectedStatus === "paused") {
     return { status: "paused", label: "En pause" };
   }
@@ -195,6 +203,7 @@ export function primaryNextCycleRecommendation(
  * - canFinalize (domain) = transition attemptable from status
  * - Finaliser CTA enabled only when readyExceptFinalizeDecision
  * - Assessment CTA when attemptable but non-HD blockers remain
+ * - Terminal display (CR-LC-B-01) exposes ZERO lifecycle mutation CTAs
  * Recommendation never grants authority.
  */
 export function lifecycleCtaPresentation(projection: PilotLifecycleProjection): {
@@ -210,13 +219,17 @@ export function lifecycleCtaPresentation(projection: PilotLifecycleProjection): 
   resumeEnabled: boolean;
   readyExceptFinalize: boolean;
 } {
+  const terminalDisplay =
+    projection.selectedStatus === "completed" ||
+    projection.selectedStatus === "cancelled" ||
+    projection.selectedStatus === "superseded";
   const finalizeRec = primaryFinalizeRecommendation(projection);
   const nextRec = primaryNextCycleRecommendation(projection);
   const resumeClean = projection.resumeReconciliation?.clean !== false;
   const dirtyResume =
     projection.selectedStatus === "paused" &&
     projection.resumeReconciliation?.clean === false;
-  const attemptable = projection.cta.canFinalize;
+  const attemptable = projection.cta.canFinalize && !terminalDisplay;
   const ready = readyExceptFinalizeDecision(projection.assessment);
   const nonHd = nonHumanDecisionBlockers(projection.assessment);
   const showAssess = Boolean(
@@ -229,9 +242,9 @@ export function lifecycleCtaPresentation(projection: PilotLifecycleProjection): 
     showFinalizePrimary: Boolean(finalizeRec && attemptable && ready),
     showFinalizeSecondary: Boolean(!finalizeRec && attemptable && ready),
     showAssess,
-    showStart: projection.cta.canStart,
-    showResume: projection.cta.canResume && !dirtyResume,
-    showReplan: dirtyResume,
+    showStart: projection.cta.canStart && !terminalDisplay,
+    showResume: projection.cta.canResume && !dirtyResume && !terminalDisplay,
+    showReplan: dirtyResume && !terminalDisplay,
     showTrajectoryEscalation: Boolean(
       nextRec ||
         projection.candidateCycles.length > 1 ||
@@ -241,7 +254,8 @@ export function lifecycleCtaPresentation(projection: PilotLifecycleProjection): 
       attemptable && canOfferGroupedNoGovernedEffects(projection.assessment),
     ),
     finalizeEnabled: attemptable && ready,
-    resumeEnabled: projection.cta.canResume && resumeClean && !dirtyResume,
-    readyExceptFinalize: ready,
+    resumeEnabled:
+      projection.cta.canResume && resumeClean && !dirtyResume && !terminalDisplay,
+    readyExceptFinalize: ready && !terminalDisplay,
   };
 }
