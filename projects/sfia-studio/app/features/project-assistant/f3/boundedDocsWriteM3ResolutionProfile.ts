@@ -48,8 +48,21 @@ export function boundedDocsWriteM3ResolutionProfile(): M3ResolvedExecutionFields
       "OUT_OF_SCOPE_WRITE",
     ],
     executionWindowClass: DEFAULT_BOUNDED_READ_ONLY_M3_EXECUTION_WINDOW_CLASS,
+    // CR-GCEC-05 — first vertical requires full git completion proof SET.
+    // Carried onto successor EC via resolve inputs/evidenceRequirements merge.
   };
 }
+
+/** GCEC first-vertical git evidence requirements (Nora + EC). */
+export const BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS = [
+  "git:local_commit",
+  "git:remote_push",
+  "git:pull_request",
+  "git:ci_status",
+  "git:review_status",
+  "git:merge",
+  "git:post_merge_verification",
+] as const;
 
 export const BOUNDED_DOCS_WRITE_M3_SUPERSESSION_REASON =
   "PRE-M6 Option A — resolve durable M3 PREPARE via existing G-UX-15 supersession (bounded docs-write Cursor REAL profile; ZERO LIVE in this cycle)" as const;

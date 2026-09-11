@@ -89,6 +89,7 @@ function buildDecisionBasis(input: {
   currentContext: F2ContextSnapshot;
 }): DecisionBasis {
   const { proposal, projectId, currentContext } = input;
+  const ei = proposal.executionIntent ?? null;
   const stablePayload = {
     proposalId: proposal.proposalId,
     objective: proposal.objective,
@@ -102,11 +103,36 @@ function buildDecisionBasis(input: {
     cycleTypeId: proposal.cycleTypeId,
     recommendedProfile: proposal.recommendedProfile,
     rephrasedRequest: proposal.rephrasedRequest,
+    ...(ei
+      ? {
+          executionIntent: {
+            intentKind: ei.intentKind ?? null,
+            artifactType: ei.artifactType ?? null,
+            targetRepositoryRef: ei.targetRepositoryRef ?? null,
+            targetPath: ei.targetPath ?? null,
+            scopeIn: ei.scopeIn ?? [],
+            scopeOut: ei.scopeOut ?? [],
+            expectedOutputs: ei.expectedOutputs ?? [],
+            requiredCapabilities: ei.requiredCapabilities ?? [],
+            validationExpectations: ei.validationExpectations ?? [],
+            evidenceRequirements: ei.evidenceRequirements ?? [],
+            requestedOperation: ei.requestedOperation ?? null,
+            reversibilityExpectation: ei.reversibilityExpectation ?? null,
+            artifactBrief: ei.artifactBrief ?? null,
+            contentRequirements: ei.contentRequirements ?? [],
+          },
+        }
+      : {}),
   };
   const cycleInstanceId =
     currentContext.activeCycleInstanceId ??
     proposal.contextSnapshot.activeCycleInstanceId ??
     undefined;
+  const requestedOperation =
+    (ei?.requestedOperation && ei.requestedOperation.trim()) ||
+    (proposal.requestedOperation && proposal.requestedOperation.trim()) ||
+    proposal.rephrasedRequest;
+
   return {
     sourceType: "proposal",
     sourceRef: proposal.proposalId,
@@ -131,7 +157,35 @@ function buildDecisionBasis(input: {
       stopConditions: [...proposal.stopConditions],
       cycleTypeId: proposal.cycleTypeId,
       recommendedProfile: proposal.recommendedProfile,
-      requestedOperation: proposal.rephrasedRequest,
+      requestedOperation,
+      ...(ei
+        ? {
+            intentKind: ei.intentKind ?? undefined,
+            artifactType: ei.artifactType ?? undefined,
+            targetRepositoryRef: ei.targetRepositoryRef ?? undefined,
+            targetPath: ei.targetPath ?? undefined,
+            scopeIn: ei.scopeIn ? [...ei.scopeIn] : undefined,
+            scopeOut: ei.scopeOut ? [...ei.scopeOut] : undefined,
+            expectedOutputs: ei.expectedOutputs
+              ? [...ei.expectedOutputs]
+              : undefined,
+            requiredCapabilities: ei.requiredCapabilities
+              ? [...ei.requiredCapabilities]
+              : undefined,
+            validationExpectations: ei.validationExpectations
+              ? [...ei.validationExpectations]
+              : undefined,
+            evidenceRequirements: ei.evidenceRequirements
+              ? [...ei.evidenceRequirements]
+              : undefined,
+            reversibilityExpectation:
+              ei.reversibilityExpectation ?? undefined,
+            artifactBrief: ei.artifactBrief ?? undefined,
+            contentRequirements: ei.contentRequirements
+              ? [...ei.contentRequirements]
+              : undefined,
+          }
+        : {}),
     },
   };
 }

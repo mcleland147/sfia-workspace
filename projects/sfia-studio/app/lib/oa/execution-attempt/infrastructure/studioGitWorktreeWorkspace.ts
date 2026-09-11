@@ -97,6 +97,34 @@ export class StudioGitWorktreeWorkspace implements RealExecutionWorkspacePort {
       throw new Error("REAL_WORKSPACE_INVALID:base_head_sha_invalid");
     }
     const baseHeadSha = request.baseHeadSha.toLowerCase();
+
+    // CR-GCEC-03 — managedRepoRoot overrides ambient constructor repoRoot for this prepare.
+    const repoRoot = request.managedRepoRoot
+      ? path.resolve(request.managedRepoRoot)
+      : this.repoRoot;
+
+    if (request.repositoryBinding) {
+      const remote = await this.gitRunner.run(
+        ["remote", "get-url", "origin"],
+        repoRoot,
+      );
+      if (remote.exitCode !== 0) {
+        throw new Error("REAL_WORKSPACE_INVALID:origin_remote_missing");
+      }
+      const actual = normalizeGitRemoteUrl(remote.stdout.trim());
+      const expectedFromUrl = normalizeGitRemoteUrl(
+        request.repositoryBinding.remoteUrl,
+      );
+      const expectedFromIdentity = normalizeGitRemoteUrl(
+        `https://github.com/${request.repositoryBinding.identity}.git`,
+      );
+      if (actual !== expectedFromUrl && actual !== expectedFromIdentity) {
+        throw new Error("REAL_WORKSPACE_INVALID:origin_remote_mismatch");
+      }
+      // pathRoot noted for write-layer enforcement (docsWriteSpec pathAllowlist).
+      void request.repositoryBinding.pathRoot;
+    }
+
     const workspacePath = workspacePathForAttempt(
       this.execRoot,
       request.attemptId,
@@ -116,7 +144,7 @@ export class StudioGitWorktreeWorkspace implements RealExecutionWorkspacePort {
     // a) verify commit exists
     const verify = await this.gitRunner.run(
       ["rev-parse", "--verify", `${baseHeadSha}^{commit}`],
-      this.repoRoot,
+      repoRoot,
     );
     if (verify.exitCode !== 0) {
       throw new Error("REAL_WORKSPACE_INVALID:base_head_sha_missing");
@@ -125,7 +153,7 @@ export class StudioGitWorktreeWorkspace implements RealExecutionWorkspacePort {
     // b) worktree add --detach
     const add = await this.gitRunner.run(
       ["worktree", "add", "--detach", workspacePath, baseHeadSha],
-      this.repoRoot,
+      repoRoot,
     );
     if (add.exitCode !== 0) {
       throw new Error("REAL_WORKSPACE_INVALID:worktree_add_failed");
@@ -143,6 +171,15 @@ export class StudioGitWorktreeWorkspace implements RealExecutionWorkspacePort {
 
     return { workspacePath, verifiedHeadSha };
   }
+}
+
+function normalizeGitRemoteUrl(url: string): string {
+  return url
+    .trim()
+    .replace(/\.git$/i, "")
+    .replace(/^git@github\.com:/i, "https://github.com/")
+    .replace(/^ssh:\/\/git@github\.com\//i, "https://github.com/")
+    .toLowerCase();
 }
 
 /**

@@ -175,6 +175,10 @@ export type DecisionBasis = {
     validationExpectations?: string[];
     evidenceRequirements?: string[];
     reversibilityExpectation?: "reversible" | "irreversible" | "unknown";
+    /** GCEC — non-authoritative artifact brief from Nora executionIntent. */
+    artifactBrief?: string;
+    /** GCEC — non-authoritative content requirements from Nora executionIntent. */
+    contentRequirements?: string[];
   };
 };
 

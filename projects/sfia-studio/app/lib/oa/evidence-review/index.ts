@@ -67,6 +67,7 @@ export { VerifyEvidenceIntegrity } from "./application/verifyEvidenceIntegrity";
 export { MarkEvidenceUnavailable } from "./application/markEvidenceUnavailable";
 export {
   evaluateFunctionalDesignArtifactCompleteness,
+  evaluateGcecArtifactEvidence,
   type ArtifactCompletenessGap,
   type ArtifactCompletenessResult,
 } from "./application/artifactCompleteness";

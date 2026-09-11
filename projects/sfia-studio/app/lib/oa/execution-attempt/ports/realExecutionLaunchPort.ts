@@ -5,6 +5,27 @@
  * Must NOT be accepted by InjectableExecutionAdapter.
  */
 
+/**
+ * GCEC — bounded docs-write launch contract (CR-GCEC-02).
+ * Built from ExecutionContract.inputs BEFORE Gate D consume.
+ * Gateway MUST NOT invent these fields.
+ */
+export type DocsWriteLaunchSpec = {
+  readonly repositoryRef: string;
+  readonly targetPath: string;
+  readonly pathAllowlist: readonly string[];
+  readonly artifactType: string;
+  readonly artifactBrief: string;
+  readonly contentRequirements: readonly string[];
+  readonly scopeIn: readonly string[];
+  readonly scopeOut: readonly string[];
+  readonly expectedOutputs: readonly string[];
+  readonly validationExpectations: readonly string[];
+  readonly evidenceRequirements: readonly string[];
+  readonly createOrModify: true;
+  readonly noDelete: true;
+};
+
 export type RealLaunchRequest = {
   readonly attemptId: string;
   readonly executionContractId: string;
@@ -29,6 +50,19 @@ export type RealLaunchRequest = {
    * Gateway enforces this value and MUST NOT invent a default.
    */
   readonly timeoutMs: number;
+  /** GCEC docs-write launch contract — required when action is docs_write. */
+  readonly docsWriteSpec?: DocsWriteLaunchSpec;
+  /** Optional Project binding identity (owner/repo) for workspace resolution. */
+  readonly repositoryBindingIdentity?: string;
+  /** Server-resolved absolute managed clone root (docs-write). */
+  readonly managedRepoRoot?: string;
+  /** Explicit Project repository binding for workspace verify. */
+  readonly repositoryBinding?: {
+    readonly identity: string;
+    readonly remoteUrl: string;
+    readonly defaultBranch: string;
+    readonly pathRoot?: string;
+  };
 };
 
 export type RealLaunchAck = {

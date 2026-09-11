@@ -56,7 +56,7 @@ export * from "./ports/realLaunchSafetyJournalPort";
 // launchSafetyJournalPort is a thin re-export — avoid duplicate export * conflict.
 
 export { SelectExecutionAgent } from "./application/selectExecutionAgent";
-export { StartExecution, extractContractBaseHeadSha } from "./application/startExecution";
+export { StartExecution, extractContractBaseHeadSha, extractDocsWriteLaunchSpec } from "./application/startExecution";
 export {
   o3LaterIntervalMs,
   o3ObservationScheduleMs,
@@ -171,6 +171,12 @@ export {
   sha256File,
   type FakeDocsWriteLaunchPortOptions,
 } from "./infrastructure/fakeDocsWriteLaunchPort";
+export {
+  ManagedProjectRepositoryResolver,
+  sanitizeManagedRepoIdentity,
+} from "./infrastructure/managedProjectRepositoryResolver";
+export type { ManagedRepoBindingIdentity } from "./infrastructure/managedProjectRepositoryResolver";
+export type { DocsWriteLaunchSpec } from "./ports/realExecutionLaunchPort";
 export {
   M4_BOUNDED_RO_CURSOR_AGENT_ID,
   M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,

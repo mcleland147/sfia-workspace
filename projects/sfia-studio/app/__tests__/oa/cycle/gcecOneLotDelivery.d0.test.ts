@@ -771,7 +771,12 @@ describe("9 — evaluateFunctionalDesignArtifactCompleteness", () => {
         status: "available",
         digest: VALID_DIGEST,
         location: "docs/functional-design.md",
-        bindings: { projectId: "prj:gcec", cycleInstanceId: "cyc:gcec" },
+        bindings: {
+          projectId: "prj:gcec",
+          cycleInstanceId: "cyc:gcec",
+          executionContractId: "xct:gcec",
+          executionAttemptId: "att:gcec",
+        },
       }),
     );
     expect(ok).toEqual({ ok: true, gaps: [] });
@@ -839,7 +844,7 @@ describe("11–12 — git completion proof progression", () => {
     expect(isGitCompletionProofEvidence(post, [], cycleId)).toBe(true);
   });
 
-  it("deriveFinalizationApplicability gitProofPresent false then true", () => {
+  it("deriveFinalizationApplicability gitProofPresent false then true (full SET)", () => {
     const cycleId = "cyc:gcec-git-prog";
     const projectId = "prj:gcec-git-prog";
     const afterLocal = deriveFinalizationApplicability({
@@ -853,40 +858,108 @@ describe("11–12 — git completion proof progression", () => {
           type: "other",
           status: "available",
           source: "git:local_commit",
-          location: `git://commit/${FULL_SHA}`,
-          bindings: { cycleInstanceId: cycleId },
+          location: `git:local_commit?repo=${encodeURIComponent("acme/widget")}&commitSha=${FULL_SHA}`,
+          bindings: { cycleInstanceId: cycleId, projectId },
         }),
       ],
       reviewBundles: [],
-      executionContracts: [],
+      executionContracts: [
+        {
+          contractId: "xct:gcec-git",
+          status: "completed",
+          requiredCapabilities: ["cap:git"],
+          evidenceRequirements: [
+            "git:local_commit",
+            "git:remote_push",
+            "git:pull_request",
+            "git:ci_status",
+            "git:review_status",
+            "git:merge",
+            "git:post_merge_verification",
+          ],
+        },
+      ],
       cycleTypeId: "cyc:functional-design",
       repositoryBinding: VALID_BINDING,
     });
     expect(afterLocal.git_repository).toBe("APPLICABLE");
     expect(afterLocal.gitProofPresent).toBe(false);
 
-    const afterPost = deriveFinalizationApplicability({
+    const full = [
+      "git:local_commit",
+      "git:remote_push",
+      "git:pull_request",
+      "git:ci_status",
+      "git:review_status",
+      "git:merge",
+      "git:post_merge_verification",
+    ].map((source, i) =>
+      makeEvidence({
+        evidenceId: `evd:${i}`,
+        type: "other",
+        status: "available",
+        source,
+        location:
+          source === "git:post_merge_verification"
+            ? `git:post_merge_verification?repo=${encodeURIComponent(VALID_BINDING.identity)}&targetBranch=main&targetSha=${MERGE_SHA}&artifactPath=${encodeURIComponent("docs/functional-design.md")}&digest=${encodeURIComponent(VALID_DIGEST)}`
+            : source === "git:ci_status"
+              ? `git:ci_status?repo=${encodeURIComponent(VALID_BINDING.identity)}&commitSha=${FULL_SHA}&conclusion=success`
+              : source === "git:review_status"
+                ? `git:review_status?repo=${encodeURIComponent(VALID_BINDING.identity)}&prNumber=1&state=approved`
+                : `${source}?repo=${encodeURIComponent(VALID_BINDING.identity)}&commitSha=${FULL_SHA}`,
+        digest:
+          source === "git:post_merge_verification" ? VALID_DIGEST : undefined,
+        bindings: {
+          cycleInstanceId: cycleId,
+          projectId,
+          executionContractId: "xct:gcec-git",
+        },
+      }),
+    );
+    // Also need artifact for digest/targetPath expected
+    full.push(
+      makeEvidence({
+        evidenceId: "evd:art",
+        type: "artifact",
+        status: "available",
+        digest: VALID_DIGEST,
+        location: "docs/functional-design.md",
+        bindings: {
+          projectId,
+          cycleInstanceId: cycleId,
+          executionContractId: "xct:gcec-git",
+          executionAttemptId: "att:gcec-git",
+        },
+      }),
+    );
+
+    const afterFull = deriveFinalizationApplicability({
       cycleInstanceId: cycleId,
       projectId,
       trajectory: baseTrajectory({ projectId }),
       decisions: [],
-      evidence: [
-        makeEvidence({
-          evidenceId: "evd:post",
-          type: "other",
-          status: "verified",
-          source: "git:post_merge_verification",
-          location: `git://post-merge/main@${MERGE_SHA}/docs/fd.md`,
-          digest: VALID_DIGEST,
-          bindings: { cycleInstanceId: cycleId },
-        }),
-      ],
+      evidence: full,
       reviewBundles: [],
-      executionContracts: [],
+      executionContracts: [
+        {
+          contractId: "xct:gcec-git",
+          status: "completed",
+          requiredCapabilities: ["cap:git"],
+          evidenceRequirements: [
+            "git:local_commit",
+            "git:remote_push",
+            "git:pull_request",
+            "git:ci_status",
+            "git:review_status",
+            "git:merge",
+            "git:post_merge_verification",
+          ],
+        },
+      ],
       cycleTypeId: "cyc:functional-design",
       repositoryBinding: VALID_BINDING,
     });
-    expect(afterPost.gitProofPresent).toBe(true);
+    expect(afterFull.gitProofPresent).toBe(true);
   });
 });
 

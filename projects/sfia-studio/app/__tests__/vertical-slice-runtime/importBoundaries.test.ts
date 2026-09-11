@@ -111,6 +111,7 @@ describe("V2-A1 vertical-slice-runtime import boundaries", () => {
       "features/pre-m6-product-ui/NewProjectIntentionPage.tsx:@/lib/vertical-slice-runtime/actions",
       "features/pre-m6-product-ui/ProjectWorkspacePage.tsx:@/lib/vertical-slice-runtime/actions",
       "features/pre-m6-product-ui/ProjectsPage.tsx:@/lib/vertical-slice-runtime/actions",
+      "features/pre-m6-product-ui/surfaces/RepositoryBindingForm.tsx:@/lib/vertical-slice-runtime/actions",
       "features/pre-m6-product-ui/types.ts:@/lib/vertical-slice-runtime/actions",
       "features/studio-projects/LivingProjectStatePanel.tsx:@/lib/vertical-slice-runtime/actions",
       "features/studio-projects/ProjectHistoryPanel.tsx:@/lib/vertical-slice-runtime/actions",

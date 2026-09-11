@@ -859,6 +859,7 @@ describe("CORR-PROOF-05 Pilot lifecycle (1–16)", () => {
         rephrasedRequest: null,
         requestedOperation: null,
         criticalJustification: null,
+        executionIntent: null,
         parseOk: true,
       },
     });

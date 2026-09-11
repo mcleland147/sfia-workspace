@@ -584,6 +584,57 @@ export class RuntimeApplicationService {
     }
     return toListProjectsRuntimeSuccess(result.projects);
   }
+
+  /** CR-GCEC-03 — set explicit Project repository binding (no network). */
+  async setProjectRepositoryBinding(input: {
+    projectId: string;
+    identity: string;
+    remoteUrl: string;
+    defaultBranch: string;
+    pathRoot?: string;
+    baseSha?: string;
+  }): Promise<
+    | { ok: true; projectId: string; repositoryBinding: unknown }
+    | { ok: false; code: string; message: string }
+  > {
+    if (!this.oa?.projectServices.setProjectRepositoryBinding) {
+      return {
+        ok: false,
+        code: "NOT_AVAILABLE",
+        message: "Repository binding is unavailable in this runtime.",
+      };
+    }
+    const result =
+      await this.oa.projectServices.setProjectRepositoryBinding.execute({
+        projectId: input.projectId,
+        binding: {
+          provider: "github",
+          identity: input.identity,
+          remoteUrl: input.remoteUrl,
+          defaultBranch: input.defaultBranch,
+          ...(input.pathRoot ? { pathRoot: input.pathRoot } : {}),
+          ...(input.baseSha ? { baseSha: input.baseSha } : {}),
+        },
+        actor: {
+          actorId: "actor:local-pilote",
+          role: "project_owner",
+          displayName: "Local Pilote",
+          authorityLevel: "N2",
+        },
+      });
+    if (!result.ok) {
+      return {
+        ok: false,
+        code: result.error.detailCode,
+        message: result.error.message,
+      };
+    }
+    return {
+      ok: true,
+      projectId: result.project.projectId,
+      repositoryBinding: result.project.repositoryBinding ?? null,
+    };
+  }
 }
 
 export function createRuntimeApplicationService(

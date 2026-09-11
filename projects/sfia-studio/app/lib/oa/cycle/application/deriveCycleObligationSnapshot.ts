@@ -64,6 +64,10 @@ const REPO_BACKED_FUNCTIONAL_DESIGN_MUST: readonly CycleObligationFamily[] = [
  * On-demand binder: DoctrinePackage/catalog semantics + Project context.
  * First vertical: repo-backed `cyc:functional-design` ⇒ governed MUST set.
  * Unknown/unmodeled: UNKNOWN (fail-closed for proof presence).
+ *
+ * TEMP-GCEC-F14-BIND-01 — obligation snapshot is derived on demand from
+ * cycleTypeId + repositoryBinding until durable F14 bind lands; do not
+ * treat absence of a persisted snapshot row as NOT_APPLICABLE.
  */
 export function deriveCycleObligationSnapshot(
   input: DeriveCycleObligationSnapshotInput,

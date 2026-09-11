@@ -123,7 +123,25 @@ function fieldsFromBasis(basis: DecisionBasis, decisionId: string) {
       inputs.targetRepositoryRef = targetRepositoryRef;
       inputs.repositoryRef = targetRepositoryRef;
       inputs.pathAllowlist = eb.scopeIn ?? [];
+      inputs.scopeIn = eb.scopeIn ?? [];
+      inputs.scopeOut = eb.scopeOut ?? [];
       inputs.createOrModify = true;
+      inputs.noDelete = true;
+      if (eb.artifactType) inputs.artifactType = eb.artifactType;
+      if (eb.artifactBrief) inputs.artifactBrief = eb.artifactBrief;
+      if (eb.contentRequirements)
+        inputs.contentRequirements = [...eb.contentRequirements];
+      if (eb.validationExpectations)
+        inputs.validationExpectations = [...eb.validationExpectations];
+      if (eb.evidenceRequirements)
+        inputs.evidenceRequirements = [...eb.evidenceRequirements];
+      if (eb.expectedOutputs)
+        inputs.expectedOutputs = [...eb.expectedOutputs];
+      inputs.repositoryIdentity = targetRepositoryRef;
+      inputs.repositoryBindingIdentity = targetRepositoryRef;
+      inputs.remoteUrl = `https://github.com/${targetRepositoryRef}.git`;
+      inputs.defaultBranch = "main";
+      if (eb.scopeIn?.[0]) inputs.pathRoot = eb.scopeIn[0];
     }
 
     if (eb.requiredCapabilities && eb.requiredCapabilities.length > 0) {
@@ -177,7 +195,17 @@ function fieldsFromBasis(basis: DecisionBasis, decisionId: string) {
   const evidenceRequirements =
     eb.evidenceRequirements && eb.evidenceRequirements.length > 0
       ? [...eb.evidenceRequirements]
-      : undefined;
+      : docsWriteIntent
+        ? [
+            "git:local_commit",
+            "git:remote_push",
+            "git:pull_request",
+            "git:ci_status",
+            "git:review_status",
+            "git:merge",
+            "git:post_merge_verification",
+          ]
+        : undefined;
   return {
     action,
     target,

@@ -107,6 +107,14 @@ export {
   isGitCompletionProofEvidence,
   type GitQualifiableContract,
 } from "./application/qualifyGitEvidence";
+export {
+  qualifyGitCompletionProofSet,
+  gitProofFamiliesFromRequirements,
+  GCEC_GIT_COMPLETION_PROOF_FAMILIES,
+  type GitCompletionProofFamily,
+  type QualifyGitCompletionProofSetExpected,
+  type QualifyGitCompletionProofSetResult,
+} from "./application/qualifyGitCompletionProofSet";
 export { isTypedGitEvidenceSource } from "@/lib/oa/evidence-review";
 export {
   PilotLifecycleTransitions,

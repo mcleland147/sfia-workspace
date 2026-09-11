@@ -198,6 +198,7 @@ function analysisStub(
     criticalJustification: null,
     requestedOperation: null,
     ...partial,
+    executionIntent: partial.executionIntent ?? null,
   };
 }
 

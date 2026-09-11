@@ -43,6 +43,8 @@ export type ComposeStudioProductRealBoundaryInput = {
   readonly safetyJournal?: RealLaunchSafetyJournalPort;
   readonly resolveCursorBin?: () => string | null;
   readonly repoRoot?: string;
+  /** Optional managed-repo base for docs-write composition (CR-GCEC-03). */
+  readonly managedRepoRootBase?: string;
   readonly studioRoot?: string;
   readonly execRoot?: string;
   readonly safetyJournalPath?: string;

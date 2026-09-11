@@ -170,6 +170,12 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
       const prepared = await this.workspacePort.prepareWorkspace({
         attemptId: request.attemptId,
         baseHeadSha,
+        ...(request.managedRepoRoot
+          ? { managedRepoRoot: request.managedRepoRoot }
+          : {}),
+        ...(request.repositoryBinding
+          ? { repositoryBinding: request.repositoryBinding }
+          : {}),
       });
       workspacePath = prepared.workspacePath;
     } catch (err) {
@@ -199,28 +205,64 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
 
     // Fixed argv shape — executable is separate; no user-controlled shell.
     // --mode ask: local CLI help documents ask as read-only Q&A (no edits).
-    // Docs-write uses default agent mode (omit --mode ask).
-    // Shell under ask remains unresolved by help alone; future REAL must observe.
-    const instruction = [
-      "TÂCHE UNIQUE — preuve read-only déterministe.",
-      "Lire uniquement le fichier README.md à la racine du workspace.",
-      "Ne modifier aucun fichier.",
-      "Ne créer aucun fichier.",
-      "Ne lancer aucune commande Shell.",
-      "Ne faire aucune recherche récursive, Glob ou Grep.",
-      "Ne consulter aucun autre fichier.",
-      "Si README.md peut être lu, répondre exactement :",
-      "M4_READ_ONLY_OK",
-      "Si README.md ne peut pas être lu, répondre exactement :",
-      "M4_READ_ONLY_UNAVAILABLE",
-      `target=${request.target ?? ""}`,
-      `action=${request.action ?? ""}`,
-      `scope=${request.scope ?? ""}`,
-      `fingerprint=${request.semanticFingerprint}`,
-      "Aucune mutation, aucun git remote/commit/push/PR/merge.",
-    ].join("\n");
-
+    // Docs-write uses default agent mode (omit --mode ask) + WRITE instruction.
     const isDocsWrite = request.action === M4_BOUNDED_DOCS_WRITE_ACTION;
+
+    let instruction: string;
+    if (isDocsWrite) {
+      const spec = request.docsWriteSpec;
+      if (!spec) {
+        return {
+          outcome: "reject",
+          gatewayId: this.gatewayId,
+          attemptId: request.attemptId,
+          reason: "docs_write_spec_missing",
+          realProcessInvoked: false,
+          detailCode: "REAL_AGENT_PROFILE_INVALID",
+        };
+      }
+      instruction = [
+        "TÂCHE UNIQUE — bounded docs-write déterministe (GCEC).",
+        `Créer ou modifier UNIQUEMENT le fichier: ${spec.targetPath}`,
+        `Repository: ${spec.repositoryRef}`,
+        `Écrire uniquement sous pathAllowlist: ${spec.pathAllowlist.join(", ")}`,
+        `Type d'artifact: ${spec.artifactType}`,
+        `Brief: ${spec.artifactBrief}`,
+        `Exigences de contenu: ${spec.contentRequirements.join("; ")}`,
+        `Scope IN: ${spec.scopeIn.join(", ") || "(none)"}`,
+        `Scope OUT (interdit): ${spec.scopeOut.join(", ") || "(none)"}`,
+        `Sorties attendues: ${spec.expectedOutputs.join(", ")}`,
+        `Validations: ${spec.validationExpectations.join(", ") || "path_allowlist; no_delete"}`,
+        "Ne créer/modifier AUCUN autre fichier.",
+        "Ne supprimer AUCUN fichier (noDelete=true).",
+        "Ne pas commit, push, PR, merge, ni remote git.",
+        "En cas d'ambiguïté ou de chemin hors allowlist: STOP immédiatement.",
+        `target=${request.target ?? ""}`,
+        `action=${request.action ?? ""}`,
+        `scope=${request.scope ?? ""}`,
+        `fingerprint=${request.semanticFingerprint}`,
+      ].join("\n");
+    } else {
+      instruction = [
+        "TÂCHE UNIQUE — preuve read-only déterministe.",
+        "Lire uniquement le fichier README.md à la racine du workspace.",
+        "Ne modifier aucun fichier.",
+        "Ne créer aucun fichier.",
+        "Ne lancer aucune commande Shell.",
+        "Ne faire aucune recherche récursive, Glob ou Grep.",
+        "Ne consulter aucun autre fichier.",
+        "Si README.md peut être lu, répondre exactement :",
+        "M4_READ_ONLY_OK",
+        "Si README.md ne peut pas être lu, répondre exactement :",
+        "M4_READ_ONLY_UNAVAILABLE",
+        `target=${request.target ?? ""}`,
+        `action=${request.action ?? ""}`,
+        `scope=${request.scope ?? ""}`,
+        `fingerprint=${request.semanticFingerprint}`,
+        "Aucune mutation, aucun git remote/commit/push/PR/merge.",
+      ].join("\n");
+    }
+
     const argv = isDocsWrite
       ? [
           "agent",

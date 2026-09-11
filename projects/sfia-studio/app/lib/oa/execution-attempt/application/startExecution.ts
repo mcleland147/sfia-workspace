@@ -63,6 +63,8 @@ import type { ExecutionAdapterPort } from "../ports/executionAdapter";
 import type { ExecutionAttemptAuditPort } from "../ports/executionAttemptAudit";
 import type { ExecutionAttemptRepositoryPort } from "../ports/executionAttemptRepository";
 import type { RealExecutionLaunchPort } from "../ports/realExecutionLaunchPort";
+import type { DocsWriteLaunchSpec } from "../ports/realExecutionLaunchPort";
+import { M4_BOUNDED_DOCS_WRITE_ACTION } from "../infrastructure/m4BoundedDocsWriteCursorAgent";
 import type { RealLaunchSafetyJournalPort } from "../ports/realLaunchSafetyJournalPort";
 import {
   authorityFailureDetail,
@@ -95,6 +97,105 @@ export function extractContractBaseHeadSha(
   const trimmed = raw.trim();
   if (!FULL_GIT_SHA_RE.test(trimmed)) return null;
   return trimmed.toLowerCase();
+}
+
+function asStringList(value: unknown): string[] | null {
+  if (!Array.isArray(value)) return null;
+  const out: string[] = [];
+  for (const item of value) {
+    if (typeof item !== "string") return null;
+    const t = item.trim();
+    if (t) out.push(t);
+  }
+  return out;
+}
+
+function asNonEmptyString(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const t = value.trim();
+  return t || null;
+}
+
+/**
+ * Extract DocsWriteLaunchSpec from contract.inputs (CR-GCEC-02).
+ * Fail-closed: returns { ok:false, reason } when required fields missing.
+ */
+export function extractDocsWriteLaunchSpec(
+  contract: ExecutionContract,
+):
+  | { ok: true; spec: DocsWriteLaunchSpec; repositoryBindingIdentity?: string }
+  | { ok: false; reason: string } {
+  const inputs =
+    contract.inputs && typeof contract.inputs === "object"
+      ? (contract.inputs as Record<string, unknown>)
+      : {};
+  const repositoryRef =
+    asNonEmptyString(inputs.repositoryRef) ??
+    asNonEmptyString(inputs.targetRepositoryRef);
+  const targetPath = asNonEmptyString(inputs.targetPath);
+  const pathAllowlist =
+    asStringList(inputs.pathAllowlist) ?? asStringList(inputs.scopeIn) ?? [];
+  const artifactType =
+    asNonEmptyString(inputs.artifactType) ?? "functional_design";
+  const artifactBrief = asNonEmptyString(inputs.artifactBrief);
+  const contentRequirements = asStringList(inputs.contentRequirements) ?? [];
+  const scopeIn = asStringList(inputs.scopeIn) ?? pathAllowlist;
+  const scopeOut = asStringList(inputs.scopeOut) ?? [];
+  const expectedOutputs =
+    asStringList(inputs.expectedOutputs) ??
+    (Array.isArray(contract.expectedOutputs)
+      ? asStringList(contract.expectedOutputs)
+      : null) ??
+    (targetPath ? [targetPath] : []);
+  const validationExpectations =
+    asStringList(inputs.validationExpectations) ?? [];
+  const evidenceRequirements =
+    asStringList(inputs.evidenceRequirements) ??
+    (Array.isArray(contract.evidenceRequirements)
+      ? asStringList(contract.evidenceRequirements)
+      : null) ??
+    [];
+
+  if (!repositoryRef) {
+    return { ok: false, reason: "docs_write_repository_ref_missing" };
+  }
+  if (!targetPath) {
+    return { ok: false, reason: "docs_write_target_path_missing" };
+  }
+  if (pathAllowlist.length === 0) {
+    return { ok: false, reason: "docs_write_path_allowlist_missing" };
+  }
+  if (!artifactBrief) {
+    return { ok: false, reason: "docs_write_artifact_brief_missing" };
+  }
+  if (contentRequirements.length === 0) {
+    return { ok: false, reason: "docs_write_content_requirements_missing" };
+  }
+
+  const bindingIdentity =
+    asNonEmptyString(inputs.repositoryBindingIdentity) ??
+    asNonEmptyString(inputs.repositoryIdentity) ??
+    repositoryRef;
+
+  return {
+    ok: true,
+    spec: {
+      repositoryRef,
+      targetPath,
+      pathAllowlist,
+      artifactType,
+      artifactBrief,
+      contentRequirements,
+      scopeIn,
+      scopeOut,
+      expectedOutputs: expectedOutputs ?? [],
+      validationExpectations,
+      evidenceRequirements: evidenceRequirements ?? [],
+      createOrModify: true,
+      noDelete: true,
+    },
+    repositoryBindingIdentity: bindingIdentity ?? undefined,
+  };
 }
 
 function mapRealLaunchRejectDetail(
@@ -560,6 +661,77 @@ export class StartExecution {
       );
     }
 
+    // CR-GCEC-02 — docsWriteSpec BEFORE Gate D consume (fail-closed).
+    let docsWriteSpec: DocsWriteLaunchSpec | undefined;
+    let repositoryBindingIdentity: string | undefined;
+    let managedRepoRoot: string | undefined;
+    let repositoryBinding:
+      | {
+          identity: string;
+          remoteUrl: string;
+          defaultBranch: string;
+          pathRoot?: string;
+        }
+      | undefined;
+    if (contract.action === M4_BOUNDED_DOCS_WRITE_ACTION) {
+      const extracted = extractDocsWriteLaunchSpec(contract);
+      if (!extracted.ok) {
+        return fail("REAL_AGENT_PROFILE_INVALID", extracted.reason, {
+          executionContractId: contract.executionContractId,
+        });
+      }
+      docsWriteSpec = extracted.spec;
+      repositoryBindingIdentity = extracted.repositoryBindingIdentity;
+
+      const inputs =
+        contract.inputs && typeof contract.inputs === "object"
+          ? (contract.inputs as Record<string, unknown>)
+          : {};
+      const managed =
+        typeof inputs.managedRepoRoot === "string"
+          ? inputs.managedRepoRoot.trim()
+          : "";
+      if (!managed) {
+        return fail(
+          "REAL_WORKSPACE_INVALID",
+          "docs_write_managed_repo_root_missing",
+          { executionContractId: contract.executionContractId },
+        );
+      }
+      managedRepoRoot = managed;
+
+      const identity =
+        (typeof inputs.repositoryIdentity === "string" &&
+          inputs.repositoryIdentity.trim()) ||
+        (typeof inputs.repositoryBindingIdentity === "string" &&
+          inputs.repositoryBindingIdentity.trim()) ||
+        docsWriteSpec.repositoryRef;
+      const remoteUrl =
+        (typeof inputs.remoteUrl === "string" && inputs.remoteUrl.trim()) ||
+        `https://github.com/${identity}.git`;
+      const defaultBranch =
+        (typeof inputs.defaultBranch === "string" &&
+          inputs.defaultBranch.trim()) ||
+        "main";
+      const pathRoot =
+        typeof inputs.pathRoot === "string" && inputs.pathRoot.trim()
+          ? inputs.pathRoot.trim()
+          : undefined;
+      if (!identity) {
+        return fail(
+          "REAL_WORKSPACE_INVALID",
+          "docs_write_repository_binding_missing",
+          { executionContractId: contract.executionContractId },
+        );
+      }
+      repositoryBinding = {
+        identity,
+        remoteUrl,
+        defaultBranch,
+        ...(pathRoot ? { pathRoot } : {}),
+      };
+    }
+
     const fingerprint =
       contract.semanticFingerprint ??
       computeExecutionContractSemanticFingerprint(contract);
@@ -693,6 +865,12 @@ export class StartExecution {
         target: contract.target,
         scope: contract.scope,
         timeoutMs: window.resolvedMaxDurationMs,
+        ...(docsWriteSpec ? { docsWriteSpec } : {}),
+        ...(repositoryBindingIdentity
+          ? { repositoryBindingIdentity }
+          : {}),
+        ...(managedRepoRoot ? { managedRepoRoot } : {}),
+        ...(repositoryBinding ? { repositoryBinding } : {}),
       });
     } catch {
       return this.failRealLaunch({

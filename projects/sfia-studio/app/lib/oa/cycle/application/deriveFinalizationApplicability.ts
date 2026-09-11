@@ -27,6 +27,10 @@ import {
   isGitApplicableContract,
   isGitCompletionProofEvidence,
 } from "./qualifyGitEvidence";
+import {
+  gitProofFamiliesFromRequirements,
+  qualifyGitCompletionProofSet,
+} from "./qualifyGitCompletionProofSet";
 
 export const OBLIGATION_POLICY_SUBJECT_PREFIX =
   "pilot.lifecycle.obligation-policy:" as const;
@@ -305,9 +309,65 @@ export function deriveFinalizationApplicability(
     );
   }
   const gitIds = new Set(gitApplicable.map((c) => c.contractId));
-  rules.gitProofPresent = evidence.some((e) =>
-    isGitCompletionProofEvidence(e, gitIds, cycleId),
-  );
+
+  // CR-GCEC-05 — when obligation snapshot has git MUST, require full proof SET.
+  // Legacy git-applicable EC cycles keep single-row / lexical completion.
+  const gitMust = snapshot?.mustFamilies.includes("git_repository") === true;
+
+  if (gitMust) {
+    const reqs = gitProofFamiliesFromRequirements(
+      contracts.flatMap((c) => c.evidenceRequirements ?? []),
+    );
+    const primaryContract = gitApplicable[0] ?? contracts[0];
+    const artifactEv = evidence.find(
+      (e) =>
+        e.type === "artifact" &&
+        evaluateFunctionalDesignArtifactCompleteness(e).ok,
+    );
+    const expected = {
+      repositoryRef:
+        input.repositoryBinding?.identity ??
+        (typeof artifactEv?.location === "string"
+          ? artifactEv.location
+          : "unknown/repo"),
+      targetPath: artifactEv?.location?.trim() || "docs/functional-design.md",
+      artifactDigest: artifactEv?.digest ?? "",
+      cycleInstanceId: cycleId,
+      executionContractId: primaryContract?.contractId,
+      projectId: input.projectId,
+    };
+    // Prefer repositoryRef from typed git evidence when binding identity empty.
+    if (!input.repositoryBinding?.identity) {
+      const typed = evidence.find((e) =>
+        typeof e.source === "string" && e.source.startsWith("git:"),
+      );
+      if (typed?.location?.includes("repo=")) {
+        try {
+          const q = typed.location.slice(typed.location.indexOf("?") + 1);
+          const repo = q
+            .split("&")
+            .map((p) => p.split("="))
+            .find(([k]) => k === "repo");
+          if (repo?.[1]) {
+            expected.repositoryRef = decodeURIComponent(repo[1]);
+          }
+        } catch {
+          /* keep fallback */
+        }
+      }
+    }
+    const setResult = qualifyGitCompletionProofSet({
+      evidence,
+      requirements: reqs,
+      expected,
+    });
+    rules.gitProofPresent = setResult.status === "SATISFIED";
+  } else {
+    // Legacy single-row path (non-GCEC / no git MUST).
+    rules.gitProofPresent = evidence.some((e) =>
+      isGitCompletionProofEvidence(e, gitIds, cycleId),
+    );
+  }
 
   // --- Obligation policy HD (explicit N/A or REQUIRE) ---
   const policy = findCurrentObligationPolicy(

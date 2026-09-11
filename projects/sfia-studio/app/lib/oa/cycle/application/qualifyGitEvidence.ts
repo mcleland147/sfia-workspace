@@ -102,6 +102,9 @@ export function isGitQualifyingEvidence(
  * GCEC — Git obligation SATISFIED only with typed post-merge verification
  * (or legacy lexical qualifying evidence without typed git:* source).
  * Intermediate git:* facts (diff/commit/push/PR/CI/review/merge) do NOT satisfy.
+ *
+ * @deprecated For GCEC-bound cycles prefer `qualifyGitCompletionProofSet`
+ * (CR-GCEC-05). Single-row post_merge alone is BLOCKING under GCEC policy.
  */
 export function isGitCompletionProofEvidence(
   evidence: Evidence,

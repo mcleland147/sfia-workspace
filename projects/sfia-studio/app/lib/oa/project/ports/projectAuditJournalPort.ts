@@ -89,6 +89,16 @@ export type ProjectAuditEvent =
       result: "rejected" | "external_required";
       detailCode?: string;
       durationMs: number;
+    }
+  | {
+      event: "oa.project.repository_binding_set";
+      ts: string;
+      correlationId?: string;
+      projectId: string;
+      result: "ok" | "error";
+      detailCode?: string;
+      durationMs: number;
+      actorId?: string;
     };
 
 export interface ProjectAuditJournalPort {

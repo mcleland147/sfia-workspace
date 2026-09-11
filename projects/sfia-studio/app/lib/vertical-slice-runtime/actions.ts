@@ -30,3 +30,35 @@ export async function getProjectRuntimeAction(
 export async function listProjectsRuntimeAction(): Promise<ListProjectsRuntimeResult> {
   return getRuntimeApplicationService().listProjects();
 }
+
+export async function setProjectRepositoryBindingAction(input: {
+  projectId: string;
+  identity: string;
+  remoteUrl: string;
+  defaultBranch: string;
+  pathRoot?: string;
+  baseSha?: string;
+}): Promise<
+  | { ok: true; projectId: string; repositoryBinding: unknown }
+  | { ok: false; code: string; message: string }
+> {
+  const svc = getRuntimeApplicationService();
+  if (
+    typeof (svc as { setProjectRepositoryBinding?: unknown })
+      .setProjectRepositoryBinding !== "function"
+  ) {
+    return {
+      ok: false,
+      code: "NOT_AVAILABLE",
+      message: "Repository binding is unavailable in this runtime.",
+    };
+  }
+  return (
+    svc as {
+      setProjectRepositoryBinding: (i: typeof input) => Promise<
+        | { ok: true; projectId: string; repositoryBinding: unknown }
+        | { ok: false; code: string; message: string }
+      >;
+    }
+  ).setProjectRepositoryBinding(input);
+}

@@ -47,6 +47,8 @@ export const F2_EXECUTION_INTENT_JSON_SCHEMA: Record<string, unknown> = {
         { type: "null" },
       ],
     },
+    artifactBrief: NULLABLE_STRING,
+    contentRequirements: STRING_ARRAY,
   },
   required: [
     "intentKind",
@@ -61,6 +63,8 @@ export const F2_EXECUTION_INTENT_JSON_SCHEMA: Record<string, unknown> = {
     "evidenceRequirements",
     "requestedOperation",
     "reversibilityExpectation",
+    "artifactBrief",
+    "contentRequirements",
   ],
 };
 
@@ -77,6 +81,8 @@ export type ExecutionIntentPayload = {
   evidenceRequirements?: string[];
   requestedOperation?: string | null;
   reversibilityExpectation?: "reversible" | "irreversible" | "unknown" | null;
+  artifactBrief?: string | null;
+  contentRequirements?: string[];
 };
 
 function asStringArray(value: unknown): string[] | undefined {
@@ -159,6 +165,13 @@ export function validateExecutionIntentPayload(
   ) {
     return { ok: false, reason: "evidence_requirements_invalid" };
   }
+  const contentRequirements = asStringArray(r.contentRequirements);
+  if (
+    r.contentRequirements !== undefined &&
+    contentRequirements === undefined
+  ) {
+    return { ok: false, reason: "content_requirements_invalid" };
+  }
 
   return {
     ok: true,
@@ -177,6 +190,8 @@ export function validateExecutionIntentPayload(
       reversibilityExpectation:
         (reversibility as ExecutionIntentPayload["reversibilityExpectation"]) ??
         null,
+      artifactBrief: asNullableString(r.artifactBrief) ?? null,
+      contentRequirements: contentRequirements ?? [],
     },
   };
 }

@@ -224,35 +224,53 @@ export function buildTypedGitEvidenceFields<S extends TypedGitEvidenceSource>(
   const validated = validateTypedGitEvidencePayload(source, payload);
   if (!validated.ok) return validated;
 
-  const p = payload as Record<string, unknown>;
   let location: string | undefined;
   let digest: Digest | undefined;
 
   switch (source) {
-    case "git:working_tree_diff":
-      location = `git://working-tree/${String(p.repositoryRef)}`;
+    case "git:working_tree_diff": {
+      const wt = payload as GitWorkingTreeDiffPayload;
+      location = `git:working_tree_diff?repo=${encodeURIComponent(wt.repositoryRef)}`;
       break;
-    case "git:local_commit":
-      location = `git://commit/${String(p.commitSha)}`;
+    }
+    case "git:local_commit": {
+      const lc = payload as GitLocalCommitPayload;
+      location = `git:local_commit?repo=${encodeURIComponent(lc.repositoryRef)}&commitSha=${encodeURIComponent(lc.commitSha)}`;
       break;
-    case "git:remote_push":
-      location = `git://push/${String(p.remote)}/${String(p.refName)}@${String(p.commitSha)}`;
+    }
+    case "git:remote_push": {
+      const rp = payload as GitRemotePushPayload;
+      location = `git:remote_push?repo=${encodeURIComponent(rp.repositoryRef)}&remote=${encodeURIComponent(rp.remote)}&refName=${encodeURIComponent(rp.refName)}&commitSha=${encodeURIComponent(rp.commitSha)}`;
       break;
-    case "git:pull_request":
-      location = `git://pr/${String(p.repositoryRef)}#${String(p.prNumber)}`;
+    }
+    case "git:pull_request": {
+      const pr = payload as GitPullRequestPayload;
+      location = `git:pull_request?repo=${encodeURIComponent(pr.repositoryRef)}&prNumber=${encodeURIComponent(String(pr.prNumber))}`;
       break;
-    case "git:ci_status":
-      location = `git://ci/${String(p.commitSha)}`;
+    }
+    case "git:ci_status": {
+      const ci = payload as GitCiStatusPayload;
+      location = `git:ci_status?repo=${encodeURIComponent(ci.repositoryRef)}&commitSha=${encodeURIComponent(ci.commitSha)}&conclusion=${encodeURIComponent(ci.conclusion)}`;
       break;
-    case "git:review_status":
-      location = `git://review/${String(p.repositoryRef)}`;
+    }
+    case "git:review_status": {
+      const rv = payload as GitReviewStatusPayload;
+      location = `git:review_status?repo=${encodeURIComponent(rv.repositoryRef)}&prNumber=${encodeURIComponent(String(rv.prNumber ?? ""))}&state=${encodeURIComponent(rv.state)}`;
       break;
-    case "git:merge":
-      location = `git://merge/${String(p.mergeCommitSha)}`;
+    }
+    case "git:merge": {
+      const mg = payload as GitMergePayload;
+      location = `git:merge?repo=${encodeURIComponent(mg.repositoryRef)}&mergeCommitSha=${encodeURIComponent(mg.mergeCommitSha)}&prNumber=${encodeURIComponent(String(mg.prNumber ?? ""))}`;
       break;
+    }
     case "git:post_merge_verification": {
       const pm = payload as GitPostMergeVerificationPayload;
-      location = `git://post-merge/${pm.targetBranch}@${pm.targetSha}/${pm.artifactPath}`;
+      location =
+        `git:post_merge_verification?repo=${encodeURIComponent(pm.repositoryRef)}` +
+        `&targetBranch=${encodeURIComponent(pm.targetBranch)}` +
+        `&targetSha=${encodeURIComponent(pm.targetSha)}` +
+        `&artifactPath=${encodeURIComponent(pm.artifactPath)}` +
+        `&digest=${encodeURIComponent(pm.artifactDigest)}`;
       digest = pm.artifactDigest;
       break;
     }
