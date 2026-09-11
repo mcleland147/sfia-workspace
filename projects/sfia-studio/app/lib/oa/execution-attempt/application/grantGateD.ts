@@ -10,7 +10,7 @@ import { computeExecutionContractSemanticFingerprint } from "@/lib/oa/execution-
 import { createAttemptError, isExecutionAttemptDomainError } from "../domain/errors";
 import type { AttemptDetailCode, ActorReference } from "../domain/types";
 import type { GateDGrant } from "../domain/realLaunchSafety";
-import { isM4BoundedReadOnlyRealAgent } from "../infrastructure/m4BoundedReadOnlyCursorAgent";
+import { isM4AuthorizedCursorRealAgent } from "../infrastructure/m4BoundedDocsWriteCursorAgent";
 import type { AgentRegistryPort } from "../ports/agentRegistry";
 import type { ExecutionAttemptRepositoryPort } from "../ports/executionAttemptRepository";
 import type { RealLaunchSafetyJournalPort } from "../ports/realLaunchSafetyJournalPort";
@@ -145,8 +145,8 @@ export class GrantGateD {
 
       const agent = this.registry.getAgent(attempt.selectedAgentRef);
       if (!agent) return fail("AGENT_NOT_FOUND", "selected_agent_missing");
-      if (!isM4BoundedReadOnlyRealAgent(agent)) {
-        return fail("REAL_AGENT_PROFILE_INVALID", "not_m4_bounded_readonly_real");
+      if (!isM4AuthorizedCursorRealAgent(agent)) {
+        return fail("REAL_AGENT_PROFILE_INVALID", "not_m4_authorized_cursor_real");
       }
 
       const authz = verifyAttemptAuthority(this.authority, {

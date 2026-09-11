@@ -65,6 +65,28 @@ export { RegisterEvidence } from "./application/registerEvidence";
 export { IngestExecutionAttemptEvidence } from "./application/ingestExecutionAttemptEvidence";
 export { VerifyEvidenceIntegrity } from "./application/verifyEvidenceIntegrity";
 export { MarkEvidenceUnavailable } from "./application/markEvidenceUnavailable";
+export {
+  evaluateFunctionalDesignArtifactCompleteness,
+  type ArtifactCompletenessGap,
+  type ArtifactCompletenessResult,
+} from "./application/artifactCompleteness";
+export {
+  TYPED_GIT_EVIDENCE_SOURCES,
+  isTypedGitEvidenceSource,
+  validateTypedGitEvidencePayload,
+  buildTypedGitEvidenceFields,
+  type TypedGitEvidenceSource,
+  type TypedGitEvidenceFields,
+  type TypedGitEvidencePayloadBySource,
+  type GitWorkingTreeDiffPayload,
+  type GitLocalCommitPayload,
+  type GitRemotePushPayload,
+  type GitPullRequestPayload,
+  type GitCiStatusPayload,
+  type GitReviewStatusPayload,
+  type GitMergePayload,
+  type GitPostMergeVerificationPayload,
+} from "./application/typedGitEvidence";
 export { CreateReviewBundle } from "./application/createReviewBundle";
 export { AttachEvidenceToReviewBundle } from "./application/attachEvidenceToReviewBundle";
 export { RemoveEvidenceFromReviewBundle } from "./application/removeEvidenceFromReviewBundle";

@@ -35,6 +35,25 @@ export type LivingProjectStateStatus =
   | "conflict"
   | "superseded";
 
+/**
+ * GCEC — explicit Project → target repository binding (D-GCEC-02).
+ * Persisted only inside Project.payload_json (schema-free additive).
+ * Ambient Studio repoRoot is NEVER an implicit target.
+ */
+export type ProjectRepositoryProvider = "github";
+
+export type ProjectRepositoryBinding = {
+  provider: ProjectRepositoryProvider;
+  /** e.g. owner/repo */
+  identity: string;
+  remoteUrl: string;
+  defaultBranch: string;
+  /** Optional pin; otherwise resolved at PREPARE/Gate D. */
+  baseSha?: string;
+  /** Relative allowlist root (e.g. docs/). */
+  pathRoot?: string;
+};
+
 export type Project = {
   schemaVersion: "0.1.0-oa";
   projectId: string;
@@ -43,6 +62,8 @@ export type Project = {
   currentLpsVersionId?: string;
   doctrinePackageRef?: DoctrinePackageRef;
   activeCycleInstanceId?: string;
+  /** Explicit Product target repository — never ambient sfia-workspace. */
+  repositoryBinding?: ProjectRepositoryBinding;
   createdAt: string;
   updatedAt?: string;
   createdBy: ActorReference;

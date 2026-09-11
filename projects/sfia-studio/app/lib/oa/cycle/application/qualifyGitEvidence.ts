@@ -2,8 +2,10 @@
  * CORR-PROOF-05 #3B — semantic binding for Git/repository proof Evidence.
  * Pure; no persistence. Type alone is never sufficient.
  * Lexical matching uses explicit token/namespace boundaries — never substring "git".
+ * Prefer typed git:* sources (D-GCEC-07) over lexical markers.
  */
 import type { Evidence } from "@/lib/oa/evidence-review";
+import { isTypedGitEvidenceSource } from "@/lib/oa/evidence-review";
 
 export type GitQualifiableContract = {
   contractId: string;
@@ -53,7 +55,7 @@ export function isGitApplicableContract(
 /**
  * Evidence qualifies as git proof only when status is supporting AND
  * semantically bound to a git-applicable EC, or (without EC binding)
- * same-cycle with explicit Git/repository location|source marker.
+ * same-cycle with typed git:* source or explicit Git/repository location|source marker.
  */
 export function isGitQualifyingEvidence(
   evidence: Evidence,
@@ -79,6 +81,10 @@ export function isGitQualifyingEvidence(
 
   const sameCycle = evidence.bindings?.cycleInstanceId === cycleInstanceId;
   if (sameCycle) {
+    // Prefer typed git:* discriminators over lexical fallback.
+    if (isTypedGitEvidenceSource(evidence.source)) {
+      return true;
+    }
     const location = evidence.location ?? "";
     const source = evidence.source ?? "";
     if (
@@ -90,4 +96,24 @@ export function isGitQualifyingEvidence(
   }
 
   return false;
+}
+
+/**
+ * GCEC — Git obligation SATISFIED only with typed post-merge verification
+ * (or legacy lexical qualifying evidence without typed git:* source).
+ * Intermediate git:* facts (diff/commit/push/PR/CI/review/merge) do NOT satisfy.
+ */
+export function isGitCompletionProofEvidence(
+  evidence: Evidence,
+  gitApplicableContractIds: ReadonlySet<string> | readonly string[],
+  cycleInstanceId: string,
+): boolean {
+  if (!isGitQualifyingEvidence(evidence, gitApplicableContractIds, cycleInstanceId)) {
+    return false;
+  }
+  if (isTypedGitEvidenceSource(evidence.source)) {
+    return evidence.source === "git:post_merge_verification";
+  }
+  // Legacy lexical path (pre-typed) still qualifies for back-compat tests.
+  return true;
 }

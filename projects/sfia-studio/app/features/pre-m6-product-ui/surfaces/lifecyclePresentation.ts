@@ -1,5 +1,6 @@
 import type {
   FinalizationAssessment,
+  FinalizationApplicabilityRules,
   FinalizationObligation,
 } from "@/lib/oa/cycle";
 import type { PilotLifecycleProjection } from "@/lib/oa/cycle";
@@ -123,6 +124,20 @@ export function canOfferGroupedNoGovernedEffects(
     if (o.applicability === "UNKNOWN") unknownCount += 1;
   }
   return unknownCount > 0;
+}
+
+/**
+ * True when applicability rules already mark a governed family APPLICABLE
+ * (positiveSources / obligation snapshot) — UI must not offer grouped N/A.
+ */
+export function mustBlocksNoGovernedEffects(
+  applicabilityRules: FinalizationApplicabilityRules | null | undefined,
+): boolean {
+  if (!applicabilityRules) return false;
+  for (const family of GOVERNED_EFFECT_FAMILIES) {
+    if (applicabilityRules[family] === "APPLICABLE") return true;
+  }
+  return false;
 }
 
 export function lifecycleStatusBadge(

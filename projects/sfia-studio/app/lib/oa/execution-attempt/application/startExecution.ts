@@ -56,7 +56,7 @@ import type {
   ContractSafetyIdentity,
   GateDGrant,
 } from "../domain/realLaunchSafety";
-import { isM4BoundedReadOnlyRealAgent } from "../infrastructure/m4BoundedReadOnlyCursorAgent";
+import { isM4AuthorizedCursorRealAgent } from "../infrastructure/m4BoundedDocsWriteCursorAgent";
 import type { ExecutionAttemptTechnicalStorePort } from "../ports/executionAttemptTechnicalStorePort";
 import type { AgentRegistryPort } from "../ports/agentRegistry";
 import type { ExecutionAdapterPort } from "../ports/executionAdapter";
@@ -74,11 +74,11 @@ import type { ExecutionContractStatusWriter } from "./executionContractStatusWri
 import { mapContractAuthorizationDetail } from "./selectExecutionAgent";
 
 function isRealExecutionAgent(
-  agent: Parameters<typeof isM4BoundedReadOnlyRealAgent>[0],
+  agent: Parameters<typeof isM4AuthorizedCursorRealAgent>[0],
 ): boolean {
   return (
     agent.executionMode === "cursor_cli_real" ||
-    isM4BoundedReadOnlyRealAgent(agent)
+    isM4AuthorizedCursorRealAgent(agent)
   );
 }
 
@@ -534,8 +534,8 @@ export class StartExecution {
         executionContractId: contract.executionContractId,
       });
     }
-    if (!isM4BoundedReadOnlyRealAgent(agent)) {
-      return fail("REAL_AGENT_PROFILE_INVALID", "not_m4_bounded_readonly_real", {
+    if (!isM4AuthorizedCursorRealAgent(agent)) {
+      return fail("REAL_AGENT_PROFILE_INVALID", "not_m4_authorized_cursor_real", {
         selectedAgentRef: attempt.selectedAgentRef,
       });
     }

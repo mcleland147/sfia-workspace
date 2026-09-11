@@ -84,30 +84,78 @@ function fieldsFromBasis(basis: DecisionBasis, decisionId: string) {
     "DECISION_NOT_CURRENT",
   ];
 
+  const docsWriteIntent =
+    eb.intentKind === "docs_write" ||
+    eb.requestedOperation?.trim() === "cursor.docs_write.apply";
+
   const requested = eb.requestedOperation?.trim() ?? "";
   let action: string;
   if (requested) {
     action = requested;
+  } else if (docsWriteIntent) {
+    action = "cursor.docs_write.apply";
   } else {
     action = "UNRESOLVED_ACTION";
     stopConditions.push("ACTION_UNRESOLVED");
   }
 
-  // No explicit target field on DecisionBasis today → always unresolved.
-  const target = "UNRESOLVED_TARGET";
-  stopConditions.push("TARGET_UNRESOLVED");
+  let target: string;
+  let requiredCapabilities: string[];
+  const inputs: Record<string, unknown> = {
+    objective: eb.objective,
+    recommendedProfile: eb.recommendedProfile,
+    cycleTypeId: eb.cycleTypeId,
+    activatedBlocks: eb.activatedBlocks,
+    sourceRef: basis.sourceRef,
+    sourceDigest: basis.sourceDigest,
+  };
 
-  const requiredCapabilities = ["cap:unresolved"];
-  stopConditions.push("CAPABILITY_UNRESOLVED");
+  if (docsWriteIntent) {
+    const targetPath = eb.targetPath?.trim() ?? "";
+    const targetRepositoryRef = eb.targetRepositoryRef?.trim() ?? "";
+    if (!targetPath || !targetRepositoryRef) {
+      target = "UNRESOLVED_TARGET";
+      stopConditions.push("TARGET_UNRESOLVED");
+    } else {
+      // Sentinel target for resolve; concrete path lives in inputs.
+      target = "workspace.isolated.docs_write";
+      inputs.targetPath = targetPath;
+      inputs.targetRepositoryRef = targetRepositoryRef;
+      inputs.repositoryRef = targetRepositoryRef;
+      inputs.pathAllowlist = eb.scopeIn ?? [];
+      inputs.createOrModify = true;
+    }
 
-  // Fail-closed safety default — not a sourced reversibility analysis.
-  const reversibility = "irreversible" as const;
-  stopConditions.push("REVERSIBILITY_UNRESOLVED");
+    if (eb.requiredCapabilities && eb.requiredCapabilities.length > 0) {
+      requiredCapabilities = [...eb.requiredCapabilities];
+    } else {
+      requiredCapabilities = ["cap:cursor.docs_write"];
+    }
+  } else {
+    // No explicit target field on DecisionBasis today → always unresolved.
+    target = "UNRESOLVED_TARGET";
+    stopConditions.push("TARGET_UNRESOLVED");
+    requiredCapabilities = ["cap:unresolved"];
+    stopConditions.push("CAPABILITY_UNRESOLVED");
+  }
+
+  let reversibility: "reversible" | "irreversible" = "irreversible";
+  if (
+    docsWriteIntent &&
+    (eb.reversibilityExpectation === "reversible" ||
+      eb.reversibilityExpectation === "irreversible")
+  ) {
+    reversibility = eb.reversibilityExpectation;
+  } else {
+    // Fail-closed safety default — not a sourced reversibility analysis.
+    stopConditions.push("REVERSIBILITY_UNRESOLVED");
+  }
 
   const scope =
     (eb.scope && eb.scope.trim()) || `decision:${decisionId}`;
   const constraints = [
     ...(eb.outOfScope ?? []).map((s) => `OUT_OF_SCOPE:${s}`),
+    ...(eb.scopeOut ?? []).map((s) => `OUT_OF_SCOPE:${s}`),
     ...(eb.risks ?? []).map((s) => `RISK:${s}`),
     ...(eb.reservations ?? []).map((s) => `RESERVATION:${s}`),
     "PREPARE_ONLY",
@@ -120,9 +168,16 @@ function fieldsFromBasis(basis: DecisionBasis, decisionId: string) {
       constraints.push(`ACTIVATED_BLOCK:${b}`);
     }
   }
-  const expectedOutputs = eb.expectedOutcome
-    ? [eb.expectedOutcome]
-    : undefined;
+  const expectedOutputs =
+    eb.expectedOutputs && eb.expectedOutputs.length > 0
+      ? [...eb.expectedOutputs]
+      : eb.expectedOutcome
+        ? [eb.expectedOutcome]
+        : undefined;
+  const evidenceRequirements =
+    eb.evidenceRequirements && eb.evidenceRequirements.length > 0
+      ? [...eb.evidenceRequirements]
+      : undefined;
   return {
     action,
     target,
@@ -130,16 +185,10 @@ function fieldsFromBasis(basis: DecisionBasis, decisionId: string) {
     constraints,
     stopConditions,
     expectedOutputs,
+    evidenceRequirements,
     requiredCapabilities,
     reversibility,
-    inputs: {
-      objective: eb.objective,
-      recommendedProfile: eb.recommendedProfile,
-      cycleTypeId: eb.cycleTypeId,
-      activatedBlocks: eb.activatedBlocks,
-      sourceRef: basis.sourceRef,
-      sourceDigest: basis.sourceDigest,
-    },
+    inputs,
   };
 }
 
@@ -262,7 +311,8 @@ export async function prepareM3FromDecision(input: {
       requiredAuthority: "MORRIS",
       constraints: fields.constraints,
       stopConditions: fields.stopConditions,
-      evidenceRequirements: ["evreq:m3-prepare-decision-basis"],
+      evidenceRequirements:
+        fields.evidenceRequirements ?? ["evreq:m3-prepare-decision-basis"],
       reversibility: fields.reversibility,
       idempotencyKey,
       correlationId: `cor:m3-prep:${decision.decisionId}`,

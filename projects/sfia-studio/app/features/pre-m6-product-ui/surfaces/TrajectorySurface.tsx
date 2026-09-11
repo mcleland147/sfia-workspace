@@ -183,6 +183,8 @@ export function TrajectorySurface({
     decidedByDecisionRef: string | null;
     targetCycleTypeId: string | null;
     catalogLabel: string | null;
+    completedMatchingCycle?: boolean;
+    prepareBlockedReason?: "cycle_type_already_completed";
   } | null>(null);
   const [preparedCycle, setPreparedCycle] = useState<{
     cycleInstanceId: string;
@@ -914,7 +916,16 @@ export function TrajectorySurface({
             FIGMA SOURCE NOT APPLICABLE — D-GF-START-01 prepare/start CTAs follow
             existing TrajectorySurface action patterns (no Figma handoff).
           */}
-          {!preparedCycle ? (
+          {greenfieldDecided.prepareBlockedReason ||
+          greenfieldDecided.completedMatchingCycle ? (
+            <p
+              className={styles.blockNote}
+              data-testid="pre-cycle-prepare-blocked"
+            >
+              Ce type de cycle est déjà terminé pour ce projet — aucune
+              préparation disponible.
+            </p>
+          ) : !preparedCycle ? (
             <div className={styles.actions}>
               <button
                 type="button"

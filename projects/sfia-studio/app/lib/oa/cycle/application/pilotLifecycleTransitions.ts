@@ -1532,6 +1532,14 @@ export class PilotLifecycleTransitions {
       : [];
 
     // Product path: always derive from durable facts (ignore static applicabilityRules).
+    const projectResult = await this.deps.projectServices.getProject.execute({
+      projectId: input.projectId,
+    });
+    const repositoryBinding =
+      projectResult.ok === true
+        ? (projectResult.project.repositoryBinding ?? null)
+        : null;
+
     const applicability = deriveFinalizationApplicability({
       cycleInstanceId: input.cycle.cycleInstanceId,
       projectId: input.projectId,
@@ -1540,6 +1548,8 @@ export class PilotLifecycleTransitions {
       evidence,
       reviewBundles,
       executionContracts,
+      cycleTypeId: input.cycle.cycleTypeId,
+      repositoryBinding,
     });
 
     const blockersSnap = await this.loadBlockers(input.projectId);

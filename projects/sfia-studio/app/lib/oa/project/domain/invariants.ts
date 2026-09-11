@@ -10,6 +10,7 @@ import {
   type LivingProjectState,
   type Project,
   type ProjectDetailCode,
+  type ProjectRepositoryBinding,
 } from "./types";
 
 /** Modeled identifier pattern (common/identifier.schema.json). */
@@ -175,6 +176,74 @@ export function assertProjectActiveWithDoctrine(
       detailCode: "DOCTRINE_UNRESOLVED",
       reason: "doctrine_ref_not_resolved",
     };
+  }
+  return null;
+}
+
+const GITHUB_IDENTITY_PATTERN = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/;
+const SHA1_OR_SHA256_HEX = /^(?:[a-f0-9]{40}|[a-f0-9]{64})$/i;
+
+/**
+ * Validate optional Project.repositoryBinding (GCEC D-GCEC-02).
+ * Fail-closed: no ambient workspace fallback, no path traversal.
+ */
+export function validateRepositoryBinding(
+  binding: ProjectRepositoryBinding | undefined | null,
+): InvariantViolation | null {
+  if (binding == null) return null;
+  if (binding.provider !== "github") {
+    return { detailCode: "PROJECT_INVALID", reason: "repository_provider_invalid" };
+  }
+  const identity = typeof binding.identity === "string" ? binding.identity.trim() : "";
+  if (!identity || !GITHUB_IDENTITY_PATTERN.test(identity)) {
+    return { detailCode: "PROJECT_INVALID", reason: "repository_identity_invalid" };
+  }
+  const remoteUrl =
+    typeof binding.remoteUrl === "string" ? binding.remoteUrl.trim() : "";
+  if (!remoteUrl) {
+    return { detailCode: "PROJECT_INVALID", reason: "repository_remote_url_empty" };
+  }
+  const expectedHttps = `https://github.com/${identity}.git`;
+  const expectedHttpsBare = `https://github.com/${identity}`;
+  const expectedSsh = `git@github.com:${identity}.git`;
+  const expectedSshBare = `git@github.com:${identity}`;
+  const remoteOk =
+    remoteUrl === expectedHttps ||
+    remoteUrl === expectedHttpsBare ||
+    remoteUrl === expectedSsh ||
+    remoteUrl === expectedSshBare;
+  if (!remoteOk) {
+    return {
+      detailCode: "PROJECT_INVALID",
+      reason: "repository_remote_identity_mismatch",
+    };
+  }
+  const branch =
+    typeof binding.defaultBranch === "string" ? binding.defaultBranch.trim() : "";
+  if (!branch || branch.includes("..") || branch.includes("/") || branch.includes("\\")) {
+    return { detailCode: "PROJECT_INVALID", reason: "repository_default_branch_invalid" };
+  }
+  if (binding.baseSha != null) {
+    const sha = binding.baseSha.trim();
+    if (!SHA1_OR_SHA256_HEX.test(sha)) {
+      return { detailCode: "PROJECT_INVALID", reason: "repository_base_sha_invalid" };
+    }
+  }
+  if (binding.pathRoot != null) {
+    const pathRoot = binding.pathRoot.trim().replace(/\/+$/, "");
+    if (!pathRoot) {
+      return { detailCode: "PROJECT_INVALID", reason: "repository_path_root_empty" };
+    }
+    if (
+      pathRoot.startsWith("/") ||
+      pathRoot.includes("\\") ||
+      pathRoot.split("/").some((seg) => seg === ".." || seg === "")
+    ) {
+      return {
+        detailCode: "PROJECT_INVALID",
+        reason: "repository_path_root_traversal",
+      };
+    }
   }
   return null;
 }

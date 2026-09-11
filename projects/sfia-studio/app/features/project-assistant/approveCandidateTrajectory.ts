@@ -166,6 +166,8 @@ export async function buildPreCycleCandidateApprovalPresentation(input: {
         decidedByDecisionRef: string | null;
         targetCycleTypeId: string | null;
         catalogLabel: string | null;
+        completedMatchingCycle?: boolean;
+        prepareBlockedReason?: "cycle_type_already_completed";
       } | null;
       activeCycleInstanceId: string | null;
     }
@@ -203,6 +205,20 @@ export async function buildPreCycleCandidateApprovalPresentation(input: {
         catalogLabel = getCycleTypeById(targetCycleTypeId)?.label ?? null;
       }
     }
+    let completedMatchingCycle = false;
+    let prepareBlockedReason:
+      | "cycle_type_already_completed"
+      | undefined;
+    if (targetCycleTypeId && activeCycleInstanceId == null) {
+      const cycles = await oa.cycleServices.cycles.listByProject(projectId);
+      completedMatchingCycle = cycles.some(
+        (c) =>
+          c.status === "completed" && c.cycleTypeId === targetCycleTypeId,
+      );
+      if (completedMatchingCycle) {
+        prepareBlockedReason = "cycle_type_already_completed";
+      }
+    }
     return {
       ok: true,
       presentation: null,
@@ -213,6 +229,12 @@ export async function buildPreCycleCandidateApprovalPresentation(input: {
         decidedByDecisionRef: current.decidedByDecisionRef,
         targetCycleTypeId,
         catalogLabel,
+        ...(completedMatchingCycle
+          ? {
+              completedMatchingCycle: true,
+              prepareBlockedReason,
+            }
+          : {}),
       },
       activeCycleInstanceId,
     };

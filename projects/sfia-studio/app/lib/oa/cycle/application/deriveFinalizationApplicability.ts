@@ -7,6 +7,8 @@
 import type { HumanDecision } from "@/lib/oa/decision";
 import type { Evidence } from "@/lib/oa/evidence-review";
 import type { ReviewBundle } from "@/lib/oa/evidence-review/domain/reviewBundleTypes";
+import type { ProjectRepositoryBinding } from "@/lib/oa/project";
+import { evaluateFunctionalDesignArtifactCompleteness } from "@/lib/oa/evidence-review";
 import type {
   FinalizationApplicabilityRules,
   ObligationApplicability,
@@ -17,8 +19,13 @@ import {
   matchesLifecycleHumanDecision,
 } from "./assessFinalization";
 import {
+  applyCycleObligationSnapshotToRules,
+  deriveCycleObligationSnapshot,
+  type CycleObligationSnapshot,
+} from "./deriveCycleObligationSnapshot";
+import {
   isGitApplicableContract,
-  isGitQualifyingEvidence,
+  isGitCompletionProofEvidence,
 } from "./qualifyGitEvidence";
 
 export const OBLIGATION_POLICY_SUBJECT_PREFIX =
@@ -61,6 +68,12 @@ export type DeriveFinalizationApplicabilityInput = {
   evidence: readonly Evidence[];
   reviewBundles: readonly ReviewBundle[];
   executionContracts: readonly DerivableExecutionContract[];
+  /** GCEC — cycle type for pre-row F14 obligation binding. */
+  cycleTypeId?: string;
+  /** GCEC — explicit Project repository binding (contextual Git MUST). */
+  repositoryBinding?: ProjectRepositoryBinding | null;
+  /** Optional precomputed snapshot; otherwise derived when cycleTypeId set. */
+  obligationSnapshot?: CycleObligationSnapshot | null;
 };
 
 type PositiveFamily =
@@ -189,7 +202,8 @@ function requireApplicable(
 
 /**
  * Derive applicability from durable Product facts.
- * Merge: empty → positive EC/evidence/review/trajectory signals → obligation-policy HD.
+ * Merge: empty → pre-exec F14 obligation snapshot → positive EC/evidence/review/trajectory
+ * signals → obligation-policy HD (monotone; MUST cannot be silently erased).
  */
 export function deriveFinalizationApplicability(
   input: DeriveFinalizationApplicabilityInput,
@@ -202,6 +216,21 @@ export function deriveFinalizationApplicability(
   const reviews = input.reviewBundles.filter(
     (r) => !r.cycleInstanceId || r.cycleInstanceId === cycleId,
   );
+
+  // --- Pre-execution F14 obligation snapshot (APPLICABLE before rows) ---
+  const snapshot =
+    input.obligationSnapshot ??
+    (input.cycleTypeId
+      ? deriveCycleObligationSnapshot({
+          projectId: input.projectId,
+          cycleTypeId: input.cycleTypeId,
+          cycleInstanceId: cycleId,
+          repositoryBinding: input.repositoryBinding,
+        })
+      : null);
+  if (snapshot) {
+    applyCycleObligationSnapshotToRules(rules, snapshot, positiveSources);
+  }
 
   // --- Positive signals (APPLICABLE only; never N/A from absence) ---
   if (input.trajectory) {
@@ -260,7 +289,10 @@ export function deriveFinalizationApplicability(
     );
   }
   rules.artifactProofPresent = evidence.some(
-    (e) => e.type === "artifact" && isProofStatus(e.status),
+    (e) =>
+      e.type === "artifact" &&
+      isProofStatus(e.status) &&
+      evaluateFunctionalDesignArtifactCompleteness(e).ok,
   );
 
   const gitApplicable = contracts.filter(isGitApplicableContract);
@@ -274,7 +306,7 @@ export function deriveFinalizationApplicability(
   }
   const gitIds = new Set(gitApplicable.map((c) => c.contractId));
   rules.gitProofPresent = evidence.some((e) =>
-    isGitQualifyingEvidence(e, gitIds, cycleId),
+    isGitCompletionProofEvidence(e, gitIds, cycleId),
   );
 
   // --- Obligation policy HD (explicit N/A or REQUIRE) ---

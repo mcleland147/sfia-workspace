@@ -27,6 +27,7 @@ import {
   CURSOR_TRUST_MARKER_PATH_TOO_LONG_REASON,
   isCursorTrustMarkerPathCompatible,
 } from "./cursorTrustMarkerPathCompatibility";
+import { M4_BOUNDED_DOCS_WRITE_ACTION } from "./m4BoundedDocsWriteCursorAgent";
 
 export type StudioCursorRealLaunchGatewayOptions = {
   readonly processRunner: ProcessRunner;
@@ -198,6 +199,7 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
 
     // Fixed argv shape — executable is separate; no user-controlled shell.
     // --mode ask: local CLI help documents ask as read-only Q&A (no edits).
+    // Docs-write uses default agent mode (omit --mode ask).
     // Shell under ask remains unresolved by help alone; future REAL must observe.
     const instruction = [
       "TÂCHE UNIQUE — preuve read-only déterministe.",
@@ -218,18 +220,30 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
       "Aucune mutation, aucun git remote/commit/push/PR/merge.",
     ].join("\n");
 
-    const argv = [
-      "agent",
-      "--print",
-      "--mode",
-      "ask",
-      "--workspace",
-      workspacePath,
-      "--trust",
-      "--sandbox",
-      "enabled",
-      instruction,
-    ];
+    const isDocsWrite = request.action === M4_BOUNDED_DOCS_WRITE_ACTION;
+    const argv = isDocsWrite
+      ? [
+          "agent",
+          "--print",
+          "--workspace",
+          workspacePath,
+          "--trust",
+          "--sandbox",
+          "enabled",
+          instruction,
+        ]
+      : [
+          "agent",
+          "--print",
+          "--mode",
+          "ask",
+          "--workspace",
+          workspacePath,
+          "--trust",
+          "--sandbox",
+          "enabled",
+          instruction,
+        ];
 
     try {
       const invoked = await this.runner.invoke({

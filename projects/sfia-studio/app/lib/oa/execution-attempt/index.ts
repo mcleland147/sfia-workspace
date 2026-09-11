@@ -156,7 +156,26 @@ export {
   M4_BOUNDED_RO_TARGET,
   M4_BOUNDED_RO_SCOPE,
 } from "./infrastructure/m4BoundedReadOnlyCursorAgent";
-export { M4_BOUNDED_RO_CURSOR_AGENT_ID, M4_REAL_GATEWAY_ADAPTER_ID } from "./domain/realLaunchSafety";
+export {
+  createM4BoundedDocsWriteCursorAgentDescriptor,
+  isM4BoundedDocsWriteRealAgent,
+  isM4AuthorizedCursorRealAgent,
+  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
+  M4_BOUNDED_DOCS_WRITE_ACTION,
+  M4_BOUNDED_DOCS_WRITE_TARGET,
+  M4_BOUNDED_DOCS_WRITE_SCOPE,
+} from "./infrastructure/m4BoundedDocsWriteCursorAgent";
+export {
+  FakeDocsWriteLaunchPort,
+  listRelativeFiles,
+  sha256File,
+  type FakeDocsWriteLaunchPortOptions,
+} from "./infrastructure/fakeDocsWriteLaunchPort";
+export {
+  M4_BOUNDED_RO_CURSOR_AGENT_ID,
+  M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+  M4_REAL_GATEWAY_ADAPTER_ID,
+} from "./domain/realLaunchSafety";
 export { assertStudioCursorRealOffForTests } from "./domain/realLaunchSafety";
 
 import type { ClockPort } from "@/lib/oa/doctrine";

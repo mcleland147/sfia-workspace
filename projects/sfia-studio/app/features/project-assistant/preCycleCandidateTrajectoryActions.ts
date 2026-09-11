@@ -290,6 +290,8 @@ export async function projectAssistantReadCandidateTrajectoryApprovalPresentatio
     decidedByDecisionRef: string | null;
     targetCycleTypeId: string | null;
     catalogLabel: string | null;
+    completedMatchingCycle?: boolean;
+    prepareBlockedReason?: "cycle_type_already_completed";
   } | null;
   activeCycleInstanceId?: string | null;
 }> {
