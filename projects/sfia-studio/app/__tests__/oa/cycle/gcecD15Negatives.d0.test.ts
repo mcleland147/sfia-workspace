@@ -1623,4 +1623,350 @@ describe("gcecD15Negatives — N1–N28", () => {
       }).ok,
     ).toBe(true);
   });
+
+  it("H23A-P1 canonical repo + branch + exact Confirmation → git.commit authorized", () => {
+    const actionRef = buildGitEffectActionRef({
+      executionContractId: "xct:h23a-p1",
+      effect: "git.commit",
+      repositoryRef: REPO,
+      branchOrRef: "main",
+    });
+    const slice = deriveAuthorizedExecutionSlice({
+      executionContractId: "xct:h23a-p1",
+      evidenceRequirements: ["git:local_commit"],
+      confirmations: [
+        grantedCnf({
+          confirmationId: "cnf:h23a-p1",
+          actionRef,
+          scope: actionRef,
+          requestedTo: { actorId: "actor:pilote", role: "pilote" },
+        }),
+      ],
+      confirmationMatch: {
+        repositoryRef: REPO,
+        branchOrRef: "main",
+        actorId: "actor:pilote",
+      },
+    });
+    expect(slice.authorizedEffects).toContain("git.commit");
+  });
+
+  it("H23A-N3 empty repositoryRef Confirmation cannot authorize git.commit", () => {
+    const emptyRef = buildGitEffectActionRef({
+      executionContractId: "xct:h23a-n3",
+      effect: "git.commit",
+      repositoryRef: "",
+      branchOrRef: "main",
+    });
+    const slice = deriveAuthorizedExecutionSlice({
+      executionContractId: "xct:h23a-n3",
+      evidenceRequirements: ["git:local_commit"],
+      confirmations: [
+        grantedCnf({
+          confirmationId: "cnf:h23a-n3",
+          actionRef: emptyRef,
+          scope: emptyRef,
+        }),
+      ],
+      confirmationMatch: {
+        repositoryRef: "",
+        branchOrRef: "main",
+      },
+    });
+    expect(slice.authorizedEffects).not.toContain("git.commit");
+    expect(slice.blockedEffects).toContain("git.commit");
+  });
+
+  it("H23A unavailableProtectedEffects blocks git even with crafted Confirmation", () => {
+    const actionRef = buildGitEffectActionRef({
+      executionContractId: "xct:h23a-u",
+      effect: "git.commit",
+      repositoryRef: REPO,
+      branchOrRef: "main",
+    });
+    const slice = deriveAuthorizedExecutionSlice({
+      executionContractId: "xct:h23a-u",
+      evidenceRequirements: ["artifact", "git:local_commit"],
+      requiredCapabilities: ["cap:cursor.docs_write"],
+      confirmations: [
+        grantedCnf({
+          confirmationId: "cnf:h23a-u",
+          actionRef,
+          scope: actionRef,
+        }),
+      ],
+      confirmationMatch: {
+        repositoryRef: REPO,
+        branchOrRef: "main",
+        actorId: "a",
+      },
+      unavailableProtectedEffects: ["git.commit"],
+    });
+    expect(slice.authorizedEffects).toContain("filesystem.create");
+    expect(slice.authorizedEffects).not.toContain("git.commit");
+    expect(slice.reasons.some((r) => r.includes("canonical_target_unavailable"))).toBe(
+      true,
+    );
+  });
+
+  it("H23B-N1 merge without VERIFIED PR + crafted Confirmation → not authorized", async () => {
+    const { resolveGitEffectTarget } = await import(
+      "@/lib/oa/execution-attempt/domain/resolveGitEffectTarget"
+    );
+    const resolved = resolveGitEffectTarget({
+      effect: "github.pr.merge",
+      contract: {
+        executionContractId: "xct:h23b-n1",
+        projectId: "prj:gcec",
+        cycleInstanceId: CYCLE,
+        inputs: {},
+      },
+      projectRepositoryBinding: {
+        provider: "github",
+        identity: REPO,
+        remoteUrl: `https://github.com/${REPO}.git`,
+        defaultBranch: "main",
+      },
+      actorId: "actor:pilote",
+      verifiedEvidence: [],
+    });
+    expect(resolved.ok).toBe(false);
+    const actionRef = buildGitEffectActionRef({
+      executionContractId: "xct:h23b-n1",
+      effect: "github.pr.merge",
+      repositoryRef: REPO,
+      branchOrRef: "main",
+      prNumber: 1,
+    });
+    const slice = deriveAuthorizedExecutionSlice({
+      executionContractId: "xct:h23b-n1",
+      evidenceRequirements: ["git:merge"],
+      confirmations: [
+        grantedCnf({
+          confirmationId: "cnf:h23b-n1",
+          actionRef,
+          scope: actionRef,
+        }),
+      ],
+      confirmationMatch: {
+        repositoryRef: REPO,
+        branchOrRef: "main",
+        // no prNumber — incomplete canonical target
+      },
+      unavailableProtectedEffects: ["github.pr.merge"],
+    });
+    expect(slice.authorizedEffects).not.toContain("github.pr.merge");
+  });
+
+  it("H23B-N2 ambiguous VERIFIED PR identities → resolve fails", async () => {
+    const { resolveVerifiedPullRequestNumber } = await import(
+      "@/lib/oa/execution-attempt/domain/resolveGitEffectTarget"
+    );
+    const evidence = [
+      baseEvidence({
+        evidenceId: "ev:pr41",
+        status: "verified",
+        source: "git:pull_request",
+        location: `git:pull_request?repo=${encodeURIComponent(REPO)}&prNumber=41`,
+        bindings: {
+          projectId: "prj:gcec",
+          cycleInstanceId: CYCLE,
+          executionContractId: "xct:h23b-n2",
+        },
+      }),
+      baseEvidence({
+        evidenceId: "ev:pr42",
+        status: "verified",
+        source: "git:pull_request",
+        location: `git:pull_request?repo=${encodeURIComponent(REPO)}&prNumber=42`,
+        bindings: {
+          projectId: "prj:gcec",
+          cycleInstanceId: CYCLE,
+          executionContractId: "xct:h23b-n2",
+        },
+      }),
+    ];
+    const r = resolveVerifiedPullRequestNumber({
+      evidence,
+      projectId: "prj:gcec",
+      cycleInstanceId: CYCLE,
+      executionContractId: "xct:h23b-n2",
+      repositoryRef: REPO,
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toBe("verified_pull_request_identity_ambiguous");
+  });
+
+  it("H23B-P1 unique VERIFIED PR + exact merge Confirmation → authorized", () => {
+    const actionRef = buildGitEffectActionRef({
+      executionContractId: "xct:h23b-p1",
+      effect: "github.pr.merge",
+      repositoryRef: REPO,
+      branchOrRef: "main",
+      prNumber: 41,
+    });
+    const slice = deriveAuthorizedExecutionSlice({
+      executionContractId: "xct:h23b-p1",
+      evidenceRequirements: ["git:merge"],
+      confirmations: [
+        grantedCnf({
+          confirmationId: "cnf:h23b-p1",
+          actionRef,
+          scope: actionRef,
+          requestedTo: { actorId: "actor:pilote", role: "pilote" },
+        }),
+      ],
+      confirmationMatch: {
+        repositoryRef: REPO,
+        branchOrRef: "main",
+        prNumber: 41,
+        actorId: "actor:pilote",
+      },
+    });
+    expect(slice.authorizedEffects).toContain("github.pr.merge");
+  });
+
+  it("H23C-N1 VERIFIED PR without repository identity → ineligible", async () => {
+    const { resolveVerifiedPullRequestNumber } = await import(
+      "@/lib/oa/execution-attempt/domain/resolveGitEffectTarget"
+    );
+    const r = resolveVerifiedPullRequestNumber({
+      evidence: [
+        baseEvidence({
+          evidenceId: "ev:pr-norepo",
+          status: "verified",
+          source: "git:pull_request",
+          location: "git:pull_request?prNumber=41",
+          bindings: {
+            projectId: "prj:gcec",
+            cycleInstanceId: CYCLE,
+            executionContractId: "xct:h23c-n1",
+          },
+        }),
+      ],
+      projectId: "prj:gcec",
+      cycleInstanceId: CYCLE,
+      executionContractId: "xct:h23c-n1",
+      repositoryRef: REPO,
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toBe("verified_pull_request_identity_missing");
+  });
+
+  it("H23C-N2 VERIFIED PR wrong repository → ineligible", async () => {
+    const { resolveVerifiedPullRequestNumber } = await import(
+      "@/lib/oa/execution-attempt/domain/resolveGitEffectTarget"
+    );
+    const r = resolveVerifiedPullRequestNumber({
+      evidence: [
+        baseEvidence({
+          evidenceId: "ev:pr-wrong",
+          status: "verified",
+          source: "git:pull_request",
+          location: "git:pull_request?repo=other%2Frepo&prNumber=41",
+          bindings: {
+            projectId: "prj:gcec",
+            cycleInstanceId: CYCLE,
+            executionContractId: "xct:h23c-n2",
+          },
+        }),
+      ],
+      projectId: "prj:gcec",
+      cycleInstanceId: CYCLE,
+      executionContractId: "xct:h23c-n2",
+      repositoryRef: REPO,
+    });
+    expect(r.ok).toBe(false);
+  });
+
+  it("H23C-N3 VERIFIED PR missing prNumber → ineligible", async () => {
+    const { resolveVerifiedPullRequestNumber } = await import(
+      "@/lib/oa/execution-attempt/domain/resolveGitEffectTarget"
+    );
+    const r = resolveVerifiedPullRequestNumber({
+      evidence: [
+        baseEvidence({
+          evidenceId: "ev:pr-nopr",
+          status: "verified",
+          source: "git:pull_request",
+          location: `git:pull_request?repo=${encodeURIComponent(REPO)}`,
+          bindings: {
+            projectId: "prj:gcec",
+            cycleInstanceId: CYCLE,
+            executionContractId: "xct:h23c-n3",
+          },
+        }),
+      ],
+      projectId: "prj:gcec",
+      cycleInstanceId: CYCLE,
+      executionContractId: "xct:h23c-n3",
+      repositoryRef: REPO,
+    });
+    expect(r.ok).toBe(false);
+  });
+
+  it("H23C-P1 exact project/cycle/EC/repo/pr → trusted #41", async () => {
+    const { resolveVerifiedPullRequestNumber } = await import(
+      "@/lib/oa/execution-attempt/domain/resolveGitEffectTarget"
+    );
+    const r = resolveVerifiedPullRequestNumber({
+      evidence: [
+        baseEvidence({
+          evidenceId: "ev:pr-ok",
+          status: "verified",
+          source: "git:pull_request",
+          location: `git:pull_request?repo=${encodeURIComponent(REPO)}&prNumber=41`,
+          bindings: {
+            projectId: "prj:gcec",
+            cycleInstanceId: CYCLE,
+            executionContractId: "xct:h23c-p1",
+          },
+        }),
+      ],
+      projectId: "prj:gcec",
+      cycleInstanceId: CYCLE,
+      executionContractId: "xct:h23c-p1",
+      repositoryRef: REPO,
+    });
+    expect(r.ok).toBe(true);
+    if (r.ok) expect(r.prNumber).toBe(41);
+  });
+
+  it("H23C-N4 malformed no-repo row does not make unique #41 ambiguous", async () => {
+    const { resolveVerifiedPullRequestNumber } = await import(
+      "@/lib/oa/execution-attempt/domain/resolveGitEffectTarget"
+    );
+    const r = resolveVerifiedPullRequestNumber({
+      evidence: [
+        baseEvidence({
+          evidenceId: "ev:pr-ok41",
+          status: "verified",
+          source: "git:pull_request",
+          location: `git:pull_request?repo=${encodeURIComponent(REPO)}&prNumber=41`,
+          bindings: {
+            projectId: "prj:gcec",
+            cycleInstanceId: CYCLE,
+            executionContractId: "xct:h23c-n4",
+          },
+        }),
+        baseEvidence({
+          evidenceId: "ev:pr-malformed42",
+          status: "verified",
+          source: "git:pull_request",
+          location: "git:pull_request?prNumber=42",
+          bindings: {
+            projectId: "prj:gcec",
+            cycleInstanceId: CYCLE,
+            executionContractId: "xct:h23c-n4",
+          },
+        }),
+      ],
+      projectId: "prj:gcec",
+      cycleInstanceId: CYCLE,
+      executionContractId: "xct:h23c-n4",
+      repositoryRef: REPO,
+    });
+    expect(r.ok).toBe(true);
+    if (r.ok) expect(r.prNumber).toBe(41);
+  });
 });

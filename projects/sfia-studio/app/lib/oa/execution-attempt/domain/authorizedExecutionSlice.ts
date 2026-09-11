@@ -111,9 +111,45 @@ function scopeIndicatesEffectClass(
 }
 
 /**
+ * CR-GCEC-23H-A — canonical target must be complete before Confirmation can grant.
+ * Incomplete identity never builds an authorizable actionRef.
+ */
+export function canonicalGitTargetCompleteForEffect(
+  effect:
+    | "git.commit"
+    | "git.push"
+    | "github.pr.create"
+    | "github.pr.merge",
+  match: GitEffectConfirmationMatch,
+): boolean {
+  if (!match.executionContractId?.trim()) return false;
+  if (!match.repositoryRef?.trim()) return false;
+  switch (effect) {
+    case "git.commit":
+      // Empty/whitespace branch is incomplete when supplied; undefined is allowed
+      // when the EC never defined a working branch.
+      if (match.branchOrRef !== undefined && !match.branchOrRef.trim()) {
+        return false;
+      }
+      return true;
+    case "git.push":
+    case "github.pr.create":
+      return Boolean(match.branchOrRef?.trim());
+    case "github.pr.merge":
+      return (
+        Boolean(match.branchOrRef?.trim()) &&
+        match.prNumber != null &&
+        Number.isInteger(match.prNumber) &&
+        match.prNumber >= 1
+      );
+  }
+}
+
+/**
  * CR-GCEC-19 — exact target binding. No startsWith / includes fallback on
  * actionRef. Generic actionRef or generic scope alone never authorizes a
  * concrete repo/branch/PR effect.
+ * CR-GCEC-23H-A — incomplete canonical match ⇒ never authorize.
  */
 export function confirmationGrantsEffect(
   confirmations: readonly Confirmation[],
@@ -125,11 +161,14 @@ export function confirmationGrantsEffect(
   nowIso: string,
   match: GitEffectConfirmationMatch,
 ): boolean {
+  if (!canonicalGitTargetCompleteForEffect(effect, match)) {
+    return false;
+  }
   const scopeNeedle = GIT_EFFECT_CONFIRMATION_SCOPE[effect];
   const expected = buildGitEffectActionRef({
     executionContractId: match.executionContractId,
     effect,
-    repositoryRef: match.repositoryRef ?? "",
+    repositoryRef: match.repositoryRef!,
     branchOrRef: match.branchOrRef,
     prNumber: match.prNumber,
   });
@@ -181,11 +220,18 @@ export function deriveAuthorizedExecutionSlice(input: {
     prNumber?: number;
     actorId?: string;
   };
+  /**
+   * CR-GCEC-23H-A/B — protected Git effects whose canonical server target is
+   * unavailable (missing binding resolver, missing/ambiguous VERIFIED PR, etc.).
+   * These MUST NOT be authorized even if Confirmation appears to match.
+   */
+  unavailableProtectedEffects?: readonly CursorAuthorizedEffectId[];
 }): AuthorizedExecutionSlice {
   const nowIso = input.nowIso ?? new Date().toISOString();
   const confirmations = input.confirmations ?? [];
   const verified = new Set(input.verifiedEffects ?? []);
   const waiting = new Set(input.waitingVerificationEffects ?? []);
+  const unavailable = new Set(input.unavailableProtectedEffects ?? []);
   const authorized: CursorAuthorizedEffectId[] = [];
   const blocked: CursorAuthorizedEffectId[] = [];
   const reasons: string[] = [];
@@ -213,6 +259,11 @@ export function deriveAuthorizedExecutionSlice(input: {
       effect === "github.pr.create" ||
       effect === "github.pr.merge";
     if (isGit) {
+      if (unavailable.has(effect)) {
+        blocked.push(effect);
+        reasons.push(`canonical_target_unavailable:${effect}`);
+        continue;
+      }
       if (
         confirmationGrantsEffect(confirmations, effect, nowIso, {
           executionContractId: input.executionContractId,

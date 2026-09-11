@@ -935,18 +935,23 @@ export class StartExecution {
           actorId?: string;
         }
       | undefined;
+    /** CR-GCEC-23H-A/B — ephemeral; never persisted. */
+    const unavailableProtectedEffects: Array<
+      "git.commit" | "git.push" | "github.pr.create" | "github.pr.merge"
+    > = [];
 
-    if (gitExecutable.length > 0 && this.resolveProjectRepositoryBinding) {
+    const remainingGit = gitExecutable.filter(
+      (e) => !(request.verifiedEffects ?? []).includes(e),
+    );
+
+    if (remainingGit.length > 0 && this.resolveProjectRepositoryBinding) {
       const binding = await this.resolveProjectRepositoryBinding(
         contract.projectId,
       );
       if (!binding?.identity?.trim()) {
-        return fail(
-          "ATTEMPT_INVALID",
-          "project_repository_binding_missing",
-          { executionContractId: contract.executionContractId },
-        );
-      }
+        // Canonical repository unavailable — all remaining protected Git blocked.
+        unavailableProtectedEffects.push(...remainingGit);
+      } else {
       // Prefer Project binding identity for workspace resolution.
       const contractInputs =
         contract.inputs && typeof contract.inputs === "object"
@@ -982,10 +987,7 @@ export class StartExecution {
       // Resolve per remaining executable git effect from durable Product truth.
       // Progressive D-GCEC-15: missing VERIFIED PR must NOT fail Start when merge
       // is not yet runnable — merge stays blocked until trusted PR identity exists.
-      for (const effect of gitExecutable) {
-        if ((request.verifiedEffects ?? []).includes(effect)) {
-          continue;
-        }
+      for (const effect of remainingGit) {
         const resolved = resolveGitEffectTarget({
           effect,
           contract,
@@ -1007,11 +1009,13 @@ export class StartExecution {
                 { executionContractId: contract.executionContractId },
               );
             }
+            // CR-GCEC-23H-B — merge explicitly unavailable; earlier slices continue.
+            unavailableProtectedEffects.push("github.pr.merge");
             continue;
           }
-          return fail("ATTEMPT_INVALID", resolved.reason, {
-            executionContractId: contract.executionContractId,
-          });
+          // Other resolution failures: effect unavailable; do not invent a target.
+          unavailableProtectedEffects.push(effect);
+          continue;
         }
         const assertOk = assertConfirmationMatchAgreesWithServerTarget({
           assertion: request.confirmationMatch,
@@ -1026,19 +1030,18 @@ export class StartExecution {
           resolved.target,
         );
       }
-    } else if (
-      gitExecutable.length > 0 &&
-      !this.resolveProjectRepositoryBinding &&
-      request.confirmationMatch
-    ) {
-      // Hostile assertion present without server resolver → refuse (cannot
-      // validate against Product truth). Unconfigured harnesses without
-      // assertion leave git blocked via empty confirmationMatch.
-      return fail(
-        "ATTEMPT_INVALID",
-        "project_repository_binding_resolver_unconfigured",
-        { executionContractId: contract.executionContractId },
-      );
+      }
+    } else if (remainingGit.length > 0 && !this.resolveProjectRepositoryBinding) {
+      // CR-GCEC-23H-A — resolver absent: never derive Git authority from caller.
+      // Non-Git slices may still proceed; all remaining protected Git stay blocked.
+      if (request.confirmationMatch) {
+        return fail(
+          "ATTEMPT_INVALID",
+          "project_repository_binding_resolver_unconfigured",
+          { executionContractId: contract.executionContractId },
+        );
+      }
+      unavailableProtectedEffects.push(...remainingGit);
     }
 
     const authorizedSlice = deriveAuthorizedExecutionSlice({
@@ -1053,6 +1056,7 @@ export class StartExecution {
       confirmations: request.confirmations ?? [],
       verifiedEffects: request.verifiedEffects,
       confirmationMatch: serverConfirmationMatch,
+      unavailableProtectedEffects,
     });
     // Fail only when the contract requires Cursor-executable effects but none
     // are currently authorized (e.g. git Confirmation missing). Read-only /

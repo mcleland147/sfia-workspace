@@ -222,7 +222,11 @@ async function grantCnf(input: {
  * Product path through confirmed docs-write EC (git:local_commit present).
  * Returns before any StartExecution.
  */
-async function bootToConfirmedEc(suffix: string) {
+async function bootToConfirmedEc(
+  suffix: string,
+  options: { withRepositoryBinding?: boolean } = {},
+) {
+  const withRepositoryBinding = options.withRepositoryBinding !== false;
   const root = tempDir(`sfia-c23-${suffix}-`);
   const managedBase = path.join(root, "managed");
   const { repoRoot, baseHeadSha } = initManagedRepo(managedBase, IDENTITY);
@@ -267,19 +271,21 @@ async function bootToConfirmedEc(suffix: string) {
   if (!created.ok) throw new Error("createProject failed");
   const projectId = created.project.projectId;
 
-  const bound = await oa.projectServices.setProjectRepositoryBinding.execute({
-    projectId,
-    actor: PILOTE,
-    binding: {
-      provider: "github",
-      identity: IDENTITY,
-      remoteUrl: `https://github.com/${IDENTITY}.git`,
-      defaultBranch: "main",
-      pathRoot: "docs",
-      baseSha: baseHeadSha,
-    },
-  });
-  expect(bound.ok).toBe(true);
+  if (withRepositoryBinding) {
+    const bound = await oa.projectServices.setProjectRepositoryBinding.execute({
+      projectId,
+      actor: PILOTE,
+      binding: {
+        provider: "github",
+        identity: IDENTITY,
+        remoteUrl: `https://github.com/${IDENTITY}.git`,
+        defaultBranch: "main",
+        pathRoot: "docs",
+        baseSha: baseHeadSha,
+      },
+    });
+    expect(bound.ok).toBe(true);
+  }
 
   const cycles0 = await oa.cycleServices.cycles.listByProject(projectId);
   const decisions0 = await oa.decisionServices.decisions.listByProject(
@@ -876,5 +882,190 @@ describe("gcecCr23StartExecution — application boundary", () => {
     expect(last?.repositoryBindingIdentity ?? last?.repositoryBinding?.identity).toBe(
       IDENTITY,
     );
+  }, 90_000);
+
+  it("H23A-N1 missing Project repository binding + crafted empty-repo Confirmation → git.commit refused", async () => {
+    const ctx = await bootToConfirmedEc("h23a-n1", {
+      withRepositoryBinding: false,
+    });
+    const emptyRef = buildGitEffectActionRef({
+      executionContractId: ctx.contract.executionContractId,
+      effect: "git.commit",
+      repositoryRef: "",
+      branchOrRef: BRANCH,
+    });
+    const cnf = await grantCnf({
+      runtime: ctx.runtime,
+      confirmationId: `cfm:h23a-n1:${ctx.contract.executionContractId}`.slice(
+        0,
+        128,
+      ),
+      actionRef: emptyRef,
+      decisionRef: ctx.decisionId,
+    });
+    const callsBefore = ctx.fakeLaunch.calls.length;
+    const started = await selectGate({
+      runtime: ctx.runtime,
+      attemptId: `xat:h23a-n1:${ctx.contract.executionContractId}`.slice(0, 128),
+      executionContractId: ctx.contract.executionContractId,
+      contractVersion: ctx.contract.version,
+      grantId: "gd:h23a-n1",
+      authorityEvidenceId: ctx.execAuthEvidenceId,
+      confirmations: [cnf],
+      // no confirmationMatch — incomplete target must still fail closed
+      verifiedEffects: ["filesystem.create", "filesystem.modify"],
+    });
+    expect(started.ok).toBe(false);
+    if (!started.ok) {
+      expect(started.error.internalCauseRef).toBe("no_authorized_effect");
+    }
+    expect(ctx.fakeLaunch.calls.length).toBe(callsBefore);
+  }, 90_000);
+
+  it("H23A-N2 missing binding: filesystem may authorize; git.commit blocked", async () => {
+    const ctx = await bootToConfirmedEc("h23a-n2", {
+      withRepositoryBinding: false,
+    });
+    const emptyRef = buildGitEffectActionRef({
+      executionContractId: ctx.contract.executionContractId,
+      effect: "git.commit",
+      repositoryRef: "",
+      branchOrRef: BRANCH,
+    });
+    const cnf = await grantCnf({
+      runtime: ctx.runtime,
+      confirmationId: `cfm:h23a-n2:${ctx.contract.executionContractId}`.slice(
+        0,
+        128,
+      ),
+      actionRef: emptyRef,
+      decisionRef: ctx.decisionId,
+    });
+    const started = await selectGate({
+      runtime: ctx.runtime,
+      attemptId: `xat:h23a-n2:${ctx.contract.executionContractId}`.slice(0, 128),
+      executionContractId: ctx.contract.executionContractId,
+      contractVersion: ctx.contract.version,
+      grantId: "gd:h23a-n2",
+      authorityEvidenceId: ctx.execAuthEvidenceId,
+      confirmations: [cnf],
+    });
+    expect(started.ok).toBe(true);
+    if (!started.ok) throw new Error(started.error.message);
+    const last = ctx.fakeLaunch.calls.at(-1);
+    expect(last?.authorizedEffects).toEqual(
+      expect.arrayContaining(["filesystem.create", "filesystem.modify"]),
+    );
+    expect(last?.authorizedEffects).not.toContain("git.commit");
+    expect(last?.authorizedEffects).not.toContain("git.push");
+    expect(last?.authorizedEffects).not.toContain("github.pr.create");
+    expect(last?.authorizedEffects).not.toContain("github.pr.merge");
+  }, 90_000);
+
+  it("H23B-N3 full vertical before VERIFIED PR: earlier slice runs; merge blocked", async () => {
+    const ctx = await bootToConfirmedEc("h23b-n3");
+    const mergeRef = buildGitEffectActionRef({
+      executionContractId: ctx.contract.executionContractId,
+      effect: "github.pr.merge",
+      repositoryRef: IDENTITY,
+      branchOrRef: "main",
+      prNumber: 1,
+    });
+    const cnf = await grantCnf({
+      runtime: ctx.runtime,
+      confirmationId: `cfm:h23b-n3:${ctx.contract.executionContractId}`.slice(
+        0,
+        128,
+      ),
+      actionRef: mergeRef,
+      decisionRef: ctx.decisionId,
+    });
+    const started = await selectGate({
+      runtime: ctx.runtime,
+      attemptId: `xat:h23b-n3:${ctx.contract.executionContractId}`.slice(0, 128),
+      executionContractId: ctx.contract.executionContractId,
+      contractVersion: ctx.contract.version,
+      grantId: "gd:h23b-n3",
+      authorityEvidenceId: ctx.execAuthEvidenceId,
+      confirmations: [cnf],
+    });
+    expect(started.ok).toBe(true);
+    if (!started.ok) throw new Error(started.error.message);
+    const last = ctx.fakeLaunch.calls.at(-1);
+    expect(last?.authorizedEffects).toEqual(
+      expect.arrayContaining(["filesystem.create", "filesystem.modify"]),
+    );
+    expect(last?.authorizedEffects).not.toContain("github.pr.merge");
+  }, 90_000);
+
+  it("H23B-P1 unique VERIFIED PR + exact merge Confirmation → merge authorized", async () => {
+    const ctx = await bootToConfirmedEc("h23b-p1");
+    ctx.gitState.currentBranch = "feature";
+    ctx.gitState.branchHeads.set(
+      "feature",
+      "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    );
+    ctx.gitState.prs.clear();
+    ctx.gitState.prs.set(41, {
+      number: 41,
+      headSha: "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      base: "main",
+      state: "open",
+      headBranch: "feature",
+    });
+    const repoRead = new FakeRepositoryReadPorts({ gitState: ctx.gitState });
+    const v = await verifyPullRequestClaim({
+      repositoryRead: repoRead,
+      evidenceServices: ctx.oa.evidenceReviewServices,
+      repositoryRef: IDENTITY,
+      claimedPrNumber: 41,
+      claimedHeadSha: "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      bindings: {
+        projectId: ctx.projectId,
+        cycleInstanceId: ctx.cycleInstanceId,
+        executionContractId: ctx.contract.executionContractId,
+      },
+      actor: PILOTE,
+      nowIso: NOW,
+    });
+    expect(v.ok).toBe(true);
+    if (!v.ok) throw new Error(v.reason);
+
+    const mergeRef = buildGitEffectActionRef({
+      executionContractId: ctx.contract.executionContractId,
+      effect: "github.pr.merge",
+      repositoryRef: IDENTITY,
+      branchOrRef: "main",
+      prNumber: 41,
+    });
+    const cnf = await grantCnf({
+      runtime: ctx.runtime,
+      confirmationId: `cfm:h23b-p1:${ctx.contract.executionContractId}`.slice(
+        0,
+        128,
+      ),
+      actionRef: mergeRef,
+      decisionRef: ctx.decisionId,
+    });
+    const started = await selectGate({
+      runtime: ctx.runtime,
+      attemptId: `xat:h23b-p1:${ctx.contract.executionContractId}`.slice(0, 128),
+      executionContractId: ctx.contract.executionContractId,
+      contractVersion: ctx.contract.version,
+      grantId: "gd:h23b-p1",
+      authorityEvidenceId: ctx.execAuthEvidenceId,
+      confirmations: [cnf],
+      verifiedEffects: [
+        "filesystem.create",
+        "filesystem.modify",
+        "git.commit",
+        "git.push",
+        "github.pr.create",
+      ],
+    });
+    expect(started.ok).toBe(true);
+    if (!started.ok) throw new Error(started.error.message);
+    const last = ctx.fakeLaunch.calls.at(-1);
+    expect(last?.authorizedEffects).toContain("github.pr.merge");
   }, 90_000);
 });

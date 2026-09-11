@@ -64,6 +64,7 @@ function branchFromContractInputs(
  * Extract a single trustworthy PR number from VERIFIED git:pull_request Evidence
  * bound to the same project / cycle / EC / repository.
  * Fail closed when zero or ambiguous.
+ * CR-GCEC-23H-C — repository identity MUST be present and exact (no repo → reject).
  */
 export function resolveVerifiedPullRequestNumber(input: {
   evidence: readonly Evidence[];
@@ -92,10 +93,10 @@ export function resolveVerifiedPullRequestNumber(input: {
     }
     const loc = typeof e.location === "string" ? e.location : "";
     const repoMatch = loc.match(/[?&]repo=([^&]+)/);
-    if (repoMatch) {
-      const repo = decodeURIComponent(repoMatch[1]!);
-      if (repo !== input.repositoryRef) continue;
-    }
+    // CR-GCEC-23H-C — repository identity is mandatory; absent ⇒ ineligible.
+    if (!repoMatch) continue;
+    const repo = decodeURIComponent(repoMatch[1]!);
+    if (!repo.trim() || repo !== input.repositoryRef) continue;
     const prMatch = loc.match(/[?&]prNumber=([^&]+)/);
     if (!prMatch) continue;
     const n = Number(decodeURIComponent(prMatch[1]!));
