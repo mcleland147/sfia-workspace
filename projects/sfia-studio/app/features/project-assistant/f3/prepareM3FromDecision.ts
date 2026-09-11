@@ -19,6 +19,7 @@ import type {
 } from "@/lib/oa/execution-contract";
 import { projectCursorPrepareOnly } from "@/lib/oa/execution-contract";
 import type { F2ContextSnapshot } from "../f2/types";
+import { BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS } from "./boundedDocsWriteM3ResolutionProfile";
 
 export type PrepareM3Deps = {
   decisionServices: DecisionServices;
@@ -196,15 +197,7 @@ function fieldsFromBasis(basis: DecisionBasis, decisionId: string) {
     eb.evidenceRequirements && eb.evidenceRequirements.length > 0
       ? [...eb.evidenceRequirements]
       : docsWriteIntent
-        ? [
-            "git:local_commit",
-            "git:remote_push",
-            "git:pull_request",
-            "git:ci_status",
-            "git:review_status",
-            "git:merge",
-            "git:post_merge_verification",
-          ]
+        ? [...BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS]
         : undefined;
   return {
     action,

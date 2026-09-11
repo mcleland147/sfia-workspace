@@ -897,9 +897,9 @@ describe("11–12 — git completion proof progression", () => {
       makeEvidence({
         evidenceId: `evd:${i}`,
         type: "other",
-        status: "available",
+        status: "verified",
         source,
-        technicalResultRef: `studio:repository_read_verified:${source}`,
+        technicalResultRef: `res:attempt-git:${source}`,
         location:
           source === "git:post_merge_verification"
             ? `git:post_merge_verification?repo=${encodeURIComponent(VALID_BINDING.identity)}&targetBranch=main&targetSha=${MERGE_SHA}&artifactPath=${encodeURIComponent("docs/functional-design.md")}&digest=${encodeURIComponent(VALID_DIGEST)}`

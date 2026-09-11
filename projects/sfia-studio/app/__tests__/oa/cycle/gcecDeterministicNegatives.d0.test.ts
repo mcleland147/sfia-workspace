@@ -60,7 +60,7 @@ function typed(
   source: TypedGitEvidenceSource,
   payload: Record<string, unknown>,
   evidenceId: string,
-  status: Evidence["status"] = "available",
+  status: Evidence["status"] = "verified",
 ): Evidence {
   const fields = buildTypedGitEvidenceFields(source, payload as never);
   if (!fields.ok) throw new Error(fields.reason);

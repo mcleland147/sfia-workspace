@@ -25,6 +25,10 @@ export type {
 } from "./types";
 
 export { FakeRepositoryReadPorts, FakeGitProviderPorts } from "./fakeGitProviderPorts";
+export type {
+  FakeCursorGitExternalStateView,
+  FakeRepositoryReadPortsOptions,
+} from "./fakeGitProviderPorts";
 export { NodeLocalGitStatusDiffPort } from "./localGitStatusDiffPort";
 export {
   GithubCliRepositoryReadAdapter,
@@ -35,6 +39,7 @@ export type {
   GithubCliRepositoryReadAdapterOptions,
   GithubCliRemotePortsOptions,
 } from "./githubCliRemotePorts";
+export { PlatformGithubReadBridge } from "./platformGithubReadBridge";
 export { verifyPostMerge, postMergeVerifyPort } from "./postMergeVerify";
 export {
   registerReportedGitClaimEvidence,

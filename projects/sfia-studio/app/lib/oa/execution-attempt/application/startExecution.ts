@@ -67,6 +67,7 @@ import type { DocsWriteLaunchSpec } from "../ports/realExecutionLaunchPort";
 import { M4_BOUNDED_DOCS_WRITE_ACTION } from "../infrastructure/m4BoundedDocsWriteCursorAgent";
 import { ManagedProjectRepositoryResolver } from "../infrastructure/managedProjectRepositoryResolver";
 import type { RealLaunchSafetyJournalPort } from "../ports/realLaunchSafetyJournalPort";
+import { deriveAuthorizedExecutionSlice } from "../domain/authorizedExecutionSlice";
 import {
   authorityFailureDetail,
   contractGateDetail,
@@ -878,6 +879,30 @@ export class StartExecution {
       });
     }
 
+    // D-GCEC-15 — derive AuthorizedExecutionSlice before real launch.
+    const evidenceRequirements =
+      docsWriteSpec?.evidenceRequirements ??
+      (Array.isArray(contract.evidenceRequirements)
+        ? contract.evidenceRequirements.map(String)
+        : []);
+    const authorizedSlice = deriveAuthorizedExecutionSlice({
+      executionContractId: contract.executionContractId,
+      evidenceRequirements,
+      confirmations: request.confirmations ?? [],
+      verifiedEffects: request.verifiedEffects,
+      confirmationMatch: docsWriteSpec
+        ? { repositoryRef: docsWriteSpec.repositoryRef }
+        : undefined,
+    });
+    if (
+      authorizedSlice.authorizedEffects.length === 0 &&
+      authorizedSlice.blockedEffects.length > 0
+    ) {
+      return fail("ATTEMPT_INVALID", "no_authorized_effect", {
+        executionContractId: contract.executionContractId,
+      });
+    }
+
     let launch;
     try {
       launch = await this.realLaunchPort.launch({
@@ -899,6 +924,12 @@ export class StartExecution {
           : {}),
         ...(managedRepoRoot ? { managedRepoRoot } : {}),
         ...(repositoryBinding ? { repositoryBinding } : {}),
+        authorizedEffects: authorizedSlice.authorizedEffects,
+        authorizedExecutionSlice: {
+          authorizedEffects: authorizedSlice.authorizedEffects,
+          blockedEffects: authorizedSlice.blockedEffects,
+          reasons: authorizedSlice.reasons,
+        },
       });
     } catch {
       return this.failRealLaunch({

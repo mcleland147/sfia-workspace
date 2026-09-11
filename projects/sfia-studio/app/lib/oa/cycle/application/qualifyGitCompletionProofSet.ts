@@ -87,31 +87,33 @@ function evidenceMatchesExpected(
   requireVerified: boolean,
 ): { ok: true } | { ok: false; reason: string } {
   if (requireVerified) {
-    // D-GCEC-11 — verified Evidence.status OR Studio repository-read verification marker.
-    const studioVerified =
-      typeof evidence.technicalResultRef === "string" &&
-      evidence.technicalResultRef.startsWith("studio:repository_read_verified:");
-    if (evidence.status !== "verified" && !studioVerified) {
+    // CR-GCEC-17 — only Evidence.status=verified counts. technicalResultRef ≠ trust.
+    if (evidence.status !== "verified") {
       return { ok: false, reason: "status_not_verified" };
     }
   } else if (evidence.status !== "available" && evidence.status !== "verified") {
     return { ok: false, reason: "status_not_proof" };
   }
-  if (evidence.bindings?.cycleInstanceId !== expected.cycleInstanceId) {
-    return { ok: false, reason: "cycle_mismatch" };
+  // Strict identity — ABSENT = BLOCKING
+  if (!evidence.bindings?.projectId || !expected.projectId) {
+    return { ok: false, reason: "project_id_required" };
   }
-  if (
-    expected.projectId &&
-    evidence.bindings?.projectId &&
-    evidence.bindings.projectId !== expected.projectId
-  ) {
+  if (evidence.bindings.projectId !== expected.projectId) {
     return { ok: false, reason: "project_mismatch" };
   }
-  if (
-    expected.executionContractId &&
-    evidence.bindings?.executionContractId &&
-    evidence.bindings.executionContractId !== expected.executionContractId
-  ) {
+  if (!evidence.bindings?.cycleInstanceId) {
+    return { ok: false, reason: "cycle_id_required" };
+  }
+  if (evidence.bindings.cycleInstanceId !== expected.cycleInstanceId) {
+    return { ok: false, reason: "cycle_mismatch" };
+  }
+  if (!expected.executionContractId) {
+    return { ok: false, reason: "execution_contract_id_required" };
+  }
+  if (!evidence.bindings?.executionContractId) {
+    return { ok: false, reason: "execution_contract_binding_required" };
+  }
+  if (evidence.bindings.executionContractId !== expected.executionContractId) {
     return { ok: false, reason: "contract_mismatch" };
   }
 
@@ -121,30 +123,45 @@ function evidenceMatchesExpected(
     q.repo ??
     q.repositoryRef ??
     (loc.includes(expected.repositoryRef) ? expected.repositoryRef : "");
-  if (repo && repo !== expected.repositoryRef) {
+  if (!repo) {
+    return { ok: false, reason: "repository_identity_required" };
+  }
+  if (repo !== expected.repositoryRef) {
     return { ok: false, reason: "repo_mismatch" };
   }
 
   if (family === "git:post_merge_verification") {
     const digest = q.digest ?? evidence.digest ?? "";
-    if (digest && digest !== expected.artifactDigest) {
+    if (!digest) {
+      return { ok: false, reason: "post_merge_digest_required" };
+    }
+    if (digest !== expected.artifactDigest) {
       return { ok: false, reason: "digest_mismatch" };
     }
     const artifactPath = q.artifactPath ?? q.targetPath ?? "";
-    if (artifactPath && artifactPath !== expected.targetPath) {
+    if (!artifactPath) {
+      return { ok: false, reason: "post_merge_path_required" };
+    }
+    if (artifactPath !== expected.targetPath) {
       return { ok: false, reason: "target_path_mismatch" };
     }
   }
 
   if (family === "git:ci_status") {
     const conclusion = (q.conclusion ?? "").toLowerCase();
-    if (conclusion && conclusion !== "success") {
+    if (!conclusion) {
+      return { ok: false, reason: "ci_conclusion_required" };
+    }
+    if (conclusion !== "success") {
       return { ok: false, reason: "ci_not_success" };
     }
   }
   if (family === "git:review_status") {
     const state = (q.state ?? "").toLowerCase();
-    if (state && state !== "approved") {
+    if (!state) {
+      return { ok: false, reason: "review_state_required" };
+    }
+    if (state !== "approved") {
       return { ok: false, reason: "review_not_approved" };
     }
   }
@@ -164,6 +181,16 @@ export function qualifyGitCompletionProofSet(input: {
   requireVerified?: boolean;
 }): QualifyGitCompletionProofSetResult {
   const requireVerified = input.requireVerified !== false;
+  // CR-GCEC-15 — empty explicit requirements ⇒ unresolved / not satisfied
+  // (do NOT expand to full GCEC default).
+  if (input.requirements !== undefined && input.requirements.length === 0) {
+    return {
+      status: "BLOCKING",
+      reason: "git_requirements_unresolved",
+      present: [],
+      missing: [...GCEC_GIT_COMPLETION_PROOF_FAMILIES],
+    };
+  }
   const requirements = [
     ...(input.requirements ?? GCEC_GIT_COMPLETION_PROOF_FAMILIES),
   ];
@@ -285,7 +312,11 @@ export function gitProofFamiliesFromRequirements(
       if (!out.includes(normalized)) out.push(normalized);
     }
   }
-  return out.length > 0 ? out : [...GCEC_GIT_COMPLETION_PROOF_FAMILIES];
+  // CR-GCEC-15/16 — empty requirements ⇒ empty families (NOT full GCEC default).
+  return out;
 }
+
+/** Explicit first-vertical proof vehicle constant — tests/fixtures only. */
+export { GCEC_GIT_COMPLETION_PROOF_FAMILIES as GCEC_FIRST_VERTICAL_GIT_PROOF_FAMILIES };
 
 export type { TypedGitEvidenceSource };

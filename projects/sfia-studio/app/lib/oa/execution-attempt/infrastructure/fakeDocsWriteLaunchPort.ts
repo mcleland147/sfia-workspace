@@ -4,6 +4,9 @@
  * Same Product StartExecution / Gate D path as REAL; substitutes launch only.
  * ZERO REAL Cursor. ZERO remote Git.
  *
+ * D-GCEC-15: honors AuthorizedExecutionSlice — filesystem + optional fake Git
+ * effects via shared FakeCursorGitExternalState.
+ *
  * CR-GCEC-02: prefer request.docsWriteSpec; constructor options are fallback
  * for unit tests only.
  */
@@ -18,6 +21,14 @@ import {
   type RealLaunchResult,
   type RealProcessObservation,
 } from "@/lib/oa/execution-attempt";
+import type {
+  CursorAuthorizedEffectId,
+  CursorExecutionReport,
+  CursorGitEffectClaims,
+} from "../domain/cursorExecutionReport";
+import {
+  FakeCursorGitExternalState,
+} from "./fakeCursorGitExternalState";
 
 export type FakeDocsWriteLaunchPortOptions = {
   worktreeRoot: string;
@@ -28,7 +39,27 @@ export type FakeDocsWriteLaunchPortOptions = {
   content?: string;
   /** Optional fallback repositoryRef when docsWriteSpec absent. */
   repositoryRef?: string;
+  /** Shared mutable Fake Cursor Git/GitHub external state (D-GCEC-15). */
+  gitState?: FakeCursorGitExternalState;
+  /** Default branch name used for fake commit/push when not otherwise known. */
+  defaultBranch?: string;
 };
+
+const DEFAULT_FILESYSTEM_EFFECTS: readonly CursorAuthorizedEffectId[] = [
+  "filesystem.create",
+  "filesystem.modify",
+  "validation.run",
+];
+
+const ALL_PROGRESSIVE_EFFECTS: readonly CursorAuthorizedEffectId[] = [
+  "filesystem.create",
+  "filesystem.modify",
+  "validation.run",
+  "git.commit",
+  "git.push",
+  "github.pr.create",
+  "github.pr.merge",
+];
 
 function normalizeRel(p: string): string {
   const n = p.replace(/\\/g, "/").replace(/^\.\//, "").replace(/\/+$/, "");
@@ -46,19 +77,64 @@ function isAllowlisted(rel: string, allowlist: readonly string[]): boolean {
   });
 }
 
+function resolveAuthorizedEffects(
+  request: RealLaunchRequest,
+): {
+  authorized: Set<CursorAuthorizedEffectId>;
+  blocked: CursorAuthorizedEffectId[];
+} {
+  const fromRequest = request.authorizedEffects;
+  const slice = request.authorizedExecutionSlice;
+  if (fromRequest && fromRequest.length > 0) {
+    const authorized = new Set<CursorAuthorizedEffectId>(fromRequest);
+    const blocked =
+      (slice?.blockedEffects as CursorAuthorizedEffectId[] | undefined) ??
+      ALL_PROGRESSIVE_EFFECTS.filter((e) => !authorized.has(e));
+    return { authorized, blocked };
+  }
+  if (slice?.authorizedEffects?.length) {
+    const authorized = new Set(
+      slice.authorizedEffects as CursorAuthorizedEffectId[],
+    );
+    const blocked =
+      (slice.blockedEffects as CursorAuthorizedEffectId[] | undefined) ??
+      ALL_PROGRESSIVE_EFFECTS.filter((e) => !authorized.has(e));
+    return { authorized, blocked };
+  }
+  // Default: filesystem only (CR-GCEC-15 — Git never inferred).
+  const authorized = new Set<CursorAuthorizedEffectId>(DEFAULT_FILESYSTEM_EFFECTS);
+  return {
+    authorized,
+    blocked: [
+      "filesystem.delete",
+      "git.commit",
+      "git.push",
+      "github.pr.create",
+      "github.pr.update",
+      "github.pr.merge",
+    ],
+  };
+}
+
 export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
   readonly gatewayId = M4_REAL_GATEWAY_ADAPTER_ID;
   readonly externalEffects = true as const;
   readonly calls: RealLaunchRequest[] = [];
   readonly touchedFiles: string[] = [];
   lastDigest: string | null = null;
-  lastReport: import("../domain/cursorExecutionReport").CursorExecutionReport | null =
-    null;
+  lastReport: CursorExecutionReport | null = null;
   private readonly options: FakeDocsWriteLaunchPortOptions;
   private readonly observations = new Map<string, RealProcessObservation>();
+  readonly gitState: FakeCursorGitExternalState;
 
   constructor(options: FakeDocsWriteLaunchPortOptions) {
     this.options = options;
+    this.gitState =
+      options.gitState ??
+      new FakeCursorGitExternalState({
+        worktreeRoot: options.worktreeRoot,
+        initialBranch: options.defaultBranch ?? "main",
+      });
   }
 
   async launch(request: RealLaunchRequest): Promise<RealLaunchResult> {
@@ -84,6 +160,7 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
       };
     }
 
+    const { authorized, blocked } = resolveAuthorizedEffects(request);
     const spec = request.docsWriteSpec;
     const pathAllowlist = spec?.pathAllowlist ?? this.options.pathAllowlist;
     const targetPath =
@@ -92,6 +169,10 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
       "docs/functional-design.md";
     const repositoryRef =
       spec?.repositoryRef ?? this.options.repositoryRef ?? "unknown/repo";
+    const branch =
+      this.options.defaultBranch ??
+      request.repositoryBinding?.defaultBranch ??
+      "gcec/docs";
 
     let rel: string;
     try {
@@ -131,52 +212,238 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
       };
     }
 
-    await mkdir(path.dirname(abs), { recursive: true });
-    const brief = spec?.artifactBrief ?? "Functional design";
-    const contentReqs = (spec?.contentRequirements ?? []).join(", ");
-    const body =
-      this.options.content ??
-      `# Functional design\n\nGenerated by FakeDocsWriteLaunchPort\n` +
-        `repository=${repositoryRef}\n` +
-        `attempt=${request.attemptId}\n` +
-        `brief=${brief}\n` +
-        `contentRequirements=${contentReqs}\n`;
-    await writeFile(abs, body, "utf8");
-    this.touchedFiles.push(rel);
-    const digest = `sha256:${createHash("sha256").update(body).digest("hex")}`;
-    this.lastDigest = digest;
+    const executed: CursorAuthorizedEffectId[] = [];
+    const stoppedBefore: CursorAuthorizedEffectId[] = [];
+    const gitEffects: CursorGitEffectClaims = {};
+    let created: string[] = [];
+    let modified: string[] = [];
+    const digests: Record<string, string> = {};
 
-    const report = {
-      schemaVersion: "oa.cursor-execution-report.1" as const,
+    const canFsCreate = authorized.has("filesystem.create");
+    const canFsModify = authorized.has("filesystem.modify");
+
+    if (canFsCreate || canFsModify) {
+      await mkdir(path.dirname(abs), { recursive: true });
+      const brief = spec?.artifactBrief ?? "Functional design";
+      const contentReqs = (spec?.contentRequirements ?? []).join(", ");
+      const body =
+        this.options.content ??
+        `# Functional design\n\nGenerated by FakeDocsWriteLaunchPort\n` +
+          `repository=${repositoryRef}\n` +
+          `attempt=${request.attemptId}\n` +
+          `brief=${brief}\n` +
+          `contentRequirements=${contentReqs}\n`;
+      let existed = false;
+      try {
+        await readFile(abs);
+        existed = true;
+      } catch {
+        existed = false;
+      }
+      await writeFile(abs, body, "utf8");
+      this.touchedFiles.push(rel);
+      const digest = `sha256:${createHash("sha256").update(body).digest("hex")}`;
+      this.lastDigest = digest;
+      digests[rel] = digest;
+      if (existed && canFsModify) {
+        modified = [rel];
+        executed.push("filesystem.modify");
+      } else if (canFsCreate) {
+        created = [rel];
+        executed.push("filesystem.create");
+        if (canFsModify) executed.push("filesystem.modify");
+      } else if (canFsModify) {
+        modified = [rel];
+        executed.push("filesystem.modify");
+      }
+    } else {
+      stoppedBefore.push("filesystem.create", "filesystem.modify");
+    }
+
+    if (authorized.has("validation.run")) {
+      executed.push("validation.run");
+    }
+
+    // Progressive Git effects — only when authorized.
+    try {
+      if (authorized.has("git.commit")) {
+        this.gitState.currentBranch = branch;
+        if (request.baseHeadSha && !this.gitState.branchHeads.has(branch)) {
+          this.gitState.branchHeads.set(branch, request.baseHeadSha.toLowerCase());
+        }
+        // Stage the target path when present on disk — git-only slices must not
+        // rewrite (filesystem not authorized) but may commit prior writes.
+        const commit = await this.gitState.commit(
+          [rel],
+          `docs: ${spec?.artifactBrief ?? "functional design"}`,
+        );
+        executed.push("git.commit");
+        gitEffects.commit = {
+          branch,
+          sha: commit.sha,
+          ...(commit.parent ? { parentSha: commit.parent } : {}),
+          message: commit.message,
+        };
+      } else if (!stoppedBefore.includes("git.commit")) {
+        stoppedBefore.push("git.commit");
+      }
+
+      if (authorized.has("git.push")) {
+        const pushed = this.gitState.push(branch);
+        executed.push("git.push");
+        gitEffects.push = {
+          remote: "origin",
+          ref: pushed.ref,
+          sha: pushed.sha,
+        };
+      } else if (executed.includes("git.commit")) {
+        stoppedBefore.push("git.push");
+      }
+
+      if (authorized.has("github.pr.create")) {
+        const base =
+          request.repositoryBinding?.defaultBranch ?? "main";
+        const pr = this.gitState.openPr(base, branch);
+        executed.push("github.pr.create");
+        gitEffects.pullRequest = {
+          number: pr.number,
+          url: `https://github.com/${repositoryRef}/pull/${pr.number}`,
+          headSha: pr.headSha,
+          baseBranch: pr.base,
+          state: "open",
+        };
+      } else if (executed.includes("git.push")) {
+        stoppedBefore.push("github.pr.create");
+      }
+
+      if (authorized.has("github.pr.merge")) {
+        const prNumber =
+          gitEffects.pullRequest?.number ??
+          [...this.gitState.prs.values()].find((p) => p.state === "open")
+            ?.number;
+        if (prNumber == null) {
+          throw new Error("fake_pr_merge_no_open_pr");
+        }
+        const merged = this.gitState.mergePr(prNumber);
+        executed.push("github.pr.merge");
+        gitEffects.merge = {
+          prNumber: merged.number,
+          mergeSha: merged.mergeSha!,
+          targetBranch: merged.base,
+        };
+        if (gitEffects.pullRequest) {
+          gitEffects.pullRequest = {
+            ...gitEffects.pullRequest,
+            state: "merged",
+          };
+        }
+      } else if (executed.includes("github.pr.create")) {
+        stoppedBefore.push("github.pr.merge");
+      }
+    } catch (err) {
+      const reason = err instanceof Error ? err.message : "fake_git_effect_failed";
+      const report: CursorExecutionReport = {
+        schemaVersion: "oa.cursor-execution-report.1",
+        attemptId: request.attemptId,
+        executionContractId: request.executionContractId,
+        repositoryRef,
+        baseSha: request.baseHeadSha,
+        status: "failed",
+        fileEffects: {
+          created,
+          modified,
+          deleted: [],
+          digests,
+        },
+        validationEffects: executed.includes("validation.run")
+          ? [
+              {
+                identity: "docs-write-path-allowlist",
+                result: "pass",
+                summary: "allowlist ok",
+              },
+            ]
+          : [],
+        gitEffects: Object.keys(gitEffects).length > 0 ? gitEffects : undefined,
+        authorizedEffectsExecuted: executed,
+        stoppedBeforeEffects: stoppedBefore,
+      };
+      this.lastReport = report;
+      const processRef = `proc:fake-docs-write:${request.attemptId}`;
+      this.observations.set(processRef, {
+        processRef,
+        exitCode: 1,
+        timedOut: false,
+        stdout: `FAKE_DOCS_WRITE_FAILED\nreason=${reason}\nCURSOR_EXECUTION_REPORT_JSON=${JSON.stringify(report)}\n`,
+        stderr: reason,
+        durationMs: 1,
+        realProcessInvoked: true,
+        worktreeRef: root,
+      });
+      return {
+        outcome: "ack",
+        gatewayId: this.gatewayId,
+        attemptId: request.attemptId,
+        realProcessInvoked: true,
+        processRef,
+        worktreeRef: root,
+      };
+    }
+
+    // Any remaining blocked progressive effects that we did not execute.
+    for (const effect of blocked) {
+      if (
+        effect === "filesystem.delete" ||
+        effect === "github.pr.update"
+      ) {
+        if (!stoppedBefore.includes(effect)) stoppedBefore.push(effect);
+        continue;
+      }
+      if (!executed.includes(effect) && !stoppedBefore.includes(effect)) {
+        stoppedBefore.push(effect);
+      }
+    }
+
+    // succeeded if no blocked remaining after executing authorized; else stopped.
+    const progressiveBlockedRemain = blocked.filter(
+      (e) =>
+        (e === "git.commit" ||
+          e === "git.push" ||
+          e === "github.pr.create" ||
+          e === "github.pr.merge" ||
+          e === "filesystem.create" ||
+          e === "filesystem.modify" ||
+          e === "validation.run") &&
+        !executed.includes(e),
+    );
+    const finalStatus: CursorExecutionReport["status"] =
+      progressiveBlockedRemain.length > 0 ? "stopped" : "succeeded";
+
+    const report: CursorExecutionReport = {
+      schemaVersion: "oa.cursor-execution-report.1",
       attemptId: request.attemptId,
       executionContractId: request.executionContractId,
       repositoryRef,
       baseSha: request.baseHeadSha,
-      status: "stopped" as const,
+      status: finalStatus,
       fileEffects: {
-        created: [rel],
-        modified: [] as string[],
-        deleted: [] as string[],
-        digests: { [rel]: digest },
+        created,
+        modified,
+        deleted: [],
+        digests,
       },
-      validationEffects: [
-        {
-          identity: "docs-write-path-allowlist",
-          result: "pass" as const,
-          summary: "allowlist ok",
-        },
-      ],
-      authorizedEffectsExecuted: [
-        "filesystem.create" as const,
-        "filesystem.modify" as const,
-        "validation.run" as const,
-      ],
-      stoppedBeforeEffects: [
-        "git.commit" as const,
-        "git.push" as const,
-        "github.pr.create" as const,
-        "github.pr.merge" as const,
-      ],
+      validationEffects: executed.includes("validation.run")
+        ? [
+            {
+              identity: "docs-write-path-allowlist",
+              result: "pass",
+              summary: "allowlist ok",
+            },
+          ]
+        : [],
+      gitEffects: Object.keys(gitEffects).length > 0 ? gitEffects : undefined,
+      authorizedEffectsExecuted: executed,
+      stoppedBeforeEffects: stoppedBefore.length > 0 ? stoppedBefore : undefined,
     };
     this.lastReport = report;
 
@@ -186,7 +453,7 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
       exitCode: 0,
       timedOut: false,
       stdout:
-        `FAKE_DOCS_WRITE_OK\nfiles=${rel}\ndigest=${digest}\n` +
+        `FAKE_DOCS_WRITE_OK\nfiles=${rel}\ndigest=${this.lastDigest ?? ""}\n` +
         `CURSOR_EXECUTION_REPORT_JSON=${JSON.stringify(report)}\n`,
       stderr: "",
       durationMs: 1,

@@ -3,7 +3,10 @@
  * Strong bindings: projectId, cycleInstanceId, executionContractId, executionAttemptId.
  */
 import type { Digest } from "@/lib/oa/doctrine";
-import type { EvidenceReviewServices } from "@/lib/oa/evidence-review";
+import type {
+  ActorReference,
+  EvidenceReviewServices,
+} from "@/lib/oa/evidence-review";
 import { LOCAL_MORRIS_ACTOR } from "../f2/recordDecision";
 
 export type IngestDocsWriteArtifactEvidenceInput = {
@@ -14,7 +17,7 @@ export type IngestDocsWriteArtifactEvidenceInput = {
   executionAttemptId: string;
   targetPath: string;
   digest: string;
-  actor?: typeof LOCAL_MORRIS_ACTOR;
+  actor?: ActorReference;
   correlationId?: string;
   nowIso?: string;
 };

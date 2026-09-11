@@ -268,6 +268,7 @@ function wireOaStack(
           action: c.action,
           target: c.target,
           scope: c.scope,
+          supersedesExecutionContractId: c.supersedesExecutionContractId,
         }));
       },
       listAttemptsByProject: async (projectId: string) => {

@@ -468,8 +468,8 @@ export class FakeConversationProvider implements ConversationProvider {
             requiredCapabilities: ["cap:cursor.docs_write"],
             validationExpectations: ["path_allowlist", "no_delete"],
             evidenceRequirements: [
-              "git:commit",
-              "git:push",
+              "git:local_commit",
+              "git:remote_push",
               "git:pull_request",
               "git:ci_status",
               "git:review_status",

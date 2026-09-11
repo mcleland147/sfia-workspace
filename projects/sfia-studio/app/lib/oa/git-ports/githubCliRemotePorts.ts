@@ -2,11 +2,16 @@
  * GithubCliRepositoryReadAdapter — READ-ONLY GitHub CLI / git observation.
  * D-GCEC-09/10: fixed argv, shell:false. NO push / create PR / merge / commit.
  *
+ * CR-GCEC-18: uses shared platform `runGhFixedArgv` (no duplicate spawn stack).
+ * Prefer FakeRepositoryReadPorts for deterministic GCEC tests.
  * ZERO REAL invocation during GCEC deterministic correction — inject `run`.
  */
-import { spawn as nodeSpawn } from "node:child_process";
 import { createHash } from "node:crypto";
 import type { Digest } from "@/lib/oa/doctrine";
+import {
+  runGhFixedArgv,
+  type GhCliCmdResult,
+} from "@/lib/platform/repository/ghCliTransport";
 import type {
   GitCiStatusInput,
   GitCiStatusOutput,
@@ -23,43 +28,13 @@ import type {
   RepositoryReadRef,
 } from "./types";
 
-type CmdResult = { stdout: string; stderr: string; exitCode: number };
-
-async function runFixedArgv(
-  executable: string,
-  argv: readonly string[],
-  cwd?: string,
-): Promise<CmdResult> {
-  return await new Promise((resolve) => {
-    const child = nodeSpawn(executable, [...argv], {
-      cwd,
-      shell: false,
-      stdio: ["ignore", "pipe", "pipe"],
-    });
-    let stdout = "";
-    let stderr = "";
-    child.stdout?.on("data", (c: Buffer) => {
-      if (stdout.length < 256 * 1024) stdout += c.toString("utf8");
-    });
-    child.stderr?.on("data", (c: Buffer) => {
-      if (stderr.length < 64 * 1024) stderr += c.toString("utf8");
-    });
-    child.on("error", () => {
-      resolve({ stdout, stderr: stderr || "spawn_error", exitCode: 1 });
-    });
-    child.on("close", (code) => {
-      resolve({ stdout, stderr, exitCode: code ?? 1 });
-    });
-  });
-}
-
 export type GithubCliRepositoryReadAdapterOptions = {
   /** Injectable runner — tests MUST inject a fake; never call real `gh` in unit tests. */
   run?: (
     executable: string,
     argv: readonly string[],
     cwd?: string,
-  ) => Promise<CmdResult>;
+  ) => Promise<GhCliCmdResult>;
   cwd?: string;
 };
 
@@ -89,7 +64,9 @@ export class GithubCliRepositoryReadAdapter
   private readonly cwd?: string;
 
   constructor(options: GithubCliRepositoryReadAdapterOptions = {}) {
-    this.run = options.run ?? runFixedArgv;
+    this.run =
+      options.run ??
+      ((executable, argv, cwd) => runGhFixedArgv(executable, argv, cwd));
     this.cwd = options.cwd;
   }
 

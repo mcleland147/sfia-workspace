@@ -1,6 +1,7 @@
 /**
- * Independent workspace file-effect verification (D-GCEC-11/12).
+ * Independent workspace file-effect verification (D-GCEC-11/12, CR-GCEC-14).
  * Studio READS the managed worktree — does not trust Cursor stdout for touched files.
+ * Initial discovery MUST observe ALL worktree changes (no allowlist pathspec filter).
  */
 import { createHash } from "node:crypto";
 import { existsSync } from "node:fs";
@@ -36,7 +37,6 @@ function parseNameStatus(porcelainOrNameStatus: string): {
   for (const line of porcelainOrNameStatus.split("\n")) {
     const t = line.trimEnd();
     if (!t) continue;
-    // porcelain: XY path  OR name-status: A\tpath
     if (t.includes("\t")) {
       const [st, p] = t.split("\t");
       if (p) out.push({ path: normalizeRel(p), status: (st ?? "?").trim() });
@@ -61,7 +61,10 @@ export async function verifyWorkspaceFileEffects(input: {
   /** Optional Cursor claim — compared, never trusted alone. */
   report?: CursorExecutionReport | null;
   statusDiffPort?: LocalGitStatusDiffPort;
-  /** Injectable name-status text for tests without git. */
+  /**
+   * Injectable name-status text for tests without git.
+   * Production path must use statusDiffPort over FULL worktree (no pathspec).
+   */
   nameStatusText?: string;
 }): Promise<WorkspaceFileVerificationResult> {
   const allow = new Set(input.pathAllowlist.map(normalizeRel));
@@ -69,9 +72,10 @@ export async function verifyWorkspaceFileEffects(input: {
 
   let nameStatus = input.nameStatusText ?? "";
   if (!nameStatus && input.statusDiffPort) {
+    // CR-GCEC-14 — observe ALL worktree changes first (no allowlist pathspec).
     const diff = await input.statusDiffPort.statusDiff({
       repoPath: input.worktreePath,
-      pathspecs: [...allow],
+      // intentionally omit pathspecs
     });
     nameStatus = diff.statusPorcelain || diff.diffStat;
   }
@@ -80,7 +84,6 @@ export async function verifyWorkspaceFileEffects(input: {
   const touchedFiles = changed.map((c) => c.path);
   const unexpectedFiles = touchedFiles.filter((p) => {
     if (allow.has(p)) return false;
-    // allow prefix match under allowlisted directories
     return ![...allow].some(
       (a) => p === a || p.startsWith(a.endsWith("/") ? a : `${a}/`),
     );
@@ -95,7 +98,6 @@ export async function verifyWorkspaceFileEffects(input: {
     };
   }
 
-  // Deletes forbidden for docs-write vertical
   const deletes = changed.filter((c) => /D/i.test(c.status));
   if (deletes.length > 0) {
     return {
@@ -104,6 +106,34 @@ export async function verifyWorkspaceFileEffects(input: {
       touchedFiles,
       unexpectedFiles: deletes.map((d) => d.path),
     };
+  }
+
+  // Cursor report claim vs observation — if report omits an observed path, fail
+  if (input.report?.fileEffects) {
+    const claimed = new Set([
+      ...(input.report.fileEffects.created ?? []),
+      ...(input.report.fileEffects.modified ?? []),
+      ...(input.report.fileEffects.deleted ?? []),
+    ].map(normalizeRel));
+    const unclaimedObserved = touchedFiles.filter((p) => !claimed.has(p));
+    if (unclaimedObserved.length > 0 && claimed.size > 0) {
+      // Hidden worktree changes not in Cursor claim
+      return {
+        ok: false,
+        reason: "cursor_claim_incomplete_vs_worktree",
+        touchedFiles,
+        unexpectedFiles: unclaimedObserved,
+      };
+    }
+    const claimedDeletes = input.report.fileEffects.deleted ?? [];
+    if (claimedDeletes.length === 0 && deletes.length > 0) {
+      return {
+        ok: false,
+        reason: "delete_forbidden",
+        touchedFiles,
+        unexpectedFiles: deletes.map((d) => d.path),
+      };
+    }
   }
 
   const absTarget = path.resolve(input.worktreePath, ...targetPath.split("/"));
@@ -128,9 +158,8 @@ export async function verifyWorkspaceFileEffects(input: {
   const buf = await readFile(absTarget);
   const digest = `sha256:${createHash("sha256").update(buf).digest("hex")}`;
 
-  // If Cursor claimed digests, mismatch → fail (claim vs observation)
-  const claimed = input.report?.fileEffects?.digests?.[targetPath];
-  if (claimed && claimed !== digest) {
+  const claimedDigest = input.report?.fileEffects?.digests?.[targetPath];
+  if (claimedDigest && claimedDigest !== digest) {
     return {
       ok: false,
       reason: "claimed_digest_mismatch",

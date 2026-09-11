@@ -1,7 +1,8 @@
 /**
- * CycleExitState — dynamic exit requirement projection (D-GCEC-12).
+ * CycleExitState — dynamic exit requirement projection (D-GCEC-12/15/16).
  * Pure / application projection — NOT a persistence aggregate.
- * REPORTED ≠ VERIFIED. Only VERIFIED satisfies Git-backed exit conditions.
+ * REPORTED ≠ VERIFIED. Only Evidence.status=verified satisfies Git/artifact exit.
+ * Raw Nora proposedExitRequirementKinds are PREVIEW only — never effective.
  */
 import type { Evidence } from "@/lib/oa/evidence-review";
 import { evaluateFunctionalDesignArtifactCompleteness } from "@/lib/oa/evidence-review";
@@ -42,12 +43,16 @@ export type CycleExitRequirement = {
   evidenceId?: string;
   source?: string;
   blocker?: string;
+  /** When true, this row is PREVIEW from Nora and must not drive finalization. */
+  preview?: boolean;
 };
 
 export type CycleExitState = {
   cycleInstanceId: string;
   projectId: string;
   requirements: CycleExitRequirement[];
+  /** PREVIEW-only Nora proposals — never contribute to allRequiredVerified. */
+  proposedPreview?: CycleExitRequirement[];
   allRequiredVerified: boolean;
   blockers: string[];
 };
@@ -103,14 +108,8 @@ function evidenceForFamily(
 function statusFromEvidence(
   rows: readonly Evidence[],
 ): CycleExitRequirementStatus {
-  if (
-    rows.some(
-      (e) =>
-        e.status === "verified" ||
-        (typeof e.technicalResultRef === "string" &&
-          e.technicalResultRef.startsWith("studio:repository_read_verified:")),
-    )
-  ) {
+  // CR-GCEC-17 — technicalResultRef never implies VERIFIED.
+  if (rows.some((e) => e.status === "verified")) {
     return "VERIFIED";
   }
   if (rows.some((e) => e.status === "rejected" || e.status === "incomplete")) {
@@ -128,13 +127,17 @@ export type DeriveCycleExitStateInput = {
   obligationSnapshot?: CycleObligationSnapshot | null;
   executionContracts: readonly DerivableExecutionContract[];
   evidence: readonly Evidence[];
-  /** Nora / DecisionBasis proposed exit kinds (non-authoritative). */
+  /**
+   * @deprecated PREVIEW only — never effective for FinalizationAssessment.
+   * Prefer omitting; when provided, surfaced as proposedPreview only.
+   */
   proposedExitRequirementKinds?: readonly string[];
 };
 
 /**
  * Materialize dynamic CycleExitState from durable Product facts + EC requirements.
  * No universal artifact→commit→push→PR→merge rule.
+ * CR-GCEC-16: Nora proposal kinds do not become effective requirements.
  */
 export function deriveCycleExitState(
   input: DeriveCycleExitStateInput,
@@ -161,13 +164,12 @@ export function deriveCycleExitState(
 
   const requirements: CycleExitRequirement[] = [];
 
-  // Artifact
+  // Artifact — effective from snapshot MUST or EC expectedOutputs only
   const artifactMust =
     snapshot?.mustFamilies.includes("artifact") === true ||
     contracts.some((c) =>
       (c.expectedOutputs ?? []).some((o) => /artifact/i.test(o)),
-    ) ||
-    (input.proposedExitRequirementKinds ?? []).includes("artifact");
+    );
 
   if (artifactMust) {
     const artifacts = evidence.filter((e) => e.type === "artifact");
@@ -178,18 +180,8 @@ export function deriveCycleExitState(
     if (complete?.status === "verified") {
       status = "VERIFIED";
     } else if (complete?.status === "available") {
+      // CR-GCEC-17 — AVAILABLE + bindings = REPORTED, never auto-VERIFIED
       status = "REPORTED";
-      // First vertical: completeness + available with strong bindings → VERIFIED
-      // for artifact exit when evaluateGcecArtifactEvidence would accept.
-      if (
-        complete.digest &&
-        complete.bindings?.projectId &&
-        complete.bindings?.cycleInstanceId &&
-        complete.bindings?.executionContractId &&
-        complete.bindings?.executionAttemptId
-      ) {
-        status = "VERIFIED";
-      }
     } else if (artifacts.length > 0) {
       status = "FAILED";
     }
@@ -198,15 +190,21 @@ export function deriveCycleExitState(
       status,
       evidenceId: complete?.evidenceId,
       source: complete?.source,
-      ...(status === "REQUIRED" || status === "FAILED"
-        ? { blocker: status === "FAILED" ? "artifact_incomplete" : "artifact_missing" }
+      ...(status === "REQUIRED" || status === "FAILED" || status === "REPORTED"
+        ? {
+            blocker:
+              status === "FAILED"
+                ? "artifact_incomplete"
+                : status === "REPORTED"
+                  ? "artifact_reported_not_verified"
+                  : "artifact_missing",
+          }
         : {}),
     });
   } else {
     requirements.push({ kind: "artifact", status: "NOT_APPLICABLE" });
   }
 
-  // Validation / tests — Studio qualifies from EC (Nora proposal alone is non-authoritative).
   const wantsValidation = contracts.some((c) =>
     (c.evidenceRequirements ?? []).some((r) => /validation|tests?/i.test(r)),
   );
@@ -224,50 +222,23 @@ export function deriveCycleExitState(
     requirements.push({ kind: "validation", status: "NOT_APPLICABLE" });
   }
 
-  // Git families — only when MUST or EC evidenceRequirements ask for them
   const gitMust = snapshot?.mustFamilies.includes("git_repository") === true;
   const fromEc = gitProofFamiliesFromRequirements(
     contracts.flatMap((c) => c.evidenceRequirements ?? []),
   );
-  const proposedGit = (input.proposedExitRequirementKinds ?? [])
-    .map((k) => {
-      if (k === "commit") return "git:local_commit" as const;
-      if (k === "push") return "git:remote_push" as const;
-      if (k === "pull_request") return "git:pull_request" as const;
-      if (k === "ci") return "git:ci_status" as const;
-      if (k === "review") return "git:review_status" as const;
-      if (k === "merge") return "git:merge" as const;
-      if (k === "post_merge_verification")
-        return "git:post_merge_verification" as const;
-      return null;
-    })
-    .filter((x): x is GitCompletionProofFamily => x != null);
 
-  const requiredFamilies: GitCompletionProofFamily[] = gitMust
-    ? fromEc.length > 0
-      ? fromEc
-      : proposedGit.length > 0
-        ? proposedGit
-        : fromEc
-    : // Non-MUST: only families explicitly required by EC or Nora proposal
-      [...new Set([...fromEc.filter((f) =>
-        contracts.some((c) =>
-          (c.evidenceRequirements ?? []).some(
-            (r) =>
-              r === f ||
-              r === f.replace("git:", "git:") ||
-              (f === "git:local_commit" && r === "git:commit") ||
-              (f === "git:remote_push" && r === "git:push"),
-          ),
-        ),
-      ), ...proposedGit])];
-
-  // If git MUST but empty EC reqs, use full GCEC set via gitProofFamiliesFromRequirements([])
-  const families: GitCompletionProofFamily[] = gitMust
-    ? gitProofFamiliesFromRequirements(
-        contracts.flatMap((c) => c.evidenceRequirements ?? []),
-      )
-    : requiredFamilies;
+  // Fail-closed: git MUST but no specific families on EC → UNKNOWN, not full chain
+  let families: GitCompletionProofFamily[] = [];
+  let gitUnresolved = false;
+  if (gitMust) {
+    if (fromEc.length === 0) {
+      gitUnresolved = true;
+    } else {
+      families = fromEc;
+    }
+  } else {
+    families = fromEc;
+  }
 
   const allGitKinds = [
     "commit",
@@ -281,29 +252,33 @@ export function deriveCycleExitState(
 
   for (const kind of allGitKinds) {
     const family = GIT_KIND_TO_FAMILY[kind];
+    if (gitUnresolved) {
+      requirements.push({
+        kind,
+        status: "UNKNOWN",
+        blocker: "git_requirements_unresolved",
+      });
+      continue;
+    }
     if (!families.includes(family)) {
       requirements.push({ kind, status: "NOT_APPLICABLE" });
       continue;
     }
     const rows = evidenceForFamily(evidence, family, input.cycleInstanceId);
     const status = statusFromEvidence(rows);
-    // D-GCEC-11: available alone = REPORTED, not VERIFIED for Git
-    const adjusted =
-      status === "REPORTED" && rows.every((r) => r.status !== "verified")
-        ? "REPORTED"
-        : status;
     const q = rows[0]?.location ? parseLocationQuery(rows[0].location) : {};
     requirements.push({
       kind,
-      status: adjusted === "REQUIRED" ? "REQUIRED" : adjusted,
-      evidenceId: rows.find((r) => r.status === "verified")?.evidenceId ??
+      status: status === "REQUIRED" ? "REQUIRED" : status,
+      evidenceId:
+        rows.find((r) => r.status === "verified")?.evidenceId ??
         rows[0]?.evidenceId,
       source: family,
-      ...(adjusted === "REQUIRED"
+      ...(status === "REQUIRED"
         ? { blocker: `${kind}_missing` }
-        : adjusted === "REPORTED"
+        : status === "REPORTED"
           ? { blocker: `${kind}_reported_not_verified` }
-          : adjusted === "FAILED"
+          : status === "FAILED"
             ? { blocker: `${kind}_failed` }
             : {}),
       ...(q.conclusion === "failure" || q.state === "pending"
@@ -312,7 +287,6 @@ export function deriveCycleExitState(
     });
   }
 
-  // CI/review failure special-case: conclusion/state in location
   for (const req of requirements) {
     if (req.kind === "ci" && req.status === "REPORTED") {
       const rows = evidenceForFamily(
@@ -340,6 +314,17 @@ export function deriveCycleExitState(
     }
   }
 
+  // PREVIEW only — never effective
+  const proposedPreview: CycleExitRequirement[] = (
+    input.proposedExitRequirementKinds ?? []
+  ).map((k) => ({
+    kind: (k as CycleExitRequirementKind) || "artifact",
+    status: "REQUIRED" as const,
+    preview: true,
+    source: "nora_proposal_preview",
+    blocker: "preview_non_authoritative",
+  }));
+
   const blockers = requirements
     .filter(
       (r) =>
@@ -358,6 +343,7 @@ export function deriveCycleExitState(
     cycleInstanceId: input.cycleInstanceId,
     projectId: input.projectId,
     requirements,
+    ...(proposedPreview.length > 0 ? { proposedPreview } : {}),
     allRequiredVerified,
     blockers,
   };
@@ -368,7 +354,7 @@ export function cycleExitGitFamiliesRequired(
 ): GitCompletionProofFamily[] {
   const out: GitCompletionProofFamily[] = [];
   for (const r of state.requirements) {
-    if (r.status === "NOT_APPLICABLE") continue;
+    if (r.status === "NOT_APPLICABLE" || r.preview) continue;
     if (
       r.kind === "artifact" ||
       r.kind === "validation" ||

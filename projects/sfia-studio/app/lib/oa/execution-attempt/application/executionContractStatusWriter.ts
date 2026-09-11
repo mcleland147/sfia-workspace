@@ -1,13 +1,18 @@
 /**
  * T-A5 owns the post-start ExecutionContract statuses (executing|completed|
- * failed) and the post-start cancellation. T-A4 use-cases deliberately refuse
- * them, so T-A5 writes them through the SHARED
- * `ExecutionContractRepositoryPort` (+ the same MemoryExecutionContractStore
- * transaction helper). No T-A4 use-case is extended to post-exec.
+ * failed|cancelled) and D-GCEC-15 return-to-confirmed after a successful
+ * bounded slice when effective requirements remain. T-A4 use-cases deliberately
+ * refuse TA5 writes, so T-A5 writes them through the SHARED
+ * `ExecutionContractRepositoryPort`.
  *
  * Absolute invariant enforced here (RTA5-09):
  *   ExecutionContract.executing ⇒ a matching Attempt is ALREADY running
  *   in the Attempt repository — caller-claimed status alone is NOT trusted.
+ *
+ * D-GCEC-15:
+ *   Attempt succeeded ≠ EC completed.
+ *   executing → confirmed when required effects remain / await verification.
+ *   confirmed → completed when all effective requirements are verified.
  */
 import {
   isExecutionReadyStatus,
@@ -20,6 +25,7 @@ import type { ExecutionAttemptRepositoryPort } from "../ports/executionAttemptRe
 
 export type Ta5ContractStatus =
   | "executing"
+  | "confirmed"
   | "completed"
   | "failed"
   | "cancelled";
@@ -27,7 +33,10 @@ export type Ta5ContractStatus =
 const ALLOWED_SOURCES: Record<Ta5ContractStatus, readonly string[]> = {
   // validated is Execute-ready only via isExecutionReadyStatus (R16 marker).
   executing: ["confirmed", "validated"],
-  completed: ["executing"],
+  // D-GCEC-15 — successful partial slice returns EC to execute-ready.
+  confirmed: ["executing"],
+  // Completion after last slice while executing, or after verification catch-up.
+  completed: ["executing", "confirmed"],
   failed: ["confirmed", "validated", "executing"],
   cancelled: ["confirmed", "validated", "executing"],
 };

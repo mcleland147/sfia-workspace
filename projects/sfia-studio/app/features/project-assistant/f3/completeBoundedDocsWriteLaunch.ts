@@ -1,5 +1,5 @@
 /**
- * CR-GCEC-04 / D-GCEC-11 — complete bounded docs-write launch.
+ * CR-GCEC-04 / D-GCEC-11 / CR-GCEC-14 — complete bounded docs-write launch.
  * Awaits observation, independently verifies workspace file effects (no stdout trust).
  */
 import {
@@ -10,6 +10,10 @@ import {
   type CursorExecutionReport,
   verifyWorkspaceFileEffects,
 } from "@/lib/oa/execution-attempt";
+import {
+  NodeLocalGitStatusDiffPort,
+  type LocalGitStatusDiffPort,
+} from "@/lib/oa/git-ports";
 import {
   completeBoundedReadOnlyLaunch,
   type CompleteBoundedReadOnlyLaunchResult,
@@ -59,6 +63,10 @@ export async function completeBoundedDocsWriteLaunch(input: {
   /** Expected relative target path (from docsWriteSpec / EC.inputs). */
   targetPath?: string;
   pathAllowlist?: readonly string[];
+  /** Independent full-worktree status/diff (CR-GCEC-14). */
+  statusDiffPort?: LocalGitStatusDiffPort;
+  /** Test-only injectable porcelain when git unavailable. */
+  nameStatusText?: string;
 }): Promise<CompleteBoundedDocsWriteLaunchResult> {
   const base = await completeBoundedReadOnlyLaunch({
     attempt: input.attempt,
@@ -89,21 +97,17 @@ export async function completeBoundedDocsWriteLaunch(input: {
     };
   }
 
+  const statusDiffPort =
+    input.statusDiffPort ??
+    (input.nameStatusText ? undefined : new NodeLocalGitStatusDiffPort());
+
   const verified = await verifyWorkspaceFileEffects({
     worktreePath: worktreeRef,
     pathAllowlist,
     targetPath,
     report: cursorReport,
-    // Prefer independent FS check; name-status optional via porcelain from report claims alone
-    // when git port unavailable — still require target bytes.
-    nameStatusText:
-      cursorReport?.fileEffects
-        ? [
-            ...(cursorReport.fileEffects.created ?? []).map((p) => `A\t${p}`),
-            ...(cursorReport.fileEffects.modified ?? []).map((p) => `M\t${p}`),
-            ...(cursorReport.fileEffects.deleted ?? []).map((p) => `D\t${p}`),
-          ].join("\n")
-        : `A\t${targetPath}`,
+    ...(statusDiffPort ? { statusDiffPort } : {}),
+    ...(input.nameStatusText ? { nameStatusText: input.nameStatusText } : {}),
   });
 
   if (!verified.ok) {

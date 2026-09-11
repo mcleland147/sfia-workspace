@@ -176,6 +176,16 @@ export {
   type FakeDocsWriteLaunchPortOptions,
 } from "./infrastructure/fakeDocsWriteLaunchPort";
 export {
+  FakeCursorGitExternalState,
+  type FakeCursorCommitRecord,
+  type FakeCursorPrRecord,
+  type FakeCursorCiConclusion,
+  type FakeCursorReviewState,
+} from "./infrastructure/fakeCursorGitExternalState";
+export { qualifyExecutionContractCompletion } from "./domain/qualifyExecutionContractCompletion";
+export type { ExecutionContractCompletionQualification } from "./domain/qualifyExecutionContractCompletion";
+export { advanceExecutionContractCompletion } from "./application/advanceExecutionContractCompletion";
+export {
   ManagedProjectRepositoryResolver,
   sanitizeManagedRepoIdentity,
 } from "./infrastructure/managedProjectRepositoryResolver";

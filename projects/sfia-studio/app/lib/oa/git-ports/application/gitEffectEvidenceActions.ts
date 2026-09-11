@@ -1,10 +1,9 @@
 /**
- * D-GCEC-09/11 — Studio Git verification actions (READ + Evidence only).
- * Cursor owns mutations. Studio observes via RepositoryReadPort and upgrades claims.
+ * D-GCEC-09/11 / CR-GCEC-17 — Studio Git verification (READ + Evidence lifecycle).
+ * Cursor owns mutations. Studio observes via RepositoryReadPort, registers AVAILABLE
+ * claims, then transitions to status=verified via VerifyEvidenceIntegrity.
  *
- * Evidence.register forbids status=verified at create time. Verified Git proof is
- * represented schema-free as status=available + technicalResultRef marker
- * `studio:repository_read_verified:*` after independent RepositoryRead observation.
+ * technicalResultRef is a technical Attempt/result reference only — NEVER a trust marker.
  */
 import { createHash } from "node:crypto";
 import type { Digest } from "@/lib/oa/doctrine";
@@ -20,9 +19,6 @@ import type {
   RepositoryReadPort,
 } from "../types";
 import { verifyPostMerge } from "../postMergeVerify";
-
-export const STUDIO_REPO_READ_VERIFIED_PREFIX =
-  "studio:repository_read_verified:" as const;
 
 export type GitVerifyActor = {
   actorId: string;
@@ -42,17 +38,19 @@ function claimDigest(location: string): Digest {
   return `sha256:${createHash("sha256").update(location, "utf8").digest("hex")}` as Digest;
 }
 
-async function registerTypedGitEvidence(input: {
+async function registerTypedGitEvidenceAvailable(input: {
   services: EvidenceReviewServices;
   evidenceId: string;
   source: TypedGitEvidenceSource;
   payload: Record<string, unknown>;
   bindings: GitVerifyBindings;
   actor: GitVerifyActor;
-  /** When true, mark as Studio-read verified (not Cursor report alone). */
-  studioVerified: boolean;
   nowIso?: string;
-}): Promise<{ ok: true; evidenceId: string } | { ok: false; reason: string }> {
+  technicalResultRef?: string;
+}): Promise<
+  | { ok: true; evidenceId: string; digest: Digest; version: number }
+  | { ok: false; reason: string }
+> {
   const built = buildTypedGitEvidenceFields(
     input.source,
     input.payload as never,
@@ -60,7 +58,7 @@ async function registerTypedGitEvidence(input: {
   if (!built.ok) return { ok: false, reason: built.reason };
 
   const location = built.fields.location ?? `git:${input.source}`;
-  const digest = built.fields.digest ?? claimDigest(location);
+  const digest = (built.fields.digest ?? claimDigest(location)) as Digest;
 
   const result = await input.services.registerEvidence.execute({
     evidenceId: input.evidenceId,
@@ -74,13 +72,9 @@ async function registerTypedGitEvidence(input: {
     status: "available",
     location,
     digest,
-    ...(input.studioVerified
-      ? {
-          technicalResultRef: `${STUDIO_REPO_READ_VERIFIED_PREFIX}${input.source}`,
-        }
-      : {
-          technicalResultRef: `studio:cursor_report_claim:${input.source}`,
-        }),
+    ...(input.technicalResultRef
+      ? { technicalResultRef: input.technicalResultRef }
+      : {}),
     bindings: {
       projectId: input.bindings.projectId,
       cycleInstanceId: input.bindings.cycleInstanceId,
@@ -96,7 +90,95 @@ async function registerTypedGitEvidence(input: {
   if (!result.ok) {
     return { ok: false, reason: result.error.detailCode };
   }
-  return { ok: true, evidenceId: input.evidenceId };
+  return {
+    ok: true,
+    evidenceId: input.evidenceId,
+    digest,
+    version: result.evidence.version,
+  };
+}
+
+async function verifyRegisteredEvidence(input: {
+  services: EvidenceReviewServices;
+  evidenceId: string;
+  expectedVersion: number;
+  digest: Digest;
+  actor: GitVerifyActor;
+}): Promise<{ ok: true } | { ok: false; reason: string }> {
+  const svc = input.services as EvidenceReviewServices & {
+    payload?: {
+      setScript?: (
+        id: string,
+        s: { availability: "available"; digest: Digest },
+      ) => void;
+    };
+    fakePayload?: {
+      setScript?: (
+        id: string,
+        s: { availability: "available"; digest: Digest },
+      ) => void;
+    };
+  };
+  const scriptable = svc.fakePayload ?? svc.payload;
+  if (typeof scriptable?.setScript === "function") {
+    scriptable.setScript(input.evidenceId, {
+      availability: "available",
+      digest: input.digest,
+    });
+  }
+
+  const verified = await input.services.verifyEvidenceIntegrity.execute({
+    evidenceId: input.evidenceId,
+    expectedVersion: input.expectedVersion,
+    actor: input.actor as never,
+  });
+  if (!verified.ok) {
+    return { ok: false, reason: verified.error.detailCode };
+  }
+  if (verified.evidence.status !== "verified") {
+    return { ok: false, reason: "status_not_verified_after_integrity" };
+  }
+  return { ok: true };
+}
+
+async function registerAndVerify(input: {
+  services: EvidenceReviewServices;
+  evidenceId: string;
+  source: TypedGitEvidenceSource;
+  payload: Record<string, unknown>;
+  bindings: GitVerifyBindings;
+  actor: GitVerifyActor;
+  nowIso?: string;
+}): Promise<
+  | { ok: true; evidenceId: string; status: "verified" }
+  | { ok: false; reason: string; status: "reported" | "failed" }
+> {
+  const reg = await registerTypedGitEvidenceAvailable(input);
+  if (!reg.ok) return { ok: false, reason: reg.reason, status: "failed" };
+
+  // Ensure payload probe can observe the registered digest
+  const testSvc = input.services as EvidenceReviewServices & {
+    setPayloadScript?: (
+      id: string,
+      s: { availability: "available"; digest: Digest },
+    ) => void;
+  };
+  if (typeof testSvc.setPayloadScript === "function") {
+    testSvc.setPayloadScript(reg.evidenceId, {
+      availability: "available",
+      digest: reg.digest,
+    });
+  }
+
+  const v = await verifyRegisteredEvidence({
+    services: input.services,
+    evidenceId: reg.evidenceId,
+    expectedVersion: reg.version,
+    digest: reg.digest,
+    actor: input.actor,
+  });
+  if (!v.ok) return { ok: false, reason: v.reason, status: "reported" };
+  return { ok: true, evidenceId: reg.evidenceId, status: "verified" };
 }
 
 /** Register a Cursor-reported claim as AVAILABLE (not verified). */
@@ -109,16 +191,18 @@ export async function registerReportedGitClaimEvidence(input: {
   evidenceId: string;
   nowIso?: string;
 }): Promise<{ ok: true; evidenceId: string } | { ok: false; reason: string }> {
-  return registerTypedGitEvidence({
+  const reg = await registerTypedGitEvidenceAvailable({
     services: input.evidenceServices,
     evidenceId: input.evidenceId,
     source: input.source,
     payload: input.payload,
     bindings: input.bindings,
     actor: input.actor,
-    studioVerified: false,
+    technicalResultRef: `studio:cursor_report_claim:${input.source}`,
     nowIso: input.nowIso,
   });
+  if (!reg.ok) return reg;
+  return { ok: true, evidenceId: reg.evidenceId };
 }
 
 export async function verifyCommitClaim(input: {
@@ -145,7 +229,7 @@ export async function verifyCommitClaim(input: {
     return { ok: false, reason: "commit_sha_mismatch", status: "failed" };
   }
   const evidenceId = `ev:git-commit-verified:${observed.sha.slice(0, 12)}`;
-  const reg = await registerTypedGitEvidence({
+  return registerAndVerify({
     services: input.evidenceServices,
     evidenceId,
     source: "git:local_commit",
@@ -156,11 +240,8 @@ export async function verifyCommitClaim(input: {
     },
     bindings: input.bindings,
     actor: input.actor,
-    studioVerified: true,
     nowIso: input.nowIso,
   });
-  if (!reg.ok) return { ok: false, reason: reg.reason, status: "failed" };
-  return { ok: true, evidenceId, status: "verified" };
 }
 
 export async function verifyPushClaim(input: {
@@ -188,7 +269,7 @@ export async function verifyPushClaim(input: {
     return { ok: false, reason: "push_sha_mismatch", status: "failed" };
   }
   const evidenceId = `ev:git-push-verified:${head.slice(0, 12)}`;
-  const reg = await registerTypedGitEvidence({
+  return registerAndVerify({
     services: input.evidenceServices,
     evidenceId,
     source: "git:remote_push",
@@ -200,11 +281,8 @@ export async function verifyPushClaim(input: {
     },
     bindings: input.bindings,
     actor: input.actor,
-    studioVerified: true,
     nowIso: input.nowIso,
   });
-  if (!reg.ok) return { ok: false, reason: reg.reason, status: "failed" };
-  return { ok: true, evidenceId, status: "verified" };
 }
 
 export async function verifyPullRequestClaim(input: {
@@ -217,7 +295,13 @@ export async function verifyPullRequestClaim(input: {
   actor: GitVerifyActor;
   nowIso?: string;
 }): Promise<
-  | { ok: true; evidenceId: string; status: "verified"; prNumber: number; headSha: string }
+  | {
+      ok: true;
+      evidenceId: string;
+      status: "verified";
+      prNumber: number;
+      headSha: string;
+    }
   | { ok: false; reason: string; status: "reported" | "failed" }
 > {
   const pr = await input.repositoryRead.getPullRequest({
@@ -231,7 +315,7 @@ export async function verifyPullRequestClaim(input: {
     return { ok: false, reason: "pr_head_mismatch", status: "failed" };
   }
   const evidenceId = `ev:git-pr-verified:${pr.number}`;
-  const reg = await registerTypedGitEvidence({
+  const result = await registerAndVerify({
     services: input.evidenceServices,
     evidenceId,
     source: "git:pull_request",
@@ -244,13 +328,12 @@ export async function verifyPullRequestClaim(input: {
     },
     bindings: input.bindings,
     actor: input.actor,
-    studioVerified: true,
     nowIso: input.nowIso,
   });
-  if (!reg.ok) return { ok: false, reason: reg.reason, status: "failed" };
+  if (!result.ok) return result;
   return {
     ok: true,
-    evidenceId,
+    evidenceId: result.evidenceId,
     status: "verified",
     prNumber: pr.number,
     headSha: pr.headSha,
@@ -265,23 +348,40 @@ export async function recordCiStatusEvidence(input: {
   bindings: GitVerifyBindings;
   actor: GitVerifyActor;
   nowIso?: string;
-  /** Test inject — skip live CI read. */
-  forcedConclusion?: "success" | "failure" | "pending";
 }): Promise<
   | { ok: true; evidenceId: string; conclusion: string; status: "verified" | "failed" }
   | { ok: false; reason: string }
 > {
-  const nowIso = input.nowIso ?? new Date().toISOString();
-  const status =
-    input.forcedConclusion != null
-      ? { conclusion: input.forcedConclusion }
-      : await input.ciPort.getCiStatus({
-          repositoryRef: input.repositoryRef,
-          commitSha: input.commitSha,
-        });
-  const verified = status.conclusion === "success";
+  // CR-GCEC — no forcedConclusion in Product API; FakeRepositoryRead supplies observation.
+  const status = await input.ciPort.getCiStatus({
+    repositoryRef: input.repositoryRef,
+    commitSha: input.commitSha,
+  });
   const evidenceId = `ev:git-ci:${input.commitSha.slice(0, 12)}`;
-  const reg = await registerTypedGitEvidence({
+  if (status.conclusion !== "success") {
+    const reg = await registerTypedGitEvidenceAvailable({
+      services: input.evidenceServices,
+      evidenceId,
+      source: "git:ci_status",
+      payload: {
+        repositoryRef: input.repositoryRef,
+        commitSha: input.commitSha,
+        conclusion: status.conclusion,
+        checkName: status.checkName,
+      },
+      bindings: input.bindings,
+      actor: input.actor,
+      nowIso: input.nowIso,
+    });
+    if (!reg.ok) return { ok: false, reason: reg.reason };
+    return {
+      ok: true,
+      evidenceId,
+      conclusion: status.conclusion,
+      status: "failed",
+    };
+  }
+  const result = await registerAndVerify({
     services: input.evidenceServices,
     evidenceId,
     source: "git:ci_status",
@@ -293,15 +393,14 @@ export async function recordCiStatusEvidence(input: {
     },
     bindings: input.bindings,
     actor: input.actor,
-    studioVerified: verified,
-    nowIso,
+    nowIso: input.nowIso,
   });
-  if (!reg.ok) return { ok: false, reason: reg.reason };
+  if (!result.ok) return { ok: false, reason: result.reason };
   return {
     ok: true,
-    evidenceId,
+    evidenceId: result.evidenceId,
     conclusion: status.conclusion,
-    status: verified ? "verified" : "failed",
+    status: "verified",
   };
 }
 
@@ -313,22 +412,38 @@ export async function recordReviewStatusEvidence(input: {
   bindings: GitVerifyBindings;
   actor: GitVerifyActor;
   nowIso?: string;
-  forcedState?: "approved" | "changes_requested" | "commented" | "pending";
 }): Promise<
   | { ok: true; evidenceId: string; state: string; status: "verified" | "failed" }
   | { ok: false; reason: string }
 > {
-  const nowIso = input.nowIso ?? new Date().toISOString();
-  const status =
-    input.forcedState != null
-      ? { state: input.forcedState }
-      : await input.reviewPort.getReviewStatus({
-          repositoryRef: input.repositoryRef,
-          prNumber: input.prNumber,
-        });
-  const verified = status.state === "approved";
+  const status = await input.reviewPort.getReviewStatus({
+    repositoryRef: input.repositoryRef,
+    prNumber: input.prNumber,
+  });
   const evidenceId = `ev:git-review:${input.prNumber}`;
-  const reg = await registerTypedGitEvidence({
+  if (status.state !== "approved") {
+    const reg = await registerTypedGitEvidenceAvailable({
+      services: input.evidenceServices,
+      evidenceId,
+      source: "git:review_status",
+      payload: {
+        repositoryRef: input.repositoryRef,
+        prNumber: input.prNumber,
+        state: status.state,
+      },
+      bindings: input.bindings,
+      actor: input.actor,
+      nowIso: input.nowIso,
+    });
+    if (!reg.ok) return { ok: false, reason: reg.reason };
+    return {
+      ok: true,
+      evidenceId,
+      state: status.state,
+      status: "failed",
+    };
+  }
+  const result = await registerAndVerify({
     services: input.evidenceServices,
     evidenceId,
     source: "git:review_status",
@@ -339,15 +454,14 @@ export async function recordReviewStatusEvidence(input: {
     },
     bindings: input.bindings,
     actor: input.actor,
-    studioVerified: verified,
-    nowIso,
+    nowIso: input.nowIso,
   });
-  if (!reg.ok) return { ok: false, reason: reg.reason };
+  if (!result.ok) return { ok: false, reason: result.reason };
   return {
     ok: true,
-    evidenceId,
+    evidenceId: result.evidenceId,
     state: status.state,
-    status: verified ? "verified" : "failed",
+    status: "verified",
   };
 }
 
@@ -381,7 +495,7 @@ export async function verifyMergeClaim(input: {
     return { ok: false, reason: "merge_sha_mismatch", status: "failed" };
   }
   const evidenceId = `ev:git-merge-verified:${info.mergeSha.slice(0, 12)}`;
-  const reg = await registerTypedGitEvidence({
+  const result = await registerAndVerify({
     services: input.evidenceServices,
     evidenceId,
     source: "git:merge",
@@ -393,13 +507,12 @@ export async function verifyMergeClaim(input: {
     },
     bindings: input.bindings,
     actor: input.actor,
-    studioVerified: true,
     nowIso: input.nowIso,
   });
-  if (!reg.ok) return { ok: false, reason: reg.reason, status: "failed" };
+  if (!result.ok) return result;
   return {
     ok: true,
-    evidenceId,
+    evidenceId: result.evidenceId,
     mergeCommitSha: info.mergeSha,
     status: "verified",
   };
@@ -407,45 +520,43 @@ export async function verifyMergeClaim(input: {
 
 export async function verifyPostMergeEvidence(input: {
   evidenceServices: EvidenceReviewServices;
-  repositoryRead?: RepositoryReadPort;
+  repositoryRead: RepositoryReadPort;
   repositoryRef: string;
   targetBranch: string;
-  targetSha: string;
   artifactPath: string;
   artifactDigest: Digest;
   expectedTargetSha: string;
-  observedTargetSha: string;
   expectedArtifactDigest: Digest;
-  observedArtifactDigest: Digest;
   bindings: GitVerifyBindings;
   actor: GitVerifyActor;
   nowIso?: string;
   verifyPort?: PostMergeVerifyPort;
 }): Promise<{ ok: true; evidenceId: string } | { ok: false; reason: string }> {
-  // When a read port is supplied, prefer independently observed facts.
-  let observedTargetSha = input.observedTargetSha;
-  let observedArtifactDigest = input.observedArtifactDigest;
-  if (input.repositoryRead) {
-    const head = await input.repositoryRead.getBranchHead({
+  // CR-GCEC — trusted Product action MUST observe via RepositoryRead (no caller self-attest).
+  const head = await input.repositoryRead.getBranchHead({
+    repositoryRef: input.repositoryRef,
+    branch: input.targetBranch,
+  });
+  if (!head) {
+    return { ok: false, reason: "post_merge_target_head_unobserved" };
+  }
+  let observedArtifactDigest: Digest | undefined;
+  if (input.repositoryRead.readArtifactDigestAtRef) {
+    const dig = await input.repositoryRead.readArtifactDigestAtRef({
       repositoryRef: input.repositoryRef,
-      branch: input.targetBranch,
+      path: input.artifactPath,
+      ref: head,
     });
-    if (head) observedTargetSha = head;
-    if (input.repositoryRead.readArtifactDigestAtRef) {
-      const dig = await input.repositoryRead.readArtifactDigestAtRef({
-        repositoryRef: input.repositoryRef,
-        path: input.artifactPath,
-        ref: observedTargetSha,
-      });
-      if (dig) observedArtifactDigest = dig;
-    }
+    observedArtifactDigest = dig ?? undefined;
+  }
+  if (!observedArtifactDigest) {
+    return { ok: false, reason: "post_merge_artifact_unobserved" };
   }
 
-  const nowIso = input.nowIso ?? new Date().toISOString();
   const verify = input.verifyPort?.verify ?? verifyPostMerge;
   const result = verify({
     expectedTargetSha: input.expectedTargetSha,
-    observedTargetSha,
+    observedTargetSha: head,
     expectedArtifactDigest: input.expectedArtifactDigest,
     observedArtifactDigest,
     artifactPath: input.artifactPath,
@@ -453,25 +564,30 @@ export async function verifyPostMergeEvidence(input: {
   if (!result.ok) {
     return { ok: false, reason: result.reasons.join(",") || "post_merge_failed" };
   }
-  const evidenceId = `ev:git-post-merge:${input.targetSha.slice(0, 12)}`;
-  return registerTypedGitEvidence({
+  const evidenceId = `ev:git-post-merge:${head.slice(0, 12)}`;
+  const verified = await registerAndVerify({
     services: input.evidenceServices,
     evidenceId,
     source: "git:post_merge_verification",
     payload: {
       repositoryRef: input.repositoryRef,
       targetBranch: input.targetBranch,
-      targetSha: observedTargetSha,
+      targetSha: head,
       artifactPath: input.artifactPath,
       artifactDigest: observedArtifactDigest,
     },
     bindings: input.bindings,
     actor: input.actor,
-    studioVerified: true,
-    nowIso,
+    nowIso: input.nowIso,
   });
+  if (!verified.ok) return { ok: false, reason: verified.reason };
+  return { ok: true, evidenceId: verified.evidenceId };
 }
 
 /** @deprecated Aliases — mutation evidence actions removed (D-GCEC-09). */
 export type GitEffectActor = GitVerifyActor;
 export type GitEffectBindings = GitVerifyBindings;
+
+/** Removed — do not use as trust marker. */
+export const STUDIO_REPO_READ_VERIFIED_PREFIX =
+  "studio:repository_read_verified:" as const;

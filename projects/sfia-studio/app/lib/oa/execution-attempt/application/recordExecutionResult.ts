@@ -23,6 +23,17 @@ import type { ExecutionAttemptRepositoryPort } from "../ports/executionAttemptRe
 import { newCorrelationId } from "./attemptSupport";
 import type { AttemptPolicy } from "./attemptPolicy";
 import type { ExecutionContractStatusWriter } from "./executionContractStatusWriter";
+import { qualifyExecutionContractCompletion } from "../domain/qualifyExecutionContractCompletion";
+import type { Evidence } from "@/lib/oa/evidence-review";
+import type { Confirmation } from "@/lib/oa/decision";
+import type { CursorAuthorizedEffectId } from "../domain/cursorExecutionReport";
+
+export type RecordExecutionResultCompletionContext = {
+  evidence?: readonly Evidence[];
+  confirmations?: readonly Confirmation[];
+  cycleInstanceId?: string;
+  reportedExecutedEffects?: readonly CursorAuthorizedEffectId[];
+};
 
 export class RecordExecutionResult {
   constructor(
@@ -37,7 +48,10 @@ export class RecordExecutionResult {
   ) {}
 
   async execute(
-    request: RecordExecutionResultRequest,
+    request: RecordExecutionResultRequest & {
+      /** Optional durable facts for D-GCEC-15 contract completion qualification. */
+      completionContext?: RecordExecutionResultCompletionContext;
+    },
   ): Promise<ExecutionAttemptResult> {
     const started = Date.now();
     const timestamp = request.nowIso ?? this.clock.nowIso();
@@ -190,10 +204,25 @@ export class RecordExecutionResult {
         });
       }
 
+      // D-GCEC-15 — Attempt succeeded = current slice succeeded, not EC done.
+      const qualification = qualifyExecutionContractCompletion({
+        contract,
+        evidence: request.completionContext?.evidence,
+        confirmations: request.completionContext?.confirmations,
+        cycleInstanceId: request.completionContext?.cycleInstanceId,
+        reportedExecutedEffects:
+          request.completionContext?.reportedExecutedEffects,
+        nowIso: timestamp,
+      });
+      const nextStatus = qualification.nextStatusAfterSuccessfulAttempt;
+
       const contractWrite = await this.contractStatusWriter.write({
         executionContractId: contract.executionContractId,
         expectedVersion: contract.version,
-        nextStatus: "completed",
+        nextStatus,
+        reason: qualification.complete
+          ? "all_effective_requirements_verified"
+          : `slice_succeeded_remaining:${qualification.remainingRequiredEffects.join(",")}`,
       });
 
       const durationMs = Date.now() - started;

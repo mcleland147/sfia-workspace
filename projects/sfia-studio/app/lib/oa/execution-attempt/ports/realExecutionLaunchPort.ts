@@ -63,6 +63,17 @@ export type RealLaunchRequest = {
     readonly defaultBranch: string;
     readonly pathRoot?: string;
   };
+  /**
+   * D-GCEC-15 — current authorized Cursor effects (from AuthorizedExecutionSlice).
+   * Gateway / Fake MUST NOT invent grants beyond this list.
+   */
+  readonly authorizedEffects?: readonly import("../domain/cursorExecutionReport").CursorAuthorizedEffectId[];
+  /** Snapshot of authorized + blocked effects for Fake/REAL report alignment. */
+  readonly authorizedExecutionSlice?: {
+    authorizedEffects: readonly string[];
+    blockedEffects: readonly string[];
+    reasons?: readonly string[];
+  };
 };
 
 export type RealLaunchAck = {
