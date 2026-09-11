@@ -67,10 +67,13 @@ export async function completeBoundedDocsWriteLaunch(input: {
   statusDiffPort?: LocalGitStatusDiffPort;
   /** Test-only injectable porcelain when git unavailable. */
   nameStatusText?: string;
+  /** See completeBoundedReadOnlyLaunch.awaitIfPending. */
+  awaitIfPending?: boolean;
 }): Promise<CompleteBoundedDocsWriteLaunchResult> {
   const base = await completeBoundedReadOnlyLaunch({
     attempt: input.attempt,
     services: input.services,
+    awaitIfPending: input.awaitIfPending,
   });
   if (!base.ok) return base;
   if (base.status !== "succeeded") {
