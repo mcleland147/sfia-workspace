@@ -1,12 +1,12 @@
 # SFIA STUDIO — GCEC
-GCEC-CURSOR-REAL
-SECOND BOUNDED CURSOR REAL DOCS-WRITE ATTEMPT
+REAL_CONTINUATION_GAP
+ARCHITECTURE QUALIFICATION / DECISION PACK
 
 ## TIMESTAMP
-2026-09-11T20:10:45+02:00
+2026-09-11T20:38:51+02:00
 
 ## GO MORRIS
-GCEC-CURSOR-REAL one-attempt GO consumed
+REAL_CONTINUATION_GAP ARCHITECTURE QUALIFICATION consumed
 
 ## GIT TRUTH BEFORE
 - worktree: `/Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310`
@@ -15,437 +15,673 @@ GCEC-CURSOR-REAL one-attempt GO consumed
 - parent: `290eca6544f93a898fc3920f99142dc6130ba05e`
 - origin/main: `a9f6c310a0826d0e5bd6f7264603382a86564db1`
 - Product tracked: clean
-- Review Handoff input: `910d15d9be231ce82c0553b589e5a360c79c5343`
+- Review Handoff input: `667b499b26337cabbc533a16c952b73cca2b872e`
 
 ## GIT TRUTH AFTER
 - HEAD unchanged: `92ad3fd41e065d0ebe76c59b4eedb622715a11e2`
-- Product tracked: clean
+- Product tracked changes: NONE
 - Product commit: NONE
 - Product push: NONE
 
+## REAL
+ZERO
+
+## PRODUCT MUTATION
+ZERO
+
 ## SOURCES
 Cycle template, routing guide, ChatGPT–Cursor operating model, rules/guardrails,
-v2.5 method candidate, Build Doctrine, roadmap, Product Completion cadrage,
-framing 34/35, prior handoff @ `910d15d9…`.
+v2.5 method candidate, CKC pilot `03-architecture-technique.md`, Build Doctrine,
+roadmap, Product Completion cadrage, framing 34/35, prior REAL handoff `667b499b…`,
+durable proof outputs under `.tmp-sfia-review/gcec-cursor-real-proof/`.
 
 ## CONVERGENCE PRE-CHECK
 - Build Doctrine: VALIDATED / ACTIVE
 - Product Completion: COMPLETE / CLOSED
 - Runtime v3: NON ADOPTED
-- CR-GCEC-REAL-01: CLOSED
-- Candidate: COMMITTED @ `92ad3fd4`
-
-## PRODUCT CANDIDATE
-`92ad3fd41e065d0ebe76c59b4eedb622715a11e2`
-
-## PRE-REAL CHECKS
-- Deterministic harness smoke (REAL OFF): **3 passed | 1 skipped**
-- Proof repo pre-state exact
-- Fresh managed clone @ base SHA
-- Cursor CLI qualified
-- No identifiable prior GCEC business child (IDE processes only; not killed)
-- Preflight checklist: `.tmp-sfia-review/gcec-cursor-real-proof/preflight-checklist.txt`
-
-## PROOF REPOSITORY BEFORE
-- identity: `mcleland147/sfia-gcec-proof-task-manager`
-- visibility: PRIVATE
-- default branch: main
-- main: `32c7c2008197e5c61b32c16479144e9863291358`
-- branches: main only
-- remote `docs/functional-design.md`: ABSENT
-
-## CURSOR CLI
-- binary: `/Applications/Cursor.app/Contents/Resources/app/bin/cursor`
-- IDE version: `3.19.19` (`6496ea8a…`, arm64)
-- agent version: `2026.08.11-e8db854`
-- auth: logged in as `m.cleland@live.fr`
-- mode/sandbox: default agent write (omit `--mode ask`); `--print`; `--sandbox enabled`; `--trust`; `--workspace` (per committed gateway)
-
-## MANAGED CLONE
-- managed base: `/tmp/sfia-gcec-managed-OlEFT9`
-- clone: `/tmp/sfia-gcec-managed-OlEFT9/mcleland147__sfia-gcec-proof-task-manager`
-- HEAD: `32c7c2008197e5c61b32c16479144e9863291358`
-- status: clean
-- artifact: ABSENT (before and after)
-
-## PRODUCT PROJECT
-`prj:gcec-real-docs-1`
-
-## CYCLE
-`cyc:trj-755b53ab8301065139e0fafa` (status after: `active`)
-
-## TRAJECTORY
-Product path: LifecycleRecommendation → candidate trajectory → Pilot approval →
-prepareCycleFromValidatedTrajectory → startPreparedTrajectoryCycle → F2 → HumanDecision GO →
-prepareAndResolveM3ProductPath → EC confirm → agent select → Gate D → StartExecution.
-
-## HUMAN DECISION
-F2 GO (local Morris authority force) preceding M3 prepare.
-
-## EXECUTION CONTRACT
-- id: `xct:m3-res:dec:f2:55ff23ff-e24b-417d-8a87-53b1fdb6059f`
-- status before StartExecution: confirmed (after Confirmation)
-- requirements: bounded docs-write + outstanding Git evidence requirements remain on EC
-- status after Attempt: `confirmed` (confirmed — Git requirements outstanding; NOT completed)
-
-## ATTEMPT
-`xat:gcec-real:xct:m3-res:dec:f2:55ff23ff-e24b-417d-8a87-53b1fdb6059f`
-
-## GATE D
-`gd:gcec-real:xat:gcec-real:xct:m3-res:dec:f2:55ff23ff-e24b-417d-8a87-53b1fdb6059f`
-
-## AUTHORIZED EXECUTION SLICE
-- filesystem docs-write only
-- target: `docs/functional-design.md`
-- path allowlist: `docs/`
-- no Git Confirmations supplied
-
-## BLOCKED EFFECTS
-- git commit / push / branch / PR / merge
-- README mutation
-- Shell (gateway instruction)
-- Product workspace mutation
-- remote proof mutation
-
-## REAL
-- realProcessInvoked: `True`
-- processRef: `pid:50290`
-- exitCode: `0`
-- timedOut: `False`
-- durationMs: `43102`
-- stdoutCap: (bounded)
-```
-`docs/functional-design.md` is created (only file touched).
-
-It covers:
-- **Actor:** single end user
-- **Task fields:** identifier, mandatory title, optional description, status, optional due date
-- **Statuses:** `TODO`, `IN_PROGRESS`, `DONE`
-- **Flows:** create, list, filter by status, edit, change status
-- **Rules:** blank title refused; status closed set; due date optional
-- **Acceptance criteria:** testable ACs per flow
-- **Out of scope:** auth, multi-user, notifications, architecture/DB/API/framework, pixel UX
-
-```
-- stderrCap: empty
-
-## LAUNCH FRONTIER
-Written before post-launch await:
-
-```json
-{
-  "timestamp": "2026-09-11T18:08:47.290Z",
-  "attemptId": "xat:gcec-real:xct:m3-res:dec:f2:55ff23ff-e24b-417d-8a87-53b1fdb6059f",
-  "executionContractId": "xct:m3-res:dec:f2:55ff23ff-e24b-417d-8a87-53b1fdb6059f",
-  "processRef": "pid:50290",
-  "proofRoot": "/var/folders/b9/5c00r70d7_l8kjth6vpfmn8m0000gn/T/sfia-gcec-real-J6dmNr",
-  "execRoot": "/var/folders/b9/5c00r70d7_l8kjth6vpfmn8m0000gn/T/sfia-gcec-real-J6dmNr/m4-worktrees",
-  "safetyJournalPath": "/var/folders/b9/5c00r70d7_l8kjth6vpfmn8m0000gn/T/sfia-gcec-real-J6dmNr/m4/launch-safety.sqlite",
-  "productDbPath": "/var/folders/b9/5c00r70d7_l8kjth6vpfmn8m0000gn/T/sfia-gcec-real-J6dmNr/oa.sqlite",
-  "managedClonePath": "/tmp/sfia-gcec-managed-OlEFT9/mcleland147__sfia-gcec-proof-task-manager",
-  "remoteBaseSha": "32c7c2008197e5c61b32c16479144e9863291358",
-  "phase": "LAUNCHED_UNRECONCILED"
-}
-```
+- GCEC-CURSOR-REAL: CLOSED BY PRIOR EVIDENCE
+- REAL_CONTINUATION_GAP: OPEN → QUALIFIED (not closed)
 
-## WORKTREE
-- path: `/var/folders/b9/5c00r70d7_l8kjth6vpfmn8m0000gn/T/sfia-gcec-real-J6dmNr/m4-worktrees/wt-53edc7fbda620a9599fc4341`
-- not sfia-workspace / not Product proof worktree
-- HEAD (verified in harness): `32c7c2008197e5c61b32c16479144e9863291358`
-- after success + reconciliationComplete: disposable proofRoot cleaned by harness policy (CASE C); durable copies retained under `.tmp-sfia-review/gcec-cursor-real-proof/`
+## CYCLE QUALIFICATION
+- Cycle: **6 — Architecture technique**
+- Type: EVOL
+- Profile: CRITICAL
+- CKC: candidate / cognitive guidance only
+- Behavior: ≥2 serious options; reversible vs expensive made explicit; **no implementation**
 
-## ARTIFACT
-- path: `docs/functional-design.md`
-- bytes: `7183`
-- digest: `sha256:e9d5cc7711f67455a6621dd02a548d895e3de848bdb721c3fca31982b4be375d`
-- independent recomputed digest match: YES
+## CURRENT REAL PROOF STATE
+Docs-write REAL Attempt succeeded; EC remained `confirmed`; artifact digest
+`sha256:e9d5cc7711f67455a6621dd02a548d895e3de848bdb721c3fca31982b4be375d`;
+remote unchanged; artifact lived in isolated per-Attempt worktree; managed clone
+never received mutation.
 
-### FULL ARTIFACT CONTENT
+## CODE PATHS INSPECTED
+- `realExecutionWorkspacePort.ts`
+- `studioGitWorktreeWorkspace.ts`
+- `studioCursorRealLaunchGateway.ts`
+- `startExecution.ts` (LAUNCHED journal payload)
+- Attempt/EC domain types + SQLite schemas
+- `realLaunchSafetyJournalPort.ts` / SQLite journal
+- `composeStudioProductRealBoundary.ts`
+- `completeBoundedDocsWriteLaunch.ts` / `completeBoundedReadOnlyLaunch.ts`
+- D-GCEC-15 deterministic E2E / negatives
+- Git ports (read-only verify)
+- Probe: workspace path determinism (`.tmp-sfia-review/gcec-continuation-probe-paths.out`)
 
-```markdown
-# Functional Design — Personal Task Manager (Gestion de tâches)
+## ARCHITECTURE FACTS WITH FILE/FUNCTION REFERENCES
+See decision pack § CURRENT ARCHITECTURE FACTS (F1–F12):
 
-## 1. Purpose
+- F1–F3 YES (attemptId leaf; detach from baseHeadSha; distinct Attempt ⇒ distinct tree; exists ⇒ refuse)
+- F4–F6 NO (no Attempt/EC workspace fields; LAUNCHED drops worktreeRef)
+- F7 in-memory only
+- F8 YES production `.sfia-exec/m4-worktrees` stable (harness may override disposable)
+- F9 no cleanup owner
+- F10 remain-by-omission only
+- F11 YES read-only verify
+- F12 NO FS resume via current prepare; PARTIAL effect-level via verifiedEffects
 
-This document describes the functional design of a simple personal task manager for a single end user. It defines the business object **Task**, user-visible flows, business rules, and acceptance criteria. It does not cover authentication, multi-user collaboration, notifications, technical architecture, databases, APIs, frameworks, or pixel-level UX.
+## ROOT CAUSE
+Attempt-scoped create-only worktree + no durable Product workspace locator +
+in-memory observation refs ⇒ Attempt B cannot resume Attempt A’s uncommitted FS state.
 
-## 2. Actor
+## OPTIONS
+A EC-scoped lineage · B prior-Attempt resume · C reconstruct · D managed clone ·
+E Product schema lineage · F journal registry
 
-| Actor | Description |
-| --- | --- |
-| End user | A single person who creates, views, filters, edits, and updates the status of their own tasks. |
+## FULL COMPARISON MATRIX
+Embedded in decision pack.
 
-There is no other actor in scope.
+## RECOMMENDATION
+**OPTION B framed by OPTION A** — extend workspace port with attach/verify resume
+of prior succeeded Attempt worktree under stable execRoot; prefer **no new Product
+schema initially** (CONDITIONAL escalate to E).
 
-## 3. Business object — Task
+**RECOMMENDATION — NOT ADOPTED.**
 
-A **Task** is the only business object in scope.
+## STRUCTURAL DECISIONS STILL REQUIRED
+`D-GCEC-CONT-01` Morris PENDING (see decision pack end).
 
-### 3.1 Fields
+## PERSISTENCE IMPACT
+CONDITIONAL prefer NO schema/migration initially; journal must not become Product registry.
 
-| Field | Mandatory | Description |
-| --- | --- | --- |
-| Identifier | Yes | Unique identifier of the task within the user's task set. Assigned when the task is created; not editable by the user as free text. |
-| Title | Yes | Short name of the task. Must be non-blank (see rules). |
-| Description | No | Longer free-text details about the task. May be empty or omitted. |
-| Status | Yes | Current progress state of the task. Must be one of the defined statuses. |
-| Due date | No | Optional calendar date by which the task is expected to be completed. May be empty or omitted. |
+## DEBT / EXIT
+REAL_CONTINUATION_GAP remains OPEN until Delivery + deterministic + REAL continuation evidence.
 
-### 3.2 Statuses
+## DETERMINISTIC PROOF PLAN
+Same-EC A→B resume; binding negatives; restart rediscovery; ambiguity fail-closed; GCEC regressions.
 
-Allowed status values (closed set):
+## REAL PROOF PLAN
+Distinct future Morris GO: bounded REAL commit Attempt B under resumed workspace — not this GO.
 
-| Status | Meaning |
-| --- | --- |
-| `TODO` | Task is created and not started. |
-| `IN_PROGRESS` | Task is actively being worked on. |
-| `DONE` | Task is completed. |
+## NEXT DELIVERY LOT
+Single coherent Delivery: resume/attach foundation + deterministic A→B + crash negatives.
 
-No other status values are permitted.
+## DECISION PACK — FULL CONTENT
 
-### 3.3 Default values on creation
+# GCEC — REAL_CONTINUATION_GAP
+ARCHITECTURE DECISION PACK
 
-Unless the user explicitly chooses otherwise at creation time:
+## TITLE / STATUS
+REAL_CONTINUATION_GAP — Workspace continuity under ONE ExecutionContract across successive ExecutionAttempts.
 
-- **Status** defaults to `TODO`.
-- **Description** may be empty.
-- **Due date** may be empty.
+**STATUS:** QUALIFIED — RECOMMENDATION NOT ADOPTED — MORRIS DECISION PENDING (`D-GCEC-CONT-01`)
 
-## 4. Functional flows
+**TIMESTAMP:** 2026-09-11T20:38:23+02:00
 
-### 4.1 Create task
+**PRODUCT HEAD (frozen):** `92ad3fd41e065d0ebe76c59b4eedb622715a11e2`
 
-**Goal:** The user adds a new task to their personal list.
+**REAL:** ZERO · **PRODUCT MUTATION:** ZERO
 
-**Steps (functional):**
+---
 
-1. User provides a title (mandatory).
-2. User may optionally provide a description and/or a due date.
-3. User may optionally set an initial status from the allowed set; otherwise status is `TODO`.
-4. System validates the title and status (see rules).
-5. On success, system assigns an identifier and stores the new task.
-6. On failure (blank title or invalid status), creation is refused and no new task is created.
+## PROBLEM
 
-### 4.2 List tasks
+A later ExecutionAttempt under the SAME ExecutionContract must execute an authorized next slice against **exactly** the verified repository filesystem state produced by a preceding successful Attempt (example: docs-write → later commit), without:
 
-**Goal:** The user sees their tasks.
+- Studio applying business mutations as a second Git/filesystem writer;
+- a parallel execution engine / nested cycle / new waiting status;
+- silent cross-Project/EC workspace reuse;
+- autonomous protected Git effects.
 
-**Steps (functional):**
+Current REAL Product path creates a **fresh detached worktree per Attempt** and does **not** durably bind that worktree into Attempt/EC Product state. After Attempt A succeeds, Attempt B has **no governed resume API**.
 
-1. User requests the list of tasks.
-2. System presents all tasks belonging to the user, each showing at least identifier, title, status, and due date when present.
-3. An empty list is a valid outcome when the user has no tasks.
+---
 
-### 4.3 Filter by status
+## CURRENT VERIFIED STATE
 
-**Goal:** The user narrows the list to tasks with a given status.
+From GCEC-CURSOR-REAL CLOSED BY EVIDENCE (handoff `667b499b…`):
 
-**Steps (functional):**
+| Fact | Value |
+|------|-------|
+| Attempt | `xat:gcec-real:xct:m3-res:dec:f2:55ff23ff-e24b-417d-8a87-53b1fdb6059f` |
+| EC after | `confirmed` |
+| Cycle | `active` |
+| Artifact | `docs/functional-design.md` |
+| Digest | `sha256:e9d5cc7711f67455a6621dd02a548d895e3de848bdb721c3fca31982b4be375d` |
+| processRef | `pid:50290` |
+| worktreeRef (ephemeral) | `/var/folders/b9/5c00r70d7_l8kjth6vpfmn8m0000gn/T/sfia-gcec-real-J6dmNr/m4-worktrees/wt-53edc7fbda620a9599fc4341` |
+| Remote proof | unchanged @ `32c7c200…` |
 
-1. User selects one allowed status (`TODO`, `IN_PROGRESS`, or `DONE`), or clears the filter to show all.
-2. System presents only tasks whose status matches the selected value (or all tasks if no filter).
-3. If no task matches, the filtered result is empty.
+Harness used disposable `execRoot` under OS temp; production composition defaults to studio-stable `.sfia-exec/m4-worktrees` (see F8). Gap is architectural regardless of harness cleanup.
 
-### 4.4 Edit task
+---
 
-**Goal:** The user updates editable attributes of an existing task.
+## BINDING MORRIS DECISIONS
 
-**Steps (functional):**
+- **D-GCEC-09** Cursor executes Project FS/Git mutations; Studio/Nora are not second business writers.
+- **D-GCEC-10** Studio owns rich read-only repository inspection.
+- **D-GCEC-11** Cursor report = claim; independent observation = proof.
+- **D-GCEC-12** Exit Git requirements are dynamic.
+- **D-GCEC-13** Protected boundaries stop then resume after verification + new human authority.
+- **D-GCEC-14** Repository context is not automatically Evidence.
+- **D-GCEC-15** ONE EC → multiple successive Attempts; Attempt success ≠ EC completion; NEW Attempt identity under SAME EC; no second FSM; no waiting/paused; no nested Cycle; no autonomous merge.
 
-1. User selects an existing task by its identifier.
-2. User may change title, description, and/or due date.
-3. System validates the new title if provided (must not be blank).
-4. On success, the task is updated and remains identifiable by the same identifier.
-5. On failure, the task is left unchanged.
+Do not redesign these. Architecture must implement them.
 
-Status change may be performed as part of edit or via the dedicated flow below; either way, status must remain in the allowed set.
+---
 
-### 4.5 Change status
+## CURRENT ARCHITECTURE FACTS
 
-**Goal:** The user moves a task to another allowed status.
+Verified against LOCAL HEAD `92ad3fd4` (not origin/main).
 
-**Steps (functional):**
+### F1 — Physical worktree identity derives from attemptId
+**YES.** `physicalWorktreeLeafForAttempt` = `wt-` + sha256(attemptId)[0:24]; `workspacePathForAttempt(execRoot, attemptId)`.
 
-1. User selects an existing task by its identifier.
-2. User chooses a new status from `{TODO, IN_PROGRESS, DONE}`.
-3. System validates the status is in the defined set.
-4. On success, the task’s status is updated to the chosen value.
-5. On failure (invalid status or unknown task), the status is left unchanged.
+Refs: `studioGitWorktreeWorkspace.ts:52–66`
 
-## 5. Business rules
+Probe: distinct attemptIds → distinct paths; same attemptId → stable path
+(`.tmp-sfia-review/gcec-continuation-probe-paths.out`).
 
-| ID | Rule |
-| --- | --- |
-| R1 | A blank or whitespace-only title is refused for create and edit. |
-| R2 | Status must always be one of `TODO`, `IN_PROGRESS`, `DONE`. Any other value is refused. |
-| R3 | Description is optional; empty description is allowed. |
-| R4 | Due date is optional; absence of a due date is allowed. |
-| R5 | Every task has a stable identifier assigned at creation. |
-| R6 | Create and edit that violate R1 or R2 must not persist invalid data. |
+### F2 — prepareWorkspace creates detached worktree from baseHeadSha
+**YES.** `git worktree add --detach <path> <baseHeadSha>` then HEAD must equal baseHeadSha.
 
-## 6. Acceptance criteria
+Refs: `studioGitWorktreeWorkspace.ts:153–172`
 
-Criteria are observable and testable against the flows above.
+### F3 — Distinct later Attempt ⇒ distinct workspace by default
+**YES.** New AttemptId ⇒ new leaf. If path already exists → `REAL_WORKSPACE_INVALID:workspace_path_exists` (refuse, no attach).
 
-### Create task
+Refs: `studioGitWorktreeWorkspace.ts:128–141`
 
-- **AC-C1:** Given a non-blank title, when the user creates a task, then a task exists with that title, an assigned identifier, and status `TODO` (unless another allowed status was supplied).
-- **AC-C2:** Given a blank or whitespace-only title, when the user attempts to create a task, then creation is refused and the task count is unchanged.
-- **AC-C3:** Given an optional description and/or due date, when the user creates a task with them, then those values are stored on the new task.
-- **AC-C4:** Given an invalid status value, when the user attempts to create a task with that status, then creation is refused.
+### F4 — ExecutionAttempt durably stores workspace continuation ref
+**NO.** Attempt type has `retryOfAttemptId` / result refs / window fields — **no** `worktreeRef` / `workspacePath`.
 
-### List tasks
+Refs: `execution-attempt/domain/types.ts:107–162`
 
-- **AC-L1:** Given one or more existing tasks, when the user lists tasks, then each task’s identifier, title, status, and due date (if any) are visible.
-- **AC-L2:** Given no tasks, when the user lists tasks, then the result is an empty list.
+SQLite `oa_execution_attempts`: identity + `payload_json` of Attempt shape — no workspace column.
 
-### Filter by status
+### F5 — ExecutionContract stores continuation/workspace anchor
+**NO.** EC carries opaque `inputs` (includes `baseHeadSha` for *fresh* prepare). No workspace lineage field.
 
-- **AC-F1:** Given tasks in mixed statuses, when the user filters by `TODO` (respectively `IN_PROGRESS` or `DONE`), then only tasks with that status appear.
-- **AC-F2:** Given a status filter with no matching tasks, when the user applies that filter, then the result is empty.
-- **AC-F3:** When the user clears the status filter, then all tasks are listed again.
+### F6 — Safety journal LAUNCHED retains worktreeRef
+**NO.** `appendLaunched` persists `processRef` + `payload: { gatewayId }` only. ACK’s `worktreeRef` is dropped at journal write.
 
-### Edit task
+Refs: `startExecution.ts:1162–1171`; journal marked **NOT Product Store / TEMPORARY WITH EXIT** (`realLaunchSafetyJournalPort.ts:1–4`).
 
-- **AC-E1:** Given an existing task, when the user changes title, description, and/or due date with a non-blank title, then the stored task reflects the new values and keeps the same identifier.
-- **AC-E2:** Given an existing task, when the user attempts to set a blank title, then the edit is refused and the task is unchanged.
+### F7 — Observation worktreeRef durability
+**IN-MEMORY ONLY.** Runner process Map / gateway fallback Map. Lost on process restart.
 
-### Change status
+### F8 — Default production execRoot restart-stable
+**YES** (product compose): `<studioRoot>/.sfia-exec/m4-worktrees` — not `os.tmpdir()`.
 
-- **AC-S1:** Given an existing task, when the user sets status to another value in `{TODO, IN_PROGRESS, DONE}`, then the task’s status becomes that value.
-- **AC-S2:** Given an existing task, when the user attempts to set a status outside the defined set, then the change is refused and the previous status is retained.
+Refs: `composeStudioProductRealBoundary.ts:53–56, 86–89`
 
-## 7. Out of scope
+Harness REAL proof overrode with disposable temp `execRoot` — that override is proof-fixture behavior, not production default.
 
-The following are explicitly **out of scope** for this functional design:
+### F9 — REAL worktree cleanup owner
+**NO product owner.** Port is prepare-only; no `worktree remove` in OA REAL path. Disk leftovers possible by omission.
 
-- Authentication and identity management
-- Multi-user or shared task lists
-- Notifications and reminders
-- Technical architecture, persistence (database), APIs, and frameworks
-- Pixel-level or visual UX specifications
+### F10 — Succeeded Attempt worktree may legally remain
+**NO explicit grant.** Remain-by-omission only; leftover blocks same-attemptId re-prepare.
 
-## 8. Summary
+### F11 — Git ports can verify existing worktree without mutating
+**YES.** `LocalGitStatusDiffPort` / `verifyWorkspaceFileEffects` are read-only. `prepareWorkspace` always mutates (creates).
 
-A single end user manages personal **Task** items with identifier, mandatory title, optional description, status (`TODO` | `IN_PROGRESS` | `DONE`), and optional due date. Supported flows are create, list, filter by status, edit, and change status. Blank titles and undefined statuses are refused; due date remains optional.
+### F12 — Same-EC FS continuation without new persistence
+**NO for filesystem resume via current prepare API.**
+**PARTIAL for effect-level continuation:** `verifiedEffects` + Evidence + EC.inputs already support D-GCEC-15 multi-Attempt *logical* progression (deterministic E2E uses shared Fake worktreeRoot — not REAL worktree policy).
+
+Port contract today: prepare only — no attach/resume.
+
+Refs: `realExecutionWorkspacePort.ts`
+
+---
+
+## REAL_CONTINUATION_GAP ROOT CAUSE
+
+1. Workspace identity is **Attempt-scoped create**, not **EC-scoped resume**.
+2. Prepare is **create-or-fail-if-exists**, never **attach-and-verify**.
+3. Durable Product Attempt/EC stores do **not** record workspace locator.
+4. Launch journal does **not** persist `worktreeRef` (and must not become Product registry).
+5. Observation `worktreeRef` dies with process.
+6. Therefore Attempt B under same EC always gets a **fresh detached tree at baseHeadSha**, which **does not contain** Attempt A’s uncommitted FS mutations (artifact lives only in A’s worktree / retained review copy).
+
+Effect-level D-GCEC-15 continuation exists; **workspace-level** continuation for pre-commit mutable state does not.
+
+---
+
+## CONTINUITY REQUIREMENTS
+
+Attempt B must obtain a workspace that:
+
+1. Belongs to same Project + repository binding identity.
+2. Belongs to same ExecutionContract.
+3. Continues from a **terminal-succeeded** prior Attempt A with FS slice verified.
+4. Contains verified artifact state (path + digest) OR later a verified commit SHA.
+5. Passes binding checks fail-closed on mismatch.
+6. Remains Cursor-executed for next business mutations.
+7. Survives Studio process restart when required by continuity window.
+8. Does not violate single-active-Attempt invariant.
+
+---
+
+## MINIMUM DURABLE IDENTITY
+
+To assert: “Attempt B continues exact verified state of Attempt A under EC X”:
+
+| Layer | Identity | Must persist? |
+|-------|----------|---------------|
+| 1. Business/domain | `projectId`, repo `identity`, `executionContractId`, `priorAttemptId` (succeeded) | **YES** — already on Product Attempt/EC/Project |
+| 2. Technical FS locator | `execRoot` policy + path derived from `priorAttemptId` OR explicit `workspacePath` | **CONDITIONAL** — derivable if execRoot stable + path formula fixed; explicit path only if derivation insufficient |
+| 3. Git identity | Pre-commit: dirty tree + artifact path/digest vs baseHeadSha; Post-commit: **commit SHA** | Artifact Evidence **YES**; commit SHA when exists **YES** |
+| 4. Evidence | VERIFIED Artifact Evidence bound to A (and later Git Evidences) | **YES** — already |
+| 5. Authority | Gate D + Confirmations for B’s authorized slice | **YES** — already per Attempt |
+
+**Minimum new durable *concept* (not necessarily new table):**
+“continuable workspace = verified prior Attempt A’s worktree under EC X until superseded by verified Git commit SHA.”
+
+---
+
+## MINIMUM CONTINUITY WINDOW
+
+**Hypothesis supported by doctrine + code:** durable **filesystem** workspace continuity is required primarily in the **pre-commit continuity window**:
 
 ```
-
-## README
-UNCHANGED (harness asserted worktree README == managed clone README)
-
-## INDEPENDENT VERIFICATION
-PASS (harness assertions + retained digest/content + managed clone still clean/artifact absent + remote unchanged)
-
-## EVIDENCE
-- id: `ev:docs-write:xat:gcec-real:xct:m3-res:dec:f2:55ff23ff-e24b-417d-8a87-53b1fdb6059f`
-- bindings: project `prj:gcec-real-docs-1` / cycle `cyc:trj-755b53ab8301065139e0fafa` / EC `xct:m3-res:dec:f2:55ff23ff-e24b-417d-8a87-53b1fdb6059f` / Attempt `xat:gcec-real:xct:m3-res:dec:f2:55ff23ff-e24b-417d-8a87-53b1fdb6059f`
-- integrity: VERIFIED (available → verified)
-
-## EXECUTION ATTEMPT FINAL STATUS
-succeeded
-
-## EXECUTION CONTRACT FINAL STATUS
-confirmed (Git requirements outstanding — D-GCEC-15 honest)
-
-## CYCLE FINAL STATUS
-active (not finalized / not closed)
-
-## RECONCILIATION
-SUCCESS
-
-```json
-{
-  "phase": "RECONCILED_SUCCESS",
-  "attemptId": "xat:gcec-real:xct:m3-res:dec:f2:55ff23ff-e24b-417d-8a87-53b1fdb6059f",
-  "executionContractId": "xct:m3-res:dec:f2:55ff23ff-e24b-417d-8a87-53b1fdb6059f",
-  "processRef": "pid:50290",
-  "worktreePath": "/var/folders/b9/5c00r70d7_l8kjth6vpfmn8m0000gn/T/sfia-gcec-real-J6dmNr/m4-worktrees/wt-53edc7fbda620a9599fc4341",
-  "artifactExists": true,
-  "evidenceId": "ev:docs-write:xat:gcec-real:xct:m3-res:dec:f2:55ff23ff-e24b-417d-8a87-53b1fdb6059f",
-  "reconciliationComplete": true
-}
+Attempt A (FS write) → verify artifact Evidence
+  → [FS workspace must remain continuable]
+Attempt B (commit) → verify commit SHA
+  → [Git SHA becomes durable anchor]
+Attempt C+ (push/PR/merge…) may reconstruct fresh worktrees from commit SHA
+  + verifiedEffects / Evidence lineage
 ```
 
-Snapshot paths:
-- `.tmp-sfia-review/gcec-cursor-real-proof/launch-frontier.json`
-- `.tmp-sfia-review/gcec-cursor-real-proof/facts.json`
-- `.tmp-sfia-review/gcec-cursor-real-proof/functional-design.md`
-- `.tmp-sfia-review/gcec-cursor-real-proof/reconciliation-state.json`
+After first verified local commit, reconstructing a detached worktree at that SHA is **Git-truth continuation**, not FS-orphan continuation.
 
-## REAL CONTINUATION
-**GAP CONFIRMED**
+**MINIMUM WINDOW:** succeeded mutable FS Attempt → until authorized commit Attempt verifies a commit SHA (or EC abandoned/failed/cleaned by explicit policy).
 
-Docs-write Attempt used an isolated per-run worktree under disposable `execRoot`.
-After reconciliationComplete, forensic temps may be cleaned; managed clone never received the artifact.
-A later Attempt under the SAME EC for Git effects would need durable workspace continuity
-that is not yet Product-persisted. No structural fix in this GO.
+This is a **hypothesis for Morris**, not an adopted decision.
 
-→ REAL_CONTINUATION_GAP remains OPEN.
-→ GCEC-PUSH NOT READY / NOT AUTHORIZED by this proof alone.
+For the current proof EC (docs-write done; Git requirements outstanding), continuity needed for **A→B (commit)**; B→C+ likely SHA-anchored if B lands a commit.
 
-## PROOF REPOSITORY AFTER
-- main: `32c7c2008197e5c61b32c16479144e9863291358`
-- branches: main only
-- remote artifact: ABSENT
+---
 
-## REMOTE MUTATION
-NONE
+## OPTIONS
 
-## PRODUCT HEAD AFTER
-`92ad3fd41e065d0ebe76c59b4eedb622715a11e2`
+### OPTION A — EC-SCOPED DURABLE WORKSPACE LINEAGE
+Keep Git worktrees; introduce governed lineage scoped to EC so later Attempts resume the same verified worktree state (conceptual “current continuable workspace for EC”).
 
-## PRODUCT CODE CHANGES
-NONE
+- Identity: EC + lineage pointer (priorAttemptId and/or path).
+- Restart: requires stable execRoot + rediscovery/validation.
+- Cleanup: on EC terminal / superseded by commit SHA / explicit abandon.
+- Persistence: may start derivation-only; escalate if multi-workspace ambiguity.
 
-## PRODUCT COMMIT
-NONE
+### OPTION B — PRIOR-ATTEMPT WORKTREE CONTINUATION (operational)
+Attempt B explicitly resumes Attempt A’s verified worktree with binding checks:
+same Project, repo, EC, A succeeded, VERIFIED artifact Evidence, expected HEAD/dirty/digest.
 
-## PRODUCT PUSH
-NONE
+- Recovery: `workspacePathForAttempt(stableExecRoot, priorAttemptId)` + `git worktree list` / path exists + verify.
+- Requires **new port method** (attach/verify) — prepare must not recreate.
+- Persistence: priorAttemptId already durable; path often derivable.
 
-## PROOF-REPO COMMIT / PUSH / PR / MERGE
-NONE / NONE / NONE / NONE
+### OPTION C — RECONSTRUCT FRESH WORKTREE FROM VERIFIED ARTIFACTS
+Fresh base worktree + Cursor (or Studio) re-applies prior outputs then next slice.
 
-## TEST RESULTS
-Pre-REAL smoke (REAL OFF):
-```
-Tests  3 passed | 1 skipped (4)
-```
+- **Challenge:** duplicate mutation; Studio apply would violate D-GCEC-09; Cursor re-write is new effect not exact-state continuation; provenance diluted.
+- Exact-state guarantee **weak**.
+- Treat as last resort / not true continuation.
 
-REAL harness invocation (flags ON, this file only):
-```
-Test Files  1 passed (1)
-Tests  4 passed (4)
-Duration ~44.78s (REAL scenario ~43387ms)
-```
+### OPTION D — MANAGED CLONE AS SHARED MUTABLE STATE
+Use managed clone itself as shared dirty tree across Attempts.
 
-Post-REAL focused (REAL OFF):
-```
-Test Files  4 passed (4)
-Tests  89 passed | 1 skipped (90)
-```
+- **Challenge:** destroys isolation; concurrency/corruption; accidental Git mutation on clone; multi-Project scaling poor.
+- Strongly reject for Product REAL path.
 
-## GCEC-CURSOR-REAL
-**CLOSED BY EVIDENCE**
+### OPTION E — PRODUCT-PERSISTED WORKSPACE LINEAGE
+Explicit Product domain object/columns for workspace lineage.
 
-## OPEN GATES
-- GCEC-PUSH (NOT READY — continuation GAP)
-- GCEC-PR
-- GCEC-MERGE
-- GCEC-RUNTIME-V3
+- Correct if derivation fails crash/orphan/concurrency proofs.
+- Requires Morris (schema/migration).
+- Do not implement under this GO.
 
-## DEBT
-- TEMP-GCEC-PRPM-01
-- TEMP-GCEC-F14-BIND-01
-- REAL_CONTINUATION_GAP
+### OPTION F — SAFETY JOURNAL AS CONTINUATION REGISTRY
+Store/recover worktreeRef from LAUNCHED payload / frontier.
+
+- Journal is **TEMPORARY WITH EXIT / NOT Product Store**.
+- Cheap ≠ correct.
+- May optionally *mirror* technical locator for crash UX, **must not** become sole Product truth.
+- Reject as primary registry.
+
+---
+
+## OPTION COMPARISON MATRIX
+
+| Criterion | A | B | C | D | E | F |
+|-----------|---|---|---|---|---|---|
+| Doctrinal alignment | PASS | PASS | PARTIAL | FAIL | PASS | PARTIAL |
+| D-GCEC-15 fidelity | PASS | PASS | PARTIAL | PARTIAL | PASS | PARTIAL |
+| Cursor-only mutation | PASS | PASS | FAIL/PARTIAL | PASS | PASS | PASS |
+| Same-EC clarity | PASS | PASS | PARTIAL | PARTIAL | PASS | PARTIAL |
+| Restart safety | PARTIAL→PASS | PARTIAL→PASS | PARTIAL | PARTIAL | PASS | FAIL* |
+| Crash reconciliation | PARTIAL | PARTIAL | PARTIAL | FAIL | PASS | FAIL* |
+| Exact-state guarantee | PASS | PASS | FAIL | PARTIAL | PASS | PARTIAL |
+| Provenance | PASS | PASS | FAIL | PARTIAL | PASS | PARTIAL |
+| Git truth compatibility | PASS | PASS | PARTIAL | FAIL | PASS | PARTIAL |
+| Concurrency | PARTIAL | PARTIAL | PARTIAL | FAIL | PASS | FAIL |
+| Cleanup lifecycle | PARTIAL | PARTIAL | PASS | FAIL | PASS | FAIL |
+| Product persistence impact | CONDITIONAL | CONDITIONAL | NO | NO | YES | NO** |
+| Safety-journal impact | LOW | LOW | NONE | NONE | NONE | HIGH/BAD |
+| Implementation complexity | MED | MED | HIGH semantic | LOW but unsafe | HIGH | LOW but debt |
+| Reversibility | PASS | PASS | PARTIAL | FAIL | PARTIAL | FAIL |
+| Debt introduced | LOW–MED | LOW–MED | HIGH | HIGH | MED | HIGH |
+| Exit strategy | PASS | PASS | PARTIAL | FAIL | PASS | FAIL |
+| Deterministic proofability | PASS | PASS | PARTIAL | PARTIAL | PASS | PARTIAL |
+| Bounded REAL proofability | PASS | PASS | PARTIAL | FAIL | PASS | PARTIAL |
+| Effect on future GCEC-PUSH | ENABLES | ENABLES | WEAK | BLOCKS | ENABLES | RISKY |
+| Architecture-parallel risk | LOW | LOW | MED | HIGH | LOW | MED |
+
+\* F restart/crash FAIL as *Product* truth because TEMPORARY WITH EXIT.
+\*\* F claims no Product persistence while smuggling Product semantics into technical journal.
+
+---
+
+## RECOMMENDED OPTION
+
+**RECOMMENDATION (NOT ADOPTED): OPTION B as primary mechanism, framed by OPTION A lineage semantics.**
+
+Concrete candidate design (future Delivery — not this GO):
+
+1. **Keep** `StudioGitWorktreeWorkspace` + Git worktrees + Cursor launch path.
+2. **Extend** `RealExecutionWorkspacePort` with a resume/attach/verify operation (name TBD) that:
+   - resolves path via `workspacePathForAttempt(execRoot, priorAttemptId)` under **stable** execRoot policy;
+   - fail-closed if missing/orphan/wrong remote/HEAD/digest binding;
+   - **does not** create a new detached tree from baseHeadSha when resuming FS state;
+   - never copies artifact bytes as Studio writer.
+3. **Select priorAttemptId** from Product Attempt history under same EC (latest succeeded FS slice with VERIFIED Evidence) — EC-scoped lineage without necessarily new table.
+4. **Enforce** binding checks (Project, repo identity, EC, Evidence digest, single active Attempt).
+5. **Stabilize** production rule: REAL composition must use restart-stable execRoot (already default); forbid silent tmpdir for Product live REAL when continuation required.
+6. **Defer Product schema** unless deterministic crash/orphan/concurrency proofs show derivation insufficient → then escalate to OPTION E with Morris.
+
+**Why this recommendation:**
+- Implements D-GCEC-15 workspace-level need without second FSM.
+- Preserves D-GCEC-09 (Cursor mutates; Studio verifies/prepares).
+- Reuses existing path formula and Git worktree isolation.
+- Minimizes persistence (CONDITIONAL).
+- Enables bounded A→B commit REAL after Delivery + review.
+- Aligns with minimum pre-commit continuity window.
+
+---
+
+## WHY THE OTHER OPTIONS ARE NOT RECOMMENDED
+
+- **C:** Not exact continuation; risks Studio mutation or duplicate Cursor write; weak provenance.
+- **D:** Isolation/concurrency/corruption; fights worktree model; high parallel-architecture smell.
+- **E:** Valid escalation path, but premature as *first* move if A/B derivation works — avoid schema until proven necessary.
+- **F:** Violates journal TEMPORARY WITH EXIT / NOT Product Store if used as registry of record.
+
+---
+
+## PERSISTENCE IMPACT
+
+| Question | Answer |
+|----------|--------|
+| Structural Product persistence required now? | **CONDITIONAL — prefer NO** for first Delivery slice |
+| New Product schema/table/column? | **CONDITIONAL — prefer NO**; escalate to E only after failed derivation proofs |
+| Migration? | **NO** if no schema; **YES** if E adopted later |
+| Safety journal as Product registry? | **NO** |
+| May journal *mirror* worktreeRef technically? | Optional later; never sole authority |
+
+---
+
+## DOMAIN MODEL IMPACT
+
+- No new Attempt/EC status.
+- No nested Cycle.
+- Optional future domain concept: “continuable workspace lineage” (logical) keyed by EC + priorAttemptId.
+- `retryOfAttemptId` remains retry lineage — **not** sufficient alone as workspace handoff (different semantics).
+
+---
+
+## PORT / INTERFACE IMPACT (future)
+
+Likely evolve:
+
+- `RealExecutionWorkspacePort` — add resume/attach/verify; keep prepare for first mutable Attempt / post-commit reconstruct.
+- `StartExecution` / gateway — choose prepare vs resume based on authorized slice + prior verified FS Attempt.
+- Completion facts — already carry ephemeral `worktreeRef`; Product Attempt still should not require journal as registry.
+
+Must not create a second launch port or second executor.
+
+---
+
+## RUNTIME COMPOSITION IMPACT
+
+- Keep `composeStudioProductRealBoundary` defaults (stable `.sfia-exec`).
+- Document that Product live REAL continuation **requires** stable execRoot (not disposable harness override).
+- Harness REAL may still use disposable roots for isolated proof **of a single Attempt**, but continuation REAL proofs must use stable execRoot.
+
+---
+
+## GIT / WORKTREE IMPACT
+
+- Continue `git worktree add --detach` for *initial* FS Attempts and for *post-commit* reconstruct-from-SHA.
+- Resume path: validate existing worktree; no silent reset to baseHeadSha.
+- After verified commit: new Attempts may detach at commit SHA (window closed).
+
+---
+
+## EVIDENCE / PROVENANCE IMPACT
+
+- Artifact Evidence remains binding for FS continuity checks (digest/path/Attempt/EC/Project).
+- Git Evidences (commit/push/PR/merge) remain independent verification claims.
+- Evidence must not become execution-state DB; it gates eligibility to resume, not path invention.
+
+---
+
+## CRASH / RESTART / RECONCILIATION
+
+Fail-closed rules (candidate):
+
+1. If priorAttemptId known but path missing → STOP / non-resumable (reconcile / human).
+2. If path exists but remote/HEAD/digest binding fails → STOP.
+3. If two candidate worktrees claim continuity → STOP (ambiguity).
+4. Ephemeral path existence alone ≠ authority.
+5. Process restart: rediscover via priorAttemptId + stable execRoot; re-verify before launch.
+
+---
+
+## CONCURRENCY
+
+- Single active Attempt per EC remains invariant.
+- Do not attach same worktree to two concurrent Attempts.
+- Managed clone must remain non-shared mutable execution state (reject D).
+
+---
+
+## CLEANUP / EXIT
+
+Conceptual lifecycle (analysis only — **not** new Attempt/EC statuses):
+
+| Phase | Owner | Entry | Exit | Cleanup |
+|-------|-------|-------|------|---------|
+| CREATE | Studio workspace port | prepare first FS Attempt | ACTIVE | n/a |
+| ACTIVE | Cursor + Studio observe | launch | VERIFIED or fail | preserve on LAUNCHED failure |
+| VERIFIED | Studio verification + Evidence | independent verify PASS | CONTINUABLE | preserve |
+| CONTINUABLE | EC lineage | verified FS + outstanding next slice | CONSUMED by commit SHA / abandon | no delete |
+| CONSUMED / SUPERSEDED | Git SHA or explicit abandon | verified commit or EC terminal | CLEANABLE | allowed |
+| CLEANABLE | ops/studio policy | superseded + no outstanding pre-commit need | removed | `git worktree remove` + dir |
+
+Cleanup triggers (candidate): EC completed/failed/cancelled; Cycle finalized; superseded by verified commit SHA; explicit cleanup command; orphan after failed binding.
+
+**Never** delete the only uncommitted verified business state before next required effect satisfied or explicitly abandoned.
+
+No cleanup implementation in this GO.
+
+---
+
+## TEMPORARY DEBT
+
+| Debt | Notes | Exit |
+|------|-------|------|
+| REAL_CONTINUATION_GAP | Qualified here | Close by evidence after Delivery + deterministic + REAL continuation |
+| Journal TEMPORARY WITH EXIT | Do not load Product workspace registry onto it | Keep technical; exit when Product path sufficient |
+| Harness disposable execRoot vs production stable | Document; continuation REAL must use stable | Policy in Delivery |
+| TEMP-GCEC-PRPM-01 / TEMP-GCEC-F14-BIND-01 | Unrelated open debts | Separate |
+
+---
+
+## DETERMINISTIC PROOF PLAN (future Delivery)
+
+1. Same-EC Attempt A (fake/deterministic FS) writes artifact in worktree W.
+2. Attempt B resumes W via new attach API — sees artifact; binding PASS.
+3. Negatives: wrong EC / wrong project / missing path / digest mismatch / path exists prepare-create → fail-closed.
+4. Restart composition: rediscover W from priorAttemptId + stable execRoot.
+5. Ambiguous dual worktrees → fail-closed.
+6. Preserve existing GCEC / D-GCEC-15 / Gate D / CR-GCEC-23..25 regressions.
+
+---
+
+## BOUNDED REAL PROOF PLAN (distinct Morris REAL GO later)
+
+Only after deterministic PASS + architecture adoption:
+
+1. Stable execRoot Product composition.
+2. Attempt A REAL docs-write (or reuse governed retained state if authorized — prefer fresh controlled A under stable root).
+3. Attempt B REAL commit under SAME EC with resume — **one** REAL commit invocation when authorized.
+4. Independent verify commit SHA; Evidence; EC progress honest.
+5. Remote still no push unless separate GCEC-PUSH GO.
+
+Not authorized by this qualification GO.
+
+---
+
+## GCEC-PUSH READINESS CONDITIONS
+
+GCEC-PUSH remains **NOT READY** until at least:
+
+1. Architecture decision `D-GCEC-CONT-01` adopted by Morris.
+2. Delivery implements continuation foundation.
+3. Deterministic same-EC A→B + crash negatives PASS.
+4. Bounded REAL continuation (commit) CLOSED BY EVIDENCE.
+5. Remote/push still separately gated.
+
+Docs-write REAL alone does **not** authorize push.
+
+---
+
+## FILES LIKELY TO CHANGE IN FUTURE DELIVERY
+
+- `realExecutionWorkspacePort.ts`
+- `studioGitWorktreeWorkspace.ts`
+- `studioCursorRealLaunchGateway.ts` and/or `startExecution.ts` (resume selection)
+- possibly `composeStudioProductRealBoundary.ts` (policy comments / invariants)
+- `completeBoundedDocsWriteLaunch.ts` (consume resumed workspace facts)
+- new deterministic tests under `__tests__/oa/...`
+- **not** required first: SQLite Product schema
+
+## FILES / AREAS THAT MUST NOT CHANGE (under continuation design)
+
+- D-GCEC-15 semantics / no new waiting status
+- Cursor-only business mutation ownership
+- Gate D model
+- Evidence pipeline as proof (not as workspace DB)
+- Safety journal becoming Product Store
+- Managed clone as shared dirty executor (Option D)
+- Runtime v3 adoption sneaking in
+
+---
+
+## MORRIS DECISION REQUIRED
+
+### D-GCEC-CONT-01 — WORKSPACE CONTINUATION ARCHITECTURE
+
+**Option A:** EC-scoped durable workspace lineage (conceptual framing)
+
+**Option B:** Prior-Attempt worktree continuation via attach/verify port (operational)
+
+**Option C:** Reconstruct fresh worktree from verified artifacts (not true continuation)
+
+**Option D:** Managed clone shared mutable state (reject)
+
+**Option E:** Product-persisted workspace lineage schema (escalation)
+
+**Option F:** Safety journal as continuation registry (reject as primary)
+
+**Cursor recommendation:** **B framed by A**; escalate to **E** only if derivation proofs fail.
+
+**Structural persistence required:** **CONDITIONAL (prefer NO initially)**
+
+**New Product schema required:** **CONDITIONAL (prefer NO initially)**
+
+**Migration required:** **NO** (initially) / **YES** if E later
+
+**Architecture parallel:** **NO** (if B/A within existing ports)
+
+**Temporary debt:** REAL_CONTINUATION_GAP until Delivery+REAL continuation evidence
+
+**Exit:** Close gap by governed A→B proof; cleanup policy; no journal-as-Product
+
+**Morris decision:** **PENDING**
+
+---
+
+## NEXT CAPABILITY
+
+**Delivery lot (single coherent):** implement workspace resume/attach foundation + deterministic same-EC Attempt A→B + crash/restart negatives + retain GCEC regressions.
+
+Then distinct Morris GO: bounded REAL continuation (commit) under same EC.
+
+Then distinct protected gates: GCEC-PUSH / PR / MERGE as separately authorized.
+
+---
 
 ## ANTI-CLAIMS
-- docs-write REAL boundary proven ≠ Git commit/push/PR/merge REAL
-- ≠ END-TO-END REAL GCEC
-- ≠ READY FOR GCEC-PUSH while REAL_CONTINUATION_GAP open
+
+- This pack does **not** adopt architecture.
+- Does **not** close REAL_CONTINUATION_GAP.
+- Does **not** authorize Product code/schema changes.
+- Does **not** authorize REAL StartExecution.
+- Does **not** make GCEC-PUSH ready.
+- Does **not** adopt runtime v3.
+- Recommendation ≠ Morris decision.
+
+
+## PRODUCT HEAD
+`92ad3fd41e065d0ebe76c59b4eedb622715a11e2`
+
+## PRODUCT TRACKED CHANGES
+NONE
+
+## PRODUCT COMMIT / PUSH
+NONE / NONE
+
+## PROOF-REPO MUTATION / PR / MERGE
+NONE / NONE / NONE
+
+## GCEC-CURSOR-REAL
+CLOSED BY PRIOR EVIDENCE
+
+## REAL_CONTINUATION_GAP
+OPEN / QUALIFIED
+
+## GCEC-PUSH
+NOT READY
+
+## ANTI-CLAIMS
+- qualification ≠ adoption
+- ≠ gap closed
+- ≠ persistence adopted
+- ≠ REAL / push / PR / merge authorized
 - ≠ runtime v3 ADOPTED
-- ≠ Product push authorized
+- recommendation ≠ Morris decision
 
 ## VERDICT
-**PASS WITH RESERVE — GCEC CURSOR REAL DOCS-WRITE BOUNDARY PROVEN / REAL_CONTINUATION_GAP REMAINS OPEN**
+**PASS — REAL_CONTINUATION_GAP ARCHITECTURE QUALIFIED / MORRIS STRUCTURAL DECISION REQUIRED**
