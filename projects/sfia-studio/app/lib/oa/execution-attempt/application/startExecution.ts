@@ -69,6 +69,12 @@ import { ManagedProjectRepositoryResolver } from "../infrastructure/managedProje
 import type { RealLaunchSafetyJournalPort } from "../ports/realLaunchSafetyJournalPort";
 import { deriveAuthorizedExecutionSlice } from "../domain/authorizedExecutionSlice";
 import {
+  assertConfirmationMatchAgreesWithServerTarget,
+  resolveGitEffectTarget,
+  resolvedTargetToConfirmationMatch,
+} from "../domain/resolveGitEffectTarget";
+import { deriveExecutableEffectsFromContractRequirements } from "../domain/contractEffectClassification";
+import {
   authorityFailureDetail,
   contractGateDetail,
   newCorrelationId,
@@ -256,6 +262,18 @@ export class StartExecution {
      * MUST NOT come from ExecutionContract / client.
      */
     private readonly managedRepoRootBase?: string,
+    /**
+     * CR-GCEC-23 — resolve Project.repositoryBinding from durable Project.
+     */
+    private readonly resolveProjectRepositoryBinding?: (
+      projectId: string,
+    ) => Promise<import("@/lib/oa/project").ProjectRepositoryBinding | null>,
+    /**
+     * CR-GCEC-23 — list Evidence for verified PR identity (late-bound OK).
+     */
+    private readonly listProjectEvidence?: (
+      projectId: string,
+    ) => Promise<readonly import("@/lib/oa/evidence-review").Evidence[]>,
   ) {}
 
   async execute(
@@ -879,53 +897,169 @@ export class StartExecution {
       });
     }
 
-    // D-GCEC-15 — derive AuthorizedExecutionSlice before real launch.
+    // D-GCEC-15 / CR-GCEC-23/24 — AuthorizedExecutionSlice from server-derived targets.
     const evidenceRequirements =
       docsWriteSpec?.evidenceRequirements ??
       (Array.isArray(contract.evidenceRequirements)
         ? contract.evidenceRequirements.map(String)
         : []);
-    const inputsBranch =
-      contract.inputs && typeof contract.inputs === "object"
-        ? (contract.inputs as Record<string, unknown>)
-        : {};
-    const branchFromInputs =
-      (typeof inputsBranch.workingBranch === "string" &&
-      inputsBranch.workingBranch.trim()
-        ? inputsBranch.workingBranch.trim()
-        : undefined) ??
-      (typeof inputsBranch.branchName === "string" &&
-      inputsBranch.branchName.trim()
-        ? inputsBranch.branchName.trim()
-        : undefined) ??
-      (typeof inputsBranch.headRef === "string" && inputsBranch.headRef.trim()
-        ? inputsBranch.headRef.trim()
-        : undefined);
-    const prFromInputs =
-      typeof inputsBranch.prNumber === "number"
-        ? inputsBranch.prNumber
-        : typeof inputsBranch.prNumber === "string" &&
-            /^\d+$/.test(inputsBranch.prNumber)
-          ? Number(inputsBranch.prNumber)
-          : undefined;
+    const classified = deriveExecutableEffectsFromContractRequirements({
+      evidenceRequirements,
+      expectedOutputs: Array.isArray(contract.expectedOutputs)
+        ? contract.expectedOutputs.map(String)
+        : undefined,
+      requiredCapabilities: Array.isArray(contract.requiredCapabilities)
+        ? contract.requiredCapabilities.map(String)
+        : undefined,
+      allowFilesystemCreateOrModify: true,
+    });
+    const gitExecutable = classified.executableEffects.filter(
+      (
+        e,
+      ): e is
+        | "git.commit"
+        | "git.push"
+        | "github.pr.create"
+        | "github.pr.merge" =>
+        e === "git.commit" ||
+        e === "git.push" ||
+        e === "github.pr.create" ||
+        e === "github.pr.merge",
+    );
+
+    let serverConfirmationMatch:
+      | {
+          repositoryRef?: string;
+          branchOrRef?: string;
+          prNumber?: number;
+          actorId?: string;
+        }
+      | undefined;
+
+    if (gitExecutable.length > 0 && this.resolveProjectRepositoryBinding) {
+      const binding = await this.resolveProjectRepositoryBinding(
+        contract.projectId,
+      );
+      if (!binding?.identity?.trim()) {
+        return fail(
+          "ATTEMPT_INVALID",
+          "project_repository_binding_missing",
+          { executionContractId: contract.executionContractId },
+        );
+      }
+      // Prefer Project binding identity for workspace resolution.
+      const contractInputs =
+        contract.inputs && typeof contract.inputs === "object"
+          ? (contract.inputs as Record<string, unknown>)
+          : {};
+      const projectedRepo =
+        docsWriteSpec?.repositoryRef?.trim() ||
+        (typeof contractInputs.repositoryRef === "string"
+          ? contractInputs.repositoryRef.trim()
+          : undefined);
+      if (projectedRepo && projectedRepo !== binding.identity.trim()) {
+        return fail(
+          "ATTEMPT_INVALID",
+          "projected_repository_ref_mismatch_project_binding",
+          { executionContractId: contract.executionContractId },
+        );
+      }
+      repositoryBinding = {
+        identity: binding.identity,
+        remoteUrl: binding.remoteUrl,
+        defaultBranch: binding.defaultBranch,
+        ...(binding.pathRoot ? { pathRoot: binding.pathRoot } : {}),
+      };
+      repositoryBindingIdentity = binding.identity;
+
+      const evidenceList = this.listProjectEvidence
+        ? await this.listProjectEvidence(contract.projectId)
+        : [];
+      const verifiedEvidence = evidenceList.filter(
+        (e) => e.status === "verified",
+      );
+
+      // Resolve per remaining executable git effect from durable Product truth.
+      // Progressive D-GCEC-15: missing VERIFIED PR must NOT fail Start when merge
+      // is not yet runnable — merge stays blocked until trusted PR identity exists.
+      for (const effect of gitExecutable) {
+        if ((request.verifiedEffects ?? []).includes(effect)) {
+          continue;
+        }
+        const resolved = resolveGitEffectTarget({
+          effect,
+          contract,
+          projectRepositoryBinding: binding,
+          projectedRepositoryRef: projectedRepo,
+          actorId: request.actor.actorId,
+          verifiedEvidence,
+        });
+        if (!resolved.ok) {
+          const mergePrNotReady =
+            effect === "github.pr.merge" &&
+            (resolved.reason === "verified_pull_request_identity_missing" ||
+              resolved.reason === "verified_pull_request_identity_ambiguous");
+          if (mergePrNotReady) {
+            if (request.confirmationMatch?.prNumber != null) {
+              return fail(
+                "ATTEMPT_INVALID",
+                "hostile_confirmation_match_pr_without_server_target",
+                { executionContractId: contract.executionContractId },
+              );
+            }
+            continue;
+          }
+          return fail("ATTEMPT_INVALID", resolved.reason, {
+            executionContractId: contract.executionContractId,
+          });
+        }
+        const assertOk = assertConfirmationMatchAgreesWithServerTarget({
+          assertion: request.confirmationMatch,
+          server: resolved.target,
+        });
+        if (!assertOk.ok) {
+          return fail("ATTEMPT_INVALID", assertOk.reason, {
+            executionContractId: contract.executionContractId,
+          });
+        }
+        serverConfirmationMatch = resolvedTargetToConfirmationMatch(
+          resolved.target,
+        );
+      }
+    } else if (
+      gitExecutable.length > 0 &&
+      !this.resolveProjectRepositoryBinding &&
+      request.confirmationMatch
+    ) {
+      // Hostile assertion present without server resolver → refuse (cannot
+      // validate against Product truth). Unconfigured harnesses without
+      // assertion leave git blocked via empty confirmationMatch.
+      return fail(
+        "ATTEMPT_INVALID",
+        "project_repository_binding_resolver_unconfigured",
+        { executionContractId: contract.executionContractId },
+      );
+    }
+
     const authorizedSlice = deriveAuthorizedExecutionSlice({
       executionContractId: contract.executionContractId,
       evidenceRequirements,
+      expectedOutputs: Array.isArray(contract.expectedOutputs)
+        ? contract.expectedOutputs.map(String)
+        : undefined,
+      requiredCapabilities: Array.isArray(contract.requiredCapabilities)
+        ? contract.requiredCapabilities.map(String)
+        : undefined,
       confirmations: request.confirmations ?? [],
       verifiedEffects: request.verifiedEffects,
-      confirmationMatch: {
-        repositoryRef:
-          request.confirmationMatch?.repositoryRef ??
-          docsWriteSpec?.repositoryRef,
-        branchOrRef:
-          request.confirmationMatch?.branchOrRef ?? branchFromInputs,
-        prNumber: request.confirmationMatch?.prNumber ?? prFromInputs,
-        actorId: request.confirmationMatch?.actorId,
-      },
+      confirmationMatch: serverConfirmationMatch,
     });
+    // Fail only when the contract requires Cursor-executable effects but none
+    // are currently authorized (e.g. git Confirmation missing). Read-only /
+    // empty-requirement contracts may start with an empty authorized set.
     if (
-      authorizedSlice.authorizedEffects.length === 0 &&
-      authorizedSlice.blockedEffects.length > 0
+      classified.executableEffects.length > 0 &&
+      authorizedSlice.authorizedEffects.length === 0
     ) {
       return fail("ATTEMPT_INVALID", "no_authorized_effect", {
         executionContractId: contract.executionContractId,

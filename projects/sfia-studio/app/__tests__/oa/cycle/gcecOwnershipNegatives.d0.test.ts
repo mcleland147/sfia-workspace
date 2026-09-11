@@ -187,7 +187,9 @@ describe("GCEC ownership negatives", () => {
     });
     expect(slice.blockedEffects).toContain("git.commit");
     expect(slice.blockedEffects).toContain("github.pr.merge");
-    expect(slice.authorizedEffects).toContain("filesystem.create");
+    // CR-GCEC-24 — git-only requirements do not authorize filesystem effects.
+    expect(slice.authorizedEffects).not.toContain("filesystem.create");
+    expect(slice.authorizedEffects).not.toContain("validation.run");
   });
 
   it("N12 cursor report claim alone does not satisfy git SET", () => {

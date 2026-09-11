@@ -71,6 +71,12 @@ export type CreateSqliteExecutionAttemptServicesOptions = {
     readonly safetyJournal: RealLaunchSafetyJournalPort;
     readonly managedRepoRootBase?: string;
   };
+  resolveProjectRepositoryBinding?: (
+    projectId: string,
+  ) => Promise<import("@/lib/oa/project").ProjectRepositoryBinding | null>;
+  listProjectEvidence?: (
+    projectId: string,
+  ) => Promise<readonly import("@/lib/oa/evidence-review").Evidence[]>;
 };
 
 export type SqliteExecutionAttemptServices = {
@@ -187,6 +193,8 @@ export function createSqliteExecutionAttemptServices(
       realBoundary?.launchPort,
       realBoundary?.safetyJournal,
       realBoundary?.managedRepoRootBase,
+      options.resolveProjectRepositoryBinding,
+      options.listProjectEvidence,
     ),
     cancelExecutionAttempt: new CancelExecutionAttempt(
       attempts,

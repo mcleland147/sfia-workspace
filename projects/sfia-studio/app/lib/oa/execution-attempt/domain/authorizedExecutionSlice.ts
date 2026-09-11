@@ -5,10 +5,12 @@
  * CR-GCEC-15: cap:cursor.docs_write does NOT imply Git effects.
  * CR-GCEC-19: protected Git effects require effect-target-bound Confirmation
  * (EC + effect + repo + branch/PR when applicable) — generic scope ≠ target identity.
+ * CR-GCEC-24: Cursor executable effects ≠ Studio verification obligations.
  */
 import { createHash } from "node:crypto";
 import type { Confirmation } from "@/lib/oa/decision";
 import type { CursorAuthorizedEffectId } from "./cursorExecutionReport";
+import { deriveExecutableEffectsFromContractRequirements } from "./contractEffectClassification";
 
 export type AuthorizedExecutionSlice = {
   executionContractId: string;
@@ -17,12 +19,6 @@ export type AuthorizedExecutionSlice = {
   blockedEffects: CursorAuthorizedEffectId[];
   reasons: string[];
 };
-
-const FILE_EFFECTS: CursorAuthorizedEffectId[] = [
-  "filesystem.create",
-  "filesystem.modify",
-  "validation.run",
-];
 
 /** OA identifier max length — actionRef must stay within bound. */
 export const OA_ACTION_REF_MAX_LENGTH = 128;
@@ -148,7 +144,6 @@ export function confirmationGrantsEffect(
     ) {
       return false;
     }
-    // Generic actionRef / scope must not substitute target identity.
     if (c.actionRef === scopeNeedle) return false;
     if (!scopeIndicatesEffectClass(c.scope, scopeNeedle, expected)) {
       return false;
@@ -159,14 +154,15 @@ export function confirmationGrantsEffect(
 
 /**
  * Derive the current authorized effect slice.
- * Docs-write baseline: filesystem + validation when docs_write/artifact required.
- * Git effects require explicit evidenceRequirements + Confirmation per effect.
+ * CR-GCEC-24: only Cursor-executable effects from the classification helper.
+ * Git effects require Confirmation against server-derived confirmationMatch.
  */
 export function deriveAuthorizedExecutionSlice(input: {
   executionContractId: string;
   attemptLineageKey?: string;
   requiredCapabilities?: readonly string[];
   evidenceRequirements?: readonly string[];
+  expectedOutputs?: readonly string[];
   confirmations?: readonly Confirmation[];
   nowIso?: string;
   allowDelete?: boolean;
@@ -174,6 +170,11 @@ export function deriveAuthorizedExecutionSlice(input: {
   verifiedEffects?: readonly CursorAuthorizedEffectId[];
   /** Effects reported but awaiting verification — not re-authorized. */
   waitingVerificationEffects?: readonly CursorAuthorizedEffectId[];
+  /**
+   * CR-GCEC-23 — MUST be server-derived target identity.
+   * Domain helper still accepts the shape; StartExecution must not pass
+   * caller confirmationMatch as authority.
+   */
   confirmationMatch?: {
     repositoryRef?: string;
     branchOrRef?: string;
@@ -189,10 +190,14 @@ export function deriveAuthorizedExecutionSlice(input: {
   const blocked: CursorAuthorizedEffectId[] = [];
   const reasons: string[] = [];
 
-  const reqs = input.evidenceRequirements ?? [];
-  // Docs-write / bounded write baseline: filesystem + validation.
-  // CR-GCEC-15: Git is NEVER inferred from capabilities.
-  for (const effect of FILE_EFFECTS) {
+  const classified = deriveExecutableEffectsFromContractRequirements({
+    evidenceRequirements: input.evidenceRequirements ?? [],
+    expectedOutputs: input.expectedOutputs,
+    requiredCapabilities: input.requiredCapabilities,
+    allowFilesystemCreateOrModify: true,
+  });
+
+  for (const effect of classified.executableEffects) {
     if (verified.has(effect) || waiting.has(effect)) {
       blocked.push(effect);
       reasons.push(
@@ -202,63 +207,62 @@ export function deriveAuthorizedExecutionSlice(input: {
       );
       continue;
     }
+    const isGit =
+      effect === "git.commit" ||
+      effect === "git.push" ||
+      effect === "github.pr.create" ||
+      effect === "github.pr.merge";
+    if (isGit) {
+      if (
+        confirmationGrantsEffect(confirmations, effect, nowIso, {
+          executionContractId: input.executionContractId,
+          ...input.confirmationMatch,
+        })
+      ) {
+        authorized.push(effect);
+      } else {
+        blocked.push(effect);
+        reasons.push(
+          `confirmation_required:${GIT_EFFECT_CONFIRMATION_SCOPE[effect]}`,
+        );
+      }
+      continue;
+    }
     authorized.push(effect);
+  }
+
+  // Non-executable Git candidates remain blocked (never inferred).
+  for (const effect of [
+    "git.commit",
+    "git.push",
+    "github.pr.create",
+    "github.pr.merge",
+  ] as const) {
+    if (
+      !classified.executableEffects.includes(effect) &&
+      !blocked.includes(effect) &&
+      !authorized.includes(effect)
+    ) {
+      blocked.push(effect);
+    }
   }
 
   if (input.allowDelete) {
     if (!verified.has("filesystem.delete") && !waiting.has("filesystem.delete")) {
       authorized.push("filesystem.delete");
     }
-  } else {
+  } else if (!blocked.includes("filesystem.delete")) {
     blocked.push("filesystem.delete");
     reasons.push("no_delete_policy");
   }
 
-  const gitCandidates: Array<
-    Extract<
-      CursorAuthorizedEffectId,
-      "git.commit" | "git.push" | "github.pr.create" | "github.pr.merge"
-    >
-  > = ["git.commit", "git.push", "github.pr.create", "github.pr.merge"];
-
-  for (const effect of gitCandidates) {
-    const needed = reqs.some((r) => {
-      if (effect === "git.commit")
-        return r === "git:local_commit" || r === "git:commit";
-      if (effect === "git.push")
-        return r === "git:remote_push" || r === "git:push";
-      if (effect === "github.pr.create") return r === "git:pull_request";
-      if (effect === "github.pr.merge")
-        return r === "git:merge" || r === "git:post_merge_verification";
-      return false;
-    });
-    // CR-GCEC-15: NEVER infer Git from cap:cursor.docs_write or repo presence.
-    if (!needed) {
-      blocked.push(effect);
-      continue;
-    }
-    if (verified.has(effect) || waiting.has(effect)) {
-      blocked.push(effect);
-      reasons.push(
-        waiting.has(effect)
-          ? `waiting_verification:${effect}`
-          : `already_verified:${effect}`,
-      );
-      continue;
-    }
-    if (
-      confirmationGrantsEffect(confirmations, effect, nowIso, {
-        executionContractId: input.executionContractId,
-        ...input.confirmationMatch,
-      })
-    ) {
-      authorized.push(effect);
-    } else {
-      blocked.push(effect);
-      reasons.push(
-        `confirmation_required:${GIT_EFFECT_CONFIRMATION_SCOPE[effect]}`,
-      );
-    }
+  // CR-GCEC-24 — validation.run must NOT appear when not executable.
+  if (
+    !classified.executableEffects.includes("validation.run") &&
+    !blocked.includes("validation.run")
+  ) {
+    blocked.push("validation.run");
+    reasons.push("validation_not_required");
   }
 
   if (

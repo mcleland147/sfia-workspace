@@ -142,6 +142,12 @@ function fieldsFromBasis(basis: DecisionBasis, decisionId: string) {
       inputs.repositoryBindingIdentity = targetRepositoryRef;
       inputs.remoteUrl = `https://github.com/${targetRepositoryRef}.git`;
       inputs.defaultBranch = "main";
+      // CR-GCEC-23 — durable working branch for Confirmation target (server-owned).
+      const working =
+        typeof (eb as { workingBranch?: unknown }).workingBranch === "string"
+          ? (eb as { workingBranch?: string }).workingBranch?.trim()
+          : undefined;
+      inputs.workingBranch = working || inputs.defaultBranch;
       if (eb.scopeIn?.[0]) inputs.pathRoot = eb.scopeIn[0];
     }
 

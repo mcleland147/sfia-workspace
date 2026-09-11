@@ -422,6 +422,15 @@ function wireOaStack(
         authorityResolver,
         policy: { defaultMaxRetriesBudget: 0 },
         realBoundary,
+        resolveProjectRepositoryBinding: async (projectId) => {
+          const r = await projectServices.getProject.execute({ projectId });
+          if (!r.ok) return null;
+          return r.project.repositoryBinding ?? null;
+        },
+        listProjectEvidence: async (projectId) => {
+          if (!late.evidenceReviewServices) return [];
+          return late.evidenceReviewServices.repository.listByProject(projectId);
+        },
       })
     : createInMemoryExecutionAttemptServices({
         decisionServices,
@@ -432,6 +441,15 @@ function wireOaStack(
         authorityResolver,
         policy: { defaultMaxRetriesBudget: 0 },
         realBoundary,
+        resolveProjectRepositoryBinding: async (projectId) => {
+          const r = await projectServices.getProject.execute({ projectId });
+          if (!r.ok) return null;
+          return r.project.repositoryBinding ?? null;
+        },
+        listProjectEvidence: async (projectId) => {
+          if (!late.evidenceReviewServices) return [];
+          return late.evidenceReviewServices.repository.listByProject(projectId);
+        },
       });
   late.executionAttemptServices = executionAttemptServices;
 

@@ -46,6 +46,8 @@ export * from "./domain/invariants";
 export * from "./domain/realLaunchSafety";
 export * from "./domain/cursorExecutionReport";
 export * from "./domain/authorizedExecutionSlice";
+export * from "./domain/contractEffectClassification";
+export * from "./domain/resolveGitEffectTarget";
 export { verifyWorkspaceFileEffects } from "./application/verifyWorkspaceFileEffects";
 export type { WorkspaceFileVerificationResult } from "./application/verifyWorkspaceFileEffects";
 
@@ -309,6 +311,18 @@ export type CreateInMemoryExecutionAttemptServicesOptions = {
   /** Flat aliases accepted by tests — same as realBoundary. */
   launchSafetyJournal?: RealLaunchSafetyJournalPort;
   realLaunch?: RealExecutionLaunchPort;
+  /**
+   * CR-GCEC-23 — Project.repositoryBinding resolver (server-derived Confirmation).
+   */
+  resolveProjectRepositoryBinding?: (
+    projectId: string,
+  ) => Promise<import("@/lib/oa/project").ProjectRepositoryBinding | null>;
+  /**
+   * CR-GCEC-23 — Evidence list for verified PR identity (may be late-bound).
+   */
+  listProjectEvidence?: (
+    projectId: string,
+  ) => Promise<readonly import("@/lib/oa/evidence-review").Evidence[]>;
 };
 
 /** Factory for the in-memory ExecutionAttempt runtime foundation. */
@@ -398,6 +412,8 @@ export function createInMemoryExecutionAttemptServices(
       realBoundary?.launchPort,
       realBoundary?.safetyJournal,
       realBoundary?.managedRepoRootBase,
+      options.resolveProjectRepositoryBinding,
+      options.listProjectEvidence,
     ),
     cancelExecutionAttempt: new CancelExecutionAttempt(
       attempts,

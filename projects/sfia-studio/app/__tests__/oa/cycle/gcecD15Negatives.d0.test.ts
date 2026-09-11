@@ -247,7 +247,7 @@ describe("gcecD15Negatives — N1–N28", () => {
     expect(r.status).toBe("SATISFIED");
   });
 
-  it("N6 slice blocks git without Confirmation; FS still authorized", () => {
+  it("N6 slice blocks git without Confirmation; git-only does not authorize FS", () => {
     const slice = deriveAuthorizedExecutionSlice({
       executionContractId: "xct:n6",
       evidenceRequirements: ["git:local_commit", "git:merge"],
@@ -255,7 +255,8 @@ describe("gcecD15Negatives — N1–N28", () => {
     });
     expect(slice.blockedEffects).toContain("git.commit");
     expect(slice.blockedEffects).toContain("github.pr.merge");
-    expect(slice.authorizedEffects).toContain("filesystem.create");
+    expect(slice.authorizedEffects).not.toContain("filesystem.create");
+    expect(slice.authorizedEffects).not.toContain("validation.run");
   });
 
   it("N7 confirmation grants git.commit only when actionRef matches", () => {
@@ -295,6 +296,7 @@ describe("gcecD15Negatives — N1–N28", () => {
       confirmations: [],
     });
     expect(slice.authorizedEffects).toContain("filesystem.create");
+    expect(slice.authorizedEffects).not.toContain("validation.run");
     expect(slice.authorizedEffects).not.toContain("git.commit");
     expect(slice.blockedEffects).toContain("git.commit");
   });
@@ -553,7 +555,8 @@ describe("gcecD15Negatives — N1–N28", () => {
   it("N21 verifiedEffects exclude FS from re-authorization", () => {
     const slice = deriveAuthorizedExecutionSlice({
       executionContractId: "xct:n21",
-      evidenceRequirements: ["git:local_commit"],
+      evidenceRequirements: ["artifact", "git:local_commit"],
+      requiredCapabilities: ["cap:cursor.docs_write"],
       verifiedEffects: ["filesystem.create", "filesystem.modify", "validation.run"],
       confirmations: [],
     });
@@ -561,10 +564,11 @@ describe("gcecD15Negatives — N1–N28", () => {
       expect.arrayContaining([
         "filesystem.create",
         "filesystem.modify",
-        "validation.run",
       ]),
     );
     expect(slice.authorizedEffects).not.toContain("filesystem.create");
+    // CR-GCEC-24 — validation not required → not re-authorized
+    expect(slice.authorizedEffects).not.toContain("validation.run");
   });
 
   it("N22 git:commit alias authorizes same as git:local_commit", () => {
@@ -1215,5 +1219,408 @@ describe("gcecD15Negatives — N1–N28", () => {
     });
     expect(q.complete).toBe(false);
     expect(q.remainingRequiredEffects).toContain("validation.run");
+  });
+
+  it("C24-N1 artifact-only → filesystem eligible; validation.run NOT authorized", () => {
+    const slice = deriveAuthorizedExecutionSlice({
+      executionContractId: "xct:c24n1",
+      evidenceRequirements: ["artifact"],
+      requiredCapabilities: ["cap:cursor.docs_write"],
+      confirmations: [],
+    });
+    expect(slice.authorizedEffects).toEqual(
+      expect.arrayContaining(["filesystem.create", "filesystem.modify"]),
+    );
+    expect(slice.authorizedEffects).not.toContain("validation.run");
+  });
+
+  it("C24-P1 artifact + explicit validation → validation.run authorized", () => {
+    const slice = deriveAuthorizedExecutionSlice({
+      executionContractId: "xct:c24p1",
+      evidenceRequirements: ["artifact", "validation"],
+      requiredCapabilities: ["cap:cursor.docs_write"],
+      confirmations: [],
+    });
+    expect(slice.authorizedEffects).toContain("validation.run");
+  });
+
+  it("C24-N2 post_merge_verification only → github.pr.merge NOT authorized", () => {
+    const actionRef = buildGitEffectActionRef({
+      executionContractId: "xct:c24n2",
+      effect: "github.pr.merge",
+      repositoryRef: REPO,
+      prNumber: 1,
+    });
+    const slice = deriveAuthorizedExecutionSlice({
+      executionContractId: "xct:c24n2",
+      evidenceRequirements: ["git:post_merge_verification"],
+      confirmations: [
+        grantedCnf({
+          confirmationId: "cnf:c24n2",
+          actionRef,
+          scope: "git:merge",
+        }),
+      ],
+      confirmationMatch: { repositoryRef: REPO, prNumber: 1 },
+    });
+    expect(slice.authorizedEffects).not.toContain("github.pr.merge");
+    expect(slice.blockedEffects).toContain("github.pr.merge");
+  });
+
+  it("C24-P2 git:merge explicit → merge candidate Confirmation-gated", () => {
+    const slice = deriveAuthorizedExecutionSlice({
+      executionContractId: "xct:c24p2",
+      evidenceRequirements: ["git:merge"],
+      confirmations: [],
+    });
+    expect(slice.blockedEffects).toContain("github.pr.merge");
+    expect(slice.reasons.some((r) => r.includes("confirmation_required"))).toBe(
+      true,
+    );
+  });
+
+  it("C24-N3 ci_status only → no Cursor Git mutation", () => {
+    const slice = deriveAuthorizedExecutionSlice({
+      executionContractId: "xct:c24n3",
+      evidenceRequirements: ["git:ci_status"],
+      confirmations: [],
+    });
+    expect(slice.authorizedEffects).not.toContain("git.commit");
+    expect(slice.authorizedEffects).not.toContain("github.pr.merge");
+  });
+
+  it("C24-N4 review_status only → no Cursor Git mutation", () => {
+    const slice = deriveAuthorizedExecutionSlice({
+      executionContractId: "xct:c24n4",
+      evidenceRequirements: ["git:review_status"],
+      confirmations: [],
+    });
+    expect(slice.authorizedEffects).not.toContain("git.push");
+    expect(slice.authorizedEffects).not.toContain("github.pr.create");
+  });
+
+  it("C24-N5 postmerge + no merge + exact merge Confirmation → still NO merge", () => {
+    const actionRef = buildGitEffectActionRef({
+      executionContractId: "xct:c24n5",
+      effect: "github.pr.merge",
+      repositoryRef: REPO,
+      prNumber: 7,
+      branchOrRef: "main",
+    });
+    const slice = deriveAuthorizedExecutionSlice({
+      executionContractId: "xct:c24n5",
+      evidenceRequirements: ["git:post_merge_verification"],
+      confirmations: [
+        grantedCnf({
+          confirmationId: "cnf:c24n5",
+          actionRef,
+          scope: actionRef,
+        }),
+      ],
+      confirmationMatch: {
+        repositoryRef: REPO,
+        prNumber: 7,
+        branchOrRef: "main",
+      },
+    });
+    expect(slice.authorizedEffects).not.toContain("github.pr.merge");
+  });
+
+  it("C24-P3 full vertical → Cursor gets commit/push/PR/merge only", () => {
+    const classified = {
+      reqs: [
+        "artifact",
+        "git:local_commit",
+        "git:remote_push",
+        "git:pull_request",
+        "git:ci_status",
+        "git:review_status",
+        "git:merge",
+        "git:post_merge_verification",
+      ],
+    };
+    const slice = deriveAuthorizedExecutionSlice({
+      executionContractId: "xct:c24p3",
+      evidenceRequirements: classified.reqs,
+      requiredCapabilities: ["cap:cursor.docs_write"],
+      confirmations: [],
+    });
+    expect(slice.authorizedEffects).toEqual(
+      expect.arrayContaining(["filesystem.create", "filesystem.modify"]),
+    );
+    expect(slice.blockedEffects).toEqual(
+      expect.arrayContaining([
+        "git.commit",
+        "git.push",
+        "github.pr.create",
+        "github.pr.merge",
+      ]),
+    );
+    expect(slice.authorizedEffects).not.toContain("validation.run");
+  });
+
+  it("C23 resolveGitEffectTarget refuses projected repo mismatch", async () => {
+    const { resolveGitEffectTarget } = await import(
+      "@/lib/oa/execution-attempt/domain/resolveGitEffectTarget"
+    );
+    const r = resolveGitEffectTarget({
+      effect: "git.commit",
+      contract: {
+        executionContractId: "xct:c23",
+        projectId: "prj:gcec",
+        inputs: { workingBranch: "gcec/docs" },
+      },
+      projectRepositoryBinding: {
+        provider: "github",
+        identity: "acme/widget",
+        remoteUrl: "https://github.com/acme/widget.git",
+        defaultBranch: "main",
+      },
+      projectedRepositoryRef: "other/repo",
+      actorId: "actor:pilote",
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toContain("mismatch");
+  });
+
+  it("C23-N1 caller repo override refused vs Project binding", async () => {
+    const {
+      resolveGitEffectTarget,
+      assertConfirmationMatchAgreesWithServerTarget,
+      resolvedTargetToConfirmationMatch,
+    } = await import(
+      "@/lib/oa/execution-attempt/domain/resolveGitEffectTarget"
+    );
+    const resolved = resolveGitEffectTarget({
+      effect: "git.commit",
+      contract: {
+        executionContractId: "xct:c23n1",
+        projectId: "prj:gcec",
+        inputs: { workingBranch: "main" },
+      },
+      projectRepositoryBinding: {
+        provider: "github",
+        identity: "acme/widget",
+        remoteUrl: "https://github.com/acme/widget.git",
+        defaultBranch: "main",
+      },
+      actorId: "actor:pilote",
+    });
+    expect(resolved.ok).toBe(true);
+    if (!resolved.ok) return;
+    expect(resolved.target.repositoryRef).toBe("acme/widget");
+    const hostile = assertConfirmationMatchAgreesWithServerTarget({
+      assertion: { repositoryRef: "other/repo" },
+      server: resolved.target,
+    });
+    expect(hostile.ok).toBe(false);
+    const serverMatch = resolvedTargetToConfirmationMatch(resolved.target);
+    const actionRefHostile = buildGitEffectActionRef({
+      executionContractId: "xct:c23n1",
+      effect: "git.commit",
+      repositoryRef: "other/repo",
+      branchOrRef: "main",
+    });
+    const slice = deriveAuthorizedExecutionSlice({
+      executionContractId: "xct:c23n1",
+      evidenceRequirements: ["git:local_commit"],
+      confirmations: [
+        grantedCnf({
+          confirmationId: "cnf:c23n1",
+          actionRef: actionRefHostile,
+          scope: actionRefHostile,
+        }),
+      ],
+      confirmationMatch: serverMatch,
+    });
+    expect(slice.authorizedEffects).not.toContain("git.commit");
+  });
+
+  it("C23-N2 caller branch override refused vs EC durable branch", async () => {
+    const {
+      resolveGitEffectTarget,
+      assertConfirmationMatchAgreesWithServerTarget,
+    } = await import(
+      "@/lib/oa/execution-attempt/domain/resolveGitEffectTarget"
+    );
+    const resolved = resolveGitEffectTarget({
+      effect: "git.push",
+      contract: {
+        executionContractId: "xct:c23n2",
+        projectId: "prj:gcec",
+        inputs: { workingBranch: "branch-a" },
+      },
+      projectRepositoryBinding: {
+        provider: "github",
+        identity: REPO,
+        remoteUrl: `https://github.com/${REPO}.git`,
+        defaultBranch: "main",
+      },
+      actorId: "actor:pilote",
+    });
+    expect(resolved.ok).toBe(true);
+    if (!resolved.ok) return;
+    expect(resolved.target.branchOrRef).toBe("branch-a");
+    expect(
+      assertConfirmationMatchAgreesWithServerTarget({
+        assertion: { branchOrRef: "branch-b" },
+        server: resolved.target,
+      }).ok,
+    ).toBe(false);
+  });
+
+  it("C23-N3 verified PR #41; caller assertion #42 refused by assert helper", async () => {
+    const {
+      resolveGitEffectTarget,
+      assertConfirmationMatchAgreesWithServerTarget,
+    } = await import(
+      "@/lib/oa/execution-attempt/domain/resolveGitEffectTarget"
+    );
+    const evidence = [
+      baseEvidence({
+        evidenceId: "ev:pr41",
+        status: "verified",
+        source: "git:pull_request",
+        location: "git:pull_request?repo=acme%2Fwidget&prNumber=41",
+        bindings: {
+          projectId: "prj:gcec",
+          cycleInstanceId: CYCLE,
+          executionContractId: "xct:c23n3",
+        },
+      }),
+    ];
+    const resolved = resolveGitEffectTarget({
+      effect: "github.pr.merge",
+      contract: {
+        executionContractId: "xct:c23n3",
+        projectId: "prj:gcec",
+        cycleInstanceId: CYCLE,
+        inputs: {},
+      },
+      projectRepositoryBinding: {
+        provider: "github",
+        identity: "acme/widget",
+        remoteUrl: "https://github.com/acme/widget.git",
+        defaultBranch: "main",
+      },
+      actorId: "actor:pilote",
+      verifiedEvidence: evidence,
+    });
+    expect(resolved.ok).toBe(true);
+    if (!resolved.ok) return;
+    expect(resolved.target.prNumber).toBe(41);
+    const assertOk = assertConfirmationMatchAgreesWithServerTarget({
+      assertion: { prNumber: 42 },
+      server: resolved.target,
+    });
+    expect(assertOk.ok).toBe(false);
+  });
+
+  it("C23-N4 hostile actorId cannot authorize — server actor from request wins", async () => {
+    const { resolveGitEffectTarget } = await import(
+      "@/lib/oa/execution-attempt/domain/resolveGitEffectTarget"
+    );
+    const resolved = resolveGitEffectTarget({
+      effect: "git.commit",
+      contract: {
+        executionContractId: "xct:c23n4",
+        projectId: "prj:gcec",
+        inputs: { workingBranch: "main" },
+      },
+      projectRepositoryBinding: {
+        provider: "github",
+        identity: REPO,
+        remoteUrl: `https://github.com/${REPO}.git`,
+        defaultBranch: "main",
+      },
+      actorId: "actor:pilote",
+    });
+    expect(resolved.ok).toBe(true);
+    if (!resolved.ok) return;
+    expect(resolved.target.actorId).toBe("actor:pilote");
+    expect(resolved.target.actorId).not.toBe("actor:hostile");
+  });
+
+  it("C23-P1 canonical server-derived target + exact Confirmation → authorized", async () => {
+    const {
+      resolveGitEffectTarget,
+      resolvedTargetToConfirmationMatch,
+    } = await import(
+      "@/lib/oa/execution-attempt/domain/resolveGitEffectTarget"
+    );
+    const resolved = resolveGitEffectTarget({
+      effect: "git.commit",
+      contract: {
+        executionContractId: "xct:c23p1",
+        projectId: "prj:gcec",
+        inputs: { workingBranch: "main" },
+      },
+      projectRepositoryBinding: {
+        provider: "github",
+        identity: REPO,
+        remoteUrl: `https://github.com/${REPO}.git`,
+        defaultBranch: "main",
+      },
+      actorId: "actor:pilote",
+    });
+    expect(resolved.ok).toBe(true);
+    if (!resolved.ok) return;
+    const match = resolvedTargetToConfirmationMatch(resolved.target);
+    const actionRef = buildGitEffectActionRef({
+      executionContractId: "xct:c23p1",
+      effect: "git.commit",
+      repositoryRef: match.repositoryRef!,
+      branchOrRef: match.branchOrRef,
+    });
+    const slice = deriveAuthorizedExecutionSlice({
+      executionContractId: "xct:c23p1",
+      evidenceRequirements: ["git:local_commit"],
+      confirmations: [
+        grantedCnf({
+          confirmationId: "cnf:c23p1",
+          actionRef,
+          scope: actionRef,
+          requestedTo: { actorId: "actor:pilote", role: "pilote" },
+        }),
+      ],
+      confirmationMatch: match,
+    });
+    expect(slice.authorizedEffects).toContain("git.commit");
+  });
+
+  it("C23-P2 matching assertion allowed but non-authoritative", async () => {
+    const {
+      resolveGitEffectTarget,
+      assertConfirmationMatchAgreesWithServerTarget,
+    } = await import(
+      "@/lib/oa/execution-attempt/domain/resolveGitEffectTarget"
+    );
+    const resolved = resolveGitEffectTarget({
+      effect: "git.commit",
+      contract: {
+        executionContractId: "xct:c23p2",
+        projectId: "prj:gcec",
+        inputs: { workingBranch: "main" },
+      },
+      projectRepositoryBinding: {
+        provider: "github",
+        identity: REPO,
+        remoteUrl: `https://github.com/${REPO}.git`,
+        defaultBranch: "main",
+      },
+      actorId: "actor:pilote",
+    });
+    expect(resolved.ok).toBe(true);
+    if (!resolved.ok) return;
+    expect(
+      assertConfirmationMatchAgreesWithServerTarget({
+        assertion: {
+          repositoryRef: REPO,
+          branchOrRef: "main",
+          actorId: "actor:pilote",
+        },
+        server: resolved.target,
+      }).ok,
+    ).toBe(true);
   });
 });

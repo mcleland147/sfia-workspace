@@ -2,11 +2,15 @@
  * GCEC principal Product monolithic E2E — D-GCEC-15 Option B.
  *
  * True Product spine (no pseudo-E2E):
- * CreateProject → SetRepositoryBinding → Cycle START → F2 → HD → prepareM3 →
- * resolve → Confirm → Select → GateD → StartExecution → Fake Cursor slice →
- * complete → EC confirmed (remaining reqs) → evidence verify → gated Confirmations →
- * Select+Start same EC → git effects via Fake only → advance EC completed →
- * FinalizationAssessment → FINALIZE HD → Cycle completed.
+ * CreateProject → SetRepositoryBinding → LR → prepareCandidate → approve →
+ * prepareCycleFromValidatedTrajectory → startPreparedTrajectoryCycle →
+ * F2 → HD → prepareM3 → resolve → Confirm → Select → GateD → StartExecution →
+ * Fake Cursor slice → complete → EC confirmed (remaining reqs) → evidence verify →
+ * gated Confirmations → Select+Start same EC → git effects via Fake only →
+ * advance EC completed → FinalizationAssessment → FINALIZE HD → Cycle completed.
+ *
+ * CR-GCEC-25 — no direct cycle/trajectory/EC/Evidence repository mutation after
+ * fixture bootstrap for scenario progression.
  *
  * ZERO OpenAI REAL. ZERO Cursor REAL. Fake owns all git mutations after fixture init.
  * @vitest-environment node
@@ -24,10 +28,20 @@ import {
 import {
   finalizeSubjectFor,
   qualifyGitCompletionProofSet,
-  type TrajectoryStep,
+  NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
+  prepareCandidateTrajectoryFromCurrentRecommendation,
+  prepareCycleFromValidatedTrajectory,
+  startPreparedTrajectoryCycle,
+  materializeLifecycleRecommendationFromStructuredOutput,
+  resolveTrajectoryBootstrapPresence,
+  selectEligiblePendingTrajectorySteps,
+  validateLifecycleRecommendation,
 } from "@/lib/oa/cycle";
-import { prepareCycleFromValidatedTrajectory, selectEligiblePendingTrajectorySteps } from "@/lib/oa/cycle/application/lifecycleRecommendation/prepareCycleFromValidatedTrajectory";
-import { validateLifecycleRecommendation } from "@/lib/oa/cycle/application/lifecycleRecommendation/validateLifecycleRecommendation";
+import { PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
+import {
+  approveCandidateTrajectory,
+  buildPreCycleCandidateApprovalPresentation,
+} from "@/features/project-assistant/approveCandidateTrajectory";
 import { completeBoundTrajectoryStepAction } from "@/features/project-assistant/f2/pilotLifecycleActions";
 import {
   advanceExecutionContractCompletion,
@@ -80,10 +94,20 @@ const SCHEMAS_ROOT = path.resolve(
 
 const IDENTITY = "acme/widget";
 const TARGET_PATH = "docs/functional-design.md";
-const BRANCH = "gcec/docs";
+/** Server-derived workingBranch from prepareM3 (defaultBranch). */
+const BRANCH = "main";
 const NOW = "2026-09-11T14:00:00.000Z";
 
 const PILOTE = LOCAL_PILOTE_ACTOR;
+
+const SIGNALS_LIGHT = {
+  structuralChange: false,
+  securityImpact: false,
+  architectureImpact: false,
+  dataImpact: false,
+  irreversible: false,
+  lowRiskBounded: true,
+} as const;
 
 const temps: string[] = [];
 
@@ -363,47 +387,162 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () => 
     });
     expect(bound.ok).toBe(true);
 
-    // 3 Create + START cycle — trajectory step starts active (not pre-done).
-    const stepsInFlight: TrajectoryStep[] = [
-      {
-        stepId: "stp:fd",
-        order: 1,
-        label: "Functional design",
-        state: "active",
-        cycleTypeId: "cyc:functional-design",
-      },
-    ];
-    const lps0 = await oa.projectServices.getCurrentLivingProjectState.execute({
+    // 3 Product trajectory → cycle binding (CR-GCEC-25) — no cycles.save
+    const cycles0 = await oa.cycleServices.cycles.listByProject(projectId);
+    const decisions0 = await oa.decisionServices.decisions.listByProject(
+      projectId,
+    );
+    const lpsBoot =
+      await oa.projectServices.getCurrentLivingProjectState.execute({
+        projectId,
+      });
+    expect(lpsBoot.ok).toBe(true);
+    if (!lpsBoot.ok) return;
+    const presence = await resolveTrajectoryBootstrapPresence(
+      oa.cycleServices.trajectories,
+      projectId,
+    );
+    const projectBoot = await oa.projectServices.getProject.execute({
       projectId,
     });
-    expect(lps0.ok).toBe(true);
-    if (!lps0.ok) return;
-    const traj = await oa.cycleServices.createInitialTrajectory.execute({
-      trajectoryId: `trj:${projectId}`,
-      projectId,
-      steps: stepsInFlight,
-      status: "active",
-      expectedLpsVersion: lps0.livingProjectState.version,
-      createdBy: PILOTE,
-    });
-    expect(traj.ok).toBe(true);
-    if (!traj.ok) return;
+    expect(projectBoot.ok).toBe(true);
+    if (!projectBoot.ok) return;
+    const doctrinePin = projectBoot.project.doctrinePackageRef;
+    expect(doctrinePin).toBeTruthy();
 
-    const cycleInstanceId = `cyc:gcec-prod-${Date.now()}`;
-    const cycleCreated = await oa.cycleServices.createCycle.execute({
-      cycleInstanceId,
-      cycleTypeId: "cyc:functional-design",
+    const mat = await materializeLifecycleRecommendationFromStructuredOutput({
       projectId,
-      signals: { lowRiskBounded: true },
-      createdBy: {
-        actorId: "actor:nora-f2",
-        role: "agent",
-        displayName: "Nora F2",
-        authorityLevel: "N1",
+      structuredOutput: {
+        narrative: "Envisager un design fonctionnel gouverné.",
+        preCycleRoutingAssessment: {
+          ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT,
+        },
+        lifecycleRecommendation: {
+          intent: "NEXT_CYCLE" as const,
+          statement: "Envisager un Design fonctionnel.",
+          subjectCycleInstanceId: null,
+          targetCycleInstanceId: null,
+          targetCycleTypeId: "cyc:functional-design",
+          rationale: "GCEC Product monolithic E2E",
+          authority: "none" as const,
+          isHumanDecision: false as const,
+          qualificationSignals: { ...SIGNALS_LIGHT },
+        },
       },
-      linkAsActiveCycle: false,
+      updateEpistemicState: oa.cycleServices.updateEpistemicState,
+      facts: {
+        cycles: cycles0,
+        lpsActiveCycleInstanceId:
+          lpsBoot.livingProjectState.activeCycleInstanceId,
+        lpsVersion: lpsBoot.livingProjectState.version,
+        doctrinePackageId: doctrinePin!.doctrinePackageId,
+        doctrinePackageVersion: doctrinePin!.version,
+        doctrinePackageDigest: doctrinePin!.digest,
+        trajectory: null,
+        trajectoryBootstrapPresence: presence,
+        decisions: decisions0,
+        evidence: [],
+        epistemicItems: await oa.cycleServices.epistemic.listByProject(
+          projectId,
+        ),
+      },
+      producedAt: NOW,
+      createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
     });
-    expect(cycleCreated.ok).toBe(true);
+    expect(mat.recommendationAttempted).toBe(true);
+    expect(mat.materialization?.ok).toBe(true);
+    if (!mat.materialization?.ok) return;
+
+    const bridgeDeps = {
+      trajectories: oa.cycleServices.trajectories,
+      createInitialTrajectory: oa.cycleServices.createInitialTrajectory,
+      updateEpistemicState: oa.cycleServices.updateEpistemicState,
+      runInTransaction: ((fn: () => Promise<unknown>) =>
+        oa.projectServices.store.runInTransaction(fn)) as <T>(
+        fn: () => Promise<T>,
+      ) => Promise<T>,
+      listEpistemicByProject: (pid: string) =>
+        oa.cycleServices.epistemic.listByProject(pid),
+      listCyclesByProject: (pid: string) =>
+        oa.cycleServices.cycles.listByProject(pid),
+      listDecisionsByProject: (pid: string) =>
+        oa.decisionServices.decisions.listByProject(pid),
+      listEvidenceByProject: (pid: string) =>
+        oa.evidenceReviewServices.repository.listByProject(pid),
+      getCurrentLps: (pid: string) =>
+        oa.projectServices.getCurrentLivingProjectState.execute({
+          projectId: pid,
+        }),
+      getProjectDoctrinePin: async (pid: string) => {
+        const p = await oa.projectServices.getProject.execute({
+          projectId: pid,
+        });
+        if (!p.ok) return null;
+        const pin = p.project.doctrinePackageRef;
+        return pin
+          ? {
+              doctrinePackageId: pin.doctrinePackageId,
+              version: pin.version,
+              digest: pin.digest,
+            }
+          : null;
+      },
+      newTrajectoryId: () => `trj:gcec-prod-${projectId}`,
+      newStepId: () => `stp:fd`,
+      newProvenanceObservationId: () => `epi:trj-prov-gcec-prod`,
+      correlationId: `cor:gcec-prod-bridge`,
+    };
+
+    const candidatePrepared =
+      await prepareCandidateTrajectoryFromCurrentRecommendation({
+        projectId,
+        deps: bridgeDeps,
+      });
+    expect(candidatePrepared.ok).toBe(true);
+    if (!candidatePrepared.ok) return;
+
+    const presentation = await buildPreCycleCandidateApprovalPresentation({
+      oa,
+      projectId,
+    });
+    expect(presentation.ok && presentation.presentation).toBeTruthy();
+    if (!presentation.ok || !presentation.presentation) return;
+
+    const approved = await approveCandidateTrajectory({
+      oa,
+      projectId,
+      presentationDigest: presentation.presentation.presentationDigest,
+      forceLocalAuthority: true,
+    });
+    expect(approved.ok).toBe(true);
+    if (!approved.ok) return;
+
+    const prep = await prepareCycleFromValidatedTrajectory({ oa, projectId });
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) {
+      throw new Error(`prepareCycle: ${prep.code} ${prep.reason}`);
+    }
+    const cycleInstanceId = prep.cycle.cycleInstanceId;
+    expect(prep.cycle.trajectoryId).toBeTruthy();
+    expect(prep.cycle.trajectoryVersion).toBeTruthy();
+    expect(prep.cycle.trajectoryStepId).toBe("stp:fd");
+
+    const startedCycle = await startPreparedTrajectoryCycle({
+      oa,
+      projectId,
+      cycleInstanceId,
+      forceLocalAuthority: true,
+    });
+    expect(startedCycle.ok).toBe(true);
+    if (!startedCycle.ok) {
+      throw new Error(`startPrepared: ${startedCycle.code}`);
+    }
+    expect(startedCycle.cycle.status).toBe("active");
+    expect(startedCycle.cycle.trajectoryId).toBe(prep.cycle.trajectoryId);
+    expect(startedCycle.cycle.trajectoryVersion).toBe(
+      prep.cycle.trajectoryVersion,
+    );
+    expect(startedCycle.cycle.trajectoryStepId).toBe("stp:fd");
 
     const startAuth = registerLocalPiloteAuthority({
       authorityResolver: oa.authorityResolver,
@@ -412,26 +551,13 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () => 
       forceEnable: true,
     });
     expect(startAuth.ok).toBe(true);
-    const startedCycle = await oa.cycleServices.pilotLifecycle.start({
-      cycleInstanceId,
-      projectId,
-      createdBy: PILOTE,
-      authorityEvidenceId: requireAuthEvidenceId(startAuth),
-    });
-    expect(startedCycle.ok).toBe(true);
-    if (!startedCycle.ok) return;
-    expect(startedCycle.cycle.status).toBe("active");
 
-    // Bind trajectory after LEGACY START so Product completeBoundTrajectoryStep
-    // can close the active step without COMPLETE greenfield START readiness.
-    const cycleForBind = await oa.cycleServices.cycles.findById(cycleInstanceId);
-    expect(cycleForBind).toBeTruthy();
-    await oa.cycleServices.cycles.save({
-      ...cycleForBind!,
-      trajectoryId: traj.trajectory.trajectoryId,
-      trajectoryVersion: traj.trajectory.version,
-      trajectoryStepId: "stp:fd",
-    });
+    // Durable trajectory binding exists BEFORE F2 (CR-GCEC-25)
+    const cycleBeforeF2 =
+      await oa.cycleServices.cycles.findById(cycleInstanceId);
+    expect(cycleBeforeF2?.trajectoryId).toBe(prep.cycle.trajectoryId);
+    expect(cycleBeforeF2?.trajectoryVersion).toBe(prep.cycle.trajectoryVersion);
+    expect(cycleBeforeF2?.trajectoryStepId).toBe("stp:fd");
 
     // 4–5 F2 Fake → Proposal → recordF2Decision (HD)
     const overview = await runtime.getProject(projectId);
@@ -1138,6 +1264,7 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () => 
         "HUMAN_DECISION_MISSING",
         "PREPARE_REUSE_TERMINAL",
         "TRAJECTORY_NOT_VALIDATED",
+        "DECISION_SEALED_TRAJECTORY_DRIFT",
       ]).toContain(reprepare.code);
     }
 
@@ -1181,4 +1308,21 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () => 
       fakeLaunch.calls.every((c) => c.action === M4_BOUNDED_DOCS_WRITE_ACTION),
     ).toBe(true);
   }, 120_000);
+
+  it("CR-GCEC-25 source guard: principal E2E must not mutate durable repos for progression", async () => {
+    const src = fs.readFileSync(__filename, "utf8");
+    // Strip this guard test body from the scanned corpus (self-reference).
+    const withoutGuard = src.replace(
+      /it\("CR-GCEC-25 source guard:[\s\S]*$/m,
+      "",
+    );
+    expect(withoutGuard).not.toMatch(/cycleServices\.cycles\.save\s*\(/);
+    expect(withoutGuard).not.toMatch(/cycleServices\.trajectories\.save\s*\(/);
+    expect(withoutGuard).not.toMatch(
+      /executionContractServices\.contracts\.save\s*\(/,
+    );
+    expect(withoutGuard).not.toMatch(
+      /evidenceReviewServices\.repository\.save\s*\(/,
+    );
+  });
 });

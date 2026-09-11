@@ -112,7 +112,7 @@ function evidenceVerifiedForEffect(
     "git.commit": ["git:local_commit", "git:commit"],
     "git.push": ["git:remote_push", "git:push"],
     "github.pr.create": ["git:pull_request"],
-    "github.pr.merge": ["git:merge", "git:post_merge_verification"],
+    "github.pr.merge": ["git:merge"],
   };
   const sources = sourceByEffect[effect] ?? [];
   return evidence.some((e) => {
@@ -133,6 +133,23 @@ function evidenceVerifiedForEffect(
   });
 }
 
+function evidenceVerifiedForSource(
+  evidence: readonly Evidence[],
+  source: string,
+  expected: {
+    projectId: string;
+    cycleInstanceId?: string;
+    executionContractId: string;
+  },
+): boolean {
+  return evidence.some(
+    (e) =>
+      e.status === "verified" &&
+      evidenceMatchesContractLineage(e, expected) &&
+      e.source === source,
+  );
+}
+
 function reqImpliesEffect(
   reqs: readonly string[],
   effect: CursorAuthorizedEffectId,
@@ -143,8 +160,8 @@ function reqImpliesEffect(
     if (effect === "git.push")
       return r === "git:remote_push" || r === "git:push";
     if (effect === "github.pr.create") return r === "git:pull_request";
-    if (effect === "github.pr.merge")
-      return r === "git:merge" || r === "git:post_merge_verification";
+    // CR-GCEC-24 — post_merge is NOT a merge executable requirement.
+    if (effect === "github.pr.merge") return r === "git:merge";
     if (effect === "filesystem.create" || effect === "filesystem.modify") {
       return (
         /artifact|docs_write|filesystem/i.test(r) ||
@@ -215,10 +232,13 @@ export function qualifyExecutionContractCompletion(input: {
       requiredEffects.push(effect);
     }
   }
+  // CR-GCEC-24 — CI / review / postmerge are Studio verification obligations.
+  const verificationSources: string[] = [];
+  if (reqs.includes("git:ci_status")) verificationSources.push("git:ci_status");
+  if (reqs.includes("git:review_status"))
+    verificationSources.push("git:review_status");
   if (reqs.includes("git:post_merge_verification")) {
-    if (!requiredEffects.includes("github.pr.merge")) {
-      requiredEffects.push("github.pr.merge");
-    }
+    verificationSources.push("git:post_merge_verification");
   }
 
   const slice: AuthorizedExecutionSlice = deriveAuthorizedExecutionSlice({
@@ -288,8 +308,18 @@ export function qualifyExecutionContractCompletion(input: {
     }
   }
 
-  const complete = remainingRequiredEffects.length === 0;
-  if (!complete && remainingRequiredEffects.length > 0) {
+  // CR-GCEC-24 — Studio verification obligations must be independently verified.
+  let verificationRemaining = 0;
+  for (const source of verificationSources) {
+    if (!evidenceVerifiedForSource(evidence, source, expected)) {
+      verificationRemaining += 1;
+      reasons.push(`pending_verification:${source}`);
+    }
+  }
+
+  const complete =
+    remainingRequiredEffects.length === 0 && verificationRemaining === 0;
+  if (!complete) {
     reasons.push("effective_requirements_remain");
   }
 

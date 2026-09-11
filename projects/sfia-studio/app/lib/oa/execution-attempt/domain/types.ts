@@ -212,8 +212,10 @@ export type StartExecutionRequest = {
    */
   confirmations?: readonly Confirmation[];
   /**
-   * CR-GCEC-19 — contextual Confirmation target identity (repo/branch/PR/actor).
-   * Combined with docsWriteSpec.repositoryRef when deriving the slice.
+   * CR-GCEC-23 — HOSTILE / ASSERTION only.
+   * Server derives canonical Confirmation target from Project.repositoryBinding,
+   * durable EC inputs, and VERIFIED Evidence. If supplied, assertion must match
+   * server truth or StartExecution refuses. NEVER used to build actionRef.
    */
   confirmationMatch?: {
     repositoryRef?: string;
