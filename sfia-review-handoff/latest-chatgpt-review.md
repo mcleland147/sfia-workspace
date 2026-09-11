@@ -160,6 +160,16 @@ message: fix(sfia-studio): close GCEC authority and lifecycle proof gaps
 ## PRODUCT PUSH
 NONE
 
+## REVIEW HANDOFF
+SHA: db50e738992ced03c62069ba0672ed9787d9ebc9
+parent: f3d3dd9c15a27705c3ab47a211f15ee291e9d070
+blob: 61663df7e20548467788ba7bd7aecf49991afa15
+source blob: 61663df7e20548467788ba7bd7aecf49991afa15
+blob equality: PASS
+branch: sfia/review-handoff
+mode: publish-in-cycle
+
+
 ## PROOF REPO
 NOT CREATED
 
