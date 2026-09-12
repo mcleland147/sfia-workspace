@@ -31,6 +31,10 @@ import { M4_BOUNDED_DOCS_WRITE_ACTION } from "./m4BoundedDocsWriteCursorAgent";
 import { M4_BOUNDED_LOCAL_COMMIT_ACTION } from "./m4BoundedLocalCommitCursorAgent";
 import { isBoundedGitCommitOnlySlice } from "../domain/verifyLocalCommitFacts";
 import { buildGitCommitLaunchSpec } from "../domain/gitCommitLaunchSpec";
+import {
+  buildMutatingCursorConfinementEnv,
+  isMutatingGcecCursorProfile,
+} from "./mutatingCursorConfinementEnv";
 
 function buildBoundedLocalCommitInstruction(input: {
   readonly spec: NonNullable<RealLaunchRequest["gitCommitSpec"]>;
@@ -482,6 +486,22 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
           instruction,
         ];
 
+    // D-GCEC-CONF-02A: mutating A+B get shared server-owned env confinement.
+    // RO / other profiles keep minimal non-mutating spawn env (no auth strip).
+    // Prompt forbids remain defense-in-depth — NOT the technical authority boundary.
+    // This does NOT prove remote-write impossibility; live re-preflight required.
+    const childEnv = isMutatingGcecCursorProfile({
+      isDocsWrite,
+      isLocalCommitProfile,
+    })
+      ? buildMutatingCursorConfinementEnv(this.env)
+      : {
+          ...this.env,
+          [SFIA_STUDIO_CURSOR_REAL_FLAG]: "1",
+          GIT_TERMINAL_PROMPT: "0",
+          GCM_INTERACTIVE: "Never",
+        };
+
     try {
       const invoked = await this.runner.invoke({
         attemptId: request.attemptId,
@@ -489,13 +509,7 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
         cwd: workspacePath,
         argv,
         timeoutMs: request.timeoutMs,
-        env: {
-          ...this.env,
-          [SFIA_STUDIO_CURSOR_REAL_FLAG]: "1",
-          // Defense-in-depth only — not the authority boundary.
-          GIT_TERMINAL_PROMPT: "0",
-          GCM_INTERACTIVE: "Never",
-        },
+        env: childEnv,
       });
 
       if (!invoked.realProcessInvoked) {

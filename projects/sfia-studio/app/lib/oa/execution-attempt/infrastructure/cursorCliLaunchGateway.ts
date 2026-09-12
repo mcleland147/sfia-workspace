@@ -13,6 +13,11 @@ export {
   type StudioCursorRealLaunchGatewayOptions,
 } from "./studioCursorRealLaunchGateway";
 export {
+  buildMutatingCursorConfinementEnv,
+  isMutatingGcecCursorProfile,
+  MUTATING_CURSOR_STRIPPED_ENV_KEYS,
+} from "./mutatingCursorConfinementEnv";
+export {
   NodeCursorProcessRunner,
   NODE_CURSOR_STDOUT_CAP_BYTES,
   NODE_CURSOR_STDERR_CAP_BYTES,
