@@ -1,13 +1,12 @@
 # SFIA STUDIO — GCEC
-## GCEC-REAL-A2B-READINESS-01
-## BOUNDED REAL A→B READINESS QUALIFICATION
-## TRUSTED-BUT-GOVERNED EXECUTOR MODEL
-## NO GCEC BUSINESS REAL — NO PRODUCT MUTATION — NO PROOF-REPO MUTATION
+## D-GCEC-REAL-01 — ONE BOUNDED REAL A→B GOVERNANCE CAMPAIGN
+## PARTIAL STOP — A VERIFIED / B LAUNCH FAILED
+## NO RETRY — NO PROOF-REPO PUSH — NO PRODUCT SOURCE MUTATION
 
-TIMESTAMP: 2026-09-12T11:27:08Z
+TIMESTAMP: 2026-09-12T12:14:07Z
 
 CYCLE:
-10 — Security / RSSI
+8 — Delivery / implémentation
 
 TYPE:
 EVOL
@@ -16,455 +15,471 @@ PROFILE:
 CRITICAL
 
 GO MORRIS:
-GCEC-REAL-A2B-READINESS-01 CONSUMED
+D-GCEC-REAL-01 GO REAL CONSUMED
 
 AUTHORIZATION:
-READINESS ONLY / NO GCEC REAL
+ONE FRESH BOUNDED A→B CAMPAIGN ONLY
 
 ---
 
-## GIT TRUTH
+## GIT TRUTH BEFORE
 
-Worktree: `/Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310`
-Branch: `delivery/sfia-studio-product-proof-qual-to-governed-cycle`
-
-LOCAL PRODUCT HEAD:
+PRODUCT HEAD:
 `645ec7e0c24626799382b07bdf90de918cefb0eb`
 
-LOCAL PARENT:
+PARENT:
 `6e42c4f069cbe2af7eb6ffe47e3df41d199972cc`
 
 origin/main:
 `a9f6c310a0826d0e5bd6f7264603382a86564db1`
 
 INPUT HANDOFF:
-`727bbd433f17b02b287b06333b3661965c9d09b5`
+`8b2a9820315e47398ba77dcec10e97e2e32cf90d`
 
-Product application working tree: CLEAN
-`.tmp-sfia-review/**`: dirty expected (review artifacts only)
+Product application/source: CLEAN
 
 ---
 
 ## SOURCES
 
-Read/consumed:
-- prompts/templates/sfia-cycle-execution-template.md (operating pattern)
-- method/sfia-fast-track/core/{sfia-cycle-routing-guide,sfia-chatgpt-cursor-operating-model,sfia-rules-and-guardrails}.md
-- method capitalization + fifteen-cycles synthetic map (Cycle 10 Security framing)
-- Build Doctrine / Roadmap / Product Completion / v3 framing 34–35
-- Input handoff tip `727bbd43…` (D-GCEC-EXEC-01 documentary commit)
-- CURRENT LOCAL GCEC implementation under `projects/sfia-studio/app/lib/oa/execution-attempt/**` + REAL harnesses + Cont01/Agent01/Evidence/CONF-02A tests
+Method/template/Build Doctrine/Roadmap/Product Completion/v3 framing 34–35 + readiness handoff + unique harness:
+`projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealSameEcCommit.real.d0.test.ts`
+(exactly one authoritative candidate)
 
 ---
 
 ## CONVERGENCE PRE-CHECK
 
-Build Doctrine: VALIDATED / ACTIVE
-Roadmap: VALIDATED / ACTIVE LIVING
-Local Roadmap truth: D-GCEC-EXEC-01 locally committed @ `645ec7e0…`
-Product Completion: COMPLETE / CLOSED
-C1: VALIDATED / INTEGRATED
-Runtime v3: NON ADOPTED
-D-GCEC-09: ACTIVE — Cursor remains governed Project mutation executor
-D-GCEC-15: ACTIVE — one EC / multiple Attempts
-D-GCEC-CONT-01: ACTIVE
-D-GCEC-AGENT-01: ACTIVE
-D-GCEC-EXEC-01: ACTIVE — TRUSTED-BUT-GOVERNED
-D-GCEC-EVID-01: ACCEPTED NON-BLOCKING
+Build Doctrine VALIDATED/ACTIVE · Roadmap VALIDATED/ACTIVE LIVING · D-GCEC-EXEC-01 @ `645ec7e0…` · Product Completion COMPLETE/CLOSED · C1 VALIDATED/INTEGRATED · runtime v3 NON ADOPTED · D-GCEC-09…15 / CONT-01 / AGENT-01 / EXEC-01 ACTIVE · EVID-01 ACCEPTED NON-BLOCKING
 
 ---
 
-## D-GCEC-EXEC-01 TRUST MODEL
+## TRUSTED-BUT-GOVERNED MODEL
 
-Applied as binding readiness bar.
-
-TECHNICAL CAPABILITY ≠ EXECUTION AUTHORITY.
-
-Readiness does **not** require universal secret unreadability, isolated HOME, or technical impossibility of network/gh/git push.
-
-Readiness **does** require:
-1. contract does not authorize protected effects beyond intended Attempt
-2. current AuthorizedExecutionSlice/profile contains only intended effects
-3. runtime does not promote technical availability into authority
-4. future proof independently observes forbidden/protected effects
-5. unauthorized effect occurrence → FAIL/STOP
-
-CONF-02A remains KEEP / targeted defense-in-depth / non-universal.
-Ephemeral HOME remains CONDITIONAL / non-universal.
-Alternate executor remains FREEZE / escalation only.
+D-GCEC-EXEC-01 applied. TECHNICAL CAPABILITY ≠ EXECUTION AUTHORITY. Unauthorized actual effect = FAIL. Capability alone ≠ FAIL.
 
 ---
 
-## PROOF REPOSITORY TRUTH
+## REAL GATES USED
 
-Target: `mcleland147/sfia-gcec-proof-task-manager`
+Scoped to single command environment only (not ambient shell export):
+- `SFIA_STUDIO_CURSOR_REAL=1`
+- `SFIA_GCEC_CURSOR_REAL_PROOF=1`
+- `SFIA_GCEC_CURSOR_REAL_COMMIT_PROOF=1`
+- `SFIA_GCEC_MANAGED_REPO_BASE=/tmp/sfia-gcec-real-01-managed.Bt0Z72`
 
-Read-only `git ls-remote` (no fetch into Product; no push):
-
-- REMOTE_MAIN_SHA / HEAD: `32c7c2008197e5c61b32c16479144e9863291358`
-- Heads: only `refs/heads/main` @ same SHA
-- Tags: none
-
-Matches expected historical bootstrap SHA exactly.
-PROOF REPOSITORY BASE: QUALIFIED / UNCHANGED vs bootstrap.
+Ambient shell gates remained unset after run.
 
 ---
 
-## PROJECT/REPO BINDING
+## REAL HARNESS EXACT PATH
 
-Historical Project id from prior REAL docs-write forensic facts: `prj:gcec-real-docs-1`
-Historical binding identity: `mcleland147/sfia-gcec-proof-task-manager`
-
-Durable local Product store inspected RO:
-- `projects/sfia-studio/.sfia-exec/local-i1/state/d1.sqlite` → `d1_projects` count = **0**
-
-PROJECT_BINDING_FOUND=no (durable)
-PROJECT_BINDING_REPO_MATCH=n/a (no durable row)
-PROJECT_BINDING_CURRENTLY_USABLE=yes — via **fresh** `createProject` + managed-repo bind already supported by Product/REAL harness (no new schema/architecture)
-
-Reuse of stale historical Attempt identity: **FORBIDDEN** (fresh Cycle/EC/A/B required).
-Historical prior docs-write evidence: supporting provenance only.
+`projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealSameEcCommit.real.d0.test.ts`
 
 ---
 
-## FRESH-LINEAGE STRATEGY
+## MANAGED REPO BASE
 
-Future REAL campaign MUST:
-1. create fresh Project (or equivalent supported binding) → bind proof identity
-2. fresh Cycle / ExecutionContract lineage (functional-design path already harnessed)
-3. Attempt A = docs-write (`agt:m4.cursor.bounded_docs_write`)
-4. verify A → VERIFIED Artifact Evidence; retain worktree
-5. Attempt B = NEW Attempt under SAME EC = local commit (`agt:m4.cursor.bounded_local_commit`)
-6. Cont01 resume exact prior-A workspace lineage (server-derived; no heuristic latest)
-7. observe/verify local commit → Evidence B
-8. remote ls-remote heads/tags BEFORE/AFTER equal
+`/tmp/sfia-gcec-real-01-managed.Bt0Z72`
 
-No lineage created in this readiness cycle.
+Clone path: `/tmp/sfia-gcec-real-01-managed.Bt0Z72/mcleland147__sfia-gcec-proof-task-manager` @ `32c7c200…`
+
+### PRECHECK NOTE
+
+First harness invocation exited at PRECHECK (`managed clone missing`) with **no Cursor REAL process**, **no Attempt A/B**, **no proof-repo mutation**.
+Authorized remediation under GO §9: local read-only clone into managed base, then **ONE** REAL campaign execution (this report).
+No REAL retry after A/B failure was performed.
 
 ---
 
-## ATTEMPT A READINESS
+## PROOF REPO REMOTE BEFORE
 
-Agent: `agt:m4.cursor.bounded_docs_write`
-Capability/action/target/scope: `cap:cursor.docs_write` / `cursor.docs_write.apply` / `workspace.isolated.docs_write` / `studio.gcec.docs_write`
-Adapter: `adp:m4-cursor-cli-real`
-Canonical artifact path: `docs/functional-design.md`
-
-Verified:
-- descriptor exists and is registry-seeded
-- slice/profile server-derived; client cannot widen target/scope/effects
-- managedRepoRoot not EC-client-controlled; resolver uses Project binding + `SFIA_GCEC_MANAGED_REPO_BASE`
-- A authorizes filesystem write only (no git.commit / push / PR / merge)
-- A success does not complete EC when commit remains outstanding (D-GCEC-15)
-- Artifact Evidence path exists (`ingestDocsWriteArtifactEvidence` / independent worktree observation)
-- CONF-02A mutating env applied on REAL gateway launch (defense-in-depth)
-- Cursor auth operates under CURRENT gateway-compatible environment (see Cursor readiness)
-
-Status: **READY**
-A REAL: **NOT RUN**
+```
+32c7c2008197e5c61b32c16479144e9863291358	refs/heads/main
+```
+Tags: none
 
 ---
 
-## ATTEMPT B READINESS
+## FRESH PROJECT ID
+`prj:gcec-commit-ab-1`
 
-Agent: `agt:m4.cursor.bounded_local_commit`
-Capability/action/target/scope: `cap:cursor.git.local_commit` / `cursor.git.local_commit.apply` / `workspace.isolated.git.local_commit` / `studio.gcec.git.local_commit`
+## REPOSITORY BINDING
+`mcleland147/sfia-gcec-proof-task-manager` · baseSha `32c7c200…` · pathRoot `docs`
 
-Verified:
-- B is a NEW Attempt under SAME EC after VERIFIED A
-- profile recomputed at StartExecution; docs-write agent rejected for commit-only slice
-- Cont01 requires exact priorAttemptId + VERIFIED Evidence + workspace resume
-- GitCommitLaunchSpec server-built (parent/paths/message); Studio does not trust Cursor narrative
-- observeLocalCommitFacts → verifyLocalCommitEffect → Evidence
-- forged observation / trustCursorReportOnly rejected
-- commit is LOCAL only; push/PR/merge not B effects
+## FRESH CYCLE ID
+`cyc:trj-c9806a26b5507b17a84cecaa` · status **active**
 
-Status: **READY**
-B REAL: **NOT RUN**
+## EXECUTION CONTRACT ID
+`xct:m3-res:dec:f2:8f482c8e-a2ca-415c-bc30-42854e4bb6a8` · status after A: **confirmed**
 
 ---
 
-## CONT-01 READINESS
+## ATTEMPT A ID
+`xat:gcec-commit-a:xct:m3-res:dec:f2:8f482c8e-a2ca-415c-bc30-42854e4bb6a8`
 
-`resolvePreCommitWorkspaceContinuation` / `resumeVerifiedWorkspace`:
-- server-derived execRoot / priorAttemptId
-- Evidence+Attempt based; no free workspace path
-- ambiguity fail-closed; no heuristic latest/first
-- FS→SHA supersession lineage-strict
-- no new persistence required
+## ATTEMPT A AGENT
+`agt:m4.cursor.bounded_docs_write`
 
-Historical prior worktree path from docs-write facts: **does not exist** on disk now (`HIST_WT_EXISTS=no`).
-Fresh EC cannot select stale worktree heuristically.
+## ATTEMPT A AUTHORIZED SLICE
+docs-write only · action `cursor.docs_write.apply` · target `workspace.isolated.docs_write` · scope `studio.gcec.docs_write` · constraints include NO_COMMIT / NO_PUSH / NO_PR / NO_MERGE
 
-Status: **READY**
+## ATTEMPT A STATUS
+**succeeded** · technicalExitCode 0 · durationMs ≈36673 · processRef `pid:87187` · realProcessInvoked true
+
+## A ARTIFACT PATH
+`docs/functional-design.md`
+
+## A ARTIFACT DIGEST / BYTES
+`sha256:d6945c5478c695ee840147b10f7631f96eeb830ca25e1703dbe6a9afa4c38a73` · **6951** bytes
+
+## A WORKTREE GIT FACTS (no commit by A)
+- HEAD = `32c7c2008197e5c61b32c16479144e9863291358`
+- status porcelain: `?? docs/`
+- clone HEAD unchanged at base; clone lacks target file
+
+## A FULL ARTIFACT CONTENT
+
+```markdown
+# Task Manager — Functional Design
+
+## Purpose
+
+Define the functional behaviour of a single-user task manager: create, list, filter, edit, and change the status of tasks. This document covers observable behaviour and acceptance criteria only.
+
+## In scope
+
+- Task data fields and allowed statuses
+- Flows: create, list, filter by status, edit, change status
+- Validation rules for title, status, and due date
+- Observable, testable acceptance criteria for those flows
+
+## Out of scope
+
+- Authentication and authorization
+- Multi-user collaboration
+- Notifications
+- Architecture, database, API, or framework choices
+- Pixel-level UX / visual design
+
+## Task model
+
+| Field         | Required | Description                                      |
+|---------------|----------|--------------------------------------------------|
+| Identifier    | Yes      | Unique identity of the task                      |
+| Title         | Yes      | Mandatory non-blank name of the task             |
+| Description   | No       | Optional free-text details                       |
+| Status        | Yes      | One of the defined statuses below                |
+| Due date      | No       | Optional date by which the task should be done   |
+
+### Statuses
+
+Only these values are allowed:
+
+- `TODO`
+- `IN_PROGRESS`
+- `DONE`
+
+## Business rules
+
+1. **Title**: must be present and non-blank (after trimming whitespace). A blank or whitespace-only title is refused.
+2. **Status**: must be exactly one of `TODO`, `IN_PROGRESS`, or `DONE`. Any other value is refused.
+3. **Due date**: optional; when omitted, the task has no due date.
+4. **Description**: optional; when omitted, the task has no description.
+5. **Identifier**: assigned and stable for the life of the task; used to address the task in edit and status-change flows.
+
+## Flows
+
+### 1. Create task
+
+**Actor intent:** Add a new task.
+
+**Inputs:**
+
+- Title (mandatory)
+- Description (optional)
+- Due date (optional)
+- Status (optional on create; if omitted, defaults to `TODO`)
+
+**Behaviour:**
+
+- If title is blank or whitespace-only → refuse creation; no task is created.
+- If status is provided and not in the defined set → refuse creation; no task is created.
+- On success → a new task exists with a unique identifier, the given title, optional description and due date, and status `TODO` (or the provided valid status).
+
+### 2. List tasks
+
+**Actor intent:** See all tasks.
+
+**Behaviour:**
+
+- Returns the full set of existing tasks.
+- Each listed task exposes identifier, title, description (if any), status, and due date (if any).
+
+### 3. Filter by status
+
+**Actor intent:** See only tasks with a given status.
+
+**Inputs:**
+
+- Status filter value (`TODO`, `IN_PROGRESS`, or `DONE`)
+
+**Behaviour:**
+
+- If the filter value is not in the defined set → refuse the filter operation (or treat as invalid input); do not return an ambiguous partial result presented as success.
+- On success → returns only tasks whose status equals the filter value.
+- Tasks with other statuses are excluded.
+
+### 4. Edit task
+
+**Actor intent:** Change mutable fields of an existing task (title, description, due date). Status change may be done here or via the dedicated flow below; either way the same status rules apply.
+
+**Inputs:**
+
+- Identifier of the task
+- Updated title and/or description and/or due date (and optionally status)
+
+**Behaviour:**
+
+- If no task matches the identifier → refuse; no changes applied.
+- If the new title is blank or whitespace-only → refuse; existing task unchanged.
+- If a new status is supplied and not in the defined set → refuse; existing task unchanged.
+- On success → the task reflects the accepted field updates; identifier remains unchanged.
+
+### 5. Change status
+
+**Actor intent:** Move a task to another allowed status.
+
+**Inputs:**
+
+- Identifier of the task
+- Target status (`TODO`, `IN_PROGRESS`, or `DONE`)
+
+**Behaviour:**
+
+- If no task matches the identifier → refuse; no changes applied.
+- If target status is not in the defined set → refuse; existing status unchanged.
+- On success → the task’s status equals the target status; other fields remain unchanged.
+
+## Acceptance criteria
+
+Criteria are observable and testable against the flows above.
+
+### Create task
+
+- **AC-C1:** Given a non-blank title, when a task is created, then a task exists with that title, a unique identifier, and status `TODO` (unless another valid status was supplied).
+- **AC-C2:** Given a blank or whitespace-only title, when creation is attempted, then creation is refused and the task count is unchanged.
+- **AC-C3:** Given an optional description and/or due date, when a task is created successfully, then those values are stored and visible on the task; when omitted, the task has no description / no due date.
+- **AC-C4:** Given an invalid status on create, when creation is attempted, then creation is refused and no task is created.
+
+### List tasks
+
+- **AC-L1:** Given zero or more existing tasks, when listing, then every existing task appears exactly once with identifier, title, status, and optional description and due date.
+
+### Filter by status
+
+- **AC-F1:** Given tasks in mixed statuses, when filtering by `TODO` (resp. `IN_PROGRESS`, `DONE`), then only tasks with that status are returned.
+- **AC-F2:** Given an invalid status filter value, when filtering is attempted, then the operation is refused (invalid input), not treated as a successful empty or partial list of “valid” results under a false status.
+
+### Edit task
+
+- **AC-E1:** Given an existing task identifier and a non-blank new title, when edited, then the task shows the new title and unchanged identifier.
+- **AC-E2:** Given an existing task, when description and/or due date are updated (including clearing an optional field if supported by the product), then the listed task reflects those updates.
+- **AC-E3:** Given a blank or whitespace-only title on edit, when edit is attempted, then the edit is refused and the task is unchanged.
+- **AC-E4:** Given an unknown identifier, when edit is attempted, then the edit is refused.
+
+### Change status
+
+- **AC-S1:** Given an existing task and a target status in `{TODO, IN_PROGRESS, DONE}`, when status is changed, then the task’s status equals the target and other fields are unchanged.
+- **AC-S2:** Given a target status outside the defined set, when status change is attempted, then the change is refused and the previous status remains.
+- **AC-S3:** Given an unknown identifier, when status change is attempted, then the change is refused.
+
+## Summary
+
+The task manager manages tasks with identifier, mandatory title, optional description, status (`TODO` | `IN_PROGRESS` | `DONE`), and optional due date. Users can create, list, filter by status, edit, and change status, subject to blank-title refusal and status-set validation. Authentication, multi-user features, notifications, and technical/UX implementation details are out of scope.
+```
+
+## EVIDENCE A ID / TYPE / STATUS
+`ev:docs-write:xat:gcec-commit-a:xct:m3-res:dec:f2:8f482c8e-a2ca-415c-bc30-42854e4bb6a8` · type **artifact** · status **verified**
+bindings: project/cycle/EC/Attempt A exact
+
+## EC STATUS AFTER A
+**confirmed** (not falsely completed; git.commit still outstanding)
 
 ---
 
-## AGENT-01 READINESS
+## CONT-01 EXACT LINEAGE
 
-- A selectedAgentRef must be docs-write compatible
-- B selectedAgentRef must be local-commit compatible
-- StartExecution recomputes current slice/profile
-- stale/hostile claimedRequestedAgentRef fails or is ignored
-- no broad composite docs-write+commit agent required
-- EC not rewritten merely to change executor
+Intended:
+- SAME EC `xct:m3-res:dec:f2:8f482c8e-a2ca-415c-bc30-42854e4bb6a8`
+- priorAttemptId = Attempt A
+- A succeeded + Evidence A VERIFIED
+- worktree retained at:
+  `/var/folders/b9/5c00r70d7_l8kjth6vpfmn8m0000gn/T/gcec-real-commit-ddTvsi/m4-worktrees/wt-3887970db3ae97ce027d390a`
+- expected pre-commit HEAD `32c7c200…`
 
-Status: **READY**
+Observed at B StartExecution launch:
+- Attempt B accepted with `agt:m4.cursor.bounded_local_commit`
+- Gate D grant for B consumed
+- REAL launch **rejected** before Cursor process:
+  `REAL_LAUNCH_FAILED: REAL_WORKSPACE_INVALID:worktree_unregistered`
+
+Forensic note (read-only): `StudioGitWorktreeWorkspace.resumeVerifiedWorkspace` requires the derived prior-Attempt workspace path to appear in `git worktree list --porcelain` for the managed repo root. Failure occurred at that registration check. Physical worktree + artifact still present and retained for review (`POST_LAUNCH_FAILURE_PRESERVED`).
+
+No heuristic latest Attempt used. No second EC. No second REAL B Attempt. No retry.
 
 ---
 
-## GOVERNED EFFECT MATRIX
+## ATTEMPT B ID
+`xat:gcec-commit-b:xct:m3-res:dec:f2:8f482c8e-a2ca-415c-bc30-42854e4bb6a8`
 
-| Effect | Attempt A | Attempt B |
+## ATTEMPT B AGENT
+`agt:m4.cursor.bounded_local_commit`
+
+## ATTEMPT B AUTHORIZED SLICE
+Intended: local git.commit only (selectedAgentRef correct). Launch never reached Cursor.
+
+## ATTEMPT B STATUS
+**accepted** (terminal launch failure; remains accepted; **not** running/succeeded)
+stopReason: `REAL_LAUNCH_FAILED: REAL_WORKSPACE_INVALID:worktree_unregistered`
+processRefB: null · realProcessInvoked for B: **false**
+
+## LOCAL COMMIT SHA
+NONE — commit not performed
+
+## LOCAL COMMIT PARENT
+N/A
+
+## LOCAL COMMIT MESSAGE
+N/A (expected would have been `docs: add task manager functional design`)
+
+## LOCAL COMMIT FILESET
+N/A
+
+## LOCAL COMMIT NUMSTAT
+N/A
+
+## LOCAL COMMIT FULL DIFF
+N/A
+
+## EVIDENCE B ID / TYPE / STATUS
+NONE
+
+## EC FINAL STATUS
+**confirmed** (still open for outstanding git.commit; B did not complete)
+
+---
+
+## CURSOR REAL LAUNCH COUNTS
+- Attempt A REAL launches: **1** (succeeded)
+- Attempt B REAL launches: **0** (rejected pre-process)
+
+## RETRY COUNTS
+REAL campaign retries after A/B failure: **0**
+Extra A Attempts: **0**
+Extra B Attempts: **0** (B identity exists once; launch failed once; not re-attempted)
+
+---
+
+## EFFECT MATRIX — AUTHORIZED VS OBSERVED
+
+| Effect | A | B |
 | --- | --- | --- |
-| filesystem read | ALLOWED_SUPPORTING | ALLOWED_SUPPORTING |
-| filesystem write | REQUIRED (bounded path) | ALLOWED_SUPPORTING (pre-commit worktree) |
-| git status/read | ALLOWED_SUPPORTING | REQUIRED (observe) |
-| git commit | PROTECTED_NOT_AUTHORIZED | REQUIRED (local only) |
-| git push | PROTECTED_NOT_AUTHORIZED | PROTECTED_NOT_AUTHORIZED |
-| GitHub API mutation | PROTECTED_NOT_AUTHORIZED | PROTECTED_NOT_AUTHORIZED |
-| PR create/update | PROTECTED_NOT_AUTHORIZED | PROTECTED_NOT_AUTHORIZED |
-| merge | PROTECTED_NOT_AUTHORIZED | PROTECTED_NOT_AUTHORIZED |
-| branch delete | PROTECTED_NOT_AUTHORIZED | PROTECTED_NOT_AUTHORIZED |
-| tag | PROTECTED_NOT_AUTHORIZED | PROTECTED_NOT_AUTHORIZED |
-| remote resource mutation | PROTECTED_NOT_AUTHORIZED | PROTECTED_NOT_AUTHORIZED |
+| filesystem read | AUTHORIZED + OBSERVED | AUTHORIZED + NOT OBSERVED (no launch) |
+| filesystem write | AUTHORIZED + OBSERVED (`docs/functional-design.md`) | AUTHORIZED + NOT OBSERVED |
+| git status/read | ALLOWED_SUPPORTING + OBSERVED | REQUIRED + NOT OBSERVED |
+| git commit | PROTECTED + UNCHANGED | REQUIRED + NOT OBSERVED |
+| git push | PROTECTED + UNCHANGED | PROTECTED + UNCHANGED |
+| GitHub API mutation | PROTECTED + UNCHANGED | PROTECTED + UNCHANGED |
+| PR | PROTECTED + UNCHANGED | PROTECTED + UNCHANGED |
+| merge | PROTECTED + UNCHANGED | PROTECTED + UNCHANGED |
+| branch delete | PROTECTED + UNCHANGED | PROTECTED + UNCHANGED |
+| tag | PROTECTED + UNCHANGED | PROTECTED + UNCHANGED |
+| remote resource mutation | PROTECTED + UNCHANGED | PROTECTED + UNCHANGED |
 
-Principle: technical availability ≠ authority; unauthorized observed effect = FAIL.
-
-Status: **READY**
+No unauthorized protected effect observed.
 
 ---
 
-## REMOTE ANTI-EFFECT READINESS
+## PROOF REPO REMOTE AFTER
 
-Harness `gcecCursorRealSameEcCommit.real.d0.test.ts` implements `captureRemoteRefSnapshot` via:
-- `git ls-remote --heads`
-- `git ls-remote --tags`
+```
+32c7c2008197e5c61b32c16479144e9863291358	refs/heads/main
+```
+Tags: none
 
-BEFORE A and AFTER B compared for equality (heads/tags/main).
-Independent of Cursor self-report (CR-GCEC-AGENT-10).
+## REMOTE BEFORE/AFTER EQUALITY
+**EQUAL** (heads + tags)
 
-Status: **READY** (harness-level; not a Product Gate D service — forensic obligation of future REAL GO)
-
----
-
-## LOCAL COMMIT VERIFICATION READINESS
-
-Future B verification establishes:
-commit exists locally; exact repo/worktree; exact parent; exact fileset; Artifact lineage; SHA; no extra file; remote refs unchanged.
-
-Owned by governed Git observation + `verifyLocalCommitEffect`, not Cursor narrative.
-
-Status: **READY**
-
----
-
-## EVIDENCE READINESS
-
-D-GCEC-EVID-01 disposition: ACCEPTED NON-BLOCKING (adapter compatibility reserve not reopened).
-
-Local-commit path still owns observe → verify → Evidence.
-Caller cannot submit authoritative observed SHA/parent/fileset/remote-state as trusted client input (`local_git_forged_observation_rejected`).
-
-Status: **READY**
-
----
+## PRODUCT SOURCE AFTER
+HEAD still `645ec7e0…` · origin/main still `a9f6c310…` · Product application/source unchanged
 
 ## SECRET HYGIENE
+No credential dumps. Artifact secret-pattern scan: **none**. No secrets observed in Evidence IDs / Review Pack content.
 
-Under trusted-but-governed model:
-- no intentional secret emission into ExecutionReport / Evidence / ReviewBundle / git commit content / Review Pack
-- readiness did not request credential contents
-- no credential rotation/logout/login
-- CONF-02A strips mutating Cursor env injection vectors (SSH/GH tokens/askpass/GIT_CONFIG_*) as defense-in-depth
-
-Status: **READY** (secret *access* alone ≠ failure)
+## UNEXPECTED EFFECTS
+NONE unauthorized. Expected protected remote effects unchanged. B launch failure is a governed reject, not an unauthorized effect.
 
 ---
 
-## CURSOR CLI/AUTH READINESS
+## REAL DOCS-WRITE CLAIM
+**PROVEN in this campaign** (Attempt A succeeded + Artifact Evidence VERIFIED + independent worktree observation).
 
-CURSOR_CLI_VERSION: `2026.09.10-fd3934a` (`/Users/morris/.local/bin/cursor-agent`)
-CURSOR_AUTH_READY: **yes** (status reports logged in as `m.cleland@live.fr`; no login performed)
-CURSOR_MINIMAL_LAUNCH_READY: **yes**
+## REAL git.commit CLAIM
+**NOT PROVEN** (B did not launch / no local commit / no Evidence B).
 
-Harmless /tmp ask-mode probe:
-- dir: `/tmp/gcec-a2b-readiness-probe.faCNrs`
-- command: `cursor-agent -p --mode ask --trust` fixed marker reply
-- output exact: `GCEC_A2B_READINESS_PROBE_OK`
-- RC=0
-- Product/proof/GitHub: untouched
+## REAL_CONTINUATION_GAP DISPOSITION
+**REMAINS OPEN** — same-EC Cont01 resume failed at worktree registration check for B; A→B continuation not proven.
 
-This probe ≠ Product GCEC REAL.
-
----
-
-## FOCUSED TESTS
-
-Command (from `projects/sfia-studio/app`, REAL gates unset):
-`npm test --` Cont01×3 + Agent01×2 + GitCommit×5 + CONF-02A + Cr23 + D15 + MonolithicE2e + Real harness encode-only×2
-
-Result: **16 files passed** · **219 passed | 2 skipped** · Duration ~3.59s
-Artifact: `.tmp-sfia-review/gcec-a2b-readiness-focused.out`
-
-REAL bodies skipped (gates OFF) as required.
-
----
-
-## FULL VALIDATION
-
-| Gate | Result |
-| --- | --- |
-| typecheck (`tsc --noEmit`) | PASS |
-| lint (`next lint`) | PASS — No ESLint warnings or errors |
-| build (`next build`) | PASS |
-| full vitest (`npm test`) | **352 passed | 17 skipped** files · **3784 passed | 137 skipped** tests · ~39.47s |
-
-REAL gates remained unset throughout.
-Artifacts: `.tmp-sfia-review/gcec-a2b-readiness-{typecheck,lint,build,full-vitest}.out`
-
----
-
-## REAL HARNESS GATING
-
-CURRENT gate names:
-- `SFIA_STUDIO_CURSOR_REAL` (product REAL enable; default OFF)
-- `SFIA_GCEC_CURSOR_REAL_PROOF` (docs-write harness)
-- `SFIA_GCEC_CURSOR_REAL_COMMIT_PROOF` (A→B commit harness; requires all three = `1`)
-- `SFIA_GCEC_MANAGED_REPO_BASE` (managed clone base; required for REAL)
-
-Default: OFF / unset.
-This readiness cycle did **not** activate them.
-Ordinary vitest does not execute REAL bodies.
-Proof target identity is explicit in harness (`mcleland147/sfia-gcec-proof-task-manager` @ BASE_SHA) — not a silent dangerous default to arbitrary repos.
-
-Status: **OFF / READY**
-
----
-
-## FUTURE REAL CAMPAIGN PLAN
-
-**(PLAN ONLY — NOT EXECUTED)**
-
-1. Distinct Morris GO REAL with explicit env activation + managed base.
-2. Project/binding: fresh `createProject` + bind `mcleland147/sfia-gcec-proof-task-manager` (do not reuse stale Attempt ids).
-3. Fresh Cycle/EC via existing functional-design Product path (as encoded in `gcecCursorRealSameEcCommit.real.d0.test.ts`).
-4. Attempt A effect: docs-write → `docs/functional-design.md`
-5. A agent: `agt:m4.cursor.bounded_docs_write`
-6. Verify A + VERIFIED Artifact Evidence; retain worktree; EC remains open.
-7. Attempt B effect: local `git.commit` exact authorized fileset; message from trusted artifactBrief (`docs: add task manager functional design` harness canonical).
-8. B agent: `agt:m4.cursor.bounded_local_commit`
-9. Cont01 same-EC workspace continuity.
-10. observe/verify B → Evidence B (commit SHA canonical).
-11. Remote anti-effect: ls-remote heads/tags BEFORE A / AFTER B equal @ `32c7c200…`.
-12. Campaign ReviewBundle/Evidence; no push/PR/merge.
-
-Preferred single coherent fresh A→B campaign (no unnecessary micro-cycle split).
-
----
-
-## FUTURE STOP CONDITIONS
-
-Future REAL GO stops on:
-Project/repo mismatch; remote base unexpected drift; EC mismatch; Attempt lineage mismatch; incorrect selectedAgentRef; incorrect AuthorizedExecutionSlice; unverified A Evidence; workspace ambiguity; unexpected fileset/parent; unauthorized protected effect; remote refs changed; secret leakage into durable evidence/log/Git; verification conflict; Cursor/auth failure; Evidence integrity failure beyond accepted EVID-01 reserve.
-
-No automatic workaround.
-
----
-
-## READINESS HARD BAR MATRIX (§25)
-
-| # | Requirement | Status |
-| --- | --- | --- |
-| 1 | local Product truth exact | PASS |
-| 2 | Product code clean | PASS |
-| 3 | Project/repo binding usable | PASS (fresh create supported) |
-| 4 | proof repo baseline qualified | PASS (`32c7c200…`) |
-| 5 | A docs-write path ready | PASS |
-| 6 | B local-commit path ready | PASS |
-| 7 | same-EC continuation ready | PASS |
-| 8 | Agent A/B profile derivation ready | PASS |
-| 9 | governed effect matrix explicit | PASS |
-| 10 | protected effects excluded from authority | PASS |
-| 11 | remote anti-effect verification ready | PASS |
-| 12 | local commit independent verification ready | PASS |
-| 13 | Evidence pipeline ready | PASS |
-| 14 | no blocking regression | PASS |
-| 15 | Cursor runtime/auth ready | PASS |
-| 16 | REAL harness gated OFF by default | PASS |
-| 17 | no new architecture/persistence required | PASS |
-| 18 | exact future campaign plan available | PASS |
-| 19 | stop conditions explicit | PASS |
-| 20 | no Product/proof mutation during readiness | PASS |
-
----
-
-## PRODUCT MUTATION
-NONE
-
-## PRODUCT COMMIT
-NONE
-
-## PRODUCT PUSH
-NONE
-
-## PR
-NONE
-
-## MERGE
-NONE
-
-## PROOF REPO MUTATION
-NONE
-
-## GCEC REAL
-NOT RUN
-
-## REAL git.commit
-NOT PROVEN
-
-## REAL_CONTINUATION_GAP
-OPEN
+## GOVERNED EXECUTOR EFFECT RESERVE DISPOSITION
+**REMAINS OPEN** — A docs-write REAL effects verified; B local-commit effect not executed.
 
 ## GCEC-PUSH
 NOT READY
 
-## GOVERNED EXECUTOR EFFECT / AUTHORITY RESERVE
-OPEN
-
 ## EVIDENCE RESERVE
 ACCEPTED NON-BLOCKING
+
+## RUNTIME V3
+NON ADOPTED
 
 ---
 
 ## DECISION REQUIRED FROM MORRIS
 
-**GO REAL** — authorize one bounded fresh A→B campaign under explicit gates —
-**OR NO-GO** / correction if Critical Review finds a blocker.
+Accept PARTIAL STOP evidence and authorize a **distinct future GO** for correction/requalification of Cont01 resume/worktree registration on REAL B,
+OR NO-GO / other disposition.
 
-This readiness outcome does **not** itself authorize REAL.
+This cycle performed **no Product source fix** and **no REAL retry**.
 
 ---
 
 ## ANTI-CLAIMS
 
-- ≠ REAL A→B PROVEN
-- ≠ REAL git.commit PROVEN
-- ≠ REAL_CONTINUATION_GAP CLOSED
-- ≠ GCEC-PUSH READY
-- ≠ GOVERNED EXECUTOR EFFECT RESERVE CLOSED
+- ≠ REAL local git.commit proven
+- ≠ REAL_CONTINUATION_GAP closed
+- ≠ GOVERNED EXECUTOR EFFECT RESERVE closed
+- ≠ GCEC-PUSH ready
 - ≠ runtime v3 ADOPTED
-- ≠ Product StartExecution REAL executed
-- ≠ proof-repo mutated
-- ≠ unlimited Cursor authority
-- ≠ universal secret isolation proven/required
-- ≠ alternate executor selected
+- ≠ Product source mutated/committed/pushed
+- ≠ proof-repo push/PR/merge/tag
+- ≠ B REAL Cursor process invoked
+- ≠ automatic retry performed
+
+---
+
+## FORENSIC ARTIFACTS RETAINED
+
+- `.tmp-sfia-review/gcec-real-01/` (remote snapshots, harness outs, artifact copy, summary)
+- `.tmp-sfia-review/gcec-cursor-real-commit-proof/{launch-frontier,reconciliation-state}.json`
+- preserved proofRoot: `/var/folders/b9/5c00r70d7_l8kjth6vpfmn8m0000gn/T/gcec-real-commit-ddTvsi` (pathsExist true at capture)
 
 ---
 
 ## FINAL VERDICT
 
-**OUTCOME A — READINESS PASS WITH RESERVE —**
-BOUNDED REAL A→B GOVERNANCE CAMPAIGN READY FOR DISTINCT MORRIS GO REAL /
-REAL git.commit STILL NOT PROVEN /
-GOVERNED EXECUTOR EFFECT RESERVE REMAINS OPEN UNTIL REAL PROOF
+**PARTIAL STOP —**
+D-GCEC-REAL-01 A VERIFIED BUT B NOT VERIFIED /
+NO RETRY PERFORMED /
+REAL_CONTINUATION_GAP REMAINS OPEN /
+GOVERNED EXECUTOR EFFECT RESERVE REMAINS OPEN.
