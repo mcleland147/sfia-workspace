@@ -74,9 +74,7 @@ export type CreateSqliteExecutionAttemptServicesOptions = {
   resolveProjectRepositoryBinding?: (
     projectId: string,
   ) => Promise<import("@/lib/oa/project").ProjectRepositoryBinding | null>;
-  listProjectEvidence?: (
-    projectId: string,
-  ) => Promise<readonly import("@/lib/oa/evidence-review").Evidence[]>;
+  listProjectEvidence?: import("../../domain/projectEvidenceList").ListProjectEvidenceFn;
 };
 
 export type SqliteExecutionAttemptServices = {
@@ -154,6 +152,7 @@ export function createSqliteExecutionAttemptServices(
     audit,
     policy,
     store,
+    options.listProjectEvidence,
   );
 
   const realBoundary = options.realBoundary;

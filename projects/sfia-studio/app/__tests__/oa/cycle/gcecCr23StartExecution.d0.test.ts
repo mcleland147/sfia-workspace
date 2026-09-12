@@ -835,14 +835,16 @@ describe("gcecCr23StartExecution — application boundary", () => {
       confirmations: [cnf],
       verifiedEffects: ["filesystem.create", "filesystem.modify"],
     });
-    expect(started.ok).toBe(true);
-    if (!started.ok) throw new Error(started.error.message);
-    const last = ctx.fakeLaunch.calls.at(-1);
-    expect(last?.authorizedEffects).toContain("git.commit");
-    expect(last?.authorizedEffects).not.toContain("filesystem.create");
-    expect(
-      ctx.fakeLaunch.calls.every((c) => c.action === M4_BOUNDED_DOCS_WRITE_ACTION),
-    ).toBe(true);
+    // D-GCEC-AGENT-01: commit-only Start without VERIFIED FS Evidence / wrong
+    // agent fails closed. Canonical Confirmation target resolution remains in
+    // C23 negatives; honest commit Start requires Evidence + local-commit agent.
+    expect(started.ok).toBe(false);
+    if (!started.ok) {
+      expect(started.error.internalCauseRef).toMatch(
+        /git_commit_agent_capability_bypass|capability|without_verified_fs_evidence|profile/i,
+      );
+    }
+    expect(ctx.fakeLaunch.calls).toHaveLength(0);
   }, 90_000);
 
   it("C23-P2 matching assertion accepted but non-authoritative (server truth wins)", async () => {
@@ -874,14 +876,15 @@ describe("gcecCr23StartExecution — application boundary", () => {
       },
       verifiedEffects: ["filesystem.create", "filesystem.modify"],
     });
-    expect(started.ok).toBe(true);
-    if (!started.ok) throw new Error(started.error.message);
-    const last = ctx.fakeLaunch.calls.at(-1);
-    expect(last?.authorizedEffects).toContain("git.commit");
-    // Assertion matched server truth but did not redefine it (repo still Project binding).
-    expect(last?.repositoryBindingIdentity ?? last?.repositoryBinding?.identity).toBe(
-      IDENTITY,
-    );
+    // Same AGENT-01 fail-closed as C23-P1 — matching assertion is never
+    // authoritative enough to bypass AttemptExecutionProfile / Evidence.
+    expect(started.ok).toBe(false);
+    if (!started.ok) {
+      expect(started.error.internalCauseRef).toMatch(
+        /git_commit_agent_capability_bypass|capability|without_verified_fs_evidence|profile/i,
+      );
+    }
+    expect(ctx.fakeLaunch.calls).toHaveLength(0);
   }, 90_000);
 
   it("H23A-N1 missing Project repository binding + crafted empty-repo Confirmation → git.commit refused", async () => {
@@ -998,7 +1001,7 @@ describe("gcecCr23StartExecution — application boundary", () => {
     expect(last?.authorizedEffects).not.toContain("github.pr.merge");
   }, 90_000);
 
-  it("H23B-P1 unique VERIFIED PR + exact merge Confirmation → merge authorized", async () => {
+  it("H23B-P1 M4 merge under progressive contract → fail closed (CR-06)", async () => {
     const ctx = await bootToConfirmedEc("h23b-p1");
     ctx.gitState.currentBranch = "feature";
     ctx.gitState.branchHeads.set(
@@ -1063,9 +1066,13 @@ describe("gcecCr23StartExecution — application boundary", () => {
         "github.pr.create",
       ],
     });
-    expect(started.ok).toBe(true);
-    if (!started.ok) throw new Error(started.error.message);
-    const last = ctx.fakeLaunch.calls.at(-1);
-    expect(last?.authorizedEffects).toContain("github.pr.merge");
+    // CORR-D-GCEC-AGENT-01 / CR-GCEC-AGENT-06 — M4 progressive contracts
+    // fail closed on unsupported merge (no contract_legacy bridge; GCEC-PUSH not ready).
+    expect(started.ok).toBe(false);
+    if (!started.ok) {
+      expect(started.error.internalCauseRef).toMatch(
+        /effect_not_supported|AGENT_CAPABILITY|capability/i,
+      );
+    }
   }, 90_000);
 });

@@ -173,6 +173,14 @@ export {
   M4_BOUNDED_DOCS_WRITE_SCOPE,
 } from "./infrastructure/m4BoundedDocsWriteCursorAgent";
 export {
+  createM4BoundedLocalCommitCursorAgentDescriptor,
+  isM4BoundedLocalCommitRealAgent,
+  M4_BOUNDED_LOCAL_COMMIT_CAPABILITY,
+  M4_BOUNDED_LOCAL_COMMIT_ACTION,
+  M4_BOUNDED_LOCAL_COMMIT_TARGET,
+  M4_BOUNDED_LOCAL_COMMIT_SCOPE,
+} from "./infrastructure/m4BoundedLocalCommitCursorAgent";
+export {
   FakeDocsWriteLaunchPort,
   listRelativeFiles,
   sha256File,
@@ -193,13 +201,69 @@ export {
   sanitizeManagedRepoIdentity,
 } from "./infrastructure/managedProjectRepositoryResolver";
 export type { ManagedRepoBindingIdentity } from "./infrastructure/managedProjectRepositoryResolver";
-export type { DocsWriteLaunchSpec } from "./ports/realExecutionLaunchPort";
 export {
-  M4_BOUNDED_RO_CURSOR_AGENT_ID,
-  M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
-  M4_REAL_GATEWAY_ADAPTER_ID,
-} from "./domain/realLaunchSafety";
-export { assertStudioCursorRealOffForTests } from "./domain/realLaunchSafety";
+  resolveAttemptExecutionProfile,
+} from "./domain/resolveAttemptExecutionProfile";
+export {
+  resolveVerifiedDocsWritePriorAttempt,
+} from "./domain/resolveVerifiedDocsWritePriorAttempt";
+export type {
+  ProjectEvidenceListResult,
+  ListProjectEvidenceFn,
+} from "./domain/projectEvidenceList";
+export {
+  availableProjectEvidence,
+  unavailableProjectEvidence,
+} from "./domain/projectEvidenceList";
+export type {
+  AttemptExecutionProfile,
+  AttemptExecutionProfileKind,
+  AttemptExecutionProfileLineage,
+  ResolveAttemptExecutionProfileInput,
+  ResolveAttemptExecutionProfileResult,
+} from "./domain/resolveAttemptExecutionProfile";
+export type {
+  VerifiedDocsWritePriorAttempt,
+  ResolveVerifiedDocsWritePriorAttemptInput,
+  ResolveVerifiedDocsWritePriorAttemptResult,
+} from "./domain/resolveVerifiedDocsWritePriorAttempt";
+export {
+  buildGitCommitLaunchSpec,
+  deriveTrustedCommitMessage,
+} from "./domain/gitCommitLaunchSpec";
+export type { GitCommitLaunchSpec } from "./domain/gitCommitLaunchSpec";
+export {
+  verifyLocalCommitFacts,
+  isBoundedGitCommitOnlySlice,
+} from "./domain/verifyLocalCommitFacts";
+export type {
+  LocalCommitVerificationInput,
+  LocalCommitVerificationResult,
+  LocalCommitArtifactCheck,
+} from "./domain/verifyLocalCommitFacts";
+export {
+  verifyLocalCommitEffect,
+  digestOf,
+  LOCAL_GIT_READONLY_TECHNICAL_REF,
+} from "./application/verifyLocalCommitEffect";
+export type {
+  VerifyLocalCommitEffectInput,
+  VerifyLocalCommitEffectResult,
+} from "./application/verifyLocalCommitEffect";
+export {
+  observeLocalCommitFacts,
+} from "./application/observeLocalCommitFacts";
+export type {
+  LocalCommitObservedFacts,
+  ObserveLocalCommitInput,
+  GovernedWorkspaceObservationContext,
+} from "./application/observeLocalCommitFacts";
+export {
+  assertShellSafeRelativePath,
+  assertShellSafeCommitSubject,
+  GIT_COMMIT_SUBJECT_MAX_LENGTH,
+} from "./domain/gitCommitLaunchSpec";
+export type { FsAnchorSupersessionInput } from "./domain/resolvePreCommitWorkspaceContinuation";
 
 import type { ClockPort } from "@/lib/oa/doctrine";
 import { FixedClock, SystemClock } from "@/lib/oa/doctrine";
@@ -321,9 +385,7 @@ export type CreateInMemoryExecutionAttemptServicesOptions = {
   /**
    * CR-GCEC-23 — Evidence list for verified PR identity (may be late-bound).
    */
-  listProjectEvidence?: (
-    projectId: string,
-  ) => Promise<readonly import("@/lib/oa/evidence-review").Evidence[]>;
+  listProjectEvidence?: import("./domain/projectEvidenceList").ListProjectEvidenceFn;
 };
 
 /** Factory for the in-memory ExecutionAttempt runtime foundation. */
@@ -368,6 +430,7 @@ export function createInMemoryExecutionAttemptServices(
     audit,
     policy,
     store,
+    options.listProjectEvidence,
   );
 
   const realBoundary =
@@ -514,6 +577,9 @@ export function createTestExecutionAttemptServices(
     adapter,
     clock,
     audit,
+    listProjectEvidence:
+      options.listProjectEvidence ??
+      (async () => ({ ok: true as const, evidence: [] as const })),
   }) as ExecutionAttemptServices & {
     audit: MemoryExecutionAttemptAuditJournal;
   };

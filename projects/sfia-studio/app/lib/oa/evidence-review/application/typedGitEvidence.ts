@@ -30,6 +30,11 @@ export type GitLocalCommitPayload = {
   commitSha: string;
   message?: string;
   parentSha?: string;
+  /**
+   * Exact changed paths encapsulated by this local commit (CORR-D-GCEC-AGENT-01).
+   * Encoded into Evidence.location without schema/migration change.
+   */
+  changedPaths?: string[];
 };
 
 export type GitRemotePushPayload = {
@@ -137,6 +142,18 @@ export function validateTypedGitEvidencePayload(
       if (!isFullSha(p.commitSha)) {
         return { ok: false, reason: "commit_sha_invalid" };
       }
+      if (p.changedPaths !== undefined) {
+        if (!Array.isArray(p.changedPaths) || p.changedPaths.length === 0) {
+          return { ok: false, reason: "changed_paths_invalid" };
+        }
+        if (
+          !p.changedPaths.every(
+            (x) => typeof x === "string" && x.trim().length > 0 && !x.includes(".."),
+          )
+        ) {
+          return { ok: false, reason: "changed_paths_invalid" };
+        }
+      }
       return { ok: true };
     case "git:remote_push":
       if (!isNonEmptyString(p.repositoryRef) || !isNonEmptyString(p.remote)) {
@@ -235,7 +252,17 @@ export function buildTypedGitEvidenceFields<S extends TypedGitEvidenceSource>(
     }
     case "git:local_commit": {
       const lc = payload as GitLocalCommitPayload;
-      location = `git:local_commit?repo=${encodeURIComponent(lc.repositoryRef)}&commitSha=${encodeURIComponent(lc.commitSha)}`;
+      location =
+        `git:local_commit?repo=${encodeURIComponent(lc.repositoryRef)}` +
+        `&commitSha=${encodeURIComponent(lc.commitSha)}` +
+        (lc.parentSha
+          ? `&parentSha=${encodeURIComponent(lc.parentSha)}`
+          : "");
+      if (lc.changedPaths && lc.changedPaths.length > 0) {
+        for (const path of lc.changedPaths) {
+          location += `&path=${encodeURIComponent(path)}`;
+        }
+      }
       break;
     }
     case "git:remote_push": {

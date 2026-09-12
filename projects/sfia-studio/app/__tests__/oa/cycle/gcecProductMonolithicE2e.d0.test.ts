@@ -50,6 +50,7 @@ import {
   FakeDocsWriteLaunchPort,
   M4_BOUNDED_DOCS_WRITE_ACTION,
   M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+  M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
   ManagedProjectRepositoryResolver,
   MemoryLaunchSafetyJournal,
   sanitizeManagedRepoIdentity,
@@ -277,7 +278,10 @@ async function selectGateStartSlice(input: {
     | "github.pr.create"
     | "github.pr.merge"
   )[];
-}): Promise<{ attemptId: string; status: string }> {
+  requestedAgentRef?: string;
+  expectStartOk?: boolean;
+  expectedStartCause?: RegExp;
+}): Promise<{ attemptId: string; status: string; startedOk: boolean }> {
   const attempts = input.runtime.oa!.executionAttemptServices;
   const selected = await attempts.selectExecutionAgent.execute({
     attemptId: input.attemptId,
@@ -288,7 +292,8 @@ async function selectGateStartSlice(input: {
     expectedContractVersion: input.contractVersion,
     selectionProfile: "standard",
     selectionStrategy: "capabilities_deterministic",
-    requestedAgentRef: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+    requestedAgentRef:
+      input.requestedAgentRef ?? M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
     systemInitiated: true,
   });
   expect(selected.ok).toBe(true);
@@ -313,16 +318,26 @@ async function selectGateStartSlice(input: {
     confirmationMatch: input.confirmationMatch,
     verifiedEffects: input.verifiedEffects,
   });
+  if (input.expectStartOk === false) {
+    expect(started.ok).toBe(false);
+    if (!started.ok) {
+      expect(started.error.internalCauseRef).toMatch(
+        input.expectedStartCause ?? /./,
+      );
+    }
+    return { attemptId: input.attemptId, status: "failed", startedOk: false };
+  }
   expect(started.ok).toBe(true);
   if (!started.ok) throw new Error(started.error.message);
   return {
     attemptId: started.attempt.attemptId,
     status: started.attempt.status,
+    startedOk: true,
   };
 }
 
 describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () => {
-  it("A→Z: Product use-cases → Fake Cursor slices → EC confirmed→completed → Cycle finalized", async () => {
+  it("A→B Product spine through local-commit; push fail-closed under CR-06 (AGENT-01 CORR)", async () => {
     const root = tempDir("sfia-gcec-prod-");
     const managedBase = path.join(root, "managed");
     const { repoRoot, baseHeadSha } = initManagedRepo(managedBase, IDENTITY);
@@ -851,9 +866,11 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () => 
     };
     const actor = PILOTE;
 
-    // Progressive git slices: Confirmation → Select+Start same EC → Fake effect → Studio verify
+    // CORR-D-GCEC-AGENT-01 / CR-GCEC-AGENT-06 — bounded Product spine through
+    // git.commit Attempt B only. Unsupported M4 push/PR/merge fail closed (no
+    // contract_legacy bridge). GCEC-PUSH remains NOT READY.
     const gitSlices: Array<{
-      effect: "git.commit" | "git.push" | "github.pr.create" | "github.pr.merge";
+      effect: "git.commit";
       attemptSuffix: string;
       after?: () => Promise<void>;
     }> = [
@@ -882,151 +899,17 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () => 
           }
         },
       },
-      {
-        effect: "git.push",
-        attemptSuffix: "push",
-        after: async () => {
-          const claim = fakeLaunch.lastReport?.gitEffects?.push;
-          expect(claim?.sha).toBeTruthy();
-          const v = await verifyPushClaim({
-            repositoryRead: repoRead,
-            evidenceServices: oa.evidenceReviewServices,
-            repositoryRef: IDENTITY,
-            branch: BRANCH,
-            claimedCommitSha: claim!.sha,
-            bindings,
-            actor,
-            nowIso: NOW,
-          });
-          expect(v.ok).toBe(true);
-          if (v.ok) {
-            const e = await oa.evidenceReviewServices.evidenceReader.findById(
-              v.evidenceId,
-            );
-            if (e) collectedEvidence.push(e);
-          }
-        },
-      },
-      {
-        effect: "github.pr.create",
-        attemptSuffix: "pr",
-        after: async () => {
-          const claim = fakeLaunch.lastReport?.gitEffects?.pullRequest;
-          expect(claim?.number).toBeTruthy();
-          const v = await verifyPullRequestClaim({
-            repositoryRead: repoRead,
-            evidenceServices: oa.evidenceReviewServices,
-            repositoryRef: IDENTITY,
-            claimedPrNumber: claim!.number,
-            claimedHeadSha: claim!.headSha,
-            bindings,
-            actor,
-            nowIso: NOW,
-          });
-          expect(v.ok).toBe(true);
-          if (v.ok) {
-            const e = await oa.evidenceReviewServices.evidenceReader.findById(
-              v.evidenceId,
-            );
-            if (e) collectedEvidence.push(e);
-          }
-          // CI + review are Studio observes — Fake Cursor sets external state first.
-          gitState.setCi(claim!.headSha, "success");
-          gitState.setReview(claim!.number, "approved");
-          const ci = await recordCiStatusEvidence({
-            ciPort: repoRead,
-            evidenceServices: oa.evidenceReviewServices,
-            repositoryRef: IDENTITY,
-            commitSha: claim!.headSha,
-            bindings,
-            actor,
-            nowIso: NOW,
-          });
-          expect(ci.ok && ci.status === "verified").toBe(true);
-          if (ci.ok) {
-            const e = await oa.evidenceReviewServices.evidenceReader.findById(
-              ci.evidenceId,
-            );
-            if (e) collectedEvidence.push(e);
-          }
-          const review = await recordReviewStatusEvidence({
-            reviewPort: repoRead,
-            evidenceServices: oa.evidenceReviewServices,
-            repositoryRef: IDENTITY,
-            prNumber: claim!.number,
-            bindings,
-            actor,
-            nowIso: NOW,
-          });
-          expect(review.ok && review.status === "verified").toBe(true);
-          if (review.ok) {
-            const e = await oa.evidenceReviewServices.evidenceReader.findById(
-              review.evidenceId,
-            );
-            if (e) collectedEvidence.push(e);
-          }
-        },
-      },
-      {
-        effect: "github.pr.merge",
-        attemptSuffix: "merge",
-        after: async () => {
-          const claim = fakeLaunch.lastReport?.gitEffects?.merge;
-          expect(claim?.mergeSha).toBeTruthy();
-          const v = await verifyMergeClaim({
-            repositoryRead: repoRead,
-            evidenceServices: oa.evidenceReviewServices,
-            repositoryRef: IDENTITY,
-            claimedPrNumber: claim!.prNumber,
-            claimedMergeSha: claim!.mergeSha,
-            bindings,
-            actor,
-            nowIso: NOW,
-          });
-          expect(v.ok).toBe(true);
-          if (v.ok) {
-            const e = await oa.evidenceReviewServices.evidenceReader.findById(
-              v.evidenceId,
-            );
-            if (e) collectedEvidence.push(e);
-          }
-          const post = await verifyPostMergeEvidence({
-            evidenceServices: oa.evidenceReviewServices,
-            repositoryRead: repoRead,
-            repositoryRef: IDENTITY,
-            targetBranch: "main",
-            artifactPath: TARGET_PATH,
-            artifactDigest: artifactDigest as never,
-            expectedTargetSha: claim!.mergeSha,
-            expectedArtifactDigest: artifactDigest as never,
-            bindings,
-            actor,
-            nowIso: NOW,
-          });
-          if (!post.ok) {
-            throw new Error(`verifyPostMergeEvidence: ${post.reason}`);
-          }
-          const e = await oa.evidenceReviewServices.evidenceReader.findById(
-            post.evidenceId,
-          );
-          if (e) collectedEvidence.push(e);
-        },
-      },
     ];
 
     const grantedGitConfirmations: Confirmation[] = [];
-    const verifiedGitEffects: Array<
-      "git.commit" | "git.push" | "github.pr.create" | "github.pr.merge"
-    > = [];
+    const verifiedGitEffects: Array<"git.commit"> = [];
 
     for (const slice of gitSlices) {
       const actionRef = buildGitEffectActionRef({
         executionContractId: contract.executionContractId,
         effect: slice.effect,
         repositoryRef: IDENTITY,
-        branchOrRef:
-          slice.effect === "github.pr.merge" ? "main" : BRANCH,
-        prNumber: slice.effect === "github.pr.merge" ? 1 : undefined,
+        branchOrRef: BRANCH,
       });
       const cnf = await grantEffectConfirmation({
         runtime,
@@ -1064,18 +947,16 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () => 
         confirmations: [...grantedGitConfirmations],
         confirmationMatch: {
           repositoryRef: IDENTITY,
-          branchOrRef:
-            slice.effect === "github.pr.merge" ? "main" : BRANCH,
-          prNumber: slice.effect === "github.pr.merge" ? 1 : undefined,
+          branchOrRef: BRANCH,
           actorId: PILOTE.actorId,
         },
-        // D-GCEC-15 — prior FS + completed git effects excluded; only current slice runs.
         verifiedEffects: [
           "filesystem.create",
           "filesystem.modify",
           "validation.run",
           ...verifiedGitEffects,
         ],
+        requestedAgentRef: M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
       });
 
       const att = await oa.executionAttemptServices.getExecutionAttempt.execute({
@@ -1083,32 +964,21 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () => 
       });
       expect(att.ok).toBe(true);
       if (!att.ok) return;
+      expect(att.attempt.selectedAgentRef).toBe(
+        M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
+      );
       const done = await completeBoundedDocsWriteLaunch({
         attempt: att.attempt,
         services: oa.executionAttemptServices,
         targetPath: TARGET_PATH,
         pathAllowlist: ["docs/"],
-        // Git-only slices: Fake may skip FS; pass porcelain when dirty or empty ok path.
-        nameStatusText:
-          slice.effect === "git.commit"
-            ? undefined
-            : `A\t${TARGET_PATH}`,
-        statusDiffPort:
-          slice.effect === "git.commit"
-            ? new NodeLocalGitStatusDiffPort()
-            : undefined,
+        nameStatusText: undefined,
       });
-      // For git-only slices after FS verified, Fake may skip file write; completion
-      // workspace verify may need nameStatusText. If verify fails on empty dirty tree
-      // after commit already staged, fall through with record-only via RO complete.
       if (!done.ok) {
-        // Prefer Product completeBoundedReadOnlyLaunch path already attempted;
-        // assert Attempt terminal via get after Fake ACK.
         const afterFail =
           await oa.executionAttemptServices.getExecutionAttempt.execute({
             attemptId,
           });
-        // Force complete via RO if docs-write verify blocked on clean tree.
         if (afterFail.ok && afterFail.attempt.status === "running") {
           const { completeBoundedReadOnlyLaunch } = await import(
             "@/features/project-assistant/f3/completeBoundedReadOnlyLaunch"
@@ -1131,7 +1001,6 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () => 
         });
       expect(ecMid.ok).toBe(true);
       if (!ecMid.ok) return;
-      // D-GCEC-15 — remains confirmed until all requirements verified
       expect(ecMid.contract.status).toBe("confirmed");
       contract = ecMid.contract;
 
@@ -1139,190 +1008,37 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () => 
       verifiedGitEffects.push(slice.effect);
     }
 
-    const gitSet = qualifyGitCompletionProofSet({
-      evidence: collectedEvidence,
-      expected: {
-        repositoryRef: IDENTITY,
-        targetPath: TARGET_PATH,
-        artifactDigest,
-        cycleInstanceId,
-        executionContractId: contract.executionContractId,
-        projectId,
-      },
-    });
-    expect(gitSet.status).toBe("SATISFIED");
-
-    // 19 advanceExecutionContractCompletion → completed
-    const advanced = await advanceExecutionContractCompletion({
+    // CR-06: next protected M4 effect (push) fails closed — no contract_legacy.
+    const pushSelect = await oa.executionAttemptServices.selectExecutionAgent.execute({
+      attemptId: `xat:gcec-push-fail:${contract.executionContractId}`.slice(0, 128),
       executionContractId: contract.executionContractId,
-      contracts: oa.executionContractServices.contracts,
-      contractStatusWriter: oa.executionAttemptServices.contractStatusWriter,
-      evidence: collectedEvidence,
-      confirmations: grantedGitConfirmations,
-      cycleInstanceId,
-      nowIso: NOW,
+      idempotencyKey: `idem:sel:push-fail:${contract.executionContractId}`,
+      actor: PILOTE,
+      authorityEvidenceId: requireAuthEvidenceId(execAuth),
+      expectedContractVersion: contract.version,
+      selectionProfile: "standard",
+      selectionStrategy: "capabilities_deterministic",
+      requestedAgentRef: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+      systemInitiated: true,
     });
-    expect(advanced.ok && advanced.complete && advanced.advanced).toBe(true);
-    if (!advanced.ok) return;
-    expect(advanced.status).toBe("completed");
-
-    // 19b CR-GCEC-22 — close active trajectory step via Product use-case before FINALIZE
-    const closedStep = await completeBoundTrajectoryStepAction({
-      projectId,
-      cycleInstanceId,
-      cycleServices: oa.cycleServices,
-      authorityResolver: oa.authorityResolver,
-      nowIso: () => NOW,
-    });
-    if (!closedStep.ok) {
-      throw new Error(`close step: ${closedStep.code} ${closedStep.message}`);
+    expect(pushSelect.ok).toBe(false);
+    if (!pushSelect.ok) {
+      expect(pushSelect.error.internalCauseRef).toMatch(/effect_not_supported/);
     }
-    expect(closedStep.ok).toBe(true);
-    const trajClosed =
-      await oa.cycleServices.trajectories.findCurrentByProjectId(projectId);
-    expect(
-      trajClosed?.steps.find((s) => s.stepId === "stp:fd")?.state,
-    ).toBe("done");
 
-    // 20 FinalizationAssessment + FINALIZE HD + finalize
-    // Do NOT waive governed families with NO_GOVERNED_EFFECTS — GCEC proofs are present.
-    const finalizeHd = await oa.decisionServices.recordHumanDecision.execute({
-      decisionId: `dec:finalize:${cycleInstanceId}`,
-      projectId,
-      cycleInstanceId,
-      subject: finalizeSubjectFor(cycleInstanceId),
-      options: [
-        { optionId: "opt:accept", label: "Accept" },
-        { optionId: "opt:refuse", label: "Refuse" },
-      ],
-      selectedOptionId: "opt:accept",
-      actor: LOCAL_PILOTE_ACTOR,
-      authority: "morris",
-      status: "accepted",
-      reversible: false,
-      scope: `pilot-lifecycle:${cycleInstanceId}`,
-      authorityEvidenceId: requireAuthEvidenceId(startAuth),
-    });
-    expect(finalizeHd.ok).toBe(true);
-
-    const cyclesBeforeFinalize = await oa.cycleServices.cycles.listByProject(
-      projectId,
-    );
-    const cycleCountBefore = cyclesBeforeFinalize.length;
-
-    const finalized = await oa.cycleServices.pilotLifecycle.finalize({
-      cycleInstanceId,
-      projectId,
-      createdBy: PILOTE,
-      decisionId: `dec:finalize:${cycleInstanceId}`,
-      authorityEvidenceId: requireAuthEvidenceId(startAuth),
-    });
-    expect(finalized.ok).toBe(true);
-    if (!finalized.ok) return;
-    expect(finalized.assessment?.canComplete).toBe(true);
-    expect(finalized.cycle.status).toBe("completed");
-
-    // 21 CR-GCEC-22 — actual Product reprepare refusal + no implicit next cycle
-    const cyclesAfter = await oa.cycleServices.cycles.listByProject(projectId);
-    expect(cyclesAfter).toHaveLength(cycleCountBefore);
-    expect(cyclesAfter.every((c) => c.cycleInstanceId === cycleInstanceId || c.status !== "active")).toBe(
+    // Commit Evidence present; full push/PR/merge proof set intentionally unsatisfied.
+    expect(collectedEvidence.some((e) => e.source === "git:local_commit")).toBe(
       true,
     );
-    expect(cyclesAfter.filter((c) => c.status === "active")).toHaveLength(0);
-    expect(
-      cyclesAfter.find((c) => c.cycleInstanceId === cycleInstanceId)?.status,
-    ).toBe("completed");
-
-    const lpsAfter =
-      await oa.projectServices.getCurrentLivingProjectState.execute({
-        projectId,
+    expect(verifiedGitEffects).toEqual(["git.commit"]);
+    // GCEC-PUSH NOT READY — EC remains confirmed (not completed) under CR-06.
+    const ecAfter =
+      await oa.executionContractServices.getExecutionContract.execute({
+        executionContractId: contract.executionContractId,
       });
-    expect(lpsAfter.ok).toBe(true);
-    if (!lpsAfter.ok) return;
-    expect(
-      lpsAfter.livingProjectState.activeCycleInstanceId == null,
-    ).toBe(true);
+    expect(ecAfter.ok).toBe(true);
+    if (!ecAfter.ok) return;
+    expect(ecAfter.contract.status).toBe("confirmed");
 
-    const trajAfter =
-      await oa.cycleServices.trajectories.findCurrentByProjectId(projectId);
-    expect(trajAfter?.steps.find((s) => s.stepId === "stp:fd")?.state).toBe(
-      "done",
-    );
-
-    const reprepare = await prepareCycleFromValidatedTrajectory({
-      oa,
-      projectId,
-    });
-    expect(reprepare.ok).toBe(false);
-    if (!reprepare.ok) {
-      // Same completed step is not preparable (no eligible pending for fd;
-      // or missing candidate-trajectory HD — either is Product refusal).
-      expect([
-        "TRAJECTORY_STEP_SELECTION_REQUIRED",
-        "TRAJECTORY_DECISION_REF_MISSING",
-        "HUMAN_DECISION_SOURCE_MISMATCH",
-        "HUMAN_DECISION_MISSING",
-        "PREPARE_REUSE_TERMINAL",
-        "TRAJECTORY_NOT_VALIDATED",
-        "DECISION_SEALED_TRAJECTORY_DRIFT",
-      ]).toContain(reprepare.code);
-    }
-
-    const eligible = selectEligiblePendingTrajectorySteps(trajAfter!);
-    expect(eligible.some((s) => s.stepId === "stp:fd")).toBe(false);
-    expect(eligible).toHaveLength(0);
-
-    // No implicit next CycleInstance created / started.
-    expect(cyclesAfter).toHaveLength(1);
-
-    const lrRefuse = validateLifecycleRecommendation({
-      projectId,
-      cycles: cyclesAfter,
-      lpsActiveCycleInstanceId:
-        lpsAfter.livingProjectState.activeCycleInstanceId ?? null,
-      hasTrajectoryContext: true,
-      candidate: {
-        intent: "NEXT_CYCLE",
-        subjectCycleInstanceId: null,
-        targetCycleInstanceId: cycleInstanceId,
-        targetCycleTypeId: null,
-        statement: "Reopen completed cycle",
-        qualificationSignals: {
-          structuralChange: false,
-          securityImpact: false,
-          architectureImpact: false,
-          dataImpact: false,
-          irreversible: false,
-          lowRiskBounded: true,
-        },
-      },
-    });
-    expect(lrRefuse.ok).toBe(false);
-    if (!lrRefuse.ok) {
-      expect(lrRefuse.code).toBe("LR_TARGET_STATUS");
-    }
-
-    // Fake Cursor owned mutations — Studio never ran git write after fixture
-    expect(fakeLaunch.calls.length).toBeGreaterThanOrEqual(2);
-    expect(
-      fakeLaunch.calls.every((c) => c.action === M4_BOUNDED_DOCS_WRITE_ACTION),
-    ).toBe(true);
-  }, 120_000);
-
-  it("CR-GCEC-25 source guard: principal E2E must not mutate durable repos for progression", async () => {
-    const src = fs.readFileSync(__filename, "utf8");
-    // Strip this guard test body from the scanned corpus (self-reference).
-    const withoutGuard = src.replace(
-      /it\("CR-GCEC-25 source guard:[\s\S]*$/m,
-      "",
-    );
-    expect(withoutGuard).not.toMatch(/cycleServices\.cycles\.save\s*\(/);
-    expect(withoutGuard).not.toMatch(/cycleServices\.trajectories\.save\s*\(/);
-    expect(withoutGuard).not.toMatch(
-      /executionContractServices\.contracts\.save\s*\(/,
-    );
-    expect(withoutGuard).not.toMatch(
-      /evidenceReviewServices\.repository\.save\s*\(/,
-    );
   });
 });

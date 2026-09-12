@@ -10,9 +10,11 @@ import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
 import {
   preCommitWorkspaceContinuationRequired,
   resolvePreCommitWorkspaceContinuation,
+  isFsAnchorSupersededByVerifiedLocalCommit,
 } from "@/lib/oa/execution-attempt";
 
 const HEAD = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+const COMMIT_H1 = "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb";
 const DIGEST =
   "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622" as Digest;
 const PROJECT = "prj:cont";
@@ -399,6 +401,738 @@ describe("D-GCEC-CONT-01 continuation resolver", () => {
             cycleInstanceId: CYCLE,
             executionContractId: EC,
             executionAttemptId: "xat:a",
+          },
+        }),
+      ],
+    });
+    expect(r).toEqual({ required: false, descriptor: null });
+  });
+
+  it("FS→SHA supersession: verified git:local_commit clears continuation", () => {
+    const r = resolvePreCommitWorkspaceContinuation({
+      ...baseInput,
+      repositoryRef: "acme/widget",
+      authorizedEffects: ["git.push"],
+      verifiedEffects: [
+        "filesystem.create",
+        "filesystem.modify",
+        "git.commit",
+      ],
+      attempts: [
+        attempt({ attemptId: "xat:a" }),
+        attempt({
+          attemptId: "xat:b",
+          status: "succeeded",
+          selectedAgentRef: "agt:m4.cursor.bounded_local_commit",
+        }),
+      ],
+      evidence: [
+        evidence({
+          evidenceId: "ev:a",
+          bindings: {
+            projectId: PROJECT,
+            cycleInstanceId: CYCLE,
+            executionContractId: EC,
+            executionAttemptId: "xat:a",
+          },
+        }),
+        evidence({
+          evidenceId: "ev:commit",
+          type: "other",
+          source: "git:local_commit",
+          location: `git:local_commit?repo=${encodeURIComponent("acme/widget")}&commitSha=${COMMIT_H1}&parentSha=${HEAD}&path=${encodeURIComponent(PATH)}`,
+          bindings: {
+            projectId: PROJECT,
+            cycleInstanceId: CYCLE,
+            executionContractId: EC,
+            executionAttemptId: "xat:b",
+          },
+        }),
+      ],
+    });
+    expect(r).toEqual({ required: false, descriptor: null });
+  });
+
+  it("SHA-01 verifiedEffects git.commit WITHOUT verified Git Evidence → NOT superseded", () => {
+    const r = resolvePreCommitWorkspaceContinuation({
+      ...baseInput,
+      authorizedEffects: ["git.push"],
+      verifiedEffects: [
+        "filesystem.create",
+        "filesystem.modify",
+        "git.commit",
+      ],
+      attempts: [attempt({ attemptId: "xat:a" })],
+      evidence: [
+        evidence({
+          evidenceId: "ev:a",
+          bindings: {
+            projectId: PROJECT,
+            cycleInstanceId: CYCLE,
+            executionContractId: EC,
+            executionAttemptId: "xat:a",
+          },
+        }),
+      ],
+    });
+    expect(r.required).toBe(true);
+  });
+
+  it("SHA-02..09 wrong bindings / fake source → NOT superseded", () => {
+    const goodCommit = evidence({
+      evidenceId: "ev:commit",
+      type: "other",
+      source: "git:local_commit",
+      location: `git:local_commit?repo=${encodeURIComponent("acme/widget")}&commitSha=${COMMIT_H1}&parentSha=${HEAD}`,
+      bindings: {
+        projectId: PROJECT,
+        cycleInstanceId: CYCLE,
+        executionContractId: EC,
+        executionAttemptId: "xat:b",
+      },
+    });
+    const cases: Array<{ label: string; evidence: Evidence[] }> = [
+      {
+        label: "wrong project",
+        evidence: [
+          {
+            ...goodCommit,
+            bindings: { ...goodCommit.bindings, projectId: "prj:other" },
+          },
+        ],
+      },
+      {
+        label: "wrong cycle",
+        evidence: [
+          {
+            ...goodCommit,
+            bindings: { ...goodCommit.bindings, cycleInstanceId: "cyc:other" },
+          },
+        ],
+      },
+      {
+        label: "wrong EC",
+        evidence: [
+          {
+            ...goodCommit,
+            bindings: {
+              ...goodCommit.bindings,
+              executionContractId: "xct:other",
+            },
+          },
+        ],
+      },
+      {
+        label: "fake source",
+        evidence: [{ ...goodCommit, source: "git:local_commit_fake" }],
+      },
+    ];
+    for (const c of cases) {
+      const r = resolvePreCommitWorkspaceContinuation({
+        ...baseInput,
+        authorizedEffects: ["git.push"],
+        verifiedEffects: [
+          "filesystem.create",
+          "filesystem.modify",
+          "git.commit",
+        ],
+        attempts: [
+          attempt({ attemptId: "xat:a" }),
+          attempt({ attemptId: "xat:b" }),
+        ],
+        evidence: [
+          evidence({
+            evidenceId: "ev:a",
+            bindings: {
+              projectId: PROJECT,
+              cycleInstanceId: CYCLE,
+              executionContractId: EC,
+              executionAttemptId: "xat:a",
+            },
+          }),
+          ...c.evidence,
+        ],
+      });
+      expect(r.required, c.label).toBe(true);
+    }
+  });
+
+  it("SHA-10 exact matching verified commit Evidence → superseded", () => {
+    const r = resolvePreCommitWorkspaceContinuation({
+      ...baseInput,
+      repositoryRef: "acme/widget",
+      authorizedEffects: ["git.push"],
+      verifiedEffects: [
+        "filesystem.create",
+        "filesystem.modify",
+        "git.commit",
+      ],
+      attempts: [
+        attempt({ attemptId: "xat:a" }),
+        attempt({
+          attemptId: "xat:b",
+          selectedAgentRef: "agt:m4.cursor.bounded_local_commit",
+        }),
+      ],
+      evidence: [
+        evidence({
+          evidenceId: "ev:a",
+          bindings: {
+            projectId: PROJECT,
+            cycleInstanceId: CYCLE,
+            executionContractId: EC,
+            executionAttemptId: "xat:a",
+          },
+        }),
+        evidence({
+          evidenceId: "ev:commit",
+          type: "other",
+          source: "git:local_commit",
+          location: `git:local_commit?repo=${encodeURIComponent("acme/widget")}&commitSha=${COMMIT_H1}&parentSha=${HEAD}&path=${encodeURIComponent(PATH)}`,
+          bindings: {
+            projectId: PROJECT,
+            cycleInstanceId: CYCLE,
+            executionContractId: EC,
+            executionAttemptId: "xat:b",
+          },
+        }),
+      ],
+    });
+    expect(r).toEqual({ required: false, descriptor: null });
+  });
+
+  it("SHA-11 matching commit Evidence but wrong prior A → NOT superseded", () => {
+    const r = resolvePreCommitWorkspaceContinuation({
+      ...baseInput,
+      repositoryRef: "acme/widget",
+      authorizedEffects: ["git.push"],
+      verifiedEffects: [
+        "filesystem.create",
+        "filesystem.modify",
+        "git.commit",
+      ],
+      attempts: [
+        attempt({ attemptId: "xat:a" }),
+        attempt({
+          attemptId: "xat:b",
+          selectedAgentRef: "agt:m4.cursor.bounded_local_commit",
+        }),
+      ],
+      evidence: [
+        evidence({
+          evidenceId: "ev:a",
+          bindings: {
+            projectId: PROJECT,
+            cycleInstanceId: CYCLE,
+            executionContractId: EC,
+            executionAttemptId: "xat:a",
+          },
+        }),
+        evidence({
+          evidenceId: "ev:commit",
+          type: "other",
+          source: "git:local_commit",
+          // parent SHA wrong vs expectedHeadSha → not superseded
+          location: `git:local_commit?repo=${encodeURIComponent("acme/widget")}&commitSha=${COMMIT_H1}&parentSha=${"c".repeat(40)}&path=${encodeURIComponent(PATH)}`,
+          bindings: {
+            projectId: PROJECT,
+            cycleInstanceId: CYCLE,
+            executionContractId: EC,
+            executionAttemptId: "xat:b",
+          },
+        }),
+      ],
+    });
+    expect(r.required).toBe(true);
+  });
+
+  it("SHA-12 matching repo/parent but wrong changed paths → NOT superseded", () => {
+    const r = resolvePreCommitWorkspaceContinuation({
+      ...baseInput,
+      repositoryRef: "acme/widget",
+      authorizedEffects: ["git.push"],
+      verifiedEffects: [
+        "filesystem.create",
+        "filesystem.modify",
+        "git.commit",
+      ],
+      attempts: [
+        attempt({ attemptId: "xat:a" }),
+        attempt({
+          attemptId: "xat:b",
+          selectedAgentRef: "agt:m4.cursor.bounded_local_commit",
+        }),
+      ],
+      evidence: [
+        evidence({
+          evidenceId: "ev:a",
+          bindings: {
+            projectId: PROJECT,
+            cycleInstanceId: CYCLE,
+            executionContractId: EC,
+            executionAttemptId: "xat:a",
+          },
+        }),
+        evidence({
+          evidenceId: "ev:commit",
+          type: "other",
+          source: "git:local_commit",
+          location: `git:local_commit?repo=${encodeURIComponent("acme/widget")}&commitSha=${COMMIT_H1}&parentSha=${HEAD}&path=${encodeURIComponent("docs/other.md")}`,
+          bindings: {
+            projectId: PROJECT,
+            cycleInstanceId: CYCLE,
+            executionContractId: EC,
+            executionAttemptId: "xat:b",
+          },
+        }),
+      ],
+    });
+    expect(r.required).toBe(true);
+  });
+
+  it("SHA-13 commit Evidence bound to docs-write Attempt A → NOT superseded", () => {
+    const r = resolvePreCommitWorkspaceContinuation({
+      ...baseInput,
+      repositoryRef: "acme/widget",
+      authorizedEffects: ["git.push"],
+      verifiedEffects: [
+        "filesystem.create",
+        "filesystem.modify",
+        "git.commit",
+      ],
+      attempts: [
+        attempt({ attemptId: "xat:a" }),
+        attempt({
+          attemptId: "xat:b",
+          selectedAgentRef: "agt:m4.cursor.bounded_local_commit",
+        }),
+      ],
+      evidence: [
+        evidence({
+          evidenceId: "ev:a",
+          bindings: {
+            projectId: PROJECT,
+            cycleInstanceId: CYCLE,
+            executionContractId: EC,
+            executionAttemptId: "xat:a",
+          },
+        }),
+        evidence({
+          evidenceId: "ev:commit",
+          type: "other",
+          source: "git:local_commit",
+          location: `git:local_commit?repo=${encodeURIComponent("acme/widget")}&commitSha=${COMMIT_H1}&parentSha=${HEAD}&path=${encodeURIComponent(PATH)}`,
+          bindings: {
+            projectId: PROJECT,
+            cycleInstanceId: CYCLE,
+            executionContractId: EC,
+            executionAttemptId: "xat:a",
+          },
+        }),
+      ],
+    });
+    expect(r.required).toBe(true);
+  });
+
+  it("SHA-15 B Attempt selected docs-write agent → NOT superseded", () => {
+    const r = resolvePreCommitWorkspaceContinuation({
+      ...baseInput,
+      repositoryRef: "acme/widget",
+      authorizedEffects: ["git.push"],
+      verifiedEffects: [
+        "filesystem.create",
+        "filesystem.modify",
+        "git.commit",
+      ],
+      attempts: [
+        attempt({ attemptId: "xat:a" }),
+        attempt({
+          attemptId: "xat:b",
+          selectedAgentRef: "agt:m4.cursor.bounded_docs_write",
+        }),
+      ],
+      evidence: [
+        evidence({
+          evidenceId: "ev:a",
+          bindings: {
+            projectId: PROJECT,
+            cycleInstanceId: CYCLE,
+            executionContractId: EC,
+            executionAttemptId: "xat:a",
+          },
+        }),
+        evidence({
+          evidenceId: "ev:commit",
+          type: "other",
+          source: "git:local_commit",
+          location: `git:local_commit?repo=${encodeURIComponent("acme/widget")}&commitSha=${COMMIT_H1}&parentSha=${HEAD}&path=${encodeURIComponent(PATH)}`,
+          bindings: {
+            projectId: PROJECT,
+            cycleInstanceId: CYCLE,
+            executionContractId: EC,
+            executionAttemptId: "xat:b",
+          },
+        }),
+      ],
+    });
+    expect(r.required).toBe(true);
+  });
+
+  it("SHA-16 B Attempt not succeeded → NOT superseded", () => {
+    const r = resolvePreCommitWorkspaceContinuation({
+      ...baseInput,
+      repositoryRef: "acme/widget",
+      authorizedEffects: ["git.push"],
+      verifiedEffects: [
+        "filesystem.create",
+        "filesystem.modify",
+        "git.commit",
+      ],
+      attempts: [
+        attempt({ attemptId: "xat:a" }),
+        attempt({
+          attemptId: "xat:b",
+          status: "running",
+          selectedAgentRef: "agt:m4.cursor.bounded_local_commit",
+          completedAt: undefined,
+          resultRef: undefined,
+        }),
+      ],
+      evidence: [
+        evidence({
+          evidenceId: "ev:a",
+          bindings: {
+            projectId: PROJECT,
+            cycleInstanceId: CYCLE,
+            executionContractId: EC,
+            executionAttemptId: "xat:a",
+          },
+        }),
+        evidence({
+          evidenceId: "ev:commit",
+          type: "other",
+          source: "git:local_commit",
+          location: `git:local_commit?repo=${encodeURIComponent("acme/widget")}&commitSha=${COMMIT_H1}&parentSha=${HEAD}&path=${encodeURIComponent(PATH)}`,
+          bindings: {
+            projectId: PROJECT,
+            cycleInstanceId: CYCLE,
+            executionContractId: EC,
+            executionAttemptId: "xat:b",
+          },
+        }),
+      ],
+    });
+    expect(r.required).toBe(true);
+  });
+
+  it("SHA-17 exact A+B+H0/repo/paths → superseded", () => {
+    const r = resolvePreCommitWorkspaceContinuation({
+      ...baseInput,
+      repositoryRef: "acme/widget",
+      authorizedEffects: ["git.push"],
+      verifiedEffects: [
+        "filesystem.create",
+        "filesystem.modify",
+        "git.commit",
+      ],
+      attempts: [
+        attempt({ attemptId: "xat:a" }),
+        attempt({
+          attemptId: "xat:b",
+          selectedAgentRef: "agt:m4.cursor.bounded_local_commit",
+        }),
+      ],
+      evidence: [
+        evidence({
+          evidenceId: "ev:a",
+          bindings: {
+            projectId: PROJECT,
+            cycleInstanceId: CYCLE,
+            executionContractId: EC,
+            executionAttemptId: "xat:a",
+          },
+        }),
+        evidence({
+          evidenceId: "ev:commit",
+          type: "other",
+          source: "git:local_commit",
+          location: `git:local_commit?repo=${encodeURIComponent("acme/widget")}&commitSha=${COMMIT_H1}&parentSha=${HEAD}&path=${encodeURIComponent(PATH)}`,
+          bindings: {
+            projectId: PROJECT,
+            cycleInstanceId: CYCLE,
+            executionContractId: EC,
+            executionAttemptId: "xat:b",
+          },
+        }),
+      ],
+    });
+    expect(r).toEqual({ required: false, descriptor: null });
+  });
+
+  it("SHA-19 no qualified prior A + matching commit Evidence → NOT superseded", () => {
+    expect(
+      isFsAnchorSupersededByVerifiedLocalCommit({
+        projectId: PROJECT,
+        cycleInstanceId: CYCLE,
+        executionContractId: EC,
+        // Invented A id — no qualified docs-write prior exists in evidence.
+        priorAttemptId: "xat:missing-a",
+        expectedParentSha: HEAD,
+        repositoryRef: "acme/widget",
+        requiredPaths: [PATH],
+        attempts: [
+          attempt({
+            attemptId: "xat:b",
+            selectedAgentRef: "agt:m4.cursor.bounded_local_commit",
+          }),
+        ],
+        evidence: [
+          evidence({
+            evidenceId: "ev:commit",
+            type: "other",
+            source: "git:local_commit",
+            location: `git:local_commit?repo=${encodeURIComponent("acme/widget")}&commitSha=${COMMIT_H1}&parentSha=${HEAD}&path=${encodeURIComponent(PATH)}`,
+            bindings: {
+              projectId: PROJECT,
+              cycleInstanceId: CYCLE,
+              executionContractId: EC,
+              executionAttemptId: "xat:b",
+            },
+          }),
+        ],
+      }),
+    ).toBe(false);
+
+    const r = resolvePreCommitWorkspaceContinuation({
+      ...baseInput,
+      currentAttemptId: "xat:next",
+      repositoryRef: "acme/widget",
+      authorizedEffects: ["git.push"],
+      verifiedEffects: [
+        "filesystem.create",
+        "filesystem.modify",
+        "git.commit",
+      ],
+      attempts: [
+        attempt({
+          attemptId: "xat:b",
+          selectedAgentRef: "agt:m4.cursor.bounded_local_commit",
+        }),
+      ],
+      evidence: [
+        evidence({
+          evidenceId: "ev:commit",
+          type: "other",
+          source: "git:local_commit",
+          location: `git:local_commit?repo=${encodeURIComponent("acme/widget")}&commitSha=${COMMIT_H1}&parentSha=${HEAD}&path=${encodeURIComponent(PATH)}`,
+          bindings: {
+            projectId: PROJECT,
+            cycleInstanceId: CYCLE,
+            executionContractId: EC,
+            executionAttemptId: "xat:b",
+          },
+        }),
+      ],
+    });
+    // No qualified A → never FS→SHA superseded (weak same-EC commit path deleted).
+    expect(r.required).toBe(true);
+    if (r.required) expect(r.ok).toBe(false);
+  });
+
+  it("SHA-20 ambiguous prior A + matching commit → FAIL CLOSED / NOT superseded", () => {
+    const r = resolvePreCommitWorkspaceContinuation({
+      ...baseInput,
+      repositoryRef: "acme/widget",
+      authorizedEffects: ["git.push"],
+      verifiedEffects: [
+        "filesystem.create",
+        "filesystem.modify",
+        "git.commit",
+      ],
+      attempts: [
+        attempt({ attemptId: "xat:a1" }),
+        attempt({ attemptId: "xat:a2" }),
+        attempt({
+          attemptId: "xat:b",
+          selectedAgentRef: "agt:m4.cursor.bounded_local_commit",
+        }),
+      ],
+      evidence: [
+        evidence({
+          evidenceId: "ev:a1",
+          bindings: {
+            projectId: PROJECT,
+            cycleInstanceId: CYCLE,
+            executionContractId: EC,
+            executionAttemptId: "xat:a1",
+          },
+        }),
+        evidence({
+          evidenceId: "ev:a2",
+          bindings: {
+            projectId: PROJECT,
+            cycleInstanceId: CYCLE,
+            executionContractId: EC,
+            executionAttemptId: "xat:a2",
+          },
+        }),
+        evidence({
+          evidenceId: "ev:commit",
+          type: "other",
+          source: "git:local_commit",
+          location: `git:local_commit?repo=${encodeURIComponent("acme/widget")}&commitSha=${COMMIT_H1}&parentSha=${HEAD}&path=${encodeURIComponent(PATH)}`,
+          bindings: {
+            projectId: PROJECT,
+            cycleInstanceId: CYCLE,
+            executionContractId: EC,
+            executionAttemptId: "xat:b",
+          },
+        }),
+      ],
+    });
+    expect(r.required).toBe(true);
+    if (r.required && !r.ok) {
+      expect(r.reason).toBe("continuation_candidate_ambiguous");
+    }
+  });
+
+  it("SHA-21 prior A incomplete digest + matching commit → NOT superseded", () => {
+    const r = resolvePreCommitWorkspaceContinuation({
+      ...baseInput,
+      repositoryRef: "acme/widget",
+      authorizedEffects: ["git.push"],
+      verifiedEffects: [
+        "filesystem.create",
+        "filesystem.modify",
+        "git.commit",
+      ],
+      attempts: [
+        attempt({ attemptId: "xat:a" }),
+        attempt({
+          attemptId: "xat:b",
+          selectedAgentRef: "agt:m4.cursor.bounded_local_commit",
+        }),
+      ],
+      evidence: [
+        evidence({
+          evidenceId: "ev:a",
+          digest: "sha256:short" as Digest,
+          bindings: {
+            projectId: PROJECT,
+            cycleInstanceId: CYCLE,
+            executionContractId: EC,
+            executionAttemptId: "xat:a",
+          },
+        }),
+        evidence({
+          evidenceId: "ev:commit",
+          type: "other",
+          source: "git:local_commit",
+          location: `git:local_commit?repo=${encodeURIComponent("acme/widget")}&commitSha=${COMMIT_H1}&parentSha=${HEAD}&path=${encodeURIComponent(PATH)}`,
+          bindings: {
+            projectId: PROJECT,
+            cycleInstanceId: CYCLE,
+            executionContractId: EC,
+            executionAttemptId: "xat:b",
+          },
+        }),
+      ],
+    });
+    expect(r.required).toBe(true);
+    if (r.required) expect(r.ok).toBe(false);
+  });
+
+  it("SHA-22/23 unrelated B / verifiedEffects alone → NOT superseded", () => {
+    expect(
+      isFsAnchorSupersededByVerifiedLocalCommit({
+        projectId: PROJECT,
+        cycleInstanceId: CYCLE,
+        executionContractId: EC,
+        priorAttemptId: "xat:a",
+        expectedParentSha: HEAD,
+        repositoryRef: "acme/widget",
+        requiredPaths: [PATH],
+        attempts: [
+          attempt({ attemptId: "xat:a" }),
+          attempt({
+            attemptId: "xat:other",
+            selectedAgentRef: "agt:m4.cursor.bounded_local_commit",
+          }),
+        ],
+        evidence: [
+          evidence({
+            evidenceId: "ev:a",
+            bindings: {
+              projectId: PROJECT,
+              cycleInstanceId: CYCLE,
+              executionContractId: EC,
+              executionAttemptId: "xat:a",
+            },
+          }),
+          evidence({
+            evidenceId: "ev:commit",
+            type: "other",
+            source: "git:local_commit",
+            location: `git:local_commit?repo=${encodeURIComponent("other/repo")}&commitSha=${COMMIT_H1}&parentSha=${HEAD}&path=${encodeURIComponent(PATH)}`,
+            bindings: {
+              projectId: PROJECT,
+              cycleInstanceId: CYCLE,
+              executionContractId: EC,
+              executionAttemptId: "xat:other",
+            },
+          }),
+        ],
+      }),
+    ).toBe(false);
+
+    const r = resolvePreCommitWorkspaceContinuation({
+      ...baseInput,
+      repositoryRef: "acme/widget",
+      authorizedEffects: ["git.commit"],
+      verifiedEffects: ["git.commit"],
+      attempts: [],
+      evidence: [],
+    });
+    expect(r).toEqual({ required: false, descriptor: null });
+  });
+
+  it("SHA-24 exact A + exact B + exact H0/repo/paths → superseded", () => {
+    const r = resolvePreCommitWorkspaceContinuation({
+      ...baseInput,
+      repositoryRef: "acme/widget",
+      authorizedEffects: ["git.push"],
+      verifiedEffects: [
+        "filesystem.create",
+        "filesystem.modify",
+        "git.commit",
+      ],
+      attempts: [
+        attempt({ attemptId: "xat:a" }),
+        attempt({
+          attemptId: "xat:b",
+          selectedAgentRef: "agt:m4.cursor.bounded_local_commit",
+        }),
+      ],
+      evidence: [
+        evidence({
+          evidenceId: "ev:a",
+          bindings: {
+            projectId: PROJECT,
+            cycleInstanceId: CYCLE,
+            executionContractId: EC,
+            executionAttemptId: "xat:a",
+          },
+        }),
+        evidence({
+          evidenceId: "ev:commit",
+          type: "other",
+          source: "git:local_commit",
+          location: `git:local_commit?repo=${encodeURIComponent("acme/widget")}&commitSha=${COMMIT_H1}&parentSha=${HEAD}&path=${encodeURIComponent(PATH)}`,
+          bindings: {
+            projectId: PROJECT,
+            cycleInstanceId: CYCLE,
+            executionContractId: EC,
+            executionAttemptId: "xat:b",
           },
         }),
       ],

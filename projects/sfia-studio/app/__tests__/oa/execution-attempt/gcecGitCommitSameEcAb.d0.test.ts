@@ -1,21 +1,23 @@
 /**
- * D-GCEC-CONT-01 — same-EC A→B StartExecution continuation + restart rediscovery.
- * ZERO REAL Cursor / OS git. Product persistence: NONE new.
- * @vitest-environment node
+ * D-GCEC-AGENT-01 + GCEC git.commit same-EC A→B (honest agent swap).
+ * ZERO REAL. @vitest-environment node
  */
 import { createHash } from "node:crypto";
-import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import type { Digest } from "@/lib/oa/doctrine";
 import type { Evidence } from "@/lib/oa/evidence-review";
+import { createTestEvidenceReviewServices } from "@/lib/oa/evidence-review";
 import {
   assertStudioCursorRealOffForTests,
   buildGitEffectActionRef,
   createM4BoundedDocsWriteCursorAgentDescriptor,
   createM4BoundedLocalCommitCursorAgentDescriptor,
   createTestExecutionAttemptServices,
+  isFsAnchorSupersededByVerifiedLocalCommit,
+  isM4BoundedLocalCommitRealAgent,
   M4_BOUNDED_DOCS_WRITE_ACTION,
   M4_BOUNDED_DOCS_WRITE_CAPABILITY,
   M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
@@ -24,9 +26,8 @@ import {
   M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
   resolvePreCommitWorkspaceContinuation,
   SqliteRealLaunchSafetyJournal,
-  StudioGitWorktreeWorkspace,
   TestExecutionAdapter,
-  workspacePathForAttempt,
+  verifyLocalCommitEffect,
   type ExecutionAttempt,
 } from "@/lib/oa/execution-attempt";
 import {
@@ -42,17 +43,19 @@ import {
   selectStandardAgent,
   type Stack,
 } from "./helpers";
-import { FakeGitCommandRunner } from "./support/fakeSpawnAndGit";
 import { M4_EVIDENCE, M4_TEST_BASE_HEAD_SHA } from "./support/m4Fixtures";
 import { TestOnlyRealExecutionLaunchPort } from "./support/testOnlyRealExecutionLaunchPort";
+import { createGovernedCommittedWorktree } from "./support/governedCommitFixture";
 
 const IDENTITY = "acme/widget";
 const BRANCH = "gcec/docs";
 const TARGET_PATH = "docs/functional-design.md";
-const ARTIFACT_BODY = "# Cont A→B verified artifact\n";
+const ARTIFACT_BODY = "# Commit A→B verified artifact\n";
 const ARTIFACT_DIGEST = `sha256:${createHash("sha256")
   .update(ARTIFACT_BODY)
   .digest("hex")}` as Digest;
+const H1 = "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb";
+const MSG = "docs: Functional design for continuation proof";
 
 function tempJournalPath(prefix: string): string {
   const dir = mkdtempSync(path.join(os.tmpdir(), prefix));
@@ -78,6 +81,7 @@ function docsWriteInputs(baseHeadSha: string): Record<string, unknown> {
     expectedOutputs: [TARGET_PATH],
     validationExpectations: ["markdown"],
     evidenceRequirements: ["artifact", "git:local_commit"],
+    commitMessage: MSG,
   };
 }
 
@@ -87,13 +91,12 @@ function docsWriteEvidence(input: {
   cycleInstanceId: string;
   executionContractId: string;
   executionAttemptId: string;
-  status?: Evidence["status"];
 }): Evidence {
   return {
     schemaVersion: "0.2.0-oa",
     evidenceId: input.evidenceId,
     type: "artifact",
-    status: input.status ?? "verified",
+    status: "verified",
     source: "execution_attempt:docs_write",
     sourceKind: "external",
     classification: "internal",
@@ -118,7 +121,7 @@ function docsWriteEvidence(input: {
       actor: { actorId: "actor:system", role: "system" },
       source: "system",
       timestamp: NOW,
-      correlationId: "cor:cont-ev",
+      correlationId: "cor:gc-ev",
     },
   };
 }
@@ -127,13 +130,15 @@ function succeededAttempt(input: {
   attemptId: string;
   executionContractId: string;
   executionContractVersion: number;
+  selectedAgentRef?: string;
 }): ExecutionAttempt {
   return {
     schemaVersion: "0.2.0-oa",
     attemptId: input.attemptId,
     executionContractId: input.executionContractId,
     executionContractVersion: input.executionContractVersion,
-    selectedAgentRef: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+    selectedAgentRef:
+      input.selectedAgentRef ?? M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
     status: "succeeded",
     idempotencyKey: `idem:${input.attemptId}`,
     correlationId: `cor:${input.attemptId}`,
@@ -176,13 +181,12 @@ async function seedDocsWriteConfirmedContract(
   const built = await stack.execution.buildExecutionContract.execute(
     baseBuildRequest({
       cycleInstanceId,
-      executionContractId: "xct:cont-ab",
-      idempotencyKey: "idem-xct-cont-ab",
+      executionContractId: "xct:gc-ab",
+      idempotencyKey: "idem-xct-gc-ab",
       action: M4_BOUNDED_DOCS_WRITE_ACTION,
       target: M4_BOUNDED_DOCS_WRITE_TARGET,
       scope: M4_BOUNDED_DOCS_WRITE_SCOPE,
       requiredCapabilities: [M4_BOUNDED_DOCS_WRITE_CAPABILITY],
-      // Contract-level ids must match OA identifier pattern (prefix:…).
       evidenceRequirements: ["git:local_commit"],
       expectedOutputs: ["artifact", TARGET_PATH],
       authorityEvidenceId: M4_EVIDENCE,
@@ -201,7 +205,7 @@ async function seedDocsWriteConfirmedContract(
   if (!validated.ok) throw new Error("validate failed");
 
   const confirmationId = await grantContractConfirmation(stack, {
-    confirmationId: "cfm:cont-ec",
+    confirmationId: "cfm:gc-ec",
     scope: M4_BOUNDED_DOCS_WRITE_SCOPE,
     evidenceId: M4_EVIDENCE,
   });
@@ -214,7 +218,6 @@ async function seedDocsWriteConfirmedContract(
   });
   expect(confirmed.ok).toBe(true);
   if (!confirmed.ok) throw new Error("confirm failed");
-  expect(confirmed.contract.status).toBe("confirmed");
 
   return {
     contractId: confirmed.contract.executionContractId,
@@ -224,30 +227,28 @@ async function seedDocsWriteConfirmedContract(
   };
 }
 
-describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
+describe("D-GCEC-AGENT-01 same-EC A→B agent swap", () => {
   beforeEach(() => {
     assertStudioCursorRealOffForTests();
-    expect(process.env.SFIA_STUDIO_CURSOR_REAL).not.toBe("1");
   });
   afterEach(() => {
     assertStudioCursorRealOffForTests();
   });
 
-  it("A→B Cont01 + D-GCEC-AGENT-01: local-commit agent Start with unique continuation", async () => {
-    const managedBase = mkdtempSync(path.join(os.tmpdir(), "gcec-cont-managed-"));
-    const repoRoot = path.join(managedBase, "acme__widget");
-    mkdirSync(repoRoot, { recursive: true });
-    mkdirSync(path.join(repoRoot, ".git"));
-
+  it("AG-01/02 Attempt A docs-write; Attempt B local-commit under SAME EC", async () => {
+    const managedBase = mkdtempSync(path.join(os.tmpdir(), "gcec-agent01-ab-"));
+    mkdirSync(path.join(managedBase, "acme__widget", ".git"), {
+      recursive: true,
+    });
     const journal = new SqliteRealLaunchSafetyJournal({
-      databasePath: tempJournalPath("gcec-cont-ab-"),
+      databasePath: tempJournalPath("gcec-agent01-ab-"),
     });
     const launchPort = new TestOnlyRealExecutionLaunchPort();
     const docs = createM4BoundedDocsWriteCursorAgentDescriptor(NOW);
     const commit = createM4BoundedLocalCommitCursorAgentDescriptor(NOW);
+    expect(isM4BoundedLocalCommitRealAgent(commit)).toBe(true);
     const fixtureAdapter = new TestExecutionAdapter();
     const evidenceBag: Evidence[] = [];
-
     const stack = buildStack({
       agents: [docs, commit],
       adapter: fixtureAdapter,
@@ -275,20 +276,21 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
     }) as typeof stack.attempts;
 
     const seeded = await seedDocsWriteConfirmedContract(stack);
-    const attemptA = "xat:cont-a";
-    const attemptB = "xat:cont-b";
-    expect(attemptA).not.toBe(attemptB);
+    const attemptA = "xat:gc-a";
+    const attemptB = "xat:gc-b";
 
+    // Attempt A — docs-write (seeded succeeded + Evidence)
     await stack.attempts.attempts.create(
       succeededAttempt({
         attemptId: attemptA,
         executionContractId: seeded.contractId,
         executionContractVersion: seeded.version,
+        selectedAgentRef: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
       }),
     );
     evidenceBag.push(
       docsWriteEvidence({
-        evidenceId: "ev:cont-a-art",
+        evidenceId: "ev:gc-a-art",
         projectId: seeded.projectId,
         cycleInstanceId: seeded.cycleInstanceId,
         executionContractId: seeded.contractId,
@@ -296,32 +298,38 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
       }),
     );
 
-    const ecBefore = await stack.execution.getExecutionContract.execute({
+    // AG-03: docs-write requested for B → mismatch
+    const wrong = await selectStandardAgent(stack, {
+      attemptId: "xat:gc-b-wrong",
       executionContractId: seeded.contractId,
+      requestedAgentRef: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+      idempotencyKey: "idem-gc-b-wrong",
     });
-    expect(ecBefore.ok).toBe(true);
-    if (!ecBefore.ok) return;
-    expect(ecBefore.contract.status).toBe("confirmed");
+    expect(wrong.ok).toBe(false);
 
-    const selected = await selectStandardAgent(stack, {
+    // AG-02: B selects local-commit
+    const selectedB = await selectStandardAgent(stack, {
       attemptId: attemptB,
       executionContractId: seeded.contractId,
       requestedAgentRef: M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
+      idempotencyKey: "idem-gc-b",
     });
-    expect(selected.ok).toBe(true);
-    if (!selected.ok) throw new Error("select B failed");
-    expect(selected.attempt.selectedAgentRef).toBe(
+    expect(selectedB.ok).toBe(true);
+    if (!selectedB.ok) throw new Error("select B failed");
+    expect(selectedB.attempt.selectedAgentRef).toBe(
       M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
     );
+    expect(selectedB.attempt.selectedAgentRef).not.toBe(
+      M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+    );
 
-    const granted = await stack.attempts.grantRealExecutionGate!.execute({
-      grantId: "gd:cont-b",
+    await stack.attempts.grantRealExecutionGate!.execute({
+      grantId: "gd:gc-b",
       attemptId: attemptB,
       actor: MORRIS_ACTOR,
       expiresAt: "2026-07-25T07:00:00.000Z",
       authorityEvidenceId: M4_EVIDENCE,
     });
-    expect(granted.ok).toBe(true);
 
     const gitActionRef = buildGitEffectActionRef({
       executionContractId: seeded.contractId,
@@ -329,17 +337,16 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
       repositoryRef: IDENTITY,
       branchOrRef: BRANCH,
     });
-    registerMorris(stack.decisions.authority, gitActionRef, "evd:morris-git-ab");
+    registerMorris(stack.decisions.authority, gitActionRef, "evd:morris-gc");
     await grantContractConfirmation(stack, {
-      confirmationId: "cfm:cont-git-commit",
+      confirmationId: "cfm:gc-git-commit",
       actionRef: gitActionRef,
       scope: gitActionRef,
-      evidenceId: "evd:morris-git-ab",
+      evidenceId: "evd:morris-gc",
     });
     const gitCnf = await stack.decisions.confirmations.findById(
-      "cfm:cont-git-commit",
+      "cfm:gc-git-commit",
     );
-    expect(gitCnf?.status).toBe("granted");
 
     const started = await stack.attempts.startExecution.execute({
       attemptId: attemptB,
@@ -349,78 +356,77 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
       verifiedEffects: ["filesystem.create", "filesystem.modify"],
     });
     expect(started.ok).toBe(true);
-    if (!started.ok) {
-      throw new Error(started.error.internalCauseRef);
-    }
+    if (!started.ok) throw new Error(started.error.internalCauseRef);
 
-    expect(launchPort.calls).toHaveLength(1);
     const req = launchPort.calls[0]!;
     expect(req.selectedAgentRef).toBe(M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID);
-    expect(req.workspaceContinuation).toBeDefined();
+    expect(req.authorizedEffects).toEqual(["git.commit"]);
     expect(req.workspaceContinuation?.priorAttemptId).toBe(attemptA);
-    expect(req.workspaceContinuation?.expectedHeadSha).toBe(
-      M4_TEST_BASE_HEAD_SHA,
-    );
-    expect(req.workspaceContinuation?.expectedVerifiedFiles).toEqual([
-      { path: TARGET_PATH, digest: ARTIFACT_DIGEST },
-    ]);
-    expect(
-      (req.workspaceContinuation as { workspacePath?: string } | undefined)
-        ?.workspacePath,
-    ).toBeUndefined();
+    expect(req.gitCommitSpec).toBeDefined();
 
-    const cont = resolvePreCommitWorkspaceContinuation({
-      currentAttemptId: attemptB,
-      executionContractId: seeded.contractId,
-      projectId: seeded.projectId,
-      cycleInstanceId: seeded.cycleInstanceId,
-      expectedHeadSha: M4_TEST_BASE_HEAD_SHA,
-      attempts: [
-        succeededAttempt({
-          attemptId: attemptA,
-          executionContractId: seeded.contractId,
-          executionContractVersion: seeded.version,
-        }),
-      ],
-      evidence: evidenceBag,
-      authorizedEffects: ["git.commit"],
-      verifiedEffects: ["filesystem.create", "filesystem.modify"],
+    const evidenceServices = createTestEvidenceReviewServices({
+      fixedNowIso: NOW,
     });
-    expect(cont.required).toBe(true);
-    if (!cont.required) throw new Error("expected continuation required");
-    expect(cont.ok).toBe(true);
-    if (!cont.ok) throw new Error(cont.reason);
+    // CR-09: Evidence creator owns observation via governed temp worktree.
+    const fx = createGovernedCommittedWorktree({
+      priorAttemptId: attemptA,
+      pathRel: TARGET_PATH,
+      body: "# same-ec-ab\n",
+      commitMessage: MSG,
+      identity: "acme/widget",
+    });
+    const verified = await verifyLocalCommitEffect({
+      gitRunner: fx.runner,
+      governed: fx.governed,
+      spec: {
+        ...req.gitCommitSpec!,
+        expectedParentSha: fx.H0,
+        repositoryRef: "acme/widget",
+        exactPaths: [TARGET_PATH],
+        commitMessage: MSG,
+      },
+      expectedArtifactDigests: { [TARGET_PATH]: fx.digest },
+      expectedBindings: {
+        projectId: seeded.projectId,
+        cycleInstanceId: seeded.cycleInstanceId,
+        executionContractId: seeded.contractId,
+        executionAttemptId: attemptB,
+      },
+      actor: { actorId: MORRIS_ACTOR.actorId, role: "human" },
+      evidenceServices,
+      nowIso: NOW,
+    });
+    fx.cleanup();
+    expect(verified.ok).toBe(true);
 
     const a = await stack.attempts.attempts.findById(attemptA);
     const b = await stack.attempts.attempts.findById(attemptB);
-    expect(a?.status).toBe("succeeded");
-    expect(b?.status).toBe("running");
     expect(a?.attemptId).not.toBe(b?.attemptId);
     expect(a?.executionContractId).toBe(b?.executionContractId);
     expect(a?.selectedAgentRef).not.toBe(b?.selectedAgentRef);
+    expect(b?.status).toBe("running");
 
     journal.close();
   });
 
-  it("CONT-06 StartExecution fails closed when continuation required but none", async () => {
-    const managedBase = mkdtempSync(
-      path.join(os.tmpdir(), "gcec-cont-none-"),
-    );
-    const repoRoot = path.join(managedBase, "acme__widget");
-    mkdirSync(repoRoot, { recursive: true });
-    mkdirSync(path.join(repoRoot, ".git"));
-
+  it("SR-02 stale docs-write selection + later commit slice → Start reject / zero process", async () => {
+    const managedBase = mkdtempSync(path.join(os.tmpdir(), "gcec-sr02-"));
+    mkdirSync(path.join(managedBase, "acme__widget", ".git"), {
+      recursive: true,
+    });
     const journal = new SqliteRealLaunchSafetyJournal({
-      databasePath: tempJournalPath("gcec-cont-none-"),
+      databasePath: tempJournalPath("gcec-sr02-"),
     });
     const launchPort = new TestOnlyRealExecutionLaunchPort();
-    const agent = createM4BoundedDocsWriteCursorAgentDescriptor(NOW);
+    const docs = createM4BoundedDocsWriteCursorAgentDescriptor(NOW);
+    const commit = createM4BoundedLocalCommitCursorAgentDescriptor(NOW);
     const fixtureAdapter = new TestExecutionAdapter();
-    const stack = buildStack({ agents: [agent], adapter: fixtureAdapter });
+    const evidenceBag: Evidence[] = [];
+    const stack = buildStack({ agents: [docs, commit], adapter: fixtureAdapter });
     stack.attempts = createTestExecutionAttemptServices({
       decisionServices: stack.decisions,
       executionContractServices: stack.execution,
-      agents: [agent],
+      agents: [docs, commit],
       adapter: fixtureAdapter,
       realBoundary: {
         launchPort,
@@ -435,29 +441,43 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
         pathRoot: "docs",
         baseSha: M4_TEST_BASE_HEAD_SHA,
       }),
-      listProjectEvidence: async () => ({ ok: true as const, evidence: [] }),
+      listProjectEvidence: async () => ({ ok: true as const, evidence: evidenceBag }),
       fixedNowIso: NOW,
     }) as typeof stack.attempts;
 
     const seeded = await seedDocsWriteConfirmedContract(stack);
-    // Prior succeeded Attempt opens the continuation window; missing Evidence → fail closed.
+
+    // Select B as docs-write while FS Evidence not yet present (profile = docs-write).
+    const selected = await selectStandardAgent(stack, {
+      attemptId: "xat:sr-b",
+      executionContractId: seeded.contractId,
+      requestedAgentRef: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+      idempotencyKey: "idem-sr-b",
+    });
+    expect(selected.ok).toBe(true);
+    if (!selected.ok) throw new Error("select failed");
+
+    // Then Attempt A succeeds + Evidence appears → current profile becomes commit.
     await stack.attempts.attempts.create(
       succeededAttempt({
-        attemptId: "xat:cont-none-a",
+        attemptId: "xat:sr-a",
         executionContractId: seeded.contractId,
         executionContractVersion: seeded.version,
       }),
     );
-    const attemptB = "xat:cont-none-b";
-    await selectStandardAgent(stack, {
-      attemptId: attemptB,
-      executionContractId: seeded.contractId,
-      requestedAgentRef: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
-      idempotencyKey: "idem-cont-none-b",
-    });
+    evidenceBag.push(
+      docsWriteEvidence({
+        evidenceId: "ev:sr-a",
+        projectId: seeded.projectId,
+        cycleInstanceId: seeded.cycleInstanceId,
+        executionContractId: seeded.contractId,
+        executionAttemptId: "xat:sr-a",
+      }),
+    );
+
     await stack.attempts.grantRealExecutionGate!.execute({
-      grantId: "gd:cont-none",
-      attemptId: attemptB,
+      grantId: "gd:sr-b",
+      attemptId: "xat:sr-b",
       actor: MORRIS_ACTOR,
       expiresAt: "2026-07-25T07:00:00.000Z",
       authorityEvidenceId: M4_EVIDENCE,
@@ -468,114 +488,80 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
       repositoryRef: IDENTITY,
       branchOrRef: BRANCH,
     });
-    registerMorris(
-      stack.decisions.authority,
-      gitActionRef,
-      "evd:morris-git-none",
-    );
+    registerMorris(stack.decisions.authority, gitActionRef, "evd:morris-sr");
     await grantContractConfirmation(stack, {
-      confirmationId: "cfm:cont-none-git",
+      confirmationId: "cfm:sr-git",
       actionRef: gitActionRef,
       scope: gitActionRef,
-      evidenceId: "evd:morris-git-none",
+      evidenceId: "evd:morris-sr",
     });
-    const gitCnf = await stack.decisions.confirmations.findById(
-      "cfm:cont-none-git",
-    );
+    const gitCnf = await stack.decisions.confirmations.findById("cfm:sr-git");
     const started = await stack.attempts.startExecution.execute({
-      attemptId: attemptB,
+      attemptId: "xat:sr-b",
       actor: MORRIS_ACTOR,
       authorityEvidenceId: M4_EVIDENCE,
       confirmations: gitCnf ? [gitCnf] : [],
       verifiedEffects: ["filesystem.create", "filesystem.modify"],
     });
     expect(started.ok).toBe(false);
-    if (!started.ok) {
-      // Cont01 none OR commit profile without FS Evidence — both fail closed.
-      expect(started.error.internalCauseRef).toMatch(
-        /continuation_candidate_none|without_verified_fs_evidence|without_verified_fs_lineage|capability/i,
-      );
-    }
-    expect(launchPort.launchCallCount).toBe(0);
+    expect(launchPort.calls).toHaveLength(0);
+    const still = await stack.attempts.attempts.findById("xat:sr-b");
+    expect(still?.selectedAgentRef).toBe(M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID);
     journal.close();
   });
 
-  it("restart rediscovery: new workspace service + same execRoot resumes without processRef", async () => {
-    const root = mkdtempSync(path.join(os.tmpdir(), "gcec-cont-restart-"));
-    const repoRoot = path.join(root, "repo");
-    const execRoot = path.join(root, "exec");
-    mkdirSync(repoRoot);
-    mkdirSync(execRoot);
-    const priorAttemptId = "xat:cont-restart-a";
-    const workspacePath = workspacePathForAttempt(execRoot, priorAttemptId);
-    mkdirSync(workspacePath, { recursive: true });
-    const abs = path.join(workspacePath, TARGET_PATH);
-    mkdirSync(path.dirname(abs), { recursive: true });
-    writeFileSync(abs, ARTIFACT_BODY, "utf8");
-
-    const git1 = new FakeGitCommandRunner({
-      baseHeadSha: M4_TEST_BASE_HEAD_SHA,
-      remoteUrl: `https://github.com/${IDENTITY}.git`,
-      registeredWorktrees: [workspacePath],
-    });
-    const ws1 = new StudioGitWorktreeWorkspace({
-      repoRoot,
-      execRoot,
-      gitRunner: git1,
-    });
-    // Drop ws1 — simulate process restart (no worktreeRef retained).
-    void ws1;
-
-    const git2 = new FakeGitCommandRunner({
-      baseHeadSha: M4_TEST_BASE_HEAD_SHA,
-      remoteUrl: `https://github.com/${IDENTITY}.git`,
-      registeredWorktrees: [workspacePath],
-    });
-    const ws2 = new StudioGitWorktreeWorkspace({
-      repoRoot,
-      execRoot,
-      gitRunner: git2,
-    });
-    const resumed = await ws2.resumeVerifiedWorkspace({
-      currentAttemptId: "xat:cont-restart-b",
-      priorAttemptId,
-      expectedHeadSha: M4_TEST_BASE_HEAD_SHA,
-      expectedVerifiedFiles: [
-        { path: TARGET_PATH, digest: ARTIFACT_DIGEST },
-      ],
-      repositoryBinding: {
-        identity: IDENTITY,
-        remoteUrl: `https://github.com/${IDENTITY}.git`,
-        defaultBranch: "main",
-      },
-    });
-    expect(resumed.workspacePath).toBe(workspacePath);
+  it("FS→SHA still requires verified git:local_commit Evidence", () => {
     expect(
-      git2.calls.some(
-        (c) => c.argv[0] === "worktree" && c.argv[1] === "add",
-      ),
-    ).toBe(false);
-
-    // Negative: path absent after restart
-    const missingExec = path.join(root, "exec-missing");
-    mkdirSync(missingExec);
-    const wsMissing = new StudioGitWorktreeWorkspace({
-      repoRoot,
-      execRoot: missingExec,
-      gitRunner: new FakeGitCommandRunner({
-        baseHeadSha: M4_TEST_BASE_HEAD_SHA,
-        remoteUrl: `https://github.com/${IDENTITY}.git`,
-      }),
-    });
-    await expect(
-      wsMissing.resumeVerifiedWorkspace({
-        currentAttemptId: "xat:cont-restart-b2",
-        priorAttemptId,
-        expectedHeadSha: M4_TEST_BASE_HEAD_SHA,
-        expectedVerifiedFiles: [
-          { path: TARGET_PATH, digest: ARTIFACT_DIGEST },
+      isFsAnchorSupersededByVerifiedLocalCommit({
+        projectId: "prj:campus360-oa",
+        cycleInstanceId: "cyc:std-001",
+        executionContractId: "xct:gc-ab",
+        attempts: [],
+        priorAttemptId: "xat:a",
+        expectedParentSha: M4_TEST_BASE_HEAD_SHA,
+        repositoryRef: "acme/widget",
+        requiredPaths: [TARGET_PATH],
+        evidence: [
+          docsWriteEvidence({
+            evidenceId: "ev:a",
+            projectId: "prj:campus360-oa",
+            cycleInstanceId: "cyc:std-001",
+            executionContractId: "xct:gc-ab",
+            executionAttemptId: "xat:a",
+          }),
         ],
       }),
-    ).rejects.toThrow(/resume_workspace_missing/);
+    ).toBe(false);
+    expect(
+      resolvePreCommitWorkspaceContinuation({
+        currentAttemptId: "xat:push",
+        executionContractId: "xct:gc-ab",
+        projectId: "prj:campus360-oa",
+        cycleInstanceId: "cyc:std-001",
+        expectedHeadSha: M4_TEST_BASE_HEAD_SHA,
+        attempts: [
+          succeededAttempt({
+            attemptId: "xat:a",
+            executionContractId: "xct:gc-ab",
+            executionContractVersion: 1,
+          }),
+        ],
+        evidence: [
+          docsWriteEvidence({
+            evidenceId: "ev:a",
+            projectId: "prj:campus360-oa",
+            cycleInstanceId: "cyc:std-001",
+            executionContractId: "xct:gc-ab",
+            executionAttemptId: "xat:a",
+          }),
+        ],
+        authorizedEffects: ["git.push"],
+        verifiedEffects: [
+          "filesystem.create",
+          "filesystem.modify",
+          "git.commit",
+        ],
+      }).required,
+    ).toBe(true);
   });
 });

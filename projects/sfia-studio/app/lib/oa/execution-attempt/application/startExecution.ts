@@ -57,6 +57,9 @@ import type {
   GateDGrant,
 } from "../domain/realLaunchSafety";
 import { isM4AuthorizedCursorRealAgent } from "../infrastructure/m4BoundedDocsWriteCursorAgent";
+import { isM4BoundedLocalCommitRealAgent } from "../infrastructure/m4BoundedLocalCommitCursorAgent";
+import { resolveAttemptExecutionProfile } from "../domain/resolveAttemptExecutionProfile";
+import type { ListProjectEvidenceFn } from "../domain/projectEvidenceList";
 import type { ExecutionAttemptTechnicalStorePort } from "../ports/executionAttemptTechnicalStorePort";
 import type { AgentRegistryPort } from "../ports/agentRegistry";
 import type { ExecutionAdapterPort } from "../ports/executionAdapter";
@@ -75,6 +78,11 @@ import {
 } from "../domain/resolveGitEffectTarget";
 import { deriveExecutableEffectsFromContractRequirements } from "../domain/contractEffectClassification";
 import { resolvePreCommitWorkspaceContinuation } from "../domain/resolvePreCommitWorkspaceContinuation";
+import {
+  buildGitCommitLaunchSpec,
+  deriveTrustedCommitMessage,
+} from "../domain/gitCommitLaunchSpec";
+import { isBoundedGitCommitOnlySlice } from "../domain/verifyLocalCommitFacts";
 import type { CursorAuthorizedEffectId } from "../domain/cursorExecutionReport";
 import {
   authorityFailureDetail,
@@ -271,11 +279,9 @@ export class StartExecution {
       projectId: string,
     ) => Promise<import("@/lib/oa/project").ProjectRepositoryBinding | null>,
     /**
-     * CR-GCEC-23 — list Evidence for verified PR identity (late-bound OK).
+     * CR-GCEC-23 / CORR-D-GCEC-AGENT-01 — Evidence list (Result; late-bound OK).
      */
-    private readonly listProjectEvidence?: (
-      projectId: string,
-    ) => Promise<readonly import("@/lib/oa/evidence-review").Evidence[]>,
+    private readonly listProjectEvidence?: ListProjectEvidenceFn,
   ) {}
 
   async execute(
@@ -452,12 +458,32 @@ export class StartExecution {
           selectedAgentRef: attempt.selectedAgentRef,
         });
       }
-      const agentViolation = agentMatchViolation(agent, {
-        requiredCapabilities: [...contract.requiredCapabilities],
-        action: contract.action,
-        target: contract.target,
-        scope: contract.scope,
+      // D-GCEC-AGENT-01 — early profile match from durable Evidence (Start later
+      // revalidates against AuthorizedExecutionSlice). Do NOT use fixed EC quartet.
+      const evidenceReadEarly = this.listProjectEvidence
+        ? await this.listProjectEvidence(contract.projectId)
+        : { ok: false as const, reason: "evidence_reader_unavailable" as const };
+      const evidenceForProfile = evidenceReadEarly.ok
+        ? evidenceReadEarly.evidence
+        : [];
+      const peersForProfile = await this.attempts.listByContract(
+        contract.executionContractId,
+      );
+      const earlyProfile = resolveAttemptExecutionProfile({
+        contract,
+        attempts: peersForProfile,
+        evidence: evidenceForProfile,
+        evidenceReaderAvailable: evidenceReadEarly.ok,
       });
+      if (!earlyProfile.ok) {
+        return fail("AGENT_CAPABILITY_MISMATCH", earlyProfile.reason, {
+          selectedAgentRef: attempt.selectedAgentRef,
+        });
+      }
+      const agentViolation = agentMatchViolation(
+        agent,
+        earlyProfile.profile.criteria,
+      );
       if (agentViolation) {
         return fail(agentViolation.detailCode, agentViolation.reason, {
           selectedAgentRef: attempt.selectedAgentRef,
@@ -979,9 +1005,10 @@ export class StartExecution {
       };
       repositoryBindingIdentity = binding.identity;
 
-      const evidenceList = this.listProjectEvidence
+      const evidenceReadPr = this.listProjectEvidence
         ? await this.listProjectEvidence(contract.projectId)
-        : [];
+        : { ok: false as const, reason: "evidence_reader_unavailable" as const };
+      const evidenceList = evidenceReadPr.ok ? evidenceReadPr.evidence : [];
       const verifiedEvidence = evidenceList.filter(
         (e) => e.status === "verified",
       );
@@ -1072,6 +1099,64 @@ export class StartExecution {
       });
     }
 
+    // D-GCEC-AGENT-01 — Start revalidation against AuthorizedExecutionSlice.
+    // Do not trust selection-time profile forever; do not mutate selectedAgentRef.
+    {
+      const peersForStartProfile = await this.attempts.listByContract(
+        contract.executionContractId,
+      );
+      const evidenceReadStart = this.listProjectEvidence
+        ? await this.listProjectEvidence(contract.projectId)
+        : { ok: false as const, reason: "evidence_reader_unavailable" as const };
+      const evidenceForStartProfile = evidenceReadStart.ok
+        ? evidenceReadStart.evidence
+        : [];
+      const startProfile = resolveAttemptExecutionProfile({
+        contract,
+        attempts: peersForStartProfile,
+        evidence: evidenceForStartProfile,
+        evidenceReaderAvailable: evidenceReadStart.ok,
+        authorizedEffects:
+          authorizedSlice.authorizedEffects as CursorAuthorizedEffectId[],
+        claimedVerifiedEffects: request.verifiedEffects,
+        claimedGitCommitSpec: (request as { gitCommitSpec?: unknown })
+          .gitCommitSpec,
+        claimedRequestedAgentRef: attempt.selectedAgentRef,
+      });
+      if (!startProfile.ok) {
+        return fail("AGENT_CAPABILITY_MISMATCH", startProfile.reason, {
+          selectedAgentRef: attempt.selectedAgentRef,
+        });
+      }
+      const startAgentViolation = agentMatchViolation(
+        agent,
+        startProfile.profile.criteria,
+      );
+      if (startAgentViolation) {
+        return fail(
+          startAgentViolation.detailCode,
+          startAgentViolation.reason === "capability_not_supported" ||
+            startAgentViolation.reason.startsWith("action_") ||
+            startAgentViolation.reason.startsWith("target_") ||
+            startAgentViolation.reason.startsWith("scope_")
+            ? `start_profile_${startAgentViolation.reason}`
+            : startAgentViolation.reason,
+          { selectedAgentRef: attempt.selectedAgentRef },
+        );
+      }
+      // Defense: commit-only slice still requires exact local-commit descriptor.
+      if (
+        isBoundedGitCommitOnlySlice(authorizedSlice.authorizedEffects) &&
+        !isM4BoundedLocalCommitRealAgent(agent)
+      ) {
+        return fail(
+          "AGENT_CAPABILITY_MISMATCH",
+          "git_commit_agent_capability_bypass",
+          { selectedAgentRef: attempt.selectedAgentRef },
+        );
+      }
+    }
+
     // D-GCEC-CONT-01 — pre-commit workspace continuation (server-derived only).
     let workspaceContinuation:
       | {
@@ -1087,9 +1172,20 @@ export class StartExecution {
       const peerAttempts = await this.attempts.listByContract(
         contract.executionContractId,
       );
-      const evidenceList = this.listProjectEvidence
+      const evidenceReadCont = this.listProjectEvidence
         ? await this.listProjectEvidence(contract.projectId)
-        : [];
+        : { ok: false as const, reason: "evidence_reader_unavailable" as const };
+      if (!evidenceReadCont.ok) {
+        return fail(
+          "ATTEMPT_INVALID",
+          "attempt_profile_evidence_reader_unavailable",
+          { executionContractId: contract.executionContractId },
+        );
+      }
+      const evidenceList = evidenceReadCont.evidence;
+      const projectBinding = this.resolveProjectRepositoryBinding
+        ? await this.resolveProjectRepositoryBinding(contract.projectId)
+        : null;
       const cont = resolvePreCommitWorkspaceContinuation({
         currentAttemptId: attempt.attemptId,
         executionContractId: contract.executionContractId,
@@ -1098,6 +1194,7 @@ export class StartExecution {
         expectedHeadSha: baseHeadSha,
         attempts: peerAttempts,
         evidence: evidenceList,
+        repositoryRef: projectBinding?.identity,
         authorizedEffects:
           authorizedSlice.authorizedEffects as CursorAuthorizedEffectId[],
         verifiedEffects: request.verifiedEffects,
@@ -1116,6 +1213,75 @@ export class StartExecution {
       }
     }
 
+    // GCEC bounded git.commit-only Attempt B — server-derived GitCommitLaunchSpec.
+    let gitCommitSpec:
+      | {
+          repositoryRef: string;
+          expectedParentSha: string;
+          exactPaths: readonly string[];
+          commitMessage: string;
+          branchOrRef?: string;
+        }
+      | undefined;
+    if (isBoundedGitCommitOnlySlice(authorizedSlice.authorizedEffects)) {
+      // Agent sufficiency already revalidated against AttemptExecutionProfile above.
+      const contractInputs =
+        contract.inputs && typeof contract.inputs === "object"
+          ? (contract.inputs as Record<string, unknown>)
+          : {};
+      const message = deriveTrustedCommitMessage({
+        contractInputs,
+        docsWriteArtifactBrief: docsWriteSpec?.artifactBrief,
+      });
+      if (!message.ok) {
+        return fail("ATTEMPT_INVALID", message.reason, {
+          executionContractId: contract.executionContractId,
+        });
+      }
+      const repositoryRef =
+        repositoryBindingIdentity?.trim() ||
+        docsWriteSpec?.repositoryRef?.trim() ||
+        (typeof contractInputs.repositoryRef === "string"
+          ? contractInputs.repositoryRef.trim()
+          : "");
+      const branchOrRef =
+        (typeof contractInputs.workingBranch === "string" &&
+          contractInputs.workingBranch.trim()) ||
+        (typeof contractInputs.branchOrRef === "string" &&
+          contractInputs.branchOrRef.trim()) ||
+        repositoryBinding?.defaultBranch;
+      // Cont01 Attempt B: paths/parent from verified continuation.
+      // Progressive CR23 (no prior Attempt): Cont01 not required — derive from
+      // docsWriteSpec.targetPath + contract baseHeadSha (fail closed if absent).
+      const exactPaths = workspaceContinuation
+        ? workspaceContinuation.expectedVerifiedFiles.map((f) => f.path)
+        : docsWriteSpec?.targetPath
+          ? [docsWriteSpec.targetPath]
+          : [];
+      const expectedParentSha =
+        workspaceContinuation?.expectedHeadSha ?? baseHeadSha;
+      if (!workspaceContinuation && exactPaths.length === 0) {
+        return fail(
+          "ATTEMPT_INVALID",
+          "git_commit_continuation_required",
+          { executionContractId: contract.executionContractId },
+        );
+      }
+      const built = buildGitCommitLaunchSpec({
+        repositoryRef,
+        expectedParentSha,
+        exactPaths,
+        commitMessage: message.message,
+        ...(branchOrRef ? { branchOrRef } : {}),
+      });
+      if (!built.ok) {
+        return fail("ATTEMPT_INVALID", built.reason, {
+          executionContractId: contract.executionContractId,
+        });
+      }
+      gitCommitSpec = built.spec;
+    }
+
     let launch;
     try {
       launch = await this.realLaunchPort.launch({
@@ -1132,6 +1298,7 @@ export class StartExecution {
         scope: contract.scope,
         timeoutMs: window.resolvedMaxDurationMs,
         ...(docsWriteSpec ? { docsWriteSpec } : {}),
+        ...(gitCommitSpec ? { gitCommitSpec } : {}),
         ...(repositoryBindingIdentity
           ? { repositoryBindingIdentity }
           : {}),

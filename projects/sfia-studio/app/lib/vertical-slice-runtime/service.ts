@@ -37,6 +37,7 @@ import {
   createSqliteExecutionAttemptServices,
   createM4BoundedReadOnlyCursorAgentDescriptor,
   createM4BoundedDocsWriteCursorAgentDescriptor,
+  createM4BoundedLocalCommitCursorAgentDescriptor,
   isStudioCursorRealEnabled,
   type ExecutionAttemptServices,
   type RealBoundaryWiring,
@@ -408,6 +409,7 @@ function wireOaStack(
         w3aBoundedAgent,
         createM4BoundedReadOnlyCursorAgentDescriptor(clock.nowIso()),
         createM4BoundedDocsWriteCursorAgentDescriptor(clock.nowIso()),
+        createM4BoundedLocalCommitCursorAgentDescriptor(clock.nowIso()),
       ]
     : [fixtureAgent, w3aBoundedAgent];
   const registry = new MemoryAgentRegistry(agents);
@@ -428,8 +430,12 @@ function wireOaStack(
           return r.project.repositoryBinding ?? null;
         },
         listProjectEvidence: async (projectId) => {
-          if (!late.evidenceReviewServices) return [];
-          return late.evidenceReviewServices.repository.listByProject(projectId);
+          if (!late.evidenceReviewServices) {
+            return { ok: false as const, reason: "evidence_reader_unavailable" as const };
+          }
+          const evidence =
+            await late.evidenceReviewServices.repository.listByProject(projectId);
+          return { ok: true as const, evidence };
         },
       })
     : createInMemoryExecutionAttemptServices({
@@ -447,8 +453,12 @@ function wireOaStack(
           return r.project.repositoryBinding ?? null;
         },
         listProjectEvidence: async (projectId) => {
-          if (!late.evidenceReviewServices) return [];
-          return late.evidenceReviewServices.repository.listByProject(projectId);
+          if (!late.evidenceReviewServices) {
+            return { ok: false as const, reason: "evidence_reader_unavailable" as const };
+          }
+          const evidence =
+            await late.evidenceReviewServices.repository.listByProject(projectId);
+          return { ok: true as const, evidence };
         },
       });
   late.executionAttemptServices = executionAttemptServices;
