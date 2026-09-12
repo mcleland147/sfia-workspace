@@ -1,4 +1,461 @@
 # SFIA Studio — Review Pack
+## GCEC-GIT-LIFECYCLE-E2E-01 — LOCAL PRODUCT COMMIT ANCHOR
+
+TIMESTAMP: 2026-09-12 23:33:29 CEST
+
+CYCLE: 8 — Delivery / implementation
+
+TYPE: EVOL
+
+PROFILE: CRITICAL
+
+GO MORRIS: GO MORRIS — LOCAL PRODUCT COMMIT — GCEC-GIT-LIFECYCLE-E2E-01
+
+ANTI-MICRO-CYCLE: NO functional/technical modification. Anchor only the already-reviewed 43-path candidate.
+
+Incoming Review Handoff: 9eefd38bfa078f8412d63e4b052c1f200209eb37
+Expected Git main: a9f6c310a0826d0e5bd6f7264603382a86564db1
+Expected Product parent HEAD: f71cf89a452d0b6109e1f11be957210122082186
+
+ChatGPT disposition entering this GO: PASS WITH RESERVE — AC-01..06 CLOSED; whole-candidate regression PASS.
+
+Inherited deterministic validation (unchanged; no source change this cycle):
+- Focused: 63 passed
+- Related: 205 passed
+- typecheck PASS / lint PASS / build PASS
+- Full Vitest: 3845 passed | 137 skipped
+
+==================================================
+ROLE BOUNDARIES
+==================================================
+
+- Morris = construction/governance gate; this GO = LOCAL Product commit + Review Handoff only.
+- Pilote = runtime HumanDecision / Confirmation (none created here).
+- Studio = contract / orchestration / verification; NOT Git writer; did not create the commit.
+- Nora = cognition / LPS / trajectory / replan — UNCHANGED; out of scope.
+- Cursor = technical executor of the authorized local git.commit.
+
+==================================================
+PRE-COMMIT GIT TRUTH
+==================================================
+
+WORKTREE: /Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310
+BRANCH: delivery/sfia-studio-product-proof-qual-to-governed-cycle
+HEAD: f71cf89a452d0b6109e1f11be957210122082186
+origin/main: a9f6c310a0826d0e5bd6f7264603382a86564db1
+STATE: LOCAL DIRTY; 43 Product paths; staged=none; commits since f71cf89a = 0.
+PATHSET vs handoff 9eefd38b Complete fileset: EXACT MATCH (43/43).
+NO REVIEWED PRODUCT CANDIDATE DRIFT.
+
+==================================================
+STAGING PROOF
+==================================================
+
+Staged via `git add --pathspec-from-file` of the reviewed 43 paths ONLY.
+Blind `git add -A` / `.` / `commit -a` NOT used.
+
+Staged count: 43
+`git diff --cached --check`: PASS (exit 0)
+Unexpected / non-Product / secret / review-pack paths staged: NONE
+Staged pathset == reviewed Complete fileset: YES
+
+Exact staged/committed fileset:
+```
+projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/cycle/gcecD15Negatives.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/cycle/gcecDeterministicNegatives.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/cycle/gcecOneLotDelivery.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/cycle/gcecOwnershipNegatives.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01AttemptProfile.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitLifecyclePushPrMerge.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecMutatingCursorConfinementEnv.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/git-ports/gcecGitPorts.d0.test.ts
+projects/sfia-studio/app/lib/oa/evidence-review/application/typedGitEvidence.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/application/verifyPrCreateEffect.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/application/verifyRemotePushEffect.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/domain/assertFreshPrMergePreflight.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/domain/assertLocalBranchRefMatchesExpectedSha.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPrCreateLaunchSpec.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPrMergeLaunchSpec.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPushLaunchSpec.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveGitEffectTarget.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedLocalCommitPriorAttempt.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedRemotePushPriorAttempt.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/domain/shellSafeArg.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/cursorCliLaunchGateway.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeCursorGitExternalState.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedPrCreateCursorAgent.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedPrMergeCursorAgent.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedRemotePushCursorAgent.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/mutatingCursorConfinementEnv.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts
+projects/sfia-studio/app/lib/oa/git-ports/application/gitEffectEvidenceActions.ts
+projects/sfia-studio/app/lib/oa/git-ports/fakeGitProviderPorts.ts
+projects/sfia-studio/app/lib/oa/git-ports/githubCliRemotePorts.ts
+projects/sfia-studio/app/lib/oa/git-ports/platformGithubReadBridge.ts
+projects/sfia-studio/app/lib/oa/git-ports/types.ts
+projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+```
+
+==================================================
+PRODUCT COMMIT
+==================================================
+
+Subject (exact):
+feat(sfia-studio): complete governed git lifecycle execution
+
+New Product SHA:
+bbb03ce7aaff22421b00c96e747e9b5a2ede0325
+
+Parent SHA (must == f71cf89a…):
+f71cf89a452d0b6109e1f11be957210122082186
+
+Files: 43
+Diffstat: 43 files changed, 4820 insertions(+), 114 deletions(-)
+
+`git show --stat --oneline HEAD`:
+```
+bbb03ce7 feat(sfia-studio): complete governed git lifecycle execution
+ .../oa/cycle/gcecCr23StartExecution.d0.test.ts     |    6 +-
+ .../__tests__/oa/cycle/gcecD15Negatives.d0.test.ts |   13 +-
+ .../oa/cycle/gcecDeterministicNegatives.d0.test.ts |    2 +
+ .../oa/cycle/gcecOneLotDelivery.d0.test.ts         |    5 +-
+ .../oa/cycle/gcecOwnershipNegatives.d0.test.ts     |    1 +
+ .../oa/cycle/gcecProductMonolithicE2e.d0.test.ts   |   12 +-
+ .../gcecAgent01AttemptProfile.d0.test.ts           |   44 +-
+ .../gcecGitLifecyclePushPrMerge.d0.test.ts         | 1420 ++++++++++++++++++++
+ .../gcecMutatingCursorConfinementEnv.d0.test.ts    |  103 +-
+ .../__tests__/oa/git-ports/gcecGitPorts.d0.test.ts |    1 +
+ .../application/typedGitEvidence.ts                |   27 +-
+ .../application/startExecution.ts                  |  408 +++++-
+ .../application/verifyPrCreateEffect.ts            |  129 ++
+ .../application/verifyRemotePushEffect.ts          |   77 ++
+ .../domain/assertFreshPrMergePreflight.ts          |   41 +
+ .../assertLocalBranchRefMatchesExpectedSha.ts      |   57 +
+ .../domain/gitPrCreateLaunchSpec.ts                |  150 +++
+ .../domain/gitPrMergeLaunchSpec.ts                 |  119 ++
+ .../execution-attempt/domain/gitPushLaunchSpec.ts  |  150 +++
+ .../execution-attempt/domain/realLaunchSafety.ts   |    9 +
+ .../domain/resolveAttemptExecutionProfile.ts       |  435 +++++-
+ .../domain/resolveGitEffectTarget.ts               |  102 +-
+ .../resolveVerifiedLocalCommitPriorAttempt.ts      |  171 +++
+ .../resolveVerifiedRemotePushPriorAttempt.ts       |  185 +++
+ .../oa/execution-attempt/domain/shellSafeArg.ts    |   53 +
+ .../app/lib/oa/execution-attempt/index.ts          |   92 ++
+ .../infrastructure/cursorCliLaunchGateway.ts       |    4 +
+ .../infrastructure/fakeCursorGitExternalState.ts   |   16 +-
+ .../infrastructure/fakeDocsWriteLaunchPort.ts      |  224 ++-
+ .../m4BoundedDocsWriteCursorAgent.ts               |   10 +-
+ .../infrastructure/m4BoundedPrCreateCursorAgent.ts |   84 ++
+ .../infrastructure/m4BoundedPrMergeCursorAgent.ts  |   84 ++
+ .../m4BoundedRemotePushCursorAgent.ts              |   86 ++
+ .../infrastructure/mutatingCursorConfinementEnv.ts |   95 +-
+ .../sqlite/createSqliteExecutionAttemptServices.ts |    3 +
+ .../studioCursorRealLaunchGateway.ts               |  419 +++++-
+ .../ports/realExecutionLaunchPort.ts               |   23 +-
+ .../application/gitEffectEvidenceActions.ts        |   50 +-
+ .../app/lib/oa/git-ports/fakeGitProviderPorts.ts   |    2 +
+ .../app/lib/oa/git-ports/githubCliRemotePorts.ts   |   10 +-
+ .../lib/oa/git-ports/platformGithubReadBridge.ts   |    2 +
+ projects/sfia-studio/app/lib/oa/git-ports/types.ts |    4 +
+ .../app/lib/vertical-slice-runtime/service.ts      |    6 +
+ 43 files changed, 4820 insertions(+), 114 deletions(-)
+```
+
+`git show --name-status --format=fuller HEAD`:
+```
+commit bbb03ce7aaff22421b00c96e747e9b5a2ede0325
+Author:     Morris Cleland <morris@macbook-air.home>
+AuthorDate: Sat Sep 12 23:32:21 2026 +0200
+Commit:     Morris Cleland <morris@macbook-air.home>
+CommitDate: Sat Sep 12 23:32:21 2026 +0200
+
+    feat(sfia-studio): complete governed git lifecycle execution
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+M	projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/cycle/gcecD15Negatives.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/cycle/gcecDeterministicNegatives.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/cycle/gcecOneLotDelivery.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/cycle/gcecOwnershipNegatives.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01AttemptProfile.d0.test.ts
+A	projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitLifecyclePushPrMerge.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecMutatingCursorConfinementEnv.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/git-ports/gcecGitPorts.d0.test.ts
+M	projects/sfia-studio/app/lib/oa/evidence-review/application/typedGitEvidence.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
+A	projects/sfia-studio/app/lib/oa/execution-attempt/application/verifyPrCreateEffect.ts
+A	projects/sfia-studio/app/lib/oa/execution-attempt/application/verifyRemotePushEffect.ts
+A	projects/sfia-studio/app/lib/oa/execution-attempt/domain/assertFreshPrMergePreflight.ts
+A	projects/sfia-studio/app/lib/oa/execution-attempt/domain/assertLocalBranchRefMatchesExpectedSha.ts
+A	projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPrCreateLaunchSpec.ts
+A	projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPrMergeLaunchSpec.ts
+A	projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPushLaunchSpec.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveGitEffectTarget.ts
+A	projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedLocalCommitPriorAttempt.ts
+A	projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedRemotePushPriorAttempt.ts
+A	projects/sfia-studio/app/lib/oa/execution-attempt/domain/shellSafeArg.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/cursorCliLaunchGateway.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeCursorGitExternalState.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent.ts
+A	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedPrCreateCursorAgent.ts
+A	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedPrMergeCursorAgent.ts
+A	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedRemotePushCursorAgent.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/mutatingCursorConfinementEnv.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts
+M	projects/sfia-studio/app/lib/oa/git-ports/application/gitEffectEvidenceActions.ts
+M	projects/sfia-studio/app/lib/oa/git-ports/fakeGitProviderPorts.ts
+M	projects/sfia-studio/app/lib/oa/git-ports/githubCliRemotePorts.ts
+M	projects/sfia-studio/app/lib/oa/git-ports/platformGithubReadBridge.ts
+M	projects/sfia-studio/app/lib/oa/git-ports/types.ts
+M	projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+```
+
+`git diff --name-status HEAD^..HEAD`:
+```
+M	projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/cycle/gcecD15Negatives.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/cycle/gcecDeterministicNegatives.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/cycle/gcecOneLotDelivery.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/cycle/gcecOwnershipNegatives.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01AttemptProfile.d0.test.ts
+A	projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitLifecyclePushPrMerge.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecMutatingCursorConfinementEnv.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/git-ports/gcecGitPorts.d0.test.ts
+M	projects/sfia-studio/app/lib/oa/evidence-review/application/typedGitEvidence.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
+A	projects/sfia-studio/app/lib/oa/execution-attempt/application/verifyPrCreateEffect.ts
+A	projects/sfia-studio/app/lib/oa/execution-attempt/application/verifyRemotePushEffect.ts
+A	projects/sfia-studio/app/lib/oa/execution-attempt/domain/assertFreshPrMergePreflight.ts
+A	projects/sfia-studio/app/lib/oa/execution-attempt/domain/assertLocalBranchRefMatchesExpectedSha.ts
+A	projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPrCreateLaunchSpec.ts
+A	projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPrMergeLaunchSpec.ts
+A	projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPushLaunchSpec.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveGitEffectTarget.ts
+A	projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedLocalCommitPriorAttempt.ts
+A	projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedRemotePushPriorAttempt.ts
+A	projects/sfia-studio/app/lib/oa/execution-attempt/domain/shellSafeArg.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/cursorCliLaunchGateway.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeCursorGitExternalState.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent.ts
+A	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedPrCreateCursorAgent.ts
+A	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedPrMergeCursorAgent.ts
+A	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedRemotePushCursorAgent.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/mutatingCursorConfinementEnv.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts
+M	projects/sfia-studio/app/lib/oa/git-ports/application/gitEffectEvidenceActions.ts
+M	projects/sfia-studio/app/lib/oa/git-ports/fakeGitProviderPorts.ts
+M	projects/sfia-studio/app/lib/oa/git-ports/githubCliRemotePorts.ts
+M	projects/sfia-studio/app/lib/oa/git-ports/platformGithubReadBridge.ts
+M	projects/sfia-studio/app/lib/oa/git-ports/types.ts
+M	projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+```
+
+`git diff --check HEAD^..HEAD`: PASS
+
+==================================================
+POST-COMMIT GIT TRUTH
+==================================================
+
+HEAD: bbb03ce7aaff22421b00c96e747e9b5a2ede0325
+PARENT: f71cf89a452d0b6109e1f11be957210122082186
+BRANCH: delivery/sfia-studio-product-proof-qual-to-governed-cycle (unchanged)
+Product residual under projects/sfia-studio: 0
+commits since f71cf89a: 1 (this commit only)
+Product push: NONE
+Product PR: NONE
+Product merge: NONE
+proof mutation: NONE
+branch.delete: NONE
+REAL: ZERO
+
+`git status --short` after commit (Product candidate clean; .tmp-sfia-review noise may remain untracked/modified — NOT part of Product commit):
+```
+ M .tmp-sfia-review/chatgpt-review.md
+?? .tmp-sfia-review/acw-same-lot-corr-diffs/
+?? .tmp-sfia-review/candidate-bridge-diffs/
+?? .tmp-sfia-review/candidate-f70-diffs/
+?? .tmp-sfia-review/cr-followup-validation/
+?? .tmp-sfia-review/gcec-a2b-02-cont02-prereal.out
+?? .tmp-sfia-review/gcec-a2b-readiness-build.out
+?? .tmp-sfia-review/gcec-a2b-readiness-focused.out
+?? .tmp-sfia-review/gcec-a2b-readiness-full-vitest.out
+?? .tmp-sfia-review/gcec-a2b-readiness-lint.out
+?? .tmp-sfia-review/gcec-a2b-readiness-typecheck.out
+?? .tmp-sfia-review/gcec-ac06-focused.out
+?? .tmp-sfia-review/gcec-ac06-posix-closure/
+?? .tmp-sfia-review/gcec-agent01-build.out
+?? .tmp-sfia-review/gcec-agent01-diffcheck.out
+?? .tmp-sfia-review/gcec-agent01-focused-gc.out
+?? .tmp-sfia-review/gcec-agent01-focused.out
+?? .tmp-sfia-review/gcec-agent01-focused2.out
+?? .tmp-sfia-review/gcec-agent01-full-vitest.out
+?? .tmp-sfia-review/gcec-agent01-full-vitest2.out
+?? .tmp-sfia-review/gcec-agent01-lint.out
+?? .tmp-sfia-review/gcec-agent01-publish.out
+?? .tmp-sfia-review/gcec-agent01-publish2.out
+?? .tmp-sfia-review/gcec-agent01-reviewable/
+?? .tmp-sfia-review/gcec-agent01-typecheck.out
+?? .tmp-sfia-review/gcec-agent01-typecheck2.out
+?? .tmp-sfia-review/gcec-candidate-commit-build.out
+?? .tmp-sfia-review/gcec-candidate-commit-diffcheck.out
+?? .tmp-sfia-review/gcec-candidate-commit-focused.out
+?? .tmp-sfia-review/gcec-candidate-commit-full-vitest.out
+?? .tmp-sfia-review/gcec-candidate-commit-lint.out
+?? .tmp-sfia-review/gcec-candidate-commit-publish.out
+?? .tmp-sfia-review/gcec-candidate-commit-related.out
+?? .tmp-sfia-review/gcec-candidate-commit-reviewable/
+?? .tmp-sfia-review/gcec-candidate-commit-typecheck.out
+?? .tmp-sfia-review/gcec-conf02a-build.out
+?? .tmp-sfia-review/gcec-conf02a-build2.out
+?? .tmp-sfia-review/gcec-conf02a-commit-build.out
+?? .tmp-sfia-review/gcec-conf02a-commit-diffcheck.out
+?? .tmp-sfia-review/gcec-conf02a-commit-focused.out
+?? .tmp-sfia-review/gcec-conf02a-commit-full-vitest.out
+?? .tmp-sfia-review/gcec-conf02a-commit-lint.out
+?? .tmp-sfia-review/gcec-conf02a-commit-publish.out
+?? .tmp-sfia-review/gcec-conf02a-commit-reviewable/
+?? .tmp-sfia-review/gcec-conf02a-commit-typecheck.out
+?? .tmp-sfia-review/gcec-conf02a-diffcheck.out
+?? .tmp-sfia-review/gcec-conf02a-focused1.out
+?? .tmp-sfia-review/gcec-conf02a-focused2.out
+?? .tmp-sfia-review/gcec-conf02a-full-vitest.out
+?? .tmp-sfia-review/gcec-conf02a-lint.out
+?? .tmp-sfia-review/gcec-conf02a-publish.out
+?? .tmp-sfia-review/gcec-conf02a-publish2.out
+?? .tmp-sfia-review/gcec-conf02a-publish3.out
+?? .tmp-sfia-review/gcec-conf02a-reviewable/
+?? .tmp-sfia-review/gcec-conf02a-typecheck.out
+?? .tmp-sfia-review/gcec-conf02a-typecheck2.out
+?? .tmp-sfia-review/gcec-confine-preflight-publish.out
+?? .tmp-sfia-review/gcec-confine-preflight/
+?? .tmp-sfia-review/gcec-confine-probe-stderr.txt
+?? .tmp-sfia-review/gcec-confine-probe-stdout.txt
+?? .tmp-sfia-review/gcec-confine-scratch.path
+?? .tmp-sfia-review/gcec-construction-qual-publish.out
+?? .tmp-sfia-review/gcec-cont01-ab.out
+?? .tmp-sfia-review/gcec-cont01-build.out
+?? .tmp-sfia-review/gcec-cont01-commit-build.out
+?? .tmp-sfia-review/gcec-cont01-commit-diffcheck.out
+?? .tmp-sfia-review/gcec-cont01-commit-focused.out
+?? .tmp-sfia-review/gcec-cont01-commit-full-vitest.out
+?? .tmp-sfia-review/gcec-cont01-commit-lint.out
+?? .tmp-sfia-review/gcec-cont01-commit-publish.out
+?? .tmp-sfia-review/gcec-cont01-commit-publish2.out
+?? .tmp-sfia-review/gcec-cont01-commit-real-skip.out
+?? .tmp-sfia-review/gcec-cont01-commit-reviewable/
+?? .tmp-sfia-review/gcec-cont01-commit-typecheck.out
+?? .tmp-sfia-review/gcec-cont01-diffcheck.out
+?? .tmp-sfia-review/gcec-cont01-focused.out
+?? .tmp-sfia-review/gcec-cont01-focused1.out
+?? .tmp-sfia-review/gcec-cont01-focused2.out
+?? .tmp-sfia-review/gcec-cont01-full-vitest.out
+?? .tmp-sfia-review/gcec-cont01-lint.out
+?? .tmp-sfia-review/gcec-cont01-publish.out
+?? .tmp-sfia-review/gcec-cont01-publish2.out
+?? .tmp-sfia-review/gcec-cont01-publ
+```
+
+==================================================
+CANDIDATE INTEGRITY
+==================================================
+
+- AC-01..AC-06: UNCHANGED (no source edit in this cycle)
+- Source modification during commit operation: NONE
+- Commit hooks did not alter Product files (post-commit Product residual = 0; committed fileset exact)
+- Previous deterministic validation INHERITED as-is
+- Documentary non-blocking reserve from Critical Review (historical AC-06 wording): preserved; not "cleaned up"
+
+==================================================
+FAKE / REAL
+==================================================
+
+Entry: DETERMINISTIC PROVEN AC-01..06
+Exit: DETERMINISTIC PROVEN AC-01..06 + LOCAL PRODUCT COMMIT ANCHORED
+Still NOT PROVEN: AUTH REAL / PUSH REAL / PR REAL / MERGE REAL / E2E REAL A→D
+LOCAL COMMIT != READY FOR REAL
+DETERMINISTIC PROVEN != READY FOR REAL
+REAL: ZERO
+
+==================================================
+GIT EFFECTS
+==================================================
+
+Product commit = ONE LOCAL (bbb03ce7aaff22421b00c96e747e9b5a2ede0325)
+Product push = NONE
+Product PR = NONE
+Product merge = NONE
+proof mutation = NONE
+branch.delete = NONE
+Only authorized remote publication this cycle: sfia/review-handoff
+
+==================================================
+RESERVES
+==================================================
+
+Blocking: NONE for this commit gate.
+Non-blocking: historical/documentary AC-06 wording reserve (from Critical Review; not modified).
+REAL-only: AUTH / PUSH / PR / MERGE / E2E A→D.
+
+==================================================
+NEXT GATE
+==================================================
+
+CHATGPT POST-COMMIT VERIFICATION OF THE LOCAL PRODUCT ANCHOR.
+
+Do NOT start REAL. Do NOT push Product.
+
+Expected future sequence after ChatGPT verifies:
+local Product commit → ChatGPT post-commit verification → distinct Morris GO REAL → one bounded fresh REAL A→D → STOP at merge gate → distinct merge decision.
+
+==================================================
+VERDICT
+==================================================
+
+PASS —
+exact reviewed 43-path candidate committed locally;
+parent = f71cf89a…;
+subject exact;
+Product candidate clean;
+ZERO Product remote effect;
+AC-01..06 unchanged;
+deterministic validation inherited.
+
+==================================================
+PRESERVED PRIOR FULL CANDIDATE REVIEW CONTENT BELOW
+==================================================
+
+The following retains the AC-06 POSIX closure + prior PATH B / AC-01..06 Review Pack content
+so ChatGPT can trace the committed candidate to the previously reviewed full evidence.
+Front matter above is authoritative for this LOCAL PRODUCT COMMIT gate.
+
+---
+
+# SFIA Studio — Review Pack
 ## GCEC-GIT-LIFECYCLE-E2E-01 — FINAL AC-06 POSIX QUOTING CLOSURE
 
 TIMESTAMP: 2026-09-12 22:10:28 CEST
