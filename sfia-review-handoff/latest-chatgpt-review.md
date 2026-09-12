@@ -1,7 +1,7 @@
 # SFIA Studio — Review Pack
-## GCEC-GIT-LIFECYCLE-E2E-01 — SAME-LOT CORRECTION (CR-01..CR-04)
+## GCEC-GIT-LIFECYCLE-E2E-01 — FINAL SAME-LOT AUTHORITY CLOSURE (AC-01..AC-06)
 
-TIMESTAMP: 2026-09-12 21:10:07 CEST
+TIMESTAMP: 2026-09-12 21:32:30 CEST
 
 CYCLE: 8 — Delivery / implementation
 
@@ -9,20 +9,19 @@ TYPE: EVOL
 
 PROFILE: CRITICAL
 
-GO MORRIS: GO CORRECTION — GCEC-GIT-LIFECYCLE-E2E-01 SAME-LOT
-+ GO PUBLICATION REVIEW HANDOFF CANONIQUE
+GO MORRIS: GO CORRECTION — GCEC-GIT-LIFECYCLE-E2E-01 FINAL SAME-LOT AUTHORITY CLOSURE
 
-ANTI-MICRO-CYCLE: ONE SAME-LOT CORRECTION CLOSING CR-01..CR-04 TOGETHER
+ANTI-MICRO-CYCLE: ONE COHERENT AUTHORITY CLOSURE LOT — AC-01..AC-06 CLOSED TOGETHER
 
 ==================================================
 ROLE BOUNDARIES
 ==================================================
 
-- Morris = construction/governance gate authority (this GO = deterministic correction + handoff only).
-- Pilote = runtime HumanDecision / Confirmation authority (NOT simulated as acquired by Morris GO).
-- Studio = orchestration, EC/Attempt/slice/Confirmation, agent selection, verification via RepositoryRead/Evidence. NOT a second Git writer.
-- Nora = cognitive trajectory / LPS / replan — NOT a Git executor; Nora/Cognitive Completion global priority UNCHANGED.
-- Cursor = technical mutation executor (local Product code edits this lot; future C/D/E mutations). Report alone is never truth.
+- Morris = construction/governance gates (this GO = deterministic correction + Review Handoff only).
+- Pilote = runtime HumanDecision / Confirmation (NOT simulated as acquired by Morris GO).
+- Studio = contract / orchestration / verification via RepositoryRead + Evidence. NOT a Git writer / second mutator.
+- Nora = cognition / LPS / trajectory / replan — UNCHANGED; global Nora priority unchanged.
+- Cursor = technical mutation executor (local Product edits this lot; future C/D/E only when EC+authority permit). Report alone ≠ truth.
 
 ==================================================
 GIT TRUTH BEFORE
@@ -33,54 +32,53 @@ BRANCH: delivery/sfia-studio-product-proof-qual-to-governed-cycle
 HEAD: f71cf89a452d0b6109e1f11be957210122082186
 PARENT: be71eee0bbfae341d16cfab401f3c38f46564d4c
 origin/main: a9f6c310a0826d0e5bd6f7264603382a86564db1
-INPUT HANDOFF tip: 0029516aed14687d28caf033c0d9d518cb2578cd
-INPUT HANDOFF parent: 978f4c081d94fc1fdbc71368de0b6888f32ded12
-INPUT HANDOFF blob: d021af221496a7421334d78c082c42f07f42229b
+INPUT HANDOFF tip: f1a38efaa358b65ee8739925eb7b09459448eae7
+INPUT HANDOFF blob: 390515da80509ac63c91aa8ff7f126e9c38c6dd9
 
-At lot start: Product HEAD == f71cf89a…; PATH B candidate already LOCAL DIRTY (uncommitted); no Product commits since f71cf89a (count=0).
+At lot start: Product HEAD == f71cf89a…; ~42 Product paths LOCAL DIRTY from prior PATH B + CR-01..04; staged=none; commits since f71cf89a = 0.
 
 ==================================================
-GIT TRUTH AFTER (correction complete, pre-handoff)
+GIT TRUTH AFTER
 ==================================================
 
 HEAD UNCHANGED: f71cf89a452d0b6109e1f11be957210122082186
 STAGED: (none)
-Product dirty fileset (42 paths under projects/sfia-studio/app) — still UNCOMMITTED.
 Product commit: NONE
 Product push/PR/merge: NONE
+Dirty Product paths: 43 (prior 42 + shellSafeArg.ts)
 
 Diffstat (tracked):
 ```
 .../oa/cycle/gcecCr23StartExecution.d0.test.ts     |   6 +-
- .../__tests__/oa/cycle/gcecD15Negatives.d0.test.ts |   3 +
+ .../__tests__/oa/cycle/gcecD15Negatives.d0.test.ts |  13 +-
  .../oa/cycle/gcecDeterministicNegatives.d0.test.ts |   2 +
- .../oa/cycle/gcecOneLotDelivery.d0.test.ts         |   3 +
+ .../oa/cycle/gcecOneLotDelivery.d0.test.ts         |   5 +-
  .../oa/cycle/gcecOwnershipNegatives.d0.test.ts     |   1 +
  .../oa/cycle/gcecProductMonolithicE2e.d0.test.ts   |  12 +-
  .../gcecAgent01AttemptProfile.d0.test.ts           |  44 ++-
- .../gcecMutatingCursorConfinementEnv.d0.test.ts    | 102 ++++-
+ .../gcecMutatingCursorConfinementEnv.d0.test.ts    | 103 ++++-
  .../__tests__/oa/git-ports/gcecGitPorts.d0.test.ts |   1 +
  .../application/typedGitEvidence.ts                |  27 +-
- .../application/startExecution.ts                  | 337 +++++++++++++++-
+ .../application/startExecution.ts                  | 408 ++++++++++++++++++-
  .../execution-attempt/domain/realLaunchSafety.ts   |   9 +
- .../domain/resolveAttemptExecutionProfile.ts       | 422 +++++++++++++++++++--
- .../domain/resolveGitEffectTarget.ts               |  59 ++-
- .../app/lib/oa/execution-attempt/index.ts          |  88 +++++
+ .../domain/resolveAttemptExecutionProfile.ts       | 435 +++++++++++++++++++--
+ .../domain/resolveGitEffectTarget.ts               | 102 ++++-
+ .../app/lib/oa/execution-attempt/index.ts          |  92 +++++
  .../infrastructure/cursorCliLaunchGateway.ts       |   4 +
- .../infrastructure/fakeCursorGitExternalState.ts   |  10 +-
- .../infrastructure/fakeDocsWriteLaunchPort.ts      | 215 ++++++++++-
+ .../infrastructure/fakeCursorGitExternalState.ts   |  16 +-
+ .../infrastructure/fakeDocsWriteLaunchPort.ts      | 224 ++++++++++-
  .../m4BoundedDocsWriteCursorAgent.ts               |  10 +-
  .../infrastructure/mutatingCursorConfinementEnv.ts |  95 ++++-
  .../sqlite/createSqliteExecutionAttemptServices.ts |   3 +
- .../studioCursorRealLaunchGateway.ts               | 395 ++++++++++++++++++-
+ .../studioCursorRealLaunchGateway.ts               | 419 +++++++++++++++++++-
  .../ports/realExecutionLaunchPort.ts               |  23 +-
- .../application/gitEffectEvidenceActions.ts        |  41 +-
+ .../application/gitEffectEvidenceActions.ts        |  50 ++-
  .../app/lib/oa/git-ports/fakeGitProviderPorts.ts   |   2 +
  .../app/lib/oa/git-ports/githubCliRemotePorts.ts   |  10 +-
  .../lib/oa/git-ports/platformGithubReadBridge.ts   |   2 +
  projects/sfia-studio/app/lib/oa/git-ports/types.ts |   4 +
  .../app/lib/vertical-slice-runtime/service.ts      |   6 +
- 29 files changed, 1830 insertions(+), 106 deletions(-)
+ 29 files changed, 2014 insertions(+), 114 deletions(-)
 ```
 
 Name-status (tracked):
@@ -128,6 +126,7 @@ projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPrMergeLaunchSpec.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPushLaunchSpec.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedLocalCommitPriorAttempt.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedRemotePushPriorAttempt.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/domain/shellSafeArg.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedPrCreateCursorAgent.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedPrMergeCursorAgent.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedRemotePushCursorAgent.ts
@@ -159,6 +158,7 @@ projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecution
 projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveGitEffectTarget.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedLocalCommitPriorAttempt.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedRemotePushPriorAttempt.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/domain/shellSafeArg.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/cursorCliLaunchGateway.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeCursorGitExternalState.ts
@@ -183,10 +183,11 @@ projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
 SOURCES READ
 ==================================================
 
-Cycle template, routing guide, v2.5 cycles candidate, operating model, guardrails,
+Cycle template, routing guide, operating model, guardrails, v2.5 cycles candidate,
 Build Doctrine (RO), Roadmap (RO), Product Completion cadrage, v3 framings 34/35 (RO),
-input handoff @ 0029516a…, and Product execution-attempt / git-ports / Evidence /
-Fake / StartExecution / gateway / confinement surfaces for CR-01..04.
+input handoff @ f1a38efa…, and Product GCEC execution-attempt / git-ports / Evidence /
+Fake / StartExecution / gateway / confinement surfaces for AC-01..06.
+CKC Cycle 8 detailed pilot: not found — canonical routing + Cycle 8 method guidance used as fallback (no execution authority).
 
 ==================================================
 CONVERGENCE PRE-CHECK
@@ -198,116 +199,104 @@ Product Completion: COMPLETE / CLOSED
 C1: VALIDATED / INTEGRATED
 Runtime v3: NON ADOPTED
 D-GCEC-09 / EXEC-01 / CONT-01 / CONT-02 / AGENT-01 / REAL-02-CLOSURE: preserved
-Capability: Governed Project Execution — Git/GitHub lifecycle
-Milestone: GCEC-GIT-LIFECYCLE-E2E-01 deterministic PATH B closure before REAL
+Capability: Governed Project Execution — governed Git/GitHub lifecycle
+Milestone: GCEC-GIT-LIFECYCLE-E2E-01 deterministic authority closure before bounded REAL
+Architecture: PATH B — KEEP / ADAPT / COMPLETE — NO PARALLEL ARCHITECTURE
 
 ==================================================
-ARCHITECTURE CONSERVED
+PRESERVED FROM PRIOR CORRECTION
 ==================================================
 
-KEEP: ExecutionContract, Attempt, AuthorizedExecutionSlice, Confirmation, Evidence,
-RepositoryRead, Cont01, PATH B AgentCapabilities, progressive C→D→E profiles,
-gateway Cursor, Fake, same persistence/FSM/engine.
-
-NO: new Git engine, mutation executor, FSM, DB, Evidence system, credential broker,
-Nora change, doctrine/roadmap, branch.delete.
+CR-01 exact local branch ref→SHA; Fake no-self-heal; CR-02 effect-sensitive auth;
+explicit --repo; strong PR fields; Studio fresh RepositoryRead before Attempt E;
+progressive same-EC A→B→C→D→E.
 
 ==================================================
-CRITICAL REVIEW CLOSURE MATRIX
+AUTHORITY CLOSURE MATRIX AC-01..AC-06
 ==================================================
 
-### CR-01 — Exact push ref/SHA invariant — CLOSED
+### AC-01 — Fake/Real remote identity parity — CLOSED
+Issue: Fake skipped remote URL check when absent.
+Impl: remoteUrl mandatory; missing/empty → git_push_remote_url_missing; then assertRemoteUrlMatchesRepositoryRef.
+Invariant: Fake cannot push without observable exact remote identity matching repositoryRef.
+Tests: missing/empty/wrong remote FAIL; valid HTTPS/SSH PASS with exact branch SHA.
 
-Before: gateway used HEAD then `branch:branch` push; Fake seeded missing local branch from expectedCommitSha.
+### AC-02 — Exact C push SHA binds D PR — CLOSED
+Issue: D used branch only without binding C commitSha / fresh remote head.
+Impl: GitPrCreateLaunchSpec.expectedHeadSha REQUIRED from unique VERIFIED remote-push; StartExecution fresh getBranchHead; drift → fail; gateway gh api re-check; verify requires expectedHeadSha.
+Invariant: C Evidence SHA = fresh remote head before D = expectedHeadSha = resulting PR head SHA.
+Tests: exact match eligible; drift/missing read/wrong repo FAIL.
 
-After:
-- Instruction observes `git rev-parse refs/heads/<branchName>` and requires equality with expectedCommitSha before mutation.
-- Explicit push of validated ref; force/delete/tags/main forbidden.
-- Remote URL must match repositoryRef before push.
-- Fake fails closed on missing/stale local ref (no self-heal).
-- Helper: assertLocalBranchRefMatchesExpectedSha.
+### AC-03 — Strict repository/branch Evidence lineage — CLOSED
+Issue: missing repo/ref could be substituted from context.
+Impl: remote-push Evidence MUST have repo+refName+commitSha; expected repo must match; no substitute; branchName required on success; local-commit requires repo when expected.
+Invariant: protected progression uses only explicit Evidence identity facts.
+Tests: missing/wrong repo/ref FAIL; exact B→C→D PASS; ambiguous predecessors FAIL.
 
-Tests: local ref absent/stale; HEAD≠branch; wrong remote URL; Fake no self-heal; POS exact match.
+### AC-04 — Complete PR identity ambiguity — CLOSED
+Issue: PR number alone / first-match without field-conflict detection.
+Impl: complete identity required; exact-identity dedupe; same prNumber with conflicting fields → ambiguous; verifyPrCreateEffect expected head/base/sha REQUIRED.
+Invariant: merge lineage resolves one complete non-conflicting verified identity.
+Tests: conflicting SHA/branch/state/repo → ambiguous; exact duplicate → deterministic.
 
-### CR-02 — Effect-sensitive auth env — CLOSED
+### AC-05 — Merge last-mile preflight — CLOSED
+Issue: Studio fresh read existed but Cursor last-mile lacked four-field comparison.
+Impl: expectedHeadBranch on merge spec; gateway compares OPEN + headRefOid + headRefName + baseRefName with STOP before merge; no --admin/--auto/delete.
+Invariant: Studio fresh preflight + Cursor last-mile both compare complete expected PR identity.
+Tests: each drift FAIL; instruction contains comparisons; no forbidden flags.
 
-Before: buildMutatingCursorConfinementEnv stripped all auth for A–E.
-
-After: effectClass local | remote_git | remote_github:
-- local (A/B): CONF-02A strip preserved
-- remote_git (C): preserve SSH/askpass; strip GH tokens + GIT_CONFIG injection
-- remote_github (D/E): preserve GH_/GITHUB_ token sentinel keys; neutralize GIT_CONFIG
-- No secret values in specs/Evidence/reports
-- Claim: REMOTE AUTH ENVIRONMENT POLICY DETERMINISTICALLY PROVEN
-- NOT: AUTH REAL PROVEN
-
-### CR-03 — repositoryRef + strong PR Evidence — CLOSED
-
-Before: gh commands lacked --repo; PR Evidence insufficient for merge continuation.
-
-After:
-- gh pr create/merge instructions require `--repo <repositoryRef>`
-- GitPullRequestPayload requires headBranch + baseBranch + state; location enriched
-- RepositoryPullRequestSummary.headBranch (+ optional baseSha)
-- verifyPullRequestClaim requires state===open + branches
-- verifyPrCreateEffect accepts expected head/base
-
-### CR-04 — Fresh live PR preflight — CLOSED
-
-Before: Attempt E used historical Evidence only.
-
-After:
-- assertFreshPrMergePreflight
-- StartExecution optional repositoryRead; fail closed if merge authorized and unavailable
-- Fresh getPullRequest must match OPEN + headSha + headBranch + baseBranch
-- Drift/closed/merged/mismatch → FAIL CLOSED
-- ZERO REAL merge
+### AC-06 — Shell-safe command construction — CLOSED
+Issue: JSON.stringify body / unquoted dynamic values → shell injection risk.
+Impl: shellSafeArg.ts (assertCanonicalGithubRepositoryRef + posixShellSingleQuote); builders validate repositoryRef; gateway quotes repo/title/body/branches; body never JSON.stringify.
+Invariant: dynamic values cannot escape bounded command into arbitrary shell effects.
+Tests: hostile repositoryRef rejected; body with $(...) remains literal; legitimate title/body still work.
 
 ==================================================
-IMPLEMENTATION SUMMARY (agent)
+IMPLEMENTATION SUMMARY
 ==================================================
 
-# GCEC-GIT-LIFECYCLE-E2E-01 SAME-LOT CORRECTION — implementation summary
+# GCEC-GIT-LIFECYCLE-E2E-01 FINAL SAME-LOT AUTHORITY CLOSURE — implementation summary
 
 ## SELECTED PATH: B (dirty candidate adapted)
 
-Closed CR-01..04 in one lot on the existing PATH B dirty candidate. No rewrite-from-scratch.
+Closed AC-01..AC-06 together in one lot on the existing PATH B + CR-01..04 dirty candidate. No rewrite-from-scratch. No Product commit/push/PR/merge. No REAL. No proof mutation. No handoff publish (parent owns handoff).
 
-## CR CLOSED MATRIX
+## AC CLOSED MATRIX
 
-| CR | Status | Fix |
+| AC | Status | Fix |
 | --- | --- | --- |
-| CR-01 Exact push ref/SHA | **CLOSED** | Gateway observes `git rev-parse refs/heads/<branch>` + remote URL identity before push; Fake no longer self-heals missing branch from `expectedCommitSha`; `assertLocalBranchRefMatchesExpectedSha` / `assertRemoteUrlMatchesRepositoryRef`; Fake `push()` fails closed on missing branch (no HEAD substitute) |
-| CR-02 Effect-sensitive auth env | **CLOSED** | `buildMutatingCursorConfinementEnv(base, { effectClass })`: `local` strips all; `remote_git` preserves SSH/askpass; `remote_github` preserves GH_/GITHUB_ token keys; still neutralizes `GIT_CONFIG_*`. Gateway passes effect class for C/D/E. Claim: **REMOTE AUTH ENVIRONMENT POLICY DETERMINISTICALLY PROVEN** — not AUTH REAL |
-| CR-03 repositoryRef + PR Evidence | **CLOSED** | `gh pr create/merge` instructions require `--repo <repositoryRef>`; push requires remote URL ↔ repositoryRef; `GitPullRequestPayload` requires `headBranch`+`baseBranch`+`state`; location encoding enriched; `RepositoryPullRequestSummary.headBranch` (+ optional `baseSha`); CLI/Fake/bridge expose head branch; `verifyPullRequestClaim` requires `state===open` + branches; `verifyPrCreateEffect` accepts expected head/base |
-| CR-04 Fresh live PR preflight | **CLOSED** | `assertFreshPrMergePreflight`; StartExecution optional `repositoryRead` — fail closed `git_pr_merge_repository_read_unavailable` when merge authorized and missing; fresh `getPullRequest` before merge launch |
+| AC-01 Fake/Real remote identity parity | **CLOSED** | Fake push requires `remoteUrl` (binding or `FakeCursorGitExternalState.remoteUrl`); missing/empty → `git_push_remote_url_missing` (no optional skip); then `assertRemoteUrlMatchesRepositoryRef`; empty remoteUrl helper reason hardened; POS Fake tests set remoteUrl |
+| AC-02 C push SHA binds D PR | **CLOSED** | `GitPrCreateLaunchSpec.expectedHeadSha` REQUIRED + full-SHA validate + claimed SHA override rejected; StartExecution D: Evidence repo/branch exact, `expectedHeadSha=prior.commitSha`, fresh `repositoryRead.getBranchHead`, fail `git_pr_create_repository_read_unavailable` / `remote_head_missing` / `remote_head_sha_drift`; gateway re-checks remote head via `gh api …/git/ref/heads/…` before create; `verifyPrCreateEffect` requires expectedHeadBranch+Base+Sha |
+| AC-03 Strict Evidence lineage | **CLOSED** | `resolveVerifiedRemotePushPriorAttempt`: Evidence MUST have repo+refName+commitSha; when repositoryRef expected must match; **no substitute**; `branchName` required on success; local-commit: when repositoryRef expected, missing/mismatched repo → not eligible |
+| AC-04 Complete PR identity | **CLOSED** | `resolveVerifiedPullRequestNumber` requires complete identity (repo, prNumber, state, headBranch, headSha, baseBranch); exact-identity dedupe; same prNumber with field drift → ambiguous; multi prNumber → ambiguous; success returns required fields; merge profile/Start require `state===open` + head/base; `verifyPrCreateEffect` params REQUIRED |
+| AC-05 Merge last-mile | **CLOSED** | `GitPrMergeLaunchSpec.expectedHeadBranch` REQUIRED; StartExecution passes it; gateway compares state/OPEN + headRefOid + headRefName + baseRefName with STOP before `gh pr merge`; `--admin`/`--auto`/delete forbidden in instruction |
+| AC-06 Shell-safe construction | **CLOSED** | New `domain/shellSafeArg.ts`: `assertCanonicalGithubRepositoryRef` + `posixShellSingleQuote`; applied in push/create/merge builders; create/merge gateway instructions quote repo/title/body/branches (body never `JSON.stringify`) |
 
-## FILESET
+## FILESET (under `projects/sfia-studio/app`)
 
-See `.tmp-sfia-review/gcec-git-lifecycle-e2e-01-corr/fileset.txt` (42 paths under `projects/sfia-studio/app`).
+43 unique product paths (29 modified + 14 untracked relative to Product HEAD). See `fileset-all.txt`.
 
-### New (this correction)
-- `domain/assertLocalBranchRefMatchesExpectedSha.ts`
-- `domain/assertFreshPrMergePreflight.ts`
+### New this lot
+- `lib/oa/execution-attempt/domain/shellSafeArg.ts`
 
 ### Key adapted
-- `studioCursorRealLaunchGateway.ts` — push/PR/merge instructions + effect-class confinement
-- `mutatingCursorConfinementEnv.ts` — effect-sensitive strip/preserve
-- `fakeDocsWriteLaunchPort.ts` / `fakeCursorGitExternalState.ts` — push ref parity
-- `typedGitEvidence.ts`, `gitEffectEvidenceActions.ts`, git-ports types/CLI/Fake/bridge
-- `startExecution.ts` + service factories — `repositoryRead` + fresh merge preflight
-- Tests: `gcecGitLifecyclePushPrMerge.d0.test.ts`, `gcecMutatingCursorConfinementEnv.d0.test.ts`, PR payload seed sites
+- Fake push remote URL mandatory (`fakeDocsWriteLaunchPort.ts`, `fakeCursorGitExternalState.ts`)
+- PR create/merge specs + StartExecution C→D/E binding (`gitPrCreateLaunchSpec.ts`, `gitPrMergeLaunchSpec.ts`, `startExecution.ts`)
+- Evidence lineage + PR identity (`resolveVerifiedRemotePushPriorAttempt.ts`, `resolveVerifiedLocalCommitPriorAttempt.ts`, `resolveGitEffectTarget.ts`, `resolveAttemptExecutionProfile.ts`)
+- Gateway instructions + shell quoting (`studioCursorRealLaunchGateway.ts`)
+- Verify PR create REQUIRED fields (`verifyPrCreateEffect.ts`, `gitEffectEvidenceActions.ts`)
+- Tests: `gcecGitLifecyclePushPrMerge.d0.test.ts` (+ AC-01..06), confinement/D15/oneLot call-site updates
 
 ## VALIDATION (cwd: `projects/sfia-studio/app`, `SFIA_STUDIO_CURSOR_REAL` unset)
 
 | Gate | Result |
 | --- | --- |
-| Focused CR (`gcecGitLifecyclePushPrMerge` + `gcecMutatingCursorConfinementEnv`) | **43 passed** (2 files) |
-| Related (lifecycle + confinement + Agent01 + CR23 + git-ports + D15/ownership/deterministic/oneLot) | **184 passed** (9 files) |
+| Focused (`gcecGitLifecyclePushPrMerge` + `gcecMutatingCursorConfinementEnv`) | **59 passed** (2 files) |
+| Related (lifecycle + confinement + Agent01 + CR23 + git-ports + D15/ownership/deterministic/oneLot/monolithic) | **201 passed** (10 files) |
 | `npm run typecheck` | **PASS** |
 | `npm run lint` | **PASS** |
 | `npm run build` | **PASS** |
-| Full vitest | **3825 passed \| 137 skipped** (353 files passed \| 17 skipped) |
+| Full vitest | **3841 passed \| 137 skipped** (353 files passed \| 17 skipped) |
 
 ## REAL: ZERO
 
@@ -325,256 +314,678 @@ No handoff published (parent agent owns handoff).
 
 
 ==================================================
+LINEAGE AUTHORITY CHAIN
+==================================================
+
+B local commit Evidence (repo + SHA)
+→ C remote push Evidence (repo + branch + same SHA) + Fake/REAL remote URL identity
+→ D expectedHeadSha = C commitSha + fresh getBranchHead == SHA + PR create
+→ verified PR Evidence (repo + number + OPEN + headBranch + headSha + baseBranch)
+→ E Studio fresh preflight + Cursor last-mile four-field compare
+→ (future REAL merge only after distinct Morris/Pilote GO)
+
+==================================================
+SHELL-SAFETY MODEL
+==================================================
+
+Selected: minimal POSIX single-quote literal escaping + canonical owner/repo validation.
+No shell framework. No free-shell authority. No body-file second mutation pathway.
+
+```typescript
+/**
+ * Minimal shell-safe argument helpers for GCEC gateway instruction construction.
+ * Fail closed on non-canonical GitHub repository refs and unsafe shell interpolation.
+ */
+
+const CANONICAL_GITHUB_REPO_RE = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/;
+const REPO_METACHAR_RE = /[\s$`\\;&|<>(){}[\]"'!*?]|#/;
+
+/**
+ * Assert owner/repo canonical GitHub repositoryRef (no whitespace / metacharacters).
+ */
+export function assertCanonicalGithubRepositoryRef(
+  ref: string,
+): { ok: true; ref: string } | { ok: false; reason: string } {
+  if (typeof ref !== "string" || !ref.trim()) {
+    return { ok: false, reason: "repository_ref_missing" };
+  }
+  if (ref !== ref.trim()) {
+    return { ok: false, reason: "repository_ref_whitespace" };
+  }
+  const trimmed = ref.trim();
+  if (trimmed.startsWith("-")) {
+    return { ok: false, reason: "repository_ref_unsafe" };
+  }
+  if (
+    REPO_METACHAR_RE.test(trimmed) ||
+    trimmed.includes("..") ||
+    trimmed.includes("$(") ||
+    !CANONICAL_GITHUB_REPO_RE.test(trimmed)
+  ) {
+    return { ok: false, reason: "repository_ref_unsafe" };
+  }
+  const parts = trimmed.split("/");
+  if (parts.length !== 2 || !parts[0] || !parts[1]) {
+    return { ok: false, reason: "repository_ref_unsafe" };
+  }
+  return { ok: true, ref: trimmed };
+}
+
+/**
+ * POSIX single-quote wrap so the value is literal in a shell (including `$(...)`).
+ * Escapes embedded `'` as `'\''`.
+ */
+export function posixShellSingleQuote(value: string): string {
+  return `'${String(value).replace(/'/g, `'\\''`)}'`;
+}
+
+```
+
+==================================================
 KEY CODE EXCERPTS
 ==================================================
 
-### assertLocalBranchRefMatchesExpectedSha.ts
+### gitPrCreateLaunchSpec.ts (full)
 ```typescript
 /**
- * CR-01 — Fake / gateway parity: local branch ref must exist and equal expected SHA.
- * Does NOT consult HEAD as a substitute for refs/heads/<branch>.
+ * Server-derived GitPrCreateLaunchSpec (GCEC bounded PR create).
+ * Fail closed on empty / unsafe refs / base mismatch / missing expectedHeadSha.
  */
-export function assertLocalBranchRefMatchesExpectedSha(input: {
-  readonly branchHeads: ReadonlyMap<string, string>;
-  readonly branchName: string;
-  readonly expectedCommitSha: string;
-}): { ok: true; sha: string } | { ok: false; reason: string } {
-  const branch = input.branchName.trim();
-  if (!branch) {
-    return { ok: false, reason: "git_push_local_ref_missing" };
-  }
-  if (!input.branchHeads.has(branch)) {
-    return { ok: false, reason: "git_push_local_ref_missing" };
-  }
-  const observed = input.branchHeads.get(branch)!.trim().toLowerCase();
-  const expected = input.expectedCommitSha.trim().toLowerCase();
-  if (!/^[0-9a-f]{40}$/.test(expected) || !/^[0-9a-f]{40}$/.test(observed)) {
-    return { ok: false, reason: "git_push_local_ref_sha_mismatch" };
-  }
-  if (observed !== expected) {
-    return { ok: false, reason: "git_push_local_ref_sha_mismatch" };
-  }
-  return { ok: true, sha: observed };
-}
 
-/**
- * Repository remote URL must identify the same GitHub repo as repositoryRef
- * (owner/name). Used by Fake push path and documented in gateway push instruction.
- */
-export function assertRemoteUrlMatchesRepositoryRef(input: {
-  readonly remoteUrl: string;
+import {
+  assertCanonicalGithubRepositoryRef,
+} from "./shellSafeArg";
+
+export type GitPrCreateLaunchSpec = {
   readonly repositoryRef: string;
-}): { ok: true } | { ok: false; reason: string } {
-  const identity = input.repositoryRef.trim().toLowerCase();
-  if (!identity || !/^[^/\s]+\/[^/\s]+$/.test(identity)) {
-    return { ok: false, reason: "git_push_remote_url_mismatch" };
-  }
-  const normalized = input.remoteUrl
-    .trim()
-    .replace(/\.git$/i, "")
-    .replace(/^git@github\.com:/i, "https://github.com/")
-    .replace(/^ssh:\/\/git@github\.com\//i, "https://github.com/")
-    .toLowerCase();
-  const expectedHttps = `https://github.com/${identity}`;
-  if (normalized !== expectedHttps) {
-    return { ok: false, reason: "git_push_remote_url_mismatch" };
-  }
-  return { ok: true };
-}
-
-```
-
-### assertFreshPrMergePreflight.ts
-```typescript
-/**
- * CR-04 — Fresh live PR preflight before merge Attempt E.
- * Pure domain gate; StartExecution is the authority (gateway prompt is defense-in-depth).
- */
-import type { RepositoryPullRequestSummary } from "@/lib/oa/git-ports";
-
-export type FreshPrMergePreflightExpected = {
-  readonly headSha: string;
   readonly headBranch: string;
   readonly baseBranch: string;
+  readonly title: string;
+  readonly expectedHeadSha: string;
+  readonly body?: string;
 };
 
-export function assertFreshPrMergePreflight(input: {
-  readonly live: RepositoryPullRequestSummary | null | undefined;
-  readonly expected: FreshPrMergePreflightExpected;
-}): { ok: true } | { ok: false; reason: string } {
-  if (input.live == null) {
-    return { ok: false, reason: "git_pr_merge_live_pr_missing" };
+const BRANCH_FORBIDDEN_RE = /[\x00-\x1f\x7f$`"'\\;&|<>(){}[\]*?!]/;
+const TITLE_FORBIDDEN_RE = /[\x00-\x1f\x7f$`\\;&|<>(){}[\]*?!\n\r]/;
+const FULL_SHA_RE = /^[0-9a-f]{40}$/i;
+
+function assertSafeRef(
+  raw: string,
+  kind: "head" | "base",
+): { ok: true; ref: string } | { ok: false; reason: string } {
+  if (typeof raw !== "string" || !raw.trim()) {
+    return { ok: false, reason: `git_pr_create_${kind}_empty` };
   }
-  const live = input.live;
-  if (live.state === "merged") {
-    return { ok: false, reason: "git_pr_merge_live_pr_merged" };
+  if (raw !== raw.trim()) {
+    return { ok: false, reason: `git_pr_create_${kind}_whitespace` };
   }
-  if (live.state === "closed" || live.state !== "open") {
-    return { ok: false, reason: "git_pr_merge_live_pr_closed" };
+  const ref = raw.trim();
+  if (
+    ref.includes("..") ||
+    ref.startsWith("-") ||
+    ref.includes(" ") ||
+    BRANCH_FORBIDDEN_RE.test(ref)
+  ) {
+    return { ok: false, reason: `git_pr_create_${kind}_unsafe` };
   }
-  const liveHead = live.headSha.trim().toLowerCase();
-  const expectedHead = input.expected.headSha.trim().toLowerCase();
-  if (liveHead !== expectedHead) {
-    return { ok: false, reason: "git_pr_merge_live_head_sha_drift" };
+  if (!/^[A-Za-z0-9][A-Za-z0-9._/-]*$/.test(ref)) {
+    return { ok: false, reason: `git_pr_create_${kind}_charset` };
   }
-  const liveHeadBranch = live.headBranch?.trim() ?? "";
-  if (!liveHeadBranch || liveHeadBranch !== input.expected.headBranch.trim()) {
-    return { ok: false, reason: "git_pr_merge_live_head_branch_mismatch" };
+  return { ok: true, ref };
+}
+
+/**
+ * Build PR-create launch spec from server-owned facts.
+ * When `expectedBaseBranch` is provided, base MUST equal it.
+ * `expectedHeadSha` is REQUIRED (full SHA) — client-claimed SHA override rejected.
+ * Auto-merge / force fields on request are rejected when present.
+ */
+export function buildGitPrCreateLaunchSpec(input: {
+  readonly repositoryRef: string;
+  readonly headBranch: string;
+  readonly baseBranch: string;
+  readonly title: string;
+  readonly expectedHeadSha: string;
+  readonly body?: string;
+  readonly expectedBaseBranch?: string;
+  /** Hostile — any truthy auto-merge channel is rejected. */
+  readonly claimedAutoMerge?: unknown;
+  /** Hostile — client-claimed head SHA must equal server expectedHeadSha when present. */
+  readonly claimedHeadSha?: unknown;
+}):
+  | { ok: true; spec: GitPrCreateLaunchSpec }
+  | { ok: false; reason: string } {
+  if (input.claimedAutoMerge != null && input.claimedAutoMerge !== false) {
+    return { ok: false, reason: "git_pr_create_auto_merge_rejected" };
   }
-  const liveBase = live.baseBranch.trim();
-  if (!liveBase || liveBase !== input.expected.baseBranch.trim()) {
-    return { ok: false, reason: "git_pr_merge_live_base_branch_mismatch" };
+  const repo = assertCanonicalGithubRepositoryRef(input.repositoryRef);
+  if (!repo.ok) {
+    return {
+      ok: false,
+      reason:
+        repo.reason === "repository_ref_missing"
+          ? "git_pr_create_repository_ref_missing"
+          : "git_pr_create_repository_ref_unsafe",
+    };
   }
-  return { ok: true };
+  if (
+    typeof input.expectedHeadSha !== "string" ||
+    !FULL_SHA_RE.test(input.expectedHeadSha.trim())
+  ) {
+    return { ok: false, reason: "git_pr_create_expected_head_sha_invalid" };
+  }
+  const expectedHeadSha = input.expectedHeadSha.trim().toLowerCase();
+  if (
+    input.claimedHeadSha != null &&
+    String(input.claimedHeadSha).trim() &&
+    String(input.claimedHeadSha).trim().toLowerCase() !== expectedHeadSha
+  ) {
+    return { ok: false, reason: "git_pr_create_claimed_head_sha_override_rejected" };
+  }
+  const head = assertSafeRef(input.headBranch, "head");
+  if (!head.ok) return head;
+  const base = assertSafeRef(input.baseBranch, "base");
+  if (!base.ok) return base;
+  if (head.ref === base.ref) {
+    return { ok: false, reason: "git_pr_create_head_equals_base" };
+  }
+  if (
+    input.expectedBaseBranch != null &&
+    input.expectedBaseBranch.trim() &&
+    input.expectedBaseBranch.trim() !== base.ref
+  ) {
+    return { ok: false, reason: "git_pr_create_base_mismatch" };
+  }
+  if (typeof input.title !== "string" || !input.title.trim()) {
+    return { ok: false, reason: "git_pr_create_title_empty" };
+  }
+  if (input.title !== input.title.trim()) {
+    return { ok: false, reason: "git_pr_create_title_whitespace" };
+  }
+  const title = input.title.trim();
+  if (title.length > 200 || TITLE_FORBIDDEN_RE.test(title)) {
+    return { ok: false, reason: "git_pr_create_title_unsafe" };
+  }
+  let body: string | undefined;
+  if (input.body != null) {
+    if (typeof input.body !== "string") {
+      return { ok: false, reason: "git_pr_create_body_invalid" };
+    }
+    body = input.body.trim() || undefined;
+    if (body && /[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/.test(body)) {
+      return { ok: false, reason: "git_pr_create_body_unsafe" };
+    }
+  }
+  return {
+    ok: true,
+    spec: {
+      repositoryRef: repo.ref,
+      headBranch: head.ref,
+      baseBranch: base.ref,
+      title,
+      expectedHeadSha,
+      ...(body ? { body } : {}),
+    },
+  };
+}
+
+/** AuthorizedEffects MUST be exactly one unique effect: github.pr.create. */
+export function isBoundedGitPrCreateOnlySlice(
+  authorizedEffects: readonly string[] | undefined | null,
+): boolean {
+  if (!authorizedEffects || authorizedEffects.length === 0) return false;
+  const unique = new Set(authorizedEffects);
+  return unique.size === 1 && unique.has("github.pr.create");
 }
 
 ```
 
-### mutatingCursorConfinementEnv.ts (full)
+### gitPrMergeLaunchSpec.ts (full)
 ```typescript
 /**
- * D-GCEC-CONF-02A / D-GCEC-EXEC-01 — server-owned child env for mutating GCEC Cursor profiles.
- *
- * Effect-sensitive (CR-02):
- * - local (A docs_write + B local_commit): strip Git/GitHub/SSH write-auth channels
- * - remote_git (C git.push): preserve SSH / askpass channels; still strip GH tokens + GIT_CONFIG injection
- * - remote_github (D/E pr create/merge): preserve GH_/GITHUB_ token keys; still neutralize GIT_CONFIG injection
- *
- * Proves only: Product gateway applies a deterministic env-key presence policy.
- * Does NOT prove AUTH REAL / remote-write impossibility.
- * NEVER copy secret VALUES into specs/Evidence/reports — key presence only.
+ * Server-derived GitPrMergeLaunchSpec (GCEC bounded PR merge PREP).
+ * Build for continuation PREP only — REAL merge is not executed in this lot.
+ * Fail closed on missing PR / bad numbers / incomplete identity.
  */
-import { SFIA_STUDIO_CURSOR_REAL_FLAG } from "../domain/realLaunchSafety";
 
-/** Exact auth / askpass / SSH override keys stripped for local (A/B) mutating child env. */
-export const MUTATING_CURSOR_STRIPPED_ENV_KEYS = [
-  "SSH_AUTH_SOCK",
-  "SSH_AGENT_PID",
-  "GH_TOKEN",
-  "GITHUB_TOKEN",
-  "GH_ENTERPRISE_TOKEN",
-  "GITHUB_ENTERPRISE_TOKEN",
-  "GIT_ASKPASS",
-  "SSH_ASKPASS",
-  "SSH_ASKPASS_REQUIRE",
-  "GIT_SSH",
-  "GIT_SSH_COMMAND",
-  "GIT_CONFIG_PARAMETERS",
-  "GIT_CONFIG_COUNT",
-] as const;
+import {
+  assertCanonicalGithubRepositoryRef,
+} from "./shellSafeArg";
 
-/** SSH / askpass channels preserved for remote_git (C). */
-export const MUTATING_CURSOR_REMOTE_GIT_PRESERVED_ENV_KEYS = [
-  "SSH_AUTH_SOCK",
-  "SSH_AGENT_PID",
-  "GIT_ASKPASS",
-  "SSH_ASKPASS",
-  "SSH_ASKPASS_REQUIRE",
-  "GIT_SSH",
-  "GIT_SSH_COMMAND",
-] as const;
+export type GitPrMergeMethod = "merge" | "squash" | "rebase";
 
-/** GitHub token sentinel keys preserved for remote_github (D/E). */
-export const MUTATING_CURSOR_REMOTE_GITHUB_PRESERVED_ENV_KEYS = [
-  "GH_TOKEN",
-  "GITHUB_TOKEN",
-  "GH_ENTERPRISE_TOKEN",
-  "GITHUB_ENTERPRISE_TOKEN",
-] as const;
+export type GitPrMergeLaunchSpec = {
+  readonly repositoryRef: string;
+  readonly prNumber: number;
+  readonly expectedHeadSha: string;
+  readonly expectedHeadBranch: string;
+  readonly expectedBaseBranch: string;
+  readonly mergeMethod: GitPrMergeMethod;
+};
 
-export type MutatingCursorConfinementEffectClass =
-  | "local"
-  | "remote_git"
-  | "remote_github";
+const FULL_SHA_RE = /^[0-9a-f]{40}$/i;
+const BRANCH_FORBIDDEN_RE = /[\x00-\x1f\x7f$`"'\\;&|<>(){}[\]*?!]/;
 
-const LOCAL_STRIPPED = new Set<string>(MUTATING_CURSOR_STRIPPED_ENV_KEYS);
-const REMOTE_GIT_PRESERVE = new Set<string>(
-  MUTATING_CURSOR_REMOTE_GIT_PRESERVED_ENV_KEYS,
-);
-const REMOTE_GITHUB_PRESERVE = new Set<string>(
-  MUTATING_CURSOR_REMOTE_GITHUB_PRESERVED_ENV_KEYS,
-);
-
-function isInheritedGitConfigInjectionKey(key: string): boolean {
-  return (
-    key === "GIT_CONFIG_PARAMETERS" ||
-    key === "GIT_CONFIG_COUNT" ||
-    /^GIT_CONFIG_KEY_\d+$/.test(key) ||
-    /^GIT_CONFIG_VALUE_\d+$/.test(key)
-  );
-}
-
-function shouldStripKey(
-  key: string,
-  effectClass: MutatingCursorConfinementEffectClass,
-): boolean {
-  // Always neutralize GIT_CONFIG_* injection regardless of effect class.
-  if (isInheritedGitConfigInjectionKey(key)) return true;
-
-  if (effectClass === "local") {
-    return LOCAL_STRIPPED.has(key);
+function assertSafeBranch(
+  raw: string,
+  reasonEmpty: string,
+  reasonUnsafe: string,
+): { ok: true; ref: string } | { ok: false; reason: string } {
+  if (typeof raw !== "string" || !raw.trim()) {
+    return { ok: false, reason: reasonEmpty };
   }
-  if (effectClass === "remote_git") {
-    if (REMOTE_GIT_PRESERVE.has(key)) return false;
-    return LOCAL_STRIPPED.has(key);
+  const base = raw.trim();
+  if (
+    BRANCH_FORBIDDEN_RE.test(base) ||
+    base.includes("..") ||
+    base.startsWith("-") ||
+    base.includes(" ")
+  ) {
+    return { ok: false, reason: reasonUnsafe };
   }
-  // remote_github
-  if (REMOTE_GITHUB_PRESERVE.has(key)) return false;
-  return LOCAL_STRIPPED.has(key);
+  return { ok: true, ref: base };
 }
 
 /**
- * Build a fresh child ProcessEnv for mutating Cursor launches.
- * Does not mutate `baseEnv`. Caller cannot opt out.
+ * Build merge launch spec from server-owned PR identity + policy defaults.
+ * Default mergeMethod is "merge" when server/policy omits it.
+ * `expectedHeadBranch` is REQUIRED.
  */
-export function buildMutatingCursorConfinementEnv(
-  baseEnv: NodeJS.ProcessEnv,
-  options?: { readonly effectClass?: MutatingCursorConfinementEffectClass },
-): NodeJS.ProcessEnv {
-  const effectClass = options?.effectClass ?? "local";
-  const child: Record<string, string | undefined> = {};
-  for (const [key, value] of Object.entries(baseEnv)) {
-    if (value === undefined) continue;
-    if (shouldStripKey(key, effectClass)) continue;
-    child[key] = value;
+export function buildGitPrMergeLaunchSpec(input: {
+  readonly repositoryRef: string;
+  readonly prNumber: number;
+  readonly expectedHeadSha: string;
+  readonly expectedHeadBranch: string;
+  readonly expectedBaseBranch: string;
+  readonly mergeMethod?: GitPrMergeMethod;
+}):
+  | { ok: true; spec: GitPrMergeLaunchSpec }
+  | { ok: false; reason: string } {
+  const repo = assertCanonicalGithubRepositoryRef(input.repositoryRef);
+  if (!repo.ok) {
+    return {
+      ok: false,
+      reason:
+        repo.reason === "repository_ref_missing"
+          ? "git_pr_merge_repository_ref_missing"
+          : "git_pr_merge_repository_ref_unsafe",
+    };
+  }
+  if (
+    !Number.isInteger(input.prNumber) ||
+    input.prNumber < 1 ||
+    !Number.isFinite(input.prNumber)
+  ) {
+    return { ok: false, reason: "git_pr_merge_pr_number_invalid" };
+  }
+  if (
+    typeof input.expectedHeadSha !== "string" ||
+    !FULL_SHA_RE.test(input.expectedHeadSha.trim())
+  ) {
+    return { ok: false, reason: "git_pr_merge_expected_head_sha_invalid" };
+  }
+  const head = assertSafeBranch(
+    input.expectedHeadBranch,
+    "git_pr_merge_expected_head_branch_empty",
+    "git_pr_merge_expected_head_branch_unsafe",
+  );
+  if (!head.ok) return head;
+  const base = assertSafeBranch(
+    input.expectedBaseBranch,
+    "git_pr_merge_expected_base_empty",
+    "git_pr_merge_expected_base_unsafe",
+  );
+  if (!base.ok) return base;
+  const method = input.mergeMethod ?? "merge";
+  if (method !== "merge" && method !== "squash" && method !== "rebase") {
+    return { ok: false, reason: "git_pr_merge_method_invalid" };
+  }
+  return {
+    ok: true,
+    spec: {
+      repositoryRef: repo.ref,
+      prNumber: input.prNumber,
+      expectedHeadSha: input.expectedHeadSha.trim().toLowerCase(),
+      expectedHeadBranch: head.ref,
+      expectedBaseBranch: base.ref,
+      mergeMethod: method,
+    },
+  };
+}
+
+/** AuthorizedEffects MUST be exactly one unique effect: github.pr.merge. */
+export function isBoundedGitPrMergeOnlySlice(
+  authorizedEffects: readonly string[] | undefined | null,
+): boolean {
+  if (!authorizedEffects || authorizedEffects.length === 0) return false;
+  const unique = new Set(authorizedEffects);
+  return unique.size === 1 && unique.has("github.pr.merge");
+}
+
+```
+
+### resolveVerifiedRemotePushPriorAttempt.ts (full)
+```typescript
+/**
+ * CORR-D-GCEC-GIT-LIFECYCLE — exact Attempt lineage for verified remote push.
+ * Pure Product-truth: Attempt history + VERIFIED git:remote_push Evidence.
+ * Zero / multiple eligible candidates → fail closed.
+ * AC-03: Evidence MUST carry explicit repo + refName + commitSha — no substitute.
+ */
+import type { Evidence } from "@/lib/oa/evidence-review";
+import type { ExecutionContract } from "@/lib/oa/execution-contract";
+import type { ExecutionAttempt } from "./types";
+import {
+  evidenceMatchesContractLineage,
+  expectedEvidenceIdentity,
+} from "./qualifyExecutionContractCompletion";
+import { M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID } from "./realLaunchSafety";
+
+export type VerifiedRemotePushPriorAttempt = {
+  readonly priorAttemptId: string;
+  readonly evidenceId: string;
+  readonly commitSha: string;
+  readonly repositoryRef: string;
+  /** Required — Evidence refName / branch for C→D binding. */
+  readonly branchName: string;
+};
+
+export type ResolveVerifiedRemotePushPriorAttemptInput = {
+  readonly contract: Pick<
+    ExecutionContract,
+    | "executionContractId"
+    | "projectId"
+    | "cycleInstanceId"
+    | "expectedOutputs"
+    | "inputs"
+  >;
+  readonly attempts: readonly ExecutionAttempt[];
+  readonly evidence: readonly Evidence[];
+  readonly excludeAttemptId?: string;
+  readonly repositoryRef?: string;
+};
+
+export type ResolveVerifiedRemotePushPriorAttemptResult =
+  | { readonly ok: true; readonly prior: VerifiedRemotePushPriorAttempt }
+  | {
+      readonly ok: false;
+      readonly reason:
+        | "remote_push_prior_none"
+        | "remote_push_prior_ambiguous"
+        | "remote_push_prior_incomplete";
+      readonly candidateAttemptIds?: readonly string[];
+    };
+
+const FULL_SHA_RE = /^[0-9a-f]{40}$/i;
+
+export function parseRemotePushFromEvidenceLocation(
+  location: string,
+): {
+  commitSha: string;
+  repositoryRef?: string;
+  branchName?: string;
+} | null {
+  const loc = String(location ?? "").trim();
+  if (!loc.startsWith("git:remote_push")) return null;
+  const shaMatch = loc.match(/[?&]commitSha=([^&]+)/);
+  if (!shaMatch) return null;
+  const commitSha = decodeURIComponent(shaMatch[1]!).trim().toLowerCase();
+  if (!FULL_SHA_RE.test(commitSha)) return null;
+  const repoMatch = loc.match(/[?&]repo=([^&]+)/);
+  const repositoryRef = repoMatch
+    ? decodeURIComponent(repoMatch[1]!).trim()
+    : undefined;
+  const refMatch = loc.match(/[?&]refName=([^&]+)/);
+  let branchName: string | undefined;
+  if (refMatch) {
+    const refName = decodeURIComponent(refMatch[1]!).trim();
+    branchName = refName.startsWith("refs/heads/")
+      ? refName.slice("refs/heads/".length)
+      : refName;
+  }
+  return { commitSha, repositoryRef, branchName };
+}
+
+function isEligibleRemotePush(
+  ev: Evidence,
+  expected: {
+    projectId: string;
+    cycleInstanceId?: string;
+    executionContractId: string;
+  },
+  attemptId: string,
+  repositoryRef?: string,
+): boolean {
+  if (ev.status !== "verified") return false;
+  if (ev.source !== "git:remote_push") return false;
+  if (!evidenceMatchesContractLineage(ev, expected)) return false;
+  if (ev.bindings.executionAttemptId !== attemptId) return false;
+  const parsed = parseRemotePushFromEvidenceLocation(String(ev.location ?? ""));
+  if (!parsed) return false;
+  // AC-03: repo + branchName + commitSha are mandatory for eligibility.
+  if (!parsed.repositoryRef?.trim()) return false;
+  if (!parsed.branchName?.trim()) return false;
+  if (!FULL_SHA_RE.test(parsed.commitSha)) return false;
+  if (repositoryRef?.trim()) {
+    // When repositoryRef expected: Evidence repo MUST equal — missing already failed above.
+    if (parsed.repositoryRef !== repositoryRef.trim()) return false;
+  }
+  return true;
+}
+
+/**
+ * Resolve the unique prior succeeded remote-push Attempt with matching
+ * VERIFIED git:remote_push Evidence for the current EC.
+ */
+export function resolveVerifiedRemotePushPriorAttempt(
+  input: ResolveVerifiedRemotePushPriorAttemptInput,
+): ResolveVerifiedRemotePushPriorAttemptResult {
+  const expected = expectedEvidenceIdentity({ contract: input.contract });
+  const candidates: VerifiedRemotePushPriorAttempt[] = [];
+
+  for (const attempt of input.attempts) {
+    if (
+      input.excludeAttemptId &&
+      attempt.attemptId === input.excludeAttemptId
+    ) {
+      continue;
+    }
+    if (attempt.executionContractId !== input.contract.executionContractId) {
+      continue;
+    }
+    if (attempt.status !== "succeeded") continue;
+    if (attempt.selectedAgentRef !== M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID) {
+      continue;
+    }
+
+    const matching = input.evidence.filter((ev) =>
+      isEligibleRemotePush(
+        ev,
+        expected,
+        attempt.attemptId,
+        input.repositoryRef,
+      ),
+    );
+    if (matching.length === 0) continue;
+    if (matching.length > 1) {
+      return {
+        ok: false,
+        reason: "remote_push_prior_ambiguous",
+        candidateAttemptIds: [attempt.attemptId],
+      };
+    }
+    const ev = matching[0]!;
+    const parsed = parseRemotePushFromEvidenceLocation(String(ev.location ?? ""));
+    if (
+      !parsed ||
+      !parsed.repositoryRef?.trim() ||
+      !parsed.branchName?.trim() ||
+      !FULL_SHA_RE.test(parsed.commitSha)
+    ) {
+      return { ok: false, reason: "remote_push_prior_incomplete" };
+    }
+    // Never substitute input.repositoryRef for missing Evidence repo.
+    candidates.push({
+      priorAttemptId: attempt.attemptId,
+      evidenceId: ev.evidenceId,
+      commitSha: parsed.commitSha,
+      repositoryRef: parsed.repositoryRef.trim(),
+      branchName: parsed.branchName.trim(),
+    });
   }
 
-  child[SFIA_STUDIO_CURSOR_REAL_FLAG] = "1";
-  child.GIT_TERMINAL_PROMPT = "0";
-  child.GCM_INTERACTIVE = "Never";
-  // Neutralize host system/global Git config for the child (local Git support).
-  child.GIT_CONFIG_NOSYSTEM = "1";
-  child.GIT_CONFIG_SYSTEM = "/dev/null";
-  child.GIT_CONFIG_GLOBAL = "/dev/null";
+  if (candidates.length === 0) {
+    return { ok: false, reason: "remote_push_prior_none" };
+  }
+  if (candidates.length > 1) {
+    return {
+      ok: false,
+      reason: "remote_push_prior_ambiguous",
+      candidateAttemptIds: candidates.map((c) => c.priorAttemptId),
+    };
+  }
 
-  return child as NodeJS.ProcessEnv;
+  const only = candidates[0]!;
+  if (!FULL_SHA_RE.test(only.commitSha) || !only.branchName.trim()) {
+    return { ok: false, reason: "remote_push_prior_incomplete" };
+  }
+  return { ok: true, prior: only };
 }
 
-export function isMutatingGcecCursorProfile(input: {
-  readonly isDocsWrite: boolean;
-  readonly isLocalCommitProfile: boolean;
-  readonly isRemotePushProfile?: boolean;
-  readonly isPrCreateProfile?: boolean;
-  readonly isPrMergeProfile?: boolean;
-}): boolean {
-  return (
-    input.isDocsWrite === true ||
-    input.isLocalCommitProfile === true ||
-    input.isRemotePushProfile === true ||
-    input.isPrCreateProfile === true ||
-    input.isPrMergeProfile === true
-  );
+```
+
+### resolveVerifiedPullRequestNumber (hardened)
+```typescript
+export function resolveVerifiedPullRequestNumber(input: {
+  evidence: readonly Evidence[];
+  projectId: string;
+  cycleInstanceId?: string;
+  executionContractId: string;
+  repositoryRef: string;
+}):
+  | {
+      ok: true;
+      prNumber: number;
+      repositoryRef: string;
+      headSha: string;
+      headBranch: string;
+      baseBranch: string;
+      state: string;
+      baseSha?: string;
+    }
+  | { ok: false; reason: string } {
+  type CompleteIdentity = {
+    repositoryRef: string;
+    prNumber: number;
+    state: string;
+    headBranch: string;
+    headSha: string;
+    baseBranch: string;
+    baseSha?: string;
+  };
+  const FULL_SHA_RE = /^[0-9a-f]{40}$/i;
+  const matches: CompleteIdentity[] = [];
+  for (const e of input.evidence) {
+    if (e.status !== "verified") continue;
+    if (e.source !== "git:pull_request") continue;
+    const b = e.bindings;
+    if (!b?.projectId || b.projectId !== input.projectId) continue;
+    if (
+      !b.executionContractId ||
+      b.executionContractId !== input.executionContractId
+    ) {
+      continue;
+    }
+    if (
+      input.cycleInstanceId &&
+      (!b.cycleInstanceId || b.cycleInstanceId !== input.cycleInstanceId)
+    ) {
+      continue;
+    }
+    const loc = typeof e.location === "string" ? e.location : "";
+    const repoMatch = loc.match(/[?&]repo=([^&]+)/);
+    if (!repoMatch) continue;
+    const repo = decodeURIComponent(repoMatch[1]!).trim();
+    if (!repo || repo !== input.repositoryRef) continue;
+    const prMatch = loc.match(/[?&]prNumber=([^&]+)/);
+    if (!prMatch) continue;
+    const n = Number(decodeURIComponent(prMatch[1]!));
+    if (!Number.isInteger(n) || n < 1) continue;
+    const headShaMatch = loc.match(/[?&]headSha=([^&]+)/);
+    const headBranchMatch = loc.match(/[?&]headBranch=([^&]+)/);
+    const baseBranchMatch = loc.match(/[?&]baseBranch=([^&]+)/);
+    const stateMatch = loc.match(/[?&]state=([^&]+)/);
+    if (!headShaMatch || !headBranchMatch || !baseBranchMatch || !stateMatch) {
+      continue;
+    }
+    const headSha = decodeURIComponent(headShaMatch[1]!).trim().toLowerCase();
+    const headBranch = decodeURIComponent(headBranchMatch[1]!).trim();
+    const baseBranch = decodeURIComponent(baseBranchMatch[1]!).trim();
+    const state = decodeURIComponent(stateMatch[1]!).trim();
+    if (!FULL_SHA_RE.test(headSha) || !headBranch || !baseBranch || !state) {
+      continue;
+    }
+    const baseShaMatch = loc.match(/[?&]baseSha=([^&]+)/);
+    const baseSha = baseShaMatch
+      ? decodeURIComponent(baseShaMatch[1]!).trim().toLowerCase()
+      : undefined;
+    if (baseSha != null && baseSha !== "" && !FULL_SHA_RE.test(baseSha)) {
+      continue;
+    }
+    matches.push({
+      repositoryRef: repo,
+      prNumber: n,
+      state,
+      headBranch,
+      headSha,
+      baseBranch,
+      ...(baseSha ? { baseSha } : {}),
+    });
+  }
+
+  // Deduplicate exact identical complete identities.
+  const identityKey = (m: CompleteIdentity) =>
+    [
+      m.repositoryRef,
+      m.prNumber,
+      m.state,
+      m.headBranch,
+      m.headSha,
+      m.baseBranch,
+      m.baseSha ?? "",
+    ].join("\0");
+  const uniqueByKey = new Map<string, CompleteIdentity>();
+  for (const m of matches) {
+    uniqueByKey.set(identityKey(m), m);
+  }
+  const unique = [...uniqueByKey.values()];
+  if (unique.length === 0) {
+    return { ok: false, reason: "verified_pull_request_identity_missing" };
+  }
+  const uniqueNumbers = [...new Set(unique.map((m) => m.prNumber))];
+  if (uniqueNumbers.length > 1) {
+    return { ok: false, reason: "verified_pull_request_identity_ambiguous" };
+  }
+  if (unique.length > 1) {
+    // Same prNumber with differing headSha / headBranch / baseBranch / state / repo.
+    return { ok: false, reason: "verified_pull_request_identity_ambiguous" };
+  }
+  const chosen = unique[0]!;
+  return {
+    ok: true,
+    prNumber: chosen.prNumber,
+    repositoryRef: chosen.repositoryRef,
+    headSha: chosen.headSha,
+    headBranch: chosen.headBranch,
+    baseBranch: chosen.baseBranch,
+    state: chosen.state,
+    ...(chosen.baseSha ? { baseSha: chosen.baseSha } : {}),
+  };
 }
 
-export function resolveMutatingConfinementEffectClass(input: {
-  readonly isRemotePushProfile?: boolean;
-  readonly isPrCreateProfile?: boolean;
-  readonly isPrMergeProfile?: boolean;
-}): MutatingCursorConfinementEffectClass {
-  if (input.isRemotePushProfile) return "remote_git";
-  if (input.isPrCreateProfile || input.isPrMergeProfile) return "remote_github";
-  return "local";
-}
+/**
+ * Resolve canonical Git Confirmation target from durable Product truth only.
+ */
 
 ```
 
@@ -631,20 +1042,33 @@ function buildBoundedPrCreateInstruction(input: {
   readonly scope?: string;
   readonly semanticFingerprint: string;
 }): string {
+  const qRepo = posixShellSingleQuote(input.spec.repositoryRef);
+  const qHead = posixShellSingleQuote(input.spec.headBranch);
+  const qBase = posixShellSingleQuote(input.spec.baseBranch);
+  const qTitle = posixShellSingleQuote(input.spec.title);
+  const qBody =
+    input.spec.body != null
+      ? posixShellSingleQuote(input.spec.body)
+      : undefined;
+  const branchRefApi = `repos/${input.spec.repositoryRef}/git/ref/heads/${input.spec.headBranch}`;
   return [
     "TÂCHE UNIQUE — bounded github.pr.create déterministe (GCEC).",
     `Repository: ${input.spec.repositoryRef}`,
     `Head branch exacte: ${input.spec.headBranch}`,
     `Base branch exacte: ${input.spec.baseBranch}`,
+    `Expected head SHA (lié au push C): ${input.spec.expectedHeadSha}`,
     `Title exact: ${input.spec.title}`,
     ...(input.spec.body ? [`Body: ${input.spec.body}`] : []),
-    "Commande autorisée UNIQUEMENT:",
-    `  gh pr create --repo ${input.spec.repositoryRef} --head ${input.spec.headBranch} --base ${input.spec.baseBranch} --title ${JSON.stringify(input.spec.title)}` +
-      (input.spec.body
-        ? ` --body ${JSON.stringify(input.spec.body)}`
-        : ""),
+    "Avant gh pr create (lecture seule — lier remote head au SHA pushé):",
+    `  1) gh api ${posixShellSingleQuote(branchRefApi)} --jq .object.sha`,
+    `     → le SHA observé DOIT être exactement ${input.spec.expectedHeadSha}.`,
+    "       Absent / mismatch: STOP — ne pas créer la PR.",
+    "Commande autorisée UNIQUEMENT (après (1) OK):",
+    `  gh pr create --repo ${qRepo} --head ${qHead} --base ${qBase} --title ${qTitle}` +
+      (qBody ? ` --body ${qBody}` : ""),
     "INTERDIT: omettre --repo, --auto-merge / enable auto-merge, merge, squash, rebase,",
-    "push force, delete branch, édition hors PR create, script shell libre.",
+    "push force, delete branch, édition hors PR create, script shell libre,",
+    "JSON.stringify / interpolation non quotée du body (les $(...) restent littéraux via quotes).",
     "En cas d'ambiguïté: STOP immédiatement sans mutation.",
     `target=${input.target ?? ""}`,
     `action=${input.action ?? ""}`,
@@ -671,20 +1095,26 @@ function buildBoundedPrMergeInstruction(input: {
       : input.spec.mergeMethod === "rebase"
         ? "--rebase"
         : "--merge";
+  const qRepo = posixShellSingleQuote(input.spec.repositoryRef);
   return [
     "TÂCHE UNIQUE — bounded github.pr.merge déterministe (GCEC).",
     `Repository: ${input.spec.repositoryRef}`,
     `PR number exact (obligatoire): ${input.spec.prNumber}`,
     `Expected head SHA: ${input.spec.expectedHeadSha}`,
+    `Expected head branch: ${input.spec.expectedHeadBranch}`,
     `Expected base branch: ${input.spec.expectedBaseBranch}`,
     `Merge method: ${input.spec.mergeMethod}`,
     "Avant merge (défense en profondeur — StartExecution fresh RepositoryRead est l'autorité):",
-    `  gh pr view ${input.spec.prNumber} --repo ${input.spec.repositoryRef} --json state,headRefOid,baseRefName,headRefName`,
-    "  → exiger state=OPEN et headRefOid == expected head SHA; sinon STOP.",
-    "Commande autorisée UNIQUEMENT:",
-    `  gh pr merge ${input.spec.prNumber} --repo ${input.spec.repositoryRef} ${methodFlag}`,
+    `  gh pr view ${input.spec.prNumber} --repo ${qRepo} --json state,headRefOid,baseRefName,headRefName`,
+    "  Comparer EXPLICITEMENT les quatre champs; STOP sur tout mismatch AVANT gh pr merge:",
+    "    - state == OPEN",
+    `    - headRefOid == ${input.spec.expectedHeadSha}`,
+    `    - headRefName == ${input.spec.expectedHeadBranch}`,
+    `    - baseRefName == ${input.spec.expectedBaseBranch}`,
+    "Commande autorisée UNIQUEMENT (après les quatre comparaisons OK):",
+    `  gh pr merge ${input.spec.prNumber} --repo ${qRepo} ${methodFlag}`,
     "INTERDIT: omettre --repo, autre PR number, --admin, --auto, enable auto-merge,",
-    "delete branch, force push, script shell libre.",
+    "delete branch / --delete-branch, force push, script shell libre.",
     "En cas d'ambiguïté: STOP immédiatement sans mutation.",
     `target=${input.target ?? ""}`,
     `action=${input.action ?? ""}`,
@@ -705,24 +1135,26 @@ SFIA_STUDIO_CURSOR_REAL: unset
 
 | Gate | Result |
 | --- | --- |
-| Focused (gcecGitLifecyclePushPrMerge + gcecMutatingCursorConfinementEnv) | **43 passed** (final recheck) |
-| Related (9 files: lifecycle/confinement/Agent01/CR23/git-ports/D15/ownership/deterministic/oneLot) | **184 passed** |
+| Focused (lifecycle + confinement) | **59 passed** (2 files) |
+| Related (10 files) | **201 passed** |
 | typecheck | PASS |
 | lint | PASS |
 | build | PASS |
-| Full vitest | **3825 passed \| 137 skipped** (353 files passed \| 17 skipped) |
+| Full vitest | **3841 passed \| 137 skipped** |
 
 ==================================================
-FAKE / REAL QUALIFICATION
+FAKE / REAL
 ==================================================
 
-Level this cycle: DETERMINISTIC PROVEN for CR-01..04 invariants.
+Level: DETERMINISTIC PROVEN for AC-01..AC-06.
 REAL: ZERO
-REMOTE AUTH REAL: NOT PROVEN
+AUTH REAL: NOT PROVEN
 PUSH REAL: NOT PROVEN
 PR REAL: NOT PROVEN
 MERGE REAL: NOT PROVEN
 DETERMINISTIC PROVEN ≠ READY FOR REAL
+
+Auth reserve: CR-02 effect-sensitive policy preserved; live auth re-preflight required before future REAL.
 
 ==================================================
 GIT EFFECTS THIS LOT
@@ -743,23 +1175,26 @@ RESERVES
 Non-blocking:
 - D-GCEC-EVID-01 ACCEPTED NON-BLOCKING
 - FixedIdSource harness reserve OPEN / NON-BLOCKING
-- baseSha on PR Evidence optional when RepositoryRead exposes it (included when available)
+- baseSha optional when RepositoryRead exposes it
 - Publisher false-negative tooling reserve (historical)
 
-Blocking for REAL (expected):
-- REAL push/PR not yet authorized/proven
-- Merge remains Morris/Pilote gated after real PR evidence
+REAL-only (blocking for REAL claims, not for this deterministic candidate):
+- AUTH REAL
+- PUSH / PR / MERGE REAL
+- END-TO-END REAL A→D
+
+Blocking for this lot: NONE (AC-01..06 closed)
 
 ==================================================
 DECISION REQUIRED FROM MORRIS
 ==================================================
 
-CHATGPT CRITICAL REVIEW OF COMPLETE SAME-LOT CORRECTION CANDIDATE.
+CHATGPT CRITICAL REVIEW OF FINAL SAME-LOT AUTHORITY CLOSURE CANDIDATE.
 
 Do NOT Product commit / REAL / Product push / PR / merge from this pack alone.
 
-Next sequence if Critical Review PASS:
-Morris GO local Product commit → commit → verification → Morris REAL gate → ONE fresh REAL A→D → STOP merge gate → distinct GO → Attempt E.
+Subsequent sequence only after separate Morris decisions:
+final candidate → Review Handoff → ChatGPT Critical Review → Morris GO local Product commit → Cursor commit → post-commit verification → separate Morris REAL gate → ONE fresh REAL A→D → STOP merge gate → distinct merge decision → future Attempt E.
 
 ==================================================
 FULL USEFUL DIFF
@@ -787,7 +1222,7 @@ index cb2ff410..19495a79 100644
      }
    }, 90_000);
 diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/gcecD15Negatives.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/gcecD15Negatives.d0.test.ts
-index 64a95587..2d1d3185 100644
+index 64a95587..2fe10f79 100644
 --- a/projects/sfia-studio/app/__tests__/oa/cycle/gcecD15Negatives.d0.test.ts
 +++ b/projects/sfia-studio/app/__tests__/oa/cycle/gcecD15Negatives.d0.test.ts
 @@ -137,6 +137,8 @@ function fullVerifiedSet(): Evidence[] {
@@ -807,6 +1242,51 @@ index 64a95587..2d1d3185 100644
        baseBranch: "main",
        url: "https://github.com/acme/widget/pull/42",
      });
+@@ -1481,7 +1484,7 @@ describe("gcecD15Negatives — N1–N28", () => {
+         evidenceId: "ev:pr41",
+         status: "verified",
+         source: "git:pull_request",
+-        location: "git:pull_request?repo=acme%2Fwidget&prNumber=41",
++        location: "git:pull_request?repo=acme%2Fwidget&prNumber=41&headSha=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&headBranch=feature%2Fx&baseBranch=main&state=open",
+         bindings: {
+           projectId: "prj:gcec",
+           cycleInstanceId: CYCLE,
+@@ -1767,7 +1770,7 @@ describe("gcecD15Negatives — N1–N28", () => {
+         evidenceId: "ev:pr41",
+         status: "verified",
+         source: "git:pull_request",
+-        location: `git:pull_request?repo=${encodeURIComponent(REPO)}&prNumber=41`,
++        location: `git:pull_request?repo=${encodeURIComponent(REPO)}&prNumber=41&headSha=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&headBranch=feature%2Fx&baseBranch=main&state=open`,
+         bindings: {
+           projectId: "prj:gcec",
+           cycleInstanceId: CYCLE,
+@@ -1778,7 +1781,7 @@ describe("gcecD15Negatives — N1–N28", () => {
+         evidenceId: "ev:pr42",
+         status: "verified",
+         source: "git:pull_request",
+-        location: `git:pull_request?repo=${encodeURIComponent(REPO)}&prNumber=42`,
++        location: `git:pull_request?repo=${encodeURIComponent(REPO)}&prNumber=42&headSha=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&headBranch=feature%2Fy&baseBranch=main&state=open`,
+         bindings: {
+           projectId: "prj:gcec",
+           cycleInstanceId: CYCLE,
+@@ -1915,7 +1918,7 @@ describe("gcecD15Negatives — N1–N28", () => {
+           evidenceId: "ev:pr-ok",
+           status: "verified",
+           source: "git:pull_request",
+-          location: `git:pull_request?repo=${encodeURIComponent(REPO)}&prNumber=41`,
++          location: `git:pull_request?repo=${encodeURIComponent(REPO)}&prNumber=41&headSha=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&headBranch=feature%2Fx&baseBranch=main&state=open`,
+           bindings: {
+             projectId: "prj:gcec",
+             cycleInstanceId: CYCLE,
+@@ -1942,7 +1945,7 @@ describe("gcecD15Negatives — N1–N28", () => {
+           evidenceId: "ev:pr-ok41",
+           status: "verified",
+           source: "git:pull_request",
+-          location: `git:pull_request?repo=${encodeURIComponent(REPO)}&prNumber=41`,
++          location: `git:pull_request?repo=${encodeURIComponent(REPO)}&prNumber=41&headSha=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&headBranch=feature%2Fx&baseBranch=main&state=open`,
+           bindings: {
+             projectId: "prj:gcec",
+             cycleInstanceId: CYCLE,
 diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/gcecDeterministicNegatives.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/gcecDeterministicNegatives.d0.test.ts
 index 950c2c0d..f167261a 100644
 --- a/projects/sfia-studio/app/__tests__/oa/cycle/gcecDeterministicNegatives.d0.test.ts
@@ -821,7 +1301,7 @@ index 950c2c0d..f167261a 100644
        },
        "ev:pr",
 diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/gcecOneLotDelivery.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/gcecOneLotDelivery.d0.test.ts
-index 405538c0..1a88a219 100644
+index 405538c0..06337a55 100644
 --- a/projects/sfia-studio/app/__tests__/oa/cycle/gcecOneLotDelivery.d0.test.ts
 +++ b/projects/sfia-studio/app/__tests__/oa/cycle/gcecOneLotDelivery.d0.test.ts
 @@ -240,6 +240,9 @@ function validPayloadFor(source: TypedGitEvidenceSource): unknown {
@@ -834,6 +1314,15 @@ index 405538c0..1a88a219 100644
        };
      case "git:ci_status":
        return {
+@@ -908,7 +911,7 @@ describe("11–12 — git completion proof progression", () => {
+               : source === "git:review_status"
+                 ? `git:review_status?repo=${encodeURIComponent(VALID_BINDING.identity)}&prNumber=1&state=approved`
+                 : source === "git:pull_request"
+-                  ? `git:pull_request?repo=${encodeURIComponent(VALID_BINDING.identity)}&prNumber=1&headSha=${FULL_SHA}`
++                  ? `git:pull_request?repo=${encodeURIComponent(VALID_BINDING.identity)}&prNumber=1&headSha=${FULL_SHA}&headBranch=gcec%2Fdocs&baseBranch=main&state=open`
+                   : source === "git:merge"
+                     ? `git:merge?repo=${encodeURIComponent(VALID_BINDING.identity)}&mergeCommitSha=${MERGE_SHA}&prNumber=1`
+                     : source === "git:remote_push"
 diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/gcecOwnershipNegatives.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/gcecOwnershipNegatives.d0.test.ts
 index 9d1cd2f2..ffab9754 100644
 --- a/projects/sfia-studio/app/__tests__/oa/cycle/gcecOwnershipNegatives.d0.test.ts
@@ -970,7 +1459,7 @@ index 3590a7ee..a0caf2d9 100644
 
    it("AP-14 non-M4 historical contract → contract_legacy still works", () => {
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecMutatingCursorConfinementEnv.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecMutatingCursorConfinementEnv.d0.test.ts
-index f7284403..b1b0cf9c 100644
+index f7284403..c6b42b52 100644
 --- a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecMutatingCursorConfinementEnv.d0.test.ts
 +++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecMutatingCursorConfinementEnv.d0.test.ts
 @@ -10,9 +10,12 @@ import {
@@ -995,7 +1484,7 @@ index f7284403..b1b0cf9c 100644
      const base = hostileBaseEnv();
      const child = buildMutatingCursorConfinementEnv(base);
      const joined = Object.values(child).join("\u0000");
-@@ -291,4 +294,101 @@ describe("D-GCEC-CONF-02A mutating Cursor confinement env", () => {
+@@ -291,4 +294,102 @@ describe("D-GCEC-CONF-02A mutating Cursor confinement env", () => {
      expect(joined).not.toContain("TEST_ASKPASS");
      expect(joined).not.toContain("TEST_GIT_SSH_COMMAND");
    });
@@ -1072,6 +1561,7 @@ index f7284403..b1b0cf9c 100644
 +        headBranch: "gcec/docs",
 +        baseBranch: "main",
 +        title: "t",
++        expectedHeadSha: PARENT,
 +        expectedBaseBranch: "main",
 +      },
 +      ...overrides,
@@ -1162,7 +1652,7 @@ index 9a90a753..bdbf6fbe 100644
      }
      case "git:ci_status": {
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
-index 1ea37809..75bcf661 100644
+index 1ea37809..0f88b31a 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
 @@ -58,6 +58,9 @@ import type {
@@ -1264,7 +1754,7 @@ index 1ea37809..75bcf661 100644
      }
 
      // D-GCEC-CONT-01 — pre-commit workspace continuation (server-derived only).
-@@ -1282,6 +1337,283 @@ export class StartExecution {
+@@ -1282,6 +1337,354 @@ export class StartExecution {
        gitCommitSpec = built.spec;
      }
 
@@ -1409,11 +1899,67 @@ index 1ea37809..75bcf661 100644
 +          { executionContractId: contract.executionContractId },
 +        );
 +      }
-+      const headBranch =
-+        priorPush.prior.branchName ||
-+        (typeof contractInputs.workingBranch === "string" &&
-+          contractInputs.workingBranch.trim()) ||
-+        deriveDeterministicGcecPushBranch(contract.executionContractId);
++      // AC-02/AC-03 — Evidence repo + branch + SHA must bind C→D exactly.
++      if (
++        !priorPush.prior.repositoryRef.trim() ||
++        priorPush.prior.repositoryRef !== repoRef
++      ) {
++        return fail(
++          "ATTEMPT_INVALID",
++          "git_pr_create_prior_push_repository_mismatch",
++          { executionContractId: contract.executionContractId },
++        );
++      }
++      const headBranch = priorPush.prior.branchName.trim();
++      if (!headBranch) {
++        return fail(
++          "ATTEMPT_INVALID",
++          "git_pr_create_prior_push_branch_missing",
++          { executionContractId: contract.executionContractId },
++        );
++      }
++      const contractWorkingBranch =
++        typeof contractInputs.workingBranch === "string"
++          ? contractInputs.workingBranch.trim()
++          : "";
++      if (contractWorkingBranch && contractWorkingBranch !== headBranch) {
++        return fail(
++          "ATTEMPT_INVALID",
++          "git_pr_create_prior_push_branch_mismatch",
++          { executionContractId: contract.executionContractId },
++        );
++      }
++      const expectedHeadSha = priorPush.prior.commitSha.trim().toLowerCase();
++      if (!/^[0-9a-f]{40}$/.test(expectedHeadSha)) {
++        return fail(
++          "ATTEMPT_INVALID",
++          "git_pr_create_expected_head_sha_invalid",
++          { executionContractId: contract.executionContractId },
++        );
++      }
++      if (!this.repositoryRead) {
++        return fail(
++          "ATTEMPT_INVALID",
++          "git_pr_create_repository_read_unavailable",
++          { executionContractId: contract.executionContractId },
++        );
++      }
++      const remoteHead = await this.repositoryRead.getBranchHead({
++        repositoryRef: repoRef,
++        branch: headBranch,
++      });
++      if (remoteHead == null || !String(remoteHead).trim()) {
++        return fail("ATTEMPT_INVALID", "git_pr_create_remote_head_missing", {
++          executionContractId: contract.executionContractId,
++        });
++      }
++      if (String(remoteHead).trim().toLowerCase() !== expectedHeadSha) {
++        return fail(
++          "ATTEMPT_INVALID",
++          "git_pr_create_remote_head_sha_drift",
++          { executionContractId: contract.executionContractId },
++        );
++      }
 +      const baseBranch =
 +        projectBindingPr.defaultBranch?.trim() ||
 +        (typeof contractInputs.baseBranch === "string" &&
@@ -1432,16 +1978,20 @@ index 1ea37809..75bcf661 100644
 +      const claimedAutoMerge =
 +        (request as { autoMerge?: unknown }).autoMerge ??
 +        (request as { enableAutoMerge?: unknown }).enableAutoMerge;
++      const claimedHeadSha = (request as { claimedHeadSha?: unknown })
++        .claimedHeadSha;
 +      const builtPr = buildGitPrCreateLaunchSpec({
 +        repositoryRef: repoRef,
 +        headBranch,
 +        baseBranch,
 +        title,
++        expectedHeadSha,
 +        ...(body != null ? { body } : {}),
 +        expectedBaseBranch: baseBranch,
 +        ...(claimedAutoMerge !== undefined
 +          ? { claimedAutoMerge }
 +          : {}),
++        ...(claimedHeadSha !== undefined ? { claimedHeadSha } : {}),
 +      });
 +      if (!builtPr.ok) {
 +        return fail("ATTEMPT_INVALID", builtPr.reason, {
@@ -1495,13 +2045,19 @@ index 1ea37809..75bcf661 100644
 +          executionContractId: contract.executionContractId,
 +        });
 +      }
-+      const expectedHeadSha = pr.headSha ?? "";
++      // AC-04/AC-05 — complete PR identity from Evidence; state must be open.
++      if (pr.state !== "open") {
++        return fail("ATTEMPT_INVALID", "git_pr_merge_evidence_state_not_open", {
++          executionContractId: contract.executionContractId,
++        });
++      }
++      const expectedHeadSha = pr.headSha;
 +      if (!/^[0-9a-f]{40}$/i.test(expectedHeadSha)) {
 +        return fail("ATTEMPT_INVALID", "git_pr_merge_expected_head_sha_invalid", {
 +          executionContractId: contract.executionContractId,
 +        });
 +      }
-+      const expectedHeadBranch = pr.headBranch?.trim() ?? "";
++      const expectedHeadBranch = pr.headBranch.trim();
 +      if (!expectedHeadBranch) {
 +        return fail(
 +          "ATTEMPT_INVALID",
@@ -1509,10 +2065,14 @@ index 1ea37809..75bcf661 100644
 +          { executionContractId: contract.executionContractId },
 +        );
 +      }
-+      const expectedBaseBranch =
-+        pr.baseBranch?.trim() ||
-+        projectBindingMerge.defaultBranch?.trim() ||
-+        "main";
++      const expectedBaseBranch = pr.baseBranch.trim();
++      if (!expectedBaseBranch) {
++        return fail(
++          "ATTEMPT_INVALID",
++          "git_pr_merge_expected_base_branch_missing",
++          { executionContractId: contract.executionContractId },
++        );
++      }
 +      const livePr = await this.repositoryRead.getPullRequest({
 +        repositoryRef: repoRef,
 +        number: pr.prNumber,
@@ -1534,6 +2094,7 @@ index 1ea37809..75bcf661 100644
 +        repositoryRef: repoRef,
 +        prNumber: pr.prNumber,
 +        expectedHeadSha,
++        expectedHeadBranch,
 +        expectedBaseBranch,
 +        mergeMethod: "merge",
 +      });
@@ -1548,7 +2109,7 @@ index 1ea37809..75bcf661 100644
      let launch;
      try {
        launch = await this.realLaunchPort.launch({
-@@ -1299,6 +1631,9 @@ export class StartExecution {
+@@ -1299,6 +1702,9 @@ export class StartExecution {
          timeoutMs: window.resolvedMaxDurationMs,
          ...(docsWriteSpec ? { docsWriteSpec } : {}),
          ...(gitCommitSpec ? { gitCommitSpec } : {}),
@@ -1579,7 +2140,7 @@ index d1f0fc2a..6ef10db7 100644
    | "CLEAR"
    | "UNKNOWN"
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts
-index 6fb6cabc..8269d402 100644
+index 6fb6cabc..857761ab 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts
 @@ -1,11 +1,13 @@
@@ -1848,7 +2409,7 @@ index 6fb6cabc..8269d402 100644
    const prior = resolveVerifiedDocsWritePriorAttempt({
      contract: input.contract,
      attempts: input.attempts ?? [],
-@@ -222,6 +364,151 @@ function resolveLocalCommitOrFail(
+@@ -222,6 +364,164 @@ function resolveLocalCommitOrFail(
    };
  }
 
@@ -1965,6 +2526,18 @@ index 6fb6cabc..8269d402 100644
 +      reason: "attempt_profile_pr_merge_without_verified_pr_identity",
 +    };
 +  }
++  // AC-04 — merge path requires complete open identity.
++  if (
++    pr.state !== "open" ||
++    !pr.headBranch.trim() ||
++    !pr.headSha.trim() ||
++    !pr.baseBranch.trim()
++  ) {
++    return {
++      ok: false,
++      reason: "attempt_profile_pr_merge_without_verified_pr_identity",
++    };
++  }
 +  const prEv = evidence.find(
 +    (ev) =>
 +      ev.status === "verified" &&
@@ -1979,6 +2552,7 @@ index 6fb6cabc..8269d402 100644
 +      pr.prNumber,
 +      prEv?.evidenceId,
 +      prEv?.bindings.executionAttemptId,
++      pr.headSha,
 +    ),
 +  };
 +}
@@ -2000,7 +2574,7 @@ index 6fb6cabc..8269d402 100644
  /**
   * Derive the current AttemptExecutionProfile from durable Product truth.
   * Fail closed on zero / ambiguous / unsupported profiles.
-@@ -275,6 +562,9 @@ export function resolveAttemptExecutionProfile(
+@@ -275,6 +575,9 @@ export function resolveAttemptExecutionProfile(
      (e) => e === "filesystem.create" || e === "filesystem.modify",
    );
    const hasCommit = executable.includes("git.commit");
@@ -2010,7 +2584,7 @@ index 6fb6cabc..8269d402 100644
    const hasUnsupportedProtected = executable.some((e) =>
      UNSUPPORTED_M4_PROTECTED.has(e as CursorAuthorizedEffectId),
    );
-@@ -286,7 +576,7 @@ export function resolveAttemptExecutionProfile(
+@@ -286,7 +589,7 @@ export function resolveAttemptExecutionProfile(
      );
 
    // When Start provides server-derived authorizedEffects, use them to confirm
@@ -2019,7 +2593,7 @@ index 6fb6cabc..8269d402 100644
    if (input.authorizedEffects && isM4DocsWriteContract) {
      const cls = uniqueAuthorizedEffectClass(input.authorizedEffects);
      if (cls === "empty") {
-@@ -307,18 +597,37 @@ export function resolveAttemptExecutionProfile(
+@@ -307,18 +610,37 @@ export function resolveAttemptExecutionProfile(
      if (cls === "git.commit") {
        return resolveLocalCommitOrFail(input, "authorized_slice_git_commit");
      }
@@ -2060,7 +2634,7 @@ index 6fb6cabc..8269d402 100644
        if (input.evidenceReaderAvailable === false) {
          return {
            ok: false,
-@@ -350,15 +659,12 @@ export function resolveAttemptExecutionProfile(
+@@ -350,15 +672,12 @@ export function resolveAttemptExecutionProfile(
          };
        }
 
@@ -2081,7 +2655,7 @@ index 6fb6cabc..8269d402 100644
          return {
            ok: true,
            profile: localCommitProfile(
-@@ -367,11 +673,56 @@ export function resolveAttemptExecutionProfile(
+@@ -367,11 +686,56 @@ export function resolveAttemptExecutionProfile(
            ),
          };
        }
@@ -2141,7 +2715,7 @@ index 6fb6cabc..8269d402 100644
        return {
          ok: true,
          profile: docsWriteProfile("docs_write_only_contract"),
-@@ -381,6 +732,15 @@ export function resolveAttemptExecutionProfile(
+@@ -381,6 +745,15 @@ export function resolveAttemptExecutionProfile(
      if (hasCommit && !hasFs) {
        return resolveLocalCommitOrFail(input, "commit_only_contract");
      }
@@ -2158,10 +2732,10 @@ index 6fb6cabc..8269d402 100644
      return { ok: false, reason: "attempt_profile_effect_not_supported" };
    }
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveGitEffectTarget.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveGitEffectTarget.ts
-index 274aa5a1..7cb064e0 100644
+index 274aa5a1..b881cc71 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveGitEffectTarget.ts
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveGitEffectTarget.ts
-@@ -61,10 +61,11 @@ function branchFromContractInputs(
+@@ -61,10 +61,12 @@ function branchFromContractInputs(
  }
 
  /**
@@ -2169,12 +2743,14 @@ index 274aa5a1..7cb064e0 100644
 + * Extract a single trustworthy PR identity from VERIFIED git:pull_request Evidence
   * bound to the same project / cycle / EC / repository.
   * Fail closed when zero or ambiguous.
-  * CR-GCEC-23H-C — repository identity MUST be present and exact (no repo → reject).
-+ * CR-03 — when location encodes headBranch/baseBranch/headSha/state, surface them.
+- * CR-GCEC-23H-C — repository identity MUST be present and exact (no repo → reject).
++ * AC-04 — complete identity required for eligibility:
++ * repo + prNumber + state + headBranch + headSha + baseBranch (baseSha optional).
++ * Same prNumber with differing identity fields → ambiguous.
   */
  export function resolveVerifiedPullRequestNumber(input: {
    evidence: readonly Evidence[];
-@@ -72,8 +73,24 @@ export function resolveVerifiedPullRequestNumber(input: {
+@@ -72,8 +74,29 @@ export function resolveVerifiedPullRequestNumber(input: {
    cycleInstanceId?: string;
    executionContractId: string;
    repositoryRef: string;
@@ -2184,24 +2760,39 @@ index 274aa5a1..7cb064e0 100644
 +  | {
 +      ok: true;
 +      prNumber: number;
-+      headSha?: string;
-+      headBranch?: string;
-+      baseBranch?: string;
-+      state?: string;
++      repositoryRef: string;
++      headSha: string;
++      headBranch: string;
++      baseBranch: string;
++      state: string;
++      baseSha?: string;
 +    }
 +  | { ok: false; reason: string } {
-+  type Match = {
++  type CompleteIdentity = {
++    repositoryRef: string;
 +    prNumber: number;
-+    headSha?: string;
-+    headBranch?: string;
-+    baseBranch?: string;
-+    state?: string;
++    state: string;
++    headBranch: string;
++    headSha: string;
++    baseBranch: string;
++    baseSha?: string;
 +  };
-+  const matches: Match[] = [];
++  const FULL_SHA_RE = /^[0-9a-f]{40}$/i;
++  const matches: CompleteIdentity[] = [];
    for (const e of input.evidence) {
      if (e.status !== "verified") continue;
      if (e.source !== "git:pull_request") continue;
-@@ -101,16 +118,42 @@ export function resolveVerifiedPullRequestNumber(input: {
+@@ -93,24 +116,83 @@ export function resolveVerifiedPullRequestNumber(input: {
+     }
+     const loc = typeof e.location === "string" ? e.location : "";
+     const repoMatch = loc.match(/[?&]repo=([^&]+)/);
+-    // CR-GCEC-23H-C — repository identity is mandatory; absent ⇒ ineligible.
+     if (!repoMatch) continue;
+-    const repo = decodeURIComponent(repoMatch[1]!);
+-    if (!repo.trim() || repo !== input.repositoryRef) continue;
++    const repo = decodeURIComponent(repoMatch[1]!).trim();
++    if (!repo || repo !== input.repositoryRef) continue;
+     const prMatch = loc.match(/[?&]prNumber=([^&]+)/);
      if (!prMatch) continue;
      const n = Number(decodeURIComponent(prMatch[1]!));
      if (!Number.isInteger(n) || n < 1) continue;
@@ -2210,50 +2801,82 @@ index 274aa5a1..7cb064e0 100644
 +    const headBranchMatch = loc.match(/[?&]headBranch=([^&]+)/);
 +    const baseBranchMatch = loc.match(/[?&]baseBranch=([^&]+)/);
 +    const stateMatch = loc.match(/[?&]state=([^&]+)/);
++    if (!headShaMatch || !headBranchMatch || !baseBranchMatch || !stateMatch) {
++      continue;
++    }
++    const headSha = decodeURIComponent(headShaMatch[1]!).trim().toLowerCase();
++    const headBranch = decodeURIComponent(headBranchMatch[1]!).trim();
++    const baseBranch = decodeURIComponent(baseBranchMatch[1]!).trim();
++    const state = decodeURIComponent(stateMatch[1]!).trim();
++    if (!FULL_SHA_RE.test(headSha) || !headBranch || !baseBranch || !state) {
++      continue;
++    }
++    const baseShaMatch = loc.match(/[?&]baseSha=([^&]+)/);
++    const baseSha = baseShaMatch
++      ? decodeURIComponent(baseShaMatch[1]!).trim().toLowerCase()
++      : undefined;
++    if (baseSha != null && baseSha !== "" && !FULL_SHA_RE.test(baseSha)) {
++      continue;
++    }
 +    matches.push({
++      repositoryRef: repo,
 +      prNumber: n,
-+      ...(headShaMatch
-+        ? { headSha: decodeURIComponent(headShaMatch[1]!).trim().toLowerCase() }
-+        : {}),
-+      ...(headBranchMatch
-+        ? { headBranch: decodeURIComponent(headBranchMatch[1]!).trim() }
-+        : {}),
-+      ...(baseBranchMatch
-+        ? { baseBranch: decodeURIComponent(baseBranchMatch[1]!).trim() }
-+        : {}),
-+      ...(stateMatch
-+        ? { state: decodeURIComponent(stateMatch[1]!).trim() }
-+        : {}),
++      state,
++      headBranch,
++      headSha,
++      baseBranch,
++      ...(baseSha ? { baseSha } : {}),
 +    });
++  }
++
++  // Deduplicate exact identical complete identities.
++  const identityKey = (m: CompleteIdentity) =>
++    [
++      m.repositoryRef,
++      m.prNumber,
++      m.state,
++      m.headBranch,
++      m.headSha,
++      m.baseBranch,
++      m.baseSha ?? "",
++    ].join("\0");
++  const uniqueByKey = new Map<string, CompleteIdentity>();
++  for (const m of matches) {
++    uniqueByKey.set(identityKey(m), m);
    }
 -  const unique = [...new Set(matches)];
--  if (unique.length === 0) {
-+  const uniqueNumbers = [...new Set(matches.map((m) => m.prNumber))];
-+  if (uniqueNumbers.length === 0) {
++  const unique = [...uniqueByKey.values()];
+   if (unique.length === 0) {
      return { ok: false, reason: "verified_pull_request_identity_missing" };
    }
--  if (unique.length > 1) {
++  const uniqueNumbers = [...new Set(unique.map((m) => m.prNumber))];
 +  if (uniqueNumbers.length > 1) {
++    return { ok: false, reason: "verified_pull_request_identity_ambiguous" };
++  }
+   if (unique.length > 1) {
++    // Same prNumber with differing headSha / headBranch / baseBranch / state / repo.
      return { ok: false, reason: "verified_pull_request_identity_ambiguous" };
    }
 -  return { ok: true, prNumber: unique[0]! };
-+  const chosen = matches.find((m) => m.prNumber === uniqueNumbers[0]!)!;
++  const chosen = unique[0]!;
 +  return {
 +    ok: true,
 +    prNumber: chosen.prNumber,
-+    ...(chosen.headSha ? { headSha: chosen.headSha } : {}),
-+    ...(chosen.headBranch ? { headBranch: chosen.headBranch } : {}),
-+    ...(chosen.baseBranch ? { baseBranch: chosen.baseBranch } : {}),
-+    ...(chosen.state ? { state: chosen.state } : {}),
++    repositoryRef: chosen.repositoryRef,
++    headSha: chosen.headSha,
++    headBranch: chosen.headBranch,
++    baseBranch: chosen.baseBranch,
++    state: chosen.state,
++    ...(chosen.baseSha ? { baseSha: chosen.baseSha } : {}),
 +  };
  }
 
  /**
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
-index f3498e63..2ec6a287 100644
+index f3498e63..cd41c49d 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
-@@ -137,11 +137,21 @@ export {
+@@ -137,11 +137,25 @@ export {
    buildMutatingCursorConfinementEnv,
    isMutatingGcecCursorProfile,
    MUTATING_CURSOR_STRIPPED_ENV_KEYS,
@@ -2272,10 +2895,14 @@ index f3498e63..2ec6a287 100644
 +} from "./domain/assertLocalBranchRefMatchesExpectedSha";
 +export { assertFreshPrMergePreflight } from "./domain/assertFreshPrMergePreflight";
 +export type { FreshPrMergePreflightExpected } from "./domain/assertFreshPrMergePreflight";
++export {
++  assertCanonicalGithubRepositoryRef,
++  posixShellSingleQuote,
++} from "./domain/shellSafeArg";
  export {
    StudioGitWorktreeWorkspace,
    NodeGitCommandRunner,
-@@ -184,6 +194,30 @@ export {
+@@ -184,6 +198,30 @@ export {
    M4_BOUNDED_LOCAL_COMMIT_TARGET,
    M4_BOUNDED_LOCAL_COMMIT_SCOPE,
  } from "./infrastructure/m4BoundedLocalCommitCursorAgent";
@@ -2306,7 +2933,7 @@ index f3498e63..2ec6a287 100644
  export {
    FakeDocsWriteLaunchPort,
    listRelativeFiles,
-@@ -211,6 +245,14 @@ export {
+@@ -211,6 +249,14 @@ export {
  export {
    resolveVerifiedDocsWritePriorAttempt,
  } from "./domain/resolveVerifiedDocsWritePriorAttempt";
@@ -2321,7 +2948,7 @@ index f3498e63..2ec6a287 100644
  export type {
    ProjectEvidenceListResult,
    ListProjectEvidenceFn,
-@@ -231,11 +273,40 @@ export type {
+@@ -231,11 +277,40 @@ export type {
    ResolveVerifiedDocsWritePriorAttemptInput,
    ResolveVerifiedDocsWritePriorAttemptResult,
  } from "./domain/resolveVerifiedDocsWritePriorAttempt";
@@ -2362,7 +2989,7 @@ index f3498e63..2ec6a287 100644
  export {
    verifyLocalCommitFacts,
    isBoundedGitCommitOnlySlice,
-@@ -254,6 +325,20 @@ export type {
+@@ -254,6 +329,20 @@ export type {
    VerifyLocalCommitEffectInput,
    VerifyLocalCommitEffectResult,
  } from "./application/verifyLocalCommitEffect";
@@ -2383,7 +3010,7 @@ index f3498e63..2ec6a287 100644
  export {
    observeLocalCommitFacts,
  } from "./application/observeLocalCommitFacts";
-@@ -390,6 +475,8 @@ export type CreateInMemoryExecutionAttemptServicesOptions = {
+@@ -390,6 +479,8 @@ export type CreateInMemoryExecutionAttemptServicesOptions = {
     * CR-GCEC-23 — Evidence list for verified PR identity (may be late-bound).
     */
    listProjectEvidence?: import("./domain/projectEvidenceList").ListProjectEvidenceFn;
@@ -2392,7 +3019,7 @@ index f3498e63..2ec6a287 100644
  };
 
  /** Factory for the in-memory ExecutionAttempt runtime foundation. */
-@@ -482,6 +569,7 @@ export function createInMemoryExecutionAttemptServices(
+@@ -482,6 +573,7 @@ export function createInMemoryExecutionAttemptServices(
        realBoundary?.managedRepoRootBase,
        options.resolveProjectRepositoryBinding,
        options.listProjectEvidence,
@@ -2416,10 +3043,31 @@ index 02a13ee4..40fbece6 100644
  export {
    NodeCursorProcessRunner,
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeCursorGitExternalState.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeCursorGitExternalState.ts
-index 000a2d16..a83c91b8 100644
+index 000a2d16..f4b0dac2 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeCursorGitExternalState.ts
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeCursorGitExternalState.ts
-@@ -171,16 +171,12 @@ export class FakeCursorGitExternalState {
+@@ -88,14 +88,20 @@ export class FakeCursorGitExternalState {
+   filesByShaPath = new Map<string, Map<string, string>>();
+   private nextPrNumber = 1;
+   currentBranch: string;
++  /** Optional remote URL for Fake push identity parity (AC-01). */
++  remoteUrl?: string;
+
+   constructor(options: {
+     worktreeRoot: string;
+     initialBranch?: string;
+     initialSha?: string;
++    remoteUrl?: string;
+   }) {
+     this.worktreeRoot = options.worktreeRoot;
+     this.currentBranch = options.initialBranch ?? "main";
++    if (options.remoteUrl) {
++      this.remoteUrl = options.remoteUrl;
++    }
+     if (options.initialSha) {
+       this.branchHeads.set(
+         this.currentBranch,
+@@ -171,16 +177,12 @@ export class FakeCursorGitExternalState {
      return record;
    }
 
@@ -2440,7 +3088,7 @@ index 000a2d16..a83c91b8 100644
      return { ref: branch, sha: sha.toLowerCase() };
    }
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts
-index 367a94dc..c2653458 100644
+index 367a94dc..f1c48fa5 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts
 @@ -22,8 +22,33 @@ import {
@@ -2496,7 +3144,7 @@ index 367a94dc..c2653458 100644
        ) {
          return {
            outcome: "reject",
-@@ -213,12 +241,147 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
+@@ -213,12 +241,149 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
          };
        }
      }
@@ -2567,6 +3215,7 @@ index 367a94dc..c2653458 100644
 +        headBranch: request.gitPrCreateSpec!.headBranch,
 +        baseBranch: request.gitPrCreateSpec!.baseBranch,
 +        title: request.gitPrCreateSpec!.title,
++        expectedHeadSha: request.gitPrCreateSpec!.expectedHeadSha,
 +        ...(request.gitPrCreateSpec!.body != null
 +          ? { body: request.gitPrCreateSpec!.body }
 +          : {}),
@@ -2609,6 +3258,7 @@ index 367a94dc..c2653458 100644
 +        repositoryRef: request.gitPrMergeSpec!.repositoryRef,
 +        prNumber: request.gitPrMergeSpec!.prNumber,
 +        expectedHeadSha: request.gitPrMergeSpec!.expectedHeadSha,
++        expectedHeadBranch: request.gitPrMergeSpec!.expectedHeadBranch,
 +        expectedBaseBranch: request.gitPrMergeSpec!.expectedBaseBranch,
 +        mergeMethod: request.gitPrMergeSpec!.mergeMethod,
 +      });
@@ -2645,7 +3295,7 @@ index 367a94dc..c2653458 100644
      if (!actionOk) {
        return {
          outcome: "reject",
-@@ -231,6 +394,8 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
+@@ -231,6 +396,8 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
      }
 
      const commitSpec = request.gitCommitSpec;
@@ -2654,7 +3304,7 @@ index 367a94dc..c2653458 100644
      const spec = request.docsWriteSpec;
      const pathAllowlist = spec?.pathAllowlist ?? this.options.pathAllowlist;
      const targetPath =
-@@ -240,10 +405,15 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
+@@ -240,10 +407,15 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
        "docs/functional-design.md";
      const repositoryRef =
        commitSpec?.repositoryRef ??
@@ -2670,7 +3320,7 @@ index 367a94dc..c2653458 100644
        commitSpec?.branchOrRef ??
        this.options.defaultBranch ??
        request.repositoryBinding?.defaultBranch ??
-@@ -364,10 +534,38 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
+@@ -364,10 +536,45 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
        }
 
        if (authorized.has("git.push")) {
@@ -2692,15 +3342,22 @@ index 367a94dc..c2653458 100644
 +        }
 +        const remoteUrl =
 +          request.repositoryBinding?.remoteUrl ??
-+          (this.gitState as { remoteUrl?: string }).remoteUrl;
-+        if (remoteUrl && request.gitPushSpec?.repositoryRef) {
-+          const urlCheck = assertRemoteUrlMatchesRepositoryRef({
-+            remoteUrl,
-+            repositoryRef: request.gitPushSpec.repositoryRef,
-+          });
-+          if (!urlCheck.ok) {
-+            throw new Error(urlCheck.reason);
-+          }
++          this.gitState.remoteUrl;
++        if (
++          typeof remoteUrl !== "string" ||
++          !remoteUrl.trim()
++        ) {
++          throw new Error("git_push_remote_url_missing");
++        }
++        if (!request.gitPushSpec?.repositoryRef?.trim()) {
++          throw new Error("git_push_repository_ref_missing");
++        }
++        const urlCheck = assertRemoteUrlMatchesRepositoryRef({
++          remoteUrl,
++          repositoryRef: request.gitPushSpec.repositoryRef,
++        });
++        if (!urlCheck.ok) {
++          throw new Error(urlCheck.reason);
 +        }
 +        this.gitState.currentBranch = pushBranch;
 +        const pushed = this.gitState.push(pushBranch);
@@ -2711,7 +3368,7 @@ index 367a94dc..c2653458 100644
            ref: pushed.ref,
            sha: pushed.sha,
          };
-@@ -377,8 +575,12 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
+@@ -377,8 +584,12 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
 
        if (authorized.has("github.pr.create")) {
          const base =
@@ -2726,7 +3383,7 @@ index 367a94dc..c2653458 100644
          executed.push("github.pr.create");
          gitEffects.pullRequest = {
            number: pr.number,
-@@ -393,6 +595,7 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
+@@ -393,6 +604,7 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
 
        if (authorized.has("github.pr.merge")) {
          const prNumber =
@@ -2928,7 +3585,7 @@ index 9689981e..acf1f9aa 100644
      cancelExecutionAttempt: new CancelExecutionAttempt(
        attempts,
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
-index 72581253..0414a966 100644
+index 72581253..116b745b 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
 @@ -10,6 +10,9 @@ import { accessSync, constants } from "node:fs";
@@ -2941,7 +3598,7 @@ index 72581253..0414a966 100644
    M4_REAL_GATEWAY_ADAPTER_ID,
    SFIA_STUDIO_CURSOR_REAL_FLAG,
  } from "../domain/realLaunchSafety";
-@@ -29,11 +32,27 @@ import {
+@@ -29,11 +32,30 @@ import {
  } from "./cursorTrustMarkerPathCompatibility";
  import { M4_BOUNDED_DOCS_WRITE_ACTION } from "./m4BoundedDocsWriteCursorAgent";
  import { M4_BOUNDED_LOCAL_COMMIT_ACTION } from "./m4BoundedLocalCommitCursorAgent";
@@ -2962,6 +3619,9 @@ index 72581253..0414a966 100644
 +  buildGitPrMergeLaunchSpec,
 +  isBoundedGitPrMergeOnlySlice,
 +} from "../domain/gitPrMergeLaunchSpec";
++import {
++  posixShellSingleQuote,
++} from "../domain/shellSafeArg";
  import {
    buildMutatingCursorConfinementEnv,
    isMutatingGcecCursorProfile,
@@ -2969,7 +3629,7 @@ index 72581253..0414a966 100644
  } from "./mutatingCursorConfinementEnv";
 
  function buildBoundedLocalCommitInstruction(input: {
-@@ -75,6 +94,109 @@ function buildBoundedLocalCommitInstruction(input: {
+@@ -75,6 +97,128 @@ function buildBoundedLocalCommitInstruction(input: {
    ].join("\n");
  }
 
@@ -3019,20 +3679,33 @@ index 72581253..0414a966 100644
 +  readonly scope?: string;
 +  readonly semanticFingerprint: string;
 +}): string {
++  const qRepo = posixShellSingleQuote(input.spec.repositoryRef);
++  const qHead = posixShellSingleQuote(input.spec.headBranch);
++  const qBase = posixShellSingleQuote(input.spec.baseBranch);
++  const qTitle = posixShellSingleQuote(input.spec.title);
++  const qBody =
++    input.spec.body != null
++      ? posixShellSingleQuote(input.spec.body)
++      : undefined;
++  const branchRefApi = `repos/${input.spec.repositoryRef}/git/ref/heads/${input.spec.headBranch}`;
 +  return [
 +    "TÂCHE UNIQUE — bounded github.pr.create déterministe (GCEC).",
 +    `Repository: ${input.spec.repositoryRef}`,
 +    `Head branch exacte: ${input.spec.headBranch}`,
 +    `Base branch exacte: ${input.spec.baseBranch}`,
++    `Expected head SHA (lié au push C): ${input.spec.expectedHeadSha}`,
 +    `Title exact: ${input.spec.title}`,
 +    ...(input.spec.body ? [`Body: ${input.spec.body}`] : []),
-+    "Commande autorisée UNIQUEMENT:",
-+    `  gh pr create --repo ${input.spec.repositoryRef} --head ${input.spec.headBranch} --base ${input.spec.baseBranch} --title ${JSON.stringify(input.spec.title)}` +
-+      (input.spec.body
-+        ? ` --body ${JSON.stringify(input.spec.body)}`
-+        : ""),
++    "Avant gh pr create (lecture seule — lier remote head au SHA pushé):",
++    `  1) gh api ${posixShellSingleQuote(branchRefApi)} --jq .object.sha`,
++    `     → le SHA observé DOIT être exactement ${input.spec.expectedHeadSha}.`,
++    "       Absent / mismatch: STOP — ne pas créer la PR.",
++    "Commande autorisée UNIQUEMENT (après (1) OK):",
++    `  gh pr create --repo ${qRepo} --head ${qHead} --base ${qBase} --title ${qTitle}` +
++      (qBody ? ` --body ${qBody}` : ""),
 +    "INTERDIT: omettre --repo, --auto-merge / enable auto-merge, merge, squash, rebase,",
-+    "push force, delete branch, édition hors PR create, script shell libre.",
++    "push force, delete branch, édition hors PR create, script shell libre,",
++    "JSON.stringify / interpolation non quotée du body (les $(...) restent littéraux via quotes).",
 +    "En cas d'ambiguïté: STOP immédiatement sans mutation.",
 +    `target=${input.target ?? ""}`,
 +    `action=${input.action ?? ""}`,
@@ -3054,20 +3727,26 @@ index 72581253..0414a966 100644
 +      : input.spec.mergeMethod === "rebase"
 +        ? "--rebase"
 +        : "--merge";
++  const qRepo = posixShellSingleQuote(input.spec.repositoryRef);
 +  return [
 +    "TÂCHE UNIQUE — bounded github.pr.merge déterministe (GCEC).",
 +    `Repository: ${input.spec.repositoryRef}`,
 +    `PR number exact (obligatoire): ${input.spec.prNumber}`,
 +    `Expected head SHA: ${input.spec.expectedHeadSha}`,
++    `Expected head branch: ${input.spec.expectedHeadBranch}`,
 +    `Expected base branch: ${input.spec.expectedBaseBranch}`,
 +    `Merge method: ${input.spec.mergeMethod}`,
 +    "Avant merge (défense en profondeur — StartExecution fresh RepositoryRead est l'autorité):",
-+    `  gh pr view ${input.spec.prNumber} --repo ${input.spec.repositoryRef} --json state,headRefOid,baseRefName,headRefName`,
-+    "  → exiger state=OPEN et headRefOid == expected head SHA; sinon STOP.",
-+    "Commande autorisée UNIQUEMENT:",
-+    `  gh pr merge ${input.spec.prNumber} --repo ${input.spec.repositoryRef} ${methodFlag}`,
++    `  gh pr view ${input.spec.prNumber} --repo ${qRepo} --json state,headRefOid,baseRefName,headRefName`,
++    "  Comparer EXPLICITEMENT les quatre champs; STOP sur tout mismatch AVANT gh pr merge:",
++    "    - state == OPEN",
++    `    - headRefOid == ${input.spec.expectedHeadSha}`,
++    `    - headRefName == ${input.spec.expectedHeadBranch}`,
++    `    - baseRefName == ${input.spec.expectedBaseBranch}`,
++    "Commande autorisée UNIQUEMENT (après les quatre comparaisons OK):",
++    `  gh pr merge ${input.spec.prNumber} --repo ${qRepo} ${methodFlag}`,
 +    "INTERDIT: omettre --repo, autre PR number, --admin, --auto, enable auto-merge,",
-+    "delete branch, force push, script shell libre.",
++    "delete branch / --delete-branch, force push, script shell libre.",
 +    "En cas d'ambiguïté: STOP immédiatement sans mutation.",
 +    `target=${input.target ?? ""}`,
 +    `action=${input.action ?? ""}`,
@@ -3079,7 +3758,7 @@ index 72581253..0414a966 100644
  export type StudioCursorRealLaunchGatewayOptions = {
    readonly processRunner: ProcessRunner;
    readonly workspacePort: RealExecutionWorkspacePort;
-@@ -291,13 +413,53 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
+@@ -291,13 +435,53 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
        };
      }
 
@@ -3135,7 +3814,7 @@ index 72581253..0414a966 100644
 
      if (isLocalCommitProfile) {
        if (!gitCommitSpec) {
-@@ -377,20 +539,188 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
+@@ -377,20 +561,190 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
            detailCode: "REAL_AGENT_PROFILE_INVALID",
          };
        }
@@ -3161,19 +3840,18 @@ index 72581253..0414a966 100644
 +      }
 +      const auth = request.authorizedEffects;
 +      if (!isBoundedGitPushOnlySlice(auth)) {
-         return {
-           outcome: "reject",
-           gatewayId: this.gatewayId,
-           attemptId: request.attemptId,
--          reason: "git_commit_free_shell_rejected",
++        return {
++          outcome: "reject",
++          gatewayId: this.gatewayId,
++          attemptId: request.attemptId,
 +          reason:
 +            auth == null
 +              ? "git_push_authorized_effects_missing"
 +              : "git_push_slice_not_push_only",
-           realProcessInvoked: false,
-           detailCode: "REAL_AGENT_PROFILE_INVALID",
-         };
-       }
++          realProcessInvoked: false,
++          detailCode: "REAL_AGENT_PROFILE_INVALID",
++        };
++      }
 +      if (request.selectedAgentRef !== M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID) {
 +        return {
 +          outcome: "reject",
@@ -3258,6 +3936,7 @@ index 72581253..0414a966 100644
 +        headBranch: gitPrCreateSpec.headBranch,
 +        baseBranch: gitPrCreateSpec.baseBranch,
 +        title: gitPrCreateSpec.title,
++        expectedHeadSha: gitPrCreateSpec.expectedHeadSha,
 +        ...(gitPrCreateSpec.body != null ? { body: gitPrCreateSpec.body } : {}),
 +        expectedBaseBranch: gitPrCreateSpec.baseBranch,
 +        claimedAutoMerge: (request as { autoMerge?: unknown }).autoMerge,
@@ -3312,25 +3991,27 @@ index 72581253..0414a966 100644
 +        repositoryRef: gitPrMergeSpec.repositoryRef,
 +        prNumber: gitPrMergeSpec.prNumber,
 +        expectedHeadSha: gitPrMergeSpec.expectedHeadSha,
++        expectedHeadBranch: gitPrMergeSpec.expectedHeadBranch,
 +        expectedBaseBranch: gitPrMergeSpec.expectedBaseBranch,
 +        mergeMethod: gitPrMergeSpec.mergeMethod,
 +      });
 +      if (!revalidated.ok) {
-+        return {
-+          outcome: "reject",
-+          gatewayId: this.gatewayId,
-+          attemptId: request.attemptId,
+         return {
+           outcome: "reject",
+           gatewayId: this.gatewayId,
+           attemptId: request.attemptId,
+-          reason: "git_commit_free_shell_rejected",
 +          reason: revalidated.reason,
-+          realProcessInvoked: false,
-+          detailCode: "REAL_AGENT_PROFILE_INVALID",
-+        };
-+      }
+           realProcessInvoked: false,
+           detailCode: "REAL_AGENT_PROFILE_INVALID",
+         };
+       }
 +      const freeShell = rejectFreeShell();
 +      if (freeShell) return freeShell;
      }
 
      let instruction: string;
-@@ -402,6 +732,30 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
+@@ -402,6 +756,30 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
          scope: request.scope,
          semanticFingerprint: request.semanticFingerprint,
        });
@@ -3361,7 +4042,7 @@ index 72581253..0414a966 100644
      } else if (isDocsWrite) {
        const spec = request.docsWriteSpec;
        if (!spec) {
-@@ -459,9 +813,14 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
+@@ -459,9 +837,14 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
        ].join("\n");
      }
 
@@ -3378,7 +4059,7 @@ index 72581253..0414a966 100644
      const argv = usesAgentMode
        ? [
            "agent",
-@@ -486,15 +845,25 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
+@@ -486,15 +869,25 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
            instruction,
          ];
 
@@ -3451,10 +4132,10 @@ index 47395272..3b371a34 100644
    readonly repositoryBindingIdentity?: string;
    /** Server-resolved absolute managed clone root (docs-write). */
 diff --git a/projects/sfia-studio/app/lib/oa/git-ports/application/gitEffectEvidenceActions.ts b/projects/sfia-studio/app/lib/oa/git-ports/application/gitEffectEvidenceActions.ts
-index 0f6f0fe7..29a8e8f5 100644
+index 0f6f0fe7..e1b7671b 100644
 --- a/projects/sfia-studio/app/lib/oa/git-ports/application/gitEffectEvidenceActions.ts
 +++ b/projects/sfia-studio/app/lib/oa/git-ports/application/gitEffectEvidenceActions.ts
-@@ -291,6 +291,10 @@ export async function verifyPullRequestClaim(input: {
+@@ -291,6 +291,12 @@ export async function verifyPullRequestClaim(input: {
    repositoryRef: string;
    claimedPrNumber: number;
    claimedHeadSha: string;
@@ -3462,10 +4143,12 @@ index 0f6f0fe7..29a8e8f5 100644
 +  expectedHeadBranch?: string;
 +  /** Optional expected base branch — fail closed on mismatch when provided. */
 +  expectedBaseBranch?: string;
++  /** Optional expected head SHA — fail closed on mismatch when provided (GCEC). */
++  expectedHeadSha?: string;
    bindings: GitVerifyBindings;
    actor: GitVerifyActor;
    nowIso?: string;
-@@ -301,6 +305,8 @@ export async function verifyPullRequestClaim(input: {
+@@ -301,6 +307,8 @@ export async function verifyPullRequestClaim(input: {
        status: "verified";
        prNumber: number;
        headSha: string;
@@ -3474,7 +4157,7 @@ index 0f6f0fe7..29a8e8f5 100644
      }
    | { ok: false; reason: string; status: "reported" | "failed" }
  > {
-@@ -311,9 +317,37 @@ export async function verifyPullRequestClaim(input: {
+@@ -311,9 +319,44 @@ export async function verifyPullRequestClaim(input: {
    if (!pr) {
      return { ok: false, reason: "pr_not_found", status: "reported" };
    }
@@ -3487,6 +4170,13 @@ index 0f6f0fe7..29a8e8f5 100644
    if (pr.headSha.toLowerCase() !== input.claimedHeadSha.toLowerCase()) {
      return { ok: false, reason: "pr_head_mismatch", status: "failed" };
    }
++  if (
++    input.expectedHeadSha != null &&
++    input.expectedHeadSha.trim() &&
++    pr.headSha.toLowerCase() !== input.expectedHeadSha.trim().toLowerCase()
++  ) {
++    return { ok: false, reason: "pr_expected_head_sha_mismatch", status: "failed" };
++  }
 +  const headBranch = pr.headBranch?.trim() ?? "";
 +  const baseBranch = pr.baseBranch?.trim() ?? "";
 +  if (!headBranch) {
@@ -3512,7 +4202,7 @@ index 0f6f0fe7..29a8e8f5 100644
    const evidenceId = `ev:git-pr-verified:${pr.number}`;
    const result = await registerAndVerify({
      services: input.evidenceServices,
-@@ -324,7 +358,10 @@ export async function verifyPullRequestClaim(input: {
+@@ -324,7 +367,10 @@ export async function verifyPullRequestClaim(input: {
        prNumber: pr.number,
        url: pr.url,
        headSha: pr.headSha,
@@ -3524,7 +4214,7 @@ index 0f6f0fe7..29a8e8f5 100644
      },
      bindings: input.bindings,
      actor: input.actor,
-@@ -337,6 +374,8 @@ export async function verifyPullRequestClaim(input: {
+@@ -337,6 +383,8 @@ export async function verifyPullRequestClaim(input: {
      status: "verified",
      prNumber: pr.number,
      headSha: pr.headSha,
@@ -3674,10 +4364,10 @@ index a31dbd2b..a97b877b 100644
    const registry = new MemoryAgentRegistry(agents);
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitLifecyclePushPrMerge.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitLifecyclePushPrMerge.d0.test.ts
 new file mode 100644
-index 00000000..25460c0b
+index 00000000..29d66a73
 --- /dev/null
 +++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitLifecyclePushPrMerge.d0.test.ts
-@@ -0,0 +1,904 @@
+@@ -0,0 +1,1295 @@
 +/**
 + * GCEC-GIT-LIFECYCLE-E2E-01 PATH B — push / PR create / PR merge PREP.
 + * ZERO REAL remote mutation. @vitest-environment node
@@ -4032,12 +4722,14 @@ index 00000000..25460c0b
 +        headBranch: BRANCH,
 +        baseBranch: "main",
 +        title: "docs: lifecycle proof",
++        expectedHeadSha: H1,
 +        expectedBaseBranch: "main",
 +      });
 +      expect(built.ok).toBe(true);
 +      if (!built.ok) return;
 +      expect(built.spec.headBranch).toBe(BRANCH);
 +      expect(built.spec.baseBranch).toBe("main");
++      expect(built.spec.expectedHeadSha).toBe(H1);
 +    });
 +
 +    it("NEGATIVE unverified push", () => {
@@ -4060,6 +4752,7 @@ index 00000000..25460c0b
 +        headBranch: BRANCH,
 +        baseBranch: "develop",
 +        title: "docs: lifecycle proof",
++        expectedHeadSha: H1,
 +        expectedBaseBranch: "main",
 +      });
 +      expect(r.ok).toBe(false);
@@ -4072,6 +4765,7 @@ index 00000000..25460c0b
 +        headBranch: BRANCH,
 +        baseBranch: "main",
 +        title: "docs: lifecycle proof",
++        expectedHeadSha: H1,
 +        claimedAutoMerge: true,
 +      });
 +      expect(r.ok).toBe(false);
@@ -4084,6 +4778,7 @@ index 00000000..25460c0b
 +        headBranch: "../evil",
 +        baseBranch: "main",
 +        title: "docs: lifecycle proof",
++        expectedHeadSha: H1,
 +      });
 +      expect(r.ok).toBe(false);
 +      if (!r.ok) expect(r.reason).toMatch(/head_unsafe|head_charset/);
@@ -4121,12 +4816,14 @@ index 00000000..25460c0b
 +        repositoryRef: REPO,
 +        prNumber: 7,
 +        expectedHeadSha: H1,
++        expectedHeadBranch: BRANCH,
 +        expectedBaseBranch: "main",
 +        mergeMethod: "merge",
 +      });
 +      expect(built.ok).toBe(true);
 +      if (!built.ok) return;
 +      expect(built.spec.prNumber).toBe(7);
++      expect(built.spec.expectedHeadBranch).toBe(BRANCH);
 +      expect(built.spec.mergeMethod).toBe("merge");
 +    });
 +
@@ -4150,6 +4847,7 @@ index 00000000..25460c0b
 +        repositoryRef: REPO,
 +        prNumber: 0,
 +        expectedHeadSha: H1,
++        expectedHeadBranch: BRANCH,
 +        expectedBaseBranch: "main",
 +      });
 +      expect(r.ok).toBe(false);
@@ -4544,6 +5242,7 @@ index 00000000..25460c0b
 +          headBranch: BRANCH,
 +          baseBranch: "main",
 +          title: "t",
++          expectedHeadSha: H1,
 +          expectedBaseBranch: "main",
 +        },
 +      } as never);
@@ -4563,14 +5262,24 @@ index 00000000..25460c0b
 +          repositoryRef: REPO,
 +          prNumber: 42,
 +          expectedHeadSha: H1,
++          expectedHeadBranch: BRANCH,
 +          expectedBaseBranch: "main",
 +          mergeMethod: "merge",
 +        },
 +      } as never);
 +      const createInstr = String(runner.calls[0]?.argv.at(-1) ?? "");
 +      const mergeInstr = String(runner.calls[1]?.argv.at(-1) ?? "");
-+      expect(createInstr).toContain(`gh pr create --repo ${REPO}`);
-+      expect(mergeInstr).toContain(`gh pr merge 42 --repo ${REPO}`);
++      expect(createInstr).toContain(`gh pr create --repo '${REPO}'`);
++      expect(createInstr).toContain(`Expected head SHA`);
++      expect(createInstr).toContain(H1);
++      expect(createInstr).toContain("gh api");
++      expect(createInstr).toMatch(/STOP/);
++      expect(mergeInstr).toContain(`gh pr merge 42 --repo '${REPO}'`);
++      expect(mergeInstr).toContain("headRefOid");
++      expect(mergeInstr).toContain("headRefName");
++      expect(mergeInstr).toContain("baseRefName");
++      expect(mergeInstr).toContain(`Expected head branch: ${BRANCH}`);
++      expect(mergeInstr).toMatch(/state == OPEN/);
 +      const authorizedMergeLine = mergeInstr
 +        .split("\n")
 +        .find((l) => l.includes("gh pr merge"));
@@ -4581,16 +5290,389 @@ index 00000000..25460c0b
 +      expect(mergeInstr).toContain("--admin");
 +    });
 +  });
++
++  describe("AC-01 Fake remote URL mandatory", () => {
++    it("NEG empty remoteUrl → git_push_remote_url_missing", () => {
++      const r = assertRemoteUrlMatchesRepositoryRef({
++        remoteUrl: "   ",
++        repositoryRef: REPO,
++      });
++      expect(r.ok).toBe(false);
++      if (!r.ok) expect(r.reason).toBe("git_push_remote_url_missing");
++    });
++
++    it("NEG Fake push without remoteUrl fails closed (no skip)", async () => {
++      const root = await mkdtemp(path.join(tmpdir(), "gcec-push-url-"));
++      const gitState = new FakeCursorGitExternalState({
++        worktreeRoot: root,
++        initialBranch: "main",
++        initialSha: H0,
++      });
++      gitState.branchHeads.set(BRANCH, H1);
++      const port = new FakeDocsWriteLaunchPort({
++        worktreeRoot: root,
++        gitState,
++        targetPath: PATH,
++        pathAllowlist: ["docs/"],
++      });
++      const launched = await port.launch({
++        attemptId: "xat:push-nourl",
++        executionContractId: EC,
++        executionContractVersion: 1,
++        semanticFingerprint: "fp:push-nourl",
++        selectedAgentRef: M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID,
++        adapterRef: "adp:m4-cursor-cli-real",
++        correlationId: "cor:push-nourl",
++        baseHeadSha: H0,
++        action: M4_BOUNDED_REMOTE_PUSH_ACTION,
++        timeoutMs: 60_000,
++        authorizedEffects: ["git.push"],
++        gitPushSpec: {
++          repositoryRef: REPO,
++          remoteName: "origin",
++          branchName: BRANCH,
++          expectedCommitSha: H1,
++          force: false,
++          delete: false,
++          noTags: true,
++        },
++        repositoryBinding: {
++          provider: "github",
++          identity: REPO,
++          defaultBranch: "main",
++        },
++      } as never);
++      expect(launched.outcome).toBe("ack");
++      if (launched.outcome !== "ack") return;
++      const obs = await port.observe(launched.processRef);
++      expect(obs!.exitCode).toBe(1);
++      expect(obs!.stderr).toMatch(/git_push_remote_url_missing/);
++    });
++
++    it("POS Fake push with remoteUrl + matching local ref succeeds", async () => {
++      const root = await mkdtemp(path.join(tmpdir(), "gcec-push-ok-"));
++      const gitState = new FakeCursorGitExternalState({
++        worktreeRoot: root,
++        initialBranch: "main",
++        initialSha: H0,
++        remoteUrl: `https://github.com/${REPO}.git`,
++      });
++      gitState.branchHeads.set(BRANCH, H1);
++      const port = new FakeDocsWriteLaunchPort({
++        worktreeRoot: root,
++        gitState,
++        targetPath: PATH,
++        pathAllowlist: ["docs/"],
++      });
++      const launched = await port.launch({
++        attemptId: "xat:push-ok",
++        executionContractId: EC,
++        executionContractVersion: 1,
++        semanticFingerprint: "fp:push-ok",
++        selectedAgentRef: M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID,
++        adapterRef: "adp:m4-cursor-cli-real",
++        correlationId: "cor:push-ok",
++        baseHeadSha: H0,
++        action: M4_BOUNDED_REMOTE_PUSH_ACTION,
++        timeoutMs: 60_000,
++        authorizedEffects: ["git.push"],
++        gitPushSpec: {
++          repositoryRef: REPO,
++          remoteName: "origin",
++          branchName: BRANCH,
++          expectedCommitSha: H1,
++          force: false,
++          delete: false,
++          noTags: true,
++        },
++        repositoryBinding: {
++          provider: "github",
++          identity: REPO,
++          remoteUrl: `https://github.com/${REPO}.git`,
++          defaultBranch: "main",
++        },
++      } as never);
++      expect(launched.outcome).toBe("ack");
++      if (launched.outcome !== "ack") return;
++      const obs = await port.observe(launched.processRef);
++      expect(obs!.exitCode).toBe(0);
++    });
++  });
++
++  describe("AC-02 expectedHeadSha binds C→D", () => {
++    it("NEG builder rejects missing / invalid expectedHeadSha", () => {
++      const missing = buildGitPrCreateLaunchSpec({
++        repositoryRef: REPO,
++        headBranch: BRANCH,
++        baseBranch: "main",
++        title: "t",
++        expectedHeadSha: "",
++      });
++      expect(missing.ok).toBe(false);
++      const bad = buildGitPrCreateLaunchSpec({
++        repositoryRef: REPO,
++        headBranch: BRANCH,
++        baseBranch: "main",
++        title: "t",
++        expectedHeadSha: "deadbeef",
++      });
++      expect(bad.ok).toBe(false);
++    });
++
++    it("NEG claimedHeadSha override rejected", () => {
++      const r = buildGitPrCreateLaunchSpec({
++        repositoryRef: REPO,
++        headBranch: BRANCH,
++        baseBranch: "main",
++        title: "t",
++        expectedHeadSha: H1,
++        claimedHeadSha: H2,
++      });
++      expect(r.ok).toBe(false);
++      if (!r.ok) expect(r.reason).toMatch(/claimed_head_sha_override/);
++    });
++  });
++
++  describe("AC-03 strict Evidence lineage", () => {
++    it("NEG remote push Evidence missing repo → not eligible", async () => {
++      const { resolveVerifiedRemotePushPriorAttempt } = await import(
++        "@/lib/oa/execution-attempt/domain/resolveVerifiedRemotePushPriorAttempt"
++      );
++      const r = resolveVerifiedRemotePushPriorAttempt({
++        contract: contract() as never,
++        attempts: [attempt("xat:c", M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID)],
++        evidence: [
++          baseEv("xat:c", {
++            evidenceId: "ev:push-norepo",
++            source: "git:remote_push",
++            location: `git:remote_push?remote=origin&refName=${encodeURIComponent(`refs/heads/${BRANCH}`)}&commitSha=${H1}`,
++          }),
++        ],
++        repositoryRef: REPO,
++      });
++      expect(r.ok).toBe(false);
++    });
++
++    it("NEG remote push Evidence missing refName → not eligible", async () => {
++      const { resolveVerifiedRemotePushPriorAttempt } = await import(
++        "@/lib/oa/execution-attempt/domain/resolveVerifiedRemotePushPriorAttempt"
++      );
++      const r = resolveVerifiedRemotePushPriorAttempt({
++        contract: contract() as never,
++        attempts: [attempt("xat:c", M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID)],
++        evidence: [
++          baseEv("xat:c", {
++            evidenceId: "ev:push-noref",
++            source: "git:remote_push",
++            location: `git:remote_push?repo=${encodeURIComponent(REPO)}&remote=origin&commitSha=${H1}`,
++          }),
++        ],
++        repositoryRef: REPO,
++      });
++      expect(r.ok).toBe(false);
++    });
++
++    it("POS remote push returns required branchName (no substitute)", async () => {
++      const { resolveVerifiedRemotePushPriorAttempt } = await import(
++        "@/lib/oa/execution-attempt/domain/resolveVerifiedRemotePushPriorAttempt"
++      );
++      const r = resolveVerifiedRemotePushPriorAttempt({
++        contract: contract() as never,
++        attempts: [attempt("xat:c", M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID)],
++        evidence: [pushEv("xat:c")],
++        repositoryRef: REPO,
++      });
++      expect(r.ok).toBe(true);
++      if (!r.ok) return;
++      expect(r.prior.repositoryRef).toBe(REPO);
++      expect(r.prior.branchName).toBe(BRANCH);
++      expect(r.prior.commitSha).toBe(H1);
++    });
++
++    it("NEG local commit missing repo when repositoryRef expected", async () => {
++      const { resolveVerifiedLocalCommitPriorAttempt } = await import(
++        "@/lib/oa/execution-attempt/domain/resolveVerifiedLocalCommitPriorAttempt"
++      );
++      const r = resolveVerifiedLocalCommitPriorAttempt({
++        contract: contract() as never,
++        attempts: [attempt("xat:b", M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID)],
++        evidence: [
++          baseEv("xat:b", {
++            evidenceId: "ev:commit-norepo",
++            source: "git:local_commit",
++            location: `git:local_commit?commitSha=${H1}&parentSha=${H0}`,
++          }),
++        ],
++        repositoryRef: REPO,
++      });
++      expect(r.ok).toBe(false);
++    });
++  });
++
++  describe("AC-04 complete PR identity", () => {
++    it("NEG incomplete identity (repo+pr only) → missing", () => {
++      const r = resolveVerifiedPullRequestNumber({
++        evidence: [
++          baseEv("xat:d", {
++            evidenceId: "ev:pr-incomplete",
++            source: "git:pull_request",
++            location: `git:pull_request?repo=${encodeURIComponent(REPO)}&prNumber=9`,
++          }),
++        ],
++        projectId: PROJECT,
++        cycleInstanceId: CYCLE,
++        executionContractId: EC,
++        repositoryRef: REPO,
++      });
++      expect(r.ok).toBe(false);
++      if (!r.ok) expect(r.reason).toBe("verified_pull_request_identity_missing");
++    });
++
++    it("NEG same prNumber differing headSha → ambiguous", () => {
++      const r = resolveVerifiedPullRequestNumber({
++        evidence: [
++          prEv("xat:d1", 42, H1),
++          baseEv("xat:d2", {
++            evidenceId: "ev:pr-drift",
++            source: "git:pull_request",
++            location: `git:pull_request?repo=${encodeURIComponent(REPO)}&prNumber=42&headSha=${H2}&headBranch=${encodeURIComponent(BRANCH)}&baseBranch=main&state=open`,
++          }),
++        ],
++        projectId: PROJECT,
++        cycleInstanceId: CYCLE,
++        executionContractId: EC,
++        repositoryRef: REPO,
++      });
++      expect(r.ok).toBe(false);
++      if (!r.ok) expect(r.reason).toBe("verified_pull_request_identity_ambiguous");
++    });
++
++    it("POS exact duplicate complete identities dedupe → ok", () => {
++      const r = resolveVerifiedPullRequestNumber({
++        evidence: [prEv("xat:d1", 42, H1), prEv("xat:d2", 42, H1)],
++        projectId: PROJECT,
++        cycleInstanceId: CYCLE,
++        executionContractId: EC,
++        repositoryRef: REPO,
++      });
++      expect(r.ok).toBe(true);
++      if (!r.ok) return;
++      expect(r.prNumber).toBe(42);
++      expect(r.headSha).toBe(H1);
++      expect(r.headBranch).toBe(BRANCH);
++      expect(r.baseBranch).toBe("main");
++      expect(r.state).toBe("open");
++      expect(r.repositoryRef).toBe(REPO);
++    });
++  });
++
++  describe("AC-05/06 shell-safe merge + create", () => {
++    it("NEG merge builder rejects empty expectedHeadBranch", () => {
++      const r = buildGitPrMergeLaunchSpec({
++        repositoryRef: REPO,
++        prNumber: 1,
++        expectedHeadSha: H1,
++        expectedHeadBranch: "",
++        expectedBaseBranch: "main",
++      });
++      expect(r.ok).toBe(false);
++    });
++
++    it("POS posixShellSingleQuote escapes embedded quote and keeps $( literal", async () => {
++      const { posixShellSingleQuote, assertCanonicalGithubRepositoryRef } =
++        await import("@/lib/oa/execution-attempt/domain/shellSafeArg");
++      expect(posixShellSingleQuote("a'b")).toBe(`'a'\\''b'`);
++      expect(posixShellSingleQuote("$(evil)")).toBe(`'$(evil)'`);
++      expect(assertCanonicalGithubRepositoryRef(REPO).ok).toBe(true);
++      expect(assertCanonicalGithubRepositoryRef("acme/widget;rm").ok).toBe(
++        false,
++      );
++      expect(assertCanonicalGithubRepositoryRef("acme/$(x)").ok).toBe(false);
++    });
++
++    it("NEG unsafe repositoryRef rejected in push/create/merge builders", () => {
++      expect(
++        buildGitPushLaunchSpec({
++          repositoryRef: "acme/widget;id",
++          branchName: BRANCH,
++          expectedCommitSha: H1,
++        }).ok,
++      ).toBe(false);
++      expect(
++        buildGitPrCreateLaunchSpec({
++          repositoryRef: "-evil/repo",
++          headBranch: BRANCH,
++          baseBranch: "main",
++          title: "t",
++          expectedHeadSha: H1,
++        }).ok,
++      ).toBe(false);
++      expect(
++        buildGitPrMergeLaunchSpec({
++          repositoryRef: "acme/repo`x`",
++          prNumber: 1,
++          expectedHeadSha: H1,
++          expectedHeadBranch: BRANCH,
++          expectedBaseBranch: "main",
++        }).ok,
++      ).toBe(false);
++    });
++
++    it("POS create instruction shell-quotes body with $(...", async () => {
++      const { StudioCursorRealLaunchGateway } = await import(
++        "@/lib/oa/execution-attempt"
++      );
++      const { FakeProcessRunner } = await import("./support/fakeProcessRunner");
++      const { FakeRealExecutionWorkspacePort } = await import(
++        "./support/fakeSpawnAndGit"
++      );
++      const runner = new FakeProcessRunner();
++      const gw = new StudioCursorRealLaunchGateway({
++        processRunner: runner,
++        workspacePort: new FakeRealExecutionWorkspacePort({
++          resumePath: "/tmp/fake-exec-root/wt-body",
++          workspacePath: "/tmp/fake-exec-root/wt-body-fresh",
++        }),
++        env: { NODE_ENV: "test", [SFIA_STUDIO_CURSOR_REAL_FLAG]: "1" },
++        resolveCursorBin: () => "/tmp/fake-cursor-bin",
++      });
++      await gw.launch({
++        attemptId: "xat:body-q",
++        executionContractId: EC,
++        executionContractVersion: 1,
++        semanticFingerprint: "fp:body",
++        selectedAgentRef: M4_BOUNDED_PR_CREATE_CURSOR_AGENT_ID,
++        adapterRef: "adp:m4-cursor-cli-real",
++        correlationId: "cor:body",
++        baseHeadSha: H1,
++        action: M4_BOUNDED_PR_CREATE_ACTION,
++        timeoutMs: 60_000,
++        authorizedEffects: ["github.pr.create"],
++        gitPrCreateSpec: {
++          repositoryRef: REPO,
++          headBranch: BRANCH,
++          baseBranch: "main",
++          title: "t",
++          body: "note $(rm -rf /)",
++          expectedHeadSha: H1,
++        },
++      } as never);
++      const instr = String(runner.calls[0]?.argv.at(-1) ?? "");
++      expect(instr).toContain(`--body 'note $(rm -rf /)'`);
++      expect(instr).not.toMatch(/--body ".*\$\(rm/);
++    });
++  });
 +});
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/verifyPrCreateEffect.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/verifyPrCreateEffect.ts
 new file mode 100644
-index 00000000..a625743e
+index 00000000..2ca8afc0
 --- /dev/null
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/verifyPrCreateEffect.ts
-@@ -0,0 +1,90 @@
+@@ -0,0 +1,129 @@
 +/**
 + * Thin application verify wrapper for PR create (Studio READ-ONLY).
 + * Calls verifyPullRequestClaim with bindings completeness checks.
++ * AC-02/AC-04 — expectedHeadBranch + expectedBaseBranch + expectedHeadSha REQUIRED.
 + */
 +import type { EvidenceReviewServices } from "@/lib/oa/evidence-review";
 +import type {
@@ -4607,6 +5689,8 @@ index 00000000..a625743e
 +  "allowTestOnlySyntheticObservation",
 +] as const;
 +
++const FULL_SHA_RE = /^[0-9a-f]{40}$/i;
++
 +function bindingsComplete(b: GitVerifyBindings): boolean {
 +  return (
 +    Boolean(b.projectId?.trim()) &&
@@ -4622,8 +5706,9 @@ index 00000000..a625743e
 +  readonly repositoryRef: string;
 +  readonly claimedPrNumber: number;
 +  readonly claimedHeadSha: string;
-+  readonly expectedHeadBranch?: string;
-+  readonly expectedBaseBranch?: string;
++  readonly expectedHeadBranch: string;
++  readonly expectedBaseBranch: string;
++  readonly expectedHeadSha: string;
 +  readonly expectedBindings: GitVerifyBindings;
 +  readonly actor: GitVerifyActor;
 +  readonly nowIso?: string;
@@ -4661,18 +5746,53 @@ index 00000000..a625743e
 +      status: "failed",
 +    };
 +  }
++  if (
++    typeof input.expectedHeadBranch !== "string" ||
++    !input.expectedHeadBranch.trim()
++  ) {
++    return {
++      ok: false,
++      reason: "pr_create_expected_head_branch_missing",
++      status: "failed",
++    };
++  }
++  if (
++    typeof input.expectedBaseBranch !== "string" ||
++    !input.expectedBaseBranch.trim()
++  ) {
++    return {
++      ok: false,
++      reason: "pr_create_expected_base_branch_missing",
++      status: "failed",
++    };
++  }
++  if (
++    typeof input.expectedHeadSha !== "string" ||
++    !FULL_SHA_RE.test(input.expectedHeadSha.trim())
++  ) {
++    return {
++      ok: false,
++      reason: "pr_create_expected_head_sha_invalid",
++      status: "failed",
++    };
++  }
++  const expectedHeadSha = input.expectedHeadSha.trim().toLowerCase();
++  if (input.claimedHeadSha.trim().toLowerCase() !== expectedHeadSha) {
++    return {
++      ok: false,
++      reason: "pr_create_claimed_head_sha_mismatch",
++      status: "failed",
++    };
++  }
 +  return verifyPullRequestClaim({
 +    repositoryRead: input.repositoryRead,
 +    evidenceServices: input.evidenceServices,
 +    repositoryRef: input.repositoryRef,
 +    claimedPrNumber: input.claimedPrNumber,
 +    claimedHeadSha: input.claimedHeadSha,
-+    ...(input.expectedHeadBranch != null
-+      ? { expectedHeadBranch: input.expectedHeadBranch }
-+      : {}),
-+    ...(input.expectedBaseBranch != null
-+      ? { expectedBaseBranch: input.expectedBaseBranch }
-+      : {}),
++    expectedHeadBranch: input.expectedHeadBranch.trim(),
++    expectedBaseBranch: input.expectedBaseBranch.trim(),
++    expectedHeadSha,
 +    bindings: input.expectedBindings,
 +    actor: input.actor,
 +    nowIso: input.nowIso,
@@ -4810,10 +5930,10 @@ index 00000000..ce187854
 +}
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/assertLocalBranchRefMatchesExpectedSha.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/assertLocalBranchRefMatchesExpectedSha.ts
 new file mode 100644
-index 00000000..5537c035
+index 00000000..cfb4adb7
 --- /dev/null
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/assertLocalBranchRefMatchesExpectedSha.ts
-@@ -0,0 +1,51 @@
+@@ -0,0 +1,57 @@
 +/**
 + * CR-01 — Fake / gateway parity: local branch ref must exist and equal expected SHA.
 + * Does NOT consult HEAD as a substitute for refs/heads/<branch>.
@@ -4849,6 +5969,12 @@ index 00000000..5537c035
 +  readonly remoteUrl: string;
 +  readonly repositoryRef: string;
 +}): { ok: true } | { ok: false; reason: string } {
++  if (
++    typeof input.remoteUrl !== "string" ||
++    !input.remoteUrl.trim()
++  ) {
++    return { ok: false, reason: "git_push_remote_url_missing" };
++  }
 +  const identity = input.repositoryRef.trim().toLowerCase();
 +  if (!identity || !/^[^/\s]+\/[^/\s]+$/.test(identity)) {
 +    return { ok: false, reason: "git_push_remote_url_mismatch" };
@@ -4867,25 +5993,31 @@ index 00000000..5537c035
 +}
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPrCreateLaunchSpec.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPrCreateLaunchSpec.ts
 new file mode 100644
-index 00000000..70648741
+index 00000000..0cc58ec3
 --- /dev/null
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPrCreateLaunchSpec.ts
-@@ -0,0 +1,119 @@
+@@ -0,0 +1,150 @@
 +/**
 + * Server-derived GitPrCreateLaunchSpec (GCEC bounded PR create).
-+ * Fail closed on empty / unsafe refs / base mismatch when expectedBase provided.
++ * Fail closed on empty / unsafe refs / base mismatch / missing expectedHeadSha.
 + */
++
++import {
++  assertCanonicalGithubRepositoryRef,
++} from "./shellSafeArg";
 +
 +export type GitPrCreateLaunchSpec = {
 +  readonly repositoryRef: string;
 +  readonly headBranch: string;
 +  readonly baseBranch: string;
 +  readonly title: string;
++  readonly expectedHeadSha: string;
 +  readonly body?: string;
 +};
 +
 +const BRANCH_FORBIDDEN_RE = /[\x00-\x1f\x7f$`"'\\;&|<>(){}[\]*?!]/;
 +const TITLE_FORBIDDEN_RE = /[\x00-\x1f\x7f$`\\;&|<>(){}[\]*?!\n\r]/;
++const FULL_SHA_RE = /^[0-9a-f]{40}$/i;
 +
 +function assertSafeRef(
 +  raw: string,
@@ -4915,6 +6047,7 @@ index 00000000..70648741
 +/**
 + * Build PR-create launch spec from server-owned facts.
 + * When `expectedBaseBranch` is provided, base MUST equal it.
++ * `expectedHeadSha` is REQUIRED (full SHA) — client-claimed SHA override rejected.
 + * Auto-merge / force fields on request are rejected when present.
 + */
 +export function buildGitPrCreateLaunchSpec(input: {
@@ -4922,19 +6055,42 @@ index 00000000..70648741
 +  readonly headBranch: string;
 +  readonly baseBranch: string;
 +  readonly title: string;
++  readonly expectedHeadSha: string;
 +  readonly body?: string;
 +  readonly expectedBaseBranch?: string;
 +  /** Hostile — any truthy auto-merge channel is rejected. */
 +  readonly claimedAutoMerge?: unknown;
++  /** Hostile — client-claimed head SHA must equal server expectedHeadSha when present. */
++  readonly claimedHeadSha?: unknown;
 +}):
 +  | { ok: true; spec: GitPrCreateLaunchSpec }
 +  | { ok: false; reason: string } {
 +  if (input.claimedAutoMerge != null && input.claimedAutoMerge !== false) {
 +    return { ok: false, reason: "git_pr_create_auto_merge_rejected" };
 +  }
-+  const repositoryRef = input.repositoryRef.trim();
-+  if (!repositoryRef) {
-+    return { ok: false, reason: "git_pr_create_repository_ref_missing" };
++  const repo = assertCanonicalGithubRepositoryRef(input.repositoryRef);
++  if (!repo.ok) {
++    return {
++      ok: false,
++      reason:
++        repo.reason === "repository_ref_missing"
++          ? "git_pr_create_repository_ref_missing"
++          : "git_pr_create_repository_ref_unsafe",
++    };
++  }
++  if (
++    typeof input.expectedHeadSha !== "string" ||
++    !FULL_SHA_RE.test(input.expectedHeadSha.trim())
++  ) {
++    return { ok: false, reason: "git_pr_create_expected_head_sha_invalid" };
++  }
++  const expectedHeadSha = input.expectedHeadSha.trim().toLowerCase();
++  if (
++    input.claimedHeadSha != null &&
++    String(input.claimedHeadSha).trim() &&
++    String(input.claimedHeadSha).trim().toLowerCase() !== expectedHeadSha
++  ) {
++    return { ok: false, reason: "git_pr_create_claimed_head_sha_override_rejected" };
 +  }
 +  const head = assertSafeRef(input.headBranch, "head");
 +  if (!head.ok) return head;
@@ -4973,10 +6129,11 @@ index 00000000..70648741
 +  return {
 +    ok: true,
 +    spec: {
-+      repositoryRef,
++      repositoryRef: repo.ref,
 +      headBranch: head.ref,
 +      baseBranch: base.ref,
 +      title,
++      expectedHeadSha,
 +      ...(body ? { body } : {}),
 +    },
 +  };
@@ -4992,15 +6149,19 @@ index 00000000..70648741
 +}
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPrMergeLaunchSpec.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPrMergeLaunchSpec.ts
 new file mode 100644
-index 00000000..235426d8
+index 00000000..210a33e1
 --- /dev/null
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPrMergeLaunchSpec.ts
-@@ -0,0 +1,83 @@
+@@ -0,0 +1,119 @@
 +/**
 + * Server-derived GitPrMergeLaunchSpec (GCEC bounded PR merge PREP).
 + * Build for continuation PREP only — REAL merge is not executed in this lot.
 + * Fail closed on missing PR / bad numbers / incomplete identity.
 + */
++
++import {
++  assertCanonicalGithubRepositoryRef,
++} from "./shellSafeArg";
 +
 +export type GitPrMergeMethod = "merge" | "squash" | "rebase";
 +
@@ -5008,28 +6169,58 @@ index 00000000..235426d8
 +  readonly repositoryRef: string;
 +  readonly prNumber: number;
 +  readonly expectedHeadSha: string;
++  readonly expectedHeadBranch: string;
 +  readonly expectedBaseBranch: string;
 +  readonly mergeMethod: GitPrMergeMethod;
 +};
 +
 +const FULL_SHA_RE = /^[0-9a-f]{40}$/i;
++const BRANCH_FORBIDDEN_RE = /[\x00-\x1f\x7f$`"'\\;&|<>(){}[\]*?!]/;
++
++function assertSafeBranch(
++  raw: string,
++  reasonEmpty: string,
++  reasonUnsafe: string,
++): { ok: true; ref: string } | { ok: false; reason: string } {
++  if (typeof raw !== "string" || !raw.trim()) {
++    return { ok: false, reason: reasonEmpty };
++  }
++  const base = raw.trim();
++  if (
++    BRANCH_FORBIDDEN_RE.test(base) ||
++    base.includes("..") ||
++    base.startsWith("-") ||
++    base.includes(" ")
++  ) {
++    return { ok: false, reason: reasonUnsafe };
++  }
++  return { ok: true, ref: base };
++}
 +
 +/**
 + * Build merge launch spec from server-owned PR identity + policy defaults.
 + * Default mergeMethod is "merge" when server/policy omits it.
++ * `expectedHeadBranch` is REQUIRED.
 + */
 +export function buildGitPrMergeLaunchSpec(input: {
 +  readonly repositoryRef: string;
 +  readonly prNumber: number;
 +  readonly expectedHeadSha: string;
++  readonly expectedHeadBranch: string;
 +  readonly expectedBaseBranch: string;
 +  readonly mergeMethod?: GitPrMergeMethod;
 +}):
 +  | { ok: true; spec: GitPrMergeLaunchSpec }
 +  | { ok: false; reason: string } {
-+  const repositoryRef = input.repositoryRef.trim();
-+  if (!repositoryRef) {
-+    return { ok: false, reason: "git_pr_merge_repository_ref_missing" };
++  const repo = assertCanonicalGithubRepositoryRef(input.repositoryRef);
++  if (!repo.ok) {
++    return {
++      ok: false,
++      reason:
++        repo.reason === "repository_ref_missing"
++          ? "git_pr_merge_repository_ref_missing"
++          : "git_pr_merge_repository_ref_unsafe",
++    };
 +  }
 +  if (
 +    !Number.isInteger(input.prNumber) ||
@@ -5044,17 +6235,18 @@ index 00000000..235426d8
 +  ) {
 +    return { ok: false, reason: "git_pr_merge_expected_head_sha_invalid" };
 +  }
-+  const base = input.expectedBaseBranch.trim();
-+  if (!base) {
-+    return { ok: false, reason: "git_pr_merge_expected_base_empty" };
-+  }
-+  if (
-+    /[\x00-\x1f\x7f$`"'\\;&|<>(){}[\]*?!]/.test(base) ||
-+    base.includes("..") ||
-+    base.startsWith("-")
-+  ) {
-+    return { ok: false, reason: "git_pr_merge_expected_base_unsafe" };
-+  }
++  const head = assertSafeBranch(
++    input.expectedHeadBranch,
++    "git_pr_merge_expected_head_branch_empty",
++    "git_pr_merge_expected_head_branch_unsafe",
++  );
++  if (!head.ok) return head;
++  const base = assertSafeBranch(
++    input.expectedBaseBranch,
++    "git_pr_merge_expected_base_empty",
++    "git_pr_merge_expected_base_unsafe",
++  );
++  if (!base.ok) return base;
 +  const method = input.mergeMethod ?? "merge";
 +  if (method !== "merge" && method !== "squash" && method !== "rebase") {
 +    return { ok: false, reason: "git_pr_merge_method_invalid" };
@@ -5062,10 +6254,11 @@ index 00000000..235426d8
 +  return {
 +    ok: true,
 +    spec: {
-+      repositoryRef,
++      repositoryRef: repo.ref,
 +      prNumber: input.prNumber,
 +      expectedHeadSha: input.expectedHeadSha.trim().toLowerCase(),
-+      expectedBaseBranch: base,
++      expectedHeadBranch: head.ref,
++      expectedBaseBranch: base.ref,
 +      mergeMethod: method,
 +    },
 +  };
@@ -5081,16 +6274,18 @@ index 00000000..235426d8
 +}
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPushLaunchSpec.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPushLaunchSpec.ts
 new file mode 100644
-index 00000000..c654d4d5
+index 00000000..a38d8ee7
 --- /dev/null
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPushLaunchSpec.ts
-@@ -0,0 +1,141 @@
+@@ -0,0 +1,150 @@
 +/**
 + * Server-derived GitPushLaunchSpec (GCEC bounded remote push).
 + * Canonical type — import/re-export; do not duplicate in ports.
 + * Fail closed on force / delete / tags / empty / unsafe branch / wrong SHA.
 + * Branch is server-derived only — reject client free branch authority.
 + */
++
++import { assertCanonicalGithubRepositoryRef } from "./shellSafeArg";
 +
 +/** Canonical push launch contract (single source of truth). */
 +export type GitPushLaunchSpec = {
@@ -5154,10 +6349,17 @@ index 00000000..c654d4d5
 +}):
 +  | { ok: true; spec: GitPushLaunchSpec }
 +  | { ok: false; reason: string } {
-+  const repositoryRef = input.repositoryRef.trim();
-+  if (!repositoryRef) {
-+    return { ok: false, reason: "git_push_repository_ref_missing" };
++  const repo = assertCanonicalGithubRepositoryRef(input.repositoryRef);
++  if (!repo.ok) {
++    return {
++      ok: false,
++      reason:
++        repo.reason === "repository_ref_missing"
++          ? "git_push_repository_ref_missing"
++          : "git_push_repository_ref_unsafe",
++    };
 +  }
++  const repositoryRef = repo.ref;
 +  if (!isFullSha(input.expectedCommitSha)) {
 +    return { ok: false, reason: "git_push_expected_commit_sha_invalid" };
 +  }
@@ -5228,14 +6430,15 @@ index 00000000..c654d4d5
 +}
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedLocalCommitPriorAttempt.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedLocalCommitPriorAttempt.ts
 new file mode 100644
-index 00000000..5515c1d0
+index 00000000..92ea86bc
 --- /dev/null
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedLocalCommitPriorAttempt.ts
-@@ -0,0 +1,165 @@
+@@ -0,0 +1,171 @@
 +/**
 + * CORR-D-GCEC-GIT-LIFECYCLE — exact Attempt lineage for verified local commit.
 + * Pure Product-truth: Attempt history + VERIFIED git:local_commit Evidence.
 + * Zero / multiple eligible candidates → fail closed.
++ * AC-03: when repositoryRef expected, Evidence location MUST include matching repo=.
 + */
 +import type { Evidence } from "@/lib/oa/evidence-review";
 +import type { ExecutionContract } from "@/lib/oa/execution-contract";
@@ -5314,12 +6517,10 @@ index 00000000..5515c1d0
 +  if (ev.bindings.executionAttemptId !== attemptId) return false;
 +  const parsed = parseLocalCommitShaFromEvidenceLocation(String(ev.location ?? ""));
 +  if (!parsed) return false;
-+  if (
-+    repositoryRef &&
-+    parsed.repositoryRef &&
-+    parsed.repositoryRef !== repositoryRef
-+  ) {
-+    return false;
++  if (repositoryRef?.trim()) {
++    // AC-03: when repositoryRef expected, Evidence MUST include matching repo=.
++    if (!parsed.repositoryRef?.trim()) return false;
++    if (parsed.repositoryRef !== repositoryRef.trim()) return false;
 +  }
 +  return true;
 +}
@@ -5372,11 +6573,15 @@ index 00000000..5515c1d0
 +    if (!parsed) {
 +      return { ok: false, reason: "local_commit_prior_incomplete" };
 +    }
++    if (input.repositoryRef?.trim() && !parsed.repositoryRef?.trim()) {
++      return { ok: false, reason: "local_commit_prior_incomplete" };
++    }
 +    candidates.push({
 +      priorAttemptId: attempt.attemptId,
 +      evidenceId: ev.evidenceId,
 +      commitSha: parsed.commitSha,
-+      repositoryRef: parsed.repositoryRef ?? input.repositoryRef ?? "",
++      // Never substitute input.repositoryRef for missing Evidence repo.
++      repositoryRef: parsed.repositoryRef?.trim() ?? "",
 +    });
 +  }
 +
@@ -5395,18 +6600,22 @@ index 00000000..5515c1d0
 +  if (!FULL_SHA_RE.test(only.commitSha)) {
 +    return { ok: false, reason: "local_commit_prior_incomplete" };
 +  }
++  if (input.repositoryRef?.trim() && !only.repositoryRef.trim()) {
++    return { ok: false, reason: "local_commit_prior_incomplete" };
++  }
 +  return { ok: true, prior: only };
 +}
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedRemotePushPriorAttempt.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedRemotePushPriorAttempt.ts
 new file mode 100644
-index 00000000..a1d67c10
+index 00000000..fbd3301a
 --- /dev/null
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedRemotePushPriorAttempt.ts
-@@ -0,0 +1,176 @@
+@@ -0,0 +1,185 @@
 +/**
 + * CORR-D-GCEC-GIT-LIFECYCLE — exact Attempt lineage for verified remote push.
 + * Pure Product-truth: Attempt history + VERIFIED git:remote_push Evidence.
 + * Zero / multiple eligible candidates → fail closed.
++ * AC-03: Evidence MUST carry explicit repo + refName + commitSha — no substitute.
 + */
 +import type { Evidence } from "@/lib/oa/evidence-review";
 +import type { ExecutionContract } from "@/lib/oa/execution-contract";
@@ -5422,7 +6631,8 @@ index 00000000..a1d67c10
 +  readonly evidenceId: string;
 +  readonly commitSha: string;
 +  readonly repositoryRef: string;
-+  readonly branchName?: string;
++  /** Required — Evidence refName / branch for C→D binding. */
++  readonly branchName: string;
 +};
 +
 +export type ResolveVerifiedRemotePushPriorAttemptInput = {
@@ -5497,12 +6707,13 @@ index 00000000..a1d67c10
 +  if (ev.bindings.executionAttemptId !== attemptId) return false;
 +  const parsed = parseRemotePushFromEvidenceLocation(String(ev.location ?? ""));
 +  if (!parsed) return false;
-+  if (
-+    repositoryRef &&
-+    parsed.repositoryRef &&
-+    parsed.repositoryRef !== repositoryRef
-+  ) {
-+    return false;
++  // AC-03: repo + branchName + commitSha are mandatory for eligibility.
++  if (!parsed.repositoryRef?.trim()) return false;
++  if (!parsed.branchName?.trim()) return false;
++  if (!FULL_SHA_RE.test(parsed.commitSha)) return false;
++  if (repositoryRef?.trim()) {
++    // When repositoryRef expected: Evidence repo MUST equal — missing already failed above.
++    if (parsed.repositoryRef !== repositoryRef.trim()) return false;
 +  }
 +  return true;
 +}
@@ -5550,15 +6761,21 @@ index 00000000..a1d67c10
 +    }
 +    const ev = matching[0]!;
 +    const parsed = parseRemotePushFromEvidenceLocation(String(ev.location ?? ""));
-+    if (!parsed) {
++    if (
++      !parsed ||
++      !parsed.repositoryRef?.trim() ||
++      !parsed.branchName?.trim() ||
++      !FULL_SHA_RE.test(parsed.commitSha)
++    ) {
 +      return { ok: false, reason: "remote_push_prior_incomplete" };
 +    }
++    // Never substitute input.repositoryRef for missing Evidence repo.
 +    candidates.push({
 +      priorAttemptId: attempt.attemptId,
 +      evidenceId: ev.evidenceId,
 +      commitSha: parsed.commitSha,
-+      repositoryRef: parsed.repositoryRef ?? input.repositoryRef ?? "",
-+      ...(parsed.branchName ? { branchName: parsed.branchName } : {}),
++      repositoryRef: parsed.repositoryRef.trim(),
++      branchName: parsed.branchName.trim(),
 +    });
 +  }
 +
@@ -5574,10 +6791,62 @@ index 00000000..a1d67c10
 +  }
 +
 +  const only = candidates[0]!;
-+  if (!FULL_SHA_RE.test(only.commitSha)) {
++  if (!FULL_SHA_RE.test(only.commitSha) || !only.branchName.trim()) {
 +    return { ok: false, reason: "remote_push_prior_incomplete" };
 +  }
 +  return { ok: true, prior: only };
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/shellSafeArg.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/shellSafeArg.ts
+new file mode 100644
+index 00000000..e428c066
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/shellSafeArg.ts
+@@ -0,0 +1,46 @@
++/**
++ * Minimal shell-safe argument helpers for GCEC gateway instruction construction.
++ * Fail closed on non-canonical GitHub repository refs and unsafe shell interpolation.
++ */
++
++const CANONICAL_GITHUB_REPO_RE = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/;
++const REPO_METACHAR_RE = /[\s$`\\;&|<>(){}[\]"'!*?]|#/;
++
++/**
++ * Assert owner/repo canonical GitHub repositoryRef (no whitespace / metacharacters).
++ */
++export function assertCanonicalGithubRepositoryRef(
++  ref: string,
++): { ok: true; ref: string } | { ok: false; reason: string } {
++  if (typeof ref !== "string" || !ref.trim()) {
++    return { ok: false, reason: "repository_ref_missing" };
++  }
++  if (ref !== ref.trim()) {
++    return { ok: false, reason: "repository_ref_whitespace" };
++  }
++  const trimmed = ref.trim();
++  if (trimmed.startsWith("-")) {
++    return { ok: false, reason: "repository_ref_unsafe" };
++  }
++  if (
++    REPO_METACHAR_RE.test(trimmed) ||
++    trimmed.includes("..") ||
++    trimmed.includes("$(") ||
++    !CANONICAL_GITHUB_REPO_RE.test(trimmed)
++  ) {
++    return { ok: false, reason: "repository_ref_unsafe" };
++  }
++  const parts = trimmed.split("/");
++  if (parts.length !== 2 || !parts[0] || !parts[1]) {
++    return { ok: false, reason: "repository_ref_unsafe" };
++  }
++  return { ok: true, ref: trimmed };
++}
++
++/**
++ * POSIX single-quote wrap so the value is literal in a shell (including `$(...)`).
++ * Escapes embedded `'` as `'\''`.
++ */
++export function posixShellSingleQuote(value: string): string {
++  return `'${String(value).replace(/'/g, `'\\''`)}'`;
 +}
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedPrCreateCursorAgent.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedPrCreateCursorAgent.ts
 new file mode 100644
@@ -5859,11 +7128,13 @@ FINAL VERDICT
 ==================================================
 
 PASS WITH RESERVE —
-GCEC-GIT-LIFECYCLE-E2E-01 SAME-LOT CORRECTION CANDIDATE COMPLETE /
-CR-01 CLOSED /
-CR-02 CLOSED /
-CR-03 CLOSED /
-CR-04 CLOSED /
+GCEC-GIT-LIFECYCLE-E2E-01 FINAL SAME-LOT AUTHORITY CLOSURE CANDIDATE COMPLETE /
+AC-01 CLOSED /
+AC-02 CLOSED /
+AC-03 CLOSED /
+AC-04 CLOSED /
+AC-05 CLOSED /
+AC-06 CLOSED /
 DETERMINISTIC VALIDATION PASS /
 ZERO REAL /
 NO PRODUCT COMMIT /
