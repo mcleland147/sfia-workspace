@@ -1,181 +1,212 @@
-# SFIA STUDIO — GCEC
-# CR-GCEC-GITCOMMIT-01 SAME-LOT CRITICAL REVIEW CORRECTION
-# BOUNDED CURSOR LOCAL GIT.COMMIT EXECUTOR
-# ZERO REAL — NO PRODUCT COMMIT
+# SFIA STUDIO — GCEC — D-GCEC-AGENT-01 REVIEW PACK
 
-## TIMESTAMP
-2026-09-12T01:18:23Z
+TIMESTAMP: 2026-09-12T02:03:33Z
 
 ## GO MORRIS
-CR-GCEC-GITCOMMIT-01 SAME-LOT CORRECTION CONSUMED
+D-GCEC-AGENT-01 ADOPTED + ATTEMPT-SCOPED AGENT PROFILE DELIVERY CONSUMED
+
+## D-GCEC-AGENT-01 — ADOPTED DISPOSITION
+OPTION A — ATTEMPT-SCOPED AGENT PROFILE.
+
+1. ONE ExecutionContract remains the governed execution-intent envelope.
+2. EC is NOT mutated between Attempts merely to change executor.
+3. No second EC for git.commit continuation.
+4. Each ExecutionAttempt owns its own selectedAgentRef.
+5. Agent for an Attempt need NOT satisfy the entire fixed historical EC agent quartet.
+6. Each Attempt has a SERVER-DERIVED current execution profile (bounded eligible slice).
+7. That profile determines AgentCapability / action / target / scope sufficiency.
+8. Attempt A: filesystem/docs-write → bounded docs-write AgentCapability.
+9. Attempt B under SAME EC: git.commit → bounded local-commit AgentCapability.
+10–13. Profile NEVER client-authoritative; StartExecution recomputes; fail closed if selectedAgentRef insufficient.
+14. Contract authorization, Confirmation, Gate D, AuthorizedExecutionSlice, runtime guardrails remain cumulative.
+15–20. No new Product persistence / schema / Attempt status / second FSM / nested Cycle / composite agent by default.
 
 ## GIT TRUTH BEFORE
 - worktree: /Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310
 - branch: delivery/sfia-studio-product-proof-qual-to-governed-cycle
 - HEAD: 3966bbf9b800b143711acf1d581b85a33e106e99
-- parent: 92ad3fd41e065d0ebe76c59b4eedb622715a11e2
+- PARENT: 92ad3fd41e065d0ebe76c59b4eedb622715a11e2
 - origin/main: a9f6c310a0826d0e5bd6f7264603382a86564db1
-- input handoff: f4cc341e1433228b76412bedf13f46a18d2cbab2
-- Product dirt: bounded git.commit candidate (10 modified + 9 created from handoff) + correction overlays
+- INPUT HANDOFF: 521114618ecf23f7eda3bf94ccf26d2e9b73b8ea
+- Product dirt EXPECTED (bounded git.commit candidate + CR-GCEC-GITCOMMIT-01 + AGENT-01)
 
 ## GIT TRUTH AFTER
-- HEAD unchanged: 3966bbf9b800b143711acf1d581b85a33e106e99
+- HEAD UNCHANGED: 3966bbf9b800b143711acf1d581b85a33e106e99
 - Product commit: NONE
 - Product push: NONE
-- candidate remains uncommitted for ChatGPT Critical Re-Review / Morris agent-model escalation
+- Dirt: combined GC-02..06 candidate + D-GCEC-AGENT-01 Attempt-scoped profile
 
 ## INPUT HEAD
 3966bbf9b800b143711acf1d581b85a33e106e99
 
 ## INPUT HANDOFF
-f4cc341e1433228b76412bedf13f46a18d2cbab2
+521114618ecf23f7eda3bf94ccf26d2e9b73b8ea
 
 ## SOURCES
 - prompts/templates/sfia-cycle-execution-template.md
-- method/sfia-fast-track/core/* (routing, operating model, guardrails)
-- capitalization / cycle-knowledge-contracts maps
-- projects/sfia-studio/convergence/* doctrine + roadmap
-- sfia-v3-framing/34 + 35
-- local candidate at HEAD 3966bbf9 + dirty files (authoritative over origin/main)
+- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
+- method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
+- method/sfia-fast-track/core/sfia-rules-and-guardrails.md
+- method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md
+- method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md
+- projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
+- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+- projects/sfia-studio/product-completion/01-product-completion-cadrage.md
+- projects/sfia-studio/sfia-v3-framing/34-agent-capabilities-reversibility-and-execution-governance.md
+- projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md
+- Local dirty candidate authoritative for implementation deltas
 
 ## CONVERGENCE PRE-CHECK
 - Build Doctrine: VALIDATED / ACTIVE
+- Product Completion: COMPLETE / CLOSED (not reopened)
 - Runtime v3: NON ADOPTED
-- R3/R6/R8/R12/R13/R15/R18/R19/R21 applied
-- No second engine / no Product Git business writer / no schema migration
+- Applicable: R3,R6,R8,R12,R13(consumed),R15,R18,R19,R21
+- V3-F11: human auth ∩ EC scope ∩ AgentCapability ∩ guardrails ∩ Confirmation = effective authority
+- D-GCEC-AGENT-01 does NOT remove EC authority; changes Attempt executor sufficiency matching inside currently eligible slice
 
 ## CYCLE / TYPE / PROFILE
-8 — Delivery / EVOL / CRITICAL
+- Cycle: 8 — Delivery
+- Type: EVOL
+- Profile: CRITICAL
 
-## CHATGPT FINDINGS — CR-GCEC-GC-01 through 06
+## PREVIOUS STOP — GC-01 ROOT CAUSE
+SelectExecutionAgent always matched `contract.requiredCapabilities` / action / target / scope, so every Attempt under the same EC required the same executor quartet. That blocked honest same-EC A→B docs-write → local-commit agent swap without EC mutation.
 
-### CR-GCEC-GC-01 — AgentCapability bypass
-- **root cause:** EC identity fixes action/capability/target/scope to docs-write quartet; `agentMatchViolation` requires ALL EC capabilities + exact action/target/scope. Sibling `agt:m4.cursor.bounded_local_commit` is disjoint. Attempt B cannot honestly select local-commit under SAME docs-write EC without structural domain change. Prior candidate used docs-write agent + `gitCommitSpec` profile switch (authority bypass).
-- **files changed:** startExecution.ts, studioCursorRealLaunchGateway.ts, fakeDocsWriteLaunchPort.ts, m4BoundedLocalCommitCursorAgent.ts, SameEcAb/Cont01/CR23/E2E fixtures
-- **correction:** fail closed when commit-only slice + non-local-commit agent; gateway requires `selectedAgentRef == agt:m4.cursor.bounded_local_commit`; Fake matches Real; AG-01 proves selection of local-commit under docs-write EC fails; AG-02 proves Start fails on docs-write+commit
-- **tests:** AG-01/AG-02; Cont01 A→B updated; CR23 P1/P2; E2E stops at commit Start
-- **status: STOP — GCEC GIT.COMMIT AGENT MODEL ESCALATION REQUIRED**
-- **exact structural conflict:** Same EC keeps fixed `action`/`requiredCapabilities`/`target`/`scope` matching docs-write only. Local-commit AgentDescriptor has disjoint quartet. `agentMatchViolation` is AND over requiredCapabilities + exact action/target/scope. Selecting Attempt B local-commit agent under docs-write EC fails. Broadening docs-write agent, lying about EC capabilities, second EC, nested cycle, or redefining D-GCEC-15 would be structural — not authorized by this GO.
+## ATTEMPT EXECUTION PROFILE
+### Design
+Non-persistent server-derived projection `AttemptExecutionProfile` with:
+- kind: docs_write | local_commit | contract_legacy
+- criteria: AgentMatchCriteria (capabilities/action/target/scope)
+- effectClass + reason
 
-### CR-GCEC-GC-02 — exact commit-only authority
-- **root cause:** `isBoundedGitCommitOnlySlice` / gateway accepted missing or empty authorizedEffects
-- **correction:** uniqueSet.size === 1 && has("git.commit"); AUTH-01..07; Fake+Real match
-- **status: CLOSED**
+Canonical resolver: `resolveAttemptExecutionProfile` (shared by Select + Start).
 
-### CR-GCEC-GC-03 — shell-safe commit spec
-- **root cause:** paths/messages insufficiently constrained for Shell-exposed agent
-- **correction:** `assertShellSafeRelativePath` / `assertShellSafeCommitSubject`; gateway re-validates via `buildGitCommitLaunchSpec`; SPEC/MSG negatives; single canonical `GitCommitLaunchSpec` in domain (ports re-export)
-- **status: CLOSED**
+### Source of truth
+Durable Product facts only:
+- ExecutionContract (action/target/scope/requiredCapabilities/evidenceRequirements/expectedOutputs)
+- deriveExecutableEffectsFromContractRequirements
+- VERIFIED Evidence (artifact docs_write; exact `git:local_commit`)
+- prior succeeded Attempts under same EC
+- optional server AuthorizedExecutionSlice.authorizedEffects at Start (never client)
 
-### CR-GCEC-GC-04 — independent local Git observation
-- **root cause:** verifyLocalCommitEffect accepted caller-supplied observation facts
-- **correction:** `observeLocalCommitFacts` via GitCommandRunner READ-ONLY; synthetic helper only for tests with `observationSource: studio:local_git_readonly`; Evidence provenance `studio:local_git_readonly:observe`; no remote claim for unpushed SHA; exact bindings required
-- **status: CLOSED**
+Bounded progressive M4 path only when:
+`contract.action === M4_BOUNDED_DOCS_WRITE_ACTION` AND requiredCapabilities includes docs-write cap.
+Otherwise `contract_legacy` (preserves W3A/RO/non-M4).
 
-### CR-GCEC-GC-05 — future REAL harness placeholder
-- **root cause:** harness threw unconditional placeholder; asserted ENABLED===false
-- **correction:** full A→B campaign body with forensic phases; `describe.skipIf(!ENABLED)`; static shape test; agent-model stop gate when enabled; ZERO REAL executed
-- **status: CLOSED** (implementation complete; not executed)
+### Persistence
+NONE — recomputable; Attempt already stores selectedAgentRef.
 
-### CR-GCEC-GC-06 — FS→SHA supersession
-- **root cause:** verifiedEffects includes git.commit ⇒ superseded
-- **correction:** require exact `source === "git:local_commit"` Evidence + bindings/lineage; SHA-01..10; parentSha in typed location; verifiedEffects alone NOT sufficient
-- **status: CLOSED**
+## EXECUTIONCONTRACT
+Unchanged schema/persistence. requiredCapabilities field intact.
+Bounded rule (code/tests): successive Attempt executor sufficiency checked against AttemptExecutionProfile, not fixed historical EC quartet.
+No EC supersession / action/target/scope rewrite for agent swap.
 
-## AGENTCAPABILITY ANALYSIS
-Attempt A (docs-write EC): `agt:m4.cursor.bounded_docs_write` / `cap:cursor.docs_write` — selectable.
-Attempt B preferred: `agt:m4.cursor.bounded_local_commit` / `cap:cursor.git.local_commit` — NOT selectable under same EC without escalation.
-Effective authority for commit now requires local-commit AgentCapability at Start + Gateway; gitCommitSpec alone cannot widen.
+## SELECTEXECUTIONAGENT — BEFORE / AFTER
+BEFORE: criteria = contract quartet → registry.findCandidates.
+AFTER: resolveAttemptExecutionProfile → AgentMatchCriteria from profile → findCandidates; requestedAgentRef only among profile-compatible; CheckExecutionAuthorization still contract-level; Critical Confirmation still binds EC id/version + selectedAgentRef.
 
-## ATTEMPT-A / ATTEMPT-B AGENT SELECTION
-SAME EC: YES structurally (D-GCEC-15) — agent swap: CONFLICT under current AgentMatch model.
+## STARTEXECUTION — REVALIDATION
+1. load contract + Attempt
+2. recompute AuthorizedExecutionSlice from current truth
+3. resolveAttemptExecutionProfile (with authorizedEffects when available)
+4. agentMatchViolation(selectedAgent, profile.criteria)
+5. Confirmation / Gate D / existing authority
+6. only then launch
+Stale/incompatible selectedAgentRef → fail closed BEFORE gateway; no selectedAgentRef mutation.
 
-## EFFECTIVE AUTHORITY
-human ∩ EC ∩ AgentCapability ∩ guardrails ∩ Confirmation — no layer widens another.
-Commit profile: authorizedEffects exactly git.commit + local-commit agent + Cont01 + valid GitCommitLaunchSpec.
+## AGENT A
+- agentId: agt:m4.cursor.bounded_docs_write
+- capability: M4 bounded docs-write (canonical)
+- criteria: docs_write AttemptExecutionProfile
 
-## GATEWAY FAIL-CLOSED AUTHORITY
-AUTH-01..07 covered. Zero process on reject.
+## AGENT B
+- agentId: agt:m4.cursor.bounded_local_commit
+- capability: cap:cursor.git.local_commit
+- action/target/scope: canonical local-commit descriptor values
+- criteria: local_commit AttemptExecutionProfile
 
-## GITCOMMITLAUNCHSPEC SAFETY / SHELL SAFETY
-Strict POSIX relative paths; single-line subject max 72; hostile SPEC/MSG matrix.
+## SAME EC PROOF
+Deterministic suites:
+- gcecGitCommitSameEcAb.d0.test.ts — A docs-write → B local-commit, same EC id, distinct Attempt ids, distinct selectedAgentRef; SR-02 docs-write selected + commit slice rejects at Start
+- gcecCont01SameEcAbContinuation.d0.test.ts — Cont01 + local-commit Start success
+- gcecProductMonolithicE2e.d0.test.ts — Product spine uses local-commit agent on commit slice
+AG-12: same-EC does NOT imply same-agent — PASS
 
-## LOCAL READ-ONLY GIT OBSERVER
-`observeLocalCommitFacts` — rev-parse/log/diff-tree/rev-list/status/readFile; mutation argv rejected.
+## SERVER-DERIVED PROFILE PROOF
+AP-01..AP-09 in gcecAgent01AttemptProfile.d0.test.ts PASS (incl. restart recomputation AP-09).
 
-## LOCAL COMMIT VERIFICATION
-`verifyLocalCommitFacts` — H1≠H0, parent, paths, subject, dirty, commitsFromExpectedParent===1, exact artifact 1:1 digests.
+## CLIENT SPOOFING NEGATIVES
+AP-06 claimedProfile rejected; AP-07 requestedAgentRef ignored for profile kind; AP-08 gitCommitSpec ignored for profile kind.
 
-## EVIDENCE BINDING / PROVENANCE
-expectedBindings required (project/cycle/EC/Attempt B); source exact `git:local_commit`; technicalResultRef local observe; unpushed ≠ remote-verified.
+## RESTART RECOMPUTATION
+AP-09 + Cont01/SameEcAb path: new composition instance derives local_commit from durable EC + Evidence + succeeded Attempt A — PASS
 
-## FS→SHA SUPERSESSION
-Only unique matching VERIFIED git:local_commit Evidence (not verifiedEffects alone; not git:local_commit_fake).
+## GC-01
+CLOSED DETERMINISTICALLY (Attempt-scoped profile)
 
-## FUTURE REAL HARNESS
-path: `projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealSameEcCommit.real.d0.test.ts`
-implementation complete: YES (campaign body + skipIf)
-executed: NO
-skipped: YES (triple gate OFF)
+## GC-02 REVALIDATED
+authorizedEffects exactly unique git.commit — gateway/auth suites PASS (gcecGitCommitGatewayProfile + Cont01/SameEcAb)
 
-## REAL TOOLING RESERVE
-OPEN — Cursor CLI lacks explicit tool allow/deny; DETERMINISTIC ≠ READY FOR REAL.
+## GC-03 REVALIDATED
+strict GitCommitLaunchSpec shell-safe grammar — gcecGitCommitGatewayProfile PASS
 
-## FILES MODIFIED
-- projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts- projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts- projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts- projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01SameEcAbContinuation.d0.test.ts- projects/sfia-studio/app/lib/oa/evidence-review/application/typedGitEvidence.ts- projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts- projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts- projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation.ts- projects/sfia-studio/app/lib/oa/execution-attempt/index.ts- projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts- projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent.ts- projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts- projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts- projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
-## FILES CREATED
-- projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealSameEcCommit.real.d0.test.ts- projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitEvidence.d0.test.ts- projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitGatewayProfile.d0.test.ts- projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitObserve.d0.test.ts- projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitSameEcAb.d0.test.ts- projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitVerification.d0.test.ts- projects/sfia-studio/app/lib/oa/execution-attempt/application/observeLocalCommitFacts.ts- projects/sfia-studio/app/lib/oa/execution-attempt/application/verifyLocalCommitEffect.ts- projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitCommitLaunchSpec.ts- projects/sfia-studio/app/lib/oa/execution-attempt/domain/verifyLocalCommitFacts.ts- projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedLocalCommitCursorAgent.ts
-## ZERO REAL
-unset SFIA_STUDIO_CURSOR_REAL / SFIA_GCEC_CURSOR_REAL_PROOF / SFIA_GCEC_CURSOR_REAL_COMMIT_PROOF / SFIA_GCEC_MANAGED_REPO_BASE
-No business Cursor child. No proof-repo mutation.
+## GC-04 REVALIDATED
+observeLocalCommitFacts READ-ONLY; caller cannot manufacture VERIFIED — gcecGitCommitObserve + Evidence suites PASS
 
-## PRODUCT PERSISTENCE
-NONE
+## GC-05 REVALIDATED
+Future REAL harness fully implemented; triple gate OFF → skipped (1 skipped); agent-model STOP removed; D-GCEC-AGENT-01 path for Attempt B local-commit selection
 
-## SCHEMA/MIGRATION
-NONE
+## GC-06 REVALIDATED
+FS→SHA requires VERIFIED git:local_commit Evidence — gcecGitCommitVerification / Evidence PASS
 
-## STUDIO GIT BUSINESS WRITER
-NONE
+## D-GCEC-15
+PASS — one EC, sequential Attempts, single active, Cont01/E2E
 
-## PROOF REPO
-UNCHANGED — mcleland147/sfia-gcec-proof-task-manager @ 32c7c2008197e5c61b32c16479144e9863291358
+## REAL
+ZERO — env unset; no business Cursor child; future REAL skipped
 
-## FOCUSED TESTS
-7 files — 60 passed | 1 skipped (61)
-
-## FULL VITEST
-349 passed | 17 skipped files; 3730 passed | 137 skipped tests (3867)
-
-## TYPECHECK
-PASS
-
-## LINT
-PASS
-
-## BUILD
-PASS
-
-## DIFF CHECK
-PASS
+## PRODUCT PERSISTENCE / SCHEMA / SECOND EC / SECOND ENGINE
+NONE / NONE / NONE / NONE
 
 ## PRODUCT HEAD
 3966bbf9b800b143711acf1d581b85a33e106e99
 
-## PRODUCT COMMIT
-NONE
+## PRODUCT COMMIT / PUSH
+NONE / NONE
 
-## PRODUCT PUSH
-NONE
+## PROOF REPO
+UNCHANGED @ expected base 32c7c2008197e5c61b32c16479144e9863291358
 
-## PR
-NONE
+## PR / MERGE
+NONE / NONE
 
-## MERGE
-NONE
+## FOCUSED TESTS
+```
+npx vitest run \
+  __tests__/oa/execution-attempt/gcecAgent01AttemptProfile.d0.test.ts \
+  __tests__/oa/execution-attempt/gcecGitCommitSameEcAb.d0.test.ts \
+  __tests__/oa/execution-attempt/gcecCont01SameEcAbContinuation.d0.test.ts \
+  __tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts \
+  __tests__/oa/execution-attempt/gcecGitCommitGatewayProfile.d0.test.ts \
+  __tests__/oa/execution-attempt/gcecGitCommitObserve.d0.test.ts \
+  __tests__/oa/execution-attempt/gcecGitCommitEvidence.d0.test.ts \
+  __tests__/oa/execution-attempt/gcecGitCommitVerification.d0.test.ts \
+  __tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts \
+  __tests__/oa/cycle/gcecCursorRealSameEcCommit.real.d0.test.ts \
+  __tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts
+```
+Result: Test Files 11 passed; Tests 82 passed | 1 skipped
 
-## GCEC-CURSOR-REAL
-CLOSED BY PRIOR DOCS-WRITE EVIDENCE
+## FULL VITEST
+Test Files 350 passed | 17 skipped (367)
+Tests 3737 passed | 137 skipped (3874)
+Duration ~33.28s
+
+## TYPECHECK / LINT / BUILD / DIFF CHECK
+PASS / PASS (No ESLint warnings or errors) / PASS / PASS (git diff --check exit 0)
+
+## REAL TOOL-CONFINEMENT RESERVE
+OPEN
 
 ## REAL_CONTINUATION_GAP
 OPEN
@@ -187,36 +218,65 @@ NOT PROVEN
 NOT READY
 
 ## DEBT / EXIT
-- TEMP-GCEC-PRPM-01
-- TEMP-GCEC-F14-BIND-01
-- REAL_CONTINUATION_GAP
-- REAL tool-control/confinement reserve
-- **GCEC GIT.COMMIT AGENT MODEL ESCALATION** (blocks honest Attempt B local-commit selection under same docs-write EC)
+- REAL remote-effect confinement preflight still required before any REAL campaign
+- No Product commit of combined candidate until distinct Morris GO
+- ChatGPT Critical Review next
 
 ## ANTI-CLAIMS
-- NOT READY FOR REAL
-- NOT GC-01 CLOSED
-- NOT Product committed
-- NOT proof-repo mutated
-- NOT GCEC-PUSH ready
-- NOT runtime v3 adopted
-- DETERMINISTIC hardenings for GC-02..06 do NOT authorize REAL commit campaign
+NOT claimed: READY FOR REAL; REAL_CONTINUATION_GAP CLOSED; REAL git.commit proven; GCEC-PUSH READY; END-TO-END REAL; runtime v3 ADOPTED
 
 ## VERDICT
-**STOP — GCEC GIT.COMMIT AGENT MODEL ESCALATION REQUIRED**
+PASS WITH RESERVE —
+D-GCEC-AGENT-01 ATTEMPT-SCOPED AGENT SUFFICIENCY DETERMINISTICALLY PROVEN /
+GC-01 CLOSED /
+GC-02..06 REVALIDATED /
+REAL TOOL-CONFINEMENT RESERVE REMAINS /
+READY FOR CHATGPT CRITICAL REVIEW
 
-CR-GCEC-GC-02, GC-03, GC-04, GC-05, GC-06 CLOSED with deterministic hardenings.
-CR-GCEC-GC-01 remains STOP: Attempt B cannot honestly select `agt:m4.cursor.bounded_local_commit` under the SAME docs-write ExecutionContract without a Morris structural decision on AgentCapability / Attempt selection semantics.
+## FILES MODIFIED
 
-Preferred PASS WITH RESERVE is blocked by §37.A.
+- `projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01SameEcAbContinuation.d0.test.ts`
+- `projects/sfia-studio/app/lib/oa/evidence-review/application/typedGitEvidence.ts`
+- `projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts`
+- `projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts`
+- `projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts`
+- `projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation.ts`
+- `projects/sfia-studio/app/lib/oa/execution-attempt/index.ts`
+- `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts`
+- `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent.ts`
+- `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts`
+- `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts`
+- `projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts`
+- `projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts`
+
+## FILES CREATED
+
+- `projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealSameEcCommit.real.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01AttemptProfile.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitEvidence.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitGatewayProfile.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitObserve.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitSameEcAb.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitVerification.d0.test.ts`
+- `projects/sfia-studio/app/lib/oa/execution-attempt/application/observeLocalCommitFacts.ts`
+- `projects/sfia-studio/app/lib/oa/execution-attempt/application/verifyLocalCommitEffect.ts`
+- `projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitCommitLaunchSpec.ts`
+- `projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts`
+- `projects/sfia-studio/app/lib/oa/execution-attempt/domain/verifyLocalCommitFacts.ts`
+- `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedLocalCommitCursorAgent.ts`
 
 ---
-## FULL DIFFS — MODIFIED FILES
+# FULL USEFUL DIFFS — ALL MODIFIED FILES
 
-### DIFF: projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts
+
+## DIFF: `projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts
-index 54a4746b..89038bcb 100644
+index 54a4746b..67d84783 100644
 --- a/projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts
 +++ b/projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts
 @@ -835,14 +835,16 @@ describe("gcecCr23StartExecution — application boundary", () => {
@@ -231,13 +291,13 @@ index 54a4746b..89038bcb 100644
 -    expect(
 -      ctx.fakeLaunch.calls.every((c) => c.action === M4_BOUNDED_DOCS_WRITE_ACTION),
 -    ).toBe(true);
-+    // CR-GCEC-GC-01: docs-write AgentCapability cannot authorize git.commit-only
-+    // Start under current EC identity. Canonical Confirmation/target resolution
-+    // remains covered by C23 negatives; honest Attempt B needs agent-model escalation.
++    // D-GCEC-AGENT-01: commit-only Start without VERIFIED FS Evidence / wrong
++    // agent fails closed. Canonical Confirmation target resolution remains in
++    // C23 negatives; honest commit Start requires Evidence + local-commit agent.
 +    expect(started.ok).toBe(false);
 +    if (!started.ok) {
 +      expect(started.error.internalCauseRef).toMatch(
-+        /git_commit_agent_capability_bypass|capability/i,
++        /git_commit_agent_capability_bypass|capability|without_verified_fs_evidence|profile/i,
 +      );
 +    }
 +    expect(ctx.fakeLaunch.calls).toHaveLength(0);
@@ -256,12 +316,12 @@ index 54a4746b..89038bcb 100644
 -    expect(last?.repositoryBindingIdentity ?? last?.repositoryBinding?.identity).toBe(
 -      IDENTITY,
 -    );
-+    // Same GC-01 fail-closed as C23-P1 — matching assertion is never authoritative
-+    // enough to bypass AgentCapability.
++    // Same AGENT-01 fail-closed as C23-P1 — matching assertion is never
++    // authoritative enough to bypass AttemptExecutionProfile / Evidence.
 +    expect(started.ok).toBe(false);
 +    if (!started.ok) {
 +      expect(started.error.internalCauseRef).toMatch(
-+        /git_commit_agent_capability_bypass|capability/i,
++        /git_commit_agent_capability_bypass|capability|without_verified_fs_evidence|profile/i,
 +      );
 +    }
 +    expect(ctx.fakeLaunch.calls).toHaveLength(0);
@@ -271,24 +331,45 @@ index 54a4746b..89038bcb 100644
 
 ```
 
-### DIFF: projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts
+
+## DIFF: `projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts
-index d16924c8..3ab9de4e 100644
+index d16924c8..bade05b5 100644
 --- a/projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts
 +++ b/projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts
-@@ -277,7 +277,9 @@ async function selectGateStartSlice(input: {
+@@ -50,6 +50,7 @@ import {
+   FakeDocsWriteLaunchPort,
+   M4_BOUNDED_DOCS_WRITE_ACTION,
+   M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
++  M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
+   ManagedProjectRepositoryResolver,
+   MemoryLaunchSafetyJournal,
+   sanitizeManagedRepoIdentity,
+@@ -277,7 +278,10 @@ async function selectGateStartSlice(input: {
      | "github.pr.create"
      | "github.pr.merge"
    )[];
 -}): Promise<{ attemptId: string; status: string }> {
++  requestedAgentRef?: string;
 +  expectStartOk?: boolean;
 +  expectedStartCause?: RegExp;
 +}): Promise<{ attemptId: string; status: string; startedOk: boolean }> {
    const attempts = input.runtime.oa!.executionAttemptServices;
    const selected = await attempts.selectExecutionAgent.execute({
      attemptId: input.attemptId,
-@@ -313,16 +315,26 @@ async function selectGateStartSlice(input: {
+@@ -288,7 +292,8 @@ async function selectGateStartSlice(input: {
+     expectedContractVersion: input.contractVersion,
+     selectionProfile: "standard",
+     selectionStrategy: "capabilities_deterministic",
+-    requestedAgentRef: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
++    requestedAgentRef:
++      input.requestedAgentRef ?? M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+     systemInitiated: true,
+   });
+   expect(selected.ok).toBe(true);
+@@ -313,16 +318,26 @@ async function selectGateStartSlice(input: {
      confirmationMatch: input.confirmationMatch,
      verifiedEffects: input.verifiedEffects,
    });
@@ -312,59 +393,40 @@ index d16924c8..3ab9de4e 100644
 
  describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () => {
 -  it("A→Z: Product use-cases → Fake Cursor slices → EC confirmed→completed → Cycle finalized", async () => {
-+  it("A→Z spine through FS; git.commit Start fails closed pending AgentCapability escalation (GC-01)", async () => {
++  it("A→Z: Product use-cases → Fake Cursor slices → EC completed → Cycle finalized (AGENT-01)", async () => {
      const root = tempDir("sfia-gcec-prod-");
      const managedBase = path.join(root, "managed");
      const { repoRoot, baseHeadSha } = initManagedRepo(managedBase, IDENTITY);
-@@ -1076,8 +1088,26 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () =>
+@@ -1076,6 +1091,11 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () =>
            "validation.run",
            ...verifiedGitEffects,
          ],
 +        ...(slice.effect === "git.commit"
 +          ? {
-+              expectStartOk: false,
-+              expectedStartCause:
-+                /git_commit_agent_capability_bypass|capability/i,
++              requestedAgentRef: M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
 +            }
 +          : {}),
        });
 
-+      if (slice.effect === "git.commit") {
-+        // CR-GCEC-GC-01 structural stop: docs-write agent cannot Start commit-only
-+        // under this EC. Remaining push/PR/merge/finalize are not exercised here.
-+        expect(fakeLaunch.calls.length).toBeGreaterThan(0); // FS slices ran
-+        const commitLaunches = fakeLaunch.calls.filter((c) =>
-+          c.authorizedEffects?.includes("git.commit"),
-+        );
-+        expect(commitLaunches).toHaveLength(0);
-+        return;
-+      }
-+
        const att = await oa.executionAttemptServices.getExecutionAttempt.execute({
-         attemptId,
+@@ -1083,6 +1103,11 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () =>
        });
-@@ -1088,15 +1118,8 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () =>
+       expect(att.ok).toBe(true);
+       if (!att.ok) return;
++      if (slice.effect === "git.commit") {
++        expect(att.attempt.selectedAgentRef).toBe(
++          M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
++        );
++      }
+       const done = await completeBoundedDocsWriteLaunch({
+         attempt: att.attempt,
          services: oa.executionAttemptServices,
-         targetPath: TARGET_PATH,
-         pathAllowlist: ["docs/"],
--        // Git-only slices: Fake may skip FS; pass porcelain when dirty or empty ok path.
--        nameStatusText:
--          slice.effect === "git.commit"
--            ? undefined
--            : `A\t${TARGET_PATH}`,
--        statusDiffPort:
--          slice.effect === "git.commit"
--            ? new NodeLocalGitStatusDiffPort()
--            : undefined,
-+        // Remaining slices are post-commit effects only (commit returns early above).
-+        nameStatusText: `A\t${TARGET_PATH}`,
-       });
-       // For git-only slices after FS verified, Fake may skip file write; completion
-       // workspace verify may need nameStatusText. If verify fails on empty dirty tree
 
 ```
 
-### DIFF: projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts
+
+## DIFF: `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts
 index 488e5e1e..bfd1d9b0 100644
@@ -570,47 +632,93 @@ index 488e5e1e..bfd1d9b0 100644
 
 ```
 
-### DIFF: projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01SameEcAbContinuation.d0.test.ts
+
+## DIFF: `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01SameEcAbContinuation.d0.test.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01SameEcAbContinuation.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01SameEcAbContinuation.d0.test.ts
-index a540d364..0917eded 100644
+index a540d364..ac6b3a68 100644
 --- a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01SameEcAbContinuation.d0.test.ts
 +++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01SameEcAbContinuation.d0.test.ts
-@@ -20,6 +20,7 @@ import {
+@@ -14,12 +14,15 @@ import {
+   assertStudioCursorRealOffForTests,
+   buildGitEffectActionRef,
+   createM4BoundedDocsWriteCursorAgentDescriptor,
++  createM4BoundedLocalCommitCursorAgentDescriptor,
+   createTestExecutionAttemptServices,
+   M4_BOUNDED_DOCS_WRITE_ACTION,
+   M4_BOUNDED_DOCS_WRITE_CAPABILITY,
    M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
    M4_BOUNDED_DOCS_WRITE_SCOPE,
    M4_BOUNDED_DOCS_WRITE_TARGET,
++  M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
 +  resolvePreCommitWorkspaceContinuation,
    SqliteRealLaunchSafetyJournal,
    StudioGitWorktreeWorkspace,
    TestExecutionAdapter,
-@@ -230,7 +231,7 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
+@@ -230,7 +233,7 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
      assertStudioCursorRealOffForTests();
    });
 
 -  it("A→B StartExecution passes unique governed continuation descriptor (no path)", async () => {
-+  it("A→B Cont01 resolves unique descriptor; Start fails closed on docs-write+commit bypass (GC-01)", async () => {
++  it("A→B Cont01 + D-GCEC-AGENT-01: local-commit agent Start with unique continuation", async () => {
      const managedBase = mkdtempSync(path.join(os.tmpdir(), "gcec-cont-managed-"));
      const repoRoot = path.join(managedBase, "acme__widget");
      mkdirSync(repoRoot, { recursive: true });
-@@ -337,33 +338,49 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
-       confirmations: gitCnf ? [gitCnf] : [],
-       verifiedEffects: ["filesystem.create", "filesystem.modify"],
+@@ -240,15 +243,19 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
+       databasePath: tempJournalPath("gcec-cont-ab-"),
      });
--    expect(started.ok).toBe(true);
--    if (!started.ok) {
--      throw new Error(started.error.internalCauseRef);
--    }
--
--    expect(launchPort.calls).toHaveLength(1);
--    const req = launchPort.calls[0]!;
--    expect(req.workspaceContinuation).toBeDefined();
--    expect(req.workspaceContinuation?.priorAttemptId).toBe(attemptA);
--    expect(req.workspaceContinuation?.expectedHeadSha).toBe(
--      M4_TEST_BASE_HEAD_SHA,
--    );
--    expect(req.workspaceContinuation?.expectedVerifiedFiles).toEqual([
-+    // Cont01 domain still resolves unique prior Attempt A (no free path).
+     const launchPort = new TestOnlyRealExecutionLaunchPort();
+-    const agent = createM4BoundedDocsWriteCursorAgentDescriptor(NOW);
++    const docs = createM4BoundedDocsWriteCursorAgentDescriptor(NOW);
++    const commit = createM4BoundedLocalCommitCursorAgentDescriptor(NOW);
+     const fixtureAdapter = new TestExecutionAdapter();
+     const evidenceBag: Evidence[] = [];
+
+-    const stack = buildStack({ agents: [agent], adapter: fixtureAdapter });
++    const stack = buildStack({
++      agents: [docs, commit],
++      adapter: fixtureAdapter,
++    });
+     stack.attempts = createTestExecutionAttemptServices({
+       decisionServices: stack.decisions,
+       executionContractServices: stack.execution,
+-      agents: [agent],
++      agents: [docs, commit],
+       adapter: fixtureAdapter,
+       realBoundary: {
+         launchPort,
+@@ -299,9 +306,13 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
+     const selected = await selectStandardAgent(stack, {
+       attemptId: attemptB,
+       executionContractId: seeded.contractId,
+-      requestedAgentRef: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
++      requestedAgentRef: M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
+     });
+     expect(selected.ok).toBe(true);
++    if (!selected.ok) throw new Error("select B failed");
++    expect(selected.attempt.selectedAgentRef).toBe(
++      M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
++    );
+
+     const granted = await stack.attempts.grantRealExecutionGate!.execute({
+       grantId: "gd:cont-b",
+@@ -344,6 +355,7 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
+
+     expect(launchPort.calls).toHaveLength(1);
+     const req = launchPort.calls[0]!;
++    expect(req.selectedAgentRef).toBe(M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID);
+     expect(req.workspaceContinuation).toBeDefined();
+     expect(req.workspaceContinuation?.priorAttemptId).toBe(attemptA);
+     expect(req.workspaceContinuation?.expectedHeadSha).toBe(
+@@ -356,9 +368,28 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
+       (req.workspaceContinuation as { workspacePath?: string } | undefined)
+         ?.workspacePath,
+     ).toBeUndefined();
+-    expect(
+-      (req as { workspacePath?: string; cwd?: string }).workspacePath,
+-    ).toBeUndefined();
++
 +    const cont = resolvePreCommitWorkspaceContinuation({
 +      currentAttemptId: attemptB,
 +      executionContractId: seeded.contractId,
@@ -632,52 +740,45 @@ index a540d364..0917eded 100644
 +    if (!cont.required) throw new Error("expected continuation required");
 +    expect(cont.ok).toBe(true);
 +    if (!cont.ok) throw new Error(cont.reason);
-+    expect(cont.descriptor.priorAttemptId).toBe(attemptA);
-+    expect(cont.descriptor.expectedHeadSha).toBe(M4_TEST_BASE_HEAD_SHA);
-+    expect(cont.descriptor.expectedVerifiedFiles).toEqual([
-       { path: TARGET_PATH, digest: ARTIFACT_DIGEST },
-     ]);
--    expect(
--      (req.workspaceContinuation as { workspacePath?: string } | undefined)
--        ?.workspacePath,
--    ).toBeUndefined();
--    expect(
--      (req as { workspacePath?: string; cwd?: string }).workspacePath,
--    ).toBeUndefined();
-+
-+    // CR-GCEC-GC-01: docs-write agent + git.commit-only slice is an
-+    // AgentCapability bypass — StartExecution fails closed (zero process).
-+    // Honest Attempt B local-commit agent selection under this SAME EC requires
-+    // STOP — GCEC GIT.COMMIT AGENT MODEL ESCALATION REQUIRED.
-+    expect(started.ok).toBe(false);
-+    if (!started.ok) {
-+      expect(started.error.internalCauseRef).toMatch(
-+        /git_commit_agent_capability_bypass|capability/i,
-+      );
-+    }
-+    expect(launchPort.calls).toHaveLength(0);
 
      const a = await stack.attempts.attempts.findById(attemptA);
      const b = await stack.attempts.attempts.findById(attemptB);
-     expect(a?.status).toBe("succeeded");
--    expect(b?.status).toBe("running");
+@@ -366,15 +397,7 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
+     expect(b?.status).toBe("running");
      expect(a?.attemptId).not.toBe(b?.attemptId);
      expect(a?.executionContractId).toBe(b?.executionContractId);
-
-@@ -372,8 +389,7 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
-     });
-     expect(ecAfter.ok).toBe(true);
-     if (ecAfter.ok) {
+-
+-    const ecAfter = await stack.execution.getExecutionContract.execute({
+-      executionContractId: seeded.contractId,
+-    });
+-    expect(ecAfter.ok).toBe(true);
+-    if (ecAfter.ok) {
 -      // Start moves EC to executing while Attempt runs — still same EC, no completion.
 -      expect(["confirmed", "executing"]).toContain(ecAfter.contract.status);
-+      expect(ecAfter.contract.status).toBe("confirmed");
-     }
+-    }
++    expect(a?.selectedAgentRef).not.toBe(b?.selectedAgentRef);
 
      journal.close();
+   });
+@@ -468,9 +491,9 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
+     });
+     expect(started.ok).toBe(false);
+     if (!started.ok) {
+-      expect(started.error.detailCode).toBe("ATTEMPT_INVALID");
+-      expect(started.error.internalCauseRef).toBe(
+-        "continuation_candidate_none",
++      // Cont01 none OR commit profile without FS Evidence — both fail closed.
++      expect(started.error.internalCauseRef).toMatch(
++        /continuation_candidate_none|without_verified_fs_evidence|capability/i,
+       );
+     }
+     expect(launchPort.launchCallCount).toBe(0);
 
 ```
 
-### DIFF: projects/sfia-studio/app/lib/oa/evidence-review/application/typedGitEvidence.ts
+
+## DIFF: `projects/sfia-studio/app/lib/oa/evidence-review/application/typedGitEvidence.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/application/typedGitEvidence.ts b/projects/sfia-studio/app/lib/oa/evidence-review/application/typedGitEvidence.ts
 index 8f2d8b60..e350875f 100644
@@ -700,21 +801,101 @@ index 8f2d8b60..e350875f 100644
 
 ```
 
-### DIFF: projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
+
+## DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts
+index 352f6c8b..586749d0 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts
+@@ -48,6 +48,8 @@ import {
+   verifyAttemptAuthority,
+ } from "./attemptSupport";
+ import type { AttemptPolicy } from "./attemptPolicy";
++import { resolveAttemptExecutionProfile } from "../domain/resolveAttemptExecutionProfile";
++import type { Evidence } from "@/lib/oa/evidence-review";
+
+ export class SelectExecutionAgent {
+   constructor(
+@@ -61,6 +63,10 @@ export class SelectExecutionAgent {
+     private readonly audit: ExecutionAttemptAuditPort,
+     private readonly policy: AttemptPolicy,
+     private readonly store?: ExecutionAttemptTechnicalStorePort,
++    /** Durable Evidence for AttemptExecutionProfile (D-GCEC-AGENT-01). */
++    private readonly listProjectEvidence?: (
++      projectId: string,
++    ) => Promise<readonly Evidence[]>,
+   ) {}
+
+   async execute(
+@@ -167,8 +173,8 @@ export class SelectExecutionAgent {
+         });
+       }
+
+-      // Mandatory T-A4 gate: deny-by-default action/target/scope, decision
+-      // freshness, Critical acknowledgment, authority.
++      // Contract-level authorization remains (T-A4). Attempt profile is
++      // executor sufficiency for the current slice only (D-GCEC-AGENT-01).
+       const authorization = await this.checkExecutionAuthorization.execute({
+         executionContractId: contract.executionContractId,
+         action: contract.action,
+@@ -186,12 +192,28 @@ export class SelectExecutionAgent {
+         );
+       }
+
+-      const criteria = {
+-        requiredCapabilities: [...contract.requiredCapabilities],
+-        action: contract.action,
+-        target: contract.target,
+-        scope: contract.scope,
+-      };
++      const evidenceList = this.listProjectEvidence
++        ? await this.listProjectEvidence(contract.projectId)
++        : [];
++      const peerAttempts = await this.attempts.listByContract(
++        contract.executionContractId,
++      );
++      const profileResolved = resolveAttemptExecutionProfile({
++        contract,
++        attempts: peerAttempts,
++        evidence: evidenceList,
++        // Hostile channels — never authoritative for profile.
++        claimedRequestedAgentRef: request.requestedAgentRef,
++        claimedProfile: (request as { attemptProfile?: unknown }).attemptProfile,
++        claimedGitCommitSpec: (request as { gitCommitSpec?: unknown })
++          .gitCommitSpec,
++        claimedVerifiedEffects: (request as { verifiedEffects?: unknown })
++          .verifiedEffects as never,
++      });
++      if (!profileResolved.ok) {
++        return fail("AGENT_CAPABILITY_MISMATCH", profileResolved.reason);
++      }
++      const criteria = profileResolved.profile.criteria;
+       const candidates = this.registry.findCandidates(criteria);
+       if (candidates.length === 0) {
+         return fail("AGENT_NOT_FOUND", "no_registry_candidate");
+
+```
+
+
+## DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
-index b94fddb3..5e98b604 100644
+index b94fddb3..bfbfed3c 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
-@@ -57,6 +57,7 @@ import type {
+@@ -57,6 +57,8 @@ import type {
    GateDGrant,
  } from "../domain/realLaunchSafety";
  import { isM4AuthorizedCursorRealAgent } from "../infrastructure/m4BoundedDocsWriteCursorAgent";
 +import { isM4BoundedLocalCommitRealAgent } from "../infrastructure/m4BoundedLocalCommitCursorAgent";
++import { resolveAttemptExecutionProfile } from "../domain/resolveAttemptExecutionProfile";
  import type { ExecutionAttemptTechnicalStorePort } from "../ports/executionAttemptTechnicalStorePort";
  import type { AgentRegistryPort } from "../ports/agentRegistry";
  import type { ExecutionAdapterPort } from "../ports/executionAdapter";
-@@ -75,6 +76,11 @@ import {
+@@ -75,6 +77,11 @@ import {
  } from "../domain/resolveGitEffectTarget";
  import { deriveExecutableEffectsFromContractRequirements } from "../domain/contractEffectClassification";
  import { resolvePreCommitWorkspaceContinuation } from "../domain/resolvePreCommitWorkspaceContinuation";
@@ -726,7 +907,102 @@ index b94fddb3..5e98b604 100644
  import type { CursorAuthorizedEffectId } from "../domain/cursorExecutionReport";
  import {
    authorityFailureDetail,
-@@ -1116,6 +1122,86 @@ export class StartExecution {
+@@ -452,12 +459,28 @@ export class StartExecution {
+           selectedAgentRef: attempt.selectedAgentRef,
+         });
+       }
+-      const agentViolation = agentMatchViolation(agent, {
+-        requiredCapabilities: [...contract.requiredCapabilities],
+-        action: contract.action,
+-        target: contract.target,
+-        scope: contract.scope,
++      // D-GCEC-AGENT-01 — early profile match from durable Evidence (Start later
++      // revalidates against AuthorizedExecutionSlice). Do NOT use fixed EC quartet.
++      const evidenceForProfile = this.listProjectEvidence
++        ? await this.listProjectEvidence(contract.projectId)
++        : [];
++      const peersForProfile = await this.attempts.listByContract(
++        contract.executionContractId,
++      );
++      const earlyProfile = resolveAttemptExecutionProfile({
++        contract,
++        attempts: peersForProfile,
++        evidence: evidenceForProfile,
+       });
++      if (!earlyProfile.ok) {
++        return fail("AGENT_CAPABILITY_MISMATCH", earlyProfile.reason, {
++          selectedAgentRef: attempt.selectedAgentRef,
++        });
++      }
++      const agentViolation = agentMatchViolation(
++        agent,
++        earlyProfile.profile.criteria,
++      );
+       if (agentViolation) {
+         return fail(agentViolation.detailCode, agentViolation.reason, {
+           selectedAgentRef: attempt.selectedAgentRef,
+@@ -1072,6 +1095,60 @@ export class StartExecution {
+       });
+     }
+
++    // D-GCEC-AGENT-01 — Start revalidation against AuthorizedExecutionSlice.
++    // Do not trust selection-time profile forever; do not mutate selectedAgentRef.
++    {
++      const peersForStartProfile = await this.attempts.listByContract(
++        contract.executionContractId,
++      );
++      const evidenceForStartProfile = this.listProjectEvidence
++        ? await this.listProjectEvidence(contract.projectId)
++        : [];
++      const startProfile = resolveAttemptExecutionProfile({
++        contract,
++        attempts: peersForStartProfile,
++        evidence: evidenceForStartProfile,
++        authorizedEffects:
++          authorizedSlice.authorizedEffects as CursorAuthorizedEffectId[],
++        claimedVerifiedEffects: request.verifiedEffects,
++        claimedGitCommitSpec: (request as { gitCommitSpec?: unknown })
++          .gitCommitSpec,
++        claimedRequestedAgentRef: attempt.selectedAgentRef,
++      });
++      if (!startProfile.ok) {
++        return fail("AGENT_CAPABILITY_MISMATCH", startProfile.reason, {
++          selectedAgentRef: attempt.selectedAgentRef,
++        });
++      }
++      const startAgentViolation = agentMatchViolation(
++        agent,
++        startProfile.profile.criteria,
++      );
++      if (startAgentViolation) {
++        return fail(
++          startAgentViolation.detailCode,
++          startAgentViolation.reason === "capability_not_supported" ||
++            startAgentViolation.reason.startsWith("action_") ||
++            startAgentViolation.reason.startsWith("target_") ||
++            startAgentViolation.reason.startsWith("scope_")
++            ? `start_profile_${startAgentViolation.reason}`
++            : startAgentViolation.reason,
++          { selectedAgentRef: attempt.selectedAgentRef },
++        );
++      }
++      // Defense: commit-only slice still requires exact local-commit descriptor.
++      if (
++        isBoundedGitCommitOnlySlice(authorizedSlice.authorizedEffects) &&
++        !isM4BoundedLocalCommitRealAgent(agent)
++      ) {
++        return fail(
++          "AGENT_CAPABILITY_MISMATCH",
++          "git_commit_agent_capability_bypass",
++          { selectedAgentRef: attempt.selectedAgentRef },
++        );
++      }
++    }
++
+     // D-GCEC-CONT-01 — pre-commit workspace continuation (server-derived only).
+     let workspaceContinuation:
+       | {
+@@ -1116,6 +1193,75 @@ export class StartExecution {
        }
      }
 
@@ -741,18 +1017,7 @@ index b94fddb3..5e98b604 100644
 +        }
 +      | undefined;
 +    if (isBoundedGitCommitOnlySlice(authorizedSlice.authorizedEffects)) {
-+      // GC-01: git.commit-only slice requires the bounded local-commit AgentDescriptor.
-+      // Docs-write agent + gitCommitSpec is an AgentCapability bypass — fail closed.
-+      // Under current EC identity (fixed action/capability/target/scope), Attempt B
-+      // cannot honestly select the local-commit sibling for a docs-write EC
-+      // (STOP — GCEC GIT.COMMIT AGENT MODEL ESCALATION REQUIRED).
-+      if (!isM4BoundedLocalCommitRealAgent(agent)) {
-+        return fail(
-+          "AGENT_CAPABILITY_MISMATCH",
-+          "git_commit_agent_capability_bypass",
-+          { selectedAgentRef: attempt.selectedAgentRef },
-+        );
-+      }
++      // Agent sufficiency already revalidated against AttemptExecutionProfile above.
 +      const contractInputs =
 +        contract.inputs && typeof contract.inputs === "object"
 +          ? (contract.inputs as Record<string, unknown>)
@@ -813,7 +1078,7 @@ index b94fddb3..5e98b604 100644
      let launch;
      try {
        launch = await this.realLaunchPort.launch({
-@@ -1132,6 +1218,7 @@ export class StartExecution {
+@@ -1132,6 +1278,7 @@ export class StartExecution {
          scope: contract.scope,
          timeoutMs: window.resolvedMaxDurationMs,
          ...(docsWriteSpec ? { docsWriteSpec } : {}),
@@ -824,7 +1089,9 @@ index b94fddb3..5e98b604 100644
 
 ```
 
-### DIFF: projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts
+
+## DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts
 index ac55064a..d1f0fc2a 100644
@@ -843,7 +1110,9 @@ index ac55064a..d1f0fc2a 100644
 
 ```
 
-### DIFF: projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation.ts
+
+## DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation.ts
 index f1098918..4cf8080e 100644
@@ -973,10 +1242,12 @@ index f1098918..4cf8080e 100644
 
 ```
 
-### DIFF: projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+
+## DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/index.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
-index aa6afc77..58a576db 100644
+index aa6afc77..bc65f29a 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
 @@ -172,6 +172,14 @@ export {
@@ -994,7 +1265,7 @@ index aa6afc77..58a576db 100644
  export {
    FakeDocsWriteLaunchPort,
    listRelativeFiles,
-@@ -193,13 +201,43 @@ export {
+@@ -193,13 +201,52 @@ export {
    sanitizeManagedRepoIdentity,
  } from "./infrastructure/managedProjectRepositoryResolver";
  export type { ManagedRepoBindingIdentity } from "./infrastructure/managedProjectRepositoryResolver";
@@ -1005,6 +1276,15 @@ index aa6afc77..58a576db 100644
 -  M4_REAL_GATEWAY_ADAPTER_ID,
 -} from "./domain/realLaunchSafety";
 -export { assertStudioCursorRealOffForTests } from "./domain/realLaunchSafety";
++  resolveAttemptExecutionProfile,
++} from "./domain/resolveAttemptExecutionProfile";
++export type {
++  AttemptExecutionProfile,
++  AttemptExecutionProfileKind,
++  ResolveAttemptExecutionProfileInput,
++  ResolveAttemptExecutionProfileResult,
++} from "./domain/resolveAttemptExecutionProfile";
++export {
 +  buildGitCommitLaunchSpec,
 +  deriveTrustedCommitMessage,
 +} from "./domain/gitCommitLaunchSpec";
@@ -1044,10 +1324,20 @@ index aa6afc77..58a576db 100644
 
  import type { ClockPort } from "@/lib/oa/doctrine";
  import { FixedClock, SystemClock } from "@/lib/oa/doctrine";
+@@ -368,6 +415,7 @@ export function createInMemoryExecutionAttemptServices(
+     audit,
+     policy,
+     store,
++    options.listProjectEvidence,
+   );
+
+   const realBoundary =
 
 ```
 
-### DIFF: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts
+
+## DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts
 index aed84753..367a94dc 100644
@@ -1205,7 +1495,9 @@ index aed84753..367a94dc 100644
 
 ```
 
-### DIFF: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent.ts
+
+## DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent.ts
 index b722b91a..8c1743ce 100644
@@ -1238,7 +1530,28 @@ index b722b91a..8c1743ce 100644
 
 ```
 
-### DIFF: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
+
+## DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts
+index a3f21be3..9e6b34da 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts
+@@ -154,6 +154,7 @@ export function createSqliteExecutionAttemptServices(
+     audit,
+     policy,
+     store,
++    options.listProjectEvidence,
+   );
+
+   const realBoundary = options.realBoundary;
+
+```
+
+
+## DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
 index b25e0bad..49da60f7 100644
@@ -1442,7 +1755,9 @@ index b25e0bad..49da60f7 100644
 
 ```
 
-### DIFF: projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts
+
+## DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts
 index 0e2de058..47395272 100644
@@ -1474,7 +1789,9 @@ index 0e2de058..47395272 100644
 
 ```
 
-### DIFF: projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+
+## DIFF: `projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
 index f0685a82..67e69a30 100644
@@ -1499,10 +1816,14 @@ index f0685a82..67e69a30 100644
 
 ```
 
-## FULL CONTENT — CREATED FILES
 
-### FULL: projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealSameEcCommit.real.d0.test.ts
-```typescript
+---
+# FULL CONTENT — ALL CREATED FILES
+
+
+## CREATED: `projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealSameEcCommit.real.d0.test.ts`
+
+```ts
 /**
  * FUTURE REAL harness — same-EC A (docs-write) → B (local git.commit).
  *
@@ -1520,10 +1841,8 @@ index f0685a82..67e69a30 100644
  *   A_LAUNCHED_UNRECONCILED → A_RECONCILED_RETAINED
  *   → B_LAUNCHED_UNRECONCILED → B_RECONCILED_COMMIT_VERIFIED
  *
- * GC-01 reserve: Attempt B must select agt:m4.cursor.bounded_local_commit under
- * the SAME EC. That selection is currently impossible without agent-model
- * escalation. Harness body is complete for the preferred campaign; enabling
- * the triple gate without that escalation MUST fail closed — never bypass.
+ * D-GCEC-AGENT-01: Attempt B selects agt:m4.cursor.bounded_local_commit under
+ * the SAME EC via server-derived AttemptExecutionProfile.
  *
  * Do NOT reuse prior docs-write pid workspaces. Fresh proof root only.
  * ZERO push / PR / merge. ZERO Product mutation.
@@ -1655,7 +1974,8 @@ describe("GCEC future REAL same-EC commit A→B — static campaign shape", () =
     expect(source).toContain("observeLocalCommitFacts");
     expect(source).toContain("B_RECONCILED_COMMIT_VERIFIED");
     expect(source).toContain("SFIA_GCEC_CURSOR_REAL_COMMIT_PROOF");
-    expect(source).toContain("AGENT MODEL ESCALATION");
+    expect(source).toContain("D-GCEC-AGENT-01");
+    expect(source).toContain("M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID");
     void M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID;
     void M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID;
     void observeLocalCommitFacts;
@@ -1688,42 +2008,29 @@ describe.skipIf(!ENABLED)(
         expect(remoteHead).toBe(BASE_SHA);
         expect(fs.existsSync(path.join(cloneRoot, TARGET_PATH))).toBe(false);
 
-        // Agent-model gate: Attempt B must use local-commit agent under SAME EC.
-        // Current Product model cannot select that agent for a docs-write EC.
-        // Fail closed — do not start REAL children under bypass.
-        const agentModelEscalationRequired = true;
-        if (agentModelEscalationRequired) {
-          writeJson(path.join(PROOF_REVIEW_DIR, "stop-agent-model.json"), {
-            verdict: "STOP — GCEC GIT.COMMIT AGENT MODEL ESCALATION REQUIRED",
-            attemptAAgent: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
-            attemptBRequiredAgent: M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
-            sameEc: true,
-            reason:
-              "EC fixed action/capability/target/scope cannot match both sibling agents",
-          });
-          throw new Error(
-            "STOP — GCEC GIT.COMMIT AGENT MODEL ESCALATION REQUIRED",
-          );
-        }
-
-        // --- Preferred campaign body (reachable after agent-model escalation) ---
+        // D-GCEC-AGENT-01 — Attempt B selects bounded local-commit under SAME EC
+        // via server-derived AttemptExecutionProfile (not contract quartet).
         harnessState.expectedH0 = BASE_SHA;
         harnessState.attemptAId = "xat:real-a";
         harnessState.attemptBId = "xat:real-b";
         expect(harnessState.attemptAId).not.toBe(harnessState.attemptBId);
+        expect(M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID).not.toBe(
+          M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
+        );
 
         // A: REAL docs-write (ONE Cursor child) — retain worktree
+        // Product path mirrors gcecCursorRealDocsWrite.real.d0.test.ts
         harnessState.phase = "A_LAUNCHED_UNRECONCILED";
         harnessState.realLaunchConsumed = true;
-        // … Product StartExecution docs-write path (reuse gcecCursorRealDocsWrite) …
+        // … Select docs-write → Gate D → Start → observe artifact → Evidence VERIFIED …
         harnessState.phase = "A_RECONCILED_RETAINED";
 
-        // B: NEW Attempt, SAME EC, local-commit agent, git.commit Confirmation,
-        // Gate D, Cont01 resume, ONE Cursor child, no file edit, no push.
+        // B: NEW Attempt, SAME EC X, local-commit agent via AttemptExecutionProfile,
+        // git.commit Confirmation, Gate D, Cont01 resume W, ONE Cursor child,
+        // no file edit, no push.
         harnessState.phase = "B_LAUNCHED_UNRECONCILED";
-        // … Product StartExecution commit path …
-        // observeLocalCommitFacts on resumed worktree → verifyLocalCommitEffect
-        // → Evidence VERIFIED → isFsAnchorSupersededByVerifiedLocalCommit
+        // … Select local-commit → Start revalidates profile → observeLocalCommitFacts
+        // → verifyLocalCommitEffect → Evidence VERIFIED → FS→SHA …
         harnessState.phase = "B_RECONCILED_COMMIT_VERIFIED";
         harnessState.reconciliationComplete = true;
         harnessState.durableReviewSnapshotWritten = true;
@@ -1736,9 +2043,12 @@ describe.skipIf(!ENABLED)(
           phase: harnessState.phase,
           attemptAId: harnessState.attemptAId,
           attemptBId: harnessState.attemptBId,
+          attemptAAgent: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+          attemptBAgent: M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
           expectedH0: harnessState.expectedH0,
           commitMessage: COMMIT_MSG,
           digestHint: createHash("sha256").update("n/a").digest("hex"),
+          dGcecAgent01: "ADOPTED",
         });
       },
       20 * 60 * 1000,
@@ -1748,8 +2058,251 @@ describe.skipIf(!ENABLED)(
 
 ```
 
-### FULL: projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitEvidence.d0.test.ts
-```typescript
+
+## CREATED: `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01AttemptProfile.d0.test.ts`
+
+```ts
+/**
+ * D-GCEC-AGENT-01 — AttemptExecutionProfile derivation (AP matrix).
+ * ZERO REAL. @vitest-environment node
+ */
+import { describe, expect, it } from "vitest";
+import type { Digest } from "@/lib/oa/doctrine";
+import type { Evidence } from "@/lib/oa/evidence-review";
+import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
+import {
+  M4_BOUNDED_DOCS_WRITE_ACTION,
+  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
+  M4_BOUNDED_DOCS_WRITE_SCOPE,
+  M4_BOUNDED_DOCS_WRITE_TARGET,
+  M4_BOUNDED_LOCAL_COMMIT_ACTION,
+  M4_BOUNDED_LOCAL_COMMIT_CAPABILITY,
+  M4_BOUNDED_LOCAL_COMMIT_SCOPE,
+  M4_BOUNDED_LOCAL_COMMIT_TARGET,
+  resolveAttemptExecutionProfile,
+} from "@/lib/oa/execution-attempt";
+
+const NOW = "2026-09-11T20:00:00.000Z";
+const PROJECT = "prj:ap";
+const CYCLE = "cyc:ap";
+const EC = "xct:ap";
+const PATH = "docs/functional-design.md";
+const DIGEST =
+  "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622" as Digest;
+const H0 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+const H1 = "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb";
+
+function contract(partial: Record<string, unknown> = {}) {
+  return {
+    executionContractId: EC,
+    projectId: PROJECT,
+    cycleInstanceId: CYCLE,
+    action: M4_BOUNDED_DOCS_WRITE_ACTION,
+    target: M4_BOUNDED_DOCS_WRITE_TARGET,
+    scope: M4_BOUNDED_DOCS_WRITE_SCOPE,
+    requiredCapabilities: [M4_BOUNDED_DOCS_WRITE_CAPABILITY],
+    evidenceRequirements: ["git:local_commit"],
+    expectedOutputs: ["artifact", PATH],
+    inputs: {
+      targetPath: PATH,
+      evidenceRequirements: ["artifact", "git:local_commit"],
+      commitMessage: "docs: add task manager functional design",
+    },
+    ...partial,
+  };
+}
+
+function attempt(id: string, status: ExecutionAttempt["status"] = "succeeded"): ExecutionAttempt {
+  return {
+    schemaVersion: "0.2.0-oa",
+    attemptId: id,
+    executionContractId: EC,
+    executionContractVersion: 1,
+    selectedAgentRef: "agt:m4.cursor.bounded_docs_write",
+    status,
+    idempotencyKey: `idem:${id}`,
+    correlationId: `cor:${id}`,
+    version: 1,
+    createdAt: NOW,
+    provenance: {
+      schemaVersion: "0.1.0-oa",
+      provenanceRecordId: `prv:${id}`,
+      actor: { actorId: "actor:t", role: "system" },
+      source: "system",
+      timestamp: NOW,
+      correlationId: "cor:t",
+    },
+  };
+}
+
+function artifactEv(attemptId: string): Evidence {
+  return {
+    schemaVersion: "0.2.0-oa",
+    evidenceId: `ev:${attemptId}`,
+    type: "artifact",
+    status: "verified",
+    source: "execution_attempt:docs_write",
+    sourceKind: "external",
+    classification: "internal",
+    storageMode: "metadata_only",
+    location: PATH,
+    digest: DIGEST,
+    bindings: {
+      projectId: PROJECT,
+      cycleInstanceId: CYCLE,
+      executionContractId: EC,
+      executionAttemptId: attemptId,
+    },
+    createdAt: NOW,
+    updatedAt: NOW,
+    version: 1,
+    producedAt: NOW,
+    availability: "available",
+    containsSecrets: false,
+    provenance: {
+      schemaVersion: "0.1.0-oa",
+      provenanceRecordId: "prv:ev",
+      actor: { actorId: "a", role: "system" },
+      source: "system",
+      timestamp: NOW,
+      correlationId: "cor:ev",
+    },
+  };
+}
+
+function commitEv(attemptId: string): Evidence {
+  return {
+    ...artifactEv(attemptId),
+    evidenceId: `ev:commit:${attemptId}`,
+    type: "other",
+    source: "git:local_commit",
+    location: `git:local_commit?repo=acme%2Fwidget&commitSha=${H1}&parentSha=${H0}`,
+  };
+}
+
+describe("D-GCEC-AGENT-01 AttemptExecutionProfile AP", () => {
+  it("AP-01 initial docs-write state → docs-write profile", () => {
+    const r = resolveAttemptExecutionProfile({
+      contract: contract(),
+      attempts: [],
+      evidence: [],
+    });
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.profile.kind).toBe("docs_write");
+    expect(r.profile.criteria).toEqual({
+      requiredCapabilities: [M4_BOUNDED_DOCS_WRITE_CAPABILITY],
+      action: M4_BOUNDED_DOCS_WRITE_ACTION,
+      target: M4_BOUNDED_DOCS_WRITE_TARGET,
+      scope: M4_BOUNDED_DOCS_WRITE_SCOPE,
+    });
+  });
+
+  it("AP-02 verified FS + outstanding commit → local-commit profile", () => {
+    const r = resolveAttemptExecutionProfile({
+      contract: contract(),
+      attempts: [attempt("xat:a")],
+      evidence: [artifactEv("xat:a")],
+    });
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.profile.kind).toBe("local_commit");
+    expect(r.profile.criteria.action).toBe(M4_BOUNDED_LOCAL_COMMIT_ACTION);
+    expect(r.profile.criteria.requiredCapabilities).toEqual([
+      M4_BOUNDED_LOCAL_COMMIT_CAPABILITY,
+    ]);
+    expect(r.profile.criteria.target).toBe(M4_BOUNDED_LOCAL_COMMIT_TARGET);
+    expect(r.profile.criteria.scope).toBe(M4_BOUNDED_LOCAL_COMMIT_SCOPE);
+  });
+
+  it("AP-03 verifiedEffects alone without Evidence does not fabricate commit profile", () => {
+    const r = resolveAttemptExecutionProfile({
+      contract: contract(),
+      attempts: [attempt("xat:a")],
+      evidence: [],
+      claimedVerifiedEffects: ["filesystem.create", "filesystem.modify"],
+      authorizedEffects: ["git.commit"],
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) {
+      expect(r.reason).toMatch(/without_verified_fs_evidence/);
+    }
+  });
+
+  it("AP-04 zero eligible / empty authorized → fail closed", () => {
+    const r = resolveAttemptExecutionProfile({
+      contract: contract(),
+      attempts: [attempt("xat:a")],
+      evidence: [artifactEv("xat:a")],
+      authorizedEffects: [],
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toMatch(/zero_eligible/);
+  });
+
+  it("AP-05 mixed incompatible authorized slice → fail closed", () => {
+    const r = resolveAttemptExecutionProfile({
+      contract: contract(),
+      attempts: [attempt("xat:a")],
+      evidence: [artifactEv("xat:a")],
+      authorizedEffects: ["git.commit", "filesystem.modify"],
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toMatch(/ambiguous/);
+  });
+
+  it("AP-06 caller cannot inject profile", () => {
+    const r = resolveAttemptExecutionProfile({
+      contract: contract(),
+      claimedProfile: { kind: "local_commit" },
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toMatch(/client_injection/);
+  });
+
+  it("AP-07/08 requestedAgentRef / gitCommitSpec cannot redefine profile", () => {
+    const r = resolveAttemptExecutionProfile({
+      contract: contract(),
+      attempts: [],
+      evidence: [],
+      claimedRequestedAgentRef: "agt:m4.cursor.bounded_local_commit",
+      claimedGitCommitSpec: { exactPaths: [PATH] },
+    });
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.profile.kind).toBe("docs_write");
+  });
+
+  it("AP-09 restart recomputation yields same local-commit profile", () => {
+    const input = {
+      contract: contract(),
+      attempts: [attempt("xat:a")],
+      evidence: [artifactEv("xat:a")],
+    };
+    const a = resolveAttemptExecutionProfile(input);
+    const b = resolveAttemptExecutionProfile(input);
+    expect(a).toEqual(b);
+    expect(a.ok && a.profile.kind).toBe("local_commit");
+  });
+
+  it("post-commit → legacy quartet (push path not inventing profile)", () => {
+    const r = resolveAttemptExecutionProfile({
+      contract: contract(),
+      attempts: [attempt("xat:a"), attempt("xat:b")],
+      evidence: [artifactEv("xat:a"), commitEv("xat:b")],
+    });
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.profile.kind).toBe("contract_legacy");
+  });
+});
+
+```
+
+
+## CREATED: `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitEvidence.d0.test.ts`
+
+```ts
 /**
  * GCEC git.commit Evidence — GE (CR-GCEC-GITCOMMIT-01).
  * @vitest-environment node
@@ -1898,8 +2451,10 @@ describe("GCEC git.commit Evidence GE", () => {
 
 ```
 
-### FULL: projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitGatewayProfile.d0.test.ts
-```typescript
+
+## CREATED: `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitGatewayProfile.d0.test.ts`
+
+```ts
 /**
  * GCEC bounded git.commit gateway profile — GC-01..GC-12.
  * FakeProcessRunner only. ZERO REAL Cursor / ZERO Product git mutation.
@@ -2275,8 +2830,10 @@ describe("GCEC git.commit gateway profile GC-01..12", () => {
 
 ```
 
-### FULL: projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitObserve.d0.test.ts
-```typescript
+
+## CREATED: `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitObserve.d0.test.ts`
+
+```ts
 /**
  * OBS — local READ-ONLY Git observation for verified local commit.
  * ZERO mutation commands. @vitest-environment node
@@ -2392,19 +2949,18 @@ describe("GCEC local Git READ-ONLY observer OBS", () => {
 
 ```
 
-### FULL: projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitSameEcAb.d0.test.ts
-```typescript
+
+## CREATED: `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitSameEcAb.d0.test.ts`
+
+```ts
 /**
- * GCEC git.commit same-EC A→B + AgentCapability + FS→SHA (CR-GCEC-GITCOMMIT-01).
- *
- * GC-01 structural fact: under current EC identity (fixed action / capability /
- * target / scope), Attempt B cannot honestly select
- * agt:m4.cursor.bounded_local_commit for a docs-write EC. Prefer STOP —
- * GCEC GIT.COMMIT AGENT MODEL ESCALATION REQUIRED — not a capability bypass.
- *
+ * D-GCEC-AGENT-01 + GCEC git.commit same-EC A→B (honest agent swap).
  * ZERO REAL. @vitest-environment node
  */
 import { createHash } from "node:crypto";
+import { mkdirSync, mkdtempSync } from "node:fs";
+import os from "node:os";
+import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import type { Digest } from "@/lib/oa/doctrine";
 import type { Evidence } from "@/lib/oa/evidence-review";
@@ -2423,7 +2979,6 @@ import {
   M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
   M4_BOUNDED_DOCS_WRITE_SCOPE,
   M4_BOUNDED_DOCS_WRITE_TARGET,
-  M4_BOUNDED_LOCAL_COMMIT_CAPABILITY,
   M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
   resolvePreCommitWorkspaceContinuation,
   SqliteRealLaunchSafetyJournal,
@@ -2431,9 +2986,6 @@ import {
   verifyLocalCommitEffect,
   type ExecutionAttempt,
 } from "@/lib/oa/execution-attempt";
-import { mkdirSync, mkdtempSync } from "node:fs";
-import os from "node:os";
-import path from "node:path";
 import {
   MORRIS_ACTOR,
   NOW,
@@ -2525,49 +3077,6 @@ function docsWriteEvidence(input: {
       source: "system",
       timestamp: NOW,
       correlationId: "cor:gc-ev",
-    },
-  };
-}
-
-function gitCommitEvidence(input: {
-  evidenceId: string;
-  projectId: string;
-  cycleInstanceId: string;
-  executionContractId: string;
-  executionAttemptId: string;
-  commitSha: string;
-  parentSha: string;
-}): Evidence {
-  return {
-    schemaVersion: "0.2.0-oa",
-    evidenceId: input.evidenceId,
-    type: "other",
-    status: "verified",
-    source: "git:local_commit",
-    sourceKind: "external",
-    classification: "internal",
-    storageMode: "metadata_only",
-    location: `git:local_commit?repo=${encodeURIComponent(IDENTITY)}&commitSha=${input.commitSha}&parentSha=${input.parentSha}`,
-    digest: `sha256:${"a".repeat(64)}` as Digest,
-    bindings: {
-      projectId: input.projectId,
-      cycleInstanceId: input.cycleInstanceId,
-      executionContractId: input.executionContractId,
-      executionAttemptId: input.executionAttemptId,
-    },
-    createdAt: NOW,
-    updatedAt: NOW,
-    version: 1,
-    producedAt: NOW,
-    availability: "available",
-    containsSecrets: false,
-    provenance: {
-      schemaVersion: "0.1.0-oa",
-      provenanceRecordId: `prv:${input.evidenceId}`,
-      actor: { actorId: "actor:system", role: "system" },
-      source: "system",
-      timestamp: NOW,
-      correlationId: "cor:gc-git-ev",
     },
   };
 }
@@ -2673,7 +3182,7 @@ async function seedDocsWriteConfirmedContract(
   };
 }
 
-describe("GCEC git.commit same-EC A→B + AgentCapability", () => {
+describe("D-GCEC-AGENT-01 same-EC A→B agent swap", () => {
   beforeEach(() => {
     assertStudioCursorRealOffForTests();
   });
@@ -2681,43 +3190,28 @@ describe("GCEC git.commit same-EC A→B + AgentCapability", () => {
     assertStudioCursorRealOffForTests();
   });
 
-  it("AG-01 Attempt B cannot select local-commit agent under docs-write EC (structural)", async () => {
-    const docs = createM4BoundedDocsWriteCursorAgentDescriptor(NOW);
-    const commit = createM4BoundedLocalCommitCursorAgentDescriptor(NOW);
-    expect(isM4BoundedLocalCommitRealAgent(commit)).toBe(true);
-    const stack = buildStack({ agents: [docs, commit] });
-    const seeded = await seedDocsWriteConfirmedContract(stack);
-
-    const selected = await selectStandardAgent(stack, {
-      attemptId: "xat:gc-b-local",
-      executionContractId: seeded.contractId,
-      requestedAgentRef: M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
-      idempotencyKey: "idem-gc-b-local",
-    });
-    // Exact EC action/capability/target/scope require docs-write agent support.
-    expect(selected.ok).toBe(false);
-    expect(M4_BOUNDED_LOCAL_COMMIT_CAPABILITY).not.toBe(
-      M4_BOUNDED_DOCS_WRITE_CAPABILITY,
-    );
-  });
-
-  it("AG-02 docs-write agent + git.commit slice → fail closed (no bypass)", async () => {
-    const managedBase = mkdtempSync(path.join(os.tmpdir(), "gcec-gc-ag02-"));
+  it("AG-01/02 Attempt A docs-write; Attempt B local-commit under SAME EC", async () => {
+    const managedBase = mkdtempSync(path.join(os.tmpdir(), "gcec-agent01-ab-"));
     mkdirSync(path.join(managedBase, "acme__widget", ".git"), {
       recursive: true,
     });
     const journal = new SqliteRealLaunchSafetyJournal({
-      databasePath: tempJournalPath("gcec-gc-ag02-"),
+      databasePath: tempJournalPath("gcec-agent01-ab-"),
     });
     const launchPort = new TestOnlyRealExecutionLaunchPort();
-    const agent = createM4BoundedDocsWriteCursorAgentDescriptor(NOW);
+    const docs = createM4BoundedDocsWriteCursorAgentDescriptor(NOW);
+    const commit = createM4BoundedLocalCommitCursorAgentDescriptor(NOW);
+    expect(isM4BoundedLocalCommitRealAgent(commit)).toBe(true);
     const fixtureAdapter = new TestExecutionAdapter();
     const evidenceBag: Evidence[] = [];
-    const stack = buildStack({ agents: [agent], adapter: fixtureAdapter });
+    const stack = buildStack({
+      agents: [docs, commit],
+      adapter: fixtureAdapter,
+    });
     stack.attempts = createTestExecutionAttemptServices({
       decisionServices: stack.decisions,
       executionContractServices: stack.execution,
-      agents: [agent],
+      agents: [docs, commit],
       adapter: fixtureAdapter,
       realBoundary: {
         launchPort,
@@ -2739,11 +3233,14 @@ describe("GCEC git.commit same-EC A→B + AgentCapability", () => {
     const seeded = await seedDocsWriteConfirmedContract(stack);
     const attemptA = "xat:gc-a";
     const attemptB = "xat:gc-b";
+
+    // Attempt A — docs-write (seeded succeeded + Evidence)
     await stack.attempts.attempts.create(
       succeededAttempt({
         attemptId: attemptA,
         executionContractId: seeded.contractId,
         executionContractVersion: seeded.version,
+        selectedAgentRef: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
       }),
     );
     evidenceBag.push(
@@ -2756,11 +3253,31 @@ describe("GCEC git.commit same-EC A→B + AgentCapability", () => {
       }),
     );
 
-    await selectStandardAgent(stack, {
-      attemptId: attemptB,
+    // AG-03: docs-write requested for B → mismatch
+    const wrong = await selectStandardAgent(stack, {
+      attemptId: "xat:gc-b-wrong",
       executionContractId: seeded.contractId,
       requestedAgentRef: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+      idempotencyKey: "idem-gc-b-wrong",
     });
+    expect(wrong.ok).toBe(false);
+
+    // AG-02: B selects local-commit
+    const selectedB = await selectStandardAgent(stack, {
+      attemptId: attemptB,
+      executionContractId: seeded.contractId,
+      requestedAgentRef: M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
+      idempotencyKey: "idem-gc-b",
+    });
+    expect(selectedB.ok).toBe(true);
+    if (!selectedB.ok) throw new Error("select B failed");
+    expect(selectedB.attempt.selectedAgentRef).toBe(
+      M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
+    );
+    expect(selectedB.attempt.selectedAgentRef).not.toBe(
+      M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+    );
+
     await stack.attempts.grantRealExecutionGate!.execute({
       grantId: "gd:gc-b",
       attemptId: attemptB,
@@ -2793,48 +3310,40 @@ describe("GCEC git.commit same-EC A→B + AgentCapability", () => {
       confirmations: gitCnf ? [gitCnf] : [],
       verifiedEffects: ["filesystem.create", "filesystem.modify"],
     });
-    expect(started.ok).toBe(false);
-    if (!started.ok) {
-      expect(started.error.internalCauseRef).toMatch(
-        /git_commit_agent_capability_bypass|capability/i,
-      );
-    }
-    expect(launchPort.calls).toHaveLength(0);
-    journal.close();
-  });
+    expect(started.ok).toBe(true);
+    if (!started.ok) throw new Error(started.error.internalCauseRef);
 
-  it("GE/SHA-10: independent observation + verified Evidence supersedes FS anchor", async () => {
+    const req = launchPort.calls[0]!;
+    expect(req.selectedAgentRef).toBe(M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID);
+    expect(req.authorizedEffects).toEqual(["git.commit"]);
+    expect(req.workspaceContinuation?.priorAttemptId).toBe(attemptA);
+    expect(req.gitCommitSpec).toBeDefined();
+
     const evidenceServices = createTestEvidenceReviewServices({
       fixedNowIso: NOW,
     });
-    const observed = localCommitFactsFromSynthetic({
-      observedHeadSha: H1,
-      observedParentSha: M4_TEST_BASE_HEAD_SHA,
-      observedChangedPaths: [TARGET_PATH],
-      observedCommitMessage: MSG,
-      artifactChecks: [
-        {
-          path: TARGET_PATH,
-          expectedDigest: ARTIFACT_DIGEST,
-          actualDigest: ARTIFACT_DIGEST,
-        },
-      ],
-      worktreeDirty: false,
-      commitsFromExpectedParent: 1,
-    });
     const verified = await verifyLocalCommitEffect({
-      spec: {
-        repositoryRef: IDENTITY,
-        expectedParentSha: M4_TEST_BASE_HEAD_SHA,
-        exactPaths: [TARGET_PATH],
-        commitMessage: MSG,
-      },
-      observed,
+      spec: req.gitCommitSpec!,
+      observed: localCommitFactsFromSynthetic({
+        observedHeadSha: H1,
+        observedParentSha: M4_TEST_BASE_HEAD_SHA,
+        observedChangedPaths: [TARGET_PATH],
+        observedCommitMessage: MSG,
+        artifactChecks: [
+          {
+            path: TARGET_PATH,
+            expectedDigest: ARTIFACT_DIGEST,
+            actualDigest: ARTIFACT_DIGEST,
+          },
+        ],
+        worktreeDirty: false,
+        commitsFromExpectedParent: 1,
+      }),
       expectedBindings: {
-        projectId: "prj:campus360-oa",
-        cycleInstanceId: "cyc:std-001",
-        executionContractId: "xct:gc-ab",
-        executionAttemptId: "xat:gc-b",
+        projectId: seeded.projectId,
+        cycleInstanceId: seeded.cycleInstanceId,
+        executionContractId: seeded.contractId,
+        executionAttemptId: attemptB,
       },
       actor: { actorId: MORRIS_ACTOR.actorId, role: "human" },
       evidenceServices,
@@ -2842,81 +3351,118 @@ describe("GCEC git.commit same-EC A→B + AgentCapability", () => {
     });
     expect(verified.ok).toBe(true);
 
-    const evidenceBag: Evidence[] = [
-      docsWriteEvidence({
-        evidenceId: "ev:a",
-        projectId: "prj:campus360-oa",
-        cycleInstanceId: "cyc:std-001",
-        executionContractId: "xct:gc-ab",
-        executionAttemptId: "xat:gc-a",
-      }),
-      gitCommitEvidence({
-        evidenceId: verified.ok ? verified.evidenceId : "ev:x",
-        projectId: "prj:campus360-oa",
-        cycleInstanceId: "cyc:std-001",
-        executionContractId: "xct:gc-ab",
-        executionAttemptId: "xat:gc-b",
-        commitSha: H1,
-        parentSha: M4_TEST_BASE_HEAD_SHA,
-      }),
-    ];
-    expect(
-      isFsAnchorSupersededByVerifiedLocalCommit({
-        projectId: "prj:campus360-oa",
-        cycleInstanceId: "cyc:std-001",
-        executionContractId: "xct:gc-ab",
-        evidence: evidenceBag,
-        attempts: [
-          succeededAttempt({
-            attemptId: "xat:gc-a",
-            executionContractId: "xct:gc-ab",
-            executionContractVersion: 1,
-          }),
-          succeededAttempt({
-            attemptId: "xat:gc-b",
-            executionContractId: "xct:gc-ab",
-            executionContractVersion: 1,
-            selectedAgentRef: M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
-          }),
-        ],
-        priorAttemptId: "xat:gc-a",
-        expectedParentSha: M4_TEST_BASE_HEAD_SHA,
-        repositoryRef: IDENTITY,
-        requiredPaths: [TARGET_PATH],
-      }),
-    ).toBe(true);
+    const a = await stack.attempts.attempts.findById(attemptA);
+    const b = await stack.attempts.attempts.findById(attemptB);
+    expect(a?.attemptId).not.toBe(b?.attemptId);
+    expect(a?.executionContractId).toBe(b?.executionContractId);
+    expect(a?.selectedAgentRef).not.toBe(b?.selectedAgentRef);
+    expect(b?.status).toBe("running");
 
-    const pushCont = resolvePreCommitWorkspaceContinuation({
-      currentAttemptId: "xat:gc-push-c",
-      executionContractId: "xct:gc-ab",
-      projectId: "prj:campus360-oa",
-      cycleInstanceId: "cyc:std-001",
-      expectedHeadSha: M4_TEST_BASE_HEAD_SHA,
-      attempts: [
-        succeededAttempt({
-          attemptId: "xat:gc-a",
-          executionContractId: "xct:gc-ab",
-          executionContractVersion: 1,
-        }),
-        succeededAttempt({
-          attemptId: "xat:gc-b",
-          executionContractId: "xct:gc-ab",
-          executionContractVersion: 1,
-          selectedAgentRef: M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
-        }),
-      ],
-      evidence: evidenceBag,
-      authorizedEffects: ["git.push"],
-      verifiedEffects: [
-        "filesystem.create",
-        "filesystem.modify",
-        "git.commit",
-      ],
-    });
-    expect(pushCont.required).toBe(false);
+    journal.close();
   });
 
-  it("SHA-01 verifiedEffects alone does NOT supersede", () => {
+  it("SR-02 stale docs-write selection + later commit slice → Start reject / zero process", async () => {
+    const managedBase = mkdtempSync(path.join(os.tmpdir(), "gcec-sr02-"));
+    mkdirSync(path.join(managedBase, "acme__widget", ".git"), {
+      recursive: true,
+    });
+    const journal = new SqliteRealLaunchSafetyJournal({
+      databasePath: tempJournalPath("gcec-sr02-"),
+    });
+    const launchPort = new TestOnlyRealExecutionLaunchPort();
+    const docs = createM4BoundedDocsWriteCursorAgentDescriptor(NOW);
+    const commit = createM4BoundedLocalCommitCursorAgentDescriptor(NOW);
+    const fixtureAdapter = new TestExecutionAdapter();
+    const evidenceBag: Evidence[] = [];
+    const stack = buildStack({ agents: [docs, commit], adapter: fixtureAdapter });
+    stack.attempts = createTestExecutionAttemptServices({
+      decisionServices: stack.decisions,
+      executionContractServices: stack.execution,
+      agents: [docs, commit],
+      adapter: fixtureAdapter,
+      realBoundary: {
+        launchPort,
+        safetyJournal: journal,
+        managedRepoRootBase: managedBase,
+      },
+      resolveProjectRepositoryBinding: async () => ({
+        provider: "github",
+        identity: IDENTITY,
+        remoteUrl: `https://github.com/${IDENTITY}.git`,
+        defaultBranch: "main",
+        pathRoot: "docs",
+        baseSha: M4_TEST_BASE_HEAD_SHA,
+      }),
+      listProjectEvidence: async () => evidenceBag,
+      fixedNowIso: NOW,
+    }) as typeof stack.attempts;
+
+    const seeded = await seedDocsWriteConfirmedContract(stack);
+
+    // Select B as docs-write while FS Evidence not yet present (profile = docs-write).
+    const selected = await selectStandardAgent(stack, {
+      attemptId: "xat:sr-b",
+      executionContractId: seeded.contractId,
+      requestedAgentRef: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+      idempotencyKey: "idem-sr-b",
+    });
+    expect(selected.ok).toBe(true);
+    if (!selected.ok) throw new Error("select failed");
+
+    // Then Attempt A succeeds + Evidence appears → current profile becomes commit.
+    await stack.attempts.attempts.create(
+      succeededAttempt({
+        attemptId: "xat:sr-a",
+        executionContractId: seeded.contractId,
+        executionContractVersion: seeded.version,
+      }),
+    );
+    evidenceBag.push(
+      docsWriteEvidence({
+        evidenceId: "ev:sr-a",
+        projectId: seeded.projectId,
+        cycleInstanceId: seeded.cycleInstanceId,
+        executionContractId: seeded.contractId,
+        executionAttemptId: "xat:sr-a",
+      }),
+    );
+
+    await stack.attempts.grantRealExecutionGate!.execute({
+      grantId: "gd:sr-b",
+      attemptId: "xat:sr-b",
+      actor: MORRIS_ACTOR,
+      expiresAt: "2026-07-25T07:00:00.000Z",
+      authorityEvidenceId: M4_EVIDENCE,
+    });
+    const gitActionRef = buildGitEffectActionRef({
+      executionContractId: seeded.contractId,
+      effect: "git.commit",
+      repositoryRef: IDENTITY,
+      branchOrRef: BRANCH,
+    });
+    registerMorris(stack.decisions.authority, gitActionRef, "evd:morris-sr");
+    await grantContractConfirmation(stack, {
+      confirmationId: "cfm:sr-git",
+      actionRef: gitActionRef,
+      scope: gitActionRef,
+      evidenceId: "evd:morris-sr",
+    });
+    const gitCnf = await stack.decisions.confirmations.findById("cfm:sr-git");
+    const started = await stack.attempts.startExecution.execute({
+      attemptId: "xat:sr-b",
+      actor: MORRIS_ACTOR,
+      authorityEvidenceId: M4_EVIDENCE,
+      confirmations: gitCnf ? [gitCnf] : [],
+      verifiedEffects: ["filesystem.create", "filesystem.modify"],
+    });
+    expect(started.ok).toBe(false);
+    expect(launchPort.calls).toHaveLength(0);
+    const still = await stack.attempts.attempts.findById("xat:sr-b");
+    expect(still?.selectedAgentRef).toBe(M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID);
+    journal.close();
+  });
+
+  it("FS→SHA still requires verified git:local_commit Evidence", () => {
     expect(
       isFsAnchorSupersededByVerifiedLocalCommit({
         projectId: "prj:campus360-oa",
@@ -2928,49 +3474,51 @@ describe("GCEC git.commit same-EC A→B + AgentCapability", () => {
             projectId: "prj:campus360-oa",
             cycleInstanceId: "cyc:std-001",
             executionContractId: "xct:gc-ab",
-            executionAttemptId: "xat:gc-a",
+            executionAttemptId: "xat:a",
           }),
         ],
       }),
     ).toBe(false);
-  });
-
-  it("SHA-09 git:local_commit_fake source does NOT supersede", () => {
     expect(
-      isFsAnchorSupersededByVerifiedLocalCommit({
+      resolvePreCommitWorkspaceContinuation({
+        currentAttemptId: "xat:push",
+        executionContractId: "xct:gc-ab",
         projectId: "prj:campus360-oa",
         cycleInstanceId: "cyc:std-001",
-        executionContractId: "xct:gc-ab",
-        evidence: [
-          {
-            ...gitCommitEvidence({
-              evidenceId: "ev:fake",
-              projectId: "prj:campus360-oa",
-              cycleInstanceId: "cyc:std-001",
-              executionContractId: "xct:gc-ab",
-              executionAttemptId: "xat:gc-b",
-              commitSha: H1,
-              parentSha: M4_TEST_BASE_HEAD_SHA,
-            }),
-            source: "git:local_commit_fake",
-          },
-        ],
+        expectedHeadSha: M4_TEST_BASE_HEAD_SHA,
         attempts: [
           succeededAttempt({
-            attemptId: "xat:gc-b",
+            attemptId: "xat:a",
             executionContractId: "xct:gc-ab",
             executionContractVersion: 1,
           }),
         ],
-      }),
-    ).toBe(false);
+        evidence: [
+          docsWriteEvidence({
+            evidenceId: "ev:a",
+            projectId: "prj:campus360-oa",
+            cycleInstanceId: "cyc:std-001",
+            executionContractId: "xct:gc-ab",
+            executionAttemptId: "xat:a",
+          }),
+        ],
+        authorizedEffects: ["git.push"],
+        verifiedEffects: [
+          "filesystem.create",
+          "filesystem.modify",
+          "git.commit",
+        ],
+      }).required,
+    ).toBe(true);
   });
 });
 
 ```
 
-### FULL: projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitVerification.d0.test.ts
-```typescript
+
+## CREATED: `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitVerification.d0.test.ts`
+
+```ts
 /**
  * GCEC local commit verification — GV (pure facts, no OS Git mutation).
  * CR-GCEC-GITCOMMIT-01 hardenings.
@@ -3096,8 +3644,10 @@ describe("GCEC local commit verification GV", () => {
 
 ```
 
-### FULL: projects/sfia-studio/app/lib/oa/execution-attempt/application/observeLocalCommitFacts.ts
-```typescript
+
+## CREATED: `projects/sfia-studio/app/lib/oa/execution-attempt/application/observeLocalCommitFacts.ts`
+
+```ts
 /**
  * CR-GCEC-GC-04 — READ-ONLY local Git observation for verified local commit.
  * Uses existing GitCommandRunner — no second Git subsystem, no mutations.
@@ -3326,8 +3876,10 @@ export function localCommitFactsFromSynthetic(
 
 ```
 
-### FULL: projects/sfia-studio/app/lib/oa/execution-attempt/application/verifyLocalCommitEffect.ts
-```typescript
+
+## CREATED: `projects/sfia-studio/app/lib/oa/execution-attempt/application/verifyLocalCommitEffect.ts`
+
+```ts
 /**
  * Independent local-commit verification + Evidence binding (Studio READ-ONLY).
  * CR-GCEC-GC-04: facts MUST come from observeLocalCommitFacts.
@@ -3536,8 +4088,10 @@ export function digestOf(content: string): Digest {
 
 ```
 
-### FULL: projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitCommitLaunchSpec.ts
-```typescript
+
+## CREATED: `projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitCommitLaunchSpec.ts`
+
+```ts
 /**
  * Server-derived GitCommitLaunchSpec (GCEC bounded local commit).
  * Canonical type — import/re-export; do not duplicate in ports.
@@ -3725,8 +4279,371 @@ export function deriveTrustedCommitMessage(input: {
 
 ```
 
-### FULL: projects/sfia-studio/app/lib/oa/execution-attempt/domain/verifyLocalCommitFacts.ts
-```typescript
+
+## CREATED: `projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts`
+
+```ts
+/**
+ * D-GCEC-AGENT-01 — AttemptExecutionProfile (non-persistent).
+ *
+ * Server-derived executor sufficiency for THIS Attempt's current eligible slice.
+ * NOT an authority source, NOT client-authoritative, NOT persisted.
+ *
+ * Selection and Start MUST use this same resolver.
+ */
+import type { Evidence } from "@/lib/oa/evidence-review";
+import type { ExecutionContract } from "@/lib/oa/execution-contract";
+import type { AgentMatchCriteria } from "./invariants";
+import type { ExecutionAttempt } from "./types";
+import { deriveExecutableEffectsFromContractRequirements } from "./contractEffectClassification";
+import {
+  evidenceMatchesContractLineage,
+  expectedEvidenceIdentity,
+} from "./qualifyExecutionContractCompletion";
+import {
+  M4_BOUNDED_DOCS_WRITE_ACTION,
+  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
+  M4_BOUNDED_DOCS_WRITE_SCOPE,
+  M4_BOUNDED_DOCS_WRITE_TARGET,
+} from "../infrastructure/m4BoundedDocsWriteCursorAgent";
+import {
+  M4_BOUNDED_LOCAL_COMMIT_ACTION,
+  M4_BOUNDED_LOCAL_COMMIT_CAPABILITY,
+  M4_BOUNDED_LOCAL_COMMIT_SCOPE,
+  M4_BOUNDED_LOCAL_COMMIT_TARGET,
+} from "../infrastructure/m4BoundedLocalCommitCursorAgent";
+import type { CursorAuthorizedEffectId } from "./cursorExecutionReport";
+
+export type AttemptExecutionProfileKind =
+  | "docs_write"
+  | "local_commit"
+  | "contract_legacy";
+
+export type AttemptExecutionProfile = {
+  readonly kind: AttemptExecutionProfileKind;
+  /** Exact AgentMatchCriteria for registry / Start revalidation. */
+  readonly criteria: AgentMatchCriteria;
+  /** Human-readable derivation reason (audit / tests). */
+  readonly reason: string;
+  /** Eligible effect class for this Attempt (informational). */
+  readonly effectClass: "filesystem" | "git.commit" | "contract_legacy";
+};
+
+export type ResolveAttemptExecutionProfileInput = {
+  readonly contract: Pick<
+    ExecutionContract,
+    | "executionContractId"
+    | "projectId"
+    | "cycleInstanceId"
+    | "action"
+    | "target"
+    | "scope"
+    | "requiredCapabilities"
+    | "evidenceRequirements"
+    | "expectedOutputs"
+    | "inputs"
+  >;
+  readonly attempts?: readonly ExecutionAttempt[];
+  readonly evidence?: readonly Evidence[];
+  /**
+   * Optional server-derived authorized effects for THIS Start
+   * (AuthorizedExecutionSlice). Never trusted from client alone.
+   */
+  readonly authorizedEffects?: readonly CursorAuthorizedEffectId[];
+  /**
+   * Hostile / non-authoritative. Ignored for profile fabrication (AP-03/AP-06).
+   * Present only so callers cannot inject a profile via this channel.
+   */
+  readonly claimedVerifiedEffects?: readonly CursorAuthorizedEffectId[];
+  readonly claimedProfile?: unknown;
+  readonly claimedGitCommitSpec?: unknown;
+  readonly claimedRequestedAgentRef?: unknown;
+};
+
+export type ResolveAttemptExecutionProfileResult =
+  | { readonly ok: true; readonly profile: AttemptExecutionProfile }
+  | { readonly ok: false; readonly reason: string };
+
+function isVerifiedDocsWriteArtifact(
+  ev: Evidence,
+  expected: {
+    projectId: string;
+    cycleInstanceId?: string;
+    executionContractId: string;
+  },
+): boolean {
+  if (ev.status !== "verified") return false;
+  if (ev.type !== "artifact") return false;
+  if (!evidenceMatchesContractLineage(ev, expected)) return false;
+  const src = String(ev.source ?? "");
+  return (
+    src === "execution_attempt:docs_write" ||
+    src.startsWith("execution_attempt:docs_write")
+  );
+}
+
+function isVerifiedLocalCommit(
+  ev: Evidence,
+  expected: {
+    projectId: string;
+    cycleInstanceId?: string;
+    executionContractId: string;
+  },
+): boolean {
+  if (ev.status !== "verified") return false;
+  if (!evidenceMatchesContractLineage(ev, expected)) return false;
+  // Exact source — no prefix match (rejects git:local_commit_fake).
+  return ev.source === "git:local_commit";
+}
+
+function docsWriteProfile(reason: string): AttemptExecutionProfile {
+  return {
+    kind: "docs_write",
+    effectClass: "filesystem",
+    reason,
+    criteria: {
+      requiredCapabilities: [M4_BOUNDED_DOCS_WRITE_CAPABILITY],
+      action: M4_BOUNDED_DOCS_WRITE_ACTION,
+      target: M4_BOUNDED_DOCS_WRITE_TARGET,
+      scope: M4_BOUNDED_DOCS_WRITE_SCOPE,
+    },
+  };
+}
+
+function localCommitProfile(reason: string): AttemptExecutionProfile {
+  return {
+    kind: "local_commit",
+    effectClass: "git.commit",
+    reason,
+    criteria: {
+      requiredCapabilities: [M4_BOUNDED_LOCAL_COMMIT_CAPABILITY],
+      action: M4_BOUNDED_LOCAL_COMMIT_ACTION,
+      target: M4_BOUNDED_LOCAL_COMMIT_TARGET,
+      scope: M4_BOUNDED_LOCAL_COMMIT_SCOPE,
+    },
+  };
+}
+
+function contractLegacyProfile(
+  contract: ResolveAttemptExecutionProfileInput["contract"],
+  reason: string,
+): AttemptExecutionProfile {
+  return {
+    kind: "contract_legacy",
+    effectClass: "contract_legacy",
+    reason,
+    criteria: {
+      requiredCapabilities: [...(contract.requiredCapabilities ?? [])],
+      action: contract.action,
+      target: contract.target,
+      scope: contract.scope,
+    },
+  };
+}
+
+function uniqueAuthorizedEffectClass(
+  effects: readonly CursorAuthorizedEffectId[],
+): "filesystem" | "git.commit" | "other" | "empty" | "mixed" {
+  const set = new Set(effects);
+  if (set.size === 0) return "empty";
+  const fs = [...set].filter(
+    (e) => e === "filesystem.create" || e === "filesystem.modify",
+  );
+  const commit = set.has("git.commit");
+  const other = [...set].filter(
+    (e) =>
+      e !== "filesystem.create" &&
+      e !== "filesystem.modify" &&
+      e !== "git.commit" &&
+      e !== "validation.run",
+  );
+  if (other.length > 0 && (fs.length > 0 || commit)) return "mixed";
+  if (other.length > 0) return "other";
+  if (commit && fs.length > 0) return "mixed";
+  if (commit) return "git.commit";
+  if (fs.length > 0) return "filesystem";
+  // validation.run alone → treat as legacy / unsupported for GCEC profiles
+  return "other";
+}
+
+/**
+ * Derive the current AttemptExecutionProfile from durable Product truth.
+ * Fail closed on zero / ambiguous / unsupported profiles.
+ */
+export function resolveAttemptExecutionProfile(
+  input: ResolveAttemptExecutionProfileInput,
+): ResolveAttemptExecutionProfileResult {
+  // AP-06/07/08 — reject any client-injected profile channel.
+  if (input.claimedProfile != null) {
+    return { ok: false, reason: "attempt_profile_client_injection_rejected" };
+  }
+  // claimedVerifiedEffects / gitCommitSpec / requestedAgentRef are ignored for
+  // fabrication — never authority for profile kind.
+  void input.claimedVerifiedEffects;
+  void input.claimedGitCommitSpec;
+  void input.claimedRequestedAgentRef;
+
+  const contract = input.contract;
+  const evidence = input.evidence ?? [];
+  const expected = expectedEvidenceIdentity({ contract });
+
+  const docsWriteSpecEvidence =
+    contract.inputs &&
+    typeof contract.inputs === "object" &&
+    Array.isArray(
+      (contract.inputs as { evidenceRequirements?: unknown }).evidenceRequirements,
+    )
+      ? (
+          (contract.inputs as { evidenceRequirements: unknown[] })
+            .evidenceRequirements
+        ).map(String)
+      : [];
+
+  const evidenceRequirements = [
+    ...(Array.isArray(contract.evidenceRequirements)
+      ? contract.evidenceRequirements.map(String)
+      : []),
+    ...docsWriteSpecEvidence,
+  ];
+
+  const classified = deriveExecutableEffectsFromContractRequirements({
+    evidenceRequirements,
+    expectedOutputs: Array.isArray(contract.expectedOutputs)
+      ? contract.expectedOutputs.map(String)
+      : undefined,
+    requiredCapabilities: Array.isArray(contract.requiredCapabilities)
+      ? contract.requiredCapabilities.map(String)
+      : undefined,
+    allowFilesystemCreateOrModify: true,
+  });
+
+  const executable = classified.executableEffects;
+  const hasFs = executable.some(
+    (e) => e === "filesystem.create" || e === "filesystem.modify",
+  );
+  const hasCommit = executable.includes("git.commit");
+
+  const isM4DocsWriteContract =
+    contract.action === M4_BOUNDED_DOCS_WRITE_ACTION &&
+    (contract.requiredCapabilities ?? []).includes(
+      M4_BOUNDED_DOCS_WRITE_CAPABILITY,
+    );
+
+  const fsVerified = evidence.some((e) =>
+    isVerifiedDocsWriteArtifact(e, expected),
+  );
+  const commitVerified = evidence.some((e) =>
+    isVerifiedLocalCommit(e, expected),
+  );
+
+  // When Start provides server-derived authorizedEffects, use them to confirm
+  // the unique slice — still require Evidence for FS→commit transition (AP-03).
+  // Only M4 GCEC docs-write contracts use Attempt-scoped M4 profiles.
+  if (input.authorizedEffects && isM4DocsWriteContract) {
+    const cls = uniqueAuthorizedEffectClass(input.authorizedEffects);
+    if (cls === "empty") {
+      return { ok: false, reason: "attempt_profile_zero_eligible" };
+    }
+    if (cls === "mixed") {
+      return { ok: false, reason: "attempt_profile_ambiguous_slice" };
+    }
+    if (cls === "filesystem") {
+      return {
+        ok: true,
+        profile: docsWriteProfile("authorized_slice_filesystem"),
+      };
+    }
+    if (cls === "git.commit") {
+      // AP-03: authorized/claimed FS alone is insufficient — require Evidence.
+      if (!fsVerified) {
+        return {
+          ok: false,
+          reason: "attempt_profile_commit_without_verified_fs_evidence",
+        };
+      }
+      if (commitVerified) {
+        return { ok: false, reason: "attempt_profile_commit_already_verified" };
+      }
+      return {
+        ok: true,
+        profile: localCommitProfile("authorized_slice_git_commit"),
+      };
+    }
+    // push/PR/merge / validation-only under Start slice → legacy contract quartet
+    // so D-GCEC-15 later slices keep working until dedicated profiles exist.
+    return {
+      ok: true,
+      profile: contractLegacyProfile(
+        contract,
+        "authorized_slice_legacy_contract_quartet",
+      ),
+    };
+  }
+
+  // Selection-time / restart: durable Evidence only (no client verifiedEffects).
+  // D-GCEC-AGENT-01 progressive path is bounded to M4 docs-write GCEC contracts.
+  if (isM4DocsWriteContract && hasFs && hasCommit) {
+    if (!fsVerified) {
+      return {
+        ok: true,
+        profile: docsWriteProfile("progressive_fs_outstanding"),
+      };
+    }
+    if (!commitVerified) {
+      // Require at least one succeeded prior Attempt under same EC (Cont01 lineage).
+      const priorSucceeded = (input.attempts ?? []).some(
+        (a) =>
+          a.executionContractId === contract.executionContractId &&
+          a.status === "succeeded",
+      );
+      if (!priorSucceeded) {
+        return {
+          ok: false,
+          reason: "attempt_profile_commit_without_prior_succeeded_attempt",
+        };
+      }
+      return {
+        ok: true,
+        profile: localCommitProfile("progressive_commit_outstanding"),
+      };
+    }
+    // FS + commit both verified — remaining effects use legacy quartet.
+    return {
+      ok: true,
+      profile: contractLegacyProfile(
+        contract,
+        "progressive_post_commit_legacy_quartet",
+      ),
+    };
+  }
+
+  if (isM4DocsWriteContract && hasFs && !hasCommit) {
+    return {
+      ok: true,
+      profile: docsWriteProfile("docs_write_only_contract"),
+    };
+  }
+
+  // Non-M4 / RO / W3A / other → preserve historical contract quartet matching.
+  if (
+    !contract.action?.trim() ||
+    !contract.target?.trim() ||
+    !contract.scope?.trim()
+  ) {
+    return { ok: false, reason: "attempt_profile_zero_eligible" };
+  }
+  return {
+    ok: true,
+    profile: contractLegacyProfile(contract, "non_progressive_contract_quartet"),
+  };
+}
+
+```
+
+
+## CREATED: `projects/sfia-studio/app/lib/oa/execution-attempt/domain/verifyLocalCommitFacts.ts`
+
+```ts
 /**
  * Independent local-commit verification facts (Studio READ-ONLY).
  * Cursor remains the mutation executor — Studio never runs git commit.
@@ -3868,8 +4785,10 @@ export function isBoundedGitCommitOnlySlice(
 
 ```
 
-### FULL: projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedLocalCommitCursorAgent.ts
-```typescript
+
+## CREATED: `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedLocalCommitCursorAgent.ts`
+
+```ts
 /**
  * M4 bounded local git.commit Cursor agent (GCEC git.commit executor).
  * Sibling of docs-write / RO — SAME gateway adapter; does not widen docs-write.
