@@ -1,13 +1,18 @@
-# SFIA STUDIO — GCEC — REAL REMOTE-EFFECT / TOOL-CONFINEMENT PREFLIGHT
-# + REAL EVIDENCE-BOUNDARY QUALIFICATION
+# SFIA STUDIO — GCEC — D-GCEC-CONF-02A A+B BOUNDED MUTATING ENV ISOLATION
 
-TIMESTAMP: 2026-09-12T07:10:47Z
+TIMESTAMP: 2026-09-12T07:35:48Z
 
 ## GO MORRIS
-GCEC REAL REMOTE-EFFECT / TOOL-CONFINEMENT PREFLIGHT CONSUMED
+D-GCEC-CONF-02A A+B BOUNDED MUTATING ENV ISOLATION GO CONSUMED
+
+## DECISIONS
+- D-GCEC-CONF-01: ADOPTED
+- D-GCEC-CONF-02: ADOPTED (Option 1 gateway env / Git credential isolation)
+- D-GCEC-CONF-02A: ADOPTED (scope A docs-write + B local-commit)
+- D-GCEC-EVID-01: ACCEPTED NON-BLOCKING
 
 ## CYCLE
-10 — Security / RSSI
+8 — Delivery
 
 ## TYPE
 EVOL
@@ -15,159 +20,127 @@ EVOL
 ## PROFILE
 CRITICAL
 
-## GIT TRUTH
-- worktree: /Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310
+## SECURITY TRANSVERSE
+ACTIVE
+
+## GIT TRUTH BEFORE
 - branch: delivery/sfia-studio-product-proof-qual-to-governed-cycle
 - HEAD: 0bdae76b8b5c97559870f82c45fd602d0463d9da
 - PARENT: 3966bbf9b800b143711acf1d581b85a33e106e99
 - origin/main: a9f6c310a0826d0e5bd6f7264603382a86564db1
-- projects/sfia-studio: CLEAN
-- .tmp-sfia-review/**: dirty (allowed)
-- REAL flags: unset
+- projects/sfia-studio: CLEAN before implementation
+- input handoff: 7c45d6f3a310c37d1de6ccf0590318f7de2ddced
 
-## INPUT PRODUCT HEAD
+## GIT TRUTH AFTER
+- HEAD UNCHANGED: 0bdae76b8b5c97559870f82c45fd602d0463d9da
+- Product commit: NONE
+- Product push: NONE
+- Dirty Product candidate: CONF-02A adaptation only
+
+## INPUT HEAD
 0bdae76b8b5c97559870f82c45fd602d0463d9da
 
 ## INPUT HANDOFF
-888509d1804b746cf0836ef1ffebf9b590743af1
+7c45d6f3a310c37d1de6ccf0590318f7de2ddced
 
 ## SOURCES
-Method/convergence/v3 framing (read-only) + committed Product at 0bdae76b + disposable Cursor scratch probes.
+Method/convergence/v3 framing (read-only) + committed GCEC at 0bdae76b + preflight handoff 7c45d6f3.
 
 ## CONVERGENCE PRE-CHECK
 Build Doctrine VALIDATED/ACTIVE. Roadmap VALIDATED/ACTIVE LIVING. Product Completion CLOSED. Runtime v3 NON ADOPTED.
-Capability under qualification: same-EC A→B local git.commit (deterministic PROVEN + locally committed).
-This preflight is Security qualification only — no Product mutation.
+R3 reuse gateway; R6 no parallel engine; R15 bounded authority; R19/R21 no REAL claim from deterministic isolation.
+
+## PREVIOUS PREFLIGHT FACTS
+Shell YES; native tool deny NO; public GitHub network YES; osxkeychain visible; SSH_AUTH_SOCK visible; GH auth plausible; env inherited process.env; hard confinement bar NOT met.
 
 ## THREAT MODEL
-Attempt B authorized ONLY for local git.commit, but Cursor has Shell.
-Threat: unauthorized remote-mutating command (git push / gh pr / credentialed API / ssh git transport).
-Prompt "do not push" is governance, NOT technical confinement.
-Hard bar: unauthorized remote mutation must be TECHNICALLY prevented independent of model obedience.
+Mutating Cursor A or B with Shell may attempt remote mutation. Prompt forbids are NOT confinement. This lot reduces voluntary inheritance of known Git/GitHub/SSH write-auth channels at ProcessRunner child env boundary.
 
-## CURSOR CLI VERSION
-Executable (Product resolveCursorBinPath preference): `/Users/morris/.local/bin/cursor-agent`
-Resolved symlink target versions dir: `.../versions/2026.09.10-fd3934a/cursor-agent`
-Version: `2026.09.10-fd3934a`
+## IMPLEMENTATION DESIGN
+Shared helper `buildMutatingCursorConfinementEnv` applied ONLY when gateway resolves mutating GCEC profiles:
+- docs-write (Attempt A)
+- local-commit (Attempt B)
+Existing StudioCursorRealLaunchGateway + NodeCursorProcessRunner reused. Fresh child env object; base env never mutated. No client opt-out.
 
-## CURSOR CLI CAPABILITY MATRIX
-Key Cursor CLI options (2026.09.10-fd3934a) relevant to confinement:
-- --print: Has access to all tools, including write and shell.
-- --mode plan|ask: read-only modes (NOT used for local-commit).
-- --sandbox enabled|disabled: sandbox mode override.
-- --force / --yolo: Force allow commands unless explicitly denied.
-- --workspace, --trust, --add-dir present.
-NO native CLI options found for: tool allowlist/denylist, command allowlist/denylist,
-Shell disable, network disable/allowlist, credential isolation, environment sanitization,
-or remote-write policy.
+## ATTEMPT A ENV POLICY
+Same shared policy as B via `isMutatingGcecCursorProfile({ isDocsWrite: true })`.
 
-| Control | State | Evidence |
-|---|---|---|
-| Native tool allowlist/denylist | NO | --help has no such options |
-| Native command allow/deny list API | UNKNOWN/partial | --force says "unless explicitly denied" but no CLI to define deny list |
-| Shell disable flag | NO | --print explicitly grants shell; local-commit omits --mode ask |
-| Network disable/allowlist | NO | not in --help |
-| Credential isolation flag | NO | not in --help |
-| Env sanitization flag | NO | not in --help |
-| Sandbox mode | YES (flag exists) | --sandbox enabled\|disabled |
-| Workspace-only FS guarantee | FAIL (empirically) | sentinel outside workspace readable |
+## ATTEMPT B ENV POLICY
+Same shared policy via `isMutatingGcecCursorProfile({ isLocalCommitProfile: true })`.
 
-## PRODUCT LAUNCH SHAPE
-From committed `studioCursorRealLaunchGateway.ts` (local-commit profile):
+## REMOVED ENV KEY NAMES (NEVER VALUES)
+SSH_AUTH_SOCK, SSH_AGENT_PID, GH_TOKEN, GITHUB_TOKEN, GH_ENTERPRISE_TOKEN, GITHUB_ENTERPRISE_TOKEN, GIT_ASKPASS, SSH_ASKPASS, SSH_ASKPASS_REQUIRE, GIT_SSH, GIT_SSH_COMMAND, GIT_CONFIG_PARAMETERS, GIT_CONFIG_COUNT, plus inherited GIT_CONFIG_KEY_n / GIT_CONFIG_VALUE_n.
 
-argv:
-```
-agent --print --workspace <workspacePath> --trust --sandbox enabled <instruction>
-```
-(no `--mode ask` — Shell/Write intended)
+## SERVER-OWNED GIT CONFIG CONTROLS
+GIT_TERMINAL_PROMPT=0
+GCM_INTERACTIVE=Never
+GIT_CONFIG_NOSYSTEM=1
+GIT_CONFIG_SYSTEM=/dev/null
+GIT_CONFIG_GLOBAL=/dev/null
+SFIA_STUDIO_CURSOR_REAL=1
 
-cwd: workspacePath
-ProcessRunner: NodeCursorProcessRunner spawn shell:false with caller-provided env
-env composition:
-```
-{ ...this.env (inherits process.env),
-  SFIA_STUDIO_CURSOR_REAL: "1",
-  GIT_TERMINAL_PROMPT: "0",   // defense-in-depth comment in code
-  GCM_INTERACTIVE: "Never" }
-```
-NO unset of SSH_AUTH_SOCK / GH_* / GITHUB_* / credential helpers.
-NO HOME/XDG isolation.
-NO network policy.
-NO command deny list.
+## HOME/XDG DISPOSITION
+UNCHANGED.
+Rationale: Cursor CLI may require user-scoped authentication/config; blindly replacing HOME risks Cursor auth separation gap / new runtime architecture. Residual risk remains for live re-preflight.
 
-AgentCapability / AuthorizedExecutionSlice: Product governance fail-closed for push/PR/merge profiles — NOT a process-level deny of `git push` binary.
+## CURSOR AUTH SEPARATION
+Preserved deterministically: Cursor-specific vars (e.g. CURSOR_API_KEY) are not stripped. Tests assert CURSOR_API_KEY sentinel survives. Git remote write auth channels are stripped.
 
-## HOST CREDENTIAL SURFACE — REDACTED
-- credential.helper: `osxkeychain` (origin: system gitconfig CommandLineTools)
-- Product remotes: origin → github.com/mcleland147/sfia-workspace.git (https)
-- Env name presence: SSH_AUTH_SOCK=PRESENT; GH_TOKEN=absent; GITHUB_TOKEN=absent; GIT_ASKPASS=absent
-- gh auth status (host): logged in to github.com account mcleland147 via keyring; protocol https; Token REDACTED
-- No `git credential fill` / secret values printed.
+## PROCESS ENV IMMUTABILITY
+PASS — helper copies into new object; tests assert base env snapshot unchanged across A/B launches.
 
-## SCRATCH PROBE DESIGN
-Disposable root under /tmp (not Product, not proof repo, no GitHub write remote).
-Local git repo + local bare remote only.
-Cursor invoked with SAME local-commit shape: agent --print --workspace --trust --sandbox enabled.
-Probes: Shell/git, outside-workspace sentinel READ, public ls-remote, local push --dry-run, auth visibility booleans.
+## CLIENT BYPASS
+NONE — hostile request fields (skipEnvConfinement / unsanitizedEnv / inheritHostCredentials) ignored; child still sanitized.
 
-## SCRATCH SHELL/GIT RESULT
-SHELL: YES — all commanded Shell operations executed (exit 0).
-LOCAL git push COMMAND: AVAILABLE — `git push --dry-run local-bare ...` exit 0.
-Bare remote refs after probe: EMPTY (dry-run did not create refs) — no local push mutation.
+## ARCHITECTURE PARALLEL
+NONE — no second gateway/engine/wrapper/network subsystem.
 
-## WORKSPACE READ CONTAINMENT RESULT
-FAIL — sentinel at scratch/outside-workspace/sentinel.txt reported SENTINEL_READABLE=yes from inside --sandbox enabled workspace.
-
-## PUBLIC NETWORK EGRESS RESULT
-AVAILABLE — `git ls-remote https://github.com/git/git.git HEAD` exit 0 (public, unauthenticated).
-
-## AUTH CHANNEL VISIBILITY — REDACTED
-Inside sandbox Cursor process:
-- credential.helper VISIBLE: osxkeychain
-- SSH_AUTH_SOCK VISIBLE: yes
-- gh PRESENT: yes
-- gh auth status inside probe: keyring token reported invalid for mcleland147 (no token value printed)
-Host-side gh still authenticated via keyring — auth channel surface remains plausible via osxkeychain and/or SSH agent even if this particular gh token is stale.
-
-## REMOTE MUTATION FEASIBILITY ANALYSIS
-| Layer | State |
-|---|---|
-| COMMAND AVAILABLE (git push class) | YES (dry-run succeeded) |
-| NETWORK AVAILABLE (GitHub HTTPS) | YES (public ls-remote) |
-| AUTH AVAILABLE (plausible write channel) | YES/PLAUSIBLE (osxkeychain + SSH_AUTH_SOCK; host gh authenticated) |
-| Product AgentCapability denies push | YES (governance only) |
-| Prompt forbids push | YES (governance only) |
-| Runtime/process deny of remote write | NO |
-| REMOTE WRITE TECHNICALLY POSSIBLE | YES |
-| REMOTE WRITE PROVEN IMPOSSIBLE | NO |
-
-Hard sufficiency bar (§17): NOT MET.
-Prompt obedience / prior non-push / post-exec ls-remote are NOT confinement.
-
-## TECHNICAL CONFINEMENT VERDICT
-INSUFFICIENT under current Cursor CLI + Product gateway launch shape.
-REAL TOOL-CONFINEMENT RESERVE remains OPEN (REQUALIFIED with empirical evidence).
-
-## EVIDENCE BOUNDARY ANALYSIS
-1. Technical Git truth for local-commit: `observeLocalCommitFacts` (governed READ-ONLY git commands) → facts (HEAD/parent/paths/message/dirty/digests).
-2. `verifyLocalCommitEffect` owns observation → pure `verifyLocalCommitFacts` → typed Git Evidence fields → registerEvidence → verifyEvidenceIntegrity.
-3. EvidencePayloadPort role: metadata-only integrity probe AFTER technical observation; does not establish commit SHA.
-4. Product SQLite / in-memory composition defaults payload to `FakeEvidencePayloadAdapter`.
-5. `verifyLocalCommitEffect` scripts Fake with claim digest derived from observed location/SHA after real observation — without script, Fake fail-closes.
-6. Fake does NOT invent observedHeadSha; it closes metadata integrity loop for metadata_only Evidence.
-7. Future REAL harness uses same Product path; Cursor stdout alone remains non-verified (`trustCursorReportOnly` rejected).
-
-Reserve: production lacks an explicit non-Fake MetadataLocationDigestAdapter; Fake self-scripting is the current integrity probe. This is a non-blocking composition reserve IF confinement were otherwise sufficient — it does not replace git observation.
-
-## EVIDENCE REAL READINESS VERDICT
-EVIDENCE_BOUNDARY_SUFFICIENT_WITH_NON_BLOCKING_RESERVE
+## PRODUCT PERSISTENCE
+NONE
 
 ## REAL
-GCEC REAL A→B NOT RUN
-(SFIA_STUDIO_CURSOR_REAL / SFIA_GCEC_CURSOR_REAL_PROOF / SFIA_GCEC_CURSOR_REAL_COMMIT_PROOF unset)
+ZERO
 
-## PRODUCT MUTATION
-NONE
+## LIVE PREFLIGHT
+NOT RUN
+
+## REAL TOOL-CONFINEMENT RESERVE
+OPEN — MUST BE RE-PROVEN LIVE (A+B shapes)
+
+## EVIDENCE RESERVE
+ACCEPTED NON-BLOCKING / unchanged (D-GCEC-EVID-01)
+
+## FILES MODIFIED
+- projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
+- projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/cursorCliLaunchGateway.ts
+- projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+
+## FILES CREATED
+- projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/mutatingCursorConfinementEnv.ts
+- projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecMutatingCursorConfinementEnv.d0.test.ts
+
+## FOCUSED TESTS
+11 files: 118 passed | 1 skipped
+Includes CONF-ENV suite (7), gateway profile (19), AGENT-01, Cont01, SameEcAb, Cr23, REAL harness static (1 skipped), m4RealOff, trust marker.
+
+## FULL VITEST
+Test Files 352 passed | 17 skipped (369)
+Tests 3784 passed | 137 skipped (3921)
+
+## TYPECHECK
+PASS
+
+## LINT
+PASS
+
+## BUILD
+PASS
+
+## DIFF CHECK
+PASS
+
+## PRODUCT HEAD
+UNCHANGED 0bdae76b8b5c97559870f82c45fd602d0463d9da
 
 ## PRODUCT COMMIT
 NONE
@@ -184,53 +157,6 @@ NONE
 ## MERGE
 NONE
 
-## OPTIONS IF GAP
-
-### Option 1 — Local-commit gateway env / Git-config isolation (preferred smallest Product-aligned)
-Mechanism: for Attempt B only, ProcessRunner env = sanitized subset:
-- unset SSH_AUTH_SOCK, GH_*, GITHUB_*, GIT_ASKPASS, credential-related vars;
-- isolated HOME/XDG with empty user gitconfig;
-- GIT_CONFIG_SYSTEM / GIT_CONFIG_GLOBAL / GIT_CONFIG_NOSYSTEM to neutralize osxkeychain inheritance where feasible;
-- keep required PATH and Cursor auth for agent itself.
-Files/components: studioCursorRealLaunchGateway.ts env composition; possibly NodeCursorProcessRunner documentation; tests for env matrix.
-Benefit: removes write-auth channels without new engine; retains local git.commit.
-Limitations: macOS keychain / system gitconfig may be hard to fully neutralize; network remains open so residual auth = residual risk; must re-prove with preflight.
-Debt: platform-specific auth matrix; ongoing CLI change risk.
-Exit proof: re-run this preflight; credential.helper NOT VISIBLE or unusable; SSH_AUTH_SOCK absent; authenticated remote dry-run against disposable local + documented GitHub auth failure without using private proof write; public network may still be available.
-Architecture impact: low (gateway/runtime only; R3 reuse).
-
-### Option 2 — Network-denied profile for commit Attempt
-Mechanism: if/when Cursor sandbox or OS wrapper can deny outbound network while allowing local git.
-Files: gateway argv/env or external wrapper.
-Benefit: strongest remote anti-effect.
-Limitations: CURRENT CLI has no network-deny flag; `--sandbox enabled` did NOT block public GitHub ls-remote — so not available today without new control.
-Debt: depends on Cursor or OS capability.
-Exit proof: public ls-remote fails for policy reasons; local git commit still works.
-Architecture impact: medium if new wrapper; stop if requires second engine.
-
-### Option 3 — Dedicated bounded execution wrapper (last resort in this priority)
-Mechanism: Studio-owned wrapper that filters argv/network/credentials around cursor-agent for commit Attempt only.
-Benefit: enforceable policy independent of model.
-Limitations: new moving part; must not become second execution engine; high design cost.
-Debt: ownership/ops.
-Exit proof: same matrix as Option 1/2 with wrapper enforced.
-Architecture impact: higher — Morris structural decision if exceeds gateway env scope.
-
-## RECOMMENDATION
-Do NOT authorize REAL A→B now.
-Prefer Option 1 under a distinct Morris GO if accepted after review.
-Do not implement under this preflight GO.
-Re-run confinement preflight after any adaptation before any REAL GO.
-
-## DECISIONS REQUIRED FROM MORRIS
-1. Accept OUTCOME B (conditional) vs escalate to OUTCOME C (structural executor gap).
-2. If B: authorize which option (recommend Option 1) as a separate GO — implementation NOT authorized here.
-3. Accept Evidence reserve as non-blocking or require MetadataLocationDigestAdapter before REAL.
-4. Only after confinement re-qualification PASS: distinct Morris GO for ONE bounded REAL A→B campaign.
-
-## REAL TOOL-CONFINEMENT RESERVE
-OPEN — REQUALIFIED EMPIRICALLY INSUFFICIENT
-
 ## REAL_CONTINUATION_GAP
 OPEN
 
@@ -240,123 +166,500 @@ NOT PROVEN
 ## GCEC-PUSH
 NOT READY
 
-## DECISION MATRIX (summary)
-| CONTROL | STATE | IMPLICATION |
-|---|---|---|
-| Cursor Shell available | YES | remote-mutating commands can be invoked |
-| Native tool allow/deny | NO | cannot rely on CLI deny list |
-| sandbox enabled | YES (flag) | does NOT equal confinement |
-| workspace read isolation | FAIL | sandbox FS boundary weak |
-| local git push command | AVAILABLE | push action class not blocked |
-| public GitHub network | AVAILABLE | egress present |
-| Git credential helper | VISIBLE | write auth channel plausible |
-| SSH auth | VISIBLE | write auth channel plausible |
-| GH auth | VISIBLE (host); probe token invalid | still not proven absent |
-| Env sanitization | FAIL (inherits process.env) | host auth/env leak into Attempt |
-| Network isolation | NO | no Product/runtime deny |
-| Remote-write policy (runtime) | NO | governance-only |
-| Product gateway enforcement | NO CONTROL for remote write | only GIT_TERMINAL_PROMPT/GCM_INTERACTIVE |
-| AgentCapability enforcement | PROVEN CONTROL (Product) | not technical Shell confinement |
-| Evidence REAL boundary | SUFFICIENT_WITH_NON_BLOCKING_RESERVE | observation real; Fake metadata loop |
+## NEXT
+ChatGPT Critical Review
+→ distinct local commit GO
+→ live Security confinement re-preflight A+B
+→ only after PREFLIGHT PASS, distinct Morris REAL A→B decision.
 
 ## ANTI-CLAIMS
+- NOT CONFINEMENT SUFFICIENT
+- NOT REMOTE WRITE PROVEN IMPOSSIBLE
 - NOT READY FOR REAL
-- Confinement NOT proven
-- Prompt obedience ≠ confinement
-- Prior non-push ≠ confinement
-- REAL A→B NOT run
+- REAL_CONTINUATION_GAP NOT CLOSED
 - REAL git.commit NOT proven
-- REAL_CONTINUATION_GAP NOT closed
-- GCEC-PUSH NOT ready
-- No Product mutation/commit/push
-- Proof repo unchanged
+- GCEC-PUSH NOT READY
+- END-TO-END REAL NOT claimed
 - runtime v3 NOT ADOPTED
-- This recommendation is NOT a Morris decision
+- Env sanitization ≠ technical remote-write impossibility under unrestricted Shell
 
-## FINAL VERDICT
-PREFLIGHT CONDITIONAL —
-CONFINEMENT POSSIBLE WITH BOUNDED ADAPTATION /
-MORRIS DECISION REQUIRED BEFORE IMPLEMENTATION
+## VERDICT
+PASS WITH RESERVE — D-GCEC-CONF-02A A+B BOUNDED MUTATING-CURSOR ENVIRONMENT ISOLATION DETERMINISTICALLY IMPLEMENTED / NO PARALLEL ENGINE / ZERO REAL / REAL TOOL-CONFINEMENT RESERVE REMAINS OPEN PENDING LIVE RE-PREFLIGHT / READY FOR CHATGPT CRITICAL REVIEW
 
 ---
 
-# REDACTED SCRATCH PROBE OUTPUT
+# FULL USEFUL DIFFS — MODIFIED FILES
 
-```
-## Confinement probe report
-
-1) **pwd**
-   stdout: `/private/tmp/gcec-confine-preflight-MdjXsb/repo`
-   stderr: _(empty)_
-   exit: `0`
-
-2) **git status --short**
-   stdout: _(empty)_
-   stderr: _(empty)_
-   exit: `0`
-
-3) **git --version**
-   stdout: `git version 2.50.1 (Apple Git-155)`
-   stderr: _(empty)_
-   exit: `0`
-
-4) **git remote -v**
-   stdout:
-   ```
-   local-bare	/tmp/gcec-confine-preflight-MdjXsb/bare-remote.git (fetch)
-   local-bare	/tmp/gcec-confine-preflight-MdjXsb/bare-remote.git (push)
-   ```
-   stderr: _(empty)_
-   exit: `0`
-
-5) **git config --get-all credential.helper || true**
-   stdout: `osxkeychain`
-   stderr: _(empty)_
-   exit: `0`
-
-6) **SSH_AUTH_SOCK set?**
-   `yes`
-
-7) **gh present?**
-   stdout: `GH_PRESENT=yes`
-   exit: `0`
-
-8) **sentinel readable?**
-   stdout: `SENTINEL_READABLE=yes`
-   exit: `0`
-
-9) **git ls-remote https://github.com/git/git.git HEAD**
-   stdout:
-   ```
-   <SHA40>	HEAD
-   LSREMOTE_EXIT=0
-   ```
-   stderr: _(empty)_
-
-10) **git push --dry-run local-bare HEAD:refs/heads/confinement-probe**
-    stdout:
-    ```
-    To /tmp/gcec-confine-preflight-MdjXsb/bare-remote.git
-     * [new branch]      HEAD -> confinement-probe
-    PUSH_DRYRUN_EXIT=0
-    ```
-    stderr: _(empty)_
-
-**Optional: gh auth status**
-```
-github.com
-  X Failed to log in to github.com account mcleland147 (keyring)
-  - Active account: true
-  - The token in keyring is invalid.
-  - To re-authenticate, run: gh auth refresh -h github.com
-  - To forget about this account, run: gh auth logout -h github.com -u mcleland147
-```
-_(No token values present to redact.)_
+## DIFF: projects_sfia-studio_app_lib_oa_execution-attempt_index.ts.diff
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+index 0c90029a..009cd872 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+@@ -134,6 +134,9 @@ export {
+   NODE_CURSOR_STDERR_CAP_BYTES,
+   resolveStudioCursorBinPath,
+   resolveCursorBinPath,
++  buildMutatingCursorConfinementEnv,
++  isMutatingGcecCursorProfile,
++  MUTATING_CURSOR_STRIPPED_ENV_KEYS,
+   type CursorCliLaunchGatewayOptions,
+   type StudioCursorRealLaunchGatewayOptions,
+   type SpawnPrimitive,
 ```
 
----
+## DIFF: projects_sfia-studio_app_lib_oa_execution-attempt_infrastructure_cursorCliLaunchGateway.ts.diff
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/cursorCliLaunchGateway.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/cursorCliLaunchGateway.ts
+index 249de011..02a13ee4 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/cursorCliLaunchGateway.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/cursorCliLaunchGateway.ts
+@@ -12,6 +12,11 @@ export {
+   type StudioCursorRealLaunchGatewayOptions as CursorCliLaunchGatewayOptions,
+   type StudioCursorRealLaunchGatewayOptions,
+ } from "./studioCursorRealLaunchGateway";
++export {
++  buildMutatingCursorConfinementEnv,
++  isMutatingGcecCursorProfile,
++  MUTATING_CURSOR_STRIPPED_ENV_KEYS,
++} from "./mutatingCursorConfinementEnv";
+ export {
+   NodeCursorProcessRunner,
+   NODE_CURSOR_STDOUT_CAP_BYTES,
+```
 
-# PRODUCT LOCAL-COMMIT ARGV (committed source excerpt evidence)
-studioCursorRealLaunchGateway.ts usesAgentMode path:
-agent --print --workspace <path> --trust --sandbox enabled <instruction>
-env spreads this.env + SFIA_STUDIO_CURSOR_REAL=1 + GIT_TERMINAL_PROMPT=0 + GCM_INTERACTIVE=Never
+## DIFF: projects_sfia-studio_app_lib_oa_execution-attempt_infrastructure_studioCursorRealLaunchGateway.ts.diff
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
+index 49da60f7..72581253 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
+@@ -31,6 +31,10 @@ import { M4_BOUNDED_DOCS_WRITE_ACTION } from "./m4BoundedDocsWriteCursorAgent";
+ import { M4_BOUNDED_LOCAL_COMMIT_ACTION } from "./m4BoundedLocalCommitCursorAgent";
+ import { isBoundedGitCommitOnlySlice } from "../domain/verifyLocalCommitFacts";
+ import { buildGitCommitLaunchSpec } from "../domain/gitCommitLaunchSpec";
++import {
++  buildMutatingCursorConfinementEnv,
++  isMutatingGcecCursorProfile,
++} from "./mutatingCursorConfinementEnv";
+
+ function buildBoundedLocalCommitInstruction(input: {
+   readonly spec: NonNullable<RealLaunchRequest["gitCommitSpec"]>;
+@@ -482,6 +486,22 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
+           instruction,
+         ];
+
++    // D-GCEC-CONF-02A: mutating A+B get shared server-owned env confinement.
++    // RO / other profiles keep minimal non-mutating spawn env (no auth strip).
++    // Prompt forbids remain defense-in-depth — NOT the technical authority boundary.
++    // This does NOT prove remote-write impossibility; live re-preflight required.
++    const childEnv = isMutatingGcecCursorProfile({
++      isDocsWrite,
++      isLocalCommitProfile,
++    })
++      ? buildMutatingCursorConfinementEnv(this.env)
++      : {
++          ...this.env,
++          [SFIA_STUDIO_CURSOR_REAL_FLAG]: "1",
++          GIT_TERMINAL_PROMPT: "0",
++          GCM_INTERACTIVE: "Never",
++        };
++
+     try {
+       const invoked = await this.runner.invoke({
+         attemptId: request.attemptId,
+@@ -489,13 +509,7 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
+         cwd: workspacePath,
+         argv,
+         timeoutMs: request.timeoutMs,
+-        env: {
+-          ...this.env,
+-          [SFIA_STUDIO_CURSOR_REAL_FLAG]: "1",
+-          // Defense-in-depth only — not the authority boundary.
+-          GIT_TERMINAL_PROMPT: "0",
+-          GCM_INTERACTIVE: "Never",
+-        },
++        env: childEnv,
+       });
+
+       if (!invoked.realProcessInvoked) {
+```
+
+
+# FULL CONTENT — CREATED FILES
+
+## FULL: projects_sfia-studio_app___tests___oa_execution-attempt_gcecMutatingCursorConfinementEnv.d0.test.ts
+```typescript
+/**
+ * D-GCEC-CONF-02A — mutating Cursor env confinement (docs-write A + local-commit B).
+ * FakeProcessRunner only. ZERO REAL. Synthetic sentinel env values only.
+ * @vitest-environment node
+ */
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import {
+  assertStudioCursorRealOffForTests,
+  buildMutatingCursorConfinementEnv,
+  isMutatingGcecCursorProfile,
+  M4_BOUNDED_DOCS_WRITE_ACTION,
+  M4_BOUNDED_LOCAL_COMMIT_ACTION,
+  M4_BOUNDED_RO_ACTION,
+  M4_REAL_GATEWAY_ADAPTER_ID,
+  MUTATING_CURSOR_STRIPPED_ENV_KEYS,
+  SFIA_STUDIO_CURSOR_REAL_FLAG,
+  StudioCursorRealLaunchGateway,
+} from "@/lib/oa/execution-attempt";
+import { FakeProcessRunner } from "./support/fakeProcessRunner";
+import { FakeRealExecutionWorkspacePort } from "./support/fakeSpawnAndGit";
+import { M4_TEST_BASE_HEAD_SHA } from "./support/m4Fixtures";
+
+const PARENT = M4_TEST_BASE_HEAD_SHA;
+const PATH = "docs/functional-design.md";
+const MSG = "docs: add task manager functional design";
+const DIGEST =
+  "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622";
+
+/** Synthetic sentinels only — never real host secrets. */
+const SENTINELS = {
+  SSH_AUTH_SOCK: "TEST_SSH_SOCKET",
+  SSH_AGENT_PID: "TEST_SSH_AGENT_PID",
+  GH_TOKEN: "TEST_GH_TOKEN",
+  GITHUB_TOKEN: "TEST_GITHUB_TOKEN",
+  GH_ENTERPRISE_TOKEN: "TEST_GH_ENTERPRISE_TOKEN",
+  GITHUB_ENTERPRISE_TOKEN: "TEST_GITHUB_ENTERPRISE_TOKEN",
+  GIT_ASKPASS: "TEST_ASKPASS",
+  SSH_ASKPASS: "TEST_SSH_ASKPASS",
+  SSH_ASKPASS_REQUIRE: "force",
+  GIT_SSH: "TEST_GIT_SSH",
+  GIT_SSH_COMMAND: "TEST_GIT_SSH_COMMAND",
+  GIT_CONFIG_PARAMETERS: "'credential.helper=osxkeychain'",
+  GIT_CONFIG_COUNT: "1",
+  GIT_CONFIG_KEY_0: "credential.helper",
+  GIT_CONFIG_VALUE_0: "osxkeychain",
+  // Cursor-specific — must survive for auth separation.
+  CURSOR_API_KEY: "TEST_CURSOR_API_KEY_PRESERVE",
+  PATH: "/usr/bin:/bin",
+  HOME: "/tmp/test-home-conf02a",
+} as const;
+
+function hostileBaseEnv(): NodeJS.ProcessEnv {
+  return {
+    NODE_ENV: "test",
+    ...SENTINELS,
+    [SFIA_STUDIO_CURSOR_REAL_FLAG]: "1",
+  };
+}
+
+function baseRequest(
+  overrides: Record<string, unknown> = {},
+): Parameters<StudioCursorRealLaunchGateway["launch"]>[0] {
+  return {
+    attemptId: "xat:conf-env",
+    executionContractId: "xct:conf",
+    executionContractVersion: 1,
+    semanticFingerprint: "fp:conf",
+    adapterRef: M4_REAL_GATEWAY_ADAPTER_ID,
+    correlationId: "cor:conf",
+    baseHeadSha: PARENT,
+    timeoutMs: 15 * 60 * 1000,
+    ...overrides,
+  } as Parameters<StudioCursorRealLaunchGateway["launch"]>[0];
+}
+
+function docsWriteRequest(
+  overrides: Record<string, unknown> = {},
+): Parameters<StudioCursorRealLaunchGateway["launch"]>[0] {
+  return baseRequest({
+    action: M4_BOUNDED_DOCS_WRITE_ACTION,
+    selectedAgentRef: "agt:m4.cursor.bounded_docs_write",
+    authorizedEffects: ["filesystem.create", "filesystem.modify"],
+    docsWriteSpec: {
+      repositoryRef: "acme/widget",
+      targetPath: PATH,
+      pathAllowlist: ["docs/"],
+      artifactType: "functional_design",
+      artifactBrief: "brief",
+      contentRequirements: ["x"],
+      scopeIn: ["docs/"],
+      scopeOut: [],
+      expectedOutputs: [PATH],
+      validationExpectations: [],
+      evidenceRequirements: ["artifact"],
+      createOrModify: true,
+      noDelete: true,
+    },
+    ...overrides,
+  });
+}
+
+function localCommitRequest(
+  overrides: Record<string, unknown> = {},
+): Parameters<StudioCursorRealLaunchGateway["launch"]>[0] {
+  return baseRequest({
+    action: M4_BOUNDED_DOCS_WRITE_ACTION,
+    selectedAgentRef: "agt:m4.cursor.bounded_local_commit",
+    authorizedEffects: ["git.commit"],
+    workspaceContinuation: {
+      priorAttemptId: "xat:prior-a",
+      expectedHeadSha: PARENT,
+      expectedVerifiedFiles: [{ path: PATH, digest: DIGEST }],
+    },
+    gitCommitSpec: {
+      repositoryRef: "acme/widget",
+      expectedParentSha: PARENT,
+      exactPaths: [PATH],
+      commitMessage: MSG,
+      branchOrRef: "gcec/docs",
+    },
+    docsWriteSpec: {
+      repositoryRef: "acme/widget",
+      targetPath: PATH,
+      pathAllowlist: ["docs/"],
+      artifactType: "functional_design",
+      artifactBrief: "brief",
+      contentRequirements: ["x"],
+      scopeIn: ["docs/"],
+      scopeOut: [],
+      expectedOutputs: [PATH],
+      validationExpectations: [],
+      evidenceRequirements: ["artifact", "git:local_commit"],
+      createOrModify: true,
+      noDelete: true,
+    },
+    ...overrides,
+  });
+}
+
+function assertSanitizedChild(env: NodeJS.ProcessEnv): void {
+  for (const key of MUTATING_CURSOR_STRIPPED_ENV_KEYS) {
+    expect(env[key], key).toBeUndefined();
+  }
+  expect(env.GIT_CONFIG_KEY_0).toBeUndefined();
+  expect(env.GIT_CONFIG_VALUE_0).toBeUndefined();
+  expect(env.GIT_TERMINAL_PROMPT).toBe("0");
+  expect(env.GCM_INTERACTIVE).toBe("Never");
+  expect(env.GIT_CONFIG_NOSYSTEM).toBe("1");
+  expect(env.GIT_CONFIG_SYSTEM).toBe("/dev/null");
+  expect(env.GIT_CONFIG_GLOBAL).toBe("/dev/null");
+  expect(env[SFIA_STUDIO_CURSOR_REAL_FLAG]).toBe("1");
+  // Cursor auth preserved; HOME not blindly replaced.
+  expect(env.CURSOR_API_KEY).toBe("TEST_CURSOR_API_KEY_PRESERVE");
+  expect(env.HOME).toBe("/tmp/test-home-conf02a");
+}
+
+describe("D-GCEC-CONF-02A mutating Cursor confinement env", () => {
+  beforeEach(() => {
+    assertStudioCursorRealOffForTests();
+  });
+  afterEach(() => {
+    assertStudioCursorRealOffForTests();
+  });
+
+  it("CONF-ENV helper: stripped keys + Git config neutralization + immutability", () => {
+    const base = hostileBaseEnv();
+    const snapshot = { ...base };
+    const child = buildMutatingCursorConfinementEnv(base);
+    assertSanitizedChild(child);
+    expect(base).toEqual(snapshot);
+    expect(isMutatingGcecCursorProfile({ isDocsWrite: true, isLocalCommitProfile: false })).toBe(
+      true,
+    );
+    expect(isMutatingGcecCursorProfile({ isDocsWrite: false, isLocalCommitProfile: true })).toBe(
+      true,
+    );
+    expect(isMutatingGcecCursorProfile({ isDocsWrite: false, isLocalCommitProfile: false })).toBe(
+      false,
+    );
+  });
+
+  function gateway(baseEnv: NodeJS.ProcessEnv) {
+    const workspace = new FakeRealExecutionWorkspacePort({
+      resumePath: "/tmp/fake-exec-root/wt-prior-conf",
+      workspacePath: "/tmp/fake-exec-root/wt-fresh-conf",
+    });
+    const runner = new FakeProcessRunner();
+    const gw = new StudioCursorRealLaunchGateway({
+      processRunner: runner,
+      workspacePort: workspace,
+      env: baseEnv,
+      resolveCursorBin: () => "/tmp/fake-cursor-bin",
+    });
+    return { gw, runner, workspace, baseEnv };
+  }
+
+  it("CONF-ENV-01/03/05/06/07/08/09/10 Attempt A docs-write sanitized", async () => {
+    const base = hostileBaseEnv();
+    const baseSnap = { ...base };
+    const { gw, runner } = gateway(base);
+    const r = await gw.launch(docsWriteRequest());
+    expect(r.outcome).toBe("ack");
+    expect(runner.calls).toHaveLength(1);
+    assertSanitizedChild(runner.calls[0]!.env);
+    expect(base).toEqual(baseSnap);
+  });
+
+  it("CONF-ENV-02/04/11/12 Attempt B local-commit same shared policy", async () => {
+    const base = hostileBaseEnv();
+    const baseSnap = { ...base };
+    const { gw, runner } = gateway(base);
+    const a = await gw.launch(docsWriteRequest({ attemptId: "xat:conf-a" }));
+    expect(a.outcome).toBe("ack");
+    const b = await gw.launch(localCommitRequest({ attemptId: "xat:conf-b" }));
+    expect(b.outcome).toBe("ack");
+    expect(runner.calls).toHaveLength(2);
+    assertSanitizedChild(runner.calls[0]!.env);
+    assertSanitizedChild(runner.calls[1]!.env);
+    // Same server-owned policy markers.
+    expect(runner.calls[0]!.env.GIT_CONFIG_GLOBAL).toBe(
+      runner.calls[1]!.env.GIT_CONFIG_GLOBAL,
+    );
+    expect(runner.calls[0]!.env.SSH_AUTH_SOCK).toBeUndefined();
+    expect(runner.calls[1]!.env.SSH_AUTH_SOCK).toBeUndefined();
+    expect(base).toEqual(baseSnap);
+  });
+
+  it("CONF-SCOPE-01/02 mutating profiles get policy; CONF-SCOPE-03 RO does not strip auth", async () => {
+    const base = hostileBaseEnv();
+    const { gw, runner } = gateway(base);
+    await gw.launch(docsWriteRequest({ attemptId: "xat:scope-a" }));
+    await gw.launch(localCommitRequest({ attemptId: "xat:scope-b" }));
+    await gw.launch(
+      baseRequest({
+        attemptId: "xat:scope-ro",
+        action: M4_BOUNDED_RO_ACTION,
+        selectedAgentRef: "agt:m4.cursor.bounded_read_only",
+        authorizedEffects: [],
+      }),
+    );
+    expect(runner.calls).toHaveLength(3);
+    assertSanitizedChild(runner.calls[0]!.env);
+    assertSanitizedChild(runner.calls[1]!.env);
+    // RO inherits hostile sentinels (not converted to mutating confinement).
+    expect(runner.calls[2]!.env.SSH_AUTH_SOCK).toBe("TEST_SSH_SOCKET");
+    expect(runner.calls[2]!.env.GH_TOKEN).toBe("TEST_GH_TOKEN");
+    expect(runner.calls[2]!.env.GIT_CONFIG_NOSYSTEM).toBeUndefined();
+  });
+
+  it("CONF-SCOPE-04 no client unsanitized bypass field", async () => {
+    const base = hostileBaseEnv();
+    const { gw, runner } = gateway(base);
+    const r = await gw.launch(
+      docsWriteRequest({
+        // Hostile client fields must not disable confinement.
+        skipEnvConfinement: true,
+        unsanitizedEnv: true,
+        inheritHostCredentials: true,
+      } as Record<string, unknown>),
+    );
+    expect(r.outcome).toBe("ack");
+    assertSanitizedChild(runner.calls[0]!.env);
+  });
+
+  it("CONF-SCOPE-05/06 profile mismatch / non-commit-only still fail before launch", async () => {
+    const base = hostileBaseEnv();
+    const { gw, runner } = gateway(base);
+    const mismatch = await gw.launch(
+      localCommitRequest({
+        selectedAgentRef: "agt:m4.cursor.bounded_docs_write",
+      }),
+    );
+    expect(mismatch.outcome).toBe("reject");
+    expect(runner.calls).toHaveLength(0);
+
+    const pushSlice = await gw.launch(
+      localCommitRequest({
+        authorizedEffects: ["git.push"],
+      }),
+    );
+    expect(pushSlice.outcome).toBe("reject");
+    expect(runner.calls).toHaveLength(0);
+  });
+
+  it("CONF secret-safety: stripped sentinel values never appear in child env values", async () => {
+    const base = hostileBaseEnv();
+    const child = buildMutatingCursorConfinementEnv(base);
+    const joined = Object.values(child).join("\u0000");
+    expect(joined).not.toContain("TEST_SSH_SOCKET");
+    expect(joined).not.toContain("TEST_GH_TOKEN");
+    expect(joined).not.toContain("TEST_ASKPASS");
+    expect(joined).not.toContain("TEST_GIT_SSH_COMMAND");
+  });
+});
+```
+
+## FULL: projects_sfia-studio_app_lib_oa_execution-attempt_infrastructure_mutatingCursorConfinementEnv.ts
+```typescript
+/**
+ * D-GCEC-CONF-02A — server-owned child env for mutating GCEC Cursor profiles
+ * (bounded docs-write Attempt A + bounded local-commit Attempt B).
+ *
+ * Proves only: Product gateway does not voluntarily inherit known host
+ * Git/GitHub/SSH write-auth channels for A+B.
+ * Does NOT prove remote-write impossibility (Shell may still discover host tools).
+ * Live re-preflight remains required before any REAL claim.
+ *
+ * HOME / XDG left unchanged — Cursor CLI may need user-scoped auth; residual risk
+ * is documented for the Security re-preflight.
+ */
+import { SFIA_STUDIO_CURSOR_REAL_FLAG } from "../domain/realLaunchSafety";
+
+/** Exact auth / askpass / SSH override keys stripped from mutating child env. */
+export const MUTATING_CURSOR_STRIPPED_ENV_KEYS = [
+  "SSH_AUTH_SOCK",
+  "SSH_AGENT_PID",
+  "GH_TOKEN",
+  "GITHUB_TOKEN",
+  "GH_ENTERPRISE_TOKEN",
+  "GITHUB_ENTERPRISE_TOKEN",
+  "GIT_ASKPASS",
+  "SSH_ASKPASS",
+  "SSH_ASKPASS_REQUIRE",
+  "GIT_SSH",
+  "GIT_SSH_COMMAND",
+  "GIT_CONFIG_PARAMETERS",
+  "GIT_CONFIG_COUNT",
+] as const;
+
+const STRIPPED = new Set<string>(MUTATING_CURSOR_STRIPPED_ENV_KEYS);
+
+function isInheritedGitConfigInjectionKey(key: string): boolean {
+  return (
+    key === "GIT_CONFIG_PARAMETERS" ||
+    key === "GIT_CONFIG_COUNT" ||
+    /^GIT_CONFIG_KEY_\d+$/.test(key) ||
+    /^GIT_CONFIG_VALUE_\d+$/.test(key)
+  );
+}
+
+/**
+ * Build a fresh child ProcessEnv for mutating Cursor launches.
+ * Does not mutate `baseEnv`. Caller cannot opt out.
+ */
+export function buildMutatingCursorConfinementEnv(
+  baseEnv: NodeJS.ProcessEnv,
+): NodeJS.ProcessEnv {
+  const child: Record<string, string | undefined> = {};
+  for (const [key, value] of Object.entries(baseEnv)) {
+    if (value === undefined) continue;
+    if (STRIPPED.has(key)) continue;
+    if (isInheritedGitConfigInjectionKey(key)) continue;
+    child[key] = value;
+  }
+
+  child[SFIA_STUDIO_CURSOR_REAL_FLAG] = "1";
+  child.GIT_TERMINAL_PROMPT = "0";
+  child.GCM_INTERACTIVE = "Never";
+  // Neutralize host system/global Git config for the child (local Git support).
+  child.GIT_CONFIG_NOSYSTEM = "1";
+  child.GIT_CONFIG_SYSTEM = "/dev/null";
+  child.GIT_CONFIG_GLOBAL = "/dev/null";
+
+  return child as NodeJS.ProcessEnv;
+}
+
+export function isMutatingGcecCursorProfile(input: {
+  readonly isDocsWrite: boolean;
+  readonly isLocalCommitProfile: boolean;
+}): boolean {
+  return input.isDocsWrite === true || input.isLocalCommitProfile === true;
+}
+```
