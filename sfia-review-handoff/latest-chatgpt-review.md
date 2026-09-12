@@ -1,5 +1,579 @@
 # SFIA Studio — Review Pack
-## GCEC-GIT-LIFECYCLE-E2E-01 — FINAL SAME-LOT AUTHORITY CLOSURE (AC-01..AC-06)
+## GCEC-GIT-LIFECYCLE-E2E-01 — FINAL AC-06 POSIX QUOTING CLOSURE
+
+TIMESTAMP: 2026-09-12 22:10:28 CEST
+
+CYCLE: 8 — Delivery / implementation — continuation (same lot)
+
+TYPE: EVOL
+
+PROFILE: CRITICAL
+
+GO MORRIS: GO — FINAL AC-06 POSIX QUOTING FIX + EXECUTABLE SHELL-SAFETY REGRESSION + PUBLICATION REVIEW HANDOFF CANONIQUE
+
+ANTI-MICRO-CYCLE: NOT a new functional micro-cycle. Surgical closure of the ONE remaining blocking defect on the existing GCEC-GIT-LIFECYCLE-E2E-01 candidate.
+
+INPUT REVIEW HANDOFF tip (expected parent): 530e971cf9109772bae740b498377835680b52bd
+Git main expected: a9f6c310a0826d0e5bd6f7264603382a86564db1
+Product HEAD (frozen): f71cf89a452d0b6109e1f11be957210122082186
+
+ChatGPT Critical Review disposition entering this GO:
+- AC-01..AC-05 = ACCEPTED / CLOSED (DO NOT REOPEN)
+- AC-06 = OPEN / BLOCKING (POSIX quoting / executable proof incomplete)
+
+==================================================
+ROLE BOUNDARIES
+==================================================
+
+- Morris = construction/governance gates (this GO = AC-06 fix + Review Handoff only; no Product commit; no REAL).
+- Pilote = runtime HumanDecision / Confirmation (NOT simulated).
+- Studio = contract / orchestration / verification. NOT a Git writer.
+- Nora = cognition / LPS / trajectory / replan — UNCHANGED.
+- Cursor = technical executor (local Product edits + tests only). Report alone ≠ truth.
+
+==================================================
+GIT TRUTH BEFORE (this surgical GO)
+==================================================
+
+WORKTREE: /Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310
+BRANCH: delivery/sfia-studio-product-proof-qual-to-governed-cycle
+HEAD: f71cf89a452d0b6109e1f11be957210122082186
+origin/main: a9f6c310a0826d0e5bd6f7264603382a86564db1
+INPUT HANDOFF tip: 530e971cf9109772bae740b498377835680b52bd
+STATE: LOCAL DIRTY; 43 Product paths; staged=none; Product commit since HEAD=0.
+NO LOCAL GIT TRUTH DRIFT vs expected handoff.
+
+==================================================
+GIT TRUTH AFTER (this surgical GO)
+==================================================
+
+HEAD UNCHANGED: f71cf89a452d0b6109e1f11be957210122082186
+STAGED: (none)
+Product commit: NONE
+Product push/PR/merge: NONE
+proof mutation: NONE
+branch.delete: NONE
+REAL: ZERO
+
+Only Product files touched by this surgical correction:
+- projects/sfia-studio/app/lib/oa/execution-attempt/domain/shellSafeArg.ts
+- projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitLifecyclePushPrMerge.d0.test.ts
+
+Dirty Product path count remains 43 (same set; content of the two AC-06 paths updated).
+
+==================================================
+AC-06 DEFECT (Critical Review)
+==================================================
+
+Blocking claim: helper effectively produced TWO backslashes around an embedded apostrophe
+(or was only proven by string assertion that could certify a wrong form).
+
+Required shell representation for input `a'b`:
+
+  'a'\''b'
+
+i.e. terminate single-quoted segment, emit ONE escaped literal apostrophe outside quotes,
+reopen single-quoted segment.
+
+Invariant is RUNTIME shell text / interpretation — not visual backslash count in source.
+
+==================================================
+AC-06 BEFORE → AFTER
+==================================================
+
+BEFORE (prior candidate form; template-literal replace):
+
+```typescript
+export function posixShellSingleQuote(value: string): string {
+  return `'${String(value).replace(/'/g, `'\\''`)}'`;
+}
+```
+
+Note: that prior source already evaluated at runtime to the correct ONE-backslash form
+`'a'\''b'` under Node (Critical Review likely miscounted template escapes). But proof was
+string-only and therefore insufficient under this GO.
+
+AFTER (clarified, escape-miscount-proof concatenation; same correct runtime semantics):
+
+```typescript
+/**
+ * Minimal shell-safe argument helpers for GCEC gateway instruction construction.
+ * Fail closed on non-canonical GitHub repository refs and unsafe shell interpolation.
+ */
+
+const CANONICAL_GITHUB_REPO_RE = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/;
+const REPO_METACHAR_RE = /[\s$`\\;&|<>(){}[\]"'!*?]|#/;
+
+/**
+ * POSIX embedded-apostrophe escape: end `'`, one literal `\'` outside quotes, reopen `'`.
+ * Concatenation keeps ONE effective backslash (avoids template-literal escape miscounts).
+ * Example: a'b → 'a'\''b'
+ */
+const POSIX_EMBEDDED_APOSTROPHE = "'" + "\\" + "'" + "'";
+
+/**
+ * Assert owner/repo canonical GitHub repositoryRef (no whitespace / metacharacters).
+ */
+export function assertCanonicalGithubRepositoryRef(
+  ref: string,
+): { ok: true; ref: string } | { ok: false; reason: string } {
+  if (typeof ref !== "string" || !ref.trim()) {
+    return { ok: false, reason: "repository_ref_missing" };
+  }
+  if (ref !== ref.trim()) {
+    return { ok: false, reason: "repository_ref_whitespace" };
+  }
+  const trimmed = ref.trim();
+  if (trimmed.startsWith("-")) {
+    return { ok: false, reason: "repository_ref_unsafe" };
+  }
+  if (
+    REPO_METACHAR_RE.test(trimmed) ||
+    trimmed.includes("..") ||
+    trimmed.includes("$(") ||
+    !CANONICAL_GITHUB_REPO_RE.test(trimmed)
+  ) {
+    return { ok: false, reason: "repository_ref_unsafe" };
+  }
+  const parts = trimmed.split("/");
+  if (parts.length !== 2 || !parts[0] || !parts[1]) {
+    return { ok: false, reason: "repository_ref_unsafe" };
+  }
+  return { ok: true, ref: trimmed };
+}
+
+/**
+ * POSIX single-quote wrap so the value is literal in a shell (including `$(...)`).
+ * Escapes embedded `'` as `'\''` (one effective escape backslash).
+ */
+export function posixShellSingleQuote(value: string): string {
+  return "'" + String(value).split("'").join(POSIX_EMBEDDED_APOSTROPHE) + "'";
+}
+```
+
+Diff vs prior AC-lot snapshot:
+
+```diff
+--- .tmp-sfia-review/gcec-git-lifecycle-e2e-01-ac/shellSafeArg.ts	2026-09-12 21:31:36
++++ projects/sfia-studio/app/lib/oa/execution-attempt/domain/shellSafeArg.ts	2026-09-12 22:06:13
+@@ -7,6 +7,13 @@
+ const REPO_METACHAR_RE = /[\s$`\\;&|<>(){}[\]"'!*?]|#/;
+
+ /**
++ * POSIX embedded-apostrophe escape: end `'`, one literal `\'` outside quotes, reopen `'`.
++ * Concatenation keeps ONE effective backslash (avoids template-literal escape miscounts).
++ * Example: a'b → 'a'\''b'
++ */
++const POSIX_EMBEDDED_APOSTROPHE = "'" + "\\" + "'" + "'";
++
++/**
+  * Assert owner/repo canonical GitHub repositoryRef (no whitespace / metacharacters).
+  */
+ export function assertCanonicalGithubRepositoryRef(
+@@ -39,8 +46,8 @@
+
+ /**
+  * POSIX single-quote wrap so the value is literal in a shell (including `$(...)`).
+- * Escapes embedded `'` as `'\''`.
++ * Escapes embedded `'` as `'\''` (one effective escape backslash).
+  */
+ export function posixShellSingleQuote(value: string): string {
+-  return `'${String(value).replace(/'/g, `'\\''`)}'`;
++  return "'" + String(value).split("'").join(POSIX_EMBEDDED_APOSTROPHE) + "'";
+ }
+```
+
+==================================================
+AC-06 RUNTIME PROOF
+==================================================
+
+Observed runtime (Node + `/bin/sh`):
+
+```json
+{"input":"a'b","quoted":"'a'\\''b'","chars":["'","a","'","\\","'","'","b","'"],"shOut":"a'b","roundTrip":true}
+```
+
+Chars of `posixShellSingleQuote("a'b")`:
+`["'", "a", "'", "\\", "'", "'", "b", "'"]` → shell text `'a'\''b'`
+`/bin/sh -c 'printf %s …'` stdout === `a'b` (round-trip true).
+
+==================================================
+EXECUTABLE `/bin/sh` ROUND-TRIP STRATEGY
+==================================================
+
+Deterministic local QA only (NOT Git/GitHub REAL):
+
+1. `quoted = posixShellSingleQuote(value)`
+2. `execFileSync("/bin/sh", ["-c", "printf %s " + quoted])`
+3. assert stdout === value exactly; exit success
+
+Required cases covered in tests:
+- plain text
+- O'Brien
+- $(printf hacked)
+- `printf hacked` (backticks)
+- abc;printf hacked
+- abc&&printf hacked
+- abc|printf hacked
+- $HOME
+- double quotes
+- backslash
+- newline
+- O'Brien;$(printf hacked)
+- multiple apostrophes a'b'c'd
+- Pilot's result $(literal) ; still text
+
+==================================================
+SENTINEL NON-EXECUTION
+==================================================
+
+Temp dir + sentinel path. Hostile payload of form:
+`x' ; touch <sentinel> ; printf 'y`
+Passed ONLY through `posixShellSingleQuote`, then `printf` via `/bin/sh`.
+Assert: stdout equals hostile text; sentinel DOES NOT EXIST.
+Also covered: `$(touch <sentinel>)$(printf hacked)` remains literal; sentinel absent.
+
+==================================================
+GATEWAY LEGITIMATE APOSTROPHE
+==================================================
+
+StudioCursorRealLaunchGateway (FakeProcessRunner; no real `gh`):
+- title `Fix O'Brien workflow`
+- body `Pilot's result $(literal) ; still text`
+Instruction contains `--title` / `--body` with `posixShellSingleQuote` forms;
+`/bin/sh` round-trip of those quoted forms recovers title/body exactly;
+`$(literal)` and `; still text` remain literal text in the instruction.
+
+repositoryRef policy (`assertCanonicalGithubRepositoryRef`) UNCHANGED.
+AC-01..05 behavior UNCHANGED (no Product code edits outside shellSafeArg + tests).
+
+==================================================
+AC STATUS MATRIX (FINAL)
+==================================================
+
+| AC | Status |
+| --- | --- |
+| AC-01 Fake/Real remote identity parity | PRESERVED / CLOSED |
+| AC-02 C push SHA binds D PR | PRESERVED / CLOSED |
+| AC-03 Strict Evidence lineage | PRESERVED / CLOSED |
+| AC-04 Complete PR identity | PRESERVED / CLOSED |
+| AC-05 Merge last-mile four-field | PRESERVED / CLOSED |
+| AC-06 POSIX shell quoting + executable proof | **CLOSED** |
+
+==================================================
+VALIDATION (FINAL AC-06 GO)
+==================================================
+
+cwd: projects/sfia-studio/app
+SFIA_STUDIO_CURSOR_REAL: unset / off
+
+| Gate | Result |
+| --- | --- |
+| Focused (`gcecGitLifecyclePushPrMerge` + `gcecMutatingCursorConfinementEnv`) | **63 passed** (2 files) |
+| Related (10 GCEC files) | **205 passed** (10 files) |
+| `npm run typecheck` | **PASS** |
+| `npm run lint` | **PASS** (`No ESLint warnings or errors`) |
+| `npm run build` | **PASS** |
+| Full vitest | **3845 passed \| 137 skipped** (353 files passed \| 17 skipped) |
+
+Focused tail:
+```
+
+ ✓ __tests__/oa/execution-attempt/gcecMutatingCursorConfinementEnv.d0.test.ts (10 tests) 5ms
+ ✓ __tests__/oa/execution-attempt/gcecGitLifecyclePushPrMerge.d0.test.ts (53 tests) 65ms
+
+ Test Files  2 passed (2)
+      Tests  63 passed (63)
+   Start at  22:07:23
+   Duration  769ms (transform 379ms, setup 95ms, collect 1.02s, tests 70ms, environment 0ms, prepare 68ms)
+```
+
+Related tail:
+```
+
+stdout | __tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts > gcecCr23StartExecution — application boundary > H23B-P1 M4 merge under progressive contract → fail closed (CR-06)
+{"event":"oa.execution_attempt.agent_selected","ts":"2026-09-11T15:00:00.000Z","correlationId":"cor:342b7ed9a805b34b","attemptId":"xat:h23b-p1:xct:m3-res:dec:f2:c639cc02-15d4-482b-8819-015861ba93d0","executionContractId":"xct:m3-res:dec:f2:c639cc02-15d4-482b-8819-015861ba93d0","executionContractVersion":3,"selectedAgentRef":"agt:m4.cursor.bounded_docs_write","result":"ok","durationMs":1}
+{"event":"oa.execution_attempt.accepted","ts":"2026-09-11T15:00:00.000Z","correlationId":"cor:342b7ed9a805b34b","attemptId":"xat:h23b-p1:xct:m3-res:dec:f2:c639cc02-15d4-482b-8819-015861ba93d0","executionContractId":"xct:m3-res:dec:f2:c639cc02-15d4-482b-8819-015861ba93d0","executionContractVersion":3,"selectedAgentRef":"agt:m4.cursor.bounded_docs_write","newStatus":"accepted","contractStatus":"confirmed","result":"ok","durationMs":1}
+
+stdout | __tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts > gcecCr23StartExecution — application boundary > H23B-P1 M4 merge under progressive contract → fail closed (CR-06)
+{"event":"oa.execution_attempt.started","ts":"2026-09-11T15:00:00.000Z","correlationId":"cor:8b3659ad10aba785","attemptId":"xat:h23b-p1:xct:m3-res:dec:f2:c639cc02-15d4-482b-8819-015861ba93d0","result":"error","detailCode":"AGENT_CAPABILITY_MISMATCH","durationMs":2}
+
+ ✓ __tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts (10 tests) 1461ms
+
+ Test Files  10 passed (10)
+      Tests  205 passed (205)
+   Start at  22:07:30
+   Duration  2.80s (transform 1.60s, setup 517ms, collect 8.43s, tests 2.09s, environment 1ms, prepare 388ms)
+
+```
+
+Full vitest tail:
+```
+ ✓ __tests__/fixtures.test.ts (2 tests) 3ms
+ ✓ __tests__/oa/cycle/qualifyCycleWithCkc.test.ts (13 tests) 9ms
+ ✓ __tests__/ops1/domain.test.ts (6 tests) 2ms
+ ✓ __tests__/oa/cycle/ckcQualificationResult.test.ts (2 tests) 2ms
+ ✓ __tests__/auth/allowlist-actor-s1.test.ts (13 tests) 4ms
+ ✓ __tests__/ops1/globalModeBadge.test.ts (6 tests) 1ms
+
+ Test Files  353 passed | 17 skipped (370)
+      Tests  3845 passed | 137 skipped (3982)
+   Start at  22:08:09
+   Duration  36.82s (transform 8.40s, setup 15.37s, collect 140.94s, tests 101.31s, environment 11.82s, prepare 14.41s)
+
+```
+
+Delta vs prior AC lot (59 / 201 / 3841): +4 tests (executable AC-06 suite additions).
+
+==================================================
+FAKE / REAL
+==================================================
+
+- Deterministic local `/bin/sh` proof: YES (QA boundary only).
+- AUTH REAL / PUSH REAL / PR REAL / MERGE REAL / E2E REAL A→D: NOT PROVEN.
+- DETERMINISTIC PROVEN ≠ READY FOR REAL.
+- Product commit/push/PR/merge: NONE.
+- Proof repository mutation: NONE.
+
+==================================================
+AC-06 TEST EXCERPT (executable proof)
+==================================================
+
+```typescript
+/**
+ * Deterministic local QA: `/bin/sh -c` interprets one quoted argv via printf.
+ * NOT a Git/GitHub REAL effect.
+ */
+function shellRoundTripViaPrintf(quoted: string): {
+  stdout: string;
+  status: number;
+} {
+  const stdout = execFileSync("/bin/sh", ["-c", `printf %s ${quoted}`], {
+    encoding: "utf8",
+    maxBuffer: 1024 * 1024,
+  });
+  return { stdout, status: 0 };
+}
+  describe("AC-05/06 shell-safe merge + create", () => {
+    it("NEG merge builder rejects empty expectedHeadBranch", () => {
+      const r = buildGitPrMergeLaunchSpec({
+        repositoryRef: REPO,
+        prNumber: 1,
+        expectedHeadSha: H1,
+        expectedHeadBranch: "",
+        expectedBaseBranch: "main",
+      });
+      expect(r.ok).toBe(false);
+    });
+
+    it("POS AC-06 posixShellSingleQuote one-backslash form + /bin/sh round-trip", () => {
+      const quoted = posixShellSingleQuote("a'b");
+      // Exact shell text: 'a'\''b'  (ONE effective escape backslash)
+      expect(quoted).toBe("'a'\\''b'");
+      expect([...quoted]).toEqual(["'", "a", "'", "\\", "'", "'", "b", "'"]);
+      const { stdout, status } = shellRoundTripViaPrintf(quoted);
+      expect(status).toBe(0);
+      expect(stdout).toBe("a'b");
+    });
+
+    it("POS AC-06 /bin/sh round-trip for required hostile and literal cases", () => {
+      const cases = [
+        "plain text",
+        "O'Brien",
+        "$(printf hacked)",
+        "`printf hacked`",
+        "abc;printf hacked",
+        "abc&&printf hacked",
+        "abc|printf hacked",
+        "$HOME",
+        'say "hello"',
+        "path\\with\\backslash",
+        "line1\nline2",
+        "O'Brien;$(printf hacked)",
+        "a'b'c'd",
+        "Pilot's result $(literal) ; still text",
+      ];
+      for (const value of cases) {
+        const quoted = posixShellSingleQuote(value);
+        const { stdout, status } = shellRoundTripViaPrintf(quoted);
+        expect(status).toBe(0);
+        expect(stdout).toBe(value);
+      }
+    });
+
+    it("POS AC-06 sentinel injection does not execute adjacent shell", async () => {
+      const dir = await mkdtemp(path.join(tmpdir(), "gcec-ac06-sentinel-"));
+      const sentinel = path.join(dir, "SENTINEL_MUST_NOT_EXIST");
+      try {
+        const hostile = `x' ; touch ${sentinel} ; printf 'y`;
+        const quoted = posixShellSingleQuote(hostile);
+        const { stdout, status } = shellRoundTripViaPrintf(quoted);
+        expect(status).toBe(0);
+        expect(stdout).toBe(hostile);
+        expect(existsSync(sentinel)).toBe(false);
+
+        const sub = `$(touch ${sentinel})$(printf hacked)`;
+        const qSub = posixShellSingleQuote(sub);
+        const rt = shellRoundTripViaPrintf(qSub);
+        expect(rt.status).toBe(0);
+        expect(rt.stdout).toBe(sub);
+        expect(existsSync(sentinel)).toBe(false);
+      } finally {
+        await rm(dir, { recursive: true, force: true });
+      }
+    });
+
+    it("POS AC-06 repositoryRef policy unchanged", async () => {
+      const { assertCanonicalGithubRepositoryRef } = await import(
+        "@/lib/oa/execution-attempt/domain/shellSafeArg"
+      );
+      expect(assertCanonicalGithubRepositoryRef(REPO).ok).toBe(true);
+      expect(assertCanonicalGithubRepositoryRef("acme/widget;rm").ok).toBe(
+        false,
+      );
+      expect(assertCanonicalGithubRepositoryRef("acme/$(x)").ok).toBe(false);
+    });
+
+    it("NEG unsafe repositoryRef rejected in push/create/merge builders", () => {
+      expect(
+        buildGitPushLaunchSpec({
+          repositoryRef: "acme/widget;id",
+          branchName: BRANCH,
+          expectedCommitSha: H1,
+        }).ok,
+      ).toBe(false);
+      expect(
+        buildGitPrCreateLaunchSpec({
+          repositoryRef: "-evil/repo",
+          headBranch: BRANCH,
+          baseBranch: "main",
+          title: "t",
+          expectedHeadSha: H1,
+        }).ok,
+      ).toBe(false);
+      expect(
+        buildGitPrMergeLaunchSpec({
+          repositoryRef: "acme/repo`x`",
+          prNumber: 1,
+          expectedHeadSha: H1,
+          expectedHeadBranch: BRANCH,
+          expectedBaseBranch: "main",
+        }).ok,
+      ).toBe(false);
+    });
+
+    it("POS create instruction shell-quotes body with $(...", async () => {
+      const { StudioCursorRealLaunchGateway } = await import(
+        "@/lib/oa/execution-attempt"
+      );
+      const { FakeProcessRunner } = await import("./support/fakeProcessRunner");
+      const { FakeRealExecutionWorkspacePort } = await import(
+        "./support/fakeSpawnAndGit"
+      );
+      const runner = new FakeProcessRunner();
+      const gw = new StudioCursorRealLaunchGateway({
+        processRunner: runner,
+        workspacePort: new FakeRealExecutionWorkspacePort({
+          resumePath: "/tmp/fake-exec-root/wt-body",
+          workspacePath: "/tmp/fake-exec-root/wt-body-fresh",
+        }),
+        env: { NODE_ENV: "test", [SFIA_STUDIO_CURSOR_REAL_FLAG]: "1" },
+        resolveCursorBin: () => "/tmp/fake-cursor-bin",
+      });
+      await gw.launch({
+        attemptId: "xat:body-q",
+        executionContractId: EC,
+        executionContractVersion: 1,
+        semanticFingerprint: "fp:body",
+        selectedAgentRef: M4_BOUNDED_PR_CREATE_CURSOR_AGENT_ID,
+        adapterRef: "adp:m4-cursor-cli-real",
+        correlationId: "cor:body",
+        baseHeadSha: H1,
+        action: M4_BOUNDED_PR_CREATE_ACTION,
+        timeoutMs: 60_000,
+        authorizedEffects: ["github.pr.create"],
+        gitPrCreateSpec: {
+          repositoryRef: REPO,
+          headBranch: BRANCH,
+          baseBranch: "main",
+          title: "t",
+          body: "note $(rm -rf /)",
+          expectedHeadSha: H1,
+        },
+      } as never);
+      const instr = String(runner.calls[0]?.argv.at(-1) ?? "");
+      expect(instr).toContain(`--body 'note $(rm -rf /)'`);
+      expect(instr).not.toMatch(/--body ".*\$\(rm/);
+    });
+
+    it("POS create instruction preserves legitimate apostrophes in title/body", async () => {
+      const { StudioCursorRealLaunchGateway } = await import(
+        "@/lib/oa/execution-attempt"
+      );
+      const { FakeProcessRunner } = await import("./support/fakeProcessRunner");
+      const { FakeRealExecutionWorkspacePort } = await import(
+        "./support/fakeSpawnAndGit"
+      );
+      const runner = new FakeProcessRunner();
+      const gw = new StudioCursorRealLaunchGateway({
+        processRunner: runner,
+        workspacePort: new FakeRealExecutionWorkspacePort({
+          resumePath: "/tmp/fake-exec-root/wt-obrien",
+          workspacePath: "/tmp/fake-exec-root/wt-obrien-fresh",
+        }),
+        env: { NODE_ENV: "test", [SFIA_STUDIO_CURSOR_REAL_FLAG]: "1" },
+        resolveCursorBin: () => "/tmp/fake-cursor-bin",
+      });
+      const title = "Fix O'Brien workflow";
+      const body = "Pilot's result $(literal) ; still text";
+      await gw.launch({
+        attemptId: "xat:obrien",
+        executionContractId: EC,
+        executionContractVersion: 1,
+        semanticFingerprint: "fp:obrien",
+        selectedAgentRef: M4_BOUNDED_PR_CREATE_CURSOR_AGENT_ID,
+        adapterRef: "adp:m4-cursor-cli-real",
+        correlationId: "cor:obrien",
+        baseHeadSha: H1,
+        action: M4_BOUNDED_PR_CREATE_ACTION,
+        timeoutMs: 60_000,
+        authorizedEffects: ["github.pr.create"],
+        gitPrCreateSpec: {
+          repositoryRef: REPO,
+          headBranch: BRANCH,
+          baseBranch: "main",
+          title,
+          body,
+          expectedHeadSha: H1,
+        },
+      } as never);
+      const instr = String(runner.calls[0]?.argv.at(-1) ?? "");
+      const qTitle = posixShellSingleQuote(title);
+      const qBody = posixShellSingleQuote(body);
+      expect(instr).toContain(`--title ${qTitle}`);
+      expect(instr).toContain(`--body ${qBody}`);
+      expect(shellRoundTripViaPrintf(qTitle).stdout).toBe(title);
+      expect(shellRoundTripViaPrintf(qBody).stdout).toBe(body);
+      expect(instr).toContain("$(literal)");
+      expect(instr).toContain(" ; still text");
+    });
+  });
+});
+
+```
+
+==================================================
+PRESERVED FULL CANDIDATE REVIEW CONTENT BELOW
+==================================================
+
+The following sections retain the complete prior GCEC-GIT-LIFECYCLE-E2E-01
+authority-closure Review Pack (AC-01..05 design, diffs, excerpts, lineage).
+Front matter above is authoritative for AC-06 final status and FINAL validation counts.
+
+---
+
+# SFIA Studio — Review Pack
+## GCEC-GIT-LIFECYCLE-E2E-01 — FINAL SAME-LOT AUTHORITY CLOSURE (AC-01..AC-06) [SUPERSEDED FRONT MATTER BELOW BY AC-06 POSIX CLOSURE]
 
 TIMESTAMP: 2026-09-12 21:32:30 CEST
 
@@ -270,7 +844,7 @@ Closed AC-01..AC-06 together in one lot on the existing PATH B + CR-01..04 dirty
 | AC-03 Strict Evidence lineage | **CLOSED** | `resolveVerifiedRemotePushPriorAttempt`: Evidence MUST have repo+refName+commitSha; when repositoryRef expected must match; **no substitute**; `branchName` required on success; local-commit: when repositoryRef expected, missing/mismatched repo → not eligible |
 | AC-04 Complete PR identity | **CLOSED** | `resolveVerifiedPullRequestNumber` requires complete identity (repo, prNumber, state, headBranch, headSha, baseBranch); exact-identity dedupe; same prNumber with field drift → ambiguous; multi prNumber → ambiguous; success returns required fields; merge profile/Start require `state===open` + head/base; `verifyPrCreateEffect` params REQUIRED |
 | AC-05 Merge last-mile | **CLOSED** | `GitPrMergeLaunchSpec.expectedHeadBranch` REQUIRED; StartExecution passes it; gateway compares state/OPEN + headRefOid + headRefName + baseRefName with STOP before `gh pr merge`; `--admin`/`--auto`/delete forbidden in instruction |
-| AC-06 Shell-safe construction | **CLOSED** | New `domain/shellSafeArg.ts`: `assertCanonicalGithubRepositoryRef` + `posixShellSingleQuote`; applied in push/create/merge builders; create/merge gateway instructions quote repo/title/body/branches (body never `JSON.stringify`) |
+| AC-06 Shell-safe construction | **CLOSED → then REOPENED by Critical Review → CLOSED by FINAL POSIX QUOTING FIX** | See front-matter AC-06 FINAL CLOSURE; executable `/bin/sh` round-trip required |
 
 ## FILESET (under `projects/sfia-studio/app`)
 
@@ -291,12 +865,12 @@ Closed AC-01..AC-06 together in one lot on the existing PATH B + CR-01..04 dirty
 
 | Gate | Result |
 | --- | --- |
-| Focused (`gcecGitLifecyclePushPrMerge` + `gcecMutatingCursorConfinementEnv`) | **59 passed** (2 files) |
-| Related (lifecycle + confinement + Agent01 + CR23 + git-ports + D15/ownership/deterministic/oneLot/monolithic) | **201 passed** (10 files) |
-| `npm run typecheck` | **PASS** |
-| `npm run lint` | **PASS** |
-| `npm run build` | **PASS** |
-| Full vitest | **3841 passed \| 137 skipped** (353 files passed \| 17 skipped) |
+| Focused (prior AC lot) | 59 passed (historical) — see front matter for FINAL AC-06 counts |
+| Related (prior AC lot) | 201 passed (historical) |
+| Full vitest (prior AC lot) | 3841 passed / 137 skipped (historical) |
+| FINAL AC-06 focused | **63 passed** |
+| FINAL AC-06 related | **205 passed** |
+| FINAL AC-06 full vitest | **3845 passed \| 137 skipped** |
 
 ## REAL: ZERO
 
@@ -331,6 +905,8 @@ SHELL-SAFETY MODEL
 Selected: minimal POSIX single-quote literal escaping + canonical owner/repo validation.
 No shell framework. No free-shell authority. No body-file second mutation pathway.
 
+FINAL AC-06 implementation (current Product candidate):
+
 ```typescript
 /**
  * Minimal shell-safe argument helpers for GCEC gateway instruction construction.
@@ -339,6 +915,13 @@ No shell framework. No free-shell authority. No body-file second mutation pathwa
 
 const CANONICAL_GITHUB_REPO_RE = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/;
 const REPO_METACHAR_RE = /[\s$`\\;&|<>(){}[\]"'!*?]|#/;
+
+/**
+ * POSIX embedded-apostrophe escape: end `'`, one literal `\'` outside quotes, reopen `'`.
+ * Concatenation keeps ONE effective backslash (avoids template-literal escape miscounts).
+ * Example: a'b → 'a'\''b'
+ */
+const POSIX_EMBEDDED_APOSTROPHE = "'" + "\\" + "'" + "'";
 
 /**
  * Assert owner/repo canonical GitHub repositoryRef (no whitespace / metacharacters).
@@ -373,13 +956,14 @@ export function assertCanonicalGithubRepositoryRef(
 
 /**
  * POSIX single-quote wrap so the value is literal in a shell (including `$(...)`).
- * Escapes embedded `'` as `'\''`.
+ * Escapes embedded `'` as `'\''` (one effective escape backslash).
  */
 export function posixShellSingleQuote(value: string): string {
-  return `'${String(value).replace(/'/g, `'\\''`)}'`;
+  return "'" + String(value).split("'").join(POSIX_EMBEDDED_APOSTROPHE) + "'";
 }
-
 ```
+
+Executable proof strategy: `/bin/sh -c` + `printf %s <quoted>` round-trip; sentinel non-execution in temp dir.
 
 ==================================================
 KEY CODE EXCERPTS
@@ -1135,12 +1719,12 @@ SFIA_STUDIO_CURSOR_REAL: unset
 
 | Gate | Result |
 | --- | --- |
-| Focused (lifecycle + confinement) | **59 passed** (2 files) |
-| Related (10 files) | **201 passed** |
+| Focused (lifecycle + confinement) FINAL | **63 passed** (2 files) |
+| Related (10 files) FINAL | **205 passed** |
 | typecheck | PASS |
 | lint | PASS |
 | build | PASS |
-| Full vitest | **3841 passed \| 137 skipped** |
+| Full vitest FINAL | **3845 passed \| 137 skipped** |
 
 ==================================================
 FAKE / REAL
@@ -7128,14 +7712,14 @@ FINAL VERDICT
 ==================================================
 
 PASS WITH RESERVE —
-GCEC-GIT-LIFECYCLE-E2E-01 FINAL SAME-LOT AUTHORITY CLOSURE CANDIDATE COMPLETE /
-AC-01 CLOSED /
-AC-02 CLOSED /
-AC-03 CLOSED /
-AC-04 CLOSED /
-AC-05 CLOSED /
-AC-06 CLOSED /
+GCEC-GIT-LIFECYCLE-E2E-01 SAME CANDIDATE /
+AC-01 PRESERVED /
+AC-02 PRESERVED /
+AC-03 PRESERVED /
+AC-04 PRESERVED /
+AC-05 PRESERVED /
+AC-06 CLOSED (executable POSIX /bin/sh round-trip) /
 DETERMINISTIC VALIDATION PASS /
 ZERO REAL /
-NO PRODUCT COMMIT /
-READY FOR CHATGPT CRITICAL REVIEW.
+PRODUCT COMMIT NONE /
+NEXT: ChatGPT targeted Critical Review — AC-06 final closure + whole-candidate regression confirmation.
