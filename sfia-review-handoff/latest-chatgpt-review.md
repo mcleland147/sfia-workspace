@@ -1,7 +1,7 @@
 # SFIA Studio — Review Pack
-## GCEC-GIT-LIFECYCLE-E2E-01 — PATH B BOUNDED PRODUCT COMPLETION CANDIDATE
+## GCEC-GIT-LIFECYCLE-E2E-01 — SAME-LOT CORRECTION (CR-01..CR-04)
 
-TIMESTAMP: 2026-09-12 16:30:04 CEST
+TIMESTAMP: 2026-09-12 21:10:07 CEST
 
 CYCLE: 8 — Delivery / implementation
 
@@ -9,384 +9,757 @@ TYPE: EVOL
 
 PROFILE: CRITICAL
 
-GO MORRIS: GCEC-GIT-LIFECYCLE-E2E-01 CONSUMED
+GO MORRIS: GO CORRECTION — GCEC-GIT-LIFECYCLE-E2E-01 SAME-LOT
++ GO PUBLICATION REVIEW HANDOFF CANONIQUE
 
-ANTI-MICRO-CYCLE: ONE END-TO-END GIT LIFECYCLE LOT
+ANTI-MICRO-CYCLE: ONE SAME-LOT CORRECTION CLOSING CR-01..CR-04 TOGETHER
 
 ==================================================
-GIT TRUTH
+ROLE BOUNDARIES
 ==================================================
 
-LOCAL PRODUCT HEAD: f71cf89a452d0b6109e1f11be957210122082186
+- Morris = construction/governance gate authority (this GO = deterministic correction + handoff only).
+- Pilote = runtime HumanDecision / Confirmation authority (NOT simulated as acquired by Morris GO).
+- Studio = orchestration, EC/Attempt/slice/Confirmation, agent selection, verification via RepositoryRead/Evidence. NOT a second Git writer.
+- Nora = cognitive trajectory / LPS / replan — NOT a Git executor; Nora/Cognitive Completion global priority UNCHANGED.
+- Cursor = technical mutation executor (local Product code edits this lot; future C/D/E mutations). Report alone is never truth.
+
+==================================================
+GIT TRUTH BEFORE
+==================================================
+
+WORKTREE: /Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310
+BRANCH: delivery/sfia-studio-product-proof-qual-to-governed-cycle
+HEAD: f71cf89a452d0b6109e1f11be957210122082186
 PARENT: be71eee0bbfae341d16cfab401f3c38f46564d4c
 origin/main: a9f6c310a0826d0e5bd6f7264603382a86564db1
-BRANCH: delivery/sfia-studio-product-proof-qual-to-governed-cycle
-WORKTREE: /Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310
+INPUT HANDOFF tip: 0029516aed14687d28caf033c0d9d518cb2578cd
+INPUT HANDOFF parent: 978f4c081d94fc1fdbc71368de0b6888f32ded12
+INPUT HANDOFF blob: d021af221496a7421334d78c082c42f07f42229b
 
-INPUT HANDOFF: 978f4c081d94fc1fdbc71368de0b6888f32ded12
-
-Product application source was CLEAN at lot start (only `.tmp-sfia-review/**` dirty).
-Candidate remains LOCAL DIRTY — no Product commit.
+At lot start: Product HEAD == f71cf89a…; PATH B candidate already LOCAL DIRTY (uncommitted); no Product commits since f71cf89a (count=0).
 
 ==================================================
-SOURCES
+GIT TRUTH AFTER (correction complete, pre-handoff)
 ==================================================
 
-CURRENT LOCAL read: cycle template, routing guide, operating model, guardrails,
-v2.5 cycles method candidate, fifteen-cycles synthetic map, Build Doctrine,
-Roadmap, Product Completion cadrage, v3 framings 34/35, input handoff @ 978f4c08.
+HEAD UNCHANGED: f71cf89a452d0b6109e1f11be957210122082186
+STAGED: (none)
+Product dirty fileset (42 paths under projects/sfia-studio/app) — still UNCOMMITTED.
+Product commit: NONE
+Product push/PR/merge: NONE
 
-Product inspection: ExecutionContract / Attempt / AuthorizedExecutionSlice /
-AgentCapability / F14 mapping / docs-write + local-commit agents / Cont01 /
-Git observe+verify / gh read adapters / Evidence / Confirmation / REAL harnesses.
+Diffstat (tracked):
+```
+.../oa/cycle/gcecCr23StartExecution.d0.test.ts     |   6 +-
+ .../__tests__/oa/cycle/gcecD15Negatives.d0.test.ts |   3 +
+ .../oa/cycle/gcecDeterministicNegatives.d0.test.ts |   2 +
+ .../oa/cycle/gcecOneLotDelivery.d0.test.ts         |   3 +
+ .../oa/cycle/gcecOwnershipNegatives.d0.test.ts     |   1 +
+ .../oa/cycle/gcecProductMonolithicE2e.d0.test.ts   |  12 +-
+ .../gcecAgent01AttemptProfile.d0.test.ts           |  44 ++-
+ .../gcecMutatingCursorConfinementEnv.d0.test.ts    | 102 ++++-
+ .../__tests__/oa/git-ports/gcecGitPorts.d0.test.ts |   1 +
+ .../application/typedGitEvidence.ts                |  27 +-
+ .../application/startExecution.ts                  | 337 +++++++++++++++-
+ .../execution-attempt/domain/realLaunchSafety.ts   |   9 +
+ .../domain/resolveAttemptExecutionProfile.ts       | 422 +++++++++++++++++++--
+ .../domain/resolveGitEffectTarget.ts               |  59 ++-
+ .../app/lib/oa/execution-attempt/index.ts          |  88 +++++
+ .../infrastructure/cursorCliLaunchGateway.ts       |   4 +
+ .../infrastructure/fakeCursorGitExternalState.ts   |  10 +-
+ .../infrastructure/fakeDocsWriteLaunchPort.ts      | 215 ++++++++++-
+ .../m4BoundedDocsWriteCursorAgent.ts               |  10 +-
+ .../infrastructure/mutatingCursorConfinementEnv.ts |  95 ++++-
+ .../sqlite/createSqliteExecutionAttemptServices.ts |   3 +
+ .../studioCursorRealLaunchGateway.ts               | 395 ++++++++++++++++++-
+ .../ports/realExecutionLaunchPort.ts               |  23 +-
+ .../application/gitEffectEvidenceActions.ts        |  41 +-
+ .../app/lib/oa/git-ports/fakeGitProviderPorts.ts   |   2 +
+ .../app/lib/oa/git-ports/githubCliRemotePorts.ts   |  10 +-
+ .../lib/oa/git-ports/platformGithubReadBridge.ts   |   2 +
+ projects/sfia-studio/app/lib/oa/git-ports/types.ts |   4 +
+ .../app/lib/vertical-slice-runtime/service.ts      |   6 +
+ 29 files changed, 1830 insertions(+), 106 deletions(-)
+```
 
-==================================================
-CONVERGENCE PRE-CHECK
-==================================================
+Name-status (tracked):
+```
+M	projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/cycle/gcecD15Negatives.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/cycle/gcecDeterministicNegatives.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/cycle/gcecOneLotDelivery.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/cycle/gcecOwnershipNegatives.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01AttemptProfile.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecMutatingCursorConfinementEnv.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/git-ports/gcecGitPorts.d0.test.ts
+M	projects/sfia-studio/app/lib/oa/evidence-review/application/typedGitEvidence.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveGitEffectTarget.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/cursorCliLaunchGateway.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeCursorGitExternalState.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/mutatingCursorConfinementEnv.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts
+M	projects/sfia-studio/app/lib/oa/git-ports/application/gitEffectEvidenceActions.ts
+M	projects/sfia-studio/app/lib/oa/git-ports/fakeGitProviderPorts.ts
+M	projects/sfia-studio/app/lib/oa/git-ports/githubCliRemotePorts.ts
+M	projects/sfia-studio/app/lib/oa/git-ports/platformGithubReadBridge.ts
+M	projects/sfia-studio/app/lib/oa/git-ports/types.ts
+M	projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+```
 
-Build Doctrine: VALIDATED / ACTIVE
-Roadmap: VALIDATED / ACTIVE LIVING
-Product Completion: COMPLETE / CLOSED
-C1: VALIDATED / INTEGRATED
-Runtime v3: NON ADOPTED
-D-GCEC-09: ACTIVE / PRESERVED
-D-GCEC-EXEC-01: ACTIVE
-D-GCEC-CONT-01: ACTIVE
-D-GCEC-CONT-02: REAL-BACKED AT TESTED SCOPE
-D-GCEC-AGENT-01: ACTIVE
-D-GCEC-REAL-02-CLOSURE: ADOPTED / locally documented @ f71cf89a…
+Untracked Product:
+```
+projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitLifecyclePushPrMerge.d0.test.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/application/verifyPrCreateEffect.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/application/verifyRemotePushEffect.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/domain/assertFreshPrMergePreflight.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/domain/assertLocalBranchRefMatchesExpectedSha.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPrCreateLaunchSpec.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPrMergeLaunchSpec.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPushLaunchSpec.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedLocalCommitPriorAttempt.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedRemotePushPriorAttempt.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedPrCreateCursorAgent.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedPrMergeCursorAgent.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedRemotePushCursorAgent.ts
+```
 
-Proven scope retained: REAL docs-write → Evidence → same-EC continuation →
-REAL local git.commit → Evidence → remote anti-effect.
-
-REAL_CONTINUATION_GAP: CLOSED AT TESTED A→B SCOPE
-Governed executor effect reserve: CLOSED FOR TESTED A→B EFFECT SET
-Still open before this lot: remote mutation lifecycle push / PR / merge.
-
-==================================================
-D-GCEC-REAL-02-CLOSURE INPUT STATE
-==================================================
-
-Consumed as documentary truth on Product HEAD f71cf89a…
-REAL A→B proven at tested scope; GCEC-PUSH was NOT READY prior to this lot.
-This lot completes deterministic push+PR+merge-continuation Product support
-without claiming REAL push/PR proven.
-
-==================================================
-CURRENT SUPPORT MATRIX (PRE → POST CANDIDATE)
-==================================================
-
-| Effect | Pre | Post (candidate) |
-| --- | --- | --- |
-| git.commit (local) | IMPLEMENTED | IMPLEMENTED (KEEP) |
-| git.push | PARTIAL (domain/Fake/Evidence; M4 fail-closed) | COMPLETE (deterministic; REAL structurally ready, ZERO REAL this lot) |
-| github.pr.create | PARTIAL | COMPLETE (deterministic; ZERO REAL) |
-| github.pr.merge | PARTIAL | COMPLETE as merge-continuation prep (deterministic; REAL merge NOT AUTHORIZED) |
-| branch.delete | ABSENT | ABSENT (out of scope) |
-
-==================================================
-SELECTED PATH: B
-==================================================
-
-PATH A rejected: REAL through PR not possible without Product source change
-(M4 profiles permanently fail-closed push/PR/merge).
-
-PATH C rejected for push/PR/merge: no new DB/FSM/EC engine/Artifact aggregate/
-mutation executor required — extend existing Cont01/slice/Evidence/Fake spine.
-
-PATH B selected: bounded Product completion in ONE implementation lot.
-
-==================================================
-ROOT_CAUSE / CAPABILITY_GAP
-==================================================
-
-# GCEC-GIT-LIFECYCLE-E2E-01 — PATH B implementation summary
-
-## SELECTED PATH: B
-
-Bounded Product completion of push + PR create + merge-continuation on **existing** architecture (Cont01 / AuthorizedExecutionSlice / Confirmation / Evidence / Fake / verify*Claim). Cursor remains the mutation executor; Studio verifies via RepositoryRead. REAL remote mutation is **not** executed in this lot.
-
-## ROOT_CAUSE
-
-- `git.commit` already end-to-end (incl. REAL A→B).
-- `git.push` / `github.pr.create` / `github.pr.merge` were partial: domain + Confirmation + Evidence verify*Claim + Fake existed, but M4 `AttemptExecutionProfile` permanently fail-closed them (`UNSUPPORTED_M4_PROTECTED` / AP-10/11/12/13).
-- Missing AgentCapability siblings, launch specs, RealLaunchRequest fields, gateway profiles, and StartExecution wiring for push/PR/merge.
-- `branch.delete` remains ABSENT (out of scope).
-
-## CURRENT_REUSE_MAP
-
-| Area | Disposition |
-| --- | --- |
-| Cont01 / AuthorizedExecutionSlice / Confirmation | KEEP |
-| Evidence `verifyPushClaim` / `verifyPullRequestClaim` | KEEP (+ thin application wrappers) |
-| FakeCursorGitExternalState push/openPr/mergePr | KEEP / ADAPT (Fake port gates new specs) |
-| `m4BoundedLocalCommitCursorAgent` pattern | REUSE → three sibling agents |
-| `gitCommitLaunchSpec` / Start / gateway gating | REUSE → push/PR/merge analogs |
-| `resolveVerifiedDocsWritePriorAttempt` | REUSE → local-commit + remote-push lineage resolvers |
-| `resolveAttemptExecutionProfile` | COMPLETE progressive C→D→E |
-| M4 AttemptExecutionProfile fail-closed for push/PR/merge | REPLACE with progressive + lineage fail-closed |
-| REAL remote mutation / proof push-PR-merge | ZERO (structurally ready, gates OFF) |
-
-## ACTUAL_WRITE_FILESET
-
-### New
-- `app/lib/oa/execution-attempt/infrastructure/m4BoundedRemotePushCursorAgent.ts`
-- `app/lib/oa/execution-attempt/infrastructure/m4BoundedPrCreateCursorAgent.ts`
-- `app/lib/oa/execution-attempt/infrastructure/m4BoundedPrMergeCursorAgent.ts`
-- `app/lib/oa/execution-attempt/domain/gitPushLaunchSpec.ts`
-- `app/lib/oa/execution-attempt/domain/gitPrCreateLaunchSpec.ts`
-- `app/lib/oa/execution-attempt/domain/gitPrMergeLaunchSpec.ts`
-- `app/lib/oa/execution-attempt/domain/resolveVerifiedLocalCommitPriorAttempt.ts`
-- `app/lib/oa/execution-attempt/domain/resolveVerifiedRemotePushPriorAttempt.ts`
-- `app/lib/oa/execution-attempt/application/verifyRemotePushEffect.ts`
-- `app/lib/oa/execution-attempt/application/verifyPrCreateEffect.ts`
-- `app/__tests__/oa/execution-attempt/gcecGitLifecyclePushPrMerge.d0.test.ts`
-
-### Modified
-- `domain/realLaunchSafety.ts` — agent IDs
-- `domain/resolveAttemptExecutionProfile.ts` — remote_push / pr_create / pr_merge; AP-13 exhausted reason
-- `ports/realExecutionLaunchPort.ts` — gitPushSpec / gitPrCreateSpec / gitPrMergeSpec
-- `application/startExecution.ts` — exclusive-slice Start wiring
-- `infrastructure/studioCursorRealLaunchGateway.ts` — gated instructions
-- `infrastructure/fakeDocsWriteLaunchPort.ts` — spec + agent gates
-- `infrastructure/m4BoundedDocsWriteCursorAgent.ts` — authorized-agent OR
-- `infrastructure/mutatingCursorConfinementEnv.ts` — mutating profiles C/D/E
-- `index.ts` + `vertical-slice-runtime/service.ts` — exports + registry
-- AP-10/11/12/13 + monolithic/CR23 assertions updated for progressive behavior
-
-### Agent IDs
-- `agt:m4.cursor.bounded_remote_push`
-- `agt:m4.cursor.bounded_pr_create`
-- `agt:m4.cursor.bounded_pr_merge`
-
-Adapter unchanged: `adp:m4-cursor-cli-real`.
-
-## Test results
-
-| Gate | Result |
-| --- | --- |
-| Focused vitest (`gcecGitLifecyclePushPrMerge` + `gcecAgent01AttemptProfile`) | **36 passed** |
-| Related (gateway/confinement/CR23/monolithic + focused) | **73 passed** |
-| `npm run typecheck` | **PASS** |
-| `npm run lint` | **PASS** |
-| `npm run build` | **PASS** |
-| Full vitest (`SFIA_STUDIO_CURSOR_REAL` unset) | **3810 passed \| 137 skipped** (353 files passed \| 17 skipped) |
-
-## REAL: ZERO
-
-- `SFIA_STUDIO_CURSOR_REAL` unset for all validation.
-- No proof remote push / PR / merge.
-- No Product push.
-
-## PRODUCT COMMIT: NONE
-
-Working tree left dirty with intended Product source changes + `.tmp-sfia-review/gcec-git-lifecycle-e2e-01/`.
-Product HEAD remains `f71cf89a452d0b6109e1f11be957210122082186` on `delivery/sfia-studio-product-proof-qual-to-governed-cycle`.
-
-
-==================================================
-REUSE MAP
-==================================================
-
-KEEP: Cont01, AuthorizedExecutionSlice, Confirmation, Evidence verify*Claim,
-Fake push/openPr/mergePr, git-ports read adapters, qualifyCompletion,
-D-GCEC-09/EXEC-01/AGENT-01/CONT-01/02.
-
-ADAPT: Fake/gateway/confinement/docs-write agent mutual exclusion, monolithic/CR23/AP tests.
-
-COMPLETE: AttemptExecutionProfile progressive C→D→E; three AgentCapabilities;
-three launch specs; StartExecution exclusive-slice wiring; lineage resolvers;
-thin verify wrappers; registry registration.
-
-==================================================
-AUTHORITY / EFFECT MATRIX
-==================================================
-
-Attempt A: docs.write — agt:m4.cursor.bounded_docs_write
-Attempt B: git.commit — agt:m4.cursor.bounded_local_commit
-Attempt C: git.push — agt:m4.cursor.bounded_remote_push
-Attempt D: github.pr.create — agt:m4.cursor.bounded_pr_create
-STOP MERGE GATE (Morris)
-Attempt E (later GO): github.pr.merge — agt:m4.cursor.bounded_pr_merge
-
-Each Attempt owns selectedAgentRef. No broad unrestricted write+commit+push+PR+merge agent.
-StartExecution derives AuthorizedExecutionSlice + AttemptExecutionProfile server-side;
-revalidates agent; fail-closed on stale/incompatible requestedAgentRef.
-Tool availability does not widen authority.
-EC completion ≠ individual Attempt success; PR existence does not complete EC
-while merge remains required.
-
-==================================================
-AGENT PROFILES
-==================================================
-
-- agt:m4.cursor.bounded_remote_push / cap:cursor.git.remote_push
-- agt:m4.cursor.bounded_pr_create / cap:cursor.github.pr.create
-- agt:m4.cursor.bounded_pr_merge / cap:cursor.github.pr.merge
-Adapter: adp:m4-cursor-cli-real (unchanged)
-
-==================================================
-PUSH MODEL
-==================================================
-
-GitPushLaunchSpec: repositoryRef, remoteName, branchName, expectedCommitSha,
-force=false, delete=false, noTags=true — fail-closed builder.
-Lineage: unique VERIFIED git:local_commit prior Attempt required.
-Gateway instruction forbids force/delete/tags/main-as-dest misuse.
-Evidence: verifyRemotePushEffect → verifyPushClaim (RepositoryRead branch head).
-
-==================================================
-PR MODEL
-==================================================
-
-GitPrCreateLaunchSpec: repositoryRef, headBranch, baseBranch, title, body?
-Lineage: unique VERIFIED git:remote_push required.
-No auto-merge. One create Attempt semantics via exclusive slice + Evidence.
-Evidence: verifyPrCreateEffect → verifyPullRequestClaim.
-
-==================================================
-MERGE CONTINUATION MODEL
-==================================================
-
-GitPrMergeLaunchSpec prepared now for same-EC Attempt E after distinct Morris GO.
-Profile eligible only with VERIFIED PR identity; Confirmation / N3 gate remains
-at AuthorizedExecutionSlice. Auto-merge forbidden. REAL merge NOT executed.
-
-==================================================
-ACTUAL WRITE FILESET
-==================================================
-
+Complete fileset:
 ```
 projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/cycle/gcecD15Negatives.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/cycle/gcecDeterministicNegatives.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/cycle/gcecOneLotDelivery.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/cycle/gcecOwnershipNegatives.d0.test.ts
 projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts
 projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01AttemptProfile.d0.test.ts
 projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitLifecyclePushPrMerge.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecMutatingCursorConfinementEnv.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/git-ports/gcecGitPorts.d0.test.ts
+projects/sfia-studio/app/lib/oa/evidence-review/application/typedGitEvidence.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/application/verifyPrCreateEffect.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/application/verifyRemotePushEffect.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/domain/assertFreshPrMergePreflight.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/domain/assertLocalBranchRefMatchesExpectedSha.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPrCreateLaunchSpec.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPrMergeLaunchSpec.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPushLaunchSpec.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveGitEffectTarget.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedLocalCommitPriorAttempt.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedRemotePushPriorAttempt.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/cursorCliLaunchGateway.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeCursorGitExternalState.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedPrCreateCursorAgent.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedPrMergeCursorAgent.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedRemotePushCursorAgent.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/mutatingCursorConfinementEnv.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
 projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts
+projects/sfia-studio/app/lib/oa/git-ports/application/gitEffectEvidenceActions.ts
+projects/sfia-studio/app/lib/oa/git-ports/fakeGitProviderPorts.ts
+projects/sfia-studio/app/lib/oa/git-ports/githubCliRemotePorts.ts
+projects/sfia-studio/app/lib/oa/git-ports/platformGithubReadBridge.ts
+projects/sfia-studio/app/lib/oa/git-ports/types.ts
 projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
 ```
 
-Diffstat (tracked modifications only):
+==================================================
+SOURCES READ
+==================================================
+
+Cycle template, routing guide, v2.5 cycles candidate, operating model, guardrails,
+Build Doctrine (RO), Roadmap (RO), Product Completion cadrage, v3 framings 34/35 (RO),
+input handoff @ 0029516a…, and Product execution-attempt / git-ports / Evidence /
+Fake / StartExecution / gateway / confinement surfaces for CR-01..04.
+
+==================================================
+CONVERGENCE PRE-CHECK
+==================================================
+
+Build Doctrine: VALIDATED / ACTIVE (unchanged)
+Roadmap: VALIDATED / ACTIVE LIVING (unchanged)
+Product Completion: COMPLETE / CLOSED
+C1: VALIDATED / INTEGRATED
+Runtime v3: NON ADOPTED
+D-GCEC-09 / EXEC-01 / CONT-01 / CONT-02 / AGENT-01 / REAL-02-CLOSURE: preserved
+Capability: Governed Project Execution — Git/GitHub lifecycle
+Milestone: GCEC-GIT-LIFECYCLE-E2E-01 deterministic PATH B closure before REAL
+
+==================================================
+ARCHITECTURE CONSERVED
+==================================================
+
+KEEP: ExecutionContract, Attempt, AuthorizedExecutionSlice, Confirmation, Evidence,
+RepositoryRead, Cont01, PATH B AgentCapabilities, progressive C→D→E profiles,
+gateway Cursor, Fake, same persistence/FSM/engine.
+
+NO: new Git engine, mutation executor, FSM, DB, Evidence system, credential broker,
+Nora change, doctrine/roadmap, branch.delete.
+
+==================================================
+CRITICAL REVIEW CLOSURE MATRIX
+==================================================
+
+### CR-01 — Exact push ref/SHA invariant — CLOSED
+
+Before: gateway used HEAD then `branch:branch` push; Fake seeded missing local branch from expectedCommitSha.
+
+After:
+- Instruction observes `git rev-parse refs/heads/<branchName>` and requires equality with expectedCommitSha before mutation.
+- Explicit push of validated ref; force/delete/tags/main forbidden.
+- Remote URL must match repositoryRef before push.
+- Fake fails closed on missing/stale local ref (no self-heal).
+- Helper: assertLocalBranchRefMatchesExpectedSha.
+
+Tests: local ref absent/stale; HEAD≠branch; wrong remote URL; Fake no self-heal; POS exact match.
+
+### CR-02 — Effect-sensitive auth env — CLOSED
+
+Before: buildMutatingCursorConfinementEnv stripped all auth for A–E.
+
+After: effectClass local | remote_git | remote_github:
+- local (A/B): CONF-02A strip preserved
+- remote_git (C): preserve SSH/askpass; strip GH tokens + GIT_CONFIG injection
+- remote_github (D/E): preserve GH_/GITHUB_ token sentinel keys; neutralize GIT_CONFIG
+- No secret values in specs/Evidence/reports
+- Claim: REMOTE AUTH ENVIRONMENT POLICY DETERMINISTICALLY PROVEN
+- NOT: AUTH REAL PROVEN
+
+### CR-03 — repositoryRef + strong PR Evidence — CLOSED
+
+Before: gh commands lacked --repo; PR Evidence insufficient for merge continuation.
+
+After:
+- gh pr create/merge instructions require `--repo <repositoryRef>`
+- GitPullRequestPayload requires headBranch + baseBranch + state; location enriched
+- RepositoryPullRequestSummary.headBranch (+ optional baseSha)
+- verifyPullRequestClaim requires state===open + branches
+- verifyPrCreateEffect accepts expected head/base
+
+### CR-04 — Fresh live PR preflight — CLOSED
+
+Before: Attempt E used historical Evidence only.
+
+After:
+- assertFreshPrMergePreflight
+- StartExecution optional repositoryRead; fail closed if merge authorized and unavailable
+- Fresh getPullRequest must match OPEN + headSha + headBranch + baseBranch
+- Drift/closed/merged/mismatch → FAIL CLOSED
+- ZERO REAL merge
+
+==================================================
+IMPLEMENTATION SUMMARY (agent)
+==================================================
+
+# GCEC-GIT-LIFECYCLE-E2E-01 SAME-LOT CORRECTION — implementation summary
+
+## SELECTED PATH: B (dirty candidate adapted)
+
+Closed CR-01..04 in one lot on the existing PATH B dirty candidate. No rewrite-from-scratch.
+
+## CR CLOSED MATRIX
+
+| CR | Status | Fix |
+| --- | --- | --- |
+| CR-01 Exact push ref/SHA | **CLOSED** | Gateway observes `git rev-parse refs/heads/<branch>` + remote URL identity before push; Fake no longer self-heals missing branch from `expectedCommitSha`; `assertLocalBranchRefMatchesExpectedSha` / `assertRemoteUrlMatchesRepositoryRef`; Fake `push()` fails closed on missing branch (no HEAD substitute) |
+| CR-02 Effect-sensitive auth env | **CLOSED** | `buildMutatingCursorConfinementEnv(base, { effectClass })`: `local` strips all; `remote_git` preserves SSH/askpass; `remote_github` preserves GH_/GITHUB_ token keys; still neutralizes `GIT_CONFIG_*`. Gateway passes effect class for C/D/E. Claim: **REMOTE AUTH ENVIRONMENT POLICY DETERMINISTICALLY PROVEN** — not AUTH REAL |
+| CR-03 repositoryRef + PR Evidence | **CLOSED** | `gh pr create/merge` instructions require `--repo <repositoryRef>`; push requires remote URL ↔ repositoryRef; `GitPullRequestPayload` requires `headBranch`+`baseBranch`+`state`; location encoding enriched; `RepositoryPullRequestSummary.headBranch` (+ optional `baseSha`); CLI/Fake/bridge expose head branch; `verifyPullRequestClaim` requires `state===open` + branches; `verifyPrCreateEffect` accepts expected head/base |
+| CR-04 Fresh live PR preflight | **CLOSED** | `assertFreshPrMergePreflight`; StartExecution optional `repositoryRead` — fail closed `git_pr_merge_repository_read_unavailable` when merge authorized and missing; fresh `getPullRequest` before merge launch |
+
+## FILESET
+
+See `.tmp-sfia-review/gcec-git-lifecycle-e2e-01-corr/fileset.txt` (42 paths under `projects/sfia-studio/app`).
+
+### New (this correction)
+- `domain/assertLocalBranchRefMatchesExpectedSha.ts`
+- `domain/assertFreshPrMergePreflight.ts`
+
+### Key adapted
+- `studioCursorRealLaunchGateway.ts` — push/PR/merge instructions + effect-class confinement
+- `mutatingCursorConfinementEnv.ts` — effect-sensitive strip/preserve
+- `fakeDocsWriteLaunchPort.ts` / `fakeCursorGitExternalState.ts` — push ref parity
+- `typedGitEvidence.ts`, `gitEffectEvidenceActions.ts`, git-ports types/CLI/Fake/bridge
+- `startExecution.ts` + service factories — `repositoryRead` + fresh merge preflight
+- Tests: `gcecGitLifecyclePushPrMerge.d0.test.ts`, `gcecMutatingCursorConfinementEnv.d0.test.ts`, PR payload seed sites
+
+## VALIDATION (cwd: `projects/sfia-studio/app`, `SFIA_STUDIO_CURSOR_REAL` unset)
+
+| Gate | Result |
+| --- | --- |
+| Focused CR (`gcecGitLifecyclePushPrMerge` + `gcecMutatingCursorConfinementEnv`) | **43 passed** (2 files) |
+| Related (lifecycle + confinement + Agent01 + CR23 + git-ports + D15/ownership/deterministic/oneLot) | **184 passed** (9 files) |
+| `npm run typecheck` | **PASS** |
+| `npm run lint` | **PASS** |
+| `npm run build` | **PASS** |
+| Full vitest | **3825 passed \| 137 skipped** (353 files passed \| 17 skipped) |
+
+## REAL: ZERO
+
+- `SFIA_STUDIO_CURSOR_REAL` unset for all validation.
+- No proof remote push / PR / merge.
+- No Product push / PR / merge.
+
+## PRODUCT COMMIT: NONE
+
+Working tree left dirty. Product HEAD remains:
+
+`f71cf89a452d0b6109e1f11be957210122082186`
+
+No handoff published (parent agent owns handoff).
+
+
+==================================================
+KEY CODE EXCERPTS
+==================================================
+
+### assertLocalBranchRefMatchesExpectedSha.ts
+```typescript
+/**
+ * CR-01 — Fake / gateway parity: local branch ref must exist and equal expected SHA.
+ * Does NOT consult HEAD as a substitute for refs/heads/<branch>.
+ */
+export function assertLocalBranchRefMatchesExpectedSha(input: {
+  readonly branchHeads: ReadonlyMap<string, string>;
+  readonly branchName: string;
+  readonly expectedCommitSha: string;
+}): { ok: true; sha: string } | { ok: false; reason: string } {
+  const branch = input.branchName.trim();
+  if (!branch) {
+    return { ok: false, reason: "git_push_local_ref_missing" };
+  }
+  if (!input.branchHeads.has(branch)) {
+    return { ok: false, reason: "git_push_local_ref_missing" };
+  }
+  const observed = input.branchHeads.get(branch)!.trim().toLowerCase();
+  const expected = input.expectedCommitSha.trim().toLowerCase();
+  if (!/^[0-9a-f]{40}$/.test(expected) || !/^[0-9a-f]{40}$/.test(observed)) {
+    return { ok: false, reason: "git_push_local_ref_sha_mismatch" };
+  }
+  if (observed !== expected) {
+    return { ok: false, reason: "git_push_local_ref_sha_mismatch" };
+  }
+  return { ok: true, sha: observed };
+}
+
+/**
+ * Repository remote URL must identify the same GitHub repo as repositoryRef
+ * (owner/name). Used by Fake push path and documented in gateway push instruction.
+ */
+export function assertRemoteUrlMatchesRepositoryRef(input: {
+  readonly remoteUrl: string;
+  readonly repositoryRef: string;
+}): { ok: true } | { ok: false; reason: string } {
+  const identity = input.repositoryRef.trim().toLowerCase();
+  if (!identity || !/^[^/\s]+\/[^/\s]+$/.test(identity)) {
+    return { ok: false, reason: "git_push_remote_url_mismatch" };
+  }
+  const normalized = input.remoteUrl
+    .trim()
+    .replace(/\.git$/i, "")
+    .replace(/^git@github\.com:/i, "https://github.com/")
+    .replace(/^ssh:\/\/git@github\.com\//i, "https://github.com/")
+    .toLowerCase();
+  const expectedHttps = `https://github.com/${identity}`;
+  if (normalized !== expectedHttps) {
+    return { ok: false, reason: "git_push_remote_url_mismatch" };
+  }
+  return { ok: true };
+}
+
 ```
-.../oa/cycle/gcecCr23StartExecution.d0.test.ts     |   6 +-
- .../oa/cycle/gcecProductMonolithicE2e.d0.test.ts   |  12 +-
- .../gcecAgent01AttemptProfile.d0.test.ts           |  44 ++-
- .../application/startExecution.ts                  | 308 ++++++++++++++-
- .../execution-attempt/domain/realLaunchSafety.ts   |   9 +
- .../domain/resolveAttemptExecutionProfile.ts       | 422 +++++++++++++++++++--
- .../app/lib/oa/execution-attempt/index.ts          |  75 ++++
- .../infrastructure/fakeDocsWriteLaunchPort.ts      | 194 +++++++++-
- .../m4BoundedDocsWriteCursorAgent.ts               |  10 +-
- .../infrastructure/mutatingCursorConfinementEnv.ts |  11 +-
- .../studioCursorRealLaunchGateway.ts               | 370 +++++++++++++++++-
- .../ports/realExecutionLaunchPort.ts               |  23 +-
- .../app/lib/vertical-slice-runtime/service.ts      |   6 +
- 13 files changed, 1421 insertions(+), 69 deletions(-)
+
+### assertFreshPrMergePreflight.ts
+```typescript
+/**
+ * CR-04 — Fresh live PR preflight before merge Attempt E.
+ * Pure domain gate; StartExecution is the authority (gateway prompt is defense-in-depth).
+ */
+import type { RepositoryPullRequestSummary } from "@/lib/oa/git-ports";
+
+export type FreshPrMergePreflightExpected = {
+  readonly headSha: string;
+  readonly headBranch: string;
+  readonly baseBranch: string;
+};
+
+export function assertFreshPrMergePreflight(input: {
+  readonly live: RepositoryPullRequestSummary | null | undefined;
+  readonly expected: FreshPrMergePreflightExpected;
+}): { ok: true } | { ok: false; reason: string } {
+  if (input.live == null) {
+    return { ok: false, reason: "git_pr_merge_live_pr_missing" };
+  }
+  const live = input.live;
+  if (live.state === "merged") {
+    return { ok: false, reason: "git_pr_merge_live_pr_merged" };
+  }
+  if (live.state === "closed" || live.state !== "open") {
+    return { ok: false, reason: "git_pr_merge_live_pr_closed" };
+  }
+  const liveHead = live.headSha.trim().toLowerCase();
+  const expectedHead = input.expected.headSha.trim().toLowerCase();
+  if (liveHead !== expectedHead) {
+    return { ok: false, reason: "git_pr_merge_live_head_sha_drift" };
+  }
+  const liveHeadBranch = live.headBranch?.trim() ?? "";
+  if (!liveHeadBranch || liveHeadBranch !== input.expected.headBranch.trim()) {
+    return { ok: false, reason: "git_pr_merge_live_head_branch_mismatch" };
+  }
+  const liveBase = live.baseBranch.trim();
+  if (!liveBase || liveBase !== input.expected.baseBranch.trim()) {
+    return { ok: false, reason: "git_pr_merge_live_base_branch_mismatch" };
+  }
+  return { ok: true };
+}
+
 ```
 
-Plus 11 new untracked Product files (agents/specs/resolvers/verify wrappers/tests).
-Combined useful diff attached below (~3746 lines).
+### mutatingCursorConfinementEnv.ts (full)
+```typescript
+/**
+ * D-GCEC-CONF-02A / D-GCEC-EXEC-01 — server-owned child env for mutating GCEC Cursor profiles.
+ *
+ * Effect-sensitive (CR-02):
+ * - local (A docs_write + B local_commit): strip Git/GitHub/SSH write-auth channels
+ * - remote_git (C git.push): preserve SSH / askpass channels; still strip GH tokens + GIT_CONFIG injection
+ * - remote_github (D/E pr create/merge): preserve GH_/GITHUB_ token keys; still neutralize GIT_CONFIG injection
+ *
+ * Proves only: Product gateway applies a deterministic env-key presence policy.
+ * Does NOT prove AUTH REAL / remote-write impossibility.
+ * NEVER copy secret VALUES into specs/Evidence/reports — key presence only.
+ */
+import { SFIA_STUDIO_CURSOR_REAL_FLAG } from "../domain/realLaunchSafety";
+
+/** Exact auth / askpass / SSH override keys stripped for local (A/B) mutating child env. */
+export const MUTATING_CURSOR_STRIPPED_ENV_KEYS = [
+  "SSH_AUTH_SOCK",
+  "SSH_AGENT_PID",
+  "GH_TOKEN",
+  "GITHUB_TOKEN",
+  "GH_ENTERPRISE_TOKEN",
+  "GITHUB_ENTERPRISE_TOKEN",
+  "GIT_ASKPASS",
+  "SSH_ASKPASS",
+  "SSH_ASKPASS_REQUIRE",
+  "GIT_SSH",
+  "GIT_SSH_COMMAND",
+  "GIT_CONFIG_PARAMETERS",
+  "GIT_CONFIG_COUNT",
+] as const;
+
+/** SSH / askpass channels preserved for remote_git (C). */
+export const MUTATING_CURSOR_REMOTE_GIT_PRESERVED_ENV_KEYS = [
+  "SSH_AUTH_SOCK",
+  "SSH_AGENT_PID",
+  "GIT_ASKPASS",
+  "SSH_ASKPASS",
+  "SSH_ASKPASS_REQUIRE",
+  "GIT_SSH",
+  "GIT_SSH_COMMAND",
+] as const;
+
+/** GitHub token sentinel keys preserved for remote_github (D/E). */
+export const MUTATING_CURSOR_REMOTE_GITHUB_PRESERVED_ENV_KEYS = [
+  "GH_TOKEN",
+  "GITHUB_TOKEN",
+  "GH_ENTERPRISE_TOKEN",
+  "GITHUB_ENTERPRISE_TOKEN",
+] as const;
+
+export type MutatingCursorConfinementEffectClass =
+  | "local"
+  | "remote_git"
+  | "remote_github";
+
+const LOCAL_STRIPPED = new Set<string>(MUTATING_CURSOR_STRIPPED_ENV_KEYS);
+const REMOTE_GIT_PRESERVE = new Set<string>(
+  MUTATING_CURSOR_REMOTE_GIT_PRESERVED_ENV_KEYS,
+);
+const REMOTE_GITHUB_PRESERVE = new Set<string>(
+  MUTATING_CURSOR_REMOTE_GITHUB_PRESERVED_ENV_KEYS,
+);
+
+function isInheritedGitConfigInjectionKey(key: string): boolean {
+  return (
+    key === "GIT_CONFIG_PARAMETERS" ||
+    key === "GIT_CONFIG_COUNT" ||
+    /^GIT_CONFIG_KEY_\d+$/.test(key) ||
+    /^GIT_CONFIG_VALUE_\d+$/.test(key)
+  );
+}
+
+function shouldStripKey(
+  key: string,
+  effectClass: MutatingCursorConfinementEffectClass,
+): boolean {
+  // Always neutralize GIT_CONFIG_* injection regardless of effect class.
+  if (isInheritedGitConfigInjectionKey(key)) return true;
+
+  if (effectClass === "local") {
+    return LOCAL_STRIPPED.has(key);
+  }
+  if (effectClass === "remote_git") {
+    if (REMOTE_GIT_PRESERVE.has(key)) return false;
+    return LOCAL_STRIPPED.has(key);
+  }
+  // remote_github
+  if (REMOTE_GITHUB_PRESERVE.has(key)) return false;
+  return LOCAL_STRIPPED.has(key);
+}
+
+/**
+ * Build a fresh child ProcessEnv for mutating Cursor launches.
+ * Does not mutate `baseEnv`. Caller cannot opt out.
+ */
+export function buildMutatingCursorConfinementEnv(
+  baseEnv: NodeJS.ProcessEnv,
+  options?: { readonly effectClass?: MutatingCursorConfinementEffectClass },
+): NodeJS.ProcessEnv {
+  const effectClass = options?.effectClass ?? "local";
+  const child: Record<string, string | undefined> = {};
+  for (const [key, value] of Object.entries(baseEnv)) {
+    if (value === undefined) continue;
+    if (shouldStripKey(key, effectClass)) continue;
+    child[key] = value;
+  }
+
+  child[SFIA_STUDIO_CURSOR_REAL_FLAG] = "1";
+  child.GIT_TERMINAL_PROMPT = "0";
+  child.GCM_INTERACTIVE = "Never";
+  // Neutralize host system/global Git config for the child (local Git support).
+  child.GIT_CONFIG_NOSYSTEM = "1";
+  child.GIT_CONFIG_SYSTEM = "/dev/null";
+  child.GIT_CONFIG_GLOBAL = "/dev/null";
+
+  return child as NodeJS.ProcessEnv;
+}
+
+export function isMutatingGcecCursorProfile(input: {
+  readonly isDocsWrite: boolean;
+  readonly isLocalCommitProfile: boolean;
+  readonly isRemotePushProfile?: boolean;
+  readonly isPrCreateProfile?: boolean;
+  readonly isPrMergeProfile?: boolean;
+}): boolean {
+  return (
+    input.isDocsWrite === true ||
+    input.isLocalCommitProfile === true ||
+    input.isRemotePushProfile === true ||
+    input.isPrCreateProfile === true ||
+    input.isPrMergeProfile === true
+  );
+}
+
+export function resolveMutatingConfinementEffectClass(input: {
+  readonly isRemotePushProfile?: boolean;
+  readonly isPrCreateProfile?: boolean;
+  readonly isPrMergeProfile?: boolean;
+}): MutatingCursorConfinementEffectClass {
+  if (input.isRemotePushProfile) return "remote_git";
+  if (input.isPrCreateProfile || input.isPrMergeProfile) return "remote_github";
+  return "local";
+}
+
+```
+
+### buildBoundedRemotePushInstruction
+```typescript
+function buildBoundedRemotePushInstruction(input: {
+  readonly spec: NonNullable<RealLaunchRequest["gitPushSpec"]>;
+  readonly target?: string;
+  readonly action?: string;
+  readonly scope?: string;
+  readonly semanticFingerprint: string;
+}): string {
+  const branchRef = `refs/heads/${input.spec.branchName}`;
+  return [
+    "TÂCHE UNIQUE — bounded remote git.push déterministe (GCEC).",
+    `Repository: ${input.spec.repositoryRef}`,
+    `Remote exact: ${input.spec.remoteName}`,
+    `Branch exacte (feature only): ${input.spec.branchName}`,
+    `Local ref exacte: ${branchRef}`,
+    `Expected commit SHA: ${input.spec.expectedCommitSha}`,
+    "Séquence Shell autorisée UNIQUEMENT (STOP sans mutation si échec):",
+    `  1) git remote get-url ${input.spec.remoteName}`,
+    `     → l'URL observée DOIT identifier le même dépôt que repositoryRef=${input.spec.repositoryRef}`,
+    `       (https://github.com/<owner>/<repo>[.git] ou git@github.com:<owner>/<repo>[.git]).`,
+    `       Sinon: STOP — ne pas pousser.`,
+    `  2) git rev-parse ${branchRef}`,
+    `     → le SHA observé DOIT être exactement ${input.spec.expectedCommitSha}.`,
+    `       Absent / mismatch / usage de HEAD seul à la place de ${branchRef}: STOP — ne pas pousser.`,
+    `  3) Seulement si (1)+(2) OK:`,
+    `     git push ${input.spec.remoteName} ${branchRef}:${input.spec.branchName}`,
+    "INTERDIT: --force / -f / --force-with-lease, --delete / :branch delete,",
+    "--tags / --follow-tags, push vers main/master, fetch mutatif, pull,",
+    "remote add/set-url, checkout, reset, rebase, merge, amend, PR/merge GitHub,",
+    "édition de fichiers, script shell fourni par l'appelant,",
+    "substituer HEAD au ref de branche, auto-créer la branche locale absente.",
+    "force=false delete=false noTags=true — non négociable.",
+    "En cas d'ambiguïté: STOP immédiatement sans mutation.",
+    `target=${input.target ?? ""}`,
+    `action=${input.action ?? ""}`,
+    `scope=${input.scope ?? ""}`,
+    `fingerprint=${input.semanticFingerprint}`,
+  ].join("\n");
+}
+
+
+```
+
+### buildBoundedPrCreateInstruction
+```typescript
+function buildBoundedPrCreateInstruction(input: {
+  readonly spec: NonNullable<RealLaunchRequest["gitPrCreateSpec"]>;
+  readonly target?: string;
+  readonly action?: string;
+  readonly scope?: string;
+  readonly semanticFingerprint: string;
+}): string {
+  return [
+    "TÂCHE UNIQUE — bounded github.pr.create déterministe (GCEC).",
+    `Repository: ${input.spec.repositoryRef}`,
+    `Head branch exacte: ${input.spec.headBranch}`,
+    `Base branch exacte: ${input.spec.baseBranch}`,
+    `Title exact: ${input.spec.title}`,
+    ...(input.spec.body ? [`Body: ${input.spec.body}`] : []),
+    "Commande autorisée UNIQUEMENT:",
+    `  gh pr create --repo ${input.spec.repositoryRef} --head ${input.spec.headBranch} --base ${input.spec.baseBranch} --title ${JSON.stringify(input.spec.title)}` +
+      (input.spec.body
+        ? ` --body ${JSON.stringify(input.spec.body)}`
+        : ""),
+    "INTERDIT: omettre --repo, --auto-merge / enable auto-merge, merge, squash, rebase,",
+    "push force, delete branch, édition hors PR create, script shell libre.",
+    "En cas d'ambiguïté: STOP immédiatement sans mutation.",
+    `target=${input.target ?? ""}`,
+    `action=${input.action ?? ""}`,
+    `scope=${input.scope ?? ""}`,
+    `fingerprint=${input.semanticFingerprint}`,
+  ].join("\n");
+}
+
+
+```
+
+### buildBoundedPrMergeInstruction
+```typescript
+function buildBoundedPrMergeInstruction(input: {
+  readonly spec: NonNullable<RealLaunchRequest["gitPrMergeSpec"]>;
+  readonly target?: string;
+  readonly action?: string;
+  readonly scope?: string;
+  readonly semanticFingerprint: string;
+}): string {
+  const methodFlag =
+    input.spec.mergeMethod === "squash"
+      ? "--squash"
+      : input.spec.mergeMethod === "rebase"
+        ? "--rebase"
+        : "--merge";
+  return [
+    "TÂCHE UNIQUE — bounded github.pr.merge déterministe (GCEC).",
+    `Repository: ${input.spec.repositoryRef}`,
+    `PR number exact (obligatoire): ${input.spec.prNumber}`,
+    `Expected head SHA: ${input.spec.expectedHeadSha}`,
+    `Expected base branch: ${input.spec.expectedBaseBranch}`,
+    `Merge method: ${input.spec.mergeMethod}`,
+    "Avant merge (défense en profondeur — StartExecution fresh RepositoryRead est l'autorité):",
+    `  gh pr view ${input.spec.prNumber} --repo ${input.spec.repositoryRef} --json state,headRefOid,baseRefName,headRefName`,
+    "  → exiger state=OPEN et headRefOid == expected head SHA; sinon STOP.",
+    "Commande autorisée UNIQUEMENT:",
+    `  gh pr merge ${input.spec.prNumber} --repo ${input.spec.repositoryRef} ${methodFlag}`,
+    "INTERDIT: omettre --repo, autre PR number, --admin, --auto, enable auto-merge,",
+    "delete branch, force push, script shell libre.",
+    "En cas d'ambiguïté: STOP immédiatement sans mutation.",
+    `target=${input.target ?? ""}`,
+    `action=${input.action ?? ""}`,
+    `scope=${input.scope ?? ""}`,
+    `fingerprint=${input.semanticFingerprint}`,
+  ].join("\n");
+}
+
+
+```
 
 ==================================================
-POSITIVE / NEGATIVE TESTS
+VALIDATION
 ==================================================
 
-New: gcecGitLifecyclePushPrMerge.d0.test.ts (21)
-Updated: gcecAgent01AttemptProfile AP-10/11/12/13; CR23; monolithic E2E
+cwd: projects/sfia-studio/app
+SFIA_STUDIO_CURSOR_REAL: unset
 
-Focused: 36 passed
-Related: 73 passed
-Typecheck: PASS
-Lint: PASS
-Build: PASS
-Full vitest: 3810 passed | 137 skipped (REAL gates OFF)
+| Gate | Result |
+| --- | --- |
+| Focused (gcecGitLifecyclePushPrMerge + gcecMutatingCursorConfinementEnv) | **43 passed** (final recheck) |
+| Related (9 files: lifecycle/confinement/Agent01/CR23/git-ports/D15/ownership/deterministic/oneLot) | **184 passed** |
+| typecheck | PASS |
+| lint | PASS |
+| build | PASS |
+| Full vitest | **3825 passed \| 137 skipped** (353 files passed \| 17 skipped) |
 
 ==================================================
-REAL / PRODUCT REMOTE
+FAKE / REAL QUALIFICATION
 ==================================================
 
+Level this cycle: DETERMINISTIC PROVEN for CR-01..04 invariants.
 REAL: ZERO
+REMOTE AUTH REAL: NOT PROVEN
+PUSH REAL: NOT PROVEN
+PR REAL: NOT PROVEN
+MERGE REAL: NOT PROVEN
+DETERMINISTIC PROVEN ≠ READY FOR REAL
+
+==================================================
+GIT EFFECTS THIS LOT
+==================================================
+
 PRODUCT COMMIT: NONE
-PRODUCT REPO PUSH: NONE
+PRODUCT PUSH: NONE
 PRODUCT PR: NONE
 PRODUCT MERGE: NONE
-PROOF MERGE: NONE
-PROOF REMOTE MUTATION: NONE
-
-==================================================
-GCEC-PUSH STATUS
-==================================================
-
-Deterministic Product path COMPLETE (candidate).
-REAL push: NOT PROVEN this lot.
-GCEC-PUSH READY for REAL: NOT until Critical Review → local commit GO →
-distinct REAL A→D lifecycle run.
-
-PR STATUS: deterministic create path COMPLETE (candidate); REAL PR NOT PROVEN.
-
-MERGE STATUS: NOT AUTHORIZED / NOT PROVEN (continuation prepared only).
-
-RUNTIME v3: NON ADOPTED
+PROOF REPO MUTATION: NONE
+branch.delete: NONE
+REAL C/D/E: NONE
 
 ==================================================
 RESERVES
 ==================================================
 
-- D-GCEC-EVID-01: ACCEPTED NON-BLOCKING
-- FixedIdSource harness reserve: OPEN / NON-BLOCKING (unchanged)
-- Full EC completion: NOT PROVEN by this lot
-- branch.delete: ABSENT
-- REAL push/PR/merge: NOT PROVEN
-- Publisher false-negative tooling reserve (handoff) retained historically
+Non-blocking:
+- D-GCEC-EVID-01 ACCEPTED NON-BLOCKING
+- FixedIdSource harness reserve OPEN / NON-BLOCKING
+- baseSha on PR Evidence optional when RepositoryRead exposes it (included when available)
+- Publisher false-negative tooling reserve (historical)
 
-==================================================
-ANTI-CLAIMS
-==================================================
-
-≠ push proven
-≠ PR proven
-≠ merge proven
-≠ GCEC-PUSH READY for silent REAL
-≠ full lifecycle completed
-≠ runtime v3 ADOPTED
-≠ generic repo safety
-≠ autonomous merge
-≠ Product push/PR/merge
-≠ new DB/FSM/EC engine/Artifact aggregate
-≠ second mutation executor
-≠ branch.delete implemented
+Blocking for REAL (expected):
+- REAL push/PR not yet authorized/proven
+- Merge remains Morris/Pilote gated after real PR evidence
 
 ==================================================
 DECISION REQUIRED FROM MORRIS
 ==================================================
 
-ONE Critical Review of this complete push+PR+merge-continuation implementation
-candidate.
+CHATGPT CRITICAL REVIEW OF COMPLETE SAME-LOT CORRECTION CANDIDATE.
 
-If accepted:
-→ ONE local Product commit GO
-→ then ONE REAL A→D lifecycle run (docs-write → commit → push → PR)
-→ STOP at MERGE GATE with real PR evidence
-→ distinct Morris GO MERGE resumes SAME EC Attempt E
+Do NOT Product commit / REAL / Product push / PR / merge from this pack alone.
 
-Do NOT split into push vs PR micro-cycles.
+Next sequence if Critical Review PASS:
+Morris GO local Product commit → commit → verification → Morris REAL gate → ONE fresh REAL A→D → STOP merge gate → distinct GO → Attempt E.
 
 ==================================================
 FULL USEFUL DIFF
@@ -413,6 +786,66 @@ index cb2ff410..19495a79 100644
        );
      }
    }, 90_000);
+diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/gcecD15Negatives.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/gcecD15Negatives.d0.test.ts
+index 64a95587..2d1d3185 100644
+--- a/projects/sfia-studio/app/__tests__/oa/cycle/gcecD15Negatives.d0.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/cycle/gcecD15Negatives.d0.test.ts
+@@ -137,6 +137,8 @@ function fullVerifiedSet(): Evidence[] {
+         repositoryRef: REPO,
+         prNumber: 1,
+         headSha: SHA,
++        headBranch: "gcec/docs",
++        baseBranch: "main",
+         state: "open",
+       },
+       "ev:pr",
+@@ -385,6 +387,7 @@ describe("gcecD15Negatives — N1–N28", () => {
+       title: "x",
+       state: "open",
+       headSha: OTHER,
++      headBranch: "feature/gcec",
+       baseBranch: "main",
+       url: "https://github.com/acme/widget/pull/42",
+     });
+diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/gcecDeterministicNegatives.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/gcecDeterministicNegatives.d0.test.ts
+index 950c2c0d..f167261a 100644
+--- a/projects/sfia-studio/app/__tests__/oa/cycle/gcecDeterministicNegatives.d0.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/cycle/gcecDeterministicNegatives.d0.test.ts
+@@ -111,6 +111,8 @@ function fullSet(): Evidence[] {
+         repositoryRef: REPO,
+         prNumber: 1,
+         headSha: FULL_SHA,
++        headBranch: "gcec/docs",
++        baseBranch: "main",
+         state: "open",
+       },
+       "ev:pr",
+diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/gcecOneLotDelivery.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/gcecOneLotDelivery.d0.test.ts
+index 405538c0..1a88a219 100644
+--- a/projects/sfia-studio/app/__tests__/oa/cycle/gcecOneLotDelivery.d0.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/cycle/gcecOneLotDelivery.d0.test.ts
+@@ -240,6 +240,9 @@ function validPayloadFor(source: TypedGitEvidenceSource): unknown {
+         repositoryRef: "acme/widget",
+         prNumber: 1,
+         headSha: FULL_SHA,
++        headBranch: "feature",
++        baseBranch: "main",
++        state: "open",
+       };
+     case "git:ci_status":
+       return {
+diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/gcecOwnershipNegatives.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/gcecOwnershipNegatives.d0.test.ts
+index 9d1cd2f2..ffab9754 100644
+--- a/projects/sfia-studio/app/__tests__/oa/cycle/gcecOwnershipNegatives.d0.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/cycle/gcecOwnershipNegatives.d0.test.ts
+@@ -59,6 +59,7 @@ describe("GCEC ownership negatives", () => {
+       title: "x",
+       state: "open",
+       headSha: OTHER,
++      headBranch: "feature/gcec",
+       baseBranch: "main",
+       url: "https://github.com/acme/widget/pull/42",
+     });
 diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts
 index c56605e0..8271e0e9 100644
 --- a/projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts
@@ -536,8 +969,200 @@ index 3590a7ee..a0caf2d9 100644
    });
 
    it("AP-14 non-M4 historical contract → contract_legacy still works", () => {
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecMutatingCursorConfinementEnv.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecMutatingCursorConfinementEnv.d0.test.ts
+index f7284403..b1b0cf9c 100644
+--- a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecMutatingCursorConfinementEnv.d0.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecMutatingCursorConfinementEnv.d0.test.ts
+@@ -10,9 +10,12 @@ import {
+   isMutatingGcecCursorProfile,
+   M4_BOUNDED_DOCS_WRITE_ACTION,
+   M4_BOUNDED_LOCAL_COMMIT_ACTION,
++  M4_BOUNDED_PR_CREATE_ACTION,
++  M4_BOUNDED_REMOTE_PUSH_ACTION,
+   M4_BOUNDED_RO_ACTION,
+   M4_REAL_GATEWAY_ADAPTER_ID,
+   MUTATING_CURSOR_STRIPPED_ENV_KEYS,
++  resolveMutatingConfinementEffectClass,
+   SFIA_STUDIO_CURSOR_REAL_FLAG,
+   StudioCursorRealLaunchGateway,
+ } from "@/lib/oa/execution-attempt";
+@@ -282,7 +285,7 @@ describe("D-GCEC-CONF-02A mutating Cursor confinement env", () => {
+     expect(runner.calls).toHaveLength(0);
+   });
+
+-  it("CONF secret-safety: stripped sentinel values never appear in child env values", async () => {
++  it("CONF secret-safety: stripped sentinel values never appear in child env values", () => {
+     const base = hostileBaseEnv();
+     const child = buildMutatingCursorConfinementEnv(base);
+     const joined = Object.values(child).join("\u0000");
+@@ -291,4 +294,101 @@ describe("D-GCEC-CONF-02A mutating Cursor confinement env", () => {
+     expect(joined).not.toContain("TEST_ASKPASS");
+     expect(joined).not.toContain("TEST_GIT_SSH_COMMAND");
+   });
++
++  it("CR-02 remote_git preserves SSH/askpass; still strips GH tokens + GIT_CONFIG", () => {
++    const base = hostileBaseEnv();
++    expect(resolveMutatingConfinementEffectClass({ isRemotePushProfile: true })).toBe(
++      "remote_git",
++    );
++    const child = buildMutatingCursorConfinementEnv(base, {
++      effectClass: "remote_git",
++    });
++    expect(child.SSH_AUTH_SOCK).toBe("TEST_SSH_SOCKET");
++    expect(child.SSH_AGENT_PID).toBe("TEST_SSH_AGENT_PID");
++    expect(child.GIT_ASKPASS).toBe("TEST_ASKPASS");
++    expect(child.SSH_ASKPASS).toBe("TEST_SSH_ASKPASS");
++    expect(child.GH_TOKEN).toBeUndefined();
++    expect(child.GITHUB_TOKEN).toBeUndefined();
++    expect(child.GIT_CONFIG_PARAMETERS).toBeUndefined();
++    expect(child.GIT_CONFIG_KEY_0).toBeUndefined();
++    expect(child.GIT_CONFIG_GLOBAL).toBe("/dev/null");
++  });
++
++  it("CR-02 remote_github preserves GH tokens; still strips SSH + GIT_CONFIG", () => {
++    const base = hostileBaseEnv();
++    expect(
++      resolveMutatingConfinementEffectClass({ isPrCreateProfile: true }),
++    ).toBe("remote_github");
++    expect(
++      resolveMutatingConfinementEffectClass({ isPrMergeProfile: true }),
++    ).toBe("remote_github");
++    const child = buildMutatingCursorConfinementEnv(base, {
++      effectClass: "remote_github",
++    });
++    expect(child.GH_TOKEN).toBe("TEST_GH_TOKEN");
++    expect(child.GITHUB_TOKEN).toBe("TEST_GITHUB_TOKEN");
++    expect(child.GH_ENTERPRISE_TOKEN).toBe("TEST_GH_ENTERPRISE_TOKEN");
++    expect(child.GITHUB_ENTERPRISE_TOKEN).toBe("TEST_GITHUB_ENTERPRISE_TOKEN");
++    expect(child.SSH_AUTH_SOCK).toBeUndefined();
++    expect(child.GIT_ASKPASS).toBeUndefined();
++    expect(child.GIT_CONFIG_PARAMETERS).toBeUndefined();
++    expect(child.GIT_CONFIG_GLOBAL).toBe("/dev/null");
++  });
++
++  function remotePushRequest(
++    overrides: Record<string, unknown> = {},
++  ): Parameters<StudioCursorRealLaunchGateway["launch"]>[0] {
++    return baseRequest({
++      action: M4_BOUNDED_REMOTE_PUSH_ACTION,
++      selectedAgentRef: "agt:m4.cursor.bounded_remote_push",
++      authorizedEffects: ["git.push"],
++      gitPushSpec: {
++        repositoryRef: "acme/widget",
++        remoteName: "origin",
++        branchName: "gcec/docs",
++        expectedCommitSha: PARENT,
++        force: false,
++        delete: false,
++        noTags: true,
++      },
++      ...overrides,
++    });
++  }
++
++  function prCreateRequest(
++    overrides: Record<string, unknown> = {},
++  ): Parameters<StudioCursorRealLaunchGateway["launch"]>[0] {
++    return baseRequest({
++      action: M4_BOUNDED_PR_CREATE_ACTION,
++      selectedAgentRef: "agt:m4.cursor.bounded_pr_create",
++      authorizedEffects: ["github.pr.create"],
++      gitPrCreateSpec: {
++        repositoryRef: "acme/widget",
++        headBranch: "gcec/docs",
++        baseBranch: "main",
++        title: "t",
++        expectedBaseBranch: "main",
++      },
++      ...overrides,
++    });
++  }
++
++  it("CR-02 gateway C/D apply effect-sensitive confinement (not full local strip)", async () => {
++    const base = hostileBaseEnv();
++    const { gw, runner } = gateway(base);
++    await gw.launch(remotePushRequest({ attemptId: "xat:conf-c" }));
++    await gw.launch(prCreateRequest({ attemptId: "xat:conf-d" }));
++    expect(runner.calls).toHaveLength(2);
++    expect(runner.calls[0]!.env.SSH_AUTH_SOCK).toBe("TEST_SSH_SOCKET");
++    expect(runner.calls[0]!.env.GH_TOKEN).toBeUndefined();
++    expect(runner.calls[1]!.env.GH_TOKEN).toBe("TEST_GH_TOKEN");
++    expect(runner.calls[1]!.env.SSH_AUTH_SOCK).toBeUndefined();
++    expect(
++      isMutatingGcecCursorProfile({
++        isDocsWrite: false,
++        isLocalCommitProfile: false,
++        isRemotePushProfile: true,
++      }),
++    ).toBe(true);
++  });
+ });
+diff --git a/projects/sfia-studio/app/__tests__/oa/git-ports/gcecGitPorts.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/git-ports/gcecGitPorts.d0.test.ts
+index 05a18dfd..dba7fea6 100644
+--- a/projects/sfia-studio/app/__tests__/oa/git-ports/gcecGitPorts.d0.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/git-ports/gcecGitPorts.d0.test.ts
+@@ -35,6 +35,7 @@ describe("GCEC FakeRepositoryReadPorts (read-only)", () => {
+       title: "GCEC lot",
+       state: "open",
+       headSha: FULL_SHA,
++      headBranch: "gcec/docs",
+       baseBranch: "main",
+       url: "https://github.com/acme/widget/pull/1",
+     });
+diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/application/typedGitEvidence.ts b/projects/sfia-studio/app/lib/oa/evidence-review/application/typedGitEvidence.ts
+index 9a90a753..bdbf6fbe 100644
+--- a/projects/sfia-studio/app/lib/oa/evidence-review/application/typedGitEvidence.ts
++++ b/projects/sfia-studio/app/lib/oa/evidence-review/application/typedGitEvidence.ts
+@@ -50,7 +50,12 @@ export type GitPullRequestPayload = {
+   url?: string;
+   headSha: string;
+   baseSha?: string;
+-  state?: "open" | "closed" | "merged";
++  /** Required for GCEC verify path (CR-03). */
++  headBranch: string;
++  /** Required for GCEC verify path (CR-03). */
++  baseBranch: string;
++  /** Required for GCEC verify path — create path must be "open". */
++  state: "open" | "closed" | "merged";
+ };
+
+ export type GitCiStatusPayload = {
+@@ -173,6 +178,18 @@ export function validateTypedGitEvidencePayload(
+       if (!isFullSha(p.headSha)) {
+         return { ok: false, reason: "head_sha_invalid" };
+       }
++      if (!isNonEmptyString(p.headBranch)) {
++        return { ok: false, reason: "head_branch_required" };
++      }
++      if (!isNonEmptyString(p.baseBranch)) {
++        return { ok: false, reason: "base_branch_required" };
++      }
++      if (p.state !== "open" && p.state !== "closed" && p.state !== "merged") {
++        return { ok: false, reason: "pr_state_required" };
++      }
++      if (p.baseSha !== undefined && !isFullSha(p.baseSha)) {
++        return { ok: false, reason: "base_sha_invalid" };
++      }
+       return { ok: true };
+     case "git:ci_status":
+       if (!isNonEmptyString(p.repositoryRef) || !isFullSha(p.commitSha)) {
+@@ -275,9 +292,11 @@ export function buildTypedGitEvidenceFields<S extends TypedGitEvidenceSource>(
+       location =
+         `git:pull_request?repo=${encodeURIComponent(pr.repositoryRef)}` +
+         `&prNumber=${encodeURIComponent(String(pr.prNumber))}` +
+-        (pr.headSha
+-          ? `&headSha=${encodeURIComponent(pr.headSha)}`
+-          : "");
++        `&headSha=${encodeURIComponent(pr.headSha)}` +
++        `&headBranch=${encodeURIComponent(pr.headBranch)}` +
++        `&baseBranch=${encodeURIComponent(pr.baseBranch)}` +
++        `&state=${encodeURIComponent(pr.state)}` +
++        (pr.baseSha ? `&baseSha=${encodeURIComponent(pr.baseSha)}` : "");
+       break;
+     }
+     case "git:ci_status": {
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
-index 1ea37809..4b5b5ed0 100644
+index 1ea37809..75bcf661 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
 @@ -58,6 +58,9 @@ import type {
@@ -558,7 +1183,7 @@ index 1ea37809..4b5b5ed0 100644
    resolvedTargetToConfirmationMatch,
  } from "../domain/resolveGitEffectTarget";
  import { deriveExecutableEffectsFromContractRequirements } from "../domain/contractEffectClassification";
-@@ -83,6 +87,21 @@ import {
+@@ -83,6 +87,22 @@ import {
    deriveTrustedCommitMessage,
  } from "../domain/gitCommitLaunchSpec";
  import { isBoundedGitCommitOnlySlice } from "../domain/verifyLocalCommitFacts";
@@ -575,12 +1200,25 @@ index 1ea37809..4b5b5ed0 100644
 +  buildGitPrMergeLaunchSpec,
 +  isBoundedGitPrMergeOnlySlice,
 +} from "../domain/gitPrMergeLaunchSpec";
++import { assertFreshPrMergePreflight } from "../domain/assertFreshPrMergePreflight";
 +import { resolveVerifiedLocalCommitPriorAttempt } from "../domain/resolveVerifiedLocalCommitPriorAttempt";
 +import { resolveVerifiedRemotePushPriorAttempt } from "../domain/resolveVerifiedRemotePushPriorAttempt";
  import type { CursorAuthorizedEffectId } from "../domain/cursorExecutionReport";
  import {
    authorityFailureDetail,
-@@ -1144,7 +1163,7 @@ export class StartExecution {
+@@ -282,6 +302,11 @@ export class StartExecution {
+      * CR-GCEC-23 / CORR-D-GCEC-AGENT-01 — Evidence list (Result; late-bound OK).
+      */
+     private readonly listProjectEvidence?: ListProjectEvidenceFn,
++    /**
++     * CR-04 — optional RepositoryRead for fresh live PR preflight before merge E.
++     * Fail closed on merge slice when merge authorized and this dep is missing.
++     */
++    private readonly repositoryRead?: import("@/lib/oa/git-ports").RepositoryReadPort,
+   ) {}
+
+   async execute(
+@@ -1144,7 +1169,7 @@ export class StartExecution {
            { selectedAgentRef: attempt.selectedAgentRef },
          );
        }
@@ -589,7 +1227,7 @@ index 1ea37809..4b5b5ed0 100644
        if (
          isBoundedGitCommitOnlySlice(authorizedSlice.authorizedEffects) &&
          !isM4BoundedLocalCommitRealAgent(agent)
-@@ -1155,6 +1174,36 @@ export class StartExecution {
+@@ -1155,6 +1180,36 @@ export class StartExecution {
            { selectedAgentRef: attempt.selectedAgentRef },
          );
        }
@@ -626,7 +1264,7 @@ index 1ea37809..4b5b5ed0 100644
      }
 
      // D-GCEC-CONT-01 — pre-commit workspace continuation (server-derived only).
-@@ -1282,6 +1331,260 @@ export class StartExecution {
+@@ -1282,6 +1337,283 @@ export class StartExecution {
        gitCommitSpec = built.spec;
      }
 
@@ -814,10 +1452,18 @@ index 1ea37809..4b5b5ed0 100644
 +    }
 +
 +    // GCEC bounded github.pr.merge-only Attempt E — PREP only (REAL merge not run in PATH B).
++    // CR-04: fresh RepositoryRead preflight is the authority gate before launch.
 +    let gitPrMergeSpec:
 +      | import("../domain/gitPrMergeLaunchSpec").GitPrMergeLaunchSpec
 +      | undefined;
 +    if (isBoundedGitPrMergeOnlySlice(authorizedSlice.authorizedEffects)) {
++      if (!this.repositoryRead) {
++        return fail(
++          "ATTEMPT_INVALID",
++          "git_pr_merge_repository_read_unavailable",
++          { executionContractId: contract.executionContractId },
++        );
++      }
 +      const evidenceReadMerge = this.listProjectEvidence
 +        ? await this.listProjectEvidence(contract.projectId)
 +        : { ok: false as const, reason: "evidence_reader_unavailable" as const };
@@ -849,26 +1495,41 @@ index 1ea37809..4b5b5ed0 100644
 +          executionContractId: contract.executionContractId,
 +        });
 +      }
-+      const prEv = evidenceReadMerge.evidence.find(
-+        (e) =>
-+          e.status === "verified" &&
-+          e.source === "git:pull_request" &&
-+          e.bindings.executionContractId === contract.executionContractId &&
-+          String(e.location ?? "").includes(`prNumber=${pr.prNumber}`),
-+      );
-+      const headMatch = String(prEv?.location ?? "").match(
-+        /[?&]headSha=([^&]+)/,
-+      );
-+      const expectedHeadSha = headMatch
-+        ? decodeURIComponent(headMatch[1]!).trim().toLowerCase()
-+        : "";
++      const expectedHeadSha = pr.headSha ?? "";
 +      if (!/^[0-9a-f]{40}$/i.test(expectedHeadSha)) {
 +        return fail("ATTEMPT_INVALID", "git_pr_merge_expected_head_sha_invalid", {
 +          executionContractId: contract.executionContractId,
 +        });
 +      }
++      const expectedHeadBranch = pr.headBranch?.trim() ?? "";
++      if (!expectedHeadBranch) {
++        return fail(
++          "ATTEMPT_INVALID",
++          "git_pr_merge_expected_head_branch_missing",
++          { executionContractId: contract.executionContractId },
++        );
++      }
 +      const expectedBaseBranch =
-+        projectBindingMerge.defaultBranch?.trim() || "main";
++        pr.baseBranch?.trim() ||
++        projectBindingMerge.defaultBranch?.trim() ||
++        "main";
++      const livePr = await this.repositoryRead.getPullRequest({
++        repositoryRef: repoRef,
++        number: pr.prNumber,
++      });
++      const preflight = assertFreshPrMergePreflight({
++        live: livePr,
++        expected: {
++          headSha: expectedHeadSha,
++          headBranch: expectedHeadBranch,
++          baseBranch: expectedBaseBranch,
++        },
++      });
++      if (!preflight.ok) {
++        return fail("ATTEMPT_INVALID", preflight.reason, {
++          executionContractId: contract.executionContractId,
++        });
++      }
 +      const builtMerge = buildGitPrMergeLaunchSpec({
 +        repositoryRef: repoRef,
 +        prNumber: pr.prNumber,
@@ -887,7 +1548,7 @@ index 1ea37809..4b5b5ed0 100644
      let launch;
      try {
        launch = await this.realLaunchPort.launch({
-@@ -1299,6 +1602,9 @@ export class StartExecution {
+@@ -1299,6 +1631,9 @@ export class StartExecution {
          timeoutMs: window.resolvedMaxDurationMs,
          ...(docsWriteSpec ? { docsWriteSpec } : {}),
          ...(gitCommitSpec ? { gitCommitSpec } : {}),
@@ -1496,11 +2157,125 @@ index 6fb6cabc..8269d402 100644
 
      return { ok: false, reason: "attempt_profile_effect_not_supported" };
    }
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveGitEffectTarget.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveGitEffectTarget.ts
+index 274aa5a1..7cb064e0 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveGitEffectTarget.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveGitEffectTarget.ts
+@@ -61,10 +61,11 @@ function branchFromContractInputs(
+ }
+
+ /**
+- * Extract a single trustworthy PR number from VERIFIED git:pull_request Evidence
++ * Extract a single trustworthy PR identity from VERIFIED git:pull_request Evidence
+  * bound to the same project / cycle / EC / repository.
+  * Fail closed when zero or ambiguous.
+  * CR-GCEC-23H-C — repository identity MUST be present and exact (no repo → reject).
++ * CR-03 — when location encodes headBranch/baseBranch/headSha/state, surface them.
+  */
+ export function resolveVerifiedPullRequestNumber(input: {
+   evidence: readonly Evidence[];
+@@ -72,8 +73,24 @@ export function resolveVerifiedPullRequestNumber(input: {
+   cycleInstanceId?: string;
+   executionContractId: string;
+   repositoryRef: string;
+-}): { ok: true; prNumber: number } | { ok: false; reason: string } {
+-  const matches: number[] = [];
++}):
++  | {
++      ok: true;
++      prNumber: number;
++      headSha?: string;
++      headBranch?: string;
++      baseBranch?: string;
++      state?: string;
++    }
++  | { ok: false; reason: string } {
++  type Match = {
++    prNumber: number;
++    headSha?: string;
++    headBranch?: string;
++    baseBranch?: string;
++    state?: string;
++  };
++  const matches: Match[] = [];
+   for (const e of input.evidence) {
+     if (e.status !== "verified") continue;
+     if (e.source !== "git:pull_request") continue;
+@@ -101,16 +118,42 @@ export function resolveVerifiedPullRequestNumber(input: {
+     if (!prMatch) continue;
+     const n = Number(decodeURIComponent(prMatch[1]!));
+     if (!Number.isInteger(n) || n < 1) continue;
+-    matches.push(n);
++    const headShaMatch = loc.match(/[?&]headSha=([^&]+)/);
++    const headBranchMatch = loc.match(/[?&]headBranch=([^&]+)/);
++    const baseBranchMatch = loc.match(/[?&]baseBranch=([^&]+)/);
++    const stateMatch = loc.match(/[?&]state=([^&]+)/);
++    matches.push({
++      prNumber: n,
++      ...(headShaMatch
++        ? { headSha: decodeURIComponent(headShaMatch[1]!).trim().toLowerCase() }
++        : {}),
++      ...(headBranchMatch
++        ? { headBranch: decodeURIComponent(headBranchMatch[1]!).trim() }
++        : {}),
++      ...(baseBranchMatch
++        ? { baseBranch: decodeURIComponent(baseBranchMatch[1]!).trim() }
++        : {}),
++      ...(stateMatch
++        ? { state: decodeURIComponent(stateMatch[1]!).trim() }
++        : {}),
++    });
+   }
+-  const unique = [...new Set(matches)];
+-  if (unique.length === 0) {
++  const uniqueNumbers = [...new Set(matches.map((m) => m.prNumber))];
++  if (uniqueNumbers.length === 0) {
+     return { ok: false, reason: "verified_pull_request_identity_missing" };
+   }
+-  if (unique.length > 1) {
++  if (uniqueNumbers.length > 1) {
+     return { ok: false, reason: "verified_pull_request_identity_ambiguous" };
+   }
+-  return { ok: true, prNumber: unique[0]! };
++  const chosen = matches.find((m) => m.prNumber === uniqueNumbers[0]!)!;
++  return {
++    ok: true,
++    prNumber: chosen.prNumber,
++    ...(chosen.headSha ? { headSha: chosen.headSha } : {}),
++    ...(chosen.headBranch ? { headBranch: chosen.headBranch } : {}),
++    ...(chosen.baseBranch ? { baseBranch: chosen.baseBranch } : {}),
++    ...(chosen.state ? { state: chosen.state } : {}),
++  };
+ }
+
+ /**
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
-index f3498e63..6004f8bd 100644
+index f3498e63..2ec6a287 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
-@@ -184,6 +184,30 @@ export {
+@@ -137,11 +137,21 @@ export {
+   buildMutatingCursorConfinementEnv,
+   isMutatingGcecCursorProfile,
+   MUTATING_CURSOR_STRIPPED_ENV_KEYS,
++  resolveMutatingConfinementEffectClass,
++  MUTATING_CURSOR_REMOTE_GIT_PRESERVED_ENV_KEYS,
++  MUTATING_CURSOR_REMOTE_GITHUB_PRESERVED_ENV_KEYS,
+   type CursorCliLaunchGatewayOptions,
+   type StudioCursorRealLaunchGatewayOptions,
+   type SpawnPrimitive,
+   type NodeCursorProcessRunnerOptions,
++  type MutatingCursorConfinementEffectClass,
+ } from "./infrastructure/cursorCliLaunchGateway";
++export {
++  assertLocalBranchRefMatchesExpectedSha,
++  assertRemoteUrlMatchesRepositoryRef,
++} from "./domain/assertLocalBranchRefMatchesExpectedSha";
++export { assertFreshPrMergePreflight } from "./domain/assertFreshPrMergePreflight";
++export type { FreshPrMergePreflightExpected } from "./domain/assertFreshPrMergePreflight";
+ export {
+   StudioGitWorktreeWorkspace,
+   NodeGitCommandRunner,
+@@ -184,6 +194,30 @@ export {
    M4_BOUNDED_LOCAL_COMMIT_TARGET,
    M4_BOUNDED_LOCAL_COMMIT_SCOPE,
  } from "./infrastructure/m4BoundedLocalCommitCursorAgent";
@@ -1531,7 +2306,7 @@ index f3498e63..6004f8bd 100644
  export {
    FakeDocsWriteLaunchPort,
    listRelativeFiles,
-@@ -211,6 +235,14 @@ export {
+@@ -211,6 +245,14 @@ export {
  export {
    resolveVerifiedDocsWritePriorAttempt,
  } from "./domain/resolveVerifiedDocsWritePriorAttempt";
@@ -1546,7 +2321,7 @@ index f3498e63..6004f8bd 100644
  export type {
    ProjectEvidenceListResult,
    ListProjectEvidenceFn,
-@@ -231,11 +263,40 @@ export type {
+@@ -231,11 +273,40 @@ export type {
    ResolveVerifiedDocsWritePriorAttemptInput,
    ResolveVerifiedDocsWritePriorAttemptResult,
  } from "./domain/resolveVerifiedDocsWritePriorAttempt";
@@ -1587,7 +2362,7 @@ index f3498e63..6004f8bd 100644
  export {
    verifyLocalCommitFacts,
    isBoundedGitCommitOnlySlice,
-@@ -254,6 +315,20 @@ export type {
+@@ -254,6 +325,20 @@ export type {
    VerifyLocalCommitEffectInput,
    VerifyLocalCommitEffectResult,
  } from "./application/verifyLocalCommitEffect";
@@ -1608,11 +2383,67 @@ index f3498e63..6004f8bd 100644
  export {
    observeLocalCommitFacts,
  } from "./application/observeLocalCommitFacts";
+@@ -390,6 +475,8 @@ export type CreateInMemoryExecutionAttemptServicesOptions = {
+    * CR-GCEC-23 — Evidence list for verified PR identity (may be late-bound).
+    */
+   listProjectEvidence?: import("./domain/projectEvidenceList").ListProjectEvidenceFn;
++  /** CR-04 — optional RepositoryRead for merge fresh preflight. */
++  repositoryRead?: import("@/lib/oa/git-ports").RepositoryReadPort;
+ };
+
+ /** Factory for the in-memory ExecutionAttempt runtime foundation. */
+@@ -482,6 +569,7 @@ export function createInMemoryExecutionAttemptServices(
+       realBoundary?.managedRepoRootBase,
+       options.resolveProjectRepositoryBinding,
+       options.listProjectEvidence,
++      options.repositoryRead,
+     ),
+     cancelExecutionAttempt: new CancelExecutionAttempt(
+       attempts,
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/cursorCliLaunchGateway.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/cursorCliLaunchGateway.ts
+index 02a13ee4..40fbece6 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/cursorCliLaunchGateway.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/cursorCliLaunchGateway.ts
+@@ -16,6 +16,10 @@ export {
+   buildMutatingCursorConfinementEnv,
+   isMutatingGcecCursorProfile,
+   MUTATING_CURSOR_STRIPPED_ENV_KEYS,
++  resolveMutatingConfinementEffectClass,
++  MUTATING_CURSOR_REMOTE_GIT_PRESERVED_ENV_KEYS,
++  MUTATING_CURSOR_REMOTE_GITHUB_PRESERVED_ENV_KEYS,
++  type MutatingCursorConfinementEffectClass,
+ } from "./mutatingCursorConfinementEnv";
+ export {
+   NodeCursorProcessRunner,
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeCursorGitExternalState.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeCursorGitExternalState.ts
+index 000a2d16..a83c91b8 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeCursorGitExternalState.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeCursorGitExternalState.ts
+@@ -171,16 +171,12 @@ export class FakeCursorGitExternalState {
+     return record;
+   }
+
+-  /** Fake remote: advance branch head to current local tip. */
++  /** Fake remote: push exact local branch ref only — no HEAD / currentBranch substitute. */
+   push(branch: string): { ref: string; sha: string } {
+-    const sha =
+-      this.branchHeads.get(branch) ??
+-      this.branchHeads.get(this.currentBranch) ??
+-      this.commits[this.commits.length - 1]?.sha;
++    const sha = this.branchHeads.get(branch);
+     if (!sha) {
+-      throw new Error("fake_git_push_no_sha");
++      throw new Error("git_push_local_ref_missing");
+     }
+-    this.branchHeads.set(branch, sha.toLowerCase());
+     this.currentBranch = branch;
+     return { ref: branch, sha: sha.toLowerCase() };
+   }
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts
-index 367a94dc..40d2a71a 100644
+index 367a94dc..c2653458 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts
-@@ -22,8 +22,29 @@ import {
+@@ -22,8 +22,33 @@ import {
    type RealProcessObservation,
  } from "@/lib/oa/execution-attempt";
  import { M4_BOUNDED_LOCAL_COMMIT_ACTION } from "./m4BoundedLocalCommitCursorAgent";
@@ -1632,6 +2463,10 @@ index 367a94dc..40d2a71a 100644
 +  isBoundedGitPushOnlySlice,
 +} from "../domain/gitPushLaunchSpec";
 +import {
++  assertLocalBranchRefMatchesExpectedSha,
++  assertRemoteUrlMatchesRepositoryRef,
++} from "../domain/assertLocalBranchRefMatchesExpectedSha";
++import {
 +  buildGitPrCreateLaunchSpec,
 +  isBoundedGitPrCreateOnlySlice,
 +} from "../domain/gitPrCreateLaunchSpec";
@@ -1642,7 +2477,7 @@ index 367a94dc..40d2a71a 100644
  import type {
    CursorAuthorizedEffectId,
    CursorExecutionReport,
-@@ -154,6 +175,9 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
+@@ -154,6 +179,9 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
      }
      const { authorized, blocked } = resolveAuthorizedEffects(request);
      const wantsCommitProfile = Boolean(request.gitCommitSpec);
@@ -1652,7 +2487,7 @@ index 367a94dc..40d2a71a 100644
      if (wantsCommitProfile) {
        if (!isBoundedGitCommitOnlySlice([...authorized])) {
          return {
-@@ -169,7 +193,7 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
+@@ -169,7 +197,7 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
          };
        }
        if (
@@ -1661,7 +2496,7 @@ index 367a94dc..40d2a71a 100644
        ) {
          return {
            outcome: "reject",
-@@ -213,12 +237,147 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
+@@ -213,12 +241,147 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
          };
        }
      }
@@ -1810,7 +2645,7 @@ index 367a94dc..40d2a71a 100644
      if (!actionOk) {
        return {
          outcome: "reject",
-@@ -231,6 +390,8 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
+@@ -231,6 +394,8 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
      }
 
      const commitSpec = request.gitCommitSpec;
@@ -1819,7 +2654,7 @@ index 367a94dc..40d2a71a 100644
      const spec = request.docsWriteSpec;
      const pathAllowlist = spec?.pathAllowlist ?? this.options.pathAllowlist;
      const targetPath =
-@@ -240,10 +401,15 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
+@@ -240,10 +405,15 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
        "docs/functional-design.md";
      const repositoryRef =
        commitSpec?.repositoryRef ??
@@ -1835,22 +2670,39 @@ index 367a94dc..40d2a71a 100644
        commitSpec?.branchOrRef ??
        this.options.defaultBranch ??
        request.repositoryBinding?.defaultBranch ??
-@@ -364,10 +530,21 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
+@@ -364,10 +534,38 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
        }
 
        if (authorized.has("git.push")) {
 -        const pushed = this.gitState.push(branch);
 +        const pushBranch = request.gitPushSpec?.branchName ?? branch;
-+        this.gitState.currentBranch = pushBranch;
-+        if (
-+          request.gitPushSpec?.expectedCommitSha &&
-+          !this.gitState.branchHeads.has(pushBranch)
-+        ) {
-+          this.gitState.branchHeads.set(
-+            pushBranch,
-+            request.gitPushSpec.expectedCommitSha.toLowerCase(),
-+          );
++        const expectedSha =
++          request.gitPushSpec?.expectedCommitSha ??
++          this.gitState.branchHeads.get(pushBranch);
++        if (!expectedSha) {
++          throw new Error("git_push_local_ref_missing");
 +        }
++        const refCheck = assertLocalBranchRefMatchesExpectedSha({
++          branchHeads: this.gitState.branchHeads,
++          branchName: pushBranch,
++          expectedCommitSha: expectedSha,
++        });
++        if (!refCheck.ok) {
++          throw new Error(refCheck.reason);
++        }
++        const remoteUrl =
++          request.repositoryBinding?.remoteUrl ??
++          (this.gitState as { remoteUrl?: string }).remoteUrl;
++        if (remoteUrl && request.gitPushSpec?.repositoryRef) {
++          const urlCheck = assertRemoteUrlMatchesRepositoryRef({
++            remoteUrl,
++            repositoryRef: request.gitPushSpec.repositoryRef,
++          });
++          if (!urlCheck.ok) {
++            throw new Error(urlCheck.reason);
++          }
++        }
++        this.gitState.currentBranch = pushBranch;
 +        const pushed = this.gitState.push(pushBranch);
          executed.push("git.push");
          gitEffects.push = {
@@ -1859,7 +2711,7 @@ index 367a94dc..40d2a71a 100644
            ref: pushed.ref,
            sha: pushed.sha,
          };
-@@ -377,8 +554,12 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
+@@ -377,8 +575,12 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
 
        if (authorized.has("github.pr.create")) {
          const base =
@@ -1874,7 +2726,7 @@ index 367a94dc..40d2a71a 100644
          executed.push("github.pr.create");
          gitEffects.pullRequest = {
            number: pr.number,
-@@ -393,6 +574,7 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
+@@ -393,6 +595,7 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
 
        if (authorized.has("github.pr.merge")) {
          const prNumber =
@@ -1916,10 +2768,118 @@ index 8c1743ce..c40903ea 100644
    );
  }
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/mutatingCursorConfinementEnv.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/mutatingCursorConfinementEnv.ts
-index f9196139..ec3d8240 100644
+index f9196139..91ec24df 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/mutatingCursorConfinementEnv.ts
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/mutatingCursorConfinementEnv.ts
-@@ -69,6 +69,15 @@ export function buildMutatingCursorConfinementEnv(
+@@ -1,18 +1,18 @@
+ /**
+- * D-GCEC-CONF-02A — server-owned child env for mutating GCEC Cursor profiles
+- * (bounded docs-write Attempt A + bounded local-commit Attempt B).
++ * D-GCEC-CONF-02A / D-GCEC-EXEC-01 — server-owned child env for mutating GCEC Cursor profiles.
+  *
+- * Proves only: Product gateway does not voluntarily inherit known host
+- * Git/GitHub/SSH write-auth channels for A+B.
+- * Does NOT prove remote-write impossibility (Shell may still discover host tools).
+- * Live re-preflight remains required before any REAL claim.
++ * Effect-sensitive (CR-02):
++ * - local (A docs_write + B local_commit): strip Git/GitHub/SSH write-auth channels
++ * - remote_git (C git.push): preserve SSH / askpass channels; still strip GH tokens + GIT_CONFIG injection
++ * - remote_github (D/E pr create/merge): preserve GH_/GITHUB_ token keys; still neutralize GIT_CONFIG injection
+  *
+- * HOME / XDG left unchanged — Cursor CLI may need user-scoped auth; residual risk
+- * is documented for the Security re-preflight.
++ * Proves only: Product gateway applies a deterministic env-key presence policy.
++ * Does NOT prove AUTH REAL / remote-write impossibility.
++ * NEVER copy secret VALUES into specs/Evidence/reports — key presence only.
+  */
+ import { SFIA_STUDIO_CURSOR_REAL_FLAG } from "../domain/realLaunchSafety";
+
+-/** Exact auth / askpass / SSH override keys stripped from mutating child env. */
++/** Exact auth / askpass / SSH override keys stripped for local (A/B) mutating child env. */
+ export const MUTATING_CURSOR_STRIPPED_ENV_KEYS = [
+   "SSH_AUTH_SOCK",
+   "SSH_AGENT_PID",
+@@ -29,7 +29,37 @@ export const MUTATING_CURSOR_STRIPPED_ENV_KEYS = [
+   "GIT_CONFIG_COUNT",
+ ] as const;
+
+-const STRIPPED = new Set<string>(MUTATING_CURSOR_STRIPPED_ENV_KEYS);
++/** SSH / askpass channels preserved for remote_git (C). */
++export const MUTATING_CURSOR_REMOTE_GIT_PRESERVED_ENV_KEYS = [
++  "SSH_AUTH_SOCK",
++  "SSH_AGENT_PID",
++  "GIT_ASKPASS",
++  "SSH_ASKPASS",
++  "SSH_ASKPASS_REQUIRE",
++  "GIT_SSH",
++  "GIT_SSH_COMMAND",
++] as const;
++
++/** GitHub token sentinel keys preserved for remote_github (D/E). */
++export const MUTATING_CURSOR_REMOTE_GITHUB_PRESERVED_ENV_KEYS = [
++  "GH_TOKEN",
++  "GITHUB_TOKEN",
++  "GH_ENTERPRISE_TOKEN",
++  "GITHUB_ENTERPRISE_TOKEN",
++] as const;
++
++export type MutatingCursorConfinementEffectClass =
++  | "local"
++  | "remote_git"
++  | "remote_github";
++
++const LOCAL_STRIPPED = new Set<string>(MUTATING_CURSOR_STRIPPED_ENV_KEYS);
++const REMOTE_GIT_PRESERVE = new Set<string>(
++  MUTATING_CURSOR_REMOTE_GIT_PRESERVED_ENV_KEYS,
++);
++const REMOTE_GITHUB_PRESERVE = new Set<string>(
++  MUTATING_CURSOR_REMOTE_GITHUB_PRESERVED_ENV_KEYS,
++);
+
+ function isInheritedGitConfigInjectionKey(key: string): boolean {
+   return (
+@@ -40,18 +70,38 @@ function isInheritedGitConfigInjectionKey(key: string): boolean {
+   );
+ }
+
++function shouldStripKey(
++  key: string,
++  effectClass: MutatingCursorConfinementEffectClass,
++): boolean {
++  // Always neutralize GIT_CONFIG_* injection regardless of effect class.
++  if (isInheritedGitConfigInjectionKey(key)) return true;
++
++  if (effectClass === "local") {
++    return LOCAL_STRIPPED.has(key);
++  }
++  if (effectClass === "remote_git") {
++    if (REMOTE_GIT_PRESERVE.has(key)) return false;
++    return LOCAL_STRIPPED.has(key);
++  }
++  // remote_github
++  if (REMOTE_GITHUB_PRESERVE.has(key)) return false;
++  return LOCAL_STRIPPED.has(key);
++}
++
+ /**
+  * Build a fresh child ProcessEnv for mutating Cursor launches.
+  * Does not mutate `baseEnv`. Caller cannot opt out.
+  */
+ export function buildMutatingCursorConfinementEnv(
+   baseEnv: NodeJS.ProcessEnv,
++  options?: { readonly effectClass?: MutatingCursorConfinementEffectClass },
+ ): NodeJS.ProcessEnv {
++  const effectClass = options?.effectClass ?? "local";
+   const child: Record<string, string | undefined> = {};
+   for (const [key, value] of Object.entries(baseEnv)) {
+     if (value === undefined) continue;
+-    if (STRIPPED.has(key)) continue;
+-    if (isInheritedGitConfigInjectionKey(key)) continue;
++    if (shouldStripKey(key, effectClass)) continue;
+     child[key] = value;
+   }
+
+@@ -69,6 +119,25 @@ export function buildMutatingCursorConfinementEnv(
  export function isMutatingGcecCursorProfile(input: {
    readonly isDocsWrite: boolean;
    readonly isLocalCommitProfile: boolean;
@@ -1935,9 +2895,40 @@ index f9196139..ec3d8240 100644
 +    input.isPrCreateProfile === true ||
 +    input.isPrMergeProfile === true
 +  );
++}
++
++export function resolveMutatingConfinementEffectClass(input: {
++  readonly isRemotePushProfile?: boolean;
++  readonly isPrCreateProfile?: boolean;
++  readonly isPrMergeProfile?: boolean;
++}): MutatingCursorConfinementEffectClass {
++  if (input.isRemotePushProfile) return "remote_git";
++  if (input.isPrCreateProfile || input.isPrMergeProfile) return "remote_github";
++  return "local";
  }
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts
+index 9689981e..acf1f9aa 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts
+@@ -75,6 +75,8 @@ export type CreateSqliteExecutionAttemptServicesOptions = {
+     projectId: string,
+   ) => Promise<import("@/lib/oa/project").ProjectRepositoryBinding | null>;
+   listProjectEvidence?: import("../../domain/projectEvidenceList").ListProjectEvidenceFn;
++  /** CR-04 — optional RepositoryRead for merge fresh preflight. */
++  repositoryRead?: import("@/lib/oa/git-ports").RepositoryReadPort;
+ };
+
+ export type SqliteExecutionAttemptServices = {
+@@ -194,6 +196,7 @@ export function createSqliteExecutionAttemptServices(
+       realBoundary?.managedRepoRootBase,
+       options.resolveProjectRepositoryBinding,
+       options.listProjectEvidence,
++      options.repositoryRead,
+     ),
+     cancelExecutionAttempt: new CancelExecutionAttempt(
+       attempts,
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
-index 72581253..360c87c9 100644
+index 72581253..0414a966 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
 @@ -10,6 +10,9 @@ import { accessSync, constants } from "node:fs";
@@ -1950,7 +2941,7 @@ index 72581253..360c87c9 100644
    M4_REAL_GATEWAY_ADAPTER_ID,
    SFIA_STUDIO_CURSOR_REAL_FLAG,
  } from "../domain/realLaunchSafety";
-@@ -29,8 +32,23 @@ import {
+@@ -29,11 +32,27 @@ import {
  } from "./cursorTrustMarkerPathCompatibility";
  import { M4_BOUNDED_DOCS_WRITE_ACTION } from "./m4BoundedDocsWriteCursorAgent";
  import { M4_BOUNDED_LOCAL_COMMIT_ACTION } from "./m4BoundedLocalCommitCursorAgent";
@@ -1974,7 +2965,11 @@ index 72581253..360c87c9 100644
  import {
    buildMutatingCursorConfinementEnv,
    isMutatingGcecCursorProfile,
-@@ -75,6 +93,96 @@ function buildBoundedLocalCommitInstruction(input: {
++  resolveMutatingConfinementEffectClass,
+ } from "./mutatingCursorConfinementEnv";
+
+ function buildBoundedLocalCommitInstruction(input: {
+@@ -75,6 +94,109 @@ function buildBoundedLocalCommitInstruction(input: {
    ].join("\n");
  }
 
@@ -1985,19 +2980,29 @@ index 72581253..360c87c9 100644
 +  readonly scope?: string;
 +  readonly semanticFingerprint: string;
 +}): string {
++  const branchRef = `refs/heads/${input.spec.branchName}`;
 +  return [
 +    "TÂCHE UNIQUE — bounded remote git.push déterministe (GCEC).",
 +    `Repository: ${input.spec.repositoryRef}`,
 +    `Remote exact: ${input.spec.remoteName}`,
 +    `Branch exacte (feature only): ${input.spec.branchName}`,
++    `Local ref exacte: ${branchRef}`,
 +    `Expected commit SHA: ${input.spec.expectedCommitSha}`,
-+    "Séquence Shell autorisée UNIQUEMENT:",
-+    "  git rev-parse HEAD",
-+    `  git push ${input.spec.remoteName} ${input.spec.branchName}:${input.spec.branchName}`,
++    "Séquence Shell autorisée UNIQUEMENT (STOP sans mutation si échec):",
++    `  1) git remote get-url ${input.spec.remoteName}`,
++    `     → l'URL observée DOIT identifier le même dépôt que repositoryRef=${input.spec.repositoryRef}`,
++    `       (https://github.com/<owner>/<repo>[.git] ou git@github.com:<owner>/<repo>[.git]).`,
++    `       Sinon: STOP — ne pas pousser.`,
++    `  2) git rev-parse ${branchRef}`,
++    `     → le SHA observé DOIT être exactement ${input.spec.expectedCommitSha}.`,
++    `       Absent / mismatch / usage de HEAD seul à la place de ${branchRef}: STOP — ne pas pousser.`,
++    `  3) Seulement si (1)+(2) OK:`,
++    `     git push ${input.spec.remoteName} ${branchRef}:${input.spec.branchName}`,
 +    "INTERDIT: --force / -f / --force-with-lease, --delete / :branch delete,",
 +    "--tags / --follow-tags, push vers main/master, fetch mutatif, pull,",
 +    "remote add/set-url, checkout, reset, rebase, merge, amend, PR/merge GitHub,",
-+    "édition de fichiers, script shell fourni par l'appelant.",
++    "édition de fichiers, script shell fourni par l'appelant,",
++    "substituer HEAD au ref de branche, auto-créer la branche locale absente.",
 +    "force=false delete=false noTags=true — non négociable.",
 +    "En cas d'ambiguïté: STOP immédiatement sans mutation.",
 +    `target=${input.target ?? ""}`,
@@ -2022,11 +3027,11 @@ index 72581253..360c87c9 100644
 +    `Title exact: ${input.spec.title}`,
 +    ...(input.spec.body ? [`Body: ${input.spec.body}`] : []),
 +    "Commande autorisée UNIQUEMENT:",
-+    `  gh pr create --head ${input.spec.headBranch} --base ${input.spec.baseBranch} --title ${JSON.stringify(input.spec.title)}` +
++    `  gh pr create --repo ${input.spec.repositoryRef} --head ${input.spec.headBranch} --base ${input.spec.baseBranch} --title ${JSON.stringify(input.spec.title)}` +
 +      (input.spec.body
 +        ? ` --body ${JSON.stringify(input.spec.body)}`
 +        : ""),
-+    "INTERDIT: --auto-merge / enable auto-merge, merge, squash, rebase,",
++    "INTERDIT: omettre --repo, --auto-merge / enable auto-merge, merge, squash, rebase,",
 +    "push force, delete branch, édition hors PR create, script shell libre.",
 +    "En cas d'ambiguïté: STOP immédiatement sans mutation.",
 +    `target=${input.target ?? ""}`,
@@ -2056,10 +3061,13 @@ index 72581253..360c87c9 100644
 +    `Expected head SHA: ${input.spec.expectedHeadSha}`,
 +    `Expected base branch: ${input.spec.expectedBaseBranch}`,
 +    `Merge method: ${input.spec.mergeMethod}`,
++    "Avant merge (défense en profondeur — StartExecution fresh RepositoryRead est l'autorité):",
++    `  gh pr view ${input.spec.prNumber} --repo ${input.spec.repositoryRef} --json state,headRefOid,baseRefName,headRefName`,
++    "  → exiger state=OPEN et headRefOid == expected head SHA; sinon STOP.",
 +    "Commande autorisée UNIQUEMENT:",
-+    `  gh pr merge ${input.spec.prNumber} ${methodFlag}`,
-+    "INTERDIT: autre PR number, --admin sans Confirmation, delete branch,",
-+    "force push, auto-merge enable, script shell libre.",
++    `  gh pr merge ${input.spec.prNumber} --repo ${input.spec.repositoryRef} ${methodFlag}`,
++    "INTERDIT: omettre --repo, autre PR number, --admin, --auto, enable auto-merge,",
++    "delete branch, force push, script shell libre.",
 +    "En cas d'ambiguïté: STOP immédiatement sans mutation.",
 +    `target=${input.target ?? ""}`,
 +    `action=${input.action ?? ""}`,
@@ -2071,7 +3079,7 @@ index 72581253..360c87c9 100644
  export type StudioCursorRealLaunchGatewayOptions = {
    readonly processRunner: ProcessRunner;
    readonly workspacePort: RealExecutionWorkspacePort;
-@@ -291,13 +399,53 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
+@@ -291,13 +413,53 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
        };
      }
 
@@ -2127,7 +3135,7 @@ index 72581253..360c87c9 100644
 
      if (isLocalCommitProfile) {
        if (!gitCommitSpec) {
-@@ -377,20 +525,188 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
+@@ -377,20 +539,188 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
            detailCode: "REAL_AGENT_PROFILE_INVALID",
          };
        }
@@ -2153,18 +3161,19 @@ index 72581253..360c87c9 100644
 +      }
 +      const auth = request.authorizedEffects;
 +      if (!isBoundedGitPushOnlySlice(auth)) {
-+        return {
-+          outcome: "reject",
-+          gatewayId: this.gatewayId,
-+          attemptId: request.attemptId,
+         return {
+           outcome: "reject",
+           gatewayId: this.gatewayId,
+           attemptId: request.attemptId,
+-          reason: "git_commit_free_shell_rejected",
 +          reason:
 +            auth == null
 +              ? "git_push_authorized_effects_missing"
 +              : "git_push_slice_not_push_only",
-+          realProcessInvoked: false,
-+          detailCode: "REAL_AGENT_PROFILE_INVALID",
-+        };
-+      }
+           realProcessInvoked: false,
+           detailCode: "REAL_AGENT_PROFILE_INVALID",
+         };
+       }
 +      if (request.selectedAgentRef !== M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID) {
 +        return {
 +          outcome: "reject",
@@ -2307,22 +3316,21 @@ index 72581253..360c87c9 100644
 +        mergeMethod: gitPrMergeSpec.mergeMethod,
 +      });
 +      if (!revalidated.ok) {
-         return {
-           outcome: "reject",
-           gatewayId: this.gatewayId,
-           attemptId: request.attemptId,
--          reason: "git_commit_free_shell_rejected",
++        return {
++          outcome: "reject",
++          gatewayId: this.gatewayId,
++          attemptId: request.attemptId,
 +          reason: revalidated.reason,
-           realProcessInvoked: false,
-           detailCode: "REAL_AGENT_PROFILE_INVALID",
-         };
-       }
++          realProcessInvoked: false,
++          detailCode: "REAL_AGENT_PROFILE_INVALID",
++        };
++      }
 +      const freeShell = rejectFreeShell();
 +      if (freeShell) return freeShell;
      }
 
      let instruction: string;
-@@ -402,6 +718,30 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
+@@ -402,6 +732,30 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
          scope: request.scope,
          semanticFingerprint: request.semanticFingerprint,
        });
@@ -2353,7 +3361,7 @@ index 72581253..360c87c9 100644
      } else if (isDocsWrite) {
        const spec = request.docsWriteSpec;
        if (!spec) {
-@@ -459,9 +799,14 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
+@@ -459,9 +813,14 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
        ].join("\n");
      }
 
@@ -2370,15 +3378,17 @@ index 72581253..360c87c9 100644
      const argv = usesAgentMode
        ? [
            "agent",
-@@ -486,13 +831,16 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
+@@ -486,15 +845,25 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
            instruction,
          ];
 
 -    // D-GCEC-CONF-02A: mutating A+B get shared server-owned env confinement.
-+    // D-GCEC-CONF-02A: mutating A+B+C+D+E get shared server-owned env confinement.
++    // D-GCEC-CONF-02A / D-GCEC-EXEC-01: mutating A+B+C+D+E get server-owned env
++    // confinement; effect-sensitive (local vs remote_git vs remote_github).
      // RO / other profiles keep minimal non-mutating spawn env (no auth strip).
      // Prompt forbids remain defense-in-depth — NOT the technical authority boundary.
-     // This does NOT prove remote-write impossibility; live re-preflight required.
+-    // This does NOT prove remote-write impossibility; live re-preflight required.
++    // Proves REMOTE AUTH ENVIRONMENT POLICY only — NOT AUTH REAL.
      const childEnv = isMutatingGcecCursorProfile({
        isDocsWrite,
        isLocalCommitProfile,
@@ -2386,8 +3396,17 @@ index 72581253..360c87c9 100644
 +      isPrCreateProfile,
 +      isPrMergeProfile,
      })
-       ? buildMutatingCursorConfinementEnv(this.env)
+-      ? buildMutatingCursorConfinementEnv(this.env)
++      ? buildMutatingCursorConfinementEnv(this.env, {
++          effectClass: resolveMutatingConfinementEffectClass({
++            isRemotePushProfile,
++            isPrCreateProfile,
++            isPrMergeProfile,
++          }),
++        })
        : {
+           ...this.env,
+           [SFIA_STUDIO_CURSOR_REAL_FLAG]: "1",
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts
 index 47395272..3b371a34 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts
@@ -2431,6 +3450,204 @@ index 47395272..3b371a34 100644
    /** Optional Project binding identity (owner/repo) for workspace resolution. */
    readonly repositoryBindingIdentity?: string;
    /** Server-resolved absolute managed clone root (docs-write). */
+diff --git a/projects/sfia-studio/app/lib/oa/git-ports/application/gitEffectEvidenceActions.ts b/projects/sfia-studio/app/lib/oa/git-ports/application/gitEffectEvidenceActions.ts
+index 0f6f0fe7..29a8e8f5 100644
+--- a/projects/sfia-studio/app/lib/oa/git-ports/application/gitEffectEvidenceActions.ts
++++ b/projects/sfia-studio/app/lib/oa/git-ports/application/gitEffectEvidenceActions.ts
+@@ -291,6 +291,10 @@ export async function verifyPullRequestClaim(input: {
+   repositoryRef: string;
+   claimedPrNumber: number;
+   claimedHeadSha: string;
++  /** Optional expected head branch — fail closed on mismatch when provided. */
++  expectedHeadBranch?: string;
++  /** Optional expected base branch — fail closed on mismatch when provided. */
++  expectedBaseBranch?: string;
+   bindings: GitVerifyBindings;
+   actor: GitVerifyActor;
+   nowIso?: string;
+@@ -301,6 +305,8 @@ export async function verifyPullRequestClaim(input: {
+       status: "verified";
+       prNumber: number;
+       headSha: string;
++      headBranch: string;
++      baseBranch: string;
+     }
+   | { ok: false; reason: string; status: "reported" | "failed" }
+ > {
+@@ -311,9 +317,37 @@ export async function verifyPullRequestClaim(input: {
+   if (!pr) {
+     return { ok: false, reason: "pr_not_found", status: "reported" };
+   }
++  if (pr.state === "merged") {
++    return { ok: false, reason: "pr_state_merged", status: "failed" };
++  }
++  if (pr.state === "closed" || pr.state !== "open") {
++    return { ok: false, reason: "pr_state_not_open", status: "failed" };
++  }
+   if (pr.headSha.toLowerCase() !== input.claimedHeadSha.toLowerCase()) {
+     return { ok: false, reason: "pr_head_mismatch", status: "failed" };
+   }
++  const headBranch = pr.headBranch?.trim() ?? "";
++  const baseBranch = pr.baseBranch?.trim() ?? "";
++  if (!headBranch) {
++    return { ok: false, reason: "pr_head_branch_missing", status: "failed" };
++  }
++  if (!baseBranch) {
++    return { ok: false, reason: "pr_base_branch_missing", status: "failed" };
++  }
++  if (
++    input.expectedHeadBranch != null &&
++    input.expectedHeadBranch.trim() &&
++    headBranch !== input.expectedHeadBranch.trim()
++  ) {
++    return { ok: false, reason: "pr_head_branch_mismatch", status: "failed" };
++  }
++  if (
++    input.expectedBaseBranch != null &&
++    input.expectedBaseBranch.trim() &&
++    baseBranch !== input.expectedBaseBranch.trim()
++  ) {
++    return { ok: false, reason: "pr_base_branch_mismatch", status: "failed" };
++  }
+   const evidenceId = `ev:git-pr-verified:${pr.number}`;
+   const result = await registerAndVerify({
+     services: input.evidenceServices,
+@@ -324,7 +358,10 @@ export async function verifyPullRequestClaim(input: {
+       prNumber: pr.number,
+       url: pr.url,
+       headSha: pr.headSha,
+-      state: pr.state,
++      headBranch,
++      baseBranch,
++      state: "open",
++      ...(pr.baseSha ? { baseSha: pr.baseSha } : {}),
+     },
+     bindings: input.bindings,
+     actor: input.actor,
+@@ -337,6 +374,8 @@ export async function verifyPullRequestClaim(input: {
+     status: "verified",
+     prNumber: pr.number,
+     headSha: pr.headSha,
++    headBranch,
++    baseBranch,
+   };
+ }
+
+diff --git a/projects/sfia-studio/app/lib/oa/git-ports/fakeGitProviderPorts.ts b/projects/sfia-studio/app/lib/oa/git-ports/fakeGitProviderPorts.ts
+index 9f0914fb..2a779ee4 100644
+--- a/projects/sfia-studio/app/lib/oa/git-ports/fakeGitProviderPorts.ts
++++ b/projects/sfia-studio/app/lib/oa/git-ports/fakeGitProviderPorts.ts
+@@ -128,6 +128,7 @@ export class FakeRepositoryReadPorts
+           title: `PR #${p.number}`,
+           state: p.state,
+           headSha: p.headSha,
++          headBranch: p.headBranch ?? "",
+           baseBranch: p.base,
+           url: `https://github.com/fake/repo/pull/${p.number}`,
+         }))
+@@ -158,6 +159,7 @@ export class FakeRepositoryReadPorts
+       title: `PR #${p.number}`,
+       state: p.state,
+       headSha: p.headSha,
++      headBranch: p.headBranch ?? "",
+       baseBranch: p.base,
+       url: `https://github.com/fake/repo/pull/${p.number}`,
+     };
+diff --git a/projects/sfia-studio/app/lib/oa/git-ports/githubCliRemotePorts.ts b/projects/sfia-studio/app/lib/oa/git-ports/githubCliRemotePorts.ts
+index 632de77a..fab89060 100644
+--- a/projects/sfia-studio/app/lib/oa/git-ports/githubCliRemotePorts.ts
++++ b/projects/sfia-studio/app/lib/oa/git-ports/githubCliRemotePorts.ts
+@@ -89,7 +89,7 @@ export class GithubCliRepositoryReadAdapter
+         "--state",
+         state,
+         "--json",
+-        "number,title,state,headRefOid,baseRefName,url",
++        "number,title,state,headRefOid,baseRefName,headRefName,url",
+       ],
+       this.cwd,
+     );
+@@ -101,6 +101,7 @@ export class GithubCliRepositoryReadAdapter
+         state: string;
+         headRefOid: string;
+         baseRefName: string;
++        headRefName: string;
+         url: string;
+       }>;
+       return rows.map((r) => ({
+@@ -108,6 +109,7 @@ export class GithubCliRepositoryReadAdapter
+         title: r.title,
+         state: mapPrState(r.state),
+         headSha: r.headRefOid,
++        headBranch: r.headRefName,
+         baseBranch: r.baseRefName,
+         url: r.url,
+       }));
+@@ -128,7 +130,7 @@ export class GithubCliRepositoryReadAdapter
+         "--repo",
+         input.repositoryRef,
+         "--json",
+-        "number,title,state,headRefOid,baseRefName,url,mergedAt",
++        "number,title,state,headRefOid,baseRefName,headRefName,baseRefOid,url,mergedAt",
+       ],
+       this.cwd,
+     );
+@@ -140,6 +142,8 @@ export class GithubCliRepositoryReadAdapter
+         state: string;
+         headRefOid: string;
+         baseRefName: string;
++        headRefName: string;
++        baseRefOid?: string;
+         url: string;
+         mergedAt?: string | null;
+       };
+@@ -148,8 +152,10 @@ export class GithubCliRepositoryReadAdapter
+         title: r.title,
+         state: r.mergedAt ? "merged" : mapPrState(r.state),
+         headSha: r.headRefOid,
++        headBranch: r.headRefName,
+         baseBranch: r.baseRefName,
+         url: r.url,
++        ...(r.baseRefOid ? { baseSha: r.baseRefOid } : {}),
+       };
+     } catch {
+       return null;
+diff --git a/projects/sfia-studio/app/lib/oa/git-ports/platformGithubReadBridge.ts b/projects/sfia-studio/app/lib/oa/git-ports/platformGithubReadBridge.ts
+index 43f8b0f8..86cef8a5 100644
+--- a/projects/sfia-studio/app/lib/oa/git-ports/platformGithubReadBridge.ts
++++ b/projects/sfia-studio/app/lib/oa/git-ports/platformGithubReadBridge.ts
+@@ -76,6 +76,7 @@ export class PlatformGithubReadBridge
+         title: r.title,
+         state: mapPrState(r.state),
+         headSha,
++        headBranch: r.headRef,
+         baseBranch: r.baseRef,
+         url: r.url,
+       });
+@@ -101,6 +102,7 @@ export class PlatformGithubReadBridge
+         title: r.title,
+         state: mapPrState(r.state),
+         headSha,
++        headBranch: r.headRef,
+         baseBranch: r.baseRef,
+         url: r.url,
+       };
+diff --git a/projects/sfia-studio/app/lib/oa/git-ports/types.ts b/projects/sfia-studio/app/lib/oa/git-ports/types.ts
+index 43371baf..d2d10176 100644
+--- a/projects/sfia-studio/app/lib/oa/git-ports/types.ts
++++ b/projects/sfia-studio/app/lib/oa/git-ports/types.ts
+@@ -87,8 +87,12 @@ export type RepositoryPullRequestSummary = {
+   title: string;
+   state: "open" | "closed" | "merged";
+   headSha: string;
++  /** Head branch name (CR-03 GCEC). */
++  headBranch: string;
+   baseBranch: string;
+   url: string;
++  /** Optional base tip OID when observed. */
++  baseSha?: string;
+ };
+
+ export type RepositoryCommitSummary = {
 diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
 index a31dbd2b..a97b877b 100644
 --- a/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
@@ -2457,15 +3674,18 @@ index a31dbd2b..a97b877b 100644
    const registry = new MemoryAgentRegistry(agents);
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitLifecyclePushPrMerge.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitLifecyclePushPrMerge.d0.test.ts
 new file mode 100644
-index 00000000..946a11dc
+index 00000000..25460c0b
 --- /dev/null
 +++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitLifecyclePushPrMerge.d0.test.ts
-@@ -0,0 +1,523 @@
+@@ -0,0 +1,904 @@
 +/**
 + * GCEC-GIT-LIFECYCLE-E2E-01 PATH B — push / PR create / PR merge PREP.
 + * ZERO REAL remote mutation. @vitest-environment node
 + */
 +import { describe, expect, it } from "vitest";
++import { mkdtemp } from "node:fs/promises";
++import { tmpdir } from "node:os";
++import path from "node:path";
 +import type { Digest } from "@/lib/oa/doctrine";
 +import type { Evidence } from "@/lib/oa/evidence-review";
 +import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
@@ -2490,13 +3710,20 @@ index 00000000..946a11dc
 +  M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID,
 +  M4_BOUNDED_REMOTE_PUSH_SCOPE,
 +  M4_BOUNDED_REMOTE_PUSH_TARGET,
++  SFIA_STUDIO_CURSOR_REAL_FLAG,
++  assertFreshPrMergePreflight,
++  assertLocalBranchRefMatchesExpectedSha,
++  assertRemoteUrlMatchesRepositoryRef,
 +  buildGitPrCreateLaunchSpec,
 +  buildGitPrMergeLaunchSpec,
 +  buildGitPushLaunchSpec,
 +  createM4BoundedDocsWriteCursorAgentDescriptor,
 +  createM4BoundedRemotePushCursorAgentDescriptor,
++  FakeCursorGitExternalState,
++  FakeDocsWriteLaunchPort,
 +  isM4BoundedRemotePushRealAgent,
 +  resolveAttemptExecutionProfile,
++  resolveVerifiedPullRequestNumber,
 +} from "@/lib/oa/execution-attempt";
 +
 +const NOW = "2026-09-12T12:00:00.000Z";
@@ -2637,7 +3864,7 @@ index 00000000..946a11dc
 +  return baseEv(attemptId, {
 +    evidenceId: `ev:pr:${attemptId}`,
 +    source: "git:pull_request",
-+    location: `git:pull_request?repo=${encodeURIComponent(repo)}&prNumber=${prNumber}&headSha=${headSha}&state=open`,
++    location: `git:pull_request?repo=${encodeURIComponent(repo)}&prNumber=${prNumber}&headSha=${headSha}&headBranch=${encodeURIComponent(BRANCH)}&baseBranch=main&state=open`,
 +  });
 +}
 +
@@ -2983,13 +4210,384 @@ index 00000000..946a11dc
 +      expect(r.ok).toBe(false);
 +    });
 +  });
++
++  describe("CR-01 local branch ref invariant", () => {
++    it("NEG local ref absent", () => {
++      const r = assertLocalBranchRefMatchesExpectedSha({
++        branchHeads: new Map(),
++        branchName: BRANCH,
++        expectedCommitSha: H1,
++      });
++      expect(r.ok).toBe(false);
++      if (!r.ok) expect(r.reason).toBe("git_push_local_ref_missing");
++    });
++
++    it("NEG local branch stale / SHA mismatch", () => {
++      const r = assertLocalBranchRefMatchesExpectedSha({
++        branchHeads: new Map([[BRANCH, H0]]),
++        branchName: BRANCH,
++        expectedCommitSha: H1,
++      });
++      expect(r.ok).toBe(false);
++      if (!r.ok) expect(r.reason).toBe("git_push_local_ref_sha_mismatch");
++    });
++
++    it("NEG HEAD correct but targeted branch stale (no HEAD substitute)", () => {
++      const r = assertLocalBranchRefMatchesExpectedSha({
++        branchHeads: new Map([
++          ["main", H1],
++          [BRANCH, H0],
++        ]),
++        branchName: BRANCH,
++        expectedCommitSha: H1,
++      });
++      expect(r.ok).toBe(false);
++      if (!r.ok) expect(r.reason).toBe("git_push_local_ref_sha_mismatch");
++    });
++
++    it("NEG expected SHA wrong format", () => {
++      const r = assertLocalBranchRefMatchesExpectedSha({
++        branchHeads: new Map([[BRANCH, H1]]),
++        branchName: BRANCH,
++        expectedCommitSha: "deadbeef",
++      });
++      expect(r.ok).toBe(false);
++      if (!r.ok) expect(r.reason).toBe("git_push_local_ref_sha_mismatch");
++    });
++
++    it("NEG wrong remote URL vs repositoryRef", () => {
++      const r = assertRemoteUrlMatchesRepositoryRef({
++        remoteUrl: "https://github.com/other/repo.git",
++        repositoryRef: REPO,
++      });
++      expect(r.ok).toBe(false);
++      if (!r.ok) expect(r.reason).toBe("git_push_remote_url_mismatch");
++    });
++
++    it("POS exact branch ref == expected SHA → accepted", () => {
++      const r = assertLocalBranchRefMatchesExpectedSha({
++        branchHeads: new Map([[BRANCH, H1]]),
++        branchName: BRANCH,
++        expectedCommitSha: H1,
++      });
++      expect(r.ok).toBe(true);
++      if (r.ok) expect(r.sha).toBe(H1);
++      expect(
++        assertRemoteUrlMatchesRepositoryRef({
++          remoteUrl: `https://github.com/${REPO}.git`,
++          repositoryRef: REPO,
++        }).ok,
++      ).toBe(true);
++    });
++
++    it("NEG Fake push refuses missing local ref (no self-heal)", async () => {
++      const root = await mkdtemp(path.join(tmpdir(), "gcec-push-ref-"));
++      const gitState = new FakeCursorGitExternalState({
++        worktreeRoot: root,
++        initialBranch: "main",
++        initialSha: H0,
++      });
++      // Deliberately do NOT seed BRANCH — Fake must not invent it from expected SHA.
++      const port = new FakeDocsWriteLaunchPort({
++        worktreeRoot: root,
++        gitState,
++        targetPath: PATH,
++        pathAllowlist: ["docs/"],
++      });
++      const launched = await port.launch({
++        attemptId: "xat:push-miss",
++        executionContractId: EC,
++        executionContractVersion: 1,
++        semanticFingerprint: "fp:push-miss",
++        selectedAgentRef: M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID,
++        adapterRef: "adp:m4-cursor-cli-real",
++        correlationId: "cor:push-miss",
++        baseHeadSha: H0,
++        action: M4_BOUNDED_REMOTE_PUSH_ACTION,
++        timeoutMs: 60_000,
++        authorizedEffects: ["git.push"],
++        gitPushSpec: {
++          repositoryRef: REPO,
++          remoteName: "origin",
++          branchName: BRANCH,
++          expectedCommitSha: H1,
++          force: false,
++          delete: false,
++          noTags: true,
++        },
++        repositoryBinding: {
++          provider: "github",
++          identity: REPO,
++          remoteUrl: `https://github.com/${REPO}.git`,
++          defaultBranch: "main",
++        },
++      } as never);
++      expect(launched.outcome).toBe("ack");
++      if (launched.outcome !== "ack") return;
++      const obs = await port.observe(launched.processRef);
++      expect(obs).not.toBeNull();
++      expect(obs!.exitCode).toBe(1);
++      expect(obs!.stderr).toMatch(/git_push_local_ref_missing/);
++      expect(gitState.branchHeads.has(BRANCH)).toBe(false);
++    });
++  });
++
++  describe("CR-03/04 PR evidence + fresh merge preflight", () => {
++    it("POS resolveVerifiedPullRequestNumber surfaces head/base from location", () => {
++      const r = resolveVerifiedPullRequestNumber({
++        evidence: [prEv("xat:d")],
++        projectId: PROJECT,
++        cycleInstanceId: CYCLE,
++        executionContractId: EC,
++        repositoryRef: REPO,
++      });
++      expect(r.ok).toBe(true);
++      if (!r.ok) return;
++      expect(r.prNumber).toBe(42);
++      expect(r.headSha).toBe(H1);
++      expect(r.headBranch).toBe(BRANCH);
++      expect(r.baseBranch).toBe("main");
++      expect(r.state).toBe("open");
++    });
++
++    it("POS fresh preflight accepts open matching PR", () => {
++      const r = assertFreshPrMergePreflight({
++        live: {
++          number: 42,
++          title: "t",
++          state: "open",
++          headSha: H1,
++          headBranch: BRANCH,
++          baseBranch: "main",
++          url: "https://github.com/acme/widget/pull/42",
++        },
++        expected: {
++          headSha: H1,
++          headBranch: BRANCH,
++          baseBranch: "main",
++        },
++      });
++      expect(r.ok).toBe(true);
++    });
++
++    it("NEG fresh preflight closed / merged / drift / branch mismatch / missing", () => {
++      expect(
++        assertFreshPrMergePreflight({
++          live: null,
++          expected: { headSha: H1, headBranch: BRANCH, baseBranch: "main" },
++        }).ok,
++      ).toBe(false);
++      expect(
++        (
++          assertFreshPrMergePreflight({
++            live: {
++              number: 1,
++              title: "t",
++              state: "closed",
++              headSha: H1,
++              headBranch: BRANCH,
++              baseBranch: "main",
++              url: "u",
++            },
++            expected: { headSha: H1, headBranch: BRANCH, baseBranch: "main" },
++          }) as { ok: false; reason: string }
++        ).reason,
++      ).toBe("git_pr_merge_live_pr_closed");
++      expect(
++        (
++          assertFreshPrMergePreflight({
++            live: {
++              number: 1,
++              title: "t",
++              state: "merged",
++              headSha: H1,
++              headBranch: BRANCH,
++              baseBranch: "main",
++              url: "u",
++            },
++            expected: { headSha: H1, headBranch: BRANCH, baseBranch: "main" },
++          }) as { ok: false; reason: string }
++        ).reason,
++      ).toBe("git_pr_merge_live_pr_merged");
++      expect(
++        (
++          assertFreshPrMergePreflight({
++            live: {
++              number: 1,
++              title: "t",
++              state: "open",
++              headSha: H2,
++              headBranch: BRANCH,
++              baseBranch: "main",
++              url: "u",
++            },
++            expected: { headSha: H1, headBranch: BRANCH, baseBranch: "main" },
++          }) as { ok: false; reason: string }
++        ).reason,
++      ).toBe("git_pr_merge_live_head_sha_drift");
++      expect(
++        (
++          assertFreshPrMergePreflight({
++            live: {
++              number: 1,
++              title: "t",
++              state: "open",
++              headSha: H1,
++              headBranch: "other",
++              baseBranch: "main",
++              url: "u",
++            },
++            expected: { headSha: H1, headBranch: BRANCH, baseBranch: "main" },
++          }) as { ok: false; reason: string }
++        ).reason,
++      ).toBe("git_pr_merge_live_head_branch_mismatch");
++      expect(
++        (
++          assertFreshPrMergePreflight({
++            live: {
++              number: 1,
++              title: "t",
++              state: "open",
++              headSha: H1,
++              headBranch: BRANCH,
++              baseBranch: "develop",
++              url: "u",
++            },
++            expected: { headSha: H1, headBranch: BRANCH, baseBranch: "main" },
++          }) as { ok: false; reason: string }
++        ).reason,
++      ).toBe("git_pr_merge_live_base_branch_mismatch");
++    });
++
++    it("POS gateway push instruction requires exact branch ref + remote URL check", async () => {
++      const { StudioCursorRealLaunchGateway } = await import(
++        "@/lib/oa/execution-attempt"
++      );
++      const { FakeProcessRunner } = await import("./support/fakeProcessRunner");
++      const { FakeRealExecutionWorkspacePort } = await import(
++        "./support/fakeSpawnAndGit"
++      );
++      const runner = new FakeProcessRunner();
++      const gw = new StudioCursorRealLaunchGateway({
++        processRunner: runner,
++        workspacePort: new FakeRealExecutionWorkspacePort({
++          resumePath: "/tmp/fake-exec-root/wt-prior",
++          workspacePath: "/tmp/fake-exec-root/wt-fresh",
++        }),
++        env: { NODE_ENV: "test", [SFIA_STUDIO_CURSOR_REAL_FLAG]: "1" },
++        resolveCursorBin: () => "/tmp/fake-cursor-bin",
++      });
++      const r = await gw.launch({
++        attemptId: "xat:instr-push",
++        executionContractId: EC,
++        executionContractVersion: 1,
++        semanticFingerprint: "fp:instr",
++        selectedAgentRef: M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID,
++        adapterRef: "adp:m4-cursor-cli-real",
++        correlationId: "cor:instr",
++        baseHeadSha: H0,
++        action: M4_BOUNDED_REMOTE_PUSH_ACTION,
++        timeoutMs: 60_000,
++        authorizedEffects: ["git.push"],
++        gitPushSpec: {
++          repositoryRef: REPO,
++          remoteName: "origin",
++          branchName: BRANCH,
++          expectedCommitSha: H1,
++          force: false,
++          delete: false,
++          noTags: true,
++        },
++      } as never);
++      expect(r.outcome).toBe("ack");
++      const instruction = String(runner.calls[0]?.argv.at(-1) ?? "");
++      expect(instruction).toContain(`git rev-parse refs/heads/${BRANCH}`);
++      expect(instruction).toContain("git remote get-url origin");
++      expect(instruction).toContain(
++        `git push origin refs/heads/${BRANCH}:${BRANCH}`,
++      );
++      expect(instruction).not.toMatch(/git rev-parse HEAD\n/);
++    });
++
++    it("POS gateway PR create/merge instructions include --repo", async () => {
++      const { StudioCursorRealLaunchGateway } = await import(
++        "@/lib/oa/execution-attempt"
++      );
++      const { FakeProcessRunner } = await import("./support/fakeProcessRunner");
++      const { FakeRealExecutionWorkspacePort } = await import(
++        "./support/fakeSpawnAndGit"
++      );
++      const runner = new FakeProcessRunner();
++      const gw = new StudioCursorRealLaunchGateway({
++        processRunner: runner,
++        workspacePort: new FakeRealExecutionWorkspacePort({
++          resumePath: "/tmp/fake-exec-root/wt-prior-pr",
++          workspacePath: "/tmp/fake-exec-root/wt-fresh-pr",
++        }),
++        env: { NODE_ENV: "test", [SFIA_STUDIO_CURSOR_REAL_FLAG]: "1" },
++        resolveCursorBin: () => "/tmp/fake-cursor-bin",
++      });
++      await gw.launch({
++        attemptId: "xat:instr-prc",
++        executionContractId: EC,
++        executionContractVersion: 1,
++        semanticFingerprint: "fp:prc",
++        selectedAgentRef: M4_BOUNDED_PR_CREATE_CURSOR_AGENT_ID,
++        adapterRef: "adp:m4-cursor-cli-real",
++        correlationId: "cor:prc",
++        baseHeadSha: H1,
++        action: M4_BOUNDED_PR_CREATE_ACTION,
++        timeoutMs: 60_000,
++        authorizedEffects: ["github.pr.create"],
++        gitPrCreateSpec: {
++          repositoryRef: REPO,
++          headBranch: BRANCH,
++          baseBranch: "main",
++          title: "t",
++          expectedBaseBranch: "main",
++        },
++      } as never);
++      await gw.launch({
++        attemptId: "xat:instr-prm",
++        executionContractId: EC,
++        executionContractVersion: 1,
++        semanticFingerprint: "fp:prm",
++        selectedAgentRef: M4_BOUNDED_PR_MERGE_CURSOR_AGENT_ID,
++        adapterRef: "adp:m4-cursor-cli-real",
++        correlationId: "cor:prm",
++        baseHeadSha: H1,
++        action: M4_BOUNDED_PR_MERGE_ACTION,
++        timeoutMs: 60_000,
++        authorizedEffects: ["github.pr.merge"],
++        gitPrMergeSpec: {
++          repositoryRef: REPO,
++          prNumber: 42,
++          expectedHeadSha: H1,
++          expectedBaseBranch: "main",
++          mergeMethod: "merge",
++        },
++      } as never);
++      const createInstr = String(runner.calls[0]?.argv.at(-1) ?? "");
++      const mergeInstr = String(runner.calls[1]?.argv.at(-1) ?? "");
++      expect(createInstr).toContain(`gh pr create --repo ${REPO}`);
++      expect(mergeInstr).toContain(`gh pr merge 42 --repo ${REPO}`);
++      const authorizedMergeLine = mergeInstr
++        .split("\n")
++        .find((l) => l.includes("gh pr merge"));
++      expect(authorizedMergeLine).toBeTruthy();
++      expect(authorizedMergeLine).not.toMatch(/\s--admin\b/);
++      expect(authorizedMergeLine).not.toMatch(/\s--auto\b/);
++      expect(mergeInstr).toContain("INTERDIT:");
++      expect(mergeInstr).toContain("--admin");
++    });
++  });
 +});
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/verifyPrCreateEffect.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/verifyPrCreateEffect.ts
 new file mode 100644
-index 00000000..084ebd5d
+index 00000000..a625743e
 --- /dev/null
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/verifyPrCreateEffect.ts
-@@ -0,0 +1,80 @@
+@@ -0,0 +1,90 @@
 +/**
 + * Thin application verify wrapper for PR create (Studio READ-ONLY).
 + * Calls verifyPullRequestClaim with bindings completeness checks.
@@ -3024,6 +4622,8 @@ index 00000000..084ebd5d
 +  readonly repositoryRef: string;
 +  readonly claimedPrNumber: number;
 +  readonly claimedHeadSha: string;
++  readonly expectedHeadBranch?: string;
++  readonly expectedBaseBranch?: string;
 +  readonly expectedBindings: GitVerifyBindings;
 +  readonly actor: GitVerifyActor;
 +  readonly nowIso?: string;
@@ -3036,6 +4636,8 @@ index 00000000..084ebd5d
 +      readonly status: "verified";
 +      readonly prNumber: number;
 +      readonly headSha: string;
++      readonly headBranch: string;
++      readonly baseBranch: string;
 +    }
 +  | { readonly ok: false; readonly reason: string; readonly status: "reported" | "failed" };
 +
@@ -3065,6 +4667,12 @@ index 00000000..084ebd5d
 +    repositoryRef: input.repositoryRef,
 +    claimedPrNumber: input.claimedPrNumber,
 +    claimedHeadSha: input.claimedHeadSha,
++    ...(input.expectedHeadBranch != null
++      ? { expectedHeadBranch: input.expectedHeadBranch }
++      : {}),
++    ...(input.expectedBaseBranch != null
++      ? { expectedBaseBranch: input.expectedBaseBranch }
++      : {}),
 +    bindings: input.expectedBindings,
 +    actor: input.actor,
 +    nowIso: input.nowIso,
@@ -3152,6 +4760,110 @@ index 00000000..d0df2960
 +    actor: input.actor,
 +    nowIso: input.nowIso,
 +  });
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/assertFreshPrMergePreflight.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/assertFreshPrMergePreflight.ts
+new file mode 100644
+index 00000000..ce187854
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/assertFreshPrMergePreflight.ts
+@@ -0,0 +1,41 @@
++/**
++ * CR-04 — Fresh live PR preflight before merge Attempt E.
++ * Pure domain gate; StartExecution is the authority (gateway prompt is defense-in-depth).
++ */
++import type { RepositoryPullRequestSummary } from "@/lib/oa/git-ports";
++
++export type FreshPrMergePreflightExpected = {
++  readonly headSha: string;
++  readonly headBranch: string;
++  readonly baseBranch: string;
++};
++
++export function assertFreshPrMergePreflight(input: {
++  readonly live: RepositoryPullRequestSummary | null | undefined;
++  readonly expected: FreshPrMergePreflightExpected;
++}): { ok: true } | { ok: false; reason: string } {
++  if (input.live == null) {
++    return { ok: false, reason: "git_pr_merge_live_pr_missing" };
++  }
++  const live = input.live;
++  if (live.state === "merged") {
++    return { ok: false, reason: "git_pr_merge_live_pr_merged" };
++  }
++  if (live.state === "closed" || live.state !== "open") {
++    return { ok: false, reason: "git_pr_merge_live_pr_closed" };
++  }
++  const liveHead = live.headSha.trim().toLowerCase();
++  const expectedHead = input.expected.headSha.trim().toLowerCase();
++  if (liveHead !== expectedHead) {
++    return { ok: false, reason: "git_pr_merge_live_head_sha_drift" };
++  }
++  const liveHeadBranch = live.headBranch?.trim() ?? "";
++  if (!liveHeadBranch || liveHeadBranch !== input.expected.headBranch.trim()) {
++    return { ok: false, reason: "git_pr_merge_live_head_branch_mismatch" };
++  }
++  const liveBase = live.baseBranch.trim();
++  if (!liveBase || liveBase !== input.expected.baseBranch.trim()) {
++    return { ok: false, reason: "git_pr_merge_live_base_branch_mismatch" };
++  }
++  return { ok: true };
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/assertLocalBranchRefMatchesExpectedSha.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/assertLocalBranchRefMatchesExpectedSha.ts
+new file mode 100644
+index 00000000..5537c035
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/assertLocalBranchRefMatchesExpectedSha.ts
+@@ -0,0 +1,51 @@
++/**
++ * CR-01 — Fake / gateway parity: local branch ref must exist and equal expected SHA.
++ * Does NOT consult HEAD as a substitute for refs/heads/<branch>.
++ */
++export function assertLocalBranchRefMatchesExpectedSha(input: {
++  readonly branchHeads: ReadonlyMap<string, string>;
++  readonly branchName: string;
++  readonly expectedCommitSha: string;
++}): { ok: true; sha: string } | { ok: false; reason: string } {
++  const branch = input.branchName.trim();
++  if (!branch) {
++    return { ok: false, reason: "git_push_local_ref_missing" };
++  }
++  if (!input.branchHeads.has(branch)) {
++    return { ok: false, reason: "git_push_local_ref_missing" };
++  }
++  const observed = input.branchHeads.get(branch)!.trim().toLowerCase();
++  const expected = input.expectedCommitSha.trim().toLowerCase();
++  if (!/^[0-9a-f]{40}$/.test(expected) || !/^[0-9a-f]{40}$/.test(observed)) {
++    return { ok: false, reason: "git_push_local_ref_sha_mismatch" };
++  }
++  if (observed !== expected) {
++    return { ok: false, reason: "git_push_local_ref_sha_mismatch" };
++  }
++  return { ok: true, sha: observed };
++}
++
++/**
++ * Repository remote URL must identify the same GitHub repo as repositoryRef
++ * (owner/name). Used by Fake push path and documented in gateway push instruction.
++ */
++export function assertRemoteUrlMatchesRepositoryRef(input: {
++  readonly remoteUrl: string;
++  readonly repositoryRef: string;
++}): { ok: true } | { ok: false; reason: string } {
++  const identity = input.repositoryRef.trim().toLowerCase();
++  if (!identity || !/^[^/\s]+\/[^/\s]+$/.test(identity)) {
++    return { ok: false, reason: "git_push_remote_url_mismatch" };
++  }
++  const normalized = input.remoteUrl
++    .trim()
++    .replace(/\.git$/i, "")
++    .replace(/^git@github\.com:/i, "https://github.com/")
++    .replace(/^ssh:\/\/git@github\.com\//i, "https://github.com/")
++    .toLowerCase();
++  const expectedHttps = `https://github.com/${identity}`;
++  if (normalized !== expectedHttps) {
++    return { ok: false, reason: "git_push_remote_url_mismatch" };
++  }
++  return { ok: true };
 +}
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPrCreateLaunchSpec.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitPrCreateLaunchSpec.ts
 new file mode 100644
@@ -4147,8 +5859,12 @@ FINAL VERDICT
 ==================================================
 
 PASS WITH RESERVE —
-GCEC-GIT-LIFECYCLE-E2E-01 BOUNDED PRODUCT COMPLETION CANDIDATE BUILT /
-PUSH + PR + MERGE-CONTINUATION COMPLETED IN ONE IMPLEMENTATION LOT /
+GCEC-GIT-LIFECYCLE-E2E-01 SAME-LOT CORRECTION CANDIDATE COMPLETE /
+CR-01 CLOSED /
+CR-02 CLOSED /
+CR-03 CLOSED /
+CR-04 CLOSED /
 DETERMINISTIC VALIDATION PASS /
-ZERO REAL REMOTE MUTATION /
-READY FOR ONE CRITICAL REVIEW BEFORE REAL.
+ZERO REAL /
+NO PRODUCT COMMIT /
+READY FOR CHATGPT CRITICAL REVIEW.
