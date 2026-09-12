@@ -1,9 +1,9 @@
-# SFIA STUDIO — GCEC — CORR-D-GCEC-AGENT-01 REVIEW PACK
+# SFIA STUDIO — GCEC — CORR-D-GCEC-AGENT-02 REVIEW PACK
 
-TIMESTAMP: 2026-09-12T02:44:06Z
+TIMESTAMP: 2026-09-12T03:17:36Z
 
 ## GO MORRIS
-CORR-D-GCEC-AGENT-01 CONSUMED
+CORR-D-GCEC-AGENT-02 CONSUMED
 
 ## GIT TRUTH BEFORE
 - worktree: /Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310
@@ -11,18 +11,21 @@ CORR-D-GCEC-AGENT-01 CONSUMED
 - HEAD: 3966bbf9b800b143711acf1d581b85a33e106e99
 - PARENT: 92ad3fd41e065d0ebe76c59b4eedb622715a11e2
 - origin/main: a9f6c310a0826d0e5bd6f7264603382a86564db1
-- INPUT HANDOFF: bb00f0693218b1d2df6f8cd5013c87e030ed42b2
+- INPUT HANDOFF: 4793ee28614f9c18758e75b11fd44a44359c91bb
+- Product dirt: EXPECTED (combined D-GCEC-AGENT-01 + CORR-01 + CORR-02 candidate)
+- .tmp-sfia-review/** dirt: allowed
 
 ## GIT TRUTH AFTER
 - HEAD UNCHANGED: 3966bbf9b800b143711acf1d581b85a33e106e99
 - Product commit: NONE
 - Product push: NONE
+- Proof repo: UNCHANGED (expected main 32c7c2008197e5c61b32c16479144e9863291358)
 
 ## INPUT PRODUCT HEAD
 3966bbf9b800b143711acf1d581b85a33e106e99
 
 ## INPUT HANDOFF
-bb00f0693218b1d2df6f8cd5013c87e030ed42b2
+4793ee28614f9c18758e75b11fd44a44359c91bb
 
 ## CYCLE / TYPE / PROFILE
 - Cycle: 8 — Delivery
@@ -30,104 +33,190 @@ bb00f0693218b1d2df6f8cd5013c87e030ed42b2
 - Profile: CRITICAL
 
 ## SOURCES
-Local method/convergence/v3 framing + handoff bb00f069 + dirty Product candidate (authoritative deltas).
+Local method/convergence/v3 framing + handoff 4793ee28 + dirty Product candidate (authoritative deltas).
 
 ## CONVERGENCE PRE-CHECK
-Build Doctrine VALIDATED/ACTIVE. Product Completion CLOSED. Runtime v3 NON ADOPTED. R3/R6/R8/R12/R13/R15/R18/R19/R21.
+Build Doctrine VALIDATED/ACTIVE. Roadmap VALIDATED/ACTIVE LIVING. Product Completion COMPLETE/CLOSED. Runtime v3 NON ADOPTED.
+Applicable: R3/R6/R8/R12/R15/R18/R19/R21 (DETERMINISTIC != REAL).
 
 ## BINDING DECISIONS
-D-GCEC-09..15, D-GCEC-CONT-01, D-GCEC-AGENT-01 preserved (not redesigned).
+D-GCEC-09..15, D-GCEC-CONT-01, D-GCEC-AGENT-01 preserved. Architecture: one EC, Attempt-scoped profiles, A docs-write / B local-commit, same gateway/ProcessRunner/Cont01/Evidence model/future REAL harness.
 
-## CHATGPT CRITICAL REVIEW FINDINGS — CR-GCEC-AGENT-02..07
+## CR-GCEC-AGENT-08 — CLOSED
+Root cause: `resolvePreCommitWorkspaceContinuation` had a weak supersession branch when priorA was not ok (same-EC commit Evidence could clear continuation without exact Attempt A).
+Code removed: entire weak-supersession path that evaluated commit Evidence without qualified A.
+Strict rule: NO EXACT ATTEMPT A = NO FS→SHA SUPERSESSION. Only `priorA.ok` may call `isFsAnchorSupersededByVerifiedLocalCommit` with exact priorAttemptId/H0/repositoryRef/requiredPaths/attempts/Evidence.
+Helper hardened: required fields; requires succeeded docs-write Attempt A + unique VERIFIED Artifact Evidence on A + succeeded local-commit Attempt B + unique VERIFIED git:local_commit Evidence on B.
+Ambiguous A → fail closed. Incomplete A → fail closed. No A → never superseded; continuation semantics only.
+Tests: SHA-19..24 (+ preserved SHA-01..18). Public resolver path asserted.
+Status: CLOSED
 
-### CR-GCEC-AGENT-02 — CLOSED
-Root cause: Product composition returned `[]` when Evidence late services unset; Select/Start treated missing reader as empty Evidence.
-Correction: `ListProjectEvidenceFn` Result type (`ok`/`evidence_reader_unavailable`); Product `service.ts` late-bound Result; progressive M4 fail-closed when unavailable; createTest defaults available empty.
-Files: projectEvidenceList.ts, selectExecutionAgent.ts, startExecution.ts, service.ts, sqlite/in-memory factories.
-Tests: WIRE-01/03/04/05 (gcecAgent01CorrWireLin).
+## CR-GCEC-AGENT-09 — CLOSED
+Old boundary: `verifyLocalCommitEffect` accepted `observed: LocalCommitObservedFacts` (forgeable) + synthetic helper near Product API.
+New boundary: production Evidence creator OWNS observation:
+  gitRunner + governed + spec + expectedArtifactDigests + bindings → observeLocalCommitFacts → verifyLocalCommitFacts → buildTypedGitEvidence → register → verify integrity.
+Rejects forged keys: observed / observedHeadSha / parent / paths / message / dirty / commitsFromExpectedParent / artifactChecks / allowTestOnlySyntheticObservation.
+Synthetic helper: moved to `__tests__/.../support/localCommitTestFacts.ts`; NOT exported from Product index.
+Pure `verifyLocalCommitFacts` kept for unit tests. `observeLocalCommitFacts` remains canonical READ-ONLY collector.
+Tests: EVP-01..12 (gcecGitCommitEvidence); SameEcAb uses governed temp worktree fixture; REAL harness uses observer-owned verify.
+Status: CLOSED
 
-### CR-GCEC-AGENT-03 — CLOSED
-Root cause: future REAL harness was narrative placeholders.
-Correction: actual Product orchestration body harvested from docs-write REAL harness (Select/Start/Gate D/Evidence/observe/verify/FS→SHA); triple gate OFF → skipped.
-Files: gcecCursorRealSameEcCommit.real.d0.test.ts
-Tests: static markers PASS; ENABLED body skipped (1 skipped).
+## CR-GCEC-AGENT-10 — CLOSED
+Old anti-effect: cloneRoot local HEAD == BASE_SHA only (insufficient vs remote push).
+New: future REAL harness `captureRemoteRefSnapshot` runs `git ls-remote --heads origin` + `git ls-remote --tags origin` BEFORE A/B and AFTER B; asserts heads/tags/main/target-branch equality; persists remoteHeads/Tags/Main/targetBranch Before/After into forensic facts.json.
+No REAL executed. Triple gate OFF. Static shape tests assert ls-remote markers + observer-owned verify call shape.
+REAL TOOL-CONFINEMENT RESERVE remains OPEN (remote unchanged ≠ Cursor incapable of push).
+Status: CLOSED
 
-### CR-GCEC-AGENT-04 — CLOSED
-Root cause: observeLocalCommitFacts accepted bare workspacePath.
-Correction: `GovernedWorkspaceObservationContext` with execRoot/priorAttemptId/repositoryBinding/managedRepoRoot; identity checks (path, remote, registered worktree, toplevel, common root) before HEAD evaluation; free cwd / Cursor path rejected.
-Files: observeLocalCommitFacts.ts
-Tests: OBS-01..18 matrix (gcecGitCommitObserve).
+## FS→SHA RULE
+Qualified A + VERIFIED Artifact on A + Succeeded B local-commit + VERIFIED git:local_commit on B + same Project/Cycle/EC + repo exact + parent==H0 + paths cover A artifacts = superseded. Anything less = NOT superseded.
 
-### CR-GCEC-AGENT-05 — CLOSED
-Root cause: FS→SHA call omitted priorAttemptId/H0/repo/paths; typed local_commit lacked changedPaths.
-Correction: Cont01 resolver derives exact Attempt A via shared lineage helper and passes strict supersession fields; GitLocalCommitPayload.changedPaths encoded in location; B must be local-commit agent + succeeded.
-Files: resolvePreCommitWorkspaceContinuation.ts, typedGitEvidence.ts, verifyLocalCommitEffect.ts, startExecution.ts (repositoryRef)
-Tests: SHA-10..17 + Cont01 continuation.
+## LOCAL COMMIT OBSERVATION
+GovernedWorkspaceObservationContext mandatory (execRoot, priorAttemptId, managedRepoRoot, remote identity, registered worktree, common Git root, path containment). No free cwd.
 
-### CR-GCEC-AGENT-06 — CLOSED
-Root cause: M4 progressive fell back to contract_legacy for push/PR/merge/post-commit.
-Correction: unsupported protected M4 effects fail closed (`attempt_profile_effect_not_supported`); non-M4 keeps contract_legacy.
-Files: resolveAttemptExecutionProfile.ts
-Tests: AP-10..14/16; monolithic push Select fail-closed; H23B-P1 fail-closed.
+## LOCAL COMMIT EVIDENCE CREATION
+Single Product path: `verifyLocalCommitEffect` owns observe→verify→Evidence. Provenance `studio:local_git_readonly:observe`.
 
-### CR-GCEC-AGENT-07 — CLOSED
-Root cause: independent fsVerified + some succeeded Attempt.
-Correction: `resolveVerifiedDocsWritePriorAttempt` requires unique A: same EC, succeeded, docs-write agent, Evidence bound to A, canonical source, path, digest.
-Files: resolveVerifiedDocsWritePriorAttempt.ts, resolveAttemptExecutionProfile.ts (lineage on local_commit profile)
-Tests: LIN-01..08.
+## PRODUCTION VS TEST BOUNDARY
+- Production: no synthetic facts export; no allowTestOnlySyntheticObservation escape hatch; rejects forged observation fields.
+- Tests: `support/governedCommitFixture.ts` (real temp Git); `support/localCommitTestFacts.ts` (pure verifier fixtures only).
 
-## NORMAL PRODUCT COMPOSITION
-PASS — late Evidence Result wired in service.ts; monolithic Product path selects local-commit on commit slice.
+## FUTURE REAL A→B HARNESS
+Path: `projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealSameEcCommit.real.d0.test.ts`
+Actual A→B Product orchestration: YES (Select/Start/Gate/reconcile/Evidence/FS→SHA).
+Remote read-only observation: YES (ls-remote BEFORE/AFTER).
+Executed: NO. Skipped: YES (1 skipped under triple gate OFF).
 
-## RESTART PROOF
-PASS — AP-09 / LIN-07 recomputation from durable facts.
-
-## ATTEMPT A / B LINEAGE
-A: docs-write agent + VERIFIED artifact Evidence bound to A.
-B: local-commit agent + VERIFIED git:local_commit Evidence bound to B (paths in location).
-
-## WORKSPACE IDENTITY / LOCAL GIT OBSERVATION
-Governed Cont01-derived observation — PASS (OBS matrix).
-
-## LOCAL COMMIT EVIDENCE / FS→SHA
-PASS — exact A→B lineage; verifiedEffects alone never sufficient.
-
-## FUTURE REAL HARNESS
-path: gcecCursorRealSameEcCommit.real.d0.test.ts
-actual orchestration complete: YES
-executed: NO
-skipped: YES
-
-## REAL
-ZERO
+## REMOTE BEFORE/AFTER OBSERVATION DESIGN
+Read-only `git ls-remote --heads/--tags origin`; normalize/sort; compare equality; main SHA must remain BASE_SHA 32c7c200…. No fetch/push/pull/config mutation.
 
 ## REAL TOOL-CONFINEMENT RESERVE
 OPEN
 
-## PRODUCT PERSISTENCE / SCHEMA / SECOND EC / SECOND ENGINE
-NONE / NONE / NONE / NONE
+## CR-02..07 REVALIDATION
+- CR-02 Evidence reader Result wiring: REVALIDATED (WIRE suite + composition)
+- CR-03 future REAL A→B orchestration present: REVALIDATED (static + body)
+- CR-04 governed observation: REVALIDATED (OBS suite)
+- CR-05 strict A/H0/repo/paths: REVALIDATED (SHA + Cont01)
+- CR-06 push/PR/merge M4 fail-closed: REVALIDATED (AP + Cr23 H23B-P1)
+- CR-07 unique Attempt-A lineage: REVALIDATED (LIN + helper A check)
+
+## D-GCEC-AGENT-01
+PASS — Attempt A docs-write / B local-commit / same EC / distinct IDs / server-derived profile / Start revalidation.
+
+## D-GCEC-CONT-01
+PASS — pre-commit continuation when qualified A + no verified commit; post-commit superseded when exact A→B; no A never superseded; ambiguous fail closed.
+
+## REAL
+ZERO (flags unset; no Cursor REAL child; no proof-repo mutation; no live ls-remote in normal suite)
+
+## PRODUCT PERSISTENCE
+NONE
+
+## SCHEMA/MIGRATION
+NONE
+
+## SECOND EC
+NONE
+
+## SECOND ENGINE
+NONE
+
+## STUDIO GIT BUSINESS WRITER
+NO (read-only observe + Evidence; commit remains Cursor Attempt B)
 
 ## PRODUCT HEAD
 3966bbf9b800b143711acf1d581b85a33e106e99
 
-## PRODUCT COMMIT / PUSH
-NONE / NONE
+## PRODUCT COMMIT
+NONE
+
+## PRODUCT PUSH
+NONE
 
 ## PROOF REPO
-UNCHANGED @ 32c7c2008197e5c61b32c16479144e9863291358
+UNCHANGED
 
-## PR / MERGE
-NONE / NONE
+## PR
+NONE
+
+## MERGE
+NONE
+
+## FILES MODIFIED (tracked dirty vs HEAD)
+- projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts
+- projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts
+- projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts
+- projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01SameEcAbContinuation.d0.test.ts
+- projects/sfia-studio/app/lib/oa/evidence-review/application/typedGitEvidence.ts
+- projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts
+- projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
+- projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts
+- projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation.ts
+- projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+- projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts
+- projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent.ts
+- projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts
+- projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
+- projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts
+- projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+
+## FILES CREATED (untracked Product candidate)
+- projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealSameEcCommit.real.d0.test.ts
+- projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01AttemptProfile.d0.test.ts
+- projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01CorrWireLin.d0.test.ts
+- projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitEvidence.d0.test.ts
+- projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitGatewayProfile.d0.test.ts
+- projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitObserve.d0.test.ts
+- projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitSameEcAb.d0.test.ts
+- projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitVerification.d0.test.ts
+- projects/sfia-studio/app/__tests__/oa/execution-attempt/support/governedCommitFixture.ts
+- projects/sfia-studio/app/__tests__/oa/execution-attempt/support/localCommitTestFacts.ts
+- projects/sfia-studio/app/lib/oa/execution-attempt/application/observeLocalCommitFacts.ts
+- projects/sfia-studio/app/lib/oa/execution-attempt/application/verifyLocalCommitEffect.ts
+- projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitCommitLaunchSpec.ts
+- projects/sfia-studio/app/lib/oa/execution-attempt/domain/projectEvidenceList.ts
+- projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts
+- projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedDocsWritePriorAttempt.ts
+- projects/sfia-studio/app/lib/oa/execution-attempt/domain/verifyLocalCommitFacts.ts
+- projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedLocalCommitCursorAgent.ts
 
 ## FOCUSED TESTS
-12 files — 112 passed | 1 skipped
+cwd: projects/sfia-studio/app
+REAL flags: unset
+Files:
+- gcecCont01ContinuationResolver.d0.test.ts (SHA-01..24 incl. SHA-19..24) PASS
+- gcecCont01SameEcAbContinuation.d0.test.ts PASS
+- gcecAgent01AttemptProfile.d0.test.ts PASS
+- gcecAgent01CorrWireLin.d0.test.ts PASS
+- gcecGitCommitSameEcAb.d0.test.ts PASS
+- gcecGitCommitObserve.d0.test.ts PASS
+- gcecGitCommitEvidence.d0.test.ts (EVP-01..12) PASS
+- gcecGitCommitVerification.d0.test.ts PASS
+- gcecGitCommitGatewayProfile.d0.test.ts PASS
+- gcecCursorRealSameEcCommit.real.d0.test.ts — 2 static PASS, 1 ENABLED skipped
+- gcecProductMonolithicE2e.d0.test.ts PASS
+- gcecCr23StartExecution.d0.test.ts PASS
+Aggregate focused: 12 files, 123 passed | 1 skipped
 
 ## FULL VITEST
-Test Files 351 passed | 17 skipped (368)
-Tests 3766 passed | 137 skipped (3903)
+npx vitest run (projects/sfia-studio/app)
+Test Files  351 passed | 17 skipped (368)
+Tests  3777 passed | 137 skipped (3914)
+Duration ~34.93s
+REAL scenario skipped.
 
-## TYPECHECK / LINT / BUILD / DIFF CHECK
-PASS / PASS / PASS / PASS
+## TYPECHECK
+PASS — `npm run typecheck` (tsc --noEmit)
+
+## LINT
+PASS — `npm run lint` (No ESLint warnings or errors)
+
+## BUILD
+PASS — `npm run build` (Compiled successfully)
+
+## DIFF CHECK
+PASS — `git diff --check -- projects/sfia-studio` (empty)
 
 ## REAL_CONTINUATION_GAP
 OPEN
@@ -139,63 +228,30 @@ NOT PROVEN
 NOT READY
 
 ## DEBT / EXIT
-ChatGPT Critical Re-Review → local candidate commit under distinct Morris GO → REAL confinement preflight → distinct Morris REAL A→B gate.
+- REAL TOOL-CONFINEMENT RESERVE OPEN (preflight still required before Morris REAL GO)
+- REAL_CONTINUATION_GAP OPEN
+- GCEC-PUSH not in scope
+- runtime v3 NON ADOPTED
 
 ## ANTI-CLAIMS
-NOT READY FOR REAL; REAL_CONTINUATION_GAP not closed; REAL git.commit not proven; GCEC-PUSH not ready/authorized; no end-to-end REAL; runtime v3 not ADOPTED.
+- NOT READY FOR REAL
+- REAL_CONTINUATION_GAP NOT CLOSED
+- REAL git.commit NOT proven
+- GCEC-PUSH NOT READY / NOT AUTHORIZED
+- END-TO-END REAL NOT claimed
+- runtime v3 NOT ADOPTED
+- No Product commit/push
+- No proof-repo mutation
+- No second EC / second engine / persistence / schema
 
 ## VERDICT
-PASS WITH RESERVE —
-CORR-D-GCEC-AGENT-01 CRITICAL REVIEW FINDINGS 02..07 CLOSED /
-D-GCEC-AGENT-01 PRODUCT INTEGRATION DETERMINISTICALLY PROVEN /
-GC-02..06 PRESERVED /
-REAL TOOL-CONFINEMENT RESERVE REMAINS /
-READY FOR CHATGPT CRITICAL RE-REVIEW
-
-## FILES MODIFIED
-
-- `projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts`
-- `projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts`
-- `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts`
-- `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01SameEcAbContinuation.d0.test.ts`
-- `projects/sfia-studio/app/lib/oa/evidence-review/application/typedGitEvidence.ts`
-- `projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts`
-- `projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts`
-- `projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts`
-- `projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation.ts`
-- `projects/sfia-studio/app/lib/oa/execution-attempt/index.ts`
-- `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts`
-- `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent.ts`
-- `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts`
-- `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts`
-- `projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts`
-- `projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts`
-
-## FILES CREATED
-
-- `projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealSameEcCommit.real.d0.test.ts`
-- `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01AttemptProfile.d0.test.ts`
-- `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01CorrWireLin.d0.test.ts`
-- `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitEvidence.d0.test.ts`
-- `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitGatewayProfile.d0.test.ts`
-- `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitObserve.d0.test.ts`
-- `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitSameEcAb.d0.test.ts`
-- `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitVerification.d0.test.ts`
-- `projects/sfia-studio/app/lib/oa/execution-attempt/application/observeLocalCommitFacts.ts`
-- `projects/sfia-studio/app/lib/oa/execution-attempt/application/verifyLocalCommitEffect.ts`
-- `projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitCommitLaunchSpec.ts`
-- `projects/sfia-studio/app/lib/oa/execution-attempt/domain/projectEvidenceList.ts`
-- `projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts`
-- `projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedDocsWritePriorAttempt.ts`
-- `projects/sfia-studio/app/lib/oa/execution-attempt/domain/verifyLocalCommitFacts.ts`
-- `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedLocalCommitCursorAgent.ts`
+PASS WITH RESERVE — CORR-D-GCEC-AGENT-02 FINAL SAME-LOT HARDENING COMPLETE / CR-GCEC-AGENT-08..10 CLOSED / D-GCEC-AGENT-01 + D-GCEC-CONT-01 DETERMINISTIC CANDIDATE COMMIT-READY / REAL TOOL-CONFINEMENT RESERVE REMAINS / READY FOR CHATGPT FINAL CRITICAL REVIEW
 
 ---
-# FULL USEFUL DIFFS — ALL MODIFIED FILES
 
+# FULL USEFUL DIFFS — MODIFIED FILES
 
-## DIFF: `projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts`
-
+## DIFF: projects_sfia-studio_app___tests___oa_cycle_gcecCr23StartExecution.d0.test.ts.diff
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts
 index 54a4746b..cb2ff410 100644
@@ -277,12 +333,9 @@ index 54a4746b..cb2ff410 100644
 +    }
    }, 90_000);
  });
-
 ```
 
-
-## DIFF: `projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts`
-
+## DIFF: projects_sfia-studio_app___tests___oa_cycle_gcecProductMonolithicE2e.d0.test.ts.diff
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts
 index d16924c8..c56605e0 100644
@@ -795,18 +848,19 @@ index d16924c8..c56605e0 100644
 -    );
    });
  });
-
 ```
 
-
-## DIFF: `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts`
-
+## DIFF: projects_sfia-studio_app___tests___oa_execution-attempt_gcecCont01ContinuationResolver.d0.test.ts.diff
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts
-index 488e5e1e..78c54ed7 100644
+index 488e5e1e..bf818d04 100644
 --- a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts
 +++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts
-@@ -13,6 +13,7 @@ import {
+@@ -10,9 +10,11 @@ import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
+ import {
+   preCommitWorkspaceContinuationRequired,
+   resolvePreCommitWorkspaceContinuation,
++  isFsAnchorSupersededByVerifiedLocalCommit,
  } from "@/lib/oa/execution-attempt";
 
  const HEAD = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
@@ -814,7 +868,7 @@ index 488e5e1e..78c54ed7 100644
  const DIGEST =
    "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622" as Digest;
  const PROJECT = "prj:cont";
-@@ -405,4 +406,465 @@ describe("D-GCEC-CONT-01 continuation resolver", () => {
+@@ -405,4 +407,736 @@ describe("D-GCEC-CONT-01 continuation resolver", () => {
      });
      expect(r).toEqual({ required: false, descriptor: null });
    });
@@ -1279,13 +1333,281 @@ index 488e5e1e..78c54ed7 100644
 +    });
 +    expect(r).toEqual({ required: false, descriptor: null });
 +  });
++
++  it("SHA-19 no qualified prior A + matching commit Evidence → NOT superseded", () => {
++    expect(
++      isFsAnchorSupersededByVerifiedLocalCommit({
++        projectId: PROJECT,
++        cycleInstanceId: CYCLE,
++        executionContractId: EC,
++        // Invented A id — no qualified docs-write prior exists in evidence.
++        priorAttemptId: "xat:missing-a",
++        expectedParentSha: HEAD,
++        repositoryRef: "acme/widget",
++        requiredPaths: [PATH],
++        attempts: [
++          attempt({
++            attemptId: "xat:b",
++            selectedAgentRef: "agt:m4.cursor.bounded_local_commit",
++          }),
++        ],
++        evidence: [
++          evidence({
++            evidenceId: "ev:commit",
++            type: "other",
++            source: "git:local_commit",
++            location: `git:local_commit?repo=${encodeURIComponent("acme/widget")}&commitSha=${COMMIT_H1}&parentSha=${HEAD}&path=${encodeURIComponent(PATH)}`,
++            bindings: {
++              projectId: PROJECT,
++              cycleInstanceId: CYCLE,
++              executionContractId: EC,
++              executionAttemptId: "xat:b",
++            },
++          }),
++        ],
++      }),
++    ).toBe(false);
++
++    const r = resolvePreCommitWorkspaceContinuation({
++      ...baseInput,
++      currentAttemptId: "xat:next",
++      repositoryRef: "acme/widget",
++      authorizedEffects: ["git.push"],
++      verifiedEffects: [
++        "filesystem.create",
++        "filesystem.modify",
++        "git.commit",
++      ],
++      attempts: [
++        attempt({
++          attemptId: "xat:b",
++          selectedAgentRef: "agt:m4.cursor.bounded_local_commit",
++        }),
++      ],
++      evidence: [
++        evidence({
++          evidenceId: "ev:commit",
++          type: "other",
++          source: "git:local_commit",
++          location: `git:local_commit?repo=${encodeURIComponent("acme/widget")}&commitSha=${COMMIT_H1}&parentSha=${HEAD}&path=${encodeURIComponent(PATH)}`,
++          bindings: {
++            projectId: PROJECT,
++            cycleInstanceId: CYCLE,
++            executionContractId: EC,
++            executionAttemptId: "xat:b",
++          },
++        }),
++      ],
++    });
++    // No qualified A → never FS→SHA superseded (weak same-EC commit path deleted).
++    expect(r.required).toBe(true);
++    if (r.required) expect(r.ok).toBe(false);
++  });
++
++  it("SHA-20 ambiguous prior A + matching commit → FAIL CLOSED / NOT superseded", () => {
++    const r = resolvePreCommitWorkspaceContinuation({
++      ...baseInput,
++      repositoryRef: "acme/widget",
++      authorizedEffects: ["git.push"],
++      verifiedEffects: [
++        "filesystem.create",
++        "filesystem.modify",
++        "git.commit",
++      ],
++      attempts: [
++        attempt({ attemptId: "xat:a1" }),
++        attempt({ attemptId: "xat:a2" }),
++        attempt({
++          attemptId: "xat:b",
++          selectedAgentRef: "agt:m4.cursor.bounded_local_commit",
++        }),
++      ],
++      evidence: [
++        evidence({
++          evidenceId: "ev:a1",
++          bindings: {
++            projectId: PROJECT,
++            cycleInstanceId: CYCLE,
++            executionContractId: EC,
++            executionAttemptId: "xat:a1",
++          },
++        }),
++        evidence({
++          evidenceId: "ev:a2",
++          bindings: {
++            projectId: PROJECT,
++            cycleInstanceId: CYCLE,
++            executionContractId: EC,
++            executionAttemptId: "xat:a2",
++          },
++        }),
++        evidence({
++          evidenceId: "ev:commit",
++          type: "other",
++          source: "git:local_commit",
++          location: `git:local_commit?repo=${encodeURIComponent("acme/widget")}&commitSha=${COMMIT_H1}&parentSha=${HEAD}&path=${encodeURIComponent(PATH)}`,
++          bindings: {
++            projectId: PROJECT,
++            cycleInstanceId: CYCLE,
++            executionContractId: EC,
++            executionAttemptId: "xat:b",
++          },
++        }),
++      ],
++    });
++    expect(r.required).toBe(true);
++    if (r.required && !r.ok) {
++      expect(r.reason).toBe("continuation_candidate_ambiguous");
++    }
++  });
++
++  it("SHA-21 prior A incomplete digest + matching commit → NOT superseded", () => {
++    const r = resolvePreCommitWorkspaceContinuation({
++      ...baseInput,
++      repositoryRef: "acme/widget",
++      authorizedEffects: ["git.push"],
++      verifiedEffects: [
++        "filesystem.create",
++        "filesystem.modify",
++        "git.commit",
++      ],
++      attempts: [
++        attempt({ attemptId: "xat:a" }),
++        attempt({
++          attemptId: "xat:b",
++          selectedAgentRef: "agt:m4.cursor.bounded_local_commit",
++        }),
++      ],
++      evidence: [
++        evidence({
++          evidenceId: "ev:a",
++          digest: "sha256:short" as Digest,
++          bindings: {
++            projectId: PROJECT,
++            cycleInstanceId: CYCLE,
++            executionContractId: EC,
++            executionAttemptId: "xat:a",
++          },
++        }),
++        evidence({
++          evidenceId: "ev:commit",
++          type: "other",
++          source: "git:local_commit",
++          location: `git:local_commit?repo=${encodeURIComponent("acme/widget")}&commitSha=${COMMIT_H1}&parentSha=${HEAD}&path=${encodeURIComponent(PATH)}`,
++          bindings: {
++            projectId: PROJECT,
++            cycleInstanceId: CYCLE,
++            executionContractId: EC,
++            executionAttemptId: "xat:b",
++          },
++        }),
++      ],
++    });
++    expect(r.required).toBe(true);
++    if (r.required) expect(r.ok).toBe(false);
++  });
++
++  it("SHA-22/23 unrelated B / verifiedEffects alone → NOT superseded", () => {
++    expect(
++      isFsAnchorSupersededByVerifiedLocalCommit({
++        projectId: PROJECT,
++        cycleInstanceId: CYCLE,
++        executionContractId: EC,
++        priorAttemptId: "xat:a",
++        expectedParentSha: HEAD,
++        repositoryRef: "acme/widget",
++        requiredPaths: [PATH],
++        attempts: [
++          attempt({ attemptId: "xat:a" }),
++          attempt({
++            attemptId: "xat:other",
++            selectedAgentRef: "agt:m4.cursor.bounded_local_commit",
++          }),
++        ],
++        evidence: [
++          evidence({
++            evidenceId: "ev:a",
++            bindings: {
++              projectId: PROJECT,
++              cycleInstanceId: CYCLE,
++              executionContractId: EC,
++              executionAttemptId: "xat:a",
++            },
++          }),
++          evidence({
++            evidenceId: "ev:commit",
++            type: "other",
++            source: "git:local_commit",
++            location: `git:local_commit?repo=${encodeURIComponent("other/repo")}&commitSha=${COMMIT_H1}&parentSha=${HEAD}&path=${encodeURIComponent(PATH)}`,
++            bindings: {
++              projectId: PROJECT,
++              cycleInstanceId: CYCLE,
++              executionContractId: EC,
++              executionAttemptId: "xat:other",
++            },
++          }),
++        ],
++      }),
++    ).toBe(false);
++
++    const r = resolvePreCommitWorkspaceContinuation({
++      ...baseInput,
++      repositoryRef: "acme/widget",
++      authorizedEffects: ["git.commit"],
++      verifiedEffects: ["git.commit"],
++      attempts: [],
++      evidence: [],
++    });
++    expect(r).toEqual({ required: false, descriptor: null });
++  });
++
++  it("SHA-24 exact A + exact B + exact H0/repo/paths → superseded", () => {
++    const r = resolvePreCommitWorkspaceContinuation({
++      ...baseInput,
++      repositoryRef: "acme/widget",
++      authorizedEffects: ["git.push"],
++      verifiedEffects: [
++        "filesystem.create",
++        "filesystem.modify",
++        "git.commit",
++      ],
++      attempts: [
++        attempt({ attemptId: "xat:a" }),
++        attempt({
++          attemptId: "xat:b",
++          selectedAgentRef: "agt:m4.cursor.bounded_local_commit",
++        }),
++      ],
++      evidence: [
++        evidence({
++          evidenceId: "ev:a",
++          bindings: {
++            projectId: PROJECT,
++            cycleInstanceId: CYCLE,
++            executionContractId: EC,
++            executionAttemptId: "xat:a",
++          },
++        }),
++        evidence({
++          evidenceId: "ev:commit",
++          type: "other",
++          source: "git:local_commit",
++          location: `git:local_commit?repo=${encodeURIComponent("acme/widget")}&commitSha=${COMMIT_H1}&parentSha=${HEAD}&path=${encodeURIComponent(PATH)}`,
++          bindings: {
++            projectId: PROJECT,
++            cycleInstanceId: CYCLE,
++            executionContractId: EC,
++            executionAttemptId: "xat:b",
++          },
++        }),
++      ],
++    });
++    expect(r).toEqual({ required: false, descriptor: null });
++  });
  });
-
 ```
 
-
-## DIFF: `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01SameEcAbContinuation.d0.test.ts`
-
+## DIFF: projects_sfia-studio_app___tests___oa_execution-attempt_gcecCont01SameEcAbContinuation.d0.test.ts.diff
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01SameEcAbContinuation.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01SameEcAbContinuation.d0.test.ts
 index a540d364..4fb417d7 100644
@@ -1442,12 +1764,9 @@ index a540d364..4fb417d7 100644
        );
      }
      expect(launchPort.launchCallCount).toBe(0);
-
 ```
 
-
-## DIFF: `projects/sfia-studio/app/lib/oa/evidence-review/application/typedGitEvidence.ts`
-
+## DIFF: projects_sfia-studio_app_lib_oa_evidence-review_application_typedGitEvidence.ts.diff
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/application/typedGitEvidence.ts b/projects/sfia-studio/app/lib/oa/evidence-review/application/typedGitEvidence.ts
 index 8f2d8b60..9a90a753 100644
@@ -1503,12 +1822,9 @@ index 8f2d8b60..9a90a753 100644
        break;
      }
      case "git:remote_push": {
-
 ```
 
-
-## DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts`
-
+## DIFF: projects_sfia-studio_app_lib_oa_execution-attempt_application_selectExecutionAgent.ts.diff
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts
 index 352f6c8b..9b958fca 100644
@@ -1580,12 +1896,9 @@ index 352f6c8b..9b958fca 100644
        const candidates = this.registry.findCandidates(criteria);
        if (candidates.length === 0) {
          return fail("AGENT_NOT_FOUND", "no_registry_candidate");
-
 ```
 
-
-## DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts`
-
+## DIFF: projects_sfia-studio_app_lib_oa_execution-attempt_application_startExecution.ts.diff
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
 index b94fddb3..1ea37809 100644
@@ -1858,12 +2171,9 @@ index b94fddb3..1ea37809 100644
          ...(repositoryBindingIdentity
            ? { repositoryBindingIdentity }
            : {}),
-
 ```
 
-
-## DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts`
-
+## DIFF: projects_sfia-studio_app_lib_oa_execution-attempt_domain_realLaunchSafety.ts.diff
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts
 index ac55064a..d1f0fc2a 100644
@@ -1879,34 +2189,34 @@ index ac55064a..d1f0fc2a 100644
  export type RealLaunchReconcileDisposition =
    | "CLEAR"
    | "UNKNOWN"
-
 ```
 
-
-## DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation.ts`
-
+## DIFF: projects_sfia-studio_app_lib_oa_execution-attempt_domain_resolvePreCommitWorkspaceContinuation.ts.diff
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation.ts
-index f1098918..21c81d01 100644
+index f1098918..1b670162 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation.ts
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation.ts
 @@ -1,5 +1,6 @@
  /**
   * D-GCEC-CONT-01 — resolve unique prior Attempt for pre-commit workspace continuation.
-+ * CORR-D-GCEC-AGENT-01: exact Attempt-A lineage + strict FS→SHA supersession call path.
++ * CORR-D-GCEC-AGENT-02 / CR-GCEC-AGENT-08: NO exact Attempt A ⇒ NO FS→SHA supersession.
   *
   * Pure Product-truth resolver: Attempt history + VERIFIED Evidence bindings.
   * No free workspace path. No heuristic latest/first selection under ambiguity.
-@@ -9,6 +10,8 @@ import type { Evidence } from "@/lib/oa/evidence-review";
+@@ -9,6 +10,11 @@ import type { Evidence } from "@/lib/oa/evidence-review";
  import type { CursorAuthorizedEffectId } from "./cursorExecutionReport";
  import type { ExecutionAttempt } from "./types";
  import type { ResumeVerifiedFileFact } from "../ports/realExecutionWorkspacePort";
 +import { resolveVerifiedDocsWritePriorAttempt } from "./resolveVerifiedDocsWritePriorAttempt";
-+import { M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID } from "./realLaunchSafety";
++import {
++  M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
++  M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
++} from "./realLaunchSafety";
 
  const FS_EFFECTS = new Set<CursorAuthorizedEffectId>([
    "filesystem.create",
-@@ -41,6 +44,8 @@ export type ResolvePreCommitWorkspaceContinuationInput = {
+@@ -41,6 +47,8 @@ export type ResolvePreCommitWorkspaceContinuationInput = {
    readonly evidence: readonly Evidence[];
    readonly authorizedEffects: readonly CursorAuthorizedEffectId[];
    readonly verifiedEffects?: readonly CursorAuthorizedEffectId[];
@@ -1915,7 +2225,7 @@ index f1098918..21c81d01 100644
  };
 
  export type ResolvePreCommitWorkspaceContinuationResult =
-@@ -72,32 +77,169 @@ export function preCommitWorkspaceContinuationRequired(input: {
+@@ -72,32 +80,238 @@ export function preCommitWorkspaceContinuationRequired(input: {
    return hasVerifiedFs && hasAuthorizedGit;
  }
 
@@ -1958,24 +2268,83 @@ index f1098918..21c81d01 100644
 +  readonly cycleInstanceId: string;
 +  readonly executionContractId: string;
 +  readonly evidence: readonly Evidence[];
-+  readonly attempts?: readonly ExecutionAttempt[];
-+  /** Prior Attempt A that produced the mutable FS artifacts. */
-+  readonly priorAttemptId?: string;
-+  /** Expected parent SHA (H0) of the encapsulating commit. */
-+  readonly expectedParentSha?: string;
-+  /** Repository identity that must appear in Evidence location. */
-+  readonly repositoryRef?: string;
-+  /** Paths that must be encapsulated (typically Attempt-A artifact paths). */
-+  readonly requiredPaths?: readonly string[];
++  readonly attempts: readonly ExecutionAttempt[];
++  /** Prior Attempt A that produced the mutable FS artifacts — REQUIRED. */
++  readonly priorAttemptId: string;
++  /** Expected parent SHA (H0) of the encapsulating commit — REQUIRED. */
++  readonly expectedParentSha: string;
++  /** Repository identity that must appear in Evidence location — REQUIRED. */
++  readonly repositoryRef: string;
++  /** Paths that must be encapsulated (Attempt-A artifact paths) — REQUIRED. */
++  readonly requiredPaths: readonly string[];
 +};
 +
 +/**
-+ * FS→verified-commit-SHA supersession (CR-GCEC-GC-06 / CR-GCEC-AGENT-05).
++ * FS→verified-commit-SHA supersession (CR-GCEC-GC-06 / CR-GCEC-AGENT-08).
++ *
++ * NO EXACT ATTEMPT A = NO SUPERSESSION.
 + * verifiedEffects alone MUST NOT supersede.
++ * All lineage fields are required — no weak/same-EC-only fallback.
++ *
++ * Requires: succeeded docs-write Attempt A + VERIFIED Artifact Evidence on A
++ * + succeeded local-commit Attempt B + VERIFIED git:local_commit Evidence on B
++ * with exact H0 / repo / paths.
 + */
 +export function isFsAnchorSupersededByVerifiedLocalCommit(
 +  input: FsAnchorSupersessionInput,
 +): boolean {
++  const priorAttemptId = input.priorAttemptId?.trim();
++  const expectedParentSha = input.expectedParentSha?.trim();
++  const repositoryRef = input.repositoryRef?.trim();
++  const requiredPaths = input.requiredPaths ?? [];
++  if (
++    !priorAttemptId ||
++    !expectedParentSha ||
++    !repositoryRef ||
++    requiredPaths.length === 0 ||
++    !Array.isArray(input.attempts)
++  ) {
++    return false;
++  }
++
++  const priorAttempt = input.attempts.find((a) => a.attemptId === priorAttemptId);
++  if (
++    !priorAttempt ||
++    priorAttempt.status !== "succeeded" ||
++    priorAttempt.executionContractId !== input.executionContractId ||
++    priorAttempt.selectedAgentRef !== M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID
++  ) {
++    return false;
++  }
++
++  const priorArtifactEvidence = input.evidence.filter((ev) => {
++    if (ev.status !== "verified") return false;
++    if (ev.type !== "artifact") return false;
++    if (ev.bindings.projectId !== input.projectId) return false;
++    if (ev.bindings.cycleInstanceId !== input.cycleInstanceId) return false;
++    if (ev.bindings.executionContractId !== input.executionContractId) {
++      return false;
++    }
++    if (ev.bindings.executionAttemptId !== priorAttemptId) return false;
++    const source = String(ev.source ?? "");
++    if (
++      source !== "execution_attempt:docs_write" &&
++      !/^execution_attempt:docs_write(\.|$)/.test(source)
++    ) {
++      return false;
++    }
++    const loc = String(ev.location ?? "").trim();
++    if (!loc || !requiredPaths.includes(loc)) return false;
++    const digest = String(ev.digest ?? "").trim().toLowerCase();
++    if (!digest.startsWith("sha256:") || digest.length < "sha256:".length + 64) {
++      return false;
++    }
++    return true;
++  });
++  if (priorArtifactEvidence.length !== 1) {
++    return false;
++  }
++
 +  const matching = input.evidence.filter((ev) => {
 +    if (!isVerifiedLocalCommitEvidence(ev)) return false;
 +    if (ev.bindings.projectId !== input.projectId) return false;
@@ -1987,50 +2356,41 @@ index f1098918..21c81d01 100644
 +    if (!commitAttemptId) return false;
 +
 +    // Commit Evidence must bind Attempt B, not Attempt A.
-+    if (input.priorAttemptId && commitAttemptId === input.priorAttemptId) {
++    if (commitAttemptId === priorAttemptId) {
 +      return false;
 +    }
 +
-+    if (input.repositoryRef) {
-+      const loc = String(ev.location ?? "");
-+      if (
-+        !loc.includes(encodeURIComponent(input.repositoryRef)) &&
-+        !loc.includes(input.repositoryRef)
-+      ) {
-+        return false;
-+      }
-+    }
-+    if (input.expectedParentSha) {
-+      const loc = String(ev.location ?? "");
-+      const parentHint = `parentSha=${encodeURIComponent(input.expectedParentSha)}`;
-+      const parentHintRaw = `parentSha=${input.expectedParentSha}`;
-+      if (
-+        !loc.includes(parentHint) &&
-+        !loc.includes(parentHintRaw) &&
-+        !loc.toLowerCase().includes(input.expectedParentSha.toLowerCase())
-+      ) {
-+        return false;
-+      }
-+    }
-+    if (input.requiredPaths && input.requiredPaths.length > 0) {
-+      const loc = String(ev.location ?? "");
-+      const fromLoc = parseChangedPathsFromLocation(loc);
-+      const pathsOk =
-+        input.requiredPaths.every((p) => fromLoc.includes(p)) ||
-+        input.requiredPaths.every((p) => loc.includes(p));
-+      if (!pathsOk) return false;
++    const loc = String(ev.location ?? "");
++    if (
++      !loc.includes(encodeURIComponent(repositoryRef)) &&
++      !loc.includes(repositoryRef)
++    ) {
++      return false;
 +    }
 +
-+    if (input.attempts) {
-+      const attempt = input.attempts.find((a) => a.attemptId === commitAttemptId);
-+      if (!attempt || attempt.status !== "succeeded") return false;
-+      if (attempt.executionContractId !== input.executionContractId) {
-+        return false;
-+      }
-+      // B must be the bounded local-commit agent (CR-GCEC-AGENT-05 / SHA-15).
-+      if (attempt.selectedAgentRef !== M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID) {
-+        return false;
-+      }
++    const parentHint = `parentSha=${encodeURIComponent(expectedParentSha)}`;
++    const parentHintRaw = `parentSha=${expectedParentSha}`;
++    if (
++      !loc.includes(parentHint) &&
++      !loc.includes(parentHintRaw) &&
++      !loc.toLowerCase().includes(expectedParentSha.toLowerCase())
++    ) {
++      return false;
++    }
++
++    const fromLoc = parseChangedPathsFromLocation(loc);
++    const pathsOk =
++      requiredPaths.every((p) => fromLoc.includes(p)) ||
++      requiredPaths.every((p) => loc.includes(p));
++    if (!pathsOk) return false;
++
++    const attempt = input.attempts.find((a) => a.attemptId === commitAttemptId);
++    if (!attempt || attempt.status !== "succeeded") return false;
++    if (attempt.executionContractId !== input.executionContractId) {
++      return false;
++    }
++    if (attempt.selectedAgentRef !== M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID) {
++      return false;
 +    }
 +    return true;
 +  });
@@ -2040,18 +2400,20 @@ index f1098918..21c81d01 100644
  /**
   * Resolve unique prior succeeded Attempt whose VERIFIED docs-write Evidence
 - * matches Project / Cycle / EC / Attempt bindings.
-- *
++ * matches Project / Cycle / EC / Attempt bindings (shared with Attempt profile).
+  *
 - * Continuation is required only when the authorized slice still needs protected
 - * Git AND verified FS effects are claimed AND at least one prior same-EC
 - * succeeded Attempt exists (pre-commit workspace lineage). With no prior
 - * Attempt, verifiedEffects alone do not invent a continuation obligation
 - * (CR23 / progressive-slice harnesses may assert FS verified without Attempt A).
-+ * matches Project / Cycle / EC / Attempt bindings (shared with Attempt profile).
++ * CR-08: supersession ONLY when priorA.ok with exact lineage fields.
++ * Ambiguous / incomplete prior A → fail closed (no weak commit Evidence fallback).
++ * No prior A → never claim FS→SHA superseded; continue via continuation semantics.
   */
  export function resolvePreCommitWorkspaceContinuation(
    input: ResolvePreCommitWorkspaceContinuationInput,
  ): ResolvePreCommitWorkspaceContinuationResult {
-+  // Strict FS→SHA — require exact A lineage fields when prior A is resolvable.
 +  const priorA = resolveVerifiedDocsWritePriorAttempt({
 +    contract: {
 +      executionContractId: input.executionContractId,
@@ -2066,44 +2428,60 @@ index f1098918..21c81d01 100644
 +  });
 +
 +  if (priorA.ok) {
-+    const superseded = isFsAnchorSupersededByVerifiedLocalCommit({
-+      projectId: input.projectId,
-+      cycleInstanceId: input.cycleInstanceId,
-+      executionContractId: input.executionContractId,
-+      evidence: input.evidence,
-+      attempts: input.attempts,
-+      priorAttemptId: priorA.prior.priorAttemptId,
-+      expectedParentSha: input.expectedHeadSha,
-+      repositoryRef: input.repositoryRef,
-+      requiredPaths: [priorA.prior.artifactPath],
-+    });
-+    if (superseded) {
-+      return { required: false, descriptor: null };
-+    }
-+  } else {
-+    // Without a qualified prior A, still allow weak supersession only when
-+    // strict fields are unavailable AND a unique commit Evidence exists —
-+    // but never via verifiedEffects alone. Prefer fail-open to continuation
-+    // evaluation below when no A.
 +    if (
++      input.repositoryRef?.trim() &&
++      input.expectedHeadSha?.trim() &&
 +      isFsAnchorSupersededByVerifiedLocalCommit({
 +        projectId: input.projectId,
 +        cycleInstanceId: input.cycleInstanceId,
 +        executionContractId: input.executionContractId,
 +        evidence: input.evidence,
 +        attempts: input.attempts,
++        priorAttemptId: priorA.prior.priorAttemptId,
 +        expectedParentSha: input.expectedHeadSha,
 +        repositoryRef: input.repositoryRef,
++        requiredPaths: [priorA.prior.artifactPath],
 +      })
 +    ) {
 +      return { required: false, descriptor: null };
 +    }
++  } else if (priorA.reason === "docs_write_prior_ambiguous") {
++    // CR-08: ambiguous A → fail closed; do NOT evaluate generic commit Evidence.
++    if (
++      preCommitWorkspaceContinuationRequired({
++        authorizedEffects: input.authorizedEffects,
++        verifiedEffects: input.verifiedEffects,
++      })
++    ) {
++      return {
++        required: true,
++        ok: false,
++        reason: "continuation_candidate_ambiguous",
++        candidateAttemptIds: priorA.candidateAttemptIds,
++      };
++    }
++    return { required: false, descriptor: null };
++  } else if (priorA.reason === "docs_write_prior_incomplete") {
++    if (
++      preCommitWorkspaceContinuationRequired({
++        authorizedEffects: input.authorizedEffects,
++        verifiedEffects: input.verifiedEffects,
++      })
++    ) {
++      return {
++        required: true,
++        ok: false,
++        reason: "continuation_evidence_incomplete",
++      };
++    }
++    return { required: false, descriptor: null };
 +  }
++  // priorA none: NO FS→SHA supersession. Fall through to continuation semantics.
 +
    if (
      !preCommitWorkspaceContinuationRequired({
        authorizedEffects: input.authorizedEffects,
-@@ -107,70 +249,60 @@ export function resolvePreCommitWorkspaceContinuation(
+@@ -107,70 +321,32 @@ export function resolvePreCommitWorkspaceContinuation(
      return { required: false, descriptor: null };
    }
 
@@ -2117,25 +2495,7 @@ index f1098918..21c81d01 100644
 -  if (succeededSameEc.length === 0) {
 -    return { required: false, descriptor: null };
 -  }
-+  // Exact Attempt-A lineage (shared helper — CR-GCEC-AGENT-07).
-+  // Prefer path-aware contract fields when Evidence carries targetPath.
-+  const withPaths = resolveVerifiedDocsWritePriorAttempt({
-+    contract: {
-+      executionContractId: input.executionContractId,
-+      projectId: input.projectId,
-+      cycleInstanceId: input.cycleInstanceId,
-+      // Infer allowed paths from Evidence locations under same EC when
-+      // contract expectedOutputs not available on this resolver input.
-+      expectedOutputs: priorA.ok ? [priorA.prior.artifactPath] : undefined,
-+      inputs: priorA.ok
-+        ? { targetPath: priorA.prior.artifactPath }
-+        : undefined,
-+    },
-+    attempts: input.attempts,
-+    evidence: input.evidence,
-+    excludeAttemptId: input.currentAttemptId,
-+  });
-
+-
 -  type Candidate = {
 -    attemptId: string;
 -    evidenceId: string;
@@ -2155,9 +2515,8 @@ index f1098918..21c81d01 100644
 -    );
 -    if (matching.length === 0) continue;
 -    if (matching.length > 1) {
-+  if (!withPaths.ok) {
-+    if (withPaths.reason === "docs_write_prior_none") {
-+      // Fall through: may have succeeded Attempts without qualified Evidence.
++  if (!priorA.ok) {
++    if (priorA.reason === "docs_write_prior_none") {
 +      const succeededSameEc = input.attempts.filter(
 +        (a) =>
 +          a.attemptId !== input.currentAttemptId &&
@@ -2167,19 +2526,12 @@ index f1098918..21c81d01 100644
 +      if (succeededSameEc.length === 0) {
 +        return { required: false, descriptor: null };
 +      }
-+      return {
-+        required: true,
-+        ok: false,
-+        reason: "continuation_candidate_none",
-+      };
-+    }
-+    if (withPaths.reason === "docs_write_prior_ambiguous") {
        return {
          required: true,
          ok: false,
-         reason: "continuation_candidate_ambiguous",
+-        reason: "continuation_candidate_ambiguous",
 -        candidateAttemptIds: [attempt.attemptId],
-+        candidateAttemptIds: withPaths.candidateAttemptIds,
++        reason: "continuation_candidate_none",
        };
      }
 -    const ev = matching[0]!;
@@ -2210,12 +2562,12 @@ index f1098918..21c81d01 100644
 
 -  const only = candidates[0]!;
 -  if (!only.path || !only.digest.startsWith("sha256:")) {
-+  const only = withPaths.prior;
++  const only = priorA.prior;
 +  if (!input.expectedHeadSha || !/^[0-9a-f]{40}$/i.test(input.expectedHeadSha)) {
      return {
        required: true,
        ok: false,
-@@ -182,10 +314,10 @@ export function resolvePreCommitWorkspaceContinuation(
+@@ -182,10 +358,10 @@ export function resolvePreCommitWorkspaceContinuation(
      required: true,
      ok: true,
      descriptor: {
@@ -2228,15 +2580,12 @@ index f1098918..21c81d01 100644
        ],
        evidenceId: only.evidenceId,
      },
-
 ```
 
-
-## DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/index.ts`
-
+## DIFF: projects_sfia-studio_app_lib_oa_execution-attempt_index.ts.diff
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
-index aa6afc77..47854f00 100644
+index aa6afc77..0c90029a 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
 @@ -172,6 +172,14 @@ export {
@@ -2254,7 +2603,7 @@ index aa6afc77..47854f00 100644
  export {
    FakeDocsWriteLaunchPort,
    listRelativeFiles,
-@@ -193,13 +201,70 @@ export {
+@@ -193,13 +201,69 @@ export {
    sanitizeManagedRepoIdentity,
  } from "./infrastructure/managedProjectRepositoryResolver";
  export type { ManagedRepoBindingIdentity } from "./infrastructure/managedProjectRepositoryResolver";
@@ -2315,7 +2664,6 @@ index aa6afc77..47854f00 100644
 +} from "./application/verifyLocalCommitEffect";
 +export {
 +  observeLocalCommitFacts,
-+  localCommitFactsFromSynthetic,
 +} from "./application/observeLocalCommitFacts";
 +export type {
 +  LocalCommitObservedFacts,
@@ -2331,7 +2679,7 @@ index aa6afc77..47854f00 100644
 
  import type { ClockPort } from "@/lib/oa/doctrine";
  import { FixedClock, SystemClock } from "@/lib/oa/doctrine";
-@@ -321,9 +386,7 @@ export type CreateInMemoryExecutionAttemptServicesOptions = {
+@@ -321,9 +385,7 @@ export type CreateInMemoryExecutionAttemptServicesOptions = {
    /**
     * CR-GCEC-23 — Evidence list for verified PR identity (may be late-bound).
     */
@@ -2342,7 +2690,7 @@ index aa6afc77..47854f00 100644
  };
 
  /** Factory for the in-memory ExecutionAttempt runtime foundation. */
-@@ -368,6 +431,7 @@ export function createInMemoryExecutionAttemptServices(
+@@ -368,6 +430,7 @@ export function createInMemoryExecutionAttemptServices(
      audit,
      policy,
      store,
@@ -2350,7 +2698,7 @@ index aa6afc77..47854f00 100644
    );
 
    const realBoundary =
-@@ -514,6 +578,9 @@ export function createTestExecutionAttemptServices(
+@@ -514,6 +577,9 @@ export function createTestExecutionAttemptServices(
      adapter,
      clock,
      audit,
@@ -2360,12 +2708,9 @@ index aa6afc77..47854f00 100644
    }) as ExecutionAttemptServices & {
      audit: MemoryExecutionAttemptAuditJournal;
    };
-
 ```
 
-
-## DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts`
-
+## DIFF: projects_sfia-studio_app_lib_oa_execution-attempt_infrastructure_fakeDocsWriteLaunchPort.ts.diff
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts
 index aed84753..367a94dc 100644
@@ -2520,12 +2865,9 @@ index aed84753..367a94dc 100644
          executed.push("git.commit");
          gitEffects.commit = {
            branch,
-
 ```
 
-
-## DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent.ts`
-
+## DIFF: projects_sfia-studio_app_lib_oa_execution-attempt_infrastructure_m4BoundedDocsWriteCursorAgent.ts.diff
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent.ts
 index b722b91a..8c1743ce 100644
@@ -2555,12 +2897,9 @@ index b722b91a..8c1743ce 100644
 +    isM4BoundedLocalCommitRealAgent(agent)
    );
  }
-
 ```
 
-
-## DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts`
-
+## DIFF: projects_sfia-studio_app_lib_oa_execution-attempt_infrastructure_sqlite_createSqliteExecutionAttemptServices.ts.diff
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts
 index a3f21be3..9689981e 100644
@@ -2585,12 +2924,9 @@ index a3f21be3..9689981e 100644
    );
 
    const realBoundary = options.realBoundary;
-
 ```
 
-
-## DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts`
-
+## DIFF: projects_sfia-studio_app_lib_oa_execution-attempt_infrastructure_studioCursorRealLaunchGateway.ts.diff
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
 index b25e0bad..49da60f7 100644
@@ -2790,13 +3126,9 @@ index b25e0bad..49da60f7 100644
 +          GCM_INTERACTIVE: "Never",
          },
        });
-
-
 ```
 
-
-## DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts`
-
+## DIFF: projects_sfia-studio_app_lib_oa_execution-attempt_ports_realExecutionLaunchPort.ts.diff
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts
 index 0e2de058..47395272 100644
@@ -2825,12 +3157,9 @@ index 0e2de058..47395272 100644
    /** Optional Project binding identity (owner/repo) for workspace resolution. */
    readonly repositoryBindingIdentity?: string;
    /** Server-resolved absolute managed clone root (docs-write). */
-
 ```
 
-
-## DIFF: `projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts`
-
+## DIFF: projects_sfia-studio_app_lib_vertical-slice-runtime_service.ts.diff
 ```diff
 diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
 index f0685a82..a31dbd2b 100644
@@ -2882,17 +3211,12 @@ index f0685a82..a31dbd2b 100644
          },
        });
    late.executionAttemptServices = executionAttemptServices;
-
 ```
 
+# FULL CONTENT — CREATED FILES
 
----
-# FULL CONTENT — ALL CREATED FILES
-
-
-## CREATED: `projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealSameEcCommit.real.d0.test.ts`
-
-```ts
+## FULL: projects_sfia-studio_app___tests___oa_cycle_gcecCursorRealSameEcCommit.real.d0.test.ts
+```typescript
 /**
  * FUTURE REAL harness — same-EC A (docs-write) → B (local git.commit).
  *
@@ -2902,9 +3226,12 @@ index f0685a82..a31dbd2b 100644
  *   SFIA_GCEC_CURSOR_REAL_COMMIT_PROOF=1
  *
  * Campaign shape (when Morris authorizes a distinct REAL GO):
- *   PRECHECK → A REAL docs-write (retain worktree) → B REAL local commit
- *   → independent local Git observation → Git Evidence VERIFIED
- *   → FS→SHA supersession → remote still base SHA (no push).
+ *   PRECHECK → remote ls-remote BEFORE → A REAL docs-write (retain worktree)
+ *   → B REAL local commit → governed observe-owned Evidence VERIFIED
+ *   → FS→SHA supersession → remote ls-remote AFTER (heads/tags/main equal).
+ *
+ * CR-GCEC-AGENT-10: remote anti-effect uses actual `git ls-remote` snapshots —
+ * local clone HEAD alone is NOT remote proof.
  *
  * Forensic phases (harness-local only — not Product FSM):
  *   A_LAUNCHED_UNRECONCILED → A_RECONCILED_RETAINED
@@ -3102,6 +3429,48 @@ function git(cwd: string, args: string[]): string {
   }).trim();
 }
 
+/** CR-10 — read-only remote ref snapshot (future REAL harness only). */
+export type RemoteRefSnapshot = {
+  readonly headsNormalized: string;
+  readonly tagsNormalized: string;
+  readonly mainSha: string | null;
+  readonly targetBranchLine: string | null;
+  readonly capturedAt: string;
+};
+
+function normalizeLsRemote(raw: string): string {
+  return raw
+    .split("\n")
+    .map((l) => l.trim())
+    .filter(Boolean)
+    .sort()
+    .join("\n");
+}
+
+function captureRemoteRefSnapshot(cloneRoot: string): RemoteRefSnapshot {
+  const headsRaw = git(cloneRoot, ["ls-remote", "--heads", "origin"]);
+  const tagsRaw = git(cloneRoot, ["ls-remote", "--tags", "origin"]);
+  const headsNormalized = normalizeLsRemote(headsRaw);
+  const tagsNormalized = normalizeLsRemote(tagsRaw);
+  const mainLine = headsNormalized
+    .split("\n")
+    .find((l) => l.endsWith("\trefs/heads/main") || l.endsWith(" refs/heads/main"));
+  const mainSha = mainLine ? mainLine.split(/[\s\t]/)[0] ?? null : null;
+  const targetRef = `refs/heads/${BRANCH}`;
+  const targetBranchLine =
+    headsNormalized
+      .split("\n")
+      .find((l) => l.endsWith(`\t${targetRef}`) || l.endsWith(` ${targetRef}`)) ??
+    null;
+  return {
+    headsNormalized,
+    tagsNormalized,
+    mainSha,
+    targetBranchLine,
+    capturedAt: new Date().toISOString(),
+  };
+}
+
 const temps: string[] = [];
 const harnessState = createRealSameEcCommitHarnessState();
 
@@ -3238,7 +3607,7 @@ async function writeFailureReconciliationSnapshot(input: {
 }
 
 describe("GCEC future REAL same-EC commit A→B — static campaign shape", () => {
-  it("harness encodes A docs-write + retain + B local-commit agent + observe + FS→SHA", () => {
+  it("harness encodes A docs-write + retain + B local-commit + observer-owned Evidence + remote ls-remote", () => {
     const source = fs.readFileSync(__filename, "utf8");
     expect(source).toContain("M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID");
     expect(source).toContain("M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID");
@@ -3248,6 +3617,15 @@ describe("GCEC future REAL same-EC commit A→B — static campaign shape", () =
     expect(source).toContain("observeLocalCommitFacts");
     expect(source).toContain("verifyLocalCommitEffect");
     expect(source).toContain("GovernedWorkspaceObservationContext");
+    expect(source).toContain('ls-remote", "--heads"');
+    expect(source).toContain('ls-remote", "--tags"');
+    expect(source).toContain("captureRemoteRefSnapshot");
+    expect(source).toContain("remoteHeadsBefore");
+    expect(source).toContain("remoteHeadsAfter");
+    expect(source).toContain("remoteTagsBefore");
+    expect(source).toContain("remoteTagsAfter");
+    expect(source).toContain("remoteMainBefore");
+    expect(source).toContain("remoteMainAfter");
     expect(
       source.includes("resolvePreCommitWorkspaceContinuation") ||
         source.includes("isFsAnchorSupersededByVerifiedLocalCommit"),
@@ -3256,11 +3634,20 @@ describe("GCEC future REAL same-EC commit A→B — static campaign shape", () =
     expect(source).toContain("B_RECONCILED_COMMIT_VERIFIED");
     expect(source).toContain("SFIA_GCEC_CURSOR_REAL_COMMIT_PROOF");
     expect(source).toContain("D-GCEC-AGENT-01");
+    expect(source).toContain("CR-GCEC-AGENT-10");
+    // CR-09: Evidence creator must receive gitRunner+governed, not free observed facts.
+    expect(source).toMatch(
+      /verifyLocalCommitEffect\(\{[\s\S]*?\bgitRunner[\s\S]*?\bgoverned\b/,
+    );
+    expect(source).not.toMatch(
+      /verifyLocalCommitEffect\(\{[\s\S]*?observed:\s*observed\.facts/,
+    );
     void M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID;
     void M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID;
     void observeLocalCommitFacts;
     void verifyLocalCommitEffect;
     void getRuntimeApplicationService;
+    void captureRemoteRefSnapshot;
   });
 
   it("shouldPreserveRealCommitProofState matrix", () => {
@@ -3324,6 +3711,11 @@ describe.skipIf(!ENABLED)(
         harnessState.managedClonePath = cloneRoot;
         harnessState.expectedH0 = BASE_SHA;
         harnessState.phase = "PRECHECK";
+
+        // CR-GCEC-AGENT-10 — read-only remote snapshot BEFORE A/B (future REAL only).
+        const remoteBefore = captureRemoteRefSnapshot(cloneRoot);
+        expect(remoteBefore.mainSha?.toLowerCase()).toBe(BASE_SHA.toLowerCase());
+        expect(remoteBefore.headsNormalized.length).toBeGreaterThan(0);
 
         const runtime = getRuntimeApplicationService({
           registryRoot: REGISTRY_ROOT,
@@ -4057,24 +4449,13 @@ describe.skipIf(!ENABLED)(
             expectedCommonGitRoot: cloneRoot,
           };
 
-          const observed = await observeLocalCommitFacts({
-            gitRunner: new NodeGitCommandRunner(),
+          const gitRunner = new NodeGitCommandRunner();
+          // CR-09: Evidence creator owns observation — no free LocalCommitObservedFacts.
+          const verified = await verifyLocalCommitEffect({
+            gitRunner,
             governed,
             spec: builtSpec.spec,
             expectedArtifactDigests: { [TARGET_PATH]: artifactDigest },
-          });
-          expect(observed.ok).toBe(true);
-          if (!observed.ok) throw new Error(observed.reason);
-          expect(observed.facts.observedParentSha.toLowerCase()).toBe(
-            BASE_SHA.toLowerCase(),
-          );
-          expect(observed.facts.commitsFromExpectedParent).toBe(1);
-          expect(observed.facts.worktreeDirty).toBe(false);
-          harnessState.observedH1 = observed.facts.observedHeadSha;
-
-          const verified = await verifyLocalCommitEffect({
-            spec: builtSpec.spec,
-            observed: observed.facts,
             expectedBindings: {
               projectId,
               cycleInstanceId,
@@ -4088,6 +4469,25 @@ describe.skipIf(!ENABLED)(
           expect(verified.ok).toBe(true);
           if (!verified.ok) throw new Error(verified.reason);
           expect(verified.status).toBe("verified");
+          expect(verified.provenance).toBe(
+            "studio:local_git_readonly:observe",
+          );
+          harnessState.observedH1 = verified.commitSha;
+
+          // Optional forensic re-observe (read-only) — not Evidence authority.
+          const observed = await observeLocalCommitFacts({
+            gitRunner,
+            governed,
+            spec: builtSpec.spec,
+            expectedArtifactDigests: { [TARGET_PATH]: artifactDigest },
+          });
+          expect(observed.ok).toBe(true);
+          if (!observed.ok) throw new Error(observed.reason);
+          expect(observed.facts.observedParentSha.toLowerCase()).toBe(
+            BASE_SHA.toLowerCase(),
+          );
+          expect(observed.facts.commitsFromExpectedParent).toBe(1);
+          expect(observed.facts.worktreeDirty).toBe(false);
           expect(verified.commitSha.toLowerCase()).toBe(
             observed.facts.observedHeadSha.toLowerCase(),
           );
@@ -4113,9 +4513,19 @@ describe.skipIf(!ENABLED)(
             }),
           ).toBe(true);
 
-          // Remote anti-effect — ZERO push.
+          // Local clone HEAD anti-effect (worktree commit must not mutate clone).
           expect(git(cloneRoot, ["rev-parse", "HEAD"])).toBe(BASE_SHA);
           expect(fs.existsSync(path.join(cloneRoot, TARGET_PATH))).toBe(false);
+
+          // CR-GCEC-AGENT-10 — actual remote read-only AFTER; must equal BEFORE.
+          const remoteAfter = captureRemoteRefSnapshot(cloneRoot);
+          expect(remoteAfter.headsNormalized).toBe(remoteBefore.headsNormalized);
+          expect(remoteAfter.tagsNormalized).toBe(remoteBefore.tagsNormalized);
+          expect(remoteAfter.mainSha?.toLowerCase()).toBe(BASE_SHA.toLowerCase());
+          expect(remoteAfter.mainSha).toBe(remoteBefore.mainSha);
+          expect(remoteAfter.targetBranchLine).toBe(
+            remoteBefore.targetBranchLine,
+          );
 
           harnessState.phase = "B_RECONCILED_COMMIT_VERIFIED";
           fs.mkdirSync(PROOF_REVIEW_DIR, { recursive: true });
@@ -4132,11 +4542,20 @@ describe.skipIf(!ENABLED)(
             worktreeRef: worktree,
             artifactDigest,
             expectedH0: BASE_SHA,
-            observedH1: observed.facts.observedHeadSha,
+            observedH1: verified.commitSha,
             commitMessage: COMMIT_MSG,
             gitEvidenceId: verified.evidenceId,
             cloneHead: git(cloneRoot, ["rev-parse", "HEAD"]),
+            remoteHeadsBefore: remoteBefore.headsNormalized,
+            remoteHeadsAfter: remoteAfter.headsNormalized,
+            remoteTagsBefore: remoteBefore.tagsNormalized,
+            remoteTagsAfter: remoteAfter.tagsNormalized,
+            remoteMainBefore: remoteBefore.mainSha,
+            remoteMainAfter: remoteAfter.mainSha,
+            targetBranchRemoteBefore: remoteBefore.targetBranchLine,
+            targetBranchRemoteAfter: remoteAfter.targetBranchLine,
             dGcecAgent01: "ADOPTED",
+            crGcecAgent10: "remote_ls_remote_before_after",
           });
           writeJson(path.join(PROOF_REVIEW_DIR, "reconciliation-state.json"), {
             phase: harnessState.phase,
@@ -4151,6 +4570,8 @@ describe.skipIf(!ENABLED)(
               .update(artifactDigest)
               .digest("hex"),
             gitEvidenceId: verified.evidenceId,
+            remoteMainBefore: remoteBefore.mainSha,
+            remoteMainAfter: remoteAfter.mainSha,
             reconciliationComplete: true,
             dGcecAgent01: "ADOPTED",
           });
@@ -4221,13 +4642,10 @@ describe.skipIf(!ENABLED)(
     );
   },
 );
-
 ```
 
-
-## CREATED: `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01AttemptProfile.d0.test.ts`
-
-```ts
+## FULL: projects_sfia-studio_app___tests___oa_execution-attempt_gcecAgent01AttemptProfile.d0.test.ts
+```typescript
 /**
  * D-GCEC-AGENT-01 — AttemptExecutionProfile derivation (AP matrix).
  * ZERO REAL. @vitest-environment node
@@ -4524,13 +4942,10 @@ describe("D-GCEC-AGENT-01 AttemptExecutionProfile AP", () => {
     if (!r.ok) expect(r.reason).toMatch(/effect_not_supported/);
   });
 });
-
 ```
 
-
-## CREATED: `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01CorrWireLin.d0.test.ts`
-
-```ts
+## FULL: projects_sfia-studio_app___tests___oa_execution-attempt_gcecAgent01CorrWireLin.d0.test.ts
+```typescript
 /**
  * CORR-D-GCEC-AGENT-01 — WIRE + LIN matrices.
  * Normal Product composition Evidence wiring + exact Attempt-A lineage.
@@ -4793,38 +5208,30 @@ describe("CORR-D-GCEC-AGENT-01 WIRE — normal Product composition smoke", () =>
     // After composition, late.evidenceReviewServices is assigned — Select uses Result ok.
   });
 });
-
 ```
 
-
-## CREATED: `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitEvidence.d0.test.ts`
-
-```ts
+## FULL: projects_sfia-studio_app___tests___oa_execution-attempt_gcecGitCommitEvidence.d0.test.ts
+```typescript
 /**
- * GCEC git.commit Evidence — GE (CR-GCEC-GITCOMMIT-01).
+ * GCEC git.commit Evidence — EVP (CR-GCEC-AGENT-09).
+ * Production Evidence creator owns observation. ZERO synthetic Product facts.
  * @vitest-environment node
  */
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 import { createTestEvidenceReviewServices } from "@/lib/oa/evidence-review";
 import {
-  localCommitFactsFromSynthetic,
   verifyLocalCommitEffect,
+  observeLocalCommitFacts,
+  NodeGitCommandRunner,
 } from "@/lib/oa/execution-attempt";
+import * as executionAttemptIndex from "@/lib/oa/execution-attempt";
+import { createGovernedCommittedWorktree } from "./support/governedCommitFixture";
 
-const H0 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-const H1 = "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb";
 const PATH = "docs/functional-design.md";
 const MSG = "docs: add task manager functional design";
-const DIGEST =
-  "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622";
+const BODY = "# evidence-proof\n";
 const NOW = "2026-09-11T20:00:00.000Z";
-
-const SPEC = {
-  repositoryRef: "acme/widget",
-  expectedParentSha: H0,
-  exactPaths: [PATH],
-  commitMessage: MSG,
-} as const;
+const PRIOR = "xat:evp-a";
 
 const BINDINGS = {
   projectId: "prj:ge",
@@ -4833,35 +5240,215 @@ const BINDINGS = {
   executionAttemptId: "xat:ge-b",
 };
 
-function observed(
-  overrides: Partial<
-    Parameters<typeof localCommitFactsFromSynthetic>[0]
-  > = {},
-) {
-  return localCommitFactsFromSynthetic({
-    observedHeadSha: H1,
-    observedParentSha: H0,
-    observedChangedPaths: [PATH],
-    observedCommitMessage: MSG,
-    artifactChecks: [
-      { path: PATH, expectedDigest: DIGEST, actualDigest: DIGEST },
-    ],
-    worktreeDirty: false,
-    commitsFromExpectedParent: 1,
-    ...overrides,
-  });
-}
+const cleanups: Array<() => void> = [];
+afterEach(() => {
+  for (const c of cleanups.splice(0)) c();
+});
 
-describe("GCEC git.commit Evidence GE", () => {
-  it("GE-01 Cursor report alone ≠ VERIFIED", async () => {
+describe("GCEC git.commit Evidence EVP (observer-owned)", () => {
+  it("EVP-05 synthetic helper not exported by Product public index", () => {
+    expect(
+      "localCommitFactsFromSynthetic" in executionAttemptIndex,
+    ).toBe(false);
+    expect(
+      "allowTestOnlySyntheticObservation" in
+        ({} as Parameters<typeof verifyLocalCommitEffect>[0]),
+    ).toBe(false);
+  });
+
+  it("EVP-06 production API has no allowTestOnlySyntheticObservation", () => {
+    const keys = [
+      "gitRunner",
+      "governed",
+      "spec",
+      "expectedArtifactDigests",
+      "expectedBindings",
+      "actor",
+      "evidenceServices",
+    ] as const;
+    void keys;
+    // Type-level: VerifyLocalCommitEffectInput must not include the escape hatch.
+    type Input = Parameters<typeof verifyLocalCommitEffect>[0];
+    type Forbidden = "allowTestOnlySyntheticObservation" | "observed";
+    type HasForbidden = Forbidden extends keyof Input ? true : false;
+    const hasForbidden: HasForbidden = false;
+    expect(hasForbidden).toBe(false);
+  });
+
+  it("EVP-01/02/12 production Evidence creator observes → VERIFIED with B bindings", async () => {
+    const fx = createGovernedCommittedWorktree({
+      priorAttemptId: PRIOR,
+      pathRel: PATH,
+      body: BODY,
+      commitMessage: MSG,
+    });
+    cleanups.push(fx.cleanup);
     const evidence = createTestEvidenceReviewServices({ fixedNowIso: NOW });
     const r = await verifyLocalCommitEffect({
-      spec: SPEC,
-      observed: observed(),
+      gitRunner: fx.runner,
+      governed: fx.governed,
+      spec: fx.spec,
+      expectedArtifactDigests: { [PATH]: fx.digest },
       expectedBindings: BINDINGS,
       actor: { actorId: "a", role: "system" },
       evidenceServices: evidence,
-      allowTestOnlySyntheticObservation: true,
+      nowIso: NOW,
+    });
+    expect(r.ok).toBe(true);
+    if (!r.ok) throw new Error(r.reason);
+    expect(r.status).toBe("verified");
+    expect(r.commitSha).toBe(fx.H1.toLowerCase());
+    expect(r.provenance).toBe("studio:local_git_readonly:observe");
+    const loaded = await evidence.evidenceReader.findById(r.evidenceId);
+    expect(loaded?.bindings.executionAttemptId).toBe(BINDINGS.executionAttemptId);
+    expect(loaded?.source).toBe("git:local_commit");
+    expect(String(loaded?.location)).toContain(`path=${encodeURIComponent(PATH)}`);
+  });
+
+  it("EVP-03/04 forged observed / SHA fields rejected", async () => {
+    const fx = createGovernedCommittedWorktree({
+      priorAttemptId: PRIOR,
+      pathRel: PATH,
+      body: BODY,
+      commitMessage: MSG,
+    });
+    cleanups.push(fx.cleanup);
+    const evidence = createTestEvidenceReviewServices({ fixedNowIso: NOW });
+    const r = await verifyLocalCommitEffect({
+      gitRunner: fx.runner,
+      governed: fx.governed,
+      spec: fx.spec,
+      expectedArtifactDigests: { [PATH]: fx.digest },
+      expectedBindings: BINDINGS,
+      actor: { actorId: "a", role: "system" },
+      evidenceServices: evidence,
+      observed: {
+        observedHeadSha: "f".repeat(40),
+        observedParentSha: "e".repeat(40),
+      },
+    } as never);
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toMatch(/forged_observation/);
+  });
+
+  it("EVP-07 wrong governed repo → no Evidence", async () => {
+    const fx = createGovernedCommittedWorktree({
+      priorAttemptId: PRIOR,
+      pathRel: PATH,
+      body: BODY,
+      commitMessage: MSG,
+    });
+    cleanups.push(fx.cleanup);
+    const evidence = createTestEvidenceReviewServices({ fixedNowIso: NOW });
+    const r = await verifyLocalCommitEffect({
+      gitRunner: fx.runner,
+      governed: {
+        ...fx.governed,
+        repositoryBinding: {
+          identity: "other/repo",
+          remoteUrl: "https://github.com/other/repo.git",
+          defaultBranch: "main",
+        },
+      },
+      spec: { ...fx.spec, repositoryRef: "other/repo" },
+      expectedArtifactDigests: { [PATH]: fx.digest },
+      expectedBindings: BINDINGS,
+      actor: { actorId: "a", role: "system" },
+      evidenceServices: evidence,
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toMatch(/origin_remote_mismatch/);
+  });
+
+  it("EVP-08 wrong worktree / prior path → no Evidence", async () => {
+    const fx = createGovernedCommittedWorktree({
+      priorAttemptId: PRIOR,
+      pathRel: PATH,
+      body: BODY,
+      commitMessage: MSG,
+    });
+    cleanups.push(fx.cleanup);
+    const evidence = createTestEvidenceReviewServices({ fixedNowIso: NOW });
+    const r = await verifyLocalCommitEffect({
+      gitRunner: fx.runner,
+      governed: { ...fx.governed, priorAttemptId: "xat:wrong" },
+      spec: fx.spec,
+      expectedArtifactDigests: { [PATH]: fx.digest },
+      expectedBindings: BINDINGS,
+      actor: { actorId: "a", role: "system" },
+      evidenceServices: evidence,
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toMatch(/prior_attempt_path_mismatch/);
+  });
+
+  it("EVP-09 observer failure → no Evidence", async () => {
+    const fx = createGovernedCommittedWorktree({
+      priorAttemptId: PRIOR,
+      pathRel: PATH,
+      body: BODY,
+      commitMessage: MSG,
+    });
+    cleanups.push(fx.cleanup);
+    const evidence = createTestEvidenceReviewServices({ fixedNowIso: NOW });
+    const r = await verifyLocalCommitEffect({
+      gitRunner: {
+        async run() {
+          return { stdout: "", stderr: "boom", exitCode: 1 };
+        },
+      },
+      governed: fx.governed,
+      spec: fx.spec,
+      expectedArtifactDigests: { [PATH]: fx.digest },
+      expectedBindings: BINDINGS,
+      actor: { actorId: "a", role: "system" },
+      evidenceServices: evidence,
+    });
+    expect(r.ok).toBe(false);
+  });
+
+  it("EVP-10 fact verification failure → no VERIFIED Evidence", async () => {
+    const fx = createGovernedCommittedWorktree({
+      priorAttemptId: PRIOR,
+      pathRel: PATH,
+      body: BODY,
+      commitMessage: MSG,
+    });
+    cleanups.push(fx.cleanup);
+    const evidence = createTestEvidenceReviewServices({ fixedNowIso: NOW });
+    const r = await verifyLocalCommitEffect({
+      gitRunner: fx.runner,
+      governed: fx.governed,
+      spec: {
+        ...fx.spec,
+        commitMessage: "docs: wrong subject",
+      },
+      expectedArtifactDigests: { [PATH]: fx.digest },
+      expectedBindings: BINDINGS,
+      actor: { actorId: "a", role: "system" },
+      evidenceServices: evidence,
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toMatch(/subject|message/i);
+  });
+
+  it("EVP-11 Cursor report alone remains non-verified", async () => {
+    const fx = createGovernedCommittedWorktree({
+      priorAttemptId: PRIOR,
+      pathRel: PATH,
+      body: BODY,
+      commitMessage: MSG,
+    });
+    cleanups.push(fx.cleanup);
+    const evidence = createTestEvidenceReviewServices({ fixedNowIso: NOW });
+    const r = await verifyLocalCommitEffect({
+      gitRunner: fx.runner,
+      governed: fx.governed,
+      spec: fx.spec,
+      expectedArtifactDigests: { [PATH]: fx.digest },
+      expectedBindings: BINDINGS,
+      actor: { actorId: "a", role: "system" },
+      evidenceServices: evidence,
       trustCursorReportOnly: true,
     });
     expect(r.ok).toBe(false);
@@ -4871,93 +5458,56 @@ describe("GCEC git.commit Evidence GE", () => {
     }
   });
 
-  it("GE-02 local observation → VERIFIED", async () => {
-    const evidence = createTestEvidenceReviewServices({ fixedNowIso: NOW });
-    const r = await verifyLocalCommitEffect({
-      spec: SPEC,
-      observed: observed(),
-      expectedBindings: BINDINGS,
-      actor: { actorId: "a", role: "system" },
-      evidenceServices: evidence,
-      allowTestOnlySyntheticObservation: true,
-      nowIso: NOW,
+  it("incomplete bindings → failed", async () => {
+    const fx = createGovernedCommittedWorktree({
+      priorAttemptId: PRIOR,
+      pathRel: PATH,
+      body: BODY,
+      commitMessage: MSG,
     });
-    expect(r.ok).toBe(true);
-    if (r.ok) {
-      expect(r.status).toBe("verified");
-      expect(r.provenance).toBe("studio:local_git_readonly:observe");
-      expect(r.commitSha).toBe(H1);
-    }
-  });
-
-  it("GE-03..06 incomplete bindings → FAIL", async () => {
+    cleanups.push(fx.cleanup);
     const evidence = createTestEvidenceReviewServices({ fixedNowIso: NOW });
     const r = await verifyLocalCommitEffect({
-      spec: SPEC,
-      observed: observed(),
+      gitRunner: fx.runner,
+      governed: fx.governed,
+      spec: fx.spec,
+      expectedArtifactDigests: { [PATH]: fx.digest },
       expectedBindings: {
         projectId: "prj:ge",
         cycleInstanceId: "cyc:ge",
-        // missing EC + Attempt
-      } as never,
+      },
       actor: { actorId: "a", role: "system" },
       evidenceServices: evidence,
-      allowTestOnlySyntheticObservation: true,
     });
     expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.reason).toBe("git_evidence_bindings_incomplete");
+    if (!r.ok) expect(r.reason).toMatch(/bindings_incomplete/);
   });
 
-  it("GE-07 parent mismatch → FAIL", async () => {
-    const evidence = createTestEvidenceReviewServices({ fixedNowIso: NOW });
-    const r = await verifyLocalCommitEffect({
-      spec: SPEC,
-      observed: observed({
-        observedParentSha: "cccccccccccccccccccccccccccccccccccccccc",
-      }),
-      expectedBindings: BINDINGS,
-      actor: { actorId: "a", role: "system" },
-      evidenceServices: evidence,
-      allowTestOnlySyntheticObservation: true,
+  it("observer still independently callable (not Evidence creator)", async () => {
+    const fx = createGovernedCommittedWorktree({
+      priorAttemptId: PRIOR,
+      pathRel: PATH,
+      body: BODY,
+      commitMessage: MSG,
     });
-    expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.reason).toBe("parent_mismatch");
-  });
-
-  it("GE-08 expectedBindings required", async () => {
-    const evidence = createTestEvidenceReviewServices({ fixedNowIso: NOW });
-    const r = await verifyLocalCommitEffect({
-      spec: SPEC,
-      observed: observed(),
-      expectedBindings: undefined as never,
-      actor: { actorId: "a", role: "system" },
-      evidenceServices: evidence,
-      allowTestOnlySyntheticObservation: true,
-    });
-    expect(r.ok).toBe(false);
-  });
-
-  it("GE-10 provenance is local Git read-only", async () => {
-    const evidence = createTestEvidenceReviewServices({ fixedNowIso: NOW });
-    const r = await verifyLocalCommitEffect({
-      spec: SPEC,
-      observed: observed(),
-      expectedBindings: BINDINGS,
-      actor: { actorId: "a", role: "system" },
-      evidenceServices: evidence,
-      allowTestOnlySyntheticObservation: true,
+    cleanups.push(fx.cleanup);
+    const r = await observeLocalCommitFacts({
+      gitRunner: fx.runner,
+      governed: fx.governed,
+      spec: fx.spec,
+      expectedArtifactDigests: { [PATH]: fx.digest },
     });
     expect(r.ok).toBe(true);
-    if (r.ok) expect(r.provenance).toContain("local_git_readonly");
+  });
+
+  it("NodeGitCommandRunner import remains available for REAL harness", () => {
+    expect(typeof NodeGitCommandRunner).toBe("function");
   });
 });
-
 ```
 
-
-## CREATED: `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitGatewayProfile.d0.test.ts`
-
-```ts
+## FULL: projects_sfia-studio_app___tests___oa_execution-attempt_gcecGitCommitGatewayProfile.d0.test.ts
+```typescript
 /**
  * GCEC bounded git.commit gateway profile — GC-01..GC-12.
  * FakeProcessRunner only. ZERO REAL Cursor / ZERO Product git mutation.
@@ -5330,13 +5880,10 @@ describe("GCEC git.commit gateway profile GC-01..12", () => {
     expect(runner.calls).toHaveLength(0);
   });
 });
-
 ```
 
-
-## CREATED: `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitObserve.d0.test.ts`
-
-```ts
+## FULL: projects_sfia-studio_app___tests___oa_execution-attempt_gcecGitCommitObserve.d0.test.ts
+```typescript
 /**
  * OBS — governed workspace READ-ONLY Git observation (CR-GCEC-AGENT-04).
  * ZERO mutation commands. @vitest-environment node
@@ -5717,13 +6264,10 @@ describe("GCEC local Git READ-ONLY observer OBS (governed)", () => {
     if (!r.ok) expect(r.reason).toMatch(/common_root_mismatch/);
   });
 });
-
 ```
 
-
-## CREATED: `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitSameEcAb.d0.test.ts`
-
-```ts
+## FULL: projects_sfia-studio_app___tests___oa_execution-attempt_gcecGitCommitSameEcAb.d0.test.ts
+```typescript
 /**
  * D-GCEC-AGENT-01 + GCEC git.commit same-EC A→B (honest agent swap).
  * ZERO REAL. @vitest-environment node
@@ -5744,7 +6288,6 @@ import {
   createTestExecutionAttemptServices,
   isFsAnchorSupersededByVerifiedLocalCommit,
   isM4BoundedLocalCommitRealAgent,
-  localCommitFactsFromSynthetic,
   M4_BOUNDED_DOCS_WRITE_ACTION,
   M4_BOUNDED_DOCS_WRITE_CAPABILITY,
   M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
@@ -5772,6 +6315,7 @@ import {
 } from "./helpers";
 import { M4_EVIDENCE, M4_TEST_BASE_HEAD_SHA } from "./support/m4Fixtures";
 import { TestOnlyRealExecutionLaunchPort } from "./support/testOnlyRealExecutionLaunchPort";
+import { createGovernedCommittedWorktree } from "./support/governedCommitFixture";
 
 const IDENTITY = "acme/widget";
 const BRANCH = "gcec/docs";
@@ -6093,23 +6637,25 @@ describe("D-GCEC-AGENT-01 same-EC A→B agent swap", () => {
     const evidenceServices = createTestEvidenceReviewServices({
       fixedNowIso: NOW,
     });
+    // CR-09: Evidence creator owns observation via governed temp worktree.
+    const fx = createGovernedCommittedWorktree({
+      priorAttemptId: attemptA,
+      pathRel: TARGET_PATH,
+      body: "# same-ec-ab\n",
+      commitMessage: MSG,
+      identity: "acme/widget",
+    });
     const verified = await verifyLocalCommitEffect({
-      spec: req.gitCommitSpec!,
-      observed: localCommitFactsFromSynthetic({
-        observedHeadSha: H1,
-        observedParentSha: M4_TEST_BASE_HEAD_SHA,
-        observedChangedPaths: [TARGET_PATH],
-        observedCommitMessage: MSG,
-        artifactChecks: [
-          {
-            path: TARGET_PATH,
-            expectedDigest: ARTIFACT_DIGEST,
-            actualDigest: ARTIFACT_DIGEST,
-          },
-        ],
-        worktreeDirty: false,
-        commitsFromExpectedParent: 1,
-      }),
+      gitRunner: fx.runner,
+      governed: fx.governed,
+      spec: {
+        ...req.gitCommitSpec!,
+        expectedParentSha: fx.H0,
+        repositoryRef: "acme/widget",
+        exactPaths: [TARGET_PATH],
+        commitMessage: MSG,
+      },
+      expectedArtifactDigests: { [TARGET_PATH]: fx.digest },
       expectedBindings: {
         projectId: seeded.projectId,
         cycleInstanceId: seeded.cycleInstanceId,
@@ -6118,9 +6664,9 @@ describe("D-GCEC-AGENT-01 same-EC A→B agent swap", () => {
       },
       actor: { actorId: MORRIS_ACTOR.actorId, role: "human" },
       evidenceServices,
-      allowTestOnlySyntheticObservation: true,
       nowIso: NOW,
     });
+    fx.cleanup();
     expect(verified.ok).toBe(true);
 
     const a = await stack.attempts.attempts.findById(attemptA);
@@ -6240,6 +6786,11 @@ describe("D-GCEC-AGENT-01 same-EC A→B agent swap", () => {
         projectId: "prj:campus360-oa",
         cycleInstanceId: "cyc:std-001",
         executionContractId: "xct:gc-ab",
+        attempts: [],
+        priorAttemptId: "xat:a",
+        expectedParentSha: M4_TEST_BASE_HEAD_SHA,
+        repositoryRef: "acme/widget",
+        requiredPaths: [TARGET_PATH],
         evidence: [
           docsWriteEvidence({
             evidenceId: "ev:a",
@@ -6284,13 +6835,10 @@ describe("D-GCEC-AGENT-01 same-EC A→B agent swap", () => {
     ).toBe(true);
   });
 });
-
 ```
 
-
-## CREATED: `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitVerification.d0.test.ts`
-
-```ts
+## FULL: projects_sfia-studio_app___tests___oa_execution-attempt_gcecGitCommitVerification.d0.test.ts
+```typescript
 /**
  * GCEC local commit verification — GV (pure facts, no OS Git mutation).
  * CR-GCEC-GITCOMMIT-01 hardenings.
@@ -6413,13 +6961,170 @@ describe("GCEC local commit verification GV", () => {
     expect(base().ok).toBe(true);
   });
 });
-
 ```
 
+## FULL: projects_sfia-studio_app___tests___oa_execution-attempt_support_governedCommitFixture.ts
+```typescript
+/**
+ * Shared temp governed worktree builder for Evidence / observer Product tests.
+ * CR-GCEC-AGENT-09 — real Git + read-only observer (no synthetic Product facts).
+ */
+import { createHash } from "node:crypto";
+import { mkdirSync, mkdtempSync, writeFileSync, rmSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import os from "node:os";
+import path from "node:path";
+import {
+  workspacePathForAttempt,
+  type GovernedWorkspaceObservationContext,
+  type GitCommitLaunchSpec,
+  type GitCommandRunner,
+} from "@/lib/oa/execution-attempt";
 
-## CREATED: `projects/sfia-studio/app/lib/oa/execution-attempt/application/observeLocalCommitFacts.ts`
+export type GovernedCommitFixture = {
+  managed: string;
+  execRoot: string;
+  wt: string;
+  H0: string;
+  H1: string;
+  digest: string;
+  governed: GovernedWorkspaceObservationContext;
+  runner: GitCommandRunner;
+  spec: GitCommitLaunchSpec;
+  cleanup: () => void;
+};
 
-```ts
+function git(cwd: string, args: string[]): string {
+  return execFileSync("git", args, { cwd, encoding: "utf8" }).trim();
+}
+
+export function createGovernedCommittedWorktree(input: {
+  priorAttemptId: string;
+  pathRel: string;
+  body: string;
+  commitMessage: string;
+  identity?: string;
+  remoteUrl?: string;
+}): GovernedCommitFixture {
+  const identity = input.identity ?? "acme/widget";
+  const remoteUrl =
+    input.remoteUrl ?? `https://github.com/${identity}.git`;
+  const temps: string[] = [];
+  const managed = mkdtempSync(path.join(os.tmpdir(), "gcec-evp-managed-"));
+  const execRoot = mkdtempSync(path.join(os.tmpdir(), "gcec-evp-exec-"));
+  temps.push(managed, execRoot);
+
+  mkdirSync(managed, { recursive: true });
+  git(managed, ["init"]);
+  git(managed, ["config", "user.email", "evp@test"]);
+  git(managed, ["config", "user.name", "evp"]);
+  writeFileSync(path.join(managed, "README.md"), "base\n");
+  git(managed, ["add", "README.md"]);
+  git(managed, ["commit", "-m", "base"]);
+  const H0 = git(managed, ["rev-parse", "HEAD"]);
+  git(managed, ["remote", "add", "origin", remoteUrl]);
+
+  const wt = workspacePathForAttempt(execRoot, input.priorAttemptId);
+  mkdirSync(path.dirname(wt), { recursive: true });
+  git(managed, ["worktree", "add", wt, "HEAD"]);
+  mkdirSync(path.join(wt, path.dirname(input.pathRel)), { recursive: true });
+  writeFileSync(path.join(wt, input.pathRel), input.body);
+  git(wt, ["add", input.pathRel]);
+  git(wt, ["commit", "-m", input.commitMessage]);
+  const H1 = git(wt, ["rev-parse", "HEAD"]);
+  const digest = `sha256:${createHash("sha256").update(input.body).digest("hex")}`;
+
+  const runner: GitCommandRunner = {
+    async run(argv, cwd) {
+      try {
+        const stdout = execFileSync("git", [...argv], {
+          cwd,
+          encoding: "utf8",
+        });
+        return { stdout, stderr: "", exitCode: 0 };
+      } catch (err) {
+        const e = err as { stdout?: string; stderr?: string; status?: number };
+        return {
+          stdout: e.stdout ?? "",
+          stderr: e.stderr ?? String(err),
+          exitCode: typeof e.status === "number" ? e.status : 1,
+        };
+      }
+    },
+  };
+
+  const governed: GovernedWorkspaceObservationContext = {
+    workspacePath: wt,
+    execRoot,
+    priorAttemptId: input.priorAttemptId,
+    managedRepoRoot: managed,
+    repositoryBinding: {
+      identity,
+      remoteUrl,
+      defaultBranch: "main",
+    },
+    expectedCommonGitRoot: managed,
+  };
+
+  const spec: GitCommitLaunchSpec = {
+    repositoryRef: identity,
+    expectedParentSha: H0,
+    exactPaths: [input.pathRel],
+    commitMessage: input.commitMessage,
+  };
+
+  return {
+    managed,
+    execRoot,
+    wt,
+    H0,
+    H1,
+    digest,
+    governed,
+    runner,
+    spec,
+    cleanup: () => {
+      for (const t of temps) {
+        try {
+          rmSync(t, { recursive: true, force: true });
+        } catch {
+          /* ignore */
+        }
+      }
+    },
+  };
+}
+```
+
+## FULL: projects_sfia-studio_app___tests___oa_execution-attempt_support_localCommitTestFacts.ts
+```typescript
+/**
+ * Test-only helpers for pure verifyLocalCommitFacts unit tests.
+ * NOT exported from Product execution-attempt public index (CR-GCEC-AGENT-09).
+ */
+import type { LocalCommitObservedFacts } from "@/lib/oa/execution-attempt";
+
+/** Plain fixture for the pure verifier — not Product Evidence provenance. */
+export function localCommitFactsFixture(
+  facts: Omit<
+    LocalCommitObservedFacts,
+    "observationSource" | "workspacePath" | "priorAttemptId"
+  > & {
+    workspacePath?: string;
+    priorAttemptId?: string;
+  },
+): LocalCommitObservedFacts {
+  return {
+    ...facts,
+    workspacePath: facts.workspacePath ?? "/tmp/test-only-wt",
+    priorAttemptId: facts.priorAttemptId ?? "xat:test-prior",
+    observationSource: "studio:local_git_readonly",
+  };
+}
+```
+
+## FULL: projects_sfia-studio_app_lib_oa_execution-attempt_application_observeLocalCommitFacts.ts
+```typescript
 /**
  * CR-GCEC-GC-04 / CR-GCEC-AGENT-04 — READ-ONLY local Git observation for
  * verified local commit, bound to a governed Cont01 workspace identity.
@@ -6541,6 +7246,9 @@ function porcelainWorktreePaths(porcelain: string): string[] {
 /**
  * Collect local commit facts from a governed Cont01 workspace.
  * Rejects free cwd / arbitrary Git repos / wrong remote / unregistered worktrees.
+ *
+ * Synthetic observation helpers are NOT exported from Product — tests use
+ * `__tests__/oa/execution-attempt/support/localCommitTestFacts.ts`.
  */
 export async function observeLocalCommitFacts(
   input: ObserveLocalCommitInput,
@@ -6801,40 +7509,15 @@ export async function observeLocalCommitFacts(
     },
   };
 }
-
-/**
- * Test-only synthetic facts. MUST NOT be usable as production proof provenance
- * without an explicit test boundary (technicalResultRef / observationSource alone
- * is insufficient — callers must not treat this as governed observation).
- */
-export function localCommitFactsFromSynthetic(
-  facts: Omit<
-    LocalCommitObservedFacts,
-    "observationSource" | "workspacePath" | "priorAttemptId"
-  > & {
-    workspacePath?: string;
-    priorAttemptId?: string;
-  },
-): LocalCommitObservedFacts & { readonly __testOnlySynthetic: true } {
-  return {
-    ...facts,
-    workspacePath: facts.workspacePath ?? "/tmp/governed-wt-synthetic",
-    priorAttemptId: facts.priorAttemptId ?? "xat:synthetic-prior",
-    observationSource: "studio:local_git_readonly",
-    __testOnlySynthetic: true,
-  };
-}
-
 ```
 
-
-## CREATED: `projects/sfia-studio/app/lib/oa/execution-attempt/application/verifyLocalCommitEffect.ts`
-
-```ts
+## FULL: projects_sfia-studio_app_lib_oa_execution-attempt_application_verifyLocalCommitEffect.ts
+```typescript
 /**
  * Independent local-commit verification + Evidence binding (Studio READ-ONLY).
- * CR-GCEC-GC-04: facts MUST come from observeLocalCommitFacts.
- * Unpushed SHA is NOT claimed remote-verified (no RepositoryReadPort remote lookup).
+ * CORR-D-GCEC-AGENT-02 / CR-GCEC-AGENT-09:
+ * Production Evidence creator OWNS read-only observation.
+ * Callers may NOT supply LocalCommitObservedFacts / forged SHA fields.
  */
 import { createHash } from "node:crypto";
 import type { Digest } from "@/lib/oa/doctrine";
@@ -6843,25 +7526,27 @@ import { buildTypedGitEvidenceFields } from "@/lib/oa/evidence-review";
 import type { GitVerifyActor, GitVerifyBindings } from "@/lib/oa/git-ports";
 import { verifyLocalCommitFacts } from "../domain/verifyLocalCommitFacts";
 import type { GitCommitLaunchSpec } from "../domain/gitCommitLaunchSpec";
-import type { LocalCommitObservedFacts } from "./observeLocalCommitFacts";
+import type { GitCommandRunner } from "../infrastructure/studioGitWorktreeWorkspace";
+import {
+  observeLocalCommitFacts,
+  type GovernedWorkspaceObservationContext,
+} from "./observeLocalCommitFacts";
 
 export const LOCAL_GIT_READONLY_TECHNICAL_REF =
   "studio:local_git_readonly:observe" as const;
 
 export type VerifyLocalCommitEffectInput = {
+  readonly gitRunner: GitCommandRunner;
+  readonly governed: GovernedWorkspaceObservationContext;
   readonly spec: GitCommitLaunchSpec;
-  readonly observed: LocalCommitObservedFacts;
+  /** Expected digests keyed by relative path (from VERIFIED Artifact Evidence). */
+  readonly expectedArtifactDigests: Readonly<Record<string, string>>;
   /** Required exact bindings from governed Attempt B context. */
   readonly expectedBindings: GitVerifyBindings;
   readonly actor: GitVerifyActor;
   readonly evidenceServices: EvidenceReviewServices;
   readonly nowIso?: string;
   readonly trustCursorReportOnly?: boolean;
-  /**
-   * Test-only: allow localCommitFactsFromSynthetic through verify.
-   * Production callers MUST leave this unset/false.
-   */
-  readonly allowTestOnlySyntheticObservation?: boolean;
 };
 
 export type VerifyLocalCommitEffectResult =
@@ -6891,12 +7576,37 @@ function claimDigest(location: string): Digest {
   return `sha256:${createHash("sha256").update(location, "utf8").digest("hex")}` as Digest;
 }
 
+const FORGED_FACT_KEYS = [
+  "observed",
+  "observedHeadSha",
+  "observedParentSha",
+  "observedChangedPaths",
+  "observedCommitMessage",
+  "worktreeDirty",
+  "commitsFromExpectedParent",
+  "artifactChecks",
+  "allowTestOnlySyntheticObservation",
+] as const;
+
 /**
- * Fail-closed: Cursor report alone ≠ VERIFIED; local observer required.
+ * Production Evidence creator: governed workspace → observe → verify → Evidence.
+ * Rejects hostile injection of pre-built observation facts (CR-09).
  */
 export async function verifyLocalCommitEffect(
   input: VerifyLocalCommitEffectInput,
 ): Promise<VerifyLocalCommitEffectResult> {
+  // Hostile: reject any forged observation fields on the request object.
+  const raw = input as Record<string, unknown>;
+  for (const key of FORGED_FACT_KEYS) {
+    if (key in raw && raw[key] !== undefined) {
+      return {
+        ok: false,
+        reason: "local_git_forged_observation_rejected",
+        status: "failed",
+      };
+    }
+  }
+
   if (!input.expectedBindings || !bindingsComplete(input.expectedBindings)) {
     return {
       ok: false,
@@ -6913,37 +7623,35 @@ export async function verifyLocalCommitEffect(
     };
   }
 
-  if (input.observed.observationSource !== "studio:local_git_readonly") {
+  if (!input.gitRunner || !input.governed || !input.spec) {
     return {
       ok: false,
-      reason: "local_git_observation_source_invalid",
+      reason: "local_git_observation_inputs_required",
       status: "failed",
     };
   }
 
-  if (
-    (input.observed as { __testOnlySynthetic?: boolean }).__testOnlySynthetic ===
-      true &&
-    input.allowTestOnlySyntheticObservation !== true
-  ) {
-    return {
-      ok: false,
-      reason: "local_git_synthetic_observation_rejected",
-      status: "failed",
-    };
+  const observed = await observeLocalCommitFacts({
+    gitRunner: input.gitRunner,
+    governed: input.governed,
+    spec: input.spec,
+    expectedArtifactDigests: input.expectedArtifactDigests,
+  });
+  if (!observed.ok) {
+    return { ok: false, reason: observed.reason, status: "failed" };
   }
 
   const facts = verifyLocalCommitFacts({
     expectedParentSha: input.spec.expectedParentSha,
-    observedHeadSha: input.observed.observedHeadSha,
-    observedParentSha: input.observed.observedParentSha,
+    observedHeadSha: observed.facts.observedHeadSha,
+    observedParentSha: observed.facts.observedParentSha,
     exactPaths: input.spec.exactPaths,
-    observedChangedPaths: input.observed.observedChangedPaths,
+    observedChangedPaths: observed.facts.observedChangedPaths,
     expectedCommitMessage: input.spec.commitMessage,
-    observedCommitMessage: input.observed.observedCommitMessage,
-    artifactChecks: input.observed.artifactChecks,
-    worktreeDirty: input.observed.worktreeDirty,
-    commitsFromExpectedParent: input.observed.commitsFromExpectedParent,
+    observedCommitMessage: observed.facts.observedCommitMessage,
+    artifactChecks: observed.facts.artifactChecks,
+    worktreeDirty: observed.facts.worktreeDirty,
+    commitsFromExpectedParent: observed.facts.commitsFromExpectedParent,
   });
   if (!facts.ok) {
     return { ok: false, reason: facts.reason, status: "failed" };
@@ -6951,9 +7659,9 @@ export async function verifyLocalCommitEffect(
 
   const payload = {
     repositoryRef: input.spec.repositoryRef,
-    commitSha: input.observed.observedHeadSha,
-    message: input.observed.observedCommitMessage,
-    parentSha: input.observed.observedParentSha,
+    commitSha: observed.facts.observedHeadSha,
+    message: observed.facts.observedCommitMessage,
+    parentSha: observed.facts.observedParentSha,
     changedPaths: [...input.spec.exactPaths],
   };
   const built = buildTypedGitEvidenceFields("git:local_commit", payload);
@@ -6963,9 +7671,9 @@ export async function verifyLocalCommitEffect(
 
   const location =
     built.fields.location ??
-    `git:local_commit?repo=${encodeURIComponent(input.spec.repositoryRef)}&commitSha=${input.observed.observedHeadSha}`;
+    `git:local_commit?repo=${encodeURIComponent(input.spec.repositoryRef)}&commitSha=${observed.facts.observedHeadSha}`;
   const digest = (built.fields.digest ?? claimDigest(location)) as Digest;
-  const evidenceId = `ev:git-commit-verified:${input.observed.observedHeadSha.slice(0, 12)}`;
+  const evidenceId = `ev:git-commit-verified:${observed.facts.observedHeadSha.slice(0, 12)}`;
 
   const registered = await input.evidenceServices.registerEvidence.execute({
     evidenceId,
@@ -7046,7 +7754,7 @@ export async function verifyLocalCommitEffect(
     ok: true,
     evidenceId,
     status: "verified",
-    commitSha: input.observed.observedHeadSha.toLowerCase(),
+    commitSha: observed.facts.observedHeadSha.toLowerCase(),
     provenance: LOCAL_GIT_READONLY_TECHNICAL_REF,
   };
 }
@@ -7054,13 +7762,10 @@ export async function verifyLocalCommitEffect(
 export function digestOf(content: string): Digest {
   return `sha256:${createHash("sha256").update(content).digest("hex")}` as Digest;
 }
-
 ```
 
-
-## CREATED: `projects/sfia-studio/app/lib/oa/execution-attempt/domain/gitCommitLaunchSpec.ts`
-
-```ts
+## FULL: projects_sfia-studio_app_lib_oa_execution-attempt_domain_gitCommitLaunchSpec.ts
+```typescript
 /**
  * Server-derived GitCommitLaunchSpec (GCEC bounded local commit).
  * Canonical type — import/re-export; do not duplicate in ports.
@@ -7245,13 +7950,10 @@ export function deriveTrustedCommitMessage(input: {
   }
   return { ok: false, reason: "git_commit_message_untrusted_or_missing" };
 }
-
 ```
 
-
-## CREATED: `projects/sfia-studio/app/lib/oa/execution-attempt/domain/projectEvidenceList.ts`
-
-```ts
+## FULL: projects_sfia-studio_app_lib_oa_execution-attempt_domain_projectEvidenceList.ts
+```typescript
 /**
  * Durable project Evidence read for AttemptExecutionProfile (CR-GCEC-AGENT-02).
  * Distinguishes unavailable infrastructure from a real empty query result.
@@ -7279,13 +7981,10 @@ export function availableProjectEvidence(
 export function unavailableProjectEvidence(): ProjectEvidenceListResult {
   return { ok: false, reason: "evidence_reader_unavailable" };
 }
-
 ```
 
-
-## CREATED: `projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts`
-
-```ts
+## FULL: projects_sfia-studio_app_lib_oa_execution-attempt_domain_resolveAttemptExecutionProfile.ts
+```typescript
 /**
  * D-GCEC-AGENT-01 — AttemptExecutionProfile (non-persistent).
  * CORR-D-GCEC-AGENT-01: exact Attempt-A lineage + unsupported M4 fail-closed.
@@ -7686,13 +8385,10 @@ export function resolveAttemptExecutionProfile(
     profile: contractLegacyProfile(contract, "non_progressive_contract_quartet"),
   };
 }
-
 ```
 
-
-## CREATED: `projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedDocsWritePriorAttempt.ts`
-
-```ts
+## FULL: projects_sfia-studio_app_lib_oa_execution-attempt_domain_resolveVerifiedDocsWritePriorAttempt.ts
+```typescript
 /**
  * CORR-D-GCEC-AGENT-01 / CR-GCEC-AGENT-07 — exact Attempt-A lineage for M4
  * progressive docs-write → local-commit transition.
@@ -7864,13 +8560,10 @@ export function resolveVerifiedDocsWritePriorAttempt(
   }
   return { ok: true, prior: only };
 }
-
 ```
 
-
-## CREATED: `projects/sfia-studio/app/lib/oa/execution-attempt/domain/verifyLocalCommitFacts.ts`
-
-```ts
+## FULL: projects_sfia-studio_app_lib_oa_execution-attempt_domain_verifyLocalCommitFacts.ts
+```typescript
 /**
  * Independent local-commit verification facts (Studio READ-ONLY).
  * Cursor remains the mutation executor — Studio never runs git commit.
@@ -8009,13 +8702,10 @@ export function isBoundedGitCommitOnlySlice(
   const unique = new Set(authorizedEffects);
   return unique.size === 1 && unique.has("git.commit");
 }
-
 ```
 
-
-## CREATED: `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedLocalCommitCursorAgent.ts`
-
-```ts
+## FULL: projects_sfia-studio_app_lib_oa_execution-attempt_infrastructure_m4BoundedLocalCommitCursorAgent.ts
+```typescript
 /**
  * M4 bounded local git.commit Cursor agent (GCEC git.commit executor).
  * Sibling of docs-write / RO — SAME gateway adapter; does not widen docs-write.
@@ -8102,5 +8792,4 @@ export function isM4BoundedLocalCommitRealAgent(
     !agent.allowedScopes.some((s) => s.includes("UNRESOLVED"))
   );
 }
-
 ```
