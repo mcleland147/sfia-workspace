@@ -1,4 +1,283 @@
 # SFIA Studio — Review Pack
+## GCEC-GIT-LIFECYCLE-E2E-01 — ONE FRESH REAL A→D CAMPAIGN — STOP PREFLIGHT
+
+TIMESTAMP: 2026-09-13 00:57:30 CEST
+
+CYCLE: 8 — Delivery / implementation
+
+TYPE: EVOL
+
+PROFILE: CRITICAL
+
+GO MORRIS: GO MORRIS — ONE FRESH GCEC REAL A→D CAMPAIGN — STOP BEFORE MERGE
+
+Incoming Review Handoff: 90e3d2e1e53ca717c544ea14a15de3495ced9f8f
+Product anchor required: bbb03ce7aaff22421b00c96e747e9b5a2ede0325
+Product parent: f71cf89a452d0b6109e1f11be957210122082186
+origin/main: a9f6c310a0826d0e5bd6f7264603382a86564db1
+Runtime v3: NON ADOPTED
+
+==================================================
+VERDICT
+==================================================
+
+STOP PREFLIGHT — REAL HARNESS INCOMPLETE FOR A→D
+
+No REAL campaign started.
+No proof-repository mutation under this GO.
+No Product mutation.
+Campaign attempt budget NOT consumed (stop entirely in discovery/preflight).
+
+==================================================
+ROLE BOUNDARIES
+==================================================
+
+- Morris = construction/governance; this GO authorized A→D once IF harness exists.
+- Pilote = runtime HumanDecision / Confirmation (not invented).
+- Studio = prepare/bound/authorize/verify; not Git writer.
+- Nora = out of scope; unchanged.
+- Cursor = technical mutator only under executable Product campaign path — none A→D REAL available.
+
+==================================================
+PRODUCT ANCHOR GIT TRUTH
+==================================================
+
+```
+HEAD=bbb03ce7aaff22421b00c96e747e9b5a2ede0325
+PARENT=f71cf89a452d0b6109e1f11be957210122082186
+BRANCH=delivery/sfia-studio-product-proof-qual-to-governed-cycle
+ORIGIN_MAIN=a9f6c310a0826d0e5bd6f7264603382a86564db1
+PRODUCT_DIRTY_TRACKED=0
+PRODUCT_UNTRACKED=0
+```
+
+Product tracked source clean. Staged Product: none.
+HEAD / parent / origin/main match required anchors.
+NO PRODUCT ANCHOR DRIFT.
+
+==================================================
+HARNESS DISCOVERY (HARD GATE §6)
+==================================================
+
+Searched Product tests for Morris-gated GCEC REAL campaign driving
+StartExecution through A→B→C→D with SFIA_STUDIO_CURSOR_REAL=1.
+
+### Discovered REAL harnesses (Product)
+
+1) A-only:
+`projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealDocsWrite.real.d0.test.ts`
+
+```
+/**
+ * GCEC-CURSOR-REAL — bounded REAL Cursor docs-write proof.
+ *
+ * NEVER runs the REAL scenario in ordinary vitest suites.
+ * Requires BOTH:
+ *   SFIA_STUDIO_CURSOR_REAL=1
+ *   SFIA_GCEC_CURSOR_REAL_PROOF=1
+ * Plus env:
+ *   SFIA_GCEC_MANAGED_REPO_BASE=/path/to/managed/base
+ *   (clone at {base}/mcleland147__sfia-gcec-proof-task-manager @ BASE_SHA)
+ *
+ * CR-GCEC-REAL-01: after LAUNCHED + processRef, forensic roots are preserved on
+ * post-launch failure (no blind afterEach rm of DB/journal/worktree/proofRoot).
+ *
+ * Outer harness MUST NOT create docs/functional-design.md — only runtime Cursor.
+ * @vitest-environment node
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { createHash } from "node:crypto";
+import { execFileSync } from "node:child_process";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import type { Confirmation } from "@/lib/oa/decision";
+import {
+```
+
+2) A→B only (explicit ZERO push/PR/merge):
+`projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealSameEcCommit.real.d0.test.ts`
+
+```
+/**
+ * FUTURE REAL harness — same-EC A (docs-write) → B (local git.commit).
+ *
+ * NEVER runs in ordinary vitest. Requires ALL three:
+ *   SFIA_STUDIO_CURSOR_REAL=1
+ *   SFIA_GCEC_CURSOR_REAL_PROOF=1
+ *   SFIA_GCEC_CURSOR_REAL_COMMIT_PROOF=1
+ *
+ * Campaign shape (when Morris authorizes a distinct REAL GO):
+ *   PRECHECK → remote ls-remote BEFORE → A REAL docs-write (retain worktree)
+ *   → B REAL local commit → governed observe-owned Evidence VERIFIED
+ *   → FS→SHA supersession → remote ls-remote AFTER (heads/tags/main equal).
+ *
+ * CR-GCEC-AGENT-10: remote anti-effect uses actual `git ls-remote` snapshots —
+ * local clone HEAD alone is NOT remote proof.
+ *
+ * Forensic phases (harness-local only — not Product FSM):
+ *   A_LAUNCHED_UNRECONCILED → A_RECONCILED_RETAINED
+ *   → B_LAUNCHED_UNRECONCILED → B_RECONCILED_COMMIT_VERIFIED
+ *
+ * D-GCEC-AGENT-01: Attempt B selects agt:m4.cursor.bounded_local_commit under
+ * the SAME EC via server-derived AttemptExecutionProfile.
+ *
+ * Do NOT reuse prior docs-write pid workspaces. Fresh proof root only.
+ * ZERO push / PR / merge. ZERO Product mutation.
+ *
+ * @vitest-environment node
+ */
+import fs from "node:fs";
+import os from "node:os";
+```
+
+### Deterministic / Fake C–D support (NOT REAL)
+
+`projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitLifecyclePushPrMerge.d0.test.ts`
+
+```
+/**
+ * GCEC-GIT-LIFECYCLE-E2E-01 PATH B — push / PR create / PR merge PREP.
+ * ZERO REAL remote mutation. @vitest-environment node
+ */
+import { describe, expect, it } from "vitest";
+import { execFileSync } from "node:child_process";
+import { existsSync } from "node:fs";
+import { mkdtemp, rm } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import path from "node:path";
+```
+
+This file exercises push/PR/merge builders + FakeProcessRunner under injected
+`SFIA_STUDIO_CURSOR_REAL_FLAG` for gateway unit tests — it is labeled
+"ZERO REAL remote mutation" and is NOT a Morris-gated REAL A→D campaign.
+
+### Product code presence (PATH B) without REAL harness
+
+At HEAD bbb03ce7, Product DOES contain deterministic PATH B agents/profiles/gateway for:
+- `agt:m4.cursor.bounded_remote_push`
+- `agt:m4.cursor.bounded_pr_create`
+(and merge agent, out of this GO)
+
+But §6 forbids:
+- creating a second Product path;
+- writing an ad-hoc alternate executor / shell campaign;
+- replacing Product gateway with scripting;
+- creating a new campaign architecture;
+- patching Product under this GO.
+
+Therefore no existing harness/path can drive A→D through actual Product orchestration as a REAL campaign.
+
+STOP reason code:
+REAL HARNESS INCOMPLETE FOR A→D
+
+Discovery summary artifact:
+```
+STOP=REAL_HARNESS_INCOMPLETE_FOR_A_TO_D
+PRODUCT_HEAD=bbb03ce7aaff22421b00c96e747e9b5a2ede0325
+DISCOVERED_REAL_HARNESSES:
+  - projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealDocsWrite.real.d0.test.ts  # A only
+  - projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealSameEcCommit.real.d0.test.ts  # A→B only; ZERO push/PR/merge
+DETERMINISTIC_C_D_SUPPORT:
+  - projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitLifecyclePushPrMerge.d0.test.ts  # Fake/deterministic only
+MISSING: Morris-gated REAL campaign harness driving Product StartExecution A→B→C→D
+CAMPAIGN_CONSUMED=NO
+PRODUCT_MUTATION=NONE
+```
+
+==================================================
+PRIOR FAILED RUN DISPOSITION (historical only)
+==================================================
+
+Background run (terminal 232183 / gcecCursorRealSameEcCommit.real.d0.test.ts):
+- A SUCCESS (bounded_docs_write)
+- B FAIL launch: REAL_LAUNCH_FAILED: REAL_WORKSPACE_INVALID:worktree_unregistered
+- NOT reused as Evidence for this GO
+- NOT continued
+- worktree_unregistered remediation was planned for A→D preflight IF harness existed;
+  never reached because harness discovery STOP precedes workspace setup.
+
+==================================================
+CAMPAIGN EXECUTION
+==================================================
+
+SFIA_STUDIO_CURSOR_REAL: NOT set for any campaign under this GO.
+Attempts A/B/C/D: NOT STARTED
+Proof repository mutations: NONE
+E / merge: NOT STARTED / NONE
+branch.delete: NONE
+
+Proof repositoryRef intended by existing A→B harness (not exercised here):
+mcleland147/sfia-gcec-proof-task-manager
+(≠ mcleland147/sfia-workspace)
+
+==================================================
+PROOF MATURITY
+==================================================
+
+DETERMINISTIC PROVEN AC-01..06: RETAINED (Product commit bbb03ce7)
+A REAL / B REAL / C REAL / D REAL / A→D E2E REAL: NOT PROVEN by this GO
+Highest honest claim this GO: STOP PREFLIGHT — harness incomplete for A→D REAL
+
+==================================================
+GIT EFFECTS
+==================================================
+
+Product:
+- new commit NONE
+- push NONE
+- PR NONE
+- merge NONE
+HEAD remains bbb03ce7aaff22421b00c96e747e9b5a2ede0325
+
+Proof repo:
+- A docs write = NOT ATTEMPTED
+- B local commit = NOT ATTEMPTED
+- C push = NOT ATTEMPTED
+- D PR = NOT ATTEMPTED
+- merge = NONE
+- branch.delete = NONE
+
+Only authorized remote effect this cycle: sfia/review-handoff publication.
+
+==================================================
+RESERVES
+==================================================
+
+Blocking for A→D REAL under this GO:
+- Missing Morris-gated REAL campaign harness covering C (push) + D (PR create)
+  through Product StartExecution / Evidence lineage.
+
+Non-blocking:
+- Historical A→B worktree_unregistered failure (diagnostic only).
+
+REAL-only remaining after a future harness/lot:
+- AUTH / PUSH / PR / MERGE / E2E A→D (and later E) still require proper campaign path + distinct GOs.
+
+==================================================
+NEXT STEP
+==================================================
+
+Do NOT invent an ad-hoc REAL executor under this GO.
+
+Required construction gate (distinct Morris GO / EVOL lot):
+design+implement a Morris-gated REAL campaign harness that drives
+fresh same-EC A→B→C→D through existing Product PATH B orchestration,
+with registered worktree preflight, STOP before E/merge —
+THEN re-issue ONE FRESH REAL A→D GO.
+
+ChatGPT may Critical-Review this STOP disposition.
+
+==================================================
+PRESERVED PRIOR FULL REVIEW CONTENT BELOW
+==================================================
+
+Front matter above is authoritative for this REAL A→D attempt disposition.
+Prior local Product commit anchor + AC-01..06 evidence retained below.
+
+---
+
+# SFIA Studio — Review Pack
 ## GCEC-GIT-LIFECYCLE-E2E-01 — LOCAL PRODUCT COMMIT ANCHOR
 
 TIMESTAMP: 2026-09-12 23:33:29 CEST
