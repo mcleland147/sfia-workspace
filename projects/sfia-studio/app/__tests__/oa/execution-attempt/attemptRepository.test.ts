@@ -354,6 +354,35 @@ describe("T-A5 modeled shape guard", () => {
     );
   });
 
+  it("CONT-02: accepts pre-launch failed with REAL_LAUNCH_FAILED stopReason", () => {
+    const violation = validateAttemptShape(
+      baseAttempt({
+        attemptId: "xat:b-real-fail",
+        status: "failed",
+        failedAt: NOW,
+        stopReason:
+          "REAL_LAUNCH_FAILED: REAL_WORKSPACE_INVALID:worktree_unregistered",
+        version: 2,
+      }),
+    );
+    expect(violation).toBeNull();
+  });
+
+  it("CONT-02: still requires launch/persistence stopReason prefix on pre-launch failed", () => {
+    const violation = validateAttemptShape(
+      baseAttempt({
+        attemptId: "xat:b-bad-stop",
+        status: "failed",
+        failedAt: NOW,
+        stopReason: "ARBITRARY_FAIL: nope",
+        version: 2,
+      }),
+    );
+    expect(violation?.reason).toBe(
+      "pre_launch_failed_requires_launch_or_persistence_stop_reason",
+    );
+  });
+
   it("requires a retry index and budget when retryOfAttemptId is set", () => {
     const violation = validateAttemptShape(
       baseAttempt({ attemptId: "xat:a2", retryOfAttemptId: "xat:a1" }),

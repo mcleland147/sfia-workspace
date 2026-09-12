@@ -2,7 +2,7 @@
  * TEST-ONLY spawn / git doubles — no OS process, no real git.
  */
 import { EventEmitter } from "node:events";
-import { mkdirSync } from "node:fs";
+import { mkdirSync, realpathSync } from "node:fs";
 import path from "node:path";
 import type { ChildProcess } from "node:child_process";
 import type {
@@ -10,6 +10,16 @@ import type {
   GitCommandRunner,
   SpawnPrimitive,
 } from "@/lib/oa/execution-attempt";
+
+/** Mirror Git porcelain/toplevel canonicalization (macOS /var → /private/var). */
+function gitCanonicalPath(p: string): string {
+  const resolved = path.resolve(p);
+  try {
+    return realpathSync(resolved);
+  } catch {
+    return resolved;
+  }
+}
 
 export type FakeSpawnCall = {
   executable: string;
@@ -182,7 +192,7 @@ export class FakeGitCommandRunner implements GitCommandRunner {
     this.remoteUrl = options.remoteUrl ?? null;
     this.failOn = options.failOn;
     for (const p of options.registeredWorktrees ?? []) {
-      this.registeredWorktrees.add(path.resolve(p));
+      this.registeredWorktrees.add(gitCanonicalPath(p));
     }
   }
 
@@ -191,7 +201,7 @@ export class FakeGitCommandRunner implements GitCommandRunner {
   }
 
   registerWorktree(workspacePath: string): void {
-    this.registeredWorktrees.add(path.resolve(workspacePath));
+    this.registeredWorktrees.add(gitCanonicalPath(workspacePath));
   }
 
   async run(
@@ -213,8 +223,8 @@ export class FakeGitCommandRunner implements GitCommandRunner {
     if (argv[0] === "worktree" && argv[1] === "add") {
       const wtPath = argv[3] ? path.resolve(String(argv[3])) : "";
       if (wtPath) {
-        this.registeredWorktrees.add(wtPath);
         mkdirSync(wtPath, { recursive: true });
+        this.registeredWorktrees.add(gitCanonicalPath(wtPath));
       }
       return { stdout: "", stderr: "", exitCode: 0 };
     }
@@ -232,7 +242,7 @@ export class FakeGitCommandRunner implements GitCommandRunner {
     }
     if (argv[0] === "rev-parse" && argv[1] === "--show-toplevel") {
       return {
-        stdout: `${path.resolve(cwd)}\n`,
+        stdout: `${gitCanonicalPath(cwd)}\n`,
         stderr: "",
         exitCode: 0,
       };

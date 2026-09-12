@@ -4,7 +4,13 @@
  * @vitest-environment node
  */
 import { createHash } from "node:crypto";
-import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
+import {
+  mkdirSync,
+  mkdtempSync,
+  realpathSync,
+  symlinkSync,
+  writeFileSync,
+} from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
@@ -223,6 +229,86 @@ describe("D-GCEC-CONT-01 workspace resume (REAL OFF)", () => {
     await expect(
       ws.resumeVerifiedWorkspace({
         currentAttemptId: "xat:cont-current-05",
+        priorAttemptId,
+        expectedHeadSha: M4_TEST_BASE_HEAD_SHA,
+        expectedVerifiedFiles: [
+          { path: ARTIFACT_REL, digest: ARTIFACT_DIGEST },
+        ],
+        repositoryBinding: {
+          identity: IDENTITY,
+          remoteUrl: REMOTE,
+          defaultBranch: "main",
+        },
+      }),
+    ).rejects.toThrow(/worktree_unregistered/);
+  });
+
+  it("CONT-02: registered worktree with Git-canonical path ≠ derived path still resumes (macOS /var vs /private/var)", async () => {
+    const root = mkdtempSync(path.join(os.tmpdir(), "gcec-cont02-canon-"));
+    const realExec = path.join(root, "real-exec");
+    const aliasExec = path.join(root, "alias-exec");
+    mkdirSync(realExec);
+    symlinkSync(realExec, aliasExec);
+    const repoRoot = path.join(root, "repo");
+    mkdirSync(repoRoot);
+
+    const priorAttemptId = "xat:cont02-prior-canon";
+    const derivedPath = workspacePathForAttempt(aliasExec, priorAttemptId);
+    mkdirSync(derivedPath, { recursive: true });
+    writeVerifiedArtifact(derivedPath);
+    const gitCanonical = realpathSync(derivedPath);
+    expect(gitCanonical).not.toBe(path.resolve(derivedPath));
+
+    const git = new FakeGitCommandRunner({
+      baseHeadSha: M4_TEST_BASE_HEAD_SHA,
+      remoteUrl: REMOTE,
+      registeredWorktrees: [gitCanonical],
+    });
+    const ws = new StudioGitWorktreeWorkspace({
+      repoRoot,
+      execRoot: aliasExec,
+      gitRunner: git,
+    });
+    const resumed = await ws.resumeVerifiedWorkspace({
+      currentAttemptId: "xat:cont02-current",
+      priorAttemptId,
+      expectedHeadSha: M4_TEST_BASE_HEAD_SHA,
+      expectedVerifiedFiles: [{ path: ARTIFACT_REL, digest: ARTIFACT_DIGEST }],
+      repositoryBinding: {
+        identity: IDENTITY,
+        remoteUrl: REMOTE,
+        defaultBranch: "main",
+      },
+    });
+    expect(resumed.workspacePath).toBe(path.resolve(derivedPath));
+    expect(resumed.verifiedHeadSha).toBe(M4_TEST_BASE_HEAD_SHA);
+  });
+
+  it("CONT-02: physical dir exists but not registered still fails closed (invariant preserved)", async () => {
+    const root = mkdtempSync(path.join(os.tmpdir(), "gcec-cont02-unreg-"));
+    const realExec = path.join(root, "real-exec");
+    const aliasExec = path.join(root, "alias-exec");
+    mkdirSync(realExec);
+    symlinkSync(realExec, aliasExec);
+    const repoRoot = path.join(root, "repo");
+    mkdirSync(repoRoot);
+    const priorAttemptId = "xat:cont02-prior-unreg";
+    const derivedPath = workspacePathForAttempt(aliasExec, priorAttemptId);
+    mkdirSync(derivedPath, { recursive: true });
+    writeVerifiedArtifact(derivedPath);
+    const git = new FakeGitCommandRunner({
+      baseHeadSha: M4_TEST_BASE_HEAD_SHA,
+      remoteUrl: REMOTE,
+      registeredWorktrees: [],
+    });
+    const ws = new StudioGitWorktreeWorkspace({
+      repoRoot,
+      execRoot: aliasExec,
+      gitRunner: git,
+    });
+    await expect(
+      ws.resumeVerifiedWorkspace({
+        currentAttemptId: "xat:cont02-current-unreg",
         priorAttemptId,
         expectedHeadSha: M4_TEST_BASE_HEAD_SHA,
         expectedVerifiedFiles: [

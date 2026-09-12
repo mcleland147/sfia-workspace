@@ -8,7 +8,7 @@
  * Resume NEVER: worktree add, checkout, reset, copy, stage, or commit.
  */
 import { createHash } from "node:crypto";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, realpathSync } from "node:fs";
 import path from "node:path";
 import { spawn as nodeSpawn } from "node:child_process";
 import type {
@@ -52,6 +52,25 @@ const FULL_SHA_RE = /^[0-9a-f]{40}$/i;
 
 export function isFullGitSha(value: unknown): value is string {
   return typeof value === "string" && FULL_SHA_RE.test(value);
+}
+
+/**
+ * Path equality for Git worktree registration/toplevel checks.
+ * macOS TMPDIR often uses `/var/folders/...` while `git worktree list --porcelain`
+ * and `rev-parse --show-toplevel` report `/private/var/folders/...`.
+ * Keep fail-closed: unequal after resolve+realpath → not equal (no path-only trust).
+ */
+export function pathsEqualAllowingRealpath(a: string, b: string): boolean {
+  const ra = path.resolve(a);
+  const rb = path.resolve(b);
+  if (ra === rb) {
+    return true;
+  }
+  try {
+    return realpathSync(ra) === realpathSync(rb);
+  } catch {
+    return false;
+  }
 }
 
 /** Physical leaf only — `wt-` + sha256(attemptId) hex prefix (24). */
@@ -218,8 +237,8 @@ export class StudioGitWorktreeWorkspace implements RealExecutionWorkspacePort {
     if (list.exitCode !== 0) {
       throw new Error("REAL_WORKSPACE_INVALID:worktree_list_failed");
     }
-    const registered = porcelainWorktreePaths(list.stdout).some(
-      (p) => path.resolve(p) === workspacePath,
+    const registered = porcelainWorktreePaths(list.stdout).some((p) =>
+      pathsEqualAllowingRealpath(p, workspacePath),
     );
     if (!registered) {
       throw new Error("REAL_WORKSPACE_INVALID:worktree_unregistered");
@@ -232,8 +251,7 @@ export class StudioGitWorktreeWorkspace implements RealExecutionWorkspacePort {
     if (toplevel.exitCode !== 0) {
       throw new Error("REAL_WORKSPACE_INVALID:toplevel_missing");
     }
-    const top = path.resolve(toplevel.stdout.trim());
-    if (top !== workspacePath) {
+    if (!pathsEqualAllowingRealpath(toplevel.stdout.trim(), workspacePath)) {
       throw new Error("REAL_WORKSPACE_INVALID:toplevel_mismatch");
     }
 

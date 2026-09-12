@@ -427,7 +427,7 @@ describe("M4 REAL-OFF correction R2", () => {
     journal.close();
   });
 
-  it("R2-13 workspace prepare failure after CREATED → runner 0, retry blocked", async () => {
+  it("R2-13 workspace prepare failure after CREATED → Attempt failed, runner 0, retry blocked", async () => {
     const journalPath = tempJournalPath("m4-r2-13-");
     const journal = new SqliteRealLaunchSafetyJournal({
       databasePath: journalPath,
@@ -502,6 +502,10 @@ describe("M4 REAL-OFF correction R2", () => {
     }
     expect(await journal.hasKindForAttempt("xat:r2-13", "CREATED")).toBe(true);
     expect(runner.calls).toHaveLength(0);
+    // CONT-02: REAL_LAUNCH_FAILED stopReason validates — failRealLaunch persists failed.
+    const stored = await stack.attempts.attempts.findById("xat:r2-13");
+    expect(stored?.status).toBe("failed");
+    expect(stored?.stopReason).toMatch(/^REAL_LAUNCH_FAILED:/);
 
     const retry = await stack.attempts.startExecution.execute({
       attemptId: "xat:r2-13",
@@ -510,7 +514,7 @@ describe("M4 REAL-OFF correction R2", () => {
     });
     expect(retry.ok).toBe(false);
     if (!retry.ok) {
-      expect(retry.error.detailCode).toBe("LAUNCH_RECONCILIATION_REQUIRED");
+      expect(retry.error.detailCode).toBe("ATTEMPT_STATE_CONFLICT");
     }
     expect(runner.calls).toHaveLength(0);
     journal.close();

@@ -146,6 +146,7 @@ export {
   StudioGitWorktreeWorkspace,
   NodeGitCommandRunner,
   isFullGitSha,
+  pathsEqualAllowingRealpath,
   workspacePathForAttempt,
   type GitCommandRunner,
   type GitCommandResult,
