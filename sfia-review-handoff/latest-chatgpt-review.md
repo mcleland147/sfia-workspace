@@ -1,24 +1,26 @@
-# SFIA STUDIO — Review Pack — D-GCEC-CONT-02
+# SFIA STUDIO — Review Pack — D-GCEC-CONT-02 LOCAL COMMIT
 
-TIMESTAMP: 2026-09-12T12:45:49Z
+TIMESTAMP: 2026-09-12T13:06:01Z
 
-CYCLE: 8 — Delivery / implementation
+CYCLE: 8 — Delivery / local integration
 
 TYPE: EVOL
 
 PROFILE: CRITICAL
 
-GO MORRIS: D-GCEC-CONT-02 CONSUMED
+GO MORRIS: D-GCEC-CONT-02 LOCAL COMMIT GO CONSUMED
 
-AUTHORIZATION: BOUNDED CORRECTION / ZERO REAL / NO COMMIT
+CRITICAL REVIEW INPUT: PASS WITH RESERVE
+
+INPUT HANDOFF: `afe72a952ffba83acdb2df0bc03a55085ebdfaf4`
 
 ---
 
-## GIT TRUTH
+## GIT TRUTH BEFORE
 
-LOCAL HEAD: `645ec7e0c24626799382b07bdf90de918cefb0eb`
+BASE HEAD: `645ec7e0c24626799382b07bdf90de918cefb0eb`
 
-PARENT: `6e42c4f069cbe2af7eb6ffe47e3df41d199972cc`
+PARENT OF BASE: `6e42c4f069cbe2af7eb6ffe47e3df41d199972cc`
 
 origin/main: `a9f6c310a0826d0e5bd6f7264603382a86564db1`
 
@@ -26,17 +28,7 @@ BRANCH: `delivery/sfia-studio-product-proof-qual-to-governed-cycle`
 
 WORKTREE: `/Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310`
 
-INPUT HANDOFF: `edeed771c1a44f5a8943d6a800f8b7cd458fba47`
-
-Product source was CLEAN at cycle start; only `.tmp-sfia-review/**` dirty. Correction left Product files dirty (no commit).
-
----
-
-## SOURCES
-
-Read CURRENT LOCAL method/convergence/completion/v3 framing + latest handoff @ edeed771… plus CONT-01 / AGENT-01 / workspace / startExecution / resume / REAL harness implementation under `projects/sfia-studio/app/lib/oa/execution-attempt/**` and corresponding tests.
-
-Local repository truth wins (no GitHub main reliance for Product implementation).
+Tracked dirty before commit: EXACTLY the 7 reviewed Product files (+ `.tmp-sfia-review/**` dirty, not staged).
 
 ---
 
@@ -44,376 +36,178 @@ Local repository truth wins (no GitHub main reliance for Product implementation)
 
 - Build Doctrine: VALIDATED / ACTIVE
 - Roadmap: VALIDATED / ACTIVE LIVING
-- Local Roadmap truth: D-GCEC-EXEC-01 locally committed at 645ec7e0…
 - Product Completion: COMPLETE / CLOSED
 - C1: VALIDATED / INTEGRATED
 - Runtime v3: NON ADOPTED
-- Decisions ACTIVE: D-GCEC-09, D-GCEC-15, D-GCEC-CONT-01, D-GCEC-AGENT-01, D-GCEC-EXEC-01; D-GCEC-EVID-01 ACCEPTED NON-BLOCKING
-- Capability target: same-EC governed technical continuation VERIFIED docs-write → local Git commit
-- Observed gap: A workspace exists + Evidence VERIFIED, B rejected with `REAL_WORKSPACE_INVALID:worktree_unregistered`
-- Exit proof THIS cycle: root cause + minimal correction + fail-closed preserved + deterministic resume PASS + negatives PASS + B disposition + A reuse eligibility
+- D-GCEC-CONT-02: Critical Review PASS / commit-ready
+- Capability: same-EC governed technical continuation
+- Gap corrected: macOS /var ↔ /private/var canonical path comparison + REAL_LAUNCH_FAILED stopReason persistence compatibility
+- Security invariant: fail-closed worktree registration remains mandatory
+- REAL A historical: PROVEN / PRESERVED
+- REAL git.commit: NOT PROVEN
+- REAL_CONTINUATION_GAP: OPEN
+- GOVERNED EXECUTOR EFFECT / AUTHORITY RESERVE: OPEN
+- NEXT REAL TRAJECTORY: FRESH_A2B_REQUIRED
 
 ---
 
-## D-GCEC-REAL-01 PRESERVED FACTS
+## PRE-COMMIT FILESET
 
-| Field | Value |
-| --- | --- |
-| Project | `prj:gcec-commit-ab-1` |
-| Cycle | `cyc:trj-c9806a26b5507b17a84cecaa` |
-| EC | `xct:m3-res:dec:f2:8f482c8e-a2ca-415c-bc30-42854e4bb6a8` (confirmed) |
-| Attempt A | `xat:gcec-commit-a:…` succeeded |
-| Evidence A | `ev:docs-write:xat:gcec-commit-a:…` VERIFIED |
-| Artifact | `docs/functional-design.md` · 6951 B · `sha256:d6945c5478c695ee840147b10f7631f96eeb830ca25e1703dbe6a9afa4c38a73` |
-| Attempt B | `xat:gcec-commit-b:…` accepted (stuck; see secondary cause) |
-| Base HEAD | `32c7c2008197e5c61b32c16479144e9863291358` |
-| A worktree | `/var/folders/…/wt-3887970db3ae97ce027d390a` (still present) |
-| Managed repo | `/tmp/sfia-gcec-real-01-managed.Bt0Z72/mcleland147__sfia-gcec-proof-task-manager` (still present) |
+Exact 7 files (verified):
 
-REAL docs-write A: PROVEN. A did not commit: PROVEN. Remote refs unchanged: PROVEN. REAL git.commit: NOT PROVEN.
+1. `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioGitWorktreeWorkspace.ts`
+2. `projects/sfia-studio/app/lib/oa/execution-attempt/domain/invariants.ts`
+3. `projects/sfia-studio/app/lib/oa/execution-attempt/index.ts`
+4. `projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeSpawnAndGit.ts`
+5. `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01WorkspaceResume.d0.test.ts`
+6. `projects/sfia-studio/app/__tests__/oa/execution-attempt/attemptRepository.test.ts`
+7. `projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR2.test.ts`
 
 ---
 
-## FORENSIC OBSERVATIONS (READ-ONLY)
+## PRE-COMMIT DIFF INTEGRITY
 
-Paths still exist. `git worktree list --porcelain` on managed repo shows A worktree registered as:
+Compared working-tree diff to handoff `afe72a95…` embedded PRODUCT SOURCE DIFF.
 
-`/private/var/folders/…/wt-3887970db3ae97ce027d390a`
+File order differed (git path order vs review-pack order); order-independent `+`/`-` line multiset: EQUAL.
 
-Derived CONT-01 path (path.resolve under TMPDIR):
+Accepted content markers present: pathsEqualAllowingRealpath; REAL_LAUNCH_FAILED shape guard; index export; FakeGit gitCanonicalPath; CONT-02 positive/negative resume tests; stopReason shape tests; R2-13 ATTEMPT_STATE_CONFLICT.
 
-`/var/folders/…/wt-3887970db3ae97ce027d390a`
+`git diff --check`: PASS (clean).
 
-Live comparison against preserved campaign:
-
-- `OLD_RESOLVE_MATCH` = false
-- `NEW_REALPATH_MATCH` = true
-
-A HEAD still base SHA; artifact digest still matches; no mutation performed on A worktree / managed repo / Evidence / SQLite.
-
-Secondary forensic: Attempt B remains `status=accepted` with active-contract reservation; audit logged launch_failed with `newStatus: accepted` because failRealLaunch persist failed shape validation (`REAL_LAUNCH_FAILED:` not in LAUNCH_FAIL_STOP_REASON_PATTERN). Historical B not mutated this cycle.
+No content amendment authorized or performed.
 
 ---
 
-## ROOT CAUSE
+## SECURITY ANCHORS
 
-ROOT_CAUSE_CLASS: PATH_CANONICALIZATION_MISMATCH (+ SECONDARY_STOPREASON_SHAPE_REJECT)
-
-ROOT_CAUSE_COMPONENT:
-1. Primary: `StudioGitWorktreeWorkspace.resumeVerifiedWorkspace` registration/toplevel compare
-2. Secondary: `LAUNCH_FAIL_STOP_REASON_PATTERN` vs `failRealLaunch` stopReason `REAL_LAUNCH_FAILED:…`
-
-ROOT_CAUSE_EXACT_MECHANISM:
-- A worktree was created and registered correctly under the managed repository.
-- On macOS, derived `workspacePath` keeps `/var/folders/...` while Git porcelain/toplevel report `/private/var/folders/...`.
-- Resume used `path.resolve(p) === workspacePath` only → false negative `worktree_unregistered` despite true registration.
-- Separately, `failRealLaunch` wrote `stopReason: REAL_LAUNCH_FAILED: …` which `validateAttemptShape` rejected → failed status not persisted → B stuck accepted/active.
-
-WHY PRIOR TESTS MISSED IT:
-- FakeGitCommandRunner previously stored/returned path.resolve paths (matching derived path), never Git-canonical realpaths.
-- No symlink asymmetry fixture for `/var` vs `/private/var`.
-- R2-13 inadvertently encoded the broken persist path (`LAUNCH_RECONCILIATION_REQUIRED` after failed persist).
-
-SECURITY_INVARIANT_PRESERVED: yes
-
-MINIMAL_FIX_LOCATION:
-- `studioGitWorktreeWorkspace.ts` — realpath-equal registration/toplevel (parity with `observeLocalCommitFacts`)
-- `invariants.ts` — allow `REAL_LAUNCH_FAILED` pre-launch stopReason prefix
-- tests/FakeGit — reproduce + preserve fail-closed
+1. worktree registration verification still exists — YES
+2. physical-but-unregistered still rejects — YES
+3. wrong repo/common-dir remains rejected — YES (CONT-01 negatives retained)
+4. wrong HEAD remains rejected — YES
+5. Evidence/artifact mismatch remains rejected — YES
+6. priorAttemptId exact/server-derived — YES
+7. no heuristic latest/first workspace — YES
+8. no client-supplied workspace override — YES
+9. pathsEqualAllowingRealpath returns false on realpath failure — YES
+10. no silent worktree auto-registration in resume — YES
+11. no new persistence/schema/status/FSM — YES
+12. REAL_LAUNCH_FAILED only aligns existing pre-launch failure category with shape guard — YES
 
 ---
 
-## SECURITY INVARIANT
+## PRE-COMMIT TESTS
 
-NOT weakened:
-
-- still requires registered worktree of expected managed repo
-- still rejects physical-but-unregistered directories
-- still rejects wrong common-dir / wrong HEAD / wrong Evidence / wrong priorAttemptId
-- no client path override
-- no heuristic latest/first worktree
-- no silent auto-registration of arbitrary directories
-
-Only path *comparison* equalizes resolve vs realpath for the same inode.
-
----
-
-## PROPOSED/ACTUAL WRITE FILESET
-
-1. `studioGitWorktreeWorkspace.ts` — primary fix
-2. `invariants.ts` — secondary causal persist fix
-3. `index.ts` — export helper
-4. `fakeSpawnAndGit.ts` — FakeGit Git-canonical paths (reproduction fidelity)
-5. `gcecCont01WorkspaceResume.d0.test.ts` — CONT-02 positive + negative
-6. `attemptRepository.test.ts` — stopReason shape tests
-7. `m4RealOffCorrectionR2.test.ts` — R2-13 expectation aligned to successful failRealLaunch
-
-No Roadmap / Doctrine / v3 / method / prompts / schema / CI / lockfile.
-
----
-
-## FIX DESCRIPTION
-
-1. Add `pathsEqualAllowingRealpath` and use it for porcelain registration + toplevel checks in `resumeVerifiedWorkspace`.
-2. Extend `LAUNCH_FAIL_STOP_REASON_PATTERN` to include `REAL_LAUNCH_FAILED` so REAL pre-launch failures persist as `failed` and release active contract.
-3. Make FakeGit register/list/toplevel via realpath (mirrors OS Git on macOS).
-4. Add symlink-based deterministic regression proving registered-but-path-asymmetric resume PASS and unregistered FAIL.
-5. Update R2-13: after prepare failure, Attempt is `failed` with `REAL_LAUNCH_FAILED:…`; retry → `ATTEMPT_STATE_CONFLICT` (not reconciliation-from-stuck-accepted).
-
-WHY FIX IS NON-STRUCTURAL: comparison/parity + stopReason allowlist alignment with existing detailCode; no new persistence, schema, status, FSM, or executor.
-
----
-
-## CONT-01 SEMANTICS CHECK
-
-Preserved: one EC = complete intent; A≠B Attempts; priorAttemptId exact; Project/repo/EC exact; A succeeded + Evidence VERIFIED required; execRoot/workspace server-derived; no heuristic; ambiguity fail-closed; stale/foreign rejected; local commit SHA supersession strict; no new persistence/FSM/nested cycle/second engine.
-
----
-
-## B_IDENTITY_DISPOSITION
-
-`NEW_B_REQUIRED_UNDER_SAME_EC`
-
-Rationale: D-GCEC-15 — a future distinct Morris REAL authorization is new authority → new Attempt identity under the SAME EC. Existing B was never Cursor-invoked and produced no Evidence B; it is not a successful resume target under new authority. Historical stuck-accepted B is a consequence of the secondary bug and is NOT mutated this cycle.
-
-Operational note for the preserved EC: stuck active B blocks selecting a new Attempt on that EC without historical mutation → next REAL should not target that EC.
-
----
-
-## A_REUSE_ELIGIBILITY
-
-`CONDITIONAL_MORRIS_DECISION`
-
-Workspace/Evidence/HEAD/repo for preserved A remain valid and resume under corrected comparison (forensic NEW_REALPATH_MATCH=true). Same-EC B-only on the preserved campaign is blocked by stuck active B without mutating historical state. Safe default for next REAL: fresh A→B campaign after Cont-02 Product commit GO.
-
----
-
-## DETERMINISTIC REPRODUCTION
-
-CONT-02 symlink fixture: derived path via alias execRoot ≠ Git-canonical registered path; pre-fix resolve-only compare fails; post-fix realpath compare passes. Live preserved campaign reproduces OLD_RESOLVE_MATCH=false / NEW_REALPATH_MATCH=true.
-
----
-
-## POSITIVE TESTS
-
-- T1/T2: CONT-02 canonical path resume PASS; FakeGit worktree add registers canonical path; existing RESUME-01/03 PASS under canonical FakeGit
-- T3–T6: existing CONT-01 resolver / same-EC / gateway continuation suites
-- T7: process/object reconstruction not required — failure was path string asymmetry, not in-memory registry loss
-- T8: no schema/persistence change
-- R2-13: failRealLaunch now persists failed
-
-## NEGATIVE TESTS
-
-- N1: CONT-02 unregistered physical dir still rejects
-- N2–N10: preserved CONT-01 resume/resolver/gateway negatives (wrong repo/HEAD/Evidence/priorAttemptId/ambiguity/foreign/client path/no commit before verify)
-
----
-
-## FOCUSED TEST RESULTS
-
-Commands (REAL gates unset):
+REAL gates unset.
 
 ```
-cd projects/sfia-studio/app
-unset SFIA_STUDIO_CURSOR_REAL SFIA_GCEC_CURSOR_REAL_PROOF SFIA_GCEC_CURSOR_REAL_COMMIT_PROOF
-npx vitest run __tests__/oa/execution-attempt/gcecCont01WorkspaceResume.d0.test.ts \
-  __tests__/oa/execution-attempt/attemptRepository.test.ts \
-  __tests__/oa/execution-attempt/gcecCont01SameEcAbContinuation.d0.test.ts \
-  __tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts \
-  __tests__/oa/execution-attempt/gcecGitCommitSameEcAb.d0.test.ts \
-  __tests__/oa/execution-attempt/gcecAgent01AttemptProfile.d0.test.ts
+npx vitest run   __tests__/oa/execution-attempt/gcecCont01WorkspaceResume.d0.test.ts   __tests__/oa/execution-attempt/attemptRepository.test.ts   __tests__/oa/execution-attempt/m4RealOffCorrectionR2.test.ts
 ```
 
-Result: Test Files 6 passed; Tests 96 passed
+Result: Test Files 3 passed; Tests 61 passed
 
-Full `__tests__/oa/execution-attempt/`: Test Files 26 passed; Tests 300 passed
+`npm run typecheck` → PASS
 
----
-
-## TYPECHECK
-
-`npm run typecheck` → PASS (tsc --noEmit)
-
-## LINT
-
-`npm run lint` → PASS (No ESLint warnings or errors)
-
-## BUILD
-
-`npm run build` → PASS (Next.js 15.5.20)
-
-## FULL VITEST
-
-`npm test` → Test Files 352 passed | 17 skipped; Tests 3788 passed | 137 skipped (3925)
-
-REAL GATES: OFF
-
-GCEC REAL: ZERO
+Prior candidate validation (unchanged content): focused 96/96; execution-attempt 300/300; lint/build PASS; full vitest 3788 passed / 137 skipped.
 
 ---
 
-## PRODUCT SOURCE DIFF (FULL USEFUL)
+## STAGED FILESET
+
+EXACTLY the 7 files listed above. No `.tmp-sfia-review`. No Roadmap/doctrine/lockfile.
+
+`git diff --cached --check`: PASS
+
+---
+
+## COMMIT MESSAGE
+
+`fix(sfia-studio): preserve GCEC worktree continuation`
+
+---
+
+## NEW LOCAL HEAD
+
+`be71eee0bbfae341d16cfab401f3c38f46564d4c`
+
+## PARENT VERIFICATION
+
+`645ec7e0c24626799382b07bdf90de918cefb0eb` == `645ec7e0c24626799382b07bdf90de918cefb0eb` — YES
+
+---
+
+## COMMITTED FILESET
+
+```
+projects/sfia-studio/app/__tests__/oa/execution-attempt/attemptRepository.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01WorkspaceResume.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR2.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeSpawnAndGit.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/domain/invariants.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioGitWorktreeWorkspace.ts
+```
+
+Exactly 7 files.
+
+---
+
+## COMMITTED DIFF / STAT
+
+```
+ .../oa/execution-attempt/attemptRepository.test.ts | 29 +++++++
+ .../gcecCont01WorkspaceResume.d0.test.ts           | 88 +++++++++++++++++++++-
+ .../m4RealOffCorrectionR2.test.ts                  |  8 +-
+ .../execution-attempt/support/fakeSpawnAndGit.ts   | 20 +++--
+ .../lib/oa/execution-attempt/domain/invariants.ts  |  3 +-
+ .../app/lib/oa/execution-attempt/index.ts          |  1 +
+ .../infrastructure/studioGitWorktreeWorkspace.ts   | 28 +++++--
+ 7 files changed, 163 insertions(+), 14 deletions(-)
+```
+
+Full committed patch:
 
 ```diff
-===== projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioGitWorktreeWorkspace.ts =====
-diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioGitWorktreeWorkspace.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioGitWorktreeWorkspace.ts
-index baef6075..4019255b 100644
---- a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioGitWorktreeWorkspace.ts
-+++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioGitWorktreeWorkspace.ts
-@@ -8,7 +8,7 @@
-  * Resume NEVER: worktree add, checkout, reset, copy, stage, or commit.
-  */
- import { createHash } from "node:crypto";
--import { existsSync, readFileSync } from "node:fs";
-+import { existsSync, readFileSync, realpathSync } from "node:fs";
- import path from "node:path";
- import { spawn as nodeSpawn } from "node:child_process";
- import type {
-@@ -54,6 +54,25 @@ export function isFullGitSha(value: unknown): value is string {
-   return typeof value === "string" && FULL_SHA_RE.test(value);
- }
-
-+/**
-+ * Path equality for Git worktree registration/toplevel checks.
-+ * macOS TMPDIR often uses `/var/folders/...` while `git worktree list --porcelain`
-+ * and `rev-parse --show-toplevel` report `/private/var/folders/...`.
-+ * Keep fail-closed: unequal after resolve+realpath → not equal (no path-only trust).
-+ */
-+export function pathsEqualAllowingRealpath(a: string, b: string): boolean {
-+  const ra = path.resolve(a);
-+  const rb = path.resolve(b);
-+  if (ra === rb) {
-+    return true;
-+  }
-+  try {
-+    return realpathSync(ra) === realpathSync(rb);
-+  } catch {
-+    return false;
-+  }
-+}
-+
- /** Physical leaf only — `wt-` + sha256(attemptId) hex prefix (24). */
- export function physicalWorktreeLeafForAttempt(attemptId: string): string {
-   const digest = createHash("sha256")
-@@ -218,8 +237,8 @@ export class StudioGitWorktreeWorkspace implements RealExecutionWorkspacePort {
-     if (list.exitCode !== 0) {
-       throw new Error("REAL_WORKSPACE_INVALID:worktree_list_failed");
-     }
--    const registered = porcelainWorktreePaths(list.stdout).some(
--      (p) => path.resolve(p) === workspacePath,
-+    const registered = porcelainWorktreePaths(list.stdout).some((p) =>
-+      pathsEqualAllowingRealpath(p, workspacePath),
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/attemptRepository.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/attemptRepository.test.ts
+index 89a1dd5b..323aa7c9 100644
+--- a/projects/sfia-studio/app/__tests__/oa/execution-attempt/attemptRepository.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/attemptRepository.test.ts
+@@ -354,6 +354,35 @@ describe("T-A5 modeled shape guard", () => {
      );
-     if (!registered) {
-       throw new Error("REAL_WORKSPACE_INVALID:worktree_unregistered");
-@@ -232,8 +251,7 @@ export class StudioGitWorktreeWorkspace implements RealExecutionWorkspacePort {
-     if (toplevel.exitCode !== 0) {
-       throw new Error("REAL_WORKSPACE_INVALID:toplevel_missing");
-     }
--    const top = path.resolve(toplevel.stdout.trim());
--    if (top !== workspacePath) {
-+    if (!pathsEqualAllowingRealpath(toplevel.stdout.trim(), workspacePath)) {
-       throw new Error("REAL_WORKSPACE_INVALID:toplevel_mismatch");
-     }
+   });
 
-===== projects/sfia-studio/app/lib/oa/execution-attempt/domain/invariants.ts =====
-diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/invariants.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/invariants.ts
-index 6ed83282..5c4d85c2 100644
---- a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/invariants.ts
-+++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/invariants.ts
-@@ -374,8 +374,9 @@ export function resolveSelectionStrategy(
- /* Modeled shape guard (0.2.0-oa conditionals)                                 */
- /* -------------------------------------------------------------------------- */
-
-+/** Pre-launch fail stopReason prefixes (fixture + REAL Gate D paths). */
- const LAUNCH_FAIL_STOP_REASON_PATTERN =
--  /^(EXECUTION_LAUNCH_FAILED|EXECUTION_PERSISTENCE_FAILED)([:; ].*)?$/;
-+  /^(EXECUTION_LAUNCH_FAILED|EXECUTION_PERSISTENCE_FAILED|REAL_LAUNCH_FAILED)([:; ].*)?$/;
-
- /**
-  * MODELED GAP T-A5-M1 (documented, not silently resolved).
-===== projects/sfia-studio/app/lib/oa/execution-attempt/index.ts =====
-diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
-index 009cd872..f3498e63 100644
---- a/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
-+++ b/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
-@@ -146,6 +146,7 @@ export {
-   StudioGitWorktreeWorkspace,
-   NodeGitCommandRunner,
-   isFullGitSha,
-+  pathsEqualAllowingRealpath,
-   workspacePathForAttempt,
-   type GitCommandRunner,
-   type GitCommandResult,
-===== projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeSpawnAndGit.ts =====
-diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeSpawnAndGit.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeSpawnAndGit.ts
-index a5432454..a77c8dff 100644
---- a/projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeSpawnAndGit.ts
-+++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeSpawnAndGit.ts
-@@ -2,7 +2,7 @@
-  * TEST-ONLY spawn / git doubles — no OS process, no real git.
-  */
- import { EventEmitter } from "node:events";
--import { mkdirSync } from "node:fs";
-+import { mkdirSync, realpathSync } from "node:fs";
- import path from "node:path";
- import type { ChildProcess } from "node:child_process";
- import type {
-@@ -11,6 +11,16 @@ import type {
-   SpawnPrimitive,
- } from "@/lib/oa/execution-attempt";
-
-+/** Mirror Git porcelain/toplevel canonicalization (macOS /var → /private/var). */
-+function gitCanonicalPath(p: string): string {
-+  const resolved = path.resolve(p);
-+  try {
-+    return realpathSync(resolved);
-+  } catch {
-+    return resolved;
-+  }
-+}
++  it("CONT-02: accepts pre-launch failed with REAL_LAUNCH_FAILED stopReason", () => {
++    const violation = validateAttemptShape(
++      baseAttempt({
++        attemptId: "xat:b-real-fail",
++        status: "failed",
++        failedAt: NOW,
++        stopReason:
++          "REAL_LAUNCH_FAILED: REAL_WORKSPACE_INVALID:worktree_unregistered",
++        version: 2,
++      }),
++    );
++    expect(violation).toBeNull();
++  });
 +
- export type FakeSpawnCall = {
-   executable: string;
-   argv: readonly string[];
-@@ -182,7 +192,7 @@ export class FakeGitCommandRunner implements GitCommandRunner {
-     this.remoteUrl = options.remoteUrl ?? null;
-     this.failOn = options.failOn;
-     for (const p of options.registeredWorktrees ?? []) {
--      this.registeredWorktrees.add(path.resolve(p));
-+      this.registeredWorktrees.add(gitCanonicalPath(p));
-     }
-   }
-
-@@ -191,7 +201,7 @@ export class FakeGitCommandRunner implements GitCommandRunner {
-   }
-
-   registerWorktree(workspacePath: string): void {
--    this.registeredWorktrees.add(path.resolve(workspacePath));
-+    this.registeredWorktrees.add(gitCanonicalPath(workspacePath));
-   }
-
-   async run(
-@@ -213,8 +223,8 @@ export class FakeGitCommandRunner implements GitCommandRunner {
-     if (argv[0] === "worktree" && argv[1] === "add") {
-       const wtPath = argv[3] ? path.resolve(String(argv[3])) : "";
-       if (wtPath) {
--        this.registeredWorktrees.add(wtPath);
-         mkdirSync(wtPath, { recursive: true });
-+        this.registeredWorktrees.add(gitCanonicalPath(wtPath));
-       }
-       return { stdout: "", stderr: "", exitCode: 0 };
-     }
-@@ -232,7 +242,7 @@ export class FakeGitCommandRunner implements GitCommandRunner {
-     }
-     if (argv[0] === "rev-parse" && argv[1] === "--show-toplevel") {
-       return {
--        stdout: `${path.resolve(cwd)}\n`,
-+        stdout: `${gitCanonicalPath(cwd)}\n`,
-         stderr: "",
-         exitCode: 0,
-       };
-===== projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01WorkspaceResume.d0.test.ts =====
++  it("CONT-02: still requires launch/persistence stopReason prefix on pre-launch failed", () => {
++    const violation = validateAttemptShape(
++      baseAttempt({
++        attemptId: "xat:b-bad-stop",
++        status: "failed",
++        failedAt: NOW,
++        stopReason: "ARBITRARY_FAIL: nope",
++        version: 2,
++      }),
++    );
++    expect(violation?.reason).toBe(
++      "pre_launch_failed_requires_launch_or_persistence_stop_reason",
++    );
++  });
++
+   it("requires a retry index and budget when retryOfAttemptId is set", () => {
+     const violation = validateAttemptShape(
+       baseAttempt({ attemptId: "xat:a2", retryOfAttemptId: "xat:a1" }),
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01WorkspaceResume.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01WorkspaceResume.d0.test.ts
 index 7f23eced..a0f6402d 100644
 --- a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01WorkspaceResume.d0.test.ts
@@ -520,48 +314,6 @@ index 7f23eced..a0f6402d 100644
    it("RESUME-06 wrong HEAD fails closed", async () => {
      const { repoRoot, execRoot } = tempRoots("gcec-cont-r06-");
      const priorAttemptId = "xat:cont-prior-06";
-===== projects/sfia-studio/app/__tests__/oa/execution-attempt/attemptRepository.test.ts =====
-diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/attemptRepository.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/attemptRepository.test.ts
-index 89a1dd5b..323aa7c9 100644
---- a/projects/sfia-studio/app/__tests__/oa/execution-attempt/attemptRepository.test.ts
-+++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/attemptRepository.test.ts
-@@ -354,6 +354,35 @@ describe("T-A5 modeled shape guard", () => {
-     );
-   });
-
-+  it("CONT-02: accepts pre-launch failed with REAL_LAUNCH_FAILED stopReason", () => {
-+    const violation = validateAttemptShape(
-+      baseAttempt({
-+        attemptId: "xat:b-real-fail",
-+        status: "failed",
-+        failedAt: NOW,
-+        stopReason:
-+          "REAL_LAUNCH_FAILED: REAL_WORKSPACE_INVALID:worktree_unregistered",
-+        version: 2,
-+      }),
-+    );
-+    expect(violation).toBeNull();
-+  });
-+
-+  it("CONT-02: still requires launch/persistence stopReason prefix on pre-launch failed", () => {
-+    const violation = validateAttemptShape(
-+      baseAttempt({
-+        attemptId: "xat:b-bad-stop",
-+        status: "failed",
-+        failedAt: NOW,
-+        stopReason: "ARBITRARY_FAIL: nope",
-+        version: 2,
-+      }),
-+    );
-+    expect(violation?.reason).toBe(
-+      "pre_launch_failed_requires_launch_or_persistence_stop_reason",
-+    );
-+  });
-+
-   it("requires a retry index and budget when retryOfAttemptId is set", () => {
-     const violation = validateAttemptShape(
-       baseAttempt({ attemptId: "xat:a2", retryOfAttemptId: "xat:a1" }),
-===== projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR2.test.ts =====
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR2.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR2.test.ts
 index 843efb09..db44bedc 100644
 --- a/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR2.test.ts
@@ -595,12 +347,174 @@ index 843efb09..db44bedc 100644
      }
      expect(runner.calls).toHaveLength(0);
      journal.close();
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeSpawnAndGit.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeSpawnAndGit.ts
+index a5432454..a77c8dff 100644
+--- a/projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeSpawnAndGit.ts
++++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeSpawnAndGit.ts
+@@ -2,7 +2,7 @@
+  * TEST-ONLY spawn / git doubles — no OS process, no real git.
+  */
+ import { EventEmitter } from "node:events";
+-import { mkdirSync } from "node:fs";
++import { mkdirSync, realpathSync } from "node:fs";
+ import path from "node:path";
+ import type { ChildProcess } from "node:child_process";
+ import type {
+@@ -11,6 +11,16 @@ import type {
+   SpawnPrimitive,
+ } from "@/lib/oa/execution-attempt";
+
++/** Mirror Git porcelain/toplevel canonicalization (macOS /var → /private/var). */
++function gitCanonicalPath(p: string): string {
++  const resolved = path.resolve(p);
++  try {
++    return realpathSync(resolved);
++  } catch {
++    return resolved;
++  }
++}
++
+ export type FakeSpawnCall = {
+   executable: string;
+   argv: readonly string[];
+@@ -182,7 +192,7 @@ export class FakeGitCommandRunner implements GitCommandRunner {
+     this.remoteUrl = options.remoteUrl ?? null;
+     this.failOn = options.failOn;
+     for (const p of options.registeredWorktrees ?? []) {
+-      this.registeredWorktrees.add(path.resolve(p));
++      this.registeredWorktrees.add(gitCanonicalPath(p));
+     }
+   }
+
+@@ -191,7 +201,7 @@ export class FakeGitCommandRunner implements GitCommandRunner {
+   }
+
+   registerWorktree(workspacePath: string): void {
+-    this.registeredWorktrees.add(path.resolve(workspacePath));
++    this.registeredWorktrees.add(gitCanonicalPath(workspacePath));
+   }
+
+   async run(
+@@ -213,8 +223,8 @@ export class FakeGitCommandRunner implements GitCommandRunner {
+     if (argv[0] === "worktree" && argv[1] === "add") {
+       const wtPath = argv[3] ? path.resolve(String(argv[3])) : "";
+       if (wtPath) {
+-        this.registeredWorktrees.add(wtPath);
+         mkdirSync(wtPath, { recursive: true });
++        this.registeredWorktrees.add(gitCanonicalPath(wtPath));
+       }
+       return { stdout: "", stderr: "", exitCode: 0 };
+     }
+@@ -232,7 +242,7 @@ export class FakeGitCommandRunner implements GitCommandRunner {
+     }
+     if (argv[0] === "rev-parse" && argv[1] === "--show-toplevel") {
+       return {
+-        stdout: `${path.resolve(cwd)}
+`,
++        stdout: `${gitCanonicalPath(cwd)}
+`,
+         stderr: "",
+         exitCode: 0,
+       };
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/invariants.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/invariants.ts
+index 6ed83282..5c4d85c2 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/invariants.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/invariants.ts
+@@ -374,8 +374,9 @@ export function resolveSelectionStrategy(
+ /* Modeled shape guard (0.2.0-oa conditionals)                                 */
+ /* -------------------------------------------------------------------------- */
+
++/** Pre-launch fail stopReason prefixes (fixture + REAL Gate D paths). */
+ const LAUNCH_FAIL_STOP_REASON_PATTERN =
+-  /^(EXECUTION_LAUNCH_FAILED|EXECUTION_PERSISTENCE_FAILED)([:; ].*)?$/;
++  /^(EXECUTION_LAUNCH_FAILED|EXECUTION_PERSISTENCE_FAILED|REAL_LAUNCH_FAILED)([:; ].*)?$/;
+
+ /**
+  * MODELED GAP T-A5-M1 (documented, not silently resolved).
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+index 009cd872..f3498e63 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+@@ -146,6 +146,7 @@ export {
+   StudioGitWorktreeWorkspace,
+   NodeGitCommandRunner,
+   isFullGitSha,
++  pathsEqualAllowingRealpath,
+   workspacePathForAttempt,
+   type GitCommandRunner,
+   type GitCommandResult,
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioGitWorktreeWorkspace.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioGitWorktreeWorkspace.ts
+index baef6075..4019255b 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioGitWorktreeWorkspace.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioGitWorktreeWorkspace.ts
+@@ -8,7 +8,7 @@
+  * Resume NEVER: worktree add, checkout, reset, copy, stage, or commit.
+  */
+ import { createHash } from "node:crypto";
+-import { existsSync, readFileSync } from "node:fs";
++import { existsSync, readFileSync, realpathSync } from "node:fs";
+ import path from "node:path";
+ import { spawn as nodeSpawn } from "node:child_process";
+ import type {
+@@ -54,6 +54,25 @@ export function isFullGitSha(value: unknown): value is string {
+   return typeof value === "string" && FULL_SHA_RE.test(value);
+ }
+
++/**
++ * Path equality for Git worktree registration/toplevel checks.
++ * macOS TMPDIR often uses `/var/folders/...` while `git worktree list --porcelain`
++ * and `rev-parse --show-toplevel` report `/private/var/folders/...`.
++ * Keep fail-closed: unequal after resolve+realpath → not equal (no path-only trust).
++ */
++export function pathsEqualAllowingRealpath(a: string, b: string): boolean {
++  const ra = path.resolve(a);
++  const rb = path.resolve(b);
++  if (ra === rb) {
++    return true;
++  }
++  try {
++    return realpathSync(ra) === realpathSync(rb);
++  } catch {
++    return false;
++  }
++}
++
+ /** Physical leaf only — `wt-` + sha256(attemptId) hex prefix (24). */
+ export function physicalWorktreeLeafForAttempt(attemptId: string): string {
+   const digest = createHash("sha256")
+@@ -218,8 +237,8 @@ export class StudioGitWorktreeWorkspace implements RealExecutionWorkspacePort {
+     if (list.exitCode !== 0) {
+       throw new Error("REAL_WORKSPACE_INVALID:worktree_list_failed");
+     }
+-    const registered = porcelainWorktreePaths(list.stdout).some(
+-      (p) => path.resolve(p) === workspacePath,
++    const registered = porcelainWorktreePaths(list.stdout).some((p) =>
++      pathsEqualAllowingRealpath(p, workspacePath),
+     );
+     if (!registered) {
+       throw new Error("REAL_WORKSPACE_INVALID:worktree_unregistered");
+@@ -232,8 +251,7 @@ export class StudioGitWorktreeWorkspace implements RealExecutionWorkspacePort {
+     if (toplevel.exitCode !== 0) {
+       throw new Error("REAL_WORKSPACE_INVALID:toplevel_missing");
+     }
+-    const top = path.resolve(toplevel.stdout.trim());
+-    if (top !== workspacePath) {
++    if (!pathsEqualAllowingRealpath(toplevel.stdout.trim(), workspacePath)) {
+       throw new Error("REAL_WORKSPACE_INVALID:toplevel_mismatch");
+     }
+
 
 ```
 
 ---
 
-## PRODUCT COMMIT: NONE
+## PRODUCT SOURCE AFTER
+
+Product application/source working tree clean for `projects/sfia-studio/` (no remaining tracked Product dirty files).
+
+`.tmp-sfia-review/**` may remain dirty (expected; not committed).
+
+---
 
 ## PRODUCT PUSH: NONE
 
@@ -608,47 +522,38 @@ index 843efb09..db44bedc 100644
 
 ## MERGE: NONE
 
+## REAL: ZERO
+
 ## PROOF REPO MUTATION: NONE
 
----
-
-## PRESERVED A: REAL PROVEN / Evidence VERIFIED
+## REAL A: PROVEN / PRESERVED
 
 ## REAL git.commit: NOT PROVEN
 
 ## REAL_CONTINUATION_GAP: OPEN
 
-## GOVERNED EXECUTOR EFFECT RESERVE: OPEN
+## GOVERNED EXECUTOR EFFECT / AUTHORITY RESERVE: OPEN
 
 ## GCEC-PUSH: NOT READY
 
 ## RUNTIME v3: NON ADOPTED
 
----
-
-## NEXT REAL TRAJECTORY
-
-`FRESH_A2B_REQUIRED`
-
-Do not B-only on the preserved stuck-B EC. After Morris Product commit GO for Cont-02, authorize a distinct fresh A→B REAL campaign under corrected resume + failRealLaunch persist semantics.
+## NEXT REAL TRAJECTORY: FRESH_A2B_REQUIRED
 
 ---
 
 ## DECISION REQUIRED FROM MORRIS
 
-1. Critical Review of this Cont-02 candidate
-2. Product commit GO (if accepted)
-3. Distinct GO for next REAL (fresh A→B) — Cont-02 does NOT authorize REAL
-4. Optional separate decision if Morris wants to remediate the preserved stuck-B EC (out of Cont-02 scope)
+Critical Review of this local commit → distinct GO REAL fresh A→B if accepted.
 
 ---
 
 ## ANTI-CLAIMS
 
-Do NOT claim: REAL git.commit proven; REAL_CONTINUATION_GAP closed; effect reserve closed; B REAL authorized; fresh A→B REAL authorized; GCEC-PUSH ready; runtime v3 adopted.
+Do NOT claim: Product push; PR; merge; REAL git.commit proven; REAL_CONTINUATION_GAP closed; effect reserve closed; B REAL authorized; fresh A→B REAL authorized; GCEC-PUSH ready; runtime v3 adopted. Local commit ≠ REAL proof.
 
 ---
 
 ## FINAL VERDICT
 
-**OUTCOME A: PASS WITH RESERVE — D-GCEC-CONT-02 DETERMINISTIC CORRECTION CANDIDATE ACCEPTED FOR CRITICAL REVIEW / WORKTREE REGISTRATION GAP CORRECTED AT DETERMINISTIC SCOPE / FAIL-CLOSED PROVEN / ZERO REAL / NO PRODUCT COMMIT / NEXT REAL TRAJECTORY EXPLICIT (`FRESH_A2B_REQUIRED`).**
+**PASS WITH RESERVE — D-GCEC-CONT-02 DETERMINISTIC CORRECTION LOCALLY COMMITTED / EXACT CRITICAL-REVIEWED 7-FILE CANDIDATE PRESERVED / FAIL-CLOSED INVARIANT PRESERVED / NO PRODUCT PUSH / ZERO REAL / REAL git.commit NOT PROVEN / REAL_CONTINUATION_GAP OPEN / NEXT REAL TRAJECTORY FRESH_A2B_REQUIRED.**
