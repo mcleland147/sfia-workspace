@@ -1,34 +1,30 @@
-# SFIA STUDIO — Review Pack — D-GCEC-CONT-02 LOCAL COMMIT
+# SFIA STUDIO — Review Pack — GCEC-REAL-A2B-02
 
-TIMESTAMP: 2026-09-12T13:06:01Z
+TIMESTAMP: 2026-09-12T13:19:42Z
 
-CYCLE: 8 — Delivery / local integration
+CYCLE: 8 — Delivery / implementation
 
 TYPE: EVOL
 
 PROFILE: CRITICAL
 
-GO MORRIS: D-GCEC-CONT-02 LOCAL COMMIT GO CONSUMED
+GO MORRIS: GCEC-REAL-A2B-02 GO REAL CONSUMED
 
-CRITICAL REVIEW INPUT: PASS WITH RESERVE
+AUTHORIZATION: ONE FRESH A→B REAL CAMPAIGN ONLY
 
-INPUT HANDOFF: `afe72a952ffba83acdb2df0bc03a55085ebdfaf4`
+INPUT HANDOFF: `1ee4119adad5f1ba9e67c0378b6dbaa7f098bf7e`
 
----
+PRODUCT HEAD BEFORE: `be71eee0bbfae341d16cfab401f3c38f46564d4c`
 
-## GIT TRUTH BEFORE
-
-BASE HEAD: `645ec7e0c24626799382b07bdf90de918cefb0eb`
-
-PARENT OF BASE: `6e42c4f069cbe2af7eb6ffe47e3df41d199972cc`
+PRODUCT PARENT: `645ec7e0c24626799382b07bdf90de918cefb0eb`
 
 origin/main: `a9f6c310a0826d0e5bd6f7264603382a86564db1`
 
-BRANCH: `delivery/sfia-studio-product-proof-qual-to-governed-cycle`
+---
 
-WORKTREE: `/Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310`
+## SOURCES
 
-Tracked dirty before commit: EXACTLY the 7 reviewed Product files (+ `.tmp-sfia-review/**` dirty, not staged).
+CURRENT LOCAL method/convergence/completion/v3 framing + handoff @ 1ee4119a… + CONT-01/02 / AGENT-01 / StartExecution / observe/verify / REAL harness `gcecCursorRealSameEcCommit.real.d0.test.ts` (unique).
 
 ---
 
@@ -39,521 +35,589 @@ Tracked dirty before commit: EXACTLY the 7 reviewed Product files (+ `.tmp-sfia-
 - Product Completion: COMPLETE / CLOSED
 - C1: VALIDATED / INTEGRATED
 - Runtime v3: NON ADOPTED
-- D-GCEC-CONT-02: Critical Review PASS / commit-ready
-- Capability: same-EC governed technical continuation
-- Gap corrected: macOS /var ↔ /private/var canonical path comparison + REAL_LAUNCH_FAILED stopReason persistence compatibility
-- Security invariant: fail-closed worktree registration remains mandatory
-- REAL A historical: PROVEN / PRESERVED
-- REAL git.commit: NOT PROVEN
-- REAL_CONTINUATION_GAP: OPEN
-- GOVERNED EXECUTOR EFFECT / AUTHORITY RESERVE: OPEN
-- NEXT REAL TRAJECTORY: FRESH_A2B_REQUIRED
+- D-GCEC-CONT-02 locally committed @ be71eee0…
+- Decisions ACTIVE: D-GCEC-09…15, CONT-01, AGENT-01, EXEC-01; EVID-01 ACCEPTED NON-BLOCKING
+- Capability: governed REAL docs-write → Evidence → same-EC → local commit → independent Git verify
+- Gap targeted: REAL git.commit NOT PROVEN; REAL_CONTINUATION_GAP OPEN; effect reserve OPEN
 
 ---
 
-## PRE-COMMIT FILESET
+## CONT-02 PRE-REAL INTEGRITY
 
-Exact 7 files (verified):
+Verified in Product HEAD be71eee0:
 
-1. `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioGitWorktreeWorkspace.ts`
-2. `projects/sfia-studio/app/lib/oa/execution-attempt/domain/invariants.ts`
-3. `projects/sfia-studio/app/lib/oa/execution-attempt/index.ts`
-4. `projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeSpawnAndGit.ts`
-5. `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01WorkspaceResume.d0.test.ts`
-6. `projects/sfia-studio/app/__tests__/oa/execution-attempt/attemptRepository.test.ts`
-7. `projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR2.test.ts`
+- `pathsEqualAllowingRealpath` present; used for registration + toplevel
+- realpath failure → false / fail-closed
+- `worktree_unregistered` retained
+- `REAL_LAUNCH_FAILED` accepted as pre-launch stopReason prefix; arbitrary stopReason invalid
+- CONT-02 tests present (canonical resume PASS; unregistered FAIL; shape; R2-13 failed + ATTEMPT_STATE_CONFLICT)
 
----
-
-## PRE-COMMIT DIFF INTEGRITY
-
-Compared working-tree diff to handoff `afe72a95…` embedded PRODUCT SOURCE DIFF.
-
-File order differed (git path order vs review-pack order); order-independent `+`/`-` line multiset: EQUAL.
-
-Accepted content markers present: pathsEqualAllowingRealpath; REAL_LAUNCH_FAILED shape guard; index export; FakeGit gitCanonicalPath; CONT-02 positive/negative resume tests; stopReason shape tests; R2-13 ATTEMPT_STATE_CONFLICT.
-
-`git diff --check`: PASS (clean).
-
-No content amendment authorized or performed.
-
----
-
-## SECURITY ANCHORS
-
-1. worktree registration verification still exists — YES
-2. physical-but-unregistered still rejects — YES
-3. wrong repo/common-dir remains rejected — YES (CONT-01 negatives retained)
-4. wrong HEAD remains rejected — YES
-5. Evidence/artifact mismatch remains rejected — YES
-6. priorAttemptId exact/server-derived — YES
-7. no heuristic latest/first workspace — YES
-8. no client-supplied workspace override — YES
-9. pathsEqualAllowingRealpath returns false on realpath failure — YES
-10. no silent worktree auto-registration in resume — YES
-11. no new persistence/schema/status/FSM — YES
-12. REAL_LAUNCH_FAILED only aligns existing pre-launch failure category with shape guard — YES
-
----
-
-## PRE-COMMIT TESTS
-
-REAL gates unset.
+PRE-REAL DETERMINISTIC TESTS (gates OFF):
 
 ```
-npx vitest run   __tests__/oa/execution-attempt/gcecCont01WorkspaceResume.d0.test.ts   __tests__/oa/execution-attempt/attemptRepository.test.ts   __tests__/oa/execution-attempt/m4RealOffCorrectionR2.test.ts
+npx vitest run gcecCont01WorkspaceResume / attemptRepository / m4RealOffCorrectionR2
 ```
 
-Result: Test Files 3 passed; Tests 61 passed
-
-`npm run typecheck` → PASS
-
-Prior candidate validation (unchanged content): focused 96/96; execution-attempt 300/300; lint/build PASS; full vitest 3788 passed / 137 skipped.
+Result: **61 / 61 PASS**
 
 ---
 
-## STAGED FILESET
+## HISTORICAL REAL-01 FREEZE CHECK
 
-EXACTLY the 7 files listed above. No `.tmp-sfia-review`. No Roadmap/doctrine/lockfile.
+Historical campaign NOT mutated / NOT reused as runtime state.
 
-`git diff --cached --check`: PASS
+| Historical | Value |
+| --- | --- |
+| Project | `prj:gcec-commit-ab-1` |
+| Cycle | `cyc:trj-c9806a26b5507b17a84cecaa` |
+| EC | `xct:m3-res:dec:f2:8f482c8e-a2ca-415c-bc30-42854e4bb6a8` |
+| A / B / Evidence A | prior REAL-01 identities |
 
----
-
-## COMMIT MESSAGE
-
-`fix(sfia-studio): preserve GCEC worktree continuation`
-
----
-
-## NEW LOCAL HEAD
-
-`be71eee0bbfae341d16cfab401f3c38f46564d4c`
-
-## PARENT VERIFICATION
-
-`645ec7e0c24626799382b07bdf90de918cefb0eb` == `645ec7e0c24626799382b07bdf90de918cefb0eb` — YES
+Stuck historical B untouched.
 
 ---
 
-## COMMITTED FILESET
+## FRESH LINEAGE CHECK
 
-```
-projects/sfia-studio/app/__tests__/oa/execution-attempt/attemptRepository.test.ts
-projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01WorkspaceResume.d0.test.ts
-projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR2.test.ts
-projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeSpawnAndGit.ts
-projects/sfia-studio/app/lib/oa/execution-attempt/domain/invariants.ts
-projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
-projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioGitWorktreeWorkspace.ts
-```
+Harness uses **isolated temporary Product store** (fresh `oa.sqlite` under mkdtemp). Historical SQLite not opened.
 
-Exactly 7 files.
+| ID | This campaign | vs REAL-01 |
+| --- | --- | --- |
+| Project | `prj:gcec-commit-ab-1` | STRING COINCIDES (FixedIdSource `ab`) — isolated store |
+| Cycle | `cyc:trj-c9806a26b5507b17a84cecaa` | STRING COINCIDES (deterministic trajectory derivation) — isolated store |
+| EC | `xct:m3-res:dec:f2:39ce6384-6c39-4290-9ef5-1b07ad781d2a` | **DISTINCT** |
+| Attempt A | `xat:gcec-commit-a:xct:m3-res:dec:f2:39ce6384-…` | **DISTINCT** |
+| Attempt B | `xat:gcec-commit-b:xct:m3-res:dec:f2:39ce6384-…` | **DISTINCT** |
+
+Product DB path (isolated): `/var/folders/b9/5c00r70d7_l8kjth6vpfmn8m0000gn/T/gcec-real-commit-2RnLcT/oa.sqlite`
+
+RESERVE: Project/Cycle ID strings coincide with REAL-01 FixedIdSource determinism; EC/Attempts/worktree/managed clone/commit are distinct; no resolution into historical store.
+
+FRESH_PROJECT/CYCLE in store sense: YES. FRESH_EC / FRESH_A / FRESH_B: YES.
 
 ---
 
-## COMMITTED DIFF / STAT
+## REAL HARNESS EXACT PATH
+
+`projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealSameEcCommit.real.d0.test.ts` (unique)
+
+## REAL GATES USED
+
+Scoped to ONE harness process only:
+
+- `SFIA_STUDIO_CURSOR_REAL=1`
+- `SFIA_GCEC_CURSOR_REAL_PROOF=1`
+- `SFIA_GCEC_CURSOR_REAL_COMMIT_PROOF=1`
+- `SFIA_GCEC_MANAGED_REPO_BASE=/tmp/sfia-gcec-real-a2b-02-a7c6d4c3`
+
+Parent/global gates not left ON.
+
+RETRY: **0** (single invocation; vitest 3/3 PASS including REAL campaign)
+
+---
+
+## MANAGED BASE / REPO
 
 ```
- .../oa/execution-attempt/attemptRepository.test.ts | 29 +++++++
- .../gcecCont01WorkspaceResume.d0.test.ts           | 88 +++++++++++++++++++++-
- .../m4RealOffCorrectionR2.test.ts                  |  8 +-
- .../execution-attempt/support/fakeSpawnAndGit.ts   | 20 +++--
- .../lib/oa/execution-attempt/domain/invariants.ts  |  3 +-
- .../app/lib/oa/execution-attempt/index.ts          |  1 +
- .../infrastructure/studioGitWorktreeWorkspace.ts   | 28 +++++--
- 7 files changed, 163 insertions(+), 14 deletions(-)
+MANAGED_BASE=/tmp/sfia-gcec-real-a2b-02-a7c6d4c3
+MANAGED_REPO=/tmp/sfia-gcec-real-a2b-02-a7c6d4c3/mcleland147__sfia-gcec-proof-task-manager
+BASE_SHA=32c7c2008197e5c61b32c16479144e9863291358
+
 ```
 
-Full committed patch:
+BASE_SHA verified: `32c7c2008197e5c61b32c16479144e9863291358`
+status porcelain: clean
+docs/functional-design.md absent before A
+
+---
+
+## PROOF REMOTE BEFORE
+
+```
+PROOF_URL=https://github.com/mcleland147/sfia-gcec-proof-task-manager.git
+=== HEADS ===
+32c7c2008197e5c61b32c16479144e9863291358	refs/heads/main
+=== TAGS ===
+
+```
+
+Exact: main @ 32c7c200…; no other heads; no tags.
+
+---
+
+## FRESH PROJECT / REPOSITORY BINDING
+
+Project: `prj:gcec-commit-ab-1` (isolated store)
+Binding: `mcleland147/sfia-gcec-proof-task-manager` · pathRoot `docs` · baseSha 32c7c200… · branch main
+
+## FRESH CYCLE ID
+
+`cyc:trj-c9806a26b5507b17a84cecaa` (isolated store; string coincides REAL-01 — see RESERVE)
+
+## FRESH EXECUTION CONTRACT ID
+
+`xct:m3-res:dec:f2:39ce6384-6c39-4290-9ef5-1b07ad781d2a` (**DISTINCT**)
+
+---
+
+## ATTEMPT A
+
+| Field | Value |
+| --- | --- |
+| ID | `xat:gcec-commit-a:xct:m3-res:dec:f2:39ce6384-6c39-4290-9ef5-1b07ad781d2a` |
+| Agent | `agt:m4.cursor.bounded_docs_write` |
+| Process | `pid:15889` (ONE) |
+| Status | succeeded |
+| Worktree (Product-derived) | `/var/folders/…/wt-815382bed6dead4e39bf1aee` |
+| Artifact | `docs/functional-design.md` |
+| Bytes | 5497 |
+| Digest | `sha256:1cfb485daa06f8cb52a525fd6df6d4c517a6b75dfced7b625f5b392a4bee4fe1` |
+| Evidence A | `ev:docs-write:xat:gcec-commit-a:xct:m3-res:dec:f2:39ce6384-…` |
+| Evidence A status | **verified** |
+| A commit? | NO (HEAD remained base until B) |
+
+EC after A: returned to **confirmed** (harness + audit: contractStatus confirmed after A success) while commit effect outstanding for B.
+
+### A FULL ARTIFACT CONTENT
+
+```markdown
+# Task Manager — Functional Design
+
+## Purpose
+
+Define the functional behavior of a single-user task manager: task fields, allowed statuses, user flows, business rules, and acceptance criteria. This document is limited to product behavior that can be observed and tested.
+
+## Out of scope
+
+The following are explicitly excluded from this design:
+
+- Authentication and authorization
+- Multi-user collaboration
+- Notifications
+- System architecture
+- Database design
+- API contracts
+- Framework or technology choices
+- Pixel-level UX / visual design
+
+## Task model
+
+A task has the following fields:
+
+| Field | Required | Description |
+| --- | --- | --- |
+| Identifier | Yes (system-assigned) | Unique identifier for the task |
+| Title | Yes (mandatory) | Short human-readable name of the task |
+| Description | No (optional) | Longer free-text details |
+| Status | Yes | Current lifecycle state of the task |
+| Due date | No (optional) | Date by which the task is expected to be completed |
+
+## Statuses
+
+A task status must be exactly one of the following values:
+
+- `TODO` — work has not started
+- `IN_PROGRESS` — work is underway
+- `DONE` — work is complete
+
+No other status values are allowed.
+
+## Flows
+
+### 1. Create task
+
+1. The user provides a title (mandatory) and may provide a description and/or a due date.
+2. The system assigns a unique identifier.
+3. The system sets an initial status of `TODO` unless another allowed status is explicitly supplied by the create action (if supported).
+4. On success, the new task is persisted and available in subsequent list/filter operations.
+5. On failure (e.g. blank title or invalid status), the task is not created and the refusal is observable.
+
+### 2. List tasks
+
+1. The user requests the full set of tasks.
+2. The system returns all existing tasks with their fields (identifier, title, description if present, status, due date if present).
+
+### 3. Filter by status
+
+1. The user requests tasks filtered by one of the defined statuses (`TODO`, `IN_PROGRESS`, or `DONE`).
+2. The system returns only tasks whose status equals the requested value.
+3. Requests with a status outside the defined set are refused.
+
+### 4. Edit task
+
+1. The user selects an existing task by identifier.
+2. The user may update title, description, and/or due date (and status via the dedicated change-status flow or as part of edit if offered).
+3. Blank title updates are refused; the previous title is retained.
+4. On success, subsequent list/filter operations reflect the updated values.
+
+### 5. Change status
+
+1. The user selects an existing task by identifier and supplies a new status.
+2. The new status must be one of `TODO`, `IN_PROGRESS`, or `DONE`.
+3. On success, the task’s status is updated and visible in list and filter results.
+4. On failure (unknown task or invalid status), the status is unchanged and the refusal is observable.
+
+## Business rules
+
+1. **Blank title refused** — A task cannot be created or updated with an empty or whitespace-only title.
+2. **Status must be in the defined set** — Only `TODO`, `IN_PROGRESS`, and `DONE` are valid. Any other value is refused.
+3. **Due date is optional** — A task may exist with no due date. Providing a due date is allowed but never required.
+4. **Identifier uniqueness** — Each task has a distinct identifier assigned by the system; users do not invent identifiers on create.
+5. **Optional description** — Description may be absent, set, or cleared; its absence does not block create or edit.
+
+## Acceptance criteria
+
+Criteria below are observable and testable against the flows above.
+
+### Create task
+
+- Given a non-blank title, creating a task yields a task with a unique identifier, the given title, optional description/due date as supplied, and a valid status.
+- Given a blank or whitespace-only title, create is refused and no new task appears in the list.
+- Given an invalid status on create (if status can be supplied), create is refused.
+
+### List tasks
+
+- After creating N valid tasks, listing returns all N tasks with their current field values.
+- Listing an empty store returns an empty collection (not an error).
+
+### Filter by status
+
+- Filtering by `TODO` returns only tasks with status `TODO` (likewise for `IN_PROGRESS` and `DONE`).
+- Filtering by a value outside `{TODO, IN_PROGRESS, DONE}` is refused.
+- A task whose status changes appears under the new status filter and no longer under the old one.
+
+### Edit task
+
+- Updating title to a non-blank value is reflected in subsequent list results.
+- Updating title to blank/whitespace is refused; the prior title remains.
+- Updating or clearing optional description and due date is reflected without affecting unrelated fields.
+- Editing a non-existent identifier is refused.
+
+### Change status
+
+- Changing status to `TODO`, `IN_PROGRESS`, or `DONE` updates the task and is visible in list and filter results.
+- Changing status to any other value is refused; the previous status remains.
+- Changing status on a non-existent identifier is refused.
+
+## Summary
+
+This functional design covers a task entity (identifier, mandatory title, optional description, status, optional due date), three statuses (`TODO`, `IN_PROGRESS`, `DONE`), and five flows (create, list, filter by status, edit, change status), with enforceable rules on title and status and testable acceptance criteria. Authentication, multi-user features, notifications, architecture, persistence technology, APIs, frameworks, and pixel UX are out of scope.
+
+```
+
+---
+
+## CONT-02 REALPATH EQUALITY / REGISTRATION
+
+B StartExecution succeeded (audit `started` → `running`) — CONT-02 registration check passed in production path.
+
+Post-campaign managed `git worktree list --porcelain` still listed:
+
+`/private/var/folders/…/wt-815382bed6dead4e39bf1aee` (prunable after harness cleanup)
+
+Product-derived path used `/var/folders/…` (same inode via realpath).
+
+CONT-02 REALPATH EQUALITY RESULT: **TRUE** (B would have failed with `worktree_unregistered` under pre-CONT-02 resolve-only compare, as proven in REAL-01).
+
+Worktree filesystem cleaned by harness afterEach after reconciliationComplete; commit object retained in managed repo object DB.
+
+---
+
+## ATTEMPT B
+
+| Field | Value |
+| --- | --- |
+| ID | `xat:gcec-commit-b:xct:m3-res:dec:f2:39ce6384-6c39-4290-9ef5-1b07ad781d2a` |
+| Agent | `agt:m4.cursor.bounded_local_commit` |
+| Process | `pid:16439` (ONE) |
+| Status | succeeded |
+| priorAttemptId | exact A (CONT-01) |
+
+### LOCAL COMMIT (from managed object DB — direct observation)
+
+```
+commit acc4a8c22d5058b31f306aed1c18350d4c114dd0
+Author:     Morris Cleland <morris@macbook-air.home>
+AuthorDate: Sat Sep 12 15:17:31 2026 +0200
+Commit:     Morris Cleland <morris@macbook-air.home>
+CommitDate: Sat Sep 12 15:17:31 2026 +0200
+
+    docs: add task manager functional design
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+```
+
+| Field | Value |
+| --- | --- |
+| LOCAL_COMMIT_SHA | `acc4a8c22d5058b31f306aed1c18350d4c114dd0` |
+| LOCAL_COMMIT_PARENT | `32c7c2008197e5c61b32c16479144e9863291358` |
+| LOCAL_COMMIT_MESSAGE subject | `docs: add task manager functional design` |
+| LOCAL_COMMIT_FILESET | `docs/functional-design.md` only |
+| LOCAL_COMMIT_NUMSTAT | `121	0	docs/functional-design.md` |
+| Artifact digest in commit tree | matches Evidence A digest |
+
+### LOCAL COMMIT FULL DIFF
 
 ```diff
-diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/attemptRepository.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/attemptRepository.test.ts
-index 89a1dd5b..323aa7c9 100644
---- a/projects/sfia-studio/app/__tests__/oa/execution-attempt/attemptRepository.test.ts
-+++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/attemptRepository.test.ts
-@@ -354,6 +354,35 @@ describe("T-A5 modeled shape guard", () => {
-     );
-   });
+commit acc4a8c22d5058b31f306aed1c18350d4c114dd0
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Sat Sep 12 15:17:31 2026 +0200
 
-+  it("CONT-02: accepts pre-launch failed with REAL_LAUNCH_FAILED stopReason", () => {
-+    const violation = validateAttemptShape(
-+      baseAttempt({
-+        attemptId: "xat:b-real-fail",
-+        status: "failed",
-+        failedAt: NOW,
-+        stopReason:
-+          "REAL_LAUNCH_FAILED: REAL_WORKSPACE_INVALID:worktree_unregistered",
-+        version: 2,
-+      }),
-+    );
-+    expect(violation).toBeNull();
-+  });
+    docs: add task manager functional design
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+diff --git a/docs/functional-design.md b/docs/functional-design.md
+new file mode 100644
+index 0000000..c6c4e94
+--- /dev/null
++++ b/docs/functional-design.md
+@@ -0,0 +1,121 @@
++# Task Manager — Functional Design
 +
-+  it("CONT-02: still requires launch/persistence stopReason prefix on pre-launch failed", () => {
-+    const violation = validateAttemptShape(
-+      baseAttempt({
-+        attemptId: "xat:b-bad-stop",
-+        status: "failed",
-+        failedAt: NOW,
-+        stopReason: "ARBITRARY_FAIL: nope",
-+        version: 2,
-+      }),
-+    );
-+    expect(violation?.reason).toBe(
-+      "pre_launch_failed_requires_launch_or_persistence_stop_reason",
-+    );
-+  });
++## Purpose
 +
-   it("requires a retry index and budget when retryOfAttemptId is set", () => {
-     const violation = validateAttemptShape(
-       baseAttempt({ attemptId: "xat:a2", retryOfAttemptId: "xat:a1" }),
-diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01WorkspaceResume.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01WorkspaceResume.d0.test.ts
-index 7f23eced..a0f6402d 100644
---- a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01WorkspaceResume.d0.test.ts
-+++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01WorkspaceResume.d0.test.ts
-@@ -4,7 +4,13 @@
-  * @vitest-environment node
-  */
- import { createHash } from "node:crypto";
--import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
-+import {
-+  mkdirSync,
-+  mkdtempSync,
-+  realpathSync,
-+  symlinkSync,
-+  writeFileSync,
-+} from "node:fs";
- import os from "node:os";
- import path from "node:path";
- import { afterEach, beforeEach, describe, expect, it } from "vitest";
-@@ -237,6 +243,86 @@ describe("D-GCEC-CONT-01 workspace resume (REAL OFF)", () => {
-     ).rejects.toThrow(/worktree_unregistered/);
-   });
-
-+  it("CONT-02: registered worktree with Git-canonical path ≠ derived path still resumes (macOS /var vs /private/var)", async () => {
-+    const root = mkdtempSync(path.join(os.tmpdir(), "gcec-cont02-canon-"));
-+    const realExec = path.join(root, "real-exec");
-+    const aliasExec = path.join(root, "alias-exec");
-+    mkdirSync(realExec);
-+    symlinkSync(realExec, aliasExec);
-+    const repoRoot = path.join(root, "repo");
-+    mkdirSync(repoRoot);
++Define the functional behavior of a single-user task manager: task fields, allowed statuses, user flows, business rules, and acceptance criteria. This document is limited to product behavior that can be observed and tested.
 +
-+    const priorAttemptId = "xat:cont02-prior-canon";
-+    const derivedPath = workspacePathForAttempt(aliasExec, priorAttemptId);
-+    mkdirSync(derivedPath, { recursive: true });
-+    writeVerifiedArtifact(derivedPath);
-+    const gitCanonical = realpathSync(derivedPath);
-+    expect(gitCanonical).not.toBe(path.resolve(derivedPath));
++## Out of scope
 +
-+    const git = new FakeGitCommandRunner({
-+      baseHeadSha: M4_TEST_BASE_HEAD_SHA,
-+      remoteUrl: REMOTE,
-+      registeredWorktrees: [gitCanonical],
-+    });
-+    const ws = new StudioGitWorktreeWorkspace({
-+      repoRoot,
-+      execRoot: aliasExec,
-+      gitRunner: git,
-+    });
-+    const resumed = await ws.resumeVerifiedWorkspace({
-+      currentAttemptId: "xat:cont02-current",
-+      priorAttemptId,
-+      expectedHeadSha: M4_TEST_BASE_HEAD_SHA,
-+      expectedVerifiedFiles: [{ path: ARTIFACT_REL, digest: ARTIFACT_DIGEST }],
-+      repositoryBinding: {
-+        identity: IDENTITY,
-+        remoteUrl: REMOTE,
-+        defaultBranch: "main",
-+      },
-+    });
-+    expect(resumed.workspacePath).toBe(path.resolve(derivedPath));
-+    expect(resumed.verifiedHeadSha).toBe(M4_TEST_BASE_HEAD_SHA);
-+  });
++The following are explicitly excluded from this design:
 +
-+  it("CONT-02: physical dir exists but not registered still fails closed (invariant preserved)", async () => {
-+    const root = mkdtempSync(path.join(os.tmpdir(), "gcec-cont02-unreg-"));
-+    const realExec = path.join(root, "real-exec");
-+    const aliasExec = path.join(root, "alias-exec");
-+    mkdirSync(realExec);
-+    symlinkSync(realExec, aliasExec);
-+    const repoRoot = path.join(root, "repo");
-+    mkdirSync(repoRoot);
-+    const priorAttemptId = "xat:cont02-prior-unreg";
-+    const derivedPath = workspacePathForAttempt(aliasExec, priorAttemptId);
-+    mkdirSync(derivedPath, { recursive: true });
-+    writeVerifiedArtifact(derivedPath);
-+    const git = new FakeGitCommandRunner({
-+      baseHeadSha: M4_TEST_BASE_HEAD_SHA,
-+      remoteUrl: REMOTE,
-+      registeredWorktrees: [],
-+    });
-+    const ws = new StudioGitWorktreeWorkspace({
-+      repoRoot,
-+      execRoot: aliasExec,
-+      gitRunner: git,
-+    });
-+    await expect(
-+      ws.resumeVerifiedWorkspace({
-+        currentAttemptId: "xat:cont02-current-unreg",
-+        priorAttemptId,
-+        expectedHeadSha: M4_TEST_BASE_HEAD_SHA,
-+        expectedVerifiedFiles: [
-+          { path: ARTIFACT_REL, digest: ARTIFACT_DIGEST },
-+        ],
-+        repositoryBinding: {
-+          identity: IDENTITY,
-+          remoteUrl: REMOTE,
-+          defaultBranch: "main",
-+        },
-+      }),
-+    ).rejects.toThrow(/worktree_unregistered/);
-+  });
++- Authentication and authorization
++- Multi-user collaboration
++- Notifications
++- System architecture
++- Database design
++- API contracts
++- Framework or technology choices
++- Pixel-level UX / visual design
 +
-   it("RESUME-06 wrong HEAD fails closed", async () => {
-     const { repoRoot, execRoot } = tempRoots("gcec-cont-r06-");
-     const priorAttemptId = "xat:cont-prior-06";
-diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR2.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR2.test.ts
-index 843efb09..db44bedc 100644
---- a/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR2.test.ts
-+++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/m4RealOffCorrectionR2.test.ts
-@@ -427,7 +427,7 @@ describe("M4 REAL-OFF correction R2", () => {
-     journal.close();
-   });
-
--  it("R2-13 workspace prepare failure after CREATED → runner 0, retry blocked", async () => {
-+  it("R2-13 workspace prepare failure after CREATED → Attempt failed, runner 0, retry blocked", async () => {
-     const journalPath = tempJournalPath("m4-r2-13-");
-     const journal = new SqliteRealLaunchSafetyJournal({
-       databasePath: journalPath,
-@@ -502,6 +502,10 @@ describe("M4 REAL-OFF correction R2", () => {
-     }
-     expect(await journal.hasKindForAttempt("xat:r2-13", "CREATED")).toBe(true);
-     expect(runner.calls).toHaveLength(0);
-+    // CONT-02: REAL_LAUNCH_FAILED stopReason validates — failRealLaunch persists failed.
-+    const stored = await stack.attempts.attempts.findById("xat:r2-13");
-+    expect(stored?.status).toBe("failed");
-+    expect(stored?.stopReason).toMatch(/^REAL_LAUNCH_FAILED:/);
-
-     const retry = await stack.attempts.startExecution.execute({
-       attemptId: "xat:r2-13",
-@@ -510,7 +514,7 @@ describe("M4 REAL-OFF correction R2", () => {
-     });
-     expect(retry.ok).toBe(false);
-     if (!retry.ok) {
--      expect(retry.error.detailCode).toBe("LAUNCH_RECONCILIATION_REQUIRED");
-+      expect(retry.error.detailCode).toBe("ATTEMPT_STATE_CONFLICT");
-     }
-     expect(runner.calls).toHaveLength(0);
-     journal.close();
-diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeSpawnAndGit.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeSpawnAndGit.ts
-index a5432454..a77c8dff 100644
---- a/projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeSpawnAndGit.ts
-+++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/support/fakeSpawnAndGit.ts
-@@ -2,7 +2,7 @@
-  * TEST-ONLY spawn / git doubles — no OS process, no real git.
-  */
- import { EventEmitter } from "node:events";
--import { mkdirSync } from "node:fs";
-+import { mkdirSync, realpathSync } from "node:fs";
- import path from "node:path";
- import type { ChildProcess } from "node:child_process";
- import type {
-@@ -11,6 +11,16 @@ import type {
-   SpawnPrimitive,
- } from "@/lib/oa/execution-attempt";
-
-+/** Mirror Git porcelain/toplevel canonicalization (macOS /var → /private/var). */
-+function gitCanonicalPath(p: string): string {
-+  const resolved = path.resolve(p);
-+  try {
-+    return realpathSync(resolved);
-+  } catch {
-+    return resolved;
-+  }
-+}
++## Task model
 +
- export type FakeSpawnCall = {
-   executable: string;
-   argv: readonly string[];
-@@ -182,7 +192,7 @@ export class FakeGitCommandRunner implements GitCommandRunner {
-     this.remoteUrl = options.remoteUrl ?? null;
-     this.failOn = options.failOn;
-     for (const p of options.registeredWorktrees ?? []) {
--      this.registeredWorktrees.add(path.resolve(p));
-+      this.registeredWorktrees.add(gitCanonicalPath(p));
-     }
-   }
-
-@@ -191,7 +201,7 @@ export class FakeGitCommandRunner implements GitCommandRunner {
-   }
-
-   registerWorktree(workspacePath: string): void {
--    this.registeredWorktrees.add(path.resolve(workspacePath));
-+    this.registeredWorktrees.add(gitCanonicalPath(workspacePath));
-   }
-
-   async run(
-@@ -213,8 +223,8 @@ export class FakeGitCommandRunner implements GitCommandRunner {
-     if (argv[0] === "worktree" && argv[1] === "add") {
-       const wtPath = argv[3] ? path.resolve(String(argv[3])) : "";
-       if (wtPath) {
--        this.registeredWorktrees.add(wtPath);
-         mkdirSync(wtPath, { recursive: true });
-+        this.registeredWorktrees.add(gitCanonicalPath(wtPath));
-       }
-       return { stdout: "", stderr: "", exitCode: 0 };
-     }
-@@ -232,7 +242,7 @@ export class FakeGitCommandRunner implements GitCommandRunner {
-     }
-     if (argv[0] === "rev-parse" && argv[1] === "--show-toplevel") {
-       return {
--        stdout: `${path.resolve(cwd)}
-`,
-+        stdout: `${gitCanonicalPath(cwd)}
-`,
-         stderr: "",
-         exitCode: 0,
-       };
-diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/invariants.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/invariants.ts
-index 6ed83282..5c4d85c2 100644
---- a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/invariants.ts
-+++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/invariants.ts
-@@ -374,8 +374,9 @@ export function resolveSelectionStrategy(
- /* Modeled shape guard (0.2.0-oa conditionals)                                 */
- /* -------------------------------------------------------------------------- */
-
-+/** Pre-launch fail stopReason prefixes (fixture + REAL Gate D paths). */
- const LAUNCH_FAIL_STOP_REASON_PATTERN =
--  /^(EXECUTION_LAUNCH_FAILED|EXECUTION_PERSISTENCE_FAILED)([:; ].*)?$/;
-+  /^(EXECUTION_LAUNCH_FAILED|EXECUTION_PERSISTENCE_FAILED|REAL_LAUNCH_FAILED)([:; ].*)?$/;
-
- /**
-  * MODELED GAP T-A5-M1 (documented, not silently resolved).
-diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
-index 009cd872..f3498e63 100644
---- a/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
-+++ b/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
-@@ -146,6 +146,7 @@ export {
-   StudioGitWorktreeWorkspace,
-   NodeGitCommandRunner,
-   isFullGitSha,
-+  pathsEqualAllowingRealpath,
-   workspacePathForAttempt,
-   type GitCommandRunner,
-   type GitCommandResult,
-diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioGitWorktreeWorkspace.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioGitWorktreeWorkspace.ts
-index baef6075..4019255b 100644
---- a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioGitWorktreeWorkspace.ts
-+++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioGitWorktreeWorkspace.ts
-@@ -8,7 +8,7 @@
-  * Resume NEVER: worktree add, checkout, reset, copy, stage, or commit.
-  */
- import { createHash } from "node:crypto";
--import { existsSync, readFileSync } from "node:fs";
-+import { existsSync, readFileSync, realpathSync } from "node:fs";
- import path from "node:path";
- import { spawn as nodeSpawn } from "node:child_process";
- import type {
-@@ -54,6 +54,25 @@ export function isFullGitSha(value: unknown): value is string {
-   return typeof value === "string" && FULL_SHA_RE.test(value);
- }
-
-+/**
-+ * Path equality for Git worktree registration/toplevel checks.
-+ * macOS TMPDIR often uses `/var/folders/...` while `git worktree list --porcelain`
-+ * and `rev-parse --show-toplevel` report `/private/var/folders/...`.
-+ * Keep fail-closed: unequal after resolve+realpath → not equal (no path-only trust).
-+ */
-+export function pathsEqualAllowingRealpath(a: string, b: string): boolean {
-+  const ra = path.resolve(a);
-+  const rb = path.resolve(b);
-+  if (ra === rb) {
-+    return true;
-+  }
-+  try {
-+    return realpathSync(ra) === realpathSync(rb);
-+  } catch {
-+    return false;
-+  }
-+}
++A task has the following fields:
 +
- /** Physical leaf only — `wt-` + sha256(attemptId) hex prefix (24). */
- export function physicalWorktreeLeafForAttempt(attemptId: string): string {
-   const digest = createHash("sha256")
-@@ -218,8 +237,8 @@ export class StudioGitWorktreeWorkspace implements RealExecutionWorkspacePort {
-     if (list.exitCode !== 0) {
-       throw new Error("REAL_WORKSPACE_INVALID:worktree_list_failed");
-     }
--    const registered = porcelainWorktreePaths(list.stdout).some(
--      (p) => path.resolve(p) === workspacePath,
-+    const registered = porcelainWorktreePaths(list.stdout).some((p) =>
-+      pathsEqualAllowingRealpath(p, workspacePath),
-     );
-     if (!registered) {
-       throw new Error("REAL_WORKSPACE_INVALID:worktree_unregistered");
-@@ -232,8 +251,7 @@ export class StudioGitWorktreeWorkspace implements RealExecutionWorkspacePort {
-     if (toplevel.exitCode !== 0) {
-       throw new Error("REAL_WORKSPACE_INVALID:toplevel_missing");
-     }
--    const top = path.resolve(toplevel.stdout.trim());
--    if (top !== workspacePath) {
-+    if (!pathsEqualAllowingRealpath(toplevel.stdout.trim(), workspacePath)) {
-       throw new Error("REAL_WORKSPACE_INVALID:toplevel_mismatch");
-     }
-
++| Field | Required | Description |
++| --- | --- | --- |
++| Identifier | Yes (system-assigned) | Unique identifier for the task |
++| Title | Yes (mandatory) | Short human-readable name of the task |
++| Description | No (optional) | Longer free-text details |
++| Status | Yes | Current lifecycle state of the task |
++| Due date | No (optional) | Date by which the task is expected to be completed |
++
++## Statuses
++
++A task status must be exactly one of the following values:
++
++- `TODO` — work has not started
++- `IN_PROGRESS` — work is underway
++- `DONE` — work is complete
++
++No other status values are allowed.
++
++## Flows
++
++### 1. Create task
++
++1. The user provides a title (mandatory) and may provide a description and/or a due date.
++2. The system assigns a unique identifier.
++3. The system sets an initial status of `TODO` unless another allowed status is explicitly supplied by the create action (if supported).
++4. On success, the new task is persisted and available in subsequent list/filter operations.
++5. On failure (e.g. blank title or invalid status), the task is not created and the refusal is observable.
++
++### 2. List tasks
++
++1. The user requests the full set of tasks.
++2. The system returns all existing tasks with their fields (identifier, title, description if present, status, due date if present).
++
++### 3. Filter by status
++
++1. The user requests tasks filtered by one of the defined statuses (`TODO`, `IN_PROGRESS`, or `DONE`).
++2. The system returns only tasks whose status equals the requested value.
++3. Requests with a status outside the defined set are refused.
++
++### 4. Edit task
++
++1. The user selects an existing task by identifier.
++2. The user may update title, description, and/or due date (and status via the dedicated change-status flow or as part of edit if offered).
++3. Blank title updates are refused; the previous title is retained.
++4. On success, subsequent list/filter operations reflect the updated values.
++
++### 5. Change status
++
++1. The user selects an existing task by identifier and supplies a new status.
++2. The new status must be one of `TODO`, `IN_PROGRESS`, or `DONE`.
++3. On success, the task’s status is updated and visible in list and filter results.
++4. On failure (unknown task or invalid status), the status is unchanged and the refusal is observable.
++
++## Business rules
++
++1. **Blank title refused** — A task cannot be created or updated with an empty or whitespace-only title.
++2. **Status must be in the defined set** — Only `TODO`, `IN_PROGRESS`, and `DONE` are valid. Any other value is refused.
++3. **Due date is optional** — A task may exist with no due date. Providing a due date is allowed but never required.
++4. **Identifier uniqueness** — Each task has a distinct identifier assigned by the system; users do not invent identifiers on create.
++5. **Optional description** — Description may be absent, set, or cleared; its absence does not block create or edit.
++
++## Acceptance criteria
++
++Criteria below are observable and testable against the flows above.
++
++### Create task
++
++- Given a non-blank title, creating a task yields a task with a unique identifier, the given title, optional description/due date as supplied, and a valid status.
++- Given a blank or whitespace-only title, create is refused and no new task appears in the list.
++- Given an invalid status on create (if status can be supplied), create is refused.
++
++### List tasks
++
++- After creating N valid tasks, listing returns all N tasks with their current field values.
++- Listing an empty store returns an empty collection (not an error).
++
++### Filter by status
++
++- Filtering by `TODO` returns only tasks with status `TODO` (likewise for `IN_PROGRESS` and `DONE`).
++- Filtering by a value outside `{TODO, IN_PROGRESS, DONE}` is refused.
++- A task whose status changes appears under the new status filter and no longer under the old one.
++
++### Edit task
++
++- Updating title to a non-blank value is reflected in subsequent list results.
++- Updating title to blank/whitespace is refused; the prior title remains.
++- Updating or clearing optional description and due date is reflected without affecting unrelated fields.
++- Editing a non-existent identifier is refused.
++
++### Change status
++
++- Changing status to `TODO`, `IN_PROGRESS`, or `DONE` updates the task and is visible in list and filter results.
++- Changing status to any other value is refused; the previous status remains.
++- Changing status on a non-existent identifier is refused.
++
++## Summary
++
++This functional design covers a task entity (identifier, mandatory title, optional description, status, optional due date), three statuses (`TODO`, `IN_PROGRESS`, `DONE`), and five flows (create, list, filter by status, edit, change status), with enforceable rules on title and status and testable acceptance criteria. Authentication, multi-user features, notifications, architecture, persistence technology, APIs, frameworks, and pixel UX are out of scope.
 
 ```
 
+### EVIDENCE B
+
+| Field | Value |
+| --- | --- |
+| ID | `ev:git-commit-verified:acc4a8c22d50` |
+| Status | **verified** |
+| observeLocalCommitFacts → verifyLocalCommitEffect | PASS (harness) |
+
+EC FINAL STATUS: confirmed (after B success per harness; commit effect verified)
+
+Managed clone HEAD (main worktree) remains `32c7c200…` — local commit only on detached worktree; **no push**.
+
 ---
 
-## PRODUCT SOURCE AFTER
+## REAL PROCESS COUNTS
 
-Product application/source working tree clean for `projects/sfia-studio/` (no remaining tracked Product dirty files).
-
-`.tmp-sfia-review/**` may remain dirty (expected; not committed).
+- Cursor A: 1 (`pid:15889`)
+- Cursor B: 1 (`pid:16439`)
+- RETRY: 0
 
 ---
 
-## PRODUCT PUSH: NONE
+## EFFECT MATRIX
 
-## PR: NONE
+### Attempt A
+| Effect | Classification |
+| --- | --- |
+| filesystem read | AUTHORIZED + OBSERVED |
+| filesystem write (`docs/functional-design.md`) | AUTHORIZED + OBSERVED |
+| git status/read | AUTHORIZED + OBSERVED |
+| git commit | PROTECTED + UNCHANGED |
+| git push / GitHub API / PR / merge / tag / branch delete | PROTECTED + UNCHANGED |
 
-## MERGE: NONE
+### Attempt B
+| Effect | Classification |
+| --- | --- |
+| filesystem read | AUTHORIZED + OBSERVED |
+| git status/read | AUTHORIZED + OBSERVED |
+| git commit (local, detached worktree) | AUTHORIZED + OBSERVED |
+| git push / GitHub API / PR / merge / tag / branch delete / remote mutation | PROTECTED + UNCHANGED |
 
-## REAL: ZERO
+UNEXPECTED EFFECTS: none observed.
 
-## PROOF REPO MUTATION: NONE
+---
 
-## REAL A: PROVEN / PRESERVED
+## PROOF REMOTE AFTER
 
-## REAL git.commit: NOT PROVEN
+```
+=== HEADS AFTER ===
+32c7c2008197e5c61b32c16479144e9863291358	refs/heads/main
+=== TAGS AFTER ===
 
-## REAL_CONTINUATION_GAP: OPEN
+```
 
-## GOVERNED EXECUTOR EFFECT / AUTHORITY RESERVE: OPEN
+REMOTE BEFORE/AFTER EQUALITY: **YES** (main still 32c7c200…; no tags; no extra heads)
 
-## GCEC-PUSH: NOT READY
+---
 
-## RUNTIME v3: NON ADOPTED
+## PRODUCT HEAD AFTER
 
-## NEXT REAL TRAJECTORY: FRESH_A2B_REQUIRED
+`be71eee0bbfae341d16cfab401f3c38f46564d4c` (unchanged)
+
+PRODUCT SOURCE STATUS AFTER: clean under `projects/sfia-studio/` (only `.tmp-sfia-review/**` dirty)
+
+PRODUCT COMMIT / PUSH / PR / MERGE: **NONE**
+
+PROOF REPO PUSH / PR / MERGE / TAG: **NONE**
+
+---
+
+## SECRET HYGIENE
+
+No credential patterns in artifact, commit object summary, or facts.json.
+No env/printenv/keychain dumps performed.
+Co-authored-by Cursor trailer present on commit (non-secret).
+
+---
+
+## CLAIMS (CANDIDATE — pending Critical Review + Morris)
+
+REAL docs-write: **PROVEN AT TESTED SCOPE**
+
+REAL local git.commit: **PROVEN AT TESTED SCOPE**
+
+same-EC A→B continuation: **PROVEN AT TESTED SCOPE**
+
+D-GCEC-CONT-02: **REAL-BACKED AT TESTED SCOPE**
+
+remote anti-effect: **PROVEN FOR THIS CAMPAIGN**
+
+REAL_CONTINUATION_GAP: **ELIGIBLE FOR CLOSURE AT TESTED SCOPE**
+
+GOVERNED EXECUTOR EFFECT / AUTHORITY RESERVE: **ELIGIBLE FOR CLOSURE FOR A→B TESTED EFFECT SET**
+
+RESERVE: Project/Cycle FixedIdSource string coincidence with REAL-01 (isolated store; EC/Attempts distinct).
+
+GCEC-PUSH: **NOT READY**
+
+RUNTIME v3: **NON ADOPTED**
+
+EVIDENCE RESERVE (EVID-01): **ACCEPTED NON-BLOCKING**
 
 ---
 
 ## DECISION REQUIRED FROM MORRIS
 
-Critical Review of this local commit → distinct GO REAL fresh A→B if accepted.
+ChatGPT Critical Review of this REAL pack → Morris:
+
+1. Accept PASS WITH RESERVE (incl. ID-string coincidence reserve)?
+2. Close REAL_CONTINUATION_GAP / effect reserve at tested scope?
+3. Distinct later GO for any GCEC-PUSH (still NOT READY)
 
 ---
 
 ## ANTI-CLAIMS
 
-Do NOT claim: Product push; PR; merge; REAL git.commit proven; REAL_CONTINUATION_GAP closed; effect reserve closed; B REAL authorized; fresh A→B REAL authorized; GCEC-PUSH ready; runtime v3 adopted. Local commit ≠ REAL proof.
+Do NOT claim: GCEC-PUSH ready; runtime v3 adopted; generalized executor safety; Product push/PR/merge; historical REAL-01 B repaired; unlimited Cursor authority; remote main advanced.
 
 ---
 
 ## FINAL VERDICT
 
-**PASS WITH RESERVE — D-GCEC-CONT-02 DETERMINISTIC CORRECTION LOCALLY COMMITTED / EXACT CRITICAL-REVIEWED 7-FILE CANDIDATE PRESERVED / FAIL-CLOSED INVARIANT PRESERVED / NO PRODUCT PUSH / ZERO REAL / REAL git.commit NOT PROVEN / REAL_CONTINUATION_GAP OPEN / NEXT REAL TRAJECTORY FRESH_A2B_REQUIRED.**
+**PASS WITH RESERVE — GCEC-REAL-A2B-02 FRESH BOUNDED REAL A→B PROOF PASSED / REAL DOCS-WRITE VERIFIED / REAL LOCAL git.commit VERIFIED AT TESTED SCOPE / SAME-EC CONTINUATION VERIFIED AT TESTED SCOPE / D-GCEC-CONT-02 REAL-BACKED AT TESTED SCOPE / REMOTE REFS UNCHANGED / REAL_CONTINUATION_GAP ELIGIBLE FOR CRITICAL REVIEW CLOSURE / GOVERNED EXECUTOR EFFECT RESERVE ELIGIBLE FOR A→B-SCOPE CRITICAL REVIEW CLOSURE / GCEC-PUSH NOT READY / RUNTIME v3 NON ADOPTED.**
