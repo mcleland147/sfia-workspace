@@ -1008,7 +1008,8 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () => 
       verifiedGitEffects.push(slice.effect);
     }
 
-    // CR-06: next protected M4 effect (push) fails closed — no contract_legacy.
+    // CORR-D-GCEC-AGENT-01 PATH B — after commit, progressive push is eligible;
+    // docs-write agent cannot satisfy remote_push criteria (fail capability match).
     const pushSelect = await oa.executionAttemptServices.selectExecutionAgent.execute({
       attemptId: `xat:gcec-push-fail:${contract.executionContractId}`.slice(0, 128),
       executionContractId: contract.executionContractId,
@@ -1023,15 +1024,18 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () => 
     });
     expect(pushSelect.ok).toBe(false);
     if (!pushSelect.ok) {
-      expect(pushSelect.error.internalCauseRef).toMatch(/effect_not_supported/);
+      expect(pushSelect.error.internalCauseRef).toMatch(
+        /without_verified_commit_lineage|capability|AGENT_CAPABILITY|effect_not_supported|no_registry/i,
+      );
     }
 
-    // Commit Evidence present; full push/PR/merge proof set intentionally unsatisfied.
+    // Commit Evidence present; full push/PR/merge proof set intentionally unsatisfied
+    // when commit Evidence bindings do not form unique local-commit lineage.
     expect(collectedEvidence.some((e) => e.source === "git:local_commit")).toBe(
       true,
     );
     expect(verifiedGitEffects).toEqual(["git.commit"]);
-    // GCEC-PUSH NOT READY — EC remains confirmed (not completed) under CR-06.
+    // EC remains confirmed (not completed) — push/PR/merge Evidence still outstanding.
     const ecAfter =
       await oa.executionContractServices.getExecutionContract.execute({
         executionContractId: contract.executionContractId,

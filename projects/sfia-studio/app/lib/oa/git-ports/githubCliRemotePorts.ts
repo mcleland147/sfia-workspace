@@ -89,7 +89,7 @@ export class GithubCliRepositoryReadAdapter
         "--state",
         state,
         "--json",
-        "number,title,state,headRefOid,baseRefName,url",
+        "number,title,state,headRefOid,baseRefName,headRefName,url",
       ],
       this.cwd,
     );
@@ -101,6 +101,7 @@ export class GithubCliRepositoryReadAdapter
         state: string;
         headRefOid: string;
         baseRefName: string;
+        headRefName: string;
         url: string;
       }>;
       return rows.map((r) => ({
@@ -108,6 +109,7 @@ export class GithubCliRepositoryReadAdapter
         title: r.title,
         state: mapPrState(r.state),
         headSha: r.headRefOid,
+        headBranch: r.headRefName,
         baseBranch: r.baseRefName,
         url: r.url,
       }));
@@ -128,7 +130,7 @@ export class GithubCliRepositoryReadAdapter
         "--repo",
         input.repositoryRef,
         "--json",
-        "number,title,state,headRefOid,baseRefName,url,mergedAt",
+        "number,title,state,headRefOid,baseRefName,headRefName,baseRefOid,url,mergedAt",
       ],
       this.cwd,
     );
@@ -140,6 +142,8 @@ export class GithubCliRepositoryReadAdapter
         state: string;
         headRefOid: string;
         baseRefName: string;
+        headRefName: string;
+        baseRefOid?: string;
         url: string;
         mergedAt?: string | null;
       };
@@ -148,8 +152,10 @@ export class GithubCliRepositoryReadAdapter
         title: r.title,
         state: r.mergedAt ? "merged" : mapPrState(r.state),
         headSha: r.headRefOid,
+        headBranch: r.headRefName,
         baseBranch: r.baseRefName,
         url: r.url,
+        ...(r.baseRefOid ? { baseSha: r.baseRefOid } : {}),
       };
     } catch {
       return null;

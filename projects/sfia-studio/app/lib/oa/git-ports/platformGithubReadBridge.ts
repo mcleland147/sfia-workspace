@@ -76,6 +76,7 @@ export class PlatformGithubReadBridge
         title: r.title,
         state: mapPrState(r.state),
         headSha,
+        headBranch: r.headRef,
         baseBranch: r.baseRef,
         url: r.url,
       });
@@ -101,6 +102,7 @@ export class PlatformGithubReadBridge
         title: r.title,
         state: mapPrState(r.state),
         headSha,
+        headBranch: r.headRef,
         baseBranch: r.baseRef,
         url: r.url,
       };

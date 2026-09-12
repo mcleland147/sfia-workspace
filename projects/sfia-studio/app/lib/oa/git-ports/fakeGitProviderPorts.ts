@@ -128,6 +128,7 @@ export class FakeRepositoryReadPorts
           title: `PR #${p.number}`,
           state: p.state,
           headSha: p.headSha,
+          headBranch: p.headBranch ?? "",
           baseBranch: p.base,
           url: `https://github.com/fake/repo/pull/${p.number}`,
         }))
@@ -158,6 +159,7 @@ export class FakeRepositoryReadPorts
       title: `PR #${p.number}`,
       state: p.state,
       headSha: p.headSha,
+      headBranch: p.headBranch ?? "",
       baseBranch: p.base,
       url: `https://github.com/fake/repo/pull/${p.number}`,
     };

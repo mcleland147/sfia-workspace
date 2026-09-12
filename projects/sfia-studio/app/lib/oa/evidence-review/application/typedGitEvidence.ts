@@ -50,7 +50,12 @@ export type GitPullRequestPayload = {
   url?: string;
   headSha: string;
   baseSha?: string;
-  state?: "open" | "closed" | "merged";
+  /** Required for GCEC verify path (CR-03). */
+  headBranch: string;
+  /** Required for GCEC verify path (CR-03). */
+  baseBranch: string;
+  /** Required for GCEC verify path — create path must be "open". */
+  state: "open" | "closed" | "merged";
 };
 
 export type GitCiStatusPayload = {
@@ -173,6 +178,18 @@ export function validateTypedGitEvidencePayload(
       if (!isFullSha(p.headSha)) {
         return { ok: false, reason: "head_sha_invalid" };
       }
+      if (!isNonEmptyString(p.headBranch)) {
+        return { ok: false, reason: "head_branch_required" };
+      }
+      if (!isNonEmptyString(p.baseBranch)) {
+        return { ok: false, reason: "base_branch_required" };
+      }
+      if (p.state !== "open" && p.state !== "closed" && p.state !== "merged") {
+        return { ok: false, reason: "pr_state_required" };
+      }
+      if (p.baseSha !== undefined && !isFullSha(p.baseSha)) {
+        return { ok: false, reason: "base_sha_invalid" };
+      }
       return { ok: true };
     case "git:ci_status":
       if (!isNonEmptyString(p.repositoryRef) || !isFullSha(p.commitSha)) {
@@ -275,9 +292,11 @@ export function buildTypedGitEvidenceFields<S extends TypedGitEvidenceSource>(
       location =
         `git:pull_request?repo=${encodeURIComponent(pr.repositoryRef)}` +
         `&prNumber=${encodeURIComponent(String(pr.prNumber))}` +
-        (pr.headSha
-          ? `&headSha=${encodeURIComponent(pr.headSha)}`
-          : "");
+        `&headSha=${encodeURIComponent(pr.headSha)}` +
+        `&headBranch=${encodeURIComponent(pr.headBranch)}` +
+        `&baseBranch=${encodeURIComponent(pr.baseBranch)}` +
+        `&state=${encodeURIComponent(pr.state)}` +
+        (pr.baseSha ? `&baseSha=${encodeURIComponent(pr.baseSha)}` : "");
       break;
     }
     case "git:ci_status": {

@@ -38,6 +38,9 @@ import {
   createM4BoundedReadOnlyCursorAgentDescriptor,
   createM4BoundedDocsWriteCursorAgentDescriptor,
   createM4BoundedLocalCommitCursorAgentDescriptor,
+  createM4BoundedRemotePushCursorAgentDescriptor,
+  createM4BoundedPrCreateCursorAgentDescriptor,
+  createM4BoundedPrMergeCursorAgentDescriptor,
   isStudioCursorRealEnabled,
   type ExecutionAttemptServices,
   type RealBoundaryWiring,
@@ -410,6 +413,9 @@ function wireOaStack(
         createM4BoundedReadOnlyCursorAgentDescriptor(clock.nowIso()),
         createM4BoundedDocsWriteCursorAgentDescriptor(clock.nowIso()),
         createM4BoundedLocalCommitCursorAgentDescriptor(clock.nowIso()),
+        createM4BoundedRemotePushCursorAgentDescriptor(clock.nowIso()),
+        createM4BoundedPrCreateCursorAgentDescriptor(clock.nowIso()),
+        createM4BoundedPrMergeCursorAgentDescriptor(clock.nowIso()),
       ]
     : [fixtureAgent, w3aBoundedAgent];
   const registry = new MemoryAgentRegistry(agents);

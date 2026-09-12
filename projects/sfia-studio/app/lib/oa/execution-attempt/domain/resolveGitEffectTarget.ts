@@ -61,10 +61,12 @@ function branchFromContractInputs(
 }
 
 /**
- * Extract a single trustworthy PR number from VERIFIED git:pull_request Evidence
+ * Extract a single trustworthy PR identity from VERIFIED git:pull_request Evidence
  * bound to the same project / cycle / EC / repository.
  * Fail closed when zero or ambiguous.
- * CR-GCEC-23H-C — repository identity MUST be present and exact (no repo → reject).
+ * AC-04 — complete identity required for eligibility:
+ * repo + prNumber + state + headBranch + headSha + baseBranch (baseSha optional).
+ * Same prNumber with differing identity fields → ambiguous.
  */
 export function resolveVerifiedPullRequestNumber(input: {
   evidence: readonly Evidence[];
@@ -72,8 +74,29 @@ export function resolveVerifiedPullRequestNumber(input: {
   cycleInstanceId?: string;
   executionContractId: string;
   repositoryRef: string;
-}): { ok: true; prNumber: number } | { ok: false; reason: string } {
-  const matches: number[] = [];
+}):
+  | {
+      ok: true;
+      prNumber: number;
+      repositoryRef: string;
+      headSha: string;
+      headBranch: string;
+      baseBranch: string;
+      state: string;
+      baseSha?: string;
+    }
+  | { ok: false; reason: string } {
+  type CompleteIdentity = {
+    repositoryRef: string;
+    prNumber: number;
+    state: string;
+    headBranch: string;
+    headSha: string;
+    baseBranch: string;
+    baseSha?: string;
+  };
+  const FULL_SHA_RE = /^[0-9a-f]{40}$/i;
+  const matches: CompleteIdentity[] = [];
   for (const e of input.evidence) {
     if (e.status !== "verified") continue;
     if (e.source !== "git:pull_request") continue;
@@ -93,24 +116,83 @@ export function resolveVerifiedPullRequestNumber(input: {
     }
     const loc = typeof e.location === "string" ? e.location : "";
     const repoMatch = loc.match(/[?&]repo=([^&]+)/);
-    // CR-GCEC-23H-C — repository identity is mandatory; absent ⇒ ineligible.
     if (!repoMatch) continue;
-    const repo = decodeURIComponent(repoMatch[1]!);
-    if (!repo.trim() || repo !== input.repositoryRef) continue;
+    const repo = decodeURIComponent(repoMatch[1]!).trim();
+    if (!repo || repo !== input.repositoryRef) continue;
     const prMatch = loc.match(/[?&]prNumber=([^&]+)/);
     if (!prMatch) continue;
     const n = Number(decodeURIComponent(prMatch[1]!));
     if (!Number.isInteger(n) || n < 1) continue;
-    matches.push(n);
+    const headShaMatch = loc.match(/[?&]headSha=([^&]+)/);
+    const headBranchMatch = loc.match(/[?&]headBranch=([^&]+)/);
+    const baseBranchMatch = loc.match(/[?&]baseBranch=([^&]+)/);
+    const stateMatch = loc.match(/[?&]state=([^&]+)/);
+    if (!headShaMatch || !headBranchMatch || !baseBranchMatch || !stateMatch) {
+      continue;
+    }
+    const headSha = decodeURIComponent(headShaMatch[1]!).trim().toLowerCase();
+    const headBranch = decodeURIComponent(headBranchMatch[1]!).trim();
+    const baseBranch = decodeURIComponent(baseBranchMatch[1]!).trim();
+    const state = decodeURIComponent(stateMatch[1]!).trim();
+    if (!FULL_SHA_RE.test(headSha) || !headBranch || !baseBranch || !state) {
+      continue;
+    }
+    const baseShaMatch = loc.match(/[?&]baseSha=([^&]+)/);
+    const baseSha = baseShaMatch
+      ? decodeURIComponent(baseShaMatch[1]!).trim().toLowerCase()
+      : undefined;
+    if (baseSha != null && baseSha !== "" && !FULL_SHA_RE.test(baseSha)) {
+      continue;
+    }
+    matches.push({
+      repositoryRef: repo,
+      prNumber: n,
+      state,
+      headBranch,
+      headSha,
+      baseBranch,
+      ...(baseSha ? { baseSha } : {}),
+    });
   }
-  const unique = [...new Set(matches)];
+
+  // Deduplicate exact identical complete identities.
+  const identityKey = (m: CompleteIdentity) =>
+    [
+      m.repositoryRef,
+      m.prNumber,
+      m.state,
+      m.headBranch,
+      m.headSha,
+      m.baseBranch,
+      m.baseSha ?? "",
+    ].join("\0");
+  const uniqueByKey = new Map<string, CompleteIdentity>();
+  for (const m of matches) {
+    uniqueByKey.set(identityKey(m), m);
+  }
+  const unique = [...uniqueByKey.values()];
   if (unique.length === 0) {
     return { ok: false, reason: "verified_pull_request_identity_missing" };
   }
-  if (unique.length > 1) {
+  const uniqueNumbers = [...new Set(unique.map((m) => m.prNumber))];
+  if (uniqueNumbers.length > 1) {
     return { ok: false, reason: "verified_pull_request_identity_ambiguous" };
   }
-  return { ok: true, prNumber: unique[0]! };
+  if (unique.length > 1) {
+    // Same prNumber with differing headSha / headBranch / baseBranch / state / repo.
+    return { ok: false, reason: "verified_pull_request_identity_ambiguous" };
+  }
+  const chosen = unique[0]!;
+  return {
+    ok: true,
+    prNumber: chosen.prNumber,
+    repositoryRef: chosen.repositoryRef,
+    headSha: chosen.headSha,
+    headBranch: chosen.headBranch,
+    baseBranch: chosen.baseBranch,
+    state: chosen.state,
+    ...(chosen.baseSha ? { baseSha: chosen.baseSha } : {}),
+  };
 }
 
 /**

@@ -291,6 +291,12 @@ export async function verifyPullRequestClaim(input: {
   repositoryRef: string;
   claimedPrNumber: number;
   claimedHeadSha: string;
+  /** Optional expected head branch — fail closed on mismatch when provided. */
+  expectedHeadBranch?: string;
+  /** Optional expected base branch — fail closed on mismatch when provided. */
+  expectedBaseBranch?: string;
+  /** Optional expected head SHA — fail closed on mismatch when provided (GCEC). */
+  expectedHeadSha?: string;
   bindings: GitVerifyBindings;
   actor: GitVerifyActor;
   nowIso?: string;
@@ -301,6 +307,8 @@ export async function verifyPullRequestClaim(input: {
       status: "verified";
       prNumber: number;
       headSha: string;
+      headBranch: string;
+      baseBranch: string;
     }
   | { ok: false; reason: string; status: "reported" | "failed" }
 > {
@@ -311,8 +319,43 @@ export async function verifyPullRequestClaim(input: {
   if (!pr) {
     return { ok: false, reason: "pr_not_found", status: "reported" };
   }
+  if (pr.state === "merged") {
+    return { ok: false, reason: "pr_state_merged", status: "failed" };
+  }
+  if (pr.state === "closed" || pr.state !== "open") {
+    return { ok: false, reason: "pr_state_not_open", status: "failed" };
+  }
   if (pr.headSha.toLowerCase() !== input.claimedHeadSha.toLowerCase()) {
     return { ok: false, reason: "pr_head_mismatch", status: "failed" };
+  }
+  if (
+    input.expectedHeadSha != null &&
+    input.expectedHeadSha.trim() &&
+    pr.headSha.toLowerCase() !== input.expectedHeadSha.trim().toLowerCase()
+  ) {
+    return { ok: false, reason: "pr_expected_head_sha_mismatch", status: "failed" };
+  }
+  const headBranch = pr.headBranch?.trim() ?? "";
+  const baseBranch = pr.baseBranch?.trim() ?? "";
+  if (!headBranch) {
+    return { ok: false, reason: "pr_head_branch_missing", status: "failed" };
+  }
+  if (!baseBranch) {
+    return { ok: false, reason: "pr_base_branch_missing", status: "failed" };
+  }
+  if (
+    input.expectedHeadBranch != null &&
+    input.expectedHeadBranch.trim() &&
+    headBranch !== input.expectedHeadBranch.trim()
+  ) {
+    return { ok: false, reason: "pr_head_branch_mismatch", status: "failed" };
+  }
+  if (
+    input.expectedBaseBranch != null &&
+    input.expectedBaseBranch.trim() &&
+    baseBranch !== input.expectedBaseBranch.trim()
+  ) {
+    return { ok: false, reason: "pr_base_branch_mismatch", status: "failed" };
   }
   const evidenceId = `ev:git-pr-verified:${pr.number}`;
   const result = await registerAndVerify({
@@ -324,7 +367,10 @@ export async function verifyPullRequestClaim(input: {
       prNumber: pr.number,
       url: pr.url,
       headSha: pr.headSha,
-      state: pr.state,
+      headBranch,
+      baseBranch,
+      state: "open",
+      ...(pr.baseSha ? { baseSha: pr.baseSha } : {}),
     },
     bindings: input.bindings,
     actor: input.actor,
@@ -337,6 +383,8 @@ export async function verifyPullRequestClaim(input: {
     status: "verified",
     prNumber: pr.number,
     headSha: pr.headSha,
+    headBranch,
+    baseBranch,
   };
 }
 

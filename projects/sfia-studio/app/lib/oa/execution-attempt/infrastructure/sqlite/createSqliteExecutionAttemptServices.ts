@@ -75,6 +75,8 @@ export type CreateSqliteExecutionAttemptServicesOptions = {
     projectId: string,
   ) => Promise<import("@/lib/oa/project").ProjectRepositoryBinding | null>;
   listProjectEvidence?: import("../../domain/projectEvidenceList").ListProjectEvidenceFn;
+  /** CR-04 — optional RepositoryRead for merge fresh preflight. */
+  repositoryRead?: import("@/lib/oa/git-ports").RepositoryReadPort;
 };
 
 export type SqliteExecutionAttemptServices = {
@@ -194,6 +196,7 @@ export function createSqliteExecutionAttemptServices(
       realBoundary?.managedRepoRootBase,
       options.resolveProjectRepositoryBinding,
       options.listProjectEvidence,
+      options.repositoryRead,
     ),
     cancelExecutionAttempt: new CancelExecutionAttempt(
       attempts,

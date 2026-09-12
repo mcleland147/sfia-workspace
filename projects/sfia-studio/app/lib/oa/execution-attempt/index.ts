@@ -137,11 +137,25 @@ export {
   buildMutatingCursorConfinementEnv,
   isMutatingGcecCursorProfile,
   MUTATING_CURSOR_STRIPPED_ENV_KEYS,
+  resolveMutatingConfinementEffectClass,
+  MUTATING_CURSOR_REMOTE_GIT_PRESERVED_ENV_KEYS,
+  MUTATING_CURSOR_REMOTE_GITHUB_PRESERVED_ENV_KEYS,
   type CursorCliLaunchGatewayOptions,
   type StudioCursorRealLaunchGatewayOptions,
   type SpawnPrimitive,
   type NodeCursorProcessRunnerOptions,
+  type MutatingCursorConfinementEffectClass,
 } from "./infrastructure/cursorCliLaunchGateway";
+export {
+  assertLocalBranchRefMatchesExpectedSha,
+  assertRemoteUrlMatchesRepositoryRef,
+} from "./domain/assertLocalBranchRefMatchesExpectedSha";
+export { assertFreshPrMergePreflight } from "./domain/assertFreshPrMergePreflight";
+export type { FreshPrMergePreflightExpected } from "./domain/assertFreshPrMergePreflight";
+export {
+  assertCanonicalGithubRepositoryRef,
+  posixShellSingleQuote,
+} from "./domain/shellSafeArg";
 export {
   StudioGitWorktreeWorkspace,
   NodeGitCommandRunner,
@@ -185,6 +199,30 @@ export {
   M4_BOUNDED_LOCAL_COMMIT_SCOPE,
 } from "./infrastructure/m4BoundedLocalCommitCursorAgent";
 export {
+  createM4BoundedRemotePushCursorAgentDescriptor,
+  isM4BoundedRemotePushRealAgent,
+  M4_BOUNDED_REMOTE_PUSH_CAPABILITY,
+  M4_BOUNDED_REMOTE_PUSH_ACTION,
+  M4_BOUNDED_REMOTE_PUSH_TARGET,
+  M4_BOUNDED_REMOTE_PUSH_SCOPE,
+} from "./infrastructure/m4BoundedRemotePushCursorAgent";
+export {
+  createM4BoundedPrCreateCursorAgentDescriptor,
+  isM4BoundedPrCreateRealAgent,
+  M4_BOUNDED_PR_CREATE_CAPABILITY,
+  M4_BOUNDED_PR_CREATE_ACTION,
+  M4_BOUNDED_PR_CREATE_TARGET,
+  M4_BOUNDED_PR_CREATE_SCOPE,
+} from "./infrastructure/m4BoundedPrCreateCursorAgent";
+export {
+  createM4BoundedPrMergeCursorAgentDescriptor,
+  isM4BoundedPrMergeRealAgent,
+  M4_BOUNDED_PR_MERGE_CAPABILITY,
+  M4_BOUNDED_PR_MERGE_ACTION,
+  M4_BOUNDED_PR_MERGE_TARGET,
+  M4_BOUNDED_PR_MERGE_SCOPE,
+} from "./infrastructure/m4BoundedPrMergeCursorAgent";
+export {
   FakeDocsWriteLaunchPort,
   listRelativeFiles,
   sha256File,
@@ -211,6 +249,14 @@ export {
 export {
   resolveVerifiedDocsWritePriorAttempt,
 } from "./domain/resolveVerifiedDocsWritePriorAttempt";
+export {
+  resolveVerifiedLocalCommitPriorAttempt,
+  parseLocalCommitShaFromEvidenceLocation,
+} from "./domain/resolveVerifiedLocalCommitPriorAttempt";
+export {
+  resolveVerifiedRemotePushPriorAttempt,
+  parseRemotePushFromEvidenceLocation,
+} from "./domain/resolveVerifiedRemotePushPriorAttempt";
 export type {
   ProjectEvidenceListResult,
   ListProjectEvidenceFn,
@@ -231,11 +277,40 @@ export type {
   ResolveVerifiedDocsWritePriorAttemptInput,
   ResolveVerifiedDocsWritePriorAttemptResult,
 } from "./domain/resolveVerifiedDocsWritePriorAttempt";
+export type {
+  VerifiedLocalCommitPriorAttempt,
+  ResolveVerifiedLocalCommitPriorAttemptInput,
+  ResolveVerifiedLocalCommitPriorAttemptResult,
+} from "./domain/resolveVerifiedLocalCommitPriorAttempt";
+export type {
+  VerifiedRemotePushPriorAttempt,
+  ResolveVerifiedRemotePushPriorAttemptInput,
+  ResolveVerifiedRemotePushPriorAttemptResult,
+} from "./domain/resolveVerifiedRemotePushPriorAttempt";
 export {
   buildGitCommitLaunchSpec,
   deriveTrustedCommitMessage,
 } from "./domain/gitCommitLaunchSpec";
 export type { GitCommitLaunchSpec } from "./domain/gitCommitLaunchSpec";
+export {
+  buildGitPushLaunchSpec,
+  deriveDeterministicGcecPushBranch,
+  isBoundedGitPushOnlySlice,
+} from "./domain/gitPushLaunchSpec";
+export type { GitPushLaunchSpec } from "./domain/gitPushLaunchSpec";
+export {
+  buildGitPrCreateLaunchSpec,
+  isBoundedGitPrCreateOnlySlice,
+} from "./domain/gitPrCreateLaunchSpec";
+export type { GitPrCreateLaunchSpec } from "./domain/gitPrCreateLaunchSpec";
+export {
+  buildGitPrMergeLaunchSpec,
+  isBoundedGitPrMergeOnlySlice,
+} from "./domain/gitPrMergeLaunchSpec";
+export type {
+  GitPrMergeLaunchSpec,
+  GitPrMergeMethod,
+} from "./domain/gitPrMergeLaunchSpec";
 export {
   verifyLocalCommitFacts,
   isBoundedGitCommitOnlySlice,
@@ -254,6 +329,20 @@ export type {
   VerifyLocalCommitEffectInput,
   VerifyLocalCommitEffectResult,
 } from "./application/verifyLocalCommitEffect";
+export {
+  verifyRemotePushEffect,
+} from "./application/verifyRemotePushEffect";
+export type {
+  VerifyRemotePushEffectInput,
+  VerifyRemotePushEffectResult,
+} from "./application/verifyRemotePushEffect";
+export {
+  verifyPrCreateEffect,
+} from "./application/verifyPrCreateEffect";
+export type {
+  VerifyPrCreateEffectInput,
+  VerifyPrCreateEffectResult,
+} from "./application/verifyPrCreateEffect";
 export {
   observeLocalCommitFacts,
 } from "./application/observeLocalCommitFacts";
@@ -390,6 +479,8 @@ export type CreateInMemoryExecutionAttemptServicesOptions = {
    * CR-GCEC-23 — Evidence list for verified PR identity (may be late-bound).
    */
   listProjectEvidence?: import("./domain/projectEvidenceList").ListProjectEvidenceFn;
+  /** CR-04 — optional RepositoryRead for merge fresh preflight. */
+  repositoryRead?: import("@/lib/oa/git-ports").RepositoryReadPort;
 };
 
 /** Factory for the in-memory ExecutionAttempt runtime foundation. */
@@ -482,6 +573,7 @@ export function createInMemoryExecutionAttemptServices(
       realBoundary?.managedRepoRootBase,
       options.resolveProjectRepositoryBinding,
       options.listProjectEvidence,
+      options.repositoryRead,
     ),
     cancelExecutionAttempt: new CancelExecutionAttempt(
       attempts,

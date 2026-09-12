@@ -22,8 +22,33 @@ import {
   type RealProcessObservation,
 } from "@/lib/oa/execution-attempt";
 import { M4_BOUNDED_LOCAL_COMMIT_ACTION } from "./m4BoundedLocalCommitCursorAgent";
+import { M4_BOUNDED_REMOTE_PUSH_ACTION } from "./m4BoundedRemotePushCursorAgent";
+import { M4_BOUNDED_PR_CREATE_ACTION } from "./m4BoundedPrCreateCursorAgent";
+import { M4_BOUNDED_PR_MERGE_ACTION } from "./m4BoundedPrMergeCursorAgent";
+import {
+  M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
+  M4_BOUNDED_PR_CREATE_CURSOR_AGENT_ID,
+  M4_BOUNDED_PR_MERGE_CURSOR_AGENT_ID,
+  M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID,
+} from "../domain/realLaunchSafety";
 import { isBoundedGitCommitOnlySlice } from "../domain/verifyLocalCommitFacts";
 import { buildGitCommitLaunchSpec } from "../domain/gitCommitLaunchSpec";
+import {
+  buildGitPushLaunchSpec,
+  isBoundedGitPushOnlySlice,
+} from "../domain/gitPushLaunchSpec";
+import {
+  assertLocalBranchRefMatchesExpectedSha,
+  assertRemoteUrlMatchesRepositoryRef,
+} from "../domain/assertLocalBranchRefMatchesExpectedSha";
+import {
+  buildGitPrCreateLaunchSpec,
+  isBoundedGitPrCreateOnlySlice,
+} from "../domain/gitPrCreateLaunchSpec";
+import {
+  buildGitPrMergeLaunchSpec,
+  isBoundedGitPrMergeOnlySlice,
+} from "../domain/gitPrMergeLaunchSpec";
 import type {
   CursorAuthorizedEffectId,
   CursorExecutionReport,
@@ -154,6 +179,9 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
     }
     const { authorized, blocked } = resolveAuthorizedEffects(request);
     const wantsCommitProfile = Boolean(request.gitCommitSpec);
+    const wantsPushProfile = Boolean(request.gitPushSpec);
+    const wantsPrCreateProfile = Boolean(request.gitPrCreateSpec);
+    const wantsPrMergeProfile = Boolean(request.gitPrMergeSpec);
     if (wantsCommitProfile) {
       if (!isBoundedGitCommitOnlySlice([...authorized])) {
         return {
@@ -169,7 +197,7 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
         };
       }
       if (
-        request.selectedAgentRef !== "agt:m4.cursor.bounded_local_commit"
+        request.selectedAgentRef !== M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID
       ) {
         return {
           outcome: "reject",
@@ -213,12 +241,149 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
         };
       }
     }
+    if (wantsPushProfile) {
+      if (!isBoundedGitPushOnlySlice([...authorized])) {
+        return {
+          outcome: "reject",
+          gatewayId: this.gatewayId,
+          attemptId: request.attemptId,
+          reason: "git_push_slice_not_push_only",
+          realProcessInvoked: false,
+          detailCode: "REAL_AGENT_PROFILE_INVALID",
+        };
+      }
+      if (request.selectedAgentRef !== M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID) {
+        return {
+          outcome: "reject",
+          gatewayId: this.gatewayId,
+          attemptId: request.attemptId,
+          reason: "git_push_agent_capability_bypass",
+          realProcessInvoked: false,
+          detailCode: "REAL_AGENT_PROFILE_INVALID",
+        };
+      }
+      const revalidated = buildGitPushLaunchSpec({
+        repositoryRef: request.gitPushSpec!.repositoryRef,
+        remoteName: request.gitPushSpec!.remoteName,
+        branchName: request.gitPushSpec!.branchName,
+        expectedCommitSha: request.gitPushSpec!.expectedCommitSha,
+        force: false,
+        delete: false,
+        noTags: true,
+      });
+      if (!revalidated.ok) {
+        return {
+          outcome: "reject",
+          gatewayId: this.gatewayId,
+          attemptId: request.attemptId,
+          reason: revalidated.reason,
+          realProcessInvoked: false,
+          detailCode: "REAL_AGENT_PROFILE_INVALID",
+        };
+      }
+    }
+    if (wantsPrCreateProfile) {
+      if (!isBoundedGitPrCreateOnlySlice([...authorized])) {
+        return {
+          outcome: "reject",
+          gatewayId: this.gatewayId,
+          attemptId: request.attemptId,
+          reason: "git_pr_create_slice_not_create_only",
+          realProcessInvoked: false,
+          detailCode: "REAL_AGENT_PROFILE_INVALID",
+        };
+      }
+      if (request.selectedAgentRef !== M4_BOUNDED_PR_CREATE_CURSOR_AGENT_ID) {
+        return {
+          outcome: "reject",
+          gatewayId: this.gatewayId,
+          attemptId: request.attemptId,
+          reason: "git_pr_create_agent_capability_bypass",
+          realProcessInvoked: false,
+          detailCode: "REAL_AGENT_PROFILE_INVALID",
+        };
+      }
+      const revalidated = buildGitPrCreateLaunchSpec({
+        repositoryRef: request.gitPrCreateSpec!.repositoryRef,
+        headBranch: request.gitPrCreateSpec!.headBranch,
+        baseBranch: request.gitPrCreateSpec!.baseBranch,
+        title: request.gitPrCreateSpec!.title,
+        expectedHeadSha: request.gitPrCreateSpec!.expectedHeadSha,
+        ...(request.gitPrCreateSpec!.body != null
+          ? { body: request.gitPrCreateSpec!.body }
+          : {}),
+        expectedBaseBranch: request.gitPrCreateSpec!.baseBranch,
+        claimedAutoMerge: (request as { autoMerge?: unknown }).autoMerge,
+      });
+      if (!revalidated.ok) {
+        return {
+          outcome: "reject",
+          gatewayId: this.gatewayId,
+          attemptId: request.attemptId,
+          reason: revalidated.reason,
+          realProcessInvoked: false,
+          detailCode: "REAL_AGENT_PROFILE_INVALID",
+        };
+      }
+    }
+    if (wantsPrMergeProfile) {
+      if (!isBoundedGitPrMergeOnlySlice([...authorized])) {
+        return {
+          outcome: "reject",
+          gatewayId: this.gatewayId,
+          attemptId: request.attemptId,
+          reason: "git_pr_merge_slice_not_merge_only",
+          realProcessInvoked: false,
+          detailCode: "REAL_AGENT_PROFILE_INVALID",
+        };
+      }
+      if (request.selectedAgentRef !== M4_BOUNDED_PR_MERGE_CURSOR_AGENT_ID) {
+        return {
+          outcome: "reject",
+          gatewayId: this.gatewayId,
+          attemptId: request.attemptId,
+          reason: "git_pr_merge_agent_capability_bypass",
+          realProcessInvoked: false,
+          detailCode: "REAL_AGENT_PROFILE_INVALID",
+        };
+      }
+      const revalidated = buildGitPrMergeLaunchSpec({
+        repositoryRef: request.gitPrMergeSpec!.repositoryRef,
+        prNumber: request.gitPrMergeSpec!.prNumber,
+        expectedHeadSha: request.gitPrMergeSpec!.expectedHeadSha,
+        expectedHeadBranch: request.gitPrMergeSpec!.expectedHeadBranch,
+        expectedBaseBranch: request.gitPrMergeSpec!.expectedBaseBranch,
+        mergeMethod: request.gitPrMergeSpec!.mergeMethod,
+      });
+      if (!revalidated.ok) {
+        return {
+          outcome: "reject",
+          gatewayId: this.gatewayId,
+          attemptId: request.attemptId,
+          reason: revalidated.reason,
+          realProcessInvoked: false,
+          detailCode: "REAL_AGENT_PROFILE_INVALID",
+        };
+      }
+    }
     const isCommitOnly =
       wantsCommitProfile && isBoundedGitCommitOnlySlice([...authorized]);
+    const isPushOnly =
+      wantsPushProfile && isBoundedGitPushOnlySlice([...authorized]);
+    const isPrCreateOnly =
+      wantsPrCreateProfile && isBoundedGitPrCreateOnlySlice([...authorized]);
+    const isPrMergeOnly =
+      wantsPrMergeProfile && isBoundedGitPrMergeOnlySlice([...authorized]);
     const actionOk =
       request.action === M4_BOUNDED_DOCS_WRITE_ACTION ||
       request.action === M4_BOUNDED_LOCAL_COMMIT_ACTION ||
-      isCommitOnly;
+      request.action === M4_BOUNDED_REMOTE_PUSH_ACTION ||
+      request.action === M4_BOUNDED_PR_CREATE_ACTION ||
+      request.action === M4_BOUNDED_PR_MERGE_ACTION ||
+      isCommitOnly ||
+      isPushOnly ||
+      isPrCreateOnly ||
+      isPrMergeOnly;
     if (!actionOk) {
       return {
         outcome: "reject",
@@ -231,6 +396,8 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
     }
 
     const commitSpec = request.gitCommitSpec;
+    const pushSpec = request.gitPushSpec;
+    const prCreateSpec = request.gitPrCreateSpec;
     const spec = request.docsWriteSpec;
     const pathAllowlist = spec?.pathAllowlist ?? this.options.pathAllowlist;
     const targetPath =
@@ -240,10 +407,15 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
       "docs/functional-design.md";
     const repositoryRef =
       commitSpec?.repositoryRef ??
+      pushSpec?.repositoryRef ??
+      prCreateSpec?.repositoryRef ??
+      request.gitPrMergeSpec?.repositoryRef ??
       spec?.repositoryRef ??
       this.options.repositoryRef ??
       "unknown/repo";
     const branch =
+      pushSpec?.branchName ??
+      prCreateSpec?.headBranch ??
       commitSpec?.branchOrRef ??
       this.options.defaultBranch ??
       request.repositoryBinding?.defaultBranch ??
@@ -364,10 +536,45 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
       }
 
       if (authorized.has("git.push")) {
-        const pushed = this.gitState.push(branch);
+        const pushBranch = request.gitPushSpec?.branchName ?? branch;
+        const expectedSha =
+          request.gitPushSpec?.expectedCommitSha ??
+          this.gitState.branchHeads.get(pushBranch);
+        if (!expectedSha) {
+          throw new Error("git_push_local_ref_missing");
+        }
+        const refCheck = assertLocalBranchRefMatchesExpectedSha({
+          branchHeads: this.gitState.branchHeads,
+          branchName: pushBranch,
+          expectedCommitSha: expectedSha,
+        });
+        if (!refCheck.ok) {
+          throw new Error(refCheck.reason);
+        }
+        const remoteUrl =
+          request.repositoryBinding?.remoteUrl ??
+          this.gitState.remoteUrl;
+        if (
+          typeof remoteUrl !== "string" ||
+          !remoteUrl.trim()
+        ) {
+          throw new Error("git_push_remote_url_missing");
+        }
+        if (!request.gitPushSpec?.repositoryRef?.trim()) {
+          throw new Error("git_push_repository_ref_missing");
+        }
+        const urlCheck = assertRemoteUrlMatchesRepositoryRef({
+          remoteUrl,
+          repositoryRef: request.gitPushSpec.repositoryRef,
+        });
+        if (!urlCheck.ok) {
+          throw new Error(urlCheck.reason);
+        }
+        this.gitState.currentBranch = pushBranch;
+        const pushed = this.gitState.push(pushBranch);
         executed.push("git.push");
         gitEffects.push = {
-          remote: "origin",
+          remote: request.gitPushSpec?.remoteName ?? "origin",
           ref: pushed.ref,
           sha: pushed.sha,
         };
@@ -377,8 +584,12 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
 
       if (authorized.has("github.pr.create")) {
         const base =
-          request.repositoryBinding?.defaultBranch ?? "main";
-        const pr = this.gitState.openPr(base, branch);
+          request.gitPrCreateSpec?.baseBranch ??
+          request.repositoryBinding?.defaultBranch ??
+          "main";
+        const head =
+          request.gitPrCreateSpec?.headBranch ?? branch;
+        const pr = this.gitState.openPr(base, head);
         executed.push("github.pr.create");
         gitEffects.pullRequest = {
           number: pr.number,
@@ -393,6 +604,7 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
 
       if (authorized.has("github.pr.merge")) {
         const prNumber =
+          request.gitPrMergeSpec?.prNumber ??
           gitEffects.pullRequest?.number ??
           [...this.gitState.prs.values()].find((p) => p.state === "open")
             ?.number;

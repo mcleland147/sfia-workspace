@@ -111,6 +111,8 @@ function fullSet(): Evidence[] {
         repositoryRef: REPO,
         prNumber: 1,
         headSha: FULL_SHA,
+        headBranch: "gcec/docs",
+        baseBranch: "main",
         state: "open",
       },
       "ev:pr",

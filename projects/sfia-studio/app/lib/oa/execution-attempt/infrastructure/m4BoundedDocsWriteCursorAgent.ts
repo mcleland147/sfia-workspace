@@ -11,6 +11,9 @@ import {
 } from "../domain/realLaunchSafety";
 import type { AgentDescriptor } from "../domain/types";
 import { isM4BoundedLocalCommitRealAgent } from "./m4BoundedLocalCommitCursorAgent";
+import { isM4BoundedPrCreateRealAgent } from "./m4BoundedPrCreateCursorAgent";
+import { isM4BoundedPrMergeRealAgent } from "./m4BoundedPrMergeCursorAgent";
+import { isM4BoundedRemotePushRealAgent } from "./m4BoundedRemotePushCursorAgent";
 import { isM4BoundedReadOnlyRealAgent } from "./m4BoundedReadOnlyCursorAgent";
 
 export const M4_BOUNDED_DOCS_WRITE_CAPABILITY = "cap:cursor.docs_write" as const;
@@ -85,13 +88,16 @@ export function isM4BoundedDocsWriteRealAgent(
   );
 }
 
-/** REAL Cursor allowlist — RO | docs-write | local-commit (OR; RO/docs bodies unchanged). */
+/** REAL Cursor allowlist — RO | docs-write | local-commit | push | PR create | PR merge. */
 export function isM4AuthorizedCursorRealAgent(
   agent: AgentDescriptor,
 ): boolean {
   return (
     isM4BoundedReadOnlyRealAgent(agent) ||
     isM4BoundedDocsWriteRealAgent(agent) ||
-    isM4BoundedLocalCommitRealAgent(agent)
+    isM4BoundedLocalCommitRealAgent(agent) ||
+    isM4BoundedRemotePushRealAgent(agent) ||
+    isM4BoundedPrCreateRealAgent(agent) ||
+    isM4BoundedPrMergeRealAgent(agent)
   );
 }

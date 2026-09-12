@@ -87,8 +87,12 @@ export type RepositoryPullRequestSummary = {
   title: string;
   state: "open" | "closed" | "merged";
   headSha: string;
+  /** Head branch name (CR-03 GCEC). */
+  headBranch: string;
   baseBranch: string;
   url: string;
+  /** Optional base tip OID when observed. */
+  baseSha?: string;
 };
 
 export type RepositoryCommitSummary = {

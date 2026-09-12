@@ -58,6 +58,9 @@ import type {
 } from "../domain/realLaunchSafety";
 import { isM4AuthorizedCursorRealAgent } from "../infrastructure/m4BoundedDocsWriteCursorAgent";
 import { isM4BoundedLocalCommitRealAgent } from "../infrastructure/m4BoundedLocalCommitCursorAgent";
+import { isM4BoundedRemotePushRealAgent } from "../infrastructure/m4BoundedRemotePushCursorAgent";
+import { isM4BoundedPrCreateRealAgent } from "../infrastructure/m4BoundedPrCreateCursorAgent";
+import { isM4BoundedPrMergeRealAgent } from "../infrastructure/m4BoundedPrMergeCursorAgent";
 import { resolveAttemptExecutionProfile } from "../domain/resolveAttemptExecutionProfile";
 import type { ListProjectEvidenceFn } from "../domain/projectEvidenceList";
 import type { ExecutionAttemptTechnicalStorePort } from "../ports/executionAttemptTechnicalStorePort";
@@ -74,6 +77,7 @@ import { deriveAuthorizedExecutionSlice } from "../domain/authorizedExecutionSli
 import {
   assertConfirmationMatchAgreesWithServerTarget,
   resolveGitEffectTarget,
+  resolveVerifiedPullRequestNumber,
   resolvedTargetToConfirmationMatch,
 } from "../domain/resolveGitEffectTarget";
 import { deriveExecutableEffectsFromContractRequirements } from "../domain/contractEffectClassification";
@@ -83,6 +87,22 @@ import {
   deriveTrustedCommitMessage,
 } from "../domain/gitCommitLaunchSpec";
 import { isBoundedGitCommitOnlySlice } from "../domain/verifyLocalCommitFacts";
+import {
+  buildGitPushLaunchSpec,
+  deriveDeterministicGcecPushBranch,
+  isBoundedGitPushOnlySlice,
+} from "../domain/gitPushLaunchSpec";
+import {
+  buildGitPrCreateLaunchSpec,
+  isBoundedGitPrCreateOnlySlice,
+} from "../domain/gitPrCreateLaunchSpec";
+import {
+  buildGitPrMergeLaunchSpec,
+  isBoundedGitPrMergeOnlySlice,
+} from "../domain/gitPrMergeLaunchSpec";
+import { assertFreshPrMergePreflight } from "../domain/assertFreshPrMergePreflight";
+import { resolveVerifiedLocalCommitPriorAttempt } from "../domain/resolveVerifiedLocalCommitPriorAttempt";
+import { resolveVerifiedRemotePushPriorAttempt } from "../domain/resolveVerifiedRemotePushPriorAttempt";
 import type { CursorAuthorizedEffectId } from "../domain/cursorExecutionReport";
 import {
   authorityFailureDetail,
@@ -282,6 +302,11 @@ export class StartExecution {
      * CR-GCEC-23 / CORR-D-GCEC-AGENT-01 — Evidence list (Result; late-bound OK).
      */
     private readonly listProjectEvidence?: ListProjectEvidenceFn,
+    /**
+     * CR-04 — optional RepositoryRead for fresh live PR preflight before merge E.
+     * Fail closed on merge slice when merge authorized and this dep is missing.
+     */
+    private readonly repositoryRead?: import("@/lib/oa/git-ports").RepositoryReadPort,
   ) {}
 
   async execute(
@@ -1144,7 +1169,7 @@ export class StartExecution {
           { selectedAgentRef: attempt.selectedAgentRef },
         );
       }
-      // Defense: commit-only slice still requires exact local-commit descriptor.
+      // Defense: exclusive Git slices still require exact agent descriptors.
       if (
         isBoundedGitCommitOnlySlice(authorizedSlice.authorizedEffects) &&
         !isM4BoundedLocalCommitRealAgent(agent)
@@ -1152,6 +1177,36 @@ export class StartExecution {
         return fail(
           "AGENT_CAPABILITY_MISMATCH",
           "git_commit_agent_capability_bypass",
+          { selectedAgentRef: attempt.selectedAgentRef },
+        );
+      }
+      if (
+        isBoundedGitPushOnlySlice(authorizedSlice.authorizedEffects) &&
+        !isM4BoundedRemotePushRealAgent(agent)
+      ) {
+        return fail(
+          "AGENT_CAPABILITY_MISMATCH",
+          "git_push_agent_capability_bypass",
+          { selectedAgentRef: attempt.selectedAgentRef },
+        );
+      }
+      if (
+        isBoundedGitPrCreateOnlySlice(authorizedSlice.authorizedEffects) &&
+        !isM4BoundedPrCreateRealAgent(agent)
+      ) {
+        return fail(
+          "AGENT_CAPABILITY_MISMATCH",
+          "git_pr_create_agent_capability_bypass",
+          { selectedAgentRef: attempt.selectedAgentRef },
+        );
+      }
+      if (
+        isBoundedGitPrMergeOnlySlice(authorizedSlice.authorizedEffects) &&
+        !isM4BoundedPrMergeRealAgent(agent)
+      ) {
+        return fail(
+          "AGENT_CAPABILITY_MISMATCH",
+          "git_pr_merge_agent_capability_bypass",
           { selectedAgentRef: attempt.selectedAgentRef },
         );
       }
@@ -1282,6 +1337,354 @@ export class StartExecution {
       gitCommitSpec = built.spec;
     }
 
+    // GCEC bounded git.push-only Attempt C — server-derived GitPushLaunchSpec.
+    let gitPushSpec: import("../domain/gitPushLaunchSpec").GitPushLaunchSpec | undefined;
+    if (isBoundedGitPushOnlySlice(authorizedSlice.authorizedEffects)) {
+      const contractInputs =
+        contract.inputs && typeof contract.inputs === "object"
+          ? (contract.inputs as Record<string, unknown>)
+          : {};
+      const peerAttemptsPush = await this.attempts.listByContract(
+        contract.executionContractId,
+      );
+      const evidenceReadPush = this.listProjectEvidence
+        ? await this.listProjectEvidence(contract.projectId)
+        : { ok: false as const, reason: "evidence_reader_unavailable" as const };
+      if (!evidenceReadPush.ok) {
+        return fail(
+          "ATTEMPT_INVALID",
+          "attempt_profile_evidence_reader_unavailable",
+          { executionContractId: contract.executionContractId },
+        );
+      }
+      const projectBindingPush = this.resolveProjectRepositoryBinding
+        ? await this.resolveProjectRepositoryBinding(contract.projectId)
+        : null;
+      if (!projectBindingPush?.identity?.trim()) {
+        return fail("ATTEMPT_INVALID", "project_repository_binding_missing", {
+          executionContractId: contract.executionContractId,
+        });
+      }
+      const repoRef = projectBindingPush.identity.trim();
+      const targetResolved = resolveGitEffectTarget({
+        effect: "git.push",
+        contract,
+        projectRepositoryBinding: projectBindingPush,
+        projectedRepositoryRef:
+          repositoryBindingIdentity?.trim() ||
+          (typeof contractInputs.repositoryRef === "string"
+            ? contractInputs.repositoryRef.trim()
+            : undefined),
+        actorId: request.actor.actorId,
+        verifiedEvidence: evidenceReadPush.evidence.filter(
+          (e) => e.status === "verified",
+        ),
+      });
+      if (!targetResolved.ok) {
+        return fail("ATTEMPT_INVALID", targetResolved.reason, {
+          executionContractId: contract.executionContractId,
+        });
+      }
+      const priorCommit = resolveVerifiedLocalCommitPriorAttempt({
+        contract,
+        attempts: peerAttemptsPush,
+        evidence: evidenceReadPush.evidence,
+        repositoryRef: repoRef,
+      });
+      if (!priorCommit.ok) {
+        return fail(
+          "ATTEMPT_INVALID",
+          priorCommit.reason === "local_commit_prior_none"
+            ? "git_push_without_verified_local_commit"
+            : priorCommit.reason,
+          { executionContractId: contract.executionContractId },
+        );
+      }
+      // Prefer contract inputs.workingBranch; else server target branch;
+      // else deterministic EC-derived feature branch (no client free authority).
+      const workingBranch =
+        (typeof contractInputs.workingBranch === "string" &&
+          contractInputs.workingBranch.trim()) ||
+        (typeof contractInputs.branchName === "string" &&
+          contractInputs.branchName.trim()) ||
+        targetResolved.target.branchOrRef?.trim() ||
+        deriveDeterministicGcecPushBranch(contract.executionContractId);
+      const claimedClientBranch =
+        typeof (request as unknown as { branchName?: unknown }).branchName ===
+        "string"
+          ? String((request as unknown as { branchName: string }).branchName)
+          : undefined;
+      const builtPush = buildGitPushLaunchSpec({
+        repositoryRef: repoRef,
+        remoteName: "origin",
+        branchName: workingBranch,
+        expectedCommitSha: priorCommit.prior.commitSha,
+        force: false,
+        delete: false,
+        noTags: true,
+        ...(claimedClientBranch ? { claimedClientBranch } : {}),
+      });
+      if (!builtPush.ok) {
+        return fail("ATTEMPT_INVALID", builtPush.reason, {
+          executionContractId: contract.executionContractId,
+        });
+      }
+      gitPushSpec = builtPush.spec;
+    }
+
+    // GCEC bounded github.pr.create-only Attempt D.
+    let gitPrCreateSpec:
+      | import("../domain/gitPrCreateLaunchSpec").GitPrCreateLaunchSpec
+      | undefined;
+    if (isBoundedGitPrCreateOnlySlice(authorizedSlice.authorizedEffects)) {
+      const contractInputs =
+        contract.inputs && typeof contract.inputs === "object"
+          ? (contract.inputs as Record<string, unknown>)
+          : {};
+      const peerAttemptsPr = await this.attempts.listByContract(
+        contract.executionContractId,
+      );
+      const evidenceReadPr = this.listProjectEvidence
+        ? await this.listProjectEvidence(contract.projectId)
+        : { ok: false as const, reason: "evidence_reader_unavailable" as const };
+      if (!evidenceReadPr.ok) {
+        return fail(
+          "ATTEMPT_INVALID",
+          "attempt_profile_evidence_reader_unavailable",
+          { executionContractId: contract.executionContractId },
+        );
+      }
+      const projectBindingPr = this.resolveProjectRepositoryBinding
+        ? await this.resolveProjectRepositoryBinding(contract.projectId)
+        : null;
+      if (!projectBindingPr?.identity?.trim()) {
+        return fail("ATTEMPT_INVALID", "project_repository_binding_missing", {
+          executionContractId: contract.executionContractId,
+        });
+      }
+      const repoRef = projectBindingPr.identity.trim();
+      const priorPush = resolveVerifiedRemotePushPriorAttempt({
+        contract,
+        attempts: peerAttemptsPr,
+        evidence: evidenceReadPr.evidence,
+        repositoryRef: repoRef,
+      });
+      if (!priorPush.ok) {
+        return fail(
+          "ATTEMPT_INVALID",
+          priorPush.reason === "remote_push_prior_none"
+            ? "git_pr_create_without_verified_remote_push"
+            : priorPush.reason,
+          { executionContractId: contract.executionContractId },
+        );
+      }
+      // AC-02/AC-03 — Evidence repo + branch + SHA must bind C→D exactly.
+      if (
+        !priorPush.prior.repositoryRef.trim() ||
+        priorPush.prior.repositoryRef !== repoRef
+      ) {
+        return fail(
+          "ATTEMPT_INVALID",
+          "git_pr_create_prior_push_repository_mismatch",
+          { executionContractId: contract.executionContractId },
+        );
+      }
+      const headBranch = priorPush.prior.branchName.trim();
+      if (!headBranch) {
+        return fail(
+          "ATTEMPT_INVALID",
+          "git_pr_create_prior_push_branch_missing",
+          { executionContractId: contract.executionContractId },
+        );
+      }
+      const contractWorkingBranch =
+        typeof contractInputs.workingBranch === "string"
+          ? contractInputs.workingBranch.trim()
+          : "";
+      if (contractWorkingBranch && contractWorkingBranch !== headBranch) {
+        return fail(
+          "ATTEMPT_INVALID",
+          "git_pr_create_prior_push_branch_mismatch",
+          { executionContractId: contract.executionContractId },
+        );
+      }
+      const expectedHeadSha = priorPush.prior.commitSha.trim().toLowerCase();
+      if (!/^[0-9a-f]{40}$/.test(expectedHeadSha)) {
+        return fail(
+          "ATTEMPT_INVALID",
+          "git_pr_create_expected_head_sha_invalid",
+          { executionContractId: contract.executionContractId },
+        );
+      }
+      if (!this.repositoryRead) {
+        return fail(
+          "ATTEMPT_INVALID",
+          "git_pr_create_repository_read_unavailable",
+          { executionContractId: contract.executionContractId },
+        );
+      }
+      const remoteHead = await this.repositoryRead.getBranchHead({
+        repositoryRef: repoRef,
+        branch: headBranch,
+      });
+      if (remoteHead == null || !String(remoteHead).trim()) {
+        return fail("ATTEMPT_INVALID", "git_pr_create_remote_head_missing", {
+          executionContractId: contract.executionContractId,
+        });
+      }
+      if (String(remoteHead).trim().toLowerCase() !== expectedHeadSha) {
+        return fail(
+          "ATTEMPT_INVALID",
+          "git_pr_create_remote_head_sha_drift",
+          { executionContractId: contract.executionContractId },
+        );
+      }
+      const baseBranch =
+        projectBindingPr.defaultBranch?.trim() ||
+        (typeof contractInputs.baseBranch === "string" &&
+          contractInputs.baseBranch.trim()) ||
+        "main";
+      const title =
+        (typeof contractInputs.prTitle === "string" &&
+          contractInputs.prTitle.trim()) ||
+        (typeof contractInputs.commitMessage === "string" &&
+          contractInputs.commitMessage.trim()) ||
+        `GCEC lifecycle PR for ${contract.executionContractId}`;
+      const body =
+        typeof contractInputs.prBody === "string"
+          ? contractInputs.prBody
+          : undefined;
+      const claimedAutoMerge =
+        (request as { autoMerge?: unknown }).autoMerge ??
+        (request as { enableAutoMerge?: unknown }).enableAutoMerge;
+      const claimedHeadSha = (request as { claimedHeadSha?: unknown })
+        .claimedHeadSha;
+      const builtPr = buildGitPrCreateLaunchSpec({
+        repositoryRef: repoRef,
+        headBranch,
+        baseBranch,
+        title,
+        expectedHeadSha,
+        ...(body != null ? { body } : {}),
+        expectedBaseBranch: baseBranch,
+        ...(claimedAutoMerge !== undefined
+          ? { claimedAutoMerge }
+          : {}),
+        ...(claimedHeadSha !== undefined ? { claimedHeadSha } : {}),
+      });
+      if (!builtPr.ok) {
+        return fail("ATTEMPT_INVALID", builtPr.reason, {
+          executionContractId: contract.executionContractId,
+        });
+      }
+      gitPrCreateSpec = builtPr.spec;
+    }
+
+    // GCEC bounded github.pr.merge-only Attempt E — PREP only (REAL merge not run in PATH B).
+    // CR-04: fresh RepositoryRead preflight is the authority gate before launch.
+    let gitPrMergeSpec:
+      | import("../domain/gitPrMergeLaunchSpec").GitPrMergeLaunchSpec
+      | undefined;
+    if (isBoundedGitPrMergeOnlySlice(authorizedSlice.authorizedEffects)) {
+      if (!this.repositoryRead) {
+        return fail(
+          "ATTEMPT_INVALID",
+          "git_pr_merge_repository_read_unavailable",
+          { executionContractId: contract.executionContractId },
+        );
+      }
+      const evidenceReadMerge = this.listProjectEvidence
+        ? await this.listProjectEvidence(contract.projectId)
+        : { ok: false as const, reason: "evidence_reader_unavailable" as const };
+      if (!evidenceReadMerge.ok) {
+        return fail(
+          "ATTEMPT_INVALID",
+          "attempt_profile_evidence_reader_unavailable",
+          { executionContractId: contract.executionContractId },
+        );
+      }
+      const projectBindingMerge = this.resolveProjectRepositoryBinding
+        ? await this.resolveProjectRepositoryBinding(contract.projectId)
+        : null;
+      if (!projectBindingMerge?.identity?.trim()) {
+        return fail("ATTEMPT_INVALID", "project_repository_binding_missing", {
+          executionContractId: contract.executionContractId,
+        });
+      }
+      const repoRef = projectBindingMerge.identity.trim();
+      const pr = resolveVerifiedPullRequestNumber({
+        evidence: evidenceReadMerge.evidence,
+        projectId: contract.projectId,
+        cycleInstanceId: contract.cycleInstanceId,
+        executionContractId: contract.executionContractId,
+        repositoryRef: repoRef,
+      });
+      if (!pr.ok) {
+        return fail("ATTEMPT_INVALID", pr.reason, {
+          executionContractId: contract.executionContractId,
+        });
+      }
+      // AC-04/AC-05 — complete PR identity from Evidence; state must be open.
+      if (pr.state !== "open") {
+        return fail("ATTEMPT_INVALID", "git_pr_merge_evidence_state_not_open", {
+          executionContractId: contract.executionContractId,
+        });
+      }
+      const expectedHeadSha = pr.headSha;
+      if (!/^[0-9a-f]{40}$/i.test(expectedHeadSha)) {
+        return fail("ATTEMPT_INVALID", "git_pr_merge_expected_head_sha_invalid", {
+          executionContractId: contract.executionContractId,
+        });
+      }
+      const expectedHeadBranch = pr.headBranch.trim();
+      if (!expectedHeadBranch) {
+        return fail(
+          "ATTEMPT_INVALID",
+          "git_pr_merge_expected_head_branch_missing",
+          { executionContractId: contract.executionContractId },
+        );
+      }
+      const expectedBaseBranch = pr.baseBranch.trim();
+      if (!expectedBaseBranch) {
+        return fail(
+          "ATTEMPT_INVALID",
+          "git_pr_merge_expected_base_branch_missing",
+          { executionContractId: contract.executionContractId },
+        );
+      }
+      const livePr = await this.repositoryRead.getPullRequest({
+        repositoryRef: repoRef,
+        number: pr.prNumber,
+      });
+      const preflight = assertFreshPrMergePreflight({
+        live: livePr,
+        expected: {
+          headSha: expectedHeadSha,
+          headBranch: expectedHeadBranch,
+          baseBranch: expectedBaseBranch,
+        },
+      });
+      if (!preflight.ok) {
+        return fail("ATTEMPT_INVALID", preflight.reason, {
+          executionContractId: contract.executionContractId,
+        });
+      }
+      const builtMerge = buildGitPrMergeLaunchSpec({
+        repositoryRef: repoRef,
+        prNumber: pr.prNumber,
+        expectedHeadSha,
+        expectedHeadBranch,
+        expectedBaseBranch,
+        mergeMethod: "merge",
+      });
+      if (!builtMerge.ok) {
+        return fail("ATTEMPT_INVALID", builtMerge.reason, {
+          executionContractId: contract.executionContractId,
+        });
+      }
+      gitPrMergeSpec = builtMerge.spec;
+    }
+
     let launch;
     try {
       launch = await this.realLaunchPort.launch({
@@ -1299,6 +1702,9 @@ export class StartExecution {
         timeoutMs: window.resolvedMaxDurationMs,
         ...(docsWriteSpec ? { docsWriteSpec } : {}),
         ...(gitCommitSpec ? { gitCommitSpec } : {}),
+        ...(gitPushSpec ? { gitPushSpec } : {}),
+        ...(gitPrCreateSpec ? { gitPrCreateSpec } : {}),
+        ...(gitPrMergeSpec ? { gitPrMergeSpec } : {}),
         ...(repositoryBindingIdentity
           ? { repositoryBindingIdentity }
           : {}),

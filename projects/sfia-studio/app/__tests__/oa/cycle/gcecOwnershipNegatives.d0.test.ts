@@ -59,6 +59,7 @@ describe("GCEC ownership negatives", () => {
       title: "x",
       state: "open",
       headSha: OTHER,
+      headBranch: "feature/gcec",
       baseBranch: "main",
       url: "https://github.com/acme/widget/pull/42",
     });

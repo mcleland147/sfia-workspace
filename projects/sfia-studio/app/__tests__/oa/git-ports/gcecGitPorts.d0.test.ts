@@ -35,6 +35,7 @@ describe("GCEC FakeRepositoryReadPorts (read-only)", () => {
       title: "GCEC lot",
       state: "open",
       headSha: FULL_SHA,
+      headBranch: "gcec/docs",
       baseBranch: "main",
       url: "https://github.com/acme/widget/pull/1",
     });

@@ -10,9 +10,12 @@ import {
   isMutatingGcecCursorProfile,
   M4_BOUNDED_DOCS_WRITE_ACTION,
   M4_BOUNDED_LOCAL_COMMIT_ACTION,
+  M4_BOUNDED_PR_CREATE_ACTION,
+  M4_BOUNDED_REMOTE_PUSH_ACTION,
   M4_BOUNDED_RO_ACTION,
   M4_REAL_GATEWAY_ADAPTER_ID,
   MUTATING_CURSOR_STRIPPED_ENV_KEYS,
+  resolveMutatingConfinementEffectClass,
   SFIA_STUDIO_CURSOR_REAL_FLAG,
   StudioCursorRealLaunchGateway,
 } from "@/lib/oa/execution-attempt";
@@ -282,7 +285,7 @@ describe("D-GCEC-CONF-02A mutating Cursor confinement env", () => {
     expect(runner.calls).toHaveLength(0);
   });
 
-  it("CONF secret-safety: stripped sentinel values never appear in child env values", async () => {
+  it("CONF secret-safety: stripped sentinel values never appear in child env values", () => {
     const base = hostileBaseEnv();
     const child = buildMutatingCursorConfinementEnv(base);
     const joined = Object.values(child).join("\u0000");
@@ -290,5 +293,103 @@ describe("D-GCEC-CONF-02A mutating Cursor confinement env", () => {
     expect(joined).not.toContain("TEST_GH_TOKEN");
     expect(joined).not.toContain("TEST_ASKPASS");
     expect(joined).not.toContain("TEST_GIT_SSH_COMMAND");
+  });
+
+  it("CR-02 remote_git preserves SSH/askpass; still strips GH tokens + GIT_CONFIG", () => {
+    const base = hostileBaseEnv();
+    expect(resolveMutatingConfinementEffectClass({ isRemotePushProfile: true })).toBe(
+      "remote_git",
+    );
+    const child = buildMutatingCursorConfinementEnv(base, {
+      effectClass: "remote_git",
+    });
+    expect(child.SSH_AUTH_SOCK).toBe("TEST_SSH_SOCKET");
+    expect(child.SSH_AGENT_PID).toBe("TEST_SSH_AGENT_PID");
+    expect(child.GIT_ASKPASS).toBe("TEST_ASKPASS");
+    expect(child.SSH_ASKPASS).toBe("TEST_SSH_ASKPASS");
+    expect(child.GH_TOKEN).toBeUndefined();
+    expect(child.GITHUB_TOKEN).toBeUndefined();
+    expect(child.GIT_CONFIG_PARAMETERS).toBeUndefined();
+    expect(child.GIT_CONFIG_KEY_0).toBeUndefined();
+    expect(child.GIT_CONFIG_GLOBAL).toBe("/dev/null");
+  });
+
+  it("CR-02 remote_github preserves GH tokens; still strips SSH + GIT_CONFIG", () => {
+    const base = hostileBaseEnv();
+    expect(
+      resolveMutatingConfinementEffectClass({ isPrCreateProfile: true }),
+    ).toBe("remote_github");
+    expect(
+      resolveMutatingConfinementEffectClass({ isPrMergeProfile: true }),
+    ).toBe("remote_github");
+    const child = buildMutatingCursorConfinementEnv(base, {
+      effectClass: "remote_github",
+    });
+    expect(child.GH_TOKEN).toBe("TEST_GH_TOKEN");
+    expect(child.GITHUB_TOKEN).toBe("TEST_GITHUB_TOKEN");
+    expect(child.GH_ENTERPRISE_TOKEN).toBe("TEST_GH_ENTERPRISE_TOKEN");
+    expect(child.GITHUB_ENTERPRISE_TOKEN).toBe("TEST_GITHUB_ENTERPRISE_TOKEN");
+    expect(child.SSH_AUTH_SOCK).toBeUndefined();
+    expect(child.GIT_ASKPASS).toBeUndefined();
+    expect(child.GIT_CONFIG_PARAMETERS).toBeUndefined();
+    expect(child.GIT_CONFIG_GLOBAL).toBe("/dev/null");
+  });
+
+  function remotePushRequest(
+    overrides: Record<string, unknown> = {},
+  ): Parameters<StudioCursorRealLaunchGateway["launch"]>[0] {
+    return baseRequest({
+      action: M4_BOUNDED_REMOTE_PUSH_ACTION,
+      selectedAgentRef: "agt:m4.cursor.bounded_remote_push",
+      authorizedEffects: ["git.push"],
+      gitPushSpec: {
+        repositoryRef: "acme/widget",
+        remoteName: "origin",
+        branchName: "gcec/docs",
+        expectedCommitSha: PARENT,
+        force: false,
+        delete: false,
+        noTags: true,
+      },
+      ...overrides,
+    });
+  }
+
+  function prCreateRequest(
+    overrides: Record<string, unknown> = {},
+  ): Parameters<StudioCursorRealLaunchGateway["launch"]>[0] {
+    return baseRequest({
+      action: M4_BOUNDED_PR_CREATE_ACTION,
+      selectedAgentRef: "agt:m4.cursor.bounded_pr_create",
+      authorizedEffects: ["github.pr.create"],
+      gitPrCreateSpec: {
+        repositoryRef: "acme/widget",
+        headBranch: "gcec/docs",
+        baseBranch: "main",
+        title: "t",
+        expectedHeadSha: PARENT,
+        expectedBaseBranch: "main",
+      },
+      ...overrides,
+    });
+  }
+
+  it("CR-02 gateway C/D apply effect-sensitive confinement (not full local strip)", async () => {
+    const base = hostileBaseEnv();
+    const { gw, runner } = gateway(base);
+    await gw.launch(remotePushRequest({ attemptId: "xat:conf-c" }));
+    await gw.launch(prCreateRequest({ attemptId: "xat:conf-d" }));
+    expect(runner.calls).toHaveLength(2);
+    expect(runner.calls[0]!.env.SSH_AUTH_SOCK).toBe("TEST_SSH_SOCKET");
+    expect(runner.calls[0]!.env.GH_TOKEN).toBeUndefined();
+    expect(runner.calls[1]!.env.GH_TOKEN).toBe("TEST_GH_TOKEN");
+    expect(runner.calls[1]!.env.SSH_AUTH_SOCK).toBeUndefined();
+    expect(
+      isMutatingGcecCursorProfile({
+        isDocsWrite: false,
+        isLocalCommitProfile: false,
+        isRemotePushProfile: true,
+      }),
+    ).toBe(true);
   });
 });

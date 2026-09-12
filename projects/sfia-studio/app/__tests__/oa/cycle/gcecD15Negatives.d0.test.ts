@@ -137,6 +137,8 @@ function fullVerifiedSet(): Evidence[] {
         repositoryRef: REPO,
         prNumber: 1,
         headSha: SHA,
+        headBranch: "gcec/docs",
+        baseBranch: "main",
         state: "open",
       },
       "ev:pr",
@@ -385,6 +387,7 @@ describe("gcecD15Negatives — N1–N28", () => {
       title: "x",
       state: "open",
       headSha: OTHER,
+      headBranch: "feature/gcec",
       baseBranch: "main",
       url: "https://github.com/acme/widget/pull/42",
     });
@@ -1481,7 +1484,7 @@ describe("gcecD15Negatives — N1–N28", () => {
         evidenceId: "ev:pr41",
         status: "verified",
         source: "git:pull_request",
-        location: "git:pull_request?repo=acme%2Fwidget&prNumber=41",
+        location: "git:pull_request?repo=acme%2Fwidget&prNumber=41&headSha=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&headBranch=feature%2Fx&baseBranch=main&state=open",
         bindings: {
           projectId: "prj:gcec",
           cycleInstanceId: CYCLE,
@@ -1767,7 +1770,7 @@ describe("gcecD15Negatives — N1–N28", () => {
         evidenceId: "ev:pr41",
         status: "verified",
         source: "git:pull_request",
-        location: `git:pull_request?repo=${encodeURIComponent(REPO)}&prNumber=41`,
+        location: `git:pull_request?repo=${encodeURIComponent(REPO)}&prNumber=41&headSha=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&headBranch=feature%2Fx&baseBranch=main&state=open`,
         bindings: {
           projectId: "prj:gcec",
           cycleInstanceId: CYCLE,
@@ -1778,7 +1781,7 @@ describe("gcecD15Negatives — N1–N28", () => {
         evidenceId: "ev:pr42",
         status: "verified",
         source: "git:pull_request",
-        location: `git:pull_request?repo=${encodeURIComponent(REPO)}&prNumber=42`,
+        location: `git:pull_request?repo=${encodeURIComponent(REPO)}&prNumber=42&headSha=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&headBranch=feature%2Fy&baseBranch=main&state=open`,
         bindings: {
           projectId: "prj:gcec",
           cycleInstanceId: CYCLE,
@@ -1915,7 +1918,7 @@ describe("gcecD15Negatives — N1–N28", () => {
           evidenceId: "ev:pr-ok",
           status: "verified",
           source: "git:pull_request",
-          location: `git:pull_request?repo=${encodeURIComponent(REPO)}&prNumber=41`,
+          location: `git:pull_request?repo=${encodeURIComponent(REPO)}&prNumber=41&headSha=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&headBranch=feature%2Fx&baseBranch=main&state=open`,
           bindings: {
             projectId: "prj:gcec",
             cycleInstanceId: CYCLE,
@@ -1942,7 +1945,7 @@ describe("gcecD15Negatives — N1–N28", () => {
           evidenceId: "ev:pr-ok41",
           status: "verified",
           source: "git:pull_request",
-          location: `git:pull_request?repo=${encodeURIComponent(REPO)}&prNumber=41`,
+          location: `git:pull_request?repo=${encodeURIComponent(REPO)}&prNumber=41&headSha=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&headBranch=feature%2Fx&baseBranch=main&state=open`,
           bindings: {
             projectId: "prj:gcec",
             cycleInstanceId: CYCLE,

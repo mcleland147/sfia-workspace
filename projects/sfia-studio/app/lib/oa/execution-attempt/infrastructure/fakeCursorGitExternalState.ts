@@ -88,14 +88,20 @@ export class FakeCursorGitExternalState {
   filesByShaPath = new Map<string, Map<string, string>>();
   private nextPrNumber = 1;
   currentBranch: string;
+  /** Optional remote URL for Fake push identity parity (AC-01). */
+  remoteUrl?: string;
 
   constructor(options: {
     worktreeRoot: string;
     initialBranch?: string;
     initialSha?: string;
+    remoteUrl?: string;
   }) {
     this.worktreeRoot = options.worktreeRoot;
     this.currentBranch = options.initialBranch ?? "main";
+    if (options.remoteUrl) {
+      this.remoteUrl = options.remoteUrl;
+    }
     if (options.initialSha) {
       this.branchHeads.set(
         this.currentBranch,
@@ -171,16 +177,12 @@ export class FakeCursorGitExternalState {
     return record;
   }
 
-  /** Fake remote: advance branch head to current local tip. */
+  /** Fake remote: push exact local branch ref only — no HEAD / currentBranch substitute. */
   push(branch: string): { ref: string; sha: string } {
-    const sha =
-      this.branchHeads.get(branch) ??
-      this.branchHeads.get(this.currentBranch) ??
-      this.commits[this.commits.length - 1]?.sha;
+    const sha = this.branchHeads.get(branch);
     if (!sha) {
-      throw new Error("fake_git_push_no_sha");
+      throw new Error("git_push_local_ref_missing");
     }
-    this.branchHeads.set(branch, sha.toLowerCase());
     this.currentBranch = branch;
     return { ref: branch, sha: sha.toLowerCase() };
   }

@@ -1066,12 +1066,12 @@ describe("gcecCr23StartExecution — application boundary", () => {
         "github.pr.create",
       ],
     });
-    // CORR-D-GCEC-AGENT-01 / CR-GCEC-AGENT-06 — M4 progressive contracts
-    // fail closed on unsupported merge (no contract_legacy bridge; GCEC-PUSH not ready).
+    // CORR-D-GCEC-AGENT-01 PATH B — merge profile eligible only with verified PR
+    // identity; without it Start fails closed (lineage), not contract_legacy.
     expect(started.ok).toBe(false);
     if (!started.ok) {
       expect(started.error.internalCauseRef).toMatch(
-        /effect_not_supported|AGENT_CAPABILITY|capability/i,
+        /effect_not_supported|AGENT_CAPABILITY|capability|without_verified_pr|pr_identity/i,
       );
     }
   }, 90_000);

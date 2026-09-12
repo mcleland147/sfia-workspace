@@ -221,28 +221,54 @@ describe("D-GCEC-AGENT-01 AttemptExecutionProfile AP", () => {
     expect(a.ok && a.profile.kind).toBe("local_commit");
   });
 
-  it("AP-13 post-commit → fail closed (GCEC-PUSH not ready)", () => {
+  it("AP-13 post-commit without later effects → lifecycle_slice_exhausted", () => {
     const r = resolveAttemptExecutionProfile({
       contract: contract(),
       attempts: [attempt("xat:a"), attempt("xat:b")],
       evidence: [artifactEv("xat:a"), commitEv("xat:b")],
     });
     expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.reason).toMatch(/effect_not_supported/);
+    if (!r.ok) expect(r.reason).toBe("attempt_profile_lifecycle_slice_exhausted");
   });
 
-  it("AP-10 M4 + authorized git.push → FAIL CLOSED", () => {
+  it("AP-10 M4 + authorized git.push with commit lineage → remote_push", () => {
     const r = resolveAttemptExecutionProfile({
-      contract: contract(),
-      attempts: [attempt("xat:a")],
+      contract: contract({
+        evidenceRequirements: ["git:local_commit", "git:remote_push"],
+        inputs: {
+          targetPath: PATH,
+          evidenceRequirements: ["artifact", "git:local_commit", "git:remote_push"],
+          commitMessage: "docs: add task manager functional design",
+        },
+      }),
+      attempts: [
+        attempt("xat:a"),
+        {
+          ...attempt("xat:b"),
+          selectedAgentRef: "agt:m4.cursor.bounded_local_commit",
+        },
+      ],
       evidence: [artifactEv("xat:a"), commitEv("xat:b")],
       authorizedEffects: ["git.push"],
     });
-    expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.reason).toMatch(/effect_not_supported/);
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.profile.kind).toBe("remote_push");
+    expect(r.profile.effectClass).toBe("git.push");
   });
 
-  it("AP-11 M4 + PR create → FAIL CLOSED", () => {
+  it("AP-10b M4 + authorized git.push without commit lineage → FAIL CLOSED", () => {
+    const r = resolveAttemptExecutionProfile({
+      contract: contract(),
+      attempts: [attempt("xat:a")],
+      evidence: [artifactEv("xat:a")],
+      authorizedEffects: ["git.push"],
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toMatch(/without_verified_commit_lineage/);
+  });
+
+  it("AP-11 M4 + PR create without push lineage → FAIL CLOSED", () => {
     const r = resolveAttemptExecutionProfile({
       contract: contract(),
       authorizedEffects: ["github.pr.create"],
@@ -250,10 +276,10 @@ describe("D-GCEC-AGENT-01 AttemptExecutionProfile AP", () => {
       evidence: [artifactEv("xat:a")],
     });
     expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.reason).toMatch(/effect_not_supported/);
+    if (!r.ok) expect(r.reason).toMatch(/without_verified_push_lineage/);
   });
 
-  it("AP-12 M4 + merge → FAIL CLOSED", () => {
+  it("AP-12 M4 + merge without PR identity → FAIL CLOSED", () => {
     const r = resolveAttemptExecutionProfile({
       contract: contract(),
       authorizedEffects: ["github.pr.merge"],
@@ -261,7 +287,7 @@ describe("D-GCEC-AGENT-01 AttemptExecutionProfile AP", () => {
       evidence: [artifactEv("xat:a")],
     });
     expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.reason).toMatch(/effect_not_supported/);
+    if (!r.ok) expect(r.reason).toMatch(/without_verified_pr_identity/);
   });
 
   it("AP-14 non-M4 historical contract → contract_legacy still works", () => {

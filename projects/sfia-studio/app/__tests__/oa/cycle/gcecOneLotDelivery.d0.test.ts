@@ -240,6 +240,9 @@ function validPayloadFor(source: TypedGitEvidenceSource): unknown {
         repositoryRef: "acme/widget",
         prNumber: 1,
         headSha: FULL_SHA,
+        headBranch: "feature",
+        baseBranch: "main",
+        state: "open",
       };
     case "git:ci_status":
       return {
@@ -908,7 +911,7 @@ describe("11–12 — git completion proof progression", () => {
               : source === "git:review_status"
                 ? `git:review_status?repo=${encodeURIComponent(VALID_BINDING.identity)}&prNumber=1&state=approved`
                 : source === "git:pull_request"
-                  ? `git:pull_request?repo=${encodeURIComponent(VALID_BINDING.identity)}&prNumber=1&headSha=${FULL_SHA}`
+                  ? `git:pull_request?repo=${encodeURIComponent(VALID_BINDING.identity)}&prNumber=1&headSha=${FULL_SHA}&headBranch=gcec%2Fdocs&baseBranch=main&state=open`
                   : source === "git:merge"
                     ? `git:merge?repo=${encodeURIComponent(VALID_BINDING.identity)}&mergeCommitSha=${MERGE_SHA}&prNumber=1`
                     : source === "git:remote_push"
