@@ -434,10 +434,14 @@ Authorized statement only:
 | --- | --- |
 | Publisher | `scripts/sfia/publish-review-handoff.sh` |
 | Handoff worktree | `/Users/morris/Projects/sfia-lr-handoff-corrqual-18555` |
-| Incoming tip expected | `591507ed91c73f43398daf22a1169828f3ee8243` |
+| Publisher script verdict | `HANDOFF REPUBLISHED — CANONICAL REMOTE VERIFICATION FAILED` (known false-negative class: worktree `remote.origin.fetch` lacks `sfia/review-handoff` tracking) |
+| Effective result | **EFFECTIVE SUCCESS — FALSE-NEGATIVE** (independent `ls-remote` + tip blob verification) |
+| Incoming tip (parent) | `591507ed91c73f43398daf22a1169828f3ee8243` |
+| Remote tip | `59f6fb030da281c28dbf2a127bed4f3dcb71e8f3` |
+| Canonical path | `sfia-review-handoff/latest-chatgpt-review.md` only |
+| Source / remote blob | `bf65c9b8dafccef8305ae56943b55017e361d068` (exact match at tip before this section-V regularization) |
 | Branch | `sfia/review-handoff` only |
-| Canonical path | `sfia-review-handoff/latest-chatgpt-review.md` |
 | Product push / PR / merge | **NONE** |
 | Roadmap change | **NONE** |
 
-(Publication results filled immediately after publisher run.)
+Note: a single regularization republish may follow so the canonical file includes this completed section V.
