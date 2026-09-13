@@ -65,6 +65,23 @@ export const REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_KEY =
 export const REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_VALUE =
   "!gh auth git-credential" as const;
 
+/**
+ * Cursor Shell egress env keys — strip ambient inheritance only.
+ * Product MUST NOT inject CURSOR_FORCED_* (full-capability parity; no SFIA firewall).
+ */
+export const CURSOR_FORCED_SHELL_EGRESS_KEY =
+  "CURSOR_FORCED_SHELL_EGRESS" as const;
+export const CURSOR_FORCED_SHELL_EGRESS_ALLOW_DOMAINS_KEY =
+  "CURSOR_FORCED_SHELL_EGRESS_ALLOW_DOMAINS" as const;
+export const CURSOR_FORCED_SHELL_EGRESS_NETWORK_DEFAULT_KEY =
+  "CURSOR_FORCED_SHELL_EGRESS_NETWORK_DEFAULT" as const;
+
+export const CURSOR_FORCED_SHELL_EGRESS_ENV_KEYS = [
+  CURSOR_FORCED_SHELL_EGRESS_KEY,
+  CURSOR_FORCED_SHELL_EGRESS_ALLOW_DOMAINS_KEY,
+  CURSOR_FORCED_SHELL_EGRESS_NETWORK_DEFAULT_KEY,
+] as const;
+
 export type MutatingCursorConfinementEffectClass =
   | "local"
   | "remote_git"
@@ -87,12 +104,19 @@ function isInheritedGitConfigInjectionKey(key: string): boolean {
   );
 }
 
+function isInheritedCursorShellEgressKey(key: string): boolean {
+  return (CURSOR_FORCED_SHELL_EGRESS_ENV_KEYS as readonly string[]).includes(
+    key,
+  );
+}
+
 function shouldStripKey(
   key: string,
   effectClass: MutatingCursorConfinementEffectClass,
 ): boolean {
-  // Always neutralize GIT_CONFIG_* injection regardless of effect class.
+  // Always neutralize GIT_CONFIG_* and Cursor egress ambient inheritance.
   if (isInheritedGitConfigInjectionKey(key)) return true;
+  if (isInheritedCursorShellEgressKey(key)) return true;
 
   if (effectClass === "local") {
     return LOCAL_STRIPPED.has(key);
@@ -104,6 +128,20 @@ function shouldStripKey(
   // remote_github
   if (REMOTE_GITHUB_PRESERVE.has(key)) return false;
   return LOCAL_STRIPPED.has(key);
+}
+
+/**
+ * Strip ambient Cursor Shell egress keys from any env object (RO / non-mutating
+ * path). Does not mutate the input; returns a fresh object.
+ */
+export function stripInheritedCursorShellEgressEnv(
+  env: NodeJS.ProcessEnv,
+): NodeJS.ProcessEnv {
+  const next: Record<string, string | undefined> = { ...env };
+  for (const key of CURSOR_FORCED_SHELL_EGRESS_ENV_KEYS) {
+    delete next[key];
+  }
+  return next as NodeJS.ProcessEnv;
 }
 
 /**

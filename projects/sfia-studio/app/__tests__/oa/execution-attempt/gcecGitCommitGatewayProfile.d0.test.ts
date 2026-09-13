@@ -153,7 +153,7 @@ describe("GCEC git.commit gateway profile GC-01..12", () => {
     expect(workspace.resumes[0]?.priorAttemptId).toBe("xat:prior-a");
   });
 
-  it("GC-04 commit argv remains --print + --workspace + --trust + sandbox", async () => {
+  it("GC-04 commit argv remains --print + --workspace + --trust + sandbox disabled + force", async () => {
     const { gw, runner } = gateway();
     await gw.launch(commitRequest());
     const argv = runner.calls[0]!.argv;
@@ -162,7 +162,8 @@ describe("GCEC git.commit gateway profile GC-01..12", () => {
     expect(argv).toContain("--workspace");
     expect(argv).toContain("--trust");
     const sandIdx = argv.indexOf("--sandbox");
-    expect(argv[sandIdx + 1]).toBe("enabled");
+    expect(argv[sandIdx + 1]).toBe("disabled");
+    expect(argv).toContain("--force");
     expect(argv).not.toContain("--mode");
   });
 

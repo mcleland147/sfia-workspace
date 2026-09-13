@@ -152,7 +152,8 @@ export type RealLaunchFailure = {
     | "REAL_BOUNDARY_DISABLED"
     | "CURSOR_UNAVAILABLE"
     | "REAL_WORKSPACE_INVALID"
-    | "REAL_LAUNCH_FAILED";
+    | "REAL_LAUNCH_FAILED"
+    | "REMOTE_GITHUB_CREDENTIAL_UNAVAILABLE";
 };
 
 export type RealLaunchResult =
@@ -179,6 +180,11 @@ export type ProcessRunnerInvokeInput = {
   readonly cwd: string;
   readonly timeoutMs: number;
   readonly env: NodeJS.ProcessEnv;
+  /**
+   * Exact secret strings to redact from captured stdout/stderr before any
+   * Product-observable observation is retained. Never log these values.
+   */
+  readonly redactExactValues?: readonly string[];
 };
 
 export type ProcessRunnerInvokeResult = {

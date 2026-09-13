@@ -14,6 +14,7 @@ import type {
   ProcessRunnerInvokeResult,
   RealProcessObservation,
 } from "../ports/realExecutionLaunchPort";
+import { redactExactSecrets } from "./redactExactSecrets";
 
 export const NODE_CURSOR_STDOUT_CAP_BYTES = 64 * 1024;
 export const NODE_CURSOR_STDERR_CAP_BYTES = 64 * 1024;
@@ -42,6 +43,7 @@ type TrackedProcess = {
   exitCode: number | null;
   timedOut: boolean;
   completed: boolean;
+  readonly redactExactValues: readonly string[];
   readonly completion: Promise<RealProcessObservation>;
   resolveCompletion: (obs: RealProcessObservation) => void;
 };
@@ -53,13 +55,16 @@ function appendCapped(current: string, chunk: Buffer, cap: number): string {
   return current + next.slice(0, remaining);
 }
 
-function snapshot(tracked: TrackedProcess): RealProcessObservation {
+function snapshot(
+  tracked: TrackedProcess,
+  redactExactValues?: readonly string[],
+): RealProcessObservation {
   return {
     processRef: tracked.processRef,
     exitCode: tracked.exitCode,
     timedOut: tracked.timedOut,
-    stdout: tracked.stdout,
-    stderr: tracked.stderr,
+    stdout: redactExactSecrets(tracked.stdout, redactExactValues),
+    stderr: redactExactSecrets(tracked.stderr, redactExactValues),
     durationMs: Date.now() - tracked.started,
     realProcessInvoked: true,
     worktreeRef: tracked.worktreeRef,
@@ -95,6 +100,11 @@ export class NodeCursorProcessRunner implements ProcessRunner {
     }
 
     const started = Date.now();
+    const redactExactValues = input.redactExactValues ?? [];
+    const redactChunk = (chunk: Buffer, current: string, cap: number): string => {
+      const appended = appendCapped(current, chunk, cap);
+      return redactExactSecrets(appended, redactExactValues);
+    };
     let child: ChildProcess;
     try {
       child = this.spawnPrimitive(input.executable, [...input.argv], {
@@ -122,12 +132,12 @@ export class NodeCursorProcessRunner implements ProcessRunner {
     let stdout = "";
     let stderr = "";
     child.stdout?.on("data", (chunk: Buffer) => {
-      stdout = appendCapped(stdout, chunk, NODE_CURSOR_STDOUT_CAP_BYTES);
+      stdout = redactChunk(chunk, stdout, NODE_CURSOR_STDOUT_CAP_BYTES);
       const tracked = this.lookupByChild(child, input.attemptId, started);
       if (tracked) tracked.stdout = stdout;
     });
     child.stderr?.on("data", (chunk: Buffer) => {
-      stderr = appendCapped(stderr, chunk, NODE_CURSOR_STDERR_CAP_BYTES);
+      stderr = redactChunk(chunk, stderr, NODE_CURSOR_STDERR_CAP_BYTES);
       const tracked = this.lookupByChild(child, input.attemptId, started);
       if (tracked) tracked.stderr = stderr;
     });
@@ -141,8 +151,8 @@ export class NodeCursorProcessRunner implements ProcessRunner {
           processRef: `proc:pre-spawn:${input.attemptId}`,
           exitCode: null,
           timedOut: false,
-          stdout,
-          stderr: stderr || spawned.reason,
+          stdout: redactExactSecrets(stdout, redactExactValues),
+          stderr: redactExactSecrets(stderr || spawned.reason, redactExactValues),
           durationMs: Date.now() - started,
           realProcessInvoked: false,
         },
@@ -168,6 +178,7 @@ export class NodeCursorProcessRunner implements ProcessRunner {
       exitCode: null,
       timedOut: false,
       completed: false,
+      redactExactValues,
       completion,
       resolveCompletion,
     };
@@ -181,10 +192,10 @@ export class NodeCursorProcessRunner implements ProcessRunner {
       tracked.completed = true;
       tracked.exitCode = partial.exitCode;
       if (partial.timedOut) tracked.timedOut = true;
-      tracked.stdout = stdout;
-      tracked.stderr = stderr;
+      tracked.stdout = redactExactSecrets(stdout, redactExactValues);
+      tracked.stderr = redactExactSecrets(stderr, redactExactValues);
       clearTimeout(timer);
-      tracked.resolveCompletion(snapshot(tracked));
+      tracked.resolveCompletion(snapshot(tracked, redactExactValues));
     };
 
     const timer = setTimeout(() => {
@@ -207,13 +218,13 @@ export class NodeCursorProcessRunner implements ProcessRunner {
     return {
       processRef,
       realProcessInvoked: true,
-      observation: snapshot(tracked),
+      observation: snapshot(tracked, redactExactValues),
     };
   }
 
   async observe(processRef: string): Promise<RealProcessObservation | null> {
     const tracked = this.processes.get(processRef);
-    return tracked ? snapshot(tracked) : null;
+    return tracked ? snapshot(tracked, tracked.redactExactValues) : null;
   }
 
   async awaitCompletion(
