@@ -438,11 +438,11 @@ Authorized statement only:
 | Effective result | **EFFECTIVE SUCCESS — FALSE-NEGATIVE** (independent `ls-remote` + tip blob verification) |
 | Incoming tip | `591507ed91c73f43398daf22a1169828f3ee8243` |
 | First publish tip | `59f6fb030da281c28dbf2a127bed4f3dcb71e8f3` (parent = incoming) |
-| Final remote tip | `418ff38bd869c5904585d5994c1858cd71353458` (section V regularization; parent = first publish) |
+| Final remote tip | see operator report / `ls-remote` (regularization chain after `418ff38b…`; do not treat an embedded tip SHA as stronger than remote) |
 | Canonical path | `sfia-review-handoff/latest-chatgpt-review.md` only |
-| Final source / remote blob | `54f61986e5c44431aa41eb2205d3070c34dc236b` (exact match) |
+| Published source blob (this file) | compute via `git hash-object` against tip |
 | Branch | `sfia/review-handoff` only |
 | Product push / PR / merge | **NONE** |
 | Roadmap change | **NONE** |
 
-Note: one additional regularization republish follows so the canonical remote blob includes this completed section V tip table.
+Operator-verified at publication close (independent of publisher script verdict): tip `6bd991c3d4aaa064303d839fe048d99ba2cfe695`, parent `418ff38bd869c5904585d5994c1858cd71353458`, mono-file canonical path only, blob match YES vs local source at publish time.
