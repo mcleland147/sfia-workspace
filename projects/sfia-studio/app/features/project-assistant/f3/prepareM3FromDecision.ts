@@ -19,6 +19,7 @@ import type {
 } from "@/lib/oa/execution-contract";
 import { projectCursorPrepareOnly } from "@/lib/oa/execution-contract";
 import type { F2ContextSnapshot } from "../f2/types";
+import { BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS } from "./boundedDocsWriteM3ResolutionProfile";
 
 export type PrepareM3Deps = {
   decisionServices: DecisionServices;
@@ -84,30 +85,102 @@ function fieldsFromBasis(basis: DecisionBasis, decisionId: string) {
     "DECISION_NOT_CURRENT",
   ];
 
+  const docsWriteIntent =
+    eb.intentKind === "docs_write" ||
+    eb.requestedOperation?.trim() === "cursor.docs_write.apply";
+
   const requested = eb.requestedOperation?.trim() ?? "";
   let action: string;
   if (requested) {
     action = requested;
+  } else if (docsWriteIntent) {
+    action = "cursor.docs_write.apply";
   } else {
     action = "UNRESOLVED_ACTION";
     stopConditions.push("ACTION_UNRESOLVED");
   }
 
-  // No explicit target field on DecisionBasis today → always unresolved.
-  const target = "UNRESOLVED_TARGET";
-  stopConditions.push("TARGET_UNRESOLVED");
+  let target: string;
+  let requiredCapabilities: string[];
+  const inputs: Record<string, unknown> = {
+    objective: eb.objective,
+    recommendedProfile: eb.recommendedProfile,
+    cycleTypeId: eb.cycleTypeId,
+    activatedBlocks: eb.activatedBlocks,
+    sourceRef: basis.sourceRef,
+    sourceDigest: basis.sourceDigest,
+  };
 
-  const requiredCapabilities = ["cap:unresolved"];
-  stopConditions.push("CAPABILITY_UNRESOLVED");
+  if (docsWriteIntent) {
+    const targetPath = eb.targetPath?.trim() ?? "";
+    const targetRepositoryRef = eb.targetRepositoryRef?.trim() ?? "";
+    if (!targetPath || !targetRepositoryRef) {
+      target = "UNRESOLVED_TARGET";
+      stopConditions.push("TARGET_UNRESOLVED");
+    } else {
+      // Sentinel target for resolve; concrete path lives in inputs.
+      target = "workspace.isolated.docs_write";
+      inputs.targetPath = targetPath;
+      inputs.targetRepositoryRef = targetRepositoryRef;
+      inputs.repositoryRef = targetRepositoryRef;
+      inputs.pathAllowlist = eb.scopeIn ?? [];
+      inputs.scopeIn = eb.scopeIn ?? [];
+      inputs.scopeOut = eb.scopeOut ?? [];
+      inputs.createOrModify = true;
+      inputs.noDelete = true;
+      if (eb.artifactType) inputs.artifactType = eb.artifactType;
+      if (eb.artifactBrief) inputs.artifactBrief = eb.artifactBrief;
+      if (eb.contentRequirements)
+        inputs.contentRequirements = [...eb.contentRequirements];
+      if (eb.validationExpectations)
+        inputs.validationExpectations = [...eb.validationExpectations];
+      if (eb.evidenceRequirements)
+        inputs.evidenceRequirements = [...eb.evidenceRequirements];
+      if (eb.expectedOutputs)
+        inputs.expectedOutputs = [...eb.expectedOutputs];
+      inputs.repositoryIdentity = targetRepositoryRef;
+      inputs.repositoryBindingIdentity = targetRepositoryRef;
+      inputs.remoteUrl = `https://github.com/${targetRepositoryRef}.git`;
+      inputs.defaultBranch = "main";
+      // CR-GCEC-23 — durable working branch for Confirmation target (server-owned).
+      const working =
+        typeof (eb as { workingBranch?: unknown }).workingBranch === "string"
+          ? (eb as { workingBranch?: string }).workingBranch?.trim()
+          : undefined;
+      inputs.workingBranch = working || inputs.defaultBranch;
+      if (eb.scopeIn?.[0]) inputs.pathRoot = eb.scopeIn[0];
+    }
 
-  // Fail-closed safety default — not a sourced reversibility analysis.
-  const reversibility = "irreversible" as const;
-  stopConditions.push("REVERSIBILITY_UNRESOLVED");
+    if (eb.requiredCapabilities && eb.requiredCapabilities.length > 0) {
+      requiredCapabilities = [...eb.requiredCapabilities];
+    } else {
+      requiredCapabilities = ["cap:cursor.docs_write"];
+    }
+  } else {
+    // No explicit target field on DecisionBasis today → always unresolved.
+    target = "UNRESOLVED_TARGET";
+    stopConditions.push("TARGET_UNRESOLVED");
+    requiredCapabilities = ["cap:unresolved"];
+    stopConditions.push("CAPABILITY_UNRESOLVED");
+  }
+
+  let reversibility: "reversible" | "irreversible" = "irreversible";
+  if (
+    docsWriteIntent &&
+    (eb.reversibilityExpectation === "reversible" ||
+      eb.reversibilityExpectation === "irreversible")
+  ) {
+    reversibility = eb.reversibilityExpectation;
+  } else {
+    // Fail-closed safety default — not a sourced reversibility analysis.
+    stopConditions.push("REVERSIBILITY_UNRESOLVED");
+  }
 
   const scope =
     (eb.scope && eb.scope.trim()) || `decision:${decisionId}`;
   const constraints = [
     ...(eb.outOfScope ?? []).map((s) => `OUT_OF_SCOPE:${s}`),
+    ...(eb.scopeOut ?? []).map((s) => `OUT_OF_SCOPE:${s}`),
     ...(eb.risks ?? []).map((s) => `RISK:${s}`),
     ...(eb.reservations ?? []).map((s) => `RESERVATION:${s}`),
     "PREPARE_ONLY",
@@ -120,9 +193,18 @@ function fieldsFromBasis(basis: DecisionBasis, decisionId: string) {
       constraints.push(`ACTIVATED_BLOCK:${b}`);
     }
   }
-  const expectedOutputs = eb.expectedOutcome
-    ? [eb.expectedOutcome]
-    : undefined;
+  const expectedOutputs =
+    eb.expectedOutputs && eb.expectedOutputs.length > 0
+      ? [...eb.expectedOutputs]
+      : eb.expectedOutcome
+        ? [eb.expectedOutcome]
+        : undefined;
+  const evidenceRequirements =
+    eb.evidenceRequirements && eb.evidenceRequirements.length > 0
+      ? [...eb.evidenceRequirements]
+      : docsWriteIntent
+        ? [...BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS]
+        : undefined;
   return {
     action,
     target,
@@ -130,16 +212,10 @@ function fieldsFromBasis(basis: DecisionBasis, decisionId: string) {
     constraints,
     stopConditions,
     expectedOutputs,
+    evidenceRequirements,
     requiredCapabilities,
     reversibility,
-    inputs: {
-      objective: eb.objective,
-      recommendedProfile: eb.recommendedProfile,
-      cycleTypeId: eb.cycleTypeId,
-      activatedBlocks: eb.activatedBlocks,
-      sourceRef: basis.sourceRef,
-      sourceDigest: basis.sourceDigest,
-    },
+    inputs,
   };
 }
 
@@ -262,7 +338,8 @@ export async function prepareM3FromDecision(input: {
       requiredAuthority: "MORRIS",
       constraints: fields.constraints,
       stopConditions: fields.stopConditions,
-      evidenceRequirements: ["evreq:m3-prepare-decision-basis"],
+      evidenceRequirements:
+        fields.evidenceRequirements ?? ["evreq:m3-prepare-decision-basis"],
       reversibility: fields.reversibility,
       idempotencyKey,
       correlationId: `cor:m3-prep:${decision.decisionId}`,

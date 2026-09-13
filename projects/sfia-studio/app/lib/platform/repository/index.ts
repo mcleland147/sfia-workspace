@@ -13,5 +13,9 @@ export type {
   GithubPullRequestView,
   GithubCheckView,
   GithubCommentView,
+  GithubFileAtRefView,
+  GithubCompareRefsView,
 } from "./githubReadAdapter";
+export { runGhFixedArgv } from "./ghCliTransport";
+export type { GhCliCmdResult, RunGhFixedArgvOptions } from "./ghCliTransport";
 export { resolveWorkspaceRootFromAppCwd } from "./workspaceRoot";

@@ -451,6 +451,8 @@ function buildProposal(input: {
     noExecutingStatus: true,
     agentBinding: "NOT_AVAILABLE",
     criticalJustification: input.intent.criticalJustification,
+    requestedOperation: input.intent.requestedOperation ?? null,
+    executionIntent: input.intent.executionIntent ?? null,
   };
 }
 

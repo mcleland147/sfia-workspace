@@ -160,6 +160,27 @@ export type DecisionBasis = {
     cycleTypeId?: string;
     recommendedProfile?: string;
     requestedOperation?: string;
+    /**
+     * GCEC — structured NON-AUTHORITATIVE execution intent (D-GCEC).
+     * Recommendation/proposal context only — ≠ HumanDecision ≠ authority.
+     */
+    intentKind?: string;
+    artifactType?: string;
+    targetRepositoryRef?: string;
+    targetPath?: string;
+    scopeIn?: string[];
+    scopeOut?: string[];
+    expectedOutputs?: string[];
+    requiredCapabilities?: string[];
+    validationExpectations?: string[];
+    evidenceRequirements?: string[];
+    reversibilityExpectation?: "reversible" | "irreversible" | "unknown";
+    /** GCEC — non-authoritative artifact brief from Nora executionIntent. */
+    artifactBrief?: string;
+    /** GCEC — non-authoritative content requirements from Nora executionIntent. */
+    contentRequirements?: string[];
+    /** GCEC — Nora-proposed exit requirement kinds (non-authoritative). */
+    exitRequirementKinds?: string[];
   };
 };
 

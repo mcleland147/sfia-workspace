@@ -69,7 +69,14 @@ export type CreateSqliteExecutionAttemptServicesOptions = {
   realBoundary?: {
     readonly launchPort: RealExecutionLaunchPort;
     readonly safetyJournal: RealLaunchSafetyJournalPort;
+    readonly managedRepoRootBase?: string;
   };
+  resolveProjectRepositoryBinding?: (
+    projectId: string,
+  ) => Promise<import("@/lib/oa/project").ProjectRepositoryBinding | null>;
+  listProjectEvidence?: import("../../domain/projectEvidenceList").ListProjectEvidenceFn;
+  /** CR-04 — optional RepositoryRead for merge fresh preflight. */
+  repositoryRead?: import("@/lib/oa/git-ports").RepositoryReadPort;
 };
 
 export type SqliteExecutionAttemptServices = {
@@ -147,6 +154,7 @@ export function createSqliteExecutionAttemptServices(
     audit,
     policy,
     store,
+    options.listProjectEvidence,
   );
 
   const realBoundary = options.realBoundary;
@@ -185,6 +193,10 @@ export function createSqliteExecutionAttemptServices(
       store,
       realBoundary?.launchPort,
       realBoundary?.safetyJournal,
+      realBoundary?.managedRepoRootBase,
+      options.resolveProjectRepositoryBinding,
+      options.listProjectEvidence,
+      options.repositoryRead,
     ),
     cancelExecutionAttempt: new CancelExecutionAttempt(
       attempts,

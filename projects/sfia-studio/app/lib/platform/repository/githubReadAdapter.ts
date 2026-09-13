@@ -1,6 +1,7 @@
 /**
  * GitHub read adapter — transport-agnostic interface.
  * Default transport: encapsulated `gh` CLI (read-only). Optional REST via token.
+ * CR-GCEC-18: CLI calls go through shared `runGhFixedArgv`.
  */
 import { execFileSync } from "node:child_process";
 import { decideGithubRepo } from "../security/pathPolicy";
@@ -11,6 +12,7 @@ import {
   CT_TOOL_TIMEOUT_MS,
   type ToolTransport,
 } from "../tools/types";
+import { runGhFixedArgv } from "./ghCliTransport";
 
 export interface GithubRepositoryView {
   fullName: string;
@@ -51,6 +53,20 @@ export interface GithubCommentView {
   bodyDigest: string;
 }
 
+export interface GithubFileAtRefView {
+  path: string;
+  ref: string;
+  content: string;
+}
+
+export interface GithubCompareRefsView {
+  base: string;
+  head: string;
+  aheadBy: number;
+  behindBy: number;
+  files: string[];
+}
+
 export interface GithubReadPort {
   readonly transport: ToolTransport;
   getRepository(owner: string, name: string): Promise<GithubRepositoryView>;
@@ -71,6 +87,36 @@ export interface GithubReadPort {
     name: string,
     ref: string,
   ): Promise<GithubCheckView[]>;
+  /** Optional — Nora repository context (read-only). */
+  listPullRequests?(
+    owner: string,
+    name: string,
+    options?: { limit?: number; state?: "open" | "closed" | "all" },
+  ): Promise<GithubPullRequestView[]>;
+  listPullRequestFiles?(
+    owner: string,
+    name: string,
+    number: number,
+  ): Promise<string[]>;
+  getPullRequestDiff?(
+    owner: string,
+    name: string,
+    number: number,
+  ): Promise<string>;
+  /** Read file blob at ref (branch/tag/sha). Read-only. */
+  readFileAtRef?(
+    owner: string,
+    name: string,
+    path: string,
+    ref: string,
+  ): Promise<GithubFileAtRefView | null>;
+  /** Compare two refs. Read-only. */
+  compareRefs?(
+    owner: string,
+    name: string,
+    base: string,
+    head: string,
+  ): Promise<GithubCompareRefsView>;
 }
 
 function assertRepo(owner: string, name: string): void {
@@ -82,15 +128,32 @@ function assertRepo(owner: string, name: string): void {
   }
 }
 
-function ghJson(args: string[]): unknown {
-  const out = execFileSync("gh", args, {
-    encoding: "utf8",
-    timeout: CT_TOOL_TIMEOUT_MS,
-    maxBuffer: 2 * 1024 * 1024,
-    stdio: ["ignore", "pipe", "pipe"],
-    env: { ...process.env },
+async function ghJson(args: string[]): Promise<unknown> {
+  const result = await runGhFixedArgv("gh", args, {
+    timeoutMs: CT_TOOL_TIMEOUT_MS,
+    maxStdoutBytes: 2 * 1024 * 1024,
   });
-  return JSON.parse(out);
+  if (result.exitCode !== 0) {
+    throw Object.assign(
+      new Error(result.stderr.trim() || `gh exit ${result.exitCode}`),
+      { toolErrorCode: "TRANSPORT_UNAVAILABLE" },
+    );
+  }
+  return JSON.parse(result.stdout);
+}
+
+async function ghText(args: string[]): Promise<string> {
+  const result = await runGhFixedArgv("gh", args, {
+    timeoutMs: CT_TOOL_TIMEOUT_MS,
+    maxStdoutBytes: 2 * 1024 * 1024,
+  });
+  if (result.exitCode !== 0) {
+    throw Object.assign(
+      new Error(result.stderr.trim() || `gh exit ${result.exitCode}`),
+      { toolErrorCode: "TRANSPORT_UNAVAILABLE" },
+    );
+  }
+  return result.stdout;
 }
 
 export function probeGhAuth(): {
@@ -138,12 +201,12 @@ export class GhCliGithubReadAdapter implements GithubReadPort {
 
   async getRepository(owner: string, name: string): Promise<GithubRepositoryView> {
     assertRepo(owner, name);
-    const data = ghJson([
+    const data = (await ghJson([
       "api",
       `repos/${owner}/${name}`,
       "--jq",
       "{full_name,default_branch,description,html_url}",
-    ]) as Record<string, string | null>;
+    ])) as Record<string, string | null>;
     return {
       fullName: String(data.full_name),
       defaultBranch: String(data.default_branch ?? "main"),
@@ -158,12 +221,12 @@ export class GhCliGithubReadAdapter implements GithubReadPort {
     branch: string,
   ): Promise<GithubBranchView> {
     assertRepo(owner, name);
-    const data = ghJson([
+    const data = (await ghJson([
       "api",
       `repos/${owner}/${name}/branches/${encodeURIComponent(branch)}`,
       "--jq",
       "{name,commit:{sha:.commit.sha}}",
-    ]) as { name: string; commit: { sha: string } };
+    ])) as { name: string; commit: { sha: string } };
     return { name: data.name, sha: data.commit.sha };
   }
 
@@ -173,12 +236,12 @@ export class GhCliGithubReadAdapter implements GithubReadPort {
     sha: string,
   ): Promise<GithubCommitView> {
     assertRepo(owner, name);
-    const data = ghJson([
+    const data = (await ghJson([
       "api",
       `repos/${owner}/${name}/commits/${encodeURIComponent(sha)}`,
       "--jq",
       "{sha,commit:{message:.commit.message,author:.commit.author.name}}",
-    ]) as {
+    ])) as {
       sha: string;
       commit: { message: string; author: string | null };
     };
@@ -195,12 +258,12 @@ export class GhCliGithubReadAdapter implements GithubReadPort {
     number: number,
   ): Promise<GithubPullRequestView> {
     assertRepo(owner, name);
-    const data = ghJson([
+    const data = (await ghJson([
       "api",
       `repos/${owner}/${name}/pulls/${number}`,
       "--jq",
       "{number,title,state,html_url,head:{ref:.head.ref},base:{ref:.base.ref}}",
-    ]) as {
+    ])) as {
       number: number;
       title: string;
       state: string;
@@ -224,12 +287,12 @@ export class GhCliGithubReadAdapter implements GithubReadPort {
     number: number,
   ): Promise<GithubCommentView[]> {
     assertRepo(owner, name);
-    const data = ghJson([
+    const data = (await ghJson([
       "api",
       `repos/${owner}/${name}/pulls/${number}/comments?per_page=10`,
       "--jq",
       "[.[] | {id,user:.user.login,body}]",
-    ]) as Array<{ id: number; user: string; body: string }>;
+    ])) as Array<{ id: number; user: string; body: string }>;
     return data.map((c) => ({
       id: c.id,
       user: c.user,
@@ -243,12 +306,12 @@ export class GhCliGithubReadAdapter implements GithubReadPort {
     ref: string,
   ): Promise<GithubCheckView[]> {
     assertRepo(owner, name);
-    const data = ghJson([
+    const data = (await ghJson([
       "api",
       `repos/${owner}/${name}/commits/${encodeURIComponent(ref)}/check-runs?per_page=20`,
       "--jq",
       "[.check_runs[] | {name,status,conclusion}]",
-    ]) as Array<{
+    ])) as Array<{
       name: string;
       status: string;
       conclusion: string | null;
@@ -258,6 +321,133 @@ export class GhCliGithubReadAdapter implements GithubReadPort {
       status: c.status,
       conclusion: c.conclusion,
     }));
+  }
+
+  async listPullRequests(
+    owner: string,
+    name: string,
+    options?: { limit?: number; state?: "open" | "closed" | "all" },
+  ): Promise<GithubPullRequestView[]> {
+    assertRepo(owner, name);
+    const limit = Math.min(Math.max(options?.limit ?? 5, 1), 20);
+    const state = options?.state ?? "open";
+    const data = (await ghJson([
+      "pr",
+      "list",
+      "--repo",
+      `${owner}/${name}`,
+      "--limit",
+      String(limit),
+      "--state",
+      state,
+      "--json",
+      "number,title,state,headRefName,baseRefName,url",
+    ])) as Array<{
+      number: number;
+      title: string;
+      state: string;
+      headRefName: string;
+      baseRefName: string;
+      url: string;
+    }>;
+    return data.map((p) => ({
+      number: p.number,
+      title: redactSecrets(p.title),
+      state: p.state,
+      headRef: p.headRefName,
+      baseRef: p.baseRefName,
+      url: p.url,
+    }));
+  }
+
+  async listPullRequestFiles(
+    owner: string,
+    name: string,
+    number: number,
+  ): Promise<string[]> {
+    assertRepo(owner, name);
+    const data = (await ghJson([
+      "pr",
+      "view",
+      String(number),
+      "--repo",
+      `${owner}/${name}`,
+      "--json",
+      "files",
+    ])) as { files?: Array<{ path: string }> };
+    return (data.files ?? []).map((f) => f.path);
+  }
+
+  async getPullRequestDiff(
+    owner: string,
+    name: string,
+    number: number,
+  ): Promise<string> {
+    assertRepo(owner, name);
+    const out = await ghText([
+      "pr",
+      "diff",
+      String(number),
+      "--repo",
+      `${owner}/${name}`,
+    ]);
+    return truncateText(redactSecrets(out), CT_MAX_TOOL_RESULT_CHARS).text;
+  }
+
+  async readFileAtRef(
+    owner: string,
+    name: string,
+    path: string,
+    ref: string,
+  ): Promise<GithubFileAtRefView | null> {
+    assertRepo(owner, name);
+    const result = await runGhFixedArgv(
+      "gh",
+      [
+        "api",
+        `repos/${owner}/${name}/contents/${encodeURIComponent(path)}?ref=${encodeURIComponent(ref)}`,
+        "--jq",
+        ".content",
+      ],
+      { timeoutMs: CT_TOOL_TIMEOUT_MS, maxStdoutBytes: 2 * 1024 * 1024 },
+    );
+    if (result.exitCode !== 0 || !result.stdout.trim()) return null;
+    try {
+      const b64 = result.stdout.trim().replace(/\s+/g, "");
+      const content = Buffer.from(b64, "base64").toString("utf8");
+      return {
+        path,
+        ref,
+        content: truncateText(redactSecrets(content), CT_MAX_TOOL_RESULT_CHARS)
+          .text,
+      };
+    } catch {
+      return null;
+    }
+  }
+
+  async compareRefs(
+    owner: string,
+    name: string,
+    base: string,
+    head: string,
+  ): Promise<GithubCompareRefsView> {
+    assertRepo(owner, name);
+    const data = (await ghJson([
+      "api",
+      `repos/${owner}/${name}/compare/${encodeURIComponent(base)}...${encodeURIComponent(head)}`,
+    ])) as {
+      ahead_by?: number;
+      behind_by?: number;
+      files?: Array<{ filename: string }>;
+    };
+    return {
+      base,
+      head,
+      aheadBy: data.ahead_by ?? 0,
+      behindBy: data.behind_by ?? 0,
+      files: (data.files ?? []).map((f) => f.filename),
+    };
   }
 }
 
@@ -398,6 +588,55 @@ export class RestGithubReadAdapter implements GithubReadPort {
       status: c.status,
       conclusion: c.conclusion,
     }));
+  }
+
+  async readFileAtRef(
+    owner: string,
+    name: string,
+    path: string,
+    ref: string,
+  ): Promise<GithubFileAtRefView | null> {
+    assertRepo(owner, name);
+    try {
+      const data = (await this.api(
+        `/repos/${owner}/${name}/contents/${encodeURIComponent(path)}?ref=${encodeURIComponent(ref)}`,
+      )) as { content?: string; encoding?: string };
+      if (!data.content || data.encoding !== "base64") return null;
+      const content = Buffer.from(data.content.replace(/\s+/g, ""), "base64").toString(
+        "utf8",
+      );
+      return {
+        path,
+        ref,
+        content: truncateText(redactSecrets(content), CT_MAX_TOOL_RESULT_CHARS)
+          .text,
+      };
+    } catch {
+      return null;
+    }
+  }
+
+  async compareRefs(
+    owner: string,
+    name: string,
+    base: string,
+    head: string,
+  ): Promise<GithubCompareRefsView> {
+    assertRepo(owner, name);
+    const data = (await this.api(
+      `/repos/${owner}/${name}/compare/${encodeURIComponent(base)}...${encodeURIComponent(head)}`,
+    )) as {
+      ahead_by?: number;
+      behind_by?: number;
+      files?: Array<{ filename: string }>;
+    };
+    return {
+      base,
+      head,
+      aheadBy: data.ahead_by ?? 0,
+      behindBy: data.behind_by ?? 0,
+      files: (data.files ?? []).map((f) => f.filename),
+    };
   }
 }
 

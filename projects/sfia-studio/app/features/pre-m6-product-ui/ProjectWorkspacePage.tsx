@@ -12,6 +12,7 @@ import { LpsSurface } from "./surfaces/LpsSurface";
 import { RecoverySurface } from "./surfaces/RecoverySurface";
 import { LifecycleSurface } from "./surfaces/LifecycleSurface";
 import { TrajectorySurface } from "./surfaces/TrajectorySurface";
+import { RepositoryBindingForm } from "./surfaces/RepositoryBindingForm";
 import type { GetProjectResult, GetProjectSuccess } from "./types";
 import styles from "./ProjectWorkspacePage.module.css";
 
@@ -214,6 +215,23 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
                   }}
                 />
                 <LpsSurface result={success} />
+                <section
+                  className={styles.stateTrajectoryNote}
+                  data-testid="project-repository-binding"
+                  aria-label="Repository binding"
+                >
+                  <h3 className={styles.stateTrajectoryTitle}>
+                    Repository binding
+                  </h3>
+                  <p className={styles.stateTrajectoryNote}>
+                    Binding explicite du dépôt Product (aucune résolution réseau
+                    à l&apos;enregistrement).
+                  </p>
+                  <RepositoryBindingForm
+                    projectId={projectId}
+                    onSaved={() => void loadProject()}
+                  />
+                </section>
                 <TrajectorySurface
                   projectId={projectId}
                   composition="lps-embedded"

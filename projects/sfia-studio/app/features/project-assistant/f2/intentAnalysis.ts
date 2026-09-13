@@ -27,6 +27,11 @@ import {
   type ChallengeResponseAssessment,
   type Mw5ChallengeContextInput,
 } from "@/lib/nora-cognitive-runtime/mw5ProductAuthorityFacts";
+import {
+  F2_EXECUTION_INTENT_JSON_SCHEMA,
+  validateExecutionIntentPayload,
+  type ExecutionIntentPayload,
+} from "./executionIntentSchema";
 
 const INTENT_CLASSES: readonly IntentClass[] = [
   "informative",
@@ -178,6 +183,9 @@ export const F2_INTENT_JSON_SCHEMA: Record<string, unknown> = {
     expectedOutcome: NULLABLE_STRING,
     criticalJustification: NULLABLE_STRING,
     requestedOperation: NULLABLE_STRING,
+    executionIntent: {
+      anyOf: [F2_EXECUTION_INTENT_JSON_SCHEMA, { type: "null" }],
+    },
   },
   required: [
     "intentClass",
@@ -197,6 +205,7 @@ export const F2_INTENT_JSON_SCHEMA: Record<string, unknown> = {
     "expectedOutcome",
     "criticalJustification",
     "requestedOperation",
+    "executionIntent",
   ],
 };
 
@@ -236,6 +245,7 @@ function ambiguousFallback(partial?: Partial<IntentAnalysisDto>): IntentAnalysis
     expectedOutcome: partial?.expectedOutcome ?? null,
     criticalJustification: partial?.criticalJustification ?? null,
     requestedOperation: partial?.requestedOperation ?? null,
+    executionIntent: partial?.executionIntent ?? null,
     contradictionCandidate: null,
     challengeResponseAssessment:
       partial?.challengeResponseAssessment ?? null,
@@ -346,6 +356,18 @@ export function validateIntentAnalysisPayload(raw: unknown): IntentAnalysisDto {
   const challengeResponseAssessment: ChallengeResponseAssessment =
     parseChallengeResponseAssessment(obj.challengeResponseAssessment);
 
+  let executionIntent: ExecutionIntentPayload | null = null;
+  if (obj.executionIntent != null) {
+    const validated = validateExecutionIntentPayload(obj.executionIntent);
+    if (!validated.ok) {
+      return ambiguousFallback({
+        intentClass: intentClass as IntentClass,
+        parseOk: false,
+      } as Partial<IntentAnalysisDto>);
+    }
+    executionIntent = validated.payload;
+  }
+
   return {
     intentClass: intentClass as IntentClass,
     candidateCycleTypeId,
@@ -364,6 +386,7 @@ export function validateIntentAnalysisPayload(raw: unknown): IntentAnalysisDto {
     expectedOutcome: clip(obj.expectedOutcome),
     criticalJustification: clip(obj.criticalJustification),
     requestedOperation: clip(obj.requestedOperation, 240),
+    executionIntent,
     parseOk: true,
   };
 }
@@ -385,7 +408,8 @@ cognitiveWorkload ({ambiguity,reasoningDepth,sourceBreadth,toolDependency,contra
 contradictionCandidate (objet candidat cognitif OU null — PAS Evidence, PAS evidence_backed, PAS Cognitive STOP),
 challengeResponseAssessment (sufficient|insufficient|unknown|null — INTERNAL MW5 seulement ; PAS Truth C, PAS Evidence, PAS HumanDecision, PAS autorité ; missing/unknown/insufficient = fail-closed),
 objective, scope, rephrasedRequest, outOfScope[], risks[], reservations[], stopConditions[], activatedBlocks[],
-expectedOutcome, criticalJustification, requestedOperation (strings ou null pour les scalaires).
+expectedOutcome, criticalJustification, requestedOperation (strings ou null pour les scalaires),
+executionIntent (objet structuré docs_write/read_only NON-AUTORITAIRE OU null — intention d'exécution proposée, JAMAIS une grant REAL / HumanDecision / autorité ; champs incluant artifactBrief, contentRequirements, targetPath, evidenceRequirements).
 
 === DISTINCTION FONDAMENTALE ===
 intentClass = EFFET demandé à Studio (quoi faire sur le produit).

@@ -4,6 +4,7 @@
  */
 
 import type { Mw3ContradictionCandidateSignal } from "@/lib/nora-cognitive-runtime/deriveMw3Assessment";
+import type { ExecutionIntentPayload } from "./executionIntentSchema";
 
 export type IntentClass =
   | "informative"
@@ -105,6 +106,16 @@ export type ProposalDto = {
   /** Explicit F2 denial — never an agent binding. */
   agentBinding: "NOT_AVAILABLE";
   criticalJustification?: string | null;
+  /**
+   * Top-level intent requestedOperation (legacy / non-executionIntent path).
+   * Prefer executionIntent.requestedOperation when present.
+   */
+  requestedOperation?: string | null;
+  /**
+   * GCEC — NON-AUTHORITATIVE structured execution intent from Nora.
+   * Copied into DecisionBasis.executionBasis on GO; never a REAL launch grant.
+   */
+  executionIntent?: ExecutionIntentPayload | null;
 };
 
 export type DecisionDto = {
@@ -175,6 +186,11 @@ export type IntentAnalysisDto = {
   expectedOutcome: string | null;
   criticalJustification: string | null;
   requestedOperation: string | null;
+  /**
+   * GCEC — NON-AUTHORITATIVE docs_write / execution intent fragment.
+   * Present as null when not applicable; invalid shape fails closed.
+   */
+  executionIntent: ExecutionIntentPayload | null;
   parseOk: boolean;
 };
 

@@ -5,6 +5,37 @@
  * Must NOT be accepted by InjectableExecutionAdapter.
  */
 
+/**
+ * GCEC — bounded docs-write launch contract (CR-GCEC-02).
+ * Built from ExecutionContract.inputs BEFORE Gate D consume.
+ * Gateway MUST NOT invent these fields.
+ */
+export type DocsWriteLaunchSpec = {
+  readonly repositoryRef: string;
+  readonly targetPath: string;
+  readonly pathAllowlist: readonly string[];
+  readonly artifactType: string;
+  readonly artifactBrief: string;
+  readonly contentRequirements: readonly string[];
+  readonly scopeIn: readonly string[];
+  readonly scopeOut: readonly string[];
+  readonly expectedOutputs: readonly string[];
+  readonly validationExpectations: readonly string[];
+  readonly evidenceRequirements: readonly string[];
+  readonly createOrModify: true;
+  readonly noDelete: true;
+};
+
+/** Canonical Git launch specs — single source from domain. */
+export type { GitCommitLaunchSpec } from "../domain/gitCommitLaunchSpec";
+export type { GitPushLaunchSpec } from "../domain/gitPushLaunchSpec";
+export type { GitPrCreateLaunchSpec } from "../domain/gitPrCreateLaunchSpec";
+export type { GitPrMergeLaunchSpec } from "../domain/gitPrMergeLaunchSpec";
+import type { GitCommitLaunchSpec } from "../domain/gitCommitLaunchSpec";
+import type { GitPushLaunchSpec } from "../domain/gitPushLaunchSpec";
+import type { GitPrCreateLaunchSpec } from "../domain/gitPrCreateLaunchSpec";
+import type { GitPrMergeLaunchSpec } from "../domain/gitPrMergeLaunchSpec";
+
 export type RealLaunchRequest = {
   readonly attemptId: string;
   readonly executionContractId: string;
@@ -29,6 +60,63 @@ export type RealLaunchRequest = {
    * Gateway enforces this value and MUST NOT invent a default.
    */
   readonly timeoutMs: number;
+  /** GCEC docs-write launch contract — required when action is docs_write. */
+  readonly docsWriteSpec?: DocsWriteLaunchSpec;
+  /**
+   * GCEC bounded local-commit launch contract — required for git.commit-only
+   * Cursor profile (Attempt B). Mutually exclusive with free shell / FS edit profile.
+   */
+  readonly gitCommitSpec?: GitCommitLaunchSpec;
+  /**
+   * GCEC bounded remote-push launch contract — required for git.push-only
+   * Cursor profile (Attempt C). Mutually exclusive with commit/FS/free shell.
+   */
+  readonly gitPushSpec?: GitPushLaunchSpec;
+  /**
+   * GCEC bounded PR-create launch contract — required for github.pr.create-only
+   * Cursor profile (Attempt D).
+   */
+  readonly gitPrCreateSpec?: GitPrCreateLaunchSpec;
+  /**
+   * GCEC bounded PR-merge PREP launch contract — required for github.pr.merge-only
+   * Cursor profile (Attempt E). REAL merge not claimed executed in PATH B lot.
+   */
+  readonly gitPrMergeSpec?: GitPrMergeLaunchSpec;
+  /** Optional Project binding identity (owner/repo) for workspace resolution. */
+  readonly repositoryBindingIdentity?: string;
+  /** Server-resolved absolute managed clone root (docs-write). */
+  readonly managedRepoRoot?: string;
+  /** Explicit Project repository binding for workspace verify. */
+  readonly repositoryBinding?: {
+    readonly identity: string;
+    readonly remoteUrl: string;
+    readonly defaultBranch: string;
+    readonly pathRoot?: string;
+  };
+  /**
+   * D-GCEC-15 — current authorized Cursor effects (from AuthorizedExecutionSlice).
+   * Gateway / Fake MUST NOT invent grants beyond this list.
+   */
+  readonly authorizedEffects?: readonly import("../domain/cursorExecutionReport").CursorAuthorizedEffectId[];
+  /** Snapshot of authorized + blocked effects for Fake/REAL report alignment. */
+  readonly authorizedExecutionSlice?: {
+    authorizedEffects: readonly string[];
+    blockedEffects: readonly string[];
+    reasons?: readonly string[];
+  };
+  /**
+   * D-GCEC-CONT-01 — server-derived pre-commit workspace continuation.
+   * Produced only by StartExecution from Attempt/Evidence Product truth.
+   * MUST NOT contain a free workspace path / cwd.
+   */
+  readonly workspaceContinuation?: {
+    readonly priorAttemptId: string;
+    readonly expectedHeadSha: string;
+    readonly expectedVerifiedFiles: readonly {
+      readonly path: string;
+      readonly digest: string;
+    }[];
+  };
 };
 
 export type RealLaunchAck = {

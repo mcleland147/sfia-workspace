@@ -36,11 +36,20 @@ import {
   createInMemoryExecutionAttemptServices,
   createSqliteExecutionAttemptServices,
   createM4BoundedReadOnlyCursorAgentDescriptor,
+  createM4BoundedDocsWriteCursorAgentDescriptor,
+  createM4BoundedLocalCommitCursorAgentDescriptor,
+  createM4BoundedRemotePushCursorAgentDescriptor,
+  createM4BoundedPrCreateCursorAgentDescriptor,
+  createM4BoundedPrMergeCursorAgentDescriptor,
   isStudioCursorRealEnabled,
   type ExecutionAttemptServices,
   type RealBoundaryWiring,
   type TestExecutionAdapter,
 } from "@/lib/oa/execution-attempt";
+import {
+  GithubCliRepositoryReadAdapter,
+  type RepositoryReadPort,
+} from "@/lib/oa/git-ports";
 import {
   composeStudioProductRealBoundary,
   type ComposeStudioProductRealBoundaryInput,
@@ -121,6 +130,15 @@ export interface RuntimeApplicationServiceOptions {
    * Construction still launches nothing.
    */
   readonly realBoundaryComposition?: ComposeStudioProductRealBoundaryInput;
+  /**
+   * Studio-owned RepositoryReadPort for StartExecution AC-02/AC-05 fresh preflights.
+   * - omit / undefined → Product SQLite path defaults to GithubCliRepositoryReadAdapter
+   *   (read-only; construction does not spawn gh / mutate remotes);
+   * - explicit Fake/adapter → injected (deterministic tests / harness);
+   * - null → force absent (fail-closed Start D/E preflight).
+   * Does NOT expand Cursor mutation authority.
+   */
+  readonly repositoryRead?: RepositoryReadPort | null;
 }
 
 export type MaterializationServices = {
@@ -169,6 +187,23 @@ function resolveAudit(
   return new NoOpLocalProjectCreationAudit();
 }
 
+function resolveStudioRepositoryRead(input: {
+  readonly productSqlite: boolean;
+  readonly repositoryRead?: RepositoryReadPort | null;
+}): RepositoryReadPort | undefined {
+  if (input.repositoryRead === null) {
+    return undefined;
+  }
+  if (input.repositoryRead !== undefined) {
+    return input.repositoryRead;
+  }
+  // Product durable OA path: Studio READ for AC-02/AC-05. Construction ≠ network mutation.
+  if (input.productSqlite) {
+    return new GithubCliRepositoryReadAdapter();
+  }
+  return undefined;
+}
+
 function wireOaStack(
   projectServices: ProjectServices,
   clock: ClockPort,
@@ -176,6 +211,7 @@ function wireOaStack(
     realBoundary?: RealBoundaryWiring;
     registryRoot?: string;
     doctrinePackagePin?: DoctrinePackagePin;
+    repositoryRead?: RepositoryReadPort | null;
   },
 ): RuntimeOaStack {
   // M2/M3: same Product SQLite store for Project/LPS + Cycle + Decision + Contract.
@@ -183,6 +219,10 @@ function wireOaStack(
     projectServices.store instanceof SqliteProductStore
       ? projectServices.store
       : null;
+  const repositoryRead = resolveStudioRepositoryRead({
+    productSqlite: productSqlite !== null,
+    repositoryRead: options?.repositoryRead,
+  });
 
   // CORR-PROOF-05 — late-bound readers so CycleServices can assess FINALIZE
   // without creating a construction-time cycle with Decision/Evidence factories.
@@ -267,6 +307,7 @@ function wireOaStack(
           action: c.action,
           target: c.target,
           scope: c.scope,
+          supersedesExecutionContractId: c.supersedesExecutionContractId,
         }));
       },
       listAttemptsByProject: async (projectId: string) => {
@@ -405,6 +446,11 @@ function wireOaStack(
         fixtureAgent,
         w3aBoundedAgent,
         createM4BoundedReadOnlyCursorAgentDescriptor(clock.nowIso()),
+        createM4BoundedDocsWriteCursorAgentDescriptor(clock.nowIso()),
+        createM4BoundedLocalCommitCursorAgentDescriptor(clock.nowIso()),
+        createM4BoundedRemotePushCursorAgentDescriptor(clock.nowIso()),
+        createM4BoundedPrCreateCursorAgentDescriptor(clock.nowIso()),
+        createM4BoundedPrMergeCursorAgentDescriptor(clock.nowIso()),
       ]
     : [fixtureAgent, w3aBoundedAgent];
   const registry = new MemoryAgentRegistry(agents);
@@ -419,6 +465,20 @@ function wireOaStack(
         authorityResolver,
         policy: { defaultMaxRetriesBudget: 0 },
         realBoundary,
+        resolveProjectRepositoryBinding: async (projectId) => {
+          const r = await projectServices.getProject.execute({ projectId });
+          if (!r.ok) return null;
+          return r.project.repositoryBinding ?? null;
+        },
+        listProjectEvidence: async (projectId) => {
+          if (!late.evidenceReviewServices) {
+            return { ok: false as const, reason: "evidence_reader_unavailable" as const };
+          }
+          const evidence =
+            await late.evidenceReviewServices.repository.listByProject(projectId);
+          return { ok: true as const, evidence };
+        },
+        ...(repositoryRead ? { repositoryRead } : {}),
       })
     : createInMemoryExecutionAttemptServices({
         decisionServices,
@@ -429,6 +489,20 @@ function wireOaStack(
         authorityResolver,
         policy: { defaultMaxRetriesBudget: 0 },
         realBoundary,
+        resolveProjectRepositoryBinding: async (projectId) => {
+          const r = await projectServices.getProject.execute({ projectId });
+          if (!r.ok) return null;
+          return r.project.repositoryBinding ?? null;
+        },
+        listProjectEvidence: async (projectId) => {
+          if (!late.evidenceReviewServices) {
+            return { ok: false as const, reason: "evidence_reader_unavailable" as const };
+          }
+          const evidence =
+            await late.evidenceReviewServices.repository.listByProject(projectId);
+          return { ok: true as const, evidence };
+        },
+        ...(repositoryRead ? { repositoryRead } : {}),
       });
   late.executionAttemptServices = executionAttemptServices;
 
@@ -582,6 +656,57 @@ export class RuntimeApplicationService {
     }
     return toListProjectsRuntimeSuccess(result.projects);
   }
+
+  /** CR-GCEC-03 — set explicit Project repository binding (no network). */
+  async setProjectRepositoryBinding(input: {
+    projectId: string;
+    identity: string;
+    remoteUrl: string;
+    defaultBranch: string;
+    pathRoot?: string;
+    baseSha?: string;
+  }): Promise<
+    | { ok: true; projectId: string; repositoryBinding: unknown }
+    | { ok: false; code: string; message: string }
+  > {
+    if (!this.oa?.projectServices.setProjectRepositoryBinding) {
+      return {
+        ok: false,
+        code: "NOT_AVAILABLE",
+        message: "Repository binding is unavailable in this runtime.",
+      };
+    }
+    const result =
+      await this.oa.projectServices.setProjectRepositoryBinding.execute({
+        projectId: input.projectId,
+        binding: {
+          provider: "github",
+          identity: input.identity,
+          remoteUrl: input.remoteUrl,
+          defaultBranch: input.defaultBranch,
+          ...(input.pathRoot ? { pathRoot: input.pathRoot } : {}),
+          ...(input.baseSha ? { baseSha: input.baseSha } : {}),
+        },
+        actor: {
+          actorId: "actor:local-pilote",
+          role: "project_owner",
+          displayName: "Local Pilote",
+          authorityLevel: "N2",
+        },
+      });
+    if (!result.ok) {
+      return {
+        ok: false,
+        code: result.error.detailCode,
+        message: result.error.message,
+      };
+    }
+    return {
+      ok: true,
+      projectId: result.project.projectId,
+      repositoryBinding: result.project.repositoryBinding ?? null,
+    };
+  }
 }
 
 export function createRuntimeApplicationService(
@@ -621,6 +746,7 @@ export function createRuntimeApplicationService(
     realBoundary: composedBoundary,
     registryRoot,
     doctrinePackagePin,
+    repositoryRead: options.repositoryRead,
   });
   return new RuntimeApplicationService(
     services.facade,

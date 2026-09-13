@@ -92,6 +92,12 @@ export function toNoraObservationFacts(input: {
 export async function completeBoundedReadOnlyLaunch(input: {
   attempt: ExecutionAttempt;
   services: ExecutionAttemptServices;
+  /**
+   * When true and the process is still live after spawn-ACK, await terminal
+   * observation instead of returning status "running". Default false preserves
+   * async continuation (T-R3-PENDING / T-R3-ASYNC-CONTINUATION).
+   */
+  awaitIfPending?: boolean;
 }): Promise<CompleteBoundedReadOnlyLaunchResult> {
   const realBoundary = input.services.realBoundary;
   if (!realBoundary) {
@@ -147,13 +153,20 @@ export async function completeBoundedReadOnlyLaunch(input: {
     observation.timedOut !== true &&
     observation.exitCode === null;
   if (pendingObservation) {
-    return {
-      ok: true,
-      status: "running",
-      attempt: input.attempt,
-      observation,
-      facts: null,
-    };
+    if (input.awaitIfPending === true) {
+      // Opt-in for REAL harness / callers that want a single await-to-terminal.
+      observation = await realBoundary.launchPort.awaitCompletion(
+        launched.processRef,
+      );
+    } else {
+      return {
+        ok: true,
+        status: "running",
+        attempt: input.attempt,
+        observation,
+        facts: null,
+      };
+    }
   }
 
   if (!observation) {

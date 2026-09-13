@@ -429,6 +429,86 @@ export class FakeConversationProvider implements ConversationProvider {
         },
       };
     }
+    if (markerProbe.includes("__F2_DOCS_WRITE_GCEC__")) {
+      return {
+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+          intentClass: "actionable",
+          candidateCycleTypeId: "cyc:functional-design",
+          signals: {
+            structuralChange: false,
+            securityImpact: false,
+            architectureImpact: false,
+            dataImpact: false,
+            irreversible: false,
+            lowRiskBounded: true,
+          },
+          cognitiveWorkload: null,
+          contradictionCandidate: null,
+          challengeResponseAssessment: null,
+          objective: "Rédiger le design fonctionnel borné",
+          scope: "docs/functional-design.md uniquement",
+          rephrasedRequest:
+            "Produire docs/functional-design.md via cursor.docs_write.apply",
+          outOfScope: ["Cursor REAL hors fake", "commit/push/PR"],
+          risks: ["Contenu incomplet"],
+          reservations: [],
+          stopConditions: ["AUCUNE EXÉCUTION RÉELLE CURSOR"],
+          activatedBlocks: ["qualification", "proposition", "gate"],
+          expectedOutcome: "Artifact functional-design prêt pour revue",
+          criticalJustification: null,
+          requestedOperation: "cursor.docs_write.apply",
+          executionIntent: {
+            intentKind: "docs_write",
+            artifactType: "functional_design",
+            targetRepositoryRef: "acme/widget",
+            targetPath: "docs/functional-design.md",
+            scopeIn: ["docs/"],
+            scopeOut: ["src/", ".github/"],
+            expectedOutputs: ["docs/functional-design.md"],
+            requiredCapabilities: ["cap:cursor.docs_write"],
+            validationExpectations: ["path_allowlist", "no_delete"],
+            evidenceRequirements: [
+              "git:local_commit",
+              "git:remote_push",
+              "git:pull_request",
+              "git:ci_status",
+              "git:review_status",
+              "git:merge",
+              "git:post_merge_verification",
+            ],
+            requestedOperation: "cursor.docs_write.apply",
+            reversibilityExpectation: "reversible",
+            artifactBrief:
+              "Functional design covering goals, actors, flows, and constraints",
+            contentRequirements: [
+              "goals",
+              "actors",
+              "main_flows",
+              "constraints",
+              "out_of_scope",
+            ],
+            exitRequirementKinds: [
+              "artifact",
+              "validation",
+              "commit",
+              "push",
+              "pull_request",
+              "ci",
+              "review",
+              "merge",
+              "post_merge_verification",
+            ],
+          },
+        })}`,
+        usage: {
+          inputTokens: 10 * this.callCount,
+          outputTokens: 5 * this.callCount,
+          totalTokens: 15 * this.callCount,
+          model: "fake-test-model",
+          providerResponseId: `fake-resp-${this.callCount}`,
+        },
+      };
+    }
     if (markerProbe.includes("__F2_INFORMATIVE__")) {
       return {
         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
@@ -447,6 +527,7 @@ export class FakeConversationProvider implements ConversationProvider {
           expectedOutcome: null,
           criticalJustification: null,
           requestedOperation: null,
+          executionIntent: null,
         })}`,
         usage: {
           inputTokens: 10 * this.callCount,
@@ -482,6 +563,7 @@ export class FakeConversationProvider implements ConversationProvider {
           expectedOutcome: "Proposition structurée prête pour revue",
           criticalJustification: null,
           requestedOperation: null,
+          executionIntent: null,
         })}`,
         usage: {
           inputTokens: 10 * this.callCount,
@@ -522,6 +604,7 @@ export class FakeConversationProvider implements ConversationProvider {
           expectedOutcome: "Gate Morris requis — profil Standard",
           criticalJustification: null,
           requestedOperation: "create pr",
+          executionIntent: null,
         })}`,
         usage: {
           inputTokens: 10 * this.callCount,
@@ -582,6 +665,7 @@ export class FakeConversationProvider implements ConversationProvider {
           expectedOutcome: "Gate Morris requis",
           criticalJustification: "Besoin métier structurant documenté",
           requestedOperation: "architecture change",
+          executionIntent: null,
         })}`,
         usage: {
           inputTokens: 10 * this.callCount,
@@ -610,6 +694,7 @@ export class FakeConversationProvider implements ConversationProvider {
           expectedOutcome: null,
           criticalJustification: null,
           requestedOperation: null,
+          executionIntent: null,
         })}`,
         usage: {
           inputTokens: 10 * this.callCount,
@@ -669,6 +754,7 @@ export class FakeConversationProvider implements ConversationProvider {
           expectedOutcome: "Proposition sans exécution",
           criticalJustification: "Demande d'exécution explicite à borner sans lancer d'agent",
           requestedOperation: "cursor create pr",
+          executionIntent: null,
         })}`,
         usage: {
           inputTokens: 10 * this.callCount,
@@ -704,6 +790,7 @@ export class FakeConversationProvider implements ConversationProvider {
           expectedOutcome: null,
           criticalJustification: null,
           requestedOperation: "architecture security change",
+          executionIntent: null,
         })}`,
         usage: {
           inputTokens: 10 * this.callCount,

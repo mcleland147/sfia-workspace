@@ -39,8 +39,13 @@ export type ControlTowerToolName =
   | "github_get_branch"
   | "github_get_commit"
   | "github_get_pull_request"
+  | "github_list_pull_requests"
+  | "github_list_pr_files"
+  | "github_get_pr_diff"
   | "github_list_checks"
-  | "github_list_pr_comments";
+  | "github_list_pr_comments"
+  | "github_read_file_at_ref"
+  | "github_compare_refs";
 
 export interface ToolDefinition {
   name: ControlTowerToolName;
@@ -263,6 +268,44 @@ export const CONTROL_TOWER_TOOL_DEFINITIONS: ToolDefinition[] = [
     },
   },
   {
+    name: "github_list_pull_requests",
+    description:
+      "List recent pull requests for the bound repository (Nora repository context). Read-only. Does not create Evidence.",
+    parameters: {
+      type: "object",
+      properties: {
+        limit: { type: "integer", minimum: 1, maximum: 20 },
+        state: { type: "string", enum: ["open", "closed", "all"] },
+      },
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "github_list_pr_files",
+    description:
+      "List files changed in a pull request. Read-only. Context only — not Evidence.",
+    parameters: {
+      type: "object",
+      properties: {
+        number: { type: "integer", minimum: 1 },
+      },
+      required: ["number"],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "github_get_pr_diff",
+    description: "Read a pull request diff. Read-only. Context only.",
+    parameters: {
+      type: "object",
+      properties: {
+        number: { type: "integer", minimum: 1 },
+      },
+      required: ["number"],
+      additionalProperties: false,
+    },
+  },
+  {
     name: "github_list_checks",
     description: "List check runs for a ref. Read-only.",
     parameters: {
@@ -283,6 +326,34 @@ export const CONTROL_TOWER_TOOL_DEFINITIONS: ToolDefinition[] = [
         number: { type: "integer", minimum: 1 },
       },
       required: ["number"],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "github_read_file_at_ref",
+    description:
+      "Read a file at a branch/tag/sha ref from the bound GitHub repository. Read-only. Context only — not Evidence.",
+    parameters: {
+      type: "object",
+      properties: {
+        path: { type: "string" },
+        ref: { type: "string" },
+      },
+      required: ["path", "ref"],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "github_compare_refs",
+    description:
+      "Compare two refs (base...head) on the bound GitHub repository. Read-only. Context only — not Evidence.",
+    parameters: {
+      type: "object",
+      properties: {
+        base: { type: "string" },
+        head: { type: "string" },
+      },
+      required: ["base", "head"],
       additionalProperties: false,
     },
   },

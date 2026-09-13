@@ -78,6 +78,7 @@ async function observationForScenario(
         requestedOperation: "merge",
         cognitiveWorkload: null,
         contradictionCandidate: null,
+        executionIntent: null,
         parseOk: true,
       };
       return {

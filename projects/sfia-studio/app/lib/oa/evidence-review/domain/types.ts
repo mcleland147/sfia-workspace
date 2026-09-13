@@ -182,6 +182,8 @@ export type RegisterEvidenceRequest = {
   freshness?: EvidenceFreshness;
   location?: string;
   digest?: Digest;
+  /** Schema-free additive durable verification / result reference. */
+  technicalResultRef?: string;
   verifiablePayload?: boolean;
   retentionClass?: EvidenceRetentionClass;
   legalHold?: boolean;

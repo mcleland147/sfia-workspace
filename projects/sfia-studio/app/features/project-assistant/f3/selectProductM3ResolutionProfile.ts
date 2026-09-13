@@ -7,6 +7,10 @@ import type { ExecutionContract } from "@/lib/oa/execution-contract";
 import { isStudioCursorRealEnabled } from "@/lib/oa/execution-attempt";
 import { isDeterministicCursorBoundaryEnabled } from "@/lib/vertical-slice-runtime/deterministicExternalLaunchBoundary";
 import {
+  BOUNDED_DOCS_WRITE_M3_SUPERSESSION_REASON,
+  boundedDocsWriteM3ResolutionProfile,
+} from "./boundedDocsWriteM3ResolutionProfile";
+import {
   BOUNDED_READ_ONLY_M3_SUPERSESSION_REASON,
   boundedReadOnlyM3ResolutionProfile,
 } from "./boundedReadOnlyM3ResolutionProfile";
@@ -16,7 +20,10 @@ import {
 } from "./fixtureSafeM3ResolutionProfile";
 import type { M3ResolvedExecutionFields } from "./resolveM3ExecutionContract";
 
-export type ProductM3ResolutionKind = "fixture" | "bounded_read_only";
+export type ProductM3ResolutionKind =
+  | "fixture"
+  | "bounded_read_only"
+  | "bounded_docs_write";
 
 export type SelectedProductM3Resolution = {
   kind: ProductM3ResolutionKind;
@@ -73,18 +80,31 @@ export function authorizedM3ResolutionKind(
   if (profileMatchesContract(contract, boundedReadOnlyM3ResolutionProfile())) {
     return "bounded_read_only";
   }
+  if (profileMatchesContract(contract, boundedDocsWriteM3ResolutionProfile())) {
+    return "bounded_docs_write";
+  }
   return null;
 }
 
 /**
  * @param preferBoundedReadOnlyProfile Server/test only. Never from the client.
+ * @param preferBoundedDocsWriteProfile Server/test only. Never from the client.
+ *   When true, returns docs-write; otherwise existing RO/fixture logic.
  * @param env Optional env snapshot for isStudioCursorRealEnabled /
  *   fail-closed deterministic Cursor boundary (TEST/E2E only).
  */
 export function selectProductM3ResolutionProfile(input?: {
   preferBoundedReadOnlyProfile?: boolean;
+  preferBoundedDocsWriteProfile?: boolean;
   env?: NodeJS.ProcessEnv;
 }): SelectedProductM3Resolution {
+  if (input?.preferBoundedDocsWriteProfile === true) {
+    return {
+      kind: "bounded_docs_write",
+      profile: boundedDocsWriteM3ResolutionProfile(),
+      supersessionReason: BOUNDED_DOCS_WRITE_M3_SUPERSESSION_REASON,
+    };
+  }
   const env = input?.env ?? process.env;
   const useBounded =
     input?.preferBoundedReadOnlyProfile === true ||

@@ -581,6 +581,37 @@ describe("D-GF-START-01 TrajectorySurface prepare/start CTAs", () => {
     expect(screen.queryByTestId("w2-propose-options")).toBeNull();
   });
 
+  it("hides Préparer le cycle when prepareBlockedReason is set", async () => {
+    readPreCycleMock.mockResolvedValue({
+      ok: true,
+      candidate: null,
+      activeCycleInstanceId: null,
+      hasCurrentNextCycleRecommendation: false,
+    });
+    readApprovalMock.mockResolvedValue({
+      ok: true,
+      presentation: null,
+      alreadyDecided: {
+        trajectoryId: "trj:gf-ui-blocked",
+        version: 1,
+        status: "validated",
+        decidedByDecisionRef: "dec:gf-ui-blocked",
+        targetCycleTypeId: "cyc:functional-design",
+        catalogLabel: "Conception fonctionnelle",
+        completedMatchingCycle: true,
+        prepareBlockedReason: "cycle_type_already_completed",
+      },
+      activeCycleInstanceId: null,
+    });
+    readPreparedCycleMock.mockResolvedValue({ ok: true, prepared: null });
+
+    render(<TrajectorySurface projectId="prj:gf-prep-blocked" />);
+    expect(await screen.findByTestId("pre-cycle-decided-trajectory")).toBeVisible();
+    expect(screen.getByTestId("pre-cycle-prepare-blocked")).toBeVisible();
+    expect(screen.queryByTestId("pre-cycle-prepare-cycle")).toBeNull();
+    expect(screen.queryByTestId("pre-cycle-start-cycle")).toBeNull();
+  });
+
   it("shows profile + Démarrer le cadrage when prepared; clears CTAs after active", async () => {
     readPreCycleMock.mockResolvedValue({
       ok: true,

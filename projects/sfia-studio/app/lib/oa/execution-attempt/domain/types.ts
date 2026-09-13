@@ -15,11 +15,13 @@
  */
 
 import type { ActorReference, ProvenanceRecord } from "@/lib/oa/doctrine";
+import type { Confirmation } from "@/lib/oa/decision";
 import type {
   AuthorityClass,
   ExecutionWindowClass,
 } from "@/lib/oa/execution-contract";
 import type { BoundExecutionContractSnapshot } from "./boundExecutionContract";
+import type { CursorAuthorizedEffectId } from "./cursorExecutionReport";
 
 export type { ActorReference, ProvenanceRecord, AuthorityClass, ExecutionWindowClass };
 export type { BoundExecutionContractSnapshot };
@@ -204,6 +206,25 @@ export type StartExecutionRequest = {
   correlationId?: string;
   expectedAttemptVersion?: number;
   expectedContractVersion?: number;
+  /**
+   * D-GCEC-15 — effect-scoped Confirmations for AuthorizedExecutionSlice.
+   * Git effects require explicit granted Confirmation; never inferred.
+   */
+  confirmations?: readonly Confirmation[];
+  /**
+   * CR-GCEC-23 — HOSTILE / ASSERTION only.
+   * Server derives canonical Confirmation target from Project.repositoryBinding,
+   * durable EC inputs, and VERIFIED Evidence. If supplied, assertion must match
+   * server truth or StartExecution refuses. NEVER used to build actionRef.
+   */
+  confirmationMatch?: {
+    repositoryRef?: string;
+    branchOrRef?: string;
+    prNumber?: number;
+    actorId?: string;
+  };
+  /** Effects already independently verified — excluded from re-authorization. */
+  verifiedEffects?: readonly CursorAuthorizedEffectId[];
   /** Hostile — ignored, never trusted. */
   claimedAuthorityLevel?: string;
   nowIso?: string;

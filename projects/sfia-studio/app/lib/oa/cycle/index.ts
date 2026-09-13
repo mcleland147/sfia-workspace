@@ -84,6 +84,14 @@ export {
   type DeriveFinalizationApplicabilityInput,
 } from "./application/deriveFinalizationApplicability";
 export {
+  deriveCycleObligationSnapshot,
+  applyCycleObligationSnapshotToRules,
+  type CycleObligationSnapshot,
+  type CycleObligationEntry,
+  type CycleObligationFamily,
+  type DeriveCycleObligationSnapshotInput,
+} from "./application/deriveCycleObligationSnapshot";
+export {
   selectEffectiveExecutionContracts,
   type SelectableExecutionContract,
   type SelectEffectiveExecutionContractsResult,
@@ -96,8 +104,28 @@ export {
   hasGitRepositorySemanticMarker,
   isGitApplicableContract,
   isGitQualifyingEvidence,
+  isGitCompletionProofEvidence,
   type GitQualifiableContract,
 } from "./application/qualifyGitEvidence";
+export {
+  qualifyGitCompletionProofSet,
+  gitProofFamiliesFromRequirements,
+  GCEC_GIT_COMPLETION_PROOF_FAMILIES,
+  type GitCompletionProofFamily,
+  type QualifyGitCompletionProofSetExpected,
+  type QualifyGitCompletionProofSetResult,
+} from "./application/qualifyGitCompletionProofSet";
+export {
+  deriveCycleExitState,
+  summarizeCycleExitState,
+  cycleExitGitFamiliesRequired,
+  type CycleExitState,
+  type CycleExitRequirement,
+  type CycleExitRequirementKind,
+  type CycleExitRequirementStatus,
+  type DeriveCycleExitStateInput,
+} from "./application/cycleExitState";
+export { isTypedGitEvidenceSource } from "@/lib/oa/evidence-review";
 export {
   PilotLifecycleTransitions,
   type PilotLifecycleDeps,

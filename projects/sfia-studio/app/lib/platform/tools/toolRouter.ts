@@ -284,6 +284,16 @@ export function resolveToolPathOrRef(
           : asOptionalPositiveInt(args.number);
       return number ? `github:pr:#${number}` : "github:pr";
     }
+    case "github_list_pull_requests":
+      return "github:pr-list";
+    case "github_list_pr_files": {
+      const number = asOptionalPositiveInt(args.number);
+      return number ? `github:pr-files:#${number}` : "github:pr-files";
+    }
+    case "github_get_pr_diff": {
+      const number = asOptionalPositiveInt(args.number);
+      return number ? `github:pr-diff:#${number}` : "github:pr-diff";
+    }
     case "github_list_checks": {
       const ref = asString(args.ref);
       return ref ? `github:checks:${ref}` : "github:checks";
@@ -291,6 +301,18 @@ export function resolveToolPathOrRef(
     case "github_list_pr_comments": {
       const number = asOptionalPositiveInt(args.number);
       return number ? `github:pr-comments:#${number}` : "github:pr-comments";
+    }
+    case "github_read_file_at_ref": {
+      const p = asString(args.path);
+      const ref = asString(args.ref);
+      if (p && ref) return `github:file:${ref}:${p}`;
+      return "github:file-at-ref";
+    }
+    case "github_compare_refs": {
+      const base = asString(args.base);
+      const head = asString(args.head);
+      if (base && head) return `github:compare:${base}...${head}`;
+      return "github:compare";
     }
     default:
       return null;
@@ -618,6 +640,75 @@ export async function routeToolCall(
             summary = `PR #${r.number} ${r.state}`;
             break;
           }
+          case "github_list_pull_requests": {
+            if (!adapter.listPullRequests) {
+              return failResult(
+                request.toolCallId,
+                name,
+                "TRANSPORT_UNAVAILABLE",
+                "listPullRequests not available on this adapter",
+                started,
+                transport,
+                "failed",
+              );
+            }
+            const limit = asInt(request.arguments.limit, 5);
+            const stateRaw = asString(request.arguments.state);
+            const state =
+              stateRaw === "closed" || stateRaw === "all" || stateRaw === "open"
+                ? stateRaw
+                : "open";
+            const r = await withTimeout(
+              adapter.listPullRequests(owner, repoName, { limit, state }),
+            );
+            data = { pullRequests: r };
+            summary = `${r.length} PR(s)`;
+            break;
+          }
+          case "github_list_pr_files": {
+            const number = asInt(request.arguments.number, 0);
+            if (number < 1 || !adapter.listPullRequestFiles) {
+              return failResult(
+                request.toolCallId,
+                name,
+                number < 1 ? "INVALID_ARGUMENTS" : "TRANSPORT_UNAVAILABLE",
+                number < 1
+                  ? "number requis"
+                  : "listPullRequestFiles not available",
+                started,
+                transport,
+                "denied",
+              );
+            }
+            const r = await withTimeout(
+              adapter.listPullRequestFiles(owner, repoName, number),
+            );
+            data = { files: r };
+            summary = `${r.length} file(s)`;
+            break;
+          }
+          case "github_get_pr_diff": {
+            const number = asInt(request.arguments.number, 0);
+            if (number < 1 || !adapter.getPullRequestDiff) {
+              return failResult(
+                request.toolCallId,
+                name,
+                number < 1 ? "INVALID_ARGUMENTS" : "TRANSPORT_UNAVAILABLE",
+                number < 1
+                  ? "number requis"
+                  : "getPullRequestDiff not available",
+                started,
+                transport,
+                "denied",
+              );
+            }
+            const r = await withTimeout(
+              adapter.getPullRequestDiff(owner, repoName, number),
+            );
+            data = { diff: r };
+            summary = `PR #${number} diff`;
+            break;
+          }
           case "github_list_checks": {
             const ref = asString(request.arguments.ref);
             if (!ref) {
@@ -656,6 +747,67 @@ export async function routeToolCall(
             );
             data = { comments: r };
             summary = `${r.length} comment(s)`;
+            break;
+          }
+          case "github_read_file_at_ref": {
+            const filePath = asString(request.arguments.path);
+            const ref = asString(request.arguments.ref);
+            if (!filePath || !ref || !adapter.readFileAtRef) {
+              return failResult(
+                request.toolCallId,
+                name,
+                !filePath || !ref
+                  ? "INVALID_ARGUMENTS"
+                  : "TRANSPORT_UNAVAILABLE",
+                !filePath || !ref
+                  ? "path et ref requis"
+                  : "readFileAtRef not available",
+                started,
+                transport,
+                "denied",
+              );
+            }
+            const r = await withTimeout(
+              adapter.readFileAtRef(owner, repoName, filePath, ref),
+            );
+            if (!r) {
+              return failResult(
+                request.toolCallId,
+                name,
+                "PATH_NOT_FOUND",
+                "fichier introuvable à ce ref",
+                started,
+                transport,
+                "failed",
+              );
+            }
+            data = r;
+            summary = `file ${r.path}@${r.ref}`;
+            break;
+          }
+          case "github_compare_refs": {
+            const base = asString(request.arguments.base);
+            const head = asString(request.arguments.head);
+            if (!base || !head || !adapter.compareRefs) {
+              return failResult(
+                request.toolCallId,
+                name,
+                !base || !head
+                  ? "INVALID_ARGUMENTS"
+                  : "TRANSPORT_UNAVAILABLE",
+                !base || !head
+                  ? "base et head requis"
+                  : "compareRefs not available",
+                started,
+                transport,
+                "denied",
+              );
+            }
+            const r = await withTimeout(
+              adapter.compareRefs(owner, repoName, base, head),
+            );
+            data = r;
+            summary = `compare ${r.base}...${r.head} (+${r.aheadBy}/-${r.behindBy})`;
             break;
           }
           default:

@@ -44,6 +44,13 @@ export * from "./domain/types";
 export * from "./domain/errors";
 export * from "./domain/invariants";
 export * from "./domain/realLaunchSafety";
+export * from "./domain/cursorExecutionReport";
+export * from "./domain/authorizedExecutionSlice";
+export * from "./domain/contractEffectClassification";
+export * from "./domain/resolveGitEffectTarget";
+export * from "./domain/resolvePreCommitWorkspaceContinuation";
+export { verifyWorkspaceFileEffects } from "./application/verifyWorkspaceFileEffects";
+export type { WorkspaceFileVerificationResult } from "./application/verifyWorkspaceFileEffects";
 
 export * from "./ports/executionAttemptRepository";
 export * from "./ports/executionAttemptTechnicalStorePort";
@@ -56,7 +63,7 @@ export * from "./ports/realLaunchSafetyJournalPort";
 // launchSafetyJournalPort is a thin re-export — avoid duplicate export * conflict.
 
 export { SelectExecutionAgent } from "./application/selectExecutionAgent";
-export { StartExecution, extractContractBaseHeadSha } from "./application/startExecution";
+export { StartExecution, extractContractBaseHeadSha, extractDocsWriteLaunchSpec } from "./application/startExecution";
 export {
   o3LaterIntervalMs,
   o3ObservationScheduleMs,
@@ -127,15 +134,33 @@ export {
   NODE_CURSOR_STDERR_CAP_BYTES,
   resolveStudioCursorBinPath,
   resolveCursorBinPath,
+  buildMutatingCursorConfinementEnv,
+  isMutatingGcecCursorProfile,
+  MUTATING_CURSOR_STRIPPED_ENV_KEYS,
+  resolveMutatingConfinementEffectClass,
+  MUTATING_CURSOR_REMOTE_GIT_PRESERVED_ENV_KEYS,
+  MUTATING_CURSOR_REMOTE_GITHUB_PRESERVED_ENV_KEYS,
   type CursorCliLaunchGatewayOptions,
   type StudioCursorRealLaunchGatewayOptions,
   type SpawnPrimitive,
   type NodeCursorProcessRunnerOptions,
+  type MutatingCursorConfinementEffectClass,
 } from "./infrastructure/cursorCliLaunchGateway";
+export {
+  assertLocalBranchRefMatchesExpectedSha,
+  assertRemoteUrlMatchesRepositoryRef,
+} from "./domain/assertLocalBranchRefMatchesExpectedSha";
+export { assertFreshPrMergePreflight } from "./domain/assertFreshPrMergePreflight";
+export type { FreshPrMergePreflightExpected } from "./domain/assertFreshPrMergePreflight";
+export {
+  assertCanonicalGithubRepositoryRef,
+  posixShellSingleQuote,
+} from "./domain/shellSafeArg";
 export {
   StudioGitWorktreeWorkspace,
   NodeGitCommandRunner,
   isFullGitSha,
+  pathsEqualAllowingRealpath,
   workspacePathForAttempt,
   type GitCommandRunner,
   type GitCommandResult,
@@ -156,8 +181,182 @@ export {
   M4_BOUNDED_RO_TARGET,
   M4_BOUNDED_RO_SCOPE,
 } from "./infrastructure/m4BoundedReadOnlyCursorAgent";
-export { M4_BOUNDED_RO_CURSOR_AGENT_ID, M4_REAL_GATEWAY_ADAPTER_ID } from "./domain/realLaunchSafety";
-export { assertStudioCursorRealOffForTests } from "./domain/realLaunchSafety";
+export {
+  createM4BoundedDocsWriteCursorAgentDescriptor,
+  isM4BoundedDocsWriteRealAgent,
+  isM4AuthorizedCursorRealAgent,
+  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
+  M4_BOUNDED_DOCS_WRITE_ACTION,
+  M4_BOUNDED_DOCS_WRITE_TARGET,
+  M4_BOUNDED_DOCS_WRITE_SCOPE,
+} from "./infrastructure/m4BoundedDocsWriteCursorAgent";
+export {
+  createM4BoundedLocalCommitCursorAgentDescriptor,
+  isM4BoundedLocalCommitRealAgent,
+  M4_BOUNDED_LOCAL_COMMIT_CAPABILITY,
+  M4_BOUNDED_LOCAL_COMMIT_ACTION,
+  M4_BOUNDED_LOCAL_COMMIT_TARGET,
+  M4_BOUNDED_LOCAL_COMMIT_SCOPE,
+} from "./infrastructure/m4BoundedLocalCommitCursorAgent";
+export {
+  createM4BoundedRemotePushCursorAgentDescriptor,
+  isM4BoundedRemotePushRealAgent,
+  M4_BOUNDED_REMOTE_PUSH_CAPABILITY,
+  M4_BOUNDED_REMOTE_PUSH_ACTION,
+  M4_BOUNDED_REMOTE_PUSH_TARGET,
+  M4_BOUNDED_REMOTE_PUSH_SCOPE,
+} from "./infrastructure/m4BoundedRemotePushCursorAgent";
+export {
+  createM4BoundedPrCreateCursorAgentDescriptor,
+  isM4BoundedPrCreateRealAgent,
+  M4_BOUNDED_PR_CREATE_CAPABILITY,
+  M4_BOUNDED_PR_CREATE_ACTION,
+  M4_BOUNDED_PR_CREATE_TARGET,
+  M4_BOUNDED_PR_CREATE_SCOPE,
+} from "./infrastructure/m4BoundedPrCreateCursorAgent";
+export {
+  createM4BoundedPrMergeCursorAgentDescriptor,
+  isM4BoundedPrMergeRealAgent,
+  M4_BOUNDED_PR_MERGE_CAPABILITY,
+  M4_BOUNDED_PR_MERGE_ACTION,
+  M4_BOUNDED_PR_MERGE_TARGET,
+  M4_BOUNDED_PR_MERGE_SCOPE,
+} from "./infrastructure/m4BoundedPrMergeCursorAgent";
+export {
+  FakeDocsWriteLaunchPort,
+  listRelativeFiles,
+  sha256File,
+  type FakeDocsWriteLaunchPortOptions,
+} from "./infrastructure/fakeDocsWriteLaunchPort";
+export {
+  FakeCursorGitExternalState,
+  type FakeCursorCommitRecord,
+  type FakeCursorPrRecord,
+  type FakeCursorCiConclusion,
+  type FakeCursorReviewState,
+} from "./infrastructure/fakeCursorGitExternalState";
+export { qualifyExecutionContractCompletion } from "./domain/qualifyExecutionContractCompletion";
+export type { ExecutionContractCompletionQualification } from "./domain/qualifyExecutionContractCompletion";
+export { advanceExecutionContractCompletion } from "./application/advanceExecutionContractCompletion";
+export {
+  ManagedProjectRepositoryResolver,
+  sanitizeManagedRepoIdentity,
+} from "./infrastructure/managedProjectRepositoryResolver";
+export type { ManagedRepoBindingIdentity } from "./infrastructure/managedProjectRepositoryResolver";
+export {
+  resolveAttemptExecutionProfile,
+} from "./domain/resolveAttemptExecutionProfile";
+export {
+  resolveVerifiedDocsWritePriorAttempt,
+} from "./domain/resolveVerifiedDocsWritePriorAttempt";
+export {
+  resolveVerifiedLocalCommitPriorAttempt,
+  parseLocalCommitShaFromEvidenceLocation,
+} from "./domain/resolveVerifiedLocalCommitPriorAttempt";
+export {
+  resolveVerifiedRemotePushPriorAttempt,
+  parseRemotePushFromEvidenceLocation,
+} from "./domain/resolveVerifiedRemotePushPriorAttempt";
+export type {
+  ProjectEvidenceListResult,
+  ListProjectEvidenceFn,
+} from "./domain/projectEvidenceList";
+export {
+  availableProjectEvidence,
+  unavailableProjectEvidence,
+} from "./domain/projectEvidenceList";
+export type {
+  AttemptExecutionProfile,
+  AttemptExecutionProfileKind,
+  AttemptExecutionProfileLineage,
+  ResolveAttemptExecutionProfileInput,
+  ResolveAttemptExecutionProfileResult,
+} from "./domain/resolveAttemptExecutionProfile";
+export type {
+  VerifiedDocsWritePriorAttempt,
+  ResolveVerifiedDocsWritePriorAttemptInput,
+  ResolveVerifiedDocsWritePriorAttemptResult,
+} from "./domain/resolveVerifiedDocsWritePriorAttempt";
+export type {
+  VerifiedLocalCommitPriorAttempt,
+  ResolveVerifiedLocalCommitPriorAttemptInput,
+  ResolveVerifiedLocalCommitPriorAttemptResult,
+} from "./domain/resolveVerifiedLocalCommitPriorAttempt";
+export type {
+  VerifiedRemotePushPriorAttempt,
+  ResolveVerifiedRemotePushPriorAttemptInput,
+  ResolveVerifiedRemotePushPriorAttemptResult,
+} from "./domain/resolveVerifiedRemotePushPriorAttempt";
+export {
+  buildGitCommitLaunchSpec,
+  deriveTrustedCommitMessage,
+} from "./domain/gitCommitLaunchSpec";
+export type { GitCommitLaunchSpec } from "./domain/gitCommitLaunchSpec";
+export {
+  buildGitPushLaunchSpec,
+  deriveDeterministicGcecPushBranch,
+  isBoundedGitPushOnlySlice,
+} from "./domain/gitPushLaunchSpec";
+export type { GitPushLaunchSpec } from "./domain/gitPushLaunchSpec";
+export {
+  buildGitPrCreateLaunchSpec,
+  isBoundedGitPrCreateOnlySlice,
+} from "./domain/gitPrCreateLaunchSpec";
+export type { GitPrCreateLaunchSpec } from "./domain/gitPrCreateLaunchSpec";
+export {
+  buildGitPrMergeLaunchSpec,
+  isBoundedGitPrMergeOnlySlice,
+} from "./domain/gitPrMergeLaunchSpec";
+export type {
+  GitPrMergeLaunchSpec,
+  GitPrMergeMethod,
+} from "./domain/gitPrMergeLaunchSpec";
+export {
+  verifyLocalCommitFacts,
+  isBoundedGitCommitOnlySlice,
+} from "./domain/verifyLocalCommitFacts";
+export type {
+  LocalCommitVerificationInput,
+  LocalCommitVerificationResult,
+  LocalCommitArtifactCheck,
+} from "./domain/verifyLocalCommitFacts";
+export {
+  verifyLocalCommitEffect,
+  digestOf,
+  LOCAL_GIT_READONLY_TECHNICAL_REF,
+} from "./application/verifyLocalCommitEffect";
+export type {
+  VerifyLocalCommitEffectInput,
+  VerifyLocalCommitEffectResult,
+} from "./application/verifyLocalCommitEffect";
+export {
+  verifyRemotePushEffect,
+} from "./application/verifyRemotePushEffect";
+export type {
+  VerifyRemotePushEffectInput,
+  VerifyRemotePushEffectResult,
+} from "./application/verifyRemotePushEffect";
+export {
+  verifyPrCreateEffect,
+} from "./application/verifyPrCreateEffect";
+export type {
+  VerifyPrCreateEffectInput,
+  VerifyPrCreateEffectResult,
+} from "./application/verifyPrCreateEffect";
+export {
+  observeLocalCommitFacts,
+} from "./application/observeLocalCommitFacts";
+export type {
+  LocalCommitObservedFacts,
+  ObserveLocalCommitInput,
+  GovernedWorkspaceObservationContext,
+} from "./application/observeLocalCommitFacts";
+export {
+  assertShellSafeRelativePath,
+  assertShellSafeCommitSubject,
+  GIT_COMMIT_SUBJECT_MAX_LENGTH,
+} from "./domain/gitCommitLaunchSpec";
+export type { FsAnchorSupersessionInput } from "./domain/resolvePreCommitWorkspaceContinuation";
 
 import type { ClockPort } from "@/lib/oa/doctrine";
 import { FixedClock, SystemClock } from "@/lib/oa/doctrine";
@@ -216,6 +415,8 @@ export function isInjectableExecutionAdapter(
 export type RealBoundaryWiring = {
   readonly launchPort: RealExecutionLaunchPort;
   readonly safetyJournal: RealLaunchSafetyJournalPort;
+  /** Server-only managed clone base for docs-write workspace resolution. */
+  readonly managedRepoRootBase?: string;
 };
 
 export type ExecutionAttemptServices = {
@@ -268,6 +469,18 @@ export type CreateInMemoryExecutionAttemptServicesOptions = {
   /** Flat aliases accepted by tests — same as realBoundary. */
   launchSafetyJournal?: RealLaunchSafetyJournalPort;
   realLaunch?: RealExecutionLaunchPort;
+  /**
+   * CR-GCEC-23 — Project.repositoryBinding resolver (server-derived Confirmation).
+   */
+  resolveProjectRepositoryBinding?: (
+    projectId: string,
+  ) => Promise<import("@/lib/oa/project").ProjectRepositoryBinding | null>;
+  /**
+   * CR-GCEC-23 — Evidence list for verified PR identity (may be late-bound).
+   */
+  listProjectEvidence?: import("./domain/projectEvidenceList").ListProjectEvidenceFn;
+  /** CR-04 — optional RepositoryRead for merge fresh preflight. */
+  repositoryRead?: import("@/lib/oa/git-ports").RepositoryReadPort;
 };
 
 /** Factory for the in-memory ExecutionAttempt runtime foundation. */
@@ -312,6 +525,7 @@ export function createInMemoryExecutionAttemptServices(
     audit,
     policy,
     store,
+    options.listProjectEvidence,
   );
 
   const realBoundary =
@@ -356,6 +570,10 @@ export function createInMemoryExecutionAttemptServices(
       store,
       realBoundary?.launchPort,
       realBoundary?.safetyJournal,
+      realBoundary?.managedRepoRootBase,
+      options.resolveProjectRepositoryBinding,
+      options.listProjectEvidence,
+      options.repositoryRead,
     ),
     cancelExecutionAttempt: new CancelExecutionAttempt(
       attempts,
@@ -455,6 +673,9 @@ export function createTestExecutionAttemptServices(
     adapter,
     clock,
     audit,
+    listProjectEvidence:
+      options.listProjectEvidence ??
+      (async () => ({ ok: true as const, evidence: [] as const })),
   }) as ExecutionAttemptServices & {
     audit: MemoryExecutionAttemptAuditJournal;
   };

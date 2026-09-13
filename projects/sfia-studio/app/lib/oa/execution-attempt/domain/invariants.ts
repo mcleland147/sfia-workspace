@@ -374,8 +374,9 @@ export function resolveSelectionStrategy(
 /* Modeled shape guard (0.2.0-oa conditionals)                                 */
 /* -------------------------------------------------------------------------- */
 
+/** Pre-launch fail stopReason prefixes (fixture + REAL Gate D paths). */
 const LAUNCH_FAIL_STOP_REASON_PATTERN =
-  /^(EXECUTION_LAUNCH_FAILED|EXECUTION_PERSISTENCE_FAILED)([:; ].*)?$/;
+  /^(EXECUTION_LAUNCH_FAILED|EXECUTION_PERSISTENCE_FAILED|REAL_LAUNCH_FAILED)([:; ].*)?$/;
 
 /**
  * MODELED GAP T-A5-M1 (documented, not silently resolved).

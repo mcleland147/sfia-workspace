@@ -48,6 +48,8 @@ import {
   verifyAttemptAuthority,
 } from "./attemptSupport";
 import type { AttemptPolicy } from "./attemptPolicy";
+import { resolveAttemptExecutionProfile } from "../domain/resolveAttemptExecutionProfile";
+import type { ListProjectEvidenceFn } from "../domain/projectEvidenceList";
 
 export class SelectExecutionAgent {
   constructor(
@@ -61,6 +63,8 @@ export class SelectExecutionAgent {
     private readonly audit: ExecutionAttemptAuditPort,
     private readonly policy: AttemptPolicy,
     private readonly store?: ExecutionAttemptTechnicalStorePort,
+    /** Durable Evidence for AttemptExecutionProfile (CORR-D-GCEC-AGENT-01). */
+    private readonly listProjectEvidence?: ListProjectEvidenceFn,
   ) {}
 
   async execute(
@@ -167,8 +171,8 @@ export class SelectExecutionAgent {
         });
       }
 
-      // Mandatory T-A4 gate: deny-by-default action/target/scope, decision
-      // freshness, Critical acknowledgment, authority.
+      // Contract-level authorization remains (T-A4). Attempt profile is
+      // executor sufficiency for the current slice only (D-GCEC-AGENT-01).
       const authorization = await this.checkExecutionAuthorization.execute({
         executionContractId: contract.executionContractId,
         action: contract.action,
@@ -186,12 +190,30 @@ export class SelectExecutionAgent {
         );
       }
 
-      const criteria = {
-        requiredCapabilities: [...contract.requiredCapabilities],
-        action: contract.action,
-        target: contract.target,
-        scope: contract.scope,
-      };
+      const evidenceRead = this.listProjectEvidence
+        ? await this.listProjectEvidence(contract.projectId)
+        : { ok: false as const, reason: "evidence_reader_unavailable" as const };
+      const evidenceList = evidenceRead.ok ? evidenceRead.evidence : [];
+      const peerAttempts = await this.attempts.listByContract(
+        contract.executionContractId,
+      );
+      const profileResolved = resolveAttemptExecutionProfile({
+        contract,
+        attempts: peerAttempts,
+        evidence: evidenceList,
+        evidenceReaderAvailable: evidenceRead.ok,
+        // Hostile channels — never authoritative for profile.
+        claimedRequestedAgentRef: request.requestedAgentRef,
+        claimedProfile: (request as { attemptProfile?: unknown }).attemptProfile,
+        claimedGitCommitSpec: (request as { gitCommitSpec?: unknown })
+          .gitCommitSpec,
+        claimedVerifiedEffects: (request as { verifiedEffects?: unknown })
+          .verifiedEffects as never,
+      });
+      if (!profileResolved.ok) {
+        return fail("AGENT_CAPABILITY_MISMATCH", profileResolved.reason);
+      }
+      const criteria = profileResolved.profile.criteria;
       const candidates = this.registry.findCandidates(criteria);
       if (candidates.length === 0) {
         return fail("AGENT_NOT_FOUND", "no_registry_candidate");

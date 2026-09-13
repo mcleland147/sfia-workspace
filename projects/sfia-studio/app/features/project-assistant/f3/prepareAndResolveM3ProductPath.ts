@@ -34,11 +34,21 @@ export type PrepareAndResolveM3Deps = PrepareM3Deps &
      */
     preferBoundedReadOnlyProfile?: boolean;
     /**
+     * Server/test only. Never accepted from the client.
+     * Selects the bounded docs-write M3 profile (GCEC first vertical).
+     */
+    preferBoundedDocsWriteProfile?: boolean;
+    /**
      * Server/test only contract-bound workspace pin for the REAL successor.
      * Never accepted from the client. If omitted on the bounded profile,
      * HEAD is resolved server-side via gitCommandRunner / default resolver.
      */
     boundedReadOnlyBaseHeadSha?: string;
+    /**
+     * Alias for bounded docs-write / read-only base HEAD pin.
+     * Same semantics as boundedReadOnlyBaseHeadSha.
+     */
+    boundedDocsWriteBaseHeadSha?: string;
     /**
      * Server/test Git HEAD resolver. Never from the client.
      * Used when boundedReadOnlyBaseHeadSha is not provided.
@@ -101,13 +111,23 @@ export async function prepareAndResolveM3ProductPath(input: {
 
   const selected = selectProductM3ResolutionProfile({
     preferBoundedReadOnlyProfile: input.deps.preferBoundedReadOnlyProfile === true,
+    preferBoundedDocsWriteProfile:
+      input.deps.preferBoundedDocsWriteProfile === true,
   });
 
   let resolution = selected.profile;
-  if (selected.kind === "bounded_read_only") {
+  if (
+    selected.kind === "bounded_read_only" ||
+    selected.kind === "bounded_docs_write"
+  ) {
     let sha: string | null = null;
-    if (input.deps.boundedReadOnlyBaseHeadSha !== undefined) {
-      sha = validateBaseHeadSha(input.deps.boundedReadOnlyBaseHeadSha);
+    const pinned =
+      selected.kind === "bounded_docs_write"
+        ? (input.deps.boundedDocsWriteBaseHeadSha ??
+          input.deps.boundedReadOnlyBaseHeadSha)
+        : input.deps.boundedReadOnlyBaseHeadSha;
+    if (pinned !== undefined) {
+      sha = validateBaseHeadSha(pinned);
     } else if (input.deps.resolveBoundedReadOnlyHead) {
       sha = validateBaseHeadSha(await input.deps.resolveBoundedReadOnlyHead());
     } else {
@@ -155,6 +175,7 @@ export async function prepareAndResolveM3ProductPath(input: {
   }
 
   const fixtureSelected = selected.kind === "fixture";
+  const docsWriteSelected = selected.kind === "bounded_docs_write";
   return {
     ok: true,
     payload: {
@@ -176,7 +197,9 @@ export async function prepareAndResolveM3ProductPath(input: {
         "M3 durable PREPARE from HumanDecision + DecisionBasis",
         fixtureSelected
           ? "G-UX-15 resolveM3ExecutionContract — fixture-safe ZERO REAL profile"
-          : "G-UX-15 resolveM3ExecutionContract — bounded read-only M4 profile (server-selected; ZERO LIVE in this cycle)",
+          : docsWriteSelected
+            ? "G-UX-15 resolveM3ExecutionContract — bounded docs-write M4 profile (server-selected; ZERO LIVE Cursor; Fake boundary in tests)"
+            : "G-UX-15 resolveM3ExecutionContract — bounded read-only M4 profile (server-selected; ZERO LIVE in this cycle)",
         "NO Proposal authority",
         "Confirmation required before StartExecution",
         fixtureSelected ? "NO CURSOR REAL" : "CURSOR REAL NOT EXECUTED AT PREPARE",
