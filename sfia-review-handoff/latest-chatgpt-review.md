@@ -393,3 +393,22 @@ Do **NOT** claim:
 Authorized statement only:
 
 **FAIL REAL — campaign budget consumed — A launched and succeeded with verified docs-write Evidence — immutable final EC version drifted 3→5 — B/C/D not started — proof remote unchanged — stopped before E.**
+
+---
+
+## V. REVIEW HANDOFF PUBLICATION
+
+| Check | Observed |
+| --- | --- |
+| Publisher result (script) | `HANDOFF REPUBLISHED — CANONICAL REMOTE VERIFICATION FAILED` (known false-negative class) |
+| Effective result | **EFFECTIVE SUCCESS — FALSE-NEGATIVE** |
+| Remote tip | `2d75dace334cec1d7e91908051bffebb748d9e7e` |
+| Parent | `d76caf5a05110f5bfbc7761ff36a2be3b556d51d` (exact expected incoming tip) |
+| Canonical path | `sfia-review-handoff/latest-chatgpt-review.md` |
+| Source blob | `51040299b7890264f1b8c2a66d7a4a228a234c73` |
+| Remote blob (pre-regularization of this section) | matched source at first publish |
+| Remote parity | **YES** (independent `ls-remote` / `rev-parse` / `hash-object`) |
+| Branch | `sfia/review-handoff` only |
+| Product push | NONE |
+
+Note: This section V was added after first successful remote push to record publisher false-negative + parity. A single regularization republish may follow so the canonical file includes this section.
