@@ -1,28 +1,38 @@
-# SFIA Studio Review Pack — GCEC-D credential source validation (STOP)
+# SFIA Studio Review Pack — GCEC-D Cursor child secret isolation (DCH-3)
 
-**Timestamp:** 2026-09-13T15:15:00+02:00
+**Timestamp:** 2026-09-13T15:26:23+02:00
 **Mode:** FULL
-**Milestone:** GCEC-D-CREDENTIAL-SOURCE-VALIDATION-01
-**Incoming handoff tip:** `cd3e4ed7f04574df1f32a3e19dfb73479653df7d`
+**Milestone / Morris GO:** GCEC-D-CURSOR-CHILD-SECRET-ISOLATION-01
+**Cycle:** 9 / RUN / CRITICAL
+**Incoming handoff tip:** `3bb19cde53b0735f343108033c756b5f38ba41da`
 **Worktree NEW:** `/Users/morris/Projects/sfia-gcec-d-ephemeral-secret-bridge-ff267fdf`
-**Open UI workspace:** untouched (except handoff WT publish path)
+**Open UI workspace:** untouched (except handoff WT for publish)
 
 ---
 
 ## A. VERDICT
 
-**STOP — CREDENTIAL VALID IN PARENT / INVALID IN CURSOR CHILD**
+**STOP — DCH-3 CURSOR SANDBOX/TOOL BOUNDARY BREAKS SECRET-BACKED DIRECT API**
 
-- Host keyring baseline (§10): **PASS**
-- Exact Product `HostGhAuthTokenCredentialProvider` + parent `GH_TOKEN` API (§11): **PASS** → classification **S2**
-- Authorized Cursor RO re-probe (§13): **FAIL** (one launch)
-- Local Product commit: **NOT performed**
-- ZERO MUTATING REAL maintained
+- P0 exact child-env ordinary Node control: **PASS**
+- Cursor diagnostic launches: **ONE** (`--sandbox enabled`)
+- Inside Cursor: `GH_TOKEN` **present**; sentinel **exact match**; direct Node HTTPS helper **FAIL** (`direct_api_status=error:ENOTFOUND`; both `direct_api_*_match=no`)
+- `gh api` also FAIL under same Cursor child (Forbidden / token reported invalid) — **not** classified as gh-only because direct HTTPS already failed
+- Local Product commit: **NONE**
+- ZERO MUTATING REAL (proof/product remotes): **maintained**
 - D PR-create effect: **still NOT PROVEN**
 
 ---
 
-## B. LOCAL GIT TRUTH
+## B. QUALIFICATION
+
+Controlled isolation between ordinary subprocess (P0) and Cursor agent tool environment using identical composed `childEnv` (Product `HostGhAuthTokenCredentialProvider` + `buildMutatingCursorConfinementEnv(remote_github)` + gateway-style `GH_TOKEN` inject + non-secret `SFIA_GCEC_DIAG_SENTINEL`).
+
+Success oracles: structured helper `direct_api_*` lines and exact `gh api` result lines — **not** instruction-text greps.
+
+---
+
+## C. LOCAL GIT TRUTH
 
 | Field | Value |
 | --- | --- |
@@ -30,16 +40,18 @@
 | Branch | `delivery/sfia-studio-gcec-d-ephemeral-secret-bridge` |
 | HEAD (= ANCHOR) | `ff267fdf3e6591b5ed83c4478b95f6181ad98fa2` |
 | `origin/main` (= MAIN) | `c481610caa3527edabeca8c860ab27c18a6a738e` |
-| `git diff --check` | clean (exit 0) |
-| Dirty Product candidate | **PRESERVED** (no stash/reset/clean/discard/checkout/commit) |
+| Dirty present | **yes** (preserved) |
+| `git diff --check` | clean |
+
+No origin/main or HEAD drift vs GO constants.
 
 ---
 
-## C. DIRTY CANDIDATE PRESERVATION
+## D. DIRTY CANDIDATE PRESERVATION
 
-Expected bridge files remain present (modified / untracked Product sources). No Product source edits in this lot. Probe/validate scripts and outs live only under `.tmp-sfia-review/` (not staged). `projects/sfia-studio/app/node_modules` symlink left untouched.
+Dirty Product candidate **PRESERVED** (no stash/reset/clean/discard/checkout/commit).
 
-Dirty Product paths (presence):
+Entry dirty Product sources (unchanged this lot):
 
 - `hostGhAuthTokenCredentialProvider.ts` (untracked)
 - `remoteGithubCredentialPort.ts` (untracked)
@@ -51,11 +63,11 @@ Dirty Product paths (presence):
 - `gcecRemoteGithubEphemeralSecretBridge.d0.test.ts` (untracked)
 - `fakeRemoteGithubCredentialProvider.ts` (untracked)
 
+Diagnostic helpers/outs under `.tmp-sfia-review/` only (intended). **Note:** §12 help capture accidentally also wrote untracked `projects/sfia-studio/app/.tmp-sfia-review/dch-cursor-help.out` due to cwd — **not** a Product source edit; left in place (do-not-clean). Canonical copy: `.tmp-sfia-review/dch-cursor-help.out`.
+
 ---
 
-## D. CANONICAL MATURITY (DO NOT REGRESS)
-
-Preserve exactly:
+## E. CANONICAL MATURITY (DO NOT REGRESS)
 
 | Slice | Status |
 | --- | --- |
@@ -73,208 +85,187 @@ This lot **cannot** promote D PR-create REAL. Do **not** regress C.
 
 ---
 
-## E. PROOF REMOTE PRECONDITIONS
+## F. PROOF REMOTE PRECONDITIONS (RO)
 
 | Check | Result |
 | --- | --- |
-| Repo `full_name` (keyring, tokens unset) | `mcleland147/sfia-gcec-proof-task-manager` |
+| Repo | `mcleland147/sfia-gcec-proof-task-manager` |
 | `main` SHA | `32c7c2008197e5c61b32c16479144e9863291358` (= H0) |
-| `git ls-remote` main | matches H0 |
 | Feature ref | `gcec/lifecycle/gcec-ad-finaldec-f2-fe6b` |
 | Feature SHA | `3a879572722af2b72909243ba0b506f307d87156` (= FEATURE_SHA) |
-| `git ls-remote` feature | matches FEATURE_SHA |
-| Open PRs for that head | **NONE** (`[]`) |
-
-No proof precondition drift.
+| Matching open PR | **NONE** |
 
 ---
 
-## F. HOST KEYRING BASELINE
+## G. PREVIOUS S2 FACT
 
-Same `env -u GH_TOKEN -u GITHUB_TOKEN -u GH_ENTERPRISE_TOKEN -u GITHUB_ENTERPRISE_TOKEN`:
+Consumed: prior lot **S2** — exact Product `HostGhAuthTokenCredentialProvider` + parent `GH_TOKEN` API **PASS** (credential valid in parent; Cursor child previously failed). This lot does not re-spend that parent validation beyond composing the same Product acquire path for P0/Cursor childEnv.
+
+---
+
+## H. P0 EXACT CHILD-ENV CONTROL
+
+| Field | Value |
+| --- | --- |
+| Helper | `.tmp-sfia-review/diag-direct-api.mjs` |
+| Orchestrator | `.tmp-sfia-review/dch-p0-and-cursor-diag.ts` (tsx from APP) |
+| Out | `.tmp-sfia-review/dch-p0-control.out` |
+| Compose | strip inherited GH_TOKEN/GITHUB_TOKEN → `buildMutatingCursorConfinementEnv(..., remote_github)` → inject acquired `GH_TOKEN` → set `SFIA_GCEC_DIAG_SENTINEL` |
+| Spawn | ordinary `node` subprocess with exact `childEnv` |
+
+P0 output (sanitized):
+
+```
+GH_TOKEN_PRESENT=yes
+DIAG_SENTINEL=diag-8fcc5c0c660867cd
+direct_api_status=200
+direct_api_full_name_match=yes
+direct_api_feature_sha_match=yes
+```
+
+**P0 PASS** — failure is not before Cursor.
+
+---
+
+## I. CURSOR CLI / SANDBOX HELP OBSERVATIONS
+
+- `command -v cursor`: absent on PATH
+- Resolved bin: `/Applications/Cursor.app/Contents/Resources/app/bin/cursor`
+- `cursor agent --help`: `--sandbox <mode>` choices `enabled` | `disabled` (overrides config); `--trust`; `--workspace`; `--print`
+- Top-level help: `--disable-chromium-sandbox` (Electron); `agent` subcommand
+- Env mentioned in help: `CURSOR_API_KEY` / `CURSOR_API_ENDPOINT` (agent auth to Cursor API) — **not** a GH secret bridge
+- **OBSERVATION / OPTION only:** documented sandbox disable exists; **NOT adopted** this lot (sandbox remained `enabled`)
+
+---
+
+## J. CURSOR DIAGNOSTIC LAUNCH
+
+| Field | Value |
+| --- | --- |
+| Count | **1** (maximum; no retry) |
+| Executable | resolved Studio Cursor bin |
+| Argv shape | `agent --print --workspace <empty temp diag ws> --trust --sandbox enabled <RO instruction>` |
+| Sandbox | **enabled** |
+| Env | exact P0 `childEnv` (secret in env only; never in prompt) |
+| Capture | `NodeCursorProcessRunner` + `redactExactValues=[token]` |
+| Out | `.tmp-sfia-review/dch-cursor-diag.out` |
+| `exitCode` / `timedOut` / `realProcessInvoked` | `0` / `false` / `true` |
+| Harness / PR-create instruction | **not used** |
+
+---
+
+## K. GENERAL ENV PROPAGATION
 
 | Check | Result |
 | --- | --- |
-| `gh auth status` | Logged in to github.com account `mcleland147` (**keyring**); Token line redacted |
-| Token scopes (presence) | gist, read:org, repo, workflow |
-| `gh api` full_name | PASS |
-| `gh api` feature SHA | PASS (= FEATURE_SHA) |
+| Expected sentinel | `diag-8fcc5c0c660867cd` |
+| Cursor reported sentinel | `diag-8fcc5c0c660867cd` (**exact match**) |
+| `GH_TOKEN_PRESENT` (Cursor) | **yes** |
+| Presence (Cursor B) | HOME/PATH/GH_TOKEN=present; GITHUB_TOKEN / enterprise / GH_CONFIG_DIR / XDG_CONFIG_HOME=absent |
 
-**HOST GH KEYRING AUTH: VALID**
-
----
-
-## G. EXACT PRODUCT CREDENTIAL SOURCE VALIDATION
-
-| Field | Value |
-| --- | --- |
-| Script | `.tmp-sfia-review/parent-credential-source-validate.mjs` |
-| Out | `.tmp-sfia-review/parent-credential-source-validate.out` |
-| Loader | APP `tsx` importing dirty `HostGhAuthTokenCredentialProvider` |
-| `acquire()` | once; token never printed/logged/hashed/prefixed |
-| On success spawn | `gh` with `GH_TOKEN` set; `GITHUB_TOKEN` / enterprise keys deleted |
-| Redaction | exact token scrubbed before write |
-| `acquire_ok` | **yes** |
-| `parent_api_full_name` | `mcleland147/sfia-gcec-proof-task-manager` |
-| `parent_api_feature_sha` | `3a879572722af2b72909243ba0b506f307d87156` |
-| `parent_api_ok` | **yes** |
+Not DCH-2 (token present). Not DCH-6 (sentinel preserved).
 
 ---
 
-## H. SOURCE CLASSIFICATION S1/S2/S3
+## L. DIRECT NODE HTTPS RESULT (inside Cursor)
 
-**S2** — keyring PASS **and** parent `GH_TOKEN` via exact Product provider PASS.
+Helper run via `node <abs path diag-direct-api.mjs>` in Cursor command tool:
 
-Not S1 (provider did not fail). Not S3 (acquire succeeded).
+```
+GH_TOKEN_PRESENT=yes
+DIAG_SENTINEL=diag-8fcc5c0c660867cd
+direct_api_status=error:ENOTFOUND
+direct_api_full_name_match=no
+direct_api_feature_sha_match=no
+```
 
-S2 authorized **one** Cursor RO re-probe.
-
----
-
-## I. CURSOR RO RE-PROBE
-
-| Field | Value |
-| --- | --- |
-| Authorized | **yes** (S2) |
-| Count this lot | **1** (max) |
-| Script | `.tmp-sfia-review/d-secret-bridge-ro-reprobe.ts` |
-| Out | `.tmp-sfia-review/d-secret-bridge-ro-reprobe.out` (**new** file; prior fail probe not reused as success) |
-| Provider | dirty `HostGhAuthTokenCredentialProvider` |
-| Confinement | `buildMutatingCursorConfinementEnv(..., effectClass: remote_github)` |
-| Inject | `GH_TOKEN` after confinement; other token keys deleted |
-| Runner | `NodeCursorProcessRunner` + `redactExactValues` |
-| Cursor | `agent --print --trust --sandbox enabled` + temp empty workspace |
-| Campaign / A→D REAL harness flags | **unset** |
-| Result | **FAIL** |
-| Asserts | `full_name_present=true` (string appears in instruction/Forbidden URL only) / `feature_sha_present=false` / `raw_token_absent=true` |
-| Child symptom | `gh auth status`: GH_TOKEN **invalid**; keyring **invalid** in child; both `gh api` → **Forbidden** |
-| `exitCode` | 0 (agent completed; auth/API failed) |
-| Proof mutation / `gh pr create` / push | **NONE** |
-
-Prior lot out `.tmp-sfia-review/d-secret-bridge-ro-probe.out` remains historical FAIL evidence — **not** treated as PASS.
+**FAIL** vs P0 `direct_api_status=200` + both matches=yes. Oracle is structured helper output (not instruction text).
 
 ---
 
-## J. SECRET REDACTION
+## M. GH CLI RESULT (inside Cursor)
 
-| Check | Result |
-| --- | --- |
-| Token values in stdout of this agent | **never printed** |
-| Validate / re-probe outs | exact-token redaction applied; no `ghp_`/`gho_`/`ghu_`/`github_pat_` prefixes found in `.tmp-sfia-review` outs/pack |
-| Review pack | **no secrets** |
+- `gh auth status --hostname github.com`: failed using token (`GH_TOKEN`); also keyring path failed under that child context
+- `gh api` full_name / feature SHA: **Forbidden** (no exact successful result lines; FEATURE_SHA **absent** from oracle lines)
 
----
-
-## K. ZERO MUTATING REAL
-
-| Action | Status |
-| --- | --- |
-| `gh pr create` / merge | NONE |
-| Product push | NONE |
-| Proof push / PR / mutation | NONE |
-| Proof file edits via Cursor | NONE (RO instruction; empty temp workspace) |
-| Product source edits this lot | NONE |
+Secondary to L — does **not** justify DCH-4 while direct HTTPS fails.
 
 ---
 
-## L. PRODUCT DIFF
+## N. DCH CLASSIFICATION
 
-Uncommitted (parent still ANCHOR). Summary of dirty secret-bridge candidate (prior authorized lot bytes — not edited here):
+**Primary: DCH-3**
 
-- Port + `HostGhAuthTokenCredentialProvider` (`gh auth token` only; token ENV unset in provider child)
-- `redactExactSecrets` + runner `redactExactValues`
-- `studioCursorRealLaunchGateway`: PR-create-only acquire → inject `GH_TOKEN` into fresh child env after `remote_github` confinement
-- Re-exports via `cursorCliLaunchGateway` / `index`
-- D0 SEC tests + fake provider
+P0 PASS + Cursor `GH_TOKEN` present + non-secret sentinel preserved + **direct Node HTTPS inside Cursor FAILS**.
 
-`git diff --stat` (tracked only): review pack + gateway/runner/port/index wiring. Untracked Product bridge files listed in §C.
+Meaning: secret/network/Authorization capability changes across Cursor sandbox/tool boundary. Do **not** claim `gh`-specific defect.
 
 ---
 
-## M. VALIDATION
+## O. SECRET REDACTION
 
-| Check | Result |
-| --- | --- |
-| Focused SEC / confinement / A→D harness (REAL unset) | **NOT RUN** — blocked by Cursor RO FAIL (GO §15–18 gate) |
-| typecheck / lint / build / full vitest | **NOT RUN** — same gate |
-| Prior lot validation (historical) | lint/tsc/SEC/confinement/harness previously PASS in earlier STOP pack — **not re-claimed** as this lot’s gate |
-
-No local commit path opened.
+- Token never printed/logged/hashed/prefixed/Authorization-dumped
+- `redactExactValues` applied to Cursor observation before write
+- Post-scan of `dch-cursor-diag.out`: no raw token patterns detected
+- Sentinel is non-secret diagnostic value (printed by design)
 
 ---
 
-## N. LOCAL PRODUCT ANCHOR
+## P. ZERO MUTATING REAL
 
-| Field | Value |
-| --- | --- |
-| Parent HEAD | still `ff267fdf3e6591b5ed83c4478b95f6181ad98fa2` (ANCHOR) |
-| `D_SECRET_LOCAL_ANCHOR` | **N/A — commit blocked** |
-| Expected subject if PASS | `fix(sfia-studio): bridge bounded GitHub auth to Cursor` |
+No `gh pr create` / merge / proof push / Product push. Handoff publish is the only allowed remote mutation (L3 review handoff).
 
 ---
 
-## O. PRODUCT REMOTE EFFECTS
+## Q. PRODUCT SOURCE DELTA
 
-NONE (no Product push / PR).
-
----
-
-## P. PROOF REMOTE EFFECTS
-
-NONE. Proof main/feature unchanged; matching PR still NONE.
+**NONE** for Product source files this lot (mtime gate vs helpers: no Product source writes after helper creation). Dirty set preserved as at entry.
 
 ---
 
-## Q. ROADMAP
+## R. PRODUCT COMMIT
 
-1. Investigate **Cursor child** path where parent-valid `GH_TOKEN` (exact Product provider) becomes **invalid** under `--sandbox enabled` + `remote_github` confinement (agent shell / sandbox / env propagation) — **without** claiming host keyring invalid.
-2. Do **not** treat host `gh auth refresh` as the primary fix for this STOP class (parent keyring + parent provider APIs already PASS).
-3. After a plausible child-path fix (or authorized non-sandbox diagnostic lot if separately approved): re-authorize **one** RO re-probe only.
-4. On S2 + Cursor PASS: local commit on ANCHOR, then D-only PR-create EC gate lot.
-5. Do not run A→D harness or mutating REAL until D secret bridge is RO-proven in Cursor child.
-6. Never promote D PR-create REAL from this STOP.
+**NONE**
 
 ---
 
-## R. REVIEW HANDOFF
+## S. PRODUCT/PROOF REMOTE EFFECTS
 
-| Field | Value |
-| --- | --- |
-| Pack | `.tmp-sfia-review/chatgpt-review.md` (this file) |
-| Publish | `scripts/sfia/publish-review-handoff.sh` once |
-| HW | `/Users/morris/Projects/sfia-workspace/sfia-review-handoff` |
-| Incoming tip before publish | `cd3e4ed7f04574df1f32a3e19dfb73479653df7d` |
-| Verify | tip / parent / blob / parity after publish |
+**NONE**
 
 ---
 
-## S. MATURITY
+## T. ROADMAP
 
-Unchanged from canonical table in §D. This credential-source lot **narrowed** the failure class:
-
-- Prior narrative “host token invalid” is **insufficient**.
-- Proven now: host keyring + exact Product acquire + parent API **work**.
-- Remaining gap: **Cursor child** auth under sandbox + injected `GH_TOKEN`.
-
-Capability ≠ authority ≠ proven PR effect.
+**UNCHANGED**
 
 ---
 
-## T. ANTI-CLAIMS
+## U. REVIEW HANDOFF
 
-- Does **not** prove D PR-create REAL.
-- Does **not** prove AUTH REAL for Cursor child.
-- Does **not** prove host keyring invalid (opposite: keyring PASS).
-- Does **not** authorize Product commit/push/PR.
-- Does **not** authorize proof mutation.
-- Does **not** adopt runtime v3.
-- Does **not** regress C HTTPS / A→C proven maturity.
-- Prior RO probe FAIL out is **not** success evidence.
+Publish-in-cycle once via `scripts/sfia/publish-review-handoff.sh` from HW=`/Users/morris/Projects/sfia-workspace/sfia-review-handoff`; incoming tip `3bb19cde...`; verify tip/parent/blob/parity after publish.
 
 ---
 
-## U. NEXT GATE
+## V. MATURITY / ANTI-CLAIMS
 
-**Diagnose Cursor-child GH_TOKEN invalidity** (sandbox / agent tool env / confinement interaction) while preserving dirty secret-bridge candidate and ANCHOR parent — then one authorized RO re-probe. Only after S2 + Cursor PASS: local commit `fix(sfia-studio): bridge bounded GitHub auth to Cursor` and proceed to D-only PR-create EC gate.
+- Does **not** prove D PR-create REAL
+- Does **not** regress A/B/C / A→C / C HTTPS maturity
+- Does **not** authorize sandbox-disabled comparison in this lot
+- Does **not** claim AUTH REAL / remote-write success
+- Prior S2 parent credential validity remains; Cursor child boundary still blocks secret-backed direct API under `--sandbox enabled`
 
-Never include secrets in packs/Evidence.
+---
+
+## W. NEXT GATE RECOMMENDATION
+
+Per GO routing for **DCH-3**: next candidate gate = **Cursor sandbox/secret propagation correction** or **explicitly authorized sandbox differential diagnosis** (only if separately GO-authorized). Do **not** auto-proceed to D-only PR-create REAL EC. Do **not** disable sandbox in this lot.
+
+---
+
+## Why DCH-3 is supported
+
+1. P0 ordinary child with identical env: `direct_api_status=200` + both matches=yes
+2. Cursor reports `GH_TOKEN_PRESENT=yes` and exact sentinel
+3. Same helper inside Cursor: `error:ENOTFOUND` + both matches=no
+4. Therefore failure is across Cursor sandbox/tool boundary, not pre-Cursor credential composition
