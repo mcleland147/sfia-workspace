@@ -1,28 +1,27 @@
 /**
- * FUTURE REAL harness — same-EC A (docs-write) → B (local git.commit).
+ * FUTURE REAL harness — same-EC A docs-write → B local commit → C bounded
+ * remote push → D bounded PR create. ZERO REAL unless Morris gives a distinct
+ * campaign GO; ordinary vitest runs construction assertions only.
  *
- * NEVER runs in ordinary vitest. Requires ALL three:
+ * Full campaign requires ALL five:
  *   SFIA_STUDIO_CURSOR_REAL=1
  *   SFIA_GCEC_CURSOR_REAL_PROOF=1
  *   SFIA_GCEC_CURSOR_REAL_COMMIT_PROOF=1
+ *   SFIA_GCEC_CURSOR_REAL_PUSH_PROOF=1
+ *   SFIA_GCEC_CURSOR_REAL_PR_PROOF=1
  *
- * Campaign shape (when Morris authorizes a distinct REAL GO):
- *   PRECHECK → remote ls-remote BEFORE → A REAL docs-write (retain worktree)
- *   → B REAL local commit → governed observe-owned Evidence VERIFIED
- *   → FS→SHA supersession → remote ls-remote AFTER (heads/tags/main equal).
+ * Campaign shape:
+ *   PRECHECK → M3 initial EC → public supersession with final branch inputs
+ *   → validate + confirm final EC → registered managed worktree
+ *   → A Product Start/complete/Evidence
+ *   → registered Cont01 worktree → B Product Start/complete/Evidence → B_SHA
+ *   → local feature ref at B_SHA
+ *   → C Product Start/complete/Evidence + independent remote read
+ *   → D Product Start/complete/Evidence + independent PR read → STOP.
  *
- * CR-GCEC-AGENT-10: remote anti-effect uses actual `git ls-remote` snapshots —
- * local clone HEAD alone is NOT remote proof.
- *
- * Forensic phases (harness-local only — not Product FSM):
- *   A_LAUNCHED_UNRECONCILED → A_RECONCILED_RETAINED
- *   → B_LAUNCHED_UNRECONCILED → B_RECONCILED_COMMIT_VERIFIED
- *
- * D-GCEC-AGENT-01: Attempt B selects agt:m4.cursor.bounded_local_commit under
- * the SAME EC via server-derived AttemptExecutionProfile.
- *
- * Do NOT reuse prior docs-write pid workspaces. Fresh proof root only.
- * ZERO push / PR / merge. ZERO Product mutation.
+ * The harness local-ref step is setup, never a substitute for the Product C/D
+ * mutations. E is not started; no merge, force, delete, or auto.
+ * Fresh proof root, fresh Attempts, and fresh Evidence only.
  *
  * @vitest-environment node
  */
@@ -37,24 +36,33 @@ import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
 } from "@/lib/oa/decision";
+import type { ExecutionContract } from "@/lib/oa/execution-contract";
 import {
   M4_BOUNDED_DOCS_WRITE_ACTION,
   M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
   M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
+  M4_BOUNDED_PR_CREATE_CURSOR_AGENT_ID,
+  M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID,
   ManagedProjectRepositoryResolver,
   NodeGitCommandRunner,
   buildGitCommitLaunchSpec,
   buildGitEffectActionRef,
+  deriveDeterministicGcecPushBranch,
   deriveTrustedCommitMessage,
   isFsAnchorSupersededByVerifiedLocalCommit,
   observeLocalCommitFacts,
   resolvePreCommitWorkspaceContinuation,
   sanitizeManagedRepoIdentity,
   verifyLocalCommitEffect,
+  verifyPrCreateEffect,
+  verifyRemotePushEffect,
   workspacePathForAttempt,
   type GovernedWorkspaceObservationContext,
 } from "@/lib/oa/execution-attempt";
-import { NodeLocalGitStatusDiffPort } from "@/lib/oa/git-ports";
+import {
+  GithubCliRepositoryReadAdapter,
+  NodeLocalGitStatusDiffPort,
+} from "@/lib/oa/git-ports";
 import { F3_CONFIRM_ACTION_REF } from "@/features/project-assistant/f3/constants";
 import { prepareAndResolveM3ProductPath } from "@/features/project-assistant/f3/prepareAndResolveM3ProductPath";
 import { completeBoundedDocsWriteLaunch } from "@/features/project-assistant/f3/completeBoundedDocsWriteLaunch";
@@ -87,11 +95,26 @@ import {
   approveCandidateTrajectory,
   buildPreCycleCandidateApprovalPresentation,
 } from "@/features/project-assistant/approveCandidateTrajectory";
+import {
+  assertRegisteredGitWorktree,
+  pathsEqualAllowingRealpath,
+} from "./support/gcecRealHarnessWorktree";
 
-const ENABLED =
-  process.env.SFIA_STUDIO_CURSOR_REAL === "1" &&
-  process.env.SFIA_GCEC_CURSOR_REAL_PROOF === "1" &&
-  process.env.SFIA_GCEC_CURSOR_REAL_COMMIT_PROOF === "1";
+export const REAL_SAME_EC_AD_FLAGS = [
+  "SFIA_STUDIO_CURSOR_REAL",
+  "SFIA_GCEC_CURSOR_REAL_PROOF",
+  "SFIA_GCEC_CURSOR_REAL_COMMIT_PROOF",
+  "SFIA_GCEC_CURSOR_REAL_PUSH_PROOF",
+  "SFIA_GCEC_CURSOR_REAL_PR_PROOF",
+] as const;
+
+export function isRealSameEcAdCampaignEnabled(
+  env: Readonly<Record<string, string | undefined>>,
+): boolean {
+  return REAL_SAME_EC_AD_FLAGS.every((flag) => env[flag] === "1");
+}
+
+const ENABLED = isRealSameEcAdCampaignEnabled(process.env);
 
 const APP_ROOT = path.resolve(__dirname, "../../..");
 const WORKSPACE_ROOT = path.resolve(APP_ROOT, "../../..");
@@ -108,7 +131,7 @@ const SCHEMAS_ROOT = path.resolve(
 const IDENTITY = "mcleland147/sfia-gcec-proof-task-manager";
 const BASE_SHA = "32c7c2008197e5c61b32c16479144e9863291358";
 const TARGET_PATH = "docs/functional-design.md";
-const BRANCH = "main";
+const DEFAULT_BRANCH = "main";
 const NOW = "2026-09-11T18:00:00.000Z";
 const PILOTE = LOCAL_PILOTE_ACTOR;
 /** Shell-safe subject; also used as docs-write artifactBrief (deriveTrustedCommitMessage). */
@@ -139,7 +162,11 @@ export type RealCommitHarnessPhase =
   | "A_LAUNCHED_UNRECONCILED"
   | "A_RECONCILED_RETAINED"
   | "B_LAUNCHED_UNRECONCILED"
-  | "B_RECONCILED_COMMIT_VERIFIED";
+  | "B_RECONCILED_COMMIT_VERIFIED"
+  | "C_LAUNCHED_UNRECONCILED"
+  | "C_RECONCILED_PUSH_VERIFIED"
+  | "D_LAUNCHED_UNRECONCILED"
+  | "D_RECONCILED_PR_VERIFIED";
 
 export type RealSameEcCommitHarnessState = {
   phase: RealCommitHarnessPhase;
@@ -147,9 +174,13 @@ export type RealSameEcCommitHarnessState = {
   reconciliationComplete: boolean;
   attemptAId?: string;
   attemptBId?: string;
+  attemptCId?: string;
+  attemptDId?: string;
   executionContractId?: string;
   processRefA?: string;
   processRefB?: string;
+  processRefC?: string;
+  processRefD?: string;
   worktreeRef?: string;
   proofRoot?: string;
   execRoot?: string;
@@ -158,6 +189,10 @@ export type RealSameEcCommitHarnessState = {
   managedClonePath?: string;
   expectedH0?: string;
   observedH1?: string;
+  featureBranch?: string;
+  remotePushEvidenceId?: string;
+  prCreateEvidenceId?: string;
+  prNumber?: number;
   durableReviewSnapshotWritten: boolean;
   failure?: string;
 };
@@ -216,6 +251,7 @@ export type RemoteRefSnapshot = {
   readonly tagsNormalized: string;
   readonly mainSha: string | null;
   readonly targetBranchLine: string | null;
+  readonly targetBranchSha: string | null;
   readonly capturedAt: string;
 };
 
@@ -228,7 +264,10 @@ function normalizeLsRemote(raw: string): string {
     .join("\n");
 }
 
-function captureRemoteRefSnapshot(cloneRoot: string): RemoteRefSnapshot {
+function captureRemoteRefSnapshot(
+  cloneRoot: string,
+  targetBranch: string,
+): RemoteRefSnapshot {
   const headsRaw = git(cloneRoot, ["ls-remote", "--heads", "origin"]);
   const tagsRaw = git(cloneRoot, ["ls-remote", "--tags", "origin"]);
   const headsNormalized = normalizeLsRemote(headsRaw);
@@ -237,17 +276,21 @@ function captureRemoteRefSnapshot(cloneRoot: string): RemoteRefSnapshot {
     .split("\n")
     .find((l) => l.endsWith("\trefs/heads/main") || l.endsWith(" refs/heads/main"));
   const mainSha = mainLine ? mainLine.split(/[\s\t]/)[0] ?? null : null;
-  const targetRef = `refs/heads/${BRANCH}`;
+  const targetRef = `refs/heads/${targetBranch}`;
   const targetBranchLine =
     headsNormalized
       .split("\n")
       .find((l) => l.endsWith(`\t${targetRef}`) || l.endsWith(` ${targetRef}`)) ??
     null;
+  const targetBranchSha = targetBranchLine
+    ? targetBranchLine.split(/[\s\t]/)[0] ?? null
+    : null;
   return {
     headsNormalized,
     tagsNormalized,
     mainSha,
     targetBranchLine,
+    targetBranchSha,
     capturedAt: new Date().toISOString(),
   };
 }
@@ -309,6 +352,32 @@ function requireAuth(
   return auth.evidenceId;
 }
 
+type FinalContractBinding = {
+  executionContractId: string;
+  version: number;
+  semanticFingerprint: string;
+};
+
+function captureFinalContractBinding(
+  contract: ExecutionContract,
+): FinalContractBinding {
+  if (!contract.semanticFingerprint) {
+    throw new Error("final execution contract semantic fingerprint missing");
+  }
+  return {
+    executionContractId: contract.executionContractId,
+    version: contract.version,
+    semanticFingerprint: contract.semanticFingerprint,
+  };
+}
+
+function assertFinalContractBindingUnchanged(
+  current: ExecutionContract,
+  expected: FinalContractBinding,
+): void {
+  expect(captureFinalContractBinding(current)).toEqual(expected);
+}
+
 async function writeLaunchFrontierSnapshot(input: {
   state: RealSameEcCommitHarnessState;
   phase: RealCommitHarnessPhase;
@@ -318,9 +387,13 @@ async function writeLaunchFrontierSnapshot(input: {
     phase: input.phase,
     attemptAId: input.state.attemptAId ?? null,
     attemptBId: input.state.attemptBId ?? null,
+    attemptCId: input.state.attemptCId ?? null,
+    attemptDId: input.state.attemptDId ?? null,
     executionContractId: input.state.executionContractId ?? null,
     processRefA: input.state.processRefA ?? null,
     processRefB: input.state.processRefB ?? null,
+    processRefC: input.state.processRefC ?? null,
+    processRefD: input.state.processRefD ?? null,
     proofRoot: input.state.proofRoot ?? null,
     execRoot: input.state.execRoot ?? null,
     safetyJournalPath: input.state.safetyJournalPath ?? null,
@@ -328,6 +401,10 @@ async function writeLaunchFrontierSnapshot(input: {
     worktreeRef: input.state.worktreeRef ?? null,
     managedClonePath: input.state.managedClonePath ?? null,
     remoteBaseSha: BASE_SHA,
+    featureBranch: input.state.featureBranch ?? null,
+    remotePushEvidenceId: input.state.remotePushEvidenceId ?? null,
+    prCreateEvidenceId: input.state.prCreateEvidenceId ?? null,
+    prNumber: input.state.prNumber ?? null,
   });
 }
 
@@ -350,9 +427,17 @@ async function writeFailureReconciliationSnapshot(input: {
     harnessPhase: input.state.phase,
     attemptAId: input.state.attemptAId ?? null,
     attemptBId: input.state.attemptBId ?? null,
+    attemptCId: input.state.attemptCId ?? null,
+    attemptDId: input.state.attemptDId ?? null,
     executionContractId: input.state.executionContractId ?? null,
     processRefA: input.state.processRefA ?? null,
     processRefB: input.state.processRefB ?? null,
+    processRefC: input.state.processRefC ?? null,
+    processRefD: input.state.processRefD ?? null,
+    featureBranch: input.state.featureBranch ?? null,
+    remotePushEvidenceId: input.state.remotePushEvidenceId ?? null,
+    prCreateEvidenceId: input.state.prCreateEvidenceId ?? null,
+    prNumber: input.state.prNumber ?? null,
     observationSummary: input.observationSummary,
     worktreePath: input.state.worktreeRef ?? null,
     filesystemPathsRetained: {
@@ -387,35 +472,61 @@ async function writeFailureReconciliationSnapshot(input: {
   });
 }
 
-describe("GCEC future REAL same-EC commit A→B — static campaign shape", () => {
-  it("harness encodes A docs-write + retain + B local-commit + observer-owned Evidence + remote ls-remote", () => {
+describe("GCEC future REAL same-EC A→D — static campaign shape", () => {
+  it("requires the complete five-flag opt-in ladder", () => {
+    const allEnabled = Object.fromEntries(
+      REAL_SAME_EC_AD_FLAGS.map((flag) => [flag, "1"]),
+    );
+    expect(isRealSameEcAdCampaignEnabled(allEnabled)).toBe(true);
+    for (const missing of REAL_SAME_EC_AD_FLAGS) {
+      expect(
+        isRealSameEcAdCampaignEnabled({ ...allEnabled, [missing]: undefined }),
+        missing,
+      ).toBe(false);
+    }
+    expect(
+      isRealSameEcAdCampaignEnabled({
+        SFIA_STUDIO_CURSOR_REAL: "1",
+      }),
+    ).toBe(false);
+    expect(isRealSameEcAdCampaignEnabled({})).toBe(false);
+  });
+
+  it("encodes Product A/B/C/D, fresh Evidence verification, and feature alignment", () => {
     const source = fs.readFileSync(__filename, "utf8");
     expect(source).toContain("M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID");
     expect(source).toContain("M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID");
+    expect(source).toContain("M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID");
+    expect(source).toContain("M4_BOUNDED_PR_CREATE_CURSOR_AGENT_ID");
     expect(source).toContain("getRuntimeApplicationService");
     expect(source).toContain("selectExecutionAgent");
     expect(source).toContain("startExecution");
     expect(source).toContain("observeLocalCommitFacts");
     expect(source).toContain("verifyLocalCommitEffect");
+    expect(source).toContain("verifyRemotePushEffect");
+    expect(source).toContain("verifyPrCreateEffect");
+    expect(source).toContain("deriveDeterministicGcecPushBranch");
     expect(source).toContain("GovernedWorkspaceObservationContext");
     expect(source).toContain('ls-remote", "--heads"');
     expect(source).toContain('ls-remote", "--tags"');
     expect(source).toContain("captureRemoteRefSnapshot");
-    expect(source).toContain("remoteHeadsBefore");
-    expect(source).toContain("remoteHeadsAfter");
-    expect(source).toContain("remoteTagsBefore");
-    expect(source).toContain("remoteTagsAfter");
-    expect(source).toContain("remoteMainBefore");
-    expect(source).toContain("remoteMainAfter");
+    expect(source).toContain("assertRegisteredGitWorktree");
+    expect(source).toContain("pathsEqualAllowingRealpath");
+    expect(source).toContain('"update-ref"');
+    expect(source).toContain("B_COMMIT_SHA");
     expect(
       source.includes("resolvePreCommitWorkspaceContinuation") ||
         source.includes("isFsAnchorSupersededByVerifiedLocalCommit"),
     ).toBe(true);
     expect(source).toContain("A_RECONCILED_RETAINED");
     expect(source).toContain("B_RECONCILED_COMMIT_VERIFIED");
+    expect(source).toContain("C_RECONCILED_PUSH_VERIFIED");
+    expect(source).toContain("D_RECONCILED_PR_VERIFIED");
     expect(source).toContain("SFIA_GCEC_CURSOR_REAL_COMMIT_PROOF");
-    expect(source).toContain("D-GCEC-AGENT-01");
-    expect(source).toContain("CR-GCEC-AGENT-10");
+    expect(source).toContain("SFIA_GCEC_CURSOR_REAL_PUSH_PROOF");
+    expect(source).toContain("SFIA_GCEC_CURSOR_REAL_PR_PROOF");
+    expect(IDENTITY).toBe("mcleland147/sfia-gcec-proof-task-manager");
+    expect(IDENTITY).not.toBe("mcleland147/sfia-workspace");
     // CR-09: Evidence creator must receive gitRunner+governed, not free observed facts.
     expect(source).toMatch(
       /verifyLocalCommitEffect\(\{[\s\S]*?\bgitRunner[\s\S]*?\bgoverned\b/,
@@ -425,19 +536,108 @@ describe("GCEC future REAL same-EC commit A→B — static campaign shape", () =
     );
     void M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID;
     void M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID;
+    void M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID;
+    void M4_BOUNDED_PR_CREATE_CURSOR_AGENT_ID;
     void observeLocalCommitFacts;
     void verifyLocalCommitEffect;
+    void verifyRemotePushEffect;
+    void verifyPrCreateEffect;
     void getRuntimeApplicationService;
     void captureRemoteRefSnapshot;
   });
 
-  it("shouldPreserveRealCommitProofState matrix", () => {
+  it("IMM-01 constructs and freezes the final EC before Confirmation", () => {
+    const source = fs.readFileSync(__filename, "utf8");
+    const campaignStart = source.lastIndexOf("describe.skipIf(!ENABLED)");
+    expect(campaignStart).toBeGreaterThan(0);
+    const campaignBody = source.slice(campaignStart);
+
+    expect(campaignBody).not.toContain("contracts.save");
+    expect(campaignBody).toContain("supersedeExecutionContract.execute");
+    expect(campaignBody).toContain("finalExecutionContractId");
+    expect(campaignBody).toContain("FINAL_BINDING");
+    expect(campaignBody).toContain("assertFinalContractBindingUnchanged");
+
+    const finalIdIndex = campaignBody.indexOf(
+      "const finalExecutionContractId",
+    );
+    const featureBranchIndex = campaignBody.indexOf(
+      "const featureBranch = deriveDeterministicGcecPushBranch",
+    );
+    const supersedeIndex = campaignBody.indexOf(
+      "supersedeExecutionContract.execute",
+    );
+    const validateIndex = campaignBody.indexOf(
+      "validateExecutionContract.execute",
+    );
+    const confirmationIndex = campaignBody.indexOf(
+      "requestConfirmation.execute",
+    );
+    expect(finalIdIndex).toBeGreaterThan(-1);
+    expect(featureBranchIndex).toBeGreaterThan(finalIdIndex);
+    expect(
+      campaignBody.slice(featureBranchIndex, supersedeIndex),
+    ).toContain("finalExecutionContractId");
+    expect(supersedeIndex).toBeGreaterThan(featureBranchIndex);
+    expect(validateIndex).toBeGreaterThan(supersedeIndex);
+    expect(confirmationIndex).toBeGreaterThan(validateIndex);
+    expect(
+      campaignBody.match(/assertFinalContractBindingUnchanged\(/g),
+    ).toHaveLength(4);
+  });
+
+  it("campaign body has no outer mutation substitute and never starts E", () => {
+    const source = fs.readFileSync(__filename, "utf8");
+    const campaignStart = source.lastIndexOf("describe.skipIf(!ENABLED)");
+    expect(campaignStart).toBeGreaterThan(0);
+    const campaignBody = source.slice(campaignStart);
+    expect(campaignBody).not.toMatch(
+      /\bgit\([^,\n]+,\s*\[\s*"push"(?:\s*,|\s*\])/,
+    );
+    expect(campaignBody).not.toMatch(
+      /execFileSync\(\s*"git"\s*,\s*\[\s*"push"(?:\s*,|\s*\])/,
+    );
+    expect(campaignBody).not.toMatch(
+      /execFileSync\(\s*"gh"\s*,\s*\[\s*"pr"\s*,\s*"(?:create|merge)"/,
+    );
+    expect(campaignBody).not.toMatch(
+      /\[\s*"pr"\s*,\s*"(?:create|merge)"(?:\s*,|\s*\])/,
+    );
+    const requestedAgents = [
+      ...campaignBody.matchAll(/requestedAgentRef:\s*([A-Z0-9_]+)/g),
+    ].map((match) => match[1]);
+    expect(requestedAgents).toEqual([
+      "M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID",
+      "M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID",
+      "M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID",
+      "M4_BOUNDED_PR_CREATE_CURSOR_AGENT_ID",
+    ]);
+    expect(campaignBody).not.toContain("M4_BOUNDED_PR_MERGE_CURSOR_AGENT_ID");
+    expect(campaignBody).not.toContain("bounded_pr_merge");
+    expect(campaignBody).toContain("GithubCliRepositoryReadAdapter");
+  });
+
+  it("shouldPreserveRealCommitProofState covers A/B/C/D launch failures", () => {
     expect(
       shouldPreserveRealCommitProofState({
         realLaunchConsumed: false,
         reconciliationComplete: false,
       }),
     ).toBe(false);
+    for (const phase of [
+      "A_LAUNCHED_UNRECONCILED",
+      "B_LAUNCHED_UNRECONCILED",
+      "C_LAUNCHED_UNRECONCILED",
+      "D_LAUNCHED_UNRECONCILED",
+    ] satisfies RealCommitHarnessPhase[]) {
+      expect(
+        shouldPreserveRealCommitProofState({
+          realLaunchConsumed: true,
+          reconciliationComplete: false,
+        }),
+        phase,
+      ).toBe(true);
+    }
     expect(
       shouldPreserveRealCommitProofState({
         realLaunchConsumed: true,
@@ -454,10 +654,10 @@ describe("GCEC future REAL same-EC commit A→B — static campaign shape", () =
 });
 
 describe.skipIf(!ENABLED)(
-  "GCEC future REAL same-EC commit A→B — Morris-gated campaign",
+  "GCEC future REAL same-EC A→D — Morris-gated campaign",
   () => {
     it(
-      "REAL A→B: docs-write retain → local-commit agent → observe → Evidence → remote unchanged",
+      "REAL A→D: docs-write → local commit → feature push → PR create → STOP",
       async () => {
         const managedBase = process.env.SFIA_GCEC_MANAGED_REPO_BASE?.trim();
         if (!managedBase) {
@@ -478,8 +678,17 @@ describe.skipIf(!ENABLED)(
         expect(resolved).toBe(cloneRoot);
         expect(cloneRoot.includes("sfia-product-proof")).toBe(false);
         expect(cloneRoot.includes("sfia-workspace")).toBe(false);
+        expect(IDENTITY).toBe("mcleland147/sfia-gcec-proof-task-manager");
+        expect(IDENTITY).not.toBe("mcleland147/sfia-workspace");
 
-        const root = tempDir("gcec-real-commit-");
+        // Harness preflight before A: the managed clone must itself be a
+        // registered Git worktree. Product validation remains unchanged.
+        assertRegisteredGitWorktree({
+          repositoryRoot: cloneRoot,
+          worktreePath: cloneRoot,
+        });
+
+        const root = tempDir("gcec-real-ad-");
         const execRoot = path.join(root, "m4-worktrees");
         const safetyJournalPath = path.join(root, "m4", "launch-safety.sqlite");
         fs.mkdirSync(execRoot, { recursive: true });
@@ -493,22 +702,14 @@ describe.skipIf(!ENABLED)(
         harnessState.expectedH0 = BASE_SHA;
         harnessState.phase = "PRECHECK";
 
-        // CR-GCEC-AGENT-10 — read-only remote snapshot BEFORE A/B (future REAL only).
-        const remoteBefore = captureRemoteRefSnapshot(cloneRoot);
-        expect(remoteBefore.mainSha?.toLowerCase()).toBe(BASE_SHA.toLowerCase());
-        expect(remoteBefore.headsNormalized.length).toBeGreaterThan(0);
-
         const runtime = getRuntimeApplicationService({
           registryRoot: REGISTRY_ROOT,
           schemasRoot: SCHEMAS_ROOT,
           nowIso: NOW,
-          idSource: new FixedIdSource("ab"),
+          idSource: new FixedIdSource("ad"),
           auditMode: "noop",
           productDbPath: harnessState.productDbPath,
-          realBoundaryEnv: {
-            ...process.env,
-            SFIA_STUDIO_CURSOR_REAL: "1",
-          },
+          realBoundaryEnv: process.env,
           realBoundaryComposition: {
             managedRepoRootBase: managedBase,
             execRoot,
@@ -525,12 +726,12 @@ describe.skipIf(!ENABLED)(
 
         const created = await runtime.createProject({
           name: "Gestion de tâches",
-          objective: "GCEC Cursor REAL same-EC A→B commit proof",
+          objective: "GCEC Cursor REAL same-EC A→D governed lifecycle proof",
           context: "proof-vehicle",
           criticality: "STANDARD",
-          constraints: ["BOUNDED REAL DOCS-WRITE THEN LOCAL COMMIT ONLY"],
-          shortReference: "GCECAB",
-          idempotencyKey: "idem:gcec-cursor-real-commit-ab",
+          constraints: ["BOUNDED REAL A→D; STOP BEFORE MERGE"],
+          shortReference: "GCECAD",
+          idempotencyKey: "idem:gcec-cursor-real-ad",
         });
         expect(created.ok).toBe(true);
         if (!created.ok) throw new Error("createProject failed");
@@ -543,7 +744,7 @@ describe.skipIf(!ENABLED)(
             provider: "github",
             identity: IDENTITY,
             remoteUrl: `https://github.com/${IDENTITY}.git`,
-            defaultBranch: BRANCH,
+            defaultBranch: DEFAULT_BRANCH,
             pathRoot: "docs",
             baseSha: BASE_SHA,
           },
@@ -800,26 +1001,110 @@ describe.skipIf(!ENABLED)(
         });
         expect(prepared.ok).toBe(true);
         if (!prepared.ok) throw new Error("prepareM3");
-        const durableEc =
+        const durableInitialEc =
           await oa.executionContractServices.getExecutionContract.execute({
             executionContractId: prepared.payload.successor.executionContractId,
           });
-        expect(durableEc.ok).toBe(true);
-        if (!durableEc.ok) throw new Error("ec missing");
-        let contract = durableEc.contract;
-        expect(contract.action).toBe(M4_BOUNDED_DOCS_WRITE_ACTION);
-        const inputs = (contract.inputs ?? {}) as Record<string, unknown>;
-        expect(inputs.repositoryRef ?? inputs.targetRepositoryRef).toBe(IDENTITY);
-        expect(inputs.targetPath).toBe(TARGET_PATH);
-        expect(inputs.baseHeadSha).toBe(BASE_SHA);
+        expect(durableInitialEc.ok).toBe(true);
+        if (!durableInitialEc.ok) throw new Error("initial EC missing");
+        const initialEc = durableInitialEc.contract;
+        expect(["confirmation_required", "validated"]).toContain(initialEc.status);
+        expect(initialEc.status).not.toBe("confirmed");
+        expect(initialEc.action).toBe(M4_BOUNDED_DOCS_WRITE_ACTION);
+        const initialInputs = (initialEc.inputs ?? {}) as Record<string, unknown>;
+        expect(
+          initialInputs.repositoryRef ?? initialInputs.targetRepositoryRef,
+        ).toBe(IDENTITY);
+        expect(initialInputs.targetPath).toBe(TARGET_PATH);
+        expect(initialInputs.baseHeadSha).toBe(BASE_SHA);
+
+        const sanitizedDecisionOrInitialId = decisionId.replace(
+          /[^a-zA-Z0-9_.-]/g,
+          "-",
+        );
+        const finalExecutionContractId =
+          `xct:gcec-ad-final:${sanitizedDecisionOrInitialId.slice(0, 40)}`;
+        expect(finalExecutionContractId).toMatch(/^xct:/);
+        expect(finalExecutionContractId).not.toBe(initialEc.executionContractId);
+        const featureBranch = deriveDeterministicGcecPushBranch(
+          finalExecutionContractId,
+        );
+        expect(featureBranch).not.toBe(DEFAULT_BRANCH);
+        expect(featureBranch).not.toBe("master");
+        harnessState.featureBranch = featureBranch;
 
         const execAuth = registerLocalPiloteAuthority({
           authorityResolver: oa.authorityResolver,
-          scope: contract.scope,
+          scope: initialEc.scope,
           issuedAt: NOW,
-          evidenceId: `evd:gcec-commit-exec:${contract.executionContractId}`,
+          evidenceId: `evd:gcec-commit-exec:${finalExecutionContractId}`,
           forceEnable: true,
         });
+
+        const superseded =
+          await oa.executionContractServices.supersedeExecutionContract.execute({
+            newExecutionContractId: finalExecutionContractId,
+            supersedesExecutionContractId: initialEc.executionContractId,
+            supersessionReason: "gcec_ad_feature_branch_pre_confirm",
+            actor: PILOTE,
+            authorityEvidenceId: requireAuth(execAuth),
+            expectedVersion: initialEc.version,
+            status: "draft",
+            inputs: {
+              ...(initialEc.inputs ?? {}),
+              workingBranch: featureBranch,
+              commitMessage: COMMIT_MSG,
+              prTitle: COMMIT_MSG,
+              prBody:
+                "Morris-gated GCEC proof through D; no merge is authorized.",
+            },
+          });
+        expect(superseded.ok).toBe(true);
+        if (!superseded.ok) {
+          throw new Error(
+            `supersede final EC failed: ${superseded.error.detailCode}`,
+          );
+        }
+        expect(superseded.contract.executionContractId).toBe(
+          finalExecutionContractId,
+        );
+        expect(superseded.contract.supersedesExecutionContractId).toBe(
+          initialEc.executionContractId,
+        );
+
+        const validatedFinal =
+          await oa.executionContractServices.validateExecutionContract.execute({
+            executionContractId: finalExecutionContractId,
+            actor: PILOTE,
+            authorityEvidenceId: requireAuth(execAuth),
+            expectedVersion: superseded.contract.version,
+          });
+        expect(validatedFinal.ok).toBe(true);
+        if (!validatedFinal.ok) {
+          throw new Error(
+            `validate final EC failed: ${validatedFinal.error.detailCode}`,
+          );
+        }
+        let contract = validatedFinal.contract;
+        expect(contract.executionContractId).toBe(finalExecutionContractId);
+        const finalInputs = (contract.inputs ?? {}) as Record<string, unknown>;
+        expect(finalInputs.workingBranch).toBe(featureBranch);
+        expect(finalInputs.commitMessage).toBe(COMMIT_MSG);
+        expect(finalInputs.prTitle).toBe(COMMIT_MSG);
+        expect(finalInputs.prBody).toBe(
+          "Morris-gated GCEC proof through D; no merge is authorized.",
+        );
+
+        const durableSupersededInitial =
+          await oa.executionContractServices.getExecutionContract.execute({
+            executionContractId: initialEc.executionContractId,
+          });
+        expect(durableSupersededInitial.ok).toBe(true);
+        if (!durableSupersededInitial.ok) {
+          throw new Error("superseded initial EC missing");
+        }
+        expect(durableSupersededInitial.contract.status).toBe("superseded");
+
         const gateConfirmId = `cfm:gate:${contract.executionContractId}`;
         const requested =
           await oa.decisionServices.requestConfirmation.execute({
@@ -850,8 +1135,58 @@ describe.skipIf(!ENABLED)(
           });
         expect(confirmed.ok).toBe(true);
         if (!confirmed.ok) throw new Error("confirm");
-        contract = confirmed.contract;
+        expect(confirmed.contract.executionContractId).toBe(
+          finalExecutionContractId,
+        );
+        const durableFinalAfterConfirm =
+          await oa.executionContractServices.getExecutionContract.execute({
+            executionContractId: finalExecutionContractId,
+          });
+        expect(durableFinalAfterConfirm.ok).toBe(true);
+        if (!durableFinalAfterConfirm.ok) {
+          throw new Error("confirmed final EC missing");
+        }
+        expect(durableFinalAfterConfirm.contract.status).toBe("confirmed");
+        expect(durableFinalAfterConfirm.contract.immutableAfterConfirm).toBe(
+          true,
+        );
+        const FINAL_BINDING = captureFinalContractBinding(
+          durableFinalAfterConfirm.contract,
+        );
+        contract = durableFinalAfterConfirm.contract;
         harnessState.executionContractId = contract.executionContractId;
+
+        // Read-only campaign baseline, after the deterministic branch can be
+        // derived but before any REAL launch. A prior branch/PR is not reused.
+        const remoteBefore = captureRemoteRefSnapshot(
+          cloneRoot,
+          featureBranch,
+        );
+        expect(remoteBefore.mainSha?.toLowerCase()).toBe(
+          BASE_SHA.toLowerCase(),
+        );
+        expect(remoteBefore.headsNormalized.length).toBeGreaterThan(0);
+        expect(remoteBefore.targetBranchLine).toBeNull();
+        const repositoryRead = new GithubCliRepositoryReadAdapter({
+          cwd: cloneRoot,
+        });
+        const priorPrs = await repositoryRead.listPullRequests({
+          repositoryRef: IDENTITY,
+          state: "all",
+          limit: 100,
+        });
+        expect(
+          priorPrs.filter((pr) => pr.headBranch === featureBranch),
+        ).toHaveLength(0);
+        const evidenceBeforeCampaign =
+          await oa.evidenceReviewServices.repository.listByProject(projectId);
+        expect(
+          evidenceBeforeCampaign.some(
+            (evidence) =>
+              evidence.bindings?.executionContractId ===
+              contract.executionContractId,
+          ),
+        ).toBe(false);
 
         expect(fs.existsSync(path.join(cloneRoot, TARGET_PATH))).toBe(false);
         expect(M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID).not.toBe(
@@ -859,13 +1194,30 @@ describe.skipIf(!ENABLED)(
         );
 
         const attempts = oa.executionAttemptServices;
+        const initialAttemptsBeforeA =
+          await attempts.listExecutionAttempts.execute({
+            executionContractId: initialEc.executionContractId,
+          });
+        expect(initialAttemptsBeforeA.ok).toBe(true);
+        if (!initialAttemptsBeforeA.ok) {
+          throw new Error("initial EC attempt list before A");
+        }
+        expect(initialAttemptsBeforeA.attempts).toHaveLength(0);
         const attemptAId =
           `xat:gcec-commit-a:${contract.executionContractId}`.slice(0, 128);
         const attemptBId =
           `xat:gcec-commit-b:${contract.executionContractId}`.slice(0, 128);
-        expect(attemptAId).not.toBe(attemptBId);
+        const attemptCId =
+          `xat:gcec-push-c:${contract.executionContractId}`.slice(0, 128);
+        const attemptDId =
+          `xat:gcec-pr-d:${contract.executionContractId}`.slice(0, 128);
+        expect(new Set([attemptAId, attemptBId, attemptCId, attemptDId]).size).toBe(
+          4,
+        );
         harnessState.attemptAId = attemptAId;
         harnessState.attemptBId = attemptBId;
+        harnessState.attemptCId = attemptCId;
+        harnessState.attemptDId = attemptDId;
 
         // ----- Attempt A: bounded docs-write (retain worktree) -----
         const selectedA = await attempts.selectExecutionAgent.execute({
@@ -894,46 +1246,63 @@ describe.skipIf(!ENABLED)(
         expect(gateA.ok).toBe(true);
         if (!gateA.ok) throw new Error(gateA.error.message);
 
-        const startedA = await attempts.startExecution.execute({
-          attemptId: attemptAId,
-          actor: PILOTE,
-          authorityEvidenceId: requireAuth(execAuth),
-          confirmations: [] as Confirmation[],
-        });
-        expect(startedA.ok).toBe(true);
-        if (!startedA.ok) {
-          throw new Error(
-            `StartExecution A failed: ${startedA.error.detailCode} ${startedA.error.internalCauseRef ?? ""} ${startedA.error.message}`,
-          );
-        }
-        expect(startedA.attempt.status).toBe("running");
-
-        const frontiersA =
-          await attempts.realBoundary!.safetyJournal.findFrontierByAttempt(
-            attemptAId,
-          );
-        const launchedA = frontiersA.find(
-          (row) =>
-            row.kind === "LAUNCHED" &&
-            typeof row.processRef === "string" &&
-            row.processRef.trim().length > 0,
-        );
-        expect(launchedA?.processRef).toBeTruthy();
-        const processRefA = String(launchedA!.processRef);
-        expect(processRefA).toMatch(/^(pid:|proc:)/);
-
-        harnessState.realLaunchConsumed = true;
-        harnessState.processRefA = processRefA;
-        harnessState.phase = "A_LAUNCHED_UNRECONCILED";
-        await writeLaunchFrontierSnapshot({
-          state: harnessState,
-          phase: "A_LAUNCHED_UNRECONCILED",
-        });
-
         let artifactDigest = "";
         let worktree = "";
 
         try {
+          const startedA = await attempts.startExecution.execute({
+            attemptId: attemptAId,
+            actor: PILOTE,
+            authorityEvidenceId: requireAuth(execAuth),
+            confirmations: [] as Confirmation[],
+          });
+          expect(startedA.ok).toBe(true);
+          if (!startedA.ok) {
+            throw new Error(
+              `StartExecution A failed: ${startedA.error.detailCode} ${startedA.error.internalCauseRef ?? ""} ${startedA.error.message}`,
+            );
+          }
+          expect(startedA.attempt.status).toBe("running");
+          harnessState.realLaunchConsumed = true;
+          harnessState.phase = "A_LAUNCHED_UNRECONCILED";
+          await writeLaunchFrontierSnapshot({
+            state: harnessState,
+            phase: "A_LAUNCHED_UNRECONCILED",
+          });
+
+          const frontiersA =
+            await attempts.realBoundary!.safetyJournal.findFrontierByAttempt(
+              attemptAId,
+            );
+          const launchedA = frontiersA.find(
+            (row) =>
+              row.kind === "LAUNCHED" &&
+              typeof row.processRef === "string" &&
+              row.processRef.trim().length > 0,
+          );
+          expect(launchedA?.processRef).toBeTruthy();
+          const processRefA = String(launchedA!.processRef);
+          expect(processRefA).toMatch(/^(pid:|proc:)/);
+          harnessState.processRefA = processRefA;
+          const expectedAttemptAWorktree = workspacePathForAttempt(
+            execRoot,
+            attemptAId,
+          );
+          const registeredAttemptAWorktree = assertRegisteredGitWorktree({
+            repositoryRoot: cloneRoot,
+            worktreePath: expectedAttemptAWorktree,
+          });
+          expect(
+            pathsEqualAllowingRealpath(
+              registeredAttemptAWorktree,
+              expectedAttemptAWorktree,
+            ),
+          ).toBe(true);
+          await writeLaunchFrontierSnapshot({
+            state: harnessState,
+            phase: "A_LAUNCHED_UNRECONCILED",
+          });
+
           const attemptRunningA =
             await attempts.getExecutionAttempt.execute({ attemptId: attemptAId });
           expect(attemptRunningA.ok).toBe(true);
@@ -959,6 +1328,9 @@ describe.skipIf(!ENABLED)(
           worktree = completedA.facts.worktreeRef!;
           harnessState.worktreeRef = worktree;
           expect(worktree).toBeTruthy();
+          expect(
+            pathsEqualAllowingRealpath(worktree, expectedAttemptAWorktree),
+          ).toBe(true);
           expect(worktree.includes("sfia-product-proof")).toBe(false);
           expect(fs.existsSync(path.join(worktree, TARGET_PATH))).toBe(true);
           const artifactText = fs.readFileSync(
@@ -1017,6 +1389,10 @@ describe.skipIf(!ENABLED)(
           expect(ecAfterA.ok).toBe(true);
           if (!ecAfterA.ok) throw new Error("ec after A");
           expect(ecAfterA.contract.status).toBe("confirmed");
+          assertFinalContractBindingUnchanged(
+            ecAfterA.contract,
+            FINAL_BINDING,
+          );
           contract = ecAfterA.contract;
 
           // Retain worktree — do NOT mark campaign reconciled yet.
@@ -1027,6 +1403,12 @@ describe.skipIf(!ENABLED)(
           });
 
           // ----- Attempt B: bounded local-commit under SAME EC (Cont01 resume) -----
+          // Harness Cont01 alignment check; Product performs its own unchanged,
+          // stricter resume validation again inside StartExecution.
+          assertRegisteredGitWorktree({
+            repositoryRoot: cloneRoot,
+            worktreePath: worktree,
+          });
           const selectedB = await attempts.selectExecutionAgent.execute({
             attemptId: attemptBId,
             executionContractId: contract.executionContractId,
@@ -1062,7 +1444,7 @@ describe.skipIf(!ENABLED)(
             executionContractId: contract.executionContractId,
             effect: "git.commit",
             repositoryRef: IDENTITY,
-            branchOrRef: BRANCH,
+            branchOrRef: DEFAULT_BRANCH,
           });
           const gitAuth = registerLocalPiloteAuthority({
             authorityResolver: oa.authorityResolver,
@@ -1104,7 +1486,7 @@ describe.skipIf(!ENABLED)(
             confirmations: gitCnf ? [gitCnf] : [],
             confirmationMatch: {
               repositoryRef: IDENTITY,
-              branchOrRef: BRANCH,
+              branchOrRef: DEFAULT_BRANCH,
               actorId: PILOTE.actorId,
             },
             verifiedEffects: ["filesystem.create", "filesystem.modify"],
@@ -1116,6 +1498,11 @@ describe.skipIf(!ENABLED)(
             );
           }
           expect(startedB.attempt.status).toBe("running");
+          harnessState.phase = "B_LAUNCHED_UNRECONCILED";
+          await writeLaunchFrontierSnapshot({
+            state: harnessState,
+            phase: "B_LAUNCHED_UNRECONCILED",
+          });
 
           const frontiersB =
             await attempts.realBoundary!.safetyJournal.findFrontierByAttempt(
@@ -1131,7 +1518,6 @@ describe.skipIf(!ENABLED)(
           const processRefB = String(launchedB!.processRef);
           expect(processRefB).toMatch(/^(pid:|proc:)/);
           harnessState.processRefB = processRefB;
-          harnessState.phase = "B_LAUNCHED_UNRECONCILED";
           await writeLaunchFrontierSnapshot({
             state: harnessState,
             phase: "B_LAUNCHED_UNRECONCILED",
@@ -1204,7 +1590,7 @@ describe.skipIf(!ENABLED)(
             expectedParentSha: cont.descriptor.expectedHeadSha,
             exactPaths: cont.descriptor.expectedVerifiedFiles.map((f) => f.path),
             commitMessage: message.message,
-            branchOrRef: BRANCH,
+            branchOrRef: DEFAULT_BRANCH,
           });
           expect(builtSpec.ok).toBe(true);
           if (!builtSpec.ok) throw new Error(builtSpec.reason);
@@ -1225,7 +1611,7 @@ describe.skipIf(!ENABLED)(
             repositoryBinding: {
               identity: IDENTITY,
               remoteUrl: `https://github.com/${IDENTITY}.git`,
-              defaultBranch: BRANCH,
+              defaultBranch: DEFAULT_BRANCH,
             },
             expectedCommonGitRoot: cloneRoot,
           };
@@ -1294,21 +1680,516 @@ describe.skipIf(!ENABLED)(
             }),
           ).toBe(true);
 
-          // Local clone HEAD anti-effect (worktree commit must not mutate clone).
+          const B_COMMIT_SHA = verified.commitSha.toLowerCase();
+          expect(B_COMMIT_SHA).toMatch(/^[0-9a-f]{40}$/);
+          harnessState.observedH1 = B_COMMIT_SHA;
+
+          // A/B anti-effect: neither Product step changed the remote.
           expect(git(cloneRoot, ["rev-parse", "HEAD"])).toBe(BASE_SHA);
           expect(fs.existsSync(path.join(cloneRoot, TARGET_PATH))).toBe(false);
+          const remoteAfterB = captureRemoteRefSnapshot(
+            cloneRoot,
+            featureBranch,
+          );
+          expect(remoteAfterB.headsNormalized).toBe(
+            remoteBefore.headsNormalized,
+          );
+          expect(remoteAfterB.tagsNormalized).toBe(remoteBefore.tagsNormalized);
+          expect(remoteAfterB.mainSha).toBe(remoteBefore.mainSha);
+          expect(remoteAfterB.targetBranchLine).toBeNull();
+          harnessState.phase = "B_RECONCILED_COMMIT_VERIFIED";
+          await writeLaunchFrontierSnapshot({
+            state: harnessState,
+            phase: "B_RECONCILED_COMMIT_VERIFIED",
+          });
 
-          // CR-GCEC-AGENT-10 — actual remote read-only AFTER; must equal BEFORE.
-          const remoteAfter = captureRemoteRefSnapshot(cloneRoot);
-          expect(remoteAfter.headsNormalized).toBe(remoteBefore.headsNormalized);
-          expect(remoteAfter.tagsNormalized).toBe(remoteBefore.tagsNormalized);
-          expect(remoteAfter.mainSha?.toLowerCase()).toBe(BASE_SHA.toLowerCase());
-          expect(remoteAfter.mainSha).toBe(remoteBefore.mainSha);
-          expect(remoteAfter.targetBranchLine).toBe(
-            remoteBefore.targetBranchLine,
+          const ecAfterB =
+            await oa.executionContractServices.getExecutionContract.execute({
+              executionContractId: contract.executionContractId,
+            });
+          expect(ecAfterB.ok).toBe(true);
+          if (!ecAfterB.ok) throw new Error("ec after B");
+          assertFinalContractBindingUnchanged(
+            ecAfterB.contract,
+            FINAL_BINDING,
+          );
+          contract = ecAfterB.contract;
+
+          // Cont01 worktree and managed clone share a common Git directory.
+          // Create the local feature ref Product C requires; Product still owns
+          // the bounded remote push itself.
+          assertRegisteredGitWorktree({
+            repositoryRoot: cloneRoot,
+            worktreePath: worktree,
+          });
+          git(worktree, [
+            "update-ref",
+            `refs/heads/${featureBranch}`,
+            B_COMMIT_SHA,
+          ]);
+          expect(
+            git(worktree, ["rev-parse", `refs/heads/${featureBranch}`]),
+          ).toBe(B_COMMIT_SHA);
+          expect(git(worktree, ["rev-parse", "HEAD"])).toBe(B_COMMIT_SHA);
+          expect(git(cloneRoot, ["rev-parse", "HEAD"])).toBe(BASE_SHA);
+
+          // ----- Attempt C: Product bounded remote push under SAME EC -----
+          const selectedC = await attempts.selectExecutionAgent.execute({
+            attemptId: attemptCId,
+            executionContractId: contract.executionContractId,
+            idempotencyKey: `idem:sel:${attemptCId}`,
+            actor: PILOTE,
+            authorityEvidenceId: requireAuth(execAuth),
+            expectedContractVersion: contract.version,
+            selectionProfile: "standard",
+            selectionStrategy: "capabilities_deterministic",
+            requestedAgentRef: M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID,
+            systemInitiated: true,
+          });
+          expect(selectedC.ok).toBe(true);
+          if (!selectedC.ok) throw new Error(selectedC.error.message);
+          expect(selectedC.attempt.selectedAgentRef).toBe(
+            M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID,
           );
 
-          harnessState.phase = "B_RECONCILED_COMMIT_VERIFIED";
+          const gateC = await attempts.grantRealExecutionGate!.execute({
+            grantId: `gd:gcec-push-c:${attemptCId}`.slice(0, 128),
+            attemptId: attemptCId,
+            actor: PILOTE,
+            expiresAt,
+            authorityEvidenceId: requireAuth(execAuth),
+          });
+          expect(gateC.ok).toBe(true);
+          if (!gateC.ok) throw new Error(gateC.error.message);
+
+          const pushActionRef = buildGitEffectActionRef({
+            executionContractId: contract.executionContractId,
+            effect: "git.push",
+            repositoryRef: IDENTITY,
+            branchOrRef: featureBranch,
+          });
+          const pushAuth = registerLocalPiloteAuthority({
+            authorityResolver: oa.authorityResolver,
+            scope: pushActionRef,
+            issuedAt: NOW,
+            evidenceId: `evd:gcec-push:${contract.executionContractId}`,
+            forceEnable: true,
+          });
+          const pushConfirmId = `cfm:git-push:${contract.executionContractId}`;
+          const pushRequested =
+            await oa.decisionServices.requestConfirmation.execute({
+              confirmationId: pushConfirmId,
+              level: "N3",
+              actionRef: pushActionRef,
+              requestedBy: PILOTE,
+              requestedTo: PILOTE,
+              scope: pushActionRef,
+              idempotencyKey: `idem:${pushConfirmId}`,
+              decisionRef: decisionId,
+            });
+          expect(pushRequested.ok).toBe(true);
+          const pushGranted =
+            await oa.decisionServices.grantConfirmation.execute({
+              confirmationId: pushConfirmId,
+              actor: PILOTE,
+              authorityEvidenceId: requireAuth(pushAuth),
+            });
+          expect(pushGranted.ok).toBe(true);
+          const pushConfirmation =
+            await oa.decisionServices.confirmations.findById(pushConfirmId);
+          expect(pushConfirmation?.status).toBe("granted");
+
+          const startedC = await attempts.startExecution.execute({
+            attemptId: attemptCId,
+            actor: PILOTE,
+            authorityEvidenceId: requireAuth(execAuth),
+            confirmations: pushConfirmation ? [pushConfirmation] : [],
+            confirmationMatch: {
+              repositoryRef: IDENTITY,
+              branchOrRef: featureBranch,
+              actorId: PILOTE.actorId,
+            },
+            verifiedEffects: [
+              "filesystem.create",
+              "filesystem.modify",
+              "git.commit",
+            ],
+          });
+          expect(startedC.ok).toBe(true);
+          if (!startedC.ok) {
+            throw new Error(
+              `StartExecution C failed: ${startedC.error.detailCode} ${startedC.error.internalCauseRef ?? ""} ${startedC.error.message}`,
+            );
+          }
+          expect(startedC.attempt.status).toBe("running");
+          harnessState.phase = "C_LAUNCHED_UNRECONCILED";
+          await writeLaunchFrontierSnapshot({
+            state: harnessState,
+            phase: "C_LAUNCHED_UNRECONCILED",
+          });
+
+          const frontiersC =
+            await attempts.realBoundary!.safetyJournal.findFrontierByAttempt(
+              attemptCId,
+            );
+          const launchedC = frontiersC.find(
+            (row) =>
+              row.kind === "LAUNCHED" &&
+              typeof row.processRef === "string" &&
+              row.processRef.trim().length > 0,
+          );
+          expect(launchedC?.processRef).toBeTruthy();
+          const processRefC = String(launchedC!.processRef);
+          expect(processRefC).toMatch(/^(pid:|proc:)/);
+          harnessState.processRefC = processRefC;
+          await writeLaunchFrontierSnapshot({
+            state: harnessState,
+            phase: "C_LAUNCHED_UNRECONCILED",
+          });
+
+          const attemptRunningC =
+            await attempts.getExecutionAttempt.execute({ attemptId: attemptCId });
+          expect(attemptRunningC.ok).toBe(true);
+          if (!attemptRunningC.ok) throw new Error("attempt C missing");
+          const completedC = await completeBoundedReadOnlyLaunch({
+            attempt: attemptRunningC.attempt,
+            services: attempts,
+            awaitIfPending: true,
+          });
+          expect(completedC.ok).toBe(true);
+          if (!completedC.ok) {
+            throw new Error(
+              `complete C failed: ${completedC.code} ${completedC.message}`,
+            );
+          }
+          expect(completedC.status).toBe("succeeded");
+          if (completedC.status !== "succeeded") {
+            throw new Error("C not succeeded");
+          }
+
+          const pushVerified = await verifyRemotePushEffect({
+            repositoryRead,
+            evidenceServices: oa.evidenceReviewServices,
+            repositoryRef: IDENTITY,
+            branch: featureBranch,
+            claimedCommitSha: B_COMMIT_SHA,
+            remote: "origin",
+            expectedBindings: {
+              projectId,
+              cycleInstanceId,
+              executionContractId: contract.executionContractId,
+              executionAttemptId: attemptCId,
+            },
+            actor: { actorId: PILOTE.actorId, role: "human" },
+            nowIso: oa.clock.nowIso(),
+          });
+          expect(pushVerified.ok).toBe(true);
+          if (!pushVerified.ok) throw new Error(pushVerified.reason);
+          expect(pushVerified.status).toBe("verified");
+          harnessState.remotePushEvidenceId = pushVerified.evidenceId;
+          harnessState.phase = "C_RECONCILED_PUSH_VERIFIED";
+
+          // Independent remote read: feature == B SHA while main is untouched.
+          // Heads are intentionally not compared wholesale after C.
+          const remoteAfterC = captureRemoteRefSnapshot(
+            cloneRoot,
+            featureBranch,
+          );
+          expect(remoteAfterC.targetBranchSha?.toLowerCase()).toBe(
+            B_COMMIT_SHA,
+          );
+          expect(remoteAfterC.mainSha?.toLowerCase()).toBe(
+            BASE_SHA.toLowerCase(),
+          );
+          expect(remoteAfterC.mainSha).toBe(remoteBefore.mainSha);
+          expect(remoteAfterC.tagsNormalized).toBe(remoteBefore.tagsNormalized);
+          expect(remoteAfterC.headsNormalized).not.toBe(
+            remoteBefore.headsNormalized,
+          );
+          await writeLaunchFrontierSnapshot({
+            state: harnessState,
+            phase: "C_RECONCILED_PUSH_VERIFIED",
+          });
+          const ecAfterC =
+            await oa.executionContractServices.getExecutionContract.execute({
+              executionContractId: contract.executionContractId,
+            });
+          expect(ecAfterC.ok).toBe(true);
+          if (!ecAfterC.ok) throw new Error("ec after C");
+          assertFinalContractBindingUnchanged(
+            ecAfterC.contract,
+            FINAL_BINDING,
+          );
+          contract = ecAfterC.contract;
+
+          // ----- Attempt D: Product bounded PR create under SAME EC -----
+          const selectedD = await attempts.selectExecutionAgent.execute({
+            attemptId: attemptDId,
+            executionContractId: contract.executionContractId,
+            idempotencyKey: `idem:sel:${attemptDId}`,
+            actor: PILOTE,
+            authorityEvidenceId: requireAuth(execAuth),
+            expectedContractVersion: contract.version,
+            selectionProfile: "standard",
+            selectionStrategy: "capabilities_deterministic",
+            requestedAgentRef: M4_BOUNDED_PR_CREATE_CURSOR_AGENT_ID,
+            systemInitiated: true,
+          });
+          expect(selectedD.ok).toBe(true);
+          if (!selectedD.ok) throw new Error(selectedD.error.message);
+          expect(selectedD.attempt.selectedAgentRef).toBe(
+            M4_BOUNDED_PR_CREATE_CURSOR_AGENT_ID,
+          );
+
+          const gateD = await attempts.grantRealExecutionGate!.execute({
+            grantId: `gd:gcec-pr-d:${attemptDId}`.slice(0, 128),
+            attemptId: attemptDId,
+            actor: PILOTE,
+            expiresAt,
+            authorityEvidenceId: requireAuth(execAuth),
+          });
+          expect(gateD.ok).toBe(true);
+          if (!gateD.ok) throw new Error(gateD.error.message);
+
+          const prActionRef = buildGitEffectActionRef({
+            executionContractId: contract.executionContractId,
+            effect: "github.pr.create",
+            repositoryRef: IDENTITY,
+            branchOrRef: featureBranch,
+          });
+          const prAuth = registerLocalPiloteAuthority({
+            authorityResolver: oa.authorityResolver,
+            scope: prActionRef,
+            issuedAt: NOW,
+            evidenceId: `evd:gcec-pr:${contract.executionContractId}`,
+            forceEnable: true,
+          });
+          const prConfirmId = `cfm:pr-create:${contract.executionContractId}`;
+          const prRequested =
+            await oa.decisionServices.requestConfirmation.execute({
+              confirmationId: prConfirmId,
+              level: "N3",
+              actionRef: prActionRef,
+              requestedBy: PILOTE,
+              requestedTo: PILOTE,
+              scope: prActionRef,
+              idempotencyKey: `idem:${prConfirmId}`,
+              decisionRef: decisionId,
+            });
+          expect(prRequested.ok).toBe(true);
+          const prGranted =
+            await oa.decisionServices.grantConfirmation.execute({
+              confirmationId: prConfirmId,
+              actor: PILOTE,
+              authorityEvidenceId: requireAuth(prAuth),
+            });
+          expect(prGranted.ok).toBe(true);
+          const prConfirmation =
+            await oa.decisionServices.confirmations.findById(prConfirmId);
+          expect(prConfirmation?.status).toBe("granted");
+
+          // Runtime Product composition supplies its default read-only
+          // GithubCliRepositoryReadAdapter for D's fresh remote-head preflight.
+          const startedD = await attempts.startExecution.execute({
+            attemptId: attemptDId,
+            actor: PILOTE,
+            authorityEvidenceId: requireAuth(execAuth),
+            confirmations: prConfirmation ? [prConfirmation] : [],
+            confirmationMatch: {
+              repositoryRef: IDENTITY,
+              branchOrRef: featureBranch,
+              actorId: PILOTE.actorId,
+            },
+            verifiedEffects: [
+              "filesystem.create",
+              "filesystem.modify",
+              "git.commit",
+              "git.push",
+            ],
+          });
+          expect(startedD.ok).toBe(true);
+          if (!startedD.ok) {
+            throw new Error(
+              `StartExecution D failed: ${startedD.error.detailCode} ${startedD.error.internalCauseRef ?? ""} ${startedD.error.message}`,
+            );
+          }
+          expect(startedD.attempt.status).toBe("running");
+          harnessState.phase = "D_LAUNCHED_UNRECONCILED";
+          await writeLaunchFrontierSnapshot({
+            state: harnessState,
+            phase: "D_LAUNCHED_UNRECONCILED",
+          });
+
+          const frontiersD =
+            await attempts.realBoundary!.safetyJournal.findFrontierByAttempt(
+              attemptDId,
+            );
+          const launchedD = frontiersD.find(
+            (row) =>
+              row.kind === "LAUNCHED" &&
+              typeof row.processRef === "string" &&
+              row.processRef.trim().length > 0,
+          );
+          expect(launchedD?.processRef).toBeTruthy();
+          const processRefD = String(launchedD!.processRef);
+          expect(processRefD).toMatch(/^(pid:|proc:)/);
+          harnessState.processRefD = processRefD;
+          await writeLaunchFrontierSnapshot({
+            state: harnessState,
+            phase: "D_LAUNCHED_UNRECONCILED",
+          });
+
+          const attemptRunningD =
+            await attempts.getExecutionAttempt.execute({ attemptId: attemptDId });
+          expect(attemptRunningD.ok).toBe(true);
+          if (!attemptRunningD.ok) throw new Error("attempt D missing");
+          const completedD = await completeBoundedReadOnlyLaunch({
+            attempt: attemptRunningD.attempt,
+            services: attempts,
+            awaitIfPending: true,
+          });
+          expect(completedD.ok).toBe(true);
+          if (!completedD.ok) {
+            throw new Error(
+              `complete D failed: ${completedD.code} ${completedD.message}`,
+            );
+          }
+          expect(completedD.status).toBe("succeeded");
+          if (completedD.status !== "succeeded") {
+            throw new Error("D not succeeded");
+          }
+
+          const openPrs = await repositoryRead.listPullRequests({
+            repositoryRef: IDENTITY,
+            state: "open",
+            limit: 100,
+          });
+          const matchingPrs = openPrs.filter(
+            (pr) =>
+              pr.headBranch === featureBranch &&
+              pr.baseBranch === DEFAULT_BRANCH &&
+              pr.headSha.toLowerCase() === B_COMMIT_SHA,
+          );
+          expect(matchingPrs).toHaveLength(1);
+          const claimedPr = matchingPrs[0]!;
+          const prVerified = await verifyPrCreateEffect({
+            repositoryRead,
+            evidenceServices: oa.evidenceReviewServices,
+            repositoryRef: IDENTITY,
+            claimedPrNumber: claimedPr.number,
+            claimedHeadSha: B_COMMIT_SHA,
+            expectedHeadBranch: featureBranch,
+            expectedBaseBranch: DEFAULT_BRANCH,
+            expectedHeadSha: B_COMMIT_SHA,
+            expectedBindings: {
+              projectId,
+              cycleInstanceId,
+              executionContractId: contract.executionContractId,
+              executionAttemptId: attemptDId,
+            },
+            actor: { actorId: PILOTE.actorId, role: "human" },
+            nowIso: oa.clock.nowIso(),
+          });
+          expect(prVerified.ok).toBe(true);
+          if (!prVerified.ok) throw new Error(prVerified.reason);
+          expect(prVerified.status).toBe("verified");
+          harnessState.prCreateEvidenceId = prVerified.evidenceId;
+          harnessState.prNumber = prVerified.prNumber;
+
+          // Independent read-only `gh pr view` through the Studio adapter.
+          const independentlyObservedPr = await repositoryRead.getPullRequest({
+            repositoryRef: IDENTITY,
+            number: prVerified.prNumber,
+          });
+          expect(independentlyObservedPr).not.toBeNull();
+          expect(independentlyObservedPr?.state).toBe("open");
+          expect(independentlyObservedPr?.headBranch).toBe(featureBranch);
+          expect(independentlyObservedPr?.baseBranch).toBe(DEFAULT_BRANCH);
+          expect(independentlyObservedPr?.headSha.toLowerCase()).toBe(
+            B_COMMIT_SHA,
+          );
+          const remoteAfterD = captureRemoteRefSnapshot(
+            cloneRoot,
+            featureBranch,
+          );
+          expect(remoteAfterD.headsNormalized).toBe(
+            remoteAfterC.headsNormalized,
+          );
+          expect(remoteAfterD.tagsNormalized).toBe(
+            remoteAfterC.tagsNormalized,
+          );
+          expect(remoteAfterD.mainSha?.toLowerCase()).toBe(
+            BASE_SHA.toLowerCase(),
+          );
+          expect(remoteAfterD.targetBranchSha?.toLowerCase()).toBe(
+            B_COMMIT_SHA,
+          );
+          const ecAfterD =
+            await oa.executionContractServices.getExecutionContract.execute({
+              executionContractId: contract.executionContractId,
+            });
+          expect(ecAfterD.ok).toBe(true);
+          if (!ecAfterD.ok) throw new Error("ec after D");
+          assertFinalContractBindingUnchanged(
+            ecAfterD.contract,
+            FINAL_BINDING,
+          );
+          contract = ecAfterD.contract;
+
+          harnessState.phase = "D_RECONCILED_PR_VERIFIED";
+          const attemptsAtStop =
+            await attempts.listExecutionAttempts.execute({
+              executionContractId: contract.executionContractId,
+            });
+          expect(attemptsAtStop.ok).toBe(true);
+          if (!attemptsAtStop.ok) throw new Error("attempt list at STOP");
+          expect(attemptsAtStop.attempts).toHaveLength(4);
+          expect(
+            new Set(attemptsAtStop.attempts.map((attempt) => attempt.attemptId)),
+          ).toEqual(new Set([attemptAId, attemptBId, attemptCId, attemptDId]));
+          expect(
+            attemptsAtStop.attempts.every(
+              (attempt) => attempt.status === "succeeded",
+            ),
+          ).toBe(true);
+          expect(
+            attemptsAtStop.attempts.every(
+              (attempt) =>
+                attempt.executionContractId === finalExecutionContractId,
+            ),
+          ).toBe(true);
+          const initialAttemptsAtStop =
+            await attempts.listExecutionAttempts.execute({
+              executionContractId: initialEc.executionContractId,
+            });
+          expect(initialAttemptsAtStop.ok).toBe(true);
+          if (!initialAttemptsAtStop.ok) {
+            throw new Error("initial EC attempt list at STOP");
+          }
+          expect(initialAttemptsAtStop.attempts).toHaveLength(0);
+
+          const finalEvidence =
+            await oa.evidenceReviewServices.repository.listByProject(projectId);
+          for (const expected of [
+            { attemptId: attemptAId, source: "execution_attempt:docs_write" },
+            { attemptId: attemptBId, source: "git:local_commit" },
+            { attemptId: attemptCId, source: "git:remote_push" },
+            { attemptId: attemptDId, source: "git:pull_request" },
+          ]) {
+            expect(
+              finalEvidence.some(
+                (evidence) =>
+                  evidence.status === "verified" &&
+                  evidence.source === expected.source &&
+                  evidence.bindings?.executionContractId ===
+                    contract.executionContractId &&
+                  evidence.bindings?.executionAttemptId === expected.attemptId,
+              ),
+              `${expected.source} must be fresh and bound to ${expected.attemptId}`,
+            ).toBe(true);
+          }
+
+          // STOP after D. No fifth Attempt is selected or started.
           fs.mkdirSync(PROOF_REVIEW_DIR, { recursive: true });
           writeJson(path.join(PROOF_REVIEW_DIR, "facts.json"), {
             projectId,
@@ -1316,52 +2197,75 @@ describe.skipIf(!ENABLED)(
             executionContractId: contract.executionContractId,
             attemptAId,
             attemptBId,
+            attemptCId,
+            attemptDId,
             attemptAAgent: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
             attemptBAgent: M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
+            attemptCAgent: M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID,
+            attemptDAgent: M4_BOUNDED_PR_CREATE_CURSOR_AGENT_ID,
             processRefA,
             processRefB,
+            processRefC,
+            processRefD,
             worktreeRef: worktree,
+            featureBranch,
             artifactDigest,
             expectedH0: BASE_SHA,
-            observedH1: verified.commitSha,
+            observedH1: B_COMMIT_SHA,
             commitMessage: COMMIT_MSG,
             gitEvidenceId: verified.evidenceId,
+            remotePushEvidenceId: pushVerified.evidenceId,
+            prCreateEvidenceId: prVerified.evidenceId,
+            prNumber: prVerified.prNumber,
+            prUrl: independentlyObservedPr?.url ?? null,
             cloneHead: git(cloneRoot, ["rev-parse", "HEAD"]),
             remoteHeadsBefore: remoteBefore.headsNormalized,
-            remoteHeadsAfter: remoteAfter.headsNormalized,
+            remoteHeadsAfterB: remoteAfterB.headsNormalized,
+            remoteHeadsAfterC: remoteAfterC.headsNormalized,
+            remoteHeadsAfterD: remoteAfterD.headsNormalized,
             remoteTagsBefore: remoteBefore.tagsNormalized,
-            remoteTagsAfter: remoteAfter.tagsNormalized,
+            remoteTagsAfterC: remoteAfterC.tagsNormalized,
+            remoteTagsAfterD: remoteAfterD.tagsNormalized,
             remoteMainBefore: remoteBefore.mainSha,
-            remoteMainAfter: remoteAfter.mainSha,
+            remoteMainAfterC: remoteAfterC.mainSha,
+            remoteMainAfterD: remoteAfterD.mainSha,
             targetBranchRemoteBefore: remoteBefore.targetBranchLine,
-            targetBranchRemoteAfter: remoteAfter.targetBranchLine,
-            dGcecAgent01: "ADOPTED",
-            crGcecAgent10: "remote_ls_remote_before_after",
+            targetBranchRemoteAfterC: remoteAfterC.targetBranchLine,
+            targetBranchRemoteAfterD: remoteAfterD.targetBranchLine,
+            stoppedBeforeE: true,
           });
           writeJson(path.join(PROOF_REVIEW_DIR, "reconciliation-state.json"), {
             phase: harnessState.phase,
             attemptAId,
             attemptBId,
-            attemptAAgent: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
-            attemptBAgent: M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
+            attemptCId,
+            attemptDId,
             expectedH0: harnessState.expectedH0,
             observedH1: harnessState.observedH1,
+            featureBranch,
             commitMessage: COMMIT_MSG,
             digestHint: createHash("sha256")
               .update(artifactDigest)
               .digest("hex"),
             gitEvidenceId: verified.evidenceId,
+            remotePushEvidenceId: pushVerified.evidenceId,
+            prCreateEvidenceId: prVerified.evidenceId,
+            prNumber: prVerified.prNumber,
             remoteMainBefore: remoteBefore.mainSha,
-            remoteMainAfter: remoteAfter.mainSha,
+            remoteMainAfterC: remoteAfterC.mainSha,
+            remoteMainAfterD: remoteAfterD.mainSha,
             reconciliationComplete: true,
-            dGcecAgent01: "ADOPTED",
+            stoppedBeforeE: true,
           });
           harnessState.durableReviewSnapshotWritten = true;
           harnessState.reconciliationComplete = true;
         } catch (err) {
           let observationSummary: Record<string, unknown> | null = null;
           const processRef =
-            harnessState.processRefB ?? harnessState.processRefA;
+            harnessState.processRefD ??
+            harnessState.processRefC ??
+            harnessState.processRefB ??
+            harnessState.processRefA;
           try {
             const port = attempts.realBoundary?.launchPort;
             if (port && typeof port.observe === "function" && processRef) {
@@ -1408,6 +2312,14 @@ describe.skipIf(!ENABLED)(
               targetArtifactExists: fs.existsSync(path.join(wt, TARGET_PATH)),
               readmeSha256: sha256FileOrMissing(path.join(wt, "README.md")),
               cloneHead: safeGit(cloneRoot, ["rev-parse", "HEAD"]),
+              featureBranch: harnessState.featureBranch ?? null,
+              featureRef:
+                harnessState.featureBranch != null
+                  ? safeGit(wt, [
+                      "rev-parse",
+                      `refs/heads/${harnessState.featureBranch}`,
+                    ])
+                  : null,
             };
           }
           await writeFailureReconciliationSnapshot({

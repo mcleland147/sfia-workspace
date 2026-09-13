@@ -47,6 +47,10 @@ import {
   type TestExecutionAdapter,
 } from "@/lib/oa/execution-attempt";
 import {
+  GithubCliRepositoryReadAdapter,
+  type RepositoryReadPort,
+} from "@/lib/oa/git-ports";
+import {
   composeStudioProductRealBoundary,
   type ComposeStudioProductRealBoundaryInput,
 } from "./composeStudioProductRealBoundary";
@@ -126,6 +130,15 @@ export interface RuntimeApplicationServiceOptions {
    * Construction still launches nothing.
    */
   readonly realBoundaryComposition?: ComposeStudioProductRealBoundaryInput;
+  /**
+   * Studio-owned RepositoryReadPort for StartExecution AC-02/AC-05 fresh preflights.
+   * - omit / undefined → Product SQLite path defaults to GithubCliRepositoryReadAdapter
+   *   (read-only; construction does not spawn gh / mutate remotes);
+   * - explicit Fake/adapter → injected (deterministic tests / harness);
+   * - null → force absent (fail-closed Start D/E preflight).
+   * Does NOT expand Cursor mutation authority.
+   */
+  readonly repositoryRead?: RepositoryReadPort | null;
 }
 
 export type MaterializationServices = {
@@ -174,6 +187,23 @@ function resolveAudit(
   return new NoOpLocalProjectCreationAudit();
 }
 
+function resolveStudioRepositoryRead(input: {
+  readonly productSqlite: boolean;
+  readonly repositoryRead?: RepositoryReadPort | null;
+}): RepositoryReadPort | undefined {
+  if (input.repositoryRead === null) {
+    return undefined;
+  }
+  if (input.repositoryRead !== undefined) {
+    return input.repositoryRead;
+  }
+  // Product durable OA path: Studio READ for AC-02/AC-05. Construction ≠ network mutation.
+  if (input.productSqlite) {
+    return new GithubCliRepositoryReadAdapter();
+  }
+  return undefined;
+}
+
 function wireOaStack(
   projectServices: ProjectServices,
   clock: ClockPort,
@@ -181,6 +211,7 @@ function wireOaStack(
     realBoundary?: RealBoundaryWiring;
     registryRoot?: string;
     doctrinePackagePin?: DoctrinePackagePin;
+    repositoryRead?: RepositoryReadPort | null;
   },
 ): RuntimeOaStack {
   // M2/M3: same Product SQLite store for Project/LPS + Cycle + Decision + Contract.
@@ -188,6 +219,10 @@ function wireOaStack(
     projectServices.store instanceof SqliteProductStore
       ? projectServices.store
       : null;
+  const repositoryRead = resolveStudioRepositoryRead({
+    productSqlite: productSqlite !== null,
+    repositoryRead: options?.repositoryRead,
+  });
 
   // CORR-PROOF-05 — late-bound readers so CycleServices can assess FINALIZE
   // without creating a construction-time cycle with Decision/Evidence factories.
@@ -443,6 +478,7 @@ function wireOaStack(
             await late.evidenceReviewServices.repository.listByProject(projectId);
           return { ok: true as const, evidence };
         },
+        ...(repositoryRead ? { repositoryRead } : {}),
       })
     : createInMemoryExecutionAttemptServices({
         decisionServices,
@@ -466,6 +502,7 @@ function wireOaStack(
             await late.evidenceReviewServices.repository.listByProject(projectId);
           return { ok: true as const, evidence };
         },
+        ...(repositoryRead ? { repositoryRead } : {}),
       });
   late.executionAttemptServices = executionAttemptServices;
 
@@ -709,6 +746,7 @@ export function createRuntimeApplicationService(
     realBoundary: composedBoundary,
     registryRoot,
     doctrinePackagePin,
+    repositoryRead: options.repositoryRead,
   });
   return new RuntimeApplicationService(
     services.facade,
