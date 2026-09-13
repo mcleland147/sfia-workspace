@@ -1,339 +1,289 @@
-# ChatGPT Review Pack — GCEC CURSOR FULL-CAPABILITY EXECUTOR PARITY
+# SFIA Studio Review Pack — GCEC-D-ONLY-PR-CREATE-REAL-01
 
 **Mode:** FULL
-**Timestamp (UTC):** 2026-09-13T15:18:10Z
-**Cycle:** 8 / EVOL / CRITICAL
-**GO:** GCEC-CURSOR-FULL-CAPABILITY-PARITY-01
-**Verdict:** PASS — CURSOR FULL-CAPABILITY EXECUTOR PARITY RO-PROVEN / LOCAL ANCHOR CREATED — D PR EFFECT STILL NOT PROVEN
+**Timestamp (UTC):** 2026-09-13T15:31:11Z
+**Milestone:** GCEC-D-ONLY-PR-CREATE-REAL-01
+**Cycle:** 9 — QA / validation
+**Typology:** RUN
+**Profil:** CRITICAL
+**Verdict class:** DREAL-AUTHORITY-FAIL / path unavailable
+**StartExecution mutating launch:** NONE (budget not consumed)
 
 ---
 
-## A. VERDICT
+## Exact Morris GO
 
-**PASS — CURSOR FULL-CAPABILITY EXECUTOR PARITY RO-PROVEN / LOCAL ANCHOR CREATED — D PR EFFECT STILL NOT PROVEN.**
+GO MORRIS — ONE REAL D-ONLY PR-CREATE EXECUTION CONTRACT AGAINST EXISTING C-PROVEN FEATURE — FULL-CAPABILITY CURSOR ANCHOR 9878043E — STOP BEFORE MERGE
 
-Morris decision applied: Cursor is a general technical executor; SFIA governs authority via ExecutionContract ∩ AgentCapability ∩ Confirmation ∩ guardrails ∩ Evidence — not via SFIA-owned network firewall.
+Incoming Review Handoff tip expected: `98259c550f666b4b36eb31874d5b0a13e0cd5e58`
 
-- CLI mode qualified: `agent --print --workspace --trust --sandbox disabled --force` (`--yolo` = alias for `--force`; not used).
-- ONE direct parity probe PASS → **FCP-A** (native `gh` auth works; no token injection).
-- Product aligned: removed `api.github.com`-only / `CURSOR_FORCED_*` injection; argv `--sandbox disabled --force` for governed launches; RO keeps `--mode ask`; ephemeral secret bridge retired; exact-secret redaction retained.
-- Deterministic CAP/AUTH + A/B/C/D regressions + A→D harness 22/1 skip PASS; typecheck/lint/build/full Vitest PASS.
-- ONE Product-shaped RO probe PASS (D remote_github composition, RO instruction, native auth).
-- ONE local Product commit; ZERO Product remote / proof mutating effects.
+Constants used:
 
----
-
-## B. QUALIFICATION
-
-| Field | Value |
+| Name | Value |
 |---|---|
-| Repository | `mcleland147/sfia-workspace` |
-| Cycle | 8 — Delivery / implementation |
-| Typology | EVOL |
-| Profile | CRITICAL |
-| Milestone | GCEC-CURSOR-FULL-CAPABILITY-PARITY-01 |
-| Product main | `c481610caa3527edabeca8c860ab27c18a6a738e` |
-| Dirty parent / prior ANCHOR | `ff267fdf3e6591b5ed83c4478b95f6181ad98fa2` |
-| Worktree | `/Users/morris/Projects/sfia-gcec-d-ephemeral-secret-bridge-ff267fdf` |
+| NEW / worktree | `/Users/morris/Projects/sfia-gcec-d-ephemeral-secret-bridge-ff267fdf` |
 | Branch | `delivery/sfia-studio-gcec-d-ephemeral-secret-bridge` |
-| Incoming handoff | `f0b69c1fab8c9eb7f47b522109b9b6f78d65adb9` |
-| Proof | `mcleland147/sfia-gcec-proof-task-manager` |
-| Feature | `gcec/lifecycle/gcec-ad-finaldec-f2-fe6b` @ `3a879572722af2b72909243ba0b506f307d87156` |
+| ANCHOR (Product HEAD) | `9878043eca14896c3a6f6cb8f9dc4a84b6a26d55` |
+| PARENT | `ff267fdf3e6591b5ed83c4478b95f6181ad98fa2` |
+| origin/main (Product) | `c481610caa3527edabeca8c860ab27c18a6a738e` |
+| PROOF | `mcleland147/sfia-gcec-proof-task-manager` |
+| H0 / main | `32c7c2008197e5c61b32c16479144e9863291358` |
+| FEATURE | `gcec/lifecycle/gcec-ad-finaldec-f2-fe6b` |
+| FEATURE_SHA | `3a879572722af2b72909243ba0b506f307d87156` |
+| PR_TITLE (planned, not created) | `GCEC proof: D-only governed PR create` |
 
 ---
 
-## C. LOCAL GIT TRUTH
+## Canonical maturity before campaign
 
-| Field | Value |
+| Claim | State |
 |---|---|
-| pwd / toplevel | `/Users/morris/Projects/sfia-gcec-d-ephemeral-secret-bridge-ff267fdf` |
-| branch | `delivery/sfia-studio-gcec-d-ephemeral-secret-bridge` |
-| HEAD before commit | `ff267fdf3e6591b5ed83c4478b95f6181ad98fa2` |
-| origin/main | `c481610caa3527edabeca8c860ab27c18a6a738e` |
-| HEAD after commit | `9878043eca14896c3a6f6cb8f9dc4a84b6a26d55` |
-| commit parent | `ff267fdf3e6591b5ed83c4478b95f6181ad98fa2` |
-| staged unexpected | NONE |
-
----
-
-## D. ENTRY DIRTY CANDIDATE
-
-Preserved dirty candidate from prior bounded-network STOP (secret bridge + `CURSOR_FORCED_*` egress) was reworked in-place — not discarded/stashed.
-
-Entry modified Product paths under `execution-attempt/` plus untracked bridge/redaction candidates and `.tmp-sfia-review/**` diagnostics (preserved, never staged).
-
----
-
-## E. MORRIS FULL-CAPABILITY DECISION
-
-Consumed: Cursor must retain general technical capability (Shell / filesystem / network / installed tools / GitHub when credentials exist). SFIA must not be a domain firewall / network sandbox / Internet permission catalog. SUPERSEDED as target: `api.github.com-only`, `CURSOR_FORCED_SHELL_EGRESS*` Product injection, domain allowlist-by-effect. Does NOT mean global L5 / autonomous merge / removal of HumanDecision/Confirmation / runtime v3 ADOPTED.
-
----
-
-## F. CANONICAL MATURITY
-
-| Surface | Maturity |
-|---|---|
-| A docs-write | REAL PROVEN AT TESTED SCOPE |
-| B local commit | REAL PROVEN AT TESTED SCOPE |
-| C remote push | REAL PROVEN AT TESTED SCOPE |
-| A→C | REAL PROVEN AT TESTED SCOPE |
-| C HTTPS bridge | REAL-BACKED AT TESTED SCOPE |
-| D executor full-capability (RO) | **RO-PROVEN AT TESTED SCOPE** (this lot) |
-| D PR-create effect | **NOT PROVEN** |
-| E / merge | NOT PROVEN |
+| A docs-write | HISTORICAL REAL PROVEN AT TESTED SCOPE |
+| B local git.commit | HISTORICAL REAL PROVEN AT TESTED SCOPE |
+| C remote push | HISTORICAL REAL PROVEN AT TESTED SCOPE |
+| A→C | HISTORICAL REAL PROVEN AT TESTED SCOPE |
+| C HTTPS capability | REAL-BACKED AT TESTED SCOPE |
+| Current full-capability Cursor boundary | READ-ONLY REAL-BACKED AT TESTED SCOPE |
+| Current A/B/C on anchor 9878043e | DETERMINISTIC NON-REGRESSION PROVEN |
+| D github.pr.create | NOT PROVEN |
+| E merge | NOT PROVEN |
 | runtime v3 | NON ADOPTED |
 
 ---
 
-## G. TECHNICAL RESTRICTION INVENTORY
+## Phase-scoped / D-only architecture statement
 
-| Mechanic | Class | Disposition |
-|---|---|---|
-| EC / AgentCapability / Confirmation gates | A AUTHORITY | KEEP |
-| `--mode ask` for RO | A AUTHORITY / RO intent | KEEP |
-| exact-secret redaction (`redactExactSecrets` / runner) | B SECRET SAFETY | KEEP |
-| remote_git `GIT_CONFIG_*` HTTPS helper (`gh auth git-credential`) | C ADDITIVE CAPABILITY | KEEP (C path) |
-| mutating env strip of host auth for local A/B | A/C confinement | KEEP |
-| `--sandbox enabled` on governed launches | D SFIA RESTRICTION | **REMOVED** → `disabled` |
-| missing `--force` under allowlist | D RESTRICTION | **REMOVED** → `--force` |
-| `applyRemoteGithubPrCreateBoundedShellEgress` / `CURSOR_FORCED_*` inject | D FIREWALL | **REMOVED** |
-| HostGhAuthTokenCredentialProvider / credential port wiring | C (FCP-B only) | **RETIRED (FCP-A)** |
-| ambient `CURSOR_FORCED_*` strip | neutralize ambient firewall | KEEP strip-only |
+Morris authorized a **NEW dedicated D-only ExecutionContract** whose effect set is exactly `github.pr.create`, against the already C-proven feature branch, without replaying A/B/C and without using the monolithic A→D REAL harness.
 
----
+Product runtime at ANCHOR implements bounded PR-create (`buildGitPrCreateLaunchSpec`, `M4_BOUNDED_PR_CREATE_*`, `isBoundedGitPrCreateOnlySlice`) but **StartExecution for a pr.create-only authorized slice hard-requires same-EC verified remote-push lineage** via `resolveVerifiedRemotePushPriorAttempt` (succeeded Attempt with `M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID` + VERIFIED `git:remote_push` Evidence bound to that EC).
 
-## H. CURSOR CLI FULL-CAPABILITY MODE QUALIFICATION
+There is **no public Product path** to bind historical C-proven remote head truth into a fresh D-only EC without either:
 
-| Item | Result |
-|---|---|
-| Cursor | 3.20.17 |
-| `--sandbox` | choices `enabled` / `disabled` (overrides config) |
-| `--force` / `-f` | Force allow commands unless explicitly denied |
-| `--yolo` | Alias for `--force` — **not used** |
-| Preferred argv | `agent --print --workspace <path> --trust --sandbox disabled --force` |
-| cli-config / Cursor.app modified | **NO** |
-| Verdict | **QUALIFIED** |
+1. re-running C (push) on that same EC (forbidden by D-only / no A→D replay), or
+2. fabricating Attempt/Evidence / mutating internal stores (forbidden by GO §10), or
+3. editing Product source to add a D-only prior-binding API (forbidden — no Product source edits).
+
+Features under `projects/sfia-studio/app/features/project-assistant/f3/` expose bounded docs-write and read-only paths only — **no** `completeBoundedPrCreate` / D-only public campaign API.
+
+Therefore: **STOP — DREAL-AUTHORITY-FAIL / path unavailable**. No StartExecution. No PR created by this campaign. Outer agent did not run `gh pr create`.
 
 ---
 
-## I. DIRECT CURSOR PARITY PROBE
-
-| Field | Value |
-|---|---|
-| Count | ONE (no retry) |
-| Argv | `agent --print --workspace <empty temp> --trust --sandbox disabled --force` |
-| GH_TOKEN injection | NONE |
-| Artifact | `.tmp-sfia-review/fcp-direct-parity.out` |
-| Shell | PASS (`SHELL_OK=yes`, node v24.16.0) |
-| Outside fixture read | PASS (`OUTSIDE_WORKSPACE_READ=yes`) |
-| example.com DNS/HTTPS | PASS (200) |
-| api.github.com DNS/HTTPS | PASS (403 — HTTPS reachable) |
-| git / gh | PASS |
-| Native gh auth | PASS (`NATIVE_GH_AUTH=yes`) |
-| Exit | 0 |
-
----
-
-## J. FCP-A / FCP-B CLASSIFICATION
-
-**FCP-A** — network OK and native `gh` auth works without Product token injection.
-
----
-
-## K. SECRET BRIDGE DISPOSITION
-
-**RETIRED** for PR-create path (FCP-A).
-
-Removed wiring: `HostGhAuthTokenCredentialProvider`, `remoteGithubCredentialPort`, gateway `remoteGithubCredentialProvider`, Fake provider.
-
-Kept: `redactExactSecrets` + `NodeCursorProcessRunner.redactExactValues` for accidental capture defense.
-
----
-
-## L. SUPERSEDED NETWORK CONFINEMENT REMOVAL
-
-Removed Product injection of:
-
-- `applyRemoteGithubPrCreateBoundedShellEgress`
-- `REMOTE_GITHUB_PR_CREATE_SHELL_EGRESS_*` constants
-- `CURSOR_FORCED_SHELL_EGRESS*` Product inject on D path
-
-Retained strip of ambient `CURSOR_FORCED_*` so inherited deny/allowlist cannot confine children.
-
-Deleted api.github.com-only NET assertions; replaced with CAP/AUTH suite.
-
----
-
-## M. PRODUCT LAUNCH ALIGNMENT
-
-`StudioCursorRealLaunchGateway` governed argv (A/B/C/D/E mutating + RO):
-
-- always `--sandbox disabled` + `--force`
-- RO additionally `--mode ask`
-- capability no longer depends on effect class for sandbox/force
-- no `CURSOR_FORCED_*` inject; no ephemeral GH_TOKEN bridge
-
----
-
-## N. AUTHORITY INVARIANTS
-
-AUTH-01..10 preserved: invalid D agent/effects/spec still reject before spawn; full capability does not authorize protected effects; Cursor remains `gh pr create` executor; no Studio GitHub mutation API; no auto merge/delete; runtime v3 not promoted.
-
----
-
-## O. CAPABILITY INVARIANTS
-
-CAP-01..12 covered by Product argv + strip-only egress policy + direct/Product RO probes + no cli-config mutation.
-
----
-
-## P. DETERMINISTIC VALIDATION
+## §6 Local Product Git Truth
 
 | Check | Result |
 |---|---|
-| `gcecCursorFullCapabilityParity.d0.test.ts` | PASS (13) |
-| `gcecMutatingCursorConfinementEnv.d0.test.ts` | PASS (13) |
-| `gcecGitCommitGatewayProfile.d0.test.ts` | PASS (19) |
-| `gcecGitLifecyclePushPrMerge.d0.test.ts` | PASS (53) |
-| A→D `gcecCursorRealSameEcCommit.real.d0.test.ts` | PASS 22 / SKIP 1 |
-| typecheck | PASS |
-| lint | PASS |
-| build | PASS |
-| full Vitest | PASS 3893 / SKIP 137 (356 files; 17 skipped files) |
+| Branch | `delivery/sfia-studio-gcec-d-ephemeral-secret-bridge` |
+| HEAD | `9878043eca14896c3a6f6cb8f9dc4a84b6a26d55` = ANCHOR |
+| HEAD^ | `ff267fdf3e6591b5ed83c4478b95f6181ad98fa2` = PARENT |
+| origin/main | `c481610caa3527edabeca8c860ab27c18a6a738e` = MAIN |
+| Tracked Product source delta under `projects/` vs ANCHOR | NONE |
+| Worktree noise | `.tmp-sfia-review/**` review/campaign artifacts + local `node_modules` (not Product source) |
+
+**§6:** PASS (no FULL-CAPABILITY PRODUCT ANCHOR DRIFT).
 
 ---
 
-## Q. PRODUCT-SHAPED REAL READ-ONLY PROBE
+## §7 Full-capability implementation at ANCHOR
 
-| Field | Value |
+Inspected `studioCursorRealLaunchGateway.ts` + `mutatingCursorConfinementEnv.ts` on ANCHOR:
+
+| Requirement | Evidence |
 |---|---|
-| Count | ONE (no retry) |
-| Composition | `buildMutatingCursorConfinementEnv(..., remote_github)` + `NodeCursorProcessRunner` + Product argv |
-| Instruction | READ-ONLY (no PR/push/write) |
-| Artifact | `.tmp-sfia-review/fcp-product-ro-probe.out` |
-| realProcessInvoked | true |
-| argv | sandbox disabled + force |
-| CURSOR_FORCED inject | absent |
-| Shell / outside read / both networks | PASS |
-| Native GitHub RO | PASS (`full_name` + feature SHA exact) |
-| GH_TOKEN in child | no |
-| Exit | 0 |
+| argv `--sandbox disabled` + `--force` | Gateway builds mutating PR-create argv with `--sandbox` / `disabled` / `--force` (full-capability native mode) |
+| No CURSOR_FORCED egress inject | FCP-A comment + confinement: Product MUST NOT inject `CURSOR_FORCED_*`; keys stripped / not set for spawn |
+| No ephemeral GH bridge | FCP-A: no ephemeral `GH_TOKEN` bridge; confinement does not propagate `GH_TOKEN` |
+| Authority gates present | StartExecution → authorized slice / Confirmation / `buildGitPrCreateLaunchSpec` / RepositoryRead preflight |
+
+**§7:** PASS (implementation consistent with accepted full-capability review). Capability alone does not create a D-only EC path.
 
 ---
 
-## R. SECRET SAFETY
+## §8 Proof remote RO precheck (host gh READ-ONLY)
 
-No GH_TOKEN injection this lot. No raw credential printed in probe captures. Redaction helper retained. `process.env` not globally mutated by gateway.
-
----
-
-## S. PROOF REMOTE TRUTH
-
-Pre/post Product probe (host `gh api`, read-only):
-
-| Check | Value |
+| Check | Observed |
 |---|---|
-| proof main | `32c7c2008197e5c61b32c16479144e9863291358` |
-| feature SHA | `3a879572722af2b72909243ba0b506f307d87156` |
-| open PR for feature | NONE (`[]`) |
-| Unchanged | YES |
+| `refs/heads/main` | `32c7c2008197e5c61b32c16479144e9863291358` = H0 |
+| `refs/heads/gcec/lifecycle/gcec-ad-finaldec-f2-fe6b` | `3a879572722af2b72909243ba0b506f307d87156` = FEATURE_SHA |
+| feature ≠ main | true |
+| Matching PRs head→base (all states) | **NONE** (`[]`) |
+
+**§8:** PASS — existing PR count before launch = **0**. Preconditions exact. No launch followed.
 
 ---
 
-## T. FULL VALIDATION
-
-Focused suites + typecheck + lint + build + full Vitest — all PASS before commit.
-
----
-
-## U. CUMULATIVE PRODUCT DIFF
-
-Parent `ff267fdf3e6591b5ed83c4478b95f6181ad98fa2` → tip `9878043eca14896c3a6f6cb8f9dc4a84b6a26d55`:
-
-- gateway argv full-capability alignment
-- remove bounded Shell egress inject
-- retire ephemeral credential bridge wiring
-- retain redaction helper
-- CAP/AUTH deterministic tests; update sandbox assertions in GC/M4/namemax tests
-
----
-
-## V. STAGED FILES
-
-Only Product paths under `projects/sfia-studio/app/lib/oa/execution-attempt/**` and related `__tests__/oa/execution-attempt/**`. Never staged: `.tmp-sfia-review/**`, `node_modules`, diagnostics probes.
-
----
-
-## W. LOCAL PRODUCT COMMIT
-
-| Field | Value |
-|---|---|
-| Subject | `fix(sfia-studio): align Cursor executor capability parity` |
-| SHA | `9878043eca14896c3a6f6cb8f9dc4a84b6a26d55` |
-| Parent | `ff267fdf3e6591b5ed83c4478b95f6181ad98fa2` |
-| Push | **NOT DONE** (local only) |
-
----
-
-## X. D_FULL_CAPABILITY_LOCAL_ANCHOR
-
-`9878043eca14896c3a6f6cb8f9dc4a84b6a26d55`
-
----
-
-## Y. PRODUCT REMOTE EFFECTS
-
-**NONE** (no `git push` of Product branch; no Product PR).
-
----
-
-## Z. PROOF MUTATING EFFECTS
-
-**NONE** (no PR create/merge; main/feature unchanged).
-
----
-
-## AA. ROADMAP
-
-Unchanged this lot. Next candidate gate only after Morris authorization: ONE REAL D-only PR-create EC against existing C-proven feature — STOP BEFORE MERGE.
-
----
-
-## AB. REVIEW HANDOFF
-
-| Field | Value |
-|---|---|
-| Incoming tip (HANDOFF_IN) | `f0b69c1fab8c9eb7f47b522109b9b6f78d65adb9` |
-| Source | `.tmp-sfia-review/chatgpt-review.md` |
-| Destination | `sfia-review-handoff/latest-chatgpt-review.md` |
-| Branch | `sfia/review-handoff` |
-| Publish | ONCE via `scripts/sfia/publish-review-handoff.sh` |
-
-(Post-publish tip/parent/blob/parity filled by publish verification.)
-
----
-
-## AC. MATURITY / ANTI-CLAIMS
-
-**Claims:** Cursor governed launch full-capability mode RO-proven at tested scope; local Product anchor created; authority gates preserved; C remote_git path not regressed.
-
-**Anti-claims:** Does NOT prove D `github.pr.create` REAL effect; does NOT prove E/merge; does NOT adopt runtime v3; does NOT authorize autonomous protected effects; does NOT claim unbounded L5.
-
----
-
-## AD. NEXT GATE
-
-Candidate (do NOT execute under this GO):
-
-**GO MORRIS — ONE REAL D-ONLY PR-CREATE EXECUTION CONTRACT AGAINST EXISTING C-PROVEN FEATURE — STOP BEFORE MERGE**
+## §9 PR payload (planned — NOT executed)
 
 - repository: `mcleland147/sfia-gcec-proof-task-manager`
-- base main: `32c7c2008197e5c61b32c16479144e9863291358`
-- head: `gcec/lifecycle/gcec-ad-finaldec-f2-fe6b` @ `3a879572722af2b72909243ba0b506f307d87156`
-- effect: `github.pr.create` ONLY
-- merge: NOT AUTHORIZED
+- base: `main`
+- head: `gcec/lifecycle/gcec-ad-finaldec-f2-fe6b`
+- title: `GCEC proof: D-only governed PR create`
+- body must contain:
+
+```
+SFIA GCEC REAL proof campaign.
+Effect under test: github.pr.create only.
+Base: main @ 32c7c2008197e5c61b32c16479144e9863291358
+Head: gcec/lifecycle/gcec-ad-finaldec-f2-fe6b @ 3a879572722af2b72909243ba0b506f307d87156
+Merge is NOT authorized by this campaign.
+```
+
+**Status:** NOT created (no Product launch; host did not create PR).
 
 ---
 
-Constants: ANCHOR=`9878043eca14896c3a6f6cb8f9dc4a84b6a26d55` PARENT=`ff267fdf3e6591b5ed83c4478b95f6181ad98fa2` MAIN=`c481610caa3527edabeca8c860ab27c18a6a738e` HANDOFF_IN=`f0b69c1fab8c9eb7f47b522109b9b6f78d65adb9` NEW=`/Users/morris/Projects/sfia-gcec-d-ephemeral-secret-bridge-ff267fdf` FCP=A
+## D-only ExecutionContract
+
+| Field | Value |
+|---|---|
+| Fresh D-only EC created | **NO** |
+| id / version / fingerprint / bindings | **N/A — not constructed** |
+| Exact effect set | intended `github.pr.create` only — not instantiated |
+| Reason | Public StartExecution path cannot authorize/launch D without same-EC verified push prior; constructing EC without launch would not prove D and cannot pass authority oracle for StartExecution |
+
+**Discovery notes (public APIs searched):**
+
+- `buildGitPrCreateLaunchSpec` / `isBoundedGitPrCreateOnlySlice` — `lib/oa/execution-attempt/domain/gitPrCreateLaunchSpec.ts`
+- `M4_BOUNDED_PR_CREATE_*` / `createM4BoundedPrCreateCursorAgentDescriptor` — `m4BoundedPrCreateCursorAgent.ts`
+- StartExecution PR branch — `startExecution.ts` (~1435+) calls `resolveVerifiedRemotePushPriorAttempt` → fail closed `git_pr_create_without_verified_remote_push` when no same-EC push prior
+- Deterministic lifecycle tests — `gcecGitLifecyclePushPrMerge.d0.test.ts` (ZERO REAL); confirms profile needs verified push lineage
+- Only REAL PR-capable harness — `gcecCursorRealSameEcCommit.real.d0.test.ts` (monolithic A→D with flags including `SFIA_GCEC_CURSOR_REAL_PR_PROOF`) — **explicitly forbidden** for this GO
+- f3 product features — no D-only PR create campaign entrypoint
+
+---
+
+## HumanDecision / Confirmation
+
+| Field | Value |
+|---|---|
+| Created | **NO** |
+| ids/types | N/A |
+| Authority result | **NOT ESTABLISHED** — STOP before StartExecution per GO (DREAL-AUTHORITY-FAIL) |
+
+Intended authority oracle (not reached):
+
+- `github.pr.create` AUTHORIZED
+- `github.pr.merge` / `git.push` / `git.commit` / `docs-write` NOT AUTHORIZED
+
+---
+
+## REAL campaign budget
+
+| Budget | Value |
+|---|---|
+| Max mutating Product Cursor launches | 1 |
+| Launches consumed | **0** |
+| Max PR creations | 1 |
+| PRs created by this campaign | **0** |
+| Retry | NONE |
+
+---
+
+## StartExecution
+
+| Field | Value |
+|---|---|
+| Launched | **NO** |
+| attempt id | N/A |
+| realProcessInvoked | N/A |
+| Cursor argv | N/A |
+| Cursor exit | N/A |
+| Second launch | NO |
+
+---
+
+## Remote reconciliation (host RO post)
+
+Reconfirmed after stop (no launch):
+
+| Field | Value |
+|---|---|
+| Matching OPEN PR head→base | **NONE** |
+| main SHA | still H0 |
+| feature SHA | still FEATURE_SHA |
+| PR number / URL | **none** |
+| merged | N/A |
+
+Case B (no PR) consistent with **NO-EFFECT** on remote; classification remains authority/path fail (pre-launch stop), not post-launch NO-EFFECT.
+
+---
+
+## Evidence / ReviewBundle
+
+| Field | Value |
+|---|---|
+| Evidence ids | none for this campaign |
+| VERIFIED PR-create Evidence | none |
+| ReviewBundle | none from Product execution |
+
+---
+
+## EC after / semantic immutability
+
+N/A — no EC instantiated through protected execution.
+
+---
+
+## Product Git post-state
+
+| Check | Result |
+|---|---|
+| HEAD | still `9878043eca14896c3a6f6cb8f9dc4a84b6a26d55` |
+| Product source delta under `projects/` | NONE |
+| A/B/C replay | NONE |
+| E / merge | NOT STARTED / NOT AUTHORIZED |
+| STOP BEFORE MERGE | honored (no PR to merge) |
+
+---
+
+## Exact gap (DREAL-AUTHORITY-FAIL / path unavailable)
+
+1. **Hard Product gate:** `StartExecution` for `isBoundedGitPrCreateOnlySlice(authorizedEffects)` requires `resolveVerifiedRemotePushPriorAttempt` on the **same** `executionContractId` (push agent Attempt succeeded + VERIFIED `git:remote_push` Evidence with repo/refName/commitSha).
+2. **D-only EC contradiction under current APIs:** a NEW EC with only `github.pr.create` executable has **no** same-EC push Attempt/Evidence → StartExecution fails closed (`git_pr_create_without_verified_remote_push` / profile `without_verified_push_lineage`).
+3. **Historical C cannot be rebound:** Evidence lineage is EC-scoped (`evidenceMatchesContractLineage` + attempt on same EC); public APIs do not accept “external C-proven SHA” as prior without Product change.
+4. **Forbidden alternatives under this GO:** A→D REAL harness replay; Studio-owned outer `gh pr create`; Product source edits; faking stores.
+5. **No f3 public D-only campaign path** analogous to docs-write RO helpers.
+
+**Required next Product capability (out of scope here):** a governed D-only prior-binding (e.g. public observational verify of remote head into EC lineage, or phase-scoped EC that accepts historical C Evidence without re-mutation) — then re-run this GO.
+
+---
+
+## Classification
+
+**DREAL-AUTHORITY-FAIL / path unavailable**
+
+Not DREAL-PASS. Not EFFECT-ONLY. Not UNEXPECTED-EFFECT. Launch budget unused.
+
+---
+
+## Maturity after
+
+Unchanged from before:
+
+- D `github.pr.create` remains **NOT PROVEN**
+- E merge remains **NOT PROVEN**
+- A/B/C historical claims unchanged (not re-proven this campaign)
+
+---
+
+## Anti-claims
+
+- Does **not** claim D REAL proven.
+- Does **not** claim PR created.
+- Does **not** claim StartExecution / Cursor mutating launch occurred.
+- Does **not** claim authority for merge/push/commit/docs-write.
+- Does **not** claim Product source was modified to unblock D.
+- Does **not** use outer `gh pr create`.
+
+---
+
+## Next gate
+
+After Morris decision: either (1) authorize Product work to add a true D-only public prior-binding path at a new delivery commit, then re-issue D-only REAL GO; or (2) explicitly re-authorize a different campaign shape (not this GO).
+
+---
+
+## Review handoff
+
+Incoming tip: `98259c550f666b4b36eb31874d5b0a13e0cd5e58`
+Publish once from this pack via `scripts/sfia/publish-review-handoff.sh` (recorded in FINAL REPORT Z after publish).
