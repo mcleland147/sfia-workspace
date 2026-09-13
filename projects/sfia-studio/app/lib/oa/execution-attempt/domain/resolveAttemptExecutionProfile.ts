@@ -57,6 +57,7 @@ import {
   resolveVerifiedRemotePushPriorAttempt,
   type VerifiedRemotePushPriorAttempt,
 } from "./resolveVerifiedRemotePushPriorAttempt";
+import { resolveVerifiedRemotePushPriorForPrCreate } from "./resolveCrossEcVerifiedRemotePushPrior";
 import { resolveVerifiedPullRequestNumber } from "./resolveGitEffectTarget";
 
 export type AttemptExecutionProfileKind =
@@ -405,12 +406,15 @@ function resolvePrCreateOrFail(
 ): ResolveAttemptExecutionProfileResult {
   const reader = requireEvidenceReader(input);
   if (reader) return reader;
-  const prior = resolveVerifiedRemotePushPriorAttempt({
+  const prior = resolveVerifiedRemotePushPriorForPrCreate({
     contract: input.contract,
     attempts: input.attempts ?? [],
     evidence: input.evidence ?? [],
   });
   if (!prior.ok) {
+    if (prior.mode === "cross_ec") {
+      return { ok: false, reason: prior.reason };
+    }
     if (prior.reason === "remote_push_prior_none") {
       return {
         ok: false,

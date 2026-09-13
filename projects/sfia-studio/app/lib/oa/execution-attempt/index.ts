@@ -266,6 +266,21 @@ export {
   resolveVerifiedRemotePushPriorAttempt,
   parseRemotePushFromEvidenceLocation,
 } from "./domain/resolveVerifiedRemotePushPriorAttempt";
+export {
+  VERIFIED_REMOTE_PUSH_PRIOR_INPUT_KEY,
+  parseVerifiedRemotePushPriorBinding,
+  resolveCrossEcVerifiedRemotePushPrior,
+  resolveVerifiedRemotePushPriorForPrCreate,
+} from "./domain/resolveCrossEcVerifiedRemotePushPrior";
+export type {
+  VerifiedRemotePushPriorBinding,
+  ParseVerifiedRemotePushPriorBindingResult,
+  ResolveCrossEcVerifiedRemotePushPriorInput,
+  ResolveCrossEcVerifiedRemotePushPriorResult,
+  CrossEcVerifiedRemotePushPriorFailureReason,
+  ResolveVerifiedRemotePushPriorForPrCreateInput,
+  ResolveVerifiedRemotePushPriorForPrCreateResult,
+} from "./domain/resolveCrossEcVerifiedRemotePushPrior";
 export type {
   ProjectEvidenceListResult,
   ListProjectEvidenceFn,
