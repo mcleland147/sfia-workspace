@@ -140,6 +140,8 @@ export {
   resolveMutatingConfinementEffectClass,
   MUTATING_CURSOR_REMOTE_GIT_PRESERVED_ENV_KEYS,
   MUTATING_CURSOR_REMOTE_GITHUB_PRESERVED_ENV_KEYS,
+  REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_KEY,
+  REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_VALUE,
   type CursorCliLaunchGatewayOptions,
   type StudioCursorRealLaunchGatewayOptions,
   type SpawnPrimitive,
