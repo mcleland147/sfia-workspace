@@ -1,332 +1,217 @@
-# SFIA Studio Review Pack — GCEC-D Cursor Shell Tool-Boundary (STB)
+# ChatGPT Review Pack — GCEC-D-CURSOR-SANDBOX-NETWORK-POLICY-01
 
-**Timestamp:** 2026-09-13T15:52:00+02:00
 **Mode:** FULL
-**Milestone / Morris GO:** GCEC-D-CURSOR-SHELL-TOOL-BOUNDARY-01
+**Timestamp (UTC):** 2026-09-13T14:15:22Z
 **Cycle:** 9 / RUN / CRITICAL
-**Incoming handoff tip:** `3d7eee1747de167630dc2e3daa99085d0c53f8e8`
-**Worktree NEW:** `/Users/morris/Projects/sfia-gcec-d-ephemeral-secret-bridge-ff267fdf`
-**Open UI workspace:** untouched (except handoff WT for publish)
+**GO:** GCEC-D-CURSOR-SANDBOX-NETWORK-POLICY-01
+**Verdict:** PASS DIAGNOSTIC — NPOL-3 GENERAL SANDBOX NETWORK BLOCK CONFIRMED
 
 ---
 
-## A. VERDICT
+## Exact Morris GO
 
-**PASS DIAGNOSTIC — STB-3 LOCAL POLICY OVERRIDE IDENTIFIED**
+GCEC-D-CURSOR-SANDBOX-NETWORK-POLICY-01 — diagnose Cursor sandbox network policy under Product-shaped `--sandbox enabled` launches; static discovery first; max one optional no-secret probe; classify exactly one NPOL-1..7; Product/Cursor config delta NONE; ZERO mutating REAL; handoff L3 only; publish once.
 
-- Cause of SD-3 `Shell rejected` under `--sandbox disabled` closed by static READ-ONLY evidence (no new Cursor launch).
-- Local Cursor CLI policy `~/.cursor/cli-config.json`: `approvalMode=allowlist`, `permissions.allow=["Shell(ls)"]`, `sandbox.mode=disabled`.
-- Product REAL argv always uses `--sandbox enabled` (overrides config); DCH-3 Shell executed; SD-3 Shell rejected before OS command evidence.
-- Not a GitHub/credential/network result; not a Product source defect for this lot.
-- Local Product commit: **NONE**. ZERO MUTATING REAL. D PR-create: **still NOT PROVEN**.
+Constants: ANCHOR=ff267fdf3e6591b5ed83c4478b95f6181ad98fa2 MAIN=c481610caa3527edabeca8c860ab27c18a6a738e HANDOFF_IN=dd8396a9c084e60b9ef869f70b440558fbb7eece NEW=/Users/morris/Projects/sfia-gcec-d-ephemeral-secret-bridge-ff267fdf
 
 ---
 
-## B. QUALIFICATION
+## Local git truth (entry / exit)
 
 | Field | Value |
-| --- | --- |
-| Repository | mcleland147/sfia-workspace |
-| Cycle | 9 — QA / validation |
-| Typologie | RUN |
-| Profil | CRITICAL |
-| Milestone | GCEC-D-CURSOR-SHELL-TOOL-BOUNDARY-01 |
-| Capability | Governed Project Execution |
-| Product main | `c481610caa3527edabeca8c860ab27c18a6a738e` |
-| Anchor | `ff267fdf3e6591b5ed83c4478b95f6181ad98fa2` |
-| Dirty branch | `delivery/sfia-studio-gcec-d-ephemeral-secret-bridge` |
-| Dirty WT | `/Users/morris/Projects/sfia-gcec-d-ephemeral-secret-bridge-ff267fdf` |
+|---|---|
+| pwd / toplevel | /Users/morris/Projects/sfia-gcec-d-ephemeral-secret-bridge-ff267fdf |
+| branch | delivery/sfia-studio-gcec-d-ephemeral-secret-bridge |
+| HEAD / ANCHOR | ff267fdf3e6591b5ed83c4478b95f6181ad98fa2 |
+| origin/main | c481610caa3527edabeca8c860ab27c18a6a738e |
+| diff --check | clean |
+| Product source delta this lot | NONE |
 
-Question: why `--sandbox disabled` rejects Shell in Studio-shaped noninteractive launches while `--sandbox enabled` previously allowed Shell (DCH-3).
+Dirty candidate preserved (entry == exit Product paths):
 
----
-
-## C. LOCAL GIT TRUTH
-
-| Field | Value |
-| --- | --- |
-| pwd / toplevel | `/Users/morris/Projects/sfia-gcec-d-ephemeral-secret-bridge-ff267fdf` |
-| Branch | `delivery/sfia-studio-gcec-d-ephemeral-secret-bridge` |
-| HEAD (= ANCHOR) | `ff267fdf3e6591b5ed83c4478b95f6181ad98fa2` |
-| `origin/main` (= MAIN) | `c481610caa3527edabeca8c860ab27c18a6a738e` |
-| Dirty present | **yes** (preserved) |
-| `git diff --check` | clean |
-
-Tracked dirty (name-only): `.tmp-sfia-review/chatgpt-review.md` + execution-attempt gateway/runner/port/index files. Untracked: `.tmp-sfia-review/*` diagnostics, D-bridge Product candidate files, accidental `app/.tmp-sfia-review/`, `app/node_modules`.
-
-No origin/main or HEAD drift vs GO constants.
+- M projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+- M .../cursorCliLaunchGateway.ts
+- M .../nodeCursorProcessRunner.ts
+- M .../studioCursorRealLaunchGateway.ts
+- M .../ports/realExecutionLaunchPort.ts
+- plus pre-existing untracked bridge/test artifacts and historical `.tmp-sfia-review/*`
+- accidental `projects/sfia-studio/app/.tmp-sfia-review/` preserved (not cleaned)
+- this lot added only under `.tmp-sfia-review/`: `npol-network-probe.mjs`, `npol-sandbox-enabled-network.out`, updated `chatgpt-review.md`
 
 ---
 
-## D. DIRTY CANDIDATE PRESERVATION
+## Canonical maturity (DO NOT REGRESS)
 
-Dirty Product candidate **PRESERVED** (no stash/reset/clean/discard/checkout/stage/commit).
+| Surface | Maturity |
+|---|---|
+| A docs-write | REAL PROVEN AT TESTED SCOPE |
+| B local commit | REAL PROVEN AT TESTED SCOPE |
+| C remote push | REAL PROVEN AT TESTED SCOPE |
+| A→C | REAL PROVEN AT TESTED SCOPE |
+| C HTTPS bridge | REAL-BACKED AT TESTED SCOPE |
+| D PR-create | NOT PROVEN |
+| E | NOT PROVEN |
+| runtime v3 | NON ADOPTED |
 
-Preserved candidate surface (READ-ONLY this lot):
-
-- `hostGhAuthTokenCredentialProvider.ts` (untracked)
-- `remoteGithubCredentialPort.ts` (untracked)
-- `redactExactSecrets.ts` (untracked)
-- `studioCursorRealLaunchGateway.ts` (modified)
-- `nodeCursorProcessRunner.ts` (modified)
-- `realExecutionLaunchPort.ts` (modified)
-- `cursorCliLaunchGateway.ts` / `index.ts` (modified)
-- `gcecRemoteGithubEphemeralSecretBridge.d0.test.ts` (untracked)
-- `fakeRemoteGithubCredentialProvider.ts` (untracked)
-
-`.tmp-sfia-review/` + accidental `projects/sfia-studio/app/.tmp-sfia-review/` **preserved**.
+Additional diagnostic claim this lot: **NPOL-3** only. No maturity promotion.
 
 ---
 
-## E. CANONICAL MATURITY (DO NOT REGRESS)
+## Accepted S2 / DCH-3 / STB-3 facts (not re-litigated)
 
-| Slice | Status |
-| --- | --- |
-| A docs-write | **REAL PROVEN AT TESTED SCOPE** |
-| B local commit | **REAL PROVEN AT TESTED SCOPE** |
-| C remote push | **REAL PROVEN AT TESTED SCOPE** |
-| A→C | **REAL PROVEN AT TESTED SCOPE** |
-| C HTTPS bridge | **REAL-BACKED AT TESTED SCOPE** |
-| D | prior REAL Attempt launched; PR effect **NOT PROVEN** |
-| D PR-create | **NOT PROVEN** |
-| E / merge | **NOT PROVEN** |
-| runtime v3 | **NON ADOPTED** |
-
-Additional claim this lot: **STB-3** only. No maturity promotion.
+- Product REAL argv always: `agent --print --workspace --trust --sandbox enabled` (not disabled/force/yolo).
+- Runner: `shell:false`, stdin `ignore`.
+- DCH-3 (`.tmp-sfia-review/dch-cursor-diag.out`): under `--sandbox enabled`, Shell executed; Node direct API `direct_api_status=error:ENOTFOUND`; gh path showed token-invalid / Forbidden (auth/network mix; not re-run).
+- STB-3: `--sandbox disabled` Studio-shaped noninteractive Shell rejected by host allowlist; CLI `--sandbox enabled` overrides config `sandbox.mode=disabled`.
+- Incoming handoff tip at start: dd8396a9… (STB-3 pack).
 
 ---
 
-## F. ACCEPTED DCH-3 / SD-3 FACTS (NOT RE-LITIGATED)
+## Current Product Cursor argv
 
-1. Host keyring + Product `HostGhAuthTokenCredentialProvider` acquire PASS; parent GH_TOKEN GitHub API PASS.
-2. Same composed `remote_github` childEnv in ordinary Node: GitHub HTTPS HTTP 200.
-3. Cursor `--sandbox enabled`: GH_TOKEN present, sentinel propagated, Shell executed, direct HTTPS → ENOTFOUND.
-4. Cursor `--sandbox disabled`: agent launched, Shell rejected, no Node HTTPS / gh execution, no valid network differential.
+From dirty `studioCursorRealLaunchGateway.ts` (READ-ONLY confirm):
 
-This lot: **no credential, no GitHub, no network probes**.
-
----
-
-## G. CURSOR CLI VERSION / HELP
-
-| Item | Value |
-| --- | --- |
-| `command -v cursor` | absent on PATH |
-| Resolved bin | `/Applications/Cursor.app/Contents/Resources/app/bin/cursor` |
-| Version | `3.20.17` (`0c32194e3fb5ffaced9fb36430b860ec301e1fc0`, arm64) |
-
-Relevant `cursor agent --help` excerpts:
-
-- `--print`: Print responses; **Has access to all tools, including write and shell.**
-- `--force` / `--yolo`: Force allow commands unless explicitly denied.
-- `--auto-review`: Smart Auto classifier for safe tool calls.
-- `--sandbox <mode>`: Explicitly enable or disable sandbox (**overrides config**); choices `enabled` \| `disabled`.
-- `--trust`: Trust workspace without prompting.
-- `--workspace <path-or-name>`: Workspace directory.
-
-No help text states that `--sandbox disabled` disables the Shell tool by design.
-
----
-
-## H. CURRENT STUDIO CURSOR LAUNCH SHAPE
-
-From dirty `studioCursorRealLaunchGateway.ts` (READ-ONLY):
-
-**Mutating / docs-write profiles** (`usesAgentMode`):
-
-```text
-agent --print --workspace <workspacePath> --trust --sandbox enabled <instruction>
+```
+agent --print --workspace <path> --trust --sandbox enabled
 ```
 
-**RO profile**:
+Optional RO profile adds `--mode ask`. Comment: all keep `--print + --workspace + --trust + --sandbox enabled`. No `--force` / `--yolo`.
 
-```text
-agent --print --mode ask --workspace <workspacePath> --trust --sandbox enabled <instruction>
-```
-
-Product **always** passes `--sandbox enabled`. It does **not** pass `--force` / `--yolo` / `--auto-review`. Comment in source: "All keep --print + --workspace + --trust + --sandbox enabled."
-
-Bin resolve order: `SFIA_CURSOR_BIN` → Cursor.app `bin/cursor` → `~/.local/bin/cursor-agent`.
+`nodeCursorProcessRunner.ts`: `spawn(..., { shell: false, stdio: ["ignore","pipe","pipe"] })`.
 
 ---
 
-## I. RUNNER INTERACTION MODEL
+## Cursor version / help
 
-From dirty `nodeCursorProcessRunner.ts` (READ-ONLY):
-
-- `spawn(executable, argv, { cwd, env, shell: false, stdio: ["ignore", "pipe", "pipe"] })`
-- stdin: **ignore** (noninteractive; no TTY approval channel)
-- env: forwarded from invoke input (`input.env`)
-- stdout/stderr: capped pipes (64 KiB); no TTY
-- invoke ACK on spawn confirmation (PID), completion via `awaitCompletion`
-
-Studio-shaped launches cannot answer interactive Shell approval prompts.
+- App: Cursor 3.20.17 (`/Applications/Cursor.app`)
+- CLI bin used historically + this probe: `/Applications/Cursor.app/Contents/Resources/app/bin/cursor` → 3.20.17
+- `cursor-agent` symlink: 2026.09.10-fd3934a
+- `agent --help`: `--sandbox <mode>` choices `enabled|disabled` — “Explicitly enable or disable sandbox mode (overrides config)”
+- Also documents `--trust`, `--workspace`, `--print`, `--force` / `--yolo` (Product does not pass force/yolo)
 
 ---
 
-## J. LOCAL CURSOR CONFIG / POLICY
+## Effective network config (READ-ONLY)
 
-READ-ONLY discovery (policy keys only; no credentials / private chats):
+`~/.cursor/cli-config.json` (sandbox/network/approval only):
 
-**`~/.cursor/cli-config.json`** (decisive):
+- `approvalMode`: `allowlist`
+- `sandbox.mode`: `disabled`
+- `sandbox.networkAccess`: `user_config_with_defaults`
+- `network`: keys `useHttp1ForAgent` only (=false) — **no user allowDomains list in config**
+- `permissions.allow`: `Shell(ls)` only (host allowlist; relevant to STB-3 when sandbox disabled)
 
-| Key | Value |
-| --- | --- |
-| `approvalMode` | `allowlist` |
-| `permissions.allow` | `["Shell(ls)"]` only |
-| `permissions.deny` | `[]` |
-| `sandbox.mode` | `disabled` |
-| `sandbox.networkAccess` | `user_config_with_defaults` |
-| `network.useHttp1ForAgent` | `false` |
+Proxy env (presence-only): HTTP_PROXY/HTTPS_PROXY/ALL_PROXY/NO_PROXY and lowercase variants = **UNSET**.
 
-**`~/Library/Application Support/Cursor/User/settings.json`**: no matching sandbox/approval/shell agent policy keys.
-
-**Workspace `.cursor/`**: MCP templates only; no shell policy.
-
-**Cursor logs**: no literal `Shell rejected` hits in Application Support logs (rejection surfaced in agent stdout only).
-
-**This lot did not modify Cursor config.**
+Cursor logs (minimal): repeated `[PushRequestContextService] Updated sandbox network file entries (0 entries)` — explicit sandbox network file allowlist empty. No ENOTFOUND lines found in DCH worker.log; ENOTFOUND evidenced in DCH-3 / NPOL probe stdout.
 
 ---
 
-## K. SHELL REJECTED FORENSICS
+## Installed policy / schema discovery (READ-ONLY strings)
 
-### Artifact `.tmp-sfia-review/dch-sandbox-disabled-diff.out`
+Supported `sandbox.networkAccess` enum (cursor-agent `index.js` / UI `1186.index.js`):
 
-- `realProcessInvoked=true`, `exitCode=0`, `timedOut=false`, `durationMs≈39486`
-- argv shape: `agent --print --workspace <diag-ws> --trust --sandbox disabled <instruction>`
-- stdout for A/B/C/D each: exact line `Shell rejected` (four times)
-- stderr: empty
-- No structured rejection code beyond the literal phrase
-- No OS command outputs (pwd/node/gh/helper) — rejection **before** observable OS process results
+- `user_config_only` — “sandbox.json allowlist only”
+- `user_config_with_defaults` — “sandbox.json + default allowlist” (**effective observed value**)
+- `allow_all` — “allow all network”
 
-### Contrast DCH-3 (`.tmp-sfia-review/dch-cursor-diag.out`, `--sandbox enabled`)
+Forced egress env hook (not set in this probe): `CURSOR_FORCED_SHELL_EGRESS_ALLOW_DOMAINS`.
 
-- Same diagnostic A–D shape: Shell **executed** (pwd/node/gh versions; env presence; helper ENOTFOUND; gh Forbidden)
-
-### Interpretation
-
-- Agent **attempted** Shell tool use (uniform `Shell rejected` per section, not model prose refusal).
-- Rejection is **tool/policy layer**, not model declining to call Shell (would be STB-4).
-- With local `approvalMode=allowlist` and only `Shell(ls)` allowed, non-`ls` Shell calls are denied without interactive approval — especially under stdin-ignore `--print`.
-- `--sandbox enabled` overrides config and previously permitted Shell; `--sandbox disabled` engages host allowlist path → SD-3 rejection.
+Static mechanism exists (domain allowlist / networkAccess modes) but **does not by itself prove** whether github.com/api.github.com are admitted under current defaults — hence probe.
 
 ---
 
-## L. NEW MINIMAL CURSOR PROBE
+## Static qualification
+
+**Sufficient alone?** NO — cannot discriminate NPOL-3 vs NPOL-4 vs NPOL-5 / cannot list default-allowlist membership for GitHub without runtime DNS/HTTPS oracles.
+
+---
+
+## Optional Cursor network probe
 
 | Field | Value |
-| --- | --- |
-| run | **no** |
-| count | **0** |
-| reason | Static/log + prior SD-3/DCH-3 artifacts already close cause as local allowlist policy (STB-3) |
-| sandbox mode | n/a |
-| commands | n/a |
-| result | n/a — no `.tmp-sfia-review/stb-minimal-shell-disabled.out` |
+|---|---|
+| run | yes |
+| count | **1** (max; no retry) |
+| mode | `--sandbox enabled` (Product match) |
+| secrets | absent — `env -u GH_TOKEN -u GITHUB_TOKEN -u GH_ENTERPRISE_TOKEN -u GITHUB_ENTERPRISE_TOKEN` |
+| workspace | empty temp `/tmp/sfia-npol-ws-l1KAKv` |
+| instruction | `pwd`; `node --version`; `node <helper>` only |
+| helper | `.tmp-sfia-review/npol-network-probe.mjs` (write-free at runtime) |
+| artifact | `.tmp-sfia-review/npol-sandbox-enabled-network.out` |
+| proof repo / gh / curl / git / writes | NONE |
+
+### Structured DNS / HTTPS results (acceptance lines)
+
+```
+TARGET=example.com
+DNS=error:ENOTFOUND
+HTTPS=not_attempted
+TARGET=github.com
+DNS=error:ENOTFOUND
+HTTPS=not_attempted
+TARGET=api.github.com
+DNS=error:ENOTFOUND
+HTTPS=not_attempted
+```
+
+Shell itself executed (pwd + node version printed). Correlates with DCH-3 `direct_api_status=error:ENOTFOUND` under sandbox enabled.
 
 ---
 
-## M. STB CLASSIFICATION
+## NPOL classification (exactly one)
 
-**Primary (exactly one): STB-3 — WORKSPACE TRUST / LOCAL POLICY OVERRIDE**
+**NPOL-3 — GENERAL DNS/NETWORK BLOCK UNDER SANDBOX ENABLED**
 
-Evidence:
+Meaning: blocker is general sandbox network/DNS capability, not GitHub-specific. example.com, github.com, and api.github.com fail DNS equivalently.
 
-- Local `cli-config.json` allowlist admits only `Shell(ls)`.
-- SD-3 under `--sandbox disabled` → all Shell rejected.
-- DCH-3 under `--sandbox enabled` → Shell executed (CLI `--sandbox` overrides config).
-- Product REAL path uses `--sandbox enabled` + noninteractive runner; diagnostic SD-3 intentionally disabled sandbox and hit host allowlist.
-
-Meaning: diagnostic environment local policy differs from assumed unbounded Shell under sandbox-disabled; SD-3 is **not** a valid network differential.
-
-Not STB-1 primary: denial is allowlist auto-reject, not a missing interactive prompt loop (though noninteractive stdin compounds it).
-
-Not STB-2: help does not define sandbox-disabled as Shell-off by design; `--print` claims Shell access.
-
-Not STB-4: rejection text is tool-layer `Shell rejected`, not model abstention.
-
-Not STB-5: no minimal disabled probe needed; prior disabled probe already failed Shell.
-
-Not STB-6: cause explained.
+Not NPOL-1: mechanism known, but effective admission of GitHub not established as a bounded allow policy explaining denial (denial is universal DNS).
+Not NPOL-4: example.com also ENOTFOUND.
+Not NPOL-5: DNS never ok.
+Not NPOL-6: no successful HTTPS.
+Not NPOL-2 alone: static did not prove “external network disabled” without probe; probe shows DNS fail under enabled sandbox.
 
 ---
 
-## N. SUPPORTING EVIDENCE
+## Product / Cursor config delta
 
-1. `~/.cursor/cli-config.json` — `approvalMode=allowlist`, `permissions.allow=["Shell(ls)"]`, `sandbox.mode=disabled`.
-2. `.tmp-sfia-review/dch-sandbox-disabled-diff.out` — A–D `Shell rejected`.
-3. `.tmp-sfia-review/dch-cursor-diag.out` — A–D Shell executed under `--sandbox enabled`.
-4. Dirty `studioCursorRealLaunchGateway.ts` — Product argv always `--sandbox enabled`.
-5. Dirty `nodeCursorProcessRunner.ts` — `shell:false`, stdin `ignore`.
-6. Cursor agent help — `--sandbox` overrides config; `--force`/`--yolo`/`--auto-review` exist but unused by Product.
+**NONE** this lot. No allowlist edits. No sandbox mode changes. No Product source edits.
 
 ---
 
-## O. SECRET / GITHUB / NETWORK
+## Credential / proof access
 
-**NONE** this lot (no GH_TOKEN injection, no credential provider, no gh, no GitHub API, no network targets).
-
----
-
-## P. ZERO MUTATING REAL
-
-Maintained. No proof/product remote mutation. Handoff L3 publish only remote mutation allowed/used.
+**NONE.** No GH_TOKEN in probe child. No gh auth. No proof-repo access.
 
 ---
 
-## Q. PRODUCT SOURCE DELTA
+## ZERO mutating REAL / Product commit / Roadmap
 
-**NONE** this lot (Product tracked + untracked candidate bytes not edited). Only review artifact write under `.tmp-sfia-review/chatgpt-review.md`.
-
----
-
-## R. PRODUCT COMMIT
-
-**NONE**
+- ZERO mutating REAL
+- Product commit: NONE
+- Roadmap: UNCHANGED
 
 ---
 
-## S. PRODUCT / PROOF REMOTE EFFECTS
+## Anti-claims
 
-**NONE**
-
----
-
-## T. ROADMAP
-
-**UNCHANGED**
-
----
-
-## U. REVIEW HANDOFF
-
-Incoming tip verified: `3d7eee1747de167630dc2e3daa99085d0c53f8e8`.
-
-Publish once via `scripts/sfia/publish-review-handoff.sh` from this pack; verify tip / parent / blob / parity after publish (filled post-publish).
+- NPOL-3 ≠ D PR REAL
+- NPOL-3 ≠ auth success
+- NPOL-3 ≠ proof-repo access
+- Does not authorize Product network-policy changes
+- Does not authorize `--sandbox disabled` for Product REAL
+- Does not claim default allowlist contents beyond “0 explicit file entries” + universal ENOTFOUND under enabled sandbox for tested hosts
 
 ---
 
-## V. MATURITY / ANTI-CLAIMS
+## Next gate recommendation (GO §26)
 
-- STB-3 identified ≠ D PR REAL.
-- Does **not** authorize `--sandbox disabled` as Product default.
-- Does **not** authorize Cursor config changes in this lot.
-- Does **not** authorize unbounded Shell via `--force`/`--yolo` without a separate GO.
-- Does **not** re-open GitHub ENOTFOUND as solved.
-- Maturity table unchanged except STB-3 diagnostic claim.
+**NPOL-2 / NPOL-3 path:** architecture decision required — how to provide **bounded** network capability to governed Cursor while retaining acceptable isolation. No automatic D REAL. No config change in this GO.
 
 ---
 
-## W. NEXT GATE RECOMMENDATION
+## Review handoff
 
-Per GO §25 for **STB-3**:
-
-> next diagnostic/correction = bounded policy/config issue, separate GO.
-
-Recommended focus (OPTIONS only — no auto-authorize):
-
-1. Decide whether Studio-owned REAL launches must remain on `--sandbox enabled` (current Product) and treat sandbox-disabled diagnostics as invalid under this host allowlist.
-2. If host CLI allowlist must support governed Shell sequences for future diagnostics, do so only under an explicit Morris GO (bounded allowlist / approvalMode) — **do not** change config in this lot.
-3. Do **not** route automatically to D REAL PR-create.
-
-No PASS means D PR REAL.
+Incoming tip: `dd8396a9c084e60b9ef869f70b440558fbb7eece`
+Publisher: `scripts/sfia/publish-review-handoff.sh` once → `sfia-review-handoff/latest-chatgpt-review.md` on `sfia/review-handoff`.
+Post-publish tip/parent/blob/parity: filled after publisher run.
