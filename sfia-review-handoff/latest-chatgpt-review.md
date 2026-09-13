@@ -434,14 +434,15 @@ Authorized statement only:
 | --- | --- |
 | Publisher | `scripts/sfia/publish-review-handoff.sh` |
 | Handoff worktree | `/Users/morris/Projects/sfia-lr-handoff-corrqual-18555` |
-| Publisher script verdict | `HANDOFF REPUBLISHED — CANONICAL REMOTE VERIFICATION FAILED` (known false-negative class: worktree `remote.origin.fetch` lacks `sfia/review-handoff` tracking) |
+| Publisher script verdict | `HANDOFF REPUBLISHED — CANONICAL REMOTE VERIFICATION FAILED` (known false-negative class when `origin/sfia/review-handoff` tracking is stale) |
 | Effective result | **EFFECTIVE SUCCESS — FALSE-NEGATIVE** (independent `ls-remote` + tip blob verification) |
-| Incoming tip (parent) | `591507ed91c73f43398daf22a1169828f3ee8243` |
-| Remote tip | `59f6fb030da281c28dbf2a127bed4f3dcb71e8f3` |
+| Incoming tip | `591507ed91c73f43398daf22a1169828f3ee8243` |
+| First publish tip | `59f6fb030da281c28dbf2a127bed4f3dcb71e8f3` (parent = incoming) |
+| Final remote tip | `418ff38bd869c5904585d5994c1858cd71353458` (section V regularization; parent = first publish) |
 | Canonical path | `sfia-review-handoff/latest-chatgpt-review.md` only |
-| Source / remote blob | `bf65c9b8dafccef8305ae56943b55017e361d068` (exact match at tip before this section-V regularization) |
+| Final source / remote blob | `54f61986e5c44431aa41eb2205d3070c34dc236b` (exact match) |
 | Branch | `sfia/review-handoff` only |
 | Product push / PR / merge | **NONE** |
 | Roadmap change | **NONE** |
 
-Note: a single regularization republish may follow so the canonical file includes this completed section V.
+Note: one additional regularization republish follows so the canonical remote blob includes this completed section V tip table.
