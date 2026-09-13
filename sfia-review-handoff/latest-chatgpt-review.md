@@ -1,24 +1,25 @@
 # ChatGPT Critical Review Pack — FULL
-## POST-PR477 REPOSITORY CONSOLIDATION BEFORE GCEC REAL
+## CHECKPOINT 1 — PR1 READY FOR CHATGPT CRITICAL REVIEW
+## GREENFIELD / LIFECYCLE CONSOLIDATION
 
-**Timestamp:** 2026-09-13 04:20:00 CEST (Europe/Paris)
+**Timestamp:** 2026-09-13 04:28:00 CEST (Europe/Paris)
 **Timezone:** CEST / UTC+2
 
 ---
 
-## 0. GO / INTENT
+## 0. MACRO GO CONSUMED
 
-Cycle **13** — PR readiness / controlled repository integration audit
-Typologie: **EVOL** · Profil: **CRITICAL**
-Milestone: **POST-PR477 REPOSITORY CONSOLIDATION BEFORE GCEC REAL**
-Runtime v3: **NON ADOPTED** · REAL: **ZERO**
+```
+GO MORRIS — POST-PR477 TWO-PR MACRO INTEGRATION — PR1 GREENFIELD/LIFECYCLE + PR2 GCEC — INCLUDE FINAL ROADMAP TRUTH-SYNC — PUSH + PR + CI + CHATGPT CRITICAL REVIEW + CONDITIONAL MERGE — ZERO REAL
+```
 
-Conduct intent (Morris):
-**ÉVITER LES MICRO-CYCLES ET MICRO-PR.** Apply Build Doctrine R8 + R18.
-Target: **minimal coherent reviewable PR count** (ideally 2–4; 1 allowed; >4 needs strong justification).
+Checkpoint: **1 of 2** — STOP BEFORE MERGE.
 
-**ZERO Product mutation this cycle.**
-Authorized remote mutation: Review Handoff publish-in-cycle only.
+Cycle 13 · EVOL · CRITICAL · POST-PR477 TWO-PR MACRO INTEGRATION
+Capability (PR1): Governed Product Lifecycle / ProjectTrajectory / Active Cycle Work / Pilot-Governed Cycle Lifecycle
+Runtime v3: NON ADOPTED · REAL: ZERO
+
+Incoming handoff at macro start: `a90ecf92adb30f0eecbf1e5fbb545c6d7a80b806`
 
 ---
 
@@ -35,399 +36,391 @@ Authorized remote mutation: Review Handoff publish-in-cycle only.
 - projects/sfia-studio/product-completion/01-product-completion-cadrage.md
 - projects/sfia-studio/sfia-v3-framing/34-agent-capabilities-reversibility-and-execution-governance.md
 - projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md
-- sfia-review-handoff/latest-chatgpt-review.md (incoming tip `b1b0695a…`)
+- sfia-review-handoff/latest-chatgpt-review.md
 
 ---
 
-## 2. REMOTE BASELINE
-
-| Field | Value |
-|---|---|
-| Last integrated Studio PR | **#477** — feat(sfia-studio): add governed lifecycle recommendations |
-| Merged at | 2026-09-09T07:23:54Z |
-| origin/main | `a9f6c310a0826d0e5bd6f7264603382a86564db1` |
-| Expected main | `a9f6c310a0826d0e5bd6f7264603382a86564db1` |
-| Main gate | **PASS** (exact match; inventory continued) |
-
-Inventory anchor = `origin/main @ a9f6c310…`
-
----
-
-## 3. ROOT LOCAL GIT TRUTH
+## 2. MACRO ENTRY GIT TRUTH (PRE-MUTATION)
 
 | Check | Observed |
 |---|---|
-| pwd / toplevel | `/Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310` |
-| remote | `origin https://github.com/mcleland147/sfia-workspace.git` |
-| fetch | executed (read-only ref sync) |
-| current branch | `delivery/sfia-studio-product-proof-qual-to-governed-cycle` |
-| HEAD | `060076331b305f31510d0ededfbfa4faf9c8cc3f` |
+| worktree | `/Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310` |
+| primary branch | `delivery/sfia-studio-product-proof-qual-to-governed-cycle` |
+| primary HEAD | `060076331b305f31510d0ededfbfa4faf9c8cc3f` |
 | origin/main | `a9f6c310a0826d0e5bd6f7264603382a86564db1` |
-| Product dirty (non-tmp) | **NONE** |
-| staged | **NONE** |
-| dirty noise | `.tmp-sfia-review/**` only (TEMP / EXCLUDE) |
+| ahead/behind | 35 / 0 |
+| Product dirty | NONE |
+| staged | NONE |
+| commit count main..HEAD | 35 |
+| oldest | `f35ae52a…` |
+| #18 / PR1 tip | `6a2e3c9d71275145b20b514d02ab54533a72a2a7` |
+| #19 / PR2 first | `2b5dcaf1…` |
+| final | `06007633…` |
 
-### `git worktree list`
+Primary tip remains unchanged after PR1 branch push/PR create.
+
+---
+
+## 3. PR1 MATERIALIZATION / PUSH
+
+| Field | Value |
+|---|---|
+| branch | `delivery/sfia-studio-greenfield-lifecycle-consolidation` |
+| local SHA | `6a2e3c9d71275145b20b514d02ab54533a72a2a7` |
+| remote SHA | `6a2e3c9d71275145b20b514d02ab54533a72a2a7` (exact) |
+| force push | NONE |
+| remote collision | NONE (new branch) |
+| historical rewrite | NONE |
+| Product byte mutation | NONE (branch ref only) |
+
+Temporary validation worktree (detached): `/Users/morris/Projects/sfia-pr1-greenfield-lifecycle-6a2e3c9d` @ `6a2e3c9d` — read/validate only.
+
+---
+
+## 4. PR1 EXACT COMMIT RANGE (18)
 
 ```
-/Users/morris/Projects/sfia-lr-delivery-isolated-e6d7c649                       2081ce47 [delivery/sfia-studio-lifecycle-recommendation-product]
-/Users/morris/Projects/sfia-lr-handoff-corrqual-18555                           b1b0695a [sfia/review-handoff]
-/Users/morris/Projects/sfia-lr-timeout-qual-worktrees/dbc-dbc17553              dbc17553 (detached HEAD)
-/Users/morris/Projects/sfia-lr-timeout-qual-worktrees/main-e6d7c649             e6d7c649 (detached HEAD)
-/Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310  06007633 [delivery/sfia-studio-product-proof-qual-to-governed-cycle]
-/Users/morris/Projects/sfia-product-proof-greenfield-task-app-a9f6c310          a9f6c310 (detached HEAD)
+f35ae52a fix(sfia-studio): govern qualification-to-cycle transition
+e79f16ba fix(sfia-studio): bound pre-cycle routing qualification
+f70dc8ae fix(sfia-studio): enable governed greenfield lifecycle bootstrap
+0b9a7370 fix(sfia-studio): make greenfield trajectory presence exact
+3d986d04 feat(sfia-studio): bridge lifecycle recommendation to candidate trajectory
+9d9c8ce7 fix(sfia-studio): harden candidate trajectory bridge currentness
+2177277c feat(sfia-studio): persist candidate trajectory provenance
+4c8733bf feat(sfia-studio): govern greenfield trajectory approval
+d436c314 fix(sfia-studio): close greenfield HD atomicity gaps
+dfb4f019 feat(sfia-studio): govern trajectory-derived cycle start
+25067755 fix(sfia-studio): harden greenfield trajectory start invariants
+2b595718 fix(sfia-studio): close trajectory start core bypasses
+85d7a798 feat(sfia-studio): ground Nora in active cycle work
+16b03323 fix(sfia-studio): complete active-cycle work invariants
+0ac7b54b fix(sfia-studio): recover logical turn after silent response loss
+624642ff fix(sfia-studio): seal ACW retry envelope and cycle binding
+4a80965a fix(sfia-studio): complete governed lifecycle closure
+6a2e3c9d fix(sfia-studio): close lifecycle critical review findings
 ```
 
-### Local heads (`for-each-ref`)
-
-| branch | tip | committerdate | upstream | class |
-|---|---|---|---|---|
-| delivery/sfia-studio-product-proof-qual-to-governed-cycle | `06007633…` | 2026-09-13 03:43:53 +0200 | none | **LOCAL UNIQUE** (35 ahead / 0 behind main) |
-| delivery/sfia-studio-lifecycle-recommendation-product | `2081ce47…` | 2026-09-08 20:21:02 +0200 | origin/… | **INTEGRATED** tip ancestor of main (#477) |
-| delivery/sfia-studio-proof-corr-04-hybrid-envelope-d | `e6d7c649…` | 2026-09-07 22:54:44 +0200 | none | **INTEGRATED / HISTORICAL** tip ancestor of main |
-| sfia/review-handoff | `b1b0695a…` | 2026-09-13 03:44:53 +0200 | none local upstream | handoff branch (not Product) |
-| sfia/review-handoff-delivery-pub | `ef8dec99…` | 2026-09-08 09:07:27 +0200 | none | historical handoff pub helper |
+Count: **18** · first `f35ae52a…` · last `6a2e3c9d…`
 
 ---
 
-## 4. WORKTREE INVENTORY (EXHAUSTIVE)
+## 5. PR1 FILESET / DIFFSTAT
 
-### WT-1 — PRIMARY GCEC Product delivery
-- path: `/Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310`
-- HEAD: `060076331b305f31510d0ededfbfa4faf9c8cc3f`
-- branch: `delivery/sfia-studio-product-proof-qual-to-governed-cycle`
-- upstream: **none** (LOCAL ONLY — not on GitHub Product refs)
-- ahead/behind vs origin/main: **35 / 0**
-- tip subject: feat(sfia-studio): complete governed GCEC A-to-D proof harness
-- staged: NONE · Product unstaged: NONE
-- untracked: massive `.tmp-sfia-review/**` evidence only
-- `.tmp-sfia-review`: YES
-- role: **sole carrier of all post-PR477 LOCAL UNIQUE Product work**
-
-### WT-2 — Review Handoff publisher
-- path: `/Users/morris/Projects/sfia-lr-handoff-corrqual-18555`
-- HEAD: `b1b0695aa50d85956e57f328dfd44fde5d74e9ad`
-- branch: `sfia/review-handoff`
-- status: CLEAN
-- role: canonical handoff worktree (not Product)
-
-### WT-3 — LR Product delivery (historical)
-- path: `/Users/morris/Projects/sfia-lr-delivery-isolated-e6d7c649`
-- HEAD: `2081ce477182d133cc71c93dd7d547433bd6a976`
-- branch: `delivery/sfia-studio-lifecycle-recommendation-product`
-- upstream: origin/… (synced)
-- ahead/behind: tip **ancestor of main** → INTEGRATED via #477
-- dirty: `.tmp-sfia-review/**` + `projects/sfia-studio/app/node_modules` untracked noise
-- role: pre-#477 LR delivery; **no unique Product delta to integrate**
-
-### WT-4 — timeout qual detached (dbc)
-- path: `/Users/morris/Projects/sfia-lr-timeout-qual-worktrees/dbc-dbc17553`
-- HEAD: `dbc1755315f0878ccc5be122966ad0b34895da47` (feat LR — ancestor of main)
-- detached · behind main · `.tmp-sfia-review` present
-- role: historical CI timeout snapshot — **ORPHAN / HISTORICAL**
-
-### WT-5 — timeout qual detached (main-e6d7)
-- path: `/Users/morris/Projects/sfia-lr-timeout-qual-worktrees/main-e6d7c649`
-- HEAD: `e6d7c649…` (#476 merge — ancestor of main)
-- detached · historical snapshot
-- role: **ORPHAN / HISTORICAL**
-
-### WT-6 — greenfield proof detached main
-- path: `/Users/morris/Projects/sfia-product-proof-greenfield-task-app-a9f6c310`
-- HEAD: `a9f6c310…` (= origin/main)
-- dirty: `.tmp-sfia-review/chatgpt-review.md` only
-- role: main snapshot for greenfield LIVE proofs — **no unique Product commits**
-
----
-
-## 5. POST-PR477 PRODUCT COMMIT INVENTORY
-
-**Single LOCAL UNIQUE Product line:**
-`origin/main a9f6c310…` → `06007633…` = **35 commits**, **224 files**, **all under `projects/sfia-studio/`**, diffstat: `224 files changed, 55894 insertions(+), 398 deletions(-)`
-
-Remote Product branch for this tip: **NONE**
-Open Studio PR for this tip: **NONE**
-
-### Exact Product commits (oldest → newest)
-
-| # | SHA | Date | Subject | Story cluster |
-|---|---|---|---|---|
-| 1 | `f35ae52a…` | 2026-09-09 | govern qualification-to-cycle transition | A Greenfield/pre-cycle |
-| 2 | `e79f16ba…` | 2026-09-09 | bound pre-cycle routing qualification | A |
-| 3 | `f70dc8ae…` | 2026-09-09 | enable governed greenfield lifecycle bootstrap | A |
-| 4 | `0b9a7370…` | 2026-09-09 | make greenfield trajectory presence exact | A |
-| 5 | `3d986d04…` | 2026-09-09 | bridge LR to candidate trajectory | A |
-| 6 | `9d9c8ce7…` | 2026-09-10 | harden candidate trajectory bridge currentness | A |
-| 7 | `2177277c…` | 2026-09-10 | persist candidate trajectory provenance | A |
-| 8 | `4c8733bf…` | 2026-09-10 | govern greenfield trajectory approval | A |
-| 9 | `d436c314…` | 2026-09-10 | close greenfield HD atomicity gaps | A |
-| 10 | `dfb4f019…` | 2026-09-10 | govern trajectory-derived cycle start | A |
-| 11 | `25067755…` | 2026-09-10 | harden greenfield trajectory start invariants | A |
-| 12 | `2b595718…` | 2026-09-10 | close trajectory start core bypasses | A |
-| 13 | `85d7a798…` | 2026-09-10 | ground Nora in active cycle work | B ACW |
-| 14 | `16b03323…` | 2026-09-10 | complete active-cycle work invariants | B |
-| 15 | `0ac7b54b…` | 2026-09-10 | recover logical turn after silent response loss | B |
-| 16 | `624642ff…` | 2026-09-10 | seal ACW retry envelope and cycle binding | B |
-| 17 | `4a80965a…` | 2026-09-10 | complete governed lifecycle closure | B Lifecycle closure |
-| 18 | `6a2e3c9d…` | 2026-09-11 | close lifecycle critical review findings | B |
-| 19 | `2b5dcaf1…` | 2026-09-11 | add governed cycle execution completion | C GCEC |
-| 20 | `ed7becca…` | 2026-09-11 | close GCEC deterministic end-to-end gaps | C |
-| 21 | `7ce33b15…` | 2026-09-11 | align GCEC execution ownership and repository verification | C |
-| 22 | `46e7e5b3…` | 2026-09-11 | complete gated GCEC cycle lifecycle | C |
-| 23 | `d0d009bb…` | 2026-09-11 | close final GCEC lifecycle proof gaps | C |
-| 24 | `e3d820ad…` | 2026-09-11 | close GCEC authority and lifecycle proof gaps | C |
-| 25 | `8d05732c…` | 2026-09-11 | finalize GCEC authority and trajectory proof | C |
-| 26 | `290eca65…` | 2026-09-11 | fail closed protected Git authority | C |
-| 27 | `92ad3fd4…` | 2026-09-11 | prepare bounded Cursor real docs write | C |
-| 28 | `3966bbf9…` | 2026-09-11 | add same-EC workspace continuation | C |
-| 29 | `0bdae76b…` | 2026-09-12 | govern same-EC local commit execution | C |
-| 30 | `6e42c4f0…` | 2026-09-12 | isolate mutating Cursor git credentials | C |
-| 31 | `645ec7e0…` | 2026-09-12 | docs: trusted-but-governed executor trajectory | C docs |
-| 32 | `be71eee0…` | 2026-09-12 | preserve GCEC worktree continuation | C |
-| 33 | `f71cf89a…` | 2026-09-12 | docs: record bounded GCEC A2B closure | C docs |
-| 34 | `bbb03ce7…` | 2026-09-12 | complete governed git lifecycle execution | C A→D product paths |
-| 35 | `06007633…` | 2026-09-13 | complete governed GCEC A-to-D proof harness | C RepositoryRead + harness |
-
-**Classification of other post-window commits:** hundreds of `sfia/review-handoff` commits = provenance INDEX only, **not Product source**.
-
-**Squash note:** #477 tip `2081ce47` is ancestor of main → LR branch content-equivalent / integrated (do not re-PR).
-
----
-
-## 6. REVIEW HANDOFF LINEAGE (POST-PR477 substantive)
-
-Incoming expected tip at cycle start: `b1b0695aa50d85956e57f328dfd44fde5d74e9ad`
-(parent `fb3cb696…` — local Product commit anchor pack)
-
-Post-#477 Product-relevant handoff spine (selected; full log is long):
-
-| Handoff theme | Role |
-|---|---|
-| qualification-to-cycle / pre-cycle routing | documents Product commits 1–2 |
-| greenfield bootstrap → trajectory → HD → start | documents Product commits 3–12 |
-| ACW + lifecycle closure Phase A/B + CR follow-up | documents Product commits 13–18 |
-| GCEC one-lot → authority → REAL docs-write → CONT → COMMIT → CONF → A2B → PUSH path → AC-06 → A→D harness → immutable binding → local Product commit | documents Product commits 19–35 |
-
-Handoffs are **INDEX / provenance**, never Product PR content.
-
----
-
-## 7. GCEC STACK RECONSTRUCTION
-
-From `a9f6c310` to `06007633`, GCEC Product begins at commit #19 `2b5dcaf1` and culminates at #35 `06007633`.
-
-| Final anchors | Value |
-|---|---|
-| Known local Product tip | `060076331b305f31510d0ededfbfa4faf9c8cc3f` |
-| Immediate parent | `bbb03ce7aaff22421b00c96e747e9b5a2ede0325` |
-| Published on GitHub Product refs? | **NO** |
-| Intermediate commits | all #19–#34 retained as coherent construction/correction/proof history |
-| Superseded *content*? | later commits supersede earlier incomplete states; **do not drop** intermediates unless future rewrite GO |
-| E / merge Product path | NOT STARTED (correct) |
-| REAL | ZERO in Product integration sense; prior REAL A→B was proof-repo scoped |
-
-Recommendation: **one PR may carry all GCEC commits as linear history** (not one PR per commit).
-
----
-
-## 8. DOCUMENTARY REGISTER
-
-| Document / surface | vs main | Disposition |
-|---|---|---|
-| `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` | MODIFIED (+45/−1) via commits `645ec7e0`, `f71cf89a` | **INCLUDE PR2** (already in Product tip). Status vs tip: **STALE — SYNC REQUIRED** for post-A2B facts (A→D harness / RepositoryRead / local commit `06007633`) — **DEFER** additional DOC sync to distinct Morris DOC gate (do not invent new doc edits in consolidation). |
-| Build doctrine / cadrage / v3 framing 34–35 | unchanged vs main | **NO UPDATE REQUIRED** this cycle |
-| method/** / prompts/** | no unique Product delta | **NO UPDATE REQUIRED** |
-| `.tmp-sfia-review/**` | dirty local evidence | **TEMP / EXCLUDE** always |
-| `sfia-review-handoff/**` | handoff branch | **TEMP / EXCLUDE** from Product PR |
-| Other studio md | none in tip delta | — |
-
-Roadmap classification summary: **STALE — SYNC REQUIRED** (A→D tip not yet narrated) but **does not block** packaging of already-committed A2B truth-sync inside GCEC PR.
-
----
-
-## 9. CONSOLIDATION MATRIX
-
-| ID | chantier | branch/worktree | tip | base | dirty? | unique commits | files | type | capacité v3 | proof | on main? | remote br? | PR? | class | lot | before REAL? | reserves | next |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| U1 | Post-#477 Studio Product line (all) | delivery/…qual-to-governed-cycle / primary WT | `06007633` | `a9f6c310` | tmp-only | 35 | 224 | mixed code+1 doc | Governed Project Execution | deterministic retained; REAL A→D NOT PROVEN | NO | NO | NO | LOCAL UNIQUE | PR1+PR2 or single PR | MUST (as REAL base) | large review | integrate |
-| U1a | Greenfield path qual→start | same | `2b595718` | `a9f6c310` | no | 12 | ~70 | code | lifecycle/trajectory governance | det. | NO | NO | NO | LOCAL UNIQUE | **PR1** | MUST (dep of GCEC/product path) | overlaps later | first |
-| U1b | ACW + lifecycle closure | same | `6a2e3c9d` | `2b595718` | no | 6 | ~36 | code | active-cycle + closure | det. | NO | NO | NO | LOCAL UNIQUE | **PR1** | MUST | shared files | with U1a |
-| U1c | GCEC Product + roadmap | same | `06007633` | `6a2e3c9d` | no | 17 | ~149 | code+docs | GCEC A→D harness | det. candidate accepted | NO | NO | NO | LOCAL UNIQUE | **PR2** | **MUST MERGE BEFORE REAL** | REAL reserve | after PR1 |
-| H1 | Review handoff | sfia/review-handoff | `b1b0695a` | n/a | clean WT | many | 1 file | review | n/a | n/a | n/a | YES | n/a | NOT PRODUCT | none | n/a | — | continue as index |
-| L1 | LR #477 branch | lr-delivery WT | `2081ce47` | main ancestor | tmp+node_modules | 0 unique | 0 | — | — | integrated | YES (via #477) | YES | merged #477 | INTEGRATED | none | n/a | cleanup later | ignore |
-| O1 | timeout WTs | detached | old | — | tmp | 0 | 0 | — | — | historical | YES content | — | — | HISTORICAL | none | n/a | cleanup | ignore |
-| O2 | greenfield main WT | detached main | `a9f6c310` | main | tmp | 0 | 0 | — | — | — | YES | — | — | SNAPSHOT | none | n/a | keep or prune later | ignore |
-| X1 | Open PR #407 task-manager | remote | — | main | — | — | — | docs other project | — | — | — | YES | OPEN | OUT OF SCOPE | none | NO | unrelated | leave |
-| X2 | Open PR #363 cloud env | remote | — | docs branch | — | — | — | infra | — | — | — | YES | OPEN | OUT OF SCOPE | none | NO | unrelated | leave |
-
-**No other LOCAL UNIQUE Studio Product unit found.**
-
----
-
-## 10. PROPOSED PR PLAN — TARGET **2 PR**
-
-### Preferred packaging: **2 coherent PRs** (not 35)
-
-#### PR1 — Greenfield governed product path (post-LR → lifecycle closure)
-
-- **Objectif:** Integrate the post-#477 greenfield product proof path: qualification/pre-cycle boundaries, lifecycle bootstrap, candidate trajectory bridge/provenance/HD/start, Active Cycle Work, governed lifecycle closure.
-- **Capacité:** Governed lifecycle / trajectory / ACW continuity (feeds GCEC readiness).
-- **Commits absorbed:** #1–#18 (`f35ae52a` … `6a2e3c9d`) — **keep linear history** (provenance of construction→correction).
-- **Approx fileset:** ~91 files under `projects/sfia-studio/app/**` (tests+features+nora+oa lifecycle).
-- **Why coherent:** One continuous Pilot-facing product story after LR #477.
-- **Why not split further:** ACW/closure heavily overlaps greenfield orchestration files; separate ACW PR would be micro-cycle theater.
-- **Why not include GCEC yet:** Different authority/review focus (git execution / RepositoryRead / REAL harness); ~149 additional files; clearer Critical Review boundary.
-- **Validation:** focused suites for qual/pre-cycle/trajectory/ACW/lifecycle + typecheck/lint/build as required by integration GO.
-- **Gate Morris:** ONE integration GO covering push+PR for this lot (or macro GO spanning PR1+PR2).
-- **Dependency:** base = `origin/main` `a9f6c310`.
-- **Remote today:** branch local-only → needs push under future GO.
-- **must-merge-before-REAL:** **MUST** (semantic + file dependency for PR2 / product path integrity).
-
-#### PR2 — GCEC Product (deterministic A→D harness + RepositoryRead + roadmap truth through A2B)
-
-- **Objectif:** Integrate governed cycle execution completion through immutable A→D harness + RepositoryRead composition + roadmap GCEC lane truth (A2B closure / trusted-but-governed).
-- **Capacité:** Governed Project Execution / GCEC-GIT-LIFECYCLE-E2E-01.
-- **Commits absorbed:** #19–#35 (`2b5dcaf1` … `06007633`) — **keep linear history**.
-- **Approx fileset:** ~149 files (mostly `lib/oa` + GCEC tests + `service.ts` + roadmap.md).
-- **Why coherent:** Single GCEC capability arc ending at accepted local tip `06007633`.
-- **Why not one-commit PRs:** Forbidden by anti-micro-cycle intent; handoff cycles ≠ PR boundaries.
-- **Validation:** inherit accepted deterministic counts from handoff `fb3cb696`/`b1b0695a` where candidate unchanged; re-run required CI on PR.
-- **Gate Morris:** after PR1 merge (or same macro GO sequenced).
-- **Dependency:** **requires PR1 merged first** (16 overlapping files; linear history).
-- **must-merge-before-REAL:** **MUST MERGE BEFORE REAL** for A→D campaign base.
-- **Anti-claims:** ≠ REAL A→D proven by merge · ≠ E/merge started · ≠ runtime v3 ADOPTED.
-
-### Alternative allowed: **1 PR**
-
-If Morris prefers maximal anti-fragmentation: push tip `06007633` as a single PR from main with all 35 commits / 224 files.
-**Coherent yes** · **review load high** · still valid under R8/R18.
-Recommend only if ChatGPT/Morris accept large review surface.
-
-### Rejected by default: **≥3 PRs**
-
-Would require justifying ACW-only / docs-only / harness-only splits without strong architecture separation. Docs-only PR rejected: roadmap is 1 file already inside GCEC commits.
-
----
-
-## 11. DEPENDENCY / MERGE ORDER
+91 files · all under `projects/sfia-studio/app/**` · **0 markdown** · no roadmap.
 
 ```
-origin/main (a9f6c310)
-    → PR1 merge
-    → PR2 merge (base = post-PR1 main)
-    → (optional DOC truth-sync for A→D narrative)
-    → distinct Morris GO: ONE FRESH GCEC REAL A→D — STOP BEFORE MERGE
+.../mw1.s01.honestMemoryB.d0.test.ts               |   11 +-
+ .../nora-cognitive-runtime/session.d0.test.ts      |   12 +-
+ .../sessionTruthC.d0.test.ts                       |   11 +-
+ .../__tests__/oa/cycle/dgfStart01.smoke.d0.test.ts |  187 ++
+ ...ecycleClosure.criticalReviewFollowUp.d0.test.ts |  691 +++++
+ .../oa/cycle/lifecycleClosure.phaseB.d0.test.ts    | 1282 ++++++++++
+ .../lifecycleRecommendation.delivery.d0.test.ts    |   17 +
+ .../lifecycleRecommendation.finalCorr.d0.test.ts   |   66 +-
+ .../lifecyclePresentation.phaseB.d0.test.tsx       |  262 ++
+ .../preCycleTrajectoryCta.ui.test.tsx              |  200 ++
+ .../trajectorySurface.ui.test.tsx                  |  169 ++
+ .../activeCycleCognitiveWork.d0.test.ts            | 2647 ++++++++++++++++++++
+ .../candidateTrajectoryBridge.d0.test.ts           |  957 +++++++
+ .../candidateTrajectoryCycleStart.d0.test.ts       | 2422 ++++++++++++++++++
+ .../candidateTrajectoryHumanDecision.d0.test.ts    | 1354 ++++++++++
+ .../candidateTrajectoryProvenance.d0.test.ts       |  977 ++++++++
+ .../greenfieldLifecycleBootstrap.d0.test.ts        |  857 +++++++
+ .../mw5.challenge.clarification.product.d0.test.ts |   11 +-
+ .../preCycleRoutingBoundary.d0.test.ts             | 1010 ++++++++
+ .../qualToGovernedCycle.presentation.d0.test.ts    |  361 +++
+ .../studioCognitiveContext.test.ts                 |   25 +-
+ .../studio-projects/projectPrincipalAmend.test.tsx |   16 +
+ .../importBoundaries.test.ts                       |    2 +
+ .../sfia-studio/app/e2e/studio-option-a.spec.ts    |   13 +-
+ .../app/e2e/studio-qual-to-governed-visual.spec.ts |   88 +
+ .../pre-m6-product-ui/ProjectWorkspacePage.tsx     |   25 +-
+ .../hooks/useProductConversation.ts                |  132 +-
+ .../surfaces/ConversationSurface.tsx               |   48 +-
+ .../surfaces/LifecycleSurface.tsx                  |  326 ++-
+ .../surfaces/TrajectorySurface.tsx                 |  370 ++-
+ .../surfaces/lifecyclePresentation.ts              |  193 +-
+ .../project-assistant/ProjectAssistantPanel.tsx    |   37 +
+ .../app/features/project-assistant/actions.ts      |  219 +-
+ .../approveCandidateTrajectory.ts                  |  779 ++++++
+ .../project-assistant/buildProjectSystemPrompt.ts  |  107 +-
+ .../candidateTrajectoryPromotionGuard.ts           |  212 ++
+ .../f2/activeCycleCognitiveContext.ts              |  298 +++
+ .../project-assistant/f2/ckcCognitiveContext.ts    |    8 +-
+ .../project-assistant/f2/intentAnalysis.ts         |   13 +-
+ .../project-assistant/f2/methodOrientation.ts      |   35 +
+ .../features/project-assistant/f2/orchestrateF2.ts |   29 +-
+ .../project-assistant/f2/pilotLifecycleActions.ts  |  286 ++-
+ .../f2/qualificationSignalCoherence.ts             |  233 +-
+ .../project-assistant/f2/studioCognitiveContext.ts |  309 ++-
+ .../lifecycleRecommendationPiloteNotice.ts         |   18 +
+ .../project-assistant/logicalProductTurn.ts        |  303 +++
+ .../materializeActiveCycleWork.ts                  |  573 +++++
+ .../features/project-assistant/orchestrateTurn.ts  |  358 ++-
+ .../preCycleCandidateTrajectoryActions.ts          |  514 ++++
+ .../project-assistant/presentationLabels.ts        |   68 +
+ .../project-assistant/turnPayloadCanonical.ts      |   95 +
+ .../app/features/project-assistant/turnRetryKey.ts |   28 +
+ .../app/features/project-assistant/types.ts        |    7 +
+ .../criticalChallengeClarification.ts              |   42 +-
+ .../app/lib/nora-cognitive-runtime/index.ts        |   11 +-
+ .../noraLifecycleRecommendationOutputType.ts       |   35 +
+ .../noraProductTurnOutputType.ts                   |  414 ++-
+ .../nora-cognitive-runtime/productSqliteSession.ts |  231 ++
+ .../nora-cognitive-runtime/providerAgentsModel.ts  |   45 +-
+ .../nora-cognitive-runtime/runNoraAgentsTurn.ts    |   33 +-
+ .../sfia-studio/app/lib/nora-eval/mw1S01Observe.ts |   11 +-
+ .../app/lib/oa/cycle/application/createCycle.ts    |   12 +
+ .../oa/cycle/application/lifecycleProjection.ts    |   65 +-
+ .../assertTrajectoryBoundCycleStartReady.ts        |  502 ++++
+ .../lifecycleRecommendation/basisFingerprint.ts    |    6 +
+ .../candidateTrajectoryDecisionBasis.ts            |  213 ++
+ .../candidateTrajectoryProvenance.ts               |  269 ++
+ .../lifecycleRecommendation/ckcResolutionRef.ts    |   18 +
+ .../greenfieldLifecycleBootstrap.ts                |  201 ++
+ .../application/lifecycleRecommendation/index.ts   |   10 +
+ .../materializeFromProductTurn.ts                  |   84 +-
+ .../materializeLifecycleRecommendation.ts          |   12 +
+ ...CandidateTrajectoryFromCurrentRecommendation.ts |  658 +++++
+ .../prepareCycleFromValidatedTrajectory.ts         |  605 +++++
+ .../produceLifecycleRecommendation.ts              |   10 +
+ .../qualificationSignals.ts                        |   77 +
+ .../readPreparedTrajectoryCycle.ts                 |  114 +
+ .../startPreparedTrajectoryCycle.ts                |  232 ++
+ .../application/lifecycleRecommendation/types.ts   |   30 +
+ .../validateLifecycleRecommendation.ts             |  198 +-
+ .../cycle/application/pilotLifecycleTransitions.ts |  498 +++-
+ .../sfia-studio/app/lib/oa/cycle/domain/types.ts   |   41 +
+ projects/sfia-studio/app/lib/oa/cycle/index.ts     |    7 +
+ .../infrastructure/memoryTrajectoryRepository.ts   |    7 +
+ .../sqlite/createSqliteCycleServices.ts            |    7 +
+ .../sqlite/sqliteTrajectoryRepository.ts           |   11 +
+ .../app/lib/oa/cycle/ports/trajectoryRepository.ts |    6 +
+ .../oa/decision/application/recordHumanDecision.ts |   10 +
+ .../app/lib/oa/decision/domain/invariants.ts       |  141 ++
+ .../app/lib/oa/decision/domain/types.ts            |   48 +-
+ .../app/lib/vertical-slice-runtime/service.ts      |   15 +-
+ 91 files changed, 23958 insertions(+), 242 deletions(-)
 ```
 
-Parallel review: **not recommended** for PR1/PR2 (file overlap + linear dependency).
-PR2 cannot honestly be based on current main without PR1 content.
+### name-status
+
+```
+M	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw1.s01.honestMemoryB.d0.test.ts
+M	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/session.d0.test.ts
+M	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/sessionTruthC.d0.test.ts
+A	projects/sfia-studio/app/__tests__/oa/cycle/dgfStart01.smoke.d0.test.ts
+A	projects/sfia-studio/app/__tests__/oa/cycle/lifecycleClosure.criticalReviewFollowUp.d0.test.ts
+A	projects/sfia-studio/app/__tests__/oa/cycle/lifecycleClosure.phaseB.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.delivery.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.finalCorr.d0.test.ts
+A	projects/sfia-studio/app/__tests__/pre-m6-product-ui/lifecyclePresentation.phaseB.d0.test.tsx
+A	projects/sfia-studio/app/__tests__/pre-m6-product-ui/preCycleTrajectoryCta.ui.test.tsx
+M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
+A	projects/sfia-studio/app/__tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/candidateTrajectoryBridge.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/candidateTrajectoryCycleStart.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/candidateTrajectoryHumanDecision.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/candidateTrajectoryProvenance.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/greenfieldLifecycleBootstrap.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/mw5.challenge.clarification.product.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/preCycleRoutingBoundary.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/qualToGovernedCycle.presentation.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/studioCognitiveContext.test.ts
+M	projects/sfia-studio/app/__tests__/studio-projects/projectPrincipalAmend.test.tsx
+M	projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
+M	projects/sfia-studio/app/e2e/studio-option-a.spec.ts
+A	projects/sfia-studio/app/e2e/studio-qual-to-governed-visual.spec.ts
+M	projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
+M	projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts
+M	projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
+M	projects/sfia-studio/app/features/project-assistant/actions.ts
+A	projects/sfia-studio/app/features/project-assistant/approveCandidateTrajectory.ts
+M	projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
+A	projects/sfia-studio/app/features/project-assistant/candidateTrajectoryPromotionGuard.ts
+A	projects/sfia-studio/app/features/project-assistant/f2/activeCycleCognitiveContext.ts
+M	projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts
+M	projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+M	projects/sfia-studio/app/features/project-assistant/f2/methodOrientation.ts
+M	projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+M	projects/sfia-studio/app/features/project-assistant/f2/pilotLifecycleActions.ts
+M	projects/sfia-studio/app/features/project-assistant/f2/qualificationSignalCoherence.ts
+M	projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts
+A	projects/sfia-studio/app/features/project-assistant/lifecycleRecommendationPiloteNotice.ts
+A	projects/sfia-studio/app/features/project-assistant/logicalProductTurn.ts
+A	projects/sfia-studio/app/features/project-assistant/materializeActiveCycleWork.ts
+M	projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+A	projects/sfia-studio/app/features/project-assistant/preCycleCandidateTrajectoryActions.ts
+M	projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
+A	projects/sfia-studio/app/features/project-assistant/turnPayloadCanonical.ts
+A	projects/sfia-studio/app/features/project-assistant/turnRetryKey.ts
+M	projects/sfia-studio/app/features/project-assistant/types.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/criticalChallengeClarification.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/noraLifecycleRecommendationOutputType.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
+M	projects/sfia-studio/app/lib/nora-eval/mw1S01Observe.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/createCycle.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts
+A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/assertTrajectoryBoundCycleStartReady.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/basisFingerprint.ts
+A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/candidateTrajectoryDecisionBasis.ts
+A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/candidateTrajectoryProvenance.ts
+A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/ckcResolutionRef.ts
+A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/greenfieldLifecycleBootstrap.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/index.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/materializeLifecycleRecommendation.ts
+A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/prepareCandidateTrajectoryFromCurrentRecommendation.ts
+A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/prepareCycleFromValidatedTrajectory.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/produceLifecycleRecommendation.ts
+A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/qualificationSignals.ts
+A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/readPreparedTrajectoryCycle.ts
+A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/startPreparedTrajectoryCycle.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/types.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/validateLifecycleRecommendation.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/pilotLifecycleTransitions.ts
+M	projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
+M	projects/sfia-studio/app/lib/oa/cycle/index.ts
+M	projects/sfia-studio/app/lib/oa/cycle/infrastructure/memoryTrajectoryRepository.ts
+M	projects/sfia-studio/app/lib/oa/cycle/infrastructure/sqlite/createSqliteCycleServices.ts
+M	projects/sfia-studio/app/lib/oa/cycle/infrastructure/sqlite/sqliteTrajectoryRepository.ts
+M	projects/sfia-studio/app/lib/oa/cycle/ports/trajectoryRepository.ts
+M	projects/sfia-studio/app/lib/oa/decision/application/recordHumanDecision.ts
+M	projects/sfia-studio/app/lib/oa/decision/domain/invariants.ts
+M	projects/sfia-studio/app/lib/oa/decision/domain/types.ts
+M	projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+```
+
+`git diff --check origin/main...6a2e3c9d`: **PASS**
 
 ---
 
-## 12. MUST MERGE BEFORE REAL MATRIX
+## 6. VALIDATION
 
-| Lot | Classification | Rationale |
-|---|---|---|
-| PR1 Greenfield→closure | **MUST MERGE BEFORE REAL** | Product path + shared files required; REAL campaign assumes post-#477 greenfield stack |
-| PR2 GCEC tip `06007633` | **MUST MERGE BEFORE REAL** | RepositoryRead + A→D harness + EC binding are the REAL precondition candidate |
-| Extra roadmap A→D DOC sync | **CAN DEFER** | Does not invalidate harness; truth-sync only |
-| PR #407 / #363 | **OUT OF SCOPE** | non-Studio / pre-existing |
-| Historical WTs/branches | **OUT OF SCOPE** | cleanup after integration |
+### Fresh focused smoke (exact tip `6a2e3c9d`, REAL flags unset)
 
-**Note:** REAL can *technically* run from local tip without main merge, but consolidation milestone + governance intent classify main integration as **required before** the REAL gate.
+14 test files covering qual/pre-cycle, greenfield bootstrap, trajectory bridge/provenance/HD/start, ACW, lifecycle closure:
 
----
+**235 passed / 0 failed**
 
-## 13. ORPHAN / CLEANUP REGISTER (NO DELETION THIS CYCLE)
+```
+ ✓ __tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts (57 tests) 2377ms
+   ✓ CR-ACW-04 catalog-wide active-cycle cognitive context > for each selectable cycle type: START → compose workEligible + CKC + no unresolved  420ms
 
-| Item | Disposition |
+ Test Files  14 passed (14)
+      Tests  235 passed (235)
+   Start at  04:21:45
+   Duration  4.02s (transform 1.57s, setup 869ms, collect 12.38s, tests 8.30s, environment 1.21s, prepare 632ms)
+
+```
+
+### Local gates at tip
+
+| Gate | Result |
 |---|---|
-| `delivery/sfia-studio-lifecycle-recommendation-product` (+ WT) | INTEGRATED; cleanup candidate **after** consolidation |
-| `delivery/sfia-studio-proof-corr-04-hybrid-envelope-d` | HISTORICAL ancestor; cleanup later |
-| timeout-qual worktrees (dbc / main-e6d7) | OBSOLETE snapshots; remove later |
-| greenfield detached WT | optional keep for LIVE proofs; not Product delta |
-| `sfia/review-handoff-delivery-pub` | historical helper |
-| `.tmp-sfia-review/**` (primary WT) | TEMP evidence; never Product PR |
-| node_modules untracked on LR WT | scratch; ignore |
-| Superseded intermediate Product commits | **KEEP in history** for provenance; do not rewrite this cycle |
-| Many remote `delivery/sfia-studio-*` historical branches | PRE-EXISTING; not part of this consolidation |
+| typecheck | PASS |
+| lint | PASS |
+| build | PASS |
+| REAL flags | unset |
+| historical REAL campaigns | NOT executed |
+
+Accepted historical validation provenance for commits #1–#18 retained via Review Handoff lineage (post-#477 consolidation pack `a90ecf92…`).
 
 ---
 
-## 14. OPEN REMOTE PR / BRANCH COLLISIONS
+## 7. PR METADATA
 
-| Item | Status |
+| Field | Value |
 |---|---|
-| Studio post-#477 Product PR | **NONE** |
-| Remote branch for `delivery/…qual-to-governed-cycle` | **NONE** |
-| Open #407 / #363 | OUT OF SCOPE — do not mix |
-| origin/main drift | **NONE** |
+| PR number | **#478** |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/478 |
+| state | OPEN |
+| base | `main` @ `a9f6c310a0826d0e5bd6f7264603382a86564db1` |
+| head | `delivery/sfia-studio-greenfield-lifecycle-consolidation` @ `6a2e3c9d71275145b20b514d02ab54533a72a2a7` |
+| title | feat(sfia-studio): complete governed greenfield lifecycle path |
+| changedFiles | 91 |
+| additions/deletions | 23958/242 |
+
+Merge method required if/when authorized: **MERGE COMMIT** (no squash / no rebase).
+Branch deletion: **FORBIDDEN**.
 
 ---
 
-## 15. ZERO MUTATION AFFIRMATION
+## 8. CI / REQUIRED GATE
 
-This cycle performed:
-- `git fetch origin` (read sync)
-- status/log/diff/merge-base/cherry/worktree/branch inspection
-- read-only `gh pr` queries
-- Review Pack write under `.tmp-sfia-review/`
-- Review Handoff publish (authorized)
+| Field | Value |
+|---|---|
+| workflow run | [34732892585](https://github.com/mcleland147/sfia-workspace/actions/runs/34732892585) |
+| headSha | `6a2e3c9d71275145b20b514d02ab54533a72a2a7` |
+| conclusion | **success** |
 
-This cycle did **NOT**:
-add/commit/push Product · create/edit PR · merge · rebase · squash · reset · stash · clean · source edit · REAL.
+Jobs:
+- Detect SFIA Studio changes: success
+- Build and validate SFIA Studio: success
+- SFIA Studio Required Gate: success
 
----
+**SFIA Studio Required Gate: SUCCESS**
 
-## 16. RESERVES
-
-**Blocking:** none for consolidation planning.
-
-**Non-blocking:**
-- Roadmap tip narrative lags A→D/RepositoryRead local commit (DOC sync deferrable).
-- Large PR1/PR2 review surfaces (mitigated by commit-grouped PR bodies).
-- Publisher false-negative pattern historically possible on handoff.
-
-**REAL-only:** A→D REAL still requires distinct Morris GO after integration.
+One infrastructure retry: **NOT used** (first run green).
 
 ---
 
-## 17. DECISIONS REQUIRED FROM MORRIS / CHATGPT
+## 9. EFFECTS THIS CHECKPOINT
 
-1. Accept **2-PR plan** (recommended) vs **1-PR mega** alternative.
-2. Authorize future **ONE MACRO INTEGRATION GO** (push + PR create for selected lots) rather than micro-GOs per commit.
-3. Confirm **keep linear commits** (no squash rewrite) unless separate rewrite GO.
-4. Confirm **MUST MERGE BEFORE REAL** for PR1+PR2.
-5. Decide whether deferred roadmap A→D truth-sync is required before REAL or can follow.
-
----
-
-## 18. VERDICT
-
-**PASS — CONSOLIDATION PLAN READY**
-
-Inventory exhaustive across 6 worktrees / local heads.
-All useful post-PR477 Studio Product work collapses to **one LOCAL UNIQUE line** tip `06007633`.
-Recommended packaging: **2 PRs** (Greenfield→closure, then GCEC).
-No orphan useful Product work identified outside that line.
-Dependencies explicit. Documentary truth qualified. Pre-REAL requirements explicit.
+| Effect | Status |
+|---|---|
+| Product source edits | NONE |
+| Historical commit rewrite | NONE |
+| Branch push | PR1 branch only |
+| PR create | #478 |
+| Merge | **NOT YET** |
+| REAL | **ZERO** |
+| Proof repo mutation | NONE |
+| PR2 | NOT STARTED |
 
 ---
 
-## 19. NEXT STEP
+## 10. MERGE POLICY REMINDER
 
-After ChatGPT Critical Review of this consolidation pack:
+Cursor MUST NOT merge until Morris provides ChatGPT Critical Review result substantively:
 
-**ONE MACRO MORRIS INTEGRATION GO** covering the selected coherent PR lots,
+**PASS / READY FOR MERGE**
 
-**not** separate micro-GOs for every historical cycle/commit.
+for exact head `6a2e3c9d71275145b20b514d02ab54533a72a2a7`.
 
-No Product mutation before that review.
+If CORRECTION REQUIRED / STOP / PASS WITH BLOCKING RESERVE:
 
-Then only after integration verification:
+**STOP — PR1 CRITICAL REVIEW NOT MERGEABLE**
 
-`GO MORRIS — ONE FRESH GCEC REAL A→D CAMPAIGN — STOP BEFORE MERGE`
+No Product correction under this macro GO without Morris disposition.
+
+After PASS: same macro GO authorizes merge-commit + post-merge verification + PR2 sequence.
 
 ---
 
-## 20. END OF FULL REVIEW PACK
+## 11. VERDICT
+
+**READY FOR CHATGPT CRITICAL REVIEW — PR1 GREENFIELD / LIFECYCLE CONSOLIDATION**
+
+Reserves:
+- blocking: none observed for reviewability
+- non-blocking: temporary validation worktree remains; cleanup later
+- REAL-only: none for this PR
+
+Requested ChatGPT action:
+
+**CHATGPT CRITICAL REVIEW — PR1 GREENFIELD/LIFECYCLE CONSOLIDATION**
+
+Decide: PASS/READY FOR MERGE vs STOP/CORRECTION.
+
+---
+
+## 12. END OF CHECKPOINT 1 REVIEW PACK
