@@ -1,223 +1,129 @@
-# ChatGPT Review Pack — FULL
+# ChatGPT Review Pack — GCEC REAL A→D (C-auth local anchor)
 
-**Timestamp:** 2026-09-13T13:10:00+02:00
-**Mode:** FULL
-**Cycle:** 8 — Delivery / correction
-**Typology:** RUN
-**Profil:** CRITICAL
-**Capacité v3:** Governed Project Execution
-**Milestone:** GCEC-C-REMOTE-PUSH-AUTH-ENV-01
+**timestamp (UTC):** 2026-09-13T11:25:30Z
+**GO:** GCEC REAL A→D end-to-end proof at tested scope (STOP before E/merge)
+**cycle:** EVOL CRITICAL
+**REAL invocation count:** 1 (after A launch; no retry)
 
-## Exact normalized Morris GO
+## SHAs / anchors
 
-GO MORRIS — GCEC C REMOTE-PUSH CURSOR GIT HTTPS AUTH ENVIRONMENT CORRECTION — LOCAL ONLY — ZERO REAL
+| Ref | SHA |
+|-----|-----|
+| Product ANCHOR (NEW_WT HEAD) | `ff267fdf3e6591b5ed83c4478b95f6181ad98fa2` |
+| Product parent (B commit fix) | `11a43d3da337da34052339bd9a1ced13cc6d42b7` |
+| Product main merge base | `c481610caa3527edabeca8c860ab27c18a6a738e` |
+| Proof repo H0 / remote main | `32c7c2008197e5c61b32c16479144e9863291358` |
+| B_SHA (local+remote feature) | `3a879572722af2b72909243ba0b506f307d87156` |
+| Incoming handoff tip | `f29dd64b6f0688f4368addeef1b27a9606bfd5f1` |
 
-## Entry Git Truth
+**Paths**
+- NEW_WT=`/Users/morris/Projects/sfia-gcec-real-ad-product-ff267fdf-20260913131834-26962`
+- MANAGED_BASE=`/tmp/sfia-gcec-real-ad-anchor-ff267fdf-20260913131908-27409`
+- clone=`…/mcleland147__sfia-gcec-proof-task-manager`
+- proofRoot=`/var/folders/b9/5c00r70d7_l8kjth6vpfmn8m0000gn/T/gcec-real-ad-Fpvm5Q`
+- execRoot=`…/m4-worktrees`
+- oa.sqlite=`…/oa.sqlite`
+- frontier=`NEW_WT/.tmp-sfia-review/gcec-cursor-real-commit-proof/`
+- harness out=`NEW_WT/.tmp-sfia-review/gcec-real-ad-harness.out`
 
-| Item | Value |
-|---|---|
-| Entry Product main distant | `c481610caa3527edabeca8c860ab27c18a6a738e` |
-| Entry local cumulative anchor | `11a43d3da337da34052339bd9a1ced13cc6d42b7` |
-| Anchor parent | `c481610caa3527edabeca8c860ab27c18a6a738e` |
-| Incoming Review Handoff | `e2a2546c04bb3249a8fcee1b1c80bd65103dc5df` |
-| Correction branch | `delivery/sfia-studio-gcec-c-remote-push-auth-env` |
-| Correction worktree | `/Users/morris/Projects/sfia-gcec-c-remote-push-auth-env-11a43d3d` |
-| origin/main (unchanged) | `c481610caa3527edabeca8c860ab27c18a6a738e` |
+## Preflights (PASS before launch)
 
-Open UI workspace `/Users/morris/Projects/sfia-workspace` remained on
-`delivery/sfia-studio-gcec-ad-semantic-immutability-alignment` @ `0b7463fa…`
-CLEAN — no checkout/switch performed there. All Product edits owned by the
-correction worktree only.
+1. NEW_WT HEAD == ANCHOR `ff267fdf…`; status clean except `?? node_modules` (ignored) + review artifacts.
+2. Managed clone exists under MANAGED_BASE; local H0 == remote main `32c7c20…`.
+3. Five REAL flags UNSET in environment before launch.
+4. Snapshot file present: `gcec-real-ad-prelaunch-snapshot.txt` (`real_may_proceed=YES`, `campaign_started=NO`, prior WTs preserved).
+5. Target `docs/functional-design.md` absent pre-launch; subject expected `docs: add task manager functional design`.
+6. Open PRs pre-launch: `[]`. Remote heads: main only at H0.
 
-## Three REAL campaign truths (PRESERVED)
+## Campaign
 
-1. Historic REAL @ `132ddd54` — preserved / untouched.
-2. Second REAL product WT:
-   `/Users/morris/Projects/sfia-gcec-real-ad-product-c481610c-20260913101736-44229`
-   — preserved / untouched.
-3. Third REAL (A+B proven / C auth FAIL):
-   - PRODUCT_WT = `/Users/morris/Projects/sfia-gcec-real-ad-product-11a43d3d-20260913120301-96119`
-   - managed base = `/tmp/sfia-gcec-real-ad-anchor-11a43d3d-20260913120332-96542`
-   - proofRoot = `.../gcec-real-ad-xSDZEC`
-   - B_SHA = `bf083b707cc9b46cff04429d02f8326b79d634b8`
-   - phase = `C_LAUNCHED_UNRECONCILED`
-   - No cleanup / no remote repair / no retry.
+- **started:** YES (single REAL vitest run)
+- **budget consumed:** YES (one A→D REAL campaign)
+- **invocation:** `vitest run __tests__/oa/cycle/gcecCursorRealSameEcCommit.real.d0.test.ts`
+- **duration:** ~175.7s wall; REAL case ~174s
+- **harness exit:** non-zero (1 failed | 22 passed) — AssertionError at D PR match
+- **flags:** set for run; UNSET immediately after (confirmed none in env)
 
-B-binding correction WT preserved:
-`/Users/morris/Projects/sfia-gcec-b-commit-target-binding-c481610c` @ `11a43d3d`.
+## Final EC / semantic
 
-## Host auth diagnosis (read-only; no secret values)
+- **EC id:** `xct:gcec-ad-final:dec-f2-fe6b7d84-283a-4d02-8801-0434ad225`
+- **V0 (at A select):** 3
+- **versions:** A@3 → B@5 → C@7 → D@9; final persisted version **11**, status **confirmed**
+- **semanticFingerprint (frozen):** `91a32753053a2f7c41ce6082012beea553838411137c997a41ab0b47d2a4f1e9`
+- **confirmationRef (gate):** `cfm:gate:xct:gcec-ad-final:dec-f2-fe6b7d84-283a-4d02-8801-0434ad225` (consumed)
+- **featureBranch / workingBranch:** `gcec/lifecycle/gcec-ad-finaldec-f2-fe6b`
+- **defaultBranch:** `main`
 
-| Observation | Result |
-|---|---|
-| git path | `/usr/bin/git` |
-| git version | `2.50.1 (Apple Git-155)` |
-| gh path | `/opt/homebrew/bin/gh` |
-| gh version | `2.96.0 (2026-07-02)` |
-| `gh auth status` | Logged in to github.com as `mcleland147` via **keyring**; Git protocol **https**; scopes include `repo` |
-| `gh auth status` with GH_TOKEN/GITHUB_TOKEN/GH_ENTERPRISE_TOKEN/GITHUB_ENTERPRISE_TOKEN unset | **PASS** — same keyring session |
-| Classification | **GH STORED AUTH AVAILABLE** |
-| `credential.helper` (global) | **(none)** |
-| `credential.https://github.com.helper` (global) | **(none)** |
-| GH_TOKEN | absent |
-| GITHUB_TOKEN | absent |
-| GH_ENTERPRISE_TOKEN | absent |
-| GITHUB_ENTERPRISE_TOKEN | absent |
+## Attempt A — docs write — FULLY ACCEPTED
 
-Distinction: host global Git credential.helper is not configured; stored `gh`
-keyring auth remains usable without inherited token ENV. Product therefore
-injects an explicit server-owned `!gh auth git-credential` bridge for
-`remote_git` only — it does **not** depend on Morris's `~/.gitconfig` string
-and does **not** restore arbitrary host Git config.
+- attemptId `xat:gcec-commit-a:…` status **succeeded**; processRef `pid:29108`
+- Evidence `ev:docs-write:…` source **`execution_attempt:docs_write`** / docs_write → **verified** v2
+- Frontier progressed past A (B launched) ⇒ **A_RECONCILED**
+- **ACCEPT A:** YES
 
-## Root cause confirmation
+## Attempt B — local commit — FULLY ACCEPTED
 
-Before correction, all mutating profiles set:
+- attemptId `xat:gcec-commit-b:…` status **succeeded**; processRef `pid:29609`
+- **B_SHA** `3a879572722af2b72909243ba0b506f307d87156`
+- parent == H0 `32c7c20…`; subject exact `docs: add task manager functional design`
+- Evidence `ev:git-commit-verified:3a879572722a` source **`git:local_commit`** → **verified** v2
+- Independent: remote **main still H0**
+- **ACCEPT B:** YES
 
-- `GIT_TERMINAL_PROMPT=0`
-- `GCM_INTERACTIVE=Never`
-- `GIT_CONFIG_NOSYSTEM=1`
-- `GIT_CONFIG_SYSTEM=/dev/null`
-- `GIT_CONFIG_GLOBAL=/dev/null`
+## Attempt C — remote push — FULLY ACCEPTED
 
-Inherited `GIT_CONFIG_*` always stripped. `remote_git` preserved SSH/askpass but
-still stripped `GH_TOKEN`/`GITHUB_TOKEN`. Therefore no host credential.helper and
-no token ENV were available to the Cursor child → observed REAL failure:
+- attemptId `xat:gcec-push-c:…` status **succeeded**; processRef `pid:30256`
+- Evidence `ev:git-push-verified:3a879572722a` source **`git:remote_push`** → **verified** v2
+- Independent `git ls-remote`: feature `gcec/lifecycle/gcec-ad-finaldec-f2-fe6b` @ **B_SHA**; main @ H0
+- C auth bridge for **git push** worked on this run
+- **ACCEPT C:** YES
 
-`fatal: could not read Username for 'https://github.com': terminal prompts disabled`
+## Attempt D — PR create — NOT ACCEPTED (frontier stop)
 
-Root cause **CONFIRMED** (compatible with confinement + host diagnosis).
+- attemptId `xat:gcec-pr-d:…` Product attempt status **succeeded** (process exit 0, `pid:30671`, ~81s) but agent **did not create a PR**
+- Agent stdout (non-secret): `gh api` head ref **Forbidden**; `gh auth status` token keyring for `mcleland147` **invalid**; STOP — PR not created
+- `prCreateEvidenceId`: **null**; no `git:pull_request` Evidence
+- Harness assertion: `matchingPrs` expected length 1, got 0
+- Frontier phase: **`D_LAUNCHED_UNRECONCILED`** / reconciliation **`POST_LAUNCH_FAILURE_PRESERVED`**
+- Independent: `gh pr list` (open and all) → **`[]`**
+- **ACCEPT D:** NO
 
-## Correction design
+## Independent remote verification (read-only)
 
-ONLY when `effectClass == "remote_git"`:
+```
+ls-remote origin:
+  32c7c2008197e5c61b32c16479144e9863291358  HEAD / refs/heads/main
+  3a879572722af2b72909243ba0b506f307d87156  refs/heads/gcec/lifecycle/gcec-ad-finaldec-f2-fe6b
+open PRs: []
+remote main drift vs H0: NONE
+```
 
-1. Continue strip of all inherited `GIT_CONFIG_*`.
-2. Continue null global/system Git config.
-3. Inject Product-owned overlay constants:
+## Product WT post-run
 
-| Env | Value (non-secret constant) |
-|---|---|
-| `GIT_CONFIG_COUNT` | `1` |
-| `GIT_CONFIG_KEY_0` | `credential.https://github.com.helper` |
-| `GIT_CONFIG_VALUE_0` | `!gh auth git-credential` |
+- HEAD still ANCHOR `ff267fdf…`
+- status: only `??` review/forensics + `node_modules` symlink — **no Product source commits**
+- No Product push/PR/merge; no E; forensics preserved; flags unset
 
-Validated locally with `git config --get` (no credential fill, no network).
+## Maturity claim (strict)
 
-`local` (A/B) and `remote_github` (D/E) unchanged — no helper injection there;
-no `GH_TOKEN` propagation for `remote_git`.
+**Last FULLY accepted frontier: C (A→C REAL).**
+**NOT** claiming GCEC A→D END-TO-END REAL PROVEN.
+**NOT** E / merge / runtime v3.
 
-## Security / authority boundary
+Blocker for D: GitHub CLI auth for PR API (`Forbidden` / invalid keyring token) despite successful HTTPS remote push auth for C.
 
-CAPABILITY ≠ AUTHORITY.
+## Anti-claims
 
-- Capability: bounded GitHub HTTPS credential helper for `remote_git` child only.
-- Authority unchanged: ExecutionContract ∩ agent capability ∩ repository ∩
-  featureBranch ∩ Confirmation N3 ∩ gateway launch spec ∩ no-force/no-delete/no-tags
-  ∩ Evidence verification.
-- Credentials do not define destination or scope.
-- No hard-coded token, no token logging, no token copy, no secret in repo.
+- Do not treat Attempt D `succeeded` alone as PR proof
+- Do not claim open PR / `git:pull_request` verified
+- Do not claim A→D E2E
+- Do not merge feature to main; main remains H0
+- No retry performed (invocation count = 1)
 
-## Files modified
+## Next step
 
-1. `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/mutatingCursorConfinementEnv.ts`
-2. `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/cursorCliLaunchGateway.ts` (re-export only)
-3. `projects/sfia-studio/app/lib/oa/execution-attempt/index.ts` (re-export only)
-4. `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecMutatingCursorConfinementEnv.d0.test.ts`
+Refresh/fix `gh` auth for `mcleland147` (PR create path), then a **new** Morris-gated REAL campaign from a clean D-capable posture (or D-only if GO allows) — **not** a blind retry of this preserved failure without GO. Preserve current forensics.
 
-Diffstat: 4 files, +123 / −11
+## Static harness note
 
-## Deterministic tests
-
-AUTH-1…AUTH-9 covered in focused confinement/gateway suite:
-
-- local confinement unchanged (no helper)
-- hostile inherited `GIT_CONFIG_*` neutralized
-- `remote_git` Product helper present; no GH tokens
-- local `git config --get` parser proof (no network)
-- `remote_github` unchanged (no helper)
-- baseEnv immutability
-- noninteractive safety preserved
-- secret anti-leak (sentinels only; constants non-secret)
-- gateway routing: docs-write/local-commit=local; remote-push=`remote_git`+helper; pr-create=`remote_github`
-
-Focused suite: **13 passed**
-
-A→D harness ZERO REAL:
-`npm test -- __tests__/oa/cycle/gcecCursorRealSameEcCommit.real.d0.test.ts`
-→ **22 passed / 1 skipped** (REAL campaign remains SKIPPED)
-
-## Typecheck / lint / build / full Vitest
-
-| Gate | Result |
-|---|---|
-| typecheck | PASS |
-| lint | PASS (0 warnings/errors) |
-| build | PASS |
-| full Vitest | **355 files passed / 17 skipped**; **3880 tests passed / 137 skipped** |
-| REAL flags during validation | OFF / unset |
-
-## ZERO mutating REAL
-
-- Five GCEC REAL campaign flags not set
-- No Cursor REAL mutation
-- No proof repo push/branch/PR
-- No reuse of C pid / no retry of third campaign
-
-## Proof repo effects
-
-NONE
-
-## Local Product anchor
-
-| Field | Value |
-|---|---|
-| C_AUTH_LOCAL_ANCHOR | `ff267fdf3e6591b5ed83c4478b95f6181ad98fa2` |
-| parent | `11a43d3da337da34052339bd9a1ced13cc6d42b7` |
-| subject | `fix(sfia-studio): provide bounded GitHub HTTPS auth for remote push` |
-| ancestry | `c481610c` → `11a43d3d` → `ff267fdf` |
-| Product push/PR/merge | NONE |
-
-## Product remote effects
-
-NONE — no Product push, PR, or merge.
-
-## Roadmap
-
-UNCHANGED (intentional truth-lag preserved).
-
-## Maturity / anti-claims
-
-| Claim | Status |
-|---|---|
-| C remote-push auth-environment correction | **DETERMINISTICALLY PROVEN / LOCALLY COMMITTED CORRECTION ANCHOR** |
-| A docs-write | REAL PROVEN AT TESTED SCOPE (prior) |
-| B local git.commit | REAL PROVEN AT TESTED SCOPE (prior) |
-| B-binding correction | REAL-BACKED AT TESTED SCOPE (prior) |
-| C remote push | **STILL NOT REAL PROVEN** |
-| D PR create | NOT STARTED |
-| A→D | NOT PROVEN |
-| runtime v3 | NON ADOPTED |
-
-Do **not** claim "C push fixed in REAL" from this cycle.
-
-## Review Handoff
-
-- Mode: publish-in-cycle
-- Incoming expected tip: `e2a2546c04bb3249a8fcee1b1c80bd65103dc5df`
-- Source: `.tmp-sfia-review/chatgpt-review.md` (this file)
-- Destination: `sfia-review-handoff/latest-chatgpt-review.md`
-- Branch: `sfia/review-handoff`
-- Publish ONCE via canonical publisher
-
-## Next gate recommendation
-
-ChatGPT Critical Review, then candidate distinct gate:
-
-GO MORRIS — ONE FRESH GCEC REAL A→D CAMPAIGN FROM C-AUTH LOCAL ANCHOR — STOP BEFORE MERGE
-
-No automatic REAL. No Product PR. No Roadmap sync.
-
-## Verdict
-
-**PASS — GCEC C REMOTE-PUSH BOUNDED GIT HTTPS AUTH ENVIRONMENT DETERMINISTICALLY PROVEN / LOCALLY ANCHORED**
+22 static/semantic/B-bind cases passed; only the Morris-gated REAL campaign case failed (at D acceptance gate).
