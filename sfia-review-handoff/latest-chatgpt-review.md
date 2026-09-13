@@ -1,4 +1,301 @@
 # SFIA Studio — Review Pack
+## GCEC-GIT-LIFECYCLE-E2E-01 — REAL A→D CAMPAIGN HARNESS COMPLETION — STOP STRUCTURAL
+
+TIMESTAMP: 2026-09-13 02:32:15 CEST
+
+CYCLE: 8 — Delivery / implementation
+
+TYPE: EVOL
+
+PROFILE: CRITICAL
+
+GO MORRIS: GO MORRIS — GCEC REAL A→D CAMPAIGN HARNESS COMPLETION
+
+Incoming Review Handoff: 1cf3e5f9c26ac5aca5fc9d754c97450613b3d36c
+Product anchor: bbb03ce7aaff22421b00c96e747e9b5a2ede0325
+origin/main: a9f6c310a0826d0e5bd6f7264603382a86564db1
+Runtime v3: NON ADOPTED
+
+==================================================
+VERDICT
+==================================================
+
+STOP STRUCTURAL — PRODUCT GAP DISCOVERED BY HARNESS COMPLETION
+
+No Product runtime source was modified (GO forbids patching the gap under this lot).
+No harness A→D candidate was published as ready.
+No REAL campaign executed.
+REAL = ZERO.
+Product HEAD unchanged.
+
+==================================================
+ROLE BOUNDARIES
+==================================================
+
+- Morris = construction gate; this GO = harness construction only.
+- Pilote = runtime HumanDecision / Confirmation (not invented).
+- Studio = contract/orchestrate/verify; must supply RepositoryRead for D.
+- Nora = out of scope.
+- Cursor = would execute C/D under Product gateway only after Start succeeds.
+
+==================================================
+LOCAL GIT TRUTH
+==================================================
+
+```
+HEAD=bbb03ce7aaff22421b00c96e747e9b5a2ede0325
+PRODUCT_DIRTY=0
+```
+
+Branch: delivery/sfia-studio-product-proof-qual-to-governed-cycle
+HEAD: bbb03ce7aaff22421b00c96e747e9b5a2ede0325
+PARENT: f71cf89a452d0b6109e1f11be957210122082186
+Product tracked/untracked under projects/sfia-studio: clean
+Product files modified this lot: NONE
+
+==================================================
+ACCEPTED PRIOR STOP (construction input)
+==================================================
+
+STOP PREFLIGHT — REAL HARNESS INCOMPLETE FOR A→D (handoff 1cf3e5f9)
+
+Preserved facts:
+- A-only REAL: gcecCursorRealDocsWrite.real.d0.test.ts
+- A→B REAL: gcecCursorRealSameEcCommit.real.d0.test.ts (ZERO push/PR/merge)
+- C/D Product PATH B agents exist; Fake coverage in gcecGitLifecyclePushPrMerge.d0.test.ts
+- Historical A→B failure: worktree_unregistered (diagnostic only)
+
+==================================================
+HARNESS DESIGN INTENT (NOT SHIPPED — BLOCKED)
+==================================================
+
+Preferred approach (per GO): ADAPT/COMPLETE existing A→B REAL harness into same-EC A→B→C→D.
+
+Intended shape (still correct design; cannot execute D Start today):
+
+PRECHECK (registered worktree)
+→ fresh EC
+→ A bounded_docs_write → Evidence A VERIFIED
+→ B bounded_local_commit → Evidence B VERIFIED → B_COMMIT_SHA
+→ local setup: feature branch ref at B_COMMIT_SHA via deriveDeterministicGcecPushBranch(ecId)
+  (NOT main; Product rejects default-branch push)
+→ C bounded_remote_push via StartExecution → verifyRemotePushEffect
+→ D bounded_pr_create via StartExecution (needs fresh RepositoryRead head == B_SHA)
+→ STOP; E NOT STARTED
+
+Intended REAL opt-ins (fail-closed ladder):
+- SFIA_STUDIO_CURSOR_REAL=1
+- SFIA_GCEC_CURSOR_REAL_PROOF=1
+- SFIA_GCEC_CURSOR_REAL_COMMIT_PROOF=1   (A→B)
+- SFIA_GCEC_CURSOR_REAL_PUSH_PROOF=1     (C; planned harness-only)
+- SFIA_GCEC_CURSOR_REAL_PR_PROOF=1       (D; planned harness-only)
+Generic REAL alone must NOT enable C/D.
+
+Worktree_unregistered closure (planned at harness level, not implemented this lot):
+assert git worktree list --porcelain contains exact workspacePathForAttempt path
+before A; recheck before B Cont01 resume.
+
+==================================================
+PRODUCT GAP — EXACT
+==================================================
+
+```
+GAP=repositoryRead_not_wired_in_wireOaStack
+FILE=projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+SYMPTOM=StartExecution D fails: git_pr_create_repository_read_unavailable
+C_START=does_not_require_repositoryRead
+D_START=requires_this.repositoryRead.getBranchHead (AC-02)
+HARNESS_VERIFY=can_construct_GithubCliRemotePorts_independently_but_Start_cannot
+```
+
+### Why A→D harness cannot complete without Product change
+
+The A→B REAL harness uses getRuntimeApplicationService → wireOaStack →
+createSqliteExecutionAttemptServices(...).
+
+createSqliteExecutionAttemptServices accepts optional repositoryRead.
+wireOaStack never passes repositoryRead.
+
+StartExecution Attempt D (AC-02) fail-closes when missing:
+
+```typescript
+      if (!this.repositoryRead) {
+        return fail(
+          "ATTEMPT_INVALID",
+          "git_pr_create_repository_read_unavailable",
+          { executionContractId: contract.executionContractId },
+        );
+      }
+      const remoteHead = await this.repositoryRead.getBranchHead({
+        repositoryRef: repoRef,
+        branch: headBranch,
+      });
+      if (remoteHead == null || !String(remoteHead).trim()) {
+        return fail("ATTEMPT_INVALID", "git_pr_create_remote_head_missing", {
+          executionContractId: contract.executionContractId,
+        });
+      }
+      if (String(remoteHead).trim().toLowerCase() !== expectedHeadSha) {
+        return fail(
+          "ATTEMPT_INVALID",
+          "git_pr_create_remote_head_sha_drift",
+          { executionContractId: contract.executionContractId },
+        );
+      }
+```
+
+wireOaStack createSqlite call (no repositoryRead argument):
+
+```typescript
+  const executionAttemptServices = productSqlite
+    ? createSqliteExecutionAttemptServices({
+        decisionServices,
+        executionContractServices,
+        productStore: productSqlite,
+        registry,
+        adapter: fixtureAdapter,
+        clock,
+        authorityResolver,
+        policy: { defaultMaxRetriesBudget: 0 },
+        realBoundary,
+        resolveProjectRepositoryBinding: async (projectId) => {
+          const r = await projectServices.getProject.execute({ projectId });
+          if (!r.ok) return null;
+          return r.project.repositoryBinding ?? null;
+        },
+        listProjectEvidence: async (projectId) => {
+          if (!late.evidenceReviewServices) {
+            return { ok: false as const, reason: "evidence_reader_unavailable" as const };
+          }
+          const evidence =
+            await late.evidenceReviewServices.repository.listByProject(projectId);
+          return { ok: true as const, evidence };
+        },
+      })
+```
+
+rg evidence (service.ts has ZERO repositoryRead mentions):
+
+```
+projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts:79:  repositoryRead?: import("@/lib/oa/git-ports").RepositoryReadPort;
+projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts:199:      options.repositoryRead,
+projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts:309:    private readonly repositoryRead?: import("@/lib/oa/git-ports").RepositoryReadPort,
+projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts:1519:      if (!this.repositoryRead) {
+projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts:1526:      const remoteHead = await this.repositoryRead.getBranchHead({
+projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts:1589:      if (!this.repositoryRead) {
+projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts:1655:      const livePr = await this.repositoryRead.getPullRequest({
+```
+
+### Attempt C vs D
+
+| Stage | Product Start needs repositoryRead? | Status under current runtime |
+| --- | --- | --- |
+| C bounded_remote_push | NO (uses Evidence lineage + binding only) | Harness wiring feasible without Product change |
+| D bounded_pr_create | YES (getBranchHead fresh remote head) | BLOCKED — Start returns git_pr_create_repository_read_unavailable |
+
+Harness-local construction of GithubCliRemotePorts / PlatformGithubReadBridge
+for post-hoc verifyRemotePushEffect / verifyPrCreateEffect does not satisfy
+StartExecution's injected this.repositoryRead. Product orchestration
+authority for D remains unavailable through the A→B runtime path.
+
+### Smallest candidate Product correction (NOT applied this GO)
+
+In projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts wireOaStack:
+
+When REAL boundary is composed (or always for Product SQLite OA stack), pass a
+Studio-owned RepositoryReadPort into createSqliteExecutionAttemptServices,
+e.g. GithubCliRemotePorts / PlatformGithubReadBridge over the existing
+platform GitHub READ adapter — read-only, no second executor.
+
+Also expose the same port for harness/runtime verification consistency.
+
+Authority boundary affected:
+- Studio RepositoryRead used by StartExecution AC-02 fresh head check before D
+- Does NOT authorize Cursor to invent SHA; preserves fail-closed lineage
+
+This requires a distinct Morris Product correction GO (EVOL CRITICAL),
+then harness completion can resume.
+
+==================================================
+FILESET THIS LOT
+==================================================
+
+Product source created/modified: NONE
+Harness source created/modified: NONE (stopped before shipping incomplete A→D)
+
+Artifacts under .tmp-sfia-review/gcec-real-a2d-harness/ only (review/diagnostics).
+
+==================================================
+VALIDATION
+==================================================
+
+No Product/harness code change → no new test delta required by construction.
+Inherited Product anchor validation remains from prior lots (not re-run as
+construction proof for an unimplemented harness).
+
+REAL flags: unset. No REAL campaign. Proof remote mutation: NONE.
+
+==================================================
+FAKE / REAL / PROOF MATURITY
+==================================================
+
+DETERMINISTIC AC-01..06: RETAINED at Product commit bbb03ce7
+HARNESS A→D IMPLEMENTED: NO (blocked)
+A/B/C/D REAL: NOT PROVEN
+A→D E2E REAL: NOT PROVEN
+REAL this lot: ZERO
+
+==================================================
+GIT EFFECTS
+==================================================
+
+Product commit/push/PR/merge: NONE
+HEAD remains bbb03ce7aaff22421b00c96e747e9b5a2ede0325
+Proof repo A/B/C/D/merge/branch.delete: NONE
+Only remote effect: sfia/review-handoff publication
+
+==================================================
+RESERVES
+==================================================
+
+Blocking:
+- Product RuntimeApplicationService does not wire RepositoryReadPort into
+  ExecutionAttempt StartExecution → D cannot Start on the A→B REAL composition path.
+
+Non-blocking / deferred harness work (after Product fix):
+- registered-worktree preflight helper
+- PUSH_PROOF / PR_PROOF opt-ins
+- same-EC C/D Start + verify wiring
+- feature-branch local setup at B_SHA
+- E NOT STARTED assertions
+
+REAL-only (future):
+AUTH / A / B / C / D / A→D E2E / E-merge
+
+==================================================
+NEXT STEP
+==================================================
+
+1) Distinct Morris GO — Product correction:
+   wire RepositoryReadPort into wireOaStack / createSqliteExecutionAttemptServices
+   for StartExecution D AC-02 (smallest keep of PATH B).
+
+2) Then re-issue / resume:
+   GO MORRIS — GCEC REAL A→D CAMPAIGN HARNESS COMPLETION
+
+3) After harness Critical Review + local Product commit of harness:
+   ONE FRESH REAL A→D (STOP before E).
+
+Do NOT invent ad-hoc push/PR outside Product Start.
+Do NOT weaken AC-02 by skipping fresh RepositoryRead.
+
+==================================================
+PRESERVED PRIOR REVIEW CONTENT BELOW
+==================================================
+
+---
+
+# SFIA Studio — Review Pack
 ## GCEC-GIT-LIFECYCLE-E2E-01 — ONE FRESH REAL A→D CAMPAIGN — STOP PREFLIGHT
 
 TIMESTAMP: 2026-09-13 00:57:30 CEST
