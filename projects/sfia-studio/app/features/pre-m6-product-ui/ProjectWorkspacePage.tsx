@@ -26,6 +26,9 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
     useState<ProjectAssistantRehydrateEvidenceOutcomeSuccess | null>(null);
   const [lpsOpen, setLpsOpen] = useState(false);
   const [recoveryProposeSignal, setRecoveryProposeSignal] = useState(0);
+  const [trajectoryRefreshSignal, setTrajectoryRefreshSignal] = useState(0);
+  /** B1 — bump so LifecycleSurface reloads after Trajectory (or other) durable mutations. */
+  const [lifecycleRefreshSignal, setLifecycleRefreshSignal] = useState(0);
   const conversationRef = useRef<HTMLDivElement | null>(null);
   const refreshInFlight = useRef(false);
 
@@ -39,6 +42,12 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
       refreshInFlight.current = false;
     }
   }, [projectId]);
+
+  const notifyDurableFactsChanged = useCallback(() => {
+    void loadProject();
+    setTrajectoryRefreshSignal((n) => n + 1);
+    setLifecycleRefreshSignal((n) => n + 1);
+  }, [loadProject]);
 
   useEffect(() => {
     let cancelled = false;
@@ -71,9 +80,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
 
   const controller = useProductConversation({
     projectId,
-    onDurableFactsChanged: () => {
-      void loadProject();
-    },
+    onDurableFactsChanged: notifyDurableFactsChanged,
     onDurableEvidenceOutcomeChange: setDurableOutcome,
   });
 
@@ -195,12 +202,11 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
               >
                 <LifecycleSurface
                   projectId={projectId}
-                  onDurableFactsChanged={() => {
-                    void loadProject();
-                  }}
+                  durableRefreshSignal={lifecycleRefreshSignal}
+                  onDurableFactsChanged={notifyDurableFactsChanged}
                   onEscalateTrajectory={() => {
                     const el = document.querySelector(
-                      "[data-testid='trajectory-surface']",
+                      "[data-testid='w2-trajectory-panel']",
                     );
                     if (el instanceof HTMLElement) {
                       el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -212,9 +218,8 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
                   projectId={projectId}
                   composition="lps-embedded"
                   recoveryProposeSignal={recoveryProposeSignal}
-                  onDurableFactsChanged={() => {
-                    void loadProject();
-                  }}
+                  durableRefreshSignal={trajectoryRefreshSignal}
+                  onDurableFactsChanged={notifyDurableFactsChanged}
                 />
               </div>
             </section>

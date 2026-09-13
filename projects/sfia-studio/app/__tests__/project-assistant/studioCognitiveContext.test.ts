@@ -143,7 +143,7 @@ describe("CORR-PROOF-04 studioCognitiveContext composer", () => {
   it("S9/S11/S14 — NONE/ABSENT honesty without inventing state", async () => {
     const oa = getRuntimeApplicationService().oa;
     expect(oa).toBeTruthy();
-    const ctx = await composeStudioCognitiveContext({
+    const composed = await composeStudioCognitiveContext({
       analysis: analysisStub({
         intentClass: "informative",
         parseOk: true,
@@ -154,6 +154,9 @@ describe("CORR-PROOF-04 studioCognitiveContext composer", () => {
       truthCContext: "MC Consulting IT — contrats B2B",
       oa,
     });
+    expect(composed.ok).toBe(true);
+    if (!composed.ok) throw new Error("compose failed");
+    const ctx = composed.context;
     expect(ctx.decisions.state).toBe("NONE");
     expect(ctx.decisions.items).toHaveLength(0);
     expect(ctx.evidence.state).toBe("NONE");
@@ -289,7 +292,7 @@ describe("CORR-PROOF-04 studioCognitiveContext composer", () => {
     // Trajectory creation may fail OCC if LPS moved — tolerate ABSENT vs PRESENT.
     void traj;
 
-    const ctx = await composeStudioCognitiveContext({
+    const composed = await composeStudioCognitiveContext({
       analysis: analysisStub({
         intentClass: "informative",
         parseOk: true,
@@ -299,6 +302,9 @@ describe("CORR-PROOF-04 studioCognitiveContext composer", () => {
       registryRoot: resolveProductDoctrineRegistryRoot(),
       oa,
     });
+    expect(composed.ok).toBe(true);
+    if (!composed.ok) throw new Error("compose failed");
+    const ctx = composed.context;
     expect(ctx.decisions.state).toBe("PRESENT");
     expect(ctx.decisions.items.some((d) => d.subject.includes("MVP"))).toBe(
       true,
@@ -445,6 +451,11 @@ describe("CORR-PROOF-04 studioCognitiveContext composer", () => {
         doctrineStatus: "resolved",
       },
       method,
+      activeCycle: null,
+      activeCycleWorkItems: {
+        state: "NONE" as const,
+        items: [],
+      },
       decisions: {
         state: "PRESENT" as const,
         items: [
@@ -599,7 +610,7 @@ describe("CORR-PROOF-04 studioCognitiveContext composer", () => {
       },
     });
     expect(recorded.ok).toBe(true);
-    const ctx = await composeStudioCognitiveContext({
+    const composed = await composeStudioCognitiveContext({
       analysis: analysisStub({
         intentClass: "informative",
         parseOk: true,
@@ -609,6 +620,9 @@ describe("CORR-PROOF-04 studioCognitiveContext composer", () => {
       registryRoot: resolveProductDoctrineRegistryRoot(),
       oa,
     });
+    expect(composed.ok).toBe(true);
+    if (!composed.ok) throw new Error("compose failed");
+    const ctx = composed.context;
     expect(ctx.decisions.state).toBe("PRESENT");
     expect(ctx.decisions.items.some((d) => d.lifecycle === "CURRENT")).toBe(
       true,
@@ -687,7 +701,7 @@ describe("CORR-PROOF-04 studioCognitiveContext composer", () => {
       authorityEvidenceId: reg.evidenceId,
     });
     expect(second.ok).toBe(true);
-    const ctx = await composeStudioCognitiveContext({
+    const composed = await composeStudioCognitiveContext({
       analysis: analysisStub({
         intentClass: "informative",
         parseOk: true,
@@ -697,6 +711,9 @@ describe("CORR-PROOF-04 studioCognitiveContext composer", () => {
       registryRoot: resolveProductDoctrineRegistryRoot(),
       oa,
     });
+    expect(composed.ok).toBe(true);
+    if (!composed.ok) throw new Error("compose failed");
+    const ctx = composed.context;
     const items = ctx.decisions.items.filter((d) =>
       d.subject.includes("Sujet supersession"),
     );

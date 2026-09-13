@@ -4,6 +4,7 @@
 import type {
   ConfirmationLevel,
   DecisionAuthority,
+  DecisionBasis,
   DecisionDetailCode,
   DecisionOption,
   DecisionReservation,
@@ -192,6 +193,146 @@ export function validateConfirmationFields(input: {
  * Recommendation flag on an option must never auto-select the decision.
  * selectedOptionId must be explicit and independent of recommended.
  */
+/**
+ * Runtime DecisionBasis shape validation (D-GF-HD-01).
+ * Fail-closed for incoherent sourceType/context combinations.
+ * Does not invent missing digests — callers must supply exact digests.
+ */
+export function validateDecisionBasis(
+  basis: DecisionBasis | undefined,
+): InvariantViolation | null {
+  if (basis === undefined) return null;
+
+  if (
+    basis.sourceType !== "proposal" &&
+    basis.sourceType !== "trajectory_option" &&
+    basis.sourceType !== "candidate_trajectory"
+  ) {
+    return { detailCode: "DECISION_INVALID", reason: "decision_basis_source_type" };
+  }
+  if (typeof basis.sourceRef !== "string" || basis.sourceRef.trim().length < 1) {
+    return { detailCode: "DECISION_INVALID", reason: "decision_basis_source_ref" };
+  }
+  if (
+    typeof basis.sourceDigest !== "string" ||
+    basis.sourceDigest.trim().length < 1
+  ) {
+    return {
+      detailCode: "DECISION_INVALID",
+      reason: "decision_basis_source_digest",
+    };
+  }
+  if (!isOaIdentifier(basis.projectId) || !basis.projectId.startsWith("prj:")) {
+    return {
+      detailCode: "DECISION_INVALID",
+      reason: "decision_basis_project_id",
+    };
+  }
+  if (
+    !basis.proposalContext ||
+    typeof basis.proposalContext.lpsId !== "string" ||
+    !Number.isInteger(basis.proposalContext.lpsVersion)
+  ) {
+    return {
+      detailCode: "DECISION_INVALID",
+      reason: "decision_basis_proposal_context",
+    };
+  }
+
+  if (basis.sourceType === "candidate_trajectory") {
+    if (basis.trajectoryContext !== undefined) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "candidate_trajectory_forbids_trajectory_context",
+      };
+    }
+    const ctx = basis.candidateTrajectoryContext;
+    if (!ctx) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "candidate_trajectory_context_required",
+      };
+    }
+    const required: Array<[string, unknown]> = [
+      ["trajectoryId", ctx.trajectoryId],
+      ["candidateVersion", ctx.candidateVersion],
+      ["provenanceObservationId", ctx.provenanceObservationId],
+      ["recommendationId", ctx.recommendationId],
+      ["semanticKey", ctx.semanticKey],
+      ["targetCycleTypeId", ctx.targetCycleTypeId],
+      ["candidateContentDigest", ctx.candidateContentDigest],
+      ["presentationDigest", ctx.presentationDigest],
+    ];
+    for (const [key, value] of required) {
+      if (key === "candidateVersion") {
+        if (!Number.isInteger(value) || (value as number) < 1) {
+          return {
+            detailCode: "DECISION_INVALID",
+            reason: `candidate_trajectory_context_${key}`,
+          };
+        }
+        continue;
+      }
+      if (typeof value !== "string" || value.trim().length < 1) {
+        return {
+          detailCode: "DECISION_INVALID",
+          reason: `candidate_trajectory_context_${key}`,
+        };
+      }
+    }
+    if (basis.sourceRef !== ctx.trajectoryId) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "candidate_trajectory_source_ref_mismatch",
+      };
+    }
+    if (basis.sourceDigest !== ctx.presentationDigest) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "candidate_trajectory_source_digest_mismatch",
+      };
+    }
+    return null;
+  }
+
+  if (basis.sourceType === "trajectory_option") {
+    if (basis.candidateTrajectoryContext !== undefined) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "trajectory_option_forbids_candidate_trajectory_context",
+      };
+    }
+    const ctx = basis.trajectoryContext;
+    if (!ctx) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "trajectory_context_required",
+      };
+    }
+    if (
+      typeof ctx.trajectoryId !== "string" ||
+      !Number.isInteger(ctx.candidateVersion) ||
+      !Array.isArray(ctx.optionRefs) ||
+      typeof ctx.selectedOptionRef !== "string"
+    ) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "trajectory_context_incomplete",
+      };
+    }
+    return null;
+  }
+
+  // proposal
+  if (basis.candidateTrajectoryContext !== undefined) {
+    return {
+      detailCode: "DECISION_INVALID",
+      reason: "proposal_forbids_candidate_trajectory_context",
+    };
+  }
+  return null;
+}
+
 export function assertRecommendationIsNotDecision(input: {
   options: DecisionOption[];
   selectedOptionId: string;

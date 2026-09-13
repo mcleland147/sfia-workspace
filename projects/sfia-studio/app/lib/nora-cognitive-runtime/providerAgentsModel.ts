@@ -18,6 +18,11 @@ import {
   CONTROL_TOWER_TOOL_DEFINITIONS,
   type ToolDefinition,
 } from "@/lib/platform/tools";
+import {
+  buildFailClosedProductTurnJson,
+  isPreCycleRoutingAssessment,
+  normalizeNoraProductTurnStructuredOutput,
+} from "./noraProductTurnOutputType";
 
 function extractTextContent(content: unknown): string {
   if (typeof content === "string") return content;
@@ -183,21 +188,41 @@ function roundResultToModelResponse(
 
 /** Coerce plain assistant text into product-turn JSON when outputType requires it. */
 export function coercePlainTextToProductTurnJson(text: string): string {
-  let alreadyStructured = false;
   try {
     const parsed = JSON.parse(text) as unknown;
-    alreadyStructured =
-      !!parsed &&
+    if (
+      parsed &&
       typeof parsed === "object" &&
-      typeof (parsed as { narrative?: unknown }).narrative === "string";
+      typeof (parsed as { narrative?: unknown }).narrative === "string"
+    ) {
+      const o = parsed as Record<string, unknown>;
+      if (isPreCycleRoutingAssessment(o.preCycleRoutingAssessment)) {
+        // Ensure schema-required activeCycleWork key (default null).
+        if (!("activeCycleWork" in o)) {
+          return JSON.stringify({ ...o, activeCycleWork: null });
+        }
+        return text;
+      }
+      const coherent = normalizeNoraProductTurnStructuredOutput({
+        narrative: o.narrative,
+        lifecycleRecommendation: o.lifecycleRecommendation ?? null,
+        preCycleRoutingAssessment: o.preCycleRoutingAssessment,
+        activeCycleWork: o.activeCycleWork ?? null,
+      });
+      if (coherent) {
+        return JSON.stringify({
+          narrative: coherent.narrative,
+          preCycleRoutingAssessment: coherent.preCycleRoutingAssessment,
+          lifecycleRecommendation: coherent.lifecycleRecommendation,
+          activeCycleWork: coherent.activeCycleWork ?? null,
+        });
+      }
+      return buildFailClosedProductTurnJson(String(o.narrative));
+    }
   } catch {
-    alreadyStructured = false;
+    // plain text
   }
-  if (alreadyStructured) return text;
-  return JSON.stringify({
-    narrative: text,
-    lifecycleRecommendation: null,
-  });
+  return buildFailClosedProductTurnJson(text);
 }
 
 function productTurnOutputTypeName(request: ModelRequest): string {

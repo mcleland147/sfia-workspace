@@ -330,6 +330,8 @@ export function deriveCkcAttributedRecommendation(input: {
   content: ProductCkcCognitiveContent | null;
   cognitiveRecommendation?: string | null;
 }): string {
+  // Keep engine codes out of primary Pilote Pourquoi — map at presentation.
+  // Prefer cognitive / CKC guidance prose; fall back to base only if no guidance.
   if (!input.content) {
     return input.baseRationale;
   }
@@ -341,7 +343,11 @@ export function deriveCkcAttributedRecommendation(input: {
     input.cognitiveRecommendation?.trim() ?? "",
   );
   if (cognitive) {
-    return `${input.baseRationale} ${cognitive} · ${guidanceText}`;
+    return `${cognitive} · ${guidanceText}`;
+  }
+  // If base is a known engine code, prefer guidance alone for Pilote primary.
+  if (/^[a-z0-9_]+$/i.test(input.baseRationale.trim())) {
+    return guidanceText;
   }
   return `${input.baseRationale} ${guidanceText}`;
 }

@@ -46,6 +46,13 @@ export class MemoryTrajectoryRepository implements TrajectoryRepositoryPort {
     return found ? structuredClone(found) : null;
   }
 
+  async hasAnyByProjectId(projectId: string): Promise<boolean> {
+    for (const traj of this.store.trajectoriesByKey.values()) {
+      if (traj.projectId === projectId) return true;
+    }
+    return false;
+  }
+
   async exists(trajectoryId: string): Promise<boolean> {
     for (const traj of this.store.trajectoriesByKey.values()) {
       if (traj.trajectoryId === trajectoryId) return true;

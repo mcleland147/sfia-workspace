@@ -8,8 +8,13 @@ export type {
   NoraCognitiveRuntimeKind,
   NoraCognitiveTurnResult,
 } from "./types";
-export { ProductSqliteSession, userTextItem, assistantTextItem } from "./productSqliteSession";
-export type { ProductSqliteSessionOptions } from "./productSqliteSession";
+export { ProductSqliteSession, userTextItem, assistantTextItem, PRODUCT_SESSION_ALLOWED_TABLES } from "./productSqliteSession";
+export type {
+  ProductSqliteSessionOptions,
+  LogicalProductTurnRow,
+  LogicalProductTurnStatus,
+  LogicalProductTurnRetryBinding,
+} from "./productSqliteSession";
 export {
   probeMemoryBAvailability,
   appendMemoryBCognitiveDisclosure,
@@ -185,6 +190,8 @@ export {
   decideMw5Disposition,
   deriveMw5FactsFromF2Turn,
   formatMw5AssistantText,
+  formatMw5MachineText,
+  formatMw5PiloteText,
   isCriticalProfile,
   isMw5ChallengeSatisfied,
   looksLikeQuestionnaire,

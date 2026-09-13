@@ -26,9 +26,11 @@ export type PilotLifecycleProjection = {
   supersededCycles: CycleInstance[];
   terminalCycles: CycleInstance[];
   /**
-   * Selected cycle for CTA surface.
-   * Preference: LPS active → single paused → single startable candidate → null (ambiguous).
-   * Superseded never selected for canStart; multiple superseded alone do not create ambiguity.
+   * Selected cycle for CTA / status surface.
+   * Preference: LPS active → single paused → single startable candidate
+   * → latest terminal (display-only) → null (ambiguous / empty).
+   * Terminal selection is never actionable (all mutation CTAs false).
+   * Superseded never selected for canStart; multiple paused/candidates alone create ambiguity.
    */
   selectedCycleInstanceId: string | null;
   selectedStatus: CycleInstanceStatus | null;
@@ -46,6 +48,11 @@ export type PilotLifecycleProjection = {
    * Recommendation ≠ canFinalize / canStart / HumanDecision.
    */
   currentRecommendations?: LifecycleRecommendationEnvelope[];
+  /** D-LC-05 aids — blocking reservations visible for explicit Pilot resolve. */
+  blockingReservations?: ReadonlyArray<{
+    epistemicItemId: string;
+    statement: string;
+  }>;
   /** Resume reconciliation when selected cycle is paused — never cleared by HD alone. */
   resumeReconciliation?: {
     clean: boolean;
@@ -53,6 +60,26 @@ export type PilotLifecycleProjection = {
     reason?: string | null;
   } | null;
 };
+
+/**
+ * CR-LC-B-01 — deterministic latest terminal for display-only fallback.
+ * Ordering: closedAt DESC (missing closedAt sorts last), then cycleInstanceId DESC.
+ */
+export function selectLatestTerminalCycle(
+  terminals: readonly CycleInstance[],
+): CycleInstance | null {
+  if (terminals.length === 0) return null;
+  const ranked = [...terminals].sort((a, b) => {
+    const aClosed = a.closedAt ?? "";
+    const bClosed = b.closedAt ?? "";
+    if (aClosed !== bClosed) {
+      // ISO timestamps compare lexicographically; empty sorts earliest → last.
+      return bClosed.localeCompare(aClosed);
+    }
+    return b.cycleInstanceId.localeCompare(a.cycleInstanceId);
+  });
+  return ranked[0] ?? null;
+}
 
 export function projectPilotLifecycle(input: {
   projectId: string;
@@ -94,29 +121,47 @@ export function projectPilotLifecycle(input: {
     selectedCycleInstanceId = candidateCycles[0]!.cycleInstanceId;
   } else if (candidateCycles.length > 1) {
     selectionAmbiguous = true;
+  } else {
+    // CR-LC-B-01 — honest terminal display when no actionable selection.
+    // Prefer most recently closed terminal (closedAt desc, then id). Never actionable.
+    const latestTerminal = selectLatestTerminalCycle(terminalCycles);
+    if (latestTerminal) {
+      selectedCycleInstanceId = latestTerminal.cycleInstanceId;
+    }
   }
 
   const selected = selectedCycleInstanceId
     ? byId.get(selectedCycleInstanceId) ?? null
     : null;
   const selectedStatus = selected?.status ?? null;
+  const selectedIsTerminal = Boolean(
+    selected && isTerminalCycleStatus(selected.status),
+  );
 
   const cta = {
     canStart: Boolean(
-      selected && isStartableCandidateStatus(selected.status) && !activeCycle,
+      selected &&
+        !selectedIsTerminal &&
+        isStartableCandidateStatus(selected.status) &&
+        !activeCycle,
     ),
-    canPause: Boolean(selected && selected.status === "active"),
-    canResume: Boolean(selected && isPausedStatus(selected.status) && !activeCycle),
+    canPause: Boolean(
+      selected && !selectedIsTerminal && selected.status === "active",
+    ),
+    canResume: Boolean(
+      selected &&
+        !selectedIsTerminal &&
+        isPausedStatus(selected.status) &&
+        !activeCycle,
+    ),
     canFinalize: Boolean(
       selected &&
-        !isTerminalCycleStatus(selected.status) &&
+        !selectedIsTerminal &&
         (selected.status === "active" ||
           selected.status === "paused" ||
           selected.status === "blocked"),
     ),
-    canCancel: Boolean(
-      selected && !isTerminalCycleStatus(selected.status),
-    ),
+    canCancel: Boolean(selected && !selectedIsTerminal),
   };
 
   return {

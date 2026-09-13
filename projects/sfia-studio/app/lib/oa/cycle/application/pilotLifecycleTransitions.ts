@@ -54,6 +54,12 @@ import {
   lifecycleBlockersFromReaderFailure,
   type LifecycleBlockerSnapshot,
 } from "./deriveLifecycleBlockers";
+import {
+  assertTrajectoryBoundCycleStartReady,
+  classifyTrajectoryBinding,
+  type QualifyCycleWithCkcPort,
+  type TrajectoryBindingClass,
+} from "./lifecycleRecommendation/assertTrajectoryBoundCycleStartReady";
 
 function newId(prefix: "cor"): string {
   return `${prefix}:${randomBytes(8).toString("hex")}`;
@@ -114,6 +120,11 @@ export type PilotLifecycleDeps = {
   epistemic?: LifecycleEpistemicReader;
   authority?: PilotLifecycleAuthorityPort;
   /**
+   * CR-START-01 — required for trajectory-bound START (fail-closed if missing).
+   * Wired once from vertical-slice-runtime via create*CycleServices.
+   */
+  qualifyCycleWithCkc?: QualifyCycleWithCkcPort;
+  /**
    * Optional static applicability override — test-only / low-level.
    * Product `buildAssessment` always derives from durable facts and ignores this.
    */
@@ -139,6 +150,8 @@ async function appendLpsActiveLink(input: {
   correlationId: string;
   expectedLpsVersion?: number;
   activeCycleInstanceId: string | null;
+  /** D-GF-START-01 — bind CKC on LPS at START for trajectory-derived cycles. */
+  ckcResolutionRef?: string;
 }): Promise<{ ok: true; version: number } | { ok: false; detail: string; currentVersion?: number }> {
   const current =
     await input.projectServices.getCurrentLivingProjectState.execute({
@@ -159,6 +172,9 @@ async function appendLpsActiveLink(input: {
       context: current.livingProjectState.context,
       scope: current.livingProjectState.scope,
       activeCycleInstanceId: input.activeCycleInstanceId,
+      ...(input.ckcResolutionRef !== undefined
+        ? { ckcResolutionRef: input.ckcResolutionRef }
+        : {}),
     });
   if (!appended.ok) {
     if (appended.error.detailCode === "LPS_VERSION_CONFLICT") {
@@ -227,6 +243,85 @@ export class PilotLifecycleTransitions {
       return fail(authGate.detailCode, authGate.internalCauseRef);
     }
 
+    // Peek binding before mutation — INCOMPLETE must not fall through to legacy.
+    const peek = await this.deps.cycles.findById(request.cycleInstanceId);
+    if (!peek || peek.projectId !== request.projectId) {
+      return fail("CYCLE_NOT_FOUND", "missing_cycle");
+    }
+    const peekBinding = classifyTrajectoryBinding(peek);
+    if (peekBinding === "INCOMPLETE_TRAJECTORY_BINDING") {
+      return fail("CYCLE_START_NOT_READY", "TRAJECTORY_BINDING_INCOMPLETE");
+    }
+
+    if (peekBinding === "COMPLETE_TRAJECTORY_BOUND") {
+      // CR-START-01A — guard + readiness + persist must share one Product UoW.
+      if (!this.deps.store) {
+        return fail("CYCLE_START_NOT_READY", "START_UOW_UNAVAILABLE");
+      }
+      // persistLifecycleMutation catches and returns ok:false without rethrowing.
+      // Re-throw !ok inside the outer UoW so BEGIN/COMMIT rolls back any writes
+      // (same pattern as startPreparedTrajectoryCycle facade).
+      try {
+        return await this.deps.store.runInTransaction(async () => {
+          const result = await this.startCompleteTrajectoryBoundInsideUow({
+            request,
+            started,
+            timestamp,
+            correlationId,
+            fail,
+          });
+          if (!result.ok) {
+            const err = new Error("COMPLETE_START_UOW_ROLLBACK") as Error & {
+              pilotResult: PilotLifecycleResult;
+            };
+            err.pilotResult = result;
+            throw err;
+          }
+          return result;
+        });
+      } catch (err) {
+        if (
+          err instanceof Error &&
+          err.message === "COMPLETE_START_UOW_ROLLBACK" &&
+          "pilotResult" in err
+        ) {
+          return (err as Error & { pilotResult: PilotLifecycleResult })
+            .pilotResult;
+        }
+        return fail(
+          "PERSISTENCE_FAILURE",
+          err instanceof Error ? err.message : "complete_start_uow_failed",
+        );
+      }
+    }
+
+    return this.startLegacyUnbound({
+      request,
+      started,
+      timestamp,
+      correlationId,
+      fail,
+      cycle: peek,
+    });
+  }
+
+  /**
+   * COMPLETE_TRAJECTORY_BOUND START body — caller must already be inside
+   * `store.runInTransaction`. Nested `persistLifecycleMutation` joins the same UoW.
+   */
+  private async startCompleteTrajectoryBoundInsideUow(input: {
+    request: StartCycleRequest;
+    started: number;
+    timestamp: string;
+    correlationId: string;
+    fail: (
+      detailCode: Parameters<typeof createCycleError>[0]["detailCode"],
+      internalCauseRef?: string,
+      extra?: Partial<Parameters<typeof createCycleError>[0]>,
+    ) => PilotLifecycleResult;
+  }): Promise<PilotLifecycleResult> {
+    const { request, started, timestamp, correlationId, fail } = input;
+
     const projectResult = await this.deps.projectServices.getProject.execute({
       projectId: request.projectId,
     });
@@ -239,6 +334,173 @@ export class PilotLifecycleTransitions {
     if (!cycle || cycle.projectId !== request.projectId) {
       return fail("CYCLE_NOT_FOUND", "missing_cycle");
     }
+
+    const binding: TrajectoryBindingClass = classifyTrajectoryBinding(cycle);
+    if (binding === "INCOMPLETE_TRAJECTORY_BINDING") {
+      return fail("CYCLE_START_NOT_READY", "TRAJECTORY_BINDING_INCOMPLETE");
+    }
+    if (binding !== "COMPLETE_TRAJECTORY_BOUND") {
+      return fail("CYCLE_START_NOT_READY", "TRAJECTORY_BINDING_INCOMPLETE");
+    }
+
+    if (isTerminalGuard(cycle)) {
+      return fail("CYCLE_TERMINAL", `terminal_${cycle.status}`);
+    }
+    const transition = assertLifecycleTransition({
+      from: cycle.status,
+      action: "START",
+    });
+    if (transition) return fail(transition.detailCode, transition.reason);
+
+    const siblings = await this.deps.cycles.listByProject(request.projectId);
+    const single = assertAtMostOneActiveCycle({
+      cycles: siblings,
+      excludeCycleInstanceId: request.cycleInstanceId,
+    });
+    const siblingActiveExists = Boolean(single);
+
+    const lps =
+      await this.deps.projectServices.getCurrentLivingProjectState.execute({
+        projectId: request.projectId,
+      });
+    const lpsReadable = lps.ok;
+    const lpsActiveCycleInstanceId = lps.ok
+      ? lps.livingProjectState.activeCycleInstanceId
+      : undefined;
+
+    const ready = await assertTrajectoryBoundCycleStartReady({
+      projectId: request.projectId,
+      cycle,
+      projectServices: this.deps.projectServices,
+      trajectories: this.deps.trajectories,
+      decisions: this.deps.decisions,
+      epistemic: this.deps.epistemic,
+      qualifyCycleWithCkc: this.deps.qualifyCycleWithCkc,
+    });
+    if (!ready.ok) {
+      return fail("CYCLE_START_NOT_READY", ready.code);
+    }
+    const guardedCkcResolutionRef = ready.ckcResolutionRef;
+
+    const trajectory = await this.loadTrajectory(request.projectId);
+    const decisions = this.deps.decisions
+      ? await this.deps.decisions.listByProject(request.projectId)
+      : [];
+
+    const doctrineReadable = Boolean(
+      (projectResult.ok && projectResult.project.doctrinePackageRef) ||
+        (lps.ok && lps.livingProjectState.doctrinePackageRef),
+    );
+
+    const blockersSnap = await this.loadBlockers(request.projectId);
+    // COMPLETE greenfield: ignore start-trajectory HD hints — candidate HD is SoT.
+    const readiness = assessStartReadiness({
+      assessedAt: timestamp,
+      projectOk,
+      cycle,
+      projectId: request.projectId,
+      lpsReadable,
+      lpsActiveCycleInstanceId,
+      siblingActiveExists,
+      trajectory,
+      decisions,
+      doctrineReadable,
+      blockingReservationStatements: blockersSnap.ok
+        ? blockersSnap.statements
+        : undefined,
+      blockerSourceUnreadable: !blockersSnap.ok,
+    });
+
+    const nonHdBlockers = readiness.blockers.filter(
+      (b) => b !== "start_trajectory_hd_missing_or_invalid",
+    );
+    if (
+      nonHdBlockers.length > 0 ||
+      (!readiness.ready && !readiness.requiresTrajectoryHumanDecision)
+    ) {
+      return fail(
+        "CYCLE_START_NOT_READY",
+        readiness.blockers.join("|") || "start_not_ready",
+      );
+    }
+
+    // COMPLETE must not create/consume start-trajectory HD; fail closed if readiness asks.
+    if (readiness.requiresTrajectoryHumanDecision) {
+      return fail(
+        "CYCLE_DECISION_REQUIRED",
+        "start_trajectory_hd_not_applicable_for_complete_binding",
+      );
+    }
+
+    if (single) return fail(single.detailCode, single.reason);
+
+    const next: CycleInstance = {
+      ...structuredClone(cycle),
+      status: "active",
+      acknowledgedAt: cycle.acknowledgedAt ?? timestamp,
+      pauseReconciliation: null,
+    };
+
+    return this.persistLifecycleMutation({
+      action: "START",
+      projectId: request.projectId,
+      cycleInstanceId: request.cycleInstanceId,
+      createdBy: request.createdBy,
+      correlationId,
+      expectedLpsVersion: request.expectedLpsVersion,
+      decisionId: request.decisionId,
+      fromStatus: cycle.status,
+      toStatus: "active",
+      next,
+      setActiveLink: request.cycleInstanceId,
+      clearActiveLink: false,
+      started,
+      timestamp,
+      fail,
+      ckcResolutionRef: guardedCkcResolutionRef ?? cycle.ckcResolutionRef,
+      activateTrajectoryStep: {
+        trajectoryId: cycle.trajectoryId!,
+        trajectoryVersion: cycle.trajectoryVersion!,
+        stepId: cycle.trajectoryStepId!,
+      },
+    });
+  }
+
+  /** LEGACY_UNBOUND START — unchanged persist shape (no trajectory strong guard). */
+  private async startLegacyUnbound(input: {
+    request: StartCycleRequest;
+    started: number;
+    timestamp: string;
+    correlationId: string;
+    fail: (
+      detailCode: Parameters<typeof createCycleError>[0]["detailCode"],
+      internalCauseRef?: string,
+      extra?: Partial<Parameters<typeof createCycleError>[0]>,
+    ) => PilotLifecycleResult;
+    cycle: CycleInstance;
+  }): Promise<PilotLifecycleResult> {
+    const { request, started, timestamp, correlationId, fail } = input;
+    let cycle = input.cycle;
+
+    const projectResult = await this.deps.projectServices.getProject.execute({
+      projectId: request.projectId,
+    });
+    const projectOk = projectResult.ok;
+    if (!projectOk) {
+      return fail("PROJECT_NOT_FOUND", "missing_project");
+    }
+
+    // Fresh re-read — refuse if binding became incomplete/complete mid-flight.
+    const fresh = await this.deps.cycles.findById(request.cycleInstanceId);
+    if (!fresh || fresh.projectId !== request.projectId) {
+      return fail("CYCLE_NOT_FOUND", "missing_cycle");
+    }
+    const freshBinding = classifyTrajectoryBinding(fresh);
+    if (freshBinding !== "LEGACY_UNBOUND") {
+      return fail("CYCLE_START_NOT_READY", "TRAJECTORY_BINDING_INCOMPLETE");
+    }
+    cycle = fresh;
+
     if (isTerminalGuard(cycle)) {
       return fail("CYCLE_TERMINAL", `terminal_${cycle.status}`);
     }
@@ -296,7 +558,10 @@ export class PilotLifecycleTransitions {
     const nonHdBlockers = readiness.blockers.filter(
       (b) => b !== "start_trajectory_hd_missing_or_invalid",
     );
-    if (nonHdBlockers.length > 0 || (!readiness.ready && !readiness.requiresTrajectoryHumanDecision)) {
+    if (
+      nonHdBlockers.length > 0 ||
+      (!readiness.ready && !readiness.requiresTrajectoryHumanDecision)
+    ) {
       return fail(
         "CYCLE_START_NOT_READY",
         readiness.blockers.join("|") || "start_not_ready",
@@ -952,6 +1217,190 @@ export class PilotLifecycleTransitions {
   }
 
   /**
+   * D-LC-05 — close the cycle-bound active trajectory step (active → done).
+   * Completes existing domain step states used by exit_criteria assessment.
+   * Does not FINALIZE the cycle and does not invent a new aggregate.
+   */
+  async completeBoundActiveTrajectoryStep(request: {
+    projectId: string;
+    cycleInstanceId: string;
+    createdBy: StartCycleRequest["createdBy"];
+    /** Required — Pilot authority evidence (defense-in-depth at mutation boundary). */
+    authorityEvidenceId?: string;
+    correlationId?: string;
+  }): Promise<
+    | {
+        ok: true;
+        trajectory: import("../domain/types").ProjectTrajectory;
+        stepId: string;
+        durationMs: number;
+      }
+    | {
+        ok: false;
+        error: ReturnType<typeof createCycleError>;
+        durationMs: number;
+      }
+  > {
+    const started = Date.now();
+    const timestamp = this.deps.clock.nowIso();
+    const correlationId = request.correlationId ?? `cor:traj-step-${Date.now()}`;
+
+    if (!request.createdBy?.actorId) {
+      return {
+        ok: false,
+        error: createCycleError({
+          detailCode: "CYCLE_LIFECYCLE_DENIED",
+          timestamp,
+          projectId: request.projectId,
+          cycleInstanceId: request.cycleInstanceId,
+          internalCauseRef: "actor_required",
+        }),
+        durationMs: Date.now() - started,
+      };
+    }
+
+    // CR-LC-B-02 — explicit evidence required on the request (createdBy alone insufficient).
+    if (!request.authorityEvidenceId) {
+      return {
+        ok: false,
+        error: createCycleError({
+          detailCode: "CYCLE_LIFECYCLE_DENIED",
+          timestamp,
+          projectId: request.projectId,
+          cycleInstanceId: request.cycleInstanceId,
+          internalCauseRef: "authority_evidence_required",
+        }),
+        durationMs: Date.now() - started,
+      };
+    }
+
+    // CR-LC-B-02 — authority gate at mutation service boundary (before any write).
+    const authGate = this.verifyAuthority({
+      actorId: request.createdBy.actorId,
+      cycleInstanceId: request.cycleInstanceId,
+      evidenceId: request.authorityEvidenceId,
+    });
+    if (!authGate.ok) {
+      return {
+        ok: false,
+        error: createCycleError({
+          detailCode: authGate.detailCode,
+          timestamp,
+          projectId: request.projectId,
+          cycleInstanceId: request.cycleInstanceId,
+          internalCauseRef: authGate.internalCauseRef,
+        }),
+        durationMs: Date.now() - started,
+      };
+    }
+
+    const cycle = await this.deps.cycles.findById(request.cycleInstanceId);
+    if (!cycle || cycle.projectId !== request.projectId) {
+      return {
+        ok: false,
+        error: createCycleError({
+          detailCode: "CYCLE_NOT_FOUND",
+          timestamp,
+          projectId: request.projectId,
+          cycleInstanceId: request.cycleInstanceId,
+        }),
+        durationMs: Date.now() - started,
+      };
+    }
+    if (cycle.status !== "active") {
+      return {
+        ok: false,
+        error: createCycleError({
+          detailCode: "CYCLE_LIFECYCLE_DENIED",
+          timestamp,
+          projectId: request.projectId,
+          cycleInstanceId: request.cycleInstanceId,
+          internalCauseRef: "trajectory_step_close_requires_active_cycle",
+        }),
+        durationMs: Date.now() - started,
+      };
+    }
+    const trajectoryId = cycle.trajectoryId;
+    const trajectoryVersion = cycle.trajectoryVersion;
+    const stepId = cycle.trajectoryStepId;
+    if (!trajectoryId || trajectoryVersion == null || !stepId) {
+      return {
+        ok: false,
+        error: createCycleError({
+          detailCode: "CYCLE_LIFECYCLE_DENIED",
+          timestamp,
+          projectId: request.projectId,
+          cycleInstanceId: request.cycleInstanceId,
+          internalCauseRef: "cycle_trajectory_binding_missing",
+        }),
+        durationMs: Date.now() - started,
+      };
+    }
+
+    try {
+      const persist = async () => {
+        const traj = await this.deps.trajectories.findByProjectAndVersion(
+          request.projectId,
+          trajectoryVersion,
+        );
+        if (!traj || traj.trajectoryId !== trajectoryId) {
+          throw new Error("trajectory_binding_missing");
+        }
+        const stepIdx = traj.steps.findIndex((s) => s.stepId === stepId);
+        if (stepIdx < 0) throw new Error("trajectory_step_missing");
+        const step = traj.steps[stepIdx]!;
+        if (step.state === "done" || step.state === "skipped") {
+          return traj;
+        }
+        if (step.state !== "active") {
+          throw new Error(`trajectory_step_not_active:${step.state}`);
+        }
+        const nextSteps = traj.steps.map((s, i) =>
+          i === stepIdx ? { ...s, state: "done" as const } : s,
+        );
+        const next = { ...traj, steps: nextSteps };
+        await this.deps.trajectories.save(next);
+        return next;
+      };
+
+      const next =
+        this.deps.store != null
+          ? await this.deps.store.runInTransaction(persist)
+          : await persist();
+      const durationMs = Date.now() - started;
+      this.deps.audit.append({
+        event: "oa.cycle.lifecycle_transition",
+        ts: timestamp,
+        correlationId,
+        projectId: request.projectId,
+        cycleInstanceId: request.cycleInstanceId,
+        action: "COMPLETE_TRAJECTORY_STEP",
+        fromStatus: cycle.status,
+        toStatus: cycle.status,
+        actorId: request.createdBy.actorId,
+        result: "ok",
+        detailCode: "TRAJECTORY_STEP_DONE",
+        durationMs,
+      });
+      return { ok: true, trajectory: next, stepId, durationMs };
+    } catch (err) {
+      const durationMs = Date.now() - started;
+      return {
+        ok: false,
+        error: createCycleError({
+          detailCode: "PERSISTENCE_FAILURE",
+          timestamp,
+          projectId: request.projectId,
+          cycleInstanceId: request.cycleInstanceId,
+          internalCauseRef:
+            err instanceof Error ? err.message : "trajectory_step_close_failed",
+        }),
+        durationMs,
+      };
+    }
+  }
+
+  /**
    * Re-evaluate after obligations change; completes when ready without new FINALIZE.
    */
   async reevaluateAndComplete(input: {
@@ -1250,6 +1699,14 @@ export class PilotLifecycleTransitions {
       internalCauseRef?: string,
       extra?: Partial<Parameters<typeof createCycleError>[0]>,
     ) => PilotLifecycleResult;
+    /** D-GF-START-01 — written to LPS on START for trajectory-derived cycles. */
+    ckcResolutionRef?: string;
+    /** D-GF-START-01 — activate exact pending step in the same UoW. */
+    activateTrajectoryStep?: {
+      trajectoryId: string;
+      trajectoryVersion: number;
+      stepId: string;
+    };
   }): Promise<PilotLifecycleResult> {
     try {
       const persist = async () => {
@@ -1264,6 +1721,35 @@ export class PilotLifecycleTransitions {
           }
         }
         await this.deps.cycles.save(input.next);
+
+        if (input.action === "START" && input.activateTrajectoryStep) {
+          const binding = input.activateTrajectoryStep;
+          const traj = await this.deps.trajectories.findByProjectAndVersion(
+            input.projectId,
+            binding.trajectoryVersion,
+          );
+          if (!traj || traj.trajectoryId !== binding.trajectoryId) {
+            throw new Error("trajectory_binding_missing");
+          }
+          const stepIdx = traj.steps.findIndex(
+            (s) => s.stepId === binding.stepId,
+          );
+          if (stepIdx < 0) {
+            throw new Error("trajectory_step_missing");
+          }
+          const step = traj.steps[stepIdx]!;
+          if (step.state !== "pending") {
+            throw new Error(`trajectory_step_not_pending:${step.state}`);
+          }
+          const nextSteps = traj.steps.map((s, i) =>
+            i === stepIdx ? { ...s, state: "active" as const } : s,
+          );
+          await this.deps.trajectories.save({
+            ...traj,
+            steps: nextSteps,
+          });
+        }
+
         if (input.clearActiveLink || input.setActiveLink !== undefined) {
           const linkTarget = input.clearActiveLink ? null : input.setActiveLink;
           const lps = await appendLpsActiveLink({
@@ -1273,6 +1759,9 @@ export class PilotLifecycleTransitions {
             correlationId: input.correlationId,
             expectedLpsVersion: input.expectedLpsVersion,
             activeCycleInstanceId: linkTarget,
+            ...(input.action === "START" && input.ckcResolutionRef
+              ? { ckcResolutionRef: input.ckcResolutionRef }
+              : {}),
           });
           if (!lps.ok) {
             const err = new Error(lps.detail) as Error & {
@@ -1328,6 +1817,13 @@ export class PilotLifecycleTransitions {
           currentVersion: (err as Error & { currentVersion?: number })
             .currentVersion,
         });
+      }
+      if (
+        err instanceof Error &&
+        (err.message.startsWith("trajectory_") ||
+          err.message.startsWith("trajectory_step_"))
+      ) {
+        return input.fail("CYCLE_START_NOT_READY", err.message);
       }
       return input.fail("PERSISTENCE_FAILURE", "lifecycle_persist_failed");
     }

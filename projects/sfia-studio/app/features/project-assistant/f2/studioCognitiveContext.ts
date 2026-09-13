@@ -4,6 +4,7 @@
  * Pure / read-only Studio cognitive context composition for ordinary F1.
  * Assembles authoritative Project/LPS + method/CKC + conditional HD/Evidence/
  * ReviewBundle + conditional ProjectTrajectory when readable.
+ * D-GF-ACW-01 — also active CycleInstance + active-cycle work EpistemicItems.
  *
  * MUST NOT: call a model, score maturity, select trajectory, create HD/Evidence/
  * Cycle/LPS mutations, invent Recommendations, or become a second planner.
@@ -12,7 +13,11 @@
 import type { HumanDecision } from "@/lib/oa/decision";
 import type { Evidence } from "@/lib/oa/evidence-review";
 import type { ReviewBundle } from "@/lib/oa/evidence-review/domain/reviewBundleTypes";
-import type { ProjectTrajectory } from "@/lib/oa/cycle";
+import type {
+  EpistemicItem,
+  EpistemicItemStatus,
+  ProjectTrajectory,
+} from "@/lib/oa/cycle";
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
 import type { ProjectAssistantContextDto } from "../types";
 import type { IntentAnalysisDto } from "./types";
@@ -20,18 +25,25 @@ import {
   composeAdvisoryMethodContext,
   type AdvisoryMethodContext,
 } from "./methodOrientation";
+import {
+  resolveActiveCycleCognitiveContext,
+  type ActiveCycleCognitiveProjection,
+} from "./activeCycleCognitiveContext";
+import { ACTIVE_CYCLE_WORK_SOURCE } from "../materializeActiveCycleWork";
 
 /** Conservative composition budgets — implementation policy, not doctrine. */
 export const STUDIO_COGNITIVE_CONTEXT_BUDGET = Object.freeze({
   maxDecisions: 8,
   maxEvidence: 8,
   maxReviewBundles: 4,
+  maxActiveCycleWorkItems: 12,
   decisionSubjectChars: 160,
   decisionOptionChars: 120,
   evidenceLabelChars: 120,
   reviewLabelChars: 120,
   trajectoryStepChars: 100,
   maxTrajectorySteps: 6,
+  activeCycleWorkStatementChars: 240,
 });
 
 export type PresenceState = "PRESENT" | "NONE" | "UNAVAILABLE";
@@ -178,9 +190,23 @@ export type StudioTrajectoryProjection = {
   readonly decidedByDecisionPresent: boolean;
 };
 
+/** Clipped projection of durable active-cycle work EpistemicItems (D-GF-ACW-01). */
+export type StudioActiveCycleWorkProjection = {
+  readonly type: string;
+  readonly statement: string;
+  readonly confidence?: string;
+  readonly blocking?: boolean;
+  readonly status: EpistemicItemStatus;
+};
+
 export type StudioCognitiveContext = {
   readonly projectTruth: StudioProjectTruthProjection;
   readonly method: AdvisoryMethodContext;
+  readonly activeCycle: ActiveCycleCognitiveProjection | null;
+  readonly activeCycleWorkItems: {
+    readonly state: PresenceState;
+    readonly items: readonly StudioActiveCycleWorkProjection[];
+  };
   readonly decisions: {
     readonly state: PresenceState;
     readonly items: readonly StudioDecisionProjection[];
@@ -204,6 +230,10 @@ export type StudioCognitiveContext = {
     readonly composerDoesNotSelectTrajectory: true;
   };
 };
+
+export type ComposeStudioCognitiveContextResult =
+  | { readonly ok: true; readonly context: StudioCognitiveContext }
+  | { readonly ok: false; readonly code: string; readonly message: string };
 
 function clip(text: string, max: number): string {
   const compact = text.replace(/\s+/g, " ").trim();
@@ -270,8 +300,32 @@ function projectTrajectory(t: ProjectTrajectory): StudioTrajectoryProjection {
   });
 }
 
+function projectActiveCycleWorkItem(
+  item: EpistemicItem,
+): StudioActiveCycleWorkProjection {
+  return Object.freeze({
+    type: item.type,
+    statement: clip(
+      item.statement,
+      STUDIO_COGNITIVE_CONTEXT_BUDGET.activeCycleWorkStatementChars,
+    ),
+    ...(item.confidence !== undefined ? { confidence: item.confidence } : {}),
+    ...(item.blocking !== undefined ? { blocking: item.blocking } : {}),
+    status: item.status,
+  });
+}
+
+function relatedToActiveCycle(
+  item: EpistemicItem,
+  cycleInstanceId: string,
+): boolean {
+  const related = item.relatedObjects ?? [];
+  return related.includes(cycleInstanceId);
+}
+
 /**
  * Read-only composition. No provider call. No persistence. No Recommendation.
+ * Fail-closed when an LPS-pointed active cycle cannot be resolved coherently.
  */
 export async function composeStudioCognitiveContext(input: {
   analysis: IntentAnalysisDto;
@@ -280,11 +334,48 @@ export async function composeStudioCognitiveContext(input: {
   truthCContext?: string | null;
   oa: RuntimeOaStack | null;
   activeCycleInstanceId?: string | null;
-}): Promise<StudioCognitiveContext> {
+}): Promise<ComposeStudioCognitiveContextResult> {
+  const activeCycleInstanceId =
+    input.activeCycleInstanceId ??
+    input.project.activeCycleInstanceId ??
+    null;
+
+  let activeCycle: ActiveCycleCognitiveProjection | null = null;
+  let activeCycleCkcForMethod: Parameters<
+    typeof composeAdvisoryMethodContext
+  >[0]["activeCycleCkc"] = null;
+
+  if (input.oa && activeCycleInstanceId) {
+    const resolved = await resolveActiveCycleCognitiveContext({
+      project: input.project,
+      activeCycleInstanceId,
+      registryRoot: input.registryRoot,
+      getCycle: input.oa.cycleServices.getCycle,
+    });
+    if (!resolved.ok) {
+      return {
+        ok: false,
+        code: resolved.code,
+        message: resolved.reason,
+      };
+    }
+    activeCycle = resolved.projection;
+    if (resolved.ckc) {
+      activeCycleCkcForMethod = {
+        cycleTypeId: resolved.ckc.cycleTypeId,
+        cycleLabel: resolved.ckc.cycleLabel,
+        ckcLensSection: resolved.ckc.ckcLensSection,
+        ckcLoaded: resolved.ckc.ckcLoaded,
+        sourceLimit: resolved.ckc.sourceLimit,
+      };
+    }
+  }
+
   const method = composeAdvisoryMethodContext({
     analysis: input.analysis,
     project: input.project,
     registryRoot: input.registryRoot,
+    activeCycleCkc: activeCycleCkcForMethod,
   });
 
   const contextBody =
@@ -302,33 +393,47 @@ export async function composeStudioCognitiveContext(input: {
     shortReference: input.project.shortReference ?? null,
     lpsId: input.project.lpsId,
     lpsVersion: input.project.lpsVersion,
-    activeCycleInstanceId:
-      input.activeCycleInstanceId ??
-      input.project.activeCycleInstanceId ??
-      null,
+    activeCycleInstanceId,
     doctrineId: input.project.doctrineId,
     doctrineVersion: input.project.doctrineVersion,
     doctrineStatus: input.project.doctrineStatus,
   });
 
   if (!input.oa) {
-    return Object.freeze({
-      projectTruth,
-      method,
-      decisions: Object.freeze({ state: "UNAVAILABLE" as const, items: Object.freeze([]) }),
-      evidence: Object.freeze({ state: "UNAVAILABLE" as const, items: Object.freeze([]) }),
-      review: Object.freeze({ state: "UNAVAILABLE" as const, items: Object.freeze([]) }),
-      trajectory: Object.freeze({
-        state: "UNAVAILABLE" as const,
-        current: null,
+    return {
+      ok: true,
+      context: Object.freeze({
+        projectTruth,
+        method,
+        activeCycle,
+        activeCycleWorkItems: Object.freeze({
+          state: "UNAVAILABLE" as const,
+          items: Object.freeze([]),
+        }),
+        decisions: Object.freeze({
+          state: "UNAVAILABLE" as const,
+          items: Object.freeze([]),
+        }),
+        evidence: Object.freeze({
+          state: "UNAVAILABLE" as const,
+          items: Object.freeze([]),
+        }),
+        review: Object.freeze({
+          state: "UNAVAILABLE" as const,
+          items: Object.freeze([]),
+        }),
+        trajectory: Object.freeze({
+          state: "UNAVAILABLE" as const,
+          current: null,
+        }),
+        limits: Object.freeze({
+          oaAvailable: false,
+          truthOutranksConversation: true as const,
+          composerDoesNotScoreMaturity: true as const,
+          composerDoesNotSelectTrajectory: true as const,
+        }),
       }),
-      limits: Object.freeze({
-        oaAvailable: false,
-        truthOutranksConversation: true as const,
-        composerDoesNotScoreMaturity: true as const,
-        composerDoesNotSelectTrajectory: true as const,
-      }),
-    });
+    };
   }
 
   const oa = input.oa;
@@ -408,32 +513,71 @@ export async function composeStudioCognitiveContext(input: {
     trajectoryState = "UNAVAILABLE";
   }
 
-  return Object.freeze({
-    projectTruth,
-    method,
-    decisions: Object.freeze({
-      state: decisionsState,
-      items: Object.freeze(decisionItems),
+  let acwState: PresenceState = "NONE";
+  let acwItems: StudioActiveCycleWorkProjection[] = [];
+  if (activeCycle) {
+    try {
+      const epistemic = await oa.cycleServices.epistemic.listByProject(projectId);
+      const filtered = epistemic.filter(
+        (item) =>
+          item.source === ACTIVE_CYCLE_WORK_SOURCE &&
+          relatedToActiveCycle(item, activeCycle.cycleInstanceId),
+      );
+      if (filtered.length === 0) {
+        acwState = "NONE";
+      } else {
+        acwState = "PRESENT";
+        // CR-ACW-03 — newest-N for prompt only; do not reorder global epistemic repo.
+        const newestFirst = [...filtered].sort((a, b) => {
+          const byCreated = b.createdAt.localeCompare(a.createdAt);
+          if (byCreated !== 0) return byCreated;
+          return b.epistemicItemId.localeCompare(a.epistemicItemId);
+        });
+        const newestN = newestFirst.slice(0, budget.maxActiveCycleWorkItems);
+        // Chronological ASC for prompt display.
+        acwItems = newestN
+          .reverse()
+          .map(projectActiveCycleWorkItem);
+      }
+    } catch {
+      acwState = "UNAVAILABLE";
+    }
+  }
+
+  return {
+    ok: true,
+    context: Object.freeze({
+      projectTruth,
+      method,
+      activeCycle,
+      activeCycleWorkItems: Object.freeze({
+        state: acwState,
+        items: Object.freeze(acwItems),
+      }),
+      decisions: Object.freeze({
+        state: decisionsState,
+        items: Object.freeze(decisionItems),
+      }),
+      evidence: Object.freeze({
+        state: evidenceState,
+        items: Object.freeze(evidenceItems),
+      }),
+      review: Object.freeze({
+        state: reviewState,
+        items: Object.freeze(reviewItems),
+      }),
+      trajectory: Object.freeze({
+        state: trajectoryState,
+        current: trajectoryCurrent,
+      }),
+      limits: Object.freeze({
+        oaAvailable: true,
+        truthOutranksConversation: true as const,
+        composerDoesNotScoreMaturity: true as const,
+        composerDoesNotSelectTrajectory: true as const,
+      }),
     }),
-    evidence: Object.freeze({
-      state: evidenceState,
-      items: Object.freeze(evidenceItems),
-    }),
-    review: Object.freeze({
-      state: reviewState,
-      items: Object.freeze(reviewItems),
-    }),
-    trajectory: Object.freeze({
-      state: trajectoryState,
-      current: trajectoryCurrent,
-    }),
-    limits: Object.freeze({
-      oaAvailable: true,
-      truthOutranksConversation: true as const,
-      composerDoesNotScoreMaturity: true as const,
-      composerDoesNotSelectTrajectory: true as const,
-    }),
-  });
+  };
 }
 
 /**
@@ -478,14 +622,77 @@ export function buildStudioCognitivePromptSections(
   }
   lines.push("");
 
-  // Method / CKC (reuse AdvisoryMethodContext rendering via caller + lens text)
+  // Active cycle (rich block — D-GF-ACW-01)
+  lines.push("— Cycle ACTIVE (identité serveur) —");
+  if (!ctx.activeCycle) {
+    lines.push(
+      "Aucun cycle ACTIVE résolu pour ce tour — travail pré-cycle / hors cycle.",
+    );
+    lines.push(
+      "activeCycleAlreadyCoversWork doit rester false sauf preuve contraire dans le LPS.",
+    );
+  } else {
+    const ac = ctx.activeCycle;
+    lines.push(
+      `cycleTypeId=${ac.cycleTypeId}` +
+        (ac.cycleLabel ? ` (« ${ac.cycleLabel} »)` : "") +
+        ` · profile=${ac.profile} · status=${ac.status}` +
+        (ac.workEligible ? " · workEligible=true" : " · workEligible=false"),
+    );
+    if (ac.trajectoryId) {
+      lines.push(
+        `Trajectoire liée : ${ac.trajectoryId}` +
+          (ac.trajectoryVersion != null ? `@v${ac.trajectoryVersion}` : "") +
+          (ac.trajectoryStepId ? ` · step=${ac.trajectoryStepId}` : ""),
+      );
+    } else {
+      lines.push("Trajectoire liée : (aucune binding complète).");
+    }
+    if (ac.ckcResolutionRef) {
+      lines.push(`ckcResolutionRef durable : ${ac.ckcResolutionRef}`);
+    }
+    lines.push(
+      "CKC du cycle ACTIVE = guidance méthodologique AUTORITATIVE pour le travail in-cycle.",
+    );
+    lines.push(
+      "Orientation candidat d'intent (ci-dessous) = SECONDAIRE — ne pas l'utiliser pour remplacer la CKC du cycle actif.",
+    );
+    if (ctx.activeCycleWorkItems.state === "PRESENT") {
+      lines.push("Travail cognitif déjà matérialisé pour ce cycle ACTIVE :");
+      for (const w of ctx.activeCycleWorkItems.items) {
+        lines.push(
+          `• [${w.type}${w.status !== "active" ? `/${w.status}` : ""}]` +
+            (w.confidence ? ` conf=${w.confidence}` : "") +
+            (w.blocking === true ? " blocking" : "") +
+            ` — ${w.statement}`,
+        );
+      }
+    } else if (ctx.activeCycleWorkItems.state === "UNAVAILABLE") {
+      lines.push(
+        "Travail cognitif cycle ACTIVE : UNAVAILABLE — ne pas inventer d'items.",
+      );
+    } else {
+      lines.push("Travail cognitif cycle ACTIVE : aucun item matérialisé encore.");
+    }
+  }
+  lines.push("");
+
+  // Method / CKC
   lines.push("— Méthode (guidance) —");
+  if (ctx.method.activeCycleCkcAuthoritative) {
+    lines.push(
+      "Source CKC : cycle ACTIVE (autoritative in-cycle)." +
+        (ctx.method.cycleLabel ? ` · « ${ctx.method.cycleLabel} »` : ""),
+    );
+  }
   if (ctx.method.orientation.state === "RESOLVED_FROM_INTENT_CANDIDATE") {
     lines.push(
-      `État orientation : RESOLVED_FROM_INTENT_CANDIDATE` +
-        (ctx.method.cycleLabel
+      `État orientation (secondaire) : RESOLVED_FROM_INTENT_CANDIDATE` +
+        (ctx.method.cycleLabel && !ctx.method.activeCycleCkcAuthoritative
           ? ` · cycle candidat « ${ctx.method.cycleLabel} »`
-          : "") +
+          : ctx.method.orientation.candidateCycleTypeId
+            ? ` · candidat intent « ${ctx.method.orientation.candidateCycleTypeId} »`
+            : "") +
         " (hypothèse non durable).",
     );
   } else {

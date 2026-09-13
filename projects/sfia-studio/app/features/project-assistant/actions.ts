@@ -13,6 +13,7 @@ import {
   type PilotLifecycleProjection,
   selectCurrentLifecycleRecommendations,
   isPausedStatus,
+  isTerminalCycleStatus,
   assessResumeReconciliation,
   deriveLifecycleBlockersFromEpistemicItems,
 } from "@/lib/oa/cycle";
@@ -84,6 +85,16 @@ export async function projectAssistantSendAction(input: {
   resolveAuthenticatedPilote?: RunMw6GovernedNoraProductTurnInput["resolveAuthenticatedPilote"];
   provider?: import("@/lib/platform/ai").ConversationProvider;
   sessionDbPath?: string;
+  /**
+   * D-GF-ACW-02 — optional re-present of server-issued logical Product turn id.
+   * Untrusted until Session lookup; client-invented ids fail LOGICAL_TURN_UNKNOWN.
+   */
+  logicalTurnId?: string;
+  /**
+   * Opaque client transport retry correlation (untrusted).
+   * NOT Product turn identity / SFIA authority — Session-adjacent lookup only.
+   */
+  turnRetryKey?: string;
 }): Promise<ProjectAssistantSendResult> {
   const executionContractId =
     typeof input.executionContractId === "string"
@@ -117,6 +128,8 @@ export async function projectAssistantSendAction(input: {
     history: input.history,
     provider: input.provider,
     sessionDbPath: input.sessionDbPath,
+    logicalTurnId: input.logicalTurnId,
+    turnRetryKey: input.turnRetryKey,
   });
 }
 
@@ -1036,6 +1049,38 @@ async function buildAssistantPilotLifecycleProjection(
     currentRecommendations,
   });
 
+  // D-LC-02 — attach canonical FinalizationAssessment for selected non-terminal cycle.
+  if (
+    projection.selectedCycleInstanceId &&
+    projection.selectedStatus &&
+    !isTerminalCycleStatus(projection.selectedStatus)
+  ) {
+    try {
+      const assessed = await runtime.oa.cycleServices.pilotLifecycle.assess({
+        cycleInstanceId: projection.selectedCycleInstanceId,
+        projectId,
+      });
+      if (assessed.ok) {
+        projection.assessment = assessed.assessment;
+      } else {
+        projection.assessment = null;
+      }
+    } catch {
+      projection.assessment = null;
+    }
+    projection.blockingReservations = epistemicItems
+      .filter(
+        (i) =>
+          i.type === "Reservation" &&
+          i.status === "active" &&
+          i.blocking === true,
+      )
+      .map((i) => ({
+        epistemicItemId: i.epistemicItemId,
+        statement: i.statement,
+      }));
+  }
+
   if (
     projection.selectedStatus &&
     isPausedStatus(projection.selectedStatus) &&
@@ -1284,9 +1329,15 @@ export async function projectAssistantPilotLifecycleAction(input: {
   const projection = await buildAssistantPilotLifecycleProjection(
     input.projectId,
   );
+  const incompleteFinalize =
+    executed.action === "FINALIZE" &&
+    executed.assessment &&
+    typeof executed.assessment === "object" &&
+    "canComplete" in executed.assessment &&
+    (executed.assessment as { canComplete?: boolean }).canComplete === false;
   return {
     ok: true,
-    status: "ok",
+    status: incompleteFinalize ? "finalize_incomplete" : "ok",
     action: executed.action,
     cycleStatus: executed.result?.ok ? executed.result.cycle.status : undefined,
     activeCycleInstanceId: executed.result?.ok
@@ -1305,6 +1356,170 @@ export async function projectAssistantPilotLifecycleAction(input: {
     selectedStatus: projection?.selectedStatus,
     selectionAmbiguous: projection?.selectionAmbiguous,
     cta: projection?.cta,
-    message: `Pilot lifecycle ${executed.action} applied.`,
+    message: incompleteFinalize
+      ? "Finalisation incomplète — des conditions restent ouvertes."
+      : `Pilot lifecycle ${executed.action} applied.`,
+  };
+}
+
+export async function projectAssistantRecordObligationPolicyAction(input: {
+  projectId: string;
+  cycleInstanceId: string;
+}): Promise<{
+  ok: boolean;
+  status: string;
+  code?: string;
+  message?: string;
+  decisionId?: string;
+  assessment?: unknown;
+  projection?: PilotLifecycleProjection;
+}> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      status: "oa_unavailable",
+      code: "OA_STACK_UNAVAILABLE",
+      message: "Obligation-policy unavailable.",
+    };
+  }
+  const { recordObligationPolicyNoGovernedEffects } = await import(
+    "./f2/pilotLifecycleActions"
+  );
+  const executed = await recordObligationPolicyNoGovernedEffects({
+    projectId: input.projectId,
+    cycleInstanceId: input.cycleInstanceId,
+    cycleServices: runtime.oa.cycleServices,
+    decisionServices: runtime.oa.decisionServices,
+    authorityResolver: runtime.oa.authorityResolver,
+    nowIso: () => runtime.oa!.clock.nowIso(),
+  });
+  const projection = await buildAssistantPilotLifecycleProjection(
+    input.projectId,
+  );
+  if (!executed.ok) {
+    return {
+      ok: false,
+      status: "lifecycle_error",
+      code: executed.code,
+      message: executed.message,
+      assessment: executed.assessment,
+      projection: projection ?? undefined,
+    };
+  }
+  return {
+    ok: true,
+    status: "ok",
+    decisionId: executed.decisionId,
+    assessment: executed.assessment,
+    projection: projection ?? undefined,
+    message:
+      "Politique d’obligations enregistrée — aucune finalisation automatique.",
+  };
+}
+
+export async function projectAssistantCompleteTrajectoryStepAction(input: {
+  projectId: string;
+  cycleInstanceId: string;
+}): Promise<{
+  ok: boolean;
+  status: string;
+  code?: string;
+  message?: string;
+  stepId?: string;
+  assessment?: unknown;
+  projection?: PilotLifecycleProjection;
+}> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      status: "oa_unavailable",
+      code: "OA_STACK_UNAVAILABLE",
+      message: "Trajectory step close unavailable.",
+    };
+  }
+  const { completeBoundTrajectoryStepAction } = await import(
+    "./f2/pilotLifecycleActions"
+  );
+  const executed = await completeBoundTrajectoryStepAction({
+    projectId: input.projectId,
+    cycleInstanceId: input.cycleInstanceId,
+    cycleServices: runtime.oa.cycleServices,
+    authorityResolver: runtime.oa.authorityResolver,
+    nowIso: () => runtime.oa!.clock.nowIso(),
+  });
+  const projection = await buildAssistantPilotLifecycleProjection(
+    input.projectId,
+  );
+  if (!executed.ok) {
+    return {
+      ok: false,
+      status: "lifecycle_error",
+      code: executed.code,
+      message: executed.message,
+      projection: projection ?? undefined,
+    };
+  }
+  return {
+    ok: true,
+    status: "ok",
+    stepId: executed.stepId,
+    assessment: executed.assessment,
+    projection: projection ?? undefined,
+    message: "Critère de sortie clôturé pour l’étape liée.",
+  };
+}
+
+export async function projectAssistantResolveBlockingReservationAction(input: {
+  projectId: string;
+  cycleInstanceId: string;
+  epistemicItemId: string;
+}): Promise<{
+  ok: boolean;
+  status: string;
+  code?: string;
+  message?: string;
+  assessment?: unknown;
+  projection?: PilotLifecycleProjection;
+}> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      status: "oa_unavailable",
+      code: "OA_STACK_UNAVAILABLE",
+      message: "Reservation resolve unavailable.",
+    };
+  }
+  const { resolveBlockingReservationAction } = await import(
+    "./f2/pilotLifecycleActions"
+  );
+  const executed = await resolveBlockingReservationAction({
+    projectId: input.projectId,
+    cycleInstanceId: input.cycleInstanceId,
+    epistemicItemId: input.epistemicItemId,
+    cycleServices: runtime.oa.cycleServices,
+    authorityResolver: runtime.oa.authorityResolver,
+    nowIso: () => runtime.oa!.clock.nowIso(),
+  });
+  const projection = await buildAssistantPilotLifecycleProjection(
+    input.projectId,
+  );
+  if (!executed.ok) {
+    return {
+      ok: false,
+      status: "lifecycle_error",
+      code: executed.code,
+      message: executed.message,
+      projection: projection ?? undefined,
+    };
+  }
+  return {
+    ok: true,
+    status: "ok",
+    assessment: executed.assessment,
+    projection: projection ?? undefined,
+    message: "Réserve bloquante résolue.",
   };
 }

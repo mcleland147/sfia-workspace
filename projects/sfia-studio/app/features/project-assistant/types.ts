@@ -219,6 +219,11 @@ export type ProjectAssistantSendSuccess = {
   /** Fail-closed detail code when materialization was attempted and refused. */
   lifecycleRecommendationCode?: string | null;
   /**
+   * D-GF-ACW-02 Option A — server-owned logical Product turn id (`ltu:…`).
+   * Session-adjacent replay/idempotence identity; never Epistemic SoT.
+   */
+  logicalTurnId?: string | null;
+  /**
    * MW6↔Auth — present when send used executionContractId governed composition.
    * Server-built; never a client-supplied authority object.
    */
@@ -251,6 +256,8 @@ export type ProjectAssistantSendFailure = {
   retryable: boolean;
   proposal?: ProposalDto | null;
   f2?: F2TurnPayload;
+  /** Present when a logical turn was minted/accepted before the failure. */
+  logicalTurnId?: string | null;
 };
 
 export type ProjectAssistantSendResult =

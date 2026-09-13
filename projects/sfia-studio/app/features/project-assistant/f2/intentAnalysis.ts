@@ -409,6 +409,9 @@ Exemples informative:
 - « Donne-moi les risques avant que je décide. »
 - « Peux-tu m'aider à créer cette application ? » (avec ou sans détails MVP complets)
 - « J'aimerais créer un outil pour suivre mes contrats » / « tu ferais quoi comme MVP ? »
+- « Quelle est la meilleure prochaine étape méthodologique ? » / « Que me recommandes-tu comme prochain cycle ? »
+- « Formalise maintenant dans Studio la prochaine étape que tu me recommandes, afin que je puisse la décider. »
+  (effet = Recommendation lifecycle advisory pour décision Pilote — PAS création de CycleInstance)
 - Repository READ / résumé / recherche / vérité Git SANS mutation ni qualification de cycle.
 
 actionable — l'effet demandé est une opération SFIA gouvernée (qualifier/créer/changer un CycleInstance ; créer une proposition F2 parce que l'utilisateur demande une transition de processus ; préparer un changement structurel Project nécessitant une transition d'état ; capturer/préparer un workflow de décision où une qualification de cycle est réellement requise) ET candidateCycleTypeId + signals sont supportables.
@@ -416,6 +419,7 @@ Exemples actionable:
 - « Qualifie ce chantier en cycle Delivery et prépare la proposition. »
 - « Crée le cycle correspondant et prépare le passage au prochain gate. »
 - « Prépare l'ExecutionContract pour cette décision déjà enregistrée. »
+Ne PAS classer actionable uniquement parce que le Pilote demande d'enregistrer / formaliser une Recommendation lifecycle advisory.
 
 execution_request — uniquement si l'utilisateur demande explicitement une exécution / mutation / action externe franchissant la frontière d'exécution.
 Exemple: « Exécute ce contrat. »
@@ -479,12 +483,19 @@ JAMAIS Truth C, Evidence, HumanDecision, GO, Confirmation ou autorité.
 missing/unknown/insufficient ⇒ le challenge n'est PAS satisfait (fail-closed).
 Ne PAS inventer un challenge absent du message.
 
-=== Qualification signals (effet réel, pas le label utilisateur) ===
+=== Qualification signals (effet réel du chantier projet, pas le label utilisateur) ===
+Les signals décrivent l'impact matériel réel du travail projet sous-jacent — PAS le simple fait qu'une
+mutation de bookkeeping lifecycle / formalisation de Recommendation / candidate formalization soit durable.
+Formaliser / matérialiser une Recommendation NEXT_CYCLE ou un enregistrement de processus advisory
+sans impact sécurité / architecture / données / irréversibilité / changement structurel produit établi
+⇒ structuralChange, securityImpact, architectureImpact, dataImpact, irreversible = false.
+Ne PAS assimiler « formaliser une Recommendation dans Studio » à « changement structurant du Project ».
 Si la demande est uniquement un wording / libellé d'interface, explicitement sans impact sur le comportement, les données, l'architecture, la sécurité, l'autorité, l'exécution et sans irréversibilité : structuralChange, securityImpact, architectureImpact, dataImpact, irreversible = false ; lowRiskBounded = true lorsqu'établi.
 Un utilisateur qui QUALIFIE verbalement une opération de « cosmétique » ou « wording » ne rend PAS une mutation structurante, de données, d'architecture, de sécurité ou irréversible cosmétique.
 Classifie d'après l'effet réel demandé, pas le label donné par l'utilisateur.
 Le seul mot « cosmétique » ou « wording » ne force aucun signal safe.
 Silence sur sécurité ou irréversibilité n'est PAS une preuve d'absence d'impact.
+Sécurité réelle / architecture structurante / impact données / action irréversible → conserver les signals critiques correspondants.
 
 === ORIENTATION MÉTHODE (CORR-PROOF-03 E1 — cognitive only) ===
 Pour une demande informative de conseil / méthode projet, lorsque le type de travail courant est raisonnablement

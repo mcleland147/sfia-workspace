@@ -15,6 +15,7 @@ import {
 } from "@/lib/oa/decision";
 import {
   cancelSubjectFor,
+  classifyTrajectoryBinding,
   finalizeSubjectFor,
   startTrajectorySubjectFor,
   resumeReplanSubjectFor,
@@ -184,9 +185,32 @@ export async function executePilotLifecycleAction(input: {
       });
       if (!auth.ok) return auth;
 
+      // CR-START-01B/C — classify before any recordLifecycleDecision.
+      const cycle = await input.cycleServices.cycles.findById(
+        input.cycleInstanceId,
+      );
+      if (!cycle || cycle.projectId !== input.projectId) {
+        return {
+          ok: false,
+          code: "CYCLE_NOT_FOUND",
+          message: "Cycle instance was not found.",
+        };
+      }
+      const binding = classifyTrajectoryBinding(cycle);
+      if (binding === "INCOMPLETE_TRAJECTORY_BINDING") {
+        return {
+          ok: false,
+          code: "TRAJECTORY_BINDING_INCOMPLETE",
+          message: "Trajectory binding is incomplete.",
+        };
+      }
+
       let decisionId: string | undefined;
-      // Caller hint may pre-record trajectory HD; server still decides readiness.
-      if (input.requiresTrajectoryHumanDecision) {
+      if (binding === "COMPLETE_TRAJECTORY_BOUND") {
+        // CR-START-01C — never parasite-create start+trajectory HD for greenfield.
+        // Ignore requiresTrajectoryHumanDecision hint; do not auto-create HD after.
+      } else if (input.requiresTrajectoryHumanDecision) {
+        // LEGACY_UNBOUND — preserve historical pre-record behavior.
         const hd = await recordLifecycleDecision({
           decisionServices: input.decisionServices,
           authorityResolver: input.authorityResolver,
@@ -206,8 +230,11 @@ export async function executePilotLifecycleAction(input: {
         createdBy,
         expectedLpsVersion,
         requiresTrajectoryHumanDecision:
-          input.requiresTrajectoryHumanDecision,
-        decisionId,
+          binding === "COMPLETE_TRAJECTORY_BOUND"
+            ? false
+            : input.requiresTrajectoryHumanDecision,
+        decisionId:
+          binding === "COMPLETE_TRAJECTORY_BOUND" ? undefined : decisionId,
         authorityEvidenceId: auth.evidenceId,
       });
       if (!result.ok) {
@@ -437,4 +464,255 @@ export async function executePilotLifecycleAction(input: {
       };
     }
   }
+}
+
+/** D-LC-03 — explicit Pilote obligation-policy HD (never automatic). */
+export async function recordObligationPolicyNoGovernedEffects(input: {
+  projectId: string;
+  cycleInstanceId: string;
+  cycleServices: CycleServices;
+  decisionServices: DecisionServices;
+  authorityResolver: MemoryAuthorityResolver;
+  nowIso: () => string;
+}): Promise<
+  | {
+      ok: true;
+      decisionId: string;
+      assessment: FinalizationAssessment;
+    }
+  | { ok: false; code: string; message: string; assessment?: FinalizationAssessment }
+> {
+  const {
+    obligationPolicySubjectFor,
+    OBLIGATION_POLICY_NO_GOVERNED_EFFECTS,
+  } = await import("@/lib/oa/cycle");
+  const nowIso = input.nowIso();
+  const assessedBefore = await input.cycleServices.pilotLifecycle.assess({
+    cycleInstanceId: input.cycleInstanceId,
+    projectId: input.projectId,
+  });
+  if (!assessedBefore.ok) {
+    return {
+      ok: false,
+      code: assessedBefore.error.detailCode,
+      message: assessedBefore.error.message,
+    };
+  }
+  // Fail-closed: refuse grouped N/A when a governed-effect family is positively APPLICABLE.
+  for (const o of assessedBefore.assessment.obligations) {
+    if (
+      (o.family === "artifact" ||
+        o.family === "git_repository" ||
+        o.family === "execution_contract" ||
+        o.family === "evidence" ||
+        o.family === "review_bundle") &&
+      o.applicability === "APPLICABLE"
+    ) {
+      return {
+        ok: false,
+        code: "OBLIGATION_POLICY_CONTRADICTED",
+        message:
+          "Des effets gouvernés sont déjà applicables — la confirmation groupée n’est pas disponible.",
+        assessment: assessedBefore.assessment,
+      };
+    }
+  }
+
+  const scope = `pilot-lifecycle:${input.cycleInstanceId}`;
+  const auth = await ensurePiloteAuthority({
+    authorityResolver: input.authorityResolver,
+    scope,
+    nowIso,
+  });
+  if (!auth.ok) return auth;
+
+  const decisionId = `dec:pilot-life:${randomUUID()}`;
+  const subject = obligationPolicySubjectFor(input.cycleInstanceId);
+  const recorded = await input.decisionServices.recordHumanDecision.execute({
+    decisionId,
+    projectId: input.projectId,
+    cycleInstanceId: input.cycleInstanceId,
+    subject,
+    options: [
+      {
+        optionId: OBLIGATION_POLICY_NO_GOVERNED_EFFECTS,
+        label: "Aucun effet gouverné requis",
+      },
+      { optionId: "opt:refuse", label: "Refuse" },
+    ],
+    selectedOptionId: OBLIGATION_POLICY_NO_GOVERNED_EFFECTS,
+    actor: PILOTE,
+    authority: "morris",
+    status: "accepted",
+    reversible: false,
+    scope,
+    authorityEvidenceId: auth.evidenceId,
+    rationale: "Pilot obligation-policy: no governed effects for this cycle",
+  });
+  if (!recorded.ok) {
+    return {
+      ok: false,
+      code: recorded.error.detailCode,
+      message: recorded.error.message,
+    };
+  }
+
+  const assessed = await input.cycleServices.pilotLifecycle.assess({
+    cycleInstanceId: input.cycleInstanceId,
+    projectId: input.projectId,
+  });
+  if (!assessed.ok) {
+    return {
+      ok: false,
+      code: assessed.error.detailCode,
+      message: assessed.error.message,
+    };
+  }
+  return {
+    ok: true,
+    decisionId,
+    assessment: assessed.assessment,
+  };
+}
+
+/** D-LC-05 — close bound active trajectory step via existing domain step states. */
+export async function completeBoundTrajectoryStepAction(input: {
+  projectId: string;
+  cycleInstanceId: string;
+  cycleServices: CycleServices;
+  authorityResolver: MemoryAuthorityResolver;
+  nowIso: () => string;
+}): Promise<
+  | { ok: true; stepId: string; assessment: FinalizationAssessment }
+  | { ok: false; code: string; message: string }
+> {
+  const nowIso = input.nowIso();
+  const scope = `pilot-lifecycle:${input.cycleInstanceId}`;
+  const auth = await ensurePiloteAuthority({
+    authorityResolver: input.authorityResolver,
+    scope,
+    nowIso,
+  });
+  if (!auth.ok) return auth;
+
+  const closed =
+    await input.cycleServices.pilotLifecycle.completeBoundActiveTrajectoryStep({
+      projectId: input.projectId,
+      cycleInstanceId: input.cycleInstanceId,
+      createdBy: PILOTE,
+      authorityEvidenceId: auth.evidenceId,
+    });
+  if (!closed.ok) {
+    return {
+      ok: false,
+      code: closed.error.detailCode,
+      message: closed.error.message,
+    };
+  }
+  const assessed = await input.cycleServices.pilotLifecycle.assess({
+    cycleInstanceId: input.cycleInstanceId,
+    projectId: input.projectId,
+  });
+  if (!assessed.ok) {
+    return {
+      ok: false,
+      code: assessed.error.detailCode,
+      message: assessed.error.message,
+    };
+  }
+  return {
+    ok: true,
+    stepId: closed.stepId,
+    assessment: assessed.assessment,
+  };
+}
+
+/** D-LC-05 — resolve blocking Reservation via existing UpdateEpistemicState. */
+export async function resolveBlockingReservationAction(input: {
+  projectId: string;
+  cycleInstanceId: string;
+  epistemicItemId: string;
+  cycleServices: CycleServices;
+  authorityResolver: MemoryAuthorityResolver;
+  nowIso: () => string;
+}): Promise<
+  | { ok: true; epistemicItemId: string; assessment: FinalizationAssessment }
+  | { ok: false; code: string; message: string }
+> {
+  const nowIso = input.nowIso();
+  const scope = `pilot-lifecycle:${input.cycleInstanceId}`;
+  const auth = await ensurePiloteAuthority({
+    authorityResolver: input.authorityResolver,
+    scope,
+    nowIso,
+  });
+  if (!auth.ok) return auth;
+
+  const items = await input.cycleServices.epistemic.listByProject(
+    input.projectId,
+  );
+  const target = items.find((i) => i.epistemicItemId === input.epistemicItemId);
+  if (!target) {
+    return {
+      ok: false,
+      code: "EPISTEMIC_NOT_FOUND",
+      message: "Réserve introuvable.",
+    };
+  }
+  if (target.type !== "Reservation") {
+    return {
+      ok: false,
+      code: "EPISTEMIC_INVALID",
+      message: "L’élément n’est pas une réserve.",
+    };
+  }
+  if (target.status !== "active" || target.blocking !== true) {
+    return {
+      ok: false,
+      code: "EPISTEMIC_INVALID",
+      message: "La réserve n’est pas une réserve bloquante active.",
+    };
+  }
+
+  const updated = await input.cycleServices.updateEpistemicState.execute({
+    projectId: input.projectId,
+    createdBy: PILOTE,
+    items: [
+      {
+        epistemicItemId: target.epistemicItemId,
+        type: "Reservation",
+        statement: target.statement,
+        source: target.source,
+        status: "resolved",
+        blocking: false,
+        confidence: target.confidence,
+        relatedObjects: target.relatedObjects,
+        provenance: target.provenance,
+      },
+    ],
+  });
+  if (!updated.ok) {
+    return {
+      ok: false,
+      code: updated.error.detailCode,
+      message: updated.error.message,
+    };
+  }
+
+  const assessed = await input.cycleServices.pilotLifecycle.assess({
+    cycleInstanceId: input.cycleInstanceId,
+    projectId: input.projectId,
+  });
+  if (!assessed.ok) {
+    return {
+      ok: false,
+      code: assessed.error.detailCode,
+      message: assessed.error.message,
+    };
+  }
+  return {
+    ok: true,
+    epistemicItemId: target.epistemicItemId,
+    assessment: assessed.assessment,
+  };
 }

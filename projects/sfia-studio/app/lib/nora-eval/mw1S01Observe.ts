@@ -195,7 +195,14 @@ export async function observeMw1S01FromRuntime(): Promise<DeterministicObservati
     const truthAfter = fs.readFileSync(productDbPath);
     const truthUnchanged = Buffer.compare(truthBefore, truthAfter) === 0;
 
-    // Session DB (if any) must not grow oa_* product tables
+    // Session DB (if any) must not grow oa_* product tables.
+    // D-GF-ACW-02 Option A: logical_product_turns is Session-adjacent identity
+    // coordination only — never Truth C / LPS / HD / Evidence.
+    const SESSION_ALLOWED_TABLES = new Set([
+      "session_items",
+      "logical_product_turns",
+      "logical_product_turn_retry_bindings",
+    ]);
     let sessionNeqTruthC = truthUnchanged;
     if (fs.existsSync(sessionDbPath)) {
       const sessionDb = new DatabaseSync(sessionDbPath);
@@ -207,7 +214,7 @@ export async function observeMw1S01FromRuntime(): Promise<DeterministicObservati
       sessionDb.close();
       sessionNeqTruthC =
         sessionNeqTruthC &&
-        tables.every((t) => t === "session_items") &&
+        tables.every((t) => SESSION_ALLOWED_TABLES.has(t)) &&
         !tables.some((t) => t.startsWith("oa_"));
     }
 

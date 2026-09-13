@@ -689,3 +689,71 @@ export function textContainsInternalLpsMarker(text: string | null | undefined): 
     text.includes(POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL)
   );
 }
+
+/** OA / engine rationale codes → concise Pilote French (primary Pourquoi). */
+const PROFILE_RATIONALE_PILOTE_LABELS: Record<string, string> = {
+  critical_signal_present:
+    "Un signal d'impact structurant (sécurité, architecture, données ou irréversibilité) est présent.",
+  low_risk_bounded: "Le périmètre est borné et à faible risque.",
+  default_standard: "Approche Standard — aucun signal critique établi.",
+};
+
+/**
+ * Map machine profile rationale to Pilote-facing primary copy.
+ * Unknown free text is lightly scrubbed; engine codes never shown raw.
+ */
+export function profileRationalePiloteLabel(
+  rationale: string | null | undefined,
+): string {
+  const raw = (rationale ?? "").trim();
+  if (!raw) return "Justification non fournie.";
+  const firstToken = raw.split(/\s+/)[0] ?? raw;
+  const mapped = PROFILE_RATIONALE_PILOTE_LABELS[firstToken];
+  if (mapped) {
+    // If CKC guidance was appended after the code, keep a short business remainder.
+    const rest = raw.slice(firstToken.length).trim();
+    if (!rest) return mapped;
+    const scrubbed = scrubPiloteFacingEngineJargon(rest);
+    return scrubbed ? `${mapped} ${scrubbed}` : mapped;
+  }
+  return scrubPiloteFacingEngineJargon(raw) || "Justification métier disponible dans les détails.";
+}
+
+export function scrubPiloteFacingEngineJargon(text: string): string {
+  return text
+    .replace(/\[MW5[^\]]*\]/gi, "")
+    .replace(/\bMW5\b/g, "")
+    .replace(/\bTruth C\b/gi, "contexte projet")
+    .replace(/\bcritical_signal_present\b/g, "")
+    .replace(/\bcount=\d+\b/gi, "")
+    .replace(/\bF1\b/g, "")
+    .replace(/\bF2\b/g, "")
+    .replace(/\bHumanDecision\b/g, "décision Pilote")
+    .replace(/[^\S\n]{2,}/g, " ")
+    .trim();
+}
+
+/**
+ * Normalize Nora assistant presentation text at the UI boundary:
+ * - unescape presentation escapes (\\n → newline, \\*\\* → **)
+ * - strip leaked MW5 machine markers
+ * - neutralize visible markdown emphasis markers without HTML
+ * Does not alter user messages; does not use dangerouslySetInnerHTML.
+ */
+export function formatNoraAssistantDisplayText(text: string | null | undefined): string {
+  if (!text) return "";
+  let out = text;
+  // Only treat \\n / \\t as escapes when they appear as two-char sequences.
+  out = out.replace(/\\n/g, "\n").replace(/\\t/g, "\t").replace(/\\r/g, "");
+  out = out.replace(/\\\*/g, "*");
+  out = out.replace(/\[MW5[^\]]*\]/gi, "");
+  out = out.replace(/\bcount=\d+\b/gi, "");
+  // Soften markdown emphasis / headings leftovers without rendering HTML.
+  out = out.replace(/\*\*([^*]+)\*\*/g, "$1");
+  out = out.replace(/(^|\n)#{1,6}\s+/g, "$1");
+  out = out.replace(/[^\S\n]{2,}/g, " ").replace(/ *\n */g, "\n").trim();
+  return scrubPiloteFacingEngineJargon(out);
+}
+
+/** CustomEvent name: ConversationSurface → LifecycleSurface refresh after answer. */
+export const SFIA_ASSISTANT_ANSWERED_EVENT = "sfia:project-assistant-answered";

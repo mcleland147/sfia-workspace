@@ -31,6 +31,12 @@ import {
   isBoundedRunningAttemptRefreshable,
   type RecommendationFreshness,
 } from "@/features/project-assistant/presentationLabels";
+import { lifecycleRecommendationMaterializeFailurePiloteNotice } from "@/features/project-assistant/lifecycleRecommendationPiloteNotice";
+import { createTurnRetryKey } from "@/features/project-assistant/turnRetryKey";
+import {
+  preparePendingTurnRetryEnvelope,
+  type PendingTurnRetryEnvelope,
+} from "@/features/project-assistant/turnPayloadCanonical";
 import { useRunningAttemptO3Observation } from "./useRunningAttemptO3Observation";
 
 export type ProductMessage = {
@@ -101,6 +107,12 @@ export function useProductConversation({
   const [ephemeralNotice, setEphemeralNotice] = useState(
     "Conversation, proposition et confirmation restent process-local (non durables). L’état projet enregistré peut être relu ; rien n’est inventé.",
   );
+  const [lrMaterializeNotice, setLrMaterializeNotice] = useState<string | null>(
+    null,
+  );
+  const [lrMaterializeCode, setLrMaterializeCode] = useState<string | null>(
+    null,
+  );
   const [f2, setF2] = useState<F2TurnPayload | null>(null);
   const [activeProposal, setActiveProposal] = useState<ProposalDto | null>(null);
   const [reservesText, setReservesText] = useState("");
@@ -116,6 +128,16 @@ export function useProductConversation({
   >(null);
   const [f3Busy, setF3Busy] = useState(false);
   const [isPending, startTransition] = useTransition();
+  /** D-GF-ACW-02 — last server-issued logical turn; re-present only on failed retry. */
+  const lastLogicalTurnIdRef = useRef<string | null>(null);
+  const lastSendFailedRef = useRef(false);
+  /**
+   * Process-local pending retry envelope allocated BEFORE the server action.
+   * Holds opaque turnRetryKey + exact content/history snapshot for retransmission.
+   * Untrusted correlation only — never Product turn identity / Truth C.
+   * Retained until terminal client-observed success.
+   */
+  const pendingRetryEnvelopeRef = useRef<PendingTurnRetryEnvelope | null>(null);
 
   const listRef = useRef<HTMLDivElement | null>(null);
   const f3InFlightRef = useRef(false);
@@ -243,30 +265,89 @@ export function useProductConversation({
       .map((m) => ({ role: m.role as "user" | "assistant", content: m.content }));
   }
 
-  function sendMessage(contentOverride?: string) {
-    const content = (contentOverride ?? draft).trim();
+  function sendMessage(
+    contentOverride?: string,
+    options?: {
+      logicalTurnId?: string | null;
+      /** Reuse pending opaque retry key after silent loss / failed send. */
+      turnRetryKey?: string | null;
+      /**
+       * Exact history snapshot from pending retry envelope.
+       * When set (retry path), do NOT rebuild from React messages state.
+       */
+      history?: PendingTurnRetryEnvelope["history"] | null;
+      /** Exact content from pending retry envelope (retry path). */
+      content?: string | null;
+    },
+  ) {
+    const usingRetryEnvelope = Boolean(options?.turnRetryKey?.trim());
+    const content = (
+      usingRetryEnvelope
+        ? (options?.content ?? contentOverride ?? "")
+        : (contentOverride ?? draft)
+    ).trim();
     if (!content || busy || blocked) return;
+
+    // First send: snapshot history BEFORE appending the user message.
+    // Retry: reuse the sealed envelope history — never re-read React messages.
+    const history = usingRetryEnvelope
+      ? [...(options?.history ?? [])]
+      : historyForRequest();
 
     const userMessage: ProductMessage = {
       id: nextId("user"),
       role: "user",
       content,
     };
-    const history = historyForRequest();
     setMessages((prev) => [...prev, userMessage]);
     setDraft("");
     setError(null);
     setUiState("SENDING");
 
+    // New distinct send: do not auto-replay prior logicalTurnId unless retry opts in.
+    const presentedLogicalTurnId =
+      options?.logicalTurnId?.trim() || undefined;
+    // Allocate BEFORE transport. Reuse only when retry explicitly passes the key.
+    const turnRetryKey =
+      options?.turnRetryKey?.trim() || createTurnRetryKey();
+    const envelope = preparePendingTurnRetryEnvelope({
+      content,
+      history,
+      turnRetryKey,
+    });
+    pendingRetryEnvelopeRef.current = envelope;
+
     startTransition(async () => {
       setUiState("ASSISTANT_WORKING");
-      const result = await projectAssistantSendAction({
-        projectId,
-        content,
-        history,
-      });
+      let result: Awaited<ReturnType<typeof projectAssistantSendAction>>;
+      try {
+        result = await projectAssistantSendAction({
+          projectId,
+          content: envelope.content,
+          history: [...envelope.history],
+          turnRetryKey: envelope.turnRetryKey,
+          ...(presentedLogicalTurnId
+            ? { logicalTurnId: presentedLogicalTurnId }
+            : {}),
+        });
+      } catch {
+        // Transport / Server Action rejection before structured response.
+        // Retain pendingRetryEnvelopeRef so retry can recover server ltu binding.
+        lastSendFailedRef.current = true;
+        setUiState("ERROR_RECOVERABLE");
+        setError(
+          "Échec de transport — réessayez. La corrélation de reprise est conservée.",
+        );
+        return;
+      }
 
       if (!result.ok) {
+        lastSendFailedRef.current = true;
+        if (result.logicalTurnId) {
+          lastLogicalTurnIdRef.current = result.logicalTurnId;
+        } else if (presentedLogicalTurnId) {
+          lastLogicalTurnIdRef.current = presentedLogicalTurnId;
+        }
         if (result.status === "provider_unavailable") {
           setUiState("BLOCKED");
           setModeLabel("Assistant indisponible");
@@ -277,8 +358,22 @@ export function useProductConversation({
         return;
       }
 
+      lastSendFailedRef.current = false;
+      lastLogicalTurnIdRef.current = result.logicalTurnId ?? null;
+      // Terminal client-observed success — clear transport retry envelope.
+      pendingRetryEnvelopeRef.current = null;
       setModeLabel(modeFromResult(result));
       setEphemeralNotice(result.ephemeralNotice);
+      setLrMaterializeNotice(
+        lifecycleRecommendationMaterializeFailurePiloteNotice({
+          recommendationAttempted:
+            result.lifecycleRecommendationMaterialized === false &&
+            Boolean(result.lifecycleRecommendationCode),
+          materialized: result.lifecycleRecommendationMaterialized,
+          code: result.lifecycleRecommendationCode,
+        }),
+      );
+      setLrMaterializeCode(result.lifecycleRecommendationCode ?? null);
       setToolEvents((prev) => [...prev, ...result.toolEvents]);
       if (result.toolEvents.length > 0) {
         setUiState("SOURCE_LOOKUP");
@@ -548,10 +643,23 @@ export function useProductConversation({
   });
 
   function retryLastUserMessage() {
+    const envelope = pendingRetryEnvelopeRef.current;
+    if (!envelope) return;
     const lastUser = [...messages].reverse().find((m) => m.role === "user");
-    if (!lastUser) return;
-    setMessages((prev) => prev.filter((m) => m.id !== lastUser.id));
-    sendMessage(lastUser.content);
+    if (lastUser) {
+      setMessages((prev) => prev.filter((m) => m.id !== lastUser.id));
+    }
+    const replayId =
+      lastSendFailedRef.current && lastLogicalTurnIdRef.current
+        ? lastLogicalTurnIdRef.current
+        : undefined;
+    // Explicitly reuse sealed content + history — do not rebuild from React state.
+    sendMessage(envelope.content, {
+      logicalTurnId: replayId,
+      turnRetryKey: envelope.turnRetryKey,
+      content: envelope.content,
+      history: envelope.history,
+    });
   }
 
   return {
@@ -564,6 +672,8 @@ export function useProductConversation({
     error,
     modeLabel,
     ephemeralNotice,
+    lrMaterializeNotice,
+    lrMaterializeCode,
     f2,
     activeProposal,
     reservesText,

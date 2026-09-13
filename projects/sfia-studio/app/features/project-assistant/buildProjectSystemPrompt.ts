@@ -4,12 +4,14 @@ import {
   buildStudioCognitivePromptSections,
   type StudioCognitiveContext,
 } from "./f2/studioCognitiveContext";
-
+import { listCycleTypes } from "@/lib/oa/cycle/domain/cycleTypeCatalog";
 /**
  * Compact F1 system prompt — project context + advisory contract + hard read-only limits.
- * No F2 qualification, no Cursor, no write, no durable persistence claims.
+ * No F2 CycleInstance authority, no Cursor, no write, no HumanDecision/START.
+ * Structured lifecycle Recommendation emission is allowed (authority none) via Product turn output.
  * CORR-PROOF-02 B1 — positive advisory initiative for ordinary incomplete requests.
  * CORR-PROOF-03 E1 — Studio method identity + optional non-mutating method context.
+ * QUAL-TO-GOVERNED-CYCLE — semantic boundary before silent pre-cycle deepening.
  */
 export function buildProjectSystemPrompt(
   project: ProjectAssistantContextDto,
@@ -54,7 +56,11 @@ export function buildProjectSystemPrompt(
   return [
     "Tu es Nora, partenaire de réflexion projet/produit du Project Workspace.",
     "Périmètre : ANALYSE / CONVERSATION / CONSEIL / LECTURE SEULE.",
-    "Tu n'as aucune autorité de décision, d'exécution Cursor, d'écriture Git/GitHub, ni de qualification de cycle SFIA.",
+    "Tu n'as aucune autorité de décision Pilote, d'exécution Cursor, d'écriture Git/GitHub,",
+    "ni de création / START / HumanDecision / CycleInstance actif.",
+    "Tu PEUX émettre une Recommendation lifecycle structurée SANS autorité (champ lifecycleRecommendation)",
+    "lorsque la frontière sémantique ci-dessous est atteinte — le serveur valide et matérialise ;",
+    "émettre ≠ qualifier formellement un CycleInstance ≠ décider.",
     "Une intention utilisateur n'est jamais une autorisation d'exécution.",
     "",
     "=== IDENTITÉ SFIA STUDIO (priorité source) ===",
@@ -89,6 +95,56 @@ export function buildProjectSystemPrompt(
     "Vérité Project courante + doctrine Studio outrankent les prémisses conversationnelles obsolètes (sans réécrire l'historique).",
     "Une compréhension conversationnelle ne devient JAMAIS Truth C / LPS / HumanDecision par inférence silencieuse.",
     "",
+    "=== FRONTIÈRE QUALIFICATION PRÉ-CYCLE → RECOMMANDATION DE CYCLE ===",
+    "Qualification pré-cycle ≠ Cadrage ≠ CycleInstance ≠ « Cycle 0 » ≠ workflow durable.",
+    "Elle sert UNIQUEMENT à déterminer honnêtement le prochain travail gouverné.",
+    "Pas de règle « après N messages ». Pas de « toujours Cadrage en premier ».",
+    "Pas de matrice métier par domaine. Pas de limite arbitraire de questions.",
+    "",
+    "TEST DE PERTINENCE DE ROUTAGE (avant toute clarification pré-cycle) :",
+    "Une réponse différente à CETTE question peut-elle matériellement changer",
+    "le cycle candidat, le profil SFIA, un gate / une frontière d'autorité, ou provoquer un STOP ?",
+    "Si OUI → clarification pré-cycle autorisée (au plus une, ciblée).",
+    "Si NON → l'inconnue appartient au cycle candidat ; ne la poursuis PAS en pré-cycle.",
+    "",
+    "TEST DE PROPRIÉTÉ DE CYCLE :",
+    "Cette inconnue relève-t-elle normalement du travail du cycle que tu es déjà capable de recommander ?",
+    "Si OUI → STOP qualification pré-cycle ; émets narrative + lifecycleRecommendation.",
+    "« Il reste beaucoup à préciser » NE signifie PAS « continuer la qualification » —",
+    "cela peut être exactement la raison de recommander le cycle (ex. Cadrage) qui possède ces inconnues.",
+    "",
+    "Champ structuré obligatoire preCycleRoutingAssessment (même tour ; non durable ; sans autorité) :",
+    "- routingBlockingUnknownPresent = true ssi une inconnue bloque encore le routage (test de pertinence).",
+    "- candidateCycleSupportable = true ssi un prochain type de cycle est honnêtement supportable.",
+    "- remainingUnknownsAreCycleOwned = true ssi les inconnues restantes appartiennent à ce cycle.",
+    "- multiplePlausibleCycles = true ssi plusieurs cycles restent vraiment plausibles.",
+    "- activeCycleAlreadyCoversWork = true ssi un cycle actif couvre déjà le travail.",
+    "Cohérence obligatoire avec lifecycleRecommendation :",
+    "- si routingBlockingUnknownPresent OU multiplePlausibleCycles → lifecycleRecommendation = null ; clarification ciblée seulement.",
+    "- si activeCycleAlreadyCoversWork → ne pas émettre NEXT_CYCLE pour « sortir » de la qualification.",
+    "- si candidateCycleSupportable ET NOT routingBlockingUnknownPresent ET NOT multiplePlausibleCycles",
+    "  ET NOT activeCycleAlreadyCoversWork → cesse l'approfondissement ; lifecycleRecommendation NEXT_CYCLE (ou FINALIZE si pertinent).",
+    "Ne résous PAS en pré-cycle le périmètre détaillé, critères de succès, règles de comportement,",
+    "états métier ou signaux d'urgence appartenant au cycle candidat.",
+    "lifecycleRecommendation (si émise) : intent NEXT_CYCLE ou FINALIZE_CURRENT_CYCLE ;",
+    "authority conceptuelle aucune ; isHumanDecision false ; statement et rationale lisibles Pilote ;",
+    "PRIORITÉ D'INTENT (D-LC-04) :",
+    "- Tant qu'un cycle courant non terminal doit se clore → FINALIZE_CURRENT_CYCLE uniquement ;",
+    "  un prochain cycle peut être expliqué dans la narrative, jamais typé NEXT_CYCLE concurrent.",
+    "- NEXT_CYCLE seulement après cycle courant completed / aucune clôture courante en attente.",
+    "targetCycleTypeId DOIT être un identifiant catalogue Studio exact (ex. cyc:framing pour le label « Cadrage »).",
+    "Jamais un label humain seul (« Cadrage », « Delivery ») ni un id inventé.",
+    "Identifiants catalogue actifs : " +
+      listCycleTypes()
+        .map((e) => `${e.cycleTypeId} (« ${e.label} »)`)
+        .join(", ") +
+      ".",
+    "targetCycleTypeId seulement s'il est supportable (jamais inventé ; jamais forcé cyc:framing).",
+    "Ne dis PAS « je ne peux pas l'enregistrer dans Studio » si le chemin structured Recommendation est disponible.",
+    "Si tu émets lifecycleRecommendation : le serveur peut la matérialiser ; ne prétends jamais qu'elle est",
+    "enregistrée si tu n'as pas de confirmation produit ; ne crée pas de CycleInstance / HD / START.",
+    "",
+    ...buildActiveCycleWorkOutputSection(studio),
     "=== LIMITES D'AUTORITÉ (strict) ===",
     "Distingue vérité courante / historique / superseded / réserve ouverte.",
     "Tu peux utiliser uniquement les outils de lecture (Git/GitHub read) exposés.",
@@ -127,6 +183,51 @@ export function buildProjectSystemPrompt(
     `Doctrine : ${project.doctrineId} ${project.doctrineVersion} · ${project.doctrineStatus} · ${project.doctrineDigest}`,
     `Runtime : ${project.runtimeMode} · persistence ${project.persistence} · readiness ${project.readiness}`,
   ].join("\n");
+}
+
+function buildActiveCycleWorkOutputSection(
+  studio: StudioCognitiveContext | null,
+): string[] {
+  const lines = [
+    "=== SORTIE STRUCTURÉE activeCycleWork (D-GF-ACW-01) ===",
+    "Champ structuré obligatoire activeCycleWork (même tour ; nullable) :",
+  ];
+
+  const active = studio?.activeCycle ?? null;
+  if (!active) {
+    lines.push(
+      "Aucun cycle ACTIVE dans le contexte Studio → activeCycleWork DOIT être null.",
+    );
+    lines.push(
+      "Ne matérialise pas d'Observation/Hypothesis/Option/Recommendation/Reservation/Contradiction",
+      "via activeCycleWork hors cycle actif.",
+    );
+    lines.push("");
+    return lines;
+  }
+
+  if (active.workEligible) {
+    lines.push(
+      "Cycle ACTIVE workEligible : émets activeCycleWork.items pour le travail cognitif",
+      "ancré utilisateur dans ce cycle (Observation | Hypothesis | Option | Recommendation |",
+      "Reservation | Contradiction uniquement).",
+    );
+    lines.push(
+      "INTERDIT dans activeCycleWork : DecisionRef, EvidenceRef, HumanDecision, Fact,",
+      "ExecutionContract ; jamais d'ids, d'authority, ni de provenance (le serveur les mints).",
+    );
+    lines.push(
+      "Si activeCycleAlreadyCoversWork = true (ou disposition DEFER_TO_ACTIVE_CYCLE) :",
+      "préfère activeCycleWork plutôt qu'une lifecycleRecommendation NEXT_CYCLE.",
+    );
+  } else {
+    lines.push(
+      `Cycle ACTIVE présent mais non workEligible (status=${active.status}) →`,
+      "activeCycleWork DOIT être null pour ce tour.",
+    );
+  }
+  lines.push("");
+  return lines;
 }
 
 function buildMethodGroundingSection(

@@ -19,10 +19,24 @@ import {
   type NoraAgentsUsdAccounting,
   type NoraCampaignBudget,
 } from "@/lib/nora-cognitive-runtime";
-import { NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
+import {
+  MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
+  NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE,
+  normalizeNoraProductTurnStructuredOutput,
+} from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
 import { materializeLifecycleRecommendationFromStructuredOutput } from "@/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn";
 import { NORA_LIFECYCLE_RECOMMENDATION_ACTOR } from "@/lib/oa/cycle/application/lifecycleRecommendation/noraActor";
 import type { LifecycleRecommendationMaterialDimension } from "@/lib/oa/cycle/application/lifecycleRecommendation/materialReaderContract";
+import {
+  LIFECYCLE_RECOMMENDATION_MATERIALIZE_FAILURE_PILOTE_NOTICE,
+  lifecycleRecommendationMaterializeFailurePiloteNotice,
+} from "./lifecycleRecommendationPiloteNotice";
+import { materializeActiveCycleWork } from "./materializeActiveCycleWork";
+import { resolveOrMintLogicalProductTurn } from "./logicalProductTurn";
+import {
+  normalizeProductTurnHistory,
+} from "./turnPayloadCanonical";
+import { buildActiveCycleWorkContextSeal } from "./f2/activeCycleCognitiveContext";
 import { resolveWorkspaceRootFromAppCwd } from "@/lib/platform/repository/workspaceRoot";
 import { loadProjectRuntimeForAssistant } from "@/features/vertical-slice-ui/ProjectWorkspaceView";
 import { buildProjectSystemPrompt } from "./buildProjectSystemPrompt";
@@ -42,8 +56,9 @@ import type {
   ProjectAssistantContextDto,
   ProjectAssistantSendResult,
 } from "./types";
+import { resolveTrajectoryBootstrapPresence } from "@/lib/oa/cycle/application/lifecycleRecommendation/greenfieldLifecycleBootstrap";
 
-const MAX_HISTORY_MESSAGES = 20;
+// PRODUCT_TURN_MAX_HISTORY_MESSAGES imported from turnPayloadCanonical (shared).
 
 function buildEphemeralNotice(
   memoryBAvailability:
@@ -57,14 +72,18 @@ function buildEphemeralNotice(
     | "stale_invalidated",
   stalePriorInvalidated?: boolean,
   cognitiveStopNotice?: string | null,
+  lifecycleMaterializeNotice?: string | null,
 ): string {
   const base = memoryBPiloteNotice(memoryBAvailability);
   const compaction = memoryBCompactionPiloteNotice(memoryBCompactionState, {
     stalePriorInvalidated,
   });
-  const parts = [cognitiveStopNotice, compaction, base].filter(
-    (p): p is string => typeof p === "string" && p.trim().length > 0,
-  );
+  const parts = [
+    lifecycleMaterializeNotice,
+    cognitiveStopNotice,
+    compaction,
+    base,
+  ].filter((p): p is string => typeof p === "string" && p.trim().length > 0);
   return parts.join(" ");
 }
 
@@ -140,6 +159,8 @@ function toContextDto(
     runtimeMode: result.disclosures.runtimeMode,
     persistence: result.disclosures.persistence,
     readiness: result.readiness.status,
+    activeCycleInstanceId: result.livingState.activeCycleInstanceId ?? null,
+    ckcResolutionRef: result.livingState.ckcResolutionRef ?? null,
   };
 }
 
@@ -199,6 +220,21 @@ export async function orchestrateProjectAssistantTurn(input: {
   usdAccounting?: NoraAgentsUsdAccounting;
   /** INTERNAL / EVAL-ONLY — shared canonical campaign budget lease. */
   campaignBudget?: NoraCampaignBudget;
+  /**
+   * D-GF-ACW-02 Option A — optional re-present of server-issued logical turn id.
+   * Production ACW identity; never client-invented.
+   */
+  logicalTurnId?: string;
+  /**
+   * Opaque client transport retry correlation (untrusted).
+   * NOT Product turn identity — Session-adjacent lookup only.
+   */
+  turnRetryKey?: string;
+  /**
+   * TEST-ONLY — explicit correlation override (skips Session mint).
+   * Prefer logicalTurnId for production and new tests.
+   */
+  turnCorrelationId?: string;
 }): Promise<ProjectAssistantSendResult> {
   const content = input.content.trim();
   if (!content) {
@@ -237,14 +273,61 @@ export async function orchestrateProjectAssistantTurn(input: {
     };
   }
 
-  const history = (input.history ?? [])
-    .filter(
-      (m) =>
-        (m.role === "user" || m.role === "assistant") &&
-        typeof m.content === "string" &&
-        m.content.trim().length > 0,
-    )
-    .slice(-MAX_HISTORY_MESSAGES);
+  // D-GF-ACW-02 — accept-boundary logical turn id BEFORE model call.
+  // Test turnCorrelationId override skips Session mint (BAR-WORK compatibility).
+  // Session open failure must NOT abort Truth C / conversational continuity
+  // (MW1 Memory B unavailable). ACW materialization remains fail-closed when
+  // no durable logicalTurnId is available.
+  //
+  // Normalize history FIRST so conflict digest seals the exact provider envelope.
+  const history = normalizeProductTurnHistory(input.history);
+  let logicalTurnId: string | null = null;
+  const testCorrOverride = input.turnCorrelationId?.trim() || null;
+  if (testCorrOverride) {
+    logicalTurnId = testCorrOverride;
+  } else {
+    const resolvedTurn = resolveOrMintLogicalProductTurn({
+      projectId: project.projectId,
+      sessionDbPath: input.sessionDbPath,
+      presentedLogicalTurnId: input.logicalTurnId,
+      turnRetryKey: input.turnRetryKey,
+      content,
+      history,
+      cycleInstanceId:
+        input.studioCognitiveContext?.activeCycle?.cycleInstanceId ?? null,
+      nowIso: new Date().toISOString(),
+    });
+    if (!resolvedTurn.ok) {
+      if (resolvedTurn.code === "LOGICAL_TURN_UNKNOWN") {
+        return {
+          ok: false,
+          status: "validation_error",
+          code: "LOGICAL_TURN_UNKNOWN",
+          message:
+            "Identifiant de tour logique inconnu pour cette session.",
+          mode: modeResolution.mode,
+          retryable: false,
+          logicalTurnId: null,
+        };
+      }
+      if (resolvedTurn.code === "LOGICAL_TURN_RETRY_CONFLICT") {
+        return {
+          ok: false,
+          status: "validation_error",
+          code: "LOGICAL_TURN_RETRY_CONFLICT",
+          message:
+            "Jeton de reprise en conflit avec une soumission déjà acceptée.",
+          mode: modeResolution.mode,
+          retryable: false,
+          logicalTurnId: null,
+        };
+      }
+      // LOGICAL_TURN_SESSION_UNAVAILABLE — continue without ACW identity.
+      logicalTurnId = null;
+    } else {
+      logicalTurnId = resolvedTurn.logicalTurnId;
+    }
+  }
 
   const messages: ProviderChatMessage[] = [
     {
@@ -255,7 +338,7 @@ export async function orchestrateProjectAssistantTurn(input: {
         studioCognitiveContext: input.studioCognitiveContext ?? null,
       }),
     },
-    ...history.map((m) => ({ role: m.role, content: m.content.trim() })),
+    ...history.map((m) => ({ role: m.role, content: m.content })),
     { role: "user", content },
   ];
 
@@ -301,7 +384,9 @@ export async function orchestrateProjectAssistantTurn(input: {
     let lifecycleRecommendationMaterialized: boolean | null = null;
     let lifecycleRecommendationCode: string | null = null;
 
-    // Same Product turn — optional LR materialization (no second model call).
+    // D-LC-01 — same Product turn: extract → fail-closed contradiction →
+    // ACW first (when present) → then LR against final post-ACW basis.
+    // No second model call. No fingerprint rewrite.
     if (turn.structuredOutput !== undefined) {
       const { extractLifecycleCandidateFromStructuredOutput } = await import(
         "@/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn"
@@ -312,6 +397,209 @@ export async function orchestrateProjectAssistantTurn(input: {
       if (extracted.narrative) {
         assistantText = extracted.narrative;
       }
+      // Positive enforcement: EMIT without LR is a structured contradiction.
+      // Fail BEFORE any durable writes (ACW or LR).
+      // Never invent LR; never treat as normal conversational success.
+      if (
+        extracted.kind === "product_turn" &&
+        extracted.boundaryContradiction ===
+          MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION
+      ) {
+        return {
+          ok: false,
+          status: "validation_error",
+          code: MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
+          message: LIFECYCLE_RECOMMENDATION_MATERIALIZE_FAILURE_PILOTE_NOTICE,
+          mode: modeResolution.mode,
+          retryable: false,
+        };
+      }
+
+      // D-GF-ACW-01/02 — materialize ACW FIRST when items present + eligible.
+      const coherent = normalizeNoraProductTurnStructuredOutput(
+        turn.structuredOutput,
+      );
+      const acwItems = coherent?.activeCycleWork?.items ?? [];
+      if (acwItems.length > 0) {
+        const assessment = coherent?.preCycleRoutingAssessment;
+        const disposition = coherent?.disposition;
+        const eligibleDefer =
+          disposition === "DEFER_TO_ACTIVE_CYCLE" ||
+          assessment?.activeCycleAlreadyCoversWork === true;
+
+        // CR-ACW-01 — FORBIDDEN fallback to project.activeCycleInstanceId.
+        // Require studioCognitiveContext + activeCycle + workEligible + seal.
+        const studio = input.studioCognitiveContext ?? null;
+        const contextSeal = buildActiveCycleWorkContextSeal({
+          projectId: project.projectId,
+          activeCycle: studio?.activeCycle ?? null,
+        });
+        if (
+          !eligibleDefer ||
+          !studio ||
+          !studio.activeCycle ||
+          studio.activeCycle.workEligible !== true ||
+          !contextSeal
+        ) {
+          return {
+            ok: false,
+            status: "validation_error",
+            code: !eligibleDefer
+              ? "ACTIVE_CYCLE_WORK_NOT_ELIGIBLE"
+              : "ACTIVE_CYCLE_CONTEXT_REQUIRED",
+            message: !eligibleDefer
+              ? "Travail de cycle actif émis hors contexte éligible — aucune écriture partielle."
+              : "Contexte cycle actif studio requis pour matérialiser le travail cognitif — aucune écriture partielle.",
+            mode: modeResolution.mode,
+            retryable: false,
+            logicalTurnId,
+          };
+        }
+
+        // Option A: ACW write requires durable Session-adjacent logical turn id.
+        if (!logicalTurnId) {
+          return {
+            ok: false,
+            status: "validation_error",
+            code: "LOGICAL_TURN_SESSION_UNAVAILABLE",
+            message:
+              "Session indisponible pour l'identité de tour logique — aucune écriture ACW.",
+            mode: modeResolution.mode,
+            retryable: false,
+            logicalTurnId: null,
+          };
+        }
+
+        const activeCycleId = contextSeal.cycleInstanceId;
+        {
+          const oaResolved = await resolveOaStackForLifecycleRecommendation();
+          if (!oaResolved.ok) {
+            return {
+              ok: false,
+              status: "validation_error",
+              code: "ACTIVE_CYCLE_WORK_OA_UNAVAILABLE",
+              message:
+                "Impossible de matérialiser le travail du cycle actif (runtime indisponible).",
+              mode: modeResolution.mode,
+              retryable: false,
+              logicalTurnId,
+            };
+          }
+          const oa = oaResolved.oa;
+          const cycleLoad = await oa.cycleServices.getCycle.execute({
+            cycleInstanceId: activeCycleId,
+          });
+          const lpsNow =
+            await oa.projectServices.getCurrentLivingProjectState.execute({
+              projectId: project.projectId,
+            });
+          if (!cycleLoad.ok) {
+            return {
+              ok: false,
+              status: "validation_error",
+              code: "ACTIVE_CYCLE_NOT_FOUND",
+              message: "Cycle actif introuvable avant matérialisation.",
+              mode: modeResolution.mode,
+              retryable: false,
+              logicalTurnId,
+            };
+          }
+          if (!lpsNow.ok) {
+            return {
+              ok: false,
+              status: "validation_error",
+              code: "LPS_UNAVAILABLE",
+              message: "LPS indisponible avant matérialisation du travail cycle.",
+              mode: modeResolution.mode,
+              retryable: false,
+              logicalTurnId,
+            };
+          }
+          if (cycleLoad.cycle.status !== "active") {
+            return {
+              ok: false,
+              status: "validation_error",
+              code: "ACTIVE_CYCLE_NOT_ELIGIBLE",
+              message:
+                "Le cycle n'est plus actif — aucune écriture partielle du travail cognitif.",
+              mode: modeResolution.mode,
+              retryable: false,
+              logicalTurnId,
+            };
+          }
+          if (
+            (lpsNow.livingProjectState.activeCycleInstanceId ?? null) !==
+            activeCycleId
+          ) {
+            return {
+              ok: false,
+              status: "validation_error",
+              code: "ACTIVE_CYCLE_LPS_POINTER_STALE",
+              message:
+                "Pointeur LPS du cycle actif modifié — aucune écriture partielle.",
+              mode: modeResolution.mode,
+              retryable: false,
+              logicalTurnId,
+            };
+          }
+
+          let existingItems: Awaited<
+            ReturnType<typeof oa.cycleServices.epistemic.listByProject>
+          > = [];
+          try {
+            existingItems = await oa.cycleServices.epistemic.listByProject(
+              project.projectId,
+            );
+          } catch {
+            existingItems = [];
+          }
+
+          // Production key = durable logical turn id (no random f1-acw keys).
+          const turnCorrelationId = logicalTurnId!;
+          const producedAt = new Date().toISOString();
+          const mat = await materializeActiveCycleWork({
+            items: acwItems,
+            facts: {
+              projectId: project.projectId,
+              activeCycleInstanceId: activeCycleId,
+              lpsVersion: lpsNow.livingProjectState.version,
+              lpsObjective: lpsNow.livingProjectState.objective,
+              existingEpistemicItemIds:
+                lpsNow.livingProjectState.epistemicItemIds ?? [],
+              existingItems,
+              turnCorrelationId,
+              contextSeal,
+            },
+            updateEpistemicState: oa.cycleServices.updateEpistemicState,
+            appendLivingProjectStateVersion:
+              oa.projectServices.appendLivingProjectStateVersion,
+            getCurrentLivingProjectState:
+              oa.projectServices.getCurrentLivingProjectState,
+            getCycle: oa.cycleServices.getCycle,
+            runInTransaction: oa.cycleServices.store.runInTransaction.bind(
+              oa.cycleServices.store,
+            ),
+            producedAt,
+            createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
+          });
+          if (!mat.ok) {
+            return {
+              ok: false,
+              status: "validation_error",
+              code: mat.code,
+              message:
+                mat.reason ||
+                "Échec de matérialisation du travail cognitif du cycle actif.",
+              mode: modeResolution.mode,
+              retryable: false,
+              logicalTurnId,
+            };
+          }
+        }
+      }
+
+      // D-LC-01 — LR AFTER ACW (or with current facts when no ACW items).
+      // Reload durable basis so currentness binds post-ACW LPS version / epistemic.
       if (!extracted.candidate) {
         lifecycleRecommendationMaterialized = false;
       } else {
@@ -340,13 +628,16 @@ export async function orchestrateProjectAssistantTurn(input: {
           }
 
           let trajectory = null;
-          try {
-            const traj = await oa.cycleServices.getCurrentTrajectory.execute({
-              projectId: project.projectId,
-            });
-            trajectory = traj.ok ? traj.trajectory : null;
-          } catch {
+          let trajectoryBootstrapPresence = await resolveTrajectoryBootstrapPresence(
+            oa.cycleServices.trajectories,
+            project.projectId,
+          );
+          if (trajectoryBootstrapPresence.kind === "unknown") {
             failedMaterialDimensions.add("trajectory");
+            trajectory = null;
+          } else if (trajectoryBootstrapPresence.kind === "current") {
+            trajectory = trajectoryBootstrapPresence.trajectory;
+          } else {
             trajectory = null;
           }
 
@@ -409,6 +700,7 @@ export async function orchestrateProjectAssistantTurn(input: {
                 doctrinePackageVersion: doctrinePin?.version ?? null,
                 doctrinePackageDigest: doctrinePin?.digest ?? null,
                 trajectory,
+                trajectoryBootstrapPresence,
                 decisions,
                 evidence,
                 epistemicItems,
@@ -502,6 +794,21 @@ export async function orchestrateProjectAssistantTurn(input: {
         allowsSilentSuccess: false,
       },
     );
+    const lrMaterializeNotice =
+      lifecycleRecommendationMaterializeFailurePiloteNotice({
+        recommendationAttempted:
+          lifecycleRecommendationMaterialized === false &&
+          Boolean(lifecycleRecommendationCode),
+        materialized: lifecycleRecommendationMaterialized,
+        code: lifecycleRecommendationCode,
+      });
+    const ephemeralNotice = buildEphemeralNotice(
+      turn.memoryBAvailability,
+      turn.memoryBCompactionState,
+      turn.memoryBCompactionDetails?.stalePriorInvalidated === true,
+      stopNotice,
+      lrMaterializeNotice,
+    );
     const status =
       turn.cognitiveStopDecision?.cognitiveStop === true
         ? ("cognitive_stop" as const)
@@ -519,12 +826,7 @@ export async function orchestrateProjectAssistantTurn(input: {
       sources,
       toolEvents,
       project,
-      ephemeralNotice: buildEphemeralNotice(
-        turn.memoryBAvailability,
-        turn.memoryBCompactionState,
-        turn.memoryBCompactionDetails?.stalePriorInvalidated === true,
-        stopNotice,
-      ),
+      ephemeralNotice,
       cognitiveRuntime: turn.cognitiveRuntime,
       sessionId: turn.sessionId,
       memoryBAvailability: turn.memoryBAvailability,
@@ -535,6 +837,7 @@ export async function orchestrateProjectAssistantTurn(input: {
       mw4,
       lifecycleRecommendationMaterialized,
       lifecycleRecommendationCode,
+      logicalTurnId,
     };
   } catch (error) {
     const message =
@@ -551,6 +854,7 @@ export async function orchestrateProjectAssistantTurn(input: {
           : message,
       mode: modeResolution.mode,
       retryable: true,
+      logicalTurnId,
     };
   }
 }

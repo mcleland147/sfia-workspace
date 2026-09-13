@@ -37,7 +37,8 @@ import {
   decideCognitiveStrategy,
   decideMw5Disposition,
   deriveMw5FactsFromF2Turn,
-  formatMw5AssistantText,
+  formatMw5MachineText,
+  formatMw5PiloteText,
   mergeCognitiveWorkloadSignals,
   toMw5TurnSurface,
   MW5_TEST_MARKERS,
@@ -349,12 +350,13 @@ async function evaluateF2Mw5(input: {
       priorStructuralChallengeCount: session.priorStructuralChallengeCount,
     }),
   );
-  const text = formatMw5AssistantText(decision);
+  const machineText = formatMw5MachineText(decision);
+  const text = formatMw5PiloteText(decision);
   if (decision.disposition === "CHALLENGE") {
     rememberMw5IssuedChallenge({
       projectId: input.projectId,
       challenges: decision.challenges,
-      challengeText: text,
+      challengeText: machineText,
     });
   } else if (
     decision.recommendationAllowed &&
@@ -573,6 +575,14 @@ export async function orchestrateAssistantSend(input: {
   /** Test override for Product SQLite Session path (MW1/MW4 durability). */
   sessionDbPath?: string;
   /**
+   * D-GF-ACW-02 — optional re-present of server-issued logical Product turn id.
+   */
+  logicalTurnId?: string;
+  /**
+   * Opaque client transport retry correlation (untrusted; not Product identity).
+   */
+  turnRetryKey?: string;
+  /**
    * INTERNAL / EVAL-ONLY — Stage A constitutive model×effort pin.
    * Propagated to analyzeIntent + F1 cognitive path. Never a client DTO field.
    */
@@ -761,7 +771,7 @@ export async function orchestrateAssistantSend(input: {
     // Pure read-only composition; NO reasonWithResolvedCkcContext; NO third model call.
     const registryRoot = resolveProductDoctrineRegistryRoot();
     const oa = getRuntimeApplicationService().oa;
-    const studioCognitiveContext = await composeStudioCognitiveContext({
+    const studioComposed = await composeStudioCognitiveContext({
       analysis,
       project,
       registryRoot,
@@ -769,6 +779,17 @@ export async function orchestrateAssistantSend(input: {
       oa,
       activeCycleInstanceId: project.activeCycleInstanceId ?? null,
     });
+    if (!studioComposed.ok) {
+      return {
+        ok: false,
+        status: "validation_error",
+        code: studioComposed.code,
+        message: studioComposed.message,
+        mode: modeResolution.mode,
+        retryable: false,
+      };
+    }
+    const studioCognitiveContext = studioComposed.context;
     // Keep methodContext for CORR-PROOF-03 compatibility surfaces when studio is present
     // (studio supersedes in prompt builder).
     const methodContext = studioCognitiveContext.method;

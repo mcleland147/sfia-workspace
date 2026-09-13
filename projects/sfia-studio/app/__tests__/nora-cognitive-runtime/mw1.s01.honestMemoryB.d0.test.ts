@@ -437,7 +437,16 @@ describe("MW1-S01 — Session ≠ Truth C under availability paths", () => {
         .all() as Array<{ name: string }>
     ).map((r) => r.name);
     sessionDb.close();
-    expect(sessionTables).toEqual(["session_items"]);
+    // D-GF-ACW-02 Option A: Session-adjacent logical_product_turns allowed;
+    // Session still must not own Truth C / LPS / HD / Evidence tables.
+    expect(sessionTables.sort()).toEqual(
+      [
+        "logical_product_turn_retry_bindings",
+        "logical_product_turns",
+        "session_items",
+      ].sort(),
+    );
+    expect(sessionTables.some((t) => t.startsWith("oa_"))).toBe(false);
 
     const truthDb = new DatabaseSync(truthPath);
     const truthTables = (

@@ -1,18 +1,39 @@
-import type { CycleInstance } from "../../domain/types";
+import type { HumanDecision } from "@/lib/oa/decision";
+import type {
+  CycleInstance,
+  ExplicitCycleQualificationSignals,
+} from "../../domain/types";
 import { isTerminalCycleStatus } from "../../domain/lifecycleInvariants";
 import type {
   LifecycleRecommendationBasisRefs,
   LifecycleRecommendationCandidate,
   LifecycleRecommendationIntent,
 } from "./types";
+import {
+  assessGreenfieldPreTrajectoryBootstrapEligibility,
+  validateCanonicalTargetCycleTypeId,
+  type TrajectoryBootstrapPresence,
+} from "./greenfieldLifecycleBootstrap";
+import { parseExplicitQualificationSignals } from "./qualificationSignals";
 
 export type ValidateLifecycleRecommendationInput = {
   projectId: string;
   candidate: LifecycleRecommendationCandidate;
   cycles: readonly CycleInstance[];
   lpsActiveCycleInstanceId: string | null | undefined;
-  /** When known — trajectory must be trajectory-aware for NEXT_CYCLE. */
+  /**
+   * When known true — current trajectory present (standard non-bootstrap path).
+   * When false — absence of current; bootstrap may still apply if presence=never.
+   * When undefined — legacy callers; trajectory rule not enforced here.
+   */
   hasTrajectoryContext?: boolean;
+  /**
+   * Explicit presence classification. Required to allow bootstrap.
+   * unknown → fail closed (never treat as never).
+   */
+  trajectoryBootstrapPresence?: TrajectoryBootstrapPresence;
+  /** Decisions used only for bootstrap incompatibility gate. */
+  decisions?: readonly HumanDecision[];
 };
 
 export type ValidateLifecycleRecommendationResult =
@@ -24,12 +45,74 @@ export type ValidateLifecycleRecommendationResult =
       targetCycleTypeId: string | null;
       statement: string;
       basisSeed: LifecycleRecommendationBasisRefs;
+      /** True when NEXT_CYCLE accepted via strict greenfield bootstrap. */
+      greenfieldBootstrap?: boolean;
+      /**
+       * D-GF-START-01 — complete six booleans on NEXT_CYCLE success.
+       * Absent on FINALIZE (signals ignored).
+       */
+      qualificationSignals?: ExplicitCycleQualificationSignals;
     }
   | {
       ok: false;
       code: string;
       reason: string;
     };
+
+function requireNextCycleQualificationSignals(
+  candidate: LifecycleRecommendationCandidate,
+):
+  | { ok: true; signals: ExplicitCycleQualificationSignals }
+  | { ok: false; code: string; reason: string } {
+  const signals = parseExplicitQualificationSignals(
+    candidate.qualificationSignals,
+  );
+  if (!signals) {
+    return {
+      ok: false,
+      code: "LR_QUALIFICATION_SIGNALS_INCOMPLETE",
+      reason: "next_cycle_requires_complete_qualification_signals",
+    };
+  }
+  return { ok: true, signals };
+}
+
+/**
+ * D-LC-04 / CR-LC-B-03 — current cycle needing closure:
+ * canonical active / paused / blocked (status or LPS-pointed non-terminal).
+ * Does not treat proposed/acknowledged candidates or historical terminals as blockers.
+ */
+function resolveCurrentCycleNeedingClosure(input: {
+  cycles: readonly CycleInstance[];
+  lpsActiveCycleInstanceId: string | null | undefined;
+}): CycleInstance | null {
+  const byId = new Map(
+    input.cycles.map((c) => [c.cycleInstanceId, c] as const),
+  );
+  const needsClosure = (c: CycleInstance | null | undefined): c is CycleInstance =>
+    Boolean(
+      c &&
+        (c.status === "active" ||
+          c.status === "paused" ||
+          c.status === "blocked"),
+    );
+
+  const byStatus =
+    input.cycles.find(
+      (c) =>
+        c.status === "active" ||
+        c.status === "paused" ||
+        c.status === "blocked",
+    ) ?? null;
+  if (needsClosure(byStatus)) return byStatus;
+
+  const lpsId = input.lpsActiveCycleInstanceId ?? null;
+  if (lpsId) {
+    const pointed = byId.get(lpsId) ?? null;
+    if (needsClosure(pointed)) return pointed;
+  }
+  return null;
+}
 
 /**
  * Deterministic SFIA validation — fail closed.
@@ -74,6 +157,7 @@ export function validateLifecycleRecommendation(
       };
     }
     // Eligibility is NOT required — Recommendation ≠ canFinalize.
+    // FINALIZE: ignore qualificationSignals / allow null or absent.
     return {
       ok: true,
       intent: candidate.intent,
@@ -99,6 +183,32 @@ export function validateLifecycleRecommendation(
         code: "LR_TARGET_MISSING",
         reason: "next_cycle_needs_target",
       };
+    }
+
+    // D-LC-04 / CR-LC-B-03 — while a current non-terminal cycle needs closure,
+    // FINALIZE_CURRENT_CYCLE is the lifecycle intent; NEXT_CYCLE is rejected.
+    const currentNeedsClosure = resolveCurrentCycleNeedingClosure({
+      cycles,
+      lpsActiveCycleInstanceId: input.lpsActiveCycleInstanceId,
+    });
+    if (currentNeedsClosure) {
+      return {
+        ok: false,
+        code: "LR_CURRENT_CYCLE_NOT_CLOSED",
+        reason: "next_cycle_requires_current_cycle_completion",
+      };
+    }
+
+    // Type-based NEXT_CYCLE must use a canonical catalog cycleTypeId (D-RB-BOOT-02).
+    if (targetType) {
+      const typeGate = validateCanonicalTargetCycleTypeId(targetType);
+      if (!typeGate.ok) {
+        return {
+          ok: false,
+          code: typeGate.code,
+          reason: typeGate.reason,
+        };
+      }
     }
     if (targetId) {
       const target = byId.get(targetId);
@@ -142,11 +252,88 @@ export function validateLifecycleRecommendation(
         };
       }
     }
-    if (input.hasTrajectoryContext === false) {
+
+    const presence = input.trajectoryBootstrapPresence;
+    const hasCurrent =
+      input.hasTrajectoryContext === true || presence?.kind === "current";
+
+    if (!hasCurrent) {
+      // Strict greenfield bootstrap (D-RB-BOOT-01) — never generic null fallback.
+      if (!presence) {
+        // Legacy callers without presence: preserve prior fail-closed when
+        // hasTrajectoryContext === false; allow when undefined (older tests).
+        if (input.hasTrajectoryContext === false) {
+          return {
+            ok: false,
+            code: "LR_TRAJECTORY_REQUIRED",
+            reason: "next_cycle_requires_trajectory",
+          };
+        }
+      } else if (presence.kind === "unknown") {
+        return {
+          ok: false,
+          code: "LR_BASIS_TRAJECTORY_UNAVAILABLE",
+          reason: "trajectory_presence_unknown",
+        };
+      } else {
+        const bootstrap = assessGreenfieldPreTrajectoryBootstrapEligibility({
+          candidate,
+          presence,
+          cycles,
+          lpsActiveCycleInstanceId: input.lpsActiveCycleInstanceId,
+          decisions: input.decisions ?? [],
+        });
+        if (!bootstrap.eligible) {
+          if (bootstrap.code.startsWith("LR_BOOTSTRAP_") || bootstrap.code.startsWith("LR_TARGET_CYCLE_TYPE_") || bootstrap.code.startsWith("LR_BASIS_")) {
+            return {
+              ok: false,
+              code: bootstrap.code,
+              reason: bootstrap.reason,
+            };
+          }
+          return {
+            ok: false,
+            code: "LR_TRAJECTORY_REQUIRED",
+            reason: bootstrap.reason,
+          };
+        }
+        const signalsGate = requireNextCycleQualificationSignals(candidate);
+        if (!signalsGate.ok) {
+          return {
+            ok: false,
+            code: signalsGate.code,
+            reason: signalsGate.reason,
+          };
+        }
+        return {
+          ok: true,
+          intent: candidate.intent,
+          subjectCycleInstanceId: null,
+          targetCycleInstanceId: null,
+          targetCycleTypeId: targetType,
+          statement,
+          greenfieldBootstrap: true,
+          qualificationSignals: signalsGate.signals,
+          basisSeed: {
+            projectId,
+            subjectCycleInstanceId: null,
+            targetCycleInstanceId: null,
+            targetCycleTypeId: targetType,
+            lpsActiveCycleInstanceId: input.lpsActiveCycleInstanceId ?? null,
+            trajectoryId: null,
+            trajectoryVersion: null,
+            trajectoryStatus: null,
+          },
+        };
+      }
+    }
+
+    const signalsGate = requireNextCycleQualificationSignals(candidate);
+    if (!signalsGate.ok) {
       return {
         ok: false,
-        code: "LR_TRAJECTORY_REQUIRED",
-        reason: "next_cycle_requires_trajectory",
+        code: signalsGate.code,
+        reason: signalsGate.reason,
       };
     }
     return {
@@ -156,6 +343,7 @@ export function validateLifecycleRecommendation(
       targetCycleInstanceId: targetId,
       targetCycleTypeId: targetType,
       statement,
+      qualificationSignals: signalsGate.signals,
       basisSeed: {
         projectId,
         subjectCycleInstanceId: candidate.subjectCycleInstanceId ?? null,
