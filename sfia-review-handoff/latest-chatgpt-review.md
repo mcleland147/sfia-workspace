@@ -1,6 +1,6 @@
-# SFIA Studio Review Pack — GCEC-D-CAPABLE-PRODUCT-CHAIN-INTEGRATION-01 Phase 1
+# SFIA Studio Review Pack — GCEC-D-CAPABLE-PRODUCT-CHAIN-INTEGRATION-01 Phase 2
 
-**Timestamp:** 2026-09-13T17:37:00Z (local 2026-09-13T19:37:00+0200)
+**Timestamp:** 2026-09-13T17:53:30Z (local 2026-09-13T19:53:30+0200)
 **Mode:** FULL
 **Publisher target:** `sfia-review-handoff/latest-chatgpt-review.md` on `sfia/review-handoff`
 
@@ -8,9 +8,9 @@
 
 ## A. VERDICT
 
-**PASS — GCEC D-CAPABLE PRODUCT PR READY FOR CHATGPT CRITICAL REVIEW — MERGE NOT YET EXECUTED**
+**PASS — GCEC D-CAPABLE PRODUCT CHAIN INTEGRATED ON MAIN / POST-MERGE VERIFIED — E STILL NOT PROVEN**
 
-Phase: **PHASE 1 — PUSH + PR + CI — STOP BEFORE MERGE**
+Phase: **PHASE 2 — CONDITIONAL MERGE + POST-MERGE VERIFICATION**
 
 ---
 
@@ -19,298 +19,278 @@ Phase: **PHASE 1 — PUSH + PR + CI — STOP BEFORE MERGE**
 | Field | Value |
 |------|-------|
 | Repository | `mcleland147/sfia-workspace` |
-| Cycle | 13 — PR readiness |
+| Cycle | 14 — Post-merge |
 | Typologie | EVOL |
 | Profil | CRITICAL |
-| Milestone | GCEC-D-CAPABLE-PRODUCT-CHAIN-INTEGRATION-01 |
-| Capacité v3 | Governed Project Execution V3-F11 / V3-F12 |
-| Macro GO | PUSH + PR + CI + ChatGPT Critical Review + CONDITIONAL MERGE — ZERO REAL |
-| This prompt | Phase 1 only (merge forbidden here) |
+| Milestone | GCEC-D-CAPABLE-PRODUCT-CHAIN-INTEGRATION-01 Phase 2 |
+| Macro GO | still active — ChatGPT Critical Review PASS → conditional merge authorized |
+| Product PR | #481 |
+| ZERO GCEC REAL | YES |
 
 ---
 
-## C. LOCAL GIT TRUTH
+## C. CHATGPT CRITICAL REVIEW GATE
+
+**PASS** (consumed as merge condition)
+
+Verified by ChatGPT before this phase:
+
+- PR #481 OPEN / mergeable / 4 commits / 18 files / +2241/−87
+- base `c481610c…` / head `f4210388…`
+- CI run `34771837003` SUCCESS including Required Gate
+- handoff tip `126074a98dc6733cdeb01077238ad847744c57aa`
+
+---
+
+## D. LOCAL PRODUCT PRE-STATE
 
 | Item | Value |
 |------|-------|
 | Worktree | `/Users/morris/Projects/sfia-gcec-d-ephemeral-secret-bridge-ff267fdf` |
 | Branch | `delivery/sfia-studio-gcec-d-ephemeral-secret-bridge` |
 | HEAD | `f42103881ea952f445672ed7781da59a465893d8` |
-| HEAD^ | `9878043eca14896c3a6f6cb8f9dc4a84b6a26d55` |
-| origin/main | `c481610caa3527edabeca8c860ab27c18a6a738e` |
-| merge-base(origin/main, HEAD) | `c481610caa3527edabeca8c860ab27c18a6a738e` |
-| Staged Product | NONE |
-| Tracked Product delta | NONE (`.tmp-sfia-review/**` / `app/.tmp` / `node_modules` noise only) |
+| Tracked Product delta | NONE (`.tmp` / `node_modules` noise only) |
+| ZERO REAL flags | cleared |
 
-Incoming handoff: `45d714d6b6a465e07aa85307f9868b4ba3e68f1e`
+Incoming handoff: `126074a98dc6733cdeb01077238ad847744c57aa`
 
 ---
 
-## D. CANONICAL MATURITY
-
-- A/B/C / A→C = HISTORICAL REAL PROVEN AT TESTED SCOPE
-- Cursor full-capability = RO REAL-BACKED AT TESTED SCOPE
-- Cross-EC C→D prior = DETERMINISTICALLY PROVEN + REAL-BACKED BY D CAMPAIGN
-- D `github.pr.create` = REAL PROVEN AT TESTED SCOPE
-- E merge = NOT PROVEN
-- runtime v3 / global L5 = NON ADOPTED
-
-This integration does **not** promote runtime maturity.
-
----
-
-## E. EXACT COMMIT CHAIN
-
-Ordered `c481610c..f4210388` (exactly **four**):
-
-| SHA | Parent | Subject | Role |
-|-----|--------|---------|------|
-| `11a43d3da337da34052339bd9a1ced13cc6d42b7` | `c481610c…` | `test(sfia-studio): align GCEC B commit target binding and start forensics` | B correction / StartExecution forensics |
-| `ff267fdf3e6591b5ed83c4478b95f6181ad98fa2` | `11a43d3d…` | `fix(sfia-studio): provide bounded GitHub HTTPS auth for remote push` | C remote_git HTTPS auth |
-| `9878043eca14896c3a6f6cb8f9dc4a84b6a26d55` | `ff267fdf…` | `fix(sfia-studio): align Cursor executor capability parity` | full-capability Cursor executor |
-| `f42103881ea952f445672ed7781da59a465893d8` | `9878043e…` | `feat(sfia-studio): support cross-EC verified push binding` | cross-EC D prerequisite |
-
-No hidden merge commit. No extra/missing commit.
-
----
-
-## F. CUMULATIVE DIFF REVIEW
-
-`git diff --stat c481610c..f4210388`:
-
-**18 files, +2241 / −87** — all under `projects/sfia-studio/app/` execution-attempt / tests.
-
-| Class | Paths |
-|------|-------|
-| A | `resolveCrossEcVerifiedRemotePushPrior.ts`, cross-EC unit + integration tests, full-capability parity tests, `redactExactSecrets.ts` |
-| M | `startExecution.ts`, `resolveAttemptExecutionProfile.ts`, `studioCursorRealLaunchGateway.ts`, `mutatingCursorConfinementEnv.ts`, `nodeCursorProcessRunner.ts`, REAL harness / confinement tests, index/ports |
-
-**Final tip behavior confirmed:**
-
-- **A/B:** feature-branch commit target bindings + fail-closed Start forensics
-- **C:** bounded GitHub HTTPS credential helper for remote_git; no hardcoded secret
-- **Cursor:** `--sandbox disabled` + `--force`; FCP-A (no ephemeral GH_TOKEN bridge; no `CURSOR_FORCED_*`)
-- **D prior:** explicit `verifiedRemotePushPrior`; Evidence-centric; fresh RepositoryRead; same-EC fallback; no authority widening
-
-**Absent (scope OK):** Roadmap / doctrine / method / CI config / UI / `.tmp` / `node_modules` tracked.
-
-`git diff --check c481610c..f4210388` = clean.
-
----
-
-## G. PRIOR VALIDATION EVIDENCE (tip f4210388)
-
-| Evidence | Result |
-|----------|--------|
-| Full Vitest at tip | 3922 passed / 137 skipped |
-| typecheck / lint / build | PASS |
-| Cross-EC focused | PASS |
-| Subsequent DREAL at same HEAD | 114 focused PASS; Product source delta NONE |
-| D REAL | REAL PROVEN AT TESTED SCOPE |
-
-Full Vitest **not** re-run ceremonially this phase (SHA identity + remote CI).
-
----
-
-## H. ZERO REAL CHECK
-
-Shell REAL flags cleared before push/PR/CI observation.
-
-No D/A/B/C/A→D/E REAL campaign run. No proof harness. No StudioCursorRealLaunchGateway against proof target.
-
-**REAL executions this phase: NONE.**
-
----
-
-## I. PROOF PR #1 PRE-STATE
+## E. PR #481 PRE-MERGE STATE
 
 | Field | Value |
 |------|-------|
-| repo | `mcleland147/sfia-gcec-proof-task-manager` |
-| PR | #1 |
 | state | OPEN |
-| mergedAt | null |
-| base | main |
-| head | `gcec/lifecycle/gcec-ad-finaldec-f2-fe6b` |
-| head SHA | `3a879572722af2b72909243ba0b506f307d87156` |
+| merged | false |
+| draft | false |
+| mergeable | MERGEABLE / CLEAN |
+| title | `feat(sfia-studio): integrate GCEC D-capable Product chain` |
+| base | main @ `c481610caa3527edabeca8c860ab27c18a6a738e` |
+| head | `delivery/sfia-studio-gcec-d-ephemeral-secret-bridge` @ `f42103881ea952f445672ed7781da59a465893d8` |
+| commits | 4 |
+| changedFiles | 18 |
+| additions / deletions | 2241 / 87 |
 
 ---
 
-## J. PRODUCT MAIN PRE-PUSH
+## F. PRE-MERGE CI / REQUIRED GATE
 
-`origin/main` = `c481610caa3527edabeca8c860ab27c18a6a738e` (re-fetched immediately before push).
+Pre-merge run `34771837003` still SUCCESS:
 
----
-
-## K. PRODUCT REMOTE BRANCH PRE-STATE
-
-`git ls-remote --heads origin delivery/sfia-studio-gcec-d-ephemeral-secret-bridge` → **absent** → push authorized (Case A).
+- Detect SFIA Studio changes = SUCCESS
+- Build and validate SFIA Studio = SUCCESS
+- **SFIA Studio Required Gate = SUCCESS**
 
 ---
 
-## L. PUSH
+## G. MAIN PRE-MERGE
+
+`origin/main` + GitHub main = `c481610caa3527edabeca8c860ab27c18a6a738e` (re-fetched immediately before merge).
+
+---
+
+## H. PROOF PR #1 PRE-STATE
+
+OPEN · mergedAt null · head `gcec/lifecycle/gcec-ad-finaldec-f2-fe6b` @ `3a879572722af2b72909243ba0b506f307d87156`
+
+---
+
+## I. ATOMIC MERGE GUARD
+
+`gh pr merge --help` supports `--merge` and `--match-head-commit`.
+
+Guard used: `--match-head-commit f42103881ea952f445672ed7781da59a465893d8`
+
+No `--squash` / `--rebase` / `--delete-branch` / `--auto`.
+
+---
+
+## J. MERGE INVOCATION
 
 | Item | Value |
 |------|-------|
-| Command | `git push -u origin delivery/sfia-studio-gcec-d-ephemeral-secret-bridge` |
-| Outcome | success (new remote branch) |
-| Force | **NO** |
-| Tags | NONE |
+| Count | **ONE** |
+| Timestamp (UTC) | `2026-09-13T17:47:29Z` (invocation) |
+| Command | `gh pr merge 481 --repo mcleland147/sfia-workspace --merge --match-head-commit f42103881ea952f445672ed7781da59a465893d8` |
+| Exit | 0 |
+| Retry | NONE |
 
 ---
 
-## M. REMOTE BRANCH PARITY
-
-Remote SHA = `f42103881ea952f445672ed7781da59a465893d8` (exact tip).
-
----
-
-## N. EXISTING PR PRECHECK
-
-Matching Product PR before create: **none** → creation authorized.
-
----
-
-## O. PRODUCT PR
+## K. PR #481 POST-MERGE
 
 | Field | Value |
 |------|-------|
-| number | **481** |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/481 |
-| title | `feat(sfia-studio): integrate GCEC D-capable Product chain` |
-| state | OPEN |
-| draft | false |
-| base | `main` @ `c481610caa3527edabeca8c860ab27c18a6a738e` |
-| head | `delivery/sfia-studio-gcec-d-ephemeral-secret-bridge` @ `f42103881ea952f445672ed7781da59a465893d8` |
-| mergeable | MERGEABLE |
-| mergeStateStatus (post-CI) | CLEAN |
+| state | MERGED / closed |
+| merged | true |
+| mergedAt | `2026-09-13T17:47:31Z` |
+| merge commit | `76e2d7869be439313b1c52bf4083aa105e5c6293` |
+| head SHA retained | `f42103881ea952f445672ed7781da59a465893d8` |
+| historical base | `c481610caa3527edabeca8c860ab27c18a6a738e` |
 
 ---
 
-## P. PR DIFF PARITY
+## L. PRODUCT_MERGE_SHA
 
-`gh pr diff --name-only` ≡ `git diff --name-only c481610c..f4210388` → **PR_DIFF_PARITY_OK**.
+**`76e2d7869be439313b1c52bf4083aa105e5c6293`**
 
-No remote-generated Product delta.
-
----
-
-## Q. CI / REQUIRED GATE
-
-| Workflow | Run ID | Job | Job ID | Conclusion |
-|----------|--------|-----|--------|------------|
-| SFIA Studio CI | `34771837003` | Detect SFIA Studio changes | `103762720444` | **SUCCESS** (5s) |
-| SFIA Studio CI | `34771837003` | Build and validate SFIA Studio | `103762737383` | **SUCCESS** (4m34s) |
-| SFIA Studio CI | `34771837003` | SFIA Studio Required Gate | `103763372862` | **SUCCESS** (3s) |
-
-**Required Gate = PASS.** No failed/cancelled/pending required checks at final report.
+Subject: `Merge pull request #481 from mcleland147/delivery/sfia-studio-gcec-d-ephemeral-secret-bridge`
 
 ---
 
-## R. PRODUCT MAIN POST-CI
+## M. MERGE PARENTS / ANCESTRY
 
-`origin/main` still `c481610caa3527edabeca8c860ab27c18a6a738e` — **no drift**.
+| Parent | SHA |
+|--------|-----|
+| ^1 | `c481610caa3527edabeca8c860ab27c18a6a738e` |
+| ^2 | `f42103881ea952f445672ed7781da59a465893d8` |
 
----
-
-## S. PROOF PR #1 POST-STATE
-
-Unchanged: OPEN, mergedAt null, head SHA `3a879572…`, title unchanged.
-
----
-
-## T. LOCAL PRODUCT POST-STATE
-
-HEAD still `f42103881ea952f445672ed7781da59a465893d8`. Branch tracking remote. No tracked Product source edits.
+Both `c481610c` and `f4210388` are ancestors of `PRODUCT_MERGE_SHA`.
 
 ---
 
-## U. PRODUCT SOURCE EDITS
+## N. HEAD→MERGE PRODUCT DELTA
+
+`git diff --name-status f4210388..76e2d786` → **empty**
+
+`git diff --check` → clean
+
+**ZERO content delta.**
+
+---
+
+## O. SOURCE BRANCH PRESERVATION
+
+`refs/heads/delivery/sfia-studio-gcec-d-ephemeral-secret-bridge` still exists at `f42103881ea952f445672ed7781da59a465893d8`
+
+**NOT deleted.**
+
+---
+
+## P. POST-MERGE CI
+
+| Field | Value |
+|------|-------|
+| workflow | SFIA Studio CI |
+| run | **34772652845** |
+| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/34772652845 |
+| event | `push` |
+| headBranch | `main` |
+| headSha | `76e2d7869be439313b1c52bf4083aa105e5c6293` |
+| status | completed |
+| conclusion | **success** |
+
+Jobs:
+
+| Job | Job ID | Conclusion |
+|-----|--------|------------|
+| Detect SFIA Studio changes | `103764947939` | SUCCESS |
+| Build and validate SFIA Studio | `103764966150` | SUCCESS |
+| **SFIA Studio Required Gate** | `103765641734` | **SUCCESS** |
+
+---
+
+## Q. MAIN POST-MERGE
+
+`origin/main` = `76e2d7869be439313b1c52bf4083aa105e5c6293`
+
+---
+
+## R. PROOF PR #1 POST-STATE
+
+Unchanged: OPEN · mergedAt null · head SHA `3a879572…`
+
+---
+
+## S. LOCAL PRODUCT POST-STATE
+
+| Item | Value |
+|------|-------|
+| local HEAD | `f42103881ea952f445672ed7781da59a465893d8` |
+| local branch | `delivery/sfia-studio-gcec-d-ephemeral-secret-bridge` |
+| origin/main | `76e2d7869be439313b1c52bf4083aa105e5c6293` |
+| tracked Product edits | NONE |
+
+No checkout of main.
+
+---
+
+## T. PRODUCT SOURCE EDITS
 
 **NONE**
 
 ---
 
-## V. NEW PRODUCT COMMITS
+## U. NEW LOCAL PRODUCT COMMITS
 
-**NONE** (pushed existing tip only)
+**NONE**
+
+Only authorized mutation: GitHub merge commit for PR #481.
 
 ---
 
-## W. REAL EXECUTIONS
+## V. GCEC REAL
 
 **NONE**
 
 ---
 
-## X. ROADMAP
+## W. ROADMAP
 
 **UNCHANGED**
 
 ---
 
-## Y. MERGE
+## X. DOCUMENTARY TRUTH-SYNC
 
-**NOT EXECUTED** (forbidden in Phase 1)
+**PENDING**
 
----
-
-## Z. PR READINESS VERDICT
-
-All Phase-1 readiness criteria satisfied:
-
-1. local HEAD f4210388
-2. ancestry exact four commits
-3. cumulative diff coherent
-4. no unexpected tracked Product delta
-5. ZERO REAL
-6. proof PR #1 untouched
-7. origin/main still c481610c
-8. remote branch exact f4210388
-9. exactly one Product PR (#481)
-10. PR head/base parity exact
-11. CI required checks PASS + Required Gate PASS
-12. no merge performed
-13. Review Pack complete (this document)
-14. Review Handoff published (verified after publish)
-
-**PASS — GCEC D-CAPABLE PRODUCT PR READY FOR CHATGPT CRITICAL REVIEW — MERGE NOT YET EXECUTED**
-
-Cursor does **not** claim MERGE APPROVED.
+Roadmap/capitalisation may be documentary-stale for this newest GCEC integrated state until a later bounded truth-sync. Not Product debt. Nora / Cognitive Completion global priority unchanged.
 
 ---
 
-## AA. REVIEW HANDOFF
+## Y. MATURITY AFTER
 
-Incoming expected tip: `45d714d6b6a465e07aa85307f9868b4ba3e68f1e`
+- Product D-capable chain = **INTEGRATED ON MAIN / POST-MERGE VERIFIED**
+- A/B/C / A→C = HISTORICAL REAL PROVEN AT TESTED SCOPE
+- Cursor full-capability = RO REAL-BACKED AT TESTED SCOPE
+- Cross-EC C→D prior = DETERMINISTICALLY PROVEN + REAL-BACKED BY D CAMPAIGN
+- D `github.pr.create` = REAL PROVEN AT TESTED SCOPE
+- E `github.pr.merge` = **NOT PROVEN**
+- runtime v3 = NON ADOPTED
+- global L5 = NON ADOPTED
+
+---
+
+## Z. E / MERGE REAL ANTI-CLAIM
+
+`gh pr merge` under Morris construction governance ≠ Product runtime E REAL proof.
+
+E REAL would require a distinct Product-runtime ExecutionContract campaign. **Do not infer an E GO from this repository merge.**
+
+---
+
+## AA. RUNTIME V3 / GLOBAL L5 ANTI-CLAIMS
+
+runtime v3 = NON ADOPTED
+global L5 = NON ADOPTED
+
+---
+
+## AB. REVIEW HANDOFF
+
+Incoming expected tip: `126074a98dc6733cdeb01077238ad847744c57aa`
 
 Publish once via `scripts/sfia/publish-review-handoff.sh`.
 
-(Tip / parent / blob / parity recorded after publish verification.)
+(Tip / parent / blob / parity after publish verification.)
 
 ---
 
-## AB. ANTI-CLAIMS
+## AC. NEXT GATE
 
-- E / `github.pr.merge` REAL still NOT PROVEN
-- runtime v3 NON ADOPTED
-- global L5 NOT ADOPTED
-- A→D monolithic not claimed
-- This PR does not itself prove D REAL (already proven separately at same HEAD)
-- Merge not executed / not ChatGPT-approved by this agent
+Do **not** execute automatically.
 
----
+Preferred next: bounded GCEC documentary truth-sync / Roadmap + capitalisation — ZERO REAL — without changing global Nora priority.
 
-## AC. REMAINING MACRO CONDITION
-
-**CHATGPT CRITICAL REVIEW PASS**
-
----
-
-## AD. NEXT PHASE
-
-Under the **same** Morris macro GO, after ChatGPT Critical Review = PASS:
-
-Phase 2 Cursor contract may execute conditional merge → remote merge verification → post-merge CI → Review Handoff — without a new Morris GO, if no Git/PR drift.
-
-If Critical Review ≠ PASS: **NO MERGE**.
+E / `github.pr.merge` REAL remains a separate structural Morris question.
