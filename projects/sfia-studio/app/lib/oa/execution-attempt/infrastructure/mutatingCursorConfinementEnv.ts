@@ -3,11 +3,18 @@
  *
  * Effect-sensitive (CR-02):
  * - local (A docs_write + B local_commit): strip Git/GitHub/SSH write-auth channels
- * - remote_git (C git.push): preserve SSH / askpass channels; still strip GH tokens + GIT_CONFIG injection
- * - remote_github (D/E pr create/merge): preserve GH_/GITHUB_ token keys; still neutralize GIT_CONFIG injection
+ * - remote_git (C git.push): preserve SSH / askpass channels; still strip GH tokens +
+ *   inherited GIT_CONFIG injection; then inject a Product-owned GitHub HTTPS credential
+ *   helper overlay (`gh auth git-credential`) so non-interactive HTTPS push can use the
+ *   host's stored gh session without restoring ~/.gitconfig or propagating GH_TOKEN
+ * - remote_github (D/E pr create/merge): preserve GH_/GITHUB_ token keys; still neutralize
+ *   GIT_CONFIG injection; no remote_git helper overlay
+ *
+ * CAPABILITY ≠ AUTHORITY: this grants a technical HTTPS auth path for remote_git only.
+ * Destination/scope remain governed by ExecutionContract ∩ Confirmation ∩ gateway rules.
  *
  * Proves only: Product gateway applies a deterministic env-key presence policy.
- * Does NOT prove AUTH REAL / remote-write impossibility.
+ * Does NOT prove AUTH REAL / remote-write success.
  * NEVER copy secret VALUES into specs/Evidence/reports — key presence only.
  */
 import { SFIA_STUDIO_CURSOR_REAL_FLAG } from "../domain/realLaunchSafety";
@@ -48,6 +55,33 @@ export const MUTATING_CURSOR_REMOTE_GITHUB_PRESERVED_ENV_KEYS = [
   "GITHUB_ENTERPRISE_TOKEN",
 ] as const;
 
+/**
+ * Product-owned Git config overlay for remote_git only (constants — never caller-derived).
+ * Scoped to github.com HTTPS; uses the GitHub CLI credential helper against stored gh auth.
+ * Does not restore host global/system Git config and does not propagate GH_TOKEN.
+ */
+export const REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_KEY =
+  "credential.https://github.com.helper" as const;
+export const REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_VALUE =
+  "!gh auth git-credential" as const;
+
+/**
+ * Cursor Shell egress env keys — strip ambient inheritance only.
+ * Product MUST NOT inject CURSOR_FORCED_* (full-capability parity; no SFIA firewall).
+ */
+export const CURSOR_FORCED_SHELL_EGRESS_KEY =
+  "CURSOR_FORCED_SHELL_EGRESS" as const;
+export const CURSOR_FORCED_SHELL_EGRESS_ALLOW_DOMAINS_KEY =
+  "CURSOR_FORCED_SHELL_EGRESS_ALLOW_DOMAINS" as const;
+export const CURSOR_FORCED_SHELL_EGRESS_NETWORK_DEFAULT_KEY =
+  "CURSOR_FORCED_SHELL_EGRESS_NETWORK_DEFAULT" as const;
+
+export const CURSOR_FORCED_SHELL_EGRESS_ENV_KEYS = [
+  CURSOR_FORCED_SHELL_EGRESS_KEY,
+  CURSOR_FORCED_SHELL_EGRESS_ALLOW_DOMAINS_KEY,
+  CURSOR_FORCED_SHELL_EGRESS_NETWORK_DEFAULT_KEY,
+] as const;
+
 export type MutatingCursorConfinementEffectClass =
   | "local"
   | "remote_git"
@@ -70,12 +104,19 @@ function isInheritedGitConfigInjectionKey(key: string): boolean {
   );
 }
 
+function isInheritedCursorShellEgressKey(key: string): boolean {
+  return (CURSOR_FORCED_SHELL_EGRESS_ENV_KEYS as readonly string[]).includes(
+    key,
+  );
+}
+
 function shouldStripKey(
   key: string,
   effectClass: MutatingCursorConfinementEffectClass,
 ): boolean {
-  // Always neutralize GIT_CONFIG_* injection regardless of effect class.
+  // Always neutralize GIT_CONFIG_* and Cursor egress ambient inheritance.
   if (isInheritedGitConfigInjectionKey(key)) return true;
+  if (isInheritedCursorShellEgressKey(key)) return true;
 
   if (effectClass === "local") {
     return LOCAL_STRIPPED.has(key);
@@ -87,6 +128,20 @@ function shouldStripKey(
   // remote_github
   if (REMOTE_GITHUB_PRESERVE.has(key)) return false;
   return LOCAL_STRIPPED.has(key);
+}
+
+/**
+ * Strip ambient Cursor Shell egress keys from any env object (RO / non-mutating
+ * path). Does not mutate the input; returns a fresh object.
+ */
+export function stripInheritedCursorShellEgressEnv(
+  env: NodeJS.ProcessEnv,
+): NodeJS.ProcessEnv {
+  const next: Record<string, string | undefined> = { ...env };
+  for (const key of CURSOR_FORCED_SHELL_EGRESS_ENV_KEYS) {
+    delete next[key];
+  }
+  return next as NodeJS.ProcessEnv;
 }
 
 /**
@@ -112,6 +167,14 @@ export function buildMutatingCursorConfinementEnv(
   child.GIT_CONFIG_NOSYSTEM = "1";
   child.GIT_CONFIG_SYSTEM = "/dev/null";
   child.GIT_CONFIG_GLOBAL = "/dev/null";
+
+  // remote_git only: after inherited GIT_CONFIG_* strip + null global/system,
+  // inject an exact Product-owned github.com HTTPS credential helper overlay.
+  if (effectClass === "remote_git") {
+    child.GIT_CONFIG_COUNT = "1";
+    child.GIT_CONFIG_KEY_0 = REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_KEY;
+    child.GIT_CONFIG_VALUE_0 = REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_VALUE;
+  }
 
   return child as NodeJS.ProcessEnv;
 }

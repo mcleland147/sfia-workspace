@@ -268,7 +268,8 @@ describe("M4 REAL-OFF correction R1", () => {
     expect(argv).toContain("--workspace");
     expect(argv).toContain("--trust");
     expect(argv).toContain("--sandbox");
-    expect(argv[argv.indexOf("--sandbox") + 1]).toBe("enabled");
+    expect(argv[argv.indexOf("--sandbox") + 1]).toBe("disabled");
+    expect(argv).toContain("--force");
     expect(argv[0]).toBe("agent");
     expect(argv[argv.indexOf("--workspace") + 1]).toBe(workspacePath);
 

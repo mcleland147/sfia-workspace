@@ -102,7 +102,7 @@ import {
 } from "../domain/gitPrMergeLaunchSpec";
 import { assertFreshPrMergePreflight } from "../domain/assertFreshPrMergePreflight";
 import { resolveVerifiedLocalCommitPriorAttempt } from "../domain/resolveVerifiedLocalCommitPriorAttempt";
-import { resolveVerifiedRemotePushPriorAttempt } from "../domain/resolveVerifiedRemotePushPriorAttempt";
+import { resolveVerifiedRemotePushPriorForPrCreate } from "../domain/resolveCrossEcVerifiedRemotePushPrior";
 import type { CursorAuthorizedEffectId } from "../domain/cursorExecutionReport";
 import {
   authorityFailureDetail,
@@ -1463,21 +1463,24 @@ export class StartExecution {
         });
       }
       const repoRef = projectBindingPr.identity.trim();
-      const priorPush = resolveVerifiedRemotePushPriorAttempt({
+      const priorPush = resolveVerifiedRemotePushPriorForPrCreate({
         contract,
         attempts: peerAttemptsPr,
         evidence: evidenceReadPr.evidence,
         repositoryRef: repoRef,
       });
       if (!priorPush.ok) {
-        return fail(
-          "ATTEMPT_INVALID",
-          priorPush.reason === "remote_push_prior_none"
-            ? "git_pr_create_without_verified_remote_push"
-            : priorPush.reason,
-          { executionContractId: contract.executionContractId },
-        );
+        const cause =
+          priorPush.mode === "cross_ec"
+            ? priorPush.reason
+            : priorPush.reason === "remote_push_prior_none"
+              ? "git_pr_create_without_verified_remote_push"
+              : priorPush.reason;
+        return fail("ATTEMPT_INVALID", cause, {
+          executionContractId: contract.executionContractId,
+        });
       }
+      const crossEc = priorPush.mode === "cross_ec";
       // AC-02/AC-03 — Evidence repo + branch + SHA must bind C→D exactly.
       if (
         !priorPush.prior.repositoryRef.trim() ||
@@ -1485,7 +1488,9 @@ export class StartExecution {
       ) {
         return fail(
           "ATTEMPT_INVALID",
-          "git_pr_create_prior_push_repository_mismatch",
+          crossEc
+            ? "cross_ec_remote_push_repo_mismatch"
+            : "git_pr_create_prior_push_repository_mismatch",
           { executionContractId: contract.executionContractId },
         );
       }
@@ -1493,7 +1498,9 @@ export class StartExecution {
       if (!headBranch) {
         return fail(
           "ATTEMPT_INVALID",
-          "git_pr_create_prior_push_branch_missing",
+          crossEc
+            ? "cross_ec_remote_push_branch_mismatch"
+            : "git_pr_create_prior_push_branch_missing",
           { executionContractId: contract.executionContractId },
         );
       }
@@ -1504,7 +1511,9 @@ export class StartExecution {
       if (contractWorkingBranch && contractWorkingBranch !== headBranch) {
         return fail(
           "ATTEMPT_INVALID",
-          "git_pr_create_prior_push_branch_mismatch",
+          crossEc
+            ? "cross_ec_remote_push_branch_mismatch"
+            : "git_pr_create_prior_push_branch_mismatch",
           { executionContractId: contract.executionContractId },
         );
       }
@@ -1512,14 +1521,18 @@ export class StartExecution {
       if (!/^[0-9a-f]{40}$/.test(expectedHeadSha)) {
         return fail(
           "ATTEMPT_INVALID",
-          "git_pr_create_expected_head_sha_invalid",
+          crossEc
+            ? "cross_ec_remote_push_sha_mismatch"
+            : "git_pr_create_expected_head_sha_invalid",
           { executionContractId: contract.executionContractId },
         );
       }
       if (!this.repositoryRead) {
         return fail(
           "ATTEMPT_INVALID",
-          "git_pr_create_repository_read_unavailable",
+          crossEc
+            ? "cross_ec_remote_push_repository_read_unavailable"
+            : "git_pr_create_repository_read_unavailable",
           { executionContractId: contract.executionContractId },
         );
       }
@@ -1528,14 +1541,20 @@ export class StartExecution {
         branch: headBranch,
       });
       if (remoteHead == null || !String(remoteHead).trim()) {
-        return fail("ATTEMPT_INVALID", "git_pr_create_remote_head_missing", {
-          executionContractId: contract.executionContractId,
-        });
+        return fail(
+          "ATTEMPT_INVALID",
+          crossEc
+            ? "cross_ec_remote_push_remote_head_drift"
+            : "git_pr_create_remote_head_missing",
+          { executionContractId: contract.executionContractId },
+        );
       }
       if (String(remoteHead).trim().toLowerCase() !== expectedHeadSha) {
         return fail(
           "ATTEMPT_INVALID",
-          "git_pr_create_remote_head_sha_drift",
+          crossEc
+            ? "cross_ec_remote_push_remote_head_drift"
+            : "git_pr_create_remote_head_sha_drift",
           { executionContractId: contract.executionContractId },
         );
       }

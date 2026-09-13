@@ -140,6 +140,15 @@ export {
   resolveMutatingConfinementEffectClass,
   MUTATING_CURSOR_REMOTE_GIT_PRESERVED_ENV_KEYS,
   MUTATING_CURSOR_REMOTE_GITHUB_PRESERVED_ENV_KEYS,
+  REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_KEY,
+  REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_VALUE,
+  CURSOR_FORCED_SHELL_EGRESS_KEY,
+  CURSOR_FORCED_SHELL_EGRESS_ALLOW_DOMAINS_KEY,
+  CURSOR_FORCED_SHELL_EGRESS_NETWORK_DEFAULT_KEY,
+  CURSOR_FORCED_SHELL_EGRESS_ENV_KEYS,
+  stripInheritedCursorShellEgressEnv,
+  REDACTED_SECRET_MARKER,
+  redactExactSecrets,
   type CursorCliLaunchGatewayOptions,
   type StudioCursorRealLaunchGatewayOptions,
   type SpawnPrimitive,
@@ -257,6 +266,21 @@ export {
   resolveVerifiedRemotePushPriorAttempt,
   parseRemotePushFromEvidenceLocation,
 } from "./domain/resolveVerifiedRemotePushPriorAttempt";
+export {
+  VERIFIED_REMOTE_PUSH_PRIOR_INPUT_KEY,
+  parseVerifiedRemotePushPriorBinding,
+  resolveCrossEcVerifiedRemotePushPrior,
+  resolveVerifiedRemotePushPriorForPrCreate,
+} from "./domain/resolveCrossEcVerifiedRemotePushPrior";
+export type {
+  VerifiedRemotePushPriorBinding,
+  ParseVerifiedRemotePushPriorBindingResult,
+  ResolveCrossEcVerifiedRemotePushPriorInput,
+  ResolveCrossEcVerifiedRemotePushPriorResult,
+  CrossEcVerifiedRemotePushPriorFailureReason,
+  ResolveVerifiedRemotePushPriorForPrCreateInput,
+  ResolveVerifiedRemotePushPriorForPrCreateResult,
+} from "./domain/resolveCrossEcVerifiedRemotePushPrior";
 export type {
   ProjectEvidenceListResult,
   ListProjectEvidenceFn,

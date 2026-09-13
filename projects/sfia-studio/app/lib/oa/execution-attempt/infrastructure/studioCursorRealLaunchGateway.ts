@@ -56,6 +56,7 @@ import {
   buildMutatingCursorConfinementEnv,
   isMutatingGcecCursorProfile,
   resolveMutatingConfinementEffectClass,
+  stripInheritedCursorShellEgressEnv,
 } from "./mutatingCursorConfinementEnv";
 
 function buildBoundedLocalCommitInstruction(input: {
@@ -837,8 +838,9 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
       ].join("\n");
     }
 
+    // Full-capability native mode: --sandbox disabled --force (parity with Cursor CLI).
     // Docs-write + git mutation profiles: default agent mode (omit --mode ask).
-    // RO: --mode ask. All keep --print + --workspace + --trust + --sandbox enabled.
+    // RO: --mode ask. Capability does not depend on effect class.
     const usesAgentMode =
       isDocsWrite ||
       isLocalCommitProfile ||
@@ -853,7 +855,8 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
           workspacePath,
           "--trust",
           "--sandbox",
-          "enabled",
+          "disabled",
+          "--force",
           instruction,
         ]
       : [
@@ -865,7 +868,8 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
           workspacePath,
           "--trust",
           "--sandbox",
-          "enabled",
+          "disabled",
+          "--force",
           instruction,
         ];
 
@@ -874,7 +878,7 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
     // RO / other profiles keep minimal non-mutating spawn env (no auth strip).
     // Prompt forbids remain defense-in-depth — NOT the technical authority boundary.
     // Proves REMOTE AUTH ENVIRONMENT POLICY only — NOT AUTH REAL.
-    const childEnv = isMutatingGcecCursorProfile({
+    const childEnv: NodeJS.ProcessEnv = isMutatingGcecCursorProfile({
       isDocsWrite,
       isLocalCommitProfile,
       isRemotePushProfile,
@@ -888,12 +892,16 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
             isPrMergeProfile,
           }),
         })
-      : {
+      : stripInheritedCursorShellEgressEnv({
           ...this.env,
           [SFIA_STUDIO_CURSOR_REAL_FLAG]: "1",
           GIT_TERMINAL_PROMPT: "0",
           GCM_INTERACTIVE: "Never",
-        };
+        });
+
+    // FCP-A: no ephemeral GH_TOKEN bridge; no CURSOR_FORCED_* Product injection.
+    // Native Cursor/host capability + ExecutionContract authority only.
+    const invokeEnv: NodeJS.ProcessEnv = childEnv;
 
     try {
       const invoked = await this.runner.invoke({
@@ -902,7 +910,7 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
         cwd: workspacePath,
         argv,
         timeoutMs: request.timeoutMs,
-        env: childEnv,
+        env: invokeEnv,
       });
 
       if (!invoked.realProcessInvoked) {

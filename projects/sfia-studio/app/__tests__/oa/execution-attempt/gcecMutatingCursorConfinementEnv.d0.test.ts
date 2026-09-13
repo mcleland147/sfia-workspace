@@ -4,6 +4,7 @@
  * @vitest-environment node
  */
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { spawnSync } from "node:child_process";
 import {
   assertStudioCursorRealOffForTests,
   buildMutatingCursorConfinementEnv,
@@ -15,6 +16,8 @@ import {
   M4_BOUNDED_RO_ACTION,
   M4_REAL_GATEWAY_ADAPTER_ID,
   MUTATING_CURSOR_STRIPPED_ENV_KEYS,
+  REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_KEY,
+  REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_VALUE,
   resolveMutatingConfinementEffectClass,
   SFIA_STUDIO_CURSOR_REAL_FLAG,
   StudioCursorRealLaunchGateway,
@@ -295,7 +298,19 @@ describe("D-GCEC-CONF-02A mutating Cursor confinement env", () => {
     expect(joined).not.toContain("TEST_GIT_SSH_COMMAND");
   });
 
-  it("CR-02 remote_git preserves SSH/askpass; still strips GH tokens + GIT_CONFIG", () => {
+  it("CR-02 / AUTH-1 local confinement unchanged (no remote_git helper)", () => {
+    const base = hostileBaseEnv();
+    const child = buildMutatingCursorConfinementEnv(base, { effectClass: "local" });
+    assertSanitizedChild(child);
+    expect(child.GIT_CONFIG_COUNT).toBeUndefined();
+    expect(child.GIT_CONFIG_KEY_0).toBeUndefined();
+    expect(child.GIT_CONFIG_VALUE_0).toBeUndefined();
+    expect(child.GH_TOKEN).toBeUndefined();
+    expect(child.GITHUB_TOKEN).toBeUndefined();
+    expect(child.SSH_AUTH_SOCK).toBeUndefined();
+  });
+
+  it("CR-02 / AUTH-2/3/7 remote_git: hostile GIT_CONFIG stripped; Product helper only", () => {
     const base = hostileBaseEnv();
     expect(resolveMutatingConfinementEffectClass({ isRemotePushProfile: true })).toBe(
       "remote_git",
@@ -310,11 +325,42 @@ describe("D-GCEC-CONF-02A mutating Cursor confinement env", () => {
     expect(child.GH_TOKEN).toBeUndefined();
     expect(child.GITHUB_TOKEN).toBeUndefined();
     expect(child.GIT_CONFIG_PARAMETERS).toBeUndefined();
-    expect(child.GIT_CONFIG_KEY_0).toBeUndefined();
+    // Hostile inherited overlay must not survive.
+    expect(child.GIT_CONFIG_KEY_0).not.toBe("credential.helper");
+    expect(child.GIT_CONFIG_VALUE_0).not.toBe("osxkeychain");
+    // Product-owned github.com HTTPS helper only.
+    expect(child.GIT_CONFIG_COUNT).toBe("1");
+    expect(child.GIT_CONFIG_KEY_0).toBe(REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_KEY);
+    expect(child.GIT_CONFIG_VALUE_0).toBe(
+      REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_VALUE,
+    );
     expect(child.GIT_CONFIG_GLOBAL).toBe("/dev/null");
+    expect(child.GIT_CONFIG_SYSTEM).toBe("/dev/null");
+    expect(child.GIT_CONFIG_NOSYSTEM).toBe("1");
+    expect(child.GIT_TERMINAL_PROMPT).toBe("0");
+    expect(child.GCM_INTERACTIVE).toBe("Never");
   });
 
-  it("CR-02 remote_github preserves GH tokens; still strips SSH + GIT_CONFIG", () => {
+  it("AUTH-4 local git parser resolves Product-owned helper (no network)", () => {
+    const child = buildMutatingCursorConfinementEnv(hostileBaseEnv(), {
+      effectClass: "remote_git",
+    });
+    const env: NodeJS.ProcessEnv = { NODE_ENV: "test" };
+    for (const [k, v] of Object.entries(child)) {
+      if (v !== undefined) env[k] = v;
+    }
+    // Ensure git is resolvable; never invoke credential fill / network.
+    env.PATH = process.env.PATH ?? "/usr/bin:/bin";
+    const r = spawnSync(
+      "git",
+      ["config", "--get", REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_KEY],
+      { env, encoding: "utf8" },
+    );
+    expect(r.status).toBe(0);
+    expect((r.stdout ?? "").trim()).toBe(REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_VALUE);
+  });
+
+  it("CR-02 / AUTH-5 remote_github preserves GH tokens; no remote_git helper", () => {
     const base = hostileBaseEnv();
     expect(
       resolveMutatingConfinementEffectClass({ isPrCreateProfile: true }),
@@ -332,7 +378,28 @@ describe("D-GCEC-CONF-02A mutating Cursor confinement env", () => {
     expect(child.SSH_AUTH_SOCK).toBeUndefined();
     expect(child.GIT_ASKPASS).toBeUndefined();
     expect(child.GIT_CONFIG_PARAMETERS).toBeUndefined();
+    expect(child.GIT_CONFIG_COUNT).toBeUndefined();
+    expect(child.GIT_CONFIG_KEY_0).toBeUndefined();
+    expect(child.GIT_CONFIG_VALUE_0).toBeUndefined();
     expect(child.GIT_CONFIG_GLOBAL).toBe("/dev/null");
+  });
+
+  it("AUTH-6/8 baseEnv immutability + secret anti-leak (key presence / constants only)", () => {
+    const base = hostileBaseEnv();
+    const snap = { ...base };
+    const local = buildMutatingCursorConfinementEnv(base, { effectClass: "local" });
+    const remoteGit = buildMutatingCursorConfinementEnv(base, {
+      effectClass: "remote_git",
+    });
+    expect(base).toEqual(snap);
+    const joinedLocal = Object.values(local).join("\u0000");
+    const joinedRemote = Object.values(remoteGit).join("\u0000");
+    expect(joinedLocal).not.toContain("TEST_GH_TOKEN");
+    expect(joinedRemote).not.toContain("TEST_GH_TOKEN");
+    expect(joinedRemote).not.toContain("TEST_GITHUB_TOKEN");
+    // Non-secret Product constant may appear; hostile helper must not.
+    expect(joinedRemote).toContain(REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_VALUE);
+    expect(joinedRemote).not.toContain("osxkeychain");
   });
 
   function remotePushRequest(
@@ -374,16 +441,32 @@ describe("D-GCEC-CONF-02A mutating Cursor confinement env", () => {
     });
   }
 
-  it("CR-02 gateway C/D apply effect-sensitive confinement (not full local strip)", async () => {
+  it("CR-02 / AUTH-9 gateway C/D apply effect-sensitive confinement (not full local strip)", async () => {
     const base = hostileBaseEnv();
     const { gw, runner } = gateway(base);
+    await gw.launch(docsWriteRequest({ attemptId: "xat:conf-a-route" }));
+    await gw.launch(localCommitRequest({ attemptId: "xat:conf-b-route" }));
     await gw.launch(remotePushRequest({ attemptId: "xat:conf-c" }));
     await gw.launch(prCreateRequest({ attemptId: "xat:conf-d" }));
-    expect(runner.calls).toHaveLength(2);
-    expect(runner.calls[0]!.env.SSH_AUTH_SOCK).toBe("TEST_SSH_SOCKET");
-    expect(runner.calls[0]!.env.GH_TOKEN).toBeUndefined();
-    expect(runner.calls[1]!.env.GH_TOKEN).toBe("TEST_GH_TOKEN");
+    expect(runner.calls).toHaveLength(4);
+    // A/B local: no Product remote_git helper.
+    expect(runner.calls[0]!.env.GIT_CONFIG_KEY_0).toBeUndefined();
+    expect(runner.calls[1]!.env.GIT_CONFIG_KEY_0).toBeUndefined();
+    expect(runner.calls[0]!.env.SSH_AUTH_SOCK).toBeUndefined();
     expect(runner.calls[1]!.env.SSH_AUTH_SOCK).toBeUndefined();
+    // C remote_git: Product helper + SSH preserved; no GH tokens.
+    expect(runner.calls[2]!.env.SSH_AUTH_SOCK).toBe("TEST_SSH_SOCKET");
+    expect(runner.calls[2]!.env.GH_TOKEN).toBeUndefined();
+    expect(runner.calls[2]!.env.GIT_CONFIG_KEY_0).toBe(
+      REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_KEY,
+    );
+    expect(runner.calls[2]!.env.GIT_CONFIG_VALUE_0).toBe(
+      REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_VALUE,
+    );
+    // D remote_github: GH tokens preserved; no remote_git helper.
+    expect(runner.calls[3]!.env.GH_TOKEN).toBe("TEST_GH_TOKEN");
+    expect(runner.calls[3]!.env.SSH_AUTH_SOCK).toBeUndefined();
+    expect(runner.calls[3]!.env.GIT_CONFIG_KEY_0).toBeUndefined();
     expect(
       isMutatingGcecCursorProfile({
         isDocsWrite: false,

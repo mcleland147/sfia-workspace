@@ -277,11 +277,13 @@ describe("Cursor trust-marker NAME_MAX compatibility", () => {
       workspacePath,
       "--trust",
       "--sandbox",
-      "enabled",
+      "disabled",
+      "--force",
       argv[argv.length - 1],
     ]);
     expect(argv[argv.indexOf("--workspace") + 1]).toBe(workspacePath);
-    expect(argv[argv.indexOf("--sandbox") + 1]).toBe("enabled");
+    expect(argv[argv.indexOf("--sandbox") + 1]).toBe("disabled");
+    expect(argv).toContain("--force");
     const instruction = argv[argv.length - 1];
     expect(instruction).toContain("README.md");
     expect(instruction).toContain("M4_READ_ONLY_OK");

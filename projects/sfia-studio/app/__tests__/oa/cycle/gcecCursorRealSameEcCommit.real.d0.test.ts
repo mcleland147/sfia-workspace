@@ -48,12 +48,14 @@ import {
   M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID,
   ManagedProjectRepositoryResolver,
   NodeGitCommandRunner,
+  assertConfirmationMatchAgreesWithServerTarget,
   buildGitCommitLaunchSpec,
   buildGitEffectActionRef,
   deriveDeterministicGcecPushBranch,
   deriveTrustedCommitMessage,
   isFsAnchorSupersededByVerifiedLocalCommit,
   observeLocalCommitFacts,
+  resolveGitEffectTarget,
   resolvePreCommitWorkspaceContinuation,
   sanitizeManagedRepoIdentity,
   verifyLocalCommitEffect,
@@ -198,7 +200,76 @@ export type RealSameEcCommitHarnessState = {
   prNumber?: number;
   durableReviewSnapshotWritten: boolean;
   failure?: string;
+  /** Durable StartExecution failure provenance — harness-local only. */
+  startFailure?: StartExecutionFailureForensics;
 };
+
+/** Harness-local StartExecution failure capture (not Product persistence). */
+export type StartExecutionFailureForensics = {
+  attemptId: string;
+  detailCode: string;
+  internalCauseRef: string | null;
+  message: string;
+  phase: RealCommitHarnessPhase;
+};
+
+type StartExecutionLikeResult =
+  | { ok: true; attempt: { status: string } }
+  | {
+      ok: false;
+      error: {
+        detailCode: string;
+        message: string;
+        internalCauseRef?: string | null;
+      };
+    };
+
+/**
+ * Persist StartExecution failure provenance BEFORE any Vitest assertion that
+ * would mask detailCode / internalCauseRef / message.
+ */
+export function requireStartExecutionOk<T extends StartExecutionLikeResult>(input: {
+  state: RealSameEcCommitHarnessState;
+  attemptId: string;
+  label: "A" | "B" | "C" | "D";
+  result: T;
+  proofReviewDir?: string;
+}): Extract<T, { ok: true }> {
+  if (input.result.ok) {
+    return input.result as Extract<T, { ok: true }>;
+  }
+  const err = input.result.error;
+  const startFailure: StartExecutionFailureForensics = {
+    attemptId: input.attemptId,
+    detailCode: err.detailCode,
+    internalCauseRef: err.internalCauseRef ?? null,
+    message: err.message,
+    phase: input.state.phase,
+  };
+  input.state.startFailure = startFailure;
+  const failureMessage =
+    `StartExecution ${input.label} failed: ${startFailure.detailCode} ${startFailure.internalCauseRef ?? ""} ${startFailure.message}`.trim();
+  input.state.failure = failureMessage;
+  const reviewDir = input.proofReviewDir ?? PROOF_REVIEW_DIR;
+  writeJson(path.join(reviewDir, "reconciliation-state.json"), {
+    phase: "POST_LAUNCH_FAILURE_PRESERVED",
+    harnessPhase: input.state.phase,
+    attemptAId: input.state.attemptAId ?? null,
+    attemptBId: input.state.attemptBId ?? null,
+    attemptCId: input.state.attemptCId ?? null,
+    attemptDId: input.state.attemptDId ?? null,
+    executionContractId: input.state.executionContractId ?? null,
+    processRefA: input.state.processRefA ?? null,
+    processRefB: input.state.processRefB ?? null,
+    processRefC: input.state.processRefC ?? null,
+    processRefD: input.state.processRefD ?? null,
+    featureBranch: input.state.featureBranch ?? null,
+    startFailure,
+    failure: failureMessage,
+    reconciliationComplete: false,
+  });
+  throw new Error(failureMessage);
+}
 
 export function createRealSameEcCommitHarnessState(): RealSameEcCommitHarnessState {
   return {
@@ -536,6 +607,7 @@ async function writeFailureReconciliationSnapshot(input: {
     },
     artifactExists: Boolean(artifactPath && fs.existsSync(artifactPath)),
     gitFacts: input.gitFacts,
+    startFailure: input.state.startFailure ?? null,
     failure,
     reconciliationComplete: false,
   });
@@ -692,6 +764,38 @@ describe("GCEC future REAL same-EC A→D — static campaign shape", () => {
     expect(campaignBody).not.toContain("M4_BOUNDED_PR_MERGE_CURSOR_AGENT_ID");
     expect(campaignBody).not.toContain("bounded_pr_merge");
     expect(campaignBody).toContain("GithubCliRepositoryReadAdapter");
+  });
+
+  it("B-BIND-01 Attempt B git.commit surfaces bind featureBranch not DEFAULT_BRANCH", () => {
+    const source = fs.readFileSync(__filename, "utf8");
+    const campaignStart = source.lastIndexOf("describe.skipIf(!ENABLED)");
+    expect(campaignStart).toBeGreaterThan(0);
+    const campaignBody = source.slice(campaignStart);
+    const bStart = campaignBody.indexOf("// ----- Attempt B:");
+    const cStart = campaignBody.indexOf("// ----- Attempt C:");
+    expect(bStart).toBeGreaterThan(-1);
+    expect(cStart).toBeGreaterThan(bStart);
+    const bBody = campaignBody.slice(bStart, cStart);
+    expect(bBody).toContain('effect: "git.commit"');
+    expect(bBody).toContain("buildGitEffectActionRef");
+    expect(bBody).toContain("confirmationMatch:");
+    expect(bBody).toContain("buildGitCommitLaunchSpec");
+    expect(bBody).not.toMatch(/branchOrRef:\s*DEFAULT_BRANCH/);
+    expect(bBody.match(/branchOrRef:\s*featureBranch/g)?.length ?? 0).toBeGreaterThanOrEqual(
+      3,
+    );
+    // C/D KEEP — featureBranch remains the protected Git target.
+    const cBody = campaignBody.slice(
+      campaignBody.indexOf("// ----- Attempt C:"),
+      campaignBody.indexOf("// ----- Attempt D:"),
+    );
+    const dBody = campaignBody.slice(campaignBody.indexOf("// ----- Attempt D:"));
+    expect(cBody).toMatch(/branchOrRef:\s*featureBranch/);
+    expect(cBody).not.toMatch(/branchOrRef:\s*DEFAULT_BRANCH/);
+    expect(dBody).toMatch(/branchOrRef:\s*featureBranch/);
+    expect(dBody).not.toMatch(
+      /effect:\s*"github\.pr\.create"[\s\S]*?branchOrRef:\s*DEFAULT_BRANCH/,
+    );
   });
 
   it("shouldPreserveRealCommitProofState covers A/B/C/D launch failures", () => {
@@ -896,6 +1000,218 @@ describe("GCEC A→D harness — semantic immutability ≠ lifecycle version", (
     }
     expect(lifecycle.version).toBe(V0 + 8);
     expect(lifecycle.status).toBe("confirmed");
+  });
+});
+
+describe("GCEC B harness — git.commit target/confirmation binding + Start failure forensics", () => {
+  const FEATURE = "gcec/lifecycle/gcec-ad-finaldec-f2-fixture";
+  const binding = {
+    provider: "github" as const,
+    identity: IDENTITY,
+    remoteUrl: `https://github.com/${IDENTITY}.git`,
+    defaultBranch: DEFAULT_BRANCH,
+  };
+  const contractLike = {
+    executionContractId: "xct:gcec-ad-final:dec-f2-fixture",
+    projectId: "prj:gcec-b-bind",
+    cycleInstanceId: "cyc:gcec-b-bind",
+    inputs: { workingBranch: FEATURE },
+  };
+
+  it("CASE 1 — canonical commit target uses workingBranch/featureBranch", () => {
+    const resolved = resolveGitEffectTarget({
+      effect: "git.commit",
+      contract: contractLike,
+      projectRepositoryBinding: binding,
+      actorId: PILOTE.actorId,
+    });
+    expect(resolved.ok).toBe(true);
+    if (!resolved.ok) throw new Error(resolved.reason);
+    expect(resolved.target.branchOrRef).toBe(FEATURE);
+    expect(resolved.target.branchOrRef).not.toBe(DEFAULT_BRANCH);
+  });
+
+  it("CASE 2 — hostile main-vs-feature mismatch remains rejected", () => {
+    const resolved = resolveGitEffectTarget({
+      effect: "git.commit",
+      contract: contractLike,
+      projectRepositoryBinding: binding,
+      actorId: PILOTE.actorId,
+    });
+    expect(resolved.ok).toBe(true);
+    if (!resolved.ok) throw new Error(resolved.reason);
+    const asserted = assertConfirmationMatchAgreesWithServerTarget({
+      assertion: {
+        repositoryRef: IDENTITY,
+        branchOrRef: DEFAULT_BRANCH,
+        actorId: PILOTE.actorId,
+      },
+      server: resolved.target,
+    });
+    expect(asserted.ok).toBe(false);
+    if (asserted.ok) throw new Error("expected mismatch");
+    expect(asserted.reason).toBe("hostile_confirmation_match_branch_mismatch");
+  });
+
+  it("CASE 3 — matching featureBranch assertion passes", () => {
+    const resolved = resolveGitEffectTarget({
+      effect: "git.commit",
+      contract: contractLike,
+      projectRepositoryBinding: binding,
+      actorId: PILOTE.actorId,
+    });
+    expect(resolved.ok).toBe(true);
+    if (!resolved.ok) throw new Error(resolved.reason);
+    const asserted = assertConfirmationMatchAgreesWithServerTarget({
+      assertion: {
+        repositoryRef: IDENTITY,
+        branchOrRef: FEATURE,
+        actorId: PILOTE.actorId,
+      },
+      server: resolved.target,
+    });
+    expect(asserted).toEqual({ ok: true });
+  });
+
+  it("CASE 4 — B git.commit actionRef binds featureBranch", () => {
+    const featureActionRef = buildGitEffectActionRef({
+      executionContractId: contractLike.executionContractId,
+      effect: "git.commit",
+      repositoryRef: IDENTITY,
+      branchOrRef: FEATURE,
+    });
+    const mainActionRef = buildGitEffectActionRef({
+      executionContractId: contractLike.executionContractId,
+      effect: "git.commit",
+      repositoryRef: IDENTITY,
+      branchOrRef: DEFAULT_BRANCH,
+    });
+    expect(featureActionRef).toMatch(/^act:git-local_commit:/);
+    expect(featureActionRef).not.toBe(mainActionRef);
+    expect(
+      buildGitEffectActionRef({
+        executionContractId: contractLike.executionContractId,
+        effect: "git.commit",
+        repositoryRef: IDENTITY,
+        branchOrRef: FEATURE,
+      }),
+    ).toBe(featureActionRef);
+  });
+
+  it("CASE 5 — B reconstructed GitCommitLaunchSpec binds featureBranch", () => {
+    const built = buildGitCommitLaunchSpec({
+      repositoryRef: IDENTITY,
+      expectedParentSha: BASE_SHA,
+      exactPaths: [TARGET_PATH],
+      commitMessage: COMMIT_MSG,
+      branchOrRef: FEATURE,
+    });
+    expect(built.ok).toBe(true);
+    if (!built.ok) throw new Error(built.reason);
+    expect(built.spec.branchOrRef).toBe(FEATURE);
+    expect(built.spec.branchOrRef).not.toBe(DEFAULT_BRANCH);
+  });
+
+  it("CASE 6 — final EC workingBranch equals featureBranch (binding rule)", () => {
+    const featureBranch = deriveDeterministicGcecPushBranch(
+      contractLike.executionContractId,
+    );
+    const finalInputs = { workingBranch: featureBranch };
+    expect(finalInputs.workingBranch).toBe(featureBranch);
+    expect(finalInputs.workingBranch).not.toBe(DEFAULT_BRANCH);
+  });
+
+  it("CASE 7 — C/D protected Git targets remain featureBranch", () => {
+    const pushFeature = buildGitEffectActionRef({
+      executionContractId: contractLike.executionContractId,
+      effect: "git.push",
+      repositoryRef: IDENTITY,
+      branchOrRef: FEATURE,
+    });
+    const pushMain = buildGitEffectActionRef({
+      executionContractId: contractLike.executionContractId,
+      effect: "git.push",
+      repositoryRef: IDENTITY,
+      branchOrRef: DEFAULT_BRANCH,
+    });
+    const prFeature = buildGitEffectActionRef({
+      executionContractId: contractLike.executionContractId,
+      effect: "github.pr.create",
+      repositoryRef: IDENTITY,
+      branchOrRef: FEATURE,
+    });
+    const prMain = buildGitEffectActionRef({
+      executionContractId: contractLike.executionContractId,
+      effect: "github.pr.create",
+      repositoryRef: IDENTITY,
+      branchOrRef: DEFAULT_BRANCH,
+    });
+    expect(pushFeature).not.toBe(pushMain);
+    expect(prFeature).not.toBe(prMain);
+    const pushResolved = resolveGitEffectTarget({
+      effect: "git.push",
+      contract: contractLike,
+      projectRepositoryBinding: binding,
+      actorId: PILOTE.actorId,
+    });
+    const prResolved = resolveGitEffectTarget({
+      effect: "github.pr.create",
+      contract: contractLike,
+      projectRepositoryBinding: binding,
+      actorId: PILOTE.actorId,
+    });
+    expect(pushResolved.ok && pushResolved.target.branchOrRef).toBe(FEATURE);
+    expect(prResolved.ok && prResolved.target.branchOrRef).toBe(FEATURE);
+  });
+
+  it("CASE 8 — Start failure provenance is persisted before assertion/throw", () => {
+    const tmpReview = fs.mkdtempSync(path.join(os.tmpdir(), "gcec-start-fail-"));
+    const state = createRealSameEcCommitHarnessState();
+    state.phase = "A_RECONCILED_RETAINED";
+    state.attemptBId = "xat:gcec-commit-b:fixture";
+    state.featureBranch = FEATURE;
+    const failed = {
+      ok: false as const,
+      error: {
+        detailCode: "ATTEMPT_INVALID",
+        internalCauseRef: "hostile_confirmation_match_branch_mismatch",
+        message: "confirmation match disagrees with server target",
+      },
+    };
+    let thrown: unknown;
+    try {
+      requireStartExecutionOk({
+        state,
+        attemptId: state.attemptBId,
+        label: "B",
+        result: failed,
+        proofReviewDir: tmpReview,
+      });
+    } catch (err) {
+      thrown = err;
+    }
+    expect(thrown).toBeInstanceOf(Error);
+    expect(state.startFailure).toEqual({
+      attemptId: "xat:gcec-commit-b:fixture",
+      detailCode: "ATTEMPT_INVALID",
+      internalCauseRef: "hostile_confirmation_match_branch_mismatch",
+      message: "confirmation match disagrees with server target",
+      phase: "A_RECONCILED_RETAINED",
+    });
+    const durable = JSON.parse(
+      fs.readFileSync(path.join(tmpReview, "reconciliation-state.json"), "utf8"),
+    ) as {
+      startFailure: StartExecutionFailureForensics;
+      failure: string;
+    };
+    expect(durable.startFailure.detailCode).toBe("ATTEMPT_INVALID");
+    expect(durable.startFailure.internalCauseRef).toBe(
+      "hostile_confirmation_match_branch_mismatch",
+    );
+    expect(durable.startFailure.message).toContain("confirmation match");
+    expect(durable.failure).toContain("ATTEMPT_INVALID");
+    expect(String(thrown)).toContain("ATTEMPT_INVALID");
+    fs.rmSync(tmpReview, { recursive: true, force: true });
   });
 });
 
@@ -1505,13 +1821,13 @@ describe.skipIf(!ENABLED)(
             authorityEvidenceId: requireAuth(execAuth),
             confirmations: [] as Confirmation[],
           });
-          expect(startedA.ok).toBe(true);
-          if (!startedA.ok) {
-            throw new Error(
-              `StartExecution A failed: ${startedA.error.detailCode} ${startedA.error.internalCauseRef ?? ""} ${startedA.error.message}`,
-            );
-          }
-          expect(startedA.attempt.status).toBe("running");
+          const startedAOk = requireStartExecutionOk({
+            state: harnessState,
+            attemptId: attemptAId,
+            label: "A",
+            result: startedA,
+          });
+          expect(startedAOk.attempt.status).toBe("running");
           harnessState.realLaunchConsumed = true;
           harnessState.phase = "A_LAUNCHED_UNRECONCILED";
           await writeLaunchFrontierSnapshot({
@@ -1699,7 +2015,7 @@ describe.skipIf(!ENABLED)(
             executionContractId: contract.executionContractId,
             effect: "git.commit",
             repositoryRef: IDENTITY,
-            branchOrRef: DEFAULT_BRANCH,
+            branchOrRef: featureBranch,
           });
           const gitAuth = registerLocalPiloteAuthority({
             authorityResolver: oa.authorityResolver,
@@ -1734,6 +2050,8 @@ describe.skipIf(!ENABLED)(
           expect(gitCnf?.status).toBe("granted");
 
           // Cont01 + server-derived gitCommitSpec built inside StartExecution.
+          // Caller confirmationMatch must agree with EC workingBranch/featureBranch
+          // (Product remains canonical authority via resolveGitEffectTarget).
           const startedB = await attempts.startExecution.execute({
             attemptId: attemptBId,
             actor: PILOTE,
@@ -1741,18 +2059,18 @@ describe.skipIf(!ENABLED)(
             confirmations: gitCnf ? [gitCnf] : [],
             confirmationMatch: {
               repositoryRef: IDENTITY,
-              branchOrRef: DEFAULT_BRANCH,
+              branchOrRef: featureBranch,
               actorId: PILOTE.actorId,
             },
             verifiedEffects: ["filesystem.create", "filesystem.modify"],
           });
-          expect(startedB.ok).toBe(true);
-          if (!startedB.ok) {
-            throw new Error(
-              `StartExecution B failed: ${startedB.error.detailCode} ${startedB.error.internalCauseRef ?? ""} ${startedB.error.message}`,
-            );
-          }
-          expect(startedB.attempt.status).toBe("running");
+          const startedBOk = requireStartExecutionOk({
+            state: harnessState,
+            attemptId: attemptBId,
+            label: "B",
+            result: startedB,
+          });
+          expect(startedBOk.attempt.status).toBe("running");
           harnessState.phase = "B_LAUNCHED_UNRECONCILED";
           await writeLaunchFrontierSnapshot({
             state: harnessState,
@@ -1845,7 +2163,7 @@ describe.skipIf(!ENABLED)(
             expectedParentSha: cont.descriptor.expectedHeadSha,
             exactPaths: cont.descriptor.expectedVerifiedFiles.map((f) => f.path),
             commitMessage: message.message,
-            branchOrRef: DEFAULT_BRANCH,
+            branchOrRef: featureBranch,
           });
           expect(builtSpec.ok).toBe(true);
           if (!builtSpec.ok) throw new Error(builtSpec.reason);
@@ -2076,13 +2394,13 @@ describe.skipIf(!ENABLED)(
               "git.commit",
             ],
           });
-          expect(startedC.ok).toBe(true);
-          if (!startedC.ok) {
-            throw new Error(
-              `StartExecution C failed: ${startedC.error.detailCode} ${startedC.error.internalCauseRef ?? ""} ${startedC.error.message}`,
-            );
-          }
-          expect(startedC.attempt.status).toBe("running");
+          const startedCOk = requireStartExecutionOk({
+            state: harnessState,
+            attemptId: attemptCId,
+            label: "C",
+            result: startedC,
+          });
+          expect(startedCOk.attempt.status).toBe("running");
           harnessState.phase = "C_LAUNCHED_UNRECONCILED";
           await writeLaunchFrontierSnapshot({
             state: harnessState,
@@ -2274,13 +2592,13 @@ describe.skipIf(!ENABLED)(
               "git.push",
             ],
           });
-          expect(startedD.ok).toBe(true);
-          if (!startedD.ok) {
-            throw new Error(
-              `StartExecution D failed: ${startedD.error.detailCode} ${startedD.error.internalCauseRef ?? ""} ${startedD.error.message}`,
-            );
-          }
-          expect(startedD.attempt.status).toBe("running");
+          const startedDOk = requireStartExecutionOk({
+            state: harnessState,
+            attemptId: attemptDId,
+            label: "D",
+            result: startedD,
+          });
+          expect(startedDOk.attempt.status).toBe("running");
           harnessState.phase = "D_LAUNCHED_UNRECONCILED";
           await writeLaunchFrontierSnapshot({
             state: harnessState,
