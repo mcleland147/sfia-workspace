@@ -1,338 +1,322 @@
 # ChatGPT Critical Review Pack — FULL
-## CHECKPOINT 1 — PR1 READY FOR CHATGPT CRITICAL REVIEW
-## GREENFIELD / LIFECYCLE CONSOLIDATION
+## CHECKPOINT 2 — PR2 READY FOR CHATGPT CRITICAL REVIEW
+## GCEC + FINAL ROADMAP TRUTH-SYNC
 
-**Timestamp:** 2026-09-13 04:28:00 CEST (Europe/Paris)
+**Timestamp:** 2026-09-13 05:05:00 CEST (Europe/Paris)
 **Timezone:** CEST / UTC+2
 
 ---
 
-## 0. MACRO GO CONSUMED
+## 0. MACRO GO
 
 ```
 GO MORRIS — POST-PR477 TWO-PR MACRO INTEGRATION — PR1 GREENFIELD/LIFECYCLE + PR2 GCEC — INCLUDE FINAL ROADMAP TRUTH-SYNC — PUSH + PR + CI + CHATGPT CRITICAL REVIEW + CONDITIONAL MERGE — ZERO REAL
 ```
 
-Checkpoint: **1 of 2** — STOP BEFORE MERGE.
+Checkpoint: **2 of 2** — STOP BEFORE PR2 MERGE.
 
-Cycle 13 · EVOL · CRITICAL · POST-PR477 TWO-PR MACRO INTEGRATION
-Capability (PR1): Governed Product Lifecycle / ProjectTrajectory / Active Cycle Work / Pilot-Governed Cycle Lifecycle
-Runtime v3: NON ADOPTED · REAL: ZERO
+ChatGPT PR1 verdict consumed: **PASS — READY FOR MERGE — PR #478 @ 6a2e3c9d…**
 
-Incoming handoff at macro start: `a90ecf92adb30f0eecbf1e5fbb545c6d7a80b806`
+Incoming handoff before this pack: `98f7c351a03cc11c2f262ecc3e9fab4921934df1`
 
 ---
 
-## 1. SOURCES READ
-
-- prompts/templates/sfia-cycle-execution-template.md
-- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-- method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
-- method/sfia-fast-track/core/sfia-rules-and-guardrails.md
-- method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md
-- method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md
-- projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
-- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-- projects/sfia-studio/product-completion/01-product-completion-cadrage.md
-- projects/sfia-studio/sfia-v3-framing/34-agent-capabilities-reversibility-and-execution-governance.md
-- projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md
-- sfia-review-handoff/latest-chatgpt-review.md
-
----
-
-## 2. MACRO ENTRY GIT TRUTH (PRE-MUTATION)
-
-| Check | Observed |
-|---|---|
-| worktree | `/Users/morris/Projects/sfia-product-proof-corr-qual-to-governed-cycle-a9f6c310` |
-| primary branch | `delivery/sfia-studio-product-proof-qual-to-governed-cycle` |
-| primary HEAD | `060076331b305f31510d0ededfbfa4faf9c8cc3f` |
-| origin/main | `a9f6c310a0826d0e5bd6f7264603382a86564db1` |
-| ahead/behind | 35 / 0 |
-| Product dirty | NONE |
-| staged | NONE |
-| commit count main..HEAD | 35 |
-| oldest | `f35ae52a…` |
-| #18 / PR1 tip | `6a2e3c9d71275145b20b514d02ab54533a72a2a7` |
-| #19 / PR2 first | `2b5dcaf1…` |
-| final | `06007633…` |
-
-Primary tip remains unchanged after PR1 branch push/PR create.
-
----
-
-## 3. PR1 MATERIALIZATION / PUSH
+## 1. PR1 MERGE / POST-MERGE TRUTH
 
 | Field | Value |
 |---|---|
-| branch | `delivery/sfia-studio-greenfield-lifecycle-consolidation` |
-| local SHA | `6a2e3c9d71275145b20b514d02ab54533a72a2a7` |
-| remote SHA | `6a2e3c9d71275145b20b514d02ab54533a72a2a7` (exact) |
-| force push | NONE |
-| remote collision | NONE (new branch) |
-| historical rewrite | NONE |
-| Product byte mutation | NONE (branch ref only) |
-
-Temporary validation worktree (detached): `/Users/morris/Projects/sfia-pr1-greenfield-lifecycle-6a2e3c9d` @ `6a2e3c9d` — read/validate only.
-
----
-
-## 4. PR1 EXACT COMMIT RANGE (18)
-
-```
-f35ae52a fix(sfia-studio): govern qualification-to-cycle transition
-e79f16ba fix(sfia-studio): bound pre-cycle routing qualification
-f70dc8ae fix(sfia-studio): enable governed greenfield lifecycle bootstrap
-0b9a7370 fix(sfia-studio): make greenfield trajectory presence exact
-3d986d04 feat(sfia-studio): bridge lifecycle recommendation to candidate trajectory
-9d9c8ce7 fix(sfia-studio): harden candidate trajectory bridge currentness
-2177277c feat(sfia-studio): persist candidate trajectory provenance
-4c8733bf feat(sfia-studio): govern greenfield trajectory approval
-d436c314 fix(sfia-studio): close greenfield HD atomicity gaps
-dfb4f019 feat(sfia-studio): govern trajectory-derived cycle start
-25067755 fix(sfia-studio): harden greenfield trajectory start invariants
-2b595718 fix(sfia-studio): close trajectory start core bypasses
-85d7a798 feat(sfia-studio): ground Nora in active cycle work
-16b03323 fix(sfia-studio): complete active-cycle work invariants
-0ac7b54b fix(sfia-studio): recover logical turn after silent response loss
-624642ff fix(sfia-studio): seal ACW retry envelope and cycle binding
-4a80965a fix(sfia-studio): complete governed lifecycle closure
-6a2e3c9d fix(sfia-studio): close lifecycle critical review findings
-```
-
-Count: **18** · first `f35ae52a…` · last `6a2e3c9d…`
+| PR | **#478** MERGED |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/478 |
+| head | `6a2e3c9d71275145b20b514d02ab54533a72a2a7` |
+| merge commit | `caa639de3ddb21658d5c5ee7a2282aaa2d201d68` |
+| parents | `a9f6c310a0826d0e5bd6f7264603382a86564db1` + `6a2e3c9d71275145b20b514d02ab54533a72a2a7` |
+| merge method | **MERGE COMMIT** |
+| branch deleted | **NO** (preserved) |
+| `6a2e3c9d` ancestor of main | **YES** |
+| post-merge CI | run `34734178599` · Required Gate **SUCCESS** |
+| current origin/main | `caa639de3ddb21658d5c5ee7a2282aaa2d201d68` |
 
 ---
 
-## 5. PR1 FILESET / DIFFSTAT
+## 2. PR2 BASE / HEAD
 
-91 files · all under `projects/sfia-studio/app/**` · **0 markdown** · no roadmap.
+| Field | Value |
+|---|---|
+| branch | `delivery/sfia-studio-product-proof-qual-to-governed-cycle` |
+| base | `main` @ `caa639de3ddb21658d5c5ee7a2282aaa2d201d68` (= PR1 merge) |
+| head / PR2_HEAD_SHA | `efb90434f01ae4f71b404c7128b52ff9bb0c888b` |
+| parent of Roadmap commit | `060076331b305f31510d0ededfbfa4faf9c8cc3f` |
+| unique commits vs main | **18** (17 historical GCEC + 1 Roadmap) |
+| first unique | `2b5dcaf1…` |
+| last historical GCEC | `06007633…` |
+| Roadmap commit | `efb90434…` |
+| app byte drift vs `06007633` | **NONE** |
 
-```
-.../mw1.s01.honestMemoryB.d0.test.ts               |   11 +-
- .../nora-cognitive-runtime/session.d0.test.ts      |   12 +-
- .../sessionTruthC.d0.test.ts                       |   11 +-
- .../__tests__/oa/cycle/dgfStart01.smoke.d0.test.ts |  187 ++
- ...ecycleClosure.criticalReviewFollowUp.d0.test.ts |  691 +++++
- .../oa/cycle/lifecycleClosure.phaseB.d0.test.ts    | 1282 ++++++++++
- .../lifecycleRecommendation.delivery.d0.test.ts    |   17 +
- .../lifecycleRecommendation.finalCorr.d0.test.ts   |   66 +-
- .../lifecyclePresentation.phaseB.d0.test.tsx       |  262 ++
- .../preCycleTrajectoryCta.ui.test.tsx              |  200 ++
- .../trajectorySurface.ui.test.tsx                  |  169 ++
- .../activeCycleCognitiveWork.d0.test.ts            | 2647 ++++++++++++++++++++
- .../candidateTrajectoryBridge.d0.test.ts           |  957 +++++++
- .../candidateTrajectoryCycleStart.d0.test.ts       | 2422 ++++++++++++++++++
- .../candidateTrajectoryHumanDecision.d0.test.ts    | 1354 ++++++++++
- .../candidateTrajectoryProvenance.d0.test.ts       |  977 ++++++++
- .../greenfieldLifecycleBootstrap.d0.test.ts        |  857 +++++++
- .../mw5.challenge.clarification.product.d0.test.ts |   11 +-
- .../preCycleRoutingBoundary.d0.test.ts             | 1010 ++++++++
- .../qualToGovernedCycle.presentation.d0.test.ts    |  361 +++
- .../studioCognitiveContext.test.ts                 |   25 +-
- .../studio-projects/projectPrincipalAmend.test.tsx |   16 +
- .../importBoundaries.test.ts                       |    2 +
- .../sfia-studio/app/e2e/studio-option-a.spec.ts    |   13 +-
- .../app/e2e/studio-qual-to-governed-visual.spec.ts |   88 +
- .../pre-m6-product-ui/ProjectWorkspacePage.tsx     |   25 +-
- .../hooks/useProductConversation.ts                |  132 +-
- .../surfaces/ConversationSurface.tsx               |   48 +-
- .../surfaces/LifecycleSurface.tsx                  |  326 ++-
- .../surfaces/TrajectorySurface.tsx                 |  370 ++-
- .../surfaces/lifecyclePresentation.ts              |  193 +-
- .../project-assistant/ProjectAssistantPanel.tsx    |   37 +
- .../app/features/project-assistant/actions.ts      |  219 +-
- .../approveCandidateTrajectory.ts                  |  779 ++++++
- .../project-assistant/buildProjectSystemPrompt.ts  |  107 +-
- .../candidateTrajectoryPromotionGuard.ts           |  212 ++
- .../f2/activeCycleCognitiveContext.ts              |  298 +++
- .../project-assistant/f2/ckcCognitiveContext.ts    |    8 +-
- .../project-assistant/f2/intentAnalysis.ts         |   13 +-
- .../project-assistant/f2/methodOrientation.ts      |   35 +
- .../features/project-assistant/f2/orchestrateF2.ts |   29 +-
- .../project-assistant/f2/pilotLifecycleActions.ts  |  286 ++-
- .../f2/qualificationSignalCoherence.ts             |  233 +-
- .../project-assistant/f2/studioCognitiveContext.ts |  309 ++-
- .../lifecycleRecommendationPiloteNotice.ts         |   18 +
- .../project-assistant/logicalProductTurn.ts        |  303 +++
- .../materializeActiveCycleWork.ts                  |  573 +++++
- .../features/project-assistant/orchestrateTurn.ts  |  358 ++-
- .../preCycleCandidateTrajectoryActions.ts          |  514 ++++
- .../project-assistant/presentationLabels.ts        |   68 +
- .../project-assistant/turnPayloadCanonical.ts      |   95 +
- .../app/features/project-assistant/turnRetryKey.ts |   28 +
- .../app/features/project-assistant/types.ts        |    7 +
- .../criticalChallengeClarification.ts              |   42 +-
- .../app/lib/nora-cognitive-runtime/index.ts        |   11 +-
- .../noraLifecycleRecommendationOutputType.ts       |   35 +
- .../noraProductTurnOutputType.ts                   |  414 ++-
- .../nora-cognitive-runtime/productSqliteSession.ts |  231 ++
- .../nora-cognitive-runtime/providerAgentsModel.ts  |   45 +-
- .../nora-cognitive-runtime/runNoraAgentsTurn.ts    |   33 +-
- .../sfia-studio/app/lib/nora-eval/mw1S01Observe.ts |   11 +-
- .../app/lib/oa/cycle/application/createCycle.ts    |   12 +
- .../oa/cycle/application/lifecycleProjection.ts    |   65 +-
- .../assertTrajectoryBoundCycleStartReady.ts        |  502 ++++
- .../lifecycleRecommendation/basisFingerprint.ts    |    6 +
- .../candidateTrajectoryDecisionBasis.ts            |  213 ++
- .../candidateTrajectoryProvenance.ts               |  269 ++
- .../lifecycleRecommendation/ckcResolutionRef.ts    |   18 +
- .../greenfieldLifecycleBootstrap.ts                |  201 ++
- .../application/lifecycleRecommendation/index.ts   |   10 +
- .../materializeFromProductTurn.ts                  |   84 +-
- .../materializeLifecycleRecommendation.ts          |   12 +
- ...CandidateTrajectoryFromCurrentRecommendation.ts |  658 +++++
- .../prepareCycleFromValidatedTrajectory.ts         |  605 +++++
- .../produceLifecycleRecommendation.ts              |   10 +
- .../qualificationSignals.ts                        |   77 +
- .../readPreparedTrajectoryCycle.ts                 |  114 +
- .../startPreparedTrajectoryCycle.ts                |  232 ++
- .../application/lifecycleRecommendation/types.ts   |   30 +
- .../validateLifecycleRecommendation.ts             |  198 +-
- .../cycle/application/pilotLifecycleTransitions.ts |  498 +++-
- .../sfia-studio/app/lib/oa/cycle/domain/types.ts   |   41 +
- projects/sfia-studio/app/lib/oa/cycle/index.ts     |    7 +
- .../infrastructure/memoryTrajectoryRepository.ts   |    7 +
- .../sqlite/createSqliteCycleServices.ts            |    7 +
- .../sqlite/sqliteTrajectoryRepository.ts           |   11 +
- .../app/lib/oa/cycle/ports/trajectoryRepository.ts |    6 +
- .../oa/decision/application/recordHumanDecision.ts |   10 +
- .../app/lib/oa/decision/domain/invariants.ts       |  141 ++
- .../app/lib/oa/decision/domain/types.ts            |   48 +-
- .../app/lib/vertical-slice-runtime/service.ts      |   15 +-
- 91 files changed, 23958 insertions(+), 242 deletions(-)
-```
+---
 
-### name-status
+## 3. GCEC HISTORICAL RANGE
 
 ```
-M	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw1.s01.honestMemoryB.d0.test.ts
-M	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/session.d0.test.ts
-M	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/sessionTruthC.d0.test.ts
-A	projects/sfia-studio/app/__tests__/oa/cycle/dgfStart01.smoke.d0.test.ts
-A	projects/sfia-studio/app/__tests__/oa/cycle/lifecycleClosure.criticalReviewFollowUp.d0.test.ts
-A	projects/sfia-studio/app/__tests__/oa/cycle/lifecycleClosure.phaseB.d0.test.ts
-M	projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.delivery.d0.test.ts
-M	projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.finalCorr.d0.test.ts
-A	projects/sfia-studio/app/__tests__/pre-m6-product-ui/lifecyclePresentation.phaseB.d0.test.tsx
-A	projects/sfia-studio/app/__tests__/pre-m6-product-ui/preCycleTrajectoryCta.ui.test.tsx
-M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
-A	projects/sfia-studio/app/__tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts
-A	projects/sfia-studio/app/__tests__/project-assistant/candidateTrajectoryBridge.d0.test.ts
-A	projects/sfia-studio/app/__tests__/project-assistant/candidateTrajectoryCycleStart.d0.test.ts
-A	projects/sfia-studio/app/__tests__/project-assistant/candidateTrajectoryHumanDecision.d0.test.ts
-A	projects/sfia-studio/app/__tests__/project-assistant/candidateTrajectoryProvenance.d0.test.ts
-A	projects/sfia-studio/app/__tests__/project-assistant/greenfieldLifecycleBootstrap.d0.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/mw5.challenge.clarification.product.d0.test.ts
-A	projects/sfia-studio/app/__tests__/project-assistant/preCycleRoutingBoundary.d0.test.ts
-A	projects/sfia-studio/app/__tests__/project-assistant/qualToGovernedCycle.presentation.d0.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/studioCognitiveContext.test.ts
-M	projects/sfia-studio/app/__tests__/studio-projects/projectPrincipalAmend.test.tsx
-M	projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-M	projects/sfia-studio/app/e2e/studio-option-a.spec.ts
-A	projects/sfia-studio/app/e2e/studio-qual-to-governed-visual.spec.ts
-M	projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
-M	projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
-M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx
-M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts
-M	projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
-M	projects/sfia-studio/app/features/project-assistant/actions.ts
-A	projects/sfia-studio/app/features/project-assistant/approveCandidateTrajectory.ts
-M	projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
-A	projects/sfia-studio/app/features/project-assistant/candidateTrajectoryPromotionGuard.ts
-A	projects/sfia-studio/app/features/project-assistant/f2/activeCycleCognitiveContext.ts
-M	projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts
-M	projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
-M	projects/sfia-studio/app/features/project-assistant/f2/methodOrientation.ts
-M	projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-M	projects/sfia-studio/app/features/project-assistant/f2/pilotLifecycleActions.ts
-M	projects/sfia-studio/app/features/project-assistant/f2/qualificationSignalCoherence.ts
-M	projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts
-A	projects/sfia-studio/app/features/project-assistant/lifecycleRecommendationPiloteNotice.ts
-A	projects/sfia-studio/app/features/project-assistant/logicalProductTurn.ts
-A	projects/sfia-studio/app/features/project-assistant/materializeActiveCycleWork.ts
-M	projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-A	projects/sfia-studio/app/features/project-assistant/preCycleCandidateTrajectoryActions.ts
-M	projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
-A	projects/sfia-studio/app/features/project-assistant/turnPayloadCanonical.ts
-A	projects/sfia-studio/app/features/project-assistant/turnRetryKey.ts
-M	projects/sfia-studio/app/features/project-assistant/types.ts
-M	projects/sfia-studio/app/lib/nora-cognitive-runtime/criticalChallengeClarification.ts
-M	projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-M	projects/sfia-studio/app/lib/nora-cognitive-runtime/noraLifecycleRecommendationOutputType.ts
-M	projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
-M	projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts
-M	projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
-M	projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
-M	projects/sfia-studio/app/lib/nora-eval/mw1S01Observe.ts
-M	projects/sfia-studio/app/lib/oa/cycle/application/createCycle.ts
-M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts
-A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/assertTrajectoryBoundCycleStartReady.ts
-M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/basisFingerprint.ts
-A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/candidateTrajectoryDecisionBasis.ts
-A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/candidateTrajectoryProvenance.ts
-A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/ckcResolutionRef.ts
-A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/greenfieldLifecycleBootstrap.ts
-M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/index.ts
-M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn.ts
-M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/materializeLifecycleRecommendation.ts
-A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/prepareCandidateTrajectoryFromCurrentRecommendation.ts
-A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/prepareCycleFromValidatedTrajectory.ts
-M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/produceLifecycleRecommendation.ts
-A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/qualificationSignals.ts
-A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/readPreparedTrajectoryCycle.ts
-A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/startPreparedTrajectoryCycle.ts
-M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/types.ts
-M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/validateLifecycleRecommendation.ts
-M	projects/sfia-studio/app/lib/oa/cycle/application/pilotLifecycleTransitions.ts
-M	projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
-M	projects/sfia-studio/app/lib/oa/cycle/index.ts
-M	projects/sfia-studio/app/lib/oa/cycle/infrastructure/memoryTrajectoryRepository.ts
-M	projects/sfia-studio/app/lib/oa/cycle/infrastructure/sqlite/createSqliteCycleServices.ts
-M	projects/sfia-studio/app/lib/oa/cycle/infrastructure/sqlite/sqliteTrajectoryRepository.ts
-M	projects/sfia-studio/app/lib/oa/cycle/ports/trajectoryRepository.ts
-M	projects/sfia-studio/app/lib/oa/decision/application/recordHumanDecision.ts
-M	projects/sfia-studio/app/lib/oa/decision/domain/invariants.ts
-M	projects/sfia-studio/app/lib/oa/decision/domain/types.ts
-M	projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+2b5dcaf1 feat(sfia-studio): add governed cycle execution completion
+ed7becca fix(sfia-studio): close GCEC deterministic end-to-end gaps
+7ce33b15 fix(sfia-studio): align GCEC execution ownership and repository verification
+46e7e5b3 fix(sfia-studio): complete gated GCEC cycle lifecycle
+d0d009bb fix(sfia-studio): close final GCEC lifecycle proof gaps
+e3d820ad fix(sfia-studio): close GCEC authority and lifecycle proof gaps
+8d05732c fix(sfia-studio): finalize GCEC authority and trajectory proof
+290eca65 fix(sfia-studio): fail closed protected Git authority
+92ad3fd4 feat(sfia-studio): prepare bounded Cursor real docs write
+3966bbf9 feat(sfia-studio): add same-EC workspace continuation
+0bdae76b feat(sfia-studio): govern same-EC local commit execution
+6e42c4f0 fix(sfia-studio): isolate mutating Cursor git credentials
+645ec7e0 docs(sfia-studio): record trusted-but-governed executor trajectory
+be71eee0 fix(sfia-studio): preserve GCEC worktree continuation
+f71cf89a docs(sfia-studio): record bounded GCEC A2B closure
+bbb03ce7 feat(sfia-studio): complete governed git lifecycle execution
+06007633 feat(sfia-studio): complete governed GCEC A-to-D proof harness
+efb90434 docs(sfia-studio): sync governed execution pre-REAL truth
 ```
 
-`git diff --check origin/main...6a2e3c9d`: **PASS**
+---
+
+## 4. ROADMAP FINAL TRUTH-SYNC
+
+Commit subject: `docs(sfia-studio): sync governed execution pre-REAL truth`
+
+Exact path changed: `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` only.
+
+Diff:
+
+```
+diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+index 95c891d5..25f415f1 100644
+--- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
++++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+@@ -4,7 +4,8 @@
+ | --- | --- |
+ | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
+ | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
+-| **Timestamp maintenance D-GCEC-REAL-02-CLOSURE** | 2026-09-12 15:30 CEST (+0200) — **D-GCEC-REAL-02-CLOSURE — ADOPTED BY MORRIS** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Morris decision **ADOPTED / CONSUMED** · **GCEC lane truth-sync only** (not global Nora top priority) · evidence **GCEC-REAL-A2B-02** Review Handoff `629a00afd22fa255e66f5564c41d1233ce5b6558` · Product implementation anchor `be71eee0bbfae341d16cfab401f3c38f46564d4c` (D-GCEC-CONT-02 locally committed) · observed local commit `acc4a8c22d5058b31f306aed1c18350d4c114dd0` · proof remote main remained `32c7c2008197e5c61b32c16479144e9863291358` · REAL docs-write **PROVEN AT TESTED SCOPE** · REAL local git.commit **PROVEN AT TESTED SCOPE** · same-EC A→B continuation **PROVEN AT TESTED SCOPE** · D-GCEC-CONT-02 **REAL-BACKED AT TESTED SCOPE** · remote protected effects **UNCHANGED / VERIFIED FOR CAMPAIGN** · **REAL_CONTINUATION_GAP = CLOSED AT TESTED A→B SCOPE** · **GOVERNED EXECUTOR EFFECT / AUTHORITY RESERVE = CLOSED FOR TESTED A→B EFFECT SET** · D-GCEC-09 / D-GCEC-EXEC-01 / Cursor preferred governed mutation executor **PRESERVED** · D-GCEC-EVID-01 **ACCEPTED NON-BLOCKING** · FixedIdSource Project/Cycle string coincidence **OPEN / NON-BLOCKING HARNESS RESERVE** (isolated store; EC/Attempts/worktree/commit distinct; ≠ global ID uniqueness proven) · full EC completion/finalization **NOT PROVEN** (EC remained **confirmed** after B) · historical D-GCEC-REAL-01 = A VERIFIED / B NOT VERIFIED / PARTIAL STOP / stuck-B untouched · **GCEC-PUSH = NOT READY / NOT AUTHORIZED** · next GCEC candidate = **GCEC-PUSH READINESS QUALIFICATION** · **DISTINCT MORRIS GATE REQUIRED** · runtime v3 **NON ADOPTED** · Product Completion **COMPLETE / CLOSED** unchanged · Nora/Cognitive Completion priorities **unchanged** · **ZERO REAL** this DOC cycle · **≠** GCEC-PUSH READY · **≠** push/PR/merge proven · **≠** generalized executor safety · **≠** full EC completion · **≠** runtime v3 ADOPTED · **≠** Product code / commit by this DOC cycle |
++| **Timestamp maintenance GCEC-PRE-REAL-A2D-DETERMINISTIC-TRUTH-SYNC-01** | 2026-09-13 05:00 CEST (+0200) — **GCEC PRE-REAL A→D DETERMINISTIC TRUTH-SYNC** · Cycle **13** · DOC · CRITICAL · Macro GO **POST-PR477 TWO-PR MACRO INTEGRATION** (in progress / RESOLVE FROM CURRENT GIT / PR EVIDENCE) · **GCEC lane truth-sync only** (not automatic global Nora top priority) · Governed Project Execution / **GCEC-GIT-LIFECYCLE-E2E-01** deterministic Product candidate built through protected Git authority · trusted-but-governed Cursor executor (D-GCEC-09 / D-GCEC-EXEC-01 **PRESERVED**) · RepositoryRead composition closed · registered-worktree preflight · five REAL opt-in gates · A/B/C/D governed Product paths at **deterministic** scope · immutable final ExecutionContract binding through A→D harness · STOP before E · historical local Product construction tip `060076331b305f31510d0ededfbfa4faf9c8cc3f` · Greenfield/lifecycle consolidation PR **#478 MERGED** @ merge `caa639de3ddb21658d5c5ee7a2282aaa2d201d68` (head `6a2e3c9d71275145b20b514d02ab54533a72a2a7` · parents `a9f6c310…` + `6a2e3c9d…` · Required Gate PASS · branch **PRESERVED**) · GCEC Product publication/integration status = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** · prior REAL A→B tested-scope proofs under D-GCEC-REAL-02-CLOSURE **PRESERVED** · A/B/C/D **REAL NOT PROVEN** at A→D campaign scope · A→D E2E REAL **NOT PROVEN** · E / merge REAL **NOT STARTED / NOT PROVEN** · next GCEC gate after integration verification = **DISTINCT Morris GO — ONE FRESH GCEC REAL A→D CAMPAIGN — STOP BEFORE MERGE** · runtime v3 **NON ADOPTED** · Product Completion **COMPLETE / CLOSED** unchanged · Nora/Cognitive Completion priorities **unchanged** · **ZERO REAL** this DOC sync · **≠** A/B/C/D REAL proven · **≠** A→D E2E REAL proven · **≠** E/merge proven · **≠** GCEC-PUSH READY as blanket claim · **≠** runtime v3 ADOPTED · **≠** production autonomy · **≠** global L5 · **≠** new doctrine / architecture |
++| **Timestamp maintenance historique D-GCEC-REAL-02-CLOSURE (pre-A2D deterministic truth-sync)** | 2026-09-12 15:30 CEST (+0200) — **D-GCEC-REAL-02-CLOSURE — ADOPTED BY MORRIS** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Morris decision **ADOPTED / CONSUMED** · **GCEC lane truth-sync only** (not global Nora top priority) · evidence **GCEC-REAL-A2B-02** Review Handoff `629a00afd22fa255e66f5564c41d1233ce5b6558` · Product implementation anchor `be71eee0bbfae341d16cfab401f3c38f46564d4c` (D-GCEC-CONT-02 locally committed) · observed local commit `acc4a8c22d5058b31f306aed1c18350d4c114dd0` · proof remote main remained `32c7c2008197e5c61b32c16479144e9863291358` · REAL docs-write **PROVEN AT TESTED SCOPE** · REAL local git.commit **PROVEN AT TESTED SCOPE** · same-EC A→B continuation **PROVEN AT TESTED SCOPE** · D-GCEC-CONT-02 **REAL-BACKED AT TESTED SCOPE** · remote protected effects **UNCHANGED / VERIFIED FOR CAMPAIGN** · **REAL_CONTINUATION_GAP = CLOSED AT TESTED A→B SCOPE** · **GOVERNED EXECUTOR EFFECT / AUTHORITY RESERVE = CLOSED FOR TESTED A→B EFFECT SET** · D-GCEC-09 / D-GCEC-EXEC-01 / Cursor preferred governed mutation executor **PRESERVED** · D-GCEC-EVID-01 **ACCEPTED NON-BLOCKING** · FixedIdSource Project/Cycle string coincidence **OPEN / NON-BLOCKING HARNESS RESERVE** (isolated store; EC/Attempts/worktree/commit distinct; ≠ global ID uniqueness proven) · full EC completion/finalization **NOT PROVEN** (EC remained **confirmed** after B) · historical D-GCEC-REAL-01 = A VERIFIED / B NOT VERIFIED / PARTIAL STOP / stuck-B untouched · **GCEC-PUSH = NOT READY / NOT AUTHORIZED** · next GCEC candidate = **GCEC-PUSH READINESS QUALIFICATION** · **DISTINCT MORRIS GATE REQUIRED** · runtime v3 **NON ADOPTED** · Product Completion **COMPLETE / CLOSED** unchanged · Nora/Cognitive Completion priorities **unchanged** · **ZERO REAL** this DOC cycle · **≠** GCEC-PUSH READY · **≠** push/PR/merge proven · **≠** generalized executor safety · **≠** full EC completion · **≠** runtime v3 ADOPTED · **≠** Product code / commit by this DOC cycle |
+ | **Timestamp maintenance historique D-GCEC-EXEC-01-TRUSTED-BUT-GOVERNED-01 (pre-REAL-02 closure)** | 2026-09-12 12:48 CEST (+0200) — **D-GCEC-EXEC-01 — TRUSTED-BUT-GOVERNED TECHNICAL EXECUTOR** · Cycle **6** · DOC · CRITICAL · Morris decision **ADOPTED / CONSUMED** · **GCEC lane truth-sync** (not global Nora top priority) · Cursor remains Project mutation executor under D-GCEC-09 · Pilot = intent/decision/protected-boundary governor · **not** technical operator · TECHNICAL CAPABILITY ≠ EXECUTION AUTHORITY · CONF-05 alternate-executor recommendation **SUPERSEDED** · *(tip superseded by D-GCEC-REAL-02-CLOSURE after GCEC-REAL-A2B-02 accepted)* · historical state then: GOVERNED EXECUTOR EFFECT / AUTHORITY RESERVE **REQUALIFIED OPEN** · REAL git.commit **NOT PROVEN** · REAL_CONTINUATION_GAP **OPEN** · GCEC-PUSH **NOT READY** · runtime v3 **NON ADOPTED** |
+ | **Timestamp maintenance historique NORA-GLOBAL-MR-STAGE-A-OPTION-C-POST-MERGE-READINESS-01** | 2026-09-06 04:54:29 CEST — **GLOBAL MODEL × REASONING STAGE A OPTION C POST-MERGE TRUTH-SYNC + REAL READINESS QUALIFICATION** · Cycle **14** · DOC · CRITICAL · GO MORRIS — STAGE A OPTION C POST-MERGE TRUTH-SYNC + REAL READINESS QUALIFICATION + REVIEW HANDOFF — ZERO REAL **CONSUMED** · PR **#468 MERGED** @ 2026-09-05T22:27:14Z · accepted head `a5ab44bc4a5dae119b778bc6ba795439934b6f61` · merge/main `66d93a616ac43f2d952f9c7db7b33d2acfe7553b` · parents `1dd5d67ad942c448becd637f4c2e55883d16ffca` + `a5ab44bc4a5dae119b778bc6ba795439934b6f61` · head→merge product delta **ZERO** · post-merge CI **`33995952634` SUCCESS** · Required Gate **PASS** · source branch `delivery/sfia-studio-global-mr-stage-a-astra-challenger` **PRESERVED** @ `a5ab44bc…` · Option C + C6 = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · contract `global-mr-campaign-contract-v3-candidate` · primary **54** + Astra challenger **6** medium ONE-SHOT = base **60** · maxCellExecutions **78** · maxModelInvocations **438** · maxHostedWebOperations **26** · maxAggregateRealCalls **464** · USD **15/18/20 DECIDED BY MORRIS** · known subtotal ≈**13.32896** · financial feasibility **PASS / COMPATIBLE_WITH_CURRENT_POLICY** · invoice **NOT_OBSERVED** · Astra account/API entitlement **NOT PROVEN** · Stage A REAL **NOT AUTHORIZED** · Stage B Astra-only = CONDITIONAL FUTURE GATE / NOT IMPLEMENTED · production routing **NOT SELECTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · four-doc post-merge truth-sync CONTENT = **REVIEWED / ACCEPTED AT DOCUMENTARY SCOPE** · repository publication/integration lifecycle = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** · next structural gate after documentary integration is verified = **DISTINCT MORRIS STAGE A REAL DECISION** · **ZERO REAL** · **≠** Stage A REAL AUTHORIZED · **≠** Astra account proven · **≠** spend · **≠** production routing |
+ | **Timestamp maintenance historique NORA-GLOBAL-MR-STAGE-A-OPTION-C-ASTRA-CHALLENGER-01 (pre-Option-C post-merge readiness)** | 2026-09-05 22:26:41 CEST — **GLOBAL MODEL × REASONING STAGE A OPTION C / BOUNDED GPT-6 ASTRA CHALLENGER** · Cycle **8** · EVOL · CRITICAL · D-GMR-ASTRA-01/02 + D-GMR-FINOPS-01 + D-GMR-GIT-01 **CONSUMED** · *(historical pre-merge tip)* · then LOCAL DIRTY / Git integration candidate on `delivery/sfia-studio-global-mr-stage-a-astra-challenger` · envelope **78/438/464** · USD **15/18/20** · known subtotal ≈13.32896 · superseded as tip by NORA-GLOBAL-MR-STAGE-A-OPTION-C-POST-MERGE-READINESS-01 after PR **#468** MERGED |
+@@ -287,9 +288,11 @@ Légende : classifications = **recommandations de convergence** jusqu’à valid
+ - **G0-B** Product persistence = **ADOPTED** — `node:sqlite` Product Store isolé derrière ports OA ; exit Postgres sur multi-writer/multi-user démontré (Morris · 2026-08-13)
+ - preuve décisions : `convergence/sfia-studio-g0-architecture-persistence-decision-pack.md`
+
+-### GCEC lane — D-GCEC-REAL-02-CLOSURE + D-GCEC-EXEC-01 — ADOPTED / CONSUMED BY MORRIS
++### GCEC lane — deterministic A→D harness maturity + D-GCEC-REAL-02 / EXEC-01 preserved
+
+-GO (current tip): **D-GCEC-REAL-02-CLOSURE — ADOPTED BY MORRIS** · Cycle **15** Capitalisation / REX · DOC · CRITICAL · evidence GCEC-REAL-A2B-02 handoff `629a00afd22fa255e66f5564c41d1233ce5b6558` · Product anchor `be71eee0bbfae341d16cfab401f3c38f46564d4c`
++GO (current tip): **GCEC-PRE-REAL-A2D-DETERMINISTIC-TRUTH-SYNC-01** · Cycle **13** · DOC · CRITICAL · Macro integration RESOLVE FROM CURRENT GIT / PR EVIDENCE · historical construction tip `06007633…` · Greenfield/lifecycle PR **#478** merge `caa639de…` verified
++
++Prior GO (preserved): **D-GCEC-REAL-02-CLOSURE — ADOPTED BY MORRIS** · Cycle **15** · evidence GCEC-REAL-A2B-02 handoff `629a00af…` · Product anchor `be71eee0…`
+
+ Prior GO (preserved): **ADOPT D-GCEC-EXEC-01 — TRUSTED-BUT-GOVERNED TECHNICAL EXECUTOR** · Cycle **6** · DOC · CRITICAL · input handoff CONF-05 `b529ebffe0f1db72de4478a04f6480c354b29819`
+
+@@ -317,10 +320,14 @@ Prior GO (preserved): **ADOPT D-GCEC-EXEC-01 — TRUSTED-BUT-GOVERNED TECHNICAL
+ | **FixedIdSource harness reserve** | GCEC-REAL-A2B-02 isolated Product store reused deterministic Project/Cycle **strings** coinciding with REAL-01; EC/Attempts/worktree/commit were distinct; historical runtime state not reused. ≠ global Project/Cycle uniqueness proven. | **OPEN / NON-BLOCKING HARNESS DETERMINISM RESERVE** |
+ | **Full EC completion** | GCEC-REAL-A2B-02 proved A→B effects + continuation; EC remained **confirmed** after B. Full contract completion/finalization semantics **NOT PROVEN**. | **NOT PROVEN** |
+ | **Historical D-GCEC-REAL-01** | A VERIFIED · B NOT VERIFIED · PARTIAL STOP · stuck-B campaign **untouched**. REAL-02 is the campaign that proves A→B. Do **not** rewrite REAL-01 as success. | **HISTORICAL EVIDENCE / PRESERVED** |
+-| **Next GCEC trajectory** | Next GCEC capability **CANDIDATE** = **GCEC-PUSH READINESS QUALIFICATION**. Status = **NOT AUTHORIZED / NOT READY** · **DISTINCT MORRIS GATE REQUIRED**. Does **not** make GCEC the global Studio priority. Does **not** authorize push execution. | **CANDIDATE / NOT AUTHORIZED** |
+-| **REAL / push anti-claims** | GCEC-PUSH **NOT READY** · push/PR/merge **NOT PROVEN** · runtime v3 **NON ADOPTED** · generalized executor safety **NOT CLAIMED** · Product Completion **COMPLETE / CLOSED** unchanged · Nora/Cognitive Completion priorities **unchanged** (GCEC = lane, not automatic global top priority). | **BINDING ANTI-CLAIMS** |
+-
+-**Anti-claims (lane):** ≠ unlimited Cursor access · ≠ “any credential anytime” · ≠ security trust-based only · ≠ GCEC-PUSH READY · ≠ push/PR/merge proven · ≠ generalized executor safety · ≠ full EC completion proven · ≠ FixedIdSource reserve closed · ≠ EVID-01 closed · ≠ REAL-01 repaired · ≠ runtime v3 ADOPTED · ≠ Product code/commit/push by this DOC cycle · ≠ Build Doctrine / v3 framing / Product Completion reopen.
++| **Deterministic A→D Product candidate** | Governed A/B/C/D Product paths + RepositoryRead composition + registered-worktree preflight + five REAL opt-ins + immutable final ExecutionContract binding through A→D harness exist at **deterministic** proof maturity. Historical construction tip `06007633…`. STOP before E. | **DETERMINISTIC CANDIDATE / KEEP** |
++| **RepositoryRead composition** | Existing `GithubCliRepositoryReadAdapter` composed into Product execution-attempt services; explicit null fail-closed; no second read engine. | **CLOSED AT DETERMINISTIC SCOPE** |
++| **Greenfield / lifecycle consolidation** | PR **#478** merge `caa639de…` · head `6a2e3c9d…` · post-merge Required Gate PASS · source branch **PRESERVED**. | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** |
++| **GCEC publication/integration** | GCEC Product bytes + this Roadmap truth-sync = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** (do not embed a soon-stale pending/local-only claim). | **RESOLVE FROM GIT / PR EVIDENCE** |
++| **Next GCEC trajectory** | Next GCEC capability gate after integration verification = **ONE FRESH GCEC REAL A→D CAMPAIGN — STOP BEFORE MERGE**. Status = **NOT AUTHORIZED** · **DISTINCT MORRIS GATE REQUIRED**. Does **not** make GCEC the global Studio priority. Does **not** authorize REAL A→D by this DOC sync. | **CANDIDATE / NOT AUTHORIZED** |
++| **REAL / push anti-claims** | A/B/C/D REAL **NOT PROVEN** at A→D campaign scope · A→D E2E REAL **NOT PROVEN** · E/merge REAL **NOT STARTED / NOT PROVEN** · prior A→B tested-scope proofs under REAL-02 **PRESERVED ≠** A→D proven · runtime v3 **NON ADOPTED** · generalized executor safety **NOT CLAIMED** · Product Completion **COMPLETE / CLOSED** unchanged · Nora/Cognitive Completion priorities **unchanged** (GCEC = lane, not automatic global top priority). | **BINDING ANTI-CLAIMS** |
++
++**Anti-claims (lane):** ≠ unlimited Cursor access · ≠ “any credential anytime” · ≠ security trust-based only · ≠ A/B/C/D REAL proven at A→D scope · ≠ A→D E2E REAL proven · ≠ E/merge proven · ≠ runtime v3 ADOPTED · ≠ production autonomy · ≠ global L5 · ≠ generalized executor safety · ≠ full EC completion proven · ≠ FixedIdSource reserve closed · ≠ EVID-01 closed · ≠ REAL-01 rewritten as success · ≠ Build Doctrine / v3 framing / Product Completion reopen · ≠ Nora/Cognitive Completion displaced as global priority by this GCEC lane sync.
+
+ ### Preuve / milestone intégrée (≠ nouvelle décision d’architecture)
+```
+
+Records accepted facts only: deterministic A→D harness maturity, RepositoryRead closed, immutable EC binding, PR #478 integrated, RESOLVE FROM GIT/PR EVIDENCE for GCEC publication, A/B/C/D REAL NOT PROVEN, A→D E2E REAL NOT PROVEN, E NOT STARTED, next = distinct REAL A→D Morris GO, runtime v3 NON ADOPTED. No new doctrine.
+
+---
+
+## 5. PR2 FILESET / DIFFSTAT
+
+```
+.../oa/cycle/corrProof05.pilotLifecycle.d0.test.ts |    1 +
+ .../oa/cycle/gcecCr01F2DecisionBasis.d0.test.ts    |  293 +++
+ .../oa/cycle/gcecCr23StartExecution.d0.test.ts     | 1078 +++++++++
+ .../cycle/gcecCursorRealDocsWrite.real.d0.test.ts  | 1092 +++++++++
+ .../gcecCursorRealSameEcAd.worktree.d0.test.ts     |  103 +
+ .../gcecCursorRealSameEcCommit.real.d0.test.ts     | 2337 ++++++++++++++++++++
+ .../__tests__/oa/cycle/gcecD15Negatives.d0.test.ts | 1975 +++++++++++++++++
+ .../oa/cycle/gcecDeterministicE2e.d0.test.ts       |   12 +
+ .../oa/cycle/gcecDeterministicNegatives.d0.test.ts |  319 +++
+ .../oa/cycle/gcecOneLotDelivery.d0.test.ts         | 1107 ++++++++++
+ .../oa/cycle/gcecOwnershipNegatives.d0.test.ts     |  236 ++
+ .../oa/cycle/gcecProductMonolithicE2e.d0.test.ts   | 1048 +++++++++
+ .../cycle/gcecRepositoryReadComposition.d0.test.ts |  677 ++++++
+ .../oa/cycle/lifecycleClosure.phaseB.d0.test.ts    |    1 +
+ .../oa/cycle/support/gcecRealHarnessWorktree.ts    |   51 +
+ .../oa/execution-attempt/attemptRepository.test.ts |   29 +
+ .../gcecAgent01AttemptProfile.d0.test.ts           |  322 +++
+ .../gcecAgent01CorrWireLin.d0.test.ts              |  262 +++
+ .../gcecCont01ContinuationResolver.d0.test.ts      | 1142 ++++++++++
+ .../gcecCont01SameEcAbContinuation.d0.test.ts      |  581 +++++
+ .../gcecCont01WorkspaceResume.d0.test.ts           |  529 +++++
+ .../gcecGitCommitEvidence.d0.test.ts               |  292 +++
+ .../gcecGitCommitGatewayProfile.d0.test.ts         |  372 ++++
+ .../gcecGitCommitObserve.d0.test.ts                |  380 ++++
+ .../gcecGitCommitSameEcAb.d0.test.ts               |  567 +++++
+ .../gcecGitCommitVerification.d0.test.ts           |  122 +
+ .../gcecGitLifecyclePushPrMerge.d0.test.ts         | 1420 ++++++++++++
+ .../gcecMutatingCursorConfinementEnv.d0.test.ts    |  395 ++++
+ .../m4RealOffCorrectionR2.test.ts                  |    8 +-
+ .../execution-attempt/support/fakeSpawnAndGit.ts   |   86 +-
+ .../support/governedCommitFixture.ts               |  129 ++
+ .../support/localCommitTestFacts.ts                |   23 +
+ .../__tests__/oa/git-ports/gcecGitPorts.d0.test.ts |  147 ++
+ .../trajectorySurface.ui.test.tsx                  |   31 +
+ .../activeCycleCognitiveWork.d0.test.ts            |    1 +
+ .../corrProof02.b1.advisory.d0.test.ts             |    1 +
+ ...orrProof03.e1.methodGroundedAdvisory.d0.test.ts |    1 +
+ .../project-assistant/f2.orchestrate.test.ts       |    1 +
+ .../project-assistant/methodOrientation.test.ts    |    1 +
+ .../studioCognitiveContext.test.ts                 |    1 +
+ .../importBoundaries.test.ts                       |    1 +
+ .../pre-m6-product-ui/ProjectWorkspacePage.tsx     |   18 +
+ .../surfaces/CycleExitStatePanel.tsx               |   52 +
+ .../surfaces/RepositoryBindingForm.tsx             |   94 +
+ .../surfaces/TrajectorySurface.tsx                 |   13 +-
+ .../surfaces/lifecyclePresentation.ts              |   15 +
+ .../approveCandidateTrajectory.ts                  |   22 +
+ .../project-assistant/f2/executionIntentSchema.ts  |  209 ++
+ .../project-assistant/f2/intentAnalysis.ts         |   26 +-
+ .../features/project-assistant/f2/orchestrateF2.ts |    2 +
+ .../project-assistant/f2/recordDecision.ts         |   60 +-
+ .../app/features/project-assistant/f2/types.ts     |   16 +
+ .../f3/boundedDocsWriteM3ResolutionProfile.ts      |   68 +
+ .../f3/completeBoundedDocsWriteLaunch.ts           |  140 ++
+ .../f3/completeBoundedReadOnlyLaunch.ts            |   27 +-
+ .../f3/ingestDocsWriteArtifactEvidence.ts          |   99 +
+ .../f3/prepareAndResolveM3ProductPath.ts           |   31 +-
+ .../project-assistant/f3/prepareM3FromDecision.ts  |  117 +-
+ .../f3/selectProductM3ResolutionProfile.ts         |   22 +-
+ .../preCycleCandidateTrajectoryActions.ts          |    2 +
+ projects/sfia-studio/app/lib/nora-eval/d0Runner.ts |    1 +
+ .../app/lib/oa/cycle/application/cycleExitState.ts |  376 ++++
+ .../application/deriveCycleObligationSnapshot.ts   |  166 ++
+ .../application/deriveFinalizationApplicability.ts |  104 +-
+ .../cycle/application/pilotLifecycleTransitions.ts |   10 +
+ .../application/qualifyGitCompletionProofSet.ts    |  322 +++
+ .../lib/oa/cycle/application/qualifyGitEvidence.ts |   31 +-
+ projects/sfia-studio/app/lib/oa/cycle/index.ts     |   28 +
+ .../app/lib/oa/decision/domain/types.ts            |   21 +
+ .../application/artifactCompleteness.ts            |   96 +
+ .../application/registerEvidence.ts                |   18 +-
+ .../application/typedGitEvidence.ts                |  342 +++
+ .../app/lib/oa/evidence-review/domain/types.ts     |    2 +
+ .../app/lib/oa/evidence-review/index.ts            |   23 +
+ .../advanceExecutionContractCompletion.ts          |   76 +
+ .../application/executionContractStatusWriter.ts   |   19 +-
+ .../oa/execution-attempt/application/grantGateD.ts |    6 +-
+ .../application/observeLocalCommitFacts.ts         |  384 ++++
+ .../application/recordExecutionResult.ts           |   33 +-
+ .../application/selectExecutionAgent.ts            |   38 +-
+ .../application/startExecution.ts                  | 1046 ++++++++-
+ .../application/verifyLocalCommitEffect.ts         |  249 +++
+ .../application/verifyPrCreateEffect.ts            |  129 ++
+ .../application/verifyRemotePushEffect.ts          |   77 +
+ .../application/verifyWorkspaceFileEffects.ts      |  178 ++
+ .../domain/assertFreshPrMergePreflight.ts          |   41 +
+ .../assertLocalBranchRefMatchesExpectedSha.ts      |   57 +
+ .../domain/authorizedExecutionSlice.ts             |  343 +++
+ .../domain/contractEffectClassification.ts         |   95 +
+ .../domain/cursorExecutionReport.ts                |  108 +
+ .../domain/gitCommitLaunchSpec.ts                  |  184 ++
+ .../domain/gitPrCreateLaunchSpec.ts                |  150 ++
+ .../domain/gitPrMergeLaunchSpec.ts                 |  119 +
+ .../execution-attempt/domain/gitPushLaunchSpec.ts  |  150 ++
+ .../lib/oa/execution-attempt/domain/invariants.ts  |    3 +-
+ .../domain/projectEvidenceList.ts                  |   27 +
+ .../domain/qualifyExecutionContractCompletion.ts   |  335 +++
+ .../execution-attempt/domain/realLaunchSafety.ts   |   15 +
+ .../domain/resolveAttemptExecutionProfile.ts       |  773 +++++++
+ .../domain/resolveGitEffectTarget.ts               |  325 +++
+ .../resolvePreCommitWorkspaceContinuation.ts       |  369 ++++
+ .../domain/resolveVerifiedDocsWritePriorAttempt.ts |  171 ++
+ .../resolveVerifiedLocalCommitPriorAttempt.ts      |  171 ++
+ .../resolveVerifiedRemotePushPriorAttempt.ts       |  185 ++
+ .../oa/execution-attempt/domain/shellSafeArg.ts    |   53 +
+ .../app/lib/oa/execution-attempt/domain/types.ts   |   21 +
+ .../domain/verifyLocalCommitFacts.ts               |  138 ++
+ .../app/lib/oa/execution-attempt/index.ts          |  227 +-
+ .../infrastructure/cursorCliLaunchGateway.ts       |    9 +
+ .../infrastructure/fakeCursorGitExternalState.ts   |  262 +++
+ .../infrastructure/fakeDocsWriteLaunchPort.ts      |  789 +++++++
+ .../m4BoundedDocsWriteCursorAgent.ts               |  103 +
+ .../m4BoundedLocalCommitCursorAgent.ts             |   86 +
+ .../infrastructure/m4BoundedPrCreateCursorAgent.ts |   84 +
+ .../infrastructure/m4BoundedPrMergeCursorAgent.ts  |   84 +
+ .../m4BoundedRemotePushCursorAgent.ts              |   86 +
+ .../managedProjectRepositoryResolver.ts            |   57 +
+ .../infrastructure/mutatingCursorConfinementEnv.ts |  143 ++
+ .../sqlite/createSqliteExecutionAttemptServices.ts |   12 +
+ .../studioCursorRealLaunchGateway.ts               |  747 ++++++-
+ .../infrastructure/studioGitWorktreeWorkspace.ts   |  197 +-
+ .../ports/realExecutionLaunchPort.ts               |   88 +
+ .../ports/realExecutionWorkspacePort.ts            |   52 +-
+ .../application/gitEffectEvidenceActions.ts        |  641 ++++++
+ .../app/lib/oa/git-ports/fakeGitProviderPorts.ts   |  339 +++
+ .../app/lib/oa/git-ports/githubCliRemotePorts.ts   |  490 ++++
+ projects/sfia-studio/app/lib/oa/git-ports/index.ts |   60 +
+ .../app/lib/oa/git-ports/localGitStatusDiffPort.ts |   86 +
+ .../app/lib/oa/git-ports/nodeLocalGitPorts.ts      |    5 +
+ .../lib/oa/git-ports/platformGithubReadBridge.ts   |  285 +++
+ .../app/lib/oa/git-ports/postMergeVerify.ts        |   47 +
+ projects/sfia-studio/app/lib/oa/git-ports/types.ts |  169 ++
+ .../application/setProjectRepositoryBinding.ts     |  114 +
+ .../app/lib/oa/project/domain/invariants.ts        |   69 +
+ .../sfia-studio/app/lib/oa/project/domain/types.ts |   21 +
+ projects/sfia-studio/app/lib/oa/project/index.ts   |   12 +
+ .../sqlite/createSqliteProductProjectServices.ts   |   12 +
+ .../oa/project/ports/projectAuditJournalPort.ts    |   10 +
+ .../app/lib/platform/ai/fakeProvider.ts            |   87 +
+ .../app/lib/platform/repository/ghCliTransport.ts  |   80 +
+ .../lib/platform/repository/githubReadAdapter.ts   |  279 ++-
+ .../app/lib/platform/repository/index.ts           |    4 +
+ .../app/lib/platform/tools/toolRouter.ts           |  152 ++
+ .../sfia-studio/app/lib/platform/tools/types.ts    |   73 +-
+ .../app/lib/vertical-slice-runtime/actions.ts      |   32 +
+ .../composeStudioProductRealBoundary.ts            |    5 +
+ .../app/lib/vertical-slice-runtime/service.ts      |  126 ++
+ .../app/lib/vertical-slice-runtime/types.ts        |    9 +
+ .../convergence/sfia-studio-convergence-roadmap.md |   53 +-
+ 149 files changed, 31944 insertions(+), 157 deletions(-)
+```
+
+changedFiles=149 additions=31944 deletions=157
 
 ---
 
 ## 6. VALIDATION
 
-### Fresh focused smoke (exact tip `6a2e3c9d`, REAL flags unset)
-
-14 test files covering qual/pre-cycle, greenfield bootstrap, trajectory bridge/provenance/HD/start, ACW, lifecycle closure:
-
-**235 passed / 0 failed**
+Focused GCEC smoke (REAL flags unset): **40 passed / 1 skipped**
 
 ```
- ✓ __tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts (57 tests) 2377ms
-   ✓ CR-ACW-04 catalog-wide active-cycle cognitive context > for each selectable cycle type: START → compose workEligible + CKC + no unresolved  420ms
+{"event":"oa.execution_attempt.accepted","ts":"2026-09-11T14:00:00.000Z","correlationId":"cor:8e2609c12854dcfe","attemptId":"xat:gcec-push-fail:xct:m3-res:dec:f2:47c343c3-5c0d-4ef1-bc82-3a782af8298a","executionContractId":"xct:m3-res:dec:f2:47c343c3-5c0d-4ef1-bc82-3a782af8298a","result":"error","detailCode":"AGENT_CAPABILITY_MISMATCH","durationMs":2}
 
- Test Files  14 passed (14)
-      Tests  235 passed (235)
-   Start at  04:21:45
-   Duration  4.02s (transform 1.57s, setup 869ms, collect 12.38s, tests 8.30s, environment 1.21s, prepare 632ms)
+ ✓ __tests__/oa/cycle/gcecDeterministicE2e.d0.test.ts (1 test) 375ms
+   ✓ gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine > A→B Product spine through local-commit; push fail-closed under CR-06 (AGENT-01 CORR)  374ms
+
+ Test Files  5 passed (5)
+      Tests  40 passed | 1 skipped (41)
+   Start at  04:59:20
+   Duration  1.67s (transform 1.21s, setup 361ms, collect 4.06s, tests 916ms, environment 0ms, prepare 196ms)
 
 ```
 
-### Local gates at tip
-
-| Gate | Result |
-|---|---|
-| typecheck | PASS |
-| lint | PASS |
-| build | PASS |
-| REAL flags | unset |
-| historical REAL campaigns | NOT executed |
-
-Accepted historical validation provenance for commits #1–#18 retained via Review Handoff lineage (post-#477 consolidation pack `a90ecf92…`).
+Accepted deterministic proof for tip `06007633` retained (RepositoryRead, A→D harness, immutable binding, five opt-ins, worktree, STOP before E). App tree unchanged after Roadmap commit.
 
 ---
 
@@ -340,17 +324,12 @@ Accepted historical validation provenance for commits #1–#18 retained via Revi
 
 | Field | Value |
 |---|---|
-| PR number | **#478** |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/478 |
+| PR | **#479** |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/479 |
 | state | OPEN |
-| base | `main` @ `a9f6c310a0826d0e5bd6f7264603382a86564db1` |
-| head | `delivery/sfia-studio-greenfield-lifecycle-consolidation` @ `6a2e3c9d71275145b20b514d02ab54533a72a2a7` |
-| title | feat(sfia-studio): complete governed greenfield lifecycle path |
-| changedFiles | 91 |
-| additions/deletions | 23958/242 |
-
-Merge method required if/when authorized: **MERGE COMMIT** (no squash / no rebase).
-Branch deletion: **FORBIDDEN**.
+| title | feat(sfia-studio): integrate governed GCEC execution lifecycle |
+| head | `efb90434f01ae4f71b404c7128b52ff9bb0c888b` |
+| base | `caa639de3ddb21658d5c5ee7a2282aaa2d201d68` |
 
 ---
 
@@ -358,8 +337,8 @@ Branch deletion: **FORBIDDEN**.
 
 | Field | Value |
 |---|---|
-| workflow run | [34732892585](https://github.com/mcleland147/sfia-workspace/actions/runs/34732892585) |
-| headSha | `6a2e3c9d71275145b20b514d02ab54533a72a2a7` |
+| run | [34734376934](https://github.com/mcleland147/sfia-workspace/actions/runs/34734376934) |
+| headSha | `efb90434f01ae4f71b404c7128b52ff9bb0c888b` |
 | conclusion | **success** |
 
 Jobs:
@@ -367,60 +346,35 @@ Jobs:
 - Build and validate SFIA Studio: success
 - SFIA Studio Required Gate: success
 
-**SFIA Studio Required Gate: SUCCESS**
-
-One infrastructure retry: **NOT used** (first run green).
+**SFIA Studio Required Gate: SUCCESS** · mergeState CLEAN · no retry
 
 ---
 
-## 9. EFFECTS THIS CHECKPOINT
+## 9. EFFECTS / ANTI-CLAIMS
 
 | Effect | Status |
 |---|---|
-| Product source edits | NONE |
-| Historical commit rewrite | NONE |
-| Branch push | PR1 branch only |
-| PR create | #478 |
-| Merge | **NOT YET** |
 | REAL | **ZERO** |
-| Proof repo mutation | NONE |
-| PR2 | NOT STARTED |
+| A/B/C/D REAL | **NOT PROVEN** |
+| A→D E2E REAL | **NOT PROVEN** |
+| E / merge REAL | **NOT STARTED** |
+| proof repo mutation | NONE |
+| runtime v3 | NON ADOPTED |
+| PR2 merge | **NOT YET** |
+| Product functional source edits this checkpoint | NONE (Roadmap DOC only) |
 
 ---
 
-## 10. MERGE POLICY REMINDER
+## 10. VERDICT
 
-Cursor MUST NOT merge until Morris provides ChatGPT Critical Review result substantively:
+**READY FOR CHATGPT CRITICAL REVIEW — PR2 GCEC + FINAL ROADMAP TRUTH-SYNC**
 
-**PASS / READY FOR MERGE**
+Requested action:
 
-for exact head `6a2e3c9d71275145b20b514d02ab54533a72a2a7`.
+**CHATGPT CRITICAL REVIEW — PR2 GCEC + FINAL ROADMAP TRUTH-SYNC**
 
-If CORRECTION REQUIRED / STOP / PASS WITH BLOCKING RESERVE:
-
-**STOP — PR1 CRITICAL REVIEW NOT MERGEABLE**
-
-No Product correction under this macro GO without Morris disposition.
-
-After PASS: same macro GO authorizes merge-commit + post-merge verification + PR2 sequence.
+Need substantive **PASS / READY FOR MERGE** on exact head `efb90434f01ae4f71b404c7128b52ff9bb0c888b` before merge-commit under the same macro GO.
 
 ---
 
-## 11. VERDICT
-
-**READY FOR CHATGPT CRITICAL REVIEW — PR1 GREENFIELD / LIFECYCLE CONSOLIDATION**
-
-Reserves:
-- blocking: none observed for reviewability
-- non-blocking: temporary validation worktree remains; cleanup later
-- REAL-only: none for this PR
-
-Requested ChatGPT action:
-
-**CHATGPT CRITICAL REVIEW — PR1 GREENFIELD/LIFECYCLE CONSOLIDATION**
-
-Decide: PASS/READY FOR MERGE vs STOP/CORRECTION.
-
----
-
-## 12. END OF CHECKPOINT 1 REVIEW PACK
+## 11. END OF CHECKPOINT 2 REVIEW PACK
