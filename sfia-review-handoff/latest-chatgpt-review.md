@@ -1,42 +1,25 @@
-# ChatGPT Review Pack — GCEC REMOTE_GITHUB BOUNDED CURSOR SANDBOX NETWORK CAPABILITY
+# ChatGPT Review Pack — GCEC CURSOR FULL-CAPABILITY EXECUTOR PARITY
 
 **Mode:** FULL
-**Timestamp (UTC):** 2026-09-13T14:57:24Z
-**Cycle:** 9 / RUN / CRITICAL
-**GO:** GCEC REMOTE_GITHUB BOUNDED CURSOR SANDBOX NETWORK CAPABILITY — API.GITHUB.COM ONLY
-**Verdict:** STOP — BOUNDED REMOTE_GITHUB RO CAPABILITY NOT PROVEN
+**Timestamp (UTC):** 2026-09-13T15:18:10Z
+**Cycle:** 8 / EVOL / CRITICAL
+**GO:** GCEC-CURSOR-FULL-CAPABILITY-PARITY-01
+**Verdict:** PASS — CURSOR FULL-CAPABILITY EXECUTOR PARITY RO-PROVEN / LOCAL ANCHOR CREATED — D PR EFFECT STILL NOT PROVEN
 
 ---
 
 ## A. VERDICT
 
-**STOP — BOUNDED REMOTE_GITHUB RO CAPABILITY NOT PROVEN.**
+**PASS — CURSOR FULL-CAPABILITY EXECUTOR PARITY RO-PROVEN / LOCAL ANCHOR CREATED — D PR EFFECT STILL NOT PROVEN.**
 
-Deterministic pre-probe validation PASSed (focused vitest + typecheck + lint). Exactly ONE Product-shaped REAL read-only Cursor probe was launched with:
+Morris decision applied: Cursor is a general technical executor; SFIA governs authority via ExecutionContract ∩ AgentCapability ∩ Confirmation ∩ guardrails ∩ Evidence — not via SFIA-owned network firewall.
 
-- `remote_github` confinement
-- `applyRemoteGithubPrCreateBoundedShellEgress` → `CURSOR_FORCED_SHELL_EGRESS_ALLOW_DOMAINS=api.github.com`
-- ephemeral `GH_TOKEN` injection via `HostGhAuthTokenCredentialProvider`
-- argv: `agent --print --workspace <temp> --trust --sandbox enabled`
-- `NodeCursorProcessRunner` + exact-secret redaction
-
-Probe observed:
-
-| Oracle | Result |
-|---|---|
-| Cursor invoked once | YES (`realProcessInvoked=true`, `exitCode=0`, ~26s) |
-| sandbox enabled | YES |
-| egress capability exact `api.github.com` | YES (injected + child-reported) |
-| `GH_TOKEN` presence | YES |
-| `API_ROOT_DNS` | **FAIL** `error:ENOTFOUND` |
-| `API_ROOT_HTTPS_STATUS` | **FAIL** `not_attempted` |
-| `AUTH_REPO_STATUS/MATCH` | **FAIL** `0` / `no` |
-| `AUTH_FEATURE_STATUS/SHA_MATCH` | **FAIL** `0` / `no` |
-| `gh api` full_name + feature SHA lines | present in stdout (see M — not sufficient alone) |
-| raw credential in capture | ABSENT |
-| proof main/feature/PR truth | UNCHANGED |
-
-Per GO §20: API-root DNS+HTTPS and authenticated direct Node oracles are required. They failed under `--sandbox enabled` despite the Product egress env hook. **No Product commit. No retry.**
+- CLI mode qualified: `agent --print --workspace --trust --sandbox disabled --force` (`--yolo` = alias for `--force`; not used).
+- ONE direct parity probe PASS → **FCP-A** (native `gh` auth works; no token injection).
+- Product aligned: removed `api.github.com`-only / `CURSOR_FORCED_*` injection; argv `--sandbox disabled --force` for governed launches; RO keeps `--mode ask`; ephemeral secret bridge retired; exact-secret redaction retained.
+- Deterministic CAP/AUTH + A/B/C/D regressions + A→D harness 22/1 skip PASS; typecheck/lint/build/full Vitest PASS.
+- ONE Product-shaped RO probe PASS (D remote_github composition, RO instruction, native auth).
+- ONE local Product commit; ZERO Product remote / proof mutating effects.
 
 ---
 
@@ -45,15 +28,15 @@ Per GO §20: API-root DNS+HTTPS and authenticated direct Node oracles are requir
 | Field | Value |
 |---|---|
 | Repository | `mcleland147/sfia-workspace` |
-| Cycle | 9 — QA / validation |
-| Typology | RUN |
+| Cycle | 8 — Delivery / implementation |
+| Typology | EVOL |
 | Profile | CRITICAL |
-| Milestone | GCEC REMOTE_GITHUB BOUNDED CURSOR SANDBOX NETWORK CAPABILITY |
+| Milestone | GCEC-CURSOR-FULL-CAPABILITY-PARITY-01 |
 | Product main | `c481610caa3527edabeca8c860ab27c18a6a738e` |
-| Cumulative parent / ANCHOR | `ff267fdf3e6591b5ed83c4478b95f6181ad98fa2` |
-| Dirty WT | `/Users/morris/Projects/sfia-gcec-d-ephemeral-secret-bridge-ff267fdf` |
+| Dirty parent / prior ANCHOR | `ff267fdf3e6591b5ed83c4478b95f6181ad98fa2` |
+| Worktree | `/Users/morris/Projects/sfia-gcec-d-ephemeral-secret-bridge-ff267fdf` |
 | Branch | `delivery/sfia-studio-gcec-d-ephemeral-secret-bridge` |
-| Incoming handoff | `1efb68f7d38bcde5ea8af3622503bf8cba38bb85` (NPOL-3) |
+| Incoming handoff | `f0b69c1fab8c9eb7f47b522109b9b6f78d65adb9` |
 | Proof | `mcleland147/sfia-gcec-proof-task-manager` |
 | Feature | `gcec/lifecycle/gcec-ad-finaldec-f2-fe6b` @ `3a879572722af2b72909243ba0b506f307d87156` |
 
@@ -65,44 +48,29 @@ Per GO §20: API-root DNS+HTTPS and authenticated direct Node oracles are requir
 |---|---|
 | pwd / toplevel | `/Users/morris/Projects/sfia-gcec-d-ephemeral-secret-bridge-ff267fdf` |
 | branch | `delivery/sfia-studio-gcec-d-ephemeral-secret-bridge` |
-| HEAD (unchanged) | `ff267fdf3e6591b5ed83c4478b95f6181ad98fa2` |
+| HEAD before commit | `ff267fdf3e6591b5ed83c4478b95f6181ad98fa2` |
 | origin/main | `c481610caa3527edabeca8c860ab27c18a6a738e` |
-| Product commit this lot | **NONE** (RO probe FAIL gate) |
-| `D_REMOTE_GITHUB_LOCAL_ANCHOR` | **NOT RECORDED** |
+| HEAD after commit | `9878043eca14896c3a6f6cb8f9dc4a84b6a26d55` |
+| commit parent | `ff267fdf3e6591b5ed83c4478b95f6181ad98fa2` |
+| staged unexpected | NONE |
 
 ---
 
-## D. DIRTY CANDIDATE ENTRY STATE
+## D. ENTRY DIRTY CANDIDATE
 
-Preserved dirty Product candidate (secret bridge + bounded egress + tests) was **not** committed.
+Preserved dirty candidate from prior bounded-network STOP (secret bridge + `CURSOR_FORCED_*` egress) was reworked in-place — not discarded/stashed.
 
-Modified vs `ff267fdf`:
-
-- `projects/sfia-studio/app/lib/oa/execution-attempt/index.ts`
-- `.../infrastructure/cursorCliLaunchGateway.ts`
-- `.../infrastructure/mutatingCursorConfinementEnv.ts` (bounded egress helper + strip ambient)
-- `.../infrastructure/nodeCursorProcessRunner.ts` (`redactExactValues`)
-- `.../infrastructure/studioCursorRealLaunchGateway.ts` (PR-create egress + credential bridge)
-- `.../ports/realExecutionLaunchPort.ts`
-
-Untracked Product (intended cumulative set, uncommitted):
-
-- `.../hostGhAuthTokenCredentialProvider.ts`
-- `.../redactExactSecrets.ts`
-- `.../ports/remoteGithubCredentialPort.ts`
-- `__tests__/oa/execution-attempt/gcecRemoteGithubEphemeralSecretBridge.d0.test.ts`
-- `__tests__/oa/execution-attempt/support/fakeRemoteGithubCredentialProvider.ts`
-
-This lot also fixed in-tree (still dirty):
-
-- NET allowlist assertion: bare `github.com` token check (not substring of `api.github.com`)
-- `prefer-const` on `childEnv` (lint)
-
-Forensics / probes under `.tmp-sfia-review/` (not staged): helpers + `d-bounded-network-ro-probe.*`, prior NPOL/DCH/STB artifacts.
+Entry modified Product paths under `execution-attempt/` plus untracked bridge/redaction candidates and `.tmp-sfia-review/**` diagnostics (preserved, never staged).
 
 ---
 
-## E. CANONICAL MATURITY
+## E. MORRIS FULL-CAPABILITY DECISION
+
+Consumed: Cursor must retain general technical capability (Shell / filesystem / network / installed tools / GitHub when credentials exist). SFIA must not be a domain firewall / network sandbox / Internet permission catalog. SUPERSEDED as target: `api.github.com-only`, `CURSOR_FORCED_SHELL_EGRESS*` Product injection, domain allowlist-by-effect. Does NOT mean global L5 / autonomous merge / removal of HumanDecision/Confirmation / runtime v3 ADOPTED.
+
+---
+
+## F. CANONICAL MATURITY
 
 | Surface | Maturity |
 |---|---|
@@ -111,232 +79,261 @@ Forensics / probes under `.tmp-sfia-review/` (not staged): helpers + `d-bounded-
 | C remote push | REAL PROVEN AT TESTED SCOPE |
 | A→C | REAL PROVEN AT TESTED SCOPE |
 | C HTTPS bridge | REAL-BACKED AT TESTED SCOPE |
-| D credential bridge (candidate) | DETERMINISTIC coverage present locally; RO REAL auth path **not** newly promoted this lot |
-| D bounded Cursor network capability | **NOT PROVEN** (RO probe FAIL) |
-| D PR-create effect | NOT PROVEN |
-| E | NOT PROVEN |
+| D executor full-capability (RO) | **RO-PROVEN AT TESTED SCOPE** (this lot) |
+| D PR-create effect | **NOT PROVEN** |
+| E / merge | NOT PROVEN |
 | runtime v3 | NON ADOPTED |
 
 ---
 
-## F. PROOF REMOTE PRECONDITIONS
+## G. TECHNICAL RESTRICTION INVENTORY
 
-Pre/post probe (host `gh api`, read-only):
+| Mechanic | Class | Disposition |
+|---|---|---|
+| EC / AgentCapability / Confirmation gates | A AUTHORITY | KEEP |
+| `--mode ask` for RO | A AUTHORITY / RO intent | KEEP |
+| exact-secret redaction (`redactExactSecrets` / runner) | B SECRET SAFETY | KEEP |
+| remote_git `GIT_CONFIG_*` HTTPS helper (`gh auth git-credential`) | C ADDITIVE CAPABILITY | KEEP (C path) |
+| mutating env strip of host auth for local A/B | A/C confinement | KEEP |
+| `--sandbox enabled` on governed launches | D SFIA RESTRICTION | **REMOVED** → `disabled` |
+| missing `--force` under allowlist | D RESTRICTION | **REMOVED** → `--force` |
+| `applyRemoteGithubPrCreateBoundedShellEgress` / `CURSOR_FORCED_*` inject | D FIREWALL | **REMOVED** |
+| HostGhAuthTokenCredentialProvider / credential port wiring | C (FCP-B only) | **RETIRED (FCP-A)** |
+| ambient `CURSOR_FORCED_*` strip | neutralize ambient firewall | KEEP strip-only |
+
+---
+
+## H. CURSOR CLI FULL-CAPABILITY MODE QUALIFICATION
+
+| Item | Result |
+|---|---|
+| Cursor | 3.20.17 |
+| `--sandbox` | choices `enabled` / `disabled` (overrides config) |
+| `--force` / `-f` | Force allow commands unless explicitly denied |
+| `--yolo` | Alias for `--force` — **not used** |
+| Preferred argv | `agent --print --workspace <path> --trust --sandbox disabled --force` |
+| cli-config / Cursor.app modified | **NO** |
+| Verdict | **QUALIFIED** |
+
+---
+
+## I. DIRECT CURSOR PARITY PROBE
+
+| Field | Value |
+|---|---|
+| Count | ONE (no retry) |
+| Argv | `agent --print --workspace <empty temp> --trust --sandbox disabled --force` |
+| GH_TOKEN injection | NONE |
+| Artifact | `.tmp-sfia-review/fcp-direct-parity.out` |
+| Shell | PASS (`SHELL_OK=yes`, node v24.16.0) |
+| Outside fixture read | PASS (`OUTSIDE_WORKSPACE_READ=yes`) |
+| example.com DNS/HTTPS | PASS (200) |
+| api.github.com DNS/HTTPS | PASS (403 — HTTPS reachable) |
+| git / gh | PASS |
+| Native gh auth | PASS (`NATIVE_GH_AUTH=yes`) |
+| Exit | 0 |
+
+---
+
+## J. FCP-A / FCP-B CLASSIFICATION
+
+**FCP-A** — network OK and native `gh` auth works without Product token injection.
+
+---
+
+## K. SECRET BRIDGE DISPOSITION
+
+**RETIRED** for PR-create path (FCP-A).
+
+Removed wiring: `HostGhAuthTokenCredentialProvider`, `remoteGithubCredentialPort`, gateway `remoteGithubCredentialProvider`, Fake provider.
+
+Kept: `redactExactSecrets` + `NodeCursorProcessRunner.redactExactValues` for accidental capture defense.
+
+---
+
+## L. SUPERSEDED NETWORK CONFINEMENT REMOVAL
+
+Removed Product injection of:
+
+- `applyRemoteGithubPrCreateBoundedShellEgress`
+- `REMOTE_GITHUB_PR_CREATE_SHELL_EGRESS_*` constants
+- `CURSOR_FORCED_SHELL_EGRESS*` Product inject on D path
+
+Retained strip of ambient `CURSOR_FORCED_*` so inherited deny/allowlist cannot confine children.
+
+Deleted api.github.com-only NET assertions; replaced with CAP/AUTH suite.
+
+---
+
+## M. PRODUCT LAUNCH ALIGNMENT
+
+`StudioCursorRealLaunchGateway` governed argv (A/B/C/D/E mutating + RO):
+
+- always `--sandbox disabled` + `--force`
+- RO additionally `--mode ask`
+- capability no longer depends on effect class for sandbox/force
+- no `CURSOR_FORCED_*` inject; no ephemeral GH_TOKEN bridge
+
+---
+
+## N. AUTHORITY INVARIANTS
+
+AUTH-01..10 preserved: invalid D agent/effects/spec still reject before spawn; full capability does not authorize protected effects; Cursor remains `gh pr create` executor; no Studio GitHub mutation API; no auto merge/delete; runtime v3 not promoted.
+
+---
+
+## O. CAPABILITY INVARIANTS
+
+CAP-01..12 covered by Product argv + strip-only egress policy + direct/Product RO probes + no cli-config mutation.
+
+---
+
+## P. DETERMINISTIC VALIDATION
+
+| Check | Result |
+|---|---|
+| `gcecCursorFullCapabilityParity.d0.test.ts` | PASS (13) |
+| `gcecMutatingCursorConfinementEnv.d0.test.ts` | PASS (13) |
+| `gcecGitCommitGatewayProfile.d0.test.ts` | PASS (19) |
+| `gcecGitLifecyclePushPrMerge.d0.test.ts` | PASS (53) |
+| A→D `gcecCursorRealSameEcCommit.real.d0.test.ts` | PASS 22 / SKIP 1 |
+| typecheck | PASS |
+| lint | PASS |
+| build | PASS |
+| full Vitest | PASS 3893 / SKIP 137 (356 files; 17 skipped files) |
+
+---
+
+## Q. PRODUCT-SHAPED REAL READ-ONLY PROBE
+
+| Field | Value |
+|---|---|
+| Count | ONE (no retry) |
+| Composition | `buildMutatingCursorConfinementEnv(..., remote_github)` + `NodeCursorProcessRunner` + Product argv |
+| Instruction | READ-ONLY (no PR/push/write) |
+| Artifact | `.tmp-sfia-review/fcp-product-ro-probe.out` |
+| realProcessInvoked | true |
+| argv | sandbox disabled + force |
+| CURSOR_FORCED inject | absent |
+| Shell / outside read / both networks | PASS |
+| Native GitHub RO | PASS (`full_name` + feature SHA exact) |
+| GH_TOKEN in child | no |
+| Exit | 0 |
+
+---
+
+## R. SECRET SAFETY
+
+No GH_TOKEN injection this lot. No raw credential printed in probe captures. Redaction helper retained. `process.env` not globally mutated by gateway.
+
+---
+
+## S. PROOF REMOTE TRUTH
+
+Pre/post Product probe (host `gh api`, read-only):
 
 | Check | Value |
 |---|---|
 | proof main | `32c7c2008197e5c61b32c16479144e9863291358` |
 | feature SHA | `3a879572722af2b72909243ba0b506f307d87156` |
-| open PR for feature | **NONE** (`[]`) |
+| open PR for feature | NONE (`[]`) |
+| Unchanged | YES |
 
 ---
 
-## G. CURSOR EGRESS HOOK SEMANTICS
+## T. FULL VALIDATION
 
-Consumed prior NPOL-3 discovery + installed Cursor **3.20.17** resources:
-
-- Symbol `CURSOR_FORCED_SHELL_EGRESS_ALLOW_DOMAINS` present in Cursor app resources (2 JS hits).
-- Product injects exact value `api.github.com` with master `CURSOR_FORCED_SHELL_EGRESS=1` and network default `deny`.
-- Ambient inherited egress keys stripped before inject (`stripInheritedCursorShellEgressEnv`).
-- No `~/.cursor/cli-config.json` modification.
-- No Cursor binary patch.
-
-**Observed gap:** despite child env reporting `VALUE=api.github.com` under `--sandbox enabled`, Node `dns.lookup('api.github.com')` inside the Cursor Shell still returned `ENOTFOUND` (same class as DCH-3/NPOL-3 general block). Egress env presence ≠ proven Shell DNS/HTTPS allow for Node in this one probe.
+Focused suites + typecheck + lint + build + full Vitest — all PASS before commit.
 
 ---
 
-## H. IMPLEMENTATION
+## U. CUMULATIVE PRODUCT DIFF
 
-Cumulative dirty candidate (uncommitted) implements:
+Parent `ff267fdf3e6591b5ed83c4478b95f6181ad98fa2` → tip `9878043eca14896c3a6f6cb8f9dc4a84b6a26d55`:
 
-1. Ephemeral credential port + `HostGhAuthTokenCredentialProvider`
-2. Exact-secret redaction in `NodeCursorProcessRunner`
-3. `applyRemoteGithubPrCreateBoundedShellEgress` — api.github.com ONLY
-4. Gateway wiring: after authority gates, PR-create path only applies egress + optional credential acquire into spawn env
-5. Deterministic SEC + NET tests
-
-Composition matches GO preferred path; RO REAL network proof did not clear.
+- gateway argv full-capability alignment
+- remove bounded Shell egress inject
+- retire ephemeral credential bridge wiring
+- retain redaction helper
+- CAP/AUTH deterministic tests; update sandbox assertions in GC/M4/namemax tests
 
 ---
 
-## I. AUTHORITY / PROFILE BINDING
+## V. STAGED FILES
 
-- Egress + credential technical capability remain behind validated D `github.pr.create` profile path in gateway.
-- A/B/C/RO: no Cursor egress env keys (NET-09..12).
-- Invalid D authority: reject before spawn / credential (NET-13).
-- Technical capability ≠ authority; no Studio-owned PR mutation API.
+Only Product paths under `projects/sfia-studio/app/lib/oa/execution-attempt/**` and related `__tests__/oa/execution-attempt/**`. Never staged: `.tmp-sfia-review/**`, `node_modules`, diagnostics probes.
 
 ---
 
-## J. NETWORK CONFINEMENT NET-01..18
-
-Focused suite `gcecRemoteGithubEphemeralSecretBridge.d0.test.ts`: **17/17 PASS** after fixing substring false-negative (`api.github.com`.includes(`github.com`) → tokenized domain equality).
-
-Covered in suite: exact egress inject, ambient strip, A/B/C/RO absence, invalid authority fail-closed, sandbox enabled argv. Broader NET-01..18 numbering in GO maps to these + confinement regressions; full-suite run **not** executed post-FAIL (commit gate closed).
-
----
-
-## K. SECRET BRIDGE SEC INVARIANTS
-
-Same focused file: SEC-01..18 paths exercised in the 17 tests — provider call rules, base env immutability, redaction, C helper regression, Cursor remains PR executor. **PASS** in pre-probe focused run.
-
----
-
-## L. DETERMINISTIC VALIDATION
-
-Pre-probe (flags unset):
-
-| Check | Result |
-|---|---|
-| `gcecRemoteGithubEphemeralSecretBridge.d0.test.ts` | PASS (17) |
-| `gcecMutatingCursorConfinementEnv.d0.test.ts` | PASS (13) |
-| `gcecCursorRealSameEcCommit.real.d0.test.ts` | PASS 22 / SKIP 1 |
-| typecheck | PASS |
-| lint | PASS (after `prefer-const`) |
-
-Full vitest + build: **NOT RUN** (RO FAIL → no commit path).
-
----
-
-## M. SINGLE REAL READ-ONLY CURSOR PROBE
+## W. LOCAL PRODUCT COMMIT
 
 | Field | Value |
 |---|---|
-| count | **1** (no retry) |
-| capture | `.tmp-sfia-review/d-bounded-network-ro-probe.out` |
-| launcher | `.tmp-sfia-review/d-bounded-network-ro-probe.ts` |
-| helpers | `d-bounded-network-unauth-helper.mjs`, `d-bounded-network-auth-helper.mjs` |
-| sandbox | enabled |
-| domain injected | api.github.com |
-| transport (unauth Node) | **DNS ENOTFOUND** |
-| direct auth API (Node) | **FAIL** status 0 |
-| gh API lines in stdout | full_name + feature SHA strings present |
-| unexpected domain intent | none observed in capture |
-| durationMs | 26161 |
-
-**Interpretation:** Product-shaped env+argv composition reached Cursor. Sandbox Shell Node HTTPS to `api.github.com` remained blocked at DNS. `gh api` oracle lines alone do not satisfy GO §20 (Node DNS/HTTPS + AUTH_* required). No second launch.
+| Subject | `fix(sfia-studio): align Cursor executor capability parity` |
+| SHA | `9878043eca14896c3a6f6cb8f9dc4a84b6a26d55` |
+| Parent | `ff267fdf3e6591b5ed83c4478b95f6181ad98fa2` |
+| Push | **NOT DONE** (local only) |
 
 ---
 
-## N. SECRET REDACTION
+## X. D_FULL_CAPABILITY_LOCAL_ANCHOR
 
-- `redactExactValues` passed into `NodeCursorProcessRunner`
-- Capture post-processed with `redactExactSecrets`
-- Token-like `ghp_`/`gho_`/`github_pat_` count in out: **0**
-- Never printed credential values in this report
+`9878043eca14896c3a6f6cb8f9dc4a84b6a26d55`
 
 ---
 
-## O. POST-PROBE REMOTE TRUTH
+## Y. PRODUCT REMOTE EFFECTS
 
-Unchanged vs F:
-
-- main `32c7c2008197e5c61b32c16479144e9863291358`
-- feature `3a879572722af2b72909243ba0b506f307d87156`
-- matching open PR: NONE
-
-No unauthorized remote effect detected.
+**NONE** (no `git push` of Product branch; no Product PR).
 
 ---
 
-## P. FULL VALIDATION
+## Z. PROOF MUTATING EFFECTS
 
-**SKIPPED** — RO probe FAIL closes commit gate (GO §22 only after RO PASS).
-
----
-
-## Q. CUMULATIVE PRODUCT DIFF
-
-Dirty vs parent `ff267fdf` (lib + tests; not committed). Stat (tracked mods only): ~190 insertions / 18 deletions across 6 modified lib/port files; plus untracked credential/redaction/test files listed in D.
+**NONE** (no PR create/merge; main/feature unchanged).
 
 ---
 
-## R. STAGED FILES
+## AA. ROADMAP
 
-**NONE.** No staging performed. Commit gate not opened.
-
----
-
-## S. LOCAL PRODUCT COMMIT
-
-**NONE.**
-
-Intended subject (not created): `fix(sfia-studio): enable bounded GitHub capability for Cursor`
+Unchanged this lot. Next candidate gate only after Morris authorization: ONE REAL D-only PR-create EC against existing C-proven feature — STOP BEFORE MERGE.
 
 ---
 
-## T. D_REMOTE_GITHUB_LOCAL_ANCHOR
-
-**NOT SET** — requires successful local Product commit after RO PASS.
-
----
-
-## U. PRODUCT REMOTE EFFECTS
-
-ZERO. No Product push / PR / merge.
-
----
-
-## V. PROOF MUTATING EFFECTS
-
-ZERO. Proof refs unchanged; no PR created.
-
----
-
-## W. ROADMAP
-
-UNCHANGED. No Roadmap edit authorized/performed.
-
----
-
-## X. REVIEW HANDOFF
-
-Incoming tip: `1efb68f7d38bcde5ea8af3622503bf8cba38bb85`
-
-This pack published once via `scripts/sfia/publish-review-handoff.sh` (L3 handoff branch only). Verify tip/parent/blob/parity in publisher output below (filled after publish).
+## AB. REVIEW HANDOFF
 
 | Field | Value |
 |---|---|
-| tip | _(post-publish)_ |
-| parent | `1efb68f7d38bcde5ea8af3622503bf8cba38bb85` |
-| blob | _(post-publish)_ |
-| parity | _(post-publish)_ |
+| Incoming tip (HANDOFF_IN) | `f0b69c1fab8c9eb7f47b522109b9b6f78d65adb9` |
+| Source | `.tmp-sfia-review/chatgpt-review.md` |
+| Destination | `sfia-review-handoff/latest-chatgpt-review.md` |
+| Branch | `sfia/review-handoff` |
+| Publish | ONCE via `scripts/sfia/publish-review-handoff.sh` |
+
+(Post-publish tip/parent/blob/parity filled by publish verification.)
 
 ---
 
-## Y. MATURITY / ANTI-CLAIMS
+## AC. MATURITY / ANTI-CLAIMS
 
-**Do NOT claim:**
+**Claims:** Cursor governed launch full-capability mode RO-proven at tested scope; local Product anchor created; authority gates preserved; C remote_git path not regressed.
 
-- D PR-create REAL / proven
-- D bounded network capability REAL-proven
-- sandbox egress env hook alone restores Node DNS/HTTPS under Cursor sandbox
-- Product commit anchor for this capability
-- maturity promotion beyond section E
-
-**Do claim:**
-
-- Deterministic candidate + tests green locally
-- Exactly one RO Cursor probe executed and captured
-- Probe FAIL on required Node DNS/HTTPS/AUTH oracles under `api.github.com` egress inject
-- Dirty candidate preserved
-- ZERO mutating REAL
+**Anti-claims:** Does NOT prove D `github.pr.create` REAL effect; does NOT prove E/merge; does NOT adopt runtime v3; does NOT authorize autonomous protected effects; does NOT claim unbounded L5.
 
 ---
 
-## Z. NEXT GATE
+## AD. NEXT GATE
 
-Return to Morris. Recommended next (not authorized here):
+Candidate (do NOT execute under this GO):
 
-1. Diagnose why `CURSOR_FORCED_SHELL_EGRESS_ALLOW_DOMAINS=api.github.com` does not clear Shell Node DNS (`ENOTFOUND`) under Cursor 3.20.17 `--sandbox enabled` while env presence is visible to the agent — hook semantics / apply timing / allowlist format / sandbox network stack.
-2. Or authorize a distinct diagnostic GO (still ZERO mutating REAL) before any Product commit.
-3. Do **not** retry the same RO probe without a new Morris GO.
-4. Keep dirty D candidate intact until Morris decides commit vs redesign vs further diagnostics.
+**GO MORRIS — ONE REAL D-ONLY PR-CREATE EXECUTION CONTRACT AGAINST EXISTING C-PROVEN FEATURE — STOP BEFORE MERGE**
+
+- repository: `mcleland147/sfia-gcec-proof-task-manager`
+- base main: `32c7c2008197e5c61b32c16479144e9863291358`
+- head: `gcec/lifecycle/gcec-ad-finaldec-f2-fe6b` @ `3a879572722af2b72909243ba0b506f307d87156`
+- effect: `github.pr.create` ONLY
+- merge: NOT AUTHORIZED
 
 ---
 
-## Exact Morris GO (consumed)
-
-GCEC REMOTE_GITHUB BOUNDED CURSOR SANDBOX NETWORK CAPABILITY — API.GITHUB.COM ONLY — KEEP SANDBOX ENABLED — LOCAL ONLY — ZERO MUTATING REAL.
-
-Constants: ANCHOR=`ff267fdf3e6591b5ed83c4478b95f6181ad98fa2` MAIN=`c481610caa3527edabeca8c860ab27c18a6a738e` HANDOFF_IN=`1efb68f7d38bcde5ea8af3622503bf8cba38bb85` NEW=`/Users/morris/Projects/sfia-gcec-d-ephemeral-secret-bridge-ff267fdf`
+Constants: ANCHOR=`9878043eca14896c3a6f6cb8f9dc4a84b6a26d55` PARENT=`ff267fdf3e6591b5ed83c4478b95f6181ad98fa2` MAIN=`c481610caa3527edabeca8c860ab27c18a6a738e` HANDOFF_IN=`f0b69c1fab8c9eb7f47b522109b9b6f78d65adb9` NEW=`/Users/morris/Projects/sfia-gcec-d-ephemeral-secret-bridge-ff267fdf` FCP=A
