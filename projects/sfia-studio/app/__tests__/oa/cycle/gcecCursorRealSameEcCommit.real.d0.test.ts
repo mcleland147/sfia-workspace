@@ -36,7 +36,10 @@ import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
 } from "@/lib/oa/decision";
-import type { ExecutionContract } from "@/lib/oa/execution-contract";
+import {
+  computeExecutionContractSemanticFingerprint,
+  type ExecutionContract,
+} from "@/lib/oa/execution-contract";
 import {
   M4_BOUNDED_DOCS_WRITE_ACTION,
   M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
@@ -352,30 +355,96 @@ function requireAuth(
   return auth.evidenceId;
 }
 
-type FinalContractBinding = {
+/**
+ * Semantic immutability after Confirmation — excludes lifecycle OCC metadata
+ * (status/version) and selectedAgentRef, matching Product fingerprint rules.
+ */
+type FinalSemanticBinding = {
   executionContractId: string;
-  version: number;
   semanticFingerprint: string;
+  confirmationRef: string;
+  immutableAfterConfirm: true;
 };
 
-function captureFinalContractBinding(
+/** Lifecycle / OCC cursor — mutable, monotone, controlled across A/B/C/D. */
+type ExecutionContractLifecycleCheckpoint = {
+  version: number;
+  status: ExecutionContract["status"];
+};
+
+/** confirmed → executing → confirmed writes exactly two T-A5 OCC bumps. */
+const SUCCESSFUL_SLICE_VERSION_DELTA = 2;
+
+function captureFinalSemanticBinding(
   contract: ExecutionContract,
-): FinalContractBinding {
+): FinalSemanticBinding {
   if (!contract.semanticFingerprint) {
     throw new Error("final execution contract semantic fingerprint missing");
   }
+  if (contract.immutableAfterConfirm !== true) {
+    throw new Error("final execution contract missing immutableAfterConfirm");
+  }
+  if (!contract.confirmationRef) {
+    throw new Error("final execution contract missing confirmationRef");
+  }
+  const recomputed = computeExecutionContractSemanticFingerprint(contract);
+  if (recomputed !== contract.semanticFingerprint) {
+    throw new Error(
+      "stored semanticFingerprint diverges from recomputed fingerprint at capture",
+    );
+  }
   return {
     executionContractId: contract.executionContractId,
-    version: contract.version,
     semanticFingerprint: contract.semanticFingerprint,
+    confirmationRef: contract.confirmationRef,
+    immutableAfterConfirm: true,
   };
 }
 
-function assertFinalContractBindingUnchanged(
+function assertFinalSemanticBindingUnchanged(
   current: ExecutionContract,
-  expected: FinalContractBinding,
+  expected: FinalSemanticBinding,
 ): void {
-  expect(captureFinalContractBinding(current)).toEqual(expected);
+  const recomputed = computeExecutionContractSemanticFingerprint(current);
+  expect(current.executionContractId).toBe(expected.executionContractId);
+  expect(current.semanticFingerprint).toBe(expected.semanticFingerprint);
+  expect(recomputed).toBe(expected.semanticFingerprint);
+  expect(current.semanticFingerprint).toBe(recomputed);
+  expect(current.immutableAfterConfirm).toBe(true);
+  expect(current.confirmationRef).toBe(expected.confirmationRef);
+  expect(captureFinalSemanticBinding(current)).toEqual(expected);
+}
+
+function captureLifecycleCheckpoint(
+  contract: ExecutionContract,
+): ExecutionContractLifecycleCheckpoint {
+  return {
+    version: contract.version,
+    status: contract.status,
+  };
+}
+
+/**
+ * After a successful bounded A/B/C/D slice: same semantic material, status
+ * returns to confirmed, version advances by exactly +2 (executing then
+ * confirmed). Harness-only — not a Product runtime API.
+ */
+function assertSuccessfulSliceLifecycleProgression(
+  current: ExecutionContract,
+  previous: ExecutionContractLifecycleCheckpoint,
+  semanticBaseline: FinalSemanticBinding,
+  expectedVersionDelta: number = SUCCESSFUL_SLICE_VERSION_DELTA,
+): void {
+  expect(previous.status).toBe("confirmed");
+  expect(current.status).toBe("confirmed");
+  expect(current.version).toBe(previous.version + expectedVersionDelta);
+  expect(current.version).toBeGreaterThan(previous.version);
+  expect(current.semanticFingerprint).toBe(
+    semanticBaseline.semanticFingerprint,
+  );
+  expect(computeExecutionContractSemanticFingerprint(current)).toBe(
+    semanticBaseline.semanticFingerprint,
+  );
 }
 
 async function writeLaunchFrontierSnapshot(input: {
@@ -555,8 +624,13 @@ describe("GCEC future REAL same-EC A→D — static campaign shape", () => {
     expect(campaignBody).not.toContain("contracts.save");
     expect(campaignBody).toContain("supersedeExecutionContract.execute");
     expect(campaignBody).toContain("finalExecutionContractId");
-    expect(campaignBody).toContain("FINAL_BINDING");
-    expect(campaignBody).toContain("assertFinalContractBindingUnchanged");
+    expect(campaignBody).toContain("SEMANTIC_BASELINE");
+    expect(campaignBody).toContain("assertFinalSemanticBindingUnchanged");
+    expect(campaignBody).toContain("assertSuccessfulSliceLifecycleProgression");
+    expect(source).toContain("computeExecutionContractSemanticFingerprint");
+    expect(source).toMatch(
+      /computeExecutionContractSemanticFingerprint\(\s*(?:current|contract|afterA|next|staleFingerprint)\b/,
+    );
 
     const finalIdIndex = campaignBody.indexOf(
       "const finalExecutionContractId",
@@ -582,7 +656,10 @@ describe("GCEC future REAL same-EC A→D — static campaign shape", () => {
     expect(validateIndex).toBeGreaterThan(supersedeIndex);
     expect(confirmationIndex).toBeGreaterThan(validateIndex);
     expect(
-      campaignBody.match(/assertFinalContractBindingUnchanged\(/g),
+      campaignBody.match(/assertFinalSemanticBindingUnchanged\(/g),
+    ).toHaveLength(4);
+    expect(
+      campaignBody.match(/assertSuccessfulSliceLifecycleProgression\(/g),
     ).toHaveLength(4);
   });
 
@@ -650,6 +727,175 @@ describe("GCEC future REAL same-EC A→D — static campaign shape", () => {
         reconciliationComplete: true,
       }),
     ).toBe(false);
+  });
+});
+
+/** Minimal confirmed EC fixture for harness-only semantic/lifecycle oracle tests. */
+function fixtureConfirmedContract(
+  overrides: Partial<ExecutionContract> = {},
+): ExecutionContract {
+  const base: ExecutionContract = {
+    schemaVersion: "0.2.0-oa",
+    executionContractId: "xct:gcec-sem-fixture",
+    projectId: "prj:gcec-sem",
+    confirmationRef: "cnf:gcec-sem-fixture",
+    action: "bounded_docs_write",
+    target: "docs/functional-design.md",
+    scope: "docs-only",
+    inputs: { path: "docs/functional-design.md" },
+    requiredCapabilities: ["docs.write"],
+    requiredAuthority: "N3",
+    constraints: ["no-remote"],
+    stopConditions: ["artifact-written"],
+    evidenceRequirements: ["execution_attempt:docs_write"],
+    reversibility: "reversible",
+    idempotencyKey: "idem:gcec-sem-fixture",
+    correlationId: "cor:gcec-sem-fixture",
+    status: "confirmed",
+    version: 3,
+    immutableAfterConfirm: true,
+    ...overrides,
+  };
+  if (overrides.semanticFingerprint !== undefined) {
+    return base;
+  }
+  return {
+    ...base,
+    semanticFingerprint: computeExecutionContractSemanticFingerprint(base),
+  };
+}
+
+describe("GCEC A→D harness — semantic immutability ≠ lifecycle version", () => {
+  it("CASE 1 — semantic PASS: confirmed v3 → confirmed v5, fingerprint frozen", () => {
+    const confirmed = fixtureConfirmedContract({ version: 3 });
+    const SEMANTIC_BASELINE = captureFinalSemanticBinding(confirmed);
+    const previous = captureLifecycleCheckpoint(confirmed);
+    const afterA = fixtureConfirmedContract({
+      version: 5,
+      status: "confirmed",
+      selectedAgentRef: "agt:m4.cursor.bounded_docs_write",
+    });
+    assertFinalSemanticBindingUnchanged(afterA, SEMANTIC_BASELINE);
+    assertSuccessfulSliceLifecycleProgression(
+      afterA,
+      previous,
+      SEMANTIC_BASELINE,
+    );
+    expect(afterA.version).not.toBe(confirmed.version);
+  });
+
+  it("CASE 2 — recomputation: stored fingerprint equals fresh Product recompute", () => {
+    const confirmed = fixtureConfirmedContract({ version: 3 });
+    const afterA = fixtureConfirmedContract({ version: 5 });
+    expect(afterA.semanticFingerprint).toBe(
+      computeExecutionContractSemanticFingerprint(afterA),
+    );
+    expect(afterA.semanticFingerprint).toBe(confirmed.semanticFingerprint);
+  });
+
+  it("CASE 3 — semantic mutation FAIL (including stale persisted fingerprint)", () => {
+    const confirmed = fixtureConfirmedContract({ version: 3 });
+    const SEMANTIC_BASELINE = captureFinalSemanticBinding(confirmed);
+    const mutated = fixtureConfirmedContract({
+      version: 5,
+      scope: "docs-and-src",
+    });
+    expect(() =>
+      assertFinalSemanticBindingUnchanged(mutated, SEMANTIC_BASELINE),
+    ).toThrow();
+
+    const staleFingerprint = fixtureConfirmedContract({
+      version: 5,
+      scope: "docs-and-src",
+      semanticFingerprint: confirmed.semanticFingerprint,
+    });
+    expect(staleFingerprint.semanticFingerprint).toBe(
+      confirmed.semanticFingerprint,
+    );
+    expect(computeExecutionContractSemanticFingerprint(staleFingerprint)).not.toBe(
+      staleFingerprint.semanticFingerprint,
+    );
+    expect(() =>
+      assertFinalSemanticBindingUnchanged(staleFingerprint, SEMANTIC_BASELINE),
+    ).toThrow();
+  });
+
+  it("CASE 4 — lifecycle FAIL when version does not progress", () => {
+    const confirmed = fixtureConfirmedContract({ version: 3 });
+    const SEMANTIC_BASELINE = captureFinalSemanticBinding(confirmed);
+    const previous = captureLifecycleCheckpoint(confirmed);
+    const stuck = fixtureConfirmedContract({ version: 3 });
+    expect(() =>
+      assertSuccessfulSliceLifecycleProgression(
+        stuck,
+        previous,
+        SEMANTIC_BASELINE,
+      ),
+    ).toThrow();
+  });
+
+  it("CASE 5 — lifecycle FAIL on partial +1 progression", () => {
+    const confirmed = fixtureConfirmedContract({ version: 3 });
+    const SEMANTIC_BASELINE = captureFinalSemanticBinding(confirmed);
+    const previous = captureLifecycleCheckpoint(confirmed);
+    const partial = fixtureConfirmedContract({ version: 4 });
+    expect(() =>
+      assertSuccessfulSliceLifecycleProgression(
+        partial,
+        previous,
+        SEMANTIC_BASELINE,
+      ),
+    ).toThrow();
+  });
+
+  it("CASE 6 — lifecycle FAIL on excessive version jump", () => {
+    const confirmed = fixtureConfirmedContract({ version: 3 });
+    const SEMANTIC_BASELINE = captureFinalSemanticBinding(confirmed);
+    const previous = captureLifecycleCheckpoint(confirmed);
+    const jumped = fixtureConfirmedContract({ version: 6 });
+    expect(() =>
+      assertSuccessfulSliceLifecycleProgression(
+        jumped,
+        previous,
+        SEMANTIC_BASELINE,
+      ),
+    ).toThrow();
+  });
+
+  it("CASE 7 — lifecycle FAIL when final status is not confirmed", () => {
+    const confirmed = fixtureConfirmedContract({ version: 3 });
+    const SEMANTIC_BASELINE = captureFinalSemanticBinding(confirmed);
+    const previous = captureLifecycleCheckpoint(confirmed);
+    const executing = fixtureConfirmedContract({
+      version: 5,
+      status: "executing",
+    });
+    expect(() =>
+      assertSuccessfulSliceLifecycleProgression(
+        executing,
+        previous,
+        SEMANTIC_BASELINE,
+      ),
+    ).toThrow();
+  });
+
+  it("CASE 8 — expected A/B/C/D sequence V0→+2→+4→+6→+8 with frozen semantic", () => {
+    const confirmed = fixtureConfirmedContract({ version: 3 });
+    const SEMANTIC_BASELINE = captureFinalSemanticBinding(confirmed);
+    let lifecycle = captureLifecycleCheckpoint(confirmed);
+    const V0 = confirmed.version;
+    for (const expectedVersion of [V0 + 2, V0 + 4, V0 + 6, V0 + 8]) {
+      const next = fixtureConfirmedContract({ version: expectedVersion });
+      assertFinalSemanticBindingUnchanged(next, SEMANTIC_BASELINE);
+      assertSuccessfulSliceLifecycleProgression(
+        next,
+        lifecycle,
+        SEMANTIC_BASELINE,
+      );
+      lifecycle = captureLifecycleCheckpoint(next);
+    }
+    expect(lifecycle.version).toBe(V0 + 8);
+    expect(lifecycle.status).toBe("confirmed");
   });
 });
 
@@ -1150,7 +1396,10 @@ describe.skipIf(!ENABLED)(
         expect(durableFinalAfterConfirm.contract.immutableAfterConfirm).toBe(
           true,
         );
-        const FINAL_BINDING = captureFinalContractBinding(
+        const SEMANTIC_BASELINE = captureFinalSemanticBinding(
+          durableFinalAfterConfirm.contract,
+        );
+        let lifecycleCheckpoint = captureLifecycleCheckpoint(
           durableFinalAfterConfirm.contract,
         );
         contract = durableFinalAfterConfirm.contract;
@@ -1389,10 +1638,16 @@ describe.skipIf(!ENABLED)(
           expect(ecAfterA.ok).toBe(true);
           if (!ecAfterA.ok) throw new Error("ec after A");
           expect(ecAfterA.contract.status).toBe("confirmed");
-          assertFinalContractBindingUnchanged(
+          assertFinalSemanticBindingUnchanged(
             ecAfterA.contract,
-            FINAL_BINDING,
+            SEMANTIC_BASELINE,
           );
+          assertSuccessfulSliceLifecycleProgression(
+            ecAfterA.contract,
+            lifecycleCheckpoint,
+            SEMANTIC_BASELINE,
+          );
+          lifecycleCheckpoint = captureLifecycleCheckpoint(ecAfterA.contract);
           contract = ecAfterA.contract;
 
           // Retain worktree — do NOT mark campaign reconciled yet.
@@ -1709,10 +1964,16 @@ describe.skipIf(!ENABLED)(
             });
           expect(ecAfterB.ok).toBe(true);
           if (!ecAfterB.ok) throw new Error("ec after B");
-          assertFinalContractBindingUnchanged(
+          assertFinalSemanticBindingUnchanged(
             ecAfterB.contract,
-            FINAL_BINDING,
+            SEMANTIC_BASELINE,
           );
+          assertSuccessfulSliceLifecycleProgression(
+            ecAfterB.contract,
+            lifecycleCheckpoint,
+            SEMANTIC_BASELINE,
+          );
+          lifecycleCheckpoint = captureLifecycleCheckpoint(ecAfterB.contract);
           contract = ecAfterB.contract;
 
           // Cont01 worktree and managed clone share a common Git directory.
@@ -1916,10 +2177,16 @@ describe.skipIf(!ENABLED)(
             });
           expect(ecAfterC.ok).toBe(true);
           if (!ecAfterC.ok) throw new Error("ec after C");
-          assertFinalContractBindingUnchanged(
+          assertFinalSemanticBindingUnchanged(
             ecAfterC.contract,
-            FINAL_BINDING,
+            SEMANTIC_BASELINE,
           );
+          assertSuccessfulSliceLifecycleProgression(
+            ecAfterC.contract,
+            lifecycleCheckpoint,
+            SEMANTIC_BASELINE,
+          );
+          lifecycleCheckpoint = captureLifecycleCheckpoint(ecAfterC.contract);
           contract = ecAfterC.contract;
 
           // ----- Attempt D: Product bounded PR create under SAME EC -----
@@ -2130,10 +2397,16 @@ describe.skipIf(!ENABLED)(
             });
           expect(ecAfterD.ok).toBe(true);
           if (!ecAfterD.ok) throw new Error("ec after D");
-          assertFinalContractBindingUnchanged(
+          assertFinalSemanticBindingUnchanged(
             ecAfterD.contract,
-            FINAL_BINDING,
+            SEMANTIC_BASELINE,
           );
+          assertSuccessfulSliceLifecycleProgression(
+            ecAfterD.contract,
+            lifecycleCheckpoint,
+            SEMANTIC_BASELINE,
+          );
+          lifecycleCheckpoint = captureLifecycleCheckpoint(ecAfterD.contract);
           contract = ecAfterD.contract;
 
           harnessState.phase = "D_RECONCILED_PR_VERIFIED";
