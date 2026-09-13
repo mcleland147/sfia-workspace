@@ -1,273 +1,443 @@
-# SFIA Studio Review Pack — GCEC A→D HARNESS CORRECTION INTEGRATION COMPLETE
-
-**Timestamp:** 2026-09-13T07:59:39Z (local 2026-09-13T09:59:39+0200)
-**Mode:** FULL
-**Macro cycle final handoff** after ChatGPT PASS + conditional merge + post-merge verification
-
----
+# SFIA Studio Review Pack — GCEC-GET-LIFECYCLE-E2E-01
 
 ## A. VERDICT
 
-**PASS — GCEC A→D HARNESS CORRECTION INTEGRATION COMPLETE**
+**FAIL REAL** — ONE FRESH GCEC REAL A→D CAMPAIGN ON POST-HARNESS-ALIGNMENT MAIN — ATTEMPT A LAUNCHED + RECONCILED WITH VERIFIED EVIDENCE — ATTEMPT B FAILED AT `StartExecution` (`ATTEMPT_INVALID`) — C/D NOT STARTED — STOPPED BEFORE E
 
-Maturity:
+Last harness phase retained: `A_RECONCILED_RETAINED` / `POST_LAUNCH_FAILURE_PRESERVED`
 
-**DETERMINISTICALLY PROVEN / INTEGRATED ON MAIN / POST-MERGE VERIFIED**
+Shell / Vitest exit is **not** the verdict. Product Attempt/Evidence/Git/GitHub truth:
 
-Historical failed REAL campaign remains **FAIL REAL**.
-No new REAL authorized by this PASS.
+- Attempt A **succeeded** with verified Evidence `execution_attempt:docs_write`
+- Harness reached **`A_RECONCILED_RETAINED`** (semantic immutability + successful-slice lifecycle progression gates passed after A)
+- Final EC durable state at STOP: `status=confirmed`, `version=5`, semantic fingerprint unchanged from Confirmation binding
+- Attempt B was **selected** (`status=accepted`, bound at EC version 5) and Gate D + git Confirmation **granted**, then **`StartExecution` returned `ok=false` / `detailCode=ATTEMPT_INVALID`**
+- Attempt B never reached `running` (`processRefB=null`); git Confirmation remains **`granted`** (not consumed)
+- Attempts C/D **never launched**
+- Proof remote **unchanged** (main = H0; no feature branch; no PR; no tags)
 
 ---
 
-## B. MACRO GO
+## B. GO / CONSUMPTION STATUS
 
+| Item | Status |
+| --- | --- |
+| Morris GO | `GO MORRIS — ONE FRESH GCEC REAL A→D CAMPAIGN — STOP BEFORE MERGE` |
+| Campaign started | **YES** |
+| Campaign budget consumed | **YES** (Attempt A reached REAL launch frontier and reconciled) |
+| Second REAL run / B retry / C/D start | **NOT AUTHORIZED** — not performed |
+| E / merge | **NOT AUTHORIZED** — not performed |
+| Product source/push/PR/merge | **NONE** |
+| Roadmap change | **NONE** |
+| Proof cleanup / force-push / PR close / branch delete | **NONE** |
+| Workspace checkout / stash / reset / clean / switch | **CANCELLED / NOT PERFORMED** after move-root conflict |
+
+---
+
+## C. QUALIFICATION
+
+| Field | Value |
+| --- | --- |
+| Project | SFIA Studio |
+| Cycle | 9 — QA / validation |
+| Typology v2.4 | EVOL |
+| Profile | CRITICAL |
+| Capability v3 | Governed Project Execution |
+| Milestone | GCEC-GET-LIFECYCLE-E2E-01 — FRESH REAL A→D AFTER HARNESS ALIGNMENT |
+| Runtime v3 | NON ADOPTED |
+| Target proof | END-TO-END REAL PROVEN A→D at tested scope — **NOT ACHIEVED** |
+
+---
+
+## D. SOURCES READ
+
+Read against Product tip `c481610caa3527edabeca8c860ab27c18a6a738e` and incoming handoff `591507ed91c73f43398daf22a1169828f3ee8243`:
+
+- `prompts/templates/sfia-cycle-execution-template.md`
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md`
+- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md`
+- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
+- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+- Incoming `sfia-review-handoff/latest-chatgpt-review.md` @ `591507ed91c73f43398daf22a1169828f3ee8243`
+- Integrated harness / Product (read-only forensic):
+  - `projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealSameEcCommit.real.d0.test.ts`
+  - `projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts`
+  - `projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveGitEffectTarget.ts`
+
+CKC status: candidate cognitive guidance only — no execution authority.
+
+Prior integrated context (not re-executed): harness semantic/lifecycle alignment PR #480 merged as `c481610c…` after historic FAIL REAL on `132ddd54…`.
+
+---
+
+## E. PRODUCT LOCAL GIT TRUTH
+
+| Check | Observed |
+| --- | --- |
+| Repository | `mcleland147/sfia-workspace` |
+| Campaign worktree | `/Users/morris/Projects/sfia-gcec-real-ad-product-c481610c-20260913101736-44229` |
+| State | detached HEAD |
+| HEAD | `c481610caa3527edabeca8c860ab27c18a6a738e` |
+| `origin/main` | `c481610caa3527edabeca8c860ab27c18a6a738e` (exact match) |
+| Incoming handoff tip (pre-campaign) | `origin/sfia/review-handoff` = `591507ed91c73f43398daf22a1169828f3ee8243` |
+| Tracked Product dirty | **NONE** |
+| Untracked (non-Product source) | `projects/sfia-studio/app/node_modules` symlink; `.tmp-sfia-review/**` forensic/review artefacts; `.tmp-sfia-review-managed-base.path` |
+| Cursor `move_agent_to_root` | **FAILED** — attempted checkout of `delivery/sfia-studio-gcec-ad-semantic-immutability-alignment` already used by worktree `/Users/morris/Projects/sfia-workspace`; campaign continued via Shell cwd on detached fresh WT without checkout/switch of any existing workspace |
+| Historic forensic WT | `/Users/morris/Projects/sfia-gcec-real-ad-product-132ddd54` — **preserved / unused** |
+
+---
+
+## F. PROOF REPO PREFLIGHT TRUTH (ZERO MUTATION BEFORE FLAGS)
+
+| Check | Observed |
+| --- | --- |
+| `SFIA_GCEC_MANAGED_REPO_BASE` | `/tmp/sfia-gcec-real-ad-20260913104728-54043` |
+| Managed clone | `/tmp/sfia-gcec-real-ad-20260913104728-54043/mcleland147__sfia-gcec-proof-task-manager` |
+| Identity | `mcleland147/sfia-gcec-proof-task-manager` (NOT sfia-workspace) |
+| Local HEAD / H0 | `32c7c2008197e5c61b32c16479144e9863291358` |
+| Tracked clean | YES |
+| `docs/functional-design.md` at H0 | **ABSENT** |
+| Remote `refs/heads/main` | `32c7c2008197e5c61b32c16479144e9863291358` |
+| Open PRs preflight | `[]` |
+| Feature branch preflight | absent |
+| `gh` auth | operational (non-secret status; identity `mcleland147`) |
+| Worktree registration | satisfied by integrated harness `assertRegisteredGitWorktree` |
+| Historic managed base `/tmp/sfia-gcec-real-ad-9271813` | **not reused** |
+
+Deterministic precheck (all five REAL flags **unset**):
+
+```text
+npm test -- __tests__/oa/cycle/gcecCursorRealSameEcCommit.real.d0.test.ts
+→ 13 passed | 1 skipped
 ```
-GO MORRIS — GCEC A→D HARNESS CORRECTION INTEGRATION — LOCAL ANCHOR e2bebdb5 + BOUNDED ROADMAP TRUTH-SYNC — PUSH + PR + CI + CHATGPT CRITICAL REVIEW + CONDITIONAL MERGE — ZERO REAL
+
+REAL campaign **not started** at that stage; budget **not** consumed by precheck.
+
+---
+
+## G. REAL INVOCATION
+
+Exact command shape (secrets redacted; one invocation only):
+
+```bash
+cd /Users/morris/Projects/sfia-gcec-real-ad-product-c481610c-20260913101736-44229/projects/sfia-studio/app
+env \
+  SFIA_STUDIO_CURSOR_REAL=1 \
+  SFIA_GCEC_CURSOR_REAL_PROOF=1 \
+  SFIA_GCEC_CURSOR_REAL_COMMIT_PROOF=1 \
+  SFIA_GCEC_CURSOR_REAL_PUSH_PROOF=1 \
+  SFIA_GCEC_CURSOR_REAL_PR_PROOF=1 \
+  SFIA_GCEC_MANAGED_REPO_BASE="/tmp/sfia-gcec-real-ad-20260913104728-54043" \
+  npm test -- __tests__/oa/cycle/gcecCursorRealSameEcCommit.real.d0.test.ts
 ```
 
-ChatGPT Critical Review returned substantively:
-
-**PASS — READY FOR MERGE — PR #480 @ 0b7463fa892dcad431fe7aabd2b57ecf5747afd9**
-
-Continuation used the existing macro-GO (no new Morris GO).
+| Fact | Value |
+| --- | --- |
+| Pre-launch snapshot | `2026-09-13T08:47:50Z` (`real_invocation_count=0`) |
+| Frontier stamp (A_RECONCILED_RETAINED) | `2026-09-13T08:48:30.731Z` |
+| Attempt A observation durationMs | `30333` |
+| REAL invocation count | **1** |
+| Retry | **NONE** |
+| Direct `git push` / `gh pr create` substitute | **NONE** |
+| Harness Vitest durable failure string | `AssertionError: expected false to be true // Object.is equality` at `expect(startedB.ok).toBe(true)` |
+| Product `StartExecution` B detailCode (operator / campaign truth) | **`ATTEMPT_INVALID`** |
+| `harness.out` file in forensic dir | **ABSENT** (not retained; detail message / `internalCauseRef` not durable in reconciliation-state) |
 
 ---
 
-## C. ENTRY MAIN
+## H. CAMPAIGN IDENTIFIERS
 
-Pre-merge `origin/main` = `132ddd54537bdf2f9de77df51412996553a1e05f`
+| Id | Value |
+| --- | --- |
+| projectId | `prj:gcec-commit-ad-1` |
+| cycleInstanceId | `cyc:trj-dca01d69fb4de8b903b8e7a6` |
+| initialExecutionContractId | `xct:m3:dec:f2:9d7960f2-d24a-4892-bcda-bfcf2ba8bb71` (status `superseded`, version `3`, **0 Attempts**) |
+| intermediate superseded EC | `xct:m3-res:dec:f2:9d7960f2-d24a-4892-bcda-bfcf2ba8bb71` (status `superseded`, version `3`, **0 Attempts**) |
+| finalExecutionContractId | `xct:gcec-ad-final:dec-f2-9d7960f2-d24a-4892-bcda-bfcf2ba8b` |
+| final version at Confirmation / FINAL_BINDING | **3** |
+| final version after Attempt A (durable) | **5** (expected successful-slice lifecycle delta `+2`; semantic fingerprint unchanged) |
+| final semanticFingerprint | `a523b031679f1272a07e2a8f8e66136063523654c472ef0e451fe0b1463913d1` |
+| immutableAfterConfirm | `true` |
+| Confirmation (gate) | `cfm:gate:xct:gcec-ad-final:dec-f2-9d7960f2-d24a-4892-bcda-bfcf2ba8b` (`consumed`) |
+| Confirmation (git commit B) | `cfm:git-commit:xct:gcec-ad-final:dec-f2-9d7960f2-d24a-4892-bcda-bfcf2ba8b` (`granted`, **not consumed**) |
+| Deterministic feature branch | `gcec/lifecycle/gcec-ad-finaldec-f2-9d79` |
+| baseHeadSha / H0 | `32c7c2008197e5c61b32c16479144e9863291358` |
+| targetPath | `docs/functional-design.md` |
+| artifact digest (sha256) | `991c2e5833ea26baca04a56d01bc48acb58b7244bca7dfe17f1ee3e6e7979a36` |
+
+Retained Product DB: `/var/folders/b9/5c00r70d7_l8kjth6vpfmn8m0000gn/T/gcec-real-ad-m9MAO9/oa.sqlite` (copied to forensic dir).
 
 ---
 
-## D. HARNESS LOCAL ANCHOR
+## I. ATTEMPT A
 
 | Field | Value |
 | --- | --- |
-| SHA | `e2bebdb5718ef4ded945c1ca866e8bc53b919915` |
-| Parent | `132ddd54537bdf2f9de77df51412996553a1e05f` |
-| Subject | `test(sfia-studio): align GCEC A-to-D semantic and lifecycle invariants` |
-| Path | `projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealSameEcCommit.real.d0.test.ts` |
-| Diffstat | +294 / −21 |
+| attemptId | `xat:gcec-commit-a:xct:gcec-ad-final:dec-f2-9d7960f2-d24a-4892-bcda-bfcf2ba8b` |
+| agent | `agt:m4.cursor.bounded_docs_write` |
+| adapter / gateway | `adp:m4-cursor-cli-real` |
+| status | **succeeded** |
+| attempt.version | `3` |
+| bound executionContractVersion at selection | `3` |
+| processRef | `pid:54683` |
+| technicalExitCode | `0` |
+| durationMs | `30333` |
+| REAL launch frontier | **YES** — launched then **`A_RECONCILED_RETAINED`** |
+| Worktree | `/var/folders/b9/5c00r70d7_l8kjth6vpfmn8m0000gn/T/gcec-real-ad-m9MAO9/m4-worktrees/wt-2409691ad7052bd8d750afca` |
+| Artifact | `docs/functional-design.md` created (uncommitted `?? docs/`); HEAD still H0 |
+| Evidence id | `ev:docs-write:xat:gcec-commit-a:xct:gcec-ad-final:dec-f2-9d7960f2-d24a-4892-bcda-bfcf2ba8b` |
+| Evidence source | `execution_attempt:docs_write` |
+| Evidence status | **verified** (version 2) |
+| Evidence digest | `sha256:991c2e5833ea26baca04a56d01bc48acb58b7244bca7dfe17f1ee3e6e7979a36` |
+| Proof remote after A | **unchanged** (main = H0; no feature branch) |
+| Post-A EC | same id / version **5** / same fingerprint — **accepted by aligned harness** |
+| A_RECONCILED_RETAINED | **REACHED** |
 
-Runtime Product implementation unchanged.
+Interpretation: post-alignment harness correctly treated lifecycle version bump (`3→5`) as non-semantic. Unlike historic FAIL REAL on `132ddd54…`, this campaign closed A acceptance at tested scope before selecting B.
 
 ---
 
-## E. ROADMAP COMMIT
+## J. ATTEMPT B
+
+**SELECTED + GATE/CONFIRMATION PREPARED — START FAILED — NOT LAUNCHED**
 
 | Field | Value |
 | --- | --- |
-| SHA | `0b7463fa892dcad431fe7aabd2b57ecf5747afd9` |
-| Parent | `e2bebdb5718ef4ded945c1ca866e8bc53b919915` |
-| Subject | `docs(sfia-studio): sync failed GCEC A-to-D campaign and harness correction truth` |
-| Path | `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` |
-| Tip id | `GCEC-A2D-REAL-FAIL-HARNESS-ALIGNMENT-01` |
+| attemptId | `xat:gcec-commit-b:xct:gcec-ad-final:dec-f2-9d7960f2-d24a-4892-bcda-bfcf2ba8b` |
+| agent | `agt:m4.cursor.bounded_local_commit` |
+| status (durable) | **`accepted`** (never `running` / never completed) |
+| bound executionContractVersion | **5** (matches durable final EC) |
+| bound semanticFingerprint | same as final EC |
+| Gate D | created (`gd:gcec-commit-b:…`; safety frontier CREATED only — no LAUNCHED row) |
+| Git Confirmation | `cfm:git-commit:…` status **`granted`** |
+| StartExecution | **`ok=false`**, `detailCode=ATTEMPT_INVALID` |
+| processRefB | `null` |
+| Evidence | none for B |
+| B commit SHA | **N/A** |
+
+Harness call site (unchanged Product; cited for Critical Review):
+
+- `confirmationMatch.branchOrRef = "main"` (`DEFAULT_BRANCH`)
+- `verifiedEffects = ["filesystem.create", "filesystem.modify"]`
+- EC inputs `workingBranch = "gcec/lifecycle/gcec-ad-finaldec-f2-9d79"`
+
+**Leading read-only forensic hypothesis (not proven without `internalCauseRef`):**
+
+Product `resolveGitEffectTarget` for `git.commit` uses contract `workingBranch`, then `assertConfirmationMatchAgreesWithServerTarget` refuses present mismatches. Harness asserts `branchOrRef: "main"` while server target branch is the feature working branch → candidate reason `hostile_confirmation_match_branch_mismatch` under `ATTEMPT_INVALID`. This is consistent with Attempt B remaining `accepted` and git Confirmation remaining unconsumed. Critical Review must treat this as hypothesis until durable Start error payload is recovered or a future authorized GO reproduces under instrumentation.
 
 ---
 
-## F. PR
+## K. ATTEMPT C
+
+**NOT STARTED**
 
 | Field | Value |
 | --- | --- |
-| Number | **#480** |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/480 |
-| Base | `main` @ `132ddd54537bdf2f9de77df51412996553a1e05f` |
-| Head | `0b7463fa892dcad431fe7aabd2b57ecf5747afd9` |
-| State | **MERGED** |
-| MergedAt | `2026-09-13T07:53:48Z` |
-
-Immediate pre-merge revalidation:
-
-- PR OPEN
-- head == reviewed `0b7463fa…`
-- base == `132ddd54…`
-- mergeable MERGEABLE / CLEAN
-- CI green (Detect / Build-validate / Required Gate)
-- ZERO REAL flags unset
-→ `PRE_MERGE_REVALIDATION_OK`
+| attemptId (pre-allocated) | `xat:gcec-push-c:xct:gcec-ad-final:dec-f2-9d7960f2-d24a-4892-bcda-bfcf2ba8b` |
+| processRefC | `null` |
+| Confirmation | none for push |
+| Evidence | none |
+| Remote feature SHA | absent |
 
 ---
 
-## G. FILESET
+## L. ATTEMPT D
 
-Exact two paths:
-
-1. harness test (+294/−21)
-2. Roadmap (+2/−1)
-
----
-
-## H. VALIDATION
-
-Local focused: 13 passed / 1 skipped (REAL skipped)
-Inherited: related 102 / typecheck / lint / build / full Vitest 3868/137
-PR CI run `34745584225` SUCCESS before merge
-
----
-
-## I. CI (pre-merge)
-
-Detect / Build and validate / Required Gate = SUCCESS on head `0b7463fa…`
-
----
-
-## J. CHATGPT CRITICAL REVIEW
-
-**PASS — READY FOR MERGE** on exact PR head `0b7463fa892dcad431fe7aabd2b57ecf5747afd9`
-
-Incoming Critical Review handoff tip before merge: `bd969e27e35c8b98e3b870a45fcfa6830c27b3d6`
-
----
-
-## K. MERGE
+**NOT STARTED**
 
 | Field | Value |
 | --- | --- |
-| Method | **MERGE COMMIT** (no squash / rebase) |
-| Merge SHA | `c481610caa3527edabeca8c860ab27c18a6a738e` |
-| Parent 1 | `132ddd54537bdf2f9de77df51412996553a1e05f` |
-| Parent 2 | `0b7463fa892dcad431fe7aabd2b57ecf5747afd9` |
-| Tree | `445770c2cb2f66868d2c402128fff57282692e03` |
-| MergedAt | `2026-09-13T07:53:48Z` |
-| PR head | `0b7463fa…` |
-| PR base | `132ddd54…` |
+| attemptId (pre-allocated) | `xat:gcec-pr-d:xct:gcec-ad-final:dec-f2-9d7960f2-d24a-4892-bcda-bfcf2ba8b` |
+| processRefD | `null` |
+| Confirmation | none for PR |
+| Evidence | none |
+| PR number / URL / state | **none** |
 
 ---
 
-## L. FINAL MAIN
+## M. IMMUTABLE FINAL EC CHECK
 
-`origin/main` = `c481610caa3527edabeca8c860ab27c18a6a738e`
+| Checkpoint | Result |
+| --- | --- |
+| After Confirmation FINAL_BINDING | id final / version **3** / fp `a523b031…` |
+| After Attempt A | id same / version **5** / fp same → **PASS** under aligned semantic+lifecycle harness |
+| After B Start failure | id same / version **5** / fp same (no further lifecycle progression) |
+| After C/D | **N/A** (not reached) |
+| Post-confirm semantic mutation | **none observed** |
+| Initial EC Attempts | **0** |
+| Final EC Attempts at STOP | **2** durable rows (A `succeeded`, B `accepted`); expected 4 succeeded for PASS A→D |
 
----
-
-## M. ANCESTRY
-
-- `e2bebdb5718ef4ded945c1ca866e8bc53b919915` **is ancestor of main** = YES
-- `0b7463fa892dcad431fe7aabd2b57ecf5747afd9` **is ancestor of main** = YES
-
-Provenance of harness correction + Roadmap truth-sync commits preserved via merge commit.
-
----
-
-## N. ROADMAP FINAL TRUTH
-
-On main tip blob:
-
-- Current tip `GCEC-A2D-REAL-FAIL-HARNESS-ALIGNMENT-01` present
-- Historical campaign remains **FAIL REAL**
-- A effect + verified Evidence OBSERVED; A acceptance NOT CLOSED
-- B/C/D/E not started / not proven
-- Root cause / deterministic correction / anti-claims recorded
-- Prior pre-REAL tip preserved as historique
-
-Harness on main contains `FinalSemanticBinding`, `assertSuccessfulSliceLifecycleProgression`, `SUCCESSFUL_SLICE_VERSION_DELTA`.
+Active attempt pointer at STOP: Attempt B (`oa_execution_attempt_active`).
 
 ---
 
-## O. BRANCH PRESERVATION
+## N. PROOF REMOTE BEFORE / AFTER
 
-Source branch remotely present:
+| Ref / effect | Before REAL | After FAIL |
+| --- | --- | --- |
+| `refs/heads/main` | `32c7c2008197e5c61b32c16479144e9863291358` | **same** |
+| Feature branch `gcec/lifecycle/gcec-ad-finaldec-f2-9d79` | absent | **absent** |
+| Open / any PRs | `[]` | `[]` |
+| Tags | empty | unchanged |
+| Merge | none | none |
+| Branch delete | none | none |
 
-`delivery/sfia-studio-gcec-ad-semantic-immutability-alignment` @ `0b7463fa892dcad431fe7aabd2b57ecf5747afd9`
-
-No branch deletion.
-
----
-
-## P. PRODUCT EFFECTS
-
-- Product push of delivery branch: performed under macro-GO
-- PR #480 created and MERGED via merge commit
-- No force push
-- No squash/rebase
-- No amend of e2bebdb5
-- No runtime Product source change beyond reviewed harness
-- No Build Doctrine / C1 / framing / method edits
+Managed clone HEAD remains H0; target path absent on managed clone (artifact only in retained campaign worktree).
 
 ---
 
-## Q. PROOF REPO EFFECTS
+## O. PRODUCT EFFECTS
 
-**NONE**
-
----
-
-## R. REAL
-
-**ZERO** throughout this macro integration.
-
-Five flags unset.
-No REAL campaign / no A/B/C/D execution / no proofRoot reuse.
-
----
-
-## S. HISTORICAL FAILED REAL CAMPAIGN
-
-Preserved honestly:
-
-- FAIL REAL
-- campaign budget consumed
-- A effect + verified Evidence observed
-- A acceptance / reconciliation not closed
-- B/C/D/E not started
-- A→D E2E REAL NOT PROVEN
-- forensic artefacts preserved at `/Users/morris/Projects/sfia-gcec-real-ad-product-132ddd54`
+| Effect | Result |
+| --- | --- |
+| Tracked Product source diff | **NONE** |
+| Product commit | **NONE** |
+| Product push | **NONE** |
+| Product PR | **NONE** |
+| Product merge | **NONE** |
+| Roadmap / Doctrine update | **NONE** |
+| Harness / Product code patch during GO | **NONE** |
 
 ---
 
-## T. MATURITY
+## P. STOP-BEFORE-E PROOF
 
-**DETERMINISTICALLY PROVEN / INTEGRATED ON MAIN / POST-MERGE VERIFIED**
+- Campaign stopped after B Start failure; C/D not started.
+- No fifth Attempt.
+- No `bounded_pr_merge` / `M4_BOUNDED_PR_MERGE_CURSOR_AGENT_ID`.
+- No PR exists to merge.
+- No merge commit on proof remote.
+- E explicitly out of scope and not executed.
+- No second REAL invocation under this GO.
 
-Still NOT claimed:
+---
 
-- A REAL PROVEN
-- B/C/D REAL PROVEN
-- A→D E2E REAL PROVEN
-- E / merge REAL PROVEN
+## Q. FAKE / REAL MATURITY
+
+| Claim | Status |
+| --- | --- |
+| A REAL PROVEN AT TESTED SCOPE | **PROVEN AT TESTED SCOPE** (REAL launch + succeeded Attempt + verified docs-write Evidence + `A_RECONCILED_RETAINED`) |
+| B REAL PROVEN AT TESTED SCOPE | **NOT PROVEN** (Start failed; no processRef; no commit Evidence) |
+| C REAL PROVEN AT TESTED SCOPE | **NOT PROVEN** (not started) |
+| D REAL PROVEN AT TESTED SCOPE | **NOT PROVEN** (not started) |
+| A→D END-TO-END REAL PROVEN AT TESTED SCOPE | **NOT PROVEN** |
+
+Observable REAL facts that **did** occur (partial):
+
+- REAL Cursor/subprocess docs-write under Product StartExecution A
+- Local filesystem artifact in registered proof worktree
+- Fresh verified Evidence `execution_attempt:docs_write`
+- Post-alignment semantic/lifecycle harness gates passed through A reconciliation
+
+---
+
+## R. RESERVES
+
+### Blocking (campaign FAIL)
+
+1. **Attempt B `StartExecution` returned `ATTEMPT_INVALID`** after A reconciliation — campaign hard-stopped; B/C/D incomplete.
+2. No second REAL / no Product patch authorized under this consumed GO.
+3. Durable Start error reason string / `internalCauseRef` not retained in `reconciliation-state.json` (Vitest AssertionError only); `harness.out` missing from forensic dir.
+
+### Non-blocking / informational
+
+- Leading hypothesis: harness `confirmationMatch.branchOrRef="main"` vs Product server target `workingBranch=gcec/lifecycle/gcec-ad-finaldec-f2-9d79` → possible `hostile_confirmation_match_branch_mismatch`.
+- Git stderr noise during failure capture for absent feature ref is expected pre-B/C and non-causal.
+- Cursor agent-root move failed on occupied delivery branch; campaign correctly stayed on detached main worktree via Shell.
+- Historic FAIL REAL forensics under `…-132ddd54` remain intact and distinct.
+
+### Forensic (preserve — no cleanup)
+
+- Product WT: `/Users/morris/Projects/sfia-gcec-real-ad-product-c481610c-20260913101736-44229`
+- `.tmp-sfia-review/gcec-cursor-real-commit-proof/launch-frontier.json`
+- `.tmp-sfia-review/gcec-cursor-real-commit-proof/reconciliation-state.json`
+- `.tmp-sfia-review/gcec-cursor-real-commit-proof/oa.sqlite` (copy)
+- `.tmp-sfia-review/gcec-cursor-real-commit-proof/functional-design.md` (copy)
+- `.tmp-sfia-review/gcec-cursor-real-commit-proof/retained-paths.txt`
+- `.tmp-sfia-review/gcec-cursor-real-commit-proof/remote-readonly-facts.txt`
+- `.tmp-sfia-review/gcec-real-ad-deterministic-precheck.out`
+- `.tmp-sfia-review/gcec-real-ad-prelaunch-snapshot.txt`
+- Live retained paths under `/var/folders/b9/5c00r70d7_l8kjth6vpfmn8m0000gn/T/gcec-real-ad-m9MAO9/` (proofRoot / worktree / safety journal / oa.sqlite)
+- Managed base `/tmp/sfia-gcec-real-ad-20260913104728-54043`
+- Historic WT `/Users/morris/Projects/sfia-gcec-real-ad-product-132ddd54`
+
+---
+
+## S. FORENSIC STATE (FAILURE AFTER A RECONCILE / B START)
+
+```json
+{
+  "phase": "POST_LAUNCH_FAILURE_PRESERVED",
+  "harnessPhase": "A_RECONCILED_RETAINED",
+  "attemptAId": "xat:gcec-commit-a:xct:gcec-ad-final:dec-f2-9d7960f2-d24a-4892-bcda-bfcf2ba8b",
+  "attemptBId": "xat:gcec-commit-b:xct:gcec-ad-final:dec-f2-9d7960f2-d24a-4892-bcda-bfcf2ba8b",
+  "executionContractId": "xct:gcec-ad-final:dec-f2-9d7960f2-d24a-4892-bcda-bfcf2ba8b",
+  "finalEcVersion": 5,
+  "finalEcFingerprint": "a523b031679f1272a07e2a8f8e66136063523654c472ef0e451fe0b1463913d1",
+  "processRefA": "pid:54683",
+  "processRefB": null,
+  "processRefC": null,
+  "processRefD": null,
+  "featureBranch": "gcec/lifecycle/gcec-ad-finaldec-f2-9d79",
+  "artifactExists": true,
+  "gitFacts.head": "32c7c2008197e5c61b32c16479144e9863291358",
+  "gitFacts.statusPorcelain": "?? docs/",
+  "reconciliationComplete": false,
+  "failure": "AssertionError: expected false to be true // Object.is equality",
+  "startExecutionBDetailCode": "ATTEMPT_INVALID"
+}
+```
+
+Exact last phase label: **`A_RECONCILED_RETAINED`**
+
+---
+
+## T. NEXT DECISION — ChatGPT Critical Review / Morris
+
+Required next:
+
+1. **ChatGPT Critical Review** of this FAIL REAL pack (A proven-at-tested-scope; B Start `ATTEMPT_INVALID`; A→D not proven).
+2. **Morris decision** on whether to authorize a **distinct future GO** (new campaign budget) after any harness Cont01 `confirmationMatch` / Product Start diagnosis — **not** a retry under this GO.
+3. **No automatic E gate.**
+4. **No automatic Roadmap sync.**
+5. **No automatic proof cleanup** (branch/PR/worktree forensic state preservation).
+
+---
+
+## U. ANTI-CLAIMS
+
+Do **NOT** claim:
+
+- E / MERGE REAL proven
+- A→E proven
+- A→D END-TO-END REAL proven
+- B/C/D REAL proven
+- Generalized Git autonomy / production autonomy
 - runtime v3 ADOPTED
 - global L5
-- generalized executor autonomy
-- automatic fresh REAL authorization
+- Product push / PR / merge performed
+- Historic FAIL REAL rewritten or erased
+- Proven root cause without durable Start `internalCauseRef` (hypothesis only)
+
+Authorized statement only:
+
+**FAIL REAL — campaign budget consumed — A REAL proven at tested scope (reconciled + verified docs-write Evidence) — B Start failed with ATTEMPT_INVALID (no launch) — C/D not started — proof remote unchanged — stopped before E.**
 
 ---
 
-## U. POST-MERGE CI
+## V. REVIEW HANDOFF PUBLICATION
 
-| Field | Value |
+| Check | Observed |
 | --- | --- |
-| Run | https://github.com/mcleland147/sfia-workspace/actions/runs/34746343542 |
-| Head | `c481610caa3527edabeca8c860ab27c18a6a738e` |
-| Conclusion | **success** |
-| Detect SFIA Studio changes | SUCCESS |
-| Build and validate SFIA Studio | SUCCESS |
-| SFIA Studio Required Gate | **SUCCESS / PASS** |
+| Publisher | `scripts/sfia/publish-review-handoff.sh` |
+| Handoff worktree | `/Users/morris/Projects/sfia-lr-handoff-corrqual-18555` |
+| Incoming tip expected | `591507ed91c73f43398daf22a1169828f3ee8243` |
+| Branch | `sfia/review-handoff` only |
+| Canonical path | `sfia-review-handoff/latest-chatgpt-review.md` |
+| Product push / PR / merge | **NONE** |
+| Roadmap change | **NONE** |
 
----
-
-## V. REVIEW HANDOFF (this final pack)
-
-Incoming tip before this publish: `bd969e27e35c8b98e3b870a45fcfa6830c27b3d6`
-
-Published via canonical publisher; tip/parent/blob/parity recorded in Cursor final report after publisher run.
-
----
-
-## W. RESERVES
-
-- Historical FAIL REAL remains FAIL REAL
-- New REAL A→D campaign NOT authorized by this integration PASS
-- Nora/Cognitive Completion priorities UNCHANGED
-- runtime v3 NON ADOPTED
-
----
-
-## X. NEXT STEP
-
-Only after final ChatGPT verification of this completed integration:
-
-candidate recommendation for a **NEW DISTINCT Morris GO**:
-
-`GO MORRIS — ONE FRESH GCEC REAL A→D CAMPAIGN — STOP BEFORE MERGE`
-
-This future GO is **NOT consumed automatically**.
+(Publication results filled immediately after publisher run.)
