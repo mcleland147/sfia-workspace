@@ -124,9 +124,10 @@ Workflow: **SFIA Studio CI** — https://github.com/mcleland147/sfia-workspace/a
 | Handoff worktree | `/Users/morris/Projects/sfia-workspace/sfia-review-handoff` |
 | Target branch | `sfia/review-handoff` |
 | Canonical path | `sfia-review-handoff/latest-chatgpt-review.md` |
-| Publisher verdict | *(filled after publish)* |
-| Handoff commit SHA | *(filled after publish)* |
-| Remote handoff SHA | *(filled after publish)* |
+| Publisher verdict | `HANDOFF UPDATED — REMOTE VERIFIED` |
+| Handoff commit SHA | `b968cbae44189afa836f3bcb93b1819844bc239b` |
+| Remote handoff SHA | `b968cbae44189afa836f3bcb93b1819844bc239b` |
+| Canonical blob | `4cafb32edc4f274bcef4a7c287d54343175e7d1e` |
 
 ---
 
