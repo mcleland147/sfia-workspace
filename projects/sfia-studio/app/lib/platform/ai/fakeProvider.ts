@@ -705,6 +705,213 @@ export class FakeConversationProvider implements ConversationProvider {
         },
       };
     }
+    // CR-07-06 — must be checked BEFORE __F2_ARTIFACT_MATERIALIZE__ (substring risk).
+    if (markerProbe.includes("__F2_ARTIFACT_HOSTILE_MERGE_OP__")) {
+      return {
+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+          intentClass: "execution_request",
+          candidateCycleTypeId: "cyc:framing",
+          signals: {
+            structuralChange: false,
+            securityImpact: false,
+            architectureImpact: false,
+            dataImpact: false,
+            irreversible: false,
+            lowRiskBounded: true,
+          },
+          cognitiveWorkload: null,
+          contradictionCandidate: null,
+          challengeResponseAssessment: "sufficient",
+          continuationKind: "active_cycle_artifact_materialization",
+          objective: "Matérialiser le livrable requis du cycle actif",
+          scope: "docs_write borné — cycle actif — aucune exécution automatique",
+          rephrasedRequest: "Matérialisation gouvernée du livrable requis",
+          outOfScope: ["Nouveau CycleInstance", "Pilot START", "Cursor REAL"],
+          risks: ["Confusion action / classification"],
+          reservations: [],
+          stopConditions: ["AUCUNE EXÉCUTION"],
+          activatedBlocks: ["proposition", "gate"],
+          expectedOutcome: null,
+          criticalJustification: null,
+          requestedOperation: "github.pr.merge",
+          executionIntent: {
+            intentKind: "docs_write",
+            artifactType: "deliverable_document",
+            targetRepositoryRef: null,
+            targetPath: "docs/livrable-cycle.md",
+            scopeIn: ["docs/"],
+            scopeOut: [],
+            expectedOutputs: ["docs/livrable-cycle.md"],
+            requiredCapabilities: ["cap:github.pr.merge"],
+            validationExpectations: [],
+            evidenceRequirements: [],
+            requestedOperation: "github.pr.merge",
+            reversibilityExpectation: null,
+            artifactBrief: "Livrable requis du cycle actif",
+            contentRequirements: ["Contenu défini avec Nora"],
+            exitRequirementKinds: [],
+          },
+        })}`,
+        usage: {
+          inputTokens: 10 * this.callCount,
+          outputTokens: 5 * this.callCount,
+          totalTokens: 15 * this.callCount,
+          model: "fake-test-model",
+          providerResponseId: `fake-resp-${this.callCount}`,
+        },
+      };
+    }
+    if (markerProbe.includes("__F2_ARTIFACT_MATERIALIZE__")) {
+      const content = markerProbe;
+      let challengeResponseAssessment:
+        | "sufficient"
+        | "insufficient"
+        | "unknown"
+        | null = "sufficient";
+      if (content.includes("__MW5_SATISFACTION_INSUFFICIENT__")) {
+        challengeResponseAssessment = "insufficient";
+      }
+      return {
+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+          intentClass: "execution_request",
+          candidateCycleTypeId: "cyc:framing",
+          signals: {
+            structuralChange: false,
+            securityImpact: false,
+            architectureImpact: false,
+            dataImpact: false,
+            irreversible: false,
+            lowRiskBounded: true,
+          },
+          cognitiveWorkload: null,
+          contradictionCandidate: null,
+          challengeResponseAssessment,
+          continuationKind: "active_cycle_artifact_materialization",
+          objective: "Matérialiser le livrable requis du cycle actif",
+          scope: "docs_write borné — cycle actif — aucune exécution automatique",
+          rephrasedRequest: "Matérialisation gouvernée du livrable requis",
+          outOfScope: ["Nouveau CycleInstance", "Pilot START", "Cursor REAL"],
+          risks: ["Confusion continuation / nouvelle formalisation"],
+          reservations: [],
+          stopConditions: ["AUCUNE EXÉCUTION", "Décision Pilote requise"],
+          activatedBlocks: ["proposition", "gate"],
+          expectedOutcome: "Proposition de matérialisation liée au cycle actif",
+          criticalJustification: null,
+          requestedOperation: "cursor.docs_write.apply",
+          executionIntent: {
+            intentKind: "docs_write",
+            artifactType: "deliverable_document",
+            targetRepositoryRef: null,
+            targetPath: "docs/livrable-cycle.md",
+            scopeIn: ["docs/"],
+            scopeOut: [],
+            expectedOutputs: ["docs/livrable-cycle.md"],
+            requiredCapabilities: ["cap:cursor.docs_write"],
+            validationExpectations: [],
+            evidenceRequirements: [],
+            requestedOperation: "cursor.docs_write.apply",
+            reversibilityExpectation: null,
+            artifactBrief: "Livrable requis du cycle actif",
+            contentRequirements: ["Contenu défini avec Nora"],
+            exitRequirementKinds: [],
+          },
+        })}`,
+        usage: {
+          inputTokens: 10 * this.callCount,
+          outputTokens: 5 * this.callCount,
+          totalTokens: 15 * this.callCount,
+          model: "fake-test-model",
+          providerResponseId: `fake-resp-${this.callCount}`,
+        },
+      };
+    }
+    if (markerProbe.includes("__F2_DOCS_WRITE_GENERIC__")) {
+      return {
+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+          intentClass: "execution_request",
+          candidateCycleTypeId: "cyc:framing",
+          signals: {
+            structuralChange: false,
+            securityImpact: false,
+            architectureImpact: false,
+            dataImpact: false,
+            irreversible: false,
+            lowRiskBounded: true,
+          },
+          cognitiveWorkload: null,
+          contradictionCandidate: null,
+          challengeResponseAssessment: "sufficient",
+          continuationKind: null,
+          objective: "Modifier le README du dépôt",
+          scope: "docs_write générique indépendant",
+          rephrasedRequest: "Écrire dans le README",
+          outOfScope: [],
+          risks: [],
+          reservations: [],
+          stopConditions: ["AUCUNE EXÉCUTION"],
+          activatedBlocks: ["qualification", "proposition"],
+          expectedOutcome: "Proposition docs_write générique",
+          criticalJustification: null,
+          requestedOperation: "cursor.docs_write.apply",
+          executionIntent: {
+            intentKind: "docs_write",
+            artifactType: null,
+            targetRepositoryRef: null,
+            targetPath: "README.md",
+            scopeIn: ["projects/"],
+            scopeOut: [],
+            expectedOutputs: ["README.md"],
+            requiredCapabilities: ["cap:cursor.docs_write"],
+            validationExpectations: [],
+            evidenceRequirements: [],
+            requestedOperation: "cursor.docs_write.apply",
+            reversibilityExpectation: null,
+            artifactBrief: null,
+            contentRequirements: [],
+            exitRequirementKinds: [],
+          },
+        })}`,
+        usage: {
+          inputTokens: 10 * this.callCount,
+          outputTokens: 5 * this.callCount,
+          totalTokens: 15 * this.callCount,
+          model: "fake-test-model",
+          providerResponseId: `fake-resp-${this.callCount}`,
+        },
+      };
+    }
+    if (markerProbe.includes("__F2_ARTIFACT_DEFINE_ONLY__")) {
+      return {
+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+          intentClass: "informative",
+          candidateCycleTypeId: "cyc:framing",
+          signals: null,
+          cognitiveWorkload: null,
+          contradictionCandidate: null,
+          challengeResponseAssessment: null,
+          continuationKind: null,
+          objective: "Définir la forme du livrable attendu",
+          scope: null,
+          rephrasedRequest: "Préciser la définition du livrable sans matérialiser",
+          outOfScope: [],
+          risks: [],
+          reservations: [],
+          stopConditions: [],
+          activatedBlocks: [],
+          expectedOutcome: null,
+          criticalJustification: null,
+          requestedOperation: null,
+          executionIntent: null,
+        })}`,
+        usage: {
+          inputTokens: 10 * this.callCount,
+          outputTokens: 5 * this.callCount,
+          totalTokens: 15 * this.callCount,
+          model: "fake-test-model",
+          providerResponseId: `fake-resp-${this.callCount}`,
+        },
+      };
+    }
     if (markerProbe.includes("__F2_EXECUTION__")) {
       const content = markerProbe;
       let challengeResponseAssessment:
