@@ -2,6 +2,11 @@
  * F2 — SFIA-specific execution-intent json_schema fragment (GCEC).
  * NON-AUTHORITATIVE structured intent for Nora — no REAL calls.
  * Fields align with DecisionBasis.executionBasis GCEC additives.
+ *
+ * CORR-PROOF-09 CR-09-02 remediation:
+ * executionIntent.requestedOperation remains a generic free-form/nullable string
+ * (GCEC fragment used beyond Artifact continuation). Canonical Artifact
+ * discrimination lives on IntentAnalysis.artifactMaterializationOperation.
  */
 
 export const F2_EXECUTION_INTENT_SCHEMA_NAME =
