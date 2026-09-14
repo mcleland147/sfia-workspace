@@ -32,6 +32,7 @@ import {
   validateExecutionIntentPayload,
   type ExecutionIntentPayload,
 } from "./executionIntentSchema";
+import { parseContinuationKind } from "./activeCycleGovernedContinuation";
 
 const INTENT_CLASSES: readonly IntentClass[] = [
   "informative",
@@ -186,6 +187,15 @@ export const F2_INTENT_JSON_SCHEMA: Record<string, unknown> = {
     executionIntent: {
       anyOf: [F2_EXECUTION_INTENT_JSON_SCHEMA, { type: "null" }],
     },
+    continuationKind: {
+      anyOf: [
+        {
+          type: "string",
+          enum: ["active_cycle_artifact_materialization"],
+        },
+        { type: "null" },
+      ],
+    },
   },
   required: [
     "intentClass",
@@ -206,6 +216,7 @@ export const F2_INTENT_JSON_SCHEMA: Record<string, unknown> = {
     "criticalJustification",
     "requestedOperation",
     "executionIntent",
+    "continuationKind",
   ],
 };
 
@@ -246,6 +257,7 @@ function ambiguousFallback(partial?: Partial<IntentAnalysisDto>): IntentAnalysis
     criticalJustification: partial?.criticalJustification ?? null,
     requestedOperation: partial?.requestedOperation ?? null,
     executionIntent: partial?.executionIntent ?? null,
+    continuationKind: partial?.continuationKind ?? null,
     contradictionCandidate: null,
     challengeResponseAssessment:
       partial?.challengeResponseAssessment ?? null,
@@ -368,6 +380,18 @@ export function validateIntentAnalysisPayload(raw: unknown): IntentAnalysisDto {
     executionIntent = validated.payload;
   }
 
+  // CORR-PROOF-07 — optional continuation hint; unknown values fail closed.
+  // Absent field → null (backward compatible with older provider payloads).
+  const continuationParsed = parseContinuationKind(
+    "continuationKind" in obj ? obj.continuationKind : null,
+  );
+  if (!continuationParsed.ok) {
+    return ambiguousFallback({
+      intentClass: intentClass as IntentClass,
+      parseOk: false,
+    } as Partial<IntentAnalysisDto>);
+  }
+
   return {
     intentClass: intentClass as IntentClass,
     candidateCycleTypeId,
@@ -387,6 +411,7 @@ export function validateIntentAnalysisPayload(raw: unknown): IntentAnalysisDto {
     criticalJustification: clip(obj.criticalJustification),
     requestedOperation: clip(obj.requestedOperation, 240),
     executionIntent,
+    continuationKind: continuationParsed.value,
     parseOk: true,
   };
 }
@@ -410,6 +435,7 @@ challengeResponseAssessment (sufficient|insufficient|unknown|null — INTERNAL M
 objective, scope, rephrasedRequest, outOfScope[], risks[], reservations[], stopConditions[], activatedBlocks[],
 expectedOutcome, criticalJustification, requestedOperation (strings ou null pour les scalaires),
 executionIntent (objet structuré docs_write/read_only NON-AUTORITAIRE OU null — intention d'exécution proposée, JAMAIS une grant REAL / HumanDecision / autorité ; champs incluant artifactBrief, contentRequirements, targetPath, evidenceRequirements).
+continuationKind (active_cycle_artifact_materialization OU null — hint NON-AUTORITAIRE de continuation du cycle actif ; JAMAIS une permission createCycle/skip ; le serveur valide contre activeCycle + REQUIRE_ARTIFACT).
 
 === DISTINCTION FONDAMENTALE ===
 intentClass = EFFET demandé à Studio (quoi faire sur le produit).
@@ -545,7 +571,19 @@ Règles dures :
 === CONTINUITÉ CONVERSATIONNELLE (CORR-PROOF-01 D1) ===
 - Si un bloc « Contexte conversationnel canonique » est fourni, interpréter la demande courante comme continuation progressive (clarification, précision, pronom, acknowledgement) lorsque c'est plausible.
 - Ne pas reclasser en ambiguous uniquement parce que la phrase courante est incomplète si le contexte canonique la rend compréhensible.
-- Ne pas créer de CycleInstance / actionable par défaut pour une simple conversation informative progressive.`;
+- Ne pas créer de CycleInstance / actionable par défaut pour une simple conversation informative progressive.
+
+=== CONTINUATION CYCLE ACTIF (CORR-PROOF-07) ===
+NEW_CYCLE_FORMALIZATION ≠ ACTIVE_CYCLE_GOVERNED_CONTINUATION ≠ ACTIVE_CYCLE_CONTINUATION_BLOCKED.
+Si le Project a déjà un cycle actif et que la demande porte sur la matérialisation gouvernée du livrable requis (REQUIRE_ARTIFACT) de CE cycle :
+- continuationKind=active_cycle_artifact_materialization EST REQUIS (hint NON-AUTORITAIRE) ;
+- ET executionIntent.intentKind=docs_write (ou opération docs_write compatible) EST REQUIS ;
+- docs_write SEUL ne suffit JAMAIS à détourner vers la continuation Artifact ;
+- continuationKind SEUL ne suffit JAMAIS à ouvrir une proposition exécutable ;
+- NE PAS traiter cela comme création d'un nouveau CycleInstance / nouveau Cadrage ;
+- ne jamais inventer targetPath / repository / réversibilité comme faits ;
+- définition seule du livrable (sans effet de matérialisation) → informative, continuationKind=null.
+Aucune phrase magique exacte n'autorise seule cette continuation.`;
 
 export const ANALYSIS_SYSTEM = ANALYSIS_SYSTEM_BASE;
 

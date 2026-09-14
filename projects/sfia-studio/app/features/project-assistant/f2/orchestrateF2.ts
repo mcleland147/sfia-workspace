@@ -59,6 +59,10 @@ import { isPureRepositoryAnalysisIntent } from "./repositoryIntent";
 import { resolveTransitionReadiness } from "./transitionReadiness";
 import { evaluateMorrisGateRequired } from "./gatePolicy";
 import {
+  resolveActiveCycleGovernedContinuation,
+  continuationBlockedMessage,
+} from "./activeCycleGovernedContinuation";
+import {
   enrichQualificationWithCkcSemantics,
   isProductStudioNativeCkcProof,
   loadProductCkcCognitiveContent,
@@ -70,6 +74,7 @@ import { projectCkcResolutionRef, qualifyWithCkc } from "./qualify";
 import { reconcileQualificationSignals } from "./qualificationSignalCoherence";
 import { resolveProductDoctrineRegistryRoot } from "@/lib/vertical-slice-runtime/paths";
 import type { DoctrinePackagePin } from "@/lib/oa/doctrine";
+import { getCycleTypeById, type CycleInstance } from "@/lib/oa/cycle";
 import {
   F2_PROCESS_LOCAL_NOTICE,
   createProposalId,
@@ -81,6 +86,7 @@ import type {
   ProposalDto,
   QualificationDto,
 } from "./types";
+import type { ExecutionIntentPayload } from "./executionIntentSchema";
 
 const EPHEMERAL_NOTICE =
   "Conversation et Proposal F2 restent process-local ; Project/LPS/Cycle linkage M2 est persisté dans Product SQLite. AUCUNE EXÉCUTION.";
@@ -394,7 +400,15 @@ function buildProposal(input: {
   morrisGateRequired: boolean;
   executionRequest: boolean;
   status: ProposalDto["status"];
+  /** CORR-PROOF-07 — optional enriched intent for active-cycle continuation. */
+  executionIntentOverride?: ExecutionIntentPayload | null;
+  /** CORR-PROOF-07 — Pilot decision wording (not Morris construction gate). */
+  pilotDecisionWording?: boolean;
 }): ProposalDto {
+  const executionIntent =
+    input.executionIntentOverride !== undefined
+      ? input.executionIntentOverride
+      : (input.intent.executionIntent ?? null);
   return {
     proposalId: createProposalId(),
     status: input.status,
@@ -442,17 +456,63 @@ function buildProposal(input: {
         ? input.intent.stopConditions
         : ["AUCUNE EXÉCUTION", "STOP avant F3"],
     morrisGateRequired: input.morrisGateRequired,
-    nextPossibleStep: input.morrisGateRequired
-      ? "Décision Morris explicite requise"
-      : "AUCUNE EXÉCUTION — F2 S'ARRÊTE ICI",
+    nextPossibleStep: input.pilotDecisionWording
+      ? "Décision Pilote explicite requise avant PREPARE"
+      : input.morrisGateRequired
+        ? "Décision Morris explicite requise"
+        : "AUCUNE EXÉCUTION — F2 S'ARRÊTE ICI",
     contextSnapshot: snapshotFrom(input.project),
     processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
     executionForbidden: true,
     noExecutingStatus: true,
     agentBinding: "NOT_AVAILABLE",
     criticalJustification: input.intent.criticalJustification,
-    requestedOperation: input.intent.requestedOperation ?? null,
-    executionIntent: input.intent.executionIntent ?? null,
+    requestedOperation:
+      executionIntent?.requestedOperation ??
+      input.intent.requestedOperation ??
+      null,
+    executionIntent,
+  };
+}
+
+function qualificationFromActiveCycle(input: {
+  cycle: CycleInstance;
+  signals: IntentAnalysisDto["signals"];
+  analysis: IntentAnalysisDto;
+}): QualificationDto {
+  const entry = getCycleTypeById(input.cycle.cycleTypeId);
+  return {
+    cycleTypeId: input.cycle.cycleTypeId,
+    cycleLabel: entry?.label ?? input.cycle.cycleTypeId,
+    recommendedProfile: input.cycle.profile,
+    rationale:
+      input.analysis.objective ??
+      "Continuation gouvernée — matérialisation du livrable requis sur le cycle actif",
+    criticalSignalsPresent: false,
+    requiresJustificationForCritical: false,
+    capitalizationViaCycleTypeId: false,
+    isMorrisDecision: false,
+    catalogVersion: "active-cycle-continuation",
+    catalogHash: "active-cycle-continuation",
+    detailedStatus: "ACTIVE_CYCLE_GOVERNED_CONTINUATION",
+    disclosures: [
+      "ACTIVE_CYCLE_GOVERNED_CONTINUATION",
+      "NO_NEW_CYCLE_INSTANCE",
+      "RECOMMENDATION_ONLY",
+    ],
+    signals: input.signals ?? {
+      structuralChange: false,
+      securityImpact: false,
+      architectureImpact: false,
+      dataImpact: false,
+      irreversible: false,
+      lowRiskBounded: true,
+    },
+    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
+    ckcResolutionRef: input.cycle.ckcResolutionRef,
+    executionAuthority: false,
+    cycleInstanceId: input.cycle.cycleInstanceId,
+    cycleStatus: input.cycle.status,
   };
 }
 
@@ -882,6 +942,154 @@ export async function orchestrateAssistantSend(input: {
     });
   }
 
+  // CORR-PROOF-07 — NEW_CYCLE_FORMALIZATION ≠ ACTIVE_CYCLE_GOVERNED_CONTINUATION
+  // ≠ ACTIVE_CYCLE_CONTINUATION_BLOCKED.
+  // formalizationReady authorizes governed effect prep, not unconditional createCycle.
+  const continuation = await resolveActiveCycleGovernedContinuation({
+    project,
+    analysis,
+    oa,
+  });
+
+  if (continuation.mode === "ACTIVE_CYCLE_CONTINUATION_BLOCKED") {
+    // CR-07-05 — recognized Artifact continuation that cannot be verified:
+    // BLOCK / clarify in-cycle. NEVER createCycle.
+    const activeId =
+      continuation.activeCycle?.cycleInstanceId ??
+      project.activeCycleInstanceId ??
+      null;
+    return f2ConversationalSuccess({
+      userText: content,
+      sessionDbPath: input.sessionDbPath,
+      text: [
+        presentation === "test_provider" ? "[TEST/FAKE · NON LIVE]" : "[LIVE]",
+        continuationBlockedMessage(continuation.reason, activeId),
+        "Recommendation ≠ HumanDecision ≠ Execution — AUCUNE EXÉCUTION.",
+      ].join(" "),
+      mode: modeResolution.mode as "fixture" | "live",
+      presentation,
+      model,
+      project,
+      intentClass: analysis.intentClass,
+      executionBlocked: true,
+      turnKind:
+        continuation.reason === "incompatible_execution_intent" ||
+        continuation.reason === "no_require_artifact"
+          ? "f2_clarification"
+          : "f2_blocked",
+    });
+  }
+
+  if (continuation.mode === "ACTIVE_CYCLE_GOVERNED_CONTINUATION") {
+    const activeCycle = continuation.activeCycle;
+    const qualification = qualificationFromActiveCycle({
+      cycle: activeCycle,
+      signals: formalizationSignals,
+      analysis,
+    });
+
+    if (continuation.needsTargetClarification) {
+      return f2ConversationalSuccess({
+        userText: content,
+        sessionDbPath: input.sessionDbPath,
+        text: [
+          presentation === "test_provider" ? "[TEST/FAKE · NON LIVE]" : "[LIVE]",
+          "Continuation cycle actif — matérialisation du livrable requis.",
+          `Cycle actif conservé: ${activeCycle.cycleInstanceId} (${activeCycle.status}).`,
+          "Aucun nouveau CycleInstance créé.",
+          continuation.repositoryBinding
+            ? "Le chemin cible du livrable n'est pas encore déterminé dans les bornes du repository lié — précisez targetPath."
+            : "Repository binding Product absent ou incomplet — aucune cible inventée. Configurez le binding ou précisez le chemin avant proposition d'effet.",
+          "Décision Pilote / PREPARE non ouverts tant que la cible n'est pas clarifiée.",
+          "Recommendation ≠ HumanDecision ≠ Execution — AUCUNE EXÉCUTION.",
+        ].join(" "),
+        mode: modeResolution.mode as "fixture" | "live",
+        presentation,
+        model,
+        project,
+        intentClass: analysis.intentClass,
+        qualification,
+        executionBlocked: analysis.intentClass === "execution_request",
+        turnKind: "f2_clarification",
+      });
+    }
+
+    const mw5 = await evaluateF2Mw5({
+      content,
+      history: input.history,
+      analysis,
+      recommendedProfile: qualification.recommendedProfile,
+      recommendationWouldEmit: true,
+      projectCriticality: project.criticality,
+      projectId: project.projectId,
+      oa,
+    });
+    if (!mw5.surface.recommendationAllowed) {
+      return f2ConversationalSuccess({
+        userText: content,
+        sessionDbPath: input.sessionDbPath,
+        text: mw5.text,
+        mode: modeResolution.mode as "fixture" | "live",
+        presentation,
+        model,
+        project,
+        intentClass: analysis.intentClass,
+        qualification,
+        executionBlocked: analysis.intentClass === "execution_request",
+        mw5: mw5.surface,
+        turnKind: mw5TurnKind(mw5.surface),
+      });
+    }
+
+    // Pilot explicit decision required (existing morrisGateRequired seam for recordF2Decision).
+    // Presentation uses Pilot wording — never "gate Morris construction" on this path.
+    const proposal = saveProposal(
+      buildProposal({
+        intent: analysis,
+        qualification,
+        project,
+        morrisGateRequired: true,
+        executionRequest: analysis.intentClass === "execution_request",
+        status: "DECISION_REQUIRED",
+        executionIntentOverride: continuation.enrichedExecutionIntent,
+        pilotDecisionWording: true,
+      }),
+    );
+
+    const textParts = [
+      presentation === "test_provider" ? "[TEST/FAKE · NON LIVE]" : "[LIVE]",
+      "Continuation gouvernée — matérialisation du livrable requis sur le cycle actif.",
+      `Cycle actif: ${activeCycle.cycleInstanceId} (${activeCycle.status}) — aucun nouveau CycleInstance.`,
+      `Profil cycle: ${qualification.recommendedProfile}.`,
+      "Proposition d'effet de matérialisation liée au cycle actif (docs_write) — NON exécutée.",
+      "RECOMMANDATION ≠ HumanDecision ≠ Execution.",
+      "DÉCISION PILOTE EXPLICITE REQUISE avant PREPARE / ExecutionContract.",
+      "AUCUNE EXÉCUTION — ZERO Attempt — ZERO Cursor REAL.",
+      mw5.surface.disposition === "ESCALATE"
+        ? mw5.text
+        : mw5.surface.disclosure,
+      "Nora n'émet pas de HumanDecision, GO, Confirmation ou acte Pilote.",
+    ];
+
+    return f2ConversationalSuccess({
+      userText: content,
+      sessionDbPath: input.sessionDbPath,
+      text: textParts.join(" "),
+      mode: modeResolution.mode as "fixture" | "live",
+      presentation,
+      model,
+      project,
+      intentClass: analysis.intentClass,
+      qualification,
+      proposal,
+      executionBlocked: true,
+      mw5: mw5.surface,
+      turnKind: "f2_proposal",
+    });
+  }
+
+  // NEW_CYCLE_FORMALIZATION — existing createCycle candidate path
+  // (only when Artifact continuation was NOT explicitly signaled)
   const preLpsVersion = project.lpsVersion;
   const correlationId = `cor:f2-${randomBytes(8).toString("hex")}`;
 

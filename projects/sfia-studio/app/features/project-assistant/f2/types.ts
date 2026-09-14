@@ -6,6 +6,14 @@
 import type { Mw3ContradictionCandidateSignal } from "@/lib/nora-cognitive-runtime/deriveMw3Assessment";
 import type { ExecutionIntentPayload } from "./executionIntentSchema";
 
+/**
+ * CORR-PROOF-07 — optional NON-AUTHORITATIVE continuation hint.
+ * Server validates against durable active-cycle + CURRENT REQUIRE_ARTIFACT.
+ */
+export type F2ContinuationKind =
+  | "active_cycle_artifact_materialization"
+  | null;
+
 export type IntentClass =
   | "informative"
   | "actionable"
@@ -191,6 +199,13 @@ export type IntentAnalysisDto = {
    * Present as null when not applicable; invalid shape fails closed.
    */
   executionIntent: ExecutionIntentPayload | null;
+  /**
+   * CORR-PROOF-07 — optional NON-AUTHORITATIVE continuation hint.
+   * Server validates against durable active-cycle + CURRENT REQUIRE_ARTIFACT.
+   * Never grants createCycle skip alone; never invents targets.
+   * Absent/undefined treated as null by routing (fail-closed).
+   */
+  continuationKind?: F2ContinuationKind;
   parseOk: boolean;
 };
 

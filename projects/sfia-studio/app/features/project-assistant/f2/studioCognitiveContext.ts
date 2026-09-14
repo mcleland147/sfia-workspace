@@ -768,6 +768,8 @@ export function buildStudioCognitivePromptSections(
   lines.push("");
 
   // CORR-PROOF-06 / CR-06-02 — canonical active-cycle REQUIRE_ARTIFACT only
+  // (routing continuation reuses the same subject/id rules in
+  // activeCycleGovernedContinuation.hasCurrentRequireArtifactObligation)
   const activeCycleId = ctx.activeCycle?.cycleInstanceId ?? null;
   const requireDeliverable =
     activeCycleId != null &&
