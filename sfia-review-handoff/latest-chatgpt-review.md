@@ -1,98 +1,100 @@
 # CORR-PROOF-09 — FULL Review Pack
-## Active-Cycle Materialization Intent Contract Alignment
+## Critical Review Remediation (CR-09-01 + CR-09-02)
 
 **Campaign:** SFIA Studio Product Proof — Fresh Project Full Cycle
 **Corrective unit:** CORR-PROOF-09 — Active-Cycle Materialization Intent Contract Alignment
-**Type / Profile:** Delivery projet / EVOL / CRITICAL
+**This run:** CORR-PROOF-09 Critical Review Remediation
+**Type / Profile:** Delivery / EVOL / CRITICAL
 **Runtime v3:** NON ADOPTED
-**Product base / candidate base:** `84a36a8d32f7b2632180d789e41521d6e769c681`
-**Candidate worktree:** `/Users/morris/Projects/sfia-studio-corr-proof-09-materialization-intent-contract`
-**Candidate branch:** `fix/sfia-studio-corr-proof-09-materialization-intent-contract`
-**Product Git integration:** NOT AUTHORIZED (local uncommitted only)
+**Base / candidate HEAD:** `84a36a8d32f7b2632180d789e41521d6e769c681`
+**Candidate:** `/Users/morris/Projects/sfia-studio-corr-proof-09-materialization-intent-contract` @ `fix/sfia-studio-corr-proof-09-materialization-intent-contract`
+**Product Git integration:** NOT AUTHORIZED (LOCAL MODIFIED / UNCOMMITTED)
 
 ---
 
-## A. Identity / Morris GO
+## A. Identity
 
-Morris GO consumed: CORR-PROOF-09 — Active-Cycle Materialization Intent Contract Alignment.
+Same CORR-PROOF-09 unit. Do not open CORR-PROOF-10.
 
-Authorized: dedicated local candidate WT/branch; R22/OpenAI-native producer-contract alignment; Product code/tests in qualified scope; deterministic validation; candidate runtime reusing SAME Product+Session truth; ONE controlled LIVE Nora turn (Morris manual); stop before HD/PREPARE/execution; FULL Review Pack; L3 handoff on `sfia/review-handoff`.
+## B. Morris remediation GO
 
-NOT AUTHORIZED / not performed: Product commit/push/PR/merge; branch/worktree deletion; doctrine/Roadmap/C1; DB reset/seed/migrate; second classifier/planner; extra model call for op normalization; model switch; reasoning-effort experiment; arbitrary NL→canonical server rewrite; weakening CR-07-06; automatic HD/EC/REAL/docs_write; runtime v3 promotion.
+GO pour correction des blockers CR-09-01 et CR-09-02 du candidat CORR-PROOF-09.
 
----
+Authorized: continue existing candidate; CR-09-01; CR-09-02; deterministic tests; typecheck/lint/build/full Vitest; FULL Review Pack; L3 handoff.
 
-## B. Git truths
+NOT AUTHORIZED / not performed: OpenAI LIVE; Nora LIVE; dogfood mutation; DB/session mutation; Product commit/push/PR/merge; model switch; second classifier; NL server normalization; weakening CR-07-06; HD/PREPARE/execution; runtime v3 promotion.
+
+## C. Git truth
 
 | Item | Value |
 |------|--------|
-| origin/main | `84a36a8d32f7b2632180d789e41521d6e769c681` |
-| Candidate HEAD/base | `84a36a8d32f7b2632180d789e41521d6e769c681` |
-| Dogfood WT | `/Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d` detached @ same anchor |
-| Dogfood Product dirty | only `.tmp-sfia-review` (non-Product) after restore |
-| Candidate Product | LOCAL MODIFIED / UNCOMMITTED (3 modified + 2 new) |
-| move_agent_to_root | failed (unrelated branch already used by main WT); continued via absolute paths — no content impact |
+| origin/main | `84a36a8d…` |
+| Candidate HEAD | `84a36a8d…` |
+| Prior uncommitted CORR-09 | retained and remediating (no reset/stash) |
+| LIVE in this run | **ZERO** |
 
----
+## D. CR-09-01 original finding
 
-## C. Convergence
+Global rewrite of top-level `analysis.requestedOperation` as "technical operation ID only / never NL" contradicted F2 legacy free-form use (`architecture change`, `create pr`, `cursor create pr`) and risked regressing unrelated LIVE F2 cognition.
 
-| Axis | Content |
-|------|---------|
-| v3 capability | Pilot-Governed Cycle Lifecycle + Artifact Completeness + trustworthy cognitive→execution contract |
-| Milestone | Active-cycle materialization producer contract alignment |
-| Gap closed | Free-form provider `requestedOperation` incompatible with CR-07-06 technical ID (CORR-08 R2+R3) |
-| Dependency | CORR-PROOF-07 (gate) + CORR-PROOF-08 (LIVE root cause captured) |
-| Trajectory | Same-cycle target clarification reached → next is Pilote/clarification under new GO |
-| Next capability | Natural Product Proof at targetPath clarification / Proposal / HumanDecision boundary |
-| Debt/exit | Candidate remains local uncommitted; dogfood baseline restored |
-| Gates | Deterministic green → ONE LIVE Outcome A → stop before HD |
+## E. CR-09-01 exact correction — CLOSED
 
----
+- Restored GENERAL producer instruction: top-level `requestedOperation` = free-form/legacy string OR null.
+- Artifact-only rule now requires dedicated `artifactMaterializationOperation=cursor.docs_write.apply` (preferred: generic surfaces null).
+- No global technical-ID obligation on top-level.
 
-## D. R22 OpenAI Capability Fit
+## F. CR-09-02 original finding
 
-- Existing `OpenAIConversationProvider.completeStructured` with Responses API `text.format.type=json_schema`, `strict=true`.
-- Disposition: **ADAPT** existing OpenAI-native Structured Outputs contract.
-- No second model / classifier / post-model LLM normalization / model switch.
+Global enum on `executionIntent.requestedOperation` = {cursor.docs_write.apply, github.pr.merge} polluted the OpenAI producer contract with a hostile-only ID and was not a proven complete GCEC operation domain.
 
-Limitation: OpenAI-supported schema subset does not safely encode cross-field conditionals. Schema hard-constrains `executionIntent.requestedOperation` to technical enum|null; top-level remains free-form for unrelated F2; materialization cross-field relation covered by producer instruction + CR-07-06.
+## G. CR-09-02 exact correction — CLOSED
 
----
+- Restored `executionIntent.requestedOperation` to free-form NULLABLE_STRING (schema + validator).
+- Removed `github.pr.merge` from any producer enum.
+- Introduced Option B dedicated field `artifactMaterializationOperation`: enum `[cursor.docs_write.apply] | null` only.
+- Hostile merge remains via direct DTO injection (Fake marker / test DTO), not producer schema pollution.
 
-## E. Contract inventory
+## H. Operation-contract inventory (reconfirmed)
 
-| Surface | Semantics |
-|---------|-----------|
-| Top-level `analysis.requestedOperation` | Free-form / legacy gate tokens + materialization technical ID when applicable |
-| `executionIntent.requestedOperation` | Technical operation ID (schema enum after CORR-09) |
-| `F2_ARTIFACT_MATERIALIZATION_OPERATION` | `cursor.docs_write.apply` |
-| `F2_ARTIFACT_MATERIALIZATION_CAPABILITIES` | `["cap:cursor.docs_write"]` |
+| Surface | Semantics after remediation |
+|---------|------------------------------|
+| Top-level `requestedOperation` | Legacy/free-form (unrelated F2) |
+| `executionIntent.requestedOperation` | Generic GCEC free-form/nullable |
+| `artifactMaterializationOperation` | Artifact-only technical discriminator |
+| Canonical action after accept | `cursor.docs_write.apply` (server-owned) |
+| Canonical capability after accept | `cap:cursor.docs_write` |
 
-**Chosen design:** Option A bounded on `executionIntent.requestedOperation` only (+ prompt requiring both surfaces = canonical ID for Artifact materialization). Option B dedicated field rejected as unnecessary. Global top-level narrowing rejected (breaks unrelated F2). Shared `f2CanonicalOperations.ts` avoids duplication/circular imports.
+No complete global operation enum exists in Product for safe OpenAI exposure → global narrowing rejected.
 
-Rejected: `docs_write` alias acceptance; NL→canonical rewrite; substring matching; weakening hostile merge rejection.
+## I. Selected final design
 
----
+**Option B** — dedicated nullable Artifact discriminator.
 
-## F. Implementation
+Why: Option A global enum unsafe; Option B is one tagged field in existing F2 structured contract; no new service/persistence/registry/classifier/extra model call.
 
-### Files
+## J. Complete useful modified content
 
-1. `f2/f2CanonicalOperations.ts` — NEW
-2. `f2/executionIntentSchema.ts` — schema enum + validator
-3. `f2/activeCycleGovernedContinuation.ts` — re-export; strip unsourced affirmative reversibility on enrich
-4. `f2/intentAnalysis.ts` — producer instruction alignment
-5. `__tests__/…/corrProof09.materializationIntentContract.d0.test.ts` — NEW
+### Files (8 material Product source/test — soft-cap note: 7 requested; remediation required types + fake + corr07 fixture + new field module)
 
-### Full new constants module
+1. `f2/f2CanonicalOperations.ts` (rewritten — Artifact-only constants/enum)
+2. `f2/executionIntentSchema.ts` (restore free-form requestedOperation)
+3. `f2/intentAnalysis.ts` (schema field + parse + prompt CR-09-01/02)
+4. `f2/types.ts` (DTO field)
+5. `f2/activeCycleGovernedContinuation.ts` (gate requires dedicated field + contradiction checks; reversibility strip preserved)
+6. `lib/platform/ai/fakeProvider.ts` (fixtures)
+7. `__tests__/…/corrProof09….test.ts` (rewritten)
+8. `__tests__/…/corrProof07….test.ts` (fixture alignment)
+
+### `f2CanonicalOperations.ts` (full)
 
 ```ts
 /**
- * CORR-PROOF-09 — single source for F2 technical operation / capability IDs
- * used by Artifact materialization + executionIntent producer contract.
- *
+ * CORR-PROOF-09 — single source for Artifact materialization technical IDs.
  * TECHNICAL CAPABILITY ≠ EXECUTION AUTHORITY.
+ *
+ * CR-09-02 remediation: do NOT expose a global executionIntent.requestedOperation
+ * enum (especially hostile-only IDs) to the OpenAI producer contract.
+ * The dedicated IntentAnalysis field carries the Artifact-only discriminator.
  */
 
 /** Server-owned action for Artifact materialization (TECHNICAL ≠ AUTHORITY). */
@@ -105,34 +107,94 @@ export const F2_ARTIFACT_MATERIALIZATION_CAPABILITIES = [
 ] as const;
 
 /**
- * Allowed non-null values for executionIntent.requestedOperation in the
- * OpenAI Structured Outputs producer contract (strict enum).
- * Free-form / NL descriptions are rejected at schema + validator.
- * Hostile IDs remain enumerable so server CR-07-06 can still fail-closed
- * when injected via Fake / direct DTO (not silently rewritten).
+ * OpenAI Structured Outputs allowlist for the dedicated Artifact field only.
+ * Hostile ops (e.g. github.pr.merge) are NOT producer choices — inject via DTO.
  */
-export const F2_EXECUTION_INTENT_REQUESTED_OPERATION_IDS = [
+export const F2_ARTIFACT_MATERIALIZATION_OPERATION_SCHEMA_ENUM = [
   F2_ARTIFACT_MATERIALIZATION_OPERATION,
-  "github.pr.merge",
 ] as const;
 
-export type F2ExecutionIntentRequestedOperationId =
-  (typeof F2_EXECUTION_INTENT_REQUESTED_OPERATION_IDS)[number];
+export type F2ArtifactMaterializationOperation =
+  (typeof F2_ARTIFACT_MATERIALIZATION_OPERATION_SCHEMA_ENUM)[number];
 
-export function isF2ExecutionIntentRequestedOperationId(
+export function isF2ArtifactMaterializationOperation(
   value: string,
-): value is F2ExecutionIntentRequestedOperationId {
-  return (F2_EXECUTION_INTENT_REQUESTED_OPERATION_IDS as readonly string[]).includes(
-    value,
-  );
+): value is F2ArtifactMaterializationOperation {
+  return (
+    F2_ARTIFACT_MATERIALIZATION_OPERATION_SCHEMA_ENUM as readonly string[]
+  ).includes(value);
 }
 ```
 
-### Full unified diff (modified F2 files)
+### Unified diff (modified tracked Product paths)
 
 ```diff
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts
+index ebf1879f..38538870 100644
+--- a/projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts
++++ b/projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts
+@@ -70,6 +70,7 @@ function materializationAnalysis(overrides?: {
+   reversibilityExpectation?: "reversible" | "irreversible" | "unknown" | null;
+   requestedOperation?: string | null;
+   analysisRequestedOperation?: string | null;
++  artifactMaterializationOperation?: "cursor.docs_write.apply" | null;
+ }) {
+   const continuationKind =
+     overrides && "continuationKind" in overrides
+@@ -82,11 +83,17 @@ function materializationAnalysis(overrides?: {
+   const defaultOp =
+     overrides && "requestedOperation" in overrides
+       ? overrides.requestedOperation
+-      : "cursor.docs_write.apply";
++      : null;
+   const analysisRequestedOperation =
+     overrides && "analysisRequestedOperation" in overrides
+       ? overrides.analysisRequestedOperation
+       : defaultOp;
++  const artifactMaterializationOperation =
++    overrides && "artifactMaterializationOperation" in overrides
++      ? overrides.artifactMaterializationOperation
++      : continuationKind === "active_cycle_artifact_materialization"
++        ? "cursor.docs_write.apply"
++        : null;
+   const executionIntent =
+     overrides && "executionIntent" in overrides
+       ? overrides.executionIntent
+@@ -122,6 +129,7 @@ function materializationAnalysis(overrides?: {
+     contradictionCandidate: null,
+     challengeResponseAssessment: "sufficient",
+     continuationKind,
++    artifactMaterializationOperation,
+     objective: "matérialiser",
+     scope: "docs",
+     rephrasedRequest: "matérialiser",
+@@ -858,6 +866,7 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
+       contradictionCandidate: null,
+       challengeResponseAssessment: null,
+       continuationKind: null,
++      artifactMaterializationOperation: "cursor.docs_write.apply",
+       objective: "écrire le livrable",
+       scope: null,
+       rephrasedRequest: "produire le document",
+@@ -880,7 +889,7 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
+         requiredCapabilities: [],
+         validationExpectations: [],
+         evidenceRequirements: [],
+-        requestedOperation: "cursor.docs_write.apply",
++        requestedOperation: null,
+         reversibilityExpectation: null,
+         artifactBrief: null,
+         contentRequirements: [],
+@@ -902,6 +911,7 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
+       contradictionCandidate: null,
+       challengeResponseAssessment: null,
+       continuationKind: "active_cycle_artifact_materialization",
++      artifactMaterializationOperation: null,
+       objective: "matérialiser",
+       scope: null,
+       rephrasedRequest: "générer le livrable attendu",
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts b/projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
-index 9dee186f..3b4461d7 100644
+index 9dee186f..cc09bca1 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
 @@ -27,16 +27,17 @@ import type { ProjectRepositoryBinding } from "@/lib/oa/project";
@@ -161,7 +223,47 @@ index 9dee186f..3b4461d7 100644
 
  /** Minimal OA surface for continuation resolution — avoids V2 runtime barrel import. */
  export type ActiveCycleContinuationOa = {
-@@ -419,24 +420,19 @@ export function enrichExecutionIntentFromBinding(input: {
+@@ -172,6 +173,9 @@ export function isBlankOrCanonicalDocsWriteOperation(raw: unknown): boolean {
+
+ /**
+  * Compatible materialization effect (non-authoritative alone).
++ * CORR-PROOF-09 CR-09-02 — requires dedicated artifactMaterializationOperation
++ * === cursor.docs_write.apply. Generic requestedOperation surfaces stay free-form
++ * elsewhere but must be blank or exact-canonical here (contradiction → fail-closed).
+  * CR-07-06 — intentKind=docs_write never overrides a contradictory requestedOperation.
+  */
+ export function hasCompatibleDocsWriteMaterializationEffect(
+@@ -186,8 +190,17 @@ export function hasCompatibleDocsWriteMaterializationEffect(
+   }
+   const ei = analysis.executionIntent;
+   if (!ei) return false;
++  if (ei.intentKind !== "docs_write") return false;
++
++  // Dedicated Artifact discriminator (producer-schema enum|null only).
++  if (
++    analysis.artifactMaterializationOperation !==
++    F2_ARTIFACT_MATERIALIZATION_OPERATION
++  ) {
++    return false;
++  }
+
+-  // Fail-closed on contradictory ops at executionIntent OR analysis surface.
++  // Generic surfaces: blank/null OR exact canonical — never contradict.
+   if (!isBlankOrCanonicalDocsWriteOperation(ei.requestedOperation)) {
+     return false;
+   }
+@@ -195,9 +208,7 @@ export function hasCompatibleDocsWriteMaterializationEffect(
+     return false;
+   }
+
+-  if (ei.intentKind === "docs_write") return true;
+-  const op = (ei.requestedOperation ?? analysis.requestedOperation ?? "").trim();
+-  return op === F2_ARTIFACT_MATERIALIZATION_OPERATION;
++  return true;
+ }
+
+ /**
+@@ -419,24 +430,19 @@ export function enrichExecutionIntentFromBinding(input: {
      intentKind: input.analysisIntent?.intentKind ?? "docs_write",
    };
 
@@ -193,7 +295,7 @@ index 9dee186f..3b4461d7 100644
          scopeIn: [],
        }),
        needsTargetClarification: true,
-@@ -454,9 +450,7 @@ export function enrichExecutionIntentFromBinding(input: {
+@@ -454,9 +460,7 @@ export function enrichExecutionIntentFromBinding(input: {
          targetRepositoryRef: input.binding.identity,
          targetPath: null,
          scopeIn: [],
@@ -204,7 +306,7 @@ index 9dee186f..3b4461d7 100644
        }),
        needsTargetClarification: true,
      };
-@@ -492,14 +486,9 @@ export function enrichExecutionIntentFromBinding(input: {
+@@ -492,14 +496,9 @@ export function enrichExecutionIntentFromBinding(input: {
      targetRepositoryRef: input.binding.identity,
      targetPath,
      scopeIn: effectiveScopeIn,
@@ -221,101 +323,127 @@ index 9dee186f..3b4461d7 100644
      executionIntent: out,
      needsTargetClarification: needsClarification,
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/executionIntentSchema.ts b/projects/sfia-studio/app/features/project-assistant/f2/executionIntentSchema.ts
-index d0d6ccd8..bfd09a5d 100644
+index d0d6ccd8..dab3a06c 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f2/executionIntentSchema.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/f2/executionIntentSchema.ts
-@@ -2,8 +2,16 @@
+@@ -2,6 +2,11 @@
   * F2 — SFIA-specific execution-intent json_schema fragment (GCEC).
   * NON-AUTHORITATIVE structured intent for Nora — no REAL calls.
   * Fields align with DecisionBasis.executionBasis GCEC additives.
 + *
-+ * CORR-PROOF-09 — executionIntent.requestedOperation is a technical operation ID
-+ * (strict enum | null), never natural-language description.
++ * CORR-PROOF-09 CR-09-02 remediation:
++ * executionIntent.requestedOperation remains a generic free-form/nullable string
++ * (GCEC fragment used beyond Artifact continuation). Canonical Artifact
++ * discrimination lives on IntentAnalysis.artifactMaterializationOperation.
   */
 
-+import {
-+  F2_EXECUTION_INTENT_REQUESTED_OPERATION_IDS,
-+  isF2ExecutionIntentRequestedOperationId,
-+} from "./f2CanonicalOperations";
-+
  export const F2_EXECUTION_INTENT_SCHEMA_NAME =
-   "f2_execution_intent_gcec" as const;
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts b/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+index 798cfad3..075ee19b 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+@@ -33,6 +33,11 @@ import {
+   type ExecutionIntentPayload,
+ } from "./executionIntentSchema";
+ import { parseContinuationKind } from "./activeCycleGovernedContinuation";
++import {
++  F2_ARTIFACT_MATERIALIZATION_OPERATION,
++  F2_ARTIFACT_MATERIALIZATION_OPERATION_SCHEMA_ENUM,
++  isF2ArtifactMaterializationOperation,
++} from "./f2CanonicalOperations";
 
-@@ -17,6 +25,17 @@ const STRING_ARRAY = {
-   maxItems: 32,
- } as const;
-
-+/** Technical operation ID for executionIntent.requestedOperation (OpenAI strict). */
-+const NULLABLE_TECHNICAL_OPERATION = {
-+  anyOf: [
-+    {
-+      type: "string",
-+      enum: [...F2_EXECUTION_INTENT_REQUESTED_OPERATION_IDS],
+ const INTENT_CLASSES: readonly IntentClass[] = [
+   "informative",
+@@ -196,6 +201,15 @@ export const F2_INTENT_JSON_SCHEMA: Record<string, unknown> = {
+         { type: "null" },
+       ],
+     },
++    artifactMaterializationOperation: {
++      anyOf: [
++        {
++          type: "string",
++          enum: [...F2_ARTIFACT_MATERIALIZATION_OPERATION_SCHEMA_ENUM],
++        },
++        { type: "null" },
++      ],
 +    },
-+    { type: "null" },
-+  ],
-+} as const;
-+
- /** OpenAI-style strict json_schema fragment for structured execution intent. */
- export const F2_EXECUTION_INTENT_JSON_SCHEMA: Record<string, unknown> = {
-   type: "object",
-@@ -37,7 +56,7 @@ export const F2_EXECUTION_INTENT_JSON_SCHEMA: Record<string, unknown> = {
-     requiredCapabilities: STRING_ARRAY,
-     validationExpectations: STRING_ARRAY,
-     evidenceRequirements: STRING_ARRAY,
--    requestedOperation: NULLABLE_STRING,
-+    requestedOperation: NULLABLE_TECHNICAL_OPERATION,
-     reversibilityExpectation: {
-       anyOf: [
-         {
-@@ -184,6 +203,22 @@ export function validateExecutionIntentPayload(
-     return { ok: false, reason: "exit_requirement_kinds_invalid" };
+   },
+   required: [
+     "intentClass",
+@@ -217,6 +231,7 @@ export const F2_INTENT_JSON_SCHEMA: Record<string, unknown> = {
+     "requestedOperation",
+     "executionIntent",
+     "continuationKind",
++    "artifactMaterializationOperation",
+   ],
+ };
+
+@@ -258,6 +273,8 @@ function ambiguousFallback(partial?: Partial<IntentAnalysisDto>): IntentAnalysis
+     requestedOperation: partial?.requestedOperation ?? null,
+     executionIntent: partial?.executionIntent ?? null,
+     continuationKind: partial?.continuationKind ?? null,
++    artifactMaterializationOperation:
++      partial?.artifactMaterializationOperation ?? null,
+     contradictionCandidate: null,
+     challengeResponseAssessment:
+       partial?.challengeResponseAssessment ?? null,
+@@ -392,6 +409,34 @@ export function validateIntentAnalysisPayload(raw: unknown): IntentAnalysisDto {
+     } as Partial<IntentAnalysisDto>);
    }
 
-+  // CORR-PROOF-09 — technical operation ID only (no NL / alias free-text).
-+  let requestedOperation: string | null = null;
-+  if (r.requestedOperation !== undefined && r.requestedOperation !== null) {
-+    if (typeof r.requestedOperation !== "string") {
-+      return { ok: false, reason: "requested_operation_invalid" };
++  // CORR-PROOF-09 — dedicated Artifact operation discriminator (enum|null).
++  // Absent → null. Invalid non-null → fail closed.
++  let artifactMaterializationOperation:
++    | typeof F2_ARTIFACT_MATERIALIZATION_OPERATION
++    | null = null;
++  if (
++    "artifactMaterializationOperation" in obj &&
++    obj.artifactMaterializationOperation != null
++  ) {
++    if (typeof obj.artifactMaterializationOperation !== "string") {
++      return ambiguousFallback({
++        intentClass: intentClass as IntentClass,
++        parseOk: false,
++      } as Partial<IntentAnalysisDto>);
 +    }
-+    const op = r.requestedOperation.trim();
-+    if (op.length === 0) {
-+      requestedOperation = null;
-+    } else if (!isF2ExecutionIntentRequestedOperationId(op)) {
-+      return { ok: false, reason: "requested_operation_not_technical_id" };
++    const rawOp = obj.artifactMaterializationOperation.trim();
++    if (rawOp.length === 0) {
++      artifactMaterializationOperation = null;
++    } else if (!isF2ArtifactMaterializationOperation(rawOp)) {
++      return ambiguousFallback({
++        intentClass: intentClass as IntentClass,
++        parseOk: false,
++      } as Partial<IntentAnalysisDto>);
 +    } else {
-+      requestedOperation = op;
++      artifactMaterializationOperation = rawOp;
 +    }
 +  }
 +
    return {
-     ok: true,
-     payload: {
-@@ -197,7 +232,7 @@ export function validateExecutionIntentPayload(
-       requiredCapabilities: requiredCapabilities ?? [],
-       validationExpectations: validationExpectations ?? [],
-       evidenceRequirements: evidenceRequirements ?? [],
--      requestedOperation: asNullableString(r.requestedOperation) ?? null,
-+      requestedOperation,
-       reversibilityExpectation:
-         (reversibility as ExecutionIntentPayload["reversibilityExpectation"]) ??
-         null,
-diff --git a/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts b/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
-index 798cfad3..b7141cf4 100644
---- a/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
-@@ -433,8 +433,8 @@ cognitiveWorkload ({ambiguity,reasoningDepth,sourceBreadth,toolDependency,contra
+     intentClass: intentClass as IntentClass,
+     candidateCycleTypeId,
+@@ -412,6 +457,7 @@ export function validateIntentAnalysisPayload(raw: unknown): IntentAnalysisDto {
+     requestedOperation: clip(obj.requestedOperation, 240),
+     executionIntent,
+     continuationKind: continuationParsed.value,
++    artifactMaterializationOperation,
+     parseOk: true,
+   };
+ }
+@@ -433,9 +479,10 @@ cognitiveWorkload ({ambiguity,reasoningDepth,sourceBreadth,toolDependency,contra
  contradictionCandidate (objet candidat cognitif OU null — PAS Evidence, PAS evidence_backed, PAS Cognitive STOP),
  challengeResponseAssessment (sufficient|insufficient|unknown|null — INTERNAL MW5 seulement ; PAS Truth C, PAS Evidence, PAS HumanDecision, PAS autorité ; missing/unknown/insufficient = fail-closed),
  objective, scope, rephrasedRequest, outOfScope[], risks[], reservations[], stopConditions[], activatedBlocks[],
 -expectedOutcome, criticalJustification, requestedOperation (strings ou null pour les scalaires),
 -executionIntent (objet structuré docs_write/read_only NON-AUTORITAIRE OU null — intention d'exécution proposée, JAMAIS une grant REAL / HumanDecision / autorité ; champs incluant artifactBrief, contentRequirements, targetPath, evidenceRequirements).
-+expectedOutcome, criticalJustification, requestedOperation (ID technique d'opération OU null — JAMAIS une description en langage naturel ; pour matérialisation Artifact active-cycle utiliser EXACTEMENT « cursor.docs_write.apply »),
-+executionIntent (objet structuré docs_write/read_only NON-AUTORITAIRE OU null — intention d'exécution proposée, JAMAIS une grant REAL / HumanDecision / autorité ; executionIntent.requestedOperation = ID technique enuméré OU null, JAMAIS du texte libre ; champs incluant artifactBrief, contentRequirements, targetPath, evidenceRequirements).
++expectedOutcome, criticalJustification, requestedOperation (string libre / legacy OU null — PAS un ID technique obligatoire hors matérialisation Artifact),
++executionIntent (objet structuré docs_write/read_only/other NON-AUTORITAIRE OU null — intention d'exécution proposée, JAMAIS une grant REAL / HumanDecision / autorité ; executionIntent.requestedOperation reste générique/nullable ; champs incluant artifactBrief, contentRequirements, targetPath, evidenceRequirements).
  continuationKind (active_cycle_artifact_materialization OU null — hint NON-AUTORITAIRE de continuation du cycle actif ; JAMAIS une permission createCycle/skip ; le serveur valide contre activeCycle + REQUIRE_ARTIFACT).
++artifactMaterializationOperation (cursor.docs_write.apply OU null — discriminateur TECHNIQUE dédié à la matérialisation Artifact active-cycle ; JAMAIS du texte libre ; JAMAIS une autorité d'exécution).
 
  === DISTINCTION FONDAMENTALE ===
-@@ -573,15 +573,20 @@ Règles dures :
+ intentClass = EFFET demandé à Studio (quoi faire sur le produit).
+@@ -573,16 +620,24 @@ Règles dures :
  - Ne pas reclasser en ambiguous uniquement parce que la phrase courante est incomplète si le contexte canonique la rend compréhensible.
  - Ne pas créer de CycleInstance / actionable par défaut pour une simple conversation informative progressive.
 
@@ -326,119 +454,150 @@ index 798cfad3..b7141cf4 100644
  - continuationKind=active_cycle_artifact_materialization EST REQUIS (hint NON-AUTORITAIRE) ;
 -- ET executionIntent.intentKind=docs_write (ou opération docs_write compatible) EST REQUIS ;
 +- ET executionIntent.intentKind=docs_write EST REQUIS ;
++- ET artifactMaterializationOperation=cursor.docs_write.apply EST REQUIS (discriminateur technique dédié) ;
  - docs_write SEUL ne suffit JAMAIS à détourner vers la continuation Artifact ;
  - continuationKind SEUL ne suffit JAMAIS à ouvrir une proposition exécutable ;
  - NE PAS traiter cela comme création d'un nouveau CycleInstance / nouveau Cadrage ;
 -- ne jamais inventer targetPath / repository / réversibilité comme faits ;
-+- CONTRAT TECHNIQUE (CORR-PROOF-09) — distinction sémantique vs ID technique :
-+  * requestedOperation (top-level) ET executionIntent.requestedOperation DOIVENT tous deux être EXACTEMENT l'ID technique « cursor.docs_write.apply » (pas de paraphrase, pas de français, pas d'alias « docs_write ») ;
-+  * si des requiredCapabilities sont fournies pour ce chemin → utiliser EXACTEMENT « cap:cursor.docs_write » (le serveur reste autoritaire après acceptation) ;
-+  * la description naturelle du livrable va dans objective / rephrasedRequest / artifactBrief / contentRequirements — JAMAIS dans requestedOperation ;
+-- définition seule du livrable (sans effet de matérialisation) → informative, continuationKind=null.
++- CONTRAT TECHNIQUE (CORR-PROOF-09 CR-09-01/02) :
++  * artifactMaterializationOperation DOIT être EXACTEMENT « cursor.docs_write.apply » (pas d'alias « docs_write », pas de français, pas d'autre opération) ;
++  * hors de ce chemin Artifact, artifactMaterializationOperation=null ;
++  * requestedOperation (top-level) ET executionIntent.requestedOperation restent génériques ailleurs ; pour CETTE continuation Artifact, les laisser null (préféré) ou exactement cursor.docs_write.apply — JAMAIS une valeur contradictoire (ex. github.pr.merge) ;
++  * si des requiredCapabilities sont fournies pour ce chemin → « cap:cursor.docs_write » (le serveur reste autoritaire après acceptation) ;
++  * la description naturelle du livrable va dans objective / rephrasedRequest / artifactBrief / contentRequirements — JAMAIS dans artifactMaterializationOperation ;
 +  * targetPath / targetRepositoryRef PEUVENT rester null (le serveur utilise Project.repositoryBinding) — ne PAS inventer de chemin ;
 +  * reversibilityExpectation pour cette continuation : null ou unknown seulement — NE PAS affirmer reversible/irreversible sans provenance serveur ;
- - définition seule du livrable (sans effet de matérialisation) → informative, continuationKind=null.
++- définition seule du livrable (sans effet de matérialisation) → informative, continuationKind=null, artifactMaterializationOperation=null.
  Aucune phrase magique exacte n'autorise seule cette continuation.`;
+
+ export const ANALYSIS_SYSTEM = ANALYSIS_SYSTEM_BASE;
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/types.ts b/projects/sfia-studio/app/features/project-assistant/f2/types.ts
+index ca178450..1801284e 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/types.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/types.ts
+@@ -206,6 +206,14 @@ export type IntentAnalysisDto = {
+    * Absent/undefined treated as null by routing (fail-closed).
+    */
+   continuationKind?: F2ContinuationKind;
++  /**
++   * CORR-PROOF-09 — dedicated NON-AUTHORITATIVE Artifact materialization
++   * technical operation discriminator. Schema: cursor.docs_write.apply | null.
++   * Never free-form; never execution authority.
++   */
++  artifactMaterializationOperation?:
++    | "cursor.docs_write.apply"
++    | null;
+   parseOk: boolean;
+ };
+
+diff --git a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
+index 39418d26..88462d68 100644
+--- a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
++++ b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
+@@ -723,6 +723,7 @@ export class FakeConversationProvider implements ConversationProvider {
+           contradictionCandidate: null,
+           challengeResponseAssessment: "sufficient",
+           continuationKind: "active_cycle_artifact_materialization",
++          artifactMaterializationOperation: null,
+           objective: "Matérialiser le livrable requis du cycle actif",
+           scope: "docs_write borné — cycle actif — aucune exécution automatique",
+           rephrasedRequest: "Matérialisation gouvernée du livrable requis",
+@@ -787,6 +788,7 @@ export class FakeConversationProvider implements ConversationProvider {
+           contradictionCandidate: null,
+           challengeResponseAssessment,
+           continuationKind: "active_cycle_artifact_materialization",
++          artifactMaterializationOperation: "cursor.docs_write.apply",
+           objective: "Matérialiser le livrable requis du cycle actif",
+           scope: "docs_write borné — cycle actif — aucune exécution automatique",
+           rephrasedRequest: "Matérialisation gouvernée du livrable requis",
+@@ -797,7 +799,7 @@ export class FakeConversationProvider implements ConversationProvider {
+           activatedBlocks: ["proposition", "gate"],
+           expectedOutcome: "Proposition de matérialisation liée au cycle actif",
+           criticalJustification: null,
+-          requestedOperation: "cursor.docs_write.apply",
++          requestedOperation: null,
+           executionIntent: {
+             intentKind: "docs_write",
+             artifactType: "deliverable_document",
+@@ -809,7 +811,7 @@ export class FakeConversationProvider implements ConversationProvider {
+             requiredCapabilities: ["cap:cursor.docs_write"],
+             validationExpectations: [],
+             evidenceRequirements: [],
+-            requestedOperation: "cursor.docs_write.apply",
++            requestedOperation: null,
+             reversibilityExpectation: null,
+             artifactBrief: "Livrable requis du cycle actif",
+             contentRequirements: ["Contenu défini avec Nora"],
 ```
 
-### Unchanged CR-07-06 invariants
+## K. Hostile-test separation proof
 
-continuationKind required; docs_write effect required; contradictory ops rejected; github.pr.merge rejected for materialization; provider capabilities overwritten after accept; repository binding server-owned; traversal rejected; missing target → clarification; no REQUIRE_ARTIFACT → block; assess failure → block; no createCycle on recognized continuation failure.
+- Producer schema for dedicated field: ONLY `cursor.docs_write.apply` | null (Ajv T04/T05).
+- `github.pr.merge` NOT in dedicated enum.
+- Direct DTO: continuationKind set + dedicated null + generic merge → `hasCompatible=false` (T06).
+- Dedicated set + contradictory merge → blocked (T06b).
+- CORR-07 CR06-A hostile regression remains green.
 
----
+## L. Reversibility
 
-## G. Deterministic evidence
+Unchanged seam hardening: enrich strips unsourced `reversible`/`irreversible` → null; preserves `unknown`.
+
+## M. Deterministic evidence
 
 | Suite | Result |
 |------|--------|
-| CORR-09 focused | 13 passed |
-| CORR-07 regression | 32 passed |
-| `__tests__/project-assistant/` | 740 passed |
+| CORR-09 focused | 15 passed |
+| CORR-07 | 32 passed |
+| project-assistant | 742 passed |
 | typecheck / lint / build | PASS |
-| Full Vitest | **3981 passed / 137 skipped** |
+| Full Vitest | **3983 passed / 137 skipped** (361 files passed / 17 skipped) |
 
----
+ZERO LIVE this run.
 
-## H. LIVE setup
+## N. Fake/Real qualification
 
-| Item | Value |
+| Level | Status |
 |------|--------|
-| Candidate cwd | CORR-09 candidate app |
-| Port | 3020 (exclusive writer) |
-| Product DB | workspace via symlink + env |
-| Session DB | symlink → dogfood nora-session.sqlite |
-| Pre-LIVE max seq | 17 |
-| Pre-LIVE cycle count | 2 |
+| Deterministic final remediated candidate | **DETERMINISTIC PROVEN** |
+| Prior LIVE Outcome A (pre-remediation) | **HISTORICAL ONLY** — proves previous candidate, not this remediated content |
+| Fresh LIVE for remediated candidate | **REQUIRED** under a distinct later Morris GO |
+| Fresh LIVE performed this run | **NO** |
 
----
+## O. Explicit claim downgrade
 
-## I. LIVE proof — OUTCOME A
+The final remediated candidate must **NOT** claim LIVE-PROVEN.
 
-| Item | Observation |
-|------|-------------|
-| Manual sends | **1** — `Matérialise ce livrable.` |
-| User seq | **18** |
-| Assistant seq | **19** |
-| Exact Nora response | `[LIVE] Continuation cycle actif — matérialisation du livrable requis. Cycle actif conservé: cyc:trj-0a9c5104b7b6a3debe95eb8d (active). Aucun nouveau CycleInstance créé. Le chemin cible du livrable n'est pas encore déterminé dans les bornes du repository lié — précisez targetPath. Décision Pilote / PREPARE non ouverts tant que la cible n'est pas clarifiée. Recommendation ≠ HumanDecision ≠ Execution — AUCUNE EXÉCUTION.` |
-| Active cycle before | `cyc:trj-0a9c5104b7b6a3debe95eb8d` |
-| Active cycle after | `cyc:trj-0a9c5104b7b6a3debe95eb8d` (active) |
-| CycleInstance count | **2** unchanged (parasite `cyc:f2-7e5684ad5ffa42db` still acknowledged, not new) |
-| incompatible_execution_intent | **ABSENT** (gate passed) |
-| Proposal | **NO** (target clarification first) |
-| HD count | **3** unchanged |
-| EC count | **0** unchanged |
-| Clarification / Proposal accept / HD | **NOT performed** (Morris) |
-| Provider/technical error | none observed in candidate log |
-| Outcome class | **A — SAME-CYCLE TARGET CLARIFICATION** |
+Prior Outcome A (same-cycle targetPath clarification) remains evidence for the **pre-remediation** candidate only.
 
-Verdict class: **CORR-PROOF-09 LIVE CONTRACT ALIGNMENT PROVEN — SAME-CYCLE TARGET CLARIFICATION REACHED**
+Proof level now: **DETERMINISTIC PROVEN** · LIVE: **STALE FOR FINAL REMEDIATED CANDIDATE / NEW RETEST REQUIRED**.
 
----
+## P. Anti-claims
 
-## J. Baseline restore
+Not claimed: LIVE proof of remediated contract; docs_write execution; HD/EC; multi-run reliability; runtime v3 ADOPTED; Product merge readiness without Critical Review + LIVE retest GO.
 
-| Step | Result |
-|------|--------|
-| Candidate runtime stopped | yes |
-| Dogfood restarted @ `84a36a8d…` on 3020 | yes |
-| Dogfood Product tracked tree | clean (no candidate source) |
-| Product DB continuity | same workspace DB |
-| Session DB continuity | max seq **19** preserved (LIVE turn kept) |
-| Candidate WT retained | yes, uncommitted, not deleted |
+## Q. Remaining reserves
 
----
+- Soft file count 8 vs soft cap 7 — all files are the minimum for Option B + fixture alignment; no redesign beyond GO.
+- Cross-field OpenAI conditionals still unsupported → instruction + server gate.
+- Dogfood baseline left untouched; no candidate LIVE runtime.
 
-## K. Anti-claims
+## R. Next Morris gate recommendation
 
-Not claimed: general Nora reliability; multi-run reproducibility; docs_write execution; EC execution; end-to-end Artifact materialization; Proposal creation on this turn; runtime v3 ADOPTED; permanent production merge.
-
----
-
-## L. Reserves
-
-- Cross-field OpenAI schema conditionals unsupported → instruction + server gate.
-- Top-level `requestedOperation` remains free-form by design.
-- `github.pr.merge` remains in enum for fail-closed injection tests.
-- TargetPath still unresolved — expected Outcome A.
-
----
-
-## M. Recommended next Morris decision (recommendation only)
-
-1. ChatGPT Critical Review of this candidate.
-2. If accepted: Morris GO for Product commit/PR of CORR-09 candidate.
-3. Continue Product Proof: Morris supplies targetPath clarification (or binding already sufficient path) → same-cycle Proposal → stop again before HD unless a later GO authorizes Pilote decision.
-4. Do not auto-start cognitive follow-up or second LIVE.
+1. ChatGPT Critical Review of this remediation pack.
+2. If accepted: distinct Morris GO for ONE controlled LIVE retest of the remediated candidate (persistence continuity).
+3. Only after LIVE + review: consider Product commit/PR GO.
 
 ---
 
 ## Safety ledger
 
+- LIVE calls this run: **ZERO**
 - Product commit/push/PR/merge: **ZERO**
-- LIVE calls: **exactly ONE**
-- New HD / EC / docs_write / REAL: **ZERO**
-- Doctrine/Roadmap/C1: **ZERO**
+- DB/Session writes this run: **ZERO**
+- HD/EC/execution: **ZERO**
 - Runtime v3: **NON ADOPTED**
 
 ## Unique verdict
 
-**CORR-PROOF-09 LOCAL CANDIDATE LIVE-PROVEN — SAME-CYCLE TARGET CLARIFICATION REACHED — READY FOR CHATGPT CRITICAL REVIEW**
+**CORR-PROOF-09 REVIEW REMEDIATION DETERMINISTIC PASS — CR-09-01 CLOSED / CR-09-02 CLOSED — FRESH LIVE RETEST REQUIRES DISTINCT MORRIS GO — READY FOR CHATGPT CRITICAL REVIEW**
