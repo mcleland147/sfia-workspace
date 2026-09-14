@@ -1,89 +1,73 @@
 # CORR-PROOF-09 — FULL Review Pack
-## Critical Review Remediation (CR-09-01 + CR-09-02)
+## Product Integration — PR Readiness (Cycle 13)
 
 **Campaign:** SFIA Studio Product Proof — Fresh Project Full Cycle
 **Corrective unit:** CORR-PROOF-09 — Active-Cycle Materialization Intent Contract Alignment
-**This run:** CORR-PROOF-09 Critical Review Remediation
-**Type / Profile:** Delivery / EVOL / CRITICAL
+**This run:** Product integration through commit / push / PR / CI / Review Handoff
+**Type / Profile:** EVOL / CRITICAL
+**Cycle Knowledge:** PR readiness — detailed CKC absent — fallback routing + method v2.6
 **Runtime v3:** NON ADOPTED
-**Base / candidate HEAD:** `84a36a8d32f7b2632180d789e41521d6e769c681`
-**Candidate:** `/Users/morris/Projects/sfia-studio-corr-proof-09-materialization-intent-contract` @ `fix/sfia-studio-corr-proof-09-materialization-intent-contract`
-**Product Git integration:** NOT AUTHORIZED (LOCAL MODIFIED / UNCOMMITTED)
+**Timestamp (UTC):** 2026-09-14T19:12:14Z
 
 ---
 
-## A. Identity
+## A. Identity / Morris GO
 
-Same CORR-PROOF-09 unit. Do not open CORR-PROOF-10.
+Morris GO: CORR-PROOF-09 Product integration — commit + push + PR + CI + Review Handoff — **NO MERGE** until ChatGPT PR Critical Review.
 
-## B. Morris remediation GO
+Authorized: Git truth; smoke; Product commit; source push; PR create; CI observe; FULL Review Pack; L3 handoff.
 
-GO pour correction des blockers CR-09-01 et CR-09-02 du candidat CORR-PROOF-09.
+NOT AUTHORIZED / not performed: merge; auto-merge; rebase; force-push; branch/worktree deletion; candidate source edit; CI repair commits; LIVE Nora; dogfood; targetPath/HD/PREPARE/docs_write; DB mutation; doctrine/Roadmap/C1; runtime v3 promotion.
 
-Authorized: continue existing candidate; CR-09-01; CR-09-02; deterministic tests; typecheck/lint/build/full Vitest; FULL Review Pack; L3 handoff.
+---
 
-NOT AUTHORIZED / not performed: OpenAI LIVE; Nora LIVE; dogfood mutation; DB/session mutation; Product commit/push/PR/merge; model switch; second classifier; NL server normalization; weakening CR-07-06; HD/PREPARE/execution; runtime v3 promotion.
+## B. Root cause / accepted contract
 
-## C. Git truth
+CORR-PROOF-08 LIVE root cause: R2+R3 — free-form `requestedOperation` incompatible with CR-07-06 (`incompatible_execution_intent`).
+
+Final accepted design (Critical-reviewed + FINAL LIVE Outcome A):
+
+- **CR-09-01 CLOSED** — top-level `requestedOperation` remains generic/free-form outside Artifact continuation.
+- **CR-09-02 CLOSED** — `executionIntent.requestedOperation` remains generic/free-form.
+- **Option B** — dedicated `artifactMaterializationOperation` = `cursor.docs_write.apply` | null.
+- Producer enum for dedicated field: **only** `cursor.docs_write.apply` (no `github.pr.merge`).
+- Hostile contradictions via direct DTO/server tests.
+- Unsourced affirmative reversibility stripped on Artifact enrich seam.
+- CR-07-06 fail-closed preserved.
+- `targetPath` null → clarification, never invented.
+
+Artifact gate requires: `continuationKind=active_cycle_artifact_materialization` + `executionIntent.intentKind=docs_write` + `artifactMaterializationOperation=cursor.docs_write.apply` + non-contradictory generic surfaces.
+
+---
+
+## C. Git truth (pre-commit)
 
 | Item | Value |
 |------|--------|
-| origin/main | `84a36a8d…` |
-| Candidate HEAD | `84a36a8d…` |
-| Prior uncommitted CORR-09 | retained and remediating (no reset/stash) |
-| LIVE in this run | **ZERO** |
+| Worktree | `/Users/morris/Projects/sfia-studio-corr-proof-09-materialization-intent-contract` |
+| Branch | `fix/sfia-studio-corr-proof-09-materialization-intent-contract` |
+| Pre-commit HEAD / origin/main | `84a36a8d32f7b2632180d789e41521d6e769c681` |
+| Prior FINAL LIVE handoff tip | `9a390a9bdbff146178af9ae65eb4038a8abb1a95` |
+| Prior FINAL LIVE canonical blob | `0bdeca9d3a30e6b76bcc56a9362b4e501150abee` |
 
-## D. CR-09-01 original finding
+---
 
-Global rewrite of top-level `analysis.requestedOperation` as "technical operation ID only / never NL" contradicted F2 legacy free-form use (`architecture change`, `create pr`, `cursor create pr`) and risked regressing unrelated LIVE F2 cognition.
+## D. Exact Product paths (8)
 
-## E. CR-09-01 exact correction — CLOSED
+1. `projects/sfia-studio/app/features/project-assistant/f2/f2CanonicalOperations.ts` (new)
+2. `projects/sfia-studio/app/features/project-assistant/f2/executionIntentSchema.ts`
+3. `projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts`
+4. `projects/sfia-studio/app/features/project-assistant/f2/types.ts`
+5. `projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts`
+6. `projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts`
+7. `projects/sfia-studio/app/__tests__/project-assistant/corrProof09.materializationIntentContract.d0.test.ts` (new)
+8. `projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts`
 
-- Restored GENERAL producer instruction: top-level `requestedOperation` = free-form/legacy string OR null.
-- Artifact-only rule now requires dedicated `artifactMaterializationOperation=cursor.docs_write.apply` (preferred: generic surfaces null).
-- No global technical-ID obligation on top-level.
+Reserve: 8 files vs soft cap 7 — justified by dedicated field module + fixture/test alignment.
 
-## F. CR-09-02 original finding
+---
 
-Global enum on `executionIntent.requestedOperation` = {cursor.docs_write.apply, github.pr.merge} polluted the OpenAI producer contract with a hostile-only ID and was not a proven complete GCEC operation domain.
-
-## G. CR-09-02 exact correction — CLOSED
-
-- Restored `executionIntent.requestedOperation` to free-form NULLABLE_STRING (schema + validator).
-- Removed `github.pr.merge` from any producer enum.
-- Introduced Option B dedicated field `artifactMaterializationOperation`: enum `[cursor.docs_write.apply] | null` only.
-- Hostile merge remains via direct DTO injection (Fake marker / test DTO), not producer schema pollution.
-
-## H. Operation-contract inventory (reconfirmed)
-
-| Surface | Semantics after remediation |
-|---------|------------------------------|
-| Top-level `requestedOperation` | Legacy/free-form (unrelated F2) |
-| `executionIntent.requestedOperation` | Generic GCEC free-form/nullable |
-| `artifactMaterializationOperation` | Artifact-only technical discriminator |
-| Canonical action after accept | `cursor.docs_write.apply` (server-owned) |
-| Canonical capability after accept | `cap:cursor.docs_write` |
-
-No complete global operation enum exists in Product for safe OpenAI exposure → global narrowing rejected.
-
-## I. Selected final design
-
-**Option B** — dedicated nullable Artifact discriminator.
-
-Why: Option A global enum unsafe; Option B is one tagged field in existing F2 structured contract; no new service/persistence/registry/classifier/extra model call.
-
-## J. Complete useful modified content
-
-### Files (8 material Product source/test — soft-cap note: 7 requested; remediation required types + fake + corr07 fixture + new field module)
-
-1. `f2/f2CanonicalOperations.ts` (rewritten — Artifact-only constants/enum)
-2. `f2/executionIntentSchema.ts` (restore free-form requestedOperation)
-3. `f2/intentAnalysis.ts` (schema field + parse + prompt CR-09-01/02)
-4. `f2/types.ts` (DTO field)
-5. `f2/activeCycleGovernedContinuation.ts` (gate requires dedicated field + contradiction checks; reversibility strip preserved)
-6. `lib/platform/ai/fakeProvider.ts` (fixtures)
-7. `__tests__/…/corrProof09….test.ts` (rewritten)
-8. `__tests__/…/corrProof07….test.ts` (fixture alignment)
+## E. Useful Product content
 
 ### `f2CanonicalOperations.ts` (full)
 
@@ -126,7 +110,7 @@ export function isF2ArtifactMaterializationOperation(
 }
 ```
 
-### Unified diff (modified tracked Product paths)
+### Unified diff (modified tracked files)
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts
@@ -531,163 +515,115 @@ index 39418d26..88462d68 100644
              contentRequirements: ["Contenu défini avec Nora"],
 ```
 
-## K. Hostile-test separation proof
+### New test file
 
-- Producer schema for dedicated field: ONLY `cursor.docs_write.apply` | null (Ajv T04/T05).
-- `github.pr.merge` NOT in dedicated enum.
-- Direct DTO: continuationKind set + dedicated null + generic merge → `hasCompatible=false` (T06).
-- Dedicated set + contradictory merge → blocked (T06b).
-- CORR-07 CR06-A hostile regression remains green.
+`corrProof09.materializationIntentContract.d0.test.ts` — CR-09-01/02 coverage (generic free-form, dedicated enum, hostile DTO fail-closed, enrich/reversibility, Ajv schema). Present in Product commit as new file (407 lines).
 
-## L. Reversibility
+---
 
-Unchanged seam hardening: enrich strips unsourced `reversible`/`irreversible` → null; preserves `unknown`.
-
-## M. Deterministic evidence
+## F. Deterministic evidence (final candidate)
 
 | Suite | Result |
 |------|--------|
-| CORR-09 focused | 15 passed |
-| CORR-07 | 32 passed |
-| project-assistant | 742 passed |
-| typecheck / lint / build | PASS |
-| Full Vitest | **3983 passed / 137 skipped** (361 files passed / 17 skipped) |
-
-ZERO LIVE this run.
-
-## N. Fake/Real qualification
-
-| Level | Status |
-|------|--------|
-| Deterministic final remediated candidate | **DETERMINISTIC PROVEN** |
-| Prior LIVE Outcome A (pre-remediation) | **HISTORICAL ONLY** |
-| Fresh LIVE for remediated candidate | **PERFORMED** — Outcome A (this FINAL LIVE RETEST) |
-| Scope | cognitive→routing REAL boundary; targetPath clarification only |
-
-## O. Proof classification (after final LIVE)
-
-| Level | Status |
-|------|--------|
-| Deterministic remediated candidate | **DETERMINISTIC PROVEN** |
-| Final LIVE (this run) | **REAL BOUNDARY PROVEN AT TESTED SINGLE-TURN SCOPE** — Outcome A |
-| Prior pre-remediation LIVE | HISTORICAL only |
-| End-to-end Artifact / docs_write / HD / EC | **NOT proven** |
-
-FINAL REMEDIATED CANDIDATE = DETERMINISTIC PROVEN + REAL BOUNDARY PROVEN AT TESTED SINGLE-TURN SCOPE.
-
-Do **NOT** claim END-TO-END REAL PROVEN.
-
-## P. Anti-claims
-
-Not claimed: LIVE proof of remediated contract; docs_write execution; HD/EC; multi-run reliability; runtime v3 ADOPTED; Product merge readiness without Critical Review + LIVE retest GO.
-
-## Q. Remaining reserves
-
-- Soft file count 8 vs soft cap 7 — all files are the minimum for Option B + fixture alignment; no redesign beyond GO.
-- Cross-field OpenAI conditionals still unsupported → instruction + server gate.
-- Dogfood baseline left untouched; no candidate LIVE runtime.
-
-## R. Next Morris gate recommendation
-
-1. ChatGPT Critical Review of this FINAL LIVE Outcome A pack.
-2. If accepted: Morris GO for Product commit/PR of the CORR-PROOF-09 candidate.
-3. Continue Product Proof: supply targetPath clarification (or trusted binding path) → same-cycle Proposal → stop before HD unless a later GO authorizes Pilote decision.
-4. Do not auto-start HD / PREPARE / docs_write.
-
----
-
-## Safety ledger
-
-- LIVE calls (remediation run): **ZERO**; FINAL LIVE retest: **EXACTLY ONE**
-- Product commit/push/PR/merge: **ZERO**
-- DB/Session writes this run: **ZERO**
-- HD/EC/execution: **ZERO**
-- Runtime v3: **NON ADOPTED**
-
-
-
----
-
-## FINAL LIVE RETEST — remediated candidate
-
-**Timestamp (UTC):** 2026-09-14T19:01:11Z
-**Morris distinct LIVE GO:** ONE controlled LIVE retest of the final remediated CORR-PROOF-09 candidate.
-**Operational cycle:** RUN / Validation / CRITICAL
-**Source edits since Critical Review remediation handoff `8c862aee…`:** **ZERO** (Product diff set unchanged: 8 reviewed files only).
-
-### Candidate Git truth at LIVE
-
-| Item | Value |
-|------|--------|
-| Worktree | `/Users/morris/Projects/sfia-studio-corr-proof-09-materialization-intent-contract` |
-| Branch | `fix/sfia-studio-corr-proof-09-materialization-intent-contract` |
-| HEAD / origin/main | `84a36a8d32f7b2632180d789e41521d6e769c681` |
-| Product source drift | NONE vs reviewed remediation set |
-
-### Pre-LIVE smoke
-
-| Check | Result |
-|------|--------|
 | CORR-09 | 15 PASS |
 | CORR-07 | 32 PASS |
-| typecheck | PASS |
+| project-assistant | 742 PASS |
+| Full Vitest | 3983 PASS / 137 skipped |
+| typecheck / lint / build | PASS |
+| Pre-integration smoke | CORR-09 15 + CORR-07 32 + typecheck PASS + `git diff --check` PASS |
 
-### Persistence / runtime continuity
+ZERO additional LIVE during integration.
 
-| Item | Value |
-|------|--------|
-| Baseline dogfood PID before stop | **4574** (cwd dogfood app) |
-| Candidate PID | **51453** (cwd candidate app) |
-| Exclusive writer | yes (dogfood stopped before candidate start) |
-| Product DB | workspace `oa-product.sqlite` via symlink + env |
-| Session DB | symlink → dogfood `nora-session.sqlite` |
-| Pre max seq | **19** |
-| Pre cycle count / HD / EC | **2** / **3** / **0** |
-| Active cycle pre | `cyc:trj-0a9c5104b7b6a3debe95eb8d` (active) |
+---
 
-### Controlled LIVE
+## G. FINAL LIVE evidence (preserved)
 
 | Item | Value |
 |------|--------|
-| Manual sends | **exactly 1** |
+| Manual sends | exactly 1 |
 | User text | `Matérialise ce livrable.` |
-| User seq | **20** |
-| Assistant seq | **21** |
-| Exact Nora response | `[LIVE] Continuation cycle actif — matérialisation du livrable requis. Cycle actif conservé: cyc:trj-0a9c5104b7b6a3debe95eb8d (active). Aucun nouveau CycleInstance créé. Le chemin cible du livrable n'est pas encore déterminé dans les bornes du repository lié — précisez targetPath. Décision Pilote / PREPARE non ouverts tant que la cible n'est pas clarifiée. Recommendation ≠ HumanDecision ≠ Execution — AUCUNE EXÉCUTION.` |
-| incompatible_execution_intent | **ABSENT** |
-| Provider/technical/schema errors | none observed in candidate log |
-| TargetPath response / Proposal accept / HD | **NOT performed** |
+| User/assistant seq | 20 / 21 |
+| Nora | same-cycle continuation; précisez targetPath; no incompatible_execution_intent |
+| Active cycle | `cyc:trj-0a9c5104b7b6a3debe95eb8d` unchanged |
+| CycleInstance | 2 → 2 |
+| Proposal / HD / EC | none new / 3→3 / 0→0 |
+| Outcome | **A — SAME-CYCLE TARGET CLARIFICATION** |
 
-### Product deltas
+Proof classification:
+**DETERMINISTIC PROVEN + REAL BOUNDARY PROVEN AT TESTED SINGLE-TURN SCOPE**
 
-| Item | Before | After |
-|------|--------|-------|
-| Active cycle | `cyc:trj-0a9c5104b7b6a3debe95eb8d` | same (active) |
-| CycleInstance count | 2 | **2** (delta 0) |
-| Proposal | none new | **none** |
-| HD | 3 | **3** |
-| EC | 0 | **0** |
+---
 
-### Outcome
+## H. Anti-claims
 
-**OUTCOME A — SAME-CYCLE TARGET CLARIFICATION**
+Not claimed: end-to-end Artifact; docs_write REAL; HD/EC proof; general Nora reliability; runtime v3 ADOPTED; CI green ≠ functional expansion; PR open ≠ merge authorization.
 
-Verdict: **CORR-PROOF-09 FINAL REMEDIATED CANDIDATE LIVE-PROVEN — SAME-CYCLE TARGET CLARIFICATION REACHED**
+---
 
-### Baseline restore
+## I. INTEGRATION (filled during this run)
 
-| Step | Result |
+### Pre-commit
+
+| Item | Value |
 |------|--------|
-| Candidate stopped | yes (PID 51453) |
-| Dogfood restarted @ `84a36a8d…` on 3020 | yes |
-| Dogfood Product tracked tree | clean (no candidate leak) |
-| Session turn preserved | max seq **21** |
-| Product DB continuity | same workspace DB |
-| Candidate retained | local modified / uncommitted |
-| Product commit/push/PR/merge | **ZERO** |
-| docs_write / Cursor REAL | **ZERO** |
-| Runtime v3 | **NON ADOPTED** |
+| Morris GO | commit + push + PR + CI + handoff — NO MERGE |
+| origin/main before commit | `84a36a8d32f7b2632180d789e41521d6e769c681` |
+| Staged paths | exactly the 8 Product paths above |
+| Product commit subject | `fix(sfia-studio): align artifact materialization intent contract` |
+
+### Commit / push / PR / CI
+
+*(Updated immediately after each step — placeholders replaced by Cursor during integration.)*
+
+### Commit / push / PR / CI
+
+| Item | Value |
+|------|--------|
+| Timestamp (UTC) | 2026-09-14T19:18:50Z |
+| Morris GO | GO CORR-PROOF-09 Product integration — commit + push + PR + CI + Review Handoff — NO MERGE until ChatGPT PR Critical Review |
+| current main/base | `84a36a8d32f7b2632180d789e41521d6e769c681` |
+| candidate branch | `fix/sfia-studio-corr-proof-09-materialization-intent-contract` |
+| pre-commit HEAD | `84a36a8d32f7b2632180d789e41521d6e769c681` |
+| exact staged paths | 8 Product paths listed in section D |
+| Product commit SHA | `85b1443ecbd7d1998795d18749267106e33c901d` |
+| Product commit parent | `84a36a8d32f7b2632180d789e41521d6e769c681` |
+| Product commit subject | `fix(sfia-studio): align artifact materialization intent contract` |
+| exact commit files | 8 Product paths (A×2 + M×6) |
+| remote source branch SHA | `85b1443ecbd7d1998795d18749267106e33c901d` |
+| PR number | 485 |
+| PR URL | https://github.com/mcleland147/sfia-workspace/pull/485 |
+| PR title | fix(sfia-studio): align artifact materialization intent contract |
+| PR base ref/SHA | `main` / `84a36a8d32f7b2632180d789e41521d6e769c681` |
+| PR head ref/SHA | `fix/sfia-studio-corr-proof-09-materialization-intent-contract` / `85b1443ecbd7d1998795d18749267106e33c901d` |
+| exact changed files | same 8 Product paths |
+| CI workflow run | `34885511776` (SFIA Studio CI) — conclusion **success** |
+| CI jobs | Detect `104115072068` PASS; Build/validate `104115114233` PASS (typecheck/lint/build/vitest); Required Gate `104116900313` PASS |
+| Required Gate | **PASS** |
+| origin/main after CI | `84a36a8d32f7b2632180d789e41521d6e769c681` (no base drift) |
+| proof classification preserved | DETERMINISTIC PROVEN + REAL BOUNDARY PROVEN AT TESTED SINGLE-TURN SCOPE |
+| FINAL LIVE evidence preserved | Outcome A — single-turn targetPath clarification |
+| ZERO additional LIVE during integration | confirmed |
+| ZERO dogfood interaction | confirmed |
+| ZERO DB/session mutation | confirmed |
+| merge NOT AUTHORIZED | confirmed |
+| merge NOT performed | confirmed |
+| source branch preserved | confirmed |
+| runtime v3 | NON ADOPTED |
+| reserves remaining | 8-file soft-cap reserve; cross-field relation = instruction + server fail-closed; not E2E/docs_write/HD/EC |
+| phase verdict | **CORR-PROOF-09 PR READY — CI GREEN — READY FOR CHATGPT PR CRITICAL REVIEW — NO MERGE** |
+
+---
+
+## J. Safety ledger
+
+- Additional source edits during integration: ZERO
+- Product commit: EXACTLY ONE
+- Source push: authorized branch only
+- PR: EXACTLY ONE
+- Merge / auto-merge: ZERO
+- LIVE / dogfood / DB: ZERO
+- Runtime v3: NON ADOPTED
 
 ## Unique verdict
 
-**CORR-PROOF-09 FINAL REMEDIATED CANDIDATE LIVE-PROVEN — SAME-CYCLE TARGET CLARIFICATION REACHED — READY FOR CHATGPT CRITICAL REVIEW**
+CORR-PROOF-09 PR READY — CI GREEN — READY FOR CHATGPT PR CRITICAL REVIEW — NO MERGE
