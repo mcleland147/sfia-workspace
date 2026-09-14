@@ -1,338 +1,111 @@
-# CORR-PROOF-07 — Review Pack (CR-07-06 CLOSED)
+# SFIA Studio Product Proof — Dogfood Refresh after CORR-PROOF-07
 
-**Timestamp (UTC):** 2026-09-14T12:42:29Z
-**Cycle:** CORR-PROOF-07 — Active-Cycle Artifact Materialization Continuation
-**Intervention:** CONTINUATION / CRITICAL REVIEW CORRECTION — **CR-07-06** only
-**Typologie:** EVOL
+**Timestamp (UTC):** 2026-09-14T13:55:55Z
+**Campaign:** SFIA Studio Product Proof — Fresh Project Full Cycle
+**Continuation:** post-CORR-PROOF-07 dogfood refresh
+**Type:** RUN / Validation
 **Profil:** CRITICAL
+**Construction cycle:** CORR-PROOF-07 CLOSED — MERGED / POST-MERGE VERIFIED
 **Runtime v3:** NON ADOPTED
-**Mode:** LOCAL ONLY · ZERO REAL · ZERO dogfood Product mutation
+**Proof level this run:** ENVIRONMENT / CONTINUITY READINESS only
+**REAL Nora:** NOT EXERCISED
 
-**Prior verdict (ChatGPT):** `CHANGES REQUIRED — CR-07-06 ACTION/CAPABILITY CONFUSION`
-→ then: `CR-07-06 CLOSED — CHATGPT CRITICAL REVIEW PASS`
-→ then: `CORR-PROOF-07 LOCAL CANDIDATE ACCEPTABLE — READY FOR MORRIS INTEGRATION GATE`
-→ then: `CORR-PROOF-07 PR #484 — CHATGPT CRITICAL REVIEW PASS` / `READY FOR MORRIS MERGE GATE`
-
-**Verdict final (this pack):** `CORR-PROOF-07 MERGED / POST-MERGE VERIFIED — READY FOR DOGFOOD REFRESH PREPARATION`
+**Verdict:** `DOGFOOD REFRESH ACCEPTED — MANUAL PRODUCT PROOF RESUME READY`
 
 ```
-STOP BEFORE DOGFOOD REFRESH — SOURCE BRANCH PRESERVED
+STOP BEFORE NORA INTERACTION — MANUAL PRODUCT PROOF RESUME
 ```
 
 ---
 
-## A. LOCAL GIT TRUTH
-
-| Field | Value |
-|---|---|
-| Repository | `mcleland147/sfia-workspace` (`https://github.com/mcleland147/sfia-workspace.git`) |
-| Worktree | `/Users/morris/Projects/sfia-studio-corr-proof-07-artifact-materialization` |
-| Branch | `fix/sfia-studio-corr-proof-07-artifact-materialization` |
-| HEAD | `9c4edb0bd8c5b22875ffe39af088abde67a354ec` |
-| origin/main | `9c4edb0bd8c5b22875ffe39af088abde67a354ec` |
-| merge-base | `9c4edb0bd8c5b22875ffe39af088abde67a354ec` |
-| ahead/behind | `0 / 0` |
-
-**Status before CR-07-06 (candidate CORR-07 already present, uncommitted):**
-- Modified Product: `intentAnalysis.ts`, `orchestrateF2.ts`, `studioCognitiveContext.ts`, `transitionReadiness.ts`, `types.ts`, `fakeProvider.ts`
-- Untracked Product: `activeCycleGovernedContinuation.ts`, `corrProof07.artifactMaterialization.d0.test.ts`
-- Review artifacts under `.tmp-sfia-review/`
-
-**Status after CR-07-06 (still uncommitted — ZERO commit):**
-Same candidate files; CR-07-06 touched:
-- `activeCycleGovernedContinuation.ts` (ADAPT — primary seam)
-- `corrProof07.artifactMaterialization.d0.test.ts` (ADAPT — CR06-A..D)
-- `fakeProvider.ts` (minimal marker `__F2_ARTIFACT_HOSTILE_MERGE_OP__` for orchestrated hostile proof)
-
-**No foreign / non-CORR-07 changes mixed in Product tree.**
-
----
-
-## B. SOURCES CONSULTÉES
-
-- Build Doctrine / Roadmap / C1 (hierarchy only; not modified)
-- v3 framing 30 / 34 / 35 (authority boundaries; not modified)
-- Local owner: `activeCycleGovernedContinuation.ts`
-- Downstream proof (READ-ONLY): `prepareM3FromDecision.ts` — confirms M3 would transport a non-empty `requestedOperation` as EC `action` and preserve provider `requiredCapabilities` if contradictory values reached DecisionBasis. Fix is therefore **upstream** (this seam).
-
----
-
-## C. DIAGNOSTIC CR-07-06 (CONFIRMED)
-
-**Root cause:** `hasCompatibleDocsWriteMaterializationEffect` returned `true` as soon as `intentKind === "docs_write"`, **ignoring** a contradictory non-empty `requestedOperation` (e.g. `github.pr.merge`).
-
-**Secondary leak:** `enrichExecutionIntentFromBinding` preserved provider `requestedOperation` when non-blank, and preserved arbitrary non-empty `requiredCapabilities`.
-
-**Downstream risk (unchanged M3):** `prepareM3FromDecision` sets `action = requested` whenever `requested` is non-empty — so a contradictory op that reached DecisionBasis would become the EC action. CR-07-06 closes this **before Proposal / DecisionBasis**.
-
-**Not required:** generic M3 semantic change, schema, persistence, doctrine, architecture parallel.
-
----
-
-## D. CORRECTION PRODUCT
-
-### Files ADAPT (this CR)
-
-1. `projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts`
-2. `projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts`
-3. `projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts` (test-only hostile marker)
-
-### Files KEEP / READ-ONLY (inspected, not modified for CR-07-06)
-
-- `orchestrateF2.ts` — existing BLOCKED path already consumes `incompatible_execution_intent`
-- `intentAnalysis.ts`, `transitionReadiness.ts`, `types.ts`, `studioCognitiveContext.ts`
-- `prepareM3FromDecision.ts`
-
-### Fail-closed logic (final)
-
-For `continuationKind = active_cycle_artifact_materialization`:
-
-1. Explicit kind required (CR-07-04/05 preserved).
-2. Effect must be docs_write-compatible **and** every present `requestedOperation` (executionIntent **and** analysis surface) must be:
-   - absent / null / blank after trim, **OR**
-   - exactly `cursor.docs_write.apply`
-3. Any other non-empty op → `ACTIVE_CYCLE_CONTINUATION_BLOCKED` / `incompatible_execution_intent`
-   - **before** Proposal, DecisionBasis, createCycle, M3.
-4. Contradiction is **rejected**, never silently rewritten to docs_write.
-
-### Canonicalisation after acceptance (server-owned)
-
-Via `withCanonicalArtifactMaterializationAction`:
-
-- `requestedOperation` = `cursor.docs_write.apply`
-- `requiredCapabilities` = `["cap:cursor.docs_write"]`
-
-`TECHNICAL CAPABILITY ≠ EXECUTION AUTHORITY` — HumanDecision / Confirmation / EC gates unchanged.
-
-### BLOCKED position in flow
-
-`resolveActiveCycleGovernedContinuation` → early return `ACTIVE_CYCLE_CONTINUATION_BLOCKED` when kind present but effect/op incompatible → `orchestrateF2` emits clarification/block with **ZERO Proposal**, **ZERO createCycle**.
-
----
-
-## E. REVIEWABLE PRODUCT CONTENT — CR-07-06 SEAM
-
-### Constants + operation gate + effect check
-
-```typescript
-export const F2_ARTIFACT_MATERIALIZATION_OPERATION =
-  "cursor.docs_write.apply" as const;
-
-export const F2_ARTIFACT_MATERIALIZATION_CAPABILITIES = [
-  "cap:cursor.docs_write",
-] as const;
-
-export function isBlankOrCanonicalDocsWriteOperation(raw: unknown): boolean {
-  if (raw === null || raw === undefined) return true;
-  if (typeof raw !== "string") return false;
-  const t = raw.trim();
-  return t.length === 0 || t === F2_ARTIFACT_MATERIALIZATION_OPERATION;
-}
-
-export function hasCompatibleDocsWriteMaterializationEffect(
-  analysis: IntentAnalysisDto,
-): boolean {
-  if (!analysis.parseOk) return false;
-  if (
-    analysis.intentClass !== "actionable" &&
-    analysis.intentClass !== "execution_request"
-  ) {
-    return false;
-  }
-  const ei = analysis.executionIntent;
-  if (!ei) return false;
-
-  // Fail-closed on contradictory ops at executionIntent OR analysis surface.
-  if (!isBlankOrCanonicalDocsWriteOperation(ei.requestedOperation)) {
-    return false;
-  }
-  if (!isBlankOrCanonicalDocsWriteOperation(analysis.requestedOperation)) {
-    return false;
-  }
-
-  if (ei.intentKind === "docs_write") return true;
-  const op = (ei.requestedOperation ?? analysis.requestedOperation ?? "").trim();
-  return op === F2_ARTIFACT_MATERIALIZATION_OPERATION;
-}
-```
-
-### Canonicalisation helper used by enrich
-
-```typescript
-function withCanonicalArtifactMaterializationAction(
-  payload: ExecutionIntentPayload,
-): ExecutionIntentPayload {
-  return {
-    ...payload,
-    intentKind: "docs_write",
-    requestedOperation: F2_ARTIFACT_MATERIALIZATION_OPERATION,
-    requiredCapabilities: [...F2_ARTIFACT_MATERIALIZATION_CAPABILITIES],
-  };
-}
-```
-
-All enrich return paths wrap through this helper (binding absent / invalid pathRoot / success).
-
-**Full file copies for ChatGPT:**
-- `.tmp-sfia-review/activeCycleGovernedContinuation.ts` (complete, 543 lines)
-- `.tmp-sfia-review/activeCycleGovernedContinuation.ts.diff` (add-style full file)
-
-### fakeProvider hostile marker (orchestrate coverage)
-
-Marker: `__F2_ARTIFACT_HOSTILE_MERGE_OP__`
-Checked **before** `__F2_ARTIFACT_MATERIALIZE__` (substring risk).
-Payload: `intentKind: "docs_write"` + `requestedOperation: "github.pr.merge"`.
-
----
-
-## F. INVARIANTS OBTAINUS (CR-07-01..06)
-
-| ID | Invariant | Status |
-|---|---|---|
-| CR-07-01 | `scopeIn` effective = `[canonical pathRoot]` only | PRESERVED |
-| CR-07-02 | reject absolute / `..` / out-of-root targets | PRESERVED |
-| CR-07-03 | never invent `reversibilityExpectation` | PRESERVED |
-| CR-07-04 | need kind **and** docs_write-compatible effect; docs_write alone ≠ Artifact continuation | PRESERVED |
-| CR-07-05 | recognized continuation + durable failure → BLOCKED (never silent NEW_CYCLE) | PRESERVED |
-| CR-07-06 | contradictory `requestedOperation` → BLOCKED; accepted continuation uses server-owned action+caps | **CLOSED** |
-
-Also preserved: active cycle durable check; CURRENT REQUIRE_ARTIFACT exact; old-cycle non-contamination; no auto HumanDecision / EC / REAL; no new CycleInstance on valid continuation.
-
----
-
-## G. TEST MATRIX (CR-07-06)
-
-| Case | Proof | Expected |
-|---|---|---|
-| CR06-A | `docs_write` + `github.pr.merge` resolve + orchestrate | `ACTIVE_CYCLE_CONTINUATION_BLOCKED` / `incompatible_execution_intent`; ZERO Proposal; createCycle NOT CALLED |
-| CR06-B | blank/null op | accepted; effective op=`cursor.docs_write.apply`; caps=`["cap:cursor.docs_write"]` |
-| CR06-C | canonical op | accepted; effective unchanged canonical |
-| CR06-D | arbitrary provider caps | after enrich, only `["cap:cursor.docs_write"]` |
-
-Prior CR-07-01..05 tests retained and green (suite total **32**).
-
----
-
-## H. VALIDATIONS (exact)
-
-| Step | Command | Exit | Result |
-|---|---|---|---|
-| 1 Focused CORR-07 | `npm test -- __tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts` | 0 | **32 passed** / 0 failed |
-| 2 CORR-06 | `npm test -- __tests__/oa/cycle/corrProof06.artifactObligation.d0.test.ts` | 0 | **13 passed** |
-| 2 F2 | `npm test -- __tests__/project-assistant/f2` | 0 | **31 passed** (2 files) |
-| 2 Lifecycle | `greenfieldLifecycleBootstrap` + `f3.fixtureVerticalSlice` | 0 | **31 passed** |
-| 2 M3 / active-cycle | `gux15.resolveM3ExecutionContract` + `qa-pre-m6-01.postGoDurableM3Path` + `activeCycleCognitiveWork` | 0 | **78 passed** |
-| 3 typecheck | `npm run typecheck` | 0 | clean |
-| 4 lint | `npm run lint` | 0 | No ESLint warnings or errors |
-| 5 build | `npm run build` | 0 | Compiled successfully |
-| 6 full | `npm test` | 0 | **3968 passed** / **137 skipped** / **0 failed** (360 files passed \| 17 skipped) |
-
-Working directory for all npm commands:
-`/Users/morris/Projects/sfia-studio-corr-proof-07-artifact-materialization/projects/sfia-studio/app`
-
----
-
-## I. RÉSERVES / DETTE
-
-- Deterministic Product tests ≠ proof of live REAL Cursor behavior.
-- `prepareM3FromDecision` still trusts DecisionBasis ops/caps generically; CR-07-06 prevents contradictory Artifact-continuation payloads from entering that path. Broader M3 hardening remains **out of scope** (and was correctly not opened).
-- Nora REAL retest required after merge + dogfood refresh (not in this run).
-- Actual Artifact materialization still to prove naturally in Product Proof.
-- Evidence / ReviewBundle / Git applicability remain Product Proof continuation topics.
-
----
-
-## J. GATES / AUTHORITY CONSUMED
-
-### Prior (CR-07-06 local fix)
-- Morris authorized: local investigation, CR-07-06 bounded fix, local tests, Review Pack.
-
-### This run — PROJECT GIT INTEGRATION / PR READINESS (Morris GO consumed)
-- commit local du candidat CORR-PROOF-07 accepté par ChatGPT ;
-- push normal de la branche projet ;
-- création de la PR vers main ;
-- exécution / observation de la CI ;
-- publication du Review Handoff canonique via `scripts/sfia/publish-review-handoff.sh` ;
-- vérification distante du handoff.
-
-### Still NOT authorized
-- merge ;
-- squash/rebase de la PR ;
-- suppression de branche ;
-- force push ;
-- modification Product supplémentaire ;
-- dogfood refresh/restart ;
-- Product DB mutation ;
-- REAL ;
-- doctrine / Build Doctrine / Roadmap / C1 ;
-- promotion runtime v3.
-
-Confirmations this run:
-- ZERO REAL
-- dogfood untouched
-- Product DB untouched
-- no schema/migration
-- no doctrine/Roadmap/C1
-- ZERO merge
-- source branch preserved
-
----
-
-## L. PROJECT GIT INTEGRATION (this run)
-
-**Timestamp (UTC):** 2026-09-14T13:08:30Z (CI terminal) / publish follows
-**Morris GO:** PROJECT GIT INTEGRATION / PR READINESS — STOP BEFORE MERGE
+## A. Git truth
 
 | Field | Value |
 |---|---|
 | Repository | `mcleland147/sfia-workspace` |
-| Worktree | `/Users/morris/Projects/sfia-studio-corr-proof-07-artifact-materialization` |
-| Branch | `fix/sfia-studio-corr-proof-07-artifact-materialization` |
-| Base SHA / origin/main | `9c4edb0bd8c5b22875ffe39af088abde67a354ec` |
-| Product commit SHA | `e942af5f7acc53bcf4587a9553ac0ffb4a6a5272` |
-| Commit subject | `fix(sfia-studio): continue artifact materialization in active cycle` |
-| Remote source branch SHA | `e942af5f7acc53bcf4587a9553ac0ffb4a6a5272` |
-| PR | **#484** — https://github.com/mcleland147/sfia-workspace/pull/484 |
-| PR base | `main` @ `9c4edb0bd8c5b22875ffe39af088abde67a354ec` |
-| PR head | `fix/sfia-studio-corr-proof-07-artifact-materialization` @ `e942af5f7acc53bcf4587a9553ac0ffb4a6a5272` |
-| PR state | OPEN |
-| Mergeable | MERGEABLE |
-| mergeStateStatus | CLEAN (after CI) |
+| Worktree | `/Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d` |
+| Mode | detached HEAD |
+| HEAD before | `9c4edb0bd8c5b22875ffe39af088abde67a354ec` |
+| origin/main / target | `84a36a8d32f7b2632180d789e41521d6e769c681` |
+| HEAD after | `84a36a8d32f7b2632180d789e41521d6e769c681` |
+| Switch | `git switch --detach 84a36a8d…` |
+| Staged before/after | none |
+| Modified/untracked tracked | none (clean) |
+| Dirty | no |
 
-### Exact 8 files in Product commit / PR
+PR integrated: **#484**
 
-```
-A  projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts
-A  projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
-M  projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
-M  projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-M  projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts
-M  projects/sfia-studio/app/features/project-assistant/f2/transitionReadiness.ts
-M  projects/sfia-studio/app/features/project-assistant/f2/types.ts
-M  projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-```
+---
 
-Diff stat Product commit: **8 files changed, 2607 insertions(+), 11 deletions(-)**
-`.tmp-sfia-review/**` **excluded** from Product commit (local only).
+## B. Persistence
 
-### CI — run `34846890398` (SFIA Studio CI)
+| Field | Value |
+|---|---|
+| DB path | `/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/product/oa-product.sqlite` |
+| Exists before | yes — SQLite 3.x, size 2744320 bytes, mtime Sep 14 09:08 |
+| SHA-256 before switch | `a110db0b2b6cdc2230f8f44d5c132e87de8bf21ef9a00b78be607cde83f82f80` |
+| SHA-256 after switch (pre-start) | identical |
+| WAL before | absent |
+| SHM before | absent |
+| Exists after start | yes — same path |
+| Reset/seed/recreate/migration | **ZERO** |
+| New DB / path change | **ZERO** |
 
-| Check | Conclusion | Duration | Job URL |
-|---|---|---|---|
-| Detect SFIA Studio changes | **SUCCESS** | 6s | https://github.com/mcleland147/sfia-workspace/actions/runs/34846890398/job/103984914492 |
-| Build and validate SFIA Studio | **SUCCESS** | 4m14s | https://github.com/mcleland147/sfia-workspace/actions/runs/34846890398/job/103984963838 |
-| SFIA Studio Required Gate | **SUCCESS** | 4s | https://github.com/mcleland147/sfia-workspace/actions/runs/34846890398/job/103986348003 |
+`.env.local`:
+- exists as **symlink**
+- target: `/Users/morris/Projects/sfia-workspace-studio-dogfood-01/projects/sfia-studio/app/.env.local`
+- target exists: yes
+- preserved after switch: yes
+- secrets: not displayed
 
-**Required Gate:** PASS
-**Workflow:** https://github.com/mcleland147/sfia-workspace/actions/runs/34846890398
+---
 
-### Structural PR verification
-- exactly 8 Product/test files — OK
-- no `.tmp-sfia-review/**` — OK
-- no doctrine / Roadmap / C1 / v3 framing / migration / schema — OK
-- base/head SHAs match accepted candidate — OK
+## C. Runtime
 
-### Review Handoff identity (publisher resolves; not self-embedded)
+| Field | Value |
+|---|---|
+| Prior listener on 3020 | none |
+| Stop result | N/A (port free) |
+| Launch cwd | `…/product-proof-preflight-35b1371d/projects/sfia-studio/app` |
+| Launch command | `npm run dev` → `next dev --port 3020` |
+| npm PID | `75570` |
+| next-server LISTEN PID | `75588` |
+| Listener cwd | dogfood app path (confirmed) |
+| Port 3020 | LISTEN (IPv6 `*:3020`) |
+| Ready | `Ready in 1094ms` (Next.js 15.5.20) |
+| Log | `/tmp/sfia-studio-product-proof-3020.log` |
+| Fatal errors | none observed |
+
+HTTP readiness (GET only):
+- `GET /` → **307** → `/login?error=NO_SESSION&from=%2F`
+- `GET /login` → **200**
+- `GET /studio` → **307** (auth redirect)
+
+node_modules reused (no npm install/ci). package.json/lockfile untouched by PR #484.
+
+---
+
+## D. Product interaction
+
+- ZERO POST / Product action by Cursor
+- ZERO Nora call
+- ZERO Project/cycle/decision mutation by Cursor
+- Manual next step reserved for Morris in browser
+
+---
+
+## E. Git effects
+
+- ZERO Product commit
+- ZERO Product push
+- ZERO PR
+- ZERO merge
+- Detached dogfood HEAD = exact merge SHA
+- No reset --hard / clean / stash / rebase
+
+---
+
+## F. Review Handoff identity
 
 ```
 Remote tip:
@@ -347,113 +120,24 @@ REQUIRED BY CANONICAL PUBLISHER
 
 Publisher: `scripts/sfia/publish-review-handoff.sh`
 Handoff worktree: `/Users/morris/Projects/sfia-workspace/sfia-review-handoff`
-Branch: `sfia/review-handoff`
-Canonical path: `sfia-review-handoff/latest-chatgpt-review.md`
-Commit message: `docs(review): publish CORR-PROOF-07 PR readiness`
-
-### Next gate (at PR readiness)
-ChatGPT PR Critical Review → Morris merge GO — **CONSUMED in section M**.
+Commit message: `docs(review): publish post-CORR-PROOF-07 dogfood refresh`
 
 ---
 
-## M. POST-MERGE VERIFICATION (this run)
+## G. Remaining proof (manual)
 
-**Timestamp (UTC):** 2026-09-14T13:39:19Z (post-merge CI terminal)
-**Morris merge GO:** CONSUMED
-**Command:** `gh pr merge 484 --merge` (no squash / no rebase / no delete-branch)
+Morris opens the same Product manually, verifies persisted Project/cycle for « Gestion de tâches », then submits exactly:
 
-| Field | Value |
-|---|---|
-| PR | **#484** MERGED — https://github.com/mcleland147/sfia-workspace/pull/484 |
-| mergedAt | `2026-09-14T13:32:44Z` |
-| Pre-merge base / P1 | `9c4edb0bd8c5b22875ffe39af088abde67a354ec` |
-| Product head / P2 | `e942af5f7acc53bcf4587a9553ac0ffb4a6a5272` |
-| **Actual merge SHA** | `84a36a8d32f7b2632180d789e41521d6e769c681` |
-| Merge parents | P1=`9c4edb0…` · P2=`e942af5f…` |
-| head→merge content delta | **ZERO** (`git diff --exit-code` exit 0) |
-| origin/main post-merge | `84a36a8d32f7b2632180d789e41521d6e769c681` |
-| Source branch | `fix/sfia-studio-corr-proof-07-artifact-materialization` **PRESERVED** @ `e942af5f…` |
+`Matérialise ce livrable.`
 
-### Exact 8 integrated files (base→merge)
-
-```
-A  projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts
-A  projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
-M  projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
-M  projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-M  projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts
-M  projects/sfia-studio/app/features/project-assistant/f2/transitionReadiness.ts
-M  projects/sfia-studio/app/features/project-assistant/f2/types.ts
-M  projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-```
-
-No doctrine / Roadmap / C1 / migration / schema / `.tmp-sfia-review/**`.
-
-### Post-merge CI — run `34849903291`
-
-Workflow: https://github.com/mcleland147/sfia-workspace/actions/runs/34849903291
-Event: push to `main` @ `84a36a8d…`
-Conclusion: **success**
-
-| Job | Conclusion |
-|---|---|
-| Detect SFIA Studio changes | **SUCCESS** |
-| Build and validate SFIA Studio | **SUCCESS** |
-| SFIA Studio Required Gate | **SUCCESS** / **PASS** |
-
-### Claims authorized
-- CORR-PROOF-07 PRODUCT CHANGE = **INTEGRATED ON MAIN / POST-MERGE VERIFIED**
-- CR-07-01..06 = **INTEGRATED AT DETERMINISTIC PRODUCT SCOPE**
-
-### Claims NOT authorized
-- Nora REAL behavior proven post-merge
-- Artifact actually materialized in dogfood
-- ExecutionContract end-to-end naturally exercised
-- Evidence / ReviewBundle applicability proven
-- runtime v3 ADOPTED
-- generalized docs_write autonomy / Git authority
-
-`DETERMINISTIC PROVEN ≠ REAL PROVEN`
-
-### Safety
-- ZERO REAL
-- dogfood untouched (`sfia-studio-product-proof-preflight-35b1371d`)
-- Product DB untouched
-- no schema/migration
-- no doctrine/Roadmap/C1
-- runtime v3 NON ADOPTED
-- source branch preserved
-
-### Next proof (NOT executed in this run)
-- refresh same dogfood WITHOUT DB reset
-- restart latest merged code
-- resume exact persisted Project/cycle state
-- retest naturally from: “Matérialise ce livrable”
-- observe whether same active cycle is retained
-- observe Proposal / Pilot decision path
-- do not force execution if Product naturally requires clarification/gates
-
-### Review Handoff identity (publisher resolves; not self-embedded)
-
-```
-Remote tip:
-RESOLVE FROM CURRENT GIT — intentionally not embedded
-
-Canonical blob:
-RESOLVE FROM CURRENT GIT — intentionally not embedded
-
-Remote verification:
-REQUIRED BY CANONICAL PUBLISHER
-```
-
-Publisher commit message: `docs(review): publish CORR-PROOF-07 post-merge verification`
+Observe naturally; do not pre-seed Nora with expected mechanics.
 
 ---
 
-## K. VERDICT
+## H. Verdict
 
-**CORR-PROOF-07 MERGED / POST-MERGE VERIFIED — READY FOR DOGFOOD REFRESH PREPARATION**
+**DOGFOOD REFRESH ACCEPTED — MANUAL PRODUCT PROOF RESUME READY**
 
 ```
-STOP BEFORE DOGFOOD REFRESH — SOURCE BRANCH PRESERVED
+STOP BEFORE NORA INTERACTION
 ```
