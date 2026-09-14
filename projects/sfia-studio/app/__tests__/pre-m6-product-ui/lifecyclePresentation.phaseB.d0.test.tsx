@@ -13,10 +13,12 @@ import type {
 } from "@/lib/oa/cycle";
 import {
   canOfferGroupedNoGovernedEffects,
+  canOfferRequireArtifact,
   lifecycleCtaPresentation,
   lifecycleStatusBadge,
   nonHumanDecisionBlockers,
   readyExceptFinalizeDecision,
+  showsRequireArtifactContinuation,
   FINALIZE_HD_BLOCKER,
   blockerLabel,
 } from "@/features/pre-m6-product-ui/surfaces/lifecyclePresentation";
@@ -167,6 +169,44 @@ describe("LC-B Phase B — lifecyclePresentation helpers (D-LC-02/03)", () => {
       ],
     });
     expect(canOfferGroupedNoGovernedEffects(a)).toBe(true);
+    expect(canOfferRequireArtifact(a)).toBe(true);
+  });
+
+  it("CORR-PROOF-06 — require-artifact offer after N/A; continuation when APPLICABLE missing", () => {
+    const na = assessment({
+      canComplete: false,
+      blockers: [],
+      obligations: [
+        {
+          family: "artifact",
+          status: "NOT_APPLICABLE",
+          applicability: "NOT_APPLICABLE",
+          blocking: false,
+        },
+      ],
+    });
+    expect(canOfferGroupedNoGovernedEffects(na)).toBe(false);
+    expect(canOfferRequireArtifact(na)).toBe(true);
+
+    const missing = assessment({
+      canComplete: false,
+      blockers: ["artifact_missing"],
+      obligations: [
+        {
+          family: "artifact",
+          status: "MISSING",
+          applicability: "APPLICABLE",
+          blocking: true,
+        },
+      ],
+    });
+    expect(canOfferRequireArtifact(missing)).toBe(false);
+    expect(showsRequireArtifactContinuation(missing)).toBe(true);
+    const cta = lifecycleCtaPresentation(
+      baseProjection({ assessment: missing }),
+    );
+    expect(cta.showRequireArtifactContinuation).toBe(true);
+    expect(cta.finalizeEnabled).toBe(false);
   });
 
   it("LC-B-15 unit — APPLICABLE family blocks grouped N/A offer", () => {

@@ -18,6 +18,10 @@ import type {
   EpistemicItemStatus,
   ProjectTrajectory,
 } from "@/lib/oa/cycle";
+import {
+  obligationPolicySubjectFor,
+  OBLIGATION_POLICY_REQUIRE_ARTIFACT,
+} from "@/lib/oa/cycle";
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
 import type { ProjectAssistantContextDto } from "../types";
 import type { IntentAnalysisDto } from "./types";
@@ -107,6 +111,8 @@ export function classifyHumanDecisionLifecycle(
 
 export type StudioDecisionProjection = {
   readonly subject: string;
+  /** Canonical option identity — CR-06-02 (label is UX only). */
+  readonly selectedOptionId: string | null;
   readonly selectedOptionLabel: string | null;
   /** Raw domain HumanDecisionStatus — always preserved. */
   readonly status: HumanDecision["status"];
@@ -245,6 +251,7 @@ function projectDecision(d: HumanDecision): StudioDecisionProjection {
     d.options.find((o) => o.optionId === d.selectedOptionId)?.label ?? null;
   return Object.freeze({
     subject: clip(d.subject, STUDIO_COGNITIVE_CONTEXT_BUDGET.decisionSubjectChars),
+    selectedOptionId: d.selectedOptionId ?? null,
     selectedOptionLabel: selected
       ? clip(selected, STUDIO_COGNITIVE_CONTEXT_BUDGET.decisionOptionChars)
       : null,
@@ -759,6 +766,33 @@ export function buildStudioCognitivePromptSections(
     }
   }
   lines.push("");
+
+  // CORR-PROOF-06 / CR-06-02 — canonical active-cycle REQUIRE_ARTIFACT only
+  const activeCycleId = ctx.activeCycle?.cycleInstanceId ?? null;
+  const requireDeliverable =
+    activeCycleId != null &&
+    ctx.decisions.items.some(
+      (d) =>
+        d.lifecycle === "CURRENT" &&
+        d.subject === obligationPolicySubjectFor(activeCycleId) &&
+        d.selectedOptionId === OBLIGATION_POLICY_REQUIRE_ARTIFACT,
+    );
+  if (requireDeliverable) {
+    lines.push("— Obligation de livrable (décision Pilote courante) —");
+    lines.push(
+      "Le Pilote a décidé qu’un livrable est requis avant finalisation de ce cycle.",
+    );
+    lines.push(
+      "Ne recommande pas FINALIZE tant que ce livrable n’est pas défini et matérialisé.",
+    );
+    lines.push(
+      "Prochaine étape : aider le Pilote à préciser la forme du livrable attendu à partir du contexte du cycle, puis sa matérialisation gouvernée.",
+    );
+    lines.push(
+      "Ne crée pas d’ExecutionContract, Evidence, ReviewBundle ou effet Git automatiquement.",
+    );
+    lines.push("");
+  }
 
   lines.push("— Evidence —");
   if (ctx.evidence.state === "NONE") {

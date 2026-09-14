@@ -49,7 +49,7 @@ export function obligationFamilyLabel(family: string): string {
     case "exit_criteria":
       return "Critères de sortie";
     case "artifact":
-      return "Artefact";
+      return "Livrable";
     case "execution_contract":
       return "Contrat d’exécution";
     case "evidence":
@@ -124,6 +124,33 @@ export function canOfferGroupedNoGovernedEffects(
     if (o.applicability === "UNKNOWN") unknownCount += 1;
   }
   return unknownCount > 0;
+}
+
+/**
+ * CORR-PROOF-06 — Pilote can declare a deliverable is required when Artifact is
+ * still UNKNOWN or was marked N/A (e.g. after no-governed-effects, pre-FINALIZE).
+ * Hidden once Artifact is already APPLICABLE (continuation UI takes over).
+ */
+export function canOfferRequireArtifact(
+  assessment: FinalizationAssessment | null | undefined,
+): boolean {
+  if (!assessment) return false;
+  const art = assessment.obligations.find((o) => o.family === "artifact");
+  if (!art) return true;
+  if (art.applicability === "APPLICABLE") return false;
+  return (
+    art.applicability === "UNKNOWN" || art.applicability === "NOT_APPLICABLE"
+  );
+}
+
+/** Artifact already required and not yet satisfied — guide next step (Nora). */
+export function showsRequireArtifactContinuation(
+  assessment: FinalizationAssessment | null | undefined,
+): boolean {
+  if (!assessment) return false;
+  const art = assessment.obligations.find((o) => o.family === "artifact");
+  if (!art || art.applicability !== "APPLICABLE") return false;
+  return art.status !== "SATISFIED";
 }
 
 /**
@@ -230,6 +257,8 @@ export function lifecycleCtaPresentation(projection: PilotLifecycleProjection): 
   showReplan: boolean;
   showTrajectoryEscalation: boolean;
   showGroupedObligationPolicy: boolean;
+  showRequireArtifactPolicy: boolean;
+  showRequireArtifactContinuation: boolean;
   finalizeEnabled: boolean;
   resumeEnabled: boolean;
   readyExceptFinalize: boolean;
@@ -267,6 +296,13 @@ export function lifecycleCtaPresentation(projection: PilotLifecycleProjection): 
     ),
     showGroupedObligationPolicy: Boolean(
       attemptable && canOfferGroupedNoGovernedEffects(projection.assessment),
+    ),
+    showRequireArtifactPolicy: Boolean(
+      attemptable && canOfferRequireArtifact(projection.assessment),
+    ),
+    showRequireArtifactContinuation: Boolean(
+      attemptable &&
+        showsRequireArtifactContinuation(projection.assessment),
     ),
     finalizeEnabled: attemptable && ready,
     resumeEnabled:

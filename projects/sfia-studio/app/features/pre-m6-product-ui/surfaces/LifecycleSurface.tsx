@@ -46,7 +46,9 @@ export function LifecycleSurface({
   const [error, setError] = useState<string | null>(null);
   const [info, setInfo] = useState<string | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
-  const [policyConfirmOpen, setPolicyConfirmOpen] = useState(false);
+  const [policyConfirmKind, setPolicyConfirmKind] = useState<
+    null | "no-governed-effects" | "require-artifact"
+  >(null);
 
   const refresh = useCallback(async () => {
     const result = await projectAssistantPilotLifecycleProjection({ projectId });
@@ -119,7 +121,9 @@ export function LifecycleSurface({
     }
   }
 
-  async function confirmObligationPolicy() {
+  async function confirmObligationPolicy(
+    policyKind: "no-governed-effects" | "require-artifact",
+  ) {
     if (!projection?.selectedCycleInstanceId) return;
     setBusy("OBLIGATION_POLICY");
     setInfo(null);
@@ -127,12 +131,13 @@ export function LifecycleSurface({
       const result = await projectAssistantRecordObligationPolicyAction({
         projectId,
         cycleInstanceId: projection.selectedCycleInstanceId,
+        policyKind,
       });
       if (!result.ok) {
         setError(result.message ?? result.code ?? "Politique refusée.");
       } else {
         setError(null);
-        setPolicyConfirmOpen(false);
+        setPolicyConfirmKind(null);
         setInfo(
           result.message ??
             "Politique d’obligations enregistrée — aucune finalisation automatique.",
@@ -144,6 +149,19 @@ export function LifecycleSurface({
     } finally {
       setBusy(null);
     }
+  }
+
+  function focusAssistantForDeliverable() {
+    const input = document.querySelector<HTMLTextAreaElement>(
+      '[data-testid="project-assistant-input"]',
+    );
+    if (input) {
+      input.focus();
+      input.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+    setInfo(
+      "Demandez à Nora de vous aider à définir le livrable attendu pour ce cycle.",
+    );
   }
 
   async function completeTrajectoryStep() {
@@ -377,23 +395,42 @@ export function LifecycleSurface({
         </section>
       ) : null}
 
-      {cta.showGroupedObligationPolicy ? (
+      {cta.showGroupedObligationPolicy || cta.showRequireArtifactPolicy ? (
         <section className={styles.block} data-testid="lifecycle-obligation-policy">
           <h3 className={styles.blockTitle}>Effets gouvernés</h3>
-          {!policyConfirmOpen ? (
-            <button
-              type="button"
-              className={styles.btnSecondary}
-              disabled={busy !== null}
-              data-testid="lifecycle-obligation-policy-cta"
-              onClick={() => setPolicyConfirmOpen(true)}
-            >
-              Confirmer qu’aucun effet gouverné n’est requis pour ce cycle
-            </button>
-          ) : (
+          <p className={styles.muted}>
+            Choisissez explicitement si ce cycle doit produire un livrable
+            gouverné, ou s’il peut se clore sans effet gouverné.
+          </p>
+          {policyConfirmKind === null ? (
+            <div className={styles.ctaRow}>
+              {cta.showGroupedObligationPolicy ? (
+                <button
+                  type="button"
+                  className={styles.btnSecondary}
+                  disabled={busy !== null}
+                  data-testid="lifecycle-obligation-policy-cta"
+                  onClick={() => setPolicyConfirmKind("no-governed-effects")}
+                >
+                  Confirmer qu’aucun effet gouverné n’est requis pour ce cycle
+                </button>
+              ) : null}
+              {cta.showRequireArtifactPolicy ? (
+                <button
+                  type="button"
+                  className={styles.btnSecondary}
+                  disabled={busy !== null}
+                  data-testid="lifecycle-require-artifact-cta"
+                  onClick={() => setPolicyConfirmKind("require-artifact")}
+                >
+                  Un livrable est requis avant finalisation
+                </button>
+              ) : null}
+            </div>
+          ) : policyConfirmKind === "no-governed-effects" ? (
             <div data-testid="lifecycle-obligation-policy-confirm">
               <p className={styles.muted}>
-                Cette décision signifie que ce cycle ne requiert pas d’artefact,
+                Cette décision signifie que ce cycle ne requiert pas de livrable,
                 d’exécution gouvernée, d’Evidence, de ReviewBundle ni d’effet
                 Git. Elle n’est jamais automatique et ne finalise pas le cycle.
               </p>
@@ -402,7 +439,7 @@ export function LifecycleSurface({
                 className={styles.btnPrimary}
                 disabled={busy !== null}
                 data-testid="lifecycle-obligation-policy-confirm-cta"
-                onClick={() => void confirmObligationPolicy()}
+                onClick={() => void confirmObligationPolicy("no-governed-effects")}
               >
                 Confirmer explicitement
               </button>
@@ -411,12 +448,61 @@ export function LifecycleSurface({
                 className={styles.btnSecondary}
                 disabled={busy !== null}
                 data-testid="lifecycle-obligation-policy-cancel"
-                onClick={() => setPolicyConfirmOpen(false)}
+                onClick={() => setPolicyConfirmKind(null)}
+              >
+                Annuler
+              </button>
+            </div>
+          ) : (
+            <div data-testid="lifecycle-require-artifact-confirm">
+              <p className={styles.muted}>
+                Un livrable devra être défini et matérialisé avant de finaliser
+                ce cycle. Aucune exécution automatique n’est lancée. Vous
+                pourrez ensuite préciser la forme du livrable avec Nora.
+              </p>
+              <button
+                type="button"
+                className={styles.btnPrimary}
+                disabled={busy !== null}
+                data-testid="lifecycle-require-artifact-confirm-cta"
+                onClick={() => void confirmObligationPolicy("require-artifact")}
+              >
+                Confirmer : livrable requis
+              </button>
+              <button
+                type="button"
+                className={styles.btnSecondary}
+                disabled={busy !== null}
+                data-testid="lifecycle-require-artifact-cancel"
+                onClick={() => setPolicyConfirmKind(null)}
               >
                 Annuler
               </button>
             </div>
           )}
+        </section>
+      ) : null}
+
+      {cta.showRequireArtifactContinuation ? (
+        <section
+          className={styles.block}
+          data-testid="lifecycle-require-artifact-continuation"
+        >
+          <h3 className={styles.blockTitle}>Livrable requis</h3>
+          <p className={styles.muted}>
+            Un livrable est requis avant finalisation. La finalisation reste
+            bloquée tant qu’il n’est pas matérialisé. Demandez à Nora d’aider à
+            définir le livrable attendu pour ce cycle.
+          </p>
+          <button
+            type="button"
+            className={styles.btnSecondary}
+            disabled={busy !== null}
+            data-testid="lifecycle-define-deliverable-cta"
+            onClick={focusAssistantForDeliverable}
+          >
+            Définir le livrable avec Nora
+          </button>
         </section>
       ) : null}
 
