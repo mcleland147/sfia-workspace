@@ -11,11 +11,12 @@
 **Prior verdict (ChatGPT):** `CHANGES REQUIRED — CR-07-06 ACTION/CAPABILITY CONFUSION`
 → then: `CR-07-06 CLOSED — CHATGPT CRITICAL REVIEW PASS`
 → then: `CORR-PROOF-07 LOCAL CANDIDATE ACCEPTABLE — READY FOR MORRIS INTEGRATION GATE`
+→ then: `CORR-PROOF-07 PR #484 — CHATGPT CRITICAL REVIEW PASS` / `READY FOR MORRIS MERGE GATE`
 
-**Verdict final (this pack):** `CORR-PROOF-07 PR READY — AWAITING CHATGPT CRITICAL REVIEW / MORRIS MERGE GATE`
+**Verdict final (this pack):** `CORR-PROOF-07 MERGED / POST-MERGE VERIFIED — READY FOR DOGFOOD REFRESH PREPARATION`
 
 ```
-MERGE NOT AUTHORIZED — STOP BEFORE MERGE
+STOP BEFORE DOGFOOD REFRESH — SOURCE BRANCH PRESERVED
 ```
 
 ---
@@ -350,15 +351,109 @@ Branch: `sfia/review-handoff`
 Canonical path: `sfia-review-handoff/latest-chatgpt-review.md`
 Commit message: `docs(review): publish CORR-PROOF-07 PR readiness`
 
-### Next gate
-ChatGPT PR Critical Review → **Morris merge GO distinct** (NOT granted by this run).
+### Next gate (at PR readiness)
+ChatGPT PR Critical Review → Morris merge GO — **CONSUMED in section M**.
+
+---
+
+## M. POST-MERGE VERIFICATION (this run)
+
+**Timestamp (UTC):** 2026-09-14T13:39:19Z (post-merge CI terminal)
+**Morris merge GO:** CONSUMED
+**Command:** `gh pr merge 484 --merge` (no squash / no rebase / no delete-branch)
+
+| Field | Value |
+|---|---|
+| PR | **#484** MERGED — https://github.com/mcleland147/sfia-workspace/pull/484 |
+| mergedAt | `2026-09-14T13:32:44Z` |
+| Pre-merge base / P1 | `9c4edb0bd8c5b22875ffe39af088abde67a354ec` |
+| Product head / P2 | `e942af5f7acc53bcf4587a9553ac0ffb4a6a5272` |
+| **Actual merge SHA** | `84a36a8d32f7b2632180d789e41521d6e769c681` |
+| Merge parents | P1=`9c4edb0…` · P2=`e942af5f…` |
+| head→merge content delta | **ZERO** (`git diff --exit-code` exit 0) |
+| origin/main post-merge | `84a36a8d32f7b2632180d789e41521d6e769c681` |
+| Source branch | `fix/sfia-studio-corr-proof-07-artifact-materialization` **PRESERVED** @ `e942af5f…` |
+
+### Exact 8 integrated files (base→merge)
+
+```
+A  projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts
+A  projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
+M  projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+M  projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+M  projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts
+M  projects/sfia-studio/app/features/project-assistant/f2/transitionReadiness.ts
+M  projects/sfia-studio/app/features/project-assistant/f2/types.ts
+M  projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
+```
+
+No doctrine / Roadmap / C1 / migration / schema / `.tmp-sfia-review/**`.
+
+### Post-merge CI — run `34849903291`
+
+Workflow: https://github.com/mcleland147/sfia-workspace/actions/runs/34849903291
+Event: push to `main` @ `84a36a8d…`
+Conclusion: **success**
+
+| Job | Conclusion |
+|---|---|
+| Detect SFIA Studio changes | **SUCCESS** |
+| Build and validate SFIA Studio | **SUCCESS** |
+| SFIA Studio Required Gate | **SUCCESS** / **PASS** |
+
+### Claims authorized
+- CORR-PROOF-07 PRODUCT CHANGE = **INTEGRATED ON MAIN / POST-MERGE VERIFIED**
+- CR-07-01..06 = **INTEGRATED AT DETERMINISTIC PRODUCT SCOPE**
+
+### Claims NOT authorized
+- Nora REAL behavior proven post-merge
+- Artifact actually materialized in dogfood
+- ExecutionContract end-to-end naturally exercised
+- Evidence / ReviewBundle applicability proven
+- runtime v3 ADOPTED
+- generalized docs_write autonomy / Git authority
+
+`DETERMINISTIC PROVEN ≠ REAL PROVEN`
+
+### Safety
+- ZERO REAL
+- dogfood untouched (`sfia-studio-product-proof-preflight-35b1371d`)
+- Product DB untouched
+- no schema/migration
+- no doctrine/Roadmap/C1
+- runtime v3 NON ADOPTED
+- source branch preserved
+
+### Next proof (NOT executed in this run)
+- refresh same dogfood WITHOUT DB reset
+- restart latest merged code
+- resume exact persisted Project/cycle state
+- retest naturally from: “Matérialise ce livrable”
+- observe whether same active cycle is retained
+- observe Proposal / Pilot decision path
+- do not force execution if Product naturally requires clarification/gates
+
+### Review Handoff identity (publisher resolves; not self-embedded)
+
+```
+Remote tip:
+RESOLVE FROM CURRENT GIT — intentionally not embedded
+
+Canonical blob:
+RESOLVE FROM CURRENT GIT — intentionally not embedded
+
+Remote verification:
+REQUIRED BY CANONICAL PUBLISHER
+```
+
+Publisher commit message: `docs(review): publish CORR-PROOF-07 post-merge verification`
 
 ---
 
 ## K. VERDICT
 
-**CORR-PROOF-07 PR READY — AWAITING CHATGPT CRITICAL REVIEW / MORRIS MERGE GATE**
+**CORR-PROOF-07 MERGED / POST-MERGE VERIFIED — READY FOR DOGFOOD REFRESH PREPARATION**
 
 ```
-MERGE NOT AUTHORIZED — STOP BEFORE MERGE
+STOP BEFORE DOGFOOD REFRESH — SOURCE BRANCH PRESERVED
 ```
