@@ -3,7 +3,7 @@
 
 **Campaign:** SFIA Studio Product Proof — Fresh Project Full Cycle
 **Corrective unit:** CORR-PROOF-09 — Active-Cycle Materialization Intent Contract Alignment
-**This run:** Product integration through commit / push / PR / CI / Review Handoff
+**This run:** Post-merge verification / capitalization / closure (supersedes PR readiness as terminal verdict)
 **Type / Profile:** EVOL / CRITICAL
 **Cycle Knowledge:** PR readiness — detailed CKC absent — fallback routing + method v2.6
 **Runtime v3:** NON ADOPTED
@@ -624,6 +624,46 @@ Not claimed: end-to-end Artifact; docs_write REAL; HD/EC proof; general Nora rel
 - LIVE / dogfood / DB: ZERO
 - Runtime v3: NON ADOPTED
 
+
+---
+
+## K. POST-MERGE VERIFICATION / CLOSURE
+
+| Item | Value |
+|------|--------|
+| Timestamp (UTC) | 2026-09-14T19:43:10Z |
+| Morris GO | CORR-PROOF-09 post-merge capitalization / Review Handoff closure — Review Pack + Handoff only; ZERO Product mutation; ZERO dogfood/Nora |
+| Typology / Profile | RUN / DOC — STANDARD |
+| PR #485 | **MERGED** |
+| mergedAt | 2026-09-14T19:27:34Z |
+| merge SHA | `93ac1aea1af6b2094c158c5068bec1602d863ca7` |
+| P1 old main | `84a36a8d32f7b2632180d789e41521d6e769c681` |
+| P2 Product commit | `85b1443ecbd7d1998795d18749267106e33c901d` |
+| current origin/main | `93ac1aea1af6b2094c158c5068bec1602d863ca7` |
+| source branch | `fix/sfia-studio-corr-proof-09-materialization-intent-contract` @ `85b1443e…` — **preserved** |
+| Product commit ancestor of merge | YES (exit 0) |
+| accepted Product tree SHA | `a4238963b2ac0c240e25b833aa8ac2c4395b9255` |
+| merge tree SHA | `a4238963b2ac0c240e25b833aa8ac2c4395b9255` |
+| tree equality | **exact match** |
+| 8-path head→merge delta | **ZERO** |
+| post-merge CI run | `34887015384` — event `push` — head `93ac1aea…` — branch `main` — status completed — conclusion **success** |
+| Detect job | `104120054087` — success |
+| Build/validate job | `104120094498` — success (Typecheck / Lint / Build / Unit tests Vitest) |
+| Required Gate | `104121816520` — **PASS** |
+| ZERO additional Product source change | confirmed |
+| ZERO additional LIVE | confirmed |
+| ZERO dogfood interaction | confirmed |
+| ZERO Product/Session DB mutation | confirmed |
+| ZERO HD/EC/docs_write | confirmed |
+| proof classification | **unchanged** — DETERMINISTIC PROVEN + REAL BOUNDARY PROVEN AT TESTED SINGLE-TURN SCOPE |
+| anti-claims | unchanged — not E2E Artifact; not docs_write REAL; not HD/EC; not Nora reliability; not runtime v3 ADOPTED; not global L5; not autonomous merge authority |
+| reserves preserved | (1) irreversible→null deterministic coverage useful later; (2) 8 files vs soft cap 7 accepted; (3) cross-field = OpenAI contract + instruction + server fail-closed |
+| runtime v3 | NON ADOPTED |
+| next Product Proof continuation | requires a **distinct Morris gate** — do not refresh dogfood / resume targetPath under this closure |
+| final closure verdict | **CORR-PROOF-09 CLOSED — MERGED / POST-MERGE VERIFIED** |
+
+Note: prior PR Readiness verdict (`CORR-PROOF-09 PR READY — CI GREEN — READY FOR CHATGPT PR CRITICAL REVIEW — NO MERGE`) is historical integration evidence only and is **superseded** by this post-merge closure verdict.
+
 ## Unique verdict
 
-CORR-PROOF-09 PR READY — CI GREEN — READY FOR CHATGPT PR CRITICAL REVIEW — NO MERGE
+CORR-PROOF-09 CLOSED — MERGED / POST-MERGE VERIFIED
