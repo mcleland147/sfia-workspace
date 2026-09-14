@@ -560,17 +560,22 @@ ZERO LIVE this run.
 | Level | Status |
 |------|--------|
 | Deterministic final remediated candidate | **DETERMINISTIC PROVEN** |
-| Prior LIVE Outcome A (pre-remediation) | **HISTORICAL ONLY** — proves previous candidate, not this remediated content |
-| Fresh LIVE for remediated candidate | **REQUIRED** under a distinct later Morris GO |
-| Fresh LIVE performed this run | **NO** |
+| Prior LIVE Outcome A (pre-remediation) | **HISTORICAL ONLY** |
+| Fresh LIVE for remediated candidate | **PERFORMED** — Outcome A (this FINAL LIVE RETEST) |
+| Scope | cognitive→routing REAL boundary; targetPath clarification only |
 
-## O. Explicit claim downgrade
+## O. Proof classification (after final LIVE)
 
-The final remediated candidate must **NOT** claim LIVE-PROVEN.
+| Level | Status |
+|------|--------|
+| Deterministic remediated candidate | **DETERMINISTIC PROVEN** |
+| Final LIVE (this run) | **REAL BOUNDARY PROVEN AT TESTED SINGLE-TURN SCOPE** — Outcome A |
+| Prior pre-remediation LIVE | HISTORICAL only |
+| End-to-end Artifact / docs_write / HD / EC | **NOT proven** |
 
-Prior Outcome A (same-cycle targetPath clarification) remains evidence for the **pre-remediation** candidate only.
+FINAL REMEDIATED CANDIDATE = DETERMINISTIC PROVEN + REAL BOUNDARY PROVEN AT TESTED SINGLE-TURN SCOPE.
 
-Proof level now: **DETERMINISTIC PROVEN** · LIVE: **STALE FOR FINAL REMEDIATED CANDIDATE / NEW RETEST REQUIRED**.
+Do **NOT** claim END-TO-END REAL PROVEN.
 
 ## P. Anti-claims
 
@@ -584,20 +589,105 @@ Not claimed: LIVE proof of remediated contract; docs_write execution; HD/EC; mul
 
 ## R. Next Morris gate recommendation
 
-1. ChatGPT Critical Review of this remediation pack.
-2. If accepted: distinct Morris GO for ONE controlled LIVE retest of the remediated candidate (persistence continuity).
-3. Only after LIVE + review: consider Product commit/PR GO.
+1. ChatGPT Critical Review of this FINAL LIVE Outcome A pack.
+2. If accepted: Morris GO for Product commit/PR of the CORR-PROOF-09 candidate.
+3. Continue Product Proof: supply targetPath clarification (or trusted binding path) → same-cycle Proposal → stop before HD unless a later GO authorizes Pilote decision.
+4. Do not auto-start HD / PREPARE / docs_write.
 
 ---
 
 ## Safety ledger
 
-- LIVE calls this run: **ZERO**
+- LIVE calls (remediation run): **ZERO**; FINAL LIVE retest: **EXACTLY ONE**
 - Product commit/push/PR/merge: **ZERO**
 - DB/Session writes this run: **ZERO**
 - HD/EC/execution: **ZERO**
 - Runtime v3: **NON ADOPTED**
 
+
+
+---
+
+## FINAL LIVE RETEST — remediated candidate
+
+**Timestamp (UTC):** 2026-09-14T19:01:11Z
+**Morris distinct LIVE GO:** ONE controlled LIVE retest of the final remediated CORR-PROOF-09 candidate.
+**Operational cycle:** RUN / Validation / CRITICAL
+**Source edits since Critical Review remediation handoff `8c862aee…`:** **ZERO** (Product diff set unchanged: 8 reviewed files only).
+
+### Candidate Git truth at LIVE
+
+| Item | Value |
+|------|--------|
+| Worktree | `/Users/morris/Projects/sfia-studio-corr-proof-09-materialization-intent-contract` |
+| Branch | `fix/sfia-studio-corr-proof-09-materialization-intent-contract` |
+| HEAD / origin/main | `84a36a8d32f7b2632180d789e41521d6e769c681` |
+| Product source drift | NONE vs reviewed remediation set |
+
+### Pre-LIVE smoke
+
+| Check | Result |
+|------|--------|
+| CORR-09 | 15 PASS |
+| CORR-07 | 32 PASS |
+| typecheck | PASS |
+
+### Persistence / runtime continuity
+
+| Item | Value |
+|------|--------|
+| Baseline dogfood PID before stop | **4574** (cwd dogfood app) |
+| Candidate PID | **51453** (cwd candidate app) |
+| Exclusive writer | yes (dogfood stopped before candidate start) |
+| Product DB | workspace `oa-product.sqlite` via symlink + env |
+| Session DB | symlink → dogfood `nora-session.sqlite` |
+| Pre max seq | **19** |
+| Pre cycle count / HD / EC | **2** / **3** / **0** |
+| Active cycle pre | `cyc:trj-0a9c5104b7b6a3debe95eb8d` (active) |
+
+### Controlled LIVE
+
+| Item | Value |
+|------|--------|
+| Manual sends | **exactly 1** |
+| User text | `Matérialise ce livrable.` |
+| User seq | **20** |
+| Assistant seq | **21** |
+| Exact Nora response | `[LIVE] Continuation cycle actif — matérialisation du livrable requis. Cycle actif conservé: cyc:trj-0a9c5104b7b6a3debe95eb8d (active). Aucun nouveau CycleInstance créé. Le chemin cible du livrable n'est pas encore déterminé dans les bornes du repository lié — précisez targetPath. Décision Pilote / PREPARE non ouverts tant que la cible n'est pas clarifiée. Recommendation ≠ HumanDecision ≠ Execution — AUCUNE EXÉCUTION.` |
+| incompatible_execution_intent | **ABSENT** |
+| Provider/technical/schema errors | none observed in candidate log |
+| TargetPath response / Proposal accept / HD | **NOT performed** |
+
+### Product deltas
+
+| Item | Before | After |
+|------|--------|-------|
+| Active cycle | `cyc:trj-0a9c5104b7b6a3debe95eb8d` | same (active) |
+| CycleInstance count | 2 | **2** (delta 0) |
+| Proposal | none new | **none** |
+| HD | 3 | **3** |
+| EC | 0 | **0** |
+
+### Outcome
+
+**OUTCOME A — SAME-CYCLE TARGET CLARIFICATION**
+
+Verdict: **CORR-PROOF-09 FINAL REMEDIATED CANDIDATE LIVE-PROVEN — SAME-CYCLE TARGET CLARIFICATION REACHED**
+
+### Baseline restore
+
+| Step | Result |
+|------|--------|
+| Candidate stopped | yes (PID 51453) |
+| Dogfood restarted @ `84a36a8d…` on 3020 | yes |
+| Dogfood Product tracked tree | clean (no candidate leak) |
+| Session turn preserved | max seq **21** |
+| Product DB continuity | same workspace DB |
+| Candidate retained | local modified / uncommitted |
+| Product commit/push/PR/merge | **ZERO** |
+| docs_write / Cursor REAL | **ZERO** |
+| Runtime v3 | **NON ADOPTED** |
+
 ## Unique verdict
 
-**CORR-PROOF-09 REVIEW REMEDIATION DETERMINISTIC PASS — CR-09-01 CLOSED / CR-09-02 CLOSED — FRESH LIVE RETEST REQUIRES DISTINCT MORRIS GO — READY FOR CHATGPT CRITICAL REVIEW**
+**CORR-PROOF-09 FINAL REMEDIATED CANDIDATE LIVE-PROVEN — SAME-CYCLE TARGET CLARIFICATION REACHED — READY FOR CHATGPT CRITICAL REVIEW**
