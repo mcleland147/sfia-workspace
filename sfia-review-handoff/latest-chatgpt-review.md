@@ -2,7 +2,7 @@
 
 | Field | Value |
 | --- | --- |
-| **Timestamp** | 2026-09-14T03:04:00Z |
+| **Timestamp** | 2026-09-14T03:12:00Z |
 | **Cycle** | CORR-PROOF-06 — Project Git Integration (commit + push + PR + CI + Review Handoff) |
 | **Typologie** | EVOL |
 | **Profile** | CRITICAL |
@@ -120,14 +120,15 @@ Workflow: **SFIA Studio CI** — https://github.com/mcleland147/sfia-workspace/a
 | Field | Value |
 | --- | --- |
 | Source | `/Users/morris/Projects/sfia-studio-corr-proof-06-artifact-obligation/.tmp-sfia-review/chatgpt-review.md` |
-| Publisher | `scripts/sfia/publish-review-handoff.sh` (canonical) |
+| Publication mechanism | `scripts/sfia/publish-review-handoff.sh` (canonical) |
 | Handoff worktree | `/Users/morris/Projects/sfia-workspace/sfia-review-handoff` |
 | Target branch | `sfia/review-handoff` |
 | Canonical path | `sfia-review-handoff/latest-chatgpt-review.md` |
-| Publisher verdict | `HANDOFF UPDATED — REMOTE VERIFIED` |
-| Handoff commit SHA | `cf5934dead140665ec1069dfc4c9f23775e95d41` |
-| Remote handoff SHA | `cf5934dead140665ec1069dfc4c9f23775e95d41` |
-| Canonical blob | `1f78727c7984f4f718e43688dc4ec1db1ada9c4e` |
+| Remote tip | `RESOLVE FROM CURRENT GIT — intentionally not embedded` |
+| Canonical blob | `RESOLVE FROM CURRENT GIT — intentionally not embedded` |
+| Remote verification | `REQUIRED BY CANONICAL PUBLISHER` |
+
+Note: this document does **not** embed its own Git tip/blob identity. Those values are obtained from `origin/sfia/review-handoff` and the canonical blob at review time, to avoid unstable self-reference loops.
 
 ---
 
