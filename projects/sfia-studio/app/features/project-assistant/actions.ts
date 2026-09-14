@@ -1365,12 +1365,20 @@ export async function projectAssistantPilotLifecycleAction(input: {
 export async function projectAssistantRecordObligationPolicyAction(input: {
   projectId: string;
   cycleInstanceId: string;
+  /**
+   * CORR-PROOF-06 — explicit Pilote intent.
+   * `undefined` ⇒ legacy default `no-governed-effects`.
+   * Any other present value MUST be exactly one of the two allowlisted kinds
+   * (CR-06-01 — TypeScript union is not a runtime boundary).
+   */
+  policyKind?: "no-governed-effects" | "require-artifact";
 }): Promise<{
   ok: boolean;
   status: string;
   code?: string;
   message?: string;
   decisionId?: string;
+  policyKind?: "no-governed-effects" | "require-artifact";
   assessment?: unknown;
   projection?: PilotLifecycleProjection;
 }> {
@@ -1383,17 +1391,53 @@ export async function projectAssistantRecordObligationPolicyAction(input: {
       message: "Obligation-policy unavailable.",
     };
   }
-  const { recordObligationPolicyNoGovernedEffects } = await import(
-    "./f2/pilotLifecycleActions"
-  );
-  const executed = await recordObligationPolicyNoGovernedEffects({
-    projectId: input.projectId,
-    cycleInstanceId: input.cycleInstanceId,
-    cycleServices: runtime.oa.cycleServices,
-    decisionServices: runtime.oa.decisionServices,
-    authorityResolver: runtime.oa.authorityResolver,
-    nowIso: () => runtime.oa!.clock.nowIso(),
-  });
+
+  // CR-06-01 — fail-closed runtime allowlist BEFORE any HumanDecision write.
+  // Unknown values must NEVER fall through to no-governed-effects.
+  const ALLOWED_POLICY_KINDS = [
+    "no-governed-effects",
+    "require-artifact",
+  ] as const;
+  type AllowedPolicyKind = (typeof ALLOWED_POLICY_KINDS)[number];
+  let policyKind: AllowedPolicyKind;
+  if (input.policyKind === undefined) {
+    policyKind = "no-governed-effects";
+  } else if (
+    (ALLOWED_POLICY_KINDS as readonly string[]).includes(input.policyKind)
+  ) {
+    policyKind = input.policyKind as AllowedPolicyKind;
+  } else {
+    return {
+      ok: false,
+      status: "lifecycle_error",
+      code: "OBLIGATION_POLICY_KIND_INVALID",
+      message:
+        "policyKind invalide — seules no-governed-effects et require-artifact sont acceptées.",
+    };
+  }
+
+  const {
+    recordObligationPolicyNoGovernedEffects,
+    recordObligationPolicyRequireArtifact,
+  } = await import("./f2/pilotLifecycleActions");
+  const executed =
+    policyKind === "require-artifact"
+      ? await recordObligationPolicyRequireArtifact({
+          projectId: input.projectId,
+          cycleInstanceId: input.cycleInstanceId,
+          cycleServices: runtime.oa.cycleServices,
+          decisionServices: runtime.oa.decisionServices,
+          authorityResolver: runtime.oa.authorityResolver,
+          nowIso: () => runtime.oa!.clock.nowIso(),
+        })
+      : await recordObligationPolicyNoGovernedEffects({
+          projectId: input.projectId,
+          cycleInstanceId: input.cycleInstanceId,
+          cycleServices: runtime.oa.cycleServices,
+          decisionServices: runtime.oa.decisionServices,
+          authorityResolver: runtime.oa.authorityResolver,
+          nowIso: () => runtime.oa!.clock.nowIso(),
+        });
   const projection = await buildAssistantPilotLifecycleProjection(
     input.projectId,
   );
@@ -1411,10 +1455,13 @@ export async function projectAssistantRecordObligationPolicyAction(input: {
     ok: true,
     status: "ok",
     decisionId: executed.decisionId,
+    policyKind: executed.policyKind,
     assessment: executed.assessment,
     projection: projection ?? undefined,
     message:
-      "Politique d’obligations enregistrée — aucune finalisation automatique.",
+      policyKind === "require-artifact"
+        ? "Un livrable est désormais requis avant finalisation — aucune exécution automatique."
+        : "Politique d’obligations enregistrée — aucune finalisation automatique.",
   };
 }
 

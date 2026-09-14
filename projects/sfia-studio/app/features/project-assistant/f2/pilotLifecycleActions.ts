@@ -466,6 +466,23 @@ export async function executePilotLifecycleAction(input: {
   }
 }
 
+/** CORR-PROOF-06 — Pilote-selected obligation-policy options (never automatic). */
+export type ObligationPolicyKind = "no-governed-effects" | "require-artifact";
+
+type ObligationPolicyRecordResult =
+  | {
+      ok: true;
+      decisionId: string;
+      assessment: FinalizationAssessment;
+      policyKind: ObligationPolicyKind;
+    }
+  | {
+      ok: false;
+      code: string;
+      message: string;
+      assessment?: FinalizationAssessment;
+    };
+
 /** D-LC-03 — explicit Pilote obligation-policy HD (never automatic). */
 export async function recordObligationPolicyNoGovernedEffects(input: {
   projectId: string;
@@ -474,17 +491,45 @@ export async function recordObligationPolicyNoGovernedEffects(input: {
   decisionServices: DecisionServices;
   authorityResolver: MemoryAuthorityResolver;
   nowIso: () => string;
-}): Promise<
-  | {
-      ok: true;
-      decisionId: string;
-      assessment: FinalizationAssessment;
-    }
-  | { ok: false; code: string; message: string; assessment?: FinalizationAssessment }
-> {
+}): Promise<ObligationPolicyRecordResult> {
+  return recordPilotObligationPolicy({
+    ...input,
+    policyKind: "no-governed-effects",
+  });
+}
+
+/**
+ * CORR-PROOF-06 — explicit Pilote HD that a deliverable (Artifact) is required
+ * before finalization. Reuses OBLIGATION_POLICY_REQUIRE_ARTIFACT.
+ * Supersedes prior accepted obligation-policy HD for the same subject (default).
+ */
+export async function recordObligationPolicyRequireArtifact(input: {
+  projectId: string;
+  cycleInstanceId: string;
+  cycleServices: CycleServices;
+  decisionServices: DecisionServices;
+  authorityResolver: MemoryAuthorityResolver;
+  nowIso: () => string;
+}): Promise<ObligationPolicyRecordResult> {
+  return recordPilotObligationPolicy({
+    ...input,
+    policyKind: "require-artifact",
+  });
+}
+
+async function recordPilotObligationPolicy(input: {
+  projectId: string;
+  cycleInstanceId: string;
+  cycleServices: CycleServices;
+  decisionServices: DecisionServices;
+  authorityResolver: MemoryAuthorityResolver;
+  nowIso: () => string;
+  policyKind: ObligationPolicyKind;
+}): Promise<ObligationPolicyRecordResult> {
   const {
     obligationPolicySubjectFor,
     OBLIGATION_POLICY_NO_GOVERNED_EFFECTS,
+    OBLIGATION_POLICY_REQUIRE_ARTIFACT,
   } = await import("@/lib/oa/cycle");
   const nowIso = input.nowIso();
   const assessedBefore = await input.cycleServices.pilotLifecycle.assess({
@@ -498,23 +543,26 @@ export async function recordObligationPolicyNoGovernedEffects(input: {
       message: assessedBefore.error.message,
     };
   }
-  // Fail-closed: refuse grouped N/A when a governed-effect family is positively APPLICABLE.
-  for (const o of assessedBefore.assessment.obligations) {
-    if (
-      (o.family === "artifact" ||
-        o.family === "git_repository" ||
-        o.family === "execution_contract" ||
-        o.family === "evidence" ||
-        o.family === "review_bundle") &&
-      o.applicability === "APPLICABLE"
-    ) {
-      return {
-        ok: false,
-        code: "OBLIGATION_POLICY_CONTRADICTED",
-        message:
-          "Des effets gouvernés sont déjà applicables — la confirmation groupée n’est pas disponible.",
-        assessment: assessedBefore.assessment,
-      };
+
+  if (input.policyKind === "no-governed-effects") {
+    // Fail-closed: refuse grouped N/A when a governed-effect family is positively APPLICABLE.
+    for (const o of assessedBefore.assessment.obligations) {
+      if (
+        (o.family === "artifact" ||
+          o.family === "git_repository" ||
+          o.family === "execution_contract" ||
+          o.family === "evidence" ||
+          o.family === "review_bundle") &&
+        o.applicability === "APPLICABLE"
+      ) {
+        return {
+          ok: false,
+          code: "OBLIGATION_POLICY_CONTRADICTED",
+          message:
+            "Des effets gouvernés sont déjà applicables — la confirmation groupée n’est pas disponible.",
+          assessment: assessedBefore.assessment,
+        };
+      }
     }
   }
 
@@ -528,6 +576,15 @@ export async function recordObligationPolicyNoGovernedEffects(input: {
 
   const decisionId = `dec:pilot-life:${randomUUID()}`;
   const subject = obligationPolicySubjectFor(input.cycleInstanceId);
+  const selectedOptionId =
+    input.policyKind === "require-artifact"
+      ? OBLIGATION_POLICY_REQUIRE_ARTIFACT
+      : OBLIGATION_POLICY_NO_GOVERNED_EFFECTS;
+  const rationale =
+    input.policyKind === "require-artifact"
+      ? "Pilot obligation-policy: require artifact/deliverable before finalize"
+      : "Pilot obligation-policy: no governed effects for this cycle";
+
   const recorded = await input.decisionServices.recordHumanDecision.execute({
     decisionId,
     projectId: input.projectId,
@@ -538,16 +595,22 @@ export async function recordObligationPolicyNoGovernedEffects(input: {
         optionId: OBLIGATION_POLICY_NO_GOVERNED_EFFECTS,
         label: "Aucun effet gouverné requis",
       },
+      {
+        optionId: OBLIGATION_POLICY_REQUIRE_ARTIFACT,
+        label: "Un livrable est requis avant finalisation",
+      },
       { optionId: "opt:refuse", label: "Refuse" },
     ],
-    selectedOptionId: OBLIGATION_POLICY_NO_GOVERNED_EFFECTS,
+    selectedOptionId,
     actor: PILOTE,
     authority: "morris",
     status: "accepted",
     reversible: false,
     scope,
     authorityEvidenceId: auth.evidenceId,
-    rationale: "Pilot obligation-policy: no governed effects for this cycle",
+    rationale,
+    // Default true — supersede prior accepted obligation-policy HD; keep history.
+    supersedeExistingAccepted: true,
   });
   if (!recorded.ok) {
     return {
@@ -572,6 +635,7 @@ export async function recordObligationPolicyNoGovernedEffects(input: {
     ok: true,
     decisionId,
     assessment: assessed.assessment,
+    policyKind: input.policyKind,
   };
 }
 

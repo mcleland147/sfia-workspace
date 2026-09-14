@@ -462,6 +462,7 @@ describe("CORR-PROOF-04 studioCognitiveContext composer", () => {
         items: [
           {
             subject: "Scope MVP accepté",
+            selectedOptionId: "opt:accept",
             selectedOptionLabel: "GO",
             status: "accepted" as const,
             lifecycle: "CURRENT" as const,
@@ -471,6 +472,7 @@ describe("CORR-PROOF-04 studioCognitiveContext composer", () => {
           },
           {
             subject: "Architecture proposée",
+            selectedOptionId: "opt:a",
             selectedOptionLabel: "Option A",
             status: "proposed" as const,
             lifecycle: "PENDING" as const,
@@ -480,6 +482,7 @@ describe("CORR-PROOF-04 studioCognitiveContext composer", () => {
           },
           {
             subject: "Ancien périmètre",
+            selectedOptionId: "opt:accept-old",
             selectedOptionLabel: "GO old",
             status: "superseded" as const,
             lifecycle: "NON_ACTIVE" as const,
@@ -489,6 +492,7 @@ describe("CORR-PROOF-04 studioCognitiveContext composer", () => {
           },
           {
             subject: "Refus sponsor",
+            selectedOptionId: "opt:refuse",
             selectedOptionLabel: "NO-GO",
             status: "refused" as const,
             lifecycle: "NON_ACTIVE" as const,
