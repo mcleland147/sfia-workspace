@@ -206,6 +206,14 @@ export type IntentAnalysisDto = {
    * Absent/undefined treated as null by routing (fail-closed).
    */
   continuationKind?: F2ContinuationKind;
+  /**
+   * CORR-PROOF-09 — dedicated NON-AUTHORITATIVE Artifact materialization
+   * technical operation discriminator. Schema: cursor.docs_write.apply | null.
+   * Never free-form; never execution authority.
+   */
+  artifactMaterializationOperation?:
+    | "cursor.docs_write.apply"
+    | null;
   parseOk: boolean;
 };
 

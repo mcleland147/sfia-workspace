@@ -70,6 +70,7 @@ function materializationAnalysis(overrides?: {
   reversibilityExpectation?: "reversible" | "irreversible" | "unknown" | null;
   requestedOperation?: string | null;
   analysisRequestedOperation?: string | null;
+  artifactMaterializationOperation?: "cursor.docs_write.apply" | null;
 }) {
   const continuationKind =
     overrides && "continuationKind" in overrides
@@ -82,11 +83,17 @@ function materializationAnalysis(overrides?: {
   const defaultOp =
     overrides && "requestedOperation" in overrides
       ? overrides.requestedOperation
-      : "cursor.docs_write.apply";
+      : null;
   const analysisRequestedOperation =
     overrides && "analysisRequestedOperation" in overrides
       ? overrides.analysisRequestedOperation
       : defaultOp;
+  const artifactMaterializationOperation =
+    overrides && "artifactMaterializationOperation" in overrides
+      ? overrides.artifactMaterializationOperation
+      : continuationKind === "active_cycle_artifact_materialization"
+        ? "cursor.docs_write.apply"
+        : null;
   const executionIntent =
     overrides && "executionIntent" in overrides
       ? overrides.executionIntent
@@ -122,6 +129,7 @@ function materializationAnalysis(overrides?: {
     contradictionCandidate: null,
     challengeResponseAssessment: "sufficient",
     continuationKind,
+    artifactMaterializationOperation,
     objective: "matérialiser",
     scope: "docs",
     rephrasedRequest: "matérialiser",
@@ -858,6 +866,7 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
       contradictionCandidate: null,
       challengeResponseAssessment: null,
       continuationKind: null,
+      artifactMaterializationOperation: "cursor.docs_write.apply",
       objective: "écrire le livrable",
       scope: null,
       rephrasedRequest: "produire le document",
@@ -880,7 +889,7 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
         requiredCapabilities: [],
         validationExpectations: [],
         evidenceRequirements: [],
-        requestedOperation: "cursor.docs_write.apply",
+        requestedOperation: null,
         reversibilityExpectation: null,
         artifactBrief: null,
         contentRequirements: [],
@@ -902,6 +911,7 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
       contradictionCandidate: null,
       challengeResponseAssessment: null,
       continuationKind: "active_cycle_artifact_materialization",
+      artifactMaterializationOperation: null,
       objective: "matérialiser",
       scope: null,
       rephrasedRequest: "générer le livrable attendu",

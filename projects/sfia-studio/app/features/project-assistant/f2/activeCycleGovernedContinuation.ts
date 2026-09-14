@@ -27,16 +27,17 @@ import type { ProjectRepositoryBinding } from "@/lib/oa/project";
 import type { ProjectAssistantContextDto } from "../types";
 import { classifyHumanDecisionLifecycle } from "./studioCognitiveContext";
 import type { ExecutionIntentPayload } from "./executionIntentSchema";
+import {
+  F2_ARTIFACT_MATERIALIZATION_CAPABILITIES,
+  F2_ARTIFACT_MATERIALIZATION_OPERATION,
+} from "./f2CanonicalOperations";
 import type { F2ContinuationKind, IntentAnalysisDto } from "./types";
 
-/** Server-owned action for this Artifact materialization seam (TECHNICAL ≠ AUTHORITY). */
-export const F2_ARTIFACT_MATERIALIZATION_OPERATION =
-  "cursor.docs_write.apply" as const;
-
-/** Server-owned capability set for this Artifact materialization seam. */
-export const F2_ARTIFACT_MATERIALIZATION_CAPABILITIES = [
-  "cap:cursor.docs_write",
-] as const;
+/** Re-export canonical constants (single source: f2CanonicalOperations). */
+export {
+  F2_ARTIFACT_MATERIALIZATION_CAPABILITIES,
+  F2_ARTIFACT_MATERIALIZATION_OPERATION,
+};
 
 /** Minimal OA surface for continuation resolution — avoids V2 runtime barrel import. */
 export type ActiveCycleContinuationOa = {
@@ -172,6 +173,9 @@ export function isBlankOrCanonicalDocsWriteOperation(raw: unknown): boolean {
 
 /**
  * Compatible materialization effect (non-authoritative alone).
+ * CORR-PROOF-09 CR-09-02 — requires dedicated artifactMaterializationOperation
+ * === cursor.docs_write.apply. Generic requestedOperation surfaces stay free-form
+ * elsewhere but must be blank or exact-canonical here (contradiction → fail-closed).
  * CR-07-06 — intentKind=docs_write never overrides a contradictory requestedOperation.
  */
 export function hasCompatibleDocsWriteMaterializationEffect(
@@ -186,8 +190,17 @@ export function hasCompatibleDocsWriteMaterializationEffect(
   }
   const ei = analysis.executionIntent;
   if (!ei) return false;
+  if (ei.intentKind !== "docs_write") return false;
 
-  // Fail-closed on contradictory ops at executionIntent OR analysis surface.
+  // Dedicated Artifact discriminator (producer-schema enum|null only).
+  if (
+    analysis.artifactMaterializationOperation !==
+    F2_ARTIFACT_MATERIALIZATION_OPERATION
+  ) {
+    return false;
+  }
+
+  // Generic surfaces: blank/null OR exact canonical — never contradict.
   if (!isBlankOrCanonicalDocsWriteOperation(ei.requestedOperation)) {
     return false;
   }
@@ -195,9 +208,7 @@ export function hasCompatibleDocsWriteMaterializationEffect(
     return false;
   }
 
-  if (ei.intentKind === "docs_write") return true;
-  const op = (ei.requestedOperation ?? analysis.requestedOperation ?? "").trim();
-  return op === F2_ARTIFACT_MATERIALIZATION_OPERATION;
+  return true;
 }
 
 /**
@@ -419,24 +430,19 @@ export function enrichExecutionIntentFromBinding(input: {
     intentKind: input.analysisIntent?.intentKind ?? "docs_write",
   };
 
-  // CR-07-03 — preserve sourced reversibility only; never invent "reversible".
-  const reversibilityExpectation =
-    base.reversibilityExpectation === "reversible" ||
-    base.reversibilityExpectation === "irreversible" ||
-    base.reversibilityExpectation === "unknown"
-      ? base.reversibilityExpectation
-      : base.reversibilityExpectation === null
-        ? null
-        : undefined;
+  // CORR-PROOF-09 — unsourced affirmative reversibility is never trusted fact
+  // on the Artifact materialization enrich path. Preserve null/unknown only;
+  // never invent "reversible". Provider "reversible"|"irreversible" → null.
+  const rawRev = base.reversibilityExpectation;
+  const reversibilityExpectation: "unknown" | null =
+    rawRev === "unknown" ? "unknown" : null;
 
   if (!input.binding) {
     return {
       executionIntent: withCanonicalArtifactMaterializationAction({
         ...base,
         targetRepositoryRef: null,
-        ...(reversibilityExpectation !== undefined
-          ? { reversibilityExpectation }
-          : { reversibilityExpectation: null }),
+        reversibilityExpectation,
         scopeIn: [],
       }),
       needsTargetClarification: true,
@@ -454,9 +460,7 @@ export function enrichExecutionIntentFromBinding(input: {
         targetRepositoryRef: input.binding.identity,
         targetPath: null,
         scopeIn: [],
-        ...(reversibilityExpectation !== undefined
-          ? { reversibilityExpectation }
-          : { reversibilityExpectation: null }),
+        reversibilityExpectation,
       }),
       needsTargetClarification: true,
     };
@@ -492,13 +496,8 @@ export function enrichExecutionIntentFromBinding(input: {
     targetRepositoryRef: input.binding.identity,
     targetPath,
     scopeIn: effectiveScopeIn,
+    reversibilityExpectation,
   });
-
-  if (reversibilityExpectation !== undefined) {
-    out.reversibilityExpectation = reversibilityExpectation;
-  } else {
-    out.reversibilityExpectation = null;
-  }
 
   return {
     executionIntent: out,

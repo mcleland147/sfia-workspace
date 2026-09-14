@@ -33,6 +33,11 @@ import {
   type ExecutionIntentPayload,
 } from "./executionIntentSchema";
 import { parseContinuationKind } from "./activeCycleGovernedContinuation";
+import {
+  F2_ARTIFACT_MATERIALIZATION_OPERATION,
+  F2_ARTIFACT_MATERIALIZATION_OPERATION_SCHEMA_ENUM,
+  isF2ArtifactMaterializationOperation,
+} from "./f2CanonicalOperations";
 
 const INTENT_CLASSES: readonly IntentClass[] = [
   "informative",
@@ -196,6 +201,15 @@ export const F2_INTENT_JSON_SCHEMA: Record<string, unknown> = {
         { type: "null" },
       ],
     },
+    artifactMaterializationOperation: {
+      anyOf: [
+        {
+          type: "string",
+          enum: [...F2_ARTIFACT_MATERIALIZATION_OPERATION_SCHEMA_ENUM],
+        },
+        { type: "null" },
+      ],
+    },
   },
   required: [
     "intentClass",
@@ -217,6 +231,7 @@ export const F2_INTENT_JSON_SCHEMA: Record<string, unknown> = {
     "requestedOperation",
     "executionIntent",
     "continuationKind",
+    "artifactMaterializationOperation",
   ],
 };
 
@@ -258,6 +273,8 @@ function ambiguousFallback(partial?: Partial<IntentAnalysisDto>): IntentAnalysis
     requestedOperation: partial?.requestedOperation ?? null,
     executionIntent: partial?.executionIntent ?? null,
     continuationKind: partial?.continuationKind ?? null,
+    artifactMaterializationOperation:
+      partial?.artifactMaterializationOperation ?? null,
     contradictionCandidate: null,
     challengeResponseAssessment:
       partial?.challengeResponseAssessment ?? null,
@@ -392,6 +409,34 @@ export function validateIntentAnalysisPayload(raw: unknown): IntentAnalysisDto {
     } as Partial<IntentAnalysisDto>);
   }
 
+  // CORR-PROOF-09 — dedicated Artifact operation discriminator (enum|null).
+  // Absent → null. Invalid non-null → fail closed.
+  let artifactMaterializationOperation:
+    | typeof F2_ARTIFACT_MATERIALIZATION_OPERATION
+    | null = null;
+  if (
+    "artifactMaterializationOperation" in obj &&
+    obj.artifactMaterializationOperation != null
+  ) {
+    if (typeof obj.artifactMaterializationOperation !== "string") {
+      return ambiguousFallback({
+        intentClass: intentClass as IntentClass,
+        parseOk: false,
+      } as Partial<IntentAnalysisDto>);
+    }
+    const rawOp = obj.artifactMaterializationOperation.trim();
+    if (rawOp.length === 0) {
+      artifactMaterializationOperation = null;
+    } else if (!isF2ArtifactMaterializationOperation(rawOp)) {
+      return ambiguousFallback({
+        intentClass: intentClass as IntentClass,
+        parseOk: false,
+      } as Partial<IntentAnalysisDto>);
+    } else {
+      artifactMaterializationOperation = rawOp;
+    }
+  }
+
   return {
     intentClass: intentClass as IntentClass,
     candidateCycleTypeId,
@@ -412,6 +457,7 @@ export function validateIntentAnalysisPayload(raw: unknown): IntentAnalysisDto {
     requestedOperation: clip(obj.requestedOperation, 240),
     executionIntent,
     continuationKind: continuationParsed.value,
+    artifactMaterializationOperation,
     parseOk: true,
   };
 }
@@ -433,9 +479,10 @@ cognitiveWorkload ({ambiguity,reasoningDepth,sourceBreadth,toolDependency,contra
 contradictionCandidate (objet candidat cognitif OU null — PAS Evidence, PAS evidence_backed, PAS Cognitive STOP),
 challengeResponseAssessment (sufficient|insufficient|unknown|null — INTERNAL MW5 seulement ; PAS Truth C, PAS Evidence, PAS HumanDecision, PAS autorité ; missing/unknown/insufficient = fail-closed),
 objective, scope, rephrasedRequest, outOfScope[], risks[], reservations[], stopConditions[], activatedBlocks[],
-expectedOutcome, criticalJustification, requestedOperation (strings ou null pour les scalaires),
-executionIntent (objet structuré docs_write/read_only NON-AUTORITAIRE OU null — intention d'exécution proposée, JAMAIS une grant REAL / HumanDecision / autorité ; champs incluant artifactBrief, contentRequirements, targetPath, evidenceRequirements).
+expectedOutcome, criticalJustification, requestedOperation (string libre / legacy OU null — PAS un ID technique obligatoire hors matérialisation Artifact),
+executionIntent (objet structuré docs_write/read_only/other NON-AUTORITAIRE OU null — intention d'exécution proposée, JAMAIS une grant REAL / HumanDecision / autorité ; executionIntent.requestedOperation reste générique/nullable ; champs incluant artifactBrief, contentRequirements, targetPath, evidenceRequirements).
 continuationKind (active_cycle_artifact_materialization OU null — hint NON-AUTORITAIRE de continuation du cycle actif ; JAMAIS une permission createCycle/skip ; le serveur valide contre activeCycle + REQUIRE_ARTIFACT).
+artifactMaterializationOperation (cursor.docs_write.apply OU null — discriminateur TECHNIQUE dédié à la matérialisation Artifact active-cycle ; JAMAIS du texte libre ; JAMAIS une autorité d'exécution).
 
 === DISTINCTION FONDAMENTALE ===
 intentClass = EFFET demandé à Studio (quoi faire sur le produit).
@@ -573,16 +620,24 @@ Règles dures :
 - Ne pas reclasser en ambiguous uniquement parce que la phrase courante est incomplète si le contexte canonique la rend compréhensible.
 - Ne pas créer de CycleInstance / actionable par défaut pour une simple conversation informative progressive.
 
-=== CONTINUATION CYCLE ACTIF (CORR-PROOF-07) ===
+=== CONTINUATION CYCLE ACTIF (CORR-PROOF-07 / CORR-PROOF-09) ===
 NEW_CYCLE_FORMALIZATION ≠ ACTIVE_CYCLE_GOVERNED_CONTINUATION ≠ ACTIVE_CYCLE_CONTINUATION_BLOCKED.
 Si le Project a déjà un cycle actif et que la demande porte sur la matérialisation gouvernée du livrable requis (REQUIRE_ARTIFACT) de CE cycle :
 - continuationKind=active_cycle_artifact_materialization EST REQUIS (hint NON-AUTORITAIRE) ;
-- ET executionIntent.intentKind=docs_write (ou opération docs_write compatible) EST REQUIS ;
+- ET executionIntent.intentKind=docs_write EST REQUIS ;
+- ET artifactMaterializationOperation=cursor.docs_write.apply EST REQUIS (discriminateur technique dédié) ;
 - docs_write SEUL ne suffit JAMAIS à détourner vers la continuation Artifact ;
 - continuationKind SEUL ne suffit JAMAIS à ouvrir une proposition exécutable ;
 - NE PAS traiter cela comme création d'un nouveau CycleInstance / nouveau Cadrage ;
-- ne jamais inventer targetPath / repository / réversibilité comme faits ;
-- définition seule du livrable (sans effet de matérialisation) → informative, continuationKind=null.
+- CONTRAT TECHNIQUE (CORR-PROOF-09 CR-09-01/02) :
+  * artifactMaterializationOperation DOIT être EXACTEMENT « cursor.docs_write.apply » (pas d'alias « docs_write », pas de français, pas d'autre opération) ;
+  * hors de ce chemin Artifact, artifactMaterializationOperation=null ;
+  * requestedOperation (top-level) ET executionIntent.requestedOperation restent génériques ailleurs ; pour CETTE continuation Artifact, les laisser null (préféré) ou exactement cursor.docs_write.apply — JAMAIS une valeur contradictoire (ex. github.pr.merge) ;
+  * si des requiredCapabilities sont fournies pour ce chemin → « cap:cursor.docs_write » (le serveur reste autoritaire après acceptation) ;
+  * la description naturelle du livrable va dans objective / rephrasedRequest / artifactBrief / contentRequirements — JAMAIS dans artifactMaterializationOperation ;
+  * targetPath / targetRepositoryRef PEUVENT rester null (le serveur utilise Project.repositoryBinding) — ne PAS inventer de chemin ;
+  * reversibilityExpectation pour cette continuation : null ou unknown seulement — NE PAS affirmer reversible/irreversible sans provenance serveur ;
+- définition seule du livrable (sans effet de matérialisation) → informative, continuationKind=null, artifactMaterializationOperation=null.
 Aucune phrase magique exacte n'autorise seule cette continuation.`;
 
 export const ANALYSIS_SYSTEM = ANALYSIS_SYSTEM_BASE;
