@@ -1,6 +1,6 @@
 /** @vitest-environment jsdom */
-import { cleanup, render, screen } from "@testing-library/react";
-import { afterEach, describe, expect, it } from "vitest";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { RecoverySurface } from "@/features/pre-m6-product-ui/surfaces/RecoverySurface";
 import { ProjectRecoveryBanner } from "@/features/studio-projects/ProjectRecoveryBanner";
 import {
@@ -14,6 +14,15 @@ import {
   w1RecoveryDisclosures,
   w1RestartHonestyMessage,
 } from "@/features/project-assistant/presentationLabels";
+
+/*
+ * JOURNEY-INTEGRITY gap note:
+ * Full ProjectWorkspacePage proof that onRequalify does NOT call proposeOptions
+ * is skipped (heavy page mock surface). RecoverySurface only invokes the
+ * provided onRequalify callback — wiring in ProjectWorkspacePage focuses Nora
+ * (focusConversation + loadProject). No auto-propose signal exists any more:
+ * the Trajectory surface has no requalify-driven propose prop to bump.
+ */
 
 afterEach(() => {
   cleanup();
@@ -84,6 +93,20 @@ describe("W1 Track E — recovery UI disclosures", () => {
     expect(screen.getByTestId("recovery-requalify").textContent?.toLowerCase()).toMatch(
       /requalification contrôlée/,
     );
+  });
+
+  it("JOURNEY-INTEGRITY — requalify CTA only fires onRequalify (no propose built-in)", () => {
+    const onRequalify = vi.fn();
+    const onResumeDurable = vi.fn();
+    render(
+      <RecoverySurface
+        onRequalify={onRequalify}
+        onResumeDurable={onResumeDurable}
+      />,
+    );
+    fireEvent.click(screen.getByTestId("recovery-requalify"));
+    expect(onRequalify).toHaveBeenCalledTimes(1);
+    expect(onResumeDurable).not.toHaveBeenCalled();
   });
 
   it("ProjectRecoveryBanner renders honesty copy and controlled requalify CTA", () => {

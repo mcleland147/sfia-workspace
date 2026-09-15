@@ -26,7 +26,6 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
   const [durableOutcome, setDurableOutcome] =
     useState<ProjectAssistantRehydrateEvidenceOutcomeSuccess | null>(null);
   const [lpsOpen, setLpsOpen] = useState(false);
-  const [recoveryProposeSignal, setRecoveryProposeSignal] = useState(0);
   const [trajectoryRefreshSignal, setTrajectoryRefreshSignal] = useState(0);
   /** B1 — bump so LifecycleSurface reloads after Trajectory (or other) durable mutations. */
   const [lifecycleRefreshSignal, setLifecycleRefreshSignal] = useState(0);
@@ -72,9 +71,8 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
   }, []);
 
   const onRequalify = useCallback(async () => {
-    // B1 — bump signal so TrajectorySurface runs its own proposeOptions()
-    // (shared code path that materializes w2-options).
-    setRecoveryProposeSignal((n) => n + 1);
+    // JOURNEY-INTEGRITY — "nouvelle intention" focuses Nora for qualification.
+    // Must NOT bypass to proposeOptions / Trajectory instruction.
     focusConversation();
     void loadProject();
   }, [focusConversation, loadProject]);
@@ -235,7 +233,6 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
                 <TrajectorySurface
                   projectId={projectId}
                   composition="lps-embedded"
-                  recoveryProposeSignal={recoveryProposeSignal}
                   durableRefreshSignal={trajectoryRefreshSignal}
                   onDurableFactsChanged={notifyDurableFactsChanged}
                   activeProposalId={

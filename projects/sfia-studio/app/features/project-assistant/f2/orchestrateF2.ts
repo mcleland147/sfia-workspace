@@ -101,8 +101,8 @@ import {
   sealProposalExecutionBasis,
 } from "../w2/resolveProposalDecisionSubject";
 
-const EPHEMERAL_NOTICE =
-  "Conversation et Proposal F2 restent process-local ; Project/LPS/Cycle linkage M2 est persisté dans Product SQLite. AUCUNE EXÉCUTION.";
+/** Single source of persistence honesty for both the turn notice and the Proposal. */
+const EPHEMERAL_NOTICE = F2_PROCESS_LOCAL_NOTICE;
 
 function normalizeOpaqueProposalId(raw: unknown): string | null {
   if (typeof raw !== "string") return null;
@@ -145,6 +145,7 @@ async function commitPendingDecisionSubjectForDecisionRequired(input: {
     lpsId: input.proposal.contextSnapshot.lpsId,
     lpsVersion: input.proposal.contextSnapshot.lpsVersion,
     doctrineDigest: input.proposal.contextSnapshot.doctrineDigest,
+    proposal: input.proposal,
     correlationId: `cor:pending-subject:${input.proposal.proposalId}`,
   };
 
@@ -644,6 +645,20 @@ function qualificationFromActiveCycle(input: {
   };
 }
 
+/**
+ * JOURNEY-INTEGRITY — the reinstruction arm is a server verdict, never a
+ * client inference. "superseded" is reserved for a committed supersession of
+ * the prior pending subject; an armed turn that ends any other way reports
+ * "not_consumed" so the Pilot keeps the arm.
+ */
+function resolveReinstructionTransition(base: {
+  reinstructionTransition?: "superseded" | "not_consumed" | "not_applicable";
+  reinstructionOfProposalId?: string | null;
+}): "superseded" | "not_consumed" | "not_applicable" {
+  if (base.reinstructionTransition) return base.reinstructionTransition;
+  return base.reinstructionOfProposalId ? "not_consumed" : "not_applicable";
+}
+
 function f2Success(base: {
   text: string;
   mode: "fixture" | "live";
@@ -656,6 +671,12 @@ function f2Success(base: {
   executionBlocked?: boolean;
   mw5?: Mw5TurnSurface | null;
   turnKind?: "f1_informative" | "f2_clarification" | "f2_proposal" | "f2_blocked";
+  reinstructionTransition?: "superseded" | "not_consumed" | "not_applicable";
+  /**
+   * JOURNEY-INTEGRITY — armed reinstruction carried by this turn. Only the
+   * server may declare supersession; any other outcome leaves the arm intact.
+   */
+  reinstructionOfProposalId?: string | null;
 }): ProjectAssistantSendResult {
   const turnKind =
     base.turnKind ??
@@ -677,6 +698,7 @@ function f2Success(base: {
     toolEvents: [],
     project: base.project,
     ephemeralNotice: EPHEMERAL_NOTICE,
+    reinstructionTransition: resolveReinstructionTransition(base),
     mw5: base.mw5
       ? {
           disposition: base.mw5.disposition,
@@ -738,6 +760,8 @@ async function f2ConversationalSuccess(input: {
   executionBlocked?: boolean;
   mw5?: Mw5TurnSurface | null;
   turnKind?: "f1_informative" | "f2_clarification" | "f2_proposal" | "f2_blocked";
+  reinstructionTransition?: "superseded" | "not_consumed" | "not_applicable";
+  reinstructionOfProposalId?: string | null;
 }): Promise<ProjectAssistantSendResult> {
   await persistCanonicalF2AssistantTurn({
     projectId: input.project.projectId,
@@ -1025,6 +1049,9 @@ export async function orchestrateAssistantSend(input: {
       model: f1.model ?? model,
       ephemeralNotice: EPHEMERAL_NOTICE,
       mw5: null,
+      reinstructionTransition: resolveReinstructionTransition({
+        reinstructionOfProposalId,
+      }),
       f2: {
         turnKind: "f1_informative",
         intentClass: reportedIntent,
@@ -1059,6 +1086,7 @@ export async function orchestrateAssistantSend(input: {
       model,
       project,
       intentClass: analysis.intentClass,
+      reinstructionOfProposalId,
     });
   }
 
@@ -1075,6 +1103,7 @@ export async function orchestrateAssistantSend(input: {
       model,
       project,
       intentClass: analysis.intentClass,
+      reinstructionOfProposalId,
     });
   }
 
@@ -1107,6 +1136,7 @@ export async function orchestrateAssistantSend(input: {
       model,
       project,
       intentClass: analysis.intentClass,
+      reinstructionOfProposalId,
       executionBlocked: true,
       turnKind:
         continuation.reason === "incompatible_execution_intent" ||
@@ -1143,6 +1173,7 @@ export async function orchestrateAssistantSend(input: {
         model,
         project,
         intentClass: analysis.intentClass,
+        reinstructionOfProposalId,
         qualification,
         executionBlocked: analysis.intentClass === "execution_request",
         turnKind: "f2_clarification",
@@ -1169,6 +1200,7 @@ export async function orchestrateAssistantSend(input: {
         model,
         project,
         intentClass: analysis.intentClass,
+        reinstructionOfProposalId,
         qualification,
         executionBlocked: analysis.intentClass === "execution_request",
         mw5: mw5.surface,
@@ -1249,6 +1281,10 @@ export async function orchestrateAssistantSend(input: {
       executionBlocked: true,
       mw5: mw5.surface,
       turnKind: "f2_proposal",
+      reinstructionOfProposalId,
+      reinstructionTransition: reinstructionGate.reinstructionOfProposalId
+        ? "superseded"
+        : undefined,
     });
   }
 
@@ -1276,6 +1312,7 @@ export async function orchestrateAssistantSend(input: {
       model,
       project,
       intentClass: analysis.intentClass,
+      reinstructionOfProposalId,
     });
   }
 
@@ -1344,6 +1381,7 @@ export async function orchestrateAssistantSend(input: {
       model,
       project,
       intentClass: analysis.intentClass,
+      reinstructionOfProposalId,
       qualification,
       executionBlocked: analysis.intentClass === "execution_request",
     });
@@ -1369,6 +1407,7 @@ export async function orchestrateAssistantSend(input: {
       model,
       project,
       intentClass: analysis.intentClass,
+      reinstructionOfProposalId,
       qualification,
       executionBlocked: analysis.intentClass === "execution_request",
       mw5: mw5.surface,
@@ -1407,6 +1446,7 @@ export async function orchestrateAssistantSend(input: {
       model,
       project,
       intentClass: analysis.intentClass,
+      reinstructionOfProposalId,
       qualification,
       executionBlocked: analysis.intentClass === "execution_request",
     });
@@ -1424,6 +1464,7 @@ export async function orchestrateAssistantSend(input: {
       model,
       project,
       intentClass: analysis.intentClass,
+      reinstructionOfProposalId,
       qualification: {
         ...qualification,
         cycleInstanceId: created.cycle.cycleInstanceId,
@@ -1549,5 +1590,7 @@ export async function orchestrateAssistantSend(input: {
     proposal,
     executionBlocked,
     mw5: mw5.surface,
+    reinstructionOfProposalId,
+    reinstructionTransition: newCycleReinstructionOf ? "superseded" : undefined,
   });
 }

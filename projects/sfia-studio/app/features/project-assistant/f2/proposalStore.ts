@@ -19,8 +19,17 @@ function getSlot(): StoreSlot {
   return g[STORE_KEY];
 }
 
+/**
+ * JOURNEY-INTEGRITY — honest persistence disclosure.
+ *
+ * The conversation is NOT a durable aggregate and this notice must never claim
+ * that the whole Proposal is one. What is promised is narrower and true: the
+ * effective decision subject is kept or reconstructible while it stays valid
+ * (Epistemic marker + snapshot), and a lost or altered subject leads to
+ * explicit requalification instead of invention.
+ */
 export const F2_PROCESS_LOCAL_NOTICE =
-  "Conversation et Proposal F2 restent process-local ; Project/LPS/Cycle/HumanDecision/ExecutionContract M3 sont persistés dans Product SQLite. Authority locale TEMPORARY WITH EXIT. Aucune exécution Cursor REAL.";
+  "La conversation n'est pas un agrégat durable. Le sujet de décision effectif est conservé ou reconstruisible tant qu'il reste valide ; sinon reformulation explicite — jamais d'invention. Project/LPS/Cycle/HumanDecision/ExecutionContract restent dans Product SQLite. Aucune exécution Cursor REAL. (Détail technique : marqueur d'observation épistémique durable ; transcript et Proposal en mémoire de processus ; autorité locale TEMPORARY WITH EXIT.)";
 
 export function createProposalId(): string {
   return `prop:f2:${randomUUID()}`;

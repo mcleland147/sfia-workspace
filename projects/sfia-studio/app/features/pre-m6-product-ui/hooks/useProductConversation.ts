@@ -375,9 +375,19 @@ export function useProductConversation({
         return;
       }
 
-      if (reinstructionOfProposalId) {
+      // Supersession is a server verdict only. A DECISION_REQUIRED Proposal
+      // alone does not prove the prior pending subject was replaced, so the arm
+      // survives clarifications, blocks, MW5 denials and F1 advisory turns.
+      if (
+        reinstructionOfProposalId &&
+        result.reinstructionTransition === "superseded"
+      ) {
         setArmedReinstructionOfProposalId(null);
         options?.onReinstructionConsumed?.();
+      }
+      if (result.f2?.proposal?.status === "DECISION_REQUIRED") {
+        // A committed decision subject is a durable Epistemic marker write.
+        notifyDurableFactsChanged();
       }
 
       lastSendFailedRef.current = false;

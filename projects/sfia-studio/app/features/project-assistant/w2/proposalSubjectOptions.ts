@@ -11,7 +11,7 @@ import type {
   TrajectoryOptionDto,
   TrajectoryRecommendationDto,
 } from "./types";
-import type { SealedProposalExecutionBasis } from "./resolveProposalDecisionSubject";
+import type { SealedProposalExecutionBasis } from "./proposalSubjectIntegrity";
 
 export const PROPOSAL_SUBJECT_PURSUE_REF =
   "opt:proposal-subject:pursue" as const;

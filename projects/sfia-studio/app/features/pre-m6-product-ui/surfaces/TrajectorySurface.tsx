@@ -11,6 +11,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { flushSync } from "react-dom";
+import { projectAssistantPrepareM3Action } from "@/features/project-assistant/actions";
 import {
   w2AmendExecutionContractAction,
   w2AuthorizeExecutionContractAction,
@@ -59,6 +60,7 @@ import {
 } from "@/features/project-assistant/presentationLabels";
 import {
   PROPOSAL_SUBJECT_AMEND_REF,
+  PROPOSAL_SUBJECT_PURSUE_REF,
   PROPOSAL_SUBJECT_REFUSE_REF,
 } from "@/features/project-assistant/w2/proposalSubjectOptions";
 import { filterProductReservationsForDisplay } from "@/features/project-assistant/w2/w3cProductPresentation";
@@ -149,7 +151,6 @@ function yieldBrowserPaint(): Promise<void> {
 export function TrajectorySurface({
   projectId,
   onDurableFactsChanged,
-  recoveryProposeSignal = 0,
   durableRefreshSignal = 0,
   composition = "standalone",
   activeProposalId = null,
@@ -157,8 +158,6 @@ export function TrajectorySurface({
 }: {
   projectId: string;
   onDurableFactsChanged?: () => void;
-  /** B1 — increment from RecoverySurface requalify to reuse proposeOptions(). */
-  recoveryProposeSignal?: number;
   /** Increment after Lifecycle bridge / durable mutations to rehydrate candidate. */
   durableRefreshSignal?: number;
   /**
@@ -257,6 +256,19 @@ export function TrajectorySurface({
   const [productEvidencePending, setProductEvidencePending] = useState(false);
   const [qualifiedOperationKind, setQualifiedOperationKind] =
     useState<QualifiedOperationKind | null>(null);
+
+  const decidedOptionRef = decision?.selectedOptionRef ?? null;
+  const decisionDefersExecution =
+    decidedOptionRef === PROPOSAL_SUBJECT_AMEND_REF ||
+    decidedOptionRef === PROPOSAL_SUBJECT_REFUSE_REF;
+  const hasProposalDecisionSubject = Boolean(decision?.proposalId);
+  const proposalPursue =
+    hasProposalDecisionSubject &&
+    decidedOptionRef === PROPOSAL_SUBJECT_PURSUE_REF;
+  const proposalBackedPrepareReady =
+    proposalPursue && decision?.decisionBasisLinked === true;
+  const proposalBackedPrepareBlocked =
+    proposalPursue && decision?.decisionBasisLinked !== true;
 
   function paintAttemptPhase(
     phase: GovernedExecutePhaseSuccess["phase"],
@@ -498,12 +510,6 @@ export function TrajectorySurface({
     void rehydrateActiveDecisionSubject();
   }, [rehydrateActiveDecisionSubject, durableRefreshSignal]);
 
-  useEffect(() => {
-    if (recoveryProposeSignal > 0) {
-      void proposeOptions();
-    }
-  }, [recoveryProposeSignal, proposeOptions]);
-
   const decide = useCallback(
     async (selectedOptionRef: string) => {
       if (!optionSet) return;
@@ -593,6 +599,53 @@ export function TrajectorySurface({
     setAttemptStatusLabel(null);
     onDurableFactsChanged?.();
   }, [decision, projectId, qualifiedOperationKind, onDurableFactsChanged]);
+
+  /**
+   * JOURNEY-INTEGRITY / Lot A-B final — Proposal-backed PREPARE.
+   *
+   * After pursue on a Proposal Decision Subject, the sealed DecisionBasis already
+   * carries the decided operation (e.g. cursor.docs_write.apply). The Pilot must
+   * not re-select a sandbox op. Client sends only projectId + decisionId; the
+   * server resolves targetPath / operation / binding from durable lineage.
+   */
+  const prepareProposalBackedContract = useCallback(async () => {
+    if (!decision?.proposalId || !decision.decisionBasisLinked) return;
+    if (decisionDefersExecution) return;
+    setBusy("contract");
+    setError(null);
+    const result = await projectAssistantPrepareM3Action({
+      projectId,
+      decisionId: decision.decisionId,
+    });
+    setBusy(null);
+    if (!result.ok) {
+      setError(result.message);
+      return;
+    }
+    const prepared = result.f3.contract;
+    setContract({
+      executionContractId: prepared.executionContractId,
+      version: prepared.version,
+      status: prepared.status,
+      action: prepared.action,
+      target: prepared.target,
+      scope: prepared.scope,
+      requiredAuthority: prepared.requiredAuthority,
+      constraints: [...prepared.constraints],
+      stopConditions: [...prepared.stopConditions],
+      requiredCapabilities: [...prepared.requiredCapabilities],
+      reversibility: prepared.reversibility,
+      semanticFingerprint: prepared.semanticFingerprint,
+    });
+    setInspection(null);
+    setAuthorization(null);
+    setAmendmentDraft("");
+    setAmendmentNotice(null);
+    setAttempt(null);
+    setAttemptPhase(null);
+    setAttemptStatusLabel(null);
+    onDurableFactsChanged?.();
+  }, [decision, decisionDefersExecution, projectId, onDurableFactsChanged]);
 
   const inspect = useCallback(async () => {
     if (!contract) return;
@@ -896,6 +949,25 @@ export function TrajectorySurface({
     setProductEvidencePending(false);
   }, [attempt, projectId]);
 
+  /**
+   * JOURNEY-INTEGRITY — CTA exclusivity on the mutating primary action.
+   *
+   * While a Proposal decision subject still owns the next useful action, the
+   * generic ProjectTrajectory instruct CTA must not offer a competing subject.
+   * Informational blocks above remain visible; only the mutating CTA is strict.
+   */
+  const proposalSubjectOwnsNextAction =
+    // reformulate / instruct the pending subject
+    pendingReinstruction != null ||
+    // options presented, awaiting the HumanDecision
+    (optionSet != null && decision == null) ||
+    // amend / refuse: next move is with Nora, never a new generic instruction
+    (decision != null && decisionDefersExecution) ||
+    // pursue decided but no contract yet: PREPARE owns the next action
+    (decision != null && contract == null) ||
+    // contract prepared: Inspect (then confirm / authorize) owns the next action
+    contract != null;
+
   return (
     <section
       className={[
@@ -1194,11 +1266,13 @@ export function TrajectorySurface({
       ) : null}
 
       {/*
-        W2 OptionSet requires an active CycleInstance. Hide the CTA in all
-        pre-cycle states (CURRENT NEXT_CYCLE LR, candidate-only, or empty)
-        so the Pilote is never offered a path known to return CYCLE_NOT_QUALIFIED.
+        W2 OptionSet requires an active CycleInstance.
+        JOURNEY-INTEGRITY — whenever a Proposal decision subject owns the next
+        action (pending, options awaiting decision, decision taken, contract
+        prepared), the generic trajectory instruct CTA is hidden so two
+        decision subjects can never compete for the same primary action.
       */}
-      {activeCycleInstanceId ? (
+      {activeCycleInstanceId && !proposalSubjectOwnsNextAction ? (
       <div className={styles.actions}>
         <button
           type="button"
@@ -1207,7 +1281,7 @@ export function TrajectorySurface({
           onClick={() => void proposeOptions()}
           disabled={busy !== null}
         >
-          {optionSet ? "Réinstruire les options" : "Instruire les options"}
+          Instruire les options
         </button>
         {busy ? (
           <span className={styles.busy} role="status" data-testid="w2-busy">
@@ -1417,8 +1491,55 @@ export function TrajectorySurface({
               préparation d&apos;exécution ici.
             </p>
           ) : null}
-          {decision.selectedOptionRef !== PROPOSAL_SUBJECT_AMEND_REF &&
-          decision.selectedOptionRef !== PROPOSAL_SUBJECT_REFUSE_REF ? (
+          {/*
+            JOURNEY-INTEGRITY Lot A-B fail-closed:
+            · Proposal pursue + linked DecisionBasis → M3 PREPARE (no selector).
+            · Proposal pursue + missing DecisionBasis → fail-closed requalify
+              (NEVER sandbox fallback — subject still owns the journey).
+            · Non-Proposal only → W2 sandbox selector remains.
+            Contract prepared → Inspect owns next action; no re-PREPARE.
+          */}
+          {!decisionDefersExecution &&
+          !contract &&
+          proposalBackedPrepareReady ? (
+          <div
+            className={styles.actions}
+            data-testid="w2-proposal-backed-prepare"
+          >
+            <p className={styles.blockNote} data-testid="w2-proposal-backed-prepare-note">
+              La décision porte déjà l&apos;opération scellée. Préparez le
+              contrat d&apos;exécution à partir de cette décision — sans
+              resélection technique.
+            </p>
+            <button
+              type="button"
+              className={styles.primaryAction}
+              data-testid="w2-prepare-contract"
+              onClick={() => void prepareProposalBackedContract()}
+              disabled={busy !== null}
+            >
+              Préparer le contrat d&apos;exécution
+            </button>
+          </div>
+          ) : null}
+          {!decisionDefersExecution &&
+          !contract &&
+          proposalBackedPrepareBlocked ? (
+          <div
+            className={styles.block}
+            data-testid="w2-proposal-prepare-blocked"
+            role="status"
+          >
+            <p className={styles.blockBody}>
+              Cette décision ne dispose plus d&apos;une base d&apos;exécution
+              exploitable. Réinstruisez ou requalifiez le sujet avec Nora avant
+              de préparer un contrat.
+            </p>
+          </div>
+          ) : null}
+          {!decisionDefersExecution &&
+          !contract &&
+          !hasProposalDecisionSubject ? (
           <div
             className={styles.actions}
             data-testid="w3a-qualify-execution-work"
@@ -1464,7 +1585,7 @@ export function TrajectorySurface({
             <button
               type="button"
               className={styles.primaryAction}
-              data-testid="w2-prepare-contract"
+              data-testid="w2-prepare-contract-sandbox"
               onClick={() => void prepareContract()}
               disabled={busy !== null || qualifiedOperationKind === null}
               title={
@@ -1473,9 +1594,7 @@ export function TrajectorySurface({
                   : undefined
               }
             >
-              {contract
-                ? "Repréparer le contrat d'exécution"
-                : "Préparer le contrat d'exécution"}
+              Préparer le contrat d&apos;exécution
             </button>
           </div>
           ) : null}

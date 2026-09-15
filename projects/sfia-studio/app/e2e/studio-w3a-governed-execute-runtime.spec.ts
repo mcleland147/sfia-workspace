@@ -223,7 +223,7 @@ test.describe("W3-A R09 /studio governed execute product proof", () => {
       state: "actual_work_temp_artifact",
     });
 
-    await page.getByTestId("w2-prepare-contract").click();
+    await page.getByTestId("w2-prepare-contract-sandbox").click();
     await expect(page.getByTestId("w2-contract")).toBeVisible({
       timeout: 45_000,
     });
@@ -418,7 +418,7 @@ test.describe("W3-A R09 /studio governed execute product proof", () => {
     await openQualifiedStudioProject(page, "W3-A R09 Blocked No Work");
     // Empty operation kind → Prepare disabled → no Execute → no Attempt.
     await page.getByTestId("w3a-operation-kind").selectOption("");
-    await expect(page.getByTestId("w2-prepare-contract")).toBeDisabled();
+    await expect(page.getByTestId("w2-prepare-contract-sandbox")).toBeDisabled();
     await expect(page.getByTestId("w3a-governed-execute")).toHaveCount(0);
     await expect(page.getByTestId("w3a-attempt")).toHaveCount(0);
     await capture(page, "10-blocked-no-actual-work", {

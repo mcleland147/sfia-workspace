@@ -12,7 +12,7 @@
 
 import { computeDecisionBasisSourceDigest } from "@/lib/oa/decision";
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
-import type { SealedProposalExecutionBasis } from "./resolveProposalDecisionSubject";
+import type { SealedProposalExecutionBasis } from "./proposalSubjectIntegrity";
 import type { TrajectoryOptionDto, TrajectoryRecommendationDto } from "./types";
 
 export const W2_PRESENTED_OPTION_SET_KIND = "w2_presented_option_set" as const;

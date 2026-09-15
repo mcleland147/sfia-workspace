@@ -196,7 +196,7 @@ test.describe("W4-B single authority path /studio", () => {
     await page
       .getByTestId("w3a-operation-kind")
       .selectOption("generate-temporary-artifact");
-    await page.getByTestId("w2-prepare-contract").click();
+    await page.getByTestId("w2-prepare-contract-sandbox").click();
     await expect(page.getByTestId("w2-contract")).toBeVisible({ timeout: 45_000 });
     await expect(page.getByTestId("w2-contract-status")).toHaveText(
       "Confirmation requise",
@@ -342,7 +342,7 @@ test.describe("W4-B single authority path /studio", () => {
     await page
       .getByTestId("w3a-operation-kind")
       .selectOption("generate-temporary-artifact");
-    await page.getByTestId("w2-prepare-contract").click();
+    await page.getByTestId("w2-prepare-contract-sandbox").click();
     await expect(page.getByTestId("w2-contract")).toBeVisible({ timeout: 45_000 });
     // Authorize WITHOUT inspect → blocked
     await page.getByTestId("w2-authorize-contract").click();

@@ -9,15 +9,20 @@
  * may remain; reconstruction shadows it. READ FAILURE ≠ EMPTY STATE.
  */
 
-import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
+import {
+  readLiveProjectContext,
+  type RuntimeOaStack,
+} from "@/lib/vertical-slice-runtime";
 import { listProposalsForProject } from "../f2/proposalStore";
 import {
   pilotAmbiguousPendingMessage,
   pilotPendingReinstructionMessage,
 } from "../presentationLabels";
 import {
+  hydrateProposalsFromPendingMarkers,
   listActivePendingDecisionSubjectMarkers,
   type PendingDecisionSubjectMarker,
+  type SnapshotHydrationLiveContext,
 } from "./pendingDecisionSubjectMarker";
 import {
   isProposalSubjectPresentedSet,
@@ -264,6 +269,25 @@ export async function readActiveProposalDecisionSubject(
   if (!pending.ok) return pending;
 
   if (pending.markers.length > 0) {
+    // Snapshot continuity is only admissible against live Product truth.
+    // Unreadable live context is an epistemic failure, not "no subject".
+    const live = await readLiveProjectContext(oa, projectId);
+    if (!live.ok) {
+      return {
+        ok: false,
+        code: "EPISTEMIC_READ_FAILED",
+        message:
+          "Contexte Project/LPS courant illisible — reconstruction du sujet de décision refusée. Aucun fallback trajectoire générique.",
+      };
+    }
+    const liveContext: SnapshotHydrationLiveContext = {
+      projectId,
+      lpsId: live.context.lpsId,
+      lpsVersion: live.context.lpsVersion,
+      doctrineDigest: live.context.doctrineDigest,
+      closedProposalIds: pending.closedProposalIds,
+    };
+    hydrateProposalsFromPendingMarkers(pending.markers, liveContext);
     const localDecisionRequired = new Set(
       listProposalsForProject(projectId)
         .filter((p) => p.status === "DECISION_REQUIRED")
