@@ -13,6 +13,7 @@ const {
   executeSelectMock,
   executeStartMock,
   executeCompleteMock,
+  readActiveDecisionSubjectMock,
   readPreCycleMock,
   readApprovalMock,
   prepareCycleMock,
@@ -28,6 +29,7 @@ const {
   executeSelectMock: vi.fn(),
   executeStartMock: vi.fn(),
   executeCompleteMock: vi.fn(),
+  readActiveDecisionSubjectMock: vi.fn(),
   readPreCycleMock: vi.fn(),
   readApprovalMock: vi.fn(),
   prepareCycleMock: vi.fn(),
@@ -51,6 +53,8 @@ vi.mock("@/features/project-assistant/w2/actions", () => ({
     executeStartMock(...args),
   w2GovernedExecuteCompleteAction: (...args: unknown[]) =>
     executeCompleteMock(...args),
+  w2ReadActiveDecisionSubjectAction: (...args: unknown[]) =>
+    readActiveDecisionSubjectMock(...args),
   w2ReadProjectHistoryAction: vi.fn().mockResolvedValue({
     ok: false,
     code: "UNUSED",
@@ -88,11 +92,16 @@ beforeEach(() => {
   executeSelectMock.mockReset();
   executeStartMock.mockReset();
   executeCompleteMock.mockReset();
+  readActiveDecisionSubjectMock.mockReset();
   readPreCycleMock.mockReset();
   readApprovalMock.mockReset();
   prepareCycleMock.mockReset();
   readPreparedCycleMock.mockReset();
   startPreparedCycleMock.mockReset();
+  readActiveDecisionSubjectMock.mockResolvedValue({
+    ok: true,
+    kind: "none",
+  });
   readPreCycleMock.mockResolvedValue({
     ok: true,
     candidate: null,
@@ -170,7 +179,10 @@ describe("W2 TrajectorySurface", () => {
     );
     expect(screen.queryByTestId("w2-decision")).toBeNull();
     expect(screen.queryByTestId("w2-authorization")).toBeNull();
-    expect(proposeMock).toHaveBeenCalledWith({ projectId: "prj:w2-ui" });
+    expect(proposeMock).toHaveBeenCalledWith({
+      projectId: "prj:w2-ui",
+      proposalId: null,
+    });
   });
 
   it("records an explicit Pilote decision and shows STOP BEFORE EXECUTE on the verdict", async () => {

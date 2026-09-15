@@ -238,6 +238,11 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
                   recoveryProposeSignal={recoveryProposeSignal}
                   durableRefreshSignal={trajectoryRefreshSignal}
                   onDurableFactsChanged={notifyDurableFactsChanged}
+                  activeProposalId={
+                    controller.activeProposal?.status === "DECISION_REQUIRED"
+                      ? controller.activeProposal.proposalId
+                      : null
+                  }
                 />
               </div>
             </section>

@@ -17,7 +17,7 @@ import { S1_MAX_TTL_SECONDS } from "@/lib/auth/constants";
 import { issueS1AuthorityEvidence } from "@/lib/auth/s1Authority";
 import type { ResolveCurrentPiloteResult } from "@/lib/auth/resolveCurrentPilote";
 import type { F2ContextSnapshot } from "../f2/types";
-import { loadPresentedOptionSet } from "./presentedOptionSet";
+import { loadPresentedOptionSet, parsePresentedOptionSetStatement } from "./presentedOptionSet";
 import {
   assertNotF3FixtureSemantics,
   deriveW3AExecutionEnvelope,
@@ -213,19 +213,80 @@ export async function prepareExecutionContractFromW2Decision(input: {
   }
 
   const traj = basis.trajectoryContext;
-  if (!traj) {
+
+  // trajectory_option always requires trajectoryContext; proposal does not.
+  if (basis.sourceType === "trajectory_option" && !traj) {
     return {
       ok: false,
       code: "TRAJECTORY_CONTEXT_REQUIRED",
       message:
-        "DecisionBasis.trajectoryContext requis pour la préparation W2→W3.",
+        "DecisionBasis.trajectoryContext requis pour la préparation W2→W3 (source trajectory_option).",
+    };
+  }
+
+  // CORR-PROOF-10 — trajectory_option sourceRef IS optionSetRef;
+  // proposal sourceRef is proposalId — recover optionSetRef from epistemicRefs
+  // (legacy traj context) or by scanning presented Proposal OptionSets.
+  let optionSetRef: string | null = null;
+  if (basis.sourceType === "trajectory_option") {
+    optionSetRef = basis.sourceRef;
+  } else if (basis.sourceType === "proposal") {
+    for (const ref of traj?.epistemicRefs ?? []) {
+      if (ref.startsWith("epi:set-")) {
+        optionSetRef = `optset:${ref.slice("epi:set-".length)}`;
+        break;
+      }
+    }
+    if (!optionSetRef) {
+      const epistemic = await oa.cycleServices.getEpistemicState.execute({
+        projectId: input.projectId,
+      });
+      if (epistemic.ok) {
+        for (const item of epistemic.state.items) {
+          if (item.type !== "Observation" || item.status !== "active") continue;
+          if (!item.relatedObjects?.includes(basis.sourceRef)) continue;
+          const parsed = parsePresentedOptionSetStatement(item.statement);
+          if (
+            parsed &&
+            parsed.decisionSubjectMode === "proposal" &&
+            parsed.proposalId === basis.sourceRef
+          ) {
+            optionSetRef = parsed.optionSetRef;
+          }
+        }
+      }
+    }
+  }
+  if (!optionSetRef) {
+    return {
+      ok: false,
+      code: "OPTION_SET_REF_REQUIRED",
+      message:
+        "Référence OptionSet absente de la DecisionBasis — préparation refusée.",
+    };
+  }
+
+  const selectedOptionRef =
+    basis.sourceType === "proposal"
+      ? decision.selectedOptionId
+      : traj!.selectedOptionRef;
+
+  if (
+    basis.sourceType === "proposal" &&
+    selectedOptionRef !== "opt:proposal-subject:pursue"
+  ) {
+    return {
+      ok: false,
+      code: "PREPARE_NOT_APPLICABLE",
+      message:
+        "Préparation EC réservée à la poursuite du sujet Proposal — amend/refuse n'ouvrent pas d'exécution.",
     };
   }
 
   const presented = await loadPresentedOptionSet(
     oa,
     input.projectId,
-    basis.sourceRef,
+    optionSetRef,
   );
   if (!presented.ok) {
     return {
@@ -235,8 +296,21 @@ export async function prepareExecutionContractFromW2Decision(input: {
     };
   }
 
+  if (
+    basis.sourceType === "proposal" &&
+    (presented.presented.proposalId !== basis.sourceRef ||
+      presented.presented.proposalSubjectDigest !== basis.sourceDigest)
+  ) {
+    return {
+      ok: false,
+      code: "PROPOSAL_SUBJECT_MISMATCH",
+      message:
+        "OptionSet présenté ≠ sujet Proposal de la DecisionBasis — fail-closed.",
+    };
+  }
+
   const selected = presented.presented.options.find(
-    (o) => o.optionRef === traj.selectedOptionRef,
+    (o) => o.optionRef === selectedOptionRef,
   );
   if (!selected) {
     return {
@@ -312,7 +386,7 @@ export async function prepareExecutionContractFromW2Decision(input: {
     projectId: input.projectId,
     decisionId: decision.decisionId,
     basis,
-    selectedOptionRef: traj.selectedOptionRef,
+    selectedOptionRef,
     selectedOptionIntent: selected.intent,
     selectedOptionLabel: selected.label,
     projectObjective,

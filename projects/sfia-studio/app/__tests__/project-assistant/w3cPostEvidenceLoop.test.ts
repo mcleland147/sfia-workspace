@@ -79,8 +79,8 @@ async function authorizeTempArtifact(suffix: string, dbPath?: string) {
     options: proposed.options,
     recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
     selectedOptionRef: GOVERNED_OPTION_REF,
-    trajectoryId: proposed.proposedTrajectory.trajectoryId,
-    candidateVersion: proposed.proposedTrajectory.version,
+    trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+    candidateVersion: proposed.proposedTrajectory!.version,
     forceLocalAuthority: true,
   });
   expect(decided.ok).toBe(true);
@@ -123,10 +123,10 @@ async function authorizeTempArtifact(suffix: string, dbPath?: string) {
     executionContractId,
     db,
     runtime,
-    trajectoryId: proposed.proposedTrajectory.trajectoryId,
-    trajectoryVersion: proposed.proposedTrajectory.version,
-    decidedTrajectoryId: decided.trajectory.trajectoryId,
-    decidedTrajectoryVersion: decided.trajectory.version,
+    trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+    trajectoryVersion: proposed.proposedTrajectory!.version,
+    decidedTrajectoryId: decided.trajectory!.trajectoryId,
+    decidedTrajectoryVersion: decided.trajectory!.version,
   };
 }
 
@@ -349,13 +349,13 @@ describe("W3C-P06 structural replan requires decide", () => {
       options: proposed.options,
       recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
       selectedOptionRef: GOVERNED_OPTION_REF,
-      trajectoryId: proposed.proposedTrajectory.trajectoryId,
-      candidateVersion: proposed.proposedTrajectory.version,
+      trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory!.version,
       forceLocalAuthority: true,
     });
     expect(decided.ok).toBe(true);
     if (!decided.ok) return;
-    expect(decided.trajectory.status).toBe("validated");
+    expect(decided.trajectory!.status).toBe("validated");
     expect(decided.decision.decisionId).toBeTruthy();
   });
 });

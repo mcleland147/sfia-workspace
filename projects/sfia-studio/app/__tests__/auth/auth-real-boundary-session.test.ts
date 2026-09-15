@@ -179,8 +179,8 @@ describe.skipIf(!enabled)(
         options: proposed.options,
         recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
         selectedOptionRef: GOVERNED_OPTION_REF,
-        trajectoryId: proposed.proposedTrajectory.trajectoryId,
-        candidateVersion: proposed.proposedTrajectory.version,
+        trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+        candidateVersion: proposed.proposedTrajectory!.version,
         forceLocalAuthority: true, // decision seeding only — prepare path must NOT use forceLocal
       });
       expect(decided.ok).toBe(true);

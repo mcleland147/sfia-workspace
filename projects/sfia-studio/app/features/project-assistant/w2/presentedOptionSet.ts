@@ -4,13 +4,20 @@
  * Propose materialises an Epistemic Observation that pins the exact OptionSet
  * shown to the Pilote. Decide loads that Observation and never re-derives
  * options from live qualification (A2).
+ *
+ * CORR-PROOF-10 remediation:
+ * - proposal subject mode seals Proposal fields without ProjectTrajectory
+ * - trajectoryId / candidateVersion are only required for project_trajectory mode
  */
 
 import { computeDecisionBasisSourceDigest } from "@/lib/oa/decision";
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
+import type { SealedProposalExecutionBasis } from "./resolveProposalDecisionSubject";
 import type { TrajectoryOptionDto, TrajectoryRecommendationDto } from "./types";
 
 export const W2_PRESENTED_OPTION_SET_KIND = "w2_presented_option_set" as const;
+
+export type DecisionSubjectMode = "proposal" | "project_trajectory";
 
 export type OptionSetDigestInputs = {
   readonly cycleTypeId: string;
@@ -20,6 +27,9 @@ export type OptionSetDigestInputs = {
   readonly reservations: readonly string[];
   readonly options: readonly TrajectoryOptionDto[];
   readonly recommendedOptionRef: string;
+  readonly proposalId?: string | null;
+  readonly proposalSubjectDigest?: string | null;
+  readonly decisionSubjectMode?: DecisionSubjectMode;
 };
 
 export type QualificationDigestInputs = {
@@ -29,10 +39,6 @@ export type QualificationDigestInputs = {
   readonly irreversible: boolean;
   readonly reservations: readonly string[];
   readonly ckcAttribution: string | null;
-  /**
-   * Stable CKC semantic fingerprint (PB-DLV-01). Material cycle/CKC/content
-   * change invalidates binding; raw provider prose is never included.
-   */
   readonly ckcSemanticFingerprint: string | null;
 };
 
@@ -41,8 +47,10 @@ export type PresentedOptionSetBinding = {
   readonly optionSetRef: string;
   readonly optionSetDigest: string;
   readonly qualificationDigest: string;
-  readonly trajectoryId: string;
-  readonly candidateVersion: number;
+  /** Required for project_trajectory mode; null for proposal subject mode. */
+  readonly trajectoryId: string | null;
+  /** Required for project_trajectory mode; null for proposal subject mode. */
+  readonly candidateVersion: number | null;
   readonly optionRefs: readonly string[];
   readonly recommendedOptionRef: string;
   readonly options: readonly TrajectoryOptionDto[];
@@ -55,6 +63,11 @@ export type PresentedOptionSetBinding = {
   readonly reservations: readonly string[];
   readonly ckcAttribution: string | null;
   readonly ckcSemanticFingerprint: string | null;
+  readonly decisionSubjectMode: DecisionSubjectMode;
+  readonly proposalId?: string | null;
+  readonly proposalSubjectDigest?: string | null;
+  readonly promotesProjectTrajectory: boolean;
+  readonly sealedExecutionBasis?: SealedProposalExecutionBasis | null;
 };
 
 export function computeQualificationDigest(
@@ -84,6 +97,9 @@ export function computeOptionSetDigest(inputs: OptionSetDigestInputs): string {
       stepIds: o.steps.map((s) => s.stepId),
     })),
     recommendedOptionRef: inputs.recommendedOptionRef,
+    proposalId: inputs.proposalId ?? null,
+    proposalSubjectDigest: inputs.proposalSubjectDigest ?? null,
+    decisionSubjectMode: inputs.decisionSubjectMode ?? "project_trajectory",
   });
 }
 
@@ -91,12 +107,10 @@ export function optionSetObservationId(optionSetRef: string): string {
   return `epi:${optionSetRef.replace("optset:", "set-")}`;
 }
 
-/** Deterministic Recommendation EpistemicItem id for a presented OptionSet. */
 export function optionSetRecommendationId(optionSetRef: string): string {
   return `epi:${optionSetRef.replace("optset:", "rec-")}`;
 }
 
-/** Deterministic Option EpistemicItem id for a presented Option within a set. */
 export function optionSetOptionId(
   optionSetRef: string,
   optionRef: string,
@@ -114,16 +128,30 @@ export function serializePresentedOptionSet(
 function isPresentedBinding(value: unknown): value is PresentedOptionSetBinding {
   if (!value || typeof value !== "object") return false;
   const v = value as Record<string, unknown>;
-  return (
-    v.kind === W2_PRESENTED_OPTION_SET_KIND &&
-    typeof v.optionSetRef === "string" &&
-    typeof v.optionSetDigest === "string" &&
-    typeof v.qualificationDigest === "string" &&
-    typeof v.trajectoryId === "string" &&
-    typeof v.candidateVersion === "number" &&
-    Array.isArray(v.options) &&
-    typeof v.recommendedOptionRef === "string"
-  );
+  if (
+    v.kind !== W2_PRESENTED_OPTION_SET_KIND ||
+    typeof v.optionSetRef !== "string" ||
+    typeof v.optionSetDigest !== "string" ||
+    typeof v.qualificationDigest !== "string" ||
+    !Array.isArray(v.options) ||
+    typeof v.recommendedOptionRef !== "string"
+  ) {
+    return false;
+  }
+  const mode =
+    v.decisionSubjectMode === "proposal" ||
+    v.decisionSubjectMode === "project_trajectory"
+      ? v.decisionSubjectMode
+      : // Legacy bindings without mode are trajectory OptionSets.
+        "project_trajectory";
+  if (mode === "project_trajectory") {
+    return (
+      typeof v.trajectoryId === "string" &&
+      typeof v.candidateVersion === "number"
+    );
+  }
+  // proposal mode: trajectory fields must be null/absent
+  return v.trajectoryId == null && v.candidateVersion == null;
 }
 
 export function parsePresentedOptionSetStatement(
@@ -131,19 +159,37 @@ export function parsePresentedOptionSetStatement(
 ): PresentedOptionSetBinding | null {
   try {
     const parsed: unknown = JSON.parse(statement);
-    return isPresentedBinding(parsed) ? parsed : null;
+    if (!isPresentedBinding(parsed)) return null;
+    // Normalise legacy bindings missing decisionSubjectMode
+    if (!("decisionSubjectMode" in parsed) || !parsed.decisionSubjectMode) {
+      return {
+        ...parsed,
+        decisionSubjectMode: "project_trajectory",
+        promotesProjectTrajectory:
+          parsed.promotesProjectTrajectory !== false,
+      };
+    }
+    return parsed;
   } catch {
     return null;
   }
+}
+
+export function isProposalSubjectPresentedSet(
+  presented: PresentedOptionSetBinding,
+): boolean {
+  return (
+    presented.decisionSubjectMode === "proposal" &&
+    typeof presented.proposalId === "string" &&
+    presented.proposalId.trim().length > 0 &&
+    presented.promotesProjectTrajectory === false
+  );
 }
 
 export type LoadPresentedOptionSetResult =
   | { readonly ok: true; readonly presented: PresentedOptionSetBinding }
   | { readonly ok: false; readonly code: string; readonly message: string };
 
-/**
- * Fail-closed load of the exact OptionSet presented at propose time.
- */
 export async function loadPresentedOptionSet(
   oa: RuntimeOaStack,
   projectId: string,
@@ -190,9 +236,6 @@ export async function loadPresentedOptionSet(
   return { ok: true, presented };
 }
 
-/**
- * Find the latest active OptionSet Observation bound to a trajectory version.
- */
 export async function findLatestOptionSetBindingForTrajectory(
   oa: RuntimeOaStack,
   projectId: string,
@@ -210,6 +253,7 @@ export async function findLatestOptionSetBindingForTrajectory(
     if (!item.relatedObjects?.includes(trajectoryId)) continue;
     const parsed = parsePresentedOptionSetStatement(item.statement);
     if (!parsed) continue;
+    if (parsed.decisionSubjectMode === "proposal") continue;
     if (
       parsed.trajectoryId === trajectoryId &&
       parsed.candidateVersion === candidateVersion

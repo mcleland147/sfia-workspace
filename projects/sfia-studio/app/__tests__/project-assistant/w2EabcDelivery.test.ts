@@ -161,8 +161,8 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
     expect(proposed.executionPerformed).toBe(false);
     expect(proposed.recommendation.isHumanDecision).toBe(false);
     expect(proposed.recommendation.promotesTrajectory).toBe(false);
-    expect(proposed.proposedTrajectory.isCurrent).toBe(false);
-    expect(proposed.proposedTrajectory.status).toBe("candidate");
+    expect(proposed.proposedTrajectory!.isCurrent).toBe(false);
+    expect(proposed.proposedTrajectory!.status).toBe("candidate");
 
     const before = await oa.cycleServices.getCurrentTrajectory.execute({
       projectId: seeded.projectId,
@@ -181,8 +181,8 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       options: proposed.options,
       recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
       selectedOptionRef: selectedOption.optionRef,
-      trajectoryId: proposed.proposedTrajectory.trajectoryId,
-      candidateVersion: proposed.proposedTrajectory.version,
+      trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory!.version,
       epistemicRefs: proposed.epistemicRefs,
       forceLocalAuthority: true,
     });
@@ -191,9 +191,9 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
     expect(decided.executionPerformed).toBe(false);
     expect(decided.decision.actorRole).toBe("Pilote");
     expect(decided.decision.decisionBasisLinked).toBe(true);
-    expect(decided.trajectory.isCurrent).toBe(true);
-    expect(decided.trajectory.statusLabel).toBe("TRAJECTOIRE DÉCIDÉE / COURANTE");
-    expect(decided.trajectory.decidedByDecisionRef).toBe(
+    expect(decided.trajectory!.isCurrent).toBe(true);
+    expect(decided.trajectory!.statusLabel).toBe("TRAJECTOIRE DÉCIDÉE / COURANTE");
+    expect(decided.trajectory!.decidedByDecisionRef).toBe(
       decided.decision.decisionId,
     );
 
@@ -202,7 +202,7 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
     });
     expect(current.ok).toBe(true);
     if (!current.ok) return;
-    expect(current.trajectory.version).toBe(decided.trajectory.version);
+    expect(current.trajectory.version).toBe(decided.trajectory!.version);
     expect(current.trajectory.decidedByDecisionRef).toBe(
       decided.decision.decisionId,
     );
@@ -231,8 +231,8 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       options: proposed.options,
       recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
       selectedOptionRef: "opt:trajectory:invented",
-      trajectoryId: proposed.proposedTrajectory.trajectoryId,
-      candidateVersion: proposed.proposedTrajectory.version,
+      trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory!.version,
       forceLocalAuthority: true,
     });
     expect(unknown.ok).toBe(false);
@@ -292,8 +292,8 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       projectId: seeded.projectId,
       optionSetRef: proposed.optionSetRef,
       selectedOptionRef: proposed.recommendation.recommendedOptionRef,
-      trajectoryId: proposed.proposedTrajectory.trajectoryId,
-      candidateVersion: proposed.proposedTrajectory.version,
+      trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory!.version,
       forceLocalAuthority: true,
     });
     expect(decided.ok).toBe(true);
@@ -301,7 +301,7 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
     expect(decided.decision.selectedOptionRef).toBe(
       proposed.recommendation.recommendedOptionRef,
     );
-    expect(decided.trajectory.isCurrent).toBe(true);
+    expect(decided.trajectory!.isCurrent).toBe(true);
   });
 
   it("A2-2 — reservation drift makes presented X OPTION_SET_STALE (no HD, no current)", async () => {
@@ -362,8 +362,8 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       projectId: seeded.projectId,
       optionSetRef: proposed.optionSetRef,
       selectedOptionRef: proposed.recommendation.recommendedOptionRef,
-      trajectoryId: proposed.proposedTrajectory.trajectoryId,
-      candidateVersion: proposed.proposedTrajectory.version,
+      trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory!.version,
       forceLocalAuthority: true,
     });
     expect(decided.ok).toBe(false);
@@ -428,8 +428,8 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       options: proposed.options,
       recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
       selectedOptionRef: proposed.recommendation.recommendedOptionRef,
-      trajectoryId: proposed.proposedTrajectory.trajectoryId,
-      candidateVersion: proposed.proposedTrajectory.version,
+      trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory!.version,
       epistemicRefs: proposed.epistemicRefs,
       canActAsMorris: true,
       claimedAuthorityLevel: "N3",
@@ -444,7 +444,7 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       optionSetRef: proposed.optionSetRef,
       selectedOptionRef: proposed.recommendation.recommendedOptionRef,
       trajectoryId: "trj:w2-forged",
-      candidateVersion: proposed.proposedTrajectory.version,
+      candidateVersion: proposed.proposedTrajectory!.version,
       forceLocalAuthority: true,
     });
     expect(mismatch.ok).toBe(false);
@@ -455,8 +455,8 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       projectId: seeded.projectId,
       optionSetRef: "optset:w2-missing",
       selectedOptionRef: proposed.recommendation.recommendedOptionRef,
-      trajectoryId: proposed.proposedTrajectory.trajectoryId,
-      candidateVersion: proposed.proposedTrajectory.version,
+      trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory!.version,
       forceLocalAuthority: true,
     });
     expect(missing.ok).toBe(false);
@@ -506,8 +506,8 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       projectId: seeded.projectId,
       optionSetRef: proposed.optionSetRef,
       selectedOptionRef: proposed.recommendation.recommendedOptionRef,
-      trajectoryId: proposed.proposedTrajectory.trajectoryId,
-      candidateVersion: proposed.proposedTrajectory.version,
+      trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory!.version,
       forceLocalAuthority: true,
     });
     expect(decided.ok).toBe(false);
@@ -548,13 +548,13 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
     expect(second.ok).toBe(true);
     if (!second.ok) return;
 
-    expect(second.proposedTrajectory.trajectoryId).toBe(
-      first.proposedTrajectory.trajectoryId,
+    expect(second.proposedTrajectory!.trajectoryId).toBe(
+      first.proposedTrajectory!.trajectoryId,
     );
-    expect(second.proposedTrajectory.version).toBe(
-      first.proposedTrajectory.version,
+    expect(second.proposedTrajectory!.version).toBe(
+      first.proposedTrajectory!.version,
     );
-    expect(second.proposedTrajectory.version).toBe(1);
+    expect(second.proposedTrajectory!.version).toBe(1);
 
     const loadedFirst = await loadPresentedOptionSet(
       oa,
@@ -621,7 +621,7 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
     });
     expect(first.ok).toBe(true);
     if (!first.ok) return;
-    expect(first.proposedTrajectory.version).toBe(1);
+    expect(first.proposedTrajectory!.version).toBe(1);
     const v1StepsBefore = (
       await oa.cycleServices.getTrajectoryVersion.execute({
         projectId: seeded.projectId,
@@ -663,10 +663,10 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
     expect(second.ok).toBe(true);
     if (!second.ok) return;
     expect(second.optionSetRef).not.toBe(first.optionSetRef);
-    expect(second.proposedTrajectory.trajectoryId).toBe(
-      first.proposedTrajectory.trajectoryId,
+    expect(second.proposedTrajectory!.trajectoryId).toBe(
+      first.proposedTrajectory!.trajectoryId,
     );
-    expect(second.proposedTrajectory.version).toBe(2);
+    expect(second.proposedTrajectory!.version).toBe(2);
 
     const loadedX = await loadPresentedOptionSet(
       oa,
@@ -782,8 +782,8 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       projectId: seeded.projectId,
       optionSetRef: first.optionSetRef,
       selectedOptionRef: first.recommendation.recommendedOptionRef,
-      trajectoryId: first.proposedTrajectory.trajectoryId,
-      candidateVersion: first.proposedTrajectory.version,
+      trajectoryId: first.proposedTrajectory!.trajectoryId,
+      candidateVersion: first.proposedTrajectory!.version,
       forceLocalAuthority: true,
     });
     expect(staleDecide.ok).toBe(false);
@@ -807,15 +807,15 @@ describe("W2 Track A — Options / Recommendation / HumanDecision", () => {
       projectId: seeded.projectId,
       optionSetRef: second.optionSetRef,
       selectedOptionRef: selected.optionRef,
-      trajectoryId: second.proposedTrajectory.trajectoryId,
-      candidateVersion: second.proposedTrajectory.version,
+      trajectoryId: second.proposedTrajectory!.trajectoryId,
+      candidateVersion: second.proposedTrajectory!.version,
       forceLocalAuthority: true,
     });
     expect(freshDecide.ok).toBe(true);
     if (!freshDecide.ok) return;
     expect(freshDecide.decision.selectedOptionRef).toBe(selected.optionRef);
-    expect(freshDecide.trajectory.isCurrent).toBe(true);
-    expect(freshDecide.trajectory.decidedOptionRef).toBe(selected.optionRef);
+    expect(freshDecide.trajectory!.isCurrent).toBe(true);
+    expect(freshDecide.trajectory!.decidedOptionRef).toBe(selected.optionRef);
 
     const current = await oa.cycleServices.getCurrentTrajectory.execute({
       projectId: seeded.projectId,
@@ -952,7 +952,7 @@ projectTitle: requal.qualification.projectTitle,
 
     const [a, b] = await Promise.all([
       oa.cycleServices.proposeTrajectoryVersion.execute({
-        trajectoryId: first.proposedTrajectory.trajectoryId,
+        trajectoryId: first.proposedTrajectory!.trajectoryId,
         projectId: seeded.projectId,
         expectedVersion: 1,
         steps,
@@ -961,7 +961,7 @@ projectTitle: requal.qualification.projectTitle,
         expectedLpsVersion: lps.qualification.lpsVersion,
       }),
       oa.cycleServices.proposeTrajectoryVersion.execute({
-        trajectoryId: first.proposedTrajectory.trajectoryId,
+        trajectoryId: first.proposedTrajectory!.trajectoryId,
         projectId: seeded.projectId,
         expectedVersion: 1,
         steps: structuredClone(steps),
@@ -1019,8 +1019,8 @@ projectTitle: requal.qualification.projectTitle,
       projectId: seeded.projectId,
       optionSetRef: first.optionSetRef,
       selectedOptionRef: first.recommendation.recommendedOptionRef,
-      trajectoryId: first.proposedTrajectory.trajectoryId,
-      candidateVersion: first.proposedTrajectory.version,
+      trajectoryId: first.proposedTrajectory!.trajectoryId,
+      candidateVersion: first.proposedTrajectory!.version,
       forceLocalAuthority: true,
     });
     expect(decided.ok).toBe(true);
@@ -1031,7 +1031,7 @@ projectTitle: requal.qualification.projectTitle,
     });
     expect(current.ok).toBe(true);
     if (!current.ok) return;
-    expect(current.trajectory.version).toBe(decided.trajectory.version);
+    expect(current.trajectory.version).toBe(decided.trajectory!.version);
 
     const requal = await resolveW2QualificationInputs({
       oa,
@@ -1049,11 +1049,11 @@ projectTitle: requal.qualification.projectTitle,
     });
     expect(second.ok).toBe(true);
     if (!second.ok) return;
-    expect(second.proposedTrajectory.trajectoryId).toBe(
+    expect(second.proposedTrajectory!.trajectoryId).toBe(
       current.trajectory.trajectoryId,
     );
-    expect(second.proposedTrajectory.version).toBe(current.trajectory.version + 1);
-    expect(second.proposedTrajectory.status).toBe("candidate");
+    expect(second.proposedTrajectory!.version).toBe(current.trajectory.version + 1);
+    expect(second.proposedTrajectory!.status).toBe("candidate");
 
     const stillCurrent = await oa.cycleServices.getCurrentTrajectory.execute({
       projectId: seeded.projectId,
@@ -1090,8 +1090,8 @@ projectTitle: requal.qualification.projectTitle,
       projectId: seeded.projectId,
       optionSetRef: first.optionSetRef,
       selectedOptionRef: first.recommendation.recommendedOptionRef,
-      trajectoryId: first.proposedTrajectory.trajectoryId,
-      candidateVersion: first.proposedTrajectory.version,
+      trajectoryId: first.proposedTrajectory!.trajectoryId,
+      candidateVersion: first.proposedTrajectory!.version,
       forceLocalAuthority: true,
     });
     expect(decided.ok).toBe(true);
@@ -1113,8 +1113,8 @@ projectTitle: requal.qualification.projectTitle,
     });
     expect(x.ok).toBe(true);
     if (!x.ok) return;
-    expect(x.proposedTrajectory.version).toBe(decided.trajectory.version + 1);
-    const xVersion = x.proposedTrajectory.version;
+    expect(x.proposedTrajectory!.version).toBe(decided.trajectory!.version + 1);
+    const xVersion = x.proposedTrajectory!.version;
 
     await oa.cycleServices.updateEpistemicState.execute({
       projectId: seeded.projectId,
@@ -1145,9 +1145,9 @@ projectTitle: requal.qualification.projectTitle,
     });
     expect(y.ok).toBe(true);
     if (!y.ok) return;
-    expect(y.proposedTrajectory.trajectoryId).toBe(x.proposedTrajectory.trajectoryId);
-    expect(y.proposedTrajectory.version).toBe(xVersion + 1);
-    expect(y.proposedTrajectory.version).not.toBe(xVersion);
+    expect(y.proposedTrajectory!.trajectoryId).toBe(x.proposedTrajectory!.trajectoryId);
+    expect(y.proposedTrajectory!.version).toBe(xVersion + 1);
+    expect(y.proposedTrajectory!.version).not.toBe(xVersion);
 
     const priorCandidate = await oa.cycleServices.getTrajectoryVersion.execute({
       projectId: seeded.projectId,
@@ -1159,7 +1159,7 @@ projectTitle: requal.qualification.projectTitle,
 
     const newCandidate = await oa.cycleServices.getTrajectoryVersion.execute({
       projectId: seeded.projectId,
-      version: y.proposedTrajectory.version,
+      version: y.proposedTrajectory!.version,
     });
     expect(newCandidate.ok).toBe(true);
     if (!newCandidate.ok) return;
@@ -1171,7 +1171,7 @@ projectTitle: requal.qualification.projectTitle,
     });
     expect(current.ok).toBe(true);
     if (!current.ok) return;
-    expect(current.trajectory.version).toBe(decided.trajectory.version);
+    expect(current.trajectory.version).toBe(decided.trajectory!.version);
   });
 
   it("A3-6b — reinstruction atomicity: trajectory save failure leaves prior candidate intact", async () => {
@@ -1199,7 +1199,7 @@ projectTitle: requal.qualification.projectTitle,
     const store = oa.projectServices.store as { failNextSave?: string | null };
     store.failNextSave = "trajectory";
     const failed = await oa.cycleServices.proposeTrajectoryVersion.execute({
-      trajectoryId: first.proposedTrajectory.trajectoryId,
+      trajectoryId: first.proposedTrajectory!.trajectoryId,
       projectId: seeded.projectId,
       expectedVersion: 1,
       steps: structuredClone(first.options[0]!.steps) as TrajectoryStep[],
@@ -1437,8 +1437,8 @@ projectTitle: requal.qualification.projectTitle,
     });
     expect(second.ok).toBe(true);
     if (!second.ok) return;
-    expect(second.proposedTrajectory.version).toBe(
-      first.proposedTrajectory.version,
+    expect(second.proposedTrajectory!.version).toBe(
+      first.proposedTrajectory!.version,
     );
 
     const epistemic = await oa.cycleServices.getEpistemicState.execute({
@@ -1508,7 +1508,7 @@ projectTitle: requal.qualification.projectTitle,
     const steps = structuredClone(first.options[0]!.steps) as TrajectoryStep[];
 
     const writerA = await oa.cycleServices.proposeTrajectoryVersion.execute({
-      trajectoryId: first.proposedTrajectory.trajectoryId,
+      trajectoryId: first.proposedTrajectory!.trajectoryId,
       projectId: seeded.projectId,
       expectedVersion: 1,
       steps,
@@ -1528,7 +1528,7 @@ projectTitle: requal.qualification.projectTitle,
     if (!afterA.ok) return;
 
     const writerB = await oa.cycleServices.proposeTrajectoryVersion.execute({
-      trajectoryId: first.proposedTrajectory.trajectoryId,
+      trajectoryId: first.proposedTrajectory!.trajectoryId,
       projectId: seeded.projectId,
       expectedVersion: 1,
       steps: structuredClone(steps),
@@ -1596,7 +1596,7 @@ projectTitle: requal.qualification.projectTitle,
     expect(live.qualification.lpsVersion).toBeGreaterThan(1);
 
     const failed = await oa.cycleServices.proposeTrajectoryVersion.execute({
-      trajectoryId: first.proposedTrajectory.trajectoryId,
+      trajectoryId: first.proposedTrajectory!.trajectoryId,
       projectId: seeded.projectId,
       expectedVersion: 1,
       steps: structuredClone(first.options[0]!.steps) as TrajectoryStep[],
@@ -1671,8 +1671,8 @@ projectTitle: requal.qualification.projectTitle,
       projectId: seeded.projectId,
       optionSetRef: proposed.optionSetRef,
       selectedOptionRef: proposed.recommendation.recommendedOptionRef,
-      trajectoryId: proposed.proposedTrajectory.trajectoryId,
-      candidateVersion: proposed.proposedTrajectory.version,
+      trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory!.version,
       forceLocalAuthority: true,
     });
     expect(failed.ok).toBe(false);
@@ -1696,8 +1696,8 @@ projectTitle: requal.qualification.projectTitle,
       projectId: seeded.projectId,
       optionSetRef: proposed.optionSetRef,
       selectedOptionRef: proposed.recommendation.recommendedOptionRef,
-      trajectoryId: proposed.proposedTrajectory.trajectoryId,
-      candidateVersion: proposed.proposedTrajectory.version,
+      trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory!.version,
       forceLocalAuthority: true,
     });
     expect(recovered.ok).toBe(true);
@@ -1730,8 +1730,8 @@ projectTitle: requal.qualification.projectTitle,
       options: proposed.options,
       recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
       selectedOptionRef: proposed.recommendation.recommendedOptionRef,
-      trajectoryId: proposed.proposedTrajectory.trajectoryId,
-      candidateVersion: proposed.proposedTrajectory.version,
+      trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory!.version,
       forceLocalAuthority: true,
     });
     expect(decided.ok).toBe(true);
@@ -1865,8 +1865,8 @@ describe("W2 Track C — inspection binding + authorization mechanism proofs", (
       options: proposed.options,
       recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
       selectedOptionRef: GOVERNED_OPTION_REF,
-      trajectoryId: proposed.proposedTrajectory.trajectoryId,
-      candidateVersion: proposed.proposedTrajectory.version,
+      trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory!.version,
       forceLocalAuthority: true,
     });
     expect(decided.ok).toBe(true);
@@ -1985,8 +1985,8 @@ describe("W2 Track C — inspection binding + authorization mechanism proofs", (
       options: proposed.options,
       recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
       selectedOptionRef: GOVERNED_OPTION_REF,
-      trajectoryId: proposed.proposedTrajectory.trajectoryId,
-      candidateVersion: proposed.proposedTrajectory.version,
+      trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory!.version,
       forceLocalAuthority: true,
     });
     expect(decided.ok).toBe(true);
@@ -2116,8 +2116,8 @@ describe("W2 Track C — inspection binding + authorization mechanism proofs", (
       options: proposed.options,
       recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
       selectedOptionRef: GOVERNED_OPTION_REF,
-      trajectoryId: proposed.proposedTrajectory.trajectoryId,
-      candidateVersion: proposed.proposedTrajectory.version,
+      trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory!.version,
       forceLocalAuthority: true,
     });
     expect(decided.ok).toBe(true);
@@ -2246,8 +2246,8 @@ describe("W2 Track C — material constraint amendment (R02 product seam)", () =
       options: proposed.options,
       recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
       selectedOptionRef: GOVERNED_OPTION_REF,
-      trajectoryId: proposed.proposedTrajectory.trajectoryId,
-      candidateVersion: proposed.proposedTrajectory.version,
+      trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory!.version,
       forceLocalAuthority: true,
     });
     expect(decided.ok).toBe(true);
@@ -2555,8 +2555,8 @@ describe("W2 Track C — material constraint amendment (R02 product seam)", () =
       options: proposed.options,
       recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
       selectedOptionRef: GOVERNED_OPTION_REF,
-      trajectoryId: proposed.proposedTrajectory.trajectoryId,
-      candidateVersion: proposed.proposedTrajectory.version,
+      trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory!.version,
       forceLocalAuthority: true,
     });
     if (!decided.ok) return;

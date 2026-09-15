@@ -10,7 +10,11 @@
  * Durability follows D-W2-01. D-W2-A3-01 idempotence uses stable CKC semantic
  * fingerprint (not raw provider prose). STOP BEFORE EXECUTE.
  *
- * Reuses existing OA use cases only. No parallel engine, no Proposal-store.
+ * CORR-PROOF-10 — when an opaque proposalId is supplied (or an active
+ * DECISION_REQUIRED Proposal exists), Options/Recommendation are scoped to
+ * that Proposal subject. Silent fallback to the generic trajectory trio is
+ * forbidden. Reuses ProposalStore + PresentedOptionSet — no parallel engine.
+ * Proposal subject path: ZERO ProjectTrajectory mutation.
  */
 
 import { randomBytes } from "node:crypto";
@@ -41,6 +45,17 @@ import {
   serializePresentedOptionSet,
   type PresentedOptionSetBinding,
 } from "./presentedOptionSet";
+import {
+  deriveProposalSubjectOptions,
+  deriveProposalSubjectRecommendation,
+} from "./proposalSubjectOptions";
+import { resolvePendingDecisionSubjectMarker } from "./pendingDecisionSubjectMarker";
+import { readActiveProposalDecisionSubject } from "./activeProposalDecisionSubject";
+import {
+  assertProposalSubjectGateOrFail,
+  resolveProposalDecisionSubject,
+  type ResolvedProposalDecisionSubject,
+} from "./resolveProposalDecisionSubject";
 import {
   deriveTrajectoryOptions,
   deriveTrajectoryRecommendation,
@@ -161,6 +176,11 @@ export type ProposeTrajectoryOptionsInput = {
   readonly objective: string;
   readonly projectTitle: string;
   readonly correlationId?: string;
+  /**
+   * CORR-PROOF-10 — opaque Proposal subject ref. Server-resolved only.
+   * Hostile objective/path/operation fields are never accepted here.
+   */
+  readonly proposalId?: string | null;
 };
 
 export async function proposeTrajectoryOptions(
@@ -170,6 +190,95 @@ export async function proposeTrajectoryOptions(
   const live = await readLiveProjectContext(oa, input.projectId);
   if (!live.ok) {
     return { ok: false, code: live.code, message: live.message };
+  }
+
+  const opaqueProposalIdEarly =
+    typeof input.proposalId === "string" ? input.proposalId.trim() : "";
+
+  // Post-binding continuity: durable PresentedOptionSet is SoT — rehydrate,
+  // never invent a second OptionSet or fall back to generic trajectory.
+  const activeSubject = await readActiveProposalDecisionSubject(
+    oa,
+    input.projectId,
+  );
+  if (!activeSubject.ok) {
+    return {
+      ok: false,
+      code: activeSubject.code,
+      message: activeSubject.message,
+    };
+  }
+  if (activeSubject.kind === "bound_awaiting_decision") {
+    if (
+      opaqueProposalIdEarly &&
+      opaqueProposalIdEarly !== activeSubject.presented.proposalId
+    ) {
+      return {
+        ok: false,
+        code: "BOUND_PROPOSAL_SUBJECT_MISMATCH",
+        message:
+          "Un PresentedOptionSet Proposal distinct est déjà en attente de HumanDecision — aucune nouvelle instruction.",
+      };
+    }
+    return { ok: true, ...activeSubject.optionSet };
+  }
+  if (
+    activeSubject.kind === "pending_reinstruction_required" &&
+    !opaqueProposalIdEarly
+  ) {
+    return {
+      ok: false,
+      code: "PENDING_DECISION_SUBJECT_REINSTRUCTION_REQUIRED",
+      message: activeSubject.message,
+    };
+  }
+
+  const activeGate = await assertProposalSubjectGateOrFail({
+    oa,
+    projectId: input.projectId,
+    proposalId: input.proposalId,
+  });
+  if (!activeGate.ok) {
+    return {
+      ok: false,
+      code: activeGate.code,
+      message: activeGate.message,
+    };
+  }
+
+  let proposalSubject: ResolvedProposalDecisionSubject | null = null;
+  const opaqueProposalId = opaqueProposalIdEarly;
+  if (opaqueProposalId) {
+    // Pre-binding only: process-local Proposal required to create OptionSet.
+    // After binding, we already returned via rehydration above.
+    const resolved = resolveProposalDecisionSubject({
+      proposalId: opaqueProposalId,
+      projectId: input.projectId,
+      currentContext: {
+        projectId: input.projectId,
+        lpsId: live.context.lpsId,
+        lpsVersion: live.context.lpsVersion,
+        doctrineDigest: live.context.doctrineDigest,
+        activeCycleInstanceId: live.context.activeCycleInstanceId,
+        ckcResolutionRef: live.context.ckcResolutionRef,
+      },
+    });
+    if (!resolved.ok) {
+      // pending marker + lost store → reinstruction (assert may also catch)
+      if (activeSubject.kind === "pending_reinstruction_required") {
+        return {
+          ok: false,
+          code: "PENDING_DECISION_SUBJECT_REINSTRUCTION_REQUIRED",
+          message: activeSubject.message,
+        };
+      }
+      return {
+        ok: false,
+        code: resolved.code,
+        message: resolved.message,
+      };
+    }
+    proposalSubject = resolved.subject;
   }
 
   // ── Phase B: product-native CKC cognition BEFORE any durable mutation ──
@@ -189,16 +298,29 @@ export async function proposeTrajectoryOptions(
   }
 
   const ckcPromptSection = buildCkcCognitivePromptSection(ckcContent);
+  const cognitionUserContent = proposalSubject
+    ? `Instruire Options/Recommendation pour la Proposal ${proposalSubject.proposalId} (sujet: ${proposalSubject.sealedExecutionBasis.objective})`
+    : `Instruire Options/Recommendation pour le cycle ${input.cycleTypeId}`;
   let cognitiveRecommendation: string;
   try {
     const reasoning = await reasonWithResolvedCkcContext({
-      userContent: `Instruire Options/Recommendation pour le cycle ${input.cycleTypeId}`,
+      userContent: cognitionUserContent,
       projectSummary: [
         `name=${input.projectTitle}`,
         `objective=${input.objective}`,
         `projectId=${input.projectId}`,
+        ...(proposalSubject
+          ? [
+              `proposalId=${proposalSubject.proposalId}`,
+              `subjectObjective=${proposalSubject.sealedExecutionBasis.objective}`,
+              `targetPath=${proposalSubject.sealedExecutionBasis.targetPath ?? ""}`,
+              `requestedOperation=${proposalSubject.sealedExecutionBasis.requestedOperation}`,
+            ]
+          : []),
       ].join(" | "),
-      intentSummary: `Cycle ${input.cycleTypeId} · profil ${input.recommendedProfile}`,
+      intentSummary: proposalSubject
+        ? `Proposal subject ${proposalSubject.proposalId} · profil ${input.recommendedProfile}`
+        : `Cycle ${input.cycleTypeId} · profil ${input.recommendedProfile}`,
       ckcPromptSection,
     });
     cognitiveRecommendation = reasoning.recommendation;
@@ -215,25 +337,6 @@ export async function proposeTrajectoryOptions(
     ckcContent.provenance,
   );
 
-  const inputs: TrajectoryOptionInputs = {
-    cycleTypeId: input.cycleTypeId,
-    recommendedProfile: input.recommendedProfile,
-    criticalSignalsPresent: input.criticalSignalsPresent,
-    irreversible: input.irreversible,
-    reservations: input.reservations,
-    ckcAttribution: input.ckcAttribution,
-  };
-  const options = deriveTrajectoryOptions(inputs);
-  const baseRecommendation = deriveTrajectoryRecommendation(inputs);
-  const recommendation = enrichRecommendationWithCognition({
-    base: baseRecommendation,
-    content: ckcContent,
-    cognitiveRecommendation,
-    fingerprint: semanticFingerprint,
-  });
-
-  const optionSetRef = `optset:w2-${shortId()}`;
-  const correlationId = input.correlationId ?? `cor:w2-opt-${shortId()}`;
   const qualificationDigest = computeQualificationDigest({
     cycleTypeId: input.cycleTypeId,
     recommendedProfile: input.recommendedProfile,
@@ -243,6 +346,176 @@ export async function proposeTrajectoryOptions(
     ckcAttribution: input.ckcAttribution,
     ckcSemanticFingerprint: semanticFingerprint,
   });
+
+  const optionSetRef = `optset:w2-${shortId()}`;
+  const correlationId = input.correlationId ?? `cor:w2-opt-${shortId()}`;
+
+  // ── CORR-PROOF-10 proposal subject — ZERO ProjectTrajectory ───────────
+  if (proposalSubject) {
+    const options = deriveProposalSubjectOptions({
+      sealed: proposalSubject.sealedExecutionBasis,
+      proposalId: proposalSubject.proposalId,
+    });
+    const baseRecommendation = deriveProposalSubjectRecommendation({
+      sealed: proposalSubject.sealedExecutionBasis,
+      proposalId: proposalSubject.proposalId,
+    });
+    const recommendation = enrichRecommendationWithCognition({
+      base: baseRecommendation,
+      content: ckcContent,
+      cognitiveRecommendation,
+      fingerprint: semanticFingerprint,
+    });
+    const optionSetDigest = computeOptionSetDigest({
+      cycleTypeId: input.cycleTypeId,
+      recommendedProfile: input.recommendedProfile,
+      criticalSignalsPresent: input.criticalSignalsPresent,
+      irreversible: input.irreversible,
+      reservations: input.reservations,
+      options,
+      recommendedOptionRef: recommendation.recommendedOptionRef,
+      proposalId: proposalSubject.proposalId,
+      proposalSubjectDigest: proposalSubject.subjectDigest,
+      decisionSubjectMode: "proposal",
+    });
+
+    const optionEpistemicItems = options.map((option) => ({
+      epistemicItemId: optionSetOptionId(optionSetRef, option.optionRef),
+      type: "Option" as const,
+      statement: optionStatement(option),
+      status: "active" as const,
+      source: optionSetRef,
+      relatedObjects: [
+        input.projectId,
+        option.optionRef,
+        optionSetRef,
+        proposalSubject.proposalId,
+      ],
+    }));
+
+    const recommendationItem = {
+      epistemicItemId: optionSetRecommendationId(optionSetRef),
+      type: "Recommendation" as const,
+      statement: recommendationStatement(recommendation, options),
+      status: "active" as const,
+      source: optionSetRef,
+      relatedObjects: [
+        input.projectId,
+        recommendation.recommendedOptionRef,
+        optionSetRef,
+        recommendation.ckcProvenance?.ckcId ?? "ckc:none",
+        ...(input.ckcAttribution ? [input.ckcAttribution] : []),
+        proposalSubject.proposalId,
+      ],
+    };
+
+    const epistemicRefs = [
+      ...optionEpistemicItems.map((i) => i.epistemicItemId),
+      recommendationItem.epistemicItemId,
+      optionSetObservationId(optionSetRef),
+    ];
+
+    const presentedBinding: PresentedOptionSetBinding = {
+      kind: "w2_presented_option_set",
+      optionSetRef,
+      optionSetDigest,
+      qualificationDigest,
+      trajectoryId: null,
+      candidateVersion: null,
+      optionRefs: options.map((o) => o.optionRef),
+      recommendedOptionRef: recommendation.recommendedOptionRef,
+      options,
+      recommendation,
+      epistemicRefs,
+      cycleTypeId: input.cycleTypeId,
+      recommendedProfile: input.recommendedProfile,
+      criticalSignalsPresent: input.criticalSignalsPresent,
+      irreversible: input.irreversible,
+      reservations: [...input.reservations],
+      ckcAttribution: input.ckcAttribution,
+      ckcSemanticFingerprint: semanticFingerprint,
+      decisionSubjectMode: "proposal",
+      proposalId: proposalSubject.proposalId,
+      proposalSubjectDigest: proposalSubject.subjectDigest,
+      promotesProjectTrajectory: false,
+      sealedExecutionBasis: proposalSubject.sealedExecutionBasis,
+    };
+
+    const observationItem = {
+      epistemicItemId: optionSetObservationId(optionSetRef),
+      type: "Observation" as const,
+      statement: serializePresentedOptionSet(presentedBinding),
+      status: "active" as const,
+      source: optionSetRef,
+      relatedObjects: [
+        input.projectId,
+        optionSetRef,
+        proposalSubject.proposalId,
+      ],
+    };
+
+    const materialized = await oa.cycleServices.updateEpistemicState.execute({
+      projectId: input.projectId,
+      items: [...optionEpistemicItems, recommendationItem, observationItem],
+      createdBy: NORA_OPTION_AUTHOR,
+      correlationId,
+    });
+    if (!materialized.ok) {
+      return {
+        ok: false,
+        code: materialized.error.detailCode,
+        message: `Matérialisation des options échouée (${materialized.error.detailCode}).`,
+      };
+    }
+
+    // Marker resolve is best-effort after durable OptionSet write.
+    // If it fails, OptionSet remains the post-binding SoT (conservative).
+    await resolvePendingDecisionSubjectMarker({
+      oa,
+      projectId: input.projectId,
+      proposalId: proposalSubject.proposalId,
+      reason: "option_set_bound",
+      correlationId: `cor:pending-bound:${proposalSubject.proposalId}`,
+    });
+
+    return {
+      ok: true,
+      optionSetRef,
+      cycleTypeId: input.cycleTypeId,
+      recommendedProfile: input.recommendedProfile,
+      options,
+      recommendation,
+      epistemicRefs,
+      proposedTrajectory: null,
+      phase: "OPTIONS_PROPOSED",
+      autoDecisionPerformed: false,
+      executionPerformed: false,
+      ckcCognitionCompletedBeforeMutation: true,
+      decisionSubjectMode: "proposal",
+      proposalId: proposalSubject.proposalId,
+      promotesProjectTrajectory: false,
+    };
+  }
+
+  // ── ProjectTrajectory path (no active Proposal subject) ───────────────
+  const inputs: TrajectoryOptionInputs = {
+    cycleTypeId: input.cycleTypeId,
+    recommendedProfile: input.recommendedProfile,
+    criticalSignalsPresent: input.criticalSignalsPresent,
+    irreversible: input.irreversible,
+    reservations: input.reservations,
+    ckcAttribution: input.ckcAttribution,
+  };
+
+  const options = deriveTrajectoryOptions(inputs);
+  const baseRecommendation = deriveTrajectoryRecommendation(inputs);
+  const recommendation = enrichRecommendationWithCognition({
+    base: baseRecommendation,
+    content: ckcContent,
+    cognitiveRecommendation,
+    fingerprint: semanticFingerprint,
+  });
+
   const optionSetDigest = computeOptionSetDigest({
     cycleTypeId: input.cycleTypeId,
     recommendedProfile: input.recommendedProfile,
@@ -251,6 +524,9 @@ export async function proposeTrajectoryOptions(
     reservations: input.reservations,
     options,
     recommendedOptionRef: recommendation.recommendedOptionRef,
+    proposalId: null,
+    proposalSubjectDigest: null,
+    decisionSubjectMode: "project_trajectory",
   });
 
   const proposedSteps: TrajectoryStep[] = structuredClone(
@@ -381,9 +657,6 @@ export async function proposeTrajectoryOptions(
     );
   });
 
-  // R1-03: Epistemic Recommendation statement stays business-first.
-  // Structured audit provenance lives on recommendation.ckcProvenance /
-  // presented binding / relatedObjects tags — not in Pilote-facing prose.
   const recommendationItem = withPriorSetSupersedes(
     {
       epistemicItemId: optionSetRecommendationId(optionSetRef),
@@ -429,6 +702,11 @@ export async function proposeTrajectoryOptions(
     reservations: [...input.reservations],
     ckcAttribution: input.ckcAttribution,
     ckcSemanticFingerprint: semanticFingerprint,
+    decisionSubjectMode: "project_trajectory",
+    proposalId: null,
+    proposalSubjectDigest: null,
+    promotesProjectTrajectory: true,
+    sealedExecutionBasis: null,
   };
 
   const observationItem = withPriorSetSupersedes(
@@ -478,6 +756,9 @@ export async function proposeTrajectoryOptions(
     autoDecisionPerformed: false,
     executionPerformed: false,
     ckcCognitionCompletedBeforeMutation: true,
+    decisionSubjectMode: "project_trajectory",
+    proposalId: null,
+    promotesProjectTrajectory: true,
   };
 }
 

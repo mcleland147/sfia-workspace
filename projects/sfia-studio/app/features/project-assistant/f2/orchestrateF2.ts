@@ -87,6 +87,11 @@ import type {
   QualificationDto,
 } from "./types";
 import type { ExecutionIntentPayload } from "./executionIntentSchema";
+import { writePendingDecisionSubjectMarker } from "../w2/pendingDecisionSubjectMarker";
+import {
+  computeProposalSubjectDigest,
+  sealProposalExecutionBasis,
+} from "../w2/resolveProposalDecisionSubject";
 
 const EPHEMERAL_NOTICE =
   "Conversation et Proposal F2 restent process-local ; Project/LPS/Cycle linkage M2 est persisté dans Product SQLite. AUCUNE EXÉCUTION.";
@@ -1056,6 +1061,36 @@ export async function orchestrateAssistantSend(input: {
       }),
     );
 
+    // CORR-PROOF-10 — durable pending subject marker before OptionSet binding.
+    // Fail closed when OA is available and marker write fails.
+    {
+      const sealed = sealProposalExecutionBasis(proposal);
+      const subjectDigest = computeProposalSubjectDigest(
+        sealed,
+        proposal.proposalId,
+      );
+      const marker = await writePendingDecisionSubjectMarker({
+        oa,
+        projectId: project.projectId,
+        proposalId: proposal.proposalId,
+        subjectDigest,
+        lpsId: proposal.contextSnapshot.lpsId,
+        lpsVersion: proposal.contextSnapshot.lpsVersion,
+        doctrineDigest: proposal.contextSnapshot.doctrineDigest,
+        correlationId: `cor:pending-subject:${proposal.proposalId}`,
+      });
+      if (!marker.ok) {
+        return {
+          ok: false,
+          status: "validation_error",
+          code: marker.code,
+          message: marker.message,
+          mode: modeResolution.mode,
+          retryable: true,
+        };
+      }
+    }
+
     const textParts = [
       presentation === "test_provider" ? "[TEST/FAKE · NON LIVE]" : "[LIVE]",
       "Continuation gouvernée — matérialisation du livrable requis sur le cycle actif.",
@@ -1309,6 +1344,34 @@ export async function orchestrateAssistantSend(input: {
       status,
     }),
   );
+
+  if (status === "DECISION_REQUIRED") {
+    const sealed = sealProposalExecutionBasis(proposal);
+    const subjectDigest = computeProposalSubjectDigest(
+      sealed,
+      proposal.proposalId,
+    );
+    const marker = await writePendingDecisionSubjectMarker({
+      oa,
+      projectId: project.projectId,
+      proposalId: proposal.proposalId,
+      subjectDigest,
+      lpsId: proposal.contextSnapshot.lpsId,
+      lpsVersion: proposal.contextSnapshot.lpsVersion,
+      doctrineDigest: proposal.contextSnapshot.doctrineDigest,
+      correlationId: `cor:pending-subject:${proposal.proposalId}`,
+    });
+    if (!marker.ok) {
+      return {
+        ok: false,
+        status: "validation_error",
+        code: marker.code,
+        message: marker.message,
+        mode: modeResolution.mode,
+        retryable: true,
+      };
+    }
+  }
 
   const executionBlocked = analysis.intentClass === "execution_request";
   const textParts = [
