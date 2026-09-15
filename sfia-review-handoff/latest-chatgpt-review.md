@@ -1,272 +1,848 @@
-# PRODUCT-JOURNEY-MANUAL-REPROOF-01 — PREFLIGHT Review Pack (FULL)
+# DETERMINISTIC-NORA-BOUNDARY-PARITY — Review Pack (FULL)
 
 ## A. Timestamp
-2026-09-15T18:00:32Z
+2026-09-15T18:21:17Z
 
 ## B. Git Truth
 - Repository: `mcleland147/sfia-workspace`
-- `origin/main` = `bceb79a814c2d1e468c8e05dfdb461104375c3fa` (MATCH expected)
-- Merged PR: #488
-- Integrated Product commit on main: `f51ad142b3430417c1be0e23a77c40e61a1b2909`
-- Dogfood worktree: `/Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d`
-- Dogfood HEAD before alignment: `6a41ab7e7deda9f7168d12a37b9316413565fa16` (detached)
-- Dogfood HEAD after alignment: `bceb79a814c2d1e468c8e05dfdb461104375c3fa` (detached) — MATCH
-- Pre-alignment `git status --short`: only `M  .tmp-sfia-review/chatgpt-review.md` (review material, not Product source)
-- Tracked Product/source dirty? **NO**
+- `origin/main` = `bceb79a814c2d1e468c8e05dfdb461104375c3fa` (MATCH)
+- Correction worktree: `/Users/morris/Projects/sfia-studio-fake-provider-user-valid-materialization`
+- Branch: `fix/sfia-studio-fake-provider-user-valid-materialization`
+- Initial HEAD: `bceb79a814c2d1e468c8e05dfdb461104375c3fa` (exact main)
+- Initial status: clean
+- Current status: local dirty only (no Product commit)
+- Dogfood worktree `/Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d`: **NOT USED / FROZEN**
 
-## C. Morris GO consumed
+## C. Morris GO
 AUTHORIZED and consumed:
-- align dogfood code worktree to post-merge main
-- stop/restart local Studio dev runtime
-- read existing Product durable state
-- forensic Product DB backup
-- deterministic/fake cognition boundary
-- load Product page READ-ONLY (attempted)
-- capture preflight evidence
-- publish Review Handoff
+- dedicated correction branch/worktree from main
+- FakeConversationProvider modification
+- related deterministic + application-path tests
+- typecheck/lint/build/tests
+- FULL Review Pack + Review Handoff L3
 
 NOT authorized / NOT performed:
-- any Product mutation CTA
-- Nora send
-- RepositoryBinding change
-- Project create
-- Cycle / Proposal / Options / HumanDecision / PREPARE / Inspect / Confirmation / Authorize / Execute / Attempt
-- Cursor REAL / OpenAI LIVE / docs_write REAL
-- Git Product mutation / source modification / DB repair / branch deletion
+- dogfood mutation / Nora send / Product UI login
+- OpenAI LIVE / Cursor REAL / docs_write REAL / Execute
+- Product commit / push / PR / merge / branch deletion
+- auth changes / F2 orchestration redesign / migrations
 
-## D. Cycle / profile / CKC qualification
-- Cycle: **9 — QA / validation**
+## D. SFIA qualification
+- Cycle: **8 — Delivery**
 - Typology: **RUN**
 - Profile: **Critical**
-- CKC: `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md`
-- CKC status: **candidate**
-- Usage: cognitive guidance only — **no execution authority**
-- Evidence posture: observable Product state + durable-state checks + runtime capture + exact Git/runtime identity + negative assertions + anti-claims
+- Why Critical: cognition-boundary parity controls whether manual Product reproof can start without forbidden sentinel / LIVE escalation
 
-## E. Convergence qualification
-- Capability under proof: V3-F02 semantic continuity + V3-F04 explicit decision epistemology + V3-F11/F12 governed ExecutionContract preparation/inspection
-- Milestone: Product Journey Lot A/B POST-MERGE MANUAL REPROOF
-- Current state: Lot A/B integrated and post-merge verified on main
-- Gap checked: whether deterministic path proven in tests is consumable from Pilot Product UI on merged main without historical competing paths
-- Critical-path link: successful bounded manual reproof → separate Morris qualification of Gate D / Lot D → EC → Cursor REAL later
-- Next capability: Lot D **NOT** selected/authorized by this preflight
-- Exit proof for THIS preflight (required): dogfood aligned + durable state preserved + deterministic cognition user-valid + initial UI RO captured + ZERO Product mutation + runtime ready for Manual Action 1
+## E. Convergence / trajectory link
+- Capability: Product A3 journey precondition — Pilot natural intent → Nora cognition boundary → structured Proposal
+- Foundations: V3-F02 / V3-F04 / V3-F11-F12 (downstream prep only)
+- Asset: FakeConversationProvider = **ADAPT**; F2/Product orchestration = **KEEP**; sentinel fixtures = **KEEP**
+- Forbidden: new cognition engine; parallel Product path
+- Critical-path: close fake parity → repeat manual preflight → bounded manual reproof through Inspect → separate Gate D later
+- Lot D: **NOT** authorized
+- Runtime v3: **NON ADOPTED**
 
-**Exit proof status: FAILED on deterministic Nora user-valid path (see M / Z).**
+## F. Prior blocked manual-preflight evidence
+Handoff verdict (sfia/review-handoff):
+**MANUAL REPROOF BLOCKED — DETERMINISTIC NORA PATH NOT USER-VALID**
 
-## F. Post-merge sources read
-Confirmed present and consulted (titles/existence + prior cycle context):
-- `prompts/templates/sfia-cycle-execution-template.md`
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
-- `projects/sfia-studio/sfia-v3-framing/32-living-project-state-and-dynamic-trajectory.md`
-- `projects/sfia-studio/sfia-v3-framing/33-epistemology-provenance-and-contradiction-model.md`
-- `projects/sfia-studio/sfia-v3-framing/34-agent-capabilities-reversibility-and-execution-governance.md`
-- Canonical prior handoff closure (remote): PRODUCT-JOURNEY-LOT-A-B — MERGED TO MAIN — POST-MERGE CI GREEN — PRODUCT VERIFIED ON origin/main
+Root observation: natural FR Pilot request → FakeConversationProvider F2 fallback `intentClass=informative` / `executionIntent=null`; structured materialization required `__F2_ARTIFACT_MATERIALIZE__`.
 
-## G. Dogfood worktree pre-state
-- Path: `/Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d`
-- Pre-alignment HEAD: `6a41ab7e7deda9f7168d12a37b9316413565fa16`
-- Branch: detached HEAD
-- Dirt: `.tmp-sfia-review/chatgpt-review.md` only (allowed review material)
-- Old runtime on :3020: PID 20633 (`next dev --port 3020`) cwd dogfood app — **stopped cleanly** before alignment
+## G. Exact FakeConversationProvider root cause
+In `fakeProvider.ts`, after historical marker branches, F2 system-prompt traffic without markers fell through to generic informative JSON (~former L1013). The only path emitting `continuationKind=active_cycle_artifact_materialization` + `cursor.docs_write.apply` + docs_write `executionIntent` was the `__F2_ARTIFACT_MATERIALIZE__` marker branch.
 
-## H. Product DB path / backup evidence
-- Dogfood symlink: `projects/sfia-studio/.sfia-exec/product/oa-product.sqlite` → `/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/product/oa-product.sqlite`
-- Real DB path: `/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/product/oa-product.sqlite`
-- Live size (bytes): `3063808`
-- Live SHA-256 (post-start housekeeping may differ from backup): `6b94a3dec6f4ccf9b2ba9a12b45f201a5e651f82180956767a2df2cecc82b612`
-- Forensic backup: `/tmp/sfia-studio-product-reproof-pre-main-bceb79a-20260915T175357Z.sqlite`
-- Backup size: `3063808`
-- Backup SHA-256: `095eccf8c4b7d14bd120c6f2805e2404ce3cbc397f4115cb86a93aacc0ac71b2`
-- Method: prior consistent SQLite backup (timestamped COPY outside tracked repo)
-- Schema/migration/data cleanup: **NONE**
+## H. R21 Fake/Real fidelity analysis
+- External boundary substituted: OpenAI cognition provider
+- Fake remains a **test adapter** for the cognition boundary only
+- Same Product path traversed: `projectAssistantSendAction` → `orchestrateAssistantSend` → `orchestrateF2` → FakeConversationProvider → Proposal
+- Expected proof: **DETERMINISTIC BOUNDARY PARITY AT TESTED REQUEST SHAPE**
+- Explicitly NOT: OpenAI REAL / Nora REAL / general NLU / Product Proof complete / READY FOR REAL / runtime v3 ADOPTED
 
-## I. Historical Project durable state — exact actual values
-- Project found: **YES**
-- Title: `Gestion de tâches`
-- projectId: `prj:ae9bd0de-e24d-474f-880d-ff5ea56dbaf6`
-- current LPS: `lps:66c018f8cc277708` / version **16** / status active
-- activeCycleInstanceId: `cyc:trj-0a9c5104b7b6a3debe95eb8d` (status active)
-- RepositoryBinding (exact):
-  - provider: `github`
-  - identity: `mcleland147/sfia-workspace`
-  - remoteUrl: `https://github.com/mcleland147/sfia-workspace.git`
-  - defaultBranch: `main`
-  - pathRoot: `projects/sfia-studio/.sandbox` (no trailing slash; historical expectation had trailing slash — non-material)
-- Epistemic pending Decision Subject markers:
-  - ACTIVE: `epi:pending-subject:…:prop:f2:4a90b644-3eb7-43b8-9e83-b140cfeb9a9c`
-    - proposalId: `prop:f2:4a90b644-3eb7-43b8-9e83-b140cfeb9a9c`
-    - lpsId/version at marker: `lps:567f911f3a386644` / **14**
-    - `proposalSnapshot`: **absent / null** (not reconstructible)
-    - status: `pending_binding`
-  - RESOLVED: `epi:pending-subject:…:prop:f2:195b23b4-2cdc-46f0-bc81-27f8b8b535bd`
-- Recoverable Proposal IDs via snapshot hydrate: **NONE** for active pending (no snapshot)
-- PresentedOptionSet (active rows still present in Epistemic):
-  - `epi:set-w2-1efef3790988` — trajectory options (`opt:trajectory:*`), recommended `clarify-first`
-  - `epi:set-w2-565470646757` — proposal-subject options (`pursue|amend|refuse`), recommended `amend`
-- HumanDecisions for project (5): latest `dec:w2-prop:a7aa52bb-56df-4891-96b4-0f9873082df7` accepted (subject for resolved prop `195b23b4…`); others accepted/superseded historical
-- ExecutionContract for this projectId: **0**
-- Attempt for this project: **none linked** (global active attempt exists for unrelated EC `xct:w3a:dec:w2-trj:33712fa4-…`, not this project)
-- Target artifact `projects/sfia-studio/.sandbox/gestion-de-taches.md`: **ABSENT** (both dogfood path and workspace path)
-- Divergence vs historical freeze expectation (LPS v16, same project/cycle/binding, pending without snapshot): **NO material divergence** — state matches failed-campaign legacy pending subject condition
+## I. R22 disposition
+Test-adapter fidelity only. No internal production cognition / NLP engine / parallel Product path. Sentinel fixtures retained for historical automated tests.
 
-## J. Main alignment proof
-- Mechanism: `git checkout --detach bceb79a814c2d1e468c8e05dfdb461104375c3fa`
-- `git rev-parse HEAD` after: `bceb79a814c2d1e468c8e05dfdb461104375c3fa`
-- No Product branch created/deleted; no commit/merge/cherry-pick; durable DB not reset
-
-## K. Integrated Product marker checks
-| Marker | Result |
+## J. Before behavior
+| Input | Result |
 |---|---|
-| `proposalSubjectIntegrity.ts` exists | **YES** |
-| TrajectorySurface Proposal-backed M3 PREPARE (`projectAssistantPrepareM3Action` / `proposalBackedPrepareReady`) | **YES** |
-| Proposal pursue missing DecisionBasis fail-closed UI (`proposalBackedPrepareBlocked` / `w2-proposal-prepare-blocked`) | **YES** |
-| `recoveryProposeSignal` absent from canonical Product routing | **YES (absent)** |
-| RepositoryBindingForm does not present `acme/widget` as current truth | **YES (acme absent from form)** |
+| Natural FR materialization request | `informative`, `executionIntent=null` |
+| Same + `__F2_ARTIFACT_MATERIALIZE__` | `execution_request` + `active_cycle_artifact_materialization` + target `docs/livrable-cycle.md` |
 
-## L. Fake / Real environment audit
-Launch exports:
-- `OPS1_CONVERSATION_PROVIDER=fake` (**set**; confirmed in next-server environ via sysctl KERN_PROCARGS2)
-- `SFIA_STUDIO_CURSOR_REAL` **unset** (confirmed absent from process environ)
-- `SFIA_STUDIO_DOCS_WRITE_REAL` / GCEC REAL opt-ins: **unset**
-`.env.local` relevant (secrets redacted):
-- `OPENAI_API_KEY=<REDACTED>` present (must NOT be used while OPS1=fake)
-- `OPENAI_MODEL=gpt-5.6-luna`
-- `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1` (local PREPARE/Inspect dogfood authority only; does **not** authorize Execute)
-- `OPS1_CONVERSATION_PROVIDER` **not** in `.env.local` (shell export supplies fake)
-- `SFIA_STUDIO_CURSOR_REAL` **not** in `.env.local`
-Provider resolution (`lib/platform/ai/provider.ts`): `isFakeConversationProviderForced()` short-circuits to `FakeConversationProvider` before OpenAI secrets.
-OpenAI LIVE used? **NO**
-Cursor/docs_write REAL enabled? **NO**
+## K. Recognition contract
+ALL required (narrow, explainable — no synonym engine):
+1. Materialize wording family after bounded normalize: `materialise` / `materialiser` (covers matérialise/matérialiser via accent fold)
+2. Exactly one repository-relative `.md` path in CURRENT demand
+3. Explicit proposal/decision preparation (`proposition` or `decision`)
+4. Explicit no-execution guard (`n'execute rien` or `ne rien executer` after normalize)
 
-## M. Deterministic Nora natural-request qualification
-Candidate Pilot request (natural FR, no sentinel) exercised against `FakeConversationProvider.complete` with F2 system prompt:
+If any missing → fall through to existing deterministic behavior.
 
-**Result WITHOUT sentinel:**
-- `intentClass`: `informative`
-- `continuationKind`: `null`
-- `requestedOperation`: `null`
-- `executionIntent`: **absent**
+## L. Path extraction contract
+- Regex over CURRENT demand only
+- Exactly one candidate; must end in `.md`
+- Reject: absolute (`/…`), URL (`://`), traversal (`..`)
+- Multiple paths → fail closed (no pick)
+- Path validity ≠ execution authority (server/Product remain authoritative)
 
-**Result WITH forbidden sentinel `__F2_ARTIFACT_MATERIALIZE__`:**
+## M. Structured F2 output contract
+Shared builder emits same semantic shape as historical sentinel:
 - `intentClass`: `execution_request`
 - `continuationKind`: `active_cycle_artifact_materialization`
 - `artifactMaterializationOperation`: `cursor.docs_write.apply`
-- `executionIntent`: present
+- `candidateCycleTypeId`: `cyc:framing`
+- `requestedOperation` (top-level): `null` (canonical sentinel contract)
+- `executionIntent.intentKind`: `docs_write`
+- `executionIntent.targetPath`: extracted (natural) or `docs/livrable-cycle.md` (sentinel)
+- `executionIntent.requiredCapabilities`: `["cap:cursor.docs_write"]`
+- `targetRepositoryRef`: `null` (server/binding-owned)
+- artifactBrief/contentRequirements: bounded slice of Pilot request (natural) or historical fixture strings (sentinel)
 
-Evidence/source:
-- `projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts` (marker gate ~L765; F2 fallback informative ~L1013)
-- Live proof via `tsx` invocation in dogfood worktree at aligned HEAD
+## N. Shared builder / branch ordering
+Helpers in `fakeProvider.ts`:
+- `normalizeNaturalMaterializationProbe`
+- `extractSingleRepoRelativeMdPath`
+- `matchNaturalArtifactMaterialization`
+- `buildArtifactMaterializationAnalysis`
+- `fakeF2JsonResult`
 
-User-valid without sentinel? **NO**
-Internal/test sentinel required for structured Proposal? **YES** (forbidden for this campaign)
-OpenAI LIVE fallback? **NOT used / NOT authorized**
+Ordering (documented in source):
+1. … prior `__MW5_` / `__F2_` markers …
+2. `__F2_ARTIFACT_HOSTILE_MERGE_OP__` (unchanged hostile semantics)
+3. `__F2_ARTIFACT_MATERIALIZE__` → shared builder (legacy path)
+4. … remaining markers …
+5. **natural materialization match** → shared builder (extracted path)
+6. generic F2 informative fallback
 
-⇒ **MANUAL REPROOF BLOCKED — DETERMINISTIC NORA PATH NOT USER-VALID**
+## O. Exact production/test-adapter diff
 
-## N. Runtime launch
-- Command: `OPS1_CONVERSATION_PROVIDER=fake npm run dev` (= `next dev --port 3020`)
-- Worktree: `/Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d/projects/sfia-studio/app`
-- HEAD: `bceb79a814c2d1e468c8e05dfdb461104375c3fa`
-- Listen PID: `71100` (next-server)
-- Port: **3020**
-- Provider mode: **fake** (forced)
-- Health: HTTP **307** on `/` (redirect to login) — server Ready
+```diff
+diff --git a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
+index 88462d68..0b1b7a2f 100644
+--- a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
++++ b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
+@@ -12,6 +12,156 @@ export type FakeToolScriptRound =
+   | { kind: "message"; text: string }
+   | { kind: "tool_calls"; toolCalls: ProviderToolCall[] };
 
-## O. Initial Product UI projection
-READ-ONLY navigation to:
-`http://127.0.0.1:3020/studio/projects/prj%3Aae9bd0de-e24d-474f-880d-ff5ea56dbaf6`
++type FakeChallengeAssessment =
++  | "sufficient"
++  | "insufficient"
++  | "unknown"
++  | null;
++
++/**
++ * Bounded Unicode/case normalization for the natural materialization contract only.
++ * Not a general NLP layer — only apostrophe variants + accents on recognized tokens.
++ */
++function normalizeNaturalMaterializationProbe(raw: string): string {
++  return raw
++    .normalize("NFC")
++    .replace(/[\u2018\u2019\u02BC\u0060]/g, "'")
++    .toLowerCase()
++    .replace(/[àáâäã]/g, "a")
++    .replace(/[èéêë]/g, "e")
++    .replace(/[ìíîï]/g, "i")
++    .replace(/[òóôöõ]/g, "o")
++    .replace(/[ùúûü]/g, "u")
++    .replace(/ç/g, "c");
++}
++
++/** Exactly one repository-relative `.md` path from CURRENT demand; else null. */
++function extractSingleRepoRelativeMdPath(probe: string): string | null {
++  const re =
++    /(?:^|[\s`"'(])((?:[A-Za-z0-9._-]+\/)+[A-Za-z0-9._-]+\.md)(?=$|[\s`"'),.])/g;
++  const hits: string[] = [];
++  let m: RegExpExecArray | null;
++  while ((m = re.exec(probe)) !== null) {
++    hits.push(m[1]!);
++  }
++  if (hits.length !== 1) return null;
++  const path = hits[0]!;
++  if (path.startsWith("/") || path.includes("..") || /:\/\//.test(path)) {
++    return null;
++  }
++  return path;
++}
++
++/**
++ * Narrow natural Pilot contract for artifact materialization (no synonym engine).
++ * Requires ALL of:
++ * 1) materialize wording family
++ * 2) exactly one repo-relative .md path
++ * 3) explicit proposal / decision preparation
++ * 4) explicit no-execution guard
++ */
++function matchNaturalArtifactMaterialization(probe: string): {
++  targetPath: string;
++  artifactBrief: string;
++  contentRequirement: string;
++} | null {
++  const normalized = normalizeNaturalMaterializationProbe(probe);
++  if (!/\bmaterialis(?:e|er)\b/.test(normalized)) return null;
++
++  const hasProposalOrDecision =
++    /\bproposition\b/.test(normalized) || /\bdecision\b/.test(normalized);
++  const hasNoExecution =
++    /n'execute\s+rien/.test(normalized) ||
++    /ne\s+rien\s+executer/.test(normalized);
++  if (!hasProposalOrDecision || !hasNoExecution) return null;
++
++  const targetPath = extractSingleRepoRelativeMdPath(probe);
++  if (!targetPath) return null;
++
++  const brief = probe.replace(/\s+/g, " ").trim().slice(0, 240);
++  return {
++    targetPath,
++    artifactBrief: brief,
++    contentRequirement: brief,
++  };
++}
++
++/** Shared F2 artifact-materialization analysis payload (sentinel + natural). */
++function buildArtifactMaterializationAnalysis(input: {
++  targetPath: string;
++  challengeResponseAssessment?: FakeChallengeAssessment;
++  artifactBrief?: string;
++  contentRequirements?: string[];
++}): Record<string, unknown> {
++  const targetPath = input.targetPath;
++  const parentSlash = targetPath.lastIndexOf("/");
++  const scopeIn =
++    parentSlash > 0 ? [targetPath.slice(0, parentSlash + 1)] : ["docs/"];
++  return {
++    intentClass: "execution_request",
++    candidateCycleTypeId: "cyc:framing",
++    signals: {
++      structuralChange: false,
++      securityImpact: false,
++      architectureImpact: false,
++      dataImpact: false,
++      irreversible: false,
++      lowRiskBounded: true,
++    },
++    cognitiveWorkload: null,
++    contradictionCandidate: null,
++    challengeResponseAssessment: input.challengeResponseAssessment ?? "sufficient",
++    continuationKind: "active_cycle_artifact_materialization",
++    artifactMaterializationOperation: "cursor.docs_write.apply",
++    objective: "Matérialiser le livrable requis du cycle actif",
++    scope: "docs_write borné — cycle actif — aucune exécution automatique",
++    rephrasedRequest: "Matérialisation gouvernée du livrable requis",
++    outOfScope: ["Nouveau CycleInstance", "Pilot START", "Cursor REAL"],
++    risks: ["Confusion continuation / nouvelle formalisation"],
++    reservations: [],
++    stopConditions: ["AUCUNE EXÉCUTION", "Décision Pilote requise"],
++    activatedBlocks: ["proposition", "gate"],
++    expectedOutcome: "Proposition de matérialisation liée au cycle actif",
++    criticalJustification: null,
++    requestedOperation: null,
++    executionIntent: {
++      intentKind: "docs_write",
++      artifactType: "deliverable_document",
++      targetRepositoryRef: null,
++      targetPath,
++      scopeIn,
++      scopeOut: [],
++      expectedOutputs: [targetPath],
++      requiredCapabilities: ["cap:cursor.docs_write"],
++      validationExpectations: [],
++      evidenceRequirements: [],
++      requestedOperation: null,
++      reversibilityExpectation: null,
++      artifactBrief:
++        input.artifactBrief ?? "Livrable requis du cycle actif",
++      contentRequirements:
++        input.contentRequirements ?? ["Contenu défini avec Nora"],
++      exitRequirementKinds: [],
++    },
++  };
++}
++
++function fakeF2JsonResult(
++  callCount: number,
++  analysis: Record<string, unknown>,
++): ProviderCompletionResult {
++  return {
++    text: `[TEST/FAKE · NON LIVE] ${JSON.stringify(analysis)}`,
++    usage: {
++      inputTokens: 10 * callCount,
++      outputTokens: 5 * callCount,
++      totalTokens: 15 * callCount,
++      model: "fake-test-model",
++      providerResponseId: `fake-resp-${callCount}`,
++    },
++  };
++}
++
+ /**
+  * Deterministic fake provider for unit/E2E non-live tests.
+  * Never presented as live GPT; replies are tagged TEST/FAKE.
+@@ -763,69 +913,19 @@ export class FakeConversationProvider implements ConversationProvider {
+       };
+     }
+     if (markerProbe.includes("__F2_ARTIFACT_MATERIALIZE__")) {
++      // Historical sentinel fixture — same builder as natural Pilot contract.
+       const content = markerProbe;
+-      let challengeResponseAssessment:
+-        | "sufficient"
+-        | "insufficient"
+-        | "unknown"
+-        | null = "sufficient";
++      let challengeResponseAssessment: FakeChallengeAssessment = "sufficient";
+       if (content.includes("__MW5_SATISFACTION_INSUFFICIENT__")) {
+         challengeResponseAssessment = "insufficient";
+       }
+-      return {
+-        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+-          intentClass: "execution_request",
+-          candidateCycleTypeId: "cyc:framing",
+-          signals: {
+-            structuralChange: false,
+-            securityImpact: false,
+-            architectureImpact: false,
+-            dataImpact: false,
+-            irreversible: false,
+-            lowRiskBounded: true,
+-          },
+-          cognitiveWorkload: null,
+-          contradictionCandidate: null,
++      return fakeF2JsonResult(
++        this.callCount,
++        buildArtifactMaterializationAnalysis({
++          targetPath: "docs/livrable-cycle.md",
+           challengeResponseAssessment,
+-          continuationKind: "active_cycle_artifact_materialization",
+-          artifactMaterializationOperation: "cursor.docs_write.apply",
+-          objective: "Matérialiser le livrable requis du cycle actif",
+-          scope: "docs_write borné — cycle actif — aucune exécution automatique",
+-          rephrasedRequest: "Matérialisation gouvernée du livrable requis",
+-          outOfScope: ["Nouveau CycleInstance", "Pilot START", "Cursor REAL"],
+-          risks: ["Confusion continuation / nouvelle formalisation"],
+-          reservations: [],
+-          stopConditions: ["AUCUNE EXÉCUTION", "Décision Pilote requise"],
+-          activatedBlocks: ["proposition", "gate"],
+-          expectedOutcome: "Proposition de matérialisation liée au cycle actif",
+-          criticalJustification: null,
+-          requestedOperation: null,
+-          executionIntent: {
+-            intentKind: "docs_write",
+-            artifactType: "deliverable_document",
+-            targetRepositoryRef: null,
+-            targetPath: "docs/livrable-cycle.md",
+-            scopeIn: ["docs/"],
+-            scopeOut: [],
+-            expectedOutputs: ["docs/livrable-cycle.md"],
+-            requiredCapabilities: ["cap:cursor.docs_write"],
+-            validationExpectations: [],
+-            evidenceRequirements: [],
+-            requestedOperation: null,
+-            reversibilityExpectation: null,
+-            artifactBrief: "Livrable requis du cycle actif",
+-            contentRequirements: ["Contenu défini avec Nora"],
+-            exitRequirementKinds: [],
+-          },
+-        })}`,
+-        usage: {
+-          inputTokens: 10 * this.callCount,
+-          outputTokens: 5 * this.callCount,
+-          totalTokens: 15 * this.callCount,
+-          model: "fake-test-model",
+-          providerResponseId: `fake-resp-${this.callCount}`,
+-        },
+-      };
++        }),
++      );
+     }
+     if (markerProbe.includes("__F2_DOCS_WRITE_GENERIC__")) {
+       return {
+@@ -1010,6 +1110,21 @@ export class FakeConversationProvider implements ConversationProvider {
+         },
+       };
+     }
++    // Natural Pilot artifact-materialization (AFTER all historical __F2_/__MW5_
++    // marker contracts, BEFORE generic F2 informative fallback).
++    // Ordering: HOSTILE_MERGE → ARTIFACT_MATERIALIZE sentinel → … → natural → F2 fallback.
++    const naturalMaterialization = matchNaturalArtifactMaterialization(markerProbe);
++    if (naturalMaterialization) {
++      return fakeF2JsonResult(
++        this.callCount,
++        buildArtifactMaterializationAnalysis({
++          targetPath: naturalMaterialization.targetPath,
++          artifactBrief: naturalMaterialization.artifactBrief,
++          contentRequirements: [naturalMaterialization.contentRequirement],
++        }),
++      );
++    }
++
+     if (messages.some((m) => m.role === "system" && m.content.includes("SFIA Studio F2"))) {
+       return {
+         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
 
-Observed:
-- Redirect to `/login?error=NO_SESSION&from=…`
-- Visible: SFIA Studio Connexion gate — « Se connecter avec GitHub »; alert « Authentification requise… »
-- **Product workspace / Nora / Trajectory / Decision Subject / RepositoryBinding surfaces NOT reached** (no Pilote session cookie)
-- GitHub OAuth **not** clicked (would require Morris interactive auth; not a Product mutation, but blocks RO Product capture)
-
-Durable-state-derived expectation (NOT visually confirmed):
-- Active pending Proposal subject without reconstructible snapshot ⇒ expected sole primary family **« Reformuler avec Nora »** under Lot A/B fail-closed continuity
-- Competing active Epistemic option-set rows exist historically; UI ownership under merged main not visually audited due to login gate
-
-## P. Runtime screenshot path
-`/Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d/.tmp-sfia-review/sfia-manual-reproof-preflight-login-gate.png`
-
-## Q. Initial primary action family
-**NOT OBSERVED in Product UI** (login gate).
-Durable-state expectation only: Reformuler-with-Nora family (pending subject, no snapshot).
-
-## R. Competing CTA audit
-**NOT OBSERVED in Product UI** (login gate).
-Epistemic still contains two active PresentedOptionSet rows (trajectory + proposal-subject) — durable leftover; UI arbitration not visually proven this preflight.
-
-## S. RepositoryBinding presentation
-**NOT OBSERVED in Product UI** (login gate).
-Durable binding is honest (`mcleland147/sfia-workspace`, not acme/widget). Form source no longer embeds acme as current truth.
-
-## T. Negative checks
-| Check | Result |
-|---|---|
-| no acme/widget as current binding (durable) | **PASS** |
-| no acme/widget as current binding (UI) | **NOT OBSERVED** (login) |
-| no competing generic « Instruire les options » when pending Proposal owns next action (UI) | **NOT OBSERVED** (login) |
-| no sandbox operation selector while Proposal subject owns path (UI) | **NOT OBSERVED** (login) |
-| no PREPARE before HumanDecision pursue (UI) | **NOT OBSERVED** (login) |
-| no Execute (UI) | **NOT OBSERVED** (login) — login page has none |
-| no Attempt from this campaign | **PASS** (none created) |
-| target artifact not newly written by preflight | **PASS** (still absent) |
-
-## U. Preflight semantic state before/after comparison
-Compared logical facts after alignment + server start + login-page GET:
-- LPS id/version unchanged (v16 / `lps:66c018f8cc277708`)
-- active cycle unchanged
-- pending/resolved Decision Subject markers unchanged
-- active PresentedOptionSets unchanged
-- HumanDecisions unchanged
-- EC count unchanged (0 for project)
-- repositoryBinding unchanged
-- project `updatedAt` unchanged: `2026-09-15T14:34:48.193Z`
-Semantic Product mutation by preflight? **NO**
-(SQLite live hash differs from backup hash — WAL/housekeeping; logical facts identical)
-
-## V. Source Git status after preflight
-Dogfood:
 ```
-M  .tmp-sfia-review/chatgpt-review.md
+
+## P. Exact test diffs / complete new files
+
+### P.1 `fakeProvider.userValidArtifactMaterialization.d0.test.ts` (new)
+
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/platform/fakeProvider.userValidArtifactMaterialization.d0.test.ts b/projects/sfia-studio/app/__tests__/platform/fakeProvider.userValidArtifactMaterialization.d0.test.ts
+new file mode 100644
+index 00000000..e36dbbf5
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/platform/fakeProvider.userValidArtifactMaterialization.d0.test.ts
+@@ -0,0 +1,142 @@
++/**
++ * DETERMINISTIC NORA BOUNDARY PARITY — FakeConversationProvider
++ * user-valid natural Pilot artifact materialization (no hidden sentinel).
++ *
++ * @vitest-environment node
++ */
++import { describe, expect, it } from "vitest";
++import { FakeConversationProvider } from "@/lib/platform/ai/fakeProvider";
++
++const F2_SYSTEM = "SFIA Studio F2 intent analysis";
++
++const CANONICAL_NATURAL = `Matérialise le livrable attendu dans
++projects/sfia-studio/.sandbox/gestion-de-taches.md.
++Le livrable attendu est une fiche de cadrage fonctionnel minimale pour
++l’application de gestion de tâches, décrivant l’objectif, le périmètre
++fonctionnel — ajouter une tâche, la marquer comme terminée et la supprimer —
++ainsi que les critères d’acceptation essentiels.
++N’exécute rien : prépare la proposition correspondante pour ma décision.`;
++
++function parseFakeF2(text: string): Record<string, unknown> {
++  const i = text.indexOf("{");
++  const j = text.lastIndexOf("}");
++  expect(i).toBeGreaterThanOrEqual(0);
++  expect(j).toBeGreaterThan(i);
++  return JSON.parse(text.slice(i, j + 1)) as Record<string, unknown>;
++}
++
++async function analyze(content: string): Promise<Record<string, unknown>> {
++  const provider = new FakeConversationProvider();
++  const result = await provider.complete([
++    { role: "system", content: F2_SYSTEM },
++    { role: "user", content },
++  ]);
++  return parseFakeF2(result.text);
++}
++
++describe("FakeConversationProvider — user-valid artifact materialization", () => {
++  it("P1 — canonical natural FR request WITHOUT sentinel → materialization F2", async () => {
++    const obj = await analyze(CANONICAL_NATURAL);
++    expect(obj.intentClass).toBe("execution_request");
++    expect(obj.continuationKind).toBe("active_cycle_artifact_materialization");
++    expect(obj.artifactMaterializationOperation).toBe(
++      "cursor.docs_write.apply",
++    );
++    expect(obj.executionIntent).toBeTruthy();
++    const ei = obj.executionIntent as Record<string, unknown>;
++    expect(ei.targetPath).toBe(
++      "projects/sfia-studio/.sandbox/gestion-de-taches.md",
++    );
++    expect(ei.intentKind).toBe("docs_write");
++    expect(ei.requiredCapabilities).toEqual(["cap:cursor.docs_write"]);
++  });
++
++  it("P2 — canonical natural request contains no fixture sentinel", () => {
++    expect(CANONICAL_NATURAL).not.toMatch(/__F2_/);
++    expect(CANONICAL_NATURAL).not.toMatch(/__MW5_/);
++  });
++
++  it("P3 — targetPath extracted from current demand (second safe .md)", async () => {
++    const content = `Matérialise le livrable attendu dans
++projects/sfia-studio/.sandbox/autre-livrable.md.
++N'exécute rien : prépare la proposition pour ma décision.`;
++    const obj = await analyze(content);
++    const ei = obj.executionIntent as Record<string, unknown>;
++    expect(ei.targetPath).toBe(
++      "projects/sfia-studio/.sandbox/autre-livrable.md",
++    );
++    expect(ei.targetPath).not.toBe(
++      "projects/sfia-studio/.sandbox/gestion-de-taches.md",
++    );
++    expect(ei.targetPath).not.toBe("docs/livrable-cycle.md");
++  });
++
++  it("P4 — missing explicit path does not enter natural materialization", async () => {
++    const obj = await analyze(
++      "Matérialise le livrable attendu. N'exécute rien : prépare la proposition pour ma décision.",
++    );
++    expect(obj.intentClass).toBe("informative");
++    expect(obj.continuationKind ?? null).toBeNull();
++    expect(obj.executionIntent ?? null).toBeNull();
++  });
++
++  it("P5 — two target paths fails closed / falls through", async () => {
++    const obj = await analyze(
++      `Matérialise a.md et aussi b.md sous projects/sfia-studio/.sandbox/a.md et projects/sfia-studio/.sandbox/b.md.
++N'exécute rien : prépare la proposition pour ma décision.`,
++    );
++    expect(obj.intentClass).toBe("informative");
++    expect(obj.continuationKind ?? null).toBeNull();
++  });
++
++  it("P6 — traversal target does not enter natural materialization", async () => {
++    const obj = await analyze(
++      `Matérialise le livrable dans ../something.md.
++N'exécute rien : prépare la proposition pour ma décision.`,
++    );
++    expect(obj.intentClass).toBe("informative");
++    expect(obj.continuationKind ?? null).toBeNull();
++  });
++
++  it("P7 — question/reference only is not materialization", async () => {
++    const obj = await analyze(
++      "Que contient projects/sfia-studio/.sandbox/gestion-de-taches.md ?",
++    );
++    expect(obj.intentClass).toBe("informative");
++    expect(obj.continuationKind ?? null).toBeNull();
++  });
++
++  it("P8 — materialize wording without proposal/no-execution guard does not promote", async () => {
++    const obj = await analyze(
++      "Matérialise le livrable dans projects/sfia-studio/.sandbox/gestion-de-taches.md.",
++    );
++    expect(obj.intentClass).toBe("informative");
++    expect(obj.continuationKind ?? null).toBeNull();
++  });
++
++  it("P9 — existing __F2_ARTIFACT_MATERIALIZE__ remains green", async () => {
++    const obj = await analyze(
++      "Matérialise ce livrable __F2_ARTIFACT_MATERIALIZE__",
++    );
++    expect(obj.intentClass).toBe("execution_request");
++    expect(obj.continuationKind).toBe("active_cycle_artifact_materialization");
++    expect(obj.artifactMaterializationOperation).toBe(
++      "cursor.docs_write.apply",
++    );
++    const ei = obj.executionIntent as Record<string, unknown>;
++    expect(ei.targetPath).toBe("docs/livrable-cycle.md");
++  });
++
++  it("P10 — hostile merge fixture remains green and distinct", async () => {
++    const obj = await analyze(
++      "Matérialise ce livrable __F2_ARTIFACT_HOSTILE_MERGE_OP__",
++    );
++    expect(obj.intentClass).toBe("execution_request");
++    expect(obj.continuationKind).toBe("active_cycle_artifact_materialization");
++    expect(obj.artifactMaterializationOperation).toBeNull();
++    expect(obj.requestedOperation).toBe("github.pr.merge");
++    const ei = obj.executionIntent as Record<string, unknown>;
++    expect(ei.requiredCapabilities).toEqual(["cap:github.pr.merge"]);
++    expect(ei.requestedOperation).toBe("github.pr.merge");
++  });
++});
+
 ```
-(+ screenshot under `.tmp-sfia-review/` as local review material)
-`git diff --check`: clean for Product source
-Tracked Product/source diff? **NO**
 
-## W. Product mutations = ZERO
-**YES — ZERO** Product mutations performed or observed.
+### P.2 `naturalMaterialization.applicationPath.d0.test.ts` (new)
 
-## X. REAL / LIVE effects = ZERO
-**YES — ZERO** Cursor REAL / docs_write REAL / OpenAI LIVE invocations.
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/naturalMaterialization.applicationPath.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/naturalMaterialization.applicationPath.d0.test.ts
+new file mode 100644
+index 00000000..997cf7ee
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/project-assistant/naturalMaterialization.applicationPath.d0.test.ts
+@@ -0,0 +1,227 @@
++/**
++ * DETERMINISTIC NORA BOUNDARY PARITY — application path.
++ *
++ * projectAssistantSendAction → orchestrateAssistantSend → orchestrateF2
++ * → FakeConversationProvider → Proposal DECISION_REQUIRED
++ *
++ * Natural Pilot request WITHOUT any fixture sentinel.
++ * Deterministic — ZERO REAL / ZERO LIVE / ZERO Execute / ZERO Attempt.
++ *
++ * @vitest-environment node
++ */
++import { afterEach, beforeEach, describe, expect, it } from "vitest";
++import { projectAssistantSendAction } from "@/features/project-assistant/actions";
++import { F2_ARTIFACT_MATERIALIZATION_OPERATION } from "@/features/project-assistant/f2/f2CanonicalOperations";
++import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
++import { listEffectivePendingDecisionSubjectMarkers } from "@/features/project-assistant/w2/activeProposalDecisionSubject";
++import { recordObligationPolicyRequireArtifact } from "@/features/project-assistant/f2/pilotLifecycleActions";
++import {
++  LOCAL_PILOTE_ACTOR,
++  registerLocalPiloteAuthority,
++} from "@/lib/oa/decision";
++import { setConversationProviderForTests } from "@/lib/platform/ai";
++import {
++  bootW2Runtime,
++  cleanupW2TempDirs,
++  tempProductDbPath,
++} from "./w2Harness";
++import type { RuntimeApplicationService } from "@/lib/vertical-slice-runtime";
++
++const NATURAL_REQUEST = `Matérialise le livrable attendu dans
++projects/sfia-studio/.sandbox/gestion-de-taches.md.
++Le livrable attendu est une fiche de cadrage fonctionnel minimale pour
++l’application de gestion de tâches, décrivant l’objectif, le périmètre
++fonctionnel — ajouter une tâche, la marquer comme terminée et la supprimer —
++ainsi que les critères d’acceptation essentiels.
++N’exécute rien : prépare la proposition correspondante pour ma décision.`;
++
++const EXPECTED_TARGET =
++  "projects/sfia-studio/.sandbox/gestion-de-taches.md";
++
++const SANDBOX_BINDING = {
++  identity: "mcleland147/sfia-workspace",
++  remoteUrl: "https://github.com/mcleland147/sfia-workspace.git",
++  defaultBranch: "main",
++  pathRoot: "projects/sfia-studio/.sandbox/",
++} as const;
++
++describe("DETERMINISTIC NORA BOUNDARY PARITY — natural materialization application path", () => {
++  let runtime: RuntimeApplicationService;
++  let dbPath: string;
++
++  beforeEach(() => {
++    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
++    process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
++    setConversationProviderForTests(null);
++    resetF2ProposalStoreForTests();
++    dbPath = tempProductDbPath("natural-materialize-apppath.sqlite");
++    runtime = bootW2Runtime({ productDbPath: dbPath, idPrefix: "nmap" });
++  });
++
++  afterEach(() => {
++    resetF2ProposalStoreForTests();
++    setConversationProviderForTests(null);
++    cleanupW2TempDirs();
++  });
++
++  async function seedActiveCycleProject(): Promise<{
++    projectId: string;
++    cycleInstanceId: string;
++  }> {
++    const oa = runtime.oa!;
++    const created = await runtime.createProject({
++      name: "Natural materialize app path",
++      objective: "Prouver la parité fake sans sentinel",
++      context: "cycle actif + REQUIRE_ARTIFACT + sandbox binding",
++      criticality: "STANDARD",
++      constraints: ["ZERO REAL"],
++      shortReference: "NMAP",
++      idempotencyKey: "idem:nmap-natural-1",
++    });
++    expect(created.ok).toBe(true);
++    if (!created.ok) throw new Error("seed: createProject failed");
++    const projectId = created.project.projectId;
++
++    const lps0 = await oa.projectServices.getCurrentLivingProjectState.execute({
++      projectId,
++    });
++    expect(lps0.ok).toBe(true);
++    if (!lps0.ok) throw new Error("seed: LPS unavailable");
++
++    const traj = await oa.cycleServices.createInitialTrajectory.execute({
++      trajectoryId: `trj:${projectId}`,
++      projectId,
++      steps: [
++        { stepId: "stp:clarify", order: 1, label: "Clarify", state: "done" },
++        { stepId: "stp:deliver", order: 2, label: "Deliver", state: "done" },
++      ],
++      status: "active",
++      expectedLpsVersion: lps0.livingProjectState.version,
++      createdBy: {
++        actorId: "actor:morris",
++        role: "project_owner",
++        displayName: "Morris",
++        authorityLevel: "N3",
++      },
++    });
++    expect(traj.ok).toBe(true);
++
++    const cycleInstanceId = "cyc:nmap-natural-1";
++    const candidate = await oa.cycleServices.createCycle.execute({
++      cycleInstanceId,
++      cycleTypeId: "cyc:framing",
++      projectId,
++      signals: { lowRiskBounded: true },
++      createdBy: {
++        actorId: "actor:nora-f2",
++        role: "agent",
++        displayName: "Nora F2",
++        authorityLevel: "N1",
++      },
++      linkAsActiveCycle: false,
++    });
++    expect(candidate.ok).toBe(true);
++
++    const auth = registerLocalPiloteAuthority({
++      authorityResolver: oa.authorityResolver,
++      scope: `pilot-lifecycle:${cycleInstanceId}`,
++      issuedAt: "2026-09-15T20:00:00.000Z",
++      forceEnable: true,
++    });
++    expect(auth.ok).toBe(true);
++    if (!auth.ok) throw new Error("seed: authority failed");
++
++    const lps1 = await oa.projectServices.getCurrentLivingProjectState.execute({
++      projectId,
++    });
++    expect(lps1.ok).toBe(true);
++    if (!lps1.ok) throw new Error("seed: LPS unavailable");
++
++    const started = await oa.cycleServices.pilotLifecycle.start({
++      cycleInstanceId,
++      projectId,
++      createdBy: {
++        actorId: LOCAL_PILOTE_ACTOR.actorId,
++        role: LOCAL_PILOTE_ACTOR.role,
++        displayName: LOCAL_PILOTE_ACTOR.displayName,
++        authorityLevel: LOCAL_PILOTE_ACTOR.authorityLevel,
++      },
++      authorityEvidenceId: auth.evidenceId,
++      expectedLpsVersion: lps1.livingProjectState.version,
++    });
++    expect(started.ok).toBe(true);
++
++    const obligation = await recordObligationPolicyRequireArtifact({
++      projectId,
++      cycleInstanceId,
++      cycleServices: oa.cycleServices,
++      decisionServices: oa.decisionServices,
++      authorityResolver: oa.authorityResolver,
++      nowIso: () => "2026-09-15T20:01:00.000Z",
++    });
++    expect(obligation.ok).toBe(true);
++
++    const bound = await runtime.setProjectRepositoryBinding({
++      projectId,
++      ...SANDBOX_BINDING,
++    });
++    expect(bound.ok).toBe(true);
++
++    return { projectId, cycleInstanceId };
++  }
++
++  it("AP-NAT — projectAssistantSendAction natural FR request creates DECISION_REQUIRED Proposal", async () => {
++    expect(NATURAL_REQUEST).not.toMatch(/__F2_/);
++    expect(NATURAL_REQUEST).not.toMatch(/__MW5_/);
++
++    const { projectId } = await seedActiveCycleProject();
++
++    const oa = runtime.oa!;
++    const decisionsBefore = await oa.decisionServices.decisions.listByProject(
++      projectId,
++    );
++
++    const send = await projectAssistantSendAction({
++      projectId,
++      content: NATURAL_REQUEST,
++    });
++    expect(send.ok).toBe(true);
++    if (!send.ok) throw new Error(`send failed: ${JSON.stringify(send)}`);
++
++    expect(send.f2?.turnKind).toBe("f2_proposal");
++    expect(send.f2?.proposal?.status).toBe("DECISION_REQUIRED");
++    expect(send.f2?.proposal?.contextSnapshot?.projectId).toBe(projectId);
++    expect(send.f2?.proposal?.requestedOperation).toBe(
++      F2_ARTIFACT_MATERIALIZATION_OPERATION,
++    );
++    expect(send.f2?.proposal?.executionIntent?.targetPath).toBe(EXPECTED_TARGET);
++    expect(send.f2?.proposal?.executionIntent?.intentKind).toBe("docs_write");
++    expect(send.f2?.proposal?.executionForbidden).toBe(true);
++    expect(send.f2?.decision).toBeNull();
++
++    const decisionsAfter = await oa.decisionServices.decisions.listByProject(
++      projectId,
++    );
++    expect(decisionsAfter.length).toBe(decisionsBefore.length);
++
++    if (typeof oa.executionContractServices.contracts.listByProject === "function") {
++      const contracts = await oa.executionContractServices.contracts.listByProject(
++        projectId,
++      );
++      expect(contracts.length).toBe(0);
++    }
++
++    const pending = await listEffectivePendingDecisionSubjectMarkers(
++      oa,
++      projectId,
++    );
++    expect(pending.ok).toBe(true);
++    if (!pending.ok) throw new Error("pending read failed");
++    expect(pending.markers.length).toBeGreaterThanOrEqual(1);
++    expect(
++      pending.markers.some(
++        (m) => m.proposalId === send.f2?.proposal?.proposalId,
++      ),
++    ).toBe(true);
++  });
++});
 
-## Y. Exact next manual action recommendation for ChatGPT ONLY
-**Do NOT issue Manual Action 1 as a Nora send of the natural FR materialization request under current fake provider.**
+```
 
-Recommended ChatGPT disposition:
-1. Treat this preflight as **BLOCKED** on user-valid deterministic Nora path.
-2. Require a separate authorized remediation (or alternate GO) so the normal Pilot request produces `active_cycle_artifact_materialization` / structured Proposal **without** `__F2_ARTIFACT_MATERIALIZE__` and without OpenAI LIVE.
-3. Separately, Morris interactive GitHub login is required before any authenticated Product UI RO reproof / Manual Action can observe Trajectory/Decision Subject CTAs.
-4. Until (2) is closed, do **not** start the Project→Nora→…→Inspect campaign.
+## Q. Provider-level positive proof
+- P1: canonical natural FR → execution_request + materialization + exact targetPath `projects/sfia-studio/.sandbox/gestion-de-taches.md`
+- P2: no `__F2_` / `__MW5_` in request
+- P3: second safe `.md` path extracted (not hard-coded)
 
-Do **not** execute any of the above in this cycle.
+## R. Provider-level negative proofs
+- P4 missing path → informative
+- P5 two paths → informative
+- P6 `../something.md` → informative
+- P7 question-only → informative
+- P8 materialize without proposal/no-exec guard → informative
+
+## S. Actual application-path proof
+File: `__tests__/project-assistant/naturalMaterialization.applicationPath.d0.test.ts`
+
+Path: `projectAssistantSendAction` → orchestrateAssistantSend → orchestrateF2 → FakeConversationProvider
+
+Assertions observed green:
+- no fixture token in request
+- turnKind `f2_proposal`, status `DECISION_REQUIRED`
+- projectId matches isolated test Project
+- requestedOperation canonical `cursor.docs_write.apply` (`F2_ARTIFACT_MATERIALIZATION_OPERATION`)
+- executionIntent.targetPath exact natural path
+- pending Decision Subject marker created for that Proposal
+- `decision` null; HD count unchanged; EC list empty; `executionForbidden=true`
+- ZERO Execute / Attempt / external effect
+
+## T. Sentinel historical non-regression
+P9 + CORR-PROOF-07 / journey application path (still use `__F2_ARTIFACT_MATERIALIZE__`) — **green**
+
+## U. Hostile fixture non-regression
+P10 + CORR-PROOF-07 CR06-A (`__F2_ARTIFACT_HOSTILE_MERGE_OP__`) — **green** (distinct merge/hostile semantics)
+
+## V. Lot A/B non-regression
+Focused green:
+- corrProof07 (32)
+- corrProof10 (45)
+- corrProof11 (18)
+- productProofJourneyIntegrity.d0 (13)
+- productProofJourneyIntegrity.applicationPath (6)
+- proposalSubjectIntegrity (5)
+- platform-ai (6)
+- new provider (10) + app path (1)
+
+## W. Full validation results
+From `projects/sfia-studio/app`:
+- `npm run typecheck` — PASS
+- `npm run lint` — PASS (0 warnings/errors)
+- `npm run build` — PASS
+- `npm test` — **4100 passed | 137 skipped | 0 failed** (baseline was 4089 passed; +11)
+- `git diff --check` — PASS
+
+## X. Fake/Real qualification and anti-claims
+Authorized claim:
+**DETERMINISTIC NORA BOUNDARY PARITY PROVEN AT TESTED ARTIFACT-MATERIALIZATION REQUEST SHAPE.**
+
+Anti-claims:
+- NOT arbitrary natural-language understanding
+- NOT Nora cognition complete
+- NOT OpenAI parity generally / NOT OpenAI REAL
+- NOT Product Proof complete / NOT manual Product reproof passed
+- NOT Gate D ready / NOT Cursor REAL ready
+- NOT runtime v3 ADOPTED
+- ZERO LIVE / ZERO REAL in this cycle
+
+## Y. Product Git actions
+**NONE** — no Product commit, push, PR, or merge. Candidate remains dirty/local for ChatGPT Critical Review.
 
 ## Z. Verdict
-**MANUAL REPROOF BLOCKED — DETERMINISTIC NORA PATH NOT USER-VALID**
+**DETERMINISTIC-NORA-BOUNDARY-PARITY — NATURAL PILOT ARTIFACT-MATERIALIZATION REQUEST TRAVERSES NORMAL PRODUCT F2 PATH WITHOUT SENTINEL — PROPOSAL CREATED DETERMINISTICALLY — ZERO EXECUTION — ZERO REAL — READY FOR CHATGPT CRITICAL REVIEW**
 
-Supporting facts preserved:
-- Main aligned dogfood HEAD = `bceb79a814c2d1e468c8e05dfdb461104375c3fa`
-- Historical dogfood Project/LPS/cycle/binding qualified; pending subject without snapshot
-- Lot A/B product markers present locally
-- Fake cognition forced; REAL opt-ins absent
-- ZERO Product mutation; ZERO REAL/LIVE effects
-- Authenticated Product UI projection not reached (NO_SESSION)
-- Natural Pilot request under FakeConversationProvider cannot mint the expected structured Proposal without forbidden test sentinel
-
-STOP. NO PRODUCT ACTION. NO NORA SEND. NO PREPARE. NO INSPECT. NO CONFIRM. NO AUTHORIZE. NO EXECUTE. NO REAL.
+Remaining reserve (out of scope this cycle): authenticated Product UI (`NO_SESSION`) for the next manual preflight after Morris interactive GitHub login.
