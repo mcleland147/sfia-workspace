@@ -11197,3 +11197,103 @@ CORR-PROOF-11: 18 PASS · CORR-PROOF-10: 45 · CORR-PROOF-09: 15 · CORR-PROOF-0
 ## Verdict
 
 **CORR-PROOF-11 — PROJECT GIT INTEGRATION PUBLISHED — PR CI GREEN — READY FOR CHATGPT CRITICAL PR REVIEW — MERGE NOT AUTHORIZED**
+
+
+────────────────────────────────────────────────────────────
+# POST-MERGE CLOSURE + DOGFOOD MAIN REALIGNMENT
+
+- timestamp: 2026-09-15T14:22:02Z
+- Cycle: 14 — Post-merge / RUN / Critical
+- Morris GO consumed: post-merge closure + dogfood code realignment to integrated main + runtime restart + GET-only smoke + handoff publication
+- Fake/Real: environment preparation only — ZERO LIVE / ZERO REAL Product effect
+- Product interaction count: **ZERO**
+- Product source modifications: **ZERO**
+- Project commit/push/PR/merge this cycle: **NOT PERFORMED**
+- Source branch deletion: **NOT PERFORMED**
+
+## Repository / CORR-PROOF-11 closure truth
+
+| Item | Value |
+|---|---|
+| origin/main | `6a41ab7e7deda9f7168d12a37b9316413565fa16` |
+| PR #487 | **MERGED** (2026-09-15T14:03:23Z) |
+| head | `9675bc4cc8091b126eb4da857071fb4afc78edb8` |
+| merge | `6a41ab7e7deda9f7168d12a37b9316413565fa16` |
+| parents | `1215c4823ba29421f46553f9b2fd2bde5b63c0f6` + `9675bc4cc8091b126eb4da857071fb4afc78edb8` |
+| head→merge content delta | **ZERO** |
+| source branch | `fix/sfia-studio-corr-proof-11-reinstruction-pilot-language` **PRESERVED** @ `9675bc4c…` |
+
+### Post-merge CI
+
+| Item | Value |
+|---|---|
+| run | **34979058154** |
+| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/34979058154 |
+| status | completed |
+| conclusion | **success** |
+| Detect SFIA Studio changes | **SUCCESS** |
+| Build and validate SFIA Studio | **SUCCESS** |
+| SFIA Studio Required Gate | **SUCCESS** |
+
+**Final CORR-PROOF-11 closure claim:** CORR-PROOF-11 — CLOSED AS INTEGRATED / POST-MERGE VERIFIED
+
+Allowed proof: DETERMINISTICALLY PROVEN + INTEGRATED ON MAIN + POST-MERGE CI VERIFIED
+
+Forbidden: REAL BOUNDARY / E2E REAL / PRODUCT PROOF COMPLETE / NORA COGNITIVE COMPLETION COMPLETE / runtime v3 ADOPTED / GLOBAL L5
+
+## Dogfood realignment
+
+| Item | Value |
+|---|---|
+| worktree | `/Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d` |
+| HEAD before | `1215c4823ba29421f46553f9b2fd2bde5b63c0f6` (detached) |
+| HEAD after | `6a41ab7e7deda9f7168d12a37b9316413565fa16` (detached) |
+| status before | `M .tmp-sfia-review/chatgpt-review.md` only |
+| status after | `M .tmp-sfia-review/chatgpt-review.md` only |
+| checkout | `git switch --detach 6a41ab7e…` (no reset/clean/stash/merge/rebase) |
+| dependency-manifest diff (1215c482→6a41ab7e) | **empty** — no npm install |
+
+## Runtime
+
+| Item | Value |
+|---|---|
+| pre-stop listener | **none** (port 3020 already free) |
+| start command | `npm run dev` → `next dev --port 3020` |
+| app cwd | `…/sfia-studio-product-proof-preflight-35b1371d/projects/sfia-studio/app` |
+| wrapper PID | 20612 |
+| listener PID | 20636 (`next-server` v15.5.20) |
+| start | Ready in ~1193ms |
+| log | `/tmp/sfia-studio-product-proof-3020.log` |
+
+### Smoke (GET only, no cookies)
+
+| Step | Result |
+|---|---|
+| GET / | **307** → `Location: /login?error=NO_SESSION&from=%2F` |
+| GET follow | **200** at `/login?error=NO_SESSION&from=%2F` |
+
+Infrastructure readiness only — not Product functional proof.
+
+## Durable state (metadata only — no secret contents / no SQL)
+
+| File | Symlink target | Size | SHA-256 | Integrity |
+|---|---|---|---|---|
+| oa-product.sqlite | `/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/product/oa-product.sqlite` | 3051520 | `5942da5b83c82fb9044c01856b70f48cb02b39cd1856c2abd67adf444b3aaafa` | byte-identical across pre / post-checkout / post-start |
+| nora-session.sqlite | (file) | 77824 | `290ba14d76a9de65225b7b119da574dd180b52aa34e38fb302727420a0454a5a` | byte-identical |
+| d1.sqlite | (file) | 61440 | `90d95a11cbcf0d99407c7fcb306e5373751f24ccc69fbbde5cf45a13ec786866` | byte-identical |
+| .env.local | symlink → studio-dogfood-01 path (resolved content hashed) | 583 | `d625df1e263d863fe274e155122b7c1107b41b1a16f29ae9c6e27100d0e924ed` | **unchanged** |
+
+WAL/SHM: **absent** for all three sqlite files.
+
+Private backup path: `/Users/morris/.cache/sfia-dogfood-backups/post-corr-proof-11-main-realign-20260915T141920Z`
+
+**Durable-state preservation proof: PASS**
+
+## Next authorized action
+
+Morris manual Product reproof (NOT this GO):
+reinstruction → new Proposal → Options → HumanDecision → PREPARE inspection.
+
+## Verdict
+
+**CORR-PROOF-11 — CLOSED AS INTEGRATED / POST-MERGE VERIFIED — DOGFOOD REALIGNED TO MAIN 6A41AB7E — DURABLE STATE BYTE-IDENTICAL — RUNTIME 3020 HEALTHY — READY FOR MORRIS MANUAL REPROOF**
