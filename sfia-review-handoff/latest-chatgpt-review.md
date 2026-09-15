@@ -1,119 +1,201 @@
-# SFIA Studio Product Proof — LIGHT Review Pack
-## Post-CORR-PROOF-09 Dogfood Refresh / Campaign Resume Preparation
+# CORR-PROOF-10 — Decision Context Continuity — Review Pack FULL
 
-**Timestamp (UTC):** 2026-09-14T19:56:39Z
-**Campaign:** SFIA Studio Product Proof — Fresh Project Full Cycle
-**Continuation:** Post-CORR-PROOF-09 dogfood refresh and campaign resume preparation
-**Cycle / Profile:** RUN / Validation — CRITICAL
-**Runtime v3:** NON ADOPTED
-**Not:** CORR-PROOF-10
+**Timestamp (UTC):** 2026-09-15T01:05:26Z
+**Verdict:** CORR-PROOF-10 DECISION CONTINUITY — LOCAL CANDIDATE READY FOR CHATGPT CRITICAL REVIEW
 
 ---
 
-## A. Identity
-
-Morris GO: campaign resume after CORR-PROOF-09 closure — this Cursor run = technical resume prerequisite only (refresh + continuity + LIGHT pack + L3 handoff).
-
-CORR-PROOF-09: CLOSED — MERGED / POST-MERGE VERIFIED
-Target Product code: `93ac1aea1af6b2094c158c5068bec1602d863ca7`
-
-Inherited functional proof (unchanged / not widened):
-**DETERMINISTIC PROVEN + REAL BOUNDARY PROVEN AT TESTED SINGLE-TURN SCOPE**
-
-This run proves: runtime/persistence continuity only. ZERO OpenAI LIVE. ZERO Nora.
-
----
-
-## B. Git truth
+## 1. Git Truth
 
 | Item | Value |
-|------|--------|
-| Worktree | `/Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d` |
-| HEAD before | `84a36a8d32f7b2632180d789e41521d6e769c681` (detached) |
-| origin/main | `93ac1aea1af6b2094c158c5068bec1602d863ca7` |
-| HEAD after | `93ac1aea1af6b2094c158c5068bec1602d863ca7` (detached via `git switch --detach`) |
-| Operation | detach only — no reset --hard / merge / rebase / new branch |
-| Tracked cleanliness | only `.tmp-sfia-review/chatgpt-review.md` dirty (review material) |
-| CORR-09 tree presence | `f2CanonicalOperations.ts` present on target |
+|---|---|
+| Repository | mcleland147/sfia-workspace |
+| Worktree | /Users/morris/Projects/sfia-studio-corr-proof-10-decision-context-continuity |
+| Branch | fix/sfia-studio-corr-proof-10-decision-context-continuity |
+| HEAD | 93ac1aea1af6b2094c158c5068bec1602d863ca7 |
+| origin/main (SoT) | 93ac1aea1af6b2094c158c5068bec1602d863ca7 |
+| Match SoT before code | YES |
+| Dogfood worktree | /Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d @ 93ac1aea — **untouched by this cycle** (no Product DB / Session / sandbox mutation) |
+| Project commit | NOT performed |
+| Project push / PR / merge | NOT performed |
 
 ---
 
-## C. Persistence
+## 2. Sources read (imposed)
 
-| Item | Value |
-|------|--------|
-| Product DB link | `.../sfia-studio-product-proof-preflight-35b1371d/projects/sfia-studio/.sfia-exec/product/oa-product.sqlite` → workspace `oa-product.sqlite` |
-| Product DB real | `/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/product/oa-product.sqlite` |
-| Product SHA-256 (pre/post switch) | `bab582b0fc875dfad9e490e7c4dcdc01237b2194a532796757f8223f69de96f3` (unchanged by Git switch) |
-| Session DB | `/Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d/projects/sfia-studio/.sfia-exec/product/nora-session.sqlite` (dogfood-local, not symlink) |
-| Session SHA-256 (pre/post switch) | `bb1e4f17e62a461911c5545bf140257f1514b07583b273d0532da9d97f049f09` (unchanged by Git switch) |
-| .env.local | symlink chain preserved → auth-better-auth foundation `.env.local` (exists; secrets not printed) |
-| reset / seed / migration | **ZERO** |
+Process/governance skimmed as required for Cycle 8 Critical delivery. Code SoT for design:
 
----
+- f2: types, proposalStore, recordDecision, activeCycleGovernedContinuation, executionIntentSchema
+- w2: actions, qualificationInputs, trajectoryOptions, proposeTrajectoryOptions, presentedOptionSet, decideTrajectory, prepareExecutionContractFromW2Decision
+- UI: TrajectorySurface, ProjectWorkspacePage, useProductConversation / ConversationSurface
+- Tests: corrProof07, corrProof09, w2Harness, w2EabcDelivery (Track A sample)
 
-## D. Durable Product truth
-
-| Item | Value |
-|------|--------|
-| Project | `prj:ae9bd0de-e24d-474f-880d-ff5ea56dbaf6` — **Gestion de tâches** — status active |
-| Active cycle | `cyc:trj-0a9c5104b7b6a3debe95eb8d` — framing / Light / **active** |
-| Parasite cycle | `cyc:f2-7e5684ad5ffa42db` — acknowledged (unchanged) |
-| CycleInstance count (project) | **2** (unchanged by refresh) |
-| Artifact obligation (durable) | active Reservation `epi:acw:9210a362f9a35ff4db9e`: do not finalize / open next cycle before required deliverable materialization; related Recommendations still active |
-| HD / EC | 3 / 0 (unchanged) |
-| Session key | `f1-default` |
-| Session max seq | **21** |
-| seq 20 | user: `Matérialise ce livrable.` |
-| seq 21 | assistant LIVE same-cycle continuation; asks to **précisez targetPath**; cycle `cyc:trj-0a9c5104b7b6a3debe95eb8d` preserved |
+R22 check: **PASS** — correction is context binding / orchestration only. No new cognitive engine. Provider cognition KEEP.
 
 ---
 
-## E. Runtime
+## 3. Diagnostic (root cause CONFIRMED)
 
-| Item | Value |
-|------|--------|
-| Old PID | next-dev wrapper `56104` / listener `56131` — cwd dogfood app — graceful SIGTERM |
-| New PID | next-dev wrapper `467` / listener `470` (next-server) |
-| cwd | `/Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d/projects/sfia-studio/app` |
-| Port | **3020** |
-| GET /login | **200** |
-| Log | `/tmp/sfia-studio-product-proof-post-corr09-resume.log` |
-| npm install | not run (existing node_modules valid) |
+**Loss point:** `TrajectorySurface.proposeOptions` → `w2ProposeTrajectoryOptionsAction({ projectId })` only.
 
----
+- Nora/F2 creates Proposal with `executionIntent.targetPath` / `requestedOperation` (process-local ProposalStore).
+- Canonical `/studio` decision surface is W2 TrajectorySurface.
+- W2 `resolveW2QualificationInputs` rebuilds cycle/LPS inputs and `deriveTrajectoryOptions` always emits the generic trio (governed / bounded / clarify).
+- **Zero `getProposal` on the W2 propose path** — Proposal A never becomes the instructed subject.
+- HD/EC therefore can arbitrate a different semantic object than the Nora Proposal.
 
-## F. Safety
-
-- ZERO Nora / OpenAI call
-- ZERO Product POST
-- ZERO intentional DB mutation (no reset/seed/migration; no Product write from this run)
-- ZERO Product Git effect (no commit/push/PR/merge)
-- ZERO HD / EC / docs_write
-- ZERO branch/worktree deletion
-- Allowed remote Git: bounded Review Handoff only
-- runtime v3: NON ADOPTED
+Architecture parallel / new persistence: **NOT required**.
 
 ---
 
-## G. Proof classification
+## 4. Design retained (smallest bridge)
 
-Inherited CORR-PROOF-09 functional proof: **unchanged**.
-This run adds only: dogfood code@merged main + persistence/session continuity + healthy runtime.
-Does **not** claim new REAL boundary proof.
+1. Client may pass opaque `proposalId` only (hostile objective/path/operation ignored).
+2. Server `resolveProposalDecisionSubject` via ProposalStore + contextMatches.
+3. If `DECISION_REQUIRED` Proposal exists and client omits `proposalId` → `ACTIVE_PROPOSAL_SUBJECT_REQUIRED` (no silent generic fallback).
+4. Subject options derived generically from sealed Proposal fields (`opt:proposal-subject:pursue|amend|refuse`) — **not** hardcoded for gestion-de-taches.md.
+5. Seal `proposalId` + `proposalSubjectDigest` + `sealedExecutionBasis` + `promotesProjectTrajectory:false` into existing PresentedOptionSet Observation.
+6. `decideTrajectory`: Proposal subject → HD with `sourceType:"proposal"` + sealed executionBasis; **skip** `promoteDecidedTrajectory`.
+7. True trajectory path (no proposalId / no active DECISION_REQUIRED) unchanged.
+8. EC lineage: DecisionBasis carries exact targetPath/requestedOperation; PREPARE via existing `prepareM3FromDecision` for proposal-sourced HD.
+
+**No new table / migration / DecisionSubject aggregate / event bus.**
 
 ---
 
-## H. Next Product Proof step
+## 5. Files modified (KEEP / ADAPT / COMPLETE)
 
-Manual Pilote turn: targetPath clarification on the existing active cycle.
-**Not performed in this Cursor run.**
-Await ChatGPT after this refresh is accepted.
+| File | Class | Why |
+|---|---|---|
+| f2/proposalStore.ts | ADAPT | `listProposalsForProject` for active-subject gate |
+| w2/resolveProposalDecisionSubject.ts | COMPLETE | Server resolve/validate/seal |
+| w2/proposalSubjectOptions.ts | COMPLETE | Subject-scoped Options/Recommendation |
+| w2/presentedOptionSet.ts | ADAPT | Seal proposal subject fields on binding |
+| w2/proposeTrajectoryOptions.ts | ADAPT | Branch subject vs trajectory |
+| w2/decideTrajectory.ts | ADAPT | HD without promotion for proposal subjects |
+| w2/prepareExecutionContractFromW2Decision.ts | ADAPT | Resolve optionSetRef when sourceType=proposal |
+| w2/actions.ts | ADAPT | Accept opaque proposalId; ignore hostile fields |
+| w2/types.ts | ADAPT | DTO fields for subject / non-promotion |
+| TrajectorySurface.tsx | ADAPT | Pass proposalId; show decision subject |
+| ProjectWorkspacePage.tsx | ADAPT | Thread activeProposalId from conversation |
+| corrProof10.decisionContextContinuity.d0.test.ts | COMPLETE | T01–T20 coverage |
+
+Protected paths (convergence/doctrine/method/prompts/.github/dogfood DBs): **NOT modified**.
 
 ---
 
-## I. Unique verdict
+## 6. Tests & commands
 
-DOGFOOD POST-CORR-09 REFRESH ACCEPTED — PRODUCT PROOF RESUME READY
+```bash
+cd projects/sfia-studio/app
+npx vitest run __tests__/project-assistant/corrProof10.decisionContextContinuity.d0.test.ts
+# → 12 passed
+npx vitest run __tests__/project-assistant/corrProof09.materializationIntentContract.d0.test.ts \
+  __tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts
+# → 59 passed (15+32+12 across files when combined with corr10 earlier)
+npx vitest run __tests__/project-assistant/w2EabcDelivery.test.ts -t "Track A"
+# → 22 passed | 17 skipped
+npm run typecheck  # PASS (tsc --noEmit)
+npm run lint       # PASS
+npm run build      # PASS
+```
 
-STOP BEFORE MANUAL TARGETPATH CONTINUATION
+Full Vitest suite: **NOT RUN** (cost/time) — declared honestly. Targeted Critical regressions + W2 Track A + typecheck/lint/build PASS.
+
+ZERO REAL / ZERO OpenAI LIVE / ZERO dogfood Product mutation.
+
+---
+
+## 7. Invariants matrix T01–T20
+
+| ID | Result | Evidence |
+|---|---|---|
+| T01 | PASS | Subject options include sealed targetPath |
+| T02 | PASS | Not generic governed/bounded/clarify |
+| T03 | PASS | Recommendation on same subject |
+| T04 | PASS | No HD at propose |
+| T05 | PASS | HD sourceRef = proposalId |
+| T06 | PASS | DecisionBasis.targetPath exact |
+| T07 | PASS | DecisionBasis.requestedOperation exact |
+| T08 | PASS | PROJECT_MISMATCH |
+| T09 | PASS | PROPOSAL_STALE |
+| T10 | PASS | OPTION_NOT_PRESENTED cross-wire |
+| T11 | PASS | Hostile path/op ignored |
+| T12 | PASS | promotesProjectTrajectory=false; status candidate |
+| T13 | PASS | True trajectory path still promotes |
+| T14 | PASS | Same activeCycleInstanceId |
+| T15 | PASS | No EC before HD |
+| T16 | PASS | prepareM3FromDecision keeps cursor.docs_write.apply |
+| T17 | PASS | PROPOSAL_NOT_FOUND + ACTIVE_PROPOSAL_SUBJECT_REQUIRED |
+| T18 | PASS | CORR-PROOF-09 green |
+| T19 | PASS | fake provider / no live key |
+| T20 | PASS | temp sqlite only |
+
+---
+
+## 8. Fake / Real Qualification
+
+- Fake/mock: OPS1_CONVERSATION_PROVIDER=fake; isolated Product sqlite harness.
+- REAL boundary: OpenAI LIVE + dogfood — **NOT in this cycle**.
+- Parity: subject binding / lineage / DecisionBasis independent of provider prose.
+- Claim level: **DETERMINISTIC PROVEN** for local correction scope.
+- Forbidden claims: REAL PROVEN CORR-PROOF-10, Product Proof complete, runtime v3 ADOPTED.
+
+---
+
+## 9. Réserves / dette temporaire
+
+1. ProposalStore remains **process-local** until OptionSet binding seals subject — restart before propose still loses Proposal (fail-closed; no invented reconstruction). Exit: future durable Proposal binding if Morris GO.
+2. W2 `prepareExecutionContractFromW2Decision` still trajectory-envelope oriented; proposal-sourced PREPARE proven via existing `prepareM3FromDecision`. Exit: optional thin adapter later — not required for CORR-PROOF-10 binding.
+3. Candidate ProjectTrajectory version may still be created as OptionSet anchor for proposal subjects but is **not promoted** on HD.
+
+---
+
+## 10. Morris decisions
+
+- GO local correction: CONSUMED (« ok go alors » / prior GO).
+- Architecture/persistence new: NOT taken (not needed).
+- REAL / dogfood: NOT authorized.
+- Project commit/push/PR/merge: NOT requested.
+
+---
+
+## 11. git status / diffstat (candidate — uncommitted)
+
+```
+ M .tmp-sfia-review/chatgpt-review.md
+ M projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
+ M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+ M projects/sfia-studio/app/features/project-assistant/f2/proposalStore.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/actions.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/decideTrajectory.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/presentedOptionSet.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/types.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/corrProof10.decisionContextContinuity.d0.test.ts
+?? projects/sfia-studio/app/features/project-assistant/w2/proposalSubjectOptions.ts
+?? projects/sfia-studio/app/features/project-assistant/w2/resolveProposalDecisionSubject.ts
+
+ .tmp-sfia-review/chatgpt-review.md                 | 330 ---------------------
+ .../pre-m6-product-ui/ProjectWorkspacePage.tsx     |   5 +
+ .../surfaces/TrajectorySurface.tsx                 |  32 +-
+ .../features/project-assistant/f2/proposalStore.ts |  11 +
+ .../app/features/project-assistant/w2/actions.ts   |  14 +
+ .../project-assistant/w2/decideTrajectory.ts       | 275 +++++++++++++----
+ .../w2/prepareExecutionContractFromW2Decision.ts   |  49 ++-
+ .../project-assistant/w2/presentedOptionSet.ts     |  32 ++
+ .../w2/proposeTrajectoryOptions.ts                 | 121 +++++++-
+ .../app/features/project-assistant/w2/types.ts     |  16 +-
+ 10 files changed, 479 insertions(+), 406 deletions(-)
+```
+
+---
+
+## 12. Verdict
+
+**CORR-PROOF-10 DECISION CONTINUITY — LOCAL CANDIDATE READY FOR CHATGPT CRITICAL REVIEW**
+
+STOP. No project commit. No project push. No PR. No merge. No dogfood reproof.
+
+Instruction ChatGPT: lire `sfia/review-handoff/sfia-review-handoff/latest-chatgpt-review.md` après publication distante et vérifier cycle, branche, HEAD/base, fichiers, contenu exploitable, tests, réserves, décisions Morris et verdict avant tout GO projet.
