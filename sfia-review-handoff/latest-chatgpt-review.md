@@ -1,6 +1,6 @@
 # SFIA STUDIO — Product Proof Dogfood Environment Preparation (LIGHT)
 
-- timestamp: 2026-09-15T09:16:30Z
+- timestamp: 2026-09-15T09:20:15Z
 - cycle: 7 — Intégration / DevOps / RUN / Critical
 - Morris GO consumed: refresh dogfood to post-CORR-PROOF-10 main + preserve durable state + start runtime 3020; NO Product interaction
 - repository: mcleland147/sfia-workspace
@@ -52,12 +52,15 @@ Also present (not mutated by this cycle): `oa-product.sqlite.empty-local-backup-
 
 ## Port / process
 
-- Before: no listener on 3020
+- Before refresh: no listener on 3020
+- First start via tool-scoped `nohup` briefly healthy then reaped when parent shell ended (macOS; `setsid` unavailable)
+- Stable restart: Cursor background shell kept alive with `npm run dev`
 - After: node next-server listening on `*:3020`
-- Wrapper PID: `52936` (`npm run dev`)
-- Listener PID: `52961` (`next-server (v15.5.20)`)
+- Wrapper / shell PID: `54290`
+- Listener PID: `54314` (`next-server (v15.5.20)`)
 - cwd: dogfood app path
-- Log: `/tmp/sfia-studio-product-proof-3020.log`
+- Log / terminal capture: `/tmp/sfia-studio-product-proof-3020.log`
+- PID file: `/tmp/sfia-studio-product-proof-3020.pid`
 
 ## Dependencies
 
@@ -68,14 +71,17 @@ Also present (not mutated by this cycle): `oa-product.sqlite.empty-local-backup-
 ## Start + smoke (read-only)
 
 - command: `npm run dev` (Next `--port 3020`) from dogfood app
-- Ready: Next.js 15.5.20 Ready in ~1159ms
+- Ready: Next.js 15.5.20 on http://localhost:3020
 - HTTP `/` no-follow: **307** → `/login?error=NO_SESSION&from=%2F` (expected auth gate)
-- HTTP `/` follow: **200** on login (~14 KB)
-- No fatal server errors in log
+- HTTP `/` follow: **200** on login
+- No fatal server errors
+- Server left **running** in background shell
 
 ## Non-mutation Product
 
 Pre/post smoke SHA-256 of Product DB / session / D1: **identical**
+(`c3347c12…` / `4ceb9594…` / `90d95a11…`)
+
 No Nora message, no Options CTA, no HD, no EC, no Execute, no REAL.
 
 Runtime-only expected: `.next/**` / log file may change (not Product business state).
@@ -93,8 +99,6 @@ Runtime-only expected: `.next/**` / log file may change (not Product business st
 ## URL for Morris
 
 **http://localhost:3020**
-
-Server left **running**.
 
 ## Verdict
 
