@@ -300,3 +300,46 @@ describe("LC-B-01 — LifecycleSurface durableRefreshSignal", () => {
     expect(projectionMock).toHaveBeenLastCalledWith({ projectId: "prj:ui" });
   });
 });
+
+describe("JOURNEY-INTEGRITY — Lifecycle generic Nora CTA precedence", () => {
+  it("suppressGenericNoraCta hides define-deliverable while keeping livrable facts", async () => {
+    const missing = baseProjection({
+      assessment: assessment({
+        canComplete: false,
+        blockers: ["artifact_missing"],
+        obligations: [
+          {
+            family: "artifact",
+            status: "MISSING",
+            applicability: "APPLICABLE",
+            blocking: true,
+          },
+        ],
+      }),
+    });
+    projectionMock.mockResolvedValue({ ok: true, projection: missing });
+
+    const { rerender } = render(
+      <LifecycleSurface projectId="prj:ui" suppressGenericNoraCta={false} />,
+    );
+    await waitFor(() => {
+      expect(
+        document.querySelector("[data-testid='lifecycle-define-deliverable-cta']"),
+      ).not.toBeNull();
+    });
+
+    rerender(
+      <LifecycleSurface projectId="prj:ui" suppressGenericNoraCta />,
+    );
+    await waitFor(() => {
+      expect(
+        document.querySelector("[data-testid='lifecycle-define-deliverable-cta']"),
+      ).toBeNull();
+    });
+    expect(
+      document.querySelector(
+        "[data-testid='lifecycle-require-artifact-continuation']",
+      ),
+    ).not.toBeNull();
+  });
+});

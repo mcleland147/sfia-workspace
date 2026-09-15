@@ -155,6 +155,7 @@ export function TrajectorySurface({
   composition = "standalone",
   activeProposalId = null,
   onRequestReformulateWithNora,
+  onProposalSubjectOwnershipChange,
 }: {
   projectId: string;
   onDurableFactsChanged?: () => void;
@@ -175,9 +176,19 @@ export function TrajectorySurface({
    * Called with the effective pending proposalId to supersede.
    */
   onRequestReformulateWithNora?: (proposalId: string) => void;
+  /**
+   * JOURNEY-INTEGRITY — notify parent whether Proposal-specific journey owns
+   * the next business action. Fail-closed: UNKNOWN until subject read resolves.
+   */
+  onProposalSubjectOwnershipChange?: (
+    ownership: "UNKNOWN" | "OWNED" | "NONE",
+  ) => void;
 }) {
   const [busy, setBusy] = useState<Busy>(null);
   const [error, setError] = useState<string | null>(null);
+  const [subjectReadStatus, setSubjectReadStatus] = useState<
+    "pending" | "ready" | "error"
+  >("pending");
   const [pendingReinstruction, setPendingReinstruction] = useState<{
     readonly message: string;
     readonly proposalIds: readonly string[];
@@ -328,16 +339,19 @@ export function TrajectorySurface({
 
   /** CORR-PROOF-10 — rehydrate bound Proposal OptionSet from durable Epistemic. */
   const rehydrateActiveDecisionSubject = useCallback(async () => {
+    setSubjectReadStatus("pending");
     const result = await w2ReadActiveDecisionSubjectAction({ projectId });
     if (!result.ok) {
       setError(result.message);
       setPendingReinstruction(null);
+      setSubjectReadStatus("error");
       return;
     }
     if (result.kind === "bound_awaiting_decision") {
       setOptionSet(result.optionSet);
       setError(null);
       setPendingReinstruction(null);
+      setSubjectReadStatus("ready");
       return;
     }
     if (result.kind === "pending_reinstruction_required") {
@@ -348,9 +362,11 @@ export function TrajectorySurface({
         recoverableProposalIds: result.recoverableProposalIds,
       });
       setError(null);
+      setSubjectReadStatus("ready");
       return;
     }
     setPendingReinstruction(null);
+    setSubjectReadStatus("ready");
     // kind === "none" — leave local optionSet as-is for trajectory path
   }, [projectId]);
 
@@ -967,6 +983,21 @@ export function TrajectorySurface({
     (decision != null && contract == null) ||
     // contract prepared: Inspect (then confirm / authorize) owns the next action
     contract != null;
+
+  useEffect(() => {
+    if (!onProposalSubjectOwnershipChange) return;
+    if (subjectReadStatus === "pending" || subjectReadStatus === "error") {
+      onProposalSubjectOwnershipChange("UNKNOWN");
+      return;
+    }
+    onProposalSubjectOwnershipChange(
+      proposalSubjectOwnsNextAction ? "OWNED" : "NONE",
+    );
+  }, [
+    onProposalSubjectOwnershipChange,
+    proposalSubjectOwnsNextAction,
+    subjectReadStatus,
+  ]);
 
   return (
     <section

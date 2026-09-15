@@ -109,6 +109,26 @@ describe("W1 Track E — recovery UI disclosures", () => {
     expect(onResumeDurable).not.toHaveBeenCalled();
   });
 
+  it("JOURNEY-INTEGRITY — suppressGenericIntentionCta hides requalify, keeps resume", () => {
+    const onRequalify = vi.fn();
+    const onResumeDurable = vi.fn();
+    render(
+      <RecoverySurface
+        suppressGenericIntentionCta
+        onRequalify={onRequalify}
+        onResumeDurable={onResumeDurable}
+      />,
+    );
+    expect(screen.getByTestId("recovery-resume-durable")).toBeTruthy();
+    expect(screen.queryByTestId("recovery-requalify")).toBeNull();
+    expect(screen.getByTestId("project-recovery-banner").textContent).not.toMatch(
+      /repartir d'une intention claire/i,
+    );
+    fireEvent.click(screen.getByTestId("recovery-resume-durable"));
+    expect(onResumeDurable).toHaveBeenCalledTimes(1);
+    expect(onRequalify).not.toHaveBeenCalled();
+  });
+
   it("ProjectRecoveryBanner renders honesty copy and controlled requalify CTA", () => {
     render(<ProjectRecoveryBanner />);
     expect(screen.getByTestId("w1-recovery-disclosures")).toBeTruthy();

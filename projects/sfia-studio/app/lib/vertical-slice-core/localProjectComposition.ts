@@ -116,7 +116,23 @@ function freezeView(view: LocalProjectCreationView): LocalProjectCreationView {
   Object.freeze(view.constraints);
   Object.freeze(view.doctrine);
   Object.freeze(view.lps);
+  if (view.repositoryBinding) Object.freeze(view.repositoryBinding);
   return Object.freeze(view);
+}
+
+function projectRepositoryBindingProjection(
+  project: Project,
+): LocalProjectCreationView["repositoryBinding"] {
+  const binding = project.repositoryBinding;
+  if (!binding) return null;
+  return Object.freeze({
+    provider: binding.provider,
+    identity: binding.identity,
+    remoteUrl: binding.remoteUrl,
+    defaultBranch: binding.defaultBranch,
+    ...(binding.pathRoot !== undefined ? { pathRoot: binding.pathRoot } : {}),
+    ...(binding.baseSha !== undefined ? { baseSha: binding.baseSha } : {}),
+  });
 }
 
 function contextSummary(context: string): string {
@@ -265,6 +281,7 @@ function buildProjection(
       activeCycleInstanceId: lps.activeCycleInstanceId ?? null,
       ckcResolutionRef: lps.ckcResolutionRef ?? null,
     }),
+    repositoryBinding: projectRepositoryBindingProjection(project),
     localMode: true,
     iam: "NOT_SELECTED",
     productPersistence: "SQLITE_OA_PRODUCT_STORE",

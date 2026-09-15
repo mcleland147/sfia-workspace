@@ -65,6 +65,7 @@ export function toRuntimeErrorDtoFromProjectError(
 export function toRuntimeProjectState(
   view: LocalProjectCreationView,
 ): RuntimeProjectState {
+  const binding = view.repositoryBinding;
   return Object.freeze({
     projectId: view.projectId,
     name: view.projectName,
@@ -76,6 +77,18 @@ export function toRuntimeProjectState(
     localMode: true,
     source: "REAL_LOCAL_CORE",
     fixture: false,
+    repositoryBinding: binding
+      ? Object.freeze({
+          provider: binding.provider,
+          identity: binding.identity,
+          remoteUrl: binding.remoteUrl,
+          defaultBranch: binding.defaultBranch,
+          ...(binding.pathRoot !== undefined
+            ? { pathRoot: binding.pathRoot }
+            : {}),
+          ...(binding.baseSha !== undefined ? { baseSha: binding.baseSha } : {}),
+        })
+      : null,
   });
 }
 

@@ -1002,6 +1002,69 @@ describe("CORR-PROOF-11 final — pending reinstruction UI states", () => {
     expect(screen.queryByTestId("w2-propose-options")).toBeNull();
     expect(proposeMock).not.toHaveBeenCalled();
   });
+
+  it("JOURNEY-INTEGRITY — ownership callback: CASE A unrecoverable → OWNED", async () => {
+    const onOwnership = vi.fn();
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "pending_reinstruction_required",
+      message:
+        "Cette demande doit être reformulée avec Nora pour continuer. Rien ne sera exécuté sans une nouvelle décision de votre part.",
+      proposalIds: ["prop:case-a"],
+      recoverableProposalIds: [],
+    });
+
+    render(
+      <TrajectorySurface
+        projectId="prj:own-a"
+        onProposalSubjectOwnershipChange={onOwnership}
+        onRequestReformulateWithNora={vi.fn()}
+      />,
+    );
+    expect(await screen.findByTestId("w2-reformulate-with-nora")).toBeVisible();
+    await waitFor(() => {
+      expect(onOwnership).toHaveBeenCalledWith("OWNED");
+    });
+    expect(onOwnership).toHaveBeenCalledWith("UNKNOWN");
+  });
+
+  it("JOURNEY-INTEGRITY — ownership callback: kind none → NONE", async () => {
+    const onOwnership = vi.fn();
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+
+    render(
+      <TrajectorySurface
+        projectId="prj:own-none"
+        onProposalSubjectOwnershipChange={onOwnership}
+      />,
+    );
+    await waitFor(() => {
+      expect(onOwnership).toHaveBeenCalledWith("NONE");
+    });
+  });
+
+  it("JOURNEY-INTEGRITY — ownership callback: read error → UNKNOWN fail-closed", async () => {
+    const onOwnership = vi.fn();
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: false,
+      code: "READ_FAILED",
+      message: "Decision Subject illisible",
+    });
+
+    render(
+      <TrajectorySurface
+        projectId="prj:own-err"
+        onProposalSubjectOwnershipChange={onOwnership}
+      />,
+    );
+    await waitFor(() => {
+      expect(onOwnership).toHaveBeenCalledWith("UNKNOWN");
+    });
+    expect(onOwnership).not.toHaveBeenCalledWith("NONE");
+  });
 });
 
 describe("JOURNEY-INTEGRITY — CTA exclusivity on the mutating primary action", () => {
