@@ -1,16 +1,16 @@
-# CORR-PROOF-10 — Critical Remediation Review Pack (FULL)
+# CORR-PROOF-10 — Post-Binding Continuity Remediation Review Pack (FULL)
 
-- timestamp: 2026-09-15T01:41:21Z
+- timestamp: 2026-09-15T06:10:51Z
 - repository: mcleland147/sfia-workspace
 - worktree: /Users/morris/Projects/sfia-studio-corr-proof-10-decision-context-continuity
 - branch: fix/sfia-studio-corr-proof-10-decision-context-continuity
 - HEAD / base: 93ac1aea1af6b2094c158c5068bec1602d863ca7
 - origin/main: 93ac1aea1af6b2094c158c5068bec1602d863ca7
 - base compatibility: HEAD == origin/main == 93ac1aea1af6b2094c158c5068bec1602d863ca7 (NO divergence)
-- prior Critical Review handoff: sfia/review-handoff commit 2deb8971e414609c96fba5955ee3b0e39e0b52b7 / blob 078ea3234a93a0c39d0ad89fa09ea883e7aaaad5
+- prior remediation handoff: sfia/review-handoff commit 85a5794cb96a6e53e3fad3e11fdd5024e3d5fe8b / blob 4f9001a8d2da85b4aa3ffb45914d7d32f3492632
 - dogfood worktree (UNTOUCHED): /Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d @ 93ac1aea1af6b2094c158c5068bec1602d863ca7
 - cycle: 8 Delivery / EVOL / Critical
-- fake/real: Fake only (deterministic vitest + temp sqlite). ZERO LIVE provider. ZERO REAL. ZERO dogfood mutation.
+- fake/real: Fake only (deterministic vitest + temp sqlite). ZERO LIVE. ZERO REAL. ZERO dogfood mutation.
 - project commit/push/PR: NOT PERFORMED (forbidden)
 
 ## git status --short
@@ -36,6 +36,7 @@
  M projects/sfia-studio/app/features/project-assistant/w2/types.ts
 ?? .tmp-sfia-review/corr-proof-10-full-diff.txt
 ?? projects/sfia-studio/app/__tests__/project-assistant/corrProof10.decisionContextContinuity.d0.test.ts
+?? projects/sfia-studio/app/features/project-assistant/w2/activeProposalDecisionSubject.ts
 ?? projects/sfia-studio/app/features/project-assistant/w2/pendingDecisionSubjectMarker.ts
 ?? projects/sfia-studio/app/features/project-assistant/w2/proposalSubjectOptions.ts
 ?? projects/sfia-studio/app/features/project-assistant/w2/resolveProposalDecisionSubject.ts
@@ -45,210 +46,414 @@
 
 ```
  .../auth/auth-real-boundary-session.test.ts        |   4 +-
- .../project-assistant/w2EabcDelivery.test.ts       | 152 ++++----
+ .../project-assistant/w2EabcDelivery.test.ts       | 152 +++----
  .../project-assistant/w2TrackDPhaseB.test.ts       |  30 +-
  .../project-assistant/w3aGovernedExecute.test.ts   |   4 +-
  .../project-assistant/w3bProductTerminal.test.ts   |   4 +-
  .../w3cPostEvidenceCorrection.test.ts              |  10 +-
  .../project-assistant/w3cPostEvidenceLoop.test.ts  |  18 +-
  .../pre-m6-product-ui/ProjectWorkspacePage.tsx     |   5 +
- .../surfaces/TrajectorySurface.tsx                 |  82 +++-
+ .../surfaces/TrajectorySurface.tsx                 | 107 ++++-
  .../features/project-assistant/f2/orchestrateF2.ts |  63 +++
  .../features/project-assistant/f2/proposalStore.ts |  11 +
- .../app/features/project-assistant/w2/actions.ts   |  27 +-
- .../project-assistant/w2/decideTrajectory.ts       | 422 +++++++++++++++------
- .../w2/prepareExecutionContractFromW2Decision.ts   |  86 ++++-
+ .../app/features/project-assistant/w2/actions.ts   |  65 ++-
+ .../project-assistant/w2/decideTrajectory.ts       | 451 ++++++++++++++++-----
+ .../w2/prepareExecutionContractFromW2Decision.ts   |  86 +++-
  .../project-assistant/w2/presentedOptionSet.ts     |  94 +++--
- .../w2/proposeTrajectoryOptions.ts                 | 262 ++++++++++++-
- .../app/features/project-assistant/w2/types.ts     |  17 +-
- 17 files changed, 1000 insertions(+), 291 deletions(-)
+ .../w2/proposeTrajectoryOptions.ts                 | 315 +++++++++++++-
+ .../app/features/project-assistant/w2/types.ts     |  33 +-
+ 17 files changed, 1161 insertions(+), 291 deletions(-)
 ```
 
-## Sources re-read (guidance only)
+## Sources re-read
 
-- prompts/templates/sfia-cycle-execution-template.md
-- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-- method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
-- method/sfia-fast-track/core/sfia-rules-and-guardrails.md
-- method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md
-- projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
-- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-- projects/sfia-studio/product-completion/01-product-completion-cadrage.md
-- v3 framing 32–35 (Living Project State / Epistemology / Execution governance / Artifact evidence)
-- prior CORR-PROOF-10 candidate + ChatGPT Critical Review findings A–D
+- process templates / routing / operating model / guardrails / synthetic cycle map
+- convergence doctrine / roadmap / product-completion cadrage
+- v3 framing 32–35
+- full CORR-PROOF-10 candidate + Final Critical Review findings (post-binding + epistemic read)
 
-## Critical Review findings — remediation status
+## Final Critical Review findings — remediation status
 
-### P0-A — ARTIFICIAL PROJECTTRAJECTORY — CLOSED
+### F1 — POST-BINDING RESTART CONTINUITY — CLOSED
 
-**Before:** Proposal subject path created ProjectTrajectory `candidate` as OptionSet envelope; tests accepted `promotesProjectTrajectory=false` while `trajectory.status=candidate`.
+**Root cause confirmed:** After OptionSet bind, pending marker was resolved (`option_set_bound`); ProposalStore + React `optionSet` are process/local; restart lost both; no Product read rehydrated the durable PresentedOptionSet; generic ProjectTrajectory path became selectable.
 
-**After:** Proposal mode in `proposeTrajectoryOptions` never calls `createInitialTrajectory` / `proposeTrajectoryVersion`. DTO returns `proposedTrajectory: null`, `decisionSubjectMode: "proposal"`, `promotesProjectTrajectory: false`. Decide path never promotes. Persistence snapshot (OA store) proves trajectory count unchanged (R01–R04).
+**Design retained: OPTION 1 — PresentedOptionSet as durable continuity SoT** (smallest delta).
+- Pending marker remains pre-binding only.
+- Active bound Proposal PresentedOptionSet (Observation + sealedExecutionBasis) is post-binding truth.
+- Closure via DecisionRef linked to optionSetRef (Observation stays loadable for PREPARE).
 
-### P0-B — RESTART BEFORE BINDING — CLOSED
+### F2 — EPISTEMIC READ FAIL-CLOSED — CLOSED
 
-**Before:** Fail-closed depended on process-local ProposalStore; after restart before PresentedOptionSet, silent fallback to generic W2 trajectory options was possible.
+`listActivePendingDecisionSubjectMarkers` / `findActiveAwaitingProposalPresentedOptionSet` / `readActiveProposalDecisionSubject` return typed `EPISTEMIC_READ_FAILED` on getEpistemicState failure — never `[]` / `none`. Propose/decide propagate failure; no generic trajectory.
 
-**After:** Durable Epistemic Observation marker `w2_pending_decision_subject` written when F2 saves `DECISION_REQUIRED` Proposal (`orchestrateF2` → `writePendingDecisionSubjectMarker`). `assertProposalSubjectGateOrFail` detects active pending markers; if ProposalStore lost → `PENDING_DECISION_SUBJECT_REINSTRUCTION_REQUIRED` (no generic options, no HD, no EC, no ProjectTrajectory). Marker resolved to `resolved` on OptionSet bind (`option_set_bound`) and on decide/amend/refuse. Reuses existing EpistemicItem — NO new table/migration.
+## Design rationale (smallest delta)
 
-### P1-C — SERVER DECIDABILITY — CLOSED
+PresentedOptionSet already sealed options/recommendation/basis durably. Extending reads + UI rehydration + DecisionRef closure avoids new tables, new aggregates, and marker lifecycle redesign. Marker stays the pre-binding guard only.
 
-HumanDecision subject path accepts ONLY `status === "DECISION_REQUIRED" && morrisGateRequired === true`. PROPOSED / READY_NO_GATE / DECISION_REQUIRED with gate=false → fail-closed (`PROPOSAL_NOT_DECIDABLE` / `PROPOSAL_GATE_REQUIRED`). Proven R12–R15.
+## Durable subject lifecycle
 
-### P1-D — COMPLETE SUBJECT DIGEST — CLOSED
+1. **pre-binding:** DECISION_REQUIRED Proposal → Epistemic pending marker `w2_pending_decision_subject`
+2. **bound-awaiting-decision:** PresentedOptionSet Observation active (`decisionSubjectMode=proposal`, sealed basis); pending resolved best-effort
+3. **decided/closed:** DecisionRef relatedObjects includes optionSetRef → excluded from awaiting; second HD → `SUBJECT_ALREADY_DECIDED`
 
-`computeProposalSubjectDigest` seals proposalId + full `SealedProposalExecutionBasis` (all listed fields) via existing `computeDecisionBasisSourceDigest`. DecisionBasis `sourceDigest` equals OptionSet binding digest. Field mutations change digest (R16–R20). Mismatch fail-closed (R21).
+## Server read contract
 
-## Architecture before / after
+`readActiveProposalDecisionSubject(projectId)` →
+- `bound_awaiting_decision` + sealed DTO
+- `pending_reinstruction_required`
+- `none`
+- or `EPISTEMIC_READ_FAILED`
 
-### Before (flawed)
+`w2ReadActiveDecisionSubjectAction` exposes this to TrajectorySurface.
 
-PATH mixed: Proposal → (fake) ProjectTrajectory candidate envelope → OptionSet → HD → (optional promote false)
+On propose: if bound awaiting → return same DTO (no cognition, no new OptionSet).
 
-### After (two real paths)
+## TrajectorySurface rehydration
 
-**PATH 1 — Proposal decision subject**
-Proposal → durable pending marker → subject OptionSet (pursue/amend/refuse) → Recommendation → HumanDecision → DecisionBasis (proposal-scoped) → ExecutionContract (pursue only)
-ZERO ProjectTrajectory create/update/promote.
+On mount / durableRefreshSignal: `w2ReadActiveDecisionSubjectAction` → setOptionSet from bound DTO or show reinstruction error.
 
-**PATH 2 — True ProjectTrajectory**
-LPS/Project → trajectory Options → Recommendation → HD → ProjectTrajectory candidate → validated/current (existing W2 invariants). Accessible only when no active pending proposal subject and no active process-local decidable Proposal gate.
+## Marker transition failure
 
-Shared: PresentedOptionSet, EpistemicItem, Recommendation, HumanDecision, DecisionBasis, EC helpers.
-Exclusive to PATH 2: ProjectTrajectory.
+After OptionSet write, marker resolve is best-effort. If resolve fails, bound OptionSet remains SoT; read prefers bound over pending; no generic trajectory (R40).
 
-## Durable pending marker design
+## ZERO artificial ProjectTrajectory
 
-- kind: `w2_pending_decision_subject`
-- type: Epistemic Observation (existing OA primitive)
-- payload: proposalId, projectId, subjectDigest, lpsId, lpsVersion, doctrineDigest, status=`pending_binding`
-- NOT HD, NOT durable Proposal, NOT authority source
-- write: on F2 DECISION_REQUIRED save
-- exit: status→`resolved` on option_set_bound | decided | amended | refused
-- restart-before-binding: marker active + ProposalStore missing → fail-closed reinstruction
+Preserved R01–R04 + R31–R34 persistence fingerprints.
 
-## Server decidability controls
+## Lineage
 
-- project match, context match
-- process-local Proposal when required
-- durable pending marker when store lost
-- DECISION_REQUIRED + morrisGateRequired
-- subject digest + OptionSet sealed binding
-- NEVER trust: UI activeProposalId alone, client morrisGateRequired, objective, targetPath, requestedOperation, capabilities, trajectoryId in proposal mode
+Proposal → pending → PresentedOptionSet (sealed) → [restart] → rehydrate same optionSetRef → HD (no ProposalStore) → DecisionBasis (sourceDigest) → EC (pursue) / PREPARE_NOT_APPLICABLE (amend/refuse)
 
-## Full executionBasis digest fields
+## Files
 
-proposalId, objective, scope, outOfScope, activatedBlocks, expectedOutcome, risks, reservations, stopConditions, cycleTypeId, recommendedProfile, requestedOperation, intentKind, artifactType, targetRepositoryRef, targetPath, scopeIn, scopeOut, expectedOutputs, requiredCapabilities, validationExpectations, evidenceRequirements, reversibilityExpectation, artifactBrief, contentRequirements, exitRequirementKinds
+### New
+- `w2/activeProposalDecisionSubject.ts`
 
-## Lineage proof (Proposal → OptionSet → HD → DecisionBasis → EC)
+### Modified (key)
+- pendingDecisionSubjectMarker.ts (Result fail-closed)
+- proposeTrajectoryOptions.ts (early rehydrate)
+- decideTrajectory.ts (SUBJECT_ALREADY_DECIDED + epistemic fail-closed)
+- actions.ts (`w2ReadActiveDecisionSubjectAction`)
+- types.ts (`ActiveDecisionSubjectReadResult`)
+- TrajectorySurface.tsx (rehydrate on mount)
+- corrProof10 tests R31–R48
+- prior CORR-PROOF-10 candidate files retained
 
-Demonstrated in corrProof10 tests (original T* + remediation R*):
-- OptionSet carries proposalId + sealedExecutionBasis + optionSetDigest
-- HD links DecisionBasis with sourceDigest == digest
-- PREPARE pursue builds EC from sealed basis (targetPath/operation/capabilities preserved)
-- PREPARE amend/refuse → PREPARE_NOT_APPLICABLE
-- ZERO ProjectTrajectory throughout proposal mode
+## Tests R01–R48
 
-## Amend / Refuse
+| ID | Result |
+|----|--------|
+| R01–R30 | PASS (preserved) |
+| R31/R32/R38/R41/R42 | PASS — post-bind restart rehydrate + identity |
+| R33/R43 | PASS — decide after restart empty store |
+| R34 | PASS — amend/refuse after restart |
+| R35 | PASS — post-HD closed; no second HD |
+| R36/R37 | PASS — epistemic read fail-closed |
+| R39 | PASS — trajectory path when no subject |
+| R40 | PASS — marker resolve fail conservative |
+| R44 | PASS CORR-07 (32) |
+| R45 | PASS CORR-09 (15) |
+| R46 | PASS W2 Track A (22) |
+| R47 | PASS typecheck/lint/build |
+| R48 | PASS ZERO REAL/dogfood |
 
-- Refuse: HD possible per model; no EC; no ProjectTrajectory
-- Amend: no EC; no ProjectTrajectory; Proposal amendment lifecycle via existing path
-- Pursue: HD + EC from sealed DecisionBasis only
-
-## Files modified / created
-
-### Modified
-- projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-- projects/sfia-studio/app/features/project-assistant/f2/proposalStore.ts
-- projects/sfia-studio/app/features/project-assistant/w2/actions.ts
-- projects/sfia-studio/app/features/project-assistant/w2/decideTrajectory.ts
-- projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts
-- projects/sfia-studio/app/features/project-assistant/w2/presentedOptionSet.ts
-- projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
-- projects/sfia-studio/app/features/project-assistant/w2/types.ts
-- projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
-- projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-- test nullability fixes (W2/W3/auth) for `proposedTrajectory`/`trajectory` nullable DTO
-
-### Created
-- pendingDecisionSubjectMarker.ts
-- proposalSubjectOptions.ts
-- resolveProposalDecisionSubject.ts
-- corrProof10.decisionContextContinuity.d0.test.ts
-
-## Tests R01–R30
-
-| ID | Coverage | Result |
-|----|----------|--------|
-| R01 | propose ZERO ProjectTrajectory (OA persistence count) | PASS |
-| R02 | pursue ZERO PT create/mutate | PASS |
-| R03 | amend ZERO PT | PASS |
-| R04 | refuse ZERO PT | PASS |
-| R05 | true trajectory create/promote preserved | PASS |
-| R06 | decide without trajectoryId/candidateVersion | PASS |
-| R07 | hostile trajectory fields ignored in proposal mode | PASS |
-| R08 | restart before binding fail-closed | PASS |
-| R09 | stale proposalId + lost store fail-closed | PASS |
-| R10 | marker resolved after OptionSet bind | PASS |
-| R11 | no pending → trajectory path accessible | PASS |
-| R12 | PROPOSED not decidable | PASS |
-| R13 | READY_NO_GATE not decidable | PASS |
-| R14 | DECISION_REQUIRED + gate=false fail-closed | PASS |
-| R15 | DECISION_REQUIRED + gate=true PASS | PASS |
-| R16 | requiredCapabilities → digest change | PASS |
-| R17 | scopeIn/scopeOut → digest change | PASS |
-| R18 | validation/evidence → digest change | PASS |
-| R19 | artifactBrief/content/exitKinds → digest change | PASS |
-| R20 | DecisionBasis sourceDigest == full digest | PASS |
-| R21 | OptionSet digest mismatch fail-closed | PASS |
-| R22 | hostile targetPath/operation ignored (T11/R22) | PASS |
-| R23 | PREPARE pursue preserves sealed fields | PASS |
-| R24 | PREPARE amend/refuse not applicable | PASS |
-| R25 | ZERO new CycleInstance | PASS |
-| R26 | CORR-PROOF-07 green | PASS (32) |
-| R27 | CORR-PROOF-09 green | PASS (15) |
-| R28 | W2 Track A green | PASS (22) |
-| R29 | ZERO provider LIVE / ZERO REAL | PASS |
-| R30 | ZERO dogfood mutation | PASS |
-
-Vitest CORR-PROOF-10: 23 tests passed.
-typecheck: PASS (`tsc --noEmit` exit 0)
-lint: PASS
-build: PASS
-Full Vitest suite: NOT RUN (cost; scoped suites + typecheck/lint/build executed). NOT presented as PASS.
+Vitest CORR-PROOF-10: 31 passed.
+Full Vitest suite: NOT RUN (cost). Not claimed PASS.
 
 ## Fake / Real
 
-- Applicable: YES
-- Level after remediation: DETERMINISTIC PROVEN @ CORR-PROOF-10 scope
-- Out of scope: REAL BOUNDARY / E2E REAL / READY FOR REAL / Product Proof complete / runtime v3 ADOPTED
-- No GO REAL
+DETERMINISTIC PROVEN @ CORR-PROOF-10 post-binding continuity scope.
+Out of scope: REAL / GO REAL / Product Proof complete / runtime v3 ADOPTED.
 
 ## Temporary debt / exits
 
-- ProposalStore remains process-local; durable marker is minimal reinstruction guard, not full Proposal rehydration
-- Full Vitest suite not executed in this cycle
-- UI still shares TrajectorySurface for both paths (labels distinguish modes)
+- ProposalStore still process-local (by design); post-binding SoT is PresentedOptionSet
+- Observation not status-resolved on HD (kept loadable for PREPARE); closure via DecisionRef
+- Full Vitest NOT RUN
 
 ## Decisions Morris consumed
 
-- Continue same CORR-PROOF-10 worktree/branch (no CORR-11, no main restart)
-- Remediate Critical Review findings A–D before any project GO
-- Publish Review Handoff L3 only; no project commit/push/PR
+- Continue same CORR-PROOF-10 worktree/branch
+- Close post-binding + epistemic fail-closed gaps
+- Handoff L3 only; no project commit/push/PR
 
 ## Decisions not taken
 
-- Durable full Proposal persistence table
+- Durable full Proposal table
 - New DecisionSubject aggregate
+- Marker bound-lifecycle redesign (Option 2)
 - REAL / dogfood reproof
-- Project commit / PR
 
 ## Verdict (candidate local)
 
-CORR-PROOF-10 DECISION CONTINUITY — CRITICAL REMEDIATION COMPLETE — READY FOR CHATGPT FINAL CRITICAL REVIEW
+CORR-PROOF-10 DECISION CONTINUITY — POST-BINDING CONTINUITY DETERMINISTICALLY PROVEN — READY FOR CHATGPT INTEGRATION READINESS REVIEW
 
 
-## FULL NEW FILES
+## FULL NEW / CANDIDATE CORE FILES
+
+
+### FILE: `projects/sfia-studio/app/features/project-assistant/w2/activeProposalDecisionSubject.ts`
+
+```typescript
+/**
+ * CORR-PROOF-10 — durable Proposal decision-subject read / rehydration.
+ *
+ * Design (smallest delta): PresentedOptionSet Observation is the durable
+ * truth after binding. Pending marker covers only the pre-binding window.
+ *
+ * READ FAILURE ≠ EMPTY STATE — Epistemic errors never become "none".
+ */
+
+import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
+import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
+import {
+  listActivePendingDecisionSubjectMarkers,
+  type PendingDecisionSubjectMarker,
+} from "./pendingDecisionSubjectMarker";
+import {
+  isProposalSubjectPresentedSet,
+  optionSetObservationId,
+  parsePresentedOptionSetStatement,
+  serializePresentedOptionSet,
+  type PresentedOptionSetBinding,
+  W2_PRESENTED_OPTION_SET_KIND,
+} from "./presentedOptionSet";
+import type { TrajectoryOptionSetDto } from "./types";
+
+export type EpistemicReadFailure = {
+  readonly ok: false;
+  readonly code: "EPISTEMIC_READ_FAILED";
+  readonly message: string;
+};
+
+export type ActiveProposalDecisionSubject =
+  | {
+      readonly ok: true;
+      readonly kind: "none";
+    }
+  | {
+      readonly ok: true;
+      readonly kind: "pending_reinstruction_required";
+      readonly markers: readonly PendingDecisionSubjectMarker[];
+      readonly message: string;
+    }
+  | {
+      readonly ok: true;
+      readonly kind: "bound_awaiting_decision";
+      readonly presented: PresentedOptionSetBinding;
+      readonly optionSet: TrajectoryOptionSetDto;
+    }
+  | EpistemicReadFailure;
+
+export function presentedBindingToOptionSetDto(
+  presented: PresentedOptionSetBinding,
+): TrajectoryOptionSetDto {
+  return {
+    optionSetRef: presented.optionSetRef,
+    cycleTypeId: presented.cycleTypeId,
+    recommendedProfile: presented.recommendedProfile,
+    options: presented.options,
+    recommendation: presented.recommendation,
+    epistemicRefs: presented.epistemicRefs,
+    proposedTrajectory:
+      presented.decisionSubjectMode === "proposal" ||
+      presented.trajectoryId == null ||
+      presented.candidateVersion == null
+        ? null
+        : {
+            trajectoryId: presented.trajectoryId,
+            version: presented.candidateVersion,
+            status: "candidate",
+            statusLabel: "TRAJECTOIRE PROPOSÉE",
+            isCurrent: false,
+          },
+    phase: "OPTIONS_PROPOSED",
+    autoDecisionPerformed: false,
+    executionPerformed: false,
+    ckcCognitionCompletedBeforeMutation: true,
+    decisionSubjectMode: presented.decisionSubjectMode,
+    proposalId: presented.proposalId ?? null,
+    promotesProjectTrajectory: presented.promotesProjectTrajectory,
+  };
+}
+
+function decidedOptionSetRefsFromEpistemic(
+  items: ReadonlyArray<{
+    readonly type: string;
+    readonly status: string;
+    readonly relatedObjects?: readonly string[] | null;
+  }>,
+): ReadonlySet<string> {
+  const refs = new Set<string>();
+  for (const item of items) {
+    if (item.type !== "DecisionRef" || item.status !== "active") continue;
+    for (const rel of item.relatedObjects ?? []) {
+      if (rel.startsWith("optset:")) refs.add(rel);
+    }
+  }
+  return refs;
+}
+
+/**
+ * Scan Epistemic for an active Proposal PresentedOptionSet still awaiting HD.
+ * Fail-closed on Epistemic read errors.
+ */
+export async function findActiveAwaitingProposalPresentedOptionSet(
+  oa: RuntimeOaStack,
+  projectId: string,
+): Promise<
+  | {
+      readonly ok: true;
+      readonly presented: PresentedOptionSetBinding | null;
+    }
+  | EpistemicReadFailure
+> {
+  const epistemic = await oa.cycleServices.getEpistemicState.execute({
+    projectId,
+  });
+  if (!epistemic.ok) {
+    return {
+      ok: false,
+      code: "EPISTEMIC_READ_FAILED",
+      message:
+        "État épistémique illisible — impossible de déterminer un sujet décisionnel Proposal actif. Aucun fallback trajectoire générique.",
+    };
+  }
+
+  const decidedRefs = decidedOptionSetRefsFromEpistemic(epistemic.state.items);
+  const matches: PresentedOptionSetBinding[] = [];
+  for (const item of epistemic.state.items) {
+    if (item.type !== "Observation" || item.status !== "active") continue;
+    const parsed = parsePresentedOptionSetStatement(item.statement);
+    if (!parsed) continue;
+    if (!isProposalSubjectPresentedSet(parsed)) continue;
+    if (parsed.kind !== W2_PRESENTED_OPTION_SET_KIND) continue;
+    if (decidedRefs.has(parsed.optionSetRef)) continue;
+    matches.push(parsed);
+  }
+
+  return {
+    ok: true,
+    presented: matches.length > 0 ? matches[matches.length - 1]! : null,
+  };
+}
+
+/**
+ * Canonical server read for active Proposal decision subject continuity.
+ */
+export async function readActiveProposalDecisionSubject(
+  oa: RuntimeOaStack,
+  projectId: string,
+): Promise<ActiveProposalDecisionSubject> {
+  const bound = await findActiveAwaitingProposalPresentedOptionSet(
+    oa,
+    projectId,
+  );
+  if (!bound.ok) return bound;
+
+  if (bound.presented) {
+    return {
+      ok: true,
+      kind: "bound_awaiting_decision",
+      presented: bound.presented,
+      optionSet: presentedBindingToOptionSetDto(bound.presented),
+    };
+  }
+
+  const pending = await listActivePendingDecisionSubjectMarkers(oa, projectId);
+  if (!pending.ok) return pending;
+
+  if (pending.markers.length > 0) {
+    return {
+      ok: true,
+      kind: "pending_reinstruction_required",
+      markers: pending.markers,
+      message:
+        "Sujet décisionnel pending durable détecté après perte process-local — réinstruction Nora requise. Aucun fallback vers options de trajectoire génériques.",
+    };
+  }
+
+  return { ok: true, kind: "none" };
+}
+
+/**
+ * Durable closure of a Proposal PresentedOptionSet after HumanDecision.
+ * Observation → resolved so restart cannot re-offer the same binding.
+ */
+export async function closePresentedProposalOptionSet(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+  readonly optionSetRef: string;
+  readonly decisionId: string;
+  readonly reason: "decided" | "amended" | "refused";
+  readonly correlationId?: string;
+}): Promise<
+  | { readonly ok: true }
+  | { readonly ok: false; readonly code: string; readonly message: string }
+> {
+  const epistemic = await input.oa.cycleServices.getEpistemicState.execute({
+    projectId: input.projectId,
+  });
+  if (!epistemic.ok) {
+    return {
+      ok: false,
+      code: "EPISTEMIC_READ_FAILED",
+      message:
+        "Impossible de clôturer le PresentedOptionSet — lecture épistémique échouée.",
+    };
+  }
+
+  const epistemicItemId = optionSetObservationId(input.optionSetRef);
+  const existing = epistemic.state.items.find(
+    (i) => i.epistemicItemId === epistemicItemId,
+  );
+  if (!existing) {
+    return { ok: true };
+  }
+  if (existing.status !== "active") {
+    return { ok: true };
+  }
+
+  const parsed = parsePresentedOptionSetStatement(existing.statement);
+  const statement = parsed
+    ? serializePresentedOptionSet({
+        ...parsed,
+        // Keep sealed payload; closure is via status=resolved.
+      })
+    : `${existing.statement}\n<!-- closed:${input.reason}:${input.decisionId} -->`;
+
+  const written = await input.oa.cycleServices.updateEpistemicState.execute({
+    projectId: input.projectId,
+    items: [
+      {
+        epistemicItemId,
+        type: "Observation",
+        statement,
+        status: "resolved",
+        source: existing.source,
+        relatedObjects: [
+          ...(existing.relatedObjects ?? []),
+          input.decisionId,
+          `closed:${input.reason}`,
+        ],
+      },
+    ],
+    createdBy: LOCAL_PILOTE_ACTOR,
+    correlationId:
+      input.correlationId ??
+      `cor:option-set-close:${input.optionSetRef}:${input.reason}`,
+  });
+  if (!written.ok) {
+    return {
+      ok: false,
+      code: written.error.detailCode,
+      message: `Clôture PresentedOptionSet échouée (${written.error.detailCode}).`,
+    };
+  }
+  return { ok: true };
+}
+```
 
 
 ### FILE: `projects/sfia-studio/app/features/project-assistant/w2/pendingDecisionSubjectMarker.ts`
@@ -384,14 +589,36 @@ export async function writePendingDecisionSubjectMarker(
   return { ok: true, epistemicItemId };
 }
 
+export type ListPendingDecisionSubjectMarkersResult =
+  | {
+      readonly ok: true;
+      readonly markers: readonly PendingDecisionSubjectMarker[];
+    }
+  | {
+      readonly ok: false;
+      readonly code: "EPISTEMIC_READ_FAILED";
+      readonly message: string;
+    };
+
+/**
+ * READ FAILURE ≠ EMPTY STATE.
+ * Callers must propagate failure — never treat Epistemic errors as "no subject".
+ */
 export async function listActivePendingDecisionSubjectMarkers(
   oa: RuntimeOaStack,
   projectId: string,
-): Promise<readonly PendingDecisionSubjectMarker[]> {
+): Promise<ListPendingDecisionSubjectMarkersResult> {
   const epistemic = await oa.cycleServices.getEpistemicState.execute({
     projectId,
   });
-  if (!epistemic.ok) return [];
+  if (!epistemic.ok) {
+    return {
+      ok: false,
+      code: "EPISTEMIC_READ_FAILED",
+      message:
+        "État épistémique illisible — impossible de lire les marqueurs pending decision subject. Aucun fallback trajectoire générique.",
+    };
+  }
   const out: PendingDecisionSubjectMarker[] = [];
   for (const item of epistemic.state.items) {
     if (item.type !== "Observation" || item.status !== "active") continue;
@@ -400,7 +627,7 @@ export async function listActivePendingDecisionSubjectMarkers(
     if (parsed.projectId !== projectId) continue;
     out.push(parsed);
   }
-  return out;
+  return { ok: true, markers: out };
 }
 
 export async function resolvePendingDecisionSubjectMarker(
@@ -897,6 +1124,11 @@ export function resolveProposalDecisionSubject(input: {
  * Block silent generic trajectory fallback when:
  * - process-local DECISION_REQUIRED Proposal exists, OR
  * - durable pending-subject marker exists (restart-before-binding).
+ *
+ * Bound PresentedOptionSet awaiting HD is handled by proposeTrajectoryOptions
+ * via readActiveProposalDecisionSubject (rehydrate) before this gate runs.
+ *
+ * Epistemic read failure → fail closed (never "no subject").
  */
 export async function assertProposalSubjectGateOrFail(input: {
   readonly oa: RuntimeOaStack;
@@ -909,10 +1141,18 @@ export async function assertProposalSubjectGateOrFail(input: {
   const provided =
     typeof input.proposalId === "string" ? input.proposalId.trim() : "";
 
-  const pending = await listActivePendingDecisionSubjectMarkers(
+  const pendingResult = await listActivePendingDecisionSubjectMarkers(
     input.oa,
     input.projectId,
   );
+  if (!pendingResult.ok) {
+    return {
+      ok: false,
+      code: pendingResult.code,
+      message: pendingResult.message,
+    };
+  }
+  const pending = pendingResult.markers;
   const activeLocal = listProposalsForProject(input.projectId).filter(
     (p) => p.status === "DECISION_REQUIRED" && p.morrisGateRequired === true,
   );
@@ -949,7 +1189,8 @@ export async function assertProposalSubjectGateOrFail(input: {
           "Proposal process-local absente alors qu'un marqueur pending durable existe — aucune reconstruction. Réinstruction Nora requise.",
       };
     }
-    // No pending marker either — resolveProposalDecisionSubject will fail NOT_FOUND
+    // No pending marker — resolveProposalDecisionSubject will fail NOT_FOUND
+    // (post-binding rehydration already handled upstream when OptionSet exists).
     return { ok: true };
   }
 
@@ -1736,7 +1977,11 @@ describe("CORR-PROOF-10 Critical Remediation R01–R30", () => {
       runtime.oa!,
       projectId,
     );
-    expect(pending.some((m) => m.proposalId === proposal.proposalId)).toBe(true);
+    expect(pending.ok).toBe(true);
+    if (!pending.ok) return;
+    expect(pending.markers.some((m) => m.proposalId === proposal.proposalId)).toBe(
+      true,
+    );
 
     const before = await snapshotTrajectories(runtime.oa!, projectId);
     resetF2ProposalStoreForTests(); // simulate restart / process-local loss
@@ -1776,9 +2021,11 @@ describe("CORR-PROOF-10 Critical Remediation R01–R30", () => {
       runtime.oa!,
       projectId,
     );
-    expect(pending.some((m) => m.proposalId === proposal.proposalId)).toBe(
-      false,
-    );
+    expect(pending.ok).toBe(true);
+    if (!pending.ok) return;
+    expect(
+      pending.markers.some((m) => m.proposalId === proposal.proposalId),
+    ).toBe(false);
   });
 
   it("R12/R13/R14/R15 — server decidability", async () => {
@@ -2048,6 +2295,449 @@ describe("CORR-PROOF-10 Critical Remediation R01–R30", () => {
   it("R29/R30 — ZERO REAL / ZERO dogfood", () => {
     expect(process.env.OPENAI_API_KEY ?? "").not.toMatch(/^sk-live/);
     expect(dbPath).not.toContain("product-proof");
+  });
+});
+
+describe("CORR-PROOF-10 Post-binding Continuity R31–R48", () => {
+  let runtime: RuntimeApplicationService;
+  let dbPath: string;
+
+  beforeEach(() => {
+    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+    setConversationProviderForTests(null);
+    resetF2ProposalStoreForTests();
+    dbPath = tempProductDbPath("corr10-postbind.sqlite");
+    runtime = bootW2Runtime({ productDbPath: dbPath, idPrefix: "c10pb" });
+  });
+
+  afterEach(() => {
+    resetF2ProposalStoreForTests();
+    setConversationProviderForTests(null);
+    cleanupW2TempDirs();
+  });
+
+  async function seed() {
+    const seeded = await seedQualifiedProject(runtime, {
+      profile: "Critical",
+      suffix: `pb-${Date.now()}`,
+    });
+    const ctx = await currentF2Context(runtime, seeded.projectId);
+    return { ...seeded, ctx };
+  }
+
+  async function proposeWith(projectId: string, proposalId: string | null) {
+    const qual = await resolveW2QualificationInputs({
+      oa: runtime.oa!,
+      projectId,
+    });
+    if (!qual.ok) return qual;
+    return proposeTrajectoryOptions({
+      oa: runtime.oa!,
+      projectId,
+      ...qual.qualification.inputs,
+      packagePin: qual.qualification.packagePin,
+      objective: qual.qualification.objective,
+      projectTitle: qual.qualification.projectTitle,
+      proposalId,
+    });
+  }
+
+  async function markPending(oa: RuntimeOaStack, proposal: ProposalDto) {
+    const sealed = sealProposalExecutionBasis(proposal);
+    const digest = computeProposalSubjectDigest(sealed, proposal.proposalId);
+    const written = await writePendingDecisionSubjectMarker({
+      oa,
+      projectId: proposal.contextSnapshot.projectId,
+      proposalId: proposal.proposalId,
+      subjectDigest: digest,
+      lpsId: proposal.contextSnapshot.lpsId,
+      lpsVersion: proposal.contextSnapshot.lpsVersion,
+      doctrineDigest: proposal.contextSnapshot.doctrineDigest,
+    });
+    expect(written.ok).toBe(true);
+  }
+
+  it("R31/R32/R38/R41/R42 — restart AFTER OptionSet binding: rehydrate same OptionSet; generic instruct does not create trajectory trio", async () => {
+    const { projectId, cycleInstanceId, ctx } = await seed();
+    const proposal = docsWriteProposal({
+      projectId,
+      lpsId: ctx.lpsId,
+      lpsVersion: ctx.lpsVersion,
+      doctrineDigest: ctx.doctrineDigest,
+      activeCycleInstanceId: cycleInstanceId,
+      proposalId: "prop:f2:r31",
+    });
+    await markPending(runtime.oa!, proposal);
+    const before = await snapshotTrajectories(runtime.oa!, projectId);
+    const proposed = await proposeWith(projectId, proposal.proposalId);
+    expect(proposed.ok).toBe(true);
+    if (!proposed.ok) return;
+    expect(proposed.decisionSubjectMode).toBe("proposal");
+    expect(proposed.proposedTrajectory).toBeNull();
+    const afterBind = await snapshotTrajectories(runtime.oa!, projectId);
+    expect(afterBind.fingerprint).toBe(before.fingerprint);
+
+    const originalRef = proposed.optionSetRef;
+    const originalDigest = (
+      await loadPresentedOptionSet(runtime.oa!, projectId, originalRef)
+    );
+    expect(originalDigest.ok).toBe(true);
+    if (!originalDigest.ok) return;
+
+    resetF2ProposalStoreForTests(); // restart — ProposalStore gone; React state gone
+
+    const { readActiveProposalDecisionSubject } = await import(
+      "@/features/project-assistant/w2/activeProposalDecisionSubject"
+    );
+    const read = await readActiveProposalDecisionSubject(
+      runtime.oa!,
+      projectId,
+    );
+    expect(read.ok).toBe(true);
+    if (!read.ok) return;
+    expect(read.kind).toBe("bound_awaiting_decision");
+    if (read.kind !== "bound_awaiting_decision") return;
+    expect(read.optionSet.optionSetRef).toBe(originalRef);
+    expect(read.optionSet.recommendation.recommendedOptionRef).toBe(
+      proposed.recommendation.recommendedOptionRef,
+    );
+    expect(read.presented.optionSetDigest).toBe(
+      originalDigest.presented.optionSetDigest,
+    );
+    expect(read.optionSet.options.map((o) => o.optionRef)).toEqual(
+      proposed.options.map((o) => o.optionRef),
+    );
+
+    // Generic instruct without proposalId → rehydrate same set, ZERO trajectory trio
+    const reinstruct = await proposeWith(projectId, null);
+    expect(reinstruct.ok).toBe(true);
+    if (!reinstruct.ok) return;
+    expect(reinstruct.optionSetRef).toBe(originalRef);
+    expect(reinstruct.decisionSubjectMode).toBe("proposal");
+    expect(
+      reinstruct.options.some((o) => o.optionRef === GOVERNED_OPTION_REF),
+    ).toBe(false);
+    expect(
+      reinstruct.options.some((o) => o.optionRef === BOUNDED_OPTION_REF),
+    ).toBe(false);
+    expect(
+      reinstruct.options.some((o) => o.optionRef === CLARIFY_OPTION_REF),
+    ).toBe(false);
+    const afterGeneric = await snapshotTrajectories(runtime.oa!, projectId);
+    expect(afterGeneric.fingerprint).toBe(before.fingerprint);
+  });
+
+  it("R33/R43 — decide pursue AFTER restart with empty ProposalStore; ZERO PT; same digest", async () => {
+    const { projectId, cycleInstanceId, ctx } = await seed();
+    const proposal = docsWriteProposal({
+      projectId,
+      lpsId: ctx.lpsId,
+      lpsVersion: ctx.lpsVersion,
+      doctrineDigest: ctx.doctrineDigest,
+      activeCycleInstanceId: cycleInstanceId,
+      proposalId: "prop:f2:r33",
+    });
+    await markPending(runtime.oa!, proposal);
+    const proposed = await proposeWith(projectId, proposal.proposalId);
+    expect(proposed.ok).toBe(true);
+    if (!proposed.ok) return;
+    const presented = await loadPresentedOptionSet(
+      runtime.oa!,
+      projectId,
+      proposed.optionSetRef,
+    );
+    expect(presented.ok).toBe(true);
+    if (!presented.ok) return;
+    const expectedDigest = presented.presented.proposalSubjectDigest;
+
+    const before = await snapshotTrajectories(runtime.oa!, projectId);
+    resetF2ProposalStoreForTests();
+    expect(getProposal(proposal.proposalId)).toBeFalsy();
+
+    const decided = await decideTrajectory({
+      oa: runtime.oa!,
+      projectId,
+      optionSetRef: proposed.optionSetRef,
+      selectedOptionRef: PROPOSAL_SUBJECT_PURSUE_REF,
+      forceLocalAuthority: true,
+    });
+    expect(decided.ok).toBe(true);
+    if (!decided.ok) return;
+    expect(decided.trajectory).toBeNull();
+    expect(decided.decision.proposalId).toBe(proposal.proposalId);
+
+    const hd = await runtime.oa!.decisionServices.getHumanDecision.execute({
+      decisionId: decided.decision.decisionId,
+    });
+    expect(hd.ok).toBe(true);
+    if (!hd.ok) return;
+    expect(hd.decision.decisionBasis?.sourceRef).toBe(proposal.proposalId);
+    expect(hd.decision.decisionBasis?.sourceDigest).toBe(expectedDigest);
+    expect(hd.decision.decisionBasis?.executionBasis?.targetPath).toBe(
+      TARGET_PATH,
+    );
+    expect(hd.decision.decisionBasis?.trajectoryContext).toBeFalsy();
+
+    const after = await snapshotTrajectories(runtime.oa!, projectId);
+    expect(after.fingerprint).toBe(before.fingerprint);
+  });
+
+  it("R34 — amend/refuse AFTER restart with empty store: ZERO EC / ZERO PT", async () => {
+    const { projectId, cycleInstanceId, ctx } = await seed();
+    for (const [suffix, optionRef] of [
+      ["amend", PROPOSAL_SUBJECT_AMEND_REF],
+      ["refuse", PROPOSAL_SUBJECT_REFUSE_REF],
+    ] as const) {
+      resetF2ProposalStoreForTests();
+      const seeded = await seedQualifiedProject(runtime, {
+        profile: "Critical",
+        suffix: `r34-${suffix}`,
+      });
+      const c = await currentF2Context(runtime, seeded.projectId);
+      const proposal = docsWriteProposal({
+        projectId: seeded.projectId,
+        lpsId: c.lpsId,
+        lpsVersion: c.lpsVersion,
+        doctrineDigest: c.doctrineDigest,
+        activeCycleInstanceId: seeded.cycleInstanceId,
+        proposalId: `prop:f2:r34-${suffix}`,
+      });
+      await markPending(runtime.oa!, proposal);
+      const proposed = await proposeWith(seeded.projectId, proposal.proposalId);
+      expect(proposed.ok).toBe(true);
+      if (!proposed.ok) return;
+      const before = await snapshotTrajectories(runtime.oa!, seeded.projectId);
+      resetF2ProposalStoreForTests();
+
+      const decided = await decideTrajectory({
+        oa: runtime.oa!,
+        projectId: seeded.projectId,
+        optionSetRef: proposed.optionSetRef,
+        selectedOptionRef: optionRef,
+        forceLocalAuthority: true,
+      });
+      expect(decided.ok).toBe(true);
+      if (!decided.ok) return;
+      expect(decided.trajectory).toBeNull();
+
+      const { prepareExecutionContractFromW2Decision } = await import(
+        "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision"
+      );
+      const prep = await prepareExecutionContractFromW2Decision({
+        oa: runtime.oa!,
+        projectId: seeded.projectId,
+        decisionId: decided.decision.decisionId,
+        currentContext: await currentF2Context(runtime, seeded.projectId),
+        forceLocalAuthority: true,
+        qualifiedOperationKind: "generate-temporary-artifact",
+      });
+      expect(prep.ok).toBe(false);
+      if (prep.ok) return;
+      expect(prep.code).toBe("PREPARE_NOT_APPLICABLE");
+
+      const after = await snapshotTrajectories(runtime.oa!, seeded.projectId);
+      expect(after.fingerprint).toBe(before.fingerprint);
+    }
+    void projectId;
+    void cycleInstanceId;
+    void ctx;
+  });
+
+  it("R35 — restart AFTER HumanDecision: subject no longer awaiting; no second HD", async () => {
+    const { projectId, cycleInstanceId, ctx } = await seed();
+    const proposal = docsWriteProposal({
+      projectId,
+      lpsId: ctx.lpsId,
+      lpsVersion: ctx.lpsVersion,
+      doctrineDigest: ctx.doctrineDigest,
+      activeCycleInstanceId: cycleInstanceId,
+      proposalId: "prop:f2:r35",
+    });
+    await markPending(runtime.oa!, proposal);
+    const proposed = await proposeWith(projectId, proposal.proposalId);
+    expect(proposed.ok).toBe(true);
+    if (!proposed.ok) return;
+    const decided = await decideTrajectory({
+      oa: runtime.oa!,
+      projectId,
+      optionSetRef: proposed.optionSetRef,
+      selectedOptionRef: PROPOSAL_SUBJECT_PURSUE_REF,
+      forceLocalAuthority: true,
+    });
+    expect(decided.ok).toBe(true);
+    if (!decided.ok) return;
+
+    resetF2ProposalStoreForTests();
+    const { readActiveProposalDecisionSubject } = await import(
+      "@/features/project-assistant/w2/activeProposalDecisionSubject"
+    );
+    const read = await readActiveProposalDecisionSubject(
+      runtime.oa!,
+      projectId,
+    );
+    expect(read.ok).toBe(true);
+    if (!read.ok) return;
+    expect(read.kind).toBe("none");
+
+    const second = await decideTrajectory({
+      oa: runtime.oa!,
+      projectId,
+      optionSetRef: proposed.optionSetRef,
+      selectedOptionRef: PROPOSAL_SUBJECT_PURSUE_REF,
+      forceLocalAuthority: true,
+    });
+    expect(second.ok).toBe(false);
+    if (second.ok) return;
+    expect(second.code).toBe("SUBJECT_ALREADY_DECIDED");
+  });
+
+  it("R36/R37 — Epistemic read failure fails closed (not empty)", async () => {
+    const { projectId } = await seed();
+    const oa = runtime.oa!;
+    const original = oa.cycleServices.getEpistemicState.execute.bind(
+      oa.cycleServices.getEpistemicState,
+    );
+    oa.cycleServices.getEpistemicState.execute = async () =>
+      ({
+        ok: false,
+        error: {
+          code: "PERSISTENCE_FAILURE",
+          detailCode: "EPISTEMIC_READ_BOOM",
+          message: "boom",
+          severity: "error",
+          retryable: true,
+          blocking: true,
+          recoverable: true,
+          domain: "D",
+          timestamp: "2026-09-15T00:00:00.000Z",
+        },
+      }) as unknown as Awaited<ReturnType<typeof original>>;
+
+    const pending = await listActivePendingDecisionSubjectMarkers(oa, projectId);
+    expect(pending.ok).toBe(false);
+    if (pending.ok) return;
+    expect(pending.code).toBe("EPISTEMIC_READ_FAILED");
+
+    const { findActiveAwaitingProposalPresentedOptionSet } = await import(
+      "@/features/project-assistant/w2/activeProposalDecisionSubject"
+    );
+    const bound = await findActiveAwaitingProposalPresentedOptionSet(
+      oa,
+      projectId,
+    );
+    expect(bound.ok).toBe(false);
+    if (bound.ok) return;
+    expect(bound.code).toBe("EPISTEMIC_READ_FAILED");
+
+    const propose = await proposeWith(projectId, null);
+    expect(propose.ok).toBe(false);
+    if (propose.ok) return;
+    expect(propose.code).toBe("EPISTEMIC_READ_FAILED");
+
+    oa.cycleServices.getEpistemicState.execute = original;
+  });
+
+  it("R39 — no active Proposal subject → ProjectTrajectory W2 accessible", async () => {
+    const { projectId } = await seed();
+    const before = await snapshotTrajectories(runtime.oa!, projectId);
+    const proposed = await proposeW2OptionsForProject(runtime, projectId);
+    expect(proposed.ok).toBe(true);
+    if (!proposed.ok) return;
+    expect(proposed.decisionSubjectMode).toBe("project_trajectory");
+    expect(proposed.proposedTrajectory).not.toBeNull();
+    const after = await snapshotTrajectories(runtime.oa!, projectId);
+    expect(after.count).toBeGreaterThan(before.count);
+  });
+
+  it("R40 — marker transition failure after binding: OptionSet still recoverable; no generic trajectory", async () => {
+    const { projectId, cycleInstanceId, ctx } = await seed();
+    const proposal = docsWriteProposal({
+      projectId,
+      lpsId: ctx.lpsId,
+      lpsVersion: ctx.lpsVersion,
+      doctrineDigest: ctx.doctrineDigest,
+      activeCycleInstanceId: cycleInstanceId,
+      proposalId: "prop:f2:r40",
+    });
+    await markPending(runtime.oa!, proposal);
+
+    const oa = runtime.oa!;
+    const originalUpdate = oa.cycleServices.updateEpistemicState.execute.bind(
+      oa.cycleServices.updateEpistemicState,
+    );
+    let optionSetWrites = 0;
+    oa.cycleServices.updateEpistemicState.execute = async (req) => {
+      const result = await originalUpdate(req);
+      // After OptionSet materialisation, force marker resolve path to "fail"
+      // by re-activating pending via a second write that we skip — instead:
+      // detect resolve correlation and return failure.
+      if (
+        typeof req.correlationId === "string" &&
+        req.correlationId.startsWith("cor:pending-bound:")
+      ) {
+        return {
+          ok: false,
+          error: {
+            code: "PERSISTENCE_FAILURE",
+            detailCode: "MARKER_RESOLVE_FAIL",
+            message: "forced",
+            severity: "error",
+            retryable: true,
+            blocking: true,
+            recoverable: true,
+            domain: "D",
+            timestamp: "2026-09-15T00:00:00.000Z",
+          },
+          durationMs: 0,
+        } as unknown as Awaited<ReturnType<typeof originalUpdate>>;
+      }
+      if (
+        req.items?.some(
+          (i) =>
+            i.type === "Observation" &&
+            typeof i.statement === "string" &&
+            i.statement.includes("w2_presented_option_set"),
+        )
+      ) {
+        optionSetWrites += 1;
+      }
+      return result;
+    };
+
+    const proposed = await proposeWith(projectId, proposal.proposalId);
+    expect(proposed.ok).toBe(true);
+    if (!proposed.ok) return;
+    expect(optionSetWrites).toBeGreaterThan(0);
+
+    oa.cycleServices.updateEpistemicState.execute = originalUpdate;
+
+    resetF2ProposalStoreForTests();
+    const { readActiveProposalDecisionSubject } = await import(
+      "@/features/project-assistant/w2/activeProposalDecisionSubject"
+    );
+    const read = await readActiveProposalDecisionSubject(oa, projectId);
+    expect(read.ok).toBe(true);
+    if (!read.ok) return;
+    // Bound OptionSet preferred even if pending marker still active
+    expect(read.kind).toBe("bound_awaiting_decision");
+    if (read.kind !== "bound_awaiting_decision") return;
+    expect(read.optionSet.optionSetRef).toBe(proposed.optionSetRef);
+
+    const generic = await proposeWith(projectId, null);
+    expect(generic.ok).toBe(true);
+    if (!generic.ok) return;
+    expect(generic.optionSetRef).toBe(proposed.optionSetRef);
+    expect(
+      generic.options.some((o) => o.optionRef === GOVERNED_OPTION_REF),
+    ).toBe(false);
+  });
+
+  it("R48 — ZERO REAL / ZERO dogfood mutation", () => {
+    expect(process.env.OPENAI_API_KEY ?? "").not.toMatch(/^sk-live/);
+    expect(dbPath).not.toContain("product-proof");
+    expect(dbPath).not.toContain(
+      "sfia-studio-product-proof-preflight-35b1371d",
+    );
   });
 });
 ```
@@ -2736,10 +3426,18 @@ index ae27c869..9be0a296 100644
                </div>
              </section>
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-index ac677fee..34676ae1 100644
+index ac677fee..889411dc 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-@@ -142,6 +142,7 @@ export function TrajectorySurface({
+@@ -24,6 +24,7 @@ import {
+   w2MaterializeProductOutcomeAction,
+   w2PrepareExecutionContractAction,
+   w2ProposeTrajectoryOptionsAction,
++  w2ReadActiveDecisionSubjectAction,
+   w2RehydrateProductOutcomeAction,
+ } from "@/features/project-assistant/w2/actions";
+ import {
+@@ -142,6 +143,7 @@ export function TrajectorySurface({
    recoveryProposeSignal = 0,
    durableRefreshSignal = 0,
    composition = "standalone",
@@ -2747,7 +3445,7 @@ index ac677fee..34676ae1 100644
  }: {
    projectId: string;
    onDurableFactsChanged?: () => void;
-@@ -154,6 +155,11 @@ export function TrajectorySurface({
+@@ -154,6 +156,11 @@ export function TrajectorySurface({
     * Presentation-only — does not change ProjectTrajectory domain identity.
     */
    composition?: "standalone" | "lps-embedded";
@@ -2759,7 +3457,7 @@ index ac677fee..34676ae1 100644
  }) {
    const [busy, setBusy] = useState<Busy>(null);
    const [error, setError] = useState<string | null>(null);
-@@ -249,7 +255,10 @@ export function TrajectorySurface({
+@@ -249,7 +256,10 @@ export function TrajectorySurface({
    const proposeOptions = useCallback(async () => {
      setBusy("options");
      setError(null);
@@ -2771,16 +3469,47 @@ index ac677fee..34676ae1 100644
      setBusy(null);
      if (!result.ok) {
        setError(result.message);
-@@ -270,7 +279,7 @@ export function TrajectorySurface({
+@@ -270,7 +280,27 @@ export function TrajectorySurface({
      setProductOutcome(null);
      setPostEvidence(null);
      onDurableFactsChanged?.();
 -  }, [projectId, onDurableFactsChanged]);
 +  }, [projectId, activeProposalId, onDurableFactsChanged]);
++
++  /** CORR-PROOF-10 — rehydrate bound Proposal OptionSet from durable Epistemic. */
++  const rehydrateActiveDecisionSubject = useCallback(async () => {
++    const result = await w2ReadActiveDecisionSubjectAction({ projectId });
++    if (!result.ok) {
++      setError(result.message);
++      return;
++    }
++    if (result.kind === "bound_awaiting_decision") {
++      setOptionSet(result.optionSet);
++      setError(null);
++      return;
++    }
++    if (result.kind === "pending_reinstruction_required") {
++      setOptionSet(null);
++      setError(result.message);
++      return;
++    }
++    // kind === "none" — leave local optionSet as-is for trajectory path
++  }, [projectId]);
 
    const refreshPreCycleCandidate = useCallback(async () => {
      const result = await projectAssistantReadPreCycleCandidateTrajectoryAction({
-@@ -435,20 +444,41 @@ export function TrajectorySurface({
+@@ -424,6 +454,10 @@ export function TrajectorySurface({
+     }
+   }, [durableRefreshSignal, refreshPreCycleCandidate]);
+
++  useEffect(() => {
++    void rehydrateActiveDecisionSubject();
++  }, [rehydrateActiveDecisionSubject, durableRefreshSignal]);
++
+   useEffect(() => {
+     if (recoveryProposeSignal > 0) {
+       void proposeOptions();
+@@ -435,20 +469,41 @@ export function TrajectorySurface({
        if (!optionSet) return;
        setBusy("decision");
        setError(null);
@@ -2830,7 +3559,7 @@ index ac677fee..34676ae1 100644
        onDurableFactsChanged?.();
      },
      [optionSet, projectId, onDurableFactsChanged],
-@@ -1030,9 +1060,31 @@ export function TrajectorySurface({
+@@ -1030,9 +1085,31 @@ export function TrajectorySurface({
                </span>
                Options proposées
              </h3>
@@ -2864,7 +3593,7 @@ index ac677fee..34676ae1 100644
              </p>
              <ul className={styles.optionList}>
                {optionSet.options.map((option) => {
-@@ -1100,7 +1152,7 @@ export function TrajectorySurface({
+@@ -1100,7 +1177,7 @@ export function TrajectorySurface({
          </>
        ) : null}
 
@@ -2873,7 +3602,7 @@ index ac677fee..34676ae1 100644
          <section
            className={styles.decision}
            aria-labelledby="w2-decision-title"
-@@ -1132,7 +1184,9 @@ export function TrajectorySurface({
+@@ -1132,7 +1209,9 @@ export function TrajectorySurface({
              <div>
                <dt>Trajectoire</dt>
                <dd data-testid="w2-decided-trajectory">
@@ -2995,10 +3724,24 @@ index 6816d5f5..3496280e 100644
    proposalId: string,
    status: F2ProposalStatus,
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/actions.ts b/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
-index c8acdaa5..644f4ab3 100644
+index c8acdaa5..db241880 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
-@@ -61,7 +61,20 @@ const OA_UNAVAILABLE = {
+@@ -35,11 +35,13 @@ import {
+ } from "./materializeW3bProductTerminal";
+ import { inspectExecutionContract } from "./inspectExecutionContract";
+ import { loadPresentedOptionSet } from "./presentedOptionSet";
++import { readActiveProposalDecisionSubject } from "./activeProposalDecisionSubject";
+ import { prepareExecutionContractFromW2Decision } from "./prepareExecutionContractFromW2Decision";
+ import { proposeTrajectoryOptions } from "./proposeTrajectoryOptions";
+ import { readW2ProjectHistory } from "./projectHistory";
+ import { resolveW2QualificationInputs } from "./qualificationInputs";
+ import type {
++  ActiveDecisionSubjectReadResult,
+   AmendExecutionContractResult,
+   ConfirmForAuthorizationResult,
+   DecideTrajectoryResult,
+@@ -61,7 +63,20 @@ const OA_UNAVAILABLE = {
 
  export async function w2ProposeTrajectoryOptionsAction(input: {
    projectId: string;
@@ -3019,7 +3762,7 @@ index c8acdaa5..644f4ab3 100644
    const runtime = getRuntimeApplicationService();
    if (!runtime.oa) return OA_UNAVAILABLE;
 
-@@ -84,14 +97,20 @@ export async function w2ProposeTrajectoryOptionsAction(input: {
+@@ -84,14 +99,56 @@ export async function w2ProposeTrajectoryOptionsAction(input: {
      packagePin: qualification.qualification.packagePin,
      objective: qualification.qualification.objective,
      projectTitle: qualification.qualification.projectTitle,
@@ -3027,6 +3770,42 @@ index c8acdaa5..644f4ab3 100644
    });
  }
 
++/**
++ * CORR-PROOF-10 — durable decision-subject continuity read.
++ * Rehydrates bound Proposal PresentedOptionSet or reports pending reinstruction.
++ * Epistemic read failure → fail closed (never "none").
++ */
++export async function w2ReadActiveDecisionSubjectAction(input: {
++  projectId: string;
++}): Promise<ActiveDecisionSubjectReadResult> {
++  const runtime = getRuntimeApplicationService();
++  if (!runtime.oa) return OA_UNAVAILABLE;
++
++  const read = await readActiveProposalDecisionSubject(
++    runtime.oa,
++    input.projectId,
++  );
++  if (!read.ok) {
++    return { ok: false, code: read.code, message: read.message };
++  }
++  if (read.kind === "none") {
++    return { ok: true, kind: "none" };
++  }
++  if (read.kind === "pending_reinstruction_required") {
++    return {
++      ok: true,
++      kind: "pending_reinstruction_required",
++      message: read.message,
++      proposalIds: read.markers.map((m) => m.proposalId),
++    };
++  }
++  return {
++    ok: true,
++    kind: "bound_awaiting_decision",
++    optionSet: read.optionSet,
++  };
++}
++
  export async function w2DecideTrajectoryAction(input: {
    projectId: string;
    optionSetRef: string;
@@ -3042,7 +3821,7 @@ index c8acdaa5..644f4ab3 100644
    selectedOptionRef: string;
    reservesText?: string | null;
    /** Hostile — ignored. */
-@@ -122,8 +141,8 @@ export async function w2DecideTrajectoryAction(input: {
+@@ -122,8 +179,8 @@ export async function w2DecideTrajectoryAction(input: {
      options: presented.presented.options,
      recommendedOptionRef: presented.presented.recommendedOptionRef,
      selectedOptionRef: input.selectedOptionRef,
@@ -3054,7 +3833,7 @@ index c8acdaa5..644f4ab3 100644
      reservesText: input.reservesText ?? null,
      canActAsMorris: input.canActAsMorris,
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/decideTrajectory.ts b/projects/sfia-studio/app/features/project-assistant/w2/decideTrajectory.ts
-index d5e285c3..b8a5d9fc 100644
+index d5e285c3..2ab1ee85 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/decideTrajectory.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/decideTrajectory.ts
 @@ -11,6 +11,9 @@
@@ -3142,7 +3921,7 @@ index d5e285c3..b8a5d9fc 100644
 
  class DecideAtomicFailure extends Error {
    constructor(
-@@ -189,18 +216,22 @@ export async function decideTrajectory(
+@@ -189,18 +216,51 @@ export async function decideTrajectory(
      return { ok: false, code: loaded.code, message: loaded.message };
    }
    const presented = loaded.presented;
@@ -3158,6 +3937,35 @@ index d5e285c3..b8a5d9fc 100644
 -      message:
 -        "La trajectoire/version client ne correspond pas à la liaison présentée.",
 -    };
++  // Durable closure: a DecisionRef for this OptionSet means subject already decided.
++  if (proposalSubjectMode) {
++    const epistemic = await oa.cycleServices.getEpistemicState.execute({
++      projectId: input.projectId,
++    });
++    if (!epistemic.ok) {
++      return {
++        ok: false,
++        code: "EPISTEMIC_READ_FAILED",
++        message:
++          "État épistémique illisible — aucune HumanDecision possible sur ce sujet.",
++      };
++    }
++    const alreadyDecided = epistemic.state.items.some(
++      (i) =>
++        i.type === "DecisionRef" &&
++        i.status === "active" &&
++        (i.relatedObjects ?? []).includes(input.optionSetRef),
++    );
++    if (alreadyDecided) {
++      return {
++        ok: false,
++        code: "SUBJECT_ALREADY_DECIDED",
++        message:
++          "Ce PresentedOptionSet Proposal a déjà reçu une HumanDecision — aucune seconde décision.",
++      };
++    }
++  }
++
 +  if (!proposalSubjectMode) {
 +    if (
 +      presented.trajectoryId !== input.trajectoryId ||
@@ -3175,7 +3983,7 @@ index d5e285c3..b8a5d9fc 100644
 
    const recomputedDigest = computeOptionSetDigest({
      cycleTypeId: presented.cycleTypeId,
-@@ -210,6 +241,9 @@ export async function decideTrajectory(
+@@ -210,6 +270,9 @@ export async function decideTrajectory(
      reservations: presented.reservations,
      options: presented.options,
      recommendedOptionRef: presented.recommendedOptionRef,
@@ -3185,7 +3993,7 @@ index d5e285c3..b8a5d9fc 100644
    });
    if (recomputedDigest !== presented.optionSetDigest) {
      return {
-@@ -220,6 +254,33 @@ export async function decideTrajectory(
+@@ -220,6 +283,33 @@ export async function decideTrajectory(
      };
    }
 
@@ -3219,7 +4027,7 @@ index d5e285c3..b8a5d9fc 100644
    // A2 — exact presented set stays the decision object, but only while the
    // material qualification context that produced it is still compatible.
    // Never re-derive a substitute OptionSet; refuse and require reinstruction.
-@@ -279,30 +340,45 @@ export async function decideTrajectory(
+@@ -279,30 +369,45 @@ export async function decideTrajectory(
      };
    }
 
@@ -3289,7 +4097,7 @@ index d5e285c3..b8a5d9fc 100644
    }
 
    const live = await readLiveProjectContext(oa, input.projectId);
-@@ -323,67 +399,119 @@ export async function decideTrajectory(
+@@ -323,67 +428,119 @@ export async function decideTrajectory(
    }
 
    const optionRefs = options.map((o) => o.optionRef);
@@ -3460,7 +4268,7 @@ index d5e285c3..b8a5d9fc 100644
          options: options.map((o) => ({
            optionId: o.optionRef,
            label: o.label,
-@@ -410,7 +538,9 @@ export async function decideTrajectory(
+@@ -410,7 +567,9 @@ export async function decideTrajectory(
          decisionBasis,
          linkToLivingProjectState: true,
          expectedLpsVersion: live.context.lpsVersion,
@@ -3471,7 +4279,7 @@ index d5e285c3..b8a5d9fc 100644
        });
 
        if (!recorded.ok) {
-@@ -420,6 +550,34 @@ export async function decideTrajectory(
+@@ -420,6 +579,34 @@ export async function decideTrajectory(
          );
        }
 
@@ -3506,7 +4314,7 @@ index d5e285c3..b8a5d9fc 100644
        // Re-read the durable decision: promotion is authorised by persisted truth,
        // never by the in-flight request payload.
        const readback = await oa.decisionServices.getHumanDecision.execute({
-@@ -428,21 +586,18 @@ export async function decideTrajectory(
+@@ -428,21 +615,18 @@ export async function decideTrajectory(
        const guard = assertDecisionAuthorizesPromotion({
          decision: readback.ok ? readback.decision : null,
          projectId: input.projectId,
@@ -3532,7 +4340,7 @@ index d5e285c3..b8a5d9fc 100644
          status: "validated",
          decisionRef: decisionId,
          decidedOptionRef: input.selectedOptionRef,
-@@ -460,6 +615,7 @@ export async function decideTrajectory(
+@@ -460,6 +644,7 @@ export async function decideTrajectory(
        }
 
        return {
@@ -3540,7 +4348,7 @@ index d5e285c3..b8a5d9fc 100644
          decisionId,
          promoted: {
            trajectoryId: promoted.trajectory.trajectoryId,
-@@ -467,6 +623,8 @@ export async function decideTrajectory(
+@@ -467,6 +652,8 @@ export async function decideTrajectory(
            status: promoted.trajectory.status as "validated" | "active",
            decidedByDecisionRef: promoted.trajectory.decidedByDecisionRef,
            decidedOptionRef: promoted.trajectory.decidedOptionRef,
@@ -3549,7 +4357,7 @@ index d5e285c3..b8a5d9fc 100644
          },
          livingProjectStateVersion:
            promoted.livingProjectStateVersion ?? lpsAfterDecision,
-@@ -484,21 +642,38 @@ export async function decideTrajectory(
+@@ -484,21 +671,38 @@ export async function decideTrajectory(
      };
    }
 
@@ -3591,7 +4399,7 @@ index d5e285c3..b8a5d9fc 100644
          ],
        },
      ],
-@@ -506,6 +681,28 @@ export async function decideTrajectory(
+@@ -506,6 +710,28 @@ export async function decideTrajectory(
      correlationId: `w2-decref:${input.optionSetRef}`,
    });
 
@@ -3620,7 +4428,7 @@ index d5e285c3..b8a5d9fc 100644
    return {
      ok: true,
      decision: {
-@@ -517,17 +714,20 @@ export async function decideTrajectory(
+@@ -517,17 +743,20 @@ export async function decideTrajectory(
        capturedAt: issuedAt,
        decisionBasisLinked: true,
        reservesText: reserves ?? null,
@@ -3969,7 +4777,7 @@ index e440e65e..f5f1cf7c 100644
        parsed.trajectoryId === trajectoryId &&
        parsed.candidateVersion === candidateVersion
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts b/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
-index fb81048d..d074cd3a 100644
+index fb81048d..63ced39a 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
 @@ -10,7 +10,11 @@
@@ -3985,7 +4793,7 @@ index fb81048d..d074cd3a 100644
   */
 
  import { randomBytes } from "node:crypto";
-@@ -41,6 +45,16 @@ import {
+@@ -41,6 +45,17 @@ import {
    serializePresentedOptionSet,
    type PresentedOptionSetBinding,
  } from "./presentedOptionSet";
@@ -3994,6 +4802,7 @@ index fb81048d..d074cd3a 100644
 +  deriveProposalSubjectRecommendation,
 +} from "./proposalSubjectOptions";
 +import { resolvePendingDecisionSubjectMarker } from "./pendingDecisionSubjectMarker";
++import { readActiveProposalDecisionSubject } from "./activeProposalDecisionSubject";
 +import {
 +  assertProposalSubjectGateOrFail,
 +  resolveProposalDecisionSubject,
@@ -4002,7 +4811,7 @@ index fb81048d..d074cd3a 100644
  import {
    deriveTrajectoryOptions,
    deriveTrajectoryRecommendation,
-@@ -161,6 +175,11 @@ export type ProposeTrajectoryOptionsInput = {
+@@ -161,6 +176,11 @@ export type ProposeTrajectoryOptionsInput = {
    readonly objective: string;
    readonly projectTitle: string;
    readonly correlationId?: string;
@@ -4014,10 +4823,51 @@ index fb81048d..d074cd3a 100644
  };
 
  export async function proposeTrajectoryOptions(
-@@ -172,6 +191,45 @@ export async function proposeTrajectoryOptions(
+@@ -172,6 +192,95 @@ export async function proposeTrajectoryOptions(
      return { ok: false, code: live.code, message: live.message };
    }
 
++  const opaqueProposalIdEarly =
++    typeof input.proposalId === "string" ? input.proposalId.trim() : "";
++
++  // Post-binding continuity: durable PresentedOptionSet is SoT — rehydrate,
++  // never invent a second OptionSet or fall back to generic trajectory.
++  const activeSubject = await readActiveProposalDecisionSubject(
++    oa,
++    input.projectId,
++  );
++  if (!activeSubject.ok) {
++    return {
++      ok: false,
++      code: activeSubject.code,
++      message: activeSubject.message,
++    };
++  }
++  if (activeSubject.kind === "bound_awaiting_decision") {
++    if (
++      opaqueProposalIdEarly &&
++      opaqueProposalIdEarly !== activeSubject.presented.proposalId
++    ) {
++      return {
++        ok: false,
++        code: "BOUND_PROPOSAL_SUBJECT_MISMATCH",
++        message:
++          "Un PresentedOptionSet Proposal distinct est déjà en attente de HumanDecision — aucune nouvelle instruction.",
++      };
++    }
++    return { ok: true, ...activeSubject.optionSet };
++  }
++  if (
++    activeSubject.kind === "pending_reinstruction_required" &&
++    !opaqueProposalIdEarly
++  ) {
++    return {
++      ok: false,
++      code: "PENDING_DECISION_SUBJECT_REINSTRUCTION_REQUIRED",
++      message: activeSubject.message,
++    };
++  }
++
 +  const activeGate = await assertProposalSubjectGateOrFail({
 +    oa,
 +    projectId: input.projectId,
@@ -4032,9 +4882,10 @@ index fb81048d..d074cd3a 100644
 +  }
 +
 +  let proposalSubject: ResolvedProposalDecisionSubject | null = null;
-+  const opaqueProposalId =
-+    typeof input.proposalId === "string" ? input.proposalId.trim() : "";
++  const opaqueProposalId = opaqueProposalIdEarly;
 +  if (opaqueProposalId) {
++    // Pre-binding only: process-local Proposal required to create OptionSet.
++    // After binding, we already returned via rehydration above.
 +    const resolved = resolveProposalDecisionSubject({
 +      proposalId: opaqueProposalId,
 +      projectId: input.projectId,
@@ -4048,6 +4899,14 @@ index fb81048d..d074cd3a 100644
 +      },
 +    });
 +    if (!resolved.ok) {
++      // pending marker + lost store → reinstruction (assert may also catch)
++      if (activeSubject.kind === "pending_reinstruction_required") {
++        return {
++          ok: false,
++          code: "PENDING_DECISION_SUBJECT_REINSTRUCTION_REQUIRED",
++          message: activeSubject.message,
++        };
++      }
 +      return {
 +        ok: false,
 +        code: resolved.code,
@@ -4060,7 +4919,7 @@ index fb81048d..d074cd3a 100644
    // ── Phase B: product-native CKC cognition BEFORE any durable mutation ──
    const registryRoot = resolveProductDoctrineRegistryRoot();
    const ckcContent = loadProductCkcCognitiveContent({
-@@ -189,16 +247,29 @@ export async function proposeTrajectoryOptions(
+@@ -189,16 +298,29 @@ export async function proposeTrajectoryOptions(
    }
 
    const ckcPromptSection = buildCkcCognitivePromptSection(ckcContent);
@@ -4092,7 +4951,7 @@ index fb81048d..d074cd3a 100644
        ckcPromptSection,
      });
      cognitiveRecommendation = reasoning.recommendation;
-@@ -215,34 +286,183 @@ export async function proposeTrajectoryOptions(
+@@ -215,34 +337,185 @@ export async function proposeTrajectoryOptions(
      ckcContent.provenance,
    );
 
@@ -4237,6 +5096,8 @@ index fb81048d..d074cd3a 100644
 +      };
 +    }
 +
++    // Marker resolve is best-effort after durable OptionSet write.
++    // If it fails, OptionSet remains the post-binding SoT (conservative).
 +    await resolvePendingDecisionSubjectMarker({
 +      oa,
 +      projectId: input.projectId,
@@ -4287,7 +5148,7 @@ index fb81048d..d074cd3a 100644
    const optionSetDigest = computeOptionSetDigest({
      cycleTypeId: input.cycleTypeId,
      recommendedProfile: input.recommendedProfile,
-@@ -251,6 +471,9 @@ export async function proposeTrajectoryOptions(
+@@ -251,6 +524,9 @@ export async function proposeTrajectoryOptions(
      reservations: input.reservations,
      options,
      recommendedOptionRef: recommendation.recommendedOptionRef,
@@ -4297,7 +5158,7 @@ index fb81048d..d074cd3a 100644
    });
 
    const proposedSteps: TrajectoryStep[] = structuredClone(
-@@ -381,9 +604,6 @@ export async function proposeTrajectoryOptions(
+@@ -381,9 +657,6 @@ export async function proposeTrajectoryOptions(
      );
    });
 
@@ -4307,7 +5168,7 @@ index fb81048d..d074cd3a 100644
    const recommendationItem = withPriorSetSupersedes(
      {
        epistemicItemId: optionSetRecommendationId(optionSetRef),
-@@ -429,6 +649,11 @@ export async function proposeTrajectoryOptions(
+@@ -429,6 +702,11 @@ export async function proposeTrajectoryOptions(
      reservations: [...input.reservations],
      ckcAttribution: input.ckcAttribution,
      ckcSemanticFingerprint: semanticFingerprint,
@@ -4319,7 +5180,7 @@ index fb81048d..d074cd3a 100644
    };
 
    const observationItem = withPriorSetSupersedes(
-@@ -478,6 +703,9 @@ export async function proposeTrajectoryOptions(
+@@ -478,6 +756,9 @@ export async function proposeTrajectoryOptions(
      autoDecisionPerformed: false,
      executionPerformed: false,
      ckcCognitionCompletedBeforeMutation: true,
@@ -4330,7 +5191,7 @@ index fb81048d..d074cd3a 100644
  }
 
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/types.ts b/projects/sfia-studio/app/features/project-assistant/w2/types.ts
-index fc23a695..28f5fdbd 100644
+index fc23a695..7a4be826 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/types.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/types.ts
 @@ -84,6 +84,8 @@ export type TrajectoryDecisionRecordDto = {
@@ -4363,7 +5224,27 @@ index fc23a695..28f5fdbd 100644
  };
 
  export type W2Failure = {
-@@ -207,9 +215,12 @@ export type DecideTrajectoryResult =
+@@ -203,13 +211,32 @@ export type ProposeTrajectoryOptionsResult =
+   | ({ readonly ok: true } & TrajectoryOptionSetDto)
+   | W2Failure;
+
++/** CORR-PROOF-10 — durable Proposal decision-subject read for UI rehydration. */
++export type ActiveDecisionSubjectReadResult =
++  | { readonly ok: true; readonly kind: "none" }
++  | {
++      readonly ok: true;
++      readonly kind: "pending_reinstruction_required";
++      readonly message: string;
++      readonly proposalIds: readonly string[];
++    }
++  | {
++      readonly ok: true;
++      readonly kind: "bound_awaiting_decision";
++      readonly optionSet: TrajectoryOptionSetDto;
++    }
++  | W2Failure;
++
+ export type DecideTrajectoryResult =
    | {
        readonly ok: true;
        readonly decision: TrajectoryDecisionRecordDto;
@@ -4379,10 +5260,10 @@ index fc23a695..28f5fdbd 100644
 
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/corrProof10.decisionContextContinuity.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/corrProof10.decisionContextContinuity.d0.test.ts
 new file mode 100644
-index 00000000..2b3d6711
+index 00000000..34feb5a7
 --- /dev/null
 +++ b/projects/sfia-studio/app/__tests__/project-assistant/corrProof10.decisionContextContinuity.d0.test.ts
-@@ -0,0 +1,1065 @@
+@@ -0,0 +1,1514 @@
 +/**
 + * CORR-PROOF-10 — Decision context continuity (Proposal subject ↔ W2 Options/HD).
 + * Deterministic — ZERO REAL / ZERO LIVE / ZERO dogfood mutation.
@@ -5134,7 +6015,11 @@ index 00000000..2b3d6711
 +      runtime.oa!,
 +      projectId,
 +    );
-+    expect(pending.some((m) => m.proposalId === proposal.proposalId)).toBe(true);
++    expect(pending.ok).toBe(true);
++    if (!pending.ok) return;
++    expect(pending.markers.some((m) => m.proposalId === proposal.proposalId)).toBe(
++      true,
++    );
 +
 +    const before = await snapshotTrajectories(runtime.oa!, projectId);
 +    resetF2ProposalStoreForTests(); // simulate restart / process-local loss
@@ -5174,9 +6059,11 @@ index 00000000..2b3d6711
 +      runtime.oa!,
 +      projectId,
 +    );
-+    expect(pending.some((m) => m.proposalId === proposal.proposalId)).toBe(
-+      false,
-+    );
++    expect(pending.ok).toBe(true);
++    if (!pending.ok) return;
++    expect(
++      pending.markers.some((m) => m.proposalId === proposal.proposalId),
++    ).toBe(false);
 +  });
 +
 +  it("R12/R13/R14/R15 — server decidability", async () => {
@@ -5448,12 +6335,455 @@ index 00000000..2b3d6711
 +    expect(dbPath).not.toContain("product-proof");
 +  });
 +});
++
++describe("CORR-PROOF-10 Post-binding Continuity R31–R48", () => {
++  let runtime: RuntimeApplicationService;
++  let dbPath: string;
++
++  beforeEach(() => {
++    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
++    setConversationProviderForTests(null);
++    resetF2ProposalStoreForTests();
++    dbPath = tempProductDbPath("corr10-postbind.sqlite");
++    runtime = bootW2Runtime({ productDbPath: dbPath, idPrefix: "c10pb" });
++  });
++
++  afterEach(() => {
++    resetF2ProposalStoreForTests();
++    setConversationProviderForTests(null);
++    cleanupW2TempDirs();
++  });
++
++  async function seed() {
++    const seeded = await seedQualifiedProject(runtime, {
++      profile: "Critical",
++      suffix: `pb-${Date.now()}`,
++    });
++    const ctx = await currentF2Context(runtime, seeded.projectId);
++    return { ...seeded, ctx };
++  }
++
++  async function proposeWith(projectId: string, proposalId: string | null) {
++    const qual = await resolveW2QualificationInputs({
++      oa: runtime.oa!,
++      projectId,
++    });
++    if (!qual.ok) return qual;
++    return proposeTrajectoryOptions({
++      oa: runtime.oa!,
++      projectId,
++      ...qual.qualification.inputs,
++      packagePin: qual.qualification.packagePin,
++      objective: qual.qualification.objective,
++      projectTitle: qual.qualification.projectTitle,
++      proposalId,
++    });
++  }
++
++  async function markPending(oa: RuntimeOaStack, proposal: ProposalDto) {
++    const sealed = sealProposalExecutionBasis(proposal);
++    const digest = computeProposalSubjectDigest(sealed, proposal.proposalId);
++    const written = await writePendingDecisionSubjectMarker({
++      oa,
++      projectId: proposal.contextSnapshot.projectId,
++      proposalId: proposal.proposalId,
++      subjectDigest: digest,
++      lpsId: proposal.contextSnapshot.lpsId,
++      lpsVersion: proposal.contextSnapshot.lpsVersion,
++      doctrineDigest: proposal.contextSnapshot.doctrineDigest,
++    });
++    expect(written.ok).toBe(true);
++  }
++
++  it("R31/R32/R38/R41/R42 — restart AFTER OptionSet binding: rehydrate same OptionSet; generic instruct does not create trajectory trio", async () => {
++    const { projectId, cycleInstanceId, ctx } = await seed();
++    const proposal = docsWriteProposal({
++      projectId,
++      lpsId: ctx.lpsId,
++      lpsVersion: ctx.lpsVersion,
++      doctrineDigest: ctx.doctrineDigest,
++      activeCycleInstanceId: cycleInstanceId,
++      proposalId: "prop:f2:r31",
++    });
++    await markPending(runtime.oa!, proposal);
++    const before = await snapshotTrajectories(runtime.oa!, projectId);
++    const proposed = await proposeWith(projectId, proposal.proposalId);
++    expect(proposed.ok).toBe(true);
++    if (!proposed.ok) return;
++    expect(proposed.decisionSubjectMode).toBe("proposal");
++    expect(proposed.proposedTrajectory).toBeNull();
++    const afterBind = await snapshotTrajectories(runtime.oa!, projectId);
++    expect(afterBind.fingerprint).toBe(before.fingerprint);
++
++    const originalRef = proposed.optionSetRef;
++    const originalDigest = (
++      await loadPresentedOptionSet(runtime.oa!, projectId, originalRef)
++    );
++    expect(originalDigest.ok).toBe(true);
++    if (!originalDigest.ok) return;
++
++    resetF2ProposalStoreForTests(); // restart — ProposalStore gone; React state gone
++
++    const { readActiveProposalDecisionSubject } = await import(
++      "@/features/project-assistant/w2/activeProposalDecisionSubject"
++    );
++    const read = await readActiveProposalDecisionSubject(
++      runtime.oa!,
++      projectId,
++    );
++    expect(read.ok).toBe(true);
++    if (!read.ok) return;
++    expect(read.kind).toBe("bound_awaiting_decision");
++    if (read.kind !== "bound_awaiting_decision") return;
++    expect(read.optionSet.optionSetRef).toBe(originalRef);
++    expect(read.optionSet.recommendation.recommendedOptionRef).toBe(
++      proposed.recommendation.recommendedOptionRef,
++    );
++    expect(read.presented.optionSetDigest).toBe(
++      originalDigest.presented.optionSetDigest,
++    );
++    expect(read.optionSet.options.map((o) => o.optionRef)).toEqual(
++      proposed.options.map((o) => o.optionRef),
++    );
++
++    // Generic instruct without proposalId → rehydrate same set, ZERO trajectory trio
++    const reinstruct = await proposeWith(projectId, null);
++    expect(reinstruct.ok).toBe(true);
++    if (!reinstruct.ok) return;
++    expect(reinstruct.optionSetRef).toBe(originalRef);
++    expect(reinstruct.decisionSubjectMode).toBe("proposal");
++    expect(
++      reinstruct.options.some((o) => o.optionRef === GOVERNED_OPTION_REF),
++    ).toBe(false);
++    expect(
++      reinstruct.options.some((o) => o.optionRef === BOUNDED_OPTION_REF),
++    ).toBe(false);
++    expect(
++      reinstruct.options.some((o) => o.optionRef === CLARIFY_OPTION_REF),
++    ).toBe(false);
++    const afterGeneric = await snapshotTrajectories(runtime.oa!, projectId);
++    expect(afterGeneric.fingerprint).toBe(before.fingerprint);
++  });
++
++  it("R33/R43 — decide pursue AFTER restart with empty ProposalStore; ZERO PT; same digest", async () => {
++    const { projectId, cycleInstanceId, ctx } = await seed();
++    const proposal = docsWriteProposal({
++      projectId,
++      lpsId: ctx.lpsId,
++      lpsVersion: ctx.lpsVersion,
++      doctrineDigest: ctx.doctrineDigest,
++      activeCycleInstanceId: cycleInstanceId,
++      proposalId: "prop:f2:r33",
++    });
++    await markPending(runtime.oa!, proposal);
++    const proposed = await proposeWith(projectId, proposal.proposalId);
++    expect(proposed.ok).toBe(true);
++    if (!proposed.ok) return;
++    const presented = await loadPresentedOptionSet(
++      runtime.oa!,
++      projectId,
++      proposed.optionSetRef,
++    );
++    expect(presented.ok).toBe(true);
++    if (!presented.ok) return;
++    const expectedDigest = presented.presented.proposalSubjectDigest;
++
++    const before = await snapshotTrajectories(runtime.oa!, projectId);
++    resetF2ProposalStoreForTests();
++    expect(getProposal(proposal.proposalId)).toBeFalsy();
++
++    const decided = await decideTrajectory({
++      oa: runtime.oa!,
++      projectId,
++      optionSetRef: proposed.optionSetRef,
++      selectedOptionRef: PROPOSAL_SUBJECT_PURSUE_REF,
++      forceLocalAuthority: true,
++    });
++    expect(decided.ok).toBe(true);
++    if (!decided.ok) return;
++    expect(decided.trajectory).toBeNull();
++    expect(decided.decision.proposalId).toBe(proposal.proposalId);
++
++    const hd = await runtime.oa!.decisionServices.getHumanDecision.execute({
++      decisionId: decided.decision.decisionId,
++    });
++    expect(hd.ok).toBe(true);
++    if (!hd.ok) return;
++    expect(hd.decision.decisionBasis?.sourceRef).toBe(proposal.proposalId);
++    expect(hd.decision.decisionBasis?.sourceDigest).toBe(expectedDigest);
++    expect(hd.decision.decisionBasis?.executionBasis?.targetPath).toBe(
++      TARGET_PATH,
++    );
++    expect(hd.decision.decisionBasis?.trajectoryContext).toBeFalsy();
++
++    const after = await snapshotTrajectories(runtime.oa!, projectId);
++    expect(after.fingerprint).toBe(before.fingerprint);
++  });
++
++  it("R34 — amend/refuse AFTER restart with empty store: ZERO EC / ZERO PT", async () => {
++    const { projectId, cycleInstanceId, ctx } = await seed();
++    for (const [suffix, optionRef] of [
++      ["amend", PROPOSAL_SUBJECT_AMEND_REF],
++      ["refuse", PROPOSAL_SUBJECT_REFUSE_REF],
++    ] as const) {
++      resetF2ProposalStoreForTests();
++      const seeded = await seedQualifiedProject(runtime, {
++        profile: "Critical",
++        suffix: `r34-${suffix}`,
++      });
++      const c = await currentF2Context(runtime, seeded.projectId);
++      const proposal = docsWriteProposal({
++        projectId: seeded.projectId,
++        lpsId: c.lpsId,
++        lpsVersion: c.lpsVersion,
++        doctrineDigest: c.doctrineDigest,
++        activeCycleInstanceId: seeded.cycleInstanceId,
++        proposalId: `prop:f2:r34-${suffix}`,
++      });
++      await markPending(runtime.oa!, proposal);
++      const proposed = await proposeWith(seeded.projectId, proposal.proposalId);
++      expect(proposed.ok).toBe(true);
++      if (!proposed.ok) return;
++      const before = await snapshotTrajectories(runtime.oa!, seeded.projectId);
++      resetF2ProposalStoreForTests();
++
++      const decided = await decideTrajectory({
++        oa: runtime.oa!,
++        projectId: seeded.projectId,
++        optionSetRef: proposed.optionSetRef,
++        selectedOptionRef: optionRef,
++        forceLocalAuthority: true,
++      });
++      expect(decided.ok).toBe(true);
++      if (!decided.ok) return;
++      expect(decided.trajectory).toBeNull();
++
++      const { prepareExecutionContractFromW2Decision } = await import(
++        "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision"
++      );
++      const prep = await prepareExecutionContractFromW2Decision({
++        oa: runtime.oa!,
++        projectId: seeded.projectId,
++        decisionId: decided.decision.decisionId,
++        currentContext: await currentF2Context(runtime, seeded.projectId),
++        forceLocalAuthority: true,
++        qualifiedOperationKind: "generate-temporary-artifact",
++      });
++      expect(prep.ok).toBe(false);
++      if (prep.ok) return;
++      expect(prep.code).toBe("PREPARE_NOT_APPLICABLE");
++
++      const after = await snapshotTrajectories(runtime.oa!, seeded.projectId);
++      expect(after.fingerprint).toBe(before.fingerprint);
++    }
++    void projectId;
++    void cycleInstanceId;
++    void ctx;
++  });
++
++  it("R35 — restart AFTER HumanDecision: subject no longer awaiting; no second HD", async () => {
++    const { projectId, cycleInstanceId, ctx } = await seed();
++    const proposal = docsWriteProposal({
++      projectId,
++      lpsId: ctx.lpsId,
++      lpsVersion: ctx.lpsVersion,
++      doctrineDigest: ctx.doctrineDigest,
++      activeCycleInstanceId: cycleInstanceId,
++      proposalId: "prop:f2:r35",
++    });
++    await markPending(runtime.oa!, proposal);
++    const proposed = await proposeWith(projectId, proposal.proposalId);
++    expect(proposed.ok).toBe(true);
++    if (!proposed.ok) return;
++    const decided = await decideTrajectory({
++      oa: runtime.oa!,
++      projectId,
++      optionSetRef: proposed.optionSetRef,
++      selectedOptionRef: PROPOSAL_SUBJECT_PURSUE_REF,
++      forceLocalAuthority: true,
++    });
++    expect(decided.ok).toBe(true);
++    if (!decided.ok) return;
++
++    resetF2ProposalStoreForTests();
++    const { readActiveProposalDecisionSubject } = await import(
++      "@/features/project-assistant/w2/activeProposalDecisionSubject"
++    );
++    const read = await readActiveProposalDecisionSubject(
++      runtime.oa!,
++      projectId,
++    );
++    expect(read.ok).toBe(true);
++    if (!read.ok) return;
++    expect(read.kind).toBe("none");
++
++    const second = await decideTrajectory({
++      oa: runtime.oa!,
++      projectId,
++      optionSetRef: proposed.optionSetRef,
++      selectedOptionRef: PROPOSAL_SUBJECT_PURSUE_REF,
++      forceLocalAuthority: true,
++    });
++    expect(second.ok).toBe(false);
++    if (second.ok) return;
++    expect(second.code).toBe("SUBJECT_ALREADY_DECIDED");
++  });
++
++  it("R36/R37 — Epistemic read failure fails closed (not empty)", async () => {
++    const { projectId } = await seed();
++    const oa = runtime.oa!;
++    const original = oa.cycleServices.getEpistemicState.execute.bind(
++      oa.cycleServices.getEpistemicState,
++    );
++    oa.cycleServices.getEpistemicState.execute = async () =>
++      ({
++        ok: false,
++        error: {
++          code: "PERSISTENCE_FAILURE",
++          detailCode: "EPISTEMIC_READ_BOOM",
++          message: "boom",
++          severity: "error",
++          retryable: true,
++          blocking: true,
++          recoverable: true,
++          domain: "D",
++          timestamp: "2026-09-15T00:00:00.000Z",
++        },
++      }) as unknown as Awaited<ReturnType<typeof original>>;
++
++    const pending = await listActivePendingDecisionSubjectMarkers(oa, projectId);
++    expect(pending.ok).toBe(false);
++    if (pending.ok) return;
++    expect(pending.code).toBe("EPISTEMIC_READ_FAILED");
++
++    const { findActiveAwaitingProposalPresentedOptionSet } = await import(
++      "@/features/project-assistant/w2/activeProposalDecisionSubject"
++    );
++    const bound = await findActiveAwaitingProposalPresentedOptionSet(
++      oa,
++      projectId,
++    );
++    expect(bound.ok).toBe(false);
++    if (bound.ok) return;
++    expect(bound.code).toBe("EPISTEMIC_READ_FAILED");
++
++    const propose = await proposeWith(projectId, null);
++    expect(propose.ok).toBe(false);
++    if (propose.ok) return;
++    expect(propose.code).toBe("EPISTEMIC_READ_FAILED");
++
++    oa.cycleServices.getEpistemicState.execute = original;
++  });
++
++  it("R39 — no active Proposal subject → ProjectTrajectory W2 accessible", async () => {
++    const { projectId } = await seed();
++    const before = await snapshotTrajectories(runtime.oa!, projectId);
++    const proposed = await proposeW2OptionsForProject(runtime, projectId);
++    expect(proposed.ok).toBe(true);
++    if (!proposed.ok) return;
++    expect(proposed.decisionSubjectMode).toBe("project_trajectory");
++    expect(proposed.proposedTrajectory).not.toBeNull();
++    const after = await snapshotTrajectories(runtime.oa!, projectId);
++    expect(after.count).toBeGreaterThan(before.count);
++  });
++
++  it("R40 — marker transition failure after binding: OptionSet still recoverable; no generic trajectory", async () => {
++    const { projectId, cycleInstanceId, ctx } = await seed();
++    const proposal = docsWriteProposal({
++      projectId,
++      lpsId: ctx.lpsId,
++      lpsVersion: ctx.lpsVersion,
++      doctrineDigest: ctx.doctrineDigest,
++      activeCycleInstanceId: cycleInstanceId,
++      proposalId: "prop:f2:r40",
++    });
++    await markPending(runtime.oa!, proposal);
++
++    const oa = runtime.oa!;
++    const originalUpdate = oa.cycleServices.updateEpistemicState.execute.bind(
++      oa.cycleServices.updateEpistemicState,
++    );
++    let optionSetWrites = 0;
++    oa.cycleServices.updateEpistemicState.execute = async (req) => {
++      const result = await originalUpdate(req);
++      // After OptionSet materialisation, force marker resolve path to "fail"
++      // by re-activating pending via a second write that we skip — instead:
++      // detect resolve correlation and return failure.
++      if (
++        typeof req.correlationId === "string" &&
++        req.correlationId.startsWith("cor:pending-bound:")
++      ) {
++        return {
++          ok: false,
++          error: {
++            code: "PERSISTENCE_FAILURE",
++            detailCode: "MARKER_RESOLVE_FAIL",
++            message: "forced",
++            severity: "error",
++            retryable: true,
++            blocking: true,
++            recoverable: true,
++            domain: "D",
++            timestamp: "2026-09-15T00:00:00.000Z",
++          },
++          durationMs: 0,
++        } as unknown as Awaited<ReturnType<typeof originalUpdate>>;
++      }
++      if (
++        req.items?.some(
++          (i) =>
++            i.type === "Observation" &&
++            typeof i.statement === "string" &&
++            i.statement.includes("w2_presented_option_set"),
++        )
++      ) {
++        optionSetWrites += 1;
++      }
++      return result;
++    };
++
++    const proposed = await proposeWith(projectId, proposal.proposalId);
++    expect(proposed.ok).toBe(true);
++    if (!proposed.ok) return;
++    expect(optionSetWrites).toBeGreaterThan(0);
++
++    oa.cycleServices.updateEpistemicState.execute = originalUpdate;
++
++    resetF2ProposalStoreForTests();
++    const { readActiveProposalDecisionSubject } = await import(
++      "@/features/project-assistant/w2/activeProposalDecisionSubject"
++    );
++    const read = await readActiveProposalDecisionSubject(oa, projectId);
++    expect(read.ok).toBe(true);
++    if (!read.ok) return;
++    // Bound OptionSet preferred even if pending marker still active
++    expect(read.kind).toBe("bound_awaiting_decision");
++    if (read.kind !== "bound_awaiting_decision") return;
++    expect(read.optionSet.optionSetRef).toBe(proposed.optionSetRef);
++
++    const generic = await proposeWith(projectId, null);
++    expect(generic.ok).toBe(true);
++    if (!generic.ok) return;
++    expect(generic.optionSetRef).toBe(proposed.optionSetRef);
++    expect(
++      generic.options.some((o) => o.optionRef === GOVERNED_OPTION_REF),
++    ).toBe(false);
++  });
++
++  it("R48 — ZERO REAL / ZERO dogfood mutation", () => {
++    expect(process.env.OPENAI_API_KEY ?? "").not.toMatch(/^sk-live/);
++    expect(dbPath).not.toContain("product-proof");
++    expect(dbPath).not.toContain(
++      "sfia-studio-product-proof-preflight-35b1371d",
++    );
++  });
++});
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/pendingDecisionSubjectMarker.ts b/projects/sfia-studio/app/features/project-assistant/w2/pendingDecisionSubjectMarker.ts
 new file mode 100644
-index 00000000..5592b78a
+index 00000000..bec4ed42
 --- /dev/null
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/pendingDecisionSubjectMarker.ts
-@@ -0,0 +1,206 @@
+@@ -0,0 +1,228 @@
 +/**
 + * CORR-PROOF-10 remediation — durable Epistemic Observation marking a
 + * pending Proposal decision subject before PresentedOptionSet binding.
@@ -5584,14 +6914,36 @@ index 00000000..5592b78a
 +  return { ok: true, epistemicItemId };
 +}
 +
++export type ListPendingDecisionSubjectMarkersResult =
++  | {
++      readonly ok: true;
++      readonly markers: readonly PendingDecisionSubjectMarker[];
++    }
++  | {
++      readonly ok: false;
++      readonly code: "EPISTEMIC_READ_FAILED";
++      readonly message: string;
++    };
++
++/**
++ * READ FAILURE ≠ EMPTY STATE.
++ * Callers must propagate failure — never treat Epistemic errors as "no subject".
++ */
 +export async function listActivePendingDecisionSubjectMarkers(
 +  oa: RuntimeOaStack,
 +  projectId: string,
-+): Promise<readonly PendingDecisionSubjectMarker[]> {
++): Promise<ListPendingDecisionSubjectMarkersResult> {
 +  const epistemic = await oa.cycleServices.getEpistemicState.execute({
 +    projectId,
 +  });
-+  if (!epistemic.ok) return [];
++  if (!epistemic.ok) {
++    return {
++      ok: false,
++      code: "EPISTEMIC_READ_FAILED",
++      message:
++        "État épistémique illisible — impossible de lire les marqueurs pending decision subject. Aucun fallback trajectoire générique.",
++    };
++  }
 +  const out: PendingDecisionSubjectMarker[] = [];
 +  for (const item of epistemic.state.items) {
 +    if (item.type !== "Observation" || item.status !== "active") continue;
@@ -5600,7 +6952,7 @@ index 00000000..5592b78a
 +    if (parsed.projectId !== projectId) continue;
 +    out.push(parsed);
 +  }
-+  return out;
++  return { ok: true, markers: out };
 +}
 +
 +export async function resolvePendingDecisionSubjectMarker(
@@ -5853,10 +7205,10 @@ index 00000000..5957aa34
 +}
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/resolveProposalDecisionSubject.ts b/projects/sfia-studio/app/features/project-assistant/w2/resolveProposalDecisionSubject.ts
 new file mode 100644
-index 00000000..574394f2
+index 00000000..257e52e5
 --- /dev/null
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/resolveProposalDecisionSubject.ts
-@@ -0,0 +1,322 @@
+@@ -0,0 +1,336 @@
 +/**
 + * CORR-PROOF-10 — server-side resolution of an active Proposal as the
 + * decision subject for W2 OptionSet instruction.
@@ -6097,6 +7449,11 @@ index 00000000..574394f2
 + * Block silent generic trajectory fallback when:
 + * - process-local DECISION_REQUIRED Proposal exists, OR
 + * - durable pending-subject marker exists (restart-before-binding).
++ *
++ * Bound PresentedOptionSet awaiting HD is handled by proposeTrajectoryOptions
++ * via readActiveProposalDecisionSubject (rehydrate) before this gate runs.
++ *
++ * Epistemic read failure → fail closed (never "no subject").
 + */
 +export async function assertProposalSubjectGateOrFail(input: {
 +  readonly oa: RuntimeOaStack;
@@ -6109,10 +7466,18 @@ index 00000000..574394f2
 +  const provided =
 +    typeof input.proposalId === "string" ? input.proposalId.trim() : "";
 +
-+  const pending = await listActivePendingDecisionSubjectMarkers(
++  const pendingResult = await listActivePendingDecisionSubjectMarkers(
 +    input.oa,
 +    input.projectId,
 +  );
++  if (!pendingResult.ok) {
++    return {
++      ok: false,
++      code: pendingResult.code,
++      message: pendingResult.message,
++    };
++  }
++  const pending = pendingResult.markers;
 +  const activeLocal = listProposalsForProject(input.projectId).filter(
 +    (p) => p.status === "DECISION_REQUIRED" && p.morrisGateRequired === true,
 +  );
@@ -6149,7 +7514,8 @@ index 00000000..574394f2
 +          "Proposal process-local absente alors qu'un marqueur pending durable existe — aucune reconstruction. Réinstruction Nora requise.",
 +      };
 +    }
-+    // No pending marker either — resolveProposalDecisionSubject will fail NOT_FOUND
++    // No pending marker — resolveProposalDecisionSubject will fail NOT_FOUND
++    // (post-binding rehydration already handled upstream when OptionSet exists).
 +    return { ok: true };
 +  }
 +
@@ -6178,6 +7544,269 @@ index 00000000..574394f2
 +    message:
 +      "Une Proposal DECISION_REQUIRED est active — « Instruire les options » doit porter sur cette Proposal (proposalId opaque). Aucun fallback silencieux vers les options de trajectoire génériques.",
 +  };
++}
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/activeProposalDecisionSubject.ts b/projects/sfia-studio/app/features/project-assistant/w2/activeProposalDecisionSubject.ts
+new file mode 100644
+index 00000000..7499b358
+--- /dev/null
++++ b/projects/sfia-studio/app/features/project-assistant/w2/activeProposalDecisionSubject.ts
+@@ -0,0 +1,257 @@
++/**
++ * CORR-PROOF-10 — durable Proposal decision-subject read / rehydration.
++ *
++ * Design (smallest delta): PresentedOptionSet Observation is the durable
++ * truth after binding. Pending marker covers only the pre-binding window.
++ *
++ * READ FAILURE ≠ EMPTY STATE — Epistemic errors never become "none".
++ */
++
++import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
++import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
++import {
++  listActivePendingDecisionSubjectMarkers,
++  type PendingDecisionSubjectMarker,
++} from "./pendingDecisionSubjectMarker";
++import {
++  isProposalSubjectPresentedSet,
++  optionSetObservationId,
++  parsePresentedOptionSetStatement,
++  serializePresentedOptionSet,
++  type PresentedOptionSetBinding,
++  W2_PRESENTED_OPTION_SET_KIND,
++} from "./presentedOptionSet";
++import type { TrajectoryOptionSetDto } from "./types";
++
++export type EpistemicReadFailure = {
++  readonly ok: false;
++  readonly code: "EPISTEMIC_READ_FAILED";
++  readonly message: string;
++};
++
++export type ActiveProposalDecisionSubject =
++  | {
++      readonly ok: true;
++      readonly kind: "none";
++    }
++  | {
++      readonly ok: true;
++      readonly kind: "pending_reinstruction_required";
++      readonly markers: readonly PendingDecisionSubjectMarker[];
++      readonly message: string;
++    }
++  | {
++      readonly ok: true;
++      readonly kind: "bound_awaiting_decision";
++      readonly presented: PresentedOptionSetBinding;
++      readonly optionSet: TrajectoryOptionSetDto;
++    }
++  | EpistemicReadFailure;
++
++export function presentedBindingToOptionSetDto(
++  presented: PresentedOptionSetBinding,
++): TrajectoryOptionSetDto {
++  return {
++    optionSetRef: presented.optionSetRef,
++    cycleTypeId: presented.cycleTypeId,
++    recommendedProfile: presented.recommendedProfile,
++    options: presented.options,
++    recommendation: presented.recommendation,
++    epistemicRefs: presented.epistemicRefs,
++    proposedTrajectory:
++      presented.decisionSubjectMode === "proposal" ||
++      presented.trajectoryId == null ||
++      presented.candidateVersion == null
++        ? null
++        : {
++            trajectoryId: presented.trajectoryId,
++            version: presented.candidateVersion,
++            status: "candidate",
++            statusLabel: "TRAJECTOIRE PROPOSÉE",
++            isCurrent: false,
++          },
++    phase: "OPTIONS_PROPOSED",
++    autoDecisionPerformed: false,
++    executionPerformed: false,
++    ckcCognitionCompletedBeforeMutation: true,
++    decisionSubjectMode: presented.decisionSubjectMode,
++    proposalId: presented.proposalId ?? null,
++    promotesProjectTrajectory: presented.promotesProjectTrajectory,
++  };
++}
++
++function decidedOptionSetRefsFromEpistemic(
++  items: ReadonlyArray<{
++    readonly type: string;
++    readonly status: string;
++    readonly relatedObjects?: readonly string[] | null;
++  }>,
++): ReadonlySet<string> {
++  const refs = new Set<string>();
++  for (const item of items) {
++    if (item.type !== "DecisionRef" || item.status !== "active") continue;
++    for (const rel of item.relatedObjects ?? []) {
++      if (rel.startsWith("optset:")) refs.add(rel);
++    }
++  }
++  return refs;
++}
++
++/**
++ * Scan Epistemic for an active Proposal PresentedOptionSet still awaiting HD.
++ * Fail-closed on Epistemic read errors.
++ */
++export async function findActiveAwaitingProposalPresentedOptionSet(
++  oa: RuntimeOaStack,
++  projectId: string,
++): Promise<
++  | {
++      readonly ok: true;
++      readonly presented: PresentedOptionSetBinding | null;
++    }
++  | EpistemicReadFailure
++> {
++  const epistemic = await oa.cycleServices.getEpistemicState.execute({
++    projectId,
++  });
++  if (!epistemic.ok) {
++    return {
++      ok: false,
++      code: "EPISTEMIC_READ_FAILED",
++      message:
++        "État épistémique illisible — impossible de déterminer un sujet décisionnel Proposal actif. Aucun fallback trajectoire générique.",
++    };
++  }
++
++  const decidedRefs = decidedOptionSetRefsFromEpistemic(epistemic.state.items);
++  const matches: PresentedOptionSetBinding[] = [];
++  for (const item of epistemic.state.items) {
++    if (item.type !== "Observation" || item.status !== "active") continue;
++    const parsed = parsePresentedOptionSetStatement(item.statement);
++    if (!parsed) continue;
++    if (!isProposalSubjectPresentedSet(parsed)) continue;
++    if (parsed.kind !== W2_PRESENTED_OPTION_SET_KIND) continue;
++    if (decidedRefs.has(parsed.optionSetRef)) continue;
++    matches.push(parsed);
++  }
++
++  return {
++    ok: true,
++    presented: matches.length > 0 ? matches[matches.length - 1]! : null,
++  };
++}
++
++/**
++ * Canonical server read for active Proposal decision subject continuity.
++ */
++export async function readActiveProposalDecisionSubject(
++  oa: RuntimeOaStack,
++  projectId: string,
++): Promise<ActiveProposalDecisionSubject> {
++  const bound = await findActiveAwaitingProposalPresentedOptionSet(
++    oa,
++    projectId,
++  );
++  if (!bound.ok) return bound;
++
++  if (bound.presented) {
++    return {
++      ok: true,
++      kind: "bound_awaiting_decision",
++      presented: bound.presented,
++      optionSet: presentedBindingToOptionSetDto(bound.presented),
++    };
++  }
++
++  const pending = await listActivePendingDecisionSubjectMarkers(oa, projectId);
++  if (!pending.ok) return pending;
++
++  if (pending.markers.length > 0) {
++    return {
++      ok: true,
++      kind: "pending_reinstruction_required",
++      markers: pending.markers,
++      message:
++        "Sujet décisionnel pending durable détecté après perte process-local — réinstruction Nora requise. Aucun fallback vers options de trajectoire génériques.",
++    };
++  }
++
++  return { ok: true, kind: "none" };
++}
++
++/**
++ * Durable closure of a Proposal PresentedOptionSet after HumanDecision.
++ * Observation → resolved so restart cannot re-offer the same binding.
++ */
++export async function closePresentedProposalOptionSet(input: {
++  readonly oa: RuntimeOaStack;
++  readonly projectId: string;
++  readonly optionSetRef: string;
++  readonly decisionId: string;
++  readonly reason: "decided" | "amended" | "refused";
++  readonly correlationId?: string;
++}): Promise<
++  | { readonly ok: true }
++  | { readonly ok: false; readonly code: string; readonly message: string }
++> {
++  const epistemic = await input.oa.cycleServices.getEpistemicState.execute({
++    projectId: input.projectId,
++  });
++  if (!epistemic.ok) {
++    return {
++      ok: false,
++      code: "EPISTEMIC_READ_FAILED",
++      message:
++        "Impossible de clôturer le PresentedOptionSet — lecture épistémique échouée.",
++    };
++  }
++
++  const epistemicItemId = optionSetObservationId(input.optionSetRef);
++  const existing = epistemic.state.items.find(
++    (i) => i.epistemicItemId === epistemicItemId,
++  );
++  if (!existing) {
++    return { ok: true };
++  }
++  if (existing.status !== "active") {
++    return { ok: true };
++  }
++
++  const parsed = parsePresentedOptionSetStatement(existing.statement);
++  const statement = parsed
++    ? serializePresentedOptionSet({
++        ...parsed,
++        // Keep sealed payload; closure is via status=resolved.
++      })
++    : `${existing.statement}\n<!-- closed:${input.reason}:${input.decisionId} -->`;
++
++  const written = await input.oa.cycleServices.updateEpistemicState.execute({
++    projectId: input.projectId,
++    items: [
++      {
++        epistemicItemId,
++        type: "Observation",
++        statement,
++        status: "resolved",
++        source: existing.source,
++        relatedObjects: [
++          ...(existing.relatedObjects ?? []),
++          input.decisionId,
++          `closed:${input.reason}`,
++        ],
++      },
++    ],
++    createdBy: LOCAL_PILOTE_ACTOR,
++    correlationId:
++      input.correlationId ??
++      `cor:option-set-close:${input.optionSetRef}:${input.reason}`,
++  });
++  if (!written.ok) {
++    return {
++      ok: false,
++      code: written.error.detailCode,
++      message: `Clôture PresentedOptionSet échouée (${written.error.detailCode}).`,
++    };
++  }
++  return { ok: true };
 +}
 ```
 
