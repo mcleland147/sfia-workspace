@@ -1,125 +1,70 @@
-# DETERMINISTIC-NORA-BOUNDARY-PARITY — Review Pack (FULL)
+# DETERMINISTIC-NORA-BOUNDARY-PARITY — FINAL F2 CONTEXT-SCOPING Review Pack (FULL)
 
 ## A. Timestamp
-2026-09-15T18:21:17Z
+2026-09-15T18:35:37Z
 
 ## B. Git Truth
 - Repository: `mcleland147/sfia-workspace`
 - `origin/main` = `bceb79a814c2d1e468c8e05dfdb461104375c3fa` (MATCH)
-- Correction worktree: `/Users/morris/Projects/sfia-studio-fake-provider-user-valid-materialization`
+- Worktree: `/Users/morris/Projects/sfia-studio-fake-provider-user-valid-materialization`
 - Branch: `fix/sfia-studio-fake-provider-user-valid-materialization`
-- Initial HEAD: `bceb79a814c2d1e468c8e05dfdb461104375c3fa` (exact main)
-- Initial status: clean
-- Current status: local dirty only (no Product commit)
-- Dogfood worktree `/Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d`: **NOT USED / FROZEN**
+- HEAD: `bceb79a814c2d1e468c8e05dfdb461104375c3fa`
+- `origin/main..HEAD` commits: **0** (dirty local candidate only)
+- Pre-edit backup: `/tmp/sfia-deterministic-nora-boundary-before-final-f2-scope.patch`
+- Candidate scope matched prior handoff: **YES** (fakeProvider + 2 new tests only for Product)
+- Dogfood: **FROZEN / NOT USED**
 
-## C. Morris GO
-AUTHORIZED and consumed:
-- dedicated correction branch/worktree from main
-- FakeConversationProvider modification
-- related deterministic + application-path tests
-- typecheck/lint/build/tests
-- FULL Review Pack + Review Handoff L3
+## C. Morris GO consumed
+AUTHORIZED: edit existing candidate; F2 context guard; related negative tests; env restore; validation; FULL Review Pack; Review Handoff L3.
 
-NOT authorized / NOT performed:
-- dogfood mutation / Nora send / Product UI login
-- OpenAI LIVE / Cursor REAL / docs_write REAL / Execute
-- Product commit / push / PR / merge / branch deletion
-- auth changes / F2 orchestration redesign / migrations
+NOT performed: reopen recognition semantics; F2 orchestration change; Product UI/auth/persistence; dogfood; LIVE/REAL; Product commit/push/PR/merge.
 
-## D. SFIA qualification
-- Cycle: **8 — Delivery**
-- Typology: **RUN**
-- Profile: **Critical**
-- Why Critical: cognition-boundary parity controls whether manual Product reproof can start without forbidden sentinel / LIVE escalation
+## D. Exact prior Critical Review blocker
+Natural matcher ran **before** establishing F2 intent-analysis ownership:
 
-## E. Convergence / trajectory link
-- Capability: Product A3 journey precondition — Pilot natural intent → Nora cognition boundary → structured Proposal
-- Foundations: V3-F02 / V3-F04 / V3-F11-F12 (downstream prep only)
-- Asset: FakeConversationProvider = **ADAPT**; F2/Product orchestration = **KEEP**; sentinel fixtures = **KEEP**
-- Forbidden: new cognition engine; parallel Product path
-- Critical-path: close fake parity → repeat manual preflight → bounded manual reproof through Inspect → separate Gate D later
-- Lot D: **NOT** authorized
-- Runtime v3: **NON ADOPTED**
+```
+const naturalMaterialization = matchNaturalArtifactMaterialization(markerProbe);
+if (naturalMaterialization) return structured F2;
+if (isF2...) return informative;
+```
 
-## F. Prior blocked manual-preflight evidence
-Handoff verdict (sfia/review-handoff):
-**MANUAL REPROOF BLOCKED — DETERMINISTIC NORA PATH NOT USER-VALID**
+A non-F2 `FakeConversationProvider.complete()` call with the same natural wording could incorrectly receive structured F2 materialization JSON.
 
-Root observation: natural FR Pilot request → FakeConversationProvider F2 fallback `intentClass=informative` / `executionIntent=null`; structured materialization required `__F2_ARTIFACT_MATERIALIZE__`.
+## E. Before ordering
+historical markers → HOSTILE → MATERIALIZE sentinel → remaining markers → **global natural matcher** → F2 informative → ordinary fake
 
-## G. Exact FakeConversationProvider root cause
-In `fakeProvider.ts`, after historical marker branches, F2 system-prompt traffic without markers fell through to generic informative JSON (~former L1013). The only path emitting `continuationKind=active_cycle_artifact_materialization` + `cursor.docs_write.apply` + docs_write `executionIntent` was the `__F2_ARTIFACT_MATERIALIZE__` marker branch.
+## F. After ordering
+historical markers → HOSTILE → MATERIALIZE sentinel → remaining markers → **F2-context natural matcher** → F2 informative → ordinary non-F2 fake
 
-## H. R21 Fake/Real fidelity analysis
-- External boundary substituted: OpenAI cognition provider
-- Fake remains a **test adapter** for the cognition boundary only
-- Same Product path traversed: `projectAssistantSendAction` → `orchestrateAssistantSend` → `orchestrateF2` → FakeConversationProvider → Proposal
-- Expected proof: **DETERMINISTIC BOUNDARY PARITY AT TESTED REQUEST SHAPE**
-- Explicitly NOT: OpenAI REAL / Nora REAL / general NLU / Product Proof complete / READY FOR REAL / runtime v3 ADOPTED
+## G. isF2IntentAnalysisContext contract
+```ts
+function isF2IntentAnalysisContext(messages: ProviderChatMessage[]): boolean {
+  return messages.some(
+    (m) => m.role === "system" && m.content.includes("SFIA Studio F2"),
+  );
+}
+```
+- Source of truth: **system messages only**
+- Exact string: `"SFIA Studio F2"` (same as prior informative fallback)
+- NOT matched from: user content, history, project metadata, bare "F2" token alone outside that phrase
 
-## I. R22 disposition
-Test-adapter fidelity only. No internal production cognition / NLP engine / parallel Product path. Sentinel fixtures retained for historical automated tests.
+Natural path requires:
+`isF2IntentAnalysisContext === true` AND `matchNaturalArtifactMaterialization(markerProbe)` match.
 
-## J. Before behavior
-| Input | Result |
-|---|---|
-| Natural FR materialization request | `informative`, `executionIntent=null` |
-| Same + `__F2_ARTIFACT_MATERIALIZE__` | `execution_request` + `active_cycle_artifact_materialization` + target `docs/livrable-cycle.md` |
+## FINAL F2 CONTEXT-SCOPING REMEDIATION
 
-## K. Recognition contract
-ALL required (narrow, explainable — no synonym engine):
-1. Materialize wording family after bounded normalize: `materialise` / `materialiser` (covers matérialise/matérialiser via accent fold)
-2. Exactly one repository-relative `.md` path in CURRENT demand
-3. Explicit proposal/decision preparation (`proposition` or `decision`)
-4. Explicit no-execution guard (`n'execute rien` or `ne rien executer` after normalize)
+Accepted areas KEPT unchanged: recognition contract, path extraction, shared builder, sentinel, hostile, application path Proposal semantics, ZERO execution effects.
 
-If any missing → fall through to existing deterministic behavior.
+Only change: exclusive F2 ownership of the natural matcher + test env hygiene.
 
-## L. Path extraction contract
-- Regex over CURRENT demand only
-- Exactly one candidate; must end in `.md`
-- Reject: absolute (`/…`), URL (`://`), traversal (`..`)
-- Multiple paths → fail closed (no pick)
-- Path validity ≠ execution authority (server/Product remain authoritative)
-
-## M. Structured F2 output contract
-Shared builder emits same semantic shape as historical sentinel:
-- `intentClass`: `execution_request`
-- `continuationKind`: `active_cycle_artifact_materialization`
-- `artifactMaterializationOperation`: `cursor.docs_write.apply`
-- `candidateCycleTypeId`: `cyc:framing`
-- `requestedOperation` (top-level): `null` (canonical sentinel contract)
-- `executionIntent.intentKind`: `docs_write`
-- `executionIntent.targetPath`: extracted (natural) or `docs/livrable-cycle.md` (sentinel)
-- `executionIntent.requiredCapabilities`: `["cap:cursor.docs_write"]`
-- `targetRepositoryRef`: `null` (server/binding-owned)
-- artifactBrief/contentRequirements: bounded slice of Pilot request (natural) or historical fixture strings (sentinel)
-
-## N. Shared builder / branch ordering
-Helpers in `fakeProvider.ts`:
-- `normalizeNaturalMaterializationProbe`
-- `extractSingleRepoRelativeMdPath`
-- `matchNaturalArtifactMaterialization`
-- `buildArtifactMaterializationAnalysis`
-- `fakeF2JsonResult`
-
-Ordering (documented in source):
-1. … prior `__MW5_` / `__F2_` markers …
-2. `__F2_ARTIFACT_HOSTILE_MERGE_OP__` (unchanged hostile semantics)
-3. `__F2_ARTIFACT_MATERIALIZE__` → shared builder (legacy path)
-4. … remaining markers …
-5. **natural materialization match** → shared builder (extracted path)
-6. generic F2 informative fallback
-
-## O. Exact production/test-adapter diff
+## H. Exact fakeProvider diff (full candidate vs HEAD/main)
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-index 88462d68..0b1b7a2f 100644
+index 88462d68..acf9ffe9 100644
 --- a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
 +++ b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-@@ -12,6 +12,156 @@ export type FakeToolScriptRound =
+@@ -12,6 +12,163 @@ export type FakeToolScriptRound =
    | { kind: "message"; text: string }
    | { kind: "tool_calls"; toolCalls: ProviderToolCall[] };
 
@@ -128,6 +73,13 @@ index 88462d68..0b1b7a2f 100644
 +  | "insufficient"
 +  | "unknown"
 +  | null;
++
++/** F2 intent-analysis ownership — system messages only; never user content. */
++function isF2IntentAnalysisContext(messages: ProviderChatMessage[]): boolean {
++  return messages.some(
++    (m) => m.role === "system" && m.content.includes("SFIA Studio F2"),
++  );
++}
 +
 +/**
 + * Bounded Unicode/case normalization for the natural materialization contract only.
@@ -276,7 +228,7 @@ index 88462d68..0b1b7a2f 100644
  /**
   * Deterministic fake provider for unit/E2E non-live tests.
   * Never presented as live GPT; replies are tagged TEST/FAKE.
-@@ -763,69 +913,19 @@ export class FakeConversationProvider implements ConversationProvider {
+@@ -763,69 +920,19 @@ export class FakeConversationProvider implements ConversationProvider {
        };
      }
      if (markerProbe.includes("__F2_ARTIFACT_MATERIALIZE__")) {
@@ -354,42 +306,42 @@ index 88462d68..0b1b7a2f 100644
      }
      if (markerProbe.includes("__F2_DOCS_WRITE_GENERIC__")) {
        return {
-@@ -1010,6 +1110,21 @@ export class FakeConversationProvider implements ConversationProvider {
+@@ -1010,7 +1117,22 @@ export class FakeConversationProvider implements ConversationProvider {
          },
        };
      }
-+    // Natural Pilot artifact-materialization (AFTER all historical __F2_/__MW5_
-+    // marker contracts, BEFORE generic F2 informative fallback).
-+    // Ordering: HOSTILE_MERGE → ARTIFACT_MATERIALIZE sentinel → … → natural → F2 fallback.
-+    const naturalMaterialization = matchNaturalArtifactMaterialization(markerProbe);
-+    if (naturalMaterialization) {
-+      return fakeF2JsonResult(
-+        this.callCount,
-+        buildArtifactMaterializationAnalysis({
-+          targetPath: naturalMaterialization.targetPath,
-+          artifactBrief: naturalMaterialization.artifactBrief,
-+          contentRequirements: [naturalMaterialization.contentRequirement],
-+        }),
-+      );
-+    }
-+
-     if (messages.some((m) => m.role === "system" && m.content.includes("SFIA Studio F2"))) {
+-    if (messages.some((m) => m.role === "system" && m.content.includes("SFIA Studio F2"))) {
++    // Natural Pilot artifact-materialization is F2 intent-analysis ONLY.
++    // Ordering: HOSTILE_MERGE → ARTIFACT_MATERIALIZE sentinel → … remaining markers
++    // → F2-context natural matcher → F2 informative fallback → ordinary non-F2 fake.
++    if (isF2IntentAnalysisContext(messages)) {
++      const naturalMaterialization =
++        matchNaturalArtifactMaterialization(markerProbe);
++      if (naturalMaterialization) {
++        return fakeF2JsonResult(
++          this.callCount,
++          buildArtifactMaterializationAnalysis({
++            targetPath: naturalMaterialization.targetPath,
++            artifactBrief: naturalMaterialization.artifactBrief,
++            contentRequirements: [naturalMaterialization.contentRequirement],
++          }),
++        );
++      }
        return {
          text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+           intentClass: "informative",
 
 ```
 
-## P. Exact test diffs / complete new files
-
-### P.1 `fakeProvider.userValidArtifactMaterialization.d0.test.ts` (new)
+## I. Exact provider-test diff (new file)
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/platform/fakeProvider.userValidArtifactMaterialization.d0.test.ts b/projects/sfia-studio/app/__tests__/platform/fakeProvider.userValidArtifactMaterialization.d0.test.ts
 new file mode 100644
-index 00000000..e36dbbf5
+index 00000000..d7380b5c
 --- /dev/null
 +++ b/projects/sfia-studio/app/__tests__/platform/fakeProvider.userValidArtifactMaterialization.d0.test.ts
-@@ -0,0 +1,142 @@
+@@ -0,0 +1,173 @@
 +/**
 + * DETERMINISTIC NORA BOUNDARY PARITY — FakeConversationProvider
 + * user-valid natural Pilot artifact materialization (no hidden sentinel).
@@ -531,19 +483,50 @@ index 00000000..e36dbbf5
 +    expect(ei.requiredCapabilities).toEqual(["cap:github.pr.merge"]);
 +    expect(ei.requestedOperation).toBe("github.pr.merge");
 +  });
++
++  it("P11 — same natural request outside F2 context is ordinary fake, not F2 materialization", async () => {
++    const provider = new FakeConversationProvider();
++    const result = await provider.complete([
++      { role: "system", content: "SFIA Studio ordinary conversation test" },
++      { role: "user", content: CANONICAL_NATURAL },
++    ]);
++    expect(result.text).toContain("TEST/FAKE");
++    expect(result.text).toContain("Réponse fake");
++    expect(result.text).not.toContain("active_cycle_artifact_materialization");
++    expect(result.text).not.toContain("cursor.docs_write.apply");
++    expect(result.text).not.toContain('"intentClass":"execution_request"');
++    expect(result.text).not.toContain('"intentClass": "execution_request"');
++  });
++
++  it("P12 — CKC cognition context is not overridden by natural materialization wording", async () => {
++    const provider = new FakeConversationProvider();
++    const result = await provider.complete([
++      {
++        role: "system",
++        content: "SFIA Studio CKC COGNITIVE REASONING — framing",
++      },
++      {
++        role: "user",
++        content: `${CANONICAL_NATURAL}\nintention périmètre besoin réel`,
++      },
++    ]);
++    expect(result.text).toContain("RECOMMANDATION CKC");
++    expect(result.text).not.toContain("active_cycle_artifact_materialization");
++    expect(result.text).not.toContain("cursor.docs_write.apply");
++  });
 +});
 
 ```
 
-### P.2 `naturalMaterialization.applicationPath.d0.test.ts` (new)
+## J. Exact application-path test diff (new file)
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/naturalMaterialization.applicationPath.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/naturalMaterialization.applicationPath.d0.test.ts
 new file mode 100644
-index 00000000..997cf7ee
+index 00000000..5708af09
 --- /dev/null
 +++ b/projects/sfia-studio/app/__tests__/project-assistant/naturalMaterialization.applicationPath.d0.test.ts
-@@ -0,0 +1,227 @@
+@@ -0,0 +1,241 @@
 +/**
 + * DETERMINISTIC NORA BOUNDARY PARITY — application path.
 + *
@@ -591,11 +574,20 @@ index 00000000..997cf7ee
 +  pathRoot: "projects/sfia-studio/.sandbox/",
 +} as const;
 +
++function restoreEnvVar(name: string, previous: string | undefined): void {
++  if (previous === undefined) delete process.env[name];
++  else process.env[name] = previous;
++}
++
 +describe("DETERMINISTIC NORA BOUNDARY PARITY — natural materialization application path", () => {
 +  let runtime: RuntimeApplicationService;
 +  let dbPath: string;
++  let previousProvider: string | undefined;
++  let previousMorrisAuthority: string | undefined;
 +
 +  beforeEach(() => {
++    previousProvider = process.env.OPS1_CONVERSATION_PROVIDER;
++    previousMorrisAuthority = process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY;
 +    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
 +    process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
 +    setConversationProviderForTests(null);
@@ -608,6 +600,11 @@ index 00000000..997cf7ee
 +    resetF2ProposalStoreForTests();
 +    setConversationProviderForTests(null);
 +    cleanupW2TempDirs();
++    restoreEnvVar("OPS1_CONVERSATION_PROVIDER", previousProvider);
++    restoreEnvVar(
++      "SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY",
++      previousMorrisAuthority,
++    );
 +  });
 +
 +  async function seedActiveCycleProject(): Promise<{
@@ -774,75 +771,62 @@ index 00000000..997cf7ee
 
 ```
 
-## Q. Provider-level positive proof
-- P1: canonical natural FR → execution_request + materialization + exact targetPath `projects/sfia-studio/.sandbox/gestion-de-taches.md`
-- P2: no `__F2_` / `__MW5_` in request
-- P3: second safe `.md` path extracted (not hard-coded)
+## K. non-F2 negative proof
+**P11** — system `"SFIA Studio ordinary conversation test"` + canonical natural request:
+- ordinary fake echo (`Réponse fake`)
+- NO `active_cycle_artifact_materialization`
+- NO `cursor.docs_write.apply`
+- NO `execution_request` F2 JSON
 
-## R. Provider-level negative proofs
-- P4 missing path → informative
-- P5 two paths → informative
-- P6 `../something.md` → informative
-- P7 question-only → informative
-- P8 materialize without proposal/no-exec guard → informative
+**P12** (optional CKC) — CKC system + natural wording → `RECOMMANDATION CKC`; not F2 materialization.
 
-## S. Actual application-path proof
-File: `__tests__/project-assistant/naturalMaterialization.applicationPath.d0.test.ts`
+## L. F2 positive proof
+**P1** remains green: F2 system + natural FR → `execution_request` + `active_cycle_artifact_materialization` + `cursor.docs_write.apply` + exact targetPath `projects/sfia-studio/.sandbox/gestion-de-taches.md` + executionIntent present. No sentinel.
 
-Path: `projectAssistantSendAction` → orchestrateAssistantSend → orchestrateF2 → FakeConversationProvider
+## M. sentinel non-regression
+**P9** + CORR-PROOF-07 / journey application path — **green**
 
-Assertions observed green:
-- no fixture token in request
-- turnKind `f2_proposal`, status `DECISION_REQUIRED`
-- projectId matches isolated test Project
-- requestedOperation canonical `cursor.docs_write.apply` (`F2_ARTIFACT_MATERIALIZATION_OPERATION`)
-- executionIntent.targetPath exact natural path
-- pending Decision Subject marker created for that Proposal
-- `decision` null; HD count unchanged; EC list empty; `executionForbidden=true`
-- ZERO Execute / Attempt / external effect
+## N. hostile fixture non-regression
+**P10** + CORR-PROOF-07 CR06-A — **green** (distinct merge/hostile)
 
-## T. Sentinel historical non-regression
-P9 + CORR-PROOF-07 / journey application path (still use `__F2_ARTIFACT_MATERIALIZE__`) — **green**
+## O. environment restoration proof
+`naturalMaterialization.applicationPath.d0.test.ts`:
+- `beforeEach` captures prior `OPS1_CONVERSATION_PROVIDER` and `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY`
+- `afterEach` restores via `restoreEnvVar` (delete if previously undefined; else restore string)
+- retains `setConversationProviderForTests(null)`, `resetF2ProposalStoreForTests()`, `cleanupW2TempDirs()`
 
-## U. Hostile fixture non-regression
-P10 + CORR-PROOF-07 CR06-A (`__F2_ARTIFACT_HOSTILE_MERGE_OP__`) — **green** (distinct merge/hostile semantics)
+## P. application-path non-regression
+`projectAssistantSendAction` → orchestrate → F2 → Fake → Proposal `DECISION_REQUIRED`; pending marker; canonical docs_write; exact targetPath; HD unchanged; EC 0; executionForbidden; ZERO Attempt/Execute/external effect — **green**
 
-## V. Lot A/B non-regression
-Focused green:
-- corrProof07 (32)
-- corrProof10 (45)
-- corrProof11 (18)
-- productProofJourneyIntegrity.d0 (13)
-- productProofJourneyIntegrity.applicationPath (6)
-- proposalSubjectIntegrity (5)
-- platform-ai (6)
-- new provider (10) + app path (1)
+## Q. Lot A/B regression tests
+Focused suite green: corrProof07/10/11, journey integrity + applicationPath, proposalSubjectIntegrity, platform-ai, new provider+apppath tests.
 
-## W. Full validation results
-From `projects/sfia-studio/app`:
-- `npm run typecheck` — PASS
-- `npm run lint` — PASS (0 warnings/errors)
-- `npm run build` — PASS
-- `npm test` — **4100 passed | 137 skipped | 0 failed** (baseline was 4089 passed; +11)
-- `git diff --check` — PASS
+## R. focused counts
+9 files / **138 passed** (was 136; +P11 +P12)
 
-## X. Fake/Real qualification and anti-claims
-Authorized claim:
-**DETERMINISTIC NORA BOUNDARY PARITY PROVEN AT TESTED ARTIFACT-MATERIALIZATION REQUEST SHAPE.**
+## S. full Vitest exact result
+**4102 passed | 137 skipped | 0 failed** (prior candidate baseline 4100; +2)
 
-Anti-claims:
-- NOT arbitrary natural-language understanding
-- NOT Nora cognition complete
-- NOT OpenAI parity generally / NOT OpenAI REAL
-- NOT Product Proof complete / NOT manual Product reproof passed
-- NOT Gate D ready / NOT Cursor REAL ready
-- NOT runtime v3 ADOPTED
-- ZERO LIVE / ZERO REAL in this cycle
+## T. typecheck/lint/build/diff-check
+- typecheck PASS
+- lint PASS
+- build PASS
+- `git diff --check` PASS on Product candidate files
 
-## Y. Product Git actions
-**NONE** — no Product commit, push, PR, or merge. Candidate remains dirty/local for ChatGPT Critical Review.
+## U. ZERO dogfood
+**YES** — dogfood frozen / not used
 
-## Z. Verdict
-**DETERMINISTIC-NORA-BOUNDARY-PARITY — NATURAL PILOT ARTIFACT-MATERIALIZATION REQUEST TRAVERSES NORMAL PRODUCT F2 PATH WITHOUT SENTINEL — PROPOSAL CREATED DETERMINISTICALLY — ZERO EXECUTION — ZERO REAL — READY FOR CHATGPT CRITICAL REVIEW**
+## V. ZERO LIVE/REAL
+**YES**
 
-Remaining reserve (out of scope this cycle): authenticated Product UI (`NO_SESSION`) for the next manual preflight after Morris interactive GitHub login.
+## W. Product Git actions = NONE
+**YES** — no Product commit/push/PR/merge; candidate remains dirty/local (`origin/main..HEAD` = 0)
+
+## X. remaining reserve
+Authenticated manual Product preflight / `NO_SESSION` — out of scope this cycle
+
+## Y. next gate
+ChatGPT Final Critical Re-review → then Product Git Integration (separate GO) → renewed manual Product preflight
+
+## Z. unique verdict
+**DETERMINISTIC-NORA-BOUNDARY-PARITY — FINAL F2 CONTEXT SCOPING COMPLETE — NATURAL ARTIFACT MATERIALIZATION IS USER-VALID ONLY INSIDE F2 INTENT ANALYSIS — NON-F2 FAKE BEHAVIOR PRESERVED — APPLICATION PATH GREEN — ZERO EXECUTION — ZERO REAL — READY FOR CHATGPT FINAL CRITICAL RE-REVIEW**
