@@ -11073,3 +11073,127 @@ describe("CORR-PROOF-11 — reinstruction + pilot language R01–R22", () => {
   });
 });
 ```
+
+
+────────────────────────────────────────────────────────────
+# PROJECT GIT INTEGRATION — CORR-PROOF-11
+
+- timestamp: 2026-09-15T13:40:25Z
+- Morris integration GO consumed: COMMIT + PUSH + PR + CI + Review Handoff — MERGE NOT AUTHORIZED
+- cycle: 8 — Delivery / EVOL / Critical — Git integration continuation
+- Fake/Real: DETERMINISTIC ONLY
+- ZERO Product source modifications during this integration cycle
+- dogfood: STRICTLY UNTOUCHED (`/Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d` @ `1215c482…`)
+
+## Pre-integration Git Truth
+
+| Item | Value |
+|---|---|
+| origin/main (pre) | `1215c4823ba29421f46553f9b2fd2bde5b63c0f6` |
+| HEAD before commit | `1215c4823ba29421f46553f9b2fd2bde5b63c0f6` |
+| branch | `fix/sfia-studio-corr-proof-11-reinstruction-pilot-language` |
+| commits ahead before | 0 |
+| reviewed handoff commit | `51c8af5031d2d9c6ae75a5c5d2364899fbb0642a` |
+| reviewed handoff blob | `8f86f5958164327c6c96c1f3b9e7a2a7494843d3` |
+| ChatGPT verdict consumed | CORR-PROOF-11 — GIT INTEGRATION READY |
+
+## Project commit
+
+| Item | Value |
+|---|---|
+| commit SHA | `9675bc4cc8091b126eb4da857071fb4afc78edb8` |
+| message | `fix(sfia-studio): preserve proposal reinstruction continuity` |
+| files | 15 Product/test paths (+1991 / −97) |
+| `.tmp-sfia-review/**` | **EXCLUDED** |
+| hook source mutation | **NONE** |
+
+### Committed file list
+
+```
+projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
+projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/corrProof11.reinstructionPilotLanguage.d0.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/f2.orchestrate.test.ts
+projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
+projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+projects/sfia-studio/app/features/project-assistant/actions.ts
+projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
+projects/sfia-studio/app/features/project-assistant/w2/actions.ts
+projects/sfia-studio/app/features/project-assistant/w2/activeProposalDecisionSubject.ts
+projects/sfia-studio/app/features/project-assistant/w2/pendingDecisionSubjectMarker.ts
+projects/sfia-studio/app/features/project-assistant/w2/resolveProposalDecisionSubject.ts
+projects/sfia-studio/app/features/project-assistant/w2/types.ts
+```
+
+## Remote source branch
+
+| Item | Value |
+|---|---|
+| branch | `fix/sfia-studio-corr-proof-11-reinstruction-pilot-language` |
+| remote SHA | `9675bc4cc8091b126eb4da857071fb4afc78edb8` |
+| equals local | YES |
+| force push | NOT PERFORMED |
+
+## Pull Request
+
+| Item | Value |
+|---|---|
+| PR number | **#487** |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/487 |
+| state | **OPEN** |
+| base | `main` @ `1215c4823ba29421f46553f9b2fd2bde5b63c0f6` |
+| head | `fix/sfia-studio-corr-proof-11-reinstruction-pilot-language` @ `9675bc4cc8091b126eb4da857071fb4afc78edb8` |
+| mergeable | MERGEABLE |
+| mergedAt | null |
+| PR file list | exact match to committed 15-file candidate |
+
+## CI
+
+| Item | Value |
+|---|---|
+| workflow run ID | **34975861790** |
+| run URL | https://github.com/mcleland147/sfia-workspace/actions/runs/34975861790 |
+| headSha | `9675bc4cc8091b126eb4da857071fb4afc78edb8` |
+| conclusion | **success** |
+
+### Job conclusions
+
+| Job | Conclusion | Duration | URL |
+|---|---|---|---|
+| Detect SFIA Studio changes | **pass** | 8s | https://github.com/mcleland147/sfia-workspace/actions/runs/34975861790/job/104403287151 |
+| Build and validate SFIA Studio | **pass** | 5m5s | https://github.com/mcleland147/sfia-workspace/actions/runs/34975861790/job/104403346764 |
+| SFIA Studio Required Gate | **pass** | 2s | https://github.com/mcleland147/sfia-workspace/actions/runs/34975861790/job/104405222626 |
+
+**Required Gate conclusion: PASS / GREEN**
+
+## Deterministic baseline retained
+
+```
+4052 passed / 137 skipped / 0 failed
+```
+
+typecheck / lint / build / git diff --check: PASS (pre-integration accepted evidence; no Product re-run required for integration).
+
+CORR-PROOF-11: 18 PASS · CORR-PROOF-10: 45 · CORR-PROOF-09: 15 · CORR-PROOF-07: 32.
+
+## Integration invariants
+
+- Source changes after ChatGPT GIT INTEGRATION READY review: **ZERO**
+- Merge: **NOT PERFORMED**
+- Source branch: **PRESERVED**
+- main: **UNCHANGED** @ `1215c4823ba29421f46553f9b2fd2bde5b63c0f6`
+- LIVE / REAL / dogfood: **NOT TOUCHED**
+- Proof level: remains **CORR-PROOF-11 DETERMINISTICALLY PROVEN** (Git publication does not upgrade Fake/Real)
+
+## Reserves / next gate
+
+- Multi-subject Pilote selector UX still out of scope
+- Process-local Proposal store durability unchanged
+- **Next gate: ChatGPT Critical PR Review**
+- Merge requires separate Morris GO after Critical PR Review
+
+## Verdict
+
+**CORR-PROOF-11 — PROJECT GIT INTEGRATION PUBLISHED — PR CI GREEN — READY FOR CHATGPT CRITICAL PR REVIEW — MERGE NOT AUTHORIZED**
