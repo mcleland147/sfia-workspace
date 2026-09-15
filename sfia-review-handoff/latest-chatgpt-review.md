@@ -1,105 +1,173 @@
-# SFIA STUDIO — Product Proof Dogfood Environment Preparation (LIGHT)
+# CORR-PROOF-11 — Review Pack (FULL)
 
-- timestamp: 2026-09-15T09:20:15Z
-- cycle: 7 — Intégration / DevOps / RUN / Critical
-- Morris GO consumed: refresh dogfood to post-CORR-PROOF-10 main + preserve durable state + start runtime 3020; NO Product interaction
+- timestamp: 2026-09-15T10:40:30Z
+- cycle: 8 — Delivery / EVOL / Critical
+- Morris GO consumed: local Product candidate only — reinstruction continuity + amend/refuse UX gating + pilot-facing semantics
 - repository: mcleland147/sfia-workspace
-- worktree used: `/Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d`
-- expected origin/main: `1215c4823ba29421f46553f9b2fd2bde5b63c0f6`
-- Fake/Real: ZERO OpenAI LIVE / ZERO Cursor REAL / ZERO Product mutation / ZERO dogfood business action
+- worktree: `/Users/morris/Projects/sfia-studio-corr-proof-11-reinstruction-pilot-language`
+- branch: `fix/sfia-studio-corr-proof-11-reinstruction-pilot-language`
+- base / HEAD: `1215c4823ba29421f46553f9b2fd2bde5b63c0f6` (dirty candidate; **0 commits** ahead of origin/main)
+- dogfood worktree preserved: `/Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d` @ `1215c482…` (DB/session/env/3020 NOT touched)
+- Project commit / push / PR / merge: **NOT PERFORMED**
 
-## Git Truth
+## Sources read
 
-### Before refresh
+Process: cycle template, routing guide, operating model, guardrails, synthetic map.
+Convergence: build doctrine, roadmap, product-completion cadrage.
+v3 framing: 32 / 33 / 34 (read-only).
+Code: ProposalStore, orchestrateF2, pending/active/resolve/propose/decide/prepare/actions/types, presentationLabels, ProjectWorkspacePage, useProductConversation, TrajectorySurface, CORR-10 tests.
 
-- detached HEAD observed at initial check: `93ac1aea1af6b2094c158c5068bec1602d863ca7`
-- immediate pre-switch HEAD captured in backup manifest: `18b767526e93202dc8df232fa1b6ca7837dd399d` (PR #486 head; parent of merge)
-- origin/main: `1215c4823ba29421f46553f9b2fd2bde5b63c0f6` (MATCH expected)
-- tracked dirty: `.tmp-sfia-review/chatgpt-review.md` only (NOT Product source)
-- staged: empty
-- no Product tracked delta → refresh allowed
+## Root causes
 
-### Refresh
+### Gap A — Reinstruction continuity — CONFIRMED
 
-- method: `git switch --detach 1215c4823ba29421f46553f9b2fd2bde5b63c0f6`
-- NOT used: reset --hard / clean / rebase / merge / branch create / commit / push
+- `readActiveProposalDecisionSubject` order: bound awaiting → effective pending → none.
+- Pending-only returns `pending_reinstruction_required` with a message that incorrectly always claimed process-local loss.
+- `orchestrateF2` wrote a **new** pending marker on each DECISION_REQUIRED Proposal with **no supersession** of prior effective pendings → ghost A after reinstruction/restart.
+- Resolve reasons were only `option_set_bound|decided|amended|refused` — no `superseded_by_reinstruction`.
+- Multi-pending possible; no explicit reinstruction transport.
 
-### After refresh
+### Gap B — Amend/Refuse ≠ PREPARE — CONFIRMED
 
-- HEAD: `1215c4823ba29421f46553f9b2fd2bde5b63c0f6`
-- git status: `M .tmp-sfia-review/chatgpt-review.md` only
-- tracked Product sources: clean
+- Backend already fail-closed: `prepareExecutionContractFromW2Decision` → `PREPARE_NOT_APPLICABLE` when proposal subject selectedOption ≠ pursue.
+- UI bug: TrajectorySurface rendered operation selector + « Préparer le contrat d'exécution » for **any** `decision`.
 
-## Durable dogfood state (no secrets)
+### Gap C — Pilot language — CONFIRMED
 
-Identified:
+- TrajectorySurface exposed Proposal IDs, ProjectTrajectory jargon, raw option refs as primary copy.
+- Nora active-cycle envelope in `orchestrateF2` is **deterministic** (`[LIVE]`, docs_write, ZERO Attempt, DECISION REQUIRED…) — not provider prose.
+- `presentationLabels.formatNoraAssistantDisplayText` existed but did not scrub those envelope phrases; TrajectorySurface barely used helpers.
 
-| Artifact | Path / nature | Size | SHA-256 | Preserved |
-|---|---|---|---|---|
-| Product DB | symlink → `…/sfia-workspace/projects/sfia-studio/.sfia-exec/product/oa-product.sqlite` | 2998272 | `c3347c12…b4eb9c` | YES (hash match pre/post) |
-| Nora session DB | dogfood-local `…/.sfia-exec/product/nora-session.sqlite` | 73728 | `4ceb9594…550690` | YES |
-| D1 state | `…/.sfia-exec/local-i1/state/d1.sqlite` | 61440 | `90d95a11…786866` | YES |
-| Env | symlink `.env.local` → resolved auth dogfood env file | 583 | `d625df1e…0e924ed` | YES |
+## Design retained — explicit reinstruction
 
-Env variable **names** only (values NEVER printed):
-`BETTER_AUTH_SECRET BETTER_AUTH_URL GITHUB_CLIENT_ID GITHUB_CLIENT_SECRET SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS OPENAI_API_KEY OPENAI_MODEL SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY`
+1. Client may send opaque `reinstructionOfProposalId` (non-authoritative).
+2. Server gate `assertExplicitReinstructionGate`:
+   - no effective pending → write new pending as before;
+   - effective pending **without** reinstruction → `EXPLICIT_REINSTRUCTION_REQUIRED` (no competing decidable Proposal);
+   - reinstruction id must match an **effective** pending; fail closed otherwise;
+   - bound awaiting OptionSet blocks supersession.
+3. On valid reinstruction after `saveProposal(B)`:
+   - `replacePendingDecisionSubjectForExplicitReinstruction` atomically resolves A + writes B in **one** `updateEpistemicState` items batch (transactional when UoW present);
+   - on failure → `markProposalStale(B)`; A remains authoritative.
+4. Ordinary Nora turn without reinstruction never resolves pendings (R10).
+5. Legacy CORR-10 markers compatible (same Epistemic Observation shape; no migration).
+6. Reinstruction A never clears unrelated pending B; no project-global clear.
 
-Local safety backup (private, mode 700/600, outside Git):
-`/Users/morris/.cache/sfia-dogfood-backups/post-corr-proof-10-prep-20260915T0910Z/`
-(contains binary copies + MANIFEST; no handoff of secret values)
+### Recoverability honesty
 
-Also present (not mutated by this cycle): `oa-product.sqlite.empty-local-backup-20260914T141839Z`
+Pending read now exposes `recoverableProposalIds` (process-local DECISION_REQUIRED still present).
+Pilot message does **not** claim loss when recoverable; CTA can instruct options on that id.
+When not recoverable: reformulation CTA arms `reinstructionOfProposalId` + focuses Nora.
 
-## Port / process
+## Gap B UX
 
-- Before refresh: no listener on 3020
-- First start via tool-scoped `nohup` briefly healthy then reaped when parent shell ended (macOS; `setsid` unavailable)
-- Stable restart: Cursor background shell kept alive with `npm run dev`
-- After: node next-server listening on `*:3020`
-- Wrapper / shell PID: `54290`
-- Listener PID: `54314` (`next-server (v15.5.20)`)
-- cwd: dogfood app path
-- Log / terminal capture: `/tmp/sfia-studio-product-proof-3020.log`
-- PID file: `/tmp/sfia-studio-product-proof-3020.pid`
+- amend → `w2-amend-next-action` (no op selector / no PREPARE)
+- refuse → `w2-refuse-next-action`
+- pursue / trajectory decisions keep PREPARE path
+- direct PREPARE amend/refuse still `PREPARE_NOT_APPLICABLE` (backend)
 
-## Dependencies
+## Gap C language
 
-- `node_modules` PRESENT and coherent (`npm ls --depth=0` OK)
-- no `npm ci` / no package update
-- `package.json` / `package-lock.json` remain clean
+- `pilotPendingReinstructionMessage`, `pilotProposalOptionLabel`, `pilotPrepareNotApplicableMessage`
+- scrub in `formatNoraAssistantDisplayText` for ZERO Attempt / Cursor REAL / DECISION_REQUIRED / docs_write / pending_reinstruction_required
+- orchestrateF2 active-cycle textParts rewritten to pilot French (mode test/réel, décision requise, rien exécuté)
+- TrajectorySurface: « Proposition à examiner », « Votre décision », technical IDs in `<details data-testid="w2-technical-details">`
 
-## Start + smoke (read-only)
+## Atomicity / crash consistency
 
-- command: `npm run dev` (Next `--port 3020`) from dogfood app
-- Ready: Next.js 15.5.20 on http://localhost:3020
-- HTTP `/` no-follow: **307** → `/login?error=NO_SESSION&from=%2F` (expected auth gate)
-- HTTP `/` follow: **200** on login
-- No fatal server errors
-- Server left **running** in background shell
+| Scenario | Outcome |
+|---|---|
+| Atomic replace succeeds | A resolved (`superseded_by_reinstruction`), B sole active pending |
+| Replace fails after saveProposal(B) | B STALE; A still effective |
+| Bound awaiting present | replace refused |
+| Wrong / empty reinstruction id | fail closed; A unchanged |
 
-## Non-mutation Product
+## Multi-subject safety
 
-Pre/post smoke SHA-256 of Product DB / session / D1: **identical**
-(`c3347c12…` / `4ceb9594…` / `90d95a11…`)
+- Closure/reinstruction of A does not neutralize unrelated B
+- Trajectory DecisionRef without `prop:` does not close Proposal pendings (CORR-10 invariant kept)
+- Ambiguous / non-matching reinstruction → fail closed
+- No silent supersession of bound awaiting subject
 
-No Nora message, no Options CTA, no HD, no EC, no Execute, no REAL.
+## Files created / modified (candidate)
 
-Runtime-only expected: `.next/**` / log file may change (not Product business state).
+**New**
+- `projects/sfia-studio/app/__tests__/project-assistant/corrProof11.reinstructionPilotLanguage.d0.test.ts` (15 tests; R01–R22 coverage, some combined)
 
-## Actions NOT performed
+**Modified**
+- `w2/pendingDecisionSubjectMarker.ts` — supersede reason + atomic replace
+- `w2/activeProposalDecisionSubject.ts` — recoverable ids + reinstruction gate helpers
+- `w2/resolveProposalDecisionSubject.ts` — pilot messages
+- `w2/actions.ts`, `w2/types.ts` — recoverableProposalIds transport
+- `f2/orchestrateF2.ts` — reinstruction gate + replace + pilot envelope
+- `actions.ts` — `reinstructionOfProposalId` passthrough
+- `presentationLabels.ts` — pilot helpers + scrub
+- `TrajectorySurface.tsx` — pending CTA, amend/refuse gating, pilot copy
+- `ProjectWorkspacePage.tsx` / `useProductConversation.ts` — arm/consume reinstruction
+- `trajectorySurface.ui.test.tsx` — amend/refuse UI + mocks
+- `corrProof07…T15` — second send must pass explicit reinstruction (behavioral consequence of Gap A gate)
 
-- Product Proof campaign continuation
-- business clicks / Nora chat / HD / PREPARE / Execute / materialization
-- REAL / LIVE provider calls
-- dogfood DB reset / recreate worktree
-- force push / hard reset / clean
-- Product commit / push
-- secret printing / upload
+## Diffstat (Product/app only)
 
-## URL for Morris
+13 tracked files changed, **+876 / −82**, plus untracked:
+`corrProof11.reinstructionPilotLanguage.d0.test.ts`
 
-**http://localhost:3020**
+(`.tmp-sfia-review/chatgpt-review.md` is local review-only — excluded from any future project commit.)
+
+## Validation
+
+| Suite | Result |
+|---|---|
+| CORR-PROOF-11 | **15 PASS** |
+| CORR-PROOF-10 | **45 PASS** |
+| CORR-PROOF-07 | **32 PASS** |
+| CORR-PROOF-09 | **15 PASS** |
+| W2 Track A | **22 PASS** |
+| TrajectorySurface UI | **7 PASS** |
+| importBoundaries | **5 PASS** |
+| Targeted total | **158 PASS** |
+| Full Vitest | **4045 passed / 137 skipped / 0 failed** (380 files: 363 passed / 17 skipped) |
+| typecheck | PASS |
+| lint | PASS |
+| build | PASS |
+| git diff --check | PASS |
+
+## Fake / Real
+
+- DETERMINISTIC ONLY
+- ZERO OpenAI LIVE
+- ZERO Cursor REAL
+- ZERO dogfood mutation / ZERO interaction with « Gestion de tâches »
+- runtime v3 NON ADOPTED
+- NOT REAL BOUNDARY / NOT E2E REAL / NOT L5
+
+## Dogfood untouched
+
+- Product DB / nora-session / d1 / .env.local not modified by this cycle
+- Server 3020 left as found (still listening from prior env prep)
+- No dogfood reproof
+
+## Debt / reserves / exit
+
+- Physical housekeeping of superseded markers still non-blocking (resolved status is authoritative)
+- Broader Product redesign / Figma fidelity out of scope
+- Provider-generated Nora prose not post-processed beyond existing display scrub
+- Exit: ChatGPT Critical Review for **Git Integration Readiness** (still no project commit in this cycle)
+
+## Structural decisions
+
+None requiring Decision Pack — reuse Epistemic Observation + ProposalStore + presentationLabels + existing UoW.
+
+## Forbidden actions NOT performed
+
+- project commit / push / PR / merge
+- dogfood mutation
+- REAL / LIVE
+- migrations / new tables / aggregates
+- doctrine / roadmap / C1 / v3 framing edits
+- redesign / design-system overhaul
+- force push / branch delete
 
 ## Verdict
 
-SFIA STUDIO DOGFOOD — POST-CORR-PROOF-10 ENVIRONMENT READY — RUNTIME 3020 HEALTHY — DURABLE STATE PRESERVED — READY FOR MORRIS MANUAL TEST
+CORR-PROOF-11 — REINSTRUCTION CONTINUITY + AMEND/REFUSE UX GATING + PILOT-FACING SEMANTICS DETERMINISTICALLY PROVEN — READY FOR CHATGPT GIT INTEGRATION READINESS
