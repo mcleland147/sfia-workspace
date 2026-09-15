@@ -243,6 +243,10 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
                       ? controller.activeProposal.proposalId
                       : null
                   }
+                  onRequestReformulateWithNora={(proposalId) => {
+                    controller.armReinstructionOfProposalId(proposalId);
+                    focusConversation();
+                  }}
                 />
               </div>
             </section>

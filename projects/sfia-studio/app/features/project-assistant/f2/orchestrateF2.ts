@@ -25,6 +25,7 @@ import {
 import { loadProjectRuntimeForAssistant } from "@/features/vertical-slice-ui/ProjectWorkspaceView";
 import type {
   AssistantHistoryMessage,
+  AssistantUiMode,
   ProjectAssistantContextDto,
   ProjectAssistantSendResult,
 } from "../types";
@@ -78,6 +79,7 @@ import { getCycleTypeById, type CycleInstance } from "@/lib/oa/cycle";
 import {
   F2_PROCESS_LOCAL_NOTICE,
   createProposalId,
+  markProposalStale,
   saveProposal,
 } from "./proposalStore";
 import type {
@@ -87,7 +89,13 @@ import type {
   QualificationDto,
 } from "./types";
 import type { ExecutionIntentPayload } from "./executionIntentSchema";
-import { writePendingDecisionSubjectMarker } from "../w2/pendingDecisionSubjectMarker";
+import {
+  assertExplicitReinstructionGate,
+} from "../w2/activeProposalDecisionSubject";
+import {
+  replacePendingDecisionSubjectForExplicitReinstruction,
+  writePendingDecisionSubjectMarker,
+} from "../w2/pendingDecisionSubjectMarker";
 import {
   computeProposalSubjectDigest,
   sealProposalExecutionBasis,
@@ -95,6 +103,121 @@ import {
 
 const EPHEMERAL_NOTICE =
   "Conversation et Proposal F2 restent process-local ; Project/LPS/Cycle linkage M2 est persisté dans Product SQLite. AUCUNE EXÉCUTION.";
+
+function normalizeOpaqueProposalId(raw: unknown): string | null {
+  if (typeof raw !== "string") return null;
+  const trimmed = raw.trim();
+  return trimmed.length > 0 ? trimmed : null;
+}
+
+/**
+ * CORR-PROOF-11 — gate + write/replace pending decision subject for a new
+ * DECISION_REQUIRED Proposal. Ordinary turns without reinstruction never
+ * resolve existing pendings (R10).
+ */
+async function commitPendingDecisionSubjectForDecisionRequired(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+  readonly proposal: ProposalDto;
+  readonly reinstructionOfProposalId: string | null;
+  readonly mode: AssistantUiMode;
+}): Promise<
+  | { readonly ok: true }
+  | {
+      readonly ok: false;
+      readonly status: "validation_error";
+      readonly code: string;
+      readonly message: string;
+      readonly mode: AssistantUiMode;
+      readonly retryable: boolean;
+    }
+> {
+  const sealed = sealProposalExecutionBasis(input.proposal);
+  const subjectDigest = computeProposalSubjectDigest(
+    sealed,
+    input.proposal.proposalId,
+  );
+  const markerInput = {
+    oa: input.oa,
+    projectId: input.projectId,
+    proposalId: input.proposal.proposalId,
+    subjectDigest,
+    lpsId: input.proposal.contextSnapshot.lpsId,
+    lpsVersion: input.proposal.contextSnapshot.lpsVersion,
+    doctrineDigest: input.proposal.contextSnapshot.doctrineDigest,
+    correlationId: `cor:pending-subject:${input.proposal.proposalId}`,
+  };
+
+  if (input.reinstructionOfProposalId) {
+    const replaced = await replacePendingDecisionSubjectForExplicitReinstruction(
+      {
+        ...markerInput,
+        oldProposalId: input.reinstructionOfProposalId,
+        newProposalId: input.proposal.proposalId,
+        correlationId: `cor:pending-subject-reinstruction:${input.reinstructionOfProposalId}:${input.proposal.proposalId}`,
+      },
+    );
+    if (!replaced.ok) {
+      markProposalStale(input.proposal.proposalId);
+      return {
+        ok: false,
+        status: "validation_error",
+        code: replaced.code,
+        message: replaced.message,
+        mode: input.mode,
+        retryable: true,
+      };
+    }
+    return { ok: true };
+  }
+
+  const marker = await writePendingDecisionSubjectMarker(markerInput);
+  if (!marker.ok) {
+    return {
+      ok: false,
+      status: "validation_error",
+      code: marker.code,
+      message: marker.message,
+      mode: input.mode,
+      retryable: true,
+    };
+  }
+  return { ok: true };
+}
+
+async function resolveExplicitReinstructionGate(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+  readonly reinstructionOfProposalId: string | null;
+  readonly mode: AssistantUiMode;
+}): Promise<
+  | { readonly ok: true; readonly reinstructionOfProposalId: string | null }
+  | {
+      readonly ok: false;
+      readonly status: "validation_error";
+      readonly code: string;
+      readonly message: string;
+      readonly mode: AssistantUiMode;
+      readonly retryable: boolean;
+    }
+> {
+  const gated = await assertExplicitReinstructionGate({
+    oa: input.oa,
+    projectId: input.projectId,
+    reinstructionOfProposalId: input.reinstructionOfProposalId,
+  });
+  if (!gated.ok) {
+    return {
+      ok: false,
+      status: "validation_error",
+      code: gated.code,
+      message: gated.message,
+      mode: input.mode,
+      retryable: true,
+    };
+  }
+  return gated;
+}
 
 async function deriveProductPathMw3Assessment(
   analysis: IntentAnalysisDto,
@@ -650,6 +773,11 @@ export async function orchestrateAssistantSend(input: {
    */
   turnRetryKey?: string;
   /**
+   * CORR-PROOF-11 — opaque prior pending proposalId for explicit reinstruction.
+   * Server-validated against effective pending markers; never trusted alone.
+   */
+  reinstructionOfProposalId?: string | null;
+  /**
    * INTERNAL / EVAL-ONLY — Stage A constitutive model×effort pin.
    * Propagated to analyzeIntent + F1 cognitive path. Never a client DTO field.
    */
@@ -665,6 +793,9 @@ export async function orchestrateAssistantSend(input: {
   campaignBudget?: NoraCampaignBudget;
 }): Promise<ProjectAssistantSendResult> {
   const content = input.content.trim();
+  const reinstructionOfProposalId = normalizeOpaqueProposalId(
+    input.reinstructionOfProposalId,
+  );
   if (!content) {
     return {
       ok: false,
@@ -998,15 +1129,14 @@ export async function orchestrateAssistantSend(input: {
         userText: content,
         sessionDbPath: input.sessionDbPath,
         text: [
-          presentation === "test_provider" ? "[TEST/FAKE · NON LIVE]" : "[LIVE]",
-          "Continuation cycle actif — matérialisation du livrable requis.",
-          `Cycle actif conservé: ${activeCycle.cycleInstanceId} (${activeCycle.status}).`,
-          "Aucun nouveau CycleInstance créé.",
+          presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
+          "Le cycle en cours est conservé.",
+          "Le chemin cible du livrable n'est pas encore déterminé.",
           continuation.repositoryBinding
-            ? "Le chemin cible du livrable n'est pas encore déterminé dans les bornes du repository lié — précisez targetPath."
-            : "Repository binding Product absent ou incomplet — aucune cible inventée. Configurez le binding ou précisez le chemin avant proposition d'effet.",
-          "Décision Pilote / PREPARE non ouverts tant que la cible n'est pas clarifiée.",
-          "Recommendation ≠ HumanDecision ≠ Execution — AUCUNE EXÉCUTION.",
+            ? "Précisez le chemin cible dans les bornes du dépôt lié avant de continuer."
+            : "Configurez le dépôt lié ou précisez le chemin avant de proposer un effet.",
+          "Votre décision et la préparation de l'action restent fermées tant que la cible n'est pas clarifiée.",
+          "Rien n'a encore été exécuté.",
         ].join(" "),
         mode: modeResolution.mode as "fixture" | "live",
         presentation,
@@ -1048,6 +1178,23 @@ export async function orchestrateAssistantSend(input: {
 
     // Pilot explicit decision required (existing morrisGateRequired seam for recordF2Decision).
     // Presentation uses Pilot wording — never "gate Morris construction" on this path.
+    const reinstructionGate = await resolveExplicitReinstructionGate({
+      oa,
+      projectId: project.projectId,
+      reinstructionOfProposalId,
+      mode: modeResolution.mode,
+    });
+    if (!reinstructionGate.ok) {
+      return {
+        ok: false,
+        status: "validation_error",
+        code: reinstructionGate.code ?? "EXPLICIT_REINSTRUCTION_REQUIRED",
+        message: reinstructionGate.message,
+        mode: modeResolution.mode,
+        retryable: reinstructionGate.retryable ?? true,
+      };
+    }
+
     const proposal = saveProposal(
       buildProposal({
         intent: analysis,
@@ -1061,49 +1208,31 @@ export async function orchestrateAssistantSend(input: {
       }),
     );
 
-    // CORR-PROOF-10 — durable pending subject marker before OptionSet binding.
-    // Fail closed when OA is available and marker write fails.
+    // CORR-PROOF-10/11 — durable pending subject marker (write or explicit supersession).
     {
-      const sealed = sealProposalExecutionBasis(proposal);
-      const subjectDigest = computeProposalSubjectDigest(
-        sealed,
-        proposal.proposalId,
-      );
-      const marker = await writePendingDecisionSubjectMarker({
+      const marker = await commitPendingDecisionSubjectForDecisionRequired({
         oa,
         projectId: project.projectId,
-        proposalId: proposal.proposalId,
-        subjectDigest,
-        lpsId: proposal.contextSnapshot.lpsId,
-        lpsVersion: proposal.contextSnapshot.lpsVersion,
-        doctrineDigest: proposal.contextSnapshot.doctrineDigest,
-        correlationId: `cor:pending-subject:${proposal.proposalId}`,
+        proposal,
+        reinstructionOfProposalId: reinstructionGate.reinstructionOfProposalId,
+        mode: modeResolution.mode,
       });
       if (!marker.ok) {
-        return {
-          ok: false,
-          status: "validation_error",
-          code: marker.code,
-          message: marker.message,
-          mode: modeResolution.mode,
-          retryable: true,
-        };
+        return marker;
       }
     }
 
     const textParts = [
-      presentation === "test_provider" ? "[TEST/FAKE · NON LIVE]" : "[LIVE]",
-      "Continuation gouvernée — matérialisation du livrable requis sur le cycle actif.",
-      `Cycle actif: ${activeCycle.cycleInstanceId} (${activeCycle.status}) — aucun nouveau CycleInstance.`,
-      `Profil cycle: ${qualification.recommendedProfile}.`,
-      "Proposition d'effet de matérialisation liée au cycle actif (docs_write) — NON exécutée.",
-      "RECOMMANDATION ≠ HumanDecision ≠ Execution.",
-      "DÉCISION PILOTE EXPLICITE REQUISE avant PREPARE / ExecutionContract.",
-      "AUCUNE EXÉCUTION — ZERO Attempt — ZERO Cursor REAL.",
+      presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
+      "Le cycle en cours est conservé.",
+      "Une proposition pour matérialiser le livrable est prête à être examinée.",
+      "Nora recommande ; le Pilote décide.",
+      "Rien n'a encore été exécuté.",
+      "Votre décision est requise avant de préparer l'action.",
       mw5.surface.disposition === "ESCALATE"
         ? mw5.text
         : mw5.surface.disclosure,
-      "Nora n'émet pas de HumanDecision, GO, Confirmation ou acte Pilote.",
+      "Nora n'émet pas de décision Pilote, GO, confirmation ou acte d'autorité.",
     ];
 
     return f2ConversationalSuccess({
@@ -1334,6 +1463,28 @@ export async function orchestrateAssistantSend(input: {
     }) || mw5.surface.disposition === "ESCALATE";
 
   const status = morrisGateRequired ? "DECISION_REQUIRED" : "READY_NO_GATE";
+
+  let newCycleReinstructionOf: string | null = null;
+  if (status === "DECISION_REQUIRED") {
+    const reinstructionGate = await resolveExplicitReinstructionGate({
+      oa,
+      projectId: project.projectId,
+      reinstructionOfProposalId,
+      mode: modeResolution.mode,
+    });
+    if (!reinstructionGate.ok) {
+      return {
+        ok: false,
+        status: "validation_error",
+        code: reinstructionGate.code ?? "EXPLICIT_REINSTRUCTION_REQUIRED",
+        message: reinstructionGate.message,
+        mode: modeResolution.mode,
+        retryable: reinstructionGate.retryable ?? true,
+      };
+    }
+    newCycleReinstructionOf = reinstructionGate.reinstructionOfProposalId;
+  }
+
   const proposal = saveProposal(
     buildProposal({
       intent: analysis,
@@ -1346,58 +1497,43 @@ export async function orchestrateAssistantSend(input: {
   );
 
   if (status === "DECISION_REQUIRED") {
-    const sealed = sealProposalExecutionBasis(proposal);
-    const subjectDigest = computeProposalSubjectDigest(
-      sealed,
-      proposal.proposalId,
-    );
-    const marker = await writePendingDecisionSubjectMarker({
+    const marker = await commitPendingDecisionSubjectForDecisionRequired({
       oa,
       projectId: project.projectId,
-      proposalId: proposal.proposalId,
-      subjectDigest,
-      lpsId: proposal.contextSnapshot.lpsId,
-      lpsVersion: proposal.contextSnapshot.lpsVersion,
-      doctrineDigest: proposal.contextSnapshot.doctrineDigest,
-      correlationId: `cor:pending-subject:${proposal.proposalId}`,
+      proposal,
+      reinstructionOfProposalId: newCycleReinstructionOf,
+      mode: modeResolution.mode,
     });
     if (!marker.ok) {
-      return {
-        ok: false,
-        status: "validation_error",
-        code: marker.code,
-        message: marker.message,
-        mode: modeResolution.mode,
-        retryable: true,
-      };
+      return marker;
     }
   }
 
   const executionBlocked = analysis.intentClass === "execution_request";
   const textParts = [
-    presentation === "test_provider" ? "[TEST/FAKE · NON LIVE]" : "[LIVE]",
+    presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
     "Qualification SFIA et proposition structurée générées.",
-    `Cycle: ${qualification.cycleTypeId} (${qualification.cycleLabel}).`,
-    `CycleInstance candidate: ${created.cycle.cycleInstanceId} (${created.cycle.status}) — NON ACTIVE — Pilot START requis.`,
+    `Cycle proposé: ${qualification.cycleLabel}.`,
+    "Un nouveau cycle est proposé et attend votre validation.",
     `Profil recommandé: ${qualification.recommendedProfile}.`,
     project.lpsVersion === preLpsVersion
-      ? `LPS v${preLpsVersion} inchangé (pas d'activation pre-START).`
-      : `LPS v${preLpsVersion} → v${project.lpsVersion}.`,
+      ? "L'état vivant du projet est inchangé (pas d'activation avant démarrage)."
+      : "L'état vivant du projet a été mis à jour.",
     qualification.recommendationLabel,
     ...(qualification.ckcCognitiveRecommendation
       ? [qualification.ckcCognitiveRecommendation]
       : []),
-    "RECOMMANDATION ≠ décision Pilote — AUCUNE activation authority-bearing avant Pilot START.",
+    "Recommandation ≠ décision Pilote — aucune activation d'autorité avant démarrage Pilote.",
     morrisGateRequired
-      ? "DÉCISION REQUISE — gate Morris construction (≠ Pilot lifecycle START)."
-      : "NO MORRIS CONSTRUCTION GATE REQUIRED — AUCUNE EXÉCUTION — F2 S'ARRÊTE ICI.",
+      ? "Décision Pilote requise avant de poursuivre."
+      : "Pas de gate de construction supplémentaire — aucune exécution — F2 s'arrête ici.",
     executionBlocked
-      ? "Demande d'exécution détectée — AUCUNE EXÉCUTION (Cursor/PR/merge indisponibles)."
-      : "AUCUNE EXÉCUTION.",
+      ? "Demande d'exécution détectée — aucune exécution ne sera lancée."
+      : "Aucune exécution.",
     mw5.surface.disposition === "ESCALATE"
       ? mw5.text
       : mw5.surface.disclosure,
-    "Nora n'émet pas de HumanDecision, GO, Confirmation, décision Morris ou acte Pilote.",
+    "Nora n'émet pas de décision Pilote, GO, confirmation ou acte d'autorité.",
   ];
 
   return f2ConversationalSuccess({

@@ -219,6 +219,7 @@ export type ActiveDecisionSubjectReadResult =
       readonly kind: "pending_reinstruction_required";
       readonly message: string;
       readonly proposalIds: readonly string[];
+      readonly recoverableProposalIds: readonly string[];
     }
   | {
       readonly ok: true;

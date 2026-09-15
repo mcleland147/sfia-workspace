@@ -138,6 +138,9 @@ export function useProductConversation({
    * Retained until terminal client-observed success.
    */
   const pendingRetryEnvelopeRef = useRef<PendingTurnRetryEnvelope | null>(null);
+  /** CORR-PROOF-11 — armed opaque proposalId for explicit reinstruction send. */
+  const [armedReinstructionOfProposalId, setArmedReinstructionOfProposalId] =
+    useState<string | null>(null);
 
   const listRef = useRef<HTMLDivElement | null>(null);
   const f3InFlightRef = useRef(false);
@@ -278,6 +281,13 @@ export function useProductConversation({
       history?: PendingTurnRetryEnvelope["history"] | null;
       /** Exact content from pending retry envelope (retry path). */
       content?: string | null;
+      /**
+       * CORR-PROOF-11 — opaque prior pending proposalId for explicit reinstruction.
+       * Cleared by caller after a successful send that consumed it.
+       */
+      reinstructionOfProposalId?: string | null;
+      /** Fired after a successful send that included reinstructionOfProposalId. */
+      onReinstructionConsumed?: () => void;
     },
   ) {
     const usingRetryEnvelope = Boolean(options?.turnRetryKey?.trim());
@@ -316,6 +326,10 @@ export function useProductConversation({
       turnRetryKey,
     });
     pendingRetryEnvelopeRef.current = envelope;
+    const reinstructionOfProposalId =
+      typeof options?.reinstructionOfProposalId === "string"
+        ? options.reinstructionOfProposalId.trim() || null
+        : armedReinstructionOfProposalId;
 
     startTransition(async () => {
       setUiState("ASSISTANT_WORKING");
@@ -328,6 +342,9 @@ export function useProductConversation({
           turnRetryKey: envelope.turnRetryKey,
           ...(presentedLogicalTurnId
             ? { logicalTurnId: presentedLogicalTurnId }
+            : {}),
+          ...(reinstructionOfProposalId
+            ? { reinstructionOfProposalId }
             : {}),
         });
       } catch {
@@ -356,6 +373,11 @@ export function useProductConversation({
         }
         setError(result.message);
         return;
+      }
+
+      if (reinstructionOfProposalId) {
+        setArmedReinstructionOfProposalId(null);
+        options?.onReinstructionConsumed?.();
       }
 
       lastSendFailedRef.current = false;
@@ -696,6 +718,11 @@ export function useProductConversation({
     canConfirmLegacyFixture,
     canRefreshResolvedM3Running,
     sendMessage,
+    armReinstructionOfProposalId: (proposalId: string) => {
+      const trimmed = proposalId.trim();
+      if (trimmed) setArmedReinstructionOfProposalId(trimmed);
+    },
+    armedReinstructionOfProposalId,
     decide,
     prepareResolvedM3,
     prepareLegacyFixture,

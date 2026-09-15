@@ -740,6 +740,57 @@ export function scrubPiloteFacingEngineJargon(text: string): string {
  * - neutralize visible markdown emphasis markers without HTML
  * Does not alter user messages; does not use dangerouslySetInnerHTML.
  */
+/**
+ * CORR-PROOF-11 — pending Proposal subject reinstruction (Pilote-facing).
+ * Never claims process-local loss unless recoverability is known false.
+ * Never exposes engine jargon (fallback / pending / ProjectTrajectory) in primary copy.
+ */
+export function pilotPendingReinstructionMessage(input: {
+  recoverable: boolean;
+}): string {
+  if (input.recoverable) {
+    return "Une proposition attend encore votre instruction. Examinez ses options pour continuer.";
+  }
+  return "Cette demande doit être reformulée avec Nora pour continuer. Rien ne sera exécuté sans une nouvelle décision de votre part.";
+}
+
+/** Multi-pending ambiguity — Studio never selects a subject for the Pilote. */
+export function pilotAmbiguousPendingMessage(): string {
+  return "Plusieurs demandes sont en attente. Studio ne peut pas déterminer laquelle remplacer sans votre choix. Aucune action ne sera exécutée.";
+}
+
+export function pilotAmbiguousPendingTitle(): string {
+  return "Plusieurs demandes sont en attente";
+}
+
+export function pilotRecoverablePendingTitle(): string {
+  return "Proposition à instruire";
+}
+
+export function pilotLostPendingTitle(): string {
+  return "Reformulez votre demande";
+}
+
+/** Pilote labels for Proposal-subject option refs (technical ref stays in details). */
+export function pilotProposalOptionLabel(
+  optionRef: string | null | undefined,
+): string {
+  switch ((optionRef ?? "").trim()) {
+    case "opt:proposal-subject:pursue":
+      return "Continuer";
+    case "opt:proposal-subject:amend":
+      return "Modifier";
+    case "opt:proposal-subject:refuse":
+      return "Ne pas poursuivre";
+    default:
+      return nonempty(optionRef) ?? "Option";
+  }
+}
+
+export function pilotPrepareNotApplicableMessage(): string {
+  return "La préparation d'exécution ne s'applique pas après une décision de modification ou de refus — poursuivez avec Nora.";
+}
+
 export function formatNoraAssistantDisplayText(text: string | null | undefined): string {
   if (!text) return "";
   let out = text;
@@ -748,6 +799,20 @@ export function formatNoraAssistantDisplayText(text: string | null | undefined):
   out = out.replace(/\\\*/g, "*");
   out = out.replace(/\[MW5[^\]]*\]/gi, "");
   out = out.replace(/\bcount=\d+\b/gi, "");
+  // Soften deterministic Nora envelope jargon (presentation only).
+  out = out.replace(
+    /\bAUCUNE EXÉCUTION\s*[—–-]\s*ZERO Attempt\s*[—–-]\s*ZERO Cursor REAL\b/gi,
+    "Rien n'a encore été exécuté.",
+  );
+  out = out.replace(/\bZERO Attempt\b/gi, "Rien n'a encore été exécuté");
+  out = out.replace(/\bZERO Cursor REAL\b/gi, "aucune exécution Cursor réelle");
+  out = out.replace(
+    /\bDÉCISION PILOTE EXPLICITE REQUISE\b/gi,
+    "Votre décision est requise",
+  );
+  out = out.replace(/\bDECISION_REQUIRED\b/g, "Votre décision est requise");
+  out = out.replace(/\bpending_reinstruction_required\b/g, "reformulation requise");
+  out = out.replace(/\bdocs_write\b/g, "écriture de document");
   // Soften markdown emphasis / headings leftovers without rendering HTML.
   out = out.replace(/\*\*([^*]+)\*\*/g, "$1");
   out = out.replace(/(^|\n)#{1,6}\s+/g, "$1");

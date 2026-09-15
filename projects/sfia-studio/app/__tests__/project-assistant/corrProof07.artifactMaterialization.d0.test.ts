@@ -331,10 +331,14 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
     return cycles.length;
   }
 
-  async function sendMaterialize(phrasing: string) {
+  async function sendMaterialize(
+    phrasing: string,
+    opts?: { reinstructionOfProposalId?: string | null },
+  ) {
     return orchestrateAssistantSend({
       projectId,
       content: `${phrasing} __F2_ARTIFACT_MATERIALIZE__`,
+      reinstructionOfProposalId: opts?.reinstructionOfProposalId,
     });
   }
 
@@ -715,9 +719,16 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
 
   it("T15 — two semantically equivalent phrasings pass (not exact one string)", async () => {
     const a = await sendMaterialize("Matérialise ce livrable.");
+    expect(a.ok).toBe(true);
+    if (!a.ok) return;
+    const priorProposalId = a.f2?.proposal?.proposalId ?? null;
+    expect(priorProposalId).toBeTruthy();
     resetF2ProposalStoreForTests();
+    // CORR-PROOF-11 — second DECISION_REQUIRED requires explicit reinstruction
+    // of the durable pending subject (store reset alone is not enough).
     const b = await sendMaterialize(
       "Peux-tu écrire le document attendu dans le dépôt ?",
+      { reinstructionOfProposalId: priorProposalId },
     );
     expect(a.ok && b.ok).toBe(true);
     if (!a.ok || !b.ok) return;

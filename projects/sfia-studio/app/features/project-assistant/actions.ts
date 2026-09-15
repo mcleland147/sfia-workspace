@@ -95,6 +95,11 @@ export async function projectAssistantSendAction(input: {
    * NOT Product turn identity / SFIA authority — Session-adjacent lookup only.
    */
   turnRetryKey?: string;
+  /**
+   * CORR-PROOF-11 — opaque prior pending proposalId for explicit reinstruction.
+   * Untrusted until server validates against effective pending markers.
+   */
+  reinstructionOfProposalId?: string | null;
 }): Promise<ProjectAssistantSendResult> {
   const executionContractId =
     typeof input.executionContractId === "string"
@@ -122,6 +127,10 @@ export async function projectAssistantSendAction(input: {
       claimedAuthorityLevel: input.claimedAuthorityLevel,
     });
   }
+  const reinstructionOfProposalId =
+    typeof input.reinstructionOfProposalId === "string"
+      ? input.reinstructionOfProposalId.trim() || null
+      : null;
   return orchestrateAssistantSend({
     projectId: input.projectId,
     content: input.content,
@@ -130,6 +139,7 @@ export async function projectAssistantSendAction(input: {
     sessionDbPath: input.sessionDbPath,
     logicalTurnId: input.logicalTurnId,
     turnRetryKey: input.turnRetryKey,
+    reinstructionOfProposalId,
   });
 }
 

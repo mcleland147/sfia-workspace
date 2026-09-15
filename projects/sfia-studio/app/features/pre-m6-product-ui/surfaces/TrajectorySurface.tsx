@@ -51,7 +51,16 @@ import {
   W4C_NEXT_ACTION_LEAD,
   W4C_POST_EVIDENCE_HEADING,
   W4C_PRODUCT_OUTCOME_LABELS,
+  pilotAmbiguousPendingTitle,
+  pilotLostPendingTitle,
+  pilotPrepareNotApplicableMessage,
+  pilotProposalOptionLabel,
+  pilotRecoverablePendingTitle,
 } from "@/features/project-assistant/presentationLabels";
+import {
+  PROPOSAL_SUBJECT_AMEND_REF,
+  PROPOSAL_SUBJECT_REFUSE_REF,
+} from "@/features/project-assistant/w2/proposalSubjectOptions";
 import { filterProductReservationsForDisplay } from "@/features/project-assistant/w2/w3cProductPresentation";
 import type { ExecutionContractStatus } from "@/lib/oa/execution-contract/domain/types";
 import styles from "./TrajectorySurface.module.css";
@@ -144,6 +153,7 @@ export function TrajectorySurface({
   durableRefreshSignal = 0,
   composition = "standalone",
   activeProposalId = null,
+  onRequestReformulateWithNora,
 }: {
   projectId: string;
   onDurableFactsChanged?: () => void;
@@ -161,9 +171,19 @@ export function TrajectorySurface({
    * Server resolves; client never sends objective/path/operation.
    */
   activeProposalId?: string | null;
+  /**
+   * CORR-PROOF-11 — arm explicit reinstruction + focus conversation.
+   * Called with the effective pending proposalId to supersede.
+   */
+  onRequestReformulateWithNora?: (proposalId: string) => void;
 }) {
   const [busy, setBusy] = useState<Busy>(null);
   const [error, setError] = useState<string | null>(null);
+  const [pendingReinstruction, setPendingReinstruction] = useState<{
+    readonly message: string;
+    readonly proposalIds: readonly string[];
+    readonly recoverableProposalIds: readonly string[];
+  } | null>(null);
   const [preCycleCandidate, setPreCycleCandidate] = useState<{
     trajectoryId: string;
     version: number;
@@ -256,9 +276,16 @@ export function TrajectorySurface({
   const proposeOptions = useCallback(async () => {
     setBusy("options");
     setError(null);
+    const recoverableSole =
+      pendingReinstruction?.proposalIds.length === 1 &&
+      pendingReinstruction.recoverableProposalIds.length === 1
+        ? pendingReinstruction.recoverableProposalIds[0]!
+        : null;
+    const proposalIdForPropose = activeProposalId ?? recoverableSole;
+    setPendingReinstruction(null);
     const result = await w2ProposeTrajectoryOptionsAction({
       projectId,
-      proposalId: activeProposalId ?? null,
+      proposalId: proposalIdForPropose,
     });
     setBusy(null);
     if (!result.ok) {
@@ -280,25 +307,38 @@ export function TrajectorySurface({
     setProductOutcome(null);
     setPostEvidence(null);
     onDurableFactsChanged?.();
-  }, [projectId, activeProposalId, onDurableFactsChanged]);
+  }, [
+    projectId,
+    activeProposalId,
+    pendingReinstruction,
+    onDurableFactsChanged,
+  ]);
 
   /** CORR-PROOF-10 — rehydrate bound Proposal OptionSet from durable Epistemic. */
   const rehydrateActiveDecisionSubject = useCallback(async () => {
     const result = await w2ReadActiveDecisionSubjectAction({ projectId });
     if (!result.ok) {
       setError(result.message);
+      setPendingReinstruction(null);
       return;
     }
     if (result.kind === "bound_awaiting_decision") {
       setOptionSet(result.optionSet);
       setError(null);
+      setPendingReinstruction(null);
       return;
     }
     if (result.kind === "pending_reinstruction_required") {
       setOptionSet(null);
-      setError(result.message);
+      setPendingReinstruction({
+        message: result.message,
+        proposalIds: result.proposalIds,
+        recoverableProposalIds: result.recoverableProposalIds,
+      });
+      setError(null);
       return;
     }
+    setPendingReinstruction(null);
     // kind === "none" — leave local optionSet as-is for trajectory path
   }, [projectId]);
 
@@ -520,7 +560,11 @@ export function TrajectorySurface({
     });
     setBusy(null);
     if (!result.ok) {
-      setError(result.message);
+      setError(
+        result.code === "PREPARE_NOT_APPLICABLE"
+          ? pilotPrepareNotApplicableMessage()
+          : result.message,
+      );
       return;
     }
     const prepared = result.contract;
@@ -883,6 +927,119 @@ export function TrajectorySurface({
         </p>
       ) : null}
 
+      {pendingReinstruction ? (
+        <section
+          className={styles.block}
+          aria-labelledby="w2-pending-reinstruction-title"
+          data-testid="w2-pending-reinstruction"
+        >
+          {pendingReinstruction.proposalIds.length > 1 ? (
+            <>
+              <h3
+                id="w2-pending-reinstruction-title"
+                className={styles.blockTitle}
+              >
+                {pilotAmbiguousPendingTitle()}
+              </h3>
+              <p
+                className={styles.blockBody}
+                data-testid="w2-pending-reinstruction-body"
+              >
+                {pendingReinstruction.message}
+              </p>
+            </>
+          ) : pendingReinstruction.proposalIds.length === 1 &&
+            pendingReinstruction.recoverableProposalIds.length === 1 ? (
+            <>
+              <h3
+                id="w2-pending-reinstruction-title"
+                className={styles.blockTitle}
+              >
+                {pilotRecoverablePendingTitle()}
+              </h3>
+              <p
+                className={styles.blockBody}
+                data-testid="w2-pending-reinstruction-body"
+              >
+                {pendingReinstruction.message}
+              </p>
+              <div className={styles.actions}>
+                <button
+                  type="button"
+                  className={styles.primaryAction}
+                  data-testid="w2-instruct-recoverable-options"
+                  onClick={() => {
+                    if (
+                      pendingReinstruction.proposalIds.length !== 1 ||
+                      pendingReinstruction.recoverableProposalIds.length !== 1
+                    ) {
+                      return;
+                    }
+                    void proposeOptions();
+                  }}
+                  disabled={busy !== null}
+                >
+                  Instruire les options
+                </button>
+              </div>
+            </>
+          ) : pendingReinstruction.proposalIds.length === 1 &&
+            pendingReinstruction.recoverableProposalIds.length === 0 ? (
+            <>
+              <h3
+                id="w2-pending-reinstruction-title"
+                className={styles.blockTitle}
+              >
+                {pilotLostPendingTitle()}
+              </h3>
+              <p
+                className={styles.blockBody}
+                data-testid="w2-pending-reinstruction-body"
+              >
+                {pendingReinstruction.message}
+              </p>
+              <div className={styles.actions}>
+                <button
+                  type="button"
+                  className={styles.primaryAction}
+                  data-testid="w2-reformulate-with-nora"
+                  onClick={() => {
+                    if (pendingReinstruction.proposalIds.length !== 1) return;
+                    const soleId = pendingReinstruction.proposalIds[0];
+                    if (soleId) onRequestReformulateWithNora?.(soleId);
+                  }}
+                  disabled={busy !== null || !onRequestReformulateWithNora}
+                >
+                  Reformuler avec Nora
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <h3
+                id="w2-pending-reinstruction-title"
+                className={styles.blockTitle}
+              >
+                {pilotLostPendingTitle()}
+              </h3>
+              <p
+                className={styles.blockBody}
+                data-testid="w2-pending-reinstruction-body"
+              >
+                {pendingReinstruction.message}
+              </p>
+            </>
+          )}
+          <details data-testid="w2-technical-details">
+            <summary>Détails techniques</summary>
+            <p className={styles.blockNote}>
+              Propositions en attente :{" "}
+              {pendingReinstruction.proposalIds.join(", ") || "—"}
+            </p>
+          </details>
+        </section>
+      ) : null}
+
       {preCycleCandidate && !activeCycleInstanceId ? (
         <section
           className={styles.block}
@@ -1086,16 +1243,23 @@ export function TrajectorySurface({
               Options proposées
             </h3>
             {optionSet.proposalId ? (
-              <p
-                className={styles.blockNote}
-                data-testid="w2-decision-subject"
-              >
-                Sujet de décision : Proposal{" "}
-                <code>{optionSet.proposalId}</code>
-                {optionSet.promotesProjectTrajectory === false
-                  ? " — arbitrage sur ce sujet (pas une promotion ProjectTrajectory)."
-                  : null}
-              </p>
+              <>
+                <p
+                  className={styles.blockNote}
+                  data-testid="w2-decision-subject"
+                >
+                  Proposition à examiner
+                  {optionSet.promotesProjectTrajectory === false
+                    ? " — arbitrage sur cette proposition (pas une promotion de trajectoire projet)."
+                    : null}
+                </p>
+                <details data-testid="w2-technical-details">
+                  <summary>Détails techniques</summary>
+                  <p className={styles.blockNote}>
+                    Proposal <code>{optionSet.proposalId}</code>
+                  </p>
+                </details>
+              </>
             ) : (
               <p
                 className={styles.blockNote}
@@ -1108,7 +1272,7 @@ export function TrajectorySurface({
               {optionSet.proposedTrajectory
                 ? `${optionSet.proposedTrajectory.statusLabel} · version ${optionSet.proposedTrajectory.version} · pas encore courante`
                 : optionSet.decisionSubjectMode === "proposal"
-                  ? "Sujet Proposal — aucune ProjectTrajectory proposée (ZERO promotion)."
+                  ? "Proposition — aucune trajectoire projet proposée."
                   : "Aucune trajectoire proposée."}
             </p>
             <ul className={styles.optionList}>
@@ -1187,13 +1351,19 @@ export function TrajectorySurface({
             <span className={styles.sectionKind} data-kind="decision">
               Décision humaine
             </span>
-            Décision de trajectoire — {decision.statusLabel}
+            {optionSet?.decisionSubjectMode === "proposal" ||
+            decision.proposalId
+              ? `Votre décision — ${decision.statusLabel}`
+              : `Décision de trajectoire — ${decision.statusLabel}`}
           </h3>
           <dl className={styles.facts}>
             <div>
               <dt>Option retenue</dt>
               <dd data-testid="w2-decided-option">
-                {decision.selectedOptionRef}
+                {optionSet?.decisionSubjectMode === "proposal" ||
+                decision.proposalId
+                  ? pilotProposalOptionLabel(decision.selectedOptionRef)
+                  : decision.selectedOptionRef}
               </dd>
             </div>
             <div>
@@ -1215,6 +1385,40 @@ export function TrajectorySurface({
               </dd>
             </div>
           </dl>
+          <details data-testid="w2-technical-details">
+            <summary>Détails techniques</summary>
+            <p className={styles.blockNote}>
+              Réf. option : <code>{decision.selectedOptionRef}</code>
+              {decision.proposalId ? (
+                <>
+                  {" "}
+                  · Proposal <code>{decision.proposalId}</code>
+                </>
+              ) : null}
+            </p>
+          </details>
+          {decision.selectedOptionRef === PROPOSAL_SUBJECT_AMEND_REF ? (
+            <p
+              className={styles.blockBody}
+              data-testid="w2-amend-next-action"
+            >
+              Modifiez la proposition avec Nora, puis reformulez explicitement
+              si une nouvelle instruction est requise. Aucune préparation
+              d&apos;exécution ici.
+            </p>
+          ) : null}
+          {decision.selectedOptionRef === PROPOSAL_SUBJECT_REFUSE_REF ? (
+            <p
+              className={styles.blockBody}
+              data-testid="w2-refuse-next-action"
+            >
+              Vous avez choisi de ne pas poursuivre cette proposition.
+              Reformulez avec Nora si vous souhaitez un nouveau sujet. Aucune
+              préparation d&apos;exécution ici.
+            </p>
+          ) : null}
+          {decision.selectedOptionRef !== PROPOSAL_SUBJECT_AMEND_REF &&
+          decision.selectedOptionRef !== PROPOSAL_SUBJECT_REFUSE_REF ? (
           <div
             className={styles.actions}
             data-testid="w3a-qualify-execution-work"
@@ -1274,6 +1478,7 @@ export function TrajectorySurface({
                 : "Préparer le contrat d'exécution"}
             </button>
           </div>
+          ) : null}
         </section>
       ) : null}
 

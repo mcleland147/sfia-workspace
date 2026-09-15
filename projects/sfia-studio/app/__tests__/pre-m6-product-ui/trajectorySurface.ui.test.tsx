@@ -118,6 +118,142 @@ beforeEach(() => {
 });
 
 describe("W2 TrajectorySurface", () => {
+  it("CORR-PROOF-11 — amend decision hides prepare; shows next-action", async () => {
+    proposeMock.mockResolvedValue({
+      ok: true,
+      optionSetRef: "optset:w2-proposal",
+      cycleTypeId: "cyc:delivery",
+      recommendedProfile: "Critical",
+      decisionSubjectMode: "proposal",
+      proposalId: "prop:f2:ui-amend",
+      promotesProjectTrajectory: false,
+      options: [
+        {
+          kind: "OPTION",
+          optionRef: "opt:proposal-subject:amend",
+          label: "Amender le sujet avant d'engager",
+          intent: "Modifier",
+          impacts: [],
+          reservations: [],
+          steps: [],
+        },
+        {
+          kind: "OPTION",
+          optionRef: "opt:proposal-subject:pursue",
+          label: "Poursuivre le sujet proposé",
+          intent: "Continuer",
+          impacts: [],
+          reservations: [],
+          steps: [],
+        },
+      ],
+      recommendation: {
+        label: "RECOMMANDATION — PAS UNE DÉCISION",
+        recommendedOptionRef: "opt:proposal-subject:pursue",
+        rationale: "Continuer.",
+        isHumanDecision: false,
+        ckcAttribution: false,
+      },
+      epistemicRefs: [],
+      proposedTrajectory: null,
+      phase: "OPTIONS_PROPOSED",
+      autoDecisionPerformed: false,
+      executionPerformed: false,
+      ckcCognitionCompletedBeforeMutation: true,
+    });
+    decideMock.mockResolvedValue({
+      ok: true,
+      decision: {
+        decisionId: "dec:amend",
+        selectedOptionRef: "opt:proposal-subject:amend",
+        actorRole: "Pilote",
+        authorityClass: "morris",
+        statusLabel: "DÉCISION HUMAINE PRISE",
+        capturedAt: "2026-08-23T04:30:00.000Z",
+        decisionBasisLinked: true,
+        reservesText: null,
+        proposalId: "prop:f2:ui-amend",
+      },
+      trajectory: null,
+      livingProjectStateVersion: 3,
+      executionPerformed: false,
+      promotesProjectTrajectory: false,
+      decisionSubjectMode: "proposal",
+    });
+
+    render(<TrajectorySurface projectId="prj:w2-ui" />);
+    fireEvent.click(await screen.findByTestId("w2-propose-options"));
+    await screen.findByTestId("w2-options");
+    fireEvent.click(screen.getByTestId("w2-decide-opt:proposal-subject:amend"));
+    expect(await screen.findByTestId("w2-decision")).toBeVisible();
+    expect(screen.getByTestId("w2-amend-next-action")).toBeVisible();
+    expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
+    expect(screen.queryByTestId("w3a-operation-kind")).toBeNull();
+    expect(screen.getByTestId("w2-decided-option")).toHaveTextContent("Modifier");
+  });
+
+  it("CORR-PROOF-11 — pursue on proposal subject still shows prepare", async () => {
+    proposeMock.mockResolvedValue({
+      ok: true,
+      optionSetRef: "optset:w2-proposal-pursue",
+      cycleTypeId: "cyc:delivery",
+      recommendedProfile: "Critical",
+      decisionSubjectMode: "proposal",
+      proposalId: "prop:f2:ui-pursue",
+      promotesProjectTrajectory: false,
+      options: [
+        {
+          kind: "OPTION",
+          optionRef: "opt:proposal-subject:pursue",
+          label: "Poursuivre le sujet proposé",
+          intent: "Continuer",
+          impacts: [],
+          reservations: [],
+          steps: [],
+        },
+      ],
+      recommendation: {
+        label: "RECOMMANDATION — PAS UNE DÉCISION",
+        recommendedOptionRef: "opt:proposal-subject:pursue",
+        rationale: "Continuer.",
+        isHumanDecision: false,
+        ckcAttribution: false,
+      },
+      epistemicRefs: [],
+      proposedTrajectory: null,
+      phase: "OPTIONS_PROPOSED",
+      autoDecisionPerformed: false,
+      executionPerformed: false,
+      ckcCognitionCompletedBeforeMutation: true,
+    });
+    decideMock.mockResolvedValue({
+      ok: true,
+      decision: {
+        decisionId: "dec:pursue",
+        selectedOptionRef: "opt:proposal-subject:pursue",
+        actorRole: "Pilote",
+        authorityClass: "morris",
+        statusLabel: "DÉCISION HUMAINE PRISE",
+        capturedAt: "2026-08-23T04:30:00.000Z",
+        decisionBasisLinked: true,
+        reservesText: null,
+        proposalId: "prop:f2:ui-pursue",
+      },
+      trajectory: null,
+      livingProjectStateVersion: 3,
+      executionPerformed: false,
+      promotesProjectTrajectory: false,
+      decisionSubjectMode: "proposal",
+    });
+
+    render(<TrajectorySurface projectId="prj:w2-ui" />);
+    fireEvent.click(await screen.findByTestId("w2-propose-options"));
+    await screen.findByTestId("w2-options");
+    fireEvent.click(screen.getByTestId("w2-decide-opt:proposal-subject:pursue"));
+    expect(await screen.findByTestId("w2-decision")).toBeVisible();
+    expect(screen.getByTestId("w2-prepare-contract")).toBeVisible();
+    expect(screen.queryByTestId("w2-amend-next-action")).toBeNull();
+  });
   it("labels Options and Recommendation distinctly and never auto-decides", async () => {
     proposeMock.mockResolvedValue({
       ok: true,
@@ -712,5 +848,106 @@ describe("D-GF-START-01 TrajectorySurface prepare/start CTAs", () => {
       expect(screen.queryByTestId("pre-cycle-start-cycle")).toBeNull();
     });
     expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
+  });
+});
+
+describe("CORR-PROOF-11 final — pending reinstruction UI states", () => {
+  it("U01 — multiple pending: ambiguous title, no CTAs, no first-id arbitration", async () => {
+    const reformulate = vi.fn();
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "pending_reinstruction_required",
+      message:
+        "Plusieurs demandes sont en attente. Studio ne peut pas déterminer laquelle remplacer sans votre choix. Aucune action ne sera exécutée.",
+      proposalIds: ["prop:a", "prop:b"],
+      recoverableProposalIds: [],
+    });
+
+    render(
+      <TrajectorySurface
+        projectId="prj:ambig"
+        onRequestReformulateWithNora={reformulate}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-pending-reinstruction")).toBeVisible();
+    expect(screen.getByTestId("w2-pending-reinstruction")).toHaveTextContent(
+      "Plusieurs demandes sont en attente",
+    );
+    expect(screen.getByTestId("w2-technical-details")).toHaveTextContent(
+      "prop:a",
+    );
+    expect(screen.getByTestId("w2-technical-details")).toHaveTextContent(
+      "prop:b",
+    );
+    expect(screen.queryByTestId("w2-reformulate-with-nora")).toBeNull();
+    expect(screen.queryByTestId("w2-instruct-recoverable-options")).toBeNull();
+    expect(reformulate).not.toHaveBeenCalled();
+  });
+
+  it("U02 — single recoverable: Proposition à instruire + instruct CTA", async () => {
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "pending_reinstruction_required",
+      message:
+        "Une proposition attend encore votre instruction. Examinez ses options pour continuer.",
+      proposalIds: ["prop:solo"],
+      recoverableProposalIds: ["prop:solo"],
+    });
+
+    render(<TrajectorySurface projectId="prj:recoverable" />);
+
+    expect(await screen.findByTestId("w2-pending-reinstruction")).toHaveTextContent(
+      "Proposition à instruire",
+    );
+    expect(screen.getByTestId("w2-instruct-recoverable-options")).toBeVisible();
+    expect(screen.queryByTestId("w2-reformulate-with-nora")).toBeNull();
+    const body = screen.getByTestId("w2-pending-reinstruction-body").textContent ?? "";
+    expect(body).not.toMatch(/fallback|process-local|ProjectTrajectory/i);
+  });
+
+  it("U03 — single non-recoverable: Reformulez + sole ID callback", async () => {
+    const reformulate = vi.fn();
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "pending_reinstruction_required",
+      message:
+        "Cette demande doit être reformulée avec Nora pour continuer. Rien ne sera exécuté sans une nouvelle décision de votre part.",
+      proposalIds: ["prop:lost-only"],
+      recoverableProposalIds: [],
+    });
+
+    render(
+      <TrajectorySurface
+        projectId="prj:lost"
+        onRequestReformulateWithNora={reformulate}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-pending-reinstruction")).toHaveTextContent(
+      "Reformulez votre demande",
+    );
+    fireEvent.click(screen.getByTestId("w2-reformulate-with-nora"));
+    expect(reformulate).toHaveBeenCalledTimes(1);
+    expect(reformulate).toHaveBeenCalledWith("prop:lost-only");
+  });
+
+  it("U04 — primary pending copy excludes engine jargon", async () => {
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "pending_reinstruction_required",
+      message:
+        "Cette demande doit être reformulée avec Nora pour continuer. Rien ne sera exécuté sans une nouvelle décision de votre part.",
+      proposalIds: ["prop:x"],
+      recoverableProposalIds: [],
+    });
+
+    render(<TrajectorySurface projectId="prj:jargon" />);
+    const body = (await screen.findByTestId("w2-pending-reinstruction-body"))
+      .textContent ?? "";
+    expect(body).not.toMatch(/fallback/i);
+    expect(body).not.toMatch(/process-local/i);
+    expect(body).not.toMatch(/ProjectTrajectory/i);
+    expect(body).not.toMatch(/\bpending\b/i);
   });
 });
