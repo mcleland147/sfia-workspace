@@ -10,11 +10,13 @@ import { LifecycleSurface } from "@/features/pre-m6-product-ui/surfaces/Lifecycl
 
 const {
   proposeMock,
+  readActiveDecisionSubjectMock,
   readPreCycleMock,
   prepareMock,
   lifecycleProjectionMock,
 } = vi.hoisted(() => ({
   proposeMock: vi.fn(),
+  readActiveDecisionSubjectMock: vi.fn(),
   readPreCycleMock: vi.fn(),
   prepareMock: vi.fn(),
   lifecycleProjectionMock: vi.fn(),
@@ -34,6 +36,8 @@ vi.mock("@/features/project-assistant/w2/actions", () => ({
   w2GovernedExecuteCancelAction: vi.fn(),
   w2MaterializeProductOutcomeAction: vi.fn(),
   w2RehydrateProductOutcomeAction: vi.fn(),
+  w2ReadActiveDecisionSubjectAction: (...args: unknown[]) =>
+    readActiveDecisionSubjectMock(...args),
   w2ReadProjectHistoryAction: vi.fn().mockResolvedValue({
     ok: false,
     code: "UNUSED",
@@ -69,9 +73,14 @@ afterEach(() => {
 
 beforeEach(() => {
   proposeMock.mockReset();
+  readActiveDecisionSubjectMock.mockReset();
   readPreCycleMock.mockReset();
   prepareMock.mockReset();
   lifecycleProjectionMock.mockReset();
+  readActiveDecisionSubjectMock.mockResolvedValue({
+    ok: true,
+    kind: "none",
+  });
 });
 
 describe("BAR-TRJ-27/28 — pre-cycle W2 CTA honesty", () => {

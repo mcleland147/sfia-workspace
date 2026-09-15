@@ -24,6 +24,7 @@ import {
   w2MaterializeProductOutcomeAction,
   w2PrepareExecutionContractAction,
   w2ProposeTrajectoryOptionsAction,
+  w2ReadActiveDecisionSubjectAction,
   w2RehydrateProductOutcomeAction,
 } from "@/features/project-assistant/w2/actions";
 import {
@@ -142,6 +143,7 @@ export function TrajectorySurface({
   recoveryProposeSignal = 0,
   durableRefreshSignal = 0,
   composition = "standalone",
+  activeProposalId = null,
 }: {
   projectId: string;
   onDurableFactsChanged?: () => void;
@@ -154,6 +156,11 @@ export function TrajectorySurface({
    * Presentation-only — does not change ProjectTrajectory domain identity.
    */
   composition?: "standalone" | "lps-embedded";
+  /**
+   * CORR-PROOF-10 — opaque Proposal subject from Conversation/Nora.
+   * Server resolves; client never sends objective/path/operation.
+   */
+  activeProposalId?: string | null;
 }) {
   const [busy, setBusy] = useState<Busy>(null);
   const [error, setError] = useState<string | null>(null);
@@ -249,7 +256,10 @@ export function TrajectorySurface({
   const proposeOptions = useCallback(async () => {
     setBusy("options");
     setError(null);
-    const result = await w2ProposeTrajectoryOptionsAction({ projectId });
+    const result = await w2ProposeTrajectoryOptionsAction({
+      projectId,
+      proposalId: activeProposalId ?? null,
+    });
     setBusy(null);
     if (!result.ok) {
       setError(result.message);
@@ -270,7 +280,27 @@ export function TrajectorySurface({
     setProductOutcome(null);
     setPostEvidence(null);
     onDurableFactsChanged?.();
-  }, [projectId, onDurableFactsChanged]);
+  }, [projectId, activeProposalId, onDurableFactsChanged]);
+
+  /** CORR-PROOF-10 — rehydrate bound Proposal OptionSet from durable Epistemic. */
+  const rehydrateActiveDecisionSubject = useCallback(async () => {
+    const result = await w2ReadActiveDecisionSubjectAction({ projectId });
+    if (!result.ok) {
+      setError(result.message);
+      return;
+    }
+    if (result.kind === "bound_awaiting_decision") {
+      setOptionSet(result.optionSet);
+      setError(null);
+      return;
+    }
+    if (result.kind === "pending_reinstruction_required") {
+      setOptionSet(null);
+      setError(result.message);
+      return;
+    }
+    // kind === "none" — leave local optionSet as-is for trajectory path
+  }, [projectId]);
 
   const refreshPreCycleCandidate = useCallback(async () => {
     const result = await projectAssistantReadPreCycleCandidateTrajectoryAction({
@@ -425,6 +455,10 @@ export function TrajectorySurface({
   }, [durableRefreshSignal, refreshPreCycleCandidate]);
 
   useEffect(() => {
+    void rehydrateActiveDecisionSubject();
+  }, [rehydrateActiveDecisionSubject, durableRefreshSignal]);
+
+  useEffect(() => {
     if (recoveryProposeSignal > 0) {
       void proposeOptions();
     }
@@ -435,20 +469,41 @@ export function TrajectorySurface({
       if (!optionSet) return;
       setBusy("decision");
       setError(null);
-      const result = await w2DecideTrajectoryAction({
-        projectId,
-        optionSetRef: optionSet.optionSetRef,
-        trajectoryId: optionSet.proposedTrajectory.trajectoryId,
-        candidateVersion: optionSet.proposedTrajectory.version,
-        selectedOptionRef,
-      });
+      const isProposalSubject =
+        optionSet.decisionSubjectMode === "proposal" ||
+        Boolean(optionSet.proposalId);
+      let result;
+      if (isProposalSubject) {
+        // Hostile trajectory fields omitted — decide loads sealed presented set.
+        result = await w2DecideTrajectoryAction({
+          projectId,
+          optionSetRef: optionSet.optionSetRef,
+          selectedOptionRef,
+        });
+      } else {
+        const proposed = optionSet.proposedTrajectory;
+        if (!proposed) {
+          setBusy(null);
+          setError(
+            "Trajectoire proposée absente — réinstruire les options Project.",
+          );
+          return;
+        }
+        result = await w2DecideTrajectoryAction({
+          projectId,
+          optionSetRef: optionSet.optionSetRef,
+          trajectoryId: proposed.trajectoryId,
+          candidateVersion: proposed.version,
+          selectedOptionRef,
+        });
+      }
       setBusy(null);
       if (!result.ok) {
         setError(result.message);
         return;
       }
       setDecision(result.decision);
-      setDecided(result.trajectory);
+      setDecided(result.trajectory ?? null);
       onDurableFactsChanged?.();
     },
     [optionSet, projectId, onDurableFactsChanged],
@@ -1030,9 +1085,31 @@ export function TrajectorySurface({
               </span>
               Options proposées
             </h3>
+            {optionSet.proposalId ? (
+              <p
+                className={styles.blockNote}
+                data-testid="w2-decision-subject"
+              >
+                Sujet de décision : Proposal{" "}
+                <code>{optionSet.proposalId}</code>
+                {optionSet.promotesProjectTrajectory === false
+                  ? " — arbitrage sur ce sujet (pas une promotion ProjectTrajectory)."
+                  : null}
+              </p>
+            ) : (
+              <p
+                className={styles.blockNote}
+                data-testid="w2-decision-subject-trajectory"
+              >
+                Sujet de décision : trajectoire Project (chemin de cycle).
+              </p>
+            )}
             <p className={styles.blockNote} data-testid="w2-proposed-trajectory">
-              {optionSet.proposedTrajectory.statusLabel} · version{" "}
-              {optionSet.proposedTrajectory.version} · pas encore courante
+              {optionSet.proposedTrajectory
+                ? `${optionSet.proposedTrajectory.statusLabel} · version ${optionSet.proposedTrajectory.version} · pas encore courante`
+                : optionSet.decisionSubjectMode === "proposal"
+                  ? "Sujet Proposal — aucune ProjectTrajectory proposée (ZERO promotion)."
+                  : "Aucune trajectoire proposée."}
             </p>
             <ul className={styles.optionList}>
               {optionSet.options.map((option) => {
@@ -1100,7 +1177,7 @@ export function TrajectorySurface({
         </>
       ) : null}
 
-      {decision && decided ? (
+      {decision ? (
         <section
           className={styles.decision}
           aria-labelledby="w2-decision-title"
@@ -1132,7 +1209,9 @@ export function TrajectorySurface({
             <div>
               <dt>Trajectoire</dt>
               <dd data-testid="w2-decided-trajectory">
-                {decided.statusLabel} · version {decided.version}
+                {decided
+                  ? `${decided.statusLabel} · version ${decided.version}`
+                  : "Aucune promotion ProjectTrajectory"}
               </dd>
             </div>
           </dl>

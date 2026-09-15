@@ -512,8 +512,8 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
       options: proposed.options,
       recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
       selectedOptionRef: GOVERNED_OPTION_REF,
-      trajectoryId: proposed.proposedTrajectory.trajectoryId,
-      candidateVersion: proposed.proposedTrajectory.version,
+      trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory!.version,
       forceLocalAuthority: true,
     });
     expect(decided.ok).toBe(true);

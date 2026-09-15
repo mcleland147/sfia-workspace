@@ -45,6 +45,17 @@ export function getProposal(proposalId: string): ProposalDto | null {
   return getSlot().byId.get(proposalId) ?? null;
 }
 
+/** Process-local listing — used to detect an active decision subject for a project. */
+export function listProposalsForProject(projectId: string): ProposalDto[] {
+  const out: ProposalDto[] = [];
+  for (const proposal of getSlot().byId.values()) {
+    if (proposal.contextSnapshot.projectId === projectId) {
+      out.push(proposal);
+    }
+  }
+  return out;
+}
+
 export function updateProposalStatus(
   proposalId: string,
   status: F2ProposalStatus,

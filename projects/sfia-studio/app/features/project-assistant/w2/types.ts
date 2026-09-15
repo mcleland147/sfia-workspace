@@ -84,6 +84,8 @@ export type TrajectoryDecisionRecordDto = {
   readonly capturedAt: string;
   readonly decisionBasisLinked: true;
   readonly reservesText: string | null;
+  /** CORR-PROOF-10 — Proposal subject when HD is proposal-scoped. */
+  readonly proposalId?: string | null;
 };
 
 export type TrajectoryOptionSetDto = {
@@ -93,12 +95,18 @@ export type TrajectoryOptionSetDto = {
   readonly options: readonly TrajectoryOptionDto[];
   readonly recommendation: TrajectoryRecommendationDto;
   readonly epistemicRefs: readonly string[];
-  readonly proposedTrajectory: ProposedTrajectoryDto;
+  /**
+   * Present only for true ProjectTrajectory arbitration.
+   * Null for Proposal decision-subject OptionSets (ZERO ProjectTrajectory).
+   */
+  readonly proposedTrajectory: ProposedTrajectoryDto | null;
   readonly phase: "OPTIONS_PROPOSED";
   readonly autoDecisionPerformed: false;
   readonly executionPerformed: false;
-  /** Phase B ordering proof: cognition completed before durable mutation. */
   readonly ckcCognitionCompletedBeforeMutation: true;
+  readonly decisionSubjectMode: "proposal" | "project_trajectory";
+  readonly proposalId?: string | null;
+  readonly promotesProjectTrajectory: boolean;
 };
 
 export type W2Failure = {
@@ -203,13 +211,32 @@ export type ProposeTrajectoryOptionsResult =
   | ({ readonly ok: true } & TrajectoryOptionSetDto)
   | W2Failure;
 
+/** CORR-PROOF-10 — durable Proposal decision-subject read for UI rehydration. */
+export type ActiveDecisionSubjectReadResult =
+  | { readonly ok: true; readonly kind: "none" }
+  | {
+      readonly ok: true;
+      readonly kind: "pending_reinstruction_required";
+      readonly message: string;
+      readonly proposalIds: readonly string[];
+    }
+  | {
+      readonly ok: true;
+      readonly kind: "bound_awaiting_decision";
+      readonly optionSet: TrajectoryOptionSetDto;
+    }
+  | W2Failure;
+
 export type DecideTrajectoryResult =
   | {
       readonly ok: true;
       readonly decision: TrajectoryDecisionRecordDto;
-      readonly trajectory: DecidedTrajectoryDto;
+      /** Null when Proposal subject decision (ZERO ProjectTrajectory mutation). */
+      readonly trajectory: DecidedTrajectoryDto | null;
       readonly livingProjectStateVersion: number;
       readonly executionPerformed: false;
+      readonly promotesProjectTrajectory: boolean;
+      readonly decisionSubjectMode: "proposal" | "project_trajectory";
     }
   | W2Failure;
 

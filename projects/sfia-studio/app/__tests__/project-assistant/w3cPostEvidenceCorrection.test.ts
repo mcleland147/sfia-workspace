@@ -97,8 +97,8 @@ async function authorizeTempArtifact(suffix: string, dbPath?: string) {
     options: proposed.options,
     recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
     selectedOptionRef: GOVERNED_OPTION_REF,
-    trajectoryId: proposed.proposedTrajectory.trajectoryId,
-    candidateVersion: proposed.proposedTrajectory.version,
+    trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+    candidateVersion: proposed.proposedTrajectory!.version,
     forceLocalAuthority: true,
   });
   expect(decided.ok).toBe(true);
@@ -141,7 +141,7 @@ async function authorizeTempArtifact(suffix: string, dbPath?: string) {
     executionContractId,
     db,
     runtime,
-    decidedTrajectoryVersion: decided.trajectory.version,
+    decidedTrajectoryVersion: decided.trajectory!.version,
   };
 }
 
@@ -216,8 +216,8 @@ async function secondSuccessOnSameProject(
     options: proposed.options,
     recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
     selectedOptionRef: GOVERNED_OPTION_REF,
-    trajectoryId: proposed.proposedTrajectory.trajectoryId,
-    candidateVersion: proposed.proposedTrajectory.version,
+    trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+    candidateVersion: proposed.proposedTrajectory!.version,
     forceLocalAuthority: true,
   });
   expect(decided.ok).toBe(true);

@@ -35,11 +35,13 @@ import {
 } from "./materializeW3bProductTerminal";
 import { inspectExecutionContract } from "./inspectExecutionContract";
 import { loadPresentedOptionSet } from "./presentedOptionSet";
+import { readActiveProposalDecisionSubject } from "./activeProposalDecisionSubject";
 import { prepareExecutionContractFromW2Decision } from "./prepareExecutionContractFromW2Decision";
 import { proposeTrajectoryOptions } from "./proposeTrajectoryOptions";
 import { readW2ProjectHistory } from "./projectHistory";
 import { resolveW2QualificationInputs } from "./qualificationInputs";
 import type {
+  ActiveDecisionSubjectReadResult,
   AmendExecutionContractResult,
   ConfirmForAuthorizationResult,
   DecideTrajectoryResult,
@@ -61,7 +63,20 @@ const OA_UNAVAILABLE = {
 
 export async function w2ProposeTrajectoryOptionsAction(input: {
   projectId: string;
+  /**
+   * CORR-PROOF-10 — opaque Proposal subject. Server resolves/validates.
+   * Hostile objective/path/operation payloads are ignored (not accepted).
+   */
+  proposalId?: string | null;
+  /** Hostile — ignored. */
+  targetPath?: unknown;
+  requestedOperation?: unknown;
+  objective?: unknown;
 }): Promise<ProposeTrajectoryOptionsResult> {
+  void input.targetPath;
+  void input.requestedOperation;
+  void input.objective;
+
   const runtime = getRuntimeApplicationService();
   if (!runtime.oa) return OA_UNAVAILABLE;
 
@@ -84,14 +99,56 @@ export async function w2ProposeTrajectoryOptionsAction(input: {
     packagePin: qualification.qualification.packagePin,
     objective: qualification.qualification.objective,
     projectTitle: qualification.qualification.projectTitle,
+    proposalId: input.proposalId ?? null,
   });
+}
+
+/**
+ * CORR-PROOF-10 — durable decision-subject continuity read.
+ * Rehydrates bound Proposal PresentedOptionSet or reports pending reinstruction.
+ * Epistemic read failure → fail closed (never "none").
+ */
+export async function w2ReadActiveDecisionSubjectAction(input: {
+  projectId: string;
+}): Promise<ActiveDecisionSubjectReadResult> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) return OA_UNAVAILABLE;
+
+  const read = await readActiveProposalDecisionSubject(
+    runtime.oa,
+    input.projectId,
+  );
+  if (!read.ok) {
+    return { ok: false, code: read.code, message: read.message };
+  }
+  if (read.kind === "none") {
+    return { ok: true, kind: "none" };
+  }
+  if (read.kind === "pending_reinstruction_required") {
+    return {
+      ok: true,
+      kind: "pending_reinstruction_required",
+      message: read.message,
+      proposalIds: read.markers.map((m) => m.proposalId),
+    };
+  }
+  return {
+    ok: true,
+    kind: "bound_awaiting_decision",
+    optionSet: read.optionSet,
+  };
 }
 
 export async function w2DecideTrajectoryAction(input: {
   projectId: string;
   optionSetRef: string;
-  trajectoryId: string;
-  candidateVersion: number;
+  /**
+   * Required for project_trajectory PresentedOptionSets.
+   * Hostile / ignored when presented set is proposal subject mode
+   * (decide loads sealed binding — never trusts client trajectory fields).
+   */
+  trajectoryId?: string | null;
+  candidateVersion?: number | null;
   selectedOptionRef: string;
   reservesText?: string | null;
   /** Hostile — ignored. */
@@ -122,8 +179,8 @@ export async function w2DecideTrajectoryAction(input: {
     options: presented.presented.options,
     recommendedOptionRef: presented.presented.recommendedOptionRef,
     selectedOptionRef: input.selectedOptionRef,
-    trajectoryId: input.trajectoryId,
-    candidateVersion: input.candidateVersion,
+    trajectoryId: input.trajectoryId ?? null,
+    candidateVersion: input.candidateVersion ?? null,
     epistemicRefs: presented.presented.epistemicRefs,
     reservesText: input.reservesText ?? null,
     canActAsMorris: input.canActAsMorris,

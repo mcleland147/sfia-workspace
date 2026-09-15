@@ -199,8 +199,8 @@ describe("Phase B P5–P9 — W2 product path ordering / integrity", () => {
     expect(proposed.recommendation.promotesTrajectory).toBe(false);
     expect(proposed.autoDecisionPerformed).toBe(false);
     expect(proposed.executionPerformed).toBe(false);
-    expect(proposed.proposedTrajectory.status).toBe("candidate");
-    expect(proposed.proposedTrajectory.isCurrent).toBe(false);
+    expect(proposed.proposedTrajectory!.status).toBe("candidate");
+    expect(proposed.proposedTrajectory!.isCurrent).toBe(false);
 
     const current = await runtime.oa!.cycleServices.getCurrentTrajectory.execute({
       projectId: seeded.projectId,
@@ -290,7 +290,7 @@ describe("Phase B P10 — requalification via existing createCycle", () => {
     const first = await proposeFor(runtime, seeded.projectId);
     expect(first.proposed.ok).toBe(true);
     if (!first.proposed.ok) return;
-    const v1 = first.proposed.proposedTrajectory.version;
+    const v1 = first.proposed.proposedTrajectory!.version;
 
     const overview = await runtime.getProject(seeded.projectId);
     expect(overview.ok).toBe(true);
@@ -338,7 +338,7 @@ describe("Phase B P10 — requalification via existing createCycle", () => {
     expect(
       second.proposed.recommendation.ckcProvenance?.semanticFingerprint,
     ).not.toBe(first.proposed.recommendation.ckcProvenance?.semanticFingerprint);
-    expect(second.proposed.proposedTrajectory.version).toBeGreaterThan(v1);
+    expect(second.proposed.proposedTrajectory!.version).toBeGreaterThan(v1);
   });
 });
 
@@ -429,11 +429,11 @@ describe("Phase B I1–I4 — binding / idempotence (PB-DLV-01)", () => {
     const second = await proposeFor(runtime, seeded.projectId);
     expect(second.proposed.ok).toBe(true);
     if (!second.proposed.ok) return;
-    expect(second.proposed.proposedTrajectory.version).toBe(
-      first.proposed.proposedTrajectory.version,
+    expect(second.proposed.proposedTrajectory!.version).toBe(
+      first.proposed.proposedTrajectory!.version,
     );
-    expect(second.proposed.proposedTrajectory.trajectoryId).toBe(
-      first.proposed.proposedTrajectory.trajectoryId,
+    expect(second.proposed.proposedTrajectory!.trajectoryId).toBe(
+      first.proposed.proposedTrajectory!.trajectoryId,
     );
   });
 
@@ -482,8 +482,8 @@ describe("Phase B I1–I4 — binding / idempotence (PB-DLV-01)", () => {
     const second = await proposeFor(runtime, seeded.projectId);
     expect(second.proposed.ok).toBe(true);
     if (!second.proposed.ok) return;
-    expect(second.proposed.proposedTrajectory.version).toBe(
-      first.proposed.proposedTrajectory.version,
+    expect(second.proposed.proposedTrajectory!.version).toBe(
+      first.proposed.proposedTrajectory!.version,
     );
     // Rationale may differ in wording but fingerprint (binding) is stable.
     expect(
@@ -527,14 +527,14 @@ describe("Phase B I1–I4 — binding / idempotence (PB-DLV-01)", () => {
       options: proposed.options,
       recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
       selectedOptionRef: selected.optionRef,
-      trajectoryId: proposed.proposedTrajectory.trajectoryId,
-      candidateVersion: proposed.proposedTrajectory.version,
+      trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory!.version,
       epistemicRefs: proposed.epistemicRefs,
       reservesText: null,
     });
     expect(decided.ok).toBe(true);
     if (!decided.ok) return;
-    expect(decided.trajectory.isCurrent).toBe(true);
+    expect(decided.trajectory!.isCurrent).toBe(true);
     expect(decided.decision.selectedOptionRef).toBe(selected.optionRef);
     expect(decided.executionPerformed).toBe(false);
   });
@@ -811,8 +811,8 @@ describe("Phase B R1 — legacy pre-Phase-B OptionSet cutover", () => {
       options: proposed.options,
       recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
       selectedOptionRef: selected.optionRef,
-      trajectoryId: proposed.proposedTrajectory.trajectoryId,
-      candidateVersion: proposed.proposedTrajectory.version,
+      trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory!.version,
       epistemicRefs: proposed.epistemicRefs,
       reservesText: null,
       forceLocalAuthority: true,
