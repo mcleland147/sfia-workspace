@@ -3,7 +3,10 @@ import type {
   DoctrinePackagePin,
   DoctrinePackageRefStatus,
 } from "@/lib/oa/doctrine";
-import type { ProjectDetailCode } from "@/lib/oa/project";
+import type {
+  ProjectDetailCode,
+  ProjectRepositoryBinding,
+} from "@/lib/oa/project";
 
 export type PerceivedCriticality = "LOW" | "STANDARD" | "HIGH";
 
@@ -47,6 +50,11 @@ export interface LocalProjectCreationView {
   readonly constraints: readonly string[];
   readonly doctrine: LocalProjectDoctrineProjection;
   readonly lps: LocalProjectLpsProjection;
+  /**
+   * Durable Project.repositoryBinding projected for runtime/UI.
+   * null = honestly unbound; never invent a sample.
+   */
+  readonly repositoryBinding: ProjectRepositoryBinding | null;
   readonly localMode: true;
   readonly iam: "NOT_SELECTED";
   readonly productPersistence: "SQLITE_OA_PRODUCT_STORE";

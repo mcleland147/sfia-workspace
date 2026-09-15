@@ -33,12 +33,18 @@ export function LifecycleSurface({
   durableRefreshSignal = 0,
   onDurableFactsChanged,
   onEscalateTrajectory,
+  suppressGenericNoraCta = false,
 }: {
   projectId: string;
   /** B1 — parent bumps after Trajectory (or other) durable mutations. */
   durableRefreshSignal?: number;
   onDurableFactsChanged?: () => void;
   onEscalateTrajectory?: () => void;
+  /**
+   * JOURNEY-INTEGRITY — when Proposal Decision Subject owns next action,
+   * suppress competing generic Nora continuation CTAs (e.g. define deliverable).
+   */
+  suppressGenericNoraCta?: boolean;
 }) {
   const [projection, setProjection] = useState<PilotLifecycleProjection | null>(
     null,
@@ -483,7 +489,7 @@ export function LifecycleSurface({
         </section>
       ) : null}
 
-      {cta.showRequireArtifactContinuation ? (
+      {cta.showRequireArtifactContinuation && !suppressGenericNoraCta ? (
         <section
           className={styles.block}
           data-testid="lifecycle-require-artifact-continuation"
@@ -503,6 +509,20 @@ export function LifecycleSurface({
           >
             Définir le livrable avec Nora
           </button>
+        </section>
+      ) : null}
+
+      {cta.showRequireArtifactContinuation && suppressGenericNoraCta ? (
+        <section
+          className={styles.block}
+          data-testid="lifecycle-require-artifact-continuation"
+        >
+          <h3 className={styles.blockTitle}>Livrable requis</h3>
+          <p className={styles.muted}>
+            Un livrable est requis avant finalisation. Une proposition active
+            porte déjà la prochaine action métier — poursuivez-la dans la
+            trajectoire plutôt que d&apos;ouvrir une intention Nora concurrente.
+          </p>
         </section>
       ) : null}
 

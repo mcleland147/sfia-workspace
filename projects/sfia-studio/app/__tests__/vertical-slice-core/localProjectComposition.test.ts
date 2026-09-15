@@ -159,6 +159,7 @@ describe("visible slice V1 Project/LPS happy path", () => {
         activeCycleInstanceId: null,
         ckcResolutionRef: null,
       },
+      repositoryBinding: null,
       localMode: true,
       iam: "NOT_SELECTED",
       productPersistence: "SQLITE_OA_PRODUCT_STORE",

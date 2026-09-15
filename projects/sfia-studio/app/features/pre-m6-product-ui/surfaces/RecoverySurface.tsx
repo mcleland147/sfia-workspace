@@ -16,9 +16,16 @@ import styles from "./RecoverySurface.module.css";
 export function RecoverySurface({
   onResumeDurable,
   onRequalify,
+  suppressGenericIntentionCta = false,
 }: {
   onResumeDurable?: () => void;
   onRequalify?: () => void;
+  /**
+   * JOURNEY-INTEGRITY — when a Proposal-specific Decision Subject owns the
+   * next business action, hide the competing generic "nouvelle intention" CTA.
+   * Resume/navigation may remain.
+   */
+  suppressGenericIntentionCta?: boolean;
 }) {
   return (
     <section
@@ -32,11 +39,9 @@ export function RecoverySurface({
           Reprenez où le projet en est réellement
         </h2>
         <p className={styles.text}>
-          Studio relit seulement ce qui a été réellement enregistré. La
-          conversation, une confirmation encore demandée ou une proposition non
-          enregistrée ne sont pas inventées au rechargement — vous pouvez
-          reprendre l&apos;état enregistré ou repartir d&apos;une intention
-          claire.
+          {suppressGenericIntentionCta
+            ? "Studio relit seulement ce qui a été réellement enregistré. Une proposition active porte déjà la prochaine action métier — reprenez l'état enregistré pour l'inspecter, sans ouvrir une intention concurrente."
+            : "Studio relit seulement ce qui a été réellement enregistré. La conversation, une confirmation encore demandée ou une proposition non enregistrée ne sont pas inventées au rechargement — vous pouvez reprendre l'état enregistré ou repartir d'une intention claire."}
         </p>
         <ul className={styles.disclosureList} data-testid="w1-recovery-disclosures">
           <li>{W1_DURABLE_DISCLOSURE}</li>
@@ -54,14 +59,16 @@ export function RecoverySurface({
         >
           Reprendre l&apos;état enregistré
         </button>
-        <button
-          type="button"
-          className={styles.secondary}
-          data-testid="recovery-requalify"
-          onClick={onRequalify}
-        >
-          {W1_REQUALIFY_CTA}
-        </button>
+        {!suppressGenericIntentionCta ? (
+          <button
+            type="button"
+            className={styles.secondary}
+            data-testid="recovery-requalify"
+            onClick={onRequalify}
+          >
+            {W1_REQUALIFY_CTA}
+          </button>
+        ) : null}
       </div>
     </section>
   );

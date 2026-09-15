@@ -29,6 +29,13 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
   const [trajectoryRefreshSignal, setTrajectoryRefreshSignal] = useState(0);
   /** B1 — bump so LifecycleSurface reloads after Trajectory (or other) durable mutations. */
   const [lifecycleRefreshSignal, setLifecycleRefreshSignal] = useState(0);
+  /**
+   * JOURNEY-INTEGRITY — Proposal subject ownership from TrajectorySurface.
+   * Fail-closed UNKNOWN until first durable subject read resolves.
+   */
+  const [proposalSubjectOwnership, setProposalSubjectOwnership] = useState<
+    "UNKNOWN" | "OWNED" | "NONE"
+  >("UNKNOWN");
   const conversationRef = useRef<HTMLDivElement | null>(null);
   const refreshInFlight = useRef(false);
 
@@ -119,6 +126,11 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
     activeCycleInstanceId: success.livingState.activeCycleInstanceId,
   });
 
+  /** Suppress competing generic Nora/intention CTAs while subject is owned or unknown. */
+  const suppressGenericIntentionCta =
+    proposalSubjectOwnership === "UNKNOWN" ||
+    proposalSubjectOwnership === "OWNED";
+
   return (
     <div className={styles.root} data-testid="project-principal">
       <header className={styles.projectHeader}>
@@ -141,6 +153,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
 
       {showRecovery ? (
         <RecoverySurface
+          suppressGenericIntentionCta={suppressGenericIntentionCta}
           onResumeDurable={() => {
             setLpsOpen(true);
             focusConversation();
@@ -203,6 +216,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
                   projectId={projectId}
                   durableRefreshSignal={lifecycleRefreshSignal}
                   onDurableFactsChanged={notifyDurableFactsChanged}
+                  suppressGenericNoraCta={suppressGenericIntentionCta}
                   onEscalateTrajectory={() => {
                     const el = document.querySelector(
                       "[data-testid='w2-trajectory-panel']",
@@ -235,6 +249,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
                   composition="lps-embedded"
                   durableRefreshSignal={trajectoryRefreshSignal}
                   onDurableFactsChanged={notifyDurableFactsChanged}
+                  onProposalSubjectOwnershipChange={setProposalSubjectOwnership}
                   activeProposalId={
                     controller.activeProposal?.status === "DECISION_REQUIRED"
                       ? controller.activeProposal.proposalId
