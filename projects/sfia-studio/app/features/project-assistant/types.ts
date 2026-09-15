@@ -212,6 +212,15 @@ export type ProjectAssistantSendSuccess = {
   mw5?: Mw5CognitiveSurfaceDto | null;
   f2?: F2TurnPayload;
   /**
+   * JOURNEY-INTEGRITY — server verdict on the armed reinstruction.
+   * "superseded": the prior pending decision subject was actually replaced —
+   *   the only value that may clear the client arm.
+   * "not_consumed": the turn carried an armed reinstruction but no supersession
+   *   was committed (clarification, block, MW5 deny, F1 advisory…).
+   * "not_applicable": no reinstruction was armed for this turn.
+   */
+  reinstructionTransition?: "superseded" | "not_consumed" | "not_applicable";
+  /**
    * LR CORR-DELIVERY-02 — optional Product-turn Recommendation materialization.
    * null = not attempted / no structured turn; false = none or fail-closed; true = persisted.
    */

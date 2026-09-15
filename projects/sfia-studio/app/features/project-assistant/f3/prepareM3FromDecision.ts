@@ -19,6 +19,10 @@ import type {
 } from "@/lib/oa/execution-contract";
 import { projectCursorPrepareOnly } from "@/lib/oa/execution-contract";
 import type { F2ContextSnapshot } from "../f2/types";
+import {
+  isProposalSubjectOptionRef,
+  PROPOSAL_SUBJECT_PURSUE_REF,
+} from "../w2/proposalSubjectOptions";
 import { BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS } from "./boundedDocsWriteM3ResolutionProfile";
 
 export type PrepareM3Deps = {
@@ -270,6 +274,24 @@ export async function prepareM3FromDecision(input: {
     return basisOrFail;
   }
   const basis = basisOrFail as DecisionBasis;
+
+  /**
+   * JOURNEY-INTEGRITY — amend / refuse on a Proposal decision subject close the
+   * subject; they never open an execution path. The surface already hides the
+   * PREPARE CTA, but hiding is not enforcing: fail closed here too.
+   */
+  if (
+    basis.sourceType === "proposal" &&
+    isProposalSubjectOptionRef(decision.selectedOptionId) &&
+    decision.selectedOptionId !== PROPOSAL_SUBJECT_PURSUE_REF
+  ) {
+    return {
+      ok: false,
+      code: "PREPARE_NOT_APPLICABLE",
+      message:
+        "Préparation M3 réservée à la poursuite du sujet Proposal — amend/refuse n'ouvrent aucune exécution.",
+    };
+  }
 
   const ctx = basis.proposalContext;
   if (

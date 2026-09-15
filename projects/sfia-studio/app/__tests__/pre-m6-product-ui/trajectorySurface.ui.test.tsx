@@ -2,6 +2,10 @@
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { TrajectorySurface } from "@/features/pre-m6-product-ui/surfaces/TrajectorySurface";
+import {
+  PROPOSAL_SUBJECT_PURSUE_REF,
+  PROPOSAL_SUBJECT_REFUSE_REF,
+} from "@/features/project-assistant/w2/proposalSubjectOptions";
 
 const {
   proposeMock,
@@ -10,6 +14,7 @@ const {
   authorizeMock,
   amendMock,
   prepareContractMock,
+  prepareM3Mock,
   executeSelectMock,
   executeStartMock,
   executeCompleteMock,
@@ -26,6 +31,7 @@ const {
   authorizeMock: vi.fn(),
   amendMock: vi.fn(),
   prepareContractMock: vi.fn(),
+  prepareM3Mock: vi.fn(),
   executeSelectMock: vi.fn(),
   executeStartMock: vi.fn(),
   executeCompleteMock: vi.fn(),
@@ -35,6 +41,16 @@ const {
   prepareCycleMock: vi.fn(),
   readPreparedCycleMock: vi.fn(),
   startPreparedCycleMock: vi.fn(),
+}));
+
+/**
+ * JOURNEY-INTEGRITY Lot A-B — the Proposal-backed PREPARE routes the very same
+ * application entrypoint the AP23 application-path proof exercises
+ * (productProofJourneyIntegrity.applicationPath.d0.test.ts).
+ */
+vi.mock("@/features/project-assistant/actions", () => ({
+  projectAssistantPrepareM3Action: (...args: unknown[]) =>
+    prepareM3Mock(...args),
 }));
 
 vi.mock("@/features/project-assistant/w2/actions", () => ({
@@ -89,6 +105,7 @@ beforeEach(() => {
   authorizeMock.mockReset();
   amendMock.mockReset();
   prepareContractMock.mockReset();
+  prepareM3Mock.mockReset();
   executeSelectMock.mockReset();
   executeStartMock.mockReset();
   executeCompleteMock.mockReset();
@@ -187,9 +204,14 @@ describe("W2 TrajectorySurface", () => {
     fireEvent.click(screen.getByTestId("w2-decide-opt:proposal-subject:amend"));
     expect(await screen.findByTestId("w2-decision")).toBeVisible();
     expect(screen.getByTestId("w2-amend-next-action")).toBeVisible();
+    expect(screen.queryByTestId("w2-proposal-backed-prepare")).toBeNull();
     expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-prepare-contract-sandbox")).toBeNull();
+    expect(screen.queryByTestId("w3a-qualify-execution-work")).toBeNull();
     expect(screen.queryByTestId("w3a-operation-kind")).toBeNull();
     expect(screen.getByTestId("w2-decided-option")).toHaveTextContent("Modifier");
+    expect(prepareM3Mock).not.toHaveBeenCalled();
+    expect(prepareContractMock).not.toHaveBeenCalled();
   });
 
   it("CORR-PROOF-11 — pursue on proposal subject still shows prepare", async () => {
@@ -251,6 +273,7 @@ describe("W2 TrajectorySurface", () => {
     await screen.findByTestId("w2-options");
     fireEvent.click(screen.getByTestId("w2-decide-opt:proposal-subject:pursue"));
     expect(await screen.findByTestId("w2-decision")).toBeVisible();
+    expect(screen.getByTestId("w2-proposal-backed-prepare")).toBeVisible();
     expect(screen.getByTestId("w2-prepare-contract")).toBeVisible();
     expect(screen.queryByTestId("w2-amend-next-action")).toBeNull();
   });
@@ -431,11 +454,17 @@ describe("W2 TrajectorySurface", () => {
       },
     });
 
+    // Generic ProjectTrajectory decision — no sealed Proposal operation, so the
+    // legacy sandbox qualification selector still owns the PREPARE affordance.
+    expect(screen.getByTestId("w3a-qualify-execution-work")).toBeVisible();
+    expect(screen.queryByTestId("w2-proposal-backed-prepare")).toBeNull();
+    expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
     fireEvent.change(screen.getByTestId("w3a-operation-kind"), {
       target: { value: "generate-temporary-artifact" },
     });
-    fireEvent.click(screen.getByTestId("w2-prepare-contract"));
+    fireEvent.click(screen.getByTestId("w2-prepare-contract-sandbox"));
     expect(await screen.findByTestId("w2-contract")).toBeVisible();
+    expect(prepareM3Mock).not.toHaveBeenCalled();
     expect(screen.getByTestId("w2-contract-action")).toHaveTextContent(
       "product:generate-temporary-artifact",
     );
@@ -848,6 +877,7 @@ describe("D-GF-START-01 TrajectorySurface prepare/start CTAs", () => {
       expect(screen.queryByTestId("pre-cycle-start-cycle")).toBeNull();
     });
     expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-prepare-contract-sandbox")).toBeNull();
   });
 });
 
@@ -882,6 +912,8 @@ describe("CORR-PROOF-11 final — pending reinstruction UI states", () => {
     );
     expect(screen.queryByTestId("w2-reformulate-with-nora")).toBeNull();
     expect(screen.queryByTestId("w2-instruct-recoverable-options")).toBeNull();
+    // JOURNEY-INTEGRITY — pending owns next action; hide generic instruct CTA
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
     expect(reformulate).not.toHaveBeenCalled();
   });
 
@@ -902,6 +934,7 @@ describe("CORR-PROOF-11 final — pending reinstruction UI states", () => {
     );
     expect(screen.getByTestId("w2-instruct-recoverable-options")).toBeVisible();
     expect(screen.queryByTestId("w2-reformulate-with-nora")).toBeNull();
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
     const body = screen.getByTestId("w2-pending-reinstruction-body").textContent ?? "";
     expect(body).not.toMatch(/fallback|process-local|ProjectTrajectory/i);
   });
@@ -927,6 +960,7 @@ describe("CORR-PROOF-11 final — pending reinstruction UI states", () => {
     expect(await screen.findByTestId("w2-pending-reinstruction")).toHaveTextContent(
       "Reformulez votre demande",
     );
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
     fireEvent.click(screen.getByTestId("w2-reformulate-with-nora"));
     expect(reformulate).toHaveBeenCalledTimes(1);
     expect(reformulate).toHaveBeenCalledWith("prop:lost-only");
@@ -949,5 +983,375 @@ describe("CORR-PROOF-11 final — pending reinstruction UI states", () => {
     expect(body).not.toMatch(/process-local/i);
     expect(body).not.toMatch(/ProjectTrajectory/i);
     expect(body).not.toMatch(/\bpending\b/i);
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+  });
+
+  it("JOURNEY-INTEGRITY — pending_reinstruction hides generic w2-propose-options", async () => {
+    // Active cycle is present (beforeEach mocks), yet pending must win CTA exclusivity.
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "pending_reinstruction_required",
+      message:
+        "Cette demande doit être reformulée avec Nora pour continuer. Rien ne sera exécuté sans une nouvelle décision de votre part.",
+      proposalIds: ["prop:pending-owns"],
+      recoverableProposalIds: [],
+    });
+
+    render(<TrajectorySurface projectId="prj:pending-cta" />);
+    expect(await screen.findByTestId("w2-pending-reinstruction")).toBeVisible();
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+    expect(proposeMock).not.toHaveBeenCalled();
+  });
+});
+
+describe("JOURNEY-INTEGRITY — CTA exclusivity on the mutating primary action", () => {
+  const PROPOSAL_OPTION_SET = {
+    ok: true,
+    optionSetRef: "optset:cta-exclusivity",
+    cycleTypeId: "cyc:delivery",
+    recommendedProfile: "Critical",
+    decisionSubjectMode: "proposal",
+    proposalId: "prop:f2:cta",
+    promotesProjectTrajectory: false,
+    options: [
+      {
+        kind: "OPTION",
+        optionRef: "opt:proposal-subject:pursue",
+        label: "Poursuivre le sujet proposé",
+        intent: "Continuer",
+        impacts: [],
+        reservations: [],
+        steps: [],
+      },
+      {
+        kind: "OPTION",
+        optionRef: "opt:proposal-subject:amend",
+        label: "Amender le sujet avant d'engager",
+        intent: "Modifier",
+        impacts: [],
+        reservations: [],
+        steps: [],
+      },
+    ],
+    recommendation: {
+      label: "RECOMMANDATION — PAS UNE DÉCISION",
+      recommendedOptionRef: "opt:proposal-subject:pursue",
+      rationale: "Continuer.",
+      isHumanDecision: false,
+      ckcAttribution: false,
+    },
+    epistemicRefs: [],
+    proposedTrajectory: null,
+    phase: "OPTIONS_PROPOSED",
+    autoDecisionPerformed: false,
+    executionPerformed: false,
+    ckcCognitionCompletedBeforeMutation: true,
+  } as const;
+
+  it("an OptionSet awaiting the decision hides the generic instruct CTA", async () => {
+    proposeMock.mockResolvedValue(PROPOSAL_OPTION_SET);
+
+    render(<TrajectorySurface projectId="prj:cta-optionset" />);
+    fireEvent.click(await screen.findByTestId("w2-propose-options"));
+    await screen.findByTestId("w2-options");
+
+    // The presented subject owns the next action until the Pilote decides.
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+    expect(screen.queryByTestId("w2-decision")).toBeNull();
+    const surface = screen.getByTestId("w2-trajectory-panel").textContent ?? "";
+    expect(surface).not.toMatch(/Réinstruire/i);
+    expect(proposeMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("no decision subject at all: the generic instruct CTA stays reachable", async () => {
+    render(<TrajectorySurface projectId="prj:cta-none" />);
+
+    const cta = await screen.findByTestId("w2-propose-options");
+    expect(cta).toBeVisible();
+    expect(cta).toHaveTextContent("Instruire les options");
+    expect(screen.queryByTestId("w2-pending-reinstruction")).toBeNull();
+    expect(screen.queryByTestId("w2-options")).toBeNull();
+    expect(screen.queryByTestId("w2-decision")).toBeNull();
+    expect(screen.queryByTestId("w2-contract")).toBeNull();
+  });
+});
+
+/**
+ * JOURNEY-INTEGRITY Lot A-B final — the Pilot decides the operation ONCE.
+ *
+ * After pursue on a Proposal decision subject the sealed DecisionBasis already
+ * carries targetPath / requestedOperation, so the surface must:
+ *  - offer the Proposal-backed PREPARE (never the sandbox op selector), and
+ *  - send projectId + decisionId ONLY — the server re-resolves the rest from
+ *    durable lineage (same contract as AP23 in
+ *    __tests__/project-assistant/productProofJourneyIntegrity.applicationPath.d0.test.ts).
+ */
+describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () => {
+  function proposalOptionSet(proposalId: string) {
+    return {
+      ok: true,
+      optionSetRef: `optset:${proposalId}`,
+      cycleTypeId: "cyc:delivery",
+      recommendedProfile: "Critical",
+      decisionSubjectMode: "proposal",
+      proposalId,
+      promotesProjectTrajectory: false,
+      options: [
+        {
+          kind: "OPTION",
+          optionRef: PROPOSAL_SUBJECT_PURSUE_REF,
+          label: "Poursuivre le sujet proposé",
+          intent: "Continuer",
+          impacts: [],
+          reservations: [],
+          steps: [],
+        },
+        {
+          kind: "OPTION",
+          optionRef: PROPOSAL_SUBJECT_REFUSE_REF,
+          label: "Ne pas poursuivre / refuser",
+          intent: "Refuser",
+          impacts: [],
+          reservations: [],
+          steps: [],
+        },
+      ],
+      recommendation: {
+        label: "RECOMMANDATION — PAS UNE DÉCISION",
+        recommendedOptionRef: PROPOSAL_SUBJECT_PURSUE_REF,
+        rationale: "Continuer.",
+        isHumanDecision: false,
+        ckcAttribution: false,
+      },
+      epistemicRefs: [],
+      proposedTrajectory: null,
+      phase: "OPTIONS_PROPOSED",
+      autoDecisionPerformed: false,
+      executionPerformed: false,
+      ckcCognitionCompletedBeforeMutation: true,
+    };
+  }
+
+  function proposalDecision(input: {
+    decisionId: string;
+    proposalId: string;
+    selectedOptionRef: string;
+  }) {
+    return {
+      ok: true,
+      decision: {
+        decisionId: input.decisionId,
+        selectedOptionRef: input.selectedOptionRef,
+        actorRole: "Pilote",
+        authorityClass: "morris",
+        statusLabel: "DÉCISION HUMAINE PRISE",
+        capturedAt: "2026-09-15T16:00:00.000Z",
+        decisionBasisLinked: true,
+        reservesText: null,
+        proposalId: input.proposalId,
+      },
+      trajectory: null,
+      livingProjectStateVersion: 4,
+      executionPerformed: false,
+      promotesProjectTrajectory: false,
+      decisionSubjectMode: "proposal",
+    };
+  }
+
+  const M3_PREPARED = {
+    ok: true,
+    status: "ok",
+    mode: "m3_prepare",
+    presentation: "unconfirmed",
+    text: "Contrat préparé.",
+    ephemeralNotice: "",
+    f3: {
+      turnKind: "f3_m3_prepare",
+      mode: "M3_PREPARE",
+      decisionId: "dec:sealed-pursue",
+      projectId: "prj:sealed",
+      contract: {
+        executionContractId: "xct:sealed-docs-write",
+        version: 1,
+        status: "proposed",
+        action: "cursor.docs_write.apply",
+        target: "docs/livrable-cycle.md",
+        scope: "product:artifact-materialization",
+        requiredAuthority: "N3",
+        constraints: ["PRODUCT_GOVERNED", "SEALED_DECISION_BASIS"],
+        stopConditions: ["STOP AVANT EXECUTE"],
+        requiredCapabilities: ["cap:cursor.docs_write"],
+        reversibility: "reversible",
+        semanticFingerprint: "sealed0fingerprint",
+      },
+      executionPerformed: false,
+      attemptCreated: false,
+      cursorReal: false,
+      executionAllowed: false,
+      disclosures: [],
+    },
+  };
+
+  async function decidePursue(projectId: string, proposalId: string) {
+    proposeMock.mockResolvedValue(proposalOptionSet(proposalId));
+    decideMock.mockResolvedValue(
+      proposalDecision({
+        decisionId: "dec:sealed-pursue",
+        proposalId,
+        selectedOptionRef: PROPOSAL_SUBJECT_PURSUE_REF,
+      }),
+    );
+
+    render(<TrajectorySurface projectId={projectId} />);
+    fireEvent.click(await screen.findByTestId("w2-propose-options"));
+    await screen.findByTestId("w2-options");
+    fireEvent.click(screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`));
+    expect(await screen.findByTestId("w2-decision")).toBeVisible();
+  }
+
+  it("pursue on a sealed subject offers PREPARE without any operation re-selection", async () => {
+    await decidePursue("prj:sealed", "prop:f2:sealed");
+
+    expect(screen.getByTestId("w2-proposal-backed-prepare")).toBeVisible();
+    expect(screen.getByTestId("w2-prepare-contract")).toBeVisible();
+    // The Pilot must never qualify the operation twice.
+    expect(screen.queryByTestId("w3a-qualify-execution-work")).toBeNull();
+    expect(screen.queryByTestId("w3a-operation-kind")).toBeNull();
+    expect(screen.queryByTestId("w2-prepare-contract-sandbox")).toBeNull();
+    expect(screen.getByTestId("w2-decision-basis")).toHaveTextContent("Reliée");
+  });
+
+  it("PREPARE sends projectId + decisionId only, then maps the sealed contract", async () => {
+    await decidePursue("prj:sealed", "prop:f2:sealed");
+
+    prepareM3Mock.mockResolvedValue(M3_PREPARED);
+    fireEvent.click(screen.getByTestId("w2-prepare-contract"));
+    expect(await screen.findByTestId("w2-contract")).toBeVisible();
+
+    expect(prepareM3Mock).toHaveBeenCalledTimes(1);
+    expect(prepareM3Mock).toHaveBeenCalledWith({
+      projectId: "prj:sealed",
+      decisionId: "dec:sealed-pursue",
+    });
+    // Exact-shape assertion above already forbids extra keys; assert the
+    // dangerous ones explicitly so a regression names itself.
+    const sent = prepareM3Mock.mock.calls[0]![0] as Record<string, unknown>;
+    expect(Object.keys(sent).sort()).toEqual(["decisionId", "projectId"]);
+    for (const forbidden of [
+      "targetPath",
+      "operation",
+      "qualifiedOperationKind",
+      "requestedOperation",
+      "authority",
+      "canActAsMorris",
+      "claimedAuthorityLevel",
+      "real",
+      "mode",
+      "command",
+    ]) {
+      expect(sent).not.toHaveProperty(forbidden);
+    }
+    // The sandbox PREPARE application path was never touched.
+    expect(prepareContractMock).not.toHaveBeenCalled();
+
+    expect(screen.getByTestId("w2-contract-action")).toHaveTextContent(
+      "cursor.docs_write.apply",
+    );
+    expect(screen.getByTestId("w2-contract-target")).toHaveTextContent(
+      "docs/livrable-cycle.md",
+    );
+    expect(screen.getByTestId("w2-contract-authority")).toHaveTextContent("N3");
+    expect(screen.getByTestId("w2-contract-capabilities")).toHaveTextContent(
+      "cap:cursor.docs_write",
+    );
+    expect(screen.getByTestId("w2-contract-id-tech")).toHaveTextContent(
+      "xct:sealed-docs-write",
+    );
+
+    // Inspect owns the next action; PREPARE is not offered again.
+    expect(screen.getByTestId("w2-inspect-contract")).toBeVisible();
+    expect(screen.queryByTestId("w2-proposal-backed-prepare")).toBeNull();
+    expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
+
+    inspectMock.mockResolvedValue({
+      ok: true,
+      executionContractId: "xct:sealed-docs-write",
+      contractVersion: 1,
+      semanticFingerprint: "sealed0fingerprint",
+      statusLabel: "INSPECTÉ",
+      inspectionSufficient: true,
+      attestationRef: "att:sealed",
+      attestedVersion: 1,
+      staleAttestationRef: null,
+      reinspectionRequired: false,
+      reason: "inspected",
+      grantsAuthority: false,
+    });
+    fireEvent.click(screen.getByTestId("w2-inspect-contract"));
+    expect(await screen.findByTestId("w2-inspection-state")).toHaveTextContent(
+      "INSPECTÉ",
+    );
+    expect(screen.getByTestId("w2-inspection-state")).toHaveTextContent(
+      "inspecter n'autorise pas",
+    );
+  });
+
+  it("refuse on a sealed subject exposes no PREPARE path at all", async () => {
+    const proposalId = "prop:f2:sealed-refuse";
+    proposeMock.mockResolvedValue(proposalOptionSet(proposalId));
+    decideMock.mockResolvedValue(
+      proposalDecision({
+        decisionId: "dec:sealed-refuse",
+        proposalId,
+        selectedOptionRef: PROPOSAL_SUBJECT_REFUSE_REF,
+      }),
+    );
+
+    render(<TrajectorySurface projectId="prj:sealed-refuse" />);
+    fireEvent.click(await screen.findByTestId("w2-propose-options"));
+    await screen.findByTestId("w2-options");
+    fireEvent.click(screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_REFUSE_REF}`));
+    expect(await screen.findByTestId("w2-decision")).toBeVisible();
+
+    expect(screen.getByTestId("w2-refuse-next-action")).toBeVisible();
+    expect(screen.queryByTestId("w2-proposal-backed-prepare")).toBeNull();
+    expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-prepare-contract-sandbox")).toBeNull();
+    expect(screen.queryByTestId("w3a-operation-kind")).toBeNull();
+    expect(prepareM3Mock).not.toHaveBeenCalled();
+    expect(prepareContractMock).not.toHaveBeenCalled();
+  });
+
+  it("a Proposal pursue without linked DecisionBasis fails closed (never sandbox)", async () => {
+    const proposalId = "prop:f2:unlinked";
+    proposeMock.mockResolvedValue(proposalOptionSet(proposalId));
+    const unlinked = proposalDecision({
+      decisionId: "dec:unlinked",
+      proposalId,
+      selectedOptionRef: PROPOSAL_SUBJECT_PURSUE_REF,
+    });
+    decideMock.mockResolvedValue({
+      ...unlinked,
+      decision: { ...unlinked.decision, decisionBasisLinked: false },
+    });
+
+    render(<TrajectorySurface projectId="prj:unlinked" />);
+    fireEvent.click(await screen.findByTestId("w2-propose-options"));
+    await screen.findByTestId("w2-options");
+    fireEvent.click(screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`));
+    expect(await screen.findByTestId("w2-decision")).toBeVisible();
+
+    // Proposal subject still owns the journey — fail closed, no sandbox fallback.
+    expect(screen.getByTestId("w2-proposal-prepare-blocked")).toBeVisible();
+    expect(screen.getByTestId("w2-proposal-prepare-blocked").textContent).toMatch(
+      /base d.exécution exploitable/i,
+    );
+    expect(screen.queryByTestId("w2-proposal-backed-prepare")).toBeNull();
+    expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-prepare-contract-sandbox")).toBeNull();
+    expect(screen.queryByTestId("w3a-qualify-execution-work")).toBeNull();
+    expect(screen.queryByTestId("w3a-operation-kind")).toBeNull();
+    expect(prepareM3Mock).not.toHaveBeenCalled();
+    expect(prepareContractMock).not.toHaveBeenCalled();
   });
 });

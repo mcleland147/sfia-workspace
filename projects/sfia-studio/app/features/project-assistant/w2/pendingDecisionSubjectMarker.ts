@@ -11,12 +11,18 @@
 
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
 import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
+import type { ProposalDto } from "../f2/types";
+import { saveProposal, getProposal } from "../f2/proposalStore";
 import { pilotAmbiguousPendingMessage } from "../presentationLabels";
 import {
   isProposalSubjectPresentedSet,
   parsePresentedOptionSetStatement,
   W2_PRESENTED_OPTION_SET_KIND,
 } from "./presentedOptionSet";
+import {
+  computeProposalSubjectDigest,
+  sealProposalExecutionBasis,
+} from "./proposalSubjectIntegrity";
 
 export const PENDING_DECISION_SUBJECT_KIND =
   "w2_pending_decision_subject" as const;
@@ -31,6 +37,11 @@ export type PendingDecisionSubjectMarker = {
   readonly lpsVersion: number;
   readonly doctrineDigest: string;
   readonly status: "pending_binding";
+  /**
+   * JOURNEY-INTEGRITY — reconstructible Proposal snapshot inside existing
+   * Epistemic Observation (no new table). Optional for legacy markers.
+   */
+  readonly proposalSnapshot?: ProposalDto;
 };
 
 export function pendingDecisionSubjectObservationId(
@@ -64,6 +75,12 @@ export function parsePendingDecisionSubjectMarker(
     if (!Number.isInteger(v.lpsVersion)) return null;
     if (typeof v.doctrineDigest !== "string") return null;
     if (v.status !== "pending_binding") return null;
+    const snapshot =
+      v.proposalSnapshot &&
+      typeof v.proposalSnapshot === "object" &&
+      (v.proposalSnapshot as ProposalDto).proposalId === v.proposalId
+        ? (v.proposalSnapshot as ProposalDto)
+        : undefined;
     return {
       kind: PENDING_DECISION_SUBJECT_KIND,
       proposalId: v.proposalId,
@@ -73,10 +90,79 @@ export function parsePendingDecisionSubjectMarker(
       lpsVersion: v.lpsVersion as number,
       doctrineDigest: v.doctrineDigest,
       status: "pending_binding",
+      ...(snapshot ? { proposalSnapshot: snapshot } : {}),
     };
   } catch {
     return null;
   }
+}
+
+/**
+ * Live Product truth a snapshot must still agree with before it may be trusted
+ * as a reconstructible decision subject.
+ */
+export type SnapshotHydrationLiveContext = {
+  projectId: string;
+  lpsId: string;
+  lpsVersion: number;
+  doctrineDigest: string;
+  closedProposalIds?: ReadonlySet<string>;
+};
+
+/**
+ * JOURNEY-INTEGRITY — a snapshot is admissible only when it is internally
+ * coherent with its marker, still decidable, AND still matches live Product
+ * truth. Any mismatch means requalification, never silent repair.
+ */
+export function isValidProposalSnapshotForHydration(
+  marker: PendingDecisionSubjectMarker,
+  live: SnapshotHydrationLiveContext,
+): boolean {
+  const snapshot = marker.proposalSnapshot;
+  if (!snapshot) return false;
+  if (snapshot.proposalId !== marker.proposalId) return false;
+
+  const snapshotContext = snapshot.contextSnapshot;
+  if (!snapshotContext) return false;
+  if (snapshotContext.projectId !== marker.projectId) return false;
+  if (snapshotContext.lpsId !== marker.lpsId) return false;
+  if (snapshotContext.lpsVersion !== marker.lpsVersion) return false;
+  if (snapshotContext.doctrineDigest !== marker.doctrineDigest) return false;
+
+  if (snapshot.status !== "DECISION_REQUIRED") return false;
+  if (snapshot.morrisGateRequired !== true) return false;
+
+  if (live.projectId !== marker.projectId) return false;
+  if (live.lpsId !== marker.lpsId) return false;
+  if (live.lpsVersion !== marker.lpsVersion) return false;
+  if (live.doctrineDigest !== marker.doctrineDigest) return false;
+
+  if (live.closedProposalIds?.has(marker.proposalId)) return false;
+
+  const recomputed = computeProposalSubjectDigest(
+    sealProposalExecutionBasis(snapshot),
+    snapshot.proposalId,
+  );
+  return recomputed === marker.subjectDigest;
+}
+
+/**
+ * Hydrate process-local ProposalStore from durable marker snapshots when
+ * missing. Live context is mandatory: continuity is only honest while the
+ * snapshot still describes the current Project/LPS/doctrine truth.
+ */
+export function hydrateProposalsFromPendingMarkers(
+  markers: readonly PendingDecisionSubjectMarker[],
+  live: SnapshotHydrationLiveContext,
+): readonly string[] {
+  const hydrated: string[] = [];
+  for (const marker of markers) {
+    if (getProposal(marker.proposalId)) continue;
+    if (!isValidProposalSnapshotForHydration(marker, live)) continue;
+    saveProposal(marker.proposalSnapshot!);
+    hydrated.push(marker.proposalId);
+  }
+  return hydrated;
 }
 
 export type WritePendingDecisionSubjectMarkerInput = {
@@ -87,6 +173,7 @@ export type WritePendingDecisionSubjectMarkerInput = {
   readonly lpsId: string;
   readonly lpsVersion: number;
   readonly doctrineDigest: string;
+  readonly proposal?: ProposalDto;
   readonly correlationId?: string;
 };
 
@@ -109,6 +196,9 @@ export async function writePendingDecisionSubjectMarker(
     lpsVersion: input.lpsVersion,
     doctrineDigest: input.doctrineDigest,
     status: "pending_binding",
+    ...(input.proposal && input.proposal.proposalId === input.proposalId
+      ? { proposalSnapshot: input.proposal }
+      : {}),
   };
   const written = await input.oa.cycleServices.updateEpistemicState.execute({
     projectId: input.projectId,
@@ -251,6 +341,7 @@ export type ReplacePendingDecisionSubjectForExplicitReinstructionInput = {
   readonly lpsId: string;
   readonly lpsVersion: number;
   readonly doctrineDigest: string;
+  readonly proposal?: ProposalDto;
   readonly correlationId?: string;
 };
 
@@ -384,6 +475,9 @@ export async function replacePendingDecisionSubjectForExplicitReinstruction(
     lpsVersion: input.lpsVersion,
     doctrineDigest: input.doctrineDigest,
     status: "pending_binding",
+    ...(input.proposal && input.proposal.proposalId === newProposalId
+      ? { proposalSnapshot: input.proposal }
+      : {}),
   };
 
   const written = await input.oa.cycleServices.updateEpistemicState.execute({
