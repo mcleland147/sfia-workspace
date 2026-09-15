@@ -4129,3 +4129,1055 @@ index 00000000..a7829561
 +});
 
 ```
+
+
+---
+
+# FINAL FAIL-CLOSED REMEDIATION
+
+## Git Truth
+
+- Timestamp (UTC): 2026-09-15T17:01:49Z
+- origin/main: `6a41ab7e7deda9f7168d12a37b9316413565fa16`
+- HEAD/base: `6a41ab7e7deda9f7168d12a37b9316413565fa16`
+- Branch: `fix/sfia-studio-product-proof-journey-integrity`
+- Backup: `/tmp/sfia-product-journey-lot-ab-final-failclosed.patch`
+- Product commits ahead: ZERO (dirty candidate)
+
+## Exact prior Final Critical Review blocker
+
+Proposal Decision Subject + HumanDecision pursue + `decisionBasisLinked === false`
+fell through to legacy sandbox qualification UI (`w3a-qualify-execution-work`).
+
+Forbidden: Proposal subject with unavailable DecisionBasis must never redefine
+execution via sandbox op selection.
+
+## Before behavior
+
+```
+isProposalBackedPrepare = proposalId && decisionBasisLinked===true && pursue
+if isProposalBackedPrepare → M3 PREPARE
+else → SANDBOX selector   // BUG when proposalId set && basis unlinked
+```
+
+## After behavior
+
+```
+hasProposalDecisionSubject = Boolean(decision?.proposalId)
+proposalPursue = hasProposalDecisionSubject && selectedOption === PURSUE
+proposalBackedPrepareReady = proposalPursue && decisionBasisLinked === true
+proposalBackedPrepareBlocked = proposalPursue && decisionBasisLinked !== true
+
+A amend → Nora guidance, no PREPARE/sandbox
+B refuse → continuation, no PREPARE/sandbox
+C ready → M3 PREPARE, no sandbox
+D blocked → fail-closed requalify guidance, NO PREPARE, NO sandbox
+E !hasProposalDecisionSubject → sandbox path unchanged
+```
+
+## Final routing table
+
+| Condition | UI |
+|---|---|
+| Proposal + amend | guidance; no PREPARE; no sandbox |
+| Proposal + refuse | guidance; no PREPARE; no sandbox |
+| Proposal + pursue + linked basis | `w2-proposal-backed-prepare` → M3 |
+| Proposal + pursue + unlinked basis | `w2-proposal-prepare-blocked` fail-closed |
+| Non-Proposal | `w3a-qualify-execution-work` sandbox |
+
+## Fail-closed Pilot message
+
+« Cette décision ne dispose plus d'une base d'exécution exploitable. Réinstruisez ou requalifiez le sujet avec Nora avant de préparer un contrat. »
+
+testid: `w2-proposal-prepare-blocked`
+
+## Surgical production micro-diff
+
+```diff
+@@ routing flags @@
+-  const isProposalBackedPrepare =
+-    Boolean(decision?.proposalId) &&
+-    decision?.decisionBasisLinked === true &&
+-    decidedOptionRef === PROPOSAL_SUBJECT_PURSUE_REF;
++  const hasProposalDecisionSubject = Boolean(decision?.proposalId);
++  const proposalPursue =
++    hasProposalDecisionSubject &&
++    decidedOptionRef === PROPOSAL_SUBJECT_PURSUE_REF;
++  const proposalBackedPrepareReady =
++    proposalPursue && decision?.decisionBasisLinked === true;
++  const proposalBackedPrepareBlocked =
++    proposalPursue && decision?.decisionBasisLinked !== true;
+
+@@ PREPARE UI branch @@
+-  {!decisionDefersExecution && !contract && isProposalBackedPrepare ? ( ... M3 PREPARE ... ) : null}
+-  {!decisionDefersExecution && !contract && !isProposalBackedPrepare ? ( ... SANDBOX ... ) : null}
++  {!decisionDefersExecution && !contract && proposalBackedPrepareReady ? ( ... M3 PREPARE ... ) : null}
++  {!decisionDefersExecution && !contract && proposalBackedPrepareBlocked ? (
++    <div data-testid="w2-proposal-prepare-blocked" role="status">
++      Cette décision ne dispose plus d'une base d'exécution exploitable.
++      Réinstruisez ou requalifiez le sujet avec Nora avant de préparer un contrat.
++    </div>
++  ) : null}
++  {!decisionDefersExecution && !contract && !hasProposalDecisionSubject ? ( ... SANDBOX ... ) : null}
+
+```
+
+## Exact production flags (current)
+
+```tsx
+  const decidedOptionRef = decision?.selectedOptionRef ?? null;
+  const decisionDefersExecution =
+    decidedOptionRef === PROPOSAL_SUBJECT_AMEND_REF ||
+    decidedOptionRef === PROPOSAL_SUBJECT_REFUSE_REF;
+  const hasProposalDecisionSubject = Boolean(decision?.proposalId);
+  const proposalPursue =
+    hasProposalDecisionSubject &&
+    decidedOptionRef === PROPOSAL_SUBJECT_PURSUE_REF;
+  const proposalBackedPrepareReady =
+    proposalPursue && decision?.decisionBasisLinked === true;
+  const proposalBackedPrepareBlocked =
+    proposalPursue && decision?.decisionBasisLinked !== true;
+
+  function paintAttemptPhase(
+    phase: GovernedExecutePhaseSuccess["phase"],
+    nextAttempt: GovernedExecuteAttemptProjection | null,
+    statusLabel: string | null,
+```
+
+## Exact production UI branch (current excerpt)
+
+```tsx
+              className={styles.primaryAction}
+              data-testid="w2-prepare-contract"
+              onClick={() => void prepareProposalBackedContract()}
+              disabled={busy !== null}
+            >
+              Préparer le contrat d&apos;exécution
+            </button>
+          </div>
+          ) : null}
+          {!decisionDefersExecution &&
+          !contract &&
+          proposalBackedPrepareBlocked ? (
+          <div
+            className={styles.block}
+            data-testid="w2-proposal-prepare-blocked"
+            role="status"
+          >
+            <p className={styles.blockBody}>
+              Cette décision ne dispose plus d&apos;une base d&apos;exécution
+              exploitable. Réinstruisez ou requalifiez le sujet avec Nora avant
+              de préparer un contrat.
+            </p>
+          </div>
+          ) : null}
+          {!decisionDefersExecution &&
+          !contract &&
+          !hasProposalDecisionSubject ? (
+          <div
+            className={styles.actions}
+            data-testid="w3a-qualify-execution-work"
+          >
+            <p className={styles.blockNote}>
+              Qualifier le travail d&apos;exécution réel (indépendant de
+              l&apos;option de trajectoire déjà décidée).
+            </p>
+            <label className={styles.amendmentLabel} htmlFor="w3a-operation-kind">
+              Opération d&apos;exécution
+            </label>
+            <select
+              id="w3a-operation-kind"
+              className={styles.amendmentInput}
+              data-testid="w3a-operation-kind"
+              value={qualifiedOperationKind ?? ""}
+              disabled={busy !== null}
+              onChange={(event) => {
+                const value = event.target.value;
+                if (
+                  value === "generate-temporary-artifact" ||
+                  value === "simulate" ||
+                  value === "read"
+                ) {
+                  setQualifiedOperationKind(value);
+                  setContract(null);
+                  setInspection(null);
+                  setAuthorization(null);
+                  setAttempt(null);
+                  setAttemptPhase(null);
+                } else {
+                  setQualifiedOperationKind(null);
+                }
+              }}
+            >
+              <option value="">— Choisir —</option>
+              <option value="generate-temporary-artifact">
+                Générer un artefact temporaire local (réversible)
+              </option>
+              <option value="simulate">Simuler (sandbox)</option>
+              <option value="read">Lecture seule</option>
+            </select>
+            <button
+              type="button"
+              className={styles.primaryAction}
+              data-testid="w2-prepare-contract-sandbox"
+              onClick={() => void prepareContract()}
+              disabled={busy !== null || qualifiedOperationKind === null}
+              title={
+                qualifiedOperationKind === null
+                  ? "Qualifier d'abord le travail d'exécution"
+                  : undefined
+              }
+```
+
+## Exact test change
+
+Replaced:
+
+`a Proposal decision without a linked DecisionBasis falls back to the sandbox path`
+
+With:
+
+`a Proposal pursue without linked DecisionBasis fails closed (never sandbox)`
+
+```tsx
+led();
+  });
+
+  it("a Proposal pursue without linked DecisionBasis fails closed (never sandbox)", async () => {
+    const proposalId = "prop:f2:unlinked";
+    proposeMock.mockResolvedValue(proposalOptionSet(proposalId));
+    const unlinked = proposalDecision({
+      decisionId: "dec:unlinked",
+      proposalId,
+      selectedOptionRef: PROPOSAL_SUBJECT_PURSUE_REF,
+    });
+    decideMock.mockResolvedValue({
+      ...unlinked,
+      decision: { ...unlinked.decision, decisionBasisLinked: false },
+    });
+
+    render(<TrajectorySurface projectId="prj:unlinked" />);
+    fireEvent.click(await screen.findByTestId("w2-propose-options"));
+    await screen.findByTestId("w2-options");
+    fireEvent.click(screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`));
+    expect(await screen.findByTestId("w2-decision")).toBeVisible();
+
+    // Proposal subject still owns the journey — fail closed, no sandbox fallback.
+
+```
+
+## Non-Proposal sandbox non-regression
+
+Existing UI test: generic trajectory pursue still shows `w3a-qualify-execution-work` + `w2-prepare-contract-sandbox`. Still green.
+
+## Valid Proposal docs_write non-regression
+
+`w2-proposal-backed-prepare` → `projectAssistantPrepareM3Action({projectId, decisionId})` → Inspect. Still green (trajectorySurface sealed PREPARE + applicationPath AP23/AP24).
+
+## Server fail-closed evidence
+
+`prepareM3FromDecision` still requires DecisionBasis (`DECISION_BASIS_REQUIRED`); amend/refuse → `PREPARE_NOT_APPLICABLE`. UI guard does not weaken server. AP25 retained.
+
+## Targeted tests
+
+```
+npx vitest run trajectorySurface.ui.test.tsx productProofJourneyIntegrity*
+  proposalSubjectIntegrity corrProof10 corrProof11 importBoundaries
+→ 108 passed / 0 failed
+```
+
+## Full Vitest
+
+**4089 passed / 137 skipped / 0 failed**
+
+## Tooling
+
+typecheck PASS · lint PASS · build PASS · git diff --check PASS
+
+## ZERO REAL / dogfood
+
+ZERO LIVE/REAL/Attempt/Execute. Dogfood frozen @ 6a41ab7e. Product Git commit/push/PR/merge NOT PERFORMED.
+
+## Next gate
+
+ChatGPT Integration Readiness Review.
+
+## Verdict
+
+**PRODUCT-JOURNEY-LOT-A-B — FINAL FAIL-CLOSED REMEDIATION COMPLETE — PROPOSAL DECISION SUBJECT NEVER FALLS BACK TO SANDBOX WHEN DECISIONBASIS IS UNAVAILABLE — VALID DOCS_WRITE PREPARE→INSPECT PATH PRESERVED — DETERMINISTICLY PROVEN — ZERO REAL — READY FOR CHATGPT INTEGRATION READINESS REVIEW**
+
+---
+
+# COMPLETE USEFUL DIFF — TrajectorySurface.tsx (vs HEAD base, includes accepted Lot A/B + this micro-fix)
+
+```diff
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+index 3b2e2702..6abe4ca9 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+@@ -11,6 +11,7 @@
+
+ import { useCallback, useEffect, useState } from "react";
+ import { flushSync } from "react-dom";
++import { projectAssistantPrepareM3Action } from "@/features/project-assistant/actions";
+ import {
+   w2AmendExecutionContractAction,
+   w2AuthorizeExecutionContractAction,
+@@ -59,6 +60,7 @@ import {
+ } from "@/features/project-assistant/presentationLabels";
+ import {
+   PROPOSAL_SUBJECT_AMEND_REF,
++  PROPOSAL_SUBJECT_PURSUE_REF,
+   PROPOSAL_SUBJECT_REFUSE_REF,
+ } from "@/features/project-assistant/w2/proposalSubjectOptions";
+ import { filterProductReservationsForDisplay } from "@/features/project-assistant/w2/w3cProductPresentation";
+@@ -149,7 +151,6 @@ function yieldBrowserPaint(): Promise<void> {
+ export function TrajectorySurface({
+   projectId,
+   onDurableFactsChanged,
+-  recoveryProposeSignal = 0,
+   durableRefreshSignal = 0,
+   composition = "standalone",
+   activeProposalId = null,
+@@ -157,8 +158,6 @@ export function TrajectorySurface({
+ }: {
+   projectId: string;
+   onDurableFactsChanged?: () => void;
+-  /** B1 — increment from RecoverySurface requalify to reuse proposeOptions(). */
+-  recoveryProposeSignal?: number;
+   /** Increment after Lifecycle bridge / durable mutations to rehydrate candidate. */
+   durableRefreshSignal?: number;
+   /**
+@@ -258,6 +257,19 @@ export function TrajectorySurface({
+   const [qualifiedOperationKind, setQualifiedOperationKind] =
+     useState<QualifiedOperationKind | null>(null);
+
++  const decidedOptionRef = decision?.selectedOptionRef ?? null;
++  const decisionDefersExecution =
++    decidedOptionRef === PROPOSAL_SUBJECT_AMEND_REF ||
++    decidedOptionRef === PROPOSAL_SUBJECT_REFUSE_REF;
++  const hasProposalDecisionSubject = Boolean(decision?.proposalId);
++  const proposalPursue =
++    hasProposalDecisionSubject &&
++    decidedOptionRef === PROPOSAL_SUBJECT_PURSUE_REF;
++  const proposalBackedPrepareReady =
++    proposalPursue && decision?.decisionBasisLinked === true;
++  const proposalBackedPrepareBlocked =
++    proposalPursue && decision?.decisionBasisLinked !== true;
++
+   function paintAttemptPhase(
+     phase: GovernedExecutePhaseSuccess["phase"],
+     nextAttempt: GovernedExecuteAttemptProjection | null,
+@@ -498,12 +510,6 @@ export function TrajectorySurface({
+     void rehydrateActiveDecisionSubject();
+   }, [rehydrateActiveDecisionSubject, durableRefreshSignal]);
+
+-  useEffect(() => {
+-    if (recoveryProposeSignal > 0) {
+-      void proposeOptions();
+-    }
+-  }, [recoveryProposeSignal, proposeOptions]);
+-
+   const decide = useCallback(
+     async (selectedOptionRef: string) => {
+       if (!optionSet) return;
+@@ -594,6 +600,53 @@ export function TrajectorySurface({
+     onDurableFactsChanged?.();
+   }, [decision, projectId, qualifiedOperationKind, onDurableFactsChanged]);
+
++  /**
++   * JOURNEY-INTEGRITY / Lot A-B final — Proposal-backed PREPARE.
++   *
++   * After pursue on a Proposal Decision Subject, the sealed DecisionBasis already
++   * carries the decided operation (e.g. cursor.docs_write.apply). The Pilot must
++   * not re-select a sandbox op. Client sends only projectId + decisionId; the
++   * server resolves targetPath / operation / binding from durable lineage.
++   */
++  const prepareProposalBackedContract = useCallback(async () => {
++    if (!decision?.proposalId || !decision.decisionBasisLinked) return;
++    if (decisionDefersExecution) return;
++    setBusy("contract");
++    setError(null);
++    const result = await projectAssistantPrepareM3Action({
++      projectId,
++      decisionId: decision.decisionId,
++    });
++    setBusy(null);
++    if (!result.ok) {
++      setError(result.message);
++      return;
++    }
++    const prepared = result.f3.contract;
++    setContract({
++      executionContractId: prepared.executionContractId,
++      version: prepared.version,
++      status: prepared.status,
++      action: prepared.action,
++      target: prepared.target,
++      scope: prepared.scope,
++      requiredAuthority: prepared.requiredAuthority,
++      constraints: [...prepared.constraints],
++      stopConditions: [...prepared.stopConditions],
++      requiredCapabilities: [...prepared.requiredCapabilities],
++      reversibility: prepared.reversibility,
++      semanticFingerprint: prepared.semanticFingerprint,
++    });
++    setInspection(null);
++    setAuthorization(null);
++    setAmendmentDraft("");
++    setAmendmentNotice(null);
++    setAttempt(null);
++    setAttemptPhase(null);
++    setAttemptStatusLabel(null);
++    onDurableFactsChanged?.();
++  }, [decision, decisionDefersExecution, projectId, onDurableFactsChanged]);
++
+   const inspect = useCallback(async () => {
+     if (!contract) return;
+     setBusy("inspection");
+@@ -896,6 +949,25 @@ export function TrajectorySurface({
+     setProductEvidencePending(false);
+   }, [attempt, projectId]);
+
++  /**
++   * JOURNEY-INTEGRITY — CTA exclusivity on the mutating primary action.
++   *
++   * While a Proposal decision subject still owns the next useful action, the
++   * generic ProjectTrajectory instruct CTA must not offer a competing subject.
++   * Informational blocks above remain visible; only the mutating CTA is strict.
++   */
++  const proposalSubjectOwnsNextAction =
++    // reformulate / instruct the pending subject
++    pendingReinstruction != null ||
++    // options presented, awaiting the HumanDecision
++    (optionSet != null && decision == null) ||
++    // amend / refuse: next move is with Nora, never a new generic instruction
++    (decision != null && decisionDefersExecution) ||
++    // pursue decided but no contract yet: PREPARE owns the next action
++    (decision != null && contract == null) ||
++    // contract prepared: Inspect (then confirm / authorize) owns the next action
++    contract != null;
++
+   return (
+     <section
+       className={[
+@@ -1194,11 +1266,13 @@ export function TrajectorySurface({
+       ) : null}
+
+       {/*
+-        W2 OptionSet requires an active CycleInstance. Hide the CTA in all
+-        pre-cycle states (CURRENT NEXT_CYCLE LR, candidate-only, or empty)
+-        so the Pilote is never offered a path known to return CYCLE_NOT_QUALIFIED.
++        W2 OptionSet requires an active CycleInstance.
++        JOURNEY-INTEGRITY — whenever a Proposal decision subject owns the next
++        action (pending, options awaiting decision, decision taken, contract
++        prepared), the generic trajectory instruct CTA is hidden so two
++        decision subjects can never compete for the same primary action.
+       */}
+-      {activeCycleInstanceId ? (
++      {activeCycleInstanceId && !proposalSubjectOwnsNextAction ? (
+       <div className={styles.actions}>
+         <button
+           type="button"
+@@ -1207,7 +1281,7 @@ export function TrajectorySurface({
+           onClick={() => void proposeOptions()}
+           disabled={busy !== null}
+         >
+-          {optionSet ? "Réinstruire les options" : "Instruire les options"}
++          Instruire les options
+         </button>
+         {busy ? (
+           <span className={styles.busy} role="status" data-testid="w2-busy">
+@@ -1417,8 +1491,55 @@ export function TrajectorySurface({
+               préparation d&apos;exécution ici.
+             </p>
+           ) : null}
+-          {decision.selectedOptionRef !== PROPOSAL_SUBJECT_AMEND_REF &&
+-          decision.selectedOptionRef !== PROPOSAL_SUBJECT_REFUSE_REF ? (
++          {/*
++            JOURNEY-INTEGRITY Lot A-B fail-closed:
++            · Proposal pursue + linked DecisionBasis → M3 PREPARE (no selector).
++            · Proposal pursue + missing DecisionBasis → fail-closed requalify
++              (NEVER sandbox fallback — subject still owns the journey).
++            · Non-Proposal only → W2 sandbox selector remains.
++            Contract prepared → Inspect owns next action; no re-PREPARE.
++          */}
++          {!decisionDefersExecution &&
++          !contract &&
++          proposalBackedPrepareReady ? (
++          <div
++            className={styles.actions}
++            data-testid="w2-proposal-backed-prepare"
++          >
++            <p className={styles.blockNote} data-testid="w2-proposal-backed-prepare-note">
++              La décision porte déjà l&apos;opération scellée. Préparez le
++              contrat d&apos;exécution à partir de cette décision — sans
++              resélection technique.
++            </p>
++            <button
++              type="button"
++              className={styles.primaryAction}
++              data-testid="w2-prepare-contract"
++              onClick={() => void prepareProposalBackedContract()}
++              disabled={busy !== null}
++            >
++              Préparer le contrat d&apos;exécution
++            </button>
++          </div>
++          ) : null}
++          {!decisionDefersExecution &&
++          !contract &&
++          proposalBackedPrepareBlocked ? (
++          <div
++            className={styles.block}
++            data-testid="w2-proposal-prepare-blocked"
++            role="status"
++          >
++            <p className={styles.blockBody}>
++              Cette décision ne dispose plus d&apos;une base d&apos;exécution
++              exploitable. Réinstruisez ou requalifiez le sujet avec Nora avant
++              de préparer un contrat.
++            </p>
++          </div>
++          ) : null}
++          {!decisionDefersExecution &&
++          !contract &&
++          !hasProposalDecisionSubject ? (
+           <div
+             className={styles.actions}
+             data-testid="w3a-qualify-execution-work"
+@@ -1464,7 +1585,7 @@ export function TrajectorySurface({
+             <button
+               type="button"
+               className={styles.primaryAction}
+-              data-testid="w2-prepare-contract"
++              data-testid="w2-prepare-contract-sandbox"
+               onClick={() => void prepareContract()}
+               disabled={busy !== null || qualifiedOperationKind === null}
+               title={
+@@ -1473,9 +1594,7 @@ export function TrajectorySurface({
+                   : undefined
+               }
+             >
+-              {contract
+-                ? "Repréparer le contrat d'exécution"
+-                : "Préparer le contrat d'exécution"}
++              Préparer le contrat d&apos;exécution
+             </button>
+           </div>
+           ) : null}
+
+```
+
+# COMPLETE USEFUL DIFF — trajectorySurface.ui.test.tsx (vs HEAD base)
+
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
+index 2b9da045..544daddb 100644
+--- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
++++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
+@@ -2,6 +2,10 @@
+ import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
+ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+ import { TrajectorySurface } from "@/features/pre-m6-product-ui/surfaces/TrajectorySurface";
++import {
++  PROPOSAL_SUBJECT_PURSUE_REF,
++  PROPOSAL_SUBJECT_REFUSE_REF,
++} from "@/features/project-assistant/w2/proposalSubjectOptions";
+
+ const {
+   proposeMock,
+@@ -10,6 +14,7 @@ const {
+   authorizeMock,
+   amendMock,
+   prepareContractMock,
++  prepareM3Mock,
+   executeSelectMock,
+   executeStartMock,
+   executeCompleteMock,
+@@ -26,6 +31,7 @@ const {
+   authorizeMock: vi.fn(),
+   amendMock: vi.fn(),
+   prepareContractMock: vi.fn(),
++  prepareM3Mock: vi.fn(),
+   executeSelectMock: vi.fn(),
+   executeStartMock: vi.fn(),
+   executeCompleteMock: vi.fn(),
+@@ -37,6 +43,16 @@ const {
+   startPreparedCycleMock: vi.fn(),
+ }));
+
++/**
++ * JOURNEY-INTEGRITY Lot A-B — the Proposal-backed PREPARE routes the very same
++ * application entrypoint the AP23 application-path proof exercises
++ * (productProofJourneyIntegrity.applicationPath.d0.test.ts).
++ */
++vi.mock("@/features/project-assistant/actions", () => ({
++  projectAssistantPrepareM3Action: (...args: unknown[]) =>
++    prepareM3Mock(...args),
++}));
++
+ vi.mock("@/features/project-assistant/w2/actions", () => ({
+   w2ProposeTrajectoryOptionsAction: (...args: unknown[]) => proposeMock(...args),
+   w2DecideTrajectoryAction: (...args: unknown[]) => decideMock(...args),
+@@ -89,6 +105,7 @@ beforeEach(() => {
+   authorizeMock.mockReset();
+   amendMock.mockReset();
+   prepareContractMock.mockReset();
++  prepareM3Mock.mockReset();
+   executeSelectMock.mockReset();
+   executeStartMock.mockReset();
+   executeCompleteMock.mockReset();
+@@ -187,9 +204,14 @@ describe("W2 TrajectorySurface", () => {
+     fireEvent.click(screen.getByTestId("w2-decide-opt:proposal-subject:amend"));
+     expect(await screen.findByTestId("w2-decision")).toBeVisible();
+     expect(screen.getByTestId("w2-amend-next-action")).toBeVisible();
++    expect(screen.queryByTestId("w2-proposal-backed-prepare")).toBeNull();
+     expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
++    expect(screen.queryByTestId("w2-prepare-contract-sandbox")).toBeNull();
++    expect(screen.queryByTestId("w3a-qualify-execution-work")).toBeNull();
+     expect(screen.queryByTestId("w3a-operation-kind")).toBeNull();
+     expect(screen.getByTestId("w2-decided-option")).toHaveTextContent("Modifier");
++    expect(prepareM3Mock).not.toHaveBeenCalled();
++    expect(prepareContractMock).not.toHaveBeenCalled();
+   });
+
+   it("CORR-PROOF-11 — pursue on proposal subject still shows prepare", async () => {
+@@ -251,6 +273,7 @@ describe("W2 TrajectorySurface", () => {
+     await screen.findByTestId("w2-options");
+     fireEvent.click(screen.getByTestId("w2-decide-opt:proposal-subject:pursue"));
+     expect(await screen.findByTestId("w2-decision")).toBeVisible();
++    expect(screen.getByTestId("w2-proposal-backed-prepare")).toBeVisible();
+     expect(screen.getByTestId("w2-prepare-contract")).toBeVisible();
+     expect(screen.queryByTestId("w2-amend-next-action")).toBeNull();
+   });
+@@ -431,11 +454,17 @@ describe("W2 TrajectorySurface", () => {
+       },
+     });
+
++    // Generic ProjectTrajectory decision — no sealed Proposal operation, so the
++    // legacy sandbox qualification selector still owns the PREPARE affordance.
++    expect(screen.getByTestId("w3a-qualify-execution-work")).toBeVisible();
++    expect(screen.queryByTestId("w2-proposal-backed-prepare")).toBeNull();
++    expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
+     fireEvent.change(screen.getByTestId("w3a-operation-kind"), {
+       target: { value: "generate-temporary-artifact" },
+     });
+-    fireEvent.click(screen.getByTestId("w2-prepare-contract"));
++    fireEvent.click(screen.getByTestId("w2-prepare-contract-sandbox"));
+     expect(await screen.findByTestId("w2-contract")).toBeVisible();
++    expect(prepareM3Mock).not.toHaveBeenCalled();
+     expect(screen.getByTestId("w2-contract-action")).toHaveTextContent(
+       "product:generate-temporary-artifact",
+     );
+@@ -848,6 +877,7 @@ describe("D-GF-START-01 TrajectorySurface prepare/start CTAs", () => {
+       expect(screen.queryByTestId("pre-cycle-start-cycle")).toBeNull();
+     });
+     expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
++    expect(screen.queryByTestId("w2-prepare-contract-sandbox")).toBeNull();
+   });
+ });
+
+@@ -882,6 +912,8 @@ describe("CORR-PROOF-11 final — pending reinstruction UI states", () => {
+     );
+     expect(screen.queryByTestId("w2-reformulate-with-nora")).toBeNull();
+     expect(screen.queryByTestId("w2-instruct-recoverable-options")).toBeNull();
++    // JOURNEY-INTEGRITY — pending owns next action; hide generic instruct CTA
++    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+     expect(reformulate).not.toHaveBeenCalled();
+   });
+
+@@ -902,6 +934,7 @@ describe("CORR-PROOF-11 final — pending reinstruction UI states", () => {
+     );
+     expect(screen.getByTestId("w2-instruct-recoverable-options")).toBeVisible();
+     expect(screen.queryByTestId("w2-reformulate-with-nora")).toBeNull();
++    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+     const body = screen.getByTestId("w2-pending-reinstruction-body").textContent ?? "";
+     expect(body).not.toMatch(/fallback|process-local|ProjectTrajectory/i);
+   });
+@@ -927,6 +960,7 @@ describe("CORR-PROOF-11 final — pending reinstruction UI states", () => {
+     expect(await screen.findByTestId("w2-pending-reinstruction")).toHaveTextContent(
+       "Reformulez votre demande",
+     );
++    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+     fireEvent.click(screen.getByTestId("w2-reformulate-with-nora"));
+     expect(reformulate).toHaveBeenCalledTimes(1);
+     expect(reformulate).toHaveBeenCalledWith("prop:lost-only");
+@@ -949,5 +983,375 @@ describe("CORR-PROOF-11 final — pending reinstruction UI states", () => {
+     expect(body).not.toMatch(/process-local/i);
+     expect(body).not.toMatch(/ProjectTrajectory/i);
+     expect(body).not.toMatch(/\bpending\b/i);
++    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
++  });
++
++  it("JOURNEY-INTEGRITY — pending_reinstruction hides generic w2-propose-options", async () => {
++    // Active cycle is present (beforeEach mocks), yet pending must win CTA exclusivity.
++    readActiveDecisionSubjectMock.mockResolvedValue({
++      ok: true,
++      kind: "pending_reinstruction_required",
++      message:
++        "Cette demande doit être reformulée avec Nora pour continuer. Rien ne sera exécuté sans une nouvelle décision de votre part.",
++      proposalIds: ["prop:pending-owns"],
++      recoverableProposalIds: [],
++    });
++
++    render(<TrajectorySurface projectId="prj:pending-cta" />);
++    expect(await screen.findByTestId("w2-pending-reinstruction")).toBeVisible();
++    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
++    expect(proposeMock).not.toHaveBeenCalled();
++  });
++});
++
++describe("JOURNEY-INTEGRITY — CTA exclusivity on the mutating primary action", () => {
++  const PROPOSAL_OPTION_SET = {
++    ok: true,
++    optionSetRef: "optset:cta-exclusivity",
++    cycleTypeId: "cyc:delivery",
++    recommendedProfile: "Critical",
++    decisionSubjectMode: "proposal",
++    proposalId: "prop:f2:cta",
++    promotesProjectTrajectory: false,
++    options: [
++      {
++        kind: "OPTION",
++        optionRef: "opt:proposal-subject:pursue",
++        label: "Poursuivre le sujet proposé",
++        intent: "Continuer",
++        impacts: [],
++        reservations: [],
++        steps: [],
++      },
++      {
++        kind: "OPTION",
++        optionRef: "opt:proposal-subject:amend",
++        label: "Amender le sujet avant d'engager",
++        intent: "Modifier",
++        impacts: [],
++        reservations: [],
++        steps: [],
++      },
++    ],
++    recommendation: {
++      label: "RECOMMANDATION — PAS UNE DÉCISION",
++      recommendedOptionRef: "opt:proposal-subject:pursue",
++      rationale: "Continuer.",
++      isHumanDecision: false,
++      ckcAttribution: false,
++    },
++    epistemicRefs: [],
++    proposedTrajectory: null,
++    phase: "OPTIONS_PROPOSED",
++    autoDecisionPerformed: false,
++    executionPerformed: false,
++    ckcCognitionCompletedBeforeMutation: true,
++  } as const;
++
++  it("an OptionSet awaiting the decision hides the generic instruct CTA", async () => {
++    proposeMock.mockResolvedValue(PROPOSAL_OPTION_SET);
++
++    render(<TrajectorySurface projectId="prj:cta-optionset" />);
++    fireEvent.click(await screen.findByTestId("w2-propose-options"));
++    await screen.findByTestId("w2-options");
++
++    // The presented subject owns the next action until the Pilote decides.
++    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
++    expect(screen.queryByTestId("w2-decision")).toBeNull();
++    const surface = screen.getByTestId("w2-trajectory-panel").textContent ?? "";
++    expect(surface).not.toMatch(/Réinstruire/i);
++    expect(proposeMock).toHaveBeenCalledTimes(1);
++  });
++
++  it("no decision subject at all: the generic instruct CTA stays reachable", async () => {
++    render(<TrajectorySurface projectId="prj:cta-none" />);
++
++    const cta = await screen.findByTestId("w2-propose-options");
++    expect(cta).toBeVisible();
++    expect(cta).toHaveTextContent("Instruire les options");
++    expect(screen.queryByTestId("w2-pending-reinstruction")).toBeNull();
++    expect(screen.queryByTestId("w2-options")).toBeNull();
++    expect(screen.queryByTestId("w2-decision")).toBeNull();
++    expect(screen.queryByTestId("w2-contract")).toBeNull();
++  });
++});
++
++/**
++ * JOURNEY-INTEGRITY Lot A-B final — the Pilot decides the operation ONCE.
++ *
++ * After pursue on a Proposal decision subject the sealed DecisionBasis already
++ * carries targetPath / requestedOperation, so the surface must:
++ *  - offer the Proposal-backed PREPARE (never the sandbox op selector), and
++ *  - send projectId + decisionId ONLY — the server re-resolves the rest from
++ *    durable lineage (same contract as AP23 in
++ *    __tests__/project-assistant/productProofJourneyIntegrity.applicationPath.d0.test.ts).
++ */
++describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () => {
++  function proposalOptionSet(proposalId: string) {
++    return {
++      ok: true,
++      optionSetRef: `optset:${proposalId}`,
++      cycleTypeId: "cyc:delivery",
++      recommendedProfile: "Critical",
++      decisionSubjectMode: "proposal",
++      proposalId,
++      promotesProjectTrajectory: false,
++      options: [
++        {
++          kind: "OPTION",
++          optionRef: PROPOSAL_SUBJECT_PURSUE_REF,
++          label: "Poursuivre le sujet proposé",
++          intent: "Continuer",
++          impacts: [],
++          reservations: [],
++          steps: [],
++        },
++        {
++          kind: "OPTION",
++          optionRef: PROPOSAL_SUBJECT_REFUSE_REF,
++          label: "Ne pas poursuivre / refuser",
++          intent: "Refuser",
++          impacts: [],
++          reservations: [],
++          steps: [],
++        },
++      ],
++      recommendation: {
++        label: "RECOMMANDATION — PAS UNE DÉCISION",
++        recommendedOptionRef: PROPOSAL_SUBJECT_PURSUE_REF,
++        rationale: "Continuer.",
++        isHumanDecision: false,
++        ckcAttribution: false,
++      },
++      epistemicRefs: [],
++      proposedTrajectory: null,
++      phase: "OPTIONS_PROPOSED",
++      autoDecisionPerformed: false,
++      executionPerformed: false,
++      ckcCognitionCompletedBeforeMutation: true,
++    };
++  }
++
++  function proposalDecision(input: {
++    decisionId: string;
++    proposalId: string;
++    selectedOptionRef: string;
++  }) {
++    return {
++      ok: true,
++      decision: {
++        decisionId: input.decisionId,
++        selectedOptionRef: input.selectedOptionRef,
++        actorRole: "Pilote",
++        authorityClass: "morris",
++        statusLabel: "DÉCISION HUMAINE PRISE",
++        capturedAt: "2026-09-15T16:00:00.000Z",
++        decisionBasisLinked: true,
++        reservesText: null,
++        proposalId: input.proposalId,
++      },
++      trajectory: null,
++      livingProjectStateVersion: 4,
++      executionPerformed: false,
++      promotesProjectTrajectory: false,
++      decisionSubjectMode: "proposal",
++    };
++  }
++
++  const M3_PREPARED = {
++    ok: true,
++    status: "ok",
++    mode: "m3_prepare",
++    presentation: "unconfirmed",
++    text: "Contrat préparé.",
++    ephemeralNotice: "",
++    f3: {
++      turnKind: "f3_m3_prepare",
++      mode: "M3_PREPARE",
++      decisionId: "dec:sealed-pursue",
++      projectId: "prj:sealed",
++      contract: {
++        executionContractId: "xct:sealed-docs-write",
++        version: 1,
++        status: "proposed",
++        action: "cursor.docs_write.apply",
++        target: "docs/livrable-cycle.md",
++        scope: "product:artifact-materialization",
++        requiredAuthority: "N3",
++        constraints: ["PRODUCT_GOVERNED", "SEALED_DECISION_BASIS"],
++        stopConditions: ["STOP AVANT EXECUTE"],
++        requiredCapabilities: ["cap:cursor.docs_write"],
++        reversibility: "reversible",
++        semanticFingerprint: "sealed0fingerprint",
++      },
++      executionPerformed: false,
++      attemptCreated: false,
++      cursorReal: false,
++      executionAllowed: false,
++      disclosures: [],
++    },
++  };
++
++  async function decidePursue(projectId: string, proposalId: string) {
++    proposeMock.mockResolvedValue(proposalOptionSet(proposalId));
++    decideMock.mockResolvedValue(
++      proposalDecision({
++        decisionId: "dec:sealed-pursue",
++        proposalId,
++        selectedOptionRef: PROPOSAL_SUBJECT_PURSUE_REF,
++      }),
++    );
++
++    render(<TrajectorySurface projectId={projectId} />);
++    fireEvent.click(await screen.findByTestId("w2-propose-options"));
++    await screen.findByTestId("w2-options");
++    fireEvent.click(screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`));
++    expect(await screen.findByTestId("w2-decision")).toBeVisible();
++  }
++
++  it("pursue on a sealed subject offers PREPARE without any operation re-selection", async () => {
++    await decidePursue("prj:sealed", "prop:f2:sealed");
++
++    expect(screen.getByTestId("w2-proposal-backed-prepare")).toBeVisible();
++    expect(screen.getByTestId("w2-prepare-contract")).toBeVisible();
++    // The Pilot must never qualify the operation twice.
++    expect(screen.queryByTestId("w3a-qualify-execution-work")).toBeNull();
++    expect(screen.queryByTestId("w3a-operation-kind")).toBeNull();
++    expect(screen.queryByTestId("w2-prepare-contract-sandbox")).toBeNull();
++    expect(screen.getByTestId("w2-decision-basis")).toHaveTextContent("Reliée");
++  });
++
++  it("PREPARE sends projectId + decisionId only, then maps the sealed contract", async () => {
++    await decidePursue("prj:sealed", "prop:f2:sealed");
++
++    prepareM3Mock.mockResolvedValue(M3_PREPARED);
++    fireEvent.click(screen.getByTestId("w2-prepare-contract"));
++    expect(await screen.findByTestId("w2-contract")).toBeVisible();
++
++    expect(prepareM3Mock).toHaveBeenCalledTimes(1);
++    expect(prepareM3Mock).toHaveBeenCalledWith({
++      projectId: "prj:sealed",
++      decisionId: "dec:sealed-pursue",
++    });
++    // Exact-shape assertion above already forbids extra keys; assert the
++    // dangerous ones explicitly so a regression names itself.
++    const sent = prepareM3Mock.mock.calls[0]![0] as Record<string, unknown>;
++    expect(Object.keys(sent).sort()).toEqual(["decisionId", "projectId"]);
++    for (const forbidden of [
++      "targetPath",
++      "operation",
++      "qualifiedOperationKind",
++      "requestedOperation",
++      "authority",
++      "canActAsMorris",
++      "claimedAuthorityLevel",
++      "real",
++      "mode",
++      "command",
++    ]) {
++      expect(sent).not.toHaveProperty(forbidden);
++    }
++    // The sandbox PREPARE application path was never touched.
++    expect(prepareContractMock).not.toHaveBeenCalled();
++
++    expect(screen.getByTestId("w2-contract-action")).toHaveTextContent(
++      "cursor.docs_write.apply",
++    );
++    expect(screen.getByTestId("w2-contract-target")).toHaveTextContent(
++      "docs/livrable-cycle.md",
++    );
++    expect(screen.getByTestId("w2-contract-authority")).toHaveTextContent("N3");
++    expect(screen.getByTestId("w2-contract-capabilities")).toHaveTextContent(
++      "cap:cursor.docs_write",
++    );
++    expect(screen.getByTestId("w2-contract-id-tech")).toHaveTextContent(
++      "xct:sealed-docs-write",
++    );
++
++    // Inspect owns the next action; PREPARE is not offered again.
++    expect(screen.getByTestId("w2-inspect-contract")).toBeVisible();
++    expect(screen.queryByTestId("w2-proposal-backed-prepare")).toBeNull();
++    expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
++
++    inspectMock.mockResolvedValue({
++      ok: true,
++      executionContractId: "xct:sealed-docs-write",
++      contractVersion: 1,
++      semanticFingerprint: "sealed0fingerprint",
++      statusLabel: "INSPECTÉ",
++      inspectionSufficient: true,
++      attestationRef: "att:sealed",
++      attestedVersion: 1,
++      staleAttestationRef: null,
++      reinspectionRequired: false,
++      reason: "inspected",
++      grantsAuthority: false,
++    });
++    fireEvent.click(screen.getByTestId("w2-inspect-contract"));
++    expect(await screen.findByTestId("w2-inspection-state")).toHaveTextContent(
++      "INSPECTÉ",
++    );
++    expect(screen.getByTestId("w2-inspection-state")).toHaveTextContent(
++      "inspecter n'autorise pas",
++    );
++  });
++
++  it("refuse on a sealed subject exposes no PREPARE path at all", async () => {
++    const proposalId = "prop:f2:sealed-refuse";
++    proposeMock.mockResolvedValue(proposalOptionSet(proposalId));
++    decideMock.mockResolvedValue(
++      proposalDecision({
++        decisionId: "dec:sealed-refuse",
++        proposalId,
++        selectedOptionRef: PROPOSAL_SUBJECT_REFUSE_REF,
++      }),
++    );
++
++    render(<TrajectorySurface projectId="prj:sealed-refuse" />);
++    fireEvent.click(await screen.findByTestId("w2-propose-options"));
++    await screen.findByTestId("w2-options");
++    fireEvent.click(screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_REFUSE_REF}`));
++    expect(await screen.findByTestId("w2-decision")).toBeVisible();
++
++    expect(screen.getByTestId("w2-refuse-next-action")).toBeVisible();
++    expect(screen.queryByTestId("w2-proposal-backed-prepare")).toBeNull();
++    expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
++    expect(screen.queryByTestId("w2-prepare-contract-sandbox")).toBeNull();
++    expect(screen.queryByTestId("w3a-operation-kind")).toBeNull();
++    expect(prepareM3Mock).not.toHaveBeenCalled();
++    expect(prepareContractMock).not.toHaveBeenCalled();
++  });
++
++  it("a Proposal pursue without linked DecisionBasis fails closed (never sandbox)", async () => {
++    const proposalId = "prop:f2:unlinked";
++    proposeMock.mockResolvedValue(proposalOptionSet(proposalId));
++    const unlinked = proposalDecision({
++      decisionId: "dec:unlinked",
++      proposalId,
++      selectedOptionRef: PROPOSAL_SUBJECT_PURSUE_REF,
++    });
++    decideMock.mockResolvedValue({
++      ...unlinked,
++      decision: { ...unlinked.decision, decisionBasisLinked: false },
++    });
++
++    render(<TrajectorySurface projectId="prj:unlinked" />);
++    fireEvent.click(await screen.findByTestId("w2-propose-options"));
++    await screen.findByTestId("w2-options");
++    fireEvent.click(screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`));
++    expect(await screen.findByTestId("w2-decision")).toBeVisible();
++
++    // Proposal subject still owns the journey — fail closed, no sandbox fallback.
++    expect(screen.getByTestId("w2-proposal-prepare-blocked")).toBeVisible();
++    expect(screen.getByTestId("w2-proposal-prepare-blocked").textContent).toMatch(
++      /base d.exécution exploitable/i,
++    );
++    expect(screen.queryByTestId("w2-proposal-backed-prepare")).toBeNull();
++    expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
++    expect(screen.queryByTestId("w2-prepare-contract-sandbox")).toBeNull();
++    expect(screen.queryByTestId("w3a-qualify-execution-work")).toBeNull();
++    expect(screen.queryByTestId("w3a-operation-kind")).toBeNull();
++    expect(prepareM3Mock).not.toHaveBeenCalled();
++    expect(prepareContractMock).not.toHaveBeenCalled();
+   });
+ });
+
+```
