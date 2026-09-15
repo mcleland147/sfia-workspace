@@ -191,7 +191,7 @@ describe("F2 orchestration AC coverage", () => {
     expect(second.f2?.proposal?.morrisGateRequired).toBe(true);
     expect(second.f2?.proposal?.status).toBe("DECISION_REQUIRED");
     expect(second.mw5?.recommendationAllowed).toBe(true);
-    expect(second.text).toMatch(/AUCUNE EXÉCUTION/);
+    expect(second.text).toMatch(/aucune exécution/i);
   });
 
   it("fail-closed on invalid JSON / unknown cycle / incomplete signals", () => {

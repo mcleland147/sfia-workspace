@@ -130,6 +130,7 @@ export async function w2ReadActiveDecisionSubjectAction(input: {
       kind: "pending_reinstruction_required",
       message: read.message,
       proposalIds: read.markers.map((m) => m.proposalId),
+      recoverableProposalIds: read.recoverableProposalIds,
     };
   }
   return {

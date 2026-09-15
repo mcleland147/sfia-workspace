@@ -19,6 +19,7 @@ import {
 } from "../f2/proposalStore";
 import type { F2ContextSnapshot, ProposalDto } from "../f2/types";
 import type { ExecutionIntentPayload } from "../f2/executionIntentSchema";
+import { pilotPendingReinstructionMessage } from "../presentationLabels";
 import { listEffectivePendingDecisionSubjectMarkers } from "./activeProposalDecisionSubject";
 
 export type SealedProposalExecutionBasis = {
@@ -274,11 +275,13 @@ export async function assertProposalSubjectGateOrFail(input: {
 
   if (!provided) {
     if (pending.length > 0) {
+      const recoverable = pending.some((m) =>
+        activeLocal.some((p) => p.proposalId === m.proposalId),
+      );
       return {
         ok: false,
         code: "PENDING_DECISION_SUBJECT_REINSTRUCTION_REQUIRED",
-        message:
-          "Sujet décisionnel pending durable détecté après perte process-local — réinstruction Nora requise. Aucun fallback vers options de trajectoire génériques.",
+        message: pilotPendingReinstructionMessage({ recoverable }),
       };
     }
     if (activeLocal.length > 0) {
@@ -304,8 +307,7 @@ export async function assertProposalSubjectGateOrFail(input: {
       return {
         ok: false,
         code: "PENDING_DECISION_SUBJECT_REINSTRUCTION_REQUIRED",
-        message:
-          "Proposal process-local absente alors qu'un marqueur pending durable existe — aucune reconstruction. Réinstruction Nora requise.",
+        message: pilotPendingReinstructionMessage({ recoverable: false }),
       };
     }
     // No effective pending — resolveProposalDecisionSubject will fail NOT_FOUND
