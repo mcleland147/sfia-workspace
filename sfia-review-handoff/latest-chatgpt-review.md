@@ -1,148 +1,101 @@
-# CORR-PROOF-10 — Post-Merge Review Pack (FULL)
+# SFIA STUDIO — Product Proof Dogfood Environment Preparation (LIGHT)
 
-- timestamp: 2026-09-15T08:46:00Z
-- cycle: 13 — Merge + post-merge verification / EVOL / Critical
-- Morris merge GO: CONSUMED
-- ChatGPT Critical Review: ACCEPTED
+- timestamp: 2026-09-15T09:16:30Z
+- cycle: 7 — Intégration / DevOps / RUN / Critical
+- Morris GO consumed: refresh dogfood to post-CORR-PROOF-10 main + preserve durable state + start runtime 3020; NO Product interaction
 - repository: mcleland147/sfia-workspace
-- worktree: /Users/morris/Projects/sfia-studio-corr-proof-10-decision-context-continuity
-- source branch preserved: YES
-- dogfood untouched: YES (`/Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d`)
+- worktree used: `/Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d`
+- expected origin/main: `1215c4823ba29421f46553f9b2fd2bde5b63c0f6`
+- Fake/Real: ZERO OpenAI LIVE / ZERO Cursor REAL / ZERO Product mutation / ZERO dogfood business action
 
-## PR
+## Git Truth
 
-- number: **486**
-- URL: https://github.com/mcleland147/sfia-workspace/pull/486
-- title: `fix(sfia-studio): preserve proposal decision continuity` (unchanged)
-- pre-merge state: OPEN / MERGEABLE / 1 commit / 25 files / +4574 −292
+### Before refresh
 
-## PR body documentary correction (only)
+- detached HEAD observed at initial check: `93ac1aea1af6b2094c158c5068bec1602d863ca7`
+- immediate pre-switch HEAD captured in backup manifest: `18b767526e93202dc8df232fa1b6ca7837dd399d` (PR #486 head; parent of merge)
+- origin/main: `1215c4823ba29421f46553f9b2fd2bde5b63c0f6` (MATCH expected)
+- tracked dirty: `.tmp-sfia-review/chatgpt-review.md` only (NOT Product source)
+- staged: empty
+- no Product tracked delta → refresh allowed
 
-Performed with `gh pr edit 486` before merge.
+### Refresh
 
-| Field | Before | After |
-|---|---|---|
-| W2 Track A | `W2 Track A (w2EabcDelivery): 39 PASS;` | `W2 Track A: 22 PASS (filtered Track A; w2EabcDelivery file total: 39 PASS);` |
-| Governance | MERGE NOT AUTHORIZED; distinct Morris GO required… | MERGE AUTHORIZED BY MORRIS after ChatGPT Critical Review ACCEPTED + CI GREEN; source branch deletion NOT authorized; post-merge verification required |
+- method: `git switch --detach 1215c4823ba29421f46553f9b2fd2bde5b63c0f6`
+- NOT used: reset --hard / clean / rebase / merge / branch create / commit / push
 
-No title / Summary / invariants / other Validation figures / Product files changed.
+### After refresh
 
-## Pre-merge Git / PR Truth
+- HEAD: `1215c4823ba29421f46553f9b2fd2bde5b63c0f6`
+- git status: `M .tmp-sfia-review/chatgpt-review.md` only
+- tracked Product sources: clean
 
-- local HEAD: `18b767526e93202dc8df232fa1b6ca7837dd399d`
-- origin/main (pre-merge): `93ac1aea1af6b2094c158c5068bec1602d863ca7`
-- PR baseOid: `93ac1aea1af6b2094c158c5068bec1602d863ca7`
-- PR headOid: `18b767526e93202dc8df232fa1b6ca7837dd399d`
-- dirty: `.tmp-sfia-review/**` only
-- PR CI run **34946365399**: SUCCESS
-  - Detect SFIA Studio changes: SUCCESS
-  - Build and validate SFIA Studio: SUCCESS
-  - **SFIA Studio Required Gate: PASS**
-- Incoming handoff: commit `5f72f8191fc4fd8bb8bc91c6fafbbc9d26e1f02e` / blob `db264b3af4b668ab390bc29a1701c2512c75bf99`
+## Durable dogfood state (no secrets)
 
-## Merge
+Identified:
 
-- command: `gh pr merge 486 --merge --match-head-commit 18b767526e93202dc8df232fa1b6ca7837dd399d`
-- mode: **merge commit** (NOT squash / NOT rebase / NOT --admin / NOT --delete-branch / NOT --auto)
-- mergedAt: **2026-09-15T08:40:08Z**
-- merge SHA / NEW_MAIN: **`1215c4823ba29421f46553f9b2fd2bde5b63c0f6`**
-- PR state: **MERGED**
+| Artifact | Path / nature | Size | SHA-256 | Preserved |
+|---|---|---|---|---|
+| Product DB | symlink → `…/sfia-workspace/projects/sfia-studio/.sfia-exec/product/oa-product.sqlite` | 2998272 | `c3347c12…b4eb9c` | YES (hash match pre/post) |
+| Nora session DB | dogfood-local `…/.sfia-exec/product/nora-session.sqlite` | 73728 | `4ceb9594…550690` | YES |
+| D1 state | `…/.sfia-exec/local-i1/state/d1.sqlite` | 61440 | `90d95a11…786866` | YES |
+| Env | symlink `.env.local` → resolved auth dogfood env file | 583 | `d625df1e…0e924ed` | YES |
 
-### Parents (exact)
+Env variable **names** only (values NEVER printed):
+`BETTER_AUTH_SECRET BETTER_AUTH_URL GITHUB_CLIENT_ID GITHUB_CLIENT_SECRET SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS OPENAI_API_KEY OPENAI_MODEL SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY`
 
-```
-1215c4823ba29421f46553f9b2fd2bde5b63c0f6
-  parent1 = 93ac1aea1af6b2094c158c5068bec1602d863ca7
-  parent2 = 18b767526e93202dc8df232fa1b6ca7837dd399d
-```
+Local safety backup (private, mode 700/600, outside Git):
+`/Users/morris/.cache/sfia-dogfood-backups/post-corr-proof-10-prep-20260915T0910Z/`
+(contains binary copies + MANIFEST; no handoff of secret values)
 
-Topology: EXPECTED merge of main + PR head.
+Also present (not mutated by this cycle): `oa-product.sqlite.empty-local-backup-20260914T141839Z`
 
-### Head → merge content equivalence
+## Port / process
 
-```
-git diff --stat 18b76752… 1215c482…
-→ empty
+- Before: no listener on 3020
+- After: node next-server listening on `*:3020`
+- Wrapper PID: `52936` (`npm run dev`)
+- Listener PID: `52961` (`next-server (v15.5.20)`)
+- cwd: dogfood app path
+- Log: `/tmp/sfia-studio-product-proof-3020.log`
 
-git diff 18b76752… 1215c482… -- projects/sfia-studio
-→ ZERO bytes
-```
+## Dependencies
 
-No Product delta introduced by merge.
+- `node_modules` PRESENT and coherent (`npm ls --depth=0` OK)
+- no `npm ci` / no package update
+- `package.json` / `package-lock.json` remain clean
 
-### Source branch preservation
+## Start + smoke (read-only)
 
-```
-origin/fix/sfia-studio-corr-proof-10-decision-context-continuity
-  = 18b767526e93202dc8df232fa1b6ca7837dd399d
-```
+- command: `npm run dev` (Next `--port 3020`) from dogfood app
+- Ready: Next.js 15.5.20 Ready in ~1159ms
+- HTTP `/` no-follow: **307** → `/login?error=NO_SESSION&from=%2F` (expected auth gate)
+- HTTP `/` follow: **200** on login (~14 KB)
+- No fatal server errors in log
 
-Remote ref STILL PRESENT. No local/remote branch delete. Worktree preserved.
+## Non-mutation Product
 
-## Post-merge CI (push/main)
+Pre/post smoke SHA-256 of Product DB / session / D1: **identical**
+No Nora message, no Options CTA, no HD, no EC, no Execute, no REAL.
 
-- workflow: SFIA Studio CI
-- event: push
-- head_sha: `1215c4823ba29421f46553f9b2fd2bde5b63c0f6`
-- run ID: **34948228317**
-- URL: https://github.com/mcleland147/sfia-workspace/actions/runs/34948228317
-- conclusion: **success**
+Runtime-only expected: `.next/**` / log file may change (not Product business state).
 
-Jobs:
+## Actions NOT performed
 
-| Job | ID | Conclusion |
-|---|---|---|
-| Detect SFIA Studio changes | 104312648112 | success |
-| Build and validate SFIA Studio | 104312688811 | success |
-| SFIA Studio Required Gate | 104314147985 | success |
+- Product Proof campaign continuation
+- business clicks / Nora chat / HD / PREPARE / Execute / materialization
+- REAL / LIVE provider calls
+- dogfood DB reset / recreate worktree
+- force push / hard reset / clean
+- Product commit / push
+- secret printing / upload
 
-Build and validate steps (all success): Typecheck, Lint, Build, Unit tests (Vitest), Modeled governance tests, Secret pattern scan, Trailing whitespace check.
+## URL for Morris
 
-**Required Gate: PASS**
+**http://localhost:3020**
 
-## Main after post-merge CI
-
-- `origin/main` == `1215c4823ba29421f46553f9b2fd2bde5b63c0f6` (stable)
-- PR #486 remains MERGED at same mergeCommit
-
-## Fake / Real
-
-Cycle type: GIT INTEGRATION / POST-MERGE VERIFICATION ONLY.
-
-Authorized claims:
-- CORR-PROOF-10 integrated on main
-- deterministic Product candidate integrated
-- post-merge CI verified
-- Required Gate PASS
-
-Forbidden claims NOT made:
-- REAL BOUNDARY PROVEN
-- END-TO-END REAL PROVEN
-- runtime v3 ADOPTED
-- Proposal Product Proof end-to-end REAL complete
-- global Nora completion / global L5
-
-ZERO OpenAI LIVE / ZERO Cursor REAL / ZERO dogfood mutation / ZERO new Product execution.
-
-## Reserves / debt
-
-- physical stale pending markers may remain but are functionally shadowed by DecisionRef
-- housekeeping of stale markers remains non-blocking / not opened
-- historical true-trajectory DecisionRef post-commit behavior remains outside CORR-PROOF-10 scope
-- source branch cleanup deferred to separate Morris decision
-
-## Actions NOT performed (forbidden)
-
-- remote/local branch deletion
-- worktree deletion
-- force push / rebase / squash merge / --admin / --auto
-- new Product commit
-- functional hotfix
-- Roadmap / Build Doctrine / C1 / doctrine v3 edits
-- REAL / LIVE
-- dogfood mutation/reproof
-- revert on main
+Server left **running**.
 
 ## Verdict
 
-CORR-PROOF-10 — MERGED ON MAIN + POST-MERGE CI GREEN — INTEGRATION VERIFIED — SOURCE BRANCH PRESERVED
+SFIA STUDIO DOGFOOD — POST-CORR-PROOF-10 ENVIRONMENT READY — RUNTIME 3020 HEALTHY — DURABLE STATE PRESERVED — READY FOR MORRIS MANUAL TEST
