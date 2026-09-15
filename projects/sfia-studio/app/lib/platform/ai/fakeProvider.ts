@@ -12,6 +12,163 @@ export type FakeToolScriptRound =
   | { kind: "message"; text: string }
   | { kind: "tool_calls"; toolCalls: ProviderToolCall[] };
 
+type FakeChallengeAssessment =
+  | "sufficient"
+  | "insufficient"
+  | "unknown"
+  | null;
+
+/** F2 intent-analysis ownership — system messages only; never user content. */
+function isF2IntentAnalysisContext(messages: ProviderChatMessage[]): boolean {
+  return messages.some(
+    (m) => m.role === "system" && m.content.includes("SFIA Studio F2"),
+  );
+}
+
+/**
+ * Bounded Unicode/case normalization for the natural materialization contract only.
+ * Not a general NLP layer — only apostrophe variants + accents on recognized tokens.
+ */
+function normalizeNaturalMaterializationProbe(raw: string): string {
+  return raw
+    .normalize("NFC")
+    .replace(/[\u2018\u2019\u02BC\u0060]/g, "'")
+    .toLowerCase()
+    .replace(/[àáâäã]/g, "a")
+    .replace(/[èéêë]/g, "e")
+    .replace(/[ìíîï]/g, "i")
+    .replace(/[òóôöõ]/g, "o")
+    .replace(/[ùúûü]/g, "u")
+    .replace(/ç/g, "c");
+}
+
+/** Exactly one repository-relative `.md` path from CURRENT demand; else null. */
+function extractSingleRepoRelativeMdPath(probe: string): string | null {
+  const re =
+    /(?:^|[\s`"'(])((?:[A-Za-z0-9._-]+\/)+[A-Za-z0-9._-]+\.md)(?=$|[\s`"'),.])/g;
+  const hits: string[] = [];
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(probe)) !== null) {
+    hits.push(m[1]!);
+  }
+  if (hits.length !== 1) return null;
+  const path = hits[0]!;
+  if (path.startsWith("/") || path.includes("..") || /:\/\//.test(path)) {
+    return null;
+  }
+  return path;
+}
+
+/**
+ * Narrow natural Pilot contract for artifact materialization (no synonym engine).
+ * Requires ALL of:
+ * 1) materialize wording family
+ * 2) exactly one repo-relative .md path
+ * 3) explicit proposal / decision preparation
+ * 4) explicit no-execution guard
+ */
+function matchNaturalArtifactMaterialization(probe: string): {
+  targetPath: string;
+  artifactBrief: string;
+  contentRequirement: string;
+} | null {
+  const normalized = normalizeNaturalMaterializationProbe(probe);
+  if (!/\bmaterialis(?:e|er)\b/.test(normalized)) return null;
+
+  const hasProposalOrDecision =
+    /\bproposition\b/.test(normalized) || /\bdecision\b/.test(normalized);
+  const hasNoExecution =
+    /n'execute\s+rien/.test(normalized) ||
+    /ne\s+rien\s+executer/.test(normalized);
+  if (!hasProposalOrDecision || !hasNoExecution) return null;
+
+  const targetPath = extractSingleRepoRelativeMdPath(probe);
+  if (!targetPath) return null;
+
+  const brief = probe.replace(/\s+/g, " ").trim().slice(0, 240);
+  return {
+    targetPath,
+    artifactBrief: brief,
+    contentRequirement: brief,
+  };
+}
+
+/** Shared F2 artifact-materialization analysis payload (sentinel + natural). */
+function buildArtifactMaterializationAnalysis(input: {
+  targetPath: string;
+  challengeResponseAssessment?: FakeChallengeAssessment;
+  artifactBrief?: string;
+  contentRequirements?: string[];
+}): Record<string, unknown> {
+  const targetPath = input.targetPath;
+  const parentSlash = targetPath.lastIndexOf("/");
+  const scopeIn =
+    parentSlash > 0 ? [targetPath.slice(0, parentSlash + 1)] : ["docs/"];
+  return {
+    intentClass: "execution_request",
+    candidateCycleTypeId: "cyc:framing",
+    signals: {
+      structuralChange: false,
+      securityImpact: false,
+      architectureImpact: false,
+      dataImpact: false,
+      irreversible: false,
+      lowRiskBounded: true,
+    },
+    cognitiveWorkload: null,
+    contradictionCandidate: null,
+    challengeResponseAssessment: input.challengeResponseAssessment ?? "sufficient",
+    continuationKind: "active_cycle_artifact_materialization",
+    artifactMaterializationOperation: "cursor.docs_write.apply",
+    objective: "Matérialiser le livrable requis du cycle actif",
+    scope: "docs_write borné — cycle actif — aucune exécution automatique",
+    rephrasedRequest: "Matérialisation gouvernée du livrable requis",
+    outOfScope: ["Nouveau CycleInstance", "Pilot START", "Cursor REAL"],
+    risks: ["Confusion continuation / nouvelle formalisation"],
+    reservations: [],
+    stopConditions: ["AUCUNE EXÉCUTION", "Décision Pilote requise"],
+    activatedBlocks: ["proposition", "gate"],
+    expectedOutcome: "Proposition de matérialisation liée au cycle actif",
+    criticalJustification: null,
+    requestedOperation: null,
+    executionIntent: {
+      intentKind: "docs_write",
+      artifactType: "deliverable_document",
+      targetRepositoryRef: null,
+      targetPath,
+      scopeIn,
+      scopeOut: [],
+      expectedOutputs: [targetPath],
+      requiredCapabilities: ["cap:cursor.docs_write"],
+      validationExpectations: [],
+      evidenceRequirements: [],
+      requestedOperation: null,
+      reversibilityExpectation: null,
+      artifactBrief:
+        input.artifactBrief ?? "Livrable requis du cycle actif",
+      contentRequirements:
+        input.contentRequirements ?? ["Contenu défini avec Nora"],
+      exitRequirementKinds: [],
+    },
+  };
+}
+
+function fakeF2JsonResult(
+  callCount: number,
+  analysis: Record<string, unknown>,
+): ProviderCompletionResult {
+  return {
+    text: `[TEST/FAKE · NON LIVE] ${JSON.stringify(analysis)}`,
+    usage: {
+      inputTokens: 10 * callCount,
+      outputTokens: 5 * callCount,
+      totalTokens: 15 * callCount,
+      model: "fake-test-model",
+      providerResponseId: `fake-resp-${callCount}`,
+    },
+  };
+}
+
 /**
  * Deterministic fake provider for unit/E2E non-live tests.
  * Never presented as live GPT; replies are tagged TEST/FAKE.
@@ -763,69 +920,19 @@ export class FakeConversationProvider implements ConversationProvider {
       };
     }
     if (markerProbe.includes("__F2_ARTIFACT_MATERIALIZE__")) {
+      // Historical sentinel fixture — same builder as natural Pilot contract.
       const content = markerProbe;
-      let challengeResponseAssessment:
-        | "sufficient"
-        | "insufficient"
-        | "unknown"
-        | null = "sufficient";
+      let challengeResponseAssessment: FakeChallengeAssessment = "sufficient";
       if (content.includes("__MW5_SATISFACTION_INSUFFICIENT__")) {
         challengeResponseAssessment = "insufficient";
       }
-      return {
-        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-          intentClass: "execution_request",
-          candidateCycleTypeId: "cyc:framing",
-          signals: {
-            structuralChange: false,
-            securityImpact: false,
-            architectureImpact: false,
-            dataImpact: false,
-            irreversible: false,
-            lowRiskBounded: true,
-          },
-          cognitiveWorkload: null,
-          contradictionCandidate: null,
+      return fakeF2JsonResult(
+        this.callCount,
+        buildArtifactMaterializationAnalysis({
+          targetPath: "docs/livrable-cycle.md",
           challengeResponseAssessment,
-          continuationKind: "active_cycle_artifact_materialization",
-          artifactMaterializationOperation: "cursor.docs_write.apply",
-          objective: "Matérialiser le livrable requis du cycle actif",
-          scope: "docs_write borné — cycle actif — aucune exécution automatique",
-          rephrasedRequest: "Matérialisation gouvernée du livrable requis",
-          outOfScope: ["Nouveau CycleInstance", "Pilot START", "Cursor REAL"],
-          risks: ["Confusion continuation / nouvelle formalisation"],
-          reservations: [],
-          stopConditions: ["AUCUNE EXÉCUTION", "Décision Pilote requise"],
-          activatedBlocks: ["proposition", "gate"],
-          expectedOutcome: "Proposition de matérialisation liée au cycle actif",
-          criticalJustification: null,
-          requestedOperation: null,
-          executionIntent: {
-            intentKind: "docs_write",
-            artifactType: "deliverable_document",
-            targetRepositoryRef: null,
-            targetPath: "docs/livrable-cycle.md",
-            scopeIn: ["docs/"],
-            scopeOut: [],
-            expectedOutputs: ["docs/livrable-cycle.md"],
-            requiredCapabilities: ["cap:cursor.docs_write"],
-            validationExpectations: [],
-            evidenceRequirements: [],
-            requestedOperation: null,
-            reversibilityExpectation: null,
-            artifactBrief: "Livrable requis du cycle actif",
-            contentRequirements: ["Contenu défini avec Nora"],
-            exitRequirementKinds: [],
-          },
-        })}`,
-        usage: {
-          inputTokens: 10 * this.callCount,
-          outputTokens: 5 * this.callCount,
-          totalTokens: 15 * this.callCount,
-          model: "fake-test-model",
-          providerResponseId: `fake-resp-${this.callCount}`,
-        },
-      };
+        }),
+      );
     }
     if (markerProbe.includes("__F2_DOCS_WRITE_GENERIC__")) {
       return {
@@ -1010,7 +1117,22 @@ export class FakeConversationProvider implements ConversationProvider {
         },
       };
     }
-    if (messages.some((m) => m.role === "system" && m.content.includes("SFIA Studio F2"))) {
+    // Natural Pilot artifact-materialization is F2 intent-analysis ONLY.
+    // Ordering: HOSTILE_MERGE → ARTIFACT_MATERIALIZE sentinel → … remaining markers
+    // → F2-context natural matcher → F2 informative fallback → ordinary non-F2 fake.
+    if (isF2IntentAnalysisContext(messages)) {
+      const naturalMaterialization =
+        matchNaturalArtifactMaterialization(markerProbe);
+      if (naturalMaterialization) {
+        return fakeF2JsonResult(
+          this.callCount,
+          buildArtifactMaterializationAnalysis({
+            targetPath: naturalMaterialization.targetPath,
+            artifactBrief: naturalMaterialization.artifactBrief,
+            contentRequirements: [naturalMaterialization.contentRequirement],
+          }),
+        );
+      }
       return {
         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
           intentClass: "informative",
