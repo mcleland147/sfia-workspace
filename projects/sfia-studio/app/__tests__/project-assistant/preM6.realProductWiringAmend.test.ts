@@ -597,14 +597,20 @@ describe("Cycle 8 — Pre-M6 REAL product wiring amend", () => {
     const agent = runtime.oa!.executionAttemptServices.registry.getAgent(
       recorded.attempt.selectedAgentRef,
     );
+    // B1 — provenance from boundaryProofMode, not env / agent alone.
+    // TestOnlyRealExecutionLaunchPort is a simulated ACK (not Cursor OS REAL).
+    // Classify as deterministic Fake proof mode: BOUNDED_M4_DETERMINISTIC.
     const provenance = deriveAttemptProvenance({
       attempt: recorded.attempt,
       agent,
+      boundaryProofMode: "deterministic_fake",
     });
     expect(process.env.SFIA_STUDIO_CURSOR_REAL).toBe("0");
-    expect(provenance.mode).toBe("CURSOR_CLI_REAL");
+    expect(provenance.mode).toBe("BOUNDED_M4_DETERMINISTIC");
+    expect(provenance.boundaryProofMode).toBe("deterministic_fake");
     expect(provenance.adapterRef).toBe(M4_REAL_GATEWAY_ADAPTER_ID);
     expect(provenance.executionMode).toBe("cursor_cli_real");
+    expect(provenance.realExecution).toBe(false);
     expect(provenance.realProcessInvoked).toBe(true);
     expect(provenance.evidenceId.startsWith("ev:m4-bounded-ro:")).toBe(true);
     if (previousFlag === undefined) {
