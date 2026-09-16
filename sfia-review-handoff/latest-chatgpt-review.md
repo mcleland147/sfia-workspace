@@ -1,19 +1,19 @@
 # SFIA Studio — PRODUCT CONTINUITY
-## EC REHYDRATION — FINAL REFORMULATE FAIL-CLOSED MICRO-FIX — FULL Review Pack
+## EC REHYDRATION — AUTHORITATIVE SUBJECT-NONE RECONCILIATION — FULL Review Pack
 
-**Timestamp (UTC):** 2026-09-16T13:40:00Z
+**Timestamp (UTC):** 2026-09-16T14:05:00Z
 **Review Pack:** FULL
 **Cycle:** 8 — Delivery
 **Typology:** RUN
 **Profile:** Critical
 
 **Verdict:**
-`PRODUCT-CONTINUITY-EC-REHYDRATION — PRE-EXECUTION CONTINUITY FAIL-CLOSED COMPOSITION DETERMINISTICALLY PROVEN — STALE REINSTRUCTION CANNOT REFORMULATE WHILE LATEST CONTINUITY PASS IS PENDING OR FAILED — STALE OPTIONSET CANNOT DECIDE — STALE DECISION CANNOT PREPARE — STALE GOVERNED RESULT CANNOT OVERRIDE NEWER SUBJECT TRUTH — LATEST VALID PASS RECOVERS DECISION-SUBJECT / EXECUTIONCONTRACT CONTINUITY — EXACT DOCS_WRITE TARGET AND LEGACY INCOMPLETE INSPECTION BEHAVIOR PRESERVED — ATTEMPT-RUNNING / POST-EXECUTION CONTROLS OUT OF SCOPE — ZERO DOGFOOD MUTATION — ZERO REAL — NO PRODUCT GIT — READY FOR CHATGPT CRITICAL REVIEW`
+`PRODUCT-CONTINUITY-EC-REHYDRATION — AUTHORITATIVE DECISION-SUBJECT NONE RECONCILIATION DETERMINISTICALLY PROVEN — STALE PROPOSAL OPTIONSET INVALIDATED BEFORE HUMANDECISION — GENERIC PROJECTTRAJECTORY OPTIONSET PRESERVED — EXISTING HUMANDECISION / PROPOSAL-BACKED PREPARE CONTINUITY PRESERVED — SUCCESSFUL LATEST NONE CLEARS STALE READ ERROR — PRE-EXECUTION DECISION-SUBJECT / EXECUTIONCONTRACT FAIL-CLOSED CONTINUITY PRESERVED — EXACT DOCS_WRITE TARGET + LEGACY INCOMPLETE INSPECTION BEHAVIOR PRESERVED — ATTEMPT-RUNNING / POST-EXECUTION CONTROLS OUT OF SCOPE — ZERO DOGFOOD MUTATION — ZERO REAL — NO PRODUCT GIT — READY FOR CHATGPT CRITICAL REVIEW`
 
 ---
 
 ## A. Timestamp
-2026-09-16T13:40:00Z
+2026-09-16T14:05:00Z
 
 ## B. Git truth
 - origin/main = `c2c8280b7cfaa1b3a5656fb55b1e46ba73b23130`
@@ -24,110 +24,114 @@
 - Candidate LOCAL DIRTY — exact 9 Product/test paths
 
 ## C. Morris GO consumed
-Final Reformulate fail-closed micro-fix only: gate stale `Reformuler avec Nora`
-while latest Decision Subject continuity is pending/error; deterministic UI tests;
-claim-scope correction to pre-execution continuity; full validation; Review Handoff L3.
+Authoritative Decision Subject `kind:none` reconciliation only: invalidate stale
+Proposal-backed OptionSet; preserve generic ProjectTrajectory OptionSet; preserve
+already-recorded HumanDecision; clear stale subject-read error on successful none;
+deterministic UI tests; full validation; Review Handoff L3.
 NOT authorized: Product commit/push/PR; dogfood; Inspect/Confirm/Authorize/Execute;
-LIVE/REAL; server resolver; Attempt lifecycle redesign.
+LIVE/REAL; server resolver; persistence; Attempt redesign.
 
 ## D. Cycle / RUN / Critical
 Cycle 8 Delivery · RUN · Critical
 
 ## E. Convergence
-- V3-F02 semantic inter-session continuity
-- V3-F11 durable inspectable ExecutionContract
-- V3-F12 governed authority/effect boundary
-- A3 / C1 Product Completion trajectory continuity
+- V3-F02 semantic inter-session continuity and honest reconstruction
+- V3-F11 durable inspectable ExecutionContract continuation
+- V3-F12 governed action / authority boundary
+- A3 / C1 Product Completion trajectory
 - runtime v3 **NON ADOPTED**
 
 ## F. Prior handoff
-- tip `bbb5c9e45993b70b548a489fe6bd34766db41455`
-- blob `c0255800d9b5a98d5fdf6a29defd684ac641e299`
+`b978432de5816d40604a207cfb13df43728fb07c`
 
-## G. ChatGPT Critical Review FAIL consumed
+## G. Prior blob
+`824cfd9c95edf32edb0873724f02e6c910ab769c`
+
+## H. ChatGPT Critical Review FAIL consumed
 `PRODUCT-CONTINUITY-EC-REHYDRATION — CHATGPT CRITICAL REVIEW FAIL`
-- Accepted: server resolver, Decision lineage, Project/cycle integrity, kind:none clearing,
-  Decision/PREPARE/EC gate, latest-wins generation, immediate refresh fail-closed,
-  stale governed read protection, deterministic validation.
-- ONE blocker: stale `pendingReinstruction` kept `Reformuler avec Nora` actionable
-  while latest subject continuity pass is pending/error.
-- Claim scope too broad: must not claim ALL W2 SUBJECT/EXECUTION MUTATIONS.
+- Accepted prior fail-closed composition.
+- ONE blocker: authoritative Decision Subject `kind:none` did not invalidate a
+  stale Proposal-backed OptionSet held in React state → Decide could fire.
+- Secondary: successful latest none did not clear a stale subject-read error.
 
-## H. exact pre-micro 9 hashes
+## I. exact pre-micro nine hashes
 - `readCurrentGovernedExecutionContinuity.ts` = `992c44552b7845c3b2c88c6e0ed56974f8c96bb0d1ba7cc5bb0503a6763ba278`
 - `actions.ts` = `f11e86a09b4e6df5161c578464bdbaa91d3ae53e7c2820a80536238ba3817591`
 - `types.ts` = `7c6ce2c143636a204639ff504a0c2bc7287e05ff3e4b156ddd6752011f30ad23`
-- `TrajectorySurface.tsx` = `f515edbd1a57f04f63559caba4b1590889344b8f0e2324c7a765218e1a25f7a4`
+- `TrajectorySurface.tsx` = `64afe8e8635940ed3c3edb5f05145acac923698f039bed30254cea0cd8689a7b`
 - `ecRehydrationContinuity.d0.test.ts` = `da8ca7d51562c14b3a7704b60424528d72a8fb7e49b9a2a281c4e4e3da874fe8`
-- `trajectorySurface.ui.test.tsx` = `f12b1ec5e149b0366a6e0ae3f150800fcafae61c0ee2ba565a9e2b821d0615de`
+- `trajectorySurface.ui.test.tsx` = `7136c98294935bb6a3b043a581f73a7f3cdc75afe91d2f2bb9c04f87c00ba1f6`
 - `productJourneyProjectionCoherence.ui.test.tsx` = `1b65d27c5e028cc293b3816459117afe410907a47249a16f473742b78cac24ad`
 - `preCycleTrajectoryCta.ui.test.tsx` = `f2ea18c60e634e4705dd25c9d2cdcda35dcb6a388cd12903cb743b7f6b1d782a`
 - `importBoundaries.test.ts` = `f2615fea1df62725dc39d91511722ef3c1d84a2fdeec92611192c7e32a1c0676`
 
-## I. remaining Reformuler root cause
-`w2-reformulate-with-nora` disabled only for `busy` / missing callback.
-Stale lost reinstruction (1 proposalId / 0 recoverable) remained clickable after a
-newer durable refresh left Decision Subject continuity pending or in error —
-authorizing a Decision Subject mutation from stale client state.
+## J. authoritative subject-none root cause
+`kind === "none"` branch only cleared pendingReinstruction and marked subject ready,
+leaving local optionSet untouched for the trajectory path. That blanket preserve
+kept Proposal-backed OptionSet decision authority after durable subject absence.
 
-## J. exact button correction
-Disabled semantics:
-`busy !== null || continuityMutationBlocked || !onRequestReformulateWithNora`
+## K. exact semantic classification
+Proposal-backed:
+`decisionSubjectMode === "proposal"` OR `Boolean(proposalId)`
+→ clear OptionSet.
 
-Subject ERROR path no longer clears `pendingReinstruction` solely to hide the control;
-stale copy may remain informational while non-actionable.
+Generic ProjectTrajectory:
+neither of the above
+→ preserve OptionSet.
 
-## K. callback defense-in-depth
-Click handler returns immediately when `continuityMutationBlocked` before invoking
-`onRequestReformulateWithNora`.
+## L. exact production correction
+In successful Decision Subject `kind:none`:
+1. `setPendingReinstruction(null)`
+2. functional `setOptionSet` clearing Proposal-backed only
+3. `setError(null)` — successful latest read supersedes prior read failure
+4. `setSubjectReadStatus("ready")`
+Does NOT clear decision / decided / contract / inspection / authorization.
 
-## L. stale lost + pending test
-`final fail-closed — stale lost Reformuler disabled while subject refresh pending` — PASS
+## M. no opaque ID parsing
+YES — classification uses structured fields only.
 
-## M. stale lost + error test
-`final fail-closed — stale lost Reformuler disabled on subject ERROR` — PASS
-(no additional governed continuity read after failed subject pass)
+## N. HumanDecision is NOT cleared
+YES — no `setDecision(null)` / `setDecided(null)` in this branch.
 
-## N. latest READY lost recovery test
-`final fail-closed — latest READY lost pass re-enables Reformuler` — PASS
-(callback invoked exactly once with current sole proposalId)
+## O. stale Proposal OptionSet → none test
+`subject-none — stale Proposal OptionSet invalidated before HumanDecision` — PASS
 
-## O. previous fail-closed regression proofs preserved
-stale OptionSet/Decision, bound+EC pending, stale governed ACTIVE ignore, READY EC recovery,
-authoritative none, Project/cycle integrity, supersession, ambiguity, Decision lineage,
-exact docs_write target/repository, legacy incomplete inspection, Confirm disabled — all green.
+## P. generic OptionSet preservation test
+`subject-none — generic ProjectTrajectory OptionSet preserved` — PASS
 
-## P. explicit claim-scope correction
-Bounded to **PRE-EXECUTION Decision Subject → ExecutionContract continuity**:
-Decision Subject / Options / HumanDecision / PREPARE / existing EC / Inspect /
-Confirmation / Authorization / governed Execute launch.
+## Q. HumanDecision + Proposal PREPARE preservation test
+`subject-none — recorded HumanDecision + Proposal PREPARE preserved` — PASS
 
-Preferred claim wording:
-`PRE-EXECUTION DECISION-SUBJECT / EXECUTIONCONTRACT MUTATIONS BLOCKED UNTIL THE LATEST SUBJECT + GOVERNED EXECUTION CONTINUITY PASS RESOLVES`
+## R. stale error → latest none recovery test
+`subject-none — successful latest none clears stale subject-read error` — PASS
 
-## Q. explicit out-of-scope
-Attempt-running / post-execution controls (e.g. Arrêter l'exécution, Recharger résultat produit,
-post-Evidence actions, Attempt lifecycle rehydration) were **not** qualified by this lot
-and were **not** modified.
+## S. earlier fail-closed proofs preserved
+Reformuler gating, Decision/PREPARE gates, async latest-wins, EC none clearing,
+Project/cycle integrity, Decision lineage, supersession, ambiguity, campaign EC
+oracle, PR491 incomplete inspection — focused regression green.
 
-## R. exact two-file diff
+## T. campaign EC oracle preserved
+Exact docs_write target/repository + RÉINSPECTION REQUISE — DÉTAILS INCOMPLETS
+fresh-mount proof remains green.
+
+## U. exact two-file diff
 ONLY:
 1. `TrajectorySurface.tsx`
 2. `trajectorySurface.ui.test.tsx`
-Complete current sources below.
+Complete sources below.
 
-## S. post-micro 9 hashes
+## V. post-micro nine hashes
 - `readCurrentGovernedExecutionContinuity.ts` = `992c44552b7845c3b2c88c6e0ed56974f8c96bb0d1ba7cc5bb0503a6763ba278` (UNCHANGED)
 - `actions.ts` = `f11e86a09b4e6df5161c578464bdbaa91d3ae53e7c2820a80536238ba3817591` (UNCHANGED)
 - `types.ts` = `7c6ce2c143636a204639ff504a0c2bc7287e05ff3e4b156ddd6752011f30ad23` (UNCHANGED)
-- `TrajectorySurface.tsx` = `64afe8e8635940ed3c3edb5f05145acac923698f039bed30254cea0cd8689a7b` (CHANGED)
+- `TrajectorySurface.tsx` = `48ace342069ba31f1f1f39f214c97a82b89a21f8594c9bff718a631d5c0ebe06` (CHANGED)
 - `ecRehydrationContinuity.d0.test.ts` = `da8ca7d51562c14b3a7704b60424528d72a8fb7e49b9a2a281c4e4e3da874fe8` (UNCHANGED)
-- `trajectorySurface.ui.test.tsx` = `7136c98294935bb6a3b043a581f73a7f3cdc75afe91d2f2bb9c04f87c00ba1f6` (CHANGED)
+- `trajectorySurface.ui.test.tsx` = `83e0f05295db3808a10cf984a0c9c0c12a5e4a6afb6beda14efcbdc3d49251b7` (CHANGED)
 - `productJourneyProjectionCoherence.ui.test.tsx` = `1b65d27c5e028cc293b3816459117afe410907a47249a16f473742b78cac24ad` (UNCHANGED)
 - `preCycleTrajectoryCta.ui.test.tsx` = `f2ea18c60e634e4705dd25c9d2cdcda35dcb6a388cd12903cb743b7f6b1d782a` (UNCHANGED)
 - `importBoundaries.test.ts` = `f2615fea1df62725dc39d91511722ef3c1d84a2fdeec92611192c7e32a1c0676` (UNCHANGED)
 
-## T. unchanged-seven equality
+## W. unchanged-seven equality
 YES:
 - `readCurrentGovernedExecutionContinuity.ts`
 - `actions.ts`
@@ -137,54 +141,59 @@ YES:
 - `preCycleTrajectoryCta.ui.test.tsx`
 - `importBoundaries.test.ts`
 
-## U. total candidate path count = 9
+## X. total candidate path count exactly 9
 YES
 
-## V. focused validation
-16 files / **239 passed** / 0 failed
+## Y. focused validation
+16 files / **243 passed** / 0 failed
 
-## W. full Vitest
-**4151 passed / 137 skipped / 0 failed**
+## Z. full Vitest
+**First full run (pre waitFor harden):** 2 failed / 4153 passed / 137 skipped
+Failures were racey decide-before-continuity-ready in trajectorySurface UI tests under full parallel load.
+**Second full run (after waitFor enable-before-click):** **4155 passed / 137 skipped / 0 failed**
 (Test Files 373 passed | 17 skipped)
 
-## X. typecheck
+## AA. typecheck
 PASS
 
-## Y. lint
+## AB. lint
 PASS
 
-## Z. build
+## AC. build
 PASS
 
-## AA. diff-check
+## AD. diff-check
 PASS
 
-## AB. DB/schema/migration = NONE
-YES
+## AE. DB/schema/migration
+NONE
 
-## AC. server resolver modified = NO
-YES
+## AF. server resolver modification
+NO
 
-## AD. dogfood mutation = ZERO
-YES
+## AG. persistence modification
+NO
 
-## AE. OpenAI LIVE = ZERO
-YES
+## AH. dogfood mutation
+ZERO
 
-## AF. Cursor/docs_write REAL = ZERO
-YES
+## AI. OpenAI LIVE
+ZERO
 
-## AG. Product commit/push/PR = NONE
-YES — LOCAL DIRTY
+## AJ. Cursor/docs_write REAL
+ZERO
 
-## AH. remaining reserve
-Authenticated restart reproof only after Critical Review + Product Git integration
+## AK. Product commit/push/PR
+NONE — LOCAL DIRTY
 
-## AI. next gate
+## AL. remaining reserve
+Authenticated restart reproof after Critical Review + Product Git integration
+
+## AM. next gate
 ChatGPT Critical Review
 
-## AJ. bounded final verdict
-`PRODUCT-CONTINUITY-EC-REHYDRATION — PRE-EXECUTION CONTINUITY FAIL-CLOSED COMPOSITION DETERMINISTICALLY PROVEN — STALE REINSTRUCTION CANNOT REFORMULATE WHILE LATEST CONTINUITY PASS IS PENDING OR FAILED — STALE OPTIONSET CANNOT DECIDE — STALE DECISION CANNOT PREPARE — STALE GOVERNED RESULT CANNOT OVERRIDE NEWER SUBJECT TRUTH — LATEST VALID PASS RECOVERS DECISION-SUBJECT / EXECUTIONCONTRACT CONTINUITY — EXACT DOCS_WRITE TARGET AND LEGACY INCOMPLETE INSPECTION BEHAVIOR PRESERVED — ATTEMPT-RUNNING / POST-EXECUTION CONTROLS OUT OF SCOPE — ZERO DOGFOOD MUTATION — ZERO REAL — NO PRODUCT GIT — READY FOR CHATGPT CRITICAL REVIEW`
+## AN. bounded unique verdict
+`PRODUCT-CONTINUITY-EC-REHYDRATION — AUTHORITATIVE DECISION-SUBJECT NONE RECONCILIATION DETERMINISTICALLY PROVEN — STALE PROPOSAL OPTIONSET INVALIDATED BEFORE HUMANDECISION — GENERIC PROJECTTRAJECTORY OPTIONSET PRESERVED — EXISTING HUMANDECISION / PROPOSAL-BACKED PREPARE CONTINUITY PRESERVED — SUCCESSFUL LATEST NONE CLEARS STALE READ ERROR — PRE-EXECUTION DECISION-SUBJECT / EXECUTIONCONTRACT FAIL-CLOSED CONTINUITY PRESERVED — EXACT DOCS_WRITE TARGET + LEGACY INCOMPLETE INSPECTION BEHAVIOR PRESERVED — ATTEMPT-RUNNING / POST-EXECUTION CONTROLS OUT OF SCOPE — ZERO DOGFOOD MUTATION — ZERO REAL — NO PRODUCT GIT — READY FOR CHATGPT CRITICAL REVIEW`
 
 ---
 
@@ -654,8 +663,18 @@ export function TrajectorySurface({
       return;
     }
     setPendingReinstruction(null);
+    // kind === "none" — authoritative Proposal Decision Subject absence.
+    // Clear stale Proposal-backed OptionSet; preserve generic ProjectTrajectory
+    // OptionSet. Do NOT clear HumanDecision / decided / EC state here.
+    setOptionSet((current) => {
+      if (!current) return null;
+      const proposalBacked =
+        current.decisionSubjectMode === "proposal" ||
+        Boolean(current.proposalId);
+      return proposalBacked ? null : current;
+    });
+    setError(null);
     setSubjectReadStatus("ready");
-    // kind === "none" — leave local optionSet as-is for trajectory path
   }, [projectId]);
 
   /** Restart-safe governed EC + inspection continuity from durable truth. */
@@ -4736,8 +4755,13 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
       />,
     );
 
+    await waitFor(() => {
+      expect(
+        screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`),
+      ).toBeEnabled();
+    });
     fireEvent.click(
-      await screen.findByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`),
+      screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`),
     );
     expect(await screen.findByTestId("w2-proposal-backed-prepare")).toBeVisible();
     expect(screen.getByTestId("w2-prepare-contract")).toBeEnabled();
@@ -5084,6 +5108,222 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     expect(reformulate).toHaveBeenCalledTimes(1);
     expect(reformulate).toHaveBeenCalledWith("prop:f2:current-lost");
   });
+
+  it("subject-none — stale Proposal OptionSet invalidated before HumanDecision", async () => {
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "bound_awaiting_decision",
+      optionSet: boundProposalOptionSet("prop:f2:stale-none"),
+    });
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+
+    const { rerender } = render(
+      <TrajectorySurface
+        projectId="prj:subject-none-clears-proposal"
+        durableRefreshSignal={0}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-options")).toBeVisible();
+    await waitFor(() => {
+      expect(
+        screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`),
+      ).toBeEnabled();
+    });
+    expect(screen.queryByTestId("w2-decision")).toBeNull();
+
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+
+    rerender(
+      <TrajectorySurface
+        projectId="prj:subject-none-clears-proposal"
+        durableRefreshSignal={1}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(screen.queryByTestId("w2-options")).toBeNull();
+    });
+    expect(
+      screen.queryByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`),
+    ).toBeNull();
+    expect(decideMock).not.toHaveBeenCalled();
+    expect(screen.queryByTestId("w2-decision")).toBeNull();
+    expect(await screen.findByTestId("w2-propose-options")).toBeVisible();
+    expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-inspect-contract")).toBeNull();
+    expect(screen.queryByTestId("w3a-governed-execute")).toBeNull();
+  });
+
+  it("subject-none — generic ProjectTrajectory OptionSet preserved", async () => {
+    proposeMock.mockResolvedValue(genericTrajectoryOptionSet());
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+
+    const { rerender } = render(
+      <TrajectorySurface
+        projectId="prj:subject-none-keeps-generic"
+        durableRefreshSignal={0}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-propose-options")).toBeVisible();
+    fireEvent.click(screen.getByTestId("w2-propose-options"));
+    expect(await screen.findByTestId("w2-options")).toBeVisible();
+    await waitFor(() => {
+      expect(
+        screen.getByTestId("w2-decide-opt:trajectory:bounded-direct"),
+      ).toBeEnabled();
+    });
+
+    rerender(
+      <TrajectorySurface
+        projectId="prj:subject-none-keeps-generic"
+        durableRefreshSignal={1}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-options")).toBeVisible();
+    await waitFor(() => {
+      expect(
+        screen.getByTestId("w2-decide-opt:trajectory:bounded-direct"),
+      ).toBeEnabled();
+    });
+    expect(proposeMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("subject-none — recorded HumanDecision + Proposal PREPARE preserved", async () => {
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "bound_awaiting_decision",
+      optionSet: boundProposalOptionSet("prop:f2:decided-none"),
+    });
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+    decideMock.mockResolvedValue({
+      ok: true,
+      decision: {
+        decisionId: "dec:w2-prop:decided-none",
+        selectedOptionRef: PROPOSAL_SUBJECT_PURSUE_REF,
+        actorRole: "Pilote",
+        authorityClass: "morris",
+        statusLabel: "DÉCISION HUMAINE PRISE",
+        capturedAt: "2026-09-16T14:00:00.000Z",
+        decisionBasisLinked: true,
+        reservesText: null,
+        proposalId: "prop:f2:decided-none",
+      },
+      trajectory: null,
+      livingProjectStateVersion: 5,
+      executionPerformed: false,
+      promotesProjectTrajectory: false,
+      decisionSubjectMode: "proposal",
+    });
+
+    const { rerender } = render(
+      <TrajectorySurface
+        projectId="prj:subject-none-keeps-decision"
+        durableRefreshSignal={0}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(
+        screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`),
+      ).toBeEnabled();
+    });
+    fireEvent.click(
+      screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`),
+    );
+    expect(await screen.findByTestId("w2-decision")).toBeVisible();
+    expect(await screen.findByTestId("w2-proposal-backed-prepare")).toBeVisible();
+    expect(screen.getByTestId("w2-prepare-contract")).toBeEnabled();
+
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+
+    rerender(
+      <TrajectorySurface
+        projectId="prj:subject-none-keeps-decision"
+        durableRefreshSignal={1}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-decision")).toBeVisible();
+    expect(screen.getByTestId("w2-decided-option")).toBeVisible();
+    expect(screen.getByTestId("w2-decided-option").textContent?.length).toBeGreaterThan(0);
+    await waitFor(() => {
+      expect(screen.queryByTestId("w2-options")).toBeNull();
+    });
+    expect(await screen.findByTestId("w2-proposal-backed-prepare")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.getByTestId("w2-prepare-contract")).toBeEnabled();
+    });
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+    expect(prepareM3Mock).not.toHaveBeenCalled();
+    expect(decideMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("subject-none — successful latest none clears stale subject-read error", async () => {
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: false,
+      code: "SUBJECT_READ_FAILED",
+      message: "Lecture du sujet de décision impossible.",
+    });
+
+    const { rerender } = render(
+      <TrajectorySurface
+        projectId="prj:subject-none-clears-error"
+        durableRefreshSignal={0}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-error")).toBeVisible();
+    expect(screen.getByTestId("w2-error").textContent).toMatch(
+      /sujet de décision impossible/,
+    );
+
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+
+    rerender(
+      <TrajectorySurface
+        projectId="prj:subject-none-clears-error"
+        durableRefreshSignal={1}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(screen.queryByTestId("w2-error")).toBeNull();
+    });
+    expect(await screen.findByTestId("w2-propose-options")).toBeVisible();
+    expect(screen.queryByTestId("w2-options")).toBeNull();
+    expect(decideMock).not.toHaveBeenCalled();
+    expect(prepareM3Mock).not.toHaveBeenCalled();
+    expect(inspectMock).not.toHaveBeenCalled();
+  });
 });
 
 function boundProposalOptionSet(proposalId: string) {
@@ -5119,6 +5359,49 @@ function boundProposalOptionSet(proposalId: string) {
     },
     epistemicRefs: [],
     proposedTrajectory: null,
+    phase: "OPTIONS_PROPOSED",
+    autoDecisionPerformed: false,
+    executionPerformed: false,
+    ckcCognitionCompletedBeforeMutation: true,
+  };
+}
+
+function genericTrajectoryOptionSet() {
+  return {
+    ok: true as const,
+    optionSetRef: "optset:w2-generic-trajectory",
+    cycleTypeId: "cyc:delivery",
+    recommendedProfile: "Standard",
+    decisionSubjectMode: "trajectory" as const,
+    proposalId: null,
+    promotesProjectTrajectory: true,
+    options: [
+      {
+        kind: "OPTION" as const,
+        optionRef: "opt:trajectory:bounded-direct",
+        label: "Trajectoire bornée directe",
+        intent: "Cadrer un périmètre réversible",
+        impacts: ["Chemin plus court"],
+        reservations: [],
+        steps: [],
+      },
+    ],
+    recommendation: {
+      label: "RECOMMANDATION — PAS UNE DÉCISION",
+      recommendedOptionRef: "opt:trajectory:bounded-direct",
+      rationale: "Aucun signal critique.",
+      isHumanDecision: false,
+      promotesTrajectory: false,
+      ckcAttribution: null,
+    },
+    epistemicRefs: [],
+    proposedTrajectory: {
+      trajectoryId: "trj:w2-generic",
+      version: 1,
+      status: "candidate",
+      statusLabel: "TRAJECTOIRE PROPOSÉE",
+      isCurrent: false,
+    },
     phase: "OPTIONS_PROPOSED",
     autoDecisionPerformed: false,
     executionPerformed: false,
