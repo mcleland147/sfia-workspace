@@ -1,7 +1,7 @@
 # AUTHENTICATED PRODUCT REPROOF 07
 ## BOUNDED CONTROLLED REAL DOCS_WRITE E2E — FULL Review Pack
 
-**Timestamp (UTC):** 2026-09-16T18:28:00Z
+**Timestamp (UTC):** 2026-09-16T18:29:39Z
 **Review Pack:** FULL
 **Campaign:** AUTHENTICATED PRODUCT REPROOF 07 — BOUNDED CONTROLLED REAL DOCS_WRITE E2E
 **Cycle:** 9 — QA / validation
@@ -9,266 +9,267 @@
 **Profile:** Critical
 
 **Verdict:**
-`AUTHENTICATED-PRODUCT-REPROOF-07 — INCOMPLETE — TOOLING OR WIRING GAP — OFFICIAL CURSOR REAL COMPOSITION ACTIVATED (SFIA_STUDIO_CURSOR_REAL=1) AND M4 DOCS_WRITE AGENT REGISTERED — DURABLE PRODUCT JOURNEY EC SCOPE/CONSTRAINTS STILL DO NOT MATCH M4 AGENT (scope French narrative vs studio.gcec.docs_write; constraints still PREPARE_ONLY/NO_CURSOR_REAL/NO_ATTEMPT) — NEW AUTHORITY RECEIPT avr:056aa615c01c0350 HONESTLY BLOCKED (grantsAuthority=false, executor_capability_insufficient) — PRODUCT UI EXECUTE SEAM REMAINS FIXTURE-ONLY (w2GovernedExecute* / realExecution:false) — EXECUTE NOT CLICKED — ZERO EXECUTIONATTEMPT — ZERO DOCS_WRITE FILE EFFECT — ZERO OPENAI LIVE — PRODUCT SOURCE UNCHANGED — NO REPAIR PERFORMED — NEXT CANDIDATE = DELIVERY CYCLE TO WIRE AUTHENTICATED PRODUCT JOURNEY TO GOVERNED REAL DOCS_WRITE (OR RESOLVE EC PROFILE) UNDER DISTINCT MORRIS GO`
+`AUTHENTICATED-PRODUCT-REPROOF-07 — INCOMPLETE — TOOLING OR WIRING GAP — OFFICIAL CURSOR REAL OPT-IN ACTIVATED (SFIA_STUDIO_CURSOR_REAL=1) AND M4 DOCS_WRITE AGENT REGISTERED — DURABLE PRODUCT JOURNEY EC SCOPE STILL DOES NOT MATCH M4 allowedScopes (prose "docs_write borné — cycle actif — aucune exécution automatique" ≠ "studio.gcec.docs_write") — NEW AUTHORITY RECEIPTS HONESTLY BLOCKED (avr:056aa615… / avr:6c7239bf…; grantsAuthority=false) — ADDITIONALLY PRODUCT UI EXECUTE SEAM REMAINS FIXTURE-ONLY (governedExecuteAuthorizedContract: realExecution:false; REAL/NoOp interdit) — EXECUTE NOT CLICKED — ZERO EXECUTIONATTEMPT — ZERO DOCS_WRITE FILE EFFECT — ZERO OPENAI LIVE — PRODUCT SOURCE UNCHANGED — NO REPAIR PERFORMED — NEXT CANDIDATE = DELIVERY CYCLE TO WIRE AUTHENTICATED PRODUCT JOURNEY TO GOVERNED REAL DOCS_WRITE UNDER DISTINCT MORRIS GO`
 
 ---
 
 ## 1. Objective
-Prove one bounded governed REAL `cursor.docs_write.apply` on the durable authenticated Product lineage from Reproof 06, through Attempt + Evidence + filesystem + reload — without OpenAI LIVE, without project Git mutation, without Product source repair.
+Prove one bounded governed REAL `cursor.docs_write.apply` end-to-end on the durable Reproof-06 lineage:
+
+inspected EC → durable Confirmation → REAL executor available → authority re-eval → grant only for exact scope → Execute once → Attempt → real filesystem effect → Evidence → reload continuity.
+
+**STOP condition consumed:** authority remained blocked after REAL enablement → STOP BEFORE EXECUTE (authorized by Morris GO).
 
 ## 2. Morris GO consumed
 ONE BOUNDED CONTROLLED REAL DOCS_WRITE EXECUTION PROOF — FULL GOVERNED E2E CAMPAIGN.
-Authorized: Local Git Truth, forensic, fresh REAL-enabled runtime, Statuer once if required, Execute exactly once if preconditions pass, Attempt/Evidence/FS verification, reload, Review Pack FULL, Review Handoff L3 on `sfia/review-handoff` only.
-NOT authorized: OpenAI LIVE, second Execute/Attempt, new Proposal/OptionSet/HD/EC, Product source fix, project commit/push/PR/merge, doctrine/method edits, DB repair.
 
-**GO consumption statement:** This GO is consumed by this single campaign. No additional REAL effect is authorized. Next action requires ChatGPT review + distinct Morris decision.
+Authorized: Local Git Truth, forensic, fresh auth runtime, Cursor REAL opt-in for contractual action only, Statuer, Execute exactly once if granted, Attempt/Evidence/FS verify, reload, Review Pack FULL, Review Handoff L3.
+
+NOT authorized: OpenAI LIVE, Nora LIVE, other Cursor actions, other path/repo, second Execute/Attempt, git commit/push/PR/merge by Product EC, Product source fix, DB repair, new Proposal/HD/EC, maturity overclaims.
 
 ## 3. Git truth
-| Item | Value |
+| Fact | Value |
 |---|---|
-| Repository | mcleland147/sfia-workspace |
 | Dogfood worktree | `/Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d` |
-| State | detached HEAD |
-| HEAD | `a8a5dffaa84fe25f792074b93696a74722de8fdf` |
-| origin/main | `a8a5dffaa84fe25f792074b93696a74722de8fdf` (= cadrage anchor) |
-| Product tracked source clean | **YES** |
-| Dirty | `.tmp-sfia-review` evidence only |
-| Project commits/pushes/PR/merge | **ZERO** |
-| reset/clean/stash | **NONE** |
+| Continuity worktree (sibling) | `/Users/morris/Projects/sfia-studio-ec-rehydration-continuity` |
+| Repository | `mcleland147/sfia-workspace` (worktrees of same) |
+| Initial campaign resolve | detached `a8a5dffaa84fe25f792074b93696a74722de8fdf` (== origin/main anchor) |
+| Mid-campaign dogfood HEAD | `b871ad7c43dcccfffffb7ef28ce3abfd771fafaa` on `fix/sfia-studio-ec-rehydration-continuity` |
+| Checkout timestamp | 2026-09-16 20:22:50 +0200 (reflog: moving from a8a5dff → fix branch) |
+| origin/main | `a8a5dffaa84fe25f792074b93696a74722de8fdf` (unchanged) |
+| Product tree b871ad7c vs a8a5dff | **empty diff** under `projects/sfia-studio` (merge parent equivalence) |
+| Product tracked dirty | **NO** (only `.tmp-sfia-review` evidence) |
+| Project commit/push/PR/merge | **ZERO** |
+
+Reserve: dogfood left detached main at campaign start via checkout to pre-merge PR tip. Product file identity vs main for Studio paths remains equivalent; defect is not explained by that checkout.
 
 ## 4. Sources read / qualification
-- Process: cycle execution template, routing guide, operating model, guardrails (as applicable from repo)
-- CKC: `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md` — **candidate / cognitive only / zero execution authority**
-- Convergence: Build Doctrine VALIDATED — ACTIVE ON MAIN; Roadmap VALIDATED — ACTIVE LIVING ROADMAP
-- Product Completion: **COMPLETE / CLOSED BY MORRIS** — not reopened
-- Global priority: Nora Cognitive Completion remains global; this campaign is bounded Product proof continuation
-- Runtime v3: **NON ADOPTED**
-- Doctrine/runtime consumed for REAL path: `composeStudioProductRealBoundary.ts`, `realLaunchSafety.ts`, `m4BoundedDocsWriteCursorAgent.ts`, `authorizeExecutionContract.ts`, `governedExecuteAuthorizedContract.ts`, `w2/actions.ts`, `TrajectorySurface.tsx`, `boundedDocsWriteM3ResolutionProfile.ts`
+Process templates/routing/operating-model/guardrails · CKC `pilots/04-qa-validation.md` (candidate, cognitive only) · Build Doctrine / Roadmap VALIDATED · Product Completion **CLOSED** · Nora remains global priority · runtime v3 **NON ADOPTED**.
 
-## 5. Previous handoff consumed
-- Branch tip at campaign start: `042415f62613b0477c822d4476b4c60daf90d02b`
-- Content: **AUTHENTICATED PRODUCT REPROOF 06 — PASS WITH RESERVES**
-- Matches expected Reproof-06 continuity handoff
+Doctrine/runtime consumed for diagnosis:
+- `composeStudioProductRealBoundary.ts` — REAL opt-in via `SFIA_STUDIO_CURSOR_REAL=1`
+- `service.ts` — registers M4 docs_write (+ other M4 agents) when REAL enabled
+- `m4BoundedDocsWriteCursorAgent.ts` — `allowedScopes: ["studio.gcec.docs_write"]`
+- `invariants.ts` `agentMatchViolation` — exact scope include match
+- `prepareM3FromDecision.ts` — Product journey scope from executionBasis prose
+- `boundedDocsWriteM3ResolutionProfile.ts` — GCEC sibling profile uses `M4_BOUNDED_DOCS_WRITE_SCOPE` (not the path that produced this durable EC)
 
-## 6. Fake / Real qualification
-| Boundary | Config | Observed |
-|---|---|---|
-| Cognition | `OPS1_CONVERSATION_PROVIDER=fake` | FAKE |
-| OpenAI LIVE | must remain OFF | **0 LIVE calls** (key may exist in `.env.local`; provider forced fake) |
-| Cursor REAL gate | `SFIA_STUDIO_CURSOR_REAL=1` (+ `OPS1_CURSOR_REAL=1`) | **ON for composition** |
-| Product Execute seam | `w2GovernedExecute*` | **still fixture-only** (`realExecution: false`) |
-| docs_write effect | target file | **ABSENT before and after** |
+Previous remote handoff tip consumed: `042415f62613b0477c822d4476b4c60daf90d02b` = **AUTHENTICATED PRODUCT REPROOF 06** PASS WITH RESERVES.
 
-Expected proof level: REAL BOUNDARY PROVEN for Product docs_write — **NOT ACHIEVED**.
-Level actually demonstrated: deterministic fail-closed authority under REAL-ON composition + Product Journey wiring gap evidence.
-
-## 7. Runtime facts
-| Item | Value |
+## 5. Fake / Real qualification
+| Gate | Value |
 |---|---|
-| Shell PID | 60953 |
-| Listening PID | 60981 |
-| CWD | `.../sfia-studio-product-proof-preflight-35b1371d/projects/sfia-studio/app` |
-| Command | `OPS1_CONVERSATION_PROVIDER=fake SFIA_STUDIO_CURSOR_REAL=1 OPS1_CURSOR_REAL=1 npm run dev` |
-| Port | http://localhost:3020 |
-| Serving SHA | `a8a5dffaa84fe25f792074b93696a74722de8fdf` |
-| Auth | normal Better Auth session (Pilote “P”) — no cookie forge / auth bypass |
+| OPS1_CONVERSATION_PROVIDER | fake |
+| OpenAI LIVE | OFF (0 calls) |
+| SFIA_STUDIO_CURSOR_REAL | **1** (official opt-in) |
+| OPS1_CURSOR_REAL | **1** |
+| REAL boundary composed | yes (`StudioCursorRealLaunchGateway` path available) |
+| Actual docs_write effect | **NONE** (stopped before Execute) |
+| Claimed proof level | **NOT** REAL BOUNDARY PROVEN — fail-closed authority block under REAL-on |
 
-## 8. DB forensic
-| Item | Value |
+## 6. Runtime facts
+| Fact | Value |
 |---|---|
-| Actual DB | `/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/product/oa-product.sqlite` |
-| Dogfood symlink | `.../dogfood/.../oa-product.sqlite` → workspace DB |
+| CWD | dogfood `…/projects/sfia-studio/app` |
+| Command | `OPS1_CONVERSATION_PROVIDER=fake SFIA_STUDIO_CURSOR_REAL=1 OPS1_CURSOR_REAL=1 npm run dev --port 3020` |
+| Listening PID | 60981 (`next-server`) |
+| Auth | normal Better Auth session (existing Pilote session; no cookie forge / DB auth mutation) |
+| Serving Product identity vs main | equivalent for `projects/sfia-studio` (see Git) |
+
+## 7. DB forensic
+| Fact | Value |
+|---|---|
+| DB path | `/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/product/oa-product.sqlite` |
+| Dogfood symlink | yes → workspace DB |
 | schema_meta.schema_version | `m8-0.1.0` |
-| PRAGMA user_version | 0 |
-| BEFORE sha256 | `94022209facce2574279162d3d7e65d455441e3a453aadee4d197f4981dc9e98` |
 | Forensic backup | `/tmp/sfia-reproof07-forensic-20260916T182243Z/` |
-| audit_total BEFORE | 1413 |
-| audit_total AFTER | 1425 (+12) |
+| DB SHA-256 (pre) | `94022209facce2574279162d3d7e65d455441e3a453aadee4d197f4981dc9e98` |
 
-## 9. Durable lineage BEFORE (Reproof-06 terminal — revalidated)
-| Entity | Value |
+## 8. Durable lineage (revalidated; not forced)
+| Entity | ID / state |
 |---|---|
-| Project | `prj:ae9bd0de-e24d-474f-880d-ff5ea56dbaf6` / Gestion de tâches |
-| LPS | `lps:3a8e02537e45d5b9` **v17** |
+| Project | `prj:ae9bd0de-e24d-474f-880d-ff5ea56dbaf6` Gestion de tâches |
+| LPS | `lps:3a8e02537e45d5b9` v17 → v17 |
 | CycleInstance | `cyc:trj-0a9c5104b7b6a3debe95eb8d` active |
 | RepositoryBinding | `mcleland147/sfia-workspace` · main · `projects/sfia-studio/.sandbox` |
 | Proposal | `prop:f2:edba677a-123f-4f5e-baad-50533a65a3a0` |
 | OptionSet | `optset:w2-b3be0236b91a` |
 | HumanDecision | `dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411` accepted |
 | ExecutionContract | `xct:m3:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411` |
-| EC version/status/fp | **v3 / confirmed / `088eead1c470a93ed9aef5511d692d5d9b61fecc982ab6788f41e20ad19357b2`** |
+| EC lifecycle | v3 / `confirmed` (unchanged by REAL / Statuer) |
+| semantic fingerprint | `088eead1c470a93ed9aef5511d692d5d9b61fecc982ab6788f41e20ad19357b2` (unchanged) |
 | action | `cursor.docs_write.apply` |
 | technical target | `workspace.isolated.docs_write` |
 | repository | `mcleland147/sfia-workspace` |
 | targetPath | `projects/sfia-studio/.sandbox/gestion-de-taches.md` |
-| scope (EC) | `docs_write borné — cycle actif — aucune exécution automatique` |
-| constraints (still present) | includes `PREPARE_ONLY`, `NO_CURSOR_REAL`, `NO_ATTEMPT`, `OUT_OF_SCOPE:Cursor REAL` |
+| EC scope (durable) | `docs_write borné — cycle actif — aucune exécution automatique` |
 | Inspection current | `insp:7d1627d37e575419` |
-| Inspection historical stale | `insp:05042f3b6040838e` |
+| Historical stale | `insp:05042f3b6040838e` |
 | Confirmation | `cfm:w2:xct:m3:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411:v2` consumed |
-| Historical AVR | `avr:558ab3bb21ea9187` blocked / grantsAuthority=false |
-| Attempts for EC | **0** |
-| Evidence for EC | **0** |
-| ReviewBundle for EC | **0** |
-| target file | **ABSENT** |
+| Historical blocked AVR (Reproof 06) | `avr:558ab3bb21ea9187` (fixtures only; REAL off) |
 
-No unexplained Attempt/file effect/EC drift before campaign.
+Filesystem BEFORE: target **ABSENT**. AFTER campaign: still **ABSENT**.
 
-## 10. REAL executor discovery (source-authoritative)
-Official gate: `SFIA_STUDIO_CURSOR_REAL === "1"` via `isStudioCursorRealEnabled` / `composeStudioProductRealBoundary`.
-When ON:
-- constructs `StudioCursorRealLaunchGateway` + safety journal + worktree ports (construction ≠ launch)
-- registers M4 agents including `agt:m4.cursor.bounded_docs_write` (`cap:cursor.docs_write`, action `cursor.docs_write.apply`, target `workspace.isolated.docs_write`, **allowedScopes: `studio.gcec.docs_write` only**)
-- also registers sibling M4 agents (readonly, local_commit, remote_push, pr_create, pr_merge) — broader registry than exact docs_write
+## 9. REAL executor discovery (source-authoritative)
+Official enablement: `SFIA_STUDIO_CURSOR_REAL=1` (`isStudioCursorRealEnabled` / `composeStudioProductRealBoundary`).
 
-Authenticated Product Journey Execute path:
-- UI `TrajectorySurface` → `w2GovernedExecuteSelect/Start/CompleteAction`
-- `w2/actions.ts` documents: **“fixture Attempt only after fresh AUTHORIZED evaluation” / “no REAL”**
-- `governedExecuteAuthorizedContract.ts`: `fixtureBoundaryFailure`, `realExecution: false`, `externalEffects: false`, adapter forced `F3_ADAPTER_ID`
+When enabled, runtime registers:
+- `agt:m4.cursor.bounded_docs_write` (exact docs_write action/target/cap)
+- also RO / local_commit / remote_push / PR create / PR merge descriptors
 
-Separate F3/GCEC REAL path (`prepareAndResolveM3ProductPath` + `boundedDocsWriteM3ResolutionProfile` + `completeBoundedDocsWriteLaunch`) exists for a **resolved M4-profile EC** (`scope=studio.gcec.docs_write`, constraints without PREPARE_ONLY/NO_CURSOR_REAL). That path is **not** the durable W2 Product Journey EC used here. Using it would require EC supersession / new contract material — **forbidden by this GO**.
+Launch remains gated by HumanDecision → Contract → Confirmation → authority → StartExecution. No Product source change required to flip the flag.
 
-**Conclusion:** Enabling REAL activates existing composition, but the durable authenticated Product Journey cannot reach governed REAL docs_write for this EC without Product source wiring and/or EC resolve/supersession — both out of QA scope.
+**Critical mismatch diagnosed:**
+M4 docs_write `allowedScopes = ["studio.gcec.docs_write"]`
+Product EC scope on this journey = prose from `prepareM3FromDecision` / executionBasis
+`agentMatchViolation` requires exact `allowedScopes.includes(criteria.scope)`
+⇒ `findCandidates` empty even though action/target/capability match.
 
-## 11. Phases executed
-### A — Local truth + forensic
-PASS — Git clean Product; origin/main = anchor; forensic backup taken; target ABSENT.
+Aggregated receipt reason surfaces as `capability_not_supported` / `executor_capability_insufficient` because evaluation walks all agents and last non-match classes as capability (masking the docs_write agent's `scope_not_allowed`).
 
-### B — REAL path discovery
-PASS as discovery — wiring gap identified before Execute.
+Sibling profile `boundedDocsWriteM3ResolutionProfile()` already uses `M4_BOUNDED_DOCS_WRITE_SCOPE`, but **this durable authenticated Product EC was not produced by that profile**.
 
-### C — Fresh REAL-enabled authenticated rehydration
-PASS — same Project/LPS v17/Cycle/HD/EC v3 confirmed/fp `088eead1…`; INSPECTÉ; Confirmation recorded; next action Statuer; no new Proposal/OptionSet/HD/EC; EC semantic fields unchanged by REAL activation.
+**Secondary wiring gap (Execute seam):** Product CTA path `governedExecuteAuthorizedContract` enforces fixture-only boundary (`fixtureAdapter.adapterId === F3_ADAPTER_ID`, `externalEffects === false`, responses stamp `realExecution: false`, message « REAL/NoOp interdit »). Even after a future scope/authority fix, this authenticated UI Execute path would not launch `StudioCursorRealLaunchGateway` without Delivery work. Campaign correctly never clicked Execute.
 
-### D — Authority re-evaluation (Statuer ×1)
-Executed once.
-Result: **BLOCKED** — UI “Aucun exécuteur autorisé ne couvre ce contrat.”
-New receipt: `avr:056aa615c01c0350`
-- outcome blocked
-- grantsAuthority=false
-- blockedReason=`executor_capability_insufficient`
-- agentCapability.sufficient=false
-- reason=`capability_not_supported` (aggregate; M4 docs_write present in evaluatedAgentRefs but **EC scope does not equal `studio.gcec.docs_write`**)
-- evaluatedAgentRefs now include M4 docs_write + sibling M4 agents (proves REAL registration) vs historical AVR which only saw fixtures
-- historical `avr:558ab3bb…` left unchanged
+## 10. Phases executed
+| Phase | Result |
+|---|---|
+| A Local Git + forensic | PASS (with mid-campaign checkout reserve) |
+| B REAL path discovery | PASS — official env gate exists |
+| C Fresh REAL runtime | PASS — server REAL-on, cognition fake |
+| D Rehydration | PASS — same lineage; EC semantics unchanged by REAL |
+| E Statuer | DONE — new AVRs created; outcome **blocked** |
+| F Execute | **NOT PERFORMED** — STOP BEFORE EXECUTE |
+| G Attempt/FS/Evidence | N/A — zero effect |
+| H Reload continuity of effect | N/A |
+| I Negatives / deltas | recorded |
+| J Review Pack + handoff | this document + publish |
 
-### E — Execute
-**NOT CLICKED** — STOP BEFORE EXECUTE (authority not granted; Execute seam fixture-only anyway).
+## 11. Exact Product CTA sequence
+1. UI read / expand contract details (non-mutating)
+2. **Statuer sur l'autorisation** ×2 in campaign window (see reserve)
+   - `avr:056aa615c01c0350` @ 2026-09-16T18:26:41.358Z blocked
+   - `avr:6c7239bf5db4d831` @ 2026-09-16T18:27:30.566Z blocked
+3. **Execute clicks = 0**
 
-### F–J — Attempt / FS / Evidence / reload of post-effect
-N/A for success path. Negative proofs captured:
-- Attempts remain 0
-- target file remains ABSENT
-- no Evidence/ReviewBundle for this EC
-- no Product source mutation
+Reserve: GO asked for Statuer exactly once; campaign recorded two blocked receipts (session continuity / duplicate click). Both agree; neither grants authority; no Execute.
 
-## 12. Exact Product CTA sequence
-1. UI open / hard navigation (authenticated)
-2. Expand EC disclosures (read-only)
-3. **Statuer sur l'autorisation ×1**
-4. Execute clicks = **0**
+## 12. New authority evaluation (latest)
+| Field | Value |
+|---|---|
+| receiptId | `avr:6c7239bf5db4d831` |
+| outcome | `blocked` |
+| grantsAuthority | `false` |
+| blockedReason | `executor_capability_insufficient` |
+| blockedDetail | `capability_not_supported` |
+| confirmationRefs | current Confirmation |
+| inspectionAttestationRef | `insp:7d1627d37e575419` |
+| evaluatedAgentRefs | includes `agt:m4.cursor.bounded_docs_write` + fixtures + other M4 agents |
+| sufficient | `false` |
+| historical `avr:558ab3bb…` | preserved; not mutated into granted |
 
-## 13. Entity BEFORE → AFTER (this EC lineage)
-| Entity | Before | After | Delta |
+UI after Statuer:
+- **Exécution bloquée**
+- « Aucun exécuteur autorisé ne couvre ce contrat. »
+- CONFIRMATION REQUISE — OBTENUE
+- EXÉCUTEUR INSUFFISANT — BLOQUÉ
+- INSPECTÉ
+- TRACE: `avr:6c7239bf5db4d831`
+- **Exécuter CTA absent**
+
+## 13. Entity BEFORE → AFTER (EC-scoped / campaign-relevant)
+| Metric | Before (campaign start) | After (STOP) | Delta |
 |---|---|---|---|
-| Proposal | 1 | 1 | 0 |
-| OptionSet | 1 | 1 | 0 |
-| HumanDecision (subject) | 1 accepted | 1 accepted | 0 |
-| EC count | 1 | 1 | 0 |
-| EC version/status/fp | v3 confirmed / 088eead1… | unchanged | 0 semantic |
-| InspectionAttestations | 2 | 2 | 0 |
-| Confirmation | 1 | 1 | 0 |
-| Authority receipts | 1 | **2** | **+1** (`avr:056aa615…`) |
-| ExecutionAttempt | 0 | 0 | 0 |
-| Evidence (EC) | 0 | 0 | 0 |
-| ReviewBundle (EC) | 0 | 0 | 0 |
+| EC version/status/fp | v3 confirmed / 088eead1… | same | 0 semantic |
+| Inspection for EC | 2 | 2 | 0 |
+| Confirmation for EC | 1 | 1 | 0 |
+| Authority receipts for EC | 1 | **3** | **+2** (both blocked) |
+| ExecutionAttempt for EC | 0 | **0** | 0 |
+| Evidence for EC | 0 | 0 | 0 |
+| ReviewBundle for EC | 0 | 0 | 0 |
 | LPS | v17 | v17 | 0 |
-| target file | absent | absent | 0 |
+| Proposal/OptionSet/HD/EC count | unchanged lineage | unchanged | 0 duplicates |
+| audit_total | 1413 (pre baseline note) / 1417 at REAL boot | **1425** | + load_failed/finalization + authority events |
+| oa.cycle.load_failed since 18:22Z | — | **4** | TRAJECTORY_NOT_FOUND-class bookkeeping; no wrong CTA / authority grant |
+| targetPath file | absent | absent | 0 |
+| OpenAI LIVE | 0 | 0 | 0 |
+| Cursor REAL executions (effectful) | 0 | **0** | 0 |
+| Product source mutations | 0 | 0 | 0 |
 
-## 14. Audit delta
-- audit_total 1413 → 1425 (+12)
-- New business-relevant: `oa.authority.verified`, `oa.execution_contract.authorization_checked` for Statuer
-- TRAJECTORY_NOT_FOUND (`oa.cycle.load_failed`) this campaign: **+4** — bookkeeping only; UI/lineage still coherent; **non-blocking reserve**
-- No execution/attempt/evidence events
+## 14. Negative oracle matrix (N1–N45 condensed)
+| ID | Result | Note |
+|---|---|---|
+| N1–N4 no duplicate Proposal/OptionSet/HD/EC | PASS | |
+| N5 historical blocked AVR remains historical | PASS | `avr:558ab3bb…` intact |
+| N6 new grant requires current executor capability | PASS (fail-closed) | no false grant |
+| N7 authority scope ≤ EC scope | PASS | no grant |
+| N8–N9 inspection + Confirmation required | PASS | present |
+| N10 REAL activation mutates EC semantics | PASS | fp/status unchanged |
+| N11 Execute unavailable before authority grant | PASS | Execute absent |
+| N12–N17 Attempt binding | N/A | no Attempt |
+| N18–N24 containment / git remote effects | PASS | no write; no commit/push/PR/merge |
+| N25–N26 OpenAI/Nora LIVE | PASS | 0 |
+| N27–N33 Evidence/Attempt persistence | N/A | none created |
+| N34–N35 no auto re-execute / duplicate Attempt | PASS | |
+| N36 no authority widening | PASS | |
+| N37–N38 fingerprint/lifecycle | PASS | lifecycle stable; fp stable |
+| N39 TRAJECTORY_NOT_FOUND / load_failed | RESERVE | +4 load_failed this campaign window; bookkeeping only |
+| N40–N42 anti-claims | PASS | no ADOPTED/READY/generalized |
+| N43 reversibility/local | PASS | no effect |
+| N44 handoff ≠ Product execution | PASS | |
+| N45 no unauthorized external effect | PASS | |
 
-## 15. Filesystem / external effects
-- targetPath ABSENT → ABSENT
-- no sibling unexpected sandbox writes from Product Execute (Execute not run)
-- Cursor REAL process for docs_write: **0 launches**
-- OpenAI LIVE: **0**
-- project Git commit/push/PR/merge: **0**
-- Product tracked source: **unchanged**
+## 15. PASS criteria (P1–P37)
+| ID | Result |
+|---|---|
+| P1 lineage | PASS |
+| P2–P3 inspection + Confirmation | PASS |
+| P4 EC semantics unchanged by REAL | PASS |
+| P5 official REAL executor available (registered) | PARTIAL — registered under REAL=1; not matchable for this EC |
+| P6–P9 new authority grant + scope + sufficiency | **FAIL (blocking)** — blocked; honest fail-closed |
+| P10–P22 Execute/Attempt/Evidence/FS | **NOT REACHED** — STOP BEFORE EXECUTE; Execute seam also fixture-only |
+| P23–P29 LIVE/git/source | PASS |
+| P30–P32 reload of effect | N/A |
+| P33 audit explainable | PASS |
+| P34 semantic vs lifecycle | PASS |
+| P35 Review Pack FULL | PASS (this file) |
+| P36 handoff | see publish section |
+| P37 no maturity overclaim | PASS |
 
 ## 16. Screenshots (`.tmp-sfia-review/`)
-- `sfia-reproof07-A-fresh-real-enabled-ec.png` / `sfia-reproof07-A-fresh-real-enabled.png`
-- `sfia-reproof07-B-ec-disclosure.png` — exact repo/path/action/constraints including NO_CURSOR_REAL
-- `sfia-reproof07-C-pre-statuer-real-on.png` / `sfia-reproof07-C-pre-statuer.png`
-- `sfia-reproof07-D-authority-blocked-real-on.png` / `sfia-reproof07-D-authority-blocked-detail.png` — avr:056aa615… blocked, Execute absent
+- `sfia-reproof07-A-fresh-real-enabled.png` / `-ec.png`
+- `sfia-reproof07-B-ec-disclosure.png`
+- `sfia-reproof07-C-pre-statuer.png` / `-real-on.png`
+- `sfia-reproof07-D-authority-blocked-real-on.png` / `-detail.png` / `D2-authority-details.png`
 
-## 17. Negative oracle matrix (selected; full N1–N45)
-| ID | Result | Evidence |
-|---|---|---|
-| N1–N4 duplicates Proposal/OptionSet/HD/EC | PASS | counts unchanged |
-| N5 historical blocked AVR remains historical | PASS | avr:558ab3bb preserved; new avr:056aa615 created |
-| N6 new grant requires current executor capability | PASS | no grant; fail-closed |
-| N7 authority scope ≤ EC scope | PASS | no grant; no widening |
-| N10 REAL activation does not mutate EC semantics | PASS | same fp/action/repo/path |
-| N11 Execute unavailable before authority grant | PASS | Execute not shown |
-| N12–N17 Attempt properties | PASS/N/A | Attempt count 0; Execute not clicked |
-| N19 Product source mutation | PASS | none |
-| N20 second target written | PASS | none |
-| N21–N24 git commit/push/PR/merge | PASS | none |
-| N25 OpenAI LIVE zero | PASS | fake provider |
-| N26 Nora LIVE zero | PASS | fake |
-| N29 failure does not fabricate SUCCESS evidence | PASS | no false success |
-| N34 no auto re-execute | PASS | none |
-| N39 TRAJECTORY_NOT_FOUND quantified | PASS as reserve | +4 bookkeeping |
-| N40–N42 maturity overclaims | PASS | none claimed |
-| N45 no unauthorized external effect | PASS | none |
+## 17. Reserves (non-repair)
+1. **Blocking defect A:** Product authenticated EC scope prose ≠ M4 `studio.gcec.docs_write` allowlist → REAL-on still insufficient for this durable contract.
+2. **Blocking defect B (wiring):** Product UI Execute path is fixture-only (`realExecution:false`); cannot expose REAL docs_write via current authenticated CTA without Delivery.
+3. Aggregated `capability_not_supported` masks more precise `scope_not_allowed` for the docs_write agent.
+4. REAL-on registers broader M4 agents (commit/push/PR); Execute still match-gated; no Execute occurred.
+5. Dogfood checkout from detached main → fix branch at campaign start; Product tree vs `origin/main` empty for Studio paths.
+6. Statuer receipts +2 vs intended ×1; both blocked identically.
+7. `oa.cycle.load_failed` +4 bookkeeping (TNF-class); no functional authority/CTA corruption observed.
+8. EC constraints still list historical `NO_CURSOR_REAL` / `NO_ATTEMPT` prepare markers; evaluation used agent match, not those strings, as the blocking reason.
+9. Prior remote handoff tip `04c6bdf2` already published a thinner Reproof 07 INCOMPLETE (single AVR); this pack supersedes it with fuller evidence.
 
-Blocking campaign oracles for REAL success (N12–N18, N27–N33 effect/Attempt/Evidence) are **not demonstrated** because STOP before Execute — scored as campaign INCOMPLETE, not Product false-success.
+## 18. Claims
+### Authorized
+- Authenticated REAL opt-in was exercised on official `SFIA_STUDIO_CURSOR_REAL` gate.
+- Fail-closed authority re-evaluation after REAL enablement proven for this EC.
+- Execute boundary correctly refused without grant.
+- Zero Attempt / zero docs_write filesystem effect / zero OpenAI LIVE / Product source unchanged.
 
-## 18. PASS criteria (P1–P37) — summary
-Critical REAL success criteria **FAIL/NOT MET**: P5 (Product Journey REAL path usable for this EC), P7–P9 (effective authority granted / sufficiency), P10–P21 (Execute/Attempt/FS/Evidence).
-Demonstrated: P1 lineage continuity, P2–P3 inspection/confirmation preserved, P4 EC semantics unchanged by REAL ON, P29 Product source unchanged, P35 Review Pack, fail-closed stop, zero unauthorized effect.
-**Overall: INCOMPLETE (tooling/wiring gap), not PASS.**
-
-## 19. Root-cause diagnosis (precise; no repair)
-1. **EC profile mismatch:** durable W2-prepared EC keeps narrative scope + PREPARE_ONLY/NO_CURSOR_REAL/NO_ATTEMPT; M4 REAL agent requires exact scope `studio.gcec.docs_write` and a resolved M4 constraint set.
-2. **Product Execute seam mismatch:** authenticated UI Execute is hard-wired to fixture Attempt (`realExecution:false`) even when REAL composition is ON.
-3. **Closing either gap requires Delivery** (Product wiring and/or governed EC resolve/supersession under new Morris GO) — **forbidden in this QA cycle**.
-
-## 20. Reservations
-- R1 (blocking for REAL claim): Product Journey ↔ M4 REAL docs_write wiring gap / EC profile mismatch
-- R2 (non-blocking): TRAJECTORY_NOT_FOUND +4 bookkeeping
-- R3 (non-blocking observation): REAL ON registers sibling M4 Git agents in registry; not exercised; Execute not reached
-- R4 (non-blocking): OPENAI_API_KEY present in `.env.local` but conversation provider forced fake
-
-## 21. Authorized claims
-- Official `SFIA_STUDIO_CURSOR_REAL=1` composition path identified and activated without Product source change
-- M4 `agt:m4.cursor.bounded_docs_write` becomes registered under REAL ON
-- Durable Reproof-06 lineage rehydrates under REAL ON without semantic EC mutation
-- Fresh Statuer produces new blocked AuthorityVerificationReceipt without mutating historical receipt
-- Fail-closed stop before Execute preserved
-- Zero Attempt / zero docs_write filesystem effect / zero OpenAI LIVE / zero project Git mutation during campaign
-
-## 22. Forbidden claims (explicitly NOT made)
-- docs_write REAL proven
-- REAL BOUNDARY PROVEN for Product Journey
+### Forbidden
+- REAL BOUNDARY PROVEN for docs_write
 - END-TO-END REAL PROVEN
-- effective authority granted
-- Execute readiness for REAL
-- production ready / runtime v3 ADOPTED / global L5 / generalized executor safety
-- Product Completion reopened / Nora Completion proven
+- runtime v3 ADOPTED / production ready / global L5 / generalized executor safety
+- automatic GO for another REAL action
 
-## 23. Next candidate gate
-**Delivery Cycle (distinct Morris GO)** to either:
-1. Wire authenticated Product Journey Execute to the existing governed REAL docs_write Attempt path for matching ECs; and/or
-2. Provide a governed resolve/supersession from W2 PREPARE EC → M4 docs_write profile **without** unauthorized scope widening;
-then re-run a REAL docs_write E2E reproof.
+## 19. Next candidate gate
+**Delivery cycle (distinct Morris GO):** wire authenticated Product journey EC profile + Execute seam to governed REAL docs_write (`M4_BOUNDED_DOCS_WRITE_SCOPE` / real launch path), without widening authority — then re-run a bounded REAL E2E QA campaign.
 
-Until then: **no REAL docs_write Execute is authorized** on this durable EC.
+No additional REAL effect is authorized by this incomplete campaign.
 
-## 24. Review Handoff
-Required: YES — publish-in-cycle via `scripts/sfia/publish-review-handoff.sh` to `sfia/review-handoff` / `sfia-review-handoff/latest-chatgpt-review.md`.
-(See post-publish verification block appended by publisher / Cursor final report.)
+## 20. Exact final verdict
+`AUTHENTICATED-PRODUCT-REPROOF-07 — INCOMPLETE — TOOLING OR WIRING GAP — REAL OPT-IN ON + M4 AGENT REGISTERED — EC SCOPE MISMATCH BLOCKS AUTHORITY — PRODUCT EXECUTE SEAM FIXTURE-ONLY — STOPPED BEFORE EXECUTE — ZERO ATTEMPT — ZERO DOCS_WRITE REAL — ZERO OPENAI LIVE — NO REPAIR — DELIVERY REQUIRED UNDER DISTINCT MORRIS GO`
