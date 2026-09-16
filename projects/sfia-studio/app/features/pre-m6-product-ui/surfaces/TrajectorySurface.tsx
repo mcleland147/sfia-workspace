@@ -9,7 +9,13 @@
  * action over the product application path.
  */
 
-import { useCallback, useEffect, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { flushSync } from "react-dom";
 import { projectAssistantPrepareM3Action } from "@/features/project-assistant/actions";
 import {
@@ -26,6 +32,7 @@ import {
   w2PrepareExecutionContractAction,
   w2ProposeTrajectoryOptionsAction,
   w2ReadActiveDecisionSubjectAction,
+  w2ReadCurrentGovernedExecutionContinuityAction,
   w2RehydrateProductOutcomeAction,
 } from "@/features/project-assistant/w2/actions";
 import {
@@ -247,6 +254,10 @@ export function TrajectorySurface({
   const [subjectReadStatus, setSubjectReadStatus] = useState<
     "pending" | "ready" | "error"
   >("pending");
+  const [executionContinuityReadStatus, setExecutionContinuityReadStatus] =
+    useState<"pending" | "ready" | "error">("pending");
+  const [executionContinuityConflict, setExecutionContinuityConflict] =
+    useState(false);
   const [pendingReinstruction, setPendingReinstruction] = useState<{
     readonly message: string;
     readonly proposalIds: readonly string[];
@@ -326,6 +337,24 @@ export function TrajectorySurface({
   const [qualifiedOperationKind, setQualifiedOperationKind] =
     useState<QualifiedOperationKind | null>(null);
 
+  /**
+   * Continuity pass generation — invalidates in-flight subject/EC reads when a
+   * newer Decision Subject continuity pass begins (refresh or remount read).
+   */
+  const continuityPassRef = useRef(0);
+  const prevDurableRefreshSignalRef = useRef(durableRefreshSignal);
+
+  /**
+   * ONE fail-closed gate for the full W2 mutating seam (subject + execution).
+   * Derived early so callbacks and controls share the same oracle.
+   */
+  const continuityMutationBlocked =
+    subjectReadStatus === "pending" ||
+    subjectReadStatus === "error" ||
+    executionContinuityReadStatus === "pending" ||
+    executionContinuityReadStatus === "error" ||
+    executionContinuityConflict;
+
   const decidedOptionRef = decision?.selectedOptionRef ?? null;
   const decisionDefersExecution =
     decidedOptionRef === PROPOSAL_SUBJECT_AMEND_REF ||
@@ -355,6 +384,7 @@ export function TrajectorySurface({
   }
 
   const proposeOptions = useCallback(async () => {
+    if (continuityMutationBlocked) return;
     setBusy("options");
     setError(null);
     const recoverableSole =
@@ -389,6 +419,7 @@ export function TrajectorySurface({
     setPostEvidence(null);
     onDurableFactsChanged?.();
   }, [
+    continuityMutationBlocked,
     projectId,
     activeProposalId,
     pendingReinstruction,
@@ -397,11 +428,17 @@ export function TrajectorySurface({
 
   /** CORR-PROOF-10 — rehydrate bound Proposal OptionSet from durable Epistemic. */
   const rehydrateActiveDecisionSubject = useCallback(async () => {
+    const pass = ++continuityPassRef.current;
     setSubjectReadStatus("pending");
+    // Invalidate prior governed qualification immediately for this pass.
+    setExecutionContinuityReadStatus("pending");
+    setExecutionContinuityConflict(false);
     const result = await w2ReadActiveDecisionSubjectAction({ projectId });
+    if (pass !== continuityPassRef.current) return;
     if (!result.ok) {
       setError(result.message);
-      setPendingReinstruction(null);
+      // Keep any prior pendingReinstruction as informational stale client state;
+      // continuityMutationBlocked makes Reformuler non-actionable.
       setSubjectReadStatus("error");
       return;
     }
@@ -424,9 +461,92 @@ export function TrajectorySurface({
       return;
     }
     setPendingReinstruction(null);
+    // kind === "none" — authoritative Proposal Decision Subject absence.
+    // Clear stale Proposal-backed OptionSet; preserve generic ProjectTrajectory
+    // OptionSet. Do NOT clear HumanDecision / decided / EC state here.
+    setOptionSet((current) => {
+      if (!current) return null;
+      const proposalBacked =
+        current.decisionSubjectMode === "proposal" ||
+        Boolean(current.proposalId);
+      return proposalBacked ? null : current;
+    });
+    setError(null);
     setSubjectReadStatus("ready");
-    // kind === "none" — leave local optionSet as-is for trajectory path
   }, [projectId]);
+
+  /** Restart-safe governed EC + inspection continuity from durable truth. */
+  const rehydrateGovernedExecutionContinuity = useCallback(async () => {
+    const pass = continuityPassRef.current;
+    setExecutionContinuityReadStatus("pending");
+    setExecutionContinuityConflict(false);
+    const result = await w2ReadCurrentGovernedExecutionContinuityAction({
+      projectId,
+    });
+    if (pass !== continuityPassRef.current) return;
+    if (!result.ok) {
+      setError(result.message);
+      setContract(null);
+      setInspection(null);
+      setAuthorization(null);
+      setAmendmentDraft("");
+      setAmendmentNotice(null);
+      setExecutionContinuityReadStatus("error");
+      return;
+    }
+    if (result.kind === "none") {
+      // Server durable truth wins — clear any stale client EC projection.
+      setContract(null);
+      setInspection(null);
+      setAuthorization(null);
+      setAmendmentDraft("");
+      setAmendmentNotice(null);
+      setExecutionContinuityReadStatus("ready");
+      return;
+    }
+
+    // Fail-closed contradiction: unresolved Proposal Decision Subject + current EC.
+    const subjectCompetes =
+      pendingReinstruction != null ||
+      (optionSet != null && decision == null);
+    if (subjectCompetes) {
+      setExecutionContinuityConflict(true);
+      setError(
+        "Contradiction de continuité — un sujet de décision Proposal non résolu coexiste avec un contrat d'exécution courant. Aucune action générique n'est proposée.",
+      );
+      setContract(null);
+      setInspection(null);
+      setAuthorization(null);
+      setAmendmentDraft("");
+      setAmendmentNotice(null);
+      setExecutionContinuityReadStatus("ready");
+      return;
+    }
+
+    setContract({
+      executionContractId: result.contract.executionContractId,
+      version: result.contract.version,
+      status: result.contract.status,
+      action: result.contract.action,
+      target: result.contract.target,
+      scope: result.contract.scope,
+      requiredAuthority: result.contract.requiredAuthority,
+      constraints: [...result.contract.constraints],
+      stopConditions: [...result.contract.stopConditions],
+      requiredCapabilities: [...result.contract.requiredCapabilities],
+      reversibility: result.contract.reversibility,
+      semanticFingerprint: result.contract.semanticFingerprint,
+      effectConfirmationRequired: result.contract.effectConfirmationRequired,
+      effectConfirmationLevel: result.contract.effectConfirmationLevel ?? null,
+      inspectionDisclosure: toInspectionDisclosureView(
+        result.contract.inspectionDisclosure,
+      ),
+    });
+    setInspection(result.inspection);
+    setAuthorization(null);
+    setError(null);
+    setExecutionContinuityReadStatus("ready");
+  }, [projectId, pendingReinstruction, optionSet, decision]);
 
   const refreshPreCycleCandidate = useCallback(async () => {
     const result = await projectAssistantReadPreCycleCandidateTrajectoryAction({
@@ -584,8 +704,41 @@ export function TrajectorySurface({
     void rehydrateActiveDecisionSubject();
   }, [rehydrateActiveDecisionSubject, durableRefreshSignal]);
 
+  /**
+   * Immediate fail-closed on durable refresh: invalidate prior continuity
+   * authority before paint so a transient ready frame cannot authorize mutation.
+   * Subject rehydration (effect above) owns the latest pass completion.
+   */
+  useLayoutEffect(() => {
+    if (prevDurableRefreshSignalRef.current === durableRefreshSignal) return;
+    prevDurableRefreshSignalRef.current = durableRefreshSignal;
+    continuityPassRef.current += 1;
+    setSubjectReadStatus("pending");
+    setExecutionContinuityReadStatus("pending");
+    setExecutionContinuityConflict(false);
+  }, [durableRefreshSignal]);
+
+  useEffect(() => {
+    // Governed EC discovery runs ONLY after Decision Subject continuity is ready.
+    // Do NOT relaunch merely because durableRefreshSignal changed — subject is
+    // the prerequisite (avoids stale-ready governed read windows on refresh).
+    if (subjectReadStatus === "pending") return;
+    if (subjectReadStatus === "error") {
+      setContract(null);
+      setInspection(null);
+      setAuthorization(null);
+      setAmendmentDraft("");
+      setAmendmentNotice(null);
+      setExecutionContinuityConflict(false);
+      setExecutionContinuityReadStatus("error");
+      return;
+    }
+    void rehydrateGovernedExecutionContinuity();
+  }, [subjectReadStatus, rehydrateGovernedExecutionContinuity]);
+
   const decide = useCallback(
     async (selectedOptionRef: string) => {
+      if (continuityMutationBlocked) return;
       if (!optionSet) return;
       setBusy("decision");
       setError(null);
@@ -626,10 +779,16 @@ export function TrajectorySurface({
       setDecided(result.trajectory ?? null);
       onDurableFactsChanged?.();
     },
-    [optionSet, projectId, onDurableFactsChanged],
+    [
+      continuityMutationBlocked,
+      optionSet,
+      projectId,
+      onDurableFactsChanged,
+    ],
   );
 
   const prepareContract = useCallback(async () => {
+    if (continuityMutationBlocked) return;
     if (!decision || !qualifiedOperationKind) return;
     setBusy("contract");
     setError(null);
@@ -675,7 +834,13 @@ export function TrajectorySurface({
     setAttemptPhase(null);
     setAttemptStatusLabel(null);
     onDurableFactsChanged?.();
-  }, [decision, projectId, qualifiedOperationKind, onDurableFactsChanged]);
+  }, [
+    continuityMutationBlocked,
+    decision,
+    projectId,
+    qualifiedOperationKind,
+    onDurableFactsChanged,
+  ]);
 
   /**
    * JOURNEY-INTEGRITY / Lot A-B final — Proposal-backed PREPARE.
@@ -686,6 +851,7 @@ export function TrajectorySurface({
    * server resolves targetPath / operation / binding from durable lineage.
    */
   const prepareProposalBackedContract = useCallback(async () => {
+    if (continuityMutationBlocked) return;
     if (!decision?.proposalId || !decision.decisionBasisLinked) return;
     if (decisionDefersExecution) return;
     setBusy("contract");
@@ -725,9 +891,16 @@ export function TrajectorySurface({
     setAttemptPhase(null);
     setAttemptStatusLabel(null);
     onDurableFactsChanged?.();
-  }, [decision, decisionDefersExecution, projectId, onDurableFactsChanged]);
+  }, [
+    continuityMutationBlocked,
+    decision,
+    decisionDefersExecution,
+    projectId,
+    onDurableFactsChanged,
+  ]);
 
   const inspect = useCallback(async () => {
+    if (continuityMutationBlocked) return;
     if (!contract) return;
     setBusy("inspection");
     setError(null);
@@ -749,9 +922,10 @@ export function TrajectorySurface({
         statusLabel: "CONTRAT AMENDÉ — RÉINSPECTION DÉJÀ SATISFAITE",
       });
     }
-  }, [contract, projectId, amendmentNotice]);
+  }, [continuityMutationBlocked, contract, projectId, amendmentNotice]);
 
   const amendContract = useCallback(async () => {
+    if (continuityMutationBlocked) return;
     if (!contract || !inspection?.inspectionSufficient) return;
     const constraint = amendmentDraft.trim();
     if (!constraint) {
@@ -802,6 +976,7 @@ export function TrajectorySurface({
     });
     onDurableFactsChanged?.();
   }, [
+    continuityMutationBlocked,
     contract,
     inspection,
     amendmentDraft,
@@ -810,6 +985,7 @@ export function TrajectorySurface({
   ]);
 
   const confirmForAuthorization = useCallback(async () => {
+    if (continuityMutationBlocked) return;
     if (!contract) return;
     setBusy("confirmation");
     setError(null);
@@ -824,9 +1000,10 @@ export function TrajectorySurface({
     }
     setContract({ ...contract, status: "confirmed" });
     setAuthorization(null);
-  }, [contract, projectId]);
+  }, [continuityMutationBlocked, contract, projectId]);
 
   const authorize = useCallback(async () => {
+    if (continuityMutationBlocked) return;
     if (!contract) return;
     setBusy("authorization");
     setError(null);
@@ -846,9 +1023,10 @@ export function TrajectorySurface({
     const { ok: _ok, ...outcome } = result;
     setAuthorization(outcome);
     setInspection(outcome.inspection);
-  }, [contract, projectId]);
+  }, [continuityMutationBlocked, contract, projectId]);
 
   const governedExecute = useCallback(async () => {
+    if (continuityMutationBlocked) return;
     if (!contract || authorization?.outcome !== "AUTHORIZED") return;
     setBusy("execute");
     setError(null);
@@ -968,7 +1146,13 @@ export function TrajectorySurface({
       setPostEvidence(materialized.postEvidence ?? null);
     });
     onDurableFactsChanged?.();
-  }, [contract, authorization, projectId, onDurableFactsChanged]);
+  }, [
+    continuityMutationBlocked,
+    contract,
+    authorization,
+    projectId,
+    onDurableFactsChanged,
+  ]);
 
   const stopRunningExecution = useCallback(async () => {
     if (!contract || !attempt?.attemptId || attemptPhase !== "running") return;
@@ -1038,22 +1222,31 @@ export function TrajectorySurface({
    * While a Proposal decision subject still owns the next useful action, the
    * generic ProjectTrajectory instruct CTA must not offer a competing subject.
    * Informational blocks above remain visible; only the mutating CTA is strict.
+   *
+   * Continuity conflict (unresolved Proposal subject + current EC) owns nothing
+   * mutably — fail closed until Pilot resolves via a qualified next GO.
    */
   const proposalSubjectOwnsNextAction =
+    !executionContinuityConflict &&
     // reformulate / instruct the pending subject
-    pendingReinstruction != null ||
-    // options presented, awaiting the HumanDecision
-    (optionSet != null && decision == null) ||
-    // amend / refuse: next move is with Nora, never a new generic instruction
-    (decision != null && decisionDefersExecution) ||
-    // pursue decided but no contract yet: PREPARE owns the next action
-    (decision != null && contract == null) ||
-    // contract prepared: Inspect (then confirm / authorize) owns the next action
-    contract != null;
+    (pendingReinstruction != null ||
+      // options presented, awaiting the HumanDecision
+      (optionSet != null && decision == null) ||
+      // amend / refuse: next move is with Nora, never a new generic instruction
+      (decision != null && decisionDefersExecution) ||
+      // pursue decided but no contract yet: PREPARE owns the next action
+      (decision != null && contract == null) ||
+      // contract prepared / rehydrated: Inspect (then confirm / authorize) owns
+      contract != null);
+
+  const continuityReadsUnresolved = continuityMutationBlocked;
+
+  /** Alias — same single fail-closed gate for EC and subject mutations. */
+  const governedContinuationBlocked = continuityMutationBlocked;
 
   useEffect(() => {
     if (!onProposalSubjectOwnershipChange) return;
-    if (subjectReadStatus === "pending" || subjectReadStatus === "error") {
+    if (continuityReadsUnresolved) {
       onProposalSubjectOwnershipChange("UNKNOWN");
       return;
     }
@@ -1063,7 +1256,7 @@ export function TrajectorySurface({
   }, [
     onProposalSubjectOwnershipChange,
     proposalSubjectOwnsNextAction,
-    subjectReadStatus,
+    continuityReadsUnresolved,
   ]);
 
   return (
@@ -1147,7 +1340,7 @@ export function TrajectorySurface({
                     }
                     void proposeOptions();
                   }}
-                  disabled={busy !== null}
+                  disabled={busy !== null || continuityMutationBlocked}
                 >
                   Instruire les options
                 </button>
@@ -1174,11 +1367,16 @@ export function TrajectorySurface({
                   className={styles.primaryAction}
                   data-testid="w2-reformulate-with-nora"
                   onClick={() => {
+                    if (continuityMutationBlocked) return;
                     if (pendingReinstruction.proposalIds.length !== 1) return;
                     const soleId = pendingReinstruction.proposalIds[0];
                     if (soleId) onRequestReformulateWithNora?.(soleId);
                   }}
-                  disabled={busy !== null || !onRequestReformulateWithNora}
+                  disabled={
+                    busy !== null ||
+                    continuityMutationBlocked ||
+                    !onRequestReformulateWithNora
+                  }
                 >
                   Reformuler avec Nora
                 </button>
@@ -1369,15 +1567,18 @@ export function TrajectorySurface({
         action (pending, options awaiting decision, decision taken, contract
         prepared), the generic trajectory instruct CTA is hidden so two
         decision subjects can never compete for the same primary action.
+        Continuity reads must both resolve; pending/error/conflict stay fail-closed.
       */}
-      {activeCycleInstanceId && !proposalSubjectOwnsNextAction ? (
+      {activeCycleInstanceId &&
+      !proposalSubjectOwnsNextAction &&
+      !continuityReadsUnresolved ? (
       <div className={styles.actions}>
         <button
           type="button"
           className={styles.primaryAction}
           data-testid="w2-propose-options"
           onClick={() => void proposeOptions()}
-          disabled={busy !== null}
+          disabled={busy !== null || continuityMutationBlocked}
         >
           Instruire les options
         </button>
@@ -1478,7 +1679,11 @@ export function TrajectorySurface({
                       className={styles.decideAction}
                       data-testid={`w2-decide-${option.optionRef}`}
                       onClick={() => void decide(option.optionRef)}
-                      disabled={busy !== null || decision !== null}
+                      disabled={
+                        busy !== null ||
+                        decision !== null ||
+                        continuityMutationBlocked
+                      }
                       aria-label={`Décider: ${option.label}`}
                     >
                       Décider cette option
@@ -1614,7 +1819,7 @@ export function TrajectorySurface({
               className={styles.primaryAction}
               data-testid="w2-prepare-contract"
               onClick={() => void prepareProposalBackedContract()}
-              disabled={busy !== null}
+              disabled={busy !== null || continuityMutationBlocked}
             >
               Préparer le contrat d&apos;exécution
             </button>
@@ -1654,8 +1859,9 @@ export function TrajectorySurface({
               className={styles.amendmentInput}
               data-testid="w3a-operation-kind"
               value={qualifiedOperationKind ?? ""}
-              disabled={busy !== null}
+              disabled={busy !== null || continuityMutationBlocked}
               onChange={(event) => {
+                if (continuityMutationBlocked) return;
                 const value = event.target.value;
                 if (
                   value === "generate-temporary-artifact" ||
@@ -1685,7 +1891,11 @@ export function TrajectorySurface({
               className={styles.primaryAction}
               data-testid="w2-prepare-contract-sandbox"
               onClick={() => void prepareContract()}
-              disabled={busy !== null || qualifiedOperationKind === null}
+              disabled={
+                busy !== null ||
+                continuityMutationBlocked ||
+                qualifiedOperationKind === null
+              }
               title={
                 qualifiedOperationKind === null
                   ? "Qualifier d'abord le travail d'exécution"
@@ -1937,7 +2147,7 @@ export function TrajectorySurface({
                 type="text"
                 value={amendmentDraft}
                 onChange={(event) => setAmendmentDraft(event.target.value)}
-                disabled={busy !== null}
+                disabled={busy !== null || governedContinuationBlocked}
                 placeholder="Ex. : borner strictement le slice livré"
               />
               <button
@@ -1945,7 +2155,11 @@ export function TrajectorySurface({
                 className={styles.secondaryAction}
                 data-testid="w2-amend-contract"
                 onClick={() => void amendContract()}
-                disabled={busy !== null || amendmentDraft.trim().length === 0}
+                disabled={
+                  busy !== null ||
+                  governedContinuationBlocked ||
+                  amendmentDraft.trim().length === 0
+                }
               >
                 Appliquer l&apos;amendement
               </button>
@@ -1958,7 +2172,7 @@ export function TrajectorySurface({
               className={styles.primaryAction}
               data-testid="w2-inspect-contract"
               onClick={() => void inspect()}
-              disabled={busy !== null}
+              disabled={busy !== null || governedContinuationBlocked}
             >
               Inspecter le contrat
             </button>
@@ -1970,6 +2184,7 @@ export function TrajectorySurface({
                 onClick={() => void confirmForAuthorization()}
                 disabled={
                   busy !== null ||
+                  governedContinuationBlocked ||
                   inspection === null ||
                   !inspection.inspectionSufficient
                 }
@@ -1987,7 +2202,7 @@ export function TrajectorySurface({
               className={styles.secondaryAction}
               data-testid="w2-authorize-contract"
               onClick={() => void authorize()}
-              disabled={busy !== null}
+              disabled={busy !== null || governedContinuationBlocked}
             >
               Statuer sur l&apos;autorisation
             </button>
@@ -2086,7 +2301,7 @@ export function TrajectorySurface({
                   className={styles.primaryAction}
                   data-testid="w3a-governed-execute"
                   onClick={() => void governedExecute()}
-                  disabled={busy !== null}
+                  disabled={busy !== null || governedContinuationBlocked}
                 >
                   Exécuter
                 </button>
@@ -2299,7 +2514,7 @@ export function TrajectorySurface({
                   className={styles.secondaryAction}
                   data-testid="w3c-propose-trajectory"
                   onClick={() => void proposeOptions()}
-                  disabled={busy !== null}
+                  disabled={busy !== null || continuityMutationBlocked}
                 >
                   Proposer des options de trajectoire
                 </button>

@@ -38,6 +38,10 @@ vi.mock("@/features/project-assistant/w2/actions", () => ({
   w2RehydrateProductOutcomeAction: vi.fn(),
   w2ReadActiveDecisionSubjectAction: (...args: unknown[]) =>
     readActiveDecisionSubjectMock(...args),
+  w2ReadCurrentGovernedExecutionContinuityAction: vi.fn().mockResolvedValue({
+    ok: true,
+    kind: "none",
+  }),
   w2ReadProjectHistoryAction: vi.fn().mockResolvedValue({
     ok: false,
     code: "UNUSED",

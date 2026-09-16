@@ -36,6 +36,7 @@ import {
 import { inspectExecutionContract } from "./inspectExecutionContract";
 import { loadPresentedOptionSet } from "./presentedOptionSet";
 import { readActiveProposalDecisionSubject } from "./activeProposalDecisionSubject";
+import { readCurrentGovernedExecutionContinuity } from "./readCurrentGovernedExecutionContinuity";
 import { prepareExecutionContractFromW2Decision } from "./prepareExecutionContractFromW2Decision";
 import { proposeTrajectoryOptions } from "./proposeTrajectoryOptions";
 import { readW2ProjectHistory } from "./projectHistory";
@@ -44,6 +45,7 @@ import type {
   ActiveDecisionSubjectReadResult,
   AmendExecutionContractResult,
   ConfirmForAuthorizationResult,
+  CurrentGovernedExecutionContinuityResult,
   DecideTrajectoryResult,
   EvaluateExecutionAuthorizationResult,
   GovernedExecuteAuthorizedContractResult,
@@ -138,6 +140,23 @@ export async function w2ReadActiveDecisionSubjectAction(input: {
     kind: "bound_awaiting_decision",
     optionSet: read.optionSet,
   };
+}
+
+/**
+ * Restart-safe governed ExecutionContract + inspection continuity.
+ * Client sends projectId only — server discovers durable continuation.
+ * READ-ONLY: never records inspection or mutates Product semantic state.
+ */
+export async function w2ReadCurrentGovernedExecutionContinuityAction(input: {
+  projectId: string;
+}): Promise<CurrentGovernedExecutionContinuityResult> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) return OA_UNAVAILABLE;
+
+  return readCurrentGovernedExecutionContinuity({
+    oa: runtime.oa,
+    projectId: input.projectId,
+  });
 }
 
 export async function w2DecideTrajectoryAction(input: {
