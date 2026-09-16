@@ -202,4 +202,10 @@ docs_write REAL proven · REAL BOUNDARY PROVEN · END-TO-END REAL · production 
 **Morris decision on bounded controlled REAL execution proof** (distinct GO). Not authorized here.
 
 ## 21. Review Handoff
-To be published in-cycle via `scripts/sfia/publish-review-handoff.sh` to `sfia/review-handoff` / `sfia-review-handoff/latest-chatgpt-review.md`.
+- branch: `sfia/review-handoff`
+- path: `sfia-review-handoff/latest-chatgpt-review.md`
+- commit: `35d675882ce5854578d6a63e947a7d265ec67fcf`
+- blob: `5672133c5951abd044e6e1dc2580d216dd1b5954`
+- publisher: `scripts/sfia/publish-review-handoff.sh`
+- remote verified: **YES**
+- Product/project push: **NOT PERFORMED**
