@@ -1809,7 +1809,11 @@ export class StartExecution {
         grantId: consumedGrant.grantId,
         correlationId,
         processRef: launch.processRef,
-        payload: { gatewayId: launch.gatewayId },
+        payload: {
+          gatewayId: launch.gatewayId,
+          boundaryProofMode: this.realLaunchPort.boundaryProofMode,
+          realProcessInvoked: launch.realProcessInvoked,
+        },
       });
     } catch (err) {
       // Process invoked; LAUNCHED missing → CREATED-only UNKNOWN; no second launch.

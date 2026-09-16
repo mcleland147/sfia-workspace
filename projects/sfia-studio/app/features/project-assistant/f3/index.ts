@@ -46,13 +46,14 @@ export {
   selectProductM3ResolutionProfile,
   authorizedM3ResolutionKind,
 } from "./selectProductM3ResolutionProfile";
-export { deriveAttemptProvenance, F3_REAL_MODE } from "./deriveAttemptProvenance";
+export { deriveAttemptProvenance, F3_REAL_MODE, F3_BOUNDED_M4_DETERMINISTIC_MODE } from "./deriveAttemptProvenance";
 export { completeBoundedReadOnlyLaunch } from "./completeBoundedReadOnlyLaunch";
 export type {
   BoundedLaunchObservationFacts,
   CompleteBoundedReadOnlyLaunchResult,
 } from "./completeBoundedReadOnlyLaunch";
 export { executeConfirmedBoundedReadOnlyContract } from "./executeConfirmedBoundedReadOnlyContract";
+export { executeConfirmedBoundedDocsWriteContract } from "./executeConfirmedBoundedDocsWriteContract";
 export { prepareAndResolveM3ProductPath } from "./prepareAndResolveM3ProductPath";
 export type {
   F3M3ResolvedPayload,

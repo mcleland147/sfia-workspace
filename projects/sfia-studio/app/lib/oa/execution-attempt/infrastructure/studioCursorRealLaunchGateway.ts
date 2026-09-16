@@ -253,6 +253,8 @@ export { DisabledRealProcessRunner };
 
 export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
   readonly gatewayId = M4_REAL_GATEWAY_ADAPTER_ID;
+  /** Actual Cursor REAL gateway — proof mode is cursor_real. */
+  readonly boundaryProofMode = "cursor_real" as const;
   readonly externalEffects = true as const;
 
   private readonly runner: ProcessRunner;

@@ -147,6 +147,8 @@ function resolveAuthorizedEffects(
 export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
   readonly gatewayId = M4_REAL_GATEWAY_ADAPTER_ID;
   readonly externalEffects = true as const;
+  /** Deterministic Fake substitution — never Cursor OS REAL proof. */
+  readonly boundaryProofMode = "deterministic_fake" as const;
   readonly calls: RealLaunchRequest[] = [];
   readonly touchedFiles: string[] = [];
   lastDigest: string | null = null;

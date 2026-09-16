@@ -481,6 +481,7 @@ describe("Cycle 8 — Pre-M6 REAL product wiring residual closure", () => {
     const noAwaitPort: RealExecutionLaunchPort = {
       gatewayId: M4_REAL_GATEWAY_ADAPTER_ID,
       externalEffects: true,
+      boundaryProofMode: "deterministic_fake",
       async launch(request) {
         return {
           outcome: "ack",

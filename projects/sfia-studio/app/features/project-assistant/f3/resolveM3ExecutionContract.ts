@@ -33,6 +33,8 @@ import type {
   ExecutionWindowClass,
   Reversibility,
 } from "@/lib/oa/execution-contract";
+import { projectExecutionContractInspectionDisclosure } from "@/lib/oa/execution-contract/projection/inspectionDisclosure";
+import type { ExecutionContractInspectionDisclosure } from "@/lib/oa/execution-contract/projection/inspectionDisclosure";
 
 const UNRESOLVED_ACTION = "UNRESOLVED_ACTION";
 const UNRESOLVED_TARGET = "UNRESOLVED_TARGET";
@@ -147,6 +149,9 @@ export type ResolveM3Success = {
     stopConditions: string[];
     supersedesExecutionContractId: string;
     supersessionReason: string;
+    semanticFingerprint: string;
+    evidenceRequirements: string[];
+    inspectionDisclosure: ExecutionContractInspectionDisclosure;
   };
   reusedFromIdempotency: boolean;
   disclosures: string[];
@@ -373,6 +378,7 @@ function toOriginalView(contract: ExecutionContract) {
 }
 
 function toSuccessorView(contract: ExecutionContract) {
+  const disclosure = projectExecutionContractInspectionDisclosure(contract);
   return {
     executionContractId: contract.executionContractId,
     version: contract.version,
@@ -387,6 +393,9 @@ function toSuccessorView(contract: ExecutionContract) {
     stopConditions: [...contract.stopConditions],
     supersedesExecutionContractId: contract.supersedesExecutionContractId ?? "",
     supersessionReason: contract.supersessionReason ?? "",
+    semanticFingerprint: contract.semanticFingerprint ?? "",
+    evidenceRequirements: [...contract.evidenceRequirements],
+    inspectionDisclosure: disclosure.disclosure,
   };
 }
 

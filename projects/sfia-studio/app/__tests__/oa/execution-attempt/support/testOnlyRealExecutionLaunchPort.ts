@@ -49,6 +49,11 @@ export type TestOnlyRealExecutionLaunchPortOptions = {
 export class TestOnlyRealExecutionLaunchPort implements RealExecutionLaunchPort {
   readonly gatewayId: string;
   readonly externalEffects = true as const;
+  /**
+   * Stub of the cursor_real gateway contract for projection/metadata tests.
+   * Does NOT spawn Cursor. REAL BOUNDARY PROVEN remains false for the cycle.
+   */
+  readonly boundaryProofMode = "cursor_real" as const;
   readonly calls: RealLaunchRequest[] = [];
   /** Explicit label for review claims — not a real Cursor process count. */
   readonly simulatedTechnicalAckCount = { value: 0 };

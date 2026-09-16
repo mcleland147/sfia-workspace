@@ -71,6 +71,7 @@ async function resolveProvenance(input: {
       mode: F3_MODE,
       adapterRef: "adp:f3-test-fixture",
       executionMode: "adapter_sync_fixture",
+      boundaryProofMode: "fixture",
       realProcessInvoked: false,
       realExecution: false,
       externalEffects: false,
@@ -87,6 +88,7 @@ async function resolveProvenance(input: {
       mode: F3_MODE,
       adapterRef: "adp:f3-test-fixture",
       executionMode: "adapter_sync_fixture",
+      boundaryProofMode: "fixture",
       realProcessInvoked: false,
       realExecution: false,
       externalEffects: false,
@@ -97,7 +99,12 @@ async function resolveProvenance(input: {
   const agent = attemptServices.registry.getAgent(
     loaded.attempt.selectedAgentRef,
   );
-  return deriveAttemptProvenance({ attempt: loaded.attempt, agent });
+  return deriveAttemptProvenance({
+    attempt: loaded.attempt,
+    agent,
+    // Callers with M4 docs-write/RO pass provenance explicitly with boundaryProofMode.
+    boundaryProofMode: null,
+  });
 }
 
 export async function ingestEvidenceAndRecommend(input: {

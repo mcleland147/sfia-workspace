@@ -17,7 +17,7 @@ import {
   useState,
 } from "react";
 import { flushSync } from "react-dom";
-import { projectAssistantPrepareM3Action } from "@/features/project-assistant/actions";
+import { projectAssistantPrepareResolvedM3Action } from "@/features/project-assistant/actions";
 import {
   w2AmendExecutionContractAction,
   w2AuthorizeExecutionContractAction,
@@ -843,12 +843,14 @@ export function TrajectorySurface({
   ]);
 
   /**
-   * JOURNEY-INTEGRITY / Lot A-B final — Proposal-backed PREPARE.
+   * JOURNEY-INTEGRITY / Lot A-B final — Proposal-backed PREPARE+RESOLVE.
    *
    * After pursue on a Proposal Decision Subject, the sealed DecisionBasis already
    * carries the decided operation (e.g. cursor.docs_write.apply). The Pilot must
    * not re-select a sandbox op. Client sends only projectId + decisionId; the
-   * server resolves targetPath / operation / binding from durable lineage.
+   * server resolves targetPath / operation / binding from durable lineage and
+   * supersedes PREPARE into the canonical M4 docs-write machine profile when
+   * DecisionBasis indicates docs_write (studio.gcec.docs_write).
    */
   const prepareProposalBackedContract = useCallback(async () => {
     if (continuityMutationBlocked) return;
@@ -856,7 +858,7 @@ export function TrajectorySurface({
     if (decisionDefersExecution) return;
     setBusy("contract");
     setError(null);
-    const result = await projectAssistantPrepareM3Action({
+    const result = await projectAssistantPrepareResolvedM3Action({
       projectId,
       decisionId: decision.decisionId,
     });
@@ -865,7 +867,7 @@ export function TrajectorySurface({
       setError(result.message);
       return;
     }
-    const prepared = result.f3.contract;
+    const prepared = result.f3.successor;
     setContract({
       executionContractId: prepared.executionContractId,
       version: prepared.version,
