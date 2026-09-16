@@ -1,282 +1,205 @@
-# SFIA Studio — AUTHENTICATED PRODUCT REPROOF 05
-## POST-PR492 RESTART-SAFE EC + INSPECTION REHYDRATION — FULL Review Pack
+# AUTHENTICATED PRODUCT REPROOF 06
+## FULL PRE-EXECUTION GOVERNANCE CHAIN — FULL Review Pack
 
-**Timestamp (UTC):** 2026-09-16T15:47:49Z
+**Timestamp (UTC):** 2026-09-16T18:03:46Z
 **Review Pack:** FULL
+**Campaign:** AUTHENTICATED PRODUCT REPROOF 06 — FULL PRE-EXECUTION GOVERNANCE CHAIN
 **Cycle:** 9 — QA / validation
 **Typology:** RUN
 **Profile:** Critical
 
 **Verdict:**
-`AUTHENTICATED-PRODUCT-REPROOF-05 — PASS — POST-PR492 RESTART-SAFE PRE-EXECUTION EC + INSPECTION CONTINUITY AUTHENTICATED-RUNTIME PROVEN AT TESTED READ-ONLY SCOPE — DURABLE EC AUTO-REHYDRATED AFTER FRESH PROCESS / HARD RELOAD — EXACT DOCS_WRITE REPOSITORY + TARGETPATH SURFACED — LEGACY FACT-INCOMPLETE INSPECTION CORRECTLY FAILS CLOSED — REINSPECTION IS THE NEXT USEFUL ACTION — NO DUPLICATE DECISION/PREPARE — ZERO NEW INSPECTION ATTESTATION — ZERO CONFIRMATION — ZERO AUTHORITY — ZERO ATTEMPT — ZERO PRODUCT SEMANTIC MUTATION — ZERO OPENAI LIVE — ZERO CURSOR REAL — PRODUCT PROOF NOT COMPLETE — STOP BEFORE INSPECT — NEXT GATE = DISTINCT MORRIS GO FOR ONE PRODUCT ACTION: INSPECTER LE CONTRAT`
+`AUTHENTICATED-PRODUCT-REPROOF-06 — PASS WITH RESERVES — FULL AUTHENTICATED PRE-EXECUTION GOVERNANCE CHAIN PROVEN AT TESTED DETERMINISTIC SCOPE — CURRENT EXECUTIONCONTRACT INSPECTED WITH COMPLETE FACTS — INSPECTION DURABLE ACROSS RELOAD/RESTART — REQUIRED CONFIRMATION CORRECTLY SEQUENCED AND DURABLE — EFFECTIVE AUTHORITY RESOLVED ONLY AFTER REQUIRED HUMAN GATES — EXECUTOR SUFFICIENCY EVALUATED FAIL-CLOSED (REAL OFF / capability_not_supported) — EXECUTE BOUNDARY REACHED AS HONEST BLOCK (NOT ENABLED) AND NOT CROSSED — NO DUPLICATE DECISION/CONTRACT — ZERO EXECUTIONATTEMPT — ZERO DOCS_WRITE REAL — ZERO CURSOR REAL — ZERO OPENAI LIVE — PRODUCT SOURCE UNCHANGED — RUNTIME V3 NON ADOPTED — NEXT CANDIDATE GATE = MORRIS DECISION ON BOUNDED CONTROLLED REAL EXECUTION PROOF`
 
 ---
 
-## A. Timestamp
-2026-09-16T15:47:49Z
+## 1. Objective
+Prove authenticated pre-execution Product capability:
 
-## B. Git truth
-- Repository: `mcleland147/sfia-workspace`
-- origin/main: `a8a5dffaa84fe25f792074b93696a74722de8fdf`
-- dogfood worktree: `/Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d`
-- dogfood initial HEAD: `c2c8280b7cfaa1b3a5656fb55b1e46ba73b23130` (detached prior main)
-- dogfood aligned HEAD: `a8a5dffaa84fe25f792074b93696a74722de8fdf` (detached)
-- tracked Product source clean: **YES**
-- dirty limited to `.tmp-sfia-review` review evidence (preserved; not Product source)
+ExecutionContract durable → current complete inspection → persistence/rehydration → Confirmation when required → effective authority resolution / executor sufficiency → coherent Execute readiness boundary → final persistence — **STOP before Execute/REAL**.
 
-## C. PR492
-- MERGED
-- merge commit: `a8a5dffaa84fe25f792074b93696a74722de8fdf`
-- parents:
-  - `c2c8280b7cfaa1b3a5656fb55b1e46ba73b23130`
-  - `b871ad7c43dcccfffffb7ef28ce3abfd771fafaa` (Product commit)
-- merge tree: `e6136b4352a3192f4ff21192df9ea43c40563ae8`
-- title: `fix(sfia-studio): restore restart-safe execution continuity`
+## 2. Morris GO consumed
+Single coherent Cycle 9 Critical QA campaign for the full pre-execution chain.
+Authorized Product clicks: Inspect (only if required), Confirm (once if required), Statuer (once if required).
+Review Handoff L3 push authorized.
+NOT authorized: Execute, Attempt, Cursor REAL, docs_write REAL, OpenAI LIVE, Product source/Git project push/PR/merge, architecture/doctrine fixes.
 
-## D. post-merge CI
-- run: `35109728834`
-- event: push
-- headSha: `a8a5dffaa84fe25f792074b93696a74722de8fdf`
-- overall: **SUCCESS**
-- Detect SFIA Studio changes: success
-- Build and validate SFIA Studio: success
-- SFIA Studio Required Gate: **SUCCESS**
+## 3. Git truth
+- repository / dogfood: `/Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d` (sfia-workspace worktree)
+- detached HEAD: `a8a5dffaa84fe25f792074b93696a74722de8fdf`
+- origin/main: `a8a5dffaa84fe25f792074b93696a74722de8fdf` (unchanged vs cadrage)
+- Product tracked source clean: **YES**
+- dirty limited to `.tmp-sfia-review` evidence only
+- no reset/clean/stash
 
-## E. Morris GO consumed
-AUTHENTICATED PRODUCT RESTART REPROOF 05 — READ-ONLY REHYDRATION / COHERENCE ONLY.
+## 4. Sources read / qualification
+Cycle execution template · routing/operating-model/guardrails · CKC `04-qa-validation.md` (candidate, cognitive only) · Build Doctrine / Roadmap VALIDATED · Product Completion **CLOSED** · Nora remains global priority · runtime v3 **NON ADOPTED**.
 
-Authorized: Git/local truth; align clean dogfood to exact main; SQLite read-only; forensic backup; fresh fake/REAL-OFF runtime; normal Better Auth reuse; hard reload; read UI / expand read-only details; screenshots; BEFORE/AFTER compare; FULL Review Pack; Review Handoff L3.
+Previous remote handoff consumed: `7da629406aff6825bcda8e4502a27188c780a337` = Reproof 05 PASS (inspect not yet done on that handoff). Local Cycle-9 Inspect GO had already produced `insp:7d1627d37e575419` before this campaign (handoff not published then).
 
-NOT authorized / NOT performed: Nora send; Reformuler; Instruire; Décider; Préparer; Inspecter; Confirmer; Statuer; Exécuter; Attempt lifecycle; new attestation/decision/EC/confirmation/authority/attempt; OpenAI LIVE; Cursor/docs_write REAL; Product source/Git mutation; repair/migration.
+## 5. Fake / Real
+- `OPS1_CONVERSATION_PROVIDER=fake`
+- `SFIA_STUDIO_CURSOR_REAL=0`
+- `OPS1_CURSOR_REAL=0`
+- OpenAI LIVE: **ZERO**
+- Gate Morris REAL: **FERMÉ**
 
-**ABSOLUTE:** ended before first mutating Product action. Inspect observed only — NOT clicked.
-
-## F. Cycle / typology / profile
-Cycle 9 — QA / validation · RUN · Critical
-
-## G. CKC QA candidate usage
-`method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md`
-status candidate · cognitive guidance only · no execution authority.
-
-## H. Convergence
-- V3-F02 restart-safe semantic continuity — VERIFY
-- V3-F11 durable inspectable ExecutionContract — VERIFY
-- V3-F12 governed execution / authority boundary — VERIFY
-- V3-F04 / F08 truth / contradiction — supporting
-- V3-F14 / F15 Evidence / maturity anti-claims — supporting
-- A3 / C1 Product Completion trajectory
-- runtime v3 **NON ADOPTED**
-
-## I. Current integration handoff (pre-reproof)
-- tip: `de42d967d2c7b64713bb3f21f61ab6c98a525af4`
-- blob: `5b0de26fa1d0d8784dc56910371db882fe96e014`
-- Note: that handoff predates merge; current Git + PR #492 MERGED + post-merge CI SUCCESS supersede its “merge NOT performed” statement.
-
-## J. Historical Reproof 04 handoff (FAIL oracle consumed)
-- commit: `72243475e604de5a23ba5175a35c11835fa49f02`
-- blob: `d1a21b4c7873efe407830b5c81382db7fe13d432`
-- Historical FAIL: durable EC existed but TrajectorySurface did not auto-rehydrate; competing CTA was **Instruire les options**; exact path / reinspection fail-closed messaging absent without forbidden PREPARE/Inspect recovery.
-
-## K. Runtime
-- shell PID: `11352` (`npm run dev`)
-- listening PID: `11379` (`next-server (v15.5.20)`)
-- CWD: `/Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d/projects/sfia-studio/app`
+## 6. Runtime
+- Fresh process shell PID `51540` · listen PID `51569`
+- CWD: `…/sfia-studio-product-proof-preflight-35b1371d/projects/sfia-studio/app`
 - command: `next dev --port 3020`
-- serving Git HEAD: `a8a5dffaa84fe25f792074b93696a74722de8fdf`
-- env gates:
-  - `OPS1_CONVERSATION_PROVIDER=fake`
-  - `SFIA_STUDIO_CURSOR_REAL=0`
-  - `OPS1_CURSOR_REAL=0`
+- serving SHA: `a8a5dffaa84fe25f792074b93696a74722de8fdf`
+- Auth: normal Better Auth · Pilote / P
 
-## L. Authentication
-- Normal Better Auth session reused
-- UI shows Pilote / **P**
-- No test-identity injection, cookie forging, auth bypass, or DB auth mutation
+## 7. DB forensic
+- actual DB: `/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/product/oa-product.sqlite`
+- dogfood symlink → same
+- schema `m8-0.1.0` · user_version `0` (unchanged)
+- backup: `/tmp/sfia-reproof06-forensic-20260916T175746Z/`
+- BEFORE db SHA: `49212655acf6d56d1302574b14e2b38f579a4f3bd91d0063975d35901d5a2b3b`
+- AFTER db SHA: `94022209facce2574279162d3d7e65d455441e3a453aadee4d197f4981dc9e98`
 
-## M. DB
-- dogfood-visible path: `/Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d/projects/sfia-studio/.sfia-exec/product/oa-product.sqlite`
-- symlink target / actual: `/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/product/oa-product.sqlite`
-- WAL/SHM at start: absent
-- PRAGMA user_version: `0` (before = after)
-- schema_meta.schema_version: `m8-0.1.0` (before = after)
-- Product file SHA-256 BEFORE: `1adaedaf4c3fa1921346740b2f3bf3e5e51dc8a4274cd83006d340f77a9e798f`
-- Product file SHA-256 AFTER: `215c495797a5bdab637a77a6f7b2f55b733465ffdd994022ffb923aaa59a1e54` (audit bookkeeping only)
-- forensic backup: `/tmp/sfia-reproof05-forensic-20260916T154137Z/`
-  - `oa-product.sqlite.backup` SHA-256: `71a0cef73c02643d498bb9943bcf174a072f7e3b0b4a9eafd30f569d94464738`
+## 8. BEFORE campaign durable state (start of Reproof 06)
+Already advanced vs raw Reproof 05 by prior authorized Inspect GO:
+- Project `prj:ae9bd0de-…` Gestion de tâches
+- LPS `lps:3a8e02537e45d5b9` v17
+- Cycle `cyc:trj-0a9c5104b7b6a3debe95eb8d` active
+- HD `dec:w2-prop:ca889356-…` accepted
+- EC `xct:m3:dec:w2-prop:ca889356-…` **v2** `confirmation_required` fp `7cd6eec7…`
+- action/target/repo/path exact docs_write disclosures present
+- Attestations: historical `insp:05042f3b6040838e` + current complete `insp:7d1627d37e575419`
+- Confirmation 0 · Authority 0 · Attempt 0
+- audit_total 1401
+- targetPath file: **absent**
 
-## N. Exact BEFORE durable campaign state
-| Entity | Value |
-|---|---|
-| Project | `prj:ae9bd0de-e24d-474f-880d-ff5ea56dbaf6` / Gestion de tâches |
-| LPS | `lps:3a8e02537e45d5b9` version **17** |
-| active CycleInstance | `cyc:trj-0a9c5104b7b6a3debe95eb8d` status active |
-| RepositoryBinding | identity `mcleland147/sfia-workspace` · defaultBranch `main` · pathRoot `projects/sfia-studio/.sandbox` |
-| Proposal (epistemic) | `prop:f2:edba677a-123f-4f5e-baad-50533a65a3a0` |
-| PresentedOptionSet | `optset:w2-b3be0236b91a` (`epi:set-w2-b3be0236b91a`) |
-| HumanDecision | `dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411` status **accepted** · selected `opt:proposal-subject:pursue` |
-| DecisionBasis | sourceType `proposal` · sourceRef `prop:f2:edba677a-123f-4f5e-baad-50533a65a3a0` |
-| ExecutionContract | `xct:m3:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411` version **2** status **confirmation_required** |
-| EC action | `cursor.docs_write.apply` |
-| EC technical target | `workspace.isolated.docs_write` |
-| EC repository / path | `mcleland147/sfia-workspace` · `projects/sfia-studio/.sandbox/gestion-de-taches.md` |
-| InspectionAttestation | `insp:05042f3b6040838e` (legacy inspectedFacts without post-PR491 disclosure facts) |
-| Confirmation / Authority / Attempt / Evidence / ReviewBundle for EC | **0 / 0 / 0 / 0 / 0** |
-| audit_total BEFORE | **1393** |
+## 9. Phases executed
+### A–B Forensic + fresh authenticated reconstruction
+Fresh server + hard load. EC auto-rehydrated with exact disclosures. Status **INSPECTÉ**. Confirm enabled. No Instruct/Prepare competing CTA.
 
-Campaign matched expected oracle — **no durable state drift**.
+### C Inspection
+**Not re-clicked.** Fresh complete attestation already existed (`insp:7d1627d37e575419`) with facts including `inputs.targetRepositoryRef` + `inputs.targetPath`. Re-inspect not required.
 
-## O. EC / HD / DecisionBasis / Attestation lineage
-```
-Proposal prop:f2:edba677a-…
-  → OptionSet optset:w2-b3be0236b91a
-    → HumanDecision dec:w2-prop:ca889356-… (accepted, pursue)
-      → DecisionBasis proposal / prop:f2:edba677a-…
-        → EC xct:m3:dec:w2-prop:ca889356-… (v2, confirmation_required, docs_write)
-          → Attestation insp:05042f3b6040838e (legacy fact set; fingerprint match)
-```
+### D Inspection continuity
+Fresh process restart + hard reload preserved INSPECTÉ / complete disclosure / Confirm available / no duplicates.
 
-## P. Fresh-load evidence
-- Fresh server process on exact merge tip
-- Hard reload #1 after server start (Cmd+Shift+R)
-- Authenticated Project route: `/studio/projects/prj%3Aae9bd0de-e24d-474f-880d-ff5ea56dbaf6`
-- Governed surface `data-testid="w2-contract"` auto-showed EC without PREPARE/Inspect/recovery mutation
-- Hard reload #2 confirmed stable reconstruction
+### E Confirmation (once)
+Clicked **Confirmer mon consentement** exactly once.
+- Confirmation ID: `cfm:w2:xct:m3:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411:v2`
+- status consumed · confirmedAt `2026-09-16T17:59:44.188Z`
+- bound to decision `dec:w2-prop:ca889356-…` · scope docs_write borné · Pilote
+- EC advanced to **v3** status **confirmed** · confirmationRef set · fp → `088eead1…`
+- Attempt 0 · target still absent · REAL OFF
 
-## Q. R1–R20 matrix
-| ID | Result | Evidence |
-|---|---|---|
-| R1 | **PASS** | EC auto-rehydrated on TrajectorySurface / `w2-contract` |
-| R2 | **PASS** | No competing primary **Instruire les options**; no duplicate PREPARE |
-| R3 | **PASS** | Exact id `xct:m3:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411` in technical details |
-| R4 | **PASS** | Status `confirmation_required` / « Confirmation requise » on governed card |
-| R5 | **PASS** | `cursor.docs_write.apply` (`w2-contract-action`) |
-| R6 | **PASS** | `workspace.isolated.docs_write` (`w2-contract-target`) |
-| R7 | **PASS** | `projects/sfia-studio/.sandbox/gestion-de-taches.md` visible before any Inspect click |
-| R8 | **PASS** | EC disclosure repository `mcleland147/sfia-workspace` (`w2-contract-repository`) — not only Project binding |
-| R9 | **PASS** | Business/technical details expose scope, constraints, stop conditions, reversibility, capabilities, expected outputs |
-| R10 | **PASS** | Legacy attestation not treated sufficient; UI requires reinspection despite fingerprint continuity |
-| R11 | **PASS** | `RÉINSPECTION REQUISE — DÉTAILS INCOMPLETS — l'inspection précédente ne suffit plus · inspecter n'autorise pas` |
-| R12 | **PASS** | « Confirmer mon consentement » **disabled** |
-| R13 | **PASS** | No « Exécuter » CTA; Authority receipt count 0 |
-| R14 | **PASS** | Next useful action = **Inspecter le contrat** (enabled) — **NOT clicked** |
-| R15 | **PASS** | No new Proposal / OptionSet / HD / EC rows |
-| R16 | **PASS** | LPS remains `lps:3a8e02537e45d5b9` v17 |
-| R17 | **PASS** | Confirmation 0 · Authority 0 · Attempt 0 |
-| R18 | **PASS** | Attestation count remains 1 (`insp:05042f3b6040838e` only) |
-| R19 | **PASS** | Product semantic delta ZERO |
-| R20 | **PASS** | Second hard reload: same EC, disclosure, reinspection status, Inspect CTA; no duplicates |
+### F Authority / executor sufficiency (Statuer once)
+Clicked **Statuer sur l'autorisation** exactly once.
+- AuthorityVerificationReceipt `avr:558ab3bb21ea9187`
+- outcome **blocked**
+- blockedReason `executor_capability_insufficient` / detail `capability_not_supported`
+- binds EC id v3 · confirmationRefs include campaign confirmation · inspectionAttestationRef `insp:7d1627d37e575419`
+- action/target/scope exact · grantsAuthority false · executionTriggered false
+- UI: **Exécution bloquée** · CONFIRMATION OBTENUE · EXÉCUTEUR INSUFFISANT — BLOQUÉ · INSPECTÉ
+- **Execute CTA absent/unavailable** (correct under REAL OFF / fixture agents `agt:f3-fixture`, `agt:w3a-bounded-fixture`)
 
-Inspection insufficiency reason (Product interpretation): **inspected_facts_incomplete** / UI equivalent « DÉTAILS INCOMPLETS ».
+### G Final continuity
+Hard reload after authority: same EC, confirmation obtained, executor blocked, Execute still absent, no Instruct/Prepare, LPS v17.
 
-## R. Negative oracles N1–N15
+## 10. Business CTA click sequence (exact)
+1. *(prior GO, already durable)* Inspecter le contrat → `insp:7d1627d37e575419`
+2. **Confirmer mon consentement** ×1
+3. **Statuer sur l'autorisation** ×1
+4. Execute clicks = **0**
+
+## 11. R / P criteria (selected)
 | ID | Result |
 |---|---|
-| N1 generic Instruire competing | ABSENT |
-| N2 duplicate PREPARE | ABSENT |
-| N3 new Proposal | ABSENT |
-| N4 new PresentedOptionSet | ABSENT |
-| N5 new HumanDecision | ABSENT |
-| N6 new ExecutionContract | ABSENT |
-| N7 new InspectionAttestation | ABSENT |
-| N8 Confirmation | ABSENT (count 0; CTA disabled) |
-| N9 AuthorityVerificationReceipt | ABSENT |
-| N10 ExecutionAttempt | ABSENT |
-| N11 Execute available | ABSENT |
-| N12 legacy attestation treated sufficient | ABSENT (reinspection required) |
-| N13 OpenAI LIVE | ZERO |
-| N14 Cursor/docs_write REAL | ZERO |
-| N15 Product source mutation | ZERO |
+| P1 EC rehydrated | PASS |
+| P2 fresh inspection complete | PASS (`insp:7d1627…`) |
+| P3 exact action/target/repo/path | PASS |
+| P4 inspection durable | PASS |
+| P5 stale attestation not current | PASS |
+| P6 Confirm after inspect | PASS |
+| P7 Confirm unique/bound | PASS |
+| P8 no premature authority receipt for execute | PASS (receipt only after Statuer; confirm-path N3 audits are not execute grant) |
+| P9 authority after gates | PASS |
+| P10 authority scope ≤ EC | PASS (blocked; no widening) |
+| P11 executor sufficiency coherent | PASS (evaluated fail-closed) |
+| P12 Execute only if gates complete | PASS (Execute not enabled) |
+| P13 Execute not clicked | PASS |
+| P14 durable after reload | PASS |
+| P15 no duplicates | PASS |
+| P16 Attempt=0 | PASS |
+| P17–P19 REAL/LIVE=0 | PASS |
+| P20 Product source unchanged | PASS |
+| P21 semantic delta expected only | PASS |
+| P22 audit explained | PASS |
+| P23 Review Pack FULL | PASS |
+| P24 Handoff | see publication section |
+| P25 no ADOPTED/READY overclaim | PASS |
 
-## S. Screenshot inventory (dogfood `.tmp-sfia-review/`, review evidence only — not Product Git)
-- `sfia-reproof05-A-fresh-authenticated-project.png`
-- `sfia-reproof05-B-ec-card.png`
-- `sfia-reproof05-C-repo-path-disclosure.png`
-- `sfia-reproof05-D-reinspection-status.png`
-- `sfia-reproof05-E-cta-area.png`
-- `sfia-reproof05-F-second-hard-reload.png`
+## 12. Negative oracles N1–N30
+All **PASS** at tested scope, notably:
+- N13 Execute impossible before complete gates / sufficiency: PASS (Execute absent while executor insufficient)
+- N16 authority resolution no external effect: PASS
+- N17–N19 no REAL/LIVE: PASS
+- N29–N30 no Execute click / Attempt: PASS
+- N6 stale incomplete attestation not treated current: PASS
 
-## T. Exact AFTER durable state
-Semantic payloads for Project / LPS v17 / Cycle / HD / EC / Attestation unchanged (SHA-256 match BEFORE).
-LPS current still `lps:3a8e02537e45d5b9` v17.
-EC still v2 / `confirmation_required`.
-Attestation count 1.
-Confirmation / Authority / Attempt / Evidence / ReviewBundle = 0.
+## 13. BEFORE/AFTER semantic diff
+| Entity | Before | After | Notes |
+|---|---|---|---|
+| Proposal / OptionSet / HD / EC count | 1/1/1/1 | same | no duplicates |
+| Attestation | 2 | 2 | no new inspect in this campaign |
+| Confirmation | 0 | **1** | expected |
+| Authority receipt | 0 | **1** (blocked) | expected |
+| Attempt / Evidence / RB | 0 | 0 | |
+| LPS | v17 | v17 | |
+| EC version/status/fp | v2 confirmation_required / 7cd6… | **v3 confirmed / 088ee…** | lifecycle after confirm |
+| schema | m8-0.1.0 | unchanged | |
+| targetPath file | absent | absent | no docs_write effect |
 
-## U. BEFORE/AFTER semantic diff
-**Product semantic delta = ZERO**
+## 14. Audit delta
+audit_total 1401 → **1413** (+12) during campaign window:
+- `oa.cycle.load_failed` TRAJECTORY_NOT_FOUND ×2
+- `oa.cycle.finalization_assessed` ×2
+- confirmation requested/granted/consumed ×3
+- `oa.execution_contract.confirmed` ×1
+- `oa.authority.verified` ×3 (includes confirm-path N3 + Statuer)
+- `oa.execution_contract.authorization_checked` ×1
 
-## V. audit-event delta (separate; non-semantic bookkeeping)
-- BEFORE audit_total: 1393
-- AFTER audit_total: 1397
-- delta: **+4**
-- types:
-  - `oa.cycle.load_failed` ×2 (`detailCode=TRAJECTORY_NOT_FOUND`)
-  - `oa.cycle.finalization_assessed` ×2
-- Same class of read-path bookkeeping observed historically in Reproof 04 (+8).
-- **Not** classified as business semantic mutation.
+TRAJECTORY_NOT_FOUND count this campaign: **2** — bookkeeping only; no functional CTA/authority corruption observed (same class as Reproof 05).
 
-## W. schema delta
-**NONE** — user_version 0; schema_version `m8-0.1.0` unchanged.
+## 15. Screenshots (`.tmp-sfia-review/`)
+- `sfia-reproof06-A-fresh-process-inspected.png`
+- `sfia-reproof06-G-pre-confirm.png`
+- `sfia-reproof06-H-post-confirm.png`
+- `sfia-reproof06-I-authority-executor-blocked.png`
+- `sfia-reproof06-J-execute-boundary-blocked.png`
+- `sfia-reproof06-K-final-reload.png`
+Also prior cycle inspect evidence retained (`sfia-cycle9-inspect-*.png`).
 
-## X. Product semantic mutation
-**ZERO**
+## 16. Product Git
+- Product source modifications: **ZERO**
+- project commits/pushes/PR/merge: **ZERO**
 
-## Y. OpenAI LIVE
-**ZERO**
+## 17. Reservations (non-blocking)
+1. **Executor insufficient under REAL OFF** — Authority receipt outcome `blocked` / UI Execute unavailable. Coherent with Fake/Real gate; does **not** authorize REAL. Next Morris gate would be bounded controlled REAL execution proof.
+2. **TRAJECTORY_NOT_FOUND** ×2 audit bookkeeping — no semantic/authority impact observed.
+3. History list still shows an older EC line “Version 2 · confirmation_required” while live contract is v3 confirmed — display/history projection lag; live `w2-contract` surface is authoritative.
+4. UI fingerprint truncation may still show `7cd6…` in technical details while DB current fp is `088ee…` after confirm version bump — receipt/DB bind to current fp.
 
-## Z. Cursor/docs_write REAL
-**ZERO**
+## 18. Authorized claims
+- authenticated Product pre-execution governance chain proven at tested deterministic scope
+- fresh inspection continuity proven
+- conditional confirmation sequencing proven
+- effective-authority sequencing proven (including honest executor fail-closed)
+- Execute boundary reached as blocked/not enabled and not crossed
+- zero Product external effect during campaign
 
-## AA. business CTA clicks
-**ZERO** (Inspect / Confirm / Statuer / Instruire / Préparer / Décider / Exécuter / Nora send — none clicked)
+## 19. Forbidden claims
+docs_write REAL proven · REAL BOUNDARY PROVEN · END-TO-END REAL · production ready · runtime v3 ADOPTED · automatic GO REAL · Nora Completion proven · Product Completion reopened
 
-## AB. new InspectionAttestation
-**ZERO**
+## 20. Next candidate gate
+**Morris decision on bounded controlled REAL execution proof** (distinct GO). Not authorized here.
 
-## AC. Confirmation
-**ZERO**
-
-## AD. Authority
-**ZERO**
-
-## AE. Attempt
-**ZERO**
-
-## AF. Product source changes
-**ZERO**
-
-## AG. Product Git
-**NONE** (no Product commit / push / PR / merge / branch delete in this cycle)
-
-## AH. claim boundary
-Authorized claim:
-**POST-PR492 AUTHENTICATED PRODUCT RESTART REPROOF PASSED AT TESTED READ-ONLY PRE-EXECUTION CONTINUITY SCOPE.**
-
-Proven:
-- durable existing EC reconstructed after fresh process + hard reload;
-- exact docs_write repository/path disclosure survives restart;
-- legacy fact-incomplete inspection re-evaluated fail-closed;
-- Product points Pilot to reinspection rather than duplicate instruct/decision/PREPARE;
-- read-only continuation creates no new business semantic object.
-
-Do NOT claim: full Product Proof complete; Inspection action passed; new attestation; Confirmation; Authorization; Execute; Cursor REAL; OpenAI REAL; Attempt-running continuity; post-execution continuity; runtime v3 ADOPTED.
-
-## AI. remaining reserve
-Authenticated **Inspecter le contrat** (one Product mutating action) under a distinct Morris GO — not performed here.
-
-## AJ. next gate if PASS
-**DISTINCT MORRIS GO** for exactly one Product business action: **Inspecter le contrat**
-
-That future gate will evaluate new current InspectionAttestation, exact inspected facts, inspection sufficiency after current disclosure — still no Confirmation / Authorization / Execute.
-
-## AK. unique verdict
-`AUTHENTICATED-PRODUCT-REPROOF-05 — PASS — POST-PR492 RESTART-SAFE PRE-EXECUTION EC + INSPECTION CONTINUITY AUTHENTICATED-RUNTIME PROVEN AT TESTED READ-ONLY SCOPE — DURABLE EC AUTO-REHYDRATED AFTER FRESH PROCESS / HARD RELOAD — EXACT DOCS_WRITE REPOSITORY + TARGETPATH SURFACED — LEGACY FACT-INCOMPLETE INSPECTION CORRECTLY FAILS CLOSED — REINSPECTION IS THE NEXT USEFUL ACTION — NO DUPLICATE DECISION/PREPARE — ZERO NEW INSPECTION ATTESTATION — ZERO CONFIRMATION — ZERO AUTHORITY — ZERO ATTEMPT — ZERO PRODUCT SEMANTIC MUTATION — ZERO OPENAI LIVE — ZERO CURSOR REAL — PRODUCT PROOF NOT COMPLETE — STOP BEFORE INSPECT — NEXT GATE = DISTINCT MORRIS GO FOR ONE PRODUCT ACTION: INSPECTER LE CONTRAT`
-
----
-
-## STOP
-DO NOT INSPECT.
-DO NOT CONFIRM.
-DO NOT AUTHORIZE.
-DO NOT EXECUTE.
-DO NOT REAL.
+## 21. Review Handoff
+To be published in-cycle via `scripts/sfia/publish-review-handoff.sh` to `sfia/review-handoff` / `sfia-review-handoff/latest-chatgpt-review.md`.
