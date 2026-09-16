@@ -19,6 +19,7 @@ const {
   executeStartMock,
   executeCompleteMock,
   readActiveDecisionSubjectMock,
+  readGovernedExecutionContinuityMock,
   readPreCycleMock,
   readApprovalMock,
   prepareCycleMock,
@@ -36,6 +37,7 @@ const {
   executeStartMock: vi.fn(),
   executeCompleteMock: vi.fn(),
   readActiveDecisionSubjectMock: vi.fn(),
+  readGovernedExecutionContinuityMock: vi.fn(),
   readPreCycleMock: vi.fn(),
   readApprovalMock: vi.fn(),
   prepareCycleMock: vi.fn(),
@@ -71,6 +73,8 @@ vi.mock("@/features/project-assistant/w2/actions", () => ({
     executeCompleteMock(...args),
   w2ReadActiveDecisionSubjectAction: (...args: unknown[]) =>
     readActiveDecisionSubjectMock(...args),
+  w2ReadCurrentGovernedExecutionContinuityAction: (...args: unknown[]) =>
+    readGovernedExecutionContinuityMock(...args),
   w2ReadProjectHistoryAction: vi.fn().mockResolvedValue({
     ok: false,
     code: "UNUSED",
@@ -110,12 +114,17 @@ beforeEach(() => {
   executeStartMock.mockReset();
   executeCompleteMock.mockReset();
   readActiveDecisionSubjectMock.mockReset();
+  readGovernedExecutionContinuityMock.mockReset();
   readPreCycleMock.mockReset();
   readApprovalMock.mockReset();
   prepareCycleMock.mockReset();
   readPreparedCycleMock.mockReset();
   startPreparedCycleMock.mockReset();
   readActiveDecisionSubjectMock.mockResolvedValue({
+    ok: true,
+    kind: "none",
+  });
+  readGovernedExecutionContinuityMock.mockResolvedValue({
     ok: true,
     kind: "none",
   });
@@ -1455,4 +1464,1181 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     expect(prepareM3Mock).not.toHaveBeenCalled();
     expect(prepareContractMock).not.toHaveBeenCalled();
   });
+
+  it("EC rehydration — fresh mount projects durable EC + incomplete inspection; hides instruct", async () => {
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "active",
+      decisionRef: "dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411",
+      contract: {
+        executionContractId: "xct:m3:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411",
+        version: 2,
+        status: "confirmation_required",
+        action: "cursor.docs_write.apply",
+        target: "workspace.isolated.docs_write",
+        scope: "docs_write borné — cycle actif — aucune exécution automatique",
+        requiredAuthority: "MORRIS",
+        constraints: ["PREPARE_ONLY"],
+        stopConditions: ["AUTHORITY_DENIED"],
+        requiredCapabilities: ["cap:cursor.docs_write"],
+        reversibility: "reversible",
+        semanticFingerprint: "fp-campaign",
+        effectConfirmationRequired: true,
+        effectConfirmationLevel: null,
+        inspectionDisclosure: {
+          action: "cursor.docs_write.apply",
+          technicalTarget: "workspace.isolated.docs_write",
+          scope: "docs_write borné — cycle actif — aucune exécution automatique",
+          targetRepositoryRef: "mcleland147/sfia-workspace",
+          targetPath: "projects/sfia-studio/.sandbox/gestion-de-taches.md",
+          scopeIn: ["projects/sfia-studio/.sandbox"],
+          scopeOut: [],
+          createOrModify: true,
+          noDelete: true,
+          objective: null,
+          artifactType: null,
+          artifactBrief: null,
+          contentRequirements: null,
+          validationExpectations: null,
+          expectedOutputs: ["projects/sfia-studio/.sandbox/gestion-de-taches.md"],
+          evidenceRequirements: [],
+          requiredAuthority: "MORRIS",
+          requiredCapabilities: ["cap:cursor.docs_write"],
+          constraints: ["PREPARE_ONLY"],
+          stopConditions: ["AUTHORITY_DENIED"],
+          reversibility: "reversible",
+          contractVersion: 2,
+          executionContractId:
+            "xct:m3:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411",
+          semanticFingerprint: "fp-campaign",
+          disclosureComplete: true,
+          incompletenessCode: null,
+        },
+      },
+      inspection: {
+        executionContractId:
+          "xct:m3:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411",
+        contractVersion: 2,
+        semanticFingerprint: "fp-campaign",
+        statusLabel: "RÉINSPECTION REQUISE — DÉTAILS INCOMPLETS",
+        inspectionSufficient: false,
+        attestationRef: null,
+        attestedVersion: 2,
+        staleAttestationRef: "insp:05042f3b6040838e",
+        reinspectionRequired: true,
+        reason: "inspected_facts_incomplete",
+        grantsAuthority: false,
+      },
+    });
+
+    render(<TrajectorySurface projectId="prj:ae9bd0de-e24d-474f-880d-ff5ea56dbaf6" />);
+
+    expect(await screen.findByTestId("w2-contract")).toBeVisible();
+    expect(screen.getByTestId("w2-contract-action").textContent).toBe(
+      "cursor.docs_write.apply",
+    );
+    expect(screen.getByTestId("w2-contract-target").textContent).toBe(
+      "workspace.isolated.docs_write",
+    );
+    expect(screen.getByTestId("w2-contract-exact-target").textContent).toBe(
+      "projects/sfia-studio/.sandbox/gestion-de-taches.md",
+    );
+    expect(screen.getByTestId("w2-contract-repository").textContent).toBe(
+      "mcleland147/sfia-workspace",
+    );
+    expect(screen.getByTestId("w2-contract-status").textContent).toMatch(
+      /Confirmation requise/i,
+    );
+    expect(screen.getByTestId("w2-inspection-state").textContent).toMatch(
+      /RÉINSPECTION REQUISE — DÉTAILS INCOMPLETS/,
+    );
+    expect(screen.getByTestId("w2-inspect-contract")).toBeVisible();
+    expect(screen.getByTestId("w2-confirm-contract")).toBeDisabled();
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+    expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-proposal-backed-prepare")).toBeNull();
+    expect(screen.queryByTestId("w2-governed-execute")).toBeNull();
+    expect(inspectMock).not.toHaveBeenCalled();
+  });
+
+  it("EC rehydration — pending continuity hides generic Instruire les options", async () => {
+    let resolveContinuity: (value: unknown) => void = () => {};
+    readGovernedExecutionContinuityMock.mockReturnValue(
+      new Promise((resolve) => {
+        resolveContinuity = resolve;
+      }),
+    );
+
+    render(<TrajectorySurface projectId="prj:pending-continuity" />);
+    await waitFor(() => {
+      expect(readActiveDecisionSubjectMock).toHaveBeenCalled();
+    });
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+
+    resolveContinuity({ ok: true, kind: "none" });
+    expect(await screen.findByTestId("w2-propose-options")).toBeVisible();
+  });
+
+  it("EC rehydration — continuity error/ambiguity hides instruct and shows fail-closed", async () => {
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: false,
+      code: "EXECUTION_CONTINUITY_AMBIGUOUS",
+      message:
+        "Plusieurs contrats d'exécution courants non terminés — continuation refusée.",
+    });
+
+    render(<TrajectorySurface projectId="prj:ambiguous-continuity" />);
+    expect(await screen.findByTestId("w2-error")).toBeVisible();
+    expect(screen.getByTestId("w2-error").textContent).toMatch(/Plusieurs contrats/);
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+    expect(screen.queryByTestId("w2-contract")).toBeNull();
+  });
+
+  it("EC rehydration — kind none + subject none still shows Instruire after both resolve", async () => {
+    render(<TrajectorySurface projectId="prj:none-none" />);
+    expect(await screen.findByTestId("w2-propose-options")).toBeVisible();
+  });
+
+  it("EC rehydration — bound subject + active EC conflict fails closed", async () => {
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "bound_awaiting_decision",
+      optionSet: {
+        optionSetRef: "optset:conflict",
+        cycleTypeId: "cyc:framing",
+        recommendedProfile: "Light",
+        decisionSubjectMode: "proposal",
+        proposalId: "prop:f2:conflict",
+        promotesProjectTrajectory: false,
+        options: [
+          {
+            kind: "OPTION",
+            optionRef: PROPOSAL_SUBJECT_PURSUE_REF,
+            label: "Poursuivre",
+            intent: "Poursuivre le sujet",
+            impacts: ["HumanDecision"],
+            recommended: true,
+          },
+        ],
+        recommendation: {
+          kind: "RECOMMENDATION",
+          recommendedOptionRef: PROPOSAL_SUBJECT_PURSUE_REF,
+          rationale: "test",
+        },
+        epistemicRefs: [],
+        proposedTrajectory: null,
+        phase: "OPTIONS_PROPOSED",
+        autoDecisionPerformed: false,
+        executionPerformed: false,
+        ckcCognitionCompletedBeforeMutation: true,
+      },
+    });
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "active",
+      decisionRef: "dec:conflict",
+      contract: {
+        executionContractId: "xct:conflict",
+        version: 1,
+        status: "confirmation_required",
+        action: "cursor.docs_write.apply",
+        target: "workspace.isolated.docs_write",
+        scope: "s",
+        requiredAuthority: "MORRIS",
+        constraints: [],
+        stopConditions: [],
+        requiredCapabilities: [],
+        reversibility: "reversible",
+        semanticFingerprint: "fp",
+        inspectionDisclosure: {
+          action: "cursor.docs_write.apply",
+          technicalTarget: "workspace.isolated.docs_write",
+          scope: "s",
+          targetRepositoryRef: "mcleland147/sfia-workspace",
+          targetPath: "projects/sfia-studio/.sandbox/gestion-de-taches.md",
+          scopeIn: null,
+          scopeOut: null,
+          createOrModify: null,
+          noDelete: null,
+          objective: null,
+          artifactType: null,
+          artifactBrief: null,
+          contentRequirements: null,
+          validationExpectations: null,
+          expectedOutputs: null,
+          evidenceRequirements: [],
+          requiredAuthority: "MORRIS",
+          requiredCapabilities: [],
+          constraints: [],
+          stopConditions: [],
+          reversibility: "reversible",
+          contractVersion: 1,
+          executionContractId: "xct:conflict",
+          semanticFingerprint: "fp",
+          disclosureComplete: true,
+          incompletenessCode: null,
+        },
+      },
+      inspection: {
+        executionContractId: "xct:conflict",
+        contractVersion: 1,
+        semanticFingerprint: "fp",
+        statusLabel: "NON INSPECTÉ",
+        inspectionSufficient: false,
+        attestationRef: null,
+        attestedVersion: null,
+        staleAttestationRef: null,
+        reinspectionRequired: false,
+        reason: "no_attestation",
+        grantsAuthority: false,
+      },
+    });
+
+    render(<TrajectorySurface projectId="prj:conflict" />);
+    expect(await screen.findByTestId("w2-error")).toBeVisible();
+    expect(screen.getByTestId("w2-error").textContent).toMatch(/Contradiction/);
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+    expect(screen.queryByTestId("w2-inspect-contract")).toBeNull();
+  });
+
+  it("EC rehydration micro — subject ERROR does not invoke governed continuity or expose EC actions", async () => {
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: false,
+      code: "SUBJECT_READ_FAILED",
+      message: "Lecture du sujet de décision impossible.",
+    });
+    readGovernedExecutionContinuityMock.mockResolvedValue(
+      campaignActiveContinuityResult(),
+    );
+
+    render(<TrajectorySurface projectId="prj:subject-error-blocks-ec" />);
+
+    expect(await screen.findByTestId("w2-error")).toBeVisible();
+    expect(screen.getByTestId("w2-error").textContent).toMatch(
+      /sujet de décision impossible/,
+    );
+    expect(readGovernedExecutionContinuityMock).not.toHaveBeenCalled();
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+    expect(screen.queryByTestId("w2-inspect-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-confirm-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-authorize-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-governed-execute")).toBeNull();
+    expect(inspectMock).not.toHaveBeenCalled();
+    expect(authorizeMock).not.toHaveBeenCalled();
+  });
+
+  it("EC rehydration micro — refresh subject pending disables governed EC mutating actions", async () => {
+    readGovernedExecutionContinuityMock.mockResolvedValue(
+      campaignActiveContinuityResult(),
+    );
+
+    const { rerender } = render(
+      <TrajectorySurface
+        projectId="prj:subject-pending-blocks-ec"
+        durableRefreshSignal={0}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-inspect-contract")).toBeEnabled();
+    expect(screen.getByTestId("w2-confirm-contract")).toBeDisabled();
+    expect(screen.getByTestId("w2-authorize-contract")).toBeEnabled();
+
+    let resolveSubject: (value: unknown) => void = () => {};
+    readActiveDecisionSubjectMock.mockReturnValue(
+      new Promise((resolve) => {
+        resolveSubject = resolve;
+      }),
+    );
+
+    rerender(
+      <TrajectorySurface
+        projectId="prj:subject-pending-blocks-ec"
+        durableRefreshSignal={1}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(readActiveDecisionSubjectMock.mock.calls.length).toBeGreaterThan(1);
+    });
+
+    expect(screen.getByTestId("w2-inspect-contract")).toBeDisabled();
+    expect(screen.getByTestId("w2-confirm-contract")).toBeDisabled();
+    expect(screen.getByTestId("w2-authorize-contract")).toBeDisabled();
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+    expect(screen.queryByTestId("w2-governed-execute")).toBeNull();
+    fireEvent.click(screen.getByTestId("w2-inspect-contract"));
+    fireEvent.click(screen.getByTestId("w2-authorize-contract"));
+    expect(inspectMock).not.toHaveBeenCalled();
+    expect(authorizeMock).not.toHaveBeenCalled();
+
+    resolveSubject({ ok: true, kind: "none" });
+  });
+
+  it("EC rehydration micro — active then authoritative none clears stale EC card", async () => {
+    readGovernedExecutionContinuityMock
+      .mockResolvedValueOnce(campaignActiveContinuityResult())
+      .mockResolvedValue({ ok: true, kind: "none" });
+
+    const { rerender } = render(
+      <TrajectorySurface
+        projectId="prj:active-then-none"
+        durableRefreshSignal={0}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-contract")).toBeVisible();
+    expect(screen.getByTestId("w2-contract-exact-target").textContent).toBe(
+      "projects/sfia-studio/.sandbox/gestion-de-taches.md",
+    );
+    expect(screen.getByTestId("w2-inspection-state").textContent).toMatch(
+      /RÉINSPECTION REQUISE — DÉTAILS INCOMPLETS/,
+    );
+
+    rerender(
+      <TrajectorySurface
+        projectId="prj:active-then-none"
+        durableRefreshSignal={1}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(screen.queryByTestId("w2-contract")).toBeNull();
+    });
+    expect(screen.queryByTestId("w2-contract-exact-target")).toBeNull();
+    expect(screen.queryByTestId("w2-inspection-state")).toBeNull();
+    expect(screen.queryByTestId("w2-inspect-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-confirm-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-authorize-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-governed-execute")).toBeNull();
+    expect(inspectMock).not.toHaveBeenCalled();
+    expect(authorizeMock).not.toHaveBeenCalled();
+    expect(await screen.findByTestId("w2-propose-options")).toBeVisible();
+  });
+
+  it("final fail-closed — stale OptionSet + subject ERROR blocks Decision mutation", async () => {
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "bound_awaiting_decision",
+      optionSet: boundProposalOptionSet("prop:f2:stale-opt"),
+    });
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+
+    const { rerender } = render(
+      <TrajectorySurface
+        projectId="prj:stale-optionset-subject-error"
+        durableRefreshSignal={0}
+      />,
+    );
+
+    const decideBtn = await screen.findByTestId(
+      `w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`,
+    );
+    await waitFor(() => {
+      expect(
+        screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`),
+      ).toBeEnabled();
+    });
+    expect(decideBtn).toBeInTheDocument();
+
+    const continuityCallsBeforeRefresh =
+      readGovernedExecutionContinuityMock.mock.calls.length;
+
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: false,
+      code: "SUBJECT_READ_FAILED",
+      message: "Lecture du sujet de décision impossible.",
+    });
+
+    rerender(
+      <TrajectorySurface
+        projectId="prj:stale-optionset-subject-error"
+        durableRefreshSignal={1}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-error")).toBeVisible();
+    expect(screen.getByTestId("w2-error").textContent).toMatch(
+      /sujet de décision impossible/,
+    );
+    // Stale OptionSet may remain visible informationally.
+    expect(screen.getByTestId("w2-options")).toBeVisible();
+    expect(
+      screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`),
+    ).toBeDisabled();
+    fireEvent.click(
+      screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`),
+    );
+    expect(decideMock).not.toHaveBeenCalled();
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+    expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-inspect-contract")).toBeNull();
+    expect(screen.queryByTestId("w3a-governed-execute")).toBeNull();
+    // No additional governed continuity read while subject errored.
+    expect(readGovernedExecutionContinuityMock.mock.calls.length).toBe(
+      continuityCallsBeforeRefresh,
+    );
+  });
+
+  it("final fail-closed — stale Decision + subject ERROR blocks Proposal PREPARE", async () => {
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "bound_awaiting_decision",
+      optionSet: boundProposalOptionSet("prop:f2:stale-dec"),
+    });
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+    decideMock.mockResolvedValue({
+      ok: true,
+      decision: {
+        decisionId: "dec:w2-prop:stale-prepare",
+        selectedOptionRef: PROPOSAL_SUBJECT_PURSUE_REF,
+        actorRole: "Pilote",
+        authorityClass: "morris",
+        statusLabel: "DÉCISION HUMAINE PRISE",
+        capturedAt: "2026-09-16T12:00:00.000Z",
+        decisionBasisLinked: true,
+        reservesText: null,
+        proposalId: "prop:f2:stale-dec",
+      },
+      trajectory: null,
+      livingProjectStateVersion: 4,
+      executionPerformed: false,
+      promotesProjectTrajectory: false,
+      decisionSubjectMode: "proposal",
+    });
+
+    const { rerender } = render(
+      <TrajectorySurface
+        projectId="prj:stale-decision-prepare-block"
+        durableRefreshSignal={0}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(
+        screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`),
+      ).toBeEnabled();
+    });
+    fireEvent.click(
+      screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`),
+    );
+    expect(await screen.findByTestId("w2-proposal-backed-prepare")).toBeVisible();
+    expect(screen.getByTestId("w2-prepare-contract")).toBeEnabled();
+
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: false,
+      code: "SUBJECT_READ_FAILED",
+      message: "Lecture du sujet de décision impossible.",
+    });
+
+    rerender(
+      <TrajectorySurface
+        projectId="prj:stale-decision-prepare-block"
+        durableRefreshSignal={1}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-error")).toBeVisible();
+    expect(screen.getByTestId("w2-prepare-contract")).toBeDisabled();
+    fireEvent.click(screen.getByTestId("w2-prepare-contract"));
+    expect(prepareM3Mock).not.toHaveBeenCalled();
+    expect(screen.queryByTestId("w2-prepare-contract-sandbox")).toBeNull();
+    expect(screen.queryByTestId("w2-inspect-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-confirm-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-authorize-contract")).toBeNull();
+    expect(screen.queryByTestId("w3a-governed-execute")).toBeNull();
+  });
+
+  it("final fail-closed — bound subject + EC continuity pending blocks Decision", async () => {
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "bound_awaiting_decision",
+      optionSet: boundProposalOptionSet("prop:f2:ec-pending"),
+    });
+    let resolveContinuity: (value: unknown) => void = () => {};
+    readGovernedExecutionContinuityMock.mockReturnValue(
+      new Promise((resolve) => {
+        resolveContinuity = resolve;
+      }),
+    );
+
+    render(<TrajectorySurface projectId="prj:bound-ec-pending" />);
+
+    const decideBtn = await screen.findByTestId(
+      `w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`,
+    );
+    expect(decideBtn).toBeDisabled();
+    fireEvent.click(decideBtn);
+    expect(decideMock).not.toHaveBeenCalled();
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+    expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-inspect-contract")).toBeNull();
+
+    resolveContinuity({ ok: true, kind: "none" });
+
+    await waitFor(() => {
+      expect(
+        screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`),
+      ).toBeEnabled();
+    });
+  });
+
+  it("final fail-closed — stale governed ACTIVE result ignored after newer subject ERROR", async () => {
+    let resolveStaleContinuity: (value: unknown) => void = () => {};
+    readGovernedExecutionContinuityMock.mockReturnValueOnce(
+      new Promise((resolve) => {
+        resolveStaleContinuity = resolve;
+      }),
+    );
+
+    const { rerender } = render(
+      <TrajectorySurface
+        projectId="prj:stale-ec-after-subject-error"
+        durableRefreshSignal={0}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(readGovernedExecutionContinuityMock).toHaveBeenCalledTimes(1);
+    });
+    const continuityCallsAfterFirst = readGovernedExecutionContinuityMock.mock
+      .calls.length;
+
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: false,
+      code: "SUBJECT_READ_FAILED",
+      message: "Lecture du sujet de décision impossible.",
+    });
+
+    rerender(
+      <TrajectorySurface
+        projectId="prj:stale-ec-after-subject-error"
+        durableRefreshSignal={1}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-error")).toBeVisible();
+    expect(screen.getByTestId("w2-error").textContent).toMatch(
+      /sujet de décision impossible/,
+    );
+    // Refresh must NOT start another governed read before subject is ready.
+    expect(readGovernedExecutionContinuityMock.mock.calls.length).toBe(
+      continuityCallsAfterFirst,
+    );
+
+    resolveStaleContinuity(campaignActiveContinuityResult());
+
+    await waitFor(() => {
+      expect(screen.queryByTestId("w2-contract")).toBeNull();
+    });
+    expect(screen.getByTestId("w2-error").textContent).toMatch(
+      /sujet de décision impossible/,
+    );
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+    expect(screen.queryByTestId("w2-inspect-contract")).toBeNull();
+    expect(decideMock).not.toHaveBeenCalled();
+    expect(prepareM3Mock).not.toHaveBeenCalled();
+    expect(inspectMock).not.toHaveBeenCalled();
+    expect(authorizeMock).not.toHaveBeenCalled();
+  });
+
+  it("final fail-closed — later READY pass recovers durable EC after subject ERROR", async () => {
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: false,
+      code: "SUBJECT_READ_FAILED",
+      message: "Lecture du sujet de décision impossible.",
+    });
+
+    const { rerender } = render(
+      <TrajectorySurface
+        projectId="prj:recover-after-subject-error"
+        durableRefreshSignal={0}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-error")).toBeVisible();
+    expect(readGovernedExecutionContinuityMock).not.toHaveBeenCalled();
+
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+    readGovernedExecutionContinuityMock.mockResolvedValue(
+      campaignActiveContinuityResult(),
+    );
+
+    rerender(
+      <TrajectorySurface
+        projectId="prj:recover-after-subject-error"
+        durableRefreshSignal={1}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-contract")).toBeVisible();
+    expect(screen.getByTestId("w2-contract-exact-target").textContent).toBe(
+      "projects/sfia-studio/.sandbox/gestion-de-taches.md",
+    );
+    expect(screen.getByTestId("w2-contract-repository").textContent).toBe(
+      "mcleland147/sfia-workspace",
+    );
+    expect(screen.getByTestId("w2-inspection-state").textContent).toMatch(
+      /RÉINSPECTION REQUISE — DÉTAILS INCOMPLETS/,
+    );
+    expect(screen.getByTestId("w2-inspect-contract")).toBeEnabled();
+    expect(screen.getByTestId("w2-confirm-contract")).toBeDisabled();
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+    expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
+    expect(screen.queryByTestId("w3a-governed-execute")).toBeNull();
+  });
+
+  it("final fail-closed — stale lost Reformuler disabled while subject refresh pending", async () => {
+    const reformulate = vi.fn();
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "pending_reinstruction_required",
+      message:
+        "La demande précédente n'est plus disponible. Reformulez avec Nora.",
+      proposalIds: ["prop:f2:lost-pending"],
+      recoverableProposalIds: [],
+    });
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+
+    const { rerender } = render(
+      <TrajectorySurface
+        projectId="prj:stale-reformulate-pending"
+        durableRefreshSignal={0}
+        onRequestReformulateWithNora={reformulate}
+      />,
+    );
+
+    const reformulateBtn = await screen.findByTestId("w2-reformulate-with-nora");
+    await waitFor(() => {
+      expect(screen.getByTestId("w2-reformulate-with-nora")).toBeEnabled();
+    });
+    expect(reformulateBtn).toBeInTheDocument();
+
+    let resolveSubject: (value: unknown) => void = () => {};
+    readActiveDecisionSubjectMock.mockReturnValue(
+      new Promise((resolve) => {
+        resolveSubject = resolve;
+      }),
+    );
+
+    rerender(
+      <TrajectorySurface
+        projectId="prj:stale-reformulate-pending"
+        durableRefreshSignal={1}
+        onRequestReformulateWithNora={reformulate}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(readActiveDecisionSubjectMock.mock.calls.length).toBeGreaterThan(1);
+    });
+
+    expect(screen.getByTestId("w2-reformulate-with-nora")).toBeDisabled();
+    fireEvent.click(screen.getByTestId("w2-reformulate-with-nora"));
+    expect(reformulate).not.toHaveBeenCalled();
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+    expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-inspect-contract")).toBeNull();
+    expect(decideMock).not.toHaveBeenCalled();
+    expect(prepareM3Mock).not.toHaveBeenCalled();
+
+    resolveSubject({
+      ok: true,
+      kind: "pending_reinstruction_required",
+      message:
+        "La demande précédente n'est plus disponible. Reformulez avec Nora.",
+      proposalIds: ["prop:f2:lost-pending"],
+      recoverableProposalIds: [],
+    });
+  });
+
+  it("final fail-closed — stale lost Reformuler disabled on subject ERROR", async () => {
+    const reformulate = vi.fn();
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "pending_reinstruction_required",
+      message:
+        "La demande précédente n'est plus disponible. Reformulez avec Nora.",
+      proposalIds: ["prop:f2:lost-error"],
+      recoverableProposalIds: [],
+    });
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+
+    const { rerender } = render(
+      <TrajectorySurface
+        projectId="prj:stale-reformulate-error"
+        durableRefreshSignal={0}
+        onRequestReformulateWithNora={reformulate}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId("w2-reformulate-with-nora")).toBeEnabled();
+    });
+    const continuityCallsBeforeRefresh =
+      readGovernedExecutionContinuityMock.mock.calls.length;
+
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: false,
+      code: "SUBJECT_READ_FAILED",
+      message: "Lecture du sujet de décision impossible.",
+    });
+
+    rerender(
+      <TrajectorySurface
+        projectId="prj:stale-reformulate-error"
+        durableRefreshSignal={1}
+        onRequestReformulateWithNora={reformulate}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-error")).toBeVisible();
+    expect(screen.getByTestId("w2-error").textContent).toMatch(
+      /sujet de décision impossible/,
+    );
+    expect(screen.getByTestId("w2-reformulate-with-nora")).toBeDisabled();
+    fireEvent.click(screen.getByTestId("w2-reformulate-with-nora"));
+    expect(reformulate).not.toHaveBeenCalled();
+    expect(readGovernedExecutionContinuityMock.mock.calls.length).toBe(
+      continuityCallsBeforeRefresh,
+    );
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+    expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-inspect-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-confirm-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-authorize-contract")).toBeNull();
+    expect(screen.queryByTestId("w3a-governed-execute")).toBeNull();
+  });
+
+  it("final fail-closed — latest READY lost pass re-enables Reformuler", async () => {
+    const reformulate = vi.fn();
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: false,
+      code: "SUBJECT_READ_FAILED",
+      message: "Lecture du sujet de décision impossible.",
+    });
+
+    const { rerender } = render(
+      <TrajectorySurface
+        projectId="prj:reformulate-recover"
+        durableRefreshSignal={0}
+        onRequestReformulateWithNora={reformulate}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-error")).toBeVisible();
+    expect(readGovernedExecutionContinuityMock).not.toHaveBeenCalled();
+
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "pending_reinstruction_required",
+      message:
+        "La demande précédente n'est plus disponible. Reformulez avec Nora.",
+      proposalIds: ["prop:f2:current-lost"],
+      recoverableProposalIds: [],
+    });
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+
+    rerender(
+      <TrajectorySurface
+        projectId="prj:reformulate-recover"
+        durableRefreshSignal={1}
+        onRequestReformulateWithNora={reformulate}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-reformulate-with-nora")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.getByTestId("w2-reformulate-with-nora")).toBeEnabled();
+    });
+    fireEvent.click(screen.getByTestId("w2-reformulate-with-nora"));
+    expect(reformulate).toHaveBeenCalledTimes(1);
+    expect(reformulate).toHaveBeenCalledWith("prop:f2:current-lost");
+  });
+
+  it("subject-none — stale Proposal OptionSet invalidated before HumanDecision", async () => {
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "bound_awaiting_decision",
+      optionSet: boundProposalOptionSet("prop:f2:stale-none"),
+    });
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+
+    const { rerender } = render(
+      <TrajectorySurface
+        projectId="prj:subject-none-clears-proposal"
+        durableRefreshSignal={0}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-options")).toBeVisible();
+    await waitFor(() => {
+      expect(
+        screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`),
+      ).toBeEnabled();
+    });
+    expect(screen.queryByTestId("w2-decision")).toBeNull();
+
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+
+    rerender(
+      <TrajectorySurface
+        projectId="prj:subject-none-clears-proposal"
+        durableRefreshSignal={1}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(screen.queryByTestId("w2-options")).toBeNull();
+    });
+    expect(
+      screen.queryByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`),
+    ).toBeNull();
+    expect(decideMock).not.toHaveBeenCalled();
+    expect(screen.queryByTestId("w2-decision")).toBeNull();
+    expect(await screen.findByTestId("w2-propose-options")).toBeVisible();
+    expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-inspect-contract")).toBeNull();
+    expect(screen.queryByTestId("w3a-governed-execute")).toBeNull();
+  });
+
+  it("subject-none — generic ProjectTrajectory OptionSet preserved", async () => {
+    proposeMock.mockResolvedValue(genericTrajectoryOptionSet());
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+
+    const { rerender } = render(
+      <TrajectorySurface
+        projectId="prj:subject-none-keeps-generic"
+        durableRefreshSignal={0}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-propose-options")).toBeVisible();
+    fireEvent.click(screen.getByTestId("w2-propose-options"));
+    expect(await screen.findByTestId("w2-options")).toBeVisible();
+    await waitFor(() => {
+      expect(
+        screen.getByTestId("w2-decide-opt:trajectory:bounded-direct"),
+      ).toBeEnabled();
+    });
+
+    rerender(
+      <TrajectorySurface
+        projectId="prj:subject-none-keeps-generic"
+        durableRefreshSignal={1}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-options")).toBeVisible();
+    await waitFor(() => {
+      expect(
+        screen.getByTestId("w2-decide-opt:trajectory:bounded-direct"),
+      ).toBeEnabled();
+    });
+    expect(proposeMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("subject-none — recorded HumanDecision + Proposal PREPARE preserved", async () => {
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "bound_awaiting_decision",
+      optionSet: boundProposalOptionSet("prop:f2:decided-none"),
+    });
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+    decideMock.mockResolvedValue({
+      ok: true,
+      decision: {
+        decisionId: "dec:w2-prop:decided-none",
+        selectedOptionRef: PROPOSAL_SUBJECT_PURSUE_REF,
+        actorRole: "Pilote",
+        authorityClass: "morris",
+        statusLabel: "DÉCISION HUMAINE PRISE",
+        capturedAt: "2026-09-16T14:00:00.000Z",
+        decisionBasisLinked: true,
+        reservesText: null,
+        proposalId: "prop:f2:decided-none",
+      },
+      trajectory: null,
+      livingProjectStateVersion: 5,
+      executionPerformed: false,
+      promotesProjectTrajectory: false,
+      decisionSubjectMode: "proposal",
+    });
+
+    const { rerender } = render(
+      <TrajectorySurface
+        projectId="prj:subject-none-keeps-decision"
+        durableRefreshSignal={0}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(
+        screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`),
+      ).toBeEnabled();
+    });
+    fireEvent.click(
+      screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`),
+    );
+    expect(await screen.findByTestId("w2-decision")).toBeVisible();
+    expect(await screen.findByTestId("w2-proposal-backed-prepare")).toBeVisible();
+    expect(screen.getByTestId("w2-prepare-contract")).toBeEnabled();
+
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+
+    rerender(
+      <TrajectorySurface
+        projectId="prj:subject-none-keeps-decision"
+        durableRefreshSignal={1}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-decision")).toBeVisible();
+    expect(screen.getByTestId("w2-decided-option")).toBeVisible();
+    expect(screen.getByTestId("w2-decided-option").textContent?.length).toBeGreaterThan(0);
+    await waitFor(() => {
+      expect(screen.queryByTestId("w2-options")).toBeNull();
+    });
+    expect(await screen.findByTestId("w2-proposal-backed-prepare")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.getByTestId("w2-prepare-contract")).toBeEnabled();
+    });
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+    expect(prepareM3Mock).not.toHaveBeenCalled();
+    expect(decideMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("subject-none — successful latest none clears stale subject-read error", async () => {
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: false,
+      code: "SUBJECT_READ_FAILED",
+      message: "Lecture du sujet de décision impossible.",
+    });
+
+    const { rerender } = render(
+      <TrajectorySurface
+        projectId="prj:subject-none-clears-error"
+        durableRefreshSignal={0}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-error")).toBeVisible();
+    expect(screen.getByTestId("w2-error").textContent).toMatch(
+      /sujet de décision impossible/,
+    );
+
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+
+    rerender(
+      <TrajectorySurface
+        projectId="prj:subject-none-clears-error"
+        durableRefreshSignal={1}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(screen.queryByTestId("w2-error")).toBeNull();
+    });
+    expect(await screen.findByTestId("w2-propose-options")).toBeVisible();
+    expect(screen.queryByTestId("w2-options")).toBeNull();
+    expect(decideMock).not.toHaveBeenCalled();
+    expect(prepareM3Mock).not.toHaveBeenCalled();
+    expect(inspectMock).not.toHaveBeenCalled();
+  });
 });
+
+function boundProposalOptionSet(proposalId: string) {
+  return {
+    optionSetRef: `optset:${proposalId}`,
+    cycleTypeId: "cyc:delivery",
+    recommendedProfile: "Critical",
+    decisionSubjectMode: "proposal" as const,
+    proposalId,
+    promotesProjectTrajectory: false,
+    options: [
+      {
+        kind: "OPTION" as const,
+        optionRef: PROPOSAL_SUBJECT_PURSUE_REF,
+        label: "Poursuivre le sujet proposé",
+        intent: "Continuer",
+        impacts: ["HumanDecision"],
+        recommended: true,
+      },
+      {
+        kind: "OPTION" as const,
+        optionRef: PROPOSAL_SUBJECT_REFUSE_REF,
+        label: "Ne pas poursuivre / refuser",
+        intent: "Refuser",
+        impacts: [],
+        recommended: false,
+      },
+    ],
+    recommendation: {
+      kind: "RECOMMENDATION" as const,
+      recommendedOptionRef: PROPOSAL_SUBJECT_PURSUE_REF,
+      rationale: "Continuer.",
+    },
+    epistemicRefs: [],
+    proposedTrajectory: null,
+    phase: "OPTIONS_PROPOSED",
+    autoDecisionPerformed: false,
+    executionPerformed: false,
+    ckcCognitionCompletedBeforeMutation: true,
+  };
+}
+
+function genericTrajectoryOptionSet() {
+  return {
+    ok: true as const,
+    optionSetRef: "optset:w2-generic-trajectory",
+    cycleTypeId: "cyc:delivery",
+    recommendedProfile: "Standard",
+    decisionSubjectMode: "trajectory" as const,
+    proposalId: null,
+    promotesProjectTrajectory: true,
+    options: [
+      {
+        kind: "OPTION" as const,
+        optionRef: "opt:trajectory:bounded-direct",
+        label: "Trajectoire bornée directe",
+        intent: "Cadrer un périmètre réversible",
+        impacts: ["Chemin plus court"],
+        reservations: [],
+        steps: [],
+      },
+    ],
+    recommendation: {
+      label: "RECOMMANDATION — PAS UNE DÉCISION",
+      recommendedOptionRef: "opt:trajectory:bounded-direct",
+      rationale: "Aucun signal critique.",
+      isHumanDecision: false,
+      promotesTrajectory: false,
+      ckcAttribution: null,
+    },
+    epistemicRefs: [],
+    proposedTrajectory: {
+      trajectoryId: "trj:w2-generic",
+      version: 1,
+      status: "candidate",
+      statusLabel: "TRAJECTOIRE PROPOSÉE",
+      isCurrent: false,
+    },
+    phase: "OPTIONS_PROPOSED",
+    autoDecisionPerformed: false,
+    executionPerformed: false,
+    ckcCognitionCompletedBeforeMutation: true,
+  };
+}
+
+function campaignActiveContinuityResult() {
+  return {
+    ok: true as const,
+    kind: "active" as const,
+    decisionRef: "dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411",
+    contract: {
+      executionContractId:
+        "xct:m3:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411",
+      version: 2,
+      status: "confirmation_required",
+      action: "cursor.docs_write.apply",
+      target: "workspace.isolated.docs_write",
+      scope: "docs_write borné — cycle actif — aucune exécution automatique",
+      requiredAuthority: "MORRIS",
+      constraints: ["PREPARE_ONLY"],
+      stopConditions: ["AUTHORITY_DENIED"],
+      requiredCapabilities: ["cap:cursor.docs_write"],
+      reversibility: "reversible",
+      semanticFingerprint: "fp-campaign",
+      effectConfirmationRequired: true,
+      effectConfirmationLevel: null,
+      inspectionDisclosure: {
+        action: "cursor.docs_write.apply",
+        technicalTarget: "workspace.isolated.docs_write",
+        scope: "docs_write borné — cycle actif — aucune exécution automatique",
+        targetRepositoryRef: "mcleland147/sfia-workspace",
+        targetPath: "projects/sfia-studio/.sandbox/gestion-de-taches.md",
+        scopeIn: ["projects/sfia-studio/.sandbox"],
+        scopeOut: [],
+        createOrModify: true,
+        noDelete: true,
+        objective: null,
+        artifactType: null,
+        artifactBrief: null,
+        contentRequirements: null,
+        validationExpectations: null,
+        expectedOutputs: [
+          "projects/sfia-studio/.sandbox/gestion-de-taches.md",
+        ],
+        evidenceRequirements: [],
+        requiredAuthority: "MORRIS",
+        requiredCapabilities: ["cap:cursor.docs_write"],
+        constraints: ["PREPARE_ONLY"],
+        stopConditions: ["AUTHORITY_DENIED"],
+        reversibility: "reversible",
+        contractVersion: 2,
+        executionContractId:
+          "xct:m3:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411",
+        semanticFingerprint: "fp-campaign",
+        disclosureComplete: true,
+        incompletenessCode: null,
+      },
+    },
+    inspection: {
+      executionContractId:
+        "xct:m3:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411",
+      contractVersion: 2,
+      semanticFingerprint: "fp-campaign",
+      statusLabel: "RÉINSPECTION REQUISE — DÉTAILS INCOMPLETS",
+      inspectionSufficient: false,
+      attestationRef: null,
+      attestedVersion: 2,
+      staleAttestationRef: "insp:05042f3b6040838e",
+      reinspectionRequired: true,
+      reason: "inspected_facts_incomplete",
+      grantsAuthority: false,
+    },
+  };
+}

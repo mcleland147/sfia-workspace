@@ -232,6 +232,39 @@ export type ActiveDecisionSubjectReadResult =
     }
   | W2Failure;
 
+/**
+ * Restart-safe governed ExecutionContract + inspection continuity read.
+ * READ projection only — never records inspection or mutates Product truth.
+ */
+export type CurrentGovernedExecutionContinuityContractDto = {
+  readonly executionContractId: string;
+  readonly version: number;
+  readonly status: string;
+  readonly action: string;
+  readonly target: string;
+  readonly scope: string;
+  readonly requiredAuthority: string;
+  readonly constraints: readonly string[];
+  readonly stopConditions: readonly string[];
+  readonly requiredCapabilities: readonly string[];
+  readonly reversibility: string;
+  readonly semanticFingerprint: string;
+  readonly effectConfirmationRequired?: boolean;
+  readonly effectConfirmationLevel?: string | null;
+  readonly inspectionDisclosure: import("@/lib/oa/execution-contract").ExecutionContractInspectionDisclosure;
+};
+
+export type CurrentGovernedExecutionContinuityResult =
+  | { readonly ok: true; readonly kind: "none" }
+  | {
+      readonly ok: true;
+      readonly kind: "active";
+      readonly decisionRef: string;
+      readonly contract: CurrentGovernedExecutionContinuityContractDto;
+      readonly inspection: ContractInspectionStateDto;
+    }
+  | W2Failure;
+
 export type DecideTrajectoryResult =
   | {
       readonly ok: true;
