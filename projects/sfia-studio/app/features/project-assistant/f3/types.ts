@@ -6,7 +6,10 @@
 import type { ProposalDto } from "../f2/types";
 import type { F3_MODE } from "./constants";
 
-export type F3Mode = typeof F3_MODE | "CURSOR_CLI_REAL";
+export type F3Mode =
+  | typeof F3_MODE
+  | "CURSOR_CLI_REAL"
+  | "BOUNDED_M4_DETERMINISTIC";
 
 export type F3ContractDto = {
   executionContractId: string;

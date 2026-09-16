@@ -211,13 +211,27 @@ export interface ProcessRunner {
 /** @deprecated Prefer ProcessRunner. */
 export type RealProcessRunnerPort = ProcessRunner;
 
+/**
+ * Distinguishes Fake/deterministic boundary substitution from actual Cursor
+ * REAL gateway proof. Contract adapter identity (gatewayId) may be shared.
+ * This is NOT derived from env flags, agent descriptors, or contract kind.
+ */
+export type BoundaryProofMode = "deterministic_fake" | "cursor_real";
+
 export interface RealExecutionLaunchPort {
   readonly gatewayId: string;
   /**
    * Static marker — REAL boundary may declare external effects.
    * Fixture ExecutionAdapterPort must remain externalEffects:false.
+   * Deterministic Fake ports also declare true when they mutate isolated temp FS.
    */
   readonly externalEffects: true;
+  /**
+   * Proof-mode of this launch-port implementation.
+   * - deterministic_fake: FakeDocsWrite / E2E deterministic doubles (ZERO Cursor OS)
+   * - cursor_real: StudioCursorRealLaunchGateway (or a test stub of that contract)
+   */
+  readonly boundaryProofMode: BoundaryProofMode;
   launch(request: RealLaunchRequest): Promise<RealLaunchResult>;
   observe?(processRef: string): Promise<RealProcessObservation | null>;
   awaitCompletion?(

@@ -556,8 +556,9 @@ describe("Cycle 8 — Pre-M6 REAL product wiring amend", () => {
     expect(loaded).toBeTruthy();
   });
 
-  it("T10 — PROVENANCE REAL SIMULATED derives from Attempt, not env flag", async () => {
+  it("T10 — cursor_real simulated ACK derives provenance from composed boundary proof, not env flag", async () => {
     const launchPort = new TestOnlyRealExecutionLaunchPort();
+    expect(launchPort.boundaryProofMode).toBe("cursor_real");
     const runtime = createRuntime("t10", {
       launchPort,
       safetyJournal: new MemoryLaunchSafetyJournal(),
@@ -597,14 +598,21 @@ describe("Cycle 8 — Pre-M6 REAL product wiring amend", () => {
     const agent = runtime.oa!.executionAttemptServices.registry.getAgent(
       recorded.attempt.selectedAgentRef,
     );
+    // B1 / CR-PR493-R1 — provenance from the ACTUAL composed launch-port proof
+    // mode (same source as production). TestOnlyRealExecutionLaunchPort declares
+    // cursor_real as a simulated ACK stub; that is projection metadata only —
+    // it does NOT prove Cursor OS / StudioCursorRealLaunchGateway execution.
     const provenance = deriveAttemptProvenance({
       attempt: recorded.attempt,
       agent,
+      boundaryProofMode: launchPort.boundaryProofMode,
     });
     expect(process.env.SFIA_STUDIO_CURSOR_REAL).toBe("0");
+    expect(provenance.boundaryProofMode).toBe("cursor_real");
     expect(provenance.mode).toBe("CURSOR_CLI_REAL");
     expect(provenance.adapterRef).toBe(M4_REAL_GATEWAY_ADAPTER_ID);
     expect(provenance.executionMode).toBe("cursor_cli_real");
+    expect(provenance.realExecution).toBe(true);
     expect(provenance.realProcessInvoked).toBe(true);
     expect(provenance.evidenceId.startsWith("ev:m4-bounded-ro:")).toBe(true);
     if (previousFlag === undefined) {

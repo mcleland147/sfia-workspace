@@ -1,6 +1,8 @@
 /**
- * Confirm → Select M4 bounded RO → Grant Gate D → StartExecution REAL port.
+ * Confirm → Select M4 bounded docs-write → Grant Gate D → StartExecution.
+ * Same Product orchestration as bounded read-only; Fake/REAL differ only at launch port.
  * No fixture fallback. No client adapter/command. No NodeCursorProcessRunner here.
+ * ZERO LIVE Cursor in Delivery tests — inject FakeDocsWriteLaunchPort as realBoundary.
  */
 
 import type {
@@ -12,7 +14,7 @@ import type {
   ExecutionContractServices,
 } from "@/lib/oa/execution-contract";
 import {
-  M4_BOUNDED_RO_CURSOR_AGENT_ID,
+  M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
   type ExecutionAttemptServices,
 } from "@/lib/oa/execution-attempt";
 import type { EvidenceReviewServices } from "@/lib/oa/evidence-review";
@@ -24,12 +26,15 @@ import {
   F3_LABELS,
 } from "./constants";
 import { deriveAttemptProvenance } from "./deriveAttemptProvenance";
-import { completeBoundedReadOnlyLaunch } from "./completeBoundedReadOnlyLaunch";
+import {
+  completeBoundedDocsWriteLaunch,
+  type DocsWriteCompletionFacts,
+} from "./completeBoundedDocsWriteLaunch";
+import { ingestDocsWriteArtifactEvidence } from "./ingestDocsWriteArtifactEvidence";
 import { ingestEvidenceAndRecommend } from "./ingestEvidenceAndRecommend";
 import type { F3ExecutePayload } from "./types";
-import type { BoundedLaunchObservationFacts } from "./completeBoundedReadOnlyLaunch";
 
-export type BoundedReadOnlyPipelineDeps = {
+export type BoundedDocsWritePipelineDeps = {
   decisionServices: DecisionServices;
   executionContractServices: ExecutionContractServices;
   executionAttemptServices: ExecutionAttemptServices;
@@ -39,7 +44,7 @@ export type BoundedReadOnlyPipelineDeps = {
   nowIso: () => string;
 };
 
-export type BoundedReadOnlyPipelineIdentities = {
+export type BoundedDocsWritePipelineIdentities = {
   confirmationId: string;
   confirmationIdempotencyKey: string;
   confirmationLevel: "N2" | "N3";
@@ -49,9 +54,14 @@ export type BoundedReadOnlyPipelineIdentities = {
 };
 
 function launchCallCountOf(port: unknown): number {
-  if (port && typeof port === "object" && "launchCallCount" in port) {
-    const n = (port as { launchCallCount: unknown }).launchCallCount;
-    return typeof n === "number" ? n : 0;
+  if (port && typeof port === "object") {
+    if ("launchCallCount" in port) {
+      const n = (port as { launchCallCount: unknown }).launchCallCount;
+      if (typeof n === "number") return n;
+    }
+    if ("calls" in port && Array.isArray((port as { calls: unknown }).calls)) {
+      return (port as { calls: unknown[] }).calls.length;
+    }
   }
   return 0;
 }
@@ -193,14 +203,14 @@ function buildPayload(input: {
       F3_LABELS.recommendationNotDecision,
       F3_LABELS.noReadyClaim,
       F3_LABELS.noTa6Complete,
-      "BOUNDED READ-ONLY REAL BRANCH — provenance from Attempt, not env flag",
+      "BOUNDED DOCS-WRITE BRANCH — provenance from Attempt, not env flag",
       ...input.extraDisclosures,
       persistenceNotice,
     ],
   };
 }
 
-async function finishBoundedAttempt(input: {
+async function finishBoundedDocsWriteAttempt(input: {
   projectId: string;
   decisionId: string;
   proposal: ProposalDto | null;
@@ -222,37 +232,47 @@ async function finishBoundedAttempt(input: {
   reusedExistingAttempt: boolean;
   extraDisclosures: readonly string[];
   productDurablePath: boolean;
-  deps: BoundedReadOnlyPipelineDeps;
+  deps: BoundedDocsWritePipelineDeps;
 }): Promise<
   | { ok: true; payload: F3ExecutePayload }
   | { ok: false; code: string; message: string }
 > {
   const attempts = input.deps.executionAttemptServices;
   let attempt = input.attempt;
-  let facts: BoundedLaunchObservationFacts | null = null;
+  let facts: DocsWriteCompletionFacts | null = null;
   let processRef: string | null = null;
   const extra = [...input.extraDisclosures];
 
   if (attempt.status === "running" && !attempt.resultRef) {
-    const completed = await completeBoundedReadOnlyLaunch({
+    const targetPath =
+      typeof input.contract.inputs?.targetPath === "string"
+        ? input.contract.inputs.targetPath
+        : undefined;
+    const pathAllowlist = Array.isArray(input.contract.inputs?.pathAllowlist)
+      ? (input.contract.inputs.pathAllowlist as string[])
+      : undefined;
+    const completed = await completeBoundedDocsWriteLaunch({
       attempt: attempt as never,
       services: attempts,
+      ...(targetPath ? { targetPath } : {}),
+      ...(pathAllowlist ? { pathAllowlist } : {}),
     });
     if (!completed.ok) return completed;
     attempt = completed.attempt;
-    facts = completed.facts;
-    processRef =
-      completed.facts?.processRef ??
-      completed.observation?.processRef ??
-      null;
-    if (completed.status === "running") {
-      extra.push(
-        "REAL process ACK — completion still pending; no Evidence candidate",
-      );
-    } else if (completed.status === "timeout") {
-      extra.push("REAL process timed out — no Evidence candidate");
-    } else if (completed.status === "failed") {
-      extra.push("REAL process non-zero exit — no Evidence candidate");
+    if (completed.status === "succeeded") {
+      facts = completed.facts;
+      processRef = completed.facts.processRef;
+    } else {
+      processRef = completed.observation?.processRef ?? null;
+      if (completed.status === "running") {
+        extra.push(
+          "Docs-write process ACK — completion still pending; no Evidence candidate",
+        );
+      } else if (completed.status === "timeout") {
+        extra.push("Docs-write process timed out — no Evidence candidate");
+      } else if (completed.status === "failed") {
+        extra.push("Docs-write process non-zero exit — no Evidence candidate");
+      }
     }
   }
 
@@ -275,24 +295,55 @@ async function finishBoundedAttempt(input: {
         { ok: true }
       >
     | undefined;
-  if (attempt.status === "succeeded" && attempt.resultRef) {
-    const result = await ingestEvidenceAndRecommend({
+  if (attempt.status === "succeeded" && attempt.resultRef && facts) {
+    const cycleInstanceId = contract.cycleInstanceId;
+    if (!cycleInstanceId) {
+      return {
+        ok: false,
+        code: "CYCLE_BINDING_REQUIRED",
+        message:
+          "Docs-write Evidence refusée — ExecutionContract sans cycleInstanceId.",
+      };
+    }
+    const artifact = await ingestDocsWriteArtifactEvidence({
+      evidenceReviewServices: input.deps.evidenceReviewServices,
       projectId: input.projectId,
-      attemptId: attempt.attemptId,
+      cycleInstanceId,
       executionContractId: contract.executionContractId,
-      provenance,
-      executionObservation: facts,
-      deps: {
-        evidenceReviewServices: input.deps.evidenceReviewServices,
-        projectServices: input.deps.projectServices,
-        executionAttemptServices: attempts,
-        executionContractServices: input.deps.executionContractServices,
-      },
+      executionAttemptId: attempt.attemptId,
+      targetPath: facts.targetPath,
+      digest: facts.digest,
+      nowIso: input.deps.nowIso(),
     });
-    if (!result.ok) return result;
-    ingested = result;
+    if (!artifact.ok) return artifact;
+    extra.push(
+      `Docs-write Evidence ${artifact.evidenceId} / ReviewBundle ${artifact.reviewBundleId}`,
+      `target ${facts.targetPath} digest ${facts.digest.slice(0, 12)}…`,
+    );
+    ingested = {
+      ok: true,
+      evidence: {
+        evidenceId: artifact.evidenceId,
+        status: artifact.evidenceStatus,
+        sourceKind: "execution_attempt",
+        technicalResultRef: attempt.resultRef ?? null,
+        verified: true,
+        mode: provenance.mode,
+      },
+      reviewBundle: {
+        reviewBundleId: artifact.reviewBundleId,
+        status: "available",
+        version: 1,
+        evidenceRefs: [artifact.evidenceId],
+        mode: provenance.mode,
+      },
+      recommendation: pendingRecommendation(provenance.mode),
+      provenance,
+    } as unknown as Extract<
+      Awaited<ReturnType<typeof ingestEvidenceAndRecommend>>,
+      { ok: true }
+    >;
   }
-
   return {
     ok: true,
     payload: buildPayload({
@@ -311,7 +362,7 @@ async function finishBoundedAttempt(input: {
   };
 }
 
-export async function executeConfirmedBoundedReadOnlyContract(input: {
+export async function executeConfirmedBoundedDocsWriteContract(input: {
   projectId: string;
   decisionId: string;
   proposal: ProposalDto | null;
@@ -319,9 +370,9 @@ export async function executeConfirmedBoundedReadOnlyContract(input: {
   expectedContractVersion: number;
   actor: OaActorReference;
   authorityEvidenceId: string;
-  identities: BoundedReadOnlyPipelineIdentities;
+  identities: BoundedDocsWritePipelineIdentities;
   extraDisclosures?: readonly string[];
-  deps: BoundedReadOnlyPipelineDeps;
+  deps: BoundedDocsWritePipelineDeps;
 }): Promise<
   | { ok: true; payload: F3ExecutePayload }
   | { ok: false; code: string; message: string }
@@ -333,7 +384,7 @@ export async function executeConfirmedBoundedReadOnlyContract(input: {
       ok: false,
       code: "REAL_BOUNDARY_REQUIRED",
       message:
-        "Contrat bounded read-only REAL refusé — realBoundary absent (fail-closed, pas de fallback fixture).",
+        "Contrat bounded docs-write refusé — realBoundary absent (fail-closed, pas de fallback fixture).",
     };
   }
   if (!attempts.grantRealExecutionGate) {
@@ -341,7 +392,7 @@ export async function executeConfirmedBoundedReadOnlyContract(input: {
       ok: false,
       code: "GATE_D_REQUIRED",
       message:
-        "Contrat bounded read-only REAL refusé — Gate D non disponible (fail-closed, pas de fallback fixture).",
+        "Contrat bounded docs-write refusé — Gate D non disponible (fail-closed, pas de fallback fixture).",
     };
   }
 
@@ -358,7 +409,7 @@ export async function executeConfirmedBoundedReadOnlyContract(input: {
       (a) => a.status === "succeeded" || a.status === "running",
     );
     if (reusable) {
-      return finishBoundedAttempt({
+      return finishBoundedDocsWriteAttempt({
         projectId: input.projectId,
         decisionId: input.decisionId,
         proposal: input.proposal,
@@ -455,7 +506,7 @@ export async function executeConfirmedBoundedReadOnlyContract(input: {
     expectedContractVersion: contract.version,
     selectionProfile: "standard",
     selectionStrategy: "capabilities_deterministic",
-    requestedAgentRef: M4_BOUNDED_RO_CURSOR_AGENT_ID,
+    requestedAgentRef: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
     systemInitiated: true,
   });
   if (!selected.ok) {
@@ -499,7 +550,7 @@ export async function executeConfirmedBoundedReadOnlyContract(input: {
     };
   }
 
-  return finishBoundedAttempt({
+  return finishBoundedDocsWriteAttempt({
     projectId: input.projectId,
     decisionId: input.decisionId,
     proposal: input.proposal,

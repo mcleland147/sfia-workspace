@@ -84,6 +84,7 @@ export class TestOnlyDeterministicCursorLaunchPort
 {
   readonly gatewayId: string;
   readonly externalEffects = true as const;
+  readonly boundaryProofMode = "deterministic_fake" as const;
   readonly calls: RealLaunchRequest[] = [];
   readonly simulatedTechnicalAckCount = { value: 0 };
   private readonly pendingObserveLimit: number;

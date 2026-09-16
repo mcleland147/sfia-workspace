@@ -24,6 +24,7 @@ import type { EvidenceReviewServices } from "@/lib/oa/evidence-review";
 import type { ProjectServices } from "@/lib/oa/project";
 import { F3_ADAPTER_ID } from "./constants";
 import { executeConfirmedBoundedReadOnlyContract } from "./executeConfirmedBoundedReadOnlyContract";
+import { executeConfirmedBoundedDocsWriteContract } from "./executeConfirmedBoundedDocsWriteContract";
 import { executeConfirmedFixtureSafeContract } from "./executeConfirmedFixtureSafeContract";
 import { authorizedM3ResolutionKind } from "./selectProductM3ResolutionProfile";
 import type { F3ExecutePayload } from "./types";
@@ -155,12 +156,46 @@ export async function confirmAndExecuteResolvedM3(input: {
     });
   }
 
+  if (kind === "bounded_docs_write") {
+    return executeConfirmedBoundedDocsWriteContract({
+      projectId: input.projectId,
+      decisionId: input.decisionId,
+      proposal: null,
+      contract,
+      expectedContractVersion: input.expectedContractVersion,
+      actor: LOCAL_MORRIS_M3_ACTOR,
+      authorityEvidenceId: auth.evidenceId,
+      identities: {
+        confirmationId: `cfm:m3:${contract.executionContractId}:v${contract.version}`,
+        confirmationIdempotencyKey: `idem:m3-cfm:${contract.executionContractId}:v${contract.version}`,
+        confirmationLevel: "N3",
+        attemptId,
+        attemptIdempotencyKey: `idem:m3-att:${contract.executionContractId}`,
+        grantId: `gd:m3:${contract.executionContractId.replace(/^xct:/, "")}`,
+      },
+      extraDisclosures: [
+        "M3 resolved successor — bounded docs-write profile",
+        "NO Proposal authority",
+        "Launch port is Fake or REAL composition — client real/adapter fields ignored",
+      ],
+      deps: {
+        decisionServices: input.deps.decisionServices,
+        executionContractServices: input.deps.executionContractServices,
+        executionAttemptServices: input.deps.executionAttemptServices,
+        evidenceReviewServices: input.deps.evidenceReviewServices,
+        projectServices: input.deps.projectServices,
+        productDurablePath: input.deps.productDurablePath,
+        nowIso: input.deps.nowIso,
+      },
+    });
+  }
+
   if (kind !== "fixture") {
     return {
       ok: false,
       code: "M3_SUCCESSOR_GOVERNANCE_MISMATCH",
       message:
-        "Successor n'est ni fixture-safe ni bounded read-only — refus fail-closed.",
+        "Successor n'est ni fixture-safe, ni bounded read-only, ni bounded docs-write — refus fail-closed.",
     };
   }
 

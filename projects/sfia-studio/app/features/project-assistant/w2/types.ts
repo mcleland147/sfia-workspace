@@ -382,8 +382,10 @@ export type GovernedExecutePhaseSuccess = {
   readonly selectedAgentRef: string;
   readonly adapterId: string;
   readonly selectionProfile: string;
-  readonly realExecution: false;
-  readonly externalEffects: false;
+  readonly realExecution: boolean;
+  readonly externalEffects: boolean;
+  /** Boundary proof mode when a REAL launch port is composed; fixture otherwise. */
+  readonly boundaryProofMode?: "deterministic_fake" | "cursor_real" | "fixture";
   readonly authorityReceiptUsedAsPermission: false;
   readonly statusLabel: string;
   readonly technicalTerminal: boolean;
