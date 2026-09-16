@@ -204,8 +204,8 @@ docs_write REAL proven · REAL BOUNDARY PROVEN · END-TO-END REAL · production 
 ## 21. Review Handoff
 - branch: `sfia/review-handoff`
 - path: `sfia-review-handoff/latest-chatgpt-review.md`
-- commit: `35d675882ce5854578d6a63e947a7d265ec67fcf`
-- blob: `5672133c5951abd044e6e1dc2580d216dd1b5954`
+- commit: `27f6e559141a905e0054f13498965e96fa376a0a`
+- blob: `ebd7e47a6e8bab682178f77d96382a8925aa2905`
 - publisher: `scripts/sfia/publish-review-handoff.sh`
 - remote verified: **YES**
 - Product/project push: **NOT PERFORMED**
