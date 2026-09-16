@@ -1,19 +1,19 @@
 # SFIA Studio — PRODUCT CONTINUITY
-## EC REHYDRATION — FINAL FAIL-CLOSED CLIENT COMPOSITION MICRO-REMEDIATION — FULL Review Pack
+## EC REHYDRATION — FINAL REFORMULATE FAIL-CLOSED MICRO-FIX — FULL Review Pack
 
-**Timestamp (UTC):** 2026-09-16T11:25:00Z
+**Timestamp (UTC):** 2026-09-16T13:40:00Z
 **Review Pack:** FULL
 **Cycle:** 8 — Delivery
 **Typology:** RUN
 **Profile:** Critical
 
 **Verdict:**
-`PRODUCT-CONTINUITY-EC-REHYDRATION — FINAL CLIENT CONTINUITY FAIL-CLOSED COMPOSITION DETERMINISTICALLY PROVEN — ALL W2 SUBJECT/EXECUTION MUTATIONS BLOCKED UNTIL LATEST SUBJECT + GOVERNED EXECUTION CONTINUITY PASS RESOLVES — STALE OPTIONSET CANNOT DECIDE — STALE DECISION CANNOT PREPARE — STALE GOVERNED ASYNC RESULT CANNOT OVERRIDE NEWER SUBJECT ERROR — LATEST CLEAN PASS RECOVERS DURABLE EC — EXACT DOCS_WRITE TARGET + LEGACY INCOMPLETE INSPECTION BEHAVIOR PRESERVED — ZERO DOGFOOD MUTATION — ZERO REAL — NO PRODUCT GIT — READY FOR CHATGPT CRITICAL REVIEW`
+`PRODUCT-CONTINUITY-EC-REHYDRATION — PRE-EXECUTION CONTINUITY FAIL-CLOSED COMPOSITION DETERMINISTICALLY PROVEN — STALE REINSTRUCTION CANNOT REFORMULATE WHILE LATEST CONTINUITY PASS IS PENDING OR FAILED — STALE OPTIONSET CANNOT DECIDE — STALE DECISION CANNOT PREPARE — STALE GOVERNED RESULT CANNOT OVERRIDE NEWER SUBJECT TRUTH — LATEST VALID PASS RECOVERS DECISION-SUBJECT / EXECUTIONCONTRACT CONTINUITY — EXACT DOCS_WRITE TARGET AND LEGACY INCOMPLETE INSPECTION BEHAVIOR PRESERVED — ATTEMPT-RUNNING / POST-EXECUTION CONTROLS OUT OF SCOPE — ZERO DOGFOOD MUTATION — ZERO REAL — NO PRODUCT GIT — READY FOR CHATGPT CRITICAL REVIEW`
 
 ---
 
 ## A. Timestamp
-2026-09-16T11:25:00Z
+2026-09-16T13:40:00Z
 
 ## B. Git truth
 - origin/main = `c2c8280b7cfaa1b3a5656fb55b1e46ba73b23130`
@@ -24,120 +24,111 @@
 - Candidate LOCAL DIRTY — exact 9 Product/test paths
 
 ## C. Morris GO consumed
-Final local client micro-remediation only: close remaining W2 mutation fail-closed
-gate + governed-read stale async sequencing; deterministic UI tests; full validation;
-FULL Review Pack; Review Handoff L3.
+Final Reformulate fail-closed micro-fix only: gate stale `Reformuler avec Nora`
+while latest Decision Subject continuity is pending/error; deterministic UI tests;
+claim-scope correction to pre-execution continuity; full validation; Review Handoff L3.
 NOT authorized: Product commit/push/PR; dogfood; Inspect/Confirm/Authorize/Execute;
-LIVE/REAL; server resolver redesign; schema/persistence; Confirmation/Authority policy.
+LIVE/REAL; server resolver; Attempt lifecycle redesign.
 
 ## D. Cycle / RUN / Critical
 Cycle 8 Delivery · RUN · Critical
 
 ## E. Convergence
-- V3-F02 semantic restart continuity
-- V3-F11 inspectable durable ExecutionContract
-- V3-F12 governed effect / Confirmation / authority boundaries
-- A3 / C1 Product Completion trajectory
+- V3-F02 semantic inter-session continuity
+- V3-F11 durable inspectable ExecutionContract
+- V3-F12 governed authority/effect boundary
+- A3 / C1 Product Completion trajectory continuity
 - runtime v3 **NON ADOPTED**
 
 ## F. Prior handoff
-- tip `f9b9e9bb8b8baace68b78b53070346ff9cf7d9c6`
-- blob `86cd99394ae0626fd1348746d0f3c9a9ae735d7b`
+- tip `bbb5c9e45993b70b548a489fe6bd34766db41455`
+- blob `c0255800d9b5a98d5fdf6a29defd684ac641e299`
 
 ## G. ChatGPT Critical Review FAIL consumed
 `PRODUCT-CONTINUITY-EC-REHYDRATION — CHATGPT CRITICAL REVIEW FAIL`
-- THE 3 REQUESTED MICRO-FIXES ARE VALID
-- CORE EC REHYDRATION DESIGN REMAINS ACCEPTED
-- REMAINING: continuity gate stops at EC actions (not Decision/PREPARE);
-  refresh sequencing still allows stale governed read window
+- Accepted: server resolver, Decision lineage, Project/cycle integrity, kind:none clearing,
+  Decision/PREPARE/EC gate, latest-wins generation, immediate refresh fail-closed,
+  stale governed read protection, deterministic validation.
+- ONE blocker: stale `pendingReinstruction` kept `Reformuler avec Nora` actionable
+  while latest subject continuity pass is pending/error.
+- Claim scope too broad: must not claim ALL W2 SUBJECT/EXECUTION MUTATIONS.
 
-## H. exact 9 pre-final hash pins
+## H. exact pre-micro 9 hashes
 - `readCurrentGovernedExecutionContinuity.ts` = `992c44552b7845c3b2c88c6e0ed56974f8c96bb0d1ba7cc5bb0503a6763ba278`
 - `actions.ts` = `f11e86a09b4e6df5161c578464bdbaa91d3ae53e7c2820a80536238ba3817591`
 - `types.ts` = `7c6ce2c143636a204639ff504a0c2bc7287e05ff3e4b156ddd6752011f30ad23`
-- `TrajectorySurface.tsx` = `3b2f62e7c89379520a925faf0850925766d5383d071c67947f562755b4871bad`
+- `TrajectorySurface.tsx` = `f515edbd1a57f04f63559caba4b1590889344b8f0e2324c7a765218e1a25f7a4`
 - `ecRehydrationContinuity.d0.test.ts` = `da8ca7d51562c14b3a7704b60424528d72a8fb7e49b9a2a281c4e4e3da874fe8`
-- `trajectorySurface.ui.test.tsx` = `4690aaa76bd0a377b141686655beb4ec13614e16ef2ec16221cb3cd942e00cd9`
+- `trajectorySurface.ui.test.tsx` = `f12b1ec5e149b0366a6e0ae3f150800fcafae61c0ee2ba565a9e2b821d0615de`
 - `productJourneyProjectionCoherence.ui.test.tsx` = `1b65d27c5e028cc293b3816459117afe410907a47249a16f473742b78cac24ad`
 - `preCycleTrajectoryCta.ui.test.tsx` = `f2ea18c60e634e4705dd25c9d2cdcda35dcb6a388cd12903cb743b7f6b1d782a`
 - `importBoundaries.test.ts` = `f2615fea1df62725dc39d91511722ef3c1d84a2fdeec92611192c7e32a1c0676`
 
-## I. remaining blocker A root cause
-`continuityMutationBlocked` / `governedContinuationBlocked` protected Inspect/Amend/
-Confirm/Authorize/Execute only. Decision and Proposal/sandbox PREPARE remained
-actionable from stale OptionSet/Decision after subject ERROR/PENDING.
+## I. remaining Reformuler root cause
+`w2-reformulate-with-nora` disabled only for `busy` / missing callback.
+Stale lost reinstruction (1 proposalId / 0 recoverable) remained clickable after a
+newer durable refresh left Decision Subject continuity pending or in error —
+authorizing a Decision Subject mutation from stale client state.
 
-## J. complete W2 mutation gate correction
-ONE gate `continuityMutationBlocked` now disables:
-Instruire / Décider / Proposal PREPARE / sandbox qualify+PREPARE / Inspect / Amend /
-Confirm / Authorize / Execute (and proposeOptions recovery CTAs).
+## J. exact button correction
+Disabled semantics:
+`busy !== null || continuityMutationBlocked || !onRequestReformulateWithNora`
+
+Subject ERROR path no longer clears `pendingReinstruction` solely to hide the control;
+stale copy may remain informational while non-actionable.
 
 ## K. callback defense-in-depth
-Early return when `continuityMutationBlocked` in:
-proposeOptions, decide, prepareContract, prepareProposalBackedContract, inspect,
-amendContract, confirmForAuthorization, authorize, governedExecute.
+Click handler returns immediately when `continuityMutationBlocked` before invoking
+`onRequestReformulateWithNora`.
 
-## L. remaining blocker B async sequencing root cause
-EC effect depended on `durableRefreshSignal` directly. On refresh, subject status
-could still be captured as `ready` before pending commits, launching a governed
-read under prior subject qualification.
+## L. stale lost + pending test
+`final fail-closed — stale lost Reformuler disabled while subject refresh pending` — PASS
 
-## M. direct durableRefreshSignal EC trigger disposition
-**REMOVED.** EC effect deps are now only
-`[subjectReadStatus, rehydrateGovernedExecutionContinuity]`.
-Governed discovery runs only after latest subject result is `ready`.
+## M. stale lost + error test
+`final fail-closed — stale lost Reformuler disabled on subject ERROR` — PASS
+(no additional governed continuity read after failed subject pass)
 
-## N. generation/cancellation design
-- `continuityPassRef` incremented when a Decision Subject continuity pass begins
-  and on durableRefreshSignal change (useLayoutEffect immediate fail-closed).
-- Subject and governed reads capture pass; after await, apply only if pass still current.
-- Stale results discarded silently (cannot setContract / clear newer subject error).
+## N. latest READY lost recovery test
+`final fail-closed — latest READY lost pass re-enables Reformuler` — PASS
+(callback invoked exactly once with current sole proposalId)
 
-## O. stale async result test
-`final fail-closed — stale governed ACTIVE result ignored after newer subject ERROR` — PASS
+## O. previous fail-closed regression proofs preserved
+stale OptionSet/Decision, bound+EC pending, stale governed ACTIVE ignore, READY EC recovery,
+authoritative none, Project/cycle integrity, supersession, ambiguity, Decision lineage,
+exact docs_write target/repository, legacy incomplete inspection, Confirm disabled — all green.
 
-## P. stale OptionSet test
-`final fail-closed — stale OptionSet + subject ERROR blocks Decision mutation` — PASS
+## P. explicit claim-scope correction
+Bounded to **PRE-EXECUTION Decision Subject → ExecutionContract continuity**:
+Decision Subject / Options / HumanDecision / PREPARE / existing EC / Inspect /
+Confirmation / Authorization / governed Execute launch.
 
-## Q. stale Decision/PREPARE test
-`final fail-closed — stale Decision + subject ERROR blocks Proposal PREPARE` — PASS
+Preferred claim wording:
+`PRE-EXECUTION DECISION-SUBJECT / EXECUTIONCONTRACT MUTATIONS BLOCKED UNTIL THE LATEST SUBJECT + GOVERNED EXECUTION CONTINUITY PASS RESOLVES`
 
-## R. bound subject + EC pending test
-`final fail-closed — bound subject + EC continuity pending blocks Decision` — PASS
-(after EC resolves `kind:none`, Decision re-enables)
+## Q. explicit out-of-scope
+Attempt-running / post-execution controls (e.g. Arrêter l'exécution, Recharger résultat produit,
+post-Evidence actions, Attempt lifecycle rehydration) were **not** qualified by this lot
+and were **not** modified.
 
-## S. successful later recovery test
-`final fail-closed — later READY pass recovers durable EC after subject ERROR` — PASS
+## R. exact two-file diff
+ONLY:
+1. `TrajectorySurface.tsx`
+2. `trajectorySurface.ui.test.tsx`
+Complete current sources below.
 
-## T. authoritative none regression
-`EC rehydration micro — active then authoritative none clears stale EC card` — PASS
-
-## U. current campaign oracle
-Fresh mount / recovery still projects exact docs_write target + repository +
-legacy incomplete inspection; Inspect enabled only after resolved pass; Confirm
-disabled; Instruire/PREPARE/Execute absent.
-
-## V. exact final micro production diff
-ONLY `TrajectorySurface.tsx` changed vs pre-final pin.
-Complete current source included below.
-
-## W. exact final micro test diff
-ONLY `trajectorySurface.ui.test.tsx` changed vs pre-final pin.
-Complete current source included below.
-
-## X. post-final 9-path hashes
+## S. post-micro 9 hashes
 - `readCurrentGovernedExecutionContinuity.ts` = `992c44552b7845c3b2c88c6e0ed56974f8c96bb0d1ba7cc5bb0503a6763ba278` (UNCHANGED)
 - `actions.ts` = `f11e86a09b4e6df5161c578464bdbaa91d3ae53e7c2820a80536238ba3817591` (UNCHANGED)
 - `types.ts` = `7c6ce2c143636a204639ff504a0c2bc7287e05ff3e4b156ddd6752011f30ad23` (UNCHANGED)
-- `TrajectorySurface.tsx` = `f515edbd1a57f04f63559caba4b1590889344b8f0e2324c7a765218e1a25f7a4` (CHANGED)
+- `TrajectorySurface.tsx` = `64afe8e8635940ed3c3edb5f05145acac923698f039bed30254cea0cd8689a7b` (CHANGED)
 - `ecRehydrationContinuity.d0.test.ts` = `da8ca7d51562c14b3a7704b60424528d72a8fb7e49b9a2a281c4e4e3da874fe8` (UNCHANGED)
-- `trajectorySurface.ui.test.tsx` = `f12b1ec5e149b0366a6e0ae3f150800fcafae61c0ee2ba565a9e2b821d0615de` (CHANGED)
+- `trajectorySurface.ui.test.tsx` = `7136c98294935bb6a3b043a581f73a7f3cdc75afe91d2f2bb9c04f87c00ba1f6` (CHANGED)
 - `productJourneyProjectionCoherence.ui.test.tsx` = `1b65d27c5e028cc293b3816459117afe410907a47249a16f473742b78cac24ad` (UNCHANGED)
 - `preCycleTrajectoryCta.ui.test.tsx` = `f2ea18c60e634e4705dd25c9d2cdcda35dcb6a388cd12903cb743b7f6b1d782a` (UNCHANGED)
 - `importBoundaries.test.ts` = `f2615fea1df62725dc39d91511722ef3c1d84a2fdeec92611192c7e32a1c0676` (UNCHANGED)
 
-## Y. unchanged-seven equality verdict
-YES — byte-identical for:
+## T. unchanged-seven equality
+YES:
 - `readCurrentGovernedExecutionContinuity.ts`
 - `actions.ts`
 - `types.ts`
@@ -146,52 +137,54 @@ YES — byte-identical for:
 - `preCycleTrajectoryCta.ui.test.tsx`
 - `importBoundaries.test.ts`
 
-## Z. total candidate path count exactly 9
+## U. total candidate path count = 9
 YES
 
-## AA. focused validation
-16 files / **236 passed** / 0 failed
-(includes trajectorySurface 34, ecRehydrationContinuity 14, CORR-PROOF-10/11, Lot A/B, PR491, bindings, w2Eabc, governance, m3 prepare, importBoundaries)
+## V. focused validation
+16 files / **239 passed** / 0 failed
 
-## AB. full Vitest
-**4148 passed / 137 skipped / 0 failed**
+## W. full Vitest
+**4151 passed / 137 skipped / 0 failed**
 (Test Files 373 passed | 17 skipped)
 
-## AC. typecheck
+## X. typecheck
 PASS
 
-## AD. lint
+## Y. lint
 PASS
 
-## AE. build
+## Z. build
 PASS
 
-## AF. diff-check
+## AA. diff-check
 PASS
 
-## AG. DB/schema/migration = NONE
-YES — server resolver NOT modified
-
-## AH. dogfood mutation = ZERO
+## AB. DB/schema/migration = NONE
 YES
 
-## AI. OpenAI LIVE = ZERO
+## AC. server resolver modified = NO
 YES
 
-## AJ. Cursor/docs_write REAL = ZERO
+## AD. dogfood mutation = ZERO
 YES
 
-## AK. Product commit/push/PR = NONE
-YES — LOCAL DIRTY candidate
+## AE. OpenAI LIVE = ZERO
+YES
 
-## AL. remaining reserve
+## AF. Cursor/docs_write REAL = ZERO
+YES
+
+## AG. Product commit/push/PR = NONE
+YES — LOCAL DIRTY
+
+## AH. remaining reserve
 Authenticated restart reproof only after Critical Review + Product Git integration
 
-## AM. next gate
+## AI. next gate
 ChatGPT Critical Review
 
-## AN. verdict
-`PRODUCT-CONTINUITY-EC-REHYDRATION — FINAL CLIENT CONTINUITY FAIL-CLOSED COMPOSITION DETERMINISTICALLY PROVEN — ALL W2 SUBJECT/EXECUTION MUTATIONS BLOCKED UNTIL LATEST SUBJECT + GOVERNED EXECUTION CONTINUITY PASS RESOLVES — STALE OPTIONSET CANNOT DECIDE — STALE DECISION CANNOT PREPARE — STALE GOVERNED ASYNC RESULT CANNOT OVERRIDE NEWER SUBJECT ERROR — LATEST CLEAN PASS RECOVERS DURABLE EC — EXACT DOCS_WRITE TARGET + LEGACY INCOMPLETE INSPECTION BEHAVIOR PRESERVED — ZERO DOGFOOD MUTATION — ZERO REAL — NO PRODUCT GIT — READY FOR CHATGPT CRITICAL REVIEW`
+## AJ. bounded final verdict
+`PRODUCT-CONTINUITY-EC-REHYDRATION — PRE-EXECUTION CONTINUITY FAIL-CLOSED COMPOSITION DETERMINISTICALLY PROVEN — STALE REINSTRUCTION CANNOT REFORMULATE WHILE LATEST CONTINUITY PASS IS PENDING OR FAILED — STALE OPTIONSET CANNOT DECIDE — STALE DECISION CANNOT PREPARE — STALE GOVERNED RESULT CANNOT OVERRIDE NEWER SUBJECT TRUTH — LATEST VALID PASS RECOVERS DECISION-SUBJECT / EXECUTIONCONTRACT CONTINUITY — EXACT DOCS_WRITE TARGET AND LEGACY INCOMPLETE INSPECTION BEHAVIOR PRESERVED — ATTEMPT-RUNNING / POST-EXECUTION CONTROLS OUT OF SCOPE — ZERO DOGFOOD MUTATION — ZERO REAL — NO PRODUCT GIT — READY FOR CHATGPT CRITICAL REVIEW`
 
 ---
 
@@ -637,7 +630,8 @@ export function TrajectorySurface({
     if (pass !== continuityPassRef.current) return;
     if (!result.ok) {
       setError(result.message);
-      setPendingReinstruction(null);
+      // Keep any prior pendingReinstruction as informational stale client state;
+      // continuityMutationBlocked makes Reformuler non-actionable.
       setSubjectReadStatus("error");
       return;
     }
@@ -1556,11 +1550,16 @@ export function TrajectorySurface({
                   className={styles.primaryAction}
                   data-testid="w2-reformulate-with-nora"
                   onClick={() => {
+                    if (continuityMutationBlocked) return;
                     if (pendingReinstruction.proposalIds.length !== 1) return;
                     const soleId = pendingReinstruction.proposalIds[0];
                     if (soleId) onRequestReformulateWithNora?.(soleId);
                   }}
-                  disabled={busy !== null || !onRequestReformulateWithNora}
+                  disabled={
+                    busy !== null ||
+                    continuityMutationBlocked ||
+                    !onRequestReformulateWithNora
+                  }
                 >
                   Reformuler avec Nora
                 </button>
@@ -4907,6 +4906,183 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     expect(screen.queryByTestId("w2-propose-options")).toBeNull();
     expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
     expect(screen.queryByTestId("w3a-governed-execute")).toBeNull();
+  });
+
+  it("final fail-closed — stale lost Reformuler disabled while subject refresh pending", async () => {
+    const reformulate = vi.fn();
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "pending_reinstruction_required",
+      message:
+        "La demande précédente n'est plus disponible. Reformulez avec Nora.",
+      proposalIds: ["prop:f2:lost-pending"],
+      recoverableProposalIds: [],
+    });
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+
+    const { rerender } = render(
+      <TrajectorySurface
+        projectId="prj:stale-reformulate-pending"
+        durableRefreshSignal={0}
+        onRequestReformulateWithNora={reformulate}
+      />,
+    );
+
+    const reformulateBtn = await screen.findByTestId("w2-reformulate-with-nora");
+    await waitFor(() => {
+      expect(screen.getByTestId("w2-reformulate-with-nora")).toBeEnabled();
+    });
+    expect(reformulateBtn).toBeInTheDocument();
+
+    let resolveSubject: (value: unknown) => void = () => {};
+    readActiveDecisionSubjectMock.mockReturnValue(
+      new Promise((resolve) => {
+        resolveSubject = resolve;
+      }),
+    );
+
+    rerender(
+      <TrajectorySurface
+        projectId="prj:stale-reformulate-pending"
+        durableRefreshSignal={1}
+        onRequestReformulateWithNora={reformulate}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(readActiveDecisionSubjectMock.mock.calls.length).toBeGreaterThan(1);
+    });
+
+    expect(screen.getByTestId("w2-reformulate-with-nora")).toBeDisabled();
+    fireEvent.click(screen.getByTestId("w2-reformulate-with-nora"));
+    expect(reformulate).not.toHaveBeenCalled();
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+    expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-inspect-contract")).toBeNull();
+    expect(decideMock).not.toHaveBeenCalled();
+    expect(prepareM3Mock).not.toHaveBeenCalled();
+
+    resolveSubject({
+      ok: true,
+      kind: "pending_reinstruction_required",
+      message:
+        "La demande précédente n'est plus disponible. Reformulez avec Nora.",
+      proposalIds: ["prop:f2:lost-pending"],
+      recoverableProposalIds: [],
+    });
+  });
+
+  it("final fail-closed — stale lost Reformuler disabled on subject ERROR", async () => {
+    const reformulate = vi.fn();
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "pending_reinstruction_required",
+      message:
+        "La demande précédente n'est plus disponible. Reformulez avec Nora.",
+      proposalIds: ["prop:f2:lost-error"],
+      recoverableProposalIds: [],
+    });
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+
+    const { rerender } = render(
+      <TrajectorySurface
+        projectId="prj:stale-reformulate-error"
+        durableRefreshSignal={0}
+        onRequestReformulateWithNora={reformulate}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId("w2-reformulate-with-nora")).toBeEnabled();
+    });
+    const continuityCallsBeforeRefresh =
+      readGovernedExecutionContinuityMock.mock.calls.length;
+
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: false,
+      code: "SUBJECT_READ_FAILED",
+      message: "Lecture du sujet de décision impossible.",
+    });
+
+    rerender(
+      <TrajectorySurface
+        projectId="prj:stale-reformulate-error"
+        durableRefreshSignal={1}
+        onRequestReformulateWithNora={reformulate}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-error")).toBeVisible();
+    expect(screen.getByTestId("w2-error").textContent).toMatch(
+      /sujet de décision impossible/,
+    );
+    expect(screen.getByTestId("w2-reformulate-with-nora")).toBeDisabled();
+    fireEvent.click(screen.getByTestId("w2-reformulate-with-nora"));
+    expect(reformulate).not.toHaveBeenCalled();
+    expect(readGovernedExecutionContinuityMock.mock.calls.length).toBe(
+      continuityCallsBeforeRefresh,
+    );
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+    expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-inspect-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-confirm-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-authorize-contract")).toBeNull();
+    expect(screen.queryByTestId("w3a-governed-execute")).toBeNull();
+  });
+
+  it("final fail-closed — latest READY lost pass re-enables Reformuler", async () => {
+    const reformulate = vi.fn();
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: false,
+      code: "SUBJECT_READ_FAILED",
+      message: "Lecture du sujet de décision impossible.",
+    });
+
+    const { rerender } = render(
+      <TrajectorySurface
+        projectId="prj:reformulate-recover"
+        durableRefreshSignal={0}
+        onRequestReformulateWithNora={reformulate}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-error")).toBeVisible();
+    expect(readGovernedExecutionContinuityMock).not.toHaveBeenCalled();
+
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "pending_reinstruction_required",
+      message:
+        "La demande précédente n'est plus disponible. Reformulez avec Nora.",
+      proposalIds: ["prop:f2:current-lost"],
+      recoverableProposalIds: [],
+    });
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+
+    rerender(
+      <TrajectorySurface
+        projectId="prj:reformulate-recover"
+        durableRefreshSignal={1}
+        onRequestReformulateWithNora={reformulate}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-reformulate-with-nora")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.getByTestId("w2-reformulate-with-nora")).toBeEnabled();
+    });
+    fireEvent.click(screen.getByTestId("w2-reformulate-with-nora"));
+    expect(reformulate).toHaveBeenCalledTimes(1);
+    expect(reformulate).toHaveBeenCalledWith("prop:f2:current-lost");
   });
 });
 
