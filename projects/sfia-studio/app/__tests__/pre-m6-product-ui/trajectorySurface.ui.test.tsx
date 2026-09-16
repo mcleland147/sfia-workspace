@@ -969,6 +969,12 @@ describe("CORR-PROOF-11 final — pending reinstruction UI states", () => {
       "Reformulez votre demande",
     );
     expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+    // Fail-closed: Reformuler stays disabled until subject + governed EC
+    // continuity both leave pending/error (continuityMutationBlocked). Title
+    // can paint before EC resolves — wait for enabled, same as READY recover.
+    await waitFor(() => {
+      expect(screen.getByTestId("w2-reformulate-with-nora")).toBeEnabled();
+    });
     fireEvent.click(screen.getByTestId("w2-reformulate-with-nora"));
     expect(reformulate).toHaveBeenCalledTimes(1);
     expect(reformulate).toHaveBeenCalledWith("prop:lost-only");
