@@ -15,9 +15,13 @@ import {
 /** W2: Pilote is the product decision-maker; Morris remains authority CLASS only. */
 import type {
   CursorPrepareOnlyProjection,
+  ExecutionContractInspectionDisclosure,
   ExecutionContractServices,
 } from "@/lib/oa/execution-contract";
-import { projectCursorPrepareOnly } from "@/lib/oa/execution-contract";
+import {
+  projectCursorPrepareOnly,
+  projectExecutionContractInspectionDisclosure,
+} from "@/lib/oa/execution-contract";
 import type { F2ContextSnapshot } from "../f2/types";
 import {
   isProposalSubjectOptionRef,
@@ -51,6 +55,8 @@ export type F3M3PreparePayload = {
     requiredCapabilities: string[];
     reversibility: string;
     semanticFingerprint: string;
+    /** Allowlisted execution-significant facts for pre-inspection Product disclosure. */
+    inspectionDisclosure: ExecutionContractInspectionDisclosure;
   };
   cursorProjection: CursorPrepareOnlyProjection;
   executionPerformed: false;
@@ -395,6 +401,7 @@ export async function prepareM3FromDecision(input: {
   }
 
   const contract = validated.contract;
+  const disclosureResult = projectExecutionContractInspectionDisclosure(contract);
   const cursorProjection = projectCursorPrepareOnly(contract);
   if (
     cursorProjection.executionAllowed !== false ||
@@ -429,6 +436,7 @@ export async function prepareM3FromDecision(input: {
         requiredCapabilities: [...contract.requiredCapabilities],
         reversibility: contract.reversibility,
         semanticFingerprint: contract.semanticFingerprint ?? cursorProjection.fingerprint,
+        inspectionDisclosure: disclosureResult.disclosure,
       },
       cursorProjection,
       executionPerformed: false,
@@ -441,6 +449,9 @@ export async function prepareM3FromDecision(input: {
         "NO ATTEMPT",
         "GATE D NOT_CONSUMED",
         "NO FIXTURE F3_ACTION CONSTANTS",
+        ...(disclosureResult.ok
+          ? []
+          : ["INSPECTION_DISCLOSURE_INCOMPLETE — inspection will fail closed"]),
       ],
     },
   };

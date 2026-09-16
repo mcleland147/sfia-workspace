@@ -20,6 +20,7 @@ import {
 } from "@/lib/oa/decision";
 import {
   assertUserAmendableExecutionConstraint,
+  projectExecutionContractInspectionDisclosure,
   type ExecutionContract,
 } from "@/lib/oa/execution-contract";
 import { readContractInspectionState } from "./inspectExecutionContract";
@@ -248,6 +249,7 @@ export function verifyGovernedAmendmentSuccessor(input: {
 }
 
 function toContractDto(contract: ExecutionContract): AmendedExecutionContractDto {
+  const disclosure = projectExecutionContractInspectionDisclosure(contract);
   return {
     executionContractId: contract.executionContractId,
     version: contract.version,
@@ -263,6 +265,7 @@ function toContractDto(contract: ExecutionContract): AmendedExecutionContractDto
     semanticFingerprint: contract.semanticFingerprint ?? "",
     supersedesExecutionContractId: contract.supersedesExecutionContractId ?? null,
     supersessionReason: contract.supersessionReason ?? null,
+    inspectionDisclosure: disclosure.disclosure,
   };
 }
 

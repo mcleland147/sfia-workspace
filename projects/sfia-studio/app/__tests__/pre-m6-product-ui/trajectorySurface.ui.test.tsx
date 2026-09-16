@@ -1236,9 +1236,9 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
       contract: {
         executionContractId: "xct:sealed-docs-write",
         version: 1,
-        status: "proposed",
+        status: "confirmation_required",
         action: "cursor.docs_write.apply",
-        target: "docs/livrable-cycle.md",
+        target: "workspace.isolated.docs_write",
         scope: "product:artifact-materialization",
         requiredAuthority: "N3",
         constraints: ["PRODUCT_GOVERNED", "SEALED_DECISION_BASIS"],
@@ -1246,6 +1246,34 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
         requiredCapabilities: ["cap:cursor.docs_write"],
         reversibility: "reversible",
         semanticFingerprint: "sealed0fingerprint",
+        inspectionDisclosure: {
+          action: "cursor.docs_write.apply",
+          technicalTarget: "workspace.isolated.docs_write",
+          scope: "product:artifact-materialization",
+          targetRepositoryRef: "mcleland147/sfia-workspace",
+          targetPath: "projects/sfia-studio/.sandbox/gestion-de-taches.md",
+          scopeIn: ["projects/sfia-studio/.sandbox/"],
+          scopeOut: ["projects/sfia-studio/app/"],
+          createOrModify: true,
+          noDelete: true,
+          objective: "Matérialiser la note",
+          artifactType: "markdown",
+          artifactBrief: null,
+          contentRequirements: null,
+          validationExpectations: null,
+          expectedOutputs: ["note markdown"],
+          evidenceRequirements: ["evreq:git-working-tree"],
+          requiredAuthority: "N3",
+          requiredCapabilities: ["cap:cursor.docs_write"],
+          constraints: ["PRODUCT_GOVERNED", "SEALED_DECISION_BASIS"],
+          stopConditions: ["STOP AVANT EXECUTE"],
+          reversibility: "reversible",
+          contractVersion: 1,
+          executionContractId: "xct:sealed-docs-write",
+          semanticFingerprint: "sealed0fingerprint",
+          disclosureComplete: true,
+          incompletenessCode: null,
+        },
       },
       executionPerformed: false,
       attemptCreated: false,
@@ -1321,7 +1349,13 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
       "cursor.docs_write.apply",
     );
     expect(screen.getByTestId("w2-contract-target")).toHaveTextContent(
-      "docs/livrable-cycle.md",
+      "workspace.isolated.docs_write",
+    );
+    expect(screen.getByTestId("w2-contract-exact-target")).toHaveTextContent(
+      "projects/sfia-studio/.sandbox/gestion-de-taches.md",
+    );
+    expect(screen.getByTestId("w2-contract-repository")).toHaveTextContent(
+      "mcleland147/sfia-workspace",
     );
     expect(screen.getByTestId("w2-contract-authority")).toHaveTextContent("N3");
     expect(screen.getByTestId("w2-contract-capabilities")).toHaveTextContent(
@@ -1331,8 +1365,12 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
       "xct:sealed-docs-write",
     );
 
-    // Inspect owns the next action; PREPARE is not offered again.
+    // Pre-inspection: exact path + repo visible BEFORE Inspect click.
     expect(screen.getByTestId("w2-inspect-contract")).toBeVisible();
+    expect(screen.getByTestId("w2-confirm-contract")).toBeDisabled();
+    expect(screen.queryByTestId("w2-inspection-state")).toBeNull();
+
+    // Inspect owns the next action; PREPARE is not offered again.
     expect(screen.queryByTestId("w2-proposal-backed-prepare")).toBeNull();
     expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
 

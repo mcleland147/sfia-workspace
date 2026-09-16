@@ -86,6 +86,16 @@ export {
   projectCursorPrepareOnly,
   type CursorPrepareOnlyProjection,
 } from "./projection/cursorPrepareOnlyProjection";
+export {
+  projectExecutionContractInspectionDisclosure,
+  requiredInspectedFactsForContract,
+  attestationCoversRequiredFacts,
+  isDocsWriteExecutionContract,
+  DOCS_WRITE_ACTION,
+  DOCS_WRITE_TECHNICAL_TARGET,
+  type ExecutionContractInspectionDisclosure,
+  type InspectionDisclosureProjectionResult,
+} from "./projection/inspectionDisclosure";
 
 export { MemoryExecutionContractStore } from "./infrastructure/memoryExecutionContractStore";
 export { MemoryExecutionContractRepository } from "./infrastructure/memoryExecutionContractRepository";

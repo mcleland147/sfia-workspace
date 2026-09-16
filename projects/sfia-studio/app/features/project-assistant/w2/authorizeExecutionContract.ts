@@ -203,6 +203,18 @@ const BLOCKED_TEXT: Record<
       "Le contrat a changé de manière matérielle depuis la dernière inspection.",
     nextAction: "Réinspecter la version courante du contrat.",
   },
+  reinspection_required_inspected_facts_incomplete: {
+    reasonText:
+      "L'attestation d'inspection ne couvre pas les détails d'exécution requis.",
+    nextAction:
+      "Réinspecter le contrat après lecture des détails d'exécution exacts.",
+  },
+  inspection_disclosure_incomplete: {
+    reasonText:
+      "La disclosure d'inspection du contrat est incomplète.",
+    nextAction:
+      "Corriger le contrat durable avant toute inspection ou autorisation.",
+  },
   confirmation_required: {
     reasonText: "Une confirmation requise est manquante.",
     nextAction: "Obtenir la confirmation requise après inspection.",
@@ -377,11 +389,17 @@ export async function evaluateExecutionAuthorization(
 
   // 1. Inspection must be sufficient for the exact current contract version.
   if (!inspection.inspectionSufficient) {
+    const authReason =
+      inspection.reason === "inspected_facts_incomplete"
+        ? "reinspection_required_inspected_facts_incomplete"
+        : inspection.reason === "inspection_disclosure_incomplete"
+          ? "inspection_disclosure_incomplete"
+          : inspection.reinspectionRequired
+            ? "reinspection_required_material_change"
+            : "inspection_required";
     return finish(
       "BLOCKED",
-      inspection.reinspectionRequired
-        ? "reinspection_required_material_change"
-        : "inspection_required",
+      authReason,
       null,
       inspection.reason,
     );

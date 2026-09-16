@@ -92,8 +92,65 @@ function executionContractStatusLabel(status: string): string {
   return "État du contrat indisponible";
 }
 
+function toInspectionDisclosureView(
+  disclosure:
+    | {
+        readonly action: string;
+        readonly technicalTarget: string;
+        readonly scope: string;
+        readonly targetRepositoryRef: string | null;
+        readonly targetPath: string | null;
+        readonly scopeIn: readonly string[] | null;
+        readonly scopeOut: readonly string[] | null;
+        readonly createOrModify: boolean | null;
+        readonly noDelete: boolean | null;
+        readonly contentRequirements: readonly string[] | null;
+        readonly validationExpectations: readonly string[] | null;
+        readonly expectedOutputs: readonly string[] | null;
+        readonly evidenceRequirements: readonly string[];
+        readonly disclosureComplete: boolean;
+      }
+    | null
+    | undefined,
+): InspectionDisclosureView | null {
+  if (!disclosure) return null;
+  return {
+    action: disclosure.action,
+    technicalTarget: disclosure.technicalTarget,
+    scope: disclosure.scope,
+    targetRepositoryRef: disclosure.targetRepositoryRef,
+    targetPath: disclosure.targetPath,
+    scopeIn: disclosure.scopeIn,
+    scopeOut: disclosure.scopeOut,
+    createOrModify: disclosure.createOrModify,
+    noDelete: disclosure.noDelete,
+    contentRequirements: disclosure.contentRequirements,
+    validationExpectations: disclosure.validationExpectations,
+    expectedOutputs: disclosure.expectedOutputs,
+    evidenceRequirements: [...disclosure.evidenceRequirements],
+    disclosureComplete: disclosure.disclosureComplete,
+  };
+}
+
 /** Explicit Pilot-qualified operation — never inferred from W2 trajectory alone. */
 type QualifiedOperationKind = "generate-temporary-artifact" | "simulate" | "read";
+
+type InspectionDisclosureView = {
+  readonly action: string;
+  readonly technicalTarget: string;
+  readonly scope: string;
+  readonly targetRepositoryRef: string | null;
+  readonly targetPath: string | null;
+  readonly scopeIn: readonly string[] | null;
+  readonly scopeOut: readonly string[] | null;
+  readonly createOrModify: boolean | null;
+  readonly noDelete: boolean | null;
+  readonly contentRequirements: readonly string[] | null;
+  readonly validationExpectations: readonly string[] | null;
+  readonly expectedOutputs: readonly string[] | null;
+  readonly evidenceRequirements: readonly string[];
+  readonly disclosureComplete: boolean;
+};
 
 type PreparedContract = {
   readonly executionContractId: string;
@@ -110,6 +167,7 @@ type PreparedContract = {
   readonly semanticFingerprint: string;
   readonly effectConfirmationRequired?: boolean;
   readonly effectConfirmationLevel?: string | null;
+  readonly inspectionDisclosure?: InspectionDisclosureView | null;
 };
 
 type AmendmentNotice = {
@@ -605,6 +663,9 @@ export function TrajectorySurface({
       semanticFingerprint: prepared.semanticFingerprint,
       effectConfirmationRequired: prepared.effectConfirmationRequired,
       effectConfirmationLevel: prepared.effectConfirmationLevel ?? null,
+      inspectionDisclosure: toInspectionDisclosureView(
+        prepared.inspectionDisclosure,
+      ),
     });
     setInspection(null);
     setAuthorization(null);
@@ -652,6 +713,9 @@ export function TrajectorySurface({
       requiredCapabilities: [...prepared.requiredCapabilities],
       reversibility: prepared.reversibility,
       semanticFingerprint: prepared.semanticFingerprint,
+      inspectionDisclosure: toInspectionDisclosureView(
+        prepared.inspectionDisclosure,
+      ),
     });
     setInspection(null);
     setAuthorization(null);
@@ -720,6 +784,9 @@ export function TrajectorySurface({
       requiredCapabilities: [...amended.successor.requiredCapabilities],
       reversibility: amended.successor.reversibility,
       semanticFingerprint: amended.successor.semanticFingerprint,
+      inspectionDisclosure: toInspectionDisclosureView(
+        amended.successor.inspectionDisclosure,
+      ),
     });
     setInspection(amended.successorInspection);
     setAuthorization(null);
@@ -1651,9 +1718,25 @@ export function TrajectorySurface({
               <dd data-testid="w2-contract-action">{contract.action}</dd>
             </div>
             <div>
-              <dt>Résultat / cible</dt>
+              <dt>Cible technique</dt>
               <dd data-testid="w2-contract-target">{contract.target}</dd>
             </div>
+            {contract.inspectionDisclosure?.targetPath ? (
+              <div>
+                <dt>Cible exacte</dt>
+                <dd data-testid="w2-contract-exact-target">
+                  {contract.inspectionDisclosure.targetPath}
+                </dd>
+              </div>
+            ) : null}
+            {contract.inspectionDisclosure?.targetRepositoryRef ? (
+              <div>
+                <dt>Repository</dt>
+                <dd data-testid="w2-contract-repository">
+                  {contract.inspectionDisclosure.targetRepositoryRef}
+                </dd>
+              </div>
+            ) : null}
             <div>
               <dt>Périmètre</dt>
               <dd data-testid="w2-contract-scope">{contract.scope}</dd>
@@ -1705,6 +1788,74 @@ export function TrajectorySurface({
                   {contract.reversibility}
                 </dd>
               </div>
+              {contract.inspectionDisclosure?.scopeIn ? (
+                <div>
+                  <dt>Périmètre IN</dt>
+                  <dd data-testid="w2-contract-scope-in">
+                    {contract.inspectionDisclosure.scopeIn.join(" · ")}
+                  </dd>
+                </div>
+              ) : null}
+              {contract.inspectionDisclosure?.scopeOut ? (
+                <div>
+                  <dt>Périmètre OUT</dt>
+                  <dd data-testid="w2-contract-scope-out">
+                    {contract.inspectionDisclosure.scopeOut.join(" · ")}
+                  </dd>
+                </div>
+              ) : null}
+              {contract.inspectionDisclosure?.createOrModify !== null &&
+              contract.inspectionDisclosure?.createOrModify !== undefined ? (
+                <div>
+                  <dt>Mutation</dt>
+                  <dd data-testid="w2-contract-mutation">
+                    {contract.inspectionDisclosure.createOrModify
+                      ? "Création / modification"
+                      : "Sans création / modification"}
+                    {contract.inspectionDisclosure.noDelete
+                      ? " · aucune suppression"
+                      : ""}
+                  </dd>
+                </div>
+              ) : null}
+              {contract.inspectionDisclosure?.expectedOutputs ? (
+                <div>
+                  <dt>Sorties attendues</dt>
+                  <dd data-testid="w2-contract-expected-outputs">
+                    {contract.inspectionDisclosure.expectedOutputs.join(" · ")}
+                  </dd>
+                </div>
+              ) : null}
+              {contract.inspectionDisclosure?.contentRequirements ? (
+                <div>
+                  <dt>Exigences de contenu</dt>
+                  <dd data-testid="w2-contract-content-requirements">
+                    {contract.inspectionDisclosure.contentRequirements.join(
+                      " · ",
+                    )}
+                  </dd>
+                </div>
+              ) : null}
+              {contract.inspectionDisclosure?.validationExpectations ? (
+                <div>
+                  <dt>Attentes de validation</dt>
+                  <dd data-testid="w2-contract-validation-expectations">
+                    {contract.inspectionDisclosure.validationExpectations.join(
+                      " · ",
+                    )}
+                  </dd>
+                </div>
+              ) : null}
+              {contract.inspectionDisclosure?.evidenceRequirements.length ? (
+                <div>
+                  <dt>Preuves requises</dt>
+                  <dd data-testid="w2-contract-evidence-requirements">
+                    {contract.inspectionDisclosure.evidenceRequirements.join(
+                      " · ",
+                    )}
+                  </dd>
+                </div>
+              ) : null}
               <div>
                 <dt>Contraintes</dt>
                 <dd data-testid="w2-contract-constraints">

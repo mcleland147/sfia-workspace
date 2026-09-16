@@ -60,7 +60,9 @@ export type InspectionAttestation = {
 export type InspectionInsufficiencyReason =
   | "no_attestation"
   | "material_change"
-  | "contract_fingerprint_absent";
+  | "contract_fingerprint_absent"
+  | "inspected_facts_incomplete"
+  | "inspection_disclosure_incomplete";
 
 export type InspectionSufficiency =
   | { sufficient: true; attestation: InspectionAttestation }
@@ -89,16 +91,37 @@ export function computeInspectionFingerprint(
 /**
  * Deny-by-default sufficiency check against the contract as it exists now.
  * A contract whose fingerprint cannot be resolved can never be proved inspected.
+ *
+ * Fingerprint match alone is not enough: the attestation must also cover the
+ * required inspected-fact profile derived from the durable contract. A legacy
+ * attestation that matches the fingerprint but omits execution-significant
+ * facts (e.g. docs_write `inputs.targetPath`) is insufficient.
  */
 export function evaluateInspectionSufficiency(input: {
   attestations: readonly InspectionAttestation[];
   executionContractId: string;
   currentInspectionFingerprint: string | undefined;
+  /**
+   * Required fact identifiers for the current durable contract.
+   * When omitted, fingerprint match alone decides (legacy callers / tests).
+   * Product path always supplies the dynamic profile.
+   */
+  requiredInspectedFacts?: readonly string[];
+  /** Fail closed when the contract cannot disclose mandatory inspection facts. */
+  disclosureIncomplete?: boolean;
 }): InspectionSufficiency {
   const relevant = input.attestations
     .filter((a) => a.executionContractId === input.executionContractId)
     .slice()
     .sort((a, b) => (a.inspectedAt < b.inspectedAt ? 1 : -1));
+
+  if (input.disclosureIncomplete === true) {
+    return {
+      sufficient: false,
+      reason: "inspection_disclosure_incomplete",
+      staleAttestation: relevant[0],
+    };
+  }
 
   if (relevant.length === 0) {
     return { sufficient: false, reason: "no_attestation" };
@@ -114,13 +137,27 @@ export function evaluateInspectionSufficiency(input: {
   const match = relevant.find(
     (a) => a.inspectionFingerprint === input.currentInspectionFingerprint,
   );
-  if (match) {
-    return { sufficient: true, attestation: match };
+  if (!match) {
+    return {
+      sufficient: false,
+      reason: "material_change",
+      staleAttestation: relevant[0]!,
+    };
   }
 
-  return {
-    sufficient: false,
-    reason: "material_change",
-    staleAttestation: relevant[0]!,
-  };
+  if (input.requiredInspectedFacts && input.requiredInspectedFacts.length > 0) {
+    const present = new Set(match.inspectedFacts);
+    const covers = input.requiredInspectedFacts.every((fact) =>
+      present.has(fact),
+    );
+    if (!covers) {
+      return {
+        sufficient: false,
+        reason: "inspected_facts_incomplete",
+        staleAttestation: match,
+      };
+    }
+  }
+
+  return { sufficient: true, attestation: match };
 }

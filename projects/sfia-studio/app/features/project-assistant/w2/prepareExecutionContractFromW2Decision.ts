@@ -16,6 +16,10 @@ import {
 import { S1_MAX_TTL_SECONDS } from "@/lib/auth/constants";
 import { issueS1AuthorityEvidence } from "@/lib/auth/s1Authority";
 import type { ResolveCurrentPiloteResult } from "@/lib/auth/resolveCurrentPilote";
+import {
+  projectExecutionContractInspectionDisclosure,
+  type ExecutionContractInspectionDisclosure,
+} from "@/lib/oa/execution-contract";
 import type { F2ContextSnapshot } from "../f2/types";
 import { loadPresentedOptionSet, parsePresentedOptionSetStatement } from "./presentedOptionSet";
 import {
@@ -48,6 +52,7 @@ export type PreparedExecutionContractDto = {
   readonly effectClass: string;
   readonly effectConfirmationRequired: boolean;
   readonly effectConfirmationLevel: string | null;
+  readonly inspectionDisclosure: ExecutionContractInspectionDisclosure;
 };
 
 export type PrepareExecutionContractFromW2DecisionResult =
@@ -541,6 +546,9 @@ export async function prepareExecutionContractFromW2Decision(input: {
     };
   }
 
+  const disclosureResult = projectExecutionContractInspectionDisclosure(contract);
+  // Incomplete docs_write disclosure is attached honestly; inspection fails closed.
+
   return {
     ok: true,
     contract: {
@@ -561,6 +569,7 @@ export async function prepareExecutionContractFromW2Decision(input: {
       effectClass: envelope.effects.effectClass,
       effectConfirmationRequired: envelope.effectConfirmationRequired,
       effectConfirmationLevel: envelope.effectConfirmationLevel,
+      inspectionDisclosure: disclosureResult.disclosure,
     },
     decisionId: decision.decisionId,
     executionPerformed: false,

@@ -98,6 +98,22 @@ export async function confirmExecutionContractForAuthorization(
     return inspection;
   }
   if (!inspection.inspectionSufficient) {
+    if (inspection.reason === "inspected_facts_incomplete") {
+      return {
+        ok: false,
+        code: "REINSPECTION_REQUIRED",
+        message:
+          "L'attestation d'inspection ne couvre pas les détails d'exécution requis — réinspecter avant de confirmer.",
+      };
+    }
+    if (inspection.reason === "inspection_disclosure_incomplete") {
+      return {
+        ok: false,
+        code: "INSPECTION_DISCLOSURE_INCOMPLETE",
+        message:
+          "Disclosure d'inspection incomplète — confirmation refusée.",
+      };
+    }
     return {
       ok: false,
       code: inspection.reinspectionRequired
