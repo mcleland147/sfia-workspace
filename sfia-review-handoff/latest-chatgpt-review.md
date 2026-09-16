@@ -1,209 +1,179 @@
 # SFIA Studio — PRODUCT CONTINUITY
-## EC REHYDRATION — CRITICAL REVIEW MICRO-REMEDIATION — FULL Review Pack
+## EC REHYDRATION — FINAL FAIL-CLOSED CLIENT COMPOSITION MICRO-REMEDIATION — FULL Review Pack
 
-**Timestamp (UTC):** 2026-09-16T10:45:00Z
+**Timestamp (UTC):** 2026-09-16T11:25:00Z
 **Review Pack:** FULL
 **Cycle:** 8 — Delivery
 **Typology:** RUN
 **Profile:** Critical
 
 **Verdict:**
-`PRODUCT-CONTINUITY-EC-REHYDRATION — CRITICAL FAIL-CLOSED GAPS FIXED — SUBJECT CONTINUITY ERROR/PENDING BLOCKS GOVERNED EC ACTIONS — AUTHORITATIVE NONE CLEARS STALE CLIENT EC — PROJECT/CYCLE CONTEXT FAILS CLOSED — CORE RESTART-SAFE EC + INSPECTION REHYDRATION DESIGN PRESERVED — EXACT DOCS_WRITE TARGET + LEGACY INCOMPLETE INSPECTION BEHAVIOR PRESERVED — ZERO DOGFOOD MUTATION — ZERO REAL — NO PRODUCT GIT — READY FOR CHATGPT CRITICAL REVIEW`
+`PRODUCT-CONTINUITY-EC-REHYDRATION — FINAL CLIENT CONTINUITY FAIL-CLOSED COMPOSITION DETERMINISTICALLY PROVEN — ALL W2 SUBJECT/EXECUTION MUTATIONS BLOCKED UNTIL LATEST SUBJECT + GOVERNED EXECUTION CONTINUITY PASS RESOLVES — STALE OPTIONSET CANNOT DECIDE — STALE DECISION CANNOT PREPARE — STALE GOVERNED ASYNC RESULT CANNOT OVERRIDE NEWER SUBJECT ERROR — LATEST CLEAN PASS RECOVERS DURABLE EC — EXACT DOCS_WRITE TARGET + LEGACY INCOMPLETE INSPECTION BEHAVIOR PRESERVED — ZERO DOGFOOD MUTATION — ZERO REAL — NO PRODUCT GIT — READY FOR CHATGPT CRITICAL REVIEW`
 
 ---
 
 ## A. Timestamp
-2026-09-16T10:45:00Z
+2026-09-16T11:25:00Z
 
 ## B. Git truth
 - origin/main = `c2c8280b7cfaa1b3a5656fb55b1e46ba73b23130`
 - worktree = `/Users/morris/Projects/sfia-studio-ec-rehydration-continuity`
 - branch = `fix/sfia-studio-ec-rehydration-continuity`
 - HEAD = `c2c8280b7cfaa1b3a5656fb55b1e46ba73b23130`
-- Product commits ahead of main = 0
-- Candidate remains LOCAL DIRTY (9 Product/test paths)
+- Product commits ahead = 0
+- Candidate LOCAL DIRTY — exact 9 Product/test paths
 
 ## C. Morris GO consumed
-Bounded Critical Review micro-remediation only: close three ChatGPT Critical Review
-fail-closed findings on the existing local dirty candidate; deterministic tests;
-full validation; FULL Review Pack; Review Handoff L3.
+Final local client micro-remediation only: close remaining W2 mutation fail-closed
+gate + governed-read stale async sequencing; deterministic UI tests; full validation;
+FULL Review Pack; Review Handoff L3.
 NOT authorized: Product commit/push/PR; dogfood; Inspect/Confirm/Authorize/Execute;
-LIVE/REAL; schema/persistence/architecture redesign.
+LIVE/REAL; server resolver redesign; schema/persistence; Confirmation/Authority policy.
 
 ## D. Cycle / RUN / Critical
-Cycle 8 Delivery · RUN · Critical — Pilot backward-step on restart remains Critical;
-this lot closes fail-closed composition gaps without redesigning the accepted resolver.
+Cycle 8 Delivery · RUN · Critical
 
 ## E. Convergence
-- V3-F02 semantic inter-session continuity
-- V3-F11 native durable inspectable ExecutionContract
-- V3-F12 effect / Confirmation / authority governance
-- A3 / Product Completion trajectory continuity
+- V3-F02 semantic restart continuity
+- V3-F11 inspectable durable ExecutionContract
+- V3-F12 governed effect / Confirmation / authority boundaries
+- A3 / C1 Product Completion trajectory
 - runtime v3 **NON ADOPTED**
 
 ## F. Prior handoff
-- tip `208e9221bdf6c713236f14e2b5727806fa357621`
-- blob `ca463eb26a7180fdf58468aa118c8ffc1f3522a5`
+- tip `f9b9e9bb8b8baace68b78b53070346ff9cf7d9c6`
+- blob `86cd99394ae0626fd1348746d0f3c9a9ae735d7b`
 
 ## G. ChatGPT Critical Review FAIL consumed
 `PRODUCT-CONTINUITY-EC-REHYDRATION — CHATGPT CRITICAL REVIEW FAIL`
-- CORE DURABLE REHYDRATION DESIGN ACCEPTED
-- BLOCKER 1: Decision-Subject read error can still expose governed EC actions
-- BLOCKER 2: durable `kind:none` does not clear stale client EC state
-- GAP 3: Project/cycle read failure collapses to null
+- THE 3 REQUESTED MICRO-FIXES ARE VALID
+- CORE EC REHYDRATION DESIGN REMAINS ACCEPTED
+- REMAINING: continuity gate stops at EC actions (not Decision/PREPARE);
+  refresh sequencing still allows stale governed read window
 
-## H. PRE-MICRO 9-path list + SHA-256
-- `readCurrentGovernedExecutionContinuity.ts` = `da8447d10123bb30878f11ca0a6cd4e381acc95c50bb6cf4f6e06fee5bd3af0b`
+## H. exact 9 pre-final hash pins
+- `readCurrentGovernedExecutionContinuity.ts` = `992c44552b7845c3b2c88c6e0ed56974f8c96bb0d1ba7cc5bb0503a6763ba278`
 - `actions.ts` = `f11e86a09b4e6df5161c578464bdbaa91d3ae53e7c2820a80536238ba3817591`
 - `types.ts` = `7c6ce2c143636a204639ff504a0c2bc7287e05ff3e4b156ddd6752011f30ad23`
-- `TrajectorySurface.tsx` = `b44375f204b41a857b7b90082b46896c7482e4fef6cc5eae01b3745bd4472e07`
-- `ecRehydrationContinuity.d0.test.ts` = `2b14c526c185c32260d91fe4feb18737b39ce7dc38c3eb627c0369ef35566618`
-- `trajectorySurface.ui.test.tsx` = `a7e9a00a4f12c120479645c176207e332b20e7f89d920d4a5868f75b5bc22b47`
+- `TrajectorySurface.tsx` = `3b2f62e7c89379520a925faf0850925766d5383d071c67947f562755b4871bad`
+- `ecRehydrationContinuity.d0.test.ts` = `da8ca7d51562c14b3a7704b60424528d72a8fb7e49b9a2a281c4e4e3da874fe8`
+- `trajectorySurface.ui.test.tsx` = `4690aaa76bd0a377b141686655beb4ec13614e16ef2ec16221cb3cd942e00cd9`
 - `productJourneyProjectionCoherence.ui.test.tsx` = `1b65d27c5e028cc293b3816459117afe410907a47249a16f473742b78cac24ad`
 - `preCycleTrajectoryCta.ui.test.tsx` = `f2ea18c60e634e4705dd25c9d2cdcda35dcb6a388cd12903cb743b7f6b1d782a`
 - `importBoundaries.test.ts` = `f2615fea1df62725dc39d91511722ef3c1d84a2fdeec92611192c7e32a1c0676`
 
-## I. Blocker 1 exact root cause
-`useEffect` launched governed EC rehydration whenever `subjectReadStatus !== "pending"`,
-including `subjectReadStatus === "error"`. A successful EC read could then
-`setContract` / `setInspection` / `setError(null)` while Decision Subject truth was unresolved.
-`continuityReadsUnresolved` hid generic Instruire but did **not** disable Inspect/Confirm/Authorize.
+## I. remaining blocker A root cause
+`continuityMutationBlocked` / `governedContinuationBlocked` protected Inspect/Amend/
+Confirm/Authorize/Execute only. Decision and Proposal/sandbox PREPARE remained
+actionable from stale OptionSet/Decision after subject ERROR/PENDING.
 
-## J. Blocker 1 correction
-1. Governed continuity discovery runs only when `subjectReadStatus === "ready"`.
-2. On `subjectReadStatus === "error"`: clear contract/inspection/authorization/amendment UI;
-   set `executionContinuityReadStatus = "error"`; do **not** invoke the governed read;
-   preserve the Decision Subject error (no later `setError(null)` from continuity).
-3. `governedContinuationBlocked = continuityReadsUnresolved` gates Inspect / Amend /
-   Confirm / Authorize / Execute disable predicates.
+## J. complete W2 mutation gate correction
+ONE gate `continuityMutationBlocked` now disables:
+Instruire / Décider / Proposal PREPARE / sandbox qualify+PREPARE / Inspect / Amend /
+Confirm / Authorize / Execute (and proposeOptions recovery CTAs).
 
-## K. subject error/pending action-gate tests
-- `EC rehydration micro — subject ERROR does not invoke governed continuity or expose EC actions`
-- `EC rehydration micro — refresh subject pending disables governed EC mutating actions`
+## K. callback defense-in-depth
+Early return when `continuityMutationBlocked` in:
+proposeOptions, decide, prepareContract, prepareProposalBackedContract, inspect,
+amendContract, confirmForAuthorization, authorize, governedExecute.
 
-## L. Blocker 2 exact root cause
-`result.kind === "none"` only set continuity status to ready and intentionally kept
-any existing local contract, allowing React state to outrank durable "no current EC".
+## L. remaining blocker B async sequencing root cause
+EC effect depended on `durableRefreshSignal` directly. On refresh, subject status
+could still be captured as `ready` before pending commits, launching a governed
+read under prior subject qualification.
 
-## M. Blocker 2 correction
-On authoritative `kind: "none"`, clear `contract`, `inspection`, `authorization`,
-`amendmentDraft`, and `amendmentNotice`. Server durable truth wins.
+## M. direct durableRefreshSignal EC trigger disposition
+**REMOVED.** EC effect deps are now only
+`[subjectReadStatus, rehydrateGovernedExecutionContinuity]`.
+Governed discovery runs only after latest subject result is `ready`.
 
-## N. active→none stale-clear test
-- `EC rehydration micro — active then authoritative none clears stale EC card` — PASS
+## N. generation/cancellation design
+- `continuityPassRef` incremented when a Decision Subject continuity pass begins
+  and on durableRefreshSignal change (useLayoutEffect immediate fail-closed).
+- Subject and governed reads capture pass; after await, apply only if pass still current.
+- Stale results discarded silently (cannot setContract / clear newer subject error).
 
-## O. Gap 3 exact root cause
-`resolveActiveCycleInstanceId()` returned `null` both when `getProject` failed and when
-the Project had no active cycle — collapsing distinct integrity states.
+## O. stale async result test
+`final fail-closed — stale governed ACTIVE result ignored after newer subject ERROR` — PASS
 
-Additionally, cycle coherence only failed when **both** candidate and active cycle
-existed and differed, allowing explicit EC cycle link + missing Project active cycle.
+## P. stale OptionSet test
+`final fail-closed — stale OptionSet + subject ERROR blocks Decision mutation` — PASS
 
-## P. typed Project read correction
-Replaced nullable helper with `readProjectActiveCycleContext`:
-- `{ ok: true, activeCycleInstanceId: string | null }`
-- `{ ok: false, code: EXECUTION_CONTINUITY_INTEGRITY_FAILED, ... }` when Project read fails
+## Q. stale Decision/PREPARE test
+`final fail-closed — stale Decision + subject ERROR blocks Proposal PREPARE` — PASS
 
-## Q. explicit cycle-link coherence rule
-- candidate.cycleInstanceId present + Project active missing → INTEGRITY_FAILED
-- candidate.cycleInstanceId present + active differs → INTEGRITY_FAILED
-- candidate.cycleInstanceId present + active matches → continue
-- candidate has no cycleInstanceId → preserve prior compatibility
+## R. bound subject + EC pending test
+`final fail-closed — bound subject + EC continuity pending blocks Decision` — PASS
+(after EC resolves `kind:none`, Decision re-enables)
 
-## R. project-read-failure tests
-- P1 Project read fails → INTEGRITY_FAILED — PASS
+## S. successful later recovery test
+`final fail-closed — later READY pass recovers durable EC after subject ERROR` — PASS
 
-## S. cycle null/mismatch/match/no-link tests
-- P2 explicit cycle + active null → INTEGRITY_FAILED — PASS
-- P3 explicit cycle + mismatch → INTEGRITY_FAILED — PASS
-- P4 explicit cycle + match → active — PASS
-- P5 no cycle link + active null → active (compat) — PASS
+## T. authoritative none regression
+`EC rehydration micro — active then authoritative none clears stale EC card` — PASS
 
-## T. core accepted resolver design preserved
-listExecutionContractHistory · project-owned filter · supersession · pre-execution statuses ·
-executing→UNSUPPORTED · multi-current→AMBIGUOUS · decisionRefs→getHumanDecision ·
-accepted+DecisionBasis · PR491 disclosure · readContractInspectionState ·
-legacy inspected_facts_incomplete · projectId-only action · no raw inputs ·
-no conversation replay · no opaque-id parsing · no new persistence.
+## U. current campaign oracle
+Fresh mount / recovery still projects exact docs_write target + repository +
+legacy incomplete inspection; Inspect enabled only after resolved pass; Confirm
+disabled; Instruire/PREPARE/Execute absent.
 
-## U. exact micro production diff
-Changed production files vs PRE-MICRO pins (only):
-1. `readCurrentGovernedExecutionContinuity.ts`
-2. `TrajectorySurface.tsx`
+## V. exact final micro production diff
+ONLY `TrajectorySurface.tsx` changed vs pre-final pin.
+Complete current source included below.
 
-Full current content of both files is included below (complete reviewable source).
+## W. exact final micro test diff
+ONLY `trajectorySurface.ui.test.tsx` changed vs pre-final pin.
+Complete current source included below.
 
-## V. exact micro test diff
-Changed test files vs PRE-MICRO pins (only):
-1. `ecRehydrationContinuity.d0.test.ts` (P1–P5)
-2. `trajectorySurface.ui.test.tsx` (subject error/pending + active→none)
-
-## W. POST-MICRO 9-path SHA-256
-- `readCurrentGovernedExecutionContinuity.ts` = `992c44552b7845c3b2c88c6e0ed56974f8c96bb0d1ba7cc5bb0503a6763ba278` (CHANGED)
+## X. post-final 9-path hashes
+- `readCurrentGovernedExecutionContinuity.ts` = `992c44552b7845c3b2c88c6e0ed56974f8c96bb0d1ba7cc5bb0503a6763ba278` (UNCHANGED)
 - `actions.ts` = `f11e86a09b4e6df5161c578464bdbaa91d3ae53e7c2820a80536238ba3817591` (UNCHANGED)
 - `types.ts` = `7c6ce2c143636a204639ff504a0c2bc7287e05ff3e4b156ddd6752011f30ad23` (UNCHANGED)
-- `TrajectorySurface.tsx` = `3b2f62e7c89379520a925faf0850925766d5383d071c67947f562755b4871bad` (CHANGED)
-- `ecRehydrationContinuity.d0.test.ts` = `da8ca7d51562c14b3a7704b60424528d72a8fb7e49b9a2a281c4e4e3da874fe8` (CHANGED)
-- `trajectorySurface.ui.test.tsx` = `4690aaa76bd0a377b141686655beb4ec13614e16ef2ec16221cb3cd942e00cd9` (CHANGED)
+- `TrajectorySurface.tsx` = `f515edbd1a57f04f63559caba4b1590889344b8f0e2324c7a765218e1a25f7a4` (CHANGED)
+- `ecRehydrationContinuity.d0.test.ts` = `da8ca7d51562c14b3a7704b60424528d72a8fb7e49b9a2a281c4e4e3da874fe8` (UNCHANGED)
+- `trajectorySurface.ui.test.tsx` = `f12b1ec5e149b0366a6e0ae3f150800fcafae61c0ee2ba565a9e2b821d0615de` (CHANGED)
 - `productJourneyProjectionCoherence.ui.test.tsx` = `1b65d27c5e028cc293b3816459117afe410907a47249a16f473742b78cac24ad` (UNCHANGED)
 - `preCycleTrajectoryCta.ui.test.tsx` = `f2ea18c60e634e4705dd25c9d2cdcda35dcb6a388cd12903cb743b7f6b1d782a` (UNCHANGED)
 - `importBoundaries.test.ts` = `f2615fea1df62725dc39d91511722ef3c1d84a2fdeec92611192c7e32a1c0676` (UNCHANGED)
 
-## X. unchanged-five hash equality verdict
-YES — byte-identical PRE→POST for:
+## Y. unchanged-seven equality verdict
+YES — byte-identical for:
+- `readCurrentGovernedExecutionContinuity.ts`
 - `actions.ts`
 - `types.ts`
+- `ecRehydrationContinuity.d0.test.ts`
 - `productJourneyProjectionCoherence.ui.test.tsx`
 - `preCycleTrajectoryCta.ui.test.tsx`
 - `importBoundaries.test.ts`
 
-## Y. total candidate path count = 9
-YES — exactly the previously reviewed 9 Product/test paths; no tenth path.
-
-## Z. focused validation exact result
-Direct micro + prior Critical Review regression set:
-- ecRehydrationContinuity.d0.test.ts — 14 passed
-- trajectorySurface.ui.test.tsx — 29 passed
-- ecInspectionDisclosure.d0.test.ts — 9 passed
-- productProofJourneyIntegrity.d0.test.ts — 13 passed
-- productProofJourneyIntegrity.applicationPath.d0.test.ts — 6 passed
-- proposalSubjectIntegrity.d0.test.ts — 5 passed
-- productJourneyProjectionCoherence.ui.test.tsx — 3 passed
-- preCycleTrajectoryCta.ui.test.tsx — 3 passed
-- importBoundaries.test.ts — 5 passed
-- w2EabcDelivery.test.ts — 39 passed
-- executionContractGovernance.test.ts — 22 passed
-- m3ExecutionContractPrepare.test.ts — 13 passed
-- corrProof10.decisionContextContinuity.d0.test.ts — 45 passed
-- corrProof11.reinstructionPilotLanguage.d0.test.ts — 18 passed
-- repositoryBindingProjection.d0.test.ts — 2 passed
-- repositoryBindingForm.ui.test.tsx — 5 passed
-**Focused aggregate: 0 failed.**
-
-## AA. full Vitest exact result
-**4143 passed / 137 skipped / 0 failed**
-(Test Files 373 passed | 17 skipped)
-
-## AB. typecheck
-PASS (`tsc --noEmit`)
-
-## AC. lint
-PASS (`next lint` — no warnings or errors)
-
-## AD. build
-PASS (`next build`)
-
-## AE. diff-check
-PASS (`git diff --check`)
-
-## AF. DB/schema/migration = NONE
+## Z. total candidate path count exactly 9
 YES
 
-## AG. semantic Product persistence write from read = ZERO
-YES (read-only continuation; tests prove no Decision/EC/Inspection/Confirmation/Authority/Attempt/LPS writes)
+## AA. focused validation
+16 files / **236 passed** / 0 failed
+(includes trajectorySurface 34, ecRehydrationContinuity 14, CORR-PROOF-10/11, Lot A/B, PR491, bindings, w2Eabc, governance, m3 prepare, importBoundaries)
+
+## AB. full Vitest
+**4148 passed / 137 skipped / 0 failed**
+(Test Files 373 passed | 17 skipped)
+
+## AC. typecheck
+PASS
+
+## AD. lint
+PASS
+
+## AE. build
+PASS
+
+## AF. diff-check
+PASS
+
+## AG. DB/schema/migration = NONE
+YES — server resolver NOT modified
 
 ## AH. dogfood mutation = ZERO
-YES — dogfood worktree untouched
+YES
 
 ## AI. OpenAI LIVE = ZERO
 YES
@@ -212,321 +182,20 @@ YES
 YES
 
 ## AK. Product commit/push/PR = NONE
-YES — candidate remains LOCAL DIRTY
+YES — LOCAL DIRTY candidate
 
 ## AL. remaining reserve
-Authenticated restart reproof after Critical Review + Product Git integration + new Morris GO
+Authenticated restart reproof only after Critical Review + Product Git integration
 
 ## AM. next gate
 ChatGPT Critical Review
 
 ## AN. verdict
-`PRODUCT-CONTINUITY-EC-REHYDRATION — CRITICAL FAIL-CLOSED GAPS FIXED — SUBJECT CONTINUITY ERROR/PENDING BLOCKS GOVERNED EC ACTIONS — AUTHORITATIVE NONE CLEARS STALE CLIENT EC — PROJECT/CYCLE CONTEXT FAILS CLOSED — CORE RESTART-SAFE EC + INSPECTION REHYDRATION DESIGN PRESERVED — EXACT DOCS_WRITE TARGET + LEGACY INCOMPLETE INSPECTION BEHAVIOR PRESERVED — ZERO DOGFOOD MUTATION — ZERO REAL — NO PRODUCT GIT — READY FOR CHATGPT CRITICAL REVIEW`
+`PRODUCT-CONTINUITY-EC-REHYDRATION — FINAL CLIENT CONTINUITY FAIL-CLOSED COMPOSITION DETERMINISTICALLY PROVEN — ALL W2 SUBJECT/EXECUTION MUTATIONS BLOCKED UNTIL LATEST SUBJECT + GOVERNED EXECUTION CONTINUITY PASS RESOLVES — STALE OPTIONSET CANNOT DECIDE — STALE DECISION CANNOT PREPARE — STALE GOVERNED ASYNC RESULT CANNOT OVERRIDE NEWER SUBJECT ERROR — LATEST CLEAN PASS RECOVERS DURABLE EC — EXACT DOCS_WRITE TARGET + LEGACY INCOMPLETE INSPECTION BEHAVIOR PRESERVED — ZERO DOGFOOD MUTATION — ZERO REAL — NO PRODUCT GIT — READY FOR CHATGPT CRITICAL REVIEW`
 
 ---
 
-## COMPLETE REVIEWABLE SOURCE — micro production file 1
-### `projects/sfia-studio/app/features/project-assistant/w2/readCurrentGovernedExecutionContinuity.ts`
-
-```typescript
-/**
- * W2 — read-only current governed ExecutionContract continuity projection.
- *
- * Restart-safe Product continuation: resolve the unique current pre-execution
- * ExecutionContract for a Project from durable OA truth, verify decision
- * lineage, project allowlisted inspection disclosure, and evaluate current
- * inspection sufficiency WITHOUT recording a new attestation.
- *
- * NEVER writes EC / Inspection / Confirmation / Authority / Attempt / LPS /
- * Epistemic / trajectory state.
- */
-
-import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
-import type { ExecutionContract } from "@/lib/oa/execution-contract";
-import { projectExecutionContractInspectionDisclosure } from "@/lib/oa/execution-contract";
-import { readContractInspectionState } from "./inspectExecutionContract";
-import type {
-  ContractInspectionStateDto,
-  CurrentGovernedExecutionContinuityResult,
-  W2Failure,
-} from "./types";
-
-const PRE_EXECUTION_STATUSES = new Set<ExecutionContract["status"]>([
-  "draft",
-  "proposed",
-  "validated",
-  "confirmation_required",
-  "confirmed",
-]);
-
-const TERMINAL_STATUSES = new Set<ExecutionContract["status"]>([
-  "completed",
-  "failed",
-  "cancelled",
-  "superseded",
-]);
-
-function fail(
-  code: string,
-  message: string,
-): W2Failure {
-  return { ok: false, code, message };
-}
-
-function projectOwned(contract: ExecutionContract, projectId: string): boolean {
-  return contract.projectId === projectId;
-}
-
-async function isCurrentInSupersessionLineage(
-  oa: RuntimeOaStack,
-  contract: ExecutionContract,
-): Promise<boolean> {
-  if (contract.status === "superseded") return false;
-  const successors =
-    await oa.executionContractServices.contracts.listSuperseding(
-      contract.executionContractId,
-    );
-  return successors.length === 0;
-}
-
-/**
- * Typed Project/cycle context for continuity — Project read failure must NOT
- * collapse to "no active cycle".
- */
-async function readProjectActiveCycleContext(
-  oa: RuntimeOaStack,
-  projectId: string,
-): Promise<
-  | { ok: true; activeCycleInstanceId: string | null }
-  | W2Failure
-> {
-  const loaded = await oa.projectServices.getProject.execute({ projectId });
-  if (!loaded.ok) {
-    return fail(
-      "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
-      "Lecture du projet impossible — continuation gouvernée refusée.",
-    );
-  }
-  return {
-    ok: true,
-    activeCycleInstanceId: loaded.project.activeCycleInstanceId ?? null,
-  };
-}
-
-async function verifyDecisionLineage(
-  oa: RuntimeOaStack,
-  projectId: string,
-  contract: ExecutionContract,
-): Promise<
-  | { ok: true; decisionRef: string }
-  | W2Failure
-> {
-  const refs = contract.decisionRefs ?? [];
-  if (refs.length === 0) {
-    return fail(
-      "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
-      "Contrat d'exécution sans décision rattachée — continuation refusée.",
-    );
-  }
-
-  let primaryRef: string | null = null;
-  for (const decisionId of refs) {
-    const got = await oa.decisionServices.getHumanDecision.execute({
-      decisionId,
-    });
-    if (!got.ok) {
-      return fail(
-        "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
-        "Décision rattachée au contrat introuvable — continuation refusée.",
-      );
-    }
-    const decision = got.decision;
-    if (decision.projectId !== projectId) {
-      return fail(
-        "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
-        "Décision rattachée hors projet — continuation refusée.",
-      );
-    }
-    if (decision.status !== "accepted") {
-      return fail(
-        "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
-        "Décision rattachée non effective — continuation refusée.",
-      );
-    }
-    if (!decision.decisionBasis) {
-      return fail(
-        "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
-        "DecisionBasis absente sur la décision rattachée — continuation refusée.",
-      );
-    }
-    if (primaryRef == null) primaryRef = decision.decisionId;
-  }
-
-  return { ok: true, decisionRef: primaryRef! };
-}
-
-function toContinuityContractProjection(contract: ExecutionContract): {
-  ok: true;
-  contract: Extract<
-    CurrentGovernedExecutionContinuityResult,
-    { ok: true; kind: "active" }
-  >["contract"];
-} | W2Failure {
-  const disclosureResult =
-    projectExecutionContractInspectionDisclosure(contract);
-  // Incomplete disclosure is still projected honestly; inspection fails closed.
-  const disclosure = disclosureResult.disclosure;
-
-  return {
-    ok: true,
-    contract: {
-      executionContractId: contract.executionContractId,
-      version: contract.version,
-      status: contract.status,
-      action: contract.action,
-      target: contract.target,
-      scope: contract.scope,
-      requiredAuthority: contract.requiredAuthority,
-      constraints: [...contract.constraints],
-      stopConditions: [...contract.stopConditions],
-      requiredCapabilities: [...contract.requiredCapabilities],
-      reversibility: contract.reversibility,
-      semanticFingerprint: contract.semanticFingerprint ?? "",
-      effectConfirmationRequired: contract.status === "confirmation_required",
-      effectConfirmationLevel: null,
-      inspectionDisclosure: disclosure,
-    },
-  };
-}
-
-/**
- * Resolve the unique current pre-execution governed ExecutionContract for a
- * Project and return Product-ready contract + current inspection state.
- */
-export async function readCurrentGovernedExecutionContinuity(input: {
-  readonly oa: RuntimeOaStack;
-  readonly projectId: string;
-}): Promise<CurrentGovernedExecutionContinuityResult> {
-  const { oa, projectId } = input;
-  if (!projectId.startsWith("prj:")) {
-    return fail(
-      "CONTRACT_INVALID",
-      "Identifiant de projet invalide — continuation refusée.",
-    );
-  }
-
-  const listed =
-    await oa.executionContractServices.listExecutionContractHistory.execute({
-      projectId,
-    });
-  if (!listed.ok) {
-    return fail(
-      listed.error.detailCode,
-      listed.error.message ??
-        "Lecture de l'historique des contrats d'exécution impossible.",
-    );
-  }
-
-  const owned = listed.contracts.filter((c) => projectOwned(c, projectId));
-
-  // Detect unsupported executing-current contracts before pre-execution filter.
-  for (const contract of owned) {
-    if (contract.status !== "executing") continue;
-    if (!(await isCurrentInSupersessionLineage(oa, contract))) continue;
-    return fail(
-      "EXECUTION_CONTINUITY_UNSUPPORTED",
-      "Un contrat en cours d'exécution est courant — la continuité pré-exécution ne s'applique pas.",
-    );
-  }
-
-  const preExecution: ExecutionContract[] = [];
-  for (const contract of owned) {
-    if (TERMINAL_STATUSES.has(contract.status)) continue;
-    if (!PRE_EXECUTION_STATUSES.has(contract.status)) continue;
-    if (!(await isCurrentInSupersessionLineage(oa, contract))) continue;
-    preExecution.push(contract);
-  }
-
-  if (preExecution.length === 0) {
-    return { ok: true, kind: "none" };
-  }
-
-  if (preExecution.length > 1) {
-    return fail(
-      "EXECUTION_CONTINUITY_AMBIGUOUS",
-      "Plusieurs contrats d'exécution courants non terminés — continuation refusée.",
-    );
-  }
-
-  const candidate = preExecution[0]!;
-
-  const projectCycle = await readProjectActiveCycleContext(oa, projectId);
-  if (!projectCycle.ok) return projectCycle;
-
-  // Explicit EC cycle linkage is durable execution context — must match the
-  // Project's current active cycle. Missing active cycle is integrity failure
-  // (not "compatible null"). Cycle-unlinked ECs remain compatible.
-  if (candidate.cycleInstanceId) {
-    if (!projectCycle.activeCycleInstanceId) {
-      return fail(
-        "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
-        "Le contrat courant est lié à un cycle, mais le projet n'a pas de cycle actif — continuation refusée.",
-      );
-    }
-    if (candidate.cycleInstanceId !== projectCycle.activeCycleInstanceId) {
-      return fail(
-        "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
-        "Le contrat courant n'est pas cohérent avec le cycle actif du projet — continuation refusée.",
-      );
-    }
-  }
-
-  const lineage = await verifyDecisionLineage(oa, projectId, candidate);
-  if (!lineage.ok) return lineage;
-
-  const projected = toContinuityContractProjection(candidate);
-  if (!projected.ok) return projected;
-
-  const inspection = await readContractInspectionState({
-    oa,
-    executionContractId: candidate.executionContractId,
-  });
-  if (!inspection.ok) {
-    return fail(
-      inspection.code,
-      inspection.message,
-    );
-  }
-
-  const inspectionDto: ContractInspectionStateDto = {
-    executionContractId: inspection.executionContractId,
-    contractVersion: inspection.contractVersion,
-    semanticFingerprint: inspection.semanticFingerprint,
-    statusLabel: inspection.statusLabel,
-    inspectionSufficient: inspection.inspectionSufficient,
-    attestationRef: inspection.attestationRef,
-    attestedVersion: inspection.attestedVersion,
-    staleAttestationRef: inspection.staleAttestationRef,
-    reinspectionRequired: inspection.reinspectionRequired,
-    reason: inspection.reason,
-    grantsAuthority: false,
-  };
-
-  return {
-    ok: true,
-    kind: "active",
-    decisionRef: lineage.decisionRef,
-    contract: projected.contract,
-    inspection: inspectionDto,
-  };
-}
-
-```
-
----
-
-## COMPLETE REVIEWABLE SOURCE — micro production file 2
-### `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx`
+## COMPLETE REVIEWABLE SOURCE — TrajectorySurface.tsx
 
 ```tsx
 "use client";
@@ -540,7 +209,13 @@ export async function readCurrentGovernedExecutionContinuity(input: {
  * action over the product application path.
  */
 
-import { useCallback, useEffect, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { flushSync } from "react-dom";
 import { projectAssistantPrepareM3Action } from "@/features/project-assistant/actions";
 import {
@@ -862,6 +537,24 @@ export function TrajectorySurface({
   const [qualifiedOperationKind, setQualifiedOperationKind] =
     useState<QualifiedOperationKind | null>(null);
 
+  /**
+   * Continuity pass generation — invalidates in-flight subject/EC reads when a
+   * newer Decision Subject continuity pass begins (refresh or remount read).
+   */
+  const continuityPassRef = useRef(0);
+  const prevDurableRefreshSignalRef = useRef(durableRefreshSignal);
+
+  /**
+   * ONE fail-closed gate for the full W2 mutating seam (subject + execution).
+   * Derived early so callbacks and controls share the same oracle.
+   */
+  const continuityMutationBlocked =
+    subjectReadStatus === "pending" ||
+    subjectReadStatus === "error" ||
+    executionContinuityReadStatus === "pending" ||
+    executionContinuityReadStatus === "error" ||
+    executionContinuityConflict;
+
   const decidedOptionRef = decision?.selectedOptionRef ?? null;
   const decisionDefersExecution =
     decidedOptionRef === PROPOSAL_SUBJECT_AMEND_REF ||
@@ -891,6 +584,7 @@ export function TrajectorySurface({
   }
 
   const proposeOptions = useCallback(async () => {
+    if (continuityMutationBlocked) return;
     setBusy("options");
     setError(null);
     const recoverableSole =
@@ -925,6 +619,7 @@ export function TrajectorySurface({
     setPostEvidence(null);
     onDurableFactsChanged?.();
   }, [
+    continuityMutationBlocked,
     projectId,
     activeProposalId,
     pendingReinstruction,
@@ -933,8 +628,13 @@ export function TrajectorySurface({
 
   /** CORR-PROOF-10 — rehydrate bound Proposal OptionSet from durable Epistemic. */
   const rehydrateActiveDecisionSubject = useCallback(async () => {
+    const pass = ++continuityPassRef.current;
     setSubjectReadStatus("pending");
+    // Invalidate prior governed qualification immediately for this pass.
+    setExecutionContinuityReadStatus("pending");
+    setExecutionContinuityConflict(false);
     const result = await w2ReadActiveDecisionSubjectAction({ projectId });
+    if (pass !== continuityPassRef.current) return;
     if (!result.ok) {
       setError(result.message);
       setPendingReinstruction(null);
@@ -966,11 +666,13 @@ export function TrajectorySurface({
 
   /** Restart-safe governed EC + inspection continuity from durable truth. */
   const rehydrateGovernedExecutionContinuity = useCallback(async () => {
+    const pass = continuityPassRef.current;
     setExecutionContinuityReadStatus("pending");
     setExecutionContinuityConflict(false);
     const result = await w2ReadCurrentGovernedExecutionContinuityAction({
       projectId,
     });
+    if (pass !== continuityPassRef.current) return;
     if (!result.ok) {
       setError(result.message);
       setContract(null);
@@ -1191,9 +893,24 @@ export function TrajectorySurface({
     void rehydrateActiveDecisionSubject();
   }, [rehydrateActiveDecisionSubject, durableRefreshSignal]);
 
+  /**
+   * Immediate fail-closed on durable refresh: invalidate prior continuity
+   * authority before paint so a transient ready frame cannot authorize mutation.
+   * Subject rehydration (effect above) owns the latest pass completion.
+   */
+  useLayoutEffect(() => {
+    if (prevDurableRefreshSignalRef.current === durableRefreshSignal) return;
+    prevDurableRefreshSignalRef.current = durableRefreshSignal;
+    continuityPassRef.current += 1;
+    setSubjectReadStatus("pending");
+    setExecutionContinuityReadStatus("pending");
+    setExecutionContinuityConflict(false);
+  }, [durableRefreshSignal]);
+
   useEffect(() => {
-    // Governed EC discovery is actionable only after Decision Subject continuity
-    // is ready. Subject error must not accept a later EC continuation as truth.
+    // Governed EC discovery runs ONLY after Decision Subject continuity is ready.
+    // Do NOT relaunch merely because durableRefreshSignal changed — subject is
+    // the prerequisite (avoids stale-ready governed read windows on refresh).
     if (subjectReadStatus === "pending") return;
     if (subjectReadStatus === "error") {
       setContract(null);
@@ -1206,14 +923,11 @@ export function TrajectorySurface({
       return;
     }
     void rehydrateGovernedExecutionContinuity();
-  }, [
-    subjectReadStatus,
-    durableRefreshSignal,
-    rehydrateGovernedExecutionContinuity,
-  ]);
+  }, [subjectReadStatus, rehydrateGovernedExecutionContinuity]);
 
   const decide = useCallback(
     async (selectedOptionRef: string) => {
+      if (continuityMutationBlocked) return;
       if (!optionSet) return;
       setBusy("decision");
       setError(null);
@@ -1254,10 +968,16 @@ export function TrajectorySurface({
       setDecided(result.trajectory ?? null);
       onDurableFactsChanged?.();
     },
-    [optionSet, projectId, onDurableFactsChanged],
+    [
+      continuityMutationBlocked,
+      optionSet,
+      projectId,
+      onDurableFactsChanged,
+    ],
   );
 
   const prepareContract = useCallback(async () => {
+    if (continuityMutationBlocked) return;
     if (!decision || !qualifiedOperationKind) return;
     setBusy("contract");
     setError(null);
@@ -1303,7 +1023,13 @@ export function TrajectorySurface({
     setAttemptPhase(null);
     setAttemptStatusLabel(null);
     onDurableFactsChanged?.();
-  }, [decision, projectId, qualifiedOperationKind, onDurableFactsChanged]);
+  }, [
+    continuityMutationBlocked,
+    decision,
+    projectId,
+    qualifiedOperationKind,
+    onDurableFactsChanged,
+  ]);
 
   /**
    * JOURNEY-INTEGRITY / Lot A-B final — Proposal-backed PREPARE.
@@ -1314,6 +1040,7 @@ export function TrajectorySurface({
    * server resolves targetPath / operation / binding from durable lineage.
    */
   const prepareProposalBackedContract = useCallback(async () => {
+    if (continuityMutationBlocked) return;
     if (!decision?.proposalId || !decision.decisionBasisLinked) return;
     if (decisionDefersExecution) return;
     setBusy("contract");
@@ -1353,9 +1080,16 @@ export function TrajectorySurface({
     setAttemptPhase(null);
     setAttemptStatusLabel(null);
     onDurableFactsChanged?.();
-  }, [decision, decisionDefersExecution, projectId, onDurableFactsChanged]);
+  }, [
+    continuityMutationBlocked,
+    decision,
+    decisionDefersExecution,
+    projectId,
+    onDurableFactsChanged,
+  ]);
 
   const inspect = useCallback(async () => {
+    if (continuityMutationBlocked) return;
     if (!contract) return;
     setBusy("inspection");
     setError(null);
@@ -1377,9 +1111,10 @@ export function TrajectorySurface({
         statusLabel: "CONTRAT AMENDÉ — RÉINSPECTION DÉJÀ SATISFAITE",
       });
     }
-  }, [contract, projectId, amendmentNotice]);
+  }, [continuityMutationBlocked, contract, projectId, amendmentNotice]);
 
   const amendContract = useCallback(async () => {
+    if (continuityMutationBlocked) return;
     if (!contract || !inspection?.inspectionSufficient) return;
     const constraint = amendmentDraft.trim();
     if (!constraint) {
@@ -1430,6 +1165,7 @@ export function TrajectorySurface({
     });
     onDurableFactsChanged?.();
   }, [
+    continuityMutationBlocked,
     contract,
     inspection,
     amendmentDraft,
@@ -1438,6 +1174,7 @@ export function TrajectorySurface({
   ]);
 
   const confirmForAuthorization = useCallback(async () => {
+    if (continuityMutationBlocked) return;
     if (!contract) return;
     setBusy("confirmation");
     setError(null);
@@ -1452,9 +1189,10 @@ export function TrajectorySurface({
     }
     setContract({ ...contract, status: "confirmed" });
     setAuthorization(null);
-  }, [contract, projectId]);
+  }, [continuityMutationBlocked, contract, projectId]);
 
   const authorize = useCallback(async () => {
+    if (continuityMutationBlocked) return;
     if (!contract) return;
     setBusy("authorization");
     setError(null);
@@ -1474,9 +1212,10 @@ export function TrajectorySurface({
     const { ok: _ok, ...outcome } = result;
     setAuthorization(outcome);
     setInspection(outcome.inspection);
-  }, [contract, projectId]);
+  }, [continuityMutationBlocked, contract, projectId]);
 
   const governedExecute = useCallback(async () => {
+    if (continuityMutationBlocked) return;
     if (!contract || authorization?.outcome !== "AUTHORIZED") return;
     setBusy("execute");
     setError(null);
@@ -1596,7 +1335,13 @@ export function TrajectorySurface({
       setPostEvidence(materialized.postEvidence ?? null);
     });
     onDurableFactsChanged?.();
-  }, [contract, authorization, projectId, onDurableFactsChanged]);
+  }, [
+    continuityMutationBlocked,
+    contract,
+    authorization,
+    projectId,
+    onDurableFactsChanged,
+  ]);
 
   const stopRunningExecution = useCallback(async () => {
     if (!contract || !attempt?.attemptId || attemptPhase !== "running") return;
@@ -1683,15 +1428,10 @@ export function TrajectorySurface({
       // contract prepared / rehydrated: Inspect (then confirm / authorize) owns
       contract != null);
 
-  const continuityReadsUnresolved =
-    subjectReadStatus === "pending" ||
-    subjectReadStatus === "error" ||
-    executionContinuityReadStatus === "pending" ||
-    executionContinuityReadStatus === "error" ||
-    executionContinuityConflict;
+  const continuityReadsUnresolved = continuityMutationBlocked;
 
-  /** Fail-closed gate for Inspect / Amend / Confirm / Authorize / Execute. */
-  const governedContinuationBlocked = continuityReadsUnresolved;
+  /** Alias — same single fail-closed gate for EC and subject mutations. */
+  const governedContinuationBlocked = continuityMutationBlocked;
 
   useEffect(() => {
     if (!onProposalSubjectOwnershipChange) return;
@@ -1789,7 +1529,7 @@ export function TrajectorySurface({
                     }
                     void proposeOptions();
                   }}
-                  disabled={busy !== null}
+                  disabled={busy !== null || continuityMutationBlocked}
                 >
                   Instruire les options
                 </button>
@@ -2022,7 +1762,7 @@ export function TrajectorySurface({
           className={styles.primaryAction}
           data-testid="w2-propose-options"
           onClick={() => void proposeOptions()}
-          disabled={busy !== null}
+          disabled={busy !== null || continuityMutationBlocked}
         >
           Instruire les options
         </button>
@@ -2123,7 +1863,11 @@ export function TrajectorySurface({
                       className={styles.decideAction}
                       data-testid={`w2-decide-${option.optionRef}`}
                       onClick={() => void decide(option.optionRef)}
-                      disabled={busy !== null || decision !== null}
+                      disabled={
+                        busy !== null ||
+                        decision !== null ||
+                        continuityMutationBlocked
+                      }
                       aria-label={`Décider: ${option.label}`}
                     >
                       Décider cette option
@@ -2259,7 +2003,7 @@ export function TrajectorySurface({
               className={styles.primaryAction}
               data-testid="w2-prepare-contract"
               onClick={() => void prepareProposalBackedContract()}
-              disabled={busy !== null}
+              disabled={busy !== null || continuityMutationBlocked}
             >
               Préparer le contrat d&apos;exécution
             </button>
@@ -2299,8 +2043,9 @@ export function TrajectorySurface({
               className={styles.amendmentInput}
               data-testid="w3a-operation-kind"
               value={qualifiedOperationKind ?? ""}
-              disabled={busy !== null}
+              disabled={busy !== null || continuityMutationBlocked}
               onChange={(event) => {
+                if (continuityMutationBlocked) return;
                 const value = event.target.value;
                 if (
                   value === "generate-temporary-artifact" ||
@@ -2330,7 +2075,11 @@ export function TrajectorySurface({
               className={styles.primaryAction}
               data-testid="w2-prepare-contract-sandbox"
               onClick={() => void prepareContract()}
-              disabled={busy !== null || qualifiedOperationKind === null}
+              disabled={
+                busy !== null ||
+                continuityMutationBlocked ||
+                qualifiedOperationKind === null
+              }
               title={
                 qualifiedOperationKind === null
                   ? "Qualifier d'abord le travail d'exécution"
@@ -2949,7 +2698,7 @@ export function TrajectorySurface({
                   className={styles.secondaryAction}
                   data-testid="w3c-propose-trajectory"
                   onClick={() => void proposeOptions()}
-                  disabled={busy !== null}
+                  disabled={busy !== null || continuityMutationBlocked}
                 >
                   Proposer des options de trajectoire
                 </button>
@@ -3064,627 +2813,7 @@ export function TrajectorySurface({
 
 ---
 
-## COMPLETE REVIEWABLE SOURCE — micro test file 1
-### `projects/sfia-studio/app/__tests__/project-assistant/ecRehydrationContinuity.d0.test.ts`
-
-```typescript
-/**
- * Restart-safe governed ExecutionContract + inspection continuity (D0).
- * Deterministic — ZERO REAL / ZERO LIVE / ZERO dogfood mutation.
- * @vitest-environment node
- */
-import { describe, expect, it } from "vitest";
-import {
-  computeInspectionFingerprint,
-  type ExecutionContract,
-} from "@/lib/oa/execution-contract";
-import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
-import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
-import { readCurrentGovernedExecutionContinuity } from "@/features/project-assistant/w2/readCurrentGovernedExecutionContinuity";
-import {
-  baseBuildRequest,
-  buildStack,
-  MORRIS_ACTOR,
-  registerMorris,
-  seedProject,
-  type Stack,
-} from "../oa/execution-contract/helpers";
-
-const TARGET_PATH = "projects/sfia-studio/.sandbox/gestion-de-taches.md";
-const TARGET_REPO = "mcleland147/sfia-workspace";
-const TECH_TARGET = "workspace.isolated.docs_write";
-const DOCS_WRITE_ACTION = "cursor.docs_write.apply";
-const PROJECT_ID = "prj:campus360-oa";
-const DECISION_ID = "dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411";
-const EC_ID = "xct:m3:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411";
-const PROP_ID = "prop:f2:edba677a-123f-4f5e-baad-50533a65a3a0";
-
-const LEGACY_INSPECTED_FACTS = [
-  "action",
-  "target",
-  "scope",
-  "requiredAuthority",
-  "requiredCapabilities",
-  "constraints",
-  "stopConditions",
-  "reversibility",
-  "semanticFingerprint",
-] as const;
-
-function stubOa(
-  stack: Stack,
-  nowIso: string,
-  projectRead?:
-    | { ok: true; activeCycleInstanceId: string | null }
-    | { ok: false },
-) {
-  const base = {
-    executionContractServices: stack.execution,
-    decisionServices: stack.decisions,
-    authorityResolver: stack.decisions.authority,
-    clock: { nowIso: () => nowIso },
-    projectServices: stack.projects,
-    cycleServices: stack.cycles,
-    executionAttemptServices: {
-      registry: {
-        listAgents: () => [],
-        findCandidates: () => [],
-      },
-    },
-  } as unknown as Parameters<
-    typeof readCurrentGovernedExecutionContinuity
-  >[0]["oa"];
-
-  if (!projectRead) return base;
-
-  return {
-    ...base,
-    projectServices: {
-      ...stack.projects,
-      getProject: {
-        execute: async () => {
-          if (!projectRead.ok) {
-            return {
-              ok: false as const,
-              error: {
-                code: "PROJECT_NOT_FOUND" as const,
-                message: "Project unavailable",
-              },
-            };
-          }
-          return {
-            ok: true as const,
-            project: {
-              projectId: PROJECT_ID,
-              activeCycleInstanceId:
-                projectRead.activeCycleInstanceId ?? undefined,
-            },
-          };
-        },
-      },
-    },
-  } as unknown as typeof base;
-}
-
-async function seedDecisionWithBasis(
-  stack: Stack,
-  opts: {
-    decisionId?: string;
-    selectedOptionId?: string;
-    sourceRef?: string;
-  } = {},
-): Promise<string> {
-  const decisionId = opts.decisionId ?? DECISION_ID;
-  const selectedOptionId =
-    opts.selectedOptionId ?? "opt:proposal-subject:pursue";
-  const sourceRef = opts.sourceRef ?? PROP_ID;
-
-  try {
-    registerMorris(stack.decisions.authority, "docs_write borné — cycle actif");
-  } catch {
-    /* already registered */
-  }
-  try {
-    stack.decisions.authority.register({
-      evidenceId: `evd:morris-continuity-${decisionId.replace(/[^a-z0-9]/gi, "")}`,
-      actorId: "actor:morris",
-      level: "N3",
-      scope: `W2 Proposal subject arbitration for ${sourceRef}`,
-      issuedAt: "2026-07-01T00:00:00.000Z",
-      source: "registry",
-      canActAsMorris: true,
-    });
-  } catch {
-    /* already registered */
-  }
-
-  const recorded = await stack.decisions.recordHumanDecision.execute({
-    decisionId,
-    projectId: PROJECT_ID,
-    subject: `W2 Proposal subject arbitration for ${sourceRef}`,
-    options: [
-      {
-        optionId: "opt:proposal-subject:pursue",
-        label: "Poursuivre",
-        recommended: true,
-      },
-      { optionId: "opt:proposal-subject:amend", label: "Amender" },
-      { optionId: "opt:proposal-subject:refuse", label: "Refuser" },
-    ],
-    selectedOptionId,
-    actor: MORRIS_ACTOR,
-    authority: "morris",
-    reversible: true,
-    authorityEvidenceId: `evd:morris-continuity-${decisionId.replace(/[^a-z0-9]/gi, "")}`,
-    decisionBasis: {
-      sourceType: "proposal",
-      sourceRef,
-      sourceDigest:
-        "2035bb9b58e77d6a97c71760b730fd041f5710e3809669d0cb57f2d376356bde",
-      projectId: PROJECT_ID,
-      proposalContext: {
-        lpsId: "lps:3a8e02537e45d5b9",
-        lpsVersion: 17,
-      },
-      executionBasis: {
-        requestedOperation: DOCS_WRITE_ACTION,
-        targetPath: TARGET_PATH,
-        targetRepositoryRef: TARGET_REPO,
-      },
-    },
-  });
-  expect(recorded.ok).toBe(true);
-  return decisionId;
-}
-
-async function buildValidatedDocsWriteEc(
-  stack: Stack,
-  opts: {
-    executionContractId?: string;
-    decisionId?: string;
-    idempotencyKey?: string;
-  } = {},
-): Promise<ExecutionContract> {
-  const decisionId = opts.decisionId ?? DECISION_ID;
-  const executionContractId = opts.executionContractId ?? EC_ID;
-  const scope = "docs_write borné — cycle actif — aucune exécution automatique";
-  const authorityEvidenceId = `evd:morris-${executionContractId.replace(/[^a-z0-9]/gi, "")}`;
-  try {
-    stack.decisions.authority.register({
-      evidenceId: authorityEvidenceId,
-      actorId: "actor:morris",
-      level: "N3",
-      scope,
-      issuedAt: "2026-07-01T00:00:00.000Z",
-      source: "registry",
-      canActAsMorris: true,
-    });
-  } catch {
-    /* already registered */
-  }
-
-  const built = await stack.execution.buildExecutionContract.execute(
-    baseBuildRequest({
-      executionContractId,
-      projectId: PROJECT_ID,
-      decisionRefs: [decisionId],
-      action: DOCS_WRITE_ACTION,
-      target: TECH_TARGET,
-      scope,
-      inputs: {
-        objective: "Matérialiser le livrable requis du cycle actif",
-        targetPath: TARGET_PATH,
-        targetRepositoryRef: TARGET_REPO,
-        repositoryRef: TARGET_REPO,
-        repositoryIdentity: TARGET_REPO,
-        scopeIn: ["projects/sfia-studio/.sandbox"],
-        scopeOut: [],
-        createOrModify: true,
-        noDelete: true,
-        contentRequirements: ["fiche de cadrage"],
-        expectedOutputs: [TARGET_PATH],
-      },
-      expectedOutputs: [TARGET_PATH],
-      evidenceRequirements: ["evreq:git-working-tree"],
-      requiredCapabilities: ["cap:cursor.docs_write"],
-      requiredAuthority: "MORRIS",
-      constraints: ["PREPARE_ONLY", "NO_CURSOR_REAL"],
-      stopConditions: ["AUTHORITY_DENIED"],
-      reversibility: "reversible",
-      idempotencyKey: opts.idempotencyKey ?? `idem:${executionContractId}`,
-      authorityEvidenceId,
-      actor: MORRIS_ACTOR,
-    }),
-  );
-  expect(built.ok).toBe(true);
-  if (!built.ok) throw new Error("build failed");
-
-  const validated = await stack.execution.validateExecutionContract.execute({
-    executionContractId: built.contract.executionContractId,
-    actor: MORRIS_ACTOR,
-    authorityEvidenceId,
-  });
-  expect(validated.ok).toBe(true);
-  if (!validated.ok) throw new Error("validate failed");
-  return validated.contract;
-}
-
-function semanticSnapshot(stack: Stack) {
-  return {
-    decisions: stack.decisions.audit.events.length,
-    executionEvents: stack.execution.audit.events.length,
-  };
-}
-
-describe("EC rehydration continuity — readCurrentGovernedExecutionContinuity", () => {
-  it("campaign shape — active EC + legacy incomplete inspection; ZERO semantic writes", async () => {
-    const stack = buildStack();
-    await seedProject(stack.projects);
-    await seedDecisionWithBasis(stack);
-    const contract = await buildValidatedDocsWriteEc(stack);
-    expect(contract.status).toBe("confirmation_required");
-    expect(contract.version).toBeGreaterThanOrEqual(1);
-
-    const fingerprint = computeInspectionFingerprint(contract);
-    await stack.execution.inspectionAttestations.append({
-      schemaVersion: "0.1.0-oa",
-      attestationId: "insp:05042f3b6040838e",
-      executionContractId: contract.executionContractId,
-      contractVersion: contract.version,
-      inspectionFingerprint: fingerprint,
-      semanticFingerprint: contract.semanticFingerprint ?? fingerprint,
-      projectId: PROJECT_ID,
-      actor: LOCAL_PILOTE_ACTOR,
-      inspectedAt: "2026-09-16T02:03:03.581Z",
-      inspectedFacts: [...LEGACY_INSPECTED_FACTS],
-      grantsAuthority: false,
-      isConfirmation: false,
-    });
-
-    const beforeAttestations =
-      await stack.execution.inspectionAttestations.listByContract(
-        contract.executionContractId,
-      );
-    const beforeDecision = await stack.decisions.getHumanDecision.execute({
-      decisionId: DECISION_ID,
-    });
-    expect(beforeDecision.ok).toBe(true);
-    const beforeSnap = semanticSnapshot(stack);
-
-    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z");
-    const read = await readCurrentGovernedExecutionContinuity({
-      oa,
-      projectId: PROJECT_ID,
-    });
-
-    expect(read.ok).toBe(true);
-    if (!read.ok) return;
-    expect(read.kind).toBe("active");
-    if (read.kind !== "active") return;
-
-    expect(read.decisionRef).toBe(DECISION_ID);
-    expect(read.contract.executionContractId).toBe(EC_ID);
-    expect(read.contract.status).toBe("confirmation_required");
-    expect(read.contract.action).toBe(DOCS_WRITE_ACTION);
-    expect(read.contract.target).toBe(TECH_TARGET);
-    expect(read.contract.inspectionDisclosure.targetPath).toBe(TARGET_PATH);
-    expect(read.contract.inspectionDisclosure.targetRepositoryRef).toBe(
-      TARGET_REPO,
-    );
-    expect(read.contract.inspectionDisclosure).not.toHaveProperty("inputs");
-    expect(read.inspection.inspectionSufficient).toBe(false);
-    expect(read.inspection.reinspectionRequired).toBe(true);
-    expect(read.inspection.reason).toBe("inspected_facts_incomplete");
-    expect(read.inspection.statusLabel).toBe(
-      "RÉINSPECTION REQUISE — DÉTAILS INCOMPLETS",
-    );
-    expect(read.inspection.grantsAuthority).toBe(false);
-
-    const afterAttestations =
-      await stack.execution.inspectionAttestations.listByContract(
-        contract.executionContractId,
-      );
-    expect(afterAttestations.length).toBe(beforeAttestations.length);
-    const afterDecision = await stack.decisions.getHumanDecision.execute({
-      decisionId: DECISION_ID,
-    });
-    expect(afterDecision.ok).toBe(true);
-    if (beforeDecision.ok && afterDecision.ok) {
-      expect(afterDecision.decision.version).toBe(beforeDecision.decision.version);
-      expect(afterDecision.decision.status).toBe(beforeDecision.decision.status);
-    }
-    const listed = await stack.execution.listExecutionContractHistory.execute({
-      projectId: PROJECT_ID,
-    });
-    expect(listed.ok).toBe(true);
-    if (listed.ok) {
-      expect(listed.contracts).toHaveLength(1);
-      expect(listed.contracts[0]!.executionContractId).toBe(EC_ID);
-    }
-    // Audit bookkeeping may grow; decision/EC/attestation counts stay stable.
-    expect(afterAttestations.length).toBe(1);
-    void beforeSnap;
-  });
-
-  it("G1 — no EC → kind none", async () => {
-    const stack = buildStack();
-    await seedProject(stack.projects);
-    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z");
-    const read = await readCurrentGovernedExecutionContinuity({
-      oa,
-      projectId: PROJECT_ID,
-    });
-    expect(read).toEqual({ ok: true, kind: "none" });
-  });
-
-  it("G2 — only terminal historical ECs → none", async () => {
-    const stack = buildStack();
-    await seedProject(stack.projects);
-    await seedDecisionWithBasis(stack);
-    const contract = await buildValidatedDocsWriteEc(stack);
-    await stack.execution.contracts.save({
-      ...contract,
-      status: "completed",
-    });
-    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z");
-    const read = await readCurrentGovernedExecutionContinuity({
-      oa,
-      projectId: PROJECT_ID,
-    });
-    expect(read).toEqual({ ok: true, kind: "none" });
-  });
-
-  it("G3 — superseded prior + valid successor → successor only", async () => {
-    const stack = buildStack();
-    await seedProject(stack.projects);
-    await seedDecisionWithBasis(stack);
-    const prior = await buildValidatedDocsWriteEc(stack, {
-      executionContractId: "xct:prior",
-      idempotencyKey: "idem:prior",
-    });
-    const superseded = await stack.execution.supersedeExecutionContract.execute({
-      newExecutionContractId: "xct:successor",
-      supersedesExecutionContractId: prior.executionContractId,
-      supersessionReason: "Scope narrowed after review",
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: `evd:morris-${prior.executionContractId.replace(/[^a-z0-9]/gi, "")}`,
-      expectedVersion: prior.version,
-      idempotencyKey: "idem:successor",
-      constraints: [...prior.constraints, "EXTRA_CONSTRAINT"],
-    });
-    expect(superseded.ok).toBe(true);
-    if (!superseded.ok) return;
-
-    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z");
-    const read = await readCurrentGovernedExecutionContinuity({
-      oa,
-      projectId: PROJECT_ID,
-    });
-    expect(read.ok).toBe(true);
-    if (!read.ok || read.kind !== "active") return;
-    expect(read.contract.executionContractId).toBe("xct:successor");
-  });
-
-  it("G4 — two unresolved current candidates → AMBIGUOUS", async () => {
-    const stack = buildStack();
-    await seedProject(stack.projects);
-    await seedDecisionWithBasis(stack, { decisionId: "dec:w2-prop:continuity-a" });
-    await seedDecisionWithBasis(stack, {
-      decisionId: "dec:w2-prop:continuity-b",
-      sourceRef: "prop:f2:other",
-    });
-    await buildValidatedDocsWriteEc(stack, {
-      executionContractId: "xct:a",
-      decisionId: "dec:w2-prop:continuity-a",
-      idempotencyKey: "idem:continuity-a",
-    });
-    await buildValidatedDocsWriteEc(stack, {
-      executionContractId: "xct:b",
-      decisionId: "dec:w2-prop:continuity-b",
-      idempotencyKey: "idem:continuity-b",
-    });
-
-    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z");
-    const read = await readCurrentGovernedExecutionContinuity({
-      oa,
-      projectId: PROJECT_ID,
-    });
-    expect(read.ok).toBe(false);
-    if (read.ok) return;
-    expect(read.code).toBe("EXECUTION_CONTINUITY_AMBIGUOUS");
-  });
-
-  it("G5 — missing decisionRef → INTEGRITY_FAILED", async () => {
-    const stack = buildStack();
-    await seedProject(stack.projects);
-    await seedDecisionWithBasis(stack);
-    const contract = await buildValidatedDocsWriteEc(stack);
-    await stack.execution.contracts.save({
-      ...contract,
-      decisionRefs: [],
-    });
-    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z");
-    const read = await readCurrentGovernedExecutionContinuity({
-      oa,
-      projectId: PROJECT_ID,
-    });
-    expect(read.ok).toBe(false);
-    if (read.ok) return;
-    expect(read.code).toBe("EXECUTION_CONTINUITY_INTEGRITY_FAILED");
-  });
-
-  it("G6 — EC of another project never projected", async () => {
-    const stack = buildStack();
-    await seedProject(stack.projects);
-    await seedProject(stack.projects, "prj:other");
-    await seedDecisionWithBasis(stack);
-    await buildValidatedDocsWriteEc(stack);
-    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z");
-    const read = await readCurrentGovernedExecutionContinuity({
-      oa,
-      projectId: "prj:other",
-    });
-    expect(read).toEqual({ ok: true, kind: "none" });
-  });
-
-  it("G8 — fresh sufficient attestation remains sufficient; read does not record", async () => {
-    const stack = buildStack();
-    await seedProject(stack.projects);
-    await seedDecisionWithBasis(stack);
-    const contract = await buildValidatedDocsWriteEc(stack);
-    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z");
-    const inspected = await inspectExecutionContract({
-      oa,
-      projectId: PROJECT_ID,
-      executionContractId: contract.executionContractId,
-    });
-    expect(inspected.ok).toBe(true);
-    const before =
-      await stack.execution.inspectionAttestations.listByContract(
-        contract.executionContractId,
-      );
-
-    const read = await readCurrentGovernedExecutionContinuity({
-      oa,
-      projectId: PROJECT_ID,
-    });
-    expect(read.ok).toBe(true);
-    if (!read.ok || read.kind !== "active") return;
-    expect(read.inspection.inspectionSufficient).toBe(true);
-    expect(read.inspection.reason).toBe("inspected");
-
-    const after =
-      await stack.execution.inspectionAttestations.listByContract(
-        contract.executionContractId,
-      );
-    expect(after.length).toBe(before.length);
-  });
-
-  it("executing current contract → UNSUPPORTED fail-closed", async () => {
-    const stack = buildStack();
-    await seedProject(stack.projects);
-    await seedDecisionWithBasis(stack);
-    const contract = await buildValidatedDocsWriteEc(stack);
-    await stack.execution.contracts.save({
-      ...contract,
-      status: "executing",
-    });
-    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z");
-    const read = await readCurrentGovernedExecutionContinuity({
-      oa,
-      projectId: PROJECT_ID,
-    });
-    expect(read.ok).toBe(false);
-    if (read.ok) return;
-    expect(read.code).toBe("EXECUTION_CONTINUITY_UNSUPPORTED");
-  });
-
-  it("P1 — Project read fails → INTEGRITY_FAILED; no contract projection", async () => {
-    const stack = buildStack();
-    await seedProject(stack.projects);
-    await seedDecisionWithBasis(stack);
-    await buildValidatedDocsWriteEc(stack);
-    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z", { ok: false });
-    const read = await readCurrentGovernedExecutionContinuity({
-      oa,
-      projectId: PROJECT_ID,
-    });
-    expect(read.ok).toBe(false);
-    if (read.ok) return;
-    expect(read.code).toBe("EXECUTION_CONTINUITY_INTEGRITY_FAILED");
-  });
-
-  it("P2 — explicit EC cycle + Project activeCycle null → INTEGRITY_FAILED", async () => {
-    const stack = buildStack();
-    await seedProject(stack.projects);
-    await seedDecisionWithBasis(stack);
-    const contract = await buildValidatedDocsWriteEc(stack);
-    await stack.execution.contracts.save({
-      ...contract,
-      cycleInstanceId: "cyc:A",
-    });
-    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z", {
-      ok: true,
-      activeCycleInstanceId: null,
-    });
-    const read = await readCurrentGovernedExecutionContinuity({
-      oa,
-      projectId: PROJECT_ID,
-    });
-    expect(read.ok).toBe(false);
-    if (read.ok) return;
-    expect(read.code).toBe("EXECUTION_CONTINUITY_INTEGRITY_FAILED");
-  });
-
-  it("P3 — explicit EC cycle + mismatched active cycle → INTEGRITY_FAILED", async () => {
-    const stack = buildStack();
-    await seedProject(stack.projects);
-    await seedDecisionWithBasis(stack);
-    const contract = await buildValidatedDocsWriteEc(stack);
-    await stack.execution.contracts.save({
-      ...contract,
-      cycleInstanceId: "cyc:A",
-    });
-    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z", {
-      ok: true,
-      activeCycleInstanceId: "cyc:B",
-    });
-    const read = await readCurrentGovernedExecutionContinuity({
-      oa,
-      projectId: PROJECT_ID,
-    });
-    expect(read.ok).toBe(false);
-    if (read.ok) return;
-    expect(read.code).toBe("EXECUTION_CONTINUITY_INTEGRITY_FAILED");
-  });
-
-  it("P4 — explicit EC cycle + matching active cycle → active continuity", async () => {
-    const stack = buildStack();
-    await seedProject(stack.projects);
-    await seedDecisionWithBasis(stack);
-    const contract = await buildValidatedDocsWriteEc(stack);
-    await stack.execution.contracts.save({
-      ...contract,
-      cycleInstanceId: "cyc:A",
-    });
-    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z", {
-      ok: true,
-      activeCycleInstanceId: "cyc:A",
-    });
-    const read = await readCurrentGovernedExecutionContinuity({
-      oa,
-      projectId: PROJECT_ID,
-    });
-    expect(read.ok).toBe(true);
-    if (!read.ok || read.kind !== "active") return;
-    expect(read.contract.executionContractId).toBe(EC_ID);
-  });
-
-  it("P5 — EC without cycleInstanceId + Project active null remains compatible", async () => {
-    const stack = buildStack();
-    await seedProject(stack.projects);
-    await seedDecisionWithBasis(stack);
-    await buildValidatedDocsWriteEc(stack);
-    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z", {
-      ok: true,
-      activeCycleInstanceId: null,
-    });
-    const read = await readCurrentGovernedExecutionContinuity({
-      oa,
-      projectId: PROJECT_ID,
-    });
-    expect(read.ok).toBe(true);
-    if (!read.ok || read.kind !== "active") return;
-    expect(read.contract.executionContractId).toBe(EC_ID);
-  });
-});
-
-```
-
----
-
-## COMPLETE REVIEWABLE SOURCE — micro test file 2
-### `projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx`
+## COMPLETE REVIEWABLE SOURCE — trajectorySurface.ui.test.tsx
 
 ```tsx
 /** @vitest-environment jsdom */
@@ -5503,7 +4632,323 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     expect(authorizeMock).not.toHaveBeenCalled();
     expect(await screen.findByTestId("w2-propose-options")).toBeVisible();
   });
+
+  it("final fail-closed — stale OptionSet + subject ERROR blocks Decision mutation", async () => {
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "bound_awaiting_decision",
+      optionSet: boundProposalOptionSet("prop:f2:stale-opt"),
+    });
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+
+    const { rerender } = render(
+      <TrajectorySurface
+        projectId="prj:stale-optionset-subject-error"
+        durableRefreshSignal={0}
+      />,
+    );
+
+    const decideBtn = await screen.findByTestId(
+      `w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`,
+    );
+    await waitFor(() => {
+      expect(
+        screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`),
+      ).toBeEnabled();
+    });
+    expect(decideBtn).toBeInTheDocument();
+
+    const continuityCallsBeforeRefresh =
+      readGovernedExecutionContinuityMock.mock.calls.length;
+
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: false,
+      code: "SUBJECT_READ_FAILED",
+      message: "Lecture du sujet de décision impossible.",
+    });
+
+    rerender(
+      <TrajectorySurface
+        projectId="prj:stale-optionset-subject-error"
+        durableRefreshSignal={1}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-error")).toBeVisible();
+    expect(screen.getByTestId("w2-error").textContent).toMatch(
+      /sujet de décision impossible/,
+    );
+    // Stale OptionSet may remain visible informationally.
+    expect(screen.getByTestId("w2-options")).toBeVisible();
+    expect(
+      screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`),
+    ).toBeDisabled();
+    fireEvent.click(
+      screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`),
+    );
+    expect(decideMock).not.toHaveBeenCalled();
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+    expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-inspect-contract")).toBeNull();
+    expect(screen.queryByTestId("w3a-governed-execute")).toBeNull();
+    // No additional governed continuity read while subject errored.
+    expect(readGovernedExecutionContinuityMock.mock.calls.length).toBe(
+      continuityCallsBeforeRefresh,
+    );
+  });
+
+  it("final fail-closed — stale Decision + subject ERROR blocks Proposal PREPARE", async () => {
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "bound_awaiting_decision",
+      optionSet: boundProposalOptionSet("prop:f2:stale-dec"),
+    });
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+    decideMock.mockResolvedValue({
+      ok: true,
+      decision: {
+        decisionId: "dec:w2-prop:stale-prepare",
+        selectedOptionRef: PROPOSAL_SUBJECT_PURSUE_REF,
+        actorRole: "Pilote",
+        authorityClass: "morris",
+        statusLabel: "DÉCISION HUMAINE PRISE",
+        capturedAt: "2026-09-16T12:00:00.000Z",
+        decisionBasisLinked: true,
+        reservesText: null,
+        proposalId: "prop:f2:stale-dec",
+      },
+      trajectory: null,
+      livingProjectStateVersion: 4,
+      executionPerformed: false,
+      promotesProjectTrajectory: false,
+      decisionSubjectMode: "proposal",
+    });
+
+    const { rerender } = render(
+      <TrajectorySurface
+        projectId="prj:stale-decision-prepare-block"
+        durableRefreshSignal={0}
+      />,
+    );
+
+    fireEvent.click(
+      await screen.findByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`),
+    );
+    expect(await screen.findByTestId("w2-proposal-backed-prepare")).toBeVisible();
+    expect(screen.getByTestId("w2-prepare-contract")).toBeEnabled();
+
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: false,
+      code: "SUBJECT_READ_FAILED",
+      message: "Lecture du sujet de décision impossible.",
+    });
+
+    rerender(
+      <TrajectorySurface
+        projectId="prj:stale-decision-prepare-block"
+        durableRefreshSignal={1}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-error")).toBeVisible();
+    expect(screen.getByTestId("w2-prepare-contract")).toBeDisabled();
+    fireEvent.click(screen.getByTestId("w2-prepare-contract"));
+    expect(prepareM3Mock).not.toHaveBeenCalled();
+    expect(screen.queryByTestId("w2-prepare-contract-sandbox")).toBeNull();
+    expect(screen.queryByTestId("w2-inspect-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-confirm-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-authorize-contract")).toBeNull();
+    expect(screen.queryByTestId("w3a-governed-execute")).toBeNull();
+  });
+
+  it("final fail-closed — bound subject + EC continuity pending blocks Decision", async () => {
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "bound_awaiting_decision",
+      optionSet: boundProposalOptionSet("prop:f2:ec-pending"),
+    });
+    let resolveContinuity: (value: unknown) => void = () => {};
+    readGovernedExecutionContinuityMock.mockReturnValue(
+      new Promise((resolve) => {
+        resolveContinuity = resolve;
+      }),
+    );
+
+    render(<TrajectorySurface projectId="prj:bound-ec-pending" />);
+
+    const decideBtn = await screen.findByTestId(
+      `w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`,
+    );
+    expect(decideBtn).toBeDisabled();
+    fireEvent.click(decideBtn);
+    expect(decideMock).not.toHaveBeenCalled();
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+    expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-inspect-contract")).toBeNull();
+
+    resolveContinuity({ ok: true, kind: "none" });
+
+    await waitFor(() => {
+      expect(
+        screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`),
+      ).toBeEnabled();
+    });
+  });
+
+  it("final fail-closed — stale governed ACTIVE result ignored after newer subject ERROR", async () => {
+    let resolveStaleContinuity: (value: unknown) => void = () => {};
+    readGovernedExecutionContinuityMock.mockReturnValueOnce(
+      new Promise((resolve) => {
+        resolveStaleContinuity = resolve;
+      }),
+    );
+
+    const { rerender } = render(
+      <TrajectorySurface
+        projectId="prj:stale-ec-after-subject-error"
+        durableRefreshSignal={0}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(readGovernedExecutionContinuityMock).toHaveBeenCalledTimes(1);
+    });
+    const continuityCallsAfterFirst = readGovernedExecutionContinuityMock.mock
+      .calls.length;
+
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: false,
+      code: "SUBJECT_READ_FAILED",
+      message: "Lecture du sujet de décision impossible.",
+    });
+
+    rerender(
+      <TrajectorySurface
+        projectId="prj:stale-ec-after-subject-error"
+        durableRefreshSignal={1}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-error")).toBeVisible();
+    expect(screen.getByTestId("w2-error").textContent).toMatch(
+      /sujet de décision impossible/,
+    );
+    // Refresh must NOT start another governed read before subject is ready.
+    expect(readGovernedExecutionContinuityMock.mock.calls.length).toBe(
+      continuityCallsAfterFirst,
+    );
+
+    resolveStaleContinuity(campaignActiveContinuityResult());
+
+    await waitFor(() => {
+      expect(screen.queryByTestId("w2-contract")).toBeNull();
+    });
+    expect(screen.getByTestId("w2-error").textContent).toMatch(
+      /sujet de décision impossible/,
+    );
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+    expect(screen.queryByTestId("w2-inspect-contract")).toBeNull();
+    expect(decideMock).not.toHaveBeenCalled();
+    expect(prepareM3Mock).not.toHaveBeenCalled();
+    expect(inspectMock).not.toHaveBeenCalled();
+    expect(authorizeMock).not.toHaveBeenCalled();
+  });
+
+  it("final fail-closed — later READY pass recovers durable EC after subject ERROR", async () => {
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: false,
+      code: "SUBJECT_READ_FAILED",
+      message: "Lecture du sujet de décision impossible.",
+    });
+
+    const { rerender } = render(
+      <TrajectorySurface
+        projectId="prj:recover-after-subject-error"
+        durableRefreshSignal={0}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-error")).toBeVisible();
+    expect(readGovernedExecutionContinuityMock).not.toHaveBeenCalled();
+
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+    readGovernedExecutionContinuityMock.mockResolvedValue(
+      campaignActiveContinuityResult(),
+    );
+
+    rerender(
+      <TrajectorySurface
+        projectId="prj:recover-after-subject-error"
+        durableRefreshSignal={1}
+      />,
+    );
+
+    expect(await screen.findByTestId("w2-contract")).toBeVisible();
+    expect(screen.getByTestId("w2-contract-exact-target").textContent).toBe(
+      "projects/sfia-studio/.sandbox/gestion-de-taches.md",
+    );
+    expect(screen.getByTestId("w2-contract-repository").textContent).toBe(
+      "mcleland147/sfia-workspace",
+    );
+    expect(screen.getByTestId("w2-inspection-state").textContent).toMatch(
+      /RÉINSPECTION REQUISE — DÉTAILS INCOMPLETS/,
+    );
+    expect(screen.getByTestId("w2-inspect-contract")).toBeEnabled();
+    expect(screen.getByTestId("w2-confirm-contract")).toBeDisabled();
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+    expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
+    expect(screen.queryByTestId("w3a-governed-execute")).toBeNull();
+  });
 });
+
+function boundProposalOptionSet(proposalId: string) {
+  return {
+    optionSetRef: `optset:${proposalId}`,
+    cycleTypeId: "cyc:delivery",
+    recommendedProfile: "Critical",
+    decisionSubjectMode: "proposal" as const,
+    proposalId,
+    promotesProjectTrajectory: false,
+    options: [
+      {
+        kind: "OPTION" as const,
+        optionRef: PROPOSAL_SUBJECT_PURSUE_REF,
+        label: "Poursuivre le sujet proposé",
+        intent: "Continuer",
+        impacts: ["HumanDecision"],
+        recommended: true,
+      },
+      {
+        kind: "OPTION" as const,
+        optionRef: PROPOSAL_SUBJECT_REFUSE_REF,
+        label: "Ne pas poursuivre / refuser",
+        intent: "Refuser",
+        impacts: [],
+        recommended: false,
+      },
+    ],
+    recommendation: {
+      kind: "RECOMMENDATION" as const,
+      recommendedOptionRef: PROPOSAL_SUBJECT_PURSUE_REF,
+      rationale: "Continuer.",
+    },
+    epistemicRefs: [],
+    proposedTrajectory: null,
+    phase: "OPTIONS_PROPOSED",
+    autoDecisionPerformed: false,
+    executionPerformed: false,
+    ckcCognitionCompletedBeforeMutation: true,
+  };
+}
 
 function campaignActiveContinuityResult() {
   return {
@@ -5574,1782 +5019,5 @@ function campaignActiveContinuityResult() {
     },
   };
 }
-
-```
-
----
-
-## FULL candidate unified diff vs origin/main (all 9 paths, including new files)
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/preCycleTrajectoryCta.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/preCycleTrajectoryCta.ui.test.tsx
-index 596106c0..d6eebb67 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/preCycleTrajectoryCta.ui.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/preCycleTrajectoryCta.ui.test.tsx
-@@ -38,6 +38,10 @@ vi.mock("@/features/project-assistant/w2/actions", () => ({
-   w2RehydrateProductOutcomeAction: vi.fn(),
-   w2ReadActiveDecisionSubjectAction: (...args: unknown[]) =>
-     readActiveDecisionSubjectMock(...args),
-+  w2ReadCurrentGovernedExecutionContinuityAction: vi.fn().mockResolvedValue({
-+    ok: true,
-+    kind: "none",
-+  }),
-   w2ReadProjectHistoryAction: vi.fn().mockResolvedValue({
-     ok: false,
-     code: "UNUSED",
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx
-index 3ccc476c..49d22f19 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx
-@@ -71,6 +71,10 @@ vi.mock("@/features/project-assistant/w2/actions", () => ({
-   w2GovernedExecuteCompleteAction: vi.fn(),
-   w2ReadActiveDecisionSubjectAction: (...args: unknown[]) =>
-     readActiveDecisionSubjectMock(...args),
-+  w2ReadCurrentGovernedExecutionContinuityAction: vi.fn().mockResolvedValue({
-+    ok: true,
-+    kind: "none",
-+  }),
-   w2ReadProjectHistoryAction: vi.fn().mockResolvedValue({
-     ok: false,
-     code: "UNUSED",
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
-index 9f3673ff..f8bb2d15 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
-@@ -19,6 +19,7 @@ const {
-   executeStartMock,
-   executeCompleteMock,
-   readActiveDecisionSubjectMock,
-+  readGovernedExecutionContinuityMock,
-   readPreCycleMock,
-   readApprovalMock,
-   prepareCycleMock,
-@@ -36,6 +37,7 @@ const {
-   executeStartMock: vi.fn(),
-   executeCompleteMock: vi.fn(),
-   readActiveDecisionSubjectMock: vi.fn(),
-+  readGovernedExecutionContinuityMock: vi.fn(),
-   readPreCycleMock: vi.fn(),
-   readApprovalMock: vi.fn(),
-   prepareCycleMock: vi.fn(),
-@@ -71,6 +73,8 @@ vi.mock("@/features/project-assistant/w2/actions", () => ({
-     executeCompleteMock(...args),
-   w2ReadActiveDecisionSubjectAction: (...args: unknown[]) =>
-     readActiveDecisionSubjectMock(...args),
-+  w2ReadCurrentGovernedExecutionContinuityAction: (...args: unknown[]) =>
-+    readGovernedExecutionContinuityMock(...args),
-   w2ReadProjectHistoryAction: vi.fn().mockResolvedValue({
-     ok: false,
-     code: "UNUSED",
-@@ -110,6 +114,7 @@ beforeEach(() => {
-   executeStartMock.mockReset();
-   executeCompleteMock.mockReset();
-   readActiveDecisionSubjectMock.mockReset();
-+  readGovernedExecutionContinuityMock.mockReset();
-   readPreCycleMock.mockReset();
-   readApprovalMock.mockReset();
-   prepareCycleMock.mockReset();
-@@ -119,6 +124,10 @@ beforeEach(() => {
-     ok: true,
-     kind: "none",
-   });
-+  readGovernedExecutionContinuityMock.mockResolvedValue({
-+    ok: true,
-+    kind: "none",
-+  });
-   readPreCycleMock.mockResolvedValue({
-     ok: true,
-     candidate: null,
-@@ -1455,4 +1464,424 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", ()
-     expect(prepareM3Mock).not.toHaveBeenCalled();
-     expect(prepareContractMock).not.toHaveBeenCalled();
-   });
-+
-+  it("EC rehydration — fresh mount projects durable EC + incomplete inspection; hides instruct", async () => {
-+    readGovernedExecutionContinuityMock.mockResolvedValue({
-+      ok: true,
-+      kind: "active",
-+      decisionRef: "dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411",
-+      contract: {
-+        executionContractId: "xct:m3:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411",
-+        version: 2,
-+        status: "confirmation_required",
-+        action: "cursor.docs_write.apply",
-+        target: "workspace.isolated.docs_write",
-+        scope: "docs_write borné — cycle actif — aucune exécution automatique",
-+        requiredAuthority: "MORRIS",
-+        constraints: ["PREPARE_ONLY"],
-+        stopConditions: ["AUTHORITY_DENIED"],
-+        requiredCapabilities: ["cap:cursor.docs_write"],
-+        reversibility: "reversible",
-+        semanticFingerprint: "fp-campaign",
-+        effectConfirmationRequired: true,
-+        effectConfirmationLevel: null,
-+        inspectionDisclosure: {
-+          action: "cursor.docs_write.apply",
-+          technicalTarget: "workspace.isolated.docs_write",
-+          scope: "docs_write borné — cycle actif — aucune exécution automatique",
-+          targetRepositoryRef: "mcleland147/sfia-workspace",
-+          targetPath: "projects/sfia-studio/.sandbox/gestion-de-taches.md",
-+          scopeIn: ["projects/sfia-studio/.sandbox"],
-+          scopeOut: [],
-+          createOrModify: true,
-+          noDelete: true,
-+          objective: null,
-+          artifactType: null,
-+          artifactBrief: null,
-+          contentRequirements: null,
-+          validationExpectations: null,
-+          expectedOutputs: ["projects/sfia-studio/.sandbox/gestion-de-taches.md"],
-+          evidenceRequirements: [],
-+          requiredAuthority: "MORRIS",
-+          requiredCapabilities: ["cap:cursor.docs_write"],
-+          constraints: ["PREPARE_ONLY"],
-+          stopConditions: ["AUTHORITY_DENIED"],
-+          reversibility: "reversible",
-+          contractVersion: 2,
-+          executionContractId:
-+            "xct:m3:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411",
-+          semanticFingerprint: "fp-campaign",
-+          disclosureComplete: true,
-+          incompletenessCode: null,
-+        },
-+      },
-+      inspection: {
-+        executionContractId:
-+          "xct:m3:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411",
-+        contractVersion: 2,
-+        semanticFingerprint: "fp-campaign",
-+        statusLabel: "RÉINSPECTION REQUISE — DÉTAILS INCOMPLETS",
-+        inspectionSufficient: false,
-+        attestationRef: null,
-+        attestedVersion: 2,
-+        staleAttestationRef: "insp:05042f3b6040838e",
-+        reinspectionRequired: true,
-+        reason: "inspected_facts_incomplete",
-+        grantsAuthority: false,
-+      },
-+    });
-+
-+    render(<TrajectorySurface projectId="prj:ae9bd0de-e24d-474f-880d-ff5ea56dbaf6" />);
-+
-+    expect(await screen.findByTestId("w2-contract")).toBeVisible();
-+    expect(screen.getByTestId("w2-contract-action").textContent).toBe(
-+      "cursor.docs_write.apply",
-+    );
-+    expect(screen.getByTestId("w2-contract-target").textContent).toBe(
-+      "workspace.isolated.docs_write",
-+    );
-+    expect(screen.getByTestId("w2-contract-exact-target").textContent).toBe(
-+      "projects/sfia-studio/.sandbox/gestion-de-taches.md",
-+    );
-+    expect(screen.getByTestId("w2-contract-repository").textContent).toBe(
-+      "mcleland147/sfia-workspace",
-+    );
-+    expect(screen.getByTestId("w2-contract-status").textContent).toMatch(
-+      /Confirmation requise/i,
-+    );
-+    expect(screen.getByTestId("w2-inspection-state").textContent).toMatch(
-+      /RÉINSPECTION REQUISE — DÉTAILS INCOMPLETS/,
-+    );
-+    expect(screen.getByTestId("w2-inspect-contract")).toBeVisible();
-+    expect(screen.getByTestId("w2-confirm-contract")).toBeDisabled();
-+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
-+    expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
-+    expect(screen.queryByTestId("w2-proposal-backed-prepare")).toBeNull();
-+    expect(screen.queryByTestId("w2-governed-execute")).toBeNull();
-+    expect(inspectMock).not.toHaveBeenCalled();
-+  });
-+
-+  it("EC rehydration — pending continuity hides generic Instruire les options", async () => {
-+    let resolveContinuity: (value: unknown) => void = () => {};
-+    readGovernedExecutionContinuityMock.mockReturnValue(
-+      new Promise((resolve) => {
-+        resolveContinuity = resolve;
-+      }),
-+    );
-+
-+    render(<TrajectorySurface projectId="prj:pending-continuity" />);
-+    await waitFor(() => {
-+      expect(readActiveDecisionSubjectMock).toHaveBeenCalled();
-+    });
-+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
-+
-+    resolveContinuity({ ok: true, kind: "none" });
-+    expect(await screen.findByTestId("w2-propose-options")).toBeVisible();
-+  });
-+
-+  it("EC rehydration — continuity error/ambiguity hides instruct and shows fail-closed", async () => {
-+    readGovernedExecutionContinuityMock.mockResolvedValue({
-+      ok: false,
-+      code: "EXECUTION_CONTINUITY_AMBIGUOUS",
-+      message:
-+        "Plusieurs contrats d'exécution courants non terminés — continuation refusée.",
-+    });
-+
-+    render(<TrajectorySurface projectId="prj:ambiguous-continuity" />);
-+    expect(await screen.findByTestId("w2-error")).toBeVisible();
-+    expect(screen.getByTestId("w2-error").textContent).toMatch(/Plusieurs contrats/);
-+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
-+    expect(screen.queryByTestId("w2-contract")).toBeNull();
-+  });
-+
-+  it("EC rehydration — kind none + subject none still shows Instruire after both resolve", async () => {
-+    render(<TrajectorySurface projectId="prj:none-none" />);
-+    expect(await screen.findByTestId("w2-propose-options")).toBeVisible();
-+  });
-+
-+  it("EC rehydration — bound subject + active EC conflict fails closed", async () => {
-+    readActiveDecisionSubjectMock.mockResolvedValue({
-+      ok: true,
-+      kind: "bound_awaiting_decision",
-+      optionSet: {
-+        optionSetRef: "optset:conflict",
-+        cycleTypeId: "cyc:framing",
-+        recommendedProfile: "Light",
-+        decisionSubjectMode: "proposal",
-+        proposalId: "prop:f2:conflict",
-+        promotesProjectTrajectory: false,
-+        options: [
-+          {
-+            kind: "OPTION",
-+            optionRef: PROPOSAL_SUBJECT_PURSUE_REF,
-+            label: "Poursuivre",
-+            intent: "Poursuivre le sujet",
-+            impacts: ["HumanDecision"],
-+            recommended: true,
-+          },
-+        ],
-+        recommendation: {
-+          kind: "RECOMMENDATION",
-+          recommendedOptionRef: PROPOSAL_SUBJECT_PURSUE_REF,
-+          rationale: "test",
-+        },
-+        epistemicRefs: [],
-+        proposedTrajectory: null,
-+        phase: "OPTIONS_PROPOSED",
-+        autoDecisionPerformed: false,
-+        executionPerformed: false,
-+        ckcCognitionCompletedBeforeMutation: true,
-+      },
-+    });
-+    readGovernedExecutionContinuityMock.mockResolvedValue({
-+      ok: true,
-+      kind: "active",
-+      decisionRef: "dec:conflict",
-+      contract: {
-+        executionContractId: "xct:conflict",
-+        version: 1,
-+        status: "confirmation_required",
-+        action: "cursor.docs_write.apply",
-+        target: "workspace.isolated.docs_write",
-+        scope: "s",
-+        requiredAuthority: "MORRIS",
-+        constraints: [],
-+        stopConditions: [],
-+        requiredCapabilities: [],
-+        reversibility: "reversible",
-+        semanticFingerprint: "fp",
-+        inspectionDisclosure: {
-+          action: "cursor.docs_write.apply",
-+          technicalTarget: "workspace.isolated.docs_write",
-+          scope: "s",
-+          targetRepositoryRef: "mcleland147/sfia-workspace",
-+          targetPath: "projects/sfia-studio/.sandbox/gestion-de-taches.md",
-+          scopeIn: null,
-+          scopeOut: null,
-+          createOrModify: null,
-+          noDelete: null,
-+          objective: null,
-+          artifactType: null,
-+          artifactBrief: null,
-+          contentRequirements: null,
-+          validationExpectations: null,
-+          expectedOutputs: null,
-+          evidenceRequirements: [],
-+          requiredAuthority: "MORRIS",
-+          requiredCapabilities: [],
-+          constraints: [],
-+          stopConditions: [],
-+          reversibility: "reversible",
-+          contractVersion: 1,
-+          executionContractId: "xct:conflict",
-+          semanticFingerprint: "fp",
-+          disclosureComplete: true,
-+          incompletenessCode: null,
-+        },
-+      },
-+      inspection: {
-+        executionContractId: "xct:conflict",
-+        contractVersion: 1,
-+        semanticFingerprint: "fp",
-+        statusLabel: "NON INSPECTÉ",
-+        inspectionSufficient: false,
-+        attestationRef: null,
-+        attestedVersion: null,
-+        staleAttestationRef: null,
-+        reinspectionRequired: false,
-+        reason: "no_attestation",
-+        grantsAuthority: false,
-+      },
-+    });
-+
-+    render(<TrajectorySurface projectId="prj:conflict" />);
-+    expect(await screen.findByTestId("w2-error")).toBeVisible();
-+    expect(screen.getByTestId("w2-error").textContent).toMatch(/Contradiction/);
-+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
-+    expect(screen.queryByTestId("w2-inspect-contract")).toBeNull();
-+  });
-+
-+  it("EC rehydration micro — subject ERROR does not invoke governed continuity or expose EC actions", async () => {
-+    readActiveDecisionSubjectMock.mockResolvedValue({
-+      ok: false,
-+      code: "SUBJECT_READ_FAILED",
-+      message: "Lecture du sujet de décision impossible.",
-+    });
-+    readGovernedExecutionContinuityMock.mockResolvedValue(
-+      campaignActiveContinuityResult(),
-+    );
-+
-+    render(<TrajectorySurface projectId="prj:subject-error-blocks-ec" />);
-+
-+    expect(await screen.findByTestId("w2-error")).toBeVisible();
-+    expect(screen.getByTestId("w2-error").textContent).toMatch(
-+      /sujet de décision impossible/,
-+    );
-+    expect(readGovernedExecutionContinuityMock).not.toHaveBeenCalled();
-+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
-+    expect(screen.queryByTestId("w2-inspect-contract")).toBeNull();
-+    expect(screen.queryByTestId("w2-confirm-contract")).toBeNull();
-+    expect(screen.queryByTestId("w2-authorize-contract")).toBeNull();
-+    expect(screen.queryByTestId("w2-governed-execute")).toBeNull();
-+    expect(inspectMock).not.toHaveBeenCalled();
-+    expect(authorizeMock).not.toHaveBeenCalled();
-+  });
-+
-+  it("EC rehydration micro — refresh subject pending disables governed EC mutating actions", async () => {
-+    readGovernedExecutionContinuityMock.mockResolvedValue(
-+      campaignActiveContinuityResult(),
-+    );
-+
-+    const { rerender } = render(
-+      <TrajectorySurface
-+        projectId="prj:subject-pending-blocks-ec"
-+        durableRefreshSignal={0}
-+      />,
-+    );
-+
-+    expect(await screen.findByTestId("w2-inspect-contract")).toBeEnabled();
-+    expect(screen.getByTestId("w2-confirm-contract")).toBeDisabled();
-+    expect(screen.getByTestId("w2-authorize-contract")).toBeEnabled();
-+
-+    let resolveSubject: (value: unknown) => void = () => {};
-+    readActiveDecisionSubjectMock.mockReturnValue(
-+      new Promise((resolve) => {
-+        resolveSubject = resolve;
-+      }),
-+    );
-+
-+    rerender(
-+      <TrajectorySurface
-+        projectId="prj:subject-pending-blocks-ec"
-+        durableRefreshSignal={1}
-+      />,
-+    );
-+
-+    await waitFor(() => {
-+      expect(readActiveDecisionSubjectMock.mock.calls.length).toBeGreaterThan(1);
-+    });
-+
-+    expect(screen.getByTestId("w2-inspect-contract")).toBeDisabled();
-+    expect(screen.getByTestId("w2-confirm-contract")).toBeDisabled();
-+    expect(screen.getByTestId("w2-authorize-contract")).toBeDisabled();
-+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
-+    expect(screen.queryByTestId("w2-governed-execute")).toBeNull();
-+    fireEvent.click(screen.getByTestId("w2-inspect-contract"));
-+    fireEvent.click(screen.getByTestId("w2-authorize-contract"));
-+    expect(inspectMock).not.toHaveBeenCalled();
-+    expect(authorizeMock).not.toHaveBeenCalled();
-+
-+    resolveSubject({ ok: true, kind: "none" });
-+  });
-+
-+  it("EC rehydration micro — active then authoritative none clears stale EC card", async () => {
-+    readGovernedExecutionContinuityMock
-+      .mockResolvedValueOnce(campaignActiveContinuityResult())
-+      .mockResolvedValue({ ok: true, kind: "none" });
-+
-+    const { rerender } = render(
-+      <TrajectorySurface
-+        projectId="prj:active-then-none"
-+        durableRefreshSignal={0}
-+      />,
-+    );
-+
-+    expect(await screen.findByTestId("w2-contract")).toBeVisible();
-+    expect(screen.getByTestId("w2-contract-exact-target").textContent).toBe(
-+      "projects/sfia-studio/.sandbox/gestion-de-taches.md",
-+    );
-+    expect(screen.getByTestId("w2-inspection-state").textContent).toMatch(
-+      /RÉINSPECTION REQUISE — DÉTAILS INCOMPLETS/,
-+    );
-+
-+    rerender(
-+      <TrajectorySurface
-+        projectId="prj:active-then-none"
-+        durableRefreshSignal={1}
-+      />,
-+    );
-+
-+    await waitFor(() => {
-+      expect(screen.queryByTestId("w2-contract")).toBeNull();
-+    });
-+    expect(screen.queryByTestId("w2-contract-exact-target")).toBeNull();
-+    expect(screen.queryByTestId("w2-inspection-state")).toBeNull();
-+    expect(screen.queryByTestId("w2-inspect-contract")).toBeNull();
-+    expect(screen.queryByTestId("w2-confirm-contract")).toBeNull();
-+    expect(screen.queryByTestId("w2-authorize-contract")).toBeNull();
-+    expect(screen.queryByTestId("w2-governed-execute")).toBeNull();
-+    expect(inspectMock).not.toHaveBeenCalled();
-+    expect(authorizeMock).not.toHaveBeenCalled();
-+    expect(await screen.findByTestId("w2-propose-options")).toBeVisible();
-+  });
- });
-+
-+function campaignActiveContinuityResult() {
-+  return {
-+    ok: true as const,
-+    kind: "active" as const,
-+    decisionRef: "dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411",
-+    contract: {
-+      executionContractId:
-+        "xct:m3:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411",
-+      version: 2,
-+      status: "confirmation_required",
-+      action: "cursor.docs_write.apply",
-+      target: "workspace.isolated.docs_write",
-+      scope: "docs_write borné — cycle actif — aucune exécution automatique",
-+      requiredAuthority: "MORRIS",
-+      constraints: ["PREPARE_ONLY"],
-+      stopConditions: ["AUTHORITY_DENIED"],
-+      requiredCapabilities: ["cap:cursor.docs_write"],
-+      reversibility: "reversible",
-+      semanticFingerprint: "fp-campaign",
-+      effectConfirmationRequired: true,
-+      effectConfirmationLevel: null,
-+      inspectionDisclosure: {
-+        action: "cursor.docs_write.apply",
-+        technicalTarget: "workspace.isolated.docs_write",
-+        scope: "docs_write borné — cycle actif — aucune exécution automatique",
-+        targetRepositoryRef: "mcleland147/sfia-workspace",
-+        targetPath: "projects/sfia-studio/.sandbox/gestion-de-taches.md",
-+        scopeIn: ["projects/sfia-studio/.sandbox"],
-+        scopeOut: [],
-+        createOrModify: true,
-+        noDelete: true,
-+        objective: null,
-+        artifactType: null,
-+        artifactBrief: null,
-+        contentRequirements: null,
-+        validationExpectations: null,
-+        expectedOutputs: [
-+          "projects/sfia-studio/.sandbox/gestion-de-taches.md",
-+        ],
-+        evidenceRequirements: [],
-+        requiredAuthority: "MORRIS",
-+        requiredCapabilities: ["cap:cursor.docs_write"],
-+        constraints: ["PREPARE_ONLY"],
-+        stopConditions: ["AUTHORITY_DENIED"],
-+        reversibility: "reversible",
-+        contractVersion: 2,
-+        executionContractId:
-+          "xct:m3:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411",
-+        semanticFingerprint: "fp-campaign",
-+        disclosureComplete: true,
-+        incompletenessCode: null,
-+      },
-+    },
-+    inspection: {
-+      executionContractId:
-+        "xct:m3:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411",
-+      contractVersion: 2,
-+      semanticFingerprint: "fp-campaign",
-+      statusLabel: "RÉINSPECTION REQUISE — DÉTAILS INCOMPLETS",
-+      inspectionSufficient: false,
-+      attestationRef: null,
-+      attestedVersion: 2,
-+      staleAttestationRef: "insp:05042f3b6040838e",
-+      reinspectionRequired: true,
-+      reason: "inspected_facts_incomplete",
-+      grantsAuthority: false,
-+    },
-+  };
-+}
-diff --git a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts b/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-index 53237fac..63e6d71f 100644
---- a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-+++ b/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-@@ -110,6 +110,7 @@ describe("V2-A1 vertical-slice-runtime import boundaries", () => {
-       "features/project-assistant/w2/projectHistory.ts:@/lib/vertical-slice-runtime",
-       "features/project-assistant/w2/proposeTrajectoryOptions.ts:@/lib/vertical-slice-runtime",
-       "features/project-assistant/w2/qualificationInputs.ts:@/lib/vertical-slice-runtime",
-+      "features/project-assistant/w2/readCurrentGovernedExecutionContinuity.ts:@/lib/vertical-slice-runtime",
-       "features/project-assistant/w2/resolveProposalDecisionSubject.ts:@/lib/vertical-slice-runtime",
-       "features/pre-m6-product-ui/NewProjectIntentionPage.tsx:@/lib/vertical-slice-runtime/actions",
-       "features/pre-m6-product-ui/ProjectWorkspacePage.tsx:@/lib/vertical-slice-runtime/actions",
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-index 0641b7c0..7f503931 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-@@ -26,6 +26,7 @@ import {
-   w2PrepareExecutionContractAction,
-   w2ProposeTrajectoryOptionsAction,
-   w2ReadActiveDecisionSubjectAction,
-+  w2ReadCurrentGovernedExecutionContinuityAction,
-   w2RehydrateProductOutcomeAction,
- } from "@/features/project-assistant/w2/actions";
- import {
-@@ -247,6 +248,10 @@ export function TrajectorySurface({
-   const [subjectReadStatus, setSubjectReadStatus] = useState<
-     "pending" | "ready" | "error"
-   >("pending");
-+  const [executionContinuityReadStatus, setExecutionContinuityReadStatus] =
-+    useState<"pending" | "ready" | "error">("pending");
-+  const [executionContinuityConflict, setExecutionContinuityConflict] =
-+    useState(false);
-   const [pendingReinstruction, setPendingReinstruction] = useState<{
-     readonly message: string;
-     readonly proposalIds: readonly string[];
-@@ -428,6 +433,77 @@ export function TrajectorySurface({
-     // kind === "none" — leave local optionSet as-is for trajectory path
-   }, [projectId]);
-
-+  /** Restart-safe governed EC + inspection continuity from durable truth. */
-+  const rehydrateGovernedExecutionContinuity = useCallback(async () => {
-+    setExecutionContinuityReadStatus("pending");
-+    setExecutionContinuityConflict(false);
-+    const result = await w2ReadCurrentGovernedExecutionContinuityAction({
-+      projectId,
-+    });
-+    if (!result.ok) {
-+      setError(result.message);
-+      setContract(null);
-+      setInspection(null);
-+      setAuthorization(null);
-+      setAmendmentDraft("");
-+      setAmendmentNotice(null);
-+      setExecutionContinuityReadStatus("error");
-+      return;
-+    }
-+    if (result.kind === "none") {
-+      // Server durable truth wins — clear any stale client EC projection.
-+      setContract(null);
-+      setInspection(null);
-+      setAuthorization(null);
-+      setAmendmentDraft("");
-+      setAmendmentNotice(null);
-+      setExecutionContinuityReadStatus("ready");
-+      return;
-+    }
-+
-+    // Fail-closed contradiction: unresolved Proposal Decision Subject + current EC.
-+    const subjectCompetes =
-+      pendingReinstruction != null ||
-+      (optionSet != null && decision == null);
-+    if (subjectCompetes) {
-+      setExecutionContinuityConflict(true);
-+      setError(
-+        "Contradiction de continuité — un sujet de décision Proposal non résolu coexiste avec un contrat d'exécution courant. Aucune action générique n'est proposée.",
-+      );
-+      setContract(null);
-+      setInspection(null);
-+      setAuthorization(null);
-+      setAmendmentDraft("");
-+      setAmendmentNotice(null);
-+      setExecutionContinuityReadStatus("ready");
-+      return;
-+    }
-+
-+    setContract({
-+      executionContractId: result.contract.executionContractId,
-+      version: result.contract.version,
-+      status: result.contract.status,
-+      action: result.contract.action,
-+      target: result.contract.target,
-+      scope: result.contract.scope,
-+      requiredAuthority: result.contract.requiredAuthority,
-+      constraints: [...result.contract.constraints],
-+      stopConditions: [...result.contract.stopConditions],
-+      requiredCapabilities: [...result.contract.requiredCapabilities],
-+      reversibility: result.contract.reversibility,
-+      semanticFingerprint: result.contract.semanticFingerprint,
-+      effectConfirmationRequired: result.contract.effectConfirmationRequired,
-+      effectConfirmationLevel: result.contract.effectConfirmationLevel ?? null,
-+      inspectionDisclosure: toInspectionDisclosureView(
-+        result.contract.inspectionDisclosure,
-+      ),
-+    });
-+    setInspection(result.inspection);
-+    setAuthorization(null);
-+    setError(null);
-+    setExecutionContinuityReadStatus("ready");
-+  }, [projectId, pendingReinstruction, optionSet, decision]);
-+
-   const refreshPreCycleCandidate = useCallback(async () => {
-     const result = await projectAssistantReadPreCycleCandidateTrajectoryAction({
-       projectId,
-@@ -584,6 +660,27 @@ export function TrajectorySurface({
-     void rehydrateActiveDecisionSubject();
-   }, [rehydrateActiveDecisionSubject, durableRefreshSignal]);
-
-+  useEffect(() => {
-+    // Governed EC discovery is actionable only after Decision Subject continuity
-+    // is ready. Subject error must not accept a later EC continuation as truth.
-+    if (subjectReadStatus === "pending") return;
-+    if (subjectReadStatus === "error") {
-+      setContract(null);
-+      setInspection(null);
-+      setAuthorization(null);
-+      setAmendmentDraft("");
-+      setAmendmentNotice(null);
-+      setExecutionContinuityConflict(false);
-+      setExecutionContinuityReadStatus("error");
-+      return;
-+    }
-+    void rehydrateGovernedExecutionContinuity();
-+  }, [
-+    subjectReadStatus,
-+    durableRefreshSignal,
-+    rehydrateGovernedExecutionContinuity,
-+  ]);
-+
-   const decide = useCallback(
-     async (selectedOptionRef: string) => {
-       if (!optionSet) return;
-@@ -1038,22 +1135,36 @@ export function TrajectorySurface({
-    * While a Proposal decision subject still owns the next useful action, the
-    * generic ProjectTrajectory instruct CTA must not offer a competing subject.
-    * Informational blocks above remain visible; only the mutating CTA is strict.
-+   *
-+   * Continuity conflict (unresolved Proposal subject + current EC) owns nothing
-+   * mutably — fail closed until Pilot resolves via a qualified next GO.
-    */
-   const proposalSubjectOwnsNextAction =
-+    !executionContinuityConflict &&
-     // reformulate / instruct the pending subject
--    pendingReinstruction != null ||
--    // options presented, awaiting the HumanDecision
--    (optionSet != null && decision == null) ||
--    // amend / refuse: next move is with Nora, never a new generic instruction
--    (decision != null && decisionDefersExecution) ||
--    // pursue decided but no contract yet: PREPARE owns the next action
--    (decision != null && contract == null) ||
--    // contract prepared: Inspect (then confirm / authorize) owns the next action
--    contract != null;
-+    (pendingReinstruction != null ||
-+      // options presented, awaiting the HumanDecision
-+      (optionSet != null && decision == null) ||
-+      // amend / refuse: next move is with Nora, never a new generic instruction
-+      (decision != null && decisionDefersExecution) ||
-+      // pursue decided but no contract yet: PREPARE owns the next action
-+      (decision != null && contract == null) ||
-+      // contract prepared / rehydrated: Inspect (then confirm / authorize) owns
-+      contract != null);
-+
-+  const continuityReadsUnresolved =
-+    subjectReadStatus === "pending" ||
-+    subjectReadStatus === "error" ||
-+    executionContinuityReadStatus === "pending" ||
-+    executionContinuityReadStatus === "error" ||
-+    executionContinuityConflict;
-+
-+  /** Fail-closed gate for Inspect / Amend / Confirm / Authorize / Execute. */
-+  const governedContinuationBlocked = continuityReadsUnresolved;
-
-   useEffect(() => {
-     if (!onProposalSubjectOwnershipChange) return;
--    if (subjectReadStatus === "pending" || subjectReadStatus === "error") {
-+    if (continuityReadsUnresolved) {
-       onProposalSubjectOwnershipChange("UNKNOWN");
-       return;
-     }
-@@ -1063,7 +1174,7 @@ export function TrajectorySurface({
-   }, [
-     onProposalSubjectOwnershipChange,
-     proposalSubjectOwnsNextAction,
--    subjectReadStatus,
-+    continuityReadsUnresolved,
-   ]);
-
-   return (
-@@ -1369,8 +1480,11 @@ export function TrajectorySurface({
-         action (pending, options awaiting decision, decision taken, contract
-         prepared), the generic trajectory instruct CTA is hidden so two
-         decision subjects can never compete for the same primary action.
-+        Continuity reads must both resolve; pending/error/conflict stay fail-closed.
-       */}
--      {activeCycleInstanceId && !proposalSubjectOwnsNextAction ? (
-+      {activeCycleInstanceId &&
-+      !proposalSubjectOwnsNextAction &&
-+      !continuityReadsUnresolved ? (
-       <div className={styles.actions}>
-         <button
-           type="button"
-@@ -1937,7 +2051,7 @@ export function TrajectorySurface({
-                 type="text"
-                 value={amendmentDraft}
-                 onChange={(event) => setAmendmentDraft(event.target.value)}
--                disabled={busy !== null}
-+                disabled={busy !== null || governedContinuationBlocked}
-                 placeholder="Ex. : borner strictement le slice livré"
-               />
-               <button
-@@ -1945,7 +2059,11 @@ export function TrajectorySurface({
-                 className={styles.secondaryAction}
-                 data-testid="w2-amend-contract"
-                 onClick={() => void amendContract()}
--                disabled={busy !== null || amendmentDraft.trim().length === 0}
-+                disabled={
-+                  busy !== null ||
-+                  governedContinuationBlocked ||
-+                  amendmentDraft.trim().length === 0
-+                }
-               >
-                 Appliquer l&apos;amendement
-               </button>
-@@ -1958,7 +2076,7 @@ export function TrajectorySurface({
-               className={styles.primaryAction}
-               data-testid="w2-inspect-contract"
-               onClick={() => void inspect()}
--              disabled={busy !== null}
-+              disabled={busy !== null || governedContinuationBlocked}
-             >
-               Inspecter le contrat
-             </button>
-@@ -1970,6 +2088,7 @@ export function TrajectorySurface({
-                 onClick={() => void confirmForAuthorization()}
-                 disabled={
-                   busy !== null ||
-+                  governedContinuationBlocked ||
-                   inspection === null ||
-                   !inspection.inspectionSufficient
-                 }
-@@ -1987,7 +2106,7 @@ export function TrajectorySurface({
-               className={styles.secondaryAction}
-               data-testid="w2-authorize-contract"
-               onClick={() => void authorize()}
--              disabled={busy !== null}
-+              disabled={busy !== null || governedContinuationBlocked}
-             >
-               Statuer sur l&apos;autorisation
-             </button>
-@@ -2086,7 +2205,7 @@ export function TrajectorySurface({
-                   className={styles.primaryAction}
-                   data-testid="w3a-governed-execute"
-                   onClick={() => void governedExecute()}
--                  disabled={busy !== null}
-+                  disabled={busy !== null || governedContinuationBlocked}
-                 >
-                   Exécuter
-                 </button>
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/actions.ts b/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
-index f0af827a..e1d65d24 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
-@@ -36,6 +36,7 @@ import {
- import { inspectExecutionContract } from "./inspectExecutionContract";
- import { loadPresentedOptionSet } from "./presentedOptionSet";
- import { readActiveProposalDecisionSubject } from "./activeProposalDecisionSubject";
-+import { readCurrentGovernedExecutionContinuity } from "./readCurrentGovernedExecutionContinuity";
- import { prepareExecutionContractFromW2Decision } from "./prepareExecutionContractFromW2Decision";
- import { proposeTrajectoryOptions } from "./proposeTrajectoryOptions";
- import { readW2ProjectHistory } from "./projectHistory";
-@@ -44,6 +45,7 @@ import type {
-   ActiveDecisionSubjectReadResult,
-   AmendExecutionContractResult,
-   ConfirmForAuthorizationResult,
-+  CurrentGovernedExecutionContinuityResult,
-   DecideTrajectoryResult,
-   EvaluateExecutionAuthorizationResult,
-   GovernedExecuteAuthorizedContractResult,
-@@ -140,6 +142,23 @@ export async function w2ReadActiveDecisionSubjectAction(input: {
-   };
- }
-
-+/**
-+ * Restart-safe governed ExecutionContract + inspection continuity.
-+ * Client sends projectId only — server discovers durable continuation.
-+ * READ-ONLY: never records inspection or mutates Product semantic state.
-+ */
-+export async function w2ReadCurrentGovernedExecutionContinuityAction(input: {
-+  projectId: string;
-+}): Promise<CurrentGovernedExecutionContinuityResult> {
-+  const runtime = getRuntimeApplicationService();
-+  if (!runtime.oa) return OA_UNAVAILABLE;
-+
-+  return readCurrentGovernedExecutionContinuity({
-+    oa: runtime.oa,
-+    projectId: input.projectId,
-+  });
-+}
-+
- export async function w2DecideTrajectoryAction(input: {
-   projectId: string;
-   optionSetRef: string;
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/types.ts b/projects/sfia-studio/app/features/project-assistant/w2/types.ts
-index 05ef3e80..2b7b77b6 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/types.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/types.ts
-@@ -232,6 +232,39 @@ export type ActiveDecisionSubjectReadResult =
-     }
-   | W2Failure;
-
-+/**
-+ * Restart-safe governed ExecutionContract + inspection continuity read.
-+ * READ projection only — never records inspection or mutates Product truth.
-+ */
-+export type CurrentGovernedExecutionContinuityContractDto = {
-+  readonly executionContractId: string;
-+  readonly version: number;
-+  readonly status: string;
-+  readonly action: string;
-+  readonly target: string;
-+  readonly scope: string;
-+  readonly requiredAuthority: string;
-+  readonly constraints: readonly string[];
-+  readonly stopConditions: readonly string[];
-+  readonly requiredCapabilities: readonly string[];
-+  readonly reversibility: string;
-+  readonly semanticFingerprint: string;
-+  readonly effectConfirmationRequired?: boolean;
-+  readonly effectConfirmationLevel?: string | null;
-+  readonly inspectionDisclosure: import("@/lib/oa/execution-contract").ExecutionContractInspectionDisclosure;
-+};
-+
-+export type CurrentGovernedExecutionContinuityResult =
-+  | { readonly ok: true; readonly kind: "none" }
-+  | {
-+      readonly ok: true;
-+      readonly kind: "active";
-+      readonly decisionRef: string;
-+      readonly contract: CurrentGovernedExecutionContinuityContractDto;
-+      readonly inspection: ContractInspectionStateDto;
-+    }
-+  | W2Failure;
-+
- export type DecideTrajectoryResult =
-   | {
-       readonly ok: true;
-
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/readCurrentGovernedExecutionContinuity.ts b/projects/sfia-studio/app/features/project-assistant/w2/readCurrentGovernedExecutionContinuity.ts
-new file mode 100644
---- /dev/null
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/readCurrentGovernedExecutionContinuity.ts
-+/**
-+ * W2 — read-only current governed ExecutionContract continuity projection.
-+ *
-+ * Restart-safe Product continuation: resolve the unique current pre-execution
-+ * ExecutionContract for a Project from durable OA truth, verify decision
-+ * lineage, project allowlisted inspection disclosure, and evaluate current
-+ * inspection sufficiency WITHOUT recording a new attestation.
-+ *
-+ * NEVER writes EC / Inspection / Confirmation / Authority / Attempt / LPS /
-+ * Epistemic / trajectory state.
-+ */
-+
-+import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
-+import type { ExecutionContract } from "@/lib/oa/execution-contract";
-+import { projectExecutionContractInspectionDisclosure } from "@/lib/oa/execution-contract";
-+import { readContractInspectionState } from "./inspectExecutionContract";
-+import type {
-+  ContractInspectionStateDto,
-+  CurrentGovernedExecutionContinuityResult,
-+  W2Failure,
-+} from "./types";
-+
-+const PRE_EXECUTION_STATUSES = new Set<ExecutionContract["status"]>([
-+  "draft",
-+  "proposed",
-+  "validated",
-+  "confirmation_required",
-+  "confirmed",
-+]);
-+
-+const TERMINAL_STATUSES = new Set<ExecutionContract["status"]>([
-+  "completed",
-+  "failed",
-+  "cancelled",
-+  "superseded",
-+]);
-+
-+function fail(
-+  code: string,
-+  message: string,
-+): W2Failure {
-+  return { ok: false, code, message };
-+}
-+
-+function projectOwned(contract: ExecutionContract, projectId: string): boolean {
-+  return contract.projectId === projectId;
-+}
-+
-+async function isCurrentInSupersessionLineage(
-+  oa: RuntimeOaStack,
-+  contract: ExecutionContract,
-+): Promise<boolean> {
-+  if (contract.status === "superseded") return false;
-+  const successors =
-+    await oa.executionContractServices.contracts.listSuperseding(
-+      contract.executionContractId,
-+    );
-+  return successors.length === 0;
-+}
-+
-+/**
-+ * Typed Project/cycle context for continuity — Project read failure must NOT
-+ * collapse to "no active cycle".
-+ */
-+async function readProjectActiveCycleContext(
-+  oa: RuntimeOaStack,
-+  projectId: string,
-+): Promise<
-+  | { ok: true; activeCycleInstanceId: string | null }
-+  | W2Failure
-+> {
-+  const loaded = await oa.projectServices.getProject.execute({ projectId });
-+  if (!loaded.ok) {
-+    return fail(
-+      "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
-+      "Lecture du projet impossible — continuation gouvernée refusée.",
-+    );
-+  }
-+  return {
-+    ok: true,
-+    activeCycleInstanceId: loaded.project.activeCycleInstanceId ?? null,
-+  };
-+}
-+
-+async function verifyDecisionLineage(
-+  oa: RuntimeOaStack,
-+  projectId: string,
-+  contract: ExecutionContract,
-+): Promise<
-+  | { ok: true; decisionRef: string }
-+  | W2Failure
-+> {
-+  const refs = contract.decisionRefs ?? [];
-+  if (refs.length === 0) {
-+    return fail(
-+      "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
-+      "Contrat d'exécution sans décision rattachée — continuation refusée.",
-+    );
-+  }
-+
-+  let primaryRef: string | null = null;
-+  for (const decisionId of refs) {
-+    const got = await oa.decisionServices.getHumanDecision.execute({
-+      decisionId,
-+    });
-+    if (!got.ok) {
-+      return fail(
-+        "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
-+        "Décision rattachée au contrat introuvable — continuation refusée.",
-+      );
-+    }
-+    const decision = got.decision;
-+    if (decision.projectId !== projectId) {
-+      return fail(
-+        "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
-+        "Décision rattachée hors projet — continuation refusée.",
-+      );
-+    }
-+    if (decision.status !== "accepted") {
-+      return fail(
-+        "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
-+        "Décision rattachée non effective — continuation refusée.",
-+      );
-+    }
-+    if (!decision.decisionBasis) {
-+      return fail(
-+        "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
-+        "DecisionBasis absente sur la décision rattachée — continuation refusée.",
-+      );
-+    }
-+    if (primaryRef == null) primaryRef = decision.decisionId;
-+  }
-+
-+  return { ok: true, decisionRef: primaryRef! };
-+}
-+
-+function toContinuityContractProjection(contract: ExecutionContract): {
-+  ok: true;
-+  contract: Extract<
-+    CurrentGovernedExecutionContinuityResult,
-+    { ok: true; kind: "active" }
-+  >["contract"];
-+} | W2Failure {
-+  const disclosureResult =
-+    projectExecutionContractInspectionDisclosure(contract);
-+  // Incomplete disclosure is still projected honestly; inspection fails closed.
-+  const disclosure = disclosureResult.disclosure;
-+
-+  return {
-+    ok: true,
-+    contract: {
-+      executionContractId: contract.executionContractId,
-+      version: contract.version,
-+      status: contract.status,
-+      action: contract.action,
-+      target: contract.target,
-+      scope: contract.scope,
-+      requiredAuthority: contract.requiredAuthority,
-+      constraints: [...contract.constraints],
-+      stopConditions: [...contract.stopConditions],
-+      requiredCapabilities: [...contract.requiredCapabilities],
-+      reversibility: contract.reversibility,
-+      semanticFingerprint: contract.semanticFingerprint ?? "",
-+      effectConfirmationRequired: contract.status === "confirmation_required",
-+      effectConfirmationLevel: null,
-+      inspectionDisclosure: disclosure,
-+    },
-+  };
-+}
-+
-+/**
-+ * Resolve the unique current pre-execution governed ExecutionContract for a
-+ * Project and return Product-ready contract + current inspection state.
-+ */
-+export async function readCurrentGovernedExecutionContinuity(input: {
-+  readonly oa: RuntimeOaStack;
-+  readonly projectId: string;
-+}): Promise<CurrentGovernedExecutionContinuityResult> {
-+  const { oa, projectId } = input;
-+  if (!projectId.startsWith("prj:")) {
-+    return fail(
-+      "CONTRACT_INVALID",
-+      "Identifiant de projet invalide — continuation refusée.",
-+    );
-+  }
-+
-+  const listed =
-+    await oa.executionContractServices.listExecutionContractHistory.execute({
-+      projectId,
-+    });
-+  if (!listed.ok) {
-+    return fail(
-+      listed.error.detailCode,
-+      listed.error.message ??
-+        "Lecture de l'historique des contrats d'exécution impossible.",
-+    );
-+  }
-+
-+  const owned = listed.contracts.filter((c) => projectOwned(c, projectId));
-+
-+  // Detect unsupported executing-current contracts before pre-execution filter.
-+  for (const contract of owned) {
-+    if (contract.status !== "executing") continue;
-+    if (!(await isCurrentInSupersessionLineage(oa, contract))) continue;
-+    return fail(
-+      "EXECUTION_CONTINUITY_UNSUPPORTED",
-+      "Un contrat en cours d'exécution est courant — la continuité pré-exécution ne s'applique pas.",
-+    );
-+  }
-+
-+  const preExecution: ExecutionContract[] = [];
-+  for (const contract of owned) {
-+    if (TERMINAL_STATUSES.has(contract.status)) continue;
-+    if (!PRE_EXECUTION_STATUSES.has(contract.status)) continue;
-+    if (!(await isCurrentInSupersessionLineage(oa, contract))) continue;
-+    preExecution.push(contract);
-+  }
-+
-+  if (preExecution.length === 0) {
-+    return { ok: true, kind: "none" };
-+  }
-+
-+  if (preExecution.length > 1) {
-+    return fail(
-+      "EXECUTION_CONTINUITY_AMBIGUOUS",
-+      "Plusieurs contrats d'exécution courants non terminés — continuation refusée.",
-+    );
-+  }
-+
-+  const candidate = preExecution[0]!;
-+
-+  const projectCycle = await readProjectActiveCycleContext(oa, projectId);
-+  if (!projectCycle.ok) return projectCycle;
-+
-+  // Explicit EC cycle linkage is durable execution context — must match the
-+  // Project's current active cycle. Missing active cycle is integrity failure
-+  // (not "compatible null"). Cycle-unlinked ECs remain compatible.
-+  if (candidate.cycleInstanceId) {
-+    if (!projectCycle.activeCycleInstanceId) {
-+      return fail(
-+        "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
-+        "Le contrat courant est lié à un cycle, mais le projet n'a pas de cycle actif — continuation refusée.",
-+      );
-+    }
-+    if (candidate.cycleInstanceId !== projectCycle.activeCycleInstanceId) {
-+      return fail(
-+        "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
-+        "Le contrat courant n'est pas cohérent avec le cycle actif du projet — continuation refusée.",
-+      );
-+    }
-+  }
-+
-+  const lineage = await verifyDecisionLineage(oa, projectId, candidate);
-+  if (!lineage.ok) return lineage;
-+
-+  const projected = toContinuityContractProjection(candidate);
-+  if (!projected.ok) return projected;
-+
-+  const inspection = await readContractInspectionState({
-+    oa,
-+    executionContractId: candidate.executionContractId,
-+  });
-+  if (!inspection.ok) {
-+    return fail(
-+      inspection.code,
-+      inspection.message,
-+    );
-+  }
-+
-+  const inspectionDto: ContractInspectionStateDto = {
-+    executionContractId: inspection.executionContractId,
-+    contractVersion: inspection.contractVersion,
-+    semanticFingerprint: inspection.semanticFingerprint,
-+    statusLabel: inspection.statusLabel,
-+    inspectionSufficient: inspection.inspectionSufficient,
-+    attestationRef: inspection.attestationRef,
-+    attestedVersion: inspection.attestedVersion,
-+    staleAttestationRef: inspection.staleAttestationRef,
-+    reinspectionRequired: inspection.reinspectionRequired,
-+    reason: inspection.reason,
-+    grantsAuthority: false,
-+  };
-+
-+  return {
-+    ok: true,
-+    kind: "active",
-+    decisionRef: lineage.decisionRef,
-+    contract: projected.contract,
-+    inspection: inspectionDto,
-+  };
-+}
-
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/ecRehydrationContinuity.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/ecRehydrationContinuity.d0.test.ts
-new file mode 100644
---- /dev/null
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/ecRehydrationContinuity.d0.test.ts
-+/**
-+ * Restart-safe governed ExecutionContract + inspection continuity (D0).
-+ * Deterministic — ZERO REAL / ZERO LIVE / ZERO dogfood mutation.
-+ * @vitest-environment node
-+ */
-+import { describe, expect, it } from "vitest";
-+import {
-+  computeInspectionFingerprint,
-+  type ExecutionContract,
-+} from "@/lib/oa/execution-contract";
-+import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
-+import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
-+import { readCurrentGovernedExecutionContinuity } from "@/features/project-assistant/w2/readCurrentGovernedExecutionContinuity";
-+import {
-+  baseBuildRequest,
-+  buildStack,
-+  MORRIS_ACTOR,
-+  registerMorris,
-+  seedProject,
-+  type Stack,
-+} from "../oa/execution-contract/helpers";
-+
-+const TARGET_PATH = "projects/sfia-studio/.sandbox/gestion-de-taches.md";
-+const TARGET_REPO = "mcleland147/sfia-workspace";
-+const TECH_TARGET = "workspace.isolated.docs_write";
-+const DOCS_WRITE_ACTION = "cursor.docs_write.apply";
-+const PROJECT_ID = "prj:campus360-oa";
-+const DECISION_ID = "dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411";
-+const EC_ID = "xct:m3:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411";
-+const PROP_ID = "prop:f2:edba677a-123f-4f5e-baad-50533a65a3a0";
-+
-+const LEGACY_INSPECTED_FACTS = [
-+  "action",
-+  "target",
-+  "scope",
-+  "requiredAuthority",
-+  "requiredCapabilities",
-+  "constraints",
-+  "stopConditions",
-+  "reversibility",
-+  "semanticFingerprint",
-+] as const;
-+
-+function stubOa(
-+  stack: Stack,
-+  nowIso: string,
-+  projectRead?:
-+    | { ok: true; activeCycleInstanceId: string | null }
-+    | { ok: false },
-+) {
-+  const base = {
-+    executionContractServices: stack.execution,
-+    decisionServices: stack.decisions,
-+    authorityResolver: stack.decisions.authority,
-+    clock: { nowIso: () => nowIso },
-+    projectServices: stack.projects,
-+    cycleServices: stack.cycles,
-+    executionAttemptServices: {
-+      registry: {
-+        listAgents: () => [],
-+        findCandidates: () => [],
-+      },
-+    },
-+  } as unknown as Parameters<
-+    typeof readCurrentGovernedExecutionContinuity
-+  >[0]["oa"];
-+
-+  if (!projectRead) return base;
-+
-+  return {
-+    ...base,
-+    projectServices: {
-+      ...stack.projects,
-+      getProject: {
-+        execute: async () => {
-+          if (!projectRead.ok) {
-+            return {
-+              ok: false as const,
-+              error: {
-+                code: "PROJECT_NOT_FOUND" as const,
-+                message: "Project unavailable",
-+              },
-+            };
-+          }
-+          return {
-+            ok: true as const,
-+            project: {
-+              projectId: PROJECT_ID,
-+              activeCycleInstanceId:
-+                projectRead.activeCycleInstanceId ?? undefined,
-+            },
-+          };
-+        },
-+      },
-+    },
-+  } as unknown as typeof base;
-+}
-+
-+async function seedDecisionWithBasis(
-+  stack: Stack,
-+  opts: {
-+    decisionId?: string;
-+    selectedOptionId?: string;
-+    sourceRef?: string;
-+  } = {},
-+): Promise<string> {
-+  const decisionId = opts.decisionId ?? DECISION_ID;
-+  const selectedOptionId =
-+    opts.selectedOptionId ?? "opt:proposal-subject:pursue";
-+  const sourceRef = opts.sourceRef ?? PROP_ID;
-+
-+  try {
-+    registerMorris(stack.decisions.authority, "docs_write borné — cycle actif");
-+  } catch {
-+    /* already registered */
-+  }
-+  try {
-+    stack.decisions.authority.register({
-+      evidenceId: `evd:morris-continuity-${decisionId.replace(/[^a-z0-9]/gi, "")}`,
-+      actorId: "actor:morris",
-+      level: "N3",
-+      scope: `W2 Proposal subject arbitration for ${sourceRef}`,
-+      issuedAt: "2026-07-01T00:00:00.000Z",
-+      source: "registry",
-+      canActAsMorris: true,
-+    });
-+  } catch {
-+    /* already registered */
-+  }
-+
-+  const recorded = await stack.decisions.recordHumanDecision.execute({
-+    decisionId,
-+    projectId: PROJECT_ID,
-+    subject: `W2 Proposal subject arbitration for ${sourceRef}`,
-+    options: [
-+      {
-+        optionId: "opt:proposal-subject:pursue",
-+        label: "Poursuivre",
-+        recommended: true,
-+      },
-+      { optionId: "opt:proposal-subject:amend", label: "Amender" },
-+      { optionId: "opt:proposal-subject:refuse", label: "Refuser" },
-+    ],
-+    selectedOptionId,
-+    actor: MORRIS_ACTOR,
-+    authority: "morris",
-+    reversible: true,
-+    authorityEvidenceId: `evd:morris-continuity-${decisionId.replace(/[^a-z0-9]/gi, "")}`,
-+    decisionBasis: {
-+      sourceType: "proposal",
-+      sourceRef,
-+      sourceDigest:
-+        "2035bb9b58e77d6a97c71760b730fd041f5710e3809669d0cb57f2d376356bde",
-+      projectId: PROJECT_ID,
-+      proposalContext: {
-+        lpsId: "lps:3a8e02537e45d5b9",
-+        lpsVersion: 17,
-+      },
-+      executionBasis: {
-+        requestedOperation: DOCS_WRITE_ACTION,
-+        targetPath: TARGET_PATH,
-+        targetRepositoryRef: TARGET_REPO,
-+      },
-+    },
-+  });
-+  expect(recorded.ok).toBe(true);
-+  return decisionId;
-+}
-+
-+async function buildValidatedDocsWriteEc(
-+  stack: Stack,
-+  opts: {
-+    executionContractId?: string;
-+    decisionId?: string;
-+    idempotencyKey?: string;
-+  } = {},
-+): Promise<ExecutionContract> {
-+  const decisionId = opts.decisionId ?? DECISION_ID;
-+  const executionContractId = opts.executionContractId ?? EC_ID;
-+  const scope = "docs_write borné — cycle actif — aucune exécution automatique";
-+  const authorityEvidenceId = `evd:morris-${executionContractId.replace(/[^a-z0-9]/gi, "")}`;
-+  try {
-+    stack.decisions.authority.register({
-+      evidenceId: authorityEvidenceId,
-+      actorId: "actor:morris",
-+      level: "N3",
-+      scope,
-+      issuedAt: "2026-07-01T00:00:00.000Z",
-+      source: "registry",
-+      canActAsMorris: true,
-+    });
-+  } catch {
-+    /* already registered */
-+  }
-+
-+  const built = await stack.execution.buildExecutionContract.execute(
-+    baseBuildRequest({
-+      executionContractId,
-+      projectId: PROJECT_ID,
-+      decisionRefs: [decisionId],
-+      action: DOCS_WRITE_ACTION,
-+      target: TECH_TARGET,
-+      scope,
-+      inputs: {
-+        objective: "Matérialiser le livrable requis du cycle actif",
-+        targetPath: TARGET_PATH,
-+        targetRepositoryRef: TARGET_REPO,
-+        repositoryRef: TARGET_REPO,
-+        repositoryIdentity: TARGET_REPO,
-+        scopeIn: ["projects/sfia-studio/.sandbox"],
-+        scopeOut: [],
-+        createOrModify: true,
-+        noDelete: true,
-+        contentRequirements: ["fiche de cadrage"],
-+        expectedOutputs: [TARGET_PATH],
-+      },
-+      expectedOutputs: [TARGET_PATH],
-+      evidenceRequirements: ["evreq:git-working-tree"],
-+      requiredCapabilities: ["cap:cursor.docs_write"],
-+      requiredAuthority: "MORRIS",
-+      constraints: ["PREPARE_ONLY", "NO_CURSOR_REAL"],
-+      stopConditions: ["AUTHORITY_DENIED"],
-+      reversibility: "reversible",
-+      idempotencyKey: opts.idempotencyKey ?? `idem:${executionContractId}`,
-+      authorityEvidenceId,
-+      actor: MORRIS_ACTOR,
-+    }),
-+  );
-+  expect(built.ok).toBe(true);
-+  if (!built.ok) throw new Error("build failed");
-+
-+  const validated = await stack.execution.validateExecutionContract.execute({
-+    executionContractId: built.contract.executionContractId,
-+    actor: MORRIS_ACTOR,
-+    authorityEvidenceId,
-+  });
-+  expect(validated.ok).toBe(true);
-+  if (!validated.ok) throw new Error("validate failed");
-+  return validated.contract;
-+}
-+
-+function semanticSnapshot(stack: Stack) {
-+  return {
-+    decisions: stack.decisions.audit.events.length,
-+    executionEvents: stack.execution.audit.events.length,
-+  };
-+}
-+
-+describe("EC rehydration continuity — readCurrentGovernedExecutionContinuity", () => {
-+  it("campaign shape — active EC + legacy incomplete inspection; ZERO semantic writes", async () => {
-+    const stack = buildStack();
-+    await seedProject(stack.projects);
-+    await seedDecisionWithBasis(stack);
-+    const contract = await buildValidatedDocsWriteEc(stack);
-+    expect(contract.status).toBe("confirmation_required");
-+    expect(contract.version).toBeGreaterThanOrEqual(1);
-+
-+    const fingerprint = computeInspectionFingerprint(contract);
-+    await stack.execution.inspectionAttestations.append({
-+      schemaVersion: "0.1.0-oa",
-+      attestationId: "insp:05042f3b6040838e",
-+      executionContractId: contract.executionContractId,
-+      contractVersion: contract.version,
-+      inspectionFingerprint: fingerprint,
-+      semanticFingerprint: contract.semanticFingerprint ?? fingerprint,
-+      projectId: PROJECT_ID,
-+      actor: LOCAL_PILOTE_ACTOR,
-+      inspectedAt: "2026-09-16T02:03:03.581Z",
-+      inspectedFacts: [...LEGACY_INSPECTED_FACTS],
-+      grantsAuthority: false,
-+      isConfirmation: false,
-+    });
-+
-+    const beforeAttestations =
-+      await stack.execution.inspectionAttestations.listByContract(
-+        contract.executionContractId,
-+      );
-+    const beforeDecision = await stack.decisions.getHumanDecision.execute({
-+      decisionId: DECISION_ID,
-+    });
-+    expect(beforeDecision.ok).toBe(true);
-+    const beforeSnap = semanticSnapshot(stack);
-+
-+    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z");
-+    const read = await readCurrentGovernedExecutionContinuity({
-+      oa,
-+      projectId: PROJECT_ID,
-+    });
-+
-+    expect(read.ok).toBe(true);
-+    if (!read.ok) return;
-+    expect(read.kind).toBe("active");
-+    if (read.kind !== "active") return;
-+
-+    expect(read.decisionRef).toBe(DECISION_ID);
-+    expect(read.contract.executionContractId).toBe(EC_ID);
-+    expect(read.contract.status).toBe("confirmation_required");
-+    expect(read.contract.action).toBe(DOCS_WRITE_ACTION);
-+    expect(read.contract.target).toBe(TECH_TARGET);
-+    expect(read.contract.inspectionDisclosure.targetPath).toBe(TARGET_PATH);
-+    expect(read.contract.inspectionDisclosure.targetRepositoryRef).toBe(
-+      TARGET_REPO,
-+    );
-+    expect(read.contract.inspectionDisclosure).not.toHaveProperty("inputs");
-+    expect(read.inspection.inspectionSufficient).toBe(false);
-+    expect(read.inspection.reinspectionRequired).toBe(true);
-+    expect(read.inspection.reason).toBe("inspected_facts_incomplete");
-+    expect(read.inspection.statusLabel).toBe(
-+      "RÉINSPECTION REQUISE — DÉTAILS INCOMPLETS",
-+    );
-+    expect(read.inspection.grantsAuthority).toBe(false);
-+
-+    const afterAttestations =
-+      await stack.execution.inspectionAttestations.listByContract(
-+        contract.executionContractId,
-+      );
-+    expect(afterAttestations.length).toBe(beforeAttestations.length);
-+    const afterDecision = await stack.decisions.getHumanDecision.execute({
-+      decisionId: DECISION_ID,
-+    });
-+    expect(afterDecision.ok).toBe(true);
-+    if (beforeDecision.ok && afterDecision.ok) {
-+      expect(afterDecision.decision.version).toBe(beforeDecision.decision.version);
-+      expect(afterDecision.decision.status).toBe(beforeDecision.decision.status);
-+    }
-+    const listed = await stack.execution.listExecutionContractHistory.execute({
-+      projectId: PROJECT_ID,
-+    });
-+    expect(listed.ok).toBe(true);
-+    if (listed.ok) {
-+      expect(listed.contracts).toHaveLength(1);
-+      expect(listed.contracts[0]!.executionContractId).toBe(EC_ID);
-+    }
-+    // Audit bookkeeping may grow; decision/EC/attestation counts stay stable.
-+    expect(afterAttestations.length).toBe(1);
-+    void beforeSnap;
-+  });
-+
-+  it("G1 — no EC → kind none", async () => {
-+    const stack = buildStack();
-+    await seedProject(stack.projects);
-+    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z");
-+    const read = await readCurrentGovernedExecutionContinuity({
-+      oa,
-+      projectId: PROJECT_ID,
-+    });
-+    expect(read).toEqual({ ok: true, kind: "none" });
-+  });
-+
-+  it("G2 — only terminal historical ECs → none", async () => {
-+    const stack = buildStack();
-+    await seedProject(stack.projects);
-+    await seedDecisionWithBasis(stack);
-+    const contract = await buildValidatedDocsWriteEc(stack);
-+    await stack.execution.contracts.save({
-+      ...contract,
-+      status: "completed",
-+    });
-+    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z");
-+    const read = await readCurrentGovernedExecutionContinuity({
-+      oa,
-+      projectId: PROJECT_ID,
-+    });
-+    expect(read).toEqual({ ok: true, kind: "none" });
-+  });
-+
-+  it("G3 — superseded prior + valid successor → successor only", async () => {
-+    const stack = buildStack();
-+    await seedProject(stack.projects);
-+    await seedDecisionWithBasis(stack);
-+    const prior = await buildValidatedDocsWriteEc(stack, {
-+      executionContractId: "xct:prior",
-+      idempotencyKey: "idem:prior",
-+    });
-+    const superseded = await stack.execution.supersedeExecutionContract.execute({
-+      newExecutionContractId: "xct:successor",
-+      supersedesExecutionContractId: prior.executionContractId,
-+      supersessionReason: "Scope narrowed after review",
-+      actor: MORRIS_ACTOR,
-+      authorityEvidenceId: `evd:morris-${prior.executionContractId.replace(/[^a-z0-9]/gi, "")}`,
-+      expectedVersion: prior.version,
-+      idempotencyKey: "idem:successor",
-+      constraints: [...prior.constraints, "EXTRA_CONSTRAINT"],
-+    });
-+    expect(superseded.ok).toBe(true);
-+    if (!superseded.ok) return;
-+
-+    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z");
-+    const read = await readCurrentGovernedExecutionContinuity({
-+      oa,
-+      projectId: PROJECT_ID,
-+    });
-+    expect(read.ok).toBe(true);
-+    if (!read.ok || read.kind !== "active") return;
-+    expect(read.contract.executionContractId).toBe("xct:successor");
-+  });
-+
-+  it("G4 — two unresolved current candidates → AMBIGUOUS", async () => {
-+    const stack = buildStack();
-+    await seedProject(stack.projects);
-+    await seedDecisionWithBasis(stack, { decisionId: "dec:w2-prop:continuity-a" });
-+    await seedDecisionWithBasis(stack, {
-+      decisionId: "dec:w2-prop:continuity-b",
-+      sourceRef: "prop:f2:other",
-+    });
-+    await buildValidatedDocsWriteEc(stack, {
-+      executionContractId: "xct:a",
-+      decisionId: "dec:w2-prop:continuity-a",
-+      idempotencyKey: "idem:continuity-a",
-+    });
-+    await buildValidatedDocsWriteEc(stack, {
-+      executionContractId: "xct:b",
-+      decisionId: "dec:w2-prop:continuity-b",
-+      idempotencyKey: "idem:continuity-b",
-+    });
-+
-+    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z");
-+    const read = await readCurrentGovernedExecutionContinuity({
-+      oa,
-+      projectId: PROJECT_ID,
-+    });
-+    expect(read.ok).toBe(false);
-+    if (read.ok) return;
-+    expect(read.code).toBe("EXECUTION_CONTINUITY_AMBIGUOUS");
-+  });
-+
-+  it("G5 — missing decisionRef → INTEGRITY_FAILED", async () => {
-+    const stack = buildStack();
-+    await seedProject(stack.projects);
-+    await seedDecisionWithBasis(stack);
-+    const contract = await buildValidatedDocsWriteEc(stack);
-+    await stack.execution.contracts.save({
-+      ...contract,
-+      decisionRefs: [],
-+    });
-+    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z");
-+    const read = await readCurrentGovernedExecutionContinuity({
-+      oa,
-+      projectId: PROJECT_ID,
-+    });
-+    expect(read.ok).toBe(false);
-+    if (read.ok) return;
-+    expect(read.code).toBe("EXECUTION_CONTINUITY_INTEGRITY_FAILED");
-+  });
-+
-+  it("G6 — EC of another project never projected", async () => {
-+    const stack = buildStack();
-+    await seedProject(stack.projects);
-+    await seedProject(stack.projects, "prj:other");
-+    await seedDecisionWithBasis(stack);
-+    await buildValidatedDocsWriteEc(stack);
-+    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z");
-+    const read = await readCurrentGovernedExecutionContinuity({
-+      oa,
-+      projectId: "prj:other",
-+    });
-+    expect(read).toEqual({ ok: true, kind: "none" });
-+  });
-+
-+  it("G8 — fresh sufficient attestation remains sufficient; read does not record", async () => {
-+    const stack = buildStack();
-+    await seedProject(stack.projects);
-+    await seedDecisionWithBasis(stack);
-+    const contract = await buildValidatedDocsWriteEc(stack);
-+    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z");
-+    const inspected = await inspectExecutionContract({
-+      oa,
-+      projectId: PROJECT_ID,
-+      executionContractId: contract.executionContractId,
-+    });
-+    expect(inspected.ok).toBe(true);
-+    const before =
-+      await stack.execution.inspectionAttestations.listByContract(
-+        contract.executionContractId,
-+      );
-+
-+    const read = await readCurrentGovernedExecutionContinuity({
-+      oa,
-+      projectId: PROJECT_ID,
-+    });
-+    expect(read.ok).toBe(true);
-+    if (!read.ok || read.kind !== "active") return;
-+    expect(read.inspection.inspectionSufficient).toBe(true);
-+    expect(read.inspection.reason).toBe("inspected");
-+
-+    const after =
-+      await stack.execution.inspectionAttestations.listByContract(
-+        contract.executionContractId,
-+      );
-+    expect(after.length).toBe(before.length);
-+  });
-+
-+  it("executing current contract → UNSUPPORTED fail-closed", async () => {
-+    const stack = buildStack();
-+    await seedProject(stack.projects);
-+    await seedDecisionWithBasis(stack);
-+    const contract = await buildValidatedDocsWriteEc(stack);
-+    await stack.execution.contracts.save({
-+      ...contract,
-+      status: "executing",
-+    });
-+    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z");
-+    const read = await readCurrentGovernedExecutionContinuity({
-+      oa,
-+      projectId: PROJECT_ID,
-+    });
-+    expect(read.ok).toBe(false);
-+    if (read.ok) return;
-+    expect(read.code).toBe("EXECUTION_CONTINUITY_UNSUPPORTED");
-+  });
-+
-+  it("P1 — Project read fails → INTEGRITY_FAILED; no contract projection", async () => {
-+    const stack = buildStack();
-+    await seedProject(stack.projects);
-+    await seedDecisionWithBasis(stack);
-+    await buildValidatedDocsWriteEc(stack);
-+    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z", { ok: false });
-+    const read = await readCurrentGovernedExecutionContinuity({
-+      oa,
-+      projectId: PROJECT_ID,
-+    });
-+    expect(read.ok).toBe(false);
-+    if (read.ok) return;
-+    expect(read.code).toBe("EXECUTION_CONTINUITY_INTEGRITY_FAILED");
-+  });
-+
-+  it("P2 — explicit EC cycle + Project activeCycle null → INTEGRITY_FAILED", async () => {
-+    const stack = buildStack();
-+    await seedProject(stack.projects);
-+    await seedDecisionWithBasis(stack);
-+    const contract = await buildValidatedDocsWriteEc(stack);
-+    await stack.execution.contracts.save({
-+      ...contract,
-+      cycleInstanceId: "cyc:A",
-+    });
-+    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z", {
-+      ok: true,
-+      activeCycleInstanceId: null,
-+    });
-+    const read = await readCurrentGovernedExecutionContinuity({
-+      oa,
-+      projectId: PROJECT_ID,
-+    });
-+    expect(read.ok).toBe(false);
-+    if (read.ok) return;
-+    expect(read.code).toBe("EXECUTION_CONTINUITY_INTEGRITY_FAILED");
-+  });
-+
-+  it("P3 — explicit EC cycle + mismatched active cycle → INTEGRITY_FAILED", async () => {
-+    const stack = buildStack();
-+    await seedProject(stack.projects);
-+    await seedDecisionWithBasis(stack);
-+    const contract = await buildValidatedDocsWriteEc(stack);
-+    await stack.execution.contracts.save({
-+      ...contract,
-+      cycleInstanceId: "cyc:A",
-+    });
-+    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z", {
-+      ok: true,
-+      activeCycleInstanceId: "cyc:B",
-+    });
-+    const read = await readCurrentGovernedExecutionContinuity({
-+      oa,
-+      projectId: PROJECT_ID,
-+    });
-+    expect(read.ok).toBe(false);
-+    if (read.ok) return;
-+    expect(read.code).toBe("EXECUTION_CONTINUITY_INTEGRITY_FAILED");
-+  });
-+
-+  it("P4 — explicit EC cycle + matching active cycle → active continuity", async () => {
-+    const stack = buildStack();
-+    await seedProject(stack.projects);
-+    await seedDecisionWithBasis(stack);
-+    const contract = await buildValidatedDocsWriteEc(stack);
-+    await stack.execution.contracts.save({
-+      ...contract,
-+      cycleInstanceId: "cyc:A",
-+    });
-+    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z", {
-+      ok: true,
-+      activeCycleInstanceId: "cyc:A",
-+    });
-+    const read = await readCurrentGovernedExecutionContinuity({
-+      oa,
-+      projectId: PROJECT_ID,
-+    });
-+    expect(read.ok).toBe(true);
-+    if (!read.ok || read.kind !== "active") return;
-+    expect(read.contract.executionContractId).toBe(EC_ID);
-+  });
-+
-+  it("P5 — EC without cycleInstanceId + Project active null remains compatible", async () => {
-+    const stack = buildStack();
-+    await seedProject(stack.projects);
-+    await seedDecisionWithBasis(stack);
-+    await buildValidatedDocsWriteEc(stack);
-+    const oa = stubOa(stack, "2026-09-16T09:30:00.000Z", {
-+      ok: true,
-+      activeCycleInstanceId: null,
-+    });
-+    const read = await readCurrentGovernedExecutionContinuity({
-+      oa,
-+      projectId: PROJECT_ID,
-+    });
-+    expect(read.ok).toBe(true);
-+    if (!read.ok || read.kind !== "active") return;
-+    expect(read.contract.executionContractId).toBe(EC_ID);
-+  });
-+});
 
 ```
