@@ -1,162 +1,106 @@
-# SFIA STUDIO — PR #493 CR-PR493-R1 PROVENANCE ORACLE CORRECTION
-## Review Pack FULL — Cycle 8 Delivery / PR-readiness continuation
+# SFIA STUDIO — NORA GLOBAL MODEL × REASONING STAGE A REAL OPTION C
+## Review Pack FULL — STOP PRE-DISPATCH (PR493 POST-MERGE CI NOT GREEN)
 
-- timestamp Europe/Paris: 2026-09-16 23:17:03 CEST
-- timestamp UTC: 2026-09-16T21:17:03Z
-- cycle: Cycle 8 — Delivery / PR-readiness continuation
-- typology: RUN — BOUNDED CORRECTION
+- timestamp Europe/Paris: 2026-09-16 23:35:57 CEST
+- timestamp UTC: 2026-09-16T21:35:57Z
+- cycle: Cycle 8 — Delivery / implementation — EVOL — CRITICAL
+- typology: EVOL
 - profile: Critical
-- Morris GO: “ok go” after ChatGPT Critical Review CHANGES REQUIRED on CR-PR493-R1
-- merge: NOT PERFORMED · auto-merge OFF · conditional merge NOT CONSUMABLE until NEW ChatGPT Critical Review PASS on this R1 HEAD
+- Morris GO consumed for START GATES ONLY: NORA GLOBAL MODEL × REASONING STAGE A REAL — OPTION C (full campaign)
+- Stage A campaign dispatch: **ZERO**
+- OpenAI LIVE: **0**
+- Cursor REAL: **0**
+- Nora LIVE: **0**
+- Hosted web_search REAL: **0**
+- Project commit/push/PR/merge: **0**
+- Verdict: **STOP — PR493 POST-MERGE CI NOT GREEN — ZERO STAGE A REAL**
 
 ## 1. Git truth
-- repo: mcleland147/sfia-workspace
-- worktree: /Users/morris/Projects/sfia-studio-product-real-docs-write-wiring
-- branch: delivery/sfia-studio-product-real-docs-write-wiring
-- prior PR HEAD: de752376ba8d39977e6cf65ba6158ab96ddae818
-- R1 HEAD: 61fb41f65ef88419d3d224b401e56129515a5572
-- parent: de752376ba8d39977e6cf65ba6158ab96ddae818 (exact)
-- origin/main: a8a5dffaa84fe25f792074b93696a74722de8fdf (unchanged)
-- merge-base: a8a5dffaa84fe25f792074b93696a74722de8fdf
-- PR #493: OPEN · base a8a5dff · head 61fb41f6 · MERGEABLE · CLEAN · auto-merge null
-- superseded handoff tip: 36c1de04ff6ccbac4a8a69e049c003420f6013eb
+- worktree used for truth check: `/Users/morris/Projects/sfia-studio-product-real-docs-write-wiring`
+- local branch: `delivery/sfia-studio-product-real-docs-write-wiring` @ `61fb41f65ef88419d3d224b401e56129515a5572`
+- origin/main (fetched): `61ee233abf651b4ea5f262b68e97e63032c5a5fb`
+- expected main anchor: `61ee233abf651b4ea5f262b68e97e63032c5a5fb` — **MATCH**
+- merge parents of origin/main: `a8a5dffaa84fe25f792074b93696a74722de8fdf` + `61fb41f65ef88419d3d224b401e56129515a5572` — **MATCH**
+- local product dirty: NONE (only `.tmp-sfia-review/**` + `node_modules`)
+- Note: Delivery worktree is not a clean main checkout; campaign was never started. No project branch created for ceremony.
 
-## 2. Blocker CR-PR493-R1
-T10 used TestOnlyRealExecutionLaunchPort (boundaryProofMode=cursor_real) but manually overrode deriveAttemptProvenance with boundaryProofMode: "deterministic_fake".
-
-## 3. Remediation
-- Modified file (ONLY): projects/sfia-studio/app/__tests__/project-assistant/preM6.realProductWiringAmend.test.ts
-- Production/runtime: NONE
-- TrajectorySurface test: unchanged in R1
-- deriveAttemptProvenance / TestOnlyRealExecutionLaunchPort: UNCHANGED
-
-### Before → after
-- Before: manual boundaryProofMode deterministic_fake → BOUNDED_M4_DETERMINISTIC / realExecution false
-- After: boundaryProofMode: launchPort.boundaryProofMode → cursor_real / CURSOR_CLI_REAL / realExecution true / realProcessInvoked true
-- Env remains SFIA_STUDIO_CURSOR_REAL=0
-- Explicit: cursor_real stub metadata ≠ Cursor OS / StudioCursorRealLaunchGateway; cycle Cursor REAL launches = 0
-
-## 4. Local validation (ZERO REAL)
-| Check | Result |
-|-------|--------|
-| focused (amend + wiring + TrajectorySurface + residual) | 84 passed / 4 files |
-| typecheck | PASS |
-| lint | PASS |
-| build | PASS |
-| full Vitest | 374 files passed / 17 skipped; 4175 tests passed / 137 skipped |
-| modeled-governance | 73 passed / 0 failed |
-| git diff --check | PASS |
-
-## 5. Commit / push
-- Commit: 61fb41f65ef88419d3d224b401e56129515a5572
-- Message: test(sfia-studio): align T10 with composed boundary proof
-- Push: normal (no force) to delivery/sfia-studio-product-real-docs-write-wiring
-- Remote SHA = R1 HEAD
-
-## 6. New CI (NOT 35148991573)
+## 2. START GATE — PR #493 post-merge CI (BLOCKING FAIL)
 | Item | Value |
 |------|-------|
-| Run ID | 35150853828 |
-| Head SHA | 61fb41f65ef88419d3d224b401e56129515a5572 |
-| Detect SFIA Studio changes | PASS (7s) job 104978499057 |
-| Build and validate SFIA Studio | PASS (5m5s) job 104978550235 |
-| SFIA Studio Required Gate | PASS (3s) job 104980188076 |
-| Overall | success |
+| Merge SHA | 61ee233abf651b4ea5f262b68e97e63032c5a5fb |
+| CI run | **35152213361** |
+| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/35152213361 |
+| Status | completed |
+| Conclusion | **failure** |
+| Detect SFIA Studio changes | success |
+| Build and validate SFIA Studio | **failure** (job 104983085738) |
+| SFIA Studio Required Gate | **failure** (job 104985742447) |
 
-## 7. Fake/Real
-- Cursor REAL launches: 0
-- OpenAI LIVE: 0
-- Nora LIVE: 0
-- cursor_real in T10 = test stub projection metadata only
+### Vitest summary (post-merge CI)
+- Test Files: **8 failed** | 366 passed | 17 skipped (391)
+- Tests: **10 failed** | 4165 passed | 137 skipped (4312)
+- Errors: 1
+- Duration ~415s
 
-## 8. Scope / reserves
-- Protected paths unchanged
-- B1/B2/P1 preserved
-- Reserves unchanged (REAL gateway not executed; boundaryProofMode not schema-persisted; REAL restart future; ReviewBundle restart weaker)
-- No architecture/persistence/schema debt
+### Failed tests observed (names)
+1. `nora-eval/g2.catalog-versioning-mw6.test.ts` — historical D0 suite still PASS; global suite includes MW6 (**timeout 5000ms**)
+2. `nora-eval/mw0.d0.test.ts` — full D0 suite PASS (**timeout**)
+3. `pre-m6-product-ui/trajectorySurface.ui.test.tsx` — U03 pending reinstruction
+4. `project-assistant/activeCycleCognitiveWork.d0.test.ts` — CR-ACW-04 catalog-wide
+5. `project-assistant/candidateTrajectoryCycleStart.d0.test.ts` — BAR-START-08… (**timeout cluster**)
+6. `candidateTrajectoryCycleStart.d0.test.ts` — BAR-START-CORR-01…15
+7. `candidateTrajectoryCycleStart.d0.test.ts` — BAR-START-CORR2-01…15
+8. `project-assistant/preM6.realProductWiringAmend.test.ts` — T6/T9 fixture regression (spy called 0 times)
+9. `vertical-slice-runtime/deterministicCursorBoundary.test.ts` — same product orchestration…
+10. `oa/cycle/gcecOneLotDelivery.d0.test.ts` — docs_write missing target / full intent
 
-## 9. Forbidden claims
-- READY FOR REAL / REAL BOUNDARY PROVEN / E2E REAL
-- runtime v3 ADOPTED
-- MERGE performed
-- Cursor OS process launched
+Dominant pattern: multiple **5s timeouts** in nora-eval / cycle-start suites on post-merge main CI, plus a few assertion failures. This is **not** diagnosed or repaired in this Stage A REAL cycle (out of GO: no production/runtime mutation, no project commit).
 
-## 10. Exact verdict
-**PR #493 CR-PR493-R1 — PASS — COMPOSED BOUNDARY ORACLE ALIGNED — NEW HEAD CI GREEN — READY FOR CHATGPT CRITICAL RE-REVIEW — NO MERGE PERFORMED — ZERO REAL**
+## 3. Gates NOT reached (intentionally)
+Because the PR493 post-merge Required Gate failed, the following were **NOT** executed:
+- Provider capability LIVE snapshot / account entitlement probes
+- Astra entitlement probe
+- Hosted web_search accessibility LIVE probe
+- Deterministic Stage A launch integrity as REAL preflight (optional locally; not used to bypass CI gate)
+- Stage A campaignId materialization
+- Any Stage A cell / model invocation / hosted op
+- FinOps spend
 
-## 11. Next gate
-CHATGPT CRITICAL RE-REVIEW of R1 HEAD 61fb41f6 + CI 35150853828 + exact T10 diff + base a8a5dff.
+## 4. Contract snapshot (read-only, no dispatch)
+- Expected contract version: `global-mr-campaign-contract-v3-candidate`
+- Expected blob SHA at prompt: `0bb67254a08d7c97f40dc5a5dff9537d44e10366`
+- Observed at origin/main path blob: `0bb67254a08d7c97f40dc5a5dff9537d44e10366` — **MATCH** (contract not drifted)
+- Authorized envelope (not spent): 60 base / ≤18 repeats / ≤78 cells / ≤438 model inv / ≤26 hosted / ≤464 aggregate; USD 15/18/20
 
-## 12. ANTI-STUB
-### git show --format=fuller --stat
-```
-commit 61fb41f65ef88419d3d224b401e56129515a5572
-Author:     Morris Cleland <morris@e8616b0d-1fc3-4e2d-92d3-8e626c04ce19.home>
-AuthorDate: Wed Sep 16 23:10:11 2026 +0200
-Commit:     Morris Cleland <morris@e8616b0d-1fc3-4e2d-92d3-8e626c04ce19.home>
-CommitDate: Wed Sep 16 23:10:11 2026 +0200
+## 5. Convergence qualification (context only)
+- Build Doctrine VALIDATED / ACTIVE ON MAIN
+- Roadmap VALIDATED / ACTIVE LIVING ROADMAP
+- Product Completion CLOSED
+- Nora Cognitive Completion = global priority
+- Runtime v3 NON ADOPTED
+- Stage A REAL authorized by Morris but **blocked by same-cycle PR493 CI start gate**
+- No Stage B/C, no production routing, no Cognitive Completion promotion
 
-    test(sfia-studio): align T10 with composed boundary proof
+## 6. Scope / mutations
+- Project source modifications: **NONE**
+- Doctrine/method/roadmap/C1/framing: **NONE**
+- Generated Stage A Evidence: **NONE**
+- Protected paths: unchanged
+- Only local Review Pack overwrite under `.tmp-sfia-review/`
 
-    Co-authored-by: Cursor <cursoragent@cursor.com>
+## 7. Forbidden claims preserved
+- NOT READY FOR STAGE A REAL execution on this main tip while CI Required Gate is FAIL
+- NOT REAL BOUNDARY / E2E REAL for Stage A
+- NOT production routing selected
+- NOT runtime v3 ADOPTED
+- NOT Stage B/C authorized or started
 
- .../preM6.realProductWiringAmend.test.ts               | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+## 8. Exact verdict
+**STOP — PR493 POST-MERGE CI NOT GREEN — ZERO STAGE A REAL**
 
-```
+Expanded:
+NORA GLOBAL MODEL × REASONING STAGE A REAL — STOPPED AT SAME-CYCLE START GATE — PR #493 MERGE `61ee233a` PRESENT ON MAIN — POST-MERGE CI `35152213361` FAILURE — REQUIRED GATE FAIL — ZERO PROVIDER PREFLIGHT LIVE — ZERO CAMPAIGN DISPATCH — ZERO OPENAI LIVE — ZERO CURSOR REAL — ZERO NORA LIVE — RUNTIME V3 NON ADOPTED — NO STAGE B/C — NO PROJECT COMMIT/PUSH/PR — EVIDENCE = CI FAILURE RECORD FOR CHATGPT/MORRIS
 
-### Full R1 patch
-```diff
-From 61fb41f65ef88419d3d224b401e56129515a5572 Mon Sep 17 00:00:00 2001
-From: Morris Cleland <morris@e8616b0d-1fc3-4e2d-92d3-8e626c04ce19.home>
-Date: Wed, 16 Sep 2026 23:10:11 +0200
-Subject: [PATCH] test(sfia-studio): align T10 with composed boundary proof
-
-Co-authored-by: Cursor <cursoragent@cursor.com>
-
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/preM6.realProductWiringAmend.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/preM6.realProductWiringAmend.test.ts
-index d60f1e9e..a985f652 100644
---- a/projects/sfia-studio/app/__tests__/project-assistant/preM6.realProductWiringAmend.test.ts
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/preM6.realProductWiringAmend.test.ts
-@@ -556,8 +556,9 @@ describe("Cycle 8 — Pre-M6 REAL product wiring amend", () => {
-     expect(loaded).toBeTruthy();
-   });
-
--  it("T10 — PROVENANCE REAL SIMULATED derives from Attempt, not env flag", async () => {
-+  it("T10 — cursor_real simulated ACK derives provenance from composed boundary proof, not env flag", async () => {
-     const launchPort = new TestOnlyRealExecutionLaunchPort();
-+    expect(launchPort.boundaryProofMode).toBe("cursor_real");
-     const runtime = createRuntime("t10", {
-       launchPort,
-       safetyJournal: new MemoryLaunchSafetyJournal(),
-@@ -597,20 +598,21 @@ describe("Cycle 8 — Pre-M6 REAL product wiring amend", () => {
-     const agent = runtime.oa!.executionAttemptServices.registry.getAgent(
-       recorded.attempt.selectedAgentRef,
-     );
--    // B1 — provenance from boundaryProofMode, not env / agent alone.
--    // TestOnlyRealExecutionLaunchPort is a simulated ACK (not Cursor OS REAL).
--    // Classify as deterministic Fake proof mode: BOUNDED_M4_DETERMINISTIC.
-+    // B1 / CR-PR493-R1 — provenance from the ACTUAL composed launch-port proof
-+    // mode (same source as production). TestOnlyRealExecutionLaunchPort declares
-+    // cursor_real as a simulated ACK stub; that is projection metadata only —
-+    // it does NOT prove Cursor OS / StudioCursorRealLaunchGateway execution.
-     const provenance = deriveAttemptProvenance({
-       attempt: recorded.attempt,
-       agent,
--      boundaryProofMode: "deterministic_fake",
-+      boundaryProofMode: launchPort.boundaryProofMode,
-     });
-     expect(process.env.SFIA_STUDIO_CURSOR_REAL).toBe("0");
--    expect(provenance.mode).toBe("BOUNDED_M4_DETERMINISTIC");
--    expect(provenance.boundaryProofMode).toBe("deterministic_fake");
-+    expect(provenance.boundaryProofMode).toBe("cursor_real");
-+    expect(provenance.mode).toBe("CURSOR_CLI_REAL");
-     expect(provenance.adapterRef).toBe(M4_REAL_GATEWAY_ADAPTER_ID);
-     expect(provenance.executionMode).toBe("cursor_cli_real");
--    expect(provenance.realExecution).toBe(false);
-+    expect(provenance.realExecution).toBe(true);
-     expect(provenance.realProcessInvoked).toBe(true);
-     expect(provenance.evidenceId.startsWith("ev:m4-bounded-ro:")).toBe(true);
-     if (previousFlag === undefined) {
-
-```
+## 9. Next gate
+1. Separate Morris/ChatGPT qualification to diagnose/repair post-merge CI failures on main (`61ee233a`) — **outside this Stage A REAL GO**.
+2. Only after Required Gate PASS on a qualified main tip may Stage A REAL Option C be re-authorized (new GO; this GO is single-campaign and terminates on stop).
