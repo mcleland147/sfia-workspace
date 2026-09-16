@@ -126,7 +126,9 @@ export type ContractInspectionStateDto = {
   readonly statusLabel:
     | "NON INSPECTÉ"
     | "INSPECTÉ"
-    | "RÉINSPECTION REQUISE — CONTRAT MODIFIÉ";
+    | "RÉINSPECTION REQUISE — CONTRAT MODIFIÉ"
+    | "RÉINSPECTION REQUISE — DÉTAILS INCOMPLETS"
+    | "INSPECTION IMPOSSIBLE — DISCLOSURE INCOMPLÈTE";
   readonly inspectionSufficient: boolean;
   readonly attestationRef: string | null;
   readonly attestedVersion: number | null;
@@ -137,7 +139,9 @@ export type ContractInspectionStateDto = {
     | "inspected"
     | "contract_version_changed"
     | "semantic_fingerprint_changed"
-    | "contract_fingerprint_absent";
+    | "contract_fingerprint_absent"
+    | "inspected_facts_incomplete"
+    | "inspection_disclosure_incomplete";
   /** Structural denial — inspecting is never authorizing. */
   readonly grantsAuthority: false;
 };
@@ -260,6 +264,7 @@ export type AmendedExecutionContractDto = {
   readonly semanticFingerprint: string;
   readonly supersedesExecutionContractId: string | null;
   readonly supersessionReason: string | null;
+  readonly inspectionDisclosure?: import("@/lib/oa/execution-contract").ExecutionContractInspectionDisclosure;
 };
 
 export type AmendExecutionContractSuccess = {
@@ -313,6 +318,7 @@ export type PreparedExecutionContractResult =
         readonly effectClass?: string;
         readonly effectConfirmationRequired?: boolean;
         readonly effectConfirmationLevel?: string | null;
+        readonly inspectionDisclosure?: import("@/lib/oa/execution-contract").ExecutionContractInspectionDisclosure;
       };
       readonly decisionId: string;
       readonly f3SemanticOverwrite: false;

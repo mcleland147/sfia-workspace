@@ -6,12 +6,20 @@
  * no ExecutionContract status and grants no authority: after a material
  * semantic amendment the prior attestation is reported as stale and
  * re-inspection is required before authorization.
+ *
+ * Inspected facts are derived from the durable contract (allowlisted
+ * disclosure profile). A fingerprint-matching attestation that omits required
+ * execution-significant facts is insufficient.
  */
 
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
 import type {
   InspectionInsufficiencyReason,
   InspectionSufficiency,
+} from "@/lib/oa/execution-contract";
+import {
+  projectExecutionContractInspectionDisclosure,
+  requiredInspectedFactsForContract,
 } from "@/lib/oa/execution-contract";
 import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
 import type {
@@ -29,7 +37,27 @@ function mapInsufficiencyReason(
       return "contract_fingerprint_absent";
     case "material_change":
       return "semantic_fingerprint_changed";
+    case "inspected_facts_incomplete":
+      return "inspected_facts_incomplete";
+    case "inspection_disclosure_incomplete":
+      return "inspection_disclosure_incomplete";
   }
+}
+
+function statusLabelForInsufficiency(
+  reason: InspectionInsufficiencyReason,
+  hasStale: boolean,
+): ContractInspectionStateDto["statusLabel"] {
+  if (reason === "inspected_facts_incomplete") {
+    return "RÉINSPECTION REQUISE — DÉTAILS INCOMPLETS";
+  }
+  if (reason === "inspection_disclosure_incomplete") {
+    return "INSPECTION IMPOSSIBLE — DISCLOSURE INCOMPLÈTE";
+  }
+  if (hasStale || reason === "material_change") {
+    return "RÉINSPECTION REQUISE — CONTRAT MODIFIÉ";
+  }
+  return "NON INSPECTÉ";
 }
 
 function toStateDto(input: {
@@ -59,14 +87,15 @@ function toStateDto(input: {
     executionContractId: input.executionContractId,
     contractVersion: input.contractVersion,
     semanticFingerprint: input.semanticFingerprint,
-    statusLabel: stale
-      ? "RÉINSPECTION REQUISE — CONTRAT MODIFIÉ"
-      : "NON INSPECTÉ",
+    statusLabel: statusLabelForInsufficiency(sufficiency.reason, stale !== null),
     inspectionSufficient: false,
     attestationRef: null,
     attestedVersion: stale?.contractVersion ?? null,
     staleAttestationRef: stale?.attestationId ?? null,
-    reinspectionRequired: stale !== null,
+    reinspectionRequired:
+      stale !== null ||
+      sufficiency.reason === "inspected_facts_incomplete" ||
+      sufficiency.reason === "inspection_disclosure_incomplete",
     reason: mapInsufficiencyReason(sufficiency.reason),
     grantsAuthority: false,
   };
@@ -109,18 +138,6 @@ export type InspectExecutionContractInput = {
   readonly expectedVersion?: number;
 };
 
-const DEFAULT_INSPECTED_FACTS: readonly string[] = Object.freeze([
-  "action",
-  "target",
-  "scope",
-  "requiredAuthority",
-  "requiredCapabilities",
-  "constraints",
-  "stopConditions",
-  "reversibility",
-  "semanticFingerprint",
-]);
-
 export async function inspectExecutionContract(
   input: InspectExecutionContractInput,
 ): Promise<InspectExecutionContractResult> {
@@ -144,11 +161,36 @@ export async function inspectExecutionContract(
     };
   }
 
+  const disclosure = projectExecutionContractInspectionDisclosure(
+    loaded.contract,
+  );
+  if (!disclosure.ok) {
+    return {
+      ok: false,
+      code: disclosure.code,
+      message: disclosure.message,
+    };
+  }
+
+  const requiredFacts = requiredInspectedFactsForContract(loaded.contract);
+  if (!Array.isArray(requiredFacts)) {
+    return {
+      ok: false,
+      code: "INSPECTION_DISCLOSURE_INCOMPLETE",
+      message:
+        "Disclosure d'inspection incomplète — impossible d'attester l'inspection.",
+    };
+  }
+
+  const inspectedFacts = input.inspectedFacts
+    ? [...input.inspectedFacts]
+    : [...requiredFacts];
+
   const recorded =
     await input.oa.executionContractServices.recordContractInspection.execute({
       executionContractId: input.executionContractId,
       actor: LOCAL_PILOTE_ACTOR,
-      inspectedFacts: [...(input.inspectedFacts ?? DEFAULT_INSPECTED_FACTS)],
+      inspectedFacts,
       inspectionReserves: input.inspectionReserves
         ? [...input.inspectionReserves]
         : undefined,

@@ -23,6 +23,8 @@ export type AuthorityVerificationBlockedReason =
   | "contract_not_found"
   | "inspection_required"
   | "reinspection_required_material_change"
+  | "reinspection_required_inspected_facts_incomplete"
+  | "inspection_disclosure_incomplete"
   | "confirmation_required"
   | "contract_not_confirmed"
   | "decision_not_current"

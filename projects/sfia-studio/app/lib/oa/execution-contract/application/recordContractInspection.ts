@@ -11,6 +11,7 @@ import { isTa5Status } from "../domain/invariants";
 import type { ActorReference, ExecutionContract } from "../domain/types";
 import type { InspectionAttestationRepositoryPort } from "../ports/inspectionAttestationRepository";
 import type { ExecutionContractRepositoryPort } from "../ports/executionContractRepository";
+import { requiredInspectedFactsForContract } from "../projection/inspectionDisclosure";
 
 export type RecordContractInspectionRequest = {
   executionContractId: string;
@@ -164,6 +165,11 @@ export class GetContractInspectionState {
     const trail = await this.attestations.listByContract(
       contract.executionContractId,
     );
+    const requiredFacts = requiredInspectedFactsForContract(contract);
+    const disclosureIncomplete =
+      !Array.isArray(requiredFacts) &&
+      "incomplete" in requiredFacts &&
+      requiredFacts.incomplete === true;
     return {
       ok: true,
       contract: structuredClone(contract),
@@ -172,6 +178,10 @@ export class GetContractInspectionState {
         attestations: trail,
         executionContractId: contract.executionContractId,
         currentInspectionFingerprint: computeInspectionFingerprint(contract),
+        requiredInspectedFacts: Array.isArray(requiredFacts)
+          ? requiredFacts
+          : undefined,
+        disclosureIncomplete,
       }),
       attestations: trail,
     };
