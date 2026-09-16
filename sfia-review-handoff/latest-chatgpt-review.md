@@ -1,272 +1,282 @@
-# SFIA Studio — PRODUCT CONTINUITY
-## EC REHYDRATION — PRODUCT GIT INTEGRATION — FULL Review Pack
+# SFIA Studio — AUTHENTICATED PRODUCT REPROOF 05
+## POST-PR492 RESTART-SAFE EC + INSPECTION REHYDRATION — FULL Review Pack
 
-**Timestamp (UTC):** 2026-09-16T14:28:00Z
+**Timestamp (UTC):** 2026-09-16T15:47:49Z
 **Review Pack:** FULL
-**Cycle:** 8 — Delivery / repository integration
+**Cycle:** 9 — QA / validation
 **Typology:** RUN
 **Profile:** Critical
 
 **Verdict:**
-`PRODUCT-CONTINUITY-EC-REHYDRATION — PRODUCT GIT INTEGRATION CANDIDATE PUBLISHED — EXACT CRITICAL-REVIEWED 9-FILE CANDIDATE COMMITTED AND PUSHED — PR OPEN — CI GREEN — DETERMINISTIC PROOF PRESERVED — ZERO PRODUCT DRIFT — ZERO DOGFOOD — ZERO REAL — MERGE NOT PERFORMED — READY FOR CHATGPT CRITICAL PR REVIEW`
+`AUTHENTICATED-PRODUCT-REPROOF-05 — PASS — POST-PR492 RESTART-SAFE PRE-EXECUTION EC + INSPECTION CONTINUITY AUTHENTICATED-RUNTIME PROVEN AT TESTED READ-ONLY SCOPE — DURABLE EC AUTO-REHYDRATED AFTER FRESH PROCESS / HARD RELOAD — EXACT DOCS_WRITE REPOSITORY + TARGETPATH SURFACED — LEGACY FACT-INCOMPLETE INSPECTION CORRECTLY FAILS CLOSED — REINSPECTION IS THE NEXT USEFUL ACTION — NO DUPLICATE DECISION/PREPARE — ZERO NEW INSPECTION ATTESTATION — ZERO CONFIRMATION — ZERO AUTHORITY — ZERO ATTEMPT — ZERO PRODUCT SEMANTIC MUTATION — ZERO OPENAI LIVE — ZERO CURSOR REAL — PRODUCT PROOF NOT COMPLETE — STOP BEFORE INSPECT — NEXT GATE = DISTINCT MORRIS GO FOR ONE PRODUCT ACTION: INSPECTER LE CONTRAT`
 
 ---
 
 ## A. Timestamp
-2026-09-16T14:28:00Z
+2026-09-16T15:47:49Z
 
-## B. Morris integration GO consumed
-PRODUCT GIT INTEGRATION OF THE EXACT CRITICAL-REVIEWED CANDIDATE.
+## B. Git truth
+- Repository: `mcleland147/sfia-workspace`
+- origin/main: `a8a5dffaa84fe25f792074b93696a74722de8fdf`
+- dogfood worktree: `/Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d`
+- dogfood initial HEAD: `c2c8280b7cfaa1b3a5656fb55b1e46ba73b23130` (detached prior main)
+- dogfood aligned HEAD: `a8a5dffaa84fe25f792074b93696a74722de8fdf` (detached)
+- tracked Product source clean: **YES**
+- dirty limited to `.tmp-sfia-review` review evidence (preserved; not Product source)
 
-Authorized: verify exact reviewed candidate; commit exact Product candidate; push feature branch; create PR against current main; observe CI to terminal; inspect CI failures read-only if any; produce FULL Review Pack; publish canonical Review Handoff; prepare evidence for ChatGPT Critical PR Review.
+## C. PR492
+- MERGED
+- merge commit: `a8a5dffaa84fe25f792074b93696a74722de8fdf`
+- parents:
+  - `c2c8280b7cfaa1b3a5656fb55b1e46ba73b23130`
+  - `b871ad7c43dcccfffffb7ef28ce3abfd771fafaa` (Product commit)
+- merge tree: `e6136b4352a3192f4ff21192df9ea43c40563ae8`
+- title: `fix(sfia-studio): restore restart-safe execution continuity`
 
-NOT authorized: merge; squash/rebase onto moved main; force push; amend after publication; Product source changes; additional fixes; dogfood; authenticated restart reproof; Nora Product action; Inspection / Confirmation / Authorization / Execute; OpenAI LIVE; Cursor/docs_write REAL; Build Doctrine / Roadmap / C1 / v3 / method mutation; branch deletion.
+## D. post-merge CI
+- run: `35109728834`
+- event: push
+- headSha: `a8a5dffaa84fe25f792074b93696a74722de8fdf`
+- overall: **SUCCESS**
+- Detect SFIA Studio changes: success
+- Build and validate SFIA Studio: success
+- SFIA Studio Required Gate: **SUCCESS**
 
-## C. Cycle / typology / profile
-- Cycle: 8 — Delivery / repository integration
-- Typology: RUN
-- Profile: Critical
+## E. Morris GO consumed
+AUTHENTICATED PRODUCT RESTART REPROOF 05 — READ-ONLY REHYDRATION / COHERENCE ONLY.
 
-Critical justification: publishes a Product correction on the governed HumanDecision → ExecutionContract → Inspect → Confirmation / authority path. Implementation already passed local Critical Review. Integration MUST preserve exact reviewed content. No new design or remediation authorized.
+Authorized: Git/local truth; align clean dogfood to exact main; SQLite read-only; forensic backup; fresh fake/REAL-OFF runtime; normal Better Auth reuse; hard reload; read UI / expand read-only details; screenshots; BEFORE/AFTER compare; FULL Review Pack; Review Handoff L3.
 
-## D. Convergence
-- V3-F02 — restart-safe semantic continuity
-- V3-F11 — durable inspectable ExecutionContract
-- V3-F12 — governed execution / authority boundary
-- A3 / C1 Product Completion trajectory link
+NOT authorized / NOT performed: Nora send; Reformuler; Instruire; Décider; Préparer; Inspecter; Confirmer; Statuer; Exécuter; Attempt lifecycle; new attestation/decision/EC/confirmation/authority/attempt; OpenAI LIVE; Cursor/docs_write REAL; Product source/Git mutation; repair/migration.
+
+**ABSOLUTE:** ended before first mutating Product action. Inspect observed only — NOT clicked.
+
+## F. Cycle / typology / profile
+Cycle 9 — QA / validation · RUN · Critical
+
+## G. CKC QA candidate usage
+`method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md`
+status candidate · cognitive guidance only · no execution authority.
+
+## H. Convergence
+- V3-F02 restart-safe semantic continuity — VERIFY
+- V3-F11 durable inspectable ExecutionContract — VERIFY
+- V3-F12 governed execution / authority boundary — VERIFY
+- V3-F04 / F08 truth / contradiction — supporting
+- V3-F14 / F15 Evidence / maturity anti-claims — supporting
+- A3 / C1 Product Completion trajectory
 - runtime v3 **NON ADOPTED**
 
-## E. Qualified base
-`c2c8280b7cfaa1b3a5656fb55b1e46ba73b23130`
+## I. Current integration handoff (pre-reproof)
+- tip: `de42d967d2c7b64713bb3f21f61ab6c98a525af4`
+- blob: `5b0de26fa1d0d8784dc56910371db882fe96e014`
+- Note: that handoff predates merge; current Git + PR #492 MERGED + post-merge CI SUCCESS supersede its “merge NOT performed” statement.
 
-## F. Previous Review Handoff
-- tip: `cc335e1ff78dae64ec8ad69bb93288343efac4df`
-- blob: `087f6364b5828a0b18e925a029ec4a16ff83cdad`
-- branch: `sfia/review-handoff`
-- path: `sfia-review-handoff/latest-chatgpt-review.md`
+## J. Historical Reproof 04 handoff (FAIL oracle consumed)
+- commit: `72243475e604de5a23ba5175a35c11835fa49f02`
+- blob: `d1a21b4c7873efe407830b5c81382db7fe13d432`
+- Historical FAIL: durable EC existed but TrajectorySurface did not auto-rehydrate; competing CTA was **Instruire les options**; exact path / reinspection fail-closed messaging absent without forbidden PREPARE/Inspect recovery.
 
-## G. ChatGPT candidate Critical Review
-PASS — PRODUCT-CONTINUITY-EC-REHYDRATION — FINAL CRITICAL REVIEW PASS
+## K. Runtime
+- shell PID: `11352` (`npm run dev`)
+- listening PID: `11379` (`next-server (v15.5.20)`)
+- CWD: `/Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d/projects/sfia-studio/app`
+- command: `next dev --port 3020`
+- serving Git HEAD: `a8a5dffaa84fe25f792074b93696a74722de8fdf`
+- env gates:
+  - `OPS1_CONVERSATION_PROVIDER=fake`
+  - `SFIA_STUDIO_CURSOR_REAL=0`
+  - `OPS1_CURSOR_REAL=0`
 
-Accepted boundaries consumed:
-- restart-safe governed EC + inspection continuity: accepted at deterministic scope
-- authoritative Decision Subject none reconciliation: accepted
-- pre-execution fail-closed client composition: accepted
-- exact docs_write disclosure: preserved
-- legacy incomplete inspection: remains fail closed
-- Attempt-running / post-execution continuity: OUT OF SCOPE
-- dogfood: ZERO
-- REAL: ZERO
+## L. Authentication
+- Normal Better Auth session reused
+- UI shows Pilote / **P**
+- No test-identity injection, cookie forging, auth bypass, or DB auth mutation
 
-## H. Pre-commit 9 reviewed hashes (SHA-256)
-All MATCHED before staging:
+## M. DB
+- dogfood-visible path: `/Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d/projects/sfia-studio/.sfia-exec/product/oa-product.sqlite`
+- symlink target / actual: `/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/product/oa-product.sqlite`
+- WAL/SHM at start: absent
+- PRAGMA user_version: `0` (before = after)
+- schema_meta.schema_version: `m8-0.1.0` (before = after)
+- Product file SHA-256 BEFORE: `1adaedaf4c3fa1921346740b2f3bf3e5e51dc8a4274cd83006d340f77a9e798f`
+- Product file SHA-256 AFTER: `215c495797a5bdab637a77a6f7b2f55b733465ffdd994022ffb923aaa59a1e54` (audit bookkeeping only)
+- forensic backup: `/tmp/sfia-reproof05-forensic-20260916T154137Z/`
+  - `oa-product.sqlite.backup` SHA-256: `71a0cef73c02643d498bb9943bcf174a072f7e3b0b4a9eafd30f569d94464738`
 
-| Path | SHA-256 |
+## N. Exact BEFORE durable campaign state
+| Entity | Value |
 |---|---|
-| `projects/sfia-studio/app/features/project-assistant/w2/readCurrentGovernedExecutionContinuity.ts` | `992c44552b7845c3b2c88c6e0ed56974f8c96bb0d1ba7cc5bb0503a6763ba278` |
-| `projects/sfia-studio/app/features/project-assistant/w2/actions.ts` | `f11e86a09b4e6df5161c578464bdbaa91d3ae53e7c2820a80536238ba3817591` |
-| `projects/sfia-studio/app/features/project-assistant/w2/types.ts` | `7c6ce2c143636a204639ff504a0c2bc7287e05ff3e4b156ddd6752011f30ad23` |
-| `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx` | `48ace342069ba31f1f1f39f214c97a82b89a21f8594c9bff718a631d5c0ebe06` |
-| `projects/sfia-studio/app/__tests__/project-assistant/ecRehydrationContinuity.d0.test.ts` | `da8ca7d51562c14b3a7704b60424528d72a8fb7e49b9a2a281c4e4e3da874fe8` |
-| `projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx` | `83e0f05295db3808a10cf984a0c9c0c12a5e4a6afb6beda14efcbdc3d49251b7` |
-| `projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx` | `1b65d27c5e028cc293b3816459117afe410907a47249a16f473742b78cac24ad` |
-| `projects/sfia-studio/app/__tests__/pre-m6-product-ui/preCycleTrajectoryCta.ui.test.tsx` | `f2ea18c60e634e4705dd25c9d2cdcda35dcb6a388cd12903cb743b7f6b1d782a` |
-| `projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts` | `f2615fea1df62725dc39d91511722ef3c1d84a2fdeec92611192c7e32a1c0676` |
+| Project | `prj:ae9bd0de-e24d-474f-880d-ff5ea56dbaf6` / Gestion de tâches |
+| LPS | `lps:3a8e02537e45d5b9` version **17** |
+| active CycleInstance | `cyc:trj-0a9c5104b7b6a3debe95eb8d` status active |
+| RepositoryBinding | identity `mcleland147/sfia-workspace` · defaultBranch `main` · pathRoot `projects/sfia-studio/.sandbox` |
+| Proposal (epistemic) | `prop:f2:edba677a-123f-4f5e-baad-50533a65a3a0` |
+| PresentedOptionSet | `optset:w2-b3be0236b91a` (`epi:set-w2-b3be0236b91a`) |
+| HumanDecision | `dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411` status **accepted** · selected `opt:proposal-subject:pursue` |
+| DecisionBasis | sourceType `proposal` · sourceRef `prop:f2:edba677a-123f-4f5e-baad-50533a65a3a0` |
+| ExecutionContract | `xct:m3:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411` version **2** status **confirmation_required** |
+| EC action | `cursor.docs_write.apply` |
+| EC technical target | `workspace.isolated.docs_write` |
+| EC repository / path | `mcleland147/sfia-workspace` · `projects/sfia-studio/.sandbox/gestion-de-taches.md` |
+| InspectionAttestation | `insp:05042f3b6040838e` (legacy inspectedFacts without post-PR491 disclosure facts) |
+| Confirmation / Authority / Attempt / Evidence / ReviewBundle for EC | **0 / 0 / 0 / 0 / 0** |
+| audit_total BEFORE | **1393** |
 
-## I. Exact staged paths
-Exactly 9 (explicit `git add -- <paths>`; no `git add .` / `-A`):
+Campaign matched expected oracle — **no durable state drift**.
 
-1. `projects/sfia-studio/app/features/project-assistant/w2/readCurrentGovernedExecutionContinuity.ts` (A)
-2. `projects/sfia-studio/app/features/project-assistant/w2/actions.ts` (M)
-3. `projects/sfia-studio/app/features/project-assistant/w2/types.ts` (M)
-4. `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx` (M)
-5. `projects/sfia-studio/app/__tests__/project-assistant/ecRehydrationContinuity.d0.test.ts` (A)
-6. `projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx` (M)
-7. `projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx` (M)
-8. `projects/sfia-studio/app/__tests__/pre-m6-product-ui/preCycleTrajectoryCta.ui.test.tsx` (M)
-9. `projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts` (M)
+## O. EC / HD / DecisionBasis / Attestation lineage
+```
+Proposal prop:f2:edba677a-…
+  → OptionSet optset:w2-b3be0236b91a
+    → HumanDecision dec:w2-prop:ca889356-… (accepted, pursue)
+      → DecisionBasis proposal / prop:f2:edba677a-…
+        → EC xct:m3:dec:w2-prop:ca889356-… (v2, confirmation_required, docs_write)
+          → Attestation insp:05042f3b6040838e (legacy fact set; fingerprint match)
+```
 
-`.tmp-sfia-review` remained unstaged / untracked from Product commit.
-`git diff --cached --check`: PASS
+## P. Fresh-load evidence
+- Fresh server process on exact merge tip
+- Hard reload #1 after server start (Cmd+Shift+R)
+- Authenticated Project route: `/studio/projects/prj%3Aae9bd0de-e24d-474f-880d-ff5ea56dbaf6`
+- Governed surface `data-testid="w2-contract"` auto-showed EC without PREPARE/Inspect/recovery mutation
+- Hard reload #2 confirmed stable reconstruction
 
-## J. Product commit SHA
-`b871ad7c43dcccfffffb7ef28ce3abfd771fafaa`
-
-## K. Product commit parent
-`c2c8280b7cfaa1b3a5656fb55b1e46ba73b23130` (= qualified base)
-
-## L. Product commit subject
-`fix(sfia-studio): restore restart-safe execution continuity`
-
-## M. Product changed paths
-Exactly the same 9 paths (see I). `git diff --name-status origin/main..HEAD` count = 9.
-
-## N. Post-commit hash equality against reviewed candidate
-YES — all 9 working-tree SHA-256 values still equal reviewed pins after commit. Hooks did not alter reviewed content.
-
-## O. Remote feature branch SHA
-`b871ad7c43dcccfffffb7ef28ce3abfd771fafaa`
-Remote ref: `refs/heads/fix/sfia-studio-ec-rehydration-continuity`
-Remote SHA == Product commit: YES
-
-## P. PR number / URL / title
-- PR_NUMBER: **492**
-- PR_URL: https://github.com/mcleland147/sfia-workspace/pull/492
-- PR_TITLE: `fix(sfia-studio): restore restart-safe execution continuity`
-
-## Q. PR base / head refs
-- base: `main`
-- head: `fix/sfia-studio-ec-rehydration-continuity`
-
-## R. PR base SHA at creation
-`c2c8280b7cfaa1b3a5656fb55b1e46ba73b23130`
-
-## S. PR head SHA
-`b871ad7c43dcccfffffb7ef28ce3abfd771fafaa`
-
-## T. PR exact changed files
-1. `projects/sfia-studio/app/__tests__/pre-m6-product-ui/preCycleTrajectoryCta.ui.test.tsx`
-2. `projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx`
-3. `projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx`
-4. `projects/sfia-studio/app/__tests__/project-assistant/ecRehydrationContinuity.d0.test.ts`
-5. `projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts`
-6. `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx`
-7. `projects/sfia-studio/app/features/project-assistant/w2/actions.ts`
-8. `projects/sfia-studio/app/features/project-assistant/w2/readCurrentGovernedExecutionContinuity.ts`
-9. `projects/sfia-studio/app/features/project-assistant/w2/types.ts`
-
-No `.tmp-sfia-review`; no doctrine/method docs; no package/lockfile; no migration; no unrelated formatting.
-
-## U. PR changed-file count
-9
-
-## V. CI runs / jobs / conclusions
-Workflow: **SFIA Studio CI**
-- run id: `35107909713`
-- url: https://github.com/mcleland147/sfia-workspace/actions/runs/35107909713
-- event: `pull_request`
-- headSha: `b871ad7c43dcccfffffb7ef28ce3abfd771fafaa`
-- overall conclusion: **success**
-
-Jobs:
-| Job | Job id | Conclusion |
+## Q. R1–R20 matrix
+| ID | Result | Evidence |
 |---|---|---|
-| Detect SFIA Studio changes | 104833796502 | success |
-| Build and validate SFIA Studio | 104833888450 | success |
-| SFIA Studio Required Gate | 104835983075 | success |
+| R1 | **PASS** | EC auto-rehydrated on TrajectorySurface / `w2-contract` |
+| R2 | **PASS** | No competing primary **Instruire les options**; no duplicate PREPARE |
+| R3 | **PASS** | Exact id `xct:m3:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411` in technical details |
+| R4 | **PASS** | Status `confirmation_required` / « Confirmation requise » on governed card |
+| R5 | **PASS** | `cursor.docs_write.apply` (`w2-contract-action`) |
+| R6 | **PASS** | `workspace.isolated.docs_write` (`w2-contract-target`) |
+| R7 | **PASS** | `projects/sfia-studio/.sandbox/gestion-de-taches.md` visible before any Inspect click |
+| R8 | **PASS** | EC disclosure repository `mcleland147/sfia-workspace` (`w2-contract-repository`) — not only Project binding |
+| R9 | **PASS** | Business/technical details expose scope, constraints, stop conditions, reversibility, capabilities, expected outputs |
+| R10 | **PASS** | Legacy attestation not treated sufficient; UI requires reinspection despite fingerprint continuity |
+| R11 | **PASS** | `RÉINSPECTION REQUISE — DÉTAILS INCOMPLETS — l'inspection précédente ne suffit plus · inspecter n'autorise pas` |
+| R12 | **PASS** | « Confirmer mon consentement » **disabled** |
+| R13 | **PASS** | No « Exécuter » CTA; Authority receipt count 0 |
+| R14 | **PASS** | Next useful action = **Inspecter le contrat** (enabled) — **NOT clicked** |
+| R15 | **PASS** | No new Proposal / OptionSet / HD / EC rows |
+| R16 | **PASS** | LPS remains `lps:3a8e02537e45d5b9` v17 |
+| R17 | **PASS** | Confirmation 0 · Authority 0 · Attempt 0 |
+| R18 | **PASS** | Attestation count remains 1 (`insp:05042f3b6040838e` only) |
+| R19 | **PASS** | Product semantic delta ZERO |
+| R20 | **PASS** | Second hard reload: same EC, disclosure, reinspection status, Inspect CTA; no duplicates |
 
-Build and validate steps (all success): Checkout; Setup Node.js; Install dependencies; Typecheck; Lint; Build; Unit tests (Vitest); FinOps/T7 freeze notice; Modeled governance tests; Secret pattern scan (targeted); Trailing whitespace check.
+Inspection insufficiency reason (Product interpretation): **inspected_facts_incomplete** / UI equivalent « DÉTAILS INCOMPLETS ».
 
-## W. Required Gate result
-**SFIA Studio Required Gate = SUCCESS**
+## R. Negative oracles N1–N15
+| ID | Result |
+|---|---|
+| N1 generic Instruire competing | ABSENT |
+| N2 duplicate PREPARE | ABSENT |
+| N3 new Proposal | ABSENT |
+| N4 new PresentedOptionSet | ABSENT |
+| N5 new HumanDecision | ABSENT |
+| N6 new ExecutionContract | ABSENT |
+| N7 new InspectionAttestation | ABSENT |
+| N8 Confirmation | ABSENT (count 0; CTA disabled) |
+| N9 AuthorityVerificationReceipt | ABSENT |
+| N10 ExecutionAttempt | ABSENT |
+| N11 Execute available | ABSENT |
+| N12 legacy attestation treated sufficient | ABSENT (reinspection required) |
+| N13 OpenAI LIVE | ZERO |
+| N14 Cursor/docs_write REAL | ZERO |
+| N15 Product source mutation | ZERO |
 
-## X. final origin/main after CI
-`c2c8280b7cfaa1b3a5656fb55b1e46ba73b23130`
+## S. Screenshot inventory (dogfood `.tmp-sfia-review/`, review evidence only — not Product Git)
+- `sfia-reproof05-A-fresh-authenticated-project.png`
+- `sfia-reproof05-B-ec-card.png`
+- `sfia-reproof05-C-repo-path-disclosure.png`
+- `sfia-reproof05-D-reinspection-status.png`
+- `sfia-reproof05-E-cta-area.png`
+- `sfia-reproof05-F-second-hard-reload.png`
 
-## Y. base moved after PR?
-**NO**
+## T. Exact AFTER durable state
+Semantic payloads for Project / LPS v17 / Cycle / HD / EC / Attestation unchanged (SHA-256 match BEFORE).
+LPS current still `lps:3a8e02537e45d5b9` v17.
+EC still v2 / `confirmation_required`.
+Attestation count 1.
+Confirmation / Authority / Attempt / Evidence / ReviewBundle = 0.
 
-## Z. PR mergeability / status
-- state: OPEN
-- mergeable: MERGEABLE
-- mergeStateStatus: CLEAN
-- autoMergeRequest: null
-- checks: all SUCCESS
+## U. BEFORE/AFTER semantic diff
+**Product semantic delta = ZERO**
 
-## AA. local validation evidence inherited
-- focused: 16 files / **243 passed** / 0 failed
-- full Vitest final: **4155 passed** / 137 skipped / 0 failed
-- typecheck PASS
-- lint PASS
-- build PASS
-- git diff --check PASS
-- ChatGPT local candidate Critical Review: PASS
+## V. audit-event delta (separate; non-semantic bookkeeping)
+- BEFORE audit_total: 1393
+- AFTER audit_total: 1397
+- delta: **+4**
+- types:
+  - `oa.cycle.load_failed` ×2 (`detailCode=TRAJECTORY_NOT_FOUND`)
+  - `oa.cycle.finalization_assessed` ×2
+- Same class of read-path bookkeeping observed historically in Reproof 04 (+8).
+- **Not** classified as business semantic mutation.
 
-(Historical first full run had 2 UI timing fails; waitFor hardening applied before Critical Review; final evidence is 4155/137/0. Integration did not re-open the candidate.)
+## W. schema delta
+**NONE** — user_version 0; schema_version `m8-0.1.0` unchanged.
 
-## AB. Product source changes during integration
-**ZERO** — exact Critical-reviewed content committed; no post-commit Product edits.
-
-## AC. dogfood mutation
+## X. Product semantic mutation
 **ZERO**
 
-## AD. OpenAI LIVE
+## Y. OpenAI LIVE
 **ZERO**
 
-## AE. Cursor/docs_write REAL
+## Z. Cursor/docs_write REAL
 **ZERO**
 
-## AF. merge
-**NOT PERFORMED**
+## AA. business CTA clicks
+**ZERO** (Inspect / Confirm / Statuer / Instruire / Préparer / Décider / Exécuter / Nora send — none clicked)
 
-## AG. branch deletion
-**NOT PERFORMED**
+## AB. new InspectionAttestation
+**ZERO**
 
-## AH. claim
-**DETERMINISTIC PROVEN** only (at tested / CI scope).
+## AC. Confirmation
+**ZERO**
+
+## AD. Authority
+**ZERO**
+
+## AE. Attempt
+**ZERO**
+
+## AF. Product source changes
+**ZERO**
+
+## AG. Product Git
+**NONE** (no Product commit / push / PR / merge / branch delete in this cycle)
+
+## AH. claim boundary
+Authorized claim:
+**POST-PR492 AUTHENTICATED PRODUCT RESTART REPROOF PASSED AT TESTED READ-ONLY PRE-EXECUTION CONTINUITY SCOPE.**
+
+Proven:
+- durable existing EC reconstructed after fresh process + hard reload;
+- exact docs_write repository/path disclosure survives restart;
+- legacy fact-incomplete inspection re-evaluated fail-closed;
+- Product points Pilot to reinspection rather than duplicate instruct/decision/PREPARE;
+- read-only continuation creates no new business semantic object.
+
+Do NOT claim: full Product Proof complete; Inspection action passed; new attestation; Confirmation; Authorization; Execute; Cursor REAL; OpenAI REAL; Attempt-running continuity; post-execution continuity; runtime v3 ADOPTED.
 
 ## AI. remaining reserve
-Authenticated restart reproof after repository integration / post-merge.
+Authenticated **Inspecter le contrat** (one Product mutating action) under a distinct Morris GO — not performed here.
 
-## AJ. next gate
-**ChatGPT Critical PR Review** (already authorized by current Morris GO).
+## AJ. next gate if PASS
+**DISTINCT MORRIS GO** for exactly one Product business action: **Inspecter le contrat**
 
-## AK. subsequent gate if Critical PR Review PASS
-**DISTINCT MORRIS GO FOR MERGE**
+That future gate will evaluate new current InspectionAttestation, exact inspected facts, inspection sufficiency after current disclosure — still no Confirmation / Authorization / Execute.
 
-## AL. verdict
-`PRODUCT-CONTINUITY-EC-REHYDRATION — PRODUCT GIT INTEGRATION CANDIDATE PUBLISHED — EXACT CRITICAL-REVIEWED 9-FILE CANDIDATE COMMITTED AND PUSHED — PR OPEN — CI GREEN — DETERMINISTIC PROOF PRESERVED — ZERO PRODUCT DRIFT — ZERO DOGFOOD — ZERO REAL — MERGE NOT PERFORMED — READY FOR CHATGPT CRITICAL PR REVIEW`
+## AK. unique verdict
+`AUTHENTICATED-PRODUCT-REPROOF-05 — PASS — POST-PR492 RESTART-SAFE PRE-EXECUTION EC + INSPECTION CONTINUITY AUTHENTICATED-RUNTIME PROVEN AT TESTED READ-ONLY SCOPE — DURABLE EC AUTO-REHYDRATED AFTER FRESH PROCESS / HARD RELOAD — EXACT DOCS_WRITE REPOSITORY + TARGETPATH SURFACED — LEGACY FACT-INCOMPLETE INSPECTION CORRECTLY FAILS CLOSED — REINSPECTION IS THE NEXT USEFUL ACTION — NO DUPLICATE DECISION/PREPARE — ZERO NEW INSPECTION ATTESTATION — ZERO CONFIRMATION — ZERO AUTHORITY — ZERO ATTEMPT — ZERO PRODUCT SEMANTIC MUTATION — ZERO OPENAI LIVE — ZERO CURSOR REAL — PRODUCT PROOF NOT COMPLETE — STOP BEFORE INSPECT — NEXT GATE = DISTINCT MORRIS GO FOR ONE PRODUCT ACTION: INSPECTER LE CONTRAT`
 
 ---
 
-## Git truth at integration start
-- Repository: `mcleland147/sfia-workspace`
-- Worktree: `/Users/morris/Projects/sfia-studio-ec-rehydration-continuity`
-- Branch: `fix/sfia-studio-ec-rehydration-continuity`
-- origin/main: `c2c8280b7cfaa1b3a5656fb55b1e46ba73b23130`
-- HEAD before commit: `c2c8280b7cfaa1b3a5656fb55b1e46ba73b23130`
-- commits ahead before commit: 0
-
-## Pre-push / pre-PR main rechecks
-- origin/main before push: `c2c8280b7cfaa1b3a5656fb55b1e46ba73b23130` (unchanged)
-- origin/main before PR: `c2c8280b7cfaa1b3a5656fb55b1e46ba73b23130` (unchanged)
-- Push: `git push -u origin fix/sfia-studio-ec-rehydration-continuity` (no force)
-
-## Asset classification preserved
-- 9-file reviewed candidate: KEEP EXACT / INTEGRATE
-- server continuity resolver: KEEP
-- Decision Subject continuation: KEEP
-- client latest-wins/fail-closed composition: KEEP
-- PR491 disclosure: KEEP
-- persistence: KEEP
-- Attempt lifecycle: OUT OF SCOPE
-
-## Forbidden actions confirmation
-- force push: NO
-- rebase: NO
-- amend: NO
-- merge: NO
-- auto-merge: NO
-- feature branch delete: NO
-- Product source mutation after commit: NO
-- additional Product commit: NO
-- dogfood / LIVE / REAL: NO
-
-## Proof boundary (must not overclaim)
-- DETERMINISTIC PROVEN at tested scope + CI green.
-- ZERO dogfood mutation.
-- ZERO OpenAI LIVE.
-- ZERO Cursor/docs_write REAL.
-- Authenticated restart reproof remains a post-integration gate.
-- Runtime v3 remains NON ADOPTED.
-- Do NOT claim: authenticated runtime reproof passed; Product Proof complete; Attempt-running continuity proven; REAL proven; runtime v3 ADOPTED.
-
 ## STOP
-NO MERGE.
-NO AUTO-MERGE.
-NO BRANCH DELETE.
-NO DOGFOOD.
-NO REAL.
-
-Next: ChatGPT Critical PR Review on PR #492.
-Then: DISTINCT MORRIS GO FOR MERGE (if Critical PR Review PASS).
+DO NOT INSPECT.
+DO NOT CONFIRM.
+DO NOT AUTHORIZE.
+DO NOT EXECUTE.
+DO NOT REAL.
