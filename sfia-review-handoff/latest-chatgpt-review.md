@@ -1,315 +1,310 @@
-# SFIA Studio — MACRO Delivery + Reproof09 REAL — FULL Review Pack
+# SFIA Studio — PRODUCT-DOCS-WRITE-REAL-PATH-COMPLETION-01 — PRE-MERGE CRITICAL REVIEW PACK
 
-**Verdict:** FAIL REAL (post-merge origin-gate removal accepted; Cursor REAL spawned; authorized target not produced)
-**Date (UTC):** 2026-09-17
+**Timestamp (UTC):** 2026-09-17T10:53:34Z
+**Macro:** PRODUCT-DOCS-WRITE-REAL-PATH-COMPLETION-01
+**Phase:** Delivery / pre-merge (ZERO REAL)
 **Runtime v3:** NON ADOPTED
+**Delivery Cursor REAL launches:** 0
 
 ---
 
-## 1. Exact Morris macro GO
+## A. Morris GO (exact)
 
-GO MORRIS — REMOVE THE REDUNDANT `origin_remote_mismatch` WORKSPACE GATE — KEEP USEFUL PRODUCT / EXECUTION GUARANTEES — DELIVER + VALIDATE + COMMIT + PUSH + ONE PR + CI — CONDITIONAL MERGE IF STRICTLY BOUNDED AND REQUIRED GATE GREEN — VERIFY POST-MERGE MAIN + REQUIRED GATE — THEN IMMEDIATELY EXECUTE ONE FRESH AUTHENTICATED PRODUCT REPROOF09 REAL — ONE BOUNDED CURSOR DOCS_WRITE REAL SPAWN MAX — Evidence / ReviewBundle — restart / no-relaunch — NO AUTOMATIC RETRY — FULL Review Pack + handoff — NO MICRO-CYCLES.
+GO MORRIS — PRODUCT DOCS_WRITE REAL EXACT-PATH + COMPLETION CLOSURE — ONE MACRO DELIVERY + INTEGRATION + FRESH AUTHENTICATED REPROOF09 REAL — MAX 1 CURSOR DOCS_WRITE REAL SPAWN — NO RETRY — NO MICRO-CYCLES
 
----
+Close in ONE macro lot the two FAIL REAL gaps post-PR #497:
 
-## 2. Macro qualification
+1. **EXACT PATH CORRECTNESS** — sealed repo-relative target must not be reinterpreted as `.sandbox/...` at worktree root; pathAllowlist/exact target checks stay strong.
+2. **REAL PROCESS COMPLETION INGESTION** — after Cursor REAL spawn, use existing observe/awaitCompletion → verifyWorkspaceFileEffects → RecordExecutionResult/Failure → Evidence/ReviewBundle pipeline; persist; restart without relaunch.
 
-- Project: SFIA Studio
-- PHASE A: Cycle 8 Delivery / EVOL / CRITICAL
-- PHASE B: Cycle 9 QA REAL / EVOL / CRITICAL
-- One coherent macro lot (Build Doctrine R2/R8/R18)
-- Product Completion: CLOSED / COMPLETE
-- Runtime v3: NON ADOPTED
+Conditional merge only after: bounded scope, Required Gate green on exact head, Critical pre-merge PASS, handoff remote-verified. Fresh REAL only after post-merge green. Max 1 Cursor REAL spawn. No retry.
 
----
+## B. Macro qualification
 
-## 3–4. Initial Git truth + Delivery change
+| Field | Value |
+|--------|--------|
+| Project | SFIA Studio |
+| Macro | PRODUCT-DOCS-WRITE-REAL-PATH-COMPLETION-01 |
+| Trajectory | Product Proof / governed Product Journey |
+| Phase A | Cycle 8 Delivery / EVOL / Critical |
+| Phase B | Cycle 9 QA REAL / EVOL / Critical (post Critical PASS + merge) |
+| Product Completion | CLOSED / COMPLETE |
+| Runtime v3 | NON ADOPTED |
+| Capability served | EC → Cursor docs_write REAL → exact verified effect → terminal Attempt → Evidence/RB → restart/no-relaunch |
+| Incoming state | managed repo proven; local origin proven (#497); Cursor REAL spawn proven; exact path FAIL; terminal Attempt NOT PROVEN; REAL Evidence/RB NOT PROVEN |
 
-Starting origin/main: `0052037c9a18a5d72f896876af8ce46e4ee2cf94`
-Prior handoff tip: `85b16d91d40a64ce4c6241aacdb124fb00d28c29`
+## C. Sources read
 
-### Production change (`studioGitWorktreeWorkspace.ts`)
+PROCESS / CONVERGENCE / COMPLETION / V3 framing as listed in GO §3; forensic handoff tip `90581f3d` (FAIL REAL post-#497); product code listed in GO §3; discovery via gateway / StartExecution / settler / Product Execute callers.
 
-REMOVED from `prepareWorkspace()` and `resumeVerifiedWorkspace()`:
-- `git remote get-url origin`
-- `origin_remote_missing` / `origin_remote_mismatch`
-- comparison to `repositoryBinding.remoteUrl` and identity-derived HTTPS URL
-- unused `normalizeGitRemoteUrl()` helper in this file
-
-KEPT: full SHA validation; managedRepoRoot; execRoot confinement; path collision; trust-marker; base commit existence; worktree add --detach; HEAD match; resume registration/toplevel/HEAD/file/digest checks.
-
-NOT changed: `observeLocalCommitFacts.ts` GCEC commit origin checks (push/PR/merge redesign OUT OF SCOPE).
-
-### Tests
-
-`gcecCont01WorkspaceResume.d0.test.ts`:
-- FRESH-LOCAL-ORIGIN: filesystem-form origin accepted; workspace created; HEAD verified; no `remote get-url`
-- RESUME-LOCAL-ORIGIN: resume succeeds with filesystem-form origin
-
----
-
-## 5. Delivery validation
-
-- Focused workspace/REAL-OFF tests: PASS
-- liveManagedRepoComposition: PASS
-- typecheck / lint / full Vitest: PASS (4196 tests)
-- ZERO REAL during Delivery
-
----
-
-## 6–8. Branch / PR / CI / Merge / Post-merge
+## D. Initial Git Truth
 
 | Item | Value |
-|------|-------|
-| Branch | `delivery/sfia-studio-remove-origin-gate-reproof09-real` |
-| Commit | `2d4b09be45fa6f88a7b160523481ed0dd385dfac` |
-| PR | **#497** https://github.com/mcleland147/sfia-workspace/pull/497 |
-| PR CI run | 35206520364 — Detect/Build/Required Gate **PASS** |
-| Merge commit | `04bcfecbf0f40a7ba818b0ca074e7ea3722e635c` |
-| Parents | `0052037c…` + `2d4b09be…` |
+|------|--------|
+| Repo | mcleland147/sfia-workspace |
+| origin/main (start) | `04bcfecbf0f40a7ba818b0ca074e7ea3722e635c` |
 | Tree | `e94a3c09ccf9fa3293dfe0b3821456fee2527c79` |
-| Head→merge content delta | **ZERO** |
-| Source branch deleted | **NO** |
-| Post-merge CI | **35207115937** — Detect/Build/Required Gate **SUCCESS** |
-| origin/main after | `04bcfecbf0f40a7ba818b0ca074e7ea3722e635c` |
+| Handoff branch tip (start) | `90581f3d29154a2e48e1c339ecfd0515b9585319` |
+| Delivery branch | `delivery/sfia-studio-docs-write-real-path-completion` |
+| Delivery HEAD | `742339e56e79fba5217b5859894a72e32ac5d8ca` |
+| Delivery tree | `b1ec95bc1896b5a72bcb778abcb0c2dd2292855e` |
+| PR | https://github.com/mcleland147/sfia-workspace/pull/498 |
+| Working tree for Delivery | clean of forensic/DB/sandbox artefacts in commit |
 
----
+## E. Root cause — PATH
 
-## 9. Fresh REAL campaign DB / lineage
+FAIL REAL sealed target: `projects/sfia-studio/.sandbox/gestion-de-taches.md`
+Cursor wrote: `.sandbox/gestion-de-taches.md` at monorepo worktree root.
 
-| Field | Value |
-|-------|-------|
-| Proof worktree | `/Users/morris/Projects/sfia-studio-product-reproof09-real-04bcfecb` |
-| HEAD | `04bcfecb…` |
-| Source DB | workspace Product seed sha256 `a7a59137…` |
-| Isolated DB | `.sfia-exec/reproof09-real-b/product/oa-product.sqlite` |
-| Dest sha256 (initial) | `72aad490…` |
-| Project | `prj:ae9bd0de-e24d-474f-880d-ff5ea56dbaf6` |
-| Decision | `dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411` |
-| Original M3 | `xct:m3:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411` |
-| Prior Attempt IDs reused as forensic only | previous campaign `xat:w3a:9eef34f25802c186` NOT in source; fresh campaign regenerated same deterministic attempt id |
-| Source Attempt counts | orig 0 / succ 0 / no prior successor in source |
+Studio did **not** strip `projects/sfia-studio/`. Gateway interpolated `spec.targetPath` **verbatim as relative** while `--workspace` / `cwd` = prepared monorepo worktree root. Cursor reinterpreted the relative path (nested-package / editor-root confusion). Fake port already resolved `worktreeRoot + relative`; REAL instruction did not.
 
-NOT reused: prior managed-base-unconfigured DB; prior origin_remote_mismatch DB.
+## F. Root cause — COMPLETION
 
----
+`StartExecution` correctly returns on spawn-ACK (`invoke` ≠ close). Existing settler `completeBoundedDocsWriteLaunch` → `completeBoundedReadOnlyLaunch` already supports `awaitIfPending`. Product callers (`finishBoundedDocsWriteAttempt`, `governedExecuteRecordResult`) **omitted** `awaitIfPending: true`, so after REAL spawn (`exitCode: null`) settler returned `running` → no `RecordExecutionResult` → no Evidence/RB. REAL harness already passed `awaitIfPending: true`. FakeDocsWrite sets `exitCode: 0` at launch, masking the Product gap in Fake journeys.
 
-## 10. M4 successor
+## G. Architecture reused (no parallel engines)
 
-| Field | Value |
-|-------|-------|
-| Successor | `xct:m3-res:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411` |
-| Original | superseded v4 |
-| Successor status at Execute | confirmed v3 |
-| Fingerprint at Execute | `0999f5d590f6af32cfdc5e8e3162a91c03e550e062a47c832bf3f081ab9bfc99` |
-| Action / target / scope | `cursor.docs_write.apply` / `workspace.isolated.docs_write` / `studio.gcec.docs_write` |
-| Capability | `cap:cursor.docs_write` |
-| baseHeadSha | `04bcfecbf0f40a7ba818b0ca074e7ea3722e635c` |
-| targetPath | `projects/sfia-studio/.sandbox/gestion-de-taches.md` |
-| Attempts before Execute | 0 |
+- `StudioCursorRealLaunchGateway` + `NodeCursorProcessRunner` invoke/observe/awaitCompletion
+- `completeBoundedDocsWriteLaunch` / `completeBoundedReadOnlyLaunch`
+- `verifyWorkspaceFileEffects` (unchanged contract; still repo-relative + worktree)
+- `RecordExecutionResult` / `RecordExecutionFailure`
+- `ingestDocsWriteArtifactEvidence` / ReviewBundle pipeline
+- Gate D / launch safety journal frontier
+- `#497` local-origin prepare/resume (unchanged)
 
----
+## H. Modifications exact
 
-## 11. Managed repo + LOCAL ORIGIN (key regression)
+1. **NEW** `resolveSealedDocsWriteWorktreePaths.ts` — fail-closed sealed rel → absolute under worktree; allowlist absolutization; reject `..`, escape, empty allowlist, target outside allowlist.
+2. **`studioCursorRealLaunchGateway.ts`** — docs_write instruction embeds absolute EXACT AUTHORIZED FILE + AUTHORIZED ROOT(S); keeps sealed relative for disclosure; reject before spawn on path resolve failure.
+3. **`executeConfirmedBoundedDocsWriteContract.ts`** — `awaitIfPending: true`.
+4. **`governedExecuteAuthorizedContract.ts`** — `awaitIfPending: true`.
+5. **`index.ts`** — export helper.
+6. Tests: sealed paths unit + verify wrong-path; gateway absolute instruction + negatives; Product await wiring.
 
-| Field | Value |
-|-------|-------|
-| Base | `/tmp/sfia-r09b` |
-| Root | `/tmp/sfia-r09b/mcleland147__sfia-workspace` |
-| HEAD | `04bcfecb…` (= sealed) |
-| **origin** | `/Users/morris/Projects/sfia-workspace` (**filesystem path — intentionally NOT rewritten to HTTPS**) |
-| Target pre-state | ABSENT |
-| Origin-gate result | **ACCEPTED** — prepareWorkspace succeeded; worktree created |
+**NOT changed:** StartExecution spawn-ACK; NodeCursorProcessRunner; verifyWorkspaceFileEffects logic; schema/persistence; Gate D; origin remote gate; RO Product pending path (T-R3-PENDING preserved).
 
-This proves Delivery fix for the prior STOP AFTER EXECUTE / PRE-SPAWN root cause.
+## I. Modified content / full diff (exploitable)
 
----
+### I.1 Production — resolveSealedDocsWriteWorktreePaths.ts (FULL)
 
-## 12. Inspect / Confirm / Authority
+```typescript
+/**
+ * Resolve sealed repo-relative docsWrite paths under a prepared worktree root.
+ * Canonical EC/docsWriteSpec paths stay repo-relative; absolute forms are for
+ * Cursor external instruction only (and fail-closed confinement checks).
+ */
+import path from "node:path";
 
-| Item | Value |
-|------|-------|
-| Inspection | `insp:10a7d8a936f7b8f3` |
-| Confirmation | `cfm:w2:xct:m3-res:…:v2` consumed |
-| Authority | `avr:9d7b727712eea1f9` **AUTHORIZED** |
-| Sufficient agent | `agt:m4.cursor.bounded_docs_write` |
-| Env | REAL=1, DET=0, managed base configured |
+export type ResolveSealedDocsWriteWorktreePathsResult =
+  | {
+      ok: true;
+      sealedTargetPath: string;
+      absoluteTargetPath: string;
+      sealedPathAllowlist: readonly string[];
+      absolutePathAllowlist: readonly string[];
+    }
+  | { ok: false; reason: string };
 
----
+function normalizeSealedRel(p: string): string | null {
+  const n = p.replace(/\\/g, "/").replace(/^\.\//, "").replace(/\/+$/, "").trim();
+  if (!n || n.startsWith("/") || n.split("/").includes("..")) {
+    return null;
+  }
+  return n;
+}
 
-## 13. REAL execution / process
+function resolveUnderWorktree(
+  worktreeRoot: string,
+  sealedRel: string,
+): { abs: string; root: string } | null {
+  const root = path.resolve(worktreeRoot);
+  const abs = path.resolve(root, ...sealedRel.split("/"));
+  if (abs !== root && !abs.startsWith(root + path.sep)) {
+    return null;
+  }
+  return { abs, root };
+}
 
-| Field | Value |
-|-------|-------|
-| Execute | **1** (UI Exécuter once) |
-| Attempt | `xat:w3a:9eef34f25802c186` |
-| Gate D | consumed |
-| Frontier | CREATED + **LAUNCHED** `process_ref=pid:93067` |
-| Frontier payload | `gatewayId=adp:m4-cursor-cli-real`, `boundaryProofMode=cursor_real`, `realProcessInvoked=true` |
-| Worktree | `.sfia-exec/m4-worktrees/wt-4eabdf22dbc435441e0c6776` |
-| Durable Attempt.status | **running** (stuck; never terminalized through observation/timeout within campaign window) |
-| Durable processRef on Attempt | **null** (frontier holds pid) |
-| Cursor REAL launches | **1** |
-| REAL campaign spawn budget | **CONSUMED** |
+export function resolveSealedDocsWriteWorktreePaths(input: {
+  worktreeRoot: string;
+  targetPath: string;
+  pathAllowlist: readonly string[];
+}): ResolveSealedDocsWriteWorktreePathsResult {
+  const sealedTargetPath = normalizeSealedRel(input.targetPath);
+  if (!sealedTargetPath) {
+    return { ok: false, reason: "target_path_invalid" };
+  }
 
----
+  const targetResolved = resolveUnderWorktree(
+    input.worktreeRoot,
+    sealedTargetPath,
+  );
+  if (!targetResolved) {
+    return { ok: false, reason: "target_path_escape" };
+  }
 
-## 14. FILE EFFECT — FAIL CORE
+  if (!input.pathAllowlist.length) {
+    return { ok: false, reason: "path_allowlist_empty" };
+  }
 
-Authorized target:
-`projects/sfia-studio/.sandbox/gestion-de-taches.md` → **ABSENT**
+  const sealedPathAllowlist: string[] = [];
+  const absolutePathAllowlist: string[] = [];
+  for (const entry of input.pathAllowlist) {
+    const sealed = normalizeSealedRel(entry);
+    if (!sealed) {
+      return { ok: false, reason: "path_allowlist_invalid" };
+    }
+    const allowResolved = resolveUnderWorktree(input.worktreeRoot, sealed);
+    if (!allowResolved) {
+      return { ok: false, reason: "path_allowlist_escape" };
+    }
+    sealedPathAllowlist.push(sealed);
+    absolutePathAllowlist.push(allowResolved.abs);
+  }
 
-Observed unauthorized write:
-`.sandbox/gestion-de-taches.md` (repo-root relative; **outside** pathAllowlist `projects/sfia-studio/.sandbox`)
+  const underAllowlist = sealedPathAllowlist.some(
+    (root) =>
+      sealedTargetPath === root || sealedTargetPath.startsWith(`${root}/`),
+  );
+  if (!underAllowlist) {
+    return { ok: false, reason: "target_outside_allowlist" };
+  }
 
-Digest: `sha256:84a5e6e8f379b785a3aefabb8d7122c2fff7f6c8ebd0daa495b779f10a7b8dd8`
-Bytes: 1056
-
-### FULL generated unauthorized content
-
-```markdown
-# Fiche de cadrage fonctionnel — Gestion de tâches
-
-## Objectif
-
-Fournir une application simple de gestion de tâches permettant aux utilisateurs de créer, organiser, suivre et clôturer leurs tâches au quotidien, avec une vision claire de l’avancement.
-
-## Périmètre fonctionnel
-
-### Inclus
-
-- Création, consultation, modification et suppression de tâches
-- Attribution d’un statut (à faire, en cours, terminée)
-- Priorisation des tâches (basse, moyenne, haute)
-- Liste et filtrage des tâches par statut et priorité
-- Marquage d’une tâche comme terminée
-
-### Exclus
-
-- Gestion multi-projets avancée
-- Collaboration temps réel multi-utilisateurs
-- Notifications push / e-mail
-- Intégrations externes (calendrier, messagerie, etc.)
-- Reporting analytique et tableaux de bord complexes
-
-## Acteurs
-
-- Utilisateur individuel : crée et gère ses propres tâches
-
-## Résultat attendu
-
-Une application utilisable au quotidien pour suivre un backlog personnel de tâches, avec un cycle de vie simple (création → suivi → clôture).
+  return {
+    ok: true,
+    sealedTargetPath,
+    absoluteTargetPath: targetResolved.abs,
+    sealedPathAllowlist,
+    absolutePathAllowlist,
+  };
+}
 ```
 
-git status --short (worktree):
+### I.2 Production — studioCursorRealLaunchGateway.ts (docs_write instruction block)
+
+```typescript
+      const resolvedPaths = resolveSealedDocsWriteWorktreePaths({
+        worktreeRoot: workspacePath,
+        targetPath: spec.targetPath,
+        pathAllowlist: spec.pathAllowlist,
+      });
+      if (!resolvedPaths.ok) {
+        return {
+          outcome: "reject",
+          gatewayId: this.gatewayId,
+          attemptId: request.attemptId,
+          reason: resolvedPaths.reason,
+          realProcessInvoked: false,
+          detailCode: "REAL_WORKSPACE_INVALID",
+        };
+      }
+      instruction = [
+        "TÂCHE UNIQUE — bounded docs-write déterministe (GCEC).",
+        `EXACT AUTHORIZED FILE (absolute path inside prepared worktree — modify exactly this file and no other): ${resolvedPaths.absoluteTargetPath}`,
+        `Canonical sealed targetPath (repo-relative, do not reinterpret): ${resolvedPaths.sealedTargetPath}`,
+        `AUTHORIZED ROOT(S) (absolute under prepared worktree): ${resolvedPaths.absolutePathAllowlist.join(", ")}`,
+        `Canonical sealed pathAllowlist (repo-relative): ${resolvedPaths.sealedPathAllowlist.join(", ")}`,
+        "Do not reinterpret relative paths against a nested subproject or editor root.",
+        // ... remainder unchanged (repository, brief, scope, no Shell, etc.)
+      ].join("\n");
 ```
-?? .sandbox/
+
+### I.3 Production — Product awaitIfPending
+
+`executeConfirmedBoundedDocsWriteContract.ts` / `governedExecuteAuthorizedContract.ts`:
+
+```typescript
+      awaitIfPending: true,
 ```
-untracked: `.sandbox/gestion-de-taches.md`
 
-No commit / push / PR / merge.
+### I.4 Full `git diff origin/main...HEAD` summary
 
-Artifact-contract vs sealed EC: **FAIL** (wrong path; authorized expectedOutputs path missing).
+8 files, +366 / −2. Complete unified diff captured at Delivery HEAD `742339e5` (458 lines). Production-only delta is the helper + gateway instruction + two `awaitIfPending` lines + export.
 
----
+## J. Tests Delivery (ZERO REAL)
 
-## 15. Evidence / ReviewBundle
+| Suite | Result |
+|-------|--------|
+| docsWriteSealedWorktreePaths.d0 | 6 PASS |
+| gcecCursorFullCapabilityParity.d0 | 16 PASS (incl. absolute instruction + reject wrong-path + traversal) |
+| docsWriteProductAwaitCompletionWiring.d0 | 1 PASS |
+| gcecCont01WorkspaceResume (incl. FRESH-LOCAL-ORIGIN) | 16 PASS |
+| Related execution-attempt + Product Journey + liveManagedRepo | 534 PASS |
+| Full Vitest | **4206 passed / 137 skipped / 0 failed** (377 files passed / 17 skipped) |
+| typecheck | PASS |
+| lint | PASS |
+| build | PASS |
 
-Campaign Project Evidence count: **0**
-Campaign Project ReviewBundle count: **0**
+## K. Branch / commit / push
 
-PASS REAL Evidence/RB criteria **NOT met**.
+- Branch: `delivery/sfia-studio-docs-write-real-path-completion`
+- Commit: `742339e56e79fba5217b5859894a72e32ac5d8ca`
+- Subject: `fix(sfia-studio): close docs-write REAL path and completion`
+- Pushed to origin
+- No Review Pack / REAL artefacts in commit
 
----
+## L. PR
 
-## 16. Restart / no-relaunch
+- PR **#498** — https://github.com/mcleland147/sfia-workspace/pull/498
+- Base: `04bcfecb` (main)
+- Head: `742339e5`
 
-Stop Studio; restart same HEAD/DB/managed base; Execute NOT clicked.
+## M. CI premerge
 
-Post-restart: same Attempt id/status=`running`; Attempt count=1; Evidence=0; no new launch observed.
+| Check | Conclusion |
+|-------|------------|
+| Detect SFIA Studio changes | SUCCESS |
+| Build and validate SFIA Studio | SUCCESS (5m59s) |
+| **SFIA Studio Required Gate** | **SUCCESS** |
+| Workflow run | `35212829546` — conclusion **success** |
+| Exact head | `742339e56e79fba5217b5859894a72e32ac5d8ca` |
 
-NO automatic relaunch proven for this stuck Attempt (no second spawn after restart).
+## N. Critical premerge verdict — REQUESTED
 
----
+**STOP — awaiting ChatGPT Critical pre-merge verdict = PASS before merge.**
 
-## 17. Exact counters
+All other §15 gates except ChatGPT Critical are green:
 
-### Delivery integration (authorized project Git)
+- exact PR head `742339e5` identified
+- base main still `04bcfecb`
+- diff bounded (8 files / +366 −2)
+- local typecheck/lint/build/full Vitest PASS
+- Required Gate PASS on exact head
+- Full Review Pack complete (this document)
+- Delivery REAL counter = 0
 
-| Counter | Count |
-|---------|------:|
-| Delivery commits | 1 |
-| Delivery pushes | 1 |
-| Delivery PRs | 1 (#497) |
-| Delivery merges | 1 |
-| Delivery REAL launches | 0 |
+Agent self-check (non-substituting for ChatGPT):
 
-### Product Journey REAL campaign
+- Scope strictly path instruction + Product await wiring + tests
+- No schema/persistence/authority/Gate D redesign
+- Path guards strengthened (pre-spawn reject), not weakened
+- Sealed EC relative paths preserved for verify/Evidence
+- RO async pending path preserved
+- Delivery REAL = 0
 
-| Counter | Count |
-|---------|------:|
-| Authenticated Product entry | 1 |
-| Rematerializations | 1 |
-| Fresh inspections | >=1 |
-| Confirmations | 1 |
-| Authority evaluations | 1 |
-| Product Execute | **1** |
-| StartExecution | 1 |
-| ExecutionAttempts | **1** |
-| Cursor REAL launches | **1** |
-| Cursor terminal completions (Product-observed) | **0** (Attempt stuck running) |
-| Authorized docs_write effects | **0** |
-| Unauthorized filesystem writes | **1** (`.sandbox/…`) |
-| Evidence created | 0 |
-| ReviewBundles created | 0 |
-| Restarts | 1 |
-| Automatic relaunches | 0 |
-| OpenAI LIVE | 0 |
-| Nora LIVE | 0 |
-| Product commit/push/PR/merge | 0 |
+## O–AD. Merge / REAL / Evidence / restart
 
----
+**NOT EXECUTED YET** — gated on ChatGPT Critical PASS, then conditional Morris merge + post-merge green + fresh REAL.
 
-## 18. Reservations / gaps (NO speculative fix in this campaign)
+## AA. Claims allowed (Delivery phase only)
 
-1. **PASS blocker:** Cursor wrote outside allowlist / wrong relative path (`.sandbox/` vs `projects/sfia-studio/.sandbox/`).
-2. **Observation gap:** Attempt remained `running` with frontier LAUNCHED after child pid gone; no Product terminalization / Evidence within campaign window (past resolvedMaxDurationMs start without durable fail observed).
-3. Origin-remote gate removal **succeeded** (local filesystem origin accepted; REAL spawn occurred).
-4. Do NOT cascade another Product patch under this GO (§26).
+- Delivery integrated to PR #498 at head `742339e5`
+- Root causes identified and addressed in code under existing architecture
+- Local validation green; ZERO REAL Delivery
+- Origin-remote gate not reintroduced
 
----
+## AB. Reservations / debt
 
-## 19. Authorized claims
+- Absolute path in Cursor instruction reduces but does not mathematically guarantee agent compliance; independent `verifyWorkspaceFileEffects` remains the PASS criterion.
+- Observation registry remains process-local (pre-existing); Product await on same Execute call closes the post-#497 Product gap.
+- Fresh REAL still required for PASS REAL claim.
 
-- Redundant origin-remote workspace gate removed and integrated on main `04bcfecb` with Required Gate green.
-- Local-origin managed repository accepted by prepareWorkspace.
-- Authenticated M3→M4 → Inspect/Confirm/AUTHORIZED → one Cursor REAL spawn proven.
-- Restart preserved durable Attempt without automatic relaunch.
+## AC. Runtime v3
 
-## 20. Forbidden claims
+NON ADOPTED.
 
-- PASS REAL / REAL BOUNDARY PROVEN AT TESTED SCOPE
-- Bounded verified authorized file effect
-- Verified Evidence / ReviewBundle for successful REAL
-- Runtime v3 ADOPTED / global L5 / production autonomy
+## AD. Final Delivery verdict (pre-merge)
 
----
+**STOP — PRODUCT DOCS_WRITE PATH/COMPLETION DELIVERY INTEGRATED / REQUIRED GATE GREEN — AWAITING CHATGPT CRITICAL PRE-MERGE PASS BEFORE MERGE** — PR #498 head `742339e56e79fba5217b5859894a72e32ac5d8ca` — ZERO REAL — RUNTIME V3 NON ADOPTED
 
-## 21. Exact final verdict
-
-**FAIL REAL — AUTHENTICATED PRODUCT REPROOF09 REAL (POST #497)**
-
-- Delivery + post-merge Required Gate: **PASS**
-- Local-origin regression for workspace prepare: **PASS**
-- Cursor REAL external process: **SPAWNED (1)** — campaign REAL spawn budget **CONSUMED**
-- Authorized target verification: **FAIL**
-- Evidence/ReviewBundle PASS criteria: **FAIL**
-- NO RETRY under this GO
-- Runtime v3 NON ADOPTED
-
-## 22. Next gate
-
-**STOP FOR CHATGPT CRITICAL REVIEW.**
-
-Next Product Journey direction after any future PASS remains: Evidence/RB → LPS/Trajectory → Nora/recommendation → next Pilote decision.
-Any next REAL or docs_write path-correctness Delivery requires a **new** Morris GO.
+NO SECOND REAL SPAWN. NO RETRY. RUNTIME V3 NON ADOPTED.
