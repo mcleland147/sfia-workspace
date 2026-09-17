@@ -92,6 +92,45 @@ describe("D-GCEC-CONT-01 workspace resume (REAL OFF)", () => {
     ).toBe(true);
   });
 
+  it("FRESH-LOCAL-ORIGIN prepare accepts filesystem-form origin (no origin_remote_mismatch)", async () => {
+    const { repoRoot, execRoot } = tempRoots("gcec-cont-local-origin-");
+    const localOrigin = "/Users/morris/Projects/sfia-workspace";
+    const git = new FakeGitCommandRunner({
+      baseHeadSha: M4_TEST_BASE_HEAD_SHA,
+      remoteUrl: localOrigin,
+    });
+    const ws = new StudioGitWorktreeWorkspace({
+      repoRoot,
+      execRoot,
+      gitRunner: git,
+    });
+    const attemptId = "xat:cont-local-origin-prep";
+    const prepared = await ws.prepareWorkspace({
+      attemptId,
+      baseHeadSha: M4_TEST_BASE_HEAD_SHA,
+      repositoryBinding: {
+        identity: IDENTITY,
+        remoteUrl: REMOTE,
+        defaultBranch: "main",
+        pathRoot: "docs",
+      },
+    });
+    expect(prepared.workspacePath).toBe(
+      workspacePathForAttempt(execRoot, attemptId),
+    );
+    expect(prepared.verifiedHeadSha).toBe(M4_TEST_BASE_HEAD_SHA);
+    expect(
+      git.calls.some(
+        (c) => c.argv[0] === "worktree" && c.argv[1] === "add",
+      ),
+    ).toBe(true);
+    expect(
+      git.calls.some(
+        (c) => c.argv[0] === "remote" && c.argv[1] === "get-url",
+      ),
+    ).toBe(false);
+  });
+
   it("RESUME-01 priorAttemptId derives previous workspace path", async () => {
     const { repoRoot, execRoot } = tempRoots("gcec-cont-r01-");
     const priorAttemptId = "xat:cont-prior-01";
@@ -185,6 +224,42 @@ describe("D-GCEC-CONT-01 workspace resume (REAL OFF)", () => {
       },
     });
     expect(resumed.verifiedHeadSha).toBe(M4_TEST_BASE_HEAD_SHA);
+  });
+
+  it("RESUME-LOCAL-ORIGIN resumes when ambient origin is filesystem-form", async () => {
+    const { repoRoot, execRoot } = tempRoots("gcec-cont-r-local-");
+    const priorAttemptId = "xat:cont-prior-local-origin";
+    const expected = workspacePathForAttempt(execRoot, priorAttemptId);
+    mkdirSync(expected, { recursive: true });
+    writeVerifiedArtifact(expected);
+    const git = new FakeGitCommandRunner({
+      baseHeadSha: M4_TEST_BASE_HEAD_SHA,
+      remoteUrl: "/Users/morris/Projects/sfia-workspace",
+      registeredWorktrees: [expected],
+    });
+    const ws = new StudioGitWorktreeWorkspace({
+      repoRoot,
+      execRoot,
+      gitRunner: git,
+    });
+    const resumed = await ws.resumeVerifiedWorkspace({
+      currentAttemptId: "xat:cont-current-local-origin",
+      priorAttemptId,
+      expectedHeadSha: M4_TEST_BASE_HEAD_SHA,
+      expectedVerifiedFiles: [{ path: ARTIFACT_REL, digest: ARTIFACT_DIGEST }],
+      repositoryBinding: {
+        identity: IDENTITY,
+        remoteUrl: REMOTE,
+        defaultBranch: "main",
+      },
+    });
+    expect(resumed.workspacePath).toBe(expected);
+    expect(resumed.verifiedHeadSha).toBe(M4_TEST_BASE_HEAD_SHA);
+    expect(
+      git.calls.some(
+        (c) => c.argv[0] === "remote" && c.argv[1] === "get-url",
+      ),
+    ).toBe(false);
   });
 
   it("RESUME-04 missing path fails closed", async () => {

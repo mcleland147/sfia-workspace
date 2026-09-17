@@ -127,27 +127,9 @@ export class StudioGitWorktreeWorkspace implements RealExecutionWorkspacePort {
       ? path.resolve(request.managedRepoRoot)
       : this.repoRoot;
 
-    if (request.repositoryBinding) {
-      const remote = await this.gitRunner.run(
-        ["remote", "get-url", "origin"],
-        repoRoot,
-      );
-      if (remote.exitCode !== 0) {
-        throw new Error("REAL_WORKSPACE_INVALID:origin_remote_missing");
-      }
-      const actual = normalizeGitRemoteUrl(remote.stdout.trim());
-      const expectedFromUrl = normalizeGitRemoteUrl(
-        request.repositoryBinding.remoteUrl,
-      );
-      const expectedFromIdentity = normalizeGitRemoteUrl(
-        `https://github.com/${request.repositoryBinding.identity}.git`,
-      );
-      if (actual !== expectedFromUrl && actual !== expectedFromIdentity) {
-        throw new Error("REAL_WORKSPACE_INVALID:origin_remote_mismatch");
-      }
-      // pathRoot noted for write-layer enforcement (docsWriteSpec pathAllowlist).
-      void request.repositoryBinding.pathRoot;
-    }
+    // Ambient `origin` URL equality is NOT a workspace validity invariant.
+    // pathRoot remains noted for write-layer enforcement (docsWriteSpec pathAllowlist).
+    void request.repositoryBinding?.pathRoot;
 
     const workspacePath = workspacePathForAttempt(
       this.execRoot,
@@ -255,25 +237,8 @@ export class StudioGitWorktreeWorkspace implements RealExecutionWorkspacePort {
       throw new Error("REAL_WORKSPACE_INVALID:toplevel_mismatch");
     }
 
-    if (request.repositoryBinding) {
-      const remote = await this.gitRunner.run(
-        ["remote", "get-url", "origin"],
-        workspacePath,
-      );
-      if (remote.exitCode !== 0) {
-        throw new Error("REAL_WORKSPACE_INVALID:origin_remote_missing");
-      }
-      const actual = normalizeGitRemoteUrl(remote.stdout.trim());
-      const expectedFromUrl = normalizeGitRemoteUrl(
-        request.repositoryBinding.remoteUrl,
-      );
-      const expectedFromIdentity = normalizeGitRemoteUrl(
-        `https://github.com/${request.repositoryBinding.identity}.git`,
-      );
-      if (actual !== expectedFromUrl && actual !== expectedFromIdentity) {
-        throw new Error("REAL_WORKSPACE_INVALID:origin_remote_mismatch");
-      }
-    }
+    // Ambient `origin` URL equality is NOT a resume workspace validity invariant.
+    void request.repositoryBinding;
 
     const head = await this.gitRunner.run(["rev-parse", "HEAD"], workspacePath);
     if (head.exitCode !== 0) {
@@ -323,15 +288,6 @@ function porcelainWorktreePaths(porcelain: string): string[] {
     }
   }
   return out;
-}
-
-function normalizeGitRemoteUrl(url: string): string {
-  return url
-    .trim()
-    .replace(/\.git$/i, "")
-    .replace(/^git@github\.com:/i, "https://github.com/")
-    .replace(/^ssh:\/\/git@github\.com\//i, "https://github.com/")
-    .toLowerCase();
 }
 
 /**
