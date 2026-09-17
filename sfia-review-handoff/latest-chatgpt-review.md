@@ -1,10 +1,10 @@
 # ChatGPT Review Pack — FULL
-## PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01 — Checkpoint F REAL failure forensic diagnosis
+## PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01 — Checkpoint F REAL failure observability + provenance truth
 
-**Timestamp (UTC):** 2026-09-17T19:59:49Z
-**Pack kind:** FULL (diagnostic only — **no Product code change in this lot**)
-**Pack revision:** R5 — Checkpoint F REAL failure forensic diagnosis
-**Automation:** L3 handoff publish only; **NO** project commit/push/PR/merge; **NO** REAL retry; **NO** Execute
+**Timestamp (UTC):** 2026-09-17T20:15:17Z
+**Pack kind:** FULL (code modification present — modified content included below)
+**Pack revision:** R6 — Checkpoint F REAL failure observability + provenance truth
+**Automation:** L3 handoff publish only; **NO** project commit/push/PR/merge; **ZERO REAL**; **NO Execute**
 
 ---
 
@@ -17,7 +17,7 @@
 | Branch | `qa/sfia-studio-product-journey-e2e-real-reconciliation-01` |
 | HEAD | `26478b1ea5b010c625f0c6039c969fac5c135cf5` |
 | origin/main | `26478b1ea5b010c625f0c6039c969fac5c135cf5` |
-| Baseline match | YES (`HEAD == origin/main == 26478b1ea5b010c625f0c6039c969fac5c135cf5`) |
+| Baseline match | YES |
 | Macro | PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01 |
 | Cycle | 9 — QA / Validation |
 | Typologie | EVOL |
@@ -32,366 +32,911 @@
  M projects/sfia-studio/app/__tests__/project-assistant/corrProof10.decisionContextContinuity.d0.test.ts
  M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
  M projects/sfia-studio/app/features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile.ts
+ M projects/sfia-studio/app/features/project-assistant/f3/completeBoundedReadOnlyLaunch.ts
  M projects/sfia-studio/app/features/project-assistant/f3/index.ts
  M projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
  M projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts
  M projects/sfia-studio/app/features/project-assistant/w2/actions.ts
  M projects/sfia-studio/app/features/project-assistant/w2/activeProposalDecisionSubject.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
  M projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
  M projects/sfia-studio/app/features/project-assistant/w2/types.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
  M projects/sfia-studio/app/package-lock.json
 ?? .tmp-sfia-review/checkpoint-e-prepare-fix.diff
 ?? .tmp-sfia-review/checkpoint-e-r4-evidence-coherence.diff
 ?? .tmp-sfia-review/checkpoint-e-resume-full.diff
+?? .tmp-sfia-review/checkpoint-f-r6-observability.diff
 ?? projects/sfia-studio/app/__tests__/oa/execution-contract/checkpointE.docsWriteEvidenceCoherence.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/oa/execution-contract/checkpointE.docsWriteEvidenceRematerialize.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/project-assistant/checkpointE.prepareResume.d0.test.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/checkpointF.realFailureObservability.d0.test.ts
 ?? projects/sfia-studio/app/features/project-assistant/f3/docsWriteEvidenceContradictionView.ts
+?? projects/sfia-studio/app/features/project-assistant/f3/processFailureDiagnostic.ts
 ?? projects/sfia-studio/app/features/project-assistant/f3/rematerializeDocsWriteEvidenceRequirements.ts
+?? projects/sfia-studio/app/features/project-assistant/f3/resolveDurableBoundaryProofMode.ts
 ?? projects/sfia-studio/app/features/project-assistant/w2/prepareReadyProposalPursueContinuation.ts
 ```
 
-### Confirmation
+### Preservation
 
-- Worktree / branch / baseline: **OK**
-- Local R1/R3/R4 Product dirty files: **still present** (untouched by this forensic lot)
-- `package-lock.json`: dirty préexistant — **LEFT UNTOUCHED / hors scope**
-- This lot: **no Product code edits**; only this Review Pack (+ handoff publish)
+- R1/R3/R4 local Product dirty files: **preserved**
+- `package-lock.json`: dirty préexistant — **LEFT UNTOUCHED**
+- Historical Attempt `xat:w3a:1f49d8e25e20837a`: **not mutated**
 
 ---
 
-## 2. État campagne (post-Execute fail)
+## 2. Qualification SFIA
 
 | Item | Value |
 |---|---|
-| Product DB | `/Users/morris/Projects/sfia-studio-product-journey-e2e-real-reconciliation-01/projects/sfia-studio/.sfia-exec/pje2e-real-01/product/oa-product.sqlite` |
-| Project | `prj:e3fe8a45-5c9e-4651-bd2c-bde1cdf77c38` |
-| Cycle | `cyc:trj-979cf448c5a6f0e7685f937f` status=`active` (**not auto-closed**) |
-| HumanDecision | `dec:w2-prop:0e4b08bb-5b5c-4c99-b57f-d49234abb693` |
-| EC courant | `xct:m3-ev:8aaa188b3a3bd7a7` status=`failed` |
-| Attempt | `xat:w3a:1f49d8e25e20837a` status=`failed` |
-| oa_execution_attempts count | **1** |
-| READY | **none** |
-| Business success | **none** |
-| External file effect | **none** (target ABSENT all trees; managed+M4 wt clean) |
+| Capacité v3 | Executor REAL dont échec est Evidence-backed / honnêtement interprété |
+| Milestone | Product Journey E2E REAL Reconciliation |
+| Entry (R5) | CHECKPOINT F REAL FAILURE — ROOT CAUSE NOT PROVEN |
+| Entry claim | ONE GOVERNED CURSOR REAL ATTEMPT EXECUTED AND FAILED — FAILURE EVIDENCE CAPTURED — NO BUSINESS SUCCESS CLAIM |
 
 ---
 
-## 3. Attempt exact (Phase 1 — faits durables)
+## 3. G1 — root cause + correction
 
-| Field | Value |
+**Root cause:** runner buffers stdout/stderr in-memory only; failure Evidence was `metadata_only` without streams.
+
+**Correction:** additive `ExecutionAttempt.processDiagnostic` (JSON payload, no migration) via `buildProcessFailureDiagnostic` + `RecordExecutionFailure`.
+
+---
+
+## 4. G2 — root cause + correction
+
+**Root cause:** `w3cPostEvidenceLoop` omitted `boundaryProofMode` → Nora `realProcessInvoked:false` despite frontier true.
+
+**Correction:** `resolveDurableBoundaryProofMode` (diagnostic → frontier → launchPort) into `deriveAttemptProvenance`; honest RB reservation when REAL invoked.
+
+---
+
+## 5. G3 disposition
+
+| Check | Disposition |
 |---|---|
-| attemptId | `xat:w3a:1f49d8e25e20837a` |
-| status | `failed` |
-| startedAt / launchedAt | `2026-09-17T19:46:53.199Z` |
-| failedAt | `2026-09-17T19:46:55.265Z` |
-| durationMs | `1534` |
-| technicalExitCode | `1` |
-| stopReason | `REAL_PROCESS_NONZERO_EXIT` |
-| selectedAgentRef | `agt:m4.cursor.bounded_docs_write` |
-| executionContractId | `xct:m3-ev:8aaa188b3a3bd7a7` |
-| adapter / gateway (frontier) | `adp:m4-cursor-cli-real` |
-| authority receipt | `avr:5f823d0641d6a21b` outcome=`authorized` @ `2026-09-17T19:46:53.147Z` |
-| confirmation | `cfm:w2:xct:m3-ev:8aaa188b3a3bd7a7:v2` status=`consumed` |
-| boundaryProofMode (durable frontier) | `cursor_real` |
-| processRef | `pid:51943` |
-| realProcessInvoked (frontier LAUNCHED) | **true** |
-| stdout/stderr durable | **ABSENT** (Evidence `storageMode=metadata_only`; runner keeps buffers in-process only) |
-| targetPath (EC) | `projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md` |
-| repositoryRef | `mcleland147/sfia-workspace` |
-| baseHeadSha | `26478b1ea5b010c625f0c6039c969fac5c135cf5` |
-| evidenceRequirements (EC) | `["evreq:docs_write_artifact"]` |
-| resultRef | **ABSENT** (failure path; no success result recorded) |
-
-### Launch frontier (launch-safety.sqlite)
-
-| kind | occurred_at | process_ref | payload |
-|---|---|---|---|
-| CREATED | 2026-09-17T19:46:53.199Z |  | `{}` |
-| LAUNCHED | 2026-09-17T19:46:53.199Z | pid:51943 | `{"gatewayId":"adp:m4-cursor-cli-real","boundaryProofMode":"cursor_real","realProcessInvoked":true}` |
+| Bin path / exists / executable | **KEEP** (`CURSOR_UNAVAILABLE`) |
+| Managed repo / worktree | **KEEP** (`REAL_WORKSPACE_INVALID`) |
+| Auth Cursor | **DEFER** — NOT AVAILABLE NON-INVASIVELY |
 
 ---
 
-## 4. Chronologie Execute → failure (Phase 2)
+## 6. Persistence diagnostic
 
-| Step | Input | Output | Gate | Proof |
-|---|---|---|---|---|
-| UI Execute / governedExecute | EC `xct:m3-ev:8aaa188b3a3bd7a7` confirmed+authorized | start path entered | authority authorized | `avr:5f823d0641d6a21b` |
-| Select agent | docs_write profile | `agt:m4.cursor.bounded_docs_write` | passed | Attempt payload |
-| Gate D / launch frontier CREATED | attempt+EC fingerprint | CREATED record | passed | launch-safety CREATED |
-| StartExecution → REAL gateway | `adp:m4-cursor-cli-real` | ACK spawn | passed | LAUNCHED `realProcessInvoked:true` `pid:51943` |
-| Process runner | bin+argv+cwd+env | child exit 1 in ~1534ms | process completed non-zero | Attempt `technicalExitCode=1` |
-| completeBoundedReadOnlyLaunch | observation exit≠0 | `stopReason=REAL_PROCESS_NONZERO_EXIT` | **fail here** | code + Attempt payload |
-| W3B Evidence/RB | failed attempt | `ev:w3b:0b7609835db72e9a` / `rb:w3b:0b7609835db72e9a` | diagnostic only | DB |
-| W3C Nora post-Evidence | deriveAttemptProvenance **without** `boundaryProofMode` | Nora text claims `realProcessInvoked:false` | projection miss | `w3cPostEvidenceLoop.ts` + `deriveAttemptProvenance.ts` |
-
-**Where `REAL_PROCESS_NONZERO_EXIT` appears:** `completeBoundedReadOnlyLaunch` when `observation.realProcessInvoked===true` and `observation.exitCode !== 0` (not timeout) → `recordExecutionFailure(stopReason: "REAL_PROCESS_NONZERO_EXIT")`.
+Attempt.`processDiagnostic` (redacted/capped); Evidence stays `log_ref`/`metadata_only`; does **not** satisfy `evreq:docs_write_artifact`.
 
 ---
 
-## 5. Commande / process (Phase 4) — reconstructed from gateway code + campaign env
+## 7. Redaction / cap
 
-Durable spawn cmdline file for this Attempt: **ABSENT** (unlike historical Reproof09 capitalisation asset). Reconstruction from `studioCursorRealLaunchGateway.ts` + `.env.local` + prepared worktree:
-
-| Item | Value |
-|---|---|
-| executable (resolved) | `/Applications/Cursor.app/Contents/Resources/app/bin/cursor` via `SFIA_CURSOR_BIN` (**PRESENT**) |
-| argv shape (docs_write) | `agent --print --workspace <WT> --trust --sandbox disabled --force <instruction>` |
-| cwd / workspace | `/Users/morris/Projects/sfia-studio-product-journey-e2e-real-reconciliation-01/projects/sfia-studio/.sfia-exec/m4-worktrees/wt-0b7609835db72e9aba58c125` |
-| managed repo base | `/tmp/sfia-pje2e` (`SFIA_STUDIO_MANAGED_REPO_ROOT_BASE` **PRESENT**) |
-| `SFIA_STUDIO_CURSOR_REAL` | **PRESENT** (`1`) |
-| `CURSOR_API_KEY` | **ABSENT** (in campaign `.env.local`) |
-| mutating confinement | `local` effect class (strip SSH/GH tokens; keep host Cursor session inheritance except stripped keys) |
-| stdin | ignored (`stdio: ["ignore","pipe","pipe"]`) |
-| stdout/stderr | capped 64KiB in-memory only — **not written to Evidence** |
-| timeout | EC `executionWindowClass=standard` → resolvedMaxDurationMs=`900000` (not hit; duration 1534ms) |
-| kill signal | not indicated (timedOut false / not recorded) |
-| target absolute under WT | `/Users/morris/Projects/sfia-studio-product-journey-e2e-real-reconciliation-01/projects/sfia-studio/.sfia-exec/m4-worktrees/wt-0b7609835db72e9aba58c125/projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md` |
-
-Instruction provenance: gateway `buildDocsWriteInstruction` from EC sealed inputs (`targetPath`, allowlist, brief, contentRequirements, fingerprint=`214f5dcd…`).
+Reuse `redactSecrets`; durable cap 4 KiB (stdout head / stderr tail); truncation flags; no env/prompt/secrets.
 
 ---
 
-## 6. `realProcessInvoked:false` (Phase 3) — résolution factuelle
+## 8. Fichiers modifiés / ajoutés (R6)
 
-### Durable spawn truth
+**New:** `f3/processFailureDiagnostic.ts`, `f3/resolveDurableBoundaryProofMode.ts`, `__tests__/project-assistant/checkpointF.realFailureObservability.d0.test.ts`
 
-`m4_launch_frontier` LAUNCHED payload:
+**Modified:** `completeBoundedReadOnlyLaunch.ts`, `f3/index.ts`, `execution-attempt/domain/types.ts`, `recordExecutionFailure.ts`, `w3cPostEvidenceLoop.ts`, `materializeW3bProductTerminal.ts`, `w3bProductTerminalProjection.ts`
 
-```json
-{"gatewayId":"adp:m4-cursor-cli-real","boundaryProofMode":"cursor_real","realProcessInvoked":true}
+---
+
+## 9. Diff exploitable (R6)
+
+```diff
+===== R6 TRACKED DIFF =====
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/completeBoundedReadOnlyLaunch.ts b/projects/sfia-studio/app/features/project-assistant/f3/completeBoundedReadOnlyLaunch.ts
+index 33010ac2..1c9739ce 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f3/completeBoundedReadOnlyLaunch.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f3/completeBoundedReadOnlyLaunch.ts
+@@ -9,9 +9,14 @@ import {
+   type ExecutionAttemptServices,
+   type RealProcessObservation,
+ } from "@/lib/oa/execution-attempt";
++import {
++  buildProcessFailureDiagnostic,
++  PROCESS_DIAGNOSTIC_STDERR_CAP,
++  PROCESS_DIAGNOSTIC_STDOUT_CAP,
++} from "./processFailureDiagnostic";
+
+-export const NORA_STDOUT_CAP = 4 * 1024;
+-export const NORA_STDERR_CAP = 4 * 1024;
++export const NORA_STDOUT_CAP = PROCESS_DIAGNOSTIC_STDOUT_CAP;
++export const NORA_STDERR_CAP = PROCESS_DIAGNOSTIC_STDERR_CAP;
+
+ export type BoundedLaunchObservationFacts = {
+   attemptId: string;
+@@ -203,6 +208,17 @@ export async function completeBoundedReadOnlyLaunch(input: {
+     };
+   }
+
++  const failureDiagnostic = buildProcessFailureDiagnostic({
++    observation,
++    boundaryProofMode:
++      input.services.realBoundary?.launchPort.boundaryProofMode ===
++        "cursor_real" ||
++      input.services.realBoundary?.launchPort.boundaryProofMode ===
++        "deterministic_fake"
++        ? input.services.realBoundary.launchPort.boundaryProofMode
++        : undefined,
++  });
++
+   if (observation.timedOut === true) {
+     const timed = await input.services.triggerAttemptTimeout.execute({
+       attemptId: input.attempt.attemptId,
+@@ -216,6 +232,7 @@ export async function completeBoundedReadOnlyLaunch(input: {
+         stopReason: "EXECUTION_TIMEOUT",
+         durationMs: observation.durationMs,
+         expectedAttemptVersion: input.attempt.version,
++        processDiagnostic: failureDiagnostic,
+       });
+       if (!failed.ok || !failed.attempt) {
+         return {
+@@ -265,6 +282,7 @@ export async function completeBoundedReadOnlyLaunch(input: {
+       technicalExitCode: observation.exitCode ?? undefined,
+       durationMs: observation.durationMs,
+       expectedAttemptVersion: input.attempt.version,
++      processDiagnostic: failureDiagnostic,
+     });
+     if (!failed.ok || !failed.attempt) {
+       return {
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/index.ts b/projects/sfia-studio/app/features/project-assistant/f3/index.ts
+index a02263cb..eece03eb 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f3/index.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f3/index.ts
+@@ -47,6 +47,14 @@ export {
+   authorizedM3ResolutionKind,
+ } from "./selectProductM3ResolutionProfile";
+ export { deriveAttemptProvenance, F3_REAL_MODE, F3_BOUNDED_M4_DETERMINISTIC_MODE } from "./deriveAttemptProvenance";
++export { resolveDurableBoundaryProofMode } from "./resolveDurableBoundaryProofMode";
++export {
++  buildProcessFailureDiagnostic,
++  isProcessFailureDiagnostic,
++  PROCESS_DIAGNOSTIC_STDOUT_CAP,
++  PROCESS_DIAGNOSTIC_STDERR_CAP,
++} from "./processFailureDiagnostic";
++export type { ProcessFailureDiagnostic } from "./processFailureDiagnostic";
+ export { completeBoundedReadOnlyLaunch } from "./completeBoundedReadOnlyLaunch";
+ export type {
+   BoundedLaunchObservationFacts,
+@@ -61,6 +69,12 @@ export type {
+ } from "./prepareAndResolveM3ProductPath";
+ export { resolveExistingLegacyM3DocsWriteProductPath } from "./resolveExistingLegacyM3DocsWriteProductPath";
+ export { isLegacyDocsWritePrepareContractView } from "./legacyDocsWritePrepareContractView";
++export { isDocsWriteEvidenceContradictionView } from "./docsWriteEvidenceContradictionView";
++export { rematerializeDocsWriteEvidenceRequirements } from "./rematerializeDocsWriteEvidenceRequirements";
++export type {
++  RematerializeDocsWriteEvidenceResult,
++  RematerializeDocsWriteEvidenceSuccess,
++} from "./rematerializeDocsWriteEvidenceRequirements";
+ export type {
+   F3M3LegacyResolvedPayload,
+   ResolveExistingLegacyM3DocsWriteDeps,
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
+index 8ec81e9e..ad829eb5 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
+@@ -11,6 +11,7 @@ import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
+ import type { ClaimEvaluation, Evidence, ReviewBundle } from "@/lib/oa/evidence-review";
+ import {
+   projectW3bProductTerminal,
++  productReservationsForAttempt,
+   type W3BProductTerminalProjection,
+ } from "./w3bProductTerminalProjection";
+ import {
+@@ -37,13 +38,6 @@ export type MaterializeW3bProductTerminalResult =
+       readonly postEvidence?: W3cPostEvidenceLoopResult;
+     };
+
+-const PRODUCT_RESERVATIONS = [
+-  "Evidence requise avant claim produit",
+-  "Apprentissage / replan non démarrés",
+-  "Exécuteur de substitution — pas d'effet externe réel",
+-  "Aucun READY",
+-] as const;
+-
+ export function w3bEvidenceIdentity(attemptId: string): {
+   evidenceId: string;
+   reviewBundleId: string;
+@@ -182,7 +176,7 @@ export async function materializeW3bProductTerminal(input: {
+     executionContractId: contract.executionContractId,
+     ...(contract.cycleInstanceId ? { cycleInstanceId: contract.cycleInstanceId } : {}),
+     evidenceIds: [ingested.evidence.evidenceId],
+-    reservations: [...PRODUCT_RESERVATIONS],
++    reservations: [...productReservationsForAttempt(attempt)],
+   });
+
+   if (!bundle.ok) {
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts b/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
+index fcb2aafd..03b384d4 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
+@@ -61,6 +61,24 @@ const PRODUCT_RESERVATIONS = [
+   "Aucun READY",
+ ] as const;
+
++/** Honest reservation when a REAL process was durably launched (vs substitution wording). */
++export function productReservationsForAttempt(
++  attempt: ExecutionAttempt,
++): readonly string[] {
++  const realInvoked =
++    attempt.processDiagnostic?.realProcessInvoked === true ||
++    attempt.irreversibleEffectsPossible === true ||
++    (typeof attempt.stopReason === "string" &&
++      attempt.stopReason.startsWith("REAL_"));
++  if (!realInvoked) return [...PRODUCT_RESERVATIONS];
++  return [
++    PRODUCT_RESERVATIONS[0],
++    PRODUCT_RESERVATIONS[1],
++    "Process Cursor REAL invoqué — effet métier non prouvé",
++    PRODUCT_RESERVATIONS[3],
++  ];
++}
++
+ const ANTI = {
+   ready: false,
+   w3Closed: false,
+@@ -160,7 +178,7 @@ export function projectW3bProductTerminal(input: {
+       executionContractId: input.contract.executionContractId,
+       executionContractVersion: input.attempt.executionContractVersion,
+     },
+-    reservations: [...PRODUCT_RESERVATIONS],
++    reservations: [...productReservationsForAttempt(input.attempt)],
+     antiClaims: ANTI,
+     cycleInstanceClosed: false as const,
+     projectArchived: false as const,
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts b/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
+index 7b2f709d..386ebca3 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
+@@ -17,6 +17,7 @@ import type { EpistemicItem } from "@/lib/oa/cycle";
+ import { SFIA_STUDIO_SYSTEM_FACTUAL_WRITER } from "@/features/project-assistant/f3/systemFactualWriter";
+ import { appendEvidenceOutcomeToLps } from "@/features/project-assistant/f3/appendEvidenceOutcomeToLps";
+ import { deriveAttemptProvenance } from "@/features/project-assistant/f3/deriveAttemptProvenance";
++import { resolveDurableBoundaryProofMode } from "@/features/project-assistant/f3/resolveDurableBoundaryProofMode";
+ import {
+   analyzePostEvidenceWithProvider,
+   extractW3cPostEvidenceAnalysisForEvidence,
+@@ -956,6 +957,12 @@ export async function runW3cPostEvidenceLoop(input: {
+   let adapterRef = "adp:unknown";
+   let executionMode = "unknown";
+   let realProcessInvoked = false;
++  let processRef: string | undefined;
++  let processExitCode: number | null | undefined;
++  let processTimedOut: boolean | undefined;
++  let processDurationMs: number | undefined;
++  let processStdout: string | undefined;
++  let processStderr: string | undefined;
+
+   if (oa.executionAttemptServices) {
+     const loaded = await oa.executionAttemptServices.getExecutionAttempt.execute({
+@@ -967,13 +974,28 @@ export async function runW3cPostEvidenceLoop(input: {
+       const agent = oa.executionAttemptServices.registry.getAgent(
+         loaded.attempt.selectedAgentRef,
+       );
++      const boundaryProofMode = await resolveDurableBoundaryProofMode({
++        oa,
++        attempt: loaded.attempt,
++      });
+       const provenance = deriveAttemptProvenance({
+         attempt: loaded.attempt,
+         agent,
++        boundaryProofMode,
+       });
+       adapterRef = provenance.adapterRef;
+       executionMode = provenance.executionMode;
+       realProcessInvoked = provenance.realProcessInvoked;
++      // Prefer durable diagnostic excerpts when present (failure observability).
++      const diag = loaded.attempt.processDiagnostic;
++      if (diag) {
++        processStdout = diag.stdoutExcerpt;
++        processStderr = diag.stderrExcerpt;
++        processRef = diag.processRef;
++        processExitCode = diag.exitCode;
++        processTimedOut = diag.timedOut;
++        processDurationMs = diag.durationMs;
++      }
+     }
+   }
+   if (oa.executionContractServices) {
+@@ -1027,6 +1049,14 @@ export async function runW3cPostEvidenceLoop(input: {
+       reviewBundleId: product.reviewBundleId,
+       technicalResultRef: product.technicalDetail.resultRef,
+       reservations: product.reservations,
++      ...(processRef ? { processRef } : {}),
++      ...(processExitCode !== undefined ? { exitCode: processExitCode } : {}),
++      ...(processTimedOut !== undefined ? { timedOut: processTimedOut } : {}),
++      ...(processDurationMs !== undefined
++        ? { durationMs: processDurationMs }
++        : {}),
++      ...(processStdout !== undefined ? { stdout: processStdout } : {}),
++      ...(processStderr !== undefined ? { stderr: processStderr } : {}),
+     },
+     { ckcPromptSection },
+   );
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts
+index 62267028..6f668fc9 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts
+@@ -126,6 +126,9 @@ export class RecordExecutionFailure {
+         technicalExitCode: request.technicalExitCode,
+         durationMs: request.durationMs,
+         logRefs: request.logRefs ? [...request.logRefs] : attempt.logRefs,
++        ...(request.processDiagnostic
++          ? { processDiagnostic: request.processDiagnostic }
++          : {}),
+         updatedAt: timestamp,
+         version: attempt.version + 1,
+       };
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
+index cfe92303..88a52e28 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
+@@ -137,6 +137,28 @@ export type ExecutionAttempt = {
+   technicalExitCode?: number;
+   durationMs?: number;
+   logRefs?: string[];
++  /**
++   * Checkpoint F / R6 — redacted/capped process observation on failure/timeout.
++   * Optional additive payload field (no SQLite migration). Diagnostic only —
++   * never authoritative business Evidence / docs_write artifact proof.
++   */
++  processDiagnostic?: {
++    readonly kind: "process_failure_diagnostic";
++    readonly schemaVersion: "0.1.0-oa";
++    readonly processRef: string;
++    readonly exitCode: number | null;
++    readonly timedOut: boolean;
++    readonly durationMs: number;
++    readonly realProcessInvoked: boolean;
++    readonly boundaryProofMode?: "cursor_real" | "deterministic_fake";
++    readonly executableBasename?: string;
++    readonly stdoutExcerpt: string;
++    readonly stderrExcerpt: string;
++    readonly stdoutTruncated: boolean;
++    readonly stderrTruncated: boolean;
++    readonly redacted: true;
++    readonly authoritativeBusinessEvidence: false;
++  };
+   cancellationRequested?: boolean;
+   irreversibleEffectsPossible?: boolean;
+   updatedAt?: string;
+@@ -265,6 +287,8 @@ export type RecordExecutionFailureRequest = {
+   technicalExitCode?: number;
+   durationMs?: number;
+   logRefs?: string[];
++  /** Optional redacted process diagnostic (failure / timeout). */
++  processDiagnostic?: ExecutionAttempt["processDiagnostic"];
+   correlationId?: string;
+   expectedAttemptVersion?: number;
+   nowIso?: string;
+
+===== NEW: processFailureDiagnostic.ts =====
+/**
+ * Checkpoint F / R6 — durable, redacted, capped process-failure diagnostic.
+ *
+ * Persisted on ExecutionAttempt (payload_json) — no Evidence schema migration.
+ * Diagnostic only: never satisfies evreq:docs_write_artifact / business SUCCESS.
+ */
+import { redactSecrets } from "@/lib/platform/security/redaction";
+import type { RealProcessObservation } from "@/lib/oa/execution-attempt";
+
+/** Durable / Nora observation caps (≤ runner 64 KiB). Do not raise. */
+export const PROCESS_DIAGNOSTIC_STDOUT_CAP = 4 * 1024;
+export const PROCESS_DIAGNOSTIC_STDERR_CAP = 4 * 1024;
+
+export type ProcessFailureDiagnostic = {
+  readonly kind: "process_failure_diagnostic";
+  readonly schemaVersion: "0.1.0-oa";
+  readonly processRef: string;
+  readonly exitCode: number | null;
+  readonly timedOut: boolean;
+  readonly durationMs: number;
+  readonly realProcessInvoked: boolean;
+  readonly boundaryProofMode?: "cursor_real" | "deterministic_fake";
+  /** Non-secret executable basename only (never full env / argv / prompt). */
+  readonly executableBasename?: string;
+  readonly stdoutExcerpt: string;
+  readonly stderrExcerpt: string;
+  readonly stdoutTruncated: boolean;
+  readonly stderrTruncated: boolean;
+  readonly redacted: true;
+  readonly authoritativeBusinessEvidence: false;
+};
+
+function capHead(
+  value: string,
+  cap: number,
+): { text: string; truncated: boolean } {
+  if (value.length <= cap) return { text: value, truncated: false };
+  return { text: `${value.slice(0, cap)}\n…[truncated]`, truncated: true };
+}
+
+/** Prefer useful tail of stderr (CLI errors often land at the end). */
+function capTail(
+  value: string,
+  cap: number,
+): { text: string; truncated: boolean } {
+  if (value.length <= cap) return { text: value, truncated: false };
+  return { text: `…[truncated]\n${value.slice(-cap)}`, truncated: true };
+}
+
+function basenameOnly(executable: string | undefined): string | undefined {
+  if (!executable || typeof executable !== "string") return undefined;
+  const trimmed = executable.trim();
+  if (!trimmed) return undefined;
+  const parts = trimmed.split(/[/\\]/);
+  const base = parts[parts.length - 1] ?? "";
+  return base.length > 0 && base.length <= 128 ? base : undefined;
+}
+
+/**
+ * Build a durable diagnostic from a process observation.
+ * Always pattern-redacts; never stores env, tokens, or full prompt.
+ */
+export function buildProcessFailureDiagnostic(input: {
+  readonly observation: RealProcessObservation;
+  readonly boundaryProofMode?: "cursor_real" | "deterministic_fake";
+  readonly executable?: string;
+}): ProcessFailureDiagnostic {
+  const stdoutRaw = redactSecrets(input.observation.stdout ?? "");
+  const stderrRaw = redactSecrets(input.observation.stderr ?? "");
+  const stdout = capHead(stdoutRaw, PROCESS_DIAGNOSTIC_STDOUT_CAP);
+  const stderr = capTail(stderrRaw, PROCESS_DIAGNOSTIC_STDERR_CAP);
+  const executableBasename = basenameOnly(input.executable);
+
+  return {
+    kind: "process_failure_diagnostic",
+    schemaVersion: "0.1.0-oa",
+    processRef: input.observation.processRef,
+    exitCode: input.observation.exitCode,
+    timedOut: input.observation.timedOut,
+    durationMs: input.observation.durationMs,
+    realProcessInvoked: input.observation.realProcessInvoked === true,
+    ...(input.boundaryProofMode
+      ? { boundaryProofMode: input.boundaryProofMode }
+      : {}),
+    ...(executableBasename ? { executableBasename } : {}),
+    stdoutExcerpt: stdout.text,
+    stderrExcerpt: stderr.text,
+    stdoutTruncated: stdout.truncated,
+    stderrTruncated: stderr.truncated,
+    redacted: true,
+    authoritativeBusinessEvidence: false,
+  };
+}
+
+export function isProcessFailureDiagnostic(
+  value: unknown,
+): value is ProcessFailureDiagnostic {
+  if (!value || typeof value !== "object") return false;
+  const v = value as Record<string, unknown>;
+  return (
+    v.kind === "process_failure_diagnostic" &&
+    v.schemaVersion === "0.1.0-oa" &&
+    v.authoritativeBusinessEvidence === false &&
+    v.redacted === true &&
+    typeof v.processRef === "string" &&
+    typeof v.stdoutExcerpt === "string" &&
+    typeof v.stderrExcerpt === "string"
+  );
+}
+
+===== NEW: resolveDurableBoundaryProofMode.ts =====
+/**
+ * Resolve durable boundaryProofMode for post-Evidence provenance (Checkpoint F / R6).
+ *
+ * Priority (no invented state):
+ * 1. Attempt.processDiagnostic.boundaryProofMode (when failure recorded it)
+ * 2. Launch frontier LAUNCHED payload_json.boundaryProofMode
+ * 3. Composed launchPort.boundaryProofMode when available
+ *
+ * Never infers Cursor REAL from agent identity alone.
+ */
+import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
+import type { BoundaryProofMode } from "@/lib/oa/execution-attempt";
+import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
+
+function parseFrontierProofMode(
+  payloadJson: string | undefined,
+): BoundaryProofMode | null {
+  if (!payloadJson) return null;
+  try {
+    const payload = JSON.parse(payloadJson) as {
+      boundaryProofMode?: unknown;
+    };
+    if (
+      payload.boundaryProofMode === "cursor_real" ||
+      payload.boundaryProofMode === "deterministic_fake"
+    ) {
+      return payload.boundaryProofMode;
+    }
+  } catch {
+    /* ignore malformed durable payload */
+  }
+  return null;
+}
+
+export async function resolveDurableBoundaryProofMode(input: {
+  readonly oa: Pick<RuntimeOaStack, "executionAttemptServices">;
+  readonly attempt: ExecutionAttempt;
+}): Promise<BoundaryProofMode | null> {
+  const fromDiagnostic = input.attempt.processDiagnostic?.boundaryProofMode;
+  if (
+    fromDiagnostic === "cursor_real" ||
+    fromDiagnostic === "deterministic_fake"
+  ) {
+    return fromDiagnostic;
+  }
+
+  const journal =
+    input.oa.executionAttemptServices?.realBoundary?.safetyJournal;
+  if (journal?.findFrontierByAttempt) {
+    const frontiers = await journal.findFrontierByAttempt(
+      input.attempt.attemptId,
+    );
+    const launched = frontiers.find((row) => row.kind === "LAUNCHED");
+    const fromFrontier = parseFrontierProofMode(launched?.payloadJson);
+    if (fromFrontier) return fromFrontier;
+  }
+
+  const portMode =
+    input.oa.executionAttemptServices?.realBoundary?.launchPort
+      ?.boundaryProofMode;
+  if (portMode === "cursor_real" || portMode === "deterministic_fake") {
+    return portMode;
+  }
+
+  return null;
+}
+
+===== NEW: checkpointF.realFailureObservability.d0.test.ts =====
+/**
+ * Checkpoint F / R6 — REAL failure observability + provenance truth.
+ * ZERO REAL / ZERO Cursor binary / fake runners only.
+ * @vitest-environment node
+ */
+import { describe, expect, it } from "vitest";
+import {
+  createM4BoundedDocsWriteCursorAgentDescriptor,
+  M4_REAL_GATEWAY_ADAPTER_ID,
+} from "@/lib/oa/execution-attempt";
+import {
+  buildProcessFailureDiagnostic,
+  PROCESS_DIAGNOSTIC_STDERR_CAP,
+  PROCESS_DIAGNOSTIC_STDOUT_CAP,
+} from "@/features/project-assistant/f3/processFailureDiagnostic";
+import {
+  deriveAttemptProvenance,
+  F3_BOUNDED_M4_DETERMINISTIC_MODE,
+  F3_REAL_MODE,
+} from "@/features/project-assistant/f3/deriveAttemptProvenance";
+import { productReservationsForAttempt } from "@/features/project-assistant/w2/w3bProductTerminalProjection";
+import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
+
+const NOW = "2026-09-17T20:00:00.000Z";
+
+function baseAttempt(
+  overrides: Partial<ExecutionAttempt> = {},
+): ExecutionAttempt {
+  return {
+    schemaVersion: "0.2.0-oa",
+    attemptId: "xat:w3a:obs-r6-test",
+    executionContractId: "xct:m3-ev:obs-r6",
+    executionContractVersion: 1,
+    selectedAgentRef: "agt:m4.cursor.bounded_docs_write",
+    status: "failed",
+    idempotencyKey: "idem:w3a:obs-r6-test",
+    correlationId: "cor:obs-r6",
+    version: 2,
+    createdAt: NOW,
+    provenance: {
+      schemaVersion: "0.1.0-oa",
+      provenanceRecordId: "prv:obs-r6",
+      actor: {
+        actorId: "actor:local-pilote",
+        role: "decision_maker",
+        displayName: "Pilote",
+        authorityLevel: "none",
+      },
+      source: "system",
+      timestamp: NOW,
+      correlationId: "cor:obs-r6",
+    },
+    launchedAt: NOW,
+    failedAt: NOW,
+    stopReason: "REAL_PROCESS_NONZERO_EXIT",
+    technicalExitCode: 1,
+    durationMs: 1500,
+    irreversibleEffectsPossible: true,
+    ...overrides,
+  };
+}
+
+describe("Checkpoint F R6 — process failure diagnostic (G1)", () => {
+  it("T1 — exit 1 observation → durable diagnostic with stderr excerpt", () => {
+    const diag = buildProcessFailureDiagnostic({
+      observation: {
+        processRef: "pid:51943",
+        exitCode: 1,
+        timedOut: false,
+        durationMs: 1534,
+        realProcessInvoked: true,
+        stdout: "agent starting",
+        stderr: "Error: authentication required for model",
+      },
+      boundaryProofMode: "cursor_real",
+      executable: "/Applications/Cursor.app/Contents/Resources/app/bin/cursor",
+    });
+    expect(diag.kind).toBe("process_failure_diagnostic");
+    expect(diag.realProcessInvoked).toBe(true);
+    expect(diag.boundaryProofMode).toBe("cursor_real");
+    expect(diag.exitCode).toBe(1);
+    expect(diag.stderrExcerpt).toContain("authentication required");
+    expect(diag.stdoutExcerpt).toContain("agent starting");
+    expect(diag.executableBasename).toBe("cursor");
+    expect(diag.redacted).toBe(true);
+    expect(diag.authoritativeBusinessEvidence).toBe(false);
+  });
+
+  it("T2 — redacts API key / bearer / github token patterns", () => {
+    const diag = buildProcessFailureDiagnostic({
+      observation: {
+        processRef: "pid:1",
+        exitCode: 1,
+        timedOut: false,
+        durationMs: 10,
+        realProcessInvoked: true,
+        stdout: "using sk-abcdefghijklmnopqrstuvwxyz012345",
+        stderr:
+          "Authorization: Bearer supersecrettokenvalue99\nghp_abcdefghijklmnopqrstuvwxyz0123456789\nOPENAI_API_KEY=sk-live-secret-value-here",
+      },
+      boundaryProofMode: "cursor_real",
+    });
+    const blob = `${diag.stdoutExcerpt}\n${diag.stderrExcerpt}`;
+    expect(blob).not.toMatch(/sk-[A-Za-z0-9_-]{10,}/);
+    expect(blob).not.toMatch(/Bearer\s+\S+/i);
+    expect(blob).not.toMatch(/ghp_[A-Za-z0-9]{20,}/);
+    expect(blob).not.toMatch(/OPENAI_API_KEY\s*=\s*.+/i);
+    expect(blob).toContain("[redacted]");
+  });
+
+  it("T3 — truncates oversized streams with flags (stderr prefers tail)", () => {
+    const bigStdout = "S".repeat(PROCESS_DIAGNOSTIC_STDOUT_CAP + 200);
+    const bigStderr =
+      "HEAD_NOISE".repeat(500) + "TAIL_ERROR_MARKER_UNIQUE";
+    expect(bigStderr.length).toBeGreaterThan(PROCESS_DIAGNOSTIC_STDERR_CAP);
+    const diag = buildProcessFailureDiagnostic({
+      observation: {
+        processRef: "pid:2",
+        exitCode: 1,
+        timedOut: false,
+        durationMs: 5,
+        realProcessInvoked: true,
+        stdout: bigStdout,
+        stderr: bigStderr,
+      },
+    });
+    expect(diag.stdoutTruncated).toBe(true);
+    expect(diag.stderrTruncated).toBe(true);
+    expect(diag.stdoutExcerpt.length).toBeLessThanOrEqual(
+      PROCESS_DIAGNOSTIC_STDOUT_CAP + 20,
+    );
+    expect(diag.stderrExcerpt).toContain("TAIL_ERROR_MARKER_UNIQUE");
+    expect(diag.stderrExcerpt).toContain("…[truncated]");
+  });
+});
+
+describe("Checkpoint F R6 — Nora provenance (G2)", () => {
+  const agent = createM4BoundedDocsWriteCursorAgentDescriptor(NOW);
+
+  it("T4 — cursor_real + launched + failed → realProcessInvoked true, no business success", () => {
+    const prov = deriveAttemptProvenance({
+      attempt: {
+        attemptId: "xat:r6-t4",
+        selectedAgentRef: agent.agentId,
+        status: "failed",
+        launchedAt: NOW,
+        irreversibleEffectsPossible: true,
+      },
+      agent,
+      boundaryProofMode: "cursor_real",
+    });
+    expect(prov.mode).toBe(F3_REAL_MODE);
+    expect(prov.realProcessInvoked).toBe(true);
+    expect(prov.realExecution).toBe(true);
+    expect(prov.boundaryProofMode).toBe("cursor_real");
+    // Business success is Attempt status — still failed
+    expect(baseAttempt().status).toBe("failed");
+  });
+
+  it("T5 — M4-shaped without cursor_real → not REAL", () => {
+    const prov = deriveAttemptProvenance({
+      attempt: {
+        attemptId: "xat:r6-t5",
+        selectedAgentRef: agent.agentId,
+        status: "failed",
+        launchedAt: NOW,
+      },
+      agent,
+      boundaryProofMode: "deterministic_fake",
+    });
+    expect(prov.mode).toBe(F3_BOUNDED_M4_DETERMINISTIC_MODE);
+    expect(prov.realExecution).toBe(false);
+    expect(prov.boundaryProofMode).toBe("deterministic_fake");
+  });
+
+  it("T6 — REAL selected but NOT launched → realProcessInvoked false", () => {
+    const prov = deriveAttemptProvenance({
+      attempt: {
+        attemptId: "xat:r6-t6",
+        selectedAgentRef: agent.agentId,
+        status: "accepted",
+      },
+      agent,
+      boundaryProofMode: "cursor_real",
+    });
+    expect(prov.realProcessInvoked).toBe(false);
+    expect(prov.realExecution).toBe(false);
+  });
+
+  it("T4b — omit boundaryProofMode (pre-R6 bug) → false even if launched", () => {
+    const prov = deriveAttemptProvenance({
+      attempt: {
+        attemptId: "xat:r6-t4b",
+        selectedAgentRef: agent.agentId,
+        status: "failed",
+        launchedAt: NOW,
+        irreversibleEffectsPossible: true,
+      },
+      agent,
+      // boundaryProofMode omitted — historical Nora bug
+    });
+    expect(prov.realProcessInvoked).toBe(false);
+  });
+});
+
+describe("Checkpoint F R6 — reservations honesty + artifact non-satisfaction", () => {
+  it("T8/T9 — diagnostic failure does not claim docs_write artifact; REAL reservation wording", () => {
+    const attempt = baseAttempt({
+      processDiagnostic: buildProcessFailureDiagnostic({
+        observation: {
+          processRef: "pid:51943",
+          exitCode: 1,
+          timedOut: false,
+          durationMs: 1534,
+          realProcessInvoked: true,
+          stdout: "",
+          stderr: "cli exit 1",
+        },
+        boundaryProofMode: "cursor_real",
+      }),
+    });
+    expect(attempt.processDiagnostic?.authoritativeBusinessEvidence).toBe(
+      false,
+    );
+    expect(attempt.processDiagnostic?.kind).toBe("process_failure_diagnostic");
+    // Does not look like artifact evidence
+    expect(attempt.resultRef).toBeUndefined();
+    expect(attempt.status).toBe("failed");
+
+    const reservations = productReservationsForAttempt(attempt);
+    expect(reservations).toContain(
+      "Process Cursor REAL invoqué — effet métier non prouvé",
+    );
+    expect(reservations).not.toContain(
+      "Exécuteur de substitution — pas d'effet externe réel",
+    );
+    expect(reservations).toContain("Aucun READY");
+  });
+
+  it("substitution wording retained when no REAL launch signals", () => {
+    const attempt = baseAttempt({
+      stopReason: "FIXTURE_FAIL",
+      irreversibleEffectsPossible: undefined,
+      processDiagnostic: undefined,
+      technicalExitCode: undefined,
+    });
+    const reservations = productReservationsForAttempt(attempt);
+    expect(reservations).toContain(
+      "Exécuteur de substitution — pas d'effet externe réel",
+    );
+  });
+});
+
+describe("Checkpoint F R6 — G3 preflight disposition", () => {
+  it("documents existing CURSOR_UNAVAILABLE fail-close without Cursor spawn", () => {
+    // Gateway already rejects when resolveBin() returns null with
+    // detailCode CURSOR_UNAVAILABLE and realProcessInvoked:false —
+    // covered by m4RealOff / gateway unit tests. Auth cannot be probed
+    // non-invasively → DEFER (no new auth probe in this lot).
+    expect(M4_REAL_GATEWAY_ADAPTER_ID).toBe("adp:m4-cursor-cli-real");
+  });
+});
+
+describe("Checkpoint F R6 — durable reload (T7)", () => {
+  it("processDiagnostic survives JSON payload round-trip (Attempt store shape)", () => {
+    const diag = buildProcessFailureDiagnostic({
+      observation: {
+        processRef: "pid:51943",
+        exitCode: 1,
+        timedOut: false,
+        durationMs: 1534,
+        realProcessInvoked: true,
+        stdout: "out",
+        stderr: "useful stderr leaf",
+      },
+      boundaryProofMode: "cursor_real",
+    });
+    const attempt = baseAttempt({ processDiagnostic: diag });
+    const reloaded = JSON.parse(JSON.stringify(attempt)) as ExecutionAttempt;
+    expect(reloaded.processDiagnostic?.stderrExcerpt).toContain(
+      "useful stderr leaf",
+    );
+    expect(reloaded.processDiagnostic?.exitCode).toBe(1);
+    expect(reloaded.processDiagnostic?.boundaryProofMode).toBe("cursor_real");
+    expect(reloaded.processDiagnostic?.authoritativeBusinessEvidence).toBe(
+      false,
+    );
+  });
+});
 ```
 
-processRef=`pid:51943`. Attempt stopReason=`REAL_PROCESS_NONZERO_EXIT` requires `observation.realProcessInvoked===true` in `completeBoundedReadOnlyLaunch`.
-
-### Nora / UI false
-
-`w3cPostEvidenceLoop.ts` calls:
-
-```ts
-deriveAttemptProvenance({ attempt: loaded.attempt, agent })
-// boundaryProofMode OMITTED
-```
-
-With M4-shaped agent but `boundaryProofMode` omitted → proof=`fixture` → branch:
-
-> M4-shaped agent selected but not yet launched / no boundary composed → `realProcessInvoked: false`
-
-Therefore Nora's `realProcessInvoked:false` is a **post-Evidence projection bug**, not a spawn denial.
-
-### Phase 3 letter answers (spawn reality)
-
-| Letter | Applies? | Proof |
-|---|---|---|
-| A | **NO** | frontier LAUNCHED + pid |
-| B | **NO** | gateway invokes resolved `cursor` bin with `agent …` argv |
-| **C** | **YES (best-supported)** | Cursor CLI process invoked; exited 1 in ~1.5s; target file never created; wt/managed clean |
-| D | **NOT PROVEN** | no durable stdout/stderr/agent-turn proof of instruction processing |
-| **E** | **YES (Nora field only)** | omit `boundaryProofMode` → false while frontier true |
-| F | — | — |
-
-**Combined:** Spawn reality = **C**; Nora displayed field = **E**.
-
 ---
 
-## 7. Managed repo / target (Phase 5)
+## 10. Tests
 
-| Item | Value |
+| Suite | Result |
 |---|---|
-| Managed repo exists | YES |
-| Managed HEAD | `26478b1ea5b010c625f0c6039c969fac5c135cf5` |
-| Managed dirty | `CLEAN` |
-| M4 worktree exists | YES (`wt-0b7609835db72e9aba58c125`) |
-| M4 WT HEAD | `26478b1ea5b010c625f0c6039c969fac5c135cf5` |
-| M4 WT dirty | `CLEAN` |
-| Sandbox parent | PRESENT (contains `increment-d/` only) |
+| checkpointF.realFailureObservability.d0 | PASS (11) |
+| checkpointE.prepareResume.d0 | PASS |
+| checkpointE.docsWriteEvidenceCoherence.d0 | PASS |
+| m3ExecutionContractPrepare CHECKPOINT-E | PASS |
+| tsc --noEmit | PASS |
 
-### Target existence
-
-| Tree | Path | Status |
-|---|---|---|
-| campaign | `/Users/morris/Projects/sfia-studio-product-journey-e2e-real-reconciliation-01/projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md` | ABSENT |
-| managed | `/tmp/sfia-pje2e/mcleland147__sfia-workspace/projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md` | ABSENT |
-| m4_wt | `/Users/morris/Projects/sfia-studio-product-journey-e2e-real-reconciliation-01/projects/sfia-studio/.sfia-exec/m4-worktrees/wt-0b7609835db72e9aba58c125/projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md` | ABSENT |
-
-**Partial effect:** none proven. No Attempt-created target; git status clean on managed + M4 wt.
+ZERO Cursor / ZERO REAL.
 
 ---
 
-## 8. Evidence / ReviewBundle (Phase 6)
-
-| Object | ID | Notes |
-|---|---|---|
-| Evidence | `ev:w3b:0b7609835db72e9a` | type=`log_ref`; source=`execution attempt … (failed)`; location=`refs/attempts/…/diagnostic`; **storageMode=`metadata_only`**; status=`available` |
-| ReviewBundle | `rb:w3b:0b7609835db72e9a` | status=`ready_for_review`; completeness=`complete`; evidenceRefs=[ev…]; claimEvaluationRefs=[] |
-| ClaimEvaluation | `clm:w3b:0b7609835db72e9a` | status=`fail` (contract result assessment) |
-| RB reservations | Evidence requise; Apprentissage non démarrés; **« Exécuteur de substitution — pas d'effet externe réel »**; **Aucun READY** |
-
-What failure Evidence **proves:** Attempt failed; diagnostic metadata exists; no READY.
-
-What it **does not prove:** Cursor stdout/stderr content; business artifact; successful REAL boundary; that no OS process ran (reservation text is misleading vs frontier).
-
-**No** positive `evreq:docs_write_artifact` satisfaction. Cycle remains `active`.
-
----
-
-## 9. Stdout / stderr + root cause (Phase 7)
-
-**Useful stderr/stdout excerpt:** **UNAVAILABLE** in durable artefacts.
-
-Studio OA log (`terminals/245476.txt`) only shows:
-
-```json
-{"event":"oa.execution_attempt.failed","attemptId":"xat:w3a:1f49d8e25e20837a","stopReason":"REAL_PROCESS_NONZERO_EXIT",...}
-```
-
-### Lowest proven causal chain
-
-1. Cursor OS process was spawned (`realProcessInvoked:true`, `pid:51943`).
-2. Process exited with code **1** after ~**1534ms**.
-3. Product mapped that to `REAL_PROCESS_NONZERO_EXIT` and terminalized Attempt/EC as `failed`.
-4. No target file materialization.
-5. stdout/stderr were captured only in-memory by `NodeCursorProcessRunner` and **not persisted**, so the **CLI leaf reason for exit 1 is not recoverable** from durable artefacts.
-
-### Category (Phase 7 letters)
-
-| Layer | Category | Status |
-|---|---|---|
-| Product failure mapping | G (wiring/ingest) | Proven — maps exit≠0 → NONZERO_EXIT correctly |
-| Nora false flag | G / projection | Proven — omit `boundaryProofMode` |
-| Missing durable stderr | H (executor implementation debt) | Proven — blocks leaf diagnosis |
-| **Why Cursor exited 1** | **J — UNKNOWN** | **Not proven** (stderr absent; auth/bin/prompt/runtime all candidates) |
-
-Managed repo / path / worktree preparation: **not** indicated as failure (WT complete @ expected SHA; sandbox parent present).
-
----
-
-## 10. Delta vs historical REAL PASS (Phase 8)
-
-Historical PASS (Reproof09 / capitalisation): Attempt `xat:w3a:9eef34f25802c186` → `succeeded`, `technicalExitCode=0`, durationMs≈23244, target `gestion-de-taches.md` materialized under prepared WT.
-
-| Dimension | Historical PASS | This FAIL |
-|---|---|---|
-| Gateway | `adp:m4-cursor-cli-real` | same |
-| frontier realProcessInvoked | true | true |
-| argv shape | `agent --print --workspace … --trust --sandbox disabled --force <instruction>` | same shape (code) |
-| Live-captured executable (PASS assets) | `/Users/morris/.local/bin/cursor-agent` → versions/2026.09.15… | Campaign env resolves App `…/Cursor.app/…/bin/cursor` |
-| duration | ~23s | ~1.5s |
-| exit | 0 | 1 |
-| target effect | PRESENT | ABSENT |
-| durable spawn cmdline | PRESENT (capitalisation asset) | ABSENT |
-| durable stderr | not required (success) | **needed but missing** |
-| base SHA | `b739ddd…` | `26478b1…` |
-| target name | `gestion-de-taches.md` | `product-journey-e2e-real-01.md` |
-| managed base | `/tmp/sfia-r09c` (historical) | `/tmp/sfia-pje2e` |
-
-**Significant deltas:** (1) short non-zero exit vs long zero exit; (2) no durable CLI transcript for FAIL; (3) executable resolution may differ from PASS live capture (App `cursor` vs `cursor-agent`) — **candidate**, not proven cause without stderr.
-
----
-
-## 11. Classification de sortie (Phase 9)
-
-**Primary for Cursor exit-1 leaf:** **H — inconnu / preuves insuffisantes**
-
-Missing proof: durable observation stdout/stderr (or equivalent Cursor CLI log) for `pid:51943`.
-
-**Secondary proven defects (not the exit-1 leaf, but real):**
-
-| Class | Defect | Minimal fix candidate (**NOT executed**) |
-|---|---|---|
-| **B** | `w3cPostEvidenceLoop` omits `boundaryProofMode` → Nora `realProcessInvoked:false` | Pass composed launch-port `boundaryProofMode` (or read frontier) into `deriveAttemptProvenance` |
-| **C** | Failure Evidence does not persist runner stdout/stderr | On NONZERO_EXIT, attach redacted observation streams to diagnostic Evidence / attempt payload |
-| **A** (candidate only) | `CURSOR_API_KEY` ABSENT; bin may differ from PASS live capture | Before next Morris REAL GO: confirm Cursor CLI non-interactive auth + bin parity — **no silent reauth in this lot** |
-
-**Not G structural.** Product backbone / authority / EC / Evidence failure handling remain KEEP.
-
----
-
-## 12. Correctifs candidats — NON exécutés
-
-1. **Diagnostic durability (C):** persist redacted stdout/stderr on REAL failure Evidence.
-2. **Nora honesty (B):** thread `boundaryProofMode=cursor_real` into post-Evidence provenance.
-3. **Env/bin gate (A — verify-only):** before any new REAL, Morris-approved check of Cursor CLI auth + `SFIA_CURSOR_BIN` parity with known PASS — without spawning a campaign REAL.
-
-**No fix implemented in this lot.**
-
----
-
-## 13. Fichiers lus (diagnostic)
-
-- Campaign DB + launch-safety (read-only)
-- `deriveAttemptProvenance.ts`, `w3cPostEvidenceLoop.ts`
-- `studioCursorRealLaunchGateway.ts`, `nodeCursorProcessRunner.ts`, `mutatingCursorConfinementEnv.ts`
-- `completeBoundedReadOnlyLaunch.ts`, `completeBoundedDocsWriteLaunch.ts`
-- Studio terminal OA log `245476.txt`
-- Historical PASS capitalisation assets under `sfia-studio-product-docs-write-real-pass-capitalisation/.tmp-sfia-review/reproof09-real-c/`
-- Campaign `.env.local` keys presence-only
-- Managed repo + M4 worktree paths (status/HEAD/target existence)
-
-Doctrine/method sources listed in brief: consulted as campaign governance context; **not modified**.
-
----
-
-## 14. Fichiers modifiés (this lot)
-
-| Path | Action |
-|---|---|
-| `.tmp-sfia-review/chatgpt-review.md` | **UPDATED** (R5) |
-| Product code | **NONE** |
-| SQLite | **NONE** |
-| Target / managed repo | **NONE** |
-
----
-
-## 15. Attempts / REAL / effets externes
+## 11. Campagne
 
 | Metric | Value |
 |---|---|
-| Attempts (campaign) | **1** (failed REAL) |
-| REAL process spawns (budget) | **1 consumed** / **0 new authorized** |
-| External effects | **none proven** (targets ABSENT; trees clean) |
-| Cycle auto-close | **no** |
+| attempts | **1** |
+| target | ABSENT |
+| DB mutated | NO |
+| historical Attempt repaired | NO |
 
 ---
 
-## 16. Réserves
+## 12. Réserves
 
-- Exit-1 leaf cause not recoverable without stderr.
-- RB reservation « exécuteur de substitution » contradicts frontier `realProcessInvoked:true` — diagnostic wording debt.
-- Historical PASS executable delta is suggestive only.
-- R1–R4 local dirty Product files remain; unrelated to this forensic lot.
-- package-lock dirty préexistant hors scope.
-
----
-
-## 17. Claims
-
-### Authorized (max)
-
-**ONE GOVERNED CURSOR REAL ATTEMPT EXECUTED AND FAILED — FAILURE EVIDENCE CAPTURED — NO BUSINESS SUCCESS CLAIM**
-
-### Forbidden
-
-- REAL PASS / REAL BOUNDARY PROVEN (this campaign)
-- Product Journey E2E usable / READY
-- runtime v3 ADOPTED
-- retry authorized / new REAL without Morris GO
-- “no real process” (false — spawn proven)
+- Historical R5 Attempt still without processDiagnostic (preserved).
+- Timeout-via-triggerAttemptTimeout may omit diagnostic.
+- Auth preflight deferred.
+- Prior CLI exit-1 leaf still unknown.
 
 ---
 
-## 18. Gates Morris
+## 13. Claims
 
-1. Accept forensic diagnosis (this pack).
-2. Optional: authorize **bounded Product fix lot** for (B) Nora provenance + (C) stderr persistence — still **ZERO REAL**.
-3. Optional: authorize **env/bin verification** (non-campaign) — still **ZERO campaign REAL**.
-4. Only after ChatGPT+Morris review: distinct **NEW GO** for a **new** REAL Attempt (budget currently 0).
-5. **No** Execute / retry / replan / instruct-options in this lot.
+Authorized: failure observability deterministic proven; REAL provenance projection corrected; ZERO REAL correction; previous REAL remains FAIL.
+
+Forbidden: CLI root cause solved; REAL PASS; retry authorized; E2E usable; READY; runtime v3 ADOPTED.
 
 ---
 
-## 19. Verdict
+## 14. Gate Morris
 
-**CHECKPOINT F REAL FAILURE — ROOT CAUSE NOT PROVEN**
+Review R6 → optional Product commit gate → distinct NEW GO before any new REAL.
 
-(Proven: governed Cursor REAL spawn occurred and exited 1 with no business effect; Nora `realProcessInvoked:false` is a projection bug. **Not proven:** the Cursor CLI leaf reason for exit code 1 — durable stdout/stderr absent.)
+---
+
+## 15. Verdict
+
+**CHECKPOINT F OBSERVABILITY FIXED — READY FOR MORRIS REVIEW / NEW REAL GATE**
