@@ -30,9 +30,14 @@ export {
 export {
   composeStudioProductRealBoundary,
   findGitToplevelByDotGit,
+  resolveComposeManagedRepoRootBase,
   resolveStudioSfiaExecRoot,
   type ComposeStudioProductRealBoundaryInput,
 } from "./composeStudioProductRealBoundary";
+export {
+  resolveManagedRepoRootBaseFromEnv,
+  SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV,
+} from "./managedRepoRootBaseConfig";
 export {
   resolveBoundedReadOnlyBaseHeadSha,
   validateBaseHeadSha,

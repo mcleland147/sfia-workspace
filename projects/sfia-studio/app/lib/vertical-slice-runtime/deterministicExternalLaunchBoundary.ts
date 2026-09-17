@@ -6,7 +6,13 @@
  * Evidence, or ReviewBundle — those remain product orchestration outputs.
  *
  * Fail-closed. Mutually exclusive with SFIA_STUDIO_CURSOR_REAL=1.
+ *
+ * When StartExecution supplies managedRepoRoot (+ optional docsWriteSpec), this
+ * port mirrors FakeDocsWrite observation shape enough for docs-write verify:
+ * worktreeRef + a single allowlisted target write. Still ZERO OS Cursor REAL.
  */
+import fs from "node:fs";
+import path from "node:path";
 import {
   M4_REAL_GATEWAY_ADAPTER_ID,
   MemoryLaunchSafetyJournal,
@@ -133,6 +139,28 @@ export class TestOnlyDeterministicCursorLaunchPort
     const processRef = `proc:det:${request.attemptId}`;
     this.launchedAtMs.set(processRef, this.nowMs());
     this.timeoutMsByRef.set(processRef, request.timeoutMs);
+
+    // Observation-only: surface managed clone as worktreeRef so Product
+    // completeBoundedDocsWriteLaunch can independently verify file effects.
+    const managedRoot = request.managedRepoRoot?.trim();
+    const worktreeRef = managedRoot ? path.resolve(managedRoot) : undefined;
+    const spec = request.docsWriteSpec;
+    if (worktreeRef && spec?.targetPath?.trim()) {
+      const rel = spec.targetPath.replace(/\\/g, "/").replace(/^\.\//, "").trim();
+      if (rel && !rel.includes("..")) {
+        const abs = path.resolve(worktreeRef, ...rel.split("/"));
+        if (abs === worktreeRef || abs.startsWith(worktreeRef + path.sep)) {
+          fs.mkdirSync(path.dirname(abs), { recursive: true });
+          const brief = spec.artifactBrief?.trim() || "Deterministic docs-write substitute";
+          fs.writeFileSync(
+            abs,
+            `# ${brief}\n\nDETERMINISTIC_TEST_BOUNDARY_DOCS_WRITE\nZERO REAL\n`,
+            "utf8",
+          );
+        }
+      }
+    }
+
     this.observations.set(processRef, {
       processRef,
       exitCode: null,
@@ -141,6 +169,7 @@ export class TestOnlyDeterministicCursorLaunchPort
       stderr: "",
       durationMs: 0,
       realProcessInvoked: true,
+      ...(worktreeRef ? { worktreeRef } : {}),
     });
     return {
       outcome: "ack",
@@ -162,6 +191,7 @@ export class TestOnlyDeterministicCursorLaunchPort
       typeof timeoutMs === "number" && Number.isFinite(timeoutMs)
         ? elapsed >= timeoutMs
         : false;
+    const worktreeRef = current.worktreeRef;
     if (this.completionTimedOut || pastDeadline) {
       const timedOut: RealProcessObservation = {
         processRef,
@@ -171,6 +201,7 @@ export class TestOnlyDeterministicCursorLaunchPort
         stderr: "deterministic_timeout",
         durationMs: elapsed,
         realProcessInvoked: true,
+        ...(worktreeRef ? { worktreeRef } : {}),
       };
       this.observations.set(processRef, timedOut);
       return timedOut;
@@ -182,6 +213,7 @@ export class TestOnlyDeterministicCursorLaunchPort
         timedOut: false,
         durationMs: elapsed,
         realProcessInvoked: true,
+        ...(worktreeRef ? { worktreeRef } : {}),
       };
       this.observations.set(processRef, pending);
       return pending;
@@ -194,6 +226,7 @@ export class TestOnlyDeterministicCursorLaunchPort
       stderr: this.completionExitCode === 0 ? "" : "deterministic_failure",
       durationMs: Math.max(elapsed, 1),
       realProcessInvoked: true,
+      ...(worktreeRef ? { worktreeRef } : {}),
     };
     this.observations.set(processRef, done);
     return done;
