@@ -631,8 +631,8 @@ index f753d0f2..ca14280f 100644
 | Nouveau HEAD packagé | `9981483f8c158bec07364e14e626cdf2c3fd1e34` |
 | Publisher | `scripts/sfia/publish-review-handoff.sh` |
 | Destination | `sfia-review-handoff/latest-chatgpt-review.md` |
-| Nouveau handoff commit | *(rempli après publication)* |
-| Remote verification | *(rempli après publication)* |
+| Nouveau handoff commit | `33811127f1a43c0d5d008eccded29403de66d739` |
+| Remote verification | **HANDOFF UPDATED — REMOTE VERIFIED** · commit `33811127f1a43c0d5d008eccded29403de66d739` · blob `52a81ad1b7e401bdea79c3811ab02bc5f8c1e772` |
 
 ---
 
