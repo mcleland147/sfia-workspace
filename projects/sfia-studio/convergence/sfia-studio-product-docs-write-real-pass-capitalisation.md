@@ -9,16 +9,21 @@
 | **Cycle** | **15 — Capitalisation / REX** |
 | **Typologie** | **DOC** |
 | **Profil / profondeur** | **Critical** (preuve REAL → vérité projet durable ; claim de maturité borné) |
-| **Date / heure / timezone** | 2026-09-17 16:15:39 CEST (+0200) |
-| **Statut documentaire** | **CANDIDATE PR #499** — published on remote branch `docs/sfia-studio-product-docs-write-real-pass-capitalisation` · PR **#499 OPEN** · **≠** capitalisation intégrée ON MAIN · merge **NOT AUTHORIZED** at this stage |
-| **Base Git qualifiée** | `b739ddd3826ea4df640e3f34f97a966d85f8d214` (`origin/main` au moment de la capitalisation locale) |
+| **Date / heure / timezone** | 2026-09-17 18:25:36 CEST (+0200) — post-merge truth-sync |
+| **Statut documentaire** | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · PR **#499 MERGED** · head `9981483f8c158bec07364e14e626cdf2c3fd1e34` · merge `3907177f7788d23d640c5bdcd1cee8e01615762f` · parents `b739ddd3826ea4df640e3f34f97a966d85f8d214` + `9981483f8c158bec07364e14e626cdf2c3fd1e34` · `origin/main` integration anchor `3907177f7788d23d640c5bdcd1cee8e01615762f` |
+| **Base Git qualifiée (pré-merge #499)** | `b739ddd3826ea4df640e3f34f97a966d85f8d214` · **integration anchor post-merge** `3907177f7788d23d640c5bdcd1cee8e01615762f` (`origin/main`) |
 | **PR Product intégrée** | **#498** — `fix(sfia-studio): close docs-write REAL path and completion` |
-| **Merge commit** | `b739ddd3826ea4df640e3f34f97a966d85f8d214` — *Merge pull request #498* |
-| **Post-merge CI** | GitHub Actions run **`35215299343`** · conclusion **SUCCESS** · Required Gate **PASS** · `headSha=b739ddd3826ea4df640e3f34f97a966d85f8d214` |
-| **Décisions Morris** | GO capitalisation locale (**CONSUMED**) · GO Review Handoff + branch push + PR creation (**CONSUMED**) · merge = **DISTINCT GATE / NOT CONSUMED** |
-| **Companion Roadmap** | `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` — tip **PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01** |
+| **Merge commit #498 (Product)** | `b739ddd3826ea4df640e3f34f97a966d85f8d214` — *Merge pull request #498* |
+| **Merge commit #499 (capitalisation)** | `3907177f7788d23d640c5bdcd1cee8e01615762f` — *Merge pull request #499* · parents `b739ddd3826ea4df640e3f34f97a966d85f8d214` + `9981483f8c158bec07364e14e626cdf2c3fd1e34` |
+| **Post-merge CI #498** | GitHub Actions run **`35215299343`** · **SUCCESS** · Required Gate **PASS** · `headSha=b739ddd3826ea4df640e3f34f97a966d85f8d214` |
+| **Pre-merge CI #499** | run **`35236024162`** · **SUCCESS** · Required Gate **PASS** · `headSha=9981483f8c158bec07364e14e626cdf2c3fd1e34` |
+| **Post-merge CI #499** | run **`35245046244`** · **SUCCESS** · Required Gate **PASS** · `headSha=3907177f7788d23d640c5bdcd1cee8e01615762f` |
+| **Décisions Morris / gouvernance** | GO capitalisation locale (**CONSUMED**) · GO Review Handoff + branch push + PR creation (**CONSUMED**) · merge lifecycle #499 = **COMPLETED / CONSUMED** (merge completed and verified from Git evidence) · post-merge verification = **PASS** · post-merge truth-sync GO Morris = **CONSUMED** (local docs only) |
+| **Companion Roadmap** | `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` — tip **PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01** |
 | **runtime v3** | **NON ADOPTED** |
-| **REAL this capitalisation cycle** | **ZERO REAL** — aucune nouvelle exécution Cursor / Product Execute |
+| **global L5** | **NOT ADOPTED** |
+| **Nora Cognitive Completion priority** | **PRESERVED** |
+| **REAL this truth-sync cycle** | **ZERO REAL** — aucune nouvelle exécution Cursor / Product Execute · Product code **UNCHANGED** |
 
 ---
 
@@ -32,10 +37,12 @@ Ce document **capitalise une preuve déjà obtenue** :
 
 Ce document et la preuve REAL **n’autorisent pas par eux-mêmes** push / PR / merge.
 
-État de gouvernance **distinct** (Morris GOs séparés) :
+État de gouvernance **distinct** (Morris GOs / Git evidence) :
 
-- branch push + PR **#499** = **already executed** under a separate Morris GO ;
-- merge remains **unauthorized** / distinct Morris gate ;
+- branch push + PR **#499** = **executed** under a separate Morris GO ;
+- merge #499 = **completed and verified from Git evidence** · lifecycle **COMPLETED / CONSUMED** ;
+- post-merge CI **PASS** · Required Gate **PASS** ;
+- ce document et la preuve REAL **n’accordent toujours aucune autorité automatique** de push / PR / merge — l’intégration #499 résulte d’une action de gouvernance/Git distincte ;
 - aucune nouvelle campagne REAL / retry / second spawn / correction Product / démarrage de `PRODUCT-JOURNEY-POST-EXECUTION-REPLAN` / adoption runtime v3 n’est autorisée par ce document.
 
 ---
@@ -44,11 +51,11 @@ Ce document et la preuve REAL **n’autorisent pas par eux-mêmes** push / PR / 
 
 | Couche | Nature | Autorité | Contenu typique |
 | --- | --- | --- | --- |
-| **A. Faits Git** | Vérifiables dans le dépôt / GitHub | Commit / PR / CI | merge `#498` @ `b739ddd…` · CI `35215299343` SUCCESS |
+| **A. Faits Git** | Vérifiables dans le dépôt / GitHub | Commit / PR / CI | merge `#498` @ `b739ddd…` · CI `35215299343` SUCCESS · PR `#499 MERGED` @ `3907177f7788d23d640c5bdcd1cee8e01615762f` · pre-merge CI `35236024162` SUCCESS · post-merge CI `35245046244` SUCCESS |
 | **B. Preuve runtime Reproof09** | Observation Product authentifiée + Cursor REAL | Campagne locale | Attempt / spawn / worktree / digest / Evidence / RB |
 | **C. Review pack campagne** | Rapport d’exécution local hors commit | `.tmp-sfia-review/chatgpt-review.md` (worktree campagne) | Chronologie, IDs, verdict PASS |
 | **D. Evidence / ReviewBundle persistés** | Objets OA dans DB isolée de campagne | sqlite campagne | IDs Evidence/RB + digest |
-| **E. Décision Morris** | Gouvernance construction | GO explicite | capitalisation locale **CONSUMED** ; handoff+push+PR **CONSUMED** ; merge **distinct / NOT CONSUMED** |
+| **E. Décision Morris** | Gouvernance construction | GO explicite | capitalisation locale **CONSUMED** ; handoff+push+PR **CONSUMED** ; merge lifecycle #499 **COMPLETED / CONSUMED** (Git evidence) ; post-merge truth-sync **CONSUMED** (local) |
 | **F. ChatGPT Critical REAL Proof Review** | Revue critique de la preuve REAL | Acceptation PASS borné | claim maximal autorisé |
 
 **Règle :** un fait runtime local **ne doit jamais** être présenté comme s’il provenait directement du commit Git Product. `#498` prouve le *chemin de code* ; Reproof09 prouve le *comportement REAL* au scope testé.
@@ -195,7 +202,7 @@ Cette capitalisation **≠** :
 - runtime v3 ADOPTED ;
 - SFIA v3 globalement adopté ;
 - nouvelle autorisation REAL ;
-- autorisation intrinsèque push / PR / merge **par la preuve / ce document** (les GOs Morris séparés pour handoff/push/PR ne changent pas cette règle d’autorité) ;
+- autorisation intrinsèque push / PR / merge **par la preuve / ce document** (même après merge #499 via gouvernance/Git distincte, cette règle d’autorité reste vraie) ;
 - démarrage autorisé de `PRODUCT-JOURNEY-POST-EXECUTION-REPLAN` par ce seul document.
 
 ---
@@ -217,7 +224,7 @@ Aucune dette technique / architecture / persistence **créée** par cette capita
 
 exact-path REAL + Attempt terminal + Evidence + ReviewBundle + restart/no-relaunch.
 
-**État :** preuve runtime revue ; capitalisation Git projet = **candidate on PR #499 / remote branch, pending merge**.
+**État :** preuve runtime revue ; capitalisation Git projet = **INTEGRATED ON MAIN / POST-MERGE VERIFIED**.
 
 ---
 
@@ -225,16 +232,20 @@ exact-path REAL + Attempt terminal + Evidence + ReviewBundle + restart/no-relaun
 
 **Next Product capability candidate :** `PRODUCT-JOURNEY-POST-EXECUTION-REPLAN`
 
+Statut : **NEXT CANDIDATE CAPABILITY ONLY** · **NOT STARTED** · **NOT AUTHORIZED BY THIS TRUTH-SYNC** · **NOT IMPLEMENTED**.
+
 Chaîne :
 
 Evidence / ReviewBundle
 → LPS / ProjectTrajectory
 → Nora
-→ options / recommandation
+→ options / Recommendation
 → HumanDecision Pilote
 → cycle suivant.
 
-Cette trajectoire est une **prochaine capacité de construction**. Elle **n’est pas** démarrée, autorisée, ni exécutée par ce cycle de capitalisation.
+`ProjectTrajectory` proposée reste **Recommendation** tant qu’aucune HumanDecision Pilote ne l’a validée.
+
+Cette trajectoire est une **prochaine capacité de construction**. Elle **n’est pas** démarrée, autorisée, ni exécutée par ce cycle de capitalisation ni par ce post-merge truth-sync.
 
 ---
 
@@ -258,8 +269,10 @@ GCEC / docs_write restent une lane de capacité Product — **≠** nouvelle pri
 | Nouvelle persistence / schema | **aucune** |
 | Retry engine / second execution engine | **aucun** |
 | Observation process-local | existante · **non élargie** |
-| Macro REAL `PRODUCT-DOCS-WRITE-REAL-PATH-COMPLETION-01` | **clos au périmètre prouvé** une fois cette capitalisation **intégrée** sur `main` |
-| Statut actuel avant merge | **CANDIDATE PR #499** |
+| Macro REAL `PRODUCT-DOCS-WRITE-REAL-PATH-COMPLETION-01` | **clos au périmètre prouvé** — capitalisation **intégrée** sur `main` |
+| Capitalisation documentary lifecycle | **CLOSED** after merge #499 + post-merge CI PASS + truth-sync local préparé |
+| Statut capitalisation Git | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** |
+| Ce truth-sync documentaire | **LOCAL CANDIDATE** jusqu’à publication/PR/merge distincts (hors scope de ce GO) |
 
 ---
 
@@ -269,10 +282,17 @@ GCEC / docs_write restent une lane de capacité Product — **≠** nouvelle pri
 | --- | --- |
 | GO capitalisation locale (actif + Roadmap + commit local) | **CONSUMED** |
 | GO Review Handoff + push + PR | **CONSUMED** |
-| Review Handoff | **PUBLISHED / REMOTE VERIFIED** · pre-remediation handoff commit `2bd065dfc15ff5577ef83f78feebd05c5738d231` (correspondait au HEAD `f0b7c414…` ; **≠** handoff final du HEAD de remédiation — republish-in-cycle requis) |
-| PR #499 | **OPEN / CRITICAL REVIEW IN PROGRESS** · title `docs(sfia-studio): capitalize Product docs-write REAL proof` · base `main` @ `b739ddd…` · pre-remediation head `f0b7c414394e2bb51ae93ec159027682d0bdc1c4` |
-| Merge | **PENDING DISTINCT MORRIS GATE** · **NOT AUTHORIZED** |
+| Review Handoff (pré-merge #499) | **PUBLISHED / REMOTE VERIFIED** (cycle remédiation) · **≠** handoff du présent post-merge truth-sync |
+| PR #499 | **MERGED** · title `docs(sfia-studio): capitalize Product docs-write REAL proof` · head `9981483f8c158bec07364e14e626cdf2c3fd1e34` · merge `3907177f7788d23d640c5bdcd1cee8e01615762f` · parents `b739ddd3826ea4df640e3f34f97a966d85f8d214` + `9981483f8c158bec07364e14e626cdf2c3fd1e34` |
+| Merge lifecycle #499 | **COMPLETED / CONSUMED** · completed and verified from Git evidence |
+| Pre-merge CI #499 | run `35236024162` · **SUCCESS** · Required Gate **PASS** |
+| Post-merge CI #499 | run `35245046244` · **SUCCESS** · Required Gate **PASS** · `headSha=3907177f7788d23d640c5bdcd1cee8e01615762f` |
+| Post-merge verification | **PASS** |
+| Post-merge truth-sync GO Morris | **CONSUMED** (local docs + commit only) |
+| Review Handoff publication (ce truth-sync) | **PENDING** — DISTINCT Morris remote push gate **REQUIRED** |
 | runtime v3 adoption | **NON décidée** · **NON ADOPTED** |
+| global L5 | **NOT ADOPTED** |
+| PRODUCT-JOURNEY-POST-EXECUTION-REPLAN | **NOT STARTED / NOT AUTHORIZED** |
 
 ---
 
