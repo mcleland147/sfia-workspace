@@ -34,6 +34,7 @@ import {
   composeDeterministicCursorBoundary,
   isDeterministicCursorBoundaryEnabled,
 } from "./deterministicExternalLaunchBoundary";
+import { resolveManagedRepoRootBaseFromEnv } from "./managedRepoRootBaseConfig";
 
 export type ComposeStudioProductRealBoundaryInput = {
   readonly env?: NodeJS.ProcessEnv;
@@ -41,14 +42,36 @@ export type ComposeStudioProductRealBoundaryInput = {
   readonly workspacePort?: RealExecutionWorkspacePort;
   readonly gitRunner?: GitCommandRunner;
   readonly safetyJournal?: RealLaunchSafetyJournalPort;
+  /** Test/injectable launch port — substitutes only the external process boundary. */
+  readonly launchPort?: RealExecutionLaunchPort;
   readonly resolveCursorBin?: () => string | null;
   readonly repoRoot?: string;
-  /** Optional managed-repo base for docs-write composition (CR-GCEC-03). */
+  /**
+   * Optional explicit managed-repo base for docs-write composition (CR-GCEC-03).
+   * When omitted, falls back to server env `SFIA_STUDIO_MANAGED_REPO_ROOT_BASE`.
+   * Absent/blank remains unconfigured (fail-closed at StartExecution).
+   */
   readonly managedRepoRootBase?: string;
   readonly studioRoot?: string;
   readonly execRoot?: string;
   readonly safetyJournalPath?: string;
 };
+
+/**
+ * Prefer explicit composition input; else server-owned env.
+ * Never invents a host default path.
+ */
+export function resolveComposeManagedRepoRootBase(
+  input: Pick<ComposeStudioProductRealBoundaryInput, "managedRepoRootBase" | "env">,
+): string | undefined {
+  if (
+    typeof input.managedRepoRootBase === "string" &&
+    input.managedRepoRootBase.trim()
+  ) {
+    return path.resolve(input.managedRepoRootBase.trim());
+  }
+  return resolveManagedRepoRootBaseFromEnv(input.env ?? process.env);
+}
 
 export function resolveStudioSfiaExecRoot(studioRoot?: string): string {
   const root = path.resolve(studioRoot ?? path.resolve(process.cwd(), ".."));
@@ -73,11 +96,46 @@ export function composeStudioProductRealBoundary(
 ): RealBoundaryWiring | undefined {
   const env = input.env ?? process.env;
   assertDeterministicAndRealMutuallyExclusive(env);
+  const managedRepoRootBase = resolveComposeManagedRepoRootBase(input);
   if (isDeterministicCursorBoundaryEnabled(env)) {
-    return composeDeterministicCursorBoundary(env);
+    const det = composeDeterministicCursorBoundary(env);
+    return Object.freeze({
+      ...det,
+      ...(managedRepoRootBase ? { managedRepoRootBase } : {}),
+    });
   }
   if (!isStudioCursorRealEnabled(env)) {
     return undefined;
+  }
+
+  const managedFreeze = managedRepoRootBase
+    ? { managedRepoRootBase }
+    : {};
+
+  // Injectable launch port substitutes only the external process boundary
+  // (tests). Still requires REAL flag; still propagates server-owned managed base.
+  if (input.launchPort) {
+    const safetyJournal =
+      input.safetyJournal ??
+      (() => {
+        const studioRoot = path.resolve(
+          input.studioRoot ?? path.resolve(process.cwd(), ".."),
+        );
+        const execBase = resolveStudioSfiaExecRoot(studioRoot);
+        const safetyJournalPath = path.resolve(
+          input.safetyJournalPath ??
+            path.join(execBase, "m4", "launch-safety.sqlite"),
+        );
+        fs.mkdirSync(path.dirname(safetyJournalPath), { recursive: true });
+        return new SqliteRealLaunchSafetyJournal({
+          databasePath: safetyJournalPath,
+        });
+      })();
+    return Object.freeze({
+      launchPort: input.launchPort,
+      safetyJournal,
+      ...managedFreeze,
+    });
   }
 
   const studioRoot = path.resolve(
@@ -125,8 +183,6 @@ export function composeStudioProductRealBoundary(
   return Object.freeze({
     launchPort,
     safetyJournal,
-    ...(input.managedRepoRootBase
-      ? { managedRepoRootBase: path.resolve(input.managedRepoRootBase) }
-      : {}),
+    ...managedFreeze,
   });
 }

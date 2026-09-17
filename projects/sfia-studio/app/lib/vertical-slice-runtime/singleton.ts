@@ -4,6 +4,7 @@ import {
   type RuntimeApplicationService,
   type RuntimeApplicationServiceOptions,
 } from "./service";
+import { resolveManagedRepoRootBaseFromEnv } from "./managedRepoRootBaseConfig";
 
 /**
  * D-V2-02: process-local singleton holder.
@@ -38,9 +39,16 @@ function envAuditMode(): RuntimeApplicationServiceOptions["auditMode"] {
 }
 
 function defaultSingletonOptions(): RuntimeApplicationServiceOptions {
+  const managedRepoRootBase = resolveManagedRepoRootBaseFromEnv();
   return {
     auditMode: envAuditMode(),
     nowIso: process.env.SFIA_V2_RUNTIME_NOW_ISO || undefined,
+    // Live Product path: propagate server-owned managed repo base into REAL
+    // composition when configured. Absent/blank stays omit → StartExecution
+    // fail-closed (docs_write_managed_repo_root_base_unconfigured).
+    ...(managedRepoRootBase
+      ? { realBoundaryComposition: { managedRepoRootBase } }
+      : {}),
   };
 }
 

@@ -22,3 +22,4 @@ exports/**
 
 # Exports locaux du connecteur embarqué
 tools/cmp-001/exports/
+projects/sfia-studio/app/node_modules
