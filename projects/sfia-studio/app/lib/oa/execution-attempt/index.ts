@@ -51,6 +51,8 @@ export * from "./domain/resolveGitEffectTarget";
 export * from "./domain/resolvePreCommitWorkspaceContinuation";
 export { verifyWorkspaceFileEffects } from "./application/verifyWorkspaceFileEffects";
 export type { WorkspaceFileVerificationResult } from "./application/verifyWorkspaceFileEffects";
+export { resolveSealedDocsWriteWorktreePaths } from "./application/resolveSealedDocsWriteWorktreePaths";
+export type { ResolveSealedDocsWriteWorktreePathsResult } from "./application/resolveSealedDocsWriteWorktreePaths";
 
 export * from "./ports/executionAttemptRepository";
 export * from "./ports/executionAttemptTechnicalStorePort";

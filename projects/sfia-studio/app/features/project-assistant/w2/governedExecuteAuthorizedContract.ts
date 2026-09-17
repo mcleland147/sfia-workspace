@@ -769,6 +769,8 @@ export async function governedExecuteRecordResult(
         services: input.oa.executionAttemptServices!,
         ...(targetPath ? { targetPath } : {}),
         ...(pathAllowlist ? { pathAllowlist } : {}),
+        // Product Execute must terminalize REAL spawn-ACK (invoke ≠ completion).
+        awaitIfPending: true,
       });
       if (!completed.ok) {
         return {
