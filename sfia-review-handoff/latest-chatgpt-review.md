@@ -1,10 +1,10 @@
 # ChatGPT Review Pack — FULL
-## PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01 — Checkpoint F REAL failure observability + provenance truth
+## PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01 — R7 post-Evidence recovery options context continuity
 
-**Timestamp (UTC):** 2026-09-17T20:15:17Z
+**Timestamp (UTC):** 2026-09-17T20:39:15Z
 **Pack kind:** FULL (code modification present — modified content included below)
-**Pack revision:** R6 — Checkpoint F REAL failure observability + provenance truth
-**Automation:** L3 handoff publish only; **NO** project commit/push/PR/merge; **ZERO REAL**; **NO Execute**
+**Pack revision:** R7 — post-Evidence recovery options context continuity
+**Automation:** L3 handoff publish only; **NO** project commit/push/PR/merge; **ZERO REAL**; **NO Execute**; **NO HumanDecision**; **NO new Attempt**
 
 ---
 
@@ -17,7 +17,7 @@
 | Branch | `qa/sfia-studio-product-journey-e2e-real-reconciliation-01` |
 | HEAD | `26478b1ea5b010c625f0c6039c969fac5c135cf5` |
 | origin/main | `26478b1ea5b010c625f0c6039c969fac5c135cf5` |
-| Baseline match | YES |
+| Baseline match | YES (`HEAD == origin/main == 26478b1ea5b010c625f0c6039c969fac5c135cf5`) |
 | Macro | PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01 |
 | Cycle | 9 — QA / Validation |
 | Typologie | EVOL |
@@ -40,6 +40,7 @@
  M projects/sfia-studio/app/features/project-assistant/w2/activeProposalDecisionSubject.ts
  M projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
  M projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
  M projects/sfia-studio/app/features/project-assistant/w2/types.ts
  M projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
  M projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
@@ -54,889 +55,1353 @@
 ?? projects/sfia-studio/app/__tests__/oa/execution-contract/checkpointE.docsWriteEvidenceRematerialize.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/project-assistant/checkpointE.prepareResume.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/project-assistant/checkpointF.realFailureObservability.d0.test.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/checkpointF.recoveryOptionsContext.d0.test.ts
 ?? projects/sfia-studio/app/features/project-assistant/f3/docsWriteEvidenceContradictionView.ts
 ?? projects/sfia-studio/app/features/project-assistant/f3/processFailureDiagnostic.ts
 ?? projects/sfia-studio/app/features/project-assistant/f3/rematerializeDocsWriteEvidenceRequirements.ts
 ?? projects/sfia-studio/app/features/project-assistant/f3/resolveDurableBoundaryProofMode.ts
 ?? projects/sfia-studio/app/features/project-assistant/w2/prepareReadyProposalPursueContinuation.ts
+?? projects/sfia-studio/app/features/project-assistant/w2/resolvePostEvidenceRecoveryContext.ts
 ```
 
 ### Preservation
 
-- R1/R3/R4 local Product dirty files: **preserved**
-- `package-lock.json`: dirty préexistant — **LEFT UNTOUCHED**
+- R1–R6 local Product dirty files: **preserved**
+- `package-lock.json`: dirty préexistant — **LEFT UNTOUCHED / hors scope**
 - Historical Attempt `xat:w3a:1f49d8e25e20837a`: **not mutated**
+- Campaign DB: **not manually mutated**
+- Target `projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md`: **ABSENT** (unchanged)
+- Nouveau REAL consommé ce lot: **0** (budget restant autorisé: 1)
 
 ---
 
-## 2. Qualification SFIA
+## 2. Diagnostic d'entrée (confirmé)
 
-| Item | Value |
+`w2ProposeTrajectoryOptionsAction` → `resolveW2QualificationInputs` ne fournissait que:
+CycleInstance active + profil + objective/title LPS + Reservations + proposalId éventuel.
+
+Le chemin ne consommait pas Attempt failed / EC failed / Evidence / ReviewBundle / W3C recover.
+
+Quand `proposalId == null`, la branche ProjectTrajectory générique dérivait GOVERNED/BOUNDED/CLARIFY framing, et Nora recevait essentiellement `cyc:framing` + objectif LPS → repartait sur le cadrage gestion de tâches.
+
+**Le cycle `cyc:framing` n'est PAS erroné.** Le gap est la **sélection de contexte insuffisante**.
+
+---
+
+## 3. Root cause confirmée
+
+Les primitives post-Evidence (W3B Evidence/RB + W3C `epi:w3c-rec:*` recover) sont durables mais **non consommées** par `proposeTrajectoryOptions` / `deriveTrajectoryOptions`.
+
+Classification: **B** (consommation manquante) + symptôme A (sujet cognitif framing).
+
+---
+
+## 4. Primitives réutilisées (pas de second moteur)
+
+| Primitive | Usage R7 |
 |---|---|
-| Capacité v3 | Executor REAL dont échec est Evidence-backed / honnêtement interprété |
-| Milestone | Product Journey E2E REAL Reconciliation |
-| Entry (R5) | CHECKPOINT F REAL FAILURE — ROOT CAUSE NOT PROVEN |
-| Entry claim | ONE GOVERNED CURSOR REAL ATTEMPT EXECUTED AND FAILED — FAILURE EVIDENCE CAPTURED — NO BUSINESS SUCCESS CLAIM |
+| `findExistingW3cPostEvidence` | Cohérence épisode W3C ↔ Evidence/Attempt |
+| `parseW3cRecommendationPayload` | Lecture payload recover/replan |
+| `w3bEvidenceIdentity` | Refuse mismatch Evidence/RB vs Attempt |
+| `resolveDurableBoundaryProofMode` (R6) | `realProcessInvoked` durable cursor_real |
+| Existing OptionSet supersession (`withPriorSetSupersedes`) | Re-instruction remplace rec générique sans nouvelle sémantique |
+
+**Non créé:** persistence recovery, store parallèle, schéma DB, moteur d'options séparé.
 
 ---
 
-## 3. G1 — root cause + correction
+## 5. RecoveryContext exact
 
-**Root cause:** runner buffers stdout/stderr in-memory only; failure Evidence was `metadata_only` without streams.
-
-**Correction:** additive `ExecutionAttempt.processDiagnostic` (JSON payload, no migration) via `buildProcessFailureDiagnostic` + `RecordExecutionFailure`.
-
----
-
-## 4. G2 — root cause + correction
-
-**Root cause:** `w3cPostEvidenceLoop` omitted `boundaryProofMode` → Nora `realProcessInvoked:false` despite frontier true.
-
-**Correction:** `resolveDurableBoundaryProofMode` (diagnostic → frontier → launchPort) into `deriveAttemptProvenance`; honest RB reservation when REAL invoked.
-
----
-
-## 5. G3 disposition
-
-| Check | Disposition |
-|---|---|
-| Bin path / exists / executable | **KEEP** (`CURSOR_UNAVAILABLE`) |
-| Managed repo / worktree | **KEEP** (`REAL_WORKSPACE_INVALID`) |
-| Auth Cursor | **DEFER** — NOT AVAILABLE NON-INVASIVELY |
-
----
-
-## 6. Persistence diagnostic
-
-Attempt.`processDiagnostic` (redacted/capped); Evidence stays `log_ref`/`metadata_only`; does **not** satisfy `evreq:docs_write_artifact`.
-
----
-
-## 7. Redaction / cap
-
-Reuse `redactSecrets`; durable cap 4 KiB (stdout head / stderr tail); truncation flags; no env/prompt/secrets.
-
----
-
-## 8. Fichiers modifiés / ajoutés (R6)
-
-**New:** `f3/processFailureDiagnostic.ts`, `f3/resolveDurableBoundaryProofMode.ts`, `__tests__/project-assistant/checkpointF.realFailureObservability.d0.test.ts`
-
-**Modified:** `completeBoundedReadOnlyLaunch.ts`, `f3/index.ts`, `execution-attempt/domain/types.ts`, `recordExecutionFailure.ts`, `w3cPostEvidenceLoop.ts`, `materializeW3bProductTerminal.ts`, `w3bProductTerminalProjection.ts`
-
----
-
-## 9. Diff exploitable (R6)
-
-```diff
-===== R6 TRACKED DIFF =====
-diff --git a/projects/sfia-studio/app/features/project-assistant/f3/completeBoundedReadOnlyLaunch.ts b/projects/sfia-studio/app/features/project-assistant/f3/completeBoundedReadOnlyLaunch.ts
-index 33010ac2..1c9739ce 100644
---- a/projects/sfia-studio/app/features/project-assistant/f3/completeBoundedReadOnlyLaunch.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f3/completeBoundedReadOnlyLaunch.ts
-@@ -9,9 +9,14 @@ import {
-   type ExecutionAttemptServices,
-   type RealProcessObservation,
- } from "@/lib/oa/execution-attempt";
-+import {
-+  buildProcessFailureDiagnostic,
-+  PROCESS_DIAGNOSTIC_STDERR_CAP,
-+  PROCESS_DIAGNOSTIC_STDOUT_CAP,
-+} from "./processFailureDiagnostic";
-
--export const NORA_STDOUT_CAP = 4 * 1024;
--export const NORA_STDERR_CAP = 4 * 1024;
-+export const NORA_STDOUT_CAP = PROCESS_DIAGNOSTIC_STDOUT_CAP;
-+export const NORA_STDERR_CAP = PROCESS_DIAGNOSTIC_STDERR_CAP;
-
- export type BoundedLaunchObservationFacts = {
-   attemptId: string;
-@@ -203,6 +208,17 @@ export async function completeBoundedReadOnlyLaunch(input: {
-     };
-   }
-
-+  const failureDiagnostic = buildProcessFailureDiagnostic({
-+    observation,
-+    boundaryProofMode:
-+      input.services.realBoundary?.launchPort.boundaryProofMode ===
-+        "cursor_real" ||
-+      input.services.realBoundary?.launchPort.boundaryProofMode ===
-+        "deterministic_fake"
-+        ? input.services.realBoundary.launchPort.boundaryProofMode
-+        : undefined,
-+  });
-+
-   if (observation.timedOut === true) {
-     const timed = await input.services.triggerAttemptTimeout.execute({
-       attemptId: input.attempt.attemptId,
-@@ -216,6 +232,7 @@ export async function completeBoundedReadOnlyLaunch(input: {
-         stopReason: "EXECUTION_TIMEOUT",
-         durationMs: observation.durationMs,
-         expectedAttemptVersion: input.attempt.version,
-+        processDiagnostic: failureDiagnostic,
-       });
-       if (!failed.ok || !failed.attempt) {
-         return {
-@@ -265,6 +282,7 @@ export async function completeBoundedReadOnlyLaunch(input: {
-       technicalExitCode: observation.exitCode ?? undefined,
-       durationMs: observation.durationMs,
-       expectedAttemptVersion: input.attempt.version,
-+      processDiagnostic: failureDiagnostic,
-     });
-     if (!failed.ok || !failed.attempt) {
-       return {
-diff --git a/projects/sfia-studio/app/features/project-assistant/f3/index.ts b/projects/sfia-studio/app/features/project-assistant/f3/index.ts
-index a02263cb..eece03eb 100644
---- a/projects/sfia-studio/app/features/project-assistant/f3/index.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f3/index.ts
-@@ -47,6 +47,14 @@ export {
-   authorizedM3ResolutionKind,
- } from "./selectProductM3ResolutionProfile";
- export { deriveAttemptProvenance, F3_REAL_MODE, F3_BOUNDED_M4_DETERMINISTIC_MODE } from "./deriveAttemptProvenance";
-+export { resolveDurableBoundaryProofMode } from "./resolveDurableBoundaryProofMode";
-+export {
-+  buildProcessFailureDiagnostic,
-+  isProcessFailureDiagnostic,
-+  PROCESS_DIAGNOSTIC_STDOUT_CAP,
-+  PROCESS_DIAGNOSTIC_STDERR_CAP,
-+} from "./processFailureDiagnostic";
-+export type { ProcessFailureDiagnostic } from "./processFailureDiagnostic";
- export { completeBoundedReadOnlyLaunch } from "./completeBoundedReadOnlyLaunch";
- export type {
-   BoundedLaunchObservationFacts,
-@@ -61,6 +69,12 @@ export type {
- } from "./prepareAndResolveM3ProductPath";
- export { resolveExistingLegacyM3DocsWriteProductPath } from "./resolveExistingLegacyM3DocsWriteProductPath";
- export { isLegacyDocsWritePrepareContractView } from "./legacyDocsWritePrepareContractView";
-+export { isDocsWriteEvidenceContradictionView } from "./docsWriteEvidenceContradictionView";
-+export { rematerializeDocsWriteEvidenceRequirements } from "./rematerializeDocsWriteEvidenceRequirements";
-+export type {
-+  RematerializeDocsWriteEvidenceResult,
-+  RematerializeDocsWriteEvidenceSuccess,
-+} from "./rematerializeDocsWriteEvidenceRequirements";
- export type {
-   F3M3LegacyResolvedPayload,
-   ResolveExistingLegacyM3DocsWriteDeps,
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
-index 8ec81e9e..ad829eb5 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
-@@ -11,6 +11,7 @@ import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
- import type { ClaimEvaluation, Evidence, ReviewBundle } from "@/lib/oa/evidence-review";
- import {
-   projectW3bProductTerminal,
-+  productReservationsForAttempt,
-   type W3BProductTerminalProjection,
- } from "./w3bProductTerminalProjection";
- import {
-@@ -37,13 +38,6 @@ export type MaterializeW3bProductTerminalResult =
-       readonly postEvidence?: W3cPostEvidenceLoopResult;
-     };
-
--const PRODUCT_RESERVATIONS = [
--  "Evidence requise avant claim produit",
--  "Apprentissage / replan non démarrés",
--  "Exécuteur de substitution — pas d'effet externe réel",
--  "Aucun READY",
--] as const;
--
- export function w3bEvidenceIdentity(attemptId: string): {
-   evidenceId: string;
-   reviewBundleId: string;
-@@ -182,7 +176,7 @@ export async function materializeW3bProductTerminal(input: {
-     executionContractId: contract.executionContractId,
-     ...(contract.cycleInstanceId ? { cycleInstanceId: contract.cycleInstanceId } : {}),
-     evidenceIds: [ingested.evidence.evidenceId],
--    reservations: [...PRODUCT_RESERVATIONS],
-+    reservations: [...productReservationsForAttempt(attempt)],
-   });
-
-   if (!bundle.ok) {
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts b/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
-index fcb2aafd..03b384d4 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
-@@ -61,6 +61,24 @@ const PRODUCT_RESERVATIONS = [
-   "Aucun READY",
- ] as const;
-
-+/** Honest reservation when a REAL process was durably launched (vs substitution wording). */
-+export function productReservationsForAttempt(
-+  attempt: ExecutionAttempt,
-+): readonly string[] {
-+  const realInvoked =
-+    attempt.processDiagnostic?.realProcessInvoked === true ||
-+    attempt.irreversibleEffectsPossible === true ||
-+    (typeof attempt.stopReason === "string" &&
-+      attempt.stopReason.startsWith("REAL_"));
-+  if (!realInvoked) return [...PRODUCT_RESERVATIONS];
-+  return [
-+    PRODUCT_RESERVATIONS[0],
-+    PRODUCT_RESERVATIONS[1],
-+    "Process Cursor REAL invoqué — effet métier non prouvé",
-+    PRODUCT_RESERVATIONS[3],
-+  ];
-+}
-+
- const ANTI = {
-   ready: false,
-   w3Closed: false,
-@@ -160,7 +178,7 @@ export function projectW3bProductTerminal(input: {
-       executionContractId: input.contract.executionContractId,
-       executionContractVersion: input.attempt.executionContractVersion,
-     },
--    reservations: [...PRODUCT_RESERVATIONS],
-+    reservations: [...productReservationsForAttempt(input.attempt)],
-     antiClaims: ANTI,
-     cycleInstanceClosed: false as const,
-     projectArchived: false as const,
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts b/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
-index 7b2f709d..386ebca3 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
-@@ -17,6 +17,7 @@ import type { EpistemicItem } from "@/lib/oa/cycle";
- import { SFIA_STUDIO_SYSTEM_FACTUAL_WRITER } from "@/features/project-assistant/f3/systemFactualWriter";
- import { appendEvidenceOutcomeToLps } from "@/features/project-assistant/f3/appendEvidenceOutcomeToLps";
- import { deriveAttemptProvenance } from "@/features/project-assistant/f3/deriveAttemptProvenance";
-+import { resolveDurableBoundaryProofMode } from "@/features/project-assistant/f3/resolveDurableBoundaryProofMode";
- import {
-   analyzePostEvidenceWithProvider,
-   extractW3cPostEvidenceAnalysisForEvidence,
-@@ -956,6 +957,12 @@ export async function runW3cPostEvidenceLoop(input: {
-   let adapterRef = "adp:unknown";
-   let executionMode = "unknown";
-   let realProcessInvoked = false;
-+  let processRef: string | undefined;
-+  let processExitCode: number | null | undefined;
-+  let processTimedOut: boolean | undefined;
-+  let processDurationMs: number | undefined;
-+  let processStdout: string | undefined;
-+  let processStderr: string | undefined;
-
-   if (oa.executionAttemptServices) {
-     const loaded = await oa.executionAttemptServices.getExecutionAttempt.execute({
-@@ -967,13 +974,28 @@ export async function runW3cPostEvidenceLoop(input: {
-       const agent = oa.executionAttemptServices.registry.getAgent(
-         loaded.attempt.selectedAgentRef,
-       );
-+      const boundaryProofMode = await resolveDurableBoundaryProofMode({
-+        oa,
-+        attempt: loaded.attempt,
-+      });
-       const provenance = deriveAttemptProvenance({
-         attempt: loaded.attempt,
-         agent,
-+        boundaryProofMode,
-       });
-       adapterRef = provenance.adapterRef;
-       executionMode = provenance.executionMode;
-       realProcessInvoked = provenance.realProcessInvoked;
-+      // Prefer durable diagnostic excerpts when present (failure observability).
-+      const diag = loaded.attempt.processDiagnostic;
-+      if (diag) {
-+        processStdout = diag.stdoutExcerpt;
-+        processStderr = diag.stderrExcerpt;
-+        processRef = diag.processRef;
-+        processExitCode = diag.exitCode;
-+        processTimedOut = diag.timedOut;
-+        processDurationMs = diag.durationMs;
-+      }
-     }
-   }
-   if (oa.executionContractServices) {
-@@ -1027,6 +1049,14 @@ export async function runW3cPostEvidenceLoop(input: {
-       reviewBundleId: product.reviewBundleId,
-       technicalResultRef: product.technicalDetail.resultRef,
-       reservations: product.reservations,
-+      ...(processRef ? { processRef } : {}),
-+      ...(processExitCode !== undefined ? { exitCode: processExitCode } : {}),
-+      ...(processTimedOut !== undefined ? { timedOut: processTimedOut } : {}),
-+      ...(processDurationMs !== undefined
-+        ? { durationMs: processDurationMs }
-+        : {}),
-+      ...(processStdout !== undefined ? { stdout: processStdout } : {}),
-+      ...(processStderr !== undefined ? { stderr: processStderr } : {}),
-     },
-     { ckcPromptSection },
-   );
-diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts
-index 62267028..6f668fc9 100644
---- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts
-+++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts
-@@ -126,6 +126,9 @@ export class RecordExecutionFailure {
-         technicalExitCode: request.technicalExitCode,
-         durationMs: request.durationMs,
-         logRefs: request.logRefs ? [...request.logRefs] : attempt.logRefs,
-+        ...(request.processDiagnostic
-+          ? { processDiagnostic: request.processDiagnostic }
-+          : {}),
-         updatedAt: timestamp,
-         version: attempt.version + 1,
-       };
-diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
-index cfe92303..88a52e28 100644
---- a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
-+++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
-@@ -137,6 +137,28 @@ export type ExecutionAttempt = {
-   technicalExitCode?: number;
-   durationMs?: number;
-   logRefs?: string[];
-+  /**
-+   * Checkpoint F / R6 — redacted/capped process observation on failure/timeout.
-+   * Optional additive payload field (no SQLite migration). Diagnostic only —
-+   * never authoritative business Evidence / docs_write artifact proof.
-+   */
-+  processDiagnostic?: {
-+    readonly kind: "process_failure_diagnostic";
-+    readonly schemaVersion: "0.1.0-oa";
-+    readonly processRef: string;
-+    readonly exitCode: number | null;
-+    readonly timedOut: boolean;
-+    readonly durationMs: number;
-+    readonly realProcessInvoked: boolean;
-+    readonly boundaryProofMode?: "cursor_real" | "deterministic_fake";
-+    readonly executableBasename?: string;
-+    readonly stdoutExcerpt: string;
-+    readonly stderrExcerpt: string;
-+    readonly stdoutTruncated: boolean;
-+    readonly stderrTruncated: boolean;
-+    readonly redacted: true;
-+    readonly authoritativeBusinessEvidence: false;
-+  };
-   cancellationRequested?: boolean;
-   irreversibleEffectsPossible?: boolean;
-   updatedAt?: string;
-@@ -265,6 +287,8 @@ export type RecordExecutionFailureRequest = {
-   technicalExitCode?: number;
-   durationMs?: number;
-   logRefs?: string[];
-+  /** Optional redacted process diagnostic (failure / timeout). */
-+  processDiagnostic?: ExecutionAttempt["processDiagnostic"];
-   correlationId?: string;
-   expectedAttemptVersion?: number;
-   nowIso?: string;
-
-===== NEW: processFailureDiagnostic.ts =====
-/**
- * Checkpoint F / R6 — durable, redacted, capped process-failure diagnostic.
- *
- * Persisted on ExecutionAttempt (payload_json) — no Evidence schema migration.
- * Diagnostic only: never satisfies evreq:docs_write_artifact / business SUCCESS.
- */
-import { redactSecrets } from "@/lib/platform/security/redaction";
-import type { RealProcessObservation } from "@/lib/oa/execution-attempt";
-
-/** Durable / Nora observation caps (≤ runner 64 KiB). Do not raise. */
-export const PROCESS_DIAGNOSTIC_STDOUT_CAP = 4 * 1024;
-export const PROCESS_DIAGNOSTIC_STDERR_CAP = 4 * 1024;
-
-export type ProcessFailureDiagnostic = {
-  readonly kind: "process_failure_diagnostic";
-  readonly schemaVersion: "0.1.0-oa";
-  readonly processRef: string;
-  readonly exitCode: number | null;
-  readonly timedOut: boolean;
-  readonly durationMs: number;
-  readonly realProcessInvoked: boolean;
-  readonly boundaryProofMode?: "cursor_real" | "deterministic_fake";
-  /** Non-secret executable basename only (never full env / argv / prompt). */
-  readonly executableBasename?: string;
-  readonly stdoutExcerpt: string;
-  readonly stderrExcerpt: string;
-  readonly stdoutTruncated: boolean;
-  readonly stderrTruncated: boolean;
-  readonly redacted: true;
-  readonly authoritativeBusinessEvidence: false;
+```ts
+type PostEvidenceRecoveryContext = {
+  kind: "post_evidence_recovery";
+  attemptId: string;
+  attemptStatus: "failed" | "timeout" | "cancelled";
+  stopReason: string | null;
+  executionContractId: string;
+  evidenceId: string;
+  reviewBundleId: string;
+  productOutcome: "FAIL" | "STOP";
+  recommendationKind: "recover" | "replan";
+  headline: string;
+  rationale: string;
+  nextStep: string;
+  realProcessInvoked: boolean;
+  businessEffectProven: false;
+  w3cEpistemicItemId: string;
 };
+```
 
-function capHead(
-  value: string,
-  cap: number,
-): { text: string; truncated: boolean } {
-  if (value.length <= cap) return { text: value, truncated: false };
-  return { text: `${value.slice(0, cap)}\n…[truncated]`, truncated: true };
-}
+### Règle de sélection / cohérence
 
-/** Prefer useful tail of stderr (CLI errors often land at the end). */
-function capTail(
-  value: string,
-  cap: number,
-): { text: string; truncated: boolean } {
-  if (value.length <= cap) return { text: value, truncated: false };
-  return { text: `…[truncated]\n${value.slice(-cap)}`, truncated: true };
-}
+SI épisode post-Evidence cohérent pour le Project courant:
+- W3C Recommendation active `recover|replan` + outcome `FAIL|STOP`
+- `w3bEvidenceIdentity(attemptId)` match evidenceId/reviewBundleId
+- `findExistingW3cPostEvidence` confirme le même épisode
+- Attempt terminal `failed|timeout` (ou `cancelled` si STOP)
+- EC.projectId == Project courant
+- Evidence bindings Attempt/EC/Project cohérents quand reader dispo
 
-function basenameOnly(executable: string | undefined): string | undefined {
-  if (!executable || typeof executable !== "string") return undefined;
-  const trimmed = executable.trim();
-  if (!trimmed) return undefined;
-  const parts = trimmed.split(/[/\\]/);
-  const base = parts[parts.length - 1] ?? "";
-  return base.length > 0 && base.length <= 128 ? base : undefined;
-}
+ALORS RecoveryContext complète/domine le sujet d'instruction.
+SINON comportement générique inchangé.
 
-/**
- * Build a durable diagnostic from a process observation.
- * Always pattern-redacts; never stores env, tokens, or full prompt.
- */
-export function buildProcessFailureDiagnostic(input: {
-  readonly observation: RealProcessObservation;
-  readonly boundaryProofMode?: "cursor_real" | "deterministic_fake";
-  readonly executable?: string;
-}): ProcessFailureDiagnostic {
-  const stdoutRaw = redactSecrets(input.observation.stdout ?? "");
-  const stderrRaw = redactSecrets(input.observation.stderr ?? "");
-  const stdout = capHead(stdoutRaw, PROCESS_DIAGNOSTIC_STDOUT_CAP);
-  const stderr = capTail(stderrRaw, PROCESS_DIAGNOSTIC_STDERR_CAP);
-  const executableBasename = basenameOnly(input.executable);
+CycleInstance `cyc:framing` **conservé** (arrière-plan CKC) — non remplacé.
 
-  return {
-    kind: "process_failure_diagnostic",
-    schemaVersion: "0.1.0-oa",
-    processRef: input.observation.processRef,
-    exitCode: input.observation.exitCode,
-    timedOut: input.observation.timedOut,
-    durationMs: input.observation.durationMs,
-    realProcessInvoked: input.observation.realProcessInvoked === true,
-    ...(input.boundaryProofMode
-      ? { boundaryProofMode: input.boundaryProofMode }
-      : {}),
-    ...(executableBasename ? { executableBasename } : {}),
-    stdoutExcerpt: stdout.text,
-    stderrExcerpt: stderr.text,
-    stdoutTruncated: stdout.truncated,
-    stderrTruncated: stderr.truncated,
-    redacted: true,
-    authoritativeBusinessEvidence: false,
-  };
-}
+---
 
-export function isProcessFailureDiagnostic(
-  value: unknown,
-): value is ProcessFailureDiagnostic {
-  if (!value || typeof value !== "object") return false;
-  const v = value as Record<string, unknown>;
-  return (
-    v.kind === "process_failure_diagnostic" &&
-    v.schemaVersion === "0.1.0-oa" &&
-    v.authoritativeBusinessEvidence === false &&
-    v.redacted === true &&
-    typeof v.processRef === "string" &&
-    typeof v.stdoutExcerpt === "string" &&
-    typeof v.stderrExcerpt === "string"
-  );
-}
+## 6. Adaptation W2
 
-===== NEW: resolveDurableBoundaryProofMode.ts =====
-/**
- * Resolve durable boundaryProofMode for post-Evidence provenance (Checkpoint F / R6).
- *
- * Priority (no invented state):
- * 1. Attempt.processDiagnostic.boundaryProofMode (when failure recorded it)
- * 2. Launch frontier LAUNCHED payload_json.boundaryProofMode
- * 3. Composed launchPort.boundaryProofMode when available
- *
- * Never infers Cursor REAL from agent identity alone.
- */
-import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
-import type { BoundaryProofMode } from "@/lib/oa/execution-attempt";
-import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
+1. `resolvePostEvidenceRecoveryContext` — read-model borné (nouveau fichier)
+2. `proposeTrajectoryOptions` — résout RecoveryContext avant cognition ProjectTrajectory; injecte `buildRecoveryCognitionSection` dans le prompt Nora; passe `recoveryContext` à derive
+3. `trajectoryOptions` — mêmes optionRefs (idempotence / no epistemic retirement) avec labels recovery:
+   - GOVERNED → préparer nouvelle tentative gouvernée
+   - BOUNDED → replanifier/suspendre sans relance
+   - CLARIFY → diagnostiquer/clarifier avant nouvelle tentative
+4. Recommendation recovery défaut = CLARIFY (diagnose) — **jamais** auto-pick retry malgré GO Morris hors runtime
+5. `isHumanDecision: false`, `promotesTrajectory: false` conservés
 
-function parseFrontierProofMode(
-  payloadJson: string | undefined,
-): BoundaryProofMode | null {
-  if (!payloadJson) return null;
-  try {
-    const payload = JSON.parse(payloadJson) as {
-      boundaryProofMode?: unknown;
-    };
-    if (
-      payload.boundaryProofMode === "cursor_real" ||
-      payload.boundaryProofMode === "deterministic_fake"
-    ) {
-      return payload.boundaryProofMode;
-    }
-  } catch {
-    /* ignore malformed durable payload */
-  }
-  return null;
-}
+---
 
-export async function resolveDurableBoundaryProofMode(input: {
-  readonly oa: Pick<RuntimeOaStack, "executionAttemptServices">;
-  readonly attempt: ExecutionAttempt;
-}): Promise<BoundaryProofMode | null> {
-  const fromDiagnostic = input.attempt.processDiagnostic?.boundaryProofMode;
-  if (
-    fromDiagnostic === "cursor_real" ||
-    fromDiagnostic === "deterministic_fake"
-  ) {
-    return fromDiagnostic;
-  }
+## 7. État recommandation générique pré-fix
 
-  const journal =
-    input.oa.executionAttemptServices?.realBoundary?.safetyJournal;
-  if (journal?.findFrontierByAttempt) {
-    const frontiers = await journal.findFrontierByAttempt(
-      input.attempt.attemptId,
-    );
-    const launched = frontiers.find((row) => row.kind === "LAUNCHED");
-    const fromFrontier = parseFrontierProofMode(launched?.payloadJson);
-    if (fromFrontier) return fromFrontier;
-  }
+Campagne: `epi:rec-w2-462d77fbb356` (instruction générique incorrecte, **aucune HD**).
 
-  const portMode =
-    input.oa.executionAttemptServices?.realBoundary?.launchPort
-      ?.boundaryProofMode;
-  if (portMode === "cursor_real" || portMode === "deterministic_fake") {
-    return portMode;
-  }
+Lifecycle existant: re-instruction ProjectTrajectory avec **mêmes optionRefs** + `withPriorSetSupersedes` sur Recommendation/Observation — la nouvelle OptionSet recovery supersède sans mutation SQLite manuelle ni nouvelle sémantique.
 
-  return null;
-}
+T11 prouve: W3C recover n'est pas masqué par une recommandation W2 générique antérieure.
 
-===== NEW: checkpointF.realFailureObservability.d0.test.ts =====
-/**
- * Checkpoint F / R6 — REAL failure observability + provenance truth.
- * ZERO REAL / ZERO Cursor binary / fake runners only.
- * @vitest-environment node
- */
-import { describe, expect, it } from "vitest";
-import {
-  createM4BoundedDocsWriteCursorAgentDescriptor,
-  M4_REAL_GATEWAY_ADAPTER_ID,
-} from "@/lib/oa/execution-attempt";
-import {
-  buildProcessFailureDiagnostic,
-  PROCESS_DIAGNOSTIC_STDERR_CAP,
-  PROCESS_DIAGNOSTIC_STDOUT_CAP,
-} from "@/features/project-assistant/f3/processFailureDiagnostic";
-import {
-  deriveAttemptProvenance,
-  F3_BOUNDED_M4_DETERMINISTIC_MODE,
-  F3_REAL_MODE,
-} from "@/features/project-assistant/f3/deriveAttemptProvenance";
-import { productReservationsForAttempt } from "@/features/project-assistant/w2/w3bProductTerminalProjection";
-import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
+---
 
-const NOW = "2026-09-17T20:00:00.000Z";
+## 8. Fichiers R7 (scope lot)
 
-function baseAttempt(
-  overrides: Partial<ExecutionAttempt> = {},
-): ExecutionAttempt {
-  return {
-    schemaVersion: "0.2.0-oa",
-    attemptId: "xat:w3a:obs-r6-test",
-    executionContractId: "xct:m3-ev:obs-r6",
-    executionContractVersion: 1,
-    selectedAgentRef: "agt:m4.cursor.bounded_docs_write",
-    status: "failed",
-    idempotencyKey: "idem:w3a:obs-r6-test",
-    correlationId: "cor:obs-r6",
-    version: 2,
-    createdAt: NOW,
-    provenance: {
-      schemaVersion: "0.1.0-oa",
-      provenanceRecordId: "prv:obs-r6",
-      actor: {
-        actorId: "actor:local-pilote",
-        role: "decision_maker",
-        displayName: "Pilote",
-        authorityLevel: "none",
-      },
-      source: "system",
-      timestamp: NOW,
-      correlationId: "cor:obs-r6",
-    },
-    launchedAt: NOW,
-    failedAt: NOW,
-    stopReason: "REAL_PROCESS_NONZERO_EXIT",
-    technicalExitCode: 1,
-    durationMs: 1500,
-    irreversibleEffectsPossible: true,
-    ...overrides,
-  };
-}
+| Path | Change |
+|---|---|
+| `w2/resolvePostEvidenceRecoveryContext.ts` | **NEW** — resolver + cognition section + realProcessInvoked |
+| `w2/proposeTrajectoryOptions.ts` | ADAPT — inject RecoveryContext |
+| `w2/trajectoryOptions.ts` | ADAPT — recovery option/recommendation derive |
+| `__tests__/.../checkpointF.recoveryOptionsContext.d0.test.ts` | **NEW** — T1–T12 |
 
-describe("Checkpoint F R6 — process failure diagnostic (G1)", () => {
-  it("T1 — exit 1 observation → durable diagnostic with stderr excerpt", () => {
-    const diag = buildProcessFailureDiagnostic({
-      observation: {
-        processRef: "pid:51943",
-        exitCode: 1,
-        timedOut: false,
-        durationMs: 1534,
-        realProcessInvoked: true,
-        stdout: "agent starting",
-        stderr: "Error: authentication required for model",
-      },
-      boundaryProofMode: "cursor_real",
-      executable: "/Applications/Cursor.app/Contents/Resources/app/bin/cursor",
-    });
-    expect(diag.kind).toBe("process_failure_diagnostic");
-    expect(diag.realProcessInvoked).toBe(true);
-    expect(diag.boundaryProofMode).toBe("cursor_real");
-    expect(diag.exitCode).toBe(1);
-    expect(diag.stderrExcerpt).toContain("authentication required");
-    expect(diag.stdoutExcerpt).toContain("agent starting");
-    expect(diag.executableBasename).toBe("cursor");
-    expect(diag.redacted).toBe(true);
-    expect(diag.authoritativeBusinessEvidence).toBe(false);
-  });
+Hors scope: `package-lock.json`, R1–R6 files (préservés).
 
-  it("T2 — redacts API key / bearer / github token patterns", () => {
-    const diag = buildProcessFailureDiagnostic({
-      observation: {
-        processRef: "pid:1",
-        exitCode: 1,
-        timedOut: false,
-        durationMs: 10,
-        realProcessInvoked: true,
-        stdout: "using sk-abcdefghijklmnopqrstuvwxyz012345",
-        stderr:
-          "Authorization: Bearer supersecrettokenvalue99\nghp_abcdefghijklmnopqrstuvwxyz0123456789\nOPENAI_API_KEY=sk-live-secret-value-here",
-      },
-      boundaryProofMode: "cursor_real",
-    });
-    const blob = `${diag.stdoutExcerpt}\n${diag.stderrExcerpt}`;
-    expect(blob).not.toMatch(/sk-[A-Za-z0-9_-]{10,}/);
-    expect(blob).not.toMatch(/Bearer\s+\S+/i);
-    expect(blob).not.toMatch(/ghp_[A-Za-z0-9]{20,}/);
-    expect(blob).not.toMatch(/OPENAI_API_KEY\s*=\s*.+/i);
-    expect(blob).toContain("[redacted]");
-  });
+---
 
-  it("T3 — truncates oversized streams with flags (stderr prefers tail)", () => {
-    const bigStdout = "S".repeat(PROCESS_DIAGNOSTIC_STDOUT_CAP + 200);
-    const bigStderr =
-      "HEAD_NOISE".repeat(500) + "TAIL_ERROR_MARKER_UNIQUE";
-    expect(bigStderr.length).toBeGreaterThan(PROCESS_DIAGNOSTIC_STDERR_CAP);
-    const diag = buildProcessFailureDiagnostic({
-      observation: {
-        processRef: "pid:2",
-        exitCode: 1,
-        timedOut: false,
-        durationMs: 5,
-        realProcessInvoked: true,
-        stdout: bigStdout,
-        stderr: bigStderr,
-      },
-    });
-    expect(diag.stdoutTruncated).toBe(true);
-    expect(diag.stderrTruncated).toBe(true);
-    expect(diag.stdoutExcerpt.length).toBeLessThanOrEqual(
-      PROCESS_DIAGNOSTIC_STDOUT_CAP + 20,
-    );
-    expect(diag.stderrExcerpt).toContain("TAIL_ERROR_MARKER_UNIQUE");
-    expect(diag.stderrExcerpt).toContain("…[truncated]");
-  });
-});
+## 9. Tests
 
-describe("Checkpoint F R6 — Nora provenance (G2)", () => {
-  const agent = createM4BoundedDocsWriteCursorAgentDescriptor(NOW);
+| ID | Result |
+|---|---|
+| T1 RecoveryContext on FAIL+Evidence+RB+W3C | PASS |
+| T2 cognition prompt FAIL/Evidence/recover | PASS |
+| T3 recovery options, no auto HD | PASS |
+| T4 recommendation recovery ≠ decision | PASS |
+| T5 realProcessInvoked cursor_real stays true | PASS |
+| T6 no failed episode → generic | PASS |
+| T7 SUCCESS → no false recovery | PASS |
+| T8 hostile project → null | PASS |
+| T9 other project W3C not injected | PASS |
+| T10 restart from durable SQLite | PASS |
+| T11 generic rec does not mask W3C | PASS |
+| T12 no new Attempt on propose | PASS |
+| T13 R1/R3/R4/R6 non-régression (E + F R6 suites) | PASS |
+| T14 typecheck `tsc --noEmit` | PASS |
 
-  it("T4 — cursor_real + launched + failed → realProcessInvoked true, no business success", () => {
-    const prov = deriveAttemptProvenance({
-      attempt: {
-        attemptId: "xat:r6-t4",
-        selectedAgentRef: agent.agentId,
-        status: "failed",
-        launchedAt: NOW,
-        irreversibleEffectsPossible: true,
-      },
-      agent,
-      boundaryProofMode: "cursor_real",
-    });
-    expect(prov.mode).toBe(F3_REAL_MODE);
-    expect(prov.realProcessInvoked).toBe(true);
-    expect(prov.realExecution).toBe(true);
-    expect(prov.boundaryProofMode).toBe("cursor_real");
-    // Business success is Attempt status — still failed
-    expect(baseAttempt().status).toBe("failed");
-  });
-
-  it("T5 — M4-shaped without cursor_real → not REAL", () => {
-    const prov = deriveAttemptProvenance({
-      attempt: {
-        attemptId: "xat:r6-t5",
-        selectedAgentRef: agent.agentId,
-        status: "failed",
-        launchedAt: NOW,
-      },
-      agent,
-      boundaryProofMode: "deterministic_fake",
-    });
-    expect(prov.mode).toBe(F3_BOUNDED_M4_DETERMINISTIC_MODE);
-    expect(prov.realExecution).toBe(false);
-    expect(prov.boundaryProofMode).toBe("deterministic_fake");
-  });
-
-  it("T6 — REAL selected but NOT launched → realProcessInvoked false", () => {
-    const prov = deriveAttemptProvenance({
-      attempt: {
-        attemptId: "xat:r6-t6",
-        selectedAgentRef: agent.agentId,
-        status: "accepted",
-      },
-      agent,
-      boundaryProofMode: "cursor_real",
-    });
-    expect(prov.realProcessInvoked).toBe(false);
-    expect(prov.realExecution).toBe(false);
-  });
-
-  it("T4b — omit boundaryProofMode (pre-R6 bug) → false even if launched", () => {
-    const prov = deriveAttemptProvenance({
-      attempt: {
-        attemptId: "xat:r6-t4b",
-        selectedAgentRef: agent.agentId,
-        status: "failed",
-        launchedAt: NOW,
-        irreversibleEffectsPossible: true,
-      },
-      agent,
-      // boundaryProofMode omitted — historical Nora bug
-    });
-    expect(prov.realProcessInvoked).toBe(false);
-  });
-});
-
-describe("Checkpoint F R6 — reservations honesty + artifact non-satisfaction", () => {
-  it("T8/T9 — diagnostic failure does not claim docs_write artifact; REAL reservation wording", () => {
-    const attempt = baseAttempt({
-      processDiagnostic: buildProcessFailureDiagnostic({
-        observation: {
-          processRef: "pid:51943",
-          exitCode: 1,
-          timedOut: false,
-          durationMs: 1534,
-          realProcessInvoked: true,
-          stdout: "",
-          stderr: "cli exit 1",
-        },
-        boundaryProofMode: "cursor_real",
-      }),
-    });
-    expect(attempt.processDiagnostic?.authoritativeBusinessEvidence).toBe(
-      false,
-    );
-    expect(attempt.processDiagnostic?.kind).toBe("process_failure_diagnostic");
-    // Does not look like artifact evidence
-    expect(attempt.resultRef).toBeUndefined();
-    expect(attempt.status).toBe("failed");
-
-    const reservations = productReservationsForAttempt(attempt);
-    expect(reservations).toContain(
-      "Process Cursor REAL invoqué — effet métier non prouvé",
-    );
-    expect(reservations).not.toContain(
-      "Exécuteur de substitution — pas d'effet externe réel",
-    );
-    expect(reservations).toContain("Aucun READY");
-  });
-
-  it("substitution wording retained when no REAL launch signals", () => {
-    const attempt = baseAttempt({
-      stopReason: "FIXTURE_FAIL",
-      irreversibleEffectsPossible: undefined,
-      processDiagnostic: undefined,
-      technicalExitCode: undefined,
-    });
-    const reservations = productReservationsForAttempt(attempt);
-    expect(reservations).toContain(
-      "Exécuteur de substitution — pas d'effet externe réel",
-    );
-  });
-});
-
-describe("Checkpoint F R6 — G3 preflight disposition", () => {
-  it("documents existing CURSOR_UNAVAILABLE fail-close without Cursor spawn", () => {
-    // Gateway already rejects when resolveBin() returns null with
-    // detailCode CURSOR_UNAVAILABLE and realProcessInvoked:false —
-    // covered by m4RealOff / gateway unit tests. Auth cannot be probed
-    // non-invasively → DEFER (no new auth probe in this lot).
-    expect(M4_REAL_GATEWAY_ADAPTER_ID).toBe("adp:m4-cursor-cli-real");
-  });
-});
-
-describe("Checkpoint F R6 — durable reload (T7)", () => {
-  it("processDiagnostic survives JSON payload round-trip (Attempt store shape)", () => {
-    const diag = buildProcessFailureDiagnostic({
-      observation: {
-        processRef: "pid:51943",
-        exitCode: 1,
-        timedOut: false,
-        durationMs: 1534,
-        realProcessInvoked: true,
-        stdout: "out",
-        stderr: "useful stderr leaf",
-      },
-      boundaryProofMode: "cursor_real",
-    });
-    const attempt = baseAttempt({ processDiagnostic: diag });
-    const reloaded = JSON.parse(JSON.stringify(attempt)) as ExecutionAttempt;
-    expect(reloaded.processDiagnostic?.stderrExcerpt).toContain(
-      "useful stderr leaf",
-    );
-    expect(reloaded.processDiagnostic?.exitCode).toBe(1);
-    expect(reloaded.processDiagnostic?.boundaryProofMode).toBe("cursor_real");
-    expect(reloaded.processDiagnostic?.authoritativeBusinessEvidence).toBe(
-      false,
-    );
-  });
-});
+Commandes:
+```
+npx vitest run __tests__/project-assistant/checkpointF.recoveryOptionsContext.d0.test.ts
+npx vitest run __tests__/project-assistant/checkpointF.realFailureObservability.d0.test.ts
+npx vitest run __tests__/project-assistant/checkpointE.prepareResume.d0.test.ts \
+  __tests__/oa/execution-contract/checkpointE.docsWriteEvidenceCoherence.d0.test.ts
+npx tsc --noEmit -p tsconfig.json
 ```
 
 ---
 
-## 10. Tests
+## 10. Restart proof
 
-| Suite | Result |
-|---|---|
-| checkpointF.realFailureObservability.d0 | PASS (11) |
-| checkpointE.prepareResume.d0 | PASS |
-| checkpointE.docsWriteEvidenceCoherence.d0 | PASS |
-| m3ExecutionContractPrepare CHECKPOINT-E | PASS |
-| tsc --noEmit | PASS |
-
-ZERO Cursor / ZERO REAL.
+T10: runtime A materialize FAIL+W3C → dispose → runtime B same SQLite → `resolvePostEvidenceRecoveryContext` reconstruit Attempt/Evidence/recover. Aucune dépendance ProposalStore process-local / flag React / mémoire recovery.
 
 ---
 
-## 11. Campagne
+## 11. ZERO REAL / safety
 
-| Metric | Value |
+| Gate | Status |
 |---|---|
-| attempts | **1** |
-| target | ABSENT |
-| DB mutated | NO |
-| historical Attempt repaired | NO |
+| Cursor REAL lancé | NON |
+| Execute | NON |
+| Nouvel Attempt campagne | NON (count reste 1) |
+| HumanDecision | NON |
+| Mutation SQLite campagne manuelle | NON |
+| Target ABSENT | OUI |
+| Nouveau REAL consommé | 0 |
+| Budget restant | 1 |
 
 ---
 
 ## 12. Réserves
 
-- Historical R5 Attempt still without processDiagnostic (preserved).
-- Timeout-via-triggerAttemptTimeout may omit diagnostic.
-- Auth preflight deferred.
-- Prior CLI exit-1 leaf still unknown.
+- Campagne runtime « Instruire les options » non rejouée ici (ZERO REAL lot) — preuve déterministe via tests + durables.
+- Recommandation générique campagne `epi:rec-w2-462d77fbb356` sera supersédée à la prochaine instruction Product (lifecycle existant), pas mutée manuellement.
+- Morris REAL GO hors runtime **n'auto-sélectionne pas** l'option retry.
 
 ---
 
-## 13. Claims
+## 13. Gates
 
-Authorized: failure observability deterministic proven; REAL provenance projection corrected; ZERO REAL correction; previous REAL remains FAIL.
-
-Forbidden: CLI root cause solved; REAL PASS; retry authorized; E2E usable; READY; runtime v3 ADOPTED.
+| Gate | Verdict |
+|---|---|
+| Pas de nouvelle persistence | PASS |
+| Pas de second recovery engine | PASS |
+| CycleInstance inchangé | PASS |
+| Supersession via lifecycle existant | PASS |
+| ZERO REAL | PASS |
+| Autorité / Gate D non élargie | PASS |
 
 ---
 
-## 14. Gate Morris
+## 14. Claims
 
-Review R6 → optional Product commit gate → distinct NEW GO before any new REAL.
+**Autorisés**
+- recovery context continuity deterministically proven
+- W3C post-Evidence consumed by W2 trajectory instruction
+- ZERO REAL
+- previous Attempt remains FAIL
+
+**Interdits (non revendiqués)**
+- recovery HumanDecision made
+- retry executed
+- REAL PASS
+- Product Journey E2E usable / READY
+- runtime v3 ADOPTED
 
 ---
 
 ## 15. Verdict
 
-**CHECKPOINT F OBSERVABILITY FIXED — READY FOR MORRIS REVIEW / NEW REAL GATE**
+**RECOVERY OPTIONS CONTEXT FIXED — READY FOR PILOT RECOVERY DECISION**
+
+Boucle reconnectée:
+FAIL → Evidence/RB → W3C recover → W2 Options/Recommendation recovery → (HumanDecision Pilote — hors lot)
+
+---
+
+## 16. Diff exploitable R7 (complet)
+
+===== R7 TRACKED DIFF =====
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts b/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
+index 63ced39a..d2636564 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
+@@ -61,6 +61,11 @@ import {
+   deriveTrajectoryRecommendation,
+   type TrajectoryOptionInputs,
+ } from "./trajectoryOptions";
++import {
++  buildRecoveryCognitionSection,
++  resolvePostEvidenceRecoveryContext,
++  type PostEvidenceRecoveryContext,
++} from "./resolvePostEvidenceRecoveryContext";
+ import type {
+   CkcRecommendationProvenanceDto,
+   ProposeTrajectoryOptionsResult,
+@@ -222,6 +227,14 @@ export async function proposeTrajectoryOptions(
+     }
+     return { ok: true, ...activeSubject.optionSet };
+   }
++  if (activeSubject.kind === "pursue_prepare_ready") {
++    return {
++      ok: false,
++      code: "PREPARE_CONTINUATION_OWNS_NEXT_ACTION",
++      message:
++        "Une décision pursue durable attend la préparation du contrat d'exécution — aucune nouvelle instruction d'options.",
++    };
++  }
+   if (
+     activeSubject.kind === "pending_reinstruction_required" &&
+     !opaqueProposalIdEarly
+@@ -297,10 +310,33 @@ export async function proposeTrajectoryOptions(
+     };
+   }
+
++  // R7 — durable RecoveryContext for ProjectTrajectory path only.
++  // Proposal subject path keeps sealed Proposal as subject (no recovery inject).
++  let recoveryContext: PostEvidenceRecoveryContext | null = null;
++  if (!proposalSubject) {
++    const recovered = await resolvePostEvidenceRecoveryContext({
++      oa,
++      projectId: input.projectId,
++    });
++    if (!recovered.ok) {
++      return {
++        ok: false,
++        code: recovered.code,
++        message: recovered.message,
++      };
++    }
++    recoveryContext = recovered.context;
++  }
++
+   const ckcPromptSection = buildCkcCognitivePromptSection(ckcContent);
++  const recoveryCognitionSection = recoveryContext
++    ? buildRecoveryCognitionSection(recoveryContext)
++    : null;
+   const cognitionUserContent = proposalSubject
+     ? `Instruire Options/Recommendation pour la Proposal ${proposalSubject.proposalId} (sujet: ${proposalSubject.sealedExecutionBasis.objective})`
+-    : `Instruire Options/Recommendation pour le cycle ${input.cycleTypeId}`;
++    : recoveryContext
++      ? `Instruire Options/Recommendation de recovery/replan après FAIL durable (${recoveryContext.attemptId}) — sujet courant = recovery du même cycle, PAS un nouveau cadrage fonctionnel.`
++      : `Instruire Options/Recommendation pour le cycle ${input.cycleTypeId}`;
+   let cognitiveRecommendation: string;
+   try {
+     const reasoning = await reasonWithResolvedCkcContext({
+@@ -316,12 +352,24 @@ export async function proposeTrajectoryOptions(
+               `targetPath=${proposalSubject.sealedExecutionBasis.targetPath ?? ""}`,
+               `requestedOperation=${proposalSubject.sealedExecutionBasis.requestedOperation}`,
+             ]
+-          : []),
++          : recoveryContext
++            ? [
++                `recoverySubject=post_evidence`,
++                `attemptId=${recoveryContext.attemptId}`,
++                `evidenceId=${recoveryContext.evidenceId}`,
++                `recommendationKind=${recoveryContext.recommendationKind}`,
++                `realProcessInvoked=${recoveryContext.realProcessInvoked}`,
++              ]
++            : []),
+       ].join(" | "),
+       intentSummary: proposalSubject
+         ? `Proposal subject ${proposalSubject.proposalId} · profil ${input.recommendedProfile}`
+-        : `Cycle ${input.cycleTypeId} · profil ${input.recommendedProfile}`,
+-      ckcPromptSection,
++        : recoveryContext
++          ? `Recovery/replan post-Evidence · cycle ${input.cycleTypeId} · profil ${input.recommendedProfile} · Recommendation ≠ HumanDecision`
++          : `Cycle ${input.cycleTypeId} · profil ${input.recommendedProfile}`,
++      ckcPromptSection: recoveryCognitionSection
++        ? `${ckcPromptSection}\n\n${recoveryCognitionSection}`
++        : ckcPromptSection,
+     });
+     cognitiveRecommendation = reasoning.recommendation;
+   } catch (error) {
+@@ -505,6 +553,7 @@ export async function proposeTrajectoryOptions(
+     irreversible: input.irreversible,
+     reservations: input.reservations,
+     ckcAttribution: input.ckcAttribution,
++    recoveryContext,
+   };
+
+   const options = deriveTrajectoryOptions(inputs);
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts b/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
+index 957ddada..3865fb16 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
+@@ -7,6 +7,10 @@
+  * seam already carries. This module adds NO cognitive path: it does not call a
+  * provider, does not read CKC content and is not a Phase B integration point.
+  * Same inputs always yield the same options, in the same order.
++ *
++ * Checkpoint F / R7 — when RecoveryContext is present, same optionRefs are kept
++ * (idempotent OptionSet supersession) but labels/intents/steps carry recovery
++ * semantics so framing-generic cognition is not the subject.
+  */
+
+ import type { TrajectoryStep } from "@/lib/oa/cycle";
+@@ -14,6 +18,7 @@ import type {
+   TrajectoryOptionDto,
+   TrajectoryRecommendationDto,
+ } from "./types";
++import type { PostEvidenceRecoveryContext } from "./resolvePostEvidenceRecoveryContext";
+
+ export type TrajectoryOptionInputs = {
+   readonly cycleTypeId: string;
+@@ -22,6 +27,8 @@ export type TrajectoryOptionInputs = {
+   readonly irreversible: boolean;
+   readonly reservations: readonly string[];
+   readonly ckcAttribution: string | null;
++  /** Optional durable post-Evidence recovery subject (R7). */
++  readonly recoveryContext?: PostEvidenceRecoveryContext | null;
+ };
+
+ export const GOVERNED_OPTION_REF = "opt:trajectory:governed-gated" as const;
+@@ -103,6 +110,56 @@ function clarifySteps(): TrajectoryStep[] {
+   ];
+ }
+
++function recoveryRetrySteps(): TrajectoryStep[] {
++  return [
++    step(1, "w2-rec-diagnose", "Prendre en compte l'échec et l'Evidence durables"),
++    step(2, "w2-rec-decide", "Décision humaine explicite de recovery", {
++      dependencies: ["stp:w2-rec-diagnose"],
++      gate: "human_decision",
++      exitCriteria: ["HumanDecision acceptée — Recommendation ≠ décision"],
++    }),
++    step(3, "w2-rec-contract", "Préparer un nouveau contrat d'exécution", {
++      dependencies: ["stp:w2-rec-decide"],
++    }),
++    step(4, "w2-rec-inspect", "Inspecter puis autoriser avant Execute", {
++      dependencies: ["stp:w2-rec-contract"],
++      gate: "inspection",
++      exitCriteria: ["Inspection valide", "Arrêt avant exécution"],
++    }),
++  ];
++}
++
++function recoveryClarifySteps(): TrajectoryStep[] {
++  return [
++    step(1, "w2-rec-clr-read", "Lire Evidence / ReviewBundle / stopReason"),
++    step(
++      2,
++      "w2-rec-clr-gap",
++      "Clarifier le diagnostic avant toute nouvelle tentative",
++      { dependencies: ["stp:w2-rec-clr-read"] },
++    ),
++    step(3, "w2-rec-clr-reoption", "Réinstruire les options recovery", {
++      dependencies: ["stp:w2-rec-clr-gap"],
++      gate: "human_decision",
++      exitCriteria: ["Nouvelle décision humaine requise"],
++    }),
++  ];
++}
++
++function recoverySuspendSteps(): TrajectoryStep[] {
++  return [
++    step(1, "w2-rec-hold-ack", "Conserver l'échec comme vérité durable"),
++    step(2, "w2-rec-hold-decide", "Décision humaine de suspension / replan", {
++      dependencies: ["stp:w2-rec-hold-ack"],
++      gate: "human_decision",
++      exitCriteria: ["HumanDecision acceptée — pas de relance automatique"],
++    }),
++    step(3, "w2-rec-hold-replan", "Replanifier sans Execute immédiat", {
++      dependencies: ["stp:w2-rec-hold-decide"],
++    }),
++  ];
++}
++
+ /**
+  * Options are always presented in the same order so the UI never implies a
+  * ranking by position. Ranking is carried only by the explicit Recommendation.
+@@ -111,6 +168,54 @@ export function deriveTrajectoryOptions(
+   inputs: TrajectoryOptionInputs,
+ ): TrajectoryOptionDto[] {
+   const reservations = [...inputs.reservations];
++  const recovery = inputs.recoveryContext ?? null;
++  if (recovery) {
++    return [
++      {
++        kind: "OPTION",
++        optionRef: GOVERNED_OPTION_REF,
++        label: "Préparer une nouvelle tentative gouvernée",
++        intent:
++          "À partir du FAIL durable, décider explicitement puis préparer / inspecter / autoriser un nouveau contrat — sans Execute automatique.",
++        impacts: [
++          `Attempt failed: ${recovery.attemptId}`,
++          `Evidence: ${recovery.evidenceId}`,
++          "Aucun succès métier revendiqué",
++          `realProcessInvoked durable: ${recovery.realProcessInvoked}`,
++        ],
++        reservations,
++        steps: recoveryRetrySteps(),
++      },
++      {
++        kind: "OPTION",
++        optionRef: BOUNDED_OPTION_REF,
++        label: "Replanifier ou suspendre sans relance immédiate",
++        intent:
++          "Conserver l'échec comme vérité, décider de suspendre ou replanifier — aucune nouvelle tentative immédiate.",
++        impacts: [
++          "Pas de relance Execute dans cette option",
++          `W3C: ${recovery.recommendationKind}`,
++          `outcome: ${recovery.productOutcome}`,
++        ],
++        reservations,
++        steps: recoverySuspendSteps(),
++      },
++      {
++        kind: "OPTION",
++        optionRef: CLARIFY_OPTION_REF,
++        label: "Diagnostiquer / clarifier avant nouvelle tentative",
++        intent:
++          "Approfondir le diagnostic (Evidence, stopReason, observabilité) avant toute préparation d'une nouvelle tentative.",
++        impacts: [
++          "Aucune préparation d'exécution à ce stade",
++          `stopReason: ${recovery.stopReason ?? "n/a"}`,
++          "Nouvelle décision humaine requise après clarification",
++        ],
++        reservations,
++        steps: recoveryClarifySteps(),
++      },
++    ];
++  }
+   return [
+     {
+       kind: "OPTION",
+@@ -165,6 +270,19 @@ export function deriveTrajectoryOptions(
+ export function deriveTrajectoryRecommendation(
+   inputs: TrajectoryOptionInputs,
+ ): TrajectoryRecommendationDto {
++  const recovery = inputs.recoveryContext ?? null;
++  if (recovery) {
++    // Prefer diagnose/clarify — never auto-pick retry because a Morris REAL GO exists.
++    return {
++      label: "RECOMMANDATION — PAS UNE DÉCISION",
++      recommendedOptionRef: CLARIFY_OPTION_REF,
++      rationale: `Épisode post-Evidence ${recovery.productOutcome} (${recovery.attemptId}) — ${recovery.headline}. Diagnostiquer / clarifier avant toute nouvelle tentative. Recommendation ≠ HumanDecision ; aucun Execute automatique.`,
++      isHumanDecision: false,
++      promotesTrajectory: false,
++      ckcAttribution: inputs.ckcAttribution,
++      ckcProvenance: null,
++    };
++  }
+   if (inputs.reservations.length > 0) {
+     return {
+       label: "RECOMMANDATION — PAS UNE DÉCISION",
+===== R7 NEW FILES =====
+
+----- BEGIN projects/sfia-studio/app/features/project-assistant/w2/resolvePostEvidenceRecoveryContext.ts -----
+/**
+ * Checkpoint F / R7 — resolve durable post-Evidence RecoveryContext for W2
+ * trajectory instruction. No new persistence. No parallel recovery engine.
+ *
+ * Coherence: Attempt terminal ↔ Evidence ↔ ReviewBundle ↔ W3C recover payload
+ * for the same Project. Falls back to null (generic trajectory) when absent.
+ */
+import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
+import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
+import {
+  findExistingW3cPostEvidence,
+  parseW3cRecommendationPayload,
+  type W3cRecommendationKind,
+  type W3cRecommendationPayload,
+} from "./w3cPostEvidenceLoop";
+import { w3bEvidenceIdentity } from "./materializeW3bProductTerminal";
+import { resolveDurableBoundaryProofMode } from "@/features/project-assistant/f3/resolveDurableBoundaryProofMode";
+
+export type PostEvidenceRecoveryContext = {
+  readonly kind: "post_evidence_recovery";
+  readonly attemptId: string;
+  readonly attemptStatus: "failed" | "timeout" | "cancelled";
+  readonly stopReason: string | null;
+  readonly executionContractId: string;
+  readonly evidenceId: string;
+  readonly reviewBundleId: string;
+  readonly productOutcome: "FAIL" | "STOP";
+  readonly recommendationKind: Extract<
+    W3cRecommendationKind,
+    "recover" | "replan"
+  >;
+  readonly headline: string;
+  readonly rationale: string;
+  readonly nextStep: string;
+  readonly realProcessInvoked: boolean;
+  readonly businessEffectProven: false;
+  readonly w3cEpistemicItemId: string;
+};
+
+function statementToJsonString(statement: unknown): string | null {
+  if (typeof statement === "string" && statement.trim().length > 0) {
+    return statement;
+  }
+  if (statement && typeof statement === "object") {
+    try {
+      return JSON.stringify(statement);
+    } catch {
+      return null;
+    }
+  }
+  return null;
+}
+
+function resolveRealProcessInvoked(attempt: ExecutionAttempt): boolean {
+  if (attempt.processDiagnostic?.realProcessInvoked === true) return true;
+  if (attempt.irreversibleEffectsPossible === true) return true;
+  if (
+    typeof attempt.stopReason === "string" &&
+    attempt.stopReason.startsWith("REAL_")
+  ) {
+    return true;
+  }
+  return false;
+}
+
+/** Pure R6 truth — exported for T5; never invents REAL from agent id alone. */
+export function inferDurableRealProcessInvoked(input: {
+  readonly attempt: ExecutionAttempt;
+  readonly boundaryProofMode: string | null;
+}): boolean {
+  if (resolveRealProcessInvoked(input.attempt)) return true;
+  return (
+    input.boundaryProofMode === "cursor_real" &&
+    Boolean(input.attempt.launchedAt)
+  );
+}
+
+async function loadAttempt(
+  oa: RuntimeOaStack,
+  attemptId: string,
+): Promise<ExecutionAttempt | null> {
+  if (!oa.executionAttemptServices) return null;
+  const loaded = await oa.executionAttemptServices.getExecutionAttempt.execute({
+    attemptId,
+  });
+  return loaded.ok ? loaded.attempt : null;
+}
+
+/**
+ * Resolve a coherent post-Evidence recovery subject for W2 options.
+ * Returns null when no coherent recover/replan episode exists (generic path).
+ */
+export async function resolvePostEvidenceRecoveryContext(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+}): Promise<
+  | { readonly ok: true; readonly context: PostEvidenceRecoveryContext | null }
+  | { readonly ok: false; readonly code: string; readonly message: string }
+> {
+  const { oa, projectId } = input;
+  if (!oa.cycleServices || !oa.executionAttemptServices) {
+    return { ok: true, context: null };
+  }
+
+  const epistemic = await oa.cycleServices.getEpistemicState.execute({
+    projectId,
+  });
+  if (!epistemic.ok) {
+    return {
+      ok: false,
+      code: epistemic.error.detailCode,
+      message: "État épistémique indisponible — instruction options refusée.",
+    };
+  }
+
+  type Candidate = {
+    payload: W3cRecommendationPayload & {
+      kind: "recover" | "replan";
+      productOutcome: "FAIL" | "STOP";
+    };
+    epistemicItemId: string;
+  };
+  const candidates: Candidate[] = [];
+  for (const item of epistemic.state.items) {
+    if (item.status !== "active" || item.type !== "Recommendation") continue;
+    const source = item.source ?? "";
+    const isW3c =
+      source.startsWith("w3c-post-evidence:") ||
+      item.epistemicItemId.startsWith("epi:w3c-rec:");
+    if (!isW3c) continue;
+    const raw = statementToJsonString(item.statement);
+    if (!raw) continue;
+    const payload = parseW3cRecommendationPayload(raw);
+    if (!payload) continue;
+    if (payload.kind !== "recover" && payload.kind !== "replan") continue;
+    if (payload.productOutcome !== "FAIL" && payload.productOutcome !== "STOP") {
+      continue;
+    }
+    candidates.push({
+      payload: {
+        ...payload,
+        kind: payload.kind,
+        productOutcome: payload.productOutcome,
+      },
+      epistemicItemId: item.epistemicItemId,
+    });
+  }
+
+  if (candidates.length === 0) {
+    return { ok: true, context: null };
+  }
+
+  // Prefer newest by Attempt failedAt / updatedAt among coherent candidates.
+  let best: {
+    context: PostEvidenceRecoveryContext;
+    sortKey: string;
+  } | null = null;
+
+  for (const candidate of candidates) {
+    const { payload } = candidate;
+    const expectedIds = w3bEvidenceIdentity(payload.attemptId);
+    if (
+      payload.evidenceId !== expectedIds.evidenceId ||
+      payload.reviewBundleId !== expectedIds.reviewBundleId
+    ) {
+      // Identity mismatch — refuse this candidate (do not mix episodes).
+      continue;
+    }
+
+    const existing = await findExistingW3cPostEvidence({
+      oa,
+      projectId,
+      evidenceId: payload.evidenceId,
+      attemptId: payload.attemptId,
+    });
+    if (!existing) continue;
+    if (existing.recommendation.kind !== payload.kind) continue;
+    if (
+      existing.productOutcome !== "FAIL" &&
+      existing.productOutcome !== "STOP"
+    ) {
+      continue;
+    }
+
+    const attempt = await loadAttempt(oa, payload.attemptId);
+    if (!attempt) continue;
+    const terminalOk =
+      attempt.status === "failed" ||
+      attempt.status === "timeout" ||
+      (payload.productOutcome === "STOP" && attempt.status === "cancelled");
+    if (!terminalOk) continue;
+
+    if (!oa.executionContractServices) continue;
+    const contract =
+      await oa.executionContractServices.getExecutionContract.execute({
+        executionContractId: attempt.executionContractId,
+      });
+    if (!contract.ok) continue;
+    if (contract.contract.projectId !== projectId) continue;
+
+    // Evidence reader coherence when available
+    if (oa.evidenceReviewServices?.evidenceReader) {
+      const evidence = await oa.evidenceReviewServices.evidenceReader.findById(
+        payload.evidenceId,
+      );
+      if (!evidence) continue;
+      if (evidence.bindings.executionAttemptId !== payload.attemptId) continue;
+      if (
+        evidence.bindings.projectId &&
+        evidence.bindings.projectId !== projectId
+      ) {
+        continue;
+      }
+      if (
+        evidence.bindings.executionContractId &&
+        evidence.bindings.executionContractId !== attempt.executionContractId
+      ) {
+        continue;
+      }
+    }
+
+    const realProcessInvoked = inferDurableRealProcessInvoked({
+      attempt,
+      boundaryProofMode: await resolveDurableBoundaryProofMode({ oa, attempt }),
+    });
+
+    const context: PostEvidenceRecoveryContext = {
+      kind: "post_evidence_recovery",
+      attemptId: payload.attemptId,
+      attemptStatus: attempt.status as "failed" | "timeout" | "cancelled",
+      stopReason: attempt.stopReason ?? null,
+      executionContractId: attempt.executionContractId,
+      evidenceId: payload.evidenceId,
+      reviewBundleId: payload.reviewBundleId,
+      productOutcome: payload.productOutcome,
+      recommendationKind: payload.kind,
+      headline: payload.headline.slice(0, 280),
+      rationale: payload.rationale.slice(0, 1200),
+      nextStep: payload.nextStep,
+      realProcessInvoked,
+      businessEffectProven: false,
+      w3cEpistemicItemId: candidate.epistemicItemId,
+    };
+
+    const sortKey =
+      attempt.failedAt ??
+      attempt.timedOutAt ??
+      attempt.cancelledAt ??
+      attempt.updatedAt ??
+      attempt.createdAt;
+    if (!best || sortKey > best.sortKey) {
+      best = { context, sortKey };
+    }
+  }
+
+  return { ok: true, context: best?.context ?? null };
+}
+
+/** Compact cognitive section — recovery subject, not framing dump. */
+export function buildRecoveryCognitionSection(
+  context: PostEvidenceRecoveryContext,
+): string {
+  return [
+    "## Sujet courant — recovery / replan post-Evidence (PAS un nouveau cadrage)",
+    `- Attempt terminal: ${context.attemptId} (${context.attemptStatus})`,
+    `- ExecutionContract: ${context.executionContractId}`,
+    `- stopReason: ${context.stopReason ?? "n/a"}`,
+    `- Evidence: ${context.evidenceId}`,
+    `- ReviewBundle: ${context.reviewBundleId}`,
+    `- productOutcome: ${context.productOutcome}`,
+    `- W3C recommendationKind: ${context.recommendationKind}`,
+    `- headline: ${context.headline}`,
+    `- realProcessInvoked (durable): ${context.realProcessInvoked}`,
+    `- businessEffectProven: false`,
+    "- Aucun succès métier prouvé. Aucune READY.",
+    "- La décision suivante appartient au Pilote (Recommendation ≠ HumanDecision).",
+    "- Ne pas repartir sur le cadrage fonctionnel initial comme sujet principal.",
+    `- Rationale W3C (bornée): ${context.rationale}`,
+  ].join("\n");
+}
+
+----- END projects/sfia-studio/app/features/project-assistant/w2/resolvePostEvidenceRecoveryContext.ts -----
+
+----- BEGIN projects/sfia-studio/app/__tests__/project-assistant/checkpointF.recoveryOptionsContext.d0.test.ts -----
+/**
+ * Checkpoint F / R7 — post-Evidence recovery options context continuity.
+ * ZERO REAL / ZERO Execute / ZERO HumanDecision on campaign.
+ * @vitest-environment node
+ */
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { setConversationProviderForTests } from "@/lib/platform/ai";
+import type { ConversationProvider } from "@/lib/platform/ai";
+import { evaluateExecutionAuthorization } from "@/features/project-assistant/w2/authorizeExecutionContract";
+import { confirmExecutionContractForAuthorization } from "@/features/project-assistant/w2/confirmForAuthorization";
+import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
+import {
+  governedExecuteSelectAgent,
+  governedExecuteStart,
+} from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
+import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
+import { prepareExecutionContractFromW2Decision } from "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision";
+import { proposeTrajectoryOptions } from "@/features/project-assistant/w2/proposeTrajectoryOptions";
+import { resolveW2QualificationInputs } from "@/features/project-assistant/w2/qualificationInputs";
+import {
+  BOUNDED_OPTION_REF,
+  CLARIFY_OPTION_REF,
+  GOVERNED_OPTION_REF,
+  deriveTrajectoryOptions,
+  deriveTrajectoryRecommendation,
+} from "@/features/project-assistant/w2/trajectoryOptions";
+import {
+  buildRecoveryCognitionSection,
+  inferDurableRealProcessInvoked,
+  resolvePostEvidenceRecoveryContext,
+  type PostEvidenceRecoveryContext,
+} from "@/features/project-assistant/w2/resolvePostEvidenceRecoveryContext";
+import { materializeProductOutcomeFromAttempt } from "@/features/project-assistant/w2/materializeW3bProductTerminal";
+import { w3bEvidenceIdentity } from "@/features/project-assistant/w2/materializeW3bProductTerminal";
+import {
+  armW3bBoundary,
+  clearW3bBoundaryArm,
+} from "@/lib/vertical-slice-runtime/w3bE2eBoundaryControl";
+import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
+import {
+  bootW2Runtime,
+  cleanupW2TempDirs,
+  currentF2Context,
+  seedQualifiedProject,
+  tempProductDbPath,
+} from "./w2Harness";
+
+beforeEach(() => {
+  process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+  process.env.OPS1_E2E_ALLOW_DIRTY_PRINCIPAL = "1";
+  setConversationProviderForTests(null);
+  clearW3bBoundaryArm();
+});
+
+afterEach(() => {
+  clearW3bBoundaryArm();
+  cleanupW2TempDirs();
+  setConversationProviderForTests(null);
+  vi.restoreAllMocks();
+});
+
+const SAMPLE_RECOVERY: PostEvidenceRecoveryContext = {
+  kind: "post_evidence_recovery",
+  attemptId: "xat:w3a:1f49d8e25e20837a",
+  attemptStatus: "failed",
+  stopReason: "REAL_PROCESS_NONZERO_EXIT",
+  executionContractId: "xct:m3-ev:8aaa188b3a3bd7a7",
+  evidenceId: "ev:w3b:0b7609835db72e9a",
+  reviewBundleId: "rb:w3b:0b7609835db72e9a",
+  productOutcome: "FAIL",
+  recommendationKind: "recover",
+  headline: "Échec technique — recovery requise",
+  rationale: "Attempt failed; Evidence disponible; aucun succès métier.",
+  nextStep: "recovery_diagnose_or_replan",
+  realProcessInvoked: true,
+  businessEffectProven: false,
+  w3cEpistemicItemId: "epi:w3c-rec:a5b6220be2cc1e84",
+};
+
+async function authorizeTempArtifact(suffix: string, dbPath?: string) {
+  const db = dbPath ?? tempProductDbPath(`r7-${suffix}.sqlite`);
+  const runtime = bootW2Runtime({
+    productDbPath: db,
+    idPrefix: `r7${suffix}`,
+  });
+  const seeded = await seedQualifiedProject(runtime, { suffix });
+  const oa = runtime.oa!;
+  const qualification = await resolveW2QualificationInputs({
+    oa,
+    projectId: seeded.projectId,
+  });
+  expect(qualification.ok).toBe(true);
+  if (!qualification.ok) throw new Error("qual");
+  const proposed = await proposeTrajectoryOptions({
+    oa,
+    projectId: seeded.projectId,
+    ...qualification.qualification.inputs,
+    packagePin: qualification.qualification.packagePin,
+    objective: qualification.qualification.objective,
+    projectTitle: qualification.qualification.projectTitle,
+  });
+  expect(proposed.ok).toBe(true);
+  if (!proposed.ok) throw new Error("propose");
+  const decided = await decideTrajectory({
+    oa,
+    projectId: seeded.projectId,
+    optionSetRef: proposed.optionSetRef,
+    options: proposed.options,
+    recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
+    selectedOptionRef: GOVERNED_OPTION_REF,
+    trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+    candidateVersion: proposed.proposedTrajectory!.version,
+    forceLocalAuthority: true,
+  });
+  expect(decided.ok).toBe(true);
+  if (!decided.ok) throw new Error("decide");
+  const context = await currentF2Context(runtime, seeded.projectId);
+  const prepared = await prepareExecutionContractFromW2Decision({
+    oa,
+    projectId: seeded.projectId,
+    decisionId: decided.decision.decisionId,
+    currentContext: context,
+    forceLocalAuthority: true,
+    qualifiedOperationKind: "generate-temporary-artifact",
+  });
+  expect(prepared.ok).toBe(true);
+  if (!prepared.ok) throw new Error(prepared.code);
+  const executionContractId = prepared.contract.executionContractId;
+  await inspectExecutionContract({
+    oa,
+    projectId: seeded.projectId,
+    executionContractId,
+  });
+  const confirmed = await confirmExecutionContractForAuthorization({
+    oa,
+    projectId: seeded.projectId,
+    executionContractId,
+    forceLocalAuthority: true,
+  });
+  expect(confirmed.ok).toBe(true);
+  if (!confirmed.ok) throw new Error(confirmed.code);
+  const authorized = await evaluateExecutionAuthorization({
+    oa,
+    projectId: seeded.projectId,
+    executionContractId,
+    forceLocalAuthority: true,
+  });
+  expect(authorized.ok && authorized.outcome === "AUTHORIZED").toBe(true);
+  return { oa, seeded, executionContractId, db, runtime };
+}
+
+async function materializeFail(
+  ctx: Awaited<ReturnType<typeof authorizeTempArtifact>>,
+) {
+  armW3bBoundary({
+    kind: "adapter_fail",
+    reason: "adapter_unavailable",
+  });
+  const selected = await governedExecuteSelectAgent({
+    oa: ctx.oa,
+    projectId: ctx.seeded.projectId,
+    executionContractId: ctx.executionContractId,
+    forceLocalAuthority: true,
+  });
+  expect(selected.ok).toBe(true);
+  if (!selected.ok) throw new Error(selected.code);
+  const started = await governedExecuteStart({
+    oa: ctx.oa,
+    projectId: ctx.seeded.projectId,
+    executionContractId: ctx.executionContractId,
+    attemptId: selected.attemptId,
+    forceLocalAuthority: true,
+  });
+  expect(started.ok).toBe(true);
+  if (!started.ok) throw new Error(started.code);
+  expect(started.attemptStatus).toBe("failed");
+  const materialized = await materializeProductOutcomeFromAttempt({
+    oa: ctx.oa,
+    projectId: ctx.seeded.projectId,
+    attemptId: started.attemptId,
+  });
+  expect(materialized.ok).toBe(true);
+  if (!materialized.ok) throw new Error(materialized.code);
+  expect(materialized.product.outcome).toBe("FAIL");
+  expect(materialized.postEvidence?.ok).toBe(true);
+  if (!materialized.postEvidence || !materialized.postEvidence.ok) {
+    throw new Error("postEvidence");
+  }
+  expect(materialized.postEvidence.recommendation.kind).toBe("recover");
+  return { started, materialized };
+}
+
+describe("R7 — pure derivation / cognition (T2–T5 unit)", () => {
+  it("T3/T4 — recovery options + recommendation ≠ decision", () => {
+    const inputs = {
+      cycleTypeId: "cyc:framing",
+      recommendedProfile: "Critical",
+      criticalSignalsPresent: true,
+      irreversible: false,
+      reservations: [] as string[],
+      ckcAttribution: null,
+      recoveryContext: SAMPLE_RECOVERY,
+    };
+    const options = deriveTrajectoryOptions(inputs);
+    expect(options.map((o) => o.optionRef)).toEqual([
+      GOVERNED_OPTION_REF,
+      BOUNDED_OPTION_REF,
+      CLARIFY_OPTION_REF,
+    ]);
+    expect(options[0]!.label).toMatch(/nouvelle tentative/i);
+    expect(options[1]!.label).toMatch(/suspendre|replan/i);
+    expect(options[2]!.label).toMatch(/Diagnostiquer|clarifier/i);
+    const rec = deriveTrajectoryRecommendation(inputs);
+    expect(rec.isHumanDecision).toBe(false);
+    expect(rec.promotesTrajectory).toBe(false);
+    expect(rec.recommendedOptionRef).toBe(CLARIFY_OPTION_REF);
+    expect(rec.rationale).toMatch(/post-Evidence|FAIL|Diagnostiquer/i);
+    expect(rec.rationale).toMatch(/Recommendation ≠ HumanDecision/);
+  });
+
+  it("T6 — without RecoveryContext, generic trajectory unchanged", () => {
+    const options = deriveTrajectoryOptions({
+      cycleTypeId: "cyc:framing",
+      recommendedProfile: "Standard",
+      criticalSignalsPresent: false,
+      irreversible: false,
+      reservations: [],
+      ckcAttribution: null,
+    });
+    expect(options[0]!.label).toBe("Trajectoire gouvernée par gates");
+    expect(options[1]!.label).toBe("Trajectoire bornée directe");
+    expect(options[2]!.label).toBe("Clarifier avant d'engager");
+  });
+
+  it("T2 — recovery cognition section names FAIL / Evidence / recover", () => {
+    const section = buildRecoveryCognitionSection(SAMPLE_RECOVERY);
+    expect(section).toMatch(/recovery \/ replan/i);
+    expect(section).toContain(SAMPLE_RECOVERY.attemptId);
+    expect(section).toContain(SAMPLE_RECOVERY.evidenceId);
+    expect(section).toContain("recommendationKind: recover");
+    expect(section).toContain("realProcessInvoked (durable): true");
+    expect(section).toMatch(/PAS un nouveau cadrage/);
+    expect(section).toMatch(/Ne pas repartir sur le cadrage fonctionnel initial/);
+  });
+
+  it("T5 — cursor_real durable truth does not collapse to false", () => {
+    const attempt = {
+      processDiagnostic: {
+        realProcessInvoked: true,
+        boundaryProofMode: "cursor_real",
+      },
+      irreversibleEffectsPossible: true,
+      stopReason: "REAL_PROCESS_NONZERO_EXIT",
+      launchedAt: "2026-09-17T20:00:00.000Z",
+    } as ExecutionAttempt;
+    expect(
+      inferDurableRealProcessInvoked({
+        attempt,
+        boundaryProofMode: "cursor_real",
+      }),
+    ).toBe(true);
+    expect(
+      inferDurableRealProcessInvoked({
+        attempt: {
+          ...attempt,
+          processDiagnostic: undefined,
+          irreversibleEffectsPossible: undefined,
+          stopReason: "ADAPTER_UNAVAILABLE",
+        } as ExecutionAttempt,
+        boundaryProofMode: null,
+      }),
+    ).toBe(false);
+    expect(
+      inferDurableRealProcessInvoked({
+        attempt: {
+          ...attempt,
+          processDiagnostic: undefined,
+          irreversibleEffectsPossible: undefined,
+          stopReason: "OTHER",
+        } as ExecutionAttempt,
+        boundaryProofMode: "cursor_real",
+      }),
+    ).toBe(true);
+  });
+});
+
+describe("R7 — durable RecoveryContext integration", () => {
+  it("T1 — failed + Evidence + RB + W3C recover → RecoveryContext", async () => {
+    const ctx = await authorizeTempArtifact("t1");
+    const { started, materialized } = await materializeFail(ctx);
+    const resolved = await resolvePostEvidenceRecoveryContext({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+    });
+    expect(resolved.ok).toBe(true);
+    if (!resolved.ok) return;
+    expect(resolved.context).not.toBeNull();
+    expect(resolved.context!.attemptId).toBe(started.attemptId);
+    expect(resolved.context!.evidenceId).toBe(materialized.product.evidenceId);
+    expect(resolved.context!.reviewBundleId).toBe(
+      materialized.product.reviewBundleId,
+    );
+    expect(resolved.context!.recommendationKind).toBe("recover");
+    expect(resolved.context!.productOutcome).toBe("FAIL");
+    expect(resolved.context!.businessEffectProven).toBe(false);
+  });
+
+  it("T7 — SUCCESS continue episode → no false recovery", async () => {
+    const ctx = await authorizeTempArtifact("t7");
+    const selected = await governedExecuteSelectAgent({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      executionContractId: ctx.executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(selected.ok).toBe(true);
+    if (!selected.ok) return;
+    const started = await governedExecuteStart({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      executionContractId: ctx.executionContractId,
+      attemptId: selected.attemptId,
+      forceLocalAuthority: true,
+    });
+    expect(started.ok).toBe(true);
+    if (!started.ok) return;
+    const { governedExecuteRecordResult } = await import(
+      "@/features/project-assistant/w2/governedExecuteAuthorizedContract"
+    );
+    await governedExecuteRecordResult({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      executionContractId: ctx.executionContractId,
+      attemptId: started.attemptId,
+      forceLocalAuthority: true,
+    });
+    const materialized = await materializeProductOutcomeFromAttempt({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      attemptId: started.attemptId,
+    });
+    expect(materialized.ok).toBe(true);
+    if (!materialized.ok) return;
+    expect(materialized.product.outcome).toBe("SUCCESS");
+    if (materialized.postEvidence?.ok) {
+      expect(materialized.postEvidence.recommendation.kind).toBe("continue");
+    }
+    const resolved = await resolvePostEvidenceRecoveryContext({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+    });
+    expect(resolved.ok).toBe(true);
+    if (!resolved.ok) return;
+    expect(resolved.context).toBeNull();
+  });
+
+  it("T6 — no failed episode → generic propose labels", async () => {
+    const db = tempProductDbPath("r7-generic.sqlite");
+    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "r7gen" });
+    const seeded = await seedQualifiedProject(runtime, { suffix: "gen" });
+    const oa = runtime.oa!;
+    const qualification = await resolveW2QualificationInputs({
+      oa,
+      projectId: seeded.projectId,
+    });
+    expect(qualification.ok).toBe(true);
+    if (!qualification.ok) return;
+    const proposed = await proposeTrajectoryOptions({
+      oa,
+      projectId: seeded.projectId,
+      ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
+    });
+    expect(proposed.ok).toBe(true);
+    if (!proposed.ok) return;
+    expect(proposed.options[0]!.label).toBe("Trajectoire gouvernée par gates");
+    expect(proposed.recommendation.isHumanDecision).toBe(false);
+    expect(proposed.autoDecisionPerformed).toBe(false);
+    expect(proposed.executionPerformed).toBe(false);
+  });
+
+  it("T2/T3/T4/T12 — propose after FAIL yields recovery options, no HD/Attempt", async () => {
+    const ctx = await authorizeTempArtifact("t234");
+    const { started, materialized } = await materializeFail(ctx);
+
+    const attemptsBefore =
+      await ctx.oa.executionAttemptServices!.listExecutionAttempts.execute({
+        executionContractId: ctx.executionContractId,
+      });
+    expect(attemptsBefore.ok).toBe(true);
+    if (!attemptsBefore.ok) return;
+    const countBefore = attemptsBefore.attempts.length;
+
+    const captured: { system: string; user: string }[] = [];
+    const recording: ConversationProvider = {
+      providerId: "fake-test",
+      async complete(messages) {
+        const system = messages.find((m) => m.role === "system")?.content ?? "";
+        const user = messages.find((m) => m.role === "user")?.content ?? "";
+        captured.push({ system, user });
+        return {
+          text: "RECOMMANDATION recovery/replan — diagnostiquer avant retry. PAS UNE DÉCISION HUMAINE.",
+          usage: {
+            inputTokens: 10,
+            outputTokens: 5,
+            totalTokens: 15,
+            model: "fake-test-model",
+            providerResponseId: "fake-r7",
+          },
+        };
+      },
+    };
+    setConversationProviderForTests(recording);
+
+    const qualification = await resolveW2QualificationInputs({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+    });
+    expect(qualification.ok).toBe(true);
+    if (!qualification.ok) return;
+
+    const proposed = await proposeTrajectoryOptions({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
+    });
+    expect(proposed.ok).toBe(true);
+    if (!proposed.ok) return;
+
+    expect(proposed.options[0]!.label).toMatch(/nouvelle tentative/i);
+    expect(proposed.options[1]!.label).toMatch(/suspendre|replan/i);
+    expect(proposed.options[2]!.label).toMatch(/Diagnostiquer|clarifier/i);
+    expect(proposed.recommendation.isHumanDecision).toBe(false);
+    expect(proposed.recommendation.promotesTrajectory).toBe(false);
+    expect(proposed.recommendation.recommendedOptionRef).toBe(CLARIFY_OPTION_REF);
+    expect(proposed.autoDecisionPerformed).toBe(false);
+    expect(proposed.executionPerformed).toBe(false);
+
+    const recoveryPrompt = captured.find(
+      (c) =>
+        c.system.includes("recovery / replan") ||
+        c.user.includes("recovery/replan"),
+    );
+    expect(recoveryPrompt).toBeTruthy();
+    expect(recoveryPrompt!.system + recoveryPrompt!.user).toContain(
+      started.attemptId,
+    );
+    expect(recoveryPrompt!.system + recoveryPrompt!.user).toContain(
+      materialized.product.evidenceId!,
+    );
+    expect(recoveryPrompt!.system + recoveryPrompt!.user).toMatch(/recover/i);
+    expect(recoveryPrompt!.system + recoveryPrompt!.user).toMatch(
+      /PAS un nouveau cadrage/i,
+    );
+
+    const attemptsAfter =
+      await ctx.oa.executionAttemptServices!.listExecutionAttempts.execute({
+        executionContractId: ctx.executionContractId,
+      });
+    expect(attemptsAfter.ok).toBe(true);
+    if (!attemptsAfter.ok) return;
+    expect(attemptsAfter.attempts.length).toBe(countBefore);
+  });
+
+  it("T8 — Evidence without coherent Attempt binding does not resolve", async () => {
+    const ctx = await authorizeTempArtifact("t8");
+    const { started, materialized } = await materializeFail(ctx);
+    expect(materialized.product.evidenceId).toBeTruthy();
+    // Hostile: resolve on a different project id → null / no cross-bind
+    const other = await resolvePostEvidenceRecoveryContext({
+      oa: ctx.oa,
+      projectId: "prj:hostile-other",
+    });
+    expect(other.ok).toBe(true);
+    if (!other.ok) return;
+    expect(other.context).toBeNull();
+    // Identity check: mismatched evidenceId in payload is rejected by identity
+    const ids = w3bEvidenceIdentity(started.attemptId);
+    expect(materialized.product.evidenceId).toBe(ids.evidenceId);
+  });
+
+  it("T9 — W3C recover for another project is not injected", async () => {
+    const ctxA = await authorizeTempArtifact("t9a");
+    await materializeFail(ctxA);
+    const ctxB = await authorizeTempArtifact("t9b");
+    // B has no fail episode
+    const resolvedB = await resolvePostEvidenceRecoveryContext({
+      oa: ctxB.oa,
+      projectId: ctxB.seeded.projectId,
+    });
+    expect(resolvedB.ok && resolvedB.context === null).toBe(true);
+  });
+
+  it("T10 — restart rebuilds RecoveryContext from durable only", async () => {
+    const db = tempProductDbPath("r7-restart.sqlite");
+    const ctxA = await authorizeTempArtifact("t10", db);
+    const { started, materialized } = await materializeFail(ctxA);
+    const projectId = ctxA.seeded.projectId;
+    const attemptId = started.attemptId;
+    const evidenceId = materialized.product.evidenceId!;
+
+    const runtimeB = bootW2Runtime({
+      productDbPath: db,
+      idPrefix: "r7t10b",
+    });
+    const oaB = runtimeB.oa!;
+    const resolved = await resolvePostEvidenceRecoveryContext({
+      oa: oaB,
+      projectId,
+    });
+    expect(resolved.ok).toBe(true);
+    if (!resolved.ok) return;
+    expect(resolved.context).not.toBeNull();
+    expect(resolved.context!.attemptId).toBe(attemptId);
+    expect(resolved.context!.evidenceId).toBe(evidenceId);
+    expect(resolved.context!.recommendationKind).toBe("recover");
+  });
+
+  it("T11 — generic W2 recommendation does not mask W3C recover", async () => {
+    const ctx = await authorizeTempArtifact("t11");
+    // First instruct generic (before fail) already happened in authorize.
+    // After fail, W3C recover must still resolve even if older OptionSet exists.
+    await materializeFail(ctx);
+    const resolved = await resolvePostEvidenceRecoveryContext({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+    });
+    expect(resolved.ok && resolved.context?.recommendationKind).toBe("recover");
+    expect(resolved.ok && resolved.context?.w3cEpistemicItemId).toMatch(
+      /^epi:w3c-rec:/,
+    );
+
+    const qualification = await resolveW2QualificationInputs({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+    });
+    expect(qualification.ok).toBe(true);
+    if (!qualification.ok) return;
+    const proposed = await proposeTrajectoryOptions({
+      oa: ctx.oa,
+      projectId: ctx.seeded.projectId,
+      ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
+    });
+    expect(proposed.ok).toBe(true);
+    if (!proposed.ok) return;
+    expect(proposed.options[0]!.label).toMatch(/nouvelle tentative/i);
+    expect(proposed.recommendation.isHumanDecision).toBe(false);
+  });
+});
+
+----- END projects/sfia-studio/app/__tests__/project-assistant/checkpointF.recoveryOptionsContext.d0.test.ts -----
+
+---
+
+## 17. Handoff note
+
+Publish via `scripts/sfia/publish-review-handoff.sh` (L3 handoff only).
+No project commit/push/PR/merge.
