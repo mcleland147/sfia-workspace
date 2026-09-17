@@ -398,6 +398,27 @@ export async function resolveExistingLegacyM3DocsWriteProductPath(input: {
   });
   if (!resolved.ok) return resolved;
 
+  // R1 — successor Attempt safety: never present an already-executed successor
+  // as a fresh rematerialization payload (idempotent resolver replay is non-mutating).
+  const successorId = resolved.successor.executionContractId;
+  const successorListed =
+    await input.deps.executionAttemptServices.listExecutionAttempts.execute({
+      executionContractId: successorId,
+    });
+  if (!successorListed.ok) {
+    return fail(
+      "LEGACY_SUCCESSOR_ATTEMPT_SAFETY_UNPROVEN",
+      successorListed.error.message ??
+        "Cannot prove absence of prior Attempt for rematerialized successor.",
+    );
+  }
+  if (successorListed.attempts.length > 0) {
+    return fail(
+      "LEGACY_SUCCESSOR_PRIOR_ATTEMPT_EXISTS",
+      "Canonical M4 successor already has ExecutionAttempt history — cannot treat rematerialization as a fresh executable successor.",
+    );
+  }
+
   return {
     ok: true,
     payload: {
@@ -420,6 +441,7 @@ export async function resolveExistingLegacyM3DocsWriteProductPath(input: {
         "CURSOR REAL NOT EXECUTED AT REMATERIALIZATION",
         "Profile is server-side; client adapter/command/real/profile fields are ignored",
         "PRIOR ATTEMPT COUNT VERIFIED ZERO ON ORIGINAL",
+        "PRIOR ATTEMPT COUNT VERIFIED ZERO ON SUCCESSOR",
         ...resolved.disclosures,
       ],
     },

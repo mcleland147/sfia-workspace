@@ -1607,15 +1607,15 @@ describe("D01 — legacy M3 PREPARE → M4 successor rematerialization", () => {
     expect(blocked.code).toMatch(/PROJECT_MISMATCH|CONTRACT_PROJECT/);
   });
 
-  it("presentation helper rejects already-current M4 successor id", async () => {
+  it("presentation helper rejects successor id, M4 scope, and incoherent capability", async () => {
     const { isLegacyDocsWritePrepareContractView } = await import(
       "@/features/project-assistant/f3/legacyDocsWritePrepareContractView"
     );
+    const decisionId = "dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411";
     expect(
       isLegacyDocsWritePrepareContractView({
-        decisionId: "dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411",
-        executionContractId:
-          "xct:m3-res:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411",
+        decisionId,
+        executionContractId: `xct:m3-res:${decisionId}`,
         action: M4_BOUNDED_DOCS_WRITE_ACTION,
         target: M4_BOUNDED_DOCS_WRITE_TARGET,
         scope: M4_BOUNDED_DOCS_WRITE_SCOPE,
@@ -1624,15 +1624,384 @@ describe("D01 — legacy M3 PREPARE → M4 successor rematerialization", () => {
     ).toBe(false);
     expect(
       isLegacyDocsWritePrepareContractView({
-        decisionId: "dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411",
-        executionContractId:
-          "xct:m3:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411",
+        decisionId,
+        executionContractId: `xct:m3:${decisionId}`,
+        action: M4_BOUNDED_DOCS_WRITE_ACTION,
+        target: M4_BOUNDED_DOCS_WRITE_TARGET,
+        scope: M4_BOUNDED_DOCS_WRITE_SCOPE,
+        constraints: ["PREPARE_ONLY"],
+        requiredCapabilities: ["cap:cursor.docs_write"],
+      }),
+    ).toBe(false);
+    expect(
+      isLegacyDocsWritePrepareContractView({
+        decisionId,
+        executionContractId: `xct:m3:${decisionId}`,
+        action: M4_BOUNDED_DOCS_WRITE_ACTION,
+        target: M4_BOUNDED_DOCS_WRITE_TARGET,
+        scope: "docs_write borné — cycle actif — aucune exécution automatique",
+        constraints: ["PREPARE_ONLY"],
+        requiredCapabilities: ["cap:other"],
+      }),
+    ).toBe(false);
+    expect(
+      isLegacyDocsWritePrepareContractView({
+        decisionId,
+        executionContractId: `xct:m3:${decisionId}`,
         action: M4_BOUNDED_DOCS_WRITE_ACTION,
         target: M4_BOUNDED_DOCS_WRITE_TARGET,
         scope: "docs_write borné — cycle actif — aucune exécution automatique",
         constraints: ["PREPARE_ONLY", "NO_CURSOR_REAL", "NO_ATTEMPT", "NO_GATE_D"],
+        requiredCapabilities: ["cap:cursor.docs_write"],
       }),
     ).toBe(true);
+  });
+
+  it("R1 CASE C — rematerialize replay after successor Attempt is fail-closed", async () => {
+    const { resolveExistingLegacyM3DocsWriteProductPath } = await import(
+      "@/features/project-assistant/f3/resolveExistingLegacyM3DocsWriteProductPath"
+    );
+    const ctx = await bootLegacyPrepareOnly("leg06", true);
+    const rematDeps = {
+      decisionServices: ctx.oa.decisionServices,
+      authorityResolver: ctx.oa.authorityResolver,
+      executionContractServices: ctx.oa.executionContractServices,
+      executionAttemptServices: ctx.oa.executionAttemptServices,
+      nowIso: () => ctx.oa.clock.nowIso(),
+      forceM3Authority: true,
+      boundedDocsWriteBaseHeadSha: ctx.baseHeadSha,
+    };
+    const first = await resolveExistingLegacyM3DocsWriteProductPath({
+      projectId: ctx.projectId,
+      decisionId: ctx.decisionId,
+      currentContext: ctx.currentContext,
+      deps: rematDeps,
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) return;
+    const executionContractId = first.payload.successor.executionContractId;
+    await inspectExecutionContract({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId,
+    });
+    await confirmExecutionContractForAuthorization({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId,
+      forceLocalAuthority: true,
+    });
+    const executed = await governedExecuteAuthorizedContract({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(executed.ok).toBe(true);
+    if (!executed.ok) return;
+    expect(executed.attemptStatus).toBe("succeeded");
+    const launchAfterExecute = ctx.fakeLaunch.calls.length;
+    expect(launchAfterExecute).toBe(1);
+
+    const replay = await resolveExistingLegacyM3DocsWriteProductPath({
+      projectId: ctx.projectId,
+      decisionId: ctx.decisionId,
+      currentContext: ctx.currentContext,
+      deps: rematDeps,
+    });
+    expect(replay.ok).toBe(false);
+    if (replay.ok) return;
+    expect(replay.code).toBe("LEGACY_SUCCESSOR_PRIOR_ATTEMPT_EXISTS");
+    expect(ctx.fakeLaunch.calls.length).toBe(launchAfterExecute);
+
+    const listed =
+      await ctx.oa.executionAttemptServices.listExecutionAttempts.execute({
+        executionContractId,
+      });
+    expect(listed.ok).toBe(true);
+    if (!listed.ok) return;
+    expect(listed.attempts.filter((a) => a.status === "succeeded")).toHaveLength(
+      1,
+    );
+  });
+
+  it("R1 CASE D — successor Attempt query failure is fail-closed", async () => {
+    const { resolveExistingLegacyM3DocsWriteProductPath } = await import(
+      "@/features/project-assistant/f3/resolveExistingLegacyM3DocsWriteProductPath"
+    );
+    const ctx = await bootLegacyPrepareOnly("leg07", true);
+    const first = await resolveExistingLegacyM3DocsWriteProductPath({
+      projectId: ctx.projectId,
+      decisionId: ctx.decisionId,
+      currentContext: ctx.currentContext,
+      deps: {
+        decisionServices: ctx.oa.decisionServices,
+        authorityResolver: ctx.oa.authorityResolver,
+        executionContractServices: ctx.oa.executionContractServices,
+        executionAttemptServices: ctx.oa.executionAttemptServices,
+        nowIso: () => ctx.oa.clock.nowIso(),
+        forceM3Authority: true,
+        boundedDocsWriteBaseHeadSha: ctx.baseHeadSha,
+      },
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) return;
+    const successorId = first.payload.successor.executionContractId;
+
+    const blocked = await resolveExistingLegacyM3DocsWriteProductPath({
+      projectId: ctx.projectId,
+      decisionId: ctx.decisionId,
+      currentContext: ctx.currentContext,
+      deps: {
+        decisionServices: ctx.oa.decisionServices,
+        authorityResolver: ctx.oa.authorityResolver,
+        executionContractServices: ctx.oa.executionContractServices,
+        executionAttemptServices: {
+          listExecutionAttempts: {
+            execute: async (request: { executionContractId: string }) => {
+              if (request.executionContractId === ctx.originalId) {
+                return { ok: true as const, attempts: [] };
+              }
+              if (request.executionContractId === successorId) {
+                return {
+                  ok: false as const,
+                  error: {
+                    message: "successor attempt listing unavailable",
+                  },
+                };
+              }
+              return { ok: true as const, attempts: [] };
+            },
+          },
+        } as never,
+        nowIso: () => ctx.oa.clock.nowIso(),
+        forceM3Authority: true,
+        boundedDocsWriteBaseHeadSha: ctx.baseHeadSha,
+      },
+    });
+    expect(blocked.ok).toBe(false);
+    if (blocked.ok) return;
+    expect(blocked.code).toBe("LEGACY_SUCCESSOR_ATTEMPT_SAFETY_UNPROVEN");
+  });
+
+  it("R1 — legacy SQLite TEMP restart: rematerialize → Fake execute → rehydrate → replay fail-closed", async () => {
+    const { resolveExistingLegacyM3DocsWriteProductPath } = await import(
+      "@/features/project-assistant/f3/resolveExistingLegacyM3DocsWriteProductPath"
+    );
+    const ctx = await bootLegacyPrepareOnly("leg08rst", true);
+    const dbPath = ctx.dbPath;
+    const managedBase = path.dirname(ctx.fakeLaunch.gitState.worktreeRoot);
+    const rematDepsA = {
+      decisionServices: ctx.oa.decisionServices,
+      authorityResolver: ctx.oa.authorityResolver,
+      executionContractServices: ctx.oa.executionContractServices,
+      executionAttemptServices: ctx.oa.executionAttemptServices,
+      nowIso: () => ctx.oa.clock.nowIso(),
+      forceM3Authority: true,
+      boundedDocsWriteBaseHeadSha: ctx.baseHeadSha,
+    };
+
+    const remat = await resolveExistingLegacyM3DocsWriteProductPath({
+      projectId: ctx.projectId,
+      decisionId: ctx.decisionId,
+      currentContext: ctx.currentContext,
+      deps: rematDepsA,
+    });
+    expect(remat.ok).toBe(true);
+    if (!remat.ok) return;
+    const originalId = remat.payload.original.executionContractId;
+    const successorId = remat.payload.successor.executionContractId;
+    const decisionId = ctx.decisionId;
+    const projectId = ctx.projectId;
+
+    await inspectExecutionContract({
+      oa: ctx.oa,
+      projectId,
+      executionContractId: successorId,
+    });
+    await confirmExecutionContractForAuthorization({
+      oa: ctx.oa,
+      projectId,
+      executionContractId: successorId,
+      forceLocalAuthority: true,
+    });
+    const executed = await governedExecuteAuthorizedContract({
+      oa: ctx.oa,
+      projectId,
+      executionContractId: successorId,
+      forceLocalAuthority: true,
+    });
+    expect(executed.ok).toBe(true);
+    if (!executed.ok) return;
+    expect(executed.attemptStatus).toBe("succeeded");
+    const attemptIdA = executed.attemptId;
+    expect(ctx.fakeLaunch.calls.length).toBe(1);
+
+    const successorAfterExec =
+      await ctx.oa.executionContractServices.getExecutionContract.execute({
+        executionContractId: successorId,
+      });
+    expect(successorAfterExec.ok).toBe(true);
+    if (!successorAfterExec.ok) return;
+    const successorFingerprint =
+      successorAfterExec.contract.semanticFingerprint ?? "";
+    const successorVersion = successorAfterExec.contract.version;
+    expect(successorFingerprint.length).toBeGreaterThan(0);
+
+    const listedA =
+      await ctx.oa.executionAttemptServices.listExecutionAttempts.execute({
+        executionContractId: successorId,
+      });
+    expect(listedA.ok).toBe(true);
+    if (!listedA.ok) return;
+    expect(listedA.attempts.filter((a) => a.status === "succeeded")).toHaveLength(
+      1,
+    );
+
+    const evidenceA = await ctx.oa.evidenceReviewServices.repository.listByProject(
+      projectId,
+    );
+    const evidenceBoundA = evidenceA.filter(
+      (e) => e.bindings?.executionAttemptId === attemptIdA,
+    );
+    expect(evidenceBoundA.length).toBeGreaterThanOrEqual(1);
+    const evidenceCountA = evidenceA.length;
+    const evidenceIdsA = evidenceBoundA.map((e) => e.evidenceId).sort();
+
+    const originalA =
+      await ctx.oa.executionContractServices.getExecutionContract.execute({
+        executionContractId: originalId,
+      });
+    expect(originalA.ok).toBe(true);
+    if (!originalA.ok) return;
+    expect(originalA.contract.status).toBe("superseded");
+
+    const overviewA = await ctx.runtime.getProject(projectId);
+    expect(overviewA.ok).toBe(true);
+    if (!overviewA.ok) return;
+    const currentContextB = {
+      projectId,
+      lpsId: overviewA.livingState.id,
+      lpsVersion: overviewA.livingState.version,
+      doctrineDigest: overviewA.doctrine.digest,
+      activeCycleInstanceId: ctx.cycleInstanceId,
+    };
+
+    const repoRoot = ctx.fakeLaunch.gitState.worktreeRoot;
+    const baseHeadSha = ctx.baseHeadSha;
+    resetRuntimeApplicationServiceForTests();
+
+    const gitStateB = new FakeCursorGitExternalState({
+      worktreeRoot: repoRoot,
+      initialBranch: BRANCH,
+      initialSha: baseHeadSha,
+    });
+    const fakeLaunchB = new FakeDocsWriteLaunchPort({
+      worktreeRoot: repoRoot,
+      pathAllowlist: ["docs/"],
+      defaultBranch: BRANCH,
+      repositoryRef: IDENTITY,
+      gitState: gitStateB,
+    });
+    expect(fakeLaunchB.calls.length).toBe(0);
+
+    const runtimeB = getRuntimeApplicationService({
+      registryRoot: REGISTRY_ROOT,
+      schemasRoot: SCHEMAS_ROOT,
+      nowIso: NOW,
+      idSource: new FixedIdSource("leg08b"),
+      auditMode: "noop",
+      productDbPath: dbPath,
+      realBoundary: {
+        launchPort: fakeLaunchB,
+        safetyJournal: new MemoryLaunchSafetyJournal(),
+        managedRepoRootBase: managedBase,
+      },
+    });
+    const oaB = runtimeB.oa!;
+
+    const projectB = await oaB.projectServices.getProject.execute({ projectId });
+    expect(projectB.ok).toBe(true);
+
+    const originalB =
+      await oaB.executionContractServices.getExecutionContract.execute({
+        executionContractId: originalId,
+      });
+    expect(originalB.ok).toBe(true);
+    if (!originalB.ok) return;
+    expect(originalB.contract.status).toBe("superseded");
+
+    const successorB =
+      await oaB.executionContractServices.getExecutionContract.execute({
+        executionContractId: successorId,
+      });
+    expect(successorB.ok).toBe(true);
+    if (!successorB.ok) return;
+    expect(successorB.contract.scope).toBe(M4_BOUNDED_DOCS_WRITE_SCOPE);
+    expect(successorB.contract.supersedesExecutionContractId).toBe(originalId);
+    expect(successorB.contract.semanticFingerprint).toBe(successorFingerprint);
+    expect(successorB.contract.version).toBe(successorVersion);
+
+    const listedB =
+      await oaB.executionAttemptServices.listExecutionAttempts.execute({
+        executionContractId: successorId,
+      });
+    expect(listedB.ok).toBe(true);
+    if (!listedB.ok) return;
+    const succeededB = listedB.attempts.filter((a) => a.status === "succeeded");
+    expect(succeededB).toHaveLength(1);
+    expect(succeededB[0]!.attemptId).toBe(attemptIdA);
+
+    const evidenceB = await oaB.evidenceReviewServices.repository.listByProject(
+      projectId,
+    );
+    expect(evidenceB.length).toBe(evidenceCountA);
+    const evidenceIdsB = evidenceB
+      .filter((e) => e.bindings?.executionAttemptId === attemptIdA)
+      .map((e) => e.evidenceId)
+      .sort();
+    expect(evidenceIdsB).toEqual(evidenceIdsA);
+
+    const overviewB = await runtimeB.getProject(projectId);
+    expect(overviewB.ok).toBe(true);
+    if (!overviewB.ok) return;
+    const rematReplay = await resolveExistingLegacyM3DocsWriteProductPath({
+      projectId,
+      decisionId,
+      currentContext: {
+        projectId,
+        lpsId: overviewB.livingState.id,
+        lpsVersion: overviewB.livingState.version,
+        doctrineDigest: overviewB.doctrine.digest,
+        activeCycleInstanceId: currentContextB.activeCycleInstanceId,
+      },
+      deps: {
+        decisionServices: oaB.decisionServices,
+        authorityResolver: oaB.authorityResolver,
+        executionContractServices: oaB.executionContractServices,
+        executionAttemptServices: oaB.executionAttemptServices,
+        nowIso: () => oaB.clock.nowIso(),
+        forceM3Authority: true,
+        boundedDocsWriteBaseHeadSha: baseHeadSha,
+      },
+    });
+    expect(rematReplay.ok).toBe(false);
+    if (rematReplay.ok) return;
+    expect(rematReplay.code).toBe("LEGACY_SUCCESSOR_PRIOR_ATTEMPT_EXISTS");
+    expect(fakeLaunchB.calls.length).toBe(0);
+
+    const listedAfter =
+      await oaB.executionAttemptServices.listExecutionAttempts.execute({
+        executionContractId: successorId,
+      });
+    expect(listedAfter.ok).toBe(true);
+    if (!listedAfter.ok) return;
+    expect(
+      listedAfter.attempts.filter((a) => a.status === "succeeded"),
+    ).toHaveLength(1);
+    const evidenceAfter =
+      await oaB.evidenceReviewServices.repository.listByProject(projectId);
+    expect(evidenceAfter.length).toBe(evidenceCountA);
   });
 
   it("SFIA_STUDIO_CURSOR_REAL=1 alone never selects docs_write profile", () => {

@@ -8,6 +8,7 @@
 const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply";
 const M4_BOUNDED_DOCS_WRITE_TARGET = "workspace.isolated.docs_write";
 const M4_BOUNDED_DOCS_WRITE_SCOPE = "studio.gcec.docs_write";
+const M4_BOUNDED_DOCS_WRITE_CAPABILITY = "cap:cursor.docs_write";
 
 function canonicalM3PrepareContractId(decisionId: string): string {
   const safe = decisionId.replace(/[^a-zA-Z0-9:_-]/g, "").slice(0, 48);
@@ -31,9 +32,12 @@ export function isLegacyDocsWritePrepareContractView(input: {
   if (input.action !== M4_BOUNDED_DOCS_WRITE_ACTION) return false;
   if (input.target !== M4_BOUNDED_DOCS_WRITE_TARGET) return false;
   if (!input.constraints.includes("PREPARE_ONLY")) return false;
+  // Already-current M4 machine scope is not a legacy prepare projection.
+  if (input.scope === M4_BOUNDED_DOCS_WRITE_SCOPE) return false;
   if (
-    input.scope === M4_BOUNDED_DOCS_WRITE_SCOPE &&
-    !input.constraints.includes("PREPARE_ONLY")
+    Array.isArray(input.requiredCapabilities) &&
+    input.requiredCapabilities.length > 0 &&
+    !input.requiredCapabilities.includes(M4_BOUNDED_DOCS_WRITE_CAPABILITY)
   ) {
     return false;
   }
