@@ -1,345 +1,528 @@
-# SFIA STUDIO — PRODUCT JOURNEY DOCS_WRITE CONTINUITY — PR #495 POST-MERGE MACRO-CYCLE CLOSURE — FULL REVIEW PACK
+# SFIA Studio — ChatGPT Review Pack
+## PRODUCT JOURNEY GOVERNED DOCS_WRITE — AUTHENTICATED REAL REPROOF 09
 
-**Timestamp (UTC):** 2026-09-17T01:50:27Z
-**Cycle:** 14 — Post-merge
-**Typology:** DOC
-**Profile:** CRITICAL
-**Milestone:** PRODUCT-JOURNEY-DOCS-WRITE-CONTINUITY-POST-MERGE-CLOSURE-01
-**Runtime v3:** NON ADOPTED
-**Product Completion C1:** CLOSED / COMPLETE
-
----
-
-## 0. FINAL VERDICT (POST-MERGE CLOSURE)
-
-PRODUCT JOURNEY DOCS_WRITE CONTINUITY MACRO-CYCLE —
-POST-MERGE CLOSURE PASS —
-PR #495 MERGED AT 74ad6d3ef59150db31d3cdfec18879bbf64a4e95 —
-HEAD→MERGE PRODUCT DELTA ZERO —
-POST-MERGE CI 35169357107 SUCCESS —
-SFIA STUDIO REQUIRED GATE PASS —
-SOURCE BRANCH PRESERVED —
-CANONICAL REVIEW HANDOFF UPDATED —
-ZERO REAL —
-NO PRODUCT CHANGE —
-RUNTIME V3 NON ADOPTED
-
-Authorized claim:
-
-PRODUCT JOURNEY GOVERNED DOCS_WRITE CONTINUITY —
-INTEGRATED ON MAIN / POST-MERGE VERIFIED —
-FRESH + LEGACY M3→M4 CONTINUITY —
-DETERMINISTIC GOVERNANCE / ATTEMPT SAFETY / SQLITE RESTART CONTINUITY
-PROVEN AT TESTED SCOPE —
-PR #495 MERGED —
-POST-MERGE REQUIRED GATE PASS —
-ZERO REAL —
-RUNTIME V3 NON ADOPTED
-
-**MERGE IS NOW COMPLETE** (historical pre-merge pack claimed MERGE NOT AUTHORIZED — that status is superseded).
+**Verdict (exact):**
+STOP — NEW DELIVERY GAP DISCOVERED DURING REPROOF 09 —
+PRE-EXTERNAL-LAUNCH `REAL_WORKSPACE_INVALID` / `docs_write_managed_repo_root_base_unconfigured` —
+ZERO CURSOR REAL EXTERNAL LAUNCHES — REAL GO LAUNCH BUDGET UNCONSUMED —
+NO AUTOMATIC REAL RETRY — NO PRODUCT CODE CHANGE —
+EVIDENCE READY FOR CHATGPT CRITICAL REVIEW
 
 ---
 
-## A. CYCLE / AUTHORITY
+### 1. Exact Morris GO interpretation
 
-### Critical rationale
-- Closes a Critical Product integration on `main`.
-- Establishes canonical Git/CI evidence after merge.
-- This evidence is a prerequisite for the next protected REAL boundary gate (Reproof 09).
-- Incorrect truth here could authorize an invalid future REAL campaign.
+Morris: **"ok go"** → consume as GO for Authenticated Product Reproof 09:
 
-### Morris authority consumed
-Exact user decision: **"ok go"**
+- ONE bounded Product QA macro-cycle
+- main anchor `74ad6d3ef59150db31d3cdfec18879bbf64a4e95`
+- ONE Cursor docs_write REAL external launch max
+- authenticated Product Journey + legacy M3 → canonical M4
+- Inspect / Confirm / Authority / Executor → one Execute / Attempt
+- Evidence / ReviewBundle / restart / no-relaunch / read-only LPS continuity
+- NO Product code change; NO OpenAI LIVE; NO Nora LIVE; NO project commit/push/PR/merge
+- FULL Review Pack + handoff; STOP on delivery gap; NO automatic REAL retry
 
-Interpreted narrowly as:
-
-GO MORRIS — CLOSE THE EXISTING PR #495 MACRO-CYCLE POST-MERGE —
-VERIFY FINAL GIT + POST-MERGE CI TRUTH —
-UPDATE FULL REVIEW PACK TO POST-MERGE STATE —
-PUBLISH CANONICAL REVIEW HANDOFF —
-ZERO REAL —
-NO PRODUCT CHANGE —
-NO NEW PROJECT PR —
-NO BRANCH DELETION —
-STOP BEFORE REPROOF 09.
-
-### Explicitly NOT authorized by this closure
-- Reproof 09
-- Cursor REAL / docs_write REAL
-- OpenAI LIVE / Nora LIVE
-- another Product delivery
-- architecture / persistence / doctrine changes
-- Product code/test/schema/workflow mutation
-- project commit / push / PR / merge
-- branch deletion
-
-This cycle: **truth-sync / administrative closure only**.
-The ONLY authorized remote mutation is handoff L3 publication on `sfia/review-handoff`.
+**REAL launch budget accounting (binding §0):** consumed only when the first Product-owned external Cursor REAL process is actually dispatched. Pre-spawn `StartExecution` failure leaves budget **UNCONSUMED**.
 
 ---
 
-## B. REPOSITORY TRUTH (VERIFIED)
+### 2. Cycle / typology / profile
 
-| Item | Verified value |
+| Field | Value |
 |---|---|
-| Worktree | `/Users/morris/Projects/sfia-studio-product-legacy-m3-to-m4-successor` |
-| Local branch | `delivery/sfia-studio-product-legacy-m3-to-m4-successor` |
-| **origin/main (current)** | `74ad6d3ef59150db31d3cdfec18879bbf64a4e95` |
-| PR | **#495** MERGED — https://github.com/mcleland147/sfia-workspace/pull/495 |
-| PR title | feat(sfia-studio): complete governed docs-write product continuity |
-| mergedAt | 2026-09-17T01:07:59Z |
-| Accepted feature head | `64aec8ea7dd160d29154253e45a2ef023db84c3e` |
-| Merge commit | `74ad6d3ef59150db31d3cdfec18879bbf64a4e95` |
-| Merge parent ^1 (prior main) | `3a3a90f50cc185af4aa3c2b4ef7dafe035e176e3` |
-| Merge parent ^2 (feature head) | `64aec8ea7dd160d29154253e45a2ef023db84c3e` |
-| Merge tree | `a31db4a59c8fc8d3baaafeae9f7241cbad2034dd` |
-| Accepted head tree | `a31db4a59c8fc8d3baaafeae9f7241cbad2034dd` |
-| head → merge Product content delta | **ZERO** (empty `git diff --name-only 64aec8ea7dd160d29154253e45a2ef023db84c3e 74ad6d3ef59150db31d3cdfec18879bbf64a4e95`) |
-| Source branch | `delivery/sfia-studio-product-legacy-m3-to-m4-successor` |
-| Source branch remote tip | `64aec8ea7dd160d29154253e45a2ef023db84c3e` — **PRESERVED** |
-
-```
-local status (non-project artifacts only; no Product tracked mutations this cycle):
- M .tmp-sfia-review/chatgpt-review.md
-?? .tmp-sfia-review/d01-commit-stat.txt
-?? .tmp-sfia-review/d01-modified-core.diff
-?? .tmp-sfia-review/d01-new-files.diff
-?? .tmp-sfia-review/d01-tests.diff
-?? .tmp-sfia-review/r1-helper.diff
-?? .tmp-sfia-review/r1-resolve.diff
-?? .tmp-sfia-review/r1-tests.diff
-?? projects/sfia-studio/app/node_modules
-```
-
-R0/R1 chain preserved as merge second-parent ancestry:
-- R0 `844869fdf792284719f77bfd8e10cf43ebf75fee`
-- R1 `64aec8ea7dd160d29154253e45a2ef023db84c3e` (parent = R0)
+| Project | SFIA Studio |
+| Cycle | 9 — QA / validation |
+| Typology | EVOL |
+| Profile | CRITICAL |
+| CKC | `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md` (candidate / experimental only) |
+| Product Completion | CLOSED / COMPLETE |
+| Runtime v3 | NON ADOPTED |
+| Global L5 | NOT ADOPTED |
 
 ---
 
-## C. PRE-MERGE EVIDENCE (HISTORICAL)
+### 3. Current Git truth
 
 | Item | Value |
 |---|---|
-| Pre-merge Critical Review disposition | PASS (ChatGPT Critical PRE-MERGE) → Morris merge GO |
-| Pre-merge CI run | `35168525868` SUCCESS on head `64aec8ea7dd160d29154253e45a2ef023db84c3e` |
-| Pre-merge Required Gate | PASS |
-| Prior Review Handoff tip (pre-closure) | `00aeb220bfe855249269d6bfdd57ed1fcfee7358` |
-| Prior handoff blob | `7b98b34444ed2ace71a37846a6834a40b22fa61e` |
-| Prior pack current claim (historical) | "MERGE NOT AUTHORIZED" / READY FOR PRE-MERGE REVIEW |
+| Proof worktree | `/Users/morris/Projects/sfia-studio-product-reproof-09-74ad6d3e` |
+| Mode | detached worktree |
+| HEAD | `74ad6d3ef59150db31d3cdfec18879bbf64a4e95` |
+| origin/main | `74ad6d3ef59150db31d3cdfec18879bbf64a4e95` |
+| Tracked Product source | clean |
+| Allowed untracked | `.tmp-sfia-review/reproof09/`, `node_modules`, runtime `.sfia-exec` |
 
-This pack **supersedes** that pre-merge current-truth wording with post-merge verified state.
+---
 
-### Accepted feature content (for record)
+### 4. Main / merge / post-merge CI anchor
+
+| Item | Value |
+|---|---|
+| Merge commit | `74ad6d3ef59150db31d3cdfec18879bbf64a4e95` |
+| Parents | `3a3a90f50cc185af4aa3c2b4ef7dafe035e176e3` `64aec8ea7dd160d29154253e45a2ef023db84c3e` |
+| Tree | `a31db4a59c8fc8d3baaafeae9f7241cbad2034dd` |
+| Subject | Merge pull request #495 from mcleland147/delivery/sfia-studio-product-legacy-m3-to-m4-successor |
+| Post-merge CI | run `35169357107` — **SUCCESS** / Required Gate PASS |
+| CI URL | https://github.com/mcleland147/sfia-workspace/actions/runs/35169357107 |
+| Main drift before REAL | **none** |
+
+---
+
+### 5. Canonical sources read
+
+PROCESS: cycle execution template; routing guide; ChatGPT–Cursor operating model; rules/guardrails; QA CKC pilot.
+CONVERGENCE: build doctrine; roadmap; product-completion cadrage.
+V3 framing: §§34–35 (governance / evidence).
+HANDOFF tip expected: `b0c89c31bf2af0f144fe8eabfc442bc6c0a4eb94`.
+PRODUCT oracles (main `74ad6d3e`): legacy M3→M4 rematerialization, confirm/execute, REAL boundary composition, StudioCursorRealLaunchGateway, worktree workspace, bounded docs_write agent, TrajectorySurface, StartExecution managed-repo path.
+
+---
+
+### 6. Convergence qualification
+
+Active lane remains Product Proof for governed docs_write after #493/#495. Reproof 09 is QA against merged main. No diversion to Nora Stage A / GCEC remote campaigns. Product Completion CLOSED; Runtime v3 NON ADOPTED.
+
+---
+
+### 7. Reproof 08 forensic baseline
+
+Used as forensic input only (historical project/decision/EC identifiers). Campaign did **not** write the historical source DB. Expected identifiers matched the isolated snapshot used for Reproof 09 (see §8–§10).
+
+---
+
+### 8. Isolated DB provenance
+
+| Item | Value |
+|---|---|
+| Source (read seed) | `/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/product/oa-product.sqlite` |
+| Source size / sha256 | `3207168` / `a7a591379f521e9aa4d94f167ea4612cc488d4002a30abb3a070bbc572a27cc9` |
+| Destination | `/Users/morris/Projects/sfia-studio-product-reproof-09-74ad6d3e/projects/sfia-studio/.sfia-exec/product/oa-product.sqlite` |
+| Env | `SFIA_STUDIO_PRODUCT_DB_PATH` → destination |
+| Pre-campaign snapshot | `.tmp-sfia-review/reproof09/oa-product.snapshot-pre.sqlite` |
+| Pre size / sha256 | `3207168` / `44d5b3c514cc796db0a844d01ba426aff038b6fc72ee1843066153184fb42752` |
+| Snapshot timestamp | `2026-09-17T05:44:33Z` |
+| Post-campaign DB size / sha256 | `3260416` / `d78d54236f634476e1af2090ab6fbd5e929d308d4a8dfb863d38c0bc72be3cf4` |
+| Integrity | `ok` |
+| Writer isolation | campaign writes only to proof-worktree isolated DB |
+
+---
+
+### 9. Authenticated Product entry
+
+| Item | Value |
+|---|---|
+| Entry | authenticated Product UI `/studio/projects/prj:ae9bd0de-e24d-474f-880d-ff5ea56dbaf6` |
+| Authority env | `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1` |
+| REAL env | `SFIA_STUDIO_CURSOR_REAL=1` |
+| Deterministic boundary | `SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY=0` |
+| OPS1 | `OPS1_CURSOR_REAL=0` |
+| Bypasses | none (no forceM3Authority / fixture auth / direct StartExecution harness) |
+
+---
+
+### 10. Exact historical Project / Decision / original EC
+
+| Item | Value |
+|---|---|
+| Project | `prj:ae9bd0de-e24d-474f-880d-ff5ea56dbaf6` — Gestion de tâches — active |
+| LPS | `lps:3a8e02537e45d5b9` / UI Version 17 |
+| Proposal | `prop:f2:edba677a-123f-4f5e-baad-50533a65a3a0` |
+| HumanDecision | `dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411` — status `accepted` — authority `morris` |
+| DecisionBasis | present (`sourceType` / `executionBasis` / project+cycle binding) |
+| Original EC | `xct:m3:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411` |
+| Original attempts (pre-campaign) | **0** |
+| RepositoryBinding | `mcleland147/sfia-workspace` / `main` / `projects/sfia-studio/.sandbox` |
+| Target | `projects/sfia-studio/.sandbox/gestion-de-taches.md` |
+
+---
+
+### 11. Legacy rematerialization
+
+Product CTA **Actualiser le contrat d'exécution** used (not harness `prepareM3FromDecision` / not direct resolver call).
+
+Result:
+
+- Original preserved → status **`superseded`** (version 4 post-supersession accounting)
+- Successor created → `xct:m3-res:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411`
+
+---
+
+### 12. Exact M4 successor fields
+
+| Field | Observed |
+|---|---|
+| Successor id | `xct:m3-res:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411` |
+| Version / status | `3` / `confirmed` |
+| supersedesExecutionContractId | `xct:m3:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411` |
+| action / target / scope | `cursor.docs_write.apply` / `workspace.isolated.docs_write` / `studio.gcec.docs_write` |
+| requiredCapabilities | `cap:cursor.docs_write` |
+| requiredAuthority | `MORRIS` |
+| semanticFingerprint | `6dfeb3fbad9402d5a2f24897a8eccd01886c9d9b66b3b5e4b5b88121cf886000` |
+| targetRepositoryRef | `mcleland147/sfia-workspace` |
+| targetPath | `projects/sfia-studio/.sandbox/gestion-de-taches.md` |
+| baseHeadSha | `74ad6d3ef59150db31d3cdfec18879bbf64a4e95` |
+| Constraints absent | `PREPARE_ONLY`, `NO_CURSOR_REAL`, `NO_ATTEMPT`, `NO_GATE_D` |
+| Constraints retained | `PATH_ALLOWLIST_ONLY`, `NO_DELETE`, `NO_COMMIT`, `NO_PUSH`, `NO_PR`, `NO_MERGE`, `GATE D REQUIRED`, plus bounded docs-write protections |
+| Attempt counts at rematerialization | original 0 / successor 0 (pre-Execute) |
+
+---
+
+### 13. Inspection / confirmation
+
+Fresh Inspect performed on successor (no silent transfer of historical Confirmation as sole authority). Confirmation obtained on successor after fresh inspection. UI showed inspection attestation + confirmation required/obtained before Execute enablement.
+
+---
+
+### 14. Authority receipt + executor sufficiency
+
+| Item | Value |
+|---|---|
+| Authority receipt | `avr:77d8ca3c0213b861` |
+| Outcome | AUTHORIZED |
+| verifiedAuthorityLevel | `N3` |
+| Actor | Pilote / `actor:local-pilote` (Morris local authority path) |
+| Executor sufficiency | true |
+| sufficientAgentRef | `agt:m4.cursor.bounded_docs_write` |
+| Covers | `cap:cursor.docs_write`, `cursor.docs_write.apply`, `workspace.isolated.docs_write`, `studio.gcec.docs_write` |
+
+Note: earlier Statuer with shell-forced `SFIA_STUDIO_CURSOR_REAL=0` produced blocked receipt; corrected by restart with explicit `SFIA_STUDIO_CURSOR_REAL=1` **before** Execute. No second REAL launch.
+
+---
+
+### 15. Final pre-dispatch state
+
+Captured in `.tmp-sfia-review/reproof09/pre-dispatch-checkpoint.json` (UTC `2026-09-17T05:52:58.909967Z`):
+
+- main `74ad6d3e…`; isolated DB path; project/decision/original/successor IDs
+- successor confirmed v3 + fingerprint `6dfeb3f…`
+- target/repo/baseHead set; successor Attempt count 0
+- authority authorized; sufficient agent set
+- `SFIA_STUDIO_CURSOR_REAL=1`; deterministic boundary off
+- Product Cursor REAL launches = 0; project git remote effects = 0
+
+---
+
+### 16. REAL GO consumption timestamp
+
+| Event | Timestamp (UTC) |
+|---|---|
+| Execute / Attempt accepted | `2026-09-17T05:53:53.352Z` (`oa.execution_attempt.accepted`) |
+| Gate D issued | `2026-09-17T06:04:42.157Z` (`gd:w3a:w3a:9eef34f25802c186`) |
+| StartExecution error | `2026-09-17T06:04:42.160Z` (`detailCode=REAL_WORKSPACE_INVALID`, `durationMs=9`) |
+| External Cursor REAL dispatch | **DID NOT OCCUR** |
+| REAL launch budget | **UNCONSUMED** |
+
+---
+
+### 17. REAL boundary composition
+
+| Item | Observed |
+|---|---|
+| `SFIA_STUDIO_CURSOR_REAL=1` | selects `StudioCursorRealLaunchGateway` |
+| Deterministic Fake boundary | disabled |
+| Agent | `agt:m4.cursor.bounded_docs_write` selected on Attempt |
+| Cursor binary | host resolver available (`SFIA_CURSOR_BIN` present on server process) |
+| `managedRepoRootBase` on Product default composition | **`null` / omitted** (probed) |
+| Product singleton wiring | `getRuntimeApplicationService()` → `defaultSingletonOptions()` → **no** `realBoundaryComposition.managedRepoRootBase` |
+
+This is the delivery gap (§25 / §35).
+
+---
+
+### 18. Exact Attempt
+
+| Field | Value |
+|---|---|
+| attemptId | `xat:w3a:9eef34f25802c186` |
+| executionContractId | `xct:m3-res:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411` |
+| executionContractVersion | 3 |
+| semanticFingerprint | `6dfeb3fbad9402d5a2f24897a8eccd01886c9d9b66b3b5e4b5b88121cf886000` |
+| selectedAgentRef | `agt:m4.cursor.bounded_docs_write` |
+| status | **`accepted`** (never started/succeeded/failed terminal) |
+| Attempt count on successor | **1** |
+
+---
+
+### 19. processRef / provenance
+
+| Field | Value |
+|---|---|
+| processRef | null / absent |
+| resultRef | null / absent |
+| boundaryProofMode / REAL provenance | not established (no spawn) |
+| realProcessInvoked | **false** |
+| realExecution | **false** |
+| externalEffects | **false** |
+| m4_launch_frontier | **0 rows** |
+| Gate D | granted, **`consumed_at=null`** (unconsumed) |
+
+---
+
+### 20. Target pre-state
+
+- Source proof checkout: target **absent** (`projects/sfia-studio/.sandbox/gestion-de-taches.md` not present / not tracked)
+- No manual create/edit of target authorized or performed
+
+---
+
+### 21. Target post-state
+
+- Target still **absent** in source checkout
+- No managed REAL worktree leaf for attempt (`m4-worktrees` empty of attempt workspace)
+- No docs_write filesystem effect
+
+---
+
+### 22. touchedFiles
+
+None for this campaign Attempt (no REAL workspace prepared).
+
+---
+
+### 23. digest
+
+N/A — no Product verifier digest for campaign Attempt.
+
+---
+
+### 24. FULL generated target document content
+
+**REVIEW PACK NOTE — MODIFIED CONTENT ABSENT (expected under this FAIL/STOP):**
+No document was generated. There is no artifact body to reproduce.
+
+---
+
+### 25. Artifact contract validation
+
+Not applicable — sealed artifact contract was not executed. Successor inspection disclosure (artifactType `deliverable_document`, path allowlist, expectedOutputs, noDelete, repo/path, fingerprint) remains the unexecuted task contract.
+
+---
+
+### 26. Evidence
+
+| Item | Value |
+|---|---|
+| Campaign Evidence for Attempt | **0** |
+| Historical Evidence rows in isolated DB | 8 (pre-existing; **not** bound to `xat:w3a:9eef34f25802c186`) |
+| Verified Evidence for REAL Attempt | **none** |
+
+---
+
+### 27. ReviewBundle
+
+| Item | Value |
+|---|---|
+| Campaign ReviewBundle for Attempt | **0** |
+| Historical RB rows in isolated DB | 8 (pre-existing; not campaign REAL proof) |
+
+---
+
+### 28. Restart procedure
+
+1. Recorded durable IDs / digests / failure root cause under `.tmp-sfia-review/reproof09/`
+2. Stopped Studio Next.js on port 3020 (clean stop → restart)
+3. Preserved isolated Product DB + launch-safety journal (no wipe)
+4. Restarted same checkout `74ad6d3e…` + same isolated DB + same auth/REAL env
+
+Timestamps:
+
+- stop: `runtime-stop-timestamp.txt`
+- restart: `runtime-restart-timestamp.txt` (`2026-09-17T08:13Z` local campaign clock files)
+
+---
+
+### 29. Restart durable state
+
+After restart (read-only):
+
+- Same Project / Decision
+- Original remains `superseded`
+- Same M4 successor `confirmed` v3 + same fingerprint
+- Same Attempt `xat:w3a:9eef34f25802c186` status `accepted`
+- Same Gate D grant unconsumed; frontier still 0
+- No new Attempt
+- UI rehydrate banner present (“Reprendre l'état enregistré”); LPS Version 17 visible
+
+---
+
+### 30. No-relaunch proof
+
+- Runtime restart performed
+- No automatic `StartExecution`
+- No Product Cursor child for this Attempt
+- No new frontier LAUNCHED/CREATED
+- Product Cursor REAL launch count remains **0**
+- Execute was **not** pressed again
+
+---
+
+### 31. Read-only LPS / Evidence continuity observation
+
+**Class: C — NOT OBSERVABLE** (for REAL Evidence/RB continuity)
+
+Reason: campaign never produced Attempt-bound Evidence/ReviewBundle; continuity of REAL outcome cannot be observed. Durable rehydrate of Project/LPS/EC/Attempt is visible (UI + DB). No OpenAI LIVE; no Nora LIVE invoked for this observation.
+
+Finalization UI still shows `artifact_missing` / `evidence_missing` / `execution_contract_open` (consistent with failed REAL path).
+
+---
+
+### 32. Git safety proof
+
+| Check | Result |
+|---|---|
+| Proof HEAD remains `74ad6d3e…` | yes |
+| origin/main unchanged at campaign anchor | yes |
+| Project commit | **0** |
+| Project push | **0** |
+| Project PR | **0** |
+| Project merge | **0** |
+| Forbidden git effects by Product child | **0** (no child) |
+| Target silently on main | **no** |
+
+Handoff L3 commit/push (review-handoff only) is authorized separately and is **not** a project mutation.
+
+---
+
+### 33. Exact campaign counters
+
+| Counter | Value |
+|---|---|
+| Authenticated Product entry attempts | 1 |
+| Rematerialization actions | 1 |
+| Fresh inspections | ≥1 |
+| Confirmation actions | ≥1 |
+| Authority evaluations | ≥2 (blocked under REAL=0 shell override, then authorized under REAL=1) |
+| Execute actions | **1** |
+| StartExecution | **1** (errored pre-spawn) |
+| ExecutionAttempts | **1** (accepted, non-terminal success) |
+| Product Cursor REAL external launches | **0** |
+| docs_write REAL filesystem effects | **0** |
+| Evidence records created (campaign) | **0** |
+| ReviewBundles created (campaign) | **0** |
+| Runtime restarts | **1** |
+| Automatic relaunches after restart | **0** |
+| OpenAI LIVE calls | **0** |
+| Nora LIVE calls | **0** |
+| Project commits / pushes / PRs / merges | **0 / 0 / 0 / 0** |
+
+---
+
+### 34. Screenshots / evidence paths
+
+Under `/Users/morris/Projects/sfia-studio-product-reproof-09-74ad6d3e/.tmp-sfia-review/reproof09/`:
+
+- `01-legacy-pre-rematerialize.png`
+- `02-m4-successor-pre-inspect.png`
+- `03-pre-execute-authorized.png`
+- `04-real-workspace-invalid.png`
+- `05-post-restart-rehydrate.png`
+- `pre-dispatch-checkpoint.json`
+- `successor-payload.json`
+- `attempt-payload.json`
+- `failure-root-cause.json`
+- `post-failure-durable.json`
+- `post-restart-observation.json`
+- `db-provenance.json`
+- `real-budget-status.txt` (**UNCONSUMED**)
+- `oa-product.snapshot-pre.sqlite`
+
+---
+
+### 35. Reservations / debts / delivery gap
+
+**NEW DELIVERY GAP (binding):**
+
+Authenticated Product Journey REAL composition does **not** wire `managedRepoRootBase` into `composeStudioProductRealBoundary`.
+
+- Product path: `getRuntimeApplicationService()` → no `realBoundaryComposition.managedRepoRootBase`
+- Probed default REAL composition: `managedRepoRootBase = null`
+- `StartExecution` fail-closed reason: **`docs_write_managed_repo_root_base_unconfigured`** → `detailCode=REAL_WORKSPACE_INVALID`
+- Tests inject managed base via `realBoundaryComposition` / `SFIA_GCEC_MANAGED_REPO_BASE` — **not** wired for live Product singleton
+
+Secondary observations (non-core to gap, still material for review):
+
+- Attempt remains `accepted` after failed Start (no terminal failed status persisted on Attempt payload)
+- Gate D grant left **granted/unconsumed**
+- UI alert surfaces generic “REAL launch workspace root is invalid” without durable Attempt error payload suffix
+- Premature operational `CONSUMED` marker during polling was corrected to **UNCONSUMED** after forensic confirmation of zero external launch
+
+**No Product code change performed under this GO.**
+
+---
+
+### 36. Authorized claims
+
+Authorized:
+
+- Authenticated Product entry on historical project proven
+- Legacy M3 → canonical M4 successor rematerialization proven at tested project
+- Fresh Inspect / Confirm / effective authority + executor sufficiency proven pre-Execute
+- One Execute → one Attempt accepted → one StartExecution attempted
+- StartExecution fail-closed on missing Product `managedRepoRootBase` proven
+- Zero Product Cursor REAL external launches under this GO
+- Restart/rehydrate of durable Project/EC/Attempt with **no automatic relaunch** observed
+- Git safety (no project commit/push/PR/merge) held
+- Delivery gap identified and stopped without silent workaround
+
+---
+
+### 37. Forbidden claims
+
+Do **NOT** claim:
+
+- REAL BOUNDARY PROVEN
+- Cursor docs_write REAL Attempt succeeded
+- Independent filesystem effect verified
+- Evidence/ReviewBundle for this REAL Attempt
+- E2E FULL REAL / generalized docs_write / production autonomy
+- Runtime v3 ADOPTED / Global L5 / Nora Cognitive Completion
+- PASS REAL
+
+---
+
+### 38. Runtime v3 = NON ADOPTED
+
+Confirmed. This QA does not adopt Runtime v3.
+
+---
+
+### 39. Exact verdict
 
 ```
-diffstat prior_main...accepted_head:
- .../trajectorySurface.ui.test.tsx                  | 178 +++++
- ...roductJourneyGovernedDocsWriteWiring.d0.test.ts | 719 +++++++++++++++++++++
- .../importBoundaries.test.ts                       |   1 +
- .../surfaces/TrajectorySurface.tsx                 | 124 +++-
- .../app/features/project-assistant/actions.ts      | 115 ++++
- .../app/features/project-assistant/f3/index.ts     |  11 +
- .../f3/legacyDocsWritePrepareContractView.ts       |  45 ++
- .../f3/prepareAndResolveM3ProductPath.ts           |  64 +-
- .../f3/qualifyDocsWriteM3Intent.ts                 | 114 ++++
- .../resolveExistingLegacyM3DocsWriteProductPath.ts | 449 +++++++++++++
- .../app/features/project-assistant/types.ts        |  24 +
- 11 files changed, 1790 insertions(+), 54 deletions(-)
+PRODUCT JOURNEY GOVERNED DOCS_WRITE
+AUTHENTICATED REAL REPROOF 09 —
+STOP — NEW DELIVERY GAP DISCOVERED DURING REPROOF 09 —
+PRE-EXTERNAL-LAUNCH REAL_WORKSPACE_INVALID /
+docs_write_managed_repo_root_base_unconfigured —
+LEGACY M3 → CANONICAL M4 SUCCESSOR PROVEN —
+FRESH INSPECTION / CONFIRMATION / AUTHORITY PROVEN —
+EXECUTE 1 / STARTATTEMPTED 1 / EXTERNAL CURSOR REAL LAUNCH 0 —
+ATTEMPT ACCEPTED NON-TERMINAL / NO FILE EFFECT /
+NO CAMPAIGN EVIDENCE/REVIEWBUNDLE —
+RESTART / REHYDRATION / NO AUTOMATIC RELAUNCH OBSERVED —
+REAL GO LAUNCH BUDGET UNCONSUMED —
+NO PROJECT COMMIT/PUSH/PR/MERGE —
+OPENAI LIVE 0 — NORA LIVE 0 —
+RUNTIME V3 NON ADOPTED —
+NO PRODUCT CODE CHANGE —
+NO AUTOMATIC REAL RETRY —
+EVIDENCE READY FOR CHATGPT CRITICAL REVIEW
 ```
 
-```
-changed files:
-projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
-projects/sfia-studio/app/__tests__/project-assistant/productJourneyGovernedDocsWriteWiring.d0.test.ts
-projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-projects/sfia-studio/app/features/project-assistant/actions.ts
-projects/sfia-studio/app/features/project-assistant/f3/index.ts
-projects/sfia-studio/app/features/project-assistant/f3/legacyDocsWritePrepareContractView.ts
-projects/sfia-studio/app/features/project-assistant/f3/prepareAndResolveM3ProductPath.ts
-projects/sfia-studio/app/features/project-assistant/f3/qualifyDocsWriteM3Intent.ts
-projects/sfia-studio/app/features/project-assistant/f3/resolveExistingLegacyM3DocsWriteProductPath.ts
-projects/sfia-studio/app/features/project-assistant/types.ts
-```
-
-11 files · +1790 / −54 (PR #495).
-
 ---
 
-## D. POST-MERGE CI EVIDENCE (VERIFIED)
+### 40. Next gate
 
-| Item | Verified value |
-|---|---|
-| Workflow run | https://github.com/mcleland147/sfia-workspace/actions/runs/35169357107 |
-| Event | `push` |
-| Branch | `main` |
-| Head SHA | `74ad6d3ef59150db31d3cdfec18879bbf64a4e95` |
-| Status | completed |
-| Conclusion | **success** |
+**STOP FOR CHATGPT CRITICAL REVIEW.**
 
-### Jobs
-| Job | Conclusion |
-|---|---|
-| Detect SFIA Studio changes | **SUCCESS** |
-| Build and validate SFIA Studio | **SUCCESS** |
-| **SFIA Studio Required Gate** | **SUCCESS** |
+Do not:
 
-### Build and validate steps (terminal SUCCESS)
-- Typecheck — SUCCESS
-- Lint — SUCCESS
-- Build — SUCCESS
-- Unit tests (Vitest) — SUCCESS
-- Modeled governance tests — SUCCESS
-- Secret pattern scan (targeted) — SUCCESS
-- Trailing whitespace check — SUCCESS
+- rerun REAL automatically
+- fix Product code under this GO
+- open Delivery branch automatically
+- commit/push/PR/merge generated targets (none exist)
+- start Nora LIVE / OpenAI LIVE
+- start another capability
 
-No Product test rerun required for this DOC closure: the authoritative Product validation is this exact post-merge CI run.
-
----
-
-## E. CAPABILITY STATUS — INTEGRATED ON MAIN / POST-MERGE VERIFIED
-
-PRODUCT JOURNEY GOVERNED DOCS_WRITE CONTINUITY = **INTEGRATED ON MAIN / POST-MERGE VERIFIED**
-
-At deterministic tested scope:
-
-### A. Fresh post-#493 Product journey
-HumanDecision / DecisionBasis
-→ canonical M4 docs_write EC
-→ Inspect → Confirm → effective authority
-→ deterministic Fake execute
-→ Attempt + Evidence
-
-### B. Durable pre-#493 Product journey
-legacy canonical M3 PREPARE_ONLY EC
-→ governed rematerialization (`resolveExistingLegacyM3DocsWriteProductPath` → `resolveM3ExecutionContract`)
-→ historical original preserved / superseded
-→ canonical M4 successor
-→ fresh Inspect / Confirm / authority
-→ deterministic Fake execute
-→ Attempt + Evidence
-→ SQLite Runtime A → Runtime B restart/rehydration
-→ no duplicate Attempt/Evidence / no relaunch
-→ post-execution rematerialization fail-close (`LEGACY_SUCCESSOR_PRIOR_ATTEMPT_EXISTS`)
-
-Also retained:
-- original Attempt safety
-- successor Attempt query-failure fail-close (`LEGACY_SUCCESSOR_ATTEMPT_SAFETY_UNPROVEN`)
-- idempotent rematerialize replay before successor execution
-- server-side eligibility (presentation helper non-authority)
-- DecisionBasis as semantic intent source
-- no DB migration / no parallel engine / no history rewrite
-
-Claims already accepted by ChatGPT Critical Review are preserved; this cycle does not reopen implementation analysis.
-
----
-
-## F. FAKE / REAL
-
-| Counter | This closure |
-|---|---|
-| Deterministic proof | PROVEN AT TESTED SCOPE (pre-merge suite + post-merge CI) |
-| Cursor REAL | **0** |
-| docs_write REAL | **0** |
-| OpenAI LIVE | **0** |
-| Nora LIVE | **0** |
-| Env forced | `SFIA_STUDIO_CURSOR_REAL=0`, `OPS1_CURSOR_REAL=0` |
-
-**DETERMINISTIC PROVEN ≠ REAL BOUNDARY PROVEN.**
-
-Exact realism gap remaining:
-
-AUTHENTICATED PRODUCT REPROOF 09 —
-ONE BOUNDED CURSOR DOCS_WRITE REAL THROUGH THE GOVERNED PRODUCT JOURNEY
-
----
-
-## G. SCOPE — THIS CLOSURE CYCLE MUTATIONS
-
-| Mutation | Count |
-|---|---|
-| Product code modified | **0** |
-| Tests modified | **0** |
-| Schema / persistence / workflows | **0** |
-| Doctrine / Roadmap / C1 / v3 framing | **0** |
-| Project commits | **0** |
-| Project pushes | **0** |
-| Project PRs | **0** |
-| Branch deletion | **0** |
-| Handoff-only publication | **AUTHORIZED / PERFORMED** |
-
----
-
-## H. REMAINING GAP / NEXT STRUCTURAL GATE
-
-**NOT authorized by this closure.**
-
-NEW DISTINCT MORRIS GO required for:
-
-### AUTHENTICATED PRODUCT REPROOF 09
-
-Expected future objective (OUT OF SCOPE here):
-
-Pilote / authenticated Product Journey
-→ historical/fresh durable Project state
-→ canonical M4 docs_write ExecutionContract
-→ Inspect
-→ Confirmation if required
-→ effective authority + executor sufficiency
-→ ONE bounded Cursor docs_write REAL effect
-→ ONE Attempt
-→ Evidence / ReviewBundle
-→ restart / rehydrate
-→ NO RELAUNCH
-→ post-execution Nora / LPS / ProjectTrajectory continuity observation if available through integrated Product path
-
-No Stage A detour by default.
-
----
-
-## I. ANTI-CLAIMS (EXPLICIT)
-
-- NOT authenticated Cursor docs_write REAL through this Product Journey
-- NOT Reproof 09 completed
-- NOT END-TO-END FULL REAL
-- NOT generalized historical Project migration
-- NOT production autonomy
-- NOT global L5
-- NOT Nora Cognitive Completion
-- NOT runtime v3 ADOPTED
-- NOT zero defects
-
----
-
-## J. HANDOFF SUPERSESSION NOTES
-
-- Parent handoff tip expected: `00aeb220bfe855249269d6bfdd57ed1fcfee7358`
-- This publication replaces current-truth "MERGE NOT AUTHORIZED" with verified MERGED + post-merge Required Gate PASS
-- Historical pre-merge status remains documented above as historical evidence
-
----
-
-## K. FINAL VERDICT (REPEATED)
-
-PRODUCT JOURNEY DOCS_WRITE CONTINUITY MACRO-CYCLE —
-POST-MERGE CLOSURE PASS —
-PR #495 MERGED AT 74ad6d3ef59150db31d3cdfec18879bbf64a4e95 —
-HEAD→MERGE PRODUCT DELTA ZERO —
-POST-MERGE CI 35169357107 SUCCESS —
-SFIA STUDIO REQUIRED GATE PASS —
-SOURCE BRANCH PRESERVED —
-CANONICAL REVIEW HANDOFF UPDATED —
-ZERO REAL —
-NO PRODUCT CHANGE —
-RUNTIME V3 NON ADOPTED
-
----
-
-## L. NEXT GATE
-
-STOP.
-
-Return to ChatGPT/Morris.
-
-Do NOT start Reproof 09 without a NEW DISTINCT Morris GO.
+Any next Product/Delivery step requires a later Morris decision after ChatGPT Critical Review of this gap.
