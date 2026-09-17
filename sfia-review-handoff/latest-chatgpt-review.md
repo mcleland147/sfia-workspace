@@ -1,9 +1,10 @@
 # ChatGPT Review Pack — FULL
 ## PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01 — Checkpoint E PREPARE blocker
 
-**Timestamp (UTC):** 2026-09-17T18:47:06Z
+**Timestamp (UTC):** 2026-09-17T18:51:11Z
 **Pack kind:** FULL (code modification present — modified content included below)
 **Automation:** L3 handoff publish only; **NO** project commit/push/PR/merge
+**Pack revision:** R2 — package-lock.json provenance clarification
 
 ---
 
@@ -19,7 +20,7 @@
 | Baseline match | YES (`HEAD == origin/main == 26478b1ea5b010c625f0c6039c969fac5c135cf5`) |
 | Macro | PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01 |
 | Cycle | 9 — QA / Validation |
-| Typology | EVOL (minimal mapping fix) |
+| Typologie | EVOL (minimal mapping fix) |
 | Profil | CRITICAL |
 | Capability | Pilote: sealed HumanDecision → native inspectable ExecutionContract PREPARE |
 | Milestone | Product Journey E2E REAL Reconciliation |
@@ -27,12 +28,33 @@
 ### git status --short (at pack time)
 
 ```
-M .tmp-sfia-review/chatgpt-review.md
+ M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/app/__tests__/oa/execution-contract/m3ExecutionContractPrepare.test.ts
  M projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
  M projects/sfia-studio/app/package-lock.json
 ?? .tmp-sfia-review/checkpoint-e-prepare-fix.diff
 ```
+
+---
+
+## 1bis. package-lock.json — provenance / statut (hors scope)
+
+| Item | Finding |
+|---|---|
+| Path | `projects/sfia-studio/app/package-lock.json` |
+| Working-tree delta vs HEAD | Present: `projects/sfia-studio/app/package-lock.json | 224 +++++++++++------------------
+ 1 file changed, 85 insertions(+), 139 deletions(-)` |
+| `package.json` changed? | **No** |
+| Version bumps in lock diff? | **None observed** (no `+/- "version":` package bumps) |
+| Nature of delta | Metadata noise typical of npm lock rewrite (`dev` → `devOptional`, optional/cpu entry reordering) — **not** a dependency change for Checkpoint E |
+| Present at lot entry? | **YES** — already listed as `M` in the conversation-start `git status` snapshot before Checkpoint E diagnosis/fix |
+| Caused by this lot's intentional dependency change? | **No** — correctif n'a touché aucune dépendance |
+| Action taken | **LEFT UNTOUCHED** — not restored, not staged, not included in lot scope |
+| Classification | **Preexisting local dirty file — hors scope Checkpoint E** |
+
+This lot's in-scope modified files remain only:
+1. `prepareM3FromDecision.ts`
+2. `m3ExecutionContractPrepare.test.ts`
 
 ---
 
@@ -120,18 +142,20 @@ function resolveEvidenceRequirementsForContract(input: {
 - `lib/oa/execution-contract/domain/errors.ts` (SAFE_MESSAGES)
 - Campaign DB read-only: `projects/sfia-studio/.sfia-exec/pje2e-real-01/product/oa-product.sqlite`
 - Tests: `m3ExecutionContractPrepare.test.ts`, `productJourneyGovernedDocsWriteWiring.d0.test.ts` (prepare filter)
-- Method/doctrine sources referenced by campaign brief (routing / operating model / build doctrine / product completion / v3 framings) — no doctrine edits
+- Method/doctrine sources referenced by campaign brief — no doctrine edits
 
-## 7. Fichiers modifiés
+## 7. Fichiers modifiés (scope lot)
 
 1. `projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts`
 2. `projects/sfia-studio/app/__tests__/oa/execution-contract/m3ExecutionContractPrepare.test.ts`
+
+**Explicitly NOT in lot scope:** `projects/sfia-studio/app/package-lock.json` (preexisting; left untouched — see §1bis).
 
 **Not modified:** Build Doctrine, Roadmap, framings, method, schema/migrations, campaign DB, UI copy.
 
 ---
 
-## 8. Diff exploitable (complete)
+## 8. Diff exploitable (complete — lot only)
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-contract/m3ExecutionContractPrepare.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-contract/m3ExecutionContractPrepare.test.ts
@@ -286,7 +310,6 @@ index f1b4a1dc..3441de6c 100644
    return {
      action,
      target,
-
 ```
 
 ---
@@ -314,13 +337,13 @@ No REAL campaign launched. No Execute.
 | HumanDecision | `dec:w2-prop:0e4b08bb-5b5c-4c99-b57f-d49234abb693 | accepted | opt:proposal-subject:pursue | prop:f2:3b788c52-5139-4b71-b00b-a45a0224b56f` |
 | Manual SQLite mutation | **NONE** |
 
-Studio restarted on port 3020 with same `SFIA_STUDIO_PRODUCT_DB_PATH`. Project GET returns auth redirect 307 (expected); DB untouched. **PREPARE not clicked** (Morris gate).
+Studio on port 3020 with same `SFIA_STUDIO_PRODUCT_DB_PATH`. **PREPARE not clicked** (Morris gate).
 
 ---
 
 ## 11. Cursor REAL spawn count
 
-**0** for this campaign (attempts=0, contracts=0, no Execute). IDE `cursor-agent` workers for other/local worktrees are not campaign REAL spawns.
+**0** for this campaign (attempts=0, contracts=0, no Execute).
 
 ---
 
@@ -328,7 +351,8 @@ Studio restarted on port 3020 with same `SFIA_STUDIO_PRODUCT_DB_PATH`. Project G
 
 - Coerce reuses existing git evidence identifier set for docs_write PREPARE when Nora prose is present — same as empty-field default; resolve/M4 path may still refine successor evidence later.
 - Nora still writes free-text into DecisionBasis.evidenceRequirements (cognitive debt); this lot only fixes EC mapping at PREPARE.
-- Continuity / truncated Nora replies / Instruction Options cognitive gap **out of scope** (not cause of CONTRACT_INVALID).
+- `package-lock.json` remains dirty locally as preexisting hors-scope noise (see §1bis).
+- Continuity / truncated Nora replies / Instruction Options cognitive gap **out of scope**.
 
 ---
 
@@ -338,6 +362,7 @@ Studio restarted on port 3020 with same `SFIA_STUDIO_PRODUCT_DB_PATH`. Project G
 2. Do **not** re-qualify / do not fabricate Decision / do not mutate DB.
 3. After successful PREPARE: inspection / Confirmation / authority — then future REAL only under existing Morris gate.
 4. **No** project commit/push/PR/merge in this lot (candidate remains local dirty).
+5. Do **not** fold `package-lock.json` into any future Checkpoint E project commit unless separately owned.
 
 ---
 
