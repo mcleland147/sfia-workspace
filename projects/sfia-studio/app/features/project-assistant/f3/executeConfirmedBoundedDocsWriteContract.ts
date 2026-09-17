@@ -256,6 +256,8 @@ async function finishBoundedDocsWriteAttempt(input: {
       services: attempts,
       ...(targetPath ? { targetPath } : {}),
       ...(pathAllowlist ? { pathAllowlist } : {}),
+      // Product Execute must terminalize REAL spawn-ACK (invoke ≠ completion).
+      awaitIfPending: true,
     });
     if (!completed.ok) return completed;
     attempt = completed.attempt;

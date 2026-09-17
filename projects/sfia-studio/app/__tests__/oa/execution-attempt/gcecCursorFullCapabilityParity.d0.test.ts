@@ -24,6 +24,7 @@ import {
   SFIA_STUDIO_CURSOR_REAL_FLAG,
   StudioCursorRealLaunchGateway,
 } from "@/lib/oa/execution-attempt";
+import path from "node:path";
 import { FakeProcessRunner } from "./support/fakeProcessRunner";
 import {
   FakeRealExecutionWorkspacePort,
@@ -239,6 +240,114 @@ describe("GCEC Cursor full-capability executor parity", () => {
     expect(result.outcome).toBe("ack");
     expectFullCapabilityArgv(runner.calls[0]!.argv);
     expectNoCursorForcedInjection(runner.calls[0]!.env);
+  });
+
+  it("docs_write_instruction_embeds_absolute_target_under_workspace", async () => {
+    const sealed =
+      "projects/sfia-studio/.sandbox/gestion-de-taches.md";
+    const allow = "projects/sfia-studio/.sandbox";
+    const { gw, runner } = gateway();
+    const result = await gw.launch(
+      docsWriteRequest({
+        docsWriteSpec: {
+          repositoryRef: "mcleland147/sfia-workspace",
+          targetPath: sealed,
+          pathAllowlist: [allow],
+          artifactType: "functional_design",
+          artifactBrief: "brief",
+          contentRequirements: ["x"],
+          scopeIn: [allow],
+          scopeOut: [],
+          expectedOutputs: [sealed],
+          validationExpectations: [],
+          evidenceRequirements: ["artifact"],
+          createOrModify: true,
+          noDelete: true,
+        },
+      }),
+    );
+    expect(result.outcome).toBe("ack");
+    const instruction = runner.calls[0]!.argv.at(-1) as string;
+    const absTarget = path.resolve(
+      "/tmp/fake-exec-root/wt-fresh-fcp",
+      ...sealed.split("/"),
+    );
+    const absAllow = path.resolve(
+      "/tmp/fake-exec-root/wt-fresh-fcp",
+      ...allow.split("/"),
+    );
+    expect(instruction).toContain(`EXACT AUTHORIZED FILE`);
+    expect(instruction).toContain(absTarget);
+    expect(instruction).toContain(
+      `Canonical sealed targetPath (repo-relative, do not reinterpret): ${sealed}`,
+    );
+    expect(instruction).toContain(absAllow);
+    expect(instruction).toContain(
+      `Canonical sealed pathAllowlist (repo-relative): ${allow}`,
+    );
+    expect(instruction).not.toMatch(
+      /Créer ou modifier UNIQUEMENT le fichier: projects\/sfia-studio/,
+    );
+    // Prefix must not be stripped from sealed or absolute forms.
+    expect(absTarget).toContain("/projects/sfia-studio/.sandbox/");
+  });
+
+  it("docs_write_rejects_root_dot_sandbox_when_sealed_allowlist_is_projects_sfia_studio", async () => {
+    const { gw, runner } = gateway();
+    const result = await gw.launch(
+      docsWriteRequest({
+        docsWriteSpec: {
+          repositoryRef: "mcleland147/sfia-workspace",
+          targetPath: ".sandbox/gestion-de-taches.md",
+          pathAllowlist: ["projects/sfia-studio/.sandbox"],
+          artifactType: "functional_design",
+          artifactBrief: "brief",
+          contentRequirements: ["x"],
+          scopeIn: ["projects/sfia-studio/.sandbox"],
+          scopeOut: [],
+          expectedOutputs: [".sandbox/gestion-de-taches.md"],
+          validationExpectations: [],
+          evidenceRequirements: ["artifact"],
+          createOrModify: true,
+          noDelete: true,
+        },
+      }),
+    );
+    expect(result.outcome).toBe("reject");
+    if (result.outcome === "reject") {
+      expect(result.reason).toBe("target_outside_allowlist");
+      expect(result.realProcessInvoked).toBe(false);
+    }
+    expect(runner.calls).toHaveLength(0);
+  });
+
+  it("docs_write_rejects_path_traversal_before_spawn", async () => {
+    const { gw, runner } = gateway();
+    const result = await gw.launch(
+      docsWriteRequest({
+        docsWriteSpec: {
+          repositoryRef: "acme/widget",
+          targetPath: "docs/../../etc/passwd",
+          pathAllowlist: ["docs/"],
+          artifactType: "functional_design",
+          artifactBrief: "brief",
+          contentRequirements: ["x"],
+          scopeIn: ["docs/"],
+          scopeOut: [],
+          expectedOutputs: ["docs/../../etc/passwd"],
+          validationExpectations: [],
+          evidenceRequirements: ["artifact"],
+          createOrModify: true,
+          noDelete: true,
+        },
+      }),
+    );
+    expect(result.outcome).toBe("reject");
+    if (result.outcome === "reject") {
+      expect(result.reason).toBe("target_path_invalid");
+      expect(result.realProcessInvoked).toBe(false);
+    }
+    expect(runner.calls).toHaveLength(0);
   });
 
   it("CAP-01/02 B local-commit: full-capability argv", async () => {

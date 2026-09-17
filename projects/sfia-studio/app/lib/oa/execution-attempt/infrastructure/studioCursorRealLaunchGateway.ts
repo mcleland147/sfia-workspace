@@ -58,6 +58,7 @@ import {
   resolveMutatingConfinementEffectClass,
   stripInheritedCursorShellEgressEnv,
 } from "./mutatingCursorConfinementEnv";
+import { resolveSealedDocsWriteWorktreePaths } from "../application/resolveSealedDocsWriteWorktreePaths";
 
 function buildBoundedLocalCommitInstruction(input: {
   readonly spec: NonNullable<RealLaunchRequest["gitCommitSpec"]>;
@@ -795,11 +796,31 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
           detailCode: "REAL_AGENT_PROFILE_INVALID",
         };
       }
+      // Sealed EC paths stay repo-relative; absolutize only for Cursor instruction
+      // under the prepared worktree so the agent cannot drop monorepo prefixes.
+      const resolvedPaths = resolveSealedDocsWriteWorktreePaths({
+        worktreeRoot: workspacePath,
+        targetPath: spec.targetPath,
+        pathAllowlist: spec.pathAllowlist,
+      });
+      if (!resolvedPaths.ok) {
+        return {
+          outcome: "reject",
+          gatewayId: this.gatewayId,
+          attemptId: request.attemptId,
+          reason: resolvedPaths.reason,
+          realProcessInvoked: false,
+          detailCode: "REAL_WORKSPACE_INVALID",
+        };
+      }
       instruction = [
         "TÂCHE UNIQUE — bounded docs-write déterministe (GCEC).",
-        `Créer ou modifier UNIQUEMENT le fichier: ${spec.targetPath}`,
+        `EXACT AUTHORIZED FILE (absolute path inside prepared worktree — modify exactly this file and no other): ${resolvedPaths.absoluteTargetPath}`,
+        `Canonical sealed targetPath (repo-relative, do not reinterpret): ${resolvedPaths.sealedTargetPath}`,
+        `AUTHORIZED ROOT(S) (absolute under prepared worktree): ${resolvedPaths.absolutePathAllowlist.join(", ")}`,
+        `Canonical sealed pathAllowlist (repo-relative): ${resolvedPaths.sealedPathAllowlist.join(", ")}`,
+        "Do not reinterpret relative paths against a nested subproject or editor root.",
         `Repository: ${spec.repositoryRef}`,
-        `Écrire uniquement sous pathAllowlist: ${spec.pathAllowlist.join(", ")}`,
         `Type d'artifact: ${spec.artifactType}`,
         `Brief: ${spec.artifactBrief}`,
         `Exigences de contenu: ${spec.contentRequirements.join("; ")}`,
