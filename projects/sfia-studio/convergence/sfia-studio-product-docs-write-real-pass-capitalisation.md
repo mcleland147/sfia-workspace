@@ -10,12 +10,12 @@
 | **Typologie** | **DOC** |
 | **Profil / profondeur** | **Critical** (preuve REAL → vérité projet durable ; claim de maturité borné) |
 | **Date / heure / timezone** | 2026-09-17 16:15:39 CEST (+0200) |
-| **Statut documentaire** | **CANDIDATE LOCAL** — tant que non mergé sur `main` · **≠** capitalisation intégrée ON MAIN |
+| **Statut documentaire** | **CANDIDATE PR #499** — published on remote branch `docs/sfia-studio-product-docs-write-real-pass-capitalisation` · PR **#499 OPEN** · **≠** capitalisation intégrée ON MAIN · merge **NOT AUTHORIZED** at this stage |
 | **Base Git qualifiée** | `b739ddd3826ea4df640e3f34f97a966d85f8d214` (`origin/main` au moment de la capitalisation locale) |
 | **PR Product intégrée** | **#498** — `fix(sfia-studio): close docs-write REAL path and completion` |
 | **Merge commit** | `b739ddd3826ea4df640e3f34f97a966d85f8d214` — *Merge pull request #498* |
 | **Post-merge CI** | GitHub Actions run **`35215299343`** · conclusion **SUCCESS** · Required Gate **PASS** · `headSha=b739ddd3826ea4df640e3f34f97a966d85f8d214` |
-| **Décision Morris** | GO Morris — capitalisation Git du PASS REAL #498/Reproof09 (**CONSUMED** pour création locale + commit local) · push/PR/merge = **gates distincts non consommés** |
+| **Décisions Morris** | GO capitalisation locale (**CONSUMED**) · GO Review Handoff + branch push + PR creation (**CONSUMED**) · merge = **DISTINCT GATE / NOT CONSUMED** |
 | **Companion Roadmap** | `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` — tip **PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01** |
 | **runtime v3** | **NON ADOPTED** |
 | **REAL this capitalisation cycle** | **ZERO REAL** — aucune nouvelle exécution Cursor / Product Execute |
@@ -30,14 +30,13 @@ Ce document **capitalise une preuve déjà obtenue** :
 - Fresh Authenticated Product Reproof09 REAL **PASS** accepté après Critical REAL Proof Review ;
 - claim maximal strictement borné au scope testé.
 
-Il **n’autorise aucune** :
+Ce document et la preuve REAL **n’autorisent pas par eux-mêmes** push / PR / merge.
 
-- nouvelle campagne REAL ;
-- retry / second spawn Cursor ;
-- correction Product ;
-- push / PR / merge ;
-- démarrage de `PRODUCT-JOURNEY-POST-EXECUTION-REPLAN` ;
-- adoption runtime v3.
+État de gouvernance **distinct** (Morris GOs séparés) :
+
+- branch push + PR **#499** = **already executed** under a separate Morris GO ;
+- merge remains **unauthorized** / distinct Morris gate ;
+- aucune nouvelle campagne REAL / retry / second spawn / correction Product / démarrage de `PRODUCT-JOURNEY-POST-EXECUTION-REPLAN` / adoption runtime v3 n’est autorisée par ce document.
 
 ---
 
@@ -49,7 +48,7 @@ Il **n’autorise aucune** :
 | **B. Preuve runtime Reproof09** | Observation Product authentifiée + Cursor REAL | Campagne locale | Attempt / spawn / worktree / digest / Evidence / RB |
 | **C. Review pack campagne** | Rapport d’exécution local hors commit | `.tmp-sfia-review/chatgpt-review.md` (worktree campagne) | Chronologie, IDs, verdict PASS |
 | **D. Evidence / ReviewBundle persistés** | Objets OA dans DB isolée de campagne | sqlite campagne | IDs Evidence/RB + digest |
-| **E. Décision Morris** | Gouvernance construction | GO explicite | capitalisation locale autorisée ; push/PR séparés |
+| **E. Décision Morris** | Gouvernance construction | GO explicite | capitalisation locale **CONSUMED** ; handoff+push+PR **CONSUMED** ; merge **distinct / NOT CONSUMED** |
 | **F. ChatGPT Critical REAL Proof Review** | Revue critique de la preuve REAL | Acceptation PASS borné | claim maximal autorisé |
 
 **Règle :** un fait runtime local **ne doit jamais** être présenté comme s’il provenait directement du commit Git Product. `#498` prouve le *chemin de code* ; Reproof09 prouve le *comportement REAL* au scope testé.
@@ -196,7 +195,7 @@ Cette capitalisation **≠** :
 - runtime v3 ADOPTED ;
 - SFIA v3 globalement adopté ;
 - nouvelle autorisation REAL ;
-- autorisation push / PR / merge ;
+- autorisation intrinsèque push / PR / merge **par la preuve / ce document** (les GOs Morris séparés pour handoff/push/PR ne changent pas cette règle d’autorité) ;
 - démarrage autorisé de `PRODUCT-JOURNEY-POST-EXECUTION-REPLAN` par ce seul document.
 
 ---
@@ -218,7 +217,7 @@ Aucune dette technique / architecture / persistence **créée** par cette capita
 
 exact-path REAL + Attempt terminal + Evidence + ReviewBundle + restart/no-relaunch.
 
-**État :** preuve runtime revue ; capitalisation Git projet = **candidate locale** jusqu’à merge futur.
+**État :** preuve runtime revue ; capitalisation Git projet = **candidate on PR #499 / remote branch, pending merge**.
 
 ---
 
@@ -260,7 +259,7 @@ GCEC / docs_write restent une lane de capacité Product — **≠** nouvelle pri
 | Retry engine / second execution engine | **aucun** |
 | Observation process-local | existante · **non élargie** |
 | Macro REAL `PRODUCT-DOCS-WRITE-REAL-PATH-COMPLETION-01` | **clos au périmètre prouvé** une fois cette capitalisation **intégrée** sur `main` |
-| Statut actuel avant merge | **CANDIDATE LOCAL** |
+| Statut actuel avant merge | **CANDIDATE PR #499** |
 
 ---
 
@@ -269,9 +268,10 @@ GCEC / docs_write restent une lane de capacité Product — **≠** nouvelle pri
 | Gate | Statut |
 | --- | --- |
 | GO capitalisation locale (actif + Roadmap + commit local) | **CONSUMED** |
-| Review Handoff publication distante | **PENDING** — distinct Morris push gate |
-| GO push / PR capitalisation | **REQUIS** (suivant) |
-| Merge | **gate distinct ultérieur** après PR readiness / CI / Critical review |
+| GO Review Handoff + push + PR | **CONSUMED** |
+| Review Handoff | **PUBLISHED / REMOTE VERIFIED** · pre-remediation handoff commit `2bd065dfc15ff5577ef83f78feebd05c5738d231` (correspondait au HEAD `f0b7c414…` ; **≠** handoff final du HEAD de remédiation — republish-in-cycle requis) |
+| PR #499 | **OPEN / CRITICAL REVIEW IN PROGRESS** · title `docs(sfia-studio): capitalize Product docs-write REAL proof` · base `main` @ `b739ddd…` · pre-remediation head `f0b7c414394e2bb51ae93ec159027682d0bdc1c4` |
+| Merge | **PENDING DISTINCT MORRIS GATE** · **NOT AUTHORIZED** |
 | runtime v3 adoption | **NON décidée** · **NON ADOPTED** |
 
 ---
