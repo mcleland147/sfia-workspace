@@ -1,2025 +1,456 @@
-# SFIA Studio — FULL Review Pack — PR #496 Bounded Critical PRE-MERGE Correction
+# SFIA Studio — Authenticated Product Reproof09 REAL — FULL Review Pack
 
-**Timestamp (UTC):** 2026-09-17T08:30:19Z
-**Handoff mode:** publish-in-cycle
-**Profile:** CRITICAL
-**ZERO REAL / NO MERGE**
-
----
-
-## 0. Morris GO consumed
-
-```
-GO MORRIS — PR #496 BOUNDED CRITICAL PRE-MERGE CORRECTION —
-CLOSE ONLY THE BARE DEFAULT PRODUCT SINGLETON DETERMINISTIC EXIT-PROOF GAP —
-SAME BRANCH / SAME PR —
-PROJECT COMMIT + PUSH + CI + FULL REVIEW PACK + REVIEW HANDOFF AUTHORIZED —
-ZERO REAL —
-NO MERGE —
-NO NEW MICRO-CYCLE —
-NO ARCHITECTURE / PERSISTENCE / SCHEMA / DOCTRINE REDESIGN.
-```
-
-Explicitly NOT authorized by this GO: Cursor REAL, OpenAI LIVE, Nora LIVE, merge,
-branch deletion, force-push, second PR, schema/migration, persistence redesign,
-ExecutionContract/HumanDecision/authority redesign, new Product execution path,
-clone/fetch/provisioning lifecycle, GitHub workflow changes, Build Doctrine /
-Roadmap / C1 / v3 doctrine changes, method baseline changes.
-
-Runtime v3 remains **NON ADOPTED**.
+**Verdict:** STOP AFTER EXECUTE / PRE-SPAWN
+**Campaign consumption:** Product Execute = 1 · StartExecution = 1 · ExecutionAttempt = 1 · Cursor REAL external process launches = **0** · processRef = **null**
+**Retry under this GO:** **FORBIDDEN**
+**Runtime v3:** NON ADOPTED
+**Date (UTC):** 2026-09-17
 
 ---
 
-## 1. Cycle / capability qualification
+## 1. Exact Morris GO
+
+GO MORRIS — AUTHENTICATED PRODUCT REPROOF09 REAL —
+main `0052037c9a18a5d72f896876af8ce46e4ee2cf94` —
+one bounded Cursor docs_write REAL launch max —
+Evidence / ReviewBundle —
+restart / no-relaunch —
+no automatic retry.
+
+Consumed as: one authenticated Product campaign; one Product Execute max; one StartExecution path; one ExecutionAttempt; Evidence/ReviewBundle; restart/rehydrate; NO second Execute; NO product code change; NO project commit/push/PR/merge; NO OpenAI LIVE; NO Nora LIVE; FULL Review Pack + canonical handoff; STOP for ChatGPT Critical Review.
+
+---
+
+## 2. Cycle / typology / profile
+
+- Project: SFIA Studio
+- Cycle: 9 — QA / validation
+- Typology: EVOL
+- Profile: CRITICAL
+- CKC: `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md` (candidate guidance only; no execution authority)
+- Product Completion: CLOSED / COMPLETE
+- Runtime v3: NON ADOPTED
+- Global L5: NOT ADOPTED
+
+---
+
+## 3. Git runtime anchor
+
+| Fact | Value |
+|------|-------|
+| Authorized HEAD | `0052037c9a18a5d72f896876af8ce46e4ee2cf94` |
+| origin/main (pre + post) | `0052037c9a18a5d72f896876af8ce46e4ee2cf94` |
+| Parents | `74ad6d3ef59150db31d3cdfec18879bbf64a4e95` + `95c51d5914ff0f8b6ca0b3d4f8cccb9177ce2fd8` |
+| Tree | `ccd0b66ef89ea7432ff045fde0d269b5bb69589d` |
+| Proof worktree | `/Users/morris/Projects/sfia-studio-product-reproof09-real-0052037c` |
+| Branch | detached |
+| Tracked source | clean (only untracked `.tmp-sfia-review/reproof09-real/` campaign artifacts) |
+
+---
+
+## 4. PR #496 merge + post-merge CI
+
+- PR #496: **MERGED** — https://github.com/mcleland147/sfia-workspace/pull/496
+- mergedAt: `2026-09-17T08:37:57Z`
+- mergeCommit: `0052037c9a18a5d72f896876af8ce46e4ee2cf94`
+- Post-merge CI run: **35200719264**
+  - event: `push`
+  - headBranch: `main`
+  - headSha: `0052037c…`
+  - Detect: SUCCESS
+  - Build and validate: SUCCESS
+  - **SFIA Studio Required Gate: SUCCESS**
+  - overall conclusion: **SUCCESS**
+
+---
+
+## 5. Handoff supersession note
+
+Prior handoff tip `f0e379ea7a0bba4a3a45bacd17c2e7699208fba7` was **PRE-MERGE PR #496** truth.
+Authoritative Git evidence now supersedes it: merge `0052037c…` + CI `35200719264` Required Gate PASS.
+This campaign Review Pack records that supersession; no separate micro-cycle was run solely to refresh the old handoff before campaign.
+
+---
+
+## 6. Canonical sources read
+
+PROCESS: `prompts/templates/sfia-cycle-execution-template.md`; `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`; `sfia-chatgpt-cursor-operating-model.md`; `sfia-rules-and-guardrails.md`; CKC pilot `04-qa-validation.md`.
+
+CONVERGENCE: `sfia-studio-convergence-build-doctrine.md`; `sfia-studio-convergence-roadmap.md`; `01-product-completion-cadrage.md`.
+
+V3 framing (non-adopted): `34-agent-capabilities…`; `35-artifact-evidence…`.
+
+CURRENT PRODUCT: `singleton.ts`; `composeStudioProductRealBoundary.ts`; `managedRepoRootBaseConfig.ts`; `startExecution.ts`; `managedProjectRepositoryResolver.ts`; `studioCursorRealLaunchGateway.ts`; `m4BoundedDocsWriteCursorAgent.ts`; `studioGitWorktreeWorkspace.ts` (origin remote check).
+
+---
+
+## 7. Convergence qualification
+
+Immediate Product Proof lane only: PR #493 → Reproof08 gap → PR #495 → Reproof09 attempt1 STOP PRE-SPAWN (`docs_write_managed_repo_root_base_unconfigured`) → PR #496 → merge `0052037c` → **this Reproof09 REAL**.
+No diversion to Nora Stage A / Global Model / OpenAI LIVE / GCEC commit-push-PR / new Delivery / architecture hardening.
+
+---
+
+## 8. Prior failed Reproof09 forensic state
+
+Prior proof worktree `…-reproof-09-74ad6d3e` and its mutated isolated DB are **forensic only** (rematerialized successor + accepted Attempt + StartExecution STOP on managed base unconfigured).
+**Not reused** as campaign DB.
+
+---
+
+## 9–10. Fresh source DB + isolated DB provenance
 
 | Field | Value |
-|---|---|
-| Project | SFIA Studio |
-| Cycle | 8 — Delivery / implémentation |
-| Typology | EVOL |
-| Profile | CRITICAL |
-| Continuation | Same Product docs_write live managed-repository composition macro-cycle (PR #496) — NOT a new micro-cycle |
-| Capability | Governed Product docs_write with server-owned managed-repository resolution through real Product runtime composition |
-| Product Completion | CLOSED / COMPLETE |
-| Runtime v3 | NON ADOPTED |
-| Immediate trajectory | Product Proof / governed Product Journey |
-| Next (after merge + post-merge Required Gate + distinct Morris GO) | Authenticated Product Reproof09 REAL |
+|-------|-------|
+| Source path | `/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/product/oa-product.sqlite` |
+| Source sha256 | `a7a591379f521e9aa4d94f167ea4612cc488d4002a30abb3a070bbc572a27cc9` |
+| Source size | 3207168 |
+| Method | `sqlite3.Connection.backup` (transaction-consistent) |
+| Destination | `…/reproof09-real/product/oa-product.sqlite` |
+| Dest sha256 (initial) | `72aad490467e150fc2d935b5fb44e33bb265b56753ec8e302eaa698e18a2e469` |
+| Provenance | workspace Product seed matching prior campaign source hash class |
 
-CKC: Cycle 8 has no detailed CKC; synthetic map + cycle method are candidate fallback only (zero execution authority).
+Pre-snapshot verification: Project present; accepted HumanDecision; DecisionBasis same Project; repository binding; original M3; **relevant Attempt count = 0**; **no successor Attempt from prior failed campaign in SOURCE**.
 
 ---
 
-## 2. Local Git Truth (final)
+## 11. Authenticated Product entry
 
-| Check | Actual |
-|---|---|
-| pwd / toplevel | `/Users/morris/Projects/sfia-studio-live-managed-repo-composition` |
-| Branch | `delivery/sfia-studio-live-managed-repo-composition` |
-| Final HEAD | `95c51d5914ff0f8b6ca0b3d4f8cccb9177ce2fd8` |
-| Base `origin/main` | `74ad6d3ef59150db31d3cdfec18879bbf64a4e95` |
-| Remote branch tip | matches HEAD (pushed) |
-| PR | [#496](https://github.com/mcleland147/sfia-workspace/pull/496) — `feat(sfia-studio): complete live managed repository composition` |
-| Ahead/behind vs remote after push | 0 / 0 |
-| Main drift | none vs expected base; Product execution composition assumptions unchanged |
+- Surface: authenticated SFIA Studio Product UI (`localhost:3020`)
+- Session: real Product user / GitHub allowlist class (profile P)
+- Server-owned local Morris M3 authority: `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1`
+- No fixture auth; no synthetic Pilote injection; no direct StartExecution harness
 
-### Cumulative commit chain (`origin/main..HEAD`)
-
-1. `7636bb7102ddc97240d8af5b8cf739a0ec421456` — feat(sfia-studio): wire live managed repository composition
-2. `95c51d5914ff0f8b6ca0b3d4f8cccb9177ce2fd8` — fix(sfia-studio): prove bare default singleton managed-repo exit path
-
-### Cumulative changed files (`origin/main...HEAD`)
-
-```
-.gitignore                                         |    1 +
-projects/sfia-studio/app/.env.example              |   15 +
-.../liveManagedRepoComposition.d0.test.ts          | 1129 ++++++++++++++++++++
-.../composeStudioProductRealBoundary.ts            |   66 +-
-.../deterministicExternalLaunchBoundary.ts         |   33 +
-.../app/lib/vertical-slice-runtime/index.ts        |    5 +
-.../managedRepoRootBaseConfig.ts                   |   31 +
-.../app/lib/vertical-slice-runtime/singleton.ts    |    8 +
-8 files changed, 1283 insertions(+), 5 deletions(-)
-```
-
-### Blob SHAs at final HEAD
-
-| Path | Blob |
-|---|---|
-| liveManagedRepoComposition.d0.test.ts | `81dbf7cec8a12f4dae163ab25aac918347f9bcf8` |
-| deterministicExternalLaunchBoundary.ts | `9d5ff8b7bb6201ff759dd0026f55d13d7aacedb4` |
-| managedRepoRootBaseConfig.ts | `7838afdd86b6187e7ddfb9049ac7b7b4ec00c4da` |
-| singleton.ts | `218cf1557a13056bbd41a5422c854cff32601303` |
-| composeStudioProductRealBoundary.ts | `7699caa130df2fadb76e9edb9b79635a279eaff8` |
+Project opened: `prj:ae9bd0de-e24d-474f-880d-ff5ea56dbaf6` — display **Gestion de tâches**.
 
 ---
 
-## 3. Canonical sources read / convergence qualification
+## 12. Historical Project / Decision / original EC
 
-**Process / method (read, not modified):**
-- prompts/templates/sfia-cycle-execution-template.md
-- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-- method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
-- method/sfia-fast-track/core/sfia-rules-and-guardrails.md
-- method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md
-- method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/04-cycle-to-ckc-routing-matrix.md
-- method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md
+| ID | Value |
+|----|-------|
+| Project | `prj:ae9bd0de-e24d-474f-880d-ff5ea56dbaf6` |
+| Display | Gestion de tâches |
+| Proposal | `prop:f2:edba677a-123f-4f5e-baad-50533a65a3a0` |
+| HumanDecision | `dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411` |
+| Original M3 EC | `xct:m3:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411` |
+| Repository identity | `mcleland147/sfia-workspace` |
+| Historical target | `projects/sfia-studio/.sandbox/gestion-de-taches.md` |
+| Original Attempt count (pre) | **0** |
 
-**SFIA Studio convergence (read, not modified):**
-- projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
-- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-- projects/sfia-studio/product-completion/01-product-completion-cadrage.md
-- projects/sfia-studio/sfia-v3-framing/34-agent-capabilities-reversibility-and-execution-governance.md
-- projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md
-
-**Build Doctrine / Roadmap / C1 / v3:** read for qualification only — **zero edits**. Runtime v3 **NON ADOPTED**.
-
-**Product / PR #496 sources inspected before edit:**
-- cumulative `origin/main...HEAD`
-- liveManagedRepoComposition.d0.test.ts (primary)
-- singleton.ts, composeStudioProductRealBoundary.ts, deterministicExternalLaunchBoundary.ts
-- service.ts, managedRepoRootBaseConfig.ts, index.ts, .env.example
-- StartExecution / ManagedProjectRepositoryResolver / governedExecute / completeBoundedDocsWriteLaunch
-- SFIA_STUDIO_PRODUCT_DB_PATH resolution (paths.ts)
+Pre-rematerialize LPS/version observed: Project state v17; cycle `cyc:framing` active.
 
 ---
 
-## 4. Original Reproof09 root cause + prior ChatGPT Critical finding
+## 13–14. Rematerialization + successor M4 full fields
 
-### Reproof09 pre-spawn STOP (historical)
-
-Authenticated REAL campaign stopped at:
-`REAL_WORKSPACE_INVALID` / `docs_write_managed_repo_root_base_unconfigured`
-
-Root cause: default Product singleton did not propagate server-owned
-`SFIA_STUDIO_MANAGED_REPO_ROOT_BASE` into `composeStudioProductRealBoundary` /
-`StartExecution` managed-repo resolution.
-
-### PR #496 first commit (7636bb71) — accepted architecture
-
-Wired env → `defaultSingletonOptions` → `realBoundaryComposition.managedRepoRootBase`
-→ compose → StartExecution. Fail-closed when absent/unresolved. Deterministic
-tests used injected `FakeDocsWriteLaunchPort` via `realBoundaryComposition`.
-
-### ChatGPT Critical PRE-MERGE CHANGES REQUESTED (blocker closed by this correction)
-
-Positive Product path reached StartExecution with **caller-injected**
-`realBoundaryComposition.launchPort`. The test named approximately
-"truly default singleton options (no caller composition) carries env base"
-called `getRuntimeApplicationService()` with zero args but **did not exercise**
-the returned runtime — it re-composed a separate boundary and left the bare
-runtime unused.
-
-Therefore the claim **"DEFAULT PRODUCT SINGLETON … PROVEN END-TO-END"** was not
-supported. This correction closes that exit-proof gap only.
-
----
-
-## 5. Exact blocker closed
-
-**Before:** injected composition proven; bare zero-arg singleton E2E not proven.
-**After:** bare `getRuntimeApplicationService()` ZERO ARGS end-to-end through
-managed-repo StartExecution + exactly one DET launch proven.
-
----
-
-## 6. Implementation / modified content (exploitable)
-
-### 6.1 `managedRepoRootBaseConfig.ts` (full — NEW in PR)
-
-```ts
-/**
- * Server-owned managed repository root base for Product docs_write REAL composition.
- *
- * Operational precondition (no network clone in this capability):
- * under the configured absolute base, each Project.repositoryBinding.identity must
- * already exist as a local Git repository at
- * `{base}/{sanitizedIdentity}` (see ManagedProjectRepositoryResolver).
- *
- * Absent/blank → undefined (StartExecution fail-closed:
- * docs_write_managed_repo_root_base_unconfigured).
- *
- * Never accept client/EC absolute roots. Never expose via NEXT_PUBLIC_*.
- */
-import path from "node:path";
-
-export const SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV =
-  "SFIA_STUDIO_MANAGED_REPO_ROOT_BASE" as const;
-
-/**
- * Parse server env for managedRepoRootBase.
- * Returns absolute path or undefined when unset/blank.
- */
-export function resolveManagedRepoRootBaseFromEnv(
-  env: NodeJS.ProcessEnv | Record<string, string | undefined> = process.env,
-): string | undefined {
-  const raw = env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV];
-  if (typeof raw !== "string") return undefined;
-  const trimmed = raw.trim();
-  if (!trimmed) return undefined;
-  return path.resolve(trimmed);
-}
-
-```
-
-### 6.2 `singleton.ts` — `defaultSingletonOptions` (full file)
-
-```ts
-import "./serverGuard";
-import {
-  createRuntimeApplicationService,
-  type RuntimeApplicationService,
-  type RuntimeApplicationServiceOptions,
-} from "./service";
-import { resolveManagedRepoRootBaseFromEnv } from "./managedRepoRootBaseConfig";
-
-/**
- * D-V2-02: process-local singleton holder.
- * Business state lives in the underlying V1 in-memory stores for this process only.
- * Not safe across serverless multi-instance deployments — disclosures say so.
- *
- * Anchored on `globalThis` so Next.js route/chunk graphs that reload this module
- * still share one process-local instance (create on /new → get on /[id]).
- * This is not durable persistence and not a cross-process store.
- */
-const RUNTIME_GLOBAL_KEY = "__SFIA_V2_RUNTIME_APPLICATION_SERVICE__" as const;
-
-type ProcessLocalRuntimeSlot = {
-  service: RuntimeApplicationService | null;
-  options: RuntimeApplicationServiceOptions | undefined;
-};
-
-function getProcessLocalRuntimeSlot(): ProcessLocalRuntimeSlot {
-  const g = globalThis as typeof globalThis & {
-    [RUNTIME_GLOBAL_KEY]?: ProcessLocalRuntimeSlot;
-  };
-  if (!g[RUNTIME_GLOBAL_KEY]) {
-    g[RUNTIME_GLOBAL_KEY] = { service: null, options: undefined };
-  }
-  return g[RUNTIME_GLOBAL_KEY];
-}
-
-function envAuditMode(): RuntimeApplicationServiceOptions["auditMode"] {
-  const raw = process.env.SFIA_V2_RUNTIME_AUDIT?.trim().toLowerCase();
-  if (raw === "memory" || raw === "sqlite" || raw === "noop") return raw;
-  return "noop";
-}
-
-function defaultSingletonOptions(): RuntimeApplicationServiceOptions {
-  const managedRepoRootBase = resolveManagedRepoRootBaseFromEnv();
-  return {
-    auditMode: envAuditMode(),
-    nowIso: process.env.SFIA_V2_RUNTIME_NOW_ISO || undefined,
-    // Live Product path: propagate server-owned managed repo base into REAL
-    // composition when configured. Absent/blank stays omit → StartExecution
-    // fail-closed (docs_write_managed_repo_root_base_unconfigured).
-    ...(managedRepoRootBase
-      ? { realBoundaryComposition: { managedRepoRootBase } }
-      : {}),
-  };
-}
-
-/**
- * Returns the process-local RuntimeApplicationService, creating it once.
- * Optional `options` apply only on first creation (or after test reset).
- */
-export function getRuntimeApplicationService(
-  options?: RuntimeApplicationServiceOptions,
-): RuntimeApplicationService {
-  const slot = getProcessLocalRuntimeSlot();
-  if (!slot.service) {
-    slot.options = options ?? defaultSingletonOptions();
-    slot.service = createRuntimeApplicationService(slot.options);
-  }
-  return slot.service;
-}
-
-export function isRuntimeApplicationServiceInitialized(): boolean {
-  return getProcessLocalRuntimeSlot().service !== null;
-}
-
-/**
- * Test-only reset. Throws outside test / explicit allow flag.
- */
-export function resetRuntimeApplicationServiceForTests(): void {
-  const allowed =
-    process.env.NODE_ENV === "test" ||
-    process.env.SFIA_V2_RUNTIME_ALLOW_RESET === "1";
-  if (!allowed) {
-    throw new Error(
-      "resetRuntimeApplicationServiceForTests is only allowed in test environments.",
-    );
-  }
-  const slot = getProcessLocalRuntimeSlot();
-  try {
-    slot.service?.dispose();
-  } catch {
-    /* ignore */
-  }
-  slot.service = null;
-  slot.options = undefined;
-}
-
-```
-
-### 6.3 `composeStudioProductRealBoundary.ts` — DET path carries managed base
-
-Key excerpt:
-
-```ts
-export function composeStudioProductRealBoundary(
-  input: ComposeStudioProductRealBoundaryInput = {},
-): RealBoundaryWiring | undefined {
-  const env = input.env ?? process.env;
-  assertDeterministicAndRealMutuallyExclusive(env);
-  const managedRepoRootBase = resolveComposeManagedRepoRootBase(input);
-  if (isDeterministicCursorBoundaryEnabled(env)) {
-    const det = composeDeterministicCursorBoundary(env);
-    return Object.freeze({
-      ...det,
-      ...(managedRepoRootBase ? { managedRepoRootBase } : {}),
-    });
-  }
-  // ... REAL path unchanged except managedFreeze propagation
-}
-```
-
-Full compose file at blob `7699caa130df2fadb76e9edb9b79635a279eaff8`.
-
-### 6.4 `deterministicExternalLaunchBoundary.ts` — observation-only DET docs_write support
-
-Tiny TEST/E2E-only change so `completeBoundedDocsWriteLaunch` can verify against
-the managed clone without inventing a second Product path:
-
-- set `worktreeRef` from `request.managedRepoRoot`
-- when `docsWriteSpec.targetPath` present, write allowlisted file under managed root
-- preserve `worktreeRef` across observe/awaitCompletion
-- still `boundaryProofMode = "deterministic_fake"`; ZERO OS Cursor REAL
-
-Full file:
-
-```ts
-/**
- * TEST/E2E-ONLY deterministic Cursor external-boundary double.
- *
- * Substitutes NodeCursorProcessRunner / StudioCursorRealLaunchGateway /
- * subprocess Cursor CLI. It does NOT seed ExecutionAttempt, ExecutionContract,
- * Evidence, or ReviewBundle — those remain product orchestration outputs.
- *
- * Fail-closed. Mutually exclusive with SFIA_STUDIO_CURSOR_REAL=1.
- *
- * When StartExecution supplies managedRepoRoot (+ optional docsWriteSpec), this
- * port mirrors FakeDocsWrite observation shape enough for docs-write verify:
- * worktreeRef + a single allowlisted target write. Still ZERO OS Cursor REAL.
- */
-import fs from "node:fs";
-import path from "node:path";
-import {
-  M4_REAL_GATEWAY_ADAPTER_ID,
-  MemoryLaunchSafetyJournal,
-  type RealBoundaryWiring,
-  type RealExecutionLaunchPort,
-  type RealLaunchRequest,
-  type RealLaunchResult,
-  type RealProcessObservation,
-} from "@/lib/oa/execution-attempt";
-
-export const SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY_FLAG =
-  "SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY" as const;
-
-export const DETERMINISTIC_AND_REAL_MUTUALLY_EXCLUSIVE =
-  "DETERMINISTIC AND REAL EXECUTION MODES NOT MUTUALLY EXCLUSIVE" as const;
-
-const DETERMINISTIC_STDOUT =
-  "DETERMINISTIC_TEST_BOUNDARY_CURSOR_COMPLETION\nZERO REAL\n";
-
-export type DeterministicCursorBoundaryEnv = NodeJS.ProcessEnv;
-
-export function isDeterministicCursorBoundaryEnabled(
-  env: DeterministicCursorBoundaryEnv = process.env,
-): boolean {
-  if (env.NODE_ENV === "production") return false;
-  if (env[SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY_FLAG] !== "1") {
-    return false;
-  }
-  if (env.SFIA_STUDIO_E2E_QA_CONTROL !== "1") return false;
-  if (env.OPS1_CONVERSATION_PROVIDER !== "fake") return false;
-  if (env.OPS1_E2E_ALLOW_DIRTY_PRINCIPAL !== "1") return false;
-  if (env.SFIA_STUDIO_CURSOR_REAL === "1") return false;
-  if (env.OPS1_CURSOR_REAL === "1") return false;
-  return true;
-}
-
-export function assertDeterministicAndRealMutuallyExclusive(
-  env: DeterministicCursorBoundaryEnv = process.env,
-): void {
-  if (
-    env[SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY_FLAG] === "1" &&
-    (env.SFIA_STUDIO_CURSOR_REAL === "1" || env.OPS1_CURSOR_REAL === "1")
-  ) {
-    throw new Error(DETERMINISTIC_AND_REAL_MUTUALLY_EXCLUSIVE);
-  }
-}
-
-function pendingObserveLimitFromEnv(
-  env: DeterministicCursorBoundaryEnv,
-): number {
-  const raw = env.SFIA_STUDIO_E2E_DETERMINISTIC_PENDING_OBSERVES;
-  if (!raw) return 2;
-  const parsed = Number.parseInt(raw, 10);
-  if (!Number.isFinite(parsed) || parsed < 1) return 2;
-  return parsed;
-}
-
-export type TestOnlyDeterministicCursorLaunchPortOptions = {
-  readonly gatewayId?: string;
-  /** How many observe() calls stay pending before terminal. Default 2. */
-  readonly pendingObserveLimit?: number;
-  readonly completionStdout?: string;
-  readonly completionExitCode?: number;
-  readonly completionTimedOut?: boolean;
-  readonly nowMs?: () => number;
-};
-
-/**
- * Simulated external Cursor ACK / observe / completion.
- * realProcessInvoked on the ACK is the launch-port contract (spawn ACK),
- * not a claim that an OS Cursor process exists.
- */
-export class TestOnlyDeterministicCursorLaunchPort
-  implements RealExecutionLaunchPort
-{
-  readonly gatewayId: string;
-  readonly externalEffects = true as const;
-  readonly boundaryProofMode = "deterministic_fake" as const;
-  readonly calls: RealLaunchRequest[] = [];
-  readonly simulatedTechnicalAckCount = { value: 0 };
-  private readonly pendingObserveLimit: number;
-  private readonly completionStdout: string;
-  private readonly completionExitCode: number;
-  private readonly completionTimedOut: boolean;
-  private readonly nowMs: () => number;
-  private observeCount = 0;
-  private readonly observations = new Map<string, RealProcessObservation>();
-  private readonly launchedAtMs = new Map<string, number>();
-  private readonly timeoutMsByRef = new Map<string, number>();
-
-  constructor(options: TestOnlyDeterministicCursorLaunchPortOptions = {}) {
-    this.gatewayId = options.gatewayId ?? M4_REAL_GATEWAY_ADAPTER_ID;
-    this.pendingObserveLimit = options.pendingObserveLimit ?? 2;
-    this.completionStdout = options.completionStdout ?? DETERMINISTIC_STDOUT;
-    this.completionExitCode = options.completionExitCode ?? 0;
-    this.completionTimedOut = options.completionTimedOut ?? false;
-    this.nowMs = options.nowMs ?? Date.now;
-  }
-
-  get launchCallCount(): number {
-    return this.calls.length;
-  }
-
-  get simulatedAckCount(): number {
-    return this.simulatedTechnicalAckCount.value;
-  }
-
-  get observeCallCount(): number {
-    return this.observeCount;
-  }
-
-  reset(): void {
-    this.calls.length = 0;
-    this.simulatedTechnicalAckCount.value = 0;
-    this.observeCount = 0;
-    this.observations.clear();
-    this.launchedAtMs.clear();
-    this.timeoutMsByRef.clear();
-  }
-
-  async launch(request: RealLaunchRequest): Promise<RealLaunchResult> {
-    this.calls.push(structuredClone(request));
-    this.simulatedTechnicalAckCount.value += 1;
-    const processRef = `proc:det:${request.attemptId}`;
-    this.launchedAtMs.set(processRef, this.nowMs());
-    this.timeoutMsByRef.set(processRef, request.timeoutMs);
-
-    // Observation-only: surface managed clone as worktreeRef so Product
-    // completeBoundedDocsWriteLaunch can independently verify file effects.
-    const managedRoot = request.managedRepoRoot?.trim();
-    const worktreeRef = managedRoot ? path.resolve(managedRoot) : undefined;
-    const spec = request.docsWriteSpec;
-    if (worktreeRef && spec?.targetPath?.trim()) {
-      const rel = spec.targetPath.replace(/\\/g, "/").replace(/^\.\//, "").trim();
-      if (rel && !rel.includes("..")) {
-        const abs = path.resolve(worktreeRef, ...rel.split("/"));
-        if (abs === worktreeRef || abs.startsWith(worktreeRef + path.sep)) {
-          fs.mkdirSync(path.dirname(abs), { recursive: true });
-          const brief = spec.artifactBrief?.trim() || "Deterministic docs-write substitute";
-          fs.writeFileSync(
-            abs,
-            `# ${brief}\n\nDETERMINISTIC_TEST_BOUNDARY_DOCS_WRITE\nZERO REAL\n`,
-            "utf8",
-          );
-        }
-      }
-    }
-
-    this.observations.set(processRef, {
-      processRef,
-      exitCode: null,
-      timedOut: false,
-      stdout: "",
-      stderr: "",
-      durationMs: 0,
-      realProcessInvoked: true,
-      ...(worktreeRef ? { worktreeRef } : {}),
-    });
-    return {
-      outcome: "ack",
-      gatewayId: this.gatewayId,
-      attemptId: request.attemptId,
-      realProcessInvoked: true,
-      processRef,
-    };
-  }
-
-  async observe(processRef: string): Promise<RealProcessObservation | null> {
-    const current = this.observations.get(processRef);
-    if (!current) return null;
-    this.observeCount += 1;
-    const launchedAt = this.launchedAtMs.get(processRef) ?? this.nowMs();
-    const timeoutMs = this.timeoutMsByRef.get(processRef);
-    const elapsed = this.nowMs() - launchedAt;
-    const pastDeadline =
-      typeof timeoutMs === "number" && Number.isFinite(timeoutMs)
-        ? elapsed >= timeoutMs
-        : false;
-    const worktreeRef = current.worktreeRef;
-    if (this.completionTimedOut || pastDeadline) {
-      const timedOut: RealProcessObservation = {
-        processRef,
-        exitCode: null,
-        timedOut: true,
-        stdout: "",
-        stderr: "deterministic_timeout",
-        durationMs: elapsed,
-        realProcessInvoked: true,
-        ...(worktreeRef ? { worktreeRef } : {}),
-      };
-      this.observations.set(processRef, timedOut);
-      return timedOut;
-    }
-    if (this.observeCount <= this.pendingObserveLimit) {
-      const pending: RealProcessObservation = {
-        ...current,
-        exitCode: null,
-        timedOut: false,
-        durationMs: elapsed,
-        realProcessInvoked: true,
-        ...(worktreeRef ? { worktreeRef } : {}),
-      };
-      this.observations.set(processRef, pending);
-      return pending;
-    }
-    const done: RealProcessObservation = {
-      processRef,
-      exitCode: this.completionExitCode,
-      timedOut: false,
-      stdout: this.completionExitCode === 0 ? this.completionStdout : "",
-      stderr: this.completionExitCode === 0 ? "" : "deterministic_failure",
-      durationMs: Math.max(elapsed, 1),
-      realProcessInvoked: true,
-      ...(worktreeRef ? { worktreeRef } : {}),
-    };
-    this.observations.set(processRef, done);
-    return done;
-  }
-
-  async awaitCompletion(
-    processRef: string,
-  ): Promise<RealProcessObservation | null> {
-    const current = this.observations.get(processRef);
-    if (!current) return null;
-    if (current.exitCode !== null || current.timedOut) return current;
-    return this.observe(processRef);
-  }
-}
-
-export function composeDeterministicCursorBoundary(
-  env: DeterministicCursorBoundaryEnv = process.env,
-): RealBoundaryWiring {
-  const launchPort = new TestOnlyDeterministicCursorLaunchPort({
-    pendingObserveLimit: pendingObserveLimitFromEnv(env),
-  });
-  return Object.freeze({
-    launchPort,
-    safetyJournal: new MemoryLaunchSafetyJournal(),
-  });
-}
-
-```
-
-### 6.5 Exit-proof test — binding zero-arg call
-
-From `liveManagedRepoComposition.d0.test.ts` (blob `81dbf7ce…`, 1129 lines full file in tree):
-
-```ts
-  resetRuntimeApplicationServiceForTests();
-  // BINDING EXIT CALL — zero arguments. No options / composition injection.
-  const runtime = getRuntimeApplicationService();
-  const oa = runtime.oa;
-  expect(oa).toBeTruthy();
-  ...
-  expect(
-    oa.executionAttemptServices.realBoundary?.managedRepoRootBase,
-  ).toBe(path.resolve(input.managedBase));
-  const launchPort = detLaunchPortOf(oa);
-  expect(launchPort.boundaryProofMode).toBe("deterministic_fake");
-  expect(launchPort.launchCallCount).toBe(0);
-```
-
-Env arming (existing DET flags only; REAL stays 0):
-
-```ts
-function armDeterministicBoundaryEnv(managedBase: string, productDbPath: string): void {
-  process.env.SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY = "1";
-  process.env.SFIA_STUDIO_E2E_QA_CONTROL = "1";
-  process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-  process.env.OPS1_E2E_ALLOW_DIRTY_PRINCIPAL = "1";
-  process.env.SFIA_STUDIO_E2E_DETERMINISTIC_PENDING_OBSERVES = "0";
-  process.env.SFIA_STUDIO_CURSOR_REAL = "0";
-  process.env.OPS1_CURSOR_REAL = "0";
-  process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV] = managedBase;
-  process.env.SFIA_STUDIO_PRODUCT_DB_PATH = productDbPath; // existing isolation
-  process.env.SFIA_V2_RUNTIME_NOW_ISO = NOW;
-}
-```
-
-CASE EXIT assertions after governed execute:
-
-```ts
-    expect(ctx.launchPort.launchCallCount).toBe(0);
-    const executed = await governedExecuteAuthorizedContract({ ... });
-    expect(executed.ok).toBe(true);
-    expect(ctx.launchPort.launchCallCount).toBe(1);
-    expect(ctx.launchPort.boundaryProofMode).toBe("deterministic_fake");
-    expect(executed.realExecution).toBe(false);
-    expect(req?.docsWriteSpec?.targetPath).toBe("docs/functional-design.md");
-    expect(req?.managedRepoRoot).toBe(repoRoot);
-    expect(req?.baseHeadSha).toBe(baseHeadSha);
-```
-
-**Proof no caller `realBoundaryComposition` enters the exit case:** the exit boot
-helper calls `getRuntimeApplicationService()` with literally zero arguments after
-env setup. Injected FakeDocsWrite paths are quarantined under describe title
-`injected FakeDocsWrite composition regression (NOT exit proof)`.
-
-### 6.6 Full exit-proof test file (complete content)
-
-```ts
-/**
- * Live managed-repository composition — bare default Product singleton exit proof.
- *
- * Closes Reproof09 pre-spawn STOP:
- *   REAL_WORKSPACE_INVALID / docs_write_managed_repo_root_base_unconfigured
- *
- * BINDING EXIT PROOF (CASE EXIT):
- *   server env → getRuntimeApplicationService() ZERO ARGS → returned runtime
- *   → deterministic RealBoundaryWiring + managedRepoRootBase
- *   → canonical Product Journey → StartExecution → ManagedProjectRepositoryResolver
- *   → exactly ONE TestOnlyDeterministicCursorLaunchPort launch → ZERO OS Cursor REAL
- *
- * Lower-level injected `realBoundaryComposition` probes remain labeled as such —
- * they are NOT the exit proof.
- *
- * ZERO Cursor REAL process. ZERO OpenAI LIVE. ZERO Nora LIVE.
- *
- * @vitest-environment node
- */
-import { execFileSync } from "node:child_process";
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
-import {
-  FakeCursorGitExternalState,
-  FakeDocsWriteLaunchPort,
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-  M4_BOUNDED_DOCS_WRITE_SCOPE,
-  M4_BOUNDED_DOCS_WRITE_TARGET,
-  MemoryLaunchSafetyJournal,
-  isStudioCursorRealEnabled,
-  sanitizeManagedRepoIdentity,
-} from "@/lib/oa/execution-attempt";
-import { prepareAndResolveM3ProductPath } from "@/features/project-assistant/f3/prepareAndResolveM3ProductPath";
-import { analyzeIntent } from "@/features/project-assistant/f2/intentAnalysis";
-import {
-  createProposalId,
-  F2_PROCESS_LOCAL_NOTICE,
-  resetF2ProposalStoreForTests,
-  saveProposal,
-} from "@/features/project-assistant/f2/proposalStore";
-import { recordF2Decision } from "@/features/project-assistant/f2/recordDecision";
-import {
-  FakeConversationProvider,
-  setConversationProviderForTests,
-} from "@/lib/platform/ai";
-import type { LocalProjectIdSource } from "@/lib/vertical-slice-core";
-import {
-  composeStudioProductRealBoundary,
-  getRuntimeApplicationService,
-  resetRuntimeApplicationServiceForTests,
-  resolveManagedRepoRootBaseFromEnv,
-  SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV,
-  type RuntimeApplicationService,
-  type RuntimeOaStack,
-} from "@/lib/vertical-slice-runtime";
-import {
-  TestOnlyDeterministicCursorLaunchPort,
-} from "@/lib/vertical-slice-runtime/deterministicExternalLaunchBoundary";
-import {
-  NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
-  prepareCandidateTrajectoryFromCurrentRecommendation,
-  prepareCycleFromValidatedTrajectory,
-  startPreparedTrajectoryCycle,
-  materializeLifecycleRecommendationFromStructuredOutput,
-  resolveTrajectoryBootstrapPresence,
-} from "@/lib/oa/cycle";
-import { PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
-import {
-  approveCandidateTrajectory,
-  buildPreCycleCandidateApprovalPresentation,
-} from "@/features/project-assistant/approveCandidateTrajectory";
-import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
-import { confirmExecutionContractForAuthorization } from "@/features/project-assistant/w2/confirmForAuthorization";
-import { evaluateExecutionAuthorization } from "@/features/project-assistant/w2/authorizeExecutionContract";
-import {
-  governedExecuteAuthorizedContract,
-} from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
-
-const APP_ROOT = path.resolve(__dirname, "../..");
-const REGISTRY_ROOT = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
-const SCHEMAS_ROOT = path.resolve(
-  APP_ROOT,
-  "../sfia-v3-modeled/v3-native-option-a/schemas",
-);
-
-const IDENTITY = "acme/widget";
-const BRANCH = "main";
-const NOW = "2026-09-17T08:00:00.000Z";
-const PILOTE = LOCAL_PILOTE_ACTOR;
-const SIGNALS_LIGHT = {
-  structuralChange: false,
-  securityImpact: false,
-  architectureImpact: false,
-  dataImpact: false,
-  irreversible: false,
-  lowRiskBounded: true,
-} as const;
-
-const ENV_KEYS = [
-  "SFIA_STUDIO_CURSOR_REAL",
-  "OPS1_CURSOR_REAL",
-  "SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY",
-  "SFIA_STUDIO_E2E_QA_CONTROL",
-  "OPS1_E2E_ALLOW_DIRTY_PRINCIPAL",
-  "SFIA_STUDIO_E2E_DETERMINISTIC_PENDING_OBSERVES",
-  "SFIA_STUDIO_PRODUCT_DB_PATH",
-  "SFIA_V2_RUNTIME_NOW_ISO",
-  SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV,
-] as const;
-
-const tempRoots: string[] = [];
-let cursorRealExternalLaunches = 0;
-let openAiLiveCalls = 0;
-let noraLiveCalls = 0;
-
-function tempDir(prefix: string): string {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), prefix));
-  tempRoots.push(dir);
-  return dir;
-}
-
-function clearManagedEnv(): void {
-  for (const key of ENV_KEYS) {
-    delete process.env[key];
-  }
-  process.env.SFIA_STUDIO_CURSOR_REAL = "0";
-  process.env.OPS1_CURSOR_REAL = "0";
-  process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-}
-
-/** Arm existing env-controlled deterministic Cursor boundary (REAL stays OFF). */
-function armDeterministicBoundaryEnv(managedBase: string, productDbPath: string): void {
-  process.env.SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY = "1";
-  process.env.SFIA_STUDIO_E2E_QA_CONTROL = "1";
-  process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-  process.env.OPS1_E2E_ALLOW_DIRTY_PRINCIPAL = "1";
-  process.env.SFIA_STUDIO_E2E_DETERMINISTIC_PENDING_OBSERVES = "0";
-  process.env.SFIA_STUDIO_CURSOR_REAL = "0";
-  process.env.OPS1_CURSOR_REAL = "0";
-  process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV] = managedBase;
-  process.env.SFIA_STUDIO_PRODUCT_DB_PATH = productDbPath;
-  process.env.SFIA_V2_RUNTIME_NOW_ISO = NOW;
-}
-
-function initManagedRepo(managedBase: string, identity: string) {
-  fs.mkdirSync(managedBase, { recursive: true });
-  const repoRoot = path.join(
-    managedBase,
-    sanitizeManagedRepoIdentity(identity),
-  );
-  fs.mkdirSync(path.join(repoRoot, "docs"), { recursive: true });
-  fs.writeFileSync(path.join(repoRoot, "docs", ".keep"), "");
-  execFileSync("git", ["init"], { cwd: repoRoot });
-  execFileSync("git", ["config", "user.email", "test@example.com"], {
-    cwd: repoRoot,
-  });
-  execFileSync("git", ["config", "user.name", "Test"], { cwd: repoRoot });
-  execFileSync("git", ["add", "."], { cwd: repoRoot });
-  execFileSync("git", ["commit", "-m", "init"], { cwd: repoRoot });
-  const baseHeadSha = execFileSync("git", ["rev-parse", "HEAD"], {
-    cwd: repoRoot,
-    encoding: "utf8",
-  }).trim();
-  return { repoRoot, baseHeadSha };
-}
-
-function detLaunchPortOf(
-  oa: RuntimeOaStack,
-): TestOnlyDeterministicCursorLaunchPort {
-  const port = oa.executionAttemptServices.realBoundary?.launchPort;
-  expect(port).toBeInstanceOf(TestOnlyDeterministicCursorLaunchPort);
-  return port as TestOnlyDeterministicCursorLaunchPort;
-}
-
-class FixedIdSource implements LocalProjectIdSource {
-  private n = 0;
-  constructor(private readonly prefix: string) {}
-  nextProjectId(): string {
-    this.n += 1;
-    return `prj:lmr-${this.prefix}-${this.n}`;
-  }
-  nextLpsVersionId(): string {
-    this.n += 1;
-    return `lps:lmr-${this.prefix}-${this.n}`;
-  }
-  nextCorrelationId(): string {
-    this.n += 1;
-    return `cor:lmr-${this.prefix}-${this.n}`;
-  }
-}
-
-beforeEach(() => {
-  clearManagedEnv();
-  cursorRealExternalLaunches = 0;
-  openAiLiveCalls = 0;
-  noraLiveCalls = 0;
-  process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-  process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
-  process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
-  setConversationProviderForTests(null);
-  resetF2ProposalStoreForTests();
-  resetRuntimeApplicationServiceForTests();
-});
-
-afterEach(() => {
-  clearManagedEnv();
-  setConversationProviderForTests(null);
-  resetF2ProposalStoreForTests();
-  resetRuntimeApplicationServiceForTests();
-  while (tempRoots.length) {
-    const d = tempRoots.pop();
-    if (d) {
-      try {
-        fs.rmSync(d, { recursive: true, force: true });
-      } catch {
-        /* ignore */
-      }
-    }
-  }
-  expect(cursorRealExternalLaunches).toBe(0);
-  expect(openAiLiveCalls).toBe(0);
-  expect(noraLiveCalls).toBe(0);
-  expect(isStudioCursorRealEnabled()).toBe(false);
-});
-
-describe("managedRepoRootBase env parse", () => {
-  it("absent / blank → undefined (fail-closed input)", () => {
-    expect(resolveManagedRepoRootBaseFromEnv({})).toBeUndefined();
-    expect(
-      resolveManagedRepoRootBaseFromEnv({
-        [SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]: "",
-      }),
-    ).toBeUndefined();
-    expect(
-      resolveManagedRepoRootBaseFromEnv({
-        [SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]: "   ",
-      }),
-    ).toBeUndefined();
-  });
-
-  it("configured path resolves absolute", () => {
-    const raw = path.join(tempDir("sfia-lmr-env-"), "managed");
-    fs.mkdirSync(raw, { recursive: true });
-    const resolved = resolveManagedRepoRootBaseFromEnv({
-      [SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]: raw,
-    });
-    expect(resolved).toBe(path.resolve(raw));
-  });
-});
-
-describe("CASE A — REAL OFF + DET OFF", () => {
-  it("default singleton creates no REAL/DET boundary / no managed side-effect", () => {
-    process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV] = path.join(
-      tempDir("sfia-lmr-a-"),
-      "managed",
-    );
-    expect(isStudioCursorRealEnabled()).toBe(false);
-    const off = composeStudioProductRealBoundary({ env: process.env });
-    expect(off).toBeUndefined();
-
-    const root = tempDir("sfia-lmr-a-svc-");
-    const runtime = getRuntimeApplicationService({
-      registryRoot: REGISTRY_ROOT,
-      schemasRoot: SCHEMAS_ROOT,
-      nowIso: NOW,
-      idSource: new FixedIdSource("a"),
-      auditMode: "noop",
-      productDbPath: path.join(root, "oa.sqlite"),
-    });
-    expect(runtime.oa?.executionAttemptServices.realBoundary).toBeUndefined();
-  });
-});
-
-describe("lower-level composition probes (NOT the exit proof)", () => {
-  it("injected realBoundaryComposition carries env managed base (composition unit)", () => {
-    const managedBase = path.join(tempDir("sfia-lmr-comp-"), "managed");
-    fs.mkdirSync(managedBase, { recursive: true });
-    process.env.SFIA_STUDIO_CURSOR_REAL = "1";
-    process.env.OPS1_CURSOR_REAL = "0";
-    process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV] = managedBase;
-
-    const root = tempDir("sfia-lmr-comp-svc-");
-    const fakeLaunch = new FakeDocsWriteLaunchPort({
-      worktreeRoot: managedBase,
-      pathAllowlist: ["docs/"],
-      defaultBranch: BRANCH,
-      repositoryRef: IDENTITY,
-    });
-    const runtime = getRuntimeApplicationService({
-      registryRoot: REGISTRY_ROOT,
-      schemasRoot: SCHEMAS_ROOT,
-      nowIso: NOW,
-      idSource: new FixedIdSource("comp"),
-      auditMode: "noop",
-      productDbPath: path.join(root, "oa.sqlite"),
-      realBoundaryComposition: {
-        launchPort: fakeLaunch,
-        safetyJournal: new MemoryLaunchSafetyJournal(),
-        env: process.env,
-      },
-    });
-    const base =
-      runtime.oa?.executionAttemptServices.realBoundary?.managedRepoRootBase;
-    expect(base).toBe(path.resolve(managedBase));
-    expect(fakeLaunch.calls.length).toBe(0);
-  });
-});
-
-/**
- * Product Journey on the EXACT runtime returned by zero-arg singleton.
- * No RuntimeApplicationServiceOptions at getRuntimeApplicationService().
- */
-async function bootBareSingletonDocsWriteJourney(input: {
-  suffix: string;
-  managedBase: string;
-  baseHeadSha: string;
-}): Promise<{
-  runtime: RuntimeApplicationService;
-  oa: RuntimeOaStack;
-  projectId: string;
-  cycleInstanceId: string;
-  decisionId: string;
-  baseHeadSha: string;
-  launchPort: TestOnlyDeterministicCursorLaunchPort;
-  currentContext: {
-    projectId: string;
-    lpsId: string;
-    lpsVersion: number;
-    doctrineDigest: string;
-    activeCycleInstanceId: string;
-  };
-}> {
-  const productDbPath = path.join(
-    tempDir(`sfia-lmr-${input.suffix}-db-`),
-    "oa-product.sqlite",
-  );
-  armDeterministicBoundaryEnv(input.managedBase, productDbPath);
-
-  resetRuntimeApplicationServiceForTests();
-  // BINDING EXIT CALL — zero arguments. No options / composition injection.
-  const runtime = getRuntimeApplicationService();
-  const oa = runtime.oa;
-  expect(oa).toBeTruthy();
-  if (!oa) throw new Error("bare singleton missing oa");
-
-  expect(
-    oa.executionAttemptServices.realBoundary?.managedRepoRootBase,
-  ).toBe(path.resolve(input.managedBase));
-  const launchPort = detLaunchPortOf(oa);
-  expect(launchPort.boundaryProofMode).toBe("deterministic_fake");
-  expect(launchPort.launchCallCount).toBe(0);
-
-  const created = await runtime.createProject({
-    name: `LMR ${input.suffix}`,
-    objective: "Live managed repo composition bare singleton",
-    context: "delivery",
-    criticality: "STANDARD",
-    constraints: ["ZERO LIVE", "ZERO REAL"],
-    shortReference: `LMR${input.suffix}`.slice(0, 8),
-    idempotencyKey: `idem:lmr-bare-${input.suffix}-${Date.now()}`,
-  });
-  expect(created.ok).toBe(true);
-  if (!created.ok) throw new Error("createProject");
-  const projectId = created.project.projectId;
-
-  const bound = await oa.projectServices.setProjectRepositoryBinding.execute({
-    projectId,
-    actor: PILOTE,
-    binding: {
-      provider: "github",
-      identity: IDENTITY,
-      remoteUrl: `https://github.com/${IDENTITY}.git`,
-      defaultBranch: BRANCH,
-      pathRoot: "docs",
-      baseSha: input.baseHeadSha,
-    },
-  });
-  expect(bound.ok).toBe(true);
-
-  const cycles0 = await oa.cycleServices.cycles.listByProject(projectId);
-  const decisions0 = await oa.decisionServices.decisions.listByProject(projectId);
-  const lpsBoot = await oa.projectServices.getCurrentLivingProjectState.execute({
-    projectId,
-  });
-  if (!lpsBoot.ok) throw new Error("lps");
-  const presence = await resolveTrajectoryBootstrapPresence(
-    oa.cycleServices.trajectories,
-    projectId,
-  );
-  const projectBoot = await oa.projectServices.getProject.execute({ projectId });
-  if (!projectBoot.ok || !projectBoot.project.doctrinePackageRef) {
-    throw new Error("doctrine pin missing");
-  }
-  const pin = projectBoot.project.doctrinePackageRef;
-
-  const mat = await materializeLifecycleRecommendationFromStructuredOutput({
-    projectId,
-    structuredOutput: {
-      narrative: "LMR Next cycle.",
-      preCycleRoutingAssessment: {
-        ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT,
-      },
-      lifecycleRecommendation: {
-        intent: "NEXT_CYCLE" as const,
-        statement: "Design fonctionnel.",
-        subjectCycleInstanceId: null,
-        targetCycleInstanceId: null,
-        targetCycleTypeId: "cyc:functional-design",
-        rationale: "LMR bare singleton",
-        authority: "none" as const,
-        isHumanDecision: false as const,
-        qualificationSignals: { ...SIGNALS_LIGHT },
-      },
-    },
-    updateEpistemicState: oa.cycleServices.updateEpistemicState,
-    facts: {
-      cycles: cycles0,
-      lpsActiveCycleInstanceId: lpsBoot.livingProjectState.activeCycleInstanceId,
-      lpsVersion: lpsBoot.livingProjectState.version,
-      doctrinePackageId: pin.doctrinePackageId,
-      doctrinePackageVersion: pin.version,
-      doctrinePackageDigest: pin.digest,
-      trajectory: null,
-      trajectoryBootstrapPresence: presence,
-      decisions: decisions0,
-      evidence: [],
-      epistemicItems: await oa.cycleServices.epistemic.listByProject(projectId),
-    },
-    producedAt: NOW,
-    createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
-  });
-  if (!mat.materialization?.ok) {
-    throw new Error(
-      `materialization failed: ${JSON.stringify(mat, null, 2).slice(0, 2000)}`,
-    );
-  }
-
-  const bridgeDeps = {
-    trajectories: oa.cycleServices.trajectories,
-    createInitialTrajectory: oa.cycleServices.createInitialTrajectory,
-    updateEpistemicState: oa.cycleServices.updateEpistemicState,
-    runInTransaction: ((fn: () => Promise<unknown>) =>
-      oa.projectServices.store.runInTransaction(fn)) as <T>(
-      fn: () => Promise<T>,
-    ) => Promise<T>,
-    listEpistemicByProject: (pid: string) =>
-      oa.cycleServices.epistemic.listByProject(pid),
-    listCyclesByProject: (pid: string) =>
-      oa.cycleServices.cycles.listByProject(pid),
-    listDecisionsByProject: (pid: string) =>
-      oa.decisionServices.decisions.listByProject(pid),
-    listEvidenceByProject: (pid: string) =>
-      oa.evidenceReviewServices.repository.listByProject(pid),
-    getCurrentLps: (pid: string) =>
-      oa.projectServices.getCurrentLivingProjectState.execute({
-        projectId: pid,
-      }),
-    getProjectDoctrinePin: async (pid: string) => {
-      const p = await oa.projectServices.getProject.execute({ projectId: pid });
-      if (!p.ok) return null;
-      const d = p.project.doctrinePackageRef;
-      return d
-        ? {
-            doctrinePackageId: d.doctrinePackageId,
-            version: d.version,
-            digest: d.digest,
-          }
-        : null;
-    },
-    newTrajectoryId: () => `trj:lmr-bare-${input.suffix}`,
-    newStepId: () => `stp:lmr-bare-${input.suffix}`,
-    newProvenanceObservationId: () => `epi:lmr-bare-${input.suffix}`,
-    correlationId: `cor:lmr-bare-bridge-${input.suffix}`,
-  };
-
-  const candidate = await prepareCandidateTrajectoryFromCurrentRecommendation({
-    projectId,
-    deps: bridgeDeps,
-  });
-  expect(candidate.ok).toBe(true);
-  const presentation = await buildPreCycleCandidateApprovalPresentation({
-    oa,
-    projectId,
-  });
-  expect(presentation.ok && presentation.presentation).toBeTruthy();
-  if (!presentation.ok || !presentation.presentation) {
-    throw new Error("presentation");
-  }
-  const approved = await approveCandidateTrajectory({
-    oa,
-    projectId,
-    presentationDigest: presentation.presentation.presentationDigest,
-    forceLocalAuthority: true,
-  });
-  expect(approved.ok).toBe(true);
-  const prep = await prepareCycleFromValidatedTrajectory({ oa, projectId });
-  expect(prep.ok).toBe(true);
-  if (!prep.ok) throw new Error(prep.code);
-  const startedCycle = await startPreparedTrajectoryCycle({
-    oa,
-    projectId,
-    cycleInstanceId: prep.cycle.cycleInstanceId,
-    forceLocalAuthority: true,
-  });
-  expect(startedCycle.ok).toBe(true);
-  if (!startedCycle.ok) throw new Error(startedCycle.code);
-  const cycleInstanceId = startedCycle.cycle.cycleInstanceId;
-
-  const overview = await runtime.getProject(projectId);
-  expect(overview.ok).toBe(true);
-  if (!overview.ok) throw new Error("overview");
-  const provider = new FakeConversationProvider();
-  const analyzed = await analyzeIntent({
-    userContent: "__F2_DOCS_WRITE_GCEC__ produce functional design",
-    projectSummary: overview.project.name ?? "LMR",
-    provider,
-  });
-  const snapshot = {
-    projectId,
-    lpsId: overview.livingState.id,
-    lpsVersion: overview.livingState.version,
-    doctrineDigest: overview.doctrine.digest,
-    activeCycleInstanceId: cycleInstanceId,
-    ckcResolutionRef: null as string | null,
-  };
-  const proposal = saveProposal({
-    proposalId: createProposalId(),
-    status: "DECISION_REQUIRED",
-    rephrasedRequest: analyzed.analysis.rephrasedRequest ?? "docs write",
-    objective: analyzed.analysis.objective ?? "FD",
-    cycleTypeId:
-      analyzed.analysis.candidateCycleTypeId ?? "cyc:functional-design",
-    recommendedProfile: "Standard",
-    rationale: "LMR bare singleton exit",
-    scope: analyzed.analysis.scope ?? "docs/",
-    outOfScope: analyzed.analysis.outOfScope,
-    activatedBlocks: analyzed.analysis.activatedBlocks,
-    expectedOutcome: analyzed.analysis.expectedOutcome ?? "artifact",
-    sources: [],
-    risks: analyzed.analysis.risks,
-    reservations: analyzed.analysis.reservations,
-    stopConditions: analyzed.analysis.stopConditions,
-    morrisGateRequired: true,
-    nextPossibleStep: "F3 PREPARE",
-    contextSnapshot: snapshot,
-    processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
-    executionForbidden: true,
-    noExecutingStatus: true,
-    agentBinding: "NOT_AVAILABLE",
-    requestedOperation: analyzed.analysis.requestedOperation,
-    executionIntent: analyzed.analysis.executionIntent,
-  });
-  const go = await recordF2Decision({
-    proposalId: proposal.proposalId,
-    projectId,
-    decisionKind: "GO",
-    currentContext: snapshot,
-    decisionServices: oa.decisionServices,
-    authorityResolver: oa.authorityResolver,
-    nowIso: () => oa.clock.nowIso(),
-    forceM3Authority: true,
-  });
-  expect(go.ok).toBe(true);
-  if (!go.ok) throw new Error("go");
-  const decisionId = go.decision.decisionId;
-  const overviewAfter = await runtime.getProject(projectId);
-  if (!overviewAfter.ok) throw new Error("overviewAfter");
-
-  return {
-    runtime,
-    oa,
-    projectId,
-    cycleInstanceId,
-    decisionId,
-    baseHeadSha: input.baseHeadSha,
-    launchPort,
-    currentContext: {
-      projectId,
-      lpsId: overviewAfter.livingState.id,
-      lpsVersion: overviewAfter.livingState.version,
-      doctrineDigest: overviewAfter.doctrine.digest,
-      activeCycleInstanceId: cycleInstanceId,
-    },
-  };
-}
-
-describe("CASE B/C — fail-close + CASE EXIT bare zero-arg singleton", () => {
-  it("CASE B — DET ON + managed base absent → wiring omits base (Reproof09 STOP shape)", () => {
-    const root = tempDir("sfia-lmr-b-");
-    const productDbPath = path.join(root, "oa-product.sqlite");
-    armDeterministicBoundaryEnv(path.join(root, "unused"), productDbPath);
-    delete process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV];
-
-    resetRuntimeApplicationServiceForTests();
-    const runtime = getRuntimeApplicationService();
-    expect(
-      runtime.oa?.executionAttemptServices.realBoundary?.managedRepoRootBase,
-    ).toBeUndefined();
-    expect(runtime.oa?.executionAttemptServices.realBoundary?.launchPort).toBeInstanceOf(
-      TestOnlyDeterministicCursorLaunchPort,
-    );
-    expect(
-      composeStudioProductRealBoundary({ env: process.env })?.managedRepoRootBase,
-    ).toBeUndefined();
-  });
-
-  it("CASE C — bare singleton + managed base + repo missing → unresolved, zero launch", async () => {
-    const root = tempDir("sfia-lmr-c-");
-    const managedBase = path.join(root, "managed");
-    fs.mkdirSync(managedBase, { recursive: true });
-    // Need a valid sha for EC; create orphan repo elsewhere for baseHead only
-    const { baseHeadSha } = initManagedRepo(path.join(root, "sha-source"), IDENTITY);
-
-    const ctx = await bootBareSingletonDocsWriteJourney({
-      suffix: "c",
-      managedBase,
-      baseHeadSha,
-    });
-
-    const prepared = await prepareAndResolveM3ProductPath({
-      projectId: ctx.projectId,
-      decisionId: ctx.decisionId,
-      currentContext: ctx.currentContext,
-      deps: {
-        decisionServices: ctx.oa.decisionServices,
-        authorityResolver: ctx.oa.authorityResolver,
-        executionContractServices: ctx.oa.executionContractServices,
-        nowIso: () => ctx.oa.clock.nowIso(),
-        forceM3Authority: true,
-        preferBoundedDocsWriteProfile: true,
-        boundedDocsWriteBaseHeadSha: ctx.baseHeadSha,
-      },
-    });
-    expect(prepared.ok).toBe(true);
-    if (!prepared.ok) return;
-    const successor = prepared.payload.successor;
-
-    const inspected = await inspectExecutionContract({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: successor.executionContractId,
-    });
-    expect(inspected.ok).toBe(true);
-    if (!inspected.ok) return;
-
-    const confirmed = await confirmExecutionContractForAuthorization({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: successor.executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(confirmed.ok).toBe(true);
-    if (!confirmed.ok) return;
-
-    const auth = await evaluateExecutionAuthorization({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: successor.executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(auth.ok).toBe(true);
-    if (!auth.ok) return;
-    expect(auth.outcome).toBe("AUTHORIZED");
-
-    const launchBefore = ctx.launchPort.launchCallCount;
-    const executed = await governedExecuteAuthorizedContract({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: successor.executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(executed.ok).toBe(false);
-    if (executed.ok) return;
-    const blob = JSON.stringify(executed);
-    expect(blob).toMatch(
-      /docs_write_managed_repo_unresolved|REAL_WORKSPACE_INVALID/,
-    );
-    expect(ctx.launchPort.launchCallCount).toBe(launchBefore);
-  });
-
-  it("CASE EXIT — bare getRuntimeApplicationService() ZERO ARGS → one DET launch (ZERO REAL)", async () => {
-    const root = tempDir("sfia-lmr-exit-");
-    const managedBase = path.join(root, "managed");
-    const { repoRoot, baseHeadSha } = initManagedRepo(managedBase, IDENTITY);
-    expect(fs.existsSync(path.join(repoRoot, ".git"))).toBe(true);
-
-    const ctx = await bootBareSingletonDocsWriteJourney({
-      suffix: "exit",
-      managedBase,
-      baseHeadSha,
-    });
-
-    // Direct assertions against the ACTUAL returned zero-arg runtime
-    expect(ctx.runtime.oa).toBe(ctx.oa);
-    expect(
-      ctx.oa.executionAttemptServices.realBoundary?.managedRepoRootBase,
-    ).toBe(path.resolve(managedBase));
-    expect(ctx.launchPort).toBeInstanceOf(TestOnlyDeterministicCursorLaunchPort);
-    expect(ctx.launchPort.boundaryProofMode).toBe("deterministic_fake");
-    expect(isStudioCursorRealEnabled()).toBe(false);
-
-    const prepared = await prepareAndResolveM3ProductPath({
-      projectId: ctx.projectId,
-      decisionId: ctx.decisionId,
-      currentContext: ctx.currentContext,
-      deps: {
-        decisionServices: ctx.oa.decisionServices,
-        authorityResolver: ctx.oa.authorityResolver,
-        executionContractServices: ctx.oa.executionContractServices,
-        nowIso: () => ctx.oa.clock.nowIso(),
-        forceM3Authority: true,
-        preferBoundedDocsWriteProfile: true,
-        boundedDocsWriteBaseHeadSha: ctx.baseHeadSha,
-      },
-    });
-    expect(prepared.ok).toBe(true);
-    if (!prepared.ok) return;
-    const successor = prepared.payload.successor;
-    expect(successor.action).toBe(M4_BOUNDED_DOCS_WRITE_ACTION);
-    expect(successor.target).toBe(M4_BOUNDED_DOCS_WRITE_TARGET);
-    expect(successor.scope).toBe(M4_BOUNDED_DOCS_WRITE_SCOPE);
-
-    const inspected = await inspectExecutionContract({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: successor.executionContractId,
-    });
-    expect(inspected.ok).toBe(true);
-    if (!inspected.ok) return;
-
-    const confirmed = await confirmExecutionContractForAuthorization({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: successor.executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(confirmed.ok).toBe(true);
-    if (!confirmed.ok) return;
-
-    const auth = await evaluateExecutionAuthorization({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: successor.executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(auth.ok).toBe(true);
-    if (!auth.ok) return;
-    expect(auth.outcome).toBe("AUTHORIZED");
-
-    expect(ctx.launchPort.launchCallCount).toBe(0);
-    const executed = await governedExecuteAuthorizedContract({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: successor.executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(executed.ok).toBe(true);
-    if (!executed.ok) {
-      throw new Error(JSON.stringify(executed).slice(0, 2000));
-    }
-    expect(ctx.launchPort.launchCallCount).toBe(1);
-    expect(ctx.launchPort.boundaryProofMode).toBe("deterministic_fake");
-    expect(executed.realExecution).toBe(false);
-
-    const req = ctx.launchPort.calls[0];
-    expect(req).toBeDefined();
-    expect(req?.docsWriteSpec?.targetPath).toBe("docs/functional-design.md");
-    expect(successor.target).toBe(M4_BOUNDED_DOCS_WRITE_TARGET);
-    expect(req?.managedRepoRoot).toBe(repoRoot);
-    expect(req?.baseHeadSha).toBe(baseHeadSha);
-    expect(req?.repositoryBinding?.identity ?? req?.docsWriteSpec?.repositoryRef).toBe(
-      IDENTITY,
-    );
-
-    expect(cursorRealExternalLaunches).toBe(0);
-    expect(openAiLiveCalls).toBe(0);
-    expect(noraLiveCalls).toBe(0);
-  });
-});
-
-/** Legacy injected FakeDocsWrite path retained as non-exit composition regression. */
-describe("injected FakeDocsWrite composition regression (NOT exit proof)", () => {
-  async function bootInjectedFakeJourney(input: {
-    suffix: string;
-    managedBase: string;
-    repoRoot: string;
-    baseHeadSha: string;
-    fakeLaunch: FakeDocsWriteLaunchPort;
-  }) {
-    const root = tempDir(`sfia-lmr-inj-${input.suffix}-`);
-    process.env.SFIA_STUDIO_CURSOR_REAL = "1";
-    process.env.OPS1_CURSOR_REAL = "0";
-    process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV] = input.managedBase;
-
-    const runtime = getRuntimeApplicationService({
-      registryRoot: REGISTRY_ROOT,
-      schemasRoot: SCHEMAS_ROOT,
-      nowIso: NOW,
-      idSource: new FixedIdSource(input.suffix),
-      auditMode: "noop",
-      productDbPath: path.join(root, "oa.sqlite"),
-      realBoundaryComposition: {
-        launchPort: input.fakeLaunch,
-        safetyJournal: new MemoryLaunchSafetyJournal(),
-        env: process.env,
-      },
-    });
-    const oa = runtime.oa!;
-    expect(
-      oa.executionAttemptServices.realBoundary?.managedRepoRootBase,
-    ).toBe(path.resolve(input.managedBase));
-
-    const created = await runtime.createProject({
-      name: `LMR inj ${input.suffix}`,
-      objective: "Injected composition regression",
-      context: "delivery",
-      criticality: "STANDARD",
-      constraints: ["ZERO LIVE"],
-      shortReference: `INJ${input.suffix}`.slice(0, 8),
-      idempotencyKey: `idem:lmr-inj-${input.suffix}`,
-    });
-    expect(created.ok).toBe(true);
-    if (!created.ok) throw new Error("createProject");
-    const projectId = created.project.projectId;
-
-    const bound = await oa.projectServices.setProjectRepositoryBinding.execute({
-      projectId,
-      actor: PILOTE,
-      binding: {
-        provider: "github",
-        identity: IDENTITY,
-        remoteUrl: `https://github.com/${IDENTITY}.git`,
-        defaultBranch: BRANCH,
-        pathRoot: "docs",
-        baseSha: input.baseHeadSha,
-      },
-    });
-    expect(bound.ok).toBe(true);
-
-    const cycles0 = await oa.cycleServices.cycles.listByProject(projectId);
-    const decisions0 = await oa.decisionServices.decisions.listByProject(projectId);
-    const lpsBoot = await oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId,
-    });
-    if (!lpsBoot.ok) throw new Error("lps");
-    const presence = await resolveTrajectoryBootstrapPresence(
-      oa.cycleServices.trajectories,
-      projectId,
-    );
-    const projectBoot = await oa.projectServices.getProject.execute({ projectId });
-    if (!projectBoot.ok || !projectBoot.project.doctrinePackageRef) {
-      throw new Error("doctrine pin missing");
-    }
-    const pin = projectBoot.project.doctrinePackageRef;
-
-    const mat = await materializeLifecycleRecommendationFromStructuredOutput({
-      projectId,
-      structuredOutput: {
-        narrative: "LMR inj Next cycle.",
-        preCycleRoutingAssessment: {
-          ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT,
-        },
-        lifecycleRecommendation: {
-          intent: "NEXT_CYCLE" as const,
-          statement: "Design fonctionnel.",
-          subjectCycleInstanceId: null,
-          targetCycleInstanceId: null,
-          targetCycleTypeId: "cyc:functional-design",
-          rationale: "LMR inj",
-          authority: "none" as const,
-          isHumanDecision: false as const,
-          qualificationSignals: { ...SIGNALS_LIGHT },
-        },
-      },
-      updateEpistemicState: oa.cycleServices.updateEpistemicState,
-      facts: {
-        cycles: cycles0,
-        lpsActiveCycleInstanceId: lpsBoot.livingProjectState.activeCycleInstanceId,
-        lpsVersion: lpsBoot.livingProjectState.version,
-        doctrinePackageId: pin.doctrinePackageId,
-        doctrinePackageVersion: pin.version,
-        doctrinePackageDigest: pin.digest,
-        trajectory: null,
-        trajectoryBootstrapPresence: presence,
-        decisions: decisions0,
-        evidence: [],
-        epistemicItems: await oa.cycleServices.epistemic.listByProject(projectId),
-      },
-      producedAt: NOW,
-      createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
-    });
-    if (!mat.materialization?.ok) {
-      throw new Error(
-        `materialization failed: ${JSON.stringify(mat, null, 2).slice(0, 2000)}`,
-      );
-    }
-
-    const bridgeDeps = {
-      trajectories: oa.cycleServices.trajectories,
-      createInitialTrajectory: oa.cycleServices.createInitialTrajectory,
-      updateEpistemicState: oa.cycleServices.updateEpistemicState,
-      runInTransaction: ((fn: () => Promise<unknown>) =>
-        oa.projectServices.store.runInTransaction(fn)) as <T>(
-        fn: () => Promise<T>,
-      ) => Promise<T>,
-      listEpistemicByProject: (pid: string) =>
-        oa.cycleServices.epistemic.listByProject(pid),
-      listCyclesByProject: (pid: string) =>
-        oa.cycleServices.cycles.listByProject(pid),
-      listDecisionsByProject: (pid: string) =>
-        oa.decisionServices.decisions.listByProject(pid),
-      listEvidenceByProject: (pid: string) =>
-        oa.evidenceReviewServices.repository.listByProject(pid),
-      getCurrentLps: (pid: string) =>
-        oa.projectServices.getCurrentLivingProjectState.execute({
-          projectId: pid,
-        }),
-      getProjectDoctrinePin: async (pid: string) => {
-        const p = await oa.projectServices.getProject.execute({ projectId: pid });
-        if (!p.ok) return null;
-        const d = p.project.doctrinePackageRef;
-        return d
-          ? {
-              doctrinePackageId: d.doctrinePackageId,
-              version: d.version,
-              digest: d.digest,
-            }
-          : null;
-      },
-      newTrajectoryId: () => `trj:lmr-inj-${input.suffix}`,
-      newStepId: () => `stp:lmr-inj-${input.suffix}`,
-      newProvenanceObservationId: () => `epi:lmr-inj-${input.suffix}`,
-      correlationId: `cor:lmr-inj-bridge-${input.suffix}`,
-    };
-
-    const candidate = await prepareCandidateTrajectoryFromCurrentRecommendation({
-      projectId,
-      deps: bridgeDeps,
-    });
-    expect(candidate.ok).toBe(true);
-    const presentation = await buildPreCycleCandidateApprovalPresentation({
-      oa,
-      projectId,
-    });
-    expect(presentation.ok && presentation.presentation).toBeTruthy();
-    if (!presentation.ok || !presentation.presentation) {
-      throw new Error("presentation");
-    }
-    const approved = await approveCandidateTrajectory({
-      oa,
-      projectId,
-      presentationDigest: presentation.presentation.presentationDigest,
-      forceLocalAuthority: true,
-    });
-    expect(approved.ok).toBe(true);
-    const prep = await prepareCycleFromValidatedTrajectory({ oa, projectId });
-    expect(prep.ok).toBe(true);
-    if (!prep.ok) throw new Error(prep.code);
-    const startedCycle = await startPreparedTrajectoryCycle({
-      oa,
-      projectId,
-      cycleInstanceId: prep.cycle.cycleInstanceId,
-      forceLocalAuthority: true,
-    });
-    expect(startedCycle.ok).toBe(true);
-    if (!startedCycle.ok) throw new Error(startedCycle.code);
-    const cycleInstanceId = startedCycle.cycle.cycleInstanceId;
-
-    const overview = await runtime.getProject(projectId);
-    expect(overview.ok).toBe(true);
-    if (!overview.ok) throw new Error("overview");
-    const provider = new FakeConversationProvider();
-    const analyzed = await analyzeIntent({
-      userContent: "__F2_DOCS_WRITE_GCEC__ produce functional design",
-      projectSummary: overview.project.name ?? "LMR",
-      provider,
-    });
-    const snapshot = {
-      projectId,
-      lpsId: overview.livingState.id,
-      lpsVersion: overview.livingState.version,
-      doctrineDigest: overview.doctrine.digest,
-      activeCycleInstanceId: cycleInstanceId,
-      ckcResolutionRef: null as string | null,
-    };
-    const proposal = saveProposal({
-      proposalId: createProposalId(),
-      status: "DECISION_REQUIRED",
-      rephrasedRequest: analyzed.analysis.rephrasedRequest ?? "docs write",
-      objective: analyzed.analysis.objective ?? "FD",
-      cycleTypeId:
-        analyzed.analysis.candidateCycleTypeId ?? "cyc:functional-design",
-      recommendedProfile: "Standard",
-      rationale: "LMR inj",
-      scope: analyzed.analysis.scope ?? "docs/",
-      outOfScope: analyzed.analysis.outOfScope,
-      activatedBlocks: analyzed.analysis.activatedBlocks,
-      expectedOutcome: analyzed.analysis.expectedOutcome ?? "artifact",
-      sources: [],
-      risks: analyzed.analysis.risks,
-      reservations: analyzed.analysis.reservations,
-      stopConditions: analyzed.analysis.stopConditions,
-      morrisGateRequired: true,
-      nextPossibleStep: "F3 PREPARE",
-      contextSnapshot: snapshot,
-      processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
-      executionForbidden: true,
-      noExecutingStatus: true,
-      agentBinding: "NOT_AVAILABLE",
-      requestedOperation: analyzed.analysis.requestedOperation,
-      executionIntent: analyzed.analysis.executionIntent,
-    });
-    const go = await recordF2Decision({
-      proposalId: proposal.proposalId,
-      projectId,
-      decisionKind: "GO",
-      currentContext: snapshot,
-      decisionServices: oa.decisionServices,
-      authorityResolver: oa.authorityResolver,
-      nowIso: () => oa.clock.nowIso(),
-      forceM3Authority: true,
-    });
-    expect(go.ok).toBe(true);
-    if (!go.ok) throw new Error("go");
-    const overviewAfter = await runtime.getProject(projectId);
-    if (!overviewAfter.ok) throw new Error("overviewAfter");
-
-    return {
-      runtime,
-      oa,
-      projectId,
-      cycleInstanceId,
-      decisionId: go.decision.decisionId,
-      baseHeadSha: input.baseHeadSha,
-      fakeLaunch: input.fakeLaunch,
-      currentContext: {
-        projectId,
-        lpsId: overviewAfter.livingState.id,
-        lpsVersion: overviewAfter.livingState.version,
-        doctrineDigest: overviewAfter.doctrine.digest,
-        activeCycleInstanceId: cycleInstanceId,
-      },
-    };
-  }
-
-  it("injected FakeDocsWrite + valid repo still reaches one launch", async () => {
-    const root = tempDir("sfia-lmr-inj-d-");
-    const managedBase = path.join(root, "managed");
-    const { repoRoot, baseHeadSha } = initManagedRepo(managedBase, IDENTITY);
-    const gitState = new FakeCursorGitExternalState({
-      worktreeRoot: repoRoot,
-      initialBranch: BRANCH,
-      initialSha: baseHeadSha,
-    });
-    const fakeLaunch = new FakeDocsWriteLaunchPort({
-      worktreeRoot: repoRoot,
-      pathAllowlist: ["docs/"],
-      defaultBranch: BRANCH,
-      repositoryRef: IDENTITY,
-      gitState,
-    });
-
-    const ctx = await bootInjectedFakeJourney({
-      suffix: "d",
-      managedBase,
-      repoRoot,
-      baseHeadSha,
-      fakeLaunch,
-    });
-
-    const prepared = await prepareAndResolveM3ProductPath({
-      projectId: ctx.projectId,
-      decisionId: ctx.decisionId,
-      currentContext: ctx.currentContext,
-      deps: {
-        decisionServices: ctx.oa.decisionServices,
-        authorityResolver: ctx.oa.authorityResolver,
-        executionContractServices: ctx.oa.executionContractServices,
-        nowIso: () => ctx.oa.clock.nowIso(),
-        forceM3Authority: true,
-        preferBoundedDocsWriteProfile: true,
-        boundedDocsWriteBaseHeadSha: ctx.baseHeadSha,
-      },
-    });
-    expect(prepared.ok).toBe(true);
-    if (!prepared.ok) return;
-    const successor = prepared.payload.successor;
-
-    const inspected = await inspectExecutionContract({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: successor.executionContractId,
-    });
-    expect(inspected.ok).toBe(true);
-    if (!inspected.ok) return;
-
-    const confirmed = await confirmExecutionContractForAuthorization({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: successor.executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(confirmed.ok).toBe(true);
-    if (!confirmed.ok) return;
-
-    const auth = await evaluateExecutionAuthorization({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: successor.executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(auth.ok && auth.outcome === "AUTHORIZED").toBe(true);
-
-    const launchBefore = ctx.fakeLaunch.calls.length;
-    const executed = await governedExecuteAuthorizedContract({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: successor.executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(executed.ok).toBe(true);
-    if (!executed.ok) throw new Error(JSON.stringify(executed).slice(0, 2000));
-    expect(ctx.fakeLaunch.calls.length).toBe(launchBefore + 1);
-    expect(executed.realExecution).toBe(false);
-  });
-});
-
-```
-
-### 6.7 `.env.example` managed-base block (tail)
-
-```
-GITHUB_CLIENT_SECRET=replace-with-github-oauth-app-client-secret
-
-# Server-owned multi-user allowlist — immutable GitHub numeric user ids (comma-separated)
-# Example placeholders only (not real accounts):
-SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS=11111111,22222222
-
-# ---------------------------------------------------------------------------
-# Server-owned managed repository base (docs_write REAL composition)
-# ---------------------------------------------------------------------------
-# Absolute directory under which Project.repositoryBinding.identity maps to a
-# local Git checkout: {SFIA_STUDIO_MANAGED_REPO_ROOT_BASE}/{sanitizedIdentity}
-# (see ManagedProjectRepositoryResolver). Required when SFIA_STUDIO_CURSOR_REAL=1
-# and Product StartExecution runs bounded docs_write.
-#
-# Operational precondition: the managed clone must already exist locally.
-# This variable does not clone, fetch, or mutate remotes.
-# Absent/blank → fail-closed (docs_write_managed_repo_root_base_unconfigured).
-# Never set NEXT_PUBLIC_* for this path. Never put secrets here.
-# Example (local only — replace with your host absolute path):
-# SFIA_STUDIO_MANAGED_REPO_ROOT_BASE=/absolute/path/to/managed-repos
-```
-
-### 6.8 index exports (managed base)
-
-```ts
-import "./serverGuard";
-
-export {
-  RUNTIME_DISCLOSURES,
-  RUNTIME_DISCLOSURE_MESSAGES,
-  RUNTIME_READINESS_NOT_READY,
-  type RuntimeDisclosures,
-  type RuntimeReadinessProjection,
-} from "./disclosures";
-export {
-  toCreateLocalProjectCommand,
-  toCreateProjectRuntimeFailure,
-  toCreateProjectRuntimeSuccess,
-  toGetProjectRuntimeFailure,
-  toGetProjectRuntimeSuccess,
-  toListProjectsRuntimeFailure,
-  toListProjectsRuntimeSuccess,
-  toRuntimeErrorDto,
-  toRuntimeProjectListItem,
-  toRuntimeProjectState,
-} from "./mapping";
-export { resolveDefaultVerticalSliceRoots, resolveProductDoctrineRegistryRoot } from "./paths";
-export {
-  RuntimeApplicationService,
-  createRuntimeApplicationService,
-  type RuntimeApplicationServiceOptions,
-  type RuntimeAuditMode,
-  type RuntimeOaStack,
-} from "./service";
-export {
-  composeStudioProductRealBoundary,
-  findGitToplevelByDotGit,
-  resolveComposeManagedRepoRootBase,
-  resolveStudioSfiaExecRoot,
-  type ComposeStudioProductRealBoundaryInput,
-} from "./composeStudioProductRealBoundary";
-export {
-  resolveManagedRepoRootBaseFromEnv,
-  SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV,
-} from "./managedRepoRootBaseConfig";
-export {
-  resolveBoundedReadOnlyBaseHeadSha,
-  validateBaseHeadSha,
-} from "./resolveBoundedReadOnlyBaseHeadSha";
-export {
-  readLiveProjectContext,
-  type LiveProjectContext,
-} from "./liveProjectContext";
-export {
-  getRuntimeApplicationService,
-  isRuntimeApplicationServiceInitialized,
-  resetRuntimeApplicationServiceForTests,
-} from "./singleton";
-export type {
-  CreateProjectRuntimeInput,
-  CreateProjectRuntimeResult,
-  GetProjectRuntimeResult,
-  ListProjectsRuntimeResult,
-  RuntimeCriticality,
-  RuntimeDoctrineState,
-  RuntimeErrorDto,
-  RuntimeLivingProjectState,
-  RuntimeProjectListItem,
-  RuntimeProjectState,
-} from "./types";
-
-```
-
----
-
-## 7. Product path traversed (CASE EXIT)
-
-1. Server env: DET boundary ON + REAL OFF + `SFIA_STUDIO_MANAGED_REPO_ROOT_BASE` + `SFIA_STUDIO_PRODUCT_DB_PATH`
-2. `resetRuntimeApplicationServiceForTests()` then `getRuntimeApplicationService()` **ZERO ARGS**
-3. Assert returned `runtime.oa.executionAttemptServices.realBoundary.managedRepoRootBase`
-4. Assert launch port is `TestOnlyDeterministicCursorLaunchPort` / `deterministic_fake`
-5. `createProject` → `setProjectRepositoryBinding` (identity `acme/widget`)
-6. Trajectory bootstrap → approve → prepare cycle → start cycle
-7. F2 intent `__F2_DOCS_WRITE_GCEC__` → proposal → HumanDecision GO
-8. `prepareAndResolveM3ProductPath` (preferBoundedDocsWriteProfile) → M4 docs_write EC
-9. Inspect → Confirm → Authority AUTHORIZED
-10. `governedExecuteAuthorizedContract` (not direct StartExecution bypass)
-11. StartExecution → ManagedProjectRepositoryResolver → managed clone under base
-12. Exactly ONE DET launch; `executed.realExecution === false`
-13. Evidence / ReviewBundle produced by normal Product completion path
-
----
-
-## 8. Deterministic boundary / ZERO REAL proof
-
-| Counter | Value |
-|---|---|
-| DET launch count before Execute | 0 |
-| DET launch count after Execute | **1** |
-| Cursor OS REAL spawn | **0** |
-| StudioCursorRealLaunchGateway live dispatch | **0** (`SFIA_STUDIO_CURSOR_REAL=0`) |
-| OpenAI LIVE | **0** (`OPS1_CONVERSATION_PROVIDER=fake`) |
-| Nora LIVE | **0** |
-
-Fake/Real qualification: DET proven for bare default Product singleton end-to-end.
-REAL BOUNDARY PROVEN / END-TO-END REAL / Reproof09 PASS — **FORBIDDEN / NOT CLAIMED**.
-
----
-
-## 9. Negative fail-close proofs
-
-| Case | Result |
-|---|---|
-| CASE A — REAL OFF + DET OFF | no realBoundary; no managed side-effect |
-| CASE B — DET ON + managed base absent | wiring omits `managedRepoRootBase` (Reproof09 STOP shape) |
-| CASE C — bare singleton + base set + repo missing | `docs_write_managed_repo_unresolved` / `REAL_WORKSPACE_INVALID`; launch count unchanged (0) |
-| CASE EXIT — bare singleton + valid managed repo | exactly 1 DET launch |
-
----
-
-## 10. Optional relative-path hardening decision
-
-**NOT CHANGED in this correction.**
-`resolveManagedRepoRootBaseFromEnv` still accepts a non-absolute string and returns
-`path.resolve(trimmed)` (accepted-and-resolved). Residual consideration only —
-documented here; did not expand macro scope.
-
----
-
-## 11. Validation (local)
-
-| Suite | Result |
-|---|---|
-| Focused `liveManagedRepoComposition.d0.test.ts` | **8 passed** |
-| Related `deterministicCursorBoundary.test.ts` + `runtimeApplicationService.test.ts` | **20 passed** |
-| Related `__tests__/project-assistant` + `__tests__/oa/execution-attempt` | **1287 passed** (93 files) |
-| `npm run typecheck` | **PASS** |
-| `npm run lint` | **PASS** (0 warnings/errors) |
-| `npm run build` | **PASS** |
-| Full `npm test` (Vitest) | **4194 passed / 137 skipped** (375 files passed / 17 skipped) |
-
-Deterministic launch counts in exit case: 0 → 1. Cursor REAL / OpenAI LIVE / Nora LIVE: all **0**.
-
----
-
-## 12. PR #496 / Final CI / Required Gate
+CTA: **Actualiser le contrat d'exécution** (Product UI).
 
 | Field | Value |
-|---|---|
-| PR | https://github.com/mcleland147/sfia-workspace/pull/496 |
-| Final head SHA | `95c51d5914ff0f8b6ca0b3d4f8cccb9177ce2fd8` |
-| CI run | https://github.com/mcleland147/sfia-workspace/actions/runs/35199319861 |
-| CI run ID | `35199319861` |
-| Detect SFIA Studio changes | PASS |
-| Build and validate SFIA Studio | PASS |
-| **SFIA Studio Required Gate** | **PASS** |
-| Conclusion | **success** at exact final head |
+|-------|-------|
+| Original after | status **superseded**, version **4**, fp `088eead1…` |
+| Successor ID | `xct:m3-res:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411` |
+| Successor supersedes | original M3 |
+| Action | `cursor.docs_write.apply` |
+| Target | `workspace.isolated.docs_write` |
+| Scope | `studio.gcec.docs_write` |
+| Required capability | `cap:cursor.docs_write` |
+| targetPath | `projects/sfia-studio/.sandbox/gestion-de-taches.md` |
+| pathAllowlist | `projects/sfia-studio/.sandbox` |
+| noDelete | true |
+| PREPARE_ONLY / NO_CURSOR_REAL / NO_ATTEMPT / NO_GATE_D | **absent** |
+| repositoryIdentity | `mcleland147/sfia-workspace` |
+| remoteUrl (sealed in inputs) | `https://github.com/mcleland147/sfia-workspace.git` |
+| baseHeadSha | `0052037c9a18a5d72f896876af8ce46e4ee2cf94` |
+| artifactType | `deliverable_document` |
+| artifactBrief / contentRequirements | fiche de cadrage fonctionnel minimale (gestion de tâches) — truncated in DB dump; sealed in EC inputs |
+| expectedOutputs | `[projects/sfia-studio/.sandbox/gestion-de-taches.md]` |
+| constraints | BOUNDED DOCS-WRITE, PATH_ALLOWLIST_ONLY, TEXT_DOCS_ONLY, NO_DELETE, NO_COMMIT, NO_GIT_REMOTE, NO_PUSH, NO_PR, NO_MERGE, GATE D REQUIRED, NO WILDCARD |
+| Successor Attempt count before Execute | **0** |
+
+After Confirm: successor **version 3**, status **confirmed**, semantic fingerprint **`c6726ba166fe8ab0d3dfad69b8b66adb9ff735ce94f6f80c65b9c3df7e929533`** (authority + Attempt bound to this fp; pre-dispatch checkpoint recorded earlier rematerialize-era fp `827c4943…` before confirm fingerprint settlement).
 
 ---
 
-## 13. Drift / anti-claims checklist
+## 15–18. Sealed baseHeadSha + managed repo + target pre-state
 
-| Item | Status |
-|---|---|
-| Architecture / persistence / schema drift | **0** |
-| Workflow mutation | **0** |
-| Parallel Product execution path | **0** |
-| Clone/fetch manager | **0** |
-| Cursor REAL | **0** |
-| OpenAI LIVE | **0** |
-| Nora LIVE | **0** |
-| Merge | **NOT AUTHORIZED / NOT PERFORMED** |
-| Authenticated Reproof09 REAL | **NOT AUTHORIZED** |
-| Runtime v3 | **NON ADOPTED** |
-| READY FOR REAL as automatic state | **FORBIDDEN CLAIM** |
-
----
-
-## 14. Reservations
-
-1. DET substitute still does not spawn an OS Cursor process (known realism gap).
-2. Relative managed-base env strings remain accepted via `path.resolve` (optional hardening deferred).
-3. Managed clone remains an operational precondition (no provisioning in this PR).
-4. Injected FakeDocsWrite regression tests remain for lower-level composition only — must not be misread as the exit proof.
-5. Authenticated Reproof09 REAL requires merge + post-merge Required Gate + distinct Morris GO.
+| Field | Value |
+|-------|-------|
+| Sealed baseHeadSha | `0052037c9a18a5d72f896876af8ce46e4ee2cf94` |
+| Managed base | `/tmp/sfia-r09` |
+| Sanitized identity | `mcleland147__sfia-workspace` |
+| Managed root | `/tmp/sfia-r09/mcleland147__sfia-workspace` |
+| Provisioning | local `git clone --shared` from `/Users/morris/Projects/sfia-workspace` (no network) |
+| Pre-dispatch HEAD | `0052037c…` (matches sealed) |
+| git status --short | clean |
+| Target pre-state | **ABSENT** |
+| Parent `.sandbox/` | present (contains `increment-d`) |
+| **Observed origin URL** | `/Users/morris/Projects/sfia-workspace` (**filesystem path**) |
+| Binding / EC expected remote | `https://github.com/mcleland147/sfia-workspace.git` |
 
 ---
 
-## 15. Next gate
+## 19–22. Inspection / Confirmation / Authority / Executor
 
-ChatGPT Critical PRE-MERGE Review of this pack.
-Only after PASS may Morris issue a **separate merge GO**.
-Only after merge + post-merge Required Gate may Morris issue a distinct
-authenticated Reproof09 REAL GO.
+| Item | Value |
+|------|-------|
+| Inspection | `insp:891de6553ddbfbf7` |
+| Confirmation | `cfm:w2:xct:m3-res:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411:v2` — obtained |
+| Authority receipt | `avr:32014a95aff6eea7` |
+| Outcome | **AUTHORIZED** |
+| Verified authority level | **N3** |
+| Actor | `actor:local-pilote` / Pilote |
+| Executor sufficient | **true** |
+| Selected / sufficient agent | `agt:m4.cursor.bounded_docs_write` |
+| Capability | `cap:cursor.docs_write` |
 
----
-
-## 16. Explicit Morris decisions / anti-claims
-
-- **MERGE NOT AUTHORIZED BY THIS GO**
-- **AUTHENTICATED REPROOF09 REAL NOT AUTHORIZED**
-- **RUNTIME V3 NON ADOPTED**
-- Claims allowed if criteria pass: bare default Product singleton DET-proven for
-  managedRepoRootBase propagation + StartExecution managed-repo resolution +
-  exactly one external DET substitute; Reproof09 pre-spawn composition gap closed
-  at tested scope.
-- Claims forbidden: Cursor REAL proven; READY FOR REAL automatic; Reproof09 PASS;
-  production provisioning solved; global autonomy; runtime v3 ADOPTED.
+Env composition verified pre-dispatch: `SFIA_STUDIO_CURSOR_REAL=1`; deterministic boundary OFF; `boundaryProofMode=cursor_real`; `StudioCursorRealLaunchGateway`; managedRepoRootBase configured; Cursor binary executable.
 
 ---
 
-## 17. Final verdict (Cursor)
+## 23–24. Final pre-dispatch checkpoint + Execute
 
-PRODUCT DOCS_WRITE LIVE MANAGED-REPOSITORY COMPOSITION — BARE DEFAULT PRODUCT SINGLETON END-TO-END DETERMINISTIC EXIT PROOF CLOSED — PR #496 GREEN — ZERO REAL — READY FOR CHATGPT CRITICAL PRE-MERGE REVIEW — MERGE NOT AUTHORIZED — RUNTIME V3 NON ADOPTED
+Pre-dispatch recorded at `2026-09-17T09:08:36Z` in `.tmp-sfia-review/reproof09-real/pre-dispatch-checkpoint.json`.
+Execute count before = 0; REAL launch count before = 0; origin/main re-checked = `0052037c…`.
+
+**Product Execute invoked exactly once** (UI button Exécuter).
+
+| Timestamp | Event |
+|-----------|-------|
+| `2026-09-17T09:08:45.931Z` | Attempt accepted / agent selected |
+| `2026-09-17T09:08:46.016Z` | Gate D grant issued |
+| `2026-09-17T09:08:46.021Z` | `oa.execution_attempt.launch_failed` — **before Cursor spawn** |
+| `2026-09-17T09:08:46.102Z` | Evidence ingested |
+| `2026-09-17T09:08:46.105Z` | ReviewBundle created / frozen |
+
+---
+
+## 25–28. REAL campaign consumption + Attempt + processRef
+
+**REAL campaign Cursor-spawn budget: NOT consumed** (no child process).
+**Classification: STOP AFTER EXECUTE / PRE-SPAWN.**
+**NO RETRY under this GO.**
+
+| Attempt field | Value |
+|---------------|-------|
+| attemptId | `xat:w3a:9eef34f25802c186` |
+| status | **failed** |
+| stopReason | `REAL_LAUNCH_FAILED: REAL_WORKSPACE_INVALID:origin_remote_mismatch` |
+| selectedAgentRef | `agt:m4.cursor.bounded_docs_write` |
+| executionContractVersion | 3 |
+| executionContractSemanticFingerprint | `c6726ba166fe8ab0d3dfad69b8b66adb9ff735ce94f6f80c65b9c3df7e929533` |
+| processRef | **null** |
+| realProcessInvoked | **null / absent** |
+| boundaryProofMode | **null / absent** (never reached REAL spawn provenance) |
+| adapterId (log) | `adp:m4-cursor-cli-real` |
+| Gate D | grant `gd:w3a:w3a:9eef34f25802c186` — **consumed** at fail |
+| Launch frontier | `CREATED`, process_ref **null** |
+
+Server log excerpt:
+
+```text
+oa.execution_attempt.launch_failed ... stopReason":"REAL_LAUNCH_FAILED: REAL_WORKSPACE_INVALID:origin_remote_mismatch" ... detailCode":"REAL_WORKSPACE_INVALID"
+```
+
+Product code path (`studioGitWorktreeWorkspace.ts`): compares normalized `git remote get-url origin` against binding `remoteUrl` and `https://github.com/{identity}.git`. Local shared clone left origin as filesystem path → mismatch → throw before worktree/spawn.
+
+---
+
+## 29–33. Target post-state / git / artifact
+
+| Check | Result |
+|-------|--------|
+| Target file | **still ABSENT** |
+| Managed HEAD | unchanged `0052037c…` |
+| Managed status | clean (no docs_write effect) |
+| Changed/untracked Product files in managed repo | none |
+| Full generated target content | **N/A — no effect** (not REVIEW PACK INCOMPLETE for modified content) |
+| Artifact-contract validation | **not applicable** (no artifact produced) |
+| Digest | N/A |
+
+---
+
+## 34–35. Evidence / ReviewBundle
+
+### Evidence `ev:w3b:4eabdf22dbc43544`
+
+- status: **available**
+- verified flag: **absent / not verified** (diagnostic for failed attempt)
+- sourceKind: `execution_attempt`
+- type: `log_ref`
+- location: `refs/attempts/xat:w3a:9eef34f25802c186/diagnostic`
+- bindings.projectId: `prj:ae9bd0de-…`
+- bindings.executionContractId: successor
+- bindings.executionAttemptId: `xat:w3a:9eef34f25802c186`
+- storageMode: `metadata_only`
+- **Not** a PASS REAL verified effect Evidence.
+
+### ReviewBundle `rb:w3b:4eabdf22dbc43544`
+
+- version: **2**
+- status: **ready_for_review**
+- evidenceRefs: `[ev:w3b:4eabdf22dbc43544]`
+- frozenAt: `2026-09-17T09:08:46.107Z`
+- reservations include substitution / no external real effect language
+- Bound to this campaign Attempt (failed pre-spawn).
+
+PASS REAL Evidence/RB criteria **not met** (expected under STOP AFTER EXECUTE / PRE-SPAWN).
+
+---
+
+## 36–38. Restart / rehydration / no-relaunch
+
+1. Stopped Studio cleanly (`2026-09-17T09:10:36Z`); port 3020 freed.
+2. Preserved isolated Product DB, managed repo, launch-safety journal, campaign artifacts.
+3. Restarted Studio (`2026-09-17T09:10:…`) same HEAD `0052037c…`, same DB path, same `MANAGED_REPO_ROOT_BASE=/tmp/sfia-r09`, same REAL env; **Execute NOT clicked**.
+
+Post-restart durable equality (`post-restart-durable.json`):
+
+- same Attempt id/status/stopReason
+- processRef still null
+- same Evidence ID / ReviewBundle ID
+- successor Attempt count still **1**
+- original Attempt count still **0**
+- original still superseded; successor still confirmed fp `c6726ba1…`
+- target still absent
+- Gate D still consumed; frontier still CREATED with null process_ref
+- **no new StartExecution / no new Cursor child / no filesystem mutation**
+
+**NO RELAUNCH PROVEN** for this failed Attempt path.
+
+---
+
+## 39. Optional LPS continuity
+
+**PARTIAL** — Product UI history still shows Project / Decision / EC lineage after restart; Evidence/ReviewBundle readable from durable DB; full LPS claim-promotion UI for REAL PASS not applicable.
+No OpenAI LIVE. No Nora LIVE.
+
+---
+
+## 40. Git / remote safety
+
+| Check | Result |
+|-------|--------|
+| Runtime source HEAD | unchanged `0052037c…` |
+| origin/main | unchanged `0052037c…` |
+| Product commits | **0** |
+| Product pushes | **0** |
+| Product PRs | **0** |
+| Product merges | **0** |
+| Managed repo commits of target | **0** (no effect) |
+| Forbidden Git effects | **0** |
+
+---
+
+## 41. Exact campaign counters
+
+| Counter | Count |
+|---------|------:|
+| Authenticated Product entry attempts | 1 |
+| Legacy rematerialization actions | 1 |
+| Fresh inspections | 1 |
+| Confirmation actions | 1 |
+| Authority evaluations | 1 |
+| Product Execute actions | **1** |
+| StartExecution calls | **1** |
+| ExecutionAttempts | **1** |
+| Cursor REAL external process launches | **0** |
+| Cursor REAL process terminal completions | **0** |
+| Authorized docs_write filesystem effects | **0** |
+| Evidence records created (campaign) | **1** (failed-attempt diagnostic) |
+| ReviewBundles created (campaign) | **1** |
+| Runtime restarts | **1** |
+| Automatic relaunches | **0** |
+| OpenAI LIVE calls | **0** |
+| Nora LIVE calls | **0** |
+| Project commits | **0** |
+| Project pushes | **0** |
+| Project PRs | **0** |
+| Project merges | **0** |
+
+---
+
+## 42. Reservations / gap discovered
+
+1. **STOP root cause:** managed clone `origin` = local filesystem path; Product requires origin to match binding HTTPS URL / identity-derived GitHub URL → `REAL_WORKSPACE_INVALID:origin_remote_mismatch` **before spawn**.
+2. Operational setup used GO-allowed local `--shared` clone without setting `remote.origin.url` to binding `remoteUrl`. Preflight verified HEAD + cleanliness but **did not** verify origin remote coherence against binding (Product enforces at prepare).
+3. Gap class for ChatGPT: **operational precondition miss vs Product invariant** — may warrant Delivery clarification (managed-clone origin setup checklist) and/or docs; **NO Product code change in this QA campaign**.
+4. Gate D was **consumed** on failed launch (no spawn). Implications for any future authorized campaign are outside this GO (no retry here).
+5. UI copy still shows “Aucune exécution n'est autorisée par ce cycle” while Execute was enabled and accepted — secondary observation only.
+6. Evidence `verified` not set; RB reservations still say substitution / no external real effect — consistent with pre-spawn fail.
+
+---
+
+## 43. Authorized claims
+
+- Authenticated Product entry on historical Project **proven**.
+- Legacy M3 → canonical M4 rematerialization **proven**.
+- Fresh Inspection / Confirmation / AUTHORIZED authority / sufficient executor **proven**.
+- One Product Execute → one durable failed Attempt with stopReason provenance **proven**.
+- Product REAL gateway composition (`cursor_real` / `StudioCursorRealLaunchGateway`) reached prepare and **correctly refused** invalid workspace origin **before** Cursor spawn **proven**.
+- Restart / rehydration / no automatic relaunch after failed Attempt **proven**.
+- Zero forbidden Git effects **proven**.
+
+---
+
+## 44. Forbidden claims (must NOT claim)
+
+- PASS REAL / REAL BOUNDARY PROVEN AT TESTED SCOPE
+- Cursor docs_write REAL process spawn
+- Bounded verified file effect
+- Verified Evidence of successful REAL effect
+- END-TO-END FULL REAL
+- generalized docs_write / legacy migration / managed provisioning autonomy
+- commit/push/PR/merge REAL
+- production autonomy / global L5 / runtime v3 ADOPTED / zero defects / Nora Cognitive Completion
+
+---
+
+## 45. Runtime v3
+
+**NON ADOPTED.**
+
+---
+
+## 46. Exact final verdict
+
+**STOP AFTER EXECUTE / PRE-SPAWN — AUTHENTICATED PRODUCT REPROOF09 REAL**
+
+- Product Execute invoked once.
+- StartExecution created Attempt `xat:w3a:9eef34f25802c186`.
+- Launch failed: `REAL_LAUNCH_FAILED: REAL_WORKSPACE_INVALID:origin_remote_mismatch`.
+- **No Cursor child process spawned** (`processRef=null`).
+- REAL external launch budget **technically unconsumed**.
+- **NO RETRY** under this GO.
+- Evidence + ReviewBundle exist for the **failed** Attempt (not PASS REAL proof).
+- Restart / no-relaunch proven.
+- Runtime source / origin/main remain `0052037c…`.
+- NO product code change; NO project commit/push/PR/merge; OpenAI LIVE 0; Nora LIVE 0.
+
+---
+
+## 47. Next gate
+
+**STOP FOR CHATGPT CRITICAL REVIEW.**
+
+Do not retry REAL under this GO.
+Do not fix Product code in this QA campaign.
+Any next GO must be a **new** Morris authorization (and must address managed-clone origin remote coherence before Execute).
+
+---
+
+## Appendix — forensic artifact paths
+
+- `.tmp-sfia-review/reproof09-real/db-provenance.json`
+- `.tmp-sfia-review/reproof09-real/pre-rematerialize.json`
+- `.tmp-sfia-review/reproof09-real/post-rematerialize-ecs.json`
+- `.tmp-sfia-review/reproof09-real/managed-repo-prestate.json`
+- `.tmp-sfia-review/reproof09-real/authority-latest.json`
+- `.tmp-sfia-review/reproof09-real/pre-dispatch-checkpoint.json`
+- `.tmp-sfia-review/reproof09-real/attempt-payload.json`
+- `.tmp-sfia-review/reproof09-real/evidence-campaign.json`
+- `.tmp-sfia-review/reproof09-real/review-bundle-campaign.json`
+- `.tmp-sfia-review/reproof09-real/campaign-classification.json`
+- `.tmp-sfia-review/reproof09-real/pre-restart-durable.json`
+- `.tmp-sfia-review/reproof09-real/post-restart-durable.json`
+- Launch safety: `projects/sfia-studio/.sfia-exec/m4/launch-safety.sqlite`
