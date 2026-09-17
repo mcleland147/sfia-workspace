@@ -1,489 +1,346 @@
 # ChatGPT Review Pack — FULL
-## PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01
-### PHASE — REMOTE-INTEGRATION-WITH-CONDITIONAL-MERGE-AUTHORITY
+## PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01 — Checkpoint E PREPARE blocker
 
-| Champ | Valeur |
-| --- | --- |
-| **Timestamp** | 2026-09-17 18:38:14 CEST (+0200) |
-| **Macro** | `PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01` |
-| **Phase** | `REMOTE-INTEGRATION-WITH-CONDITIONAL-MERGE-AUTHORITY` |
-| **Cycle** | 15 — Capitalisation / REX |
-| **Typologie** | DOC |
-| **Profil** | Critical |
-| **Repository** | `mcleland147/sfia-workspace` |
-| **Worktree** | `/Users/morris/Projects/sfia-studio-product-docs-write-real-pass-post-merge-truth-sync` |
-| **Branch** | `docs/sfia-studio-product-docs-write-real-pass-post-merge-truth-sync` |
-| **Candidate HEAD** | `65c9fcf385c7e5bf52ed53c47a6d8e43dda7cbb3` |
-| **Base / origin/main** | `3907177f7788d23d640c5bdcd1cee8e01615762f` |
-| **REAL this cycle** | **ZERO REAL** |
-| **Product source** | **ZERO / UNCHANGED** |
-| **Remote publication authority** | **CONSUMED BY CURRENT GO** |
-| **Conditional merge authority** | **GRANTED UNDER CONDITIONS** |
+**Timestamp (UTC):** 2026-09-17T18:47:06Z
+**Pack kind:** FULL (code modification present — modified content included below)
+**Automation:** L3 handoff publish only; **NO** project commit/push/PR/merge
 
 ---
 
-## 1. GO Morris exact (CONSUMED)
+## 1. Git Truth
 
-> GO Morris — intégrer le truth-sync post-merge #499 de bout en bout : Review Handoff + push + PR + CI + Critical review ; merge autorisé conditionnellement uniquement si Critical PASS + Required Gate PASS, puis clôture sans nouveau truth-sync documentaire.
+| Field | Value |
+|---|---|
+| Repo | mcleland147/sfia-workspace |
+| Worktree | `/Users/morris/Projects/sfia-studio-product-journey-e2e-real-reconciliation-01` |
+| Branch | `qa/sfia-studio-product-journey-e2e-real-reconciliation-01` |
+| HEAD | `26478b1ea5b010c625f0c6039c969fac5c135cf5` |
+| origin/main | `26478b1ea5b010c625f0c6039c969fac5c135cf5` |
+| Baseline match | YES (`HEAD == origin/main == 26478b1ea5b010c625f0c6039c969fac5c135cf5`) |
+| Macro | PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01 |
+| Cycle | 9 — QA / Validation |
+| Typology | EVOL (minimal mapping fix) |
+| Profil | CRITICAL |
+| Capability | Pilote: sealed HumanDecision → native inspectable ExecutionContract PREPARE |
+| Milestone | Product Journey E2E REAL Reconciliation |
 
-Couvre : vérification locale · finalisation Review Pack · publication Review Handoff · push · PR · CI · handoff ChatGPT Critical · merge conditionnel · post-merge verification · clôture SANS nouveau documentary truth-sync.
-
-**Merge condition (pré-autorisée par ce GO) :**
-Required Gate PASS
-+ ChatGPT Critical PR Review PASS
-+ same PR head `65c9fcf385c7e5bf52ed53c47a6d8e43dda7cbb3`
-+ no material main drift
-
-Cursor **ne peut pas** déclarer lui-même `CHATGPT CRITICAL PR REVIEW — PASS`.
-Après CI : STOP pour Critical ChatGPT.
-Après PASS ChatGPT explicite sur le même head : continuation merge autorisée sous le **PRESENT GO**, sans nouvelle décision Morris.
-
----
-
-## 2. Local Git Truth Check
-
-| Check | Résultat |
-| --- | --- |
-| Branch | `docs/sfia-studio-product-docs-write-real-pass-post-merge-truth-sync` |
-| HEAD | `65c9fcf385c7e5bf52ed53c47a6d8e43dda7cbb3` |
-| `origin/main` | `3907177f7788d23d640c5bdcd1cee8e01615762f` |
-| Versioned diff | exactly 2 convergence docs |
-| Hors commit | `.tmp-sfia-review/chatgpt-review.md` |
-| Amend / rebase / reset / force push | **NONE** |
-| Remote feature branch initial | **ABSENT** (attendu) |
-
----
-
-## 3. Qualification Convergence
-
-| Item | Valeur |
-| --- | --- |
-| Capacité v3 | Artifact Completeness / Evidence / durable Git truth |
-| Fondations | V3-F14 · V3-F15 · V3-F02 / F06 / F09 |
-| Milestone | Product docs_write REAL capitalisation post-merge closure |
-| capitalisation / Roadmap | ADAPT — candidate local déjà construit · **pas de nouveau commit versionné** |
-| Review Pack | FULL finalize |
-| Review Handoff | REPUBLISH |
-| Product / Build Doctrine / C1 / v3 / Nora | FREEZE / KEEP |
-| Next capability | `PRODUCT-JOURNEY-POST-EXECUTION-REPLAN` · **NOT STARTED / NOT AUTHORIZED** |
-
----
-
-## 4. Git anchors (capitalisation #499 already on main)
-
-| Champ | Valeur |
-| --- | --- |
-| PR #499 | **MERGED** |
-| Head #499 | `9981483f8c158bec07364e14e626cdf2c3fd1e34` |
-| Merge #499 | `3907177f7788d23d640c5bdcd1cee8e01615762f` |
-| Capitalisation status | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** |
-| Pre-merge CI #499 | `35236024162` SUCCESS / Required Gate PASS |
-| Post-merge CI #499 | `35245046244` SUCCESS / Required Gate PASS |
-
----
-
-## 5. Diff candidate (this PR)
+### git status --short (at pack time)
 
 ```
- .../convergence/sfia-studio-convergence-roadmap.md |  3 +-
- ...-product-docs-write-real-pass-capitalisation.md | 64 ++++++++++++++--------
- 2 files changed, 44 insertions(+), 23 deletions(-)
-
+M .tmp-sfia-review/chatgpt-review.md
+ M projects/sfia-studio/app/__tests__/oa/execution-contract/m3ExecutionContractPrepare.test.ts
+ M projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
+ M projects/sfia-studio/app/package-lock.json
+?? .tmp-sfia-review/checkpoint-e-prepare-fix.diff
 ```
 
-Files exactly :
-1. `projects/sfia-studio/convergence/sfia-studio-product-docs-write-real-pass-capitalisation.md`
-2. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+---
+
+## 2. Observed failure (preserved)
+
+- Project: `prj:e3fe8a45-5c9e-4651-bd2c-bde1cdf77c38` — SFIA Studio — Golden Journey REAL Acceptance 01
+- Proposal: `prop:f2:3b788c52-5139-4b71-b00b-a45a0224b56f`
+- HumanDecision: `dec:w2-prop:0e4b08bb-5b5c-4c99-b57f-d49234abb693`
+- Selected option: `opt:proposal-subject:pursue` (Continuer)
+- requestedOperation: `cursor.docs_write.apply`
+- targetPath: `projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md`
+- UI after Pilote "Préparer le contrat d’exécution": **`Execution contract input is invalid.`**
+- No Execute; no REAL.
 
 ---
 
-## 6. Contenu COMPLET — capitalisation (candidate)
+## 3. Exact validator / invalid fields
 
-```markdown
-# SFIA Studio — Product docs_write REAL pass capitalisation
+| Item | Value |
+|---|---|
+| Handler path | TrajectorySurface → `projectAssistantPrepareResolvedM3Action` → `prepareAndResolveM3ProductPath` → **`prepareM3FromDecision`** → `buildExecutionContract` |
+| Validator | `validateBuildFields` → `validateIdentifierArray(..., "evidence")` in `lib/oa/execution-contract/domain/invariants.ts` |
+| Detail code | `CONTRACT_INVALID` |
+| Internal reason | **`evidence_id_invalid`** |
+| Safe UI message | `SAFE_MESSAGES.CONTRACT_INVALID` = **"Execution contract input is invalid."** (`domain/errors.ts`) |
+| Invalid field | `evidenceRequirements` (ExecutionContract build input) |
+| Received | `["Résultat de l’écriture du fichier", "Résultat de la vérification du contenu"]` (Nora free-text on DecisionBasis.executionBasis) |
+| Expected | OA identifiers matching `/^[a-z][a-z0-9]*:[a-zA-Z0-9][a-zA-Z0-9:_\-.]*$/` e.g. `git:local_commit`, `evreq:…` |
+| Provenance | DecisionBasis.executionBasis.evidenceRequirements (sealed from Proposal/Nora) blindly copied by `fieldsFromBasis` into EC field |
 
-| Métadonnée | Valeur |
-| --- | --- |
-| **Projet** | SFIA Studio |
-| **Titre** | Product docs_write REAL pass capitalisation (post-#498 / Reproof09) |
-| **Macro source (preuve)** | `PRODUCT-DOCS-WRITE-REAL-PATH-COMPLETION-01` |
-| **Macro capitalisation** | `PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01` |
-| **Cycle** | **15 — Capitalisation / REX** |
-| **Typologie** | **DOC** |
-| **Profil / profondeur** | **Critical** (preuve REAL → vérité projet durable ; claim de maturité borné) |
-| **Date / heure / timezone** | 2026-09-17 18:25:36 CEST (+0200) — post-merge truth-sync |
-| **Statut documentaire** | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · PR **#499 MERGED** · head `9981483f8c158bec07364e14e626cdf2c3fd1e34` · merge `3907177f7788d23d640c5bdcd1cee8e01615762f` · parents `b739ddd3826ea4df640e3f34f97a966d85f8d214` + `9981483f8c158bec07364e14e626cdf2c3fd1e34` · `origin/main` integration anchor `3907177f7788d23d640c5bdcd1cee8e01615762f` |
-| **Base Git qualifiée (pré-merge #499)** | `b739ddd3826ea4df640e3f34f97a966d85f8d214` · **integration anchor post-merge** `3907177f7788d23d640c5bdcd1cee8e01615762f` (`origin/main`) |
-| **PR Product intégrée** | **#498** — `fix(sfia-studio): close docs-write REAL path and completion` |
-| **Merge commit #498 (Product)** | `b739ddd3826ea4df640e3f34f97a966d85f8d214` — *Merge pull request #498* |
-| **Merge commit #499 (capitalisation)** | `3907177f7788d23d640c5bdcd1cee8e01615762f` — *Merge pull request #499* · parents `b739ddd3826ea4df640e3f34f97a966d85f8d214` + `9981483f8c158bec07364e14e626cdf2c3fd1e34` |
-| **Post-merge CI #498** | GitHub Actions run **`35215299343`** · **SUCCESS** · Required Gate **PASS** · `headSha=b739ddd3826ea4df640e3f34f97a966d85f8d214` |
-| **Pre-merge CI #499** | run **`35236024162`** · **SUCCESS** · Required Gate **PASS** · `headSha=9981483f8c158bec07364e14e626cdf2c3fd1e34` |
-| **Post-merge CI #499** | run **`35245046244`** · **SUCCESS** · Required Gate **PASS** · `headSha=3907177f7788d23d640c5bdcd1cee8e01615762f` |
-| **Décisions Morris / gouvernance** | GO capitalisation locale (**CONSUMED**) · GO Review Handoff + branch push + PR creation (**CONSUMED**) · merge lifecycle #499 = **COMPLETED / CONSUMED** (merge completed and verified from Git evidence) · post-merge verification = **PASS** · post-merge truth-sync GO Morris = **CONSUMED** (local docs only) |
-| **Companion Roadmap** | `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` — tip **PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01** |
-| **runtime v3** | **NON ADOPTED** |
-| **global L5** | **NOT ADOPTED** |
-| **Nora Cognitive Completion priority** | **PRESERVED** |
-| **REAL this truth-sync cycle** | **ZERO REAL** — aucune nouvelle exécution Cursor / Product Execute · Product code **UNCHANGED** |
+**Reproduction (read-only):** campaign DecisionBasis dumped from SQLite; `isOaIdentifier` false on both strings; `validateBuildFields` returns `{ detailCode: "CONTRACT_INVALID", reason: "evidence_id_invalid" }`. Same fields with `BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS` validate clean.
 
 ---
 
-## 1. Objet
+## 4. Root cause
 
-Ce document **capitalise une preuve déjà obtenue** :
+**Classification: B — Mapping / wiring / validation local**
 
-- Product delivery **#498** intégrée sur `main` ;
-- Fresh Authenticated Product Reproof09 REAL **PASS** accepté après Critical REAL Proof Review ;
-- claim maximal strictement borné au scope testé.
+`fieldsFromBasis` treated Nora prose `evidenceRequirements` as EC identifier SoT whenever the array was non-empty. Empty arrays already fell back to `BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS`. Non-empty free-text therefore **regressed** the docs_write PREPARE path that works when Nora omits the field.
 
-Ce document et la preuve REAL **n’autorisent pas par eux-mêmes** push / PR / merge.
-
-État de gouvernance **distinct** (Morris GOs / Git evidence) :
-
-- branch push + PR **#499** = **executed** under a separate Morris GO ;
-- merge #499 = **completed and verified from Git evidence** · lifecycle **COMPLETED / CONSUMED** ;
-- post-merge CI **PASS** · Required Gate **PASS** ;
-- ce document et la preuve REAL **n’accordent toujours aucune autorité automatique** de push / PR / merge — l’intégration #499 résulte d’une action de gouvernance/Git distincte ;
-- aucune nouvelle campagne REAL / retry / second spawn / correction Product / démarrage de `PRODUCT-JOURNEY-POST-EXECUTION-REPLAN` / adoption runtime v3 n’est autorisée par ce document.
+Not A (user can fill nothing more — Decision already sealed).
+Not D (no new architecture / schema).
+Not E (cause isolated).
 
 ---
 
-## 2. Hiérarchie de provenance
+## 5. Correctif effectué
 
-| Couche | Nature | Autorité | Contenu typique |
-| --- | --- | --- | --- |
-| **A. Faits Git** | Vérifiables dans le dépôt / GitHub | Commit / PR / CI | merge `#498` @ `b739ddd…` · CI `35215299343` SUCCESS · PR `#499 MERGED` @ `3907177f7788d23d640c5bdcd1cee8e01615762f` · pre-merge CI `35236024162` SUCCESS · post-merge CI `35245046244` SUCCESS |
-| **B. Preuve runtime Reproof09** | Observation Product authentifiée + Cursor REAL | Campagne locale | Attempt / spawn / worktree / digest / Evidence / RB |
-| **C. Review pack campagne** | Rapport d’exécution local hors commit | `.tmp-sfia-review/chatgpt-review.md` (worktree campagne) | Chronologie, IDs, verdict PASS |
-| **D. Evidence / ReviewBundle persistés** | Objets OA dans DB isolée de campagne | sqlite campagne | IDs Evidence/RB + digest |
-| **E. Décision Morris** | Gouvernance construction | GO explicite | capitalisation locale **CONSUMED** ; handoff+push+PR **CONSUMED** ; merge lifecycle #499 **COMPLETED / CONSUMED** (Git evidence) ; post-merge truth-sync **CONSUMED** (local) |
-| **F. ChatGPT Critical REAL Proof Review** | Revue critique de la preuve REAL | Acceptation PASS borné | claim maximal autorisé |
+Minimal coerce in `prepareM3FromDecision.ts`:
 
-**Règle :** un fait runtime local **ne doit jamais** être présenté comme s’il provenait directement du commit Git Product. `#498` prouve le *chemin de code* ; Reproof09 prouve le *comportement REAL* au scope testé.
+- If all `evidenceRequirements` are OA identifiers → keep them.
+- Else if docs_write intent → use `BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS` (identical default as empty).
+- Nora free-text remains in `inputs.evidenceRequirements` for disclosure (already copied earlier in `fieldsFromBasis`).
+- Valid OA IDs still preserved (regression test).
 
-**Source runtime primaire utilisée pour ce document :**
+### Modified function (complete)
 
-`/Users/morris/Projects/sfia-studio-product-reproof09-real-post498-b739ddd/.tmp-sfia-review/chatgpt-review.md`
-
-Compléments lus en lecture seule : artefacts `.tmp-sfia-review/reproof09-real-c/` (Evidence JSON, attempt, launch frontier, checkpoints).
-
----
-
-## 3. Préconditions Product #498 (nécessaires seulement)
-
-Sans réécrire l’historique `#493`–`#497`, la preuve REAL repose sur l’intégration `#498` de :
-
-1. **Exact sealed path resolution** — chemins absolus uniquement pour l’instruction Cursor externe, sous prepared worktree ;
-2. **Canonical repo-relative authority** — `ExecutionContract` / `docsWriteSpec` restent en chemins repo-relative ;
-3. **Independent verifier** — `verifyWorkspaceFileEffects` comme oracle (stdout Cursor non trusté seul) ;
-4. **docs_write await completion** — callers Product concernés avec `awaitIfPending: true` → observe/awaitCompletion → verify → RecordExecutionResult/Failure → Evidence/ReviewBundle ;
-5. **Merge `#498`** sur `main` @ `b739ddd…` ;
-6. **Post-merge CI** `35215299343` **SUCCESS** / Required Gate **PASS**.
-
----
-
-## 4. Campagne REAL — faits reportés
-
-| Champ | Valeur exacte (source runtime) |
-| --- | --- |
-| Date / heure campagne (pack) | 2026-09-17 13:50:01 CEST / 2026-09-17T11:50:01Z |
-| Workspace campagne | `/Users/morris/Projects/sfia-studio-product-reproof09-real-post498-b739ddd` |
-| Runtime source HEAD | `b739ddd3826ea4df640e3f34f97a966d85f8d214` |
-| DB isolée | `/Users/morris/Projects/sfia-studio-product-reproof09-real-post498-b739ddd/projects/sfia-studio/.sfia-exec/reproof09-real-c/product/oa-product.sqlite` |
-| `SFIA_STUDIO_MANAGED_REPO_ROOT_BASE` | `/tmp/sfia-r09c` |
-| Managed repo root | `/tmp/sfia-r09c/mcleland147__sfia-workspace` |
-| Managed origin | filesystem `/Users/morris/Projects/sfia-workspace` (local-origin support #497) |
-| Studio | `http://localhost:3020` · Product authentifié |
-| projectId | `prj:ae9bd0de-e24d-474f-880d-ff5ea56dbaf6` |
-| HumanDecision | `dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411` |
-| EC successor | `xct:m3-res:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411` |
-| Attempt | `xat:w3a:9eef34f25802c186` |
-| Prepared worktree | `/Users/morris/Projects/sfia-studio-product-reproof09-real-post498-b739ddd/projects/sfia-studio/.sfia-exec/m4-worktrees/wt-4eabdf22dbc435441e0c6776` |
-| baseHeadSha | `b739ddd3826ea4df640e3f34f97a966d85f8d214` |
-| target canonical | `projects/sfia-studio/.sandbox/gestion-de-taches.md` |
-| pathAllowlist | `projects/sfia-studio/.sandbox` |
-| Product Execute count | **1** |
-| Cursor docs_write REAL spawn count | **1** |
-| Retry count | **0** |
-| Terminal Attempt status | **`succeeded`** |
-| technicalExitCode | `0` |
-| durationMs | `23244` |
-| resultRef | `res:m4:xat:w3a:9eef34f25802c186` |
-| Launch frontier LAUNCHED | `m4fr:5f7a0877ee174999` |
-| process_ref | `pid:50970` |
-| realProcessInvoked | `true` (`boundaryProofMode=cursor_real`, gateway `adp:m4-cursor-cli-real`) |
-| selectedAgentRef | `agt:m4.cursor.bounded_docs_write` |
-| launchedAt / completedAt | `2026-09-17T11:45:41.755Z` / `2026-09-17T11:46:05.455Z` |
+```typescript
+function resolveEvidenceRequirementsForContract(input: {
+  docsWriteIntent: boolean;
+  raw: string[] | undefined;
+}): string[] | undefined {
+  const raw = input.raw;
+  if (raw && raw.length > 0 && raw.every(isOaIdentifier)) {
+    return [...raw];
+  }
+  if (input.docsWriteIntent) {
+    return [...BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS];
+  }
+  if (raw && raw.length > 0) {
+    const valid = raw.filter(isOaIdentifier);
+    return valid.length > 0 ? valid : undefined;
+  }
+  return undefined;
+}
+```
 
 ---
 
-## 5. Exact-path proof
+## 6. Fichiers lus (diagnostic)
 
-| Assertion | Résultat |
-| --- | --- |
-| Cible canonique scellée | `projects/sfia-studio/.sandbox/gestion-de-taches.md` |
-| Instruction Cursor absolue sous prepared worktree | oui — fichier exact sous `…/wt-4eabdf22dbc435441e0c6776/projects/sfia-studio/.sandbox/gestion-de-taches.md` |
-| Autorité canonique repo-relative conservée | oui |
-| Chemin racine incorrect `.sandbox/gestion-de-taches.md` | **absent** — **non accepté** comme preuve de succès |
-| Cible attendue après succès | **présente** |
+- `features/project-assistant/f3/prepareM3FromDecision.ts`
+- `features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile.ts`
+- `lib/oa/execution-contract/domain/invariants.ts` (`validateIdentifierArray`, `validateBuildFields`, `isOaIdentifier`)
+- `lib/oa/execution-contract/domain/errors.ts` (SAFE_MESSAGES)
+- Campaign DB read-only: `projects/sfia-studio/.sfia-exec/pje2e-real-01/product/oa-product.sqlite`
+- Tests: `m3ExecutionContractPrepare.test.ts`, `productJourneyGovernedDocsWriteWiring.d0.test.ts` (prepare filter)
+- Method/doctrine sources referenced by campaign brief (routing / operating model / build doctrine / product completion / v3 framings) — no doctrine edits
 
----
+## 7. Fichiers modifiés
 
-## 6. Verification proof
+1. `projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts`
+2. `projects/sfia-studio/app/__tests__/oa/execution-contract/m3ExecutionContractPrepare.test.ts`
 
-Pipeline Product post-#498 :
-
-`completeBoundedDocsWriteLaunch` → `verifyWorkspaceFileEffects` (oracle indépendant).
-
-Résultat campagne : **Verifier PASS**.
-
-Preuve : Attempt terminal `succeeded` + `resultRef` durables (le chemin failure aurait enregistré un échec) ; digest fichier = digest Evidence ; wrong-root absent ; pas d’effet hors allowlist accepté.
-
-Note opérationnelle : la cible est **gitignored** (`projects/sfia-studio/.sandbox/**`) — porcelain Git vide n’invalide pas la vérification filesystem.
+**Not modified:** Build Doctrine, Roadmap, framings, method, schema/migrations, campaign DB, UI copy.
 
 ---
 
-## 7. Evidence
+## 8. Diff exploitable (complete)
 
-| Champ | Valeur |
-| --- | --- |
-| Evidence ID | `ev:docs-write:xat:w3a:9eef34f25802c186` |
-| type / sourceKind | `artifact` / `external` |
-| location | `projects/sfia-studio/.sandbox/gestion-de-taches.md` |
-| digest (complet) | `sha256:8794ccf08f6944e3bf8de876d5b9c905a385bf260839dc9da0181026d6f914e3` |
-| Provenance digest | Evidence JSON campagne `evidence-ev_docs-write_xat_w3a_9eef34f25802c186.json` + `target-digest.txt` + review pack REAL |
-| Bindings | project `prj:ae9bd0de-…` · EC successor · Attempt `xat:w3a:9eef34f25802c186` |
-| Persistence | DB isolée campagne |
-| Companion | `ev:w3b:4eabdf22dbc43544` @ `refs/attempts/xat:w3a:9eef34f25802c186/result` |
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-contract/m3ExecutionContractPrepare.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-contract/m3ExecutionContractPrepare.test.ts
+index 7406435e..141704a2 100644
+--- a/projects/sfia-studio/app/__tests__/oa/execution-contract/m3ExecutionContractPrepare.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/execution-contract/m3ExecutionContractPrepare.test.ts
+@@ -534,6 +534,83 @@ describe("M3 ExecutionContract UNRESOLVED semantics (R1)", () => {
+     expect(prepared.code).toBe("DECISION_NOT_CURRENT");
+   });
 
----
++  it("CHECKPOINT-E — docs_write Nora free-text evidenceRequirements coerce to OA identifiers (not CONTRACT_INVALID)", async () => {
++    const noraProse = [
++      "Résultat de l’écriture du fichier",
++      "Résultat de la vérification du contenu",
++    ];
++    const result = await recordAndPrepare(
++      "ckpt-e-nora-evidence.sqlite",
++      {
++        objective:
++          "Matérialiser la fiche Markdown requise par le cycle actif dans le dépôt lié.",
++        requestedOperation: "cursor.docs_write.apply",
++        intentKind: "docs_write",
++        targetRepositoryRef: "mcleland147/sfia-workspace",
++        targetPath:
++          "projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md",
++        scopeIn: ["projects/sfia-studio/.sandbox"],
++        scopeOut: ["Tout autre fichier"],
++        requiredCapabilities: ["cap:cursor.docs_write"],
++        evidenceRequirements: noraProse,
++        expectedOutputs: [
++          "Le fichier Markdown matérialisé au chemin cible",
++          "Vérification de l’existence et de la conformité minimale du fichier",
++        ],
++        reversibilityExpectation: "unknown",
++      },
++      "dec:m3:ckpt-e-nora-evidence",
++    );
++    expect(result).not.toBeNull();
++    if (!result) return;
++    expect(result.prepared.mode).toBe("M3_PREPARE");
++    expect(result.prepared.executionPerformed).toBe(false);
++    expect(result.prepared.cursorReal).toBe(false);
++    expect(result.contract.action).toBe("cursor.docs_write.apply");
++    expect(result.contract.target).toBe("workspace.isolated.docs_write");
++    // Contract field must be OA identifiers — Nora prose must not leak here.
++    for (const id of result.contract.evidenceRequirements) {
++      expect(id).toMatch(/^[a-z][a-z0-9]*:/);
++    }
++    expect(result.contract.evidenceRequirements).toEqual([
++      "git:local_commit",
++      "git:remote_push",
++      "git:pull_request",
++      "git:ci_status",
++      "git:review_status",
++      "git:merge",
++      "git:post_merge_verification",
++    ]);
++    // Free-text preserved in inputs for disclosure (not EC identifier SoT).
++    expect(result.contract.inputs?.evidenceRequirements).toEqual(noraProse);
++  });
++
++  it("CHECKPOINT-E regression — docs_write with valid OA evidenceRequirements preserves them", async () => {
++    const result = await recordAndPrepare(
++      "ckpt-e-valid-evidence.sqlite",
++      {
++        requestedOperation: "cursor.docs_write.apply",
++        intentKind: "docs_write",
++        targetRepositoryRef: "mcleland147/sfia-workspace",
++        targetPath:
++          "projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md",
++        scopeIn: ["projects/sfia-studio/.sandbox"],
++        requiredCapabilities: ["cap:cursor.docs_write"],
++        evidenceRequirements: [
++          "evreq:file-write-result",
++          "evreq:content-verification",
++        ],
++      },
++      "dec:m3:ckpt-e-valid-evidence",
++    );
++    expect(result).not.toBeNull();
++    if (!result) return;
++    expect(result.contract.evidenceRequirements).toEqual([
++      "evreq:file-write-result",
++      "evreq:content-verification",
++    ]);
++  });
++
+   it("L — critical safety negatives", () => {
+     const projection = projectCursorPrepareOnly({
+       schemaVersion: "0.2.0-oa",
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts b/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
+index f1b4a1dc..3441de6c 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
+@@ -22,6 +22,7 @@ import {
+   projectCursorPrepareOnly,
+   projectExecutionContractInspectionDisclosure,
+ } from "@/lib/oa/execution-contract";
++import { isOaIdentifier } from "@/lib/oa/execution-contract/domain/invariants";
+ import type { F2ContextSnapshot } from "../f2/types";
+ import {
+   isProposalSubjectOptionRef,
+@@ -29,6 +30,31 @@ import {
+ } from "../w2/proposalSubjectOptions";
+ import { BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS } from "./boundedDocsWriteM3ResolutionProfile";
 
-## 8. ReviewBundle
-
-| Champ | Valeur |
-| --- | --- |
-| ReviewBundle ID | `rb:docs-write:xat:w3a:9eef34f25802c186` |
-| executionContractId | `xct:m3-res:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411` |
-| evidenceRefs | `[ev:docs-write:xat:w3a:9eef34f25802c186]` |
-| completeness | `complete` |
-| status | `draft` |
-| Persistence | DB isolée campagne |
-| Companion | `rb:w3b:4eabdf22dbc43544` · status `ready_for_review` (frozen) · même Attempt/EC/projet |
-
----
-
-## 9. Restart / no-relaunch
-
-| Assertion | Résultat |
-| --- | --- |
-| Même DB isolée après stop/restart Studio | oui |
-| Attempt / Evidence / ReviewBundle réhydratés | oui (mêmes IDs, Attempt `succeeded`) |
-| UI post-restart (campagne) | Livrable Satisfait · Evidence Satisfait |
-| Compteur LAUNCHED frontier | reste **1** |
-| Nouveau spawn Cursor au restart | **aucun** |
-| spawn_count final | **1** |
-
----
-
-## 10. Résultat qualifié
-
-**AUTHENTICATED PRODUCT DOCS_WRITE REAL PROVEN AT TESTED HISTORICAL PROJECT SCOPE**
-
----
-
-## 11. Anti-claims (obligatoires)
-
-Cette capitalisation **≠** :
-
-- E2E FULL REAL PROVEN ;
-- Product Journey complet prouvé jusqu’au replanning Nora ;
-- docs_write généralisé à tous Projects / configurations / environnements ;
-- generalized Cursor autonomy ;
-- global L5 ;
-- runtime v3 ADOPTED ;
-- SFIA v3 globalement adopté ;
-- nouvelle autorisation REAL ;
-- autorisation intrinsèque push / PR / merge **par la preuve / ce document** (même après merge #499 via gouvernance/Git distincte, cette règle d’autorité reste vraie) ;
-- démarrage autorisé de `PRODUCT-JOURNEY-POST-EXECUTION-REPLAN` par ce seul document.
-
----
-
-## 12. Réserves (prouvées)
-
-1. **Cible métier gitignored** — porcelain Git vide ; preuve filesystem / verifier OK.
-2. **Gates de finalisation Product hors scope** — EC UI / ReviewBundle gate Product peuvent rester ouverts côté journey ; hors périmètre de la preuve docs_write REAL.
-3. **RB docs_write `draft` vs companion w3b `ready_for_review`** — les deux existent et sont persistés ; claim borné au scope testé.
-4. **Observation process-local** — dette admise non élargie par ce cycle documentaire.
-
-Aucune dette technique / architecture / persistence **créée** par cette capitalisation.
-
----
-
-## 13. Impact convergence
-
-**Gap fermé (au tested historical project scope) :**
-
-exact-path REAL + Attempt terminal + Evidence + ReviewBundle + restart/no-relaunch.
-
-**État :** preuve runtime revue ; capitalisation Git projet = **INTEGRATED ON MAIN / POST-MERGE VERIFIED**.
-
----
-
-## 14. Trajectoire suivante
-
-**Next Product capability candidate :** `PRODUCT-JOURNEY-POST-EXECUTION-REPLAN`
-
-Statut : **NEXT CANDIDATE CAPABILITY ONLY** · **NOT STARTED** · **NOT AUTHORIZED BY THIS TRUTH-SYNC** · **NOT IMPLEMENTED**.
-
-Chaîne :
-
-Evidence / ReviewBundle
-→ LPS / ProjectTrajectory
-→ Nora
-→ options / Recommendation
-→ HumanDecision Pilote
-→ cycle suivant.
-
-`ProjectTrajectory` proposée reste **Recommendation** tant qu’aucune HumanDecision Pilote ne l’a validée.
-
-Cette trajectoire est une **prochaine capacité de construction**. Elle **n’est pas** démarrée, autorisée, ni exécutée par ce cycle de capitalisation ni par ce post-merge truth-sync.
-
----
-
-## 15. Relation Nora-first
-
-Cette capitalisation :
-
-- **ne déplace pas** la priorité globale **Nora Cognitive Completion** ;
-- **ne justifie pas** un nouveau hardening Cursor spontané ;
-- **ferme** au contraire le besoin de poursuivre `docs_write` comme chantier d’exact-path/completion au périmètre déjà prouvé.
-
-GCEC / docs_write restent une lane de capacité Product — **≠** nouvelle priorité globale Studio.
-
----
-
-## 16. Dette / exit
-
-| Item | Statut |
-| --- | --- |
-| Architecture parallèle | **aucune** créée |
-| Nouvelle persistence / schema | **aucune** |
-| Retry engine / second execution engine | **aucun** |
-| Observation process-local | existante · **non élargie** |
-| Macro REAL `PRODUCT-DOCS-WRITE-REAL-PATH-COMPLETION-01` | **clos au périmètre prouvé** — capitalisation **intégrée** sur `main` |
-| Capitalisation documentary lifecycle | **CLOSED** after merge #499 + post-merge CI PASS + truth-sync local préparé |
-| Statut capitalisation Git | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** |
-| Ce truth-sync documentaire | **LOCAL CANDIDATE** jusqu’à publication/PR/merge distincts (hors scope de ce GO) |
-
----
-
-## 17. Gates
-
-| Gate | Statut |
-| --- | --- |
-| GO capitalisation locale (actif + Roadmap + commit local) | **CONSUMED** |
-| GO Review Handoff + push + PR | **CONSUMED** |
-| Review Handoff (pré-merge #499) | **PUBLISHED / REMOTE VERIFIED** (cycle remédiation) · **≠** handoff du présent post-merge truth-sync |
-| PR #499 | **MERGED** · title `docs(sfia-studio): capitalize Product docs-write REAL proof` · head `9981483f8c158bec07364e14e626cdf2c3fd1e34` · merge `3907177f7788d23d640c5bdcd1cee8e01615762f` · parents `b739ddd3826ea4df640e3f34f97a966d85f8d214` + `9981483f8c158bec07364e14e626cdf2c3fd1e34` |
-| Merge lifecycle #499 | **COMPLETED / CONSUMED** · completed and verified from Git evidence |
-| Pre-merge CI #499 | run `35236024162` · **SUCCESS** · Required Gate **PASS** |
-| Post-merge CI #499 | run `35245046244` · **SUCCESS** · Required Gate **PASS** · `headSha=3907177f7788d23d640c5bdcd1cee8e01615762f` |
-| Post-merge verification | **PASS** |
-| Post-merge truth-sync GO Morris | **CONSUMED** (local docs + commit only) |
-| Review Handoff publication (ce truth-sync) | **PENDING** — DISTINCT Morris remote push gate **REQUIRED** |
-| runtime v3 adoption | **NON décidée** · **NON ADOPTED** |
-| global L5 | **NOT ADOPTED** |
-| PRODUCT-JOURNEY-POST-EXECUTION-REPLAN | **NOT STARTED / NOT AUTHORIZED** |
-
----
-
-## 18. Fichiers de ce package documentaire
-
-| Fichier | Action |
-| --- | --- |
-| `projects/sfia-studio/convergence/sfia-studio-product-docs-write-real-pass-capitalisation.md` | **CREATE** (ce document) |
-| `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` | **UPDATE minimale** (tip maintenance) |
-| Product / app / tests / framing / Nora / Build Doctrine / method | **FREEZE — ZERO CHANGE** |
++/**
++ * EC.evidenceRequirements must be OA identifiers (`prefix:value`).
++ * Nora DecisionBasis often carries free-text validation expectations here —
++ * those belong in inputs, not as contract identifier SoT.
++ * For docs_write, fall back to the canonical bounded git evidence set
++ * (same default as when the basis omits the field entirely).
++ */
++function resolveEvidenceRequirementsForContract(input: {
++  docsWriteIntent: boolean;
++  raw: string[] | undefined;
++}): string[] | undefined {
++  const raw = input.raw;
++  if (raw && raw.length > 0 && raw.every(isOaIdentifier)) {
++    return [...raw];
++  }
++  if (input.docsWriteIntent) {
++    return [...BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS];
++  }
++  if (raw && raw.length > 0) {
++    const valid = raw.filter(isOaIdentifier);
++    return valid.length > 0 ? valid : undefined;
++  }
++  return undefined;
++}
++
+ export type PrepareM3Deps = {
+   decisionServices: DecisionServices;
+   authorityResolver: MemoryAuthorityResolver;
+@@ -209,12 +235,13 @@ function fieldsFromBasis(basis: DecisionBasis, decisionId: string) {
+       : eb.expectedOutcome
+         ? [eb.expectedOutcome]
+         : undefined;
+-  const evidenceRequirements =
+-    eb.evidenceRequirements && eb.evidenceRequirements.length > 0
+-      ? [...eb.evidenceRequirements]
+-      : docsWriteIntent
+-        ? [...BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS]
+-        : undefined;
++  const evidenceRequirements = resolveEvidenceRequirementsForContract({
++    docsWriteIntent,
++    raw:
++      eb.evidenceRequirements && eb.evidenceRequirements.length > 0
++        ? [...eb.evidenceRequirements]
++        : undefined,
++  });
+   return {
+     action,
+     target,
 
 ```
 
 ---
 
-## 7. Tip Roadmap courant
+## 9. Tests et résultats
 
-```
-| **Timestamp maintenance PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01** | 2026-09-17 18:25:36 CEST (+0200) — **PRODUCT DOCS_WRITE REAL PASS POST-MERGE TRUTH-SYNC** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Macro **PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01** · parent macro **PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01** · GO Morris post-merge documentary truth-sync #499 **CONSUMED** (local docs + commit only) · PR **#499 MERGED** `docs(sfia-studio): capitalize Product docs-write REAL proof` · head `9981483f8c158bec07364e14e626cdf2c3fd1e34` · merge `3907177f7788d23d640c5bdcd1cee8e01615762f` · parents `b739ddd3826ea4df640e3f34f97a966d85f8d214` + `9981483f8c158bec07364e14e626cdf2c3fd1e34` · capitalisation = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · pre-merge CI **`35236024162` SUCCESS** · Required Gate **PASS** · post-merge CI **`35245046244` SUCCESS** · Required Gate **PASS** · `headSha=3907177f7788d23d640c5bdcd1cee8e01615762f` · merge lifecycle #499 = **COMPLETED / CONSUMED** · post-merge verification = **PASS** · claim **AUTHENTICATED PRODUCT DOCS_WRITE REAL PROVEN AT TESTED HISTORICAL PROJECT SCOPE** · **ZERO REAL** · Product code **UNCHANGED** · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** **PRESERVED** · next Product capability candidate = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN** · **NOT STARTED / NOT AUTHORIZED** by this truth-sync · this documentary truth-sync = **LOCAL CANDIDATE** · Review Handoff publication **PENDING** (distinct Morris remote push gate) · push/PR/merge of this truth-sync = **DISTINCT Morris gates** · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / origin/main / PR evidence** · **≠** E2E FULL REAL PROVEN · **≠** Product Journey complete to Nora replanning · **≠** docs_write generalized · **≠** Cursor autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new REAL authorization · **≠** PRODUCT-JOURNEY-POST-EXECUTION-REPLAN started · **≠** push/PR/merge authorized by proof |
-```
+| Suite | Result |
+|---|---|
+| `m3ExecutionContractPrepare.test.ts` (15 tests incl. 2 CHECKPOINT-E) | **PASS** |
+| `productJourneyGovernedDocsWriteWiring.d0.test.ts -t prepare` (2 matched) | **PASS** |
+| `tsc --noEmit -p tsconfig.json` | **PASS** (exit 0) |
 
----
-
-## 8. Claim exact
-
-**AUTHENTICATED PRODUCT DOCS_WRITE REAL PROVEN AT TESTED HISTORICAL PROJECT SCOPE**
-
-Aucune promotion.
+No REAL campaign launched. No Execute.
 
 ---
 
-## 9. Anti-claims
+## 10. État DB campagne (sans secrets)
 
-- ≠ E2E FULL REAL
-- ≠ full Product Journey → Nora replanning
-- ≠ docs_write generalized
-- ≠ generalized Cursor autonomy
-- ≠ global L5
-- ≠ runtime v3 ADOPTED
-- ≠ global SFIA v3 adoption
-- ≠ new REAL authorization
-- ≠ PRODUCT-JOURNEY-POST-EXECUTION-REPLAN started
+| Item | Value |
+|---|---|
+| Absolute DB | `/Users/morris/Projects/sfia-studio-product-journey-e2e-real-reconciliation-01/projects/sfia-studio/.sfia-exec/pje2e-real-01/product/oa-product.sqlite` |
+| mtime/size | Sep 17 20:37:38 2026 577536 (unchanged by this lot) |
+| oa_execution_attempts | **0** |
+| oa_execution_contracts | **0** |
+| HumanDecision | `dec:w2-prop:0e4b08bb-5b5c-4c99-b57f-d49234abb693 | accepted | opt:proposal-subject:pursue | prop:f2:3b788c52-5139-4b71-b00b-a45a0224b56f` |
+| Manual SQLite mutation | **NONE** |
 
----
-
-## 10. Maturity
-
-| Champ | Valeur |
-| --- | --- |
-| ZERO REAL | **YES** |
-| ZERO Product | **YES** |
-| runtime v3 | **NON ADOPTED** |
-| global L5 | **NOT ADOPTED** |
-| Nora Cognitive Completion priority | **PRESERVED** |
-| PRODUCT-JOURNEY-POST-EXECUTION-REPLAN | **NOT STARTED / NOT AUTHORIZED** |
+Studio restarted on port 3020 with same `SFIA_STUDIO_PRODUCT_DB_PATH`. Project GET returns auth redirect 307 (expected); DB untouched. **PREPARE not clicked** (Morris gate).
 
 ---
 
-## 11. Remote integration plan (this phase)
+## 11. Cursor REAL spawn count
 
-1. Publish Review Handoff → remote verified
-2. Push branch `65c9fcf385c7e5bf52ed53c47a6d8e43dda7cbb3`
-3. Create non-draft PR → main
-4. Observe CI / Required Gate
-5. **STOP** for ChatGPT Critical PR Review
-6. Merge only if Critical PASS + Required Gate PASS + same head + no material drift
-7. Post-merge CI verify
-8. **NO new documentary truth-sync** after merge
+**0** for this campaign (attempts=0, contracts=0, no Execute). IDE `cursor-agent` workers for other/local worktrees are not campaign REAL spawns.
 
 ---
 
-## 12. NO NEW TRUTH-SYNC RULE
+## 12. Réserves / dettes
 
-Après merge de CE PR : ne pas créer un nouveau post-merge documentary truth-sync pour la simple transition Git OPEN→MERGED.
-Repository lifecycle = **RESOLVE FROM CURRENT GIT / PR EVIDENCE**.
-
----
-
-## 13. Réserves
-
-1. Merge non exécuté avant Critical ChatGPT PASS explicite.
-2. Handoff / push / PR / CI / merge = sous le présent GO uniquement.
-3. Aucun Product / REAL / REPLAN.
+- Coerce reuses existing git evidence identifier set for docs_write PREPARE when Nora prose is present — same as empty-field default; resolve/M4 path may still refine successor evidence later.
+- Nora still writes free-text into DecisionBasis.evidenceRequirements (cognitive debt); this lot only fixes EC mapping at PREPARE.
+- Continuity / truncated Nora replies / Instruction Options cognitive gap **out of scope** (not cause of CONTRACT_INVALID).
 
 ---
 
-## 14. Verdict (pré-CI / pré-Critical — mis à jour après)
+## 13. Décisions / gates Morris
 
-**LOCAL CANDIDATE VALIDATED — REMOTE INTEGRATION IN PROGRESS**
+1. **Morris MAY retry** UI "Préparer le contrat d’exécution" on the same Project / same DB / same HumanDecision.
+2. Do **not** re-qualify / do not fabricate Decision / do not mutate DB.
+3. After successful PREPARE: inspection / Confirmation / authority — then future REAL only under existing Morris gate.
+4. **No** project commit/push/PR/merge in this lot (candidate remains local dirty).
 
-Après CI SUCCESS :
-**PR READY FOR CHATGPT CRITICAL REVIEW — CONDITIONAL MERGE AUTHORITY PRE-GRANTED**
+---
+
+## 14. Verdict
+
+**CHECKPOINT E BLOCKER FIXED — MORRIS MAY RETRY PREPARE**
