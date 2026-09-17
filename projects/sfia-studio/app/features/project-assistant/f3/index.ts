@@ -59,6 +59,17 @@ export type {
   F3M3ResolvedPayload,
   PrepareAndResolveM3Deps,
 } from "./prepareAndResolveM3ProductPath";
+export { resolveExistingLegacyM3DocsWriteProductPath } from "./resolveExistingLegacyM3DocsWriteProductPath";
+export { isLegacyDocsWritePrepareContractView } from "./legacyDocsWritePrepareContractView";
+export type {
+  F3M3LegacyResolvedPayload,
+  ResolveExistingLegacyM3DocsWriteDeps,
+} from "./resolveExistingLegacyM3DocsWriteProductPath";
+export { qualifyDocsWriteM3Intent } from "./qualifyDocsWriteM3Intent";
+export type {
+  DocsWriteIntentQualification,
+  DocsWriteExecutionBasisLike,
+} from "./qualifyDocsWriteM3Intent";
 export { confirmAndExecuteF3Fixture } from "./confirmAndExecuteF3Fixture";
 export { confirmAndExecuteResolvedM3 } from "./confirmAndExecuteResolvedM3";
 export type { ConfirmExecuteResolvedM3Deps } from "./confirmAndExecuteResolvedM3";

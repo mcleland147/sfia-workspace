@@ -362,6 +362,30 @@ export type ProjectAssistantPrepareResolvedM3Result =
   | ProjectAssistantPrepareResolvedM3Success
   | ProjectAssistantPrepareResolvedM3Failure;
 
+export type ProjectAssistantResolveLegacyM3DocsWriteSuccess = {
+  ok: true;
+  status: "ok";
+  mode: "m3_legacy_docs_write_resolved";
+  presentation: "unconfirmed";
+  text: string;
+  project: ProjectAssistantContextDto;
+  ephemeralNotice: string;
+  f3: import("./f3/resolveExistingLegacyM3DocsWriteProductPath").F3M3LegacyResolvedPayload;
+};
+
+export type ProjectAssistantResolveLegacyM3DocsWriteFailure = {
+  ok: false;
+  status: "prepare_error" | "stale" | "project_not_found" | "validation_error";
+  code: string;
+  message: string;
+  mode: AssistantUiMode;
+  retryable: boolean;
+};
+
+export type ProjectAssistantResolveLegacyM3DocsWriteResult =
+  | ProjectAssistantResolveLegacyM3DocsWriteSuccess
+  | ProjectAssistantResolveLegacyM3DocsWriteFailure;
+
 export type ProjectAssistantExecuteF3Success = {
   ok: true;
   status: "ok";

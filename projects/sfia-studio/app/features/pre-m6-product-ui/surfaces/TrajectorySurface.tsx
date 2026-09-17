@@ -17,7 +17,11 @@ import {
   useState,
 } from "react";
 import { flushSync } from "react-dom";
-import { projectAssistantPrepareResolvedM3Action } from "@/features/project-assistant/actions";
+import {
+  projectAssistantPrepareResolvedM3Action,
+  projectAssistantResolveLegacyM3DocsWriteAction,
+} from "@/features/project-assistant/actions";
+import { isLegacyDocsWritePrepareContractView } from "@/features/project-assistant/f3/legacyDocsWritePrepareContractView";
 import {
   w2AmendExecutionContractAction,
   w2AuthorizeExecutionContractAction,
@@ -258,6 +262,9 @@ export function TrajectorySurface({
     useState<"pending" | "ready" | "error">("pending");
   const [executionContinuityConflict, setExecutionContinuityConflict] =
     useState(false);
+  const [continuityDecisionRef, setContinuityDecisionRef] = useState<
+    string | null
+  >(null);
   const [pendingReinstruction, setPendingReinstruction] = useState<{
     readonly message: string;
     readonly proposalIds: readonly string[];
@@ -367,6 +374,22 @@ export function TrajectorySurface({
     proposalPursue && decision?.decisionBasisLinked === true;
   const proposalBackedPrepareBlocked =
     proposalPursue && decision?.decisionBasisLinked !== true;
+  const rematerializeDecisionId =
+    decision?.decisionId ?? continuityDecisionRef ?? null;
+  const legacyDocsWriteRematerializeReady = Boolean(
+    !decisionDefersExecution &&
+      rematerializeDecisionId &&
+      contract &&
+      isLegacyDocsWritePrepareContractView({
+        decisionId: rematerializeDecisionId,
+        executionContractId: contract.executionContractId,
+        action: contract.action,
+        target: contract.target,
+        scope: contract.scope,
+        constraints: contract.constraints,
+        requiredCapabilities: contract.requiredCapabilities,
+      }),
+  );
 
   function paintAttemptPhase(
     phase: GovernedExecutePhaseSuccess["phase"],
@@ -491,6 +514,7 @@ export function TrajectorySurface({
       setAuthorization(null);
       setAmendmentDraft("");
       setAmendmentNotice(null);
+      setContinuityDecisionRef(null);
       setExecutionContinuityReadStatus("error");
       return;
     }
@@ -501,6 +525,7 @@ export function TrajectorySurface({
       setAuthorization(null);
       setAmendmentDraft("");
       setAmendmentNotice(null);
+      setContinuityDecisionRef(null);
       setExecutionContinuityReadStatus("ready");
       return;
     }
@@ -519,6 +544,7 @@ export function TrajectorySurface({
       setAuthorization(null);
       setAmendmentDraft("");
       setAmendmentNotice(null);
+      setContinuityDecisionRef(null);
       setExecutionContinuityReadStatus("ready");
       return;
     }
@@ -542,6 +568,7 @@ export function TrajectorySurface({
         result.contract.inspectionDisclosure,
       ),
     });
+    setContinuityDecisionRef(result.decisionRef ?? null);
     setInspection(result.inspection);
     setAuthorization(null);
     setError(null);
@@ -897,6 +924,76 @@ export function TrajectorySurface({
     continuityMutationBlocked,
     decision,
     decisionDefersExecution,
+    projectId,
+    onDurableFactsChanged,
+  ]);
+
+  const rematerializeLegacyDocsWriteContract = useCallback(async () => {
+    if (continuityMutationBlocked) return;
+    const decisionId = decision?.decisionId ?? continuityDecisionRef;
+    if (!decisionId || !contract) return;
+    if (
+      !isLegacyDocsWritePrepareContractView({
+        decisionId,
+        executionContractId: contract.executionContractId,
+        action: contract.action,
+        target: contract.target,
+        scope: contract.scope,
+        constraints: contract.constraints,
+        requiredCapabilities: contract.requiredCapabilities,
+      })
+    ) {
+      return;
+    }
+    setBusy("contract");
+    setError(null);
+    const result = await projectAssistantResolveLegacyM3DocsWriteAction({
+      projectId,
+      decisionId,
+    });
+    setBusy(null);
+    if (!result.ok) {
+      setError(result.message);
+      return;
+    }
+    const prepared = result.f3.successor;
+    setContract({
+      executionContractId: prepared.executionContractId,
+      version: prepared.version,
+      status: prepared.status,
+      action: prepared.action,
+      target: prepared.target,
+      scope: prepared.scope,
+      requiredAuthority: prepared.requiredAuthority,
+      constraints: [...prepared.constraints],
+      stopConditions: [...prepared.stopConditions],
+      requiredCapabilities: [...prepared.requiredCapabilities],
+      reversibility: prepared.reversibility,
+      semanticFingerprint: prepared.semanticFingerprint,
+      inspectionDisclosure: toInspectionDisclosureView(
+        prepared.inspectionDisclosure,
+      ),
+    });
+    setInspection(null);
+    setAuthorization(null);
+    setAmendmentDraft("");
+    setAmendmentNotice({
+      priorExecutionContractId: result.f3.original.executionContractId,
+      additionalConstraint:
+        "préparation historique → contrat d'exécution gouverné actuel",
+      statusLabel:
+        "CONTRAT ACTUALISÉ — RÉINSPECTION REQUISE AVANT CONFIRMATION",
+      priorInspectionDoesNotCoverSuccessor: true,
+    });
+    setAttempt(null);
+    setAttemptPhase(null);
+    setAttemptStatusLabel(null);
+    onDurableFactsChanged?.();
+  }, [
+    continuityMutationBlocked,
+    decision,
+    continuityDecisionRef,
+    contract,
     projectId,
     onDurableFactsChanged,
   ]);
@@ -2164,6 +2261,31 @@ export function TrajectorySurface({
                 }
               >
                 Appliquer l&apos;amendement
+              </button>
+            </div>
+          ) : null}
+
+          {legacyDocsWriteRematerializeReady ? (
+            <div
+              className={styles.actions}
+              data-testid="w2-legacy-docs-write-rematerialize"
+            >
+              <p
+                className={styles.blockNote}
+                data-testid="w2-legacy-docs-write-rematerialize-note"
+              >
+                Cette préparation historique peut être actualisée en contrat
+                d&apos;exécution gouverné actuel. Aucune exécution n&apos;est
+                lancée — une nouvelle inspection sera requise.
+              </p>
+              <button
+                type="button"
+                className={styles.primaryAction}
+                data-testid="w2-rematerialize-legacy-docs-write"
+                onClick={() => void rematerializeLegacyDocsWriteContract()}
+                disabled={busy !== null || continuityMutationBlocked}
+              >
+                Actualiser le contrat d&apos;exécution
               </button>
             </div>
           ) : null}

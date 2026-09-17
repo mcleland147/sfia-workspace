@@ -15,6 +15,7 @@ const {
   amendMock,
   prepareContractMock,
   prepareM3Mock,
+  resolveLegacyMock,
   executeSelectMock,
   executeStartMock,
   executeCompleteMock,
@@ -33,6 +34,7 @@ const {
   amendMock: vi.fn(),
   prepareContractMock: vi.fn(),
   prepareM3Mock: vi.fn(),
+  resolveLegacyMock: vi.fn(),
   executeSelectMock: vi.fn(),
   executeStartMock: vi.fn(),
   executeCompleteMock: vi.fn(),
@@ -52,6 +54,8 @@ const {
 vi.mock("@/features/project-assistant/actions", () => ({
   projectAssistantPrepareResolvedM3Action: (...args: unknown[]) =>
     prepareM3Mock(...args),
+  projectAssistantResolveLegacyM3DocsWriteAction: (...args: unknown[]) =>
+    resolveLegacyMock(...args),
 }));
 
 vi.mock("@/features/project-assistant/w2/actions", () => ({
@@ -109,6 +113,7 @@ beforeEach(() => {
   amendMock.mockReset();
   prepareContractMock.mockReset();
   prepareM3Mock.mockReset();
+  resolveLegacyMock.mockReset();
   executeSelectMock.mockReset();
   executeStartMock.mockReset();
   executeCompleteMock.mockReset();
@@ -1603,6 +1608,179 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     expect(screen.queryByTestId("w2-proposal-backed-prepare")).toBeNull();
     expect(screen.queryByTestId("w2-governed-execute")).toBeNull();
     expect(inspectMock).not.toHaveBeenCalled();
+  });
+
+  it("D01 — legacy PREPARE_ONLY EC shows Actualiser CTA; hides generic PREPARE; rematerialize projects successor", async () => {
+    const decisionId = "dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411";
+    const originalId = `xct:m3:${decisionId}`;
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "active",
+      decisionRef: decisionId,
+      contract: {
+        executionContractId: originalId,
+        version: 3,
+        status: "confirmed",
+        action: "cursor.docs_write.apply",
+        target: "workspace.isolated.docs_write",
+        scope: "docs_write borné — cycle actif — aucune exécution automatique",
+        requiredAuthority: "MORRIS",
+        constraints: [
+          "PREPARE_ONLY",
+          "NO_CURSOR_REAL",
+          "NO_ATTEMPT",
+          "NO_GATE_D",
+        ],
+        stopConditions: ["AUCUNE EXÉCUTION", "AUTHORITY_DENIED"],
+        requiredCapabilities: ["cap:cursor.docs_write"],
+        reversibility: "irreversible",
+        semanticFingerprint: "fp-legacy",
+        effectConfirmationRequired: true,
+        effectConfirmationLevel: "N3",
+        inspectionDisclosure: {
+          action: "cursor.docs_write.apply",
+          technicalTarget: "workspace.isolated.docs_write",
+          scope: "docs_write borné — cycle actif — aucune exécution automatique",
+          targetRepositoryRef: "mcleland147/sfia-workspace",
+          targetPath: "projects/sfia-studio/.sandbox/gestion-de-taches.md",
+          scopeIn: ["projects/sfia-studio/.sandbox"],
+          scopeOut: [],
+          createOrModify: true,
+          noDelete: true,
+          objective: null,
+          artifactType: null,
+          artifactBrief: null,
+          contentRequirements: null,
+          validationExpectations: null,
+          expectedOutputs: ["projects/sfia-studio/.sandbox/gestion-de-taches.md"],
+          evidenceRequirements: [],
+          requiredAuthority: "MORRIS",
+          requiredCapabilities: ["cap:cursor.docs_write"],
+          constraints: ["PREPARE_ONLY"],
+          stopConditions: ["AUTHORITY_DENIED"],
+          reversibility: "irreversible",
+          contractVersion: 3,
+          executionContractId: originalId,
+          semanticFingerprint: "fp-legacy",
+          disclosureComplete: true,
+          incompletenessCode: null,
+        },
+      },
+      inspection: {
+        executionContractId: originalId,
+        contractVersion: 3,
+        semanticFingerprint: "fp-legacy",
+        statusLabel: "INSPECTÉ · inspecter n'autorise pas",
+        inspectionSufficient: true,
+        attestationRef: "insp:legacy",
+        attestedVersion: 3,
+        staleAttestationRef: null,
+        reinspectionRequired: false,
+        reason: null,
+        grantsAuthority: false,
+      },
+    });
+
+    resolveLegacyMock.mockResolvedValue({
+      ok: true,
+      status: "ok",
+      mode: "m3_legacy_docs_write_resolved",
+      presentation: "unconfirmed",
+      text: "ok",
+      project: { projectId: "prj:legacy" },
+      ephemeralNotice: "notice",
+      f3: {
+        turnKind: "f3_m3_legacy_docs_write_resolved",
+        mode: "M3_RESOLVED_BOUNDED_DOCS_WRITE",
+        decisionId,
+        projectId: "prj:legacy",
+        original: {
+          executionContractId: originalId,
+          version: 3,
+          status: "superseded",
+        },
+        successor: {
+          executionContractId: `xct:m3-res:${decisionId}`,
+          version: 1,
+          status: "confirmation_required",
+          action: "cursor.docs_write.apply",
+          target: "workspace.isolated.docs_write",
+          scope: "studio.gcec.docs_write",
+          requiredAuthority: "MORRIS",
+          constraints: ["BOUNDED DOCS-WRITE", "GATE D REQUIRED"],
+          stopConditions: ["GATE_D_REQUIRED"],
+          requiredCapabilities: ["cap:cursor.docs_write"],
+          reversibility: "reversible",
+          supersedesExecutionContractId: originalId,
+          supersessionReason: "bounded docs-write",
+          semanticFingerprint: "fp-successor",
+          evidenceRequirements: [],
+          inspectionDisclosure: {
+            action: "cursor.docs_write.apply",
+            technicalTarget: "workspace.isolated.docs_write",
+            scope: "studio.gcec.docs_write",
+            targetRepositoryRef: "mcleland147/sfia-workspace",
+            targetPath: "projects/sfia-studio/.sandbox/gestion-de-taches.md",
+            scopeIn: ["projects/sfia-studio/.sandbox"],
+            scopeOut: [],
+            createOrModify: true,
+            noDelete: true,
+            objective: null,
+            artifactType: null,
+            artifactBrief: null,
+            contentRequirements: null,
+            validationExpectations: null,
+            expectedOutputs: null,
+            evidenceRequirements: [],
+            requiredAuthority: "MORRIS",
+            requiredCapabilities: ["cap:cursor.docs_write"],
+            constraints: ["BOUNDED DOCS-WRITE"],
+            stopConditions: ["GATE_D_REQUIRED"],
+            reversibility: "reversible",
+            contractVersion: 1,
+            executionContractId: `xct:m3-res:${decisionId}`,
+            semanticFingerprint: "fp-successor",
+            disclosureComplete: true,
+            incompletenessCode: null,
+          },
+        },
+        reusedFromIdempotency: false,
+        executionPerformed: false,
+        attemptCreated: false,
+        confirmationRequired: true,
+        realExecution: false,
+        disclosures: [],
+      },
+    });
+
+    render(<TrajectorySurface projectId="prj:legacy-remat" />);
+    expect(await screen.findByTestId("w2-contract")).toBeVisible();
+    expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
+    expect(screen.queryByTestId("w2-proposal-backed-prepare")).toBeNull();
+    expect(
+      await screen.findByTestId("w2-legacy-docs-write-rematerialize"),
+    ).toBeVisible();
+    expect(
+      screen.getByTestId("w2-rematerialize-legacy-docs-write"),
+    ).toBeVisible();
+
+    fireEvent.click(screen.getByTestId("w2-rematerialize-legacy-docs-write"));
+    expect(await screen.findByTestId("w2-amendment-notice")).toBeVisible();
+    expect(screen.getByTestId("w2-amendment-status")).toHaveTextContent(
+      /CONTRAT ACTUALISÉ/i,
+    );
+    expect(screen.getByTestId("w2-contract-scope")).toHaveTextContent(
+      "studio.gcec.docs_write",
+    );
+    expect(screen.getByTestId("w2-contract-id-tech")).toHaveTextContent(
+      `xct:m3-res:${decisionId}`,
+    );
+    expect(screen.queryByTestId("w2-legacy-docs-write-rematerialize")).toBeNull();
+    expect(resolveLegacyMock).toHaveBeenCalledWith({
+      projectId: "prj:legacy-remat",
+      decisionId,
+    });
+    expect(prepareM3Mock).not.toHaveBeenCalled();
   });
 
   it("EC rehydration — pending continuity hides generic Instruire les options", async () => {
