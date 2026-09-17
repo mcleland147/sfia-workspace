@@ -1,10 +1,10 @@
 # ChatGPT Review Pack — FULL
-## PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01 — R7 post-Evidence recovery options context continuity
+## PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01 — R8 recovery execution binding + docs_write successor routing
 
-**Timestamp (UTC):** 2026-09-17T20:39:15Z
+**Timestamp (UTC):** 2026-09-17T21:35:47Z
 **Pack kind:** FULL (code modification present — modified content included below)
-**Pack revision:** R7 — post-Evidence recovery options context continuity
-**Automation:** L3 handoff publish only; **NO** project commit/push/PR/merge; **ZERO REAL**; **NO Execute**; **NO HumanDecision**; **NO new Attempt**
+**Pack revision:** R8 — recovery execution binding + docs_write successor routing
+**Automation:** L3 handoff publish only; **NO** project commit/push/PR/merge; **ZERO REAL**; **NO Execute**; **NO new HumanDecision**; **NO new Attempt**; **NO campaign SQLite mutation**
 
 ---
 
@@ -17,7 +17,7 @@
 | Branch | `qa/sfia-studio-product-journey-e2e-real-reconciliation-01` |
 | HEAD | `26478b1ea5b010c625f0c6039c969fac5c135cf5` |
 | origin/main | `26478b1ea5b010c625f0c6039c969fac5c135cf5` |
-| Baseline match | YES (`HEAD == origin/main == 26478b1ea5b010c625f0c6039c969fac5c135cf5`) |
+| Baseline match | YES (`HEAD == origin/main == 26478b1…`) |
 | Macro | PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01 |
 | Cycle | 9 — QA / Validation |
 | Typologie | EVOL |
@@ -51,1357 +51,2564 @@
 ?? .tmp-sfia-review/checkpoint-e-r4-evidence-coherence.diff
 ?? .tmp-sfia-review/checkpoint-e-resume-full.diff
 ?? .tmp-sfia-review/checkpoint-f-r6-observability.diff
+?? .tmp-sfia-review/checkpoint-f-r7-recovery-options.diff
+?? .tmp-sfia-review/checkpoint-f-r8-recovery-successor.diff
 ?? projects/sfia-studio/app/__tests__/oa/execution-contract/checkpointE.docsWriteEvidenceCoherence.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/oa/execution-contract/checkpointE.docsWriteEvidenceRematerialize.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/project-assistant/checkpointE.prepareResume.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/project-assistant/checkpointF.realFailureObservability.d0.test.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/checkpointF.recoveryDocsWriteSuccessor.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/project-assistant/checkpointF.recoveryOptionsContext.d0.test.ts
 ?? projects/sfia-studio/app/features/project-assistant/f3/docsWriteEvidenceContradictionView.ts
 ?? projects/sfia-studio/app/features/project-assistant/f3/processFailureDiagnostic.ts
 ?? projects/sfia-studio/app/features/project-assistant/f3/rematerializeDocsWriteEvidenceRequirements.ts
 ?? projects/sfia-studio/app/features/project-assistant/f3/resolveDurableBoundaryProofMode.ts
+?? projects/sfia-studio/app/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts
 ?? projects/sfia-studio/app/features/project-assistant/w2/prepareReadyProposalPursueContinuation.ts
 ?? projects/sfia-studio/app/features/project-assistant/w2/resolvePostEvidenceRecoveryContext.ts
+?? projects/sfia-studio/app/features/project-assistant/w2/resolveRecoveryExecutionBinding.ts
 ```
 
 ### Preservation
 
-- R1–R6 local Product dirty files: **preserved**
+- R1–R7 local Product dirty files: **preserved**
 - `package-lock.json`: dirty préexistant — **LEFT UNTOUCHED / hors scope**
-- Historical Attempt `xat:w3a:1f49d8e25e20837a`: **not mutated**
-- Campaign DB: **not manually mutated**
-- Target `projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md`: **ABSENT** (unchanged)
+- Historical Attempt `xat:w3a:1f49d8e25e20837a`: **not mutated** (status=failed)
+- Campaign DB `.sfia-exec/pje2e-real-01/product/oa-product.sqlite`: **not manually mutated** (mtime unchanged by this lot)
+- Wrong generic EC `xct:w3a:dec:w2-trj:7e6ca68a-…`: **still confirmation_required / unconsumed** (Pilot must use Studio PREPARE after reload — tests do not apply fix to campaign)
+- Target `projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md`: **ABSENT**
 - Nouveau REAL consommé ce lot: **0** (budget restant autorisé: 1)
 
 ---
 
-## 2. Diagnostic d'entrée (confirmé)
+## 2. Qualification SFIA
 
-`w2ProposeTrajectoryOptionsAction` → `resolveW2QualificationInputs` ne fournissait que:
-CycleInstance active + profil + objective/title LPS + Reservations + proposalId éventuel.
-
-Le chemin ne consommait pas Attempt failed / EC failed / Evidence / ReviewBundle / W3C recover.
-
-Quand `proposalId == null`, la branche ProjectTrajectory générique dérivait GOVERNED/BOUNDED/CLARIFY framing, et Nora recevait essentiellement `cyc:framing` + objectif LPS → repartait sur le cadrage gestion de tâches.
-
-**Le cycle `cyc:framing` n'est PAS erroné.** Le gap est la **sélection de contexte insuffisante**.
-
----
-
-## 3. Root cause confirmée
-
-Les primitives post-Evidence (W3B Evidence/RB + W3C `epi:w3c-rec:*` recover) sont durables mais **non consommées** par `proposeTrajectoryOptions` / `deriveTrajectoryOptions`.
-
-Classification: **B** (consommation manquante) + symptôme A (sujet cognitif framing).
+- **Cycle:** 9 — QA / Validation
+- **Typologie:** EVOL
+- **Profil:** CRITICAL
+- **Justification:** continuité recovery → ExecutionContract, sélection capability/executor, chemin vers frontière Cursor REAL (non consommée ici)
+- **Blocs:** Git Truth · SFIA Studio Convergence · Product recovery continuity · Execution governance · Fake / Real · QA / non-régression · Review Pack / Review Handoff
+- **Capacité v3 ciblée:** FAIL + Evidence → recovery/replan → HumanDecision Pilote → ExecutionContract successor cohérent → inspection / Confirmation / authority → executor gouverné
+- **Milestone:** Product Journey E2E REAL Reconciliation
 
 ---
 
-## 4. Primitives réutilisées (pas de second moteur)
+## 3. Diagnostic d'entrée (confirmé B+C)
 
-| Primitive | Usage R7 |
+Après HumanDecision ProjectTrajectory recovery (`opt:trajectory:governed-gated`):
+
+1. UI proposait le catalogue W3-A générique (`generate-temporary-artifact` / `simulate` / `read`).
+2. Serveur: `w2PrepareExecutionContractAction` → `prepareExecutionContractFromW2Decision` → builder générique.
+3. Bounded docs_write n'est **pas** dans ce catalogue.
+4. Chemin docs_write historique = Proposal/DecisionBasis → `prepareM3FromDecision` → resolve M4.
+5. Recovery HD ne portait pas action/target/targetPath docs_write.
+6. **R7** a propagé le recovery cognitif (options labels), **pas** le binding d'exécution.
+
+**Classification confirmée:**
+- **B** — recovery execution context not propagated
+- **C** — previous failed EC action/target not rehydrated
+- **A** — generic UI operation catalogue = symptôme
+- **E** — NON
+
+---
+
+## 4. Topology avant / après
+
+### Avant (dead-end)
+
+```
+Failed docs_write EC (xct:m3-ev:8aaa…)
+  → Attempt FAIL + Evidence + W3C recover
+  → R7 RecoveryContext → trajectory options recovery
+  → HD opt:trajectory:governed-gated
+  → UI W3-A catalog → PREPARE generic
+  → wrong EC xct:w3a:dec:w2-trj:7e6ca68a… (product:generate-temporary-artifact)
+```
+
+### Après (R8)
+
+```
+Failed docs_write EC (source of truth)
+  → R7 PostEvidenceRecoveryContext (coherence)
+  → RecoveryExecutionBinding (action/target/path/caps/evidence)
+  → HD governed-gated (activation gate)
+  → UI: recovered work CTA (no W3-A catalog)
+  → explicit PREPARE → cancel wrong generic (pre-exec Cancel)
+  → M3 PREPARE_ONLY + resolveM3 → successor docs_write EC
+```
+
+---
+
+## 5. Primitives réutilisées (KEEP / HARVEST)
+
+| Primitive | Usage R8 |
 |---|---|
-| `findExistingW3cPostEvidence` | Cohérence épisode W3C ↔ Evidence/Attempt |
-| `parseW3cRecommendationPayload` | Lecture payload recover/replan |
-| `w3bEvidenceIdentity` | Refuse mismatch Evidence/RB vs Attempt |
-| `resolveDurableBoundaryProofMode` (R6) | `realProcessInvoked` durable cursor_real |
-| Existing OptionSet supersession (`withPriorSetSupersedes`) | Re-instruction remplace rec générique sans nouvelle sémantique |
+| `resolvePostEvidenceRecoveryContext` (R7) | coherence episode |
+| Failed EC `getExecutionContract` | source of truth binding |
+| `cancelExecutionContract` | clear unconsumed wrong generic |
+| `canonicalM3PrepareContractId` + `idem:m3-prep:` | prepare identity |
+| `resolveM3ExecutionContract` | docs_write successor supersession |
+| `boundedDocsWriteM3ResolutionProfile` / evidence rematerialize helpers | caps/evidence/constraints |
+| `readCurrentGovernedExecutionContinuity` | idempotence / current EC |
+| W3-A `prepareExecutionContractFromW2Decision` | **unchanged** for non-recovery |
 
-**Non créé:** persistence recovery, store parallèle, schéma DB, moteur d'options séparé.
+**INTERDIT évité:** second catalogue · second recovery engine · nouvelle persistence · nouvelle architecture EC · mutation HD · Execute / Attempt / REAL.
 
 ---
 
-## 5. RecoveryContext exact
+## 6. RecoveryExecutionBinding (exact)
 
 ```ts
-type PostEvidenceRecoveryContext = {
-  kind: "post_evidence_recovery";
-  attemptId: string;
-  attemptStatus: "failed" | "timeout" | "cancelled";
-  stopReason: string | null;
-  executionContractId: string;
-  evidenceId: string;
-  reviewBundleId: string;
-  productOutcome: "FAIL" | "STOP";
-  recommendationKind: "recover" | "replan";
-  headline: string;
-  rationale: string;
-  nextStep: string;
-  realProcessInvoked: boolean;
-  businessEffectProven: false;
-  w3cEpistemicItemId: string;
+kind = "post_evidence_recovery_execution"
+sourceExecutionContractId  // from RecoveryContext.attempt → EC
+sourceAttemptId
+action = "cursor.docs_write.apply"
+target = "workspace.isolated.docs_write"
+targetPath = inputs.targetPath (required non-empty)
+requiredCapabilities includes cap:cursor.docs_write
+evidenceRequirements / constraints / stopConditions / inputs (cloned sans stale)
+projectId / cycleInstanceId / sourceSemanticFingerprint / sourceStatus=failed
+```
+
+### Règle de cohérence (fail-close → null binding / generic path)
+
+- RecoveryContext présent (Attempt terminal + Evidence + RB + W3C recover/replan + même Project)
+- Si `decisionId` fourni: HD accepted, `trajectory_option`, `selectedOptionId === GOVERNED_OPTION_REF`
+- Source EC `status === failed` + bounded docs_write action/target/capability
+- `inputs.targetPath` durable obligatoire sinon `DURABLE_EXECUTION_BINDING_INSUFFICIENT`
+- Jamais « dernier EC » par ordre temporel seul
+- Jamais action depuis texte Nora
+
+---
+
+## 7. UI disposition
+
+Quand `RecoveryExecutionBinding` docs_write cohérent:
+
+- Section `w2-recovery-docs-write-prepare`: « Reprendre l'écriture Markdown gouvernée… »
+- Affiche `targetPath` + source Attempt/EC
+- CTA explicite `w2-prepare-recovery-docs-write` — **aucun auto-PREPARE / auto-Execute**
+- Catalogue W3-A (`w3a-operation-kind`) **masqué**
+
+Sans binding: sélecteur W3-A **strictement inchangé**.
+
+---
+
+## 8. PREPARE routing + lifecycle wrong generic EC
+
+`prepareDocsWriteRecoverySuccessorFromDecision`:
+
+1. Resolve binding (avec decisionId)
+2. Idempotent reuse si continuity current déjà docs_write pour cette HD
+3. Sinon: `cancelExecutionContract` sur wrong generic courant lié à cette HD
+   - Authority scope = **scope du wrong EC** (évite AUTHORITY_SCOPE_MISMATCH)
+   - Status attendu: `cancelled` (pre-exec; supersede non applicable sans sémantique nouvelle — Cancel = primitive canonique existante)
+4. Build M3 PREPARE_ONLY `xct:m3:dec:…` + `idem:m3-prep:{decisionId}`
+5. `resolveM3ExecutionContract` → successor `cursor.docs_write.apply` / `workspace.isolated.docs_write` / path / `cap:cursor.docs_write` / `evreq:docs_write_artifact` / NO_COMMIT|PUSH|PR|MERGE
+6. Fresh lifecycle: pas de Confirmation / authority / Attempt hérités
+7. `executionPerformed: false`, `attemptCreated: false`
+
+**Wrong generic campaign EC:** non muté par ce lot (Pilot PREPARE après reload Studio). Tests prouvent Cancel → non-current.
+
+---
+
+## 9. Successor semantics
+
+- Successor = nouvel EC gouverné (pas résurrection)
+- Source failed EC reste `failed` / immutable
+- Constraints business du failed EC conservées (filtre FIXTURE_/NO_REAL génériques)
+- contentRequirements / validationExpectations clonés via `cloneDocsWriteInputsForRecoverySuccessor`
+- Stale keys droppés: confirmationRef, attemptId, baseHeadSha (re-pin server-side)
+
+---
+
+## 10. Fichiers modifiés / ajoutés (R8)
+
+**NEW**
+- `features/project-assistant/w2/resolveRecoveryExecutionBinding.ts`
+- `features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts`
+- `__tests__/project-assistant/checkpointF.recoveryDocsWriteSuccessor.d0.test.ts`
+
+**MOD**
+- `features/project-assistant/w2/actions.ts` — `w2ReadRecoveryExecutionBindingAction`, `w2PrepareRecoveryDocsWriteAction`
+- `features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx` — recovery CTA / hide W3-A
+- `__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx` — T4 UI + mocks
+
+**Hors scope:** `package-lock.json`
+
+---
+
+## 11. Diff exploitable (R8)
+
+Voir aussi `.tmp-sfia-review/checkpoint-f-r8-recovery-successor.diff`.
+
+### resolveRecoveryExecutionBinding.ts (full)
+
+```ts
+/**
+ * Checkpoint F / R8 — RecoveryExecutionBinding from durable failed docs_write EC.
+ * No new persistence. No parallel catalog. Source of truth = failed EC coherent
+ * with R7 PostEvidenceRecoveryContext (+ optional recovery trajectory HD).
+ */
+import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
+import type { ExecutionContract } from "@/lib/oa/execution-contract";
+import {
+  M4_BOUNDED_DOCS_WRITE_ACTION,
+  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
+  M4_BOUNDED_DOCS_WRITE_TARGET,
+} from "@/lib/oa/execution-attempt";
+import {
+  resolvePostEvidenceRecoveryContext,
+  type PostEvidenceRecoveryContext,
+} from "./resolvePostEvidenceRecoveryContext";
+import { GOVERNED_OPTION_REF } from "./trajectoryOptions";
+
+export type RecoveryExecutionBinding = {
+  readonly kind: "post_evidence_recovery_execution";
+  readonly recovery: PostEvidenceRecoveryContext;
+  readonly sourceExecutionContractId: string;
+  readonly sourceAttemptId: string;
+  readonly action: typeof M4_BOUNDED_DOCS_WRITE_ACTION;
+  readonly target: typeof M4_BOUNDED_DOCS_WRITE_TARGET;
+  readonly targetPath: string;
+  readonly scope: string;
+  readonly requiredCapabilities: readonly string[];
+  readonly evidenceRequirements: readonly string[];
+  readonly constraints: readonly string[];
+  readonly stopConditions: readonly string[];
+  readonly expectedOutputs: readonly string[];
+  readonly inputs: Readonly<Record<string, unknown>>;
+  readonly projectId: string;
+  readonly cycleInstanceId: string | null;
+  readonly sourceSemanticFingerprint: string | null;
+  readonly sourceStatus: string;
 };
+
+function asNonEmptyString(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : null;
+}
+
+function isBoundedDocsWriteContract(contract: ExecutionContract): boolean {
+  if (contract.action !== M4_BOUNDED_DOCS_WRITE_ACTION) return false;
+  if (contract.target !== M4_BOUNDED_DOCS_WRITE_TARGET) return false;
+  if (!contract.requiredCapabilities.includes(M4_BOUNDED_DOCS_WRITE_CAPABILITY)) {
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Clone durable inputs for a fresh successor — drop stale authority / OCC /
+ * confirmation / attempt bindings; keep business path + content requirements.
+ */
+export function cloneDocsWriteInputsForRecoverySuccessor(
+  inputs: Record<string, unknown> | undefined,
+): Record<string, unknown> {
+  const src = inputs ?? {};
+  const out: Record<string, unknown> = {};
+  const keepKeys = [
+    "targetPath",
+    "targetRepositoryRef",
+    "repositoryRef",
+    "pathAllowlist",
+    "scopeIn",
+    "scopeOut",
+    "createOrModify",
+    "noDelete",
+    "artifactType",
+    "artifactBrief",
+    "contentRequirements",
+    "validationExpectations",
+    "evidenceRequirements",
+    "expectedOutputs",
+    "repositoryIdentity",
+    "repositoryBindingIdentity",
+    "remoteUrl",
+    "defaultBranch",
+    "workingBranch",
+    "pathRoot",
+    "objective",
+    "recommendedProfile",
+    "cycleTypeId",
+    "activatedBlocks",
+  ] as const;
+  for (const key of keepKeys) {
+    if (key in src && src[key] !== undefined) {
+      out[key] = structuredClone(src[key]);
+    }
+  }
+  return out;
+}
+
+export async function resolveRecoveryExecutionBinding(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+  /**
+   * When set, require this accepted trajectory HD to be the recovery retry
+   * option (governed-gated). Omit for pure read of recoverable binding.
+   */
+  readonly decisionId?: string | null;
+}): Promise<
+  | { readonly ok: true; readonly binding: RecoveryExecutionBinding | null }
+  | { readonly ok: false; readonly code: string; readonly message: string }
+> {
+  const recovered = await resolvePostEvidenceRecoveryContext({
+    oa: input.oa,
+    projectId: input.projectId,
+  });
+  if (!recovered.ok) return recovered;
+  if (!recovered.context) {
+    return { ok: true, binding: null };
+  }
+  const recovery = recovered.context;
+
+  if (input.decisionId) {
+    const loaded = await input.oa.decisionServices.getHumanDecision.execute({
+      decisionId: input.decisionId,
+    });
+    if (!loaded.ok) {
+      return {
+        ok: false,
+        code: loaded.error.detailCode,
+        message: loaded.error.message,
+      };
+    }
+    const decision = loaded.decision;
+    if (decision.projectId !== input.projectId) {
+      return {
+        ok: false,
+        code: "PROJECT_MISMATCH",
+        message: "Décision hors projet — binding recovery refusé.",
+      };
+    }
+    if (decision.status !== "accepted") {
+      return { ok: true, binding: null };
+    }
+    const basis = decision.decisionBasis;
+    if (!basis || basis.sourceType !== "trajectory_option") {
+      return { ok: true, binding: null };
+    }
+    if (decision.selectedOptionId !== GOVERNED_OPTION_REF) {
+      // Only "nouvelle tentative gouvernée" activates docs_write successor.
+      return { ok: true, binding: null };
+    }
+  }
+
+  if (!input.oa.executionContractServices) {
+    return { ok: true, binding: null };
+  }
+
+  const loaded =
+    await input.oa.executionContractServices.getExecutionContract.execute({
+      executionContractId: recovery.executionContractId,
+    });
+  if (!loaded.ok) {
+    return { ok: true, binding: null };
+  }
+  const contract = loaded.contract;
+  if (contract.projectId !== input.projectId) {
+    return { ok: true, binding: null };
+  }
+  if (contract.executionContractId !== recovery.executionContractId) {
+    return { ok: true, binding: null };
+  }
+  if (contract.status !== "failed") {
+    // Recovery successor clones a failed EC — other statuses are not this path.
+    return { ok: true, binding: null };
+  }
+  if (!isBoundedDocsWriteContract(contract)) {
+    return { ok: true, binding: null };
+  }
+
+  const targetPath = asNonEmptyString(contract.inputs?.targetPath);
+  if (!targetPath) {
+    return {
+      ok: false,
+      code: "DURABLE_EXECUTION_BINDING_INSUFFICIENT",
+      message:
+        "Failed docs_write EC sans inputs.targetPath durable — binding recovery impossible.",
+    };
+  }
+
+  // Attempt ↔ EC coherence already enforced in RecoveryContext.
+  const evidenceRequirements = [...(contract.evidenceRequirements ?? [])];
+  const constraints = [...(contract.constraints ?? [])];
+
+  return {
+    ok: true,
+    binding: {
+      kind: "post_evidence_recovery_execution",
+      recovery,
+      sourceExecutionContractId: contract.executionContractId,
+      sourceAttemptId: recovery.attemptId,
+      action: M4_BOUNDED_DOCS_WRITE_ACTION,
+      target: M4_BOUNDED_DOCS_WRITE_TARGET,
+      targetPath,
+      scope: contract.scope,
+      requiredCapabilities: [...contract.requiredCapabilities],
+      evidenceRequirements,
+      constraints,
+      stopConditions: [...(contract.stopConditions ?? [])],
+      expectedOutputs: [...(contract.expectedOutputs ?? [])],
+      inputs: cloneDocsWriteInputsForRecoverySuccessor(contract.inputs),
+      projectId: contract.projectId,
+      cycleInstanceId: contract.cycleInstanceId ?? null,
+      sourceSemanticFingerprint: contract.semanticFingerprint ?? null,
+      sourceStatus: contract.status,
+    },
+  };
+}
 ```
 
-### Règle de sélection / cohérence
+### prepareDocsWriteRecoverySuccessor.ts (full)
 
-SI épisode post-Evidence cohérent pour le Project courant:
-- W3C Recommendation active `recover|replan` + outcome `FAIL|STOP`
-- `w3bEvidenceIdentity(attemptId)` match evidenceId/reviewBundleId
-- `findExistingW3cPostEvidence` confirme le même épisode
-- Attempt terminal `failed|timeout` (ou `cancelled` si STOP)
-- EC.projectId == Project courant
-- Evidence bindings Attempt/EC/Project cohérents quand reader dispo
+```ts
+/**
+ * Checkpoint F / R8 — prepare + resolve a bounded docs_write successor EC from
+ * a coherent RecoveryExecutionBinding after recovery trajectory HD.
+ *
+ * Does NOT mutate HumanDecision. Does NOT Execute. Does NOT create Attempts.
+ * Clears wrong pre-exec generic EC via Cancel (existing pre-exec lifecycle).
+ */
+import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
+import type { F2ContextSnapshot } from "@/features/project-assistant/f2/types";
+import {
+  LOCAL_PILOTE_ACTOR,
+  registerLocalPiloteAuthority,
+} from "@/lib/oa/decision";
+import {
+  M4_BOUNDED_DOCS_WRITE_ACTION,
+  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
+  M4_BOUNDED_DOCS_WRITE_TARGET,
+} from "@/lib/oa/execution-attempt";
+import {
+  resolveBoundedReadOnlyBaseHeadSha,
+  validateBaseHeadSha,
+} from "@/lib/vertical-slice-runtime/resolveBoundedReadOnlyBaseHeadSha";
+import {
+  boundedDocsWriteM3ResolutionProfile,
+  BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS,
+  BOUNDED_DOCS_WRITE_M3_SUPERSESSION_REASON,
+  resolveDocsWriteEvidenceRequirementsForBoundedProfile,
+} from "@/features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile";
+import {
+  canonicalM3PrepareContractId,
+  resolveM3ExecutionContract,
+} from "@/features/project-assistant/f3/resolveM3ExecutionContract";
+import { readCurrentGovernedExecutionContinuity } from "./readCurrentGovernedExecutionContinuity";
+import {
+  resolveRecoveryExecutionBinding,
+  type RecoveryExecutionBinding,
+} from "./resolveRecoveryExecutionBinding";
+import type { AmendedExecutionContractDto } from "./types";
 
-ALORS RecoveryContext complète/domine le sujet d'instruction.
-SINON comportement générique inchangé.
+export const RECOVERY_WRONG_GENERIC_CANCEL_REASON =
+  "w2_recovery_docs_write_reprepare — clear unconsumed generic fixture EC before docs_write successor" as const;
 
-CycleInstance `cyc:framing` **conservé** (arrière-plan CKC) — non remplacé.
+export type PrepareDocsWriteRecoverySuccessorResult =
+  | {
+      readonly ok: true;
+      readonly decisionId: string;
+      readonly binding: RecoveryExecutionBinding;
+      readonly prepareContractId: string;
+      readonly successor: AmendedExecutionContractDto;
+      readonly cancelledWrongGenericContractId: string | null;
+      readonly reusedFromIdempotency: boolean;
+      readonly executionPerformed: false;
+      readonly attemptCreated: false;
+      readonly confirmationRequired: true;
+    }
+  | { readonly ok: false; readonly code: string; readonly message: string };
 
----
+function toSuccessorDto(successor: {
+  executionContractId: string;
+  version: number;
+  status: string;
+  action: string;
+  target: string;
+  scope: string;
+  requiredAuthority: string;
+  constraints: readonly string[];
+  stopConditions: readonly string[];
+  requiredCapabilities: readonly string[];
+  reversibility: string;
+  semanticFingerprint: string;
+  supersedesExecutionContractId: string;
+  supersessionReason: string;
+  inspectionDisclosure: AmendedExecutionContractDto["inspectionDisclosure"];
+}): AmendedExecutionContractDto {
+  return {
+    executionContractId: successor.executionContractId,
+    version: successor.version,
+    status: successor.status,
+    action: successor.action,
+    target: successor.target,
+    scope: successor.scope,
+    requiredAuthority: successor.requiredAuthority,
+    constraints: [...successor.constraints],
+    stopConditions: [...successor.stopConditions],
+    requiredCapabilities: [...successor.requiredCapabilities],
+    reversibility: successor.reversibility,
+    semanticFingerprint: successor.semanticFingerprint,
+    supersedesExecutionContractId: successor.supersedesExecutionContractId,
+    supersessionReason: successor.supersessionReason,
+    inspectionDisclosure: successor.inspectionDisclosure,
+  };
+}
 
-## 6. Adaptation W2
+async function cancelWrongGenericCurrentIfNeeded(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+  readonly recoveryDecisionId: string;
+  readonly forceLocalAuthority: boolean;
+}): Promise<
+  | { readonly ok: true; readonly cancelledId: string | null }
+  | { readonly ok: false; readonly code: string; readonly message: string }
+> {
+  const continuity = await readCurrentGovernedExecutionContinuity({
+    oa: input.oa,
+    projectId: input.projectId,
+  });
+  if (!continuity.ok) {
+    return {
+      ok: false,
+      code: continuity.code,
+      message: continuity.message,
+    };
+  }
+  if (continuity.kind === "none") {
+    return { ok: true, cancelledId: null };
+  }
 
-1. `resolvePostEvidenceRecoveryContext` — read-model borné (nouveau fichier)
-2. `proposeTrajectoryOptions` — résout RecoveryContext avant cognition ProjectTrajectory; injecte `buildRecoveryCognitionSection` dans le prompt Nora; passe `recoveryContext` à derive
-3. `trajectoryOptions` — mêmes optionRefs (idempotence / no epistemic retirement) avec labels recovery:
-   - GOVERNED → préparer nouvelle tentative gouvernée
-   - BOUNDED → replanifier/suspendre sans relance
-   - CLARIFY → diagnostiquer/clarifier avant nouvelle tentative
-4. Recommendation recovery défaut = CLARIFY (diagnose) — **jamais** auto-pick retry malgré GO Morris hors runtime
-5. `isHumanDecision: false`, `promotesTrajectory: false` conservés
+  const current = continuity.contract;
+  const isDocsWrite =
+    current.action === M4_BOUNDED_DOCS_WRITE_ACTION &&
+    current.target === M4_BOUNDED_DOCS_WRITE_TARGET;
+  if (isDocsWrite) {
+    return { ok: true, cancelledId: null };
+  }
 
----
+  // Only clear unconsumed wrong generic when it belongs to this recovery HD.
+  if (continuity.decisionRef !== input.recoveryDecisionId) {
+    return {
+      ok: false,
+      code: "EXECUTION_CONTINUITY_AMBIGUOUS",
+      message:
+        "Un contrat pré-exécution courant d'une autre décision bloque le prepare recovery.",
+    };
+  }
 
-## 7. État recommandation générique pré-fix
+  // Authority must match the wrong generic EC scope (not docs_write).
+  const cancelAuthority = registerLocalPiloteAuthority({
+    authorityResolver: input.oa.authorityResolver,
+    scope: current.scope,
+    issuedAt: input.oa.clock.nowIso(),
+    evidenceId: `evd:m3-rec-cancel:${current.executionContractId}`,
+    forceEnable: input.forceLocalAuthority === true,
+  });
+  if (!cancelAuthority.ok) {
+    return {
+      ok: false,
+      code: cancelAuthority.code,
+      message: cancelAuthority.message,
+    };
+  }
 
-Campagne: `epi:rec-w2-462d77fbb356` (instruction générique incorrecte, **aucune HD**).
+  const cancelled =
+    await input.oa.executionContractServices!.cancelExecutionContract.execute({
+      executionContractId: current.executionContractId,
+      reason: RECOVERY_WRONG_GENERIC_CANCEL_REASON,
+      actor: LOCAL_PILOTE_ACTOR,
+      authorityEvidenceId: cancelAuthority.evidenceId,
+      expectedVersion: current.version,
+    });
+  if (!cancelled.ok) {
+    return {
+      ok: false,
+      code: cancelled.error.detailCode,
+      message: cancelled.error.message,
+    };
+  }
+  return { ok: true, cancelledId: current.executionContractId };
+}
 
-Lifecycle existant: re-instruction ProjectTrajectory avec **mêmes optionRefs** + `withPriorSetSupersedes` sur Recommendation/Observation — la nouvelle OptionSet recovery supersède sans mutation SQLite manuelle ni nouvelle sémantique.
+/**
+ * Explicit Pilot PREPARE after recovery trajectory HD (governed retry).
+ */
+export async function prepareDocsWriteRecoverySuccessorFromDecision(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+  readonly decisionId: string;
+  readonly currentContext: F2ContextSnapshot;
+  readonly forceLocalAuthority?: boolean;
+  /** Server/test only — pin base HEAD; never from client. */
+  readonly boundedDocsWriteBaseHeadSha?: string;
+}): Promise<PrepareDocsWriteRecoverySuccessorResult> {
+  const { oa } = input;
+  if (!oa.executionContractServices || !oa.decisionServices) {
+    return {
+      ok: false,
+      code: "OA_STACK_UNAVAILABLE",
+      message: "Services EC / Decision indisponibles.",
+    };
+  }
 
-T11 prouve: W3C recover n'est pas masqué par une recommandation W2 générique antérieure.
+  const bound = await resolveRecoveryExecutionBinding({
+    oa,
+    projectId: input.projectId,
+    decisionId: input.decisionId,
+  });
+  if (!bound.ok) return bound;
+  if (!bound.binding) {
+    return {
+      ok: false,
+      code: "RECOVERY_EXECUTION_BINDING_REQUIRED",
+      message:
+        "Aucun RecoveryExecutionBinding docs_write cohérent — prepare recovery refusé.",
+    };
+  }
+  const binding = bound.binding;
 
----
+  const issuedAt = oa.clock.nowIso();
+  const authority = registerLocalPiloteAuthority({
+    authorityResolver: oa.authorityResolver,
+    scope: binding.scope || "studio.gcec.docs_write",
+    issuedAt,
+    evidenceId: `evd:m3-rec-prep:${input.decisionId}`,
+    forceEnable: input.forceLocalAuthority === true,
+  });
+  if (!authority.ok) {
+    return {
+      ok: false,
+      code: authority.code,
+      message: authority.message,
+    };
+  }
 
-## 8. Fichiers R7 (scope lot)
+  const prepareId = canonicalM3PrepareContractId(input.decisionId);
 
-| Path | Change |
-|---|---|
-| `w2/resolvePostEvidenceRecoveryContext.ts` | **NEW** — resolver + cognition section + realProcessInvoked |
-| `w2/proposeTrajectoryOptions.ts` | ADAPT — inject RecoveryContext |
-| `w2/trajectoryOptions.ts` | ADAPT — recovery option/recommendation derive |
-| `__tests__/.../checkpointF.recoveryOptionsContext.d0.test.ts` | **NEW** — T1–T12 |
+  // Idempotent reuse: current docs_write already linked to this recovery HD.
+  const continuityBefore = await readCurrentGovernedExecutionContinuity({
+    oa,
+    projectId: input.projectId,
+  });
+  if (
+    continuityBefore.ok &&
+    continuityBefore.kind === "active" &&
+    continuityBefore.decisionRef === input.decisionId &&
+    continuityBefore.contract.action === M4_BOUNDED_DOCS_WRITE_ACTION &&
+    continuityBefore.contract.target === M4_BOUNDED_DOCS_WRITE_TARGET
+  ) {
+    const c = continuityBefore.contract;
+    return {
+      ok: true,
+      decisionId: input.decisionId,
+      binding,
+      prepareContractId: prepareId,
+      successor: {
+        executionContractId: c.executionContractId,
+        version: c.version,
+        status: c.status,
+        action: c.action,
+        target: c.target,
+        scope: c.scope,
+        requiredAuthority: c.requiredAuthority,
+        constraints: [...c.constraints],
+        stopConditions: [...c.stopConditions],
+        requiredCapabilities: [...c.requiredCapabilities],
+        reversibility: c.reversibility,
+        semanticFingerprint: c.semanticFingerprint,
+        supersedesExecutionContractId: null,
+        supersessionReason: null,
+        inspectionDisclosure: c.inspectionDisclosure,
+      },
+      cancelledWrongGenericContractId: null,
+      reusedFromIdempotency: true,
+      executionPerformed: false,
+      attemptCreated: false,
+      confirmationRequired: true,
+    };
+  }
 
-Hors scope: `package-lock.json`, R1–R6 files (préservés).
+  const cleared = await cancelWrongGenericCurrentIfNeeded({
+    oa,
+    projectId: input.projectId,
+    recoveryDecisionId: input.decisionId,
+    forceLocalAuthority: input.forceLocalAuthority === true,
+  });
+  if (!cleared.ok) return cleared;
 
----
+  // If prepare already exists (after cancel of wrong generic), resolve path may
+  // still be pending — try get + resolve rather than rebuild.
+  const existingPrepare =
+    await oa.executionContractServices.getExecutionContract.execute({
+      executionContractId: prepareId,
+    });
 
-## 9. Tests
+  const evidenceFromSource =
+    resolveDocsWriteEvidenceRequirementsForBoundedProfile({
+      fromPrepare:
+        binding.evidenceRequirements.length > 0
+          ? binding.evidenceRequirements
+          : [...BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS],
+      constraints: binding.constraints,
+    });
 
-| ID | Result |
-|---|---|
-| T1 RecoveryContext on FAIL+Evidence+RB+W3C | PASS |
-| T2 cognition prompt FAIL/Evidence/recover | PASS |
-| T3 recovery options, no auto HD | PASS |
-| T4 recommendation recovery ≠ decision | PASS |
-| T5 realProcessInvoked cursor_real stays true | PASS |
-| T6 no failed episode → generic | PASS |
-| T7 SUCCESS → no false recovery | PASS |
-| T8 hostile project → null | PASS |
-| T9 other project W3C not injected | PASS |
-| T10 restart from durable SQLite | PASS |
-| T11 generic rec does not mask W3C | PASS |
-| T12 no new Attempt on propose | PASS |
-| T13 R1/R3/R4/R6 non-régression (E + F R6 suites) | PASS |
-| T14 typecheck `tsc --noEmit` | PASS |
+  const profile = boundedDocsWriteM3ResolutionProfile();
+  const inputs = {
+    ...binding.inputs,
+    targetPath: binding.targetPath,
+  };
 
-Commandes:
+  // Unresolved M3 PREPARE shape (PREPARE_ONLY) so resolveM3 can supersede —
+  // same pattern as prepareM3FromDecision docs_write path.
+  const prepareConstraints = Array.from(
+    new Set([
+      "PREPARE_ONLY",
+      "NO_CURSOR_REAL",
+      "NO_ATTEMPT",
+      "NO_GATE_D",
+      ...binding.constraints.filter(
+        (c) =>
+          !c.startsWith("FIXTURE_") &&
+          c !== "NO_REAL" &&
+          c !== "SCOPE_OUT:REAL" &&
+          c !== "SCOPE_OUT:CURSOR_REAL" &&
+          c !== "NO_ATTEMPT_AT_PREPARE",
+      ),
+    ]),
+  );
+  const prepareStops = Array.from(
+    new Set([
+      "AUTHORITY_DENIED",
+      "CONTEXT_STALE",
+      "DECISION_NOT_CURRENT",
+      ...binding.stopConditions,
+    ]),
+  );
+
+  let prepareContract = existingPrepare.ok ? existingPrepare.contract : null;
+
+  if (
+    prepareContract &&
+    (prepareContract.status === "cancelled" ||
+      prepareContract.status === "superseded" ||
+      prepareContract.status === "failed" ||
+      prepareContract.status === "completed" ||
+      prepareContract.status === "executing")
+  ) {
+    // Terminal / superseded prepare — only reuse via continuity/idempotent path above.
+    if (prepareContract.status === "superseded") {
+      // Resolve will recover existing successor.
+    } else {
+      prepareContract = null;
+    }
+  }
+
+  if (!prepareContract) {
+    const built =
+      await oa.executionContractServices.buildExecutionContract.execute({
+        executionContractId: prepareId,
+        projectId: input.projectId,
+        cycleInstanceId:
+          binding.cycleInstanceId ??
+          input.currentContext.activeCycleInstanceId ??
+          undefined,
+        decisionRefs: [input.decisionId],
+        action: M4_BOUNDED_DOCS_WRITE_ACTION,
+        target: M4_BOUNDED_DOCS_WRITE_TARGET,
+        scope: profile.scope ?? "studio.gcec.docs_write",
+        inputs,
+        expectedOutputs:
+          binding.expectedOutputs.length > 0
+            ? [...binding.expectedOutputs]
+            : undefined,
+        requiredCapabilities: [M4_BOUNDED_DOCS_WRITE_CAPABILITY],
+        requiredAuthority: "MORRIS",
+        constraints: prepareConstraints,
+        stopConditions: prepareStops,
+        evidenceRequirements: evidenceFromSource,
+        reversibility: "reversible",
+        // Canonical M3 PREPARE identity — required by resolveM3ExecutionContract.
+        idempotencyKey: `idem:m3-prep:${input.decisionId}`,
+        correlationId: `cor:m3-rec-prep:${input.decisionId}`,
+        actor: LOCAL_PILOTE_ACTOR,
+        authorityEvidenceId: authority.evidenceId,
+      });
+
+    if (!built.ok) {
+      return {
+        ok: false,
+        code: built.error.detailCode,
+        message: built.error.message,
+      };
+    }
+
+    const validated =
+      await oa.executionContractServices.validateExecutionContract.execute({
+        executionContractId: built.contract.executionContractId,
+        actor: LOCAL_PILOTE_ACTOR,
+        authorityEvidenceId: authority.evidenceId,
+      });
+    if (!validated.ok) {
+      return {
+        ok: false,
+        code: validated.error.detailCode,
+        message: validated.error.message,
+      };
+    }
+    prepareContract = validated.contract;
+  }
+
+  let sha: string | null = null;
+  if (input.boundedDocsWriteBaseHeadSha !== undefined) {
+    sha = validateBaseHeadSha(input.boundedDocsWriteBaseHeadSha);
+  } else {
+    const resolvedSha = await resolveBoundedReadOnlyBaseHeadSha({});
+    if (!resolvedSha.ok) {
+      return {
+        ok: false,
+        code: resolvedSha.code,
+        message: resolvedSha.message,
+      };
+    }
+    sha = resolvedSha.sha;
+  }
+  if (!sha) {
+    return {
+      ok: false,
+      code: "BASE_HEAD_SHA_INVALID",
+      message:
+        "baseHeadSha server-side invalide — fail-closed avant Confirmation / Gate D.",
+    };
+  }
+
+  const resolution = {
+    ...profile,
+    evidenceRequirements: evidenceFromSource,
+    inputs: {
+      ...(profile.inputs ?? {}),
+      ...inputs,
+      baseHeadSha: sha,
+    },
+  };
+
+  const resolved = await resolveM3ExecutionContract({
+    projectId: input.projectId,
+    decisionId: input.decisionId,
+    originalExecutionContractId: prepareContract.executionContractId,
+    expectedOriginalVersion: prepareContract.version,
+    resolution,
+    supersessionReason: BOUNDED_DOCS_WRITE_M3_SUPERSESSION_REASON,
+    deps: {
+      decisionServices: oa.decisionServices,
+      authorityResolver: oa.authorityResolver,
+      executionContractServices: oa.executionContractServices,
+      nowIso: () => oa.clock.nowIso(),
+      forceM3Authority: input.forceLocalAuthority === true,
+    },
+  });
+  if (!resolved.ok) {
+    return {
+      ok: false,
+      code: resolved.code,
+      message: resolved.message,
+    };
+  }
+
+  return {
+    ok: true,
+    decisionId: input.decisionId,
+    binding,
+    prepareContractId: prepareId,
+    successor: toSuccessorDto(resolved.successor),
+    cancelledWrongGenericContractId: cleared.cancelledId,
+    reusedFromIdempotency: resolved.reusedFromIdempotency,
+    executionPerformed: false,
+    attemptCreated: false,
+    confirmationRequired: true,
+  };
+}
 ```
-npx vitest run __tests__/project-assistant/checkpointF.recoveryOptionsContext.d0.test.ts
-npx vitest run __tests__/project-assistant/checkpointF.realFailureObservability.d0.test.ts
-npx vitest run __tests__/project-assistant/checkpointE.prepareResume.d0.test.ts \
-  __tests__/oa/execution-contract/checkpointE.docsWriteEvidenceCoherence.d0.test.ts
-npx tsc --noEmit -p tsconfig.json
+
+### actions.ts (R8 excerpts)
+
+```
+405: * R8 — read RecoveryExecutionBinding for UI (docs_write recovery CTA).
+406- * Client sends only projectId + optional decisionId. No path/op injection.
+407- */
+408-export async function w2ReadRecoveryExecutionBindingAction(input: {
+409-  projectId: string;
+410-  decisionId?: string | null;
+411-}): Promise<
+412-  | { readonly ok: true; readonly binding: RecoveryExecutionBinding | null }
+413-  | { readonly ok: false; readonly code: string; readonly message: string }
+414-> {
+415-  const runtime = getRuntimeApplicationService();
+416-  if (!runtime.oa) return OA_UNAVAILABLE;
+417-  return resolveRecoveryExecutionBinding({
+418-    oa: runtime.oa,
+419-    projectId: input.projectId,
+420-    decisionId: input.decisionId,
+421-  });
+422-}
+423-
+424-/**
+425- * R8 — prepare bounded docs_write successor from recovery HD + failed EC binding.
+426- * Does not accept client path/operation. Cancels wrong generic current if needed.
+427- */
+428-export async function w2PrepareRecoveryDocsWriteAction(input: {
+429-  projectId: string;
+430-  decisionId: string;
+431-  /** Hostile — ignored. */
+432-  targetPath?: unknown;
+433-  qualifiedOperationKind?: unknown;
+434-  real?: unknown;
+435-}): Promise<
+436-  | {
+437-      readonly ok: true;
+438-      readonly contract: AmendedExecutionContractDto;
+439-      readonly decisionId: string;
+440-      readonly cancelledWrongGenericContractId: string | null;
+441-      readonly reusedFromIdempotency: boolean;
+442-      readonly f3SemanticOverwrite: false;
+443-      readonly executionPerformed: false;
+444-      readonly attemptCreated: false;
+445-      readonly binding: RecoveryExecutionBinding;
 ```
 
----
+### Unified diff artifact
 
-## 10. Restart proof
-
-T10: runtime A materialize FAIL+W3C → dispose → runtime B same SQLite → `resolvePostEvidenceRecoveryContext` reconstruit Attempt/Evidence/recover. Aucune dépendance ProposalStore process-local / flag React / mémoire recovery.
-
----
-
-## 11. ZERO REAL / safety
-
-| Gate | Status |
-|---|---|
-| Cursor REAL lancé | NON |
-| Execute | NON |
-| Nouvel Attempt campagne | NON (count reste 1) |
-| HumanDecision | NON |
-| Mutation SQLite campagne manuelle | NON |
-| Target ABSENT | OUI |
-| Nouveau REAL consommé | 0 |
-| Budget restant | 1 |
-
----
-
-## 12. Réserves
-
-- Campagne runtime « Instruire les options » non rejouée ici (ZERO REAL lot) — preuve déterministe via tests + durables.
-- Recommandation générique campagne `epi:rec-w2-462d77fbb356` sera supersédée à la prochaine instruction Product (lifecycle existant), pas mutée manuellement.
-- Morris REAL GO hors runtime **n'auto-sélectionne pas** l'option retry.
-
----
-
-## 13. Gates
-
-| Gate | Verdict |
-|---|---|
-| Pas de nouvelle persistence | PASS |
-| Pas de second recovery engine | PASS |
-| CycleInstance inchangé | PASS |
-| Supersession via lifecycle existant | PASS |
-| ZERO REAL | PASS |
-| Autorité / Gate D non élargie | PASS |
-
----
-
-## 14. Claims
-
-**Autorisés**
-- recovery context continuity deterministically proven
-- W3C post-Evidence consumed by W2 trajectory instruction
-- ZERO REAL
-- previous Attempt remains FAIL
-
-**Interdits (non revendiqués)**
-- recovery HumanDecision made
-- retry executed
-- REAL PASS
-- Product Journey E2E usable / READY
-- runtime v3 ADOPTED
-
----
-
-## 15. Verdict
-
-**RECOVERY OPTIONS CONTEXT FIXED — READY FOR PILOT RECOVERY DECISION**
-
-Boucle reconnectée:
-FAIL → Evidence/RB → W3C recover → W2 Options/Recommendation recovery → (HumanDecision Pilote — hors lot)
-
----
-
-## 16. Diff exploitable R7 (complet)
-
-===== R7 TRACKED DIFF =====
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts b/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
-index 63ced39a..d2636564 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
-@@ -61,6 +61,11 @@ import {
-   deriveTrajectoryRecommendation,
-   type TrajectoryOptionInputs,
- } from "./trajectoryOptions";
+```diff
+=== NEW: resolveRecoveryExecutionBinding.ts ===
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/resolveRecoveryExecutionBinding.ts b/projects/sfia-studio/app/features/project-assistant/w2/resolveRecoveryExecutionBinding.ts
+new file mode 100644
+index 00000000..1b89b189
+--- /dev/null
++++ b/projects/sfia-studio/app/features/project-assistant/w2/resolveRecoveryExecutionBinding.ts
+@@ -0,0 +1,215 @@
++/**
++ * Checkpoint F / R8 — RecoveryExecutionBinding from durable failed docs_write EC.
++ * No new persistence. No parallel catalog. Source of truth = failed EC coherent
++ * with R7 PostEvidenceRecoveryContext (+ optional recovery trajectory HD).
++ */
++import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
++import type { ExecutionContract } from "@/lib/oa/execution-contract";
 +import {
-+  buildRecoveryCognitionSection,
++  M4_BOUNDED_DOCS_WRITE_ACTION,
++  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
++  M4_BOUNDED_DOCS_WRITE_TARGET,
++} from "@/lib/oa/execution-attempt";
++import {
 +  resolvePostEvidenceRecoveryContext,
 +  type PostEvidenceRecoveryContext,
 +} from "./resolvePostEvidenceRecoveryContext";
- import type {
-   CkcRecommendationProvenanceDto,
-   ProposeTrajectoryOptionsResult,
-@@ -222,6 +227,14 @@ export async function proposeTrajectoryOptions(
-     }
-     return { ok: true, ...activeSubject.optionSet };
-   }
-+  if (activeSubject.kind === "pursue_prepare_ready") {
-+    return {
-+      ok: false,
-+      code: "PREPARE_CONTINUATION_OWNS_NEXT_ACTION",
-+      message:
-+        "Une décision pursue durable attend la préparation du contrat d'exécution — aucune nouvelle instruction d'options.",
-+    };
++import { GOVERNED_OPTION_REF } from "./trajectoryOptions";
++
++export type RecoveryExecutionBinding = {
++  readonly kind: "post_evidence_recovery_execution";
++  readonly recovery: PostEvidenceRecoveryContext;
++  readonly sourceExecutionContractId: string;
++  readonly sourceAttemptId: string;
++  readonly action: typeof M4_BOUNDED_DOCS_WRITE_ACTION;
++  readonly target: typeof M4_BOUNDED_DOCS_WRITE_TARGET;
++  readonly targetPath: string;
++  readonly scope: string;
++  readonly requiredCapabilities: readonly string[];
++  readonly evidenceRequirements: readonly string[];
++  readonly constraints: readonly string[];
++  readonly stopConditions: readonly string[];
++  readonly expectedOutputs: readonly string[];
++  readonly inputs: Readonly<Record<string, unknown>>;
++  readonly projectId: string;
++  readonly cycleInstanceId: string | null;
++  readonly sourceSemanticFingerprint: string | null;
++  readonly sourceStatus: string;
++};
++
++function asNonEmptyString(value: unknown): string | null {
++  if (typeof value !== "string") return null;
++  const trimmed = value.trim();
++  return trimmed.length > 0 ? trimmed : null;
++}
++
++function isBoundedDocsWriteContract(contract: ExecutionContract): boolean {
++  if (contract.action !== M4_BOUNDED_DOCS_WRITE_ACTION) return false;
++  if (contract.target !== M4_BOUNDED_DOCS_WRITE_TARGET) return false;
++  if (!contract.requiredCapabilities.includes(M4_BOUNDED_DOCS_WRITE_CAPABILITY)) {
++    return false;
 +  }
-   if (
-     activeSubject.kind === "pending_reinstruction_required" &&
-     !opaqueProposalIdEarly
-@@ -297,10 +310,33 @@ export async function proposeTrajectoryOptions(
-     };
-   }
-
-+  // R7 — durable RecoveryContext for ProjectTrajectory path only.
-+  // Proposal subject path keeps sealed Proposal as subject (no recovery inject).
-+  let recoveryContext: PostEvidenceRecoveryContext | null = null;
-+  if (!proposalSubject) {
-+    const recovered = await resolvePostEvidenceRecoveryContext({
-+      oa,
-+      projectId: input.projectId,
++  return true;
++}
++
++/**
++ * Clone durable inputs for a fresh successor — drop stale authority / OCC /
++ * confirmation / attempt bindings; keep business path + content requirements.
++ */
++export function cloneDocsWriteInputsForRecoverySuccessor(
++  inputs: Record<string, unknown> | undefined,
++): Record<string, unknown> {
++  const src = inputs ?? {};
++  const out: Record<string, unknown> = {};
++  const keepKeys = [
++    "targetPath",
++    "targetRepositoryRef",
++    "repositoryRef",
++    "pathAllowlist",
++    "scopeIn",
++    "scopeOut",
++    "createOrModify",
++    "noDelete",
++    "artifactType",
++    "artifactBrief",
++    "contentRequirements",
++    "validationExpectations",
++    "evidenceRequirements",
++    "expectedOutputs",
++    "repositoryIdentity",
++    "repositoryBindingIdentity",
++    "remoteUrl",
++    "defaultBranch",
++    "workingBranch",
++    "pathRoot",
++    "objective",
++    "recommendedProfile",
++    "cycleTypeId",
++    "activatedBlocks",
++  ] as const;
++  for (const key of keepKeys) {
++    if (key in src && src[key] !== undefined) {
++      out[key] = structuredClone(src[key]);
++    }
++  }
++  return out;
++}
++
++export async function resolveRecoveryExecutionBinding(input: {
++  readonly oa: RuntimeOaStack;
++  readonly projectId: string;
++  /**
++   * When set, require this accepted trajectory HD to be the recovery retry
++   * option (governed-gated). Omit for pure read of recoverable binding.
++   */
++  readonly decisionId?: string | null;
++}): Promise<
++  | { readonly ok: true; readonly binding: RecoveryExecutionBinding | null }
++  | { readonly ok: false; readonly code: string; readonly message: string }
++> {
++  const recovered = await resolvePostEvidenceRecoveryContext({
++    oa: input.oa,
++    projectId: input.projectId,
++  });
++  if (!recovered.ok) return recovered;
++  if (!recovered.context) {
++    return { ok: true, binding: null };
++  }
++  const recovery = recovered.context;
++
++  if (input.decisionId) {
++    const loaded = await input.oa.decisionServices.getHumanDecision.execute({
++      decisionId: input.decisionId,
 +    });
-+    if (!recovered.ok) {
++    if (!loaded.ok) {
 +      return {
 +        ok: false,
-+        code: recovered.code,
-+        message: recovered.message,
++        code: loaded.error.detailCode,
++        message: loaded.error.message,
 +      };
 +    }
-+    recoveryContext = recovered.context;
++    const decision = loaded.decision;
++    if (decision.projectId !== input.projectId) {
++      return {
++        ok: false,
++        code: "PROJECT_MISMATCH",
++        message: "Décision hors projet — binding recovery refusé.",
++      };
++    }
++    if (decision.status !== "accepted") {
++      return { ok: true, binding: null };
++    }
++    const basis = decision.decisionBasis;
++    if (!basis || basis.sourceType !== "trajectory_option") {
++      return { ok: true, binding: null };
++    }
++    if (decision.selectedOptionId !== GOVERNED_OPTION_REF) {
++      // Only "nouvelle tentative gouvernée" activates docs_write successor.
++      return { ok: true, binding: null };
++    }
 +  }
 +
-   const ckcPromptSection = buildCkcCognitivePromptSection(ckcContent);
-+  const recoveryCognitionSection = recoveryContext
-+    ? buildRecoveryCognitionSection(recoveryContext)
-+    : null;
-   const cognitionUserContent = proposalSubject
-     ? `Instruire Options/Recommendation pour la Proposal ${proposalSubject.proposalId} (sujet: ${proposalSubject.sealedExecutionBasis.objective})`
--    : `Instruire Options/Recommendation pour le cycle ${input.cycleTypeId}`;
-+    : recoveryContext
-+      ? `Instruire Options/Recommendation de recovery/replan après FAIL durable (${recoveryContext.attemptId}) — sujet courant = recovery du même cycle, PAS un nouveau cadrage fonctionnel.`
-+      : `Instruire Options/Recommendation pour le cycle ${input.cycleTypeId}`;
-   let cognitiveRecommendation: string;
-   try {
-     const reasoning = await reasonWithResolvedCkcContext({
-@@ -316,12 +352,24 @@ export async function proposeTrajectoryOptions(
-               `targetPath=${proposalSubject.sealedExecutionBasis.targetPath ?? ""}`,
-               `requestedOperation=${proposalSubject.sealedExecutionBasis.requestedOperation}`,
-             ]
--          : []),
-+          : recoveryContext
-+            ? [
-+                `recoverySubject=post_evidence`,
-+                `attemptId=${recoveryContext.attemptId}`,
-+                `evidenceId=${recoveryContext.evidenceId}`,
-+                `recommendationKind=${recoveryContext.recommendationKind}`,
-+                `realProcessInvoked=${recoveryContext.realProcessInvoked}`,
-+              ]
-+            : []),
-       ].join(" | "),
-       intentSummary: proposalSubject
-         ? `Proposal subject ${proposalSubject.proposalId} · profil ${input.recommendedProfile}`
--        : `Cycle ${input.cycleTypeId} · profil ${input.recommendedProfile}`,
--      ckcPromptSection,
-+        : recoveryContext
-+          ? `Recovery/replan post-Evidence · cycle ${input.cycleTypeId} · profil ${input.recommendedProfile} · Recommendation ≠ HumanDecision`
-+          : `Cycle ${input.cycleTypeId} · profil ${input.recommendedProfile}`,
-+      ckcPromptSection: recoveryCognitionSection
-+        ? `${ckcPromptSection}\n\n${recoveryCognitionSection}`
-+        : ckcPromptSection,
-     });
-     cognitiveRecommendation = reasoning.recommendation;
-   } catch (error) {
-@@ -505,6 +553,7 @@ export async function proposeTrajectoryOptions(
-     irreversible: input.irreversible,
-     reservations: input.reservations,
-     ckcAttribution: input.ckcAttribution,
-+    recoveryContext,
-   };
-
-   const options = deriveTrajectoryOptions(inputs);
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts b/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
-index 957ddada..3865fb16 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
-@@ -7,6 +7,10 @@
-  * seam already carries. This module adds NO cognitive path: it does not call a
-  * provider, does not read CKC content and is not a Phase B integration point.
-  * Same inputs always yield the same options, in the same order.
-+ *
-+ * Checkpoint F / R7 — when RecoveryContext is present, same optionRefs are kept
-+ * (idempotent OptionSet supersession) but labels/intents/steps carry recovery
-+ * semantics so framing-generic cognition is not the subject.
-  */
-
- import type { TrajectoryStep } from "@/lib/oa/cycle";
-@@ -14,6 +18,7 @@ import type {
-   TrajectoryOptionDto,
-   TrajectoryRecommendationDto,
- } from "./types";
-+import type { PostEvidenceRecoveryContext } from "./resolvePostEvidenceRecoveryContext";
-
- export type TrajectoryOptionInputs = {
-   readonly cycleTypeId: string;
-@@ -22,6 +27,8 @@ export type TrajectoryOptionInputs = {
-   readonly irreversible: boolean;
-   readonly reservations: readonly string[];
-   readonly ckcAttribution: string | null;
-+  /** Optional durable post-Evidence recovery subject (R7). */
-+  readonly recoveryContext?: PostEvidenceRecoveryContext | null;
- };
-
- export const GOVERNED_OPTION_REF = "opt:trajectory:governed-gated" as const;
-@@ -103,6 +110,56 @@ function clarifySteps(): TrajectoryStep[] {
-   ];
- }
-
-+function recoveryRetrySteps(): TrajectoryStep[] {
-+  return [
-+    step(1, "w2-rec-diagnose", "Prendre en compte l'échec et l'Evidence durables"),
-+    step(2, "w2-rec-decide", "Décision humaine explicite de recovery", {
-+      dependencies: ["stp:w2-rec-diagnose"],
-+      gate: "human_decision",
-+      exitCriteria: ["HumanDecision acceptée — Recommendation ≠ décision"],
-+    }),
-+    step(3, "w2-rec-contract", "Préparer un nouveau contrat d'exécution", {
-+      dependencies: ["stp:w2-rec-decide"],
-+    }),
-+    step(4, "w2-rec-inspect", "Inspecter puis autoriser avant Execute", {
-+      dependencies: ["stp:w2-rec-contract"],
-+      gate: "inspection",
-+      exitCriteria: ["Inspection valide", "Arrêt avant exécution"],
-+    }),
-+  ];
-+}
-+
-+function recoveryClarifySteps(): TrajectoryStep[] {
-+  return [
-+    step(1, "w2-rec-clr-read", "Lire Evidence / ReviewBundle / stopReason"),
-+    step(
-+      2,
-+      "w2-rec-clr-gap",
-+      "Clarifier le diagnostic avant toute nouvelle tentative",
-+      { dependencies: ["stp:w2-rec-clr-read"] },
-+    ),
-+    step(3, "w2-rec-clr-reoption", "Réinstruire les options recovery", {
-+      dependencies: ["stp:w2-rec-clr-gap"],
-+      gate: "human_decision",
-+      exitCriteria: ["Nouvelle décision humaine requise"],
-+    }),
-+  ];
-+}
-+
-+function recoverySuspendSteps(): TrajectoryStep[] {
-+  return [
-+    step(1, "w2-rec-hold-ack", "Conserver l'échec comme vérité durable"),
-+    step(2, "w2-rec-hold-decide", "Décision humaine de suspension / replan", {
-+      dependencies: ["stp:w2-rec-hold-ack"],
-+      gate: "human_decision",
-+      exitCriteria: ["HumanDecision acceptée — pas de relance automatique"],
-+    }),
-+    step(3, "w2-rec-hold-replan", "Replanifier sans Execute immédiat", {
-+      dependencies: ["stp:w2-rec-hold-decide"],
-+    }),
-+  ];
-+}
-+
- /**
-  * Options are always presented in the same order so the UI never implies a
-  * ranking by position. Ranking is carried only by the explicit Recommendation.
-@@ -111,6 +168,54 @@ export function deriveTrajectoryOptions(
-   inputs: TrajectoryOptionInputs,
- ): TrajectoryOptionDto[] {
-   const reservations = [...inputs.reservations];
-+  const recovery = inputs.recoveryContext ?? null;
-+  if (recovery) {
-+    return [
-+      {
-+        kind: "OPTION",
-+        optionRef: GOVERNED_OPTION_REF,
-+        label: "Préparer une nouvelle tentative gouvernée",
-+        intent:
-+          "À partir du FAIL durable, décider explicitement puis préparer / inspecter / autoriser un nouveau contrat — sans Execute automatique.",
-+        impacts: [
-+          `Attempt failed: ${recovery.attemptId}`,
-+          `Evidence: ${recovery.evidenceId}`,
-+          "Aucun succès métier revendiqué",
-+          `realProcessInvoked durable: ${recovery.realProcessInvoked}`,
-+        ],
-+        reservations,
-+        steps: recoveryRetrySteps(),
-+      },
-+      {
-+        kind: "OPTION",
-+        optionRef: BOUNDED_OPTION_REF,
-+        label: "Replanifier ou suspendre sans relance immédiate",
-+        intent:
-+          "Conserver l'échec comme vérité, décider de suspendre ou replanifier — aucune nouvelle tentative immédiate.",
-+        impacts: [
-+          "Pas de relance Execute dans cette option",
-+          `W3C: ${recovery.recommendationKind}`,
-+          `outcome: ${recovery.productOutcome}`,
-+        ],
-+        reservations,
-+        steps: recoverySuspendSteps(),
-+      },
-+      {
-+        kind: "OPTION",
-+        optionRef: CLARIFY_OPTION_REF,
-+        label: "Diagnostiquer / clarifier avant nouvelle tentative",
-+        intent:
-+          "Approfondir le diagnostic (Evidence, stopReason, observabilité) avant toute préparation d'une nouvelle tentative.",
-+        impacts: [
-+          "Aucune préparation d'exécution à ce stade",
-+          `stopReason: ${recovery.stopReason ?? "n/a"}`,
-+          "Nouvelle décision humaine requise après clarification",
-+        ],
-+        reservations,
-+        steps: recoveryClarifySteps(),
-+      },
-+    ];
++  if (!input.oa.executionContractServices) {
++    return { ok: true, binding: null };
 +  }
-   return [
-     {
-       kind: "OPTION",
-@@ -165,6 +270,19 @@ export function deriveTrajectoryOptions(
- export function deriveTrajectoryRecommendation(
-   inputs: TrajectoryOptionInputs,
- ): TrajectoryRecommendationDto {
-+  const recovery = inputs.recoveryContext ?? null;
-+  if (recovery) {
-+    // Prefer diagnose/clarify — never auto-pick retry because a Morris REAL GO exists.
++
++  const loaded =
++    await input.oa.executionContractServices.getExecutionContract.execute({
++      executionContractId: recovery.executionContractId,
++    });
++  if (!loaded.ok) {
++    return { ok: true, binding: null };
++  }
++  const contract = loaded.contract;
++  if (contract.projectId !== input.projectId) {
++    return { ok: true, binding: null };
++  }
++  if (contract.executionContractId !== recovery.executionContractId) {
++    return { ok: true, binding: null };
++  }
++  if (contract.status !== "failed") {
++    // Recovery successor clones a failed EC — other statuses are not this path.
++    return { ok: true, binding: null };
++  }
++  if (!isBoundedDocsWriteContract(contract)) {
++    return { ok: true, binding: null };
++  }
++
++  const targetPath = asNonEmptyString(contract.inputs?.targetPath);
++  if (!targetPath) {
 +    return {
-+      label: "RECOMMANDATION — PAS UNE DÉCISION",
-+      recommendedOptionRef: CLARIFY_OPTION_REF,
-+      rationale: `Épisode post-Evidence ${recovery.productOutcome} (${recovery.attemptId}) — ${recovery.headline}. Diagnostiquer / clarifier avant toute nouvelle tentative. Recommendation ≠ HumanDecision ; aucun Execute automatique.`,
-+      isHumanDecision: false,
-+      promotesTrajectory: false,
-+      ckcAttribution: inputs.ckcAttribution,
-+      ckcProvenance: null,
++      ok: false,
++      code: "DURABLE_EXECUTION_BINDING_INSUFFICIENT",
++      message:
++        "Failed docs_write EC sans inputs.targetPath durable — binding recovery impossible.",
 +    };
 +  }
-   if (inputs.reservations.length > 0) {
-     return {
-       label: "RECOMMANDATION — PAS UNE DÉCISION",
-===== R7 NEW FILES =====
-
------ BEGIN projects/sfia-studio/app/features/project-assistant/w2/resolvePostEvidenceRecoveryContext.ts -----
-/**
- * Checkpoint F / R7 — resolve durable post-Evidence RecoveryContext for W2
- * trajectory instruction. No new persistence. No parallel recovery engine.
- *
- * Coherence: Attempt terminal ↔ Evidence ↔ ReviewBundle ↔ W3C recover payload
- * for the same Project. Falls back to null (generic trajectory) when absent.
- */
-import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
-import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
-import {
-  findExistingW3cPostEvidence,
-  parseW3cRecommendationPayload,
-  type W3cRecommendationKind,
-  type W3cRecommendationPayload,
-} from "./w3cPostEvidenceLoop";
-import { w3bEvidenceIdentity } from "./materializeW3bProductTerminal";
-import { resolveDurableBoundaryProofMode } from "@/features/project-assistant/f3/resolveDurableBoundaryProofMode";
-
-export type PostEvidenceRecoveryContext = {
-  readonly kind: "post_evidence_recovery";
-  readonly attemptId: string;
-  readonly attemptStatus: "failed" | "timeout" | "cancelled";
-  readonly stopReason: string | null;
-  readonly executionContractId: string;
-  readonly evidenceId: string;
-  readonly reviewBundleId: string;
-  readonly productOutcome: "FAIL" | "STOP";
-  readonly recommendationKind: Extract<
-    W3cRecommendationKind,
-    "recover" | "replan"
-  >;
-  readonly headline: string;
-  readonly rationale: string;
-  readonly nextStep: string;
-  readonly realProcessInvoked: boolean;
-  readonly businessEffectProven: false;
-  readonly w3cEpistemicItemId: string;
-};
-
-function statementToJsonString(statement: unknown): string | null {
-  if (typeof statement === "string" && statement.trim().length > 0) {
-    return statement;
-  }
-  if (statement && typeof statement === "object") {
-    try {
-      return JSON.stringify(statement);
-    } catch {
-      return null;
-    }
-  }
-  return null;
-}
-
-function resolveRealProcessInvoked(attempt: ExecutionAttempt): boolean {
-  if (attempt.processDiagnostic?.realProcessInvoked === true) return true;
-  if (attempt.irreversibleEffectsPossible === true) return true;
-  if (
-    typeof attempt.stopReason === "string" &&
-    attempt.stopReason.startsWith("REAL_")
-  ) {
-    return true;
-  }
-  return false;
-}
-
-/** Pure R6 truth — exported for T5; never invents REAL from agent id alone. */
-export function inferDurableRealProcessInvoked(input: {
-  readonly attempt: ExecutionAttempt;
-  readonly boundaryProofMode: string | null;
-}): boolean {
-  if (resolveRealProcessInvoked(input.attempt)) return true;
-  return (
-    input.boundaryProofMode === "cursor_real" &&
-    Boolean(input.attempt.launchedAt)
-  );
-}
-
-async function loadAttempt(
-  oa: RuntimeOaStack,
-  attemptId: string,
-): Promise<ExecutionAttempt | null> {
-  if (!oa.executionAttemptServices) return null;
-  const loaded = await oa.executionAttemptServices.getExecutionAttempt.execute({
-    attemptId,
-  });
-  return loaded.ok ? loaded.attempt : null;
-}
-
-/**
- * Resolve a coherent post-Evidence recovery subject for W2 options.
- * Returns null when no coherent recover/replan episode exists (generic path).
- */
-export async function resolvePostEvidenceRecoveryContext(input: {
-  readonly oa: RuntimeOaStack;
-  readonly projectId: string;
-}): Promise<
-  | { readonly ok: true; readonly context: PostEvidenceRecoveryContext | null }
-  | { readonly ok: false; readonly code: string; readonly message: string }
-> {
-  const { oa, projectId } = input;
-  if (!oa.cycleServices || !oa.executionAttemptServices) {
-    return { ok: true, context: null };
-  }
-
-  const epistemic = await oa.cycleServices.getEpistemicState.execute({
-    projectId,
-  });
-  if (!epistemic.ok) {
-    return {
-      ok: false,
-      code: epistemic.error.detailCode,
-      message: "État épistémique indisponible — instruction options refusée.",
-    };
-  }
-
-  type Candidate = {
-    payload: W3cRecommendationPayload & {
-      kind: "recover" | "replan";
-      productOutcome: "FAIL" | "STOP";
-    };
-    epistemicItemId: string;
-  };
-  const candidates: Candidate[] = [];
-  for (const item of epistemic.state.items) {
-    if (item.status !== "active" || item.type !== "Recommendation") continue;
-    const source = item.source ?? "";
-    const isW3c =
-      source.startsWith("w3c-post-evidence:") ||
-      item.epistemicItemId.startsWith("epi:w3c-rec:");
-    if (!isW3c) continue;
-    const raw = statementToJsonString(item.statement);
-    if (!raw) continue;
-    const payload = parseW3cRecommendationPayload(raw);
-    if (!payload) continue;
-    if (payload.kind !== "recover" && payload.kind !== "replan") continue;
-    if (payload.productOutcome !== "FAIL" && payload.productOutcome !== "STOP") {
-      continue;
-    }
-    candidates.push({
-      payload: {
-        ...payload,
-        kind: payload.kind,
-        productOutcome: payload.productOutcome,
-      },
-      epistemicItemId: item.epistemicItemId,
-    });
-  }
-
-  if (candidates.length === 0) {
-    return { ok: true, context: null };
-  }
-
-  // Prefer newest by Attempt failedAt / updatedAt among coherent candidates.
-  let best: {
-    context: PostEvidenceRecoveryContext;
-    sortKey: string;
-  } | null = null;
-
-  for (const candidate of candidates) {
-    const { payload } = candidate;
-    const expectedIds = w3bEvidenceIdentity(payload.attemptId);
-    if (
-      payload.evidenceId !== expectedIds.evidenceId ||
-      payload.reviewBundleId !== expectedIds.reviewBundleId
-    ) {
-      // Identity mismatch — refuse this candidate (do not mix episodes).
-      continue;
-    }
-
-    const existing = await findExistingW3cPostEvidence({
-      oa,
-      projectId,
-      evidenceId: payload.evidenceId,
-      attemptId: payload.attemptId,
-    });
-    if (!existing) continue;
-    if (existing.recommendation.kind !== payload.kind) continue;
-    if (
-      existing.productOutcome !== "FAIL" &&
-      existing.productOutcome !== "STOP"
-    ) {
-      continue;
-    }
-
-    const attempt = await loadAttempt(oa, payload.attemptId);
-    if (!attempt) continue;
-    const terminalOk =
-      attempt.status === "failed" ||
-      attempt.status === "timeout" ||
-      (payload.productOutcome === "STOP" && attempt.status === "cancelled");
-    if (!terminalOk) continue;
-
-    if (!oa.executionContractServices) continue;
-    const contract =
-      await oa.executionContractServices.getExecutionContract.execute({
-        executionContractId: attempt.executionContractId,
-      });
-    if (!contract.ok) continue;
-    if (contract.contract.projectId !== projectId) continue;
-
-    // Evidence reader coherence when available
-    if (oa.evidenceReviewServices?.evidenceReader) {
-      const evidence = await oa.evidenceReviewServices.evidenceReader.findById(
-        payload.evidenceId,
-      );
-      if (!evidence) continue;
-      if (evidence.bindings.executionAttemptId !== payload.attemptId) continue;
-      if (
-        evidence.bindings.projectId &&
-        evidence.bindings.projectId !== projectId
-      ) {
-        continue;
-      }
-      if (
-        evidence.bindings.executionContractId &&
-        evidence.bindings.executionContractId !== attempt.executionContractId
-      ) {
-        continue;
-      }
-    }
-
-    const realProcessInvoked = inferDurableRealProcessInvoked({
-      attempt,
-      boundaryProofMode: await resolveDurableBoundaryProofMode({ oa, attempt }),
-    });
-
-    const context: PostEvidenceRecoveryContext = {
-      kind: "post_evidence_recovery",
-      attemptId: payload.attemptId,
-      attemptStatus: attempt.status as "failed" | "timeout" | "cancelled",
-      stopReason: attempt.stopReason ?? null,
-      executionContractId: attempt.executionContractId,
-      evidenceId: payload.evidenceId,
-      reviewBundleId: payload.reviewBundleId,
-      productOutcome: payload.productOutcome,
-      recommendationKind: payload.kind,
-      headline: payload.headline.slice(0, 280),
-      rationale: payload.rationale.slice(0, 1200),
-      nextStep: payload.nextStep,
-      realProcessInvoked,
-      businessEffectProven: false,
-      w3cEpistemicItemId: candidate.epistemicItemId,
-    };
-
-    const sortKey =
-      attempt.failedAt ??
-      attempt.timedOutAt ??
-      attempt.cancelledAt ??
-      attempt.updatedAt ??
-      attempt.createdAt;
-    if (!best || sortKey > best.sortKey) {
-      best = { context, sortKey };
-    }
-  }
-
-  return { ok: true, context: best?.context ?? null };
-}
-
-/** Compact cognitive section — recovery subject, not framing dump. */
-export function buildRecoveryCognitionSection(
-  context: PostEvidenceRecoveryContext,
-): string {
-  return [
-    "## Sujet courant — recovery / replan post-Evidence (PAS un nouveau cadrage)",
-    `- Attempt terminal: ${context.attemptId} (${context.attemptStatus})`,
-    `- ExecutionContract: ${context.executionContractId}`,
-    `- stopReason: ${context.stopReason ?? "n/a"}`,
-    `- Evidence: ${context.evidenceId}`,
-    `- ReviewBundle: ${context.reviewBundleId}`,
-    `- productOutcome: ${context.productOutcome}`,
-    `- W3C recommendationKind: ${context.recommendationKind}`,
-    `- headline: ${context.headline}`,
-    `- realProcessInvoked (durable): ${context.realProcessInvoked}`,
-    `- businessEffectProven: false`,
-    "- Aucun succès métier prouvé. Aucune READY.",
-    "- La décision suivante appartient au Pilote (Recommendation ≠ HumanDecision).",
-    "- Ne pas repartir sur le cadrage fonctionnel initial comme sujet principal.",
-    `- Rationale W3C (bornée): ${context.rationale}`,
-  ].join("\n");
-}
-
------ END projects/sfia-studio/app/features/project-assistant/w2/resolvePostEvidenceRecoveryContext.ts -----
-
------ BEGIN projects/sfia-studio/app/__tests__/project-assistant/checkpointF.recoveryOptionsContext.d0.test.ts -----
-/**
- * Checkpoint F / R7 — post-Evidence recovery options context continuity.
- * ZERO REAL / ZERO Execute / ZERO HumanDecision on campaign.
- * @vitest-environment node
- */
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { setConversationProviderForTests } from "@/lib/platform/ai";
-import type { ConversationProvider } from "@/lib/platform/ai";
-import { evaluateExecutionAuthorization } from "@/features/project-assistant/w2/authorizeExecutionContract";
-import { confirmExecutionContractForAuthorization } from "@/features/project-assistant/w2/confirmForAuthorization";
-import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
-import {
-  governedExecuteSelectAgent,
-  governedExecuteStart,
-} from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
-import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
-import { prepareExecutionContractFromW2Decision } from "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision";
-import { proposeTrajectoryOptions } from "@/features/project-assistant/w2/proposeTrajectoryOptions";
-import { resolveW2QualificationInputs } from "@/features/project-assistant/w2/qualificationInputs";
-import {
-  BOUNDED_OPTION_REF,
-  CLARIFY_OPTION_REF,
-  GOVERNED_OPTION_REF,
-  deriveTrajectoryOptions,
-  deriveTrajectoryRecommendation,
-} from "@/features/project-assistant/w2/trajectoryOptions";
-import {
-  buildRecoveryCognitionSection,
-  inferDurableRealProcessInvoked,
-  resolvePostEvidenceRecoveryContext,
-  type PostEvidenceRecoveryContext,
-} from "@/features/project-assistant/w2/resolvePostEvidenceRecoveryContext";
-import { materializeProductOutcomeFromAttempt } from "@/features/project-assistant/w2/materializeW3bProductTerminal";
-import { w3bEvidenceIdentity } from "@/features/project-assistant/w2/materializeW3bProductTerminal";
-import {
-  armW3bBoundary,
-  clearW3bBoundaryArm,
-} from "@/lib/vertical-slice-runtime/w3bE2eBoundaryControl";
-import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
-import {
-  bootW2Runtime,
-  cleanupW2TempDirs,
-  currentF2Context,
-  seedQualifiedProject,
-  tempProductDbPath,
-} from "./w2Harness";
-
-beforeEach(() => {
-  process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-  process.env.OPS1_E2E_ALLOW_DIRTY_PRINCIPAL = "1";
-  setConversationProviderForTests(null);
-  clearW3bBoundaryArm();
-});
-
-afterEach(() => {
-  clearW3bBoundaryArm();
-  cleanupW2TempDirs();
-  setConversationProviderForTests(null);
-  vi.restoreAllMocks();
-});
-
-const SAMPLE_RECOVERY: PostEvidenceRecoveryContext = {
-  kind: "post_evidence_recovery",
-  attemptId: "xat:w3a:1f49d8e25e20837a",
-  attemptStatus: "failed",
-  stopReason: "REAL_PROCESS_NONZERO_EXIT",
-  executionContractId: "xct:m3-ev:8aaa188b3a3bd7a7",
-  evidenceId: "ev:w3b:0b7609835db72e9a",
-  reviewBundleId: "rb:w3b:0b7609835db72e9a",
-  productOutcome: "FAIL",
-  recommendationKind: "recover",
-  headline: "Échec technique — recovery requise",
-  rationale: "Attempt failed; Evidence disponible; aucun succès métier.",
-  nextStep: "recovery_diagnose_or_replan",
-  realProcessInvoked: true,
-  businessEffectProven: false,
-  w3cEpistemicItemId: "epi:w3c-rec:a5b6220be2cc1e84",
-};
-
-async function authorizeTempArtifact(suffix: string, dbPath?: string) {
-  const db = dbPath ?? tempProductDbPath(`r7-${suffix}.sqlite`);
-  const runtime = bootW2Runtime({
-    productDbPath: db,
-    idPrefix: `r7${suffix}`,
-  });
-  const seeded = await seedQualifiedProject(runtime, { suffix });
-  const oa = runtime.oa!;
-  const qualification = await resolveW2QualificationInputs({
-    oa,
-    projectId: seeded.projectId,
-  });
-  expect(qualification.ok).toBe(true);
-  if (!qualification.ok) throw new Error("qual");
-  const proposed = await proposeTrajectoryOptions({
-    oa,
-    projectId: seeded.projectId,
-    ...qualification.qualification.inputs,
-    packagePin: qualification.qualification.packagePin,
-    objective: qualification.qualification.objective,
-    projectTitle: qualification.qualification.projectTitle,
-  });
-  expect(proposed.ok).toBe(true);
-  if (!proposed.ok) throw new Error("propose");
-  const decided = await decideTrajectory({
-    oa,
-    projectId: seeded.projectId,
-    optionSetRef: proposed.optionSetRef,
-    options: proposed.options,
-    recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
-    selectedOptionRef: GOVERNED_OPTION_REF,
-    trajectoryId: proposed.proposedTrajectory!.trajectoryId,
-    candidateVersion: proposed.proposedTrajectory!.version,
-    forceLocalAuthority: true,
-  });
-  expect(decided.ok).toBe(true);
-  if (!decided.ok) throw new Error("decide");
-  const context = await currentF2Context(runtime, seeded.projectId);
-  const prepared = await prepareExecutionContractFromW2Decision({
-    oa,
-    projectId: seeded.projectId,
-    decisionId: decided.decision.decisionId,
-    currentContext: context,
-    forceLocalAuthority: true,
-    qualifiedOperationKind: "generate-temporary-artifact",
-  });
-  expect(prepared.ok).toBe(true);
-  if (!prepared.ok) throw new Error(prepared.code);
-  const executionContractId = prepared.contract.executionContractId;
-  await inspectExecutionContract({
-    oa,
-    projectId: seeded.projectId,
-    executionContractId,
-  });
-  const confirmed = await confirmExecutionContractForAuthorization({
-    oa,
-    projectId: seeded.projectId,
-    executionContractId,
-    forceLocalAuthority: true,
-  });
-  expect(confirmed.ok).toBe(true);
-  if (!confirmed.ok) throw new Error(confirmed.code);
-  const authorized = await evaluateExecutionAuthorization({
-    oa,
-    projectId: seeded.projectId,
-    executionContractId,
-    forceLocalAuthority: true,
-  });
-  expect(authorized.ok && authorized.outcome === "AUTHORIZED").toBe(true);
-  return { oa, seeded, executionContractId, db, runtime };
-}
-
-async function materializeFail(
-  ctx: Awaited<ReturnType<typeof authorizeTempArtifact>>,
-) {
-  armW3bBoundary({
-    kind: "adapter_fail",
-    reason: "adapter_unavailable",
-  });
-  const selected = await governedExecuteSelectAgent({
-    oa: ctx.oa,
-    projectId: ctx.seeded.projectId,
-    executionContractId: ctx.executionContractId,
-    forceLocalAuthority: true,
-  });
-  expect(selected.ok).toBe(true);
-  if (!selected.ok) throw new Error(selected.code);
-  const started = await governedExecuteStart({
-    oa: ctx.oa,
-    projectId: ctx.seeded.projectId,
-    executionContractId: ctx.executionContractId,
-    attemptId: selected.attemptId,
-    forceLocalAuthority: true,
-  });
-  expect(started.ok).toBe(true);
-  if (!started.ok) throw new Error(started.code);
-  expect(started.attemptStatus).toBe("failed");
-  const materialized = await materializeProductOutcomeFromAttempt({
-    oa: ctx.oa,
-    projectId: ctx.seeded.projectId,
-    attemptId: started.attemptId,
-  });
-  expect(materialized.ok).toBe(true);
-  if (!materialized.ok) throw new Error(materialized.code);
-  expect(materialized.product.outcome).toBe("FAIL");
-  expect(materialized.postEvidence?.ok).toBe(true);
-  if (!materialized.postEvidence || !materialized.postEvidence.ok) {
-    throw new Error("postEvidence");
-  }
-  expect(materialized.postEvidence.recommendation.kind).toBe("recover");
-  return { started, materialized };
-}
-
-describe("R7 — pure derivation / cognition (T2–T5 unit)", () => {
-  it("T3/T4 — recovery options + recommendation ≠ decision", () => {
-    const inputs = {
-      cycleTypeId: "cyc:framing",
-      recommendedProfile: "Critical",
-      criticalSignalsPresent: true,
-      irreversible: false,
-      reservations: [] as string[],
-      ckcAttribution: null,
-      recoveryContext: SAMPLE_RECOVERY,
-    };
-    const options = deriveTrajectoryOptions(inputs);
-    expect(options.map((o) => o.optionRef)).toEqual([
-      GOVERNED_OPTION_REF,
-      BOUNDED_OPTION_REF,
-      CLARIFY_OPTION_REF,
-    ]);
-    expect(options[0]!.label).toMatch(/nouvelle tentative/i);
-    expect(options[1]!.label).toMatch(/suspendre|replan/i);
-    expect(options[2]!.label).toMatch(/Diagnostiquer|clarifier/i);
-    const rec = deriveTrajectoryRecommendation(inputs);
-    expect(rec.isHumanDecision).toBe(false);
-    expect(rec.promotesTrajectory).toBe(false);
-    expect(rec.recommendedOptionRef).toBe(CLARIFY_OPTION_REF);
-    expect(rec.rationale).toMatch(/post-Evidence|FAIL|Diagnostiquer/i);
-    expect(rec.rationale).toMatch(/Recommendation ≠ HumanDecision/);
-  });
-
-  it("T6 — without RecoveryContext, generic trajectory unchanged", () => {
-    const options = deriveTrajectoryOptions({
-      cycleTypeId: "cyc:framing",
-      recommendedProfile: "Standard",
-      criticalSignalsPresent: false,
-      irreversible: false,
-      reservations: [],
-      ckcAttribution: null,
-    });
-    expect(options[0]!.label).toBe("Trajectoire gouvernée par gates");
-    expect(options[1]!.label).toBe("Trajectoire bornée directe");
-    expect(options[2]!.label).toBe("Clarifier avant d'engager");
-  });
-
-  it("T2 — recovery cognition section names FAIL / Evidence / recover", () => {
-    const section = buildRecoveryCognitionSection(SAMPLE_RECOVERY);
-    expect(section).toMatch(/recovery \/ replan/i);
-    expect(section).toContain(SAMPLE_RECOVERY.attemptId);
-    expect(section).toContain(SAMPLE_RECOVERY.evidenceId);
-    expect(section).toContain("recommendationKind: recover");
-    expect(section).toContain("realProcessInvoked (durable): true");
-    expect(section).toMatch(/PAS un nouveau cadrage/);
-    expect(section).toMatch(/Ne pas repartir sur le cadrage fonctionnel initial/);
-  });
-
-  it("T5 — cursor_real durable truth does not collapse to false", () => {
-    const attempt = {
-      processDiagnostic: {
-        realProcessInvoked: true,
-        boundaryProofMode: "cursor_real",
-      },
-      irreversibleEffectsPossible: true,
-      stopReason: "REAL_PROCESS_NONZERO_EXIT",
-      launchedAt: "2026-09-17T20:00:00.000Z",
-    } as ExecutionAttempt;
-    expect(
-      inferDurableRealProcessInvoked({
-        attempt,
-        boundaryProofMode: "cursor_real",
-      }),
-    ).toBe(true);
-    expect(
-      inferDurableRealProcessInvoked({
-        attempt: {
-          ...attempt,
-          processDiagnostic: undefined,
-          irreversibleEffectsPossible: undefined,
-          stopReason: "ADAPTER_UNAVAILABLE",
-        } as ExecutionAttempt,
-        boundaryProofMode: null,
-      }),
-    ).toBe(false);
-    expect(
-      inferDurableRealProcessInvoked({
-        attempt: {
-          ...attempt,
-          processDiagnostic: undefined,
-          irreversibleEffectsPossible: undefined,
-          stopReason: "OTHER",
-        } as ExecutionAttempt,
-        boundaryProofMode: "cursor_real",
-      }),
-    ).toBe(true);
-  });
-});
-
-describe("R7 — durable RecoveryContext integration", () => {
-  it("T1 — failed + Evidence + RB + W3C recover → RecoveryContext", async () => {
-    const ctx = await authorizeTempArtifact("t1");
-    const { started, materialized } = await materializeFail(ctx);
-    const resolved = await resolvePostEvidenceRecoveryContext({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-    });
-    expect(resolved.ok).toBe(true);
-    if (!resolved.ok) return;
-    expect(resolved.context).not.toBeNull();
-    expect(resolved.context!.attemptId).toBe(started.attemptId);
-    expect(resolved.context!.evidenceId).toBe(materialized.product.evidenceId);
-    expect(resolved.context!.reviewBundleId).toBe(
-      materialized.product.reviewBundleId,
-    );
-    expect(resolved.context!.recommendationKind).toBe("recover");
-    expect(resolved.context!.productOutcome).toBe("FAIL");
-    expect(resolved.context!.businessEffectProven).toBe(false);
-  });
-
-  it("T7 — SUCCESS continue episode → no false recovery", async () => {
-    const ctx = await authorizeTempArtifact("t7");
-    const selected = await governedExecuteSelectAgent({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      executionContractId: ctx.executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(selected.ok).toBe(true);
-    if (!selected.ok) return;
-    const started = await governedExecuteStart({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      executionContractId: ctx.executionContractId,
-      attemptId: selected.attemptId,
-      forceLocalAuthority: true,
-    });
-    expect(started.ok).toBe(true);
-    if (!started.ok) return;
-    const { governedExecuteRecordResult } = await import(
-      "@/features/project-assistant/w2/governedExecuteAuthorizedContract"
-    );
-    await governedExecuteRecordResult({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      executionContractId: ctx.executionContractId,
-      attemptId: started.attemptId,
-      forceLocalAuthority: true,
-    });
-    const materialized = await materializeProductOutcomeFromAttempt({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      attemptId: started.attemptId,
-    });
-    expect(materialized.ok).toBe(true);
-    if (!materialized.ok) return;
-    expect(materialized.product.outcome).toBe("SUCCESS");
-    if (materialized.postEvidence?.ok) {
-      expect(materialized.postEvidence.recommendation.kind).toBe("continue");
-    }
-    const resolved = await resolvePostEvidenceRecoveryContext({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-    });
-    expect(resolved.ok).toBe(true);
-    if (!resolved.ok) return;
-    expect(resolved.context).toBeNull();
-  });
-
-  it("T6 — no failed episode → generic propose labels", async () => {
-    const db = tempProductDbPath("r7-generic.sqlite");
-    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "r7gen" });
-    const seeded = await seedQualifiedProject(runtime, { suffix: "gen" });
-    const oa = runtime.oa!;
-    const qualification = await resolveW2QualificationInputs({
-      oa,
-      projectId: seeded.projectId,
-    });
-    expect(qualification.ok).toBe(true);
-    if (!qualification.ok) return;
-    const proposed = await proposeTrajectoryOptions({
-      oa,
-      projectId: seeded.projectId,
-      ...qualification.qualification.inputs,
-      packagePin: qualification.qualification.packagePin,
-      objective: qualification.qualification.objective,
-      projectTitle: qualification.qualification.projectTitle,
-    });
-    expect(proposed.ok).toBe(true);
-    if (!proposed.ok) return;
-    expect(proposed.options[0]!.label).toBe("Trajectoire gouvernée par gates");
-    expect(proposed.recommendation.isHumanDecision).toBe(false);
-    expect(proposed.autoDecisionPerformed).toBe(false);
-    expect(proposed.executionPerformed).toBe(false);
-  });
-
-  it("T2/T3/T4/T12 — propose after FAIL yields recovery options, no HD/Attempt", async () => {
-    const ctx = await authorizeTempArtifact("t234");
-    const { started, materialized } = await materializeFail(ctx);
-
-    const attemptsBefore =
-      await ctx.oa.executionAttemptServices!.listExecutionAttempts.execute({
-        executionContractId: ctx.executionContractId,
-      });
-    expect(attemptsBefore.ok).toBe(true);
-    if (!attemptsBefore.ok) return;
-    const countBefore = attemptsBefore.attempts.length;
-
-    const captured: { system: string; user: string }[] = [];
-    const recording: ConversationProvider = {
-      providerId: "fake-test",
-      async complete(messages) {
-        const system = messages.find((m) => m.role === "system")?.content ?? "";
-        const user = messages.find((m) => m.role === "user")?.content ?? "";
-        captured.push({ system, user });
-        return {
-          text: "RECOMMANDATION recovery/replan — diagnostiquer avant retry. PAS UNE DÉCISION HUMAINE.",
-          usage: {
-            inputTokens: 10,
-            outputTokens: 5,
-            totalTokens: 15,
-            model: "fake-test-model",
-            providerResponseId: "fake-r7",
-          },
-        };
-      },
-    };
-    setConversationProviderForTests(recording);
-
-    const qualification = await resolveW2QualificationInputs({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-    });
-    expect(qualification.ok).toBe(true);
-    if (!qualification.ok) return;
-
-    const proposed = await proposeTrajectoryOptions({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      ...qualification.qualification.inputs,
-      packagePin: qualification.qualification.packagePin,
-      objective: qualification.qualification.objective,
-      projectTitle: qualification.qualification.projectTitle,
-    });
-    expect(proposed.ok).toBe(true);
-    if (!proposed.ok) return;
-
-    expect(proposed.options[0]!.label).toMatch(/nouvelle tentative/i);
-    expect(proposed.options[1]!.label).toMatch(/suspendre|replan/i);
-    expect(proposed.options[2]!.label).toMatch(/Diagnostiquer|clarifier/i);
-    expect(proposed.recommendation.isHumanDecision).toBe(false);
-    expect(proposed.recommendation.promotesTrajectory).toBe(false);
-    expect(proposed.recommendation.recommendedOptionRef).toBe(CLARIFY_OPTION_REF);
-    expect(proposed.autoDecisionPerformed).toBe(false);
-    expect(proposed.executionPerformed).toBe(false);
-
-    const recoveryPrompt = captured.find(
-      (c) =>
-        c.system.includes("recovery / replan") ||
-        c.user.includes("recovery/replan"),
-    );
-    expect(recoveryPrompt).toBeTruthy();
-    expect(recoveryPrompt!.system + recoveryPrompt!.user).toContain(
-      started.attemptId,
-    );
-    expect(recoveryPrompt!.system + recoveryPrompt!.user).toContain(
-      materialized.product.evidenceId!,
-    );
-    expect(recoveryPrompt!.system + recoveryPrompt!.user).toMatch(/recover/i);
-    expect(recoveryPrompt!.system + recoveryPrompt!.user).toMatch(
-      /PAS un nouveau cadrage/i,
-    );
-
-    const attemptsAfter =
-      await ctx.oa.executionAttemptServices!.listExecutionAttempts.execute({
-        executionContractId: ctx.executionContractId,
-      });
-    expect(attemptsAfter.ok).toBe(true);
-    if (!attemptsAfter.ok) return;
-    expect(attemptsAfter.attempts.length).toBe(countBefore);
-  });
-
-  it("T8 — Evidence without coherent Attempt binding does not resolve", async () => {
-    const ctx = await authorizeTempArtifact("t8");
-    const { started, materialized } = await materializeFail(ctx);
-    expect(materialized.product.evidenceId).toBeTruthy();
-    // Hostile: resolve on a different project id → null / no cross-bind
-    const other = await resolvePostEvidenceRecoveryContext({
-      oa: ctx.oa,
-      projectId: "prj:hostile-other",
-    });
-    expect(other.ok).toBe(true);
-    if (!other.ok) return;
-    expect(other.context).toBeNull();
-    // Identity check: mismatched evidenceId in payload is rejected by identity
-    const ids = w3bEvidenceIdentity(started.attemptId);
-    expect(materialized.product.evidenceId).toBe(ids.evidenceId);
-  });
-
-  it("T9 — W3C recover for another project is not injected", async () => {
-    const ctxA = await authorizeTempArtifact("t9a");
-    await materializeFail(ctxA);
-    const ctxB = await authorizeTempArtifact("t9b");
-    // B has no fail episode
-    const resolvedB = await resolvePostEvidenceRecoveryContext({
-      oa: ctxB.oa,
-      projectId: ctxB.seeded.projectId,
-    });
-    expect(resolvedB.ok && resolvedB.context === null).toBe(true);
-  });
-
-  it("T10 — restart rebuilds RecoveryContext from durable only", async () => {
-    const db = tempProductDbPath("r7-restart.sqlite");
-    const ctxA = await authorizeTempArtifact("t10", db);
-    const { started, materialized } = await materializeFail(ctxA);
-    const projectId = ctxA.seeded.projectId;
-    const attemptId = started.attemptId;
-    const evidenceId = materialized.product.evidenceId!;
-
-    const runtimeB = bootW2Runtime({
-      productDbPath: db,
-      idPrefix: "r7t10b",
-    });
-    const oaB = runtimeB.oa!;
-    const resolved = await resolvePostEvidenceRecoveryContext({
-      oa: oaB,
-      projectId,
-    });
-    expect(resolved.ok).toBe(true);
-    if (!resolved.ok) return;
-    expect(resolved.context).not.toBeNull();
-    expect(resolved.context!.attemptId).toBe(attemptId);
-    expect(resolved.context!.evidenceId).toBe(evidenceId);
-    expect(resolved.context!.recommendationKind).toBe("recover");
-  });
-
-  it("T11 — generic W2 recommendation does not mask W3C recover", async () => {
-    const ctx = await authorizeTempArtifact("t11");
-    // First instruct generic (before fail) already happened in authorize.
-    // After fail, W3C recover must still resolve even if older OptionSet exists.
-    await materializeFail(ctx);
-    const resolved = await resolvePostEvidenceRecoveryContext({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-    });
-    expect(resolved.ok && resolved.context?.recommendationKind).toBe("recover");
-    expect(resolved.ok && resolved.context?.w3cEpistemicItemId).toMatch(
-      /^epi:w3c-rec:/,
-    );
-
-    const qualification = await resolveW2QualificationInputs({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-    });
-    expect(qualification.ok).toBe(true);
-    if (!qualification.ok) return;
-    const proposed = await proposeTrajectoryOptions({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      ...qualification.qualification.inputs,
-      packagePin: qualification.qualification.packagePin,
-      objective: qualification.qualification.objective,
-      projectTitle: qualification.qualification.projectTitle,
-    });
-    expect(proposed.ok).toBe(true);
-    if (!proposed.ok) return;
-    expect(proposed.options[0]!.label).toMatch(/nouvelle tentative/i);
-    expect(proposed.recommendation.isHumanDecision).toBe(false);
-  });
-});
-
------ END projects/sfia-studio/app/__tests__/project-assistant/checkpointF.recoveryOptionsContext.d0.test.ts -----
++
++  // Attempt ↔ EC coherence already enforced in RecoveryContext.
++  const evidenceRequirements = [...(contract.evidenceRequirements ?? [])];
++  const constraints = [...(contract.constraints ?? [])];
++
++  return {
++    ok: true,
++    binding: {
++      kind: "post_evidence_recovery_execution",
++      recovery,
++      sourceExecutionContractId: contract.executionContractId,
++      sourceAttemptId: recovery.attemptId,
++      action: M4_BOUNDED_DOCS_WRITE_ACTION,
++      target: M4_BOUNDED_DOCS_WRITE_TARGET,
++      targetPath,
++      scope: contract.scope,
++      requiredCapabilities: [...contract.requiredCapabilities],
++      evidenceRequirements,
++      constraints,
++      stopConditions: [...(contract.stopConditions ?? [])],
++      expectedOutputs: [...(contract.expectedOutputs ?? [])],
++      inputs: cloneDocsWriteInputsForRecoverySuccessor(contract.inputs),
++      projectId: contract.projectId,
++      cycleInstanceId: contract.cycleInstanceId ?? null,
++      sourceSemanticFingerprint: contract.semanticFingerprint ?? null,
++      sourceStatus: contract.status,
++    },
++  };
++}
+=== NEW: prepareDocsWriteRecoverySuccessor.ts ===
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts b/projects/sfia-studio/app/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts
+new file mode 100644
+index 00000000..6b14b02d
+--- /dev/null
++++ b/projects/sfia-studio/app/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts
+@@ -0,0 +1,466 @@
++/**
++ * Checkpoint F / R8 — prepare + resolve a bounded docs_write successor EC from
++ * a coherent RecoveryExecutionBinding after recovery trajectory HD.
++ *
++ * Does NOT mutate HumanDecision. Does NOT Execute. Does NOT create Attempts.
++ * Clears wrong pre-exec generic EC via Cancel (existing pre-exec lifecycle).
++ */
++import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
++import type { F2ContextSnapshot } from "@/features/project-assistant/f2/types";
++import {
++  LOCAL_PILOTE_ACTOR,
++  registerLocalPiloteAuthority,
++} from "@/lib/oa/decision";
++import {
++  M4_BOUNDED_DOCS_WRITE_ACTION,
++  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
++  M4_BOUNDED_DOCS_WRITE_TARGET,
++} from "@/lib/oa/execution-attempt";
++import {
++  resolveBoundedReadOnlyBaseHeadSha,
++  validateBaseHeadSha,
++} from "@/lib/vertical-slice-runtime/resolveBoundedReadOnlyBaseHeadSha";
++import {
++  boundedDocsWriteM3ResolutionProfile,
++  BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS,
++  BOUNDED_DOCS_WRITE_M3_SUPERSESSION_REASON,
++  resolveDocsWriteEvidenceRequirementsForBoundedProfile,
++} from "@/features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile";
++import {
++  canonicalM3PrepareContractId,
++  resolveM3ExecutionContract,
++} from "@/features/project-assistant/f3/resolveM3ExecutionContract";
++import { readCurrentGovernedExecutionContinuity } from "./readCurrentGovernedExecutionContinuity";
++import {
++  resolveRecoveryExecutionBinding,
++  type RecoveryExecutionBinding,
++} from "./resolveRecoveryExecutionBinding";
++import type { AmendedExecutionContractDto } from "./types";
++
++export const RECOVERY_WRONG_GENERIC_CANCEL_REASON =
++  "w2_recovery_docs_write_reprepare — clear unconsumed generic fixture EC before docs_write successor" as const;
++
++export type PrepareDocsWriteRecoverySuccessorResult =
++  | {
++      readonly ok: true;
++      readonly decisionId: string;
++      readonly binding: RecoveryExecutionBinding;
++      readonly prepareContractId: string;
++      readonly successor: AmendedExecutionContractDto;
++      readonly cancelledWrongGenericContractId: string | null;
++      readonly reusedFromIdempotency: boolean;
++      readonly executionPerformed: false;
++      readonly attemptCreated: false;
++      readonly confirmationRequired: true;
++    }
++  | { readonly ok: false; readonly code: string; readonly message: string };
++
++function toSuccessorDto(successor: {
++  executionContractId: string;
++  version: number;
++  status: string;
++  action: string;
++  target: string;
++  scope: string;
++  requiredAuthority: string;
++  constraints: readonly string[];
++  stopConditions: readonly string[];
++  requiredCapabilities: readonly string[];
++  reversibility: string;
++  semanticFingerprint: string;
++  supersedesExecutionContractId: string;
++  supersessionReason: string;
++  inspectionDisclosure: AmendedExecutionContractDto["inspectionDisclosure"];
++}): AmendedExecutionContractDto {
++  return {
++    executionContractId: successor.executionContractId,
++    version: successor.version,
++    status: successor.status,
++    action: successor.action,
++    target: successor.target,
++    scope: successor.scope,
++    requiredAuthority: successor.requiredAuthority,
++    constraints: [...successor.constraints],
++    stopConditions: [...successor.stopConditions],
++    requiredCapabilities: [...successor.requiredCapabilities],
++    reversibility: successor.reversibility,
++    semanticFingerprint: successor.semanticFingerprint,
++    supersedesExecutionContractId: successor.supersedesExecutionContractId,
++    supersessionReason: successor.supersessionReason,
++    inspectionDisclosure: successor.inspectionDisclosure,
++  };
++}
++
++async function cancelWrongGenericCurrentIfNeeded(input: {
++  readonly oa: RuntimeOaStack;
++  readonly projectId: string;
++  readonly recoveryDecisionId: string;
++  readonly forceLocalAuthority: boolean;
++}): Promise<
++  | { readonly ok: true; readonly cancelledId: string | null }
++  | { readonly ok: false; readonly code: string; readonly message: string }
++> {
++  const continuity = await readCurrentGovernedExecutionContinuity({
++    oa: input.oa,
++    projectId: input.projectId,
++  });
++  if (!continuity.ok) {
++    return {
++      ok: false,
++      code: continuity.code,
++      message: continuity.message,
++    };
++  }
++  if (continuity.kind === "none") {
++    return { ok: true, cancelledId: null };
++  }
++
++  const current = continuity.contract;
++  const isDocsWrite =
++    current.action === M4_BOUNDED_DOCS_WRITE_ACTION &&
++    current.target === M4_BOUNDED_DOCS_WRITE_TARGET;
++  if (isDocsWrite) {
++    return { ok: true, cancelledId: null };
++  }
++
++  // Only clear unconsumed wrong generic when it belongs to this recovery HD.
++  if (continuity.decisionRef !== input.recoveryDecisionId) {
++    return {
++      ok: false,
++      code: "EXECUTION_CONTINUITY_AMBIGUOUS",
++      message:
++        "Un contrat pré-exécution courant d'une autre décision bloque le prepare recovery.",
++    };
++  }
++
++  // Authority must match the wrong generic EC scope (not docs_write).
++  const cancelAuthority = registerLocalPiloteAuthority({
++    authorityResolver: input.oa.authorityResolver,
++    scope: current.scope,
++    issuedAt: input.oa.clock.nowIso(),
++    evidenceId: `evd:m3-rec-cancel:${current.executionContractId}`,
++    forceEnable: input.forceLocalAuthority === true,
++  });
++  if (!cancelAuthority.ok) {
++    return {
++      ok: false,
++      code: cancelAuthority.code,
++      message: cancelAuthority.message,
++    };
++  }
++
++  const cancelled =
++    await input.oa.executionContractServices!.cancelExecutionContract.execute({
++      executionContractId: current.executionContractId,
++      reason: RECOVERY_WRONG_GENERIC_CANCEL_REASON,
++      actor: LOCAL_PILOTE_ACTOR,
++      authorityEvidenceId: cancelAuthority.evidenceId,
++      expectedVersion: current.version,
++    });
++  if (!cancelled.ok) {
++    return {
++      ok: false,
++      code: cancelled.error.detailCode,
++      message: cancelled.error.message,
++    };
++  }
++  return { ok: true, cancelledId: current.executionContractId };
++}
++
++/**
++ * Explicit Pilot PREPARE after recovery trajectory HD (governed retry).
++ */
++export async function prepareDocsWriteRecoverySuccessorFromDecision(input: {
++  readonly oa: RuntimeOaStack;
++  readonly projectId: string;
++  readonly decisionId: string;
++  readonly currentContext: F2ContextSnapshot;
++  readonly forceLocalAuthority?: boolean;
++  /** Server/test only — pin base HEAD; never from client. */
++  readonly boundedDocsWriteBaseHeadSha?: string;
++}): Promise<PrepareDocsWriteRecoverySuccessorResult> {
++  const { oa } = input;
++  if (!oa.executionContractServices || !oa.decisionServices) {
++    return {
++      ok: false,
++      code: "OA_STACK_UNAVAILABLE",
++      message: "Services EC / Decision indisponibles.",
++    };
++  }
++
++  const bound = await resolveRecoveryExecutionBinding({
++    oa,
++    projectId: input.projectId,
++    decisionId: input.decisionId,
++  });
++  if (!bound.ok) return bound;
++  if (!bound.binding) {
++    return {
++      ok: false,
++      code: "RECOVERY_EXECUTION_BINDING_REQUIRED",
++      message:
++        "Aucun RecoveryExecutionBinding docs_write cohérent — prepare recovery refusé.",
++    };
++  }
++  const binding = bound.binding;
++
++  const issuedAt = oa.clock.nowIso();
++  const authority = registerLocalPiloteAuthority({
++    authorityResolver: oa.authorityResolver,
++    scope: binding.scope || "studio.gcec.docs_write",
++    issuedAt,
++    evidenceId: `evd:m3-rec-prep:${input.decisionId}`,
++    forceEnable: input.forceLocalAuthority === true,
++  });
++  if (!authority.ok) {
++    return {
++      ok: false,
++      code: authority.code,
++      message: authority.message,
++    };
++  }
++
++  const prepareId = canonicalM3PrepareContractId(input.decisionId);
++
++  // Idempotent reuse: current docs_write already linked to this recovery HD.
++  const continuityBefore = await readCurrentGovernedExecutionContinuity({
++    oa,
++    projectId: input.projectId,
++  });
++  if (
++    continuityBefore.ok &&
++    continuityBefore.kind === "active" &&
++    continuityBefore.decisionRef === input.decisionId &&
++    continuityBefore.contract.action === M4_BOUNDED_DOCS_WRITE_ACTION &&
++    continuityBefore.contract.target === M4_BOUNDED_DOCS_WRITE_TARGET
++  ) {
++    const c = continuityBefore.contract;
++    return {
++      ok: true,
++      decisionId: input.decisionId,
++      binding,
++      prepareContractId: prepareId,
++      successor: {
++        executionContractId: c.executionContractId,
++        version: c.version,
++        status: c.status,
++        action: c.action,
++        target: c.target,
++        scope: c.scope,
++        requiredAuthority: c.requiredAuthority,
++        constraints: [...c.constraints],
++        stopConditions: [...c.stopConditions],
++        requiredCapabilities: [...c.requiredCapabilities],
++        reversibility: c.reversibility,
++        semanticFingerprint: c.semanticFingerprint,
++        supersedesExecutionContractId: null,
++        supersessionReason: null,
++        inspectionDisclosure: c.inspectionDisclosure,
++      },
++      cancelledWrongGenericContractId: null,
++      reusedFromIdempotency: true,
++      executionPerformed: false,
++      attemptCreated: false,
++      confirmationRequired: true,
++    };
++  }
++
++  const cleared = await cancelWrongGenericCurrentIfNeeded({
++    oa,
++    projectId: input.projectId,
++    recoveryDecisionId: input.decisionId,
++    forceLocalAuthority: input.forceLocalAuthority === true,
++  });
++  if (!cleared.ok) return cleared;
++
++  // If prepare already exists (after cancel of wrong generic), resolve path may
++  // still be pending — try get + resolve rather than rebuild.
++  const existingPrepare =
++    await oa.executionContractServices.getExecutionContract.execute({
++      executionContractId: prepareId,
++    });
++
++  const evidenceFromSource =
++    resolveDocsWriteEvidenceRequirementsForBoundedProfile({
++      fromPrepare:
++        binding.evidenceRequirements.length > 0
++          ? binding.evidenceRequirements
++          : [...BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS],
++      constraints: binding.constraints,
++    });
++
++  const profile = boundedDocsWriteM3ResolutionProfile();
++  const inputs = {
++    ...binding.inputs,
++    targetPath: binding.targetPath,
++  };
++
++  // Unresolved M3 PREPARE shape (PREPARE_ONLY) so resolveM3 can supersede —
++  // same pattern as prepareM3FromDecision docs_write path.
++  const prepareConstraints = Array.from(
++    new Set([
++      "PREPARE_ONLY",
++      "NO_CURSOR_REAL",
++      "NO_ATTEMPT",
++      "NO_GATE_D",
++      ...binding.constraints.filter(
++        (c) =>
++          !c.startsWith("FIXTURE_") &&
++          c !== "NO_REAL" &&
++          c !== "SCOPE_OUT:REAL" &&
++          c !== "SCOPE_OUT:CURSOR_REAL" &&
++          c !== "NO_ATTEMPT_AT_PREPARE",
++      ),
++    ]),
++  );
++  const prepareStops = Array.from(
++    new Set([
++      "AUTHORITY_DENIED",
++      "CONTEXT_STALE",
++      "DECISION_NOT_CURRENT",
++      ...binding.stopConditions,
++    ]),
++  );
++
++  let prepareContract = existingPrepare.ok ? existingPrepare.contract : null;
++
++  if (
++    prepareContract &&
++    (prepareContract.status === "cancelled" ||
++      prepareContract.status === "superseded" ||
++      prepareContract.status === "failed" ||
++      prepareContract.status === "completed" ||
++      prepareContract.status === "executing")
++  ) {
++    // Terminal / superseded prepare — only reuse via continuity/idempotent path above.
++    if (prepareContract.status === "superseded") {
++      // Resolve will recover existing successor.
++    } else {
++      prepareContract = null;
++    }
++  }
++
++  if (!prepareContract) {
++    const built =
++      await oa.executionContractServices.buildExecutionContract.execute({
++        executionContractId: prepareId,
++        projectId: input.projectId,
++        cycleInstanceId:
++          binding.cycleInstanceId ??
++          input.currentContext.activeCycleInstanceId ??
++          undefined,
++        decisionRefs: [input.decisionId],
++        action: M4_BOUNDED_DOCS_WRITE_ACTION,
++        target: M4_BOUNDED_DOCS_WRITE_TARGET,
++        scope: profile.scope ?? "studio.gcec.docs_write",
++        inputs,
++        expectedOutputs:
++          binding.expectedOutputs.length > 0
++            ? [...binding.expectedOutputs]
++            : undefined,
++        requiredCapabilities: [M4_BOUNDED_DOCS_WRITE_CAPABILITY],
++        requiredAuthority: "MORRIS",
++        constraints: prepareConstraints,
++        stopConditions: prepareStops,
++        evidenceRequirements: evidenceFromSource,
++        reversibility: "reversible",
++        // Canonical M3 PREPARE identity — required by resolveM3ExecutionContract.
++        idempotencyKey: `idem:m3-prep:${input.decisionId}`,
++        correlationId: `cor:m3-rec-prep:${input.decisionId}`,
++        actor: LOCAL_PILOTE_ACTOR,
++        authorityEvidenceId: authority.evidenceId,
++      });
++
++    if (!built.ok) {
++      return {
++        ok: false,
++        code: built.error.detailCode,
++        message: built.error.message,
++      };
++    }
++
++    const validated =
++      await oa.executionContractServices.validateExecutionContract.execute({
++        executionContractId: built.contract.executionContractId,
++        actor: LOCAL_PILOTE_ACTOR,
++        authorityEvidenceId: authority.evidenceId,
++      });
++    if (!validated.ok) {
++      return {
++        ok: false,
++        code: validated.error.detailCode,
++        message: validated.error.message,
++      };
++    }
++    prepareContract = validated.contract;
++  }
++
++  let sha: string | null = null;
++  if (input.boundedDocsWriteBaseHeadSha !== undefined) {
++    sha = validateBaseHeadSha(input.boundedDocsWriteBaseHeadSha);
++  } else {
++    const resolvedSha = await resolveBoundedReadOnlyBaseHeadSha({});
++    if (!resolvedSha.ok) {
++      return {
++        ok: false,
++        code: resolvedSha.code,
++        message: resolvedSha.message,
++      };
++    }
++    sha = resolvedSha.sha;
++  }
++  if (!sha) {
++    return {
++      ok: false,
++      code: "BASE_HEAD_SHA_INVALID",
++      message:
++        "baseHeadSha server-side invalide — fail-closed avant Confirmation / Gate D.",
++    };
++  }
++
++  const resolution = {
++    ...profile,
++    evidenceRequirements: evidenceFromSource,
++    inputs: {
++      ...(profile.inputs ?? {}),
++      ...inputs,
++      baseHeadSha: sha,
++    },
++  };
++
++  const resolved = await resolveM3ExecutionContract({
++    projectId: input.projectId,
++    decisionId: input.decisionId,
++    originalExecutionContractId: prepareContract.executionContractId,
++    expectedOriginalVersion: prepareContract.version,
++    resolution,
++    supersessionReason: BOUNDED_DOCS_WRITE_M3_SUPERSESSION_REASON,
++    deps: {
++      decisionServices: oa.decisionServices,
++      authorityResolver: oa.authorityResolver,
++      executionContractServices: oa.executionContractServices,
++      nowIso: () => oa.clock.nowIso(),
++      forceM3Authority: input.forceLocalAuthority === true,
++    },
++  });
++  if (!resolved.ok) {
++    return {
++      ok: false,
++      code: resolved.code,
++      message: resolved.message,
++    };
++  }
++
++  return {
++    ok: true,
++    decisionId: input.decisionId,
++    binding,
++    prepareContractId: prepareId,
++    successor: toSuccessorDto(resolved.successor),
++    cancelledWrongGenericContractId: cleared.cancelledId,
++    reusedFromIdempotency: resolved.reusedFromIdempotency,
++    executionPerformed: false,
++    attemptCreated: false,
++    confirmationRequired: true,
++  };
++}
+=== NEW: checkpointF.recoveryDocsWriteSuccessor.d0.test.ts ===
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/checkpointF.recoveryDocsWriteSuccessor.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/checkpointF.recoveryDocsWriteSuccessor.d0.test.ts
+new file mode 100644
+index 00000000..e7f53205
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/project-assistant/checkpointF.recoveryDocsWriteSuccessor.d0.test.ts
+@@ -0,0 +1,568 @@
++/**
++ * Checkpoint F / R8 — recovery docs_write successor routing.
++ * ZERO REAL / ZERO Execute / ZERO new campaign HD mutation.
++ * @vitest-environment node
++ */
++import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
++import { setConversationProviderForTests } from "@/lib/platform/ai";
++import {
++  M4_BOUNDED_DOCS_WRITE_ACTION,
++  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
++  M4_BOUNDED_DOCS_WRITE_TARGET,
++} from "@/lib/oa/execution-attempt";
++import { LOCAL_PILOTE_ACTOR, registerLocalPiloteAuthority } from "@/lib/oa/decision";
++import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
++import { prepareExecutionContractFromW2Decision } from "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision";
++import { prepareDocsWriteRecoverySuccessorFromDecision } from "@/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor";
++import { proposeTrajectoryOptions } from "@/features/project-assistant/w2/proposeTrajectoryOptions";
++import { resolveW2QualificationInputs } from "@/features/project-assistant/w2/qualificationInputs";
++import {
++  cloneDocsWriteInputsForRecoverySuccessor,
++  resolveRecoveryExecutionBinding,
++} from "@/features/project-assistant/w2/resolveRecoveryExecutionBinding";
++import { resolvePostEvidenceRecoveryContext } from "@/features/project-assistant/w2/resolvePostEvidenceRecoveryContext";
++import {
++  BOUNDED_OPTION_REF,
++  CLARIFY_OPTION_REF,
++  GOVERNED_OPTION_REF,
++} from "@/features/project-assistant/w2/trajectoryOptions";
++import { materializeProductOutcomeFromAttempt } from "@/features/project-assistant/w2/materializeW3bProductTerminal";
++import { w3bEvidenceIdentity } from "@/features/project-assistant/w2/materializeW3bProductTerminal";
++import { w3cRecommendationEpistemicId } from "@/features/project-assistant/w2/w3cPostEvidenceLoop";
++import { serializeW3cRecommendationPayload } from "@/features/project-assistant/w2/w3cPostEvidenceLoop";
++import type { W3cRecommendationPayload } from "@/features/project-assistant/w2/w3cPostEvidenceLoop";
++import { BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS } from "@/features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile";
++import { SFIA_STUDIO_SYSTEM_FACTUAL_WRITER } from "@/features/project-assistant/f3/systemFactualWriter";
++import {
++  bootW2Runtime,
++  cleanupW2TempDirs,
++  currentF2Context,
++  seedQualifiedProject,
++  tempProductDbPath,
++} from "./w2Harness";
++import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
++
++const TARGET_PATH =
++  "projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md";
++
++beforeEach(() => {
++  process.env.OPS1_CONVERSATION_PROVIDER = "fake";
++  process.env.OPS1_E2E_ALLOW_DIRTY_PRINCIPAL = "1";
++  setConversationProviderForTests(null);
++});
++
++afterEach(() => {
++  cleanupW2TempDirs();
++  setConversationProviderForTests(null);
++  vi.restoreAllMocks();
++});
++
++async function proposeAndDecideGoverned(oa: RuntimeOaStack, projectId: string) {
++  const qualification = await resolveW2QualificationInputs({ oa, projectId });
++  if (!qualification.ok) throw new Error("qual");
++  const proposed = await proposeTrajectoryOptions({
++    oa,
++    projectId,
++    ...qualification.qualification.inputs,
++    packagePin: qualification.qualification.packagePin,
++    objective: qualification.qualification.objective,
++    projectTitle: qualification.qualification.projectTitle,
++  });
++  if (!proposed.ok) throw new Error(`propose: ${proposed.code}`);
++  const decided = await decideTrajectory({
++    oa,
++    projectId,
++    optionSetRef: proposed.optionSetRef,
++    options: proposed.options,
++    recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
++    selectedOptionRef: GOVERNED_OPTION_REF,
++    trajectoryId: proposed.proposedTrajectory!.trajectoryId,
++    candidateVersion: proposed.proposedTrajectory!.version,
++    forceLocalAuthority: true,
++  });
++  if (!decided.ok) throw new Error(`decide: ${decided.code}`);
++  return { proposed, decided, decisionId: decided.decision.decisionId };
++}
++
++describe("R8 — pure helpers", () => {
++  it("cloneDocsWriteInputs keeps path / content, drops stale keys", () => {
++    const cloned = cloneDocsWriteInputsForRecoverySuccessor({
++      targetPath: TARGET_PATH,
++      targetRepositoryRef: "mcleland147/sfia-workspace",
++      contentRequirements: ["markdown"],
++      baseHeadSha: "deadbeef",
++      confirmationRef: "cfm:stale",
++      attemptId: "xat:stale",
++    });
++    expect(cloned.targetPath).toBe(TARGET_PATH);
++    expect(cloned.targetRepositoryRef).toBe("mcleland147/sfia-workspace");
++    expect(cloned.contentRequirements).toEqual(["markdown"]);
++    expect(cloned.baseHeadSha).toBeUndefined();
++    expect(cloned.confirmationRef).toBeUndefined();
++    expect(cloned.attemptId).toBeUndefined();
++  });
++});
++
++async function seedFailedDocsWriteEpisode(input: {
++  oa: RuntimeOaStack;
++  projectId: string;
++  cycleInstanceId?: string | null;
++  decisionId: string;
++}) {
++  const { oa, projectId, decisionId } = input;
++  const attemptId = `xat:w3a:r8-${Math.random().toString(16).slice(2, 10)}`;
++  const ecId = `xct:m3-ev:r8-${Math.random().toString(16).slice(2, 10)}`;
++  const ids = w3bEvidenceIdentity(attemptId);
++
++  const authority = registerLocalPiloteAuthority({
++    authorityResolver: oa.authorityResolver,
++    scope: "studio.gcec.docs_write",
++    issuedAt: oa.clock.nowIso(),
++    evidenceId: `evd:r8-seed:${ecId}`,
++    forceEnable: true,
++  });
++  if (!authority.ok) {
++    throw new Error(`authority: ${authority.code}`);
++  }
++
++  const built = await oa.executionContractServices!.buildExecutionContract.execute({
++    executionContractId: ecId,
++    projectId,
++    cycleInstanceId: input.cycleInstanceId ?? undefined,
++    decisionRefs: [decisionId],
++    action: M4_BOUNDED_DOCS_WRITE_ACTION,
++    target: M4_BOUNDED_DOCS_WRITE_TARGET,
++    scope: "studio.gcec.docs_write",
++    inputs: {
++      targetPath: TARGET_PATH,
++      targetRepositoryRef: "mcleland147/sfia-workspace",
++      repositoryRef: "mcleland147/sfia-workspace",
++      pathAllowlist: ["projects/sfia-studio/.sandbox/"],
++      contentRequirements: ["markdown heading", "acceptance criteria"],
++    },
++    requiredCapabilities: [M4_BOUNDED_DOCS_WRITE_CAPABILITY],
++    requiredAuthority: "MORRIS",
++    constraints: [
++      "BOUNDED DOCS-WRITE",
++      "PATH_ALLOWLIST_ONLY",
++      "TEXT_DOCS_ONLY",
++      "NO_DELETE",
++      "NO_COMMIT",
++      "NO_GIT_REMOTE",
++      "NO_PUSH",
++      "NO_PR",
++      "NO_MERGE",
++      "GATE D REQUIRED",
++      "NO WILDCARD",
++      "PREPARE_ONLY",
++    ],
++    stopConditions: ["AUTHORITY_DENIED", "CONTEXT_STALE", "DECISION_NOT_CURRENT"],
++    evidenceRequirements: [...BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS],
++    reversibility: "reversible",
++    idempotencyKey: `idem:r8-failed-${ecId}`,
++    correlationId: `cor:r8-failed-${ecId}`,
++    actor: LOCAL_PILOTE_ACTOR,
++    authorityEvidenceId: authority.evidenceId,
++  });
++  if (!built.ok) {
++    throw new Error(
++      `build failed: ${built.error.detailCode} ${built.error.message ?? ""}`,
++    );
++  }
++
++  const failedContract = {
++    ...built.contract,
++    status: "failed" as const,
++    version: built.contract.version + 1,
++  };
++  await oa.executionContractServices!.contracts.save(failedContract);
++
++  // Minimal Attempt so RecoveryContext coherence can load it.
++  const now = oa.clock.nowIso();
++  const attempt = {
++    schemaVersion: "0.2.0-oa" as const,
++    attemptId,
++    executionContractId: ecId,
++    executionContractVersion: failedContract.version,
++    selectedAgentRef: "agt:m4.cursor.bounded_docs_write",
++    status: "failed" as const,
++    idempotencyKey: `idem:att:${attemptId}`,
++    correlationId: `cor:att:${attemptId}`,
++    version: 1,
++    createdAt: now,
++    failedAt: now,
++    launchedAt: now,
++    startedAt: now,
++    stopReason: "REAL_PROCESS_NONZERO_EXIT",
++    irreversibleEffectsPossible: true,
++    processDiagnostic: {
++      kind: "process_failure_diagnostic" as const,
++      realProcessInvoked: true,
++      boundaryProofMode: "cursor_real" as const,
++      exitCode: 1,
++      stderrExcerpt: "seed fail",
++      authoritativeBusinessEvidence: false,
++    },
++    provenance: {
++      schemaVersion: "0.1.0-oa" as const,
++      provenanceRecordId: `prv:${attemptId}`,
++      actor: LOCAL_PILOTE_ACTOR,
++      source: "system" as const,
++      timestamp: now,
++      correlationId: `cor:att:${attemptId}`,
++    },
++  };
++  await oa.executionAttemptServices!.attempts.create(attempt as never);
++
++  // Evidence + RB via materialize; seal W3C recover with canonical payload schema.
++  const w3cPayload: W3cRecommendationPayload = {
++    kind: "recover",
++    headline: "Échec docs_write — recovery",
++    rationale: "Attempt failed; Evidence available; no business success.",
++    nextStep: "recovery_diagnose_or_replan",
++    requiresHumanDecision: true,
++    authority: "none",
++    gateConsumed: false,
++    decisionCreated: false,
++    attemptAutoLaunchNextCycle: false,
++    recommendNextGateStatus: null,
++    nextActionCode: null,
++    evidenceId: ids.evidenceId,
++    attemptId,
++    reviewBundleId: ids.reviewBundleId,
++    claimEvaluationId: null,
++    productOutcome: "FAIL",
++    analysisText: null,
++    analysisUnavailableReason: "test_seed",
++    analysisProviderId: null,
++    noraInvoked: false,
++    lpsVersion: null,
++  };
++
++  const materialized = await materializeProductOutcomeFromAttempt({
++    oa,
++    projectId,
++    attemptId,
++  });
++  if (!materialized.ok) {
++    throw new Error(
++      `R8 seed materialize failed: ${materialized.code} ${materialized.message}`,
++    );
++  }
++
++  const recoveredAfterMat = await resolvePostEvidenceRecoveryContext({
++    oa,
++    projectId,
++  });
++  if (!recoveredAfterMat.ok || !recoveredAfterMat.context) {
++    const epistemicId = w3cRecommendationEpistemicId(ids.evidenceId);
++    await oa.cycleServices!.updateEpistemicState.execute({
++      projectId,
++      items: [
++        {
++          epistemicItemId: epistemicId,
++          type: "Recommendation",
++          statement: serializeW3cRecommendationPayload(w3cPayload),
++          status: "active",
++          source: `w3c-post-evidence:${ids.evidenceId}`,
++          relatedObjects: [
++            projectId,
++            attemptId,
++            ids.evidenceId,
++            ids.reviewBundleId,
++            ecId,
++          ],
++        },
++      ],
++      createdBy: SFIA_STUDIO_SYSTEM_FACTUAL_WRITER,
++      correlationId: `cor:w3c-seed:${attemptId}`,
++    });
++  }
++
++  const recovered = await resolvePostEvidenceRecoveryContext({
++    oa,
++    projectId,
++  });
++  if (!recovered.ok || !recovered.context) {
++    throw new Error("R8 seed: RecoveryContext unavailable after W3C seal");
++  }
++
++  return {
++    attemptId,
++    ecId,
++    evidenceId: ids.evidenceId,
++    reviewBundleId: ids.reviewBundleId,
++  };
++}
++
++describe("R8 — RecoveryExecutionBinding + prepare successor", () => {
++  it("T1 — failed docs_write + recovery → binding rehydrates action/target/path", async () => {
++    const db = tempProductDbPath("r8-t1.sqlite");
++    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "r8t1" });
++    const seeded = await seedQualifiedProject(runtime, { suffix: "t1" });
++    const oa = runtime.oa!;
++    const { decisionId } = await proposeAndDecideGoverned(oa, seeded.projectId);
++    await seedFailedDocsWriteEpisode({
++      oa,
++      projectId: seeded.projectId,
++      cycleInstanceId: seeded.cycleInstanceId,
++      decisionId,
++    });
++
++    const recovered = await resolvePostEvidenceRecoveryContext({
++      oa,
++      projectId: seeded.projectId,
++    });
++    expect(recovered.ok && recovered.context).toBeTruthy();
++    if (!recovered.ok || !recovered.context) return;
++
++    const bound = await resolveRecoveryExecutionBinding({
++      oa,
++      projectId: seeded.projectId,
++    });
++    expect(bound.ok).toBe(true);
++    if (!bound.ok || !bound.binding) {
++      expect(bound.ok && bound.binding).toBeTruthy();
++      return;
++    }
++    expect(bound.binding.action).toBe(M4_BOUNDED_DOCS_WRITE_ACTION);
++    expect(bound.binding.target).toBe(M4_BOUNDED_DOCS_WRITE_TARGET);
++    expect(bound.binding.targetPath).toBe(TARGET_PATH);
++    expect(bound.binding.requiredCapabilities).toContain(
++      M4_BOUNDED_DOCS_WRITE_CAPABILITY,
++    );
++  });
++
++  it("T2 — hostile project → no binding", async () => {
++    const db = tempProductDbPath("r8-t2.sqlite");
++    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "r8t2" });
++    const seeded = await seedQualifiedProject(runtime, { suffix: "t2" });
++    const { decisionId } = await proposeAndDecideGoverned(
++      runtime.oa!,
++      seeded.projectId,
++    );
++    await seedFailedDocsWriteEpisode({
++      oa: runtime.oa!,
++      projectId: seeded.projectId,
++      cycleInstanceId: seeded.cycleInstanceId,
++      decisionId,
++    });
++    const bound = await resolveRecoveryExecutionBinding({
++      oa: runtime.oa!,
++      projectId: "prj:hostile-other",
++    });
++    expect(bound.ok).toBe(true);
++    if (!bound.ok) return;
++    expect(bound.binding).toBeNull();
++  });
++
++  it("T3 — ProjectTrajectory without recovery keeps generic W3-A path", async () => {
++    const db = tempProductDbPath("r8-t3.sqlite");
++    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "r8t3" });
++    const seeded = await seedQualifiedProject(runtime, { suffix: "t3" });
++    const oa = runtime.oa!;
++    const qualification = await resolveW2QualificationInputs({
++      oa,
++      projectId: seeded.projectId,
++    });
++    expect(qualification.ok).toBe(true);
++    if (!qualification.ok) return;
++    const proposed = await proposeTrajectoryOptions({
++      oa,
++      projectId: seeded.projectId,
++      ...qualification.qualification.inputs,
++      packagePin: qualification.qualification.packagePin,
++      objective: qualification.qualification.objective,
++      projectTitle: qualification.qualification.projectTitle,
++    });
++    expect(proposed.ok).toBe(true);
++    if (!proposed.ok) return;
++    expect(proposed.options.map((o) => o.optionRef)).toEqual([
++      GOVERNED_OPTION_REF,
++      BOUNDED_OPTION_REF,
++      CLARIFY_OPTION_REF,
++    ]);
++    expect(proposed.options[0]!.label).toBe("Trajectoire gouvernée par gates");
++    const bound = await resolveRecoveryExecutionBinding({
++      oa,
++      projectId: seeded.projectId,
++    });
++    expect(bound.ok && bound.binding === null).toBe(true);
++  });
++});
++
++describe("R8 — prepare recovery docs_write successor (durable)", () => {
++  async function authorizeAndFailDocsWriteViaFixture(suffix: string) {
++    const db = tempProductDbPath(`r8-prep-${suffix}.sqlite`);
++    const runtime = bootW2Runtime({
++      productDbPath: db,
++      idPrefix: `r8p${suffix}`,
++    });
++    const seeded = await seedQualifiedProject(runtime, { suffix });
++    const oa = runtime.oa!;
++
++    // Seed decision for failed EC lineage, then fail episode, then recovery HD.
++    const seedDecide = await proposeAndDecideGoverned(oa, seeded.projectId);
++    const seededFail = await seedFailedDocsWriteEpisode({
++      oa,
++      projectId: seeded.projectId,
++      cycleInstanceId: seeded.cycleInstanceId,
++      decisionId: seedDecide.decisionId,
++    });
++
++    let recovered = await resolvePostEvidenceRecoveryContext({
++      oa,
++      projectId: seeded.projectId,
++    });
++    if (!recovered.ok || !recovered.context) {
++      throw new Error("RecoveryContext not available for R8 prepare test");
++    }
++
++    const recoveryDecide = await proposeAndDecideGoverned(oa, seeded.projectId);
++    expect(recoveryDecide.proposed.options[0]!.label).toMatch(
++      /nouvelle tentative/i,
++    );
++
++    return {
++      oa,
++      seeded,
++      db,
++      runtime,
++      decisionId: recoveryDecide.decisionId,
++      sourceEcId: seededFail.ecId,
++      attemptId: seededFail.attemptId,
++    };
++  }
++
++  it("T5–T12 — prepare successor docs_write; cancel wrong generic; no Attempt", async () => {
++    const ctx = await authorizeAndFailDocsWriteViaFixture("t5");
++    const { oa, seeded, decisionId, sourceEcId } = ctx;
++
++    // Create wrong generic EC as current (simulates campaign dead-end).
++    const context = await currentF2Context(ctx.runtime, seeded.projectId);
++    const wrong = await prepareExecutionContractFromW2Decision({
++      oa,
++      projectId: seeded.projectId,
++      decisionId,
++      currentContext: context,
++      qualifiedOperationKind: "generate-temporary-artifact",
++      forceLocalAuthority: true,
++    });
++    expect(wrong.ok).toBe(true);
++    if (!wrong.ok) return;
++    expect(wrong.contract.action).toContain("generate-temporary-artifact");
++
++    const attemptsBefore =
++      await oa.executionAttemptServices!.listExecutionAttempts.execute({
++        executionContractId: sourceEcId,
++      });
++    const countBefore = attemptsBefore.ok ? attemptsBefore.attempts.length : 0;
++
++    const prepared = await prepareDocsWriteRecoverySuccessorFromDecision({
++      oa,
++      projectId: seeded.projectId,
++      decisionId,
++      currentContext: context,
++      forceLocalAuthority: true,
++      boundedDocsWriteBaseHeadSha: "a".repeat(40),
++    });
++    expect(prepared.ok).toBe(true);
++    if (!prepared.ok) return;
++
++    expect(prepared.successor.action).toBe(M4_BOUNDED_DOCS_WRITE_ACTION);
++    expect(prepared.successor.target).toBe(M4_BOUNDED_DOCS_WRITE_TARGET);
++    expect(prepared.successor.requiredCapabilities).toContain(
++      M4_BOUNDED_DOCS_WRITE_CAPABILITY,
++    );
++    expect(prepared.cancelledWrongGenericContractId).toBe(
++      wrong.contract.executionContractId,
++    );
++    expect(prepared.executionPerformed).toBe(false);
++    expect(prepared.attemptCreated).toBe(false);
++
++    const successorLoaded =
++      await oa.executionContractServices!.getExecutionContract.execute({
++        executionContractId: prepared.successor.executionContractId,
++      });
++    expect(successorLoaded.ok).toBe(true);
++    if (!successorLoaded.ok) return;
++    expect(successorLoaded.contract.inputs?.targetPath).toBe(TARGET_PATH);
++    expect(successorLoaded.contract.evidenceRequirements).toContain(
++      "evreq:docs_write_artifact",
++    );
++    for (const c of ["NO_COMMIT", "NO_PUSH", "NO_PR", "NO_MERGE"]) {
++      expect(successorLoaded.contract.constraints).toContain(c);
++    }
++    expect(successorLoaded.contract.confirmationRef).toBeUndefined();
++    expect(successorLoaded.contract.status).not.toBe("failed");
++
++    const wrongAfter =
++      await oa.executionContractServices!.getExecutionContract.execute({
++        executionContractId: wrong.contract.executionContractId,
++      });
++    expect(wrongAfter.ok).toBe(true);
++    if (!wrongAfter.ok) return;
++    expect(wrongAfter.contract.status).toBe("cancelled");
++
++    const sourceAfter =
++      await oa.executionContractServices!.getExecutionContract.execute({
++        executionContractId: sourceEcId,
++      });
++    expect(sourceAfter.ok).toBe(true);
++    if (!sourceAfter.ok) return;
++    expect(sourceAfter.contract.status).toBe("failed");
++
++    const attemptsAfter =
++      await oa.executionAttemptServices!.listExecutionAttempts.execute({
++        executionContractId: sourceEcId,
++      });
++    expect(attemptsAfter.ok).toBe(true);
++    if (!attemptsAfter.ok) return;
++    expect(attemptsAfter.attempts.length).toBe(countBefore);
++
++    // T13/T14 idempotent second prepare
++    const again = await prepareDocsWriteRecoverySuccessorFromDecision({
++      oa,
++      projectId: seeded.projectId,
++      decisionId,
++      currentContext: context,
++      forceLocalAuthority: true,
++      boundedDocsWriteBaseHeadSha: "a".repeat(40),
++    });
++    expect(again.ok).toBe(true);
++    if (!again.ok) return;
++    expect(again.successor.executionContractId).toBe(
++      prepared.successor.executionContractId,
++    );
++    expect(again.reusedFromIdempotency).toBe(true);
++  });
++
++  it("T10 restart — same current recovery docs_write EC", async () => {
++    const ctx = await authorizeAndFailDocsWriteViaFixture("t10");
++    const context = await currentF2Context(ctx.runtime, ctx.seeded.projectId);
++    const prepared = await prepareDocsWriteRecoverySuccessorFromDecision({
++      oa: ctx.oa,
++      projectId: ctx.seeded.projectId,
++      decisionId: ctx.decisionId,
++      currentContext: context,
++      forceLocalAuthority: true,
++      boundedDocsWriteBaseHeadSha: "b".repeat(40),
++    });
++    expect(prepared.ok).toBe(true);
++    if (!prepared.ok) return;
++    const successorId = prepared.successor.executionContractId;
++
++    const runtimeB = bootW2Runtime({
++      productDbPath: ctx.db,
++      idPrefix: "r8t10b",
++    });
++    const oaB = runtimeB.oa!;
++    const continuity = await oaB.executionContractServices!.getExecutionContract.execute(
++      { executionContractId: successorId },
++    );
++    expect(continuity.ok).toBe(true);
++    if (!continuity.ok) return;
++    expect(continuity.contract.action).toBe(M4_BOUNDED_DOCS_WRITE_ACTION);
++    expect(continuity.contract.inputs?.targetPath).toBe(TARGET_PATH);
++  });
++});
+=== MOD: actions.ts (R8 hunks) ===
+15- import { readActiveProposalDecisionSubject } from "./activeProposalDecisionSubject";
+16- import { readCurrentGovernedExecutionContinuity } from "./readCurrentGovernedExecutionContinuity";
+17- import { prepareExecutionContractFromW2Decision } from "./prepareExecutionContractFromW2Decision";
+18:+import { prepareDocsWriteRecoverySuccessorFromDecision } from "./prepareDocsWriteRecoverySuccessor";
+19:+import { resolveRecoveryExecutionBinding } from "./resolveRecoveryExecutionBinding";
+20- import { proposeTrajectoryOptions } from "./proposeTrajectoryOptions";
+21- import { readW2ProjectHistory } from "./projectHistory";
+22- import { resolveW2QualificationInputs } from "./qualificationInputs";
+--
+31-   ProposeTrajectoryOptionsResult,
+32- } from "./types";
+33- import type { ReadW2ProjectHistoryResult } from "./projectHistory";
+34:+import type { RecoveryExecutionBinding } from "./resolveRecoveryExecutionBinding";
+35-
+36- const OA_UNAVAILABLE = {
+37-   ok: false as const,
+--
+85- }
+86-
+87-+/**
+88:+ * R8 — read RecoveryExecutionBinding for UI (docs_write recovery CTA).
+89-+ * Client sends only projectId + optional decisionId. No path/op injection.
+90-+ */
+91:+export async function w2ReadRecoveryExecutionBindingAction(input: {
+92-+  projectId: string;
+93-+  decisionId?: string | null;
+94-+}): Promise<
+95:+  | { readonly ok: true; readonly binding: RecoveryExecutionBinding | null }
+96-+  | { readonly ok: false; readonly code: string; readonly message: string }
+97-+> {
+98-+  const runtime = getRuntimeApplicationService();
+99-+  if (!runtime.oa) return OA_UNAVAILABLE;
+100:+  return resolveRecoveryExecutionBinding({
+101-+    oa: runtime.oa,
+102-+    projectId: input.projectId,
+103-+    decisionId: input.decisionId,
+--
+105-+}
+106-+
+107-+/**
+108:+ * R8 — prepare bounded docs_write successor from recovery HD + failed EC binding.
+109-+ * Does not accept client path/operation. Cancels wrong generic current if needed.
+110-+ */
+111:+export async function w2PrepareRecoveryDocsWriteAction(input: {
+112-+  projectId: string;
+113-+  decisionId: string;
+114-+  /** Hostile — ignored. */
+--
+125-+      readonly f3SemanticOverwrite: false;
+126-+      readonly executionPerformed: false;
+127-+      readonly attemptCreated: false;
+128:+      readonly binding: RecoveryExecutionBinding;
+129-+    }
+130-+  | { readonly ok: false; readonly code: string; readonly message: string }
+131-+> {
+--
+141-+    return {
+142-+      ok: false,
+143-+      code: "PROJECT_NOT_FOUND",
+144:+      message: "Projet ou LPS introuvable pour la préparation recovery.",
+145-+    };
+146-+  }
+147-+
+148:+  const prepared = await prepareDocsWriteRecoverySuccessorFromDecision({
+149-+    oa: runtime.oa,
+150-+    projectId: input.projectId,
+151-+    decisionId: input.decisionId,
+=== MOD: TrajectorySurface.tsx (R8-related) ===
+15-   w2MaterializeProductOutcomeAction,
+16-   w2PrepareExecutionContractAction,
+17:+  w2PrepareRecoveryDocsWriteAction,
+18-   w2ProposeTrajectoryOptionsAction,
+19-   w2ReadActiveDecisionSubjectAction,
+20-   w2ReadCurrentGovernedExecutionContinuityAction,
+21:+  w2ReadRecoveryExecutionBindingAction,
+22-   w2RehydrateProductOutcomeAction,
+23-+  w2RematerializeDocsWriteEvidenceAction,
+24- } from "@/features/project-assistant/w2/actions";
+25-+import { GOVERNED_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
+26:+import type { RecoveryExecutionBinding } from "@/features/project-assistant/w2/resolveRecoveryExecutionBinding";
+27- import {
+28-   projectAssistantApprovePreCycleCandidateTrajectoryAction,
+--
+32-   const [qualifiedOperationKind, setQualifiedOperationKind] =
+33-     useState<QualifiedOperationKind | null>(null);
+34:+  const [recoveryBinding, setRecoveryBinding] =
+35:+    useState<RecoveryExecutionBinding | null>(null);
+36-
+37-   /**
+--
+41-   const proposalBackedPrepareBlocked =
+42-     proposalPursue && decision?.decisionBasisLinked !== true;
+43:+  const recoveryDocsWritePrepareReady = Boolean(
+44-+    !decisionDefersExecution &&
+45-+      !hasProposalDecisionSubject &&
+46-+      decision &&
+47-+      decision.selectedOptionRef === GOVERNED_OPTION_REF &&
+48:+      recoveryBinding &&
+49:+      recoveryBinding.kind === "post_evidence_recovery_execution",
+50-+  );
+51-   const rematerializeDecisionId =
+--
+98-   );
+99-
+100:+  // R8 — rehydrate RecoveryExecutionBinding when recovery trajectory HD is present.
+101-+  useEffect(() => {
+102-+    let cancelled = false;
+--
+107-+        decision.selectedOptionRef !== GOVERNED_OPTION_REF
+108-+      ) {
+109:+        setRecoveryBinding(null);
+110-+        return;
+111-+      }
+112:+      const result = await w2ReadRecoveryExecutionBindingAction({
+113-+        projectId,
+114-+        decisionId: decision.decisionId,
+--
+116-+      if (cancelled) return;
+117-+      if (result.ok) {
+118:+        setRecoveryBinding(result.binding);
+119-+      } else {
+120:+        setRecoveryBinding(null);
+121-+      }
+122-+    }
+--
+135-
+136-+  /**
+137:+   * R8 — recovery docs_write PREPARE from failed EC binding (no sandbox ops).
+138-+   */
+139:+  const prepareRecoveryDocsWriteContract = useCallback(async () => {
+140-+    if (continuityMutationBlocked) return;
+141:+    if (!decision || !recoveryDocsWritePrepareReady) return;
+142-+    setBusy("contract");
+143-+    setError(null);
+144:+    const result = await w2PrepareRecoveryDocsWriteAction({
+145-+      projectId,
+146-+      decisionId: decision.decisionId,
+--
+181-+    decision,
+182-+    projectId,
+183:+    recoveryDocsWritePrepareReady,
+184-+    onDurableFactsChanged,
+185-+  ]);
+--
+264-           !contract &&
+265--          !hasProposalDecisionSubject ? (
+266:+          recoveryDocsWritePrepareReady &&
+267:+          recoveryBinding ? (
+268-+          <div
+269-+            className={styles.actions}
+270:+            data-testid="w2-recovery-docs-write-prepare"
+271-+          >
+272-+            <p
+273-+              className={styles.blockNote}
+274:+              data-testid="w2-recovery-docs-write-note"
+275-+            >
+276-+              Reprendre l&apos;écriture Markdown gouvernée après échec — cible
+--
+280-+            <p
+281-+              className={styles.blockBody}
+282:+              data-testid="w2-recovery-docs-write-path"
+283-+            >
+284:+              Cible : {recoveryBinding.targetPath}
+285-+            </p>
+286-+            <p
+287-+              className={styles.blockBody}
+288:+              data-testid="w2-recovery-docs-write-source"
+289-+            >
+290:+              Source : Attempt {recoveryBinding.sourceAttemptId} (
+291:+              {recoveryBinding.recovery.productOutcome}) — EC{" "}
+292:+              {recoveryBinding.sourceExecutionContractId}
+293-+            </p>
+294-+            <button
+295-+              type="button"
+296-+              className={styles.primaryAction}
+297:+              data-testid="w2-prepare-recovery-docs-write"
+298:+              onClick={() => void prepareRecoveryDocsWriteContract()}
+299-+              disabled={busy !== null || continuityMutationBlocked}
+300-+            >
+301:+              Préparer le contrat d&apos;exécution (recovery docs_write)
+302-+            </button>
+303-+          </div>
+--
+306-+          !contract &&
+307-+          !hasProposalDecisionSubject &&
+308:+          !recoveryDocsWritePrepareReady ? (
+309-           <div
+310-             className={styles.actions}
+=== MOD: trajectorySurface.ui.test.tsx (R8) ===
+7-   readActiveDecisionSubjectMock,
+8-   readGovernedExecutionContinuityMock,
+9:+  readRecoveryExecutionBindingMock,
+10:+  prepareRecoveryDocsWriteMock,
+11-   readPreCycleMock,
+12-   readApprovalMock,
+--
+16-   readActiveDecisionSubjectMock: vi.fn(),
+17-   readGovernedExecutionContinuityMock: vi.fn(),
+18:+  readRecoveryExecutionBindingMock: vi.fn(),
+19:+  prepareRecoveryDocsWriteMock: vi.fn(),
+20-   readPreCycleMock: vi.fn(),
+21-   readApprovalMock: vi.fn(),
+--
+25-   w2ReadCurrentGovernedExecutionContinuityAction: (...args: unknown[]) =>
+26-     readGovernedExecutionContinuityMock(...args),
+27:+  w2ReadRecoveryExecutionBindingAction: (...args: unknown[]) =>
+28:+    readRecoveryExecutionBindingMock(...args),
+29:+  w2PrepareRecoveryDocsWriteAction: (...args: unknown[]) =>
+30:+    prepareRecoveryDocsWriteMock(...args),
+31-   w2ReadProjectHistoryAction: vi.fn().mockResolvedValue({
+32-     ok: false,
+--
+36-   readActiveDecisionSubjectMock.mockReset();
+37-   readGovernedExecutionContinuityMock.mockReset();
+38:+  readRecoveryExecutionBindingMock.mockReset();
+39:+  prepareRecoveryDocsWriteMock.mockReset();
+40-   readPreCycleMock.mockReset();
+41-   readApprovalMock.mockReset();
+--
+45-     kind: "none",
+46-   });
+47:+  readRecoveryExecutionBindingMock.mockResolvedValue({
+48-+    ok: true,
+49-+    binding: null,
+50-+  });
+51:+  prepareRecoveryDocsWriteMock.mockResolvedValue({
+52-+    ok: false,
+53-+    code: "UNUSED",
+--
+133-+  });
+134-+
+135:+  it("R8 — recovery docs_write binding hides W3-A catalog; PREPARE remains explicit", async () => {
+136-+    const TARGET =
+137-+      "projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md";
+138-+    proposeMock.mockResolvedValue({
+139-+      ok: true,
+140:+      optionSetRef: "optset:w2-recovery",
+141-+      cycleTypeId: "cyc:delivery",
+142-+      recommendedProfile: "Critical",
+--
+162-+      epistemicRefs: [],
+163-+      proposedTrajectory: {
+164:+        trajectoryId: "trj:w2-recovery",
+165-+        version: 1,
+166-+      },
+--
+173-+      ok: true,
+174-+      decision: {
+175:+        decisionId: "dec:w2-trj:recovery-ui",
+176-+        selectedOptionRef: "opt:trajectory:governed-gated",
+177-+        actorRole: "Pilote",
+--
+183-+        proposalId: null,
+184-+      },
+185:+      trajectory: { trajectoryId: "trj:w2-recovery", version: 3 },
+186-+      livingProjectStateVersion: 4,
+187-+      executionPerformed: false,
+--
+189-+      decisionSubjectMode: "project_trajectory",
+190-+    });
+191:+    readRecoveryExecutionBindingMock.mockResolvedValue({
+192-+      ok: true,
+193-+      binding: {
+194:+        kind: "post_evidence_recovery_execution",
+195:+        recovery: {
+196:+          kind: "post_evidence_recovery",
+197-+          attemptId: "xat:w3a:1f49d8e25e20837a",
+198-+          attemptStatus: "failed",
+--
+```
 
 ---
 
-## 17. Handoff note
+## 12. Tests
 
-Publish via `scripts/sfia/publish-review-handoff.sh` (L3 handoff only).
-No project commit/push/PR/merge.
+| ID | Coverage | Result |
+|---|---|---|
+| T1 | binding rehydrates action/target/path | PASS |
+| T2 | hostile project → no binding | PASS |
+| T3 | non-recovery trajectory → W3-A unchanged | PASS |
+| T4 | UI recovery CTA; no W3-A; PREPARE explicit | PASS |
+| T5–T12 | prepare successor docs_write; cancel wrong; no Attempt; caps/evidence/constraints | PASS |
+| T10/T13/T14 | restart + idempotent prepare | PASS |
+| T15 | Proposal-backed path non-régression (R3/E suites) | PASS |
+| T16 | R3/R4/R6/R7 suites | PASS (57+ tests) |
+| T17 | `tsc --noEmit` | PASS |
+
+Suite R8: `checkpointF.recoveryDocsWriteSuccessor.d0.test.ts` — 6/6 PASS
+UI: TrajectorySurface — 44/44 PASS (incl. R8)
+
+---
+
+## 13. Restart / idempotence proof
+
+- Second `prepareDocsWriteRecoverySuccessorFromDecision` → même `executionContractId`, `reusedFromIdempotency: true`
+- Continuity read → current docs_write successor
+- Aucune duplication EC parallèle courant
+- Attempt count inchangé
+
+---
+
+## 14. Proposal-backed non-regression
+
+- Chemin Proposal → HD → `prepareM3FromDecision` **inchangé**
+- Activation R8 exclusive au RecoveryExecutionBinding cohérent + GOVERNED recovery HD
+- T3 prouve catalogue W3-A intact hors recovery
+
+---
+
+## 15. ZERO REAL / Attempt / campagne
+
+| Check | Value |
+|---|---|
+| Attempt count campagne | **1** (`xat:w3a:1f49d8e25e20837a` failed) |
+| New Attempt this lot | **0** |
+| Failed EC | `xct:m3-ev:8aaa188b3a3bd7a7` status=failed |
+| Wrong generic EC | `xct:w3a:dec:w2-trj:7e6ca68a-…` still confirmation_required (unconsumed; not inspected) |
+| Recovery HD | `dec:w2-trj:7e6ca68a-…` accepted / governed-gated |
+| Target file | **ABSENT** |
+| REAL this lot | **0** |
+| Morris REAL budget remaining | **1** |
+
+---
+
+## 16. Réserves
+
+1. Wrong generic campaign EC reste visible jusqu'au PREPARE Pilote post-reload (volontaire — pas de mutation SQLite).
+2. Materialize seed tests may project UNCLAIMED Contract Result CE; W3C recover sealed via canonical `serializeW3cRecommendationPayload` for RecoveryContext (production path uses real W3C loop after FAIL claimable).
+3. Cancel (not supersede) used for pre-exec wrong generic — existing lifecycle; supersede would require new semantics for confirmation_required without prior.
+
+---
+
+## 17. Gate suivant
+
+1. Pilote reload Studio.
+2. UI doit montrer recovery docs_write (pas catalogue W3-A).
+3. Pilote PREPARE explicite → successor docs_write EC.
+4. **Inspection** du nouvel EC.
+5. Confirmation si requise → authority → **puis seulement** ONE FRESH CURSOR REAL RECOVERY ATTEMPT (Morris GO déjà accordé, non consommé ici).
+
+---
+
+## 18. Claims
+
+**Autorisés**
+- recovery execution binding deterministically proven
+- failed docs_write operation rehydrated
+- successor EC routing deterministically proven
+- ZERO REAL
+- previous Attempt remains FAIL
+
+**Interdits (non claimés)**
+- retry executed · REAL PASS · artifact created · Product Journey E2E usable · READY · runtime v3 ADOPTED
+
+---
+
+## 19. Verdict unique
+
+**RECOVERY DOCS_WRITE SUCCESSOR ROUTING FIXED — READY FOR PILOT CONTRACT INSPECTION**
