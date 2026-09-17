@@ -19,11 +19,8 @@ import {
   type ResolveM3Deps,
   type ResolveM3Success,
 } from "./resolveM3ExecutionContract";
-import {
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
-  type GitCommandRunner,
-} from "@/lib/oa/execution-attempt";
+import { type GitCommandRunner } from "@/lib/oa/execution-attempt";
+import { qualifyDocsWriteM3Intent } from "./qualifyDocsWriteM3Intent";
 import { selectProductM3ResolutionProfile } from "./selectProductM3ResolutionProfile";
 import {
   resolveBoundedReadOnlyBaseHeadSha,
@@ -131,61 +128,22 @@ export async function prepareAndResolveM3ProductPath(input: {
     };
   }
   const executionBasis = decisionLoaded.decision.decisionBasis?.executionBasis;
-  const basisDocsWriteIntent =
-    executionBasis?.intentKind === "docs_write" ||
-    executionBasis?.requestedOperation?.trim() === M4_BOUNDED_DOCS_WRITE_ACTION;
-  const basisRequestedOp = executionBasis?.requestedOperation?.trim() ?? "";
-  const basisOpCompatible =
-    basisRequestedOp === "" ||
-    basisRequestedOp === M4_BOUNDED_DOCS_WRITE_ACTION;
-  const actionIsDocsWrite =
-    preparedContract.action === M4_BOUNDED_DOCS_WRITE_ACTION;
-  const capabilityIsDocsWrite = preparedContract.requiredCapabilities.includes(
-    M4_BOUNDED_DOCS_WRITE_CAPABILITY,
-  );
-
   // B2 — no authority widening: capability alone / action alone / incompatible
   // DecisionBasis never promote to bounded_docs_write. Explicit server prefer
   // remains a test escape hatch; client REAL flags never participate.
-  if (input.deps.preferBoundedDocsWriteProfile === true) {
-    // explicit server/test opt-in — still require coherent prepare action+cap
-    if (!actionIsDocsWrite || !capabilityIsDocsWrite) {
-      return {
-        ok: false,
-        code: "DOCS_WRITE_PROFILE_PREPARE_INCOHERENT",
-        message:
-          "preferBoundedDocsWriteProfile refusé — PREPARE action/capability docs_write incohérents.",
-      };
-    }
-  } else if (input.deps.preferBoundedDocsWriteProfile !== false) {
-    const partialDocsWriteMarker =
-      basisDocsWriteIntent || actionIsDocsWrite || capabilityIsDocsWrite;
-    const fullCanonicalDocsWrite =
-      basisDocsWriteIntent &&
-      basisOpCompatible &&
-      actionIsDocsWrite &&
-      capabilityIsDocsWrite;
-    if (partialDocsWriteMarker && !fullCanonicalDocsWrite) {
-      return {
-        ok: false,
-        code: "DOCS_WRITE_INTENT_INCOHERENT",
-        message:
-          "Intention docs_write incohérente (DecisionBasis / action / capability) — fail-closed, aucune promotion automatique.",
-      };
-    }
+  const intent = qualifyDocsWriteM3Intent({
+    executionBasis,
+    action: preparedContract.action,
+    requiredCapabilities: preparedContract.requiredCapabilities,
+    preferBoundedDocsWriteProfile: input.deps.preferBoundedDocsWriteProfile,
+  });
+  if (!intent.ok) {
+    return intent;
   }
-
-  const preferDocsWrite =
-    input.deps.preferBoundedDocsWriteProfile === true ||
-    (input.deps.preferBoundedDocsWriteProfile !== false &&
-      basisDocsWriteIntent &&
-      basisOpCompatible &&
-      actionIsDocsWrite &&
-      capabilityIsDocsWrite);
 
   const selected = selectProductM3ResolutionProfile({
     preferBoundedReadOnlyProfile: input.deps.preferBoundedReadOnlyProfile === true,
-    preferBoundedDocsWriteProfile: preferDocsWrite,
+    preferBoundedDocsWriteProfile: intent.preferDocsWrite,
   });
 
   let resolution = selected.profile;

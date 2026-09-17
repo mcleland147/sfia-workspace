@@ -1296,6 +1296,356 @@ describe("P1 — SQLite TEMP fresh-runtime restart", () => {
   });
 });
 
+describe("D01 — legacy M3 PREPARE → M4 successor rematerialization", () => {
+  async function bootLegacyPrepareOnly(suffix: string, withBoundary: boolean) {
+    const ctx = await bootDocsWriteJourney(suffix, withBoundary);
+    const { prepareM3FromDecision } = await import(
+      "@/features/project-assistant/f3/prepareM3FromDecision"
+    );
+    const prepared = await prepareM3FromDecision({
+      projectId: ctx.projectId,
+      decisionId: ctx.decisionId,
+      currentContext: ctx.currentContext,
+      deps: {
+        decisionServices: ctx.oa.decisionServices,
+        authorityResolver: ctx.oa.authorityResolver,
+        executionContractServices: ctx.oa.executionContractServices,
+        nowIso: () => ctx.oa.clock.nowIso(),
+        forceM3Authority: true,
+      },
+    });
+    expect(prepared.ok).toBe(true);
+    if (!prepared.ok) throw new Error(prepared.message);
+    expect(prepared.payload.contract.constraints).toContain("PREPARE_ONLY");
+    expect(prepared.payload.contract.action).toBe(M4_BOUNDED_DOCS_WRITE_ACTION);
+    expect(prepared.payload.contract.target).toBe(M4_BOUNDED_DOCS_WRITE_TARGET);
+    expect(prepared.payload.contract.scope).not.toBe(M4_BOUNDED_DOCS_WRITE_SCOPE);
+
+    await inspectExecutionContract({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: prepared.payload.contract.executionContractId,
+    });
+    const confirmed = await confirmExecutionContractForAuthorization({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: prepared.payload.contract.executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(confirmed.ok).toBe(true);
+    if (!confirmed.ok) throw new Error(confirmed.message ?? confirmed.code);
+
+    const loaded =
+      await ctx.oa.executionContractServices.getExecutionContract.execute({
+        executionContractId: prepared.payload.contract.executionContractId,
+      });
+    expect(loaded.ok).toBe(true);
+    if (!loaded.ok) throw new Error("load");
+    expect(loaded.contract.status).toBe("confirmed");
+    expect(loaded.contract.constraints).toContain("PREPARE_ONLY");
+
+    return { ...ctx, originalId: prepared.payload.contract.executionContractId };
+  }
+
+  it("legacy confirmed PREPARE_ONLY → rematerialize → M4 successor without re-PREPARE", async () => {
+    const { resolveExistingLegacyM3DocsWriteProductPath } = await import(
+      "@/features/project-assistant/f3/resolveExistingLegacyM3DocsWriteProductPath"
+    );
+    const { prepareM3FromDecision } = await import(
+      "@/features/project-assistant/f3/prepareM3FromDecision"
+    );
+    const ctx = await bootLegacyPrepareOnly("leg01", true);
+
+    const rePrepare = await prepareM3FromDecision({
+      projectId: ctx.projectId,
+      decisionId: ctx.decisionId,
+      currentContext: ctx.currentContext,
+      deps: {
+        decisionServices: ctx.oa.decisionServices,
+        authorityResolver: ctx.oa.authorityResolver,
+        executionContractServices: ctx.oa.executionContractServices,
+        nowIso: () => ctx.oa.clock.nowIso(),
+        forceM3Authority: true,
+      },
+    });
+    expect(rePrepare.ok).toBe(false);
+
+    const remat = await resolveExistingLegacyM3DocsWriteProductPath({
+      projectId: ctx.projectId,
+      decisionId: ctx.decisionId,
+      currentContext: ctx.currentContext,
+      real: true,
+      profile: "hostile",
+      agentId: "agt:hostile",
+      deps: {
+        decisionServices: ctx.oa.decisionServices,
+        authorityResolver: ctx.oa.authorityResolver,
+        executionContractServices: ctx.oa.executionContractServices,
+        executionAttemptServices: ctx.oa.executionAttemptServices,
+        nowIso: () => ctx.oa.clock.nowIso(),
+        forceM3Authority: true,
+        boundedDocsWriteBaseHeadSha: ctx.baseHeadSha,
+      },
+    });
+    expect(remat.ok).toBe(true);
+    if (!remat.ok) return;
+    expect(remat.payload.mode).toBe("M3_RESOLVED_BOUNDED_DOCS_WRITE");
+    expect(remat.payload.executionPerformed).toBe(false);
+    expect(remat.payload.attemptCreated).toBe(false);
+    expect(remat.payload.realExecution).toBe(false);
+    expect(remat.payload.successor.action).toBe(M4_BOUNDED_DOCS_WRITE_ACTION);
+    expect(remat.payload.successor.target).toBe(M4_BOUNDED_DOCS_WRITE_TARGET);
+    expect(remat.payload.successor.scope).toBe(M4_BOUNDED_DOCS_WRITE_SCOPE);
+    expect(remat.payload.successor.constraints).not.toContain("PREPARE_ONLY");
+    expect(remat.payload.successor.constraints).not.toContain("NO_CURSOR_REAL");
+    expect(remat.payload.successor.constraints).not.toContain("NO_ATTEMPT");
+    expect(remat.payload.successor.constraints).not.toContain("NO_GATE_D");
+    expect(remat.payload.successor.supersedesExecutionContractId).toBe(
+      ctx.originalId,
+    );
+    expect(remat.payload.successor.requiredCapabilities).toContain(
+      "cap:cursor.docs_write",
+    );
+
+    const original =
+      await ctx.oa.executionContractServices.getExecutionContract.execute({
+        executionContractId: ctx.originalId,
+      });
+    expect(original.ok).toBe(true);
+    if (!original.ok) return;
+    expect(original.contract.status).toBe("superseded");
+    expect(original.contract.constraints).toContain("PREPARE_ONLY");
+  });
+
+  it("legacy rematerialize → inspect → confirm → AUTHORIZED → Fake execute one Attempt + Evidence", async () => {
+    const { resolveExistingLegacyM3DocsWriteProductPath } = await import(
+      "@/features/project-assistant/f3/resolveExistingLegacyM3DocsWriteProductPath"
+    );
+    const ctx = await bootLegacyPrepareOnly("leg02", true);
+    const remat = await resolveExistingLegacyM3DocsWriteProductPath({
+      projectId: ctx.projectId,
+      decisionId: ctx.decisionId,
+      currentContext: ctx.currentContext,
+      deps: {
+        decisionServices: ctx.oa.decisionServices,
+        authorityResolver: ctx.oa.authorityResolver,
+        executionContractServices: ctx.oa.executionContractServices,
+        executionAttemptServices: ctx.oa.executionAttemptServices,
+        nowIso: () => ctx.oa.clock.nowIso(),
+        forceM3Authority: true,
+        boundedDocsWriteBaseHeadSha: ctx.baseHeadSha,
+      },
+    });
+    expect(remat.ok).toBe(true);
+    if (!remat.ok) return;
+    const executionContractId = remat.payload.successor.executionContractId;
+
+    const blocked = await evaluateExecutionAuthorization({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(blocked.ok).toBe(true);
+    if (!blocked.ok) return;
+    expect(blocked.outcome).toBe("BLOCKED");
+
+    await inspectExecutionContract({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId,
+    });
+    await confirmExecutionContractForAuthorization({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId,
+      forceLocalAuthority: true,
+    });
+    const authorized = await evaluateExecutionAuthorization({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(authorized.ok).toBe(true);
+    if (!authorized.ok) return;
+    expect(authorized.outcome).toBe("AUTHORIZED");
+
+    const launchBefore = ctx.fakeLaunch.calls.length;
+    const executed = await governedExecuteAuthorizedContract({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(executed.ok).toBe(true);
+    if (!executed.ok) return;
+    expect(executed.attemptStatus).toBe("succeeded");
+    expect(ctx.fakeLaunch.calls.length).toBe(launchBefore + 1);
+    expect(executed.realExecution).toBe(false);
+    expect(executed.boundaryProofMode).toBe("deterministic_fake");
+
+    const listed =
+      await ctx.oa.executionAttemptServices.listExecutionAttempts.execute({
+        executionContractId,
+      });
+    expect(listed.ok).toBe(true);
+    if (!listed.ok) return;
+    expect(listed.attempts.filter((a) => a.status === "succeeded")).toHaveLength(
+      1,
+    );
+    const evidence = await ctx.oa.evidenceReviewServices.repository.listByProject(
+      ctx.projectId,
+    );
+    expect(
+      evidence.some((e) => e.bindings?.executionAttemptId === executed.attemptId),
+    ).toBe(true);
+  });
+
+  it("idempotent rematerialize reuses successor — no second supersession", async () => {
+    const { resolveExistingLegacyM3DocsWriteProductPath } = await import(
+      "@/features/project-assistant/f3/resolveExistingLegacyM3DocsWriteProductPath"
+    );
+    const ctx = await bootLegacyPrepareOnly("leg03", true);
+    const first = await resolveExistingLegacyM3DocsWriteProductPath({
+      projectId: ctx.projectId,
+      decisionId: ctx.decisionId,
+      currentContext: ctx.currentContext,
+      deps: {
+        decisionServices: ctx.oa.decisionServices,
+        authorityResolver: ctx.oa.authorityResolver,
+        executionContractServices: ctx.oa.executionContractServices,
+        executionAttemptServices: ctx.oa.executionAttemptServices,
+        nowIso: () => ctx.oa.clock.nowIso(),
+        forceM3Authority: true,
+        boundedDocsWriteBaseHeadSha: ctx.baseHeadSha,
+      },
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) return;
+    const second = await resolveExistingLegacyM3DocsWriteProductPath({
+      projectId: ctx.projectId,
+      decisionId: ctx.decisionId,
+      currentContext: ctx.currentContext,
+      deps: {
+        decisionServices: ctx.oa.decisionServices,
+        authorityResolver: ctx.oa.authorityResolver,
+        executionContractServices: ctx.oa.executionContractServices,
+        executionAttemptServices: ctx.oa.executionAttemptServices,
+        nowIso: () => ctx.oa.clock.nowIso(),
+        forceM3Authority: true,
+        boundedDocsWriteBaseHeadSha: ctx.baseHeadSha,
+      },
+    });
+    expect(second.ok).toBe(true);
+    if (!second.ok) return;
+    expect(second.payload.reusedFromIdempotency).toBe(true);
+    expect(second.payload.successor.executionContractId).toBe(
+      first.payload.successor.executionContractId,
+    );
+  });
+
+  it("prior Attempt on original blocks rematerialization", async () => {
+    const { resolveExistingLegacyM3DocsWriteProductPath } = await import(
+      "@/features/project-assistant/f3/resolveExistingLegacyM3DocsWriteProductPath"
+    );
+    const ctx = await bootLegacyPrepareOnly("leg04", true);
+    const blocked = await resolveExistingLegacyM3DocsWriteProductPath({
+      projectId: ctx.projectId,
+      decisionId: ctx.decisionId,
+      currentContext: ctx.currentContext,
+      deps: {
+        decisionServices: ctx.oa.decisionServices,
+        authorityResolver: ctx.oa.authorityResolver,
+        executionContractServices: ctx.oa.executionContractServices,
+        executionAttemptServices: {
+          listExecutionAttempts: {
+            execute: async () =>
+              ({
+                ok: true as const,
+                attempts: [
+                  {
+                    attemptId: "att:hostile",
+                    executionContractId: ctx.originalId,
+                    status: "failed",
+                  },
+                ],
+              }) as never,
+          },
+        } as never,
+        nowIso: () => ctx.oa.clock.nowIso(),
+        forceM3Authority: true,
+        boundedDocsWriteBaseHeadSha: ctx.baseHeadSha,
+      },
+    });
+    expect(blocked.ok).toBe(false);
+    if (blocked.ok) return;
+    expect(blocked.code).toBe("LEGACY_PRIOR_ATTEMPT_EXISTS");
+  });
+
+  it("wrong project lineage blocked", async () => {
+    const { resolveExistingLegacyM3DocsWriteProductPath } = await import(
+      "@/features/project-assistant/f3/resolveExistingLegacyM3DocsWriteProductPath"
+    );
+    const ctx = await bootLegacyPrepareOnly("leg05", true);
+    const blocked = await resolveExistingLegacyM3DocsWriteProductPath({
+      projectId: "prj:wrong-project",
+      decisionId: ctx.decisionId,
+      currentContext: { ...ctx.currentContext, projectId: "prj:wrong-project" },
+      deps: {
+        decisionServices: ctx.oa.decisionServices,
+        authorityResolver: ctx.oa.authorityResolver,
+        executionContractServices: ctx.oa.executionContractServices,
+        executionAttemptServices: ctx.oa.executionAttemptServices,
+        nowIso: () => ctx.oa.clock.nowIso(),
+        forceM3Authority: true,
+        boundedDocsWriteBaseHeadSha: ctx.baseHeadSha,
+      },
+    });
+    expect(blocked.ok).toBe(false);
+    if (blocked.ok) return;
+    expect(blocked.code).toMatch(/PROJECT_MISMATCH|CONTRACT_PROJECT/);
+  });
+
+  it("presentation helper rejects already-current M4 successor id", async () => {
+    const { isLegacyDocsWritePrepareContractView } = await import(
+      "@/features/project-assistant/f3/legacyDocsWritePrepareContractView"
+    );
+    expect(
+      isLegacyDocsWritePrepareContractView({
+        decisionId: "dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411",
+        executionContractId:
+          "xct:m3-res:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411",
+        action: M4_BOUNDED_DOCS_WRITE_ACTION,
+        target: M4_BOUNDED_DOCS_WRITE_TARGET,
+        scope: M4_BOUNDED_DOCS_WRITE_SCOPE,
+        constraints: ["BOUNDED DOCS-WRITE"],
+      }),
+    ).toBe(false);
+    expect(
+      isLegacyDocsWritePrepareContractView({
+        decisionId: "dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411",
+        executionContractId:
+          "xct:m3:dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411",
+        action: M4_BOUNDED_DOCS_WRITE_ACTION,
+        target: M4_BOUNDED_DOCS_WRITE_TARGET,
+        scope: "docs_write borné — cycle actif — aucune exécution automatique",
+        constraints: ["PREPARE_ONLY", "NO_CURSOR_REAL", "NO_ATTEMPT", "NO_GATE_D"],
+      }),
+    ).toBe(true);
+  });
+
+  it("SFIA_STUDIO_CURSOR_REAL=1 alone never selects docs_write profile", () => {
+    process.env.SFIA_STUDIO_CURSOR_REAL = "1";
+    expect(
+      selectProductM3ResolutionProfile({
+        env: { SFIA_STUDIO_CURSOR_REAL: "1", NODE_ENV: "test" },
+      }).kind,
+    ).not.toBe("bounded_docs_write");
+    process.env.SFIA_STUDIO_CURSOR_REAL = "0";
+  });
+});
+
 describe("smoke — env REAL off", () => {
   it("SFIA_STUDIO_CURSOR_REAL and OPS1_CURSOR_REAL remain off", () => {
     assertRealOff();
