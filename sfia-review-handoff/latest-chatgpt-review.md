@@ -1,62 +1,164 @@
 # ChatGPT Review Pack — FULL
-## PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 — R12-INTEGRATION R1–R12 consolidation / Git integration
+## PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 — POST-MERGE VERIFIED
 
-**Timestamp (UTC):** 2026-09-18T03:15:03Z
-**Pack kind:** FULL (Product integration + capitalisation + Roadmap; complete exploitable diff)
-**Pack revision:** R12-INTEGRATION — R1–R12 consolidation / Git integration
-**Automation:** project commit/push/PR/merge **AUTHORIZED by Morris GO this macro**; handoff L3; **ZERO REAL**; **NO Execute**; **NO Attempt**; **NO R13**
+**Timestamp (UTC):** 2026-09-18T03:56:18Z
+**Pack kind:** FULL (post-merge verification + complete exploitable diff)
+**Pack revision:** R12-INTEGRATION — POST-MERGE
+**Automation:** project commit/push/PR/merge **CONSUMED**; handoff L3; **ZERO REAL**; **NO Execute**; **NO Attempt**; **NO R13**
 
 ---
 
-## 1. Git Truth
+## 1. Git Truth (post-merge)
 
 | Field | Value |
 |---|---|
 | Worktree | `/Users/morris/Projects/sfia-studio-product-journey-e2e-real-reconciliation-01` |
-| Branch | `qa/sfia-studio-product-journey-e2e-real-reconciliation-01` |
-| HEAD (pre-commit) | `26478b1ea5b010c625f0c6039c969fac5c135cf5` |
-| origin/main | `26478b1ea5b010c625f0c6039c969fac5c135cf5` |
-| merge-base | `26478b1ea5b010c625f0c6039c969fac5c135cf5` |
-| Baseline drift | **NONE** |
-| Cycle | 15 Capitalisation / REX + intégration Git · EVOL · CRITICAL |
+| Branch (source) | `qa/sfia-studio-product-journey-e2e-real-reconciliation-01` |
+| Branch status | **PRESERVED** (no delete) @ `dda2fa34ff4f23c9a1ba49fe4ed8b4fe75f805bf` |
+| Baseline pré-intégration | `26478b1ea5b010c625f0c6039c969fac5c135cf5` |
+| PR | **#501 MERGED** https://github.com/mcleland147/sfia-workspace/pull/501 |
+| Head SHA | `dda2fa34ff4f23c9a1ba49fe4ed8b4fe75f805bf` |
+| Merge SHA / origin/main | `bb6af3cabef663bd8619b85326dbc205057b7c7d` |
+| Merge method | merge commit (`gh pr merge --merge`) |
+| Merged at | `2026-09-18T03:49:03Z` |
+| MERGE_ON_MAIN | **YES** |
+| Build Doctrine | **UNCHANGED** vs baseline |
+| C1 | **UNCHANGED** vs baseline |
+| runtime v3 | **NON ADOPTED** |
+| package-lock | local dirty **HORS intégration** |
+| campaign DB / M4 WT | **HORS intégration** |
+| `.tmp-sfia-review/**` | **HORS commit projet** |
 
 ---
 
 ## 2. Qualification
 
-Macro intégration unique · UNE branche · UNE PR · UN merge · parent campagne PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01.
+Cycle **15** · Capitalisation / REX + intégration Git · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01** · parent **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01**.
 
 ---
 
-## 3. Dirty attribution (authorized)
+## 3. Commits integrated
 
-All Product dirty files mapped to R1/R3/R4/R6/R7/R8/R10 (see capitalisation §H).
-Hors commit: `package-lock.json`, `.tmp-sfia-review/**`, campaign DB/M4 WTs.
-No unattributed Product dirty.
+```
+dda2fa34 style(sfia-studio): remove blank line at EOF for CI whitespace gate
+bd2c72c6 test(sfia-studio): align CI allowlist and GCEC docs_write EvidenceRequirements
+3e4513b8 fix(sfia-studio): integrate Product Journey REAL reconciliation checkpoints
+```
 
 ---
 
-## 4. Tests
+## 4. CI
 
-| Suite | Result |
+| Gate | Result |
 |---|---|
-| checkpoint E/F + M3 prepare + TrajectorySurface UI + corrProof10 (10 files / 152 tests) | **PASS** |
-| `npm run typecheck` | **PASS** |
-| `git diff --check` (authorized paths) | **PASS** |
-| Cursor REAL / Studio Execute | **NOT run** |
+| Pre-merge (final green) run `35303537724` | **SUCCESS** (after failed-job rerun; prior flake = 5s timeouts under load) |
+| Detect / Build+validate / Required Gate | **PASS** |
+| Post-merge push run `35304622597` | **SUCCESS** |
+| Post-merge Required Gate | **PASS** |
+| Cursor REAL / Studio Execute this macro | **ZERO / NOT run** |
+
+Local focused before staging: checkpoint E/F + M3 prepare + TrajectorySurface UI + corrProof10 → **152 tests PASS**; typecheck **PASS**; `git diff --check` **PASS**.
 
 ---
 
-## 5. R12 campaign facts (carry-forward)
+## 5. Exact files integrated (vs baseline)
 
-- Attempt 1 FAIL · Attempt 2 FAIL Authentication required · Attempt 3 technical SUCCESS
-- M4 WT docs_write artifact EXISTS + digest match Evidence
-- Product UNCLAIMED — ContractResult no docs_write rule + W3B CE wrong Evidence
-- Structural gate open → R13 framing after integration
+```
+ .../oa/cycle/gcecProductMonolithicE2e.d0.test.ts   |  14 +-
+ ...eckpointE.docsWriteEvidenceCoherence.d0.test.ts | 171 +++++++
+ ...ointE.docsWriteEvidenceRematerialize.d0.test.ts | 179 +++++++
+ .../m3ExecutionContractPrepare.test.ts             | 110 ++++
+ .../trajectorySurface.ui.test.tsx                  | 389 ++++++++++++++
+ .../checkpointE.prepareResume.d0.test.ts           | 306 +++++++++++
+ ...checkpointF.realFailureObservability.d0.test.ts | 289 +++++++++++
+ ...kpointF.recoveryCtaRestartPrecedence.d0.test.ts | 150 ++++++
+ ...eckpointF.recoveryDocsWriteSuccessor.d0.test.ts | 568 +++++++++++++++++++++
+ .../checkpointF.recoveryOptionsContext.d0.test.ts  | 557 ++++++++++++++++++++
+ ...orrProof10.decisionContextContinuity.d0.test.ts |  45 +-
+ .../importBoundaries.test.ts                       |   7 +
+ .../surfaces/TrajectorySurface.tsx                 | 348 ++++++++++++-
+ .../f3/boundedDocsWriteM3ResolutionProfile.ts      |  98 +++-
+ .../f3/completeBoundedReadOnlyLaunch.ts            |  22 +-
+ .../f3/docsWriteEvidenceContradictionView.ts       |  48 ++
+ .../app/features/project-assistant/f3/index.ts     |  14 +
+ .../project-assistant/f3/prepareM3FromDecision.ts  |  41 +-
+ .../f3/processFailureDiagnostic.ts                 | 109 ++++
+ .../rematerializeDocsWriteEvidenceRequirements.ts  | 406 +++++++++++++++
+ .../f3/resolveDurableBoundaryProofMode.ts          |  66 +++
+ .../f3/resolveM3ExecutionContract.ts               |  26 +
+ .../app/features/project-assistant/w2/actions.ts   | 119 +++++
+ .../w2/activeProposalDecisionSubject.ts            |  38 +-
+ .../w2/materializeW3bProductTerminal.ts            |  10 +-
+ .../w2/prepareDocsWriteRecoverySuccessor.ts        | 466 +++++++++++++++++
+ .../w2/prepareReadyProposalPursueContinuation.ts   | 172 +++++++
+ .../w2/proposeTrajectoryOptions.ts                 |  57 ++-
+ .../w2/recoveryReplaceableCurrentContract.ts       |  48 ++
+ .../w2/resolvePostEvidenceRecoveryContext.ts       | 280 ++++++++++
+ .../w2/resolveRecoveryExecutionBinding.ts          | 215 ++++++++
+ .../project-assistant/w2/trajectoryOptions.ts      | 118 +++++
+ .../app/features/project-assistant/w2/types.ts     |   5 +
+ .../w2/w3bProductTerminalProjection.ts             |  20 +-
+ .../project-assistant/w2/w3cPostEvidenceLoop.ts    |  30 ++
+ .../application/recordExecutionFailure.ts          |   3 +
+ .../app/lib/oa/execution-attempt/domain/types.ts   |  24 +
+ ...ey-e2e-real-reconciliation-01-capitalization.md | 193 +++++++
+ .../convergence/sfia-studio-convergence-roadmap.md |   3 +-
+ 39 files changed, 5687 insertions(+), 77 deletions(-)
+```
+
+### File → checkpoint mapping
+
+| File | Checkpoint |
+|---|---|
+| f3/prepareM3FromDecision.ts, resolveM3ExecutionContract.ts, boundedDocsWriteM3ResolutionProfile.ts, completeBoundedReadOnlyLaunch.ts, resolveDurableBoundaryProofMode.ts, m3ExecutionContractPrepare.test.ts, checkpointE.prepareResume.d0.test.ts | R1 / R3 |
+| f3/docsWriteEvidenceContradictionView.ts, rematerializeDocsWriteEvidenceRequirements.ts, checkpointE.docsWriteEvidence*.d0.test.ts, gcecProductMonolithicE2e.d0.test.ts (ER expectation) | R4 |
+| f3/processFailureDiagnostic.ts, recordExecutionFailure.ts, execution-attempt/domain/types.ts, checkpointF.realFailureObservability.d0.test.ts | R6 |
+| w2/resolvePostEvidenceRecoveryContext.ts, proposeTrajectoryOptions.ts, trajectoryOptions.ts, types.ts, w3cPostEvidenceLoop.ts, checkpointF.recoveryOptionsContext.d0.test.ts | R7 |
+| w2/resolveRecoveryExecutionBinding.ts, prepareDocsWriteRecoverySuccessor.ts, recoveryReplaceableCurrentContract.ts, checkpointF.recoveryDocsWriteSuccessor.d0.test.ts | R8 |
+| w2/actions.ts, activeProposalDecisionSubject.ts, materializeW3bProductTerminal.ts, w3bProductTerminalProjection.ts, prepareReadyProposalPursueContinuation.ts, TrajectorySurface.tsx, trajectorySurface.ui.test.tsx, corrProof10…, checkpointF.recoveryCtaRestartPrecedence.d0.test.ts | R10 |
+| importBoundaries.test.ts | CI allowlist (R1–R10 new modules) |
+| convergence/product-journey-e2e-real-reconciliation-01-capitalization.md | R1–R12 capitalisation |
+| convergence/sfia-studio-convergence-roadmap.md | factual tip update |
+| R11 / R12 | forensic only — **no Product code** |
 
 ---
 
-## 6. Capitalisation (complete)
+## 6. R12 campaign facts (carry-forward)
+
+- Attempt 1 FAIL (`REAL_PROCESS_NONZERO_EXIT`) · Attempt 2 FAIL Authentication required · Attempt 3 technical SUCCESS
+- Cursor REAL wrote expected Markdown in isolated M4 WT; docs-write Artifact Evidence exists; digest matches
+- Product Result remains **UNCLAIMED** (`no_applicable_contract_result_rule` for `cursor.docs_write.apply`; W3B CE consumes technical Evidence)
+- Structural gate open → **R13 Contract Result extensibility framing — ZERO REAL** (NOT STARTED / NOT AUTHORIZED by this macro)
+
+---
+
+## 7. Claims
+
+### AUTHORIZED
+- R1–R10 Product reconciliation fixes **integrated on main**
+- R1–R12 campaign **capitalized**
+- Cursor REAL technical success observed on Attempt 3
+- bounded docs_write artifact effect + Evidence proven at tested scope
+- recovery/successor/continuity paths deterministically proven
+- structural ContractResult gap documented
+- runtime v3 remains **NON ADOPTED**
+
+### FORBIDDEN
+- Product Journey E2E usable / COMPLETE / READY
+- ContractResult docs_write PASS
+- generalized Cursor REAL support
+- Studio commit/push/PR/merge execution
+- runtime v3 ADOPTED
+
+---
+
+## 8. Verdict
+
+**PRODUCT JOURNEY REAL RECONCILIATION R1–R12 — INTEGRATED ON MAIN / POST-MERGE VERIFIED — CONTRACT RESULT STRUCTURAL GATE OPEN**
+
+---
+
+## 9. Capitalisation (complete, as on origin/main)
 
 ```markdown
 # SFIA Studio — Product Journey E2E REAL Reconciliation 01 — Capitalisation
@@ -256,31 +358,443 @@ Hors commit : `package-lock.json`, `.tmp-sfia-review/**`, campaign DB / M4 WTs, 
 
 ---
 
-## 7. Roadmap diff
+## 10. Roadmap tip (origin/main head rows)
 
-```diff
-diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 1e401650..fbdb6ef0 100644
---- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-+++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -4,7 +4,8 @@
- | --- | --- |
- | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
- | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
--| **Timestamp maintenance PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01** | 2026-09-17 18:25:36 CEST (+0200) — **PRODUCT DOCS_WRITE REAL PASS POST-MERGE TRUTH-SYNC** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Macro **PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01** · parent macro **PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01** · GO Morris post-merge documentary truth-sync #499 **CONSUMED** (local docs + commit only) · PR **#499 MERGED** `docs(sfia-studio): capitalize Product docs-write REAL proof` · head `9981483f8c158bec07364e14e626cdf2c3fd1e34` · merge `3907177f7788d23d640c5bdcd1cee8e01615762f` · parents `b739ddd3826ea4df640e3f34f97a966d85f8d214` + `9981483f8c158bec07364e14e626cdf2c3fd1e34` · capitalisation = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · pre-merge CI **`35236024162` SUCCESS** · Required Gate **PASS** · post-merge CI **`35245046244` SUCCESS** · Required Gate **PASS** · `headSha=3907177f7788d23d640c5bdcd1cee8e01615762f` · merge lifecycle #499 = **COMPLETED / CONSUMED** · post-merge verification = **PASS** · claim **AUTHENTICATED PRODUCT DOCS_WRITE REAL PROVEN AT TESTED HISTORICAL PROJECT SCOPE** · **ZERO REAL** · Product code **UNCHANGED** · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** **PRESERVED** · next Product capability candidate = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN** · **NOT STARTED / NOT AUTHORIZED** by this truth-sync · this documentary truth-sync = **LOCAL CANDIDATE** · Review Handoff publication **PENDING** (distinct Morris remote push gate) · push/PR/merge of this truth-sync = **DISTINCT Morris gates** · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / origin/main / PR evidence** · **≠** E2E FULL REAL PROVEN · **≠** Product Journey complete to Nora replanning · **≠** docs_write generalized · **≠** Cursor autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new REAL authorization · **≠** PRODUCT-JOURNEY-POST-EXECUTION-REPLAN started · **≠** push/PR/merge authorized by proof |
-+| **Timestamp maintenance PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01** | 2026-09-18 05:15:00 CEST (+0200) — **PRODUCT JOURNEY E2E REAL RECONCILIATION INTEGRATION** · Cycle **15** · Capitalisation / REX + intégration Git · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01** · parent campagne **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01** · baseline pré-intégration `origin/main` `26478b1ea5b010c625f0c6039c969fac5c135cf5` · branche `qa/sfia-studio-product-journey-e2e-real-reconciliation-01` · checkpoints **R1–R12** consolidés · Product fixes **R1/R3/R4/R6/R7/R8/R10** = intégration candidate this PR · Attempt 1 FAIL · Attempt 2 FAIL Authentication required · Attempt 3 Cursor REAL **technical SUCCESS** · bounded docs_write filesystem effect + Artifact Evidence **PROVEN** in M4 isolated WT · Product Result remains **UNCLAIMED** · blocker = **ContractResult extensibility / Evidence wiring** (`no_applicable_contract_result_rule` for `cursor.docs_write.apply`) · capitalisation `projects/sfia-studio/convergence/product-journey-e2e-real-reconciliation-01-capitalization.md` · **ZERO REAL** this integration macro · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **≠** Product Journey E2E READY / COMPLETE · **≠** ContractResult docs_write PASS · **≠** runtime v3 ADOPTED · next after integration verified = **R13 — Contract Result extensibility framing — ZERO REAL** · **NOT STARTED / NOT AUTHORIZED** by this tip · repository lifecycle = **RESOLVE FROM GIT / PR evidence** |
-+| **Timestamp maintenance historique PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01 (pre-PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01)** | *(tip superseded by PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-17 18:25:36 CEST (+0200) — **PRODUCT DOCS_WRITE REAL PASS POST-MERGE TRUTH-SYNC** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Macro **PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01** · parent macro **PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01** · GO Morris post-merge documentary truth-sync #499 **CONSUMED** (local docs + commit only) · PR **#499 MERGED** `docs(sfia-studio): capitalize Product docs-write REAL proof` · head `9981483f8c158bec07364e14e626cdf2c3fd1e34` · merge `3907177f7788d23d640c5bdcd1cee8e01615762f` · parents `b739ddd3826ea4df640e3f34f97a966d85f8d214` + `9981483f8c158bec07364e14e626cdf2c3fd1e34` · capitalisation = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · pre-merge CI **`35236024162` SUCCESS** · Required Gate **PASS** · post-merge CI **`35245046244` SUCCESS** · Required Gate **PASS** · `headSha=3907177f7788d23d640c5bdcd1cee8e01615762f` · merge lifecycle #499 = **COMPLETED / CONSUMED** · post-merge verification = **PASS** · claim **AUTHENTICATED PRODUCT DOCS_WRITE REAL PROVEN AT TESTED HISTORICAL PROJECT SCOPE** · **ZERO REAL** · Product code **UNCHANGED** · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** **PRESERVED** · next Product capability candidate = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN** · **NOT STARTED / NOT AUTHORIZED** by this truth-sync · this documentary truth-sync = **LOCAL CANDIDATE** · Review Handoff publication **PENDING** (distinct Morris remote push gate) · push/PR/merge of this truth-sync = **DISTINCT Morris gates** · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / origin/main / PR evidence** · **≠** E2E FULL REAL PROVEN · **≠** Product Journey complete to Nora replanning · **≠** docs_write generalized · **≠** Cursor autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new REAL authorization · **≠** PRODUCT-JOURNEY-POST-EXECUTION-REPLAN started · **≠** push/PR/merge authorized by proof |
- | **Timestamp maintenance historique PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01 (pre-PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01)** | *(tip superseded by PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-17 16:15:39 CEST (+0200) — **PRODUCT DOCS_WRITE REAL PASS CAPITALISATION** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Macro **PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01** · GO capitalisation locale **CONSUMED** · GO Review Handoff + push + PR **CONSUMED** · remédiation gouvernance PR499 in-cycle · Product PR **#498 MERGED** `fix(sfia-studio): close docs-write REAL path and completion` · merge/main `b739ddd3826ea4df640e3f34f97a966d85f8d214` · post-merge CI **`35215299343` SUCCESS** · Required Gate **PASS** · Fresh Authenticated Product Reproof09 REAL = **PASS** · claim **AUTHENTICATED PRODUCT DOCS_WRITE REAL PROVEN AT TESTED HISTORICAL PROJECT SCOPE** · 1 Product Execute / 1 Cursor REAL spawn / 0 retry · exact target `projects/sfia-studio/.sandbox/gestion-de-taches.md` **PASS** · Attempt terminal **`succeeded`** **PASS** · Evidence/ReviewBundle **PASS** · restart/no-relaunch **PASS** · capitalisation asset `projects/sfia-studio/convergence/sfia-studio-product-docs-write-real-pass-capitalisation.md` = **CANDIDATE PR #499 / remote branch / pending merge** · PR **#499** `docs(sfia-studio): capitalize Product docs-write REAL proof` · base `main` @ `b739ddd3826ea4df640e3f34f97a966d85f8d214` · pre-remediation head `f0b7c414394e2bb51ae93ec159027682d0bdc1c4` · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** **PRESERVED** · next Product capability candidate = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN** · **NOT STARTED / NOT AUTHORIZED** by this capitalisation · **ZERO REAL** this DOC cycle · Product code **unchanged** · Review Handoff = **PUBLISHED / REMOTE VERIFIED** · pre-remediation handoff `2bd065dfc15ff5577ef83f78feebd05c5738d231` · remediation handoff republish-in-cycle for new HEAD · GO push/PR = **CONSUMED** · PR **#499 OPEN** · merge = **DISTINCT PENDING Morris gate** · **≠** E2E FULL REAL PROVEN · **≠** Product Journey complete to Nora replanning · **≠** docs_write generalized · **≠** Cursor autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new REAL authorization · **≠** push/PR/merge authorized by proof |
- | **Timestamp maintenance historique GCEC-D-CAPABLE-POST-MERGE-DOCUMENTARY-TRUTH-SYNC-01 (pre-PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01)** | *(tip superseded by PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01)* — 2026-09-13 20:26 CEST (+0200) — **GCEC D-CAPABLE POST-MERGE DOCUMENTARY TRUTH-SYNC** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · GO **GCEC D-CAPABLE POST-MERGE DOCUMENTARY TRUTH-SYNC — ROADMAP + CAPITALISATION — MAIN 76E2D786 — ZERO REAL** **CONSUMED** · placement GO **USE `projects/sfia-studio/convergence/sfia-studio-gcec-d-capable-post-merge-capitalisation.md` AS GCEC PROJECT CAPITALISATION TARGET** **CONSUMED** · GO **GCEC D-CAPABLE POST-MERGE DOCUMENTARY TRUTH-SYNC — PROJECT GIT INTEGRATION — COMMIT + PUSH + PR + CI + CHATGPT CRITICAL REVIEW — CONDITIONAL MERGE — ZERO REAL** **CONSUMED** · **GCEC lane truth-sync only** (not automatic global Nora top priority) · Product GCEC D-capable chain = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · integration anchor `origin/main` @ `76e2d7869be439313b1c52bf4083aa105e5c6293` *(milestone post-merge anchor · living Roadmap **≠** permanent HEAD embed · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence**)* · PR **#481 MERGED** `feat(sfia-studio): integrate GCEC D-capable Product chain` · base `c481610caa3527edabeca8c860ab27c18a6a738e` · head `f42103881ea952f445672ed7781da59a465893d8` · merge `76e2d7869be439313b1c52bf4083aa105e5c6293` · parents `c481610c…` + `f4210388…` · head→merge content delta **ZERO** · source branch `delivery/sfia-studio-gcec-d-ephemeral-secret-bridge` **PRESERVED** @ `f4210388…` · post-merge CI **`34772652845` SUCCESS** (Detect / Build / Required Gate) · Roadmap **intentionally unmodified** by Product PR #481 · remaining debt = documentary drift treated by this documentary package · repository closure requires exact project Git integration and post-merge verification · repository lifecycle = RESOLVE FROM CURRENT GIT / PR EVIDENCE · A/B/C historical REAL **PROVEN AT TESTED SCOPE** **PRESERVED** · Cursor full-capability technical executor = **RO REAL-BACKED AT TESTED SCOPE** · cross-EC C→D continuity = **DETERMINISTICALLY PROVEN + REAL-BACKED BY D CAMPAIGN AT TESTED SCOPE** (VERIFIED prior Evidence + fresh RepositoryRead · ≠ ambient trust · ≠ blanket A→E) · D / `github.pr.create` = **REAL PROVEN AT TESTED SCOPE** · E / `github.pr.merge` = **REAL NOT PROVEN / NOT AUTHORIZED BY THIS CYCLE** · phase-scoped ExecutionContracts = **adopted construction trajectory** (one EC = one bounded execution intent · multiple sequential ECs may follow durable truth · A→D harness = proof/capability harness **≠** normative runtime orchestration · no monolithic A→D replay required as normative precondition for D or E) · technical capability **≠** execution authority · protected Git effects retain gates/Confirmations/authority · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** (NORA-FIRST unchanged · GCEC ≠ global Studio top priority) · next GCEC continuation (if any) = **DISTINCT Morris GO for E / `github.pr.merge`** — **NOT** default next global capability · **NOT AUTHORIZED** by this DOC cycle · project Git integration GO **CONSUMED** — repository lifecycle = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** · **ZERO GCEC REAL** this documentary integration cycle · **≠** E/merge REAL proven · **≠** merge authorized · **≠** generalized PR/Git autonomy · **≠** production autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** method promotion · **≠** Build Doctrine / C1 / v3 framing mutation · **≠** Product mutation · **≠** Nora priority displaced |
- | **Timestamp maintenance historique GCEC-A2D-REAL-FAIL-HARNESS-ALIGNMENT-01 (pre-D-capable post-merge documentary truth-sync)** | 2026-09-13 09:33 CEST (+0200) — **GCEC A→D REAL FAIL + HARNESS SEMANTIC/LIFECYCLE ALIGNMENT** · Cycle **13** · DOC · CRITICAL · Macro GO **GCEC A→D HARNESS CORRECTION INTEGRATION — LOCAL ANCHOR e2bebdb5 + BOUNDED ROADMAP TRUTH-SYNC — PUSH + PR + CI + CHATGPT CRITICAL REVIEW + CONDITIONAL MERGE — ZERO REAL** · **GCEC lane truth-sync only** (not automatic global Nora top priority) · Governed Project Execution / **GCEC-GIT-LIFECYCLE-E2E-01** · ONE FRESH GCEC REAL A→D campaign was explicitly authorized and executed · campaign **STARTED** · campaign budget **CONSUMED** at Attempt A REAL launch · Attempt A: actual REAL docs-write effect occurred · Attempt succeeded technically · Evidence `execution_attempt:docs_write` **verified** · BUT campaign acceptance / `A_RECONCILED_RETAINED` **NOT reached** · harness stopped on invalid invariant treating `ExecutionContract.version` as semantically immutable · observed final EC: `semanticFingerprint` unchanged · version advanced **3 → 5** · consistent with T-A5 lifecycle `confirmed → executing → confirmed` · version = lifecycle/OCC metadata, **not** semantic material · B/C/D **NOT STARTED** · E / merge **NOT STARTED / NOT PROVEN** · proof remote unchanged (main unchanged · no feature branch · no PR · no merge · no tag mutation) · Product remote effects during REAL campaign **NONE** · historical campaign verdict remains **FAIL REAL** · A REAL effect + verified Evidence **OBSERVED** · A campaign acceptance / tested-scope proof **NOT CLOSED** · **≠** A REAL PROVEN · root cause after ChatGPT Critical Review: runtime semantic immutability **not** violated · harness oracle incorrectly conflated semantic immutability with lifecycle version immutability · deterministic correction local Product anchor `e2bebdb5718ef4ded945c1ca866e8bc53b919915` · subject `test(sfia-studio): align GCEC A-to-D semantic and lifecycle invariants` · semantic binding frozen · fingerprint freshly recomputed · lifecycle/OCC version checked separately · expected successful-slice delta **+2** · A/B/C/D retain same semantic baseline · runtime Product implementation **unchanged** · deterministic validation: focused **13 passed / 1 skipped** · related **102 passed** · typecheck/lint/build **PASS** · full Vitest **3868 passed / 137 skipped** · ZERO REAL correction cycle · repository publication/integration status = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** · new REAL campaign **NOT AUTHORIZED** by this integration · only after correction integration is verified: **NEW DISTINCT Morris GO** required for fresh A→D REAL campaign · runtime v3 **NON ADOPTED** · Nora/Cognitive Completion priorities **UNCHANGED** · forensic failed-campaign state **PRESERVED** · **ZERO REAL** this integration lot · **≠** A/B/C/D REAL proven · **≠** A→D E2E REAL proven · **≠** E/merge REAL proven · **≠** A→E proven · **≠** generalized Git autonomy · **≠** production autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new doctrine / architecture · **≠** automatic REAL retry | · *(tip superseded by GCEC-D-CAPABLE-POST-MERGE-DOCUMENTARY-TRUTH-SYNC-01 after Product PR #481 MERGED / post-merge verified + documentary truth-sync)*
+```markdown
+# SFIA Studio Convergence Roadmap
+
+| Métadonnée | Valeur |
+| --- | --- |
+| **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
+| **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
+| **Timestamp maintenance PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01** | 2026-09-18 05:15:00 CEST (+0200) — **PRODUCT JOURNEY E2E REAL RECONCILIATION INTEGRATION** · Cycle **15** · Capitalisation / REX + intégration Git · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01** · parent campagne **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01** · baseline pré-intégration `origin/main` `26478b1ea5b010c625f0c6039c969fac5c135cf5` · branche `qa/sfia-studio-product-journey-e2e-real-reconciliation-01` · checkpoints **R1–R12** consolidés · Product fixes **R1/R3/R4/R6/R7/R8/R10** = intégration candidate this PR · Attempt 1 FAIL · Attempt 2 FAIL Authentication required · Attempt 3 Cursor REAL **technical SUCCESS** · bounded docs_write filesystem effect + Artifact Evidence **PROVEN** in M4 isolated WT · Product Result remains **UNCLAIMED** · blocker = **ContractResult extensibility / Evidence wiring** (`no_applicable_contract_result_rule` for `cursor.docs_write.apply`) · capitalisation `projects/sfia-studio/convergence/product-journey-e2e-real-reconciliation-01-capitalization.md` · **ZERO REAL** this integration macro · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **≠** Product Journey E2E READY / COMPLETE · **≠** ContractResult docs_write PASS · **≠** runtime v3 ADOPTED · next after integration verified = **R13 — Contract Result extensibility framing — ZERO REAL** · **NOT STARTED / NOT AUTHORIZED** by this tip · repository lifecycle = **RESOLVE FROM GIT / PR evidence** |
+| **Timestamp maintenance historique PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01 (pre-PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01)** | *(tip superseded by PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-17 18:25:36 CEST (+0200) — **PRODUCT DOCS_WRITE REAL PASS POST-MERGE TRUTH-SYNC** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Macro **PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01** · parent macro **PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01** · GO Morris post-merge documentary truth-sync #499 **CONSUMED** (local docs + commit only) · PR **#499 MERGED** `docs(sfia-studio): capitalize Product docs-write REAL proof` · head `9981483f8c158bec07364e14e626cdf2c3fd1e34` · merge `3907177f7788d23d640c5bdcd1cee8e01615762f` · parents `b739ddd3826ea4df640e3f34f97a966d85f8d214` + `9981483f8c158bec07364e14e626cdf2c3fd1e34` · capitalisation = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · pre-merge CI **`35236024162` SUCCESS** · Required Gate **PASS** · post-merge CI **`35245046244` SUCCESS** · Required Gate **PASS** · `headSha=3907177f7788d23d640c5bdcd1cee8e01615762f` · merge lifecycle #499 = **COMPLETED / CONSUMED** · post-merge verification = **PASS** · claim **AUTHENTICATED PRODUCT DOCS_WRITE REAL PROVEN AT TESTED HISTORICAL PROJECT SCOPE** · **ZERO REAL** · Product code **UNCHANGED** · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** **PRESERVED** · next Product capability candidate = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN** · **NOT STARTED / NOT AUTHORIZED** by this truth-sync · this documentary truth-sync = **LOCAL CANDIDATE** · Review Handoff publication **PENDING** (distinct Morris remote push gate) · push/PR/merge of this truth-sync = **DISTINCT Morris gates** · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / origin/main / PR evidence** · **≠** E2E FULL REAL PROVEN · **≠** Product Journey complete to Nora replanning · **≠** docs_write generalized · **≠** Cursor autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new REAL authorization · **≠** PRODUCT-JOURNEY-POST-EXECUTION-REPLAN started · **≠** push/PR/merge authorized by proof |
+| **Timestamp maintenance historique PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01 (pre-PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01)** | *(tip superseded by PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-17 16:15:39 CEST (+0200) — **PRODUCT DOCS_WRITE REAL PASS CAPITALISATION** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Macro **PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01** · GO capitalisation locale **CONSUMED** · GO Review Handoff + push + PR **CONSUMED** · remédiation gouvernance PR499 in-cycle · Product PR **#498 MERGED** `fix(sfia-studio): close docs-write REAL path and completion` · merge/main `b739ddd3826ea4df640e3f34f97a966d85f8d214` · post-merge CI **`35215299343` SUCCESS** · Required Gate **PASS** · Fresh Authenticated Product Reproof09 REAL = **PASS** · claim **AUTHENTICATED PRODUCT DOCS_WRITE REAL PROVEN AT TESTED HISTORICAL PROJECT SCOPE** · 1 Product Execute / 1 Cursor REAL spawn / 0 retry · exact target `projects/sfia-studio/.sandbox/gestion-de-taches.md` **PASS** · Attempt terminal **`succeeded`** **PASS** · Evidence/ReviewBundle **PASS** · restart/no-relaunch **PASS** · capitalisation asset `projects/sfia-studio/convergence/sfia-studio-product-docs-write-real-pass-capitalisation.md` = **CANDIDATE PR #499 / remote branch / pending merge** · PR **#499** `docs(sfia-studio): capitalize Product docs-write REAL proof` · base `main` @ `b739ddd3826ea4df640e3f34f97a966d85f8d214` · pre-remediation head `f0b7c414394e2bb51ae93ec159027682d0bdc1c4` · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** **PRESERVED** · next Product capability candidate = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN** · **NOT STARTED / NOT AUTHORIZED** by this capitalisation · **ZERO REAL** this DOC cycle · Product code **unchanged** · Review Handoff = **PUBLISHED / REMOTE VERIFIED** · pre-remediation handoff `2bd065dfc15ff5577ef83f78feebd05c5738d231` · remediation handoff republish-in-cycle for new HEAD · GO push/PR = **CONSUMED** · PR **#499 OPEN** · merge = **DISTINCT PENDING Morris gate** · **≠** E2E FULL REAL PROVEN · **≠** Product Journey complete to Nora replanning · **≠** docs_write generalized · **≠** Cursor autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new REAL authorization · **≠** push/PR/merge authorized by proof |
+| **Timestamp maintenance historique GCEC-D-CAPABLE-POST-MERGE-DOCUMENTARY-TRUTH-SYNC-01 (pre-PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01)** | *(tip superseded by PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01)* — 2026-09-13 20:26 CEST (+0200) — **GCEC D-CAPABLE POST-MERGE DOCUMENTARY TRUTH-SYNC** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · GO **GCEC D-CAPABLE POST-MERGE DOCUMENTARY TRUTH-SYNC — ROADMAP + CAPITALISATION — MAIN 76E2D786 — ZERO REAL** **CONSUMED** · placement GO **USE `projects/sfia-studio/convergence/sfia-studio-gcec-d-capable-post-merge-capitalisation.md` AS GCEC PROJECT CAPITALISATION TARGET** **CONSUMED** · GO **GCEC D-CAPABLE POST-MERGE DOCUMENTARY TRUTH-SYNC — PROJECT GIT INTEGRATION — COMMIT + PUSH + PR + CI + CHATGPT CRITICAL REVIEW — CONDITIONAL MERGE — ZERO REAL** **CONSUMED** · **GCEC lane truth-sync only** (not automatic global Nora top priority) · Product GCEC D-capable chain = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · integration anchor `origin/main` @ `76e2d7869be439313b1c52bf4083aa105e5c6293` *(milestone post-merge anchor · living Roadmap **≠** permanent HEAD embed · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence**)* · PR **#481 MERGED** `feat(sfia-studio): integrate GCEC D-capable Product chain` · base `c481610caa3527edabeca8c860ab27c18a6a738e` · head `f42103881ea952f445672ed7781da59a465893d8` · merge `76e2d7869be439313b1c52bf4083aa105e5c6293` · parents `c481610c…` + `f4210388…` · head→merge content delta **ZERO** · source branch `delivery/sfia-studio-gcec-d-ephemeral-secret-bridge` **PRESERVED** @ `f4210388…` · post-merge CI **`34772652845` SUCCESS** (Detect / Build / Required Gate) · Roadmap **intentionally unmodified** by Product PR #481 · remaining debt = documentary drift treated by this documentary package · repository closure requires exact project Git integration and post-merge verification · repository lifecycle = RESOLVE FROM CURRENT GIT / PR EVIDENCE · A/B/C historical REAL **PROVEN AT TESTED SCOPE** **PRESERVED** · Cursor full-capability technical executor = **RO REAL-BACKED AT TESTED SCOPE** · cross-EC C→D continuity = **DETERMINISTICALLY PROVEN + REAL-BACKED BY D CAMPAIGN AT TESTED SCOPE** (VERIFIED prior Evidence + fresh RepositoryRead · ≠ ambient trust · ≠ blanket A→E) · D / `github.pr.create` = **REAL PROVEN AT TESTED SCOPE** · E / `github.pr.merge` = **REAL NOT PROVEN / NOT AUTHORIZED BY THIS CYCLE** · phase-scoped ExecutionContracts = **adopted construction trajectory** (one EC = one bounded execution intent · multiple sequential ECs may follow durable truth · A→D harness = proof/capability harness **≠** normative runtime orchestration · no monolithic A→D replay required as normative precondition for D or E) · technical capability **≠** execution authority · protected Git effects retain gates/Confirmations/authority · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** (NORA-FIRST unchanged · GCEC ≠ global Studio top priority) · next GCEC continuation (if any) = **DISTINCT Morris GO for E / `github.pr.merge`** — **NOT** default next global capability · **NOT AUTHORIZED** by this DOC cycle · project Git integration GO **CONSUMED** — repository lifecycle = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** · **ZERO GCEC REAL** this documentary integration cycle · **≠** E/merge REAL proven · **≠** merge authorized · **≠** generalized PR/Git autonomy · **≠** production autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** method promotion · **≠** Build Doctrine / C1 / v3 framing mutation · **≠** Product mutation · **≠** Nora priority displaced |
+| **Timestamp maintenance historique GCEC-A2D-REAL-FAIL-HARNESS-ALIGNMENT-01 (pre-D-capable post-merge documentary truth-sync)** | 2026-09-13 09:33 CEST (+0200) — **GCEC A→D REAL FAIL + HARNESS SEMANTIC/LIFECYCLE ALIGNMENT** · Cycle **13** · DOC · CRITICAL · Macro GO **GCEC A→D HARNESS CORRECTION INTEGRATION — LOCAL ANCHOR e2bebdb5 + BOUNDED ROADMAP TRUTH-SYNC — PUSH + PR + CI + CHATGPT CRITICAL REVIEW + CONDITIONAL MERGE — ZERO REAL** · **GCEC lane truth-sync only** (not automatic global Nora top priority) · Governed Project Execution / **GCEC-GIT-LIFECYCLE-E2E-01** · ONE FRESH GCEC REAL A→D campaign was explicitly authorized and executed · campaign **STARTED** · campaign budget **CONSUMED** at Attempt A REAL launch · Attempt A: actual REAL docs-write effect occurred · Attempt succeeded technically · Evidence `execution_attempt:docs_write` **verified** · BUT campaign acceptance / `A_RECONCILED_RETAINED` **NOT reached** · harness stopped on invalid invariant treating `ExecutionContract.version` as semantically immutable · observed final EC: `semanticFingerprint` unchanged · version advanced **3 → 5** · consistent with T-A5 lifecycle `confirmed → executing → confirmed` · version = lifecycle/OCC metadata, **not** semantic material · B/C/D **NOT STARTED** · E / merge **NOT STARTED / NOT PROVEN** · proof remote unchanged (main unchanged · no feature branch · no PR · no merge · no tag mutation) · Product remote effects during REAL campaign **NONE** · historical campaign verdict remains **FAIL REAL** · A REAL effect + verified Evidence **OBSERVED** · A campaign acceptance / tested-scope proof **NOT CLOSED** · **≠** A REAL PROVEN · root cause after ChatGPT Critical Review: runtime semantic immutability **not** violated · harness oracle incorrectly conflated semantic immutability with lifecycle version immutability · deterministic correction local Product anchor `e2bebdb5718ef4ded945c1ca866e8bc53b919915` · subject `test(sfia-studio): align GCEC A-to-D semantic and lifecycle invariants` · semantic binding frozen · fingerprint freshly recomputed · lifecycle/OCC version checked separately · expected successful-slice delta **+2** · A/B/C/D retain same semantic baseline · runtime Product implementation **unchanged** · deterministic validation: focused **13 passed / 1 skipped** · related **102 passed** · typecheck/lint/build **PASS** · full Vitest **3868 passed / 137 skipped** · ZERO REAL correction cycle · repository publication/integration status = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** · new REAL campaign **NOT AUTHORIZED** by this integration · only after correction integration is verified: **NEW DISTINCT Morris GO** required for fresh A→D REAL campaign · runtime v3 **NON ADOPTED** · Nora/Cognitive Completion priorities **UNCHANGED** · forensic failed-campaign state **PRESERVED** · **ZERO REAL** this integration lot · **≠** A/B/C/D REAL proven · **≠** A→D E2E REAL proven · **≠** E/merge REAL proven · **≠** A→E proven · **≠** generalized Git autonomy · **≠** production autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new doctrine / architecture · **≠** automatic REAL retry | · *(tip superseded by GCEC-D-CAPABLE-POST-MERGE-DOCUMENTARY-TRUTH-SYNC-01 after Product PR #481 MERGED / post-merge verified + documentary truth-sync)*
+| **Timestamp maintenance historique GCEC-PRE-REAL-A2D-DETERMINISTIC-TRUTH-SYNC-01 (pre-A2D REAL fail / harness alignment)** | 2026-09-13 05:00 CEST (+0200) — **GCEC PRE-REAL A→D DETERMINISTIC TRUTH-SYNC** · Cycle **13** · DOC · CRITICAL · Macro GO **POST-PR477 TWO-PR MACRO INTEGRATION** (in progress / RESOLVE FROM CURRENT GIT / PR EVIDENCE) · **GCEC lane truth-sync only** (not automatic global Nora top priority) · Governed Project Execution / **GCEC-GIT-LIFECYCLE-E2E-01** deterministic Product candidate built through protected Git authority · trusted-but-governed Cursor executor (D-GCEC-09 / D-GCEC-EXEC-01 **PRESERVED**) · RepositoryRead composition closed · registered-worktree preflight · five REAL opt-in gates · A/B/C/D governed Product paths at **deterministic** scope · immutable final ExecutionContract binding through A→D harness · STOP before E · historical local Product construction tip `060076331b305f31510d0ededfbfa4faf9c8cc3f` · Greenfield/lifecycle consolidation PR **#478 MERGED** @ merge `caa639de3ddb21658d5c5ee7a2282aaa2d201d68` (head `6a2e3c9d71275145b20b514d02ab54533a72a2a7` · parents `a9f6c310…` + `6a2e3c9d…` · Required Gate PASS · branch **PRESERVED**) · GCEC Product publication/integration status = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** · prior REAL A→B tested-scope proofs under D-GCEC-REAL-02-CLOSURE **PRESERVED** · A/B/C/D **REAL NOT PROVEN** at A→D campaign scope · A→D E2E REAL **NOT PROVEN** · E / merge REAL **NOT STARTED / NOT PROVEN** · next GCEC gate after integration verification = **DISTINCT Morris GO — ONE FRESH GCEC REAL A→D CAMPAIGN — STOP BEFORE MERGE** · runtime v3 **NON ADOPTED** · Product Completion **COMPLETE / CLOSED** unchanged · Nora/Cognitive Completion priorities **unchanged** · **ZERO REAL** this DOC sync · **≠** A/B/C/D REAL proven · **≠** A→D E2E REAL proven · **≠** E/merge proven · **≠** GCEC-PUSH READY as blanket claim · **≠** runtime v3 ADOPTED · **≠** production autonomy · **≠** global L5 · **≠** new doctrine / architecture · *(tip superseded by GCEC-A2D-REAL-FAIL-HARNESS-ALIGNMENT-01 after failed REAL A→D campaign + deterministic harness correction)* |
+| **Timestamp maintenance historique D-GCEC-REAL-02-CLOSURE (pre-A2D deterministic truth-sync)** | 2026-09-12 15:30 CEST (+0200) — **D-GCEC-REAL-02-CLOSURE — ADOPTED BY MORRIS** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Morris decision **ADOPTED / CONSUMED** · **GCEC lane truth-sync only** (not global Nora top priority) · evidence **GCEC-REAL-A2B-02** Review Handoff `629a00afd22fa255e66f5564c41d1233ce5b6558` · Product implementation anchor `be71eee0bbfae341d16cfab401f3c38f46564d4c` (D-GCEC-CONT-02 locally committed) · observed local commit `acc4a8c22d5058b31f306aed1c18350d4c114dd0` · proof remote main remained `32c7c2008197e5c61b32c16479144e9863291358` · REAL docs-write **PROVEN AT TESTED SCOPE** · REAL local git.commit **PROVEN AT TESTED SCOPE** · same-EC A→B continuation **PROVEN AT TESTED SCOPE** · D-GCEC-CONT-02 **REAL-BACKED AT TESTED SCOPE** · remote protected effects **UNCHANGED / VERIFIED FOR CAMPAIGN** · **REAL_CONTINUATION_GAP = CLOSED AT TESTED A→B SCOPE** · **GOVERNED EXECUTOR EFFECT / AUTHORITY RESERVE = CLOSED FOR TESTED A→B EFFECT SET** · D-GCEC-09 / D-GCEC-EXEC-01 / Cursor preferred governed mutation executor **PRESERVED** · D-GCEC-EVID-01 **ACCEPTED NON-BLOCKING** · FixedIdSource Project/Cycle string coincidence **OPEN / NON-BLOCKING HARNESS RESERVE** (isolated store; EC/Attempts/worktree/commit distinct; ≠ global ID uniqueness proven) · full EC completion/finalization **NOT PROVEN** (EC remained **confirmed** after B) · historical D-GCEC-REAL-01 = A VERIFIED / B NOT VERIFIED / PARTIAL STOP / stuck-B untouched · **GCEC-PUSH = NOT READY / NOT AUTHORIZED** · next GCEC candidate = **GCEC-PUSH READINESS QUALIFICATION** · **DISTINCT MORRIS GATE REQUIRED** · runtime v3 **NON ADOPTED** · Product Completion **COMPLETE / CLOSED** unchanged · Nora/Cognitive Completion priorities **unchanged** · **ZERO REAL** this DOC cycle · **≠** GCEC-PUSH READY · **≠** push/PR/merge proven · **≠** generalized executor safety · **≠** full EC completion · **≠** runtime v3 ADOPTED · **≠** Product code / commit by this DOC cycle |
+| **Timestamp maintenance historique D-GCEC-EXEC-01-TRUSTED-BUT-GOVERNED-01 (pre-REAL-02 closure)** | 2026-09-12 12:48 CEST (+0200) — **D-GCEC-EXEC-01 — TRUSTED-BUT-GOVERNED TECHNICAL EXECUTOR** · Cycle **6** · DOC · CRITICAL · Morris decision **ADOPTED / CONSUMED** · **GCEC lane truth-sync** (not global Nora top priority) · Cursor remains Project mutation executor under D-GCEC-09 · Pilot = intent/decision/protected-boundary governor · **not** technical operator · TECHNICAL CAPABILITY ≠ EXECUTION AUTHORITY · CONF-05 alternate-executor recommendation **SUPERSEDED** · *(tip superseded by D-GCEC-REAL-02-CLOSURE after GCEC-REAL-A2B-02 accepted)* · historical state then: GOVERNED EXECUTOR EFFECT / AUTHORITY RESERVE **REQUALIFIED OPEN** · REAL git.commit **NOT PROVEN** · REAL_CONTINUATION_GAP **OPEN** · GCEC-PUSH **NOT READY** · runtime v3 **NON ADOPTED** |
+| **Timestamp maintenance historique NORA-GLOBAL-MR-STAGE-A-OPTION-C-POST-MERGE-READINESS-01** | 2026-09-06 04:54:29 CEST — **GLOBAL MODEL × REASONING STAGE A OPTION C POST-MERGE TRUTH-SYNC + REAL READINESS QUALIFICATION** · Cycle **14** · DOC · CRITICAL · GO MORRIS — STAGE A OPTION C POST-MERGE TRUTH-SYNC + REAL READINESS QUALIFICATION + REVIEW HANDOFF — ZERO REAL **CONSUMED** · PR **#468 MERGED** @ 2026-09-05T22:27:14Z · accepted head `a5ab44bc4a5dae119b778bc6ba795439934b6f61` · merge/main `66d93a616ac43f2d952f9c7db7b33d2acfe7553b` · parents `1dd5d67ad942c448becd637f4c2e55883d16ffca` + `a5ab44bc4a5dae119b778bc6ba795439934b6f61` · head→merge product delta **ZERO** · post-merge CI **`33995952634` SUCCESS** · Required Gate **PASS** · source branch `delivery/sfia-studio-global-mr-stage-a-astra-challenger` **PRESERVED** @ `a5ab44bc…` · Option C + C6 = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · contract `global-mr-campaign-contract-v3-candidate` · primary **54** + Astra challenger **6** medium ONE-SHOT = base **60** · maxCellExecutions **78** · maxModelInvocations **438** · maxHostedWebOperations **26** · maxAggregateRealCalls **464** · USD **15/18/20 DECIDED BY MORRIS** · known subtotal ≈**13.32896** · financial feasibility **PASS / COMPATIBLE_WITH_CURRENT_POLICY** · invoice **NOT_OBSERVED** · Astra account/API entitlement **NOT PROVEN** · Stage A REAL **NOT AUTHORIZED** · Stage B Astra-only = CONDITIONAL FUTURE GATE / NOT IMPLEMENTED · production routing **NOT SELECTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · four-doc post-merge truth-sync CONTENT = **REVIEWED / ACCEPTED AT DOCUMENTARY SCOPE** · repository publication/integration lifecycle = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** · next structural gate after documentary integration is verified = **DISTINCT MORRIS STAGE A REAL DECISION** · **ZERO REAL** · **≠** Stage A REAL AUTHORIZED · **≠** Astra account proven · **≠** spend · **≠** production routing |
+| **Timestamp maintenance historique NORA-GLOBAL-MR-STAGE-A-OPTION-C-ASTRA-CHALLENGER-01 (pre-Option-C post-merge readiness)** | 2026-09-05 22:26:41 CEST — **GLOBAL MODEL × REASONING STAGE A OPTION C / BOUNDED GPT-6 ASTRA CHALLENGER** · Cycle **8** · EVOL · CRITICAL · D-GMR-ASTRA-01/02 + D-GMR-FINOPS-01 + D-GMR-GIT-01 **CONSUMED** · *(historical pre-merge tip)* · then LOCAL DIRTY / Git integration candidate on `delivery/sfia-studio-global-mr-stage-a-astra-challenger` · envelope **78/438/464** · USD **15/18/20** · known subtotal ≈13.32896 · superseded as tip by NORA-GLOBAL-MR-STAGE-A-OPTION-C-POST-MERGE-READINESS-01 after PR **#468** MERGED |
+| **Timestamp maintenance historique NORA-GLOBAL-MR-STAGE-A-POST-MERGE-READINESS-01 (pre-Option-C Astra challenger / PR #467 harness)** | 2026-09-05 20:57:01 CEST — **GLOBAL MODEL × REASONING STAGE A POST-MERGE CLOSURE + REAL READINESS QUALIFICATION** · Cycle **14** · DOC · CRITICAL · GO MORRIS — STAGE A POST-MERGE CLOSURE / TRUTH-SYNC + REAL READINESS QUALIFICATION — ZERO REAL **CONSUMED** · PR **#467 MERGED** @ 2026-09-05T17:36:03Z · accepted head `3fb1624c8b373b75dfcd48a64797a7927cb76019` · merge/main `1dd5d67ad942c448becd637f4c2e55883d16ffca` · parents `23d850fda45fe55ba519e0feefe63369d349afcc` + `3fb1624c8b373b75dfcd48a64797a7927cb76019` · head→merge product delta **ZERO** · post-merge CI **`33981467237` SUCCESS** · Required Gate **PASS** · source branch `docs/sfia-studio-global-model-reasoning-campaign-contract` **PRESERVED** @ `3fb1624c…` · Stage A deterministic harness (E1–E4 / F1→F5 / C3 / C4) = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · candidate envelope **72 / 405 / 429** · USD 6/9/12 · maxRepeatsPerCell **1** · contract `global-mr-campaign-contract-v2-candidate` · ZERO REAL for construction + this DOC cycle · Stage A REAL **NOT AUTHORIZED** · production routing **NOT SELECTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · MW6 = **COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE — INTEGRATED ON MAIN / POST-MERGE VERIFIED** (PR **#465** merge `d3fee38b270d805144e621804b96ef1e5de3e208` · post-merge CI `33958548479` SUCCESS — closure decision already consumed; no second closure) · G1/G2/G3 integrated (PR **#466**) · provider-universe readiness qualification **ACTIVE** · GPT-5.6 Luna/Terra/Sol = **CURRENT CONTRACT COHORT** · GPT-6 Astra = **CURRENT PROVIDER DRIFT / DISPOSITION REQUIRED** (official docs: most capable; efforts low/medium/high/xhigh/max — **no none**; $10/$1/$50 per 1MTok; account availability **NOT PROVEN**) · **NEXT PRODUCT CAPABILITY GATE = STAGE A REAL READINESS — DECISION REQUIRED — MODEL UNIVERSE / BUDGET NOT CONSUMED** · **≠** Stage A REAL AUTHORIZED · **≠** Astra selected · **≠** 72/405/429 silently expanded · **≠** spend · **≠** production routing · documentary candidate **LOCAL until ChatGPT Critical Review → Morris publication GO** · **ZERO REAL** |
+| **Timestamp maintenance historique NORA-MW6-CONSOLIDATED-INTEGRATION-TRUTH-SYNC-01 (pre-Stage-A post-merge readiness)** | 2026-09-05 11:19:35 CEST — **MW6 CONSOLIDATED INTEGRATION + CLOSURE TRUTH-SYNC** · Cycle **8** · EVOL · CRITICAL · **MORRIS DECISION — MW6 PROVEN SCOPE ACCEPTED FOR CLOSURE** **CONSUMED** · GO MORRIS — MW6 CONSOLIDATED INTEGRATION + TRUTH-SYNC PR **CONSUMED** · MW6 = **CLOSURE ACCEPTED BY MORRIS / INTEGRATION PENDING** · effective COMPLETE/CLOSED condition = exact accepted product candidate integrated on main + required PR/CI PASS · product candidate anchor `MW6-AUTH-INTEGRATION-BRIDGE-FINAL-CANDIDATE-ANCHOR-V1` = `9129cc4336281dbfbbf616d683ea7a00d9c419f0610150baaa6de714769f0398` · n=66 · REAL proof handoff `e73ccf0c2760473bd2da347d98e9c202ded5782e` · OpenAI hosted web_search REAL observed = **1** · model `gpt-5.6-luna` · deterministicBoundaryUsed=false · authorityBound=true · realAuthorized=true · eligible=true · N2+HD+Confirmation+S1+server governedAuthority used · Auth REAL @ V1 carried forward · temporary construction REAL grant remains **TEMPORARY WITH EXIT** · branch `delivery/sfia-studio-mw6-auth-binding` · repository lifecycle = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · Production model routing **NOT SELECTED** · Responses Compaction **CANDIDATE / NOT ADOPTED** · **NEXT PRODUCT CAPABILITY GATE = GLOBAL MODEL × REASONING CAMPAIGN READINESS / QUALIFICATION — NOT AUTHORIZED / NOT STARTED** · **≠** MW6 integrated on main yet · **≠** MW6 COMPLETE/CLOSED on main yet · **≠** END-TO-END REAL · **≠** Cognitive Completion PROVEN · **≠** runtime v3 ADOPTED · **≠** production model routing selected · **≠** generalized REAL gate adopted · merge remains **distinct Morris gate** |
+| **Timestamp maintenance historique NORA-MW5-CLOSURE-DOC-INTEGRATION-01 (pre-MW6 consolidated integration)** | 2026-09-04 08:56:17 CEST — **NORA MW5 CLOSURE DOC INTEGRATION / TRUTH-SYNC** · Cycle **13** · DOC · CRITICAL · **MORRIS DECISION — MW5 COMPLETE / CLOSED AT PROVEN SCOPE WITH RETAINED GOVERNANCE DEVIATION AND NON-BLOCKING RESERVES** **CONSUMED** · GO MORRIS — NORA-MW5-CLOSURE-DOC-INTEGRATION-01 **CONSUMED** · MW5 = **COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE WITH RETAINED GOVERNANCE DEVIATION AND NON-BLOCKING RESERVES** · MW5 Delivery = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · PR **#463 MERGED** · pre-merge head `642c502d649a3dad46b66ade95bdea1b5ed8b787` · squash merge `7e2f4c2799be70380362630a1c6734837cc453d9` · parent `9b45f0d7700a3127fa28c13f37ffae40432ae05c` · tree `b58cea7a8d0ddd173c1467d5a522e26a9c643fe3` · HEAD→MERGE TREE PARITY **PROVEN** · post-merge CI **`33841337376` SUCCESS** · Required Gate **PASS** · delivery branch `delivery/sfia-studio-nora-mw5-critical-challenge-clarification` **PRESERVED** · CORR-MW5-PR-01/02 **CLOSED AT TESTED DETERMINISTIC SCOPE** · CORR-MW5-CLOSURE-C5-CURRENT-TRAJECTORY-01 **CLOSED AT REVIEWED DOCUMENTARY SCOPE** · MW5-R2-REAL-03 PASS at tested scope · SHA-01/02 CLOSED · MW0→MW5 cognitive evidence ACCEPTED BY MORRIS FOR MW5 PURPOSES · H17 FAIL — RETAINED HISTORICAL GOVERNANCE DEVIATION (141/100 · delta +41) · H18 INCONCLUSIVE · ZERO NEW REAL · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · Production model routing **NOT SELECTED** · Responses Compaction **CANDIDATE / NOT ADOPTED** · *(tip superseded by NORA-MW6-CONSOLIDATED-INTEGRATION-TRUTH-SYNC-01)* · historical next was MW6 readiness — now superseded |
+| **Doctrine cible** | SFIA Studio v3 framing `30`–`37` (destination produit) |
+| **Build Doctrine** | [`sfia-studio-convergence-build-doctrine.md`](./sfia-studio-convergence-build-doctrine.md) |
+| **Snapshot Git courant** | **RESOLVE FROM REPOSITORY** *(Git SoT ; this living Roadmap **≠** embed permanent `origin/main` HEAD · repository publication/integration status = **RESOLVE FROM GIT / PR evidence**)* · **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main` / PR evidence** · **Last verified Nora Option C implementation anchor** = PR **#447 MERGED** · head `0fdf06a518e2693f6d08fa16ddcc8fc821ce0f6b` · merge `127c6ecf5658e7f3954d94b2cef8269ab9eaf07e` · tree `cf88184cf8f036c671740cffffcc7ecdfb0953d1` · HEAD→MERGE tree parity **PROVEN** · post-merge CI **`33338927956` SUCCESS** · Required Gate **PASS** · source branch `delivery/sfia-studio-nora-mw1-option-c-migration` **PRESERVED** @ `0fdf06a5…` · **historical MW0 integration anchor** = PR **#442 MERGED** · head `67a0023892b7daac7e1e6f5d5f36c611b3275091` · merge `99ae9fe372e60d4263318df265d8f13fbf218de8` · tree `5d7b386cd9fc253ba682d0d55520556c3d737b05` · HEAD→MERGE tree parity **PROVEN** · mergedAt `2026-08-30T04:35:34Z` · post-merge CI **`33292834920` SUCCESS** · Required Gate **PASS** · source branch `feat/sfia-studio-nora-mw0-eval-harness` **PRESERVED** @ `67a00238…` · prior C5 Type14 anchor PR **#439** @ `70143b6d…` · **Product Completion = COMPLETE / CLOSED BY MORRIS** · **REAL-A = COMPLETE / CONSUMED** at **PASS WITH PARITY GAPS** · **NCC-R08 = CLOSED BY EVIDENCE** · Nora C1→C5 CONTENT VALIDATED / INTEGRATED / POST-MERGE VERIFIED · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** · **MW0 Readiness = PASS / CLOSED** · **MW0 Delivery = INTEGRATED ON MAIN / POST-MERGE VERIFIED** · **MW0 EXIT = PROVEN WITH NON-BLOCKING RESERVES** · **MW0-R01** BAR-09 Option↔Recommendation = **NOT_PROVEN / NON-BLOCKING** · **MW0-R02** ChatGPT↔Cursor parity = **NOT_PROVEN / NON-BLOCKING** · **CORR-MW0-05/06/07/08 = CLOSED** · no new REAL after bounded evidence · total MW0 usage-based estimated API cost **$0.0490246** *(≠ invoice spend)* · **REAL-B = QUALIFIED CANDIDATE / DEFERRED / PRESERVED / NOT AUTHORIZED / NOT STARTED** · OD-07 **CONSUMED** (NORA-FIRST) · **OD-03 = BUILD / CONSUMED** · OD-02 **CONSUMED — OPTION B** · OD-05/06/08 **OPEN** · **OD-04 = CONSUMED** · **OD04-I01 = ACTIVE** · Architecture **OPTION C TARGET ADOPTED (OD-04)** · **Agents SDK Runner = TARGET ADOPTED** · **custom Product SQLite Session = TARGET ADOPTED** · **Session/model-input policy = TARGET** · **Responses compaction = CANDIDATE / NOT ADOPTED** · product @openai/agents / Zod dependency integration **INTEGRATED ON MAIN** (PR **#447** / Option C implementation) · runtime Option C implementation migration **INTEGRATED ON MAIN / POST-MERGE VERIFIED** (PR **#447**) · Production model routing **NOT SELECTED** · FinOps/T7 **FREEZE** · C6 **CLOSED / DO NOT REOPEN** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · **MW1 = MEMORY B + COMPACTION** · **MW1 Readiness = PASS / VALIDATED BY MORRIS** · **MW1 = COMPLETE / CLOSED BY MORRIS** at proven MW1 scope · **MW1 Delivery = INTEGRATED ON MAIN / POST-MERGE VERIFIED** (PR **#450 MERGED** · head `dd21ab45a3a8ce2090b7a193e76c1d92e0a5cc02` · merge `d09e21485343ce04703fb7a013b7ad84e5ab392c` · tree `2679810b4a8eaee6fcc9460dab43c123baecf327` · post-merge CI **`33480454434` SUCCESS** · Required Gate **PASS**) · **MW1 Final Deterministic Proof = PASS** · **MW1 REAL BOUNDARY = PROVEN** (MW1-REAL-01/CORR-01 · handoff `bcc607ae08bc419188505f91d6bbf7f947660671` · campaign `mw1-real-boundary-corr01-1788253662383` · evidence SHA256 `de149e12621f2f003da5f935d6c467574ea8f70a7079ae8aea16c919054b0678`) · **MW1-S01 = CLOSED / REAL BOUNDARY PROVEN** · **MW1-S02 = CLOSED / REAL BOUNDARY PROVEN** (current governed compaction/model-input boundary) · **MW1-S03 = CLOSED / REAL BOUNDARY PROVEN** (current governed materialization boundary) · **MW0×MW1 REAL integration proven on current F1 path** · **historical REAL-B candidate preserved as provenance** · MW1 REAL-01/CORR-01 executed under later Morris authorization · **MW1 CLOSURE DOCUMENTARY REPOSITORY LIFECYCLE = INTEGRATED ON MAIN / POST-MERGE VERIFIED — PR #451** · head `3785e271d897af5e34e1ce34cdddfc3782ec0e52` · merge `783f7619284f9cd2309d54e7efaa092093c3671e` · tree `831c0fb66bd213afd47f701a8afe3f00da0ea351` · post-merge CI **`33499812659` SUCCESS** · Required Gate **PASS** · **MW2 READINESS = VALIDATED BY MORRIS** · **CORR-MW2-RDY-01/02 SATISFIED** · **OD-02 = CONSUMED — OPTION B** · **MW2 closure/truth-sync repository publication state = RESOLVE FROM CURRENT GIT / PR EVIDENCE** · **MW2 = COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE** · Delivery PR **#456 MERGED** · CORR PR **#457 MERGED** · post-merge CI **`33621406965` SUCCESS** · **MW3 = COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE** · Delivery PR **#459 MERGED** · merge `0220253a2c65957dc802838d71075912402f3afd` · post-merge CI **`33710122738` SUCCESS** · **MW4 Delivery = INTEGRATED ON MAIN / POST-MERGE VERIFIED** (PR **#461** / CI `33753929894`) · MW4 **COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE WITH NON-BLOCKING RESERVES** · **CURRENT PRODUCT CAPABILITY = MW5 — Critical Challenge + Clarification — **COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE WITH RETAINED GOVERNANCE DEVIATION AND NON-BLOCKING RESERVES** — Morris closure decision **CONSUMED** — Delivery **INTEGRATED ON MAIN / POST-MERGE VERIFIED** — PR **#463 MERGED** · pre-merge head `642c502d649a3dad46b66ade95bdea1b5ed8b787` · squash merge `7e2f4c2799be70380362630a1c6734837cc453d9` · tree `b58cea7a8d0ddd173c1467d5a522e26a9c643fe3` · HEAD→MERGE TREE PARITY **PROVEN** · post-merge CI **`33841337376` SUCCESS** · Required Gate **PASS** · delivery branch `delivery/sfia-studio-nora-mw5-critical-challenge-clarification` **PRESERVED** · CORR-MW5-PR-01/02 **CLOSED AT TESTED DETERMINISTIC SCOPE** · CORR-MW5-CLOSURE-C5-CURRENT-TRAJECTORY-01 **CLOSED AT REVIEWED DOCUMENTARY SCOPE** · MW5-R2-REAL-03 PASS at tested scope · D-MW5-QA-SHA-01/02 CLOSED · MW0→MW5 cognitive evidence ACCEPTED BY MORRIS FOR MW5 PURPOSES · H17 FAIL = 141/100 RETAINED HISTORICAL GOVERNANCE DEVIATION · H18 INCONCLUSIVE · ZERO NEW REAL — ≠ campaign governance-compliant · ≠ Cognitive Completion PROVEN · ≠ runtime v3 ADOPTED · MW6 = COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE — INTEGRATED ON MAIN / POST-MERGE VERIFIED (PR #465 / `d3fee38b270d805144e621804b96ef1e5de3e208` / CI `33958548479`) · Stage A deterministic harness = INTEGRATED ON MAIN / POST-MERGE VERIFIED (PR #467 / `1dd5d67ad942c448becd637f4c2e55883d16ffca` / CI `33981467237`) · **Stage A Option C + C6 = INTEGRATED ON MAIN / POST-MERGE VERIFIED** (PR **#468 MERGED** · accepted head `a5ab44bc4a5dae119b778bc6ba795439934b6f61` · merge `66d93a616ac43f2d952f9c7db7b33d2acfe7553b` · post-merge CI **`33995952634` SUCCESS** · Required Gate **PASS** · head→merge ZERO · source branch PRESERVED) · envelope **78 / 438 / 26 / 464** · USD **15/18/20 DECIDED** · known subtotal ≈13.32896 · Astra account **NOT PROVEN** · Stage A REAL **NOT AUTHORIZED** · **NEXT PRODUCT CAPABILITY GATE = DISTINCT Morris Stage A REAL decision (after four-doc documentary integration verified from Git/PR evidence)** · ≠ Stage A REAL AUTHORIZED · ≠ MW6 END-TO-END REAL global · ≠ Cognitive Completion PROVEN · ≠ runtime v3 ADOPTED · ≠ production routing SELECTED** · **Responses compaction = CANDIDATE / NOT ADOPTED** · **Production model routing = NOT SELECTED** · **Cognitive Completion = NOT PROVEN** · **runtime v3 = NON ADOPTED** · **≠ END-TO-END REAL PROVEN** · **MW1 Delivery anchor = PR #450** · historical **MW1 Delivery authorized earlier** consumed · **Option C implementation = INTEGRATED ON MAIN / POST-MERGE VERIFIED** (PR **#447**) · CORR-OPT-C-01…05 **CLOSED** · Runner/Fake convergence **CLOSED** · Nora legacy generic runtime retirement **CLOSED** · project Git integration **CLOSED / POST-MERGE VERIFIED** · **MW0 Option C regression/parity = PASS WITH NON-BLOCKING RESERVES — DETERMINISTIC ONLY — CHATGPT CRITICAL REVIEW PASS** · evidence Review Handoff L3 `35a2b1ae17085af09e9e59bf9bb96ddf61e02e8c` · proof ceiling **DETERMINISTIC ONLY** · historical R1/R2/R3 RETAINED / NOT RE-RUN / NOT UPGRADED · MW0-R01/R02 remain NOT_PROVEN/NB · RESERVE-OPT-C-02/03 remain OPEN/NB · MW0 remains historically CLOSED · **MW1 architecture = ADAPT-FIRST / NO FA REQUIRED / NO TA CURRENTLY REQUIRED / TA TRIGGER CANDIDATE** · **MW0 OPTION C REGRESSION / PARITY = CLOSED AS CURRENT REGRESSION GATE / PASS WITH NON-BLOCKING RESERVES / DETERMINISTIC ONLY / ChatGPT CRITICAL REVIEW PASS** · evidence Review Handoff L3 `35a2b1ae17085af09e9e59bf9bb96ddf61e02e8c` · **MW1 CLOSURE DOCUMENTARY REPOSITORY LIFECYCLE = INTEGRATED ON MAIN / POST-MERGE VERIFIED — PR #451** · head `3785e271d897af5e34e1ce34cdddfc3782ec0e52` · merge `783f7619284f9cd2309d54e7efaa092093c3671e` · tree `831c0fb66bd213afd47f701a8afe3f00da0ea351` · post-merge CI **`33499812659` SUCCESS** · Required Gate **PASS** · **MW2 READINESS = VALIDATED BY MORRIS** · **CORR-MW2-RDY-01/02 SATISFIED** · **OD-02 = CONSUMED — OPTION B** · **MW2 closure/truth-sync repository publication state = RESOLVE FROM CURRENT GIT / PR EVIDENCE** · **MW2 = COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE** · Delivery PR **#456 MERGED** · CORR PR **#457 MERGED** · post-merge CI **`33621406965` SUCCESS** · **MW3 = COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE** · Delivery PR **#459 MERGED** · merge `0220253a2c65957dc802838d71075912402f3afd` · post-merge CI **`33710122738` SUCCESS** · **MW4 Delivery = INTEGRATED ON MAIN / POST-MERGE VERIFIED** (PR **#461** / CI `33753929894`) · MW4 **COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE WITH NON-BLOCKING RESERVES** · **CURRENT PRODUCT CAPABILITY = MW5 — Critical Challenge + Clarification — **COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE WITH RETAINED GOVERNANCE DEVIATION AND NON-BLOCKING RESERVES** — Morris closure decision **CONSUMED** — Delivery **INTEGRATED ON MAIN / POST-MERGE VERIFIED** — PR **#463 MERGED** · pre-merge head `642c502d649a3dad46b66ade95bdea1b5ed8b787` · squash merge `7e2f4c2799be70380362630a1c6734837cc453d9` · tree `b58cea7a8d0ddd173c1467d5a522e26a9c643fe3` · HEAD→MERGE TREE PARITY **PROVEN** · post-merge CI **`33841337376` SUCCESS** · Required Gate **PASS** · delivery branch `delivery/sfia-studio-nora-mw5-critical-challenge-clarification` **PRESERVED** · CORR-MW5-PR-01/02 **CLOSED AT TESTED DETERMINISTIC SCOPE** · CORR-MW5-CLOSURE-C5-CURRENT-TRAJECTORY-01 **CLOSED AT REVIEWED DOCUMENTARY SCOPE** · MW5-R2-REAL-03 PASS at tested scope · D-MW5-QA-SHA-01/02 CLOSED · MW0→MW5 cognitive evidence ACCEPTED BY MORRIS FOR MW5 PURPOSES · H17 FAIL = 141/100 RETAINED HISTORICAL GOVERNANCE DEVIATION · H18 INCONCLUSIVE · ZERO NEW REAL — ≠ campaign governance-compliant · ≠ Cognitive Completion PROVEN · ≠ runtime v3 ADOPTED · MW6 = COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE — INTEGRATED ON MAIN / POST-MERGE VERIFIED (PR #465 / `d3fee38b270d805144e621804b96ef1e5de3e208` / CI `33958548479`) · Stage A Option C + C6 INTEGRATED (PR #468 / `66d93a61…` / CI `33995952634`) · Stage A REAL NOT AUTHORIZED · ≠ Stage A REAL AUTHORIZED · ≠ MW6 END-TO-END REAL global · ≠ Cognitive Completion PROVEN · ≠ runtime v3 ADOPTED · ≠ production routing SELECTED** · **MW3 = COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE** · **next capability after MW4 delivery integration = MW5 — Critical Challenge + Clarification readiness — NOT AUTHORIZED / NOT STARTED** · **≠** END-TO-END REAL PROVEN · **≠** Cognitive Completion PROVEN · **≠** runtime v3 ADOPTED · **≠** MW5 AUTHORIZED · **≠** Option C REAL parity PROVEN · **≠** ChatGPT↔Cursor parity PROVEN · **≠** READY FOR REAL from D0 alone · **≠** Responses compaction adopted · **≠** HITL as HD · **≠** Trace as Evidence · **≠** TA REQUIRED · **≠** REAL-B AUTHORIZED · **≠** BAR-09 PROVEN · **≠** parity PROVEN · **≠** Cognitive Completion PROVEN · **≠** runtime v3 ADOPTED · *(living Roadmap repository-state summary **≠** replacement for Git/PR as repository lifecycle SoT)* |
+| **Timestamp maintenance historique NORA-MW5-POST-MERGE-CLOSURE-01 (pre-MW5 closure decision consumption)** | 2026-09-04 07:57:56 CEST — **NORA MW5 POST-MERGE / CLOSURE READINESS TRUTH-SYNC** · Cycle **14** · DOC · CRITICAL · GO MORRIS — NORA-MW5-POST-MERGE-CLOSURE-01 **CONSUMED** · PR **#463 MERGED** · pre-merge head `642c502d649a3dad46b66ade95bdea1b5ed8b787` · squash merge `7e2f4c2799be70380362630a1c6734837cc453d9` · parent `9b45f0d7700a3127fa28c13f37ffae40432ae05c` · tree `b58cea7a8d0ddd173c1467d5a522e26a9c643fe3` · HEAD→MERGE TREE PARITY **PROVEN** · post-merge CI **`33841337376` SUCCESS** · Required Gate **PASS** · delivery branch `delivery/sfia-studio-nora-mw5-critical-challenge-clarification` **PRESERVED** · MW5 Delivery = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · MW5 = **POST-MERGE VERIFIED / CLOSURE READINESS CANDIDATE** · MW5 COMPLETE = **NOT DECIDED** · MW5 CLOSED BY MORRIS = **NO / NOT YET DECIDED** · CORR-MW5-PR-01/02 CLOSED at tested deterministic scope · MW5-R2-REAL-03 PASS at tested scope · SHA-01/02 CLOSED · MW0→MW5 cognitive evidence ACCEPTED BY MORRIS FOR MW5 PURPOSES · H17 FAIL — RETAINED HISTORICAL GOVERNANCE DEVIATION (141/100 · delta +41) · H18 INCONCLUSIVE · ZERO NEW REAL · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · Production model routing **NOT SELECTED** · Responses Compaction **CANDIDATE / NOT ADOPTED** · **NEXT PRODUCT CAPABILITY AFTER MW5 CLOSURE = MW6 READINESS / REQUALIFICATION — NOT AUTHORIZED / NOT STARTED** · truth-sync = **LOCAL CANDIDATE** · project commit/push/PR = **NONE this cycle** · **≠** MW5 COMPLETE · **≠** CLOSED BY MORRIS · **≠** MW6 AUTHORIZED · **≠** campaign governance-compliant · **≠** H17 PASS |
+| **Timestamp maintenance historique NORA-MW5-INTEGRATION-LIFECYCLE-01 (pre-MW5 post-merge closure)** | 2026-09-04 01:09:24 CEST — **NORA MW5 INTEGRATION / CLOSURE READINESS TRUTH-SYNC** · Cycle **13** · INC · CRITICAL · GO MORRIS — NORA-MW5-INTEGRATION-LIFECYCLE-01 **CONSUMED** · MORRIS DECISION — ACCEPT NORA-MW0-MW5-BUSINESS-INTEGRATED-REAL-01 EVIDENCE FOR MW5 INTEGRATION PURPOSES DESPITE CONFIRMED H17 GOVERNANCE NON-CONFORMITY **CONSUMED / CAPITALIZED** · H17 FAIL — RETAINED HISTORICAL GOVERNANCE DEVIATION (TOTAL_REAL_CALLS_UNDER_MORRIS_GO = 141 / AUTHORIZED = 100 / delta = +41) · H18 INCONCLUSIVE (measured ≈ 0.1474548 USD · 68 native F1 unmetered · conservative hard-cap upper bound NOT PROVEN) · MW5 Delivery = **LOCAL / PENDING PROJECT GIT INTEGRATION / PR CANDIDATE / NOT INTEGRATED / COMPLETE NOT DECIDED** · proof: DLV-01→DLV-05 deterministic · MW5-R2-REAL-03 PASS at tested scope · D-MW5-QA-SHA-01/02 CLOSED · NORA-MW0-MW5-BUSINESS-INTEGRATED-REAL-01 cognitive PASS CANDIDATE at tested scope · burn handoff `c3cc6dda…` · MW4 remains COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE WITH NON-BLOCKING RESERVES · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · Production model routing **NOT SELECTED** · Responses Compaction **CANDIDATE / NOT ADOPTED** · MW6 **NOT AUTHORIZED** · ZERO NEW REAL · **≠** MW5 COMPLETE · **≠** CLOSED BY MORRIS · **≠** INTEGRATED ON MAIN · **≠** POST-MERGE VERIFIED · **≠** campaign governance-compliant · **≠** H17 PASS · merge remains distinct Morris gate |
+| **Timestamp maintenance historique NORA-MW4-CLOSURE-TRUTH-SYNC-01 (pre-MW5 integration lifecycle)** | 2026-09-03 14:56:05 CEST — **NORA MW4 CLOSURE / TRUTH-SYNC** · Morris closure decision **CONSUMED** · **MORRIS DECISION — MW4 COMPLETE / CLOSED AT PROVEN SCOPE WITH NON-BLOCKING RESERVES** · Cycle **13** · DOC · CRITICAL · MW4 = **COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE WITH NON-BLOCKING RESERVES** · MW4 Delivery = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · PR **#461 MERGED** · head `fa58b210b7b683353f04c66b5e49ab0914e885ab` · squash merge `6b86f9c384d6d6d19a81ecb9bfb3a42acfbfe6a5` · tree `d857baa2a1cd8651c7c11f0233f9f6a92976cbda` · post-merge CI **`33753929894` SUCCESS** · Required Gate **PASS** · same-turn MW4-S03 product proof blob `a23f57e19726f53df5e00c7303102b97e10709cc` present on main · delivery branch `delivery/sfia-studio-nora-mw4-grounding-durability` **PRESERVED** @ `fa58b210…` · MW0×MW1×MW2×MW3×MW4 Integrated REAL **KEEP ACCEPTED AT TESTED SCOPE** · MW4 bounded REAL **KEEP ACCEPTED AT TESTED SCOPE** · R-MW4-PR-CI-01 **CLOSED** · R-MW4-PR-CI-02 **CLOSED AT PROJECT-GIT/PR-CI CORRECTION SCOPE** · R-MW4-PR-CI-02-LOCAL-TIMING **OPEN / NON-BLOCKING** · intra-turn partial→full **OPEN / NON-BLOCKING / FAIL-CLOSED** · RA-06/RA-07/MW2-R01/R02/R03/R-MW4-REAL-02 **CARRY** · **CURRENT PRODUCT CAPABILITY = MW5 — Critical Challenge + Clarification — **COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE WITH RETAINED GOVERNANCE DEVIATION AND NON-BLOCKING RESERVES** — Morris closure decision **CONSUMED** — Delivery **INTEGRATED ON MAIN / POST-MERGE VERIFIED** — PR **#463 MERGED** · pre-merge head `642c502d649a3dad46b66ade95bdea1b5ed8b787` · squash merge `7e2f4c2799be70380362630a1c6734837cc453d9` · tree `b58cea7a8d0ddd173c1467d5a522e26a9c643fe3` · HEAD→MERGE TREE PARITY **PROVEN** · post-merge CI **`33841337376` SUCCESS** · Required Gate **PASS** · delivery branch `delivery/sfia-studio-nora-mw5-critical-challenge-clarification` **PRESERVED** · CORR-MW5-PR-01/02 **CLOSED AT TESTED DETERMINISTIC SCOPE** · CORR-MW5-CLOSURE-C5-CURRENT-TRAJECTORY-01 **CLOSED AT REVIEWED DOCUMENTARY SCOPE** · MW5-R2-REAL-03 PASS at tested scope · D-MW5-QA-SHA-01/02 CLOSED · MW0→MW5 cognitive evidence ACCEPTED BY MORRIS FOR MW5 PURPOSES · H17 FAIL = 141/100 RETAINED HISTORICAL GOVERNANCE DEVIATION · H18 INCONCLUSIVE · ZERO NEW REAL — ≠ campaign governance-compliant · ≠ Cognitive Completion PROVEN · ≠ runtime v3 ADOPTED · MW6 = CLOSURE ACCEPTED BY MORRIS / INTEGRATION PENDING · effective COMPLETE/CLOSED conditioned on exact candidate merge + required CI PASS · repository lifecycle = RESOLVE FROM CURRENT GIT / PR EVIDENCE · NEXT PRODUCT CAPABILITY GATE = GLOBAL MODEL × REASONING CAMPAIGN READINESS / QUALIFICATION — NOT AUTHORIZED / NOT STARTED · ≠ MW6 integrated on main yet · ≠ MW6 COMPLETE/CLOSED on main yet** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · Production model routing **NOT SELECTED** · Responses Compaction **CANDIDATE / NOT ADOPTED** · closure documentation repository lifecycle = **PENDING PR INTEGRATION** · **ZERO REAL** |
+| **Timestamp maintenance historique NORA-MW3-CLOSURE-TRUTH-SYNC-01 (pre-MW4 post-merge closure candidate)** | *(historique tip · superseded as tip by NORA-MW4-CLOSURE-TRUTH-SYNC-01)* — 2026-09-03 05:11:05 CEST — **NORA MW3 CLOSURE / TRUTH-SYNC** · Morris closure GO **CONSUMED** · Cycle **14** · DOC · CRITICAL · MW3 **COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE** · Delivery PR **#459 MERGED** · head `f5b9d0839ce2d79faf16e813871a8d7850355bf2` · merge `0220253a2c65957dc802838d71075912402f3afd` · tree `6924f31827bc9fbc1dfcac38b416d7ed68dcb665` · post-merge CI **`33710122738` SUCCESS** · Required Gate **PASS** · CORR-MW3-PR1-CI-01/02 consumed on PR head · cumulative REAL business chain campaign `nora-mw0-mw3-business-integrated-real-1788377416280` · Evidence SHA256 `f6674ddb4f19c98f9f79354b844b3d61a8902804a5a1ff6bba4f3cefc8159066` · Review Handoff CI-green `8f2002513ff1b323c1635f861f05510a6bbad8c6` · business-chain `39c50895c7b6f1423198d034384e1c37fba8ea03` · MW0×MW1×MW2×MW3 INTEGRATED REAL BUSINESS CHAIN PROVEN AT MW3 SCOPE · prior over-scoped chain FAIL preserved (TEST CONTRACT OVERREACH / MW4-S01) · MW2-R01/R02/R03 **CARRIED** · MW4-S01 cross-turn grounding durability **NOT PROVEN** · **NEXT = MW4 READINESS / REQUALIFICATION — NOT AUTHORIZED / NOT STARTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · Production model routing **NOT SELECTED** · **ZERO REAL** in this DOC cycle |
+| **Timestamp maintenance NORA-MW2-READINESS-INTEGRATION-PACKAGE-01** | 2026-09-01 22:30:00 CEST — **MW2 READINESS INTEGRATION PACKAGE** · Morris GO **CONSUMED** · Cycle **8** · DOC · CRITICAL · MW2 Readiness **VALIDATED BY MORRIS** · ChatGPT Final Critical Review **PASS** · CORR-MW2-RDY-01/02 **SATISFIED** · OD-02 **CONSUMED — OPTION B** · MW2 Delivery **NOT AUTHORIZED / NOT STARTED** · PRE-MW2 **OPEN** · repository lifecycle = integration package / **RESOLVE FROM GIT / PR evidence** · next after post-merge = PRE-MW2-MODEL-BASELINE-01 · **≠ merge** · **≠ PRE-MW2 execution** · **≠ MW2 Delivery** · **ZERO REAL** |
+| **Timestamp maintenance NORA-MW2-CLOSURE-TRUTH-SYNC-01** | 2026-09-02 13:14:00 CEST — **NORA MW2 CLOSURE / TRUTH-SYNC** · Morris closure GO **CONSUMED** · Cycle **14** · DOC · CRITICAL · MW2 **COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE** · Delivery PR **#456 MERGED** · CORR PR **#457 MERGED** · merge `7b12b377b76353f12e80df639d774a8dd6854ac6` · tree `6e065bbec410e0d30946a564f3040e6adb2020dc` · post-merge CI **`33621406965` SUCCESS** · Required Gate **PASS** · closure/truth-sync repository publication = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** · **NEXT = MW3 READINESS / REQUALIFICATION — NOT AUTHORIZED / NOT STARTED** · **ZERO REAL** |
+| **Timestamp maintenance NORA-MW1-POST-MERGE-CLOSURE-TRUTH-SYNC-01** | 2026-09-01 11:26:59 CEST — **NORA MW1 POST-MERGE CLOSURE / TRUTH-SYNC** · Morris closure GO **CONSUMED** · Cycle **14** · DOC · CRITICAL · origin/main `d09e21485343ce04703fb7a013b7ad84e5ab392c` · tree `2679810b4a8eaee6fcc9460dab43c123baecf327` · PR **#450** · deterministic PASS · REAL BOUNDARY PROVEN · REAL handoff `bcc607ae08bc419188505f91d6bbf7f947660671` · closure documentation = **PENDING PR INTEGRATION** · worktree `/Users/morris/Projects/sfia-workspace-nora-mw1-closure-truth-sync` · branch `docs/sfia-studio-nora-mw1-closure-truth-sync` |
+| **Timestamp maintenance NORA-MW1-CLOSURE-TRUTH-SYNC-CORR-01** | 2026-09-01 11:49:21 CEST — **NORA MW1 CLOSURE/TRUTH-SYNC CORR-01** · Morris correction GO **CONSUMED** · Cycle **14** · DOC · CRITICAL · BLK-MW1-CLOSURE-NEXT-GATE-ORDERING-01 **CLOSED** · EVID-MW1-CLOSURE-STALE-CLASSIFICATION-02 **CLOSED** · input handoff `de76d88ff12e3d2c427a6d7f31e5519cbaa129f3` · **CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF LOCAL MW1 CLOSURE/TRUTH-SYNC CORR-01** · **NEXT REPOSITORY LIFECYCLE GATE (after ChatGPT PASS) = DISTINCT MORRIS GO — MW1 CLOSURE/TRUTH-SYNC PROJECT GIT INTEGRATION** · **NEXT PRODUCT CAPABILITY GATE (after closure-doc integration + post-merge verified) = MW2 READINESS / REQUALIFICATION** · **MW2 = NOT AUTHORIZED / NOT STARTED** · **≠ project Git integration by this cycle** |
+| **Timestamp maintenance NORA-MW1-CLOSURE-TRUTH-SYNC-CORR-02** | 2026-09-01 12:02:26 CEST — **NORA MW1 CLOSURE/TRUTH-SYNC CORR-02** · Morris correction GO **CONSUMED** · bounded final stale cleanup · closure substance unchanged · BLK-MW1-CLOSURE-STALE-ACTIVE-RESIDUAL-03 **CLOSED** · **CURRENT REVIEW GATE = ChatGPT Critical Re-review CORR-02** · next repository lifecycle gate after PASS = Morris closure-doc Git integration GO · MW2 readiness only after integration/post-merge · MW2 NOT AUTHORIZED / NOT STARTED · **≠ project Git integration by this cycle** |
+| **Timestamp maintenance NORA-MW1-CLOSURE-TRUTH-SYNC-CORR-03** | 2026-09-01 12:18:49 CEST — **NORA MW1 CLOSURE/TRUTH-SYNC CORR-03** · Morris correction GO **CONSUMED** · Cycle **14** · DOC · CRITICAL · BLK-MW1-CLOSURE-CURRENT-REVIEW-GATE-04 **CLOSED** (Roadmap active surfaces) · lifecycle pointer normalized to correction-independent wording · MW1 closure substance unchanged · review gate for this CORR-03 execution = ChatGPT Critical Re-review · next repository lifecycle gate after PASS = Morris closure-doc Git integration GO · MW2 readiness only after integration/post-merge · MW2 NOT AUTHORIZED / NOT STARTED · **≠ project Git integration by this cycle** |
+| **Timestamp maintenance historique NORA-MW0-OPTION-C-REGRESSION-PARITY-TRUTH-SYNC-01 (pre-MW1 closure truth-sync)** | *(historique tip · superseded as tip by NORA-MW1-POST-MERGE-CLOSURE-TRUTH-SYNC-01)* —  2026-08-31 02:35:29 CEST — **NORA MW0 OPTION C REGRESSION/PARITY POST-CRITICAL-REVIEW DOCUMENTARY TRUTH-SYNC** · Morris local documentary truth-sync GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · Cycle **14** · **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main` / PR evidence** · main project truth remains `7a5f1af7d89c7e2bf3d9faf598119ccc5482f22f` / tree `0d8fb2ce926c7018cfca368c668f730062a33a75` until future project Git integration of this local candidate · **MW0 OPTION C REGRESSION/PARITY = PASS WITH NON-BLOCKING RESERVES — DETERMINISTIC ONLY — CHATGPT CRITICAL REVIEW PASS** · evidence Review Handoff L3 `35a2b1ae17085af09e9e59bf9bb96ddf61e02e8c` · proof ceiling = **DETERMINISTIC ONLY** for applicable D0/offline claims + Option C single-Runner invariants · DETERMINISTIC PROVEN ≠ REAL BOUNDARY PROVEN ≠ END-TO-END REAL PROVEN · historical R1/R2/R3 = RETAINED / NOT RE-RUN / NOT UPGRADED · MW0-R01 = NOT_PROVEN / NON-BLOCKING · MW0-R02 = NOT_PROVEN / NON-BLOCKING · RESERVE-OPT-C-02 = OPEN / NON-BLOCKING · RESERVE-OPT-C-03 = OPEN / NON-BLOCKING · MW0 remains historically CLOSED · this Option C regression gate did **not** reopen or re-close MW0 · no new REAL MW0 campaign · main project truth remains `7a5f1af7d89c7e2bf3d9faf598119ccc5482f22f` / tree `0d8fb2ce926c7018cfca368c668f730062a33a75` until future project Git integration of this documentary candidate · L3 evidence ≠ main mutation · **OD-04 = CONSUMED / UNCHANGED** · **OD04-I01 = ACTIVE / UNCHANGED** · Option C TARGET **ADOPTED** · **MW1 NOT COMPLETE** · MW1 **not started by this DOC cycle** · MW1-S01/S02/S03 **not finally closed** · Responses compaction **CANDIDATE / NOT ADOPTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · MW2 **NOT STARTED** · **closure-doc repository lifecycle = LOCAL / UNCOMMITTED / NOT INTEGRATED** · **CURRENT REVIEW GATE = CHATGPT CRITICAL RE-REVIEW OF THE CURRENT LOCAL MW1 CLOSURE/TRUTH-SYNC CANDIDATE** · **NEXT REPOSITORY LIFECYCLE GATE (after ChatGPT PASS) = DISTINCT MORRIS GO — MW1 CLOSURE/TRUTH-SYNC PROJECT GIT INTEGRATION** · **NEXT PRODUCT CAPABILITY GATE (after closure-doc integration + post-merge verified) = MW2 READINESS / REQUALIFICATION** · **MW2 = NOT AUTHORIZED / NOT STARTED** · next capability after MW1 = **MW2 — COGNITIVE WORKLOAD PROFILE** · **≠** END-TO-END REAL PROVEN · **≠** Cognitive Completion PROVEN · **≠** runtime v3 ADOPTED · **≠** MW2 AUTHORIZED · **≠** architecture change · **≠** OD04-I01 change · **≠** C5 substantive backlog change · **≠** MW0 reopen · **≠** MW0-R01/R02 closed · **≠** RESERVE-OPT-C-02/03 closed · **≠** REAL parity PROVEN · **≠** MW1 completion · **≠** Responses Compaction adoption · **≠** runtime v3 adoption · **≠** project commit/push/PR/merge by this cycle · historical MW0/#442/#447/#448 anchors **PRESERVED** |
+| **Timestamp maintenance historique NORA-MW1-OPTION-C-POST-MERGE-TRUTH-SYNC-01 (pre-MW0 Option C regression truth-sync)** | *(historique tip · superseded as tip by NORA-MW0-OPTION-C-REGRESSION-PARITY-TRUTH-SYNC-01)* —  2026-08-31 00:36:44 CEST — **NORA MW1 OPTION C POST-MERGE TRUTH-SYNC** · Morris GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main` / PR evidence** · **Last verified Nora Option C implementation anchor** = PR **#447 MERGED** · head `0fdf06a518e2693f6d08fa16ddcc8fc821ce0f6b` · merge `127c6ecf5658e7f3954d94b2cef8269ab9eaf07e` · tree `cf88184cf8f036c671740cffffcc7ecdfb0953d1` · HEAD→MERGE tree parity **PROVEN** · post-merge CI **`33338927956` SUCCESS** · Required Gate **PASS** · source branch `delivery/sfia-studio-nora-mw1-option-c-migration` **PRESERVED** @ `0fdf06a5…` · **Option C implementation = INTEGRATED ON MAIN / POST-MERGE VERIFIED** · @openai/agents / Zod **INTEGRATED ON MAIN** as part of Option C · CORR-OPT-C-01…05 **CLOSED** · Runner/Fake convergence **CLOSED** · Nora legacy generic runtime retirement **CLOSED** · project Git integration **CLOSED / POST-MERGE VERIFIED** · **OD-04 = CONSUMED / UNCHANGED** · **OD04-I01 = ACTIVE / UNCHANGED** · Option C TARGET **ADOPTED** · **MW0 remains historically CLOSED** · **MW0 Option C regression/parity = NOT RUN** · **next structural gate = MW0 OPTION C REGRESSION / PARITY** *(parity ≠ MW0 reopen)* · **MW1 NOT COMPLETE** · MW1-S01/S02/S03 **not finally closed** · Responses compaction **CANDIDATE / NOT ADOPTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · MW2 **NOT STARTED** · **≠** architecture change · **≠** OD04-I01 change · **≠** C5 substantive backlog change · **≠** MW0 execution · **≠** MW1 completion · **≠** Responses Compaction adoption · **≠** runtime v3 adoption · **≠** project Git integration by this local documentary cycle *(local truth-sync only · distinct Morris Git-integration GO required after ChatGPT CRITICAL review)* · historical MW0/#442 anchors **PRESERVED** |
+| **Timestamp maintenance historique NORA-OD04-I01-DOC-02-R1-ROADMAP-ACTIVE-GATE-01 (pre-Option-C post-merge truth-sync)** | *(historique tip · superseded as tip by NORA-MW1-OPTION-C-POST-MERGE-TRUTH-SYNC-01 · later tip NORA-MW0-OPTION-C-REGRESSION-PARITY-TRUTH-SYNC-01)* — 2026-08-30 21:00:00 CEST — **NORA OD04-I01 DOC-02-R1 — ROADMAP ACTIVE-GATE RESIDUAL CLEANUP** · Morris CORR-OD04-I01-DOC-02-R1 GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **OD-04 / C5 / OD04-I01 UNCHANGED this R1** · Roadmap ACTIVE/CURRENT residual gates aligned · replaced stale ACTIVE/CURRENT *Delivery Requalification / Migration Plan* gate wording on Gates courants · Nora C1→C5 programme register · Morris trajectory NOW portion · with **MW1 OPTION C CORRECTION CYCLE ALIGNED WITH OD04-I01** · canonical sequence preserved · MW1 **NOT COMPLETE / NOT INTEGRATED** · MW0 **CLOSED** · MW2 **NOT STARTED** · Responses compaction **CANDIDATE / NOT ADOPTED** · **≠** new architecture · **≠** OD-04/C5 mutation · **≠** code · **≠** project commit |
+| **Timestamp maintenance historique NORA-OD04-I01-DOC-01-02-CORRECTION-01 (pre-DOC-02-R1)** | *(historique tip · superseded as tip by NORA-OD04-I01-DOC-02-R1-ROADMAP-ACTIVE-GATE-01)* — 2026-08-30 20:55:00 CEST — **NORA OD04-I01 DOC-01 + DOC-02 CORRECTIONS** · Morris correction GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **OD-04 DECISION UNCHANGED** · **OPTION C TARGET PRESERVED** · **OD04-I01 ACTIVE** · **DOC-01** Pilote = HD/Confirmation actor · Studio owns durable HD/Confirmation objects + authority model/enforcement · Nora = no authority · **DOC-02** canonical sequence = correction → Runner/Fake convergence → retire legacy loop → project Git integration → MW0 Option C parity → MW1 final proof/exit → MW2 · **next structural gate = MW1 OPTION C CORRECTION CYCLE ALIGNED WITH OD04-I01** · MW1 **NOT COMPLETE / NOT INTEGRATED** · MW0 **CLOSED** · MW2 **NOT STARTED** · Responses compaction **CANDIDATE / NOT ADOPTED** · **≠** new architecture · **≠** Product Completion reopen · **≠** Build Doctrine / v3 framing · **≠** code · **≠** project commit |
+| **Timestamp maintenance historique NORA-OD04-I01-BOUNDARY-TRUTH-01 (pre-DOC-01/02)** | *(historique tip · superseded as tip by NORA-OD04-I01-DOC-01-02-CORRECTION-01)* — 2026-08-30 20:45:00 CEST — **NORA OD04-I01 STUDIO↔NORA BOUNDARY TRUTH-SYNC** · Morris OD04-I01 GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **OD-04 DECISION UNCHANGED** · **OPTION C TARGET ADOPTION PRESERVED** · **OD04-I01 = ACTIVE** · Studio owns product/business/authority · Nora owns cognition · Pilote = generic runtime actor · Morris = construction/governance ≠ runtime persona · Session/model-input = cognitive context integrity ≠ business authorization · local MW1 Option C candidate = **LOCAL / UNCOMMITTED / CRITICAL-REVIEWED / NOT INTEGRATED** · **next structural gate = MW1 OPTION C CORRECTION CYCLE ALIGNED WITH OD04-I01** · legacy Nora generic loop retirement **before** MW0 Option C regression/parity once Runner/Fake convergence proven · MW0 remains **CLOSED** · MW1 **NOT COMPLETE / NOT INTEGRATED** · MW1-S01/S02/S03 semantics **UNCHANGED** · Responses compaction **CANDIDATE / NOT ADOPTED** · MW2 **NOT STARTED** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · **≠** new architecture · **≠** Product Completion reopen · **≠** Build Doctrine / v3 framing mutation · **≠** code/package · **≠** project commit |
+| **Timestamp maintenance historique NORA-OD04-CORR-OD04-DOC-01-ROADMAP-CURRENT-TRUTH-01 (pre-OD04-I01)** | *(historique tip · superseded as tip by NORA-OD04-I01-BOUNDARY-TRUTH-01)* — 2026-08-30 16:49:35 CEST — **NORA OD-04 CORR-OD04-DOC-01 — ROADMAP CURRENT-TRUTH COHERENCE** · Morris CORR-OD04-DOC-01 GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **OD-04 DECISION UNCHANGED** · **OPTION C TARGET ADOPTION PRESERVED** · Roadmap CURRENT Snapshot / trajectory / gates / Anti-claims Nora portion corrected · TARGET ADOPTED **≠** product package/runtime implementation INTEGRATED · pre-OD04 active anti-claims removed from CURRENT surfaces · retained as **HISTORICAL PRE-OD04** · MW0 REGRESSION / PARITY ON OPTION C recorded in `07-…architecture-decision.md` · MW0 remains **CLOSED** · C4/C5 **UNCHANGED** this CORR · **≠** functional requalification · **≠** code · **≠** REAL · **≠** package mutation · **≠** Responses compaction adopted · **≠** MW2 · **≠** Cognitive Completion PROVEN · **≠** runtime v3 ADOPTED · **≠** project commit |
+| **Timestamp maintenance historique NORA-OD04-OPTION-C-ARCHITECTURE-DECISION-01 (pre-CORR-OD04-DOC-01)** | *(historique tip · superseded as tip by NORA-OD04-CORR-OD04-DOC-01-ROADMAP-CURRENT-TRUTH-01)* — 2026-08-30 16:39:09 CEST — **NORA OD-04 OPTION C ARCHITECTURE DECISION + MW1 TRAJECTORY TRUTH-SYNC** · Morris OD-04 GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main` / PR evidence** · **Last verified Nora/MW0 integration anchor** = PR **#442 MERGED** · head `67a00238…` · merge `99ae9fe3…` · tree `5d7b386c…` · post-merge CI **`33292834920` SUCCESS** · Required Gate **PASS** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** · **NORA-FIRST PRESERVED** · **MW0 = CLOSED / INTEGRATED / POST-MERGE VERIFIED** · **MW0 EXIT = PROVEN WITH NON-BLOCKING RESERVES** · **OD-03 = BUILD / CONSUMED** · **OD-04 = CONSUMED** · **OPTION C HYBRID OPENAI COGNITIVE RUNTIME = ADOPTED AS NORA TARGET ARCHITECTURE** · decision record `projects/sfia-studio/nora-cognitive-completion/07-nora-openai-cognitive-runtime-architecture-decision.md` · **Agents SDK Runner = TARGET ADOPTED** · **custom Product SQLite Session = TARGET ADOPTED** · **Session/model-input policy = TARGET BOUNDARY PATTERN** · **Responses compaction = CANDIDATE / NOT ADOPTED** · product @openai/agents / Zod dependency integration **NOT YET INTEGRATED** · runtime implementation migration **NOT YET INTEGRATED** · OpenAI HITL **≠** HD/Confirmation · Trace **≠** Evidence · server-managed Truth C **FORBIDDEN** · **MW1 = MEMORY B + COMPACTION** · **MW1 Readiness = PASS / VALIDATED BY MORRIS** · **MW1 Delivery = AUTHORIZED EARLIER BY MORRIS** · **LOCAL MW1 CANDIDATE EXISTS** · **MW1 NOT COMPLETE / NOT INTEGRATED** · **CURRENT IMPLEMENTATION REQUALIFICATION REQUIRED AGAINST OPTION C** · Baseline A **PRESERVED / TEMPORARY / NOT TARGET ARCHITECTURE** · CORR-MW1-07/08 **SFIA remaining** · old CORR-MW1-09 **requalify under Session/input boundary** · **REAL-B = QUALIFIED CANDIDATE / DEFERRED / PRESERVED / NOT AUTHORIZED / NOT STARTED** · OD-07 **CONSUMED** · OD-02 **CONSUMED — OPTION B** · OD-05/06/08 **OPEN** · FinOps/T7 **FREEZE** · C6 **CLOSED / DO NOT REOPEN** · Product Completion **COMPLETE / CLOSED BY MORRIS** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · **next structural gate = MW1 OPTION C CORRECTION CYCLE ALIGNED WITH OD04-I01** · **next capability after successful MW1 = MW2 — COGNITIVE WORKLOAD PROFILE** · **≠** package adoption commit · **≠** code migration by this cycle · **≠** Responses compaction adopted · **≠** HITL as HD · **≠** Trace as Evidence · **≠** Cognitive Completion PROVEN · **≠** runtime v3 ADOPTED · **≠** MW2 started · **≠** embed local candidate branch/HEAD as permanent repository truth |
+| **Timestamp maintenance historique NORA-MW1-READINESS-OD03-TRUTH-SYNC-01 (pre-OD-04 Option C)** | *(historique · superseded as tip by NORA-OD04-OPTION-C-ARCHITECTURE-DECISION-01)* — 2026-08-30 11:46:22 CEST — **NORA MW1 READINESS + OD-03 GOVERNANCE ROADMAP TRUTH-SYNC** · Morris truth-sync GO **CONSUMED** · typology **DOC** · profile **CRITICAL** · **CURRENT REPOSITORY TRUTH** = **RESOLVE FROM GIT / `origin/main` / PR evidence** · **Last verified Nora/MW0 integration anchor** = PR **#442 MERGED** · head `67a0023892b7daac7e1e6f5d5f36c611b3275091` · merge `99ae9fe372e60d4263318df265d8f13fbf218de8` · tree `5d7b386cd9fc253ba682d0d55520556c3d737b05` · post-merge CI **`33292834920` SUCCESS** · Required Gate **PASS** · prior Roadmap post-merge truth-sync PR **#443 MERGED** · merge `a537b8b564b9293155762881b3f41e4c6d4e3388` · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** · **NORA-FIRST PRESERVED** · **MW0 = CLOSED / INTEGRATED / POST-MERGE VERIFIED** · **MW0 EXIT = PROVEN WITH NON-BLOCKING RESERVES** · **MW0-R01 = NOT_PROVEN / NON-BLOCKING** · **MW0-R02 = NOT_PROVEN / NON-BLOCKING** · **CORR-MW0-05/06/07/08 = CLOSED** · **MW1 = MEMORY B + COMPACTION** · **MW1 Readiness = PASS / VALIDATED BY MORRIS** · **MW1 = READY FOR DISTINCT DELIVERY GATE** · **MW1 = NOT STARTED** · **MW1 Delivery = NOT AUTHORIZED** · MW1 functional source-lock **MW1-S01 / MW1-S02 / MW1-S03** · **OD-03 = BUILD / CONSUMED** · **MW1 architecture = ADAPT-FIRST** · **NO FA REQUIRED** · **NO TA CURRENTLY REQUIRED** · **TA TRIGGER CANDIDATE** · Architecture **NOT SELECTED** · Technology **NOT ADOPTED** · **Sessions = NOT SELECTED / NOT ADOPTED** · **Agents SDK = NOT SELECTED / NOT ADOPTED** · **New persistence / vector store / memory backbone = NOT SELECTED / NOT ADOPTED** · Production model routing **NOT SELECTED** · **REAL-B = QUALIFIED CANDIDATE / DEFERRED / PRESERVED / NOT AUTHORIZED / NOT STARTED** · OD-07 **CONSUMED** · OD-02/04/05/06/08 **OPEN** · FinOps/T7 **FREEZE** · C6 **CLOSED / DO NOT REOPEN** · Product Completion **COMPLETE / CLOSED BY MORRIS** · Cognitive Completion **NOT PROVEN** · runtime v3 **NON ADOPTED** · **next structural gate = DISTINCT MORRIS GO — MW1 DELIVERY** · **next capability after MW1 = MW2 — COGNITIVE WORKLOAD PROFILE** · **≠** MW1 Delivery authorized · **≠** MW1 started · **≠** MW1 BUILD started · **≠** Sessions selected · **≠** Agents SDK selected · **≠** persistence selected · **≠** TA REQUIRED · **≠** architecture selected · **≠** technology adopted · **≠** REAL-B AUTHORIZED · **≠** Cognitive Completion PROVEN · **≠** runtime v3 ADOPTED · **≠** embed local candidate branch/HEAD as permanent repository truth |
 ```
 
 ---
 
-## 8. Complete exploitable Product + capitalisation diff
+## 11. Complete exploitable diff (baseline → origin/main, projects/sfia-studio/)
 
 ```diff
-===== MODIFIED (git diff) =====
+diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts
+index 8271e0e9..58d72864 100644
+--- a/projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts
+@@ -678,17 +678,9 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () =>
+     if (!durableEc.ok) return;
+     let contract = durableEc.contract;
+     expect(contract.action).toBe(M4_BOUNDED_DOCS_WRITE_ACTION);
+-    expect(contract.evidenceRequirements).toEqual(
+-      expect.arrayContaining([
+-        "git:local_commit",
+-        "git:remote_push",
+-        "git:pull_request",
+-        "git:ci_status",
+-        "git:review_status",
+-        "git:merge",
+-        "git:post_merge_verification",
+-      ]),
+-    );
++    // R4 — bounded docs_write rematerializes EvidenceRequirements to artifact-only
++    // (sandbox target must not inherit contradictory Git lifecycle ERs).
++    expect(contract.evidenceRequirements).toEqual(["evreq:docs_write_artifact"]);
+
+     const execAuth = registerLocalPiloteAuthority({
+       authorityResolver: oa.authorityResolver,
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-contract/checkpointE.docsWriteEvidenceCoherence.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-contract/checkpointE.docsWriteEvidenceCoherence.d0.test.ts
+new file mode 100644
+index 00000000..bcca3183
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-contract/checkpointE.docsWriteEvidenceCoherence.d0.test.ts
+@@ -0,0 +1,171 @@
++/**
++ * CHECKPOINT-E R4 — docs_write evidenceRequirements semantic coherence.
++ * Bounded NO_* profile must not demand Git lifecycle proofs.
++ */
++
++import { describe, expect, it } from "vitest";
++import {
++  BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS,
++  BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS,
++  docsWriteConstraintsForbidGitLifecycle,
++  docsWriteEvidenceContradictsConstraints,
++  isGitLifecycleEvidenceRequirement,
++  resolveDocsWriteEvidenceRequirementsForBoundedProfile,
++  boundedDocsWriteM3ResolutionProfile,
++} from "@/features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile";
++import { isDocsWriteEvidenceContradictionView } from "@/features/project-assistant/f3/docsWriteEvidenceContradictionView";
++import { deriveExecutableEffectsFromContractRequirements } from "@/lib/oa/execution-attempt/domain/contractEffectClassification";
++import { qualifyExecutionContractCompletion } from "@/lib/oa/execution-attempt/domain/qualifyExecutionContractCompletion";
++import { isOaIdentifier } from "@/lib/oa/execution-contract/domain/invariants";
++
++const NO_GIT_CONSTRAINTS = [
++  "BOUNDED DOCS-WRITE",
++  "NO_COMMIT",
++  "NO_GIT_REMOTE",
++  "NO_PUSH",
++  "NO_PR",
++  "NO_MERGE",
++] as const;
++
++describe("CHECKPOINT-E R4 — docs_write evidence contract coherence", () => {
++  it("T1 — Git lifecycle set contradicts NO_* constraints (semantic invalid)", () => {
++    expect(
++      docsWriteEvidenceContradictsConstraints({
++        evidenceRequirements: [
++          ...BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS,
++        ],
++        constraints: NO_GIT_CONSTRAINTS,
++      }),
++    ).toBe(true);
++    expect(
++      isDocsWriteEvidenceContradictionView({
++        action: "cursor.docs_write.apply",
++        target: "workspace.isolated.docs_write",
++        constraints: NO_GIT_CONSTRAINTS,
++        evidenceRequirements: [
++          ...BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS,
++        ],
++      }),
++    ).toBe(true);
++  });
++
++  it("T2 — corrected local set is OA-valid and coherent with NO_*", () => {
++    const local = resolveDocsWriteEvidenceRequirementsForBoundedProfile({
++      fromPrepare: [...BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS],
++      constraints: NO_GIT_CONSTRAINTS,
++    });
++    expect(local).toEqual([
++      ...BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS,
++    ]);
++    for (const id of local) {
++      expect(isOaIdentifier(id)).toBe(true);
++      expect(isGitLifecycleEvidenceRequirement(id)).toBe(false);
++    }
++    expect(
++      docsWriteEvidenceContradictsConstraints({
++        evidenceRequirements: local,
++        constraints: NO_GIT_CONSTRAINTS,
++      }),
++    ).toBe(false);
++  });
++
++  it("T3 — no retained requirement demands a forbidden Git effect", () => {
++    const profile = boundedDocsWriteM3ResolutionProfile();
++    expect(docsWriteConstraintsForbidGitLifecycle(profile.constraints!)).toBe(
++      true,
++    );
++    const reqs = resolveDocsWriteEvidenceRequirementsForBoundedProfile({
++      fromPrepare: [],
++      constraints: profile.constraints!,
++    });
++    const classified = deriveExecutableEffectsFromContractRequirements({
++      evidenceRequirements: reqs,
++      requiredCapabilities: profile.requiredCapabilities,
++    });
++    expect(classified.executableEffects).not.toContain("git.commit");
++    expect(classified.executableEffects).not.toContain("git.push");
++    expect(classified.executableEffects).not.toContain("github.pr.create");
++    expect(classified.executableEffects).not.toContain("github.pr.merge");
++    expect(classified.verificationObligations).toEqual([]);
++    expect(classified.executableEffects).toContain("filesystem.create");
++  });
++
++  it("T4 — local requirement is satisfiable by docs_write artifact Evidence", () => {
++    const reqs = [...BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS];
++    const qualification = qualifyExecutionContractCompletion({
++      contract: {
++        executionContractId: "xct:m3-res:test-r4",
++        projectId: "prj:r4",
++        cycleInstanceId: "cyc:r4",
++        evidenceRequirements: reqs,
++        requiredCapabilities: ["cap:cursor.docs_write"],
++      },
++      evidence: [
++        {
++          evidenceId: "ev:docs-write:test",
++          type: "artifact",
++          status: "verified",
++          source: "execution_attempt:docs_write",
++          bindings: {
++            projectId: "prj:r4",
++            cycleInstanceId: "cyc:r4",
++            executionContractId: "xct:m3-res:test-r4",
++            executionAttemptId: "att:test",
++          },
++        } as never,
++      ],
++    });
++    expect(qualification.complete).toBe(true);
++    expect(qualification.remainingRequiredEffects).toEqual([]);
++  });
++
++  it("T5/T6 — OA identifier validation holds for local set", () => {
++    for (const id of BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS) {
++      expect(isOaIdentifier(id)).toBe(true);
++    }
++  });
++
++  it("T7 — applicable non-Git OA IDs from PREPARE are preserved under NO_*", () => {
++    const kept = resolveDocsWriteEvidenceRequirementsForBoundedProfile({
++      fromPrepare: ["evreq:file-write-result", "evreq:content-verification"],
++      constraints: NO_GIT_CONSTRAINTS,
++    });
++    expect(kept).toEqual([
++      "evreq:file-write-result",
++      "evreq:content-verification",
++    ]);
++  });
++
++  it("T8 — Git lifecycle set preserved when constraints do NOT forbid Git", () => {
++    const kept = resolveDocsWriteEvidenceRequirementsForBoundedProfile({
++      fromPrepare: [...BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS],
++      constraints: ["BOUNDED DOCS-WRITE", "PATH_ALLOWLIST_ONLY"],
++    });
++    expect(kept).toEqual([
++      ...BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS,
++    ]);
++    expect(
++      docsWriteEvidenceContradictsConstraints({
++        evidenceRequirements: kept,
++        constraints: ["BOUNDED DOCS-WRITE"],
++      }),
++    ).toBe(false);
++  });
++
++  it("T8b — empty prepare + Git-allowed constraints falls back to Git set", () => {
++    const kept = resolveDocsWriteEvidenceRequirementsForBoundedProfile({
++      fromPrepare: [],
++      constraints: ["BOUNDED DOCS-WRITE"],
++    });
++    expect(kept).toEqual([
++      ...BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS,
++    ]);
++  });
++
++  it("profile ships local evidenceRequirements by default", () => {
++    const profile = boundedDocsWriteM3ResolutionProfile();
++    expect(profile.evidenceRequirements).toEqual([
++      ...BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS,
++    ]);
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-contract/checkpointE.docsWriteEvidenceRematerialize.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-contract/checkpointE.docsWriteEvidenceRematerialize.d0.test.ts
+new file mode 100644
+index 00000000..8d660754
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/oa/execution-contract/checkpointE.docsWriteEvidenceRematerialize.d0.test.ts
+@@ -0,0 +1,179 @@
++/**
++ * CHECKPOINT-E R4 T9 — rematerialize docs_write evidenceRequirements via OA supersession.
++ * @vitest-environment node
++ */
++import path from "node:path";
++import os from "node:os";
++import { mkdtempSync } from "node:fs";
++import { afterEach, describe, expect, it } from "vitest";
++import {
++  getRuntimeApplicationService,
++  resetRuntimeApplicationServiceForTests,
++} from "@/lib/vertical-slice-runtime";
++import type { LocalProjectIdSource } from "@/lib/vertical-slice-core";
++import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
++import { rematerializeDocsWriteEvidenceRequirements } from "@/features/project-assistant/f3/rematerializeDocsWriteEvidenceRequirements";
++import {
++  BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS,
++  BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS,
++} from "@/features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile";
++import {
++  LOCAL_PILOTE_ACTOR,
++  registerLocalPiloteAuthority,
++} from "@/lib/oa/decision";
++
++const APP_ROOT = path.resolve(__dirname, "../../..");
++const REGISTRY_ROOT = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
++const SCHEMAS_ROOT = path.resolve(
++  APP_ROOT,
++  "../sfia-v3-modeled/v3-native-option-a/schemas",
++);
++
++class FixedIdSource implements LocalProjectIdSource {
++  private n = 0;
++  constructor(private readonly prefix: string) {}
++  nextProjectId(): string {
++    this.n += 1;
++    return `prj:r4-${this.prefix}-${this.n}`;
++  }
++  nextLpsVersionId(): string {
++    this.n += 1;
++    return `lps:r4-${this.prefix}-${this.n}`;
++  }
++  nextCorrelationId(): string {
++    this.n += 1;
++    return `cor:r4-${this.prefix}-${this.n}`;
++  }
++}
++
++afterEach(() => {
++  resetRuntimeApplicationServiceForTests();
++});
++
++describe("CHECKPOINT-E R4 T9 — rematerialize evidenceRequirements", () => {
++  it("material evidenceRequirements change invalidates prior inspection", async () => {
++    resetRuntimeApplicationServiceForTests();
++    const dir = mkdtempSync(path.join(os.tmpdir(), "sfia-r4-remat-"));
++    const runtime = getRuntimeApplicationService({
++      registryRoot: REGISTRY_ROOT,
++      schemasRoot: SCHEMAS_ROOT,
++      nowIso: "2026-09-17T21:00:00.000Z",
++      idSource: new FixedIdSource("ev"),
++      auditMode: "noop",
++      productDbPath: path.join(dir, "oa-product.sqlite"),
++    });
++    const oa = runtime.oa!;
++    const created = await runtime.createProject({
++      name: "R4 rematerialize",
++      objective: "docs_write evidence coherence",
++      context: "r4",
++      criticality: "STANDARD",
++      constraints: ["FIXTURE ONLY"],
++      shortReference: "R4EV",
++      idempotencyKey: `r4-ev-${Date.now()}`,
++    });
++    expect(created.ok).toBe(true);
++    if (!created.ok) return;
++    const projectId = created.project.projectId;
++
++    const authority = registerLocalPiloteAuthority({
++      authorityResolver: oa.authorityResolver,
++      scope: "studio.gcec.docs_write",
++      issuedAt: oa.clock.nowIso(),
++      evidenceId: "evd:r4-remat-build",
++      forceEnable: true,
++    });
++    expect(authority.ok).toBe(true);
++    if (!authority.ok) return;
++
++    const built =
++      await oa.executionContractServices.buildExecutionContract.execute({
++        executionContractId: "xct:m3-res:r4-ev-contradiction",
++        projectId,
++        decisionRefs: [],
++        action: "cursor.docs_write.apply",
++        target: "workspace.isolated.docs_write",
++        scope: "studio.gcec.docs_write",
++        requiredCapabilities: ["cap:cursor.docs_write"],
++        requiredAuthority: "MORRIS",
++        constraints: [
++          "BOUNDED DOCS-WRITE",
++          "NO_COMMIT",
++          "NO_GIT_REMOTE",
++          "NO_PUSH",
++          "NO_PR",
++          "NO_MERGE",
++        ],
++        stopConditions: ["AUTHORITY_DENIED"],
++        evidenceRequirements: [
++          ...BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS,
++        ],
++        reversibility: "reversible",
++        idempotencyKey: "idem:r4-ev-contradiction",
++        correlationId: "cor:r4-ev-contradiction",
++        actor: LOCAL_PILOTE_ACTOR,
++        authorityEvidenceId: authority.evidenceId,
++        inputs: {
++          targetPath:
++            "projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md",
++          targetRepositoryRef: "mcleland147/sfia-workspace",
++          scopeIn: ["projects/sfia-studio/.sandbox"],
++        },
++      });
++    expect(built.ok).toBe(true);
++    if (!built.ok) return;
++
++    const validated =
++      await oa.executionContractServices.validateExecutionContract.execute({
++        executionContractId: built.contract.executionContractId,
++        actor: LOCAL_PILOTE_ACTOR,
++        authorityEvidenceId: authority.evidenceId,
++      });
++    expect(validated.ok).toBe(true);
++    if (!validated.ok) return;
++    expect(validated.contract.status).toBe("confirmation_required");
++
++    const inspected = await inspectExecutionContract({
++      oa,
++      projectId,
++      executionContractId: validated.contract.executionContractId,
++    });
++    expect(inspected.ok).toBe(true);
++    if (!inspected.ok) return;
++    expect(inspected.inspectionSufficient).toBe(true);
++    const priorFp = validated.contract.semanticFingerprint;
++
++    const rematerialized = await rematerializeDocsWriteEvidenceRequirements({
++      oa,
++      projectId,
++      executionContractId: validated.contract.executionContractId,
++      forceLocalAuthority: true,
++    });
++    expect(rematerialized.ok).toBe(true);
++    if (!rematerialized.ok) return;
++    expect(rematerialized.evidenceRequirements).toEqual([
++      ...BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS,
++    ]);
++    expect(rematerialized.successor.evidenceRequirements).toEqual([
++      ...BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS,
++    ]);
++    expect(rematerialized.priorInspectionDoesNotCoverSuccessor).toBe(true);
++    expect(rematerialized.reinspectionRequired).toBe(true);
++    expect(rematerialized.successorInspection.inspectionSufficient).toBe(
++      false,
++    );
++    expect(rematerialized.successor.semanticFingerprint).not.toBe(priorFp);
++    expect(rematerialized.executionPerformed).toBe(false);
++    expect(rematerialized.attemptCreated).toBe(false);
++    expect(rematerialized.confirmationGranted).toBe(false);
++    expect(rematerialized.authorityGranted).toBe(false);
++
++    const priorAfter =
++      await oa.executionContractServices.getExecutionContract.execute({
++        executionContractId: validated.contract.executionContractId,
++      });
++    expect(priorAfter.ok).toBe(true);
++    if (!priorAfter.ok) return;
++    expect(priorAfter.contract.status).toBe("superseded");
++  });
++});
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-contract/m3ExecutionContractPrepare.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-contract/m3ExecutionContractPrepare.test.ts
 index 7406435e..90b51d7c 100644
 --- a/projects/sfia-studio/app/__tests__/oa/execution-contract/m3ExecutionContractPrepare.test.ts
@@ -837,2019 +1351,6 @@ index c5be33db..71e40913 100644
    it("labels Options and Recommendation distinctly and never auto-decides", async () => {
      proposeMock.mockResolvedValue({
        ok: true,
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/corrProof10.decisionContextContinuity.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/corrProof10.decisionContextContinuity.d0.test.ts
-index 2d455172..00e1b592 100644
---- a/projects/sfia-studio/app/__tests__/project-assistant/corrProof10.decisionContextContinuity.d0.test.ts
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/corrProof10.decisionContextContinuity.d0.test.ts
-@@ -1349,7 +1349,11 @@ describe("CORR-PROOF-10 Post-binding Continuity R31–R48", () => {
-     );
-     expect(read.ok).toBe(true);
-     if (!read.ok) return;
--    expect(read.kind).toBe("none");
-+    expect(read.kind).toBe("pursue_prepare_ready");
-+    if (read.kind !== "pursue_prepare_ready") return;
-+    expect(read.decision.decisionId).toBe(decided.decision.decisionId);
-+    expect(read.decision.selectedOptionRef).toBe(PROPOSAL_SUBJECT_PURSUE_REF);
-+    expect(read.decision.proposalId).toBe(proposal.proposalId);
-
-     const second = await decideTrajectory({
-       oa: runtime.oa!,
-@@ -1744,7 +1748,11 @@ describe("CORR-PROOF-10 Atomic Subject Closure R49–R68", () => {
-     );
-     expect(read.ok).toBe(true);
-     if (!read.ok) return;
--    expect(read.kind).toBe("none");
-+    expect(read.kind).toBe("pursue_prepare_ready");
-+    if (read.kind !== "pursue_prepare_ready") return;
-+    expect(read.decision.decisionId).toBe(firstId);
-+    expect(read.decision.selectedOptionRef).toBe(PROPOSAL_SUBJECT_PURSUE_REF);
-+    expect(read.decision.proposalId).toBe(proposal.proposalId);
-
-     const histBefore =
-       await runtime.oa!.decisionServices.listDecisionHistory.execute({
-@@ -2052,13 +2060,15 @@ describe("CORR-PROOF-10 Crash-Consistency R69–R86", () => {
-     );
-     expect(read.ok).toBe(true);
-     if (!read.ok) return;
--    expect(read.kind).toBe("none");
-+    expect(read.kind).toBe("pursue_prepare_ready");
-+    if (read.kind !== "pursue_prepare_ready") return;
-+    expect(read.decision.decisionId).toBe(decided.decision.decisionId);
-
-     const afterPt = await snapshotTrajectories(runtime.oa!, projectId);
-     expect(afterPt.fingerprint).toBe(beforePt.fingerprint);
-   });
-
--  it("R70 — generic ProjectTrajectory accessible after closed stale marker", async () => {
-+  it("R70 — after pursue closure without EC, PREPARE continuation owns next action (no competing trajectory instruct)", async () => {
-     const { projectId, cycleInstanceId, ctx } = await seed("r70");
-     const proposal = docsWriteProposal({
-       projectId,
-@@ -2080,20 +2090,31 @@ describe("CORR-PROOF-10 Crash-Consistency R69–R86", () => {
-       forceLocalAuthority: true,
-     });
-     expect(decided.ok).toBe(true);
-+    if (!decided.ok) return;
-     await reactivateStalePendingMarker(proposal);
-     resetF2ProposalStoreForTests();
-
-     const before = await snapshotTrajectories(runtime.oa!, projectId);
-     const traj = await proposeW2OptionsForProject(runtime, projectId);
--    expect(traj.ok).toBe(true);
--    if (!traj.ok) return;
--    expect(traj.decisionSubjectMode).toBe("project_trajectory");
--    expect(traj.proposedTrajectory).not.toBeNull();
--    expect(
--      traj.options.some((o) => o.optionRef === GOVERNED_OPTION_REF),
--    ).toBe(true);
-+    expect(traj.ok).toBe(false);
-+    if (traj.ok) return;
-+    expect(traj.code).toBe("PREPARE_CONTINUATION_OWNS_NEXT_ACTION");
-+
-+    const { readActiveProposalDecisionSubject } = await import(
-+      "@/features/project-assistant/w2/activeProposalDecisionSubject"
-+    );
-+    const read = await readActiveProposalDecisionSubject(
-+      runtime.oa!,
-+      projectId,
-+    );
-+    expect(read.ok).toBe(true);
-+    if (!read.ok) return;
-+    expect(read.kind).toBe("pursue_prepare_ready");
-+    if (read.kind !== "pursue_prepare_ready") return;
-+    expect(read.decision.decisionId).toBe(decided.decision.decisionId);
-+
-     const after = await snapshotTrajectories(runtime.oa!, projectId);
--    expect(after.count).toBeGreaterThan(before.count);
-+    expect(after.fingerprint).toBe(before.fingerprint);
-   });
-
-   it("R71/R72 — closed A + stale A does not neutralize pending B", async () => {
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-index 3ac63c8d..3cda6518 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-@@ -22,6 +22,7 @@ import {
-   projectAssistantResolveLegacyM3DocsWriteAction,
- } from "@/features/project-assistant/actions";
- import { isLegacyDocsWritePrepareContractView } from "@/features/project-assistant/f3/legacyDocsWritePrepareContractView";
-+import { isDocsWriteEvidenceContradictionView } from "@/features/project-assistant/f3/docsWriteEvidenceContradictionView";
- import {
-   w2AmendExecutionContractAction,
-   w2AuthorizeExecutionContractAction,
-@@ -34,11 +35,17 @@ import {
-   w2InspectExecutionContractAction,
-   w2MaterializeProductOutcomeAction,
-   w2PrepareExecutionContractAction,
-+  w2PrepareRecoveryDocsWriteAction,
-   w2ProposeTrajectoryOptionsAction,
-   w2ReadActiveDecisionSubjectAction,
-   w2ReadCurrentGovernedExecutionContinuityAction,
-+  w2ReadRecoveryExecutionBindingAction,
-   w2RehydrateProductOutcomeAction,
-+  w2RematerializeDocsWriteEvidenceAction,
- } from "@/features/project-assistant/w2/actions";
-+import { GOVERNED_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
-+import type { RecoveryExecutionBinding } from "@/features/project-assistant/w2/resolveRecoveryExecutionBinding";
-+import { isWrongGenericPreExecReplaceableByRecoveryPrepare } from "@/features/project-assistant/w2/recoveryReplaceableCurrentContract";
- import {
-   projectAssistantApprovePreCycleCandidateTrajectoryAction,
-   projectAssistantReadCandidateTrajectoryApprovalPresentationAction,
-@@ -343,6 +350,8 @@ export function TrajectorySurface({
-   const [productEvidencePending, setProductEvidencePending] = useState(false);
-   const [qualifiedOperationKind, setQualifiedOperationKind] =
-     useState<QualifiedOperationKind | null>(null);
-+  const [recoveryBinding, setRecoveryBinding] =
-+    useState<RecoveryExecutionBinding | null>(null);
-
-   /**
-    * Continuity pass generation — invalidates in-flight subject/EC reads when a
-@@ -374,6 +383,30 @@ export function TrajectorySurface({
-     proposalPursue && decision?.decisionBasisLinked === true;
-   const proposalBackedPrepareBlocked =
-     proposalPursue && decision?.decisionBasisLinked !== true;
-+  /** R10 — client decision id OR durable continuity decisionRef after restart. */
-+  const recoveryDecisionId =
-+    decision?.decisionId ?? continuityDecisionRef ?? null;
-+  const recoveryDocsWritePrepareReady = Boolean(
-+    !decisionDefersExecution &&
-+      !hasProposalDecisionSubject &&
-+      (decision == null ||
-+        decision.selectedOptionRef === GOVERNED_OPTION_REF) &&
-+      recoveryBinding &&
-+      recoveryBinding.kind === "post_evidence_recovery_execution",
-+  );
-+  const wrongGenericReplaceableByRecoveryPrepare =
-+    isWrongGenericPreExecReplaceableByRecoveryPrepare({
-+      recoveryBinding,
-+      currentContract: contract,
-+      continuityDecisionRef,
-+      recoveryDecisionId,
-+      attemptPresent: Boolean(attempt?.attemptId),
-+    });
-+  const showRecoveryDocsWritePrepare = Boolean(
-+    recoveryDocsWritePrepareReady &&
-+      recoveryBinding &&
-+      (!contract || wrongGenericReplaceableByRecoveryPrepare),
-+  );
-   const rematerializeDecisionId =
-     decision?.decisionId ?? continuityDecisionRef ?? null;
-   const legacyDocsWriteRematerializeReady = Boolean(
-@@ -390,6 +423,18 @@ export function TrajectorySurface({
-         requiredCapabilities: contract.requiredCapabilities,
-       }),
-   );
-+  const docsWriteEvidenceRematerializeReady = Boolean(
-+    !decisionDefersExecution &&
-+      !legacyDocsWriteRematerializeReady &&
-+      contract &&
-+      isDocsWriteEvidenceContradictionView({
-+        action: contract.action,
-+        target: contract.target,
-+        constraints: contract.constraints,
-+        evidenceRequirements:
-+          contract.inspectionDisclosure?.evidenceRequirements ?? [],
-+      }),
-+  );
-
-   function paintAttemptPhase(
-     phase: GovernedExecutePhaseSuccess["phase"],
-@@ -483,10 +528,21 @@ export function TrajectorySurface({
-       setSubjectReadStatus("ready");
-       return;
-     }
-+    if (result.kind === "pursue_prepare_ready") {
-+      // Restart resume: durable pursue HD owns PREPARE — no OptionSet, no reinstruction.
-+      setOptionSet(null);
-+      setPendingReinstruction(null);
-+      setDecision(result.decision);
-+      setDecided(null);
-+      setError(null);
-+      setSubjectReadStatus("ready");
-+      return;
-+    }
-     setPendingReinstruction(null);
-     // kind === "none" — authoritative Proposal Decision Subject absence.
-     // Clear stale Proposal-backed OptionSet; preserve generic ProjectTrajectory
--    // OptionSet. Do NOT clear HumanDecision / decided / EC state here.
-+    // OptionSet. Do NOT clear HumanDecision / decided / EC state here —
-+    // except when no prepare-ready continuation either (decision may be stale session).
-     setOptionSet((current) => {
-       if (!current) return null;
-       const proposalBacked =
-@@ -814,6 +870,49 @@ export function TrajectorySurface({
-     ],
-   );
-
-+  // R8/R10 — RecoveryExecutionBinding: decision client OR continuityDecisionRef
-+  // after restart (server still validates HD / recovery coherence).
-+  useEffect(() => {
-+    let cancelled = false;
-+    async function loadBinding() {
-+      if (hasProposalDecisionSubject) {
-+        setRecoveryBinding(null);
-+        return;
-+      }
-+      if (
-+        decision &&
-+        decision.selectedOptionRef !== GOVERNED_OPTION_REF
-+      ) {
-+        setRecoveryBinding(null);
-+        return;
-+      }
-+      const decisionId = decision?.decisionId ?? continuityDecisionRef;
-+      if (!decisionId) {
-+        setRecoveryBinding(null);
-+        return;
-+      }
-+      const result = await w2ReadRecoveryExecutionBindingAction({
-+        projectId,
-+        decisionId,
-+      });
-+      if (cancelled) return;
-+      if (result.ok) {
-+        setRecoveryBinding(result.binding);
-+      } else {
-+        setRecoveryBinding(null);
-+      }
-+    }
-+    void loadBinding();
-+    return () => {
-+      cancelled = true;
-+    };
-+  }, [
-+    decision,
-+    continuityDecisionRef,
-+    hasProposalDecisionSubject,
-+    projectId,
-+  ]);
-+
-   const prepareContract = useCallback(async () => {
-     if (continuityMutationBlocked) return;
-     if (!decision || !qualifiedOperationKind) return;
-@@ -869,6 +968,58 @@ export function TrajectorySurface({
-     onDurableFactsChanged,
-   ]);
-
-+  /**
-+   * R8/R10 — recovery docs_write PREPARE from failed EC binding (no sandbox ops).
-+   * Uses recoveryDecisionId (client decision or continuityDecisionRef).
-+   */
-+  const prepareRecoveryDocsWriteContract = useCallback(async () => {
-+    if (continuityMutationBlocked) return;
-+    if (!recoveryDecisionId || !showRecoveryDocsWritePrepare) return;
-+    setBusy("contract");
-+    setError(null);
-+    const result = await w2PrepareRecoveryDocsWriteAction({
-+      projectId,
-+      decisionId: recoveryDecisionId,
-+    });
-+    setBusy(null);
-+    if (!result.ok) {
-+      setError(result.message);
-+      return;
-+    }
-+    const prepared = result.contract;
-+    setContract({
-+      executionContractId: prepared.executionContractId,
-+      version: prepared.version,
-+      status: prepared.status,
-+      action: prepared.action,
-+      target: prepared.target,
-+      scope: prepared.scope,
-+      requiredAuthority: prepared.requiredAuthority,
-+      constraints: [...prepared.constraints],
-+      stopConditions: [...prepared.stopConditions],
-+      requiredCapabilities: [...prepared.requiredCapabilities],
-+      reversibility: prepared.reversibility,
-+      semanticFingerprint: prepared.semanticFingerprint,
-+      inspectionDisclosure: toInspectionDisclosureView(
-+        prepared.inspectionDisclosure,
-+      ),
-+    });
-+    setInspection(null);
-+    setAuthorization(null);
-+    setAmendmentDraft("");
-+    setAmendmentNotice(null);
-+    setAttempt(null);
-+    setAttemptPhase(null);
-+    setAttemptStatusLabel(null);
-+    onDurableFactsChanged?.();
-+  }, [
-+    continuityMutationBlocked,
-+    recoveryDecisionId,
-+    projectId,
-+    showRecoveryDocsWritePrepare,
-+    onDurableFactsChanged,
-+  ]);
-+
-   /**
-    * JOURNEY-INTEGRITY / Lot A-B final — Proposal-backed PREPARE+RESOLVE.
-    *
-@@ -998,6 +1149,70 @@ export function TrajectorySurface({
-     onDurableFactsChanged,
-   ]);
-
-+  const rematerializeDocsWriteEvidenceContract = useCallback(async () => {
-+    if (continuityMutationBlocked) return;
-+    if (!contract) return;
-+    if (
-+      !isDocsWriteEvidenceContradictionView({
-+        action: contract.action,
-+        target: contract.target,
-+        constraints: contract.constraints,
-+        evidenceRequirements:
-+          contract.inspectionDisclosure?.evidenceRequirements ?? [],
-+      })
-+    ) {
-+      return;
-+    }
-+    setBusy("contract");
-+    setError(null);
-+    const result = await w2RematerializeDocsWriteEvidenceAction({
-+      projectId,
-+      executionContractId: contract.executionContractId,
-+    });
-+    setBusy(null);
-+    if (!result.ok) {
-+      setError(result.message);
-+      return;
-+    }
-+    const prepared = result.successor;
-+    setContract({
-+      executionContractId: prepared.executionContractId,
-+      version: prepared.version,
-+      status: prepared.status,
-+      action: prepared.action,
-+      target: prepared.target,
-+      scope: prepared.scope,
-+      requiredAuthority: prepared.requiredAuthority,
-+      constraints: [...prepared.constraints],
-+      stopConditions: [...prepared.stopConditions],
-+      requiredCapabilities: [...prepared.requiredCapabilities],
-+      reversibility: prepared.reversibility,
-+      semanticFingerprint: prepared.semanticFingerprint,
-+      inspectionDisclosure: toInspectionDisclosureView(
-+        prepared.inspectionDisclosure,
-+      ),
-+    });
-+    setInspection(null);
-+    setAuthorization(null);
-+    setAmendmentDraft("");
-+    setAmendmentNotice({
-+      priorExecutionContractId: result.priorExecutionContractId,
-+      additionalConstraint:
-+        "evidenceRequirements cohérents avec NO_* (sans lifecycle Git)",
-+      statusLabel: result.statusLabel,
-+      priorInspectionDoesNotCoverSuccessor: true,
-+    });
-+    setAttempt(null);
-+    setAttemptPhase(null);
-+    setAttemptStatusLabel(null);
-+    onDurableFactsChanged?.();
-+  }, [
-+    continuityMutationBlocked,
-+    contract,
-+    projectId,
-+    onDurableFactsChanged,
-+  ]);
-+
-   const inspect = useCallback(async () => {
-     if (continuityMutationBlocked) return;
-     if (!contract) return;
-@@ -1941,7 +2156,8 @@ export function TrajectorySurface({
-           ) : null}
-           {!decisionDefersExecution &&
-           !contract &&
--          !hasProposalDecisionSubject ? (
-+          !hasProposalDecisionSubject &&
-+          !recoveryDocsWritePrepareReady ? (
-           <div
-             className={styles.actions}
-             data-testid="w3a-qualify-execution-work"
-@@ -2008,6 +2224,59 @@ export function TrajectorySurface({
-         </section>
-       ) : null}
-
-+      {/* R10 — recovery CTA outside decision client state (restart: decision=null). */}
-+      {!decisionDefersExecution &&
-+      showRecoveryDocsWritePrepare &&
-+      recoveryBinding ? (
-+        <section
-+          className={styles.actions}
-+          data-testid="w2-recovery-docs-write-prepare"
-+        >
-+          <p
-+            className={styles.blockNote}
-+            data-testid="w2-recovery-docs-write-note"
-+          >
-+            Reprendre l&apos;écriture Markdown gouvernée après échec — cible
-+            déjà qualifiée. Préparez le contrat successor explicitement ; aucun
-+            Execute automatique.
-+          </p>
-+          {wrongGenericReplaceableByRecoveryPrepare && contract ? (
-+            <p
-+              className={styles.blockBody}
-+              data-testid="w2-recovery-replaceable-generic-note"
-+            >
-+              Un contrat générique pré-exécution existe pour cette décision (
-+              {contract.executionContractId}). La reprise recovery le remplacera
-+              uniquement si vous préparez explicitement le nouveau contrat —
-+              aucun remplacement automatique.
-+            </p>
-+          ) : null}
-+          <p
-+            className={styles.blockBody}
-+            data-testid="w2-recovery-docs-write-path"
-+          >
-+            Cible : {recoveryBinding.targetPath}
-+          </p>
-+          <p
-+            className={styles.blockBody}
-+            data-testid="w2-recovery-docs-write-source"
-+          >
-+            Source : Attempt {recoveryBinding.sourceAttemptId} (
-+            {recoveryBinding.recovery.productOutcome}) — EC{" "}
-+            {recoveryBinding.sourceExecutionContractId}
-+          </p>
-+          <button
-+            type="button"
-+            className={styles.primaryAction}
-+            data-testid="w2-prepare-recovery-docs-write"
-+            onClick={() => void prepareRecoveryDocsWriteContract()}
-+            disabled={busy !== null || continuityMutationBlocked}
-+          >
-+            Préparer le contrat d&apos;exécution (recovery docs_write)
-+          </button>
-+        </section>
-+      ) : null}
-+
-       {contract ? (
-         <section
-           className={styles.contract}
-@@ -2018,8 +2287,9 @@ export function TrajectorySurface({
-             Contrat d&apos;exécution — résumé
-           </h3>
-           <p className={styles.blockNote}>
--            Relisez d&apos;abord ce qui sera tenté. Inspectez le détail avant
--            toute confirmation. Confirmer n&apos;exécute pas.
-+            {wrongGenericReplaceableByRecoveryPrepare
-+              ? "Contrat générique pré-exécution visible pour cette décision. La prochaine action utile est de préparer le contrat recovery docs_write — pas d'inspection de ce dead-end."
-+              : "Relisez d'abord ce qui sera tenté. Inspectez le détail avant toute confirmation. Confirmer n'exécute pas."}
-           </p>
-           <dl className={styles.facts} data-testid="w2-contract-facts">
-             <div>
-@@ -2061,12 +2331,14 @@ export function TrajectorySurface({
-             </div>
-             <div>
-               <dt>Prochaine action utile</dt>
--              <dd>
--                {inspection?.inspectionSufficient
--                  ? contract.status === "confirmation_required"
--                    ? "Confirmer si requis, puis statuer sur l'autorisation"
--                    : "Statuer sur l'autorisation"
--                  : "Inspecter le détail du contrat"}
-+              <dd data-testid="w2-contract-next-action">
-+                {wrongGenericReplaceableByRecoveryPrepare
-+                  ? "Préparer le contrat recovery docs_write (explicite)"
-+                  : inspection?.inspectionSufficient
-+                    ? contract.status === "confirmation_required"
-+                      ? "Confirmer si requis, puis statuer sur l'autorisation"
-+                      : "Statuer sur l'autorisation"
-+                    : "Inspecter le détail du contrat"}
-               </dd>
-             </div>
-           </dl>
-@@ -2290,17 +2562,49 @@ export function TrajectorySurface({
-             </div>
-           ) : null}
-
-+          {docsWriteEvidenceRematerializeReady ? (
-+            <div
-+              className={styles.actions}
-+              data-testid="w2-docs-write-evidence-rematerialize"
-+            >
-+              <p
-+                className={styles.blockNote}
-+                data-testid="w2-docs-write-evidence-rematerialize-note"
-+              >
-+                Les exigences de preuve Git de ce contrat contredisent ses
-+                contraintes NO_COMMIT / NO_PUSH / NO_PR / NO_MERGE. Actualisez
-+                le contrat pour des preuves locales satisfaisables. Aucune
-+                exécution n&apos;est lancée — une nouvelle inspection sera
-+                requise.
-+              </p>
-+              <button
-+                type="button"
-+                className={styles.primaryAction}
-+                data-testid="w2-rematerialize-docs-write-evidence"
-+                onClick={() => void rematerializeDocsWriteEvidenceContract()}
-+                disabled={busy !== null || continuityMutationBlocked}
-+              >
-+                Actualiser les exigences de preuve
-+              </button>
-+            </div>
-+          ) : null}
-+
-           <div className={styles.actions}>
-             <button
-               type="button"
--              className={styles.primaryAction}
-+              className={
-+                wrongGenericReplaceableByRecoveryPrepare
-+                  ? styles.secondaryAction
-+                  : styles.primaryAction
-+              }
-               data-testid="w2-inspect-contract"
-               onClick={() => void inspect()}
-               disabled={busy !== null || governedContinuationBlocked}
-             >
-               Inspecter le contrat
-             </button>
--            {contract.status === "confirmation_required" ? (
-+            {contract.status === "confirmation_required" &&
-+            !wrongGenericReplaceableByRecoveryPrepare ? (
-               <button
-                 type="button"
-                 className={styles.secondaryAction}
-@@ -2309,13 +2613,16 @@ export function TrajectorySurface({
-                 disabled={
-                   busy !== null ||
-                   governedContinuationBlocked ||
-+                  docsWriteEvidenceRematerializeReady ||
-                   inspection === null ||
-                   !inspection.inspectionSufficient
-                 }
-                 title={
--                  inspection === null || !inspection.inspectionSufficient
--                    ? "Inspection suffisante requise avant de confirmer"
--                    : undefined
-+                  docsWriteEvidenceRematerializeReady
-+                    ? "Actualisez les exigences de preuve avant de confirmer"
-+                    : inspection === null || !inspection.inspectionSufficient
-+                      ? "Inspection suffisante requise avant de confirmer"
-+                      : undefined
-                 }
-               >
-                 Confirmer mon consentement
-@@ -2326,7 +2633,16 @@ export function TrajectorySurface({
-               className={styles.secondaryAction}
-               data-testid="w2-authorize-contract"
-               onClick={() => void authorize()}
--              disabled={busy !== null || governedContinuationBlocked}
-+              disabled={
-+                busy !== null ||
-+                governedContinuationBlocked ||
-+                wrongGenericReplaceableByRecoveryPrepare
-+              }
-+              title={
-+                wrongGenericReplaceableByRecoveryPrepare
-+                  ? "Préparez d'abord le contrat recovery docs_write"
-+                  : undefined
-+              }
-             >
-               Statuer sur l&apos;autorisation
-             </button>
-diff --git a/projects/sfia-studio/app/features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile.ts b/projects/sfia-studio/app/features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile.ts
-index b928e338..2e337fdc 100644
---- a/projects/sfia-studio/app/features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile.ts
-@@ -17,6 +17,87 @@ import {
- import { DEFAULT_BOUNDED_READ_ONLY_M3_EXECUTION_WINDOW_CLASS } from "@/lib/oa/execution-contract";
- import type { M3ResolvedExecutionFields } from "./resolveM3ExecutionContract";
-
-+/**
-+ * Local filesystem evidence obligations for the bounded docs-write profile
-+ * (NO_COMMIT / NO_PUSH / NO_PR / NO_MERGE).
-+ *
-+ * Keywords `docs_write` + `artifact` are already recognized by
-+ * contractEffectClassification / qualifyExecutionContractCompletion;
-+ * ingestDocsWriteArtifactEvidence emits type=artifact +
-+ * source=execution_attempt:docs_write. OA `evreq:` prefix satisfies
-+ * isOaIdentifier — no new Evidence registry / schema.
-+ */
-+export const BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS = [
-+  "evreq:docs_write_artifact",
-+] as const;
-+
-+/**
-+ * GCEC progressive Git lifecycle proof set (CR-GCEC-05).
-+ * Use ONLY when the contract authorizes the corresponding Git effects.
-+ * Must NOT be the default for the bounded NO_* docs-write profile.
-+ */
-+export const BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS = [
-+  "git:local_commit",
-+  "git:remote_push",
-+  "git:pull_request",
-+  "git:ci_status",
-+  "git:review_status",
-+  "git:merge",
-+  "git:post_merge_verification",
-+] as const;
-+
-+const GIT_LIFECYCLE_EVIDENCE = new Set<string>([
-+  ...BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS,
-+  "git:commit",
-+  "git:push",
-+]);
-+
-+const GIT_FORBIDDING_CONSTRAINTS = new Set([
-+  "NO_COMMIT",
-+  "NO_GIT_REMOTE",
-+  "NO_PUSH",
-+  "NO_PR",
-+  "NO_MERGE",
-+]);
-+
-+export function isGitLifecycleEvidenceRequirement(id: string): boolean {
-+  return GIT_LIFECYCLE_EVIDENCE.has(id);
-+}
-+
-+export function docsWriteConstraintsForbidGitLifecycle(
-+  constraints: readonly string[],
-+): boolean {
-+  return constraints.some((c) => GIT_FORBIDDING_CONSTRAINTS.has(c));
-+}
-+
-+/**
-+ * Select evidenceRequirements coherent with bounded docs-write constraints.
-+ * Strips Git lifecycle obligations when NO_* forbids those effects.
-+ * Preserves applicable non-Git OA identifiers from PREPARE when present.
-+ */
-+export function resolveDocsWriteEvidenceRequirementsForBoundedProfile(input: {
-+  fromPrepare: readonly string[];
-+  constraints: readonly string[];
-+}): string[] {
-+  const fromPrepare = [...input.fromPrepare];
-+  if (!docsWriteConstraintsForbidGitLifecycle(input.constraints)) {
-+    return fromPrepare.length > 0
-+      ? fromPrepare
-+      : [...BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS];
-+  }
-+  const kept = fromPrepare.filter((r) => !isGitLifecycleEvidenceRequirement(r));
-+  if (kept.length > 0) return kept;
-+  return [...BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS];
-+}
-+
-+export function docsWriteEvidenceContradictsConstraints(input: {
-+  evidenceRequirements: readonly string[];
-+  constraints: readonly string[];
-+}): boolean {
-+  if (!docsWriteConstraintsForbidGitLifecycle(input.constraints)) return false;
-+  return input.evidenceRequirements.some(isGitLifecycleEvidenceRequirement);
-+}
-+
- export function boundedDocsWriteM3ResolutionProfile(): M3ResolvedExecutionFields {
-   return {
-     action: M4_BOUNDED_DOCS_WRITE_ACTION,
-@@ -48,21 +129,12 @@ export function boundedDocsWriteM3ResolutionProfile(): M3ResolvedExecutionFields
-       "OUT_OF_SCOPE_WRITE",
-     ],
-     executionWindowClass: DEFAULT_BOUNDED_READ_ONLY_M3_EXECUTION_WINDOW_CLASS,
--    // CR-GCEC-05 — first vertical requires full git completion proof SET.
--    // Carried onto successor EC via resolve inputs/evidenceRequirements merge.
-+    evidenceRequirements: [...BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS],
-   };
- }
-
--/** GCEC first-vertical git evidence requirements (Nora + EC). */
--export const BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS = [
--  "git:local_commit",
--  "git:remote_push",
--  "git:pull_request",
--  "git:ci_status",
--  "git:review_status",
--  "git:merge",
--  "git:post_merge_verification",
--] as const;
--
- export const BOUNDED_DOCS_WRITE_M3_SUPERSESSION_REASON =
-   "PRE-M6 Option A — resolve durable M3 PREPARE via existing G-UX-15 supersession (bounded docs-write Cursor REAL profile; ZERO LIVE in this cycle)" as const;
-+
-+export const DOCS_WRITE_EVIDENCE_REMATERIALIZE_REASON =
-+  "docs_write_evidence_requirements_coherence — strip Git lifecycle proofs forbidden by bounded NO_* constraints" as const;
-diff --git a/projects/sfia-studio/app/features/project-assistant/f3/completeBoundedReadOnlyLaunch.ts b/projects/sfia-studio/app/features/project-assistant/f3/completeBoundedReadOnlyLaunch.ts
-index 33010ac2..1c9739ce 100644
---- a/projects/sfia-studio/app/features/project-assistant/f3/completeBoundedReadOnlyLaunch.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f3/completeBoundedReadOnlyLaunch.ts
-@@ -9,9 +9,14 @@ import {
-   type ExecutionAttemptServices,
-   type RealProcessObservation,
- } from "@/lib/oa/execution-attempt";
-+import {
-+  buildProcessFailureDiagnostic,
-+  PROCESS_DIAGNOSTIC_STDERR_CAP,
-+  PROCESS_DIAGNOSTIC_STDOUT_CAP,
-+} from "./processFailureDiagnostic";
-
--export const NORA_STDOUT_CAP = 4 * 1024;
--export const NORA_STDERR_CAP = 4 * 1024;
-+export const NORA_STDOUT_CAP = PROCESS_DIAGNOSTIC_STDOUT_CAP;
-+export const NORA_STDERR_CAP = PROCESS_DIAGNOSTIC_STDERR_CAP;
-
- export type BoundedLaunchObservationFacts = {
-   attemptId: string;
-@@ -203,6 +208,17 @@ export async function completeBoundedReadOnlyLaunch(input: {
-     };
-   }
-
-+  const failureDiagnostic = buildProcessFailureDiagnostic({
-+    observation,
-+    boundaryProofMode:
-+      input.services.realBoundary?.launchPort.boundaryProofMode ===
-+        "cursor_real" ||
-+      input.services.realBoundary?.launchPort.boundaryProofMode ===
-+        "deterministic_fake"
-+        ? input.services.realBoundary.launchPort.boundaryProofMode
-+        : undefined,
-+  });
-+
-   if (observation.timedOut === true) {
-     const timed = await input.services.triggerAttemptTimeout.execute({
-       attemptId: input.attempt.attemptId,
-@@ -216,6 +232,7 @@ export async function completeBoundedReadOnlyLaunch(input: {
-         stopReason: "EXECUTION_TIMEOUT",
-         durationMs: observation.durationMs,
-         expectedAttemptVersion: input.attempt.version,
-+        processDiagnostic: failureDiagnostic,
-       });
-       if (!failed.ok || !failed.attempt) {
-         return {
-@@ -265,6 +282,7 @@ export async function completeBoundedReadOnlyLaunch(input: {
-       technicalExitCode: observation.exitCode ?? undefined,
-       durationMs: observation.durationMs,
-       expectedAttemptVersion: input.attempt.version,
-+      processDiagnostic: failureDiagnostic,
-     });
-     if (!failed.ok || !failed.attempt) {
-       return {
-diff --git a/projects/sfia-studio/app/features/project-assistant/f3/index.ts b/projects/sfia-studio/app/features/project-assistant/f3/index.ts
-index a02263cb..eece03eb 100644
---- a/projects/sfia-studio/app/features/project-assistant/f3/index.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f3/index.ts
-@@ -47,6 +47,14 @@ export {
-   authorizedM3ResolutionKind,
- } from "./selectProductM3ResolutionProfile";
- export { deriveAttemptProvenance, F3_REAL_MODE, F3_BOUNDED_M4_DETERMINISTIC_MODE } from "./deriveAttemptProvenance";
-+export { resolveDurableBoundaryProofMode } from "./resolveDurableBoundaryProofMode";
-+export {
-+  buildProcessFailureDiagnostic,
-+  isProcessFailureDiagnostic,
-+  PROCESS_DIAGNOSTIC_STDOUT_CAP,
-+  PROCESS_DIAGNOSTIC_STDERR_CAP,
-+} from "./processFailureDiagnostic";
-+export type { ProcessFailureDiagnostic } from "./processFailureDiagnostic";
- export { completeBoundedReadOnlyLaunch } from "./completeBoundedReadOnlyLaunch";
- export type {
-   BoundedLaunchObservationFacts,
-@@ -61,6 +69,12 @@ export type {
- } from "./prepareAndResolveM3ProductPath";
- export { resolveExistingLegacyM3DocsWriteProductPath } from "./resolveExistingLegacyM3DocsWriteProductPath";
- export { isLegacyDocsWritePrepareContractView } from "./legacyDocsWritePrepareContractView";
-+export { isDocsWriteEvidenceContradictionView } from "./docsWriteEvidenceContradictionView";
-+export { rematerializeDocsWriteEvidenceRequirements } from "./rematerializeDocsWriteEvidenceRequirements";
-+export type {
-+  RematerializeDocsWriteEvidenceResult,
-+  RematerializeDocsWriteEvidenceSuccess,
-+} from "./rematerializeDocsWriteEvidenceRequirements";
- export type {
-   F3M3LegacyResolvedPayload,
-   ResolveExistingLegacyM3DocsWriteDeps,
-diff --git a/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts b/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
-index f1b4a1dc..328be8b5 100644
---- a/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
-@@ -22,12 +22,38 @@ import {
-   projectCursorPrepareOnly,
-   projectExecutionContractInspectionDisclosure,
- } from "@/lib/oa/execution-contract";
-+import { isOaIdentifier } from "@/lib/oa/execution-contract/domain/invariants";
- import type { F2ContextSnapshot } from "../f2/types";
- import {
-   isProposalSubjectOptionRef,
-   PROPOSAL_SUBJECT_PURSUE_REF,
- } from "../w2/proposalSubjectOptions";
--import { BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS } from "./boundedDocsWriteM3ResolutionProfile";
-+import { BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS } from "./boundedDocsWriteM3ResolutionProfile";
-+
-+/**
-+ * EC.evidenceRequirements must be OA identifiers (`prefix:value`).
-+ * Nora DecisionBasis often carries free-text validation expectations here —
-+ * those belong in inputs, not as contract identifier SoT.
-+ * For docs_write, fall back to the local filesystem evidence set coherent with
-+ * the bounded NO_* profile (not the GCEC Git lifecycle set).
-+ */
-+function resolveEvidenceRequirementsForContract(input: {
-+  docsWriteIntent: boolean;
-+  raw: string[] | undefined;
-+}): string[] | undefined {
-+  const raw = input.raw;
-+  if (raw && raw.length > 0 && raw.every(isOaIdentifier)) {
-+    return [...raw];
-+  }
-+  if (input.docsWriteIntent) {
-+    return [...BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS];
-+  }
-+  if (raw && raw.length > 0) {
-+    const valid = raw.filter(isOaIdentifier);
-+    return valid.length > 0 ? valid : undefined;
-+  }
-+  return undefined;
-+}
-
- export type PrepareM3Deps = {
-   decisionServices: DecisionServices;
-@@ -209,12 +235,13 @@ function fieldsFromBasis(basis: DecisionBasis, decisionId: string) {
-       : eb.expectedOutcome
-         ? [eb.expectedOutcome]
-         : undefined;
--  const evidenceRequirements =
--    eb.evidenceRequirements && eb.evidenceRequirements.length > 0
--      ? [...eb.evidenceRequirements]
--      : docsWriteIntent
--        ? [...BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS]
--        : undefined;
-+  const evidenceRequirements = resolveEvidenceRequirementsForContract({
-+    docsWriteIntent,
-+    raw:
-+      eb.evidenceRequirements && eb.evidenceRequirements.length > 0
-+        ? [...eb.evidenceRequirements]
-+        : undefined,
-+  });
-   return {
-     action,
-     target,
-diff --git a/projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts b/projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts
-index bb318d43..84ce0c16 100644
---- a/projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts
-@@ -35,6 +35,10 @@ import type {
- } from "@/lib/oa/execution-contract";
- import { projectExecutionContractInspectionDisclosure } from "@/lib/oa/execution-contract/projection/inspectionDisclosure";
- import type { ExecutionContractInspectionDisclosure } from "@/lib/oa/execution-contract/projection/inspectionDisclosure";
-+import {
-+  M4_BOUNDED_DOCS_WRITE_ACTION,
-+} from "@/lib/oa/execution-attempt";
-+import { resolveDocsWriteEvidenceRequirementsForBoundedProfile } from "./boundedDocsWriteM3ResolutionProfile";
-
- const UNRESOLVED_ACTION = "UNRESOLVED_ACTION";
- const UNRESOLVED_TARGET = "UNRESOLVED_TARGET";
-@@ -106,6 +110,12 @@ export type M3ResolvedExecutionFields = {
-    */
-   inputs?: Record<string, unknown>;
-   executionWindowClass?: ExecutionWindowClass;
-+  /**
-+   * Optional evidenceRequirements override for the successor (server-side only).
-+   * Bounded docs-write uses this to bind filesystem-satisfiable obligations
-+   * coherent with NO_* constraints instead of inheriting a contradictory Git set.
-+   */
-+  evidenceRequirements?: string[];
- };
-
- export type ResolveM3ExecutionContractInput = {
-@@ -353,6 +363,10 @@ function successorMatchesResolution(
- ): boolean {
-   const caps = [...(contract.requiredCapabilities ?? [])].sort().join("\0");
-   const wantCaps = [...resolution.requiredCapabilities].sort().join("\0");
-+  const evidenceOk =
-+    resolution.evidenceRequirements === undefined ||
-+    [...contract.evidenceRequirements].join("\0") ===
-+      [...resolution.evidenceRequirements].join("\0");
-   return (
-     contract.action === resolution.action.trim() &&
-     contract.target === resolution.target.trim() &&
-@@ -361,6 +375,7 @@ function successorMatchesResolution(
-     caps === wantCaps &&
-     [...contract.constraints].join("\0") === constraints.join("\0") &&
-     [...contract.stopConditions].join("\0") === stopConditions.join("\0") &&
-+    evidenceOk &&
-     (resolution.executionWindowClass === undefined ||
-       contract.executionWindowClass === resolution.executionWindowClass)
-   );
-@@ -628,6 +643,14 @@ export async function resolveM3ExecutionContract(
-     original,
-     input.resolution,
-   );
-+  const evidenceRequirements =
-+    input.resolution.action.trim() === M4_BOUNDED_DOCS_WRITE_ACTION
-+      ? (input.resolution.evidenceRequirements ??
-+        resolveDocsWriteEvidenceRequirementsForBoundedProfile({
-+          fromPrepare: original.evidenceRequirements ?? [],
-+          constraints,
-+        }))
-+      : input.resolution.evidenceRequirements;
-
-   // C2 — original already superseded: recover/validate existing successor.
-   if (original.status === "superseded") {
-@@ -783,6 +806,9 @@ export async function resolveM3ExecutionContract(
-         reversibility: input.resolution.reversibility,
-         constraints,
-         stopConditions,
-+        ...(evidenceRequirements !== undefined
-+          ? { evidenceRequirements: [...evidenceRequirements] }
-+          : {}),
-         decisionRefs: [input.decisionId],
-         requiredAuthority: original.requiredAuthority,
-         status: "draft",
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/actions.ts b/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
-index e1d65d24..cafa61f8 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
-@@ -18,6 +18,8 @@ import { getRuntimeApplicationService } from "@/lib/vertical-slice-runtime";
- import { readLiveProjectContext } from "@/lib/vertical-slice-runtime/liveProjectContext";
- import { resolveCurrentAuthenticatedPilote } from "@/lib/auth/resolveCurrentPilote";
- import { amendExecutionContractWithConstraint } from "./amendExecutionContract";
-+import { rematerializeDocsWriteEvidenceRequirements } from "../f3/rematerializeDocsWriteEvidenceRequirements";
-+import type { RematerializeDocsWriteEvidenceResult } from "../f3/rematerializeDocsWriteEvidenceRequirements";
- import { evaluateExecutionAuthorization } from "./authorizeExecutionContract";
- import { confirmExecutionContractForAuthorization } from "./confirmForAuthorization";
- import { decideTrajectory } from "./decideTrajectory";
-@@ -38,12 +40,15 @@ import { loadPresentedOptionSet } from "./presentedOptionSet";
- import { readActiveProposalDecisionSubject } from "./activeProposalDecisionSubject";
- import { readCurrentGovernedExecutionContinuity } from "./readCurrentGovernedExecutionContinuity";
- import { prepareExecutionContractFromW2Decision } from "./prepareExecutionContractFromW2Decision";
-+import { prepareDocsWriteRecoverySuccessorFromDecision } from "./prepareDocsWriteRecoverySuccessor";
-+import { resolveRecoveryExecutionBinding } from "./resolveRecoveryExecutionBinding";
- import { proposeTrajectoryOptions } from "./proposeTrajectoryOptions";
- import { readW2ProjectHistory } from "./projectHistory";
- import { resolveW2QualificationInputs } from "./qualificationInputs";
- import type {
-   ActiveDecisionSubjectReadResult,
-   AmendExecutionContractResult,
-+  AmendedExecutionContractDto,
-   ConfirmForAuthorizationResult,
-   CurrentGovernedExecutionContinuityResult,
-   DecideTrajectoryResult,
-@@ -56,6 +61,7 @@ import type {
-   ProposeTrajectoryOptionsResult,
- } from "./types";
- import type { ReadW2ProjectHistoryResult } from "./projectHistory";
-+import type { RecoveryExecutionBinding } from "./resolveRecoveryExecutionBinding";
-
- const OA_UNAVAILABLE = {
-   ok: false as const,
-@@ -135,6 +141,13 @@ export async function w2ReadActiveDecisionSubjectAction(input: {
-       recoverableProposalIds: read.recoverableProposalIds,
-     };
-   }
-+  if (read.kind === "pursue_prepare_ready") {
-+    return {
-+      ok: true,
-+      kind: "pursue_prepare_ready",
-+      decision: read.decision,
-+    };
-+  }
-   return {
-     ok: true,
-     kind: "bound_awaiting_decision",
-@@ -283,6 +296,30 @@ export async function w2AmendExecutionContractAction(input: {
-   });
- }
-
-+/**
-+ * Rematerialize docs_write evidenceRequirements when Git lifecycle proofs
-+ * contradict NO_* constraints. Supersession only — no Confirm / Execute / REAL.
-+ */
-+export async function w2RematerializeDocsWriteEvidenceAction(input: {
-+  projectId: string;
-+  executionContractId: string;
-+  /** Hostile — ignored. */
-+  canActAsMorris?: unknown;
-+  claimedAuthorityLevel?: unknown;
-+}): Promise<RematerializeDocsWriteEvidenceResult> {
-+  void input.canActAsMorris;
-+  void input.claimedAuthorityLevel;
-+
-+  const runtime = getRuntimeApplicationService();
-+  if (!runtime.oa) return OA_UNAVAILABLE;
-+
-+  return rematerializeDocsWriteEvidenceRequirements({
-+    oa: runtime.oa,
-+    projectId: input.projectId,
-+    executionContractId: input.executionContractId,
-+  });
-+}
-+
- async function loadF2ContextForProject(
-   oa: NonNullable<ReturnType<typeof getRuntimeApplicationService>["oa"]>,
-   projectId: string,
-@@ -364,6 +401,88 @@ export async function w2PrepareExecutionContractAction(input: {
-   };
- }
-
-+/**
-+ * R8 — read RecoveryExecutionBinding for UI (docs_write recovery CTA).
-+ * Client sends only projectId + optional decisionId. No path/op injection.
-+ */
-+export async function w2ReadRecoveryExecutionBindingAction(input: {
-+  projectId: string;
-+  decisionId?: string | null;
-+}): Promise<
-+  | { readonly ok: true; readonly binding: RecoveryExecutionBinding | null }
-+  | { readonly ok: false; readonly code: string; readonly message: string }
-+> {
-+  const runtime = getRuntimeApplicationService();
-+  if (!runtime.oa) return OA_UNAVAILABLE;
-+  return resolveRecoveryExecutionBinding({
-+    oa: runtime.oa,
-+    projectId: input.projectId,
-+    decisionId: input.decisionId,
-+  });
-+}
-+
-+/**
-+ * R8 — prepare bounded docs_write successor from recovery HD + failed EC binding.
-+ * Does not accept client path/operation. Cancels wrong generic current if needed.
-+ */
-+export async function w2PrepareRecoveryDocsWriteAction(input: {
-+  projectId: string;
-+  decisionId: string;
-+  /** Hostile — ignored. */
-+  targetPath?: unknown;
-+  qualifiedOperationKind?: unknown;
-+  real?: unknown;
-+}): Promise<
-+  | {
-+      readonly ok: true;
-+      readonly contract: AmendedExecutionContractDto;
-+      readonly decisionId: string;
-+      readonly cancelledWrongGenericContractId: string | null;
-+      readonly reusedFromIdempotency: boolean;
-+      readonly f3SemanticOverwrite: false;
-+      readonly executionPerformed: false;
-+      readonly attemptCreated: false;
-+      readonly binding: RecoveryExecutionBinding;
-+    }
-+  | { readonly ok: false; readonly code: string; readonly message: string }
-+> {
-+  void input.targetPath;
-+  void input.qualifiedOperationKind;
-+  void input.real;
-+
-+  const runtime = getRuntimeApplicationService();
-+  if (!runtime.oa) return OA_UNAVAILABLE;
-+
-+  const context = await loadF2ContextForProject(runtime.oa, input.projectId);
-+  if (!context) {
-+    return {
-+      ok: false,
-+      code: "PROJECT_NOT_FOUND",
-+      message: "Projet ou LPS introuvable pour la préparation recovery.",
-+    };
-+  }
-+
-+  const prepared = await prepareDocsWriteRecoverySuccessorFromDecision({
-+    oa: runtime.oa,
-+    projectId: input.projectId,
-+    decisionId: input.decisionId,
-+    currentContext: context,
-+  });
-+  if (!prepared.ok) return prepared;
-+
-+  return {
-+    ok: true,
-+    contract: prepared.successor,
-+    decisionId: prepared.decisionId,
-+    cancelledWrongGenericContractId: prepared.cancelledWrongGenericContractId,
-+    reusedFromIdempotency: prepared.reusedFromIdempotency,
-+    f3SemanticOverwrite: false,
-+    executionPerformed: false,
-+    attemptCreated: false,
-+    binding: prepared.binding,
-+  };
-+}
-+
- /**
-  * W3-A phase 1 — SelectExecutionAgent → accepted.
-  */
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/activeProposalDecisionSubject.ts b/projects/sfia-studio/app/features/project-assistant/w2/activeProposalDecisionSubject.ts
-index df57d207..a9fca932 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/activeProposalDecisionSubject.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/activeProposalDecisionSubject.ts
-@@ -30,7 +30,11 @@ import {
-   type PresentedOptionSetBinding,
-   W2_PRESENTED_OPTION_SET_KIND,
- } from "./presentedOptionSet";
--import type { TrajectoryOptionSetDto } from "./types";
-+import { readPrepareReadyProposalPursueContinuation } from "./prepareReadyProposalPursueContinuation";
-+import type {
-+  TrajectoryDecisionRecordDto,
-+  TrajectoryOptionSetDto,
-+} from "./types";
-
- export type EpistemicReadFailure = {
-   readonly ok: false;
-@@ -57,6 +61,15 @@ export type ActiveProposalDecisionSubject =
-       readonly presented: PresentedOptionSetBinding;
-       readonly optionSet: TrajectoryOptionSetDto;
-     }
-+  | {
-+      /**
-+       * Checkpoint E resume — Proposal subject already closed by DecisionRef,
-+       * but durable pursue HD + DecisionBasis remain PREPARE-ready (no EC).
-+       */
-+      readonly ok: true;
-+      readonly kind: "pursue_prepare_ready";
-+      readonly decision: TrajectoryDecisionRecordDto;
-+    }
-   | EpistemicReadFailure;
-
- type EpistemicItemLike = {
-@@ -241,7 +254,8 @@ export async function findActiveAwaitingProposalPresentedOptionSet(
-  * Authority order:
-  * 1. bound awaiting PresentedOptionSet
-  * 2. effective pending markers (DecisionRef-closed proposalIds shadowed)
-- * 3. none
-+ * 3. durable pursue PREPARE continuation (HD + basis, no EC)
-+ * 4. none
-  */
- export async function readActiveProposalDecisionSubject(
-   oa: RuntimeOaStack,
-@@ -310,6 +324,26 @@ export async function readActiveProposalDecisionSubject(
-     };
-   }
-
-+  // Subject closed (DecisionRef) but pursue HD still PREPARE-ready — restart resume.
-+  const prepareReady = await readPrepareReadyProposalPursueContinuation({
-+    oa,
-+    projectId,
-+  });
-+  if (!prepareReady.ok) {
-+    return {
-+      ok: false,
-+      code: "EPISTEMIC_READ_FAILED",
-+      message: prepareReady.message,
-+    };
-+  }
-+  if (prepareReady.kind === "pursue_prepare_ready") {
-+    return {
-+      ok: true,
-+      kind: "pursue_prepare_ready",
-+      decision: prepareReady.decision,
-+    };
-+  }
-+
-   return { ok: true, kind: "none" };
- }
-
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
-index 8ec81e9e..ad829eb5 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
-@@ -11,6 +11,7 @@ import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
- import type { ClaimEvaluation, Evidence, ReviewBundle } from "@/lib/oa/evidence-review";
- import {
-   projectW3bProductTerminal,
-+  productReservationsForAttempt,
-   type W3BProductTerminalProjection,
- } from "./w3bProductTerminalProjection";
- import {
-@@ -37,13 +38,6 @@ export type MaterializeW3bProductTerminalResult =
-       readonly postEvidence?: W3cPostEvidenceLoopResult;
-     };
-
--const PRODUCT_RESERVATIONS = [
--  "Evidence requise avant claim produit",
--  "Apprentissage / replan non démarrés",
--  "Exécuteur de substitution — pas d'effet externe réel",
--  "Aucun READY",
--] as const;
--
- export function w3bEvidenceIdentity(attemptId: string): {
-   evidenceId: string;
-   reviewBundleId: string;
-@@ -182,7 +176,7 @@ export async function materializeW3bProductTerminal(input: {
-     executionContractId: contract.executionContractId,
-     ...(contract.cycleInstanceId ? { cycleInstanceId: contract.cycleInstanceId } : {}),
-     evidenceIds: [ingested.evidence.evidenceId],
--    reservations: [...PRODUCT_RESERVATIONS],
-+    reservations: [...productReservationsForAttempt(attempt)],
-   });
-
-   if (!bundle.ok) {
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts b/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
-index 63ced39a..d2636564 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
-@@ -61,6 +61,11 @@ import {
-   deriveTrajectoryRecommendation,
-   type TrajectoryOptionInputs,
- } from "./trajectoryOptions";
-+import {
-+  buildRecoveryCognitionSection,
-+  resolvePostEvidenceRecoveryContext,
-+  type PostEvidenceRecoveryContext,
-+} from "./resolvePostEvidenceRecoveryContext";
- import type {
-   CkcRecommendationProvenanceDto,
-   ProposeTrajectoryOptionsResult,
-@@ -222,6 +227,14 @@ export async function proposeTrajectoryOptions(
-     }
-     return { ok: true, ...activeSubject.optionSet };
-   }
-+  if (activeSubject.kind === "pursue_prepare_ready") {
-+    return {
-+      ok: false,
-+      code: "PREPARE_CONTINUATION_OWNS_NEXT_ACTION",
-+      message:
-+        "Une décision pursue durable attend la préparation du contrat d'exécution — aucune nouvelle instruction d'options.",
-+    };
-+  }
-   if (
-     activeSubject.kind === "pending_reinstruction_required" &&
-     !opaqueProposalIdEarly
-@@ -297,10 +310,33 @@ export async function proposeTrajectoryOptions(
-     };
-   }
-
-+  // R7 — durable RecoveryContext for ProjectTrajectory path only.
-+  // Proposal subject path keeps sealed Proposal as subject (no recovery inject).
-+  let recoveryContext: PostEvidenceRecoveryContext | null = null;
-+  if (!proposalSubject) {
-+    const recovered = await resolvePostEvidenceRecoveryContext({
-+      oa,
-+      projectId: input.projectId,
-+    });
-+    if (!recovered.ok) {
-+      return {
-+        ok: false,
-+        code: recovered.code,
-+        message: recovered.message,
-+      };
-+    }
-+    recoveryContext = recovered.context;
-+  }
-+
-   const ckcPromptSection = buildCkcCognitivePromptSection(ckcContent);
-+  const recoveryCognitionSection = recoveryContext
-+    ? buildRecoveryCognitionSection(recoveryContext)
-+    : null;
-   const cognitionUserContent = proposalSubject
-     ? `Instruire Options/Recommendation pour la Proposal ${proposalSubject.proposalId} (sujet: ${proposalSubject.sealedExecutionBasis.objective})`
--    : `Instruire Options/Recommendation pour le cycle ${input.cycleTypeId}`;
-+    : recoveryContext
-+      ? `Instruire Options/Recommendation de recovery/replan après FAIL durable (${recoveryContext.attemptId}) — sujet courant = recovery du même cycle, PAS un nouveau cadrage fonctionnel.`
-+      : `Instruire Options/Recommendation pour le cycle ${input.cycleTypeId}`;
-   let cognitiveRecommendation: string;
-   try {
-     const reasoning = await reasonWithResolvedCkcContext({
-@@ -316,12 +352,24 @@ export async function proposeTrajectoryOptions(
-               `targetPath=${proposalSubject.sealedExecutionBasis.targetPath ?? ""}`,
-               `requestedOperation=${proposalSubject.sealedExecutionBasis.requestedOperation}`,
-             ]
--          : []),
-+          : recoveryContext
-+            ? [
-+                `recoverySubject=post_evidence`,
-+                `attemptId=${recoveryContext.attemptId}`,
-+                `evidenceId=${recoveryContext.evidenceId}`,
-+                `recommendationKind=${recoveryContext.recommendationKind}`,
-+                `realProcessInvoked=${recoveryContext.realProcessInvoked}`,
-+              ]
-+            : []),
-       ].join(" | "),
-       intentSummary: proposalSubject
-         ? `Proposal subject ${proposalSubject.proposalId} · profil ${input.recommendedProfile}`
--        : `Cycle ${input.cycleTypeId} · profil ${input.recommendedProfile}`,
--      ckcPromptSection,
-+        : recoveryContext
-+          ? `Recovery/replan post-Evidence · cycle ${input.cycleTypeId} · profil ${input.recommendedProfile} · Recommendation ≠ HumanDecision`
-+          : `Cycle ${input.cycleTypeId} · profil ${input.recommendedProfile}`,
-+      ckcPromptSection: recoveryCognitionSection
-+        ? `${ckcPromptSection}\n\n${recoveryCognitionSection}`
-+        : ckcPromptSection,
-     });
-     cognitiveRecommendation = reasoning.recommendation;
-   } catch (error) {
-@@ -505,6 +553,7 @@ export async function proposeTrajectoryOptions(
-     irreversible: input.irreversible,
-     reservations: input.reservations,
-     ckcAttribution: input.ckcAttribution,
-+    recoveryContext,
-   };
-
-   const options = deriveTrajectoryOptions(inputs);
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts b/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
-index 957ddada..3865fb16 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
-@@ -7,6 +7,10 @@
-  * seam already carries. This module adds NO cognitive path: it does not call a
-  * provider, does not read CKC content and is not a Phase B integration point.
-  * Same inputs always yield the same options, in the same order.
-+ *
-+ * Checkpoint F / R7 — when RecoveryContext is present, same optionRefs are kept
-+ * (idempotent OptionSet supersession) but labels/intents/steps carry recovery
-+ * semantics so framing-generic cognition is not the subject.
-  */
-
- import type { TrajectoryStep } from "@/lib/oa/cycle";
-@@ -14,6 +18,7 @@ import type {
-   TrajectoryOptionDto,
-   TrajectoryRecommendationDto,
- } from "./types";
-+import type { PostEvidenceRecoveryContext } from "./resolvePostEvidenceRecoveryContext";
-
- export type TrajectoryOptionInputs = {
-   readonly cycleTypeId: string;
-@@ -22,6 +27,8 @@ export type TrajectoryOptionInputs = {
-   readonly irreversible: boolean;
-   readonly reservations: readonly string[];
-   readonly ckcAttribution: string | null;
-+  /** Optional durable post-Evidence recovery subject (R7). */
-+  readonly recoveryContext?: PostEvidenceRecoveryContext | null;
- };
-
- export const GOVERNED_OPTION_REF = "opt:trajectory:governed-gated" as const;
-@@ -103,6 +110,56 @@ function clarifySteps(): TrajectoryStep[] {
-   ];
- }
-
-+function recoveryRetrySteps(): TrajectoryStep[] {
-+  return [
-+    step(1, "w2-rec-diagnose", "Prendre en compte l'échec et l'Evidence durables"),
-+    step(2, "w2-rec-decide", "Décision humaine explicite de recovery", {
-+      dependencies: ["stp:w2-rec-diagnose"],
-+      gate: "human_decision",
-+      exitCriteria: ["HumanDecision acceptée — Recommendation ≠ décision"],
-+    }),
-+    step(3, "w2-rec-contract", "Préparer un nouveau contrat d'exécution", {
-+      dependencies: ["stp:w2-rec-decide"],
-+    }),
-+    step(4, "w2-rec-inspect", "Inspecter puis autoriser avant Execute", {
-+      dependencies: ["stp:w2-rec-contract"],
-+      gate: "inspection",
-+      exitCriteria: ["Inspection valide", "Arrêt avant exécution"],
-+    }),
-+  ];
-+}
-+
-+function recoveryClarifySteps(): TrajectoryStep[] {
-+  return [
-+    step(1, "w2-rec-clr-read", "Lire Evidence / ReviewBundle / stopReason"),
-+    step(
-+      2,
-+      "w2-rec-clr-gap",
-+      "Clarifier le diagnostic avant toute nouvelle tentative",
-+      { dependencies: ["stp:w2-rec-clr-read"] },
-+    ),
-+    step(3, "w2-rec-clr-reoption", "Réinstruire les options recovery", {
-+      dependencies: ["stp:w2-rec-clr-gap"],
-+      gate: "human_decision",
-+      exitCriteria: ["Nouvelle décision humaine requise"],
-+    }),
-+  ];
-+}
-+
-+function recoverySuspendSteps(): TrajectoryStep[] {
-+  return [
-+    step(1, "w2-rec-hold-ack", "Conserver l'échec comme vérité durable"),
-+    step(2, "w2-rec-hold-decide", "Décision humaine de suspension / replan", {
-+      dependencies: ["stp:w2-rec-hold-ack"],
-+      gate: "human_decision",
-+      exitCriteria: ["HumanDecision acceptée — pas de relance automatique"],
-+    }),
-+    step(3, "w2-rec-hold-replan", "Replanifier sans Execute immédiat", {
-+      dependencies: ["stp:w2-rec-hold-decide"],
-+    }),
-+  ];
-+}
-+
- /**
-  * Options are always presented in the same order so the UI never implies a
-  * ranking by position. Ranking is carried only by the explicit Recommendation.
-@@ -111,6 +168,54 @@ export function deriveTrajectoryOptions(
-   inputs: TrajectoryOptionInputs,
- ): TrajectoryOptionDto[] {
-   const reservations = [...inputs.reservations];
-+  const recovery = inputs.recoveryContext ?? null;
-+  if (recovery) {
-+    return [
-+      {
-+        kind: "OPTION",
-+        optionRef: GOVERNED_OPTION_REF,
-+        label: "Préparer une nouvelle tentative gouvernée",
-+        intent:
-+          "À partir du FAIL durable, décider explicitement puis préparer / inspecter / autoriser un nouveau contrat — sans Execute automatique.",
-+        impacts: [
-+          `Attempt failed: ${recovery.attemptId}`,
-+          `Evidence: ${recovery.evidenceId}`,
-+          "Aucun succès métier revendiqué",
-+          `realProcessInvoked durable: ${recovery.realProcessInvoked}`,
-+        ],
-+        reservations,
-+        steps: recoveryRetrySteps(),
-+      },
-+      {
-+        kind: "OPTION",
-+        optionRef: BOUNDED_OPTION_REF,
-+        label: "Replanifier ou suspendre sans relance immédiate",
-+        intent:
-+          "Conserver l'échec comme vérité, décider de suspendre ou replanifier — aucune nouvelle tentative immédiate.",
-+        impacts: [
-+          "Pas de relance Execute dans cette option",
-+          `W3C: ${recovery.recommendationKind}`,
-+          `outcome: ${recovery.productOutcome}`,
-+        ],
-+        reservations,
-+        steps: recoverySuspendSteps(),
-+      },
-+      {
-+        kind: "OPTION",
-+        optionRef: CLARIFY_OPTION_REF,
-+        label: "Diagnostiquer / clarifier avant nouvelle tentative",
-+        intent:
-+          "Approfondir le diagnostic (Evidence, stopReason, observabilité) avant toute préparation d'une nouvelle tentative.",
-+        impacts: [
-+          "Aucune préparation d'exécution à ce stade",
-+          `stopReason: ${recovery.stopReason ?? "n/a"}`,
-+          "Nouvelle décision humaine requise après clarification",
-+        ],
-+        reservations,
-+        steps: recoveryClarifySteps(),
-+      },
-+    ];
-+  }
-   return [
-     {
-       kind: "OPTION",
-@@ -165,6 +270,19 @@ export function deriveTrajectoryOptions(
- export function deriveTrajectoryRecommendation(
-   inputs: TrajectoryOptionInputs,
- ): TrajectoryRecommendationDto {
-+  const recovery = inputs.recoveryContext ?? null;
-+  if (recovery) {
-+    // Prefer diagnose/clarify — never auto-pick retry because a Morris REAL GO exists.
-+    return {
-+      label: "RECOMMANDATION — PAS UNE DÉCISION",
-+      recommendedOptionRef: CLARIFY_OPTION_REF,
-+      rationale: `Épisode post-Evidence ${recovery.productOutcome} (${recovery.attemptId}) — ${recovery.headline}. Diagnostiquer / clarifier avant toute nouvelle tentative. Recommendation ≠ HumanDecision ; aucun Execute automatique.`,
-+      isHumanDecision: false,
-+      promotesTrajectory: false,
-+      ckcAttribution: inputs.ckcAttribution,
-+      ckcProvenance: null,
-+    };
-+  }
-   if (inputs.reservations.length > 0) {
-     return {
-       label: "RECOMMANDATION — PAS UNE DÉCISION",
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/types.ts b/projects/sfia-studio/app/features/project-assistant/w2/types.ts
-index 42a4372d..923e7762 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/types.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/types.ts
-@@ -230,6 +230,11 @@ export type ActiveDecisionSubjectReadResult =
-       readonly kind: "bound_awaiting_decision";
-       readonly optionSet: TrajectoryOptionSetDto;
-     }
-+  | {
-+      readonly ok: true;
-+      readonly kind: "pursue_prepare_ready";
-+      readonly decision: TrajectoryDecisionRecordDto;
-+    }
-   | W2Failure;
-
- /**
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts b/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
-index fcb2aafd..03b384d4 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
-@@ -61,6 +61,24 @@ const PRODUCT_RESERVATIONS = [
-   "Aucun READY",
- ] as const;
-
-+/** Honest reservation when a REAL process was durably launched (vs substitution wording). */
-+export function productReservationsForAttempt(
-+  attempt: ExecutionAttempt,
-+): readonly string[] {
-+  const realInvoked =
-+    attempt.processDiagnostic?.realProcessInvoked === true ||
-+    attempt.irreversibleEffectsPossible === true ||
-+    (typeof attempt.stopReason === "string" &&
-+      attempt.stopReason.startsWith("REAL_"));
-+  if (!realInvoked) return [...PRODUCT_RESERVATIONS];
-+  return [
-+    PRODUCT_RESERVATIONS[0],
-+    PRODUCT_RESERVATIONS[1],
-+    "Process Cursor REAL invoqué — effet métier non prouvé",
-+    PRODUCT_RESERVATIONS[3],
-+  ];
-+}
-+
- const ANTI = {
-   ready: false,
-   w3Closed: false,
-@@ -160,7 +178,7 @@ export function projectW3bProductTerminal(input: {
-       executionContractId: input.contract.executionContractId,
-       executionContractVersion: input.attempt.executionContractVersion,
-     },
--    reservations: [...PRODUCT_RESERVATIONS],
-+    reservations: [...productReservationsForAttempt(input.attempt)],
-     antiClaims: ANTI,
-     cycleInstanceClosed: false as const,
-     projectArchived: false as const,
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts b/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
-index 7b2f709d..386ebca3 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
-@@ -17,6 +17,7 @@ import type { EpistemicItem } from "@/lib/oa/cycle";
- import { SFIA_STUDIO_SYSTEM_FACTUAL_WRITER } from "@/features/project-assistant/f3/systemFactualWriter";
- import { appendEvidenceOutcomeToLps } from "@/features/project-assistant/f3/appendEvidenceOutcomeToLps";
- import { deriveAttemptProvenance } from "@/features/project-assistant/f3/deriveAttemptProvenance";
-+import { resolveDurableBoundaryProofMode } from "@/features/project-assistant/f3/resolveDurableBoundaryProofMode";
- import {
-   analyzePostEvidenceWithProvider,
-   extractW3cPostEvidenceAnalysisForEvidence,
-@@ -956,6 +957,12 @@ export async function runW3cPostEvidenceLoop(input: {
-   let adapterRef = "adp:unknown";
-   let executionMode = "unknown";
-   let realProcessInvoked = false;
-+  let processRef: string | undefined;
-+  let processExitCode: number | null | undefined;
-+  let processTimedOut: boolean | undefined;
-+  let processDurationMs: number | undefined;
-+  let processStdout: string | undefined;
-+  let processStderr: string | undefined;
-
-   if (oa.executionAttemptServices) {
-     const loaded = await oa.executionAttemptServices.getExecutionAttempt.execute({
-@@ -967,13 +974,28 @@ export async function runW3cPostEvidenceLoop(input: {
-       const agent = oa.executionAttemptServices.registry.getAgent(
-         loaded.attempt.selectedAgentRef,
-       );
-+      const boundaryProofMode = await resolveDurableBoundaryProofMode({
-+        oa,
-+        attempt: loaded.attempt,
-+      });
-       const provenance = deriveAttemptProvenance({
-         attempt: loaded.attempt,
-         agent,
-+        boundaryProofMode,
-       });
-       adapterRef = provenance.adapterRef;
-       executionMode = provenance.executionMode;
-       realProcessInvoked = provenance.realProcessInvoked;
-+      // Prefer durable diagnostic excerpts when present (failure observability).
-+      const diag = loaded.attempt.processDiagnostic;
-+      if (diag) {
-+        processStdout = diag.stdoutExcerpt;
-+        processStderr = diag.stderrExcerpt;
-+        processRef = diag.processRef;
-+        processExitCode = diag.exitCode;
-+        processTimedOut = diag.timedOut;
-+        processDurationMs = diag.durationMs;
-+      }
-     }
-   }
-   if (oa.executionContractServices) {
-@@ -1027,6 +1049,14 @@ export async function runW3cPostEvidenceLoop(input: {
-       reviewBundleId: product.reviewBundleId,
-       technicalResultRef: product.technicalDetail.resultRef,
-       reservations: product.reservations,
-+      ...(processRef ? { processRef } : {}),
-+      ...(processExitCode !== undefined ? { exitCode: processExitCode } : {}),
-+      ...(processTimedOut !== undefined ? { timedOut: processTimedOut } : {}),
-+      ...(processDurationMs !== undefined
-+        ? { durationMs: processDurationMs }
-+        : {}),
-+      ...(processStdout !== undefined ? { stdout: processStdout } : {}),
-+      ...(processStderr !== undefined ? { stderr: processStderr } : {}),
-     },
-     { ckcPromptSection },
-   );
-diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts
-index 62267028..6f668fc9 100644
---- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts
-+++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts
-@@ -126,6 +126,9 @@ export class RecordExecutionFailure {
-         technicalExitCode: request.technicalExitCode,
-         durationMs: request.durationMs,
-         logRefs: request.logRefs ? [...request.logRefs] : attempt.logRefs,
-+        ...(request.processDiagnostic
-+          ? { processDiagnostic: request.processDiagnostic }
-+          : {}),
-         updatedAt: timestamp,
-         version: attempt.version + 1,
-       };
-diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
-index cfe92303..88a52e28 100644
---- a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
-+++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
-@@ -137,6 +137,28 @@ export type ExecutionAttempt = {
-   technicalExitCode?: number;
-   durationMs?: number;
-   logRefs?: string[];
-+  /**
-+   * Checkpoint F / R6 — redacted/capped process observation on failure/timeout.
-+   * Optional additive payload field (no SQLite migration). Diagnostic only —
-+   * never authoritative business Evidence / docs_write artifact proof.
-+   */
-+  processDiagnostic?: {
-+    readonly kind: "process_failure_diagnostic";
-+    readonly schemaVersion: "0.1.0-oa";
-+    readonly processRef: string;
-+    readonly exitCode: number | null;
-+    readonly timedOut: boolean;
-+    readonly durationMs: number;
-+    readonly realProcessInvoked: boolean;
-+    readonly boundaryProofMode?: "cursor_real" | "deterministic_fake";
-+    readonly executableBasename?: string;
-+    readonly stdoutExcerpt: string;
-+    readonly stderrExcerpt: string;
-+    readonly stdoutTruncated: boolean;
-+    readonly stderrTruncated: boolean;
-+    readonly redacted: true;
-+    readonly authoritativeBusinessEvidence: false;
-+  };
-   cancellationRequested?: boolean;
-   irreversibleEffectsPossible?: boolean;
-   updatedAt?: string;
-@@ -265,6 +287,8 @@ export type RecordExecutionFailureRequest = {
-   technicalExitCode?: number;
-   durationMs?: number;
-   logRefs?: string[];
-+  /** Optional redacted process diagnostic (failure / timeout). */
-+  processDiagnostic?: ExecutionAttempt["processDiagnostic"];
-   correlationId?: string;
-   expectedAttemptVersion?: number;
-   nowIso?: string;
-diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 1e401650..fbdb6ef0 100644
---- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-+++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -4,7 +4,8 @@
- | --- | --- |
- | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
- | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
--| **Timestamp maintenance PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01** | 2026-09-17 18:25:36 CEST (+0200) — **PRODUCT DOCS_WRITE REAL PASS POST-MERGE TRUTH-SYNC** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Macro **PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01** · parent macro **PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01** · GO Morris post-merge documentary truth-sync #499 **CONSUMED** (local docs + commit only) · PR **#499 MERGED** `docs(sfia-studio): capitalize Product docs-write REAL proof` · head `9981483f8c158bec07364e14e626cdf2c3fd1e34` · merge `3907177f7788d23d640c5bdcd1cee8e01615762f` · parents `b739ddd3826ea4df640e3f34f97a966d85f8d214` + `9981483f8c158bec07364e14e626cdf2c3fd1e34` · capitalisation = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · pre-merge CI **`35236024162` SUCCESS** · Required Gate **PASS** · post-merge CI **`35245046244` SUCCESS** · Required Gate **PASS** · `headSha=3907177f7788d23d640c5bdcd1cee8e01615762f` · merge lifecycle #499 = **COMPLETED / CONSUMED** · post-merge verification = **PASS** · claim **AUTHENTICATED PRODUCT DOCS_WRITE REAL PROVEN AT TESTED HISTORICAL PROJECT SCOPE** · **ZERO REAL** · Product code **UNCHANGED** · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** **PRESERVED** · next Product capability candidate = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN** · **NOT STARTED / NOT AUTHORIZED** by this truth-sync · this documentary truth-sync = **LOCAL CANDIDATE** · Review Handoff publication **PENDING** (distinct Morris remote push gate) · push/PR/merge of this truth-sync = **DISTINCT Morris gates** · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / origin/main / PR evidence** · **≠** E2E FULL REAL PROVEN · **≠** Product Journey complete to Nora replanning · **≠** docs_write generalized · **≠** Cursor autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new REAL authorization · **≠** PRODUCT-JOURNEY-POST-EXECUTION-REPLAN started · **≠** push/PR/merge authorized by proof |
-+| **Timestamp maintenance PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01** | 2026-09-18 05:15:00 CEST (+0200) — **PRODUCT JOURNEY E2E REAL RECONCILIATION INTEGRATION** · Cycle **15** · Capitalisation / REX + intégration Git · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01** · parent campagne **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01** · baseline pré-intégration `origin/main` `26478b1ea5b010c625f0c6039c969fac5c135cf5` · branche `qa/sfia-studio-product-journey-e2e-real-reconciliation-01` · checkpoints **R1–R12** consolidés · Product fixes **R1/R3/R4/R6/R7/R8/R10** = intégration candidate this PR · Attempt 1 FAIL · Attempt 2 FAIL Authentication required · Attempt 3 Cursor REAL **technical SUCCESS** · bounded docs_write filesystem effect + Artifact Evidence **PROVEN** in M4 isolated WT · Product Result remains **UNCLAIMED** · blocker = **ContractResult extensibility / Evidence wiring** (`no_applicable_contract_result_rule` for `cursor.docs_write.apply`) · capitalisation `projects/sfia-studio/convergence/product-journey-e2e-real-reconciliation-01-capitalization.md` · **ZERO REAL** this integration macro · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **≠** Product Journey E2E READY / COMPLETE · **≠** ContractResult docs_write PASS · **≠** runtime v3 ADOPTED · next after integration verified = **R13 — Contract Result extensibility framing — ZERO REAL** · **NOT STARTED / NOT AUTHORIZED** by this tip · repository lifecycle = **RESOLVE FROM GIT / PR evidence** |
-+| **Timestamp maintenance historique PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01 (pre-PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01)** | *(tip superseded by PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-17 18:25:36 CEST (+0200) — **PRODUCT DOCS_WRITE REAL PASS POST-MERGE TRUTH-SYNC** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Macro **PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01** · parent macro **PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01** · GO Morris post-merge documentary truth-sync #499 **CONSUMED** (local docs + commit only) · PR **#499 MERGED** `docs(sfia-studio): capitalize Product docs-write REAL proof` · head `9981483f8c158bec07364e14e626cdf2c3fd1e34` · merge `3907177f7788d23d640c5bdcd1cee8e01615762f` · parents `b739ddd3826ea4df640e3f34f97a966d85f8d214` + `9981483f8c158bec07364e14e626cdf2c3fd1e34` · capitalisation = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · pre-merge CI **`35236024162` SUCCESS** · Required Gate **PASS** · post-merge CI **`35245046244` SUCCESS** · Required Gate **PASS** · `headSha=3907177f7788d23d640c5bdcd1cee8e01615762f` · merge lifecycle #499 = **COMPLETED / CONSUMED** · post-merge verification = **PASS** · claim **AUTHENTICATED PRODUCT DOCS_WRITE REAL PROVEN AT TESTED HISTORICAL PROJECT SCOPE** · **ZERO REAL** · Product code **UNCHANGED** · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** **PRESERVED** · next Product capability candidate = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN** · **NOT STARTED / NOT AUTHORIZED** by this truth-sync · this documentary truth-sync = **LOCAL CANDIDATE** · Review Handoff publication **PENDING** (distinct Morris remote push gate) · push/PR/merge of this truth-sync = **DISTINCT Morris gates** · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / origin/main / PR evidence** · **≠** E2E FULL REAL PROVEN · **≠** Product Journey complete to Nora replanning · **≠** docs_write generalized · **≠** Cursor autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new REAL authorization · **≠** PRODUCT-JOURNEY-POST-EXECUTION-REPLAN started · **≠** push/PR/merge authorized by proof |
- | **Timestamp maintenance historique PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01 (pre-PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01)** | *(tip superseded by PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-17 16:15:39 CEST (+0200) — **PRODUCT DOCS_WRITE REAL PASS CAPITALISATION** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Macro **PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01** · GO capitalisation locale **CONSUMED** · GO Review Handoff + push + PR **CONSUMED** · remédiation gouvernance PR499 in-cycle · Product PR **#498 MERGED** `fix(sfia-studio): close docs-write REAL path and completion` · merge/main `b739ddd3826ea4df640e3f34f97a966d85f8d214` · post-merge CI **`35215299343` SUCCESS** · Required Gate **PASS** · Fresh Authenticated Product Reproof09 REAL = **PASS** · claim **AUTHENTICATED PRODUCT DOCS_WRITE REAL PROVEN AT TESTED HISTORICAL PROJECT SCOPE** · 1 Product Execute / 1 Cursor REAL spawn / 0 retry · exact target `projects/sfia-studio/.sandbox/gestion-de-taches.md` **PASS** · Attempt terminal **`succeeded`** **PASS** · Evidence/ReviewBundle **PASS** · restart/no-relaunch **PASS** · capitalisation asset `projects/sfia-studio/convergence/sfia-studio-product-docs-write-real-pass-capitalisation.md` = **CANDIDATE PR #499 / remote branch / pending merge** · PR **#499** `docs(sfia-studio): capitalize Product docs-write REAL proof` · base `main` @ `b739ddd3826ea4df640e3f34f97a966d85f8d214` · pre-remediation head `f0b7c414394e2bb51ae93ec159027682d0bdc1c4` · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** **PRESERVED** · next Product capability candidate = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN** · **NOT STARTED / NOT AUTHORIZED** by this capitalisation · **ZERO REAL** this DOC cycle · Product code **unchanged** · Review Handoff = **PUBLISHED / REMOTE VERIFIED** · pre-remediation handoff `2bd065dfc15ff5577ef83f78feebd05c5738d231` · remediation handoff republish-in-cycle for new HEAD · GO push/PR = **CONSUMED** · PR **#499 OPEN** · merge = **DISTINCT PENDING Morris gate** · **≠** E2E FULL REAL PROVEN · **≠** Product Journey complete to Nora replanning · **≠** docs_write generalized · **≠** Cursor autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new REAL authorization · **≠** push/PR/merge authorized by proof |
- | **Timestamp maintenance historique GCEC-D-CAPABLE-POST-MERGE-DOCUMENTARY-TRUTH-SYNC-01 (pre-PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01)** | *(tip superseded by PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01)* — 2026-09-13 20:26 CEST (+0200) — **GCEC D-CAPABLE POST-MERGE DOCUMENTARY TRUTH-SYNC** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · GO **GCEC D-CAPABLE POST-MERGE DOCUMENTARY TRUTH-SYNC — ROADMAP + CAPITALISATION — MAIN 76E2D786 — ZERO REAL** **CONSUMED** · placement GO **USE `projects/sfia-studio/convergence/sfia-studio-gcec-d-capable-post-merge-capitalisation.md` AS GCEC PROJECT CAPITALISATION TARGET** **CONSUMED** · GO **GCEC D-CAPABLE POST-MERGE DOCUMENTARY TRUTH-SYNC — PROJECT GIT INTEGRATION — COMMIT + PUSH + PR + CI + CHATGPT CRITICAL REVIEW — CONDITIONAL MERGE — ZERO REAL** **CONSUMED** · **GCEC lane truth-sync only** (not automatic global Nora top priority) · Product GCEC D-capable chain = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · integration anchor `origin/main` @ `76e2d7869be439313b1c52bf4083aa105e5c6293` *(milestone post-merge anchor · living Roadmap **≠** permanent HEAD embed · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence**)* · PR **#481 MERGED** `feat(sfia-studio): integrate GCEC D-capable Product chain` · base `c481610caa3527edabeca8c860ab27c18a6a738e` · head `f42103881ea952f445672ed7781da59a465893d8` · merge `76e2d7869be439313b1c52bf4083aa105e5c6293` · parents `c481610c…` + `f4210388…` · head→merge content delta **ZERO** · source branch `delivery/sfia-studio-gcec-d-ephemeral-secret-bridge` **PRESERVED** @ `f4210388…` · post-merge CI **`34772652845` SUCCESS** (Detect / Build / Required Gate) · Roadmap **intentionally unmodified** by Product PR #481 · remaining debt = documentary drift treated by this documentary package · repository closure requires exact project Git integration and post-merge verification · repository lifecycle = RESOLVE FROM CURRENT GIT / PR EVIDENCE · A/B/C historical REAL **PROVEN AT TESTED SCOPE** **PRESERVED** · Cursor full-capability technical executor = **RO REAL-BACKED AT TESTED SCOPE** · cross-EC C→D continuity = **DETERMINISTICALLY PROVEN + REAL-BACKED BY D CAMPAIGN AT TESTED SCOPE** (VERIFIED prior Evidence + fresh RepositoryRead · ≠ ambient trust · ≠ blanket A→E) · D / `github.pr.create` = **REAL PROVEN AT TESTED SCOPE** · E / `github.pr.merge` = **REAL NOT PROVEN / NOT AUTHORIZED BY THIS CYCLE** · phase-scoped ExecutionContracts = **adopted construction trajectory** (one EC = one bounded execution intent · multiple sequential ECs may follow durable truth · A→D harness = proof/capability harness **≠** normative runtime orchestration · no monolithic A→D replay required as normative precondition for D or E) · technical capability **≠** execution authority · protected Git effects retain gates/Confirmations/authority · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** (NORA-FIRST unchanged · GCEC ≠ global Studio top priority) · next GCEC continuation (if any) = **DISTINCT Morris GO for E / `github.pr.merge`** — **NOT** default next global capability · **NOT AUTHORIZED** by this DOC cycle · project Git integration GO **CONSUMED** — repository lifecycle = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** · **ZERO GCEC REAL** this documentary integration cycle · **≠** E/merge REAL proven · **≠** merge authorized · **≠** generalized PR/Git autonomy · **≠** production autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** method promotion · **≠** Build Doctrine / C1 / v3 framing mutation · **≠** Product mutation · **≠** Nora priority displaced |
- | **Timestamp maintenance historique GCEC-A2D-REAL-FAIL-HARNESS-ALIGNMENT-01 (pre-D-capable post-merge documentary truth-sync)** | 2026-09-13 09:33 CEST (+0200) — **GCEC A→D REAL FAIL + HARNESS SEMANTIC/LIFECYCLE ALIGNMENT** · Cycle **13** · DOC · CRITICAL · Macro GO **GCEC A→D HARNESS CORRECTION INTEGRATION — LOCAL ANCHOR e2bebdb5 + BOUNDED ROADMAP TRUTH-SYNC — PUSH + PR + CI + CHATGPT CRITICAL REVIEW + CONDITIONAL MERGE — ZERO REAL** · **GCEC lane truth-sync only** (not automatic global Nora top priority) · Governed Project Execution / **GCEC-GIT-LIFECYCLE-E2E-01** · ONE FRESH GCEC REAL A→D campaign was explicitly authorized and executed · campaign **STARTED** · campaign budget **CONSUMED** at Attempt A REAL launch · Attempt A: actual REAL docs-write effect occurred · Attempt succeeded technically · Evidence `execution_attempt:docs_write` **verified** · BUT campaign acceptance / `A_RECONCILED_RETAINED` **NOT reached** · harness stopped on invalid invariant treating `ExecutionContract.version` as semantically immutable · observed final EC: `semanticFingerprint` unchanged · version advanced **3 → 5** · consistent with T-A5 lifecycle `confirmed → executing → confirmed` · version = lifecycle/OCC metadata, **not** semantic material · B/C/D **NOT STARTED** · E / merge **NOT STARTED / NOT PROVEN** · proof remote unchanged (main unchanged · no feature branch · no PR · no merge · no tag mutation) · Product remote effects during REAL campaign **NONE** · historical campaign verdict remains **FAIL REAL** · A REAL effect + verified Evidence **OBSERVED** · A campaign acceptance / tested-scope proof **NOT CLOSED** · **≠** A REAL PROVEN · root cause after ChatGPT Critical Review: runtime semantic immutability **not** violated · harness oracle incorrectly conflated semantic immutability with lifecycle version immutability · deterministic correction local Product anchor `e2bebdb5718ef4ded945c1ca866e8bc53b919915` · subject `test(sfia-studio): align GCEC A-to-D semantic and lifecycle invariants` · semantic binding frozen · fingerprint freshly recomputed · lifecycle/OCC version checked separately · expected successful-slice delta **+2** · A/B/C/D retain same semantic baseline · runtime Product implementation **unchanged** · deterministic validation: focused **13 passed / 1 skipped** · related **102 passed** · typecheck/lint/build **PASS** · full Vitest **3868 passed / 137 skipped** · ZERO REAL correction cycle · repository publication/integration status = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** · new REAL campaign **NOT AUTHORIZED** by this integration · only after correction integration is verified: **NEW DISTINCT Morris GO** required for fresh A→D REAL campaign · runtime v3 **NON ADOPTED** · Nora/Cognitive Completion priorities **UNCHANGED** · forensic failed-campaign state **PRESERVED** · **ZERO REAL** this integration lot · **≠** A/B/C/D REAL proven · **≠** A→D E2E REAL proven · **≠** E/merge REAL proven · **≠** A→E proven · **≠** generalized Git autonomy · **≠** production autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new doctrine / architecture · **≠** automatic REAL retry | · *(tip superseded by GCEC-D-CAPABLE-POST-MERGE-DOCUMENTARY-TRUTH-SYNC-01 after Product PR #481 MERGED / post-merge verified + documentary truth-sync)*
-
-===== NEW FILES (full content as /dev/null diff) =====
-diff --git a/projects/sfia-studio/app/__tests__/oa/execution-contract/checkpointE.docsWriteEvidenceCoherence.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-contract/checkpointE.docsWriteEvidenceCoherence.d0.test.ts
-new file mode 100644
-index 00000000..bcca3183
---- /dev/null
-+++ b/projects/sfia-studio/app/__tests__/oa/execution-contract/checkpointE.docsWriteEvidenceCoherence.d0.test.ts
-@@ -0,0 +1,171 @@
-+/**
-+ * CHECKPOINT-E R4 — docs_write evidenceRequirements semantic coherence.
-+ * Bounded NO_* profile must not demand Git lifecycle proofs.
-+ */
-+
-+import { describe, expect, it } from "vitest";
-+import {
-+  BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS,
-+  BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS,
-+  docsWriteConstraintsForbidGitLifecycle,
-+  docsWriteEvidenceContradictsConstraints,
-+  isGitLifecycleEvidenceRequirement,
-+  resolveDocsWriteEvidenceRequirementsForBoundedProfile,
-+  boundedDocsWriteM3ResolutionProfile,
-+} from "@/features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile";
-+import { isDocsWriteEvidenceContradictionView } from "@/features/project-assistant/f3/docsWriteEvidenceContradictionView";
-+import { deriveExecutableEffectsFromContractRequirements } from "@/lib/oa/execution-attempt/domain/contractEffectClassification";
-+import { qualifyExecutionContractCompletion } from "@/lib/oa/execution-attempt/domain/qualifyExecutionContractCompletion";
-+import { isOaIdentifier } from "@/lib/oa/execution-contract/domain/invariants";
-+
-+const NO_GIT_CONSTRAINTS = [
-+  "BOUNDED DOCS-WRITE",
-+  "NO_COMMIT",
-+  "NO_GIT_REMOTE",
-+  "NO_PUSH",
-+  "NO_PR",
-+  "NO_MERGE",
-+] as const;
-+
-+describe("CHECKPOINT-E R4 — docs_write evidence contract coherence", () => {
-+  it("T1 — Git lifecycle set contradicts NO_* constraints (semantic invalid)", () => {
-+    expect(
-+      docsWriteEvidenceContradictsConstraints({
-+        evidenceRequirements: [
-+          ...BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS,
-+        ],
-+        constraints: NO_GIT_CONSTRAINTS,
-+      }),
-+    ).toBe(true);
-+    expect(
-+      isDocsWriteEvidenceContradictionView({
-+        action: "cursor.docs_write.apply",
-+        target: "workspace.isolated.docs_write",
-+        constraints: NO_GIT_CONSTRAINTS,
-+        evidenceRequirements: [
-+          ...BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS,
-+        ],
-+      }),
-+    ).toBe(true);
-+  });
-+
-+  it("T2 — corrected local set is OA-valid and coherent with NO_*", () => {
-+    const local = resolveDocsWriteEvidenceRequirementsForBoundedProfile({
-+      fromPrepare: [...BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS],
-+      constraints: NO_GIT_CONSTRAINTS,
-+    });
-+    expect(local).toEqual([
-+      ...BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS,
-+    ]);
-+    for (const id of local) {
-+      expect(isOaIdentifier(id)).toBe(true);
-+      expect(isGitLifecycleEvidenceRequirement(id)).toBe(false);
-+    }
-+    expect(
-+      docsWriteEvidenceContradictsConstraints({
-+        evidenceRequirements: local,
-+        constraints: NO_GIT_CONSTRAINTS,
-+      }),
-+    ).toBe(false);
-+  });
-+
-+  it("T3 — no retained requirement demands a forbidden Git effect", () => {
-+    const profile = boundedDocsWriteM3ResolutionProfile();
-+    expect(docsWriteConstraintsForbidGitLifecycle(profile.constraints!)).toBe(
-+      true,
-+    );
-+    const reqs = resolveDocsWriteEvidenceRequirementsForBoundedProfile({
-+      fromPrepare: [],
-+      constraints: profile.constraints!,
-+    });
-+    const classified = deriveExecutableEffectsFromContractRequirements({
-+      evidenceRequirements: reqs,
-+      requiredCapabilities: profile.requiredCapabilities,
-+    });
-+    expect(classified.executableEffects).not.toContain("git.commit");
-+    expect(classified.executableEffects).not.toContain("git.push");
-+    expect(classified.executableEffects).not.toContain("github.pr.create");
-+    expect(classified.executableEffects).not.toContain("github.pr.merge");
-+    expect(classified.verificationObligations).toEqual([]);
-+    expect(classified.executableEffects).toContain("filesystem.create");
-+  });
-+
-+  it("T4 — local requirement is satisfiable by docs_write artifact Evidence", () => {
-+    const reqs = [...BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS];
-+    const qualification = qualifyExecutionContractCompletion({
-+      contract: {
-+        executionContractId: "xct:m3-res:test-r4",
-+        projectId: "prj:r4",
-+        cycleInstanceId: "cyc:r4",
-+        evidenceRequirements: reqs,
-+        requiredCapabilities: ["cap:cursor.docs_write"],
-+      },
-+      evidence: [
-+        {
-+          evidenceId: "ev:docs-write:test",
-+          type: "artifact",
-+          status: "verified",
-+          source: "execution_attempt:docs_write",
-+          bindings: {
-+            projectId: "prj:r4",
-+            cycleInstanceId: "cyc:r4",
-+            executionContractId: "xct:m3-res:test-r4",
-+            executionAttemptId: "att:test",
-+          },
-+        } as never,
-+      ],
-+    });
-+    expect(qualification.complete).toBe(true);
-+    expect(qualification.remainingRequiredEffects).toEqual([]);
-+  });
-+
-+  it("T5/T6 — OA identifier validation holds for local set", () => {
-+    for (const id of BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS) {
-+      expect(isOaIdentifier(id)).toBe(true);
-+    }
-+  });
-+
-+  it("T7 — applicable non-Git OA IDs from PREPARE are preserved under NO_*", () => {
-+    const kept = resolveDocsWriteEvidenceRequirementsForBoundedProfile({
-+      fromPrepare: ["evreq:file-write-result", "evreq:content-verification"],
-+      constraints: NO_GIT_CONSTRAINTS,
-+    });
-+    expect(kept).toEqual([
-+      "evreq:file-write-result",
-+      "evreq:content-verification",
-+    ]);
-+  });
-+
-+  it("T8 — Git lifecycle set preserved when constraints do NOT forbid Git", () => {
-+    const kept = resolveDocsWriteEvidenceRequirementsForBoundedProfile({
-+      fromPrepare: [...BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS],
-+      constraints: ["BOUNDED DOCS-WRITE", "PATH_ALLOWLIST_ONLY"],
-+    });
-+    expect(kept).toEqual([
-+      ...BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS,
-+    ]);
-+    expect(
-+      docsWriteEvidenceContradictsConstraints({
-+        evidenceRequirements: kept,
-+        constraints: ["BOUNDED DOCS-WRITE"],
-+      }),
-+    ).toBe(false);
-+  });
-+
-+  it("T8b — empty prepare + Git-allowed constraints falls back to Git set", () => {
-+    const kept = resolveDocsWriteEvidenceRequirementsForBoundedProfile({
-+      fromPrepare: [],
-+      constraints: ["BOUNDED DOCS-WRITE"],
-+    });
-+    expect(kept).toEqual([
-+      ...BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS,
-+    ]);
-+  });
-+
-+  it("profile ships local evidenceRequirements by default", () => {
-+    const profile = boundedDocsWriteM3ResolutionProfile();
-+    expect(profile.evidenceRequirements).toEqual([
-+      ...BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS,
-+    ]);
-+  });
-+});
-diff --git a/projects/sfia-studio/app/__tests__/oa/execution-contract/checkpointE.docsWriteEvidenceRematerialize.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-contract/checkpointE.docsWriteEvidenceRematerialize.d0.test.ts
-new file mode 100644
-index 00000000..8d660754
---- /dev/null
-+++ b/projects/sfia-studio/app/__tests__/oa/execution-contract/checkpointE.docsWriteEvidenceRematerialize.d0.test.ts
-@@ -0,0 +1,179 @@
-+/**
-+ * CHECKPOINT-E R4 T9 — rematerialize docs_write evidenceRequirements via OA supersession.
-+ * @vitest-environment node
-+ */
-+import path from "node:path";
-+import os from "node:os";
-+import { mkdtempSync } from "node:fs";
-+import { afterEach, describe, expect, it } from "vitest";
-+import {
-+  getRuntimeApplicationService,
-+  resetRuntimeApplicationServiceForTests,
-+} from "@/lib/vertical-slice-runtime";
-+import type { LocalProjectIdSource } from "@/lib/vertical-slice-core";
-+import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
-+import { rematerializeDocsWriteEvidenceRequirements } from "@/features/project-assistant/f3/rematerializeDocsWriteEvidenceRequirements";
-+import {
-+  BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS,
-+  BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS,
-+} from "@/features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile";
-+import {
-+  LOCAL_PILOTE_ACTOR,
-+  registerLocalPiloteAuthority,
-+} from "@/lib/oa/decision";
-+
-+const APP_ROOT = path.resolve(__dirname, "../../..");
-+const REGISTRY_ROOT = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
-+const SCHEMAS_ROOT = path.resolve(
-+  APP_ROOT,
-+  "../sfia-v3-modeled/v3-native-option-a/schemas",
-+);
-+
-+class FixedIdSource implements LocalProjectIdSource {
-+  private n = 0;
-+  constructor(private readonly prefix: string) {}
-+  nextProjectId(): string {
-+    this.n += 1;
-+    return `prj:r4-${this.prefix}-${this.n}`;
-+  }
-+  nextLpsVersionId(): string {
-+    this.n += 1;
-+    return `lps:r4-${this.prefix}-${this.n}`;
-+  }
-+  nextCorrelationId(): string {
-+    this.n += 1;
-+    return `cor:r4-${this.prefix}-${this.n}`;
-+  }
-+}
-+
-+afterEach(() => {
-+  resetRuntimeApplicationServiceForTests();
-+});
-+
-+describe("CHECKPOINT-E R4 T9 — rematerialize evidenceRequirements", () => {
-+  it("material evidenceRequirements change invalidates prior inspection", async () => {
-+    resetRuntimeApplicationServiceForTests();
-+    const dir = mkdtempSync(path.join(os.tmpdir(), "sfia-r4-remat-"));
-+    const runtime = getRuntimeApplicationService({
-+      registryRoot: REGISTRY_ROOT,
-+      schemasRoot: SCHEMAS_ROOT,
-+      nowIso: "2026-09-17T21:00:00.000Z",
-+      idSource: new FixedIdSource("ev"),
-+      auditMode: "noop",
-+      productDbPath: path.join(dir, "oa-product.sqlite"),
-+    });
-+    const oa = runtime.oa!;
-+    const created = await runtime.createProject({
-+      name: "R4 rematerialize",
-+      objective: "docs_write evidence coherence",
-+      context: "r4",
-+      criticality: "STANDARD",
-+      constraints: ["FIXTURE ONLY"],
-+      shortReference: "R4EV",
-+      idempotencyKey: `r4-ev-${Date.now()}`,
-+    });
-+    expect(created.ok).toBe(true);
-+    if (!created.ok) return;
-+    const projectId = created.project.projectId;
-+
-+    const authority = registerLocalPiloteAuthority({
-+      authorityResolver: oa.authorityResolver,
-+      scope: "studio.gcec.docs_write",
-+      issuedAt: oa.clock.nowIso(),
-+      evidenceId: "evd:r4-remat-build",
-+      forceEnable: true,
-+    });
-+    expect(authority.ok).toBe(true);
-+    if (!authority.ok) return;
-+
-+    const built =
-+      await oa.executionContractServices.buildExecutionContract.execute({
-+        executionContractId: "xct:m3-res:r4-ev-contradiction",
-+        projectId,
-+        decisionRefs: [],
-+        action: "cursor.docs_write.apply",
-+        target: "workspace.isolated.docs_write",
-+        scope: "studio.gcec.docs_write",
-+        requiredCapabilities: ["cap:cursor.docs_write"],
-+        requiredAuthority: "MORRIS",
-+        constraints: [
-+          "BOUNDED DOCS-WRITE",
-+          "NO_COMMIT",
-+          "NO_GIT_REMOTE",
-+          "NO_PUSH",
-+          "NO_PR",
-+          "NO_MERGE",
-+        ],
-+        stopConditions: ["AUTHORITY_DENIED"],
-+        evidenceRequirements: [
-+          ...BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS,
-+        ],
-+        reversibility: "reversible",
-+        idempotencyKey: "idem:r4-ev-contradiction",
-+        correlationId: "cor:r4-ev-contradiction",
-+        actor: LOCAL_PILOTE_ACTOR,
-+        authorityEvidenceId: authority.evidenceId,
-+        inputs: {
-+          targetPath:
-+            "projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md",
-+          targetRepositoryRef: "mcleland147/sfia-workspace",
-+          scopeIn: ["projects/sfia-studio/.sandbox"],
-+        },
-+      });
-+    expect(built.ok).toBe(true);
-+    if (!built.ok) return;
-+
-+    const validated =
-+      await oa.executionContractServices.validateExecutionContract.execute({
-+        executionContractId: built.contract.executionContractId,
-+        actor: LOCAL_PILOTE_ACTOR,
-+        authorityEvidenceId: authority.evidenceId,
-+      });
-+    expect(validated.ok).toBe(true);
-+    if (!validated.ok) return;
-+    expect(validated.contract.status).toBe("confirmation_required");
-+
-+    const inspected = await inspectExecutionContract({
-+      oa,
-+      projectId,
-+      executionContractId: validated.contract.executionContractId,
-+    });
-+    expect(inspected.ok).toBe(true);
-+    if (!inspected.ok) return;
-+    expect(inspected.inspectionSufficient).toBe(true);
-+    const priorFp = validated.contract.semanticFingerprint;
-+
-+    const rematerialized = await rematerializeDocsWriteEvidenceRequirements({
-+      oa,
-+      projectId,
-+      executionContractId: validated.contract.executionContractId,
-+      forceLocalAuthority: true,
-+    });
-+    expect(rematerialized.ok).toBe(true);
-+    if (!rematerialized.ok) return;
-+    expect(rematerialized.evidenceRequirements).toEqual([
-+      ...BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS,
-+    ]);
-+    expect(rematerialized.successor.evidenceRequirements).toEqual([
-+      ...BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS,
-+    ]);
-+    expect(rematerialized.priorInspectionDoesNotCoverSuccessor).toBe(true);
-+    expect(rematerialized.reinspectionRequired).toBe(true);
-+    expect(rematerialized.successorInspection.inspectionSufficient).toBe(
-+      false,
-+    );
-+    expect(rematerialized.successor.semanticFingerprint).not.toBe(priorFp);
-+    expect(rematerialized.executionPerformed).toBe(false);
-+    expect(rematerialized.attemptCreated).toBe(false);
-+    expect(rematerialized.confirmationGranted).toBe(false);
-+    expect(rematerialized.authorityGranted).toBe(false);
-+
-+    const priorAfter =
-+      await oa.executionContractServices.getExecutionContract.execute({
-+        executionContractId: validated.contract.executionContractId,
-+      });
-+    expect(priorAfter.ok).toBe(true);
-+    if (!priorAfter.ok) return;
-+    expect(priorAfter.contract.status).toBe("superseded");
-+  });
-+});
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/checkpointE.prepareResume.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/checkpointE.prepareResume.d0.test.ts
 new file mode 100644
 index 00000000..192d48cb
@@ -4750,6 +3251,784 @@ index 00000000..7e6d2574
 +    expect(proposed.recommendation.isHumanDecision).toBe(false);
 +  });
 +});
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/corrProof10.decisionContextContinuity.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/corrProof10.decisionContextContinuity.d0.test.ts
+index 2d455172..00e1b592 100644
+--- a/projects/sfia-studio/app/__tests__/project-assistant/corrProof10.decisionContextContinuity.d0.test.ts
++++ b/projects/sfia-studio/app/__tests__/project-assistant/corrProof10.decisionContextContinuity.d0.test.ts
+@@ -1349,7 +1349,11 @@ describe("CORR-PROOF-10 Post-binding Continuity R31–R48", () => {
+     );
+     expect(read.ok).toBe(true);
+     if (!read.ok) return;
+-    expect(read.kind).toBe("none");
++    expect(read.kind).toBe("pursue_prepare_ready");
++    if (read.kind !== "pursue_prepare_ready") return;
++    expect(read.decision.decisionId).toBe(decided.decision.decisionId);
++    expect(read.decision.selectedOptionRef).toBe(PROPOSAL_SUBJECT_PURSUE_REF);
++    expect(read.decision.proposalId).toBe(proposal.proposalId);
+
+     const second = await decideTrajectory({
+       oa: runtime.oa!,
+@@ -1744,7 +1748,11 @@ describe("CORR-PROOF-10 Atomic Subject Closure R49–R68", () => {
+     );
+     expect(read.ok).toBe(true);
+     if (!read.ok) return;
+-    expect(read.kind).toBe("none");
++    expect(read.kind).toBe("pursue_prepare_ready");
++    if (read.kind !== "pursue_prepare_ready") return;
++    expect(read.decision.decisionId).toBe(firstId);
++    expect(read.decision.selectedOptionRef).toBe(PROPOSAL_SUBJECT_PURSUE_REF);
++    expect(read.decision.proposalId).toBe(proposal.proposalId);
+
+     const histBefore =
+       await runtime.oa!.decisionServices.listDecisionHistory.execute({
+@@ -2052,13 +2060,15 @@ describe("CORR-PROOF-10 Crash-Consistency R69–R86", () => {
+     );
+     expect(read.ok).toBe(true);
+     if (!read.ok) return;
+-    expect(read.kind).toBe("none");
++    expect(read.kind).toBe("pursue_prepare_ready");
++    if (read.kind !== "pursue_prepare_ready") return;
++    expect(read.decision.decisionId).toBe(decided.decision.decisionId);
+
+     const afterPt = await snapshotTrajectories(runtime.oa!, projectId);
+     expect(afterPt.fingerprint).toBe(beforePt.fingerprint);
+   });
+
+-  it("R70 — generic ProjectTrajectory accessible after closed stale marker", async () => {
++  it("R70 — after pursue closure without EC, PREPARE continuation owns next action (no competing trajectory instruct)", async () => {
+     const { projectId, cycleInstanceId, ctx } = await seed("r70");
+     const proposal = docsWriteProposal({
+       projectId,
+@@ -2080,20 +2090,31 @@ describe("CORR-PROOF-10 Crash-Consistency R69–R86", () => {
+       forceLocalAuthority: true,
+     });
+     expect(decided.ok).toBe(true);
++    if (!decided.ok) return;
+     await reactivateStalePendingMarker(proposal);
+     resetF2ProposalStoreForTests();
+
+     const before = await snapshotTrajectories(runtime.oa!, projectId);
+     const traj = await proposeW2OptionsForProject(runtime, projectId);
+-    expect(traj.ok).toBe(true);
+-    if (!traj.ok) return;
+-    expect(traj.decisionSubjectMode).toBe("project_trajectory");
+-    expect(traj.proposedTrajectory).not.toBeNull();
+-    expect(
+-      traj.options.some((o) => o.optionRef === GOVERNED_OPTION_REF),
+-    ).toBe(true);
++    expect(traj.ok).toBe(false);
++    if (traj.ok) return;
++    expect(traj.code).toBe("PREPARE_CONTINUATION_OWNS_NEXT_ACTION");
++
++    const { readActiveProposalDecisionSubject } = await import(
++      "@/features/project-assistant/w2/activeProposalDecisionSubject"
++    );
++    const read = await readActiveProposalDecisionSubject(
++      runtime.oa!,
++      projectId,
++    );
++    expect(read.ok).toBe(true);
++    if (!read.ok) return;
++    expect(read.kind).toBe("pursue_prepare_ready");
++    if (read.kind !== "pursue_prepare_ready") return;
++    expect(read.decision.decisionId).toBe(decided.decision.decisionId);
++
+     const after = await snapshotTrajectories(runtime.oa!, projectId);
+-    expect(after.count).toBeGreaterThan(before.count);
++    expect(after.fingerprint).toBe(before.fingerprint);
+   });
+
+   it("R71/R72 — closed A + stale A does not neutralize pending B", async () => {
+diff --git a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts b/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
+index 18df0e0e..93519c3a 100644
+--- a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
++++ b/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
+@@ -85,6 +85,8 @@ describe("V2-A1 vertical-slice-runtime import boundaries", () => {
+       "features/project-assistant/f3/confirmAndExecuteResolvedM3.ts:@/lib/vertical-slice-runtime",
+       "features/project-assistant/f3/confirmAndExecuteResolvedM3.ts:@/lib/vertical-slice-runtime/e2eOptionAQaScenarioControl",
+       "features/project-assistant/f3/prepareAndResolveM3ProductPath.ts:@/lib/vertical-slice-runtime/resolveBoundedReadOnlyBaseHeadSha",
++      "features/project-assistant/f3/rematerializeDocsWriteEvidenceRequirements.ts:@/lib/vertical-slice-runtime",
++      "features/project-assistant/f3/resolveDurableBoundaryProofMode.ts:@/lib/vertical-slice-runtime",
+       "features/project-assistant/f3/resolveExistingLegacyM3DocsWriteProductPath.ts:@/lib/vertical-slice-runtime/resolveBoundedReadOnlyBaseHeadSha",
+       "features/project-assistant/f3/selectProductM3ResolutionProfile.ts:@/lib/vertical-slice-runtime/deterministicExternalLaunchBoundary",
+       "features/project-assistant/f3/e2eOptionATerminalAttempt.ts:@/lib/vertical-slice-runtime",
+@@ -106,13 +108,18 @@ describe("V2-A1 vertical-slice-runtime import boundaries", () => {
+       "features/project-assistant/w2/governedExecuteAuthorizedContract.ts:@/lib/vertical-slice-runtime/w3bE2eBoundaryControl",
+       "app/api/e2e/w3b-boundary/route.ts:@/lib/vertical-slice-runtime/w3bE2eBoundaryControl",
+       "features/project-assistant/w2/pendingDecisionSubjectMarker.ts:@/lib/vertical-slice-runtime",
++      "features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts:@/lib/vertical-slice-runtime",
++      "features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts:@/lib/vertical-slice-runtime/resolveBoundedReadOnlyBaseHeadSha",
+       "features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts:@/lib/vertical-slice-runtime",
++      "features/project-assistant/w2/prepareReadyProposalPursueContinuation.ts:@/lib/vertical-slice-runtime",
+       "features/project-assistant/w2/presentedOptionSet.ts:@/lib/vertical-slice-runtime",
+       "features/project-assistant/w2/projectHistory.ts:@/lib/vertical-slice-runtime",
+       "features/project-assistant/w2/proposeTrajectoryOptions.ts:@/lib/vertical-slice-runtime",
+       "features/project-assistant/w2/qualificationInputs.ts:@/lib/vertical-slice-runtime",
+       "features/project-assistant/w2/readCurrentGovernedExecutionContinuity.ts:@/lib/vertical-slice-runtime",
++      "features/project-assistant/w2/resolvePostEvidenceRecoveryContext.ts:@/lib/vertical-slice-runtime",
+       "features/project-assistant/w2/resolveProposalDecisionSubject.ts:@/lib/vertical-slice-runtime",
++      "features/project-assistant/w2/resolveRecoveryExecutionBinding.ts:@/lib/vertical-slice-runtime",
+       "features/pre-m6-product-ui/NewProjectIntentionPage.tsx:@/lib/vertical-slice-runtime/actions",
+       "features/pre-m6-product-ui/ProjectWorkspacePage.tsx:@/lib/vertical-slice-runtime/actions",
+       "features/pre-m6-product-ui/ProjectsPage.tsx:@/lib/vertical-slice-runtime/actions",
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+index 3ac63c8d..3cda6518 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+@@ -22,6 +22,7 @@ import {
+   projectAssistantResolveLegacyM3DocsWriteAction,
+ } from "@/features/project-assistant/actions";
+ import { isLegacyDocsWritePrepareContractView } from "@/features/project-assistant/f3/legacyDocsWritePrepareContractView";
++import { isDocsWriteEvidenceContradictionView } from "@/features/project-assistant/f3/docsWriteEvidenceContradictionView";
+ import {
+   w2AmendExecutionContractAction,
+   w2AuthorizeExecutionContractAction,
+@@ -34,11 +35,17 @@ import {
+   w2InspectExecutionContractAction,
+   w2MaterializeProductOutcomeAction,
+   w2PrepareExecutionContractAction,
++  w2PrepareRecoveryDocsWriteAction,
+   w2ProposeTrajectoryOptionsAction,
+   w2ReadActiveDecisionSubjectAction,
+   w2ReadCurrentGovernedExecutionContinuityAction,
++  w2ReadRecoveryExecutionBindingAction,
+   w2RehydrateProductOutcomeAction,
++  w2RematerializeDocsWriteEvidenceAction,
+ } from "@/features/project-assistant/w2/actions";
++import { GOVERNED_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
++import type { RecoveryExecutionBinding } from "@/features/project-assistant/w2/resolveRecoveryExecutionBinding";
++import { isWrongGenericPreExecReplaceableByRecoveryPrepare } from "@/features/project-assistant/w2/recoveryReplaceableCurrentContract";
+ import {
+   projectAssistantApprovePreCycleCandidateTrajectoryAction,
+   projectAssistantReadCandidateTrajectoryApprovalPresentationAction,
+@@ -343,6 +350,8 @@ export function TrajectorySurface({
+   const [productEvidencePending, setProductEvidencePending] = useState(false);
+   const [qualifiedOperationKind, setQualifiedOperationKind] =
+     useState<QualifiedOperationKind | null>(null);
++  const [recoveryBinding, setRecoveryBinding] =
++    useState<RecoveryExecutionBinding | null>(null);
+
+   /**
+    * Continuity pass generation — invalidates in-flight subject/EC reads when a
+@@ -374,6 +383,30 @@ export function TrajectorySurface({
+     proposalPursue && decision?.decisionBasisLinked === true;
+   const proposalBackedPrepareBlocked =
+     proposalPursue && decision?.decisionBasisLinked !== true;
++  /** R10 — client decision id OR durable continuity decisionRef after restart. */
++  const recoveryDecisionId =
++    decision?.decisionId ?? continuityDecisionRef ?? null;
++  const recoveryDocsWritePrepareReady = Boolean(
++    !decisionDefersExecution &&
++      !hasProposalDecisionSubject &&
++      (decision == null ||
++        decision.selectedOptionRef === GOVERNED_OPTION_REF) &&
++      recoveryBinding &&
++      recoveryBinding.kind === "post_evidence_recovery_execution",
++  );
++  const wrongGenericReplaceableByRecoveryPrepare =
++    isWrongGenericPreExecReplaceableByRecoveryPrepare({
++      recoveryBinding,
++      currentContract: contract,
++      continuityDecisionRef,
++      recoveryDecisionId,
++      attemptPresent: Boolean(attempt?.attemptId),
++    });
++  const showRecoveryDocsWritePrepare = Boolean(
++    recoveryDocsWritePrepareReady &&
++      recoveryBinding &&
++      (!contract || wrongGenericReplaceableByRecoveryPrepare),
++  );
+   const rematerializeDecisionId =
+     decision?.decisionId ?? continuityDecisionRef ?? null;
+   const legacyDocsWriteRematerializeReady = Boolean(
+@@ -390,6 +423,18 @@ export function TrajectorySurface({
+         requiredCapabilities: contract.requiredCapabilities,
+       }),
+   );
++  const docsWriteEvidenceRematerializeReady = Boolean(
++    !decisionDefersExecution &&
++      !legacyDocsWriteRematerializeReady &&
++      contract &&
++      isDocsWriteEvidenceContradictionView({
++        action: contract.action,
++        target: contract.target,
++        constraints: contract.constraints,
++        evidenceRequirements:
++          contract.inspectionDisclosure?.evidenceRequirements ?? [],
++      }),
++  );
+
+   function paintAttemptPhase(
+     phase: GovernedExecutePhaseSuccess["phase"],
+@@ -483,10 +528,21 @@ export function TrajectorySurface({
+       setSubjectReadStatus("ready");
+       return;
+     }
++    if (result.kind === "pursue_prepare_ready") {
++      // Restart resume: durable pursue HD owns PREPARE — no OptionSet, no reinstruction.
++      setOptionSet(null);
++      setPendingReinstruction(null);
++      setDecision(result.decision);
++      setDecided(null);
++      setError(null);
++      setSubjectReadStatus("ready");
++      return;
++    }
+     setPendingReinstruction(null);
+     // kind === "none" — authoritative Proposal Decision Subject absence.
+     // Clear stale Proposal-backed OptionSet; preserve generic ProjectTrajectory
+-    // OptionSet. Do NOT clear HumanDecision / decided / EC state here.
++    // OptionSet. Do NOT clear HumanDecision / decided / EC state here —
++    // except when no prepare-ready continuation either (decision may be stale session).
+     setOptionSet((current) => {
+       if (!current) return null;
+       const proposalBacked =
+@@ -814,6 +870,49 @@ export function TrajectorySurface({
+     ],
+   );
+
++  // R8/R10 — RecoveryExecutionBinding: decision client OR continuityDecisionRef
++  // after restart (server still validates HD / recovery coherence).
++  useEffect(() => {
++    let cancelled = false;
++    async function loadBinding() {
++      if (hasProposalDecisionSubject) {
++        setRecoveryBinding(null);
++        return;
++      }
++      if (
++        decision &&
++        decision.selectedOptionRef !== GOVERNED_OPTION_REF
++      ) {
++        setRecoveryBinding(null);
++        return;
++      }
++      const decisionId = decision?.decisionId ?? continuityDecisionRef;
++      if (!decisionId) {
++        setRecoveryBinding(null);
++        return;
++      }
++      const result = await w2ReadRecoveryExecutionBindingAction({
++        projectId,
++        decisionId,
++      });
++      if (cancelled) return;
++      if (result.ok) {
++        setRecoveryBinding(result.binding);
++      } else {
++        setRecoveryBinding(null);
++      }
++    }
++    void loadBinding();
++    return () => {
++      cancelled = true;
++    };
++  }, [
++    decision,
++    continuityDecisionRef,
++    hasProposalDecisionSubject,
++    projectId,
++  ]);
++
+   const prepareContract = useCallback(async () => {
+     if (continuityMutationBlocked) return;
+     if (!decision || !qualifiedOperationKind) return;
+@@ -869,6 +968,58 @@ export function TrajectorySurface({
+     onDurableFactsChanged,
+   ]);
+
++  /**
++   * R8/R10 — recovery docs_write PREPARE from failed EC binding (no sandbox ops).
++   * Uses recoveryDecisionId (client decision or continuityDecisionRef).
++   */
++  const prepareRecoveryDocsWriteContract = useCallback(async () => {
++    if (continuityMutationBlocked) return;
++    if (!recoveryDecisionId || !showRecoveryDocsWritePrepare) return;
++    setBusy("contract");
++    setError(null);
++    const result = await w2PrepareRecoveryDocsWriteAction({
++      projectId,
++      decisionId: recoveryDecisionId,
++    });
++    setBusy(null);
++    if (!result.ok) {
++      setError(result.message);
++      return;
++    }
++    const prepared = result.contract;
++    setContract({
++      executionContractId: prepared.executionContractId,
++      version: prepared.version,
++      status: prepared.status,
++      action: prepared.action,
++      target: prepared.target,
++      scope: prepared.scope,
++      requiredAuthority: prepared.requiredAuthority,
++      constraints: [...prepared.constraints],
++      stopConditions: [...prepared.stopConditions],
++      requiredCapabilities: [...prepared.requiredCapabilities],
++      reversibility: prepared.reversibility,
++      semanticFingerprint: prepared.semanticFingerprint,
++      inspectionDisclosure: toInspectionDisclosureView(
++        prepared.inspectionDisclosure,
++      ),
++    });
++    setInspection(null);
++    setAuthorization(null);
++    setAmendmentDraft("");
++    setAmendmentNotice(null);
++    setAttempt(null);
++    setAttemptPhase(null);
++    setAttemptStatusLabel(null);
++    onDurableFactsChanged?.();
++  }, [
++    continuityMutationBlocked,
++    recoveryDecisionId,
++    projectId,
++    showRecoveryDocsWritePrepare,
++    onDurableFactsChanged,
++  ]);
++
+   /**
+    * JOURNEY-INTEGRITY / Lot A-B final — Proposal-backed PREPARE+RESOLVE.
+    *
+@@ -998,6 +1149,70 @@ export function TrajectorySurface({
+     onDurableFactsChanged,
+   ]);
+
++  const rematerializeDocsWriteEvidenceContract = useCallback(async () => {
++    if (continuityMutationBlocked) return;
++    if (!contract) return;
++    if (
++      !isDocsWriteEvidenceContradictionView({
++        action: contract.action,
++        target: contract.target,
++        constraints: contract.constraints,
++        evidenceRequirements:
++          contract.inspectionDisclosure?.evidenceRequirements ?? [],
++      })
++    ) {
++      return;
++    }
++    setBusy("contract");
++    setError(null);
++    const result = await w2RematerializeDocsWriteEvidenceAction({
++      projectId,
++      executionContractId: contract.executionContractId,
++    });
++    setBusy(null);
++    if (!result.ok) {
++      setError(result.message);
++      return;
++    }
++    const prepared = result.successor;
++    setContract({
++      executionContractId: prepared.executionContractId,
++      version: prepared.version,
++      status: prepared.status,
++      action: prepared.action,
++      target: prepared.target,
++      scope: prepared.scope,
++      requiredAuthority: prepared.requiredAuthority,
++      constraints: [...prepared.constraints],
++      stopConditions: [...prepared.stopConditions],
++      requiredCapabilities: [...prepared.requiredCapabilities],
++      reversibility: prepared.reversibility,
++      semanticFingerprint: prepared.semanticFingerprint,
++      inspectionDisclosure: toInspectionDisclosureView(
++        prepared.inspectionDisclosure,
++      ),
++    });
++    setInspection(null);
++    setAuthorization(null);
++    setAmendmentDraft("");
++    setAmendmentNotice({
++      priorExecutionContractId: result.priorExecutionContractId,
++      additionalConstraint:
++        "evidenceRequirements cohérents avec NO_* (sans lifecycle Git)",
++      statusLabel: result.statusLabel,
++      priorInspectionDoesNotCoverSuccessor: true,
++    });
++    setAttempt(null);
++    setAttemptPhase(null);
++    setAttemptStatusLabel(null);
++    onDurableFactsChanged?.();
++  }, [
++    continuityMutationBlocked,
++    contract,
++    projectId,
++    onDurableFactsChanged,
++  ]);
++
+   const inspect = useCallback(async () => {
+     if (continuityMutationBlocked) return;
+     if (!contract) return;
+@@ -1941,7 +2156,8 @@ export function TrajectorySurface({
+           ) : null}
+           {!decisionDefersExecution &&
+           !contract &&
+-          !hasProposalDecisionSubject ? (
++          !hasProposalDecisionSubject &&
++          !recoveryDocsWritePrepareReady ? (
+           <div
+             className={styles.actions}
+             data-testid="w3a-qualify-execution-work"
+@@ -2008,6 +2224,59 @@ export function TrajectorySurface({
+         </section>
+       ) : null}
+
++      {/* R10 — recovery CTA outside decision client state (restart: decision=null). */}
++      {!decisionDefersExecution &&
++      showRecoveryDocsWritePrepare &&
++      recoveryBinding ? (
++        <section
++          className={styles.actions}
++          data-testid="w2-recovery-docs-write-prepare"
++        >
++          <p
++            className={styles.blockNote}
++            data-testid="w2-recovery-docs-write-note"
++          >
++            Reprendre l&apos;écriture Markdown gouvernée après échec — cible
++            déjà qualifiée. Préparez le contrat successor explicitement ; aucun
++            Execute automatique.
++          </p>
++          {wrongGenericReplaceableByRecoveryPrepare && contract ? (
++            <p
++              className={styles.blockBody}
++              data-testid="w2-recovery-replaceable-generic-note"
++            >
++              Un contrat générique pré-exécution existe pour cette décision (
++              {contract.executionContractId}). La reprise recovery le remplacera
++              uniquement si vous préparez explicitement le nouveau contrat —
++              aucun remplacement automatique.
++            </p>
++          ) : null}
++          <p
++            className={styles.blockBody}
++            data-testid="w2-recovery-docs-write-path"
++          >
++            Cible : {recoveryBinding.targetPath}
++          </p>
++          <p
++            className={styles.blockBody}
++            data-testid="w2-recovery-docs-write-source"
++          >
++            Source : Attempt {recoveryBinding.sourceAttemptId} (
++            {recoveryBinding.recovery.productOutcome}) — EC{" "}
++            {recoveryBinding.sourceExecutionContractId}
++          </p>
++          <button
++            type="button"
++            className={styles.primaryAction}
++            data-testid="w2-prepare-recovery-docs-write"
++            onClick={() => void prepareRecoveryDocsWriteContract()}
++            disabled={busy !== null || continuityMutationBlocked}
++          >
++            Préparer le contrat d&apos;exécution (recovery docs_write)
++          </button>
++        </section>
++      ) : null}
++
+       {contract ? (
+         <section
+           className={styles.contract}
+@@ -2018,8 +2287,9 @@ export function TrajectorySurface({
+             Contrat d&apos;exécution — résumé
+           </h3>
+           <p className={styles.blockNote}>
+-            Relisez d&apos;abord ce qui sera tenté. Inspectez le détail avant
+-            toute confirmation. Confirmer n&apos;exécute pas.
++            {wrongGenericReplaceableByRecoveryPrepare
++              ? "Contrat générique pré-exécution visible pour cette décision. La prochaine action utile est de préparer le contrat recovery docs_write — pas d'inspection de ce dead-end."
++              : "Relisez d'abord ce qui sera tenté. Inspectez le détail avant toute confirmation. Confirmer n'exécute pas."}
+           </p>
+           <dl className={styles.facts} data-testid="w2-contract-facts">
+             <div>
+@@ -2061,12 +2331,14 @@ export function TrajectorySurface({
+             </div>
+             <div>
+               <dt>Prochaine action utile</dt>
+-              <dd>
+-                {inspection?.inspectionSufficient
+-                  ? contract.status === "confirmation_required"
+-                    ? "Confirmer si requis, puis statuer sur l'autorisation"
+-                    : "Statuer sur l'autorisation"
+-                  : "Inspecter le détail du contrat"}
++              <dd data-testid="w2-contract-next-action">
++                {wrongGenericReplaceableByRecoveryPrepare
++                  ? "Préparer le contrat recovery docs_write (explicite)"
++                  : inspection?.inspectionSufficient
++                    ? contract.status === "confirmation_required"
++                      ? "Confirmer si requis, puis statuer sur l'autorisation"
++                      : "Statuer sur l'autorisation"
++                    : "Inspecter le détail du contrat"}
+               </dd>
+             </div>
+           </dl>
+@@ -2290,17 +2562,49 @@ export function TrajectorySurface({
+             </div>
+           ) : null}
+
++          {docsWriteEvidenceRematerializeReady ? (
++            <div
++              className={styles.actions}
++              data-testid="w2-docs-write-evidence-rematerialize"
++            >
++              <p
++                className={styles.blockNote}
++                data-testid="w2-docs-write-evidence-rematerialize-note"
++              >
++                Les exigences de preuve Git de ce contrat contredisent ses
++                contraintes NO_COMMIT / NO_PUSH / NO_PR / NO_MERGE. Actualisez
++                le contrat pour des preuves locales satisfaisables. Aucune
++                exécution n&apos;est lancée — une nouvelle inspection sera
++                requise.
++              </p>
++              <button
++                type="button"
++                className={styles.primaryAction}
++                data-testid="w2-rematerialize-docs-write-evidence"
++                onClick={() => void rematerializeDocsWriteEvidenceContract()}
++                disabled={busy !== null || continuityMutationBlocked}
++              >
++                Actualiser les exigences de preuve
++              </button>
++            </div>
++          ) : null}
++
+           <div className={styles.actions}>
+             <button
+               type="button"
+-              className={styles.primaryAction}
++              className={
++                wrongGenericReplaceableByRecoveryPrepare
++                  ? styles.secondaryAction
++                  : styles.primaryAction
++              }
+               data-testid="w2-inspect-contract"
+               onClick={() => void inspect()}
+               disabled={busy !== null || governedContinuationBlocked}
+             >
+               Inspecter le contrat
+             </button>
+-            {contract.status === "confirmation_required" ? (
++            {contract.status === "confirmation_required" &&
++            !wrongGenericReplaceableByRecoveryPrepare ? (
+               <button
+                 type="button"
+                 className={styles.secondaryAction}
+@@ -2309,13 +2613,16 @@ export function TrajectorySurface({
+                 disabled={
+                   busy !== null ||
+                   governedContinuationBlocked ||
++                  docsWriteEvidenceRematerializeReady ||
+                   inspection === null ||
+                   !inspection.inspectionSufficient
+                 }
+                 title={
+-                  inspection === null || !inspection.inspectionSufficient
+-                    ? "Inspection suffisante requise avant de confirmer"
+-                    : undefined
++                  docsWriteEvidenceRematerializeReady
++                    ? "Actualisez les exigences de preuve avant de confirmer"
++                    : inspection === null || !inspection.inspectionSufficient
++                      ? "Inspection suffisante requise avant de confirmer"
++                      : undefined
+                 }
+               >
+                 Confirmer mon consentement
+@@ -2326,7 +2633,16 @@ export function TrajectorySurface({
+               className={styles.secondaryAction}
+               data-testid="w2-authorize-contract"
+               onClick={() => void authorize()}
+-              disabled={busy !== null || governedContinuationBlocked}
++              disabled={
++                busy !== null ||
++                governedContinuationBlocked ||
++                wrongGenericReplaceableByRecoveryPrepare
++              }
++              title={
++                wrongGenericReplaceableByRecoveryPrepare
++                  ? "Préparez d'abord le contrat recovery docs_write"
++                  : undefined
++              }
+             >
+               Statuer sur l&apos;autorisation
+             </button>
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile.ts b/projects/sfia-studio/app/features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile.ts
+index b928e338..2e337fdc 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile.ts
+@@ -17,6 +17,87 @@ import {
+ import { DEFAULT_BOUNDED_READ_ONLY_M3_EXECUTION_WINDOW_CLASS } from "@/lib/oa/execution-contract";
+ import type { M3ResolvedExecutionFields } from "./resolveM3ExecutionContract";
+
++/**
++ * Local filesystem evidence obligations for the bounded docs-write profile
++ * (NO_COMMIT / NO_PUSH / NO_PR / NO_MERGE).
++ *
++ * Keywords `docs_write` + `artifact` are already recognized by
++ * contractEffectClassification / qualifyExecutionContractCompletion;
++ * ingestDocsWriteArtifactEvidence emits type=artifact +
++ * source=execution_attempt:docs_write. OA `evreq:` prefix satisfies
++ * isOaIdentifier — no new Evidence registry / schema.
++ */
++export const BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS = [
++  "evreq:docs_write_artifact",
++] as const;
++
++/**
++ * GCEC progressive Git lifecycle proof set (CR-GCEC-05).
++ * Use ONLY when the contract authorizes the corresponding Git effects.
++ * Must NOT be the default for the bounded NO_* docs-write profile.
++ */
++export const BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS = [
++  "git:local_commit",
++  "git:remote_push",
++  "git:pull_request",
++  "git:ci_status",
++  "git:review_status",
++  "git:merge",
++  "git:post_merge_verification",
++] as const;
++
++const GIT_LIFECYCLE_EVIDENCE = new Set<string>([
++  ...BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS,
++  "git:commit",
++  "git:push",
++]);
++
++const GIT_FORBIDDING_CONSTRAINTS = new Set([
++  "NO_COMMIT",
++  "NO_GIT_REMOTE",
++  "NO_PUSH",
++  "NO_PR",
++  "NO_MERGE",
++]);
++
++export function isGitLifecycleEvidenceRequirement(id: string): boolean {
++  return GIT_LIFECYCLE_EVIDENCE.has(id);
++}
++
++export function docsWriteConstraintsForbidGitLifecycle(
++  constraints: readonly string[],
++): boolean {
++  return constraints.some((c) => GIT_FORBIDDING_CONSTRAINTS.has(c));
++}
++
++/**
++ * Select evidenceRequirements coherent with bounded docs-write constraints.
++ * Strips Git lifecycle obligations when NO_* forbids those effects.
++ * Preserves applicable non-Git OA identifiers from PREPARE when present.
++ */
++export function resolveDocsWriteEvidenceRequirementsForBoundedProfile(input: {
++  fromPrepare: readonly string[];
++  constraints: readonly string[];
++}): string[] {
++  const fromPrepare = [...input.fromPrepare];
++  if (!docsWriteConstraintsForbidGitLifecycle(input.constraints)) {
++    return fromPrepare.length > 0
++      ? fromPrepare
++      : [...BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS];
++  }
++  const kept = fromPrepare.filter((r) => !isGitLifecycleEvidenceRequirement(r));
++  if (kept.length > 0) return kept;
++  return [...BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS];
++}
++
++export function docsWriteEvidenceContradictsConstraints(input: {
++  evidenceRequirements: readonly string[];
++  constraints: readonly string[];
++}): boolean {
++  if (!docsWriteConstraintsForbidGitLifecycle(input.constraints)) return false;
++  return input.evidenceRequirements.some(isGitLifecycleEvidenceRequirement);
++}
++
+ export function boundedDocsWriteM3ResolutionProfile(): M3ResolvedExecutionFields {
+   return {
+     action: M4_BOUNDED_DOCS_WRITE_ACTION,
+@@ -48,21 +129,12 @@ export function boundedDocsWriteM3ResolutionProfile(): M3ResolvedExecutionFields
+       "OUT_OF_SCOPE_WRITE",
+     ],
+     executionWindowClass: DEFAULT_BOUNDED_READ_ONLY_M3_EXECUTION_WINDOW_CLASS,
+-    // CR-GCEC-05 — first vertical requires full git completion proof SET.
+-    // Carried onto successor EC via resolve inputs/evidenceRequirements merge.
++    evidenceRequirements: [...BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS],
+   };
+ }
+
+-/** GCEC first-vertical git evidence requirements (Nora + EC). */
+-export const BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS = [
+-  "git:local_commit",
+-  "git:remote_push",
+-  "git:pull_request",
+-  "git:ci_status",
+-  "git:review_status",
+-  "git:merge",
+-  "git:post_merge_verification",
+-] as const;
+-
+ export const BOUNDED_DOCS_WRITE_M3_SUPERSESSION_REASON =
+   "PRE-M6 Option A — resolve durable M3 PREPARE via existing G-UX-15 supersession (bounded docs-write Cursor REAL profile; ZERO LIVE in this cycle)" as const;
++
++export const DOCS_WRITE_EVIDENCE_REMATERIALIZE_REASON =
++  "docs_write_evidence_requirements_coherence — strip Git lifecycle proofs forbidden by bounded NO_* constraints" as const;
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/completeBoundedReadOnlyLaunch.ts b/projects/sfia-studio/app/features/project-assistant/f3/completeBoundedReadOnlyLaunch.ts
+index 33010ac2..1c9739ce 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f3/completeBoundedReadOnlyLaunch.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f3/completeBoundedReadOnlyLaunch.ts
+@@ -9,9 +9,14 @@ import {
+   type ExecutionAttemptServices,
+   type RealProcessObservation,
+ } from "@/lib/oa/execution-attempt";
++import {
++  buildProcessFailureDiagnostic,
++  PROCESS_DIAGNOSTIC_STDERR_CAP,
++  PROCESS_DIAGNOSTIC_STDOUT_CAP,
++} from "./processFailureDiagnostic";
+
+-export const NORA_STDOUT_CAP = 4 * 1024;
+-export const NORA_STDERR_CAP = 4 * 1024;
++export const NORA_STDOUT_CAP = PROCESS_DIAGNOSTIC_STDOUT_CAP;
++export const NORA_STDERR_CAP = PROCESS_DIAGNOSTIC_STDERR_CAP;
+
+ export type BoundedLaunchObservationFacts = {
+   attemptId: string;
+@@ -203,6 +208,17 @@ export async function completeBoundedReadOnlyLaunch(input: {
+     };
+   }
+
++  const failureDiagnostic = buildProcessFailureDiagnostic({
++    observation,
++    boundaryProofMode:
++      input.services.realBoundary?.launchPort.boundaryProofMode ===
++        "cursor_real" ||
++      input.services.realBoundary?.launchPort.boundaryProofMode ===
++        "deterministic_fake"
++        ? input.services.realBoundary.launchPort.boundaryProofMode
++        : undefined,
++  });
++
+   if (observation.timedOut === true) {
+     const timed = await input.services.triggerAttemptTimeout.execute({
+       attemptId: input.attempt.attemptId,
+@@ -216,6 +232,7 @@ export async function completeBoundedReadOnlyLaunch(input: {
+         stopReason: "EXECUTION_TIMEOUT",
+         durationMs: observation.durationMs,
+         expectedAttemptVersion: input.attempt.version,
++        processDiagnostic: failureDiagnostic,
+       });
+       if (!failed.ok || !failed.attempt) {
+         return {
+@@ -265,6 +282,7 @@ export async function completeBoundedReadOnlyLaunch(input: {
+       technicalExitCode: observation.exitCode ?? undefined,
+       durationMs: observation.durationMs,
+       expectedAttemptVersion: input.attempt.version,
++      processDiagnostic: failureDiagnostic,
+     });
+     if (!failed.ok || !failed.attempt) {
+       return {
 diff --git a/projects/sfia-studio/app/features/project-assistant/f3/docsWriteEvidenceContradictionView.ts b/projects/sfia-studio/app/features/project-assistant/f3/docsWriteEvidenceContradictionView.ts
 new file mode 100644
 index 00000000..ad3ec24a
@@ -4804,6 +4083,102 @@ index 00000000..ad3ec24a
 +  if (!forbidsGit) return false;
 +  return input.evidenceRequirements.some((r) => GIT_LIFECYCLE_EVIDENCE.has(r));
 +}
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/index.ts b/projects/sfia-studio/app/features/project-assistant/f3/index.ts
+index a02263cb..eece03eb 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f3/index.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f3/index.ts
+@@ -47,6 +47,14 @@ export {
+   authorizedM3ResolutionKind,
+ } from "./selectProductM3ResolutionProfile";
+ export { deriveAttemptProvenance, F3_REAL_MODE, F3_BOUNDED_M4_DETERMINISTIC_MODE } from "./deriveAttemptProvenance";
++export { resolveDurableBoundaryProofMode } from "./resolveDurableBoundaryProofMode";
++export {
++  buildProcessFailureDiagnostic,
++  isProcessFailureDiagnostic,
++  PROCESS_DIAGNOSTIC_STDOUT_CAP,
++  PROCESS_DIAGNOSTIC_STDERR_CAP,
++} from "./processFailureDiagnostic";
++export type { ProcessFailureDiagnostic } from "./processFailureDiagnostic";
+ export { completeBoundedReadOnlyLaunch } from "./completeBoundedReadOnlyLaunch";
+ export type {
+   BoundedLaunchObservationFacts,
+@@ -61,6 +69,12 @@ export type {
+ } from "./prepareAndResolveM3ProductPath";
+ export { resolveExistingLegacyM3DocsWriteProductPath } from "./resolveExistingLegacyM3DocsWriteProductPath";
+ export { isLegacyDocsWritePrepareContractView } from "./legacyDocsWritePrepareContractView";
++export { isDocsWriteEvidenceContradictionView } from "./docsWriteEvidenceContradictionView";
++export { rematerializeDocsWriteEvidenceRequirements } from "./rematerializeDocsWriteEvidenceRequirements";
++export type {
++  RematerializeDocsWriteEvidenceResult,
++  RematerializeDocsWriteEvidenceSuccess,
++} from "./rematerializeDocsWriteEvidenceRequirements";
+ export type {
+   F3M3LegacyResolvedPayload,
+   ResolveExistingLegacyM3DocsWriteDeps,
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts b/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
+index f1b4a1dc..328be8b5 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
+@@ -22,12 +22,38 @@ import {
+   projectCursorPrepareOnly,
+   projectExecutionContractInspectionDisclosure,
+ } from "@/lib/oa/execution-contract";
++import { isOaIdentifier } from "@/lib/oa/execution-contract/domain/invariants";
+ import type { F2ContextSnapshot } from "../f2/types";
+ import {
+   isProposalSubjectOptionRef,
+   PROPOSAL_SUBJECT_PURSUE_REF,
+ } from "../w2/proposalSubjectOptions";
+-import { BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS } from "./boundedDocsWriteM3ResolutionProfile";
++import { BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS } from "./boundedDocsWriteM3ResolutionProfile";
++
++/**
++ * EC.evidenceRequirements must be OA identifiers (`prefix:value`).
++ * Nora DecisionBasis often carries free-text validation expectations here —
++ * those belong in inputs, not as contract identifier SoT.
++ * For docs_write, fall back to the local filesystem evidence set coherent with
++ * the bounded NO_* profile (not the GCEC Git lifecycle set).
++ */
++function resolveEvidenceRequirementsForContract(input: {
++  docsWriteIntent: boolean;
++  raw: string[] | undefined;
++}): string[] | undefined {
++  const raw = input.raw;
++  if (raw && raw.length > 0 && raw.every(isOaIdentifier)) {
++    return [...raw];
++  }
++  if (input.docsWriteIntent) {
++    return [...BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS];
++  }
++  if (raw && raw.length > 0) {
++    const valid = raw.filter(isOaIdentifier);
++    return valid.length > 0 ? valid : undefined;
++  }
++  return undefined;
++}
+
+ export type PrepareM3Deps = {
+   decisionServices: DecisionServices;
+@@ -209,12 +235,13 @@ function fieldsFromBasis(basis: DecisionBasis, decisionId: string) {
+       : eb.expectedOutcome
+         ? [eb.expectedOutcome]
+         : undefined;
+-  const evidenceRequirements =
+-    eb.evidenceRequirements && eb.evidenceRequirements.length > 0
+-      ? [...eb.evidenceRequirements]
+-      : docsWriteIntent
+-        ? [...BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS]
+-        : undefined;
++  const evidenceRequirements = resolveEvidenceRequirementsForContract({
++    docsWriteIntent,
++    raw:
++      eb.evidenceRequirements && eb.evidenceRequirements.length > 0
++        ? [...eb.evidenceRequirements]
++        : undefined,
++  });
+   return {
+     action,
+     target,
 diff --git a/projects/sfia-studio/app/features/project-assistant/f3/processFailureDiagnostic.ts b/projects/sfia-studio/app/features/project-assistant/f3/processFailureDiagnostic.ts
 new file mode 100644
 index 00000000..d8fa2939
@@ -5403,6 +4778,354 @@ index 00000000..84aacdaf
 +
 +  return null;
 +}
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts b/projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts
+index bb318d43..84ce0c16 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts
+@@ -35,6 +35,10 @@ import type {
+ } from "@/lib/oa/execution-contract";
+ import { projectExecutionContractInspectionDisclosure } from "@/lib/oa/execution-contract/projection/inspectionDisclosure";
+ import type { ExecutionContractInspectionDisclosure } from "@/lib/oa/execution-contract/projection/inspectionDisclosure";
++import {
++  M4_BOUNDED_DOCS_WRITE_ACTION,
++} from "@/lib/oa/execution-attempt";
++import { resolveDocsWriteEvidenceRequirementsForBoundedProfile } from "./boundedDocsWriteM3ResolutionProfile";
+
+ const UNRESOLVED_ACTION = "UNRESOLVED_ACTION";
+ const UNRESOLVED_TARGET = "UNRESOLVED_TARGET";
+@@ -106,6 +110,12 @@ export type M3ResolvedExecutionFields = {
+    */
+   inputs?: Record<string, unknown>;
+   executionWindowClass?: ExecutionWindowClass;
++  /**
++   * Optional evidenceRequirements override for the successor (server-side only).
++   * Bounded docs-write uses this to bind filesystem-satisfiable obligations
++   * coherent with NO_* constraints instead of inheriting a contradictory Git set.
++   */
++  evidenceRequirements?: string[];
+ };
+
+ export type ResolveM3ExecutionContractInput = {
+@@ -353,6 +363,10 @@ function successorMatchesResolution(
+ ): boolean {
+   const caps = [...(contract.requiredCapabilities ?? [])].sort().join("\0");
+   const wantCaps = [...resolution.requiredCapabilities].sort().join("\0");
++  const evidenceOk =
++    resolution.evidenceRequirements === undefined ||
++    [...contract.evidenceRequirements].join("\0") ===
++      [...resolution.evidenceRequirements].join("\0");
+   return (
+     contract.action === resolution.action.trim() &&
+     contract.target === resolution.target.trim() &&
+@@ -361,6 +375,7 @@ function successorMatchesResolution(
+     caps === wantCaps &&
+     [...contract.constraints].join("\0") === constraints.join("\0") &&
+     [...contract.stopConditions].join("\0") === stopConditions.join("\0") &&
++    evidenceOk &&
+     (resolution.executionWindowClass === undefined ||
+       contract.executionWindowClass === resolution.executionWindowClass)
+   );
+@@ -628,6 +643,14 @@ export async function resolveM3ExecutionContract(
+     original,
+     input.resolution,
+   );
++  const evidenceRequirements =
++    input.resolution.action.trim() === M4_BOUNDED_DOCS_WRITE_ACTION
++      ? (input.resolution.evidenceRequirements ??
++        resolveDocsWriteEvidenceRequirementsForBoundedProfile({
++          fromPrepare: original.evidenceRequirements ?? [],
++          constraints,
++        }))
++      : input.resolution.evidenceRequirements;
+
+   // C2 — original already superseded: recover/validate existing successor.
+   if (original.status === "superseded") {
+@@ -783,6 +806,9 @@ export async function resolveM3ExecutionContract(
+         reversibility: input.resolution.reversibility,
+         constraints,
+         stopConditions,
++        ...(evidenceRequirements !== undefined
++          ? { evidenceRequirements: [...evidenceRequirements] }
++          : {}),
+         decisionRefs: [input.decisionId],
+         requiredAuthority: original.requiredAuthority,
+         status: "draft",
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/actions.ts b/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
+index e1d65d24..cafa61f8 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
+@@ -18,6 +18,8 @@ import { getRuntimeApplicationService } from "@/lib/vertical-slice-runtime";
+ import { readLiveProjectContext } from "@/lib/vertical-slice-runtime/liveProjectContext";
+ import { resolveCurrentAuthenticatedPilote } from "@/lib/auth/resolveCurrentPilote";
+ import { amendExecutionContractWithConstraint } from "./amendExecutionContract";
++import { rematerializeDocsWriteEvidenceRequirements } from "../f3/rematerializeDocsWriteEvidenceRequirements";
++import type { RematerializeDocsWriteEvidenceResult } from "../f3/rematerializeDocsWriteEvidenceRequirements";
+ import { evaluateExecutionAuthorization } from "./authorizeExecutionContract";
+ import { confirmExecutionContractForAuthorization } from "./confirmForAuthorization";
+ import { decideTrajectory } from "./decideTrajectory";
+@@ -38,12 +40,15 @@ import { loadPresentedOptionSet } from "./presentedOptionSet";
+ import { readActiveProposalDecisionSubject } from "./activeProposalDecisionSubject";
+ import { readCurrentGovernedExecutionContinuity } from "./readCurrentGovernedExecutionContinuity";
+ import { prepareExecutionContractFromW2Decision } from "./prepareExecutionContractFromW2Decision";
++import { prepareDocsWriteRecoverySuccessorFromDecision } from "./prepareDocsWriteRecoverySuccessor";
++import { resolveRecoveryExecutionBinding } from "./resolveRecoveryExecutionBinding";
+ import { proposeTrajectoryOptions } from "./proposeTrajectoryOptions";
+ import { readW2ProjectHistory } from "./projectHistory";
+ import { resolveW2QualificationInputs } from "./qualificationInputs";
+ import type {
+   ActiveDecisionSubjectReadResult,
+   AmendExecutionContractResult,
++  AmendedExecutionContractDto,
+   ConfirmForAuthorizationResult,
+   CurrentGovernedExecutionContinuityResult,
+   DecideTrajectoryResult,
+@@ -56,6 +61,7 @@ import type {
+   ProposeTrajectoryOptionsResult,
+ } from "./types";
+ import type { ReadW2ProjectHistoryResult } from "./projectHistory";
++import type { RecoveryExecutionBinding } from "./resolveRecoveryExecutionBinding";
+
+ const OA_UNAVAILABLE = {
+   ok: false as const,
+@@ -135,6 +141,13 @@ export async function w2ReadActiveDecisionSubjectAction(input: {
+       recoverableProposalIds: read.recoverableProposalIds,
+     };
+   }
++  if (read.kind === "pursue_prepare_ready") {
++    return {
++      ok: true,
++      kind: "pursue_prepare_ready",
++      decision: read.decision,
++    };
++  }
+   return {
+     ok: true,
+     kind: "bound_awaiting_decision",
+@@ -283,6 +296,30 @@ export async function w2AmendExecutionContractAction(input: {
+   });
+ }
+
++/**
++ * Rematerialize docs_write evidenceRequirements when Git lifecycle proofs
++ * contradict NO_* constraints. Supersession only — no Confirm / Execute / REAL.
++ */
++export async function w2RematerializeDocsWriteEvidenceAction(input: {
++  projectId: string;
++  executionContractId: string;
++  /** Hostile — ignored. */
++  canActAsMorris?: unknown;
++  claimedAuthorityLevel?: unknown;
++}): Promise<RematerializeDocsWriteEvidenceResult> {
++  void input.canActAsMorris;
++  void input.claimedAuthorityLevel;
++
++  const runtime = getRuntimeApplicationService();
++  if (!runtime.oa) return OA_UNAVAILABLE;
++
++  return rematerializeDocsWriteEvidenceRequirements({
++    oa: runtime.oa,
++    projectId: input.projectId,
++    executionContractId: input.executionContractId,
++  });
++}
++
+ async function loadF2ContextForProject(
+   oa: NonNullable<ReturnType<typeof getRuntimeApplicationService>["oa"]>,
+   projectId: string,
+@@ -364,6 +401,88 @@ export async function w2PrepareExecutionContractAction(input: {
+   };
+ }
+
++/**
++ * R8 — read RecoveryExecutionBinding for UI (docs_write recovery CTA).
++ * Client sends only projectId + optional decisionId. No path/op injection.
++ */
++export async function w2ReadRecoveryExecutionBindingAction(input: {
++  projectId: string;
++  decisionId?: string | null;
++}): Promise<
++  | { readonly ok: true; readonly binding: RecoveryExecutionBinding | null }
++  | { readonly ok: false; readonly code: string; readonly message: string }
++> {
++  const runtime = getRuntimeApplicationService();
++  if (!runtime.oa) return OA_UNAVAILABLE;
++  return resolveRecoveryExecutionBinding({
++    oa: runtime.oa,
++    projectId: input.projectId,
++    decisionId: input.decisionId,
++  });
++}
++
++/**
++ * R8 — prepare bounded docs_write successor from recovery HD + failed EC binding.
++ * Does not accept client path/operation. Cancels wrong generic current if needed.
++ */
++export async function w2PrepareRecoveryDocsWriteAction(input: {
++  projectId: string;
++  decisionId: string;
++  /** Hostile — ignored. */
++  targetPath?: unknown;
++  qualifiedOperationKind?: unknown;
++  real?: unknown;
++}): Promise<
++  | {
++      readonly ok: true;
++      readonly contract: AmendedExecutionContractDto;
++      readonly decisionId: string;
++      readonly cancelledWrongGenericContractId: string | null;
++      readonly reusedFromIdempotency: boolean;
++      readonly f3SemanticOverwrite: false;
++      readonly executionPerformed: false;
++      readonly attemptCreated: false;
++      readonly binding: RecoveryExecutionBinding;
++    }
++  | { readonly ok: false; readonly code: string; readonly message: string }
++> {
++  void input.targetPath;
++  void input.qualifiedOperationKind;
++  void input.real;
++
++  const runtime = getRuntimeApplicationService();
++  if (!runtime.oa) return OA_UNAVAILABLE;
++
++  const context = await loadF2ContextForProject(runtime.oa, input.projectId);
++  if (!context) {
++    return {
++      ok: false,
++      code: "PROJECT_NOT_FOUND",
++      message: "Projet ou LPS introuvable pour la préparation recovery.",
++    };
++  }
++
++  const prepared = await prepareDocsWriteRecoverySuccessorFromDecision({
++    oa: runtime.oa,
++    projectId: input.projectId,
++    decisionId: input.decisionId,
++    currentContext: context,
++  });
++  if (!prepared.ok) return prepared;
++
++  return {
++    ok: true,
++    contract: prepared.successor,
++    decisionId: prepared.decisionId,
++    cancelledWrongGenericContractId: prepared.cancelledWrongGenericContractId,
++    reusedFromIdempotency: prepared.reusedFromIdempotency,
++    f3SemanticOverwrite: false,
++    executionPerformed: false,
++    attemptCreated: false,
++    binding: prepared.binding,
++  };
++}
++
+ /**
+  * W3-A phase 1 — SelectExecutionAgent → accepted.
+  */
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/activeProposalDecisionSubject.ts b/projects/sfia-studio/app/features/project-assistant/w2/activeProposalDecisionSubject.ts
+index df57d207..a9fca932 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/activeProposalDecisionSubject.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/activeProposalDecisionSubject.ts
+@@ -30,7 +30,11 @@ import {
+   type PresentedOptionSetBinding,
+   W2_PRESENTED_OPTION_SET_KIND,
+ } from "./presentedOptionSet";
+-import type { TrajectoryOptionSetDto } from "./types";
++import { readPrepareReadyProposalPursueContinuation } from "./prepareReadyProposalPursueContinuation";
++import type {
++  TrajectoryDecisionRecordDto,
++  TrajectoryOptionSetDto,
++} from "./types";
+
+ export type EpistemicReadFailure = {
+   readonly ok: false;
+@@ -57,6 +61,15 @@ export type ActiveProposalDecisionSubject =
+       readonly presented: PresentedOptionSetBinding;
+       readonly optionSet: TrajectoryOptionSetDto;
+     }
++  | {
++      /**
++       * Checkpoint E resume — Proposal subject already closed by DecisionRef,
++       * but durable pursue HD + DecisionBasis remain PREPARE-ready (no EC).
++       */
++      readonly ok: true;
++      readonly kind: "pursue_prepare_ready";
++      readonly decision: TrajectoryDecisionRecordDto;
++    }
+   | EpistemicReadFailure;
+
+ type EpistemicItemLike = {
+@@ -241,7 +254,8 @@ export async function findActiveAwaitingProposalPresentedOptionSet(
+  * Authority order:
+  * 1. bound awaiting PresentedOptionSet
+  * 2. effective pending markers (DecisionRef-closed proposalIds shadowed)
+- * 3. none
++ * 3. durable pursue PREPARE continuation (HD + basis, no EC)
++ * 4. none
+  */
+ export async function readActiveProposalDecisionSubject(
+   oa: RuntimeOaStack,
+@@ -310,6 +324,26 @@ export async function readActiveProposalDecisionSubject(
+     };
+   }
+
++  // Subject closed (DecisionRef) but pursue HD still PREPARE-ready — restart resume.
++  const prepareReady = await readPrepareReadyProposalPursueContinuation({
++    oa,
++    projectId,
++  });
++  if (!prepareReady.ok) {
++    return {
++      ok: false,
++      code: "EPISTEMIC_READ_FAILED",
++      message: prepareReady.message,
++    };
++  }
++  if (prepareReady.kind === "pursue_prepare_ready") {
++    return {
++      ok: true,
++      kind: "pursue_prepare_ready",
++      decision: prepareReady.decision,
++    };
++  }
++
+   return { ok: true, kind: "none" };
+ }
+
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
+index 8ec81e9e..ad829eb5 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
+@@ -11,6 +11,7 @@ import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
+ import type { ClaimEvaluation, Evidence, ReviewBundle } from "@/lib/oa/evidence-review";
+ import {
+   projectW3bProductTerminal,
++  productReservationsForAttempt,
+   type W3BProductTerminalProjection,
+ } from "./w3bProductTerminalProjection";
+ import {
+@@ -37,13 +38,6 @@ export type MaterializeW3bProductTerminalResult =
+       readonly postEvidence?: W3cPostEvidenceLoopResult;
+     };
+
+-const PRODUCT_RESERVATIONS = [
+-  "Evidence requise avant claim produit",
+-  "Apprentissage / replan non démarrés",
+-  "Exécuteur de substitution — pas d'effet externe réel",
+-  "Aucun READY",
+-] as const;
+-
+ export function w3bEvidenceIdentity(attemptId: string): {
+   evidenceId: string;
+   reviewBundleId: string;
+@@ -182,7 +176,7 @@ export async function materializeW3bProductTerminal(input: {
+     executionContractId: contract.executionContractId,
+     ...(contract.cycleInstanceId ? { cycleInstanceId: contract.cycleInstanceId } : {}),
+     evidenceIds: [ingested.evidence.evidenceId],
+-    reservations: [...PRODUCT_RESERVATIONS],
++    reservations: [...productReservationsForAttempt(attempt)],
+   });
+
+   if (!bundle.ok) {
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts b/projects/sfia-studio/app/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts
 new file mode 100644
 index 00000000..6b14b02d
@@ -6053,6 +5776,108 @@ index 00000000..cfc0a0c7
 +
 +  return { ok: true, kind: "none" };
 +}
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts b/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
+index 63ced39a..d2636564 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
+@@ -61,6 +61,11 @@ import {
+   deriveTrajectoryRecommendation,
+   type TrajectoryOptionInputs,
+ } from "./trajectoryOptions";
++import {
++  buildRecoveryCognitionSection,
++  resolvePostEvidenceRecoveryContext,
++  type PostEvidenceRecoveryContext,
++} from "./resolvePostEvidenceRecoveryContext";
+ import type {
+   CkcRecommendationProvenanceDto,
+   ProposeTrajectoryOptionsResult,
+@@ -222,6 +227,14 @@ export async function proposeTrajectoryOptions(
+     }
+     return { ok: true, ...activeSubject.optionSet };
+   }
++  if (activeSubject.kind === "pursue_prepare_ready") {
++    return {
++      ok: false,
++      code: "PREPARE_CONTINUATION_OWNS_NEXT_ACTION",
++      message:
++        "Une décision pursue durable attend la préparation du contrat d'exécution — aucune nouvelle instruction d'options.",
++    };
++  }
+   if (
+     activeSubject.kind === "pending_reinstruction_required" &&
+     !opaqueProposalIdEarly
+@@ -297,10 +310,33 @@ export async function proposeTrajectoryOptions(
+     };
+   }
+
++  // R7 — durable RecoveryContext for ProjectTrajectory path only.
++  // Proposal subject path keeps sealed Proposal as subject (no recovery inject).
++  let recoveryContext: PostEvidenceRecoveryContext | null = null;
++  if (!proposalSubject) {
++    const recovered = await resolvePostEvidenceRecoveryContext({
++      oa,
++      projectId: input.projectId,
++    });
++    if (!recovered.ok) {
++      return {
++        ok: false,
++        code: recovered.code,
++        message: recovered.message,
++      };
++    }
++    recoveryContext = recovered.context;
++  }
++
+   const ckcPromptSection = buildCkcCognitivePromptSection(ckcContent);
++  const recoveryCognitionSection = recoveryContext
++    ? buildRecoveryCognitionSection(recoveryContext)
++    : null;
+   const cognitionUserContent = proposalSubject
+     ? `Instruire Options/Recommendation pour la Proposal ${proposalSubject.proposalId} (sujet: ${proposalSubject.sealedExecutionBasis.objective})`
+-    : `Instruire Options/Recommendation pour le cycle ${input.cycleTypeId}`;
++    : recoveryContext
++      ? `Instruire Options/Recommendation de recovery/replan après FAIL durable (${recoveryContext.attemptId}) — sujet courant = recovery du même cycle, PAS un nouveau cadrage fonctionnel.`
++      : `Instruire Options/Recommendation pour le cycle ${input.cycleTypeId}`;
+   let cognitiveRecommendation: string;
+   try {
+     const reasoning = await reasonWithResolvedCkcContext({
+@@ -316,12 +352,24 @@ export async function proposeTrajectoryOptions(
+               `targetPath=${proposalSubject.sealedExecutionBasis.targetPath ?? ""}`,
+               `requestedOperation=${proposalSubject.sealedExecutionBasis.requestedOperation}`,
+             ]
+-          : []),
++          : recoveryContext
++            ? [
++                `recoverySubject=post_evidence`,
++                `attemptId=${recoveryContext.attemptId}`,
++                `evidenceId=${recoveryContext.evidenceId}`,
++                `recommendationKind=${recoveryContext.recommendationKind}`,
++                `realProcessInvoked=${recoveryContext.realProcessInvoked}`,
++              ]
++            : []),
+       ].join(" | "),
+       intentSummary: proposalSubject
+         ? `Proposal subject ${proposalSubject.proposalId} · profil ${input.recommendedProfile}`
+-        : `Cycle ${input.cycleTypeId} · profil ${input.recommendedProfile}`,
+-      ckcPromptSection,
++        : recoveryContext
++          ? `Recovery/replan post-Evidence · cycle ${input.cycleTypeId} · profil ${input.recommendedProfile} · Recommendation ≠ HumanDecision`
++          : `Cycle ${input.cycleTypeId} · profil ${input.recommendedProfile}`,
++      ckcPromptSection: recoveryCognitionSection
++        ? `${ckcPromptSection}\n\n${recoveryCognitionSection}`
++        : ckcPromptSection,
+     });
+     cognitiveRecommendation = reasoning.recommendation;
+   } catch (error) {
+@@ -505,6 +553,7 @@ export async function proposeTrajectoryOptions(
+     irreversible: input.irreversible,
+     reservations: input.reservations,
+     ckcAttribution: input.ckcAttribution,
++    recoveryContext,
+   };
+
+   const options = deriveTrajectoryOptions(inputs);
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/recoveryReplaceableCurrentContract.ts b/projects/sfia-studio/app/features/project-assistant/w2/recoveryReplaceableCurrentContract.ts
 new file mode 100644
 index 00000000..02206e73
@@ -6395,10 +6220,10 @@ index 00000000..51abe015
 +}
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/resolveRecoveryExecutionBinding.ts b/projects/sfia-studio/app/features/project-assistant/w2/resolveRecoveryExecutionBinding.ts
 new file mode 100644
-index 00000000..6b56b2dc
+index 00000000..1b89b189
 --- /dev/null
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/resolveRecoveryExecutionBinding.ts
-@@ -0,0 +1,216 @@
+@@ -0,0 +1,215 @@
 +/**
 + * Checkpoint F / R8 — RecoveryExecutionBinding from durable failed docs_write EC.
 + * No new persistence. No parallel catalog. Source of truth = failed EC coherent
@@ -6614,7 +6439,349 @@ index 00000000..6b56b2dc
 +    },
 +  };
 +}
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts b/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
+index 957ddada..3865fb16 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
+@@ -7,6 +7,10 @@
+  * seam already carries. This module adds NO cognitive path: it does not call a
+  * provider, does not read CKC content and is not a Phase B integration point.
+  * Same inputs always yield the same options, in the same order.
++ *
++ * Checkpoint F / R7 — when RecoveryContext is present, same optionRefs are kept
++ * (idempotent OptionSet supersession) but labels/intents/steps carry recovery
++ * semantics so framing-generic cognition is not the subject.
+  */
+
+ import type { TrajectoryStep } from "@/lib/oa/cycle";
+@@ -14,6 +18,7 @@ import type {
+   TrajectoryOptionDto,
+   TrajectoryRecommendationDto,
+ } from "./types";
++import type { PostEvidenceRecoveryContext } from "./resolvePostEvidenceRecoveryContext";
+
+ export type TrajectoryOptionInputs = {
+   readonly cycleTypeId: string;
+@@ -22,6 +27,8 @@ export type TrajectoryOptionInputs = {
+   readonly irreversible: boolean;
+   readonly reservations: readonly string[];
+   readonly ckcAttribution: string | null;
++  /** Optional durable post-Evidence recovery subject (R7). */
++  readonly recoveryContext?: PostEvidenceRecoveryContext | null;
+ };
+
+ export const GOVERNED_OPTION_REF = "opt:trajectory:governed-gated" as const;
+@@ -103,6 +110,56 @@ function clarifySteps(): TrajectoryStep[] {
+   ];
+ }
+
++function recoveryRetrySteps(): TrajectoryStep[] {
++  return [
++    step(1, "w2-rec-diagnose", "Prendre en compte l'échec et l'Evidence durables"),
++    step(2, "w2-rec-decide", "Décision humaine explicite de recovery", {
++      dependencies: ["stp:w2-rec-diagnose"],
++      gate: "human_decision",
++      exitCriteria: ["HumanDecision acceptée — Recommendation ≠ décision"],
++    }),
++    step(3, "w2-rec-contract", "Préparer un nouveau contrat d'exécution", {
++      dependencies: ["stp:w2-rec-decide"],
++    }),
++    step(4, "w2-rec-inspect", "Inspecter puis autoriser avant Execute", {
++      dependencies: ["stp:w2-rec-contract"],
++      gate: "inspection",
++      exitCriteria: ["Inspection valide", "Arrêt avant exécution"],
++    }),
++  ];
++}
 +
++function recoveryClarifySteps(): TrajectoryStep[] {
++  return [
++    step(1, "w2-rec-clr-read", "Lire Evidence / ReviewBundle / stopReason"),
++    step(
++      2,
++      "w2-rec-clr-gap",
++      "Clarifier le diagnostic avant toute nouvelle tentative",
++      { dependencies: ["stp:w2-rec-clr-read"] },
++    ),
++    step(3, "w2-rec-clr-reoption", "Réinstruire les options recovery", {
++      dependencies: ["stp:w2-rec-clr-gap"],
++      gate: "human_decision",
++      exitCriteria: ["Nouvelle décision humaine requise"],
++    }),
++  ];
++}
++
++function recoverySuspendSteps(): TrajectoryStep[] {
++  return [
++    step(1, "w2-rec-hold-ack", "Conserver l'échec comme vérité durable"),
++    step(2, "w2-rec-hold-decide", "Décision humaine de suspension / replan", {
++      dependencies: ["stp:w2-rec-hold-ack"],
++      gate: "human_decision",
++      exitCriteria: ["HumanDecision acceptée — pas de relance automatique"],
++    }),
++    step(3, "w2-rec-hold-replan", "Replanifier sans Execute immédiat", {
++      dependencies: ["stp:w2-rec-hold-decide"],
++    }),
++  ];
++}
++
+ /**
+  * Options are always presented in the same order so the UI never implies a
+  * ranking by position. Ranking is carried only by the explicit Recommendation.
+@@ -111,6 +168,54 @@ export function deriveTrajectoryOptions(
+   inputs: TrajectoryOptionInputs,
+ ): TrajectoryOptionDto[] {
+   const reservations = [...inputs.reservations];
++  const recovery = inputs.recoveryContext ?? null;
++  if (recovery) {
++    return [
++      {
++        kind: "OPTION",
++        optionRef: GOVERNED_OPTION_REF,
++        label: "Préparer une nouvelle tentative gouvernée",
++        intent:
++          "À partir du FAIL durable, décider explicitement puis préparer / inspecter / autoriser un nouveau contrat — sans Execute automatique.",
++        impacts: [
++          `Attempt failed: ${recovery.attemptId}`,
++          `Evidence: ${recovery.evidenceId}`,
++          "Aucun succès métier revendiqué",
++          `realProcessInvoked durable: ${recovery.realProcessInvoked}`,
++        ],
++        reservations,
++        steps: recoveryRetrySteps(),
++      },
++      {
++        kind: "OPTION",
++        optionRef: BOUNDED_OPTION_REF,
++        label: "Replanifier ou suspendre sans relance immédiate",
++        intent:
++          "Conserver l'échec comme vérité, décider de suspendre ou replanifier — aucune nouvelle tentative immédiate.",
++        impacts: [
++          "Pas de relance Execute dans cette option",
++          `W3C: ${recovery.recommendationKind}`,
++          `outcome: ${recovery.productOutcome}`,
++        ],
++        reservations,
++        steps: recoverySuspendSteps(),
++      },
++      {
++        kind: "OPTION",
++        optionRef: CLARIFY_OPTION_REF,
++        label: "Diagnostiquer / clarifier avant nouvelle tentative",
++        intent:
++          "Approfondir le diagnostic (Evidence, stopReason, observabilité) avant toute préparation d'une nouvelle tentative.",
++        impacts: [
++          "Aucune préparation d'exécution à ce stade",
++          `stopReason: ${recovery.stopReason ?? "n/a"}`,
++          "Nouvelle décision humaine requise après clarification",
++        ],
++        reservations,
++        steps: recoveryClarifySteps(),
++      },
++    ];
++  }
+   return [
+     {
+       kind: "OPTION",
+@@ -165,6 +270,19 @@ export function deriveTrajectoryOptions(
+ export function deriveTrajectoryRecommendation(
+   inputs: TrajectoryOptionInputs,
+ ): TrajectoryRecommendationDto {
++  const recovery = inputs.recoveryContext ?? null;
++  if (recovery) {
++    // Prefer diagnose/clarify — never auto-pick retry because a Morris REAL GO exists.
++    return {
++      label: "RECOMMANDATION — PAS UNE DÉCISION",
++      recommendedOptionRef: CLARIFY_OPTION_REF,
++      rationale: `Épisode post-Evidence ${recovery.productOutcome} (${recovery.attemptId}) — ${recovery.headline}. Diagnostiquer / clarifier avant toute nouvelle tentative. Recommendation ≠ HumanDecision ; aucun Execute automatique.`,
++      isHumanDecision: false,
++      promotesTrajectory: false,
++      ckcAttribution: inputs.ckcAttribution,
++      ckcProvenance: null,
++    };
++  }
+   if (inputs.reservations.length > 0) {
+     return {
+       label: "RECOMMANDATION — PAS UNE DÉCISION",
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/types.ts b/projects/sfia-studio/app/features/project-assistant/w2/types.ts
+index 42a4372d..923e7762 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/types.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/types.ts
+@@ -230,6 +230,11 @@ export type ActiveDecisionSubjectReadResult =
+       readonly kind: "bound_awaiting_decision";
+       readonly optionSet: TrajectoryOptionSetDto;
+     }
++  | {
++      readonly ok: true;
++      readonly kind: "pursue_prepare_ready";
++      readonly decision: TrajectoryDecisionRecordDto;
++    }
+   | W2Failure;
+
+ /**
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts b/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
+index fcb2aafd..03b384d4 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
+@@ -61,6 +61,24 @@ const PRODUCT_RESERVATIONS = [
+   "Aucun READY",
+ ] as const;
+
++/** Honest reservation when a REAL process was durably launched (vs substitution wording). */
++export function productReservationsForAttempt(
++  attempt: ExecutionAttempt,
++): readonly string[] {
++  const realInvoked =
++    attempt.processDiagnostic?.realProcessInvoked === true ||
++    attempt.irreversibleEffectsPossible === true ||
++    (typeof attempt.stopReason === "string" &&
++      attempt.stopReason.startsWith("REAL_"));
++  if (!realInvoked) return [...PRODUCT_RESERVATIONS];
++  return [
++    PRODUCT_RESERVATIONS[0],
++    PRODUCT_RESERVATIONS[1],
++    "Process Cursor REAL invoqué — effet métier non prouvé",
++    PRODUCT_RESERVATIONS[3],
++  ];
++}
++
+ const ANTI = {
+   ready: false,
+   w3Closed: false,
+@@ -160,7 +178,7 @@ export function projectW3bProductTerminal(input: {
+       executionContractId: input.contract.executionContractId,
+       executionContractVersion: input.attempt.executionContractVersion,
+     },
+-    reservations: [...PRODUCT_RESERVATIONS],
++    reservations: [...productReservationsForAttempt(input.attempt)],
+     antiClaims: ANTI,
+     cycleInstanceClosed: false as const,
+     projectArchived: false as const,
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts b/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
+index 7b2f709d..386ebca3 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
+@@ -17,6 +17,7 @@ import type { EpistemicItem } from "@/lib/oa/cycle";
+ import { SFIA_STUDIO_SYSTEM_FACTUAL_WRITER } from "@/features/project-assistant/f3/systemFactualWriter";
+ import { appendEvidenceOutcomeToLps } from "@/features/project-assistant/f3/appendEvidenceOutcomeToLps";
+ import { deriveAttemptProvenance } from "@/features/project-assistant/f3/deriveAttemptProvenance";
++import { resolveDurableBoundaryProofMode } from "@/features/project-assistant/f3/resolveDurableBoundaryProofMode";
+ import {
+   analyzePostEvidenceWithProvider,
+   extractW3cPostEvidenceAnalysisForEvidence,
+@@ -956,6 +957,12 @@ export async function runW3cPostEvidenceLoop(input: {
+   let adapterRef = "adp:unknown";
+   let executionMode = "unknown";
+   let realProcessInvoked = false;
++  let processRef: string | undefined;
++  let processExitCode: number | null | undefined;
++  let processTimedOut: boolean | undefined;
++  let processDurationMs: number | undefined;
++  let processStdout: string | undefined;
++  let processStderr: string | undefined;
+
+   if (oa.executionAttemptServices) {
+     const loaded = await oa.executionAttemptServices.getExecutionAttempt.execute({
+@@ -967,13 +974,28 @@ export async function runW3cPostEvidenceLoop(input: {
+       const agent = oa.executionAttemptServices.registry.getAgent(
+         loaded.attempt.selectedAgentRef,
+       );
++      const boundaryProofMode = await resolveDurableBoundaryProofMode({
++        oa,
++        attempt: loaded.attempt,
++      });
+       const provenance = deriveAttemptProvenance({
+         attempt: loaded.attempt,
+         agent,
++        boundaryProofMode,
+       });
+       adapterRef = provenance.adapterRef;
+       executionMode = provenance.executionMode;
+       realProcessInvoked = provenance.realProcessInvoked;
++      // Prefer durable diagnostic excerpts when present (failure observability).
++      const diag = loaded.attempt.processDiagnostic;
++      if (diag) {
++        processStdout = diag.stdoutExcerpt;
++        processStderr = diag.stderrExcerpt;
++        processRef = diag.processRef;
++        processExitCode = diag.exitCode;
++        processTimedOut = diag.timedOut;
++        processDurationMs = diag.durationMs;
++      }
+     }
+   }
+   if (oa.executionContractServices) {
+@@ -1027,6 +1049,14 @@ export async function runW3cPostEvidenceLoop(input: {
+       reviewBundleId: product.reviewBundleId,
+       technicalResultRef: product.technicalDetail.resultRef,
+       reservations: product.reservations,
++      ...(processRef ? { processRef } : {}),
++      ...(processExitCode !== undefined ? { exitCode: processExitCode } : {}),
++      ...(processTimedOut !== undefined ? { timedOut: processTimedOut } : {}),
++      ...(processDurationMs !== undefined
++        ? { durationMs: processDurationMs }
++        : {}),
++      ...(processStdout !== undefined ? { stdout: processStdout } : {}),
++      ...(processStderr !== undefined ? { stderr: processStderr } : {}),
+     },
+     { ckcPromptSection },
+   );
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts
+index 62267028..6f668fc9 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionFailure.ts
+@@ -126,6 +126,9 @@ export class RecordExecutionFailure {
+         technicalExitCode: request.technicalExitCode,
+         durationMs: request.durationMs,
+         logRefs: request.logRefs ? [...request.logRefs] : attempt.logRefs,
++        ...(request.processDiagnostic
++          ? { processDiagnostic: request.processDiagnostic }
++          : {}),
+         updatedAt: timestamp,
+         version: attempt.version + 1,
+       };
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
+index cfe92303..88a52e28 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
+@@ -137,6 +137,28 @@ export type ExecutionAttempt = {
+   technicalExitCode?: number;
+   durationMs?: number;
+   logRefs?: string[];
++  /**
++   * Checkpoint F / R6 — redacted/capped process observation on failure/timeout.
++   * Optional additive payload field (no SQLite migration). Diagnostic only —
++   * never authoritative business Evidence / docs_write artifact proof.
++   */
++  processDiagnostic?: {
++    readonly kind: "process_failure_diagnostic";
++    readonly schemaVersion: "0.1.0-oa";
++    readonly processRef: string;
++    readonly exitCode: number | null;
++    readonly timedOut: boolean;
++    readonly durationMs: number;
++    readonly realProcessInvoked: boolean;
++    readonly boundaryProofMode?: "cursor_real" | "deterministic_fake";
++    readonly executableBasename?: string;
++    readonly stdoutExcerpt: string;
++    readonly stderrExcerpt: string;
++    readonly stdoutTruncated: boolean;
++    readonly stderrTruncated: boolean;
++    readonly redacted: true;
++    readonly authoritativeBusinessEvidence: false;
++  };
+   cancellationRequested?: boolean;
+   irreversibleEffectsPossible?: boolean;
+   updatedAt?: string;
+@@ -265,6 +287,8 @@ export type RecordExecutionFailureRequest = {
+   technicalExitCode?: number;
+   durationMs?: number;
+   logRefs?: string[];
++  /** Optional redacted process diagnostic (failure / timeout). */
++  processDiagnostic?: ExecutionAttempt["processDiagnostic"];
+   correlationId?: string;
+   expectedAttemptVersion?: number;
+   nowIso?: string;
 diff --git a/projects/sfia-studio/convergence/product-journey-e2e-real-reconciliation-01-capitalization.md b/projects/sfia-studio/convergence/product-journey-e2e-real-reconciliation-01-capitalization.md
 new file mode 100644
 index 00000000..83032b3e
@@ -6814,26 +6981,18 @@ index 00000000..83032b3e
 +| R11–R12 | aucun code Product |
 +
 +Hors commit : `package-lock.json`, `.tmp-sfia-review/**`, campaign DB / M4 WTs, secrets.
+diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+index 1e401650..fbdb6ef0 100644
+--- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
++++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+@@ -4,7 +4,8 @@
+ | --- | --- |
+ | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
+ | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
+-| **Timestamp maintenance PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01** | 2026-09-17 18:25:36 CEST (+0200) — **PRODUCT DOCS_WRITE REAL PASS POST-MERGE TRUTH-SYNC** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Macro **PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01** · parent macro **PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01** · GO Morris post-merge documentary truth-sync #499 **CONSUMED** (local docs + commit only) · PR **#499 MERGED** `docs(sfia-studio): capitalize Product docs-write REAL proof` · head `9981483f8c158bec07364e14e626cdf2c3fd1e34` · merge `3907177f7788d23d640c5bdcd1cee8e01615762f` · parents `b739ddd3826ea4df640e3f34f97a966d85f8d214` + `9981483f8c158bec07364e14e626cdf2c3fd1e34` · capitalisation = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · pre-merge CI **`35236024162` SUCCESS** · Required Gate **PASS** · post-merge CI **`35245046244` SUCCESS** · Required Gate **PASS** · `headSha=3907177f7788d23d640c5bdcd1cee8e01615762f` · merge lifecycle #499 = **COMPLETED / CONSUMED** · post-merge verification = **PASS** · claim **AUTHENTICATED PRODUCT DOCS_WRITE REAL PROVEN AT TESTED HISTORICAL PROJECT SCOPE** · **ZERO REAL** · Product code **UNCHANGED** · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** **PRESERVED** · next Product capability candidate = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN** · **NOT STARTED / NOT AUTHORIZED** by this truth-sync · this documentary truth-sync = **LOCAL CANDIDATE** · Review Handoff publication **PENDING** (distinct Morris remote push gate) · push/PR/merge of this truth-sync = **DISTINCT Morris gates** · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / origin/main / PR evidence** · **≠** E2E FULL REAL PROVEN · **≠** Product Journey complete to Nora replanning · **≠** docs_write generalized · **≠** Cursor autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new REAL authorization · **≠** PRODUCT-JOURNEY-POST-EXECUTION-REPLAN started · **≠** push/PR/merge authorized by proof |
++| **Timestamp maintenance PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01** | 2026-09-18 05:15:00 CEST (+0200) — **PRODUCT JOURNEY E2E REAL RECONCILIATION INTEGRATION** · Cycle **15** · Capitalisation / REX + intégration Git · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01** · parent campagne **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01** · baseline pré-intégration `origin/main` `26478b1ea5b010c625f0c6039c969fac5c135cf5` · branche `qa/sfia-studio-product-journey-e2e-real-reconciliation-01` · checkpoints **R1–R12** consolidés · Product fixes **R1/R3/R4/R6/R7/R8/R10** = intégration candidate this PR · Attempt 1 FAIL · Attempt 2 FAIL Authentication required · Attempt 3 Cursor REAL **technical SUCCESS** · bounded docs_write filesystem effect + Artifact Evidence **PROVEN** in M4 isolated WT · Product Result remains **UNCLAIMED** · blocker = **ContractResult extensibility / Evidence wiring** (`no_applicable_contract_result_rule` for `cursor.docs_write.apply`) · capitalisation `projects/sfia-studio/convergence/product-journey-e2e-real-reconciliation-01-capitalization.md` · **ZERO REAL** this integration macro · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **≠** Product Journey E2E READY / COMPLETE · **≠** ContractResult docs_write PASS · **≠** runtime v3 ADOPTED · next after integration verified = **R13 — Contract Result extensibility framing — ZERO REAL** · **NOT STARTED / NOT AUTHORIZED** by this tip · repository lifecycle = **RESOLVE FROM GIT / PR evidence** |
++| **Timestamp maintenance historique PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01 (pre-PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01)** | *(tip superseded by PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-17 18:25:36 CEST (+0200) — **PRODUCT DOCS_WRITE REAL PASS POST-MERGE TRUTH-SYNC** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Macro **PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01** · parent macro **PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01** · GO Morris post-merge documentary truth-sync #499 **CONSUMED** (local docs + commit only) · PR **#499 MERGED** `docs(sfia-studio): capitalize Product docs-write REAL proof` · head `9981483f8c158bec07364e14e626cdf2c3fd1e34` · merge `3907177f7788d23d640c5bdcd1cee8e01615762f` · parents `b739ddd3826ea4df640e3f34f97a966d85f8d214` + `9981483f8c158bec07364e14e626cdf2c3fd1e34` · capitalisation = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · pre-merge CI **`35236024162` SUCCESS** · Required Gate **PASS** · post-merge CI **`35245046244` SUCCESS** · Required Gate **PASS** · `headSha=3907177f7788d23d640c5bdcd1cee8e01615762f` · merge lifecycle #499 = **COMPLETED / CONSUMED** · post-merge verification = **PASS** · claim **AUTHENTICATED PRODUCT DOCS_WRITE REAL PROVEN AT TESTED HISTORICAL PROJECT SCOPE** · **ZERO REAL** · Product code **UNCHANGED** · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** **PRESERVED** · next Product capability candidate = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN** · **NOT STARTED / NOT AUTHORIZED** by this truth-sync · this documentary truth-sync = **LOCAL CANDIDATE** · Review Handoff publication **PENDING** (distinct Morris remote push gate) · push/PR/merge of this truth-sync = **DISTINCT Morris gates** · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / origin/main / PR evidence** · **≠** E2E FULL REAL PROVEN · **≠** Product Journey complete to Nora replanning · **≠** docs_write generalized · **≠** Cursor autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new REAL authorization · **≠** PRODUCT-JOURNEY-POST-EXECUTION-REPLAN started · **≠** push/PR/merge authorized by proof |
+ | **Timestamp maintenance historique PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01 (pre-PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01)** | *(tip superseded by PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-17 16:15:39 CEST (+0200) — **PRODUCT DOCS_WRITE REAL PASS CAPITALISATION** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Macro **PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01** · GO capitalisation locale **CONSUMED** · GO Review Handoff + push + PR **CONSUMED** · remédiation gouvernance PR499 in-cycle · Product PR **#498 MERGED** `fix(sfia-studio): close docs-write REAL path and completion` · merge/main `b739ddd3826ea4df640e3f34f97a966d85f8d214` · post-merge CI **`35215299343` SUCCESS** · Required Gate **PASS** · Fresh Authenticated Product Reproof09 REAL = **PASS** · claim **AUTHENTICATED PRODUCT DOCS_WRITE REAL PROVEN AT TESTED HISTORICAL PROJECT SCOPE** · 1 Product Execute / 1 Cursor REAL spawn / 0 retry · exact target `projects/sfia-studio/.sandbox/gestion-de-taches.md` **PASS** · Attempt terminal **`succeeded`** **PASS** · Evidence/ReviewBundle **PASS** · restart/no-relaunch **PASS** · capitalisation asset `projects/sfia-studio/convergence/sfia-studio-product-docs-write-real-pass-capitalisation.md` = **CANDIDATE PR #499 / remote branch / pending merge** · PR **#499** `docs(sfia-studio): capitalize Product docs-write REAL proof` · base `main` @ `b739ddd3826ea4df640e3f34f97a966d85f8d214` · pre-remediation head `f0b7c414394e2bb51ae93ec159027682d0bdc1c4` · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** **PRESERVED** · next Product capability candidate = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN** · **NOT STARTED / NOT AUTHORIZED** by this capitalisation · **ZERO REAL** this DOC cycle · Product code **unchanged** · Review Handoff = **PUBLISHED / REMOTE VERIFIED** · pre-remediation handoff `2bd065dfc15ff5577ef83f78feebd05c5738d231` · remediation handoff republish-in-cycle for new HEAD · GO push/PR = **CONSUMED** · PR **#499 OPEN** · merge = **DISTINCT PENDING Morris gate** · **≠** E2E FULL REAL PROVEN · **≠** Product Journey complete to Nora replanning · **≠** docs_write generalized · **≠** Cursor autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new REAL authorization · **≠** push/PR/merge authorized by proof |
+ | **Timestamp maintenance historique GCEC-D-CAPABLE-POST-MERGE-DOCUMENTARY-TRUTH-SYNC-01 (pre-PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01)** | *(tip superseded by PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01)* — 2026-09-13 20:26 CEST (+0200) — **GCEC D-CAPABLE POST-MERGE DOCUMENTARY TRUTH-SYNC** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · GO **GCEC D-CAPABLE POST-MERGE DOCUMENTARY TRUTH-SYNC — ROADMAP + CAPITALISATION — MAIN 76E2D786 — ZERO REAL** **CONSUMED** · placement GO **USE `projects/sfia-studio/convergence/sfia-studio-gcec-d-capable-post-merge-capitalisation.md` AS GCEC PROJECT CAPITALISATION TARGET** **CONSUMED** · GO **GCEC D-CAPABLE POST-MERGE DOCUMENTARY TRUTH-SYNC — PROJECT GIT INTEGRATION — COMMIT + PUSH + PR + CI + CHATGPT CRITICAL REVIEW — CONDITIONAL MERGE — ZERO REAL** **CONSUMED** · **GCEC lane truth-sync only** (not automatic global Nora top priority) · Product GCEC D-capable chain = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · integration anchor `origin/main` @ `76e2d7869be439313b1c52bf4083aa105e5c6293` *(milestone post-merge anchor · living Roadmap **≠** permanent HEAD embed · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence**)* · PR **#481 MERGED** `feat(sfia-studio): integrate GCEC D-capable Product chain` · base `c481610caa3527edabeca8c860ab27c18a6a738e` · head `f42103881ea952f445672ed7781da59a465893d8` · merge `76e2d7869be439313b1c52bf4083aa105e5c6293` · parents `c481610c…` + `f4210388…` · head→merge content delta **ZERO** · source branch `delivery/sfia-studio-gcec-d-ephemeral-secret-bridge` **PRESERVED** @ `f4210388…` · post-merge CI **`34772652845` SUCCESS** (Detect / Build / Required Gate) · Roadmap **intentionally unmodified** by Product PR #481 · remaining debt = documentary drift treated by this documentary package · repository closure requires exact project Git integration and post-merge verification · repository lifecycle = RESOLVE FROM CURRENT GIT / PR EVIDENCE · A/B/C historical REAL **PROVEN AT TESTED SCOPE** **PRESERVED** · Cursor full-capability technical executor = **RO REAL-BACKED AT TESTED SCOPE** · cross-EC C→D continuity = **DETERMINISTICALLY PROVEN + REAL-BACKED BY D CAMPAIGN AT TESTED SCOPE** (VERIFIED prior Evidence + fresh RepositoryRead · ≠ ambient trust · ≠ blanket A→E) · D / `github.pr.create` = **REAL PROVEN AT TESTED SCOPE** · E / `github.pr.merge` = **REAL NOT PROVEN / NOT AUTHORIZED BY THIS CYCLE** · phase-scoped ExecutionContracts = **adopted construction trajectory** (one EC = one bounded execution intent · multiple sequential ECs may follow durable truth · A→D harness = proof/capability harness **≠** normative runtime orchestration · no monolithic A→D replay required as normative precondition for D or E) · technical capability **≠** execution authority · protected Git effects retain gates/Confirmations/authority · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** (NORA-FIRST unchanged · GCEC ≠ global Studio top priority) · next GCEC continuation (if any) = **DISTINCT Morris GO for E / `github.pr.merge`** — **NOT** default next global capability · **NOT AUTHORIZED** by this DOC cycle · project Git integration GO **CONSUMED** — repository lifecycle = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** · **ZERO GCEC REAL** this documentary integration cycle · **≠** E/merge REAL proven · **≠** merge authorized · **≠** generalized PR/Git autonomy · **≠** production autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** method promotion · **≠** Build Doctrine / C1 / v3 framing mutation · **≠** Product mutation · **≠** Nora priority displaced |
+ | **Timestamp maintenance historique GCEC-A2D-REAL-FAIL-HARNESS-ALIGNMENT-01 (pre-D-capable post-merge documentary truth-sync)** | 2026-09-13 09:33 CEST (+0200) — **GCEC A→D REAL FAIL + HARNESS SEMANTIC/LIFECYCLE ALIGNMENT** · Cycle **13** · DOC · CRITICAL · Macro GO **GCEC A→D HARNESS CORRECTION INTEGRATION — LOCAL ANCHOR e2bebdb5 + BOUNDED ROADMAP TRUTH-SYNC — PUSH + PR + CI + CHATGPT CRITICAL REVIEW + CONDITIONAL MERGE — ZERO REAL** · **GCEC lane truth-sync only** (not automatic global Nora top priority) · Governed Project Execution / **GCEC-GIT-LIFECYCLE-E2E-01** · ONE FRESH GCEC REAL A→D campaign was explicitly authorized and executed · campaign **STARTED** · campaign budget **CONSUMED** at Attempt A REAL launch · Attempt A: actual REAL docs-write effect occurred · Attempt succeeded technically · Evidence `execution_attempt:docs_write` **verified** · BUT campaign acceptance / `A_RECONCILED_RETAINED` **NOT reached** · harness stopped on invalid invariant treating `ExecutionContract.version` as semantically immutable · observed final EC: `semanticFingerprint` unchanged · version advanced **3 → 5** · consistent with T-A5 lifecycle `confirmed → executing → confirmed` · version = lifecycle/OCC metadata, **not** semantic material · B/C/D **NOT STARTED** · E / merge **NOT STARTED / NOT PROVEN** · proof remote unchanged (main unchanged · no feature branch · no PR · no merge · no tag mutation) · Product remote effects during REAL campaign **NONE** · historical campaign verdict remains **FAIL REAL** · A REAL effect + verified Evidence **OBSERVED** · A campaign acceptance / tested-scope proof **NOT CLOSED** · **≠** A REAL PROVEN · root cause after ChatGPT Critical Review: runtime semantic immutability **not** violated · harness oracle incorrectly conflated semantic immutability with lifecycle version immutability · deterministic correction local Product anchor `e2bebdb5718ef4ded945c1ca866e8bc53b919915` · subject `test(sfia-studio): align GCEC A-to-D semantic and lifecycle invariants` · semantic binding frozen · fingerprint freshly recomputed · lifecycle/OCC version checked separately · expected successful-slice delta **+2** · A/B/C/D retain same semantic baseline · runtime Product implementation **unchanged** · deterministic validation: focused **13 passed / 1 skipped** · related **102 passed** · typecheck/lint/build **PASS** · full Vitest **3868 passed / 137 skipped** · ZERO REAL correction cycle · repository publication/integration status = **RESOLVE FROM CURRENT GIT / PR EVIDENCE** · new REAL campaign **NOT AUTHORIZED** by this integration · only after correction integration is verified: **NEW DISTINCT Morris GO** required for fresh A→D REAL campaign · runtime v3 **NON ADOPTED** · Nora/Cognitive Completion priorities **UNCHANGED** · forensic failed-campaign state **PRESERVED** · **ZERO REAL** this integration lot · **≠** A/B/C/D REAL proven · **≠** A→D E2E REAL proven · **≠** E/merge REAL proven · **≠** A→E proven · **≠** generalized Git autonomy · **≠** production autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new doctrine / architecture · **≠** automatic REAL retry | · *(tip superseded by GCEC-D-CAPABLE-POST-MERGE-DOCUMENTARY-TRUTH-SYNC-01 after Product PR #481 MERGED / post-merge verified + documentary truth-sync)*
 ```
-
----
-
-## 9. Claims / réserves / gate
-
-**Allowed after merge:** R1–R10 integrated · R1–R12 capitalized · Attempt 3 technical SUCCESS + M4 artifact proven · recovery paths proven · CR structural gap documented · runtime v3 NON ADOPTED.
-
-**Forbidden:** Product Journey READY/COMPLETE · CR docs_write PASS · runtime v3 ADOPTED · generalized REAL · Studio git lifecycle autonomy.
-
-**Next:** R13 Contract Result extensibility framing — ZERO REAL — NOT STARTED.
-
----
-
-## 10. PR readiness verdict
-
-**READY FOR COMMIT / PUSH / PR / CI / CONDITIONAL MERGE** — ZERO REAL · scope = R1–R10 Product + capitalisation + Roadmap tip only.
-
----
-
-## 11. Verdict (pre-merge)
-
-**PRODUCT JOURNEY REAL RECONCILIATION R1–R12 — INTEGRATION CANDIDATE READY FOR PR**
