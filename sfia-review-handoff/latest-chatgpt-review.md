@@ -1,10 +1,10 @@
 # ChatGPT Review Pack — FULL
-## PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01 — R11 Cursor CLI authentication root cause and zero-REAL preflight
+## PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01 — R12 technical REAL success / product qualification forensic
 
-**Timestamp (UTC):** 2026-09-18T02:05:54Z
-**Pack kind:** FULL (forensic qualification; no Product code modification)
-**Pack revision:** R11 — Cursor CLI authentication root cause and zero-REAL preflight
-**Automation:** L3 handoff only; **NO** project commit/push/PR/merge; **ZERO REAL**; **NO Execute**; **NO Attempt**; **NO HD**; **NO agent login automation**; **NO generative Cursor probe**
+**Timestamp (UTC):** 2026-09-18T02:51:10Z
+**Pack kind:** FULL (forensic; no Product code modification)
+**Pack revision:** R12 — technical REAL success / product qualification forensic
+**Automation:** L3 handoff only; **NO** project commit/push/PR/merge; **ZERO REAL**; **NO Execute**; **NO Attempt**; **NO HD**; **NO SQLite mutation**; **NO manufactured Evidence**
 
 ---
 
@@ -70,10 +70,10 @@
 
 ### Preservation
 
-- R1–R10 Product dirty files preserved (no R11 Product code change)
-- `package-lock.json` dirty préexistant hors scope
-- No reset / checkout destructif / clean
-- Campaign DB read-only for this lot
+- R1–R10 Product dirty preserved; R11 forensic-only (no Product code)
+- R12: **no Product code change**
+- `package-lock.json` hors scope
+- Campaign DB read-only
 
 ---
 
@@ -84,238 +84,249 @@
 | Cycle | 9 — QA / Validation |
 | Typologie | EVOL |
 | Profil | CRITICAL |
-| Justification | Frontière externe Cursor REAL + environnement d'auth + wiring child process |
+| Capacité v3 | EC → Cursor REAL → Artifact/Evidence → ReviewBundle → résultat produit qualifié |
 | Milestone | Product Journey E2E REAL Reconciliation |
-| Capacité v3 | ExecutionContract → authority → Cursor REAL authenticated executor → Attempt → Evidence |
-
-KEEP: R6 diagnostics, R6 REAL provenance, R7 recovery options, R8 successor docs_write, R10 restart CTA, EC/Gate D/authority, exact docs_write target.
-
-DIAGNOSE: Cursor CLI auth state, Studio child env, executable resolution, HOME/config.
-
-ADAPT: none (CASE B wiring defect NOT proven).
+| Runtime v3 | NON ADOPTED |
 
 ---
 
-## 3. Second Attempt freeze (durable)
+## 3. Attempt 3 freeze (durable)
 
 | Field | Value |
 |---|---|
-| Attempt | `xat:w3a:88dadf7fa682cc93` |
-| ExecutionContract | `xct:m3-res:dec:w2-trj:7e6ca68a-a31b-448c-9ae8-648de8772988` |
-| Attempt status | `failed` |
-| EC status | `failed` |
-| Adapter | `adp:m4-cursor-cli-real` (campaign episode) |
-| Agent ref | `agt:m4.cursor.bounded_docs_write` |
-| boundaryProofMode | `cursor_real` |
-| realProcessInvoked | `true` |
-| processRef | `pid:58811` |
-| exitCode / technicalExitCode | `1` |
-| stopReason | `REAL_PROCESS_NONZERO_EXIT` |
-| durationMs | `1302` |
-| Worktree | `wt-daf7b0b2455475b6b7090b69` |
-| Evidence | `ev:w3b:daf7b0b2455475b6` (`available`) |
-| ReviewBundle | `rb:w3b:daf7b0b2455475b6` (`ready_for_review`) |
-| productOutcome / business effect | non prouvé |
-| authoritativeBusinessEvidence | `false` |
-| Target | `projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md` — **ABSENT** |
-
-### Exact stderr (redacted; durable processDiagnostic)
-
-```
-cursor-retrieval: tracing to '/var/folders/.../cursor_retrieval....58811.log'
-Error: Authentication required. Please run 'cursor agent login' first, or set CURSOR_API_KEY environment variable.
-```
-
-- `stdoutExcerpt` empty
-- `stderrTruncated` / `stdoutTruncated` = false
-- `redacted` = true
-- retrieval log file exists but size 0 (no extra content)
+| Attempt | `xat:w3a:c4c5670edb4658cc` |
+| Status | `succeeded` |
+| EC | `xct:m3-res:dec:w2-trj:e00839c5-5022-4bd8-8243-f0a2dd6e79cb` |
+| EC status (current) | `confirmed` · table version **5** |
+| Attempt bound EC version | **3** |
+| DecisionRef | `dec:w2-trj:e00839c5-5022-4bd8-8243-f0a2dd6e79cb` |
+| Action / target | `cursor.docs_write.apply` / `workspace.isolated.docs_write` |
+| targetPath | `projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md` |
+| Capability / ER | `cap:cursor.docs_write` / `evreq:docs_write_artifact` |
+| Agent | `agt:m4.cursor.bounded_docs_write` |
+| Adapter (episode) | `adp:m4-cursor-cli-real` |
+| technicalExitCode | `0` |
+| durationMs | `84076` |
+| resultRef | `res:m4:xat:w3a:c4c5670edb4658cc` |
+| stopReason / processDiagnostic | **absent** (success path) |
+| irreversibleEffectsPossible | **absent** |
+| boundaryProofMode on Attempt | **absent** |
+| M4 worktree | `wt-b62e7e34320e78ea2494ac1a` |
+| baseHeadSha | `26478b1ea5b010c625f0c6039c969fac5c135cf5` |
+| Bound fingerprint | `3cc524c541b934c3136d8fb0c34a8348591bb162472e12dde51bb9af8573602f` |
 
 ### Attempt count
 
-| Attempt | stopReason | processDiagnostic |
+| # | Attempt | Status |
 |---|---|---|
-| `xat:w3a:1f49d8e25e20837a` | REAL_PROCESS_NONZERO_EXIT | absent (pre-R6) |
-| `xat:w3a:88dadf7fa682cc93` | REAL_PROCESS_NONZERO_EXIT | Authentication required |
+| 1 | `xat:w3a:1f49d8e25e20837a` | failed |
+| 2 | `xat:w3a:88dadf7fa682cc93` | failed (Authentication required) |
+| 3 | `xat:w3a:c4c5670edb4658cc` | **succeeded** / product UNCLAIMED |
 
-**Attempts = 2 FAIL. REAL budget remaining = 0. No third Attempt.**
+**Attempts = 3. REAL budget remaining = 0.**
 
 ---
 
-## 4. Installed executable stack
+## 4. Filesystem truth
 
-| Item | Fact |
+| Location | State |
 |---|---|
-| Studio resolution order | `SFIA_CURSOR_BIN` → `/Applications/Cursor.app/Contents/Resources/app/bin/cursor` → `$HOME/.local/bin/cursor-agent` |
-| `SFIA_CURSOR_BIN` | ABSENT (shell + Studio process) |
-| App-bundled cursor | PRESENT · version `3.20.21` · arm64 · commit `f09fca384ceca23f7bf21f9c23655b162641d740` |
-| Standalone `~/.local/bin/cursor-agent` | PRESENT · symlink → `.../versions/2026.09.15-d2fe57e/cursor-agent` |
-| `command -v agent` / `command -v cursor` (shell PATH) | ABSENT |
-| Studio PATH contains app bin | False (resolved by absolute candidate, not PATH) |
-| Help-proven non-generative auth cmds | `cursor agent status` · `cursor agent whoami` · `agent --list-models` |
-| Forbidden probes | NOT run: `agent login`, `-p`, `--print`, prompts, ACP sessions |
+| M4 WT `wt-b62e7e34320e78ea2494ac1a` / target | **EXISTS** · file · 2015 bytes · sha256 `3cb08ee5fa2dabb1…` |
+| Required sections (Objectif…Prochaine étape) | **ALL YES** |
+| M4 WT git | detached HEAD @ `26478b1e` · working tree clean · target **gitignored** (`.sandbox/**`) |
+| Prior M4 WTs (attempts 1–2) | target ABSENT |
+| Project worktree `.sandbox/…` | **ABSENT** (expected isolation; not a composition destination for this architecture) |
+| Managed-repo other clones under `.sfia-exec` | only M4 Attempt-3 path holds the file |
 
-Exact Studio launch uses app-bundled `cursor` first (X_OK). Argv shape for docs_write (code): `agent --print --mode ... --workspace <wt> --trust --sandbox disabled --force <instruction>` under mutating local confinement env.
+**Conclusion Phase 2:** Cursor exit 0 **did** produce the expected artifact in the isolated M4 execution worktree. Digest matches Evidence `ev:docs-write:…`.
 
 ---
 
-## 5. Auth status (non-generative)
+## 5. Process result
 
-### `cursor agent status` / `whoami` (app binary)
+- Attempt 3 has **no** durable stdout/stderr / processDiagnostic (success path).
+- Technical facts: `technicalExitCode=0`, `resultRef=res:m4:…`, duration ~84s, agent `bounded_docs_write`.
+- Filesystem (Phase 2) is authoritative over missing stdout: **write occurred**.
+
+---
+
+## 6. Artifact Evidence chain
+
+### Dual Evidence / dual ReviewBundle (same Attempt)
+
+| Object | Id | Role |
+|---|---|---|
+| Docs-write artifact Evidence | `ev:docs-write:xat:w3a:c4c5670edb4658cc` | `type=artifact` · `location=targetPath` · `digest=sha256:3cb08ee5…` · bindings Attempt3/EC |
+| Docs-write RB | `rb:docs-write:xat:w3a:c4c5670edb4658cc` | evidenceRefs=[docs-write] · **status=draft** · completeness=complete · **no CE** |
+| W3B technical Evidence | `ev:w3b:b62e7e34320e78ea` | `type=artifact` · `location=refs/attempts/…/result` · `technicalResultRef=res:m4:…` |
+| W3B RB | `rb:w3b:b62e7e34320e78ea` | evidenceRefs=[w3b] · **ready_for_review** · frozen · reservations include substitution text |
+| ClaimEvaluation | `clm:w3b:b62e7e34320e78ea` | subject=`execution_contract_result` · **status=`not_proven`** |
+
+### Answers (Phase 4)
+
+1. `ingestDocsWriteArtifactEvidence` **WAS called** (Evidence+RB ids + digest match file).
+2. Result: docs-write Evidence `available`; RB left **draft**.
+3. Artifact Evidence exists: **yes** (docs-write) **and** a second W3B technical artifact.
+4. Requirement `evreq:docs_write_artifact`: docs-write Evidence is the intended satisfier; CE **did not** bind it.
+5. Target path linked on docs-write Evidence `location` — **yes**.
+6. Content integrity: digest on Evidence matches on-disk file; sections present — **yes** (filesystem).
+7. UI « Evidence complète » = W3B RB `completeness=complete` + Evidence `available` (technical result ref), **not** the docs-write artifact as CE input.
+8. Non-claimable because CE status=`not_proven` (not `pass`) → W3B projection UNCLAIMED.
+
+### Contract Result exact (`clm:w3b:b62e7e34320e78ea`)
 
 ```
-✓ Login successful!
-Logged in (unable to fetch user details)
+status: not_proven
+claimStatement: … attempt succeeded — EO:2 ER:1 — no_applicable_contract_result_rule
+EO[0] Le fichier Markdown… → NOT_PROVEN
+EO[1] Vérification existence/conformité… → NOT_PROVEN
+ER[0] evreq:docs_write_artifact → NOT_PROVEN
+bindings.evidenceRefs: [ev:w3b:b62e7e34320e78ea]  # NOT docs-write Evidence
+bound fingerprint: 3cc524c541b9…
 ```
 
-Same result for:
-- interactive diagnostic shell
-- simulated mutating confinement env (HOME preserved)
-- exact Studio process env reconstructed via sysctl (incl. `CURSOR_AGENT=1`, `__CURSOR_SANDBOX_ENV_RESTORE` PRESENT)
-- worktree cwd `wt-daf7b0b2455475b6b7090b69`
-- standalone `cursor-agent status`
+---
 
-### API-capable non-generative probe: `--list-models`
+## 7. « Exécuteur de substitution » chain
 
-| Context | Result |
+Source: `w3bProductTerminalProjection.productReservationsForAttempt` + frozen into `rb:w3b:…reservations`.
+
+REAL wording only if:
+- `processDiagnostic.realProcessInvoked === true`, OR
+- `irreversibleEffectsPossible === true`, OR
+- `stopReason` starts with `REAL_`
+
+Attempt 3 success payload has **none** of these → default reservation:
+`Exécuteur de substitution — pas d'effet externe réel`.
+
+**Classification substitution (Phase 5):** **A + E** — projection uses absence of success-path REAL provenance signals; REAL was invoked but not durably recorded on succeeded Attempt (R6 processDiagnostic is failure-oriented). Not because adapter id was fake.
+
+---
+
+## 8. Why technical succeeded ≠ product SUCCESS
+
+`projectW3bProductTerminal` requires Attempt `succeeded` **and** ClaimEvaluation `pass`/`PASS`.
+
+Here CE = `not_proven` → fallback reason:
+`Statut technique « succeeded » + évaluation Contract Result insuffisants.`
+
+Assessor root (`contractResultSemanticEvaluator.resolveApplicableContractResultRule`):
+
+- Applicable **only** if `action === product:generate-temporary-artifact` **and** `cap:product-temp-artifact`.
+- Docs-write EC uses `cursor.docs_write.apply` + `cap:cursor.docs_write` → **`applicable: false`** → EO/ER stay `NOT_PROVEN` → derive status `not_proven` + statement suffix `no_applicable_contract_result_rule`.
+
+Additionally, `materializeW3bProductTerminal` feeds **W3B technical Evidence** into `evaluateContractResult`, ignoring the already-ingested **docs-write artifact Evidence**.
+
+---
+
+## 9. Semantic fingerprint audit
+
+| When | Fingerprint | Source |
+|---|---|---|
+| Inspect (pre-confirm) | `a63c6c1b0ae1bac4…` | `oa_ec_inspection_attestations` · contract_version **2** |
+| After confirm / Attempt / CE / AVR | `3cc524c541b934c3…` | EC column + Attempt bound snapshot + AVR v3 |
+
+- Fingerprint **excludes** status/version (by design in `semanticFingerprint.ts`).
+- Confirm binds `confirmationRef` → **legitimate semantic material change** → new hash.
+- Attempt/CE bindings use **confirmed** fingerprint `3cc524…` consistently.
+- **KEEP** — not an Evidence/authority matching blocker for Attempt 3.
+
+---
+
+## 10. Historical REAL PASS divergence (after exit 0)
+
+| Step | Historical GCEC / `executeConfirmedBoundedDocsWriteContract` | Product Journey Attempt 3 |
+|---|---|---|
+| Cursor REAL exit 0 | yes | yes |
+| File in isolated WT | yes | yes |
+| `ingestDocsWriteArtifactEvidence` | yes | yes |
+| Product terminal via `materializeW3bProductTerminal` + W3B CE | typically not the docs_write claim path | **yes — divergence** |
+| CR rule for docs_write | N/A / different completion narrative | **missing** (`no_applicable_contract_result_rule`) |
+| CE evidence | docs-write artifact (when claimed) | **W3B technical result Evidence** |
+
+**First divergence after Cursor exit 0:** Product Journey routes success into **W3B Contract Result materialization** whose sole semantic rule is **temp-artifact**, while the real docs-write artifact Evidence remains on a **draft** side path.
+
+---
+
+## 11. Root cause classification
+
+| Code | Finding |
 |---|---|
-| App `cursor agent --list-models` | `Error: Authentication required. Run 'cursor agent login', pass --api-key/--auth-token, or set CURSOR_API_KEY/CURSOR_AUTH_TOKEN.` |
-| Standalone `cursor-agent --list-models` | same Authentication required |
-| Studio-env + mutating confinement | same Authentication required (exit 1) |
-
-**Critical discrepancy:** local login *marker* reports success; API auth required for model listing — same failure class as Attempt 2 stderr.
-
-### Local auth storage (metadata only; no credential dump)
-
-| Path | Fact |
-|---|---|
-| `~/.cursor/` | EXISTS · owner morris · mode normal |
-| `cli-config.json` → `authInfo` | PRESENT keys: `authId`, `displayName`, `email`, `userId` (values not copied into Durable Product objects) |
-| Account display (non-secret) | Morris Cleland (local cached identity) |
-| `CURSOR_API_KEY` | ABSENT (shell + Studio) |
-| `CURSOR_AUTH_TOKEN` | ABSENT (shell + Studio) |
-| `CURSOR_CONFIG_DIR` | ABSENT |
-| `XDG_CONFIG_HOME` | ABSENT |
-| Empty `HOME` probe | `Not logged in` (proves HOME-scoped local state) |
+| **D (primary)** | Artifact Evidence exists and is correct, but Contract Result evaluator has **no applicable rule** for `cursor.docs_write.apply` / `evreq:docs_write_artifact`, and CE is evaluated against W3B technical Evidence → `not_proven` → product UNCLAIMED |
+| **E (secondary)** | REAL provenance not persisted on succeeded Attempt → UI/RB reservations say « exécuteur de substitution » |
+| A | Rejected — file **was** written |
+| B | Rejected as primary — isolation/gitignored sandbox; composition to Project WT not required for Evidence digest proof |
+| C | Rejected — ingestion succeeded |
+| F | Rejected — fingerprint change is legitimate confirm semantics (KEEP) |
+| **G (structural aspect of D)** | Extending CR semantics with a docs_write rule / rewiring CE evidence selection changes Contract Result applicability — **not a silent local patch** |
 
 ---
 
-## 6. Environment comparison
+## 12. Correctif
 
-| Key | Diagnostic shell | Studio next-server (pid listening :3020) | Child env builder (docs_write local) |
-|---|---|---|---|
-| HOME | `/Users/morris` | `/Users/morris` | preserved from baseEnv (not stripped) |
-| USER | morris | morris | preserved |
-| CURSOR_CONFIG_DIR | ABSENT | ABSENT | preserved if present |
-| CURSOR_API_KEY | ABSENT | ABSENT | preserved if present (tests prove; not stripped) |
-| CURSOR_AUTH_TOKEN | ABSENT | ABSENT | not in strip list |
-| CURSOR_AGENT | (varies) | `1` (Studio launched under Cursor Agent sandbox wrapper) | inherited unless absent |
-| PATH | PRESENT | PRESENT | preserved; strip list is Git/GH/SSH/egress only |
+**No code in R12** (stop condition: changing ContractResult semantics requires Morris structural decision).
 
-### Spawn wiring facts (code)
+### Minimal fix candidates (for Morris decision — not implemented)
 
-- `buildMutatingCursorConfinementEnv` copies `baseEnv` minus Git/SSH/GH/egress keys; sets `SFIA_STUDIO_CURSOR_REAL=1`, Git non-interactive null-global.
-- Does **not** strip `HOME` / `CURSOR_API_KEY` / `CURSOR_AUTH_TOKEN` / `CURSOR_CONFIG_DIR`.
-- `NodeCursorProcessRunner` passes `env: input.env` to `spawn(shell:false)` — no second filter.
-- Studio server `HOME` matches shell; confinement simulation still AUTH for `status` and still FAIL for `--list-models`.
+1. **CR rule:** add a bounded docs_write rule parallel to `w3b-contract-result/product-generate-temporary-artifact-v1` that PASS/SATISFIES only when Evidence is docs-write artifact with matching `location`+`digest`+bindings+Attempt succeeded.
+2. **Wiring:** `materializeW3bProductTerminal` (or docs_write Execute completion) must evaluate Contract Result against **docs-write Evidence/RB**, not only W3B technical result Evidence.
+3. **Secondary honesty:** persist REAL launch signals on success (`processDiagnostic` / `irreversibleEffectsPossible` / frontier) so reservations never say « substitution » after Cursor REAL.
 
-**CASE B Studio env/config mismatch: NOT PROVEN.**
+Forbidden: invent Evidence, mutate Attempt 3 status, fake CE pass, SQLite rewrite, third REAL.
 
 ---
 
-## 7. Classification decision tree
+## 13. Tests / code
 
-| Case | Result |
-|---|---|
-| A — CLI not authenticated for API ops | **PROVEN** (via `--list-models` + Attempt 2 stderr). Note: `agent status` alone is misleadingly green with “unable to fetch user details”. |
-| B — Studio child missing auth context | **NOT PROVEN** (parity HOME/config; same API auth failure outside Studio) |
-| C — wrong executable / distribution | **NOT PROVEN** as root cause (both app cursor and standalone fail `--list-models` identically) |
-| D — auth preflight unavailable non-invasively | N/A — status + list-models available |
-| F — other | Partial local auth marker without usable API auth (explains status vs REAL gap) |
-
-**No Product code fix entered (Phase 7 skipped).**
-**No manufactured tests (Phase 8 skipped).**
-**Phase 9 (post-login verify) NOT run — Morris has not completed interactive login in this lot.**
+None (diagnostic-only lot).
 
 ---
 
-## 8. Code fix
-
-NONE.
-
-ROOT CAUSE PROVEN: Cursor Agent CLI API authentication missing/broken on this machine despite local login marker / cached `authInfo`.
-
-MINIMAL FIX: N/A (not a Studio wiring defect). User must re-authenticate via official interactive browser flow.
-
----
-
-## 9. Secret-redaction proof
-
-- Review Pack reports CURSOR_API_KEY / CURSOR_AUTH_TOKEN as PRESENT/ABSENT only
-- No token values, cookies, Authorization headers, or credential file contents included
-- Durable `processDiagnostic.redacted = true`
-- No secrets written to Product DB by this lot
-- No `.env` mutation; no credential copy
-
----
-
-## 10. Target / ZERO REAL proof
+## 14. ZERO REAL / target / attempts
 
 | Check | Result |
 |---|---|
-| Target path | ABSENT (unchanged) |
-| Execute / governedExecute / startExecution | NOT called |
-| New Attempt / HD / EC | NOT created |
-| `agent login` | NOT run |
-| Generative Cursor (`-p` / `--print` / prompt) | NOT run |
-| Campaign SQLite | read-only forensic only |
-| Project commit/push/PR | NOT done |
+| ZERO REAL | yes |
+| Execute / new Attempt / HD / EC | none |
+| Target Project WT | ABSENT |
+| Target M4 Attempt-3 WT | PRESENT (measured) |
+| Attempt count | 3 |
+| Product claim | **not** made |
 
 ---
 
-## 11. Required Morris / user action
-
-1. In a normal interactive shell (not as a disguised REAL), authenticate with the installed CLI:
-   - `/Applications/Cursor.app/Contents/Resources/app/bin/cursor agent login`
-   - or `~/.local/bin/cursor-agent login`
-2. After login, verify **non-generatively**:
-   - `cursor agent status` → expect authenticated **and** usable user details if available
-   - `cursor agent --list-models` → must succeed (this is the API-auth proof `status` alone did not provide)
-3. Optionally confirm Studio process still has `HOME=/Users/morris` and no conflicting `CURSOR_CONFIG_DIR` (restart Studio outside a broken sandbox only if parity regresses — not indicated now).
-4. Do **not** launch a third REAL until a **new distinct Morris GO** after successful API-auth preflight + Product recovery path.
-
-Do **not** set or commit API keys into the repo. If only API-key automation auth is desired, that is a separate **SECURITY / STRUCTURAL** decision (not taken here).
-
----
-
-## 12. Claims
+## 15. Claims
 
 ### Allowed
 
-- Second REAL process reached Cursor CLI (`realProcessInvoked=true`, pid:58811)
-- Failure reason Authentication required (durable stderr)
-- Auth status factually measured (`status` green-but-incomplete; `--list-models` Authentication required)
-- Environment mismatch for HOME/config between shell and Studio **not** factually present
-- ZERO REAL diagnostic lot
-- Attempts 1 and 2 remain FAIL; budget 0
+- Attempt 3 technical succeeded (exit 0)
+- Cursor REAL reached technical terminal success
+- Filesystem effect measured in M4 WT
+- Evidence/ContractResult state measured (`not_proven`, dual Evidence)
+- ZERO REAL forensic
 
 ### Forbidden
 
-- Cursor auth fixed
-- Studio REAL boundary ready
-- REAL retry authorized
-- REAL PASS / artifact created
-- Product Journey E2E usable / READY
+- REAL PASS métier / READY / Product Journey usable
+- « artifact created » as product-claim success (Evidence exists but CE did not claim)
 - runtime v3 ADOPTED
 
 ---
 
-## 13. Gate suivant
+## 16. Réserves
 
-auth root cause (this lot) → Morris interactive `cursor agent login` → non-generative `--list-models` PASS → Morris review of this pack → **nouveau GO distinct** → recovery Product normal (R7/R8/R10 path) → ONE future REAL only under that GO.
+- Success-path REAL observability still incomplete (feeds false substitution wording).
+- docs-write RB remains draft; W3B CE is the product gate today.
+- No third REAL authorized (budget 0; Attempt 3 already consumed).
 
 ---
 
-## 14. Verdict unique
+## 17. Gate suivant
 
-**CURSOR CLI AUTH ROOT CAUSE PROVEN — USER LOGIN REQUIRED**
+Morris structural decision on docs_write Contract Result rule + Evidence wiring → implement minimal fix in a later lot → deterministic tests → **new distinct GO** before any future REAL (budget currently 0).
+
+---
+
+## 18. Verdict unique
+
+**TECHNICAL REAL SUCCESS — PRODUCT QUALIFICATION STRUCTURAL DECISION REQUIRED**
