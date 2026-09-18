@@ -48,6 +48,14 @@ export type PostEvidenceAnalysisFacts = {
   durationMs?: number;
   stdout?: string;
   stderr?: string;
+  /** Product outcome when post-Evidence analyzes an evidence gap. */
+  productOutcome?: string;
+  claimEvaluationId?: string;
+  claimEvaluationStatus?: string;
+  contractResultVerdict?: string;
+  businessReason?: string;
+  expectedOutputAssessmentSummary?: string;
+  evidenceRequirementAssessmentSummary?: string;
 };
 
 export type PostEvidenceAnalysisResult =
@@ -70,7 +78,11 @@ Interdit:
 - transformer la recommandation en GO Morris;
 - lancer un ExecutionContract / Attempt;
 - demander des secrets;
-- inventer une preuve REAL.
+- inventer une preuve REAL;
+- convertir not_proven / UNCLAIMED en succès produit.
+Si productOutcome=UNCLAIMED et claimEvaluationStatus=not_proven :
+l'exécution technique a pu réussir et un Artifact peut exister, mais le résultat
+contractuel n'est pas prouvé faute d'Evidence suffisante sur les expectedOutputs.
 Réponds en français, court, factuel.
 
 ${buildPostEvidenceNarrativePolicyDisclosure()}`;
@@ -97,6 +109,14 @@ function boundedFactsJson(facts: PostEvidenceAnalysisFacts): string {
     durationMs: facts.durationMs,
     stdout: facts.stdout,
     stderr: facts.stderr,
+    productOutcome: facts.productOutcome,
+    claimEvaluationId: facts.claimEvaluationId,
+    claimEvaluationStatus: facts.claimEvaluationStatus,
+    contractResultVerdict: facts.contractResultVerdict,
+    businessReason: facts.businessReason,
+    expectedOutputAssessmentSummary: facts.expectedOutputAssessmentSummary,
+    evidenceRequirementAssessmentSummary:
+      facts.evidenceRequirementAssessmentSummary,
   });
 }
 
