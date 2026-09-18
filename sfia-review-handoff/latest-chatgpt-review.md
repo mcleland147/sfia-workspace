@@ -2,7 +2,7 @@
 
 | Métadonnée | Valeur |
 | --- | --- |
-| **Timestamp (Europe/Paris)** | 2026-09-18 14:16:41 CEST |
+| **Timestamp (Europe/Paris)** | 2026-09-18 14:33:00 CEST |
 | **Cycle** | MACRO-SFIA-STUDIO-TRANSMISSION-GUIDE-INTEGRATION-01 — CONTINUATION CORRECTIVE |
 | **Same macro / same PR** | YES · PR **#503** · new cycle **NO** |
 | **Type** | 15 Capitalisation / REX · Profile Capitalization · Depth Critical · DOC |
@@ -16,8 +16,9 @@
 | **PR** | https://github.com/mcleland147/sfia-workspace/pull/503 |
 | **Previous handoff (SUPERSEDED)** | `b3b5e46f30b874b4aa792116cb12d5f9cfc97393` |
 | **Old CI (historical old head only)** | run **35342407391** SUCCESS on `09ceb974d79d643b22f03297cc082ca7b066116f` — **≠** preuve du nouveau HEAD |
+| **New CI (new HEAD)** | run **35343786266** SUCCESS on `f463bf9be5da3c0e9ed9fa152a37283644351678` (after failed-job rerun; first attempt flake timeouts unrelated to guide) |
 | **Morris GO** | Continuation corrective same macro/PR · MERGE NOT AUTHORIZED |
-| **Verdict** | **READY FOR CHATGPT FINAL MERGE-READINESS REVIEW** · TECHNICAL BLOCKER CLOSED · MERGE NOT AUTHORIZED |
+| **Verdict** | **READY FOR CHATGPT FINAL MERGE-READINESS REVIEW** · TECHNICAL BLOCKER CLOSED · **CI GREEN AT NEW PR HEAD** · MERGE NOT AUTHORIZED |
 
 ---
 
@@ -154,12 +155,23 @@ index b751b129..1eea08dd 100644
 
 ## CI
 
-- Historical: run 35342407391 SUCCESS = head 09ceb974d79d643b22f03297cc082ca7b066116f only
-- New HEAD f463bf9be5da3c0e9ed9fa152a37283644351678 checks at pack time:
+- Historical (old head only): run **35342407391** SUCCESS on `09ceb974d79d643b22f03297cc082ca7b066116f` — **do not reuse as proof of new HEAD**
+- New HEAD: `f463bf9be5da3c0e9ed9fa152a37283644351678`
+- New run: **35343786266** — https://github.com/mcleland147/sfia-workspace/actions/runs/35343786266
+- First attempt on new HEAD: **failure** — Vitest 5s timeouts (unrelated to guide; product tests only):
+  - `w2EabcDelivery.test.ts` R02-U03
+  - `activeCycleCognitiveWork.d0.test.ts` BAR-WORK-08
+  - `g2.catalog-versioning-mw6.test.ts` historical D0 suite
+- Analysis: flake / runner load · **not** guide wording · **not** in-scope doc remediation (would require test files)
+- Action taken: `gh run rerun 35343786266 --failed` (no project file change; same HEAD)
+- Final conclusion after rerun: **SUCCESS** / completed
+- Jobs (final):
 ```
-Build and validate SFIA Studio	pending	0	https://github.com/mcleland147/sfia-workspace/actions/runs/35343786266/job/105595543059
-Detect SFIA Studio changes	pass	7s	https://github.com/mcleland147/sfia-workspace/actions/runs/35343786266/job/105595500695
+Detect SFIA Studio changes          pass / success
+Build and validate SFIA Studio      pass / success (6m29s)
+SFIA Studio Required Gate           pass / success
 ```
+- Claim: **CI GREEN AT NEW PR HEAD** (run 35343786266 · head `f463bf9b…`)
 
 ## Anti-claims
 
