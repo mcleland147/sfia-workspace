@@ -17,6 +17,8 @@ export interface ClaimEvaluationRepositoryPort {
     record: ClaimEvaluationIdempotencyRecord;
   } | null>;
   exists(claimEvaluationId: string): Promise<boolean>;
+  /** Contract-result / project scoping — no schema migration required. */
+  listByProject(projectId: string): Promise<ClaimEvaluation[]>;
   create(
     claim: ClaimEvaluation,
     record?: ClaimEvaluationIdempotencyRecord,

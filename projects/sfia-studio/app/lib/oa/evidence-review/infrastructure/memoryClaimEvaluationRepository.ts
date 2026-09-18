@@ -35,6 +35,23 @@ export class MemoryClaimEvaluationRepository
     return this.store.claims.has(claimEvaluationId);
   }
 
+  async listByProject(projectId: string): Promise<ClaimEvaluation[]> {
+    const out: ClaimEvaluation[] = [];
+    for (const claim of this.store.claims.values()) {
+      const boundProject = claim.contractResultBindings?.projectId;
+      const provenanceProject = claim.provenance?.projectId;
+      if (boundProject === projectId || provenanceProject === projectId) {
+        out.push(structuredClone(claim));
+      }
+    }
+    return out.sort((a, b) => {
+      const aAt = a.proposedAt ?? "";
+      const bAt = b.proposedAt ?? "";
+      if (aAt !== bAt) return aAt < bAt ? -1 : 1;
+      return a.claimEvaluationId < b.claimEvaluationId ? -1 : 1;
+    });
+  }
+
   async create(
     claim: ClaimEvaluation,
     record?: ClaimEvaluationIdempotencyRecord,

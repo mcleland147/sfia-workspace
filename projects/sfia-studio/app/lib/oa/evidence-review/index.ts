@@ -100,6 +100,43 @@ export { EvaluateContractResult } from "./application/evaluateContractResult";
 export type { EvaluateContractResultRequest } from "./application/evaluateContractResult";
 export { projectContractResultVerdict } from "./application/contractResultVerdictProjection";
 export * from "./domain/contractResultTypes";
+export {
+  resolveApplicableContractResultRule,
+  resolveApplicableContractResultSemantics,
+  CONTRACT_RESULT_SEMANTICS,
+  type ApplicableContractResultRule,
+  type ContractResultSemantic,
+  type ContractResultSemanticApplicability,
+  type ContractResultEvidenceSelection,
+  type ResolveApplicableContractResultSemanticsResult,
+} from "./application/contractResultSemantics";
+export {
+  W3B_TEMP_ARTIFACT_RULE_REF,
+  W3B_TEMP_ARTIFACT_OPERATION_KEY,
+  W3B_TEMP_ARTIFACT_CAPABILITY,
+  W3B_TEMP_ARTIFACT_EO_TEMPLATE,
+  W3B_TEMP_ARTIFACT_ER_KEY,
+  tempArtifactExecutionFactsHold,
+  isW3bContractResultEvidenceUsable,
+  evidenceMatchesFrozenSnapshot,
+  assessTempArtifactExpectedOutput,
+  assessTempArtifactEvidenceRequirement,
+} from "./application/tempArtifactContractResultSemantic";
+export {
+  DOCS_WRITE_CONTRACT_RESULT_RULE_REF,
+  DOCS_WRITE_CONTRACT_RESULT_ER_KEY,
+  BOUNDED_DOCS_WRITE_EO_TEMPLATE,
+  DOCS_WRITE_STRICT_EO_CORRECTION_REF,
+  docsWriteContractResultIdentity,
+  docsWriteArtifactFactsHold,
+  assessDocsWriteExpectedOutput,
+  assessDocsWriteEvidenceRequirement,
+  docsWriteContractResultSemantic,
+} from "./application/docsWriteContractResultSemantic";
+export {
+  resolveCurrentContractResultClaimEvaluation,
+  type ResolveCurrentContractResultClaimEvaluationResult,
+} from "./application/resolveCurrentContractResultClaimEvaluation";
 export { SqliteClaimEvaluationRepository } from "./infrastructure/sqlite/sqliteClaimEvaluationRepository";
 export { ConfirmClaimEvaluation } from "./application/confirmClaimEvaluation";
 export { RejectClaimEvaluation } from "./application/rejectClaimEvaluation";
@@ -401,6 +438,7 @@ export function createInMemoryEvidenceReviewServices(
       clock,
       audit,
       ids,
+      evidenceReader,
     ),
     confirmClaimEvaluation: new ConfirmClaimEvaluation(
       claimEvaluationRepository,

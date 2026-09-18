@@ -76,6 +76,17 @@ export class SqliteClaimEvaluationRepository
     return row?.ok === 1;
   }
 
+  async listByProject(projectId: string): Promise<ClaimEvaluation[]> {
+    const rows = this.store.db
+      .prepare(
+        `SELECT payload_json FROM oa_claim_evaluations WHERE project_id = ? ORDER BY created_at ASC`,
+      )
+      .all(projectId) as Array<{ payload_json: string }>;
+    return rows.map((row) =>
+      cloneClaim(JSON.parse(row.payload_json) as ClaimEvaluation),
+    );
+  }
+
   async create(
     claim: ClaimEvaluation,
     record?: ClaimEvaluationIdempotencyRecord,

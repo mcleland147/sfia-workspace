@@ -1,6 +1,7 @@
 /**
  * EvaluateContractResult — TD-W3B-01 contract-result ClaimEvaluation owner (FC-12).
  * Server writes canonical status only; claimStatement is audit projection.
+ * Evidence selection is server-owned via Result Semantics Registry.
  */
 import type { ClockPort } from "@/lib/oa/doctrine";
 import type { ExecutionContract } from "@/lib/oa/execution-contract";
@@ -29,6 +30,7 @@ import type { Evidence } from "../domain/types";
 import type { ReviewBundle } from "../domain/reviewBundleTypes";
 import type { EvidenceAuditPort } from "../ports/evidenceAudit";
 import type { ClaimEvaluationRepositoryPort } from "../ports/claimEvaluationRepository";
+import type { EvidenceReaderPort } from "../ports/evidenceReader";
 import type { IdGeneratorPort } from "../ports/idGenerator";
 import {
   assessExpectedOutputs,
@@ -36,7 +38,7 @@ import {
   buildContractResultClaimStatement,
   deriveCanonicalContractResultStatus,
 } from "./contractResultAssessment";
-import { resolveApplicableContractResultRule } from "./contractResultSemanticEvaluator";
+import { resolveApplicableContractResultSemantics } from "./contractResultSemantics";
 import type { ExecutionContractSemanticMaterial } from "@/lib/oa/execution-contract";
 import {
   assertIdempotencyKey,
@@ -51,11 +53,17 @@ export type EvaluateContractResultRequest = {
   actor: ActorReference;
   contract: ExecutionContract;
   attempt: ExecutionAttemptSnapshot;
-  evidence: Evidence;
+  /**
+   * @deprecated optional — server selects from frozen RB; if provided must be among selected.
+   */
+  evidence?: Evidence;
   reviewBundle: ReviewBundle;
+  supersedesClaimEvaluationId?: string;
   correlationId?: string;
   nowIso?: string;
 };
+
+const SUPERSESSION_CHAIN_MAX = 32;
 
 export class EvaluateContractResult {
   constructor(
@@ -63,6 +71,7 @@ export class EvaluateContractResult {
     private readonly clock: ClockPort,
     private readonly audit: EvidenceAuditPort,
     private readonly ids: IdGeneratorPort,
+    private readonly evidenceReader: EvidenceReaderPort,
   ) {}
 
   async execute(
@@ -120,7 +129,7 @@ export class EvaluateContractResult {
         return fail("CLAIM_EVALUATION_INVALID", "idempotency_key_too_short");
       }
 
-      const { contract, attempt, evidence, reviewBundle } = request;
+      const { contract, attempt, reviewBundle } = request;
 
       if (contract.executionContractId !== attempt.executionContractId) {
         return fail("CLAIM_EVALUATION_INVALID", "contract_attempt_mismatch");
@@ -144,9 +153,6 @@ export class EvaluateContractResult {
         }
       }
 
-      if (evidence.bindings.executionAttemptId !== attempt.attemptId) {
-        return fail("CLAIM_EVALUATION_INVALID", "evidence_attempt_mismatch");
-      }
       if (reviewBundle.completeness !== "complete") {
         return fail("CLAIM_REVIEW_BUNDLE_INVALID", "review_bundle_incomplete");
       }
@@ -169,30 +175,11 @@ export class EvaluateContractResult {
         );
       }
 
-      const frozenSnapshot = (reviewBundle.frozenEvidenceSnapshots ?? []).find(
-        (s) => s.evidenceId === evidence.evidenceId,
-      );
-      if (!frozenSnapshot) {
-        return fail(
-          "CLAIM_EVIDENCE_NOT_IN_REVIEW_BUNDLE",
-          "evidence_not_in_frozen_snapshot",
-        );
-      }
-      if (frozenSnapshot.evidenceVersion !== evidence.version) {
-        return fail(
-          "CLAIM_EVIDENCE_VERSION_MISMATCH",
-          "evidence_version_frozen_mismatch",
-        );
-      }
-
+      const frozenSnapshots = reviewBundle.frozenEvidenceSnapshots ?? [];
       const missingSnapshot = !snap;
-      // Historical missing snapshot: do NOT reconstruct EO/ER from latest EC.
-      // Use empty assessment lists + durable not_proven.
       const semanticMaterial = (snap?.semanticMaterial ?? {
         executionContractId: attempt.executionContractId,
-        projectId:
-          evidence.bindings.projectId ??
-          contract.projectId,
+        projectId: contract.projectId,
         action: "",
         target: "",
         scope: "",
@@ -206,9 +193,228 @@ export class EvaluateContractResult {
         idempotencyKey: "",
       }) as ExecutionContractSemanticMaterial;
       const boundFingerprint = snap?.semanticFingerprint ?? "";
-      const applicableRule = missingSnapshot
-        ? ({ applicable: false, ruleRef: null } as const)
-        : resolveApplicableContractResultRule(semanticMaterial);
+
+      const semanticsResolution = missingSnapshot
+        ? ({ status: "none" } as const)
+        : resolveApplicableContractResultSemantics(semanticMaterial);
+
+      if (semanticsResolution.status === "ambiguous") {
+        return fail(
+          "CLAIM_EVALUATION_INVALID",
+          "ambiguous_contract_result_semantics",
+        );
+      }
+
+      const applicableSemantic =
+        semanticsResolution.status === "one"
+          ? semanticsResolution.semantic
+          : null;
+
+      let selectedEvidenceIds: string[] = [];
+      let evidences: Evidence[] = [];
+      let evidenceIncomplete = false;
+
+      if (applicableSemantic) {
+        const selection = applicableSemantic.selectEvidenceIds({
+          material: semanticMaterial,
+          attempt,
+          frozenSnapshots,
+        });
+        selectedEvidenceIds = [...selection.requiredEvidenceIds];
+
+        if (selection.incompleteReason || selectedEvidenceIds.length === 0) {
+          evidenceIncomplete = true;
+        } else {
+          for (const evidenceId of selectedEvidenceIds) {
+            const frozenSnapshot = frozenSnapshots.find(
+              (s) => s.evidenceId === evidenceId,
+            );
+            if (!frozenSnapshot) {
+              return fail(
+                "CLAIM_EVIDENCE_NOT_IN_REVIEW_BUNDLE",
+                "evidence_not_in_frozen_snapshot",
+              );
+            }
+            const loaded = await this.evidenceReader.findById(evidenceId);
+            if (!loaded) {
+              // Id present in frozen RB but unloadable → hard fail (corrupt).
+              return fail(
+                "CLAIM_EVIDENCE_NOT_IN_REVIEW_BUNDLE",
+                "evidence_load_failed_for_frozen_id",
+              );
+            }
+            if (frozenSnapshot.evidenceVersion !== loaded.version) {
+              return fail(
+                "CLAIM_EVIDENCE_VERSION_MISMATCH",
+                "evidence_version_frozen_mismatch",
+              );
+            }
+            evidences.push(loaded);
+          }
+        }
+
+        if (
+          request.evidence &&
+          !selectedEvidenceIds.includes(request.evidence.evidenceId)
+        ) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID",
+            "evidence_not_selected_by_semantic",
+          );
+        }
+
+        // Optional request.evidence: if provided and selected, prefer its instance
+        // when already in the loaded set (identity match); otherwise keep loaded.
+        if (
+          request.evidence &&
+          selectedEvidenceIds.includes(request.evidence.evidenceId) &&
+          !evidences.some((e) => e.evidenceId === request.evidence!.evidenceId)
+        ) {
+          evidences.push(request.evidence);
+        }
+      } else if (request.evidence) {
+        // Zero-match semantic with deprecated evidence still present: keep soft path.
+        const frozenSnapshot = frozenSnapshots.find(
+          (s) => s.evidenceId === request.evidence!.evidenceId,
+        );
+        if (!frozenSnapshot) {
+          return fail(
+            "CLAIM_EVIDENCE_NOT_IN_REVIEW_BUNDLE",
+            "evidence_not_in_frozen_snapshot",
+          );
+        }
+        if (frozenSnapshot.evidenceVersion !== request.evidence.version) {
+          return fail(
+            "CLAIM_EVIDENCE_VERSION_MISMATCH",
+            "evidence_version_frozen_mismatch",
+          );
+        }
+        if (
+          request.evidence.bindings.executionAttemptId !== attempt.attemptId
+        ) {
+          return fail("CLAIM_EVALUATION_INVALID", "evidence_attempt_mismatch");
+        }
+        selectedEvidenceIds = [request.evidence.evidenceId];
+        evidences = [request.evidence];
+      }
+
+      // Supersession validation (before create).
+      if (request.supersedesClaimEvaluationId) {
+        if (!isClaimEvaluationId(request.supersedesClaimEvaluationId)) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID",
+            "supersedes_claim_evaluation_id_invalid",
+          );
+        }
+        if (
+          request.supersedesClaimEvaluationId === request.claimEvaluationId
+        ) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID",
+            "supersedes_self_forbidden",
+          );
+        }
+        const prior = await this.repo.findById(
+          request.supersedesClaimEvaluationId,
+        );
+        if (!prior) {
+          return fail(
+            "CLAIM_EVALUATION_NOT_FOUND",
+            "superseded_claim_missing",
+          );
+        }
+        if (
+          prior.subjectKind !==
+          CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT
+        ) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID",
+            "supersedes_not_contract_result",
+          );
+        }
+        if (
+          prior.contractResultBindings?.executionAttemptId !==
+          attempt.attemptId
+        ) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID",
+            "supersedes_attempt_mismatch",
+          );
+        }
+        if (
+          prior.contractResultBindings?.executionContractId !==
+          attempt.executionContractId
+        ) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID",
+            "supersedes_contract_mismatch",
+          );
+        }
+        const priorProjectId = prior.contractResultBindings?.projectId;
+        const attemptProjectId =
+          attempt.boundExecutionContract?.semanticMaterial?.projectId ??
+          request.contract.projectId;
+        if (
+          priorProjectId &&
+          attemptProjectId &&
+          priorProjectId !== attemptProjectId
+        ) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID",
+            "supersedes_project_mismatch",
+          );
+        }
+        if (
+          prior.contractResultBindings?.executionContractVersion !== undefined &&
+          prior.contractResultBindings.executionContractVersion !==
+            attempt.executionContractVersion
+        ) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID",
+            "supersedes_contract_version_mismatch",
+          );
+        }
+        const priorFp =
+          prior.contractResultBindings?.executionContractSemanticFingerprint;
+        if (
+          priorFp &&
+          boundFingerprint &&
+          priorFp !== boundFingerprint
+        ) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID",
+            "supersedes_semantic_fingerprint_mismatch",
+          );
+        }
+        // Cycle / depth — walk prior chain; refuse cycle OR silent truncation.
+        let cursor: string | undefined = prior.supersedesClaimEvaluationId;
+        let depth = 0;
+        const seen = new Set<string>([prior.claimEvaluationId]);
+        while (cursor && depth < SUPERSESSION_CHAIN_MAX) {
+          if (cursor === request.claimEvaluationId) {
+            return fail(
+              "CLAIM_EVALUATION_INVALID",
+              "supersedes_cycle_detected",
+            );
+          }
+          if (seen.has(cursor)) {
+            return fail(
+              "CLAIM_EVALUATION_INVALID",
+              "supersedes_cycle_detected",
+            );
+          }
+          seen.add(cursor);
+          const next = await this.repo.findById(cursor);
+          cursor = next?.supersedesClaimEvaluationId;
+          depth += 1;
+        }
+        if (cursor) {
+          return fail(
+            "CLAIM_EVALUATION_INVALID",
+            "supersedes_chain_too_deep",
+          );
+        }
+      }
 
       const fingerprint = fingerprintCommand(
         registerFingerprintBody({
@@ -220,6 +426,12 @@ export class EvaluateContractResult {
           contractVersion: attempt.executionContractVersion,
           semanticFingerprint: boundFingerprint,
           actor: request.actor,
+          ...(request.supersedesClaimEvaluationId
+            ? {
+                supersedesClaimEvaluationId:
+                  request.supersedesClaimEvaluationId,
+              }
+            : {}),
         }),
       );
 
@@ -246,14 +458,21 @@ export class EvaluateContractResult {
         semanticMaterial,
         semanticFingerprint: boundFingerprint || "missing-bound-snapshot",
         attempt,
-        evidence,
+        evidences,
         evaluatedAt: timestamp,
-        frozenEvidenceSnapshot: frozenSnapshot,
+        frozenEvidenceSnapshots: frozenSnapshots,
       };
-      const expectedOutputAssessments = missingSnapshot
+      const forceNotProven =
+        missingSnapshot ||
+        !applicableSemantic ||
+        evidenceIncomplete;
+
+      const expectedOutputAssessments = forceNotProven
         ? (semanticMaterial.expectedOutputs ?? []).map((expectation, ordinal) => ({
             itemId: {
-              semanticFingerprint: "missing-bound-snapshot",
+              semanticFingerprint: missingSnapshot
+                ? "missing-bound-snapshot"
+                : boundFingerprint || "missing-bound-snapshot",
               itemKind: "EO" as const,
               ordinal,
             },
@@ -266,11 +485,13 @@ export class EvaluateContractResult {
             },
           }))
         : assessExpectedOutputs(assessmentInput);
-      const evidenceRequirementAssessments = missingSnapshot
+      const evidenceRequirementAssessments = forceNotProven
         ? (semanticMaterial.evidenceRequirements ?? []).map(
             (requirement, ordinal) => ({
               itemId: {
-                semanticFingerprint: "missing-bound-snapshot",
+                semanticFingerprint: missingSnapshot
+                  ? "missing-bound-snapshot"
+                  : boundFingerprint || "missing-bound-snapshot",
                 itemKind: "ER" as const,
                 ordinal,
               },
@@ -285,14 +506,26 @@ export class EvaluateContractResult {
           )
         : assessEvidenceRequirements(assessmentInput);
 
-      // Missing snapshot with empty EO/ER lists: still emit durable not_proven CE.
-      const status = missingSnapshot
+      const status = forceNotProven
         ? "not_proven"
         : deriveCanonicalContractResultStatus({
             attemptStatus: attempt.status,
             expectedOutputAssessments,
             evidenceRequirementAssessments,
           });
+
+      const evidenceRefs =
+        selectedEvidenceIds.length > 0
+          ? selectedEvidenceIds
+          : evidences.map((e) => e.evidenceId);
+
+      const notApplicableReason = missingSnapshot
+        ? "historical_attempt_missing_bound_snapshot"
+        : !applicableSemantic
+          ? "no_applicable_contract_result_rule"
+          : evidenceIncomplete
+            ? "contract_result_evidence_incomplete"
+            : undefined;
 
       const claimEvaluation: ClaimEvaluation = {
         schemaVersion: CLAIM_EVALUATION_SCHEMA_VERSION,
@@ -305,17 +538,13 @@ export class EvaluateContractResult {
           boundContractVersion: attempt.executionContractVersion,
           expectedOutputCount: expectedOutputAssessments.length,
           evidenceRequirementCount: evidenceRequirementAssessments.length,
-          notApplicableReason: missingSnapshot
-            ? "historical_attempt_missing_bound_snapshot"
-            : applicableRule.applicable
-              ? undefined
-              : "no_applicable_contract_result_rule",
+          notApplicableReason,
         }),
         criticality: "non_critical",
         evaluationMethod: "deterministic",
-        ...(applicableRule.applicable ? { ruleRef: applicableRule.ruleRef } : {}),
-        requiredEvidenceRefs: [evidence.evidenceId],
-        providedEvidenceRefs: [evidence.evidenceId],
+        ...(applicableSemantic ? { ruleRef: applicableSemantic.ruleRef } : {}),
+        requiredEvidenceRefs: [...evidenceRefs],
+        providedEvidenceRefs: [...evidenceRefs],
         reviewBundleId: reviewBundle.reviewBundleId,
         reviewBundleVersion: reviewBundle.frozenVersion,
         status,
@@ -336,11 +565,17 @@ export class EvaluateContractResult {
         version: 1,
         idempotencyKey: request.idempotencyKey,
         subjectKind: CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
+        ...(request.supersedesClaimEvaluationId
+          ? {
+              supersedesClaimEvaluationId:
+                request.supersedesClaimEvaluationId,
+            }
+          : {}),
         contractResultBindings: {
           projectId: semanticMaterial.projectId || contract.projectId,
           cycleInstanceId:
             (semanticMaterial.cycleInstanceId ??
-              evidence.bindings.cycleInstanceId ??
+              evidences[0]?.bindings.cycleInstanceId ??
               contract.cycleInstanceId) ?? null,
           executionContractId: attempt.executionContractId,
           executionContractVersion: attempt.executionContractVersion,
@@ -349,7 +584,7 @@ export class EvaluateContractResult {
           executionAttemptId: attempt.attemptId,
           reviewBundleId: reviewBundle.reviewBundleId,
           reviewBundleVersion: reviewBundle.frozenVersion,
-          evidenceRefs: [evidence.evidenceId],
+          evidenceRefs: [...evidenceRefs],
         },
         expectedOutputAssessments,
         evidenceRequirementAssessments,

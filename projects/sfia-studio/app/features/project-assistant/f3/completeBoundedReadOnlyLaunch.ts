@@ -307,6 +307,16 @@ export async function completeBoundedReadOnlyLaunch(input: {
   }
 
   const resultRef = resultRefForAttempt(input.attempt.attemptId);
+  const successDiagnostic = buildProcessFailureDiagnostic({
+    observation,
+    boundaryProofMode:
+      input.services.realBoundary?.launchPort.boundaryProofMode ===
+        "cursor_real" ||
+      input.services.realBoundary?.launchPort.boundaryProofMode ===
+        "deterministic_fake"
+        ? input.services.realBoundary.launchPort.boundaryProofMode
+        : undefined,
+  });
   const recorded = await input.services.recordExecutionResult.execute({
     attemptId: input.attempt.attemptId,
     adapterId: M4_REAL_GATEWAY_ADAPTER_ID,
@@ -314,6 +324,7 @@ export async function completeBoundedReadOnlyLaunch(input: {
     technicalExitCode: 0,
     durationMs: observation.durationMs,
     expectedAttemptVersion: input.attempt.version,
+    processDiagnostic: successDiagnostic,
   });
   if (!recorded.ok || !recorded.attempt) {
     return {
