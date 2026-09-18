@@ -1,26 +1,51 @@
-# PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 — CRITICAL-REVIEW-CORRECTION — Review Pack FULL
+# PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 — BASELINE REQUALIFICATION 9be4b806 — Review Pack FULL
 
-**Timestamp (UTC):** 2026-09-18T12:47:38Z
-**Timestamp (local):** 2026-09-18 14:47:38 CEST
-**Pack revision:** PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 — CRITICAL-REVIEW-CORRECTION
-**Verdict:** PRODUCT JOURNEY POST-EXECUTION RECOVERY — CRITICAL REVIEW BLOCKERS CLOSED — NOT_PROVEN RECOVERY + FUTURE CLAIM RE-EVALUATION LIFECYCLE PROVEN — ZERO NEW REAL — READY FOR CHATGPT FINAL PR-READINESS REVIEW / MORRIS GIT GATE
+**Timestamp (UTC):** 2026-09-18T13:02:59Z
+**Timestamp (local):** 2026-09-18 15:02:59 CEST
+**Pack revision:** PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 — BASELINE REQUALIFICATION 9be4b806
+**Morris GO consumed:** YES — BASELINE REQUALIFICATION / REBASE ONLY on `9be4b80629cb594821cc7b35abf22c89df65acc1`
+**Verdict:** PRODUCT JOURNEY POST-EXECUTION REPLAN — BASELINE REQUALIFIED ON 9be4b806 — CR-PJR-01/02/03 PRESERVED — FOCUSED TESTS / TYPECHECK / DIFF-CHECK PASS — ZERO REAL — READY FOR CHATGPT FINAL GIT-READINESS CONFIRMATION / MORRIS PROJECT GIT GATE
 
 ---
 
-## 1. Git Truth
+## 1. Git Truth (requalified)
 
 | Item | Value |
 |---|---|
 | Repository | mcleland147/sfia-workspace |
 | Worktree | `/Users/morris/Projects/sfia-studio-product-journey-post-execution-replan-01` |
 | Branch | `qa/sfia-studio-product-journey-post-execution-replan-01` |
-| HEAD | `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` |
+| HEAD (requalified) | `9be4b80629cb594821cc7b35abf22c89df65acc1` |
 | origin/main | `9be4b80629cb594821cc7b35abf22c89df65acc1` |
-| Baseline match | **YES** (`ca77b400…`) |
-| Prior handoff reviewed | `36c4f7335913c09a9d8b30a7394ed32b6b1f73b3` |
-| Project commit/push/PR | **NOT DONE** (forbidden) |
+| merge-base HEAD origin/main | `9be4b80629cb594821cc7b35abf22c89df65acc1` |
+| Original macro baseline (historical start) | `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` (PR **#502** ContractResult A+B merge) |
+| Requalified current baseline | `9be4b80629cb594821cc7b35abf22c89df65acc1` (after documentation-only PR **#503**) |
+| Baseline match (current) | **YES** — HEAD = origin/main = `9be4b80629cb594821cc7b35abf22c89df65acc1` |
+| Prior exact reviewed handoff | `7a859b65` (do not substitute unrelated latest) |
+| Project commit/push/PR | **NOT DONE** (forbidden by this GO) |
 
-### git status --short
+### Pre-rebase capture
+
+| Item | Value |
+|---|---|
+| Pre-rebase HEAD | `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` |
+| Pre-rebase branch | `qa/sfia-studio-product-journey-post-execution-replan-01` |
+| Preservation | `git diff --binary > /tmp/sfia-pjr-pre-rebase.patch` + `git stash push -u` |
+| Pre-rebase patch sha256 | `68675dcf62bdfb0a06c659a986df396d076092577631c25074a3bf1f323f339e` |
+| Stash name | `PJR-01 baseline requalification preserve before rebase onto 9be4b806` |
+
+### Baseline move + restore
+
+| Item | Value |
+|---|---|
+| Operation | `git rebase origin/main` (no local project commits → HEAD moved cleanly) |
+| Conflicts | **NONE** |
+| Restore | `git stash apply` (stash retained until pack publish verified) |
+| Transmission-guide overlap | **NONE** (`git diff origin/main -- sfia-studio-transmission-guide.md` empty) |
+| BASELINE DRIFT CLASSIFICATION | **NON-OVERLAPPING DOCUMENTARY MAIN ADVANCE** |
+| Product semantic equivalence vs pre-rebase stash | **YES** (sha256 MATCH on all 7 Product/test candidate files) |
+
+### Current git status --short
 
 ```
  M .tmp-sfia-review/chatgpt-review.md
@@ -42,112 +67,157 @@
 ### git diff --stat
 
 ```
- .tmp-sfia-review/chatgpt-review.md                 | 5300 +++++++++++++++++++-
- .../w3cPostEvidenceCorrection.test.ts              |   25 +-
- .../f3/postEvidenceNoraAnalysis.ts                 |   22 +-
- .../w2/materializeW3bProductTerminal.ts            |    3 +
- .../w2/requalifyDocsWriteContractResult.ts         |   92 +-
- .../w2/resolvePostEvidenceRecoveryContext.ts       |  146 +-
- .../project-assistant/w2/w3cPostEvidenceLoop.ts    |  319 +-
- ...studio-contract-result-extensibility-framing.md |   13 +-
- .../convergence/sfia-studio-convergence-roadmap.md |    3 +-
- 9 files changed, 5625 insertions(+), 298 deletions(-)
+ .tmp-sfia-review/chatgpt-review.md                 | 331 +--------------------
+ .../w3cPostEvidenceCorrection.test.ts              |  25 +-
+ .../f3/postEvidenceNoraAnalysis.ts                 |  22 +-
+ .../w2/materializeW3bProductTerminal.ts            |   3 +
+ .../w2/requalifyDocsWriteContractResult.ts         |  92 +++++-
+ .../w2/resolvePostEvidenceRecoveryContext.ts       | 146 ++++++---
+ .../project-assistant/w2/w3cPostEvidenceLoop.ts    | 319 +++++++++++++++++---
+ ...studio-contract-result-extensibility-framing.md |  13 +-
+ .../convergence/sfia-studio-convergence-roadmap.md |   3 +-
+ 9 files changed, 527 insertions(+), 427 deletions(-)
+```
+
+### git diff --name-status
+
+```
+M	.tmp-sfia-review/chatgpt-review.md
+M	projects/sfia-studio/app/__tests__/project-assistant/w3cPostEvidenceCorrection.test.ts
+M	projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/resolvePostEvidenceRecoveryContext.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
+M	projects/sfia-studio/convergence/sfia-studio-contract-result-extensibility-framing.md
+M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 ```
 
 ---
 
-## 2. CR-PJR-01 — Test hygiene / portability
-
-**Closed.**
-
-- `productJourneyPostExecutionReplan.d0.test.ts` no longer hard-codes `/Users/morris/...` campaign DB.
-- CI-portable: `tempProductDbPath` + in-memory EvidenceReview + W2 harness.
-- Self-assertion: suite source must not contain absolute campaign path.
-- Historical Attempt 3 proof moved to local-only script:
-  `.tmp-sfia-review/local/attempt3-rehydrate-verify.mjs`
-  (explicit `SFIA_PJR_CAMPAIGN_DB` env; not Vitest-discovered).
-- Repository search for `/Users/morris/Projects/sfia-studio-product-journey` in tracked Product/tests: **zero executable hits**.
-
----
-
-## 3. CR-PJR-02 — Rematerialize ≠ explicit re-evaluation
-
-**Closed.** State machine in `requalifyDocsWriteContractResult`:
-
-| Case | Condition | Behavior |
-|---|---|---|
-| A | no `correctionRef`, current docs-write CE | reuse current (no new CE) |
-| B | `correctionRef` → new id ≠ current | evaluate successor; `supersedesClaimEvaluationId=current` |
-| C | `correctionRef` id == current | reuse idempotent |
-| D | ambiguous current | fail-closed |
-| E | target exists non-current / ancestor | fail-closed `CONTRACT_RESULT_CORRECTION_LINEAGE_INVALID` |
-
-Note: first docs-write qualification from W3-B (non-docs-write current) still evaluates under default docs-write identity (preserves T21).
-
-**No new Attempt 3 CE created on campaign** during this correction.
-
----
-
-## 4. CR-PJR-03 — W3-C current-CE awareness
-
-**Closed.**
-
-- `w3cPayloadMatchesCurrentProduct` — attempt/evidence/RB/CE/outcome.
-- `findExistingW3cPostEvidence(product)` requires payload match + **current CE** server-side.
-- Epistemic id binds Evidence+CE when CE present (`w3cRecommendationEpistemicId(evidenceId, claimEvaluationId)`); legacy evidence-only ids still discoverable then validated.
-- `materializeDocsWrite` / W3-B short-circuit pass `product` into findExisting.
-- `rehydrateW3cPostEvidenceFromLps` refuses lossy legacy rebuild when `claimEvaluationId` set → forces fresh W3-C after CE supersession (`STALE_POST_EVIDENCE_BINDING`).
-- RecoveryContext for UNCLAIMED requires current CE `not_proven` and payload CE == current.
-- SUCCESS/STOP/FAIL regressions preserved (focused suites green).
-
----
-
-## 5. Historical Attempt 3 (unchanged)
+## 2. PR #503 impact requalification
 
 | Item | Value |
 |---|---|
-| DB sha256 | `077b595c6f3e14cb9be7b986b81f2d4549cac67f59682aadc07d53d02cf69a8f` |
+| Merge SHA | `9be4b80629cb594821cc7b35abf22c89df65acc1` |
+| Title | docs(sfia-studio): add global Studio transmission guide (#503) |
+| Exact files changed | `projects/sfia-studio/sfia-studio-transmission-guide.md` **only** |
+| Classification | **KEEP** — transmission/capitalisation context |
+| Product impact | **NO** |
+| Architecture impact | **NO** |
+| Runtime impact | **NO** |
+| PJR candidate edits to transmission guide | **NONE** (forbidden / verified) |
+
+Transmission guide is context/capitalisation only — **NOT** doctrine, Roadmap, C1, Build Doctrine, or execution authority.
+
+---
+
+## 3. CR-PJR-01/02/03 status
+
+| Correction | Status after requalification |
+|---|---|
+| CR-PJR-01 portable Vitest / no campaign DB path | **CLOSED / PRESERVED** |
+| CR-PJR-02 correctionRef rematerialize ≠ re-eval | **CLOSED / PRESERVED** |
+| CR-PJR-03 W3-C / RecoveryContext current-CE awareness | **CLOSED / PRESERVED** |
+
+Product semantics unchanged vs handoff `7a859b65` candidate; only factual Roadmap tip baseline wording updated for requalified main.
+
+---
+
+## 4. Focused test requalification (Phase 6)
+
+Command (canonical Vitest run under `projects/sfia-studio/app`):
+
+```
+npx vitest run \
+  __tests__/project-assistant/productJourneyPostExecutionReplan.d0.test.ts \
+  __tests__/project-assistant/w3cPostEvidenceLoop.test.ts \
+  __tests__/project-assistant/w3cPostEvidenceCorrection.test.ts \
+  __tests__/project-assistant/checkpointF.recoveryOptionsContext.d0.test.ts \
+  __tests__/project-assistant/contractResultDocsWriteRequal.d0.test.ts \
+  __tests__/project-assistant/candidateTrajectoryHumanDecision.d0.test.ts \
+  __tests__/project-assistant/candidateTrajectoryCycleStart.d0.test.ts \
+  __tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts
+```
+
+| Result | Value |
+|---|---|
+| Test Files | **8 passed (8)** |
+| Tests | **148 passed (148)** |
+| Duration | ~3.89s |
+| typecheck (`npm run typecheck` / `tsc --noEmit`) | **PASS** (exit 0) |
+| `git diff --check` | **PASS** (exit 0) |
+| package-lock change | **NONE** |
+| campaign DB mutation | **NONE** |
+| ZERO REAL | **YES** |
+
+---
+
+## 5. Historical Attempt 3 reserve (Phase 8 — not re-executed)
+
+Read-only reserve retained from prior proven observation (no campaign DB mutation this macro):
+
+| Item | Value |
+|---|---|
+| DB sha256 (observed; not mutated) | `077b595c6f3e14cb9be7b986b81f2d4549cac67f59682aadc07d53d02cf69a8f` |
 | Attempts | **3** |
 | Current CE | `clm:docs-write:strict-eo-v1:xat:w3a:c4c5670edb4658cc` **not_proven** |
-| LPS | `lps:9af216245127b7a6` (v27) |
-| Trajectory | v4 validated |
-| REAL this correction | **0** |
-| New CE / Evidence / Attempt | **none** |
+| Product | **UNCLAIMED** |
+| LPS | v27 |
+| Trajectory | v4 validated / unchanged |
+| REAL this requalification | **0** |
+| New CE / Evidence / Attempt / evaluate_claim | **none** |
 
 ---
 
-## 6. REAL provenance disposition
+## 6. PR-readiness requalification (Phase 9)
 
-RecoveryContext may still report `realProcessInvoked=false` for historical Attempt 3.
-**DEFER** as historical provenance reserve — not reconstructible without new persistence / SQL backfill (forbidden).
-Does not block CR-PJR-01..03.
-
----
-
-## 7. Nora reserve
-
-Campaign / portable proofs use **FakeConversationProvider**.
-Allowed: Nora post-Evidence cognitive **seam** receives NOT_PROVEN facts under deterministic fake provider.
-Forbidden: live Nora cognitive quality proven.
-
----
-
-## 8. Tests
-
-| Suite | Result |
+| Comparison | Result |
 |---|---|
-| productJourneyPostExecutionReplan.d0.test.ts | **PASS** |
-| w3cPostEvidenceLoop.test.ts | **PASS** |
-| w3cPostEvidenceCorrection.test.ts | **PASS** |
-| checkpointF.recoveryOptionsContext.d0.test.ts | **PASS** |
-| contractResultDocsWriteRequal.d0.test.ts | **PASS** |
-| candidateTrajectoryHumanDecision / CycleStart / activeCycleCognitiveWork | **PASS** |
-| typecheck | **PASS** |
-| git diff --check | **PASS** |
+| Old reviewed candidate on `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` | preserved via stash + patch |
+| Current candidate on `9be4b80629cb594821cc7b35abf22c89df65acc1` | restored; Product/test sha256 MATCH |
+| Expected deltas only | baseline movement + Roadmap tip factual wording |
+| POST-REBASE PRODUCT SCOPE DRIFT | **NONE** |
+| Functional candidate | **unchanged** |
+| Main documentary advance | **absorbed** (PR #503) |
+| Focused proof | **green** |
 
 ---
 
-## 9. Files changed
+## 7. Claims / anti-claims
+
+### Allowed (this pack)
+
+- Baseline requalified onto current main `9be4b80629cb594821cc7b35abf22c89df65acc1`
+- PR #503 documentary-only and non-overlapping
+- CR-PJR-01/02/03 preserved
+- Product candidate semantically unchanged vs pre-rebase reviewed state
+- ZERO REAL
+- Attempt 3 historical strict **not_proven** reserve preserved
+
+### Forbidden / not claimed
+
+- project commit / push / PR / merge
+- Product Journey READY / COMPLETE
+- Attempt 3 PASS
+- live Nora cognition proven
+- runtime v3 ADOPTED
+- new REAL proof / Attempt 4
+
+---
+
+## 8. Local-only artefacts (NOT project integration scope)
+
+- `.tmp-sfia-review/chatgpt-review.md` (this pack)
+- `.tmp-sfia-review/campaign-prestate.json`
+- `.tmp-sfia-review/local/` (incl. `attempt3-rehydrate-verify.mjs`)
+- `.tmp-sfia-review/phase3-observation.json`
+- `projects/.tmp-sfia-review/`
+- `/tmp/sfia-pjr-pre-rebase.patch` (sha256 `68675dcf62bdfb0a06c659a986df396d076092577631c25074a3bf1f323f339e`)
+
+---
+
+## 9. Project integration candidate files
 
 - `projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts`
 - `projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts`
@@ -158,7 +228,7 @@ Forbidden: live Nora cognitive quality proven.
 - `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
 - `projects/sfia-studio/app/__tests__/project-assistant/w3cPostEvidenceCorrection.test.ts`
 - `projects/sfia-studio/app/__tests__/project-assistant/productJourneyPostExecutionReplan.d0.test.ts`
-- `.tmp-sfia-review/local/attempt3-rehydrate-verify.mjs` (local-only)
+- `.tmp-sfia-review/local/attempt3-rehydrate-verify.mjs` (local-only; not project scope)
 
 ---
 
@@ -1247,7 +1317,7 @@ index 7a58dd72..a49290ad 100644
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index d3747d85..a18e1ad8 100644
+index d3747d85..1e00988a 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 +++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 @@ -4,7 +4,8 @@
@@ -1255,7 +1325,7 @@ index d3747d85..a18e1ad8 100644
  | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
  | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
 -| **Timestamp maintenance CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01** | 2026-09-18 09:10:00 CEST (+0200) — **CONTRACT RESULT EXTENSIBILITY — FINAL PR-READINESS CORRECTION** · EVOL · CRITICAL · Macro **CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01** · CR-BLK-01/02/03/04 **CLOSED** · baseline `bb6af3ca` · branche `feat/sfia-studio-contract-result-extensibility-01` · **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** · docs-write M3 profile resolves **HOW** only (no `expectedOutputs` injection; predecessor WHAT preserved by SupersedeExecutionContract) · Attempt 3 current CE strict **not_proven** preserved · Attempts **3→3** · **ZERO REAL** · runtime v3 = **NON ADOPTED** · **≠** Product Journey READY · **≠** Attempt 3 Product PASS · next = Morris Git-integration gate · push/PR/merge **NOT AUTHORIZED** by this tip |
-+| **Timestamp maintenance PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** | 2026-09-18 14:50:00 CEST (+0200) — **PRODUCT JOURNEY POST-EXECUTION RECOVERY — CRITICAL REVIEW CORRECTION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** · CR-PJR-01/02/03 **CLOSED** · baseline `origin/main` `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` · branche `qa/sfia-studio-product-journey-post-execution-replan-01` · ContractResult A+B = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** (PR **#502**) · Attempt 3 current CE strict **not_proven** preserved · Product **UNCLAIMED** · W3-C recover current-CE-aware · correctionRef re-evaluation lifecycle proven · portable PJR tests (no campaign DB in Vitest) · Attempts **3→3** · **ZERO NEW REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **LOCAL / IN PROGRESS** · **≠** READY · **≠** Attempt 3 Product PASS · next = ChatGPT Final PR-readiness Review / Morris Git gate · push/PR/merge **NOT AUTHORIZED** by this tip |
++| **Timestamp maintenance PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** | 2026-09-18 15:05:00 CEST (+0200) — **PRODUCT JOURNEY POST-EXECUTION REPLAN — BASELINE REQUALIFICATION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** · CR-PJR-01/02/03 **CLOSED / PRESERVED** · original macro baseline `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` (PR **#502** ContractResult A+B merge) · **requalified current baseline** `origin/main` `9be4b80629cb594821cc7b35abf22c89df65acc1` after documentation-only PR **#503** (`sfia-studio-transmission-guide.md` only · **NON-OVERLAPPING DOCUMENTARY MAIN ADVANCE**) · branche `qa/sfia-studio-product-journey-post-execution-replan-01` · Attempt 3 current CE strict **not_proven** preserved · Product **UNCLAIMED** · portable PJR + correctionRef + current-CE W3-C semantics preserved · Attempts **3→3** · **ZERO NEW REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **LOCAL / IN PROGRESS** · project Git integration **NOT AUTHORIZED** by this tip · **≠** READY · **≠** Attempt 3 Product PASS · next = ChatGPT Final Git-readiness confirmation / Morris project Git gate |
 +| **Timestamp maintenance historique CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 (pre-PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01)** | *(tip superseded by PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-18 09:10:00 CEST (+0200) — **CONTRACT RESULT EXTENSIBILITY — FINAL PR-READINESS CORRECTION** · EVOL · CRITICAL · Macro **CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01** · CR-BLK-01/02/03/04 **CLOSED** · baseline `bb6af3ca` · branche `feat/sfia-studio-contract-result-extensibility-01` · later **INTEGRATED ON MAIN / POST-MERGE VERIFIED** via PR **#502** merge `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` · docs-write M3 profile resolves **HOW** only (no `expectedOutputs` injection; predecessor WHAT preserved by SupersedeExecutionContract) · Attempt 3 current CE strict **not_proven** preserved · Attempts **3→3** · **ZERO REAL** · runtime v3 = **NON ADOPTED** · **≠** Product Journey READY · **≠** Attempt 3 Product PASS · historical tip wording **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** was pre-merge · Git/PR #502 are authoritative |
  | **Timestamp maintenance historique PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 (pre-CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01)** | *(tip superseded by CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-18 05:15:00 CEST (+0200) — **PRODUCT JOURNEY E2E REAL RECONCILIATION INTEGRATION** · Cycle **15** · Capitalisation / REX + intégration Git · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01** · parent campagne **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01** · baseline pré-intégration `origin/main` `26478b1ea5b010c625f0c6039c969fac5c135cf5` · branche `qa/sfia-studio-product-journey-e2e-real-reconciliation-01` · checkpoints **R1–R12** consolidés · Product fixes **R1/R3/R4/R6/R7/R8/R10** = intégration candidate this PR · Attempt 1 FAIL · Attempt 2 FAIL Authentication required · Attempt 3 Cursor REAL **technical SUCCESS** · bounded docs_write filesystem effect + Artifact Evidence **PROVEN** in M4 isolated WT · Product Result remains **UNCLAIMED** · blocker = **ContractResult extensibility / Evidence wiring** (`no_applicable_contract_result_rule` for `cursor.docs_write.apply`) · capitalisation `projects/sfia-studio/convergence/product-journey-e2e-real-reconciliation-01-capitalization.md` · **ZERO REAL** this integration macro · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **≠** Product Journey E2E READY / COMPLETE · **≠** ContractResult docs_write PASS · **≠** runtime v3 ADOPTED · next after integration verified = **R13 — Contract Result extensibility framing — ZERO REAL** · **NOT STARTED / NOT AUTHORIZED** by this tip · repository lifecycle = **RESOLVE FROM GIT / PR evidence** |
  | **Timestamp maintenance historique PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01 (pre-PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01)** | *(tip superseded by PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-17 18:25:36 CEST (+0200) — **PRODUCT DOCS_WRITE REAL PASS POST-MERGE TRUTH-SYNC** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Macro **PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01** · parent macro **PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01** · GO Morris post-merge documentary truth-sync #499 **CONSUMED** (local docs + commit only) · PR **#499 MERGED** `docs(sfia-studio): capitalize Product docs-write REAL proof` · head `9981483f8c158bec07364e14e626cdf2c3fd1e34` · merge `3907177f7788d23d640c5bdcd1cee8e01615762f` · parents `b739ddd3826ea4df640e3f34f97a966d85f8d214` + `9981483f8c158bec07364e14e626cdf2c3fd1e34` · capitalisation = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · pre-merge CI **`35236024162` SUCCESS** · Required Gate **PASS** · post-merge CI **`35245046244` SUCCESS** · Required Gate **PASS** · `headSha=3907177f7788d23d640c5bdcd1cee8e01615762f` · merge lifecycle #499 = **COMPLETED / CONSUMED** · post-merge verification = **PASS** · claim **AUTHENTICATED PRODUCT DOCS_WRITE REAL PROVEN AT TESTED HISTORICAL PROJECT SCOPE** · **ZERO REAL** · Product code **UNCHANGED** · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** **PRESERVED** · next Product capability candidate = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN** · **NOT STARTED / NOT AUTHORIZED** by this truth-sync · this documentary truth-sync = **LOCAL CANDIDATE** · Review Handoff publication **PENDING** (distinct Morris remote push gate) · push/PR/merge of this truth-sync = **DISTINCT Morris gates** · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / origin/main / PR evidence** · **≠** E2E FULL REAL PROVEN · **≠** Product Journey complete to Nora replanning · **≠** docs_write generalized · **≠** Cursor autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new REAL authorization · **≠** PRODUCT-JOURNEY-POST-EXECUTION-REPLAN started · **≠** push/PR/merge authorized by proof |
@@ -1331,11 +1401,11 @@ index 221d62b4..2fdf6ee3 100644
 
 ---
 
-## 11. Full file contents (modified + new portable test)
+## 11. Full file contents (modified + new candidate files)
 
 ### `projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts`
 
-```typescript
+```
 /**
  * GAP-4 — bounded post-Evidence Nora/provider analysis.
  * Uses resolveConversationProvider() only. Never instantiates OpenAI here.
@@ -1705,7 +1775,7 @@ export function extractW3cRecommendationPayloadJsonForEvidence(
 
 ### `projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts`
 
-```typescript
+```
 /**
  * Requalify docs_write Contract Result from durable Evidence + RB — ZERO new Attempt.
  * Freeze rb:docs-write if draft, evaluate with docs-write CE id, supersede prior CE.
@@ -1987,7 +2057,7 @@ export async function requalifyDocsWriteContractResult(
 
 ### `projects/sfia-studio/app/features/project-assistant/w2/resolvePostEvidenceRecoveryContext.ts`
 
-```typescript
+```
 /**
  * Checkpoint F / R7 — resolve durable post-Evidence RecoveryContext for W2
  * trajectory instruction. No new persistence. No parallel recovery engine.
@@ -2329,7 +2399,7 @@ export function buildRecoveryCognitionSection(
 
 ### `projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts`
 
-```typescript
+```
 /**
  * W3-C — Post-Evidence loop after W3-B terminal materialize.
  * Consumes durable Evidence / RB / CE (no re-ingest). Recommendation only —
@@ -3862,7 +3932,7 @@ export async function rehydrateW3cPostEvidenceFromLps(input: {
 
 ### `projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts`
 
-```typescript
+```
 /**
  * W3-B FC-12 — Materialize + rehydrate Product Terminal from durable facts.
  * Ingest all terminals → ReviewBundle → EvaluateContractResult → FC-11 projection.
@@ -4507,7 +4577,7 @@ export const rehydrateLatestProductOutcomeForContract =
 
 ### `projects/sfia-studio/convergence/sfia-studio-contract-result-extensibility-framing.md`
 
-```markdown
+```
 # SFIA Studio — Contract Result Extensibility — Framing Pack
 
 | Métadonnée | Valeur |
@@ -5038,14 +5108,14 @@ Tip actuel déjà correct : next = R13 framing · NOT STARTED.
 
 ### `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
 
-```markdown
+```
 # SFIA Studio Convergence Roadmap
 
 | Métadonnée | Valeur |
 | --- | --- |
 | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
 | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
-| **Timestamp maintenance PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** | 2026-09-18 14:50:00 CEST (+0200) — **PRODUCT JOURNEY POST-EXECUTION RECOVERY — CRITICAL REVIEW CORRECTION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** · CR-PJR-01/02/03 **CLOSED** · baseline `origin/main` `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` · branche `qa/sfia-studio-product-journey-post-execution-replan-01` · ContractResult A+B = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** (PR **#502**) · Attempt 3 current CE strict **not_proven** preserved · Product **UNCLAIMED** · W3-C recover current-CE-aware · correctionRef re-evaluation lifecycle proven · portable PJR tests (no campaign DB in Vitest) · Attempts **3→3** · **ZERO NEW REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **LOCAL / IN PROGRESS** · **≠** READY · **≠** Attempt 3 Product PASS · next = ChatGPT Final PR-readiness Review / Morris Git gate · push/PR/merge **NOT AUTHORIZED** by this tip |
+| **Timestamp maintenance PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** | 2026-09-18 15:05:00 CEST (+0200) — **PRODUCT JOURNEY POST-EXECUTION REPLAN — BASELINE REQUALIFICATION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** · CR-PJR-01/02/03 **CLOSED / PRESERVED** · original macro baseline `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` (PR **#502** ContractResult A+B merge) · **requalified current baseline** `origin/main` `9be4b80629cb594821cc7b35abf22c89df65acc1` after documentation-only PR **#503** (`sfia-studio-transmission-guide.md` only · **NON-OVERLAPPING DOCUMENTARY MAIN ADVANCE**) · branche `qa/sfia-studio-product-journey-post-execution-replan-01` · Attempt 3 current CE strict **not_proven** preserved · Product **UNCLAIMED** · portable PJR + correctionRef + current-CE W3-C semantics preserved · Attempts **3→3** · **ZERO NEW REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **LOCAL / IN PROGRESS** · project Git integration **NOT AUTHORIZED** by this tip · **≠** READY · **≠** Attempt 3 Product PASS · next = ChatGPT Final Git-readiness confirmation / Morris project Git gate |
 | **Timestamp maintenance historique CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 (pre-PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01)** | *(tip superseded by PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-18 09:10:00 CEST (+0200) — **CONTRACT RESULT EXTENSIBILITY — FINAL PR-READINESS CORRECTION** · EVOL · CRITICAL · Macro **CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01** · CR-BLK-01/02/03/04 **CLOSED** · baseline `bb6af3ca` · branche `feat/sfia-studio-contract-result-extensibility-01` · later **INTEGRATED ON MAIN / POST-MERGE VERIFIED** via PR **#502** merge `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` · docs-write M3 profile resolves **HOW** only (no `expectedOutputs` injection; predecessor WHAT preserved by SupersedeExecutionContract) · Attempt 3 current CE strict **not_proven** preserved · Attempts **3→3** · **ZERO REAL** · runtime v3 = **NON ADOPTED** · **≠** Product Journey READY · **≠** Attempt 3 Product PASS · historical tip wording **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** was pre-merge · Git/PR #502 are authoritative |
 | **Timestamp maintenance historique PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 (pre-CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01)** | *(tip superseded by CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-18 05:15:00 CEST (+0200) — **PRODUCT JOURNEY E2E REAL RECONCILIATION INTEGRATION** · Cycle **15** · Capitalisation / REX + intégration Git · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01** · parent campagne **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01** · baseline pré-intégration `origin/main` `26478b1ea5b010c625f0c6039c969fac5c135cf5` · branche `qa/sfia-studio-product-journey-e2e-real-reconciliation-01` · checkpoints **R1–R12** consolidés · Product fixes **R1/R3/R4/R6/R7/R8/R10** = intégration candidate this PR · Attempt 1 FAIL · Attempt 2 FAIL Authentication required · Attempt 3 Cursor REAL **technical SUCCESS** · bounded docs_write filesystem effect + Artifact Evidence **PROVEN** in M4 isolated WT · Product Result remains **UNCLAIMED** · blocker = **ContractResult extensibility / Evidence wiring** (`no_applicable_contract_result_rule` for `cursor.docs_write.apply`) · capitalisation `projects/sfia-studio/convergence/product-journey-e2e-real-reconciliation-01-capitalization.md` · **ZERO REAL** this integration macro · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **≠** Product Journey E2E READY / COMPLETE · **≠** ContractResult docs_write PASS · **≠** runtime v3 ADOPTED · next after integration verified = **R13 — Contract Result extensibility framing — ZERO REAL** · **NOT STARTED / NOT AUTHORIZED** by this tip · repository lifecycle = **RESOLVE FROM GIT / PR evidence** |
 | **Timestamp maintenance historique PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01 (pre-PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01)** | *(tip superseded by PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-17 18:25:36 CEST (+0200) — **PRODUCT DOCS_WRITE REAL PASS POST-MERGE TRUTH-SYNC** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Macro **PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01** · parent macro **PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01** · GO Morris post-merge documentary truth-sync #499 **CONSUMED** (local docs + commit only) · PR **#499 MERGED** `docs(sfia-studio): capitalize Product docs-write REAL proof` · head `9981483f8c158bec07364e14e626cdf2c3fd1e34` · merge `3907177f7788d23d640c5bdcd1cee8e01615762f` · parents `b739ddd3826ea4df640e3f34f97a966d85f8d214` + `9981483f8c158bec07364e14e626cdf2c3fd1e34` · capitalisation = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · pre-merge CI **`35236024162` SUCCESS** · Required Gate **PASS** · post-merge CI **`35245046244` SUCCESS** · Required Gate **PASS** · `headSha=3907177f7788d23d640c5bdcd1cee8e01615762f` · merge lifecycle #499 = **COMPLETED / CONSUMED** · post-merge verification = **PASS** · claim **AUTHENTICATED PRODUCT DOCS_WRITE REAL PROVEN AT TESTED HISTORICAL PROJECT SCOPE** · **ZERO REAL** · Product code **UNCHANGED** · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** **PRESERVED** · next Product capability candidate = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN** · **NOT STARTED / NOT AUTHORIZED** by this truth-sync · this documentary truth-sync = **LOCAL CANDIDATE** · Review Handoff publication **PENDING** (distinct Morris remote push gate) · push/PR/merge of this truth-sync = **DISTINCT Morris gates** · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / origin/main / PR evidence** · **≠** E2E FULL REAL PROVEN · **≠** Product Journey complete to Nora replanning · **≠** docs_write generalized · **≠** Cursor autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new REAL authorization · **≠** PRODUCT-JOURNEY-POST-EXECUTION-REPLAN started · **≠** push/PR/merge authorized by proof |
@@ -6179,7 +6249,7 @@ Ne pas mettre à jour pour chaque micro-commit sans impact de trajectoire.
 
 ### `projects/sfia-studio/app/__tests__/project-assistant/w3cPostEvidenceCorrection.test.ts`
 
-```typescript
+```
 /**
  * W3-C convergence corrections B1–B6 — named R01–R13 coverage.
  * @vitest-environment node
@@ -7256,7 +7326,7 @@ describe("W3C-R15 real D5 contract fidelity", () => {
 
 ### `projects/sfia-studio/app/__tests__/project-assistant/productJourneyPostExecutionReplan.d0.test.ts`
 
-```typescript
+```
 /**
  * PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 — portable PJR bar (CR-PJR-01..03).
  * CI-safe: tempProductDbPath / in-memory only. ZERO REAL. No campaign DB.
@@ -8090,29 +8160,8 @@ describe("CR-PJR portable docs_write UNCLAIMED recover (temp DB)", () => {
 
 ---
 
-## 12. Claims
+## 12. Final stop line
 
-- CR-PJR-01/02/03 closed.
-- Portable NOT_PROVEN → recover → CE re-evaluation → stale W3-C invalidation proven.
-- Attempt 3 historical truth preserved (3 attempts, strict CE not_proven, ZERO REAL).
-- LOCAL / IN PROGRESS — ready for ChatGPT Final PR-readiness Review / Morris Git gate.
+PRODUCT JOURNEY POST-EXECUTION REPLAN — BASELINE REQUALIFIED ON 9be4b806 — CR-PJR-01/02/03 PRESERVED — FOCUSED TESTS / TYPECHECK / DIFF-CHECK PASS — ZERO REAL — READY FOR CHATGPT FINAL GIT-READINESS CONFIRMATION / MORRIS PROJECT GIT GATE
 
-## 13. Anti-claims
-
-- ≠ Attempt 3 Product PASS/SUCCESS
-- ≠ Product Journey READY/COMPLETE
-- ≠ live Nora proven
-- ≠ historical REAL provenance reconstructed
-- ≠ project commit/push/PR authorized
-- ≠ runtime v3 ADOPTED
-- ≠ automatic HD / trajectory mutation / Attempt 4
-
-## 14. Next exact human action
-
-1. ChatGPT Final PR-readiness Review of this correction pack.
-2. Distinct Morris Git gate for project commit/push/PR (not authorized here).
-3. Evidence completion on historical Attempt 3 remains a later Pilote/Product step (not this correction).
-
-## 15. Verdict
-
-**PRODUCT JOURNEY POST-EXECUTION RECOVERY — CRITICAL REVIEW BLOCKERS CLOSED — NOT_PROVEN RECOVERY + FUTURE CLAIM RE-EVALUATION LIFECYCLE PROVEN — ZERO NEW REAL — READY FOR CHATGPT FINAL PR-READINESS REVIEW / MORRIS GIT GATE**
+Project Git integration remains **NOT AUTHORIZED** until Morris project Git gate.
