@@ -1,6 +1,13 @@
 /**
  * Requalify docs_write Contract Result from durable Evidence + RB — ZERO new Attempt.
  * Freeze rb:docs-write if draft, evaluate with docs-write CE id, supersede prior CE.
+ *
+ * Rematerialize vs explicit re-evaluation (CR-PJR-02):
+ * - no correctionRef + current CE → reuse (CASE A)
+ * - correctionRef targeting new id → evaluate successor superseding current (CASE B)
+ * - correctionRef already current → reuse (CASE C)
+ * - ambiguous current → fail-closed (CASE D)
+ * - correction target is ancestor / already-exists-non-current → fail-closed (CASE E)
  */
 import { createHash } from "node:crypto";
 import type { ActorReference } from "@/lib/oa/doctrine";
@@ -20,6 +27,23 @@ import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
 function w3bClaimEvaluationIdForAttempt(attemptId: string): string {
   const digest = createHash("sha256").update(attemptId).digest("hex").slice(0, 16);
   return `clm:w3b:${digest}`;
+}
+
+async function isSupersessionAncestor(input: {
+  repo: EvidenceReviewServices["claimEvaluationRepository"];
+  candidateId: string;
+  current: ClaimEvaluation;
+}): Promise<boolean> {
+  let cursor: string | undefined = input.current.supersedesClaimEvaluationId;
+  const seen = new Set<string>();
+  while (cursor) {
+    if (cursor === input.candidateId) return true;
+    if (seen.has(cursor)) return true;
+    seen.add(cursor);
+    const next = await input.repo.findById(cursor);
+    cursor = next?.supersedesClaimEvaluationId;
+  }
+  return false;
 }
 
 export type RequalifyDocsWriteContractResultInput = {
@@ -119,17 +143,75 @@ export async function requalifyDocsWriteContractResult(
     executionAttemptId: input.attempt.attemptId,
   });
   if (current.status === "ambiguous") {
+    // CASE D
     return {
       ok: false,
       code: "CONTRACT_RESULT_CLAIM_LINEAGE_AMBIGUOUS",
       message: `Multiple active ContractResult CEs — fail-closed: ${current.claimEvaluationIds.join(",")}`,
     };
   }
-  if (
-    current.status === "one" &&
-    current.claimEvaluation.claimEvaluationId !== ids.claimEvaluationId
-  ) {
-    supersededClaimEvaluationId = current.claimEvaluation.claimEvaluationId;
+
+  if (current.status === "one") {
+    const currentCe = current.claimEvaluation;
+    const currentIsDocsWriteLineage = currentCe.claimEvaluationId.startsWith(
+      "clm:docs-write:",
+    );
+
+    // CASE A — ordinary rematerialize: reuse current docs-write CE.
+    // W3-B (or non-docs-write) current still allows first docs-write qualification
+    // below (supersede into docs-write lineage). Never re-evaluate under a
+    // conflicting docs-write identity when a docs-write CE is already current.
+    if (!input.correctionRef) {
+      if (currentIsDocsWriteLineage) {
+        return {
+          ok: true,
+          claimEvaluation: currentCe,
+          reviewBundle,
+          reusedFromIdempotencyKey: true,
+        };
+      }
+      supersededClaimEvaluationId = currentCe.claimEvaluationId;
+    } else if (ids.claimEvaluationId === currentCe.claimEvaluationId) {
+      // CASE C — same correctionRef already current.
+      return {
+        ok: true,
+        claimEvaluation: currentCe,
+        reviewBundle,
+        reusedFromIdempotencyKey: true,
+      };
+    } else {
+      // CASE E — target identity already exists (historical / superseded) or is ancestor.
+      const existingTarget = await services.claimEvaluationReader.findById(
+        ids.claimEvaluationId,
+      );
+      if (existingTarget) {
+        return {
+          ok: false,
+          code: "CONTRACT_RESULT_CORRECTION_LINEAGE_INVALID",
+          message:
+            `Correction identity ${ids.claimEvaluationId} already exists and is not current — ` +
+            "refuse recreate / lineage cycle.",
+        };
+      }
+      if (
+        await isSupersessionAncestor({
+          repo: services.claimEvaluationRepository,
+          candidateId: ids.claimEvaluationId,
+          current: currentCe,
+        })
+      ) {
+        return {
+          ok: false,
+          code: "CONTRACT_RESULT_CORRECTION_LINEAGE_INVALID",
+          message:
+            `Correction identity ${ids.claimEvaluationId} is an ancestor of current CE — ` +
+            "refuse supersession cycle.",
+        };
+      }
+
+      // CASE B — explicit re-evaluation under new correction identity.
+      supersededClaimEvaluationId = currentCe.claimEvaluationId;
+    }
   } else if (current.status === "none") {
     const w3bCe = await services.claimEvaluationReader.findById(
       w3bClaimEvaluationIdForAttempt(input.attempt.attemptId),

@@ -4,27 +4,30 @@
  *
  * Coherence: Attempt terminal ↔ Evidence ↔ ReviewBundle ↔ W3C recover payload
  * for the same Project. Falls back to null (generic trajectory) when absent.
+ *
+ * Supports FAIL/STOP recovery and narrow EVIDENCE_BACKED_NOT_PROVEN (UNCLAIMED
+ * + succeeded Attempt) via durable Evidence bindings — not w3b id reconstruction.
  */
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
 import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
+import { resolveCurrentContractResultClaimEvaluation } from "@/lib/oa/evidence-review";
 import {
   findExistingW3cPostEvidence,
   parseW3cRecommendationPayload,
   type W3cRecommendationKind,
   type W3cRecommendationPayload,
 } from "./w3cPostEvidenceLoop";
-import { w3bEvidenceIdentity } from "./materializeW3bProductTerminal";
 import { resolveDurableBoundaryProofMode } from "@/features/project-assistant/f3/resolveDurableBoundaryProofMode";
 
 export type PostEvidenceRecoveryContext = {
   readonly kind: "post_evidence_recovery";
   readonly attemptId: string;
-  readonly attemptStatus: "failed" | "timeout" | "cancelled";
+  readonly attemptStatus: "failed" | "timeout" | "cancelled" | "succeeded";
   readonly stopReason: string | null;
   readonly executionContractId: string;
   readonly evidenceId: string;
   readonly reviewBundleId: string;
-  readonly productOutcome: "FAIL" | "STOP";
+  readonly productOutcome: "FAIL" | "STOP" | "UNCLAIMED";
   readonly recommendationKind: Extract<
     W3cRecommendationKind,
     "recover" | "replan"
@@ -86,6 +89,12 @@ async function loadAttempt(
   return loaded.ok ? loaded.attempt : null;
 }
 
+function isRecoverableProductOutcome(
+  outcome: W3cRecommendationPayload["productOutcome"],
+): outcome is "FAIL" | "STOP" | "UNCLAIMED" {
+  return outcome === "FAIL" || outcome === "STOP" || outcome === "UNCLAIMED";
+}
+
 /**
  * Resolve a coherent post-Evidence recovery subject for W2 options.
  * Returns null when no coherent recover/replan episode exists (generic path).
@@ -116,7 +125,7 @@ export async function resolvePostEvidenceRecoveryContext(input: {
   type Candidate = {
     payload: W3cRecommendationPayload & {
       kind: "recover" | "replan";
-      productOutcome: "FAIL" | "STOP";
+      productOutcome: "FAIL" | "STOP" | "UNCLAIMED";
     };
     epistemicItemId: string;
   };
@@ -133,9 +142,7 @@ export async function resolvePostEvidenceRecoveryContext(input: {
     const payload = parseW3cRecommendationPayload(raw);
     if (!payload) continue;
     if (payload.kind !== "recover" && payload.kind !== "replan") continue;
-    if (payload.productOutcome !== "FAIL" && payload.productOutcome !== "STOP") {
-      continue;
-    }
+    if (!isRecoverableProductOutcome(payload.productOutcome)) continue;
     candidates.push({
       payload: {
         ...payload,
@@ -150,7 +157,6 @@ export async function resolvePostEvidenceRecoveryContext(input: {
     return { ok: true, context: null };
   }
 
-  // Prefer newest by Attempt failedAt / updatedAt among coherent candidates.
   let best: {
     context: PostEvidenceRecoveryContext;
     sortKey: string;
@@ -158,14 +164,6 @@ export async function resolvePostEvidenceRecoveryContext(input: {
 
   for (const candidate of candidates) {
     const { payload } = candidate;
-    const expectedIds = w3bEvidenceIdentity(payload.attemptId);
-    if (
-      payload.evidenceId !== expectedIds.evidenceId ||
-      payload.reviewBundleId !== expectedIds.reviewBundleId
-    ) {
-      // Identity mismatch — refuse this candidate (do not mix episodes).
-      continue;
-    }
 
     const existing = await findExistingW3cPostEvidence({
       oa,
@@ -175,19 +173,17 @@ export async function resolvePostEvidenceRecoveryContext(input: {
     });
     if (!existing) continue;
     if (existing.recommendation.kind !== payload.kind) continue;
-    if (
-      existing.productOutcome !== "FAIL" &&
-      existing.productOutcome !== "STOP"
-    ) {
-      continue;
-    }
+    if (!isRecoverableProductOutcome(existing.productOutcome)) continue;
+    if (existing.productOutcome !== payload.productOutcome) continue;
 
     const attempt = await loadAttempt(oa, payload.attemptId);
     if (!attempt) continue;
     const terminalOk =
-      attempt.status === "failed" ||
-      attempt.status === "timeout" ||
-      (payload.productOutcome === "STOP" && attempt.status === "cancelled");
+      payload.productOutcome === "UNCLAIMED"
+        ? attempt.status === "succeeded"
+        : attempt.status === "failed" ||
+          attempt.status === "timeout" ||
+          (payload.productOutcome === "STOP" && attempt.status === "cancelled");
     if (!terminalOk) continue;
 
     if (!oa.executionContractServices) continue;
@@ -198,44 +194,103 @@ export async function resolvePostEvidenceRecoveryContext(input: {
     if (!contract.ok) continue;
     if (contract.contract.projectId !== projectId) continue;
 
-    // Evidence reader coherence when available
-    if (oa.evidenceReviewServices?.evidenceReader) {
-      const evidence = await oa.evidenceReviewServices.evidenceReader.findById(
-        payload.evidenceId,
+    // Durable Evidence/RB bindings (docs_write OR w3b — no id reconstruction).
+    if (!oa.evidenceReviewServices?.evidenceReader) continue;
+    const evidence = await oa.evidenceReviewServices.evidenceReader.findById(
+      payload.evidenceId,
+    );
+    if (!evidence) continue;
+    if (evidence.bindings.executionAttemptId !== payload.attemptId) continue;
+    if (
+      evidence.bindings.projectId &&
+      evidence.bindings.projectId !== projectId
+    ) {
+      continue;
+    }
+    if (
+      evidence.bindings.executionContractId &&
+      evidence.bindings.executionContractId !== attempt.executionContractId
+    ) {
+      continue;
+    }
+    const reviewBundle =
+      await oa.evidenceReviewServices.reviewBundleReader.findById(
+        payload.reviewBundleId,
       );
-      if (!evidence) continue;
-      if (evidence.bindings.executionAttemptId !== payload.attemptId) continue;
+    if (!reviewBundle) continue;
+    if (reviewBundle.projectId !== projectId) continue;
+    const rbEvidenceIds = [
+      ...(reviewBundle.evidenceRefs ?? []),
+      ...(reviewBundle.frozenEvidenceSnapshots ?? []).map((s) => s.evidenceId),
+    ];
+    if (!rbEvidenceIds.includes(payload.evidenceId)) continue;
+
+    // CR-PJR-03 — UNCLAIMED recovery must bind current CE not_proven.
+    if (payload.productOutcome === "UNCLAIMED") {
+      if (!oa.evidenceReviewServices?.claimEvaluationRepository) continue;
+      const currentCe = await resolveCurrentContractResultClaimEvaluation({
+        repo: oa.evidenceReviewServices.claimEvaluationRepository,
+        projectId,
+        executionAttemptId: payload.attemptId,
+      });
+      if (currentCe.status !== "one") continue;
+      if (currentCe.claimEvaluation.status !== "not_proven") continue;
       if (
-        evidence.bindings.projectId &&
-        evidence.bindings.projectId !== projectId
+        payload.claimEvaluationId !==
+        currentCe.claimEvaluation.claimEvaluationId
       ) {
         continue;
       }
-      if (
-        evidence.bindings.executionContractId &&
-        evidence.bindings.executionContractId !== attempt.executionContractId
-      ) {
-        continue;
-      }
+      // Prefer Epistemic item that still matches current Product CE binding.
+      const currentMatched = await findExistingW3cPostEvidence({
+        oa,
+        projectId,
+        evidenceId: payload.evidenceId,
+        attemptId: payload.attemptId,
+        product: {
+          evidenceId: payload.evidenceId,
+          reviewBundleId: payload.reviewBundleId,
+          claimEvaluationId: currentCe.claimEvaluation.claimEvaluationId,
+          outcome: "UNCLAIMED",
+          technicalDetail: { attemptId: payload.attemptId },
+        },
+      });
+      if (!currentMatched) continue;
     }
 
+    const boundaryProofMode = await resolveDurableBoundaryProofMode({
+      oa,
+      attempt,
+    });
     const realProcessInvoked = inferDurableRealProcessInvoked({
       attempt,
-      boundaryProofMode: await resolveDurableBoundaryProofMode({ oa, attempt }),
+      boundaryProofMode,
     });
+
+    const attemptStatus:
+      | "failed"
+      | "timeout"
+      | "cancelled"
+      | "succeeded" =
+      attempt.status === "failed" ||
+      attempt.status === "timeout" ||
+      attempt.status === "cancelled" ||
+      attempt.status === "succeeded"
+        ? attempt.status
+        : "failed";
 
     const context: PostEvidenceRecoveryContext = {
       kind: "post_evidence_recovery",
       attemptId: payload.attemptId,
-      attemptStatus: attempt.status as "failed" | "timeout" | "cancelled",
+      attemptStatus,
       stopReason: attempt.stopReason ?? null,
       executionContractId: attempt.executionContractId,
       evidenceId: payload.evidenceId,
       reviewBundleId: payload.reviewBundleId,
       productOutcome: payload.productOutcome,
       recommendationKind: payload.kind,
-      headline: payload.headline.slice(0, 280),
-      rationale: payload.rationale.slice(0, 1200),
+      headline: payload.headline,
+      rationale: payload.rationale,
       nextStep: payload.nextStep,
       realProcessInvoked,
       businessEffectProven: false,
@@ -244,10 +299,11 @@ export async function resolvePostEvidenceRecoveryContext(input: {
 
     const sortKey =
       attempt.failedAt ??
-      attempt.timedOutAt ??
       attempt.cancelledAt ??
+      attempt.completedAt ??
       attempt.updatedAt ??
-      attempt.createdAt;
+      attempt.createdAt ??
+      "";
     if (!best || sortKey > best.sortKey) {
       best = { context, sortKey };
     }

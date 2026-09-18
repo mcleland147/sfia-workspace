@@ -327,7 +327,10 @@ describe("W3C-R02/R03 idempotence", () => {
     expect(first.postEvidence?.ok).toBe(true);
     if (!first.postEvidence || !first.postEvidence.ok) return;
     const evidenceId = first.product.evidenceId!;
-    const epiId = w3cRecommendationEpistemicId(evidenceId);
+    const epiId = w3cRecommendationEpistemicId(
+      evidenceId,
+      first.product.claimEvaluationId,
+    );
     const lpsV1 = first.postEvidence.lpsVersion;
     const analysis1 = first.postEvidence.analysisText;
 
@@ -349,9 +352,12 @@ describe("W3C-R02/R03 idempotence", () => {
       projectId: ctx.seeded.projectId,
       evidenceId,
       attemptId,
+      product: first.product,
     });
     expect(existing?.ok).toBe(true);
-    expect(w3cRecommendationEpistemicId(evidenceId)).toBe(epiId);
+    expect(
+      w3cRecommendationEpistemicId(evidenceId, first.product.claimEvaluationId),
+    ).toBe(epiId);
 
     const lps = await ctx.oa.projectServices!.getCurrentLivingProjectState.execute(
       { projectId: ctx.seeded.projectId },
@@ -467,11 +473,17 @@ describe("W3C-R08/R09 epistemic supersession", () => {
     const ctx = await authorizeTempArtifact("r08");
     const { materialized: matA } = await materializeSuccess(ctx);
     const evidenceA = matA.product.evidenceId!;
-    const epiA = w3cRecommendationEpistemicId(evidenceA);
+    const epiA = w3cRecommendationEpistemicId(
+      evidenceA,
+      matA.product.claimEvaluationId,
+    );
 
     const { materialized: matB } = await secondSuccessOnSameProject(ctx);
     const evidenceB = matB.product.evidenceId!;
-    const epiB = w3cRecommendationEpistemicId(evidenceB);
+    const epiB = w3cRecommendationEpistemicId(
+      evidenceB,
+      matB.product.claimEvaluationId,
+    );
     expect(epiB).not.toBe(epiA);
 
     const epistemic = await ctx.oa.cycleServices!.getEpistemicState.execute({
@@ -735,7 +747,10 @@ describe("W3C-R14 partial-write recovery", () => {
     });
     expect(epiAfterFail.ok).toBe(true);
     if (!epiAfterFail.ok) throw new Error("epi");
-    const epiId = w3cRecommendationEpistemicId(evidenceId);
+    const epiId = w3cRecommendationEpistemicId(
+      evidenceId,
+      first.product.claimEvaluationId,
+    );
     expect(
       epiAfterFail.state.items.find(
         (i) => i.epistemicItemId === epiId && i.status === "active",

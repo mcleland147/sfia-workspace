@@ -174,6 +174,7 @@ async function materializeDocsWriteProductTerminal(input: {
       projectId: input.projectId,
       evidenceId: product.evidenceId,
       attemptId: input.attempt.attemptId,
+      product,
     });
     if (existing) {
       return {
@@ -403,12 +404,14 @@ export async function materializeW3bProductTerminal(input: {
   );
 
   // B2 — prefer existing Epistemic / rehydrate before Nora + LPS append.
+  // CR-PJR-03: reuse only when Recommendation matches newly projected Product.
   if (product.evidenceId) {
     const existing = await findExistingW3cPostEvidence({
       oa: input.oa,
       projectId: input.projectId,
       evidenceId: product.evidenceId,
       attemptId: attempt.attemptId,
+      product,
     });
     if (existing) {
       return {

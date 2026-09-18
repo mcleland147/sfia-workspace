@@ -31,6 +31,7 @@ import {
   loadProductCkcCognitiveContent,
 } from "@/features/project-assistant/f2/ckcCognitiveContext";
 import type { NextActionCode } from "@/lib/oa/evidence-review/domain/coordinationTypes";
+import { resolveCurrentContractResultClaimEvaluation } from "@/lib/oa/evidence-review";
 import type { W3BProductTerminalProjection } from "./w3bProductTerminalProjection";
 import { resolveW2QualificationInputs } from "./qualificationInputs";
 
@@ -90,7 +91,7 @@ export type W3cRecommendationPayload = {
   attemptId: string;
   reviewBundleId: string;
   claimEvaluationId: string | null;
-  productOutcome: "SUCCESS" | "STOP" | "FAIL";
+  productOutcome: "SUCCESS" | "STOP" | "FAIL" | "UNCLAIMED";
   analysisText: string | null;
   analysisUnavailableReason: string | null;
   analysisProviderId: string | null;
@@ -130,13 +131,52 @@ function consumeW3cEpistemicMaterializeFailArmed(): boolean {
 }
 
 
-/** Deterministic Epistemic Recommendation id for a W3-B evidenceId. */
-export function w3cRecommendationEpistemicId(evidenceId: string): string {
+/**
+ * Deterministic Epistemic Recommendation id for a post-Evidence episode.
+ * When claimEvaluationId is present, bind Evidence+CE so CE supersession
+ * cannot silently reuse a stale Recommendation under the same Epistemic id.
+ * Legacy evidence-only ids remain discoverable for historical payloads.
+ */
+export function w3cRecommendationEpistemicId(
+  evidenceId: string,
+  claimEvaluationId?: string | null,
+): string {
+  const material = claimEvaluationId
+    ? `${evidenceId}|${claimEvaluationId}`
+    : evidenceId;
   const digest = createHash("sha256")
-    .update(evidenceId)
+    .update(material)
     .digest("hex")
     .slice(0, 16);
   return `${W3C_EPI_ID_PREFIX}${digest}`;
+}
+
+/** True when durable W3-C payload still matches current Product claim truth. */
+export function w3cPayloadMatchesCurrentProduct(
+  payload: {
+    readonly evidenceId: string;
+    readonly attemptId: string;
+    readonly reviewBundleId: string;
+    readonly claimEvaluationId: string | null;
+    readonly productOutcome: string;
+  },
+  product: Pick<
+    W3BProductTerminalProjection,
+    | "evidenceId"
+    | "reviewBundleId"
+    | "claimEvaluationId"
+    | "outcome"
+  > & {
+    readonly technicalDetail: { readonly attemptId: string };
+  },
+): boolean {
+  if (payload.evidenceId !== product.evidenceId) return false;
+  if (payload.attemptId !== product.technicalDetail.attemptId) return false;
+  if (payload.reviewBundleId !== product.reviewBundleId) return false;
+  if (payload.productOutcome !== product.outcome) return false;
+  const payloadCe = payload.claimEvaluationId ?? null;
+  const productCe = product.claimEvaluationId ?? null;
+  return payloadCe === productCe;
 }
 
 function failClosed(
@@ -185,9 +225,20 @@ export function classifyW3cD5NextAction(
 }
 
 function nextStepForOutcomeAndClass(
-  outcome: "SUCCESS" | "STOP" | "FAIL",
+  outcome: "SUCCESS" | "STOP" | "FAIL" | "UNCLAIMED",
   actionClass: W3cD5ActionClass,
+  nextActionCode: string | null,
 ): string {
+  if (outcome === "UNCLAIMED") {
+    if (
+      nextActionCode === "complete_evidence" ||
+      nextActionCode === "verify_evidence_integrity" ||
+      nextActionCode === "evaluate_claim"
+    ) {
+      return nextActionCode;
+    }
+    return "recovery_complete_evidence";
+  }
   if (actionClass === "human_confirmation") {
     return outcome === "SUCCESS"
       ? "coordinate_human_confirmation"
@@ -207,17 +258,41 @@ function nextStepForOutcomeAndClass(
 }
 
 /**
+ * Narrow admissibility for Product UNCLAIMED that is still evidence-backed
+ * ContractResult NOT_PROVEN (technical success + durable CE gap).
+ * Never treats arbitrary UNCLAIMED as recoverable.
+ */
+export function isEvidenceBackedNotProvenUnclaimed(
+  product: W3BProductTerminalProjection,
+): boolean {
+  return (
+    product.outcome === "UNCLAIMED" &&
+    product.claimAllowed === false &&
+    product.contractResultVerdict === "NOT_PROVEN" &&
+    product.claimEvaluationStatus === "not_proven" &&
+    Boolean(product.evidenceId) &&
+    Boolean(product.reviewBundleId) &&
+    Boolean(product.claimEvaluationId) &&
+    product.technicalDetail.attemptStatus === "succeeded"
+  );
+}
+
+/**
  * Project durable product outcome + real D5 coordination onto a Recommendation.
  * Never invents kind:"replan" from D5 (no trajectory replan code in NextActionCode).
  * requiresHumanDecision stays false — D5 confirmation/arbitration/gate ≠ W2 HD.
  */
 export function recommendationFromOutcome(input: {
-  outcome: "SUCCESS" | "STOP" | "FAIL";
+  outcome: "SUCCESS" | "STOP" | "FAIL" | "UNCLAIMED";
   recommendNextGateStatus: string | null;
   nextActionCode: string | null;
 }): W3cPostEvidenceRecommendation {
   const actionClass = classifyW3cD5NextAction(input.nextActionCode);
-  const nextStep = nextStepForOutcomeAndClass(input.outcome, actionClass);
+  const nextStep = nextStepForOutcomeAndClass(
+    input.outcome,
+    actionClass,
+    input.nextActionCode,
+  );
 
   if (input.outcome === "SUCCESS") {
     const headline =
@@ -235,6 +310,23 @@ export function recommendationFromOutcome(input: {
         "Succès produit durable — Recommendation non autoritaire. " +
         "D5 confirmation/arbitration/gate ≠ HumanDecision de trajectoire ; " +
         "replan ProjectTrajectory uniquement via W2 propose + decide explicites.",
+      nextStep,
+      requiresHumanDecision: false,
+      ...ANTI_AUTHORITY,
+      recommendNextGateStatus: input.recommendNextGateStatus,
+      nextActionCode: input.nextActionCode,
+    };
+  }
+
+  if (input.outcome === "UNCLAIMED") {
+    return {
+      kind: "recover",
+      headline: "Qualification Evidence / résultat incomplète",
+      rationale:
+        "Exécution technique réussie et Artifact durable présent, mais le " +
+        "ContractResult courant reste not_proven (expectedOutputs insuffisamment " +
+        "prouvés). Recovery ≠ HumanDecision automatique ; aucune mutation de " +
+        "trajectoire ; NOT_PROVEN reste NOT_PROVEN.",
       nextStep,
       requiresHumanDecision: false,
       ...ANTI_AUTHORITY,
@@ -349,7 +441,8 @@ export function parseW3cRecommendationPayload(
     if (
       productOutcome !== "SUCCESS" &&
       productOutcome !== "STOP" &&
-      productOutcome !== "FAIL"
+      productOutcome !== "FAIL" &&
+      productOutcome !== "UNCLAIMED"
     ) {
       return null;
     }
@@ -411,7 +504,8 @@ function buildPayloadFromSuccess(
   if (
     success.productOutcome !== "SUCCESS" &&
     success.productOutcome !== "STOP" &&
-    success.productOutcome !== "FAIL"
+    success.productOutcome !== "FAIL" &&
+    success.productOutcome !== "UNCLAIMED"
   ) {
     throw new Error("payload_requires_claimable_outcome");
   }
@@ -518,12 +612,24 @@ function itemBindsEvidenceAndAttempt(
 
 /**
  * Look up an active Epistemic W3-C recommendation bound to evidenceId+attemptId.
+ * When `product` is supplied, require payload to match current Product claim truth
+ * (attempt / evidence / RB / CE / outcome) — CE supersession must not reuse stale
+ * recover Recommendation (CR-PJR-03).
  */
 export async function findExistingW3cPostEvidence(input: {
   readonly oa: RuntimeOaStack;
   readonly projectId: string;
   readonly evidenceId: string;
   readonly attemptId: string;
+  readonly product?: Pick<
+    W3BProductTerminalProjection,
+    | "evidenceId"
+    | "reviewBundleId"
+    | "claimEvaluationId"
+    | "outcome"
+  > & {
+    readonly technicalDetail: { readonly attemptId: string };
+  };
 }): Promise<W3cPostEvidenceLoopSuccess | null> {
   if (!input.oa.cycleServices) return null;
   const epistemic = await input.oa.cycleServices.getEpistemicState.execute({
@@ -531,15 +637,27 @@ export async function findExistingW3cPostEvidence(input: {
   });
   if (!epistemic.ok) return null;
 
-  const deterministicId = w3cRecommendationEpistemicId(input.evidenceId);
-  const byId = epistemic.state.items.find(
+  const productCe = input.product?.claimEvaluationId ?? null;
+  const ceBoundId = w3cRecommendationEpistemicId(input.evidenceId, productCe);
+  const legacyId = w3cRecommendationEpistemicId(input.evidenceId);
+  const byCeId = epistemic.state.items.find(
     (i) =>
-      i.epistemicItemId === deterministicId &&
+      i.epistemicItemId === ceBoundId &&
       i.status === "active" &&
       isW3cPostEvidenceItem(i),
   );
+  const byLegacyId =
+    ceBoundId === legacyId
+      ? undefined
+      : epistemic.state.items.find(
+          (i) =>
+            i.epistemicItemId === legacyId &&
+            i.status === "active" &&
+            isW3cPostEvidenceItem(i),
+        );
   const candidate =
-    byId ??
+    byCeId ??
+    byLegacyId ??
     epistemic.state.items.find(
       (i) =>
         i.status === "active" &&
@@ -560,6 +678,45 @@ export async function findExistingW3cPostEvidence(input: {
   ) {
     return null;
   }
+  if (input.product) {
+    if (
+      !w3cPayloadMatchesCurrentProduct(payload, {
+        ...input.product,
+        evidenceId: input.product.evidenceId ?? input.evidenceId,
+        reviewBundleId: input.product.reviewBundleId ?? payload.reviewBundleId,
+        technicalDetail: {
+          attemptId: input.product.technicalDetail.attemptId || input.attemptId,
+        },
+      })
+    ) {
+      return null;
+    }
+    // CR-PJR-03 — ContractResult-backed lookups must match CURRENT CE.
+    if (
+      input.oa.evidenceReviewServices?.claimEvaluationRepository &&
+      input.product.claimEvaluationId
+    ) {
+      const currentCe = await resolveCurrentContractResultClaimEvaluation({
+        repo: input.oa.evidenceReviewServices.claimEvaluationRepository,
+        projectId: input.projectId,
+        executionAttemptId: input.attemptId,
+      });
+      if (currentCe.status === "one") {
+        const currentId = currentCe.claimEvaluation.claimEvaluationId;
+        if (input.product.claimEvaluationId !== currentId) {
+          return null;
+        }
+        if (
+          payload.claimEvaluationId &&
+          payload.claimEvaluationId !== currentId
+        ) {
+          return null;
+        }
+      } else if (currentCe.status === "ambiguous") {
+        return null;
+      }
+    }
+  }
   return successFromPayload(payload);
 }
 
@@ -578,7 +735,11 @@ export async function recoverExactRecommendationFromLps(input: {
   if (
     product.outcome !== "SUCCESS" &&
     product.outcome !== "STOP" &&
-    product.outcome !== "FAIL"
+    product.outcome !== "FAIL" &&
+    !(
+      product.outcome === "UNCLAIMED" &&
+      isEvidenceBackedNotProvenUnclaimed(product)
+    )
   ) {
     return null;
   }
@@ -604,6 +765,14 @@ export async function recoverExactRecommendationFromLps(input: {
   if (payload.attemptId !== attemptId) return null;
   if (payload.reviewBundleId !== product.reviewBundleId) return null;
   if (payload.productOutcome !== product.outcome) return null;
+  if (
+    !w3cPayloadMatchesCurrentProduct(payload, {
+      ...product,
+      technicalDetail: { attemptId },
+    })
+  ) {
+    return null;
+  }
 
   return successFromPayload({
     ...payload,
@@ -647,7 +816,11 @@ async function materializeW3cRecommendationEpistemic(input: {
     };
   }
   const evidenceId = input.success.evidenceId;
-  const epistemicId = w3cRecommendationEpistemicId(evidenceId);
+  const epistemicId = w3cRecommendationEpistemicId(
+    evidenceId,
+    input.success.claimEvaluationId,
+  );
+  const legacyEvidenceOnlyId = w3cRecommendationEpistemicId(evidenceId);
   const epistemic = await input.oa.cycleServices.getEpistemicState.execute({
     projectId: input.projectId,
   });
@@ -660,7 +833,8 @@ async function materializeW3cRecommendationEpistemic(input: {
   }
 
   // B4 W3C-R09: supersede ALL other active w3c-post-evidence recommendations
-  // for this project when a new terminal becomes current.
+  // for this project when a new terminal becomes current (including legacy
+  // evidence-only ids and prior CE-bound ids for the same Evidence).
   const priorActives = epistemic.state.items.filter(
     (i) =>
       i.status === "active" &&
@@ -670,7 +844,8 @@ async function materializeW3cRecommendationEpistemic(input: {
   const sameEvidencePrior = epistemic.state.items.find(
     (i) =>
       i.status === "active" &&
-      i.epistemicItemId === epistemicId &&
+      (i.epistemicItemId === epistemicId ||
+        i.epistemicItemId === legacyEvidenceOnlyId) &&
       isW3cPostEvidenceItem(i),
   );
 
@@ -686,10 +861,17 @@ async function materializeW3cRecommendationEpistemic(input: {
       : []),
   ];
 
+  // Prefer same-Evidence priors so CE supersession retires the prior claim episode.
+  const sameEvidencePriors = priorActives.filter((i) =>
+    itemBindsEvidenceAndAttempt(i, evidenceId, input.attemptId),
+  );
+  const supersedePool =
+    sameEvidencePriors.length > 0 ? sameEvidencePriors : priorActives;
+
   const primarySupersedes =
     sameEvidencePrior && sameEvidencePrior.epistemicItemId !== epistemicId
       ? sameEvidencePrior.epistemicItemId
-      : priorActives[0]?.epistemicItemId;
+      : supersedePool[0]?.epistemicItemId;
 
   const items: Array<{
     epistemicItemId: string;
@@ -712,7 +894,7 @@ async function materializeW3cRecommendationEpistemic(input: {
   ];
 
   // Additional priors (beyond the one linked via primary supersedes).
-  const remaining = priorActives.filter(
+  const remaining = supersedePool.filter(
     (p) => p.epistemicItemId !== primarySupersedes,
   );
   for (const prior of remaining) {
@@ -766,25 +948,41 @@ async function loadEpistemicPayloadForProduct(input: {
   });
   if (!epistemic.ok) return null;
 
-  const deterministicId = w3cRecommendationEpistemicId(
-    input.product.evidenceId,
-  );
-  const byId = epistemic.state.items.find(
-    (i) => i.epistemicItemId === deterministicId && isW3cPostEvidenceItem(i),
-  );
   const attemptId =
     input.attemptId ?? input.product.technicalDetail.attemptId;
+  const ceBoundId = w3cRecommendationEpistemicId(
+    input.product.evidenceId,
+    input.product.claimEvaluationId,
+  );
+  const legacyId = w3cRecommendationEpistemicId(input.product.evidenceId);
+  const byCeId = epistemic.state.items.find(
+    (i) => i.epistemicItemId === ceBoundId && isW3cPostEvidenceItem(i),
+  );
+  const byLegacyId =
+    ceBoundId === legacyId
+      ? undefined
+      : epistemic.state.items.find(
+          (i) => i.epistemicItemId === legacyId && isW3cPostEvidenceItem(i),
+        );
   const byRelated = epistemic.state.items.find(
     (i) =>
       isW3cPostEvidenceItem(i) &&
       itemBindsEvidenceAndAttempt(i, input.product.evidenceId!, attemptId),
   );
-  const item = byId ?? byRelated;
+  const item = byCeId ?? byLegacyId ?? byRelated;
   if (!item) return null;
   const payload = parseW3cRecommendationPayload(item.statement);
   if (!payload) return null;
   if (payload.evidenceId !== input.product.evidenceId) return null;
   if (attemptId && payload.attemptId !== attemptId) return null;
+  if (
+    !w3cPayloadMatchesCurrentProduct(payload, {
+      ...input.product,
+      technicalDetail: { attemptId },
+    })
+  ) {
+    return null;
+  }
   return payload;
 }
 
@@ -797,10 +995,12 @@ export async function runW3cPostEvidenceLoop(input: {
   const { oa, projectId, attemptId, product } = input;
 
   if (product.outcome === "UNCLAIMED") {
-    return failClosed(
-      "PRODUCT_UNCLAIMED",
-      "Résultat produit non claimable — boucle post-Evidence refusée.",
-    );
+    if (!isEvidenceBackedNotProvenUnclaimed(product)) {
+      return failClosed(
+        "PRODUCT_UNCLAIMED",
+        "Résultat produit non claimable — boucle post-Evidence refusée.",
+      );
+    }
   }
   if (!product.evidenceId || !product.reviewBundleId) {
     return failClosed(
@@ -810,11 +1010,13 @@ export async function runW3cPostEvidenceLoop(input: {
   }
 
   // B2 defense in depth — existing Epistemic → reconstruct, no Nora / LPS append.
+  // CR-PJR-03: require current Product claim bindings (CE + outcome).
   const existing = await findExistingW3cPostEvidence({
     oa,
     projectId,
     evidenceId: product.evidenceId,
     attemptId,
+    product,
   });
   if (existing) {
     return existing;
@@ -899,6 +1101,26 @@ export async function runW3cPostEvidenceLoop(input: {
       return failClosed(
         "CLAIM_NOT_PASSED",
         "SUCCESS sans claim pass / claimAllowed — fail-closed.",
+      );
+    }
+  }
+  if (product.outcome === "UNCLAIMED") {
+    if (!claimEvaluation) {
+      return failClosed(
+        "CLAIM_EVALUATION_MISSING",
+        "EVIDENCE_BACKED_NOT_PROVEN exige une ClaimEvaluation courante.",
+      );
+    }
+    if (claimEvaluation.status !== "not_proven" || product.claimAllowed) {
+      return failClosed(
+        "PRODUCT_UNCLAIMED",
+        "UNCLAIMED sans CE not_proven / claimAllowed=false — fail-closed.",
+      );
+    }
+    if (claimEvaluation.claimEvaluationId !== product.claimEvaluationId) {
+      return failClosed(
+        "CLAIM_EVALUATION_BINDING_MISMATCH",
+        "CE produit ≠ CE durable — fail-closed.",
       );
     }
   }
@@ -1033,6 +1255,14 @@ export async function runW3cPostEvidenceLoop(input: {
   const ckcPromptSection = buildCkcCognitivePromptSection(ckcContent);
 
   noraInvoked = true;
+  const eoSummary =
+    claimEvaluation?.expectedOutputAssessments
+      ?.map((a) => `${a.itemId.ordinal}:${a.result}`)
+      .join("; ") ?? undefined;
+  const erSummary =
+    claimEvaluation?.evidenceRequirementAssessments
+      ?.map((a) => `${a.itemId.ordinal}:${a.result}`)
+      .join("; ") ?? undefined;
   const analysis = await analyzePostEvidenceWithProvider(
     {
       projectId,
@@ -1049,6 +1279,13 @@ export async function runW3cPostEvidenceLoop(input: {
       reviewBundleId: product.reviewBundleId,
       technicalResultRef: product.technicalDetail.resultRef,
       reservations: product.reservations,
+      productOutcome: product.outcome,
+      claimEvaluationId: product.claimEvaluationId ?? undefined,
+      claimEvaluationStatus: product.claimEvaluationStatus ?? undefined,
+      contractResultVerdict: product.contractResultVerdict ?? undefined,
+      businessReason: product.businessReason,
+      ...(eoSummary ? { expectedOutputAssessmentSummary: eoSummary } : {}),
+      ...(erSummary ? { evidenceRequirementAssessmentSummary: erSummary } : {}),
       ...(processRef ? { processRef } : {}),
       ...(processExitCode !== undefined ? { exitCode: processExitCode } : {}),
       ...(processTimedOut !== undefined ? { timedOut: processTimedOut } : {}),
@@ -1157,10 +1394,12 @@ export async function rehydrateW3cPostEvidenceFromLps(input: {
     );
   }
   if (product.outcome === "UNCLAIMED") {
-    return failClosed(
-      "PRODUCT_UNCLAIMED",
-      "UNCLAIMED — pas de boucle post-Evidence à rehydrater.",
-    );
+    if (!isEvidenceBackedNotProvenUnclaimed(product)) {
+      return failClosed(
+        "PRODUCT_UNCLAIMED",
+        "UNCLAIMED — pas de boucle post-Evidence à rehydrater.",
+      );
+    }
   }
 
   // PRIMARY: Epistemic Recommendation (even superseded) bound to this evidence.
@@ -1192,6 +1431,14 @@ export async function rehydrateW3cPostEvidenceFromLps(input: {
 
   // Legacy fallback: evidence-scoped LPS Nora extract — never return B's analysis for A.
   // Lossy on gate fields — only when V1 payload absent (pre-correction LPS).
+  // CR-PJR-03: ContractResult-backed products with claimEvaluationId must not
+  // silently rebuild from CE-mismatched LPS after CE supersession.
+  if (product.claimEvaluationId) {
+    return failClosed(
+      "STALE_POST_EVIDENCE_BINDING",
+      "Aucun Epistemic/LPS V1 exact pour le ClaimEvaluation courant — fail-closed (pas de rebuild lossy après supersession CE).",
+    );
+  }
   if (!oa.projectServices) {
     return failClosed(
       "PROJECT_SERVICES_UNAVAILABLE",
@@ -1240,7 +1487,11 @@ export async function rehydrateW3cPostEvidenceFromLps(input: {
   if (
     product.outcome !== "SUCCESS" &&
     product.outcome !== "STOP" &&
-    product.outcome !== "FAIL"
+    product.outcome !== "FAIL" &&
+    !(
+      product.outcome === "UNCLAIMED" &&
+      isEvidenceBackedNotProvenUnclaimed(product)
+    )
   ) {
     return failClosed(
       "RECOMMENDATION_UNRECONSTRUCTIBLE",

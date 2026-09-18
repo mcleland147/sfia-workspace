@@ -3,21 +3,22 @@
 | Métadonnée | Valeur |
 | --- | --- |
 | **Rôle** | Pack de **framing / décision technique** — extensibilité ContractResult |
-| **Statut** | **ADOPTED BY MORRIS — IMPLEMENTATION IN PROGRESS / NOT YET INTEGRATED ON MAIN** |
-| **Macro** | `CONTRACT-RESULT-EXTENSIBILITY-FRAMING-01` (R13) |
+| **Statut** | **ADOPTED BY MORRIS — INTEGRATED ON MAIN / POST-MERGE VERIFIED** (PR **#502**) |
+| **Macro** | `CONTRACT-RESULT-EXTENSIBILITY-FRAMING-01` (R13) → implementation `CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01` |
 | **Parent** | `PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01` |
 | **Horodatage création** | 2026-09-18 06:15:00 CEST (+0200) |
-| **Baseline Git** | `origin/main` `bb6af3cabef663bd8619b85326dbc205057b7c7d` (PR **#501** MERGED / POST-MERGE VERIFIED) |
+| **Baseline Git (framing historique)** | `origin/main` `bb6af3cabef663bd8619b85326dbc205057b7c7d` (PR **#501** MERGED / POST-MERGE VERIFIED) |
+| **Merge / main (implementation)** | `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` — PR **#502** **MERGED / POST-MERGE VERIFIED** |
 | **Branche locale framing (historique)** | `arch/sfia-studio-contract-result-extensibility-framing-01` |
-| **Branche locale implementation (non poussée)** | `feat/sfia-studio-contract-result-extensibility-01` |
+| **Branche locale implementation (historique)** | `feat/sfia-studio-contract-result-extensibility-01` |
 | **Cycle** | Delivery / architecture implementation · **EVOL** · **CRITICAL** |
 | **CKC** | `ckc:studio:technical-architecture` — CONTENT VALIDATED · **aucune autorité d’exécution** |
 | **runtime v3** | **NON ADOPTED** |
 | **global L5** | **NOT ADOPTED** |
 | **REAL / Execute / new Attempt** | **ZERO** this macro |
 | **Horodatage décision Morris** | 2026-09-18 — ADOPT RESULT SEMANTICS REGISTRY (server-owned static + frozen RB multi-Evidence AND + explicit CE supersession + A+B one ZERO-REAL macro + success REAL provenance adapt if non-structural) |
-| **Implémentation locale** | `feat/sfia-studio-contract-result-extensibility-01` — registry + docs_write #2 + CR-BLK-01/02/03/04 closed · Execution profile resolves **HOW** only (must not inject/replace `expectedOutputs`) · Attempt 3 current CE `clm:docs-write:strict-eo-v1:…` **not_proven** (evidence gap) — **NOT integrated on main** |
-| **Anti-claims** | ≠ Product Journey READY/COMPLETE · ≠ Attempt 3 Product PASS under strict EO · ≠ generic ContractResult all effect classes · ≠ Git/PR/CI semantics · ≠ runtime v3 ADOPTED · ≠ integrated on main |
+| **Implémentation** | registry + docs_write #2 + CR-BLK-01/02/03/04 **CLOSED** · **INTEGRATED ON MAIN** via PR **#502** · Execution profile resolves **HOW** only (must not inject/replace `expectedOutputs`) · Attempt 3 current CE `clm:docs-write:strict-eo-v1:…` **not_proven** (evidence gap) **PRESERVED** · next coherent macro = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** (**PROJECT GIT INTEGRATION — RESOLVE FROM GIT / PR EVIDENCE**) |
+| **Anti-claims** | ≠ Product Journey READY/COMPLETE · ≠ Attempt 3 Product PASS under strict EO · ≠ generic ContractResult all effect classes · ≠ Git/PR/CI semantics · ≠ runtime v3 ADOPTED |
 
 ---
 
