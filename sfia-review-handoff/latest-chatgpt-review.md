@@ -1,16 +1,14 @@
-# PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01 — CAMPAIGN RESUME BLOCKED — Review Pack FULL
+# PRODUCT-JOURNEY-CLOUD-CURSOR-CLI-PREFLIGHT-01 — Review Pack LIGHT
 
-**Timestamp (UTC):** 2026-09-18T18:22:21Z
-**Timestamp (local):** 2026-09-18 20:22:21 CEST
-**Campaign:** PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01
-**Mode:** RESUME EXISTING CAMPAIGN
-**SAME CAMPAIGN / NO MICRO-CYCLE:** YES
-**Morris GO consumed:** GO — RESUME EXISTING PRODUCT JOURNEY REAL CAMPAIGN — ZERO NEW REAL — NO MICRO-CYCLE
-**CKC:** ckc:studio:qa-validation · contractVersion 0.1.0 · guidance only · authority NONE
-**Verdict:** CAMPAIGN RESUME BLOCKED — DURABLE STATE / CURRENT MAIN DIVERGENCE
-
-Primary blocker:
-**historical campaign DB absent from this Cloud Agent environment.**
+**Timestamp (UTC):** 2026-09-18T18:40:14Z
+**Timestamp (local):** 2026-09-18 20:40:14 CEST
+**Preflight identity:** PRODUCT-JOURNEY-CLOUD-CURSOR-CLI-PREFLIGHT-01
+**Cycle:** 9 — QA / validation
+**Profile:** STANDARD
+**NO MICRO-CYCLE:** YES
+**CKC:** ckc:studio:qa-validation · 0.1.0 · guidance only · authority NONE
+**Morris GO consumed:** GO — CLOUD CURSOR CLI PREFLIGHT — READ-ONLY — NO PRODUCT REAL — NO DEVELOPMENT
+**Verdict:** CLOUD CURSOR CLI AUTH REQUIRED — FRESH CAMPAIGN BLOCKED
 
 ---
 
@@ -18,188 +16,149 @@ Primary blocker:
 
 | Item | Value |
 |---|---|
-| Workspace | `/workspace` |
-| Active branch (leftover post-merge WT) | `qa/sfia-studio-product-journey-claim-evidence-completion-01` @ `de954f80` (remote deleted) |
-| Worktrees | `/workspace` · `/tmp/sfia-review-handoff-cec01` (`sfia/review-handoff`) |
 | origin/main | `a6dba9776bfb1b4cb1570a87b20b0c71e546e441` |
-| `a6dba977` ancestor of origin/main | YES (= HEAD) |
-| PR #505 | MERGED / POST-MERGE VERIFIED (CI `35377185359` SUCCESS) |
-| Tracked Product source diff this execution | **NONE** |
-| Dirty non-product | `.tmp-sfia-review/chatgpt-review.md` only |
+| HEAD (leftover local WT) | `de954f80…` (PR #505 branch remnant; remote deleted) |
+| Main advanced since a6dba977? | NO |
+| Launch contract sources | read from workspace = main content for gateway/runner |
+| Tracked Product diff | **NONE** |
+| Local dirty | `.tmp-sfia-review/chatgpt-review.md` only |
 
-No main advance beyond `a6dba977`. No Product Journey code drift since PR #505 merge.
-
----
-
-## 2. Sources read (pre-runtime)
-
-Template / method: sfia-cycle-execution-template · cycle-routing-guide · chatgpt-cursor-operating-model · rules-and-guardrails · v2.5 project-cycles candidate (external process only).
-
-Studio: Build Doctrine · Convergence Roadmap (READ-ONLY; RES-CEC-ROADMAP-POSTMERGE-TRUTH remains deferred non-blocking) · product-completion cadrage.
-
-v3 framing: 32 LPS/trajectory · 33 epistemology · 35 artifact evidence debt · CKC 09 qa-validation.
-
-Campaign/impl: product-journey-e2e-real-reconciliation-01-capitalization · w3cPostEvidenceLoop · w3cProductPresentation · w3bProductTerminalProjection · completeDocsWriteClaimEvidenceCompletion · e2e studio-w3c-post-evidence-replan-runtime.spec · productJourneyPostExecutionReplan.d0 · claimEvidenceCompletion.d0.
-
-Product DB path mechanism on current main:
-`resolveProductSqlitePath` / `SFIA_STUDIO_PRODUCT_DB_PATH`
-(`projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/paths.ts` @ origin/main).
-
-**Fact:** current main **can** consume an existing campaign DB via supported env override — IF the durable file is present.
+PR #505 remains MERGED / POST-MERGE VERIFIED context for current main.
 
 ---
 
-## 3. Campaign DB discovery — FAIL
+## 2. Current Product launch contract (verified in code)
 
-### Expected sources (not found)
+`resolveCursorBinPath` order:
 
-| Path | Result |
+1. `SFIA_CURSOR_BIN`
+2. `/Applications/Cursor.app/Contents/Resources/app/bin/cursor`
+3. `$HOME/.local/bin/cursor-agent`
+
+RO argv shape (gateway):
+
+`agent --print --mode ask --workspace <ws> --trust --sandbox disabled --force <instruction>`
+
+`NodeCursorProcessRunner`: `spawn(executable, argv, { shell:false, stdio:["ignore","pipe","pipe"] })`
+
+---
+
+## 3. Cloud environment
+
+| Item | Value |
 |---|---|
-| `/Users/morris/Projects/sfia-studio-product-journey-e2e-real-reconciliation-01/projects/sfia-studio/.sfia-exec/pje2e-real-01/product/oa-product.sqlite` | **ABSENT** (no `/Users/morris` on this Cloud VM) |
-| `/workspace/projects/sfia-studio/.sfia-exec/pje2e-real-01/product/oa-product.sqlite` | **ABSENT** |
-| Capitalisation relative path under studio `.sfia-exec/pje2e-real-01/` | **ABSENT** |
-
-### Broader search
-
-- Recursive find for `*pje2e*` under `/` → empty
-- Walk of `.sqlite` under `/tmp` `/workspace` `/home/ubuntu` `/opt/cursor` for Attempt id `xat:w3a:c4c5670edb4658cc` → **0 hits**
-- No forensic backup `oa-product.pje2e-real-01.pre-resume-*` present
-- Campaign DB is documented **hors Git** (capitalisation) — correctly not in repository
-
-### Backup
-
-| Step | Result |
-|---|---|
-| Existence check | FAIL |
-| SHA256 source | N/A |
-| Forensic byte-for-byte backup | **NOT PERFORMED** (nothing to copy) |
-| SHA parity | N/A |
+| OS | Ubuntu 24.04.4 LTS (Noble) · linux/x64 · kernel 6.12.94+ |
+| HOME | `/home/ubuntu` |
+| SHELL | `/bin/bash` |
+| Managed repo root | `/workspace` (writable `/tmp` for future `SFIA_STUDIO_MANAGED_REPO_ROOT_BASE`) |
+| Managed-repo composition | appears **feasible** (git remote present; tmp writable) — **≠ REAL proven** |
 
 ---
 
-## 4. PRE-RESUME durable snapshot
+## 4. CLI discovery + install
 
-**NOT EXECUTED** — blocked by DB absence.
+**Before install:** `agent` / `cursor-agent` / `cursor` absent; `SFIA_CURSOR_BIN` unset; macOS Cursor path N/A.
 
-Cannot prove without durable DB:
+**Official install performed:** YES
+`curl https://cursor.com/install -fsS | bash` (user-space; no sudo; no shell-profile mutation; no repo write)
 
-- Attempts = 3 / Attempt 3 succeeded / no Attempt 4
-- Artifact + conformity Evidence v2
-- ReviewBundle successor evidence-completion-v2
-- current CE exactly evidence-completion-v2 pass
-- Product SUCCESS
-- LPS v29
-- Trajectory v4
-- W3-C Recommendation continue / autoReplan false
+**After install:**
 
-Expected anchors (from accepted handoff/docs — **not re-verified this run**):
-
-| Anchor | Expected |
+| Path | Status |
 |---|---|
-| Project | SFIA Studio — Golden Journey REAL Acceptance 01 |
-| Attempt 3 | `xat:w3a:c4c5670edb4658cc` succeeded |
-| EC | `xct:m3-res:dec:w2-trj:e00839c5-5022-4bd8-8243-f0a2dd6e79cb` |
-| Target | `projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md` |
-| Artifact digest | `sha256:3cb08ee5fa2dabb1d75b7e90b65c4843935cdda75767fbfd6ff9e7fcd0b6bccf` |
-| Conformity Evidence | `ev:docs-write-conformity:evidence-completion-v2:xat:w3a:c4c5670edb4658cc` |
-| CE current | evidence-completion-v2 pass |
-| Product | SUCCESS |
-| LPS | v29 |
-| Trajectory | v4 |
-| Attempts | 3 |
+| `/home/ubuntu/.local/bin/agent` | EXISTS_EXEC → symlink to `…/versions/2026.09.15-d2fe57e/cursor-agent` |
+| `/home/ubuntu/.local/bin/cursor-agent` | EXISTS_EXEC (same target) |
+| macOS Cursor App bin | ABSENT |
+
+**CLI version:** `2026.09.15-d2fe57e` (`agent --version` exit 0)
+
+**Resolver-compatible binary found:** YES — `$HOME/.local/bin/cursor-agent` matches current resolver fallback without code change.
+
+**SFIA_CURSOR_BIN requirement:** NO (for binary discovery alone)
+
+**Operational SFIA_CURSOR_BIN candidate:** `/home/ubuntu/.local/bin/agent` or `cursor-agent` (same binary) — auth still required before operational use.
 
 ---
 
-## 5. Runtime / UI / Pilote
+## 5. Auth
 
-| Step | Status |
+| Item | Value |
 |---|---|
-| Temporary detached worktree from origin/main | **NOT CREATED** (stop before runtime) |
-| Studio start | **NOT STARTED** |
-| `SFIA_STUDIO_CURSOR_REAL` / `OPS1_CURSOR_REAL` OFF | planned but unused |
-| Project rehydrate | **NOT ATTEMPTED** |
-| Morris Pilote UI interaction | **NOT STARTED** |
-| Nora LIVE qualification | **NOT OBSERVED** |
-| Reload/restart continuity | **NOT RUN** |
-| HumanDecision | **NONE** |
-| Attempt 4 | **NONE** (no runtime) |
-| Cursor REAL spawn delta | **0** |
-| Product source tracked mutations | **NONE** |
+| `agent status` | exit 0 · stdout: `Not logged in` |
+| Auth status | **NOT AUTHENTICATED** |
+| `CURSOR_API_KEY` | **UNSET** |
+| Other Cursor tokens checked | UNSET (names only; values never printed) |
 
-No unsupported state transfer / fixture / SQL backfill / import invented.
+Per GO: no `agent login`; no login URL; no secret mutation.
 
 ---
 
-## 6. Gap / Blocker classification
+## 6. Probes
 
-### BLOCKER-RESUME-01 — Historical campaign DB unavailable on Cloud Agent
+| Probe | Result |
+|---|---|
+| Direct official CLI model probe | **NOT RUN** (auth required) |
+| Exact Studio-shaped shell:false spawn probe | **NOT RUN** (auth required) |
+| Model invocations consumed | **0** / max 2 |
+| Git mutation from probes | **NONE** |
+| Product Attempts created | **0** |
+| Product REAL | **0** |
+| `SFIA_STUDIO_CURSOR_REAL` | unset / OFF |
+
+Compatibility of gateway argv shape vs Cloud CLI remains **UNPROVEN** this run (blocked before probe).
+
+---
+
+## 7. Gap
+
+### CLOUD-CLI-02 — authentication unavailable
 
 | Field | Value |
 |---|---|
-| ID | BLOCKER-RESUME-01 |
-| Loop step | Campaign DB Safety / Pre-resume |
-| Expected | Durable `oa-product.sqlite` for `pje2e-real-01` present and consumable via `SFIA_STUDIO_PRODUCT_DB_PATH` |
-| Observed | File absent on Cloud VM; Morris laptop path unreachable |
-| UI proof | N/A |
-| DB/runtime proof | filesystem search + Attempt-id sqlite scan = empty |
-| Reproducible | YES on this environment |
-| Pilot impact | Cannot resume Product Journey campaign |
-| Severity | **BLOCKING** |
-| Blocks continuation | **YES** |
-| Architecture | existing Product SQLite path override KEPT — not the defect |
-| Probable path (no implementation) | Provide forensic DB to Cloud Agent **or** execute resume on the host that holds the durable campaign DB |
-| Relation | Capitalisation documents DB as hors Git |
+| Expected | Authenticated Cursor CLI usable for read-only probes |
+| Observed | CLI installed + version OK; `agent status` = Not logged in; `CURSOR_API_KEY` UNSET |
+| Exact command | `agent status` |
+| Exit code | 0 |
+| stderr | empty |
+| Impact on fresh Cloud Product Journey | **BLOCKS** any Studio→Cursor REAL boundary on this VM until auth configured |
+| Product code involved | NONE (environment/auth only) |
+| Env config alone can solve? | **YES** — supported Cloud Agent secret / Cursor credential mechanism |
+| Product change required? | **NO** |
 
-### Deferred non-blocking (unchanged)
-
-`RES-CEC-ROADMAP-POSTMERGE-TRUTH` — Roadmap tip still pre-merge wording; Git/PR #505 prime. Not relevant to this blocker.
+Root cause: Cloud environment lacks Cursor CLI credentials. Not a Studio gateway code defect at this stage.
 
 ---
 
-## 7. Anti-claims / permissions
+## 8. Claims
 
-**Authorized this run:**
-- Local Git Truth Check
-- Discovery that current main supports `SFIA_STUDIO_PRODUCT_DB_PATH`
-- STOP on absent durable campaign DB without inventing state
+**Allowed:**
+- Official Cursor CLI installable user-space on this Cloud Ubuntu VM
+- `cursor-agent` path matches current Product resolver fallback
+- Auth currently unavailable → fresh Cloud Product Journey campaign blocked at CLI auth preflight
 
-**Not claimed:**
-- Campaign resume PASS
-- Post-result continuity
-- Nora cognitive quality
-- Product Journey READY/COMPLETE
-- END-TO-END REAL PROVEN
+**Forbidden:**
+- Product Journey READY / REAL PASS / E2E REAL
+- Studio gateway shape COMPATIBLE (unproven)
 - runtime v3 ADOPTED
-- Attempt 3 rehydrated on current main (unverified this environment)
-
-**Confirmed zeros:**
-- ZERO NEW CURSOR REAL
-- ZERO Attempt 4
-- ZERO Product source diff
-- ZERO new macro / micro-cycle / PR / merge / branch
+- fresh campaign authorized
 
 ---
 
-## 8. Recommendation (not a decision)
+## 9. Recommendation (not a decision)
 
-**ONE coherent next action for Morris (Recommendation only):**
+Configure Cursor credential through the supported Cloud Agent secret/environment mechanism (`CURSOR_API_KEY` or equivalent supported auth), then **re-run this same preflight** to complete:
 
-1. Supply the durable campaign DB (or a forensic byte-identical backup with SHA parity) into an environment that can reach it, **or**
-2. Re-issue the same GO on the local campaign host where
-   `…/pje2e-real-01/product/oa-product.sqlite` exists,
+1. direct read-only CLI probe
+2. exact Studio-shaped `shell:false` + `argv[0]=agent` spawn probe
 
-then resume from §7 Campaign DB Safety onward — still ZERO NEW REAL / NO MICRO-CYCLE / no product fix.
+Do **not** start `PRODUCT-JOURNEY-E2E-CURRENT-MAIN-CLOUD-REPROOF-01` until Verdict A or B is achieved.
 
-Do **not** invent fixtures. Do **not** open a Delivery remediation lot solely for missing DB transport.
-
-If after DB is available a Product gap appears: QUALIFY + PROVE + STOP; regroup coherent gaps into one remediation lot later.
+No Product build. No micro-cycle. No wrapper/shim.
 
 ---
 
-## 9. Final verdict
+## 10. Final verdict
 
-**CAMPAIGN RESUME BLOCKED — DURABLE STATE / CURRENT MAIN DIVERGENCE**
+**CLOUD CURSOR CLI AUTH REQUIRED — FRESH CAMPAIGN BLOCKED**
 
-Clarification: divergence is **environment durable-state availability**, not a proven semantic conflict between current main Product code and the accepted campaign handoff. Current main still contains PR #505 evidence-completion path and supports consuming an external Product DB via `SFIA_STUDIO_PRODUCT_DB_PATH`.
-
-SAME CAMPAIGN. NO MICRO-CYCLE. ZERO NEW CURSOR REAL. NO ATTEMPT 4. NO PRODUCT FIX. NO ROADMAP UPDATE. STOP BEFORE RUNTIME.
+SAME PREFLIGHT. NO MICRO-CYCLE. ZERO PRODUCT REAL. ZERO ATTEMPT. ZERO PRODUCT SOURCE CHANGE.
