@@ -1,92 +1,48 @@
-# CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 — GIT INTEGRATION / PRE-PR — Review Pack (FULL)
+# CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 — GIT INTEGRATION / CI CORRECTIVE — Review Pack (FULL)
 
 ## A. Timestamp
-2026-09-18 09:23:36 CEST (+0200)
+2026-09-18 09:33:30 CEST (+0200)
 
-Pack revision: **CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 — GIT INTEGRATION / PRE-PR**
+Pack revision: **CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 — GIT INTEGRATION / CI CORRECTIVE**
 
 ## B. Git Truth
 
 | Item | Value |
 | --- | --- |
-| Worktree | `/Users/morris/Projects/sfia-studio-contract-result-extensibility-framing-01` |
 | Branch | `feat/sfia-studio-contract-result-extensibility-01` |
-| Pre-commit HEAD / origin/main | `bb6af3cabef663bd8619b85326dbc205057b7c7d` |
-| Project commit | `55c8b294cab08bc75d78dbdf6b3cf1deaf8d85fa` |
-| Prior ChatGPT handoff | `sfia/review-handoff` @ `dcca0de93de3c47e8517f15f53b5cbcc86280bab` |
-| package-lock | **NOT staged / NOT committed** |
-| campaign DB / .tmp-sfia-review | **NOT staged / NOT committed** |
+| Principal commit | `55c8b294cab08bc75d78dbdf6b3cf1deaf8d85fa` |
+| Corrective commit | `1eabf9d7a4b735e2d16d64ffc64996263eb996e9` |
+| PR | https://github.com/mcleland147/sfia-workspace/pull/502 |
+| origin/main baseline | `bb6af3cabef663bd8619b85326dbc205057b7c7d` |
+| package-lock / .tmp / DB | **NOT staged** |
 
-## C. Morris GO consumed
+## C. CI failure classification (run 35319265465)
 
-GO — CONTRACT RESULT EXTENSIBILITY A+B — PROJECT GIT INTEGRATION — COMMIT + PUSH + PR + CI + CONDITIONAL MERGE + POST-MERGE VERIFICATION — ZERO REAL — PRESERVE BRANCH
+| Check | Result | Class |
+| --- | --- | --- |
+| Detect SFIA Studio changes | PASS | — |
+| Build and validate SFIA Studio | FAIL | — |
+| SFIA Studio Required Gate | FAIL (dependent) | — |
 
-## D. Pre-commit validation
+Failures:
 
-| Command | Result |
-| --- | --- |
-| Focused Vitest (13 files) | **123 passed** |
-| `npm run typecheck` | **PASS** |
-| `npm run build` | **PASS** |
-| `npm run lint` | **PASS** (next lint deprecated warning only) |
-| `git diff --check` | **PASS** |
+1. **Class A** — `__tests__/project-assistant/importBoundaries.test.ts`
+   Cause: `materializeW3bProductTerminal.ts` imported `M4_BOUNDED_DOCS_WRITE_ACTION` from `.../m4BoundedDocsWriteCursorAgent` (path matches `/from ["']@\/lib\/.*cursor/i`).
+   Fix: import from `@/lib/oa/execution-attempt` barrel (same constant; matches sibling w2/f3 pattern).
 
-ZERO Studio/Cursor Product REAL.
+2. **Class C (provisional)** — `__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx`
+   `Unable to find [data-testid="w2-contract"]` — file **not in PR diff**; passes locally (45/45).
+   Treat as flake; corrective push re-runs CI. One rerun authorized if it reappears alone.
 
-## E. Committed files
+## D. Local revalidation after fix
 
-```
-M	projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultCorrection.test.ts
-M	projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultCorrectionPass2.test.ts
-A	projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultSemanticsRegistry.d0.test.ts
-M	projects/sfia-studio/app/__tests__/oa/evidence-review/optionBBoundSnapshot.test.ts
-A	projects/sfia-studio/app/__tests__/project-assistant/contractResultCrBlk04PreserveWhat.d0.test.ts
-A	projects/sfia-studio/app/__tests__/project-assistant/contractResultDocsWriteRequal.d0.test.ts
-M	projects/sfia-studio/app/features/project-assistant/f3/completeBoundedReadOnlyLaunch.ts
-M	projects/sfia-studio/app/features/project-assistant/f3/index.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
-A	projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts
-M	projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultAssessment.ts
-M	projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultSemanticEvaluator.ts
-A	projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultSemantics.ts
-A	projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts
-M	projects/sfia-studio/app/lib/oa/evidence-review/application/evaluateContractResult.ts
-A	projects/sfia-studio/app/lib/oa/evidence-review/application/resolveCurrentContractResultClaimEvaluation.ts
-A	projects/sfia-studio/app/lib/oa/evidence-review/application/tempArtifactContractResultSemantic.ts
-M	projects/sfia-studio/app/lib/oa/evidence-review/index.ts
-M	projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/memoryClaimEvaluationRepository.ts
-M	projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/createSqliteEvidenceReviewServices.ts
-M	projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/sqliteClaimEvaluationRepository.ts
-M	projects/sfia-studio/app/lib/oa/evidence-review/ports/claimEvaluationRepository.ts
-M	projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionResult.ts
-M	projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
-A	projects/sfia-studio/convergence/sfia-studio-contract-result-extensibility-framing.md
-M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-```
+- importBoundaries + trajectorySurface + ContractResult focused suite: **85 passed**
+- ZERO Studio/Cursor Product REAL
 
-## F. CR-BLK status
+## E. Attempt 3 reserve
 
-CR-BLK-01 CLOSED · CR-BLK-02 CLOSED · CR-BLK-03 CLOSED · CR-BLK-04 CLOSED
+Current CE strict **not_proven** unchanged. Attempts **3→3**.
 
-## G. Attempt 3 reserve (unchanged)
+## F. Verdict
 
-Current CE `clm:docs-write:strict-eo-v1:xat:w3a:c4c5670edb4658cc` = **not_proven**
-Attempts **3→3**. No new REAL. No DB in commit.
-
-## H. Claims / anti-claims
-
-ALLOWED after merge (prospective): registry + temp-artifact + docs_write semantic + CE supersession + CR-BLK-01..04 + success provenance adapt + Attempt 3 strict NOT_PROVEN + ZERO Studio REAL.
-
-FORBIDDEN: Attempt 3 Product PASS · Journey READY · generic CR all classes · Git/PR/CI CR semantics · v3 ADOPTED · L5 · branch delete.
-
-## I. PR target
-
-base `main` ← head `feat/sfia-studio-contract-result-extensibility-01`
-
-## J. Merge conditions
-
-Required CI PASS · mergeable · no package-lock · no DB · Attempt 3 remains NOT_PROVEN · ZERO Studio REAL · branch PRESERVED · no architecture pivot.
-
-## K. Verdict (pre-PR)
-
-**CONTRACT RESULT EXTENSIBILITY A+B — COMMITTED LOCALLY — READY TO PUSH / OPEN PR**
+**CONTRACT RESULT EXTENSIBILITY A+B — CI CORRECTIVE PUSHED — AWAITING REQUIRED GATE**
