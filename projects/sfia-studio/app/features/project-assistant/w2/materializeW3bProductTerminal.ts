@@ -8,8 +8,10 @@ import { createHash } from "node:crypto";
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
 import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
 import type { ExecutionContract } from "@/lib/oa/execution-contract";
-import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
-import { M4_BOUNDED_DOCS_WRITE_ACTION } from "@/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent";
+import {
+  type ExecutionAttempt,
+  M4_BOUNDED_DOCS_WRITE_ACTION,
+} from "@/lib/oa/execution-attempt";
 import type { ClaimEvaluation, Evidence, ReviewBundle } from "@/lib/oa/evidence-review";
 import { resolveCurrentContractResultClaimEvaluation } from "@/lib/oa/evidence-review";
 import { requalifyDocsWriteContractResult } from "./requalifyDocsWriteContractResult";
