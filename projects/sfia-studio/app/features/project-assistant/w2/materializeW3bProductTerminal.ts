@@ -11,6 +11,7 @@ import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
 import type { ClaimEvaluation, Evidence, ReviewBundle } from "@/lib/oa/evidence-review";
 import {
   projectW3bProductTerminal,
+  productReservationsForAttempt,
   type W3BProductTerminalProjection,
 } from "./w3bProductTerminalProjection";
 import {
@@ -36,13 +37,6 @@ export type MaterializeW3bProductTerminalResult =
       readonly product?: W3BProductTerminalProjection;
       readonly postEvidence?: W3cPostEvidenceLoopResult;
     };
-
-const PRODUCT_RESERVATIONS = [
-  "Evidence requise avant claim produit",
-  "Apprentissage / replan non démarrés",
-  "Exécuteur de substitution — pas d'effet externe réel",
-  "Aucun READY",
-] as const;
 
 export function w3bEvidenceIdentity(attemptId: string): {
   evidenceId: string;
@@ -182,7 +176,7 @@ export async function materializeW3bProductTerminal(input: {
     executionContractId: contract.executionContractId,
     ...(contract.cycleInstanceId ? { cycleInstanceId: contract.cycleInstanceId } : {}),
     evidenceIds: [ingested.evidence.evidenceId],
-    reservations: [...PRODUCT_RESERVATIONS],
+    reservations: [...productReservationsForAttempt(attempt)],
   });
 
   if (!bundle.ok) {

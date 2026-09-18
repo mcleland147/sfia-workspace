@@ -18,6 +18,8 @@ import { getRuntimeApplicationService } from "@/lib/vertical-slice-runtime";
 import { readLiveProjectContext } from "@/lib/vertical-slice-runtime/liveProjectContext";
 import { resolveCurrentAuthenticatedPilote } from "@/lib/auth/resolveCurrentPilote";
 import { amendExecutionContractWithConstraint } from "./amendExecutionContract";
+import { rematerializeDocsWriteEvidenceRequirements } from "../f3/rematerializeDocsWriteEvidenceRequirements";
+import type { RematerializeDocsWriteEvidenceResult } from "../f3/rematerializeDocsWriteEvidenceRequirements";
 import { evaluateExecutionAuthorization } from "./authorizeExecutionContract";
 import { confirmExecutionContractForAuthorization } from "./confirmForAuthorization";
 import { decideTrajectory } from "./decideTrajectory";
@@ -38,12 +40,15 @@ import { loadPresentedOptionSet } from "./presentedOptionSet";
 import { readActiveProposalDecisionSubject } from "./activeProposalDecisionSubject";
 import { readCurrentGovernedExecutionContinuity } from "./readCurrentGovernedExecutionContinuity";
 import { prepareExecutionContractFromW2Decision } from "./prepareExecutionContractFromW2Decision";
+import { prepareDocsWriteRecoverySuccessorFromDecision } from "./prepareDocsWriteRecoverySuccessor";
+import { resolveRecoveryExecutionBinding } from "./resolveRecoveryExecutionBinding";
 import { proposeTrajectoryOptions } from "./proposeTrajectoryOptions";
 import { readW2ProjectHistory } from "./projectHistory";
 import { resolveW2QualificationInputs } from "./qualificationInputs";
 import type {
   ActiveDecisionSubjectReadResult,
   AmendExecutionContractResult,
+  AmendedExecutionContractDto,
   ConfirmForAuthorizationResult,
   CurrentGovernedExecutionContinuityResult,
   DecideTrajectoryResult,
@@ -56,6 +61,7 @@ import type {
   ProposeTrajectoryOptionsResult,
 } from "./types";
 import type { ReadW2ProjectHistoryResult } from "./projectHistory";
+import type { RecoveryExecutionBinding } from "./resolveRecoveryExecutionBinding";
 
 const OA_UNAVAILABLE = {
   ok: false as const,
@@ -133,6 +139,13 @@ export async function w2ReadActiveDecisionSubjectAction(input: {
       message: read.message,
       proposalIds: read.markers.map((m) => m.proposalId),
       recoverableProposalIds: read.recoverableProposalIds,
+    };
+  }
+  if (read.kind === "pursue_prepare_ready") {
+    return {
+      ok: true,
+      kind: "pursue_prepare_ready",
+      decision: read.decision,
     };
   }
   return {
@@ -283,6 +296,30 @@ export async function w2AmendExecutionContractAction(input: {
   });
 }
 
+/**
+ * Rematerialize docs_write evidenceRequirements when Git lifecycle proofs
+ * contradict NO_* constraints. Supersession only — no Confirm / Execute / REAL.
+ */
+export async function w2RematerializeDocsWriteEvidenceAction(input: {
+  projectId: string;
+  executionContractId: string;
+  /** Hostile — ignored. */
+  canActAsMorris?: unknown;
+  claimedAuthorityLevel?: unknown;
+}): Promise<RematerializeDocsWriteEvidenceResult> {
+  void input.canActAsMorris;
+  void input.claimedAuthorityLevel;
+
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) return OA_UNAVAILABLE;
+
+  return rematerializeDocsWriteEvidenceRequirements({
+    oa: runtime.oa,
+    projectId: input.projectId,
+    executionContractId: input.executionContractId,
+  });
+}
+
 async function loadF2ContextForProject(
   oa: NonNullable<ReturnType<typeof getRuntimeApplicationService>["oa"]>,
   projectId: string,
@@ -361,6 +398,88 @@ export async function w2PrepareExecutionContractAction(input: {
     f3SemanticOverwrite: false,
     executionPerformed: false,
     attemptCreated: false,
+  };
+}
+
+/**
+ * R8 — read RecoveryExecutionBinding for UI (docs_write recovery CTA).
+ * Client sends only projectId + optional decisionId. No path/op injection.
+ */
+export async function w2ReadRecoveryExecutionBindingAction(input: {
+  projectId: string;
+  decisionId?: string | null;
+}): Promise<
+  | { readonly ok: true; readonly binding: RecoveryExecutionBinding | null }
+  | { readonly ok: false; readonly code: string; readonly message: string }
+> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) return OA_UNAVAILABLE;
+  return resolveRecoveryExecutionBinding({
+    oa: runtime.oa,
+    projectId: input.projectId,
+    decisionId: input.decisionId,
+  });
+}
+
+/**
+ * R8 — prepare bounded docs_write successor from recovery HD + failed EC binding.
+ * Does not accept client path/operation. Cancels wrong generic current if needed.
+ */
+export async function w2PrepareRecoveryDocsWriteAction(input: {
+  projectId: string;
+  decisionId: string;
+  /** Hostile — ignored. */
+  targetPath?: unknown;
+  qualifiedOperationKind?: unknown;
+  real?: unknown;
+}): Promise<
+  | {
+      readonly ok: true;
+      readonly contract: AmendedExecutionContractDto;
+      readonly decisionId: string;
+      readonly cancelledWrongGenericContractId: string | null;
+      readonly reusedFromIdempotency: boolean;
+      readonly f3SemanticOverwrite: false;
+      readonly executionPerformed: false;
+      readonly attemptCreated: false;
+      readonly binding: RecoveryExecutionBinding;
+    }
+  | { readonly ok: false; readonly code: string; readonly message: string }
+> {
+  void input.targetPath;
+  void input.qualifiedOperationKind;
+  void input.real;
+
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) return OA_UNAVAILABLE;
+
+  const context = await loadF2ContextForProject(runtime.oa, input.projectId);
+  if (!context) {
+    return {
+      ok: false,
+      code: "PROJECT_NOT_FOUND",
+      message: "Projet ou LPS introuvable pour la préparation recovery.",
+    };
+  }
+
+  const prepared = await prepareDocsWriteRecoverySuccessorFromDecision({
+    oa: runtime.oa,
+    projectId: input.projectId,
+    decisionId: input.decisionId,
+    currentContext: context,
+  });
+  if (!prepared.ok) return prepared;
+
+  return {
+    ok: true,
+    contract: prepared.successor,
+    decisionId: prepared.decisionId,
+    cancelledWrongGenericContractId: prepared.cancelledWrongGenericContractId,
+    reusedFromIdempotency: prepared.reusedFromIdempotency,
+    f3SemanticOverwrite: false,
+    executionPerformed: false,
+    attemptCreated: false,
+    binding: prepared.binding,
   };
 }
 

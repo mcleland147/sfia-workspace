@@ -137,6 +137,28 @@ export type ExecutionAttempt = {
   technicalExitCode?: number;
   durationMs?: number;
   logRefs?: string[];
+  /**
+   * Checkpoint F / R6 — redacted/capped process observation on failure/timeout.
+   * Optional additive payload field (no SQLite migration). Diagnostic only —
+   * never authoritative business Evidence / docs_write artifact proof.
+   */
+  processDiagnostic?: {
+    readonly kind: "process_failure_diagnostic";
+    readonly schemaVersion: "0.1.0-oa";
+    readonly processRef: string;
+    readonly exitCode: number | null;
+    readonly timedOut: boolean;
+    readonly durationMs: number;
+    readonly realProcessInvoked: boolean;
+    readonly boundaryProofMode?: "cursor_real" | "deterministic_fake";
+    readonly executableBasename?: string;
+    readonly stdoutExcerpt: string;
+    readonly stderrExcerpt: string;
+    readonly stdoutTruncated: boolean;
+    readonly stderrTruncated: boolean;
+    readonly redacted: true;
+    readonly authoritativeBusinessEvidence: false;
+  };
   cancellationRequested?: boolean;
   irreversibleEffectsPossible?: boolean;
   updatedAt?: string;
@@ -265,6 +287,8 @@ export type RecordExecutionFailureRequest = {
   technicalExitCode?: number;
   durationMs?: number;
   logRefs?: string[];
+  /** Optional redacted process diagnostic (failure / timeout). */
+  processDiagnostic?: ExecutionAttempt["processDiagnostic"];
   correlationId?: string;
   expectedAttemptVersion?: number;
   nowIso?: string;

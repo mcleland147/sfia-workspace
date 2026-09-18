@@ -47,6 +47,14 @@ export {
   authorizedM3ResolutionKind,
 } from "./selectProductM3ResolutionProfile";
 export { deriveAttemptProvenance, F3_REAL_MODE, F3_BOUNDED_M4_DETERMINISTIC_MODE } from "./deriveAttemptProvenance";
+export { resolveDurableBoundaryProofMode } from "./resolveDurableBoundaryProofMode";
+export {
+  buildProcessFailureDiagnostic,
+  isProcessFailureDiagnostic,
+  PROCESS_DIAGNOSTIC_STDOUT_CAP,
+  PROCESS_DIAGNOSTIC_STDERR_CAP,
+} from "./processFailureDiagnostic";
+export type { ProcessFailureDiagnostic } from "./processFailureDiagnostic";
 export { completeBoundedReadOnlyLaunch } from "./completeBoundedReadOnlyLaunch";
 export type {
   BoundedLaunchObservationFacts,
@@ -61,6 +69,12 @@ export type {
 } from "./prepareAndResolveM3ProductPath";
 export { resolveExistingLegacyM3DocsWriteProductPath } from "./resolveExistingLegacyM3DocsWriteProductPath";
 export { isLegacyDocsWritePrepareContractView } from "./legacyDocsWritePrepareContractView";
+export { isDocsWriteEvidenceContradictionView } from "./docsWriteEvidenceContradictionView";
+export { rematerializeDocsWriteEvidenceRequirements } from "./rematerializeDocsWriteEvidenceRequirements";
+export type {
+  RematerializeDocsWriteEvidenceResult,
+  RematerializeDocsWriteEvidenceSuccess,
+} from "./rematerializeDocsWriteEvidenceRequirements";
 export type {
   F3M3LegacyResolvedPayload,
   ResolveExistingLegacyM3DocsWriteDeps,

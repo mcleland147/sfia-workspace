@@ -7,6 +7,10 @@
  * seam already carries. This module adds NO cognitive path: it does not call a
  * provider, does not read CKC content and is not a Phase B integration point.
  * Same inputs always yield the same options, in the same order.
+ *
+ * Checkpoint F / R7 — when RecoveryContext is present, same optionRefs are kept
+ * (idempotent OptionSet supersession) but labels/intents/steps carry recovery
+ * semantics so framing-generic cognition is not the subject.
  */
 
 import type { TrajectoryStep } from "@/lib/oa/cycle";
@@ -14,6 +18,7 @@ import type {
   TrajectoryOptionDto,
   TrajectoryRecommendationDto,
 } from "./types";
+import type { PostEvidenceRecoveryContext } from "./resolvePostEvidenceRecoveryContext";
 
 export type TrajectoryOptionInputs = {
   readonly cycleTypeId: string;
@@ -22,6 +27,8 @@ export type TrajectoryOptionInputs = {
   readonly irreversible: boolean;
   readonly reservations: readonly string[];
   readonly ckcAttribution: string | null;
+  /** Optional durable post-Evidence recovery subject (R7). */
+  readonly recoveryContext?: PostEvidenceRecoveryContext | null;
 };
 
 export const GOVERNED_OPTION_REF = "opt:trajectory:governed-gated" as const;
@@ -103,6 +110,56 @@ function clarifySteps(): TrajectoryStep[] {
   ];
 }
 
+function recoveryRetrySteps(): TrajectoryStep[] {
+  return [
+    step(1, "w2-rec-diagnose", "Prendre en compte l'échec et l'Evidence durables"),
+    step(2, "w2-rec-decide", "Décision humaine explicite de recovery", {
+      dependencies: ["stp:w2-rec-diagnose"],
+      gate: "human_decision",
+      exitCriteria: ["HumanDecision acceptée — Recommendation ≠ décision"],
+    }),
+    step(3, "w2-rec-contract", "Préparer un nouveau contrat d'exécution", {
+      dependencies: ["stp:w2-rec-decide"],
+    }),
+    step(4, "w2-rec-inspect", "Inspecter puis autoriser avant Execute", {
+      dependencies: ["stp:w2-rec-contract"],
+      gate: "inspection",
+      exitCriteria: ["Inspection valide", "Arrêt avant exécution"],
+    }),
+  ];
+}
+
+function recoveryClarifySteps(): TrajectoryStep[] {
+  return [
+    step(1, "w2-rec-clr-read", "Lire Evidence / ReviewBundle / stopReason"),
+    step(
+      2,
+      "w2-rec-clr-gap",
+      "Clarifier le diagnostic avant toute nouvelle tentative",
+      { dependencies: ["stp:w2-rec-clr-read"] },
+    ),
+    step(3, "w2-rec-clr-reoption", "Réinstruire les options recovery", {
+      dependencies: ["stp:w2-rec-clr-gap"],
+      gate: "human_decision",
+      exitCriteria: ["Nouvelle décision humaine requise"],
+    }),
+  ];
+}
+
+function recoverySuspendSteps(): TrajectoryStep[] {
+  return [
+    step(1, "w2-rec-hold-ack", "Conserver l'échec comme vérité durable"),
+    step(2, "w2-rec-hold-decide", "Décision humaine de suspension / replan", {
+      dependencies: ["stp:w2-rec-hold-ack"],
+      gate: "human_decision",
+      exitCriteria: ["HumanDecision acceptée — pas de relance automatique"],
+    }),
+    step(3, "w2-rec-hold-replan", "Replanifier sans Execute immédiat", {
+      dependencies: ["stp:w2-rec-hold-decide"],
+    }),
+  ];
+}
+
 /**
  * Options are always presented in the same order so the UI never implies a
  * ranking by position. Ranking is carried only by the explicit Recommendation.
@@ -111,6 +168,54 @@ export function deriveTrajectoryOptions(
   inputs: TrajectoryOptionInputs,
 ): TrajectoryOptionDto[] {
   const reservations = [...inputs.reservations];
+  const recovery = inputs.recoveryContext ?? null;
+  if (recovery) {
+    return [
+      {
+        kind: "OPTION",
+        optionRef: GOVERNED_OPTION_REF,
+        label: "Préparer une nouvelle tentative gouvernée",
+        intent:
+          "À partir du FAIL durable, décider explicitement puis préparer / inspecter / autoriser un nouveau contrat — sans Execute automatique.",
+        impacts: [
+          `Attempt failed: ${recovery.attemptId}`,
+          `Evidence: ${recovery.evidenceId}`,
+          "Aucun succès métier revendiqué",
+          `realProcessInvoked durable: ${recovery.realProcessInvoked}`,
+        ],
+        reservations,
+        steps: recoveryRetrySteps(),
+      },
+      {
+        kind: "OPTION",
+        optionRef: BOUNDED_OPTION_REF,
+        label: "Replanifier ou suspendre sans relance immédiate",
+        intent:
+          "Conserver l'échec comme vérité, décider de suspendre ou replanifier — aucune nouvelle tentative immédiate.",
+        impacts: [
+          "Pas de relance Execute dans cette option",
+          `W3C: ${recovery.recommendationKind}`,
+          `outcome: ${recovery.productOutcome}`,
+        ],
+        reservations,
+        steps: recoverySuspendSteps(),
+      },
+      {
+        kind: "OPTION",
+        optionRef: CLARIFY_OPTION_REF,
+        label: "Diagnostiquer / clarifier avant nouvelle tentative",
+        intent:
+          "Approfondir le diagnostic (Evidence, stopReason, observabilité) avant toute préparation d'une nouvelle tentative.",
+        impacts: [
+          "Aucune préparation d'exécution à ce stade",
+          `stopReason: ${recovery.stopReason ?? "n/a"}`,
+          "Nouvelle décision humaine requise après clarification",
+        ],
+        reservations,
+        steps: recoveryClarifySteps(),
+      },
+    ];
+  }
   return [
     {
       kind: "OPTION",
@@ -165,6 +270,19 @@ export function deriveTrajectoryOptions(
 export function deriveTrajectoryRecommendation(
   inputs: TrajectoryOptionInputs,
 ): TrajectoryRecommendationDto {
+  const recovery = inputs.recoveryContext ?? null;
+  if (recovery) {
+    // Prefer diagnose/clarify — never auto-pick retry because a Morris REAL GO exists.
+    return {
+      label: "RECOMMANDATION — PAS UNE DÉCISION",
+      recommendedOptionRef: CLARIFY_OPTION_REF,
+      rationale: `Épisode post-Evidence ${recovery.productOutcome} (${recovery.attemptId}) — ${recovery.headline}. Diagnostiquer / clarifier avant toute nouvelle tentative. Recommendation ≠ HumanDecision ; aucun Execute automatique.`,
+      isHumanDecision: false,
+      promotesTrajectory: false,
+      ckcAttribution: inputs.ckcAttribution,
+      ckcProvenance: null,
+    };
+  }
   if (inputs.reservations.length > 0) {
     return {
       label: "RECOMMANDATION — PAS UNE DÉCISION",

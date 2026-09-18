@@ -1349,7 +1349,11 @@ describe("CORR-PROOF-10 Post-binding Continuity R31–R48", () => {
     );
     expect(read.ok).toBe(true);
     if (!read.ok) return;
-    expect(read.kind).toBe("none");
+    expect(read.kind).toBe("pursue_prepare_ready");
+    if (read.kind !== "pursue_prepare_ready") return;
+    expect(read.decision.decisionId).toBe(decided.decision.decisionId);
+    expect(read.decision.selectedOptionRef).toBe(PROPOSAL_SUBJECT_PURSUE_REF);
+    expect(read.decision.proposalId).toBe(proposal.proposalId);
 
     const second = await decideTrajectory({
       oa: runtime.oa!,
@@ -1744,7 +1748,11 @@ describe("CORR-PROOF-10 Atomic Subject Closure R49–R68", () => {
     );
     expect(read.ok).toBe(true);
     if (!read.ok) return;
-    expect(read.kind).toBe("none");
+    expect(read.kind).toBe("pursue_prepare_ready");
+    if (read.kind !== "pursue_prepare_ready") return;
+    expect(read.decision.decisionId).toBe(firstId);
+    expect(read.decision.selectedOptionRef).toBe(PROPOSAL_SUBJECT_PURSUE_REF);
+    expect(read.decision.proposalId).toBe(proposal.proposalId);
 
     const histBefore =
       await runtime.oa!.decisionServices.listDecisionHistory.execute({
@@ -2052,13 +2060,15 @@ describe("CORR-PROOF-10 Crash-Consistency R69–R86", () => {
     );
     expect(read.ok).toBe(true);
     if (!read.ok) return;
-    expect(read.kind).toBe("none");
+    expect(read.kind).toBe("pursue_prepare_ready");
+    if (read.kind !== "pursue_prepare_ready") return;
+    expect(read.decision.decisionId).toBe(decided.decision.decisionId);
 
     const afterPt = await snapshotTrajectories(runtime.oa!, projectId);
     expect(afterPt.fingerprint).toBe(beforePt.fingerprint);
   });
 
-  it("R70 — generic ProjectTrajectory accessible after closed stale marker", async () => {
+  it("R70 — after pursue closure without EC, PREPARE continuation owns next action (no competing trajectory instruct)", async () => {
     const { projectId, cycleInstanceId, ctx } = await seed("r70");
     const proposal = docsWriteProposal({
       projectId,
@@ -2080,20 +2090,31 @@ describe("CORR-PROOF-10 Crash-Consistency R69–R86", () => {
       forceLocalAuthority: true,
     });
     expect(decided.ok).toBe(true);
+    if (!decided.ok) return;
     await reactivateStalePendingMarker(proposal);
     resetF2ProposalStoreForTests();
 
     const before = await snapshotTrajectories(runtime.oa!, projectId);
     const traj = await proposeW2OptionsForProject(runtime, projectId);
-    expect(traj.ok).toBe(true);
-    if (!traj.ok) return;
-    expect(traj.decisionSubjectMode).toBe("project_trajectory");
-    expect(traj.proposedTrajectory).not.toBeNull();
-    expect(
-      traj.options.some((o) => o.optionRef === GOVERNED_OPTION_REF),
-    ).toBe(true);
+    expect(traj.ok).toBe(false);
+    if (traj.ok) return;
+    expect(traj.code).toBe("PREPARE_CONTINUATION_OWNS_NEXT_ACTION");
+
+    const { readActiveProposalDecisionSubject } = await import(
+      "@/features/project-assistant/w2/activeProposalDecisionSubject"
+    );
+    const read = await readActiveProposalDecisionSubject(
+      runtime.oa!,
+      projectId,
+    );
+    expect(read.ok).toBe(true);
+    if (!read.ok) return;
+    expect(read.kind).toBe("pursue_prepare_ready");
+    if (read.kind !== "pursue_prepare_ready") return;
+    expect(read.decision.decisionId).toBe(decided.decision.decisionId);
+
     const after = await snapshotTrajectories(runtime.oa!, projectId);
-    expect(after.count).toBeGreaterThan(before.count);
+    expect(after.fingerprint).toBe(before.fingerprint);
   });
 
   it("R71/R72 — closed A + stale A does not neutralize pending B", async () => {

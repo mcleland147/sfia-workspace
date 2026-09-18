@@ -230,6 +230,11 @@ export type ActiveDecisionSubjectReadResult =
       readonly kind: "bound_awaiting_decision";
       readonly optionSet: TrajectoryOptionSetDto;
     }
+  | {
+      readonly ok: true;
+      readonly kind: "pursue_prepare_ready";
+      readonly decision: TrajectoryDecisionRecordDto;
+    }
   | W2Failure;
 
 /**

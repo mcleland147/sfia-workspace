@@ -534,6 +534,116 @@ describe("M3 ExecutionContract UNRESOLVED semantics (R1)", () => {
     expect(prepared.code).toBe("DECISION_NOT_CURRENT");
   });
 
+  it("CHECKPOINT-E — docs_write Nora free-text evidenceRequirements coerce to OA identifiers (not CONTRACT_INVALID)", async () => {
+    const noraProse = [
+      "Résultat de l’écriture du fichier",
+      "Résultat de la vérification du contenu",
+    ];
+    const result = await recordAndPrepare(
+      "ckpt-e-nora-evidence.sqlite",
+      {
+        objective:
+          "Matérialiser la fiche Markdown requise par le cycle actif dans le dépôt lié.",
+        requestedOperation: "cursor.docs_write.apply",
+        intentKind: "docs_write",
+        targetRepositoryRef: "mcleland147/sfia-workspace",
+        targetPath:
+          "projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md",
+        scopeIn: ["projects/sfia-studio/.sandbox"],
+        scopeOut: ["Tout autre fichier"],
+        requiredCapabilities: ["cap:cursor.docs_write"],
+        evidenceRequirements: noraProse,
+        expectedOutputs: [
+          "Le fichier Markdown matérialisé au chemin cible",
+          "Vérification de l’existence et de la conformité minimale du fichier",
+        ],
+        reversibilityExpectation: "unknown",
+      },
+      "dec:m3:ckpt-e-nora-evidence",
+    );
+    expect(result).not.toBeNull();
+    if (!result) return;
+    expect(result.prepared.mode).toBe("M3_PREPARE");
+    expect(result.prepared.executionPerformed).toBe(false);
+    expect(result.prepared.cursorReal).toBe(false);
+    expect(result.contract.action).toBe("cursor.docs_write.apply");
+    expect(result.contract.target).toBe("workspace.isolated.docs_write");
+    // Contract field must be OA identifiers — Nora prose must not leak here.
+    for (const id of result.contract.evidenceRequirements) {
+      expect(id).toMatch(/^[a-z][a-z0-9]*:/);
+    }
+    expect(result.contract.evidenceRequirements).toEqual([
+      "evreq:docs_write_artifact",
+    ]);
+    // Free-text preserved in inputs for disclosure (not EC identifier SoT).
+    expect(result.contract.inputs?.evidenceRequirements).toEqual(noraProse);
+  });
+
+  it("CHECKPOINT-E R4 — docs_write free-text fallback must NOT demand Git lifecycle under NO_* profile", async () => {
+    const result = await recordAndPrepare(
+      "ckpt-e-r4-local-evidence.sqlite",
+      {
+        objective: "Matérialiser un fichier sandbox local.",
+        requestedOperation: "cursor.docs_write.apply",
+        intentKind: "docs_write",
+        targetRepositoryRef: "mcleland147/sfia-workspace",
+        targetPath:
+          "projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md",
+        scopeIn: ["projects/sfia-studio/.sandbox"],
+        requiredCapabilities: ["cap:cursor.docs_write"],
+        evidenceRequirements: [
+          "Résultat de l’écriture du fichier",
+          "Résultat de la vérification du contenu",
+        ],
+      },
+      "dec:m3:ckpt-e-r4-local-evidence",
+    );
+    expect(result).not.toBeNull();
+    if (!result) return;
+    const gitLifecycle = [
+      "git:local_commit",
+      "git:remote_push",
+      "git:pull_request",
+      "git:ci_status",
+      "git:review_status",
+      "git:merge",
+      "git:post_merge_verification",
+    ];
+    for (const id of result.contract.evidenceRequirements) {
+      expect(gitLifecycle).not.toContain(id);
+      expect(id).toMatch(/^[a-z][a-z0-9]*:/);
+    }
+    expect(result.contract.evidenceRequirements).toEqual([
+      "evreq:docs_write_artifact",
+    ]);
+  });
+
+  it("CHECKPOINT-E regression — docs_write with valid OA evidenceRequirements preserves them", async () => {
+    const result = await recordAndPrepare(
+      "ckpt-e-valid-evidence.sqlite",
+      {
+        requestedOperation: "cursor.docs_write.apply",
+        intentKind: "docs_write",
+        targetRepositoryRef: "mcleland147/sfia-workspace",
+        targetPath:
+          "projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md",
+        scopeIn: ["projects/sfia-studio/.sandbox"],
+        requiredCapabilities: ["cap:cursor.docs_write"],
+        evidenceRequirements: [
+          "evreq:file-write-result",
+          "evreq:content-verification",
+        ],
+      },
+      "dec:m3:ckpt-e-valid-evidence",
+    );
+    expect(result).not.toBeNull();
+    if (!result) return;
+    expect(result.contract.evidenceRequirements).toEqual([
+      "evreq:file-write-result",
+      "evreq:content-verification",
+    ]);
+  });
+
   it("L — critical safety negatives", () => {
     const projection = projectCursorPrepareOnly({
       schemaVersion: "0.2.0-oa",

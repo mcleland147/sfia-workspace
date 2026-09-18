@@ -35,6 +35,10 @@ import type {
 } from "@/lib/oa/execution-contract";
 import { projectExecutionContractInspectionDisclosure } from "@/lib/oa/execution-contract/projection/inspectionDisclosure";
 import type { ExecutionContractInspectionDisclosure } from "@/lib/oa/execution-contract/projection/inspectionDisclosure";
+import {
+  M4_BOUNDED_DOCS_WRITE_ACTION,
+} from "@/lib/oa/execution-attempt";
+import { resolveDocsWriteEvidenceRequirementsForBoundedProfile } from "./boundedDocsWriteM3ResolutionProfile";
 
 const UNRESOLVED_ACTION = "UNRESOLVED_ACTION";
 const UNRESOLVED_TARGET = "UNRESOLVED_TARGET";
@@ -106,6 +110,12 @@ export type M3ResolvedExecutionFields = {
    */
   inputs?: Record<string, unknown>;
   executionWindowClass?: ExecutionWindowClass;
+  /**
+   * Optional evidenceRequirements override for the successor (server-side only).
+   * Bounded docs-write uses this to bind filesystem-satisfiable obligations
+   * coherent with NO_* constraints instead of inheriting a contradictory Git set.
+   */
+  evidenceRequirements?: string[];
 };
 
 export type ResolveM3ExecutionContractInput = {
@@ -353,6 +363,10 @@ function successorMatchesResolution(
 ): boolean {
   const caps = [...(contract.requiredCapabilities ?? [])].sort().join("\0");
   const wantCaps = [...resolution.requiredCapabilities].sort().join("\0");
+  const evidenceOk =
+    resolution.evidenceRequirements === undefined ||
+    [...contract.evidenceRequirements].join("\0") ===
+      [...resolution.evidenceRequirements].join("\0");
   return (
     contract.action === resolution.action.trim() &&
     contract.target === resolution.target.trim() &&
@@ -361,6 +375,7 @@ function successorMatchesResolution(
     caps === wantCaps &&
     [...contract.constraints].join("\0") === constraints.join("\0") &&
     [...contract.stopConditions].join("\0") === stopConditions.join("\0") &&
+    evidenceOk &&
     (resolution.executionWindowClass === undefined ||
       contract.executionWindowClass === resolution.executionWindowClass)
   );
@@ -628,6 +643,14 @@ export async function resolveM3ExecutionContract(
     original,
     input.resolution,
   );
+  const evidenceRequirements =
+    input.resolution.action.trim() === M4_BOUNDED_DOCS_WRITE_ACTION
+      ? (input.resolution.evidenceRequirements ??
+        resolveDocsWriteEvidenceRequirementsForBoundedProfile({
+          fromPrepare: original.evidenceRequirements ?? [],
+          constraints,
+        }))
+      : input.resolution.evidenceRequirements;
 
   // C2 — original already superseded: recover/validate existing successor.
   if (original.status === "superseded") {
@@ -783,6 +806,9 @@ export async function resolveM3ExecutionContract(
         reversibility: input.resolution.reversibility,
         constraints,
         stopConditions,
+        ...(evidenceRequirements !== undefined
+          ? { evidenceRequirements: [...evidenceRequirements] }
+          : {}),
         decisionRefs: [input.decisionId],
         requiredAuthority: original.requiredAuthority,
         status: "draft",

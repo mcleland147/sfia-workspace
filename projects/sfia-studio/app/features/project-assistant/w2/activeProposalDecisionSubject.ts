@@ -30,7 +30,11 @@ import {
   type PresentedOptionSetBinding,
   W2_PRESENTED_OPTION_SET_KIND,
 } from "./presentedOptionSet";
-import type { TrajectoryOptionSetDto } from "./types";
+import { readPrepareReadyProposalPursueContinuation } from "./prepareReadyProposalPursueContinuation";
+import type {
+  TrajectoryDecisionRecordDto,
+  TrajectoryOptionSetDto,
+} from "./types";
 
 export type EpistemicReadFailure = {
   readonly ok: false;
@@ -56,6 +60,15 @@ export type ActiveProposalDecisionSubject =
       readonly kind: "bound_awaiting_decision";
       readonly presented: PresentedOptionSetBinding;
       readonly optionSet: TrajectoryOptionSetDto;
+    }
+  | {
+      /**
+       * Checkpoint E resume — Proposal subject already closed by DecisionRef,
+       * but durable pursue HD + DecisionBasis remain PREPARE-ready (no EC).
+       */
+      readonly ok: true;
+      readonly kind: "pursue_prepare_ready";
+      readonly decision: TrajectoryDecisionRecordDto;
     }
   | EpistemicReadFailure;
 
@@ -241,7 +254,8 @@ export async function findActiveAwaitingProposalPresentedOptionSet(
  * Authority order:
  * 1. bound awaiting PresentedOptionSet
  * 2. effective pending markers (DecisionRef-closed proposalIds shadowed)
- * 3. none
+ * 3. durable pursue PREPARE continuation (HD + basis, no EC)
+ * 4. none
  */
 export async function readActiveProposalDecisionSubject(
   oa: RuntimeOaStack,
@@ -307,6 +321,26 @@ export async function readActiveProposalDecisionSubject(
         : pilotPendingReinstructionMessage({
             recoverable: recoverableProposalIds.length > 0,
           }),
+    };
+  }
+
+  // Subject closed (DecisionRef) but pursue HD still PREPARE-ready — restart resume.
+  const prepareReady = await readPrepareReadyProposalPursueContinuation({
+    oa,
+    projectId,
+  });
+  if (!prepareReady.ok) {
+    return {
+      ok: false,
+      code: "EPISTEMIC_READ_FAILED",
+      message: prepareReady.message,
+    };
+  }
+  if (prepareReady.kind === "pursue_prepare_ready") {
+    return {
+      ok: true,
+      kind: "pursue_prepare_ready",
+      decision: prepareReady.decision,
     };
   }
 

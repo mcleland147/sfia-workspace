@@ -22,12 +22,38 @@ import {
   projectCursorPrepareOnly,
   projectExecutionContractInspectionDisclosure,
 } from "@/lib/oa/execution-contract";
+import { isOaIdentifier } from "@/lib/oa/execution-contract/domain/invariants";
 import type { F2ContextSnapshot } from "../f2/types";
 import {
   isProposalSubjectOptionRef,
   PROPOSAL_SUBJECT_PURSUE_REF,
 } from "../w2/proposalSubjectOptions";
-import { BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS } from "./boundedDocsWriteM3ResolutionProfile";
+import { BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS } from "./boundedDocsWriteM3ResolutionProfile";
+
+/**
+ * EC.evidenceRequirements must be OA identifiers (`prefix:value`).
+ * Nora DecisionBasis often carries free-text validation expectations here —
+ * those belong in inputs, not as contract identifier SoT.
+ * For docs_write, fall back to the local filesystem evidence set coherent with
+ * the bounded NO_* profile (not the GCEC Git lifecycle set).
+ */
+function resolveEvidenceRequirementsForContract(input: {
+  docsWriteIntent: boolean;
+  raw: string[] | undefined;
+}): string[] | undefined {
+  const raw = input.raw;
+  if (raw && raw.length > 0 && raw.every(isOaIdentifier)) {
+    return [...raw];
+  }
+  if (input.docsWriteIntent) {
+    return [...BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS];
+  }
+  if (raw && raw.length > 0) {
+    const valid = raw.filter(isOaIdentifier);
+    return valid.length > 0 ? valid : undefined;
+  }
+  return undefined;
+}
 
 export type PrepareM3Deps = {
   decisionServices: DecisionServices;
@@ -209,12 +235,13 @@ function fieldsFromBasis(basis: DecisionBasis, decisionId: string) {
       : eb.expectedOutcome
         ? [eb.expectedOutcome]
         : undefined;
-  const evidenceRequirements =
-    eb.evidenceRequirements && eb.evidenceRequirements.length > 0
-      ? [...eb.evidenceRequirements]
-      : docsWriteIntent
-        ? [...BOUNDED_DOCS_WRITE_GIT_EVIDENCE_REQUIREMENTS]
-        : undefined;
+  const evidenceRequirements = resolveEvidenceRequirementsForContract({
+    docsWriteIntent,
+    raw:
+      eb.evidenceRequirements && eb.evidenceRequirements.length > 0
+        ? [...eb.evidenceRequirements]
+        : undefined,
+  });
   return {
     action,
     target,

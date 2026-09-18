@@ -9,9 +9,14 @@ import {
   type ExecutionAttemptServices,
   type RealProcessObservation,
 } from "@/lib/oa/execution-attempt";
+import {
+  buildProcessFailureDiagnostic,
+  PROCESS_DIAGNOSTIC_STDERR_CAP,
+  PROCESS_DIAGNOSTIC_STDOUT_CAP,
+} from "./processFailureDiagnostic";
 
-export const NORA_STDOUT_CAP = 4 * 1024;
-export const NORA_STDERR_CAP = 4 * 1024;
+export const NORA_STDOUT_CAP = PROCESS_DIAGNOSTIC_STDOUT_CAP;
+export const NORA_STDERR_CAP = PROCESS_DIAGNOSTIC_STDERR_CAP;
 
 export type BoundedLaunchObservationFacts = {
   attemptId: string;
@@ -203,6 +208,17 @@ export async function completeBoundedReadOnlyLaunch(input: {
     };
   }
 
+  const failureDiagnostic = buildProcessFailureDiagnostic({
+    observation,
+    boundaryProofMode:
+      input.services.realBoundary?.launchPort.boundaryProofMode ===
+        "cursor_real" ||
+      input.services.realBoundary?.launchPort.boundaryProofMode ===
+        "deterministic_fake"
+        ? input.services.realBoundary.launchPort.boundaryProofMode
+        : undefined,
+  });
+
   if (observation.timedOut === true) {
     const timed = await input.services.triggerAttemptTimeout.execute({
       attemptId: input.attempt.attemptId,
@@ -216,6 +232,7 @@ export async function completeBoundedReadOnlyLaunch(input: {
         stopReason: "EXECUTION_TIMEOUT",
         durationMs: observation.durationMs,
         expectedAttemptVersion: input.attempt.version,
+        processDiagnostic: failureDiagnostic,
       });
       if (!failed.ok || !failed.attempt) {
         return {
@@ -265,6 +282,7 @@ export async function completeBoundedReadOnlyLaunch(input: {
       technicalExitCode: observation.exitCode ?? undefined,
       durationMs: observation.durationMs,
       expectedAttemptVersion: input.attempt.version,
+      processDiagnostic: failureDiagnostic,
     });
     if (!failed.ok || !failed.attempt) {
       return {

@@ -22,6 +22,7 @@ import {
   projectAssistantResolveLegacyM3DocsWriteAction,
 } from "@/features/project-assistant/actions";
 import { isLegacyDocsWritePrepareContractView } from "@/features/project-assistant/f3/legacyDocsWritePrepareContractView";
+import { isDocsWriteEvidenceContradictionView } from "@/features/project-assistant/f3/docsWriteEvidenceContradictionView";
 import {
   w2AmendExecutionContractAction,
   w2AuthorizeExecutionContractAction,
@@ -34,11 +35,17 @@ import {
   w2InspectExecutionContractAction,
   w2MaterializeProductOutcomeAction,
   w2PrepareExecutionContractAction,
+  w2PrepareRecoveryDocsWriteAction,
   w2ProposeTrajectoryOptionsAction,
   w2ReadActiveDecisionSubjectAction,
   w2ReadCurrentGovernedExecutionContinuityAction,
+  w2ReadRecoveryExecutionBindingAction,
   w2RehydrateProductOutcomeAction,
+  w2RematerializeDocsWriteEvidenceAction,
 } from "@/features/project-assistant/w2/actions";
+import { GOVERNED_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
+import type { RecoveryExecutionBinding } from "@/features/project-assistant/w2/resolveRecoveryExecutionBinding";
+import { isWrongGenericPreExecReplaceableByRecoveryPrepare } from "@/features/project-assistant/w2/recoveryReplaceableCurrentContract";
 import {
   projectAssistantApprovePreCycleCandidateTrajectoryAction,
   projectAssistantReadCandidateTrajectoryApprovalPresentationAction,
@@ -343,6 +350,8 @@ export function TrajectorySurface({
   const [productEvidencePending, setProductEvidencePending] = useState(false);
   const [qualifiedOperationKind, setQualifiedOperationKind] =
     useState<QualifiedOperationKind | null>(null);
+  const [recoveryBinding, setRecoveryBinding] =
+    useState<RecoveryExecutionBinding | null>(null);
 
   /**
    * Continuity pass generation — invalidates in-flight subject/EC reads when a
@@ -374,6 +383,30 @@ export function TrajectorySurface({
     proposalPursue && decision?.decisionBasisLinked === true;
   const proposalBackedPrepareBlocked =
     proposalPursue && decision?.decisionBasisLinked !== true;
+  /** R10 — client decision id OR durable continuity decisionRef after restart. */
+  const recoveryDecisionId =
+    decision?.decisionId ?? continuityDecisionRef ?? null;
+  const recoveryDocsWritePrepareReady = Boolean(
+    !decisionDefersExecution &&
+      !hasProposalDecisionSubject &&
+      (decision == null ||
+        decision.selectedOptionRef === GOVERNED_OPTION_REF) &&
+      recoveryBinding &&
+      recoveryBinding.kind === "post_evidence_recovery_execution",
+  );
+  const wrongGenericReplaceableByRecoveryPrepare =
+    isWrongGenericPreExecReplaceableByRecoveryPrepare({
+      recoveryBinding,
+      currentContract: contract,
+      continuityDecisionRef,
+      recoveryDecisionId,
+      attemptPresent: Boolean(attempt?.attemptId),
+    });
+  const showRecoveryDocsWritePrepare = Boolean(
+    recoveryDocsWritePrepareReady &&
+      recoveryBinding &&
+      (!contract || wrongGenericReplaceableByRecoveryPrepare),
+  );
   const rematerializeDecisionId =
     decision?.decisionId ?? continuityDecisionRef ?? null;
   const legacyDocsWriteRematerializeReady = Boolean(
@@ -388,6 +421,18 @@ export function TrajectorySurface({
         scope: contract.scope,
         constraints: contract.constraints,
         requiredCapabilities: contract.requiredCapabilities,
+      }),
+  );
+  const docsWriteEvidenceRematerializeReady = Boolean(
+    !decisionDefersExecution &&
+      !legacyDocsWriteRematerializeReady &&
+      contract &&
+      isDocsWriteEvidenceContradictionView({
+        action: contract.action,
+        target: contract.target,
+        constraints: contract.constraints,
+        evidenceRequirements:
+          contract.inspectionDisclosure?.evidenceRequirements ?? [],
       }),
   );
 
@@ -483,10 +528,21 @@ export function TrajectorySurface({
       setSubjectReadStatus("ready");
       return;
     }
+    if (result.kind === "pursue_prepare_ready") {
+      // Restart resume: durable pursue HD owns PREPARE — no OptionSet, no reinstruction.
+      setOptionSet(null);
+      setPendingReinstruction(null);
+      setDecision(result.decision);
+      setDecided(null);
+      setError(null);
+      setSubjectReadStatus("ready");
+      return;
+    }
     setPendingReinstruction(null);
     // kind === "none" — authoritative Proposal Decision Subject absence.
     // Clear stale Proposal-backed OptionSet; preserve generic ProjectTrajectory
-    // OptionSet. Do NOT clear HumanDecision / decided / EC state here.
+    // OptionSet. Do NOT clear HumanDecision / decided / EC state here —
+    // except when no prepare-ready continuation either (decision may be stale session).
     setOptionSet((current) => {
       if (!current) return null;
       const proposalBacked =
@@ -814,6 +870,49 @@ export function TrajectorySurface({
     ],
   );
 
+  // R8/R10 — RecoveryExecutionBinding: decision client OR continuityDecisionRef
+  // after restart (server still validates HD / recovery coherence).
+  useEffect(() => {
+    let cancelled = false;
+    async function loadBinding() {
+      if (hasProposalDecisionSubject) {
+        setRecoveryBinding(null);
+        return;
+      }
+      if (
+        decision &&
+        decision.selectedOptionRef !== GOVERNED_OPTION_REF
+      ) {
+        setRecoveryBinding(null);
+        return;
+      }
+      const decisionId = decision?.decisionId ?? continuityDecisionRef;
+      if (!decisionId) {
+        setRecoveryBinding(null);
+        return;
+      }
+      const result = await w2ReadRecoveryExecutionBindingAction({
+        projectId,
+        decisionId,
+      });
+      if (cancelled) return;
+      if (result.ok) {
+        setRecoveryBinding(result.binding);
+      } else {
+        setRecoveryBinding(null);
+      }
+    }
+    void loadBinding();
+    return () => {
+      cancelled = true;
+    };
+  }, [
+    decision,
+    continuityDecisionRef,
+    hasProposalDecisionSubject,
+    projectId,
+  ]);
+
   const prepareContract = useCallback(async () => {
     if (continuityMutationBlocked) return;
     if (!decision || !qualifiedOperationKind) return;
@@ -866,6 +965,58 @@ export function TrajectorySurface({
     decision,
     projectId,
     qualifiedOperationKind,
+    onDurableFactsChanged,
+  ]);
+
+  /**
+   * R8/R10 — recovery docs_write PREPARE from failed EC binding (no sandbox ops).
+   * Uses recoveryDecisionId (client decision or continuityDecisionRef).
+   */
+  const prepareRecoveryDocsWriteContract = useCallback(async () => {
+    if (continuityMutationBlocked) return;
+    if (!recoveryDecisionId || !showRecoveryDocsWritePrepare) return;
+    setBusy("contract");
+    setError(null);
+    const result = await w2PrepareRecoveryDocsWriteAction({
+      projectId,
+      decisionId: recoveryDecisionId,
+    });
+    setBusy(null);
+    if (!result.ok) {
+      setError(result.message);
+      return;
+    }
+    const prepared = result.contract;
+    setContract({
+      executionContractId: prepared.executionContractId,
+      version: prepared.version,
+      status: prepared.status,
+      action: prepared.action,
+      target: prepared.target,
+      scope: prepared.scope,
+      requiredAuthority: prepared.requiredAuthority,
+      constraints: [...prepared.constraints],
+      stopConditions: [...prepared.stopConditions],
+      requiredCapabilities: [...prepared.requiredCapabilities],
+      reversibility: prepared.reversibility,
+      semanticFingerprint: prepared.semanticFingerprint,
+      inspectionDisclosure: toInspectionDisclosureView(
+        prepared.inspectionDisclosure,
+      ),
+    });
+    setInspection(null);
+    setAuthorization(null);
+    setAmendmentDraft("");
+    setAmendmentNotice(null);
+    setAttempt(null);
+    setAttemptPhase(null);
+    setAttemptStatusLabel(null);
+    onDurableFactsChanged?.();
+  }, [
+    continuityMutationBlocked,
+    recoveryDecisionId,
+    projectId,
+    showRecoveryDocsWritePrepare,
     onDurableFactsChanged,
   ]);
 
@@ -993,6 +1144,70 @@ export function TrajectorySurface({
     continuityMutationBlocked,
     decision,
     continuityDecisionRef,
+    contract,
+    projectId,
+    onDurableFactsChanged,
+  ]);
+
+  const rematerializeDocsWriteEvidenceContract = useCallback(async () => {
+    if (continuityMutationBlocked) return;
+    if (!contract) return;
+    if (
+      !isDocsWriteEvidenceContradictionView({
+        action: contract.action,
+        target: contract.target,
+        constraints: contract.constraints,
+        evidenceRequirements:
+          contract.inspectionDisclosure?.evidenceRequirements ?? [],
+      })
+    ) {
+      return;
+    }
+    setBusy("contract");
+    setError(null);
+    const result = await w2RematerializeDocsWriteEvidenceAction({
+      projectId,
+      executionContractId: contract.executionContractId,
+    });
+    setBusy(null);
+    if (!result.ok) {
+      setError(result.message);
+      return;
+    }
+    const prepared = result.successor;
+    setContract({
+      executionContractId: prepared.executionContractId,
+      version: prepared.version,
+      status: prepared.status,
+      action: prepared.action,
+      target: prepared.target,
+      scope: prepared.scope,
+      requiredAuthority: prepared.requiredAuthority,
+      constraints: [...prepared.constraints],
+      stopConditions: [...prepared.stopConditions],
+      requiredCapabilities: [...prepared.requiredCapabilities],
+      reversibility: prepared.reversibility,
+      semanticFingerprint: prepared.semanticFingerprint,
+      inspectionDisclosure: toInspectionDisclosureView(
+        prepared.inspectionDisclosure,
+      ),
+    });
+    setInspection(null);
+    setAuthorization(null);
+    setAmendmentDraft("");
+    setAmendmentNotice({
+      priorExecutionContractId: result.priorExecutionContractId,
+      additionalConstraint:
+        "evidenceRequirements cohérents avec NO_* (sans lifecycle Git)",
+      statusLabel: result.statusLabel,
+      priorInspectionDoesNotCoverSuccessor: true,
+    });
+    setAttempt(null);
+    setAttemptPhase(null);
+    setAttemptStatusLabel(null);
+    onDurableFactsChanged?.();
+  }, [
+    continuityMutationBlocked,
     contract,
     projectId,
     onDurableFactsChanged,
@@ -1941,7 +2156,8 @@ export function TrajectorySurface({
           ) : null}
           {!decisionDefersExecution &&
           !contract &&
-          !hasProposalDecisionSubject ? (
+          !hasProposalDecisionSubject &&
+          !recoveryDocsWritePrepareReady ? (
           <div
             className={styles.actions}
             data-testid="w3a-qualify-execution-work"
@@ -2008,6 +2224,59 @@ export function TrajectorySurface({
         </section>
       ) : null}
 
+      {/* R10 — recovery CTA outside decision client state (restart: decision=null). */}
+      {!decisionDefersExecution &&
+      showRecoveryDocsWritePrepare &&
+      recoveryBinding ? (
+        <section
+          className={styles.actions}
+          data-testid="w2-recovery-docs-write-prepare"
+        >
+          <p
+            className={styles.blockNote}
+            data-testid="w2-recovery-docs-write-note"
+          >
+            Reprendre l&apos;écriture Markdown gouvernée après échec — cible
+            déjà qualifiée. Préparez le contrat successor explicitement ; aucun
+            Execute automatique.
+          </p>
+          {wrongGenericReplaceableByRecoveryPrepare && contract ? (
+            <p
+              className={styles.blockBody}
+              data-testid="w2-recovery-replaceable-generic-note"
+            >
+              Un contrat générique pré-exécution existe pour cette décision (
+              {contract.executionContractId}). La reprise recovery le remplacera
+              uniquement si vous préparez explicitement le nouveau contrat —
+              aucun remplacement automatique.
+            </p>
+          ) : null}
+          <p
+            className={styles.blockBody}
+            data-testid="w2-recovery-docs-write-path"
+          >
+            Cible : {recoveryBinding.targetPath}
+          </p>
+          <p
+            className={styles.blockBody}
+            data-testid="w2-recovery-docs-write-source"
+          >
+            Source : Attempt {recoveryBinding.sourceAttemptId} (
+            {recoveryBinding.recovery.productOutcome}) — EC{" "}
+            {recoveryBinding.sourceExecutionContractId}
+          </p>
+          <button
+            type="button"
+            className={styles.primaryAction}
+            data-testid="w2-prepare-recovery-docs-write"
+            onClick={() => void prepareRecoveryDocsWriteContract()}
+            disabled={busy !== null || continuityMutationBlocked}
+          >
+            Préparer le contrat d&apos;exécution (recovery docs_write)
+          </button>
+        </section>
+      ) : null}
+
       {contract ? (
         <section
           className={styles.contract}
@@ -2018,8 +2287,9 @@ export function TrajectorySurface({
             Contrat d&apos;exécution — résumé
           </h3>
           <p className={styles.blockNote}>
-            Relisez d&apos;abord ce qui sera tenté. Inspectez le détail avant
-            toute confirmation. Confirmer n&apos;exécute pas.
+            {wrongGenericReplaceableByRecoveryPrepare
+              ? "Contrat générique pré-exécution visible pour cette décision. La prochaine action utile est de préparer le contrat recovery docs_write — pas d'inspection de ce dead-end."
+              : "Relisez d'abord ce qui sera tenté. Inspectez le détail avant toute confirmation. Confirmer n'exécute pas."}
           </p>
           <dl className={styles.facts} data-testid="w2-contract-facts">
             <div>
@@ -2061,12 +2331,14 @@ export function TrajectorySurface({
             </div>
             <div>
               <dt>Prochaine action utile</dt>
-              <dd>
-                {inspection?.inspectionSufficient
-                  ? contract.status === "confirmation_required"
-                    ? "Confirmer si requis, puis statuer sur l'autorisation"
-                    : "Statuer sur l'autorisation"
-                  : "Inspecter le détail du contrat"}
+              <dd data-testid="w2-contract-next-action">
+                {wrongGenericReplaceableByRecoveryPrepare
+                  ? "Préparer le contrat recovery docs_write (explicite)"
+                  : inspection?.inspectionSufficient
+                    ? contract.status === "confirmation_required"
+                      ? "Confirmer si requis, puis statuer sur l'autorisation"
+                      : "Statuer sur l'autorisation"
+                    : "Inspecter le détail du contrat"}
               </dd>
             </div>
           </dl>
@@ -2290,17 +2562,49 @@ export function TrajectorySurface({
             </div>
           ) : null}
 
+          {docsWriteEvidenceRematerializeReady ? (
+            <div
+              className={styles.actions}
+              data-testid="w2-docs-write-evidence-rematerialize"
+            >
+              <p
+                className={styles.blockNote}
+                data-testid="w2-docs-write-evidence-rematerialize-note"
+              >
+                Les exigences de preuve Git de ce contrat contredisent ses
+                contraintes NO_COMMIT / NO_PUSH / NO_PR / NO_MERGE. Actualisez
+                le contrat pour des preuves locales satisfaisables. Aucune
+                exécution n&apos;est lancée — une nouvelle inspection sera
+                requise.
+              </p>
+              <button
+                type="button"
+                className={styles.primaryAction}
+                data-testid="w2-rematerialize-docs-write-evidence"
+                onClick={() => void rematerializeDocsWriteEvidenceContract()}
+                disabled={busy !== null || continuityMutationBlocked}
+              >
+                Actualiser les exigences de preuve
+              </button>
+            </div>
+          ) : null}
+
           <div className={styles.actions}>
             <button
               type="button"
-              className={styles.primaryAction}
+              className={
+                wrongGenericReplaceableByRecoveryPrepare
+                  ? styles.secondaryAction
+                  : styles.primaryAction
+              }
               data-testid="w2-inspect-contract"
               onClick={() => void inspect()}
               disabled={busy !== null || governedContinuationBlocked}
             >
               Inspecter le contrat
             </button>
-            {contract.status === "confirmation_required" ? (
+            {contract.status === "confirmation_required" &&
+            !wrongGenericReplaceableByRecoveryPrepare ? (
               <button
                 type="button"
                 className={styles.secondaryAction}
@@ -2309,13 +2613,16 @@ export function TrajectorySurface({
                 disabled={
                   busy !== null ||
                   governedContinuationBlocked ||
+                  docsWriteEvidenceRematerializeReady ||
                   inspection === null ||
                   !inspection.inspectionSufficient
                 }
                 title={
-                  inspection === null || !inspection.inspectionSufficient
-                    ? "Inspection suffisante requise avant de confirmer"
-                    : undefined
+                  docsWriteEvidenceRematerializeReady
+                    ? "Actualisez les exigences de preuve avant de confirmer"
+                    : inspection === null || !inspection.inspectionSufficient
+                      ? "Inspection suffisante requise avant de confirmer"
+                      : undefined
                 }
               >
                 Confirmer mon consentement
@@ -2326,7 +2633,16 @@ export function TrajectorySurface({
               className={styles.secondaryAction}
               data-testid="w2-authorize-contract"
               onClick={() => void authorize()}
-              disabled={busy !== null || governedContinuationBlocked}
+              disabled={
+                busy !== null ||
+                governedContinuationBlocked ||
+                wrongGenericReplaceableByRecoveryPrepare
+              }
+              title={
+                wrongGenericReplaceableByRecoveryPrepare
+                  ? "Préparez d'abord le contrat recovery docs_write"
+                  : undefined
+              }
             >
               Statuer sur l&apos;autorisation
             </button>

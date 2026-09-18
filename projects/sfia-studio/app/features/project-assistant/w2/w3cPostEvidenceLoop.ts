@@ -17,6 +17,7 @@ import type { EpistemicItem } from "@/lib/oa/cycle";
 import { SFIA_STUDIO_SYSTEM_FACTUAL_WRITER } from "@/features/project-assistant/f3/systemFactualWriter";
 import { appendEvidenceOutcomeToLps } from "@/features/project-assistant/f3/appendEvidenceOutcomeToLps";
 import { deriveAttemptProvenance } from "@/features/project-assistant/f3/deriveAttemptProvenance";
+import { resolveDurableBoundaryProofMode } from "@/features/project-assistant/f3/resolveDurableBoundaryProofMode";
 import {
   analyzePostEvidenceWithProvider,
   extractW3cPostEvidenceAnalysisForEvidence,
@@ -956,6 +957,12 @@ export async function runW3cPostEvidenceLoop(input: {
   let adapterRef = "adp:unknown";
   let executionMode = "unknown";
   let realProcessInvoked = false;
+  let processRef: string | undefined;
+  let processExitCode: number | null | undefined;
+  let processTimedOut: boolean | undefined;
+  let processDurationMs: number | undefined;
+  let processStdout: string | undefined;
+  let processStderr: string | undefined;
 
   if (oa.executionAttemptServices) {
     const loaded = await oa.executionAttemptServices.getExecutionAttempt.execute({
@@ -967,13 +974,28 @@ export async function runW3cPostEvidenceLoop(input: {
       const agent = oa.executionAttemptServices.registry.getAgent(
         loaded.attempt.selectedAgentRef,
       );
+      const boundaryProofMode = await resolveDurableBoundaryProofMode({
+        oa,
+        attempt: loaded.attempt,
+      });
       const provenance = deriveAttemptProvenance({
         attempt: loaded.attempt,
         agent,
+        boundaryProofMode,
       });
       adapterRef = provenance.adapterRef;
       executionMode = provenance.executionMode;
       realProcessInvoked = provenance.realProcessInvoked;
+      // Prefer durable diagnostic excerpts when present (failure observability).
+      const diag = loaded.attempt.processDiagnostic;
+      if (diag) {
+        processStdout = diag.stdoutExcerpt;
+        processStderr = diag.stderrExcerpt;
+        processRef = diag.processRef;
+        processExitCode = diag.exitCode;
+        processTimedOut = diag.timedOut;
+        processDurationMs = diag.durationMs;
+      }
     }
   }
   if (oa.executionContractServices) {
@@ -1027,6 +1049,14 @@ export async function runW3cPostEvidenceLoop(input: {
       reviewBundleId: product.reviewBundleId,
       technicalResultRef: product.technicalDetail.resultRef,
       reservations: product.reservations,
+      ...(processRef ? { processRef } : {}),
+      ...(processExitCode !== undefined ? { exitCode: processExitCode } : {}),
+      ...(processTimedOut !== undefined ? { timedOut: processTimedOut } : {}),
+      ...(processDurationMs !== undefined
+        ? { durationMs: processDurationMs }
+        : {}),
+      ...(processStdout !== undefined ? { stdout: processStdout } : {}),
+      ...(processStderr !== undefined ? { stderr: processStderr } : {}),
     },
     { ckcPromptSection },
   );
