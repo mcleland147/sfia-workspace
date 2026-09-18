@@ -14,9 +14,9 @@
 |---|---|
 | Repository | mcleland147/sfia-workspace |
 | Worktree | `/Users/morris/Projects/sfia-studio-product-journey-claim-evidence-completion-01` |
-| Branch | `qa/sfia-studio-product-journey-post-execution-replan-01` |
-| HEAD / origin/main | `3d48ed706afc5d2f4a743496c72c4645fadda5eb` / `9c6ac90974113044330284dd110108287ba2319e` |
-| Baseline match | **YES** (`9c6ac909…`) |
+| Branch | `qa/sfia-studio-product-journey-claim-evidence-completion-01` |
+| HEAD / origin/main | `9c6ac90974113044330284dd110108287ba2319e` / `9c6ac90974113044330284dd110108287ba2319e` |
+| Baseline match | **YES** — HEAD = origin/main = `9c6ac90974113044330284dd110108287ba2319e` |
 | Prior PJR handoff | `501256d49af693e1f426e4c572639ea5994fcd90` |
 | Project commit/push/PR | **NOT DONE** (forbidden) |
 
