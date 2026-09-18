@@ -441,7 +441,9 @@ describe("CR-BLK-04 — preserve Contract WHAT on docs-write M3 resolution", () 
     expect(fail[0]?.result).toBe("NOT_PROVEN");
   });
 
-  it("T6 — free-form / conformity EO remains NOT_PROVEN with artifact alone", () => {
+  it("T6 — materialized EO PASSes with matching artifact; conformity EO remains NOT_PROVEN without attestation", () => {
+    // EO0: Artifact.location == bound targetPath → PASS.
+    // EO1: conformity attestation Evidence required → NOT_PROVEN with artifact alone.
     const c = docsWriteEc({
       executionContractId: "xct:cr-blk-04:free",
       expectedOutputs: [...PRODUCT_WHAT],
@@ -502,6 +504,6 @@ describe("CR-BLK-04 — preserve Contract WHAT on docs-write M3 resolution", () 
       evidences: [evidence],
       evaluatedAt: NOW,
     });
-    expect(eo.every((a) => a.result === "NOT_PROVEN")).toBe(true);
+    expect(eo.map((a) => a.result)).toEqual(["PASS", "NOT_PROVEN"]);
   });
 });
