@@ -1,206 +1,150 @@
 # PRODUCT-JOURNEY-E2E-CURRENT-MAIN-CLOUD-REPROOF-01 — Review Pack FULL
 
-**Timestamp (UTC):** 2026-09-18T21:17:29Z
-**Timestamp (local):** 2026-09-18 21:17:29 UTC
+**Timestamp (UTC):** 2026-09-18T21:59:32Z
+**Timestamp (local):** 2026-09-18 21:59:32 UTC
 **Campaign:** PRODUCT-JOURNEY-E2E-CURRENT-MAIN-CLOUD-REPROOF-01
 **Cycle:** 9 — QA / VALIDATION
 **Profile:** CRITICAL
 **Level:** FULL / CRITICAL
 **NO MICRO-CYCLE:** YES
 **NO PRODUCT DEVELOPMENT:** YES
-**Mode:** SAME MACRO CONTINUATION — CLOUD-LOCAL `.env.local` BOOTSTRAP
+**Mode:** SAME MACRO CONTINUATION — POST-OAUTH CLAIM / AGENT-BROWSER SESSION REPROOF
 **CRITICAL SECRET-SAFE REVIEW:** YES
 **NO SECRET VALUES INCLUDED:** YES
 **Same macro:** YES
-**Morris authorization (this continuation):** temporary TEST credentials authorized to exist in cleartext inside this Cloud Agent VM via ignored `.env.local` only — no Cursor Dashboard secrets / no Runtime Secrets mutation / no manual paste request
 **This Cloud Agent run:** `bc-135bd352-8d09-4c1d-b0d3-a50c2b296436`
-**Prior stop handoff:** commit `cdf4ced53597296922150ba99cbb04cb7a1a3804` · blob `c536362abae370fc20e357ddfef99ade4b4ec08b`
-**Verdict:** CLOUD LOCAL ENV BOOTSTRAP PASS — AUTH + NORA LIVE CONFIG AVAILABLE — PRODUCT REAL 0 — READY FOR FIRST HUMAN PRODUCT GATE
+**Prior bootstrap handoff:** commit `1c202a1d6e578c37890d96b443c89f880f04f3c8` · blob `2ddb8431ba8a2bbc921fdb8264b371ecea2454d2`
+**Morris claim this turn:** OAUTH COMPLETED BY MORRIS
+**Verdict:** PRODUCT-JOURNEY CLOUD REPROOF — PRE-REAL BLOCKED — ZERO PRODUCT REAL CONSUMED
+
+Primary gate:
+**MORRIS PILOTE ACTION REQUIRED — COMPLETE GITHUB OAUTH LOGIN (CLOUD AGENT BROWSER)**
 
 ---
 
-## 1. Git Truth
+## 1. Git / runtime baseline (unchanged)
 
 | Item | Value |
 |---|---|
 | origin/main | `a6dba9776bfb1b4cb1570a87b20b0c71e546e441` |
-| Main drift | **NO** |
-| Cloud runtime worktree | `/tmp/sfia-pj-cloud-01-main` |
-| Runtime HEAD | `a6dba9776bfb1b4cb1570a87b20b0c71e546e441` |
-| Runtime status | clean (`HEAD (no branch)`) |
-| Tracked Product source diff | **NONE** |
-| Roadmap / C1 / v3 framing edit | **NONE** |
+| Runtime worktree | `/tmp/sfia-pj-cloud-01-main` @ same SHA · clean |
+| Managed repo | `/tmp/sfia-pj-cloud-01-managed/mcleland147__sfia-workspace` @ same SHA · clean |
+| `.env.local` | PRESENT · mode `600` · Git-ignored · not committed |
+| Studio process | running · tmux `sfia-pj-cloud-reproof` · port 3020 |
+| Product source diff | **NONE** |
 | runtime v3 | **NON ADOPTED** |
 
----
-
-## 2. Cloud-local `.env.local` bootstrap
-
-| Item | Value |
-|---|---|
-| Path | `/tmp/sfia-pj-cloud-01-main/projects/sfia-studio/app/.env.local` |
-| Created | **YES** |
-| Permissions | `600` (`-rw-------`) |
-| Git ignore rule | `projects/sfia-studio/app/.gitignore:22:.env.*` |
-| Ignored by Git | **YES** |
-| Appears in `git status` | **NO** |
-| Staged / committed / pushed | **NO** |
-| Copied into Review Handoff | **NO** |
-| Cursor Dashboard secrets created/modified | **NO** |
-| Account-level Runtime Secrets created/modified | **NO** |
-
-### Presence matrix (NAMES ONLY — values never printed)
-
-| Variable | Status |
-|---|---|
-| `BETTER_AUTH_SECRET` | SET |
-| `BETTER_AUTH_URL` | SET |
-| `GITHUB_CLIENT_ID` | SET |
-| `GITHUB_CLIENT_SECRET` | SET |
-| `SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS` | SET |
-| `OPENAI_API_KEY` | SET |
-| `OPENAI_MODEL` | SET |
-| `SFIA_STUDIO_PRODUCT_DB_PATH` | SET |
-| `SFIA_STUDIO_MANAGED_REPO_ROOT_BASE` | SET |
-| `SFIA_STUDIO_CURSOR_REAL` | SET |
-| `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY` | SET |
-| `OPENAI_REASONING_EFFORT` | **UNSET** (intentional) |
-| `OPS1_CONVERSATION_PROVIDER` | **UNSET** (intentional — Nora LIVE selectable) |
-| `OPS1_CURSOR_REAL` | **UNSET** |
+Environment was **not** recreated. Campaign was **not** restarted.
 
 ---
 
-## 3. Managed repo + fresh Product DB
+## 2. Server-side OAuth evidence (from Studio logs)
+
+Observed earlier in this same Studio process:
+
+| Event | Result |
+|---|---|
+| `POST /api/auth/sign-in/social` | 200 |
+| `GET /api/auth/callback/github?...` | 302 (success path) |
+| `GET /studio` | **200** (authenticated surface compiled/served) |
+| Subsequent Fast Refresh | full reload warning |
+| Later unauthenticated probes | `/login?error=NO_SESSION` |
+
+Auth model remains Better Auth **stateless cookie session** (no auth DB adapter). Session lives in the browser that completed OAuth.
+
+Product SQLite was created on first Product/auth access:
 
 | Item | Value |
 |---|---|
-| Managed identity path | `/tmp/sfia-pj-cloud-01-managed/mcleland147__sfia-workspace` |
-| Managed HEAD | `a6dba9776bfb1b4cb1570a87b20b0c71e546e441` |
-| Managed status | clean |
-| Target artifact before execution | `projects/sfia-studio/.sandbox/product-journey-cloud-reproof-01.md` = **ABSENT** |
 | Product DB path | `/workspace/projects/sfia-studio/.sfia-exec/pje2e-cloud-reproof-01/product/oa-product.sqlite` |
-| Product DB present | **NO** (ABSENT — fresh precondition OK) |
+| Present | **YES** (created by legitimate Product/auth activity — not a pre-start unexplained DB) |
+| `oa_projects` | **0** |
+| `oa_execution_attempts` | **0** |
+| `oa_human_decisions` | **0** |
+| `oa_execution_contracts` | **0** |
 
 ---
 
-## 4. Native Cursor CLI
-
-| Item | Value |
-|---|---|
-| Executable | `/home/ubuntu/.local/bin/cursor-agent` |
-| Native auth | **PASS** (`m.cleland@live.fr`) |
-| auth.json inspected | **NO** |
-| New API credential created | **NO** |
-| Product Cursor REAL consumed | **0** |
-
----
-
-## 5. Studio start
-
-| Item | Value |
-|---|---|
-| App cwd | `/tmp/sfia-pj-cloud-01-main/projects/sfia-studio/app` |
-| Command | `npm run dev` → `next dev --port 3020` |
-| tmux session | `sfia-pj-cloud-reproof` |
-| Next.js reports Environments | `.env.local` |
-| Inherited `OPS1_CONVERSATION_PROVIDER` | explicitly unset in starter process |
-| Studio running | **YES** · `http://localhost:3020` |
-
-Prior session that had started with process `PROVIDER=fake` was stopped by PID/session and replaced with a clean starter that does not force fake.
-
----
-
-## 6. Auth configuration reproof
+## 3. Authenticated Studio status (agent-controlled browser)
 
 | Check | Result |
 |---|---|
-| `GET /login` | HTTP 200 |
-| Login body contains `AUTH_CONFIG_ERROR` | **NO** |
-| `GET /studio` (unauthenticated) | HTTP 307 → `/login?error=NO_SESSION&from=%2Fstudio` |
-| `AUTH_CONFIG_ERROR` in redirect | **NO** |
-| Browser login UI | “Se connecter avec GitHub” visible |
-| Authenticated Pilote session | **NOT YET** — OAuth human gate required |
+| Cloud Agent Chrome → `GET /studio` | redirects to `/login?error=NO_SESSION&from=%2Fstudio` |
+| Auth session cookies for `localhost:3020` in that Chrome | **ABSENT** (only Next HMR cookie observed; names only — no values) |
+| AUTH_CONFIG_ERROR | **NO** (config portion remains closed) |
+| Authenticated allowlisted Pilote in agent browser | **NO** |
 
-**CLOUD-REPROOF-BLK-AUTH-UI-01 — CONFIGURATION PORTION CLOSED** at tested scope.
-
-Authenticated Studio access is **not** claimed until Morris completes GitHub OAuth.
-
-Browser evidence:
-- `/opt/cursor/artifacts/studio-login-github-ready.webp`
-- `/opt/cursor/artifacts/studio-redirect-no-session.webp`
+Conclusion: Morris’s completed OAuth is evidenced on the **server**, but the **Cloud Agent computer-use Chrome profile does not hold the session cookies**. Cursor must not forge cookies / inject sessions / SQL-backfill identity.
 
 ---
 
-## 7. Nora LIVE configuration reproof (structural only)
+## 4. Attempt to re-bind session in agent browser
 
-Product resolver used: `getLiveConversationAvailability()` + `isFakeConversationProviderForced()` from `lib/platform/ai/config.ts` with `.env.local` loaded into process env for the probe.
-
-| Check | Result |
+| Step | Result |
 |---|---|
-| `getLiveConversationAvailability().available` | **YES** |
-| Fake provider forced | **NO** |
-| Standalone OpenAI API probe | **NOT PERFORMED** |
-| Product Nora conversation turn | **NOT YET** |
-
-Nora LIVE is structurally available. Product-path Nora LIVE proof remains pending after Project creation + Pilote conversation.
+| UI automation click on “Se connecter avec GitHub” | did not fire React handler reliably |
+| Programmatic `document.querySelector('[data-testid="login-github"]').click()` | **SUCCESS** — navigated to GitHub OAuth sign-in |
+| Credentials entered by Cursor | **NONE** |
+| Current browser URL | GitHub login for app “SFIA Studio Local F3” |
+| Product Cursor REAL | **0** (unchanged) |
 
 ---
 
-## 8. Campaign counters / controls
+## 5. Campaign progress blocked before Product Project / Nora / HD
 
-| Item | Value |
+| Step | Status |
 |---|---|
+| Cloud-local env bootstrap | PASS (prior) |
+| AUTH_CONFIG_ERROR cleared | YES |
+| Authenticated `/studio` in agent browser | **FAIL / NOT HELD** |
+| Project created | **NO** |
+| Nora LIVE Product turn | **NOT REACHED** |
+| LPS / ProjectTrajectory | **NOT REACHED** |
+| HumanDecision | **NOT REACHED** (and must not be invented) |
+| Confirmation / Execute | **NOT REACHED** |
 | Product Cursor REAL | **0** |
 | ExecutionAttempts | **0** |
-| Product Project | NOT CREATED |
-| HumanDecision | NOT REACHED |
-| ExecutionContract | NOT REACHED |
-| Product source modification | **NONE** |
-| Auth bypass / cookie forgery / SQL session injection | **NONE** |
-| Fake Nora / alternate OpenAI client | **NONE** |
-| Automatic HumanDecision / Confirmation / Execute | **NONE** |
 
 ---
 
-## 9. Next human gate
+## 6. Next human gate (exact)
 
 **MORRIS PILOTE ACTION REQUIRED — COMPLETE GITHUB OAUTH LOGIN**
 
-Exact browser entry point:
+Where:
 
-`http://localhost:3020/login`
+- Use the **Cloud Agent desktop browser** already open on the GitHub sign-in page for “SFIA Studio Local F3”, **or** reopen `http://localhost:3020/login` in that same Cloud Agent browser and click **Se connecter avec GitHub**.
+- Complete GitHub sign-in / authorize as the allowlisted Pilote.
+- Confirm return to authenticated `http://localhost:3020/studio`.
 
-Action: click **Se connecter avec GitHub** and complete OAuth as the allowlisted Pilote.
+Do **not** paste secrets into chat. Do **not** ask Cursor to forge cookies.
 
-After login succeeds, `/studio` must be reachable as authenticated Pilote before Project creation / Nora LIVE Product turn / HumanDecision / Execute.
-
-ONE Product Cursor REAL authorization remains unused. Cursor must not click Execute.
+After Morris confirms, Cursor will re-verify authenticated `/studio`, then continue Project creation + Nora LIVE Product path, and stop again only at HumanDecision.
 
 ---
 
-## 10. Claims
+## 7. Claims
 
 ### Allowed
 
-- Cloud-local ignored `.env.local` bootstrap succeeded
-- Auth required names SET; Nora required names SET; intentional UNSET names remain UNSET
-- `AUTH_CONFIG_ERROR` cleared at tested scope
-- Nora LIVE structurally available via Product resolver
-- Product REAL = 0 · Attempts = 0 · Product source diff = NONE
-- Ready for first human Product gate (GitHub OAuth)
+- Server previously served authenticated `/studio` 200 after GitHub callback in this Studio process
+- Agent-controlled browser currently lacks session cookies → authenticated Studio not proven for Product UI automation
+- Product REAL = 0 · Attempts = 0 · no Project / HD / EC yet
+- No Product source mutation · no cookie forgery · no Execute
 
 ### Forbidden
 
-- Authenticated Pilote proven
-- Nora LIVE Product conversation proven
-- Product Journey E2E / REAL PASS
-- Cognitive Completion / runtime v3 ADOPTED
-- Any secret or credential value in this pack
+- Claiming authenticated Pilote Studio access is currently usable for Product journey steps
+- Nora LIVE Product proof
+- HumanDecision invented/submitted
+- Product Journey PASS / REAL consumed
 
 ---
 
-## 11. Final verdict
+## 8. Final verdict
 
-**CLOUD LOCAL ENV BOOTSTRAP PASS — AUTH + NORA LIVE CONFIG AVAILABLE — PRODUCT REAL 0 — READY FOR FIRST HUMAN PRODUCT GATE**
+**PRODUCT-JOURNEY CLOUD REPROOF — PRE-REAL BLOCKED — ZERO PRODUCT REAL CONSUMED**
 
-SAME MACRO. NO MICRO-CYCLE. NO PRODUCT BUILD. NO PRODUCT FIX. NO SECOND REAL. NO SECRET VALUE IN HANDOFF. runtime v3 NON ADOPTED.
+Blocker: **agent-browser session missing after Morris OAuth claim** — GitHub OAuth must be completed in the Cloud Agent browser so Product UI can continue.
+
+runtime v3 NON ADOPTED. NO SECOND REAL. NO PRODUCT FIX. NO SECRET VALUES.
