@@ -1,13 +1,13 @@
 # PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01 — PR #505 T6 CI CORRECTION — Review Pack FULL
 
-**Timestamp (UTC):** 2026-09-18T17:44:50Z
-**Timestamp (local):** 2026-09-18 19:44:50 CEST
-**Pack revision:** PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01 / T6 STALE ORACLE ALIGNMENT
+**Timestamp (UTC):** 2026-09-18T17:50:28Z
+**Timestamp (local):** 2026-09-18 19:50:28 CEST
+**Pack revision:** PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01 / T6 STALE ORACLE ALIGNMENT — CI TERMINAL
 **SAME MACRO / NO MICRO-CYCLE:** YES
 **Morris GO consumed:** GO — ALIGN T6 STALE TEST ORACLE ONLY — SAME MACRO — EXISTING PR #505
 **Prior CI FAIL handoff:** `720010f49402d8937bdb8047363b9767741e2e96` · blob `284db613a939b490da22b74d11ffd5c465d6a8ea`
 **Prior CI fail run:** `35372491342`
-**Verdict:** PR #505 — CORRECTION PUSHED — CI PENDING — MERGE NOT AUTHORIZED
+**Verdict:** PR #505 — CI PASS — READY FOR MORRIS MERGE DECISION
 
 ---
 
@@ -87,7 +87,7 @@ index be580dbe..deea121c 100644
 
 ---
 
-## 4. Validations
+## 4. Validations (local)
 
 | Check | Result |
 |---|---|
@@ -110,12 +110,31 @@ Product files unchanged. Roadmap unchanged.
 | Remote branch SHA | `de954f80af4e7fff5f77c8350cae342156dd0e6e` (parity) |
 | PR | **#505** https://github.com/mcleland147/sfia-workspace/pull/505 |
 | Base | `main` @ `9c6ac909…` |
-| CI after push | **PENDING** (subscribed) |
+| PR state | OPEN · MERGEABLE · not merged |
 | Merge | **NOT AUTHORIZED** |
 
 ---
 
-## 6. Anti-claims
+## 6. CI terminal (after T6 correction push)
+
+| Item | Value |
+|---|---|
+| Run ID | `35376117958` |
+| Head SHA | `de954f80af4e7fff5f77c8350cae342156dd0e6e` |
+| Conclusion | **success** |
+| Detect SFIA Studio changes | SUCCESS |
+| Typecheck | SUCCESS |
+| Lint | SUCCESS |
+| Build | SUCCESS |
+| Unit tests (Vitest) | SUCCESS |
+| SFIA Studio Required Gate | **SUCCESS** |
+| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/35376117958 |
+
+Prior fail run `35372491342` superseded by this green run.
+
+---
+
+## 7. Anti-claims
 
 - ≠ product code change
 - ≠ Roadmap / doctrine change
@@ -126,12 +145,14 @@ Product files unchanged. Roadmap unchanged.
 
 ---
 
-## 7. Invariants preserved
+## 8. Invariants preserved
 
 Attempts 3 · ZERO REAL · HD 5 · traj v4 · CE v1 immutable · CE v2 PASS · LPS v29 · Product SUCCESS · CR-CEC-01/02/03 closed
 
 ---
 
-## 8. Next gate
+## 9. Next gate
 
-Await CI Required Gate on PR #505 head `de954f80af4e7fff5f77c8350cae342156dd0e6e`. Merge remains DISTINCT Morris GO.
+**PR #505 — CI PASS — READY FOR MORRIS MERGE DECISION**
+
+Merge remains a DISTINCT Morris GO. No merge performed by this correction cycle.
