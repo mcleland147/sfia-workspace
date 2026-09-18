@@ -1,5076 +1,551 @@
-# PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 — POST-MERGE VERIFIED — Review Pack FULL
+# PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01 — Review Pack FULL
 
-**Timestamp (UTC):** 2026-09-18T13:42:40Z
-**Timestamp (local):** 2026-09-18 15:42:40 CEST
-**Pack revision:** PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 — POST-MERGE VERIFIED
-**Morris GO consumed:** YES — PROJECT GIT INTEGRATION (commit + push + PR + CI + conditional merge + post-merge verification)
-**Verdict:** PRODUCT JOURNEY POST-EXECUTION REPLAN — INTEGRATED ON MAIN / POST-MERGE VERIFIED — CR-PJR-01/02/03 CLOSED — NOT_PROVEN RECOVERY + FUTURE CLAIM RE-EVALUATION LIFECYCLE INTEGRATED — ATTEMPT 3 STRICT NOT_PROVEN RESERVE PRESERVED — ZERO NEW REAL
+**Timestamp (UTC):** 2026-09-18T14:11:54Z
+**Timestamp (local):** 2026-09-18 16:11:54 CEST
+**Pack revision:** PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01
+**Morris GO consumed:** YES — EXECUTE FIRST / HISTORICAL ATTEMPT 3 EVIDENCE COMPLETION / ZERO NEW CURSOR REAL / NO PROJECT COMMIT
+**Verdict:** PRODUCT JOURNEY CLAIM COMPLETION — ATTEMPT 3 DURABLE EVIDENCE COMPLETED — NEW CONTRACTRESULT CE PASS — HISTORICAL REAL-BACKED RESULT REQUALIFIED WITHOUT NEW REAL — ZERO NEW ATTEMPT
 
 ---
 
-## 1. Integration Git Truth
+## 1. Git Truth
 
 | Item | Value |
 |---|---|
 | Repository | mcleland147/sfia-workspace |
-| Integration baseline (pre-commit origin/main) | `9be4b80629cb594821cc7b35abf22c89df65acc1` |
-| Original macro baseline | `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` (PR #502) |
-| Project commit | `3d48ed706afc5d2f4a743496c72c4645fadda5eb` |
+| Worktree | `/Users/morris/Projects/sfia-studio-product-journey-claim-evidence-completion-01` |
 | Branch | `qa/sfia-studio-product-journey-post-execution-replan-01` |
-| Remote branch SHA | `3d48ed706afc5d2f4a743496c72c4645fadda5eb` (**PRESERVED**) |
-| PR | **#504** — https://github.com/mcleland147/sfia-workspace/pull/504 |
-| PR head SHA | `3d48ed706afc5d2f4a743496c72c4645fadda5eb` |
-| PR base SHA | `9be4b80629cb594821cc7b35abf22c89df65acc1` |
-| Merge SHA | `9c6ac90974113044330284dd110108287ba2319e` |
-| Merge method | **merge commit** |
-| mergedAt | `2026-09-18T13:35:38Z` |
-| Post-merge origin/main | `9c6ac90974113044330284dd110108287ba2319e` |
-| Source branch deletion | **NOT DONE / PRESERVED** |
+| HEAD / origin/main | `3d48ed706afc5d2f4a743496c72c4645fadda5eb` / `9c6ac90974113044330284dd110108287ba2319e` |
+| Baseline match | **YES** (`9c6ac909…`) |
+| Prior PJR handoff | `501256d49af693e1f426e4c572639ea5994fcd90` |
+| Project commit/push/PR | **NOT DONE** (forbidden) |
 
-### Pre-merge CI
-
-| Item | Value |
-|---|---|
-| Workflow run | `35350375305` SUCCESS |
-| Detect | job `105616808544` SUCCESS |
-| Build and validate | job `105617035992` SUCCESS |
-| SFIA Studio Required Gate | job `105619036044` SUCCESS |
-
-### Post-merge CI
-
-| Item | Value |
-|---|---|
-| Workflow run | `35351125259` SUCCESS |
-| Detect | job `105619243893` SUCCESS |
-| Build and validate | job `105619297044` SUCCESS |
-| SFIA Studio Required Gate | job `105621283124` SUCCESS |
-
-### Diff `9be4b80629cb594821cc7b35abf22c89df65acc1...9c6ac90974113044330284dd110108287ba2319e` --stat
+### git status --short
 
 ```
- .../productJourneyPostExecutionReplan.d0.test.ts   | 828 +++++++++++++++++++++
- .../w3cPostEvidenceCorrection.test.ts              |  25 +-
- .../f3/postEvidenceNoraAnalysis.ts                 |  22 +-
- .../w2/materializeW3bProductTerminal.ts            |   3 +
- .../w2/requalifyDocsWriteContractResult.ts         |  92 ++-
- .../w2/resolvePostEvidenceRecoveryContext.ts       | 146 ++--
- .../project-assistant/w2/w3cPostEvidenceLoop.ts    | 319 +++++++-
- ...studio-contract-result-extensibility-framing.md |  13 +-
- .../convergence/sfia-studio-convergence-roadmap.md |   3 +-
- 9 files changed, 1354 insertions(+), 97 deletions(-)
+ M .tmp-sfia-review/chatgpt-review.md
+ M projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
+ M projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts
+ M projects/sfia-studio/app/lib/oa/evidence-review/index.ts
+ M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+?? .tmp-sfia-review/campaign-prestate.json
+?? .tmp-sfia-review/local/
+?? .tmp-sfia-review/phase1-prestate.json
+?? .tmp-sfia-review/phase12-campaign-result.json
+?? .tmp-sfia-review/phase14-rematerialize.json
+?? .tmp-sfia-review/phase3-observation.json
+?? projects/.tmp-sfia-review/
+?? projects/sfia-studio/app/__tests__/project-assistant/claimEvidenceCompletion.d0.test.ts
+?? projects/sfia-studio/app/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion.ts
+?? projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteMinConformityVerifier.ts
 ```
 
-### Diff name-status
+### git diff --stat (tracked)
 
 ```
-A	projects/sfia-studio/app/__tests__/project-assistant/productJourneyPostExecutionReplan.d0.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/w3cPostEvidenceCorrection.test.ts
-M	projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/resolvePostEvidenceRecoveryContext.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
-M	projects/sfia-studio/convergence/sfia-studio-contract-result-extensibility-framing.md
-M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+ .tmp-sfia-review/chatgpt-review.md                 | 8971 +++++++++++++++++++-
+ .../w2/requalifyDocsWriteContractResult.ts         |   20 +-
+ .../w2/w3bProductTerminalProjection.ts             |    2 +-
+ .../application/docsWriteContractResultSemantic.ts |  145 +-
+ .../app/lib/oa/evidence-review/index.ts            |   12 +
+ .../convergence/sfia-studio-convergence-roadmap.md |    3 +-
+ 6 files changed, 8944 insertions(+), 209 deletions(-)
 ```
 
 ---
 
-## 2. Product truth preserved
+## 2. Convergence qualification
 
 | Item | Value |
 |---|---|
-| CR-PJR-01/02/03 | **CLOSED** |
-| Attempts | **3** |
-| Current CE | `clm:docs-write:strict-eo-v1:xat:w3a:c4c5670edb4658cc` **not_proven** |
-| Product | **UNCLAIMED** |
-| ZERO Studio/Cursor REAL | **YES** |
-| campaign DB mutation | **NONE** |
-| historical evaluate_claim | **NOT EXECUTED** |
-| live Nora quality | **NOT PROVEN** (FakeConversationProvider seam only) |
-| historical realProcessInvoked=false | **DEFERRED** |
-| Build Doctrine / C1 | **unchanged** (diff empty vs baseline) |
-| transmission guide | **unaffected** by this PR |
+| Cycle | QA / validation — evidence / claim completion |
+| Typology | EVOL |
+| Profile | CRITICAL |
+| Milestone | PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01 |
 | runtime v3 | **NON ADOPTED** |
-
-DB sha256 (observed; not mutated): `077b595c6f3e14cb9be7b986b81f2d4549cac67f59682aadc07d53d02cf69a8f`
-
----
-
-## 3. Local pre-commit bar (recorded)
-
-Focused Vitest: **8 files / 148 PASS** · typecheck PASS · diff-check PASS
+| Build Doctrine / C1 | **unchanged** |
 
 ---
 
-## 4. Claims / anti-claims
+## 3. Campaign pre/post
+
+| Item | Value |
+|---|---|
+| DB path | `/Users/morris/Projects/sfia-studio-product-journey-e2e-real-reconciliation-01/projects/sfia-studio/.sfia-exec/pje2e-real-01/product/oa-product.sqlite` |
+| Pre sha256 | `077b595c6f3e14cb9be7b986b81f2d4549cac67f59682aadc07d53d02cf69a8f` |
+| Post sha256 (after rematerialize) | `6101e20ce49a7243c489ecd237319a3a4d68daa429294b2024ed6931709bcf81` |
+| Forensic backup | `/tmp/oa-product.pje2e-real-01.pre-cec01.20260918-155727.sqlite` |
+| projectId | `prj:e3fe8a45-5c9e-4651-bd2c-bde1cdf77c38` |
+| Attempt 3 | `xat:w3a:c4c5670edb4658cc` succeeded |
+| EC | `xct:m3-res:dec:w2-trj:e00839c5-5022-4bd8-8243-f0a2dd6e79cb` |
+| Attempts | **3 → 3** |
+| Trajectory | v4 unchanged |
+| HumanDecision created | **none** (count remained 5) |
+| ZERO Cursor REAL | **YES** |
+
+### Bound EO / ER (from EC + bound semanticMaterial)
+
+- EO0: `Le fichier Markdown matérialisé au chemin cible`
+- EO1: `Vérification de l’existence et de la conformité minimale du fichier` (U+2019)
+- ER0: `evreq:docs_write_artifact`
+- Oracle: `inputs.targetPath` + `inputs.contentRequirements` (6 headings) + `validationExpectations`
+
+### Artifact
+
+- Location: `projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md`
+- Digest: `sha256:3cb08ee5fa2dabb1d75b7e90b65c4843935cdda75767fbfd6ff9e7fcd0b6bccf`
+- Provenance path: M4 worktree `wt-b62e7e34320e78ea2494ac1a/...` — digest MATCH
+
+---
+
+## 4. Claim owner / execute-first
+
+| Finding | Classification |
+|---|---|
+| subjectKind = execution_contract_result → EvaluateContractResult | KEEP |
+| Generic EvaluateClaim not used | KEEP |
+| Historical RB frozen; Attach requires draft | KEEP |
+| requalify defaulted to historical rb:docs-write | **BLOCKER ECG-01** → ADAPT (scoped successor RB) |
+| docsWrite semantic free-form EO → NOT_PROVEN; no conformity Evidence | **BLOCKER ECG-02/03** → ADAPT |
+| Projection used single evidenceId vs multi-evidence CE bindings | **BLOCKER** → ADAPT |
+
+Option B selected: fresh successor ReviewBundle; historical RB untouched.
+
+---
+
+## 5. Campaign result
+
+| Item | Before | After |
+|---|---|---|
+| Current CE | `clm:docs-write:strict-eo-v1:…` **not_proven** | `clm:docs-write:evidence-completion-v1:…` **pass** |
+| Product | UNCLAIMED | **SUCCESS** |
+| W3-C | recover / evaluate_claim | **continue** (old recover superseded) |
+| LPS | v27 | **v28** |
+| correctionRef | — | `evidence-completion-v1` |
+| Conformity Evidence | — | `ev:docs-write-conformity:evidence-completion-v1:…` |
+| Successor RB | — | `rb:docs-write:evidence-completion-v1:…` frozen v2 (Artifact + Conformity) |
+
+EO assessments after: PASS / PASS · ER: SATISFIED
+
+Restart rematerialize: idempotent (DB sha unchanged; LPS stays v28).
+
+---
+
+## 6. Tests
+
+| Suite | Result |
+|---|---|
+| claimEvidenceCompletion.d0.test.ts (EC-01..23 core) | **PASS** (9) |
+| productJourneyPostExecutionReplan + w3c + requal + semantics registry | **PASS** (74 focused combined) |
+| typecheck | **PASS** |
+| git diff --check | **PASS** |
+
+---
+
+## 7. Files changed (project candidate)
+
+- `projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts`
+- `projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts`
+- `projects/sfia-studio/app/lib/oa/evidence-review/index.ts`
+- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+- `projects/sfia-studio/app/__tests__/project-assistant/claimEvidenceCompletion.d0.test.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion.ts`
+- `projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteMinConformityVerifier.ts`
+
+### Local-only (NOT project integration)
+
+- `.tmp-sfia-review/**` including phase JSON + campaign runners
+- historical Attempt3 verifier remains local-only
+
+---
+
+## 8. Claims / anti-claims
 
 ### Allowed
 
-- evidence-backed NOT_PROVEN recovery integrated on main
-- Product UNCLAIMED post-Evidence recovery supported at tested scope
-- CR-PJR-01/02/03 closed
-- future explicit immutable claim re-evaluation lifecycle supported
-- W3-C current-CE stale-recommendation protection integrated
-- portable deterministic PJR tests integrated
-- ZERO new Studio/Cursor REAL
+- Attempt 3 ContractResult PASS after durable evidence completion
+- Historical REAL-backed artifact requalified without new Cursor REAL
+- ZERO new Attempt
+- CR-PJR semantics preserved; multi-evidence docs_write completion path added
 
-### Forbidden
+### Forbidden / not claimed
 
-- Attempt 3 Product PASS
+- new Cursor REAL proof / Attempt 4
 - Product Journey READY / COMPLETE
 - live Nora cognitive quality proven
-- full REAL post-Evidence loop newly proven
-- automatic structural replan / HumanDecision
-- Attempt 4
+- automatic HumanDecision / structural replan
 - runtime v3 ADOPTED
-- global L5
+- project commit/push/PR/merge
 
 ---
 
-## 5. Next (recommendation only — not authorization)
+## 9. Full unified diffs (modified tracked)
 
-Optional later Morris GO candidates (not started):
-
-- governed Pilote path for evaluate_claim / evidence completion on historical Attempt 3
-- documentary follow-up only if Roadmap tip lifecycle wording is judged stale vs RESOLVE FROM GIT / PR EVIDENCE
-
-No automatic follow-up started by this pack.
-
----
-
-## 6. Full unified diffs (merged)
-
-
-### `projects/sfia-studio/app/__tests__/project-assistant/productJourneyPostExecutionReplan.d0.test.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/productJourneyPostExecutionReplan.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/productJourneyPostExecutionReplan.d0.test.ts
-new file mode 100644
-index 00000000..ec76110c
---- /dev/null
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/productJourneyPostExecutionReplan.d0.test.ts
-@@ -0,0 +1,828 @@
-+/**
-+ * PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 — portable PJR bar (CR-PJR-01..03).
-+ * CI-safe: tempProductDbPath / in-memory only. ZERO REAL. No campaign DB.
-+ * @vitest-environment node
-+ */
-+import fs from "node:fs";
-+import { afterEach, beforeEach, describe, expect, it } from "vitest";
-+import { setConversationProviderForTests } from "@/lib/platform/ai";
-+import { FixedClock } from "@/lib/oa/doctrine";
-+import type { Digest } from "@/lib/oa/doctrine";
-+import {
-+  BOUNDED_DOCS_WRITE_EO_TEMPLATE,
-+  CLAIM_EVALUATION_SCHEMA_VERSION,
-+  createInMemoryEvidenceReviewServices,
-+  docsWriteContractResultIdentity,
-+  DOCS_WRITE_CONTRACT_RESULT_ER_KEY,
-+  DOCS_WRITE_STRICT_EO_CORRECTION_REF,
-+  resolveCurrentContractResultClaimEvaluation,
-+} from "@/lib/oa/evidence-review";
-+import {
-+  computeExecutionContractSemanticMaterialFingerprint,
-+  executionContractSemanticMaterial,
-+  type ExecutionContract,
-+} from "@/lib/oa/execution-contract";
-+import { captureBoundExecutionContractSnapshot } from "@/lib/oa/execution-attempt/domain/boundExecutionContract";
-+import {
-+  M4_BOUNDED_DOCS_WRITE_ACTION,
-+  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
-+  M4_BOUNDED_DOCS_WRITE_TARGET,
-+} from "@/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent";
-+import { BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS } from "@/features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile";
-+import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
-+import { ingestDocsWriteArtifactEvidence } from "@/features/project-assistant/f3/ingestDocsWriteArtifactEvidence";
-+import { requalifyDocsWriteContractResult } from "@/features/project-assistant/w2/requalifyDocsWriteContractResult";
-+import {
-+  isEvidenceBackedNotProvenUnclaimed,
-+  recommendationFromOutcome,
-+  runW3cPostEvidenceLoop,
-+  findExistingW3cPostEvidence,
-+  w3cPayloadMatchesCurrentProduct,
-+  w3cRecommendationEpistemicId,
-+} from "@/features/project-assistant/w2/w3cPostEvidenceLoop";
-+import { resolvePostEvidenceRecoveryContext } from "@/features/project-assistant/w2/resolvePostEvidenceRecoveryContext";
-+import {
-+  materializeProductOutcomeFromAttempt,
-+  rehydrateProductOutcomeFromAttempt,
-+} from "@/features/project-assistant/w2/materializeW3bProductTerminal";
-+import type { W3BProductTerminalProjection } from "@/features/project-assistant/w2/w3bProductTerminalProjection";
-+import {
-+  bootW2Runtime,
-+  cleanupW2TempDirs,
-+  proposeW2OptionsForProject,
-+  seedQualifiedProject,
-+  tempProductDbPath,
-+} from "./w2Harness";
-+import { LOCAL_PILOTE_ACTOR, registerLocalPiloteAuthority } from "@/lib/oa/decision";
-+import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
-+import { GOVERNED_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
-+
-+const ACTOR = { actorId: "actor:pjr", role: "project_owner" as const };
-+const NOW = "2026-09-18T14:00:00.000Z";
-+const TARGET = "docs/functional-design.md";
-+const SANDBOX_TARGET = "projects/sfia-studio/.sandbox/pjr-portable.md";
-+
-+beforeEach(() => {
-+  process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-+  process.env.OPS1_E2E_ALLOW_DIRTY_PRINCIPAL = "1";
-+  delete process.env.SFIA_STUDIO_CURSOR_REAL_AUTHORIZED;
-+  setConversationProviderForTests(null);
-+});
-+
-+afterEach(() => {
-+  cleanupW2TempDirs();
-+});
-+
-+function makeDocsWriteContract(input?: {
-+  expectedOutputs?: string[];
-+  projectId?: string;
-+  executionContractId?: string;
-+}): ExecutionContract {
-+  const base: ExecutionContract = {
-+    schemaVersion: "0.2.0-oa",
-+    executionContractId: input?.executionContractId ?? "xct:pjr:docs",
-+    projectId: input?.projectId ?? "prj:pjr",
-+    cycleInstanceId: "cyc:pjr:1",
-+    version: 2,
-+    status: "confirmed",
-+    semanticFingerprint: "fp:pending",
-+    action: M4_BOUNDED_DOCS_WRITE_ACTION,
-+    target: TARGET,
-+    scope: "docs/",
-+    requiredAuthority: "N3",
-+    constraints: ["NO_COMMIT", "NO_PUSH", "NO_PR", "NO_MERGE"],
-+    stopConditions: [],
-+    evidenceRequirements: [DOCS_WRITE_CONTRACT_RESULT_ER_KEY],
-+    expectedOutputs: input?.expectedOutputs ?? [BOUNDED_DOCS_WRITE_EO_TEMPLATE],
-+    requiredCapabilities: [M4_BOUNDED_DOCS_WRITE_CAPABILITY],
-+    reversibility: "reversible",
-+    idempotencyKey: "idem:ec:pjr:docs",
-+    correlationId: "cor:ec:pjr:docs",
-+  };
-+  base.semanticFingerprint = computeExecutionContractSemanticMaterialFingerprint(
-+    executionContractSemanticMaterial(base),
-+  );
-+  return base;
-+}
-+
-+function makeAttempt(
-+  contract: ExecutionContract,
-+  attemptId: string,
-+): ExecutionAttempt {
-+  const snap = captureBoundExecutionContractSnapshot(contract);
-+  return {
-+    attemptId,
-+    executionContractId: contract.executionContractId,
-+    executionContractVersion: contract.version,
-+    executionContractSemanticFingerprint: snap.semanticFingerprint,
-+    boundExecutionContract: snap,
-+    status: "succeeded",
-+    resultRef: `res:${attemptId}`,
-+    selectedAgentRef: "agent:docs-write",
-+    version: 3,
-+    createdAt: NOW,
-+    updatedAt: NOW,
-+    completedAt: NOW,
-+  } as ExecutionAttempt;
-+}
-+
-+function unclaimedWithoutCe(): W3BProductTerminalProjection {
-+  return {
-+    outcome: "UNCLAIMED",
-+    businessHeadline: "Non claimable",
-+    businessReason: "missing",
-+    claimAllowed: false,
-+    evidenceId: null,
-+    reviewBundleId: null,
-+    claimEvaluationId: null,
-+    claimEvaluationStatus: null,
-+    contractResultVerdict: null,
-+    evidenceStatus: null,
-+    evidenceSummary: null,
-+    reviewBundleCompleteness: null,
-+    governedBoundary: null,
-+    technicalDetail: {
-+      attemptId: "xat:x",
-+      attemptStatus: "succeeded",
-+      resultRef: null,
-+      errorRef: null,
-+      stopReason: null,
-+      stopOrigin: null,
-+      stopCode: null,
-+      executionContractId: "xct:x",
-+      executionContractVersion: 1,
-+    },
-+    reservations: [],
-+    antiClaims: {
-+      ready: false,
-+      w3Closed: false,
-+      productCompletionComplete: false,
-+      runtimeV3Adopted: false,
-+      realProven: false,
-+      cycleAutoClosed: false,
-+      projectAutoArchived: false,
-+    },
-+    cycleInstanceClosed: false,
-+    projectArchived: false,
-+    noraInvoked: false,
-+    replanInvoked: false,
-+    realExecution: false,
-+  };
-+}
-+
-+describe("CR-PJR-01 — portable hygiene", () => {
-+  it("this suite has no absolute campaign DB path", () => {
-+    const src = fs.readFileSync(__filename, "utf8");
-+    expect(src).not.toMatch(
-+      /\/Users\/morris\/Projects\/sfia-studio-product-journey/,
-+    );
-+  });
-+
-+  it("PJR-15 — arbitrary UNCLAIMED without evidence-backed CE is not admissible", () => {
-+    expect(isEvidenceBackedNotProvenUnclaimed(unclaimedWithoutCe())).toBe(
-+      false,
-+    );
-+  });
-+
-+  it("PJR-02/07/08/09 — UNCLAIMED recommendation is recover without HD/auto-cycle", () => {
-+    const rec = recommendationFromOutcome({
-+      outcome: "UNCLAIMED",
-+      recommendNextGateStatus: null,
-+      nextActionCode: "complete_evidence",
-+    });
-+    expect(rec.kind).toBe("recover");
-+    expect(rec.nextStep).toBe("complete_evidence");
-+    expect(rec.requiresHumanDecision).toBe(false);
-+    expect(rec.decisionCreated).toBe(false);
-+    expect(rec.attemptAutoLaunchNextCycle).toBe(false);
-+  });
-+});
-+
-+describe("CR-PJR-02 — rematerialize vs correctionRef re-evaluation", () => {
-+  async function seedNotProvenDocsWrite(attemptId: string) {
-+    const services = createInMemoryEvidenceReviewServices({
-+      clock: new FixedClock(NOW),
-+    });
-+    const contract = makeDocsWriteContract({
-+      expectedOutputs: [
-+        "Free-form expected output that cannot PASS artifact location",
-+      ],
-+    });
-+    const attempt = makeAttempt(contract, attemptId);
-+    const ingested = await ingestDocsWriteArtifactEvidence({
-+      evidenceReviewServices: services,
-+      projectId: contract.projectId!,
-+      cycleInstanceId: contract.cycleInstanceId!,
-+      executionContractId: contract.executionContractId,
-+      executionAttemptId: attemptId,
-+      targetPath: TARGET,
-+      digest:
-+        "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" as Digest,
-+      actor: ACTOR,
-+      nowIso: NOW,
-+    });
-+    expect(ingested.ok).toBe(true);
-+    if (!ingested.ok) throw new Error("ingest");
-+
-+    const first = await requalifyDocsWriteContractResult({
-+      evidenceReviewServices: services,
-+      attempt,
-+      contract,
-+      actor: ACTOR,
-+      nowIso: NOW,
-+    });
-+    expect(first.ok).toBe(true);
-+    if (!first.ok) throw new Error(first.message);
-+    expect(first.claimEvaluation.status).toBe("not_proven");
-+    return { services, contract, attempt, first };
-+  }
-+
-+  it("plain rematerialize reuses current docs-write CE (CASE A)", async () => {
-+    const attemptId = "xat:w3a:pjr-case-a";
-+    const { services, contract, attempt, first } =
-+      await seedNotProvenDocsWrite(attemptId);
-+    const again = await requalifyDocsWriteContractResult({
-+      evidenceReviewServices: services,
-+      attempt,
-+      contract,
-+      actor: ACTOR,
-+      nowIso: NOW,
-+    });
-+    expect(again.ok).toBe(true);
-+    if (!again.ok) return;
-+    expect(again.claimEvaluation.claimEvaluationId).toBe(
-+      first.claimEvaluation.claimEvaluationId,
-+    );
-+    expect(again.reusedFromIdempotencyKey).toBe(true);
-+  });
-+
-+  it("explicit correctionRef creates successor CE superseding current (CASE B)", async () => {
-+    const attemptId = "xat:w3a:pjr-case-b";
-+    const { services, contract, attempt, first } =
-+      await seedNotProvenDocsWrite(attemptId);
-+    const successor = await requalifyDocsWriteContractResult({
-+      evidenceReviewServices: services,
-+      attempt,
-+      contract,
-+      actor: ACTOR,
-+      nowIso: NOW,
-+      correctionRef: "corr-v2",
-+    });
-+    expect(successor.ok).toBe(true);
-+    if (!successor.ok) return;
-+    const expectedId = docsWriteContractResultIdentity(attemptId, {
-+      correctionRef: "corr-v2",
-+    }).claimEvaluationId;
-+    expect(successor.claimEvaluation.claimEvaluationId).toBe(expectedId);
-+    expect(successor.supersededClaimEvaluationId).toBe(
-+      first.claimEvaluation.claimEvaluationId,
-+    );
-+    const current = await resolveCurrentContractResultClaimEvaluation({
-+      repo: services.claimEvaluationRepository,
-+      projectId: contract.projectId!,
-+      executionAttemptId: attemptId,
-+    });
-+    expect(current.status).toBe("one");
-+    if (current.status === "one") {
-+      expect(current.claimEvaluation.claimEvaluationId).toBe(expectedId);
-+    }
-+  });
-+
-+  it("same correctionRef rerun reuses current (CASE C)", async () => {
-+    const attemptId = "xat:w3a:pjr-case-c";
-+    const { services, contract, attempt } =
-+      await seedNotProvenDocsWrite(attemptId);
-+    const firstCorr = await requalifyDocsWriteContractResult({
-+      evidenceReviewServices: services,
-+      attempt,
-+      contract,
-+      actor: ACTOR,
-+      nowIso: NOW,
-+      correctionRef: DOCS_WRITE_STRICT_EO_CORRECTION_REF,
-+    });
-+    expect(firstCorr.ok).toBe(true);
-+    if (!firstCorr.ok) return;
-+    const again = await requalifyDocsWriteContractResult({
-+      evidenceReviewServices: services,
-+      attempt,
-+      contract,
-+      actor: ACTOR,
-+      nowIso: NOW,
-+      correctionRef: DOCS_WRITE_STRICT_EO_CORRECTION_REF,
-+    });
-+    expect(again.ok).toBe(true);
-+    if (!again.ok) return;
-+    expect(again.claimEvaluation.claimEvaluationId).toBe(
-+      firstCorr.claimEvaluation.claimEvaluationId,
-+    );
-+    expect(again.reusedFromIdempotencyKey).toBe(true);
-+  });
-+
-+  it("ancestor / historical correction identity fails closed (CASE E)", async () => {
-+    const attemptId = "xat:w3a:pjr-case-e";
-+    const { services, contract, attempt } =
-+      await seedNotProvenDocsWrite(attemptId);
-+    const firstCorr = await requalifyDocsWriteContractResult({
-+      evidenceReviewServices: services,
-+      attempt,
-+      contract,
-+      actor: ACTOR,
-+      nowIso: NOW,
-+      correctionRef: "hist-a",
-+    });
-+    expect(firstCorr.ok).toBe(true);
-+    if (!firstCorr.ok) return;
-+    const secondCorr = await requalifyDocsWriteContractResult({
-+      evidenceReviewServices: services,
-+      attempt,
-+      contract,
-+      actor: ACTOR,
-+      nowIso: NOW,
-+      correctionRef: "hist-b",
-+    });
-+    expect(secondCorr.ok).toBe(true);
-+    if (!secondCorr.ok) return;
-+
-+    // Re-create superseded hist-a identity → refuse.
-+    const cycle = await requalifyDocsWriteContractResult({
-+      evidenceReviewServices: services,
-+      attempt,
-+      contract,
-+      actor: ACTOR,
-+      nowIso: NOW,
-+      correctionRef: "hist-a",
-+    });
-+    expect(cycle.ok).toBe(false);
-+    if (!cycle.ok) {
-+      expect(cycle.code).toBe("CONTRACT_RESULT_CORRECTION_LINEAGE_INVALID");
-+    }
-+
-+    // Ordinary rematerialize still reuses current hist-b.
-+    const rematerialize = await requalifyDocsWriteContractResult({
-+      evidenceReviewServices: services,
-+      attempt,
-+      contract,
-+      actor: ACTOR,
-+      nowIso: NOW,
-+    });
-+    expect(rematerialize.ok).toBe(true);
-+    if (!rematerialize.ok) return;
-+    expect(rematerialize.claimEvaluation.claimEvaluationId).toBe(
-+      secondCorr.claimEvaluation.claimEvaluationId,
-+    );
-+  });
-+
-+  it("ambiguous current CE fails closed (CASE D)", async () => {
-+    const services = createInMemoryEvidenceReviewServices({
-+      clock: new FixedClock(NOW),
-+    });
-+    const contract = makeDocsWriteContract();
-+    const attemptId = "xat:w3a:pjr-case-d";
-+    const attempt = makeAttempt(contract, attemptId);
-+    const ingested = await ingestDocsWriteArtifactEvidence({
-+      evidenceReviewServices: services,
-+      projectId: contract.projectId!,
-+      cycleInstanceId: contract.cycleInstanceId!,
-+      executionContractId: contract.executionContractId,
-+      executionAttemptId: attemptId,
-+      targetPath: TARGET,
-+      digest:
-+        "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" as Digest,
-+      actor: ACTOR,
-+      nowIso: NOW,
-+    });
-+    expect(ingested.ok).toBe(true);
-+    if (!ingested.ok) return;
-+
-+    // Two active non-superseding ContractResult CEs → ambiguous.
-+    for (const id of ["clm:docs-write:amb-a", "clm:docs-write:amb-b"]) {
-+      await services.claimEvaluationRepository.create({
-+        schemaVersion: CLAIM_EVALUATION_SCHEMA_VERSION,
-+        claimEvaluationId: id,
-+        claimType: "conformite",
-+        claimStatement: "ambiguous fixture",
-+        criticality: "non_critical",
-+        evaluationMethod: "deterministic",
-+        requiredEvidenceRefs: [ingested.evidenceId!],
-+        reviewBundleId: ingested.reviewBundleId!,
-+        reviewBundleVersion: 1,
-+        status: "not_proven",
-+        proposedBy: ACTOR,
-+        proposedAt: NOW,
-+        evaluatedAt: NOW,
-+        provenance: {
-+          schemaVersion: "0.1.0-oa",
-+          provenanceRecordId: `prv:${id}`,
-+          actor: ACTOR,
-+          source: "review",
-+          timestamp: NOW,
-+          correlationId: `cor:${id}`,
-+          projectId: contract.projectId!,
-+        },
-+        version: 1,
-+        subjectKind: "execution_contract_result",
-+        contractResultBindings: {
-+          projectId: contract.projectId!,
-+          cycleInstanceId: contract.cycleInstanceId!,
-+          executionContractId: contract.executionContractId,
-+          executionContractVersion: contract.version,
-+          executionContractSemanticFingerprint:
-+            attempt.executionContractSemanticFingerprint!,
-+          executionAttemptId: attemptId,
-+          reviewBundleId: ingested.reviewBundleId!,
-+          reviewBundleVersion: 1,
-+          evidenceRefs: [ingested.evidenceId!],
-+        },
-+      });
-+    }
-+
-+    const result = await requalifyDocsWriteContractResult({
-+      evidenceReviewServices: services,
-+      attempt,
-+      contract,
-+      actor: ACTOR,
-+      nowIso: NOW,
-+    });
-+    expect(result.ok).toBe(false);
-+    if (!result.ok) {
-+      expect(result.code).toBe("CONTRACT_RESULT_CLAIM_LINEAGE_AMBIGUOUS");
-+    }
-+  });
-+});
-+
-+describe("CR-PJR-03 — W3-C current-CE awareness", () => {
-+  it("payload match helper rejects CE / outcome drift", () => {
-+    const base = {
-+      evidenceId: "ev:docs-write:x",
-+      attemptId: "xat:x",
-+      reviewBundleId: "rb:docs-write:x",
-+      claimEvaluationId: "clm:docs-write:a",
-+      productOutcome: "UNCLAIMED",
-+    };
-+    const product = {
-+      evidenceId: "ev:docs-write:x",
-+      reviewBundleId: "rb:docs-write:x",
-+      claimEvaluationId: "clm:docs-write:a",
-+      outcome: "UNCLAIMED" as const,
-+      technicalDetail: { attemptId: "xat:x" },
-+    };
-+    expect(w3cPayloadMatchesCurrentProduct(base, product)).toBe(true);
-+    expect(
-+      w3cPayloadMatchesCurrentProduct(base, {
-+        ...product,
-+        claimEvaluationId: "clm:docs-write:b",
-+      }),
-+    ).toBe(false);
-+    expect(
-+      w3cPayloadMatchesCurrentProduct(base, {
-+        ...product,
-+        outcome: "SUCCESS",
-+      }),
-+    ).toBe(false);
-+  });
-+
-+  it("Epistemic id binds Evidence+CE when CE present", () => {
-+    const a = w3cRecommendationEpistemicId("ev:x", "clm:a");
-+    const b = w3cRecommendationEpistemicId("ev:x", "clm:b");
-+    const legacy = w3cRecommendationEpistemicId("ev:x");
-+    expect(a).not.toBe(b);
-+    expect(a).not.toBe(legacy);
-+  });
-+});
-+
-+describe("CR-PJR portable docs_write UNCLAIMED recover (temp DB)", () => {
-+  it("succeeded Attempt + frozen docs_write Evidence/RB + CE not_proven → UNCLAIMED recover + restart; CE-B invalidates recover A", async () => {
-+    const db = tempProductDbPath("pjr-portable.sqlite");
-+    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "pjrport" });
-+    const seeded = await seedQualifiedProject(runtime, { suffix: "pjr" });
-+    const oa = runtime.oa!;
-+    const projectId = seeded.projectId;
-+    const attemptId = `xat:w3a:pjrport-${Date.now().toString(16).slice(-8)}`;
-+    const ecId = `xct:pjr:${Date.now().toString(16).slice(-8)}`;
-+
-+    const proposed = await proposeW2OptionsForProject(runtime, projectId);
-+    expect(proposed.ok).toBe(true);
-+    if (!proposed.ok) throw new Error("propose");
-+    const decided = await decideTrajectory({
-+      oa,
-+      projectId,
-+      optionSetRef: proposed.optionSetRef,
-+      options: proposed.options,
-+      recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
-+      selectedOptionRef: GOVERNED_OPTION_REF,
-+      trajectoryId: proposed.proposedTrajectory!.trajectoryId,
-+      candidateVersion: proposed.proposedTrajectory!.version,
-+      forceLocalAuthority: true,
-+    });
-+    expect(decided.ok).toBe(true);
-+    if (!decided.ok) throw new Error("decide");
-+    const decisionId = decided.decision.decisionId;
-+
-+    const authority = registerLocalPiloteAuthority({
-+      authorityResolver: oa.authorityResolver,
-+      scope: "studio.gcec.docs_write",
-+      issuedAt: oa.clock.nowIso(),
-+      evidenceId: `evd:pjr-seed:${ecId}`,
-+      forceEnable: true,
-+    });
-+    expect(authority.ok).toBe(true);
-+    if (!authority.ok) throw new Error(authority.code);
-+
-+    const built = await oa.executionContractServices!.buildExecutionContract.execute({
-+      executionContractId: ecId,
-+      projectId,
-+      cycleInstanceId: seeded.cycleInstanceId,
-+      decisionRefs: [decisionId],
-+      action: M4_BOUNDED_DOCS_WRITE_ACTION,
-+      target: M4_BOUNDED_DOCS_WRITE_TARGET,
-+      scope: "studio.gcec.docs_write",
-+      inputs: {
-+        targetPath: SANDBOX_TARGET,
-+        targetRepositoryRef: "mcleland147/sfia-workspace",
-+        repositoryRef: "mcleland147/sfia-workspace",
-+        pathAllowlist: ["projects/sfia-studio/.sandbox/"],
-+        contentRequirements: ["markdown heading", "acceptance criteria"],
-+      },
-+      requiredCapabilities: [M4_BOUNDED_DOCS_WRITE_CAPABILITY],
-+      requiredAuthority: "MORRIS",
-+      constraints: [
-+        "BOUNDED DOCS-WRITE",
-+        "PATH_ALLOWLIST_ONLY",
-+        "TEXT_DOCS_ONLY",
-+        "NO_DELETE",
-+        "NO_COMMIT",
-+        "NO_GIT_REMOTE",
-+        "NO_PUSH",
-+        "NO_PR",
-+        "NO_MERGE",
-+        "GATE D REQUIRED",
-+        "NO WILDCARD",
-+        "PREPARE_ONLY",
-+      ],
-+      stopConditions: ["AUTHORITY_DENIED", "CONTEXT_STALE", "DECISION_NOT_CURRENT"],
-+      evidenceRequirements: [...BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS],
-+      reversibility: "reversible",
-+      idempotencyKey: `idem:ec:${ecId}`,
-+      correlationId: `cor:ec:${ecId}`,
-+      actor: LOCAL_PILOTE_ACTOR,
-+      authorityEvidenceId: authority.evidenceId,
-+    });
-+    if (!built.ok) {
-+      throw new Error(
-+        `build EC failed: ${built.error?.detailCode ?? "?"} ${built.error?.message ?? JSON.stringify(built)}`,
-+      );
-+    }
-+    const contract = {
-+      ...built.contract,
-+      status: "confirmed" as const,
-+      expectedOutputs: [
-+        "Free-form EO that yields NOT_PROVEN against artifact location",
-+      ],
-+      evidenceRequirements: [
-+        ...BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS,
-+        DOCS_WRITE_CONTRACT_RESULT_ER_KEY,
-+      ],
-+    };
-+    contract.semanticFingerprint =
-+      computeExecutionContractSemanticMaterialFingerprint(
-+        executionContractSemanticMaterial(contract),
-+      );
-+    await oa.executionContractServices!.contracts.save(contract);
-+
-+    const snap = captureBoundExecutionContractSnapshot(contract);
-+    const attempt = {
-+      schemaVersion: "0.2.0-oa" as const,
-+      attemptId,
-+      executionContractId: contract.executionContractId,
-+      executionContractVersion: contract.version,
-+      executionContractSemanticFingerprint: snap.semanticFingerprint,
-+      boundExecutionContract: snap,
-+      selectedAgentRef: "agt:m4.cursor.bounded_docs_write",
-+      status: "succeeded" as const,
-+      idempotencyKey: `idem:att:${attemptId}`,
-+      correlationId: `cor:att:${attemptId}`,
-+      version: 1,
-+      createdAt: NOW,
-+      updatedAt: NOW,
-+      completedAt: NOW,
-+      launchedAt: NOW,
-+      startedAt: NOW,
-+      resultRef: `res:${attemptId}`,
-+      irreversibleEffectsPossible: true,
-+      provenance: {
-+        schemaVersion: "0.1.0-oa" as const,
-+        provenanceRecordId: `prv:${attemptId}`,
-+        actor: LOCAL_PILOTE_ACTOR,
-+        source: "system" as const,
-+        timestamp: NOW,
-+        correlationId: `cor:att:${attemptId}`,
-+      },
-+    };
-+    await oa.executionAttemptServices!.attempts.create(attempt as never);
-+
-+    const ingested = await ingestDocsWriteArtifactEvidence({
-+      evidenceReviewServices: oa.evidenceReviewServices!,
-+      projectId,
-+      cycleInstanceId: seeded.cycleInstanceId,
-+      executionContractId: contract.executionContractId,
-+      executionAttemptId: attemptId,
-+      targetPath: SANDBOX_TARGET,
-+      digest:
-+        "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc" as Digest,
-+      actor: LOCAL_PILOTE_ACTOR,
-+      nowIso: NOW,
-+    });
-+    expect(ingested.ok).toBe(true);
-+    if (!ingested.ok) throw new Error("ingest");
-+
-+    const requal = await requalifyDocsWriteContractResult({
-+      evidenceReviewServices: oa.evidenceReviewServices!,
-+      attempt: attempt as ExecutionAttempt,
-+      contract,
-+      actor: LOCAL_PILOTE_ACTOR,
-+      nowIso: NOW,
-+    });
-+    expect(requal.ok).toBe(true);
-+    if (!requal.ok) throw new Error(requal.message);
-+    expect(requal.claimEvaluation.status).toBe("not_proven");
-+    const ceA = requal.claimEvaluation.claimEvaluationId;
-+
-+    const materialized = await materializeProductOutcomeFromAttempt({
-+      oa,
-+      projectId,
-+      attemptId,
-+    });
-+    expect(materialized.ok).toBe(true);
-+    if (!materialized.ok) throw new Error(JSON.stringify(materialized));
-+    expect(materialized.product.outcome).toBe("UNCLAIMED");
-+    expect(materialized.product.claimAllowed).toBe(false);
-+    expect(materialized.product.claimEvaluationId).toBe(ceA);
-+    expect(isEvidenceBackedNotProvenUnclaimed(materialized.product)).toBe(true);
-+    expect(materialized.postEvidence?.ok).toBe(true);
-+    if (!materialized.postEvidence || !materialized.postEvidence.ok) {
-+      throw new Error("postEvidence");
-+    }
-+    expect(materialized.postEvidence.recommendation.kind).toBe("recover");
-+    expect(materialized.postEvidence.recommendation.requiresHumanDecision).toBe(
-+      false,
-+    );
-+    expect(materialized.postEvidence.recommendation.decisionCreated).toBe(
-+      false,
-+    );
-+    expect(
-+      materialized.postEvidence.recommendation.attemptAutoLaunchNextCycle,
-+    ).toBe(false);
-+    expect(materialized.postEvidence.noraInvoked).toBe(true);
-+    expect(materialized.postEvidence.claimEvaluationId).toBe(ceA);
-+
-+    const recovery = await resolvePostEvidenceRecoveryContext({
-+      oa,
-+      projectId,
-+    });
-+    expect(recovery.ok).toBe(true);
-+    if (!recovery.ok) throw new Error("recovery");
-+    expect(recovery.context).not.toBeNull();
-+    expect(recovery.context!.productOutcome).toBe("UNCLAIMED");
-+    expect(recovery.context!.evidenceId).toBe(ingested.evidenceId);
-+    expect(recovery.context!.businessEffectProven).toBe(false);
-+
-+    const listedBefore =
-+      await oa.executionAttemptServices!.listExecutionAttempts.execute({
-+        executionContractId: contract.executionContractId,
-+      });
-+    expect(listedBefore.ok && listedBefore.attempts.length).toBe(1);
-+
-+    const rehydrated = await rehydrateProductOutcomeFromAttempt({
-+      oa,
-+      projectId,
-+      attemptId,
-+    });
-+    expect(rehydrated.ok).toBe(true);
-+    if (!rehydrated.ok) throw new Error("rehydrate");
-+    expect(rehydrated.product.outcome).toBe("UNCLAIMED");
-+    expect(rehydrated.postEvidence?.ok).toBe(true);
-+
-+    const corr = await requalifyDocsWriteContractResult({
-+      evidenceReviewServices: oa.evidenceReviewServices!,
-+      attempt: attempt as ExecutionAttempt,
-+      contract,
-+      actor: LOCAL_PILOTE_ACTOR,
-+      nowIso: NOW,
-+      correctionRef: "corr-b",
-+    });
-+    expect(corr.ok).toBe(true);
-+    if (!corr.ok) throw new Error(corr.message);
-+    const ceB = corr.claimEvaluation.claimEvaluationId;
-+    expect(ceB).not.toBe(ceA);
-+
-+    const afterCorr = await materializeProductOutcomeFromAttempt({
-+      oa,
-+      projectId,
-+      attemptId,
-+    });
-+    expect(afterCorr.ok).toBe(true);
-+    if (!afterCorr.ok) throw new Error(JSON.stringify(afterCorr));
-+    expect(afterCorr.product.claimEvaluationId).toBe(ceB);
-+    expect(afterCorr.product.outcome).toBe("UNCLAIMED");
-+    expect(afterCorr.postEvidence?.ok).toBe(true);
-+    if (!afterCorr.postEvidence || !afterCorr.postEvidence.ok) {
-+      throw new Error("post B");
-+    }
-+    expect(afterCorr.postEvidence.claimEvaluationId).toBe(ceB);
-+    expect(afterCorr.postEvidence.recommendation.kind).toBe("recover");
-+
-+    const staleA = await findExistingW3cPostEvidence({
-+      oa,
-+      projectId,
-+      evidenceId: ingested.evidenceId!,
-+      attemptId,
-+      product: {
-+        ...afterCorr.product,
-+        claimEvaluationId: ceA,
-+      },
-+    });
-+    expect(staleA).toBeNull();
-+
-+    const currentB = await findExistingW3cPostEvidence({
-+      oa,
-+      projectId,
-+      evidenceId: ingested.evidenceId!,
-+      attemptId,
-+      product: afterCorr.product,
-+    });
-+    expect(currentB).not.toBeNull();
-+    expect(currentB!.claimEvaluationId).toBe(ceB);
-+
-+    // CE-B PASS — same semantic fingerprint (evaluate forbids EO mutation on supersede).
-+    // Create immutable PASS successor via repository for W3-C invalidation proof.
-+    const cePass = `clm:docs-write:corr-pass:${attemptId}`.slice(0, 128);
-+    await oa.evidenceReviewServices!.claimEvaluationRepository.create({
-+      ...corr.claimEvaluation,
-+      claimEvaluationId: cePass,
-+      status: "pass",
-+      claimStatement: "Contract result assessment (pass) — test successor",
-+      supersedesClaimEvaluationId: ceB,
-+      idempotencyKey: `idem:docs-write-ce:corr-pass:${attemptId}`,
-+      provenance: {
-+        ...corr.claimEvaluation.provenance,
-+        provenanceRecordId: `prv:${cePass}`,
-+        correlationId: `cor:${cePass}`,
-+      },
-+    });
-+
-+    const afterPass = await materializeProductOutcomeFromAttempt({
-+      oa,
-+      projectId,
-+      attemptId,
-+    });
-+    expect(afterPass.ok).toBe(true);
-+    if (!afterPass.ok) throw new Error(JSON.stringify(afterPass));
-+    expect(afterPass.product.claimEvaluationId).toBe(cePass);
-+    expect(afterPass.product.outcome).toBe("SUCCESS");
-+    expect(afterPass.postEvidence?.ok).toBe(true);
-+    if (!afterPass.postEvidence || !afterPass.postEvidence.ok) {
-+      throw new Error("post pass");
-+    }
-+    expect(afterPass.postEvidence.recommendation.kind).toBe("continue");
-+    expect(afterPass.postEvidence.productOutcome).toBe("SUCCESS");
-+
-+    const recoverStale = await findExistingW3cPostEvidence({
-+      oa,
-+      projectId,
-+      evidenceId: ingested.evidenceId!,
-+      attemptId,
-+      product: {
-+        evidenceId: ingested.evidenceId!,
-+        reviewBundleId: ingested.reviewBundleId!,
-+        claimEvaluationId: ceB,
-+        outcome: "UNCLAIMED",
-+        technicalDetail: { attemptId },
-+      },
-+    });
-+    expect(recoverStale).toBeNull();
-+
-+    const recoveryAfterPass = await resolvePostEvidenceRecoveryContext({
-+      oa,
-+      projectId,
-+    });
-+    expect(recoveryAfterPass.ok).toBe(true);
-+    if (recoveryAfterPass.ok) {
-+      expect(recoveryAfterPass.context).toBeNull();
-+    }
-+
-+    const listedAfter =
-+      await oa.executionAttemptServices!.listExecutionAttempts.execute({
-+        executionContractId: contract.executionContractId,
-+      });
-+    expect(listedAfter.ok && listedAfter.attempts.length).toBe(1);
-+
-+    const refused = await runW3cPostEvidenceLoop({
-+      oa,
-+      projectId,
-+      attemptId,
-+      product: unclaimedWithoutCe(),
-+    });
-+    expect(refused.ok).toBe(false);
-+    if (!refused.ok) expect(refused.code).toBe("PRODUCT_UNCLAIMED");
-+  });
-+});
-```
-
-### `projects/sfia-studio/app/__tests__/project-assistant/w3cPostEvidenceCorrection.test.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/w3cPostEvidenceCorrection.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/w3cPostEvidenceCorrection.test.ts
-index 221d62b4..2fdf6ee3 100644
---- a/projects/sfia-studio/app/__tests__/project-assistant/w3cPostEvidenceCorrection.test.ts
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/w3cPostEvidenceCorrection.test.ts
-@@ -327,7 +327,10 @@ describe("W3C-R02/R03 idempotence", () => {
-     expect(first.postEvidence?.ok).toBe(true);
-     if (!first.postEvidence || !first.postEvidence.ok) return;
-     const evidenceId = first.product.evidenceId!;
--    const epiId = w3cRecommendationEpistemicId(evidenceId);
-+    const epiId = w3cRecommendationEpistemicId(
-+      evidenceId,
-+      first.product.claimEvaluationId,
-+    );
-     const lpsV1 = first.postEvidence.lpsVersion;
-     const analysis1 = first.postEvidence.analysisText;
-
-@@ -349,9 +352,12 @@ describe("W3C-R02/R03 idempotence", () => {
-       projectId: ctx.seeded.projectId,
-       evidenceId,
-       attemptId,
-+      product: first.product,
-     });
-     expect(existing?.ok).toBe(true);
--    expect(w3cRecommendationEpistemicId(evidenceId)).toBe(epiId);
-+    expect(
-+      w3cRecommendationEpistemicId(evidenceId, first.product.claimEvaluationId),
-+    ).toBe(epiId);
-
-     const lps = await ctx.oa.projectServices!.getCurrentLivingProjectState.execute(
-       { projectId: ctx.seeded.projectId },
-@@ -467,11 +473,17 @@ describe("W3C-R08/R09 epistemic supersession", () => {
-     const ctx = await authorizeTempArtifact("r08");
-     const { materialized: matA } = await materializeSuccess(ctx);
-     const evidenceA = matA.product.evidenceId!;
--    const epiA = w3cRecommendationEpistemicId(evidenceA);
-+    const epiA = w3cRecommendationEpistemicId(
-+      evidenceA,
-+      matA.product.claimEvaluationId,
-+    );
-
-     const { materialized: matB } = await secondSuccessOnSameProject(ctx);
-     const evidenceB = matB.product.evidenceId!;
--    const epiB = w3cRecommendationEpistemicId(evidenceB);
-+    const epiB = w3cRecommendationEpistemicId(
-+      evidenceB,
-+      matB.product.claimEvaluationId,
-+    );
-     expect(epiB).not.toBe(epiA);
-
-     const epistemic = await ctx.oa.cycleServices!.getEpistemicState.execute({
-@@ -735,7 +747,10 @@ describe("W3C-R14 partial-write recovery", () => {
-     });
-     expect(epiAfterFail.ok).toBe(true);
-     if (!epiAfterFail.ok) throw new Error("epi");
--    const epiId = w3cRecommendationEpistemicId(evidenceId);
-+    const epiId = w3cRecommendationEpistemicId(
-+      evidenceId,
-+      first.product.claimEvaluationId,
-+    );
-     expect(
-       epiAfterFail.state.items.find(
-         (i) => i.epistemicItemId === epiId && i.status === "active",
-```
-
-### `projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts b/projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts
-index 0563049f..b75ac122 100644
---- a/projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts
-@@ -48,6 +48,14 @@ export type PostEvidenceAnalysisFacts = {
-   durationMs?: number;
-   stdout?: string;
-   stderr?: string;
-+  /** Product outcome when post-Evidence analyzes an evidence gap. */
-+  productOutcome?: string;
-+  claimEvaluationId?: string;
-+  claimEvaluationStatus?: string;
-+  contractResultVerdict?: string;
-+  businessReason?: string;
-+  expectedOutputAssessmentSummary?: string;
-+  evidenceRequirementAssessmentSummary?: string;
- };
-
- export type PostEvidenceAnalysisResult =
-@@ -70,7 +78,11 @@ Interdit:
- - transformer la recommandation en GO Morris;
- - lancer un ExecutionContract / Attempt;
- - demander des secrets;
--- inventer une preuve REAL.
-+- inventer une preuve REAL;
-+- convertir not_proven / UNCLAIMED en succès produit.
-+Si productOutcome=UNCLAIMED et claimEvaluationStatus=not_proven :
-+l'exécution technique a pu réussir et un Artifact peut exister, mais le résultat
-+contractuel n'est pas prouvé faute d'Evidence suffisante sur les expectedOutputs.
- Réponds en français, court, factuel.
-
- ${buildPostEvidenceNarrativePolicyDisclosure()}`;
-@@ -97,6 +109,14 @@ function boundedFactsJson(facts: PostEvidenceAnalysisFacts): string {
-     durationMs: facts.durationMs,
-     stdout: facts.stdout,
-     stderr: facts.stderr,
-+    productOutcome: facts.productOutcome,
-+    claimEvaluationId: facts.claimEvaluationId,
-+    claimEvaluationStatus: facts.claimEvaluationStatus,
-+    contractResultVerdict: facts.contractResultVerdict,
-+    businessReason: facts.businessReason,
-+    expectedOutputAssessmentSummary: facts.expectedOutputAssessmentSummary,
-+    evidenceRequirementAssessmentSummary:
-+      facts.evidenceRequirementAssessmentSummary,
-   });
- }
-
-```
-
-### `projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
-index 7150095f..cbbf0e4a 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
-@@ -174,6 +174,7 @@ async function materializeDocsWriteProductTerminal(input: {
-       projectId: input.projectId,
-       evidenceId: product.evidenceId,
-       attemptId: input.attempt.attemptId,
-+      product,
-     });
-     if (existing) {
-       return {
-@@ -403,12 +404,14 @@ export async function materializeW3bProductTerminal(input: {
-   );
-
-   // B2 — prefer existing Epistemic / rehydrate before Nora + LPS append.
-+  // CR-PJR-03: reuse only when Recommendation matches newly projected Product.
-   if (product.evidenceId) {
-     const existing = await findExistingW3cPostEvidence({
-       oa: input.oa,
-       projectId: input.projectId,
-       evidenceId: product.evidenceId,
-       attemptId: attempt.attemptId,
-+      product,
-     });
-     if (existing) {
-       return {
-```
 
 ### `projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts b/projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts
-index 7fb29094..5b166f42 100644
+index 5b166f42..b0d83f34 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts
-@@ -1,6 +1,13 @@
- /**
-  * Requalify docs_write Contract Result from durable Evidence + RB — ZERO new Attempt.
-  * Freeze rb:docs-write if draft, evaluate with docs-write CE id, supersede prior CE.
-+ *
-+ * Rematerialize vs explicit re-evaluation (CR-PJR-02):
-+ * - no correctionRef + current CE → reuse (CASE A)
-+ * - correctionRef targeting new id → evaluate successor superseding current (CASE B)
-+ * - correctionRef already current → reuse (CASE C)
-+ * - ambiguous current → fail-closed (CASE D)
-+ * - correction target is ancestor / already-exists-non-current → fail-closed (CASE E)
-  */
- import { createHash } from "node:crypto";
- import type { ActorReference } from "@/lib/oa/doctrine";
-@@ -22,6 +29,23 @@ function w3bClaimEvaluationIdForAttempt(attemptId: string): string {
-   return `clm:w3b:${digest}`;
- }
+@@ -58,6 +58,11 @@ export type RequalifyDocsWriteContractResultInput = {
+    * (never overwrites prior docs_write / W3-B CE ids).
+    */
+   correctionRef?: string;
++  /**
++   * With correctionRef: use successor ReviewBundle id scoped by correction
++   * (historical rb:docs-write remains untouched).
++   */
++  scopeReviewBundle?: boolean;
+ };
 
-+async function isSupersessionAncestor(input: {
-+  repo: EvidenceReviewServices["claimEvaluationRepository"];
-+  candidateId: string;
-+  current: ClaimEvaluation;
-+}): Promise<boolean> {
-+  let cursor: string | undefined = input.current.supersedesClaimEvaluationId;
-+  const seen = new Set<string>();
-+  while (cursor) {
-+    if (cursor === input.candidateId) return true;
-+    if (seen.has(cursor)) return true;
-+    seen.add(cursor);
-+    const next = await input.repo.findById(cursor);
-+    cursor = next?.supersedesClaimEvaluationId;
-+  }
-+  return false;
-+}
-+
- export type RequalifyDocsWriteContractResultInput = {
-   evidenceReviewServices: EvidenceReviewServices;
-   attempt: ExecutionAttempt;
-@@ -119,17 +143,75 @@ export async function requalifyDocsWriteContractResult(
-     executionAttemptId: input.attempt.attemptId,
+ export type RequalifyDocsWriteContractResultResult =
+@@ -85,6 +90,7 @@ export async function requalifyDocsWriteContractResult(
+
+   const ids = docsWriteContractResultIdentity(input.attempt.attemptId, {
+     ...(input.correctionRef ? { correctionRef: input.correctionRef } : {}),
++    ...(input.scopeReviewBundle ? { scopeReviewBundle: true } : {}),
    });
-   if (current.status === "ambiguous") {
-+    // CASE D
-     return {
-       ok: false,
-       code: "CONTRACT_RESULT_CLAIM_LINEAGE_AMBIGUOUS",
-       message: `Multiple active ContractResult CEs — fail-closed: ${current.claimEvaluationIds.join(",")}`,
-     };
-   }
--  if (
--    current.status === "one" &&
--    current.claimEvaluation.claimEvaluationId !== ids.claimEvaluationId
--  ) {
--    supersededClaimEvaluationId = current.claimEvaluation.claimEvaluationId;
-+
-+  if (current.status === "one") {
-+    const currentCe = current.claimEvaluation;
-+    const currentIsDocsWriteLineage = currentCe.claimEvaluationId.startsWith(
-+      "clm:docs-write:",
-+    );
-+
-+    // CASE A — ordinary rematerialize: reuse current docs-write CE.
-+    // W3-B (or non-docs-write) current still allows first docs-write qualification
-+    // below (supersede into docs-write lineage). Never re-evaluate under a
-+    // conflicting docs-write identity when a docs-write CE is already current.
-+    if (!input.correctionRef) {
-+      if (currentIsDocsWriteLineage) {
-+        return {
-+          ok: true,
-+          claimEvaluation: currentCe,
-+          reviewBundle,
-+          reusedFromIdempotencyKey: true,
-+        };
-+      }
-+      supersededClaimEvaluationId = currentCe.claimEvaluationId;
-+    } else if (ids.claimEvaluationId === currentCe.claimEvaluationId) {
-+      // CASE C — same correctionRef already current.
-+      return {
-+        ok: true,
-+        claimEvaluation: currentCe,
-+        reviewBundle,
-+        reusedFromIdempotencyKey: true,
-+      };
-+    } else {
-+      // CASE E — target identity already exists (historical / superseded) or is ancestor.
-+      const existingTarget = await services.claimEvaluationReader.findById(
-+        ids.claimEvaluationId,
-+      );
-+      if (existingTarget) {
-+        return {
-+          ok: false,
-+          code: "CONTRACT_RESULT_CORRECTION_LINEAGE_INVALID",
-+          message:
-+            `Correction identity ${ids.claimEvaluationId} already exists and is not current — ` +
-+            "refuse recreate / lineage cycle.",
-+        };
-+      }
-+      if (
-+        await isSupersessionAncestor({
-+          repo: services.claimEvaluationRepository,
-+          candidateId: ids.claimEvaluationId,
-+          current: currentCe,
-+        })
-+      ) {
-+        return {
-+          ok: false,
-+          code: "CONTRACT_RESULT_CORRECTION_LINEAGE_INVALID",
-+          message:
-+            `Correction identity ${ids.claimEvaluationId} is an ancestor of current CE — ` +
-+            "refuse supersession cycle.",
-+        };
-+      }
-+
-+      // CASE B — explicit re-evaluation under new correction identity.
-+      supersededClaimEvaluationId = currentCe.claimEvaluationId;
-+    }
-   } else if (current.status === "none") {
-     const w3bCe = await services.claimEvaluationReader.findById(
-       w3bClaimEvaluationIdForAttempt(input.attempt.attemptId),
-```
-
-### `projects/sfia-studio/app/features/project-assistant/w2/resolvePostEvidenceRecoveryContext.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/resolvePostEvidenceRecoveryContext.ts b/projects/sfia-studio/app/features/project-assistant/w2/resolvePostEvidenceRecoveryContext.ts
-index 51abe015..e2b95978 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/resolvePostEvidenceRecoveryContext.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/resolvePostEvidenceRecoveryContext.ts
-@@ -4,27 +4,30 @@
-  *
-  * Coherence: Attempt terminal ↔ Evidence ↔ ReviewBundle ↔ W3C recover payload
-  * for the same Project. Falls back to null (generic trajectory) when absent.
-+ *
-+ * Supports FAIL/STOP recovery and narrow EVIDENCE_BACKED_NOT_PROVEN (UNCLAIMED
-+ * + succeeded Attempt) via durable Evidence bindings — not w3b id reconstruction.
-  */
- import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
- import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
-+import { resolveCurrentContractResultClaimEvaluation } from "@/lib/oa/evidence-review";
- import {
-   findExistingW3cPostEvidence,
-   parseW3cRecommendationPayload,
-   type W3cRecommendationKind,
-   type W3cRecommendationPayload,
- } from "./w3cPostEvidenceLoop";
--import { w3bEvidenceIdentity } from "./materializeW3bProductTerminal";
- import { resolveDurableBoundaryProofMode } from "@/features/project-assistant/f3/resolveDurableBoundaryProofMode";
-
- export type PostEvidenceRecoveryContext = {
-   readonly kind: "post_evidence_recovery";
-   readonly attemptId: string;
--  readonly attemptStatus: "failed" | "timeout" | "cancelled";
-+  readonly attemptStatus: "failed" | "timeout" | "cancelled" | "succeeded";
-   readonly stopReason: string | null;
-   readonly executionContractId: string;
-   readonly evidenceId: string;
-   readonly reviewBundleId: string;
--  readonly productOutcome: "FAIL" | "STOP";
-+  readonly productOutcome: "FAIL" | "STOP" | "UNCLAIMED";
-   readonly recommendationKind: Extract<
-     W3cRecommendationKind,
-     "recover" | "replan"
-@@ -86,6 +89,12 @@ async function loadAttempt(
-   return loaded.ok ? loaded.attempt : null;
- }
-
-+function isRecoverableProductOutcome(
-+  outcome: W3cRecommendationPayload["productOutcome"],
-+): outcome is "FAIL" | "STOP" | "UNCLAIMED" {
-+  return outcome === "FAIL" || outcome === "STOP" || outcome === "UNCLAIMED";
-+}
-+
- /**
-  * Resolve a coherent post-Evidence recovery subject for W2 options.
-  * Returns null when no coherent recover/replan episode exists (generic path).
-@@ -116,7 +125,7 @@ export async function resolvePostEvidenceRecoveryContext(input: {
-   type Candidate = {
-     payload: W3cRecommendationPayload & {
-       kind: "recover" | "replan";
--      productOutcome: "FAIL" | "STOP";
-+      productOutcome: "FAIL" | "STOP" | "UNCLAIMED";
-     };
-     epistemicItemId: string;
-   };
-@@ -133,9 +142,7 @@ export async function resolvePostEvidenceRecoveryContext(input: {
-     const payload = parseW3cRecommendationPayload(raw);
-     if (!payload) continue;
-     if (payload.kind !== "recover" && payload.kind !== "replan") continue;
--    if (payload.productOutcome !== "FAIL" && payload.productOutcome !== "STOP") {
--      continue;
--    }
-+    if (!isRecoverableProductOutcome(payload.productOutcome)) continue;
-     candidates.push({
-       payload: {
-         ...payload,
-@@ -150,7 +157,6 @@ export async function resolvePostEvidenceRecoveryContext(input: {
-     return { ok: true, context: null };
-   }
-
--  // Prefer newest by Attempt failedAt / updatedAt among coherent candidates.
-   let best: {
-     context: PostEvidenceRecoveryContext;
-     sortKey: string;
-@@ -158,14 +164,6 @@ export async function resolvePostEvidenceRecoveryContext(input: {
-
-   for (const candidate of candidates) {
-     const { payload } = candidate;
--    const expectedIds = w3bEvidenceIdentity(payload.attemptId);
--    if (
--      payload.evidenceId !== expectedIds.evidenceId ||
--      payload.reviewBundleId !== expectedIds.reviewBundleId
--    ) {
--      // Identity mismatch — refuse this candidate (do not mix episodes).
--      continue;
--    }
-
-     const existing = await findExistingW3cPostEvidence({
-       oa,
-@@ -175,19 +173,17 @@ export async function resolvePostEvidenceRecoveryContext(input: {
-     });
-     if (!existing) continue;
-     if (existing.recommendation.kind !== payload.kind) continue;
--    if (
--      existing.productOutcome !== "FAIL" &&
--      existing.productOutcome !== "STOP"
--    ) {
--      continue;
--    }
-+    if (!isRecoverableProductOutcome(existing.productOutcome)) continue;
-+    if (existing.productOutcome !== payload.productOutcome) continue;
-
-     const attempt = await loadAttempt(oa, payload.attemptId);
-     if (!attempt) continue;
-     const terminalOk =
--      attempt.status === "failed" ||
--      attempt.status === "timeout" ||
--      (payload.productOutcome === "STOP" && attempt.status === "cancelled");
-+      payload.productOutcome === "UNCLAIMED"
-+        ? attempt.status === "succeeded"
-+        : attempt.status === "failed" ||
-+          attempt.status === "timeout" ||
-+          (payload.productOutcome === "STOP" && attempt.status === "cancelled");
-     if (!terminalOk) continue;
-
-     if (!oa.executionContractServices) continue;
-@@ -198,44 +194,103 @@ export async function resolvePostEvidenceRecoveryContext(input: {
-     if (!contract.ok) continue;
-     if (contract.contract.projectId !== projectId) continue;
-
--    // Evidence reader coherence when available
--    if (oa.evidenceReviewServices?.evidenceReader) {
--      const evidence = await oa.evidenceReviewServices.evidenceReader.findById(
--        payload.evidenceId,
-+    // Durable Evidence/RB bindings (docs_write OR w3b — no id reconstruction).
-+    if (!oa.evidenceReviewServices?.evidenceReader) continue;
-+    const evidence = await oa.evidenceReviewServices.evidenceReader.findById(
-+      payload.evidenceId,
-+    );
-+    if (!evidence) continue;
-+    if (evidence.bindings.executionAttemptId !== payload.attemptId) continue;
-+    if (
-+      evidence.bindings.projectId &&
-+      evidence.bindings.projectId !== projectId
-+    ) {
-+      continue;
-+    }
-+    if (
-+      evidence.bindings.executionContractId &&
-+      evidence.bindings.executionContractId !== attempt.executionContractId
-+    ) {
-+      continue;
-+    }
-+    const reviewBundle =
-+      await oa.evidenceReviewServices.reviewBundleReader.findById(
-+        payload.reviewBundleId,
-       );
--      if (!evidence) continue;
--      if (evidence.bindings.executionAttemptId !== payload.attemptId) continue;
--      if (
--        evidence.bindings.projectId &&
--        evidence.bindings.projectId !== projectId
--      ) {
--        continue;
--      }
-+    if (!reviewBundle) continue;
-+    if (reviewBundle.projectId !== projectId) continue;
-+    const rbEvidenceIds = [
-+      ...(reviewBundle.evidenceRefs ?? []),
-+      ...(reviewBundle.frozenEvidenceSnapshots ?? []).map((s) => s.evidenceId),
-+    ];
-+    if (!rbEvidenceIds.includes(payload.evidenceId)) continue;
-+
-+    // CR-PJR-03 — UNCLAIMED recovery must bind current CE not_proven.
-+    if (payload.productOutcome === "UNCLAIMED") {
-+      if (!oa.evidenceReviewServices?.claimEvaluationRepository) continue;
-+      const currentCe = await resolveCurrentContractResultClaimEvaluation({
-+        repo: oa.evidenceReviewServices.claimEvaluationRepository,
-+        projectId,
-+        executionAttemptId: payload.attemptId,
-+      });
-+      if (currentCe.status !== "one") continue;
-+      if (currentCe.claimEvaluation.status !== "not_proven") continue;
-       if (
--        evidence.bindings.executionContractId &&
--        evidence.bindings.executionContractId !== attempt.executionContractId
-+        payload.claimEvaluationId !==
-+        currentCe.claimEvaluation.claimEvaluationId
-       ) {
-         continue;
+   const evidence = await services.evidenceReader.findById(ids.evidenceId);
+   if (!evidence) {
+@@ -163,20 +169,30 @@ export async function requalifyDocsWriteContractResult(
+     // conflicting docs-write identity when a docs-write CE is already current.
+     if (!input.correctionRef) {
+       if (currentIsDocsWriteLineage) {
++        // Prefer the ReviewBundle identity bound into the current CE
++        // (successor RB after evidence-completion), not the historical default.
++        const boundRbId = currentCe.reviewBundleId;
++        const boundRb = boundRbId
++          ? await services.reviewBundleReader.findById(boundRbId)
++          : null;
+         return {
+           ok: true,
+           claimEvaluation: currentCe,
+-          reviewBundle,
++          reviewBundle: boundRb ?? reviewBundle,
+           reusedFromIdempotencyKey: true,
+         };
        }
-+      // Prefer Epistemic item that still matches current Product CE binding.
-+      const currentMatched = await findExistingW3cPostEvidence({
-+        oa,
-+        projectId,
-+        evidenceId: payload.evidenceId,
-+        attemptId: payload.attemptId,
-+        product: {
-+          evidenceId: payload.evidenceId,
-+          reviewBundleId: payload.reviewBundleId,
-+          claimEvaluationId: currentCe.claimEvaluation.claimEvaluationId,
-+          outcome: "UNCLAIMED",
-+          technicalDetail: { attemptId: payload.attemptId },
-+        },
-+      });
-+      if (!currentMatched) continue;
-     }
-
-+    const boundaryProofMode = await resolveDurableBoundaryProofMode({
-+      oa,
-+      attempt,
-+    });
-     const realProcessInvoked = inferDurableRealProcessInvoked({
-       attempt,
--      boundaryProofMode: await resolveDurableBoundaryProofMode({ oa, attempt }),
-+      boundaryProofMode,
-     });
-
-+    const attemptStatus:
-+      | "failed"
-+      | "timeout"
-+      | "cancelled"
-+      | "succeeded" =
-+      attempt.status === "failed" ||
-+      attempt.status === "timeout" ||
-+      attempt.status === "cancelled" ||
-+      attempt.status === "succeeded"
-+        ? attempt.status
-+        : "failed";
-+
-     const context: PostEvidenceRecoveryContext = {
-       kind: "post_evidence_recovery",
-       attemptId: payload.attemptId,
--      attemptStatus: attempt.status as "failed" | "timeout" | "cancelled",
-+      attemptStatus,
-       stopReason: attempt.stopReason ?? null,
-       executionContractId: attempt.executionContractId,
-       evidenceId: payload.evidenceId,
-       reviewBundleId: payload.reviewBundleId,
-       productOutcome: payload.productOutcome,
-       recommendationKind: payload.kind,
--      headline: payload.headline.slice(0, 280),
--      rationale: payload.rationale.slice(0, 1200),
-+      headline: payload.headline,
-+      rationale: payload.rationale,
-       nextStep: payload.nextStep,
-       realProcessInvoked,
-       businessEffectProven: false,
-@@ -244,10 +299,11 @@ export async function resolvePostEvidenceRecoveryContext(input: {
-
-     const sortKey =
-       attempt.failedAt ??
--      attempt.timedOutAt ??
-       attempt.cancelledAt ??
-+      attempt.completedAt ??
-       attempt.updatedAt ??
--      attempt.createdAt;
-+      attempt.createdAt ??
-+      "";
-     if (!best || sortKey > best.sortKey) {
-       best = { context, sortKey };
-     }
+       supersededClaimEvaluationId = currentCe.claimEvaluationId;
+     } else if (ids.claimEvaluationId === currentCe.claimEvaluationId) {
+       // CASE C — same correctionRef already current.
++      const boundRbId = currentCe.reviewBundleId;
++      const boundRb = boundRbId
++        ? await services.reviewBundleReader.findById(boundRbId)
++        : null;
+       return {
+         ok: true,
+         claimEvaluation: currentCe,
+-        reviewBundle,
++        reviewBundle: boundRb ?? reviewBundle,
+         reusedFromIdempotencyKey: true,
+       };
+     } else {
 ```
 
-### `projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts`
+### `projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts`
 
 ```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts b/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
-index 386ebca3..f127b4db 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
-@@ -31,6 +31,7 @@ import {
-   loadProductCkcCognitiveContent,
- } from "@/features/project-assistant/f2/ckcCognitiveContext";
- import type { NextActionCode } from "@/lib/oa/evidence-review/domain/coordinationTypes";
-+import { resolveCurrentContractResultClaimEvaluation } from "@/lib/oa/evidence-review";
- import type { W3BProductTerminalProjection } from "./w3bProductTerminalProjection";
- import { resolveW2QualificationInputs } from "./qualificationInputs";
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts b/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
+index 03b384d4..e46773d2 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
+@@ -235,7 +235,7 @@ export function projectW3bProductTerminal(input: {
+         reviewBundleId: input.reviewBundle.reviewBundleId,
+         frozenVersion: input.reviewBundle.frozenVersion,
+       },
+-      evidenceIds: [input.evidence.evidenceId],
++      evidenceIds: input.reviewBundle.evidenceRefs,
+       projectId: input.contract.projectId,
+       cycleInstanceId: input.contract.cycleInstanceId ?? null,
+     })
+```
 
-@@ -90,7 +91,7 @@ export type W3cRecommendationPayload = {
-   attemptId: string;
+### `projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts b/projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts
+index 066aa8a7..be3fb494 100644
+--- a/projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts
++++ b/projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts
+@@ -11,6 +11,10 @@ import type {
+   ContractResultEvidenceSelection,
+   ContractResultSemantic,
+ } from "./contractResultSemantics";
++import {
++  DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
++  DOCS_WRITE_MIN_CONFORMITY_VERIFIER_TECHNICAL_RESULT_REF,
++} from "./docsWriteMinConformityVerifier";
+ import { isW3bContractResultEvidenceUsable } from "./tempArtifactContractResultSemantic";
+
+ export const DOCS_WRITE_CONTRACT_RESULT_RULE_REF =
+@@ -31,31 +35,64 @@ export const DOCS_WRITE_ARTIFACT_EVIDENCE_SOURCE =
+  */
+ export const DOCS_WRITE_STRICT_EO_CORRECTION_REF = "strict-eo-v1" as const;
+
++/**
++ * Evidence-completion re-evaluation identity (successor RB + conformity Evidence).
++ * Does not mutate the historical rb:docs-write freeze.
++ */
++export const DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF =
++  "evidence-completion-v1" as const;
++
++/**
++ * Exact historically-bound EO templates (versioned named semantics — no NLP).
++ * Apostrophe in EO1 is U+2019 (bound Attempt 3 EC truth).
++ */
++export const DOCS_WRITE_EO_MATERIALIZED_MARKDOWN_AT_TARGET =
++  "Le fichier Markdown matérialisé au chemin cible" as const;
++
++export const DOCS_WRITE_EO_MIN_CONFORMITY_VERIFICATION =
++  "Vérification de l\u2019existence et de la conformité minimale du fichier" as const;
++
+ /** Identity helpers for docs-write Contract Result ClaimEvaluations. */
+ export function docsWriteContractResultIdentity(
+   attemptId: string,
+-  options?: { readonly correctionRef?: string },
++  options?: {
++    readonly correctionRef?: string;
++    /**
++     * When true with correctionRef, allocate a successor ReviewBundle id
++     * (`rb:docs-write:{correction}:{attempt}`) leaving historical RB untouched.
++     */
++    readonly scopeReviewBundle?: boolean;
++  },
+ ): {
+   claimEvaluationId: string;
+   claimEvaluationIdempotencyKey: string;
+   evidenceId: string;
    reviewBundleId: string;
-   claimEvaluationId: string | null;
--  productOutcome: "SUCCESS" | "STOP" | "FAIL";
-+  productOutcome: "SUCCESS" | "STOP" | "FAIL" | "UNCLAIMED";
-   analysisText: string | null;
-   analysisUnavailableReason: string | null;
-   analysisProviderId: string | null;
-@@ -130,15 +131,54 @@ function consumeW3cEpistemicMaterializeFailArmed(): boolean {
- }
-
-
--/** Deterministic Epistemic Recommendation id for a W3-B evidenceId. */
--export function w3cRecommendationEpistemicId(evidenceId: string): string {
-+/**
-+ * Deterministic Epistemic Recommendation id for a post-Evidence episode.
-+ * When claimEvaluationId is present, bind Evidence+CE so CE supersession
-+ * cannot silently reuse a stale Recommendation under the same Epistemic id.
-+ * Legacy evidence-only ids remain discoverable for historical payloads.
-+ */
-+export function w3cRecommendationEpistemicId(
-+  evidenceId: string,
-+  claimEvaluationId?: string | null,
-+): string {
-+  const material = claimEvaluationId
-+    ? `${evidenceId}|${claimEvaluationId}`
-+    : evidenceId;
-   const digest = createHash("sha256")
--    .update(evidenceId)
-+    .update(material)
-     .digest("hex")
-     .slice(0, 16);
-   return `${W3C_EPI_ID_PREFIX}${digest}`;
- }
-
-+/** True when durable W3-C payload still matches current Product claim truth. */
-+export function w3cPayloadMatchesCurrentProduct(
-+  payload: {
-+    readonly evidenceId: string;
-+    readonly attemptId: string;
-+    readonly reviewBundleId: string;
-+    readonly claimEvaluationId: string | null;
-+    readonly productOutcome: string;
-+  },
-+  product: Pick<
-+    W3BProductTerminalProjection,
-+    | "evidenceId"
-+    | "reviewBundleId"
-+    | "claimEvaluationId"
-+    | "outcome"
-+  > & {
-+    readonly technicalDetail: { readonly attemptId: string };
-+  },
-+): boolean {
-+  if (payload.evidenceId !== product.evidenceId) return false;
-+  if (payload.attemptId !== product.technicalDetail.attemptId) return false;
-+  if (payload.reviewBundleId !== product.reviewBundleId) return false;
-+  if (payload.productOutcome !== product.outcome) return false;
-+  const payloadCe = payload.claimEvaluationId ?? null;
-+  const productCe = product.claimEvaluationId ?? null;
-+  return payloadCe === productCe;
-+}
-+
- function failClosed(
-   code: string,
-   message: string,
-@@ -185,9 +225,20 @@ export function classifyW3cD5NextAction(
- }
-
- function nextStepForOutcomeAndClass(
--  outcome: "SUCCESS" | "STOP" | "FAIL",
-+  outcome: "SUCCESS" | "STOP" | "FAIL" | "UNCLAIMED",
-   actionClass: W3cD5ActionClass,
-+  nextActionCode: string | null,
- ): string {
-+  if (outcome === "UNCLAIMED") {
-+    if (
-+      nextActionCode === "complete_evidence" ||
-+      nextActionCode === "verify_evidence_integrity" ||
-+      nextActionCode === "evaluate_claim"
-+    ) {
-+      return nextActionCode;
-+    }
-+    return "recovery_complete_evidence";
-+  }
-   if (actionClass === "human_confirmation") {
-     return outcome === "SUCCESS"
-       ? "coordinate_human_confirmation"
-@@ -206,18 +257,42 @@ function nextStepForOutcomeAndClass(
-   return "recovery_diagnose_or_replan";
- }
-
-+/**
-+ * Narrow admissibility for Product UNCLAIMED that is still evidence-backed
-+ * ContractResult NOT_PROVEN (technical success + durable CE gap).
-+ * Never treats arbitrary UNCLAIMED as recoverable.
-+ */
-+export function isEvidenceBackedNotProvenUnclaimed(
-+  product: W3BProductTerminalProjection,
-+): boolean {
-+  return (
-+    product.outcome === "UNCLAIMED" &&
-+    product.claimAllowed === false &&
-+    product.contractResultVerdict === "NOT_PROVEN" &&
-+    product.claimEvaluationStatus === "not_proven" &&
-+    Boolean(product.evidenceId) &&
-+    Boolean(product.reviewBundleId) &&
-+    Boolean(product.claimEvaluationId) &&
-+    product.technicalDetail.attemptStatus === "succeeded"
-+  );
-+}
-+
- /**
-  * Project durable product outcome + real D5 coordination onto a Recommendation.
-  * Never invents kind:"replan" from D5 (no trajectory replan code in NextActionCode).
-  * requiresHumanDecision stays false — D5 confirmation/arbitration/gate ≠ W2 HD.
-  */
- export function recommendationFromOutcome(input: {
--  outcome: "SUCCESS" | "STOP" | "FAIL";
-+  outcome: "SUCCESS" | "STOP" | "FAIL" | "UNCLAIMED";
-   recommendNextGateStatus: string | null;
-   nextActionCode: string | null;
- }): W3cPostEvidenceRecommendation {
-   const actionClass = classifyW3cD5NextAction(input.nextActionCode);
--  const nextStep = nextStepForOutcomeAndClass(input.outcome, actionClass);
-+  const nextStep = nextStepForOutcomeAndClass(
-+    input.outcome,
-+    actionClass,
-+    input.nextActionCode,
-+  );
-
-   if (input.outcome === "SUCCESS") {
-     const headline =
-@@ -243,6 +318,23 @@ export function recommendationFromOutcome(input: {
-     };
-   }
-
-+  if (input.outcome === "UNCLAIMED") {
-+    return {
-+      kind: "recover",
-+      headline: "Qualification Evidence / résultat incomplète",
-+      rationale:
-+        "Exécution technique réussie et Artifact durable présent, mais le " +
-+        "ContractResult courant reste not_proven (expectedOutputs insuffisamment " +
-+        "prouvés). Recovery ≠ HumanDecision automatique ; aucune mutation de " +
-+        "trajectoire ; NOT_PROVEN reste NOT_PROVEN.",
-+      nextStep,
-+      requiresHumanDecision: false,
-+      ...ANTI_AUTHORITY,
-+      recommendNextGateStatus: input.recommendNextGateStatus,
-+      nextActionCode: input.nextActionCode,
-+    };
-+  }
-+
-   if (input.outcome === "STOP") {
++  conformityEvidenceId: string;
+ } {
+   const segment = attemptId.replace(/[^a-zA-Z0-9:_-]/g, "");
+   const correction = options?.correctionRef?.replace(/[^a-zA-Z0-9:_-]/g, "");
++  const baseEvidence = `ev:docs-write:${segment}`.slice(0, 128);
++  const baseRb = `rb:docs-write:${segment}`.slice(0, 128);
+   if (correction) {
++    const scopedRb = options?.scopeReviewBundle
++      ? `rb:docs-write:${correction}:${segment}`.slice(0, 128)
++      : baseRb;
      return {
-       kind: "recover",
-@@ -349,7 +441,8 @@ export function parseW3cRecommendationPayload(
-     if (
-       productOutcome !== "SUCCESS" &&
-       productOutcome !== "STOP" &&
--      productOutcome !== "FAIL"
-+      productOutcome !== "FAIL" &&
-+      productOutcome !== "UNCLAIMED"
-     ) {
-       return null;
-     }
-@@ -411,7 +504,8 @@ function buildPayloadFromSuccess(
-   if (
-     success.productOutcome !== "SUCCESS" &&
-     success.productOutcome !== "STOP" &&
--    success.productOutcome !== "FAIL"
-+    success.productOutcome !== "FAIL" &&
-+    success.productOutcome !== "UNCLAIMED"
-   ) {
-     throw new Error("payload_requires_claimable_outcome");
-   }
-@@ -518,12 +612,24 @@ function itemBindsEvidenceAndAttempt(
-
- /**
-  * Look up an active Epistemic W3-C recommendation bound to evidenceId+attemptId.
-+ * When `product` is supplied, require payload to match current Product claim truth
-+ * (attempt / evidence / RB / CE / outcome) — CE supersession must not reuse stale
-+ * recover Recommendation (CR-PJR-03).
-  */
- export async function findExistingW3cPostEvidence(input: {
-   readonly oa: RuntimeOaStack;
-   readonly projectId: string;
-   readonly evidenceId: string;
-   readonly attemptId: string;
-+  readonly product?: Pick<
-+    W3BProductTerminalProjection,
-+    | "evidenceId"
-+    | "reviewBundleId"
-+    | "claimEvaluationId"
-+    | "outcome"
-+  > & {
-+    readonly technicalDetail: { readonly attemptId: string };
-+  };
- }): Promise<W3cPostEvidenceLoopSuccess | null> {
-   if (!input.oa.cycleServices) return null;
-   const epistemic = await input.oa.cycleServices.getEpistemicState.execute({
-@@ -531,15 +637,27 @@ export async function findExistingW3cPostEvidence(input: {
-   });
-   if (!epistemic.ok) return null;
-
--  const deterministicId = w3cRecommendationEpistemicId(input.evidenceId);
--  const byId = epistemic.state.items.find(
-+  const productCe = input.product?.claimEvaluationId ?? null;
-+  const ceBoundId = w3cRecommendationEpistemicId(input.evidenceId, productCe);
-+  const legacyId = w3cRecommendationEpistemicId(input.evidenceId);
-+  const byCeId = epistemic.state.items.find(
-     (i) =>
--      i.epistemicItemId === deterministicId &&
-+      i.epistemicItemId === ceBoundId &&
-       i.status === "active" &&
-       isW3cPostEvidenceItem(i),
-   );
-+  const byLegacyId =
-+    ceBoundId === legacyId
-+      ? undefined
-+      : epistemic.state.items.find(
-+          (i) =>
-+            i.epistemicItemId === legacyId &&
-+            i.status === "active" &&
-+            isW3cPostEvidenceItem(i),
-+        );
-   const candidate =
--    byId ??
-+    byCeId ??
-+    byLegacyId ??
-     epistemic.state.items.find(
-       (i) =>
-         i.status === "active" &&
-@@ -560,6 +678,45 @@ export async function findExistingW3cPostEvidence(input: {
-   ) {
-     return null;
-   }
-+  if (input.product) {
-+    if (
-+      !w3cPayloadMatchesCurrentProduct(payload, {
-+        ...input.product,
-+        evidenceId: input.product.evidenceId ?? input.evidenceId,
-+        reviewBundleId: input.product.reviewBundleId ?? payload.reviewBundleId,
-+        technicalDetail: {
-+          attemptId: input.product.technicalDetail.attemptId || input.attemptId,
-+        },
-+      })
-+    ) {
-+      return null;
-+    }
-+    // CR-PJR-03 — ContractResult-backed lookups must match CURRENT CE.
-+    if (
-+      input.oa.evidenceReviewServices?.claimEvaluationRepository &&
-+      input.product.claimEvaluationId
-+    ) {
-+      const currentCe = await resolveCurrentContractResultClaimEvaluation({
-+        repo: input.oa.evidenceReviewServices.claimEvaluationRepository,
-+        projectId: input.projectId,
-+        executionAttemptId: input.attemptId,
-+      });
-+      if (currentCe.status === "one") {
-+        const currentId = currentCe.claimEvaluation.claimEvaluationId;
-+        if (input.product.claimEvaluationId !== currentId) {
-+          return null;
-+        }
-+        if (
-+          payload.claimEvaluationId &&
-+          payload.claimEvaluationId !== currentId
-+        ) {
-+          return null;
-+        }
-+      } else if (currentCe.status === "ambiguous") {
-+        return null;
-+      }
-+    }
-+  }
-   return successFromPayload(payload);
- }
-
-@@ -578,7 +735,11 @@ export async function recoverExactRecommendationFromLps(input: {
-   if (
-     product.outcome !== "SUCCESS" &&
-     product.outcome !== "STOP" &&
--    product.outcome !== "FAIL"
-+    product.outcome !== "FAIL" &&
-+    !(
-+      product.outcome === "UNCLAIMED" &&
-+      isEvidenceBackedNotProvenUnclaimed(product)
-+    )
-   ) {
-     return null;
-   }
-@@ -604,6 +765,14 @@ export async function recoverExactRecommendationFromLps(input: {
-   if (payload.attemptId !== attemptId) return null;
-   if (payload.reviewBundleId !== product.reviewBundleId) return null;
-   if (payload.productOutcome !== product.outcome) return null;
-+  if (
-+    !w3cPayloadMatchesCurrentProduct(payload, {
-+      ...product,
-+      technicalDetail: { attemptId },
-+    })
-+  ) {
-+    return null;
-+  }
-
-   return successFromPayload({
-     ...payload,
-@@ -647,7 +816,11 @@ async function materializeW3cRecommendationEpistemic(input: {
+       claimEvaluationId: `clm:docs-write:${correction}:${segment}`.slice(0, 128),
+       claimEvaluationIdempotencyKey: `idem:docs-write-ce:${correction}:${attemptId}`,
+-      evidenceId: `ev:docs-write:${segment}`.slice(0, 128),
+-      reviewBundleId: `rb:docs-write:${segment}`.slice(0, 128),
++      evidenceId: baseEvidence,
++      reviewBundleId: scopedRb,
++      conformityEvidenceId:
++        `ev:docs-write-conformity:${correction}:${segment}`.slice(0, 128),
      };
    }
-   const evidenceId = input.success.evidenceId;
--  const epistemicId = w3cRecommendationEpistemicId(evidenceId);
-+  const epistemicId = w3cRecommendationEpistemicId(
-+    evidenceId,
-+    input.success.claimEvaluationId,
-+  );
-+  const legacyEvidenceOnlyId = w3cRecommendationEpistemicId(evidenceId);
-   const epistemic = await input.oa.cycleServices.getEpistemicState.execute({
-     projectId: input.projectId,
-   });
-@@ -660,7 +833,8 @@ async function materializeW3cRecommendationEpistemic(input: {
-   }
-
-   // B4 W3C-R09: supersede ALL other active w3c-post-evidence recommendations
--  // for this project when a new terminal becomes current.
-+  // for this project when a new terminal becomes current (including legacy
-+  // evidence-only ids and prior CE-bound ids for the same Evidence).
-   const priorActives = epistemic.state.items.filter(
-     (i) =>
-       i.status === "active" &&
-@@ -670,7 +844,8 @@ async function materializeW3cRecommendationEpistemic(input: {
-   const sameEvidencePrior = epistemic.state.items.find(
-     (i) =>
-       i.status === "active" &&
--      i.epistemicItemId === epistemicId &&
-+      (i.epistemicItemId === epistemicId ||
-+        i.epistemicItemId === legacyEvidenceOnlyId) &&
-       isW3cPostEvidenceItem(i),
-   );
-
-@@ -686,10 +861,17 @@ async function materializeW3cRecommendationEpistemic(input: {
-       : []),
-   ];
-
-+  // Prefer same-Evidence priors so CE supersession retires the prior claim episode.
-+  const sameEvidencePriors = priorActives.filter((i) =>
-+    itemBindsEvidenceAndAttempt(i, evidenceId, input.attemptId),
-+  );
-+  const supersedePool =
-+    sameEvidencePriors.length > 0 ? sameEvidencePriors : priorActives;
-+
-   const primarySupersedes =
-     sameEvidencePrior && sameEvidencePrior.epistemicItemId !== epistemicId
-       ? sameEvidencePrior.epistemicItemId
--      : priorActives[0]?.epistemicItemId;
-+      : supersedePool[0]?.epistemicItemId;
-
-   const items: Array<{
-     epistemicItemId: string;
-@@ -712,7 +894,7 @@ async function materializeW3cRecommendationEpistemic(input: {
-   ];
-
-   // Additional priors (beyond the one linked via primary supersedes).
--  const remaining = priorActives.filter(
-+  const remaining = supersedePool.filter(
-     (p) => p.epistemicItemId !== primarySupersedes,
-   );
-   for (const prior of remaining) {
-@@ -766,25 +948,41 @@ async function loadEpistemicPayloadForProduct(input: {
-   });
-   if (!epistemic.ok) return null;
-
--  const deterministicId = w3cRecommendationEpistemicId(
-+  const attemptId =
-+    input.attemptId ?? input.product.technicalDetail.attemptId;
-+  const ceBoundId = w3cRecommendationEpistemicId(
-     input.product.evidenceId,
-+    input.product.claimEvaluationId,
-   );
--  const byId = epistemic.state.items.find(
--    (i) => i.epistemicItemId === deterministicId && isW3cPostEvidenceItem(i),
-+  const legacyId = w3cRecommendationEpistemicId(input.product.evidenceId);
-+  const byCeId = epistemic.state.items.find(
-+    (i) => i.epistemicItemId === ceBoundId && isW3cPostEvidenceItem(i),
-   );
--  const attemptId =
--    input.attemptId ?? input.product.technicalDetail.attemptId;
-+  const byLegacyId =
-+    ceBoundId === legacyId
-+      ? undefined
-+      : epistemic.state.items.find(
-+          (i) => i.epistemicItemId === legacyId && isW3cPostEvidenceItem(i),
-+        );
-   const byRelated = epistemic.state.items.find(
-     (i) =>
-       isW3cPostEvidenceItem(i) &&
-       itemBindsEvidenceAndAttempt(i, input.product.evidenceId!, attemptId),
-   );
--  const item = byId ?? byRelated;
-+  const item = byCeId ?? byLegacyId ?? byRelated;
-   if (!item) return null;
-   const payload = parseW3cRecommendationPayload(item.statement);
-   if (!payload) return null;
-   if (payload.evidenceId !== input.product.evidenceId) return null;
-   if (attemptId && payload.attemptId !== attemptId) return null;
-+  if (
-+    !w3cPayloadMatchesCurrentProduct(payload, {
-+      ...input.product,
-+      technicalDetail: { attemptId },
-+    })
-+  ) {
-+    return null;
-+  }
-   return payload;
+   return {
+     claimEvaluationId: `clm:docs-write:${segment}`.slice(0, 128),
+     claimEvaluationIdempotencyKey: `idem:docs-write-ce:${attemptId}`,
+-    evidenceId: `ev:docs-write:${segment}`.slice(0, 128),
+-    reviewBundleId: `rb:docs-write:${segment}`.slice(0, 128),
++    evidenceId: baseEvidence,
++    reviewBundleId: baseRb,
++    conformityEvidenceId: `ev:docs-write-conformity:${segment}`.slice(0, 128),
+   };
  }
 
-@@ -797,10 +995,12 @@ export async function runW3cPostEvidenceLoop(input: {
-   const { oa, projectId, attemptId, product } = input;
+@@ -123,6 +160,72 @@ function pickDocsWriteArtifactEvidence(
+   return matches.length === 1 ? matches[0] : undefined;
+ }
 
-   if (product.outcome === "UNCLAIMED") {
--    return failClosed(
--      "PRODUCT_UNCLAIMED",
--      "Résultat produit non claimable — boucle post-Evidence refusée.",
--    );
-+    if (!isEvidenceBackedNotProvenUnclaimed(product)) {
-+      return failClosed(
-+        "PRODUCT_UNCLAIMED",
-+        "Résultat produit non claimable — boucle post-Evidence refusée.",
-+      );
-+    }
-   }
-   if (!product.evidenceId || !product.reviewBundleId) {
-     return failClosed(
-@@ -810,11 +1010,13 @@ export async function runW3cPostEvidenceLoop(input: {
-   }
-
-   // B2 defense in depth — existing Epistemic → reconstruct, no Nora / LPS append.
-+  // CR-PJR-03: require current Product claim bindings (CE + outcome).
-   const existing = await findExistingW3cPostEvidence({
-     oa,
-     projectId,
-     evidenceId: product.evidenceId,
-     attemptId,
-+    product,
-   });
-   if (existing) {
-     return existing;
-@@ -902,6 +1104,26 @@ export async function runW3cPostEvidenceLoop(input: {
-       );
-     }
-   }
-+  if (product.outcome === "UNCLAIMED") {
-+    if (!claimEvaluation) {
-+      return failClosed(
-+        "CLAIM_EVALUATION_MISSING",
-+        "EVIDENCE_BACKED_NOT_PROVEN exige une ClaimEvaluation courante.",
-+      );
-+    }
-+    if (claimEvaluation.status !== "not_proven" || product.claimAllowed) {
-+      return failClosed(
-+        "PRODUCT_UNCLAIMED",
-+        "UNCLAIMED sans CE not_proven / claimAllowed=false — fail-closed.",
-+      );
-+    }
-+    if (claimEvaluation.claimEvaluationId !== product.claimEvaluationId) {
-+      return failClosed(
-+        "CLAIM_EVALUATION_BINDING_MISMATCH",
-+        "CE produit ≠ CE durable — fail-closed.",
-+      );
-+    }
++export function docsWriteConformityFactsHold(input: {
++  attempt: ExecutionAttemptSnapshot;
++  evidence: Evidence;
++  artifact: Evidence;
++  material: {
++    executionContractId?: string;
++    projectId?: string;
++    cycleInstanceId?: string;
++  };
++}): boolean {
++  const { attempt, evidence, artifact, material } = input;
++  if (attempt.status !== "succeeded") return false;
++  if (evidence.type !== "attestation") return false;
++  if (evidence.source !== DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE) return false;
++  if (
++    evidence.technicalResultRef !==
++    DOCS_WRITE_MIN_CONFORMITY_VERIFIER_TECHNICAL_RESULT_REF
++  ) {
++    return false;
 +  }
++  if (evidence.bindings.executionAttemptId !== attempt.attemptId) return false;
++  const contractId =
++    material.executionContractId ?? attempt.executionContractId;
++  if (!evidence.bindings.executionContractId) return false;
++  if (evidence.bindings.executionContractId !== contractId) return false;
++  const projectId = material.projectId;
++  if (projectId) {
++    if (!evidence.bindings.projectId) return false;
++    if (evidence.bindings.projectId !== projectId) return false;
++  }
++  const cycleId = material.cycleInstanceId;
++  if (
++    cycleId &&
++    evidence.bindings.cycleInstanceId &&
++    evidence.bindings.cycleInstanceId !== cycleId
++  ) {
++    return false;
++  }
++  if (!evidence.digest) return false;
++  if (evidence.digest !== artifact.digest) return false;
++  if (evidence.status !== "available" && evidence.status !== "verified") {
++    return false;
++  }
++  const artifactLocation = artifact.location?.trim() ?? "";
++  const evidenceLocation = evidence.location?.trim() ?? "";
++  if (!artifactLocation || evidenceLocation !== artifactLocation) return false;
++  return true;
++}
++
++function pickDocsWriteConformityEvidence(
++  evidences: readonly Evidence[],
++  attempt: ExecutionAttemptSnapshot,
++  artifact: Evidence,
++  material: {
++    executionContractId?: string;
++    projectId?: string;
++    cycleInstanceId?: string;
++  },
++): Evidence | undefined {
++  const matches = evidences.filter((e) =>
++    docsWriteConformityFactsHold({ attempt, evidence: e, artifact, material }),
++  );
++  // Ambiguous duplicate conformity Evidence → fail-closed (undefined).
++  return matches.length === 1 ? matches[0] : undefined;
++}
++
+ function isPathShapedExpectedOutput(expectation: string): boolean {
+   return (
+     expectation.includes("/") ||
+@@ -130,10 +233,21 @@ function isPathShapedExpectedOutput(expectation: string): boolean {
+   );
+ }
 
-   const claimEvaluationRefs = claimEvaluation
-     ? [{ id: claimEvaluation.claimEvaluationId, version: claimEvaluation.version }]
-@@ -1033,6 +1255,14 @@ export async function runW3cPostEvidenceLoop(input: {
-   const ckcPromptSection = buildCkcCognitivePromptSection(ckcContent);
-
-   noraInvoked = true;
-+  const eoSummary =
-+    claimEvaluation?.expectedOutputAssessments
-+      ?.map((a) => `${a.itemId.ordinal}:${a.result}`)
-+      .join("; ") ?? undefined;
-+  const erSummary =
-+    claimEvaluation?.evidenceRequirementAssessments
-+      ?.map((a) => `${a.itemId.ordinal}:${a.result}`)
-+      .join("; ") ?? undefined;
-   const analysis = await analyzePostEvidenceWithProvider(
-     {
-       projectId,
-@@ -1049,6 +1279,13 @@ export async function runW3cPostEvidenceLoop(input: {
-       reviewBundleId: product.reviewBundleId,
-       technicalResultRef: product.technicalDetail.resultRef,
-       reservations: product.reservations,
-+      productOutcome: product.outcome,
-+      claimEvaluationId: product.claimEvaluationId ?? undefined,
-+      claimEvaluationStatus: product.claimEvaluationStatus ?? undefined,
-+      contractResultVerdict: product.contractResultVerdict ?? undefined,
-+      businessReason: product.businessReason,
-+      ...(eoSummary ? { expectedOutputAssessmentSummary: eoSummary } : {}),
-+      ...(erSummary ? { evidenceRequirementAssessmentSummary: erSummary } : {}),
-       ...(processRef ? { processRef } : {}),
-       ...(processExitCode !== undefined ? { exitCode: processExitCode } : {}),
-       ...(processTimedOut !== undefined ? { timedOut: processTimedOut } : {}),
-@@ -1157,10 +1394,12 @@ export async function rehydrateW3cPostEvidenceFromLps(input: {
-     );
++function boundTargetPath(
++  inputs: Record<string, unknown> | undefined,
++): string | undefined {
++  const raw = inputs?.targetPath;
++  return typeof raw === "string" && raw.trim().length > 0
++    ? raw.trim()
++    : undefined;
++}
++
+ /**
+  * docs_write EO PASS only for deterministic forms:
+  * 1) exact canonical bounded EO template;
+- * 2) path-shaped EO that exactly equals durable Artifact Evidence.location.
++ * 2) path-shaped EO that exactly equals durable Artifact Evidence.location;
++ * 3) named EO materialized-markdown-at-target (bound inputs.targetPath);
++ * 4) named EO min-conformity (requires matching conformity attestation Evidence).
+  * Unknown / free-form prose → NOT_PROVEN (no NLP, no fuzzy PASS).
+  */
+ export function assessDocsWriteExpectedOutput(input: {
+@@ -147,6 +261,7 @@ export function assessDocsWriteExpectedOutput(input: {
+     cycleInstanceId?: string;
+     inputs?: Record<string, unknown>;
+   };
++  evidences?: readonly Evidence[];
+ }): "PASS" | "NOT_PROVEN" | "FAIL" {
+   if (input.attempt.status === "failed" || input.attempt.status === "timeout") {
+     return "FAIL";
+@@ -166,6 +281,23 @@ export function assessDocsWriteExpectedOutput(input: {
+   if (expectation === BOUNDED_DOCS_WRITE_EO_TEMPLATE) {
+     return "PASS";
    }
-   if (product.outcome === "UNCLAIMED") {
--    return failClosed(
--      "PRODUCT_UNCLAIMED",
--      "UNCLAIMED — pas de boucle post-Evidence à rehydrater.",
--    );
-+    if (!isEvidenceBackedNotProvenUnclaimed(product)) {
-+      return failClosed(
-+        "PRODUCT_UNCLAIMED",
-+        "UNCLAIMED — pas de boucle post-Evidence à rehydrater.",
-+      );
-+    }
-   }
-
-   // PRIMARY: Epistemic Recommendation (even superseded) bound to this evidence.
-@@ -1192,6 +1431,14 @@ export async function rehydrateW3cPostEvidenceFromLps(input: {
-
-   // Legacy fallback: evidence-scoped LPS Nora extract — never return B's analysis for A.
-   // Lossy on gate fields — only when V1 payload absent (pre-correction LPS).
-+  // CR-PJR-03: ContractResult-backed products with claimEvaluationId must not
-+  // silently rebuild from CE-mismatched LPS after CE supersession.
-+  if (product.claimEvaluationId) {
-+    return failClosed(
-+      "STALE_POST_EVIDENCE_BINDING",
-+      "Aucun Epistemic/LPS V1 exact pour le ClaimEvaluation courant — fail-closed (pas de rebuild lossy après supersession CE).",
++  if (expectation === DOCS_WRITE_EO_MATERIALIZED_MARKDOWN_AT_TARGET) {
++    const target = boundTargetPath(input.material.inputs);
++    if (!target) return "NOT_PROVEN";
++    return location.length > 0 && location === target ? "PASS" : "NOT_PROVEN";
++  }
++  if (expectation === DOCS_WRITE_EO_MIN_CONFORMITY_VERIFICATION) {
++    const pool = input.evidences ?? [input.evidence];
++    const conformity = pickDocsWriteConformityEvidence(
++      pool,
++      input.attempt,
++      input.evidence,
++      input.material,
 +    );
++    if (!conformity) return "NOT_PROVEN";
++    // Existence is implied by matching digest+location on usable attestation.
++    return "PASS";
 +  }
-   if (!oa.projectServices) {
-     return failClosed(
-       "PROJECT_SERVICES_UNAVAILABLE",
-@@ -1240,7 +1487,11 @@ export async function rehydrateW3cPostEvidenceFromLps(input: {
-   if (
-     product.outcome !== "SUCCESS" &&
-     product.outcome !== "STOP" &&
--    product.outcome !== "FAIL"
-+    product.outcome !== "FAIL" &&
-+    !(
-+      product.outcome === "UNCLAIMED" &&
-+      isEvidenceBackedNotProvenUnclaimed(product)
-+    )
-   ) {
-     return failClosed(
-       "RECOMMENDATION_UNRECONSTRUCTIBLE",
+   if (isPathShapedExpectedOutput(expectation)) {
+     return location.length > 0 && expectation === location
+       ? "PASS"
+@@ -245,6 +377,7 @@ export const docsWriteContractResultSemantic: ContractResultSemantic = {
+       attempt: input.attempt,
+       evidence,
+       material: input.material,
++      evidences: input.evidences,
+     });
+   },
+   assessEvidenceRequirement(input) {
 ```
 
-### `projects/sfia-studio/convergence/sfia-studio-contract-result-extensibility-framing.md`
+### `projects/sfia-studio/app/lib/oa/evidence-review/index.ts`
 
 ```diff
-diff --git a/projects/sfia-studio/convergence/sfia-studio-contract-result-extensibility-framing.md b/projects/sfia-studio/convergence/sfia-studio-contract-result-extensibility-framing.md
-index 7a58dd72..0581dd8c 100644
---- a/projects/sfia-studio/convergence/sfia-studio-contract-result-extensibility-framing.md
-+++ b/projects/sfia-studio/convergence/sfia-studio-contract-result-extensibility-framing.md
-@@ -3,21 +3,22 @@
- | Métadonnée | Valeur |
- | --- | --- |
- | **Rôle** | Pack de **framing / décision technique** — extensibilité ContractResult |
--| **Statut** | **ADOPTED BY MORRIS — IMPLEMENTATION IN PROGRESS / NOT YET INTEGRATED ON MAIN** |
--| **Macro** | `CONTRACT-RESULT-EXTENSIBILITY-FRAMING-01` (R13) |
-+| **Statut** | **ADOPTED BY MORRIS — INTEGRATED ON MAIN / POST-MERGE VERIFIED** (PR **#502**) |
-+| **Macro** | `CONTRACT-RESULT-EXTENSIBILITY-FRAMING-01` (R13) → implementation `CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01` |
- | **Parent** | `PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01` |
- | **Horodatage création** | 2026-09-18 06:15:00 CEST (+0200) |
--| **Baseline Git** | `origin/main` `bb6af3cabef663bd8619b85326dbc205057b7c7d` (PR **#501** MERGED / POST-MERGE VERIFIED) |
-+| **Baseline Git (framing historique)** | `origin/main` `bb6af3cabef663bd8619b85326dbc205057b7c7d` (PR **#501** MERGED / POST-MERGE VERIFIED) |
-+| **Merge / main (implementation)** | `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` — PR **#502** **MERGED / POST-MERGE VERIFIED** |
- | **Branche locale framing (historique)** | `arch/sfia-studio-contract-result-extensibility-framing-01` |
--| **Branche locale implementation (non poussée)** | `feat/sfia-studio-contract-result-extensibility-01` |
-+| **Branche locale implementation (historique)** | `feat/sfia-studio-contract-result-extensibility-01` |
- | **Cycle** | Delivery / architecture implementation · **EVOL** · **CRITICAL** |
- | **CKC** | `ckc:studio:technical-architecture` — CONTENT VALIDATED · **aucune autorité d’exécution** |
- | **runtime v3** | **NON ADOPTED** |
- | **global L5** | **NOT ADOPTED** |
- | **REAL / Execute / new Attempt** | **ZERO** this macro |
- | **Horodatage décision Morris** | 2026-09-18 — ADOPT RESULT SEMANTICS REGISTRY (server-owned static + frozen RB multi-Evidence AND + explicit CE supersession + A+B one ZERO-REAL macro + success REAL provenance adapt if non-structural) |
--| **Implémentation locale** | `feat/sfia-studio-contract-result-extensibility-01` — registry + docs_write #2 + CR-BLK-01/02/03/04 closed · Execution profile resolves **HOW** only (must not inject/replace `expectedOutputs`) · Attempt 3 current CE `clm:docs-write:strict-eo-v1:…` **not_proven** (evidence gap) — **NOT integrated on main** |
--| **Anti-claims** | ≠ Product Journey READY/COMPLETE · ≠ Attempt 3 Product PASS under strict EO · ≠ generic ContractResult all effect classes · ≠ Git/PR/CI semantics · ≠ runtime v3 ADOPTED · ≠ integrated on main |
-+| **Implémentation** | registry + docs_write #2 + CR-BLK-01/02/03/04 **CLOSED** · **INTEGRATED ON MAIN** via PR **#502** · Execution profile resolves **HOW** only (must not inject/replace `expectedOutputs`) · Attempt 3 current CE `clm:docs-write:strict-eo-v1:…` **not_proven** (evidence gap) **PRESERVED** · next coherent macro = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** (**PROJECT GIT INTEGRATION — RESOLVE FROM GIT / PR EVIDENCE**) |
-+| **Anti-claims** | ≠ Product Journey READY/COMPLETE · ≠ Attempt 3 Product PASS under strict EO · ≠ generic ContractResult all effect classes · ≠ Git/PR/CI semantics · ≠ runtime v3 ADOPTED |
-
- ---
-
+diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/index.ts b/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
+index 4e1133f0..19839b52 100644
+--- a/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
++++ b/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
+@@ -127,12 +127,24 @@ export {
+   DOCS_WRITE_CONTRACT_RESULT_ER_KEY,
+   BOUNDED_DOCS_WRITE_EO_TEMPLATE,
+   DOCS_WRITE_STRICT_EO_CORRECTION_REF,
++  DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF,
++  DOCS_WRITE_EO_MATERIALIZED_MARKDOWN_AT_TARGET,
++  DOCS_WRITE_EO_MIN_CONFORMITY_VERIFICATION,
++  DOCS_WRITE_ARTIFACT_EVIDENCE_SOURCE,
+   docsWriteContractResultIdentity,
+   docsWriteArtifactFactsHold,
++  docsWriteConformityFactsHold,
+   assessDocsWriteExpectedOutput,
+   assessDocsWriteEvidenceRequirement,
+   docsWriteContractResultSemantic,
+ } from "./application/docsWriteContractResultSemantic";
++export {
++  DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
++  DOCS_WRITE_MIN_CONFORMITY_VERIFIER_TECHNICAL_RESULT_REF,
++  extractDocsWriteMinConformityCriteria,
++  verifyDocsWriteMinConformityFromBytes,
++  verifyDocsWriteMinConformityFromFile,
++} from "./application/docsWriteMinConformityVerifier";
+ export {
+   resolveCurrentContractResultClaimEvaluation,
+   type ResolveCurrentContractResultClaimEvaluationResult,
 ```
 
 ### `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index d3747d85..0d45305d 100644
+index 0d45305d..df13bbd3 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 +++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 @@ -4,7 +4,8 @@
  | --- | --- |
  | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
  | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
--| **Timestamp maintenance CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01** | 2026-09-18 09:10:00 CEST (+0200) — **CONTRACT RESULT EXTENSIBILITY — FINAL PR-READINESS CORRECTION** · EVOL · CRITICAL · Macro **CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01** · CR-BLK-01/02/03/04 **CLOSED** · baseline `bb6af3ca` · branche `feat/sfia-studio-contract-result-extensibility-01` · **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** · docs-write M3 profile resolves **HOW** only (no `expectedOutputs` injection; predecessor WHAT preserved by SupersedeExecutionContract) · Attempt 3 current CE strict **not_proven** preserved · Attempts **3→3** · **ZERO REAL** · runtime v3 = **NON ADOPTED** · **≠** Product Journey READY · **≠** Attempt 3 Product PASS · next = Morris Git-integration gate · push/PR/merge **NOT AUTHORIZED** by this tip |
-+| **Timestamp maintenance PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** | 2026-09-18 15:30:00 CEST (+0200) — **PRODUCT JOURNEY POST-EXECUTION REPLAN — PROJECT GIT INTEGRATION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** · CR-PJR-01/02/03 **CLOSED / PRESERVED** · original macro baseline `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` (PR **#502** ContractResult A+B merge) · **requalified current baseline** `origin/main` `9be4b80629cb594821cc7b35abf22c89df65acc1` after documentation-only PR **#503** (`sfia-studio-transmission-guide.md` only · **NON-OVERLAPPING DOCUMENTARY MAIN ADVANCE**) · branche `qa/sfia-studio-product-journey-post-execution-replan-01` · Attempt 3 current CE strict **not_proven** preserved · Product **UNCLAIMED** · portable PJR + correctionRef + current-CE W3-C semantics preserved · Attempts **3→3** · **ZERO NEW STUDIO/CURSOR REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **PROJECT GIT INTEGRATION — RESOLVE FROM GIT / PR EVIDENCE** · **≠** READY · **≠** Attempt 3 Product PASS · next = PR CI / conditional merge / post-merge verification |
-+| **Timestamp maintenance historique CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 (pre-PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01)** | *(tip superseded by PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-18 09:10:00 CEST (+0200) — **CONTRACT RESULT EXTENSIBILITY — FINAL PR-READINESS CORRECTION** · EVOL · CRITICAL · Macro **CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01** · CR-BLK-01/02/03/04 **CLOSED** · baseline `bb6af3ca` · branche `feat/sfia-studio-contract-result-extensibility-01` · later **INTEGRATED ON MAIN / POST-MERGE VERIFIED** via PR **#502** merge `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` · docs-write M3 profile resolves **HOW** only (no `expectedOutputs` injection; predecessor WHAT preserved by SupersedeExecutionContract) · Attempt 3 current CE strict **not_proven** preserved · Attempts **3→3** · **ZERO REAL** · runtime v3 = **NON ADOPTED** · **≠** Product Journey READY · **≠** Attempt 3 Product PASS · historical tip wording **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** was pre-merge · Git/PR #502 are authoritative |
+-| **Timestamp maintenance PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** | 2026-09-18 15:30:00 CEST (+0200) — **PRODUCT JOURNEY POST-EXECUTION REPLAN — PROJECT GIT INTEGRATION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** · CR-PJR-01/02/03 **CLOSED / PRESERVED** · original macro baseline `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` (PR **#502** ContractResult A+B merge) · **requalified current baseline** `origin/main` `9be4b80629cb594821cc7b35abf22c89df65acc1` after documentation-only PR **#503** (`sfia-studio-transmission-guide.md` only · **NON-OVERLAPPING DOCUMENTARY MAIN ADVANCE**) · branche `qa/sfia-studio-product-journey-post-execution-replan-01` · Attempt 3 current CE strict **not_proven** preserved · Product **UNCLAIMED** · portable PJR + correctionRef + current-CE W3-C semantics preserved · Attempts **3→3** · **ZERO NEW STUDIO/CURSOR REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **PROJECT GIT INTEGRATION — RESOLVE FROM GIT / PR EVIDENCE** · **≠** READY · **≠** Attempt 3 Product PASS · next = PR CI / conditional merge / post-merge verification |
++| **Timestamp maintenance PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01** | 2026-09-18 16:15:00 CEST (+0200) — **PRODUCT JOURNEY CLAIM EVIDENCE COMPLETION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01** · parent **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** · baseline `origin/main` `9c6ac90974113044330284dd110108287ba2319e` · branche `qa/sfia-studio-product-journey-claim-evidence-completion-01` · Attempt 3 durable evidence completion · correctionRef `evidence-completion-v1` · new CE **pass** superseding strict-eo-v1 **not_proven** · Product **SUCCESS** · W3-C recover→continue · LPS v27→v28 · Trajectory v4 unchanged · Attempts **3→3** · **ZERO NEW CURSOR REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **LOCAL / IN PROGRESS — RESOLVE FROM GIT / PR EVIDENCE** · project Git integration **NOT AUTHORIZED** by this tip · **≠** Product Journey READY/COMPLETE · **≠** new REAL proof · next = ChatGPT Critical Review / Morris Git gate |
++| **Timestamp maintenance historique PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 (pre-CLAIM-EVIDENCE-COMPLETION-01)** | 2026-09-18 15:30:00 CEST (+0200) — **PRODUCT JOURNEY POST-EXECUTION REPLAN — PROJECT GIT INTEGRATION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** · CR-PJR-01/02/03 **CLOSED / PRESERVED** · original macro baseline `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` (PR **#502** ContractResult A+B merge) · **requalified current baseline** `origin/main` `9be4b80629cb594821cc7b35abf22c89df65acc1` after documentation-only PR **#503** (`sfia-studio-transmission-guide.md` only · **NON-OVERLAPPING DOCUMENTARY MAIN ADVANCE**) · branche `qa/sfia-studio-product-journey-post-execution-replan-01` · Attempt 3 current CE strict **not_proven** preserved · Product **UNCLAIMED** · portable PJR + correctionRef + current-CE W3-C semantics preserved · Attempts **3→3** · **ZERO NEW STUDIO/CURSOR REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **PROJECT GIT INTEGRATION — RESOLVE FROM GIT / PR EVIDENCE** · **≠** READY · **≠** Attempt 3 Product PASS · next = PR CI / conditional merge / post-merge verification |
+ | **Timestamp maintenance historique CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 (pre-PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01)** | *(tip superseded by PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-18 09:10:00 CEST (+0200) — **CONTRACT RESULT EXTENSIBILITY — FINAL PR-READINESS CORRECTION** · EVOL · CRITICAL · Macro **CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01** · CR-BLK-01/02/03/04 **CLOSED** · baseline `bb6af3ca` · branche `feat/sfia-studio-contract-result-extensibility-01` · later **INTEGRATED ON MAIN / POST-MERGE VERIFIED** via PR **#502** merge `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` · docs-write M3 profile resolves **HOW** only (no `expectedOutputs` injection; predecessor WHAT preserved by SupersedeExecutionContract) · Attempt 3 current CE strict **not_proven** preserved · Attempts **3→3** · **ZERO REAL** · runtime v3 = **NON ADOPTED** · **≠** Product Journey READY · **≠** Attempt 3 Product PASS · historical tip wording **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** was pre-merge · Git/PR #502 are authoritative |
  | **Timestamp maintenance historique PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 (pre-CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01)** | *(tip superseded by CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-18 05:15:00 CEST (+0200) — **PRODUCT JOURNEY E2E REAL RECONCILIATION INTEGRATION** · Cycle **15** · Capitalisation / REX + intégration Git · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01** · parent campagne **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01** · baseline pré-intégration `origin/main` `26478b1ea5b010c625f0c6039c969fac5c135cf5` · branche `qa/sfia-studio-product-journey-e2e-real-reconciliation-01` · checkpoints **R1–R12** consolidés · Product fixes **R1/R3/R4/R6/R7/R8/R10** = intégration candidate this PR · Attempt 1 FAIL · Attempt 2 FAIL Authentication required · Attempt 3 Cursor REAL **technical SUCCESS** · bounded docs_write filesystem effect + Artifact Evidence **PROVEN** in M4 isolated WT · Product Result remains **UNCLAIMED** · blocker = **ContractResult extensibility / Evidence wiring** (`no_applicable_contract_result_rule` for `cursor.docs_write.apply`) · capitalisation `projects/sfia-studio/convergence/product-journey-e2e-real-reconciliation-01-capitalization.md` · **ZERO REAL** this integration macro · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **≠** Product Journey E2E READY / COMPLETE · **≠** ContractResult docs_write PASS · **≠** runtime v3 ADOPTED · next after integration verified = **R13 — Contract Result extensibility framing — ZERO REAL** · **NOT STARTED / NOT AUTHORIZED** by this tip · repository lifecycle = **RESOLVE FROM GIT / PR evidence** |
  | **Timestamp maintenance historique PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01 (pre-PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01)** | *(tip superseded by PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-17 18:25:36 CEST (+0200) — **PRODUCT DOCS_WRITE REAL PASS POST-MERGE TRUTH-SYNC** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Macro **PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01** · parent macro **PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01** · GO Morris post-merge documentary truth-sync #499 **CONSUMED** (local docs + commit only) · PR **#499 MERGED** `docs(sfia-studio): capitalize Product docs-write REAL proof` · head `9981483f8c158bec07364e14e626cdf2c3fd1e34` · merge `3907177f7788d23d640c5bdcd1cee8e01615762f` · parents `b739ddd3826ea4df640e3f34f97a966d85f8d214` + `9981483f8c158bec07364e14e626cdf2c3fd1e34` · capitalisation = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · pre-merge CI **`35236024162` SUCCESS** · Required Gate **PASS** · post-merge CI **`35245046244` SUCCESS** · Required Gate **PASS** · `headSha=3907177f7788d23d640c5bdcd1cee8e01615762f` · merge lifecycle #499 = **COMPLETED / CONSUMED** · post-merge verification = **PASS** · claim **AUTHENTICATED PRODUCT DOCS_WRITE REAL PROVEN AT TESTED HISTORICAL PROJECT SCOPE** · **ZERO REAL** · Product code **UNCHANGED** · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** **PRESERVED** · next Product capability candidate = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN** · **NOT STARTED / NOT AUTHORIZED** by this truth-sync · this documentary truth-sync = **LOCAL CANDIDATE** · Review Handoff publication **PENDING** (distinct Morris remote push gate) · push/PR/merge of this truth-sync = **DISTINCT Morris gates** · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / origin/main / PR evidence** · **≠** E2E FULL REAL PROVEN · **≠** Product Journey complete to Nora replanning · **≠** docs_write generalized · **≠** Cursor autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new REAL authorization · **≠** PRODUCT-JOURNEY-POST-EXECUTION-REPLAN started · **≠** push/PR/merge authorized by proof |
- | **Timestamp maintenance historique PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01 (pre-PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01)** | *(tip superseded by PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-17 16:15:39 CEST (+0200) — **PRODUCT DOCS_WRITE REAL PASS CAPITALISATION** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Macro **PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01** · GO capitalisation locale **CONSUMED** · GO Review Handoff + push + PR **CONSUMED** · remédiation gouvernance PR499 in-cycle · Product PR **#498 MERGED** `fix(sfia-studio): close docs-write REAL path and completion` · merge/main `b739ddd3826ea4df640e3f34f97a966d85f8d214` · post-merge CI **`35215299343` SUCCESS** · Required Gate **PASS** · Fresh Authenticated Product Reproof09 REAL = **PASS** · claim **AUTHENTICATED PRODUCT DOCS_WRITE REAL PROVEN AT TESTED HISTORICAL PROJECT SCOPE** · 1 Product Execute / 1 Cursor REAL spawn / 0 retry · exact target `projects/sfia-studio/.sandbox/gestion-de-taches.md` **PASS** · Attempt terminal **`succeeded`** **PASS** · Evidence/ReviewBundle **PASS** · restart/no-relaunch **PASS** · capitalisation asset `projects/sfia-studio/convergence/sfia-studio-product-docs-write-real-pass-capitalisation.md` = **CANDIDATE PR #499 / remote branch / pending merge** · PR **#499** `docs(sfia-studio): capitalize Product docs-write REAL proof` · base `main` @ `b739ddd3826ea4df640e3f34f97a966d85f8d214` · pre-remediation head `f0b7c414394e2bb51ae93ec159027682d0bdc1c4` · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** **PRESERVED** · next Product capability candidate = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN** · **NOT STARTED / NOT AUTHORIZED** by this capitalisation · **ZERO REAL** this DOC cycle · Product code **unchanged** · Review Handoff = **PUBLISHED / REMOTE VERIFIED** · pre-remediation handoff `2bd065dfc15ff5577ef83f78feebd05c5738d231` · remediation handoff republish-in-cycle for new HEAD · GO push/PR = **CONSUMED** · PR **#499 OPEN** · merge = **DISTINCT PENDING Morris gate** · **≠** E2E FULL REAL PROVEN · **≠** Product Journey complete to Nora replanning · **≠** docs_write generalized · **≠** Cursor autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new REAL authorization · **≠** push/PR/merge authorized by proof |
 ```
 
 ---
 
-## 7. Full file contents (on merge SHA)
-
-### `projects/sfia-studio/app/__tests__/project-assistant/productJourneyPostExecutionReplan.d0.test.ts`
-
-```
-/**
- * PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 — portable PJR bar (CR-PJR-01..03).
- * CI-safe: tempProductDbPath / in-memory only. ZERO REAL. No campaign DB.
- * @vitest-environment node
- */
-import fs from "node:fs";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { setConversationProviderForTests } from "@/lib/platform/ai";
-import { FixedClock } from "@/lib/oa/doctrine";
-import type { Digest } from "@/lib/oa/doctrine";
-import {
-  BOUNDED_DOCS_WRITE_EO_TEMPLATE,
-  CLAIM_EVALUATION_SCHEMA_VERSION,
-  createInMemoryEvidenceReviewServices,
-  docsWriteContractResultIdentity,
-  DOCS_WRITE_CONTRACT_RESULT_ER_KEY,
-  DOCS_WRITE_STRICT_EO_CORRECTION_REF,
-  resolveCurrentContractResultClaimEvaluation,
-} from "@/lib/oa/evidence-review";
-import {
-  computeExecutionContractSemanticMaterialFingerprint,
-  executionContractSemanticMaterial,
-  type ExecutionContract,
-} from "@/lib/oa/execution-contract";
-import { captureBoundExecutionContractSnapshot } from "@/lib/oa/execution-attempt/domain/boundExecutionContract";
-import {
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
-  M4_BOUNDED_DOCS_WRITE_TARGET,
-} from "@/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent";
-import { BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS } from "@/features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile";
-import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
-import { ingestDocsWriteArtifactEvidence } from "@/features/project-assistant/f3/ingestDocsWriteArtifactEvidence";
-import { requalifyDocsWriteContractResult } from "@/features/project-assistant/w2/requalifyDocsWriteContractResult";
-import {
-  isEvidenceBackedNotProvenUnclaimed,
-  recommendationFromOutcome,
-  runW3cPostEvidenceLoop,
-  findExistingW3cPostEvidence,
-  w3cPayloadMatchesCurrentProduct,
-  w3cRecommendationEpistemicId,
-} from "@/features/project-assistant/w2/w3cPostEvidenceLoop";
-import { resolvePostEvidenceRecoveryContext } from "@/features/project-assistant/w2/resolvePostEvidenceRecoveryContext";
-import {
-  materializeProductOutcomeFromAttempt,
-  rehydrateProductOutcomeFromAttempt,
-} from "@/features/project-assistant/w2/materializeW3bProductTerminal";
-import type { W3BProductTerminalProjection } from "@/features/project-assistant/w2/w3bProductTerminalProjection";
-import {
-  bootW2Runtime,
-  cleanupW2TempDirs,
-  proposeW2OptionsForProject,
-  seedQualifiedProject,
-  tempProductDbPath,
-} from "./w2Harness";
-import { LOCAL_PILOTE_ACTOR, registerLocalPiloteAuthority } from "@/lib/oa/decision";
-import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
-import { GOVERNED_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
-
-const ACTOR = { actorId: "actor:pjr", role: "project_owner" as const };
-const NOW = "2026-09-18T14:00:00.000Z";
-const TARGET = "docs/functional-design.md";
-const SANDBOX_TARGET = "projects/sfia-studio/.sandbox/pjr-portable.md";
-
-beforeEach(() => {
-  process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-  process.env.OPS1_E2E_ALLOW_DIRTY_PRINCIPAL = "1";
-  delete process.env.SFIA_STUDIO_CURSOR_REAL_AUTHORIZED;
-  setConversationProviderForTests(null);
-});
-
-afterEach(() => {
-  cleanupW2TempDirs();
-});
-
-function makeDocsWriteContract(input?: {
-  expectedOutputs?: string[];
-  projectId?: string;
-  executionContractId?: string;
-}): ExecutionContract {
-  const base: ExecutionContract = {
-    schemaVersion: "0.2.0-oa",
-    executionContractId: input?.executionContractId ?? "xct:pjr:docs",
-    projectId: input?.projectId ?? "prj:pjr",
-    cycleInstanceId: "cyc:pjr:1",
-    version: 2,
-    status: "confirmed",
-    semanticFingerprint: "fp:pending",
-    action: M4_BOUNDED_DOCS_WRITE_ACTION,
-    target: TARGET,
-    scope: "docs/",
-    requiredAuthority: "N3",
-    constraints: ["NO_COMMIT", "NO_PUSH", "NO_PR", "NO_MERGE"],
-    stopConditions: [],
-    evidenceRequirements: [DOCS_WRITE_CONTRACT_RESULT_ER_KEY],
-    expectedOutputs: input?.expectedOutputs ?? [BOUNDED_DOCS_WRITE_EO_TEMPLATE],
-    requiredCapabilities: [M4_BOUNDED_DOCS_WRITE_CAPABILITY],
-    reversibility: "reversible",
-    idempotencyKey: "idem:ec:pjr:docs",
-    correlationId: "cor:ec:pjr:docs",
-  };
-  base.semanticFingerprint = computeExecutionContractSemanticMaterialFingerprint(
-    executionContractSemanticMaterial(base),
-  );
-  return base;
-}
-
-function makeAttempt(
-  contract: ExecutionContract,
-  attemptId: string,
-): ExecutionAttempt {
-  const snap = captureBoundExecutionContractSnapshot(contract);
-  return {
-    attemptId,
-    executionContractId: contract.executionContractId,
-    executionContractVersion: contract.version,
-    executionContractSemanticFingerprint: snap.semanticFingerprint,
-    boundExecutionContract: snap,
-    status: "succeeded",
-    resultRef: `res:${attemptId}`,
-    selectedAgentRef: "agent:docs-write",
-    version: 3,
-    createdAt: NOW,
-    updatedAt: NOW,
-    completedAt: NOW,
-  } as ExecutionAttempt;
-}
-
-function unclaimedWithoutCe(): W3BProductTerminalProjection {
-  return {
-    outcome: "UNCLAIMED",
-    businessHeadline: "Non claimable",
-    businessReason: "missing",
-    claimAllowed: false,
-    evidenceId: null,
-    reviewBundleId: null,
-    claimEvaluationId: null,
-    claimEvaluationStatus: null,
-    contractResultVerdict: null,
-    evidenceStatus: null,
-    evidenceSummary: null,
-    reviewBundleCompleteness: null,
-    governedBoundary: null,
-    technicalDetail: {
-      attemptId: "xat:x",
-      attemptStatus: "succeeded",
-      resultRef: null,
-      errorRef: null,
-      stopReason: null,
-      stopOrigin: null,
-      stopCode: null,
-      executionContractId: "xct:x",
-      executionContractVersion: 1,
-    },
-    reservations: [],
-    antiClaims: {
-      ready: false,
-      w3Closed: false,
-      productCompletionComplete: false,
-      runtimeV3Adopted: false,
-      realProven: false,
-      cycleAutoClosed: false,
-      projectAutoArchived: false,
-    },
-    cycleInstanceClosed: false,
-    projectArchived: false,
-    noraInvoked: false,
-    replanInvoked: false,
-    realExecution: false,
-  };
-}
-
-describe("CR-PJR-01 — portable hygiene", () => {
-  it("this suite has no absolute campaign DB path", () => {
-    const src = fs.readFileSync(__filename, "utf8");
-    expect(src).not.toMatch(
-      /\/Users\/morris\/Projects\/sfia-studio-product-journey/,
-    );
-  });
-
-  it("PJR-15 — arbitrary UNCLAIMED without evidence-backed CE is not admissible", () => {
-    expect(isEvidenceBackedNotProvenUnclaimed(unclaimedWithoutCe())).toBe(
-      false,
-    );
-  });
-
-  it("PJR-02/07/08/09 — UNCLAIMED recommendation is recover without HD/auto-cycle", () => {
-    const rec = recommendationFromOutcome({
-      outcome: "UNCLAIMED",
-      recommendNextGateStatus: null,
-      nextActionCode: "complete_evidence",
-    });
-    expect(rec.kind).toBe("recover");
-    expect(rec.nextStep).toBe("complete_evidence");
-    expect(rec.requiresHumanDecision).toBe(false);
-    expect(rec.decisionCreated).toBe(false);
-    expect(rec.attemptAutoLaunchNextCycle).toBe(false);
-  });
-});
-
-describe("CR-PJR-02 — rematerialize vs correctionRef re-evaluation", () => {
-  async function seedNotProvenDocsWrite(attemptId: string) {
-    const services = createInMemoryEvidenceReviewServices({
-      clock: new FixedClock(NOW),
-    });
-    const contract = makeDocsWriteContract({
-      expectedOutputs: [
-        "Free-form expected output that cannot PASS artifact location",
-      ],
-    });
-    const attempt = makeAttempt(contract, attemptId);
-    const ingested = await ingestDocsWriteArtifactEvidence({
-      evidenceReviewServices: services,
-      projectId: contract.projectId!,
-      cycleInstanceId: contract.cycleInstanceId!,
-      executionContractId: contract.executionContractId,
-      executionAttemptId: attemptId,
-      targetPath: TARGET,
-      digest:
-        "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" as Digest,
-      actor: ACTOR,
-      nowIso: NOW,
-    });
-    expect(ingested.ok).toBe(true);
-    if (!ingested.ok) throw new Error("ingest");
-
-    const first = await requalifyDocsWriteContractResult({
-      evidenceReviewServices: services,
-      attempt,
-      contract,
-      actor: ACTOR,
-      nowIso: NOW,
-    });
-    expect(first.ok).toBe(true);
-    if (!first.ok) throw new Error(first.message);
-    expect(first.claimEvaluation.status).toBe("not_proven");
-    return { services, contract, attempt, first };
-  }
-
-  it("plain rematerialize reuses current docs-write CE (CASE A)", async () => {
-    const attemptId = "xat:w3a:pjr-case-a";
-    const { services, contract, attempt, first } =
-      await seedNotProvenDocsWrite(attemptId);
-    const again = await requalifyDocsWriteContractResult({
-      evidenceReviewServices: services,
-      attempt,
-      contract,
-      actor: ACTOR,
-      nowIso: NOW,
-    });
-    expect(again.ok).toBe(true);
-    if (!again.ok) return;
-    expect(again.claimEvaluation.claimEvaluationId).toBe(
-      first.claimEvaluation.claimEvaluationId,
-    );
-    expect(again.reusedFromIdempotencyKey).toBe(true);
-  });
-
-  it("explicit correctionRef creates successor CE superseding current (CASE B)", async () => {
-    const attemptId = "xat:w3a:pjr-case-b";
-    const { services, contract, attempt, first } =
-      await seedNotProvenDocsWrite(attemptId);
-    const successor = await requalifyDocsWriteContractResult({
-      evidenceReviewServices: services,
-      attempt,
-      contract,
-      actor: ACTOR,
-      nowIso: NOW,
-      correctionRef: "corr-v2",
-    });
-    expect(successor.ok).toBe(true);
-    if (!successor.ok) return;
-    const expectedId = docsWriteContractResultIdentity(attemptId, {
-      correctionRef: "corr-v2",
-    }).claimEvaluationId;
-    expect(successor.claimEvaluation.claimEvaluationId).toBe(expectedId);
-    expect(successor.supersededClaimEvaluationId).toBe(
-      first.claimEvaluation.claimEvaluationId,
-    );
-    const current = await resolveCurrentContractResultClaimEvaluation({
-      repo: services.claimEvaluationRepository,
-      projectId: contract.projectId!,
-      executionAttemptId: attemptId,
-    });
-    expect(current.status).toBe("one");
-    if (current.status === "one") {
-      expect(current.claimEvaluation.claimEvaluationId).toBe(expectedId);
-    }
-  });
-
-  it("same correctionRef rerun reuses current (CASE C)", async () => {
-    const attemptId = "xat:w3a:pjr-case-c";
-    const { services, contract, attempt } =
-      await seedNotProvenDocsWrite(attemptId);
-    const firstCorr = await requalifyDocsWriteContractResult({
-      evidenceReviewServices: services,
-      attempt,
-      contract,
-      actor: ACTOR,
-      nowIso: NOW,
-      correctionRef: DOCS_WRITE_STRICT_EO_CORRECTION_REF,
-    });
-    expect(firstCorr.ok).toBe(true);
-    if (!firstCorr.ok) return;
-    const again = await requalifyDocsWriteContractResult({
-      evidenceReviewServices: services,
-      attempt,
-      contract,
-      actor: ACTOR,
-      nowIso: NOW,
-      correctionRef: DOCS_WRITE_STRICT_EO_CORRECTION_REF,
-    });
-    expect(again.ok).toBe(true);
-    if (!again.ok) return;
-    expect(again.claimEvaluation.claimEvaluationId).toBe(
-      firstCorr.claimEvaluation.claimEvaluationId,
-    );
-    expect(again.reusedFromIdempotencyKey).toBe(true);
-  });
-
-  it("ancestor / historical correction identity fails closed (CASE E)", async () => {
-    const attemptId = "xat:w3a:pjr-case-e";
-    const { services, contract, attempt } =
-      await seedNotProvenDocsWrite(attemptId);
-    const firstCorr = await requalifyDocsWriteContractResult({
-      evidenceReviewServices: services,
-      attempt,
-      contract,
-      actor: ACTOR,
-      nowIso: NOW,
-      correctionRef: "hist-a",
-    });
-    expect(firstCorr.ok).toBe(true);
-    if (!firstCorr.ok) return;
-    const secondCorr = await requalifyDocsWriteContractResult({
-      evidenceReviewServices: services,
-      attempt,
-      contract,
-      actor: ACTOR,
-      nowIso: NOW,
-      correctionRef: "hist-b",
-    });
-    expect(secondCorr.ok).toBe(true);
-    if (!secondCorr.ok) return;
-
-    // Re-create superseded hist-a identity → refuse.
-    const cycle = await requalifyDocsWriteContractResult({
-      evidenceReviewServices: services,
-      attempt,
-      contract,
-      actor: ACTOR,
-      nowIso: NOW,
-      correctionRef: "hist-a",
-    });
-    expect(cycle.ok).toBe(false);
-    if (!cycle.ok) {
-      expect(cycle.code).toBe("CONTRACT_RESULT_CORRECTION_LINEAGE_INVALID");
-    }
-
-    // Ordinary rematerialize still reuses current hist-b.
-    const rematerialize = await requalifyDocsWriteContractResult({
-      evidenceReviewServices: services,
-      attempt,
-      contract,
-      actor: ACTOR,
-      nowIso: NOW,
-    });
-    expect(rematerialize.ok).toBe(true);
-    if (!rematerialize.ok) return;
-    expect(rematerialize.claimEvaluation.claimEvaluationId).toBe(
-      secondCorr.claimEvaluation.claimEvaluationId,
-    );
-  });
-
-  it("ambiguous current CE fails closed (CASE D)", async () => {
-    const services = createInMemoryEvidenceReviewServices({
-      clock: new FixedClock(NOW),
-    });
-    const contract = makeDocsWriteContract();
-    const attemptId = "xat:w3a:pjr-case-d";
-    const attempt = makeAttempt(contract, attemptId);
-    const ingested = await ingestDocsWriteArtifactEvidence({
-      evidenceReviewServices: services,
-      projectId: contract.projectId!,
-      cycleInstanceId: contract.cycleInstanceId!,
-      executionContractId: contract.executionContractId,
-      executionAttemptId: attemptId,
-      targetPath: TARGET,
-      digest:
-        "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" as Digest,
-      actor: ACTOR,
-      nowIso: NOW,
-    });
-    expect(ingested.ok).toBe(true);
-    if (!ingested.ok) return;
-
-    // Two active non-superseding ContractResult CEs → ambiguous.
-    for (const id of ["clm:docs-write:amb-a", "clm:docs-write:amb-b"]) {
-      await services.claimEvaluationRepository.create({
-        schemaVersion: CLAIM_EVALUATION_SCHEMA_VERSION,
-        claimEvaluationId: id,
-        claimType: "conformite",
-        claimStatement: "ambiguous fixture",
-        criticality: "non_critical",
-        evaluationMethod: "deterministic",
-        requiredEvidenceRefs: [ingested.evidenceId!],
-        reviewBundleId: ingested.reviewBundleId!,
-        reviewBundleVersion: 1,
-        status: "not_proven",
-        proposedBy: ACTOR,
-        proposedAt: NOW,
-        evaluatedAt: NOW,
-        provenance: {
-          schemaVersion: "0.1.0-oa",
-          provenanceRecordId: `prv:${id}`,
-          actor: ACTOR,
-          source: "review",
-          timestamp: NOW,
-          correlationId: `cor:${id}`,
-          projectId: contract.projectId!,
-        },
-        version: 1,
-        subjectKind: "execution_contract_result",
-        contractResultBindings: {
-          projectId: contract.projectId!,
-          cycleInstanceId: contract.cycleInstanceId!,
-          executionContractId: contract.executionContractId,
-          executionContractVersion: contract.version,
-          executionContractSemanticFingerprint:
-            attempt.executionContractSemanticFingerprint!,
-          executionAttemptId: attemptId,
-          reviewBundleId: ingested.reviewBundleId!,
-          reviewBundleVersion: 1,
-          evidenceRefs: [ingested.evidenceId!],
-        },
-      });
-    }
-
-    const result = await requalifyDocsWriteContractResult({
-      evidenceReviewServices: services,
-      attempt,
-      contract,
-      actor: ACTOR,
-      nowIso: NOW,
-    });
-    expect(result.ok).toBe(false);
-    if (!result.ok) {
-      expect(result.code).toBe("CONTRACT_RESULT_CLAIM_LINEAGE_AMBIGUOUS");
-    }
-  });
-});
-
-describe("CR-PJR-03 — W3-C current-CE awareness", () => {
-  it("payload match helper rejects CE / outcome drift", () => {
-    const base = {
-      evidenceId: "ev:docs-write:x",
-      attemptId: "xat:x",
-      reviewBundleId: "rb:docs-write:x",
-      claimEvaluationId: "clm:docs-write:a",
-      productOutcome: "UNCLAIMED",
-    };
-    const product = {
-      evidenceId: "ev:docs-write:x",
-      reviewBundleId: "rb:docs-write:x",
-      claimEvaluationId: "clm:docs-write:a",
-      outcome: "UNCLAIMED" as const,
-      technicalDetail: { attemptId: "xat:x" },
-    };
-    expect(w3cPayloadMatchesCurrentProduct(base, product)).toBe(true);
-    expect(
-      w3cPayloadMatchesCurrentProduct(base, {
-        ...product,
-        claimEvaluationId: "clm:docs-write:b",
-      }),
-    ).toBe(false);
-    expect(
-      w3cPayloadMatchesCurrentProduct(base, {
-        ...product,
-        outcome: "SUCCESS",
-      }),
-    ).toBe(false);
-  });
-
-  it("Epistemic id binds Evidence+CE when CE present", () => {
-    const a = w3cRecommendationEpistemicId("ev:x", "clm:a");
-    const b = w3cRecommendationEpistemicId("ev:x", "clm:b");
-    const legacy = w3cRecommendationEpistemicId("ev:x");
-    expect(a).not.toBe(b);
-    expect(a).not.toBe(legacy);
-  });
-});
-
-describe("CR-PJR portable docs_write UNCLAIMED recover (temp DB)", () => {
-  it("succeeded Attempt + frozen docs_write Evidence/RB + CE not_proven → UNCLAIMED recover + restart; CE-B invalidates recover A", async () => {
-    const db = tempProductDbPath("pjr-portable.sqlite");
-    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "pjrport" });
-    const seeded = await seedQualifiedProject(runtime, { suffix: "pjr" });
-    const oa = runtime.oa!;
-    const projectId = seeded.projectId;
-    const attemptId = `xat:w3a:pjrport-${Date.now().toString(16).slice(-8)}`;
-    const ecId = `xct:pjr:${Date.now().toString(16).slice(-8)}`;
-
-    const proposed = await proposeW2OptionsForProject(runtime, projectId);
-    expect(proposed.ok).toBe(true);
-    if (!proposed.ok) throw new Error("propose");
-    const decided = await decideTrajectory({
-      oa,
-      projectId,
-      optionSetRef: proposed.optionSetRef,
-      options: proposed.options,
-      recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
-      selectedOptionRef: GOVERNED_OPTION_REF,
-      trajectoryId: proposed.proposedTrajectory!.trajectoryId,
-      candidateVersion: proposed.proposedTrajectory!.version,
-      forceLocalAuthority: true,
-    });
-    expect(decided.ok).toBe(true);
-    if (!decided.ok) throw new Error("decide");
-    const decisionId = decided.decision.decisionId;
-
-    const authority = registerLocalPiloteAuthority({
-      authorityResolver: oa.authorityResolver,
-      scope: "studio.gcec.docs_write",
-      issuedAt: oa.clock.nowIso(),
-      evidenceId: `evd:pjr-seed:${ecId}`,
-      forceEnable: true,
-    });
-    expect(authority.ok).toBe(true);
-    if (!authority.ok) throw new Error(authority.code);
-
-    const built = await oa.executionContractServices!.buildExecutionContract.execute({
-      executionContractId: ecId,
-      projectId,
-      cycleInstanceId: seeded.cycleInstanceId,
-      decisionRefs: [decisionId],
-      action: M4_BOUNDED_DOCS_WRITE_ACTION,
-      target: M4_BOUNDED_DOCS_WRITE_TARGET,
-      scope: "studio.gcec.docs_write",
-      inputs: {
-        targetPath: SANDBOX_TARGET,
-        targetRepositoryRef: "mcleland147/sfia-workspace",
-        repositoryRef: "mcleland147/sfia-workspace",
-        pathAllowlist: ["projects/sfia-studio/.sandbox/"],
-        contentRequirements: ["markdown heading", "acceptance criteria"],
-      },
-      requiredCapabilities: [M4_BOUNDED_DOCS_WRITE_CAPABILITY],
-      requiredAuthority: "MORRIS",
-      constraints: [
-        "BOUNDED DOCS-WRITE",
-        "PATH_ALLOWLIST_ONLY",
-        "TEXT_DOCS_ONLY",
-        "NO_DELETE",
-        "NO_COMMIT",
-        "NO_GIT_REMOTE",
-        "NO_PUSH",
-        "NO_PR",
-        "NO_MERGE",
-        "GATE D REQUIRED",
-        "NO WILDCARD",
-        "PREPARE_ONLY",
-      ],
-      stopConditions: ["AUTHORITY_DENIED", "CONTEXT_STALE", "DECISION_NOT_CURRENT"],
-      evidenceRequirements: [...BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS],
-      reversibility: "reversible",
-      idempotencyKey: `idem:ec:${ecId}`,
-      correlationId: `cor:ec:${ecId}`,
-      actor: LOCAL_PILOTE_ACTOR,
-      authorityEvidenceId: authority.evidenceId,
-    });
-    if (!built.ok) {
-      throw new Error(
-        `build EC failed: ${built.error?.detailCode ?? "?"} ${built.error?.message ?? JSON.stringify(built)}`,
-      );
-    }
-    const contract = {
-      ...built.contract,
-      status: "confirmed" as const,
-      expectedOutputs: [
-        "Free-form EO that yields NOT_PROVEN against artifact location",
-      ],
-      evidenceRequirements: [
-        ...BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS,
-        DOCS_WRITE_CONTRACT_RESULT_ER_KEY,
-      ],
-    };
-    contract.semanticFingerprint =
-      computeExecutionContractSemanticMaterialFingerprint(
-        executionContractSemanticMaterial(contract),
-      );
-    await oa.executionContractServices!.contracts.save(contract);
-
-    const snap = captureBoundExecutionContractSnapshot(contract);
-    const attempt = {
-      schemaVersion: "0.2.0-oa" as const,
-      attemptId,
-      executionContractId: contract.executionContractId,
-      executionContractVersion: contract.version,
-      executionContractSemanticFingerprint: snap.semanticFingerprint,
-      boundExecutionContract: snap,
-      selectedAgentRef: "agt:m4.cursor.bounded_docs_write",
-      status: "succeeded" as const,
-      idempotencyKey: `idem:att:${attemptId}`,
-      correlationId: `cor:att:${attemptId}`,
-      version: 1,
-      createdAt: NOW,
-      updatedAt: NOW,
-      completedAt: NOW,
-      launchedAt: NOW,
-      startedAt: NOW,
-      resultRef: `res:${attemptId}`,
-      irreversibleEffectsPossible: true,
-      provenance: {
-        schemaVersion: "0.1.0-oa" as const,
-        provenanceRecordId: `prv:${attemptId}`,
-        actor: LOCAL_PILOTE_ACTOR,
-        source: "system" as const,
-        timestamp: NOW,
-        correlationId: `cor:att:${attemptId}`,
-      },
-    };
-    await oa.executionAttemptServices!.attempts.create(attempt as never);
-
-    const ingested = await ingestDocsWriteArtifactEvidence({
-      evidenceReviewServices: oa.evidenceReviewServices!,
-      projectId,
-      cycleInstanceId: seeded.cycleInstanceId,
-      executionContractId: contract.executionContractId,
-      executionAttemptId: attemptId,
-      targetPath: SANDBOX_TARGET,
-      digest:
-        "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc" as Digest,
-      actor: LOCAL_PILOTE_ACTOR,
-      nowIso: NOW,
-    });
-    expect(ingested.ok).toBe(true);
-    if (!ingested.ok) throw new Error("ingest");
-
-    const requal = await requalifyDocsWriteContractResult({
-      evidenceReviewServices: oa.evidenceReviewServices!,
-      attempt: attempt as ExecutionAttempt,
-      contract,
-      actor: LOCAL_PILOTE_ACTOR,
-      nowIso: NOW,
-    });
-    expect(requal.ok).toBe(true);
-    if (!requal.ok) throw new Error(requal.message);
-    expect(requal.claimEvaluation.status).toBe("not_proven");
-    const ceA = requal.claimEvaluation.claimEvaluationId;
-
-    const materialized = await materializeProductOutcomeFromAttempt({
-      oa,
-      projectId,
-      attemptId,
-    });
-    expect(materialized.ok).toBe(true);
-    if (!materialized.ok) throw new Error(JSON.stringify(materialized));
-    expect(materialized.product.outcome).toBe("UNCLAIMED");
-    expect(materialized.product.claimAllowed).toBe(false);
-    expect(materialized.product.claimEvaluationId).toBe(ceA);
-    expect(isEvidenceBackedNotProvenUnclaimed(materialized.product)).toBe(true);
-    expect(materialized.postEvidence?.ok).toBe(true);
-    if (!materialized.postEvidence || !materialized.postEvidence.ok) {
-      throw new Error("postEvidence");
-    }
-    expect(materialized.postEvidence.recommendation.kind).toBe("recover");
-    expect(materialized.postEvidence.recommendation.requiresHumanDecision).toBe(
-      false,
-    );
-    expect(materialized.postEvidence.recommendation.decisionCreated).toBe(
-      false,
-    );
-    expect(
-      materialized.postEvidence.recommendation.attemptAutoLaunchNextCycle,
-    ).toBe(false);
-    expect(materialized.postEvidence.noraInvoked).toBe(true);
-    expect(materialized.postEvidence.claimEvaluationId).toBe(ceA);
-
-    const recovery = await resolvePostEvidenceRecoveryContext({
-      oa,
-      projectId,
-    });
-    expect(recovery.ok).toBe(true);
-    if (!recovery.ok) throw new Error("recovery");
-    expect(recovery.context).not.toBeNull();
-    expect(recovery.context!.productOutcome).toBe("UNCLAIMED");
-    expect(recovery.context!.evidenceId).toBe(ingested.evidenceId);
-    expect(recovery.context!.businessEffectProven).toBe(false);
-
-    const listedBefore =
-      await oa.executionAttemptServices!.listExecutionAttempts.execute({
-        executionContractId: contract.executionContractId,
-      });
-    expect(listedBefore.ok && listedBefore.attempts.length).toBe(1);
-
-    const rehydrated = await rehydrateProductOutcomeFromAttempt({
-      oa,
-      projectId,
-      attemptId,
-    });
-    expect(rehydrated.ok).toBe(true);
-    if (!rehydrated.ok) throw new Error("rehydrate");
-    expect(rehydrated.product.outcome).toBe("UNCLAIMED");
-    expect(rehydrated.postEvidence?.ok).toBe(true);
-
-    const corr = await requalifyDocsWriteContractResult({
-      evidenceReviewServices: oa.evidenceReviewServices!,
-      attempt: attempt as ExecutionAttempt,
-      contract,
-      actor: LOCAL_PILOTE_ACTOR,
-      nowIso: NOW,
-      correctionRef: "corr-b",
-    });
-    expect(corr.ok).toBe(true);
-    if (!corr.ok) throw new Error(corr.message);
-    const ceB = corr.claimEvaluation.claimEvaluationId;
-    expect(ceB).not.toBe(ceA);
-
-    const afterCorr = await materializeProductOutcomeFromAttempt({
-      oa,
-      projectId,
-      attemptId,
-    });
-    expect(afterCorr.ok).toBe(true);
-    if (!afterCorr.ok) throw new Error(JSON.stringify(afterCorr));
-    expect(afterCorr.product.claimEvaluationId).toBe(ceB);
-    expect(afterCorr.product.outcome).toBe("UNCLAIMED");
-    expect(afterCorr.postEvidence?.ok).toBe(true);
-    if (!afterCorr.postEvidence || !afterCorr.postEvidence.ok) {
-      throw new Error("post B");
-    }
-    expect(afterCorr.postEvidence.claimEvaluationId).toBe(ceB);
-    expect(afterCorr.postEvidence.recommendation.kind).toBe("recover");
-
-    const staleA = await findExistingW3cPostEvidence({
-      oa,
-      projectId,
-      evidenceId: ingested.evidenceId!,
-      attemptId,
-      product: {
-        ...afterCorr.product,
-        claimEvaluationId: ceA,
-      },
-    });
-    expect(staleA).toBeNull();
-
-    const currentB = await findExistingW3cPostEvidence({
-      oa,
-      projectId,
-      evidenceId: ingested.evidenceId!,
-      attemptId,
-      product: afterCorr.product,
-    });
-    expect(currentB).not.toBeNull();
-    expect(currentB!.claimEvaluationId).toBe(ceB);
-
-    // CE-B PASS — same semantic fingerprint (evaluate forbids EO mutation on supersede).
-    // Create immutable PASS successor via repository for W3-C invalidation proof.
-    const cePass = `clm:docs-write:corr-pass:${attemptId}`.slice(0, 128);
-    await oa.evidenceReviewServices!.claimEvaluationRepository.create({
-      ...corr.claimEvaluation,
-      claimEvaluationId: cePass,
-      status: "pass",
-      claimStatement: "Contract result assessment (pass) — test successor",
-      supersedesClaimEvaluationId: ceB,
-      idempotencyKey: `idem:docs-write-ce:corr-pass:${attemptId}`,
-      provenance: {
-        ...corr.claimEvaluation.provenance,
-        provenanceRecordId: `prv:${cePass}`,
-        correlationId: `cor:${cePass}`,
-      },
-    });
-
-    const afterPass = await materializeProductOutcomeFromAttempt({
-      oa,
-      projectId,
-      attemptId,
-    });
-    expect(afterPass.ok).toBe(true);
-    if (!afterPass.ok) throw new Error(JSON.stringify(afterPass));
-    expect(afterPass.product.claimEvaluationId).toBe(cePass);
-    expect(afterPass.product.outcome).toBe("SUCCESS");
-    expect(afterPass.postEvidence?.ok).toBe(true);
-    if (!afterPass.postEvidence || !afterPass.postEvidence.ok) {
-      throw new Error("post pass");
-    }
-    expect(afterPass.postEvidence.recommendation.kind).toBe("continue");
-    expect(afterPass.postEvidence.productOutcome).toBe("SUCCESS");
-
-    const recoverStale = await findExistingW3cPostEvidence({
-      oa,
-      projectId,
-      evidenceId: ingested.evidenceId!,
-      attemptId,
-      product: {
-        evidenceId: ingested.evidenceId!,
-        reviewBundleId: ingested.reviewBundleId!,
-        claimEvaluationId: ceB,
-        outcome: "UNCLAIMED",
-        technicalDetail: { attemptId },
-      },
-    });
-    expect(recoverStale).toBeNull();
-
-    const recoveryAfterPass = await resolvePostEvidenceRecoveryContext({
-      oa,
-      projectId,
-    });
-    expect(recoveryAfterPass.ok).toBe(true);
-    if (recoveryAfterPass.ok) {
-      expect(recoveryAfterPass.context).toBeNull();
-    }
-
-    const listedAfter =
-      await oa.executionAttemptServices!.listExecutionAttempts.execute({
-        executionContractId: contract.executionContractId,
-      });
-    expect(listedAfter.ok && listedAfter.attempts.length).toBe(1);
-
-    const refused = await runW3cPostEvidenceLoop({
-      oa,
-      projectId,
-      attemptId,
-      product: unclaimedWithoutCe(),
-    });
-    expect(refused.ok).toBe(false);
-    if (!refused.ok) expect(refused.code).toBe("PRODUCT_UNCLAIMED");
-  });
-});
-```
-
-### `projects/sfia-studio/app/__tests__/project-assistant/w3cPostEvidenceCorrection.test.ts`
-
-```
-/**
- * W3-C convergence corrections B1–B6 — named R01–R13 coverage.
- * @vitest-environment node
- */
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import {
-  FakeConversationProvider,
-  setConversationProviderForTests,
-} from "@/lib/platform/ai";
-import { evaluateExecutionAuthorization } from "@/features/project-assistant/w2/authorizeExecutionContract";
-import { confirmExecutionContractForAuthorization } from "@/features/project-assistant/w2/confirmForAuthorization";
-import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
-import {
-  governedExecuteRecordResult,
-  governedExecuteSelectAgent,
-  governedExecuteStart,
-} from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
-import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
-import { prepareExecutionContractFromW2Decision } from "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision";
-import { proposeTrajectoryOptions } from "@/features/project-assistant/w2/proposeTrajectoryOptions";
-import { resolveW2QualificationInputs } from "@/features/project-assistant/w2/qualificationInputs";
-import { GOVERNED_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
-import {
-  materializeProductOutcomeFromAttempt,
-  rehydrateProductOutcomeFromAttempt,
-} from "@/features/project-assistant/w2/materializeW3bProductTerminal";
-import type {
-  CoordinationStatus,
-  NextActionCode,
-  AuthorityRequirementLevel,
-} from "@/lib/oa/evidence-review/domain/coordinationTypes";
-import {
-  armW3cEpistemicMaterializeFailOnceForTests,
-  classifyW3cD5NextAction,
-  clearW3cEpistemicMaterializeFailForTests,
-  findExistingW3cPostEvidence,
-  recommendationFromOutcome,
-  rehydrateW3cPostEvidenceFromLps,
-  w3cRecommendationEpistemicId,
-} from "@/features/project-assistant/w2/w3cPostEvidenceLoop";
-import { filterProductReservationsForDisplay } from "@/features/project-assistant/w2/w3cProductPresentation";
-import {
-  armW3bBoundary,
-  clearW3bBoundaryArm,
-} from "@/lib/vertical-slice-runtime/w3bE2eBoundaryControl";
-import {
-  bootW2Runtime,
-  cleanupW2TempDirs,
-  currentF2Context,
-  seedQualifiedProject,
-  tempProductDbPath,
-} from "./w2Harness";
-
-beforeEach(() => {
-  process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-  process.env.OPS1_E2E_ALLOW_DIRTY_PRINCIPAL = "1";
-  setConversationProviderForTests(null);
-  clearW3bBoundaryArm();
-});
-
-afterEach(() => {
-  clearW3bBoundaryArm();
-  clearW3cEpistemicMaterializeFailForTests();
-  cleanupW2TempDirs();
-  setConversationProviderForTests(null);
-  vi.restoreAllMocks();
-});
-
-async function authorizeTempArtifact(suffix: string, dbPath?: string) {
-  const db = dbPath ?? tempProductDbPath(`w3c-corr-${suffix}.sqlite`);
-  const runtime = bootW2Runtime({
-    productDbPath: db,
-    idPrefix: `w3cc${suffix}`,
-  });
-  const seeded = await seedQualifiedProject(runtime, { suffix });
-  const oa = runtime.oa!;
-  const qualification = await resolveW2QualificationInputs({
-    oa,
-    projectId: seeded.projectId,
-  });
-  expect(qualification.ok).toBe(true);
-  if (!qualification.ok) throw new Error("qual");
-  const proposed = await proposeTrajectoryOptions({
-    oa,
-    projectId: seeded.projectId,
-    ...qualification.qualification.inputs,
-    packagePin: qualification.qualification.packagePin,
-    objective: qualification.qualification.objective,
-    projectTitle: qualification.qualification.projectTitle,
-  });
-  expect(proposed.ok).toBe(true);
-  if (!proposed.ok) throw new Error("propose");
-  const decided = await decideTrajectory({
-    oa,
-    projectId: seeded.projectId,
-    optionSetRef: proposed.optionSetRef,
-    options: proposed.options,
-    recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
-    selectedOptionRef: GOVERNED_OPTION_REF,
-    trajectoryId: proposed.proposedTrajectory!.trajectoryId,
-    candidateVersion: proposed.proposedTrajectory!.version,
-    forceLocalAuthority: true,
-  });
-  expect(decided.ok).toBe(true);
-  if (!decided.ok) throw new Error("decide");
-  const context = await currentF2Context(runtime, seeded.projectId);
-  const prepared = await prepareExecutionContractFromW2Decision({
-    oa,
-    projectId: seeded.projectId,
-    decisionId: decided.decision.decisionId,
-    currentContext: context,
-    forceLocalAuthority: true,
-    qualifiedOperationKind: "generate-temporary-artifact",
-  });
-  expect(prepared.ok).toBe(true);
-  if (!prepared.ok) throw new Error(prepared.code);
-  const executionContractId = prepared.contract.executionContractId;
-  await inspectExecutionContract({
-    oa,
-    projectId: seeded.projectId,
-    executionContractId,
-  });
-  const confirmed = await confirmExecutionContractForAuthorization({
-    oa,
-    projectId: seeded.projectId,
-    executionContractId,
-    forceLocalAuthority: true,
-  });
-  expect(confirmed.ok).toBe(true);
-  if (!confirmed.ok) throw new Error(confirmed.code);
-  const authorized = await evaluateExecutionAuthorization({
-    oa,
-    projectId: seeded.projectId,
-    executionContractId,
-    forceLocalAuthority: true,
-  });
-  expect(authorized.ok && authorized.outcome === "AUTHORIZED").toBe(true);
-  return {
-    oa,
-    seeded,
-    executionContractId,
-    db,
-    runtime,
-    decidedTrajectoryVersion: decided.trajectory!.version,
-  };
-}
-
-async function selectStartRecord(
-  ctx: Awaited<ReturnType<typeof authorizeTempArtifact>>,
-) {
-  const selected = await governedExecuteSelectAgent({
-    oa: ctx.oa,
-    projectId: ctx.seeded.projectId,
-    executionContractId: ctx.executionContractId,
-    forceLocalAuthority: true,
-  });
-  expect(selected.ok).toBe(true);
-  if (!selected.ok) throw new Error(selected.code);
-  const started = await governedExecuteStart({
-    oa: ctx.oa,
-    projectId: ctx.seeded.projectId,
-    executionContractId: ctx.executionContractId,
-    attemptId: selected.attemptId,
-    forceLocalAuthority: true,
-  });
-  expect(started.ok).toBe(true);
-  if (!started.ok) throw new Error(started.code);
-  await governedExecuteRecordResult({
-    oa: ctx.oa,
-    projectId: ctx.seeded.projectId,
-    executionContractId: ctx.executionContractId,
-    attemptId: started.attemptId,
-    forceLocalAuthority: true,
-  });
-  return { attemptId: started.attemptId };
-}
-
-async function materializeSuccess(
-  ctx: Awaited<ReturnType<typeof authorizeTempArtifact>>,
-) {
-  const { attemptId } = await selectStartRecord(ctx);
-  const materialized = await materializeProductOutcomeFromAttempt({
-    oa: ctx.oa,
-    projectId: ctx.seeded.projectId,
-    attemptId,
-  });
-  expect(materialized.ok).toBe(true);
-  if (!materialized.ok) throw new Error(materialized.code);
-  return { attemptId, materialized };
-}
-
-/** Second SUCCESS terminal on the same project (new propose→decide→contract→attempt). */
-async function secondSuccessOnSameProject(
-  ctx: Awaited<ReturnType<typeof authorizeTempArtifact>>,
-) {
-  const qualification = await resolveW2QualificationInputs({
-    oa: ctx.oa,
-    projectId: ctx.seeded.projectId,
-  });
-  expect(qualification.ok).toBe(true);
-  if (!qualification.ok) throw new Error("qual2");
-  const proposed = await proposeTrajectoryOptions({
-    oa: ctx.oa,
-    projectId: ctx.seeded.projectId,
-    ...qualification.qualification.inputs,
-    packagePin: qualification.qualification.packagePin,
-    objective: qualification.qualification.objective,
-    projectTitle: qualification.qualification.projectTitle,
-  });
-  expect(proposed.ok).toBe(true);
-  if (!proposed.ok) throw new Error("propose2");
-  const decided = await decideTrajectory({
-    oa: ctx.oa,
-    projectId: ctx.seeded.projectId,
-    optionSetRef: proposed.optionSetRef,
-    options: proposed.options,
-    recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
-    selectedOptionRef: GOVERNED_OPTION_REF,
-    trajectoryId: proposed.proposedTrajectory!.trajectoryId,
-    candidateVersion: proposed.proposedTrajectory!.version,
-    forceLocalAuthority: true,
-  });
-  expect(decided.ok).toBe(true);
-  if (!decided.ok) throw new Error("decide2");
-  const context = await currentF2Context(ctx.runtime, ctx.seeded.projectId);
-  const prepared = await prepareExecutionContractFromW2Decision({
-    oa: ctx.oa,
-    projectId: ctx.seeded.projectId,
-    decisionId: decided.decision.decisionId,
-    currentContext: context,
-    forceLocalAuthority: true,
-    qualifiedOperationKind: "generate-temporary-artifact",
-  });
-  expect(prepared.ok).toBe(true);
-  if (!prepared.ok) throw new Error(prepared.code);
-  const executionContractId = prepared.contract.executionContractId;
-  await inspectExecutionContract({
-    oa: ctx.oa,
-    projectId: ctx.seeded.projectId,
-    executionContractId,
-  });
-  await confirmExecutionContractForAuthorization({
-    oa: ctx.oa,
-    projectId: ctx.seeded.projectId,
-    executionContractId,
-    forceLocalAuthority: true,
-  });
-  await evaluateExecutionAuthorization({
-    oa: ctx.oa,
-    projectId: ctx.seeded.projectId,
-    executionContractId,
-    forceLocalAuthority: true,
-  });
-  const nextCtx = { ...ctx, executionContractId };
-  return materializeSuccess(nextCtx);
-}
-
-describe("W3C-R01 recovery CTA without automatic HD", () => {
-  it("R01: STOP recover requiresHumanDecision false; propose available", async () => {
-    const ctx = await authorizeTempArtifact("r01");
-    armW3bBoundary({
-      kind: "governed_stop",
-      stopCondition: "EXECUTOR_INSUFFICIENT",
-    });
-    const selected = await governedExecuteSelectAgent({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      executionContractId: ctx.executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(selected.ok).toBe(true);
-    if (!selected.ok) return;
-    const started = await governedExecuteStart({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      executionContractId: ctx.executionContractId,
-      attemptId: selected.attemptId,
-      forceLocalAuthority: true,
-    });
-    expect(started.ok).toBe(true);
-    if (!started.ok) return;
-    const materialized = await materializeProductOutcomeFromAttempt({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      attemptId: started.attemptId,
-    });
-    expect(materialized.ok).toBe(true);
-    if (!materialized.ok) return;
-    expect(materialized.product.outcome).toBe("STOP");
-    expect(materialized.postEvidence?.ok).toBe(true);
-    if (!materialized.postEvidence || !materialized.postEvidence.ok) return;
-    expect(materialized.postEvidence.recommendation.kind).toBe("recover");
-    expect(materialized.postEvidence.recommendation.requiresHumanDecision).toBe(
-      false,
-    );
-    expect(materialized.postEvidence.recommendation.decisionCreated).toBe(
-      false,
-    );
-
-    const qualification = await resolveW2QualificationInputs({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-    });
-    expect(qualification.ok).toBe(true);
-    if (!qualification.ok) return;
-    const proposed = await proposeTrajectoryOptions({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      ...qualification.qualification.inputs,
-      packagePin: qualification.qualification.packagePin,
-      objective: qualification.qualification.objective,
-      projectTitle: qualification.qualification.projectTitle,
-    });
-    expect(proposed.ok).toBe(true);
-  });
-});
-
-describe("W3C-R02/R03 idempotence", () => {
-  it("R02/R03: materialize twice → same epistemic id, LPS stable, Nora not double-appended", async () => {
-    const ctx = await authorizeTempArtifact("r02");
-    setConversationProviderForTests(
-      new FakeConversationProvider({
-        scripted: Array(32).fill("NORA_IDEMPOTENCE_MARKER_ALPHA"),
-      }),
-    );
-    const { attemptId, materialized: first } = await materializeSuccess(ctx);
-    expect(first.postEvidence?.ok).toBe(true);
-    if (!first.postEvidence || !first.postEvidence.ok) return;
-    const evidenceId = first.product.evidenceId!;
-    const epiId = w3cRecommendationEpistemicId(
-      evidenceId,
-      first.product.claimEvaluationId,
-    );
-    const lpsV1 = first.postEvidence.lpsVersion;
-    const analysis1 = first.postEvidence.analysisText;
-
-    const second = await materializeProductOutcomeFromAttempt({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      attemptId,
-    });
-    expect(second.ok).toBe(true);
-    if (!second.ok) return;
-    expect(second.postEvidence?.ok).toBe(true);
-    if (!second.postEvidence || !second.postEvidence.ok) return;
-    expect(second.product.evidenceId).toBe(evidenceId);
-    expect(second.postEvidence.lpsVersion).toBe(lpsV1);
-    expect(second.postEvidence.analysisText).toBe(analysis1);
-
-    const existing = await findExistingW3cPostEvidence({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      evidenceId,
-      attemptId,
-      product: first.product,
-    });
-    expect(existing?.ok).toBe(true);
-    expect(
-      w3cRecommendationEpistemicId(evidenceId, first.product.claimEvaluationId),
-    ).toBe(epiId);
-
-    const lps = await ctx.oa.projectServices!.getCurrentLivingProjectState.execute(
-      { projectId: ctx.seeded.projectId },
-    );
-    expect(lps.ok).toBe(true);
-    if (!lps.ok) return;
-    const markerCount = (
-      lps.livingProjectState.context?.match(
-        /\[\[SFIA_POST_EVIDENCE_NORA_ANALYSIS\]\]/g,
-      ) ?? []
-    ).length;
-    expect(markerCount).toBe(1);
-  });
-});
-
-describe("W3C-R04/R05 evidence binding", () => {
-  it("R04/R05: terminal B rehydrates correctly; A never gets B analysis", async () => {
-    const ctx = await authorizeTempArtifact("r04");
-    setConversationProviderForTests(
-      new FakeConversationProvider({
-        scripted: Array(32).fill("NORA_ANALYSIS_FOR_TERMINAL_A_ONLY"),
-      }),
-    );
-    const { attemptId: attemptA, materialized: matA } =
-      await materializeSuccess(ctx);
-    expect(matA.postEvidence?.ok).toBe(true);
-    if (!matA.postEvidence || !matA.postEvidence.ok) return;
-    const evidenceA = matA.product.evidenceId!;
-    const analysisA = matA.postEvidence.analysisText;
-
-    setConversationProviderForTests(
-      new FakeConversationProvider({
-        scripted: Array(64).fill("NORA_ANALYSIS_FOR_TERMINAL_B_ONLY"),
-      }),
-    );
-    const { attemptId: attemptB, materialized: matB } =
-      await secondSuccessOnSameProject(ctx);
-    expect(matB.postEvidence?.ok).toBe(true);
-    if (!matB.postEvidence || !matB.postEvidence.ok) return;
-    const evidenceB = matB.product.evidenceId!;
-    expect(evidenceB).not.toBe(evidenceA);
-    expect(matB.postEvidence.analysisText).toContain(
-      "NORA_ANALYSIS_FOR_TERMINAL_B_ONLY",
-    );
-
-    const rehydrateB = await rehydrateProductOutcomeFromAttempt({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      attemptId: attemptB,
-    });
-    expect(rehydrateB.ok).toBe(true);
-    if (!rehydrateB.ok || !rehydrateB.postEvidence?.ok) return;
-    expect(rehydrateB.postEvidence.evidenceId).toBe(evidenceB);
-    expect(rehydrateB.postEvidence.analysisText).toContain(
-      "NORA_ANALYSIS_FOR_TERMINAL_B_ONLY",
-    );
-
-    const rehydrateA = await rehydrateProductOutcomeFromAttempt({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      attemptId: attemptA,
-    });
-    expect(rehydrateA.ok).toBe(true);
-    if (!rehydrateA.ok) return;
-    if (rehydrateA.postEvidence?.ok) {
-      expect(rehydrateA.postEvidence.evidenceId).toBe(evidenceA);
-      expect(rehydrateA.postEvidence.analysisText).not.toContain(
-        "NORA_ANALYSIS_FOR_TERMINAL_B_ONLY",
-      );
-      if (analysisA) {
-        expect(rehydrateA.postEvidence.analysisText).toBe(analysisA);
-      }
-    } else {
-      expect(rehydrateA.postEvidence?.ok).toBe(false);
-      if (rehydrateA.postEvidence && !rehydrateA.postEvidence.ok) {
-        expect(rehydrateA.postEvidence.code).toBe(
-          "STALE_POST_EVIDENCE_BINDING",
-        );
-      }
-    }
-  });
-});
-
-describe("W3C-R06 Nora unavailable durable", () => {
-  it("R06: Nora fail → unavailable durable → rehydrate preserves unavailable", async () => {
-    const ctx = await authorizeTempArtifact("r06");
-    setConversationProviderForTests(
-      new FakeConversationProvider({ failOnCall: 1 }),
-    );
-    const { attemptId, materialized } = await materializeSuccess(ctx);
-    expect(materialized.postEvidence?.ok).toBe(true);
-    if (!materialized.postEvidence || !materialized.postEvidence.ok) return;
-    expect(materialized.postEvidence.analysisText).toBeNull();
-    expect(materialized.postEvidence.analysisUnavailableReason).toBeTruthy();
-    expect(materialized.postEvidence.noraInvoked).toBe(true);
-
-    const rehydrated = await rehydrateProductOutcomeFromAttempt({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      attemptId,
-    });
-    expect(rehydrated.ok).toBe(true);
-    if (!rehydrated.ok || !rehydrated.postEvidence?.ok) return;
-    expect(rehydrated.postEvidence.analysisText).toBeNull();
-    expect(rehydrated.postEvidence.analysisUnavailableReason).toBe(
-      materialized.postEvidence.analysisUnavailableReason,
-    );
-  });
-});
-
-describe("W3C-R08/R09 epistemic supersession", () => {
-  it("R08/R09: epistemic recommendation exists; A superseded when B active", async () => {
-    const ctx = await authorizeTempArtifact("r08");
-    const { materialized: matA } = await materializeSuccess(ctx);
-    const evidenceA = matA.product.evidenceId!;
-    const epiA = w3cRecommendationEpistemicId(
-      evidenceA,
-      matA.product.claimEvaluationId,
-    );
-
-    const { materialized: matB } = await secondSuccessOnSameProject(ctx);
-    const evidenceB = matB.product.evidenceId!;
-    const epiB = w3cRecommendationEpistemicId(
-      evidenceB,
-      matB.product.claimEvaluationId,
-    );
-    expect(epiB).not.toBe(epiA);
-
-    const epistemic = await ctx.oa.cycleServices!.getEpistemicState.execute({
-      projectId: ctx.seeded.projectId,
-    });
-    expect(epistemic.ok).toBe(true);
-    if (!epistemic.ok) return;
-    const itemA = epistemic.state.items.find((i) => i.epistemicItemId === epiA);
-    const itemB = epistemic.state.items.find((i) => i.epistemicItemId === epiB);
-    expect(itemA).toBeTruthy();
-    expect(itemB).toBeTruthy();
-    expect(itemA!.status).toBe("superseded");
-    expect(itemB!.status).toBe("active");
-    expect(itemB!.source).toBe(`w3c-post-evidence:${evidenceB}`);
-  });
-});
-
-describe("W3C-R10 STOP no automatic HD", () => {
-  it("R10: STOP requiresHumanDecision false; no HD created", async () => {
-    const ctx = await authorizeTempArtifact("r10");
-    armW3bBoundary({
-      kind: "governed_stop",
-      stopCondition: "EXECUTOR_INSUFFICIENT",
-    });
-    const selected = await governedExecuteSelectAgent({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      executionContractId: ctx.executionContractId,
-      forceLocalAuthority: true,
-    });
-    if (!selected.ok) throw new Error(selected.code);
-    const started = await governedExecuteStart({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      executionContractId: ctx.executionContractId,
-      attemptId: selected.attemptId,
-      forceLocalAuthority: true,
-    });
-    if (!started.ok) throw new Error(started.code);
-    const materialized = await materializeProductOutcomeFromAttempt({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      attemptId: started.attemptId,
-    });
-    expect(materialized.ok).toBe(true);
-    if (!materialized.ok || !materialized.postEvidence?.ok) return;
-    expect(materialized.postEvidence.recommendation.requiresHumanDecision).toBe(
-      false,
-    );
-    expect(materialized.postEvidence.recommendation.decisionCreated).toBe(
-      false,
-    );
-    expect(materialized.postEvidence.recommendation.authority).toBe("none");
-  });
-});
-
-describe("W3C-R11 structural path still needs decide", () => {
-  it("R11: propose alone does not validate trajectory (existing P06 path)", async () => {
-    const ctx = await authorizeTempArtifact("r11");
-    await materializeSuccess(ctx);
-    const trajBefore = await ctx.oa.cycleServices!.getTrajectoryVersion.execute({
-      projectId: ctx.seeded.projectId,
-      version: ctx.decidedTrajectoryVersion,
-    });
-    expect(trajBefore.ok).toBe(true);
-    if (!trajBefore.ok) return;
-
-    const qualification = await resolveW2QualificationInputs({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-    });
-    if (!qualification.ok) return;
-    const proposed = await proposeTrajectoryOptions({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      ...qualification.qualification.inputs,
-      packagePin: qualification.qualification.packagePin,
-      objective: qualification.qualification.objective,
-      projectTitle: qualification.qualification.projectTitle,
-    });
-    expect(proposed.ok).toBe(true);
-    const trajAfter = await ctx.oa.cycleServices!.getTrajectoryVersion.execute({
-      projectId: ctx.seeded.projectId,
-      version: ctx.decidedTrajectoryVersion,
-    });
-    expect(trajAfter.ok).toBe(true);
-    if (!trajAfter.ok) return;
-    expect(trajAfter.trajectory.status).toBe("validated");
-    expect(trajAfter.trajectory.version).toBe(trajBefore.trajectory.version);
-  });
-});
-
-describe("W3C-R12 Nora-informed rationale", () => {
-  it("R12: different Nora scripted text → different rationale containing Nora text", async () => {
-    const ctxA = await authorizeTempArtifact("r12a");
-    setConversationProviderForTests(
-      new FakeConversationProvider({
-        scripted: Array(32).fill("SCRIPT_NORA_VARIANT_ONE_ZZZ"),
-      }),
-    );
-    const { materialized: matA } = await materializeSuccess(ctxA);
-    expect(matA.postEvidence?.ok).toBe(true);
-    if (!matA.postEvidence || !matA.postEvidence.ok) return;
-
-    const ctxB = await authorizeTempArtifact("r12b");
-    setConversationProviderForTests(
-      new FakeConversationProvider({
-        scripted: Array(32).fill("SCRIPT_NORA_VARIANT_TWO_YYY"),
-      }),
-    );
-    const { materialized: matB } = await materializeSuccess(ctxB);
-    expect(matB.postEvidence?.ok).toBe(true);
-    if (!matB.postEvidence || !matB.postEvidence.ok) return;
-
-    expect(matA.product.outcome).toBe("SUCCESS");
-    expect(matB.product.outcome).toBe("SUCCESS");
-    expect(matA.postEvidence.recommendation.rationale).toContain(
-      "SCRIPT_NORA_VARIANT_ONE_ZZZ",
-    );
-    expect(matB.postEvidence.recommendation.rationale).toContain(
-      "SCRIPT_NORA_VARIANT_TWO_YYY",
-    );
-    expect(matA.postEvidence.recommendation.rationale).not.toBe(
-      matB.postEvidence.recommendation.rationale,
-    );
-    expect(matA.postEvidence.recommendation.headline).toMatch(
-      /après analyse Nora/i,
-    );
-  });
-});
-
-describe("W3C-R13 reservation presentation filter", () => {
-  it("R13: filters historical W3-B reservation when postEvidence ok", () => {
-    const reservations = [
-      "Evidence requise avant claim produit",
-      "Apprentissage / replan non démarrés",
-      "Aucun READY",
-    ];
-    const filtered = filterProductReservationsForDisplay(reservations, true);
-    expect(filtered).not.toContain("Apprentissage / replan non démarrés");
-    expect(filtered).toContain("Aucun READY");
-    const unfiltered = filterProductReservationsForDisplay(reservations, false);
-    expect(unfiltered).toContain("Apprentissage / replan non démarrés");
-  });
-});
-
-describe("W3C-R07 rehydrate binding sanity", () => {
-  it("R07: rehydrate after materialize restores Epistemic-backed recommendation", async () => {
-    const ctx = await authorizeTempArtifact("r07");
-    const { attemptId, materialized } = await materializeSuccess(ctx);
-    expect(materialized.postEvidence?.ok).toBe(true);
-    if (!materialized.postEvidence || !materialized.postEvidence.ok) return;
-
-    const rehydrated = await rehydrateW3cPostEvidenceFromLps({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      product: materialized.product,
-    });
-    expect(rehydrated.ok).toBe(true);
-    if (!rehydrated.ok) return;
-    expect(rehydrated.evidenceId).toBe(materialized.product.evidenceId);
-    expect(rehydrated.recommendation.kind).toBe(
-      materialized.postEvidence.recommendation.kind,
-    );
-    expect(rehydrated.recommendation.rationale).toBe(
-      materialized.postEvidence.recommendation.rationale,
-    );
-
-    const again = await rehydrateProductOutcomeFromAttempt({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      attemptId,
-    });
-    expect(again.ok && again.postEvidence?.ok).toBe(true);
-  });
-});
-
-
-describe("W3C-R14 partial-write recovery", () => {
-  it("R14: LPS success + Epistemic fail → retry exact Recommendation (real D5), no Nora/LPS duplicate", async () => {
-    const ctx = await authorizeTempArtifact("r14");
-    const fake = new FakeConversationProvider({
-      scripted: Array(64).fill(
-        "NORA_R14_ANALYSIS — continuity after durable Evidence.",
-      ),
-    });
-    setConversationProviderForTests(fake);
-
-    const trajBefore =
-      await ctx.oa.cycleServices!.getTrajectoryVersion.execute({
-        projectId: ctx.seeded.projectId,
-        version: ctx.decidedTrajectoryVersion,
-      });
-    expect(trajBefore.ok).toBe(true);
-    if (!trajBefore.ok) throw new Error("traj");
-
-    armW3cEpistemicMaterializeFailOnceForTests();
-    const { attemptId, materialized: first } = await materializeSuccess(ctx);
-
-    expect(first.postEvidence?.ok).toBe(false);
-    if (!first.postEvidence || first.postEvidence.ok) {
-      throw new Error("expected Epistemic fault-injected fail-closed");
-    }
-    expect(first.postEvidence.code).toBe("W3C_EPISTEMIC_FAULT_INJECTED");
-    expect(first.product.evidenceId).toBeTruthy();
-    const evidenceId = first.product.evidenceId!;
-    const reviewBundleId = first.product.reviewBundleId!;
-    const noraCallsAfterFail = fake.getCallCountForTests();
-    expect(noraCallsAfterFail).toBeGreaterThan(0);
-
-    const lpsAfterFail =
-      await ctx.oa.projectServices!.getCurrentLivingProjectState.execute({
-        projectId: ctx.seeded.projectId,
-      });
-    expect(lpsAfterFail.ok).toBe(true);
-    if (!lpsAfterFail.ok) throw new Error("lps");
-    const lpsVersionAfterFail = lpsAfterFail.livingProjectState.version;
-    expect(lpsAfterFail.livingProjectState.evidenceIds ?? []).toContain(
-      evidenceId,
-    );
-    expect(lpsAfterFail.livingProjectState.context ?? "").toContain(
-      "[[W3C_POST_EVIDENCE_RECOMMENDATION_V1]]",
-    );
-    // Capture exact semantics from durable LPS V1 payload (real D5 — no invented codes).
-    const ctxJson = lpsAfterFail.livingProjectState.context ?? "";
-    const payloadMatch = ctxJson.match(
-      /\[\[W3C_POST_EVIDENCE_RECOMMENDATION_V1\]\]\n\[\[W3C_EVIDENCE:[^\]]+\]\]\n(\{[\s\S]*?\})(?:\n\[\[|$)/,
-    );
-    expect(payloadMatch).toBeTruthy();
-    const durablePayload = JSON.parse(payloadMatch![1]!) as {
-      recommendationKind: string;
-      requiresHumanDecision: boolean;
-      nextStep: string;
-      nextActionCode: string | null;
-      recommendNextGateStatus: string | null;
-      rationale: string;
-    };
-    expect(durablePayload.recommendationKind).not.toBe("replan");
-    expect(durablePayload.requiresHumanDecision).toBe(false);
-    expect(durablePayload.nextStep).not.toBe("structural_replan_propose");
-    if (durablePayload.nextActionCode) {
-      const allowed: NextActionCode[] = [
-        "complete_evidence",
-        "verify_evidence_integrity",
-        "freeze_review_bundle",
-        "complete_review",
-        "evaluate_claim",
-        "confirm_claim_evaluation",
-        "resolve_dispute",
-        "propose_maturity",
-        "confirm_maturity",
-        "downgrade_maturity",
-        "solicit_morris_arbitration",
-        "solicit_morris_go",
-      ];
-      expect(allowed).toContain(durablePayload.nextActionCode as NextActionCode);
-    }
-
-    const epiAfterFail = await ctx.oa.cycleServices!.getEpistemicState.execute({
-      projectId: ctx.seeded.projectId,
-    });
-    expect(epiAfterFail.ok).toBe(true);
-    if (!epiAfterFail.ok) throw new Error("epi");
-    const epiId = w3cRecommendationEpistemicId(
-      evidenceId,
-      first.product.claimEvaluationId,
-    );
-    expect(
-      epiAfterFail.state.items.find(
-        (i) => i.epistemicItemId === epiId && i.status === "active",
-      ),
-    ).toBeUndefined();
-
-    const retry = await materializeProductOutcomeFromAttempt({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      attemptId,
-    });
-    expect(retry.ok).toBe(true);
-    if (!retry.ok) throw new Error(retry.code);
-    expect(retry.postEvidence?.ok).toBe(true);
-    if (!retry.postEvidence || !retry.postEvidence.ok) {
-      throw new Error("retry postEvidence expected ok");
-    }
-
-    expect(fake.getCallCountForTests()).toBe(noraCallsAfterFail);
-    expect(retry.product.evidenceId).toBe(evidenceId);
-    expect(retry.product.reviewBundleId).toBe(reviewBundleId);
-    expect(retry.postEvidence.evidenceId).toBe(evidenceId);
-    expect(retry.postEvidence.lpsVersion).toBe(lpsVersionAfterFail);
-    expect(retry.postEvidence.recommendation.kind).toBe(
-      durablePayload.recommendationKind,
-    );
-    expect(retry.postEvidence.recommendation.requiresHumanDecision).toBe(
-      durablePayload.requiresHumanDecision,
-    );
-    expect(retry.postEvidence.recommendation.nextStep).toBe(
-      durablePayload.nextStep,
-    );
-    expect(retry.postEvidence.recommendation.nextActionCode).toBe(
-      durablePayload.nextActionCode,
-    );
-    expect(retry.postEvidence.recommendation.recommendNextGateStatus).toBe(
-      durablePayload.recommendNextGateStatus,
-    );
-    expect(retry.postEvidence.recommendation.authority).toBe("none");
-    expect(retry.postEvidence.recommendation.gateConsumed).toBe(false);
-    expect(retry.postEvidence.recommendation.decisionCreated).toBe(false);
-    expect(
-      retry.postEvidence.recommendation.attemptAutoLaunchNextCycle,
-    ).toBe(false);
-    expect(retry.postEvidence.analysisText).toContain("NORA_R14_ANALYSIS");
-    expect(retry.postEvidence.noraInvoked).toBe(true);
-    expect(retry.postEvidence.replanInvoked).toBe(false);
-
-    const lpsAfterRetry =
-      await ctx.oa.projectServices!.getCurrentLivingProjectState.execute({
-        projectId: ctx.seeded.projectId,
-      });
-    expect(lpsAfterRetry.ok).toBe(true);
-    if (!lpsAfterRetry.ok) throw new Error("lps2");
-    expect(lpsAfterRetry.livingProjectState.version).toBe(lpsVersionAfterFail);
-    const recoMarkers = (
-      lpsAfterRetry.livingProjectState.context?.match(
-        /\[\[W3C_POST_EVIDENCE_RECOMMENDATION_V1\]\]/g,
-      ) ?? []
-    ).length;
-    expect(recoMarkers).toBe(1);
-
-    const epiAfterRetry = await ctx.oa.cycleServices!.getEpistemicState.execute({
-      projectId: ctx.seeded.projectId,
-    });
-    expect(epiAfterRetry.ok).toBe(true);
-    if (!epiAfterRetry.ok) throw new Error("epi2");
-    const activeReco = epiAfterRetry.state.items.find(
-      (i) => i.epistemicItemId === epiId && i.status === "active",
-    );
-    expect(activeReco).toBeTruthy();
-    expect(activeReco!.type).toBe("Recommendation");
-
-    const retry2 = await materializeProductOutcomeFromAttempt({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      attemptId,
-    });
-    expect(retry2.ok && retry2.postEvidence?.ok).toBe(true);
-    if (!retry2.ok || !retry2.postEvidence || !retry2.postEvidence.ok) return;
-    expect(fake.getCallCountForTests()).toBe(noraCallsAfterFail);
-    expect(retry2.postEvidence.lpsVersion).toBe(lpsVersionAfterFail);
-    expect(retry2.postEvidence.recommendation.kind).toBe(
-      durablePayload.recommendationKind,
-    );
-    expect(retry2.postEvidence.recommendation.nextActionCode).toBe(
-      durablePayload.nextActionCode,
-    );
-
-    const trajAfter =
-      await ctx.oa.cycleServices!.getTrajectoryVersion.execute({
-        projectId: ctx.seeded.projectId,
-        version: ctx.decidedTrajectoryVersion,
-      });
-    expect(trajAfter.ok).toBe(true);
-    if (!trajAfter.ok) return;
-    expect(trajAfter.trajectory.version).toBe(trajBefore.trajectory.version);
-    expect(trajAfter.trajectory.status).toBe(trajBefore.trajectory.status);
-
-    const restarted = await rehydrateProductOutcomeFromAttempt({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      attemptId,
-    });
-    expect(restarted.ok && restarted.postEvidence?.ok).toBe(true);
-    if (!restarted.ok || !restarted.postEvidence || !restarted.postEvidence.ok)
-      return;
-    expect(restarted.postEvidence.recommendation.kind).toBe(
-      durablePayload.recommendationKind,
-    );
-    expect(restarted.postEvidence.recommendation.nextActionCode).toBe(
-      durablePayload.nextActionCode,
-    );
-    expect(fake.getCallCountForTests()).toBe(noraCallsAfterFail);
-  });
-
-  it("R14b: STOP non-structural partial-write keeps recover / requiresHumanDecision false", async () => {
-    const ctx = await authorizeTempArtifact("r14b");
-    const fake = new FakeConversationProvider({
-      scripted: Array(32).fill("NORA_STOP_R14B_RECOVER"),
-    });
-    setConversationProviderForTests(fake);
-    armW3bBoundary({
-      kind: "governed_stop",
-      stopCondition: "EXECUTOR_INSUFFICIENT",
-    });
-    armW3cEpistemicMaterializeFailOnceForTests();
-
-    const selected = await governedExecuteSelectAgent({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      executionContractId: ctx.executionContractId,
-      forceLocalAuthority: true,
-    });
-    if (!selected.ok) throw new Error(selected.code);
-    const started = await governedExecuteStart({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      executionContractId: ctx.executionContractId,
-      attemptId: selected.attemptId,
-      forceLocalAuthority: true,
-    });
-    if (!started.ok) throw new Error(started.code);
-
-    const first = await materializeProductOutcomeFromAttempt({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      attemptId: started.attemptId,
-    });
-    expect(first.ok).toBe(true);
-    if (!first.ok) throw new Error(first.code);
-    expect(first.postEvidence?.ok).toBe(false);
-    const noraCalls = fake.getCallCountForTests();
-
-    const retry = await materializeProductOutcomeFromAttempt({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      attemptId: started.attemptId,
-    });
-    expect(retry.ok && retry.postEvidence?.ok).toBe(true);
-    if (!retry.ok || !retry.postEvidence || !retry.postEvidence.ok) return;
-    expect(fake.getCallCountForTests()).toBe(noraCalls);
-    expect(retry.postEvidence.recommendation.kind).toBe("recover");
-    expect(retry.postEvidence.recommendation.requiresHumanDecision).toBe(false);
-    expect(retry.postEvidence.recommendation.decisionCreated).toBe(false);
-    expect(retry.postEvidence.recommendation.authority).toBe("none");
-  });
-});
-
-describe("W3C-R15 real D5 contract fidelity", () => {
-  const ALL_NEXT_ACTIONS: readonly NextActionCode[] = [
-    "complete_evidence",
-    "verify_evidence_integrity",
-    "freeze_review_bundle",
-    "complete_review",
-    "evaluate_claim",
-    "confirm_claim_evaluation",
-    "resolve_dispute",
-    "propose_maturity",
-    "confirm_maturity",
-    "downgrade_maturity",
-    "solicit_morris_arbitration",
-    "solicit_morris_go",
-  ] as const;
-
-  const ALL_STATUSES: readonly CoordinationStatus[] = [
-    "blocked",
-    "not_recommended",
-    "requires_human_decision",
-    "gate_candidate",
-  ] as const;
-
-  const ALL_AUTH: readonly AuthorityRequirementLevel[] = [
-    "none",
-    "human",
-    "n2",
-    "n3",
-    "morris",
-  ] as const;
-
-  it("R15A: closed D5 unions — mapping never invents kind=replan / requiresHumanDecision", () => {
-    expect(ALL_STATUSES.length).toBe(4);
-    expect(ALL_AUTH.length).toBe(5);
-    for (const code of ALL_NEXT_ACTIONS) {
-      const cls = classifyW3cD5NextAction(code);
-      expect(cls).not.toBe("none");
-      for (const outcome of ["SUCCESS", "STOP", "FAIL"] as const) {
-        const rec = recommendationFromOutcome({
-          outcome,
-          recommendNextGateStatus: "requires_human_decision",
-          nextActionCode: code,
-        });
-        expect(rec.kind).not.toBe("replan");
-        expect(rec.requiresHumanDecision).toBe(false);
-        expect(rec.authority).toBe("none");
-        expect(rec.gateConsumed).toBe(false);
-        expect(rec.decisionCreated).toBe(false);
-        expect(rec.attemptAutoLaunchNextCycle).toBe(false);
-        expect(rec.nextStep).not.toBe("structural_replan_propose");
-        expect(rec.nextActionCode).toBe(code);
-      }
-    }
-    // Non-union strings must not invent a D5 class (closed Record lookup).
-    expect(classifyW3cD5NextAction("not_a_d5_next_action_code")).toBe("none");
-    expect(classifyW3cD5NextAction("")).toBe("none");
-  });
-
-  it("R15B: confirm_maturity / confirm_claim_evaluation ≠ trajectory replan / HD", () => {
-    for (const code of [
-      "confirm_maturity",
-      "confirm_claim_evaluation",
-    ] as const satisfies readonly NextActionCode[]) {
-      expect(classifyW3cD5NextAction(code)).toBe("human_confirmation");
-      const rec = recommendationFromOutcome({
-        outcome: "SUCCESS",
-        recommendNextGateStatus: "requires_human_decision" satisfies CoordinationStatus,
-        nextActionCode: code,
-      });
-      expect(rec.kind).toBe("continue");
-      expect(rec.requiresHumanDecision).toBe(false);
-      expect(rec.nextStep).toBe("coordinate_human_confirmation");
-    }
-  });
-
-  it("R15C: solicit_morris_arbitration (real D5 code) → Recommendation only, no traj HD", async () => {
-    // Native W3-C recommendNextGate inputs do not include maturityAssessmentId;
-    // openHardReservationRefs is only applied inside maturityAssessment branch in D5.
-    // Arbitration is therefore proven via typed real NextActionCode projection —
-    // not via inventing a non-union actionCode.
-    const auth: AuthorityRequirementLevel = "morris";
-    expect(auth).toBe("morris");
-    expect(classifyW3cD5NextAction("solicit_morris_arbitration")).toBe(
-      "morris_arbitration",
-    );
-    for (const outcome of ["SUCCESS", "STOP", "FAIL"] as const) {
-      const rec = recommendationFromOutcome({
-        outcome,
-        recommendNextGateStatus: "blocked" satisfies CoordinationStatus,
-        nextActionCode: "solicit_morris_arbitration" satisfies NextActionCode,
-      });
-      expect(rec.kind).not.toBe("replan");
-      expect(rec.requiresHumanDecision).toBe(false);
-      expect(rec.authority).toBe("none");
-      expect(rec.gateConsumed).toBe(false);
-      expect(rec.decisionCreated).toBe(false);
-      expect(rec.attemptAutoLaunchNextCycle).toBe(false);
-      expect(rec.nextActionCode).toBe("solicit_morris_arbitration");
-      if (outcome === "SUCCESS") {
-        expect(rec.kind).toBe("continue");
-        expect(rec.nextStep).toBe("coordinate_morris_arbitration");
-      } else {
-        expect(rec.kind).toBe("recover");
-      }
-    }
-  });
-
-  it("R15D: product-path D5 nextAction stays non-structural (real union code)", async () => {
-    const ctx = await authorizeTempArtifact("r15d");
-    setConversationProviderForTests(
-      new FakeConversationProvider({
-        scripted: Array(32).fill("NORA_R15D_NON_STRUCTURAL"),
-      }),
-    );
-    const { materialized } = await materializeSuccess(ctx);
-    expect(materialized.postEvidence?.ok).toBe(true);
-    if (!materialized.postEvidence || !materialized.postEvidence.ok) return;
-    const code = materialized.postEvidence.recommendation.nextActionCode;
-    expect(code).toBeTruthy();
-    expect(ALL_NEXT_ACTIONS).toContain(code as NextActionCode);
-    // Observed reachable under current W3-C inputs: often verify_evidence_integrity
-    // (evidence available/not verified) — never a fictional trajectory replan code.
-    expect(classifyW3cD5NextAction(code)).toBe("non_structural_progress");
-    expect(materialized.postEvidence.recommendation.kind).toBe("continue");
-    expect(materialized.postEvidence.recommendation.requiresHumanDecision).toBe(
-      false,
-    );
-    expect(materialized.postEvidence.recommendation.authority).toBe("none");
-    expect(materialized.postEvidence.recommendation.decisionCreated).toBe(false);
-    expect(materialized.postEvidence.recommendation.nextStep).not.toBe(
-      "structural_replan_propose",
-    );
-  });
-
-  it("R15E: solicit_morris_go / gate_candidate mapping ≠ auto decision", () => {
-    const rec = recommendationFromOutcome({
-      outcome: "SUCCESS",
-      recommendNextGateStatus: "gate_candidate" satisfies CoordinationStatus,
-      nextActionCode: "solicit_morris_go" satisfies NextActionCode,
-    });
-    expect(classifyW3cD5NextAction("solicit_morris_go")).toBe("next_cycle_gate");
-    expect(rec.kind).toBe("continue");
-    expect(rec.requiresHumanDecision).toBe(false);
-    expect(rec.gateConsumed).toBe(false);
-    expect(rec.decisionCreated).toBe(false);
-    expect(rec.authority).toBe("none");
-    expect(rec.nextStep).toBe("coordinate_solicit_morris_go");
-  });
-});
-```
-
-### `projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts`
-
-```
-/**
- * GAP-4 — bounded post-Evidence Nora/provider analysis.
- * Uses resolveConversationProvider() only. Never instantiates OpenAI here.
- * Result is a Recommendation, never a HumanDecision / GO / new contract.
- *
- * W3-D / US-P1-14: when a resolved product-native CKC prompt section is supplied,
- * it is injected into the same cognitive marker seam used by F2/W2 — no parallel
- * resolver / orchestrator. Absence of CKC is handled by the caller (fail-closed).
- *
- * IMPORTANT: do not import `@/features/project-assistant/f2/ckcCognitiveContext`
- * here — that module loads Node filesystem doctrine I/O and must stay off the
- * client presentation graph (presentationLabels → postEvidenceNoraAnalysis).
- */
-
-import { resolveConversationProvider } from "@/lib/platform/ai";
-import { buildPostEvidenceNarrativePolicyDisclosure } from "@/lib/nora-cognitive-runtime/postEvidenceNarrativePolicy";
-
-/** Same marker string as f2/ckcCognitiveContext — keep in sync (string only). */
-const CKC_COGNITIVE_REASONING_SYSTEM_MARKER =
-  "SFIA Studio CKC COGNITIVE REASONING" as const;
-
-export const POST_EVIDENCE_NORA_SENTINEL =
-  "[[SFIA_POST_EVIDENCE_NORA_ANALYSIS]]" as const;
-export const POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL =
-  "[[SFIA_POST_EVIDENCE_NORA_UNAVAILABLE]]" as const;
-/** Exact post-Evidence Recommendation payload — durable in existing LPS context. */
-export const W3C_POST_EVIDENCE_RECOMMENDATION_SENTINEL =
-  "[[W3C_POST_EVIDENCE_RECOMMENDATION_V1]]" as const;
-
-export type PostEvidenceAnalysisFacts = {
-  projectId: string;
-  executionContractId: string;
-  executionContractStatus: string;
-  executionContractAction: string;
-  attemptId: string;
-  attemptStatus: string;
-  selectedAgentRef: string;
-  adapterRef: string;
-  executionMode: string;
-  realProcessInvoked: boolean;
-  evidenceId: string;
-  reviewBundleId: string;
-  technicalResultRef: string | null;
-  reservations: readonly string[];
-  processRef?: string;
-  exitCode?: number | null;
-  timedOut?: boolean;
-  durationMs?: number;
-  stdout?: string;
-  stderr?: string;
-  /** Product outcome when post-Evidence analyzes an evidence gap. */
-  productOutcome?: string;
-  claimEvaluationId?: string;
-  claimEvaluationStatus?: string;
-  contractResultVerdict?: string;
-  businessReason?: string;
-  expectedOutputAssessmentSummary?: string;
-  evidenceRequirementAssessmentSummary?: string;
-};
-
-export type PostEvidenceAnalysisResult =
-  | {
-      ok: true;
-      text: string;
-      providerId: string;
-    }
-  | {
-      ok: false;
-      code: "POST_EVIDENCE_ANALYSIS_UNAVAILABLE";
-      message: string;
-      providerId: string | null;
-    };
-
-const ANALYSIS_SYSTEM = `Tu es Nora, analyste post-exécution SFIA Studio.
-Tu produis UNIQUEMENT une recommandation non autoritaire à partir des faits durables fournis.
-Interdit:
-- créer une HumanDecision;
-- transformer la recommandation en GO Morris;
-- lancer un ExecutionContract / Attempt;
-- demander des secrets;
-- inventer une preuve REAL;
-- convertir not_proven / UNCLAIMED en succès produit.
-Si productOutcome=UNCLAIMED et claimEvaluationStatus=not_proven :
-l'exécution technique a pu réussir et un Artifact peut exister, mais le résultat
-contractuel n'est pas prouvé faute d'Evidence suffisante sur les expectedOutputs.
-Réponds en français, court, factuel.
-
-${buildPostEvidenceNarrativePolicyDisclosure()}`;
-
-function boundedFactsJson(facts: PostEvidenceAnalysisFacts): string {
-  return JSON.stringify({
-    projectId: facts.projectId,
-    executionContractId: facts.executionContractId,
-    executionContractStatus: facts.executionContractStatus,
-    executionContractAction: facts.executionContractAction,
-    attemptId: facts.attemptId,
-    attemptStatus: facts.attemptStatus,
-    selectedAgentRef: facts.selectedAgentRef,
-    adapterRef: facts.adapterRef,
-    executionMode: facts.executionMode,
-    realProcessInvoked: facts.realProcessInvoked,
-    evidenceId: facts.evidenceId,
-    reviewBundleId: facts.reviewBundleId,
-    technicalResultRef: facts.technicalResultRef,
-    reservations: [...facts.reservations],
-    processRef: facts.processRef,
-    exitCode: facts.exitCode,
-    timedOut: facts.timedOut,
-    durationMs: facts.durationMs,
-    stdout: facts.stdout,
-    stderr: facts.stderr,
-    productOutcome: facts.productOutcome,
-    claimEvaluationId: facts.claimEvaluationId,
-    claimEvaluationStatus: facts.claimEvaluationStatus,
-    contractResultVerdict: facts.contractResultVerdict,
-    businessReason: facts.businessReason,
-    expectedOutputAssessmentSummary: facts.expectedOutputAssessmentSummary,
-    evidenceRequirementAssessmentSummary:
-      facts.evidenceRequirementAssessmentSummary,
-  });
-}
-
-export type AnalyzePostEvidenceOptions = {
-  /**
-   * Product-native CKC prompt section already built via
-   * `buildCkcCognitivePromptSection` — never raw package paths for Pilote.
-   */
-  readonly ckcPromptSection?: string | null;
-};
-
-function buildPostEvidenceSystemPrompt(
-  ckcPromptSection: string | null | undefined,
-): string {
-  const trimmed = ckcPromptSection?.trim();
-  if (!trimmed) {
-    return ANALYSIS_SYSTEM;
-  }
-  return `${ANALYSIS_SYSTEM}
-
-${CKC_COGNITIVE_REASONING_SYSTEM_MARKER}
-Contexte CKC résolu (guidance seulement — pas d'autorité, pas de décision humaine):
-${trimmed}`;
-}
-
-export async function analyzePostEvidenceWithProvider(
-  facts: PostEvidenceAnalysisFacts,
-  options?: AnalyzePostEvidenceOptions,
-): Promise<PostEvidenceAnalysisResult> {
-  let providerId: string | null = null;
-  try {
-    const provider = resolveConversationProvider();
-    providerId = provider.providerId;
-    const completion = await provider.complete([
-      {
-        role: "system",
-        content: buildPostEvidenceSystemPrompt(options?.ckcPromptSection),
-      },
-      {
-        role: "user",
-        content: `Faits durables post-Evidence (bornés):\n${boundedFactsJson(facts)}`,
-      },
-    ]);
-    const text = completion.text.trim();
-    if (!text) {
-      return {
-        ok: false,
-        code: "POST_EVIDENCE_ANALYSIS_UNAVAILABLE",
-        message: "Provider post-Evidence a renvoyé un texte vide.",
-        providerId,
-      };
-    }
-    return { ok: true, text: text.slice(0, 4000), providerId };
-  } catch (err) {
-    const message =
-      err instanceof Error ? err.message : "provider_post_evidence_failed";
-    return {
-      ok: false,
-      code: "POST_EVIDENCE_ANALYSIS_UNAVAILABLE",
-      message,
-      providerId,
-    };
-  }
-}
-
-/** Evidence-scoped LPS marker — binds Nora text to a specific W3-B evidenceId. */
-export function w3cEvidenceLpsMarker(evidenceId: string): string {
-  return `[[W3C_EVIDENCE:${evidenceId}]]`;
-}
-
-export function formatPostEvidenceAnalysisForLps(input: {
-  analysisText?: string | null;
-  unavailableReason?: string | null;
-  /** When set, scopes the LPS sentinel block to this evidenceId (W3-C). */
-  evidenceId?: string | null;
-}): string | undefined {
-  const evidenceLine =
-    input.evidenceId && input.evidenceId.trim()
-      ? `${w3cEvidenceLpsMarker(input.evidenceId.trim())}\n`
-      : "";
-  if (input.analysisText && input.analysisText.trim()) {
-    return `${POST_EVIDENCE_NORA_SENTINEL}\n${evidenceLine}${input.analysisText.trim()}`;
-  }
-  if (input.unavailableReason) {
-    return `${POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL}\n${evidenceLine}${input.unavailableReason}`;
-  }
-  return undefined;
-}
-
-/**
- * Last matching post-Evidence Nora block for a specific evidenceId.
- * Never returns another evidence's analysis (STALE binding guard at call site).
- */
-export function extractW3cPostEvidenceAnalysisForEvidence(
-  context: string | undefined,
-  evidenceId: string,
-): {
-  analysisText: string | null;
-  analysisUnavailableReason: string | null;
-  matchedEvidenceId: string | null;
-} {
-  if (!context || !evidenceId) {
-    return {
-      analysisText: null,
-      analysisUnavailableReason: null,
-      matchedEvidenceId: null,
-    };
-  }
-  const marker = w3cEvidenceLpsMarker(evidenceId);
-  const availableNeedle = `${POST_EVIDENCE_NORA_SENTINEL}\n${marker}`;
-  const unavailableNeedle = `${POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL}\n${marker}`;
-  const availableIdx = context.lastIndexOf(availableNeedle);
-  const unavailableIdx = context.lastIndexOf(unavailableNeedle);
-
-  const sliceAfter = (idx: number, needle: string): string => {
-    const start = idx + needle.length;
-    const rest = context.slice(start);
-    // Truncate at next sibling sentinel if present.
-    const nextAvail = rest.indexOf(`\n${POST_EVIDENCE_NORA_SENTINEL}`);
-    const nextUnavail = rest.indexOf(
-      `\n${POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL}`,
-    );
-    const nextReco = rest.indexOf(
-      `\n${W3C_POST_EVIDENCE_RECOMMENDATION_SENTINEL}`,
-    );
-    let end = rest.length;
-    if (nextAvail >= 0) end = Math.min(end, nextAvail);
-    if (nextUnavail >= 0) end = Math.min(end, nextUnavail);
-    if (nextReco >= 0) end = Math.min(end, nextReco);
-    return rest.slice(0, end).trim();
-  };
-
-  if (availableIdx >= 0 && availableIdx > unavailableIdx) {
-    const text = sliceAfter(availableIdx, availableNeedle);
-    return {
-      analysisText: text.length > 0 ? text : null,
-      analysisUnavailableReason: null,
-      matchedEvidenceId: evidenceId,
-    };
-  }
-  if (unavailableIdx >= 0) {
-    const text = sliceAfter(unavailableIdx, unavailableNeedle);
-    return {
-      analysisText: null,
-      analysisUnavailableReason: text.length > 0 ? text : "unavailable",
-      matchedEvidenceId: evidenceId,
-    };
-  }
-  return {
-    analysisText: null,
-    analysisUnavailableReason: null,
-    matchedEvidenceId: null,
-  };
-}
-
-/** Last Nora block in LPS context (any evidence) — legacy / unscoped. */
-export function extractPostEvidenceAnalysisFromLpsContext(
-  context: string | undefined,
-): {
-  analysisText: string | null;
-  analysisUnavailableReason: string | null;
-} {
-  if (!context) {
-    return { analysisText: null, analysisUnavailableReason: null };
-  }
-  const unavailableIdx = context.lastIndexOf(
-    POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL,
-  );
-  const availableIdx = context.lastIndexOf(POST_EVIDENCE_NORA_SENTINEL);
-  if (availableIdx >= 0 && availableIdx > unavailableIdx) {
-    const text = context
-      .slice(availableIdx + POST_EVIDENCE_NORA_SENTINEL.length)
-      .trim();
-    // Strip leading evidence marker if present.
-    const cleaned = text.replace(/^\[\[W3C_EVIDENCE:[^\]]+\]\]\s*/u, "").trim();
-    return {
-      analysisText: cleaned.length > 0 ? cleaned : null,
-      analysisUnavailableReason: null,
-    };
-  }
-  if (unavailableIdx >= 0) {
-    const text = context
-      .slice(unavailableIdx + POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL.length)
-      .trim();
-    const cleaned = text.replace(/^\[\[W3C_EVIDENCE:[^\]]+\]\]\s*/u, "").trim();
-    return {
-      analysisText: null,
-      analysisUnavailableReason: cleaned.length > 0 ? cleaned : "unavailable",
-    };
-  }
-  return { analysisText: null, analysisUnavailableReason: null };
-}
-
-/** Detect which evidenceId owns the last LPS Nora block (if marked). */
-export function lastW3cEvidenceIdInLpsContext(
-  context: string | undefined,
-): string | null {
-  if (!context) return null;
-  const re = /\[\[W3C_EVIDENCE:([^\]]+)\]\]/g;
-  let last: string | null = null;
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(context)) !== null) {
-    last = m[1] ?? null;
-  }
-  return last;
-}
-
-/**
- * Durable exact Recommendation JSON in existing LPS context (no new table).
- * Bound to evidenceId so restart cannot reuse another terminal's semantics.
- */
-export function formatW3cRecommendationPayloadForLps(input: {
-  evidenceId: string;
-  payloadJson: string;
-}): string {
-  const evidenceId = input.evidenceId.trim();
-  const json = input.payloadJson.trim();
-  return `${W3C_POST_EVIDENCE_RECOMMENDATION_SENTINEL}\n${w3cEvidenceLpsMarker(evidenceId)}\n${json}`;
-}
-
-/**
- * Extract exact Recommendation payload JSON for a specific evidenceId from LPS.
- * Returns null when absent (legacy LPS without V1 block).
- */
-export function extractW3cRecommendationPayloadJsonForEvidence(
-  context: string | undefined,
-  evidenceId: string,
-): string | null {
-  if (!context || !evidenceId) return null;
-  const marker = w3cEvidenceLpsMarker(evidenceId);
-  const needle = `${W3C_POST_EVIDENCE_RECOMMENDATION_SENTINEL}\n${marker}\n`;
-  const idx = context.lastIndexOf(needle);
-  if (idx < 0) return null;
-  const rest = context.slice(idx + needle.length);
-  const nextSentinelCandidates = [
-    rest.indexOf(`\n${POST_EVIDENCE_NORA_SENTINEL}`),
-    rest.indexOf(`\n${POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL}`),
-    rest.indexOf(`\n${W3C_POST_EVIDENCE_RECOMMENDATION_SENTINEL}`),
-  ].filter((i) => i >= 0);
-  const end = nextSentinelCandidates.length
-    ? Math.min(...nextSentinelCandidates)
-    : rest.length;
-  const json = rest.slice(0, end).trim();
-  return json.length > 0 ? json : null;
-}
-```
-
-### `projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts`
-
-```
-/**
- * W3-B FC-12 — Materialize + rehydrate Product Terminal from durable facts.
- * Ingest all terminals → ReviewBundle → EvaluateContractResult → FC-11 projection.
- * W3-C: after successful projection, consume Evidence via post-Evidence loop (no re-ingest).
- * Docs-write: freeze rb:docs-write + evaluate docs-write CE (may supersede w3b CE).
- */
-import { createHash } from "node:crypto";
-import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
-import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
-import type { ExecutionContract } from "@/lib/oa/execution-contract";
-import {
-  type ExecutionAttempt,
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-} from "@/lib/oa/execution-attempt";
-import type { ClaimEvaluation, Evidence, ReviewBundle } from "@/lib/oa/evidence-review";
-import { resolveCurrentContractResultClaimEvaluation } from "@/lib/oa/evidence-review";
-import { requalifyDocsWriteContractResult } from "./requalifyDocsWriteContractResult";
-import {
-  projectW3bProductTerminal,
-  productReservationsForAttempt,
-  type W3BProductTerminalProjection,
-} from "./w3bProductTerminalProjection";
-import {
-  findExistingW3cPostEvidence,
-  rehydrateW3cPostEvidenceFromLps,
-  runW3cPostEvidenceLoop,
-  type W3cPostEvidenceLoopResult,
-} from "./w3cPostEvidenceLoop";
-
-export type { W3BProductTerminalProjection as W3BProductOutcomeProjection };
-
-export type MaterializeW3bProductTerminalResult =
-  | {
-      readonly ok: true;
-      readonly product: W3BProductTerminalProjection;
-      readonly reusedFromIdempotency: boolean;
-      readonly postEvidence?: W3cPostEvidenceLoopResult;
-    }
-  | {
-      readonly ok: false;
-      readonly code: string;
-      readonly message: string;
-      readonly product?: W3BProductTerminalProjection;
-      readonly postEvidence?: W3cPostEvidenceLoopResult;
-    };
-
-export function w3bEvidenceIdentity(attemptId: string): {
-  evidenceId: string;
-  reviewBundleId: string;
-  claimEvaluationId: string;
-  evidenceIdempotencyKey: string;
-  reviewBundleIdempotencyKey: string;
-  claimEvaluationIdempotencyKey: string;
-} {
-  const digest = createHash("sha256").update(attemptId).digest("hex").slice(0, 16);
-  return {
-    evidenceId: `ev:w3b:${digest}`,
-    reviewBundleId: `rb:w3b:${digest}`,
-    claimEvaluationId: `clm:w3b:${digest}`,
-    evidenceIdempotencyKey: `idem:w3b-ev:${attemptId}`,
-    reviewBundleIdempotencyKey: `idem:w3b-rb:${attemptId}`,
-    claimEvaluationIdempotencyKey: `idem:w3b-ce:${attemptId}`,
-  };
-}
-
-async function loadAttemptAndContract(input: {
-  oa: RuntimeOaStack;
-  projectId: string;
-  attemptId: string;
-}): Promise<
-  | { ok: true; attempt: ExecutionAttempt; contract: ExecutionContract }
-  | { ok: false; code: string; message: string }
-> {
-  if (!input.oa.evidenceReviewServices || !input.oa.executionAttemptServices) {
-    return {
-      ok: false,
-      code: "EVIDENCE_STACK_UNAVAILABLE",
-      message: "Services Evidence / Attempt indisponibles.",
-    };
-  }
-  const loaded =
-    await input.oa.executionAttemptServices.getExecutionAttempt.execute({
-      attemptId: input.attemptId,
-    });
-  if (!loaded.ok) {
-    return {
-      ok: false,
-      code: loaded.error.detailCode,
-      message: loaded.error.message,
-    };
-  }
-  const contractResult =
-    await input.oa.executionContractServices.getExecutionContract.execute({
-      executionContractId: loaded.attempt.executionContractId,
-    });
-  if (!contractResult.ok) {
-    return {
-      ok: false,
-      code: "EXECUTION_CONTRACT_NOT_FOUND",
-      message: "Contrat lié à l'Attempt introuvable.",
-    };
-  }
-  if (contractResult.contract.projectId !== input.projectId) {
-    return {
-      ok: false,
-      code: "PROJECT_MISMATCH",
-      message: "Attempt / projet incohérents.",
-    };
-  }
-  return {
-    ok: true,
-    attempt: loaded.attempt,
-    contract: contractResult.contract,
-  };
-}
-
-function projectFromFacts(input: {
-  attempt: ExecutionAttempt;
-  contract: ExecutionContract;
-  evidence: Evidence | null;
-  reviewBundle: ReviewBundle | null;
-  claimEvaluation: ClaimEvaluation | null;
-}): W3BProductTerminalProjection {
-  return projectW3bProductTerminal(input);
-}
-
-function boundActionOf(
-  attempt: ExecutionAttempt,
-  contract: ExecutionContract,
-): string {
-  return (
-    attempt.boundExecutionContract?.semanticMaterial?.action ?? contract.action
-  );
-}
-
-async function materializeDocsWriteProductTerminal(input: {
-  readonly oa: RuntimeOaStack;
-  readonly projectId: string;
-  readonly attempt: ExecutionAttempt;
-  readonly contract: ExecutionContract;
-}): Promise<MaterializeW3bProductTerminalResult> {
-  const services = input.oa.evidenceReviewServices!;
-  const requalified = await requalifyDocsWriteContractResult({
-    evidenceReviewServices: services,
-    attempt: input.attempt,
-    contract: input.contract,
-    actor: LOCAL_PILOTE_ACTOR,
-  });
-  if (!requalified.ok) {
-    return {
-      ok: false,
-      code: requalified.code,
-      message: requalified.message,
-    };
-  }
-
-  const segment = input.attempt.attemptId.replace(/[^a-zA-Z0-9:_-]/g, "");
-  const evidenceId = `ev:docs-write:${segment}`.slice(0, 128);
-  const evidence = await services.evidenceReader.findById(evidenceId);
-
-  const product = projectFromFacts({
-    attempt: input.attempt,
-    contract: input.contract,
-    evidence: evidence ?? null,
-    reviewBundle: requalified.reviewBundle,
-    claimEvaluation: requalified.claimEvaluation,
-  });
-
-  const reusedFromIdempotency = Boolean(requalified.reusedFromIdempotencyKey);
-
-  if (product.evidenceId) {
-    const existing = await findExistingW3cPostEvidence({
-      oa: input.oa,
-      projectId: input.projectId,
-      evidenceId: product.evidenceId,
-      attemptId: input.attempt.attemptId,
-      product,
-    });
-    if (existing) {
-      return {
-        ok: true,
-        reusedFromIdempotency,
-        product,
-        postEvidence: existing,
-      };
-    }
-    const rehydrated = await rehydrateW3cPostEvidenceFromLps({
-      oa: input.oa,
-      projectId: input.projectId,
-      product,
-    });
-    if (rehydrated.ok) {
-      return {
-        ok: true,
-        reusedFromIdempotency,
-        product,
-        postEvidence: rehydrated,
-      };
-    }
-  }
-
-  const postEvidence = await runW3cPostEvidenceLoop({
-    oa: input.oa,
-    projectId: input.projectId,
-    attemptId: input.attempt.attemptId,
-    product,
-  });
-
-  return {
-    ok: true,
-    reusedFromIdempotency,
-    product,
-    postEvidence,
-  };
-}
-
-/** Write path — ingest Evidence + RB + Contract Result CE + project. */
-export async function materializeW3bProductTerminal(input: {
-  readonly oa: RuntimeOaStack;
-  readonly projectId: string;
-  readonly attemptId: string;
-  readonly claimedProductOutcome?: unknown;
-  readonly cycleProfile?: unknown;
-  readonly ckcId?: unknown;
-}): Promise<MaterializeW3bProductTerminalResult> {
-  void input.claimedProductOutcome;
-  void input.cycleProfile;
-  void input.ckcId;
-
-  const loaded = await loadAttemptAndContract(input);
-  if (!loaded.ok) return loaded;
-  const { attempt, contract } = loaded;
-
-  // Docs-write Product claim path only when Artifact Evidence exists (typically
-  // succeeded REAL/fixture ingest). Failed docs_write Attempts without Artifact
-  // Evidence keep the technical W3-B materialize path for recovery/UNCLAIMED.
-  if (boundActionOf(attempt, contract) === M4_BOUNDED_DOCS_WRITE_ACTION) {
-    const servicesProbe = input.oa.evidenceReviewServices!;
-    const segment = attempt.attemptId.replace(/[^a-zA-Z0-9:_-]/g, "");
-    const docsWriteEvidenceId = `ev:docs-write:${segment}`.slice(0, 128);
-    const docsWriteEvidence =
-      await servicesProbe.evidenceReader.findById(docsWriteEvidenceId);
-    if (docsWriteEvidence) {
-      return materializeDocsWriteProductTerminal({
-        oa: input.oa,
-        projectId: input.projectId,
-        attempt,
-        contract,
-      });
-    }
-  }
-
-  const ids = w3bEvidenceIdentity(attempt.attemptId);
-  const services = input.oa.evidenceReviewServices!;
-
-  const ingested = await services.ingestExecutionAttemptEvidence.execute({
-    evidenceId: ids.evidenceId,
-    executionAttemptId: attempt.attemptId,
-    idempotencyKey: ids.evidenceIdempotencyKey,
-    actor: LOCAL_PILOTE_ACTOR,
-    classification: "internal",
-    storageMode: "metadata_only",
-    bindings: {
-      projectId: input.projectId,
-      executionContractId: contract.executionContractId,
-      ...(contract.cycleInstanceId
-        ? { cycleInstanceId: contract.cycleInstanceId }
-        : {}),
-    },
-  });
-
-  if (!ingested.ok) {
-    return {
-      ok: false,
-      code: ingested.error.detailCode,
-      message: ingested.error.message,
-      product: projectFromFacts({
-        attempt,
-        contract,
-        evidence: null,
-        reviewBundle: null,
-        claimEvaluation: null,
-      }),
-    };
-  }
-
-  const bundle = await services.createReviewBundle.execute({
-    reviewBundleId: ids.reviewBundleId,
-    idempotencyKey: ids.reviewBundleIdempotencyKey,
-    actor: LOCAL_PILOTE_ACTOR,
-    projectId: input.projectId,
-    executionContractId: contract.executionContractId,
-    ...(contract.cycleInstanceId ? { cycleInstanceId: contract.cycleInstanceId } : {}),
-    evidenceIds: [ingested.evidence.evidenceId],
-    reservations: [...productReservationsForAttempt(attempt)],
-  });
-
-  if (!bundle.ok) {
-    return {
-      ok: false,
-      code: bundle.error.detailCode,
-      message: bundle.error.message,
-    };
-  }
-
-  // Idempotent rematerialize: create may return the already-frozen RB.
-  // Calling freeze again with a bumped expectedVersion fingerprints differently
-  // and hits IDEMPOTENCY_CONFLICT — skip freeze when already frozen.
-  let frozenReviewBundle = bundle.reviewBundle;
-  let freezeReusedFromIdempotencyKey = Boolean(bundle.reusedFromIdempotencyKey);
-  if (
-    !bundle.reviewBundle.frozenAt &&
-    bundle.reviewBundle.status === "draft"
-  ) {
-    const frozen = await services.freezeReviewBundle.execute({
-      reviewBundleId: ids.reviewBundleId,
-      expectedVersion: bundle.reviewBundle.version,
-      idempotencyKey: `idem:w3b-rb-freeze:${attempt.attemptId}`,
-      actor: LOCAL_PILOTE_ACTOR,
-    });
-
-    if (!frozen.ok) {
-      return {
-        ok: false,
-        code: frozen.error.detailCode,
-        message: frozen.error.message,
-      };
-    }
-    frozenReviewBundle = frozen.reviewBundle;
-    freezeReusedFromIdempotencyKey = Boolean(frozen.reusedFromIdempotencyKey);
-  } else {
-    // Already frozen from a prior materialize — treat as idempotent reuse.
-    freezeReusedFromIdempotencyKey = true;
-  }
-
-  if (!services.evaluateContractResult) {
-    return {
-      ok: false,
-      code: "CONTRACT_RESULT_EVALUATOR_UNAVAILABLE",
-      message: "EvaluateContractResult indisponible — fail-closed.",
-    };
-  }
-
-  const evaluated = await services.evaluateContractResult.execute({
-    claimEvaluationId: ids.claimEvaluationId,
-    idempotencyKey: ids.claimEvaluationIdempotencyKey,
-    actor: LOCAL_PILOTE_ACTOR,
-    contract,
-    attempt: {
-      attemptId: attempt.attemptId,
-      executionContractId: attempt.executionContractId,
-      executionContractVersion: attempt.executionContractVersion,
-      executionContractSemanticFingerprint:
-        attempt.executionContractSemanticFingerprint,
-      boundExecutionContract: attempt.boundExecutionContract,
-      status: attempt.status,
-      resultRef: attempt.resultRef,
-      errorRef: attempt.errorRef,
-      stopReason: attempt.stopReason,
-      cancelledAt: attempt.cancelledAt,
-      failedAt: attempt.failedAt,
-      timedOutAt: attempt.timedOutAt,
-      stopOrigin: attempt.stopOrigin,
-      stopCode: attempt.stopCode,
-      stopSourceRef: attempt.stopSourceRef,
-      stopObservedAt: attempt.stopObservedAt,
-      completedAt: attempt.completedAt,
-      selectedAgentRef: attempt.selectedAgentRef,
-    },
-    evidence: ingested.evidence,
-    reviewBundle: frozenReviewBundle,
-  });
-
-  if (!evaluated.ok) {
-    // Surface shape reason in test/dev failures.
-    const detail = evaluated.error.internalCauseRef ?? evaluated.error.message;
-    return {
-      ok: false,
-      code: evaluated.error.detailCode,
-      message: detail,
-      product: projectFromFacts({
-        attempt,
-        contract,
-        evidence: ingested.evidence,
-        reviewBundle: frozenReviewBundle,
-        claimEvaluation: evaluated.claimEvaluation ?? null,
-      }),
-    };
-  }
-
-  const product = projectFromFacts({
-    attempt,
-    contract,
-    evidence: ingested.evidence,
-    reviewBundle: frozenReviewBundle,
-    claimEvaluation: evaluated.claimEvaluation,
-  });
-
-  const reusedFromIdempotency = Boolean(
-    ingested.reusedFromIdempotencyKey ||
-      bundle.reusedFromIdempotencyKey ||
-      freezeReusedFromIdempotencyKey ||
-      evaluated.reusedFromIdempotencyKey,
-  );
-
-  // B2 — prefer existing Epistemic / rehydrate before Nora + LPS append.
-  // CR-PJR-03: reuse only when Recommendation matches newly projected Product.
-  if (product.evidenceId) {
-    const existing = await findExistingW3cPostEvidence({
-      oa: input.oa,
-      projectId: input.projectId,
-      evidenceId: product.evidenceId,
-      attemptId: attempt.attemptId,
-      product,
-    });
-    if (existing) {
-      return {
-        ok: true,
-        reusedFromIdempotency,
-        product,
-        postEvidence: existing,
-      };
-    }
-    // Prefer LPS exact / Epistemic rehydrate before Nora+LPS (covers partial-write).
-    const rehydrated = await rehydrateW3cPostEvidenceFromLps({
-      oa: input.oa,
-      projectId: input.projectId,
-      product,
-    });
-    if (rehydrated.ok) {
-      return {
-        ok: true,
-        reusedFromIdempotency,
-        product,
-        postEvidence: rehydrated,
-      };
-    }
-  }
-
-  const postEvidence = await runW3cPostEvidenceLoop({
-    oa: input.oa,
-    projectId: input.projectId,
-    attemptId: attempt.attemptId,
-    product,
-  });
-
-  return {
-    ok: true,
-    reusedFromIdempotency,
-    product,
-    postEvidence,
-  };
-}
-
-export async function rehydrateW3bProductTerminal(input: {
-  readonly oa: RuntimeOaStack;
-  readonly projectId: string;
-  readonly attemptId: string;
-}): Promise<MaterializeW3bProductTerminalResult> {
-  const loaded = await loadAttemptAndContract(input);
-  if (!loaded.ok) return loaded;
-  const { attempt, contract } = loaded;
-  const services = input.oa.evidenceReviewServices!;
-  const isDocsWrite =
-    boundActionOf(attempt, contract) === M4_BOUNDED_DOCS_WRITE_ACTION;
-
-  let evidence: Evidence | null = null;
-  let reviewBundle: ReviewBundle | null = null;
-  let claimEvaluation: ClaimEvaluation | null = null;
-
-  if (isDocsWrite) {
-    const segment = attempt.attemptId.replace(/[^a-zA-Z0-9:_-]/g, "");
-    const evidenceId = `ev:docs-write:${segment}`.slice(0, 128);
-    const reviewBundleId = `rb:docs-write:${segment}`.slice(0, 128);
-    evidence = (await services.evidenceReader.findById(evidenceId)) ?? null;
-    reviewBundle =
-      (await services.reviewBundleReader.findById(reviewBundleId)) ?? null;
-    const resolved = await resolveCurrentContractResultClaimEvaluation({
-      repo: services.claimEvaluationRepository,
-      projectId: input.projectId,
-      executionAttemptId: attempt.attemptId,
-    });
-    if (resolved.status === "ambiguous") {
-      return {
-        ok: false,
-        code: "CONTRACT_RESULT_CLAIM_LINEAGE_AMBIGUOUS",
-        message: `Multiple active ContractResult CEs — fail-closed: ${resolved.claimEvaluationIds.join(",")}`,
-      };
-    }
-    claimEvaluation =
-      resolved.status === "one" ? resolved.claimEvaluation : null;
-  } else {
-    const ids = w3bEvidenceIdentity(attempt.attemptId);
-    evidence = (await services.evidenceReader.findById(ids.evidenceId)) ?? null;
-    reviewBundle =
-      (await services.reviewBundleReader.findById(ids.reviewBundleId)) ?? null;
-    const resolved = await resolveCurrentContractResultClaimEvaluation({
-      repo: services.claimEvaluationRepository,
-      projectId: input.projectId,
-      executionAttemptId: attempt.attemptId,
-    });
-    if (resolved.status === "ambiguous") {
-      return {
-        ok: false,
-        code: "CONTRACT_RESULT_CLAIM_LINEAGE_AMBIGUOUS",
-        message: `Multiple active ContractResult CEs — fail-closed: ${resolved.claimEvaluationIds.join(",")}`,
-      };
-    }
-    claimEvaluation =
-      resolved.status === "one"
-        ? resolved.claimEvaluation
-        : ((await services.claimEvaluationReader.findById(
-            ids.claimEvaluationId,
-          )) ?? null);
-  }
-
-  if (!evidence || !reviewBundle || !claimEvaluation) {
-    return {
-      ok: false,
-      code: "PRODUCT_TERMINAL_NOT_DURABLE",
-      message:
-        "Evidence / ReviewBundle / Contract Result CE absents — aucun claim reconstruit.",
-    };
-  }
-
-  if (evidence.bindings.projectId && evidence.bindings.projectId !== input.projectId) {
-    return {
-      ok: false,
-      code: "PROJECT_MISMATCH",
-      message: "Evidence liée à un autre projet.",
-    };
-  }
-  if (evidence.bindings.executionAttemptId !== input.attemptId) {
-    return {
-      ok: false,
-      code: "ATTEMPT_BINDING_MISMATCH",
-      message: "Evidence liée à un autre Attempt.",
-    };
-  }
-
-  const product = projectFromFacts({
-    attempt,
-    contract,
-    evidence,
-    reviewBundle,
-    claimEvaluation,
-  });
-
-  const postEvidence = await rehydrateW3cPostEvidenceFromLps({
-    oa: input.oa,
-    projectId: input.projectId,
-    product,
-  });
-
-  return {
-    ok: true,
-    reusedFromIdempotency: true,
-    product,
-    postEvidence,
-  };
-}
-
-const TERMINAL_STATUSES = new Set([
-  "succeeded",
-  "failed",
-  "timeout",
-  "cancelled",
-]);
-
-export async function rehydrateLatestW3bProductTerminalForContract(input: {
-  readonly oa: RuntimeOaStack;
-  readonly projectId: string;
-  readonly executionContractId: string;
-}): Promise<
-  | {
-      readonly ok: true;
-      readonly product: W3BProductTerminalProjection;
-      readonly attemptId: string;
-      readonly attemptStatus: string;
-      readonly reusedFromIdempotency: true;
-      readonly postEvidence?: W3cPostEvidenceLoopResult;
-    }
-  | { readonly ok: false; readonly code: string; readonly message: string }
-> {
-  if (!input.oa.executionAttemptServices || !input.oa.evidenceReviewServices) {
-    return {
-      ok: false,
-      code: "EVIDENCE_STACK_UNAVAILABLE",
-      message: "Services Attempt / Evidence indisponibles.",
-    };
-  }
-  const listed =
-    await input.oa.executionAttemptServices.listExecutionAttempts.execute({
-      executionContractId: input.executionContractId,
-    });
-  if (!listed.ok) {
-    return {
-      ok: false,
-      code: listed.error.detailCode,
-      message: listed.error.message,
-    };
-  }
-  const terminal = [...listed.attempts]
-    .filter((a) => TERMINAL_STATUSES.has(a.status))
-    .sort((a, b) => {
-      const aAt = a.updatedAt ?? a.createdAt ?? "";
-      const bAt = b.updatedAt ?? b.createdAt ?? "";
-      return aAt < bAt ? 1 : -1;
-    })[0];
-  if (!terminal) {
-    return {
-      ok: false,
-      code: "NO_TERMINAL_ATTEMPT",
-      message: "Aucune tentative terminale durable pour ce contrat.",
-    };
-  }
-  const rehydrated = await rehydrateW3bProductTerminal({
-    oa: input.oa,
-    projectId: input.projectId,
-    attemptId: terminal.attemptId,
-  });
-  if (!rehydrated.ok) return rehydrated;
-  return {
-    ok: true,
-    product: rehydrated.product,
-    attemptId: terminal.attemptId,
-    attemptStatus: terminal.status,
-    reusedFromIdempotency: true,
-    ...(rehydrated.postEvidence
-      ? { postEvidence: rehydrated.postEvidence }
-      : {}),
-  };
-}
-
-/** @deprecated alias for actions/tests migrating from heuristic materialize name */
-export const materializeProductOutcomeFromAttempt = materializeW3bProductTerminal;
-export const rehydrateProductOutcomeFromAttempt = rehydrateW3bProductTerminal;
-export const rehydrateLatestProductOutcomeForContract =
-  rehydrateLatestW3bProductTerminalForContract;
-```
+## 10. Full file contents
 
 ### `projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts`
 
@@ -5135,6 +610,11 @@ export type RequalifyDocsWriteContractResultInput = {
    * (never overwrites prior docs_write / W3-B CE ids).
    */
   correctionRef?: string;
+  /**
+   * With correctionRef: use successor ReviewBundle id scoped by correction
+   * (historical rb:docs-write remains untouched).
+   */
+  scopeReviewBundle?: boolean;
 };
 
 export type RequalifyDocsWriteContractResultResult =
@@ -5162,6 +642,7 @@ export async function requalifyDocsWriteContractResult(
 
   const ids = docsWriteContractResultIdentity(input.attempt.attemptId, {
     ...(input.correctionRef ? { correctionRef: input.correctionRef } : {}),
+    ...(input.scopeReviewBundle ? { scopeReviewBundle: true } : {}),
   });
   const evidence = await services.evidenceReader.findById(ids.evidenceId);
   if (!evidence) {
@@ -5240,20 +721,30 @@ export async function requalifyDocsWriteContractResult(
     // conflicting docs-write identity when a docs-write CE is already current.
     if (!input.correctionRef) {
       if (currentIsDocsWriteLineage) {
+        // Prefer the ReviewBundle identity bound into the current CE
+        // (successor RB after evidence-completion), not the historical default.
+        const boundRbId = currentCe.reviewBundleId;
+        const boundRb = boundRbId
+          ? await services.reviewBundleReader.findById(boundRbId)
+          : null;
         return {
           ok: true,
           claimEvaluation: currentCe,
-          reviewBundle,
+          reviewBundle: boundRb ?? reviewBundle,
           reusedFromIdempotencyKey: true,
         };
       }
       supersededClaimEvaluationId = currentCe.claimEvaluationId;
     } else if (ids.claimEvaluationId === currentCe.claimEvaluationId) {
       // CASE C — same correctionRef already current.
+      const boundRbId = currentCe.reviewBundleId;
+      const boundRb = boundRbId
+        ? await services.reviewBundleReader.findById(boundRbId)
+        : null;
       return {
         ok: true,
         claimEvaluation: currentCe,
-        reviewBundle,
+        reviewBundle: boundRb ?? reviewBundle,
         reusedFromIdempotencyKey: true,
       };
     } else {
@@ -5351,2409 +842,1339 @@ export async function requalifyDocsWriteContractResult(
     reusedFromIdempotencyKey: evaluated.reusedFromIdempotencyKey,
   };
 }
+
 ```
 
-### `projects/sfia-studio/app/features/project-assistant/w2/resolvePostEvidenceRecoveryContext.ts`
+### `projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts`
 
 ```
 /**
- * Checkpoint F / R7 — resolve durable post-Evidence RecoveryContext for W2
- * trajectory instruction. No new persistence. No parallel recovery engine.
- *
- * Coherence: Attempt terminal ↔ Evidence ↔ ReviewBundle ↔ W3C recover payload
- * for the same Project. Falls back to null (generic trajectory) when absent.
- *
- * Supports FAIL/STOP recovery and narrow EVIDENCE_BACKED_NOT_PROVEN (UNCLAIMED
- * + succeeded Attempt) via durable Evidence bindings — not w3b id reconstruction.
+ * W3-B FC-11 — Product terminal projection from Attempt + Contract Result CE.
+ * Consumes ClaimEvaluation.status (canonical SoT) — NOT heuristic semantics.
  */
-import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
+import type { ExecutionContract } from "@/lib/oa/execution-contract";
 import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
-import { resolveCurrentContractResultClaimEvaluation } from "@/lib/oa/evidence-review";
-import {
-  findExistingW3cPostEvidence,
-  parseW3cRecommendationPayload,
-  type W3cRecommendationKind,
-  type W3cRecommendationPayload,
-} from "./w3cPostEvidenceLoop";
-import { resolveDurableBoundaryProofMode } from "@/features/project-assistant/f3/resolveDurableBoundaryProofMode";
+import type { ClaimEvaluation } from "@/lib/oa/evidence-review";
+import type { Evidence, ReviewBundle } from "@/lib/oa/evidence-review";
+import { CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT } from "@/lib/oa/evidence-review/domain/contractResultTypes";
+import { contractResultBindingsMatchCurrentFacts } from "@/lib/oa/evidence-review/domain/contractResultTypes";
+import { projectContractResultVerdict } from "@/lib/oa/evidence-review/application/contractResultVerdictProjection";
 
-export type PostEvidenceRecoveryContext = {
-  readonly kind: "post_evidence_recovery";
-  readonly attemptId: string;
-  readonly attemptStatus: "failed" | "timeout" | "cancelled" | "succeeded";
-  readonly stopReason: string | null;
-  readonly executionContractId: string;
-  readonly evidenceId: string;
-  readonly reviewBundleId: string;
-  readonly productOutcome: "FAIL" | "STOP" | "UNCLAIMED";
-  readonly recommendationKind: Extract<
-    W3cRecommendationKind,
-    "recover" | "replan"
-  >;
-  readonly headline: string;
-  readonly rationale: string;
-  readonly nextStep: string;
-  readonly realProcessInvoked: boolean;
-  readonly businessEffectProven: false;
-  readonly w3cEpistemicItemId: string;
+export type W3BProductTerminalKind = "SUCCESS" | "STOP" | "FAIL" | "UNCLAIMED";
+
+export type W3BProductTerminalProjection = {
+  readonly outcome: W3BProductTerminalKind;
+  readonly businessHeadline: string;
+  readonly businessReason: string;
+  readonly claimAllowed: boolean;
+  readonly evidenceId: string | null;
+  readonly reviewBundleId: string | null;
+  readonly claimEvaluationId: string | null;
+  readonly claimEvaluationStatus: string | null;
+  readonly contractResultVerdict: string | null;
+  readonly evidenceStatus: string | null;
+  readonly evidenceSummary: string | null;
+  readonly reviewBundleCompleteness: string | null;
+  readonly governedBoundary: string | null;
+  readonly technicalDetail: {
+    readonly attemptId: string;
+    readonly attemptStatus: string;
+    readonly resultRef: string | null;
+    readonly errorRef: string | null;
+    readonly stopReason: string | null;
+    readonly stopOrigin: string | null;
+    readonly stopCode: string | null;
+    readonly executionContractId: string;
+    readonly executionContractVersion: number;
+  };
+  readonly reservations: readonly string[];
+  readonly antiClaims: {
+    readonly ready: false;
+    readonly w3Closed: false;
+    readonly productCompletionComplete: false;
+    readonly runtimeV3Adopted: false;
+    readonly realProven: false;
+    readonly cycleAutoClosed: false;
+    readonly projectAutoArchived: false;
+  };
+  readonly cycleInstanceClosed: false;
+  readonly projectArchived: false;
+  readonly noraInvoked: false;
+  readonly replanInvoked: false;
+  readonly realExecution: false;
 };
 
-function statementToJsonString(statement: unknown): string | null {
-  if (typeof statement === "string" && statement.trim().length > 0) {
-    return statement;
-  }
-  if (statement && typeof statement === "object") {
-    try {
-      return JSON.stringify(statement);
-    } catch {
-      return null;
+const PRODUCT_RESERVATIONS = [
+  "Evidence requise avant claim produit",
+  "Apprentissage / replan non démarrés",
+  "Exécuteur de substitution — pas d'effet externe réel",
+  "Aucun READY",
+] as const;
+
+/** Honest reservation when a REAL process was durably launched (vs substitution wording). */
+export function productReservationsForAttempt(
+  attempt: ExecutionAttempt,
+): readonly string[] {
+  const realInvoked =
+    attempt.processDiagnostic?.realProcessInvoked === true ||
+    attempt.irreversibleEffectsPossible === true ||
+    (typeof attempt.stopReason === "string" &&
+      attempt.stopReason.startsWith("REAL_"));
+  if (!realInvoked) return [...PRODUCT_RESERVATIONS];
+  return [
+    PRODUCT_RESERVATIONS[0],
+    PRODUCT_RESERVATIONS[1],
+    "Process Cursor REAL invoqué — effet métier non prouvé",
+    PRODUCT_RESERVATIONS[3],
+  ];
+}
+
+const ANTI = {
+  ready: false,
+  w3Closed: false,
+  productCompletionComplete: false,
+  runtimeV3Adopted: false,
+  realProven: false,
+  cycleAutoClosed: false,
+  projectAutoArchived: false,
+} as const;
+
+function unclaimed(reason: string): Pick<
+  W3BProductTerminalProjection,
+  "outcome" | "businessHeadline" | "businessReason" | "claimAllowed" | "governedBoundary"
+> {
+  return {
+    outcome: "UNCLAIMED",
+    businessHeadline: "Résultat produit non qualifié",
+    businessReason: reason,
+    claimAllowed: false,
+    governedBoundary: null,
+  };
+}
+
+function resolveGovernedBoundary(input: {
+  stopCode?: string | null;
+  stopReason?: string | null;
+  stopConditions: readonly string[];
+  constraints: readonly string[];
+}): string | null {
+  const token = input.stopCode?.trim() || input.stopReason?.trim();
+  if (!token) return null;
+  if (input.stopConditions.includes(token)) return token;
+  const protectedConstraints = input.constraints.filter((c) =>
+    c.startsWith("PROTECTED:"),
+  );
+  if (protectedConstraints.includes(token)) return token;
+  for (const c of protectedConstraints) {
+    if (token === c || token.startsWith(`${c} `) || token.startsWith(`${c}:`)) {
+      return c;
     }
   }
   return null;
 }
 
-function resolveRealProcessInvoked(attempt: ExecutionAttempt): boolean {
-  if (attempt.processDiagnostic?.realProcessInvoked === true) return true;
-  if (attempt.irreversibleEffectsPossible === true) return true;
-  if (
-    typeof attempt.stopReason === "string" &&
-    attempt.stopReason.startsWith("REAL_")
-  ) {
-    return true;
+function evidenceSummaryFor(
+  outcome: W3BProductTerminalKind,
+  attemptStatus: string,
+): string {
+  if (outcome === "SUCCESS") {
+    return "Evidence d'exécution disponible — résultat attendu prouvé par évaluation Contract Result.";
   }
-  return false;
+  if (outcome === "STOP") {
+    return "Evidence d'arrêt gouverné — frontière et raison documentées ; travail antérieur préservé.";
+  }
+  if (outcome === "FAIL") {
+    return "Evidence diagnostique d'échec technique — aucun succès métier.";
+  }
+  return `Evidence non claimable (statut technique : ${attemptStatus}).`;
 }
 
-/** Pure R6 truth — exported for T5; never invents REAL from agent id alone. */
-export function inferDurableRealProcessInvoked(input: {
-  readonly attempt: ExecutionAttempt;
-  readonly boundaryProofMode: string | null;
-}): boolean {
-  if (resolveRealProcessInvoked(input.attempt)) return true;
+function isContractResultClaimEvaluation(
+  ce: ClaimEvaluation | null | undefined,
+): ce is ClaimEvaluation {
   return (
-    input.boundaryProofMode === "cursor_real" &&
-    Boolean(input.attempt.launchedAt)
+    ce != null &&
+    ce.subjectKind === CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT
   );
 }
 
-async function loadAttempt(
-  oa: RuntimeOaStack,
-  attemptId: string,
-): Promise<ExecutionAttempt | null> {
-  if (!oa.executionAttemptServices) return null;
-  const loaded = await oa.executionAttemptServices.getExecutionAttempt.execute({
-    attemptId,
-  });
-  return loaded.ok ? loaded.attempt : null;
-}
-
-function isRecoverableProductOutcome(
-  outcome: W3cRecommendationPayload["productOutcome"],
-): outcome is "FAIL" | "STOP" | "UNCLAIMED" {
-  return outcome === "FAIL" || outcome === "STOP" || outcome === "UNCLAIMED";
-}
-
-/**
- * Resolve a coherent post-Evidence recovery subject for W2 options.
- * Returns null when no coherent recover/replan episode exists (generic path).
- */
-export async function resolvePostEvidenceRecoveryContext(input: {
-  readonly oa: RuntimeOaStack;
-  readonly projectId: string;
-}): Promise<
-  | { readonly ok: true; readonly context: PostEvidenceRecoveryContext | null }
-  | { readonly ok: false; readonly code: string; readonly message: string }
-> {
-  const { oa, projectId } = input;
-  if (!oa.cycleServices || !oa.executionAttemptServices) {
-    return { ok: true, context: null };
-  }
-
-  const epistemic = await oa.cycleServices.getEpistemicState.execute({
-    projectId,
-  });
-  if (!epistemic.ok) {
-    return {
-      ok: false,
-      code: epistemic.error.detailCode,
-      message: "État épistémique indisponible — instruction options refusée.",
-    };
-  }
-
-  type Candidate = {
-    payload: W3cRecommendationPayload & {
-      kind: "recover" | "replan";
-      productOutcome: "FAIL" | "STOP" | "UNCLAIMED";
-    };
-    epistemicItemId: string;
+export function projectW3bProductTerminal(input: {
+  attempt: ExecutionAttempt;
+  contract: ExecutionContract;
+  evidence: Evidence | null;
+  reviewBundle: ReviewBundle | null;
+  claimEvaluation: ClaimEvaluation | null;
+}): W3BProductTerminalProjection {
+  const base = {
+    evidenceId: input.evidence?.evidenceId ?? null,
+    reviewBundleId: input.reviewBundle?.reviewBundleId ?? null,
+    claimEvaluationId: input.claimEvaluation?.claimEvaluationId ?? null,
+    claimEvaluationStatus: input.claimEvaluation?.status ?? null,
+    contractResultVerdict: input.claimEvaluation
+      ? projectContractResultVerdict(input.claimEvaluation.status)
+      : null,
+    evidenceStatus: input.evidence?.status ?? null,
+    evidenceSummary: null as string | null,
+    reviewBundleCompleteness: input.reviewBundle?.completeness ?? null,
+    governedBoundary: null as string | null,
+    technicalDetail: {
+      attemptId: input.attempt.attemptId,
+      attemptStatus: input.attempt.status,
+      resultRef: input.attempt.resultRef ?? null,
+      errorRef: input.attempt.errorRef ?? null,
+      stopReason: input.attempt.stopReason ?? null,
+      stopOrigin: input.attempt.stopOrigin ?? null,
+      stopCode: input.attempt.stopCode ?? null,
+      executionContractId: input.contract.executionContractId,
+      executionContractVersion: input.attempt.executionContractVersion,
+    },
+    reservations: [...productReservationsForAttempt(input.attempt)],
+    antiClaims: ANTI,
+    cycleInstanceClosed: false as const,
+    projectArchived: false as const,
+    noraInvoked: false as const,
+    replanInvoked: false as const,
+    realExecution: false as const,
   };
-  const candidates: Candidate[] = [];
-  for (const item of epistemic.state.items) {
-    if (item.status !== "active" || item.type !== "Recommendation") continue;
-    const source = item.source ?? "";
-    const isW3c =
-      source.startsWith("w3c-post-evidence:") ||
-      item.epistemicItemId.startsWith("epi:w3c-rec:");
-    if (!isW3c) continue;
-    const raw = statementToJsonString(item.statement);
-    if (!raw) continue;
-    const payload = parseW3cRecommendationPayload(raw);
-    if (!payload) continue;
-    if (payload.kind !== "recover" && payload.kind !== "replan") continue;
-    if (!isRecoverableProductOutcome(payload.productOutcome)) continue;
-    candidates.push({
-      payload: {
-        ...payload,
-        kind: payload.kind,
-        productOutcome: payload.productOutcome,
-      },
-      epistemicItemId: item.epistemicItemId,
-    });
-  }
 
-  if (candidates.length === 0) {
-    return { ok: true, context: null };
-  }
-
-  let best: {
-    context: PostEvidenceRecoveryContext;
-    sortKey: string;
-  } | null = null;
-
-  for (const candidate of candidates) {
-    const { payload } = candidate;
-
-    const existing = await findExistingW3cPostEvidence({
-      oa,
-      projectId,
-      evidenceId: payload.evidenceId,
-      attemptId: payload.attemptId,
-    });
-    if (!existing) continue;
-    if (existing.recommendation.kind !== payload.kind) continue;
-    if (!isRecoverableProductOutcome(existing.productOutcome)) continue;
-    if (existing.productOutcome !== payload.productOutcome) continue;
-
-    const attempt = await loadAttempt(oa, payload.attemptId);
-    if (!attempt) continue;
-    const terminalOk =
-      payload.productOutcome === "UNCLAIMED"
-        ? attempt.status === "succeeded"
-        : attempt.status === "failed" ||
-          attempt.status === "timeout" ||
-          (payload.productOutcome === "STOP" && attempt.status === "cancelled");
-    if (!terminalOk) continue;
-
-    if (!oa.executionContractServices) continue;
-    const contract =
-      await oa.executionContractServices.getExecutionContract.execute({
-        executionContractId: attempt.executionContractId,
-      });
-    if (!contract.ok) continue;
-    if (contract.contract.projectId !== projectId) continue;
-
-    // Durable Evidence/RB bindings (docs_write OR w3b — no id reconstruction).
-    if (!oa.evidenceReviewServices?.evidenceReader) continue;
-    const evidence = await oa.evidenceReviewServices.evidenceReader.findById(
-      payload.evidenceId,
-    );
-    if (!evidence) continue;
-    if (evidence.bindings.executionAttemptId !== payload.attemptId) continue;
-    if (
-      evidence.bindings.projectId &&
-      evidence.bindings.projectId !== projectId
-    ) {
-      continue;
-    }
-    if (
-      evidence.bindings.executionContractId &&
-      evidence.bindings.executionContractId !== attempt.executionContractId
-    ) {
-      continue;
-    }
-    const reviewBundle =
-      await oa.evidenceReviewServices.reviewBundleReader.findById(
-        payload.reviewBundleId,
-      );
-    if (!reviewBundle) continue;
-    if (reviewBundle.projectId !== projectId) continue;
-    const rbEvidenceIds = [
-      ...(reviewBundle.evidenceRefs ?? []),
-      ...(reviewBundle.frozenEvidenceSnapshots ?? []).map((s) => s.evidenceId),
-    ];
-    if (!rbEvidenceIds.includes(payload.evidenceId)) continue;
-
-    // CR-PJR-03 — UNCLAIMED recovery must bind current CE not_proven.
-    if (payload.productOutcome === "UNCLAIMED") {
-      if (!oa.evidenceReviewServices?.claimEvaluationRepository) continue;
-      const currentCe = await resolveCurrentContractResultClaimEvaluation({
-        repo: oa.evidenceReviewServices.claimEvaluationRepository,
-        projectId,
-        executionAttemptId: payload.attemptId,
-      });
-      if (currentCe.status !== "one") continue;
-      if (currentCe.claimEvaluation.status !== "not_proven") continue;
-      if (
-        payload.claimEvaluationId !==
-        currentCe.claimEvaluation.claimEvaluationId
-      ) {
-        continue;
-      }
-      // Prefer Epistemic item that still matches current Product CE binding.
-      const currentMatched = await findExistingW3cPostEvidence({
-        oa,
-        projectId,
-        evidenceId: payload.evidenceId,
-        attemptId: payload.attemptId,
-        product: {
-          evidenceId: payload.evidenceId,
-          reviewBundleId: payload.reviewBundleId,
-          claimEvaluationId: currentCe.claimEvaluation.claimEvaluationId,
-          outcome: "UNCLAIMED",
-          technicalDetail: { attemptId: payload.attemptId },
-        },
-      });
-      if (!currentMatched) continue;
-    }
-
-    const boundaryProofMode = await resolveDurableBoundaryProofMode({
-      oa,
-      attempt,
-    });
-    const realProcessInvoked = inferDurableRealProcessInvoked({
-      attempt,
-      boundaryProofMode,
-    });
-
-    const attemptStatus:
-      | "failed"
-      | "timeout"
-      | "cancelled"
-      | "succeeded" =
-      attempt.status === "failed" ||
-      attempt.status === "timeout" ||
-      attempt.status === "cancelled" ||
-      attempt.status === "succeeded"
-        ? attempt.status
-        : "failed";
-
-    const context: PostEvidenceRecoveryContext = {
-      kind: "post_evidence_recovery",
-      attemptId: payload.attemptId,
-      attemptStatus,
-      stopReason: attempt.stopReason ?? null,
-      executionContractId: attempt.executionContractId,
-      evidenceId: payload.evidenceId,
-      reviewBundleId: payload.reviewBundleId,
-      productOutcome: payload.productOutcome,
-      recommendationKind: payload.kind,
-      headline: payload.headline,
-      rationale: payload.rationale,
-      nextStep: payload.nextStep,
-      realProcessInvoked,
-      businessEffectProven: false,
-      w3cEpistemicItemId: candidate.epistemicItemId,
+  if (!input.evidence || !input.reviewBundle) {
+    return {
+      ...base,
+      ...unclaimed("Evidence / ReviewBundle absents — aucun claim produit."),
+      evidenceSummary: null,
     };
-
-    const sortKey =
-      attempt.failedAt ??
-      attempt.cancelledAt ??
-      attempt.completedAt ??
-      attempt.updatedAt ??
-      attempt.createdAt ??
-      "";
-    if (!best || sortKey > best.sortKey) {
-      best = { context, sortKey };
-    }
+  }
+  if (input.reviewBundle.completeness !== "complete") {
+    return {
+      ...base,
+      ...unclaimed("ReviewBundle incomplet — aucun claim produit."),
+      evidenceSummary: null,
+    };
+  }
+  if (
+    input.evidence.status !== "available" &&
+    input.evidence.status !== "verified"
+  ) {
+    return {
+      ...base,
+      ...unclaimed(
+        `Evidence en état ${input.evidence.status} — claim produit refusé.`,
+      ),
+      evidenceSummary: null,
+    };
+  }
+  if (!isContractResultClaimEvaluation(input.claimEvaluation)) {
+    return {
+      ...base,
+      ...unclaimed(
+        "Évaluation Contract Result absente — aucun claim produit SUCCESS/STOP/FAIL.",
+      ),
+      evidenceSummary: evidenceSummaryFor("UNCLAIMED", input.attempt.status),
+    };
   }
 
-  return { ok: true, context: best?.context ?? null };
+  const ce = input.claimEvaluation;
+  const verdict = projectContractResultVerdict(ce.status);
+
+  if (
+    ce.contractResultBindings &&
+    !contractResultBindingsMatchCurrentFacts({
+      bindings: ce.contractResultBindings,
+      attempt: input.attempt,
+      reviewBundle: {
+        reviewBundleId: input.reviewBundle.reviewBundleId,
+        frozenVersion: input.reviewBundle.frozenVersion,
+      },
+      evidenceIds: input.reviewBundle.evidenceRefs,
+      projectId: input.contract.projectId,
+      cycleInstanceId: input.contract.cycleInstanceId ?? null,
+    })
+  ) {
+    return {
+      ...base,
+      ...unclaimed(
+        "Évaluation Contract Result périmée — bindings EC/RB/Attempt ne correspondent plus.",
+      ),
+      evidenceSummary: evidenceSummaryFor("UNCLAIMED", input.attempt.status),
+    };
+  }
+
+  if (
+    input.attempt.status === "succeeded" &&
+    ce.status === "pass" &&
+    verdict === "PASS"
+  ) {
+    const boundOutputs =
+      input.attempt.boundExecutionContract?.semanticMaterial.expectedOutputs;
+    const expectedSummary = (boundOutputs ?? input.contract.expectedOutputs ?? []).join(
+      " · ",
+    );
+    const scope =
+      input.attempt.boundExecutionContract?.semanticMaterial.scope ??
+      input.contract.scope;
+    return {
+      ...base,
+      outcome: "SUCCESS",
+      businessHeadline: "Succès",
+      businessReason: `Résultat attendu obtenu dans le périmètre « ${scope} » : ${expectedSummary}.`,
+      claimAllowed: true,
+      governedBoundary: null,
+      evidenceSummary: evidenceSummaryFor("SUCCESS", input.attempt.status),
+    };
+  }
+
+  if (
+    input.attempt.status === "cancelled" &&
+    input.attempt.stopOrigin === "SYSTEM_GOVERNED_STOP" &&
+    input.attempt.stopCode &&
+    input.attempt.stopSourceRef &&
+    input.attempt.cancelledAt
+  ) {
+    const governedBoundary = resolveGovernedBoundary({
+      stopCode: input.attempt.stopCode,
+      stopReason: input.attempt.stopReason,
+      stopConditions: input.contract.stopConditions ?? [],
+      constraints: input.contract.constraints ?? [],
+    });
+    if (!governedBoundary) {
+      return {
+        ...base,
+        ...unclaimed(
+          "Arrêt système sans frontière gouvernée reconstructible — STOP non claimable.",
+        ),
+        evidenceSummary: evidenceSummaryFor("UNCLAIMED", input.attempt.status),
+      };
+    }
+    return {
+      ...base,
+      outcome: "STOP",
+      businessHeadline: "Arrêt gouverné",
+      businessReason: `Frontière atteinte : ${governedBoundary}. Travail antérieur préservé ; résultat métier non atteint.`,
+      claimAllowed: true,
+      governedBoundary,
+      evidenceSummary: evidenceSummaryFor("STOP", input.attempt.status),
+    };
+  }
+
+  if (input.attempt.status === "failed" || input.attempt.status === "timeout") {
+    const hasDiagnostic =
+      Boolean(input.attempt.errorRef) ||
+      Boolean(input.attempt.failedAt) ||
+      Boolean(input.attempt.timedOutAt) ||
+      Boolean(input.attempt.stopReason);
+    if (!hasDiagnostic) {
+      return {
+        ...base,
+        ...unclaimed("Échec technique sans diagnostic durable — FAIL non claimable."),
+        evidenceSummary: evidenceSummaryFor("UNCLAIMED", input.attempt.status),
+      };
+    }
+    const diagnostic =
+      input.attempt.errorRef ||
+      (input.attempt.status === "timeout" ? "timeout technique" : input.attempt.stopReason) ||
+      "indisponibilité processus/outil";
+    return {
+      ...base,
+      outcome: "FAIL",
+      businessHeadline: "Échec technique",
+      businessReason: `Échec de processus/outil : ${diagnostic}. Aucun succès métier.`,
+      claimAllowed: true,
+      governedBoundary: null,
+      evidenceSummary: evidenceSummaryFor("FAIL", input.attempt.status),
+    };
+  }
+
+  if (input.attempt.status === "cancelled") {
+    return {
+      ...base,
+      ...unclaimed(
+        "Annulation Pilote sans provenance SYSTEM_GOVERNED_STOP — STOP produit non claimable.",
+      ),
+      evidenceSummary: evidenceSummaryFor("UNCLAIMED", input.attempt.status),
+    };
+  }
+
+  return {
+    ...base,
+    ...unclaimed(
+      `Statut technique « ${input.attempt.status} » + évaluation Contract Result insuffisants.`,
+    ),
+    evidenceSummary: evidenceSummaryFor("UNCLAIMED", input.attempt.status),
+  };
 }
 
-/** Compact cognitive section — recovery subject, not framing dump. */
-export function buildRecoveryCognitionSection(
-  context: PostEvidenceRecoveryContext,
-): string {
-  return [
-    "## Sujet courant — recovery / replan post-Evidence (PAS un nouveau cadrage)",
-    `- Attempt terminal: ${context.attemptId} (${context.attemptStatus})`,
-    `- ExecutionContract: ${context.executionContractId}`,
-    `- stopReason: ${context.stopReason ?? "n/a"}`,
-    `- Evidence: ${context.evidenceId}`,
-    `- ReviewBundle: ${context.reviewBundleId}`,
-    `- productOutcome: ${context.productOutcome}`,
-    `- W3C recommendationKind: ${context.recommendationKind}`,
-    `- headline: ${context.headline}`,
-    `- realProcessInvoked (durable): ${context.realProcessInvoked}`,
-    `- businessEffectProven: false`,
-    "- Aucun succès métier prouvé. Aucune READY.",
-    "- La décision suivante appartient au Pilote (Recommendation ≠ HumanDecision).",
-    "- Ne pas repartir sur le cadrage fonctionnel initial comme sujet principal.",
-    `- Rationale W3C (bornée): ${context.rationale}`,
-  ].join("\n");
-}
 ```
 
-### `projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts`
+### `projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts`
 
 ```
 /**
- * W3-C — Post-Evidence loop after W3-B terminal materialize.
- * Consumes durable Evidence / RB / CE (no re-ingest). Recommendation only —
- * never HumanDecision, never auto trajectory mutation, never auto new cycle.
- *
- * HumanDecision of trajectory only via explicit W2 propose + decide — Recovery
- * CTA ≠ automatic HD. D5 NextActionCode has no ProjectTrajectory replan signal;
- * W3-C never invents kind:"replan" / requiresHumanDecision from D5 alone.
+ * Contract Result semantic entry #2 — cursor.docs_write.apply (bounded docs-write).
  */
-
-import { createHash } from "node:crypto";
 import {
-  resolveProductDoctrineRegistryRoot,
-  type RuntimeOaStack,
-} from "@/lib/vertical-slice-runtime";
-import type { EpistemicItem } from "@/lib/oa/cycle";
-import { SFIA_STUDIO_SYSTEM_FACTUAL_WRITER } from "@/features/project-assistant/f3/systemFactualWriter";
-import { appendEvidenceOutcomeToLps } from "@/features/project-assistant/f3/appendEvidenceOutcomeToLps";
-import { deriveAttemptProvenance } from "@/features/project-assistant/f3/deriveAttemptProvenance";
-import { resolveDurableBoundaryProofMode } from "@/features/project-assistant/f3/resolveDurableBoundaryProofMode";
+  M4_BOUNDED_DOCS_WRITE_ACTION,
+  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
+} from "@/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent";
+import type { Evidence, EvidenceStatus, ExecutionAttemptSnapshot } from "../domain/types";
+import type { ReviewBundleEvidenceSnapshot } from "../domain/reviewBundleTypes";
+import type {
+  ContractResultEvidenceSelection,
+  ContractResultSemantic,
+} from "./contractResultSemantics";
 import {
-  analyzePostEvidenceWithProvider,
-  extractW3cPostEvidenceAnalysisForEvidence,
-  extractW3cRecommendationPayloadJsonForEvidence,
-  formatPostEvidenceAnalysisForLps,
-  formatW3cRecommendationPayloadForLps,
-  lastW3cEvidenceIdInLpsContext,
-} from "@/features/project-assistant/f3/postEvidenceNoraAnalysis";
-import {
-  buildCkcCognitivePromptSection,
-  loadProductCkcCognitiveContent,
-} from "@/features/project-assistant/f2/ckcCognitiveContext";
-import type { NextActionCode } from "@/lib/oa/evidence-review/domain/coordinationTypes";
-import { resolveCurrentContractResultClaimEvaluation } from "@/lib/oa/evidence-review";
-import type { W3BProductTerminalProjection } from "./w3bProductTerminalProjection";
-import { resolveW2QualificationInputs } from "./qualificationInputs";
+  DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
+  DOCS_WRITE_MIN_CONFORMITY_VERIFIER_TECHNICAL_RESULT_REF,
+} from "./docsWriteMinConformityVerifier";
+import { isW3bContractResultEvidenceUsable } from "./tempArtifactContractResultSemantic";
 
-export type W3cRecommendationKind =
-  | "continue"
-  | "recover"
-  | "replan"
-  | "fail_closed";
+export const DOCS_WRITE_CONTRACT_RESULT_RULE_REF =
+  "w3b-contract-result/cursor-docs-write-apply-v1" as const;
 
-export type W3cPostEvidenceRecommendation = {
-  kind: W3cRecommendationKind;
-  headline: string;
-  rationale: string;
-  nextStep: string;
-  requiresHumanDecision: boolean;
-  /** Always recommendation — never authority */
-  authority: "none";
-  gateConsumed: false;
-  decisionCreated: false;
-  attemptAutoLaunchNextCycle: false;
-  recommendNextGateStatus: string | null;
-  nextActionCode: string | null;
-};
+export const DOCS_WRITE_CONTRACT_RESULT_ER_KEY =
+  "evreq:docs_write_artifact" as const;
 
-export type W3cPostEvidenceLoopSuccess = {
-  ok: true;
-  noraInvoked: boolean;
-  replanInvoked: false; // never auto-replan; propose is separate user action
-  analysisText: string | null;
-  analysisUnavailableReason: string | null;
-  analysisProviderId: string | null;
-  recommendation: W3cPostEvidenceRecommendation;
-  lpsVersion: number | null;
+export const BOUNDED_DOCS_WRITE_EO_TEMPLATE =
+  "Résultat d'exécution — cursor.docs_write.apply" as const;
+
+export const DOCS_WRITE_ARTIFACT_EVIDENCE_SOURCE =
+  "execution_attempt:docs_write" as const;
+
+/**
+ * Correction identity for re-evaluation after semantic rule change.
+ * Must never overwrite prior CE ids (`clm:docs-write:{attempt}` / W3-B).
+ */
+export const DOCS_WRITE_STRICT_EO_CORRECTION_REF = "strict-eo-v1" as const;
+
+/**
+ * Evidence-completion re-evaluation identity (successor RB + conformity Evidence).
+ * Does not mutate the historical rb:docs-write freeze.
+ */
+export const DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF =
+  "evidence-completion-v1" as const;
+
+/**
+ * Exact historically-bound EO templates (versioned named semantics — no NLP).
+ * Apostrophe in EO1 is U+2019 (bound Attempt 3 EC truth).
+ */
+export const DOCS_WRITE_EO_MATERIALIZED_MARKDOWN_AT_TARGET =
+  "Le fichier Markdown matérialisé au chemin cible" as const;
+
+export const DOCS_WRITE_EO_MIN_CONFORMITY_VERIFICATION =
+  "Vérification de l\u2019existence et de la conformité minimale du fichier" as const;
+
+/** Identity helpers for docs-write Contract Result ClaimEvaluations. */
+export function docsWriteContractResultIdentity(
+  attemptId: string,
+  options?: {
+    readonly correctionRef?: string;
+    /**
+     * When true with correctionRef, allocate a successor ReviewBundle id
+     * (`rb:docs-write:{correction}:{attempt}`) leaving historical RB untouched.
+     */
+    readonly scopeReviewBundle?: boolean;
+  },
+): {
+  claimEvaluationId: string;
+  claimEvaluationIdempotencyKey: string;
   evidenceId: string;
   reviewBundleId: string;
-  claimEvaluationId: string | null;
-  productOutcome: "SUCCESS" | "STOP" | "FAIL" | "UNCLAIMED";
-};
-
-export type W3cPostEvidenceLoopResult =
-  | W3cPostEvidenceLoopSuccess
-  | { ok: false; code: string; message: string; failClosed: true };
-
-export type W3cRecommendationPayload = {
-  kind: W3cRecommendationKind;
-  headline: string;
-  rationale: string;
-  nextStep: string;
-  requiresHumanDecision: boolean;
-  authority: "none";
-  gateConsumed: false;
-  decisionCreated: false;
-  attemptAutoLaunchNextCycle: false;
-  recommendNextGateStatus: string | null;
-  nextActionCode: string | null;
-  evidenceId: string;
-  attemptId: string;
-  reviewBundleId: string;
-  claimEvaluationId: string | null;
-  productOutcome: "SUCCESS" | "STOP" | "FAIL" | "UNCLAIMED";
-  analysisText: string | null;
-  analysisUnavailableReason: string | null;
-  analysisProviderId: string | null;
-  noraInvoked: boolean;
-  lpsVersion: number | null;
-};
-
-const ANTI_AUTHORITY = {
-  authority: "none" as const,
-  gateConsumed: false as const,
-  decisionCreated: false as const,
-  attemptAutoLaunchNextCycle: false as const,
-};
-
-const NORA_RATIONALE_BOUND = 1200;
-const W3C_SOURCE_PREFIX = "w3c-post-evidence:";
-const W3C_EPI_ID_PREFIX = "epi:w3c-rec:";
-
-/** Test-only: fail Epistemic materialize once AFTER LPS success (W3C-R14). */
-let __w3cEpistemicMaterializeFailArmed = false;
-
-export function armW3cEpistemicMaterializeFailOnceForTests(): void {
-  if (process.env.VITEST !== "true" && process.env.NODE_ENV !== "test") {
-    return;
+  conformityEvidenceId: string;
+} {
+  const segment = attemptId.replace(/[^a-zA-Z0-9:_-]/g, "");
+  const correction = options?.correctionRef?.replace(/[^a-zA-Z0-9:_-]/g, "");
+  const baseEvidence = `ev:docs-write:${segment}`.slice(0, 128);
+  const baseRb = `rb:docs-write:${segment}`.slice(0, 128);
+  if (correction) {
+    const scopedRb = options?.scopeReviewBundle
+      ? `rb:docs-write:${correction}:${segment}`.slice(0, 128)
+      : baseRb;
+    return {
+      claimEvaluationId: `clm:docs-write:${correction}:${segment}`.slice(0, 128),
+      claimEvaluationIdempotencyKey: `idem:docs-write-ce:${correction}:${attemptId}`,
+      evidenceId: baseEvidence,
+      reviewBundleId: scopedRb,
+      conformityEvidenceId:
+        `ev:docs-write-conformity:${correction}:${segment}`.slice(0, 128),
+    };
   }
-  __w3cEpistemicMaterializeFailArmed = true;
+  return {
+    claimEvaluationId: `clm:docs-write:${segment}`.slice(0, 128),
+    claimEvaluationIdempotencyKey: `idem:docs-write-ce:${attemptId}`,
+    evidenceId: baseEvidence,
+    reviewBundleId: baseRb,
+    conformityEvidenceId: `ev:docs-write-conformity:${segment}`.slice(0, 128),
+  };
 }
 
-export function clearW3cEpistemicMaterializeFailForTests(): void {
-  __w3cEpistemicMaterializeFailArmed = false;
-}
+export function docsWriteArtifactFactsHold(input: {
+  attempt: ExecutionAttemptSnapshot;
+  evidence: Evidence;
+  material: {
+    executionContractId?: string;
+    projectId?: string;
+    cycleInstanceId?: string;
+  };
+}): boolean {
+  const { attempt, evidence, material } = input;
+  if (attempt.status !== "succeeded") return false;
+  if (evidence.type !== "artifact") return false;
+  if (evidence.source !== DOCS_WRITE_ARTIFACT_EVIDENCE_SOURCE) return false;
+  if (evidence.bindings.executionAttemptId !== attempt.attemptId) return false;
 
-function consumeW3cEpistemicMaterializeFailArmed(): boolean {
-  if (!__w3cEpistemicMaterializeFailArmed) return false;
-  __w3cEpistemicMaterializeFailArmed = false;
+  // Fail-closed: executionContractId must be present and exact — never "valid by absence".
+  const contractId =
+    material.executionContractId ?? attempt.executionContractId;
+  if (!evidence.bindings.executionContractId) return false;
+  if (evidence.bindings.executionContractId !== contractId) return false;
+
+  const projectId = material.projectId;
+  if (projectId) {
+    if (!evidence.bindings.projectId) return false;
+    if (evidence.bindings.projectId !== projectId) return false;
+  }
+
+  const cycleId = material.cycleInstanceId;
+  if (
+    cycleId &&
+    evidence.bindings.cycleInstanceId &&
+    evidence.bindings.cycleInstanceId !== cycleId
+  ) {
+    return false;
+  }
+
+  if (!evidence.digest) return false;
+  if (!evidence.location?.trim()) return false;
   return true;
 }
 
+/** Artifact-adapted usability — same freeze/status/freshness gates as W3-B. */
+export function isDocsWriteContractResultEvidenceUsable(input: {
+  evidence: Evidence;
+  snapshot: ReviewBundleEvidenceSnapshot | undefined;
+}): boolean {
+  return isW3bContractResultEvidenceUsable(input);
+}
+
+function pickDocsWriteArtifactEvidence(
+  evidences: readonly Evidence[],
+  attempt: ExecutionAttemptSnapshot,
+  material: {
+    executionContractId?: string;
+    projectId?: string;
+    cycleInstanceId?: string;
+  },
+): Evidence | undefined {
+  const matches = evidences.filter((e) =>
+    docsWriteArtifactFactsHold({ attempt, evidence: e, material }),
+  );
+  return matches.length === 1 ? matches[0] : undefined;
+}
+
+export function docsWriteConformityFactsHold(input: {
+  attempt: ExecutionAttemptSnapshot;
+  evidence: Evidence;
+  artifact: Evidence;
+  material: {
+    executionContractId?: string;
+    projectId?: string;
+    cycleInstanceId?: string;
+  };
+}): boolean {
+  const { attempt, evidence, artifact, material } = input;
+  if (attempt.status !== "succeeded") return false;
+  if (evidence.type !== "attestation") return false;
+  if (evidence.source !== DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE) return false;
+  if (
+    evidence.technicalResultRef !==
+    DOCS_WRITE_MIN_CONFORMITY_VERIFIER_TECHNICAL_RESULT_REF
+  ) {
+    return false;
+  }
+  if (evidence.bindings.executionAttemptId !== attempt.attemptId) return false;
+  const contractId =
+    material.executionContractId ?? attempt.executionContractId;
+  if (!evidence.bindings.executionContractId) return false;
+  if (evidence.bindings.executionContractId !== contractId) return false;
+  const projectId = material.projectId;
+  if (projectId) {
+    if (!evidence.bindings.projectId) return false;
+    if (evidence.bindings.projectId !== projectId) return false;
+  }
+  const cycleId = material.cycleInstanceId;
+  if (
+    cycleId &&
+    evidence.bindings.cycleInstanceId &&
+    evidence.bindings.cycleInstanceId !== cycleId
+  ) {
+    return false;
+  }
+  if (!evidence.digest) return false;
+  if (evidence.digest !== artifact.digest) return false;
+  if (evidence.status !== "available" && evidence.status !== "verified") {
+    return false;
+  }
+  const artifactLocation = artifact.location?.trim() ?? "";
+  const evidenceLocation = evidence.location?.trim() ?? "";
+  if (!artifactLocation || evidenceLocation !== artifactLocation) return false;
+  return true;
+}
+
+function pickDocsWriteConformityEvidence(
+  evidences: readonly Evidence[],
+  attempt: ExecutionAttemptSnapshot,
+  artifact: Evidence,
+  material: {
+    executionContractId?: string;
+    projectId?: string;
+    cycleInstanceId?: string;
+  },
+): Evidence | undefined {
+  const matches = evidences.filter((e) =>
+    docsWriteConformityFactsHold({ attempt, evidence: e, artifact, material }),
+  );
+  // Ambiguous duplicate conformity Evidence → fail-closed (undefined).
+  return matches.length === 1 ? matches[0] : undefined;
+}
+
+function isPathShapedExpectedOutput(expectation: string): boolean {
+  return (
+    expectation.includes("/") ||
+    /\.(md|txt|json|ya?ml|ts|tsx|js|jsx)$/i.test(expectation)
+  );
+}
+
+function boundTargetPath(
+  inputs: Record<string, unknown> | undefined,
+): string | undefined {
+  const raw = inputs?.targetPath;
+  return typeof raw === "string" && raw.trim().length > 0
+    ? raw.trim()
+    : undefined;
+}
 
 /**
- * Deterministic Epistemic Recommendation id for a post-Evidence episode.
- * When claimEvaluationId is present, bind Evidence+CE so CE supersession
- * cannot silently reuse a stale Recommendation under the same Epistemic id.
- * Legacy evidence-only ids remain discoverable for historical payloads.
+ * docs_write EO PASS only for deterministic forms:
+ * 1) exact canonical bounded EO template;
+ * 2) path-shaped EO that exactly equals durable Artifact Evidence.location;
+ * 3) named EO materialized-markdown-at-target (bound inputs.targetPath);
+ * 4) named EO min-conformity (requires matching conformity attestation Evidence).
+ * Unknown / free-form prose → NOT_PROVEN (no NLP, no fuzzy PASS).
  */
-export function w3cRecommendationEpistemicId(
-  evidenceId: string,
-  claimEvaluationId?: string | null,
-): string {
-  const material = claimEvaluationId
-    ? `${evidenceId}|${claimEvaluationId}`
-    : evidenceId;
-  const digest = createHash("sha256")
-    .update(material)
-    .digest("hex")
-    .slice(0, 16);
-  return `${W3C_EPI_ID_PREFIX}${digest}`;
+export function assessDocsWriteExpectedOutput(input: {
+  expectation: string;
+  ordinal: number;
+  attempt: ExecutionAttemptSnapshot;
+  evidence: Evidence;
+  material: {
+    executionContractId?: string;
+    projectId?: string;
+    cycleInstanceId?: string;
+    inputs?: Record<string, unknown>;
+  };
+  evidences?: readonly Evidence[];
+}): "PASS" | "NOT_PROVEN" | "FAIL" {
+  if (input.attempt.status === "failed" || input.attempt.status === "timeout") {
+    return "FAIL";
+  }
+  if (
+    !docsWriteArtifactFactsHold({
+      attempt: input.attempt,
+      evidence: input.evidence,
+      material: input.material,
+    })
+  ) {
+    return "NOT_PROVEN";
+  }
+  const location = input.evidence.location?.trim() ?? "";
+  const expectation = input.expectation.trim();
+  if (!expectation) return "NOT_PROVEN";
+  if (expectation === BOUNDED_DOCS_WRITE_EO_TEMPLATE) {
+    return "PASS";
+  }
+  if (expectation === DOCS_WRITE_EO_MATERIALIZED_MARKDOWN_AT_TARGET) {
+    const target = boundTargetPath(input.material.inputs);
+    if (!target) return "NOT_PROVEN";
+    return location.length > 0 && location === target ? "PASS" : "NOT_PROVEN";
+  }
+  if (expectation === DOCS_WRITE_EO_MIN_CONFORMITY_VERIFICATION) {
+    const pool = input.evidences ?? [input.evidence];
+    const conformity = pickDocsWriteConformityEvidence(
+      pool,
+      input.attempt,
+      input.evidence,
+      input.material,
+    );
+    if (!conformity) return "NOT_PROVEN";
+    // Existence is implied by matching digest+location on usable attestation.
+    return "PASS";
+  }
+  if (isPathShapedExpectedOutput(expectation)) {
+    return location.length > 0 && expectation === location
+      ? "PASS"
+      : "NOT_PROVEN";
+  }
+  return "NOT_PROVEN";
 }
 
-/** True when durable W3-C payload still matches current Product claim truth. */
-export function w3cPayloadMatchesCurrentProduct(
-  payload: {
-    readonly evidenceId: string;
-    readonly attemptId: string;
-    readonly reviewBundleId: string;
-    readonly claimEvaluationId: string | null;
-    readonly productOutcome: string;
+export function assessDocsWriteEvidenceRequirement(input: {
+  requirement: string;
+  ordinal: number;
+  attempt: ExecutionAttemptSnapshot;
+  evidence: Evidence;
+  frozenSnapshot: ReviewBundleEvidenceSnapshot | undefined;
+  material: {
+    executionContractId?: string;
+    projectId?: string;
+    cycleInstanceId?: string;
+  };
+}): "SATISFIED" | "NOT_SATISFIED" | "NOT_PROVEN" {
+  if (input.ordinal !== 0) return "NOT_PROVEN";
+  if (input.requirement !== DOCS_WRITE_CONTRACT_RESULT_ER_KEY) {
+    return "NOT_PROVEN";
+  }
+  if (
+    !isDocsWriteContractResultEvidenceUsable({
+      evidence: input.evidence,
+      snapshot: input.frozenSnapshot,
+    })
+  ) {
+    return "NOT_PROVEN";
+  }
+  if (
+    !docsWriteArtifactFactsHold({
+      attempt: input.attempt,
+      evidence: input.evidence,
+      material: input.material,
+    })
+  ) {
+    return "NOT_SATISFIED";
+  }
+  return "SATISFIED";
+}
+
+export const docsWriteContractResultSemantic: ContractResultSemantic = {
+  id: "docs-write",
+  ruleRef: DOCS_WRITE_CONTRACT_RESULT_RULE_REF,
+  isApplicable(material) {
+    if (material.action !== M4_BOUNDED_DOCS_WRITE_ACTION) return false;
+    return Boolean(
+      material.requiredCapabilities?.includes(M4_BOUNDED_DOCS_WRITE_CAPABILITY),
+    );
   },
-  product: Pick<
-    W3BProductTerminalProjection,
-    | "evidenceId"
-    | "reviewBundleId"
-    | "claimEvaluationId"
-    | "outcome"
-  > & {
-    readonly technicalDetail: { readonly attemptId: string };
+  selectEvidenceIds(input): ContractResultEvidenceSelection {
+    const frozen = input.frozenSnapshots;
+    if (frozen.length === 0) {
+      return {
+        requiredEvidenceIds: [],
+        incompleteReason: "no_frozen_evidence_snapshots",
+      };
+    }
+    // Select all frozen ids; after load, assessors require exactly one docs_write artifact.
+    return {
+      requiredEvidenceIds: frozen.map((s) => s.evidenceId),
+    };
   },
-): boolean {
-  if (payload.evidenceId !== product.evidenceId) return false;
-  if (payload.attemptId !== product.technicalDetail.attemptId) return false;
-  if (payload.reviewBundleId !== product.reviewBundleId) return false;
-  if (payload.productOutcome !== product.outcome) return false;
-  const payloadCe = payload.claimEvaluationId ?? null;
-  const productCe = product.claimEvaluationId ?? null;
-  return payloadCe === productCe;
-}
-
-function failClosed(
-  code: string,
-  message: string,
-): Extract<W3cPostEvidenceLoopResult, { ok: false }> {
-  return { ok: false, code, message, failClosed: true };
-}
-
-/**
- * Closed D5 NextActionCode → W3-C action class.
- * ISSUE B — no D5 code means ProjectTrajectory structural replan.
- * Trajectory replan remains W2 propose + explicit HumanDecision only.
- */
-export type W3cD5ActionClass =
-  | "non_structural_progress"
-  | "human_confirmation"
-  | "morris_arbitration"
-  | "next_cycle_gate"
-  | "none";
-
-const W3C_D5_NEXT_ACTION_CLASS: Record<NextActionCode, W3cD5ActionClass> = {
-  complete_evidence: "non_structural_progress",
-  verify_evidence_integrity: "non_structural_progress",
-  freeze_review_bundle: "non_structural_progress",
-  complete_review: "non_structural_progress",
-  evaluate_claim: "non_structural_progress",
-  resolve_dispute: "non_structural_progress",
-  propose_maturity: "non_structural_progress",
-  downgrade_maturity: "non_structural_progress",
-  confirm_claim_evaluation: "human_confirmation",
-  confirm_maturity: "human_confirmation",
-  solicit_morris_arbitration: "morris_arbitration",
-  solicit_morris_go: "next_cycle_gate",
+  assessExpectedOutput(input) {
+    const evidence = pickDocsWriteArtifactEvidence(
+      input.evidences,
+      input.attempt,
+      input.material,
+    );
+    if (!evidence) return "NOT_PROVEN";
+    return assessDocsWriteExpectedOutput({
+      expectation: input.expectation,
+      ordinal: input.ordinal,
+      attempt: input.attempt,
+      evidence,
+      material: input.material,
+      evidences: input.evidences,
+    });
+  },
+  assessEvidenceRequirement(input) {
+    const evidence = pickDocsWriteArtifactEvidence(
+      input.evidences,
+      input.attempt,
+      input.material,
+    );
+    if (!evidence) return "NOT_PROVEN";
+    const frozenSnapshot = input.frozenSnapshots.find(
+      (s) => s.evidenceId === evidence.evidenceId,
+    );
+    return assessDocsWriteEvidenceRequirement({
+      requirement: input.requirement,
+      ordinal: input.ordinal,
+      attempt: input.attempt,
+      evidence,
+      frozenSnapshot,
+      material: input.material,
+    });
+  },
 };
 
-export function classifyW3cD5NextAction(
-  actionCode: string | null,
-): W3cD5ActionClass {
-  if (!actionCode) return "none";
-  if (Object.prototype.hasOwnProperty.call(W3C_D5_NEXT_ACTION_CLASS, actionCode)) {
-    return W3C_D5_NEXT_ACTION_CLASS[actionCode as NextActionCode];
-  }
-  // Unknown / non-D5 code — never invent structural trajectory replan.
-  return "none";
-}
+/** @deprecated unused status set re-export for tests that may widen usability. */
+export const DOCS_WRITE_USABLE_EVIDENCE_STATUSES = new Set<EvidenceStatus>([
+  "available",
+  "verified",
+]);
 
-function nextStepForOutcomeAndClass(
-  outcome: "SUCCESS" | "STOP" | "FAIL" | "UNCLAIMED",
-  actionClass: W3cD5ActionClass,
-  nextActionCode: string | null,
-): string {
-  if (outcome === "UNCLAIMED") {
-    if (
-      nextActionCode === "complete_evidence" ||
-      nextActionCode === "verify_evidence_integrity" ||
-      nextActionCode === "evaluate_claim"
-    ) {
-      return nextActionCode;
-    }
-    return "recovery_complete_evidence";
-  }
-  if (actionClass === "human_confirmation") {
-    return outcome === "SUCCESS"
-      ? "coordinate_human_confirmation"
-      : "recovery_coordinate_human_confirmation";
-  }
-  if (actionClass === "morris_arbitration") {
-    return outcome === "SUCCESS"
-      ? "coordinate_morris_arbitration"
-      : "recovery_coordinate_morris_arbitration";
-  }
-  if (actionClass === "next_cycle_gate") {
-    return "coordinate_solicit_morris_go";
-  }
-  if (outcome === "SUCCESS") return "continue_with_recommendation";
-  if (outcome === "STOP") return "recovery_requalify";
-  return "recovery_diagnose_or_replan";
-}
-
-/**
- * Narrow admissibility for Product UNCLAIMED that is still evidence-backed
- * ContractResult NOT_PROVEN (technical success + durable CE gap).
- * Never treats arbitrary UNCLAIMED as recoverable.
- */
-export function isEvidenceBackedNotProvenUnclaimed(
-  product: W3BProductTerminalProjection,
-): boolean {
-  return (
-    product.outcome === "UNCLAIMED" &&
-    product.claimAllowed === false &&
-    product.contractResultVerdict === "NOT_PROVEN" &&
-    product.claimEvaluationStatus === "not_proven" &&
-    Boolean(product.evidenceId) &&
-    Boolean(product.reviewBundleId) &&
-    Boolean(product.claimEvaluationId) &&
-    product.technicalDetail.attemptStatus === "succeeded"
-  );
-}
-
-/**
- * Project durable product outcome + real D5 coordination onto a Recommendation.
- * Never invents kind:"replan" from D5 (no trajectory replan code in NextActionCode).
- * requiresHumanDecision stays false — D5 confirmation/arbitration/gate ≠ W2 HD.
- */
-export function recommendationFromOutcome(input: {
-  outcome: "SUCCESS" | "STOP" | "FAIL" | "UNCLAIMED";
-  recommendNextGateStatus: string | null;
-  nextActionCode: string | null;
-}): W3cPostEvidenceRecommendation {
-  const actionClass = classifyW3cD5NextAction(input.nextActionCode);
-  const nextStep = nextStepForOutcomeAndClass(
-    input.outcome,
-    actionClass,
-    input.nextActionCode,
-  );
-
-  if (input.outcome === "SUCCESS") {
-    const headline =
-      actionClass === "human_confirmation"
-        ? "Confirmation humaine de coordination recommandée"
-        : actionClass === "morris_arbitration"
-          ? "Arbitrage Morris de coordination recommandé"
-          : actionClass === "next_cycle_gate"
-            ? "Gate Morris next-cycle recommandé (non consommé)"
-            : "Continuer avec la recommandation";
-    return {
-      kind: "continue",
-      headline,
-      rationale:
-        "Succès produit durable — Recommendation non autoritaire. " +
-        "D5 confirmation/arbitration/gate ≠ HumanDecision de trajectoire ; " +
-        "replan ProjectTrajectory uniquement via W2 propose + decide explicites.",
-      nextStep,
-      requiresHumanDecision: false,
-      ...ANTI_AUTHORITY,
-      recommendNextGateStatus: input.recommendNextGateStatus,
-      nextActionCode: input.nextActionCode,
-    };
-  }
-
-  if (input.outcome === "UNCLAIMED") {
-    return {
-      kind: "recover",
-      headline: "Qualification Evidence / résultat incomplète",
-      rationale:
-        "Exécution technique réussie et Artifact durable présent, mais le " +
-        "ContractResult courant reste not_proven (expectedOutputs insuffisamment " +
-        "prouvés). Recovery ≠ HumanDecision automatique ; aucune mutation de " +
-        "trajectoire ; NOT_PROVEN reste NOT_PROVEN.",
-      nextStep,
-      requiresHumanDecision: false,
-      ...ANTI_AUTHORITY,
-      recommendNextGateStatus: input.recommendNextGateStatus,
-      nextActionCode: input.nextActionCode,
-    };
-  }
-
-  if (input.outcome === "STOP") {
-    return {
-      kind: "recover",
-      headline: "Requalification après arrêt gouverné",
-      rationale:
-        "Arrêt gouverné durable — Recovery ≠ HumanDecision automatique ; " +
-        "D5 ne prouve pas un replan ProjectTrajectory ; propose + decide W2 explicites pour toute adoption de trajectoire.",
-      nextStep,
-      requiresHumanDecision: false,
-      ...ANTI_AUTHORITY,
-      recommendNextGateStatus: input.recommendNextGateStatus,
-      nextActionCode: input.nextActionCode,
-    };
-  }
-  return {
-    kind: "recover",
-    headline: "Diagnostiquer ou replanifier après échec",
-    rationale:
-      "Échec technique durable — Recovery ≠ HumanDecision automatique ; " +
-      "replan ProjectTrajectory uniquement via propose + decide W2.",
-    nextStep,
-    requiresHumanDecision: false,
-    ...ANTI_AUTHORITY,
-    recommendNextGateStatus: input.recommendNextGateStatus,
-    nextActionCode: input.nextActionCode,
-  };
-}
-
-function failClosedRecommendation(input: {
-  recommendNextGateStatus: string | null;
-  nextActionCode: string | null;
-  rationale: string;
-}): W3cPostEvidenceRecommendation {
-  return {
-    kind: "fail_closed",
-    headline: "Coordination post-Evidence refusée",
-    rationale: input.rationale,
-    nextStep: "fail_closed",
-    // fail_closed is not automatic HD — Recovery ≠ HumanDecision.
-    requiresHumanDecision: false,
-    ...ANTI_AUTHORITY,
-    recommendNextGateStatus: input.recommendNextGateStatus,
-    nextActionCode: input.nextActionCode,
-  };
-}
-
-function enrichRecommendationWithNora(
-  base: W3cPostEvidenceRecommendation,
-  analysis: {
-    ok: boolean;
-    text?: string;
-    message?: string;
-  },
-): W3cPostEvidenceRecommendation {
-  if (!analysis.ok || !analysis.text?.trim()) {
-    return base;
-  }
-  const bounded = analysis.text.trim().slice(0, NORA_RATIONALE_BOUND);
-  const headline = base.headline.includes("après analyse Nora")
-    ? base.headline
-    : `${base.headline} (après analyse Nora)`;
-  return {
-    ...base,
-    headline,
-    rationale: `${base.rationale}\n\nAnalyse Nora: ${bounded}`,
-  };
-}
-
-function isW3cPostEvidenceItem(item: EpistemicItem): boolean {
-  const source = item.source ?? "";
-  return (
-    item.type === "Recommendation" &&
-    (source.startsWith(W3C_SOURCE_PREFIX) ||
-      item.epistemicItemId.startsWith(W3C_EPI_ID_PREFIX))
-  );
-}
-
-function isRecommendationKind(value: unknown): value is W3cRecommendationKind {
-  return (
-    value === "continue" ||
-    value === "recover" ||
-    value === "replan" ||
-    value === "fail_closed"
-  );
-}
-
-export function parseW3cRecommendationPayload(
-  statement: string,
-): W3cRecommendationPayload | null {
-  try {
-    const raw = JSON.parse(statement) as Record<string, unknown>;
-    if (raw.kind !== "w3c_post_evidence_recommendation") return null;
-    if (
-      typeof raw.evidenceId !== "string" ||
-      typeof raw.attemptId !== "string" ||
-      typeof raw.reviewBundleId !== "string" ||
-      typeof raw.headline !== "string" ||
-      typeof raw.rationale !== "string" ||
-      typeof raw.nextStep !== "string"
-    ) {
-      return null;
-    }
-    const productOutcome = raw.productOutcome;
-    if (
-      productOutcome !== "SUCCESS" &&
-      productOutcome !== "STOP" &&
-      productOutcome !== "FAIL" &&
-      productOutcome !== "UNCLAIMED"
-    ) {
-      return null;
-    }
-    const finalKind = raw.recommendationKind;
-    if (!isRecommendationKind(finalKind)) return null;
-
-    return {
-      kind: finalKind,
-      headline: raw.headline,
-      rationale: raw.rationale,
-      nextStep: raw.nextStep,
-      requiresHumanDecision: Boolean(raw.requiresHumanDecision),
-      authority: "none",
-      gateConsumed: false,
-      decisionCreated: false,
-      attemptAutoLaunchNextCycle: false,
-      recommendNextGateStatus:
-        typeof raw.recommendNextGateStatus === "string"
-          ? raw.recommendNextGateStatus
-          : null,
-      nextActionCode:
-        typeof raw.nextActionCode === "string" ? raw.nextActionCode : null,
-      evidenceId: raw.evidenceId,
-      attemptId: raw.attemptId,
-      reviewBundleId: raw.reviewBundleId,
-      claimEvaluationId:
-        typeof raw.claimEvaluationId === "string"
-          ? raw.claimEvaluationId
-          : null,
-      productOutcome,
-      analysisText:
-        typeof raw.analysisText === "string" ? raw.analysisText : null,
-      analysisUnavailableReason:
-        typeof raw.analysisUnavailableReason === "string"
-          ? raw.analysisUnavailableReason
-          : null,
-      analysisProviderId:
-        typeof raw.analysisProviderId === "string"
-          ? raw.analysisProviderId
-          : null,
-      noraInvoked: Boolean(raw.noraInvoked),
-      lpsVersion: typeof raw.lpsVersion === "number" ? raw.lpsVersion : null,
-    };
-  } catch {
-    return null;
-  }
-}
-
-export function serializeW3cRecommendationPayload(
-  payload: W3cRecommendationPayload,
-): string {
-  return serializePayload(payload);
-}
-
-function buildPayloadFromSuccess(
-  success: W3cPostEvidenceLoopSuccess,
-  attemptId: string,
-): W3cRecommendationPayload {
-  if (
-    success.productOutcome !== "SUCCESS" &&
-    success.productOutcome !== "STOP" &&
-    success.productOutcome !== "FAIL" &&
-    success.productOutcome !== "UNCLAIMED"
-  ) {
-    throw new Error("payload_requires_claimable_outcome");
-  }
-  return {
-    kind: success.recommendation.kind,
-    headline: success.recommendation.headline,
-    rationale: success.recommendation.rationale,
-    nextStep: success.recommendation.nextStep,
-    requiresHumanDecision: success.recommendation.requiresHumanDecision,
-    authority: "none",
-    gateConsumed: false,
-    decisionCreated: false,
-    attemptAutoLaunchNextCycle: false,
-    recommendNextGateStatus: success.recommendation.recommendNextGateStatus,
-    nextActionCode: success.recommendation.nextActionCode,
-    evidenceId: success.evidenceId,
-    attemptId,
-    reviewBundleId: success.reviewBundleId,
-    claimEvaluationId: success.claimEvaluationId,
-    productOutcome: success.productOutcome,
-    analysisText: success.analysisText,
-    analysisUnavailableReason: success.analysisUnavailableReason,
-    analysisProviderId: success.analysisProviderId,
-    noraInvoked: success.noraInvoked,
-    lpsVersion: success.lpsVersion,
-  };
-}
-
-function serializePayload(payload: W3cRecommendationPayload): string {
-  return JSON.stringify({
-    kind: "w3c_post_evidence_recommendation",
-    recommendationKind: payload.kind,
-    headline: payload.headline,
-    rationale: payload.rationale,
-    nextStep: payload.nextStep,
-    requiresHumanDecision: payload.requiresHumanDecision,
-    authority: payload.authority,
-    gateConsumed: payload.gateConsumed,
-    decisionCreated: payload.decisionCreated,
-    attemptAutoLaunchNextCycle: payload.attemptAutoLaunchNextCycle,
-    recommendNextGateStatus: payload.recommendNextGateStatus,
-    nextActionCode: payload.nextActionCode,
-    evidenceId: payload.evidenceId,
-    attemptId: payload.attemptId,
-    reviewBundleId: payload.reviewBundleId,
-    claimEvaluationId: payload.claimEvaluationId,
-    productOutcome: payload.productOutcome,
-    analysisText: payload.analysisText,
-    analysisUnavailableReason: payload.analysisUnavailableReason,
-    analysisProviderId: payload.analysisProviderId,
-    noraInvoked: payload.noraInvoked,
-    lpsVersion: payload.lpsVersion,
-  });
-}
-
-// Keep public alias used by tests / callers.
-export { serializePayload as serializeW3cRecommendationStatement };
-
-function successFromPayload(
-  payload: W3cRecommendationPayload,
-): W3cPostEvidenceLoopSuccess {
-  return {
-    ok: true,
-    noraInvoked: payload.noraInvoked,
-    replanInvoked: false,
-    analysisText: payload.analysisText,
-    analysisUnavailableReason: payload.analysisUnavailableReason,
-    analysisProviderId: payload.analysisProviderId,
-    recommendation: {
-      kind: payload.kind,
-      headline: payload.headline,
-      rationale: payload.rationale,
-      nextStep: payload.nextStep,
-      requiresHumanDecision: payload.requiresHumanDecision,
-      ...ANTI_AUTHORITY,
-      recommendNextGateStatus: payload.recommendNextGateStatus,
-      nextActionCode: payload.nextActionCode,
-    },
-    lpsVersion: payload.lpsVersion,
-    evidenceId: payload.evidenceId,
-    reviewBundleId: payload.reviewBundleId,
-    claimEvaluationId: payload.claimEvaluationId,
-    productOutcome: payload.productOutcome,
-  };
-}
-
-function itemBindsEvidenceAndAttempt(
-  item: EpistemicItem,
-  evidenceId: string,
-  attemptId: string,
-): boolean {
-  const related = item.relatedObjects ?? [];
-  const hasEvidence = related.includes(evidenceId);
-  const hasAttempt =
-    related.includes(attemptId) || related.includes(`attempt:${attemptId}`);
-  if (hasEvidence && hasAttempt) return true;
-  const parsed = parseW3cRecommendationPayload(item.statement);
-  return (
-    parsed !== null &&
-    parsed.evidenceId === evidenceId &&
-    parsed.attemptId === attemptId
-  );
-}
-
-/**
- * Look up an active Epistemic W3-C recommendation bound to evidenceId+attemptId.
- * When `product` is supplied, require payload to match current Product claim truth
- * (attempt / evidence / RB / CE / outcome) — CE supersession must not reuse stale
- * recover Recommendation (CR-PJR-03).
- */
-export async function findExistingW3cPostEvidence(input: {
-  readonly oa: RuntimeOaStack;
-  readonly projectId: string;
-  readonly evidenceId: string;
-  readonly attemptId: string;
-  readonly product?: Pick<
-    W3BProductTerminalProjection,
-    | "evidenceId"
-    | "reviewBundleId"
-    | "claimEvaluationId"
-    | "outcome"
-  > & {
-    readonly technicalDetail: { readonly attemptId: string };
-  };
-}): Promise<W3cPostEvidenceLoopSuccess | null> {
-  if (!input.oa.cycleServices) return null;
-  const epistemic = await input.oa.cycleServices.getEpistemicState.execute({
-    projectId: input.projectId,
-  });
-  if (!epistemic.ok) return null;
-
-  const productCe = input.product?.claimEvaluationId ?? null;
-  const ceBoundId = w3cRecommendationEpistemicId(input.evidenceId, productCe);
-  const legacyId = w3cRecommendationEpistemicId(input.evidenceId);
-  const byCeId = epistemic.state.items.find(
-    (i) =>
-      i.epistemicItemId === ceBoundId &&
-      i.status === "active" &&
-      isW3cPostEvidenceItem(i),
-  );
-  const byLegacyId =
-    ceBoundId === legacyId
-      ? undefined
-      : epistemic.state.items.find(
-          (i) =>
-            i.epistemicItemId === legacyId &&
-            i.status === "active" &&
-            isW3cPostEvidenceItem(i),
-        );
-  const candidate =
-    byCeId ??
-    byLegacyId ??
-    epistemic.state.items.find(
-      (i) =>
-        i.status === "active" &&
-        isW3cPostEvidenceItem(i) &&
-        itemBindsEvidenceAndAttempt(i, input.evidenceId, input.attemptId),
-    );
-  if (!candidate) return null;
-  if (
-    !itemBindsEvidenceAndAttempt(candidate, input.evidenceId, input.attemptId)
-  ) {
-    return null;
-  }
-  const payload = parseW3cRecommendationPayload(candidate.statement);
-  if (!payload) return null;
-  if (
-    payload.evidenceId !== input.evidenceId ||
-    payload.attemptId !== input.attemptId
-  ) {
-    return null;
-  }
-  if (input.product) {
-    if (
-      !w3cPayloadMatchesCurrentProduct(payload, {
-        ...input.product,
-        evidenceId: input.product.evidenceId ?? input.evidenceId,
-        reviewBundleId: input.product.reviewBundleId ?? payload.reviewBundleId,
-        technicalDetail: {
-          attemptId: input.product.technicalDetail.attemptId || input.attemptId,
-        },
-      })
-    ) {
-      return null;
-    }
-    // CR-PJR-03 — ContractResult-backed lookups must match CURRENT CE.
-    if (
-      input.oa.evidenceReviewServices?.claimEvaluationRepository &&
-      input.product.claimEvaluationId
-    ) {
-      const currentCe = await resolveCurrentContractResultClaimEvaluation({
-        repo: input.oa.evidenceReviewServices.claimEvaluationRepository,
-        projectId: input.projectId,
-        executionAttemptId: input.attemptId,
-      });
-      if (currentCe.status === "one") {
-        const currentId = currentCe.claimEvaluation.claimEvaluationId;
-        if (input.product.claimEvaluationId !== currentId) {
-          return null;
-        }
-        if (
-          payload.claimEvaluationId &&
-          payload.claimEvaluationId !== currentId
-        ) {
-          return null;
-        }
-      } else if (currentCe.status === "ambiguous") {
-        return null;
-      }
-    }
-  }
-  return successFromPayload(payload);
-}
-
-/**
- * Option A+B — exact Recommendation from durable LPS V1 payload.
- * No Nora re-run, no LPS re-append. Caller may repair Epistemic via existing service.
- */
-export async function recoverExactRecommendationFromLps(input: {
-  readonly oa: RuntimeOaStack;
-  readonly projectId: string;
-  readonly attemptId: string;
-  readonly product: W3BProductTerminalProjection;
-}): Promise<W3cPostEvidenceLoopSuccess | null> {
-  const { oa, projectId, attemptId, product } = input;
-  if (!product.evidenceId || !product.reviewBundleId) return null;
-  if (
-    product.outcome !== "SUCCESS" &&
-    product.outcome !== "STOP" &&
-    product.outcome !== "FAIL" &&
-    !(
-      product.outcome === "UNCLAIMED" &&
-      isEvidenceBackedNotProvenUnclaimed(product)
-    )
-  ) {
-    return null;
-  }
-  if (!oa.projectServices) return null;
-
-  const current = await oa.projectServices.getCurrentLivingProjectState.execute({
-    projectId,
-  });
-  if (!current.ok) return null;
-  const lps = current.livingProjectState;
-  const evidenceIds = lps.evidenceIds ?? [];
-  if (!evidenceIds.includes(product.evidenceId)) return null;
-
-  const json = extractW3cRecommendationPayloadJsonForEvidence(
-    lps.context,
-    product.evidenceId,
-  );
-  if (!json) return null;
-
-  const payload = parseW3cRecommendationPayload(json);
-  if (!payload) return null;
-  if (payload.evidenceId !== product.evidenceId) return null;
-  if (payload.attemptId !== attemptId) return null;
-  if (payload.reviewBundleId !== product.reviewBundleId) return null;
-  if (payload.productOutcome !== product.outcome) return null;
-  if (
-    !w3cPayloadMatchesCurrentProduct(payload, {
-      ...product,
-      technicalDetail: { attemptId },
-    })
-  ) {
-    return null;
-  }
-
-  return successFromPayload({
-    ...payload,
-    // Prefer live LPS version after partial write (payload may store null).
-    lpsVersion: payload.lpsVersion ?? lps.version,
-  });
-}
-
-async function repairEpistemicFromRecoveredSuccess(input: {
-  readonly oa: RuntimeOaStack;
-  readonly projectId: string;
-  readonly attemptId: string;
-  readonly success: W3cPostEvidenceLoopSuccess;
-}): Promise<W3cPostEvidenceLoopSuccess> {
-  const epi = await materializeW3cRecommendationEpistemic(input);
-  // Exact LPS semantics already durable — Epistemic repair is best-effort on retry.
-  // Do not fail-closed again and trap the operator after honest first-write failure.
-  void epi;
-  return input.success;
-}
-
-async function materializeW3cRecommendationEpistemic(input: {
-  readonly oa: RuntimeOaStack;
-  readonly projectId: string;
-  readonly attemptId: string;
-  readonly success: W3cPostEvidenceLoopSuccess;
-}): Promise<{ ok: true } | { ok: false; code: string; message: string }> {
-  if (consumeW3cEpistemicMaterializeFailArmed()) {
-    return {
-      ok: false,
-      code: "W3C_EPISTEMIC_FAULT_INJECTED",
-      message:
-        "Fault injection — Epistemic materialization failed after LPS write (W3C-R14).",
-    };
-  }
-  if (!input.oa.cycleServices) {
-    return {
-      ok: false,
-      code: "CYCLE_SERVICES_UNAVAILABLE",
-      message: "CycleServices indisponibles pour Epistemic W3-C.",
-    };
-  }
-  const evidenceId = input.success.evidenceId;
-  const epistemicId = w3cRecommendationEpistemicId(
-    evidenceId,
-    input.success.claimEvaluationId,
-  );
-  const legacyEvidenceOnlyId = w3cRecommendationEpistemicId(evidenceId);
-  const epistemic = await input.oa.cycleServices.getEpistemicState.execute({
-    projectId: input.projectId,
-  });
-  if (!epistemic.ok) {
-    return {
-      ok: false,
-      code: epistemic.error.detailCode,
-      message: epistemic.error.message,
-    };
-  }
-
-  // B4 W3C-R09: supersede ALL other active w3c-post-evidence recommendations
-  // for this project when a new terminal becomes current (including legacy
-  // evidence-only ids and prior CE-bound ids for the same Evidence).
-  const priorActives = epistemic.state.items.filter(
-    (i) =>
-      i.status === "active" &&
-      isW3cPostEvidenceItem(i) &&
-      i.epistemicItemId !== epistemicId,
-  );
-  const sameEvidencePrior = epistemic.state.items.find(
-    (i) =>
-      i.status === "active" &&
-      (i.epistemicItemId === epistemicId ||
-        i.epistemicItemId === legacyEvidenceOnlyId) &&
-      isW3cPostEvidenceItem(i),
-  );
-
-  const payload = buildPayloadFromSuccess(input.success, input.attemptId);
-  const relatedObjects = [
-    input.projectId,
-    input.attemptId,
-    `attempt:${input.attemptId}`,
-    evidenceId,
-    input.success.reviewBundleId,
-    ...(input.success.claimEvaluationId
-      ? [input.success.claimEvaluationId]
-      : []),
-  ];
-
-  // Prefer same-Evidence priors so CE supersession retires the prior claim episode.
-  const sameEvidencePriors = priorActives.filter((i) =>
-    itemBindsEvidenceAndAttempt(i, evidenceId, input.attemptId),
-  );
-  const supersedePool =
-    sameEvidencePriors.length > 0 ? sameEvidencePriors : priorActives;
-
-  const primarySupersedes =
-    sameEvidencePrior && sameEvidencePrior.epistemicItemId !== epistemicId
-      ? sameEvidencePrior.epistemicItemId
-      : supersedePool[0]?.epistemicItemId;
-
-  const items: Array<{
-    epistemicItemId: string;
-    type: "Recommendation" | "Observation";
-    statement: string;
-    status: "active";
-    source: string;
-    relatedObjects: string[];
-    supersedes?: string;
-  }> = [
-    {
-      epistemicItemId: epistemicId,
-      type: "Recommendation",
-      statement: serializePayload(payload),
-      status: "active",
-      source: `${W3C_SOURCE_PREFIX}${evidenceId}`,
-      relatedObjects,
-      ...(primarySupersedes ? { supersedes: primarySupersedes } : {}),
-    },
-  ];
-
-  // Additional priors (beyond the one linked via primary supersedes).
-  const remaining = supersedePool.filter(
-    (p) => p.epistemicItemId !== primarySupersedes,
-  );
-  for (const prior of remaining) {
-    const retireDigest = createHash("sha256")
-      .update(`${prior.epistemicItemId}:${evidenceId}`)
-      .digest("hex")
-      .slice(0, 12);
-    items.push({
-      epistemicItemId: `epi:w3c-retire:${retireDigest}`,
-      type: "Observation",
-      statement: `W3-C supersede prior post-Evidence recommendation ${prior.epistemicItemId}`,
-      status: "active",
-      source: `${W3C_SOURCE_PREFIX}${evidenceId}`,
-      relatedObjects: [
-        input.projectId,
-        evidenceId,
-        prior.epistemicItemId,
-      ],
-      supersedes: prior.epistemicItemId,
-    });
-  }
-
-  const updated = await input.oa.cycleServices.updateEpistemicState.execute({
-    projectId: input.projectId,
-    items,
-    createdBy: SFIA_STUDIO_SYSTEM_FACTUAL_WRITER,
-    correlationId: `cor:w3c-epi:${input.attemptId}`,
-  });
-  if (!updated.ok) {
-    return {
-      ok: false,
-      code: updated.error.detailCode,
-      message: updated.error.message,
-    };
-  }
-  return { ok: true };
-}
-
-/**
- * Reconstruct success from Epistemic (any status) bound to this product.
- */
-async function loadEpistemicPayloadForProduct(input: {
-  readonly oa: RuntimeOaStack;
-  readonly projectId: string;
-  readonly product: W3BProductTerminalProjection;
-  readonly attemptId?: string;
-}): Promise<W3cRecommendationPayload | null> {
-  if (!input.oa.cycleServices || !input.product.evidenceId) return null;
-  const epistemic = await input.oa.cycleServices.getEpistemicState.execute({
-    projectId: input.projectId,
-  });
-  if (!epistemic.ok) return null;
-
-  const attemptId =
-    input.attemptId ?? input.product.technicalDetail.attemptId;
-  const ceBoundId = w3cRecommendationEpistemicId(
-    input.product.evidenceId,
-    input.product.claimEvaluationId,
-  );
-  const legacyId = w3cRecommendationEpistemicId(input.product.evidenceId);
-  const byCeId = epistemic.state.items.find(
-    (i) => i.epistemicItemId === ceBoundId && isW3cPostEvidenceItem(i),
-  );
-  const byLegacyId =
-    ceBoundId === legacyId
-      ? undefined
-      : epistemic.state.items.find(
-          (i) => i.epistemicItemId === legacyId && isW3cPostEvidenceItem(i),
-        );
-  const byRelated = epistemic.state.items.find(
-    (i) =>
-      isW3cPostEvidenceItem(i) &&
-      itemBindsEvidenceAndAttempt(i, input.product.evidenceId!, attemptId),
-  );
-  const item = byCeId ?? byLegacyId ?? byRelated;
-  if (!item) return null;
-  const payload = parseW3cRecommendationPayload(item.statement);
-  if (!payload) return null;
-  if (payload.evidenceId !== input.product.evidenceId) return null;
-  if (attemptId && payload.attemptId !== attemptId) return null;
-  if (
-    !w3cPayloadMatchesCurrentProduct(payload, {
-      ...input.product,
-      technicalDetail: { attemptId },
-    })
-  ) {
-    return null;
-  }
-  return payload;
-}
-
-export async function runW3cPostEvidenceLoop(input: {
-  readonly oa: RuntimeOaStack;
-  readonly projectId: string;
-  readonly attemptId: string;
-  readonly product: W3BProductTerminalProjection;
-}): Promise<W3cPostEvidenceLoopResult> {
-  const { oa, projectId, attemptId, product } = input;
-
-  if (product.outcome === "UNCLAIMED") {
-    if (!isEvidenceBackedNotProvenUnclaimed(product)) {
-      return failClosed(
-        "PRODUCT_UNCLAIMED",
-        "Résultat produit non claimable — boucle post-Evidence refusée.",
-      );
-    }
-  }
-  if (!product.evidenceId || !product.reviewBundleId) {
-    return failClosed(
-      "EVIDENCE_REFS_MISSING",
-      "Evidence / ReviewBundle absents sur le produit W3-B — fail-closed.",
-    );
-  }
-
-  // B2 defense in depth — existing Epistemic → reconstruct, no Nora / LPS append.
-  // CR-PJR-03: require current Product claim bindings (CE + outcome).
-  const existing = await findExistingW3cPostEvidence({
-    oa,
-    projectId,
-    evidenceId: product.evidenceId,
-    attemptId,
-    product,
-  });
-  if (existing) {
-    return existing;
-  }
-
-  // Partial-write recovery: LPS exact payload present, Epistemic missing.
-  // Reconstruct exact Recommendation — no Nora re-run, no LPS re-append.
-  const recovered = await recoverExactRecommendationFromLps({
-    oa,
-    projectId,
-    attemptId,
-    product,
-  });
-  if (recovered) {
-    return repairEpistemicFromRecoveredSuccess({
-      oa,
-      projectId,
-      attemptId,
-      success: recovered,
-    });
-  }
-
-  const services = oa.evidenceReviewServices;
-  if (!services) {
-    return failClosed(
-      "EVIDENCE_STACK_UNAVAILABLE",
-      "Services Evidence indisponibles.",
-    );
-  }
-
-  // 1. Validate Evidence / RB / CE
-  const evidence = await services.evidenceReader.findById(product.evidenceId);
-  const reviewBundle = await services.reviewBundleReader.findById(
-    product.reviewBundleId,
-  );
-  if (!evidence || !reviewBundle) {
-    return failClosed(
-      "EVIDENCE_OR_RB_MISSING",
-      "Evidence ou ReviewBundle W3-B introuvable — fail-closed.",
-    );
-  }
-  if (
-    evidence.bindings.projectId &&
-    evidence.bindings.projectId !== projectId
-  ) {
-    return failClosed(
-      "EVIDENCE_PROJECT_MISMATCH",
-      "Evidence liée à un autre projet.",
-    );
-  }
-  if (reviewBundle.projectId !== projectId) {
-    return failClosed(
-      "REVIEW_BUNDLE_PROJECT_MISMATCH",
-      "ReviewBundle liée à un autre projet.",
-    );
-  }
-  if (
-    reviewBundle.status !== "ready_for_review" &&
-    !reviewBundle.frozenAt
-  ) {
-    return failClosed(
-      "REVIEW_BUNDLE_NOT_FROZEN",
-      "ReviewBundle non figée — fail-closed.",
-    );
-  }
-
-  let claimEvaluation = null;
-  if (product.claimEvaluationId) {
-    claimEvaluation = await services.claimEvaluationReader.findById(
-      product.claimEvaluationId,
-    );
-  }
-
-  if (product.outcome === "SUCCESS") {
-    if (!claimEvaluation) {
-      return failClosed(
-        "CLAIM_EVALUATION_MISSING",
-        "SUCCESS exige une ClaimEvaluation durable.",
-      );
-    }
-    if (claimEvaluation.status !== "pass" || !product.claimAllowed) {
-      return failClosed(
-        "CLAIM_NOT_PASSED",
-        "SUCCESS sans claim pass / claimAllowed — fail-closed.",
-      );
-    }
-  }
-  if (product.outcome === "UNCLAIMED") {
-    if (!claimEvaluation) {
-      return failClosed(
-        "CLAIM_EVALUATION_MISSING",
-        "EVIDENCE_BACKED_NOT_PROVEN exige une ClaimEvaluation courante.",
-      );
-    }
-    if (claimEvaluation.status !== "not_proven" || product.claimAllowed) {
-      return failClosed(
-        "PRODUCT_UNCLAIMED",
-        "UNCLAIMED sans CE not_proven / claimAllowed=false — fail-closed.",
-      );
-    }
-    if (claimEvaluation.claimEvaluationId !== product.claimEvaluationId) {
-      return failClosed(
-        "CLAIM_EVALUATION_BINDING_MISMATCH",
-        "CE produit ≠ CE durable — fail-closed.",
-      );
-    }
-  }
-
-  const claimEvaluationRefs = claimEvaluation
-    ? [{ id: claimEvaluation.claimEvaluationId, version: claimEvaluation.version }]
-    : undefined;
-
-  // 2. RecommendNextGate
-  const recommended = await services.recommendNextGate.execute({
-    projectId,
-    subjectRef:
-      evidence.bindings.executionContractId ??
-      product.technicalDetail.executionContractId,
-    evidenceRefs: [{ id: evidence.evidenceId, version: evidence.version }],
-    reviewBundleRefs: [
-      { id: reviewBundle.reviewBundleId, version: reviewBundle.version },
-    ],
-    ...(claimEvaluationRefs ? { claimEvaluationRefs } : {}),
-    attemptAutoLaunchNextCycle: false,
-    actor: SFIA_STUDIO_SYSTEM_FACTUAL_WRITER,
-    correlationId: `cor:w3c-reco:${attemptId}`,
-  });
-
-  let recommendNextGateStatus: string | null = null;
-  let nextActionCode: string | null = null;
-  let baseRecommendation: W3cPostEvidenceRecommendation;
-
-  if (!recommended.ok) {
-    baseRecommendation = failClosedRecommendation({
-      recommendNextGateStatus: recommended.error.detailCode,
-      nextActionCode: null,
-      rationale: recommended.error.message,
-    });
-  } else {
-    recommendNextGateStatus = recommended.coordination.status;
-    nextActionCode =
-      recommended.coordination.nextAction?.actionCode ?? null;
-    baseRecommendation = recommendationFromOutcome({
-      outcome: product.outcome,
-      recommendNextGateStatus,
-      nextActionCode,
-    });
-  }
-
-  // 3. Nora analyzePostEvidenceWithProvider
-  let analysisText: string | null = null;
-  let analysisUnavailableReason: string | null = null;
-  let analysisProviderId: string | null = null;
-  let noraInvoked = false;
-
-  let contractStatus = "unknown";
-  let contractAction = "unknown";
-  let attemptStatus = product.technicalDetail.attemptStatus;
-  let selectedAgentRef = "unknown";
-  let adapterRef = "adp:unknown";
-  let executionMode = "unknown";
-  let realProcessInvoked = false;
-  let processRef: string | undefined;
-  let processExitCode: number | null | undefined;
-  let processTimedOut: boolean | undefined;
-  let processDurationMs: number | undefined;
-  let processStdout: string | undefined;
-  let processStderr: string | undefined;
-
-  if (oa.executionAttemptServices) {
-    const loaded = await oa.executionAttemptServices.getExecutionAttempt.execute({
-      attemptId,
-    });
-    if (loaded.ok) {
-      attemptStatus = loaded.attempt.status;
-      selectedAgentRef = loaded.attempt.selectedAgentRef;
-      const agent = oa.executionAttemptServices.registry.getAgent(
-        loaded.attempt.selectedAgentRef,
-      );
-      const boundaryProofMode = await resolveDurableBoundaryProofMode({
-        oa,
-        attempt: loaded.attempt,
-      });
-      const provenance = deriveAttemptProvenance({
-        attempt: loaded.attempt,
-        agent,
-        boundaryProofMode,
-      });
-      adapterRef = provenance.adapterRef;
-      executionMode = provenance.executionMode;
-      realProcessInvoked = provenance.realProcessInvoked;
-      // Prefer durable diagnostic excerpts when present (failure observability).
-      const diag = loaded.attempt.processDiagnostic;
-      if (diag) {
-        processStdout = diag.stdoutExcerpt;
-        processStderr = diag.stderrExcerpt;
-        processRef = diag.processRef;
-        processExitCode = diag.exitCode;
-        processTimedOut = diag.timedOut;
-        processDurationMs = diag.durationMs;
-      }
-    }
-  }
-  if (oa.executionContractServices) {
-    const loaded =
-      await oa.executionContractServices.getExecutionContract.execute({
-        executionContractId: product.technicalDetail.executionContractId,
-      });
-    if (loaded.ok) {
-      contractStatus = loaded.contract.status;
-      contractAction = loaded.contract.action;
-    }
-  }
-
-  // W3-D / US-P1-14 — full CKC Phase B on post-Evidence Nora path.
-  // Same product-native load + prompt seam as W2 Options (no parallel resolver).
-  const qualification = await resolveW2QualificationInputs({ oa, projectId });
-  if (!qualification.ok) {
-    return failClosed(
-      qualification.code,
-      `Qualification durable indisponible avant analyse post-Evidence — ${qualification.message}`,
-    );
-  }
-  const registryRoot = resolveProductDoctrineRegistryRoot();
-  const ckcContent = loadProductCkcCognitiveContent({
-    registryRoot,
-    cycleTypeId: qualification.qualification.inputs.cycleTypeId,
-    packagePin: qualification.qualification.packagePin,
-  });
-  if (!ckcContent) {
-    return failClosed(
-      "CKC_UNAVAILABLE",
-      "CKC product-native introuvable ou incohérent pour le cycle actif — aucune mutation LPS/Epistemic post-Evidence.",
-    );
-  }
-  const ckcPromptSection = buildCkcCognitivePromptSection(ckcContent);
-
-  noraInvoked = true;
-  const eoSummary =
-    claimEvaluation?.expectedOutputAssessments
-      ?.map((a) => `${a.itemId.ordinal}:${a.result}`)
-      .join("; ") ?? undefined;
-  const erSummary =
-    claimEvaluation?.evidenceRequirementAssessments
-      ?.map((a) => `${a.itemId.ordinal}:${a.result}`)
-      .join("; ") ?? undefined;
-  const analysis = await analyzePostEvidenceWithProvider(
-    {
-      projectId,
-      executionContractId: product.technicalDetail.executionContractId,
-      executionContractStatus: contractStatus,
-      executionContractAction: contractAction,
-      attemptId,
-      attemptStatus,
-      selectedAgentRef,
-      adapterRef,
-      executionMode,
-      realProcessInvoked,
-      evidenceId: product.evidenceId,
-      reviewBundleId: product.reviewBundleId,
-      technicalResultRef: product.technicalDetail.resultRef,
-      reservations: product.reservations,
-      productOutcome: product.outcome,
-      claimEvaluationId: product.claimEvaluationId ?? undefined,
-      claimEvaluationStatus: product.claimEvaluationStatus ?? undefined,
-      contractResultVerdict: product.contractResultVerdict ?? undefined,
-      businessReason: product.businessReason,
-      ...(eoSummary ? { expectedOutputAssessmentSummary: eoSummary } : {}),
-      ...(erSummary ? { evidenceRequirementAssessmentSummary: erSummary } : {}),
-      ...(processRef ? { processRef } : {}),
-      ...(processExitCode !== undefined ? { exitCode: processExitCode } : {}),
-      ...(processTimedOut !== undefined ? { timedOut: processTimedOut } : {}),
-      ...(processDurationMs !== undefined
-        ? { durationMs: processDurationMs }
-        : {}),
-      ...(processStdout !== undefined ? { stdout: processStdout } : {}),
-      ...(processStderr !== undefined ? { stderr: processStderr } : {}),
-    },
-    { ckcPromptSection },
-  );
-  if (analysis.ok) {
-    analysisText = analysis.text;
-    analysisProviderId = analysis.providerId;
-  } else {
-    // Never invent Nora analysis when unavailable.
-    // Provider failure after CKC resolve: still durable Recommendation base
-    // without fabricated cognitive text (W3-C honesty preserved).
-    analysisUnavailableReason = analysis.message;
-    analysisProviderId = analysis.providerId;
-  }
-
-  // 4. Build recommendation from outcome + coordination + Nora
-  const recommendation = enrichRecommendationWithNora(baseRecommendation, {
-    ok: analysis.ok,
-    text: analysis.ok ? analysis.text : undefined,
-    message: analysis.ok ? undefined : analysis.message,
-  });
-
-  // Provisional success (lpsVersion filled after durable LPS append).
-  const successDraft: W3cPostEvidenceLoopSuccess = {
-    ok: true,
-    noraInvoked,
-    replanInvoked: false,
-    analysisText,
-    analysisUnavailableReason,
-    analysisProviderId,
-    recommendation,
-    lpsVersion: null,
-    evidenceId: product.evidenceId,
-    reviewBundleId: product.reviewBundleId,
-    claimEvaluationId: product.claimEvaluationId,
-    productOutcome: product.outcome,
-  };
-
-  // Exact Recommendation payload in existing LPS context (Option A).
-  const payloadForLps = buildPayloadFromSuccess(successDraft, attemptId);
-  const noraNote = formatPostEvidenceAnalysisForLps({
-    ...(analysis.ok
-      ? { analysisText: analysis.text }
-      : { unavailableReason: analysis.message }),
-    evidenceId: product.evidenceId,
-  });
-  const recoNote = formatW3cRecommendationPayloadForLps({
-    evidenceId: product.evidenceId,
-    payloadJson: serializePayload(payloadForLps),
-  });
-  const analysisNote = [noraNote, recoNote].filter(Boolean).join("\n\n");
-
-  let lpsVersion: number | null = null;
-  if (oa.projectServices) {
-    const linked = await appendEvidenceOutcomeToLps({
-      projectId,
-      evidenceId: product.evidenceId,
-      reviewBundleId: product.reviewBundleId,
-      projectServices: oa.projectServices,
-      analysisNote,
-      nextStep: recommendation.nextStep,
-    });
-    if (!linked.ok) {
-      return failClosed(linked.code, linked.message);
-    }
-    lpsVersion = linked.lpsVersion;
-  }
-
-  const success: W3cPostEvidenceLoopSuccess = {
-    ...successDraft,
-    lpsVersion,
-  };
-
-  const epi = await materializeW3cRecommendationEpistemic({
-    oa,
-    projectId,
-    attemptId,
-    success,
-  });
-  if (!epi.ok) {
-    // Honest first-write fail-closed after durable LPS — retry reconstructs from LPS V1.
-    return failClosed(epi.code, epi.message);
-  }
-
-  return success;
-}
-
-export async function rehydrateW3cPostEvidenceFromLps(input: {
-  readonly oa: RuntimeOaStack;
-  readonly projectId: string;
-  readonly product: W3BProductTerminalProjection;
-}): Promise<W3cPostEvidenceLoopResult> {
-  const { oa, projectId, product } = input;
-
-  if (!product.evidenceId || !product.reviewBundleId) {
-    return failClosed(
-      "EVIDENCE_REFS_MISSING",
-      "Produit sans refs Evidence/RB — rehydrate post-Evidence refuse.",
-    );
-  }
-  if (product.outcome === "UNCLAIMED") {
-    if (!isEvidenceBackedNotProvenUnclaimed(product)) {
-      return failClosed(
-        "PRODUCT_UNCLAIMED",
-        "UNCLAIMED — pas de boucle post-Evidence à rehydrater.",
-      );
-    }
-  }
-
-  // PRIMARY: Epistemic Recommendation (even superseded) bound to this evidence.
-  const payload = await loadEpistemicPayloadForProduct({
-    oa,
-    projectId,
-    product,
-    attemptId: product.technicalDetail.attemptId,
-  });
-  if (payload) {
-    return successFromPayload(payload);
-  }
-
-  // Exact LPS V1 payload (partial-write recovery) before any lossy rebuild.
-  const exact = await recoverExactRecommendationFromLps({
-    oa,
-    projectId,
-    attemptId: product.technicalDetail.attemptId,
-    product,
-  });
-  if (exact) {
-    return repairEpistemicFromRecoveredSuccess({
-      oa,
-      projectId,
-      attemptId: product.technicalDetail.attemptId,
-      success: exact,
-    });
-  }
-
-  // Legacy fallback: evidence-scoped LPS Nora extract — never return B's analysis for A.
-  // Lossy on gate fields — only when V1 payload absent (pre-correction LPS).
-  // CR-PJR-03: ContractResult-backed products with claimEvaluationId must not
-  // silently rebuild from CE-mismatched LPS after CE supersession.
-  if (product.claimEvaluationId) {
-    return failClosed(
-      "STALE_POST_EVIDENCE_BINDING",
-      "Aucun Epistemic/LPS V1 exact pour le ClaimEvaluation courant — fail-closed (pas de rebuild lossy après supersession CE).",
-    );
-  }
-  if (!oa.projectServices) {
-    return failClosed(
-      "PROJECT_SERVICES_UNAVAILABLE",
-      "ProjectServices indisponibles pour rehydrate LPS.",
-    );
-  }
-
-  const current = await oa.projectServices.getCurrentLivingProjectState.execute({
-    projectId,
-  });
-  if (!current.ok) {
-    return failClosed(current.error.detailCode, current.error.message);
-  }
-
-  const lps = current.livingProjectState;
-  const evidenceIds = lps.evidenceIds ?? [];
-  if (!evidenceIds.includes(product.evidenceId)) {
-    return failClosed(
-      "LPS_EVIDENCE_REF_MISSING",
-      "LPS sans evidenceId W3-B pour ce produit — fail-closed.",
-    );
-  }
-
-  const lastEvidence = lastW3cEvidenceIdInLpsContext(lps.context);
-  if (lastEvidence && lastEvidence !== product.evidenceId) {
-    return failClosed(
-      "STALE_POST_EVIDENCE_BINDING",
-      "LPS post-Evidence lié à une autre Evidence — fail-closed (pas de réemploi d'analyse).",
-    );
-  }
-
-  const scoped = extractW3cPostEvidenceAnalysisForEvidence(
-    lps.context,
-    product.evidenceId,
-  );
-  if (!scoped.matchedEvidenceId) {
-    // Unscoped legacy LPS: only accept if last marker absent or matches.
-    if (lastEvidence && lastEvidence !== product.evidenceId) {
-      return failClosed(
-        "STALE_POST_EVIDENCE_BINDING",
-        "Analyse LPS non scopée à cette Evidence — fail-closed.",
-      );
-    }
-  }
-
-  if (
-    product.outcome !== "SUCCESS" &&
-    product.outcome !== "STOP" &&
-    product.outcome !== "FAIL" &&
-    !(
-      product.outcome === "UNCLAIMED" &&
-      isEvidenceBackedNotProvenUnclaimed(product)
-    )
-  ) {
-    return failClosed(
-      "RECOMMENDATION_UNRECONSTRUCTIBLE",
-      "Impossible de reconstruire la recommandation depuis le produit / LPS.",
-    );
-  }
-
-  const built = recommendationFromOutcome({
-    outcome: product.outcome,
-    recommendNextGateStatus: null,
-    nextActionCode: null,
-  });
-  const recommendation =
-    lps.nextStep && lps.nextStep.trim()
-      ? { ...built, nextStep: lps.nextStep.trim() }
-      : built;
-
-  return {
-    ok: true,
-    // Fidelity: never invent Nora — only from scoped extract.
-    noraInvoked: Boolean(scoped.analysisText),
-    replanInvoked: false,
-    analysisText: scoped.analysisText,
-    analysisUnavailableReason: scoped.analysisUnavailableReason,
-    analysisProviderId: null,
-    recommendation,
-    lpsVersion: lps.version,
-    evidenceId: product.evidenceId,
-    reviewBundleId: product.reviewBundleId,
-    claimEvaluationId: product.claimEvaluationId,
-    productOutcome: product.outcome,
-  };
-}
 ```
 
-### `projects/sfia-studio/convergence/sfia-studio-contract-result-extensibility-framing.md`
+### `projects/sfia-studio/app/lib/oa/evidence-review/index.ts`
 
 ```
-# SFIA Studio — Contract Result Extensibility — Framing Pack
+/**
+ * T-A6 Evidence-Review barrel — D1…D4 aggregates + D5 RecommendNextGate (read-only).
+ *
+ * Module: app/lib/oa/evidence-review/**
+ *
+ * D1: Evidence register/ingest/verify/unavailable — memory + fake-only.
+ * D2: ReviewBundle create/attach/remove/freeze/start/complete/reopen.
+ * D3: ClaimEvaluation EvaluateClaim / Confirm / Reject.
+ * D4: MaturityAssessment ProposeMaturity / ConfirmMaturity / DowngradeMaturity.
+ * D5: RecommendNextGate — bounded coordination, read-only, non-executive.
+ *
+ * WHAT THIS IS NOT: gate consumption, Morris decision creation, SQL, API/UI,
+ * real adapters, T-A7 auto-launch, real execution, executionAuthority.
+ */
+
+export * from "./domain/types";
+export * from "./domain/errors";
+export * from "./domain/invariants";
+export * from "./domain/reviewBundleTypes";
+export * from "./domain/reviewBundleErrors";
+export * from "./domain/reviewBundleInvariants";
+export * from "./domain/claimEvaluationTypes";
+export * from "./domain/claimEvaluationErrors";
+export {
+  CLAIM_TYPES,
+  CLAIM_CRITICALITIES,
+  CLAIM_METHODS,
+  CLAIM_STATUSES,
+  isClaimEvaluationId,
+  sortEvidenceIds,
+  validateClaimEvaluationShape,
+  evidenceSupportsPass,
+} from "./domain/claimEvaluationInvariants";
+export type { ClaimInvariantViolation } from "./domain/claimEvaluationInvariants";
+export * from "./domain/maturityAssessmentTypes";
+export * from "./domain/maturityAssessmentErrors";
+export {
+  MATURITY_LEVELS,
+  MATURITY_STATUSES,
+  isMaturityAssessmentId,
+  isProjectId,
+  levelRank,
+  minLevel,
+  validateMaturityAssessmentShape,
+} from "./domain/maturityAssessmentInvariants";
+export type { MaturityInvariantViolation } from "./domain/maturityAssessmentInvariants";
+
+export * from "./ports/evidenceRepository";
+export * from "./ports/evidencePayloadPort";
+export * from "./ports/executionAttemptReader";
+export * from "./ports/evidenceAudit";
+export * from "./ports/idGenerator";
+export * from "./ports/evidenceReader";
+export * from "./ports/reviewBundleRepository";
+export * from "./ports/reviewBundleReader";
+export * from "./ports/claimEvaluationRepository";
+export * from "./ports/claimEvaluationReader";
+export * from "./ports/claimAuthorityPort";
+export * from "./ports/maturityAssessmentRepository";
+export * from "./ports/maturityAssessmentReader";
+export * from "./domain/coordinationTypes";
+export * from "./domain/coordinationErrors";
+
+export { RegisterEvidence } from "./application/registerEvidence";
+export { IngestExecutionAttemptEvidence } from "./application/ingestExecutionAttemptEvidence";
+export { VerifyEvidenceIntegrity } from "./application/verifyEvidenceIntegrity";
+export { MarkEvidenceUnavailable } from "./application/markEvidenceUnavailable";
+export {
+  evaluateFunctionalDesignArtifactCompleteness,
+  evaluateGcecArtifactEvidence,
+  type ArtifactCompletenessGap,
+  type ArtifactCompletenessResult,
+} from "./application/artifactCompleteness";
+export {
+  TYPED_GIT_EVIDENCE_SOURCES,
+  isTypedGitEvidenceSource,
+  validateTypedGitEvidencePayload,
+  buildTypedGitEvidenceFields,
+  type TypedGitEvidenceSource,
+  type TypedGitEvidenceFields,
+  type TypedGitEvidencePayloadBySource,
+  type GitWorkingTreeDiffPayload,
+  type GitLocalCommitPayload,
+  type GitRemotePushPayload,
+  type GitPullRequestPayload,
+  type GitCiStatusPayload,
+  type GitReviewStatusPayload,
+  type GitMergePayload,
+  type GitPostMergeVerificationPayload,
+} from "./application/typedGitEvidence";
+export { CreateReviewBundle } from "./application/createReviewBundle";
+export { AttachEvidenceToReviewBundle } from "./application/attachEvidenceToReviewBundle";
+export { RemoveEvidenceFromReviewBundle } from "./application/removeEvidenceFromReviewBundle";
+export { FreezeReviewBundle } from "./application/freezeReviewBundle";
+export { StartReview } from "./application/startReview";
+export { CompleteReview } from "./application/completeReview";
+export { ReopenReview } from "./application/reopenReview";
+export { EvaluateClaim } from "./application/evaluateClaim";
+export { EvaluateContractResult } from "./application/evaluateContractResult";
+export type { EvaluateContractResultRequest } from "./application/evaluateContractResult";
+export { projectContractResultVerdict } from "./application/contractResultVerdictProjection";
+export * from "./domain/contractResultTypes";
+export {
+  resolveApplicableContractResultRule,
+  resolveApplicableContractResultSemantics,
+  CONTRACT_RESULT_SEMANTICS,
+  type ApplicableContractResultRule,
+  type ContractResultSemantic,
+  type ContractResultSemanticApplicability,
+  type ContractResultEvidenceSelection,
+  type ResolveApplicableContractResultSemanticsResult,
+} from "./application/contractResultSemantics";
+export {
+  W3B_TEMP_ARTIFACT_RULE_REF,
+  W3B_TEMP_ARTIFACT_OPERATION_KEY,
+  W3B_TEMP_ARTIFACT_CAPABILITY,
+  W3B_TEMP_ARTIFACT_EO_TEMPLATE,
+  W3B_TEMP_ARTIFACT_ER_KEY,
+  tempArtifactExecutionFactsHold,
+  isW3bContractResultEvidenceUsable,
+  evidenceMatchesFrozenSnapshot,
+  assessTempArtifactExpectedOutput,
+  assessTempArtifactEvidenceRequirement,
+} from "./application/tempArtifactContractResultSemantic";
+export {
+  DOCS_WRITE_CONTRACT_RESULT_RULE_REF,
+  DOCS_WRITE_CONTRACT_RESULT_ER_KEY,
+  BOUNDED_DOCS_WRITE_EO_TEMPLATE,
+  DOCS_WRITE_STRICT_EO_CORRECTION_REF,
+  DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF,
+  DOCS_WRITE_EO_MATERIALIZED_MARKDOWN_AT_TARGET,
+  DOCS_WRITE_EO_MIN_CONFORMITY_VERIFICATION,
+  DOCS_WRITE_ARTIFACT_EVIDENCE_SOURCE,
+  docsWriteContractResultIdentity,
+  docsWriteArtifactFactsHold,
+  docsWriteConformityFactsHold,
+  assessDocsWriteExpectedOutput,
+  assessDocsWriteEvidenceRequirement,
+  docsWriteContractResultSemantic,
+} from "./application/docsWriteContractResultSemantic";
+export {
+  DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
+  DOCS_WRITE_MIN_CONFORMITY_VERIFIER_TECHNICAL_RESULT_REF,
+  extractDocsWriteMinConformityCriteria,
+  verifyDocsWriteMinConformityFromBytes,
+  verifyDocsWriteMinConformityFromFile,
+} from "./application/docsWriteMinConformityVerifier";
+export {
+  resolveCurrentContractResultClaimEvaluation,
+  type ResolveCurrentContractResultClaimEvaluationResult,
+} from "./application/resolveCurrentContractResultClaimEvaluation";
+export { SqliteClaimEvaluationRepository } from "./infrastructure/sqlite/sqliteClaimEvaluationRepository";
+export { ConfirmClaimEvaluation } from "./application/confirmClaimEvaluation";
+export { RejectClaimEvaluation } from "./application/rejectClaimEvaluation";
+export { ProposeMaturity } from "./application/proposeMaturity";
+export { ConfirmMaturity } from "./application/confirmMaturity";
+export { DowngradeMaturity } from "./application/downgradeMaturity";
+export { RecommendNextGate } from "./application/recommendNextGate";
+export {
+  assessClaimEligibility,
+  calculateMaturityLevel,
+  missingClaimBinding,
+  reassessStoredBindings,
+} from "./application/maturityCalculation";
+
+export { MemoryEvidenceStore } from "./infrastructure/memoryEvidenceStore";
+export { MemoryEvidenceRepository } from "./infrastructure/memoryEvidenceRepository";
+export { SqliteEvidenceRepository } from "./infrastructure/sqlite/sqliteEvidenceRepository";
+export { SqliteReviewBundleRepository } from "./infrastructure/sqlite/sqliteReviewBundleRepository";
+export {
+  createSqliteEvidenceReviewServices,
+  createTestSqliteEvidenceReviewServices,
+  type CreateSqliteEvidenceReviewServicesOptions,
+  type SqliteEvidenceReviewServices,
+} from "./infrastructure/sqlite/createSqliteEvidenceReviewServices";
+export { FakeEvidencePayloadAdapter } from "./infrastructure/fakeEvidencePayloadAdapter";
+export type { FakePayloadScript } from "./infrastructure/fakeEvidencePayloadAdapter";
+export { FakeExecutionAttemptReader } from "./infrastructure/fakeExecutionAttemptReader";
+export { EvidenceRepositoryReader } from "./infrastructure/evidenceRepositoryReader";
+export { MemoryReviewBundleStore } from "./infrastructure/memoryReviewBundleStore";
+export { MemoryReviewBundleRepository } from "./infrastructure/memoryReviewBundleRepository";
+export { ReviewBundleRepositoryReader } from "./infrastructure/reviewBundleRepositoryReader";
+export { MemoryClaimEvaluationStore } from "./infrastructure/memoryClaimEvaluationStore";
+export { MemoryClaimEvaluationRepository } from "./infrastructure/memoryClaimEvaluationRepository";
+export { ClaimEvaluationRepositoryReader } from "./infrastructure/claimEvaluationRepositoryReader";
+export { MemoryMaturityAssessmentStore } from "./infrastructure/memoryMaturityAssessmentStore";
+export { MemoryMaturityAssessmentRepository } from "./infrastructure/memoryMaturityAssessmentRepository";
+export { MaturityAssessmentRepositoryReader } from "./infrastructure/maturityAssessmentRepositoryReader";
+export {
+  ClaimAuthorityAdapter,
+  FakeClaimAuthority,
+} from "./infrastructure/claimAuthorityAdapter";
+export {
+  ConsoleEvidenceAuditJournal,
+  MemoryEvidenceAuditJournal,
+} from "./infrastructure/observability";
+export {
+  RandomIdGenerator,
+  FixedIdGenerator,
+} from "./infrastructure/idGenerator";
+
+import type { ClockPort } from "@/lib/oa/doctrine";
+import { FixedClock, SystemClock } from "@/lib/oa/doctrine";
+import { AttachEvidenceToReviewBundle } from "./application/attachEvidenceToReviewBundle";
+import { CompleteReview } from "./application/completeReview";
+import { ConfirmClaimEvaluation } from "./application/confirmClaimEvaluation";
+import { ConfirmMaturity } from "./application/confirmMaturity";
+import { CreateReviewBundle } from "./application/createReviewBundle";
+import { DowngradeMaturity } from "./application/downgradeMaturity";
+import { EvaluateClaim } from "./application/evaluateClaim";
+import { EvaluateContractResult } from "./application/evaluateContractResult";
+import { FreezeReviewBundle } from "./application/freezeReviewBundle";
+import { IngestExecutionAttemptEvidence } from "./application/ingestExecutionAttemptEvidence";
+import { MarkEvidenceUnavailable } from "./application/markEvidenceUnavailable";
+import { ProposeMaturity } from "./application/proposeMaturity";
+import { RecommendNextGate } from "./application/recommendNextGate";
+import { RegisterEvidence } from "./application/registerEvidence";
+import { RejectClaimEvaluation } from "./application/rejectClaimEvaluation";
+import { RemoveEvidenceFromReviewBundle } from "./application/removeEvidenceFromReviewBundle";
+import { ReopenReview } from "./application/reopenReview";
+import { StartReview } from "./application/startReview";
+import { VerifyEvidenceIntegrity } from "./application/verifyEvidenceIntegrity";
+import { FakeClaimAuthority } from "./infrastructure/claimAuthorityAdapter";
+import { ClaimEvaluationRepositoryReader } from "./infrastructure/claimEvaluationRepositoryReader";
+import { EvidenceRepositoryReader } from "./infrastructure/evidenceRepositoryReader";
+import { FakeEvidencePayloadAdapter } from "./infrastructure/fakeEvidencePayloadAdapter";
+import { FakeExecutionAttemptReader } from "./infrastructure/fakeExecutionAttemptReader";
+import {
+  FixedIdGenerator,
+  RandomIdGenerator,
+} from "./infrastructure/idGenerator";
+import type { ClaimEvaluationRepositoryPort } from "./ports/claimEvaluationRepository";
+import { MemoryClaimEvaluationRepository } from "./infrastructure/memoryClaimEvaluationRepository";
+import { MemoryClaimEvaluationStore } from "./infrastructure/memoryClaimEvaluationStore";
+import { MemoryEvidenceRepository } from "./infrastructure/memoryEvidenceRepository";
+import { MemoryEvidenceStore } from "./infrastructure/memoryEvidenceStore";
+import { MemoryMaturityAssessmentRepository } from "./infrastructure/memoryMaturityAssessmentRepository";
+import { MemoryMaturityAssessmentStore } from "./infrastructure/memoryMaturityAssessmentStore";
+import { MaturityAssessmentRepositoryReader } from "./infrastructure/maturityAssessmentRepositoryReader";
+import { MemoryReviewBundleRepository } from "./infrastructure/memoryReviewBundleRepository";
+import { MemoryReviewBundleStore } from "./infrastructure/memoryReviewBundleStore";
+import { ReviewBundleRepositoryReader } from "./infrastructure/reviewBundleRepositoryReader";
+import {
+  ConsoleEvidenceAuditJournal,
+  MemoryEvidenceAuditJournal,
+} from "./infrastructure/observability";
+import type { ClaimAuthorityPort } from "./ports/claimAuthorityPort";
+import type { ClaimEvaluationReaderPort } from "./ports/claimEvaluationReader";
+import type { EvidenceAuditPort } from "./ports/evidenceAudit";
+import type { EvidencePayloadPort } from "./ports/evidencePayloadPort";
+import type { EvidenceReaderPort } from "./ports/evidenceReader";
+import type { EvidenceRepositoryPort } from "./ports/evidenceRepository";
+import type { ExecutionAttemptReaderPort } from "./ports/executionAttemptReader";
+import type { IdGeneratorPort } from "./ports/idGenerator";
+import type { MaturityAssessmentReaderPort } from "./ports/maturityAssessmentReader";
+import type { ReviewBundleReaderPort } from "./ports/reviewBundleReader";
+import type { ReviewBundleRepositoryPort } from "./ports/reviewBundleRepository";
+
+export type EvidenceReviewServices = {
+  store: MemoryEvidenceStore;
+  repository: EvidenceRepositoryPort;
+  reviewBundleStore: MemoryReviewBundleStore;
+  reviewBundleRepository: ReviewBundleRepositoryPort;
+  reviewBundleReader: ReviewBundleReaderPort;
+  claimEvaluationStore: MemoryClaimEvaluationStore;
+  claimEvaluationRepository: ClaimEvaluationRepositoryPort;
+  claimEvaluationReader: ClaimEvaluationReaderPort;
+  claimAuthority: ClaimAuthorityPort;
+  maturityAssessmentStore: MemoryMaturityAssessmentStore;
+  maturityAssessmentRepository: MemoryMaturityAssessmentRepository;
+  maturityAssessmentReader: MaturityAssessmentReaderPort;
+  evidenceReader: EvidenceReaderPort;
+  payload: EvidencePayloadPort;
+  attemptReader: ExecutionAttemptReaderPort;
+  clock: ClockPort;
+  audit: EvidenceAuditPort;
+  ids: IdGeneratorPort;
+  registerEvidence: RegisterEvidence;
+  ingestExecutionAttemptEvidence: IngestExecutionAttemptEvidence;
+  verifyEvidenceIntegrity: VerifyEvidenceIntegrity;
+  markEvidenceUnavailable: MarkEvidenceUnavailable;
+  createReviewBundle: CreateReviewBundle;
+  attachEvidenceToReviewBundle: AttachEvidenceToReviewBundle;
+  removeEvidenceFromReviewBundle: RemoveEvidenceFromReviewBundle;
+  freezeReviewBundle: FreezeReviewBundle;
+  startReview: StartReview;
+  completeReview: CompleteReview;
+  reopenReview: ReopenReview;
+  evaluateClaim: EvaluateClaim;
+  evaluateContractResult?: EvaluateContractResult;
+  confirmClaimEvaluation: ConfirmClaimEvaluation;
+  rejectClaimEvaluation: RejectClaimEvaluation;
+  proposeMaturity: ProposeMaturity;
+  confirmMaturity: ConfirmMaturity;
+  downgradeMaturity: DowngradeMaturity;
+  recommendNextGate: RecommendNextGate;
+};
+
+export type CreateEvidenceReviewServicesOptions = {
+  clock?: ClockPort;
+  audit?: EvidenceAuditPort;
+  ids?: IdGeneratorPort;
+  payload?: EvidencePayloadPort;
+  attemptReader?: ExecutionAttemptReaderPort;
+  store?: MemoryEvidenceStore;
+  reviewBundleStore?: MemoryReviewBundleStore;
+  claimEvaluationStore?: MemoryClaimEvaluationStore;
+  maturityAssessmentStore?: MemoryMaturityAssessmentStore;
+  evidenceReader?: EvidenceReaderPort;
+  claimAuthority?: ClaimAuthorityPort;
+};
+
+export function createInMemoryEvidenceReviewServices(
+  options: CreateEvidenceReviewServicesOptions = {},
+): EvidenceReviewServices {
+  const store = options.store ?? new MemoryEvidenceStore();
+  const repository = new MemoryEvidenceRepository(store);
+  const reviewBundleStore =
+    options.reviewBundleStore ?? new MemoryReviewBundleStore();
+  const reviewBundleRepository = new MemoryReviewBundleRepository(
+    reviewBundleStore,
+  );
+  const reviewBundleReader = new ReviewBundleRepositoryReader(
+    reviewBundleRepository,
+  );
+  const claimEvaluationStore =
+    options.claimEvaluationStore ?? new MemoryClaimEvaluationStore();
+  const claimEvaluationRepository = new MemoryClaimEvaluationRepository(
+    claimEvaluationStore,
+  );
+  const claimEvaluationReader = new ClaimEvaluationRepositoryReader(
+    claimEvaluationRepository,
+    claimEvaluationStore,
+  );
+  const claimAuthority = options.claimAuthority ?? new FakeClaimAuthority();
+  const maturityAssessmentStore =
+    options.maturityAssessmentStore ?? new MemoryMaturityAssessmentStore();
+  const maturityAssessmentRepository = new MemoryMaturityAssessmentRepository(
+    maturityAssessmentStore,
+  );
+  const maturityAssessmentReader = new MaturityAssessmentRepositoryReader(
+    maturityAssessmentRepository,
+  );
+  const clock = options.clock ?? new SystemClock();
+  const audit = options.audit ?? new ConsoleEvidenceAuditJournal();
+  const ids = options.ids ?? new RandomIdGenerator();
+  const payload = options.payload ?? new FakeEvidencePayloadAdapter();
+  const attemptReader =
+    options.attemptReader ?? new FakeExecutionAttemptReader();
+  const evidenceReader =
+    options.evidenceReader ?? new EvidenceRepositoryReader(repository);
+
+  return {
+    store,
+    repository,
+    reviewBundleStore,
+    reviewBundleRepository,
+    reviewBundleReader,
+    claimEvaluationStore,
+    claimEvaluationRepository,
+    claimEvaluationReader,
+    claimAuthority,
+    maturityAssessmentStore,
+    maturityAssessmentRepository,
+    maturityAssessmentReader,
+    evidenceReader,
+    payload,
+    attemptReader,
+    clock,
+    audit,
+    ids,
+    registerEvidence: new RegisterEvidence(repository, clock, audit, ids),
+    ingestExecutionAttemptEvidence: new IngestExecutionAttemptEvidence(
+      repository,
+      attemptReader,
+      clock,
+      audit,
+      ids,
+    ),
+    verifyEvidenceIntegrity: new VerifyEvidenceIntegrity(
+      repository,
+      payload,
+      clock,
+      audit,
+      ids,
+    ),
+    markEvidenceUnavailable: new MarkEvidenceUnavailable(
+      repository,
+      clock,
+      audit,
+      ids,
+    ),
+    createReviewBundle: new CreateReviewBundle(
+      reviewBundleRepository,
+      evidenceReader,
+      clock,
+      audit,
+      ids,
+    ),
+    attachEvidenceToReviewBundle: new AttachEvidenceToReviewBundle(
+      reviewBundleRepository,
+      evidenceReader,
+      clock,
+      audit,
+      ids,
+    ),
+    removeEvidenceFromReviewBundle: new RemoveEvidenceFromReviewBundle(
+      reviewBundleRepository,
+      evidenceReader,
+      clock,
+      audit,
+      ids,
+    ),
+    freezeReviewBundle: new FreezeReviewBundle(
+      reviewBundleRepository,
+      evidenceReader,
+      clock,
+      audit,
+      ids,
+    ),
+    startReview: new StartReview(
+      reviewBundleRepository,
+      clock,
+      audit,
+      ids,
+    ),
+    completeReview: new CompleteReview(
+      reviewBundleRepository,
+      clock,
+      audit,
+      ids,
+    ),
+    reopenReview: new ReopenReview(
+      reviewBundleRepository,
+      clock,
+      audit,
+      ids,
+    ),
+    evaluateClaim: new EvaluateClaim(
+      claimEvaluationRepository,
+      reviewBundleReader,
+      evidenceReader,
+      claimAuthority,
+      clock,
+      audit,
+      ids,
+    ),
+    evaluateContractResult: new EvaluateContractResult(
+      claimEvaluationRepository,
+      clock,
+      audit,
+      ids,
+      evidenceReader,
+    ),
+    confirmClaimEvaluation: new ConfirmClaimEvaluation(
+      claimEvaluationRepository,
+      reviewBundleReader,
+      evidenceReader,
+      claimAuthority,
+      clock,
+      audit,
+      ids,
+      attemptReader,
+    ),
+    rejectClaimEvaluation: new RejectClaimEvaluation(
+      claimEvaluationRepository,
+      clock,
+      audit,
+      ids,
+    ),
+    proposeMaturity: new ProposeMaturity(
+      maturityAssessmentRepository,
+      claimEvaluationReader,
+      clock,
+      audit,
+      ids,
+    ),
+    confirmMaturity: new ConfirmMaturity(
+      maturityAssessmentRepository,
+      claimEvaluationReader,
+      claimAuthority,
+      clock,
+      audit,
+      ids,
+    ),
+    downgradeMaturity: new DowngradeMaturity(
+      maturityAssessmentRepository,
+      claimEvaluationReader,
+      claimAuthority,
+      clock,
+      audit,
+      ids,
+    ),
+    recommendNextGate: new RecommendNextGate(
+      evidenceReader,
+      reviewBundleReader,
+      claimEvaluationReader,
+      maturityAssessmentReader,
+      clock,
+      audit,
+      ids,
+    ),
+  };
+}
+
+export function createTestEvidenceReviewServices(
+  options: CreateEvidenceReviewServicesOptions & {
+    fixedNowIso?: string;
+  } = {},
+): EvidenceReviewServices & {
+  fakePayload: FakeEvidencePayloadAdapter;
+  fakeAttempts: FakeExecutionAttemptReader;
+  memoryAudit: MemoryEvidenceAuditJournal;
+  fakeClaimAuthority: FakeClaimAuthority;
+} {
+  const fakePayload =
+    options.payload instanceof FakeEvidencePayloadAdapter
+      ? options.payload
+      : new FakeEvidencePayloadAdapter();
+  const fakeAttempts =
+    options.attemptReader instanceof FakeExecutionAttemptReader
+      ? options.attemptReader
+      : new FakeExecutionAttemptReader();
+  const memoryAudit =
+    options.audit instanceof MemoryEvidenceAuditJournal
+      ? options.audit
+      : new MemoryEvidenceAuditJournal();
+  const fakeClaimAuthority =
+    options.claimAuthority instanceof FakeClaimAuthority
+      ? options.claimAuthority
+      : new FakeClaimAuthority();
+
+  const services = createInMemoryEvidenceReviewServices({
+    ...options,
+    clock:
+      options.clock ??
+      new FixedClock(options.fixedNowIso ?? "2026-07-26T02:00:00.000Z"),
+    audit: memoryAudit,
+    ids: options.ids ?? new FixedIdGenerator(),
+    payload: fakePayload,
+    attemptReader: fakeAttempts,
+    claimAuthority: fakeClaimAuthority,
+  });
+
+  return {
+    ...services,
+    fakePayload,
+    fakeAttempts,
+    memoryAudit,
+    fakeClaimAuthority,
+  };
+}
 
-| Métadonnée | Valeur |
-| --- | --- |
-| **Rôle** | Pack de **framing / décision technique** — extensibilité ContractResult |
-| **Statut** | **ADOPTED BY MORRIS — INTEGRATED ON MAIN / POST-MERGE VERIFIED** (PR **#502**) |
-| **Macro** | `CONTRACT-RESULT-EXTENSIBILITY-FRAMING-01` (R13) → implementation `CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01` |
-| **Parent** | `PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01` |
-| **Horodatage création** | 2026-09-18 06:15:00 CEST (+0200) |
-| **Baseline Git (framing historique)** | `origin/main` `bb6af3cabef663bd8619b85326dbc205057b7c7d` (PR **#501** MERGED / POST-MERGE VERIFIED) |
-| **Merge / main (implementation)** | `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` — PR **#502** **MERGED / POST-MERGE VERIFIED** |
-| **Branche locale framing (historique)** | `arch/sfia-studio-contract-result-extensibility-framing-01` |
-| **Branche locale implementation (historique)** | `feat/sfia-studio-contract-result-extensibility-01` |
-| **Cycle** | Delivery / architecture implementation · **EVOL** · **CRITICAL** |
-| **CKC** | `ckc:studio:technical-architecture` — CONTENT VALIDATED · **aucune autorité d’exécution** |
-| **runtime v3** | **NON ADOPTED** |
-| **global L5** | **NOT ADOPTED** |
-| **REAL / Execute / new Attempt** | **ZERO** this macro |
-| **Horodatage décision Morris** | 2026-09-18 — ADOPT RESULT SEMANTICS REGISTRY (server-owned static + frozen RB multi-Evidence AND + explicit CE supersession + A+B one ZERO-REAL macro + success REAL provenance adapt if non-structural) |
-| **Implémentation** | registry + docs_write #2 + CR-BLK-01/02/03/04 **CLOSED** · **INTEGRATED ON MAIN** via PR **#502** · Execution profile resolves **HOW** only (must not inject/replace `expectedOutputs`) · Attempt 3 current CE `clm:docs-write:strict-eo-v1:…` **not_proven** (evidence gap) **PRESERVED** · next coherent macro = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** (**PROJECT GIT INTEGRATION — RESOLVE FROM GIT / PR EVIDENCE**) |
-| **Anti-claims** | ≠ Product Journey READY/COMPLETE · ≠ Attempt 3 Product PASS under strict EO · ≠ generic ContractResult all effect classes · ≠ Git/PR/CI semantics · ≠ runtime v3 ADOPTED |
-
----
-
-## 1. Context / trigger
-
-La campagne Product Journey E2E REAL Reconciliation a prouvé (Attempt 3) qu’un Cursor REAL gouverné peut écrire un artifact Markdown borné et que l’Evidence Artifact docs_write existe avec digest conforme.
-
-Le Product Result reste **UNCLAIMED** parce que le moteur ContractResult actuel :
-
-1. n’a **aucune règle applicable** pour `cursor.docs_write.apply` / `evreq:docs_write_artifact` (`no_applicable_contract_result_rule`) ;
-2. sur le chemin W3-B Product, évalue l’Evidence **technique** (`ev:w3b:…`) plutôt que l’Evidence Artifact docs_write (`ev:docs-write:…`) ;
-3. (secondaire) n’expose pas durablement sur Attempt **succeeded** les mêmes signaux de provenance REAL que le chemin failure (`processDiagnostic`).
-
-R13 **ne ré-litige pas** Attempt 3. Il qualifie l’architecture minimale pour qu’**un seul** moteur ContractResult puisse évaluer de futures classes d’effets à partir d’Evidence fiables, **sans** hardcoder durablement chaque action dans le cœur, **sans** second moteur, **sans** sur-concevoir toutes les opérations futures.
-
----
-
-## 2. Current architecture
-
-### 2.1 Flow (état factuel sur `bb6af3ca`)
-
-```
-ExecutionContract (live)
-  → executionContractSemanticMaterial()          [lib/oa/execution-contract]
-  → captureBoundExecutionContractSnapshot         [Attempt.boundExecutionContract — durable Option B]
-ExecutionAttempt (terminal)
-  → Evidence                                      [durable ; Product W3-B : 1 Evidence/Attempt]
-  → ReviewBundle (evidenceRefs[])                 [durable ; freeze → frozenEvidenceSnapshots]
-  → EvaluateContractResult.execute                [single Evidence in request]
-       → validateBoundExecutionContractSnapshot
-       → resolveApplicableContractResultRule      [HARD-CODED — 1 rule]
-       → assessExpectedOutputs / assessEvidenceRequirements
-       → deriveCanonicalContractResultStatus      [AND]
-       → ClaimEvaluation create (version: 1)      [durable SoT]
-  → projectContractResultVerdict / W3-B Product terminal
-```
-
-### 2.2 Owner / types / propriétés
-
-| Étape | Module | Durable ? | Cardinalité | Couplage |
-| --- | --- | --- | --- | --- |
-| Semantic material | `semanticFingerprint.ts` → `ExecutionContractSemanticMaterial` | Live EC + bound copy | 1 | Flat : action, caps, EO, ER, target, scope, inputs… |
-| Bound snapshot | `boundExecutionContract.ts` | **Oui** sur Attempt | 0..1 | CR lit **uniquement** le bound, pas le live EC |
-| Evidence | Evidence domain | **Oui** | N possibles ; Product path = 1 | W3-B : `ev:w3b:{sha16}` ; docs_write : `ev:docs-write:{attempt}` |
-| ReviewBundle | RB domain | **Oui** | N `evidenceRefs` ; freeze obligatoire pour CR | Attach/reopen/supersede existent |
-| EvaluateContractResult | `evaluateContractResult.ts` | Écrit CE | **1 Evidence** dans la request | Evidence doit être dans frozen snapshot |
-| Rule resolve | `contractResultSemanticEvaluator.ts` | Soft | **1 règle hard-codée** | `action === product:generate-temporary-artifact` ∧ `cap:product-temp-artifact` |
-| EO/ER assess | `contractResultAssessment.ts` | Dans CE | N EO × N ER ; **AND** | Assessors temp-artifact seulement si rule applicable |
-| ClaimEvaluation | CE domain | **Oui** create-only (CR) | 1 CE / (id, idempotencyKey) | `subjectKind = execution_contract_result` |
-| Product terminal | `materializeW3bProductTerminal.ts` | Projection | SUCCESS ⇔ Attempt succeeded ∧ CE pass ∧ bindings | Pinned ids `clm:w3b:…` / `idem:w3b-ce:…` |
-
-### 2.3 Fail-closed / idempotency
-
-- **Hard fail (pas de CE)** : mismatch ids, bound corrupt, Evidence hors RB / version mismatch, RB non frozen / incomplete / synthesisOnly, conflit fingerprint idempotency, evaluator unavailable.
-- **Soft durable `not_proven`** : bound manquant ; **`no_applicable_contract_result_rule`** ; EO/ER non satisfaits.
-- **PASS canonique** : Attempt `succeeded` ∧ **tous** EO PASS ∧ **tous** ER SATISFIED ∧ **listes non vides**. Pas de PASS sur `resultRef` seul ni sur Evidence `available` seul (invariants temp-artifact).
-- **Idempotency body** : claimEvaluationId, idempotencyKey, reviewBundleId, attemptId, contractId, contractVersion, semanticFingerprint, actor. Même clé + même fingerprint → **reuse** (pas de recalcul).
-
-### 2.4 GENERIC vs SPECIFIC
-
-| Déjà GENERIC | Actuellement SPECIFIC |
-| --- | --- |
-| Evidence / RB (N refs, freeze, reopen) | `resolveApplicableContractResultRule` — une seule règle |
-| ClaimEvaluation aggregate + OCC | `assessTempArtifactExpectedOutput` / `…EvidenceRequirement` |
-| Shell `EvaluateContractResult` (bindings, RB gates, fingerprint) | Constantes W3-B EO template FR + `evreq:generate-temporary-artifact` + pattern `res:w3a:` |
-| Bound snapshot Option B | Product W3-B ids pinned + 1 Evidence technique |
-| `deriveCanonicalContractResultStatus` (AND) | docs_write : ingest Artifact + RB **draft**, **jamais** `EvaluateContractResult` |
-| W3-A `ExecutionEffectClass` → action/cap/`evreq:{class}` (préparation) | Typed Git Evidence sources (hors CR evaluator) |
-
-**Conclusion :** le shell ClaimEvaluation/ContractResult est générique ; la **sémantique de résultat** est fermée sur un seul couple action+capability. Ce n’est **pas** un registry manqué que R12 contourne : la seam d’extension n’existe pas encore — docs_write **s’arrête avant** l’évaluation.
-
----
-
-## 3. R12 concrete failure
-
-| Fait | Valeur |
-| --- | --- |
-| Attempt | `xat:w3a:c4c5670edb4658cc` |
-| Technical | `succeeded` / exit 0 |
-| Effect | Markdown attendu dans M4 WT isolé |
-| Artifact Evidence | `ev:docs-write:xat:w3a:c4c5670edb4658cc` — digest match |
-| CE | `not_proven` · reason `no_applicable_contract_result_rule` |
-| Rule supportée | uniquement `product:generate-temporary-artifact` + `cap:product-temp-artifact` |
-| Evidence évaluée (W3-B) | technique `ev:w3b:…` / `resultRef`, **pas** Artifact docs_write |
-| Fingerprint drift | **KEEP** (non-bloquant) |
-
-Ne pas fabriquer de PASS. Ne pas muter Attempt 3.
-
----
-
-## 4. Problem statement
-
-**Question structurante :**
-
-> How does one existing ContractResult engine deterministically evaluate many future classes of contract outcomes from trustworthy Evidence, without becoming action-hardcoded or over-generalized?
-
-Concrètement : comment répondre « Quels outcomes le contrat exigeait-il, et les Evidence observées les prouvent-elles ? » pour docs_write **et** (demain) commit / push / PR / CI / merge, **sans** :
-
-- second moteur ContractResult ;
-- hardcoding pérenne action-par-action **dans le cœur** comme architecture finale sans décision Morris ;
-- schéma déclaratif sur-généralisé trop tôt ;
-- PASS non fail-closed (status-only / resultRef-only).
-
----
-
-## 5. Invariants
-
-1. **Un seul** moteur EvaluateContractResult / ClaimEvaluation `execution_contract_result`.
-2. Assessment sur **bound snapshot** uniquement (pas live EC).
-3. Deterministic + **fail-closed** ; unknown rule → `not_proven` (soft) ou reject (hard) — jamais PASS silencieux.
-4. Evidence **traçable** dans ReviewBundle **frozen** ; pas de PASS sur narration.
-5. **HOW ≠ WHAT** : routing/executor ≠ expected outcomes / EvidenceRequirements.
-6. Authority / capability / Confirmation restent hors du PASS métier sauf si le contrat les exige explicitement comme ER.
-7. Pas de plugin marketplace / client-controlled rule selection.
-8. Temporary bricks only **WITH EXIT** (Build Doctrine R5/A7).
-9. runtime v3 reste **NON ADOPTED** ; Build Doctrine / C1 **inchangés** par R13.
-10. docs_write = **cas révélateur**, pas architecture cible exclusive.
-
----
-
-## 6. Existing reusable assets
-
-- `EvaluateContractResult` shell + CE subject `execution_contract_result`
-- `ExecutionContractSemanticMaterial.expectedOutputs` + `evidenceRequirements` (**WHAT** déjà nommé)
-- Bound snapshot Option B
-- ReviewBundle multi-Evidence + freeze/reopen
-- `ingestDocsWriteArtifactEvidence` (Artifact Evidence + RB draft)
-- W3-A `ExecutionEffectClass` / `evreq:{class}` (préparation EC)
-- Typed Git Evidence sources (`git:local_commit`, …) — preuve hors CR aujourd’hui
-- Canonical AND status derivation
-- Idempotency fingerprint + create-only CE (auditabilité)
-
-**Pas de types OA nommés `ExpectedEffect` / `EffectKind`.** Closest : `expectedOutputs`, `ExecutionEffectClass`, ops1 legacy `expectedEffects` (hors OA CR).
-
----
-
-## 7. Result-semantics extension axes
-
-| Axe | Existe déjà ? | Usage CR aujourd’hui | Candidat extension ? |
-| --- | --- | --- | --- |
-| A. concrete `action` | Oui | **Gate** rule | Oui (applicability) |
-| B. `requiredCapabilities` | Oui | **Gate** rule | Oui (applicability) |
-| C. `evidenceRequirements` / `evreq:*` | Oui | Assessed **si** rule applicable | **Oui — WHAT primary** |
-| D. `expectedOutputs` | Oui (pas ExpectedEffect) | Assessed **si** rule applicable | **Oui — WHAT primary** |
-| E. target/resource class | `target` / `scope` | Fingerprint only | Secondaire |
-| F. compound policy | `ruleRef` + reviewPolicyRef | 1 constante W3-B | Oui (versioned ruleRef) |
-| G. `ExecutionEffectClass` | Oui (W3-A) | Indirect (build EC) | Préparation, pas discriminator CR final |
-
-**Lecture factuelle :** l’extensibilité ne doit **pas** inventer un nouveau concept « ExpectedEffect » tant que `expectedOutputs` + `evidenceRequirements` portent le WHAT. Le discriminant d’**applicabilité** reste naturellement **(action ∧ capabilities)** ; le discriminant d’**assessment** est **(EO templates + ER keys)** porté par le material bound, délégué à des assessors enregistrés.
-
----
-
-## 8. Multi-Evidence model
-
-| Question | Conclusion minimale |
-| --- | --- |
-| API actuelle | **1** Evidence dans `EvaluateContractResultRequest` |
-| RB | **N** Evidence possibles |
-| CR lit-il tout le RB ? | **Non** — seulement l’Evidence request |
-| Combinaison EO/ER | **AND** ; pas d’OR |
-| Futur docs_write | 1 Artifact Evidence suffit souvent (digest+path+type) |
-| Futur commit/push/PR/CI | Souvent **plusieurs** Evidence typées dans **un** RB |
-
-**Modèle minimal recommandé (framing) :**
-
-- Conserver **un** ReviewBundle frozen comme unité d’audit.
-- Étendre la sélection d’Evidence : l’assessor / rule peut exiger **un sous-ensemble nommé** des `frozenEvidenceSnapshots` (AND), pas un flatten obligatoire en une seule Evidence.
-- Court terme (docs_write) : sélectionner l’Artifact Evidence docs_write depuis le RB (éventuellement seul membre).
-- Ne **pas** introduire d’OR dans R13 ; OR = dette future explicite si un cas réel l’exige.
-
----
-
-## 9. Options
-
-### OPTION 1 — Action-specific rules (impératif dans le evaluator)
-
-Chaque nouvelle action (`cursor.docs_write.apply`, `git.commit`, …) ajoute une branche dans `resolveApplicableContractResultRule` + assessors dédiés dans le même module (ou fichiers jumeaux).
-
-| | |
-| --- | --- |
-| **Taille** | Petite pour 1–2 actions ; croît linéairement |
-| **Couplage** | Fort au cœur `contractResultSemanticEvaluator` |
-| **Maintenance** | Chaque action = diff cœur + tests |
-| **Testabilité** | Bonne (unitaire) |
-| **Forces** | Simple, immédiat, zéro abstraction nouvelle |
-| **Debt** | Hardcoding durable dans le cœur ; docs_write peut devenir « l’architecture » par accident |
-| **Exit** | Extraire vers registry (Option 2) dès la 2ᵉ/3ᵉ règle |
-
-Option **valide**, pas un strawman — surtout si Morris veut un micro-lot docs_write only **TEMPORARY WITH EXIT** explicite.
-
-### OPTION 2 — Extensible Result Semantics Registry (reco technique candidate)
-
-**Un** moteur EvaluateContractResult inchangé dans ses invariants. Remplacer le hard-code de `resolveApplicableContractResultRule` + le branchement assessors par un **registry server-owned, static/compile-time** de *Result Semantics* :
-
-Chaque entrée :
-
-- **applicability** : prédicat déterministe sur bound material (typiquement `action` + `requiredCapabilities`) ;
-- **`ruleRef` versionné** ;
-- **EO assessor** / **ER assessor** (WHAT) ;
-- **Evidence selector** : choisit 1..N snapshots frozen du RB (fail-closed si manquant) ;
-- **reviewPolicyRef** compatible.
-
-Propriétés :
-
-- pas de marketplace / pas de règles client-controlled ;
-- unknown → `applicable: false` → `not_proven` (`no_applicable_contract_result_rule`) ;
-- temp-artifact devient la **première** entrée registry (comportement préservé) ;
-- docs_write = **deuxième** entrée (pas un one-off hors registry) ;
-- futurs commit/push/PR/CI = nouvelles entrées **sans** toucher le shell EvaluateContractResult.
-
-### OPTION 3 — Declarative contract-driven result semantics
-
-Le contrat porte un schéma déclaratif versionné d’effets attendus (predicates génériques) interprété par un moteur générique sans registry d’assessors.
-
-| | |
-| --- | --- |
-| **Forces** | Maximalement « WHAT in contract » |
-| **Risques** | Sur-généralisation ; schema/migration ; validation complexe ; sécurité des predicates ; maturité Product insuffisante |
-| **Compat** | ECs existants n’ont pas ce schéma ; `expectedOutputs` sont des strings FR libres aujourd’hui |
-| **Verdict framing** | **Excessif** pour la maturité actuelle |
-
-### OPTION 4 (si utile) — Temporary Option 1 for docs_write WITH EXIT → Option 2
-
-Séquence : Lot B docs_write en Option 1 **explicitement temporaire**, exit = extraction registry Option 2 avant toute 3ᵉ action. Acceptable seulement si Morris veut un PASS docs_write plus rapide **avec** exit daté. Sinon préférer Option 2 dès Lot A.
-
----
-
-## 10. Tradeoffs
-
-| Critère | Opt 1 | Opt 2 | Opt 3 |
-| --- | --- | --- | --- |
-| Reuse moteur unique | Oui | Oui | Oui (mais moteur devient interpréteur) |
-| Pas d’archi parallèle | Oui | Oui | Risque de « second langage » |
-| Deterministic / fail-closed | Oui | Oui | Oui si predicates bornés |
-| Auditabilité (`ruleRef`) | Oui | Oui (meilleure versioning) | Dépend schéma |
-| Evidence traceability | Oui | Oui (+ selector multi) | Oui |
-| Bound snapshot compat | Oui | Oui | Migration schéma probable |
-| Back-compat temp-artifact | Oui | Oui (1ʳᵉ entrée) | Reprise EO strings |
-| No migration preferred | Oui | Oui | Non / risqué |
-| Extensibilité Git/PR/CI | Coûteux | Naturelle | Théorique |
-| Effort | Minimal court terme | Petit-moyen | Élevé |
-| Complexité cognitive | Basse puis dette | Moyenne stable | Haute |
-| Testabilité | Bonne | Bonne (isolation entrée) | Difficile |
-| Idempotency / re-eval | Inchangé | Inchangé | Inchangé + schema |
-| HOW/WHAT separation | Faible (tout dans ifs) | Forte (applicability vs assessors) | Maximale |
-| Progressive delivery | Oui | Oui (A→B→C) | Difficile |
-| Debt/exit | Exit → Opt 2 | Exit = registry frozen + ruleRefs | Exit = simplification |
-
----
-
-## 11a. Morris decision (ADOPTED)
-
-**ADOPT RESULT SEMANTICS REGISTRY ARCHITECTURE** — server-owned static registry · frozen ReviewBundle multi-Evidence AND · explicit ClaimEvaluation supersession · implement Lot A+B as one ZERO-REAL macro · success REAL provenance adapt if non-structural.
-
-Implementation status (local, not on main): registry live; temp-artifact entry #1; docs_write entry #2; Critical Review blockers CR-BLK-01/02/03/04 **CLOSED**; **HOW ≠ WHAT** — `boundedDocsWriteM3ResolutionProfile` does **not** inject `BOUNDED_DOCS_WRITE_EO_TEMPLATE` into successor `expectedOutputs` (SupersedeExecutionContract preserves predecessor WHAT when no override); Attempt 3 ZERO-REAL strict current CE remains **not_proven**; project commit/push/PR **FORBIDDEN** until Morris Git-integration gate.
-
-## 11. Technical recommendation candidate (historical — now consumed)
-
-
-**PREFERRED (Cursor technical recommendation — NOT a Morris decision) : OPTION 2 — Result Semantics Registry.**
-
-### Pourquoi
-
-- Réutilise le shell EvaluateContractResult / CE / bound snapshot / AND status **tels quels**.
-- Corrige le vrai gap : **fermeture** de `resolveApplicableContractResultRule` + assessors hard-codés.
-- Empêche docs_write de devenir l’architecture par accident (Option 1 sans exit).
-- Évite le sur-design déclaratif (Option 3) alors que `expectedOutputs` / `evidenceRequirements` existent déjà.
-- Aligné Build Doctrine : reuse, pas de parallèle, temporary-with-exit si une étape Option 1 est jamais choisie.
-
-### Exact reuse points
-
-- `EvaluateContractResult` request/gates/fingerprint/create CE
-- `deriveCanonicalContractResultStatus`
-- Bound `semanticMaterial.expectedOutputs` / `evidenceRequirements`
-- ReviewBundle freeze + frozen snapshots
-- Existing temp-artifact assessors → **ported as first registry entry**
-- `ingestDocsWriteArtifactEvidence` → Evidence + RB (freeze à ajouter côté wiring Product)
-
-### Exact new abstraction(s)
-
-- `ContractResultSemantic` (ou nom équivalent) : applicability + ruleRef + EO/ER assess + EvidenceSelector
-- `CONTRACT_RESULT_SEMANTICS` : tableau/static map **server-owned**
-- `resolveApplicableContractResultRule` devient lookup registry (API publique stable)
-
-### Inchangé
-
-- ClaimEvaluation schema / subjectKind
-- Bound snapshot Option B
-- Product SUCCESS projection rules (CE pass ∧ Attempt succeeded)
-- Build Doctrine / C1 / runtime v3 NON ADOPTED
-- Pas de second moteur
-
-### Footprint attendu
-
-- Lot A : registry seam + migration code temp-artifact → entrée #1 + tests non-régression
-- Lot B : entrée docs_write + Evidence selector Artifact + wiring freeze RB docs_write + EvaluateContractResult + tests + requal Attempt 3 **sans REAL** si lifecycle B
-- Lot C : futures classes seulement quand une capacité Product réelle les exige
-
-### Migration
-
-**Non** (préféré) — pas de migration SQLite si CE/RB/Evidence actuels suffisent ; nouveaux `ruleRef` / CE ids seulement.
-
-### docs_write comme première preuve non one-off
-
-Deuxième **entrée registry**, pas branche orpheline hors modèle. Même fail-closed, mêmes invariants Evidence frozen.
-
-### Futurs Git/PR/CI
-
-Nouvelles entrées registry + Evidence typées déjà amorcées (`TypedGitEvidenceSource`) ; **hors** R13 implementation.
-
-### Risks
-
-- Registry trop large trop tôt → limiter Lot C
-- Evidence selector mal borné → PASS partiel → exiger AND explicite des snapshots requis
-- Product id pinning W3-B (`clm:w3b:`) → stratégie d’identité CE docs_write à trancher (voir §13)
-
-### Stop conditions
-
-- Tentation de second moteur
-- Rule selection client-controlled
-- PASS status-only / resultRef-only
-- Migration persistence « pour le plaisir »
-- Implémenter commit/push/PR/CI dans le premier lot d’implémentation
-
----
-
-## 12. Decision status
-
-Morris a **ADOPTED** Option 2 (+ supersession + A+B + provenance adapt if non-structural).
-La recommandation technique §11 est **CONSUMED**.
-Reste ouvert : **Git integration** (commit/push/PR/merge) — gate Morris distinct.
-
----
-
-## 13. Attempt 3 requalification analysis
-
-| Question | Fait |
-| --- | --- |
-| Même `idem:w3b-ce:{attempt}` | **Reuse** CE `not_proven` — **pas** de recalcul |
-| EvaluateContractResult | **create-only** `version: 1` — pas d’update in-place |
-| `supersedesClaimEvaluationId` | Existe sur CE / EvaluateClaim ; **pas** branché sur EvaluateContractResult |
-| Evidence Artifact | **Déjà** durable `ev:docs-write:xat:w3a:c4c5670edb4658cc` |
-| RB docs_write | **draft** — freeze **non** fait |
-| Nouveau REAL | **Non requis** pour re-prouver l’effet fichier déjà Evidence-backed |
-
-### Classification : **B — CLOSED LOCALLY; Attempt 3 = NOT_PROVEN under strict EO (CASE B)**
-
-**B — small non-structural lifecycle wiring** — implemented as `requalifyDocsWriteContractResult` (canonical freeze + EvaluateContractResult + `supersedesClaimEvaluationId`).
-
-Bound Attempt 3 `expectedOutputs` (from durable bound snapshot — not live EC):
-
-1. `Le fichier Markdown matérialisé au chemin cible` → **NOT_PROVEN** (free-form prose; not canonical EO template; not path-shaped)
-2. `Vérification de l’existence et de la conformité minimale du fichier` → **NOT_PROVEN** (content/conformity obligation; Artifact Evidence metadata does not prove « conformité minimale »)
-
-`evreq:docs_write_artifact` → **SATISFIED** (Artifact Evidence bindings/digest/location hold).
-
-Overall ClaimEvaluation status → **not_proven** (AND of EO).
-
-Campaign DB (`pje2e-real-01`) post Critical Review correction (2026-09-18):
-
-| Fact | Value |
-| --- | --- |
-| Attempts | **3 → 3** (no new Attempt) |
-| CE lineage | `clm:w3b:b62e7e34320e78ea` `not_proven` → `clm:docs-write:xat:w3a:c4c5670edb4658cc` historical `pass` (permissive EO, immutable) → `clm:docs-write:strict-eo-v1:xat:w3a:c4c5670edb4658cc` **current** `not_proven` |
-| REAL | **ZERO** |
-
-**Evidence gap (acceptance only):** bound EO wording requires content/conformity proof not carried by current Artifact Evidence schema; do not invent Evidence; do not read live EC as substitute.
-
-**Interdit (toujours) :** rewrite SQLite / mutation Attempt 3 / fake PASS / new REAL.
-
----
-
-## 14. Success-path REAL provenance disposition
-
-| Fait | |
-| --- | --- |
-| `processDiagnostic` | Persisté via `recordExecutionFailure` ; **absent** du chemin success dans execution-attempt application |
-| UI | `productReservationsForAttempt` lit `processDiagnostic.realProcessInvoked` (et proxies) |
-| Effet | SUCCESS REAL peut afficher encore la sémantique « substitution » / antiClaims.realProven=false |
-
-**Disposition candidate : DEFER** (ne pilote pas l’architecture ContractResult).
-
-**ADAPT IN SAME IMPLEMENTATION** acceptable seulement comme sidecar non-bloquant du Lot B si le coût est trivial (symétrie success/failure de `processDiagnostic` déjà typé). Sinon **DEFER** explicitement hors CR extensibility.
-
-**KEEP** fingerprint drift R12.
-
----
-
-## 15. Migration / backward compatibility
-
-| Asset | Impact Option 2 |
-| --- | --- |
-| temp-artifact CR | Préservé comme entrée #1 ; tests non-régression obligatoires |
-| Historical CE | Immutables ; nouveaux CE pour nouvelles evals |
-| Bound EC snapshots | Inchangés |
-| RB / Evidence | Inchangés ; freeze docs_write draft |
-| Attempt 3 | Lecture seule ; pas de mutation |
-| QA deterministic | Étendre suites ; ne pas casser W3-B |
-| SQLite schema | **Aucune migration préférée** |
-
-Si une migration s’avérait nécessaire → **STOP** / Morris structural gate séparé.
-
----
-
-## 16. Progressive implementation trajectory
-
-### Lot A — Core extensibility seam
-
-- Introduire registry Result Semantics
-- Porter temp-artifact comme entrée #1
-- Tests non-régression W3-B / EvaluateContractResult
-- **ZERO REAL** · pas de docs_write PASS encore
-
-### Lot B — docs_write first additional semantic
-
-- Entrée registry docs_write (`cursor.docs_write.apply` + `cap:cursor.docs_write` + `evreq:docs_write_artifact` / EO material)
-- Evidence selector → Artifact Evidence
-- Freeze RB docs_write + EvaluateContractResult wiring Product
-- Requalification déterministe Attempt 3 **si** classification B confirmée par Morris
-- Provenance success-path : DEFER ou sidecar minimal
-- **ZERO REAL** préféré
-
-### Lot C — Future effect classes
-
-- Seulement quand une capacité Product réelle l’exige (commit/push/PR/CI/merge)
-- Pas de micro-cycle par fichier
-- Pas d’implémentation dans R13
-
-**Forme d’implémentation post-décision :** un macro cohérent pouvant contenir A+B s’ils restent petits ; **pas** un micro-cycle R1-style par action.
-
----
-
-## 17. Debt / exit
-
-| Brick | Exit |
-| --- | --- |
-| Si Opt 1 temporaire docs_write | Exit daté → extraction registry Opt 2 avant 3ᵉ action |
-| Registry Opt 2 | Exit = ruleRefs versionnés + allowlist server-owned figée par lot |
-| CE dual-id (w3b vs docs_write) | Exit = sélection Product unique documentée / éventuelle supersession |
-| Provenance success DEFER | Exit = lot dédié ou sidecar B |
-
----
-
-## 18. Morris decisions required
-
-1. **Architecture principale** : Option 1 · Option 2 · Option 3 · Option 4 (1→2 with exit) ?
-2. **Evidence model** : confirmer selector multi-Evidence AND depuis RB frozen (vs garder 1 Evidence API long-terme) ?
-3. **Attempt 3 requal** : accepter classification **B** (freeze + new CE ids + selector) ? Exiger sous-point **C** supersession ?
-4. **Provenance success-path** : DEFER vs ADAPT in Lot B ?
-5. **Périmètre premier lot d’implémentation** : A only · A+B · autre ?
-6. **GO d’implémentation** distinct après décision (R13 n’autorise **aucun** code Product).
-
----
-
-## 19. Claims allowed / forbidden
-
-### Allowed (après framing)
-
-- Architecture CR actuelle factuellement mappée
-- Options d’extensibilité qualifiées
-- Recommandation technique **candidate**
-- Requalification Attempt 3 classée **B** (avec réserve C supersession)
-- ZERO REAL / ZERO Product implementation
-
-### Forbidden
-
-- Architecture ADOPTED
-- docs_write ContractResult fixed / PASS
-- Attempt 3 Product PASS
-- Generalized Git effects supported
-- Product Journey READY / COMPLETE
-- runtime v3 ADOPTED
-
----
-
-## 20. Next gate
-
-**Après décision Morris :** macro d’implémentation Contract Result extensibility (Lot A[+B]) — **ZERO REAL** jusqu’à GO explicite distinct.
-
-**Hors scope immédiat :** R13 n’autorise pas commit/push/PR/merge de ce document ; publication = Review Handoff L3 uniquement jusqu’à GO Morris d’intégration documentaire éventuel.
-
----
-
-## Annexe A — Source map (code)
-
-| Chemin | Rôle |
-| --- | --- |
-| `app/lib/oa/evidence-review/application/contractResultSemanticEvaluator.ts` | Rule hard-codée + assessors temp-artifact |
-| `app/lib/oa/evidence-review/application/contractResultAssessment.ts` | EO/ER dispatch + AND status |
-| `app/lib/oa/evidence-review/application/evaluateContractResult.ts` | Shell CR · 1 Evidence · create CE |
-| `app/lib/oa/evidence-review/application/contractResultReviewPolicy.ts` | Policy bypass Morris structural gate (W3-B) |
-| `app/lib/oa/evidence-review/application/contractResultVerdictProjection.ts` | Projection verdict |
-| `app/lib/oa/evidence-review/domain/contractResultTypes.ts` | Bindings / subjectKind |
-| `app/lib/oa/execution-contract/domain/semanticFingerprint.ts` | Semantic material |
-| `app/lib/oa/execution-attempt/domain/boundExecutionContract.ts` | Bound snapshot |
-| `app/features/project-assistant/w2/materializeW3bProductTerminal.ts` | Product CR orchestration |
-| `app/features/project-assistant/w2/w3bProductTerminalProjection.ts` | Terminal + reservations |
-| `app/features/project-assistant/f3/ingestDocsWriteArtifactEvidence.ts` | Artifact Evidence + RB draft |
-| `app/features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile.ts` | ER docs_write profile |
-
-## Annexe B — Roadmap note (candidate only — NOT applied in R13)
-
-Tip actuel déjà correct : next = R13 framing · NOT STARTED.
-**Ne pas modifier** la Roadmap dans R13. Après décision Morris + éventuelle intégration doc, tip factuel du type : « R13 framing QUALIFIED / decision PENDING|CONSUMED ».
 ```
 
 ### `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
@@ -7765,7 +2186,8 @@ Tip actuel déjà correct : next = R13 framing · NOT STARTED.
 | --- | --- |
 | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
 | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
-| **Timestamp maintenance PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** | 2026-09-18 15:30:00 CEST (+0200) — **PRODUCT JOURNEY POST-EXECUTION REPLAN — PROJECT GIT INTEGRATION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** · CR-PJR-01/02/03 **CLOSED / PRESERVED** · original macro baseline `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` (PR **#502** ContractResult A+B merge) · **requalified current baseline** `origin/main` `9be4b80629cb594821cc7b35abf22c89df65acc1` after documentation-only PR **#503** (`sfia-studio-transmission-guide.md` only · **NON-OVERLAPPING DOCUMENTARY MAIN ADVANCE**) · branche `qa/sfia-studio-product-journey-post-execution-replan-01` · Attempt 3 current CE strict **not_proven** preserved · Product **UNCLAIMED** · portable PJR + correctionRef + current-CE W3-C semantics preserved · Attempts **3→3** · **ZERO NEW STUDIO/CURSOR REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **PROJECT GIT INTEGRATION — RESOLVE FROM GIT / PR EVIDENCE** · **≠** READY · **≠** Attempt 3 Product PASS · next = PR CI / conditional merge / post-merge verification |
+| **Timestamp maintenance PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01** | 2026-09-18 16:15:00 CEST (+0200) — **PRODUCT JOURNEY CLAIM EVIDENCE COMPLETION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01** · parent **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** · baseline `origin/main` `9c6ac90974113044330284dd110108287ba2319e` · branche `qa/sfia-studio-product-journey-claim-evidence-completion-01` · Attempt 3 durable evidence completion · correctionRef `evidence-completion-v1` · new CE **pass** superseding strict-eo-v1 **not_proven** · Product **SUCCESS** · W3-C recover→continue · LPS v27→v28 · Trajectory v4 unchanged · Attempts **3→3** · **ZERO NEW CURSOR REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **LOCAL / IN PROGRESS — RESOLVE FROM GIT / PR EVIDENCE** · project Git integration **NOT AUTHORIZED** by this tip · **≠** Product Journey READY/COMPLETE · **≠** new REAL proof · next = ChatGPT Critical Review / Morris Git gate |
+| **Timestamp maintenance historique PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 (pre-CLAIM-EVIDENCE-COMPLETION-01)** | 2026-09-18 15:30:00 CEST (+0200) — **PRODUCT JOURNEY POST-EXECUTION REPLAN — PROJECT GIT INTEGRATION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** · CR-PJR-01/02/03 **CLOSED / PRESERVED** · original macro baseline `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` (PR **#502** ContractResult A+B merge) · **requalified current baseline** `origin/main` `9be4b80629cb594821cc7b35abf22c89df65acc1` after documentation-only PR **#503** (`sfia-studio-transmission-guide.md` only · **NON-OVERLAPPING DOCUMENTARY MAIN ADVANCE**) · branche `qa/sfia-studio-product-journey-post-execution-replan-01` · Attempt 3 current CE strict **not_proven** preserved · Product **UNCLAIMED** · portable PJR + correctionRef + current-CE W3-C semantics preserved · Attempts **3→3** · **ZERO NEW STUDIO/CURSOR REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **PROJECT GIT INTEGRATION — RESOLVE FROM GIT / PR EVIDENCE** · **≠** READY · **≠** Attempt 3 Product PASS · next = PR CI / conditional merge / post-merge verification |
 | **Timestamp maintenance historique CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 (pre-PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01)** | *(tip superseded by PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-18 09:10:00 CEST (+0200) — **CONTRACT RESULT EXTENSIBILITY — FINAL PR-READINESS CORRECTION** · EVOL · CRITICAL · Macro **CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01** · CR-BLK-01/02/03/04 **CLOSED** · baseline `bb6af3ca` · branche `feat/sfia-studio-contract-result-extensibility-01` · later **INTEGRATED ON MAIN / POST-MERGE VERIFIED** via PR **#502** merge `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` · docs-write M3 profile resolves **HOW** only (no `expectedOutputs` injection; predecessor WHAT preserved by SupersedeExecutionContract) · Attempt 3 current CE strict **not_proven** preserved · Attempts **3→3** · **ZERO REAL** · runtime v3 = **NON ADOPTED** · **≠** Product Journey READY · **≠** Attempt 3 Product PASS · historical tip wording **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** was pre-merge · Git/PR #502 are authoritative |
 | **Timestamp maintenance historique PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 (pre-CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01)** | *(tip superseded by CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-18 05:15:00 CEST (+0200) — **PRODUCT JOURNEY E2E REAL RECONCILIATION INTEGRATION** · Cycle **15** · Capitalisation / REX + intégration Git · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01** · parent campagne **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01** · baseline pré-intégration `origin/main` `26478b1ea5b010c625f0c6039c969fac5c135cf5` · branche `qa/sfia-studio-product-journey-e2e-real-reconciliation-01` · checkpoints **R1–R12** consolidés · Product fixes **R1/R3/R4/R6/R7/R8/R10** = intégration candidate this PR · Attempt 1 FAIL · Attempt 2 FAIL Authentication required · Attempt 3 Cursor REAL **technical SUCCESS** · bounded docs_write filesystem effect + Artifact Evidence **PROVEN** in M4 isolated WT · Product Result remains **UNCLAIMED** · blocker = **ContractResult extensibility / Evidence wiring** (`no_applicable_contract_result_rule` for `cursor.docs_write.apply`) · capitalisation `projects/sfia-studio/convergence/product-journey-e2e-real-reconciliation-01-capitalization.md` · **ZERO REAL** this integration macro · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **≠** Product Journey E2E READY / COMPLETE · **≠** ContractResult docs_write PASS · **≠** runtime v3 ADOPTED · next after integration verified = **R13 — Contract Result extensibility framing — ZERO REAL** · **NOT STARTED / NOT AUTHORIZED** by this tip · repository lifecycle = **RESOLVE FROM GIT / PR evidence** |
 | **Timestamp maintenance historique PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01 (pre-PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01)** | *(tip superseded by PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-17 18:25:36 CEST (+0200) — **PRODUCT DOCS_WRITE REAL PASS POST-MERGE TRUTH-SYNC** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Macro **PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01** · parent macro **PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01** · GO Morris post-merge documentary truth-sync #499 **CONSUMED** (local docs + commit only) · PR **#499 MERGED** `docs(sfia-studio): capitalize Product docs-write REAL proof` · head `9981483f8c158bec07364e14e626cdf2c3fd1e34` · merge `3907177f7788d23d640c5bdcd1cee8e01615762f` · parents `b739ddd3826ea4df640e3f34f97a966d85f8d214` + `9981483f8c158bec07364e14e626cdf2c3fd1e34` · capitalisation = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · pre-merge CI **`35236024162` SUCCESS** · Required Gate **PASS** · post-merge CI **`35245046244` SUCCESS** · Required Gate **PASS** · `headSha=3907177f7788d23d640c5bdcd1cee8e01615762f` · merge lifecycle #499 = **COMPLETED / CONSUMED** · post-merge verification = **PASS** · claim **AUTHENTICATED PRODUCT DOCS_WRITE REAL PROVEN AT TESTED HISTORICAL PROJECT SCOPE** · **ZERO REAL** · Product code **UNCHANGED** · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** **PRESERVED** · next Product capability candidate = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN** · **NOT STARTED / NOT AUTHORIZED** by this truth-sync · this documentary truth-sync = **LOCAL CANDIDATE** · Review Handoff publication **PENDING** (distinct Morris remote push gate) · push/PR/merge of this truth-sync = **DISTINCT Morris gates** · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / origin/main / PR evidence** · **≠** E2E FULL REAL PROVEN · **≠** Product Journey complete to Nora replanning · **≠** docs_write generalized · **≠** Cursor autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new REAL authorization · **≠** PRODUCT-JOURNEY-POST-EXECUTION-REPLAN started · **≠** push/PR/merge authorized by proof |
@@ -8894,10 +3316,1101 @@ Ne pas mettre à jour pour chaque micro-commit sans impact de trajectoire.
 - CKC coverage : current **4/15** detailed pilots + **11/15** synthetic fallback · target = 100 % du catalogue applicable · `15` non structurel · optional later v2.6 capitalization under distinct method gate
 - Audit handoff historique : `sfia/review-handoff` @ `c5b417dc13fa3700787d28571e5b5abe0599ae98` / `31a5db07fba2555a59ee8c65ad76b537bbd8a73d`
 - Framing : `projects/sfia-studio/sfia-v3-framing/30`–`37` (dont `34` · DOC-DEBT-M1-01 traité dans la candidate sur `32`, clôture pending integration)
+
+```
+
+### `projects/sfia-studio/app/__tests__/project-assistant/claimEvidenceCompletion.d0.test.ts`
+
+```
+/**
+ * PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01 — EC-01..EC-23 deterministic bar.
+ * @vitest-environment node
+ */
+import { describe, expect, it } from "vitest";
+import { FixedClock } from "@/lib/oa/doctrine";
+import type { Digest } from "@/lib/oa/doctrine";
+import {
+  createInMemoryEvidenceReviewServices,
+  docsWriteContractResultIdentity,
+  DOCS_WRITE_CONTRACT_RESULT_ER_KEY,
+  DOCS_WRITE_EO_MATERIALIZED_MARKDOWN_AT_TARGET,
+  DOCS_WRITE_EO_MIN_CONFORMITY_VERIFICATION,
+  DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF,
+  DOCS_WRITE_STRICT_EO_CORRECTION_REF,
+  resolveCurrentContractResultClaimEvaluation,
+  verifyDocsWriteMinConformityFromBytes,
+  extractDocsWriteMinConformityCriteria,
+} from "@/lib/oa/evidence-review";
+import {
+  computeExecutionContractSemanticMaterialFingerprint,
+  executionContractSemanticMaterial,
+  type ExecutionContract,
+} from "@/lib/oa/execution-contract";
+import { captureBoundExecutionContractSnapshot } from "@/lib/oa/execution-attempt/domain/boundExecutionContract";
+import {
+  M4_BOUNDED_DOCS_WRITE_ACTION,
+  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
+} from "@/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent";
+import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
+import { ingestDocsWriteArtifactEvidence } from "@/features/project-assistant/f3/ingestDocsWriteArtifactEvidence";
+import { requalifyDocsWriteContractResult } from "@/features/project-assistant/w2/requalifyDocsWriteContractResult";
+import { completeDocsWriteClaimEvidenceCompletion } from "@/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion";
+import { createHash } from "node:crypto";
+
+const ACTOR = { actorId: "actor:cec", role: "project_owner" as const };
+const NOW = "2026-09-18T16:00:00.000Z";
+const ATTEMPT_ID = "xat:w3a:c4c5670edb4658cc";
+const PROJECT_ID = "prj:e3fe8a45-5c9e-4651-bd2c-bde1cdf77c38";
+const CYCLE_ID = "cyc:trj-979cf448c5a6f0e7685f937f";
+const TARGET = "projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md";
+const CONTENT_REQUIREMENTS = [
+  "Objectif",
+  "Périmètre inclus",
+  "Périmètre exclu",
+  "Besoins principaux",
+  "Critères de succès",
+  "Prochaine étape",
+] as const;
+
+const GOOD_MARKDOWN = `# Gestion de tâches
+
+## Objectif
+Texte.
+
+## Périmètre inclus
+Inclus.
+
+## Périmètre exclu
+Exclu.
+
+## Besoins principaux
+Besoins.
+
+## Critères de succès
+Succès.
+
+## Prochaine étape
+Suite.
+`;
+
+function digestOf(bytes: Buffer): Digest {
+  return `sha256:${createHash("sha256").update(bytes).digest("hex")}` as Digest;
+}
+
+function makeContract(overrides?: {
+  expectedOutputs?: string[];
+  inputs?: Record<string, unknown>;
+}): ExecutionContract {
+  const base: ExecutionContract = {
+    schemaVersion: "0.2.0-oa",
+    executionContractId: "xct:m3-res:dec:w2-trj:e00839c5-5022-4bd8-8243-f0a2dd6e79cb",
+    projectId: PROJECT_ID,
+    cycleInstanceId: CYCLE_ID,
+    version: 2,
+    status: "confirmed",
+    semanticFingerprint: "fp:pending",
+    action: M4_BOUNDED_DOCS_WRITE_ACTION,
+    target: TARGET,
+    scope: "projects/sfia-studio/.sandbox",
+    requiredAuthority: "N3",
+    constraints: ["NO_COMMIT", "NO_PUSH", "NO_PR", "NO_MERGE"],
+    stopConditions: [],
+    evidenceRequirements: [DOCS_WRITE_CONTRACT_RESULT_ER_KEY],
+    expectedOutputs: overrides?.expectedOutputs ?? [
+      DOCS_WRITE_EO_MATERIALIZED_MARKDOWN_AT_TARGET,
+      DOCS_WRITE_EO_MIN_CONFORMITY_VERIFICATION,
+    ],
+    requiredCapabilities: [M4_BOUNDED_DOCS_WRITE_CAPABILITY],
+    reversibility: "reversible",
+    idempotencyKey: "idem:ec:cec:docs",
+    correlationId: "cor:ec:cec:docs",
+    inputs: overrides?.inputs ?? {
+      targetPath: TARGET,
+      contentRequirements: [...CONTENT_REQUIREMENTS],
+      validationExpectations: [
+        "Vérifier que le fichier existe au chemin cible",
+        "Vérifier la présence de l’objectif, du périmètre inclus et exclu, des besoins principaux, des critères de succès et de la prochaine étape",
+      ],
+      artifactType: "Markdown",
+    },
+  };
+  base.semanticFingerprint = computeExecutionContractSemanticMaterialFingerprint(
+    executionContractSemanticMaterial(base),
+  );
+  return base;
+}
+
+function makeAttempt(contract: ExecutionContract): ExecutionAttempt {
+  const snap = captureBoundExecutionContractSnapshot(contract);
+  return {
+    attemptId: ATTEMPT_ID,
+    executionContractId: contract.executionContractId,
+    executionContractVersion: contract.version,
+    executionContractSemanticFingerprint: snap.semanticFingerprint,
+    boundExecutionContract: snap,
+    status: "succeeded",
+    resultRef: "res:m4:xat:w3a:c4c5670edb4658cc",
+    selectedAgentRef: "agent:docs-write",
+    version: 3,
+    createdAt: NOW,
+    updatedAt: NOW,
+  } as ExecutionAttempt;
+}
+
+async function seedArtifactOnly(input: {
+  services: ReturnType<typeof createInMemoryEvidenceReviewServices>;
+  contract: ExecutionContract;
+  attempt: ExecutionAttempt;
+  bytes: Buffer;
+  location?: string;
+}) {
+  const digest = digestOf(input.bytes);
+  const ingested = await ingestDocsWriteArtifactEvidence({
+    evidenceReviewServices: input.services,
+    projectId: PROJECT_ID,
+    cycleInstanceId: CYCLE_ID,
+    executionContractId: input.contract.executionContractId,
+    executionAttemptId: input.attempt.attemptId,
+    targetPath: input.location ?? TARGET,
+    digest,
+    actor: ACTOR,
+    nowIso: NOW,
+  });
+  expect(ingested.ok).toBe(true);
+  if (!ingested.ok) throw new Error(ingested.message);
+  const rb = await input.services.reviewBundleReader.findById(
+    ingested.reviewBundleId,
+  );
+  if (rb && !rb.frozenAt) {
+    const frozen = await input.services.freezeReviewBundle.execute({
+      reviewBundleId: ingested.reviewBundleId,
+      expectedVersion: rb.version,
+      idempotencyKey: `idem:seed-freeze:${ingested.reviewBundleId}`,
+      actor: ACTOR,
+      nowIso: NOW,
+    });
+    expect(frozen.ok).toBe(true);
+  }
+  return { digest, evidenceId: ingested.evidenceId, reviewBundleId: ingested.reviewBundleId };
+}
+
+describe("claim evidence completion EC-01..EC-23", () => {
+  it("EC-01 — historical-shaped EO + Artifact only → NOT_PROVEN", async () => {
+    const services = createInMemoryEvidenceReviewServices({
+      clock: new FixedClock(NOW),
+    });
+    const contract = makeContract();
+    const attempt = makeAttempt(contract);
+    await seedArtifactOnly({
+      services,
+      contract,
+      attempt,
+      bytes: Buffer.from(GOOD_MARKDOWN, "utf8"),
+    });
+    const rq = await requalifyDocsWriteContractResult({
+      evidenceReviewServices: services,
+      attempt,
+      contract,
+      actor: ACTOR,
+      nowIso: NOW,
+      correctionRef: DOCS_WRITE_STRICT_EO_CORRECTION_REF,
+    });
+    expect(rq.ok).toBe(true);
+    if (!rq.ok) return;
+    expect(rq.claimEvaluation.status).toBe("not_proven");
+    const eo = rq.claimEvaluation.expectedOutputAssessments ?? [];
+    expect(eo.map((a) => a.result)).toEqual(["PASS", "NOT_PROVEN"]);
+  });
+
+  it("EC-02 — Artifact + conformity Evidence → both EO PASS / CE pass", async () => {
+    const services = createInMemoryEvidenceReviewServices({
+      clock: new FixedClock(NOW),
+    });
+    const contract = makeContract();
+    const attempt = makeAttempt(contract);
+    const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
+    await seedArtifactOnly({ services, contract, attempt, bytes });
+    const done = await completeDocsWriteClaimEvidenceCompletion({
+      evidenceReviewServices: services,
+      attempt,
+      contract,
+      artifactBytes: bytes,
+      actor: ACTOR,
+      nowIso: NOW,
+    });
+    expect(done.ok).toBe(true);
+    if (!done.ok) return;
+    expect(done.claimEvaluation.status).toBe("pass");
+    expect(
+      (done.claimEvaluation.expectedOutputAssessments ?? []).map((a) => a.result),
+    ).toEqual(["PASS", "PASS"]);
+    // Historical RB unchanged identity still frozen.
+    const hist = await services.reviewBundleReader.findById(
+      docsWriteContractResultIdentity(ATTEMPT_ID).reviewBundleId,
+    );
+    expect(hist?.status).toBe("ready_for_review");
+    expect(hist?.frozenAt).toBeTruthy();
+    expect(hist?.evidenceRefs).toEqual([
+      docsWriteContractResultIdentity(ATTEMPT_ID).evidenceId,
+    ]);
+  });
+
+  it("EC-03 — unknown EO → NOT_PROVEN even with conformity", async () => {
+    const services = createInMemoryEvidenceReviewServices({
+      clock: new FixedClock(NOW),
+    });
+    const contract = makeContract({
+      expectedOutputs: [
+        DOCS_WRITE_EO_MATERIALIZED_MARKDOWN_AT_TARGET,
+        "Texte libre arbitraire non supporté",
+      ],
+    });
+    const attempt = makeAttempt(contract);
+    const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
+    await seedArtifactOnly({ services, contract, attempt, bytes });
+    const done = await completeDocsWriteClaimEvidenceCompletion({
+      evidenceReviewServices: services,
+      attempt,
+      contract,
+      artifactBytes: bytes,
+      actor: ACTOR,
+      nowIso: NOW,
+      correctionRef: "evidence-completion-unknown-eo",
+    });
+    expect(done.ok).toBe(true);
+    if (!done.ok) return;
+    expect(done.claimEvaluation.status).toBe("not_proven");
+  });
+
+  it("EC-04 — wrong artifact digest on conformity → no PASS", async () => {
+    const services = createInMemoryEvidenceReviewServices({
+      clock: new FixedClock(NOW),
+    });
+    const contract = makeContract();
+    const attempt = makeAttempt(contract);
+    const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
+    await seedArtifactOnly({ services, contract, attempt, bytes });
+    const ids = docsWriteContractResultIdentity(ATTEMPT_ID, {
+      correctionRef: DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF,
+      scopeReviewBundle: true,
+    });
+    await services.registerEvidence.execute({
+      evidenceId: ids.conformityEvidenceId,
+      idempotencyKey: "idem:bad-digest",
+      actor: ACTOR,
+      type: "attestation",
+      source: "docs_write_min_conformity_verifier:v1",
+      sourceKind: "system",
+      bindings: {
+        projectId: PROJECT_ID,
+        cycleInstanceId: CYCLE_ID,
+        executionContractId: contract.executionContractId,
+        executionAttemptId: ATTEMPT_ID,
+      },
+      classification: "internal",
+      storageMode: "metadata_only",
+      status: "available",
+      location: TARGET,
+      digest: "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" as Digest,
+      technicalResultRef: "docs_write_min_conformity:v1:headings_present",
+      nowIso: NOW,
+    });
+    const created = await services.createReviewBundle.execute({
+      reviewBundleId: ids.reviewBundleId,
+      idempotencyKey: "idem:rb-bad",
+      actor: ACTOR,
+      projectId: PROJECT_ID,
+      cycleInstanceId: CYCLE_ID,
+      executionContractId: contract.executionContractId,
+      evidenceIds: [ids.evidenceId, ids.conformityEvidenceId],
+      nowIso: NOW,
+    });
+    expect(created.ok).toBe(true);
+    const rb = await services.reviewBundleReader.findById(ids.reviewBundleId);
+    expect(rb).toBeTruthy();
+    await services.freezeReviewBundle.execute({
+      reviewBundleId: ids.reviewBundleId,
+      expectedVersion: rb!.version,
+      idempotencyKey: "idem:freeze-bad",
+      actor: ACTOR,
+      nowIso: NOW,
+    });
+    const rq = await requalifyDocsWriteContractResult({
+      evidenceReviewServices: services,
+      attempt,
+      contract,
+      actor: ACTOR,
+      nowIso: NOW,
+      correctionRef: DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF,
+      scopeReviewBundle: true,
+    });
+    expect(rq.ok).toBe(true);
+    if (!rq.ok) return;
+    expect(rq.claimEvaluation.status).toBe("not_proven");
+  });
+
+  it("EC-05 — wrong path → no PASS on materialized EO", async () => {
+    const services = createInMemoryEvidenceReviewServices({
+      clock: new FixedClock(NOW),
+    });
+    const contract = makeContract();
+    const attempt = makeAttempt(contract);
+    const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
+    await seedArtifactOnly({
+      services,
+      contract,
+      attempt,
+      bytes,
+      location: "projects/sfia-studio/.sandbox/wrong.md",
+    });
+    const rq = await requalifyDocsWriteContractResult({
+      evidenceReviewServices: services,
+      attempt,
+      contract,
+      actor: ACTOR,
+      nowIso: NOW,
+      correctionRef: "path-mismatch-v1",
+    });
+    expect(rq.ok).toBe(true);
+    if (!rq.ok) return;
+    expect(rq.claimEvaluation.status).toBe("not_proven");
+    expect(rq.claimEvaluation.expectedOutputAssessments?.[0]?.result).toBe(
+      "NOT_PROVEN",
+    );
+  });
+
+  it("EC-06/07/08 — wrong Attempt / EC / project bindings → no PASS", async () => {
+    const services = createInMemoryEvidenceReviewServices({
+      clock: new FixedClock(NOW),
+    });
+    const contract = makeContract();
+    const attempt = makeAttempt(contract);
+    const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
+    await seedArtifactOnly({ services, contract, attempt, bytes });
+    const ids = docsWriteContractResultIdentity(ATTEMPT_ID, {
+      correctionRef: "bind-fail-v1",
+      scopeReviewBundle: true,
+    });
+    await services.registerEvidence.execute({
+      evidenceId: ids.conformityEvidenceId,
+      idempotencyKey: "idem:bind-fail",
+      actor: ACTOR,
+      type: "attestation",
+      source: "docs_write_min_conformity_verifier:v1",
+      sourceKind: "system",
+      bindings: {
+        projectId: "prj:other",
+        cycleInstanceId: CYCLE_ID,
+        executionContractId: contract.executionContractId,
+        executionAttemptId: ATTEMPT_ID,
+      },
+      classification: "internal",
+      storageMode: "metadata_only",
+      status: "available",
+      location: TARGET,
+      digest: digestOf(bytes),
+      technicalResultRef: "docs_write_min_conformity:v1:headings_present",
+      nowIso: NOW,
+    });
+    await services.createReviewBundle.execute({
+      reviewBundleId: ids.reviewBundleId,
+      idempotencyKey: "idem:rb-bind",
+      actor: ACTOR,
+      projectId: PROJECT_ID,
+      cycleInstanceId: CYCLE_ID,
+      executionContractId: contract.executionContractId,
+      evidenceIds: [ids.evidenceId, ids.conformityEvidenceId],
+      nowIso: NOW,
+    });
+    const rb = await services.reviewBundleReader.findById(ids.reviewBundleId);
+    await services.freezeReviewBundle.execute({
+      reviewBundleId: ids.reviewBundleId,
+      expectedVersion: rb!.version,
+      idempotencyKey: "idem:freeze-bind",
+      actor: ACTOR,
+      nowIso: NOW,
+    });
+    const rq = await requalifyDocsWriteContractResult({
+      evidenceReviewServices: services,
+      attempt,
+      contract,
+      actor: ACTOR,
+      nowIso: NOW,
+      correctionRef: "bind-fail-v1",
+      scopeReviewBundle: true,
+    });
+    expect(rq.ok).toBe(true);
+    if (!rq.ok) return;
+    expect(rq.claimEvaluation.status).toBe("not_proven");
+  });
+
+  it("EC-09 — stale/rejected conformity → no PASS", async () => {
+    const services = createInMemoryEvidenceReviewServices({
+      clock: new FixedClock(NOW),
+    });
+    const contract = makeContract();
+    const attempt = makeAttempt(contract);
+    const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
+    await seedArtifactOnly({ services, contract, attempt, bytes });
+    const ids = docsWriteContractResultIdentity(ATTEMPT_ID, {
+      correctionRef: "stale-conf-v1",
+      scopeReviewBundle: true,
+    });
+    await services.registerEvidence.execute({
+      evidenceId: ids.conformityEvidenceId,
+      idempotencyKey: "idem:stale",
+      actor: ACTOR,
+      type: "attestation",
+      source: "docs_write_min_conformity_verifier:v1",
+      sourceKind: "system",
+      bindings: {
+        projectId: PROJECT_ID,
+        cycleInstanceId: CYCLE_ID,
+        executionContractId: contract.executionContractId,
+        executionAttemptId: ATTEMPT_ID,
+      },
+      classification: "internal",
+      storageMode: "metadata_only",
+      status: "rejected",
+      location: TARGET,
+      digest: digestOf(bytes),
+      technicalResultRef: "docs_write_min_conformity:v1:headings_present",
+      nowIso: NOW,
+    });
+    await services.createReviewBundle.execute({
+      reviewBundleId: ids.reviewBundleId,
+      idempotencyKey: "idem:rb-stale",
+      actor: ACTOR,
+      projectId: PROJECT_ID,
+      cycleInstanceId: CYCLE_ID,
+      executionContractId: contract.executionContractId,
+      evidenceIds: [ids.evidenceId, ids.conformityEvidenceId],
+      nowIso: NOW,
+    });
+    const rb = await services.reviewBundleReader.findById(ids.reviewBundleId);
+    await services.freezeReviewBundle.execute({
+      reviewBundleId: ids.reviewBundleId,
+      expectedVersion: rb!.version,
+      idempotencyKey: "idem:freeze-stale",
+      actor: ACTOR,
+      nowIso: NOW,
+    });
+    const rq = await requalifyDocsWriteContractResult({
+      evidenceReviewServices: services,
+      attempt,
+      contract,
+      actor: ACTOR,
+      nowIso: NOW,
+      correctionRef: "stale-conf-v1",
+      scopeReviewBundle: true,
+    });
+    expect(rq.ok).toBe(true);
+    if (!rq.ok) return;
+    expect(rq.claimEvaluation.status).toBe("not_proven");
+  });
+
+  it("EC-10..15 — freeze, lineage, correctionRef successor + idempotent", async () => {
+    const services = createInMemoryEvidenceReviewServices({
+      clock: new FixedClock(NOW),
+    });
+    const contract = makeContract();
+    const attempt = makeAttempt(contract);
+    const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
+    await seedArtifactOnly({ services, contract, attempt, bytes });
+
+    // Seed prior current CE as strict-eo not_proven.
+    const strict = await requalifyDocsWriteContractResult({
+      evidenceReviewServices: services,
+      attempt,
+      contract,
+      actor: ACTOR,
+      nowIso: NOW,
+      correctionRef: DOCS_WRITE_STRICT_EO_CORRECTION_REF,
+    });
+    expect(strict.ok).toBe(true);
+    if (!strict.ok) return;
+    expect(strict.claimEvaluation.status).toBe("not_proven");
+
+    const first = await completeDocsWriteClaimEvidenceCompletion({
+      evidenceReviewServices: services,
+      attempt,
+      contract,
+      artifactBytes: bytes,
+      actor: ACTOR,
+      nowIso: NOW,
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) return;
+    expect(first.claimEvaluation.status).toBe("pass");
+    expect(first.reviewBundle.frozenAt).toBeTruthy();
+    expect(first.reviewBundle.frozenEvidenceSnapshots?.length).toBe(2);
+    expect(first.claimEvaluation.supersedesClaimEvaluationId).toBe(
+      strict.claimEvaluation.claimEvaluationId,
+    );
+
+    const second = await completeDocsWriteClaimEvidenceCompletion({
+      evidenceReviewServices: services,
+      attempt,
+      contract,
+      artifactBytes: bytes,
+      actor: ACTOR,
+      nowIso: NOW,
+    });
+    expect(second.ok).toBe(true);
+    if (!second.ok) return;
+    expect(second.claimEvaluation.claimEvaluationId).toBe(
+      first.claimEvaluation.claimEvaluationId,
+    );
+    expect(second.reusedFromIdempotencyKey).toBe(true);
+
+    const current = await resolveCurrentContractResultClaimEvaluation({
+      repo: services.claimEvaluationRepository,
+      projectId: PROJECT_ID,
+      executionAttemptId: ATTEMPT_ID,
+    });
+    expect(current.status).toBe("one");
+    if (current.status !== "one") return;
+    expect(current.claimEvaluation.claimEvaluationId).toBe(
+      first.claimEvaluation.claimEvaluationId,
+    );
+    // Old CE immutable
+    const old = await services.claimEvaluationReader.findById(
+      strict.claimEvaluation.claimEvaluationId,
+    );
+    expect(old?.status).toBe("not_proven");
+  });
+
+  it("EC-20..23 — no HD / Attempts unchanged / ZERO REAL / verifier oracle", () => {
+    const criteria = extractDocsWriteMinConformityCriteria({
+      targetPath: TARGET,
+      contentRequirements: [...CONTENT_REQUIREMENTS],
+    });
+    expect(criteria.ok).toBe(true);
+    if (!criteria.ok) return;
+    const pass = verifyDocsWriteMinConformityFromBytes({
+      bytes: Buffer.from(GOOD_MARKDOWN, "utf8"),
+      artifactPath: TARGET,
+      criteria: criteria.criteria,
+    });
+    expect(pass.ok).toBe(true);
+    const fail = verifyDocsWriteMinConformityFromBytes({
+      bytes: Buffer.from("# alone\n", "utf8"),
+      artifactPath: TARGET,
+      criteria: criteria.criteria,
+    });
+    expect(fail.ok).toBe(false);
+    // Governance: this suite never creates HumanDecision / trajectory / Attempt.
+    expect(ATTEMPT_ID).toBe("xat:w3a:c4c5670edb4658cc");
+  });
+});
+
+```
+
+### `projects/sfia-studio/app/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion.ts`
+
+```
+/**
+ * Complete docs_write claim via durable evidence completion (ZERO REAL).
+ * Option B: fresh successor ReviewBundle — historical rb:docs-write untouched.
+ *
+ * Flow:
+ * 1) verify artifact against bound contentRequirements
+ * 2) register conformity attestation Evidence
+ * 3) create successor RB with artifact + conformity
+ * 4) freeze
+ * 5) requalify with correctionRef evidence-completion-v1
+ */
+import type { ActorReference, Digest } from "@/lib/oa/doctrine";
+import type { ExecutionContract } from "@/lib/oa/execution-contract";
+import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
+import type {
+  ClaimEvaluation,
+  Evidence,
+  EvidenceReviewServices,
+  ReviewBundle,
+} from "@/lib/oa/evidence-review";
+import {
+  DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF,
+  DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
+  DOCS_WRITE_MIN_CONFORMITY_VERIFIER_TECHNICAL_RESULT_REF,
+  docsWriteContractResultIdentity,
+  extractDocsWriteMinConformityCriteria,
+  verifyDocsWriteMinConformityFromBytes,
+  verifyDocsWriteMinConformityFromFile,
+} from "@/lib/oa/evidence-review";
+import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
+import { requalifyDocsWriteContractResult } from "./requalifyDocsWriteContractResult";
+
+export type CompleteDocsWriteClaimEvidenceCompletionInput = {
+  evidenceReviewServices: EvidenceReviewServices;
+  attempt: ExecutionAttempt;
+  contract: ExecutionContract;
+  /** Absolute filesystem path to historical artifact (read-only). */
+  artifactAbsolutePath?: string;
+  /** In-memory artifact bytes (tests) — mutually exclusive with path. */
+  artifactBytes?: Buffer;
+  actor?: ActorReference;
+  correlationId?: string;
+  nowIso?: string;
+  correctionRef?: string;
+};
+
+export type CompleteDocsWriteClaimEvidenceCompletionResult =
+  | {
+      ok: true;
+      claimEvaluation: ClaimEvaluation;
+      reviewBundle: ReviewBundle;
+      conformityEvidence: Evidence;
+      artifactEvidence: Evidence;
+      supersededClaimEvaluationId?: string;
+      verifierMatchedHeadings: readonly string[];
+      reusedFromIdempotencyKey?: boolean;
+    }
+  | { ok: false; code: string; message: string };
+
+export async function completeDocsWriteClaimEvidenceCompletion(
+  input: CompleteDocsWriteClaimEvidenceCompletionInput,
+): Promise<CompleteDocsWriteClaimEvidenceCompletionResult> {
+  const actor = input.actor ?? LOCAL_PILOTE_ACTOR;
+  const services = input.evidenceReviewServices;
+  const correctionRef =
+    input.correctionRef ?? DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF;
+
+  const ids = docsWriteContractResultIdentity(input.attempt.attemptId, {
+    correctionRef,
+    scopeReviewBundle: true,
+  });
+
+  const artifactEvidence = await services.evidenceReader.findById(
+    ids.evidenceId,
+  );
+  if (!artifactEvidence) {
+    return {
+      ok: false,
+      code: "DOCS_WRITE_EVIDENCE_MISSING",
+      message: `Artifact Evidence ${ids.evidenceId} introuvable.`,
+    };
+  }
+
+  const historicalRb = await services.reviewBundleReader.findById(
+    docsWriteContractResultIdentity(input.attempt.attemptId).reviewBundleId,
+  );
+  if (!historicalRb?.frozenAt || !historicalRb.frozenVersion) {
+    return {
+      ok: false,
+      code: "DOCS_WRITE_REVIEW_BUNDLE_NOT_FROZEN",
+      message: "Historical docs_write RB must remain frozen/auditable.",
+    };
+  }
+
+  const boundInputs =
+    input.attempt.boundExecutionContract?.semanticMaterial?.inputs ??
+    input.contract.inputs;
+  const criteria = extractDocsWriteMinConformityCriteria(
+    boundInputs as Record<string, unknown> | undefined,
+  );
+  if (!criteria.ok) {
+    return { ok: false, code: criteria.code, message: criteria.message };
+  }
+
+  const expectedDigest = artifactEvidence.digest as Digest | undefined;
+  const artifactPath =
+    artifactEvidence.location?.trim() || criteria.criteria.targetPath;
+
+  let verification;
+  if (input.artifactBytes) {
+    verification = verifyDocsWriteMinConformityFromBytes({
+      bytes: input.artifactBytes,
+      artifactPath,
+      expectedDigest,
+      criteria: criteria.criteria,
+    });
+  } else if (input.artifactAbsolutePath) {
+    verification = verifyDocsWriteMinConformityFromFile({
+      absolutePath: input.artifactAbsolutePath,
+      artifactPath,
+      expectedDigest,
+      criteria: criteria.criteria,
+    });
+  } else {
+    return {
+      ok: false,
+      code: "HISTORICAL_ARTIFACT_PAYLOAD_UNAVAILABLE",
+      message: "artifactAbsolutePath or artifactBytes required.",
+    };
+  }
+
+  if (!verification.ok) {
+    return {
+      ok: false,
+      code: verification.code,
+      message: verification.message,
+    };
+  }
+
+  // Idempotent: if conformity Evidence + successor RB + CE already exist, requalify.
+  const existingConformity = await services.evidenceReader.findById(
+    ids.conformityEvidenceId,
+  );
+  let conformityEvidence = existingConformity ?? undefined;
+  if (!conformityEvidence) {
+    const registered = await services.registerEvidence.execute({
+      evidenceId: ids.conformityEvidenceId,
+      idempotencyKey: `idem:docs-write-conformity:${correctionRef}:${input.attempt.attemptId}`,
+      actor,
+      type: "attestation",
+      source: DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
+      sourceKind: "system",
+      bindings: {
+        projectId:
+          artifactEvidence.bindings.projectId ?? input.contract.projectId,
+        cycleInstanceId:
+          artifactEvidence.bindings.cycleInstanceId ??
+          input.contract.cycleInstanceId,
+        executionContractId: input.attempt.executionContractId,
+        executionAttemptId: input.attempt.attemptId,
+      },
+      classification: "internal",
+      storageMode: "metadata_only",
+      status: "available",
+      availability: "available",
+      freshness: "fresh",
+      location: artifactPath,
+      digest: verification.digest,
+      technicalResultRef: DOCS_WRITE_MIN_CONFORMITY_VERIFIER_TECHNICAL_RESULT_REF,
+      verifiablePayload: false,
+      producedBy: actor,
+      correlationId: input.correlationId,
+      nowIso: input.nowIso,
+    });
+    if (!registered.ok) {
+      return {
+        ok: false,
+        code: registered.error.detailCode,
+        message:
+          registered.error.internalCauseRef ?? registered.error.message,
+      };
+    }
+    conformityEvidence = registered.evidence;
+  }
+
+  let reviewBundle = await services.reviewBundleReader.findById(
+    ids.reviewBundleId,
+  );
+  if (!reviewBundle) {
+    const created = await services.createReviewBundle.execute({
+      reviewBundleId: ids.reviewBundleId,
+      idempotencyKey: `idem:docs-write-rb-create:${correctionRef}:${input.attempt.attemptId}`,
+      actor,
+      projectId:
+        artifactEvidence.bindings.projectId ?? input.contract.projectId,
+      cycleInstanceId:
+        artifactEvidence.bindings.cycleInstanceId ??
+        input.contract.cycleInstanceId,
+      executionContractId: input.attempt.executionContractId,
+      evidenceIds: [ids.evidenceId, ids.conformityEvidenceId],
+      correlationId: input.correlationId,
+      nowIso: input.nowIso,
+    });
+    if (!created.ok) {
+      return {
+        ok: false,
+        code: created.error.detailCode,
+        message: created.error.internalCauseRef ?? created.error.message,
+      };
+    }
+    reviewBundle = created.reviewBundle;
+  } else if (reviewBundle.status === "draft") {
+    const needArtifact = !reviewBundle.evidenceRefs.includes(ids.evidenceId);
+    const needConformity = !reviewBundle.evidenceRefs.includes(
+      ids.conformityEvidenceId,
+    );
+    let version = reviewBundle.version;
+    if (needArtifact) {
+      const attached = await services.attachEvidenceToReviewBundle.execute({
+        reviewBundleId: ids.reviewBundleId,
+        evidenceId: ids.evidenceId,
+        idempotencyKey: `idem:docs-write-rb-attach-art:${correctionRef}:${input.attempt.attemptId}`,
+        actor,
+        expectedVersion: version,
+        correlationId: input.correlationId,
+        nowIso: input.nowIso,
+      });
+      if (!attached.ok) {
+        return {
+          ok: false,
+          code: attached.error.detailCode,
+          message:
+            attached.error.internalCauseRef ?? attached.error.message,
+        };
+      }
+      reviewBundle = attached.reviewBundle;
+      version = reviewBundle.version;
+    }
+    if (needConformity) {
+      const attached = await services.attachEvidenceToReviewBundle.execute({
+        reviewBundleId: ids.reviewBundleId,
+        evidenceId: ids.conformityEvidenceId,
+        idempotencyKey: `idem:docs-write-rb-attach-conf:${correctionRef}:${input.attempt.attemptId}`,
+        actor,
+        expectedVersion: version,
+        correlationId: input.correlationId,
+        nowIso: input.nowIso,
+      });
+      if (!attached.ok) {
+        return {
+          ok: false,
+          code: attached.error.detailCode,
+          message:
+            attached.error.internalCauseRef ?? attached.error.message,
+        };
+      }
+      reviewBundle = attached.reviewBundle;
+    }
+  }
+
+  if (!reviewBundle.frozenAt || !reviewBundle.frozenVersion) {
+    if (reviewBundle.status !== "draft") {
+      return {
+        ok: false,
+        code: "DOCS_WRITE_REVIEW_BUNDLE_NOT_FROZEN",
+        message: `Successor RB status ${reviewBundle.status} cannot freeze.`,
+      };
+    }
+    const frozen = await services.freezeReviewBundle.execute({
+      reviewBundleId: ids.reviewBundleId,
+      expectedVersion: reviewBundle.version,
+      idempotencyKey: `idem:docs-write-rb-freeze:${correctionRef}:${input.attempt.attemptId}`,
+      actor,
+      correlationId: input.correlationId,
+      nowIso: input.nowIso,
+    });
+    if (!frozen.ok) {
+      return {
+        ok: false,
+        code: frozen.error.detailCode,
+        message: frozen.error.internalCauseRef ?? frozen.error.message,
+      };
+    }
+    reviewBundle = frozen.reviewBundle;
+  }
+
+  const requalified = await requalifyDocsWriteContractResult({
+    evidenceReviewServices: services,
+    attempt: input.attempt,
+    contract: input.contract,
+    actor,
+    correlationId: input.correlationId,
+    nowIso: input.nowIso,
+    correctionRef,
+    scopeReviewBundle: true,
+  });
+
+  if (!requalified.ok) {
+    return {
+      ok: false,
+      code: requalified.code,
+      message: requalified.message,
+    };
+  }
+
+  return {
+    ok: true,
+    claimEvaluation: requalified.claimEvaluation,
+    reviewBundle: requalified.reviewBundle,
+    conformityEvidence,
+    artifactEvidence,
+    supersededClaimEvaluationId: requalified.supersededClaimEvaluationId,
+    verifierMatchedHeadings: verification.matchedHeadings,
+    reusedFromIdempotencyKey: requalified.reusedFromIdempotencyKey,
+  };
+}
+
+```
+
+### `projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteMinConformityVerifier.ts`
+
+```
+/**
+ * Deterministic docs_write minimum-conformity verifier (v1).
+ * Reads only the historical artifact bytes + bound EC inputs criteria.
+ * No NLP / LLM. Unknown criteria → refuse.
+ */
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
+import type { Digest } from "@/lib/oa/doctrine";
+
+/** Stable verifier profile — Evidence.source must equal this exactly. */
+export const DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE =
+  "docs_write_min_conformity_verifier:v1" as const;
+
+export const DOCS_WRITE_MIN_CONFORMITY_VERIFIER_TECHNICAL_RESULT_REF =
+  "docs_write_min_conformity:v1:headings_present" as const;
+
+export type DocsWriteMinConformityCriteria = {
+  readonly targetPath: string;
+  readonly contentRequirements: readonly string[];
+};
+
+export type DocsWriteMinConformityPass = {
+  readonly ok: true;
+  readonly artifactPath: string;
+  readonly digest: Digest;
+  readonly matchedHeadings: readonly string[];
+  readonly verifierSource: typeof DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE;
+  readonly technicalResultRef: typeof DOCS_WRITE_MIN_CONFORMITY_VERIFIER_TECHNICAL_RESULT_REF;
+};
+
+export type DocsWriteMinConformityFail = {
+  readonly ok: false;
+  readonly code: string;
+  readonly message: string;
+  readonly missingHeadings?: readonly string[];
+  readonly computedDigest?: Digest;
+};
+
+export type DocsWriteMinConformityResult =
+  | DocsWriteMinConformityPass
+  | DocsWriteMinConformityFail;
+
+function asNonEmptyString(value: unknown): string | undefined {
+  return typeof value === "string" && value.trim().length > 0
+    ? value.trim()
+    : undefined;
+}
+
+/**
+ * Extract bound acceptance criteria from durable semantic material inputs.
+ * Refuse when criteria are missing / non-deterministic.
+ */
+export function extractDocsWriteMinConformityCriteria(
+  inputs: Record<string, unknown> | undefined,
+):
+  | { ok: true; criteria: DocsWriteMinConformityCriteria }
+  | { ok: false; code: string; message: string } {
+  if (!inputs || typeof inputs !== "object") {
+    return {
+      ok: false,
+      code: "BOUND_ACCEPTANCE_ORACLE_MISSING",
+      message: "Bound inputs absent — cannot derive conformity oracle.",
+    };
+  }
+  const targetPath = asNonEmptyString(inputs.targetPath);
+  if (!targetPath) {
+    return {
+      ok: false,
+      code: "BOUND_ACCEPTANCE_ORACLE_MISSING",
+      message: "bound inputs.targetPath missing.",
+    };
+  }
+  const raw = inputs.contentRequirements;
+  if (!Array.isArray(raw) || raw.length === 0) {
+    return {
+      ok: false,
+      code: "BOUND_ACCEPTANCE_ORACLE_MISSING",
+      message: "bound inputs.contentRequirements missing.",
+    };
+  }
+  const contentRequirements: string[] = [];
+  for (const item of raw) {
+    const s = asNonEmptyString(item);
+    if (!s) {
+      return {
+        ok: false,
+        code: "BOUND_ACCEPTANCE_ORACLE_INVALID",
+        message: "contentRequirements contains non-string entry.",
+      };
+    }
+    contentRequirements.push(s);
+  }
+  return { ok: true, criteria: { targetPath, contentRequirements } };
+}
+
+function headingPresent(markdown: string, requirement: string): boolean {
+  // Exact heading match: "# … Requirement" (ATX), case-sensitive on requirement text.
+  const escaped = requirement.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const re = new RegExp(`^#{1,6}\\s+${escaped}\\s*$`, "m");
+  return re.test(markdown);
+}
+
+export function verifyDocsWriteMinConformityFromBytes(input: {
+  readonly bytes: Buffer;
+  readonly artifactPath: string;
+  readonly expectedDigest?: Digest;
+  readonly criteria: DocsWriteMinConformityCriteria;
+}): DocsWriteMinConformityResult {
+  const digest =
+    `sha256:${createHash("sha256").update(input.bytes).digest("hex")}` as Digest;
+  if (input.expectedDigest && input.expectedDigest !== digest) {
+    return {
+      ok: false,
+      code: "HISTORICAL_ARTIFACT_DIGEST_MISMATCH",
+      message: `computed digest ${digest} != expected ${input.expectedDigest}`,
+      computedDigest: digest,
+    };
+  }
+  const markdown = input.bytes.toString("utf8");
+  if (!markdown.trim()) {
+    return {
+      ok: false,
+      code: "ARTIFACT_EMPTY",
+      message: "artifact payload empty",
+      computedDigest: digest,
+    };
+  }
+  const missing: string[] = [];
+  const matched: string[] = [];
+  for (const req of input.criteria.contentRequirements) {
+    if (headingPresent(markdown, req)) matched.push(req);
+    else missing.push(req);
+  }
+  if (missing.length > 0) {
+    return {
+      ok: false,
+      code: "CONFORMITY_HEADINGS_MISSING",
+      message: `missing required headings: ${missing.join(", ")}`,
+      missingHeadings: missing,
+      computedDigest: digest,
+    };
+  }
+  return {
+    ok: true,
+    artifactPath: input.artifactPath,
+    digest,
+    matchedHeadings: matched,
+    verifierSource: DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
+    technicalResultRef: DOCS_WRITE_MIN_CONFORMITY_VERIFIER_TECHNICAL_RESULT_REF,
+  };
+}
+
+export function verifyDocsWriteMinConformityFromFile(input: {
+  readonly absolutePath: string;
+  readonly artifactPath: string;
+  readonly expectedDigest?: Digest;
+  readonly criteria: DocsWriteMinConformityCriteria;
+}): DocsWriteMinConformityResult {
+  let bytes: Buffer;
+  try {
+    bytes = readFileSync(input.absolutePath);
+  } catch (err) {
+    return {
+      ok: false,
+      code: "HISTORICAL_ARTIFACT_PAYLOAD_UNAVAILABLE",
+      message: `cannot read artifact: ${err instanceof Error ? err.message : String(err)}`,
+    };
+  }
+  return verifyDocsWriteMinConformityFromBytes({
+    bytes,
+    artifactPath: input.artifactPath,
+    expectedDigest: input.expectedDigest,
+    criteria: input.criteria,
+  });
+}
+
 ```
 
 ---
 
-## 8. Final stop line
+## 11. Final stop line
 
-PRODUCT JOURNEY POST-EXECUTION REPLAN — INTEGRATED ON MAIN / POST-MERGE VERIFIED — CR-PJR-01/02/03 CLOSED — NOT_PROVEN RECOVERY + FUTURE CLAIM RE-EVALUATION LIFECYCLE INTEGRATED — ATTEMPT 3 STRICT NOT_PROVEN RESERVE PRESERVED — ZERO NEW REAL
+PRODUCT JOURNEY CLAIM COMPLETION — ATTEMPT 3 DURABLE EVIDENCE COMPLETED — NEW CONTRACTRESULT CE PASS — HISTORICAL REAL-BACKED RESULT REQUALIFIED WITHOUT NEW REAL — ZERO NEW ATTEMPT
