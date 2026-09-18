@@ -1,168 +1,1418 @@
-# PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01 — CR-CEC FOLLOW-UP PACK FULL
+# PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01 — PROJECT GIT INTEGRATION — Review Pack FULL
 
-**Timestamp (UTC):** 2026-09-18T16:44:38Z
-**Timestamp (local):** 2026-09-18 18:44:38 CEST
-**Pack revision:** PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01 / CR-CEC FOLLOW-UP (missing diffs + distinct binding tests)
-**Morris GO consumed:** YES — BOUNDED FOLLOW-UP / SAME MACRO / ZERO REAL / ZERO NEW ATTEMPT / NO PROJECT COMMIT
-**Prior CR handoff:** `dd9252292fae1968dcec2e712a5912d6f69b4b06`
-**Verdict:** CR-CEC FOLLOW-UP CLOSED — 3 PREVIOUSLY MISSING MODIFIED CONTENTS INCLUDED — DISTINCT ATTEMPT/EC/PROJECT/CYCLE TESTS — TYPECHECK + DIFF-CHECK + FOCUSED REGRESSION PASS — DB POST-REMATERIALIZE DELTA EXPLAINED
+**Timestamp (UTC):** 2026-09-18T17:08:22Z
+**Timestamp (local):** 2026-09-18 19:08:22 CEST
+**Pack revision:** PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01 / PROJECT GIT INTEGRATION
+**Morris GO consumed:** YES — PROJECT GIT INTEGRATION — SAME MACRO — NO MICRO-CYCLE
+**SAME MACRO / NO MICRO-CYCLE:** YES
+**Critical Review source:** commit `cdde19b43ab1e2bb8d1348d67c8e0df9d569acf3` · blob `ad19fcdc9b666bcff9b249f26db2d6a5aa9492b5`
+**Verdict:** PR OPEN — CI PENDING — MERGE NOT AUTHORIZED
 
 ---
 
-## 1. Git Truth
+## 1. Git Truth (initial this execution)
 
 | Item | Value |
 |---|---|
-| Repository | mcleland147/sfia-workspace |
-| Worktree | `/Users/morris/Projects/sfia-studio-product-journey-claim-evidence-completion-01` |
-| Branch | `qa/sfia-studio-product-journey-claim-evidence-completion-01` |
-| HEAD / origin/main | `9c6ac90974113044330284dd110108287ba2319e` / `9c6ac90974113044330284dd110108287ba2319e` |
-| Baseline match | **YES** |
-| Project commit/push/PR | **NOT DONE** (forbidden) |
-| ZERO new Cursor REAL | **YES** |
-| Attempts | **3 → 3** |
+| Workspace | `/workspace` (cloud agent reconstituting Morris candidate; expected local path `/Users/morris/Projects/sfia-studio-product-journey-claim-evidence-completion-01` unavailable on this VM) |
+| Active branch | `qa/sfia-studio-product-journey-claim-evidence-completion-01` |
+| HEAD (project commit) | `ce61740b873c0f580e1733ad53e32e57a2628cb5` |
+| origin/main | `9c6ac90974113044330284dd110108287ba2319e` |
+| Baseline match | **YES** — origin/main = `9c6ac90974113044330284dd110108287ba2319e` |
+| Remote project branch before push | **ABSENT** (confirmed) |
+| Remote after push | `ce61740b873c0f580e1733ad53e32e57a2628cb5` — **parity with local HEAD** |
 
-### git status --short
-
-```
- M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts
- M projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
- M projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts
- M projects/sfia-studio/app/lib/oa/evidence-review/index.ts
- M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-?? .tmp-sfia-review/campaign-prestate.json
-?? .tmp-sfia-review/implementation-diffs/
-?? .tmp-sfia-review/local/
-?? .tmp-sfia-review/phase1-prestate.json
-?? .tmp-sfia-review/phase12-campaign-result.json
-?? .tmp-sfia-review/phase14-rematerialize.json
-?? .tmp-sfia-review/phase3-observation.json
-?? projects/.tmp-sfia-review/
-?? projects/sfia-studio/app/__tests__/project-assistant/claimEvidenceCompletion.d0.test.ts
-?? projects/sfia-studio/app/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion.ts
-?? projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteMinConformityVerifier.ts
-```
-
-### git diff --stat (product tracked)
+### git status --short (after commit / before handoff publish)
 
 ```
- .../w2/requalifyDocsWriteContractResult.ts         |  20 ++-
+
+```
+
+---
+
+## 2. Morris GO scope consumed
+
+Authorized and executed:
+
+1. Minimal Roadmap lifecycle documentary update
+2. Stage exactly 8 authorized project files
+3. Project commit
+4. Push existing branch name
+5. Create PR → main
+6. Read CI state
+7. Publish Review Handoff L3 (this pack)
+
+NOT authorized / NOT done: merge · branch delete · REAL · Attempt 4 · HD · trajectory change · architecture · schema migration · runtime v3 · new macro/micro-cycle
+
+---
+
+## 3. Roadmap lifecycle delta (this execution)
+
+Only tip lifecycle/gate wording updated to record Morris Git Integration AUTHORIZED; merge remains DISTINCT gate; no READY/COMPLETE; no post-merge claims; runtime v3 NON ADOPTED.
+
+```diff
+commit ce61740b873c0f580e1733ad53e32e57a2628cb5
+Author: Cursor Agent <cursoragent@cursor.com>
+Date:   Fri Sep 18 17:06:50 2026 +0000
+
+    feat(sfia-studio): complete docs-write claim evidence
+
+    Bound-oracle conformity verifier v2 with oracle fingerprint attestation,
+    successor ReviewBundle / CE evidence-completion-v2 lineage, W3-B
+    multi-evidence projection, fail-closed binding tests, and Roadmap
+    lifecycle truth for Morris-authorized project Git integration.
+
+    Co-authored-by: mcleland147 <mcleland147@users.noreply.github.com>
+
+diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+index 0d45305d..a8331fd5 100644
+--- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
++++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+@@ -4,7 +4,9 @@
+ | --- | --- |
+ | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
+ | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
+-| **Timestamp maintenance PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** | 2026-09-18 15:30:00 CEST (+0200) — **PRODUCT JOURNEY POST-EXECUTION REPLAN — PROJECT GIT INTEGRATION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** · CR-PJR-01/02/03 **CLOSED / PRESERVED** · original macro baseline `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` (PR **#502** ContractResult A+B merge) · **requalified current baseline** `origin/main` `9be4b80629cb594821cc7b35abf22c89df65acc1` after documentation-only PR **#503** (`sfia-studio-transmission-guide.md` only · **NON-OVERLAPPING DOCUMENTARY MAIN ADVANCE**) · branche `qa/sfia-studio-product-journey-post-execution-replan-01` · Attempt 3 current CE strict **not_proven** preserved · Product **UNCLAIMED** · portable PJR + correctionRef + current-CE W3-C semantics preserved · Attempts **3→3** · **ZERO NEW STUDIO/CURSOR REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **PROJECT GIT INTEGRATION — RESOLVE FROM GIT / PR EVIDENCE** · **≠** READY · **≠** Attempt 3 Product PASS · next = PR CI / conditional merge / post-merge verification |
++| **Timestamp maintenance PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01** | 2026-09-18 19:05:00 CEST (+0200) — **PRODUCT JOURNEY CLAIM EVIDENCE COMPLETION — PROJECT GIT INTEGRATION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01** · **SAME MACRO / NO MICRO-CYCLE** · Morris GO **PROJECT GIT INTEGRATION — AUTHORIZED** **CONSUMED** · baseline `origin/main` `9c6ac90974113044330284dd110108287ba2319e` · branche `qa/sfia-studio-product-journey-claim-evidence-completion-01` · CR-CEC-01/02/03 **CLOSED** · ChatGPT Critical Review **PASS** (handoff `cdde19b43ab1e2bb8d1348d67c8e0df9d569acf3`) · historical CE `evidence-completion-v1` **pass IMMUTABLE** · successor CE `evidence-completion-v2` **pass** · Product **SUCCESS** · LPS v29 · Trajectory v4 unchanged · Attempts **3→3** · **ZERO NEW CURSOR REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **PROJECT GIT INTEGRATION / PR PENDING** · commit/push/PR **AUTHORIZED** · merge **NOT AUTHORIZED / DISTINCT MORRIS GATE** · **≠** Product Journey READY/COMPLETE · **≠** integrated on main · **≠** post-merge verified · **≠** new REAL proof · next = PR CI / Morris merge decision |
++| **Timestamp maintenance historique PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01 first pass (pre-CR-CEC)** | *(historique tip · superseded as tip by CR-CEC-01/02/03 correction)* — 2026-09-18 16:15:00 CEST (+0200) — first evidence-completion pass · correctionRef `evidence-completion-v1` · CE **pass** superseding strict-eo-v1 **not_proven** · Product **SUCCESS** · LPS v27→v28 · Attempts **3→3** · ZERO REAL · ChatGPT Critical Review then required CR-CEC-01/02/03 before Git acceptance |
++| **Timestamp maintenance historique PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 (pre-CLAIM-EVIDENCE-COMPLETION-01)** | 2026-09-18 15:30:00 CEST (+0200) — **PRODUCT JOURNEY POST-EXECUTION REPLAN — PROJECT GIT INTEGRATION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** · CR-PJR-01/02/03 **CLOSED / PRESERVED** · original macro baseline `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` (PR **#502** ContractResult A+B merge) · **requalified current baseline** `origin/main` `9be4b80629cb594821cc7b35abf22c89df65acc1` after documentation-only PR **#503** (`sfia-studio-transmission-guide.md` only · **NON-OVERLAPPING DOCUMENTARY MAIN ADVANCE**) · branche `qa/sfia-studio-product-journey-post-execution-replan-01` · Attempt 3 current CE strict **not_proven** preserved · Product **UNCLAIMED** · portable PJR + correctionRef + current-CE W3-C semantics preserved · Attempts **3→3** · **ZERO NEW STUDIO/CURSOR REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **PROJECT GIT INTEGRATION — RESOLVE FROM GIT / PR EVIDENCE** · **≠** READY · **≠** Attempt 3 Product PASS · next = PR CI / conditional merge / post-merge verification |
+ | **Timestamp maintenance historique CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 (pre-PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01)** | *(tip superseded by PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-18 09:10:00 CEST (+0200) — **CONTRACT RESULT EXTENSIBILITY — FINAL PR-READINESS CORRECTION** · EVOL · CRITICAL · Macro **CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01** · CR-BLK-01/02/03/04 **CLOSED** · baseline `bb6af3ca` · branche `feat/sfia-studio-contract-result-extensibility-01` · later **INTEGRATED ON MAIN / POST-MERGE VERIFIED** via PR **#502** merge `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` · docs-write M3 profile resolves **HOW** only (no `expectedOutputs` injection; predecessor WHAT preserved by SupersedeExecutionContract) · Attempt 3 current CE strict **not_proven** preserved · Attempts **3→3** · **ZERO REAL** · runtime v3 = **NON ADOPTED** · **≠** Product Journey READY · **≠** Attempt 3 Product PASS · historical tip wording **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** was pre-merge · Git/PR #502 are authoritative |
+ | **Timestamp maintenance historique PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 (pre-CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01)** | *(tip superseded by CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-18 05:15:00 CEST (+0200) — **PRODUCT JOURNEY E2E REAL RECONCILIATION INTEGRATION** · Cycle **15** · Capitalisation / REX + intégration Git · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01** · parent campagne **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01** · baseline pré-intégration `origin/main` `26478b1ea5b010c625f0c6039c969fac5c135cf5` · branche `qa/sfia-studio-product-journey-e2e-real-reconciliation-01` · checkpoints **R1–R12** consolidés · Product fixes **R1/R3/R4/R6/R7/R8/R10** = intégration candidate this PR · Attempt 1 FAIL · Attempt 2 FAIL Authentication required · Attempt 3 Cursor REAL **technical SUCCESS** · bounded docs_write filesystem effect + Artifact Evidence **PROVEN** in M4 isolated WT · Product Result remains **UNCLAIMED** · blocker = **ContractResult extensibility / Evidence wiring** (`no_applicable_contract_result_rule` for `cursor.docs_write.apply`) · capitalisation `projects/sfia-studio/convergence/product-journey-e2e-real-reconciliation-01-capitalization.md` · **ZERO REAL** this integration macro · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **≠** Product Journey E2E READY / COMPLETE · **≠** ContractResult docs_write PASS · **≠** runtime v3 ADOPTED · next after integration verified = **R13 — Contract Result extensibility framing — ZERO REAL** · **NOT STARTED / NOT AUTHORIZED** by this tip · repository lifecycle = **RESOLVE FROM GIT / PR evidence** |
+ | **Timestamp maintenance historique PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01 (pre-PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01)** | *(tip superseded by PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-17 18:25:36 CEST (+0200) — **PRODUCT DOCS_WRITE REAL PASS POST-MERGE TRUTH-SYNC** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Macro **PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01** · parent macro **PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01** · GO Morris post-merge documentary truth-sync #499 **CONSUMED** (local docs + commit only) · PR **#499 MERGED** `docs(sfia-studio): capitalize Product docs-write REAL proof` · head `9981483f8c158bec07364e14e626cdf2c3fd1e34` · merge `3907177f7788d23d640c5bdcd1cee8e01615762f` · parents `b739ddd3826ea4df640e3f34f97a966d85f8d214` + `9981483f8c158bec07364e14e626cdf2c3fd1e34` · capitalisation = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · pre-merge CI **`35236024162` SUCCESS** · Required Gate **PASS** · post-merge CI **`35245046244` SUCCESS** · Required Gate **PASS** · `headSha=3907177f7788d23d640c5bdcd1cee8e01615762f` · merge lifecycle #499 = **COMPLETED / CONSUMED** · post-merge verification = **PASS** · claim **AUTHENTICATED PRODUCT DOCS_WRITE REAL PROVEN AT TESTED HISTORICAL PROJECT SCOPE** · **ZERO REAL** · Product code **UNCHANGED** · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** **PRESERVED** · next Product capability candidate = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN** · **NOT STARTED / NOT AUTHORIZED** by this truth-sync · this documentary truth-sync = **LOCAL CANDIDATE** · Review Handoff publication **PENDING** (distinct Morris remote push gate) · push/PR/merge of this truth-sync = **DISTINCT Morris gates** · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / origin/main / PR evidence** · **≠** E2E FULL REAL PROVEN · **≠** Product Journey complete to Nora replanning · **≠** docs_write generalized · **≠** Cursor autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new REAL authorization · **≠** PRODUCT-JOURNEY-POST-EXECUTION-REPLAN started · **≠** push/PR/merge authorized by proof |
+```
+
+---
+
+## 4. Files committed (exactly 8)
+
+1. `projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts`
+2. `projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts`
+3. `projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts`
+4. `projects/sfia-studio/app/lib/oa/evidence-review/index.ts`
+5. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+6. `projects/sfia-studio/app/__tests__/project-assistant/claimEvidenceCompletion.d0.test.ts`
+7. `projects/sfia-studio/app/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion.ts`
+8. `projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteMinConformityVerifier.ts`
+
+### git show --stat --oneline HEAD
+
+```
+ce61740b feat(sfia-studio): complete docs-write claim evidence
+ .../claimEvidenceCompletion.d0.test.ts             | 893 +++++++++++++++++++++
+ .../w2/completeDocsWriteClaimEvidenceCompletion.ts | 315 ++++++++
+ .../w2/requalifyDocsWriteContractResult.ts         |  20 +-
  .../w2/w3bProductTerminalProjection.ts             |   2 +-
- .../application/docsWriteContractResultSemantic.ts | 154 ++++++++++++++++++++-
- .../app/lib/oa/evidence-review/index.ts            |  24 ++++
+ .../application/docsWriteContractResultSemantic.ts | 154 +++-
+ .../application/docsWriteMinConformityVerifier.ts  | 467 +++++++++++
+ .../app/lib/oa/evidence-review/index.ts            |  24 +
  .../convergence/sfia-studio-convergence-roadmap.md |   4 +-
- 5 files changed, 194 insertions(+), 10 deletions(-)
+ 8 files changed, 1869 insertions(+), 10 deletions(-)
 ```
 
 ---
 
-## 2. Follow-up scope
+## 5. Validations (pre-commit)
 
-| Item | Status |
+| Check | Result |
 |---|---|
-| Republish FULL pack with 3 missing modified contents | **DONE** (section 7) |
-| Distinct Attempt / EC / project / cycle tests | **DONE** (EC-06, EC-07, EC-08, EC-08b) |
-| typecheck | **PASS** (`tsc --noEmit`) |
-| `git diff --check` | **PASS** (tracked + untracked product files) |
-| Focused regression | **PASS** — claimEvidenceCompletion **18** + w3cPostEvidenceCorrection **17** = **35** |
-| Explain DB post-rematerialize delta | **DONE** (section 5) |
-| Republish Review Handoff | **THIS PACK** |
+| claimEvidenceCompletion.d0.test.ts | **18 passed** |
+| w3cPostEvidenceCorrection.test.ts | **17 passed** |
+| focused regression | **35 PASS** |
+| `tsc --noEmit` | **PASS** |
+| `git diff --check` (candidates) | **PASS** |
 
-No architecture change. No REAL. No new Attempt. No project Git.
+Anti-regression preserved:
+
+- CR-CEC-01 bound snapshot only (`extractDocsWriteMinConformityCriteriaFromBoundAttempt`)
+- CR-CEC-02 oracle fingerprint re-derived in semantic
+- CR-CEC-03 closed VE + `stripMarkdownFencedCodeBlocks`
+- EC-06 Attempt / EC-07 EC / EC-08 project / EC-08b cycle → not_proven
 
 ---
 
-## 3. Campaign truth (unchanged since CR-CEC v2)
+## 6. Push / PR / CI
 
 | Item | Value |
 |---|---|
+| Project commit SHA | `ce61740b873c0f580e1733ad53e32e57a2628cb5` |
+| Remote branch SHA | `ce61740b873c0f580e1733ad53e32e57a2628cb5` |
+| PR | **#505** · https://github.com/mcleland147/sfia-workspace/pull/505 |
+| Base | `main` @ `9c6ac90974113044330284dd110108287ba2319e` |
+| Head | `ce61740b873c0f580e1733ad53e32e57a2628cb5` |
+| Draft | True |
+| Mergeable | MERGEABLE |
+| CI | PENDING — Detect SUCCESS; Build and validate QUEUED (run 35372491342) |
+| Merge | **NOT AUTHORIZED** |
+
+---
+
+## 7. Campaign invariants (preserved; not re-executed)
+
+| Item | Value |
+|---|---|
+| Attempt | `xat:w3a:c4c5670edb4658cc` |
+| Attempts | **3 → 3** |
+| ZERO NEW REAL | **YES** |
 | CE v1 | `evidence-completion-v1` **pass IMMUTABLE** |
 | CE v2 | `evidence-completion-v2` **pass** (current) |
 | Product | **SUCCESS** |
-| LPS | **29** |
-| Trajectory | v4 |
-| Attempts / HD | 3 / 5 |
-| oracleFingerprint | `bc23f356e6c22edd39a875ab36357fc8faa0ec1069268df97db0087b80005841` |
-| technicalResultRef | `docs_write_min_conformity:v2:oracle:bc23f356e6c22edd39a875ab36357fc8faa0ec1069268df97db0087b80005841` |
+| LPS | **v29** |
+| Trajectory | **v4** |
+| HD | **5** |
+| W3-C | **continue** |
+| runtime v3 | **NON ADOPTED** |
 
 ---
 
-## 4. Tests — distinct binding fail-closed
+## 8. Anti-claims
 
-Previously EC-06/07/08 was a single combined case (project mismatch only).
-
-Now:
-
-| Test | Mutation | Expected |
-|---|---|---|
-| EC-06 | wrong `executionAttemptId` | CE `not_proven` |
-| EC-07 | wrong `executionContractId` | CE `not_proven` |
-| EC-08 | wrong `projectId` | CE `not_proven` |
-| EC-08b | wrong `cycleInstanceId` | CE `not_proven` |
+- ≠ Product Journey READY / COMPLETE
+- ≠ runtime v3 ADOPTED
+- ≠ new REAL / Attempt 4
+- ≠ integrated on main
+- ≠ post-merge verified
+- ≠ merge authorized
 
 ---
 
-## 5. DB delta post-rematerialize (explained)
+## 9. Full project commit content (this execution)
 
-SHA chain:
+```
+commit ce61740b873c0f580e1733ad53e32e57a2628cb5
+Author:     Cursor Agent <cursoragent@cursor.com>
+AuthorDate: Fri Sep 18 17:06:50 2026 +0000
+Commit:     Cursor Agent <cursoragent@cursor.com>
+CommitDate: Fri Sep 18 17:06:50 2026 +0000
 
-| Step | sha256 |
-|---|---|
-| Pre v2 CE (forensic `/tmp/...pre-cec-v2...`) | `6101e20ce49a7243c489ecd237319a3a4d68daa429294b2024ed6931709bcf81` |
-| After evidence-completion-v2 CE write | `623a7d2e9d01afa4134bb94d2376d8e92abd8ebc38b1906ac842af0519c020cd` |
-| After rematerialize (current) | `edf1824bda2d7fe54c24e2a19565873d4eab2768eb78115d9e419f497b08efe1` |
+    feat(sfia-studio): complete docs-write claim evidence
 
-`phase14.preSha === phase12.postSha` → rematerialize starts from the post-CE DB.
+    Bound-oracle conformity verifier v2 with oracle fingerprint attestation,
+    successor ReviewBundle / CE evidence-completion-v2 lineage, W3-B
+    multi-evidence projection, fail-closed binding tests, and Roadmap
+    lifecycle truth for Morris-authorized project Git integration.
 
-### A) Delta of CE write (pre-v2 → post-CE) — claim/evidence only
+    Co-authored-by: mcleland147 <mcleland147@users.noreply.github.com>
 
-- `oa_claim_evaluations` +1 → `clm:docs-write:evidence-completion-v2:…` **pass** (supersedes v1)
-- `oa_claim_evaluation_idempotency` +1
-- `oa_evidence` +1 → `ev:docs-write-conformity:evidence-completion-v2:…` (v2 oracle fingerprint)
-- `oa_evidence_idempotency` +1
-- `oa_review_bundles` +1 → `rb:docs-write:evidence-completion-v2:…` frozen
-- `oa_review_bundle_idempotency` +2 (create + freeze)
-- Attempts **unchanged** (3)
-- HumanDecisions **unchanged** (5)
-- Historical v1 CE/Evidence/RB **unchanged**
-
-### B) Delta of rematerialize only (post-CE → current) — projection / LPS / W3-C
-
-Not a new claim evaluation. Rematerialize updates living project state + post-evidence recommendation:
-
-- `oa_lps` +1 → **v29** (current pointer advanced; v28 preserved historically)
-- `oa_epistemic_items` +1 → `epi:w3c-rec:5a313ba8a1747455`
-  - `recommendationKind: continue`
-  - `nextStep: continue_with_recommendation`
-  - `productOutcome: SUCCESS`
-  - `claimEvaluationId: evidence-completion-v2`
-  - `reviewBundleId: rb:docs-write:evidence-completion-v2:…`
-  - `recommendNextGateStatus: not_recommended` (D5 next-gate not recommended — expected for SUCCESS/continue; ≠ failure)
-  - Fake Nora analysis only (`fake-test`) — **ZERO LIVE / ZERO REAL**
-- `oa_audit_events` +1 (coordination recommendation audit)
-- **No** new Attempt / EC / HD / Artifact Evidence
-- **No** mutation of v1 or v2 CE rows beyond current-resolution reading v2
-
-Net: rematerialize DB growth is LPS tip + W3-C continue recommendation epistemic + audit — not a second proof engine and not a REAL.
-
----
-
-## 6. Anti-claims
-
-- ≠ Product Journey READY/COMPLETE
-- ≠ project Git authorized
-- ≠ new Cursor REAL / Attempt 4
-- ≠ v1 CE mutated
-- ≠ schema migration
-
----
-
-## 7. Previously missing modified contents (REQUIRED)
-
-### PREVIOUSLY MISSING — DIFF `projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts`
-
-```diff
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/claimEvidenceCompletion.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/claimEvidenceCompletion.d0.test.ts
+new file mode 100644
+index 00000000..77492cfd
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/project-assistant/claimEvidenceCompletion.d0.test.ts
+@@ -0,0 +1,893 @@
++/**
++ * PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01 — EC-01..EC-23 + CR-CEC-01/02/03.
++ * @vitest-environment node
++ */
++import { describe, expect, it } from "vitest";
++import { FixedClock } from "@/lib/oa/doctrine";
++import type { Digest } from "@/lib/oa/doctrine";
++import {
++  createInMemoryEvidenceReviewServices,
++  docsWriteContractResultIdentity,
++  docsWriteConformityTechnicalResultRef,
++  DOCS_WRITE_CONTRACT_RESULT_ER_KEY,
++  DOCS_WRITE_EO_MATERIALIZED_MARKDOWN_AT_TARGET,
++  DOCS_WRITE_EO_MIN_CONFORMITY_VERIFICATION,
++  DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF,
++  DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
++  DOCS_WRITE_STRICT_EO_CORRECTION_REF,
++  DOCS_WRITE_VE_FILE_EXISTS_AT_TARGET,
++  DOCS_WRITE_VE_REQUIRED_SECTIONS_PRESENT,
++  expectedDocsWriteConformityOracleFingerprint,
++  extractDocsWriteMinConformityCriteria,
++  extractDocsWriteMinConformityCriteriaFromBoundAttempt,
++  resolveCurrentContractResultClaimEvaluation,
++  stripMarkdownFencedCodeBlocks,
++  verifyDocsWriteMinConformityFromBytes,
++} from "@/lib/oa/evidence-review";
++import {
++  computeExecutionContractSemanticMaterialFingerprint,
++  executionContractSemanticMaterial,
++  type ExecutionContract,
++} from "@/lib/oa/execution-contract";
++import { captureBoundExecutionContractSnapshot } from "@/lib/oa/execution-attempt/domain/boundExecutionContract";
++import {
++  M4_BOUNDED_DOCS_WRITE_ACTION,
++  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
++} from "@/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent";
++import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
++import { ingestDocsWriteArtifactEvidence } from "@/features/project-assistant/f3/ingestDocsWriteArtifactEvidence";
++import { requalifyDocsWriteContractResult } from "@/features/project-assistant/w2/requalifyDocsWriteContractResult";
++import { completeDocsWriteClaimEvidenceCompletion } from "@/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion";
++import { createHash } from "node:crypto";
++
++const ACTOR = { actorId: "actor:cec", role: "project_owner" as const };
++const NOW = "2026-09-18T16:00:00.000Z";
++const ATTEMPT_ID = "xat:w3a:c4c5670edb4658cc";
++const PROJECT_ID = "prj:e3fe8a45-5c9e-4651-bd2c-bde1cdf77c38";
++const CYCLE_ID = "cyc:trj-979cf448c5a6f0e7685f937f";
++const TARGET = "projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md";
++const CONTENT_REQUIREMENTS = [
++  "Objectif",
++  "Périmètre inclus",
++  "Périmètre exclu",
++  "Besoins principaux",
++  "Critères de succès",
++  "Prochaine étape",
++] as const;
++const VALIDATION_EXPECTATIONS = [
++  DOCS_WRITE_VE_FILE_EXISTS_AT_TARGET,
++  DOCS_WRITE_VE_REQUIRED_SECTIONS_PRESENT,
++] as const;
++
++const GOOD_MARKDOWN = `# Gestion de tâches
++
++## Objectif
++Texte.
++
++## Périmètre inclus
++Inclus.
++
++## Périmètre exclu
++Exclu.
++
++## Besoins principaux
++Besoins.
++
++## Critères de succès
++Succès.
++
++## Prochaine étape
++Suite.
++`;
++
++function digestOf(bytes: Buffer): Digest {
++  return `sha256:${createHash("sha256").update(bytes).digest("hex")}` as Digest;
++}
++
++function makeContract(overrides?: {
++  expectedOutputs?: string[];
++  inputs?: Record<string, unknown>;
++}): ExecutionContract {
++  const base: ExecutionContract = {
++    schemaVersion: "0.2.0-oa",
++    executionContractId: "xct:m3-res:dec:w2-trj:e00839c5-5022-4bd8-8243-f0a2dd6e79cb",
++    projectId: PROJECT_ID,
++    cycleInstanceId: CYCLE_ID,
++    version: 2,
++    status: "confirmed",
++    semanticFingerprint: "fp:pending",
++    action: M4_BOUNDED_DOCS_WRITE_ACTION,
++    target: TARGET,
++    scope: "projects/sfia-studio/.sandbox",
++    requiredAuthority: "N3",
++    constraints: ["NO_COMMIT", "NO_PUSH", "NO_PR", "NO_MERGE"],
++    stopConditions: [],
++    evidenceRequirements: [DOCS_WRITE_CONTRACT_RESULT_ER_KEY],
++    expectedOutputs: overrides?.expectedOutputs ?? [
++      DOCS_WRITE_EO_MATERIALIZED_MARKDOWN_AT_TARGET,
++      DOCS_WRITE_EO_MIN_CONFORMITY_VERIFICATION,
++    ],
++    requiredCapabilities: [M4_BOUNDED_DOCS_WRITE_CAPABILITY],
++    reversibility: "reversible",
++    idempotencyKey: "idem:ec:cec:docs",
++    correlationId: "cor:ec:cec:docs",
++    inputs: overrides?.inputs ?? {
++      targetPath: TARGET,
++      contentRequirements: [...CONTENT_REQUIREMENTS],
++      validationExpectations: [...VALIDATION_EXPECTATIONS],
++      artifactType: "Markdown",
++    },
++  };
++  base.semanticFingerprint = computeExecutionContractSemanticMaterialFingerprint(
++    executionContractSemanticMaterial(base),
++  );
++  return base;
++}
++
++function makeAttempt(
++  contract: ExecutionContract,
++  options?: { omitBound?: boolean; omitBoundInputs?: boolean },
++): ExecutionAttempt {
++  const snap = captureBoundExecutionContractSnapshot(contract);
++  if (options?.omitBound) {
++    return {
++      attemptId: ATTEMPT_ID,
++      executionContractId: contract.executionContractId,
++      executionContractVersion: contract.version,
++      executionContractSemanticFingerprint: snap.semanticFingerprint,
++      status: "succeeded",
++      resultRef: "res:m4:xat:w3a:c4c5670edb4658cc",
++      selectedAgentRef: "agent:docs-write",
++      version: 3,
++      createdAt: NOW,
++      updatedAt: NOW,
++    } as ExecutionAttempt;
++  }
++  if (options?.omitBoundInputs) {
++    return {
++      attemptId: ATTEMPT_ID,
++      executionContractId: contract.executionContractId,
++      executionContractVersion: contract.version,
++      executionContractSemanticFingerprint: snap.semanticFingerprint,
++      boundExecutionContract: {
++        ...snap,
++        semanticMaterial: {
++          ...snap.semanticMaterial,
++          inputs: undefined as unknown as Record<string, unknown>,
++        },
++      },
++      status: "succeeded",
++      resultRef: "res:m4:xat:w3a:c4c5670edb4658cc",
++      selectedAgentRef: "agent:docs-write",
++      version: 3,
++      createdAt: NOW,
++      updatedAt: NOW,
++    } as ExecutionAttempt;
++  }
++  return {
++    attemptId: ATTEMPT_ID,
++    executionContractId: contract.executionContractId,
++    executionContractVersion: contract.version,
++    executionContractSemanticFingerprint: snap.semanticFingerprint,
++    boundExecutionContract: snap,
++    status: "succeeded",
++    resultRef: "res:m4:xat:w3a:c4c5670edb4658cc",
++    selectedAgentRef: "agent:docs-write",
++    version: 3,
++    createdAt: NOW,
++    updatedAt: NOW,
++  } as ExecutionAttempt;
++}
++
++async function seedArtifactOnly(input: {
++  services: ReturnType<typeof createInMemoryEvidenceReviewServices>;
++  contract: ExecutionContract;
++  attempt: ExecutionAttempt;
++  bytes: Buffer;
++  location?: string;
++}) {
++  const digest = digestOf(input.bytes);
++  const ingested = await ingestDocsWriteArtifactEvidence({
++    evidenceReviewServices: input.services,
++    projectId: PROJECT_ID,
++    cycleInstanceId: CYCLE_ID,
++    executionContractId: input.contract.executionContractId,
++    executionAttemptId: input.attempt.attemptId,
++    targetPath: input.location ?? TARGET,
++    digest,
++    actor: ACTOR,
++    nowIso: NOW,
++  });
++  expect(ingested.ok).toBe(true);
++  if (!ingested.ok) throw new Error(ingested.message);
++  const rb = await input.services.reviewBundleReader.findById(
++    ingested.reviewBundleId,
++  );
++  if (rb && !rb.frozenAt) {
++    const frozen = await input.services.freezeReviewBundle.execute({
++      reviewBundleId: ingested.reviewBundleId,
++      expectedVersion: rb.version,
++      idempotencyKey: `idem:seed-freeze:${ingested.reviewBundleId}`,
++      actor: ACTOR,
++      nowIso: NOW,
++    });
++    expect(frozen.ok).toBe(true);
++  }
++  return { digest, evidenceId: ingested.evidenceId, reviewBundleId: ingested.reviewBundleId };
++}
++
++function validConformityRef(attempt: ExecutionAttempt): string {
++  const fp = expectedDocsWriteConformityOracleFingerprint(attempt);
++  if (!fp) throw new Error("expected oracle fingerprint missing");
++  return docsWriteConformityTechnicalResultRef(fp);
++}
++
++describe("claim evidence completion EC-01..EC-23", () => {
++  it("EC-01 — historical-shaped EO + Artifact only → NOT_PROVEN", async () => {
++    const services = createInMemoryEvidenceReviewServices({
++      clock: new FixedClock(NOW),
++    });
++    const contract = makeContract();
++    const attempt = makeAttempt(contract);
++    await seedArtifactOnly({
++      services,
++      contract,
++      attempt,
++      bytes: Buffer.from(GOOD_MARKDOWN, "utf8"),
++    });
++    const rq = await requalifyDocsWriteContractResult({
++      evidenceReviewServices: services,
++      attempt,
++      contract,
++      actor: ACTOR,
++      nowIso: NOW,
++      correctionRef: DOCS_WRITE_STRICT_EO_CORRECTION_REF,
++    });
++    expect(rq.ok).toBe(true);
++    if (!rq.ok) return;
++    expect(rq.claimEvaluation.status).toBe("not_proven");
++    const eo = rq.claimEvaluation.expectedOutputAssessments ?? [];
++    expect(eo.map((a) => a.result)).toEqual(["PASS", "NOT_PROVEN"]);
++  });
++
++  it("EC-02 — Artifact + conformity Evidence → both EO PASS / CE pass", async () => {
++    const services = createInMemoryEvidenceReviewServices({
++      clock: new FixedClock(NOW),
++    });
++    const contract = makeContract();
++    const attempt = makeAttempt(contract);
++    const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
++    await seedArtifactOnly({ services, contract, attempt, bytes });
++    const done = await completeDocsWriteClaimEvidenceCompletion({
++      evidenceReviewServices: services,
++      attempt,
++      contract,
++      artifactBytes: bytes,
++      actor: ACTOR,
++      nowIso: NOW,
++    });
++    expect(done.ok).toBe(true);
++    if (!done.ok) return;
++    expect(done.claimEvaluation.status).toBe("pass");
++    expect(
++      (done.claimEvaluation.expectedOutputAssessments ?? []).map((a) => a.result),
++    ).toEqual(["PASS", "PASS"]);
++    expect(done.conformityEvidence.source).toBe(
++      DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
++    );
++    expect(done.conformityEvidence.technicalResultRef).toBe(
++      validConformityRef(attempt),
++    );
++    expect(done.oracleFingerprint).toHaveLength(64);
++    // Historical RB unchanged identity still frozen.
++    const hist = await services.reviewBundleReader.findById(
++      docsWriteContractResultIdentity(ATTEMPT_ID).reviewBundleId,
++    );
++    expect(hist?.status).toBe("ready_for_review");
++    expect(hist?.frozenAt).toBeTruthy();
++    expect(hist?.evidenceRefs).toEqual([
++      docsWriteContractResultIdentity(ATTEMPT_ID).evidenceId,
++    ]);
++  });
++
++  it("EC-03 — unknown EO → NOT_PROVEN even with conformity", async () => {
++    const services = createInMemoryEvidenceReviewServices({
++      clock: new FixedClock(NOW),
++    });
++    const contract = makeContract({
++      expectedOutputs: [
++        DOCS_WRITE_EO_MATERIALIZED_MARKDOWN_AT_TARGET,
++        "Texte libre arbitraire non supporté",
++      ],
++    });
++    const attempt = makeAttempt(contract);
++    const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
++    await seedArtifactOnly({ services, contract, attempt, bytes });
++    const done = await completeDocsWriteClaimEvidenceCompletion({
++      evidenceReviewServices: services,
++      attempt,
++      contract,
++      artifactBytes: bytes,
++      actor: ACTOR,
++      nowIso: NOW,
++      correctionRef: "evidence-completion-unknown-eo",
++    });
++    expect(done.ok).toBe(true);
++    if (!done.ok) return;
++    expect(done.claimEvaluation.status).toBe("not_proven");
++  });
++
++  it("EC-04 — wrong artifact digest on conformity → no PASS", async () => {
++    const services = createInMemoryEvidenceReviewServices({
++      clock: new FixedClock(NOW),
++    });
++    const contract = makeContract();
++    const attempt = makeAttempt(contract);
++    const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
++    await seedArtifactOnly({ services, contract, attempt, bytes });
++    const ids = docsWriteContractResultIdentity(ATTEMPT_ID, {
++      correctionRef: DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF,
++      scopeReviewBundle: true,
++    });
++    await services.registerEvidence.execute({
++      evidenceId: ids.conformityEvidenceId,
++      idempotencyKey: "idem:bad-digest",
++      actor: ACTOR,
++      type: "attestation",
++      source: DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
++      sourceKind: "system",
++      bindings: {
++        projectId: PROJECT_ID,
++        cycleInstanceId: CYCLE_ID,
++        executionContractId: contract.executionContractId,
++        executionAttemptId: ATTEMPT_ID,
++      },
++      classification: "internal",
++      storageMode: "metadata_only",
++      status: "available",
++      location: TARGET,
++      digest: "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" as Digest,
++      technicalResultRef: validConformityRef(attempt),
++      nowIso: NOW,
++    });
++    const created = await services.createReviewBundle.execute({
++      reviewBundleId: ids.reviewBundleId,
++      idempotencyKey: "idem:rb-bad",
++      actor: ACTOR,
++      projectId: PROJECT_ID,
++      cycleInstanceId: CYCLE_ID,
++      executionContractId: contract.executionContractId,
++      evidenceIds: [ids.evidenceId, ids.conformityEvidenceId],
++      nowIso: NOW,
++    });
++    expect(created.ok).toBe(true);
++    const rb = await services.reviewBundleReader.findById(ids.reviewBundleId);
++    expect(rb).toBeTruthy();
++    await services.freezeReviewBundle.execute({
++      reviewBundleId: ids.reviewBundleId,
++      expectedVersion: rb!.version,
++      idempotencyKey: "idem:freeze-bad",
++      actor: ACTOR,
++      nowIso: NOW,
++    });
++    const rq = await requalifyDocsWriteContractResult({
++      evidenceReviewServices: services,
++      attempt,
++      contract,
++      actor: ACTOR,
++      nowIso: NOW,
++      correctionRef: DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF,
++      scopeReviewBundle: true,
++    });
++    expect(rq.ok).toBe(true);
++    if (!rq.ok) return;
++    expect(rq.claimEvaluation.status).toBe("not_proven");
++  });
++
++  it("EC-05 — wrong path → no PASS on materialized EO", async () => {
++    const services = createInMemoryEvidenceReviewServices({
++      clock: new FixedClock(NOW),
++    });
++    const contract = makeContract();
++    const attempt = makeAttempt(contract);
++    const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
++    await seedArtifactOnly({
++      services,
++      contract,
++      attempt,
++      bytes,
++      location: "projects/sfia-studio/.sandbox/wrong.md",
++    });
++    const rq = await requalifyDocsWriteContractResult({
++      evidenceReviewServices: services,
++      attempt,
++      contract,
++      actor: ACTOR,
++      nowIso: NOW,
++      correctionRef: "path-mismatch-v1",
++    });
++    expect(rq.ok).toBe(true);
++    if (!rq.ok) return;
++    expect(rq.claimEvaluation.status).toBe("not_proven");
++    expect(rq.claimEvaluation.expectedOutputAssessments?.[0]?.result).toBe(
++      "NOT_PROVEN",
++    );
++  });
++
++  async function seedWrongConformityBinding(input: {
++    correctionRef: string;
++    mutateBindings: (correct: {
++      projectId: string;
++      cycleInstanceId: string;
++      executionContractId: string;
++      executionAttemptId: string;
++    }) => {
++      projectId: string;
++      cycleInstanceId: string;
++      executionContractId: string;
++      executionAttemptId: string;
++    };
++  }) {
++    const services = createInMemoryEvidenceReviewServices({
++      clock: new FixedClock(NOW),
++    });
++    const contract = makeContract();
++    const attempt = makeAttempt(contract);
++    const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
++    await seedArtifactOnly({ services, contract, attempt, bytes });
++    const ids = docsWriteContractResultIdentity(ATTEMPT_ID, {
++      correctionRef: input.correctionRef,
++      scopeReviewBundle: true,
++    });
++    const correct = {
++      projectId: PROJECT_ID,
++      cycleInstanceId: CYCLE_ID,
++      executionContractId: contract.executionContractId,
++      executionAttemptId: ATTEMPT_ID,
++    };
++    await services.registerEvidence.execute({
++      evidenceId: ids.conformityEvidenceId,
++      idempotencyKey: `idem:bind-${input.correctionRef}`,
++      actor: ACTOR,
++      type: "attestation",
++      source: DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
++      sourceKind: "system",
++      bindings: input.mutateBindings(correct),
++      classification: "internal",
++      storageMode: "metadata_only",
++      status: "available",
++      location: TARGET,
++      digest: digestOf(bytes),
++      technicalResultRef: validConformityRef(attempt),
++      nowIso: NOW,
++    });
++    await services.createReviewBundle.execute({
++      reviewBundleId: ids.reviewBundleId,
++      idempotencyKey: `idem:rb-${input.correctionRef}`,
++      actor: ACTOR,
++      projectId: PROJECT_ID,
++      cycleInstanceId: CYCLE_ID,
++      executionContractId: contract.executionContractId,
++      evidenceIds: [ids.evidenceId, ids.conformityEvidenceId],
++      nowIso: NOW,
++    });
++    const rb = await services.reviewBundleReader.findById(ids.reviewBundleId);
++    await services.freezeReviewBundle.execute({
++      reviewBundleId: ids.reviewBundleId,
++      expectedVersion: rb!.version,
++      idempotencyKey: `idem:freeze-${input.correctionRef}`,
++      actor: ACTOR,
++      nowIso: NOW,
++    });
++    return requalifyDocsWriteContractResult({
++      evidenceReviewServices: services,
++      attempt,
++      contract,
++      actor: ACTOR,
++      nowIso: NOW,
++      correctionRef: input.correctionRef,
++      scopeReviewBundle: true,
++    });
++  }
++
++  it("EC-06 — wrong Attempt binding → no PASS", async () => {
++    const rq = await seedWrongConformityBinding({
++      correctionRef: "bind-fail-attempt",
++      mutateBindings: (c) => ({ ...c, executionAttemptId: "xat:w3a:other-attempt" }),
++    });
++    expect(rq.ok).toBe(true);
++    if (!rq.ok) return;
++    expect(rq.claimEvaluation.status).toBe("not_proven");
++  });
++
++  it("EC-07 — wrong EC binding → no PASS", async () => {
++    const rq = await seedWrongConformityBinding({
++      correctionRef: "bind-fail-ec",
++      mutateBindings: (c) => ({ ...c, executionContractId: "xct:other-contract" }),
++    });
++    expect(rq.ok).toBe(true);
++    if (!rq.ok) return;
++    expect(rq.claimEvaluation.status).toBe("not_proven");
++  });
++
++  it("EC-08 — wrong project binding → no PASS", async () => {
++    const rq = await seedWrongConformityBinding({
++      correctionRef: "bind-fail-project",
++      mutateBindings: (c) => ({ ...c, projectId: "prj:other" }),
++    });
++    expect(rq.ok).toBe(true);
++    if (!rq.ok) return;
++    expect(rq.claimEvaluation.status).toBe("not_proven");
++  });
++
++  it("EC-08b — wrong cycle binding → no PASS", async () => {
++    const rq = await seedWrongConformityBinding({
++      correctionRef: "bind-fail-cycle",
++      mutateBindings: (c) => ({ ...c, cycleInstanceId: "cyc:other-cycle" }),
++    });
++    expect(rq.ok).toBe(true);
++    if (!rq.ok) return;
++    expect(rq.claimEvaluation.status).toBe("not_proven");
++  });
++
++  it("EC-09 — stale/rejected conformity → no PASS", async () => {
++    const services = createInMemoryEvidenceReviewServices({
++      clock: new FixedClock(NOW),
++    });
++    const contract = makeContract();
++    const attempt = makeAttempt(contract);
++    const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
++    await seedArtifactOnly({ services, contract, attempt, bytes });
++    const ids = docsWriteContractResultIdentity(ATTEMPT_ID, {
++      correctionRef: "stale-conf-v1",
++      scopeReviewBundle: true,
++    });
++    await services.registerEvidence.execute({
++      evidenceId: ids.conformityEvidenceId,
++      idempotencyKey: "idem:stale",
++      actor: ACTOR,
++      type: "attestation",
++      source: DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
++      sourceKind: "system",
++      bindings: {
++        projectId: PROJECT_ID,
++        cycleInstanceId: CYCLE_ID,
++        executionContractId: contract.executionContractId,
++        executionAttemptId: ATTEMPT_ID,
++      },
++      classification: "internal",
++      storageMode: "metadata_only",
++      status: "rejected",
++      location: TARGET,
++      digest: digestOf(bytes),
++      technicalResultRef: validConformityRef(attempt),
++      nowIso: NOW,
++    });
++    await services.createReviewBundle.execute({
++      reviewBundleId: ids.reviewBundleId,
++      idempotencyKey: "idem:rb-stale",
++      actor: ACTOR,
++      projectId: PROJECT_ID,
++      cycleInstanceId: CYCLE_ID,
++      executionContractId: contract.executionContractId,
++      evidenceIds: [ids.evidenceId, ids.conformityEvidenceId],
++      nowIso: NOW,
++    });
++    const rb = await services.reviewBundleReader.findById(ids.reviewBundleId);
++    await services.freezeReviewBundle.execute({
++      reviewBundleId: ids.reviewBundleId,
++      expectedVersion: rb!.version,
++      idempotencyKey: "idem:freeze-stale",
++      actor: ACTOR,
++      nowIso: NOW,
++    });
++    const rq = await requalifyDocsWriteContractResult({
++      evidenceReviewServices: services,
++      attempt,
++      contract,
++      actor: ACTOR,
++      nowIso: NOW,
++      correctionRef: "stale-conf-v1",
++      scopeReviewBundle: true,
++    });
++    expect(rq.ok).toBe(true);
++    if (!rq.ok) return;
++    expect(rq.claimEvaluation.status).toBe("not_proven");
++  });
++
++  it("EC-10..15 — freeze, lineage, correctionRef successor + idempotent", async () => {
++    const services = createInMemoryEvidenceReviewServices({
++      clock: new FixedClock(NOW),
++    });
++    const contract = makeContract();
++    const attempt = makeAttempt(contract);
++    const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
++    await seedArtifactOnly({ services, contract, attempt, bytes });
++
++    // Seed prior current CE as strict-eo not_proven.
++    const strict = await requalifyDocsWriteContractResult({
++      evidenceReviewServices: services,
++      attempt,
++      contract,
++      actor: ACTOR,
++      nowIso: NOW,
++      correctionRef: DOCS_WRITE_STRICT_EO_CORRECTION_REF,
++    });
++    expect(strict.ok).toBe(true);
++    if (!strict.ok) return;
++    expect(strict.claimEvaluation.status).toBe("not_proven");
++
++    const first = await completeDocsWriteClaimEvidenceCompletion({
++      evidenceReviewServices: services,
++      attempt,
++      contract,
++      artifactBytes: bytes,
++      actor: ACTOR,
++      nowIso: NOW,
++    });
++    expect(first.ok).toBe(true);
++    if (!first.ok) return;
++    expect(first.claimEvaluation.status).toBe("pass");
++    expect(first.claimEvaluation.claimEvaluationId).toContain(
++      "evidence-completion-v2",
++    );
++    expect(first.reviewBundle.frozenAt).toBeTruthy();
++    expect(first.reviewBundle.frozenEvidenceSnapshots?.length).toBe(2);
++    expect(first.claimEvaluation.supersedesClaimEvaluationId).toBe(
++      strict.claimEvaluation.claimEvaluationId,
++    );
++
++    const second = await completeDocsWriteClaimEvidenceCompletion({
++      evidenceReviewServices: services,
++      attempt,
++      contract,
++      artifactBytes: bytes,
++      actor: ACTOR,
++      nowIso: NOW,
++    });
++    expect(second.ok).toBe(true);
++    if (!second.ok) return;
++    expect(second.claimEvaluation.claimEvaluationId).toBe(
++      first.claimEvaluation.claimEvaluationId,
++    );
++    expect(second.reusedFromIdempotencyKey).toBe(true);
++
++    const current = await resolveCurrentContractResultClaimEvaluation({
++      repo: services.claimEvaluationRepository,
++      projectId: PROJECT_ID,
++      executionAttemptId: ATTEMPT_ID,
++    });
++    expect(current.status).toBe("one");
++    if (current.status !== "one") return;
++    expect(current.claimEvaluation.claimEvaluationId).toBe(
++      first.claimEvaluation.claimEvaluationId,
++    );
++    // Old CE immutable
++    const old = await services.claimEvaluationReader.findById(
++      strict.claimEvaluation.claimEvaluationId,
++    );
++    expect(old?.status).toBe("not_proven");
++  });
++
++  it("CR-CEC-01 — bound inputs absent + live contract populated → FAIL-CLOSED", async () => {
++    const services = createInMemoryEvidenceReviewServices({
++      clock: new FixedClock(NOW),
++    });
++    const contract = makeContract();
++    const attempt = makeAttempt(contract, { omitBoundInputs: true });
++    const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
++    await seedArtifactOnly({ services, contract, attempt, bytes });
++    const done = await completeDocsWriteClaimEvidenceCompletion({
++      evidenceReviewServices: services,
++      attempt,
++      contract,
++      artifactBytes: bytes,
++      actor: ACTOR,
++      nowIso: NOW,
++      correctionRef: "bound-missing-inputs",
++    });
++    expect(done.ok).toBe(false);
++    if (done.ok) return;
++    expect(done.code).toBe("BOUND_ACCEPTANCE_ORACLE_MISSING");
++  });
++
++  it("CR-CEC-01 — bound snapshot absent + live contract populated → FAIL-CLOSED", async () => {
++    const services = createInMemoryEvidenceReviewServices({
++      clock: new FixedClock(NOW),
++    });
++    const contract = makeContract();
++    const attempt = makeAttempt(contract, { omitBound: true });
++    const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
++    await seedArtifactOnly({ services, contract, attempt, bytes });
++    const done = await completeDocsWriteClaimEvidenceCompletion({
++      evidenceReviewServices: services,
++      attempt,
++      contract,
++      artifactBytes: bytes,
++      actor: ACTOR,
++      nowIso: NOW,
++      correctionRef: "bound-missing-snap",
++    });
++    expect(done.ok).toBe(false);
++    if (done.ok) return;
++    expect(done.code).toBe("BOUND_ACCEPTANCE_ORACLE_MISSING");
++  });
++
++  it("CR-CEC-01 — live contract criteria differ from bound → bound wins", async () => {
++    const boundContract = makeContract();
++    const attempt = makeAttempt(boundContract);
++    const liveContract = makeContract({
++      inputs: {
++        targetPath: "projects/sfia-studio/.sandbox/live-different.md",
++        contentRequirements: ["WrongHeading"],
++        validationExpectations: [...VALIDATION_EXPECTATIONS],
++        artifactType: "Markdown",
++      },
++    });
++    const extracted = extractDocsWriteMinConformityCriteriaFromBoundAttempt(
++      attempt,
++    );
++    expect(extracted.ok).toBe(true);
++    if (!extracted.ok) return;
++    expect(extracted.criteria.targetPath).toBe(TARGET);
++    expect(extracted.criteria.contentRequirements).toEqual([
++      ...CONTENT_REQUIREMENTS,
++    ]);
++    // Live contract must not be consulted — different target ignored.
++    expect(liveContract.inputs?.targetPath).not.toBe(
++      extracted.criteria.targetPath,
++    );
++  });
++
++  it("CR-CEC-02 — v1 static technicalResultRef rejected; oracle fingerprint required", async () => {
++    const services = createInMemoryEvidenceReviewServices({
++      clock: new FixedClock(NOW),
++    });
++    const contract = makeContract();
++    const attempt = makeAttempt(contract);
++    const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
++    await seedArtifactOnly({ services, contract, attempt, bytes });
++    const ids = docsWriteContractResultIdentity(ATTEMPT_ID, {
++      correctionRef: "oracle-fp-v1-reject",
++      scopeReviewBundle: true,
++    });
++    await services.registerEvidence.execute({
++      evidenceId: ids.conformityEvidenceId,
++      idempotencyKey: "idem:v1-ref",
++      actor: ACTOR,
++      type: "attestation",
++      source: DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
++      sourceKind: "system",
++      bindings: {
++        projectId: PROJECT_ID,
++        cycleInstanceId: CYCLE_ID,
++        executionContractId: contract.executionContractId,
++        executionAttemptId: ATTEMPT_ID,
++      },
++      classification: "internal",
++      storageMode: "metadata_only",
++      status: "available",
++      location: TARGET,
++      digest: digestOf(bytes),
++      technicalResultRef: "docs_write_min_conformity:v1:headings_present",
++      nowIso: NOW,
++    });
++    await services.createReviewBundle.execute({
++      reviewBundleId: ids.reviewBundleId,
++      idempotencyKey: "idem:rb-v1-ref",
++      actor: ACTOR,
++      projectId: PROJECT_ID,
++      cycleInstanceId: CYCLE_ID,
++      executionContractId: contract.executionContractId,
++      evidenceIds: [ids.evidenceId, ids.conformityEvidenceId],
++      nowIso: NOW,
++    });
++    const rb = await services.reviewBundleReader.findById(ids.reviewBundleId);
++    await services.freezeReviewBundle.execute({
++      reviewBundleId: ids.reviewBundleId,
++      expectedVersion: rb!.version,
++      idempotencyKey: "idem:freeze-v1-ref",
++      actor: ACTOR,
++      nowIso: NOW,
++    });
++    const rq = await requalifyDocsWriteContractResult({
++      evidenceReviewServices: services,
++      attempt,
++      contract,
++      actor: ACTOR,
++      nowIso: NOW,
++      correctionRef: "oracle-fp-v1-reject",
++      scopeReviewBundle: true,
++    });
++    expect(rq.ok).toBe(true);
++    if (!rq.ok) return;
++    expect(rq.claimEvaluation.status).toBe("not_proven");
++  });
++
++  it("CR-CEC-03 — unknown validationExpectation → BOUND_ACCEPTANCE_ORACLE_UNSUPPORTED", () => {
++    const criteria = extractDocsWriteMinConformityCriteria(
++      {
++        targetPath: TARGET,
++        contentRequirements: [...CONTENT_REQUIREMENTS],
++        validationExpectations: ["Quelque chose d'inconnu"],
++        artifactType: "Markdown",
++      },
++      "fp:test",
++    );
++    expect(criteria.ok).toBe(false);
++    if (criteria.ok) return;
++    expect(criteria.code).toBe("BOUND_ACCEPTANCE_ORACLE_UNSUPPORTED");
++  });
++
++  it("CR-CEC-03 — headings inside fenced code blocks do NOT PASS", () => {
++    const criteria = extractDocsWriteMinConformityCriteria(
++      {
++        targetPath: TARGET,
++        contentRequirements: [...CONTENT_REQUIREMENTS],
++        validationExpectations: [...VALIDATION_EXPECTATIONS],
++        artifactType: "Markdown",
++      },
++      "fp:fence",
++    );
++    expect(criteria.ok).toBe(true);
++    if (!criteria.ok) return;
++    const fencedOnly = `# Title
++
++\`\`\`markdown
++## Objectif
++## Périmètre inclus
++## Périmètre exclu
++## Besoins principaux
++## Critères de succès
++## Prochaine étape
++\`\`\`
++`;
++    const fail = verifyDocsWriteMinConformityFromBytes({
++      bytes: Buffer.from(fencedOnly, "utf8"),
++      artifactPath: TARGET,
++      criteria: criteria.criteria,
++    });
++    expect(fail.ok).toBe(false);
++    if (fail.ok) return;
++    expect(fail.code).toBe("CONFORMITY_HEADINGS_MISSING");
++
++    const stripped = stripMarkdownFencedCodeBlocks(fencedOnly);
++    expect(stripped).not.toMatch(/^## Objectif/m);
++  });
++
++  it("EC-20..23 — no HD / Attempts unchanged / ZERO REAL / verifier oracle", () => {
++    const criteria = extractDocsWriteMinConformityCriteria(
++      {
++        targetPath: TARGET,
++        contentRequirements: [...CONTENT_REQUIREMENTS],
++        validationExpectations: [...VALIDATION_EXPECTATIONS],
++        artifactType: "Markdown",
++      },
++      "fp:oracle",
++    );
++    expect(criteria.ok).toBe(true);
++    if (!criteria.ok) return;
++    const pass = verifyDocsWriteMinConformityFromBytes({
++      bytes: Buffer.from(GOOD_MARKDOWN, "utf8"),
++      artifactPath: TARGET,
++      criteria: criteria.criteria,
++    });
++    expect(pass.ok).toBe(true);
++    if (pass.ok) {
++      expect(pass.technicalResultRef).toMatch(
++        /^docs_write_min_conformity:v2:oracle:[a-f0-9]{64}$/,
++      );
++    }
++    const fail = verifyDocsWriteMinConformityFromBytes({
++      bytes: Buffer.from("# alone\n", "utf8"),
++      artifactPath: TARGET,
++      criteria: criteria.criteria,
++    });
++    expect(fail.ok).toBe(false);
++    // Governance: this suite never creates HumanDecision / trajectory / Attempt.
++    expect(ATTEMPT_ID).toBe("xat:w3a:c4c5670edb4658cc");
++    expect(DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF).toBe(
++      "evidence-completion-v2",
++    );
++  });
++});
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion.ts b/projects/sfia-studio/app/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion.ts
+new file mode 100644
+index 00000000..b87cde24
+--- /dev/null
++++ b/projects/sfia-studio/app/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion.ts
+@@ -0,0 +1,315 @@
++/**
++ * Complete docs_write claim via durable evidence completion (ZERO REAL).
++ * Option B: fresh successor ReviewBundle — historical rb:docs-write untouched.
++ *
++ * Flow (CR-CEC-01/02/03):
++ * 1) derive oracle ONLY from attempt.boundExecutionContract.semanticMaterial.inputs
++ * 2) verify artifact against closed bound criteria + oracle fingerprint
++ * 3) register conformity attestation Evidence (v2 technicalResultRef)
++ * 4) create successor RB with artifact + conformity
++ * 5) freeze
++ * 6) requalify with correctionRef evidence-completion-v2
++ */
++import type { ActorReference, Digest } from "@/lib/oa/doctrine";
++import type { ExecutionContract } from "@/lib/oa/execution-contract";
++import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
++import type {
++  ClaimEvaluation,
++  Evidence,
++  EvidenceReviewServices,
++  ReviewBundle,
++} from "@/lib/oa/evidence-review";
++import {
++  DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF,
++  docsWriteContractResultIdentity,
++  extractDocsWriteMinConformityCriteriaFromBoundAttempt,
++  verifyDocsWriteMinConformityFromBytes,
++  verifyDocsWriteMinConformityFromFile,
++} from "@/lib/oa/evidence-review";
++import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
++import { requalifyDocsWriteContractResult } from "./requalifyDocsWriteContractResult";
++
++export type CompleteDocsWriteClaimEvidenceCompletionInput = {
++  evidenceReviewServices: EvidenceReviewServices;
++  attempt: ExecutionAttempt;
++  contract: ExecutionContract;
++  /** Absolute filesystem path to historical artifact (read-only). */
++  artifactAbsolutePath?: string;
++  /** In-memory artifact bytes (tests) — mutually exclusive with path. */
++  artifactBytes?: Buffer;
++  actor?: ActorReference;
++  correlationId?: string;
++  nowIso?: string;
++  correctionRef?: string;
++};
++
++export type CompleteDocsWriteClaimEvidenceCompletionResult =
++  | {
++      ok: true;
++      claimEvaluation: ClaimEvaluation;
++      reviewBundle: ReviewBundle;
++      conformityEvidence: Evidence;
++      artifactEvidence: Evidence;
++      supersededClaimEvaluationId?: string;
++      verifierMatchedHeadings: readonly string[];
++      oracleFingerprint: string;
++      reusedFromIdempotencyKey?: boolean;
++    }
++  | { ok: false; code: string; message: string };
++
++export async function completeDocsWriteClaimEvidenceCompletion(
++  input: CompleteDocsWriteClaimEvidenceCompletionInput,
++): Promise<CompleteDocsWriteClaimEvidenceCompletionResult> {
++  const actor = input.actor ?? LOCAL_PILOTE_ACTOR;
++  const services = input.evidenceReviewServices;
++  const correctionRef =
++    input.correctionRef ?? DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF;
++
++  const ids = docsWriteContractResultIdentity(input.attempt.attemptId, {
++    correctionRef,
++    scopeReviewBundle: true,
++  });
++
++  const artifactEvidence = await services.evidenceReader.findById(
++    ids.evidenceId,
++  );
++  if (!artifactEvidence) {
++    return {
++      ok: false,
++      code: "DOCS_WRITE_EVIDENCE_MISSING",
++      message: `Artifact Evidence ${ids.evidenceId} introuvable.`,
++    };
++  }
++
++  const historicalRb = await services.reviewBundleReader.findById(
++    docsWriteContractResultIdentity(input.attempt.attemptId).reviewBundleId,
++  );
++  if (!historicalRb?.frozenAt || !historicalRb.frozenVersion) {
++    return {
++      ok: false,
++      code: "DOCS_WRITE_REVIEW_BUNDLE_NOT_FROZEN",
++      message: "Historical docs_write RB must remain frozen/auditable.",
++    };
++  }
++
++  // CR-CEC-01 — NEVER fallback to live contract.inputs for oracle derivation.
++  const criteria = extractDocsWriteMinConformityCriteriaFromBoundAttempt(
++    input.attempt,
++  );
++  if (!criteria.ok) {
++    return { ok: false, code: criteria.code, message: criteria.message };
++  }
++
++  const expectedDigest = artifactEvidence.digest as Digest | undefined;
++  const artifactPath =
++    artifactEvidence.location?.trim() || criteria.criteria.targetPath;
++
++  let verification;
++  if (input.artifactBytes) {
++    verification = verifyDocsWriteMinConformityFromBytes({
++      bytes: input.artifactBytes,
++      artifactPath,
++      expectedDigest,
++      criteria: criteria.criteria,
++    });
++  } else if (input.artifactAbsolutePath) {
++    verification = verifyDocsWriteMinConformityFromFile({
++      absolutePath: input.artifactAbsolutePath,
++      artifactPath,
++      expectedDigest,
++      criteria: criteria.criteria,
++    });
++  } else {
++    return {
++      ok: false,
++      code: "HISTORICAL_ARTIFACT_PAYLOAD_UNAVAILABLE",
++      message: "artifactAbsolutePath or artifactBytes required.",
++    };
++  }
++
++  if (!verification.ok) {
++    return {
++      ok: false,
++      code: verification.code,
++      message: verification.message,
++    };
++  }
++
++  // Idempotent: if conformity Evidence + successor RB + CE already exist, requalify.
++  const existingConformity = await services.evidenceReader.findById(
++    ids.conformityEvidenceId,
++  );
++  let conformityEvidence = existingConformity ?? undefined;
++  if (!conformityEvidence) {
++    const registered = await services.registerEvidence.execute({
++      evidenceId: ids.conformityEvidenceId,
++      idempotencyKey: `idem:docs-write-conformity:${correctionRef}:${input.attempt.attemptId}`,
++      actor,
++      type: "attestation",
++      source: verification.verifierSource,
++      sourceKind: "system",
++      bindings: {
++        projectId:
++          artifactEvidence.bindings.projectId ?? input.contract.projectId,
++        cycleInstanceId:
++          artifactEvidence.bindings.cycleInstanceId ??
++          input.contract.cycleInstanceId,
++        executionContractId: input.attempt.executionContractId,
++        executionAttemptId: input.attempt.attemptId,
++      },
++      classification: "internal",
++      storageMode: "metadata_only",
++      status: "available",
++      availability: "available",
++      freshness: "fresh",
++      location: artifactPath,
++      digest: verification.digest,
++      technicalResultRef: verification.technicalResultRef,
++      verifiablePayload: false,
++      producedBy: actor,
++      correlationId: input.correlationId,
++      nowIso: input.nowIso,
++    });
++    if (!registered.ok) {
++      return {
++        ok: false,
++        code: registered.error.detailCode,
++        message:
++          registered.error.internalCauseRef ?? registered.error.message,
++      };
++    }
++    conformityEvidence = registered.evidence;
++  }
++
++  let reviewBundle = await services.reviewBundleReader.findById(
++    ids.reviewBundleId,
++  );
++  if (!reviewBundle) {
++    const created = await services.createReviewBundle.execute({
++      reviewBundleId: ids.reviewBundleId,
++      idempotencyKey: `idem:docs-write-rb-create:${correctionRef}:${input.attempt.attemptId}`,
++      actor,
++      projectId:
++        artifactEvidence.bindings.projectId ?? input.contract.projectId,
++      cycleInstanceId:
++        artifactEvidence.bindings.cycleInstanceId ??
++        input.contract.cycleInstanceId,
++      executionContractId: input.attempt.executionContractId,
++      evidenceIds: [ids.evidenceId, ids.conformityEvidenceId],
++      correlationId: input.correlationId,
++      nowIso: input.nowIso,
++    });
++    if (!created.ok) {
++      return {
++        ok: false,
++        code: created.error.detailCode,
++        message: created.error.internalCauseRef ?? created.error.message,
++      };
++    }
++    reviewBundle = created.reviewBundle;
++  } else if (reviewBundle.status === "draft") {
++    const needArtifact = !reviewBundle.evidenceRefs.includes(ids.evidenceId);
++    const needConformity = !reviewBundle.evidenceRefs.includes(
++      ids.conformityEvidenceId,
++    );
++    let version = reviewBundle.version;
++    if (needArtifact) {
++      const attached = await services.attachEvidenceToReviewBundle.execute({
++        reviewBundleId: ids.reviewBundleId,
++        evidenceId: ids.evidenceId,
++        idempotencyKey: `idem:docs-write-rb-attach-art:${correctionRef}:${input.attempt.attemptId}`,
++        actor,
++        expectedVersion: version,
++        correlationId: input.correlationId,
++        nowIso: input.nowIso,
++      });
++      if (!attached.ok) {
++        return {
++          ok: false,
++          code: attached.error.detailCode,
++          message:
++            attached.error.internalCauseRef ?? attached.error.message,
++        };
++      }
++      reviewBundle = attached.reviewBundle;
++      version = reviewBundle.version;
++    }
++    if (needConformity) {
++      const attached = await services.attachEvidenceToReviewBundle.execute({
++        reviewBundleId: ids.reviewBundleId,
++        evidenceId: ids.conformityEvidenceId,
++        idempotencyKey: `idem:docs-write-rb-attach-conf:${correctionRef}:${input.attempt.attemptId}`,
++        actor,
++        expectedVersion: version,
++        correlationId: input.correlationId,
++        nowIso: input.nowIso,
++      });
++      if (!attached.ok) {
++        return {
++          ok: false,
++          code: attached.error.detailCode,
++          message:
++            attached.error.internalCauseRef ?? attached.error.message,
++        };
++      }
++      reviewBundle = attached.reviewBundle;
++    }
++  }
++
++  if (!reviewBundle.frozenAt || !reviewBundle.frozenVersion) {
++    if (reviewBundle.status !== "draft") {
++      return {
++        ok: false,
++        code: "DOCS_WRITE_REVIEW_BUNDLE_NOT_FROZEN",
++        message: `Successor RB status ${reviewBundle.status} cannot freeze.`,
++      };
++    }
++    const frozen = await services.freezeReviewBundle.execute({
++      reviewBundleId: ids.reviewBundleId,
++      expectedVersion: reviewBundle.version,
++      idempotencyKey: `idem:docs-write-rb-freeze:${correctionRef}:${input.attempt.attemptId}`,
++      actor,
++      correlationId: input.correlationId,
++      nowIso: input.nowIso,
++    });
++    if (!frozen.ok) {
++      return {
++        ok: false,
++        code: frozen.error.detailCode,
++        message: frozen.error.internalCauseRef ?? frozen.error.message,
++      };
++    }
++    reviewBundle = frozen.reviewBundle;
++  }
++
++  const requalified = await requalifyDocsWriteContractResult({
++    evidenceReviewServices: services,
++    attempt: input.attempt,
++    contract: input.contract,
++    actor,
++    correlationId: input.correlationId,
++    nowIso: input.nowIso,
++    correctionRef,
++    scopeReviewBundle: true,
++  });
++
++  if (!requalified.ok) {
++    return {
++      ok: false,
++      code: requalified.code,
++      message: requalified.message,
++    };
++  }
++
++  return {
++    ok: true,
++    claimEvaluation: requalified.claimEvaluation,
++    reviewBundle: requalified.reviewBundle,
++    conformityEvidence,
++    artifactEvidence,
++    supersededClaimEvaluationId: requalified.supersededClaimEvaluationId,
++    verifierMatchedHeadings: verification.matchedHeadings,
++    oracleFingerprint: verification.oracleFingerprint,
++    reusedFromIdempotencyKey: requalified.reusedFromIdempotencyKey,
++  };
++}
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts b/projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts
 index 5b166f42..b0d83f34 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts
@@ -220,11 +1470,6 @@ index 5b166f42..b0d83f34 100644
          reusedFromIdempotencyKey: true,
        };
      } else {
-```
-
-### PREVIOUSLY MISSING — DIFF `projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts`
-
-```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts b/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
 index 03b384d4..e46773d2 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
@@ -238,82 +1483,6 @@ index 03b384d4..e46773d2 100644
        projectId: input.contract.projectId,
        cycleInstanceId: input.contract.cycleInstanceId ?? null,
      })
-```
-
-### PREVIOUSLY MISSING — DIFF `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-
-```diff
-diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 0d45305d..c8e705a2 100644
---- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-+++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -4,7 +4,9 @@
- | --- | --- |
- | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
- | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
--| **Timestamp maintenance PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** | 2026-09-18 15:30:00 CEST (+0200) — **PRODUCT JOURNEY POST-EXECUTION REPLAN — PROJECT GIT INTEGRATION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** · CR-PJR-01/02/03 **CLOSED / PRESERVED** · original macro baseline `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` (PR **#502** ContractResult A+B merge) · **requalified current baseline** `origin/main` `9be4b80629cb594821cc7b35abf22c89df65acc1` after documentation-only PR **#503** (`sfia-studio-transmission-guide.md` only · **NON-OVERLAPPING DOCUMENTARY MAIN ADVANCE**) · branche `qa/sfia-studio-product-journey-post-execution-replan-01` · Attempt 3 current CE strict **not_proven** preserved · Product **UNCLAIMED** · portable PJR + correctionRef + current-CE W3-C semantics preserved · Attempts **3→3** · **ZERO NEW STUDIO/CURSOR REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **PROJECT GIT INTEGRATION — RESOLVE FROM GIT / PR EVIDENCE** · **≠** READY · **≠** Attempt 3 Product PASS · next = PR CI / conditional merge / post-merge verification |
-+| **Timestamp maintenance PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01** | 2026-09-18 17:40:00 CEST (+0200) — **PRODUCT JOURNEY CLAIM EVIDENCE COMPLETION — CR-CEC-01/02/03 CORRECTION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01** · baseline `origin/main` `9c6ac90974113044330284dd110108287ba2319e` · branche `qa/sfia-studio-product-journey-claim-evidence-completion-01` · CR-CEC-01 bound-snapshot oracle only · CR-CEC-02 oracle fingerprint attestation · CR-CEC-03 closed validationExpectations + fence-safe headings · historical CE `evidence-completion-v1` **pass IMMUTABLE** · successor CE `evidence-completion-v2` **pass** · Product **SUCCESS** · LPS v28→v29 · Trajectory v4 unchanged · Attempts **3→3** · **ZERO NEW CURSOR REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **LOCAL / IN PROGRESS — RESOLVE FROM GIT / PR EVIDENCE** · project Git integration **NOT AUTHORIZED** by this tip · **≠** Product Journey READY/COMPLETE · **≠** new REAL proof · next = ChatGPT Critical Review / Morris Git gate |
-+| **Timestamp maintenance historique PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01 first pass (pre-CR-CEC)** | *(historique tip · superseded as tip by CR-CEC-01/02/03 correction)* — 2026-09-18 16:15:00 CEST (+0200) — first evidence-completion pass · correctionRef `evidence-completion-v1` · CE **pass** superseding strict-eo-v1 **not_proven** · Product **SUCCESS** · LPS v27→v28 · Attempts **3→3** · ZERO REAL · ChatGPT Critical Review then required CR-CEC-01/02/03 before Git acceptance |
-+| **Timestamp maintenance historique PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 (pre-CLAIM-EVIDENCE-COMPLETION-01)** | 2026-09-18 15:30:00 CEST (+0200) — **PRODUCT JOURNEY POST-EXECUTION REPLAN — PROJECT GIT INTEGRATION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** · CR-PJR-01/02/03 **CLOSED / PRESERVED** · original macro baseline `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` (PR **#502** ContractResult A+B merge) · **requalified current baseline** `origin/main` `9be4b80629cb594821cc7b35abf22c89df65acc1` after documentation-only PR **#503** (`sfia-studio-transmission-guide.md` only · **NON-OVERLAPPING DOCUMENTARY MAIN ADVANCE**) · branche `qa/sfia-studio-product-journey-post-execution-replan-01` · Attempt 3 current CE strict **not_proven** preserved · Product **UNCLAIMED** · portable PJR + correctionRef + current-CE W3-C semantics preserved · Attempts **3→3** · **ZERO NEW STUDIO/CURSOR REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **PROJECT GIT INTEGRATION — RESOLVE FROM GIT / PR EVIDENCE** · **≠** READY · **≠** Attempt 3 Product PASS · next = PR CI / conditional merge / post-merge verification |
- | **Timestamp maintenance historique CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 (pre-PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01)** | *(tip superseded by PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-18 09:10:00 CEST (+0200) — **CONTRACT RESULT EXTENSIBILITY — FINAL PR-READINESS CORRECTION** · EVOL · CRITICAL · Macro **CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01** · CR-BLK-01/02/03/04 **CLOSED** · baseline `bb6af3ca` · branche `feat/sfia-studio-contract-result-extensibility-01` · later **INTEGRATED ON MAIN / POST-MERGE VERIFIED** via PR **#502** merge `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` · docs-write M3 profile resolves **HOW** only (no `expectedOutputs` injection; predecessor WHAT preserved by SupersedeExecutionContract) · Attempt 3 current CE strict **not_proven** preserved · Attempts **3→3** · **ZERO REAL** · runtime v3 = **NON ADOPTED** · **≠** Product Journey READY · **≠** Attempt 3 Product PASS · historical tip wording **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** was pre-merge · Git/PR #502 are authoritative |
- | **Timestamp maintenance historique PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 (pre-CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01)** | *(tip superseded by CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-18 05:15:00 CEST (+0200) — **PRODUCT JOURNEY E2E REAL RECONCILIATION INTEGRATION** · Cycle **15** · Capitalisation / REX + intégration Git · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01** · parent campagne **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01** · baseline pré-intégration `origin/main` `26478b1ea5b010c625f0c6039c969fac5c135cf5` · branche `qa/sfia-studio-product-journey-e2e-real-reconciliation-01` · checkpoints **R1–R12** consolidés · Product fixes **R1/R3/R4/R6/R7/R8/R10** = intégration candidate this PR · Attempt 1 FAIL · Attempt 2 FAIL Authentication required · Attempt 3 Cursor REAL **technical SUCCESS** · bounded docs_write filesystem effect + Artifact Evidence **PROVEN** in M4 isolated WT · Product Result remains **UNCLAIMED** · blocker = **ContractResult extensibility / Evidence wiring** (`no_applicable_contract_result_rule` for `cursor.docs_write.apply`) · capitalisation `projects/sfia-studio/convergence/product-journey-e2e-real-reconciliation-01-capitalization.md` · **ZERO REAL** this integration macro · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **≠** Product Journey E2E READY / COMPLETE · **≠** ContractResult docs_write PASS · **≠** runtime v3 ADOPTED · next after integration verified = **R13 — Contract Result extensibility framing — ZERO REAL** · **NOT STARTED / NOT AUTHORIZED** by this tip · repository lifecycle = **RESOLVE FROM GIT / PR evidence** |
- | **Timestamp maintenance historique PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01 (pre-PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01)** | *(tip superseded by PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-17 18:25:36 CEST (+0200) — **PRODUCT DOCS_WRITE REAL PASS POST-MERGE TRUTH-SYNC** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Macro **PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01** · parent macro **PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01** · GO Morris post-merge documentary truth-sync #499 **CONSUMED** (local docs + commit only) · PR **#499 MERGED** `docs(sfia-studio): capitalize Product docs-write REAL proof` · head `9981483f8c158bec07364e14e626cdf2c3fd1e34` · merge `3907177f7788d23d640c5bdcd1cee8e01615762f` · parents `b739ddd3826ea4df640e3f34f97a966d85f8d214` + `9981483f8c158bec07364e14e626cdf2c3fd1e34` · capitalisation = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · pre-merge CI **`35236024162` SUCCESS** · Required Gate **PASS** · post-merge CI **`35245046244` SUCCESS** · Required Gate **PASS** · `headSha=3907177f7788d23d640c5bdcd1cee8e01615762f` · merge lifecycle #499 = **COMPLETED / CONSUMED** · post-merge verification = **PASS** · claim **AUTHENTICATED PRODUCT DOCS_WRITE REAL PROVEN AT TESTED HISTORICAL PROJECT SCOPE** · **ZERO REAL** · Product code **UNCHANGED** · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** **PRESERVED** · next Product capability candidate = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN** · **NOT STARTED / NOT AUTHORIZED** by this truth-sync · this documentary truth-sync = **LOCAL CANDIDATE** · Review Handoff publication **PENDING** (distinct Morris remote push gate) · push/PR/merge of this truth-sync = **DISTINCT Morris gates** · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / origin/main / PR evidence** · **≠** E2E FULL REAL PROVEN · **≠** Product Journey complete to Nora replanning · **≠** docs_write generalized · **≠** Cursor autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new REAL authorization · **≠** PRODUCT-JOURNEY-POST-EXECUTION-REPLAN started · **≠** push/PR/merge authorized by proof |
-```
-
-
----
-
-## 8. Full implementation (reviewable)
-
-### DIFF `projects/sfia-studio/app/lib/oa/evidence-review/index.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/index.ts b/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
-index 4e1133f0..e47aa89b 100644
---- a/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
-+++ b/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
-@@ -127,12 +127,36 @@ export {
-   DOCS_WRITE_CONTRACT_RESULT_ER_KEY,
-   BOUNDED_DOCS_WRITE_EO_TEMPLATE,
-   DOCS_WRITE_STRICT_EO_CORRECTION_REF,
-+  DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF,
-+  DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF_V1,
-+  DOCS_WRITE_EO_MATERIALIZED_MARKDOWN_AT_TARGET,
-+  DOCS_WRITE_EO_MIN_CONFORMITY_VERIFICATION,
-+  DOCS_WRITE_ARTIFACT_EVIDENCE_SOURCE,
-   docsWriteContractResultIdentity,
-   docsWriteArtifactFactsHold,
-+  docsWriteConformityFactsHold,
-   assessDocsWriteExpectedOutput,
-   assessDocsWriteEvidenceRequirement,
-   docsWriteContractResultSemantic,
- } from "./application/docsWriteContractResultSemantic";
-+export {
-+  DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
-+  DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE_V1,
-+  DOCS_WRITE_MIN_CONFORMITY_TECHNICAL_RESULT_PREFIX,
-+  DOCS_WRITE_MIN_CONFORMITY_VERIFIER_TECHNICAL_RESULT_REF_V1,
-+  DOCS_WRITE_VE_FILE_EXISTS_AT_TARGET,
-+  DOCS_WRITE_VE_REQUIRED_SECTIONS_PRESENT,
-+  extractDocsWriteMinConformityCriteria,
-+  extractDocsWriteMinConformityCriteriaFromBoundAttempt,
-+  computeDocsWriteOracleFingerprint,
-+  buildDocsWriteOracleFingerprintMaterial,
-+  docsWriteConformityTechnicalResultRef,
-+  expectedDocsWriteConformityOracleFingerprint,
-+  parseDocsWriteConformityOracleFingerprint,
-+  stripMarkdownFencedCodeBlocks,
-+  verifyDocsWriteMinConformityFromBytes,
-+  verifyDocsWriteMinConformityFromFile,
-+} from "./application/docsWriteMinConformityVerifier";
- export {
-   resolveCurrentContractResultClaimEvaluation,
-   type ResolveCurrentContractResultClaimEvaluationResult,
-```
-
-### DIFF `projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts`
-
-```diff
 diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts b/projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts
 index 066aa8a7..ca8f4c71 100644
 --- a/projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts
@@ -544,1704 +1713,539 @@ index 066aa8a7..ca8f4c71 100644
      });
    },
    assessEvidenceRequirement(input) {
+diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteMinConformityVerifier.ts b/projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteMinConformityVerifier.ts
+new file mode 100644
+index 00000000..ace191b5
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteMinConformityVerifier.ts
+@@ -0,0 +1,467 @@
++/**
++ * Deterministic docs_write minimum-conformity verifier (v2).
++ * CR-CEC-01/02/03: bound Attempt snapshot only · oracle fingerprint · closed expectations.
++ * No NLP / LLM. Unknown criteria → refuse. Fenced code blocks ignored for headings.
++ */
++import { createHash } from "node:crypto";
++import { readFileSync } from "node:fs";
++import type { Digest } from "@/lib/oa/doctrine";
++import type { ExecutionAttemptSnapshot } from "../domain/types";
++
++/** Stable verifier profile — Evidence.source must equal this exactly. */
++export const DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE =
++  "docs_write_min_conformity_verifier:v2" as const;
++
++/** @deprecated v1 profile — historical Evidence may still carry this; not accepted by v2 semantic. */
++export const DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE_V1 =
++  "docs_write_min_conformity_verifier:v1" as const;
++
++export const DOCS_WRITE_MIN_CONFORMITY_TECHNICAL_RESULT_PREFIX =
++  "docs_write_min_conformity:v2:oracle:" as const;
++
++/** @deprecated v1 technicalResultRef — not accepted by v2 semantic. */
++export const DOCS_WRITE_MIN_CONFORMITY_VERIFIER_TECHNICAL_RESULT_REF_V1 =
++  "docs_write_min_conformity:v1:headings_present" as const;
++
++/**
++ * Exact supported validationExpectation templates (closed set — no NLP).
++ * Apostrophe in VE1 is U+2019 (bound Attempt 3 EC truth).
++ */
++export const DOCS_WRITE_VE_FILE_EXISTS_AT_TARGET =
++  "Vérifier que le fichier existe au chemin cible" as const;
++
++export const DOCS_WRITE_VE_REQUIRED_SECTIONS_PRESENT =
++  "V\u00e9rifier la pr\u00e9sence de l\u2019objectif, du p\u00e9rim\u00e8tre inclus et exclu, des besoins principaux, des crit\u00e8res de succ\u00e8s et de la prochaine \u00e9tape" as const;
++
++const SUPPORTED_VALIDATION_EXPECTATIONS: ReadonlySet<string> = new Set([
++  DOCS_WRITE_VE_FILE_EXISTS_AT_TARGET,
++  DOCS_WRITE_VE_REQUIRED_SECTIONS_PRESENT,
++]);
++
++export type DocsWriteMinConformityCriteria = {
++  readonly targetPath: string;
++  readonly contentRequirements: readonly string[];
++  readonly validationExpectations: readonly string[];
++  readonly artifactType?: string;
++  readonly boundSemanticFingerprint: string;
++};
++
++export type DocsWriteOracleFingerprintMaterial = {
++  readonly verifierProfile: typeof DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE;
++  readonly boundSemanticFingerprint: string;
++  readonly targetPath: string;
++  readonly contentRequirements: readonly string[];
++  readonly validationExpectations: readonly string[];
++  readonly artifactType: string | null;
++};
++
++export type DocsWriteMinConformityPass = {
++  readonly ok: true;
++  readonly artifactPath: string;
++  readonly digest: Digest;
++  readonly matchedHeadings: readonly string[];
++  readonly oracleFingerprint: string;
++  readonly technicalResultRef: string;
++  readonly verifierSource: typeof DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE;
++};
++
++export type DocsWriteMinConformityFail = {
++  readonly ok: false;
++  readonly code: string;
++  readonly message: string;
++  readonly missingHeadings?: readonly string[];
++  readonly computedDigest?: Digest;
++};
++
++export type DocsWriteMinConformityResult =
++  | DocsWriteMinConformityPass
++  | DocsWriteMinConformityFail;
++
++function asNonEmptyString(value: unknown): string | undefined {
++  return typeof value === "string" && value.trim().length > 0
++    ? value.trim()
++    : undefined;
++}
++
++/**
++ * Canonical JSON for oracle fingerprint — fixed key order, arrays preserved.
++ */
++export function canonicalizeDocsWriteOracleMaterial(
++  material: DocsWriteOracleFingerprintMaterial,
++): string {
++  return JSON.stringify({
++    artifactType: material.artifactType,
++    boundSemanticFingerprint: material.boundSemanticFingerprint,
++    contentRequirements: material.contentRequirements,
++    targetPath: material.targetPath,
++    validationExpectations: material.validationExpectations,
++    verifierProfile: material.verifierProfile,
++  });
++}
++
++export function computeDocsWriteOracleFingerprint(
++  material: DocsWriteOracleFingerprintMaterial,
++): string {
++  return createHash("sha256")
++    .update(canonicalizeDocsWriteOracleMaterial(material), "utf8")
++    .digest("hex");
++}
++
++export function docsWriteConformityTechnicalResultRef(
++  oracleFingerprint: string,
++): string {
++  return `${DOCS_WRITE_MIN_CONFORMITY_TECHNICAL_RESULT_PREFIX}${oracleFingerprint}`;
++}
++
++export function parseDocsWriteConformityOracleFingerprint(
++  technicalResultRef: string | undefined,
++): string | undefined {
++  if (!technicalResultRef) return undefined;
++  if (
++    !technicalResultRef.startsWith(
++      DOCS_WRITE_MIN_CONFORMITY_TECHNICAL_RESULT_PREFIX,
++    )
++  ) {
++    return undefined;
++  }
++  const fp = technicalResultRef.slice(
++    DOCS_WRITE_MIN_CONFORMITY_TECHNICAL_RESULT_PREFIX.length,
++  );
++  return /^[a-f0-9]{64}$/.test(fp) ? fp : undefined;
++}
++
++/**
++ * CR-CEC-01 — derive criteria ONLY from Attempt boundExecutionContract snapshot.
++ * Never from live ExecutionContract.inputs.
++ */
++export function extractDocsWriteMinConformityCriteriaFromBoundAttempt(
++  attempt: Pick<
++    ExecutionAttemptSnapshot,
++    "boundExecutionContract" | "executionContractSemanticFingerprint"
++  >,
++):
++  | { ok: true; criteria: DocsWriteMinConformityCriteria }
++  | { ok: false; code: string; message: string } {
++  const bound = attempt.boundExecutionContract;
++  if (!bound) {
++    return {
++      ok: false,
++      code: "BOUND_ACCEPTANCE_ORACLE_MISSING",
++      message: "attempt.boundExecutionContract absent — fail-closed.",
++    };
++  }
++  const fingerprint =
++    asNonEmptyString(bound.semanticFingerprint) ??
++    asNonEmptyString(attempt.executionContractSemanticFingerprint);
++  if (!fingerprint) {
++    return {
++      ok: false,
++      code: "BOUND_ACCEPTANCE_ORACLE_MISSING",
++      message: "bound semanticFingerprint absent — fail-closed.",
++    };
++  }
++  const inputs = bound.semanticMaterial?.inputs;
++  if (!inputs || typeof inputs !== "object") {
++    return {
++      ok: false,
++      code: "BOUND_ACCEPTANCE_ORACLE_MISSING",
++      message:
++        "boundExecutionContract.semanticMaterial.inputs absent — fail-closed.",
++    };
++  }
++  return extractDocsWriteMinConformityCriteria(
++    inputs as Record<string, unknown>,
++    fingerprint,
++  );
++}
++
++/**
++ * Extract + validate closed acceptance criteria from bound inputs.
++ * Unknown validationExpectations → BOUND_ACCEPTANCE_ORACLE_UNSUPPORTED.
++ */
++export function extractDocsWriteMinConformityCriteria(
++  inputs: Record<string, unknown> | undefined,
++  boundSemanticFingerprint: string,
++):
++  | { ok: true; criteria: DocsWriteMinConformityCriteria }
++  | { ok: false; code: string; message: string } {
++  if (!inputs || typeof inputs !== "object") {
++    return {
++      ok: false,
++      code: "BOUND_ACCEPTANCE_ORACLE_MISSING",
++      message: "bound inputs absent — cannot derive conformity oracle.",
++    };
++  }
++  const fp = asNonEmptyString(boundSemanticFingerprint);
++  if (!fp) {
++    return {
++      ok: false,
++      code: "BOUND_ACCEPTANCE_ORACLE_MISSING",
++      message: "boundSemanticFingerprint required.",
++    };
++  }
++  const targetPath = asNonEmptyString(inputs.targetPath);
++  if (!targetPath) {
++    return {
++      ok: false,
++      code: "BOUND_ACCEPTANCE_ORACLE_MISSING",
++      message: "bound inputs.targetPath missing.",
++    };
++  }
++  const rawReq = inputs.contentRequirements;
++  if (!Array.isArray(rawReq) || rawReq.length === 0) {
++    return {
++      ok: false,
++      code: "BOUND_ACCEPTANCE_ORACLE_MISSING",
++      message: "bound inputs.contentRequirements missing.",
++    };
++  }
++  const contentRequirements: string[] = [];
++  for (const item of rawReq) {
++    const s = asNonEmptyString(item);
++    if (!s) {
++      return {
++        ok: false,
++        code: "BOUND_ACCEPTANCE_ORACLE_INVALID",
++        message: "contentRequirements contains non-string entry.",
++      };
++    }
++    contentRequirements.push(s);
++  }
++
++  const rawVe = inputs.validationExpectations;
++  if (!Array.isArray(rawVe) || rawVe.length === 0) {
++    return {
++      ok: false,
++      code: "BOUND_ACCEPTANCE_ORACLE_MISSING",
++      message: "bound inputs.validationExpectations missing.",
++    };
++  }
++  const validationExpectations: string[] = [];
++  for (const item of rawVe) {
++    const s = asNonEmptyString(item);
++    if (!s) {
++      return {
++        ok: false,
++        code: "BOUND_ACCEPTANCE_ORACLE_INVALID",
++        message: "validationExpectations contains non-string entry.",
++      };
++    }
++    if (!SUPPORTED_VALIDATION_EXPECTATIONS.has(s)) {
++      return {
++        ok: false,
++        code: "BOUND_ACCEPTANCE_ORACLE_UNSUPPORTED",
++        message: `unsupported validationExpectation: ${s}`,
++      };
++    }
++    validationExpectations.push(s);
++  }
++
++  const artifactType = asNonEmptyString(inputs.artifactType);
++
++  return {
++    ok: true,
++    criteria: {
++      targetPath,
++      contentRequirements,
++      validationExpectations,
++      ...(artifactType ? { artifactType } : {}),
++      boundSemanticFingerprint: fp,
++    },
++  };
++}
++
++export function buildDocsWriteOracleFingerprintMaterial(
++  criteria: DocsWriteMinConformityCriteria,
++): DocsWriteOracleFingerprintMaterial {
++  return {
++    verifierProfile: DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
++    boundSemanticFingerprint: criteria.boundSemanticFingerprint,
++    targetPath: criteria.targetPath,
++    contentRequirements: criteria.contentRequirements,
++    validationExpectations: criteria.validationExpectations,
++    artifactType: criteria.artifactType ?? null,
++  };
++}
++
++/**
++ * Strip fenced code blocks (``` / ~~~) so headings inside fences cannot PASS.
++ */
++export function stripMarkdownFencedCodeBlocks(markdown: string): string {
++  // CommonMark-style fences: opening fence of 3+ backticks/tildes, optional info string,
++  // closed by a fence of same character with at least the same length.
++  return markdown.replace(
++    /(^|\n)([`~]{3,})[^\n]*\n[\s\S]*?(?:\n\2[`~]*[ \t]*(?:\n|$)|$)/g,
++    "$1",
++  );
++}
++
++function headingPresentOutsideFences(
++  markdown: string,
++  requirement: string,
++): boolean {
++  const body = stripMarkdownFencedCodeBlocks(markdown);
++  const escaped = requirement.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
++  const re = new RegExp(`^#{1,6}\\s+${escaped}\\s*$`, "m");
++  return re.test(body);
++}
++
++export function verifyDocsWriteMinConformityFromBytes(input: {
++  readonly bytes: Buffer;
++  readonly artifactPath: string;
++  readonly expectedDigest?: Digest;
++  readonly criteria: DocsWriteMinConformityCriteria;
++}): DocsWriteMinConformityResult {
++  const digest =
++    `sha256:${createHash("sha256").update(input.bytes).digest("hex")}` as Digest;
++  if (input.expectedDigest && input.expectedDigest !== digest) {
++    return {
++      ok: false,
++      code: "HISTORICAL_ARTIFACT_DIGEST_MISMATCH",
++      message: `computed digest ${digest} != expected ${input.expectedDigest}`,
++      computedDigest: digest,
++    };
++  }
++  if (input.bytes.length === 0) {
++    return {
++      ok: false,
++      code: "ARTIFACT_EMPTY",
++      message: "artifact payload empty",
++      computedDigest: digest,
++    };
++  }
++
++  const markdown = input.bytes.toString("utf8");
++  if (!markdown.trim()) {
++    return {
++      ok: false,
++      code: "ARTIFACT_EMPTY",
++      message: "artifact payload empty",
++      computedDigest: digest,
++    };
++  }
++
++  // artifactType Markdown → require .md path (closed deterministic check).
++  if (input.criteria.artifactType) {
++    const at = input.criteria.artifactType;
++    if (at === "Markdown" || at.toLowerCase() === "markdown") {
++      if (!/\.md$/i.test(input.criteria.targetPath)) {
++        return {
++          ok: false,
++          code: "ARTIFACT_TYPE_PATH_MISMATCH",
++          message: "artifactType Markdown requires .md targetPath",
++          computedDigest: digest,
++        };
++      }
++      if (!/\.md$/i.test(input.artifactPath)) {
++        return {
++          ok: false,
++          code: "ARTIFACT_TYPE_PATH_MISMATCH",
++          message: "artifactType Markdown requires .md artifact path",
++          computedDigest: digest,
++        };
++      }
++    } else {
++      return {
++        ok: false,
++        code: "BOUND_ACCEPTANCE_ORACLE_UNSUPPORTED",
++        message: `unsupported artifactType: ${at}`,
++        computedDigest: digest,
++      };
++    }
++  }
++
++  // VE: file exists at target — bytes non-empty + digest + path already checked.
++  if (
++    input.criteria.validationExpectations.includes(
++      DOCS_WRITE_VE_FILE_EXISTS_AT_TARGET,
++    )
++  ) {
++    if (input.artifactPath.trim() !== input.criteria.targetPath) {
++      return {
++        ok: false,
++        code: "ARTIFACT_PATH_MISMATCH",
++        message: `artifact path ${input.artifactPath} != targetPath ${input.criteria.targetPath}`,
++        computedDigest: digest,
++      };
++    }
++  }
++
++  const missing: string[] = [];
++  const matched: string[] = [];
++  const needsSections = input.criteria.validationExpectations.includes(
++    DOCS_WRITE_VE_REQUIRED_SECTIONS_PRESENT,
++  );
++  if (needsSections || input.criteria.contentRequirements.length > 0) {
++    for (const req of input.criteria.contentRequirements) {
++      if (headingPresentOutsideFences(markdown, req)) matched.push(req);
++      else missing.push(req);
++    }
++  }
++  if (missing.length > 0) {
++    return {
++      ok: false,
++      code: "CONFORMITY_HEADINGS_MISSING",
++      message: `missing required headings: ${missing.join(", ")}`,
++      missingHeadings: missing,
++      computedDigest: digest,
++    };
++  }
++
++  const oracleMaterial = buildDocsWriteOracleFingerprintMaterial(
++    input.criteria,
++  );
++  const oracleFingerprint = computeDocsWriteOracleFingerprint(oracleMaterial);
++  const technicalResultRef =
++    docsWriteConformityTechnicalResultRef(oracleFingerprint);
++
++  return {
++    ok: true,
++    artifactPath: input.artifactPath,
++    digest,
++    matchedHeadings: matched,
++    oracleFingerprint,
++    technicalResultRef,
++    verifierSource: DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
++  };
++}
++
++export function verifyDocsWriteMinConformityFromFile(input: {
++  readonly absolutePath: string;
++  readonly artifactPath: string;
++  readonly expectedDigest?: Digest;
++  readonly criteria: DocsWriteMinConformityCriteria;
++}): DocsWriteMinConformityResult {
++  let bytes: Buffer;
++  try {
++    bytes = readFileSync(input.absolutePath);
++  } catch (err) {
++    return {
++      ok: false,
++      code: "HISTORICAL_ARTIFACT_PAYLOAD_UNAVAILABLE",
++      message: `cannot read artifact: ${err instanceof Error ? err.message : String(err)}`,
++    };
++  }
++  return verifyDocsWriteMinConformityFromBytes({
++    bytes,
++    artifactPath: input.artifactPath,
++    expectedDigest: input.expectedDigest,
++    criteria: input.criteria,
++  });
++}
++
++/**
++ * Derive expected oracle fingerprint from Attempt bound snapshot (server-owned).
++ */
++export function expectedDocsWriteConformityOracleFingerprint(
++  attempt: Pick<
++    ExecutionAttemptSnapshot,
++    "boundExecutionContract" | "executionContractSemanticFingerprint"
++  >,
++): string | undefined {
++  const extracted = extractDocsWriteMinConformityCriteriaFromBoundAttempt(attempt);
++  if (!extracted.ok) return undefined;
++  return computeDocsWriteOracleFingerprint(
++    buildDocsWriteOracleFingerprintMaterial(extracted.criteria),
++  );
++}
+diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/index.ts b/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
+index 4e1133f0..e47aa89b 100644
+--- a/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
++++ b/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
+@@ -127,12 +127,36 @@ export {
+   DOCS_WRITE_CONTRACT_RESULT_ER_KEY,
+   BOUNDED_DOCS_WRITE_EO_TEMPLATE,
+   DOCS_WRITE_STRICT_EO_CORRECTION_REF,
++  DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF,
++  DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF_V1,
++  DOCS_WRITE_EO_MATERIALIZED_MARKDOWN_AT_TARGET,
++  DOCS_WRITE_EO_MIN_CONFORMITY_VERIFICATION,
++  DOCS_WRITE_ARTIFACT_EVIDENCE_SOURCE,
+   docsWriteContractResultIdentity,
+   docsWriteArtifactFactsHold,
++  docsWriteConformityFactsHold,
+   assessDocsWriteExpectedOutput,
+   assessDocsWriteEvidenceRequirement,
+   docsWriteContractResultSemantic,
+ } from "./application/docsWriteContractResultSemantic";
++export {
++  DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
++  DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE_V1,
++  DOCS_WRITE_MIN_CONFORMITY_TECHNICAL_RESULT_PREFIX,
++  DOCS_WRITE_MIN_CONFORMITY_VERIFIER_TECHNICAL_RESULT_REF_V1,
++  DOCS_WRITE_VE_FILE_EXISTS_AT_TARGET,
++  DOCS_WRITE_VE_REQUIRED_SECTIONS_PRESENT,
++  extractDocsWriteMinConformityCriteria,
++  extractDocsWriteMinConformityCriteriaFromBoundAttempt,
++  computeDocsWriteOracleFingerprint,
++  buildDocsWriteOracleFingerprintMaterial,
++  docsWriteConformityTechnicalResultRef,
++  expectedDocsWriteConformityOracleFingerprint,
++  parseDocsWriteConformityOracleFingerprint,
++  stripMarkdownFencedCodeBlocks,
++  verifyDocsWriteMinConformityFromBytes,
++  verifyDocsWriteMinConformityFromFile,
++} from "./application/docsWriteMinConformityVerifier";
+ export {
+   resolveCurrentContractResultClaimEvaluation,
+   type ResolveCurrentContractResultClaimEvaluationResult,
+diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+index 0d45305d..a8331fd5 100644
+--- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
++++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+@@ -4,7 +4,9 @@
+ | --- | --- |
+ | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
+ | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
+-| **Timestamp maintenance PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** | 2026-09-18 15:30:00 CEST (+0200) — **PRODUCT JOURNEY POST-EXECUTION REPLAN — PROJECT GIT INTEGRATION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** · CR-PJR-01/02/03 **CLOSED / PRESERVED** · original macro baseline `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` (PR **#502** ContractResult A+B merge) · **requalified current baseline** `origin/main` `9be4b80629cb594821cc7b35abf22c89df65acc1` after documentation-only PR **#503** (`sfia-studio-transmission-guide.md` only · **NON-OVERLAPPING DOCUMENTARY MAIN ADVANCE**) · branche `qa/sfia-studio-product-journey-post-execution-replan-01` · Attempt 3 current CE strict **not_proven** preserved · Product **UNCLAIMED** · portable PJR + correctionRef + current-CE W3-C semantics preserved · Attempts **3→3** · **ZERO NEW STUDIO/CURSOR REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **PROJECT GIT INTEGRATION — RESOLVE FROM GIT / PR EVIDENCE** · **≠** READY · **≠** Attempt 3 Product PASS · next = PR CI / conditional merge / post-merge verification |
++| **Timestamp maintenance PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01** | 2026-09-18 19:05:00 CEST (+0200) — **PRODUCT JOURNEY CLAIM EVIDENCE COMPLETION — PROJECT GIT INTEGRATION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01** · **SAME MACRO / NO MICRO-CYCLE** · Morris GO **PROJECT GIT INTEGRATION — AUTHORIZED** **CONSUMED** · baseline `origin/main` `9c6ac90974113044330284dd110108287ba2319e` · branche `qa/sfia-studio-product-journey-claim-evidence-completion-01` · CR-CEC-01/02/03 **CLOSED** · ChatGPT Critical Review **PASS** (handoff `cdde19b43ab1e2bb8d1348d67c8e0df9d569acf3`) · historical CE `evidence-completion-v1` **pass IMMUTABLE** · successor CE `evidence-completion-v2` **pass** · Product **SUCCESS** · LPS v29 · Trajectory v4 unchanged · Attempts **3→3** · **ZERO NEW CURSOR REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **PROJECT GIT INTEGRATION / PR PENDING** · commit/push/PR **AUTHORIZED** · merge **NOT AUTHORIZED / DISTINCT MORRIS GATE** · **≠** Product Journey READY/COMPLETE · **≠** integrated on main · **≠** post-merge verified · **≠** new REAL proof · next = PR CI / Morris merge decision |
++| **Timestamp maintenance historique PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01 first pass (pre-CR-CEC)** | *(historique tip · superseded as tip by CR-CEC-01/02/03 correction)* — 2026-09-18 16:15:00 CEST (+0200) — first evidence-completion pass · correctionRef `evidence-completion-v1` · CE **pass** superseding strict-eo-v1 **not_proven** · Product **SUCCESS** · LPS v27→v28 · Attempts **3→3** · ZERO REAL · ChatGPT Critical Review then required CR-CEC-01/02/03 before Git acceptance |
++| **Timestamp maintenance historique PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 (pre-CLAIM-EVIDENCE-COMPLETION-01)** | 2026-09-18 15:30:00 CEST (+0200) — **PRODUCT JOURNEY POST-EXECUTION REPLAN — PROJECT GIT INTEGRATION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** · CR-PJR-01/02/03 **CLOSED / PRESERVED** · original macro baseline `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` (PR **#502** ContractResult A+B merge) · **requalified current baseline** `origin/main` `9be4b80629cb594821cc7b35abf22c89df65acc1` after documentation-only PR **#503** (`sfia-studio-transmission-guide.md` only · **NON-OVERLAPPING DOCUMENTARY MAIN ADVANCE**) · branche `qa/sfia-studio-product-journey-post-execution-replan-01` · Attempt 3 current CE strict **not_proven** preserved · Product **UNCLAIMED** · portable PJR + correctionRef + current-CE W3-C semantics preserved · Attempts **3→3** · **ZERO NEW STUDIO/CURSOR REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **PROJECT GIT INTEGRATION — RESOLVE FROM GIT / PR EVIDENCE** · **≠** READY · **≠** Attempt 3 Product PASS · next = PR CI / conditional merge / post-merge verification |
+ | **Timestamp maintenance historique CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 (pre-PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01)** | *(tip superseded by PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-18 09:10:00 CEST (+0200) — **CONTRACT RESULT EXTENSIBILITY — FINAL PR-READINESS CORRECTION** · EVOL · CRITICAL · Macro **CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01** · CR-BLK-01/02/03/04 **CLOSED** · baseline `bb6af3ca` · branche `feat/sfia-studio-contract-result-extensibility-01` · later **INTEGRATED ON MAIN / POST-MERGE VERIFIED** via PR **#502** merge `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` · docs-write M3 profile resolves **HOW** only (no `expectedOutputs` injection; predecessor WHAT preserved by SupersedeExecutionContract) · Attempt 3 current CE strict **not_proven** preserved · Attempts **3→3** · **ZERO REAL** · runtime v3 = **NON ADOPTED** · **≠** Product Journey READY · **≠** Attempt 3 Product PASS · historical tip wording **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** was pre-merge · Git/PR #502 are authoritative |
+ | **Timestamp maintenance historique PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 (pre-CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01)** | *(tip superseded by CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-18 05:15:00 CEST (+0200) — **PRODUCT JOURNEY E2E REAL RECONCILIATION INTEGRATION** · Cycle **15** · Capitalisation / REX + intégration Git · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01** · parent campagne **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01** · baseline pré-intégration `origin/main` `26478b1ea5b010c625f0c6039c969fac5c135cf5` · branche `qa/sfia-studio-product-journey-e2e-real-reconciliation-01` · checkpoints **R1–R12** consolidés · Product fixes **R1/R3/R4/R6/R7/R8/R10** = intégration candidate this PR · Attempt 1 FAIL · Attempt 2 FAIL Authentication required · Attempt 3 Cursor REAL **technical SUCCESS** · bounded docs_write filesystem effect + Artifact Evidence **PROVEN** in M4 isolated WT · Product Result remains **UNCLAIMED** · blocker = **ContractResult extensibility / Evidence wiring** (`no_applicable_contract_result_rule` for `cursor.docs_write.apply`) · capitalisation `projects/sfia-studio/convergence/product-journey-e2e-real-reconciliation-01-capitalization.md` · **ZERO REAL** this integration macro · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **≠** Product Journey E2E READY / COMPLETE · **≠** ContractResult docs_write PASS · **≠** runtime v3 ADOPTED · next after integration verified = **R13 — Contract Result extensibility framing — ZERO REAL** · **NOT STARTED / NOT AUTHORIZED** by this tip · repository lifecycle = **RESOLVE FROM GIT / PR evidence** |
+ | **Timestamp maintenance historique PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01 (pre-PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01)** | *(tip superseded by PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-17 18:25:36 CEST (+0200) — **PRODUCT DOCS_WRITE REAL PASS POST-MERGE TRUTH-SYNC** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Macro **PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01** · parent macro **PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01** · GO Morris post-merge documentary truth-sync #499 **CONSUMED** (local docs + commit only) · PR **#499 MERGED** `docs(sfia-studio): capitalize Product docs-write REAL proof` · head `9981483f8c158bec07364e14e626cdf2c3fd1e34` · merge `3907177f7788d23d640c5bdcd1cee8e01615762f` · parents `b739ddd3826ea4df640e3f34f97a966d85f8d214` + `9981483f8c158bec07364e14e626cdf2c3fd1e34` · capitalisation = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · pre-merge CI **`35236024162` SUCCESS** · Required Gate **PASS** · post-merge CI **`35245046244` SUCCESS** · Required Gate **PASS** · `headSha=3907177f7788d23d640c5bdcd1cee8e01615762f` · merge lifecycle #499 = **COMPLETED / CONSUMED** · post-merge verification = **PASS** · claim **AUTHENTICATED PRODUCT DOCS_WRITE REAL PROVEN AT TESTED HISTORICAL PROJECT SCOPE** · **ZERO REAL** · Product code **UNCHANGED** · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** **PRESERVED** · next Product capability candidate = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN** · **NOT STARTED / NOT AUTHORIZED** by this truth-sync · this documentary truth-sync = **LOCAL CANDIDATE** · Review Handoff publication **PENDING** (distinct Morris remote push gate) · push/PR/merge of this truth-sync = **DISTINCT Morris gates** · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / origin/main / PR evidence** · **≠** E2E FULL REAL PROVEN · **≠** Product Journey complete to Nora replanning · **≠** docs_write generalized · **≠** Cursor autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new REAL authorization · **≠** PRODUCT-JOURNEY-POST-EXECUTION-REPLAN started · **≠** push/PR/merge authorized by proof |
 ```
-
-### NEW FILE `projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteMinConformityVerifier.ts`
-
-```typescript
-/**
- * Deterministic docs_write minimum-conformity verifier (v2).
- * CR-CEC-01/02/03: bound Attempt snapshot only · oracle fingerprint · closed expectations.
- * No NLP / LLM. Unknown criteria → refuse. Fenced code blocks ignored for headings.
- */
-import { createHash } from "node:crypto";
-import { readFileSync } from "node:fs";
-import type { Digest } from "@/lib/oa/doctrine";
-import type { ExecutionAttemptSnapshot } from "../domain/types";
-
-/** Stable verifier profile — Evidence.source must equal this exactly. */
-export const DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE =
-  "docs_write_min_conformity_verifier:v2" as const;
-
-/** @deprecated v1 profile — historical Evidence may still carry this; not accepted by v2 semantic. */
-export const DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE_V1 =
-  "docs_write_min_conformity_verifier:v1" as const;
-
-export const DOCS_WRITE_MIN_CONFORMITY_TECHNICAL_RESULT_PREFIX =
-  "docs_write_min_conformity:v2:oracle:" as const;
-
-/** @deprecated v1 technicalResultRef — not accepted by v2 semantic. */
-export const DOCS_WRITE_MIN_CONFORMITY_VERIFIER_TECHNICAL_RESULT_REF_V1 =
-  "docs_write_min_conformity:v1:headings_present" as const;
-
-/**
- * Exact supported validationExpectation templates (closed set — no NLP).
- * Apostrophe in VE1 is U+2019 (bound Attempt 3 EC truth).
- */
-export const DOCS_WRITE_VE_FILE_EXISTS_AT_TARGET =
-  "Vérifier que le fichier existe au chemin cible" as const;
-
-export const DOCS_WRITE_VE_REQUIRED_SECTIONS_PRESENT =
-  "V\u00e9rifier la pr\u00e9sence de l\u2019objectif, du p\u00e9rim\u00e8tre inclus et exclu, des besoins principaux, des crit\u00e8res de succ\u00e8s et de la prochaine \u00e9tape" as const;
-
-const SUPPORTED_VALIDATION_EXPECTATIONS: ReadonlySet<string> = new Set([
-  DOCS_WRITE_VE_FILE_EXISTS_AT_TARGET,
-  DOCS_WRITE_VE_REQUIRED_SECTIONS_PRESENT,
-]);
-
-export type DocsWriteMinConformityCriteria = {
-  readonly targetPath: string;
-  readonly contentRequirements: readonly string[];
-  readonly validationExpectations: readonly string[];
-  readonly artifactType?: string;
-  readonly boundSemanticFingerprint: string;
-};
-
-export type DocsWriteOracleFingerprintMaterial = {
-  readonly verifierProfile: typeof DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE;
-  readonly boundSemanticFingerprint: string;
-  readonly targetPath: string;
-  readonly contentRequirements: readonly string[];
-  readonly validationExpectations: readonly string[];
-  readonly artifactType: string | null;
-};
-
-export type DocsWriteMinConformityPass = {
-  readonly ok: true;
-  readonly artifactPath: string;
-  readonly digest: Digest;
-  readonly matchedHeadings: readonly string[];
-  readonly oracleFingerprint: string;
-  readonly technicalResultRef: string;
-  readonly verifierSource: typeof DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE;
-};
-
-export type DocsWriteMinConformityFail = {
-  readonly ok: false;
-  readonly code: string;
-  readonly message: string;
-  readonly missingHeadings?: readonly string[];
-  readonly computedDigest?: Digest;
-};
-
-export type DocsWriteMinConformityResult =
-  | DocsWriteMinConformityPass
-  | DocsWriteMinConformityFail;
-
-function asNonEmptyString(value: unknown): string | undefined {
-  return typeof value === "string" && value.trim().length > 0
-    ? value.trim()
-    : undefined;
-}
-
-/**
- * Canonical JSON for oracle fingerprint — fixed key order, arrays preserved.
- */
-export function canonicalizeDocsWriteOracleMaterial(
-  material: DocsWriteOracleFingerprintMaterial,
-): string {
-  return JSON.stringify({
-    artifactType: material.artifactType,
-    boundSemanticFingerprint: material.boundSemanticFingerprint,
-    contentRequirements: material.contentRequirements,
-    targetPath: material.targetPath,
-    validationExpectations: material.validationExpectations,
-    verifierProfile: material.verifierProfile,
-  });
-}
-
-export function computeDocsWriteOracleFingerprint(
-  material: DocsWriteOracleFingerprintMaterial,
-): string {
-  return createHash("sha256")
-    .update(canonicalizeDocsWriteOracleMaterial(material), "utf8")
-    .digest("hex");
-}
-
-export function docsWriteConformityTechnicalResultRef(
-  oracleFingerprint: string,
-): string {
-  return `${DOCS_WRITE_MIN_CONFORMITY_TECHNICAL_RESULT_PREFIX}${oracleFingerprint}`;
-}
-
-export function parseDocsWriteConformityOracleFingerprint(
-  technicalResultRef: string | undefined,
-): string | undefined {
-  if (!technicalResultRef) return undefined;
-  if (
-    !technicalResultRef.startsWith(
-      DOCS_WRITE_MIN_CONFORMITY_TECHNICAL_RESULT_PREFIX,
-    )
-  ) {
-    return undefined;
-  }
-  const fp = technicalResultRef.slice(
-    DOCS_WRITE_MIN_CONFORMITY_TECHNICAL_RESULT_PREFIX.length,
-  );
-  return /^[a-f0-9]{64}$/.test(fp) ? fp : undefined;
-}
-
-/**
- * CR-CEC-01 — derive criteria ONLY from Attempt boundExecutionContract snapshot.
- * Never from live ExecutionContract.inputs.
- */
-export function extractDocsWriteMinConformityCriteriaFromBoundAttempt(
-  attempt: Pick<
-    ExecutionAttemptSnapshot,
-    "boundExecutionContract" | "executionContractSemanticFingerprint"
-  >,
-):
-  | { ok: true; criteria: DocsWriteMinConformityCriteria }
-  | { ok: false; code: string; message: string } {
-  const bound = attempt.boundExecutionContract;
-  if (!bound) {
-    return {
-      ok: false,
-      code: "BOUND_ACCEPTANCE_ORACLE_MISSING",
-      message: "attempt.boundExecutionContract absent — fail-closed.",
-    };
-  }
-  const fingerprint =
-    asNonEmptyString(bound.semanticFingerprint) ??
-    asNonEmptyString(attempt.executionContractSemanticFingerprint);
-  if (!fingerprint) {
-    return {
-      ok: false,
-      code: "BOUND_ACCEPTANCE_ORACLE_MISSING",
-      message: "bound semanticFingerprint absent — fail-closed.",
-    };
-  }
-  const inputs = bound.semanticMaterial?.inputs;
-  if (!inputs || typeof inputs !== "object") {
-    return {
-      ok: false,
-      code: "BOUND_ACCEPTANCE_ORACLE_MISSING",
-      message:
-        "boundExecutionContract.semanticMaterial.inputs absent — fail-closed.",
-    };
-  }
-  return extractDocsWriteMinConformityCriteria(
-    inputs as Record<string, unknown>,
-    fingerprint,
-  );
-}
-
-/**
- * Extract + validate closed acceptance criteria from bound inputs.
- * Unknown validationExpectations → BOUND_ACCEPTANCE_ORACLE_UNSUPPORTED.
- */
-export function extractDocsWriteMinConformityCriteria(
-  inputs: Record<string, unknown> | undefined,
-  boundSemanticFingerprint: string,
-):
-  | { ok: true; criteria: DocsWriteMinConformityCriteria }
-  | { ok: false; code: string; message: string } {
-  if (!inputs || typeof inputs !== "object") {
-    return {
-      ok: false,
-      code: "BOUND_ACCEPTANCE_ORACLE_MISSING",
-      message: "bound inputs absent — cannot derive conformity oracle.",
-    };
-  }
-  const fp = asNonEmptyString(boundSemanticFingerprint);
-  if (!fp) {
-    return {
-      ok: false,
-      code: "BOUND_ACCEPTANCE_ORACLE_MISSING",
-      message: "boundSemanticFingerprint required.",
-    };
-  }
-  const targetPath = asNonEmptyString(inputs.targetPath);
-  if (!targetPath) {
-    return {
-      ok: false,
-      code: "BOUND_ACCEPTANCE_ORACLE_MISSING",
-      message: "bound inputs.targetPath missing.",
-    };
-  }
-  const rawReq = inputs.contentRequirements;
-  if (!Array.isArray(rawReq) || rawReq.length === 0) {
-    return {
-      ok: false,
-      code: "BOUND_ACCEPTANCE_ORACLE_MISSING",
-      message: "bound inputs.contentRequirements missing.",
-    };
-  }
-  const contentRequirements: string[] = [];
-  for (const item of rawReq) {
-    const s = asNonEmptyString(item);
-    if (!s) {
-      return {
-        ok: false,
-        code: "BOUND_ACCEPTANCE_ORACLE_INVALID",
-        message: "contentRequirements contains non-string entry.",
-      };
-    }
-    contentRequirements.push(s);
-  }
-
-  const rawVe = inputs.validationExpectations;
-  if (!Array.isArray(rawVe) || rawVe.length === 0) {
-    return {
-      ok: false,
-      code: "BOUND_ACCEPTANCE_ORACLE_MISSING",
-      message: "bound inputs.validationExpectations missing.",
-    };
-  }
-  const validationExpectations: string[] = [];
-  for (const item of rawVe) {
-    const s = asNonEmptyString(item);
-    if (!s) {
-      return {
-        ok: false,
-        code: "BOUND_ACCEPTANCE_ORACLE_INVALID",
-        message: "validationExpectations contains non-string entry.",
-      };
-    }
-    if (!SUPPORTED_VALIDATION_EXPECTATIONS.has(s)) {
-      return {
-        ok: false,
-        code: "BOUND_ACCEPTANCE_ORACLE_UNSUPPORTED",
-        message: `unsupported validationExpectation: ${s}`,
-      };
-    }
-    validationExpectations.push(s);
-  }
-
-  const artifactType = asNonEmptyString(inputs.artifactType);
-
-  return {
-    ok: true,
-    criteria: {
-      targetPath,
-      contentRequirements,
-      validationExpectations,
-      ...(artifactType ? { artifactType } : {}),
-      boundSemanticFingerprint: fp,
-    },
-  };
-}
-
-export function buildDocsWriteOracleFingerprintMaterial(
-  criteria: DocsWriteMinConformityCriteria,
-): DocsWriteOracleFingerprintMaterial {
-  return {
-    verifierProfile: DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
-    boundSemanticFingerprint: criteria.boundSemanticFingerprint,
-    targetPath: criteria.targetPath,
-    contentRequirements: criteria.contentRequirements,
-    validationExpectations: criteria.validationExpectations,
-    artifactType: criteria.artifactType ?? null,
-  };
-}
-
-/**
- * Strip fenced code blocks (``` / ~~~) so headings inside fences cannot PASS.
- */
-export function stripMarkdownFencedCodeBlocks(markdown: string): string {
-  // CommonMark-style fences: opening fence of 3+ backticks/tildes, optional info string,
-  // closed by a fence of same character with at least the same length.
-  return markdown.replace(
-    /(^|\n)([`~]{3,})[^\n]*\n[\s\S]*?(?:\n\2[`~]*[ \t]*(?:\n|$)|$)/g,
-    "$1",
-  );
-}
-
-function headingPresentOutsideFences(
-  markdown: string,
-  requirement: string,
-): boolean {
-  const body = stripMarkdownFencedCodeBlocks(markdown);
-  const escaped = requirement.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const re = new RegExp(`^#{1,6}\\s+${escaped}\\s*$`, "m");
-  return re.test(body);
-}
-
-export function verifyDocsWriteMinConformityFromBytes(input: {
-  readonly bytes: Buffer;
-  readonly artifactPath: string;
-  readonly expectedDigest?: Digest;
-  readonly criteria: DocsWriteMinConformityCriteria;
-}): DocsWriteMinConformityResult {
-  const digest =
-    `sha256:${createHash("sha256").update(input.bytes).digest("hex")}` as Digest;
-  if (input.expectedDigest && input.expectedDigest !== digest) {
-    return {
-      ok: false,
-      code: "HISTORICAL_ARTIFACT_DIGEST_MISMATCH",
-      message: `computed digest ${digest} != expected ${input.expectedDigest}`,
-      computedDigest: digest,
-    };
-  }
-  if (input.bytes.length === 0) {
-    return {
-      ok: false,
-      code: "ARTIFACT_EMPTY",
-      message: "artifact payload empty",
-      computedDigest: digest,
-    };
-  }
-
-  const markdown = input.bytes.toString("utf8");
-  if (!markdown.trim()) {
-    return {
-      ok: false,
-      code: "ARTIFACT_EMPTY",
-      message: "artifact payload empty",
-      computedDigest: digest,
-    };
-  }
-
-  // artifactType Markdown → require .md path (closed deterministic check).
-  if (input.criteria.artifactType) {
-    const at = input.criteria.artifactType;
-    if (at === "Markdown" || at.toLowerCase() === "markdown") {
-      if (!/\.md$/i.test(input.criteria.targetPath)) {
-        return {
-          ok: false,
-          code: "ARTIFACT_TYPE_PATH_MISMATCH",
-          message: "artifactType Markdown requires .md targetPath",
-          computedDigest: digest,
-        };
-      }
-      if (!/\.md$/i.test(input.artifactPath)) {
-        return {
-          ok: false,
-          code: "ARTIFACT_TYPE_PATH_MISMATCH",
-          message: "artifactType Markdown requires .md artifact path",
-          computedDigest: digest,
-        };
-      }
-    } else {
-      return {
-        ok: false,
-        code: "BOUND_ACCEPTANCE_ORACLE_UNSUPPORTED",
-        message: `unsupported artifactType: ${at}`,
-        computedDigest: digest,
-      };
-    }
-  }
-
-  // VE: file exists at target — bytes non-empty + digest + path already checked.
-  if (
-    input.criteria.validationExpectations.includes(
-      DOCS_WRITE_VE_FILE_EXISTS_AT_TARGET,
-    )
-  ) {
-    if (input.artifactPath.trim() !== input.criteria.targetPath) {
-      return {
-        ok: false,
-        code: "ARTIFACT_PATH_MISMATCH",
-        message: `artifact path ${input.artifactPath} != targetPath ${input.criteria.targetPath}`,
-        computedDigest: digest,
-      };
-    }
-  }
-
-  const missing: string[] = [];
-  const matched: string[] = [];
-  const needsSections = input.criteria.validationExpectations.includes(
-    DOCS_WRITE_VE_REQUIRED_SECTIONS_PRESENT,
-  );
-  if (needsSections || input.criteria.contentRequirements.length > 0) {
-    for (const req of input.criteria.contentRequirements) {
-      if (headingPresentOutsideFences(markdown, req)) matched.push(req);
-      else missing.push(req);
-    }
-  }
-  if (missing.length > 0) {
-    return {
-      ok: false,
-      code: "CONFORMITY_HEADINGS_MISSING",
-      message: `missing required headings: ${missing.join(", ")}`,
-      missingHeadings: missing,
-      computedDigest: digest,
-    };
-  }
-
-  const oracleMaterial = buildDocsWriteOracleFingerprintMaterial(
-    input.criteria,
-  );
-  const oracleFingerprint = computeDocsWriteOracleFingerprint(oracleMaterial);
-  const technicalResultRef =
-    docsWriteConformityTechnicalResultRef(oracleFingerprint);
-
-  return {
-    ok: true,
-    artifactPath: input.artifactPath,
-    digest,
-    matchedHeadings: matched,
-    oracleFingerprint,
-    technicalResultRef,
-    verifierSource: DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
-  };
-}
-
-export function verifyDocsWriteMinConformityFromFile(input: {
-  readonly absolutePath: string;
-  readonly artifactPath: string;
-  readonly expectedDigest?: Digest;
-  readonly criteria: DocsWriteMinConformityCriteria;
-}): DocsWriteMinConformityResult {
-  let bytes: Buffer;
-  try {
-    bytes = readFileSync(input.absolutePath);
-  } catch (err) {
-    return {
-      ok: false,
-      code: "HISTORICAL_ARTIFACT_PAYLOAD_UNAVAILABLE",
-      message: `cannot read artifact: ${err instanceof Error ? err.message : String(err)}`,
-    };
-  }
-  return verifyDocsWriteMinConformityFromBytes({
-    bytes,
-    artifactPath: input.artifactPath,
-    expectedDigest: input.expectedDigest,
-    criteria: input.criteria,
-  });
-}
-
-/**
- * Derive expected oracle fingerprint from Attempt bound snapshot (server-owned).
- */
-export function expectedDocsWriteConformityOracleFingerprint(
-  attempt: Pick<
-    ExecutionAttemptSnapshot,
-    "boundExecutionContract" | "executionContractSemanticFingerprint"
-  >,
-): string | undefined {
-  const extracted = extractDocsWriteMinConformityCriteriaFromBoundAttempt(attempt);
-  if (!extracted.ok) return undefined;
-  return computeDocsWriteOracleFingerprint(
-    buildDocsWriteOracleFingerprintMaterial(extracted.criteria),
-  );
-}
-
-```
-
-### NEW FILE `projects/sfia-studio/app/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion.ts`
-
-```typescript
-/**
- * Complete docs_write claim via durable evidence completion (ZERO REAL).
- * Option B: fresh successor ReviewBundle — historical rb:docs-write untouched.
- *
- * Flow (CR-CEC-01/02/03):
- * 1) derive oracle ONLY from attempt.boundExecutionContract.semanticMaterial.inputs
- * 2) verify artifact against closed bound criteria + oracle fingerprint
- * 3) register conformity attestation Evidence (v2 technicalResultRef)
- * 4) create successor RB with artifact + conformity
- * 5) freeze
- * 6) requalify with correctionRef evidence-completion-v2
- */
-import type { ActorReference, Digest } from "@/lib/oa/doctrine";
-import type { ExecutionContract } from "@/lib/oa/execution-contract";
-import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
-import type {
-  ClaimEvaluation,
-  Evidence,
-  EvidenceReviewServices,
-  ReviewBundle,
-} from "@/lib/oa/evidence-review";
-import {
-  DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF,
-  docsWriteContractResultIdentity,
-  extractDocsWriteMinConformityCriteriaFromBoundAttempt,
-  verifyDocsWriteMinConformityFromBytes,
-  verifyDocsWriteMinConformityFromFile,
-} from "@/lib/oa/evidence-review";
-import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
-import { requalifyDocsWriteContractResult } from "./requalifyDocsWriteContractResult";
-
-export type CompleteDocsWriteClaimEvidenceCompletionInput = {
-  evidenceReviewServices: EvidenceReviewServices;
-  attempt: ExecutionAttempt;
-  contract: ExecutionContract;
-  /** Absolute filesystem path to historical artifact (read-only). */
-  artifactAbsolutePath?: string;
-  /** In-memory artifact bytes (tests) — mutually exclusive with path. */
-  artifactBytes?: Buffer;
-  actor?: ActorReference;
-  correlationId?: string;
-  nowIso?: string;
-  correctionRef?: string;
-};
-
-export type CompleteDocsWriteClaimEvidenceCompletionResult =
-  | {
-      ok: true;
-      claimEvaluation: ClaimEvaluation;
-      reviewBundle: ReviewBundle;
-      conformityEvidence: Evidence;
-      artifactEvidence: Evidence;
-      supersededClaimEvaluationId?: string;
-      verifierMatchedHeadings: readonly string[];
-      oracleFingerprint: string;
-      reusedFromIdempotencyKey?: boolean;
-    }
-  | { ok: false; code: string; message: string };
-
-export async function completeDocsWriteClaimEvidenceCompletion(
-  input: CompleteDocsWriteClaimEvidenceCompletionInput,
-): Promise<CompleteDocsWriteClaimEvidenceCompletionResult> {
-  const actor = input.actor ?? LOCAL_PILOTE_ACTOR;
-  const services = input.evidenceReviewServices;
-  const correctionRef =
-    input.correctionRef ?? DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF;
-
-  const ids = docsWriteContractResultIdentity(input.attempt.attemptId, {
-    correctionRef,
-    scopeReviewBundle: true,
-  });
-
-  const artifactEvidence = await services.evidenceReader.findById(
-    ids.evidenceId,
-  );
-  if (!artifactEvidence) {
-    return {
-      ok: false,
-      code: "DOCS_WRITE_EVIDENCE_MISSING",
-      message: `Artifact Evidence ${ids.evidenceId} introuvable.`,
-    };
-  }
-
-  const historicalRb = await services.reviewBundleReader.findById(
-    docsWriteContractResultIdentity(input.attempt.attemptId).reviewBundleId,
-  );
-  if (!historicalRb?.frozenAt || !historicalRb.frozenVersion) {
-    return {
-      ok: false,
-      code: "DOCS_WRITE_REVIEW_BUNDLE_NOT_FROZEN",
-      message: "Historical docs_write RB must remain frozen/auditable.",
-    };
-  }
-
-  // CR-CEC-01 — NEVER fallback to live contract.inputs for oracle derivation.
-  const criteria = extractDocsWriteMinConformityCriteriaFromBoundAttempt(
-    input.attempt,
-  );
-  if (!criteria.ok) {
-    return { ok: false, code: criteria.code, message: criteria.message };
-  }
-
-  const expectedDigest = artifactEvidence.digest as Digest | undefined;
-  const artifactPath =
-    artifactEvidence.location?.trim() || criteria.criteria.targetPath;
-
-  let verification;
-  if (input.artifactBytes) {
-    verification = verifyDocsWriteMinConformityFromBytes({
-      bytes: input.artifactBytes,
-      artifactPath,
-      expectedDigest,
-      criteria: criteria.criteria,
-    });
-  } else if (input.artifactAbsolutePath) {
-    verification = verifyDocsWriteMinConformityFromFile({
-      absolutePath: input.artifactAbsolutePath,
-      artifactPath,
-      expectedDigest,
-      criteria: criteria.criteria,
-    });
-  } else {
-    return {
-      ok: false,
-      code: "HISTORICAL_ARTIFACT_PAYLOAD_UNAVAILABLE",
-      message: "artifactAbsolutePath or artifactBytes required.",
-    };
-  }
-
-  if (!verification.ok) {
-    return {
-      ok: false,
-      code: verification.code,
-      message: verification.message,
-    };
-  }
-
-  // Idempotent: if conformity Evidence + successor RB + CE already exist, requalify.
-  const existingConformity = await services.evidenceReader.findById(
-    ids.conformityEvidenceId,
-  );
-  let conformityEvidence = existingConformity ?? undefined;
-  if (!conformityEvidence) {
-    const registered = await services.registerEvidence.execute({
-      evidenceId: ids.conformityEvidenceId,
-      idempotencyKey: `idem:docs-write-conformity:${correctionRef}:${input.attempt.attemptId}`,
-      actor,
-      type: "attestation",
-      source: verification.verifierSource,
-      sourceKind: "system",
-      bindings: {
-        projectId:
-          artifactEvidence.bindings.projectId ?? input.contract.projectId,
-        cycleInstanceId:
-          artifactEvidence.bindings.cycleInstanceId ??
-          input.contract.cycleInstanceId,
-        executionContractId: input.attempt.executionContractId,
-        executionAttemptId: input.attempt.attemptId,
-      },
-      classification: "internal",
-      storageMode: "metadata_only",
-      status: "available",
-      availability: "available",
-      freshness: "fresh",
-      location: artifactPath,
-      digest: verification.digest,
-      technicalResultRef: verification.technicalResultRef,
-      verifiablePayload: false,
-      producedBy: actor,
-      correlationId: input.correlationId,
-      nowIso: input.nowIso,
-    });
-    if (!registered.ok) {
-      return {
-        ok: false,
-        code: registered.error.detailCode,
-        message:
-          registered.error.internalCauseRef ?? registered.error.message,
-      };
-    }
-    conformityEvidence = registered.evidence;
-  }
-
-  let reviewBundle = await services.reviewBundleReader.findById(
-    ids.reviewBundleId,
-  );
-  if (!reviewBundle) {
-    const created = await services.createReviewBundle.execute({
-      reviewBundleId: ids.reviewBundleId,
-      idempotencyKey: `idem:docs-write-rb-create:${correctionRef}:${input.attempt.attemptId}`,
-      actor,
-      projectId:
-        artifactEvidence.bindings.projectId ?? input.contract.projectId,
-      cycleInstanceId:
-        artifactEvidence.bindings.cycleInstanceId ??
-        input.contract.cycleInstanceId,
-      executionContractId: input.attempt.executionContractId,
-      evidenceIds: [ids.evidenceId, ids.conformityEvidenceId],
-      correlationId: input.correlationId,
-      nowIso: input.nowIso,
-    });
-    if (!created.ok) {
-      return {
-        ok: false,
-        code: created.error.detailCode,
-        message: created.error.internalCauseRef ?? created.error.message,
-      };
-    }
-    reviewBundle = created.reviewBundle;
-  } else if (reviewBundle.status === "draft") {
-    const needArtifact = !reviewBundle.evidenceRefs.includes(ids.evidenceId);
-    const needConformity = !reviewBundle.evidenceRefs.includes(
-      ids.conformityEvidenceId,
-    );
-    let version = reviewBundle.version;
-    if (needArtifact) {
-      const attached = await services.attachEvidenceToReviewBundle.execute({
-        reviewBundleId: ids.reviewBundleId,
-        evidenceId: ids.evidenceId,
-        idempotencyKey: `idem:docs-write-rb-attach-art:${correctionRef}:${input.attempt.attemptId}`,
-        actor,
-        expectedVersion: version,
-        correlationId: input.correlationId,
-        nowIso: input.nowIso,
-      });
-      if (!attached.ok) {
-        return {
-          ok: false,
-          code: attached.error.detailCode,
-          message:
-            attached.error.internalCauseRef ?? attached.error.message,
-        };
-      }
-      reviewBundle = attached.reviewBundle;
-      version = reviewBundle.version;
-    }
-    if (needConformity) {
-      const attached = await services.attachEvidenceToReviewBundle.execute({
-        reviewBundleId: ids.reviewBundleId,
-        evidenceId: ids.conformityEvidenceId,
-        idempotencyKey: `idem:docs-write-rb-attach-conf:${correctionRef}:${input.attempt.attemptId}`,
-        actor,
-        expectedVersion: version,
-        correlationId: input.correlationId,
-        nowIso: input.nowIso,
-      });
-      if (!attached.ok) {
-        return {
-          ok: false,
-          code: attached.error.detailCode,
-          message:
-            attached.error.internalCauseRef ?? attached.error.message,
-        };
-      }
-      reviewBundle = attached.reviewBundle;
-    }
-  }
-
-  if (!reviewBundle.frozenAt || !reviewBundle.frozenVersion) {
-    if (reviewBundle.status !== "draft") {
-      return {
-        ok: false,
-        code: "DOCS_WRITE_REVIEW_BUNDLE_NOT_FROZEN",
-        message: `Successor RB status ${reviewBundle.status} cannot freeze.`,
-      };
-    }
-    const frozen = await services.freezeReviewBundle.execute({
-      reviewBundleId: ids.reviewBundleId,
-      expectedVersion: reviewBundle.version,
-      idempotencyKey: `idem:docs-write-rb-freeze:${correctionRef}:${input.attempt.attemptId}`,
-      actor,
-      correlationId: input.correlationId,
-      nowIso: input.nowIso,
-    });
-    if (!frozen.ok) {
-      return {
-        ok: false,
-        code: frozen.error.detailCode,
-        message: frozen.error.internalCauseRef ?? frozen.error.message,
-      };
-    }
-    reviewBundle = frozen.reviewBundle;
-  }
-
-  const requalified = await requalifyDocsWriteContractResult({
-    evidenceReviewServices: services,
-    attempt: input.attempt,
-    contract: input.contract,
-    actor,
-    correlationId: input.correlationId,
-    nowIso: input.nowIso,
-    correctionRef,
-    scopeReviewBundle: true,
-  });
-
-  if (!requalified.ok) {
-    return {
-      ok: false,
-      code: requalified.code,
-      message: requalified.message,
-    };
-  }
-
-  return {
-    ok: true,
-    claimEvaluation: requalified.claimEvaluation,
-    reviewBundle: requalified.reviewBundle,
-    conformityEvidence,
-    artifactEvidence,
-    supersededClaimEvaluationId: requalified.supersededClaimEvaluationId,
-    verifierMatchedHeadings: verification.matchedHeadings,
-    oracleFingerprint: verification.oracleFingerprint,
-    reusedFromIdempotencyKey: requalified.reusedFromIdempotencyKey,
-  };
-}
-
-```
-
-### NEW FILE `projects/sfia-studio/app/__tests__/project-assistant/claimEvidenceCompletion.d0.test.ts`
-
-```typescript
-/**
- * PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01 — EC-01..EC-23 + CR-CEC-01/02/03.
- * @vitest-environment node
- */
-import { describe, expect, it } from "vitest";
-import { FixedClock } from "@/lib/oa/doctrine";
-import type { Digest } from "@/lib/oa/doctrine";
-import {
-  createInMemoryEvidenceReviewServices,
-  docsWriteContractResultIdentity,
-  docsWriteConformityTechnicalResultRef,
-  DOCS_WRITE_CONTRACT_RESULT_ER_KEY,
-  DOCS_WRITE_EO_MATERIALIZED_MARKDOWN_AT_TARGET,
-  DOCS_WRITE_EO_MIN_CONFORMITY_VERIFICATION,
-  DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF,
-  DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
-  DOCS_WRITE_STRICT_EO_CORRECTION_REF,
-  DOCS_WRITE_VE_FILE_EXISTS_AT_TARGET,
-  DOCS_WRITE_VE_REQUIRED_SECTIONS_PRESENT,
-  expectedDocsWriteConformityOracleFingerprint,
-  extractDocsWriteMinConformityCriteria,
-  extractDocsWriteMinConformityCriteriaFromBoundAttempt,
-  resolveCurrentContractResultClaimEvaluation,
-  stripMarkdownFencedCodeBlocks,
-  verifyDocsWriteMinConformityFromBytes,
-} from "@/lib/oa/evidence-review";
-import {
-  computeExecutionContractSemanticMaterialFingerprint,
-  executionContractSemanticMaterial,
-  type ExecutionContract,
-} from "@/lib/oa/execution-contract";
-import { captureBoundExecutionContractSnapshot } from "@/lib/oa/execution-attempt/domain/boundExecutionContract";
-import {
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
-} from "@/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent";
-import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
-import { ingestDocsWriteArtifactEvidence } from "@/features/project-assistant/f3/ingestDocsWriteArtifactEvidence";
-import { requalifyDocsWriteContractResult } from "@/features/project-assistant/w2/requalifyDocsWriteContractResult";
-import { completeDocsWriteClaimEvidenceCompletion } from "@/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion";
-import { createHash } from "node:crypto";
-
-const ACTOR = { actorId: "actor:cec", role: "project_owner" as const };
-const NOW = "2026-09-18T16:00:00.000Z";
-const ATTEMPT_ID = "xat:w3a:c4c5670edb4658cc";
-const PROJECT_ID = "prj:e3fe8a45-5c9e-4651-bd2c-bde1cdf77c38";
-const CYCLE_ID = "cyc:trj-979cf448c5a6f0e7685f937f";
-const TARGET = "projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md";
-const CONTENT_REQUIREMENTS = [
-  "Objectif",
-  "Périmètre inclus",
-  "Périmètre exclu",
-  "Besoins principaux",
-  "Critères de succès",
-  "Prochaine étape",
-] as const;
-const VALIDATION_EXPECTATIONS = [
-  DOCS_WRITE_VE_FILE_EXISTS_AT_TARGET,
-  DOCS_WRITE_VE_REQUIRED_SECTIONS_PRESENT,
-] as const;
-
-const GOOD_MARKDOWN = `# Gestion de tâches
-
-## Objectif
-Texte.
-
-## Périmètre inclus
-Inclus.
-
-## Périmètre exclu
-Exclu.
-
-## Besoins principaux
-Besoins.
-
-## Critères de succès
-Succès.
-
-## Prochaine étape
-Suite.
-`;
-
-function digestOf(bytes: Buffer): Digest {
-  return `sha256:${createHash("sha256").update(bytes).digest("hex")}` as Digest;
-}
-
-function makeContract(overrides?: {
-  expectedOutputs?: string[];
-  inputs?: Record<string, unknown>;
-}): ExecutionContract {
-  const base: ExecutionContract = {
-    schemaVersion: "0.2.0-oa",
-    executionContractId: "xct:m3-res:dec:w2-trj:e00839c5-5022-4bd8-8243-f0a2dd6e79cb",
-    projectId: PROJECT_ID,
-    cycleInstanceId: CYCLE_ID,
-    version: 2,
-    status: "confirmed",
-    semanticFingerprint: "fp:pending",
-    action: M4_BOUNDED_DOCS_WRITE_ACTION,
-    target: TARGET,
-    scope: "projects/sfia-studio/.sandbox",
-    requiredAuthority: "N3",
-    constraints: ["NO_COMMIT", "NO_PUSH", "NO_PR", "NO_MERGE"],
-    stopConditions: [],
-    evidenceRequirements: [DOCS_WRITE_CONTRACT_RESULT_ER_KEY],
-    expectedOutputs: overrides?.expectedOutputs ?? [
-      DOCS_WRITE_EO_MATERIALIZED_MARKDOWN_AT_TARGET,
-      DOCS_WRITE_EO_MIN_CONFORMITY_VERIFICATION,
-    ],
-    requiredCapabilities: [M4_BOUNDED_DOCS_WRITE_CAPABILITY],
-    reversibility: "reversible",
-    idempotencyKey: "idem:ec:cec:docs",
-    correlationId: "cor:ec:cec:docs",
-    inputs: overrides?.inputs ?? {
-      targetPath: TARGET,
-      contentRequirements: [...CONTENT_REQUIREMENTS],
-      validationExpectations: [...VALIDATION_EXPECTATIONS],
-      artifactType: "Markdown",
-    },
-  };
-  base.semanticFingerprint = computeExecutionContractSemanticMaterialFingerprint(
-    executionContractSemanticMaterial(base),
-  );
-  return base;
-}
-
-function makeAttempt(
-  contract: ExecutionContract,
-  options?: { omitBound?: boolean; omitBoundInputs?: boolean },
-): ExecutionAttempt {
-  const snap = captureBoundExecutionContractSnapshot(contract);
-  if (options?.omitBound) {
-    return {
-      attemptId: ATTEMPT_ID,
-      executionContractId: contract.executionContractId,
-      executionContractVersion: contract.version,
-      executionContractSemanticFingerprint: snap.semanticFingerprint,
-      status: "succeeded",
-      resultRef: "res:m4:xat:w3a:c4c5670edb4658cc",
-      selectedAgentRef: "agent:docs-write",
-      version: 3,
-      createdAt: NOW,
-      updatedAt: NOW,
-    } as ExecutionAttempt;
-  }
-  if (options?.omitBoundInputs) {
-    return {
-      attemptId: ATTEMPT_ID,
-      executionContractId: contract.executionContractId,
-      executionContractVersion: contract.version,
-      executionContractSemanticFingerprint: snap.semanticFingerprint,
-      boundExecutionContract: {
-        ...snap,
-        semanticMaterial: {
-          ...snap.semanticMaterial,
-          inputs: undefined as unknown as Record<string, unknown>,
-        },
-      },
-      status: "succeeded",
-      resultRef: "res:m4:xat:w3a:c4c5670edb4658cc",
-      selectedAgentRef: "agent:docs-write",
-      version: 3,
-      createdAt: NOW,
-      updatedAt: NOW,
-    } as ExecutionAttempt;
-  }
-  return {
-    attemptId: ATTEMPT_ID,
-    executionContractId: contract.executionContractId,
-    executionContractVersion: contract.version,
-    executionContractSemanticFingerprint: snap.semanticFingerprint,
-    boundExecutionContract: snap,
-    status: "succeeded",
-    resultRef: "res:m4:xat:w3a:c4c5670edb4658cc",
-    selectedAgentRef: "agent:docs-write",
-    version: 3,
-    createdAt: NOW,
-    updatedAt: NOW,
-  } as ExecutionAttempt;
-}
-
-async function seedArtifactOnly(input: {
-  services: ReturnType<typeof createInMemoryEvidenceReviewServices>;
-  contract: ExecutionContract;
-  attempt: ExecutionAttempt;
-  bytes: Buffer;
-  location?: string;
-}) {
-  const digest = digestOf(input.bytes);
-  const ingested = await ingestDocsWriteArtifactEvidence({
-    evidenceReviewServices: input.services,
-    projectId: PROJECT_ID,
-    cycleInstanceId: CYCLE_ID,
-    executionContractId: input.contract.executionContractId,
-    executionAttemptId: input.attempt.attemptId,
-    targetPath: input.location ?? TARGET,
-    digest,
-    actor: ACTOR,
-    nowIso: NOW,
-  });
-  expect(ingested.ok).toBe(true);
-  if (!ingested.ok) throw new Error(ingested.message);
-  const rb = await input.services.reviewBundleReader.findById(
-    ingested.reviewBundleId,
-  );
-  if (rb && !rb.frozenAt) {
-    const frozen = await input.services.freezeReviewBundle.execute({
-      reviewBundleId: ingested.reviewBundleId,
-      expectedVersion: rb.version,
-      idempotencyKey: `idem:seed-freeze:${ingested.reviewBundleId}`,
-      actor: ACTOR,
-      nowIso: NOW,
-    });
-    expect(frozen.ok).toBe(true);
-  }
-  return { digest, evidenceId: ingested.evidenceId, reviewBundleId: ingested.reviewBundleId };
-}
-
-function validConformityRef(attempt: ExecutionAttempt): string {
-  const fp = expectedDocsWriteConformityOracleFingerprint(attempt);
-  if (!fp) throw new Error("expected oracle fingerprint missing");
-  return docsWriteConformityTechnicalResultRef(fp);
-}
-
-describe("claim evidence completion EC-01..EC-23", () => {
-  it("EC-01 — historical-shaped EO + Artifact only → NOT_PROVEN", async () => {
-    const services = createInMemoryEvidenceReviewServices({
-      clock: new FixedClock(NOW),
-    });
-    const contract = makeContract();
-    const attempt = makeAttempt(contract);
-    await seedArtifactOnly({
-      services,
-      contract,
-      attempt,
-      bytes: Buffer.from(GOOD_MARKDOWN, "utf8"),
-    });
-    const rq = await requalifyDocsWriteContractResult({
-      evidenceReviewServices: services,
-      attempt,
-      contract,
-      actor: ACTOR,
-      nowIso: NOW,
-      correctionRef: DOCS_WRITE_STRICT_EO_CORRECTION_REF,
-    });
-    expect(rq.ok).toBe(true);
-    if (!rq.ok) return;
-    expect(rq.claimEvaluation.status).toBe("not_proven");
-    const eo = rq.claimEvaluation.expectedOutputAssessments ?? [];
-    expect(eo.map((a) => a.result)).toEqual(["PASS", "NOT_PROVEN"]);
-  });
-
-  it("EC-02 — Artifact + conformity Evidence → both EO PASS / CE pass", async () => {
-    const services = createInMemoryEvidenceReviewServices({
-      clock: new FixedClock(NOW),
-    });
-    const contract = makeContract();
-    const attempt = makeAttempt(contract);
-    const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
-    await seedArtifactOnly({ services, contract, attempt, bytes });
-    const done = await completeDocsWriteClaimEvidenceCompletion({
-      evidenceReviewServices: services,
-      attempt,
-      contract,
-      artifactBytes: bytes,
-      actor: ACTOR,
-      nowIso: NOW,
-    });
-    expect(done.ok).toBe(true);
-    if (!done.ok) return;
-    expect(done.claimEvaluation.status).toBe("pass");
-    expect(
-      (done.claimEvaluation.expectedOutputAssessments ?? []).map((a) => a.result),
-    ).toEqual(["PASS", "PASS"]);
-    expect(done.conformityEvidence.source).toBe(
-      DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
-    );
-    expect(done.conformityEvidence.technicalResultRef).toBe(
-      validConformityRef(attempt),
-    );
-    expect(done.oracleFingerprint).toHaveLength(64);
-    // Historical RB unchanged identity still frozen.
-    const hist = await services.reviewBundleReader.findById(
-      docsWriteContractResultIdentity(ATTEMPT_ID).reviewBundleId,
-    );
-    expect(hist?.status).toBe("ready_for_review");
-    expect(hist?.frozenAt).toBeTruthy();
-    expect(hist?.evidenceRefs).toEqual([
-      docsWriteContractResultIdentity(ATTEMPT_ID).evidenceId,
-    ]);
-  });
-
-  it("EC-03 — unknown EO → NOT_PROVEN even with conformity", async () => {
-    const services = createInMemoryEvidenceReviewServices({
-      clock: new FixedClock(NOW),
-    });
-    const contract = makeContract({
-      expectedOutputs: [
-        DOCS_WRITE_EO_MATERIALIZED_MARKDOWN_AT_TARGET,
-        "Texte libre arbitraire non supporté",
-      ],
-    });
-    const attempt = makeAttempt(contract);
-    const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
-    await seedArtifactOnly({ services, contract, attempt, bytes });
-    const done = await completeDocsWriteClaimEvidenceCompletion({
-      evidenceReviewServices: services,
-      attempt,
-      contract,
-      artifactBytes: bytes,
-      actor: ACTOR,
-      nowIso: NOW,
-      correctionRef: "evidence-completion-unknown-eo",
-    });
-    expect(done.ok).toBe(true);
-    if (!done.ok) return;
-    expect(done.claimEvaluation.status).toBe("not_proven");
-  });
-
-  it("EC-04 — wrong artifact digest on conformity → no PASS", async () => {
-    const services = createInMemoryEvidenceReviewServices({
-      clock: new FixedClock(NOW),
-    });
-    const contract = makeContract();
-    const attempt = makeAttempt(contract);
-    const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
-    await seedArtifactOnly({ services, contract, attempt, bytes });
-    const ids = docsWriteContractResultIdentity(ATTEMPT_ID, {
-      correctionRef: DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF,
-      scopeReviewBundle: true,
-    });
-    await services.registerEvidence.execute({
-      evidenceId: ids.conformityEvidenceId,
-      idempotencyKey: "idem:bad-digest",
-      actor: ACTOR,
-      type: "attestation",
-      source: DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
-      sourceKind: "system",
-      bindings: {
-        projectId: PROJECT_ID,
-        cycleInstanceId: CYCLE_ID,
-        executionContractId: contract.executionContractId,
-        executionAttemptId: ATTEMPT_ID,
-      },
-      classification: "internal",
-      storageMode: "metadata_only",
-      status: "available",
-      location: TARGET,
-      digest: "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" as Digest,
-      technicalResultRef: validConformityRef(attempt),
-      nowIso: NOW,
-    });
-    const created = await services.createReviewBundle.execute({
-      reviewBundleId: ids.reviewBundleId,
-      idempotencyKey: "idem:rb-bad",
-      actor: ACTOR,
-      projectId: PROJECT_ID,
-      cycleInstanceId: CYCLE_ID,
-      executionContractId: contract.executionContractId,
-      evidenceIds: [ids.evidenceId, ids.conformityEvidenceId],
-      nowIso: NOW,
-    });
-    expect(created.ok).toBe(true);
-    const rb = await services.reviewBundleReader.findById(ids.reviewBundleId);
-    expect(rb).toBeTruthy();
-    await services.freezeReviewBundle.execute({
-      reviewBundleId: ids.reviewBundleId,
-      expectedVersion: rb!.version,
-      idempotencyKey: "idem:freeze-bad",
-      actor: ACTOR,
-      nowIso: NOW,
-    });
-    const rq = await requalifyDocsWriteContractResult({
-      evidenceReviewServices: services,
-      attempt,
-      contract,
-      actor: ACTOR,
-      nowIso: NOW,
-      correctionRef: DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF,
-      scopeReviewBundle: true,
-    });
-    expect(rq.ok).toBe(true);
-    if (!rq.ok) return;
-    expect(rq.claimEvaluation.status).toBe("not_proven");
-  });
-
-  it("EC-05 — wrong path → no PASS on materialized EO", async () => {
-    const services = createInMemoryEvidenceReviewServices({
-      clock: new FixedClock(NOW),
-    });
-    const contract = makeContract();
-    const attempt = makeAttempt(contract);
-    const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
-    await seedArtifactOnly({
-      services,
-      contract,
-      attempt,
-      bytes,
-      location: "projects/sfia-studio/.sandbox/wrong.md",
-    });
-    const rq = await requalifyDocsWriteContractResult({
-      evidenceReviewServices: services,
-      attempt,
-      contract,
-      actor: ACTOR,
-      nowIso: NOW,
-      correctionRef: "path-mismatch-v1",
-    });
-    expect(rq.ok).toBe(true);
-    if (!rq.ok) return;
-    expect(rq.claimEvaluation.status).toBe("not_proven");
-    expect(rq.claimEvaluation.expectedOutputAssessments?.[0]?.result).toBe(
-      "NOT_PROVEN",
-    );
-  });
-
-  async function seedWrongConformityBinding(input: {
-    correctionRef: string;
-    mutateBindings: (correct: {
-      projectId: string;
-      cycleInstanceId: string;
-      executionContractId: string;
-      executionAttemptId: string;
-    }) => {
-      projectId: string;
-      cycleInstanceId: string;
-      executionContractId: string;
-      executionAttemptId: string;
-    };
-  }) {
-    const services = createInMemoryEvidenceReviewServices({
-      clock: new FixedClock(NOW),
-    });
-    const contract = makeContract();
-    const attempt = makeAttempt(contract);
-    const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
-    await seedArtifactOnly({ services, contract, attempt, bytes });
-    const ids = docsWriteContractResultIdentity(ATTEMPT_ID, {
-      correctionRef: input.correctionRef,
-      scopeReviewBundle: true,
-    });
-    const correct = {
-      projectId: PROJECT_ID,
-      cycleInstanceId: CYCLE_ID,
-      executionContractId: contract.executionContractId,
-      executionAttemptId: ATTEMPT_ID,
-    };
-    await services.registerEvidence.execute({
-      evidenceId: ids.conformityEvidenceId,
-      idempotencyKey: `idem:bind-${input.correctionRef}`,
-      actor: ACTOR,
-      type: "attestation",
-      source: DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
-      sourceKind: "system",
-      bindings: input.mutateBindings(correct),
-      classification: "internal",
-      storageMode: "metadata_only",
-      status: "available",
-      location: TARGET,
-      digest: digestOf(bytes),
-      technicalResultRef: validConformityRef(attempt),
-      nowIso: NOW,
-    });
-    await services.createReviewBundle.execute({
-      reviewBundleId: ids.reviewBundleId,
-      idempotencyKey: `idem:rb-${input.correctionRef}`,
-      actor: ACTOR,
-      projectId: PROJECT_ID,
-      cycleInstanceId: CYCLE_ID,
-      executionContractId: contract.executionContractId,
-      evidenceIds: [ids.evidenceId, ids.conformityEvidenceId],
-      nowIso: NOW,
-    });
-    const rb = await services.reviewBundleReader.findById(ids.reviewBundleId);
-    await services.freezeReviewBundle.execute({
-      reviewBundleId: ids.reviewBundleId,
-      expectedVersion: rb!.version,
-      idempotencyKey: `idem:freeze-${input.correctionRef}`,
-      actor: ACTOR,
-      nowIso: NOW,
-    });
-    return requalifyDocsWriteContractResult({
-      evidenceReviewServices: services,
-      attempt,
-      contract,
-      actor: ACTOR,
-      nowIso: NOW,
-      correctionRef: input.correctionRef,
-      scopeReviewBundle: true,
-    });
-  }
-
-  it("EC-06 — wrong Attempt binding → no PASS", async () => {
-    const rq = await seedWrongConformityBinding({
-      correctionRef: "bind-fail-attempt",
-      mutateBindings: (c) => ({ ...c, executionAttemptId: "xat:w3a:other-attempt" }),
-    });
-    expect(rq.ok).toBe(true);
-    if (!rq.ok) return;
-    expect(rq.claimEvaluation.status).toBe("not_proven");
-  });
-
-  it("EC-07 — wrong EC binding → no PASS", async () => {
-    const rq = await seedWrongConformityBinding({
-      correctionRef: "bind-fail-ec",
-      mutateBindings: (c) => ({ ...c, executionContractId: "xct:other-contract" }),
-    });
-    expect(rq.ok).toBe(true);
-    if (!rq.ok) return;
-    expect(rq.claimEvaluation.status).toBe("not_proven");
-  });
-
-  it("EC-08 — wrong project binding → no PASS", async () => {
-    const rq = await seedWrongConformityBinding({
-      correctionRef: "bind-fail-project",
-      mutateBindings: (c) => ({ ...c, projectId: "prj:other" }),
-    });
-    expect(rq.ok).toBe(true);
-    if (!rq.ok) return;
-    expect(rq.claimEvaluation.status).toBe("not_proven");
-  });
-
-  it("EC-08b — wrong cycle binding → no PASS", async () => {
-    const rq = await seedWrongConformityBinding({
-      correctionRef: "bind-fail-cycle",
-      mutateBindings: (c) => ({ ...c, cycleInstanceId: "cyc:other-cycle" }),
-    });
-    expect(rq.ok).toBe(true);
-    if (!rq.ok) return;
-    expect(rq.claimEvaluation.status).toBe("not_proven");
-  });
-
-  it("EC-09 — stale/rejected conformity → no PASS", async () => {
-    const services = createInMemoryEvidenceReviewServices({
-      clock: new FixedClock(NOW),
-    });
-    const contract = makeContract();
-    const attempt = makeAttempt(contract);
-    const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
-    await seedArtifactOnly({ services, contract, attempt, bytes });
-    const ids = docsWriteContractResultIdentity(ATTEMPT_ID, {
-      correctionRef: "stale-conf-v1",
-      scopeReviewBundle: true,
-    });
-    await services.registerEvidence.execute({
-      evidenceId: ids.conformityEvidenceId,
-      idempotencyKey: "idem:stale",
-      actor: ACTOR,
-      type: "attestation",
-      source: DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
-      sourceKind: "system",
-      bindings: {
-        projectId: PROJECT_ID,
-        cycleInstanceId: CYCLE_ID,
-        executionContractId: contract.executionContractId,
-        executionAttemptId: ATTEMPT_ID,
-      },
-      classification: "internal",
-      storageMode: "metadata_only",
-      status: "rejected",
-      location: TARGET,
-      digest: digestOf(bytes),
-      technicalResultRef: validConformityRef(attempt),
-      nowIso: NOW,
-    });
-    await services.createReviewBundle.execute({
-      reviewBundleId: ids.reviewBundleId,
-      idempotencyKey: "idem:rb-stale",
-      actor: ACTOR,
-      projectId: PROJECT_ID,
-      cycleInstanceId: CYCLE_ID,
-      executionContractId: contract.executionContractId,
-      evidenceIds: [ids.evidenceId, ids.conformityEvidenceId],
-      nowIso: NOW,
-    });
-    const rb = await services.reviewBundleReader.findById(ids.reviewBundleId);
-    await services.freezeReviewBundle.execute({
-      reviewBundleId: ids.reviewBundleId,
-      expectedVersion: rb!.version,
-      idempotencyKey: "idem:freeze-stale",
-      actor: ACTOR,
-      nowIso: NOW,
-    });
-    const rq = await requalifyDocsWriteContractResult({
-      evidenceReviewServices: services,
-      attempt,
-      contract,
-      actor: ACTOR,
-      nowIso: NOW,
-      correctionRef: "stale-conf-v1",
-      scopeReviewBundle: true,
-    });
-    expect(rq.ok).toBe(true);
-    if (!rq.ok) return;
-    expect(rq.claimEvaluation.status).toBe("not_proven");
-  });
-
-  it("EC-10..15 — freeze, lineage, correctionRef successor + idempotent", async () => {
-    const services = createInMemoryEvidenceReviewServices({
-      clock: new FixedClock(NOW),
-    });
-    const contract = makeContract();
-    const attempt = makeAttempt(contract);
-    const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
-    await seedArtifactOnly({ services, contract, attempt, bytes });
-
-    // Seed prior current CE as strict-eo not_proven.
-    const strict = await requalifyDocsWriteContractResult({
-      evidenceReviewServices: services,
-      attempt,
-      contract,
-      actor: ACTOR,
-      nowIso: NOW,
-      correctionRef: DOCS_WRITE_STRICT_EO_CORRECTION_REF,
-    });
-    expect(strict.ok).toBe(true);
-    if (!strict.ok) return;
-    expect(strict.claimEvaluation.status).toBe("not_proven");
-
-    const first = await completeDocsWriteClaimEvidenceCompletion({
-      evidenceReviewServices: services,
-      attempt,
-      contract,
-      artifactBytes: bytes,
-      actor: ACTOR,
-      nowIso: NOW,
-    });
-    expect(first.ok).toBe(true);
-    if (!first.ok) return;
-    expect(first.claimEvaluation.status).toBe("pass");
-    expect(first.claimEvaluation.claimEvaluationId).toContain(
-      "evidence-completion-v2",
-    );
-    expect(first.reviewBundle.frozenAt).toBeTruthy();
-    expect(first.reviewBundle.frozenEvidenceSnapshots?.length).toBe(2);
-    expect(first.claimEvaluation.supersedesClaimEvaluationId).toBe(
-      strict.claimEvaluation.claimEvaluationId,
-    );
-
-    const second = await completeDocsWriteClaimEvidenceCompletion({
-      evidenceReviewServices: services,
-      attempt,
-      contract,
-      artifactBytes: bytes,
-      actor: ACTOR,
-      nowIso: NOW,
-    });
-    expect(second.ok).toBe(true);
-    if (!second.ok) return;
-    expect(second.claimEvaluation.claimEvaluationId).toBe(
-      first.claimEvaluation.claimEvaluationId,
-    );
-    expect(second.reusedFromIdempotencyKey).toBe(true);
-
-    const current = await resolveCurrentContractResultClaimEvaluation({
-      repo: services.claimEvaluationRepository,
-      projectId: PROJECT_ID,
-      executionAttemptId: ATTEMPT_ID,
-    });
-    expect(current.status).toBe("one");
-    if (current.status !== "one") return;
-    expect(current.claimEvaluation.claimEvaluationId).toBe(
-      first.claimEvaluation.claimEvaluationId,
-    );
-    // Old CE immutable
-    const old = await services.claimEvaluationReader.findById(
-      strict.claimEvaluation.claimEvaluationId,
-    );
-    expect(old?.status).toBe("not_proven");
-  });
-
-  it("CR-CEC-01 — bound inputs absent + live contract populated → FAIL-CLOSED", async () => {
-    const services = createInMemoryEvidenceReviewServices({
-      clock: new FixedClock(NOW),
-    });
-    const contract = makeContract();
-    const attempt = makeAttempt(contract, { omitBoundInputs: true });
-    const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
-    await seedArtifactOnly({ services, contract, attempt, bytes });
-    const done = await completeDocsWriteClaimEvidenceCompletion({
-      evidenceReviewServices: services,
-      attempt,
-      contract,
-      artifactBytes: bytes,
-      actor: ACTOR,
-      nowIso: NOW,
-      correctionRef: "bound-missing-inputs",
-    });
-    expect(done.ok).toBe(false);
-    if (done.ok) return;
-    expect(done.code).toBe("BOUND_ACCEPTANCE_ORACLE_MISSING");
-  });
-
-  it("CR-CEC-01 — bound snapshot absent + live contract populated → FAIL-CLOSED", async () => {
-    const services = createInMemoryEvidenceReviewServices({
-      clock: new FixedClock(NOW),
-    });
-    const contract = makeContract();
-    const attempt = makeAttempt(contract, { omitBound: true });
-    const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
-    await seedArtifactOnly({ services, contract, attempt, bytes });
-    const done = await completeDocsWriteClaimEvidenceCompletion({
-      evidenceReviewServices: services,
-      attempt,
-      contract,
-      artifactBytes: bytes,
-      actor: ACTOR,
-      nowIso: NOW,
-      correctionRef: "bound-missing-snap",
-    });
-    expect(done.ok).toBe(false);
-    if (done.ok) return;
-    expect(done.code).toBe("BOUND_ACCEPTANCE_ORACLE_MISSING");
-  });
-
-  it("CR-CEC-01 — live contract criteria differ from bound → bound wins", async () => {
-    const boundContract = makeContract();
-    const attempt = makeAttempt(boundContract);
-    const liveContract = makeContract({
-      inputs: {
-        targetPath: "projects/sfia-studio/.sandbox/live-different.md",
-        contentRequirements: ["WrongHeading"],
-        validationExpectations: [...VALIDATION_EXPECTATIONS],
-        artifactType: "Markdown",
-      },
-    });
-    const extracted = extractDocsWriteMinConformityCriteriaFromBoundAttempt(
-      attempt,
-    );
-    expect(extracted.ok).toBe(true);
-    if (!extracted.ok) return;
-    expect(extracted.criteria.targetPath).toBe(TARGET);
-    expect(extracted.criteria.contentRequirements).toEqual([
-      ...CONTENT_REQUIREMENTS,
-    ]);
-    // Live contract must not be consulted — different target ignored.
-    expect(liveContract.inputs?.targetPath).not.toBe(
-      extracted.criteria.targetPath,
-    );
-  });
-
-  it("CR-CEC-02 — v1 static technicalResultRef rejected; oracle fingerprint required", async () => {
-    const services = createInMemoryEvidenceReviewServices({
-      clock: new FixedClock(NOW),
-    });
-    const contract = makeContract();
-    const attempt = makeAttempt(contract);
-    const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
-    await seedArtifactOnly({ services, contract, attempt, bytes });
-    const ids = docsWriteContractResultIdentity(ATTEMPT_ID, {
-      correctionRef: "oracle-fp-v1-reject",
-      scopeReviewBundle: true,
-    });
-    await services.registerEvidence.execute({
-      evidenceId: ids.conformityEvidenceId,
-      idempotencyKey: "idem:v1-ref",
-      actor: ACTOR,
-      type: "attestation",
-      source: DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
-      sourceKind: "system",
-      bindings: {
-        projectId: PROJECT_ID,
-        cycleInstanceId: CYCLE_ID,
-        executionContractId: contract.executionContractId,
-        executionAttemptId: ATTEMPT_ID,
-      },
-      classification: "internal",
-      storageMode: "metadata_only",
-      status: "available",
-      location: TARGET,
-      digest: digestOf(bytes),
-      technicalResultRef: "docs_write_min_conformity:v1:headings_present",
-      nowIso: NOW,
-    });
-    await services.createReviewBundle.execute({
-      reviewBundleId: ids.reviewBundleId,
-      idempotencyKey: "idem:rb-v1-ref",
-      actor: ACTOR,
-      projectId: PROJECT_ID,
-      cycleInstanceId: CYCLE_ID,
-      executionContractId: contract.executionContractId,
-      evidenceIds: [ids.evidenceId, ids.conformityEvidenceId],
-      nowIso: NOW,
-    });
-    const rb = await services.reviewBundleReader.findById(ids.reviewBundleId);
-    await services.freezeReviewBundle.execute({
-      reviewBundleId: ids.reviewBundleId,
-      expectedVersion: rb!.version,
-      idempotencyKey: "idem:freeze-v1-ref",
-      actor: ACTOR,
-      nowIso: NOW,
-    });
-    const rq = await requalifyDocsWriteContractResult({
-      evidenceReviewServices: services,
-      attempt,
-      contract,
-      actor: ACTOR,
-      nowIso: NOW,
-      correctionRef: "oracle-fp-v1-reject",
-      scopeReviewBundle: true,
-    });
-    expect(rq.ok).toBe(true);
-    if (!rq.ok) return;
-    expect(rq.claimEvaluation.status).toBe("not_proven");
-  });
-
-  it("CR-CEC-03 — unknown validationExpectation → BOUND_ACCEPTANCE_ORACLE_UNSUPPORTED", () => {
-    const criteria = extractDocsWriteMinConformityCriteria(
-      {
-        targetPath: TARGET,
-        contentRequirements: [...CONTENT_REQUIREMENTS],
-        validationExpectations: ["Quelque chose d'inconnu"],
-        artifactType: "Markdown",
-      },
-      "fp:test",
-    );
-    expect(criteria.ok).toBe(false);
-    if (criteria.ok) return;
-    expect(criteria.code).toBe("BOUND_ACCEPTANCE_ORACLE_UNSUPPORTED");
-  });
-
-  it("CR-CEC-03 — headings inside fenced code blocks do NOT PASS", () => {
-    const criteria = extractDocsWriteMinConformityCriteria(
-      {
-        targetPath: TARGET,
-        contentRequirements: [...CONTENT_REQUIREMENTS],
-        validationExpectations: [...VALIDATION_EXPECTATIONS],
-        artifactType: "Markdown",
-      },
-      "fp:fence",
-    );
-    expect(criteria.ok).toBe(true);
-    if (!criteria.ok) return;
-    const fencedOnly = `# Title
-
-\`\`\`markdown
-## Objectif
-## Périmètre inclus
-## Périmètre exclu
-## Besoins principaux
-## Critères de succès
-## Prochaine étape
-\`\`\`
-`;
-    const fail = verifyDocsWriteMinConformityFromBytes({
-      bytes: Buffer.from(fencedOnly, "utf8"),
-      artifactPath: TARGET,
-      criteria: criteria.criteria,
-    });
-    expect(fail.ok).toBe(false);
-    if (fail.ok) return;
-    expect(fail.code).toBe("CONFORMITY_HEADINGS_MISSING");
-
-    const stripped = stripMarkdownFencedCodeBlocks(fencedOnly);
-    expect(stripped).not.toMatch(/^## Objectif/m);
-  });
-
-  it("EC-20..23 — no HD / Attempts unchanged / ZERO REAL / verifier oracle", () => {
-    const criteria = extractDocsWriteMinConformityCriteria(
-      {
-        targetPath: TARGET,
-        contentRequirements: [...CONTENT_REQUIREMENTS],
-        validationExpectations: [...VALIDATION_EXPECTATIONS],
-        artifactType: "Markdown",
-      },
-      "fp:oracle",
-    );
-    expect(criteria.ok).toBe(true);
-    if (!criteria.ok) return;
-    const pass = verifyDocsWriteMinConformityFromBytes({
-      bytes: Buffer.from(GOOD_MARKDOWN, "utf8"),
-      artifactPath: TARGET,
-      criteria: criteria.criteria,
-    });
-    expect(pass.ok).toBe(true);
-    if (pass.ok) {
-      expect(pass.technicalResultRef).toMatch(
-        /^docs_write_min_conformity:v2:oracle:[a-f0-9]{64}$/,
-      );
-    }
-    const fail = verifyDocsWriteMinConformityFromBytes({
-      bytes: Buffer.from("# alone\n", "utf8"),
-      artifactPath: TARGET,
-      criteria: criteria.criteria,
-    });
-    expect(fail.ok).toBe(false);
-    // Governance: this suite never creates HumanDecision / trajectory / Attempt.
-    expect(ATTEMPT_ID).toBe("xat:w3a:c4c5670edb4658cc");
-    expect(DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF).toBe(
-      "evidence-completion-v2",
-    );
-  });
-});
-
-```
-
 
 ---
 
-## 9. Next gate
+## 10. Next gate
 
-ChatGPT Critical Review of this follow-up pack → Morris decision on project Git integration (DISTINCT GO).
+Morris DISTINCT merge decision **after** CI Required Gate PASS. ChatGPT must re-read this handoff + GitHub PR/CI evidence before recommending merge.
