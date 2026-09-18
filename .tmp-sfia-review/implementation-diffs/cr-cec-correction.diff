@@ -1,168 +1,4 @@
-# PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01 — CR-CEC FOLLOW-UP PACK FULL
-
-**Timestamp (UTC):** 2026-09-18T16:44:38Z
-**Timestamp (local):** 2026-09-18 18:44:38 CEST
-**Pack revision:** PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01 / CR-CEC FOLLOW-UP (missing diffs + distinct binding tests)
-**Morris GO consumed:** YES — BOUNDED FOLLOW-UP / SAME MACRO / ZERO REAL / ZERO NEW ATTEMPT / NO PROJECT COMMIT
-**Prior CR handoff:** `dd9252292fae1968dcec2e712a5912d6f69b4b06`
-**Verdict:** CR-CEC FOLLOW-UP CLOSED — 3 PREVIOUSLY MISSING MODIFIED CONTENTS INCLUDED — DISTINCT ATTEMPT/EC/PROJECT/CYCLE TESTS — TYPECHECK + DIFF-CHECK + FOCUSED REGRESSION PASS — DB POST-REMATERIALIZE DELTA EXPLAINED
-
----
-
-## 1. Git Truth
-
-| Item | Value |
-|---|---|
-| Repository | mcleland147/sfia-workspace |
-| Worktree | `/Users/morris/Projects/sfia-studio-product-journey-claim-evidence-completion-01` |
-| Branch | `qa/sfia-studio-product-journey-claim-evidence-completion-01` |
-| HEAD / origin/main | `9c6ac90974113044330284dd110108287ba2319e` / `9c6ac90974113044330284dd110108287ba2319e` |
-| Baseline match | **YES** |
-| Project commit/push/PR | **NOT DONE** (forbidden) |
-| ZERO new Cursor REAL | **YES** |
-| Attempts | **3 → 3** |
-
-### git status --short
-
-```
- M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts
- M projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
- M projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts
- M projects/sfia-studio/app/lib/oa/evidence-review/index.ts
- M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-?? .tmp-sfia-review/campaign-prestate.json
-?? .tmp-sfia-review/implementation-diffs/
-?? .tmp-sfia-review/local/
-?? .tmp-sfia-review/phase1-prestate.json
-?? .tmp-sfia-review/phase12-campaign-result.json
-?? .tmp-sfia-review/phase14-rematerialize.json
-?? .tmp-sfia-review/phase3-observation.json
-?? projects/.tmp-sfia-review/
-?? projects/sfia-studio/app/__tests__/project-assistant/claimEvidenceCompletion.d0.test.ts
-?? projects/sfia-studio/app/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion.ts
-?? projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteMinConformityVerifier.ts
-```
-
-### git diff --stat (product tracked)
-
-```
- .../w2/requalifyDocsWriteContractResult.ts         |  20 ++-
- .../w2/w3bProductTerminalProjection.ts             |   2 +-
- .../application/docsWriteContractResultSemantic.ts | 154 ++++++++++++++++++++-
- .../app/lib/oa/evidence-review/index.ts            |  24 ++++
- .../convergence/sfia-studio-convergence-roadmap.md |   4 +-
- 5 files changed, 194 insertions(+), 10 deletions(-)
-```
-
----
-
-## 2. Follow-up scope
-
-| Item | Status |
-|---|---|
-| Republish FULL pack with 3 missing modified contents | **DONE** (section 7) |
-| Distinct Attempt / EC / project / cycle tests | **DONE** (EC-06, EC-07, EC-08, EC-08b) |
-| typecheck | **PASS** (`tsc --noEmit`) |
-| `git diff --check` | **PASS** (tracked + untracked product files) |
-| Focused regression | **PASS** — claimEvidenceCompletion **18** + w3cPostEvidenceCorrection **17** = **35** |
-| Explain DB post-rematerialize delta | **DONE** (section 5) |
-| Republish Review Handoff | **THIS PACK** |
-
-No architecture change. No REAL. No new Attempt. No project Git.
-
----
-
-## 3. Campaign truth (unchanged since CR-CEC v2)
-
-| Item | Value |
-|---|---|
-| CE v1 | `evidence-completion-v1` **pass IMMUTABLE** |
-| CE v2 | `evidence-completion-v2` **pass** (current) |
-| Product | **SUCCESS** |
-| LPS | **29** |
-| Trajectory | v4 |
-| Attempts / HD | 3 / 5 |
-| oracleFingerprint | `bc23f356e6c22edd39a875ab36357fc8faa0ec1069268df97db0087b80005841` |
-| technicalResultRef | `docs_write_min_conformity:v2:oracle:bc23f356e6c22edd39a875ab36357fc8faa0ec1069268df97db0087b80005841` |
-
----
-
-## 4. Tests — distinct binding fail-closed
-
-Previously EC-06/07/08 was a single combined case (project mismatch only).
-
-Now:
-
-| Test | Mutation | Expected |
-|---|---|---|
-| EC-06 | wrong `executionAttemptId` | CE `not_proven` |
-| EC-07 | wrong `executionContractId` | CE `not_proven` |
-| EC-08 | wrong `projectId` | CE `not_proven` |
-| EC-08b | wrong `cycleInstanceId` | CE `not_proven` |
-
----
-
-## 5. DB delta post-rematerialize (explained)
-
-SHA chain:
-
-| Step | sha256 |
-|---|---|
-| Pre v2 CE (forensic `/tmp/...pre-cec-v2...`) | `6101e20ce49a7243c489ecd237319a3a4d68daa429294b2024ed6931709bcf81` |
-| After evidence-completion-v2 CE write | `623a7d2e9d01afa4134bb94d2376d8e92abd8ebc38b1906ac842af0519c020cd` |
-| After rematerialize (current) | `edf1824bda2d7fe54c24e2a19565873d4eab2768eb78115d9e419f497b08efe1` |
-
-`phase14.preSha === phase12.postSha` → rematerialize starts from the post-CE DB.
-
-### A) Delta of CE write (pre-v2 → post-CE) — claim/evidence only
-
-- `oa_claim_evaluations` +1 → `clm:docs-write:evidence-completion-v2:…` **pass** (supersedes v1)
-- `oa_claim_evaluation_idempotency` +1
-- `oa_evidence` +1 → `ev:docs-write-conformity:evidence-completion-v2:…` (v2 oracle fingerprint)
-- `oa_evidence_idempotency` +1
-- `oa_review_bundles` +1 → `rb:docs-write:evidence-completion-v2:…` frozen
-- `oa_review_bundle_idempotency` +2 (create + freeze)
-- Attempts **unchanged** (3)
-- HumanDecisions **unchanged** (5)
-- Historical v1 CE/Evidence/RB **unchanged**
-
-### B) Delta of rematerialize only (post-CE → current) — projection / LPS / W3-C
-
-Not a new claim evaluation. Rematerialize updates living project state + post-evidence recommendation:
-
-- `oa_lps` +1 → **v29** (current pointer advanced; v28 preserved historically)
-- `oa_epistemic_items` +1 → `epi:w3c-rec:5a313ba8a1747455`
-  - `recommendationKind: continue`
-  - `nextStep: continue_with_recommendation`
-  - `productOutcome: SUCCESS`
-  - `claimEvaluationId: evidence-completion-v2`
-  - `reviewBundleId: rb:docs-write:evidence-completion-v2:…`
-  - `recommendNextGateStatus: not_recommended` (D5 next-gate not recommended — expected for SUCCESS/continue; ≠ failure)
-  - Fake Nora analysis only (`fake-test`) — **ZERO LIVE / ZERO REAL**
-- `oa_audit_events` +1 (coordination recommendation audit)
-- **No** new Attempt / EC / HD / Artifact Evidence
-- **No** mutation of v1 or v2 CE rows beyond current-resolution reading v2
-
-Net: rematerialize DB growth is LPS tip + W3-C continue recommendation epistemic + audit — not a second proof engine and not a REAL.
-
----
-
-## 6. Anti-claims
-
-- ≠ Product Journey READY/COMPLETE
-- ≠ project Git authorized
-- ≠ new Cursor REAL / Attempt 4
-- ≠ v1 CE mutated
-- ≠ schema migration
-
----
-
-## 7. Previously missing modified contents (REQUIRED)
-
-### PREVIOUSLY MISSING — DIFF `projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts`
-
-```diff
+===== TRACKED DIFF =====
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts b/projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts
 index 5b166f42..b0d83f34 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts
@@ -177,10 +13,10 @@ index 5b166f42..b0d83f34 100644
 +   */
 +  scopeReviewBundle?: boolean;
  };
-
+ 
  export type RequalifyDocsWriteContractResultResult =
 @@ -85,6 +90,7 @@ export async function requalifyDocsWriteContractResult(
-
+ 
    const ids = docsWriteContractResultIdentity(input.attempt.attemptId, {
      ...(input.correctionRef ? { correctionRef: input.correctionRef } : {}),
 +    ...(input.scopeReviewBundle ? { scopeReviewBundle: true } : {}),
@@ -220,11 +56,6 @@ index 5b166f42..b0d83f34 100644
          reusedFromIdempotencyKey: true,
        };
      } else {
-```
-
-### PREVIOUSLY MISSING — DIFF `projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts`
-
-```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts b/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
 index 03b384d4..e46773d2 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
@@ -238,82 +69,6 @@ index 03b384d4..e46773d2 100644
        projectId: input.contract.projectId,
        cycleInstanceId: input.contract.cycleInstanceId ?? null,
      })
-```
-
-### PREVIOUSLY MISSING — DIFF `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-
-```diff
-diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 0d45305d..c8e705a2 100644
---- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-+++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -4,7 +4,9 @@
- | --- | --- |
- | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
- | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
--| **Timestamp maintenance PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** | 2026-09-18 15:30:00 CEST (+0200) — **PRODUCT JOURNEY POST-EXECUTION REPLAN — PROJECT GIT INTEGRATION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** · CR-PJR-01/02/03 **CLOSED / PRESERVED** · original macro baseline `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` (PR **#502** ContractResult A+B merge) · **requalified current baseline** `origin/main` `9be4b80629cb594821cc7b35abf22c89df65acc1` after documentation-only PR **#503** (`sfia-studio-transmission-guide.md` only · **NON-OVERLAPPING DOCUMENTARY MAIN ADVANCE**) · branche `qa/sfia-studio-product-journey-post-execution-replan-01` · Attempt 3 current CE strict **not_proven** preserved · Product **UNCLAIMED** · portable PJR + correctionRef + current-CE W3-C semantics preserved · Attempts **3→3** · **ZERO NEW STUDIO/CURSOR REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **PROJECT GIT INTEGRATION — RESOLVE FROM GIT / PR EVIDENCE** · **≠** READY · **≠** Attempt 3 Product PASS · next = PR CI / conditional merge / post-merge verification |
-+| **Timestamp maintenance PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01** | 2026-09-18 17:40:00 CEST (+0200) — **PRODUCT JOURNEY CLAIM EVIDENCE COMPLETION — CR-CEC-01/02/03 CORRECTION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01** · baseline `origin/main` `9c6ac90974113044330284dd110108287ba2319e` · branche `qa/sfia-studio-product-journey-claim-evidence-completion-01` · CR-CEC-01 bound-snapshot oracle only · CR-CEC-02 oracle fingerprint attestation · CR-CEC-03 closed validationExpectations + fence-safe headings · historical CE `evidence-completion-v1` **pass IMMUTABLE** · successor CE `evidence-completion-v2` **pass** · Product **SUCCESS** · LPS v28→v29 · Trajectory v4 unchanged · Attempts **3→3** · **ZERO NEW CURSOR REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **LOCAL / IN PROGRESS — RESOLVE FROM GIT / PR EVIDENCE** · project Git integration **NOT AUTHORIZED** by this tip · **≠** Product Journey READY/COMPLETE · **≠** new REAL proof · next = ChatGPT Critical Review / Morris Git gate |
-+| **Timestamp maintenance historique PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01 first pass (pre-CR-CEC)** | *(historique tip · superseded as tip by CR-CEC-01/02/03 correction)* — 2026-09-18 16:15:00 CEST (+0200) — first evidence-completion pass · correctionRef `evidence-completion-v1` · CE **pass** superseding strict-eo-v1 **not_proven** · Product **SUCCESS** · LPS v27→v28 · Attempts **3→3** · ZERO REAL · ChatGPT Critical Review then required CR-CEC-01/02/03 before Git acceptance |
-+| **Timestamp maintenance historique PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 (pre-CLAIM-EVIDENCE-COMPLETION-01)** | 2026-09-18 15:30:00 CEST (+0200) — **PRODUCT JOURNEY POST-EXECUTION REPLAN — PROJECT GIT INTEGRATION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** · CR-PJR-01/02/03 **CLOSED / PRESERVED** · original macro baseline `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` (PR **#502** ContractResult A+B merge) · **requalified current baseline** `origin/main` `9be4b80629cb594821cc7b35abf22c89df65acc1` after documentation-only PR **#503** (`sfia-studio-transmission-guide.md` only · **NON-OVERLAPPING DOCUMENTARY MAIN ADVANCE**) · branche `qa/sfia-studio-product-journey-post-execution-replan-01` · Attempt 3 current CE strict **not_proven** preserved · Product **UNCLAIMED** · portable PJR + correctionRef + current-CE W3-C semantics preserved · Attempts **3→3** · **ZERO NEW STUDIO/CURSOR REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **PROJECT GIT INTEGRATION — RESOLVE FROM GIT / PR EVIDENCE** · **≠** READY · **≠** Attempt 3 Product PASS · next = PR CI / conditional merge / post-merge verification |
- | **Timestamp maintenance historique CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 (pre-PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01)** | *(tip superseded by PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-18 09:10:00 CEST (+0200) — **CONTRACT RESULT EXTENSIBILITY — FINAL PR-READINESS CORRECTION** · EVOL · CRITICAL · Macro **CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01** · CR-BLK-01/02/03/04 **CLOSED** · baseline `bb6af3ca` · branche `feat/sfia-studio-contract-result-extensibility-01` · later **INTEGRATED ON MAIN / POST-MERGE VERIFIED** via PR **#502** merge `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` · docs-write M3 profile resolves **HOW** only (no `expectedOutputs` injection; predecessor WHAT preserved by SupersedeExecutionContract) · Attempt 3 current CE strict **not_proven** preserved · Attempts **3→3** · **ZERO REAL** · runtime v3 = **NON ADOPTED** · **≠** Product Journey READY · **≠** Attempt 3 Product PASS · historical tip wording **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** was pre-merge · Git/PR #502 are authoritative |
- | **Timestamp maintenance historique PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 (pre-CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01)** | *(tip superseded by CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-18 05:15:00 CEST (+0200) — **PRODUCT JOURNEY E2E REAL RECONCILIATION INTEGRATION** · Cycle **15** · Capitalisation / REX + intégration Git · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01** · parent campagne **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01** · baseline pré-intégration `origin/main` `26478b1ea5b010c625f0c6039c969fac5c135cf5` · branche `qa/sfia-studio-product-journey-e2e-real-reconciliation-01` · checkpoints **R1–R12** consolidés · Product fixes **R1/R3/R4/R6/R7/R8/R10** = intégration candidate this PR · Attempt 1 FAIL · Attempt 2 FAIL Authentication required · Attempt 3 Cursor REAL **technical SUCCESS** · bounded docs_write filesystem effect + Artifact Evidence **PROVEN** in M4 isolated WT · Product Result remains **UNCLAIMED** · blocker = **ContractResult extensibility / Evidence wiring** (`no_applicable_contract_result_rule` for `cursor.docs_write.apply`) · capitalisation `projects/sfia-studio/convergence/product-journey-e2e-real-reconciliation-01-capitalization.md` · **ZERO REAL** this integration macro · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **≠** Product Journey E2E READY / COMPLETE · **≠** ContractResult docs_write PASS · **≠** runtime v3 ADOPTED · next after integration verified = **R13 — Contract Result extensibility framing — ZERO REAL** · **NOT STARTED / NOT AUTHORIZED** by this tip · repository lifecycle = **RESOLVE FROM GIT / PR evidence** |
- | **Timestamp maintenance historique PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01 (pre-PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01)** | *(tip superseded by PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-17 18:25:36 CEST (+0200) — **PRODUCT DOCS_WRITE REAL PASS POST-MERGE TRUTH-SYNC** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Macro **PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01** · parent macro **PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01** · GO Morris post-merge documentary truth-sync #499 **CONSUMED** (local docs + commit only) · PR **#499 MERGED** `docs(sfia-studio): capitalize Product docs-write REAL proof` · head `9981483f8c158bec07364e14e626cdf2c3fd1e34` · merge `3907177f7788d23d640c5bdcd1cee8e01615762f` · parents `b739ddd3826ea4df640e3f34f97a966d85f8d214` + `9981483f8c158bec07364e14e626cdf2c3fd1e34` · capitalisation = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · pre-merge CI **`35236024162` SUCCESS** · Required Gate **PASS** · post-merge CI **`35245046244` SUCCESS** · Required Gate **PASS** · `headSha=3907177f7788d23d640c5bdcd1cee8e01615762f` · merge lifecycle #499 = **COMPLETED / CONSUMED** · post-merge verification = **PASS** · claim **AUTHENTICATED PRODUCT DOCS_WRITE REAL PROVEN AT TESTED HISTORICAL PROJECT SCOPE** · **ZERO REAL** · Product code **UNCHANGED** · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** **PRESERVED** · next Product capability candidate = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN** · **NOT STARTED / NOT AUTHORIZED** by this truth-sync · this documentary truth-sync = **LOCAL CANDIDATE** · Review Handoff publication **PENDING** (distinct Morris remote push gate) · push/PR/merge of this truth-sync = **DISTINCT Morris gates** · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / origin/main / PR evidence** · **≠** E2E FULL REAL PROVEN · **≠** Product Journey complete to Nora replanning · **≠** docs_write generalized · **≠** Cursor autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new REAL authorization · **≠** PRODUCT-JOURNEY-POST-EXECUTION-REPLAN started · **≠** push/PR/merge authorized by proof |
-```
-
-
----
-
-## 8. Full implementation (reviewable)
-
-### DIFF `projects/sfia-studio/app/lib/oa/evidence-review/index.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/index.ts b/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
-index 4e1133f0..e47aa89b 100644
---- a/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
-+++ b/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
-@@ -127,12 +127,36 @@ export {
-   DOCS_WRITE_CONTRACT_RESULT_ER_KEY,
-   BOUNDED_DOCS_WRITE_EO_TEMPLATE,
-   DOCS_WRITE_STRICT_EO_CORRECTION_REF,
-+  DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF,
-+  DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF_V1,
-+  DOCS_WRITE_EO_MATERIALIZED_MARKDOWN_AT_TARGET,
-+  DOCS_WRITE_EO_MIN_CONFORMITY_VERIFICATION,
-+  DOCS_WRITE_ARTIFACT_EVIDENCE_SOURCE,
-   docsWriteContractResultIdentity,
-   docsWriteArtifactFactsHold,
-+  docsWriteConformityFactsHold,
-   assessDocsWriteExpectedOutput,
-   assessDocsWriteEvidenceRequirement,
-   docsWriteContractResultSemantic,
- } from "./application/docsWriteContractResultSemantic";
-+export {
-+  DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
-+  DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE_V1,
-+  DOCS_WRITE_MIN_CONFORMITY_TECHNICAL_RESULT_PREFIX,
-+  DOCS_WRITE_MIN_CONFORMITY_VERIFIER_TECHNICAL_RESULT_REF_V1,
-+  DOCS_WRITE_VE_FILE_EXISTS_AT_TARGET,
-+  DOCS_WRITE_VE_REQUIRED_SECTIONS_PRESENT,
-+  extractDocsWriteMinConformityCriteria,
-+  extractDocsWriteMinConformityCriteriaFromBoundAttempt,
-+  computeDocsWriteOracleFingerprint,
-+  buildDocsWriteOracleFingerprintMaterial,
-+  docsWriteConformityTechnicalResultRef,
-+  expectedDocsWriteConformityOracleFingerprint,
-+  parseDocsWriteConformityOracleFingerprint,
-+  stripMarkdownFencedCodeBlocks,
-+  verifyDocsWriteMinConformityFromBytes,
-+  verifyDocsWriteMinConformityFromFile,
-+} from "./application/docsWriteMinConformityVerifier";
- export {
-   resolveCurrentContractResultClaimEvaluation,
-   type ResolveCurrentContractResultClaimEvaluationResult,
-```
-
-### DIFF `projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts`
-
-```diff
 diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts b/projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts
 index 066aa8a7..ca8f4c71 100644
 --- a/projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts
@@ -328,12 +83,12 @@ index 066aa8a7..ca8f4c71 100644
 +  parseDocsWriteConformityOracleFingerprint,
 +} from "./docsWriteMinConformityVerifier";
  import { isW3bContractResultEvidenceUsable } from "./tempArtifactContractResultSemantic";
-
+ 
  export const DOCS_WRITE_CONTRACT_RESULT_RULE_REF =
 @@ -31,31 +36,69 @@ export const DOCS_WRITE_ARTIFACT_EVIDENCE_SOURCE =
   */
  export const DOCS_WRITE_STRICT_EO_CORRECTION_REF = "strict-eo-v1" as const;
-
+ 
 +/**
 + * Evidence-completion re-evaluation identity (successor RB + conformity Evidence).
 + * Does not mutate the historical rb:docs-write freeze.
@@ -404,11 +159,11 @@ index 066aa8a7..ca8f4c71 100644
 +    conformityEvidenceId: `ev:docs-write-conformity:${segment}`.slice(0, 128),
    };
  }
-
+ 
 @@ -123,6 +166,75 @@ function pickDocsWriteArtifactEvidence(
    return matches.length === 1 ? matches[0] : undefined;
  }
-
+ 
 +export function docsWriteConformityFactsHold(input: {
 +  attempt: ExecutionAttemptSnapshot;
 +  evidence: Evidence;
@@ -484,7 +239,7 @@ index 066aa8a7..ca8f4c71 100644
 @@ -130,10 +242,21 @@ function isPathShapedExpectedOutput(expectation: string): boolean {
    );
  }
-
+ 
 +function boundTargetPath(
 +  inputs: Record<string, unknown> | undefined,
 +): string | undefined {
@@ -544,11 +299,65 @@ index 066aa8a7..ca8f4c71 100644
      });
    },
    assessEvidenceRequirement(input) {
-```
+diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/index.ts b/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
+index 4e1133f0..e47aa89b 100644
+--- a/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
++++ b/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
+@@ -127,12 +127,36 @@ export {
+   DOCS_WRITE_CONTRACT_RESULT_ER_KEY,
+   BOUNDED_DOCS_WRITE_EO_TEMPLATE,
+   DOCS_WRITE_STRICT_EO_CORRECTION_REF,
++  DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF,
++  DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF_V1,
++  DOCS_WRITE_EO_MATERIALIZED_MARKDOWN_AT_TARGET,
++  DOCS_WRITE_EO_MIN_CONFORMITY_VERIFICATION,
++  DOCS_WRITE_ARTIFACT_EVIDENCE_SOURCE,
+   docsWriteContractResultIdentity,
+   docsWriteArtifactFactsHold,
++  docsWriteConformityFactsHold,
+   assessDocsWriteExpectedOutput,
+   assessDocsWriteEvidenceRequirement,
+   docsWriteContractResultSemantic,
+ } from "./application/docsWriteContractResultSemantic";
++export {
++  DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
++  DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE_V1,
++  DOCS_WRITE_MIN_CONFORMITY_TECHNICAL_RESULT_PREFIX,
++  DOCS_WRITE_MIN_CONFORMITY_VERIFIER_TECHNICAL_RESULT_REF_V1,
++  DOCS_WRITE_VE_FILE_EXISTS_AT_TARGET,
++  DOCS_WRITE_VE_REQUIRED_SECTIONS_PRESENT,
++  extractDocsWriteMinConformityCriteria,
++  extractDocsWriteMinConformityCriteriaFromBoundAttempt,
++  computeDocsWriteOracleFingerprint,
++  buildDocsWriteOracleFingerprintMaterial,
++  docsWriteConformityTechnicalResultRef,
++  expectedDocsWriteConformityOracleFingerprint,
++  parseDocsWriteConformityOracleFingerprint,
++  stripMarkdownFencedCodeBlocks,
++  verifyDocsWriteMinConformityFromBytes,
++  verifyDocsWriteMinConformityFromFile,
++} from "./application/docsWriteMinConformityVerifier";
+ export {
+   resolveCurrentContractResultClaimEvaluation,
+   type ResolveCurrentContractResultClaimEvaluationResult,
+diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+index 0d45305d..c8e705a2 100644
+--- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
++++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+@@ -4,7 +4,9 @@
+ | --- | --- |
+ | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
+ | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
+-| **Timestamp maintenance PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** | 2026-09-18 15:30:00 CEST (+0200) — **PRODUCT JOURNEY POST-EXECUTION REPLAN — PROJECT GIT INTEGRATION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** · CR-PJR-01/02/03 **CLOSED / PRESERVED** · original macro baseline `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` (PR **#502** ContractResult A+B merge) · **requalified current baseline** `origin/main` `9be4b80629cb594821cc7b35abf22c89df65acc1` after documentation-only PR **#503** (`sfia-studio-transmission-guide.md` only · **NON-OVERLAPPING DOCUMENTARY MAIN ADVANCE**) · branche `qa/sfia-studio-product-journey-post-execution-replan-01` · Attempt 3 current CE strict **not_proven** preserved · Product **UNCLAIMED** · portable PJR + correctionRef + current-CE W3-C semantics preserved · Attempts **3→3** · **ZERO NEW STUDIO/CURSOR REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **PROJECT GIT INTEGRATION — RESOLVE FROM GIT / PR EVIDENCE** · **≠** READY · **≠** Attempt 3 Product PASS · next = PR CI / conditional merge / post-merge verification |
++| **Timestamp maintenance PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01** | 2026-09-18 17:40:00 CEST (+0200) — **PRODUCT JOURNEY CLAIM EVIDENCE COMPLETION — CR-CEC-01/02/03 CORRECTION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01** · baseline `origin/main` `9c6ac90974113044330284dd110108287ba2319e` · branche `qa/sfia-studio-product-journey-claim-evidence-completion-01` · CR-CEC-01 bound-snapshot oracle only · CR-CEC-02 oracle fingerprint attestation · CR-CEC-03 closed validationExpectations + fence-safe headings · historical CE `evidence-completion-v1` **pass IMMUTABLE** · successor CE `evidence-completion-v2` **pass** · Product **SUCCESS** · LPS v28→v29 · Trajectory v4 unchanged · Attempts **3→3** · **ZERO NEW CURSOR REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **LOCAL / IN PROGRESS — RESOLVE FROM GIT / PR EVIDENCE** · project Git integration **NOT AUTHORIZED** by this tip · **≠** Product Journey READY/COMPLETE · **≠** new REAL proof · next = ChatGPT Critical Review / Morris Git gate |
++| **Timestamp maintenance historique PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01 first pass (pre-CR-CEC)** | *(historique tip · superseded as tip by CR-CEC-01/02/03 correction)* — 2026-09-18 16:15:00 CEST (+0200) — first evidence-completion pass · correctionRef `evidence-completion-v1` · CE **pass** superseding strict-eo-v1 **not_proven** · Product **SUCCESS** · LPS v27→v28 · Attempts **3→3** · ZERO REAL · ChatGPT Critical Review then required CR-CEC-01/02/03 before Git acceptance |
++| **Timestamp maintenance historique PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 (pre-CLAIM-EVIDENCE-COMPLETION-01)** | 2026-09-18 15:30:00 CEST (+0200) — **PRODUCT JOURNEY POST-EXECUTION REPLAN — PROJECT GIT INTEGRATION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** · CR-PJR-01/02/03 **CLOSED / PRESERVED** · original macro baseline `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` (PR **#502** ContractResult A+B merge) · **requalified current baseline** `origin/main` `9be4b80629cb594821cc7b35abf22c89df65acc1` after documentation-only PR **#503** (`sfia-studio-transmission-guide.md` only · **NON-OVERLAPPING DOCUMENTARY MAIN ADVANCE**) · branche `qa/sfia-studio-product-journey-post-execution-replan-01` · Attempt 3 current CE strict **not_proven** preserved · Product **UNCLAIMED** · portable PJR + correctionRef + current-CE W3-C semantics preserved · Attempts **3→3** · **ZERO NEW STUDIO/CURSOR REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **PROJECT GIT INTEGRATION — RESOLVE FROM GIT / PR EVIDENCE** · **≠** READY · **≠** Attempt 3 Product PASS · next = PR CI / conditional merge / post-merge verification |
+ | **Timestamp maintenance historique CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 (pre-PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01)** | *(tip superseded by PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-18 09:10:00 CEST (+0200) — **CONTRACT RESULT EXTENSIBILITY — FINAL PR-READINESS CORRECTION** · EVOL · CRITICAL · Macro **CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01** · CR-BLK-01/02/03/04 **CLOSED** · baseline `bb6af3ca` · branche `feat/sfia-studio-contract-result-extensibility-01` · later **INTEGRATED ON MAIN / POST-MERGE VERIFIED** via PR **#502** merge `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` · docs-write M3 profile resolves **HOW** only (no `expectedOutputs` injection; predecessor WHAT preserved by SupersedeExecutionContract) · Attempt 3 current CE strict **not_proven** preserved · Attempts **3→3** · **ZERO REAL** · runtime v3 = **NON ADOPTED** · **≠** Product Journey READY · **≠** Attempt 3 Product PASS · historical tip wording **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** was pre-merge · Git/PR #502 are authoritative |
+ | **Timestamp maintenance historique PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 (pre-CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01)** | *(tip superseded by CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-18 05:15:00 CEST (+0200) — **PRODUCT JOURNEY E2E REAL RECONCILIATION INTEGRATION** · Cycle **15** · Capitalisation / REX + intégration Git · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01** · parent campagne **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01** · baseline pré-intégration `origin/main` `26478b1ea5b010c625f0c6039c969fac5c135cf5` · branche `qa/sfia-studio-product-journey-e2e-real-reconciliation-01` · checkpoints **R1–R12** consolidés · Product fixes **R1/R3/R4/R6/R7/R8/R10** = intégration candidate this PR · Attempt 1 FAIL · Attempt 2 FAIL Authentication required · Attempt 3 Cursor REAL **technical SUCCESS** · bounded docs_write filesystem effect + Artifact Evidence **PROVEN** in M4 isolated WT · Product Result remains **UNCLAIMED** · blocker = **ContractResult extensibility / Evidence wiring** (`no_applicable_contract_result_rule` for `cursor.docs_write.apply`) · capitalisation `projects/sfia-studio/convergence/product-journey-e2e-real-reconciliation-01-capitalization.md` · **ZERO REAL** this integration macro · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **≠** Product Journey E2E READY / COMPLETE · **≠** ContractResult docs_write PASS · **≠** runtime v3 ADOPTED · next after integration verified = **R13 — Contract Result extensibility framing — ZERO REAL** · **NOT STARTED / NOT AUTHORIZED** by this tip · repository lifecycle = **RESOLVE FROM GIT / PR evidence** |
+ | **Timestamp maintenance historique PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01 (pre-PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01)** | *(tip superseded by PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-17 18:25:36 CEST (+0200) — **PRODUCT DOCS_WRITE REAL PASS POST-MERGE TRUTH-SYNC** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Macro **PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01** · parent macro **PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01** · GO Morris post-merge documentary truth-sync #499 **CONSUMED** (local docs + commit only) · PR **#499 MERGED** `docs(sfia-studio): capitalize Product docs-write REAL proof` · head `9981483f8c158bec07364e14e626cdf2c3fd1e34` · merge `3907177f7788d23d640c5bdcd1cee8e01615762f` · parents `b739ddd3826ea4df640e3f34f97a966d85f8d214` + `9981483f8c158bec07364e14e626cdf2c3fd1e34` · capitalisation = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · pre-merge CI **`35236024162` SUCCESS** · Required Gate **PASS** · post-merge CI **`35245046244` SUCCESS** · Required Gate **PASS** · `headSha=3907177f7788d23d640c5bdcd1cee8e01615762f` · merge lifecycle #499 = **COMPLETED / CONSUMED** · post-merge verification = **PASS** · claim **AUTHENTICATED PRODUCT DOCS_WRITE REAL PROVEN AT TESTED HISTORICAL PROJECT SCOPE** · **ZERO REAL** · Product code **UNCHANGED** · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** **PRESERVED** · next Product capability candidate = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN** · **NOT STARTED / NOT AUTHORIZED** by this truth-sync · this documentary truth-sync = **LOCAL CANDIDATE** · Review Handoff publication **PENDING** (distinct Morris remote push gate) · push/PR/merge of this truth-sync = **DISTINCT Morris gates** · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / origin/main / PR evidence** · **≠** E2E FULL REAL PROVEN · **≠** Product Journey complete to Nora replanning · **≠** docs_write generalized · **≠** Cursor autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new REAL authorization · **≠** PRODUCT-JOURNEY-POST-EXECUTION-REPLAN started · **≠** push/PR/merge authorized by proof |
 
-### NEW FILE `projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteMinConformityVerifier.ts`
-
-```typescript
+===== NEW / UNTRACKED FILES =====
+----- BEGIN projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteMinConformityVerifier.ts -----
 /**
  * Deterministic docs_write minimum-conformity verifier (v2).
  * CR-CEC-01/02/03: bound Attempt snapshot only · oracle fingerprint · closed expectations.
@@ -1016,12 +825,8 @@ export function expectedDocsWriteConformityOracleFingerprint(
     buildDocsWriteOracleFingerprintMaterial(extracted.criteria),
   );
 }
-
-```
-
-### NEW FILE `projects/sfia-studio/app/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion.ts`
-
-```typescript
+----- END projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteMinConformityVerifier.ts -----
+----- BEGIN projects/sfia-studio/app/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion.ts -----
 /**
  * Complete docs_write claim via durable evidence completion (ZERO REAL).
  * Option B: fresh successor ReviewBundle — historical rb:docs-write untouched.
@@ -1337,12 +1142,8 @@ export async function completeDocsWriteClaimEvidenceCompletion(
     reusedFromIdempotencyKey: requalified.reusedFromIdempotencyKey,
   };
 }
-
-```
-
-### NEW FILE `projects/sfia-studio/app/__tests__/project-assistant/claimEvidenceCompletion.d0.test.ts`
-
-```typescript
+----- END projects/sfia-studio/app/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion.ts -----
+----- BEGIN projects/sfia-studio/app/__tests__/project-assistant/claimEvidenceCompletion.d0.test.ts -----
 /**
  * PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01 — EC-01..EC-23 + CR-CEC-01/02/03.
  * @vitest-environment node
@@ -1759,20 +1560,7 @@ describe("claim evidence completion EC-01..EC-23", () => {
     );
   });
 
-  async function seedWrongConformityBinding(input: {
-    correctionRef: string;
-    mutateBindings: (correct: {
-      projectId: string;
-      cycleInstanceId: string;
-      executionContractId: string;
-      executionAttemptId: string;
-    }) => {
-      projectId: string;
-      cycleInstanceId: string;
-      executionContractId: string;
-      executionAttemptId: string;
-    };
-  }) {
+  it("EC-06/07/08 — wrong Attempt / EC / project bindings → no PASS", async () => {
     const services = createInMemoryEvidenceReviewServices({
       clock: new FixedClock(NOW),
     });
@@ -1781,23 +1569,22 @@ describe("claim evidence completion EC-01..EC-23", () => {
     const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
     await seedArtifactOnly({ services, contract, attempt, bytes });
     const ids = docsWriteContractResultIdentity(ATTEMPT_ID, {
-      correctionRef: input.correctionRef,
+      correctionRef: "bind-fail-v1",
       scopeReviewBundle: true,
     });
-    const correct = {
-      projectId: PROJECT_ID,
-      cycleInstanceId: CYCLE_ID,
-      executionContractId: contract.executionContractId,
-      executionAttemptId: ATTEMPT_ID,
-    };
     await services.registerEvidence.execute({
       evidenceId: ids.conformityEvidenceId,
-      idempotencyKey: `idem:bind-${input.correctionRef}`,
+      idempotencyKey: "idem:bind-fail",
       actor: ACTOR,
       type: "attestation",
       source: DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
       sourceKind: "system",
-      bindings: input.mutateBindings(correct),
+      bindings: {
+        projectId: "prj:other",
+        cycleInstanceId: CYCLE_ID,
+        executionContractId: contract.executionContractId,
+        executionAttemptId: ATTEMPT_ID,
+      },
       classification: "internal",
       storageMode: "metadata_only",
       status: "available",
@@ -1808,7 +1595,7 @@ describe("claim evidence completion EC-01..EC-23", () => {
     });
     await services.createReviewBundle.execute({
       reviewBundleId: ids.reviewBundleId,
-      idempotencyKey: `idem:rb-${input.correctionRef}`,
+      idempotencyKey: "idem:rb-bind",
       actor: ACTOR,
       projectId: PROJECT_ID,
       cycleInstanceId: CYCLE_ID,
@@ -1820,55 +1607,18 @@ describe("claim evidence completion EC-01..EC-23", () => {
     await services.freezeReviewBundle.execute({
       reviewBundleId: ids.reviewBundleId,
       expectedVersion: rb!.version,
-      idempotencyKey: `idem:freeze-${input.correctionRef}`,
+      idempotencyKey: "idem:freeze-bind",
       actor: ACTOR,
       nowIso: NOW,
     });
-    return requalifyDocsWriteContractResult({
+    const rq = await requalifyDocsWriteContractResult({
       evidenceReviewServices: services,
       attempt,
       contract,
       actor: ACTOR,
       nowIso: NOW,
-      correctionRef: input.correctionRef,
+      correctionRef: "bind-fail-v1",
       scopeReviewBundle: true,
-    });
-  }
-
-  it("EC-06 — wrong Attempt binding → no PASS", async () => {
-    const rq = await seedWrongConformityBinding({
-      correctionRef: "bind-fail-attempt",
-      mutateBindings: (c) => ({ ...c, executionAttemptId: "xat:w3a:other-attempt" }),
-    });
-    expect(rq.ok).toBe(true);
-    if (!rq.ok) return;
-    expect(rq.claimEvaluation.status).toBe("not_proven");
-  });
-
-  it("EC-07 — wrong EC binding → no PASS", async () => {
-    const rq = await seedWrongConformityBinding({
-      correctionRef: "bind-fail-ec",
-      mutateBindings: (c) => ({ ...c, executionContractId: "xct:other-contract" }),
-    });
-    expect(rq.ok).toBe(true);
-    if (!rq.ok) return;
-    expect(rq.claimEvaluation.status).toBe("not_proven");
-  });
-
-  it("EC-08 — wrong project binding → no PASS", async () => {
-    const rq = await seedWrongConformityBinding({
-      correctionRef: "bind-fail-project",
-      mutateBindings: (c) => ({ ...c, projectId: "prj:other" }),
-    });
-    expect(rq.ok).toBe(true);
-    if (!rq.ok) return;
-    expect(rq.claimEvaluation.status).toBe("not_proven");
-  });
-
-  it("EC-08b — wrong cycle binding → no PASS", async () => {
-    const rq = await seedWrongConformityBinding({
-      correctionRef: "bind-fail-cycle",
-      mutateBindings: (c) => ({ ...c, cycleInstanceId: "cyc:other-cycle" }),
     });
     expect(rq.ok).toBe(true);
     if (!rq.ok) return;
@@ -2236,12 +1986,4 @@ describe("claim evidence completion EC-01..EC-23", () => {
     );
   });
 });
-
-```
-
-
----
-
-## 9. Next gate
-
-ChatGPT Critical Review of this follow-up pack → Morris decision on project Git integration (DISTINCT GO).
+----- END projects/sfia-studio/app/__tests__/project-assistant/claimEvidenceCompletion.d0.test.ts -----

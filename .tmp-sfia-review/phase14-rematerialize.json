@@ -1,0 +1,18 @@
+{
+  "ok": true,
+  "preSha": "623a7d2e9d01afa4134bb94d2376d8e92abd8ebc38b1906ac842af0519c020cd",
+  "postSha": "edf1824bda2d7fe54c24e2a19565873d4eab2768eb78115d9e419f497b08efe1",
+  "product": {
+    "outcome": "SUCCESS",
+    "claimEvaluationId": "clm:docs-write:evidence-completion-v2:xat:w3a:c4c5670edb4658cc",
+    "evidenceId": "ev:docs-write:xat:w3a:c4c5670edb4658cc",
+    "reviewBundleId": "rb:docs-write:evidence-completion-v2:xat:w3a:c4c5670edb4658cc"
+  },
+  "postEvidence": {
+    "ok": true,
+    "lpsVersion": 29,
+    "claimEvaluationId": "clm:docs-write:evidence-completion-v2:xat:w3a:c4c5670edb4658cc",
+    "productOutcome": "SUCCESS"
+  },
+  "zeroReal": true
+}

@@ -1,0 +1,87 @@
+{
+  "ok": true,
+  "zeroReal": true,
+  "noNewAttempt": true,
+  "attemptsBefore": 3,
+  "attemptsAfter": 3,
+  "preSha": "6101e20ce49a7243c489ecd237319a3a4d68daa429294b2024ed6931709bcf81",
+  "postSha": "623a7d2e9d01afa4134bb94d2376d8e92abd8ebc38b1906ac842af0519c020cd",
+  "oldCe": "clm:docs-write:evidence-completion-v1:xat:w3a:c4c5670edb4658cc",
+  "oldCeStatus": "pass",
+  "newCe": "clm:docs-write:evidence-completion-v2:xat:w3a:c4c5670edb4658cc",
+  "newCeStatus": "pass",
+  "expectedNewCe": "clm:docs-write:evidence-completion-v2:xat:w3a:c4c5670edb4658cc",
+  "expectedNewStatus": "pass",
+  "newCeMatchesExpected": true,
+  "supersedes": "clm:docs-write:evidence-completion-v1:xat:w3a:c4c5670edb4658cc",
+  "reviewBundleId": "rb:docs-write:evidence-completion-v2:xat:w3a:c4c5670edb4658cc",
+  "frozenVersion": 2,
+  "conformityEvidenceId": "ev:docs-write-conformity:evidence-completion-v2:xat:w3a:c4c5670edb4658cc",
+  "conformityTechnicalResultRef": "docs_write_min_conformity:v2:oracle:bc23f356e6c22edd39a875ab36357fc8faa0ec1069268df97db0087b80005841",
+  "oracleFingerprint": "bc23f356e6c22edd39a875ab36357fc8faa0ec1069268df97db0087b80005841",
+  "matchedHeadings": [
+    "Objectif",
+    "Périmètre inclus",
+    "Périmètre exclu",
+    "Besoins principaux",
+    "Critères de succès",
+    "Prochaine étape"
+  ],
+  "eoAssessments": [
+    {
+      "itemId": {
+        "semanticFingerprint": "3cc524c541b934c3136d8fb0c34a8348591bb162472e12dde51bb9af8573602f",
+        "itemKind": "EO",
+        "ordinal": 0
+      },
+      "expectation": "Le fichier Markdown matérialisé au chemin cible",
+      "result": "PASS",
+      "method": "deterministic",
+      "ruleRef": "w3b-contract-result/cursor-docs-write-apply-v1",
+      "provenance": {
+        "evaluatorRef": "w3b-contract-result-assessor",
+        "evaluatedAt": "2026-09-18T15:38:57.340Z",
+        "ruleRef": "w3b-contract-result/cursor-docs-write-apply-v1"
+      }
+    },
+    {
+      "itemId": {
+        "semanticFingerprint": "3cc524c541b934c3136d8fb0c34a8348591bb162472e12dde51bb9af8573602f",
+        "itemKind": "EO",
+        "ordinal": 1
+      },
+      "expectation": "Vérification de l’existence et de la conformité minimale du fichier",
+      "result": "PASS",
+      "method": "deterministic",
+      "ruleRef": "w3b-contract-result/cursor-docs-write-apply-v1",
+      "provenance": {
+        "evaluatorRef": "w3b-contract-result-assessor",
+        "evaluatedAt": "2026-09-18T15:38:57.340Z",
+        "ruleRef": "w3b-contract-result/cursor-docs-write-apply-v1"
+      }
+    }
+  ],
+  "erAssessments": [
+    {
+      "itemId": {
+        "semanticFingerprint": "3cc524c541b934c3136d8fb0c34a8348591bb162472e12dde51bb9af8573602f",
+        "itemKind": "ER",
+        "ordinal": 0
+      },
+      "requirement": "evreq:docs_write_artifact",
+      "result": "SATISFIED",
+      "method": "deterministic",
+      "ruleRef": "w3b-contract-result/cursor-docs-write-apply-v1",
+      "provenance": {
+        "evaluatorRef": "w3b-contract-result-assessor",
+        "evaluatedAt": "2026-09-18T15:38:57.340Z",
+        "ruleRef": "w3b-contract-result/cursor-docs-write-apply-v1"
+      }
+    }
+  ],
+  "currentAfter": {
+    "id": "clm:docs-write:evidence-completion-v2:xat:w3a:c4c5670edb4658cc",
+    "status": "pass"
+  },
+  "v1Immutable": true
+}

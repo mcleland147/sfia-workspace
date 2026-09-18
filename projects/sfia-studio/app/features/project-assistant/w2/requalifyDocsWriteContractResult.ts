@@ -58,6 +58,11 @@ export type RequalifyDocsWriteContractResultInput = {
    * (never overwrites prior docs_write / W3-B CE ids).
    */
   correctionRef?: string;
+  /**
+   * With correctionRef: use successor ReviewBundle id scoped by correction
+   * (historical rb:docs-write remains untouched).
+   */
+  scopeReviewBundle?: boolean;
 };
 
 export type RequalifyDocsWriteContractResultResult =
@@ -85,6 +90,7 @@ export async function requalifyDocsWriteContractResult(
 
   const ids = docsWriteContractResultIdentity(input.attempt.attemptId, {
     ...(input.correctionRef ? { correctionRef: input.correctionRef } : {}),
+    ...(input.scopeReviewBundle ? { scopeReviewBundle: true } : {}),
   });
   const evidence = await services.evidenceReader.findById(ids.evidenceId);
   if (!evidence) {
@@ -163,20 +169,30 @@ export async function requalifyDocsWriteContractResult(
     // conflicting docs-write identity when a docs-write CE is already current.
     if (!input.correctionRef) {
       if (currentIsDocsWriteLineage) {
+        // Prefer the ReviewBundle identity bound into the current CE
+        // (successor RB after evidence-completion), not the historical default.
+        const boundRbId = currentCe.reviewBundleId;
+        const boundRb = boundRbId
+          ? await services.reviewBundleReader.findById(boundRbId)
+          : null;
         return {
           ok: true,
           claimEvaluation: currentCe,
-          reviewBundle,
+          reviewBundle: boundRb ?? reviewBundle,
           reusedFromIdempotencyKey: true,
         };
       }
       supersededClaimEvaluationId = currentCe.claimEvaluationId;
     } else if (ids.claimEvaluationId === currentCe.claimEvaluationId) {
       // CASE C — same correctionRef already current.
+      const boundRbId = currentCe.reviewBundleId;
+      const boundRb = boundRbId
+        ? await services.reviewBundleReader.findById(boundRbId)
+        : null;
       return {
         ok: true,
         claimEvaluation: currentCe,
-        reviewBundle,
+        reviewBundle: boundRb ?? reviewBundle,
         reusedFromIdempotencyKey: true,
       };
     } else {

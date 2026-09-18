@@ -1,0 +1,76 @@
+{
+  "db": "/Users/morris/Projects/sfia-studio-product-journey-e2e-real-reconciliation-01/projects/sfia-studio/.sfia-exec/pje2e-real-01/product/oa-product.sqlite",
+  "sha256": "36875af6f3ef551e45253e50c2681dc202d0b19920556ef6cf626bb9c3c7ca8e",
+  "bytes": 937984,
+  "attempt_count": 3,
+  "attempts": [
+    {
+      "attempt_id": "xat:w3a:1f49d8e25e20837a",
+      "execution_contract_id": "xct:m3-ev:8aaa188b3a3bd7a7",
+      "status": "failed",
+      "version": 3
+    },
+    {
+      "attempt_id": "xat:w3a:88dadf7fa682cc93",
+      "execution_contract_id": "xct:m3-res:dec:w2-trj:7e6ca68a-a31b-448c-9ae8-648de8772988",
+      "status": "failed",
+      "version": 3
+    },
+    {
+      "attempt_id": "xat:w3a:c4c5670edb4658cc",
+      "execution_contract_id": "xct:m3-res:dec:w2-trj:e00839c5-5022-4bd8-8243-f0a2dd6e79cb",
+      "status": "succeeded",
+      "version": 3
+    }
+  ],
+  "ces": [
+    {
+      "claim_evaluation_id": "clm:w3b:b62e7e34320e78ea",
+      "status": "not_proven",
+      "supersedes": null
+    },
+    {
+      "claim_evaluation_id": "clm:docs-write:xat:w3a:c4c5670edb4658cc",
+      "status": "pass",
+      "supersedes": "clm:w3b:b62e7e34320e78ea"
+    },
+    {
+      "claim_evaluation_id": "clm:docs-write:strict-eo-v1:xat:w3a:c4c5670edb4658cc",
+      "status": "not_proven",
+      "supersedes": "clm:docs-write:xat:w3a:c4c5670edb4658cc"
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "ev:docs-write:xat:w3a:c4c5670edb4658cc",
+      "status": "available"
+    }
+  ],
+  "lps_current": [
+    {
+      "project_id": "prj:e3fe8a45-5c9e-4651-bd2c-bde1cdf77c38",
+      "lps_version_id": "lps:7d3a76c281084418"
+    }
+  ],
+  "traj_current": [
+    {
+      "project_id": "prj:e3fe8a45-5c9e-4651-bd2c-bde1cdf77c38",
+      "trajectory_id": "trj:lr-bridge-9d9980b975f5",
+      "version": 4
+    }
+  ],
+  "active_cycle": [
+    {
+      "cycle_instance_id": "cyc:trj-979cf448c5a6f0e7685f937f",
+      "project_id": "prj:e3fe8a45-5c9e-4651-bd2c-bde1cdf77c38",
+      "status": "active",
+      "cycleTypeId": "cyc:framing"
+    }
+  ],
+  "phase1_materialize_blocker": {
+    "code": "CLAIM_EVALUATION_INVALID",
+    "message": "supersedes_cycle_detected",
+    "note": "requalify rematerialize under historical CE id when current CE is strict-eo-v1"
+  },
+  "phase1_w3c_blocker_expected": "PRODUCT_UNCLAIMED once rematerialize/rehydrate succeeds"
+}
