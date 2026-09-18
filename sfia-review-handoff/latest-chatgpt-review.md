@@ -1,9 +1,9 @@
-# CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 — Review Pack (FULL)
+# CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 — CRITICAL-REVIEW-CORRECTION — Review Pack (FULL)
 
 ## A. Timestamp
-2026-09-18 08:06:22 CEST (+0200)
+2026-09-18 08:31:44 CEST (+0200)
 
-Pack revision: **CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01**
+Pack revision: **CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 — CRITICAL-REVIEW-CORRECTION**
 
 ## B. Git Truth
 
@@ -13,190 +13,96 @@ Pack revision: **CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01**
 | Worktree | `/Users/morris/Projects/sfia-studio-contract-result-extensibility-framing-01` |
 | `origin/main` | `bb6af3cabef663bd8619b85326dbc205057b7c7d` |
 | HEAD | `bb6af3cabef663bd8619b85326dbc205057b7c7d` |
-| Branch | `feat/sfia-studio-contract-result-extensibility-01` (local only — **NOT pushed**) |
-| Project commit / push / PR | **FORBIDDEN** this macro |
-| `git diff --check` (Product scope) | **PASS** |
+| Branch | `feat/sfia-studio-contract-result-extensibility-01` (**NOT pushed**) |
+| Prior handoff reviewed | `sfia/review-handoff` @ `574231958ff91351c49a02202fd8e2ed956e003b` |
+| Project commit/push/PR | **FORBIDDEN** |
+| `git diff --check` | **PASS** |
 
-### Status (Product / framing / review; excludes package-lock)
+## C. Morris architecture (unchanged)
 
-```
-M projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultCorrection.test.ts
- M projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultCorrectionPass2.test.ts
- M projects/sfia-studio/app/__tests__/oa/evidence-review/optionBBoundSnapshot.test.ts
- M projects/sfia-studio/app/features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile.ts
- M projects/sfia-studio/app/features/project-assistant/f3/completeBoundedReadOnlyLaunch.ts
- M projects/sfia-studio/app/features/project-assistant/f3/index.ts
- M projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts
- M projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
- M projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultAssessment.ts
- M projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultSemanticEvaluator.ts
- M projects/sfia-studio/app/lib/oa/evidence-review/application/evaluateContractResult.ts
- M projects/sfia-studio/app/lib/oa/evidence-review/index.ts
- M projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/memoryClaimEvaluationRepository.ts
- M projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/createSqliteEvidenceReviewServices.ts
- M projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/sqliteClaimEvaluationRepository.ts
- M projects/sfia-studio/app/lib/oa/evidence-review/ports/claimEvaluationRepository.ts
- M projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionResult.ts
- M projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
- M projects/sfia-studio/app/package-lock.json
- M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-?? projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultSemanticsRegistry.d0.test.ts
-?? projects/sfia-studio/app/__tests__/project-assistant/contractResultDocsWriteRequal.d0.test.ts
-?? projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts
-?? projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultSemantics.ts
-?? projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts
-?? projects/sfia-studio/app/lib/oa/evidence-review/application/resolveCurrentContractResultClaimEvaluation.ts
-?? projects/sfia-studio/app/lib/oa/evidence-review/application/tempArtifactContractResultSemantic.ts
-?? projects/sfia-studio/convergence/sfia-studio-contract-result-extensibility-framing.md
-?? projects/sfia-studio/convergence/sfia-studio-contract-result-extensibility-framing.md
-?? projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultSemantics.ts
-?? projects/sfia-studio/app/lib/oa/evidence-review/application/tempArtifactContractResultSemantic.ts
-?? projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts
-?? projects/sfia-studio/app/lib/oa/evidence-review/application/resolveCurrentContractResultClaimEvaluation.ts
-?? projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts
-?? projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultSemanticsRegistry.d0.test.ts
-?? projects/sfia-studio/app/__tests__/project-assistant/contractResultDocsWriteRequal.d0.test.ts
-```
+RESULT SEMANTICS REGISTRY — server-owned static · frozen RB multi-Evidence AND · explicit CE supersession · A+B one ZERO-REAL macro.
 
-## C. Morris adopted decision (CONSUMED)
+## D. ChatGPT blockers closed
 
-**ADOPT RESULT SEMANTICS REGISTRY ARCHITECTURE**
+### CR-BLK-01
+`resolveCurrentContractResultClaimEvaluation` → `none | one | ambiguous`. No timestamp/id pick. Callers fail-closed on ambiguous.
 
-- SERVER-OWNED STATIC REGISTRY
-- FROZEN REVIEWBUNDLE MULTI-EVIDENCE AND
-- EXPLICIT CLAIM EVALUATION SUPERSESSION
-- IMPLEMENT LOT A+B AS ONE ZERO-REAL MACRO
-- SUCCESS REAL PROVENANCE ADAPT IF NON-STRUCTURAL
+### CR-BLK-02
+Removed free-form EO PASS. Only canonical template or exact path-shaped EO==location. Attempt 3 free-form EO → NOT_PROVEN.
 
-Authorized: local Product code · deterministic tests · docs/Roadmap · Attempt 3 ZERO-REAL requal · Review Pack + Handoff.
+### CR-BLK-03
+Chain depth cap → `supersedes_chain_too_deep`. Supersession coherence: project/contract/version/fingerprint. Artifact binding requires present executionContractId (+ projectId when material provides it).
 
-Forbidden: Cursor REAL · Studio Execute · new ExecutionAttempt · new HumanDecision · SQLite manual mutation · project commit/push/PR/merge · branch deletion · runtime v3 · generalized Git/PR/CI.
+## E. Attempt 3 bound EO / correction result
 
-## D. SFIA qualification
-
-| Field | Value |
-| --- | --- |
-| Cycle | Delivery / architecture implementation |
-| Typology | EVOL |
-| Profile | CRITICAL |
-| Capability v3 | ExecutionContract → ER/EO → Evidence → ContractResult → Product outcome → post-Evidence |
-| Milestone | Product Journey E2E — Contract Result Extensibility |
-| Runtime v3 | **NON ADOPTED** |
-| Build Doctrine | reuse one engine · no parallel · no READY without proof · ZERO REAL |
-
-## E. Convergence pre-check
-
-- R13 framing present and status → **ADOPTED BY MORRIS — IMPLEMENTATION IN PROGRESS / NOT YET INTEGRATED ON MAIN**
-- Roadmap tip → CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 (LOCAL CANDIDATE)
-- Build Doctrine / C1 / v3 framing → **unchanged**
-- Product Journey → still **NOT READY**
-
-## F. Exact architecture implemented
-
-```
-Bound EC snapshot
- → Attempt
- → frozen ReviewBundle (N Evidence snapshots)
- → CONTRACT_RESULT_SEMANTICS (server-owned static)
- → resolveApplicableContractResultSemantics (0=none soft; 1=apply; >1=hard ambiguous fail)
- → selectEvidenceIds (AND from frozen snapshots only)
- → EvidenceReader load exact versions
- → EO / ER assessors on semantic
- → ClaimEvaluation create-only
- → optional supersedesClaimEvaluationId
- → resolveCurrentContractResultClaimEvaluation (non-superseded)
- → Product terminal projection
-```
-
-**One engine:** `EvaluateContractResult` preserved (not forked).
-
-**API evolution:** request accepts optional single `evidence` for back-compat; prefers server-owned selection via frozen RB + `EvidenceReader`. Does not flatten N→1 synthetic Evidence.
-
-## G. Registry entries
-
-| # | id | ruleRef | applicability |
-| --- | --- | --- | --- |
-| 1 | `temp-artifact` | `w3b-contract-result/product-generate-temporary-artifact-v1` | `product:generate-temporary-artifact` + `cap:product-temp-artifact` |
-| 2 | `docs-write` | `w3b-contract-result/cursor-docs-write-apply-v1` | `cursor.docs_write.apply` + `cap:cursor.docs_write` + `evreq:docs_write_artifact` |
-
-## H. Evidence selection design
-
-- Only **frozen** ReviewBundle snapshots participate.
-- Semantic `selectEvidenceIds` returns required ids; missing any → incomplete / no PASS (AND).
-- No OR semantics.
-- Caller cannot bypass frozen RB by handing arbitrary Evidence as sole source of truth.
-- Exact version matching preserved.
-
-## I. Supersession lifecycle
-
-- ClaimEvaluation remains **immutable** (create-only).
-- `EvaluateContractResult` accepts `supersedesClaimEvaluationId` when subject/bindings coherent.
-- No self-supersession / no cycles / no subject mismatch (existing invariants + CR gates).
-- No DB schema migration.
-
-## J. Current CE resolution algorithm
-
-`resolveCurrentContractResultClaimEvaluation`:
-
-1. `listByProject`
-2. filter `subjectKind=execution_contract_result` ∧ `executionAttemptId`
-3. mark ids referenced by any `supersedesClaimEvaluationId` as superseded
-4. current = non-superseded; if multiple roots → max `evaluatedAt` then max id
-
-## K. docs_write Product wiring
-
-- `materializeW3bProductTerminal`: docs_write path when Artifact Evidence exists; failed Attempts without Artifact keep W3-B technical path.
-- `requalifyDocsWriteContractResult`: freeze `rb:docs-write:…` if draft → EvaluateContractResult with docs_write CE id → supersede prior W3-B CE.
-- Bound EO interpretation: path-shaped EO must match Evidence location; free-form EO may PASS when location≈bound targetPath (no NLP).
-- Filesystem not re-used as second SoT at CR time.
-
-## L. Attempt 3 ZERO-REAL requalification result
-
-Campaign DB: `…/pje2e-real-01/product/oa-product.sqlite` (canonical services only; no manual SQL mutation of CE/RB).
-
-| Fact | Before | After |
+| EO | Result | Why |
 | --- | --- | --- |
-| Attempts | 3 | **3** |
-| `clm:w3b:b62e7e34320e78ea` | `not_proven` | `not_proven` (**immutable**) |
-| Current CE | W3-B not_proven | `clm:docs-write:xat:w3a:c4c5670edb4658cc` **pass** |
-| supersedes | — | `clm:w3b:b62e7e34320e78ea` |
-| ruleRef | — | `w3b-contract-result/cursor-docs-write-apply-v1` |
-| RB docs_write | draft | frozen `ready_for_review` |
-| REAL / Execute / new Attempt | — | **ZERO** |
+| Le fichier Markdown matérialisé au chemin cible | NOT_PROVEN | free-form |
+| Vérification de l’existence et de la conformité minimale du fichier | NOT_PROVEN | conformité not in Artifact metadata |
+| evreq:docs_write_artifact | SATISFIED | Artifact facts hold |
 
-DB mutation method: **canonical Product/service APIs only** (`freezeReviewBundle` + `evaluateContractResult`).
-
-## M. Provenance success disposition
-
-**ADAPTED (non-structural):** `processDiagnostic` persisted on `RecordExecutionResult` success path when already available (symmetric with failure). No migration. Failure path unchanged.
-
-## N. Tests
-
-Focused Vitest (11 files / **105 passed**):
-
-- `contractResultEvaluation.test.ts` (temp-artifact regression)
-- `contractResultSemanticsRegistry.d0.test.ts` (T1–T14 registry/docs_write/AND)
-- `contractResultDocsWriteRequal.d0.test.ts` (T15–T22 supersession/requal fixture)
-- `contractResultCorrection*.test.ts` / `optionBBoundSnapshot.test.ts`
-- `w3bProductTerminal.test.ts`
-- checkpoint F recovery tests (R7/R8/R10)
-- `importBoundaries.test.ts`
-
-`npm run typecheck` → **PASS**
-
-`git diff --check` (Product) → **PASS**
-
-Genericity claim limit: **NOT** “generic ContractResult all classes” — only registry + temp-artifact preserved + docs_write second semantic.
-
-## O. Roadmap tip (current + historical rename)
+```json
+{
+  "ok": true,
+  "boundExpectedOutputs": [
+    "Le fichier Markdown matérialisé au chemin cible",
+    "Vérification de l’existence et de la conformité minimale du fichier"
+  ],
+  "boundEr": [
+    "evreq:docs_write_artifact"
+  ],
+  "boundTargetPath": "projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md",
+  "eoAssessments": [
+    {
+      "expectation": "Le fichier Markdown matérialisé au chemin cible",
+      "result": "NOT_PROVEN"
+    },
+    {
+      "expectation": "Vérification de l’existence et de la conformité minimale du fichier",
+      "result": "NOT_PROVEN"
+    }
+  ],
+  "erAssessments": [
+    {
+      "requirement": "evreq:docs_write_artifact",
+      "result": "SATISFIED"
+    }
+  ],
+  "newCeId": "clm:docs-write:strict-eo-v1:xat:w3a:c4c5670edb4658cc",
+  "expectedNewCeId": "clm:docs-write:strict-eo-v1:xat:w3a:c4c5670edb4658cc",
+  "newStatus": "not_proven",
+  "supersedes": "clm:docs-write:xat:w3a:c4c5670edb4658cc",
+  "priorW3b": "not_proven",
+  "priorW3bAfter": "not_proven",
+  "priorDocs": "pass",
+  "priorDocsAfter": "pass",
+  "current": {
+    "status": "one",
+    "claimEvaluationId": "clm:docs-write:strict-eo-v1:xat:w3a:c4c5670edb4658cc",
+    "status_ce": "not_proven",
+    "supersedes": "clm:docs-write:xat:w3a:c4c5670edb4658cc",
+    "ruleRef": "w3b-contract-result/cursor-docs-write-apply-v1"
+  },
+  "attemptsBefore": 3,
+  "attemptsAfter": 3,
+  "zeroNewAttempt": true,
+  "zeroReal": true
+}
 
 ```
-| **Timestamp maintenance CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01** | 2026-09-18 08:15:00 CEST (+0200) — **CONTRACT RESULT EXTENSIBILITY IMPLEMENTATION** · Cycle Delivery/architecture implementation · EVOL · CRITICAL · Macro **CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01** · parent R13 framing **ADOPTED BY MORRIS** (Result Semantics Registry · server-owned static · frozen RB multi-Evidence AND · explicit CE supersession · A+B one ZERO-REAL macro) · baseline `origin/main` `bb6af3cabef663bd8619b85326dbc205057b7c7d` · branche locale `feat/sfia-studio-contract-result-extensibility-01` · **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** · temp-artifact registry entry #1 preserved · docs_write second semantic proven · Attempt 3 ZERO-REAL requalification **PASS** (`clm:docs-write:xat:w3a:c4c5670edb4658cc` supersedes `clm:w3b:b62e7e34320e78ea` immutable `not_proven`) · success-path REAL provenance adapt (`processDiagnostic` on RecordExecutionResult) · **ZERO REAL** · runtime v3 = **NON ADOPTED** · **≠** Product Journey READY/COMPLETE · **≠** generic CR all effect classes · **≠** Git/PR/CI semantics · next = ChatGPT Critical Review → Morris Git-integration gate · push/PR/merge **NOT AUTHORIZED** by this tip |
+
+CE lineage: W3B not_proven → docs-write pass (historical) → strict-eo-v1 **not_proven** (current). Attempts 3→3. ZERO REAL.
+
+## F. Tests
+110 passed / typecheck PASS / diff-check PASS
+
+## G. Roadmap tip
+```
+| **Timestamp maintenance CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01** | 2026-09-18 08:35:00 CEST (+0200) — **CONTRACT RESULT EXTENSIBILITY IMPLEMENTATION — CRITICAL REVIEW CORRECTION** · Cycle Delivery/architecture · EVOL · CRITICAL · Macro **CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01** · ChatGPT CR-BLK-01/02/03 **CLOSED** · baseline `origin/main` `bb6af3cabef663bd8619b85326dbc205057b7c7d` · branche `feat/sfia-studio-contract-result-extensibility-01` · **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** · CE resolver fail-closed on ambiguity · docs_write EO strict (no free-form PASS) · supersession chain/bindings hardened · Attempt 3 current CE `clm:docs-write:strict-eo-v1:xat:w3a:c4c5670edb4658cc` **not_proven** (bound free-form EO / conformité gap) · Attempts **3→3** · **ZERO REAL** · runtime v3 = **NON ADOPTED** · **≠** Product Journey READY · **≠** Attempt 3 Product PASS · next = ChatGPT final PR-readiness review → Morris Git-integration gate · push/PR/merge **NOT AUTHORIZED** by this tip |
 | **Timestamp maintenance historique PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 (pre-CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01)** | *(tip superseded by CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-18 05:15:00 CEST (+0200) — **PRODUCT JOURNEY E2E REAL RECONCILIATION INTEGRATION** · Cycle **15** · Capitalisation / REX + intégration Git · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01** · parent campagne **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01** · baseline pré-intégration `origin/main` `26478b1ea5b010c625f0c6039c969fac5c135cf5` · branche `qa/sfia-studio-product-journey-e2e-real-reconciliation-01` · checkpoints **R1–R12** consolidés · Product fixes **R1/R3/R4/R6/R7/R8/R10** = intégration candidate this PR · Attempt 1 FAIL · Attempt 2 FAIL Authentication required · Attempt 3 Cursor REAL **technical SUCCESS** · bounded docs_write filesystem effect + Artifact Evidence **PROVEN** in M4 isolated WT · Product Result remains **UNCLAIMED** · blocker = **ContractResult extensibility / Evidence wiring** (`no_applicable_contract_result_rule` for `cursor.docs_write.apply`) · capitalisation `projects/sfia-studio/convergence/product-journey-e2e-real-reconciliation-01-capitalization.md` · **ZERO REAL** this integration macro · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **≠** Product Journey E2E READY / COMPLETE · **≠** ContractResult docs_write PASS · **≠** runtime v3 ADOPTED · next after integration verified = **R13 — Contract Result extensibility framing — ZERO REAL** · **NOT STARTED / NOT AUTHORIZED** by this tip · repository lifecycle = **RESOLVE FROM GIT / PR evidence** |
 ```
 
-## P. Framing document (complete useful content)
-
+## H. Framing (complete)
 ```markdown
 # SFIA Studio — Contract Result Extensibility — Framing Pack
 
@@ -216,8 +122,8 @@ Genericity claim limit: **NOT** “generic ContractResult all classes” — onl
 | **global L5** | **NOT ADOPTED** |
 | **REAL / Execute / new Attempt** | **ZERO** this macro |
 | **Horodatage décision Morris** | 2026-09-18 — ADOPT RESULT SEMANTICS REGISTRY (server-owned static + frozen RB multi-Evidence AND + explicit CE supersession + A+B one ZERO-REAL macro + success REAL provenance adapt if non-structural) |
-| **Implémentation locale** | `feat/sfia-studio-contract-result-extensibility-01` — registry + docs_write entry #2 + Attempt 3 requalified WITHOUT REAL (`clm:docs-write:xat:w3a:c4c5670edb4658cc` PASS supersedes `clm:w3b:b62e7e34320e78ea`) — **NOT integrated on main** |
-| **Anti-claims** | ≠ Product Journey READY/COMPLETE · ≠ generic ContractResult all effect classes · ≠ Git/PR/CI semantics · ≠ runtime v3 ADOPTED · ≠ integrated on main · ≠ project commit/push/PR authorized |
+| **Implémentation locale** | `feat/sfia-studio-contract-result-extensibility-01` — registry + docs_write #2 + Critical Review correction (fail-closed CE resolver · strict EO · supersession/binding hardening) — Attempt 3 current CE = `clm:docs-write:strict-eo-v1:…` **not_proven** (free-form EO / conformité non prouvable par Artifact seul) — **NOT integrated on main** |
+| **Anti-claims** | ≠ Product Journey READY/COMPLETE · ≠ Attempt 3 Product PASS under strict EO · ≠ generic ContractResult all effect classes · ≠ Git/PR/CI semantics · ≠ runtime v3 ADOPTED · ≠ integrated on main |
 
 ---
 
@@ -472,7 +378,7 @@ Séquence : Lot B docs_write en Option 1 **explicitement temporaire**, exit = ex
 
 **ADOPT RESULT SEMANTICS REGISTRY ARCHITECTURE** — server-owned static registry · frozen ReviewBundle multi-Evidence AND · explicit ClaimEvaluation supersession · implement Lot A+B as one ZERO-REAL macro · success REAL provenance adapt if non-structural.
 
-Implementation status (local, not on main): registry live; temp-artifact entry #1; docs_write entry #2; Attempt 3 ZERO-REAL requalification **PASS** (`clm:docs-write:xat:w3a:c4c5670edb4658cc` supersedes `clm:w3b:b62e7e34320e78ea`); project commit/push/PR **FORBIDDEN** until Morris Git-integration gate.
+Implementation status (local, not on main): registry live; temp-artifact entry #1; docs_write entry #2; Critical Review blockers CR-BLK-01/02/03 **CLOSED**; Attempt 3 ZERO-REAL re-requalification under strict EO → current CE `clm:docs-write:strict-eo-v1:xat:w3a:c4c5670edb4658cc` **not_proven** (bound free-form EO including « conformité minimale » not proven by Artifact Evidence alone); prior CEs immutable; project commit/push/PR **FORBIDDEN** until Morris Git-integration gate.
 
 ## 11. Technical recommendation candidate (historical — now consumed)
 
@@ -563,19 +469,28 @@ Reste ouvert : **Git integration** (commit/push/PR/merge) — gate Morris distin
 | RB docs_write | **draft** — freeze **non** fait |
 | Nouveau REAL | **Non requis** pour re-prouver l’effet fichier déjà Evidence-backed |
 
-### Classification : **B — CLOSED LOCALLY (implementation macro)**
+### Classification : **B — CLOSED LOCALLY; Attempt 3 = NOT_PROVEN under strict EO (CASE B)**
 
 **B — small non-structural lifecycle wiring** — implemented as `requalifyDocsWriteContractResult` (canonical freeze + EvaluateContractResult + `supersedesClaimEvaluationId`).
 
-Campaign DB (`pje2e-real-01`) post-requal (2026-09-18):
+Bound Attempt 3 `expectedOutputs` (from durable bound snapshot — not live EC):
+
+1. `Le fichier Markdown matérialisé au chemin cible` → **NOT_PROVEN** (free-form prose; not canonical EO template; not path-shaped)
+2. `Vérification de l’existence et de la conformité minimale du fichier` → **NOT_PROVEN** (content/conformity obligation; Artifact Evidence metadata does not prove « conformité minimale »)
+
+`evreq:docs_write_artifact` → **SATISFIED** (Artifact Evidence bindings/digest/location hold).
+
+Overall ClaimEvaluation status → **not_proven** (AND of EO).
+
+Campaign DB (`pje2e-real-01`) post Critical Review correction (2026-09-18):
 
 | Fact | Value |
 | --- | --- |
 | Attempts | **3 → 3** (no new Attempt) |
-| Prior CE | `clm:w3b:b62e7e34320e78ea` **immutable** `not_proven` |
-| Successor CE | `clm:docs-write:xat:w3a:c4c5670edb4658cc` **pass** · ruleRef `w3b-contract-result/cursor-docs-write-apply-v1` · supersedes prior |
-| RB | `rb:docs-write:xat:w3a:c4c5670edb4658cc` frozen (`ready_for_review`) |
+| CE lineage | `clm:w3b:b62e7e34320e78ea` `not_proven` → `clm:docs-write:xat:w3a:c4c5670edb4658cc` historical `pass` (permissive EO, immutable) → `clm:docs-write:strict-eo-v1:xat:w3a:c4c5670edb4658cc` **current** `not_proven` |
 | REAL | **ZERO** |
+
+**Evidence gap (acceptance only):** bound EO wording requires content/conformity proof not carried by current Artifact Evidence schema; do not invent Evidence; do not read live EC as substitute.
 
 **Interdit (toujours) :** rewrite SQLite / mutation Attempt 3 / fake PASS / new REAL.
 
@@ -716,87 +631,19 @@ Tip actuel déjà correct : next = R13 framing · NOT STARTED.
 
 ```
 
-## Q. Claims
+## I. Claims / reserves / verdict
 
-### ALLOWED / PROVEN this macro
+PROVEN: CR-BLK-01/02/03 closed · registry · strict docs_write · Attempt3 honest not_proven · ZERO REAL
 
-- Result Semantics Registry implemented (server-owned static)
-- temp-artifact observationally preserved
-- docs_write second semantic deterministically proven
-- multi-Evidence AND behavior proven at tested scope
-- CE supersession + current resolver proven
-- Attempt 3 requalified WITHOUT REAL
-- success-path REAL provenance adapted (processDiagnostic)
-- ZERO REAL this macro
+NOT CLAIMED: Attempt3 PASS · Journey READY · generic CR · v3 · project Git
 
-### FORBIDDEN / NOT CLAIMED
+RESERVE: bound EO conformité gap — needs future Evidence or new-Attempt EO rematerialization (not rewriting Attempt3).
 
-- generalized Git/PR/CI semantics
-- generic ContractResult across all effect classes
-- Product Journey READY / COMPLETE
-- runtime v3 ADOPTED
-- global L5
-- fourth Cursor REAL Attempt
-- integrated on main / project Git authorized
-
-## R. Reserves
-
-- Post-Evidence / Nora replan consumption of successor CE: not forced; existing Product path should consume current CE — full Product Journey READY still open.
-- Contrasted non-artifact effect class (e.g. bounded git.commit) still required for stronger cross-class genericity.
-- package-lock.json dirty out of scope — do not include in candidate commit.
-
-## S. Next gate
-
-**ChatGPT Critical Review → Morris Git-integration gate** (commit / push / PR / CI / conditional merge).
-
-Project push / PR / merge **NOT authorized** by this pack.
-
-## T. Verdict
-
-**CONTRACT RESULT EXTENSIBILITY A+B IMPLEMENTED — DOCS_WRITE SECOND SEMANTIC PROVEN — ATTEMPT 3 REQUALIFIED WITHOUT REAL — READY FOR CHATGPT CRITICAL REVIEW / MORRIS GIT-INTEGRATION GATE**
+**VERDICT: CONTRACT RESULT EXTENSIBILITY A+B — CRITICAL REVIEW BLOCKERS CLOSED — ATTEMPT 3 NOT_PROVEN UNDER STRICT SEMANTICS — EVIDENCE GAP IDENTIFIED**
 
 ---
 
-## U. Exact files changed (candidate commit scope)
-
-### Modified
-- `projects/sfia-studio/app/lib/oa/evidence-review/application/evaluateContractResult.ts`
-- `projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultAssessment.ts`
-- `projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultSemanticEvaluator.ts`
-- `projects/sfia-studio/app/lib/oa/evidence-review/index.ts`
-- `projects/sfia-studio/app/lib/oa/evidence-review/ports/claimEvaluationRepository.ts`
-- `projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/memoryClaimEvaluationRepository.ts`
-- `projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/sqliteClaimEvaluationRepository.ts`
-- `projects/sfia-studio/app/lib/oa/evidence-review/infrastructure/sqlite/createSqliteEvidenceReviewServices.ts`
-- `projects/sfia-studio/app/lib/oa/execution-attempt/application/recordExecutionResult.ts`
-- `projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts`
-- `projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts`
-- `projects/sfia-studio/app/features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile.ts`
-- `projects/sfia-studio/app/features/project-assistant/f3/completeBoundedReadOnlyLaunch.ts`
-- `projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts`
-- `projects/sfia-studio/app/features/project-assistant/f3/index.ts`
-- tests: correction / optionB / (call-site adaptations)
-- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-
-### Added
-- registry + temp-artifact + docs_write semantics modules
-- `resolveCurrentContractResultClaimEvaluation.ts`
-- `requalifyDocsWriteContractResult.ts`
-- registry + requal tests
-- `sfia-studio-contract-result-extensibility-framing.md`
-
-### Out of commit scope
-- `projects/sfia-studio/app/package-lock.json`
-- `.tmp-sfia-review/**` (except published handoff path)
-- campaign SQLite / M4 worktrees
-
-### Candidate PR scope
-Single PR: Contract Result extensibility A+B + Attempt3 ZERO-REAL requal wiring + framing ADOPTED + Roadmap tip. Base `main` @ `bb6af3ca`.
-
----
-
-## V. FULL DIFF — modified tracked Product files
-
+## J. FULL DIFF — modified tracked Product files
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultCorrection.test.ts b/projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultCorrection.test.ts
 index 62fdc039..fbb010b6 100644
@@ -1081,7 +928,7 @@ index 84ce0c16..207253c7 100644
          requiredAuthority: original.requiredAuthority,
          status: "draft",
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
-index ad829eb5..a9e27ac3 100644
+index ad829eb5..dcd71f2f 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
 @@ -2,13 +2,17 @@
@@ -1246,7 +1093,7 @@ index ad829eb5..a9e27ac3 100644
        product: projectFromFacts({
          attempt,
          contract,
-@@ -342,16 +455,39 @@ export async function rehydrateW3bProductTerminal(input: {
+@@ -342,16 +455,59 @@ export async function rehydrateW3bProductTerminal(input: {
    const loaded = await loadAttemptAndContract(input);
    if (!loaded.ok) return loaded;
    const { attempt, contract } = loaded;
@@ -1273,23 +1120,43 @@ index ad829eb5..a9e27ac3 100644
 +    evidence = (await services.evidenceReader.findById(evidenceId)) ?? null;
 +    reviewBundle =
 +      (await services.reviewBundleReader.findById(reviewBundleId)) ?? null;
-+    claimEvaluation = await resolveCurrentContractResultClaimEvaluation({
++    const resolved = await resolveCurrentContractResultClaimEvaluation({
 +      repo: services.claimEvaluationRepository,
 +      projectId: input.projectId,
 +      executionAttemptId: attempt.attemptId,
 +    });
++    if (resolved.status === "ambiguous") {
++      return {
++        ok: false,
++        code: "CONTRACT_RESULT_CLAIM_LINEAGE_AMBIGUOUS",
++        message: `Multiple active ContractResult CEs — fail-closed: ${resolved.claimEvaluationIds.join(",")}`,
++      };
++    }
++    claimEvaluation =
++      resolved.status === "one" ? resolved.claimEvaluation : null;
 +  } else {
 +    const ids = w3bEvidenceIdentity(attempt.attemptId);
 +    evidence = (await services.evidenceReader.findById(ids.evidenceId)) ?? null;
 +    reviewBundle =
 +      (await services.reviewBundleReader.findById(ids.reviewBundleId)) ?? null;
++    const resolved = await resolveCurrentContractResultClaimEvaluation({
++      repo: services.claimEvaluationRepository,
++      projectId: input.projectId,
++      executionAttemptId: attempt.attemptId,
++    });
++    if (resolved.status === "ambiguous") {
++      return {
++        ok: false,
++        code: "CONTRACT_RESULT_CLAIM_LINEAGE_AMBIGUOUS",
++        message: `Multiple active ContractResult CEs — fail-closed: ${resolved.claimEvaluationIds.join(",")}`,
++      };
++    }
 +    claimEvaluation =
-+      (await resolveCurrentContractResultClaimEvaluation({
-+        repo: services.claimEvaluationRepository,
-+        projectId: input.projectId,
-+        executionAttemptId: attempt.attemptId,
-+      })) ??
-+      (await services.claimEvaluationReader.findById(ids.claimEvaluationId));
++      resolved.status === "one"
++        ? resolved.claimEvaluation
++        : ((await services.claimEvaluationReader.findById(
++            ids.claimEvaluationId,
++          )) ?? null);
 +  }
 
    if (!evidence || !reviewBundle || !claimEvaluation) {
@@ -1590,7 +1457,7 @@ index 76e5486a..738a3365 100644
 +  type ResolveApplicableContractResultSemanticsResult,
 +} from "./contractResultSemantics";
 diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/application/evaluateContractResult.ts b/projects/sfia-studio/app/lib/oa/evidence-review/application/evaluateContractResult.ts
-index 80234cff..9c7c25e6 100644
+index 80234cff..ede08b46 100644
 --- a/projects/sfia-studio/app/lib/oa/evidence-review/application/evaluateContractResult.ts
 +++ b/projects/sfia-studio/app/lib/oa/evidence-review/application/evaluateContractResult.ts
 @@ -1,6 +1,7 @@
@@ -1697,7 +1564,7 @@ index 80234cff..9c7c25e6 100644
          action: "",
          target: "",
          scope: "",
-@@ -206,9 +193,186 @@ export class EvaluateContractResult {
+@@ -206,9 +193,228 @@ export class EvaluateContractResult {
          idempotencyKey: "",
        }) as ExecutionContractSemanticMaterial;
        const boundFingerprint = snap?.semanticFingerprint ?? "";
@@ -1861,7 +1728,43 @@ index 80234cff..9c7c25e6 100644
 +            "supersedes_contract_mismatch",
 +          );
 +        }
-+        // Cycle detection — walk prior chain; refuse if new id appears.
++        const priorProjectId = prior.contractResultBindings?.projectId;
++        const attemptProjectId =
++          attempt.boundExecutionContract?.semanticMaterial?.projectId ??
++          request.contract.projectId;
++        if (
++          priorProjectId &&
++          attemptProjectId &&
++          priorProjectId !== attemptProjectId
++        ) {
++          return fail(
++            "CLAIM_EVALUATION_INVALID",
++            "supersedes_project_mismatch",
++          );
++        }
++        if (
++          prior.contractResultBindings?.executionContractVersion !== undefined &&
++          prior.contractResultBindings.executionContractVersion !==
++            attempt.executionContractVersion
++        ) {
++          return fail(
++            "CLAIM_EVALUATION_INVALID",
++            "supersedes_contract_version_mismatch",
++          );
++        }
++        const priorFp =
++          prior.contractResultBindings?.executionContractSemanticFingerprint;
++        if (
++          priorFp &&
++          boundFingerprint &&
++          priorFp !== boundFingerprint
++        ) {
++          return fail(
++            "CLAIM_EVALUATION_INVALID",
++            "supersedes_semantic_fingerprint_mismatch",
++          );
++        }
++        // Cycle / depth — walk prior chain; refuse cycle OR silent truncation.
 +        let cursor: string | undefined = prior.supersedesClaimEvaluationId;
 +        let depth = 0;
 +        const seen = new Set<string>([prior.claimEvaluationId]);
@@ -1883,11 +1786,17 @@ index 80234cff..9c7c25e6 100644
 +          cursor = next?.supersedesClaimEvaluationId;
 +          depth += 1;
 +        }
++        if (cursor) {
++          return fail(
++            "CLAIM_EVALUATION_INVALID",
++            "supersedes_chain_too_deep",
++          );
++        }
 +      }
 
        const fingerprint = fingerprintCommand(
          registerFingerprintBody({
-@@ -220,6 +384,12 @@ export class EvaluateContractResult {
+@@ -220,6 +426,12 @@ export class EvaluateContractResult {
            contractVersion: attempt.executionContractVersion,
            semanticFingerprint: boundFingerprint,
            actor: request.actor,
@@ -1900,7 +1809,7 @@ index 80234cff..9c7c25e6 100644
          }),
        );
 
-@@ -246,14 +416,21 @@ export class EvaluateContractResult {
+@@ -246,14 +458,21 @@ export class EvaluateContractResult {
          semanticMaterial,
          semanticFingerprint: boundFingerprint || "missing-bound-snapshot",
          attempt,
@@ -1926,7 +1835,7 @@ index 80234cff..9c7c25e6 100644
                itemKind: "EO" as const,
                ordinal,
              },
-@@ -266,11 +443,13 @@ export class EvaluateContractResult {
+@@ -266,11 +485,13 @@ export class EvaluateContractResult {
              },
            }))
          : assessExpectedOutputs(assessmentInput);
@@ -1942,7 +1851,7 @@ index 80234cff..9c7c25e6 100644
                  itemKind: "ER" as const,
                  ordinal,
                },
-@@ -285,8 +464,7 @@ export class EvaluateContractResult {
+@@ -285,8 +506,7 @@ export class EvaluateContractResult {
            )
          : assessEvidenceRequirements(assessmentInput);
 
@@ -1952,7 +1861,7 @@ index 80234cff..9c7c25e6 100644
          ? "not_proven"
          : deriveCanonicalContractResultStatus({
              attemptStatus: attempt.status,
-@@ -294,6 +472,19 @@ export class EvaluateContractResult {
+@@ -294,6 +514,19 @@ export class EvaluateContractResult {
              evidenceRequirementAssessments,
            });
 
@@ -1972,7 +1881,7 @@ index 80234cff..9c7c25e6 100644
        const claimEvaluation: ClaimEvaluation = {
          schemaVersion: CLAIM_EVALUATION_SCHEMA_VERSION,
          claimEvaluationId: request.claimEvaluationId,
-@@ -305,17 +496,13 @@ export class EvaluateContractResult {
+@@ -305,17 +538,13 @@ export class EvaluateContractResult {
            boundContractVersion: attempt.executionContractVersion,
            expectedOutputCount: expectedOutputAssessments.length,
            evidenceRequirementCount: evidenceRequirementAssessments.length,
@@ -1994,7 +1903,7 @@ index 80234cff..9c7c25e6 100644
          reviewBundleId: reviewBundle.reviewBundleId,
          reviewBundleVersion: reviewBundle.frozenVersion,
          status,
-@@ -336,11 +523,17 @@ export class EvaluateContractResult {
+@@ -336,11 +565,17 @@ export class EvaluateContractResult {
          version: 1,
          idempotencyKey: request.idempotencyKey,
          subjectKind: CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
@@ -2013,7 +1922,7 @@ index 80234cff..9c7c25e6 100644
                contract.cycleInstanceId) ?? null,
            executionContractId: attempt.executionContractId,
            executionContractVersion: attempt.executionContractVersion,
-@@ -349,7 +542,7 @@ export class EvaluateContractResult {
+@@ -349,7 +584,7 @@ export class EvaluateContractResult {
            executionAttemptId: attempt.attemptId,
            reviewBundleId: reviewBundle.reviewBundleId,
            reviewBundleVersion: reviewBundle.frozenVersion,
@@ -2023,10 +1932,10 @@ index 80234cff..9c7c25e6 100644
          expectedOutputAssessments,
          evidenceRequirementAssessments,
 diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/index.ts b/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
-index 6cf2853e..032e70ed 100644
+index 6cf2853e..4e1133f0 100644
 --- a/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
 +++ b/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
-@@ -100,6 +100,39 @@ export { EvaluateContractResult } from "./application/evaluateContractResult";
+@@ -100,6 +100,43 @@ export { EvaluateContractResult } from "./application/evaluateContractResult";
  export type { EvaluateContractResultRequest } from "./application/evaluateContractResult";
  export { projectContractResultVerdict } from "./application/contractResultVerdictProjection";
  export * from "./domain/contractResultTypes";
@@ -2056,17 +1965,21 @@ index 6cf2853e..032e70ed 100644
 +  DOCS_WRITE_CONTRACT_RESULT_RULE_REF,
 +  DOCS_WRITE_CONTRACT_RESULT_ER_KEY,
 +  BOUNDED_DOCS_WRITE_EO_TEMPLATE,
++  DOCS_WRITE_STRICT_EO_CORRECTION_REF,
 +  docsWriteContractResultIdentity,
 +  docsWriteArtifactFactsHold,
 +  assessDocsWriteExpectedOutput,
 +  assessDocsWriteEvidenceRequirement,
 +  docsWriteContractResultSemantic,
 +} from "./application/docsWriteContractResultSemantic";
-+export { resolveCurrentContractResultClaimEvaluation } from "./application/resolveCurrentContractResultClaimEvaluation";
++export {
++  resolveCurrentContractResultClaimEvaluation,
++  type ResolveCurrentContractResultClaimEvaluationResult,
++} from "./application/resolveCurrentContractResultClaimEvaluation";
  export { SqliteClaimEvaluationRepository } from "./infrastructure/sqlite/sqliteClaimEvaluationRepository";
  export { ConfirmClaimEvaluation } from "./application/confirmClaimEvaluation";
  export { RejectClaimEvaluation } from "./application/rejectClaimEvaluation";
-@@ -401,6 +434,7 @@ export function createInMemoryEvidenceReviewServices(
+@@ -401,6 +438,7 @@ export function createInMemoryEvidenceReviewServices(
        clock,
        audit,
        ids,
@@ -2176,1200 +2089,8 @@ index 88a52e28..52bd35f1 100644
    correlationId?: string;
    expectedAttemptVersion?: number;
    nowIso?: string;
-diff --git a/projects/sfia-studio/app/package-lock.json b/projects/sfia-studio/app/package-lock.json
-index a511e682..7fad02c8 100644
---- a/projects/sfia-studio/app/package-lock.json
-+++ b/projects/sfia-studio/app/package-lock.json
-@@ -49,7 +49,7 @@
-       "version": "3.2.0",
-       "resolved": "https://registry.npmjs.org/@asamuzakjp/css-color/-/css-color-3.2.0.tgz",
-       "integrity": "sha512-K1A6z8tS3XsmCMM86xoWdn7Fkdn9m6RSVtocUrJYIwZnFVkng/PvkEoWtOWmP+Scc6saYWHWZYbndEEXxl24jw==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "@csstools/css-calc": "^2.1.3",
-@@ -231,7 +231,7 @@
-       "version": "5.1.0",
-       "resolved": "https://registry.npmjs.org/@csstools/color-helpers/-/color-helpers-5.1.0.tgz",
-       "integrity": "sha512-S11EXWJyy0Mz5SYvRmY8nJYTFFd1LCNV+7cXyAgQtOOuzb4EsgfqDufL+9esx72/eLhsRdGZwaldu/h+E4t4BA==",
--      "dev": true,
-+      "devOptional": true,
-       "funding": [
-         {
-           "type": "github",
-@@ -251,7 +251,7 @@
-       "version": "2.1.4",
-       "resolved": "https://registry.npmjs.org/@csstools/css-calc/-/css-calc-2.1.4.tgz",
-       "integrity": "sha512-3N8oaj+0juUw/1H3YwmDDJXCgTB1gKU6Hc/bB502u9zR0q2vd786XJH9QfrKIEgFlZmhZiq6epXl4rHqhzsIgQ==",
--      "dev": true,
-+      "devOptional": true,
-       "funding": [
-         {
-           "type": "github",
-@@ -275,7 +275,7 @@
-       "version": "3.1.0",
-       "resolved": "https://registry.npmjs.org/@csstools/css-color-parser/-/css-color-parser-3.1.0.tgz",
-       "integrity": "sha512-nbtKwh3a6xNVIp/VRuXV64yTKnb1IjTAEEh3irzS+HkKjAOYLTGNb9pmVNntZ8iVBHcWDA2Dof0QtPgFI1BaTA==",
--      "dev": true,
-+      "devOptional": true,
-       "funding": [
-         {
-           "type": "github",
-@@ -303,7 +303,7 @@
-       "version": "3.0.5",
-       "resolved": "https://registry.npmjs.org/@csstools/css-parser-algorithms/-/css-parser-algorithms-3.0.5.tgz",
-       "integrity": "sha512-DaDeUkXZKjdGhgYaHNJTV9pV7Y9B3b644jCLs9Upc3VeNGg6LWARAT6O+Q+/COo+2gg/bM5rhpMAtf70WqfBdQ==",
--      "dev": true,
-+      "devOptional": true,
-       "funding": [
-         {
-           "type": "github",
-@@ -326,7 +326,7 @@
-       "version": "3.0.4",
-       "resolved": "https://registry.npmjs.org/@csstools/css-tokenizer/-/css-tokenizer-3.0.4.tgz",
-       "integrity": "sha512-Vd/9EVDiu6PPJt9yAh6roZP6El1xHrdvIVGjyBsHR0RYwNHgL7FJPyIIW4fANJNG6FtyZfvlRPpFI4ZM/lubvw==",
--      "dev": true,
-+      "devOptional": true,
-       "funding": [
-         {
-           "type": "github",
-@@ -382,7 +382,6 @@
-       "cpu": [
-         "ppc64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -399,7 +398,6 @@
-       "cpu": [
-         "arm"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -416,7 +414,6 @@
-       "cpu": [
-         "arm64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -433,7 +430,6 @@
-       "cpu": [
-         "x64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -450,7 +446,6 @@
-       "cpu": [
-         "arm64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -467,7 +462,6 @@
-       "cpu": [
-         "x64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -484,7 +478,6 @@
-       "cpu": [
-         "arm64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -501,7 +494,6 @@
-       "cpu": [
-         "x64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -518,7 +510,6 @@
-       "cpu": [
-         "arm"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -535,7 +526,6 @@
-       "cpu": [
-         "arm64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -552,7 +542,6 @@
-       "cpu": [
-         "ia32"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -569,7 +558,6 @@
-       "cpu": [
-         "loong64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -586,7 +574,6 @@
-       "cpu": [
-         "mips64el"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -603,7 +590,6 @@
-       "cpu": [
-         "ppc64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -620,7 +606,6 @@
-       "cpu": [
-         "riscv64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -637,7 +622,6 @@
-       "cpu": [
-         "s390x"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -654,7 +638,6 @@
-       "cpu": [
-         "x64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -671,7 +654,6 @@
-       "cpu": [
-         "arm64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -688,7 +670,6 @@
-       "cpu": [
-         "x64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -705,7 +686,6 @@
-       "cpu": [
-         "arm64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -722,7 +702,6 @@
-       "cpu": [
-         "x64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -739,7 +718,6 @@
-       "cpu": [
-         "arm64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -756,7 +734,6 @@
-       "cpu": [
-         "x64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -773,7 +750,6 @@
-       "cpu": [
-         "arm64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -790,7 +766,6 @@
-       "cpu": [
-         "ia32"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -807,7 +782,6 @@
-       "cpu": [
-         "x64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -1555,7 +1529,7 @@
-       "version": "1.5.5",
-       "resolved": "https://registry.npmjs.org/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.5.5.tgz",
-       "integrity": "sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT"
-     },
-     "node_modules/@modelcontextprotocol/client": {
-@@ -2028,7 +2002,7 @@
-       "version": "1.61.1",
-       "resolved": "https://registry.npmjs.org/@playwright/test/-/test-1.61.1.tgz",
-       "integrity": "sha512-8nKv6+0RJSL9FE4jYOEGXnPeM/Hg12qZpmqzZjRh3qM0Y7c3z1mrOTfFLids72RDQYVh9WpLEfR5WdpNX4fkig==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "Apache-2.0",
-       "dependencies": {
-         "playwright": "1.61.1"
-@@ -2047,7 +2021,6 @@
-       "cpu": [
-         "arm"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -2061,7 +2034,6 @@
-       "cpu": [
-         "arm64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -2075,7 +2047,6 @@
-       "cpu": [
-         "arm64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -2089,7 +2060,6 @@
-       "cpu": [
-         "x64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -2103,7 +2073,6 @@
-       "cpu": [
-         "arm64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -2117,7 +2086,6 @@
-       "cpu": [
-         "x64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -2131,7 +2099,6 @@
-       "cpu": [
-         "arm"
-       ],
--      "dev": true,
-       "libc": [
-         "glibc"
-       ],
-@@ -2148,7 +2115,6 @@
-       "cpu": [
-         "arm"
-       ],
--      "dev": true,
-       "libc": [
-         "musl"
-       ],
-@@ -2165,7 +2131,6 @@
-       "cpu": [
-         "arm64"
-       ],
--      "dev": true,
-       "libc": [
-         "glibc"
-       ],
-@@ -2182,7 +2147,6 @@
-       "cpu": [
-         "arm64"
-       ],
--      "dev": true,
-       "libc": [
-         "musl"
-       ],
-@@ -2199,7 +2163,6 @@
-       "cpu": [
-         "loong64"
-       ],
--      "dev": true,
-       "libc": [
-         "glibc"
-       ],
-@@ -2216,7 +2179,6 @@
-       "cpu": [
-         "loong64"
-       ],
--      "dev": true,
-       "libc": [
-         "musl"
-       ],
-@@ -2233,7 +2195,6 @@
-       "cpu": [
-         "ppc64"
-       ],
--      "dev": true,
-       "libc": [
-         "glibc"
-       ],
-@@ -2250,7 +2211,6 @@
-       "cpu": [
-         "ppc64"
-       ],
--      "dev": true,
-       "libc": [
-         "musl"
-       ],
-@@ -2267,7 +2227,6 @@
-       "cpu": [
-         "riscv64"
-       ],
--      "dev": true,
-       "libc": [
-         "glibc"
-       ],
-@@ -2284,7 +2243,6 @@
-       "cpu": [
-         "riscv64"
-       ],
--      "dev": true,
-       "libc": [
-         "musl"
-       ],
-@@ -2301,7 +2259,6 @@
-       "cpu": [
-         "s390x"
-       ],
--      "dev": true,
-       "libc": [
-         "glibc"
-       ],
-@@ -2318,7 +2275,6 @@
-       "cpu": [
-         "x64"
-       ],
--      "dev": true,
-       "libc": [
-         "glibc"
-       ],
-@@ -2335,7 +2291,6 @@
-       "cpu": [
-         "x64"
-       ],
--      "dev": true,
-       "libc": [
-         "musl"
-       ],
-@@ -2352,7 +2307,6 @@
-       "cpu": [
-         "x64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -2366,7 +2320,6 @@
-       "cpu": [
-         "arm64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -2380,7 +2333,6 @@
-       "cpu": [
-         "arm64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -2394,7 +2346,6 @@
-       "cpu": [
-         "ia32"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -2408,7 +2359,6 @@
-       "cpu": [
-         "x64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -2422,7 +2372,6 @@
-       "cpu": [
-         "x64"
-       ],
--      "dev": true,
-       "license": "MIT",
-       "optional": true,
-       "os": [
-@@ -2569,7 +2518,7 @@
-       "version": "5.2.3",
-       "resolved": "https://registry.npmjs.org/@types/chai/-/chai-5.2.3.tgz",
-       "integrity": "sha512-Mw558oeA9fFbv65/y4mHtXDs9bPnFMZAL/jxdPFUpOHHIXX91mcgEHbS5Lahr+pwZFR8A7GQleRWeI6cGFC2UA==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "@types/deep-eql": "*",
-@@ -2580,14 +2529,14 @@
-       "version": "4.0.2",
-       "resolved": "https://registry.npmjs.org/@types/deep-eql/-/deep-eql-4.0.2.tgz",
-       "integrity": "sha512-c9h9dVVMigMPc4bwTvC5dxqtqJZwQPePsWjPlpSOnojbor6pGqdk541lfA7AqFQr5pB1BRdq0juY9db81BwyFw==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT"
-     },
-     "node_modules/@types/estree": {
-       "version": "1.0.9",
-       "resolved": "https://registry.npmjs.org/@types/estree/-/estree-1.0.9.tgz",
-       "integrity": "sha512-GhdPgy1el4/ImP05X05Uw4cw2/M93BCUmnEvWZNStlCzEKME4Fkk+YpoA5OiHNQmoS7Cafb8Xa3Pya8m1Qrzeg==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT"
-     },
-     "node_modules/@types/json-schema": {
-@@ -3294,7 +3243,7 @@
-       "version": "3.2.7",
-       "resolved": "https://registry.npmjs.org/@vitest/expect/-/expect-3.2.7.tgz",
-       "integrity": "sha512-E8eBXaKibuvH2pSZErOjdVb5vF4PbKYcrnluBTYxEk1l/VhhwZg1kZQsdtjq+CsF5CFydf2Rdkz7jDHKSisi3w==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "@types/chai": "^5.2.2",
-@@ -3311,7 +3260,7 @@
-       "version": "3.2.7",
-       "resolved": "https://registry.npmjs.org/@vitest/mocker/-/mocker-3.2.7.tgz",
-       "integrity": "sha512-Trr0hYO9CM3Wj6ksWHRhK9IZpIY6wTMO5u/MqXurMxT57sWBaOPEtP3Oq60ihZuh5JsiagKfz95OcxdEP6dBrA==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "@vitest/spy": "3.2.7",
-@@ -3338,7 +3287,7 @@
-       "version": "3.2.7",
-       "resolved": "https://registry.npmjs.org/@vitest/pretty-format/-/pretty-format-3.2.7.tgz",
-       "integrity": "sha512-KUHlwqVu0sRlhCdyPdQ/wBoTfRahjUky1MubOmYw9fWfIZy1gNoHpuaaQBPAaMaVYdQYHJLurzj8ECCj5OwTqA==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "tinyrainbow": "^2.0.0"
-@@ -3351,7 +3300,7 @@
-       "version": "3.2.7",
-       "resolved": "https://registry.npmjs.org/@vitest/runner/-/runner-3.2.7.tgz",
-       "integrity": "sha512-sB9y4ovltoQP+WaUPwmSxO9WIg9Ig694Di5PalVPsYHklAdE027mehpWF2SQSVq+k6sFgaivbTjTJwZLSHbedA==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "@vitest/utils": "3.2.7",
-@@ -3366,7 +3315,7 @@
-       "version": "3.2.7",
-       "resolved": "https://registry.npmjs.org/@vitest/snapshot/-/snapshot-3.2.7.tgz",
-       "integrity": "sha512-7C+MwShwtBSI5Buwoyg3s/iY1eHL9PKAf+O1wVh/TdnjXUtkoL/9YQtre90i4MtNXM6edP1wJ2zOBpfCyhIS7g==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "@vitest/pretty-format": "3.2.7",
-@@ -3381,7 +3330,7 @@
-       "version": "3.2.7",
-       "resolved": "https://registry.npmjs.org/@vitest/spy/-/spy-3.2.7.tgz",
-       "integrity": "sha512-Q2eQGI6d2L/hBtZ0qNuKcAGid68XK6cv1xsoaIma6PaJhHPoqcEJhYpXZ/5myCMqkNgtP6UKuBhbc0nHKnrkuQ==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "tinyspy": "^4.0.3"
-@@ -3394,7 +3343,7 @@
-       "version": "3.2.7",
-       "resolved": "https://registry.npmjs.org/@vitest/utils/-/utils-3.2.7.tgz",
-       "integrity": "sha512-x6BDOd7dyo3PFLY3I9/HJ25X/6OurhGXk2/B9gOZNPF7XDVjeBK4k01lQE5uvDpbuheErh91qYuE1E2OEjK3Rw==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "@vitest/pretty-format": "3.2.7",
-@@ -3432,7 +3381,7 @@
-       "version": "7.1.4",
-       "resolved": "https://registry.npmjs.org/agent-base/-/agent-base-7.1.4.tgz",
-       "integrity": "sha512-MnA+YT8fwfJPgBx3m60MNqakm30XOkyIoH1y6huTQvC0PwZG7ki8NacLBcrPbNoo8vEZy7Jpuk7+jMO+CUovTQ==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "engines": {
-         "node": ">= 14"
-@@ -3661,7 +3610,7 @@
-       "version": "2.0.1",
-       "resolved": "https://registry.npmjs.org/assertion-error/-/assertion-error-2.0.1.tgz",
-       "integrity": "sha512-Izi8RQcffqCeNVgFigKli1ssklIbpHnCYc6AknXGYoB6grJqyeby7jv12JUQgmTAnIDnbck1uxksT4dzN3PWBA==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "engines": {
-         "node": ">=12"
-@@ -3889,7 +3838,7 @@
-       "version": "6.7.14",
-       "resolved": "https://registry.npmjs.org/cac/-/cac-6.7.14.tgz",
-       "integrity": "sha512-b6Ilus+c3RrdDk+JhLKUAQfzzgLEPy6wcXqS7f/xe1EETvsDP6GORG7SFuOs6cID5YkqchW/LXZbX5bc8j7ZcQ==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "engines": {
-         "node": ">=8"
-@@ -3979,7 +3928,7 @@
-       "version": "5.3.3",
-       "resolved": "https://registry.npmjs.org/chai/-/chai-5.3.3.tgz",
-       "integrity": "sha512-4zNhdJD/iOjSH0A05ea+Ke6MU5mmpQcbQsSOkgdaUMJ9zTlDTD/GYlwohmIE2u0gaxHYiVHEn1Fw9mZ/ktJWgw==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "assertion-error": "^2.0.1",
-@@ -4013,7 +3962,7 @@
-       "version": "2.1.3",
-       "resolved": "https://registry.npmjs.org/check-error/-/check-error-2.1.3.tgz",
-       "integrity": "sha512-PAJdDJusoxnwm1VwW07VWwUN1sl7smmC3OKggvndJFadxxDRyFJBX/ggnu/KE4kQAB7a3Dp8f/YXC1FlUprWmA==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "engines": {
-         "node": ">= 16"
-@@ -4093,7 +4042,7 @@
-       "version": "4.6.0",
-       "resolved": "https://registry.npmjs.org/cssstyle/-/cssstyle-4.6.0.tgz",
-       "integrity": "sha512-2z+rWdzbbSZv6/rhtvzvqeZQHrBaqgogqt85sqFNbabZOuFbCVFb8kPeEtZjiKkbrm395irpNKiYeFeLiQnFPg==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "@asamuzakjp/css-color": "^3.2.0",
-@@ -4121,7 +4070,7 @@
-       "version": "5.0.0",
-       "resolved": "https://registry.npmjs.org/data-urls/-/data-urls-5.0.0.tgz",
-       "integrity": "sha512-ZYP5VBHshaDAiVZxjbRVcFJpc+4xGgT0bK3vzy1HLN8jTO975HEbuYzZJcHoQEY5K1a0z8YayJkyVETa08eNTg==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "whatwg-mimetype": "^4.0.0",
-@@ -4206,14 +4155,14 @@
-       "version": "10.6.0",
-       "resolved": "https://registry.npmjs.org/decimal.js/-/decimal.js-10.6.0.tgz",
-       "integrity": "sha512-YpgQiITW3JXGntzdUmyUR1V812Hn8T1YVXhCu+wO3OpS4eU9l4YdD3qjyiKdV6mvV29zapkMeD390UVEf2lkUg==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT"
-     },
-     "node_modules/deep-eql": {
-       "version": "5.0.2",
-       "resolved": "https://registry.npmjs.org/deep-eql/-/deep-eql-5.0.2.tgz",
-       "integrity": "sha512-h5k/5U50IJJFpzfL6nO9jaaumfjO/f2NjK/oYB2Djzm4p9L+3T9qWpZqZ2hAbLPuuYq9wrU08WQyBTL5GbPk5Q==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "engines": {
-         "node": ">=6"
-@@ -4334,7 +4283,7 @@
-       "version": "6.0.1",
-       "resolved": "https://registry.npmjs.org/entities/-/entities-6.0.1.tgz",
-       "integrity": "sha512-aN97NXWF6AWBTahfVOIrB/NShkzi5H7F9r1s9mD3cDj4Ko5f2qhhVoYMibXF7GlLveb/D2ioWay8lxI97Ven3g==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "BSD-2-Clause",
-       "engines": {
-         "node": ">=0.12"
-@@ -4483,7 +4432,7 @@
-       "version": "1.7.0",
-       "resolved": "https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-1.7.0.tgz",
-       "integrity": "sha512-jEQoCwk8hyb2AZziIOLhDqpm5+2ww5uIE6lkO/6jcOCusfk6LhMHpXXfBLXTZ7Ydyt0j4VoUQv6uGNYbdW+kBA==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT"
-     },
-     "node_modules/es-object-atoms": {
-@@ -4553,7 +4502,7 @@
-       "version": "0.28.1",
-       "resolved": "https://registry.npmjs.org/esbuild/-/esbuild-0.28.1.tgz",
-       "integrity": "sha512-HrJrvZv5ayxBzPfwphOoNzkzOIIlifzk0KJrGK2c8R4+LKpMtpYLQeUdjnwjWv/LZlkH2laZk+4w78pi99D4Vw==",
--      "dev": true,
-+      "devOptional": true,
-       "hasInstallScript": true,
-       "license": "MIT",
-       "bin": {
-@@ -5025,7 +4974,7 @@
-       "version": "3.0.3",
-       "resolved": "https://registry.npmjs.org/estree-walker/-/estree-walker-3.0.3.tgz",
-       "integrity": "sha512-7RUKfXgSMMkzt6ZuXmqapOurLGPPfgj6l9uRZ7lRGolvk0y2yocc35LdcxKC5PQZdn2DMqioAQ2NoWcrTKmm6g==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "@types/estree": "^1.0.0"
-@@ -5068,7 +5017,7 @@
-       "version": "1.4.0",
-       "resolved": "https://registry.npmjs.org/expect-type/-/expect-type-1.4.0.tgz",
-       "integrity": "sha512-KfYbmpRm0VbLjEvVa9yGwCi9GI34xvi7A/HXYWQO65CSD2u3MczUJSuwXKFIxlGsgBQizV9q5J9NHj4VG0n+pA==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "Apache-2.0",
-       "engines": {
-         "node": ">=12.0.0"
-@@ -5234,7 +5183,6 @@
-       "version": "2.3.2",
-       "resolved": "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz",
-       "integrity": "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==",
--      "dev": true,
-       "hasInstallScript": true,
-       "license": "MIT",
-       "optional": true,
-@@ -5597,7 +5545,7 @@
-       "version": "4.0.0",
-       "resolved": "https://registry.npmjs.org/html-encoding-sniffer/-/html-encoding-sniffer-4.0.0.tgz",
-       "integrity": "sha512-Y22oTqIU4uuPgEemfz7NDJz6OeKf12Lsu+QC+s3BVpda64lTiMYCyGwg5ki4vFxkMwQdeZDl2adZoqUgdFuTgQ==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "whatwg-encoding": "^3.1.1"
-@@ -5610,7 +5558,7 @@
-       "version": "7.0.2",
-       "resolved": "https://registry.npmjs.org/http-proxy-agent/-/http-proxy-agent-7.0.2.tgz",
-       "integrity": "sha512-T1gkAiYYDWYx3V5Bmyu7HcfcvL7mUrTWiM6yOfa3PIphViJ/gFPbvidQ+veqSOHci/PxBcDabeUNCzpOODJZig==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "agent-base": "^7.1.0",
-@@ -5624,7 +5572,7 @@
-       "version": "7.0.6",
-       "resolved": "https://registry.npmjs.org/https-proxy-agent/-/https-proxy-agent-7.0.6.tgz",
-       "integrity": "sha512-vK9P5/iUfdl95AI+JVyUuIcVtd4ofvtrOr3HNtM2yxC9bnMbEdp3x01OhQNnjb8IJYi38VlTE3mBXwcfvywuSw==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "agent-base": "^7.1.2",
-@@ -5638,7 +5586,7 @@
-       "version": "0.6.3",
-       "resolved": "https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.6.3.tgz",
-       "integrity": "sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "safer-buffer": ">= 2.1.2 < 3.0.0"
-@@ -5996,7 +5944,7 @@
-       "version": "1.0.1",
-       "resolved": "https://registry.npmjs.org/is-potential-custom-element-name/-/is-potential-custom-element-name-1.0.1.tgz",
-       "integrity": "sha512-bCYeRA2rVibKZd+s2625gGnGF/t7DSqDs4dP7CrLA1m7jKWz6pps0LpYLJN8Q64HtmPKJ1hrN3nzPNKFEKOUiQ==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT"
-     },
-     "node_modules/is-regex": {
-@@ -6235,7 +6183,7 @@
-       "version": "26.1.0",
-       "resolved": "https://registry.npmjs.org/jsdom/-/jsdom-26.1.0.tgz",
-       "integrity": "sha512-Cvc9WUhxSMEo4McES3P7oK3QaXldCfNWp7pl2NNeiIFlCoLr3kfq9kb1fxftiwk1FLV7CvpvDfonxtzUDeSOPg==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "cssstyle": "^4.2.1",
-@@ -6413,14 +6361,14 @@
-       "version": "3.2.1",
-       "resolved": "https://registry.npmjs.org/loupe/-/loupe-3.2.1.tgz",
-       "integrity": "sha512-CdzqowRJCeLU72bHvWqwRBBlLcMEtIvGrlvef74kMnV2AolS9Y8xUv1I0U/MNAWMhBlKIoyuEgoJ0t/bbwHbLQ==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT"
-     },
-     "node_modules/lru-cache": {
-       "version": "10.4.3",
-       "resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-10.4.3.tgz",
-       "integrity": "sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "ISC"
-     },
-     "node_modules/lz-string": {
-@@ -6437,7 +6385,7 @@
-       "version": "0.30.21",
-       "resolved": "https://registry.npmjs.org/magic-string/-/magic-string-0.30.21.tgz",
-       "integrity": "sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "@jridgewell/sourcemap-codec": "^1.5.5"
-@@ -6693,7 +6641,7 @@
-       "version": "2.2.24",
-       "resolved": "https://registry.npmjs.org/nwsapi/-/nwsapi-2.2.24.tgz",
-       "integrity": "sha512-7YRhZ3jS45LwmSCT4b2sVFHt/WuovaktDU07QrtOBY2PXskss5a9jfmR9jptyumwXST+rFjrmppMY1KT/yn35A==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT"
-     },
-     "node_modules/object-assign": {
-@@ -6941,7 +6889,7 @@
-       "version": "7.3.0",
-       "resolved": "https://registry.npmjs.org/parse5/-/parse5-7.3.0.tgz",
-       "integrity": "sha512-IInvU7fabl34qmi9gY8XOVxhYyMyuH2xUNpb2q8/Y+7552KlejkRvqvD19nMoUW/uQGGbqNpA6Tufu5FL5BZgw==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "entities": "^6.0.0"
-@@ -7008,14 +6956,14 @@
-       "version": "2.0.3",
-       "resolved": "https://registry.npmjs.org/pathe/-/pathe-2.0.3.tgz",
-       "integrity": "sha512-WUjGcAqP1gQacoQe+OBJsFA7Ld4DyXuUIjZ5cc75cLHvJ7dtNsTugphxIADwspS+AraAUePCKrSVtPLFj/F88w==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT"
-     },
-     "node_modules/pathval": {
-       "version": "2.0.1",
-       "resolved": "https://registry.npmjs.org/pathval/-/pathval-2.0.1.tgz",
-       "integrity": "sha512-//nshmD55c46FuFw26xV/xFAaB5HF9Xdap7HJBBnrKdAd6/GxDBaNA1870O79+9ueg61cZLSVc+OaFlfmObYVQ==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "engines": {
-         "node": ">= 14.16"
-@@ -7143,7 +7091,7 @@
-       "version": "1.61.1",
-       "resolved": "https://registry.npmjs.org/playwright/-/playwright-1.61.1.tgz",
-       "integrity": "sha512-DWnY5o3YbLWK4GovuAVwpqL+1VwGNdUGrRr++8j8PtQQzvAVZUIMjKQ90fY689sEJZJBbZVw1rXaOKSTitkzPQ==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "Apache-2.0",
-       "dependencies": {
-         "playwright-core": "1.61.1"
-@@ -7162,7 +7110,7 @@
-       "version": "1.61.1",
-       "resolved": "https://registry.npmjs.org/playwright-core/-/playwright-core-1.61.1.tgz",
-       "integrity": "sha512-h7Qlt6m4REp25qvIdvbDtVmD4LqVXfpRxhORv9L0jzETM05p4fuPJ3dKyuSXQxDSbXnmS79HAgi9589lGSpLkg==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "Apache-2.0",
-       "bin": {
-         "playwright-core": "cli.js"
-@@ -7490,7 +7438,7 @@
-       "version": "4.62.2",
-       "resolved": "https://registry.npmjs.org/rollup/-/rollup-4.62.2.tgz",
-       "integrity": "sha512-RFnrW4lhXA3s3eqHDZvN654g8OTjzRfqpIRJYczCGB6HzphckVAi/Qh4tbPUbRuDi7s1Llv8g/NspLkttY3gTA==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "@types/estree": "1.0.9"
-@@ -7541,7 +7489,7 @@
-       "version": "0.8.0",
-       "resolved": "https://registry.npmjs.org/rrweb-cssom/-/rrweb-cssom-0.8.0.tgz",
-       "integrity": "sha512-guoltQEx+9aMf2gDZ0s62EcV8lsXR+0w8915TC3ITdn2YueuNjdAYh/levpU9nFaoChh9RUS5ZdQMrKfVEN9tw==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT"
-     },
-     "node_modules/run-parallel": {
-@@ -7627,14 +7575,14 @@
-       "version": "2.1.2",
-       "resolved": "https://registry.npmjs.org/safer-buffer/-/safer-buffer-2.1.2.tgz",
-       "integrity": "sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT"
-     },
-     "node_modules/saxes": {
-       "version": "6.0.0",
-       "resolved": "https://registry.npmjs.org/saxes/-/saxes-6.0.0.tgz",
-       "integrity": "sha512-xAg7SOnEhrm5zI3puOOKyy1OMcMlIJZYNJY7xLBwSze0UjhPLnWfj2GF2EpT0jmzaJKIWKHLsaSSajf35bcYnA==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "ISC",
-       "dependencies": {
-         "xmlchars": "^2.2.0"
-@@ -7865,7 +7813,7 @@
-       "version": "2.0.0",
-       "resolved": "https://registry.npmjs.org/siginfo/-/siginfo-2.0.0.tgz",
-       "integrity": "sha512-ybx0WO1/8bSBLEWXZvEd7gMW3Sn3JFlW3TvX1nREbDLRNQNaeNN8WK0meBwPdAaOI7TtRRRJn/Es1zhrrCHu7g==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "ISC"
-     },
-     "node_modules/signal-exit": {
-@@ -7910,14 +7858,14 @@
-       "version": "0.0.2",
-       "resolved": "https://registry.npmjs.org/stackback/-/stackback-0.0.2.tgz",
-       "integrity": "sha512-1XMJE5fQo1jGH6Y/7ebnwPOBEkIEnT4QF32d5R1+VXdXveM0IBMJt8zfaxX1P3QhVwrYe+576+jkANtSS2mBbw==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT"
-     },
-     "node_modules/std-env": {
-       "version": "3.10.0",
-       "resolved": "https://registry.npmjs.org/std-env/-/std-env-3.10.0.tgz",
-       "integrity": "sha512-5GS12FdOZNliM5mAOxFRg7Ir0pWz8MdpYm6AY6VPkGpbA7ZzmbzNcBJQ0GPvvyWgcY7QAhCgf9Uy89I03faLkg==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT"
-     },
-     "node_modules/stop-iteration-iterator": {
-@@ -8123,7 +8071,7 @@
-       "version": "3.1.0",
-       "resolved": "https://registry.npmjs.org/strip-literal/-/strip-literal-3.1.0.tgz",
-       "integrity": "sha512-8r3mkIM/2+PpjHoOtiAW8Rg3jJLHaV7xPwG+YRGrv6FP0wwk/toTpATxWYOW0BKdWwl82VT2tFYi5DlROa0Mxg==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "js-tokens": "^9.0.1"
-@@ -8136,7 +8084,7 @@
-       "version": "9.0.1",
-       "resolved": "https://registry.npmjs.org/js-tokens/-/js-tokens-9.0.1.tgz",
-       "integrity": "sha512-mxa9E9ITFOt0ban3j6L5MpjwegGz6lBQmM1IJkWeBZGcMxto50+eWdjC/52xDbS2vy0k7vIMK0Fe2wfL9OQSpQ==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT"
-     },
-     "node_modules/styled-jsx": {
-@@ -8192,28 +8140,28 @@
-       "version": "3.2.4",
-       "resolved": "https://registry.npmjs.org/symbol-tree/-/symbol-tree-3.2.4.tgz",
-       "integrity": "sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT"
-     },
-     "node_modules/tinybench": {
-       "version": "2.9.0",
-       "resolved": "https://registry.npmjs.org/tinybench/-/tinybench-2.9.0.tgz",
-       "integrity": "sha512-0+DUvqWMValLmha6lr4kD8iAMK1HzV0/aKnCtWb9v9641TnP/MFb7Pc2bxoxQjTXAErryXVgUOfv2YqNllqGeg==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT"
-     },
-     "node_modules/tinyexec": {
-       "version": "0.3.2",
-       "resolved": "https://registry.npmjs.org/tinyexec/-/tinyexec-0.3.2.tgz",
-       "integrity": "sha512-KQQR9yN7R5+OSwaK0XQoj22pwHoTlgYqmUscPYoknOoWCWfj/5/ABTMRi69FrKU5ffPVh5QcFikpWJI/P1ocHA==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT"
-     },
-     "node_modules/tinyglobby": {
-       "version": "0.2.17",
-       "resolved": "https://registry.npmjs.org/tinyglobby/-/tinyglobby-0.2.17.tgz",
-       "integrity": "sha512-wXR/dYpcqKmfWpEdZjiKJOwCNFndD0DMnrW/cYjVGttEkBfVgcLFHoNrlj47mjOVic9yyNu65alsgF4NQyTa2g==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "fdir": "^6.5.0",
-@@ -8230,7 +8178,7 @@
-       "version": "6.5.0",
-       "resolved": "https://registry.npmjs.org/fdir/-/fdir-6.5.0.tgz",
-       "integrity": "sha512-tIbYtZbucOs0BRGqPJkshJUYdL+SDH7dVM8gjy+ERp3WAUjLEFJE+02kanyHtwjWOnwrKYBiwAmM0p4kLJAnXg==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "engines": {
-         "node": ">=12.0.0"
-@@ -8248,7 +8196,7 @@
-       "version": "4.0.5",
-       "resolved": "https://registry.npmjs.org/picomatch/-/picomatch-4.0.5.tgz",
-       "integrity": "sha512-RvwwcruNjI1ncT5xRakeyS9Lf8lcItv34KD+aif+VH9kduAyfYBipGh12274xtenIPZ119/R9BdTBa8gAwSh0A==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "engines": {
-         "node": ">=12"
-@@ -8261,7 +8209,7 @@
-       "version": "1.1.1",
-       "resolved": "https://registry.npmjs.org/tinypool/-/tinypool-1.1.1.tgz",
-       "integrity": "sha512-Zba82s87IFq9A9XmjiX5uZA/ARWDrB03OHlq+Vw1fSdt0I+4/Kutwy8BP4Y/y/aORMo61FQ0vIb5j44vSo5Pkg==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "engines": {
-         "node": "^18.0.0 || >=20.0.0"
-@@ -8271,7 +8219,7 @@
-       "version": "2.0.0",
-       "resolved": "https://registry.npmjs.org/tinyrainbow/-/tinyrainbow-2.0.0.tgz",
-       "integrity": "sha512-op4nsTR47R6p0vMUUoYl/a+ljLFVtlfaXkLQmqfLR1qHma1h/ysYk4hEXZ880bf2CYgTskvTa/e196Vd5dDQXw==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "engines": {
-         "node": ">=14.0.0"
-@@ -8281,7 +8229,7 @@
-       "version": "4.0.4",
-       "resolved": "https://registry.npmjs.org/tinyspy/-/tinyspy-4.0.4.tgz",
-       "integrity": "sha512-azl+t0z7pw/z958Gy9svOTuzqIk6xq+NSheJzn5MMWtWTFywIacg2wUlzKFGtt3cthx0r2SxMK0yzJOR0IES7Q==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "engines": {
-         "node": ">=14.0.0"
-@@ -8291,7 +8239,7 @@
-       "version": "6.1.86",
-       "resolved": "https://registry.npmjs.org/tldts/-/tldts-6.1.86.tgz",
-       "integrity": "sha512-WMi/OQ2axVTf/ykqCQgXiIct+mSQDFdH2fkwhPwgEwvJ1kSzZRiinb0zF2Xb8u4+OqPChmyI6MEu4EezNJz+FQ==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "tldts-core": "^6.1.86"
-@@ -8304,7 +8252,7 @@
-       "version": "6.1.86",
-       "resolved": "https://registry.npmjs.org/tldts-core/-/tldts-core-6.1.86.tgz",
-       "integrity": "sha512-Je6p7pkk+KMzMv2XXKmAE3McmolOQFdxkKw0R8EYNr7sELW46JqnNeTX8ybPiQgvg1ymCoF8LXs5fzFaZvJPTA==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT"
-     },
-     "node_modules/to-regex-range": {
-@@ -8324,7 +8272,7 @@
-       "version": "5.1.2",
-       "resolved": "https://registry.npmjs.org/tough-cookie/-/tough-cookie-5.1.2.tgz",
-       "integrity": "sha512-FVDYdxtnj0G6Qm/DhNPSb8Ju59ULcup3tuJxkFb5K8Bv2pUXILbf0xZWU8PX8Ov19OXljbUyveOFwRMwkXzO+A==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "BSD-3-Clause",
-       "dependencies": {
-         "tldts": "^6.1.32"
-@@ -8337,7 +8285,7 @@
-       "version": "5.1.1",
-       "resolved": "https://registry.npmjs.org/tr46/-/tr46-5.1.1.tgz",
-       "integrity": "sha512-hdF5ZgjTqgAntKkklYw0R03MG2x/bSzTtkxmIRw/sTNV8YXsCJ1tfLAX23lhxhHJlEf3CRCOCGGWw3vI3GaSPw==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "punycode": "^2.3.1"
-@@ -8382,7 +8330,7 @@
-       "version": "4.23.11",
-       "resolved": "https://registry.npmjs.org/tsx/-/tsx-4.23.11.tgz",
-       "integrity": "sha512-Ry2oTEUnhBdeEdWIztY8kf3/nBGnPnjMLVGL0YfdRXMORuPER5NlKmayqxtxRxwB1xBN+RivRaJfe7PM1rtiyw==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "esbuild": "~0.28.0"
-@@ -8401,7 +8349,6 @@
-       "version": "2.3.3",
-       "resolved": "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz",
-       "integrity": "sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==",
--      "dev": true,
-       "hasInstallScript": true,
-       "license": "MIT",
-       "optional": true,
-@@ -8593,7 +8540,7 @@
-       "version": "7.3.6",
-       "resolved": "https://registry.npmjs.org/vite/-/vite-7.3.6.tgz",
-       "integrity": "sha512-4XP60spRGjSZFf1qYH+dJIkK2znL3zQfl9KkOV9MkkRR/3Dls0dxaBsQPTloEc5BLXWPL9vsOxopxyKoMmDueg==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "esbuild": "^0.27.0 || ^0.28.0",
-@@ -8668,7 +8615,7 @@
-       "version": "3.2.4",
-       "resolved": "https://registry.npmjs.org/vite-node/-/vite-node-3.2.4.tgz",
-       "integrity": "sha512-EbKSKh+bh1E1IFxeO0pg1n4dvoOTt0UDiXMd/qn++r98+jPO1xtJilvXldeuQ8giIB5IkpjCgMleHMNEsGH6pg==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "cac": "^6.7.14",
-@@ -8691,7 +8638,7 @@
-       "version": "6.5.0",
-       "resolved": "https://registry.npmjs.org/fdir/-/fdir-6.5.0.tgz",
-       "integrity": "sha512-tIbYtZbucOs0BRGqPJkshJUYdL+SDH7dVM8gjy+ERp3WAUjLEFJE+02kanyHtwjWOnwrKYBiwAmM0p4kLJAnXg==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "engines": {
-         "node": ">=12.0.0"
-@@ -8709,7 +8656,6 @@
-       "version": "2.3.3",
-       "resolved": "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz",
-       "integrity": "sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==",
--      "dev": true,
-       "hasInstallScript": true,
-       "license": "MIT",
-       "optional": true,
-@@ -8724,7 +8670,7 @@
-       "version": "4.0.5",
-       "resolved": "https://registry.npmjs.org/picomatch/-/picomatch-4.0.5.tgz",
-       "integrity": "sha512-RvwwcruNjI1ncT5xRakeyS9Lf8lcItv34KD+aif+VH9kduAyfYBipGh12274xtenIPZ119/R9BdTBa8gAwSh0A==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "engines": {
-         "node": ">=12"
-@@ -8737,7 +8683,7 @@
-       "version": "8.5.19",
-       "resolved": "https://registry.npmjs.org/postcss/-/postcss-8.5.19.tgz",
-       "integrity": "sha512-Mz8SaolMd8nB+G13WkORcxQKHZ/NE4xXevtkJHVuG+guo9/wYKlIMTKAqGdEmYOXR2ijPjTYNHssizdaVSUNdQ==",
--      "dev": true,
-+      "devOptional": true,
-       "funding": [
-         {
-           "type": "opencollective",
-@@ -8766,7 +8712,7 @@
-       "version": "3.2.7",
-       "resolved": "https://registry.npmjs.org/vitest/-/vitest-3.2.7.tgz",
-       "integrity": "sha512-KrxIJ62Fd89gfysR4WotlgZABiz2dqFPgqGzX7s+CwsqLFomRH7777ZcrOD6+WVAh7khPQP41A+BKbpcJFrdEg==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "@types/chai": "^5.2.2",
-@@ -8839,7 +8785,7 @@
-       "version": "4.0.5",
-       "resolved": "https://registry.npmjs.org/picomatch/-/picomatch-4.0.5.tgz",
-       "integrity": "sha512-RvwwcruNjI1ncT5xRakeyS9Lf8lcItv34KD+aif+VH9kduAyfYBipGh12274xtenIPZ119/R9BdTBa8gAwSh0A==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "engines": {
-         "node": ">=12"
-@@ -8852,7 +8798,7 @@
-       "version": "5.0.0",
-       "resolved": "https://registry.npmjs.org/w3c-xmlserializer/-/w3c-xmlserializer-5.0.0.tgz",
-       "integrity": "sha512-o8qghlI8NZHU1lLPrpi2+Uq7abh4GGPpYANlalzWxyWteJOCsr/P+oPBA49TOLu5FTZO4d3F9MnWJfiMo4BkmA==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "xml-name-validator": "^5.0.0"
-@@ -8865,7 +8811,7 @@
-       "version": "7.0.0",
-       "resolved": "https://registry.npmjs.org/webidl-conversions/-/webidl-conversions-7.0.0.tgz",
-       "integrity": "sha512-VwddBukDzu71offAQR975unBIGqfKZpM+8ZX6ySk8nYhVoo5CYaZyzt3YBvYtRtO+aoGlqxPg/B87NGVZ/fu6g==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "BSD-2-Clause",
-       "engines": {
-         "node": ">=12"
-@@ -8876,7 +8822,7 @@
-       "resolved": "https://registry.npmjs.org/whatwg-encoding/-/whatwg-encoding-3.1.1.tgz",
-       "integrity": "sha512-6qN4hJdMwfYBtE3YBTTHhoeuUrDBPZmbQaxWAqSALV/MeEnR5z1xd8UKud2RAkFoPkmB+hli1TZSnyi84xz1vQ==",
-       "deprecated": "Use @exodus/bytes instead for a more spec-conformant and faster implementation",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "iconv-lite": "0.6.3"
-@@ -8889,7 +8835,7 @@
-       "version": "4.0.0",
-       "resolved": "https://registry.npmjs.org/whatwg-mimetype/-/whatwg-mimetype-4.0.0.tgz",
-       "integrity": "sha512-QaKxh0eNIi2mE9p2vEdzfagOKHCcj1pJ56EEHGQOVxp8r9/iszLUUV7v89x9O1p/T+NlTM5W7jW6+cz4Fq1YVg==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "engines": {
-         "node": ">=18"
-@@ -8899,7 +8845,7 @@
-       "version": "14.2.0",
-       "resolved": "https://registry.npmjs.org/whatwg-url/-/whatwg-url-14.2.0.tgz",
-       "integrity": "sha512-De72GdQZzNTUBBChsXueQUnPKDkg/5A5zp7pFDuQAj5UFoENpiACU0wlCvzpAGnTkj++ihpKwKyYewn/XNUbKw==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "tr46": "^5.1.0",
-@@ -9018,7 +8964,7 @@
-       "version": "2.3.0",
-       "resolved": "https://registry.npmjs.org/why-is-node-running/-/why-is-node-running-2.3.0.tgz",
-       "integrity": "sha512-hUrmaWBdVDcxvYqnyh09zunKzROWjbZTiNy8dBEjkS7ehEDQibXJ7XvlmtbwuTclUiIyN+CyXQD4Vmko8fNm8w==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT",
-       "dependencies": {
-         "siginfo": "^2.0.0",
-@@ -9084,7 +9030,7 @@
-       "version": "5.0.0",
-       "resolved": "https://registry.npmjs.org/xml-name-validator/-/xml-name-validator-5.0.0.tgz",
-       "integrity": "sha512-EvGK8EJ3DhaHfbRlETOWAS5pO9MZITeauHKJyb8wyajUfQUenkIg2MvLDTZ4T/TgIcm3HU0TFBgWWboAZ30UHg==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "Apache-2.0",
-       "engines": {
-         "node": ">=18"
-@@ -9094,7 +9040,7 @@
-       "version": "2.2.0",
-       "resolved": "https://registry.npmjs.org/xmlchars/-/xmlchars-2.2.0.tgz",
-       "integrity": "sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==",
--      "dev": true,
-+      "devOptional": true,
-       "license": "MIT"
-     },
-     "node_modules/xtend": {
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index fbdb6ef0..c4eeb9c5 100644
+index fbdb6ef0..7f59dfa1 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 +++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 @@ -4,7 +4,8 @@
@@ -3377,7 +2098,7 @@ index fbdb6ef0..c4eeb9c5 100644
  | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
  | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
 -| **Timestamp maintenance PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01** | 2026-09-18 05:15:00 CEST (+0200) — **PRODUCT JOURNEY E2E REAL RECONCILIATION INTEGRATION** · Cycle **15** · Capitalisation / REX + intégration Git · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01** · parent campagne **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01** · baseline pré-intégration `origin/main` `26478b1ea5b010c625f0c6039c969fac5c135cf5` · branche `qa/sfia-studio-product-journey-e2e-real-reconciliation-01` · checkpoints **R1–R12** consolidés · Product fixes **R1/R3/R4/R6/R7/R8/R10** = intégration candidate this PR · Attempt 1 FAIL · Attempt 2 FAIL Authentication required · Attempt 3 Cursor REAL **technical SUCCESS** · bounded docs_write filesystem effect + Artifact Evidence **PROVEN** in M4 isolated WT · Product Result remains **UNCLAIMED** · blocker = **ContractResult extensibility / Evidence wiring** (`no_applicable_contract_result_rule` for `cursor.docs_write.apply`) · capitalisation `projects/sfia-studio/convergence/product-journey-e2e-real-reconciliation-01-capitalization.md` · **ZERO REAL** this integration macro · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **≠** Product Journey E2E READY / COMPLETE · **≠** ContractResult docs_write PASS · **≠** runtime v3 ADOPTED · next after integration verified = **R13 — Contract Result extensibility framing — ZERO REAL** · **NOT STARTED / NOT AUTHORIZED** by this tip · repository lifecycle = **RESOLVE FROM GIT / PR evidence** |
-+| **Timestamp maintenance CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01** | 2026-09-18 08:15:00 CEST (+0200) — **CONTRACT RESULT EXTENSIBILITY IMPLEMENTATION** · Cycle Delivery/architecture implementation · EVOL · CRITICAL · Macro **CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01** · parent R13 framing **ADOPTED BY MORRIS** (Result Semantics Registry · server-owned static · frozen RB multi-Evidence AND · explicit CE supersession · A+B one ZERO-REAL macro) · baseline `origin/main` `bb6af3cabef663bd8619b85326dbc205057b7c7d` · branche locale `feat/sfia-studio-contract-result-extensibility-01` · **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** · temp-artifact registry entry #1 preserved · docs_write second semantic proven · Attempt 3 ZERO-REAL requalification **PASS** (`clm:docs-write:xat:w3a:c4c5670edb4658cc` supersedes `clm:w3b:b62e7e34320e78ea` immutable `not_proven`) · success-path REAL provenance adapt (`processDiagnostic` on RecordExecutionResult) · **ZERO REAL** · runtime v3 = **NON ADOPTED** · **≠** Product Journey READY/COMPLETE · **≠** generic CR all effect classes · **≠** Git/PR/CI semantics · next = ChatGPT Critical Review → Morris Git-integration gate · push/PR/merge **NOT AUTHORIZED** by this tip |
++| **Timestamp maintenance CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01** | 2026-09-18 08:35:00 CEST (+0200) — **CONTRACT RESULT EXTENSIBILITY IMPLEMENTATION — CRITICAL REVIEW CORRECTION** · Cycle Delivery/architecture · EVOL · CRITICAL · Macro **CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01** · ChatGPT CR-BLK-01/02/03 **CLOSED** · baseline `origin/main` `bb6af3cabef663bd8619b85326dbc205057b7c7d` · branche `feat/sfia-studio-contract-result-extensibility-01` · **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** · CE resolver fail-closed on ambiguity · docs_write EO strict (no free-form PASS) · supersession chain/bindings hardened · Attempt 3 current CE `clm:docs-write:strict-eo-v1:xat:w3a:c4c5670edb4658cc` **not_proven** (bound free-form EO / conformité gap) · Attempts **3→3** · **ZERO REAL** · runtime v3 = **NON ADOPTED** · **≠** Product Journey READY · **≠** Attempt 3 Product PASS · next = ChatGPT final PR-readiness review → Morris Git-integration gate · push/PR/merge **NOT AUTHORIZED** by this tip |
 +| **Timestamp maintenance historique PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 (pre-CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01)** | *(tip superseded by CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-18 05:15:00 CEST (+0200) — **PRODUCT JOURNEY E2E REAL RECONCILIATION INTEGRATION** · Cycle **15** · Capitalisation / REX + intégration Git · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01** · parent campagne **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01** · baseline pré-intégration `origin/main` `26478b1ea5b010c625f0c6039c969fac5c135cf5` · branche `qa/sfia-studio-product-journey-e2e-real-reconciliation-01` · checkpoints **R1–R12** consolidés · Product fixes **R1/R3/R4/R6/R7/R8/R10** = intégration candidate this PR · Attempt 1 FAIL · Attempt 2 FAIL Authentication required · Attempt 3 Cursor REAL **technical SUCCESS** · bounded docs_write filesystem effect + Artifact Evidence **PROVEN** in M4 isolated WT · Product Result remains **UNCLAIMED** · blocker = **ContractResult extensibility / Evidence wiring** (`no_applicable_contract_result_rule` for `cursor.docs_write.apply`) · capitalisation `projects/sfia-studio/convergence/product-journey-e2e-real-reconciliation-01-capitalization.md` · **ZERO REAL** this integration macro · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **≠** Product Journey E2E READY / COMPLETE · **≠** ContractResult docs_write PASS · **≠** runtime v3 ADOPTED · next after integration verified = **R13 — Contract Result extensibility framing — ZERO REAL** · **NOT STARTED / NOT AUTHORIZED** by this tip · repository lifecycle = **RESOLVE FROM GIT / PR evidence** |
  | **Timestamp maintenance historique PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01 (pre-PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01)** | *(tip superseded by PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-17 18:25:36 CEST (+0200) — **PRODUCT DOCS_WRITE REAL PASS POST-MERGE TRUTH-SYNC** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Macro **PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01** · parent macro **PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01** · GO Morris post-merge documentary truth-sync #499 **CONSUMED** (local docs + commit only) · PR **#499 MERGED** `docs(sfia-studio): capitalize Product docs-write REAL proof` · head `9981483f8c158bec07364e14e626cdf2c3fd1e34` · merge `3907177f7788d23d640c5bdcd1cee8e01615762f` · parents `b739ddd3826ea4df640e3f34f97a966d85f8d214` + `9981483f8c158bec07364e14e626cdf2c3fd1e34` · capitalisation = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · pre-merge CI **`35236024162` SUCCESS** · Required Gate **PASS** · post-merge CI **`35245046244` SUCCESS** · Required Gate **PASS** · `headSha=3907177f7788d23d640c5bdcd1cee8e01615762f` · merge lifecycle #499 = **COMPLETED / CONSUMED** · post-merge verification = **PASS** · claim **AUTHENTICATED PRODUCT DOCS_WRITE REAL PROVEN AT TESTED HISTORICAL PROJECT SCOPE** · **ZERO REAL** · Product code **UNCHANGED** · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** **PRESERVED** · next Product capability candidate = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN** · **NOT STARTED / NOT AUTHORIZED** by this truth-sync · this documentary truth-sync = **LOCAL CANDIDATE** · Review Handoff publication **PENDING** (distinct Morris remote push gate) · push/PR/merge of this truth-sync = **DISTINCT Morris gates** · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / origin/main / PR evidence** · **≠** E2E FULL REAL PROVEN · **≠** Product Journey complete to Nora replanning · **≠** docs_write generalized · **≠** Cursor autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new REAL authorization · **≠** PRODUCT-JOURNEY-POST-EXECUTION-REPLAN started · **≠** push/PR/merge authorized by proof |
  | **Timestamp maintenance historique PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01 (pre-PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01)** | *(tip superseded by PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-17 16:15:39 CEST (+0200) — **PRODUCT DOCS_WRITE REAL PASS CAPITALISATION** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Macro **PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01** · GO capitalisation locale **CONSUMED** · GO Review Handoff + push + PR **CONSUMED** · remédiation gouvernance PR499 in-cycle · Product PR **#498 MERGED** `fix(sfia-studio): close docs-write REAL path and completion` · merge/main `b739ddd3826ea4df640e3f34f97a966d85f8d214` · post-merge CI **`35215299343` SUCCESS** · Required Gate **PASS** · Fresh Authenticated Product Reproof09 REAL = **PASS** · claim **AUTHENTICATED PRODUCT DOCS_WRITE REAL PROVEN AT TESTED HISTORICAL PROJECT SCOPE** · 1 Product Execute / 1 Cursor REAL spawn / 0 retry · exact target `projects/sfia-studio/.sandbox/gestion-de-taches.md` **PASS** · Attempt terminal **`succeeded`** **PASS** · Evidence/ReviewBundle **PASS** · restart/no-relaunch **PASS** · capitalisation asset `projects/sfia-studio/convergence/sfia-studio-product-docs-write-real-pass-capitalisation.md` = **CANDIDATE PR #499 / remote branch / pending merge** · PR **#499** `docs(sfia-studio): capitalize Product docs-write REAL proof` · base `main` @ `b739ddd3826ea4df640e3f34f97a966d85f8d214` · pre-remediation head `f0b7c414394e2bb51ae93ec159027682d0bdc1c4` · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** **PRESERVED** · next Product capability candidate = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN** · **NOT STARTED / NOT AUTHORIZED** by this capitalisation · **ZERO REAL** this DOC cycle · Product code **unchanged** · Review Handoff = **PUBLISHED / REMOTE VERIFIED** · pre-remediation handoff `2bd065dfc15ff5577ef83f78feebd05c5738d231` · remediation handoff republish-in-cycle for new HEAD · GO push/PR = **CONSUMED** · PR **#499 OPEN** · merge = **DISTINCT PENDING Morris gate** · **≠** E2E FULL REAL PROVEN · **≠** Product Journey complete to Nora replanning · **≠** docs_write generalized · **≠** Cursor autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new REAL authorization · **≠** push/PR/merge authorized by proof |
@@ -3387,8 +2108,7 @@ index fbdb6ef0..c4eeb9c5 100644
 
 ---
 
-## W. FULL CONTENT — new / untracked Product + framing files
-
+## K. FULL CONTENT — new / untracked files
 ```
 ===== FILE: projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultSemantics.ts =====
 /**
@@ -3711,14 +2431,32 @@ export const BOUNDED_DOCS_WRITE_EO_TEMPLATE =
 export const DOCS_WRITE_ARTIFACT_EVIDENCE_SOURCE =
   "execution_attempt:docs_write" as const;
 
+/**
+ * Correction identity for re-evaluation after semantic rule change.
+ * Must never overwrite prior CE ids (`clm:docs-write:{attempt}` / W3-B).
+ */
+export const DOCS_WRITE_STRICT_EO_CORRECTION_REF = "strict-eo-v1" as const;
+
 /** Identity helpers for docs-write Contract Result ClaimEvaluations. */
-export function docsWriteContractResultIdentity(attemptId: string): {
+export function docsWriteContractResultIdentity(
+  attemptId: string,
+  options?: { readonly correctionRef?: string },
+): {
   claimEvaluationId: string;
   claimEvaluationIdempotencyKey: string;
   evidenceId: string;
   reviewBundleId: string;
 } {
   const segment = attemptId.replace(/[^a-zA-Z0-9:_-]/g, "");
+  const correction = options?.correctionRef?.replace(/[^a-zA-Z0-9:_-]/g, "");
+  if (correction) {
+    return {
+      claimEvaluationId: `clm:docs-write:${correction}:${segment}`.slice(0, 128),
+      claimEvaluationIdempotencyKey: `idem:docs-write-ce:${correction}:${attemptId}`,
+      evidenceId: `ev:docs-write:${segment}`.slice(0, 128),
+      reviewBundleId: `rb:docs-write:${segment}`.slice(0, 128),
+    };
+  }
   return {
     claimEvaluationId: `clm:docs-write:${segment}`.slice(0, 128),
     claimEvaluationIdempotencyKey: `idem:docs-write-ce:${attemptId}`,
@@ -3730,21 +2468,39 @@ export function docsWriteContractResultIdentity(attemptId: string): {
 export function docsWriteArtifactFactsHold(input: {
   attempt: ExecutionAttemptSnapshot;
   evidence: Evidence;
-  material: { executionContractId?: string };
+  material: {
+    executionContractId?: string;
+    projectId?: string;
+    cycleInstanceId?: string;
+  };
 }): boolean {
   const { attempt, evidence, material } = input;
   if (attempt.status !== "succeeded") return false;
   if (evidence.type !== "artifact") return false;
   if (evidence.source !== DOCS_WRITE_ARTIFACT_EVIDENCE_SOURCE) return false;
   if (evidence.bindings.executionAttemptId !== attempt.attemptId) return false;
+
+  // Fail-closed: executionContractId must be present and exact — never "valid by absence".
   const contractId =
     material.executionContractId ?? attempt.executionContractId;
+  if (!evidence.bindings.executionContractId) return false;
+  if (evidence.bindings.executionContractId !== contractId) return false;
+
+  const projectId = material.projectId;
+  if (projectId) {
+    if (!evidence.bindings.projectId) return false;
+    if (evidence.bindings.projectId !== projectId) return false;
+  }
+
+  const cycleId = material.cycleInstanceId;
   if (
-    evidence.bindings.executionContractId &&
-    evidence.bindings.executionContractId !== contractId
+    cycleId &&
+    evidence.bindings.cycleInstanceId &&
+    evidence.bindings.cycleInstanceId !== cycleId
   ) {
     return false;
   }
+
   if (!evidence.digest) return false;
   if (!evidence.location?.trim()) return false;
   return true;
@@ -3761,7 +2517,11 @@ export function isDocsWriteContractResultEvidenceUsable(input: {
 function pickDocsWriteArtifactEvidence(
   evidences: readonly Evidence[],
   attempt: ExecutionAttemptSnapshot,
-  material: { executionContractId?: string },
+  material: {
+    executionContractId?: string;
+    projectId?: string;
+    cycleInstanceId?: string;
+  },
 ): Evidence | undefined {
   const matches = evidences.filter((e) =>
     docsWriteArtifactFactsHold({ attempt, evidence: e, material }),
@@ -3769,6 +2529,19 @@ function pickDocsWriteArtifactEvidence(
   return matches.length === 1 ? matches[0] : undefined;
 }
 
+function isPathShapedExpectedOutput(expectation: string): boolean {
+  return (
+    expectation.includes("/") ||
+    /\.(md|txt|json|ya?ml|ts|tsx|js|jsx)$/i.test(expectation)
+  );
+}
+
+/**
+ * docs_write EO PASS only for deterministic forms:
+ * 1) exact canonical bounded EO template;
+ * 2) path-shaped EO that exactly equals durable Artifact Evidence.location.
+ * Unknown / free-form prose → NOT_PROVEN (no NLP, no fuzzy PASS).
+ */
 export function assessDocsWriteExpectedOutput(input: {
   expectation: string;
   ordinal: number;
@@ -3776,6 +2549,8 @@ export function assessDocsWriteExpectedOutput(input: {
   evidence: Evidence;
   material: {
     executionContractId?: string;
+    projectId?: string;
+    cycleInstanceId?: string;
     inputs?: Record<string, unknown>;
   };
 }): "PASS" | "NOT_PROVEN" | "FAIL" {
@@ -3792,32 +2567,15 @@ export function assessDocsWriteExpectedOutput(input: {
     return "NOT_PROVEN";
   }
   const location = input.evidence.location?.trim() ?? "";
-  const targetPath =
-    typeof input.material.inputs?.targetPath === "string"
-      ? input.material.inputs.targetPath.trim()
-      : "";
   const expectation = input.expectation.trim();
   if (!expectation) return "NOT_PROVEN";
-  // Known templates / path equality
   if (expectation === BOUNDED_DOCS_WRITE_EO_TEMPLATE) {
     return "PASS";
   }
-  const expectationLooksLikePath =
-    expectation.includes("/") ||
-    /\.(md|txt|json|ya?ml|ts|tsx|js|jsx)$/i.test(expectation);
-  if (expectationLooksLikePath) {
-    if (location.length > 0 && expectation === location) return "PASS";
-    if (targetPath.length > 0 && expectation === targetPath) {
-      return location.length === 0 || location === targetPath
-        ? "PASS"
-        : "NOT_PROVEN";
-    }
-    return "NOT_PROVEN";
-  }
-  // Bounded free-form profile EO (historical PREPARE wording): accept when
-  // Artifact Evidence proves the contract target path.
-  if (location.length > 0 && (targetPath.length === 0 || location === targetPath)) {
-    return "PASS";
+  if (isPathShapedExpectedOutput(expectation)) {
+    return location.length > 0 && expectation === location
+      ? "PASS"
+      : "NOT_PROVEN";
   }
   return "NOT_PROVEN";
 }
@@ -3828,7 +2586,11 @@ export function assessDocsWriteEvidenceRequirement(input: {
   attempt: ExecutionAttemptSnapshot;
   evidence: Evidence;
   frozenSnapshot: ReviewBundleEvidenceSnapshot | undefined;
-  material: { executionContractId?: string };
+  material: {
+    executionContractId?: string;
+    projectId?: string;
+    cycleInstanceId?: string;
+  };
 }): "SATISFIED" | "NOT_SATISFIED" | "NOT_PROVEN" {
   if (input.ordinal !== 0) return "NOT_PROVEN";
   if (input.requirement !== DOCS_WRITE_CONTRACT_RESULT_ER_KEY) {
@@ -3922,24 +2684,28 @@ export const DOCS_WRITE_USABLE_EVIDENCE_STATUSES = new Set<EvidenceStatus>([
 /**
  * Resolve the current (non-superseded) Contract Result ClaimEvaluation for an Attempt.
  *
- * Algorithm:
- * 1. listByProject
- * 2. filter subjectKind === execution_contract_result ∧ bindings.executionAttemptId
- * 3. build set of ids that appear as supersedesClaimEvaluationId targets (superseded)
- * 4. current = those not in superseded set
- * 5. if 0 → null; if 1 → return it;
- * 6. if >1 non-superseded roots: pick max evaluatedAt ISO, then max claimEvaluationId
- *    (deterministic tie-break; multiple roots should be rare).
+ * Fail-closed lineage:
+ * - 0 active CE → none
+ * - exactly 1 active CE → one
+ * - >1 active non-superseded CE → ambiguous (never pick by timestamp/id)
  */
 import { CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT } from "../domain/contractResultTypes";
 import type { ClaimEvaluation } from "../domain/claimEvaluationTypes";
 import type { ClaimEvaluationRepositoryPort } from "../ports/claimEvaluationRepository";
 
+export type ResolveCurrentContractResultClaimEvaluationResult =
+  | { readonly status: "none" }
+  | { readonly status: "one"; readonly claimEvaluation: ClaimEvaluation }
+  | {
+      readonly status: "ambiguous";
+      readonly claimEvaluationIds: readonly string[];
+    };
+
 export async function resolveCurrentContractResultClaimEvaluation(input: {
   repo: ClaimEvaluationRepositoryPort;
   projectId: string;
   executionAttemptId: string;
-}): Promise<ClaimEvaluation | null> {
+}): Promise<ResolveCurrentContractResultClaimEvaluationResult> {
   const all = await input.repo.listByProject(input.projectId);
   const forAttempt = all.filter(
     (c) =>
@@ -3947,7 +2713,7 @@ export async function resolveCurrentContractResultClaimEvaluation(input: {
       c.contractResultBindings?.executionAttemptId ===
         input.executionAttemptId,
   );
-  if (forAttempt.length === 0) return null;
+  if (forAttempt.length === 0) return { status: "none" };
 
   const superseded = new Set<string>();
   for (const c of forAttempt) {
@@ -3959,17 +2725,16 @@ export async function resolveCurrentContractResultClaimEvaluation(input: {
   const current = forAttempt.filter(
     (c) => !superseded.has(c.claimEvaluationId),
   );
-  if (current.length === 0) return null;
-  if (current.length === 1) return structuredClone(current[0]!);
+  if (current.length === 0) return { status: "none" };
+  if (current.length === 1) {
+    return {
+      status: "one",
+      claimEvaluation: structuredClone(current[0]!),
+    };
+  }
 
-  // Multiple non-superseded roots — deterministic pick by newest evaluatedAt, then id.
-  const sorted = [...current].sort((a, b) => {
-    const aAt = a.evaluatedAt ?? a.proposedAt ?? "";
-    const bAt = b.evaluatedAt ?? b.proposedAt ?? "";
-    if (aAt !== bAt) return aAt < bAt ? 1 : -1;
-    return a.claimEvaluationId < b.claimEvaluationId ? 1 : -1;
-  });
-  return structuredClone(sorted[0]!);
+  const claimEvaluationIds = [...current.map((c) => c.claimEvaluationId)].sort();
+  return { status: "ambiguous", claimEvaluationIds };
 }
 
 ===== FILE: projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts =====
@@ -4004,6 +2769,11 @@ export type RequalifyDocsWriteContractResultInput = {
   actor?: ActorReference;
   correlationId?: string;
   nowIso?: string;
+  /**
+   * When set, allocates a new immutable CE identity for re-evaluation
+   * (never overwrites prior docs_write / W3-B CE ids).
+   */
+  correctionRef?: string;
 };
 
 export type RequalifyDocsWriteContractResultResult =
@@ -4029,7 +2799,9 @@ export async function requalifyDocsWriteContractResult(
     };
   }
 
-  const ids = docsWriteContractResultIdentity(input.attempt.attemptId);
+  const ids = docsWriteContractResultIdentity(input.attempt.attemptId, {
+    ...(input.correctionRef ? { correctionRef: input.correctionRef } : {}),
+  });
   const evidence = await services.evidenceReader.findById(ids.evidenceId);
   if (!evidence) {
     return {
@@ -4086,9 +2858,19 @@ export async function requalifyDocsWriteContractResult(
     projectId,
     executionAttemptId: input.attempt.attemptId,
   });
-  if (current && current.claimEvaluationId !== ids.claimEvaluationId) {
-    supersededClaimEvaluationId = current.claimEvaluationId;
-  } else {
+  if (current.status === "ambiguous") {
+    return {
+      ok: false,
+      code: "CONTRACT_RESULT_CLAIM_LINEAGE_AMBIGUOUS",
+      message: `Multiple active ContractResult CEs — fail-closed: ${current.claimEvaluationIds.join(",")}`,
+    };
+  }
+  if (
+    current.status === "one" &&
+    current.claimEvaluation.claimEvaluationId !== ids.claimEvaluationId
+  ) {
+    supersededClaimEvaluationId = current.claimEvaluation.claimEvaluationId;
+  } else if (current.status === "none") {
     const w3bCe = await services.claimEvaluationReader.findById(
       w3bClaimEvaluationIdForAttempt(input.attempt.attemptId),
     );
@@ -4797,13 +3579,286 @@ describe("Contract Result Semantics Registry (T1–T20)", () => {
     });
     expect(missing.ok).toBe(false);
 
-    // T15 — resolveCurrent picks successor
+    // T15 — resolveCurrent picks successor (single active root)
     const current = await resolveCurrentContractResultClaimEvaluation({
       repo: services.claimEvaluationRepository,
       projectId: c.projectId,
       executionAttemptId: "xat:reg:docs",
     });
-    expect(current?.claimEvaluationId).toBe("clm:docs-write:xat:reg:docs");
+    expect(current.status).toBe("one");
+    if (current.status === "one") {
+      expect(current.claimEvaluation.claimEvaluationId).toBe(
+        "clm:docs-write:xat:reg:docs",
+      );
+    }
+  });
+
+  it("T15b — multiple active CE roots → ambiguous fail-closed", async () => {
+    const services = createInMemoryEvidenceReviewServices({
+      clock: new FixedClock(NOW),
+    });
+    const c = docsWriteContract();
+    const evidence = makeDocsWriteEvidence();
+    await services.repository.create(evidence, {
+      evidenceId: evidence.evidenceId,
+      fingerprint: "fp:docs-amb",
+      operation: "register",
+    });
+    const created = await services.createReviewBundle.execute({
+      reviewBundleId: "rb:reg:amb",
+      idempotencyKey: "idem:rb:reg:amb",
+      actor: ACTOR,
+      projectId: c.projectId,
+      executionContractId: c.executionContractId,
+      evidenceIds: [evidence.evidenceId],
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+    const frozen = await services.freezeReviewBundle.execute({
+      reviewBundleId: "rb:reg:amb",
+      expectedVersion: created.reviewBundle.version,
+      idempotencyKey: "idem:rb-freeze:reg:amb",
+      actor: ACTOR,
+    });
+    expect(frozen.ok).toBe(true);
+    if (!frozen.ok) return;
+    const snap = captureBoundExecutionContractSnapshot(c);
+    const attemptSnap = {
+      attemptId: "xat:reg:docs",
+      executionContractId: c.executionContractId,
+      executionContractVersion: 1,
+      executionContractSemanticFingerprint: snap.semanticFingerprint,
+      boundExecutionContract: snap,
+      status: "succeeded" as const,
+    };
+    const a = await services.evaluateContractResult!.execute({
+      claimEvaluationId: "clm:root:a",
+      idempotencyKey: "idem:clm:root:a",
+      actor: ACTOR,
+      contract: c,
+      attempt: attemptSnap,
+      reviewBundle: frozen.reviewBundle,
+    });
+    const b = await services.evaluateContractResult!.execute({
+      claimEvaluationId: "clm:root:b",
+      idempotencyKey: "idem:clm:root:b",
+      actor: ACTOR,
+      contract: c,
+      attempt: attemptSnap,
+      reviewBundle: frozen.reviewBundle,
+    });
+    expect(a.ok && b.ok).toBe(true);
+    const resolved = await resolveCurrentContractResultClaimEvaluation({
+      repo: services.claimEvaluationRepository,
+      projectId: c.projectId,
+      executionAttemptId: "xat:reg:docs",
+    });
+    expect(resolved.status).toBe("ambiguous");
+    if (resolved.status === "ambiguous") {
+      expect(resolved.claimEvaluationIds).toEqual(["clm:root:a", "clm:root:b"]);
+    }
+  });
+
+  it("T15c — free-form docs_write EO + valid artifact → NOT_PROVEN", () => {
+    const c = docsWriteContract({
+      expectedOutputs: [
+        "Le fichier Markdown matérialisé au chemin cible",
+        "Vérification de l’existence et de la conformité minimale du fichier",
+      ],
+    });
+    const material = executionContractSemanticMaterial(c);
+    const evidence = makeDocsWriteEvidence();
+    const eo = assessExpectedOutputs({
+      semanticMaterial: material,
+      semanticFingerprint: c.semanticFingerprint as string,
+      attempt: {
+        attemptId: "xat:reg:docs",
+        executionContractId: c.executionContractId,
+        executionContractVersion: 1,
+        executionContractSemanticFingerprint: c.semanticFingerprint as string,
+        status: "succeeded",
+      },
+      evidences: [evidence],
+      evaluatedAt: NOW,
+    });
+    expect(eo.every((a) => a.result === "NOT_PROVEN")).toBe(true);
+  });
+
+  it("T15d — missing executionContractId binding → no PASS", () => {
+    const c = docsWriteContract();
+    const material = executionContractSemanticMaterial(c);
+    const evidence = makeDocsWriteEvidence();
+    const broken: Evidence = {
+      ...evidence,
+      bindings: {
+        projectId: "prj:reg",
+        executionAttemptId: "xat:reg:docs",
+        // executionContractId intentionally omitted
+      },
+    };
+    const eo = assessExpectedOutputs({
+      semanticMaterial: material,
+      semanticFingerprint: c.semanticFingerprint as string,
+      attempt: {
+        attemptId: "xat:reg:docs",
+        executionContractId: c.executionContractId,
+        executionContractVersion: 1,
+        executionContractSemanticFingerprint: c.semanticFingerprint as string,
+        status: "succeeded",
+      },
+      evidences: [broken],
+      evaluatedAt: NOW,
+    });
+    expect(eo[0]?.result).toBe("NOT_PROVEN");
+  });
+
+  it("T15e — supersession project mismatch rejected", async () => {
+    const services = createInMemoryEvidenceReviewServices({
+      clock: new FixedClock(NOW),
+    });
+    const c = docsWriteContract();
+    const evidence = makeDocsWriteEvidence();
+    await services.repository.create(evidence, {
+      evidenceId: evidence.evidenceId,
+      fingerprint: "fp:docs-proj",
+      operation: "register",
+    });
+    const created = await services.createReviewBundle.execute({
+      reviewBundleId: "rb:reg:proj",
+      idempotencyKey: "idem:rb:reg:proj",
+      actor: ACTOR,
+      projectId: c.projectId,
+      executionContractId: c.executionContractId,
+      evidenceIds: [evidence.evidenceId],
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+    const frozen = await services.freezeReviewBundle.execute({
+      reviewBundleId: "rb:reg:proj",
+      expectedVersion: created.reviewBundle.version,
+      idempotencyKey: "idem:rb-freeze:reg:proj",
+      actor: ACTOR,
+    });
+    expect(frozen.ok).toBe(true);
+    if (!frozen.ok) return;
+    const snap = captureBoundExecutionContractSnapshot(c);
+    const prior = await services.evaluateContractResult!.execute({
+      claimEvaluationId: "clm:prior:proj",
+      idempotencyKey: "idem:clm:prior:proj",
+      actor: ACTOR,
+      contract: c,
+      attempt: {
+        attemptId: "xat:reg:docs",
+        executionContractId: c.executionContractId,
+        executionContractVersion: 1,
+        executionContractSemanticFingerprint: snap.semanticFingerprint,
+        boundExecutionContract: snap,
+        status: "succeeded",
+      },
+      reviewBundle: frozen.reviewBundle,
+    });
+    expect(prior.ok).toBe(true);
+    if (!prior.ok) return;
+    // Mutate stored prior bindings project via repository create of a forged prior
+    // is not allowed — instead evaluate with a different contract project while
+    // superseding the prior that was bound to prj:reg.
+    const other = docsWriteContract({
+      projectId: "prj:other",
+      executionContractId: "xct:reg:docs",
+      idempotencyKey: "idem:ec:reg:docs:other",
+    });
+    const otherSnap = captureBoundExecutionContractSnapshot(other);
+    const rejected = await services.evaluateContractResult!.execute({
+      claimEvaluationId: "clm:succ:proj",
+      idempotencyKey: "idem:clm:succ:proj",
+      actor: ACTOR,
+      contract: other,
+      attempt: {
+        attemptId: "xat:reg:docs",
+        executionContractId: other.executionContractId,
+        executionContractVersion: 1,
+        executionContractSemanticFingerprint: otherSnap.semanticFingerprint,
+        boundExecutionContract: otherSnap,
+        status: "succeeded",
+      },
+      reviewBundle: frozen.reviewBundle,
+      supersedesClaimEvaluationId: prior.claimEvaluation.claimEvaluationId,
+    });
+    expect(rejected.ok).toBe(false);
+    if (!rejected.ok) {
+      expect(rejected.error.internalCauseRef).toMatch(
+        /supersedes_project_mismatch|supersedes_semantic_fingerprint_mismatch|supersedes_contract/,
+      );
+    }
+  });
+
+  it("T15f — supersession chain too deep fail-closed", async () => {
+    const services = createInMemoryEvidenceReviewServices({
+      clock: new FixedClock(NOW),
+    });
+    const c = docsWriteContract();
+    const evidence = makeDocsWriteEvidence();
+    await services.repository.create(evidence, {
+      evidenceId: evidence.evidenceId,
+      fingerprint: "fp:docs-depth",
+      operation: "register",
+    });
+    const created = await services.createReviewBundle.execute({
+      reviewBundleId: "rb:reg:depth",
+      idempotencyKey: "idem:rb:reg:depth",
+      actor: ACTOR,
+      projectId: c.projectId,
+      executionContractId: c.executionContractId,
+      evidenceIds: [evidence.evidenceId],
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+    const frozen = await services.freezeReviewBundle.execute({
+      reviewBundleId: "rb:reg:depth",
+      expectedVersion: created.reviewBundle.version,
+      idempotencyKey: "idem:rb-freeze:reg:depth",
+      actor: ACTOR,
+    });
+    expect(frozen.ok).toBe(true);
+    if (!frozen.ok) return;
+    const snap = captureBoundExecutionContractSnapshot(c);
+    const attemptSnap = {
+      attemptId: "xat:reg:docs",
+      executionContractId: c.executionContractId,
+      executionContractVersion: 1,
+      executionContractSemanticFingerprint: snap.semanticFingerprint,
+      boundExecutionContract: snap,
+      status: "succeeded" as const,
+    };
+    let priorId: string | undefined;
+    // Build chain of 34 CEs (0..33). Next supersession walks >32 predecessors → fail-closed.
+    for (let i = 0; i < 34; i += 1) {
+      const evaluated = await services.evaluateContractResult!.execute({
+        claimEvaluationId: `clm:depth:${i}`,
+        idempotencyKey: `idem:clm:depth:${i}`,
+        actor: ACTOR,
+        contract: c,
+        attempt: attemptSnap,
+        reviewBundle: frozen.reviewBundle,
+        ...(priorId ? { supersedesClaimEvaluationId: priorId } : {}),
+      });
+      expect(evaluated.ok).toBe(true);
+      if (!evaluated.ok) return;
+      priorId = evaluated.claimEvaluation.claimEvaluationId;
+    }
+    const tooDeep = await services.evaluateContractResult!.execute({
+      claimEvaluationId: "clm:depth:too-deep",
+      idempotencyKey: "idem:clm:depth:too-deep",
+      actor: ACTOR,
+      contract: c,
+      attempt: attemptSnap,
+      reviewBundle: frozen.reviewBundle,
+      supersedesClaimEvaluationId: priorId,
+    });
+    expect(tooDeep.ok).toBe(false);
+    if (!tooDeep.ok) {
+      expect(tooDeep.error.internalCauseRef).toBe("supersedes_chain_too_deep");
+    }
   });
 
   it("T16 — supersedes self forbidden", async () => {
@@ -5149,8 +4204,11 @@ describe("docs_write Contract Result requalification (T21)", () => {
       projectId: PROJECT_ID,
       executionAttemptId: ATTEMPT_ID,
     });
-    expect(current?.claimEvaluationId).toBe(ids.claimEvaluationId);
-    expect(current?.status).toBe("pass");
+    expect(current.status).toBe("one");
+    if (current.status === "one") {
+      expect(current.claimEvaluation.claimEvaluationId).toBe(ids.claimEvaluationId);
+      expect(current.claimEvaluation.status).toBe("pass");
+    }
 
     // Wrong path → NOT_PROVEN (new CE id, no REAL).
     const wrongIngest = await ingestDocsWriteArtifactEvidence({
@@ -5219,8 +4277,8 @@ describe("docs_write Contract Result requalification (T21)", () => {
 | **global L5** | **NOT ADOPTED** |
 | **REAL / Execute / new Attempt** | **ZERO** this macro |
 | **Horodatage décision Morris** | 2026-09-18 — ADOPT RESULT SEMANTICS REGISTRY (server-owned static + frozen RB multi-Evidence AND + explicit CE supersession + A+B one ZERO-REAL macro + success REAL provenance adapt if non-structural) |
-| **Implémentation locale** | `feat/sfia-studio-contract-result-extensibility-01` — registry + docs_write entry #2 + Attempt 3 requalified WITHOUT REAL (`clm:docs-write:xat:w3a:c4c5670edb4658cc` PASS supersedes `clm:w3b:b62e7e34320e78ea`) — **NOT integrated on main** |
-| **Anti-claims** | ≠ Product Journey READY/COMPLETE · ≠ generic ContractResult all effect classes · ≠ Git/PR/CI semantics · ≠ runtime v3 ADOPTED · ≠ integrated on main · ≠ project commit/push/PR authorized |
+| **Implémentation locale** | `feat/sfia-studio-contract-result-extensibility-01` — registry + docs_write #2 + Critical Review correction (fail-closed CE resolver · strict EO · supersession/binding hardening) — Attempt 3 current CE = `clm:docs-write:strict-eo-v1:…` **not_proven** (free-form EO / conformité non prouvable par Artifact seul) — **NOT integrated on main** |
+| **Anti-claims** | ≠ Product Journey READY/COMPLETE · ≠ Attempt 3 Product PASS under strict EO · ≠ generic ContractResult all effect classes · ≠ Git/PR/CI semantics · ≠ runtime v3 ADOPTED · ≠ integrated on main |
 
 ---
 
@@ -5475,7 +4533,7 @@ Séquence : Lot B docs_write en Option 1 **explicitement temporaire**, exit = ex
 
 **ADOPT RESULT SEMANTICS REGISTRY ARCHITECTURE** — server-owned static registry · frozen ReviewBundle multi-Evidence AND · explicit ClaimEvaluation supersession · implement Lot A+B as one ZERO-REAL macro · success REAL provenance adapt if non-structural.
 
-Implementation status (local, not on main): registry live; temp-artifact entry #1; docs_write entry #2; Attempt 3 ZERO-REAL requalification **PASS** (`clm:docs-write:xat:w3a:c4c5670edb4658cc` supersedes `clm:w3b:b62e7e34320e78ea`); project commit/push/PR **FORBIDDEN** until Morris Git-integration gate.
+Implementation status (local, not on main): registry live; temp-artifact entry #1; docs_write entry #2; Critical Review blockers CR-BLK-01/02/03 **CLOSED**; Attempt 3 ZERO-REAL re-requalification under strict EO → current CE `clm:docs-write:strict-eo-v1:xat:w3a:c4c5670edb4658cc` **not_proven** (bound free-form EO including « conformité minimale » not proven by Artifact Evidence alone); prior CEs immutable; project commit/push/PR **FORBIDDEN** until Morris Git-integration gate.
 
 ## 11. Technical recommendation candidate (historical — now consumed)
 
@@ -5566,19 +4624,28 @@ Reste ouvert : **Git integration** (commit/push/PR/merge) — gate Morris distin
 | RB docs_write | **draft** — freeze **non** fait |
 | Nouveau REAL | **Non requis** pour re-prouver l’effet fichier déjà Evidence-backed |
 
-### Classification : **B — CLOSED LOCALLY (implementation macro)**
+### Classification : **B — CLOSED LOCALLY; Attempt 3 = NOT_PROVEN under strict EO (CASE B)**
 
 **B — small non-structural lifecycle wiring** — implemented as `requalifyDocsWriteContractResult` (canonical freeze + EvaluateContractResult + `supersedesClaimEvaluationId`).
 
-Campaign DB (`pje2e-real-01`) post-requal (2026-09-18):
+Bound Attempt 3 `expectedOutputs` (from durable bound snapshot — not live EC):
+
+1. `Le fichier Markdown matérialisé au chemin cible` → **NOT_PROVEN** (free-form prose; not canonical EO template; not path-shaped)
+2. `Vérification de l’existence et de la conformité minimale du fichier` → **NOT_PROVEN** (content/conformity obligation; Artifact Evidence metadata does not prove « conformité minimale »)
+
+`evreq:docs_write_artifact` → **SATISFIED** (Artifact Evidence bindings/digest/location hold).
+
+Overall ClaimEvaluation status → **not_proven** (AND of EO).
+
+Campaign DB (`pje2e-real-01`) post Critical Review correction (2026-09-18):
 
 | Fact | Value |
 | --- | --- |
 | Attempts | **3 → 3** (no new Attempt) |
-| Prior CE | `clm:w3b:b62e7e34320e78ea` **immutable** `not_proven` |
-| Successor CE | `clm:docs-write:xat:w3a:c4c5670edb4658cc` **pass** · ruleRef `w3b-contract-result/cursor-docs-write-apply-v1` · supersedes prior |
-| RB | `rb:docs-write:xat:w3a:c4c5670edb4658cc` frozen (`ready_for_review`) |
+| CE lineage | `clm:w3b:b62e7e34320e78ea` `not_proven` → `clm:docs-write:xat:w3a:c4c5670edb4658cc` historical `pass` (permissive EO, immutable) → `clm:docs-write:strict-eo-v1:xat:w3a:c4c5670edb4658cc` **current** `not_proven` |
 | REAL | **ZERO** |
+
+**Evidence gap (acceptance only):** bound EO wording requires content/conformity proof not carried by current Artifact Evidence schema; do not invent Evidence; do not read live EC as substitute.
 
 **Interdit (toujours) :** rewrite SQLite / mutation Attempt 3 / fake PASS / new REAL.
 
@@ -5719,22 +4786,3 @@ Tip actuel déjà correct : next = R13 framing · NOT STARTED.
 
 
 ```
-
----
-
-## X. ZERO REAL proof
-
-- No Cursor CLI spawn
-- No Studio Execute
-- No new ExecutionAttempt (3→3)
-- No new HumanDecision
-- Requal via freeze + EvaluateContractResult only
-- Focused tests deterministic / in-memory or fixture
-
-## Y. Attempt count before/after
-
-**3 → 3**
-
-## Z. DB mutation method
-
-**canonical services only** (`freezeReviewBundle`, `evaluateContractResult`) — **no** manual SQLite CE/RB rewrite.
