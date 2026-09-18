@@ -1,42 +1,53 @@
-# PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 — GIT INTEGRATION / PRE-PR — Review Pack FULL
+# PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 — POST-MERGE VERIFIED — Review Pack FULL
 
-**Timestamp (UTC):** 2026-09-18T13:27:17Z
-**Timestamp (local):** 2026-09-18 15:27:17 CEST
-**Pack revision:** PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 — GIT INTEGRATION / PRE-PR
+**Timestamp (UTC):** 2026-09-18T13:42:40Z
+**Timestamp (local):** 2026-09-18 15:42:40 CEST
+**Pack revision:** PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 — POST-MERGE VERIFIED
 **Morris GO consumed:** YES — PROJECT GIT INTEGRATION (commit + push + PR + CI + conditional merge + post-merge verification)
-**Verdict:** PRODUCT JOURNEY POST-EXECUTION REPLAN — PROJECT COMMIT CREATED — PRE-PR HANDOFF — AWAITING PUSH / PR / CI / CONDITIONAL MERGE
+**Verdict:** PRODUCT JOURNEY POST-EXECUTION REPLAN — INTEGRATED ON MAIN / POST-MERGE VERIFIED — CR-PJR-01/02/03 CLOSED — NOT_PROVEN RECOVERY + FUTURE CLAIM RE-EVALUATION LIFECYCLE INTEGRATED — ATTEMPT 3 STRICT NOT_PROVEN RESERVE PRESERVED — ZERO NEW REAL
 
 ---
 
-## 1. Git Truth
+## 1. Integration Git Truth
 
 | Item | Value |
 |---|---|
 | Repository | mcleland147/sfia-workspace |
-| Worktree | `/Users/morris/Projects/sfia-studio-product-journey-post-execution-replan-01` |
-| Branch | `qa/sfia-studio-product-journey-post-execution-replan-01` |
-| Project commit SHA | `3d48ed706afc5d2f4a743496c72c4645fadda5eb` |
-| origin/main (integration baseline) | `9be4b80629cb594821cc7b35abf22c89df65acc1` |
+| Integration baseline (pre-commit origin/main) | `9be4b80629cb594821cc7b35abf22c89df65acc1` |
 | Original macro baseline | `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` (PR #502) |
-| Requalified baseline | `9be4b80629cb594821cc7b35abf22c89df65acc1` (PR #503 documentary-only) |
-| Prior reviewed handoff | `62dd3ef40296b099bafedb306e9f4db435b7a180` blob `b720c51642aa55bd38a3a1d24e052dec0e58c78d` |
-| Project push/PR/merge | push/PR/merge **PENDING** (authorized by this GO) |
-| Branch deletion | **FORBIDDEN / not requested** |
+| Project commit | `3d48ed706afc5d2f4a743496c72c4645fadda5eb` |
+| Branch | `qa/sfia-studio-product-journey-post-execution-replan-01` |
+| Remote branch SHA | `3d48ed706afc5d2f4a743496c72c4645fadda5eb` (**PRESERVED**) |
+| PR | **#504** — https://github.com/mcleland147/sfia-workspace/pull/504 |
+| PR head SHA | `3d48ed706afc5d2f4a743496c72c4645fadda5eb` |
+| PR base SHA | `9be4b80629cb594821cc7b35abf22c89df65acc1` |
+| Merge SHA | `9c6ac90974113044330284dd110108287ba2319e` |
+| Merge method | **merge commit** |
+| mergedAt | `2026-09-18T13:35:38Z` |
+| Post-merge origin/main | `9c6ac90974113044330284dd110108287ba2319e` |
+| Source branch deletion | **NOT DONE / PRESERVED** |
 
-### git status --short (post-commit; local-only artefacts remain)
+### Pre-merge CI
+
+| Item | Value |
+|---|---|
+| Workflow run | `35350375305` SUCCESS |
+| Detect | job `105616808544` SUCCESS |
+| Build and validate | job `105617035992` SUCCESS |
+| SFIA Studio Required Gate | job `105619036044` SUCCESS |
+
+### Post-merge CI
+
+| Item | Value |
+|---|---|
+| Workflow run | `35351125259` SUCCESS |
+| Detect | job `105619243893` SUCCESS |
+| Build and validate | job `105619297044` SUCCESS |
+| SFIA Studio Required Gate | job `105621283124` SUCCESS |
+
+### Diff `9be4b80629cb594821cc7b35abf22c89df65acc1...9c6ac90974113044330284dd110108287ba2319e` --stat
 
 ```
- M .tmp-sfia-review/chatgpt-review.md
-?? .tmp-sfia-review/campaign-prestate.json
-?? .tmp-sfia-review/local/
-?? .tmp-sfia-review/phase3-observation.json
-?? projects/.tmp-sfia-review/
-```
-
-### git show --stat HEAD
-
-```
-3d48ed70 feat(sfia-studio): continue post-execution recovery for not-proven results
  .../productJourneyPostExecutionReplan.d0.test.ts   | 828 +++++++++++++++++++++
  .../w3cPostEvidenceCorrection.test.ts              |  25 +-
  .../f3/postEvidenceNoraAnalysis.ts                 |  22 +-
@@ -49,22 +60,7 @@
  9 files changed, 1354 insertions(+), 97 deletions(-)
 ```
 
-### git diff origin/main...HEAD --stat
-
-```
- .../productJourneyPostExecutionReplan.d0.test.ts   | 828 +++++++++++++++++++++
- .../w3cPostEvidenceCorrection.test.ts              |  25 +-
- .../f3/postEvidenceNoraAnalysis.ts                 |  22 +-
- .../w2/materializeW3bProductTerminal.ts            |   3 +
- .../w2/requalifyDocsWriteContractResult.ts         |  92 ++-
- .../w2/resolvePostEvidenceRecoveryContext.ts       | 146 ++--
- .../project-assistant/w2/w3cPostEvidenceLoop.ts    | 319 +++++++-
- ...studio-contract-result-extensibility-framing.md |  13 +-
- .../convergence/sfia-studio-convergence-roadmap.md |   3 +-
- 9 files changed, 1354 insertions(+), 97 deletions(-)
-```
-
-### git diff origin/main...HEAD --name-status
+### Diff name-status
 
 ```
 A	projects/sfia-studio/app/__tests__/project-assistant/productJourneyPostExecutionReplan.d0.test.ts
@@ -80,103 +76,70 @@ M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 
 ---
 
-## 2. Explicit staging / exclusions
-
-### Staged and committed (project scope)
-
-- `projects/sfia-studio/app/__tests__/project-assistant/productJourneyPostExecutionReplan.d0.test.ts`
-- `projects/sfia-studio/app/__tests__/project-assistant/w3cPostEvidenceCorrection.test.ts`
-- `projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts`
-- `projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts`
-- `projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts`
-- `projects/sfia-studio/app/features/project-assistant/w2/resolvePostEvidenceRecoveryContext.ts`
-- `projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts`
-- `projects/sfia-studio/convergence/sfia-studio-contract-result-extensibility-framing.md`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-
-### Explicitly excluded (NOT in project commit)
-
-- `.tmp-sfia-review/**`
-- `projects/.tmp-sfia-review/**`
-- `.tmp-sfia-review/local/attempt3-rehydrate-verify.mjs` (LOCAL-ONLY Attempt 3 verifier)
-- campaign SQLite / `.sfia-exec/**`
-- `package-lock.json`
-- `sfia-studio-transmission-guide.md`
-- auth / credentials / secrets
-- `/tmp/sfia-pjr-pre-rebase.patch`
-
-### Stash hygiene
-
-PJR preservation stash `PJR-01 baseline requalification preserve before rebase onto 9be4b806` was already dropped after successful restore in the baseline-requalification macro. No PJR preservation stash remains. Unrelated historical stashes untouched.
-
----
-
-## 3. Pre-commit validation
-
-| Check | Result |
-|---|---|
-| Focused Vitest (8 files) | **148 passed / 148** |
-| `npm run typecheck` | **PASS** |
-| `git diff --check` | **PASS** |
-| `git diff origin/main...HEAD --check` | **PASS** |
-
-Command:
-
-```
-npx vitest run \
-  __tests__/project-assistant/productJourneyPostExecutionReplan.d0.test.ts \
-  __tests__/project-assistant/w3cPostEvidenceLoop.test.ts \
-  __tests__/project-assistant/w3cPostEvidenceCorrection.test.ts \
-  __tests__/project-assistant/checkpointF.recoveryOptionsContext.d0.test.ts \
-  __tests__/project-assistant/contractResultDocsWriteRequal.d0.test.ts \
-  __tests__/project-assistant/candidateTrajectoryHumanDecision.d0.test.ts \
-  __tests__/project-assistant/candidateTrajectoryCycleStart.d0.test.ts \
-  __tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts
-```
-
----
-
-## 4. CR-PJR + historical reserve
-
-| Item | Status |
-|---|---|
-| CR-PJR-01 | **CLOSED** |
-| CR-PJR-02 | **CLOSED** |
-| CR-PJR-03 | **CLOSED** |
-| Attempt 3 CE | `clm:docs-write:strict-eo-v1:xat:w3a:c4c5670edb4658cc` **not_proven** |
-| Product | **UNCLAIMED** |
-| Attempts | **3** |
-| ZERO Studio/Cursor REAL | **YES** |
-| campaign DB mutation | **NONE** |
-| historical evaluate_claim | **NOT EXECUTED** |
-| FakeConversationProvider seam | proven; live Nora quality **NOT PROVEN** |
-| historical realProcessInvoked=false | **DEFERRED** (no SQL backfill) |
-| runtime v3 | **NON ADOPTED** |
-
-DB sha256 (observed; not mutated): `{sha}`
-
----
-
-## 5. PR plan / merge conditions
+## 2. Product truth preserved
 
 | Item | Value |
 |---|---|
-| Base | `main` @ `{origin}` |
-| Head | `{branch}` @ `{head}` |
-| Title | feat(sfia-studio): continue post-execution recovery for not-proven results |
-| Required CI gate (workflow) | `SFIA Studio Required Gate` (from `.github/workflows/sfia-studio-ci.yml`) |
-| Merge | conditional on all GO merge-gate conditions |
-| Source branch | **PRESERVE** |
+| CR-PJR-01/02/03 | **CLOSED** |
+| Attempts | **3** |
+| Current CE | `clm:docs-write:strict-eo-v1:xat:w3a:c4c5670edb4658cc` **not_proven** |
+| Product | **UNCLAIMED** |
+| ZERO Studio/Cursor REAL | **YES** |
+| campaign DB mutation | **NONE** |
+| historical evaluate_claim | **NOT EXECUTED** |
+| live Nora quality | **NOT PROVEN** (FakeConversationProvider seam only) |
+| historical realProcessInvoked=false | **DEFERRED** |
+| Build Doctrine / C1 | **unchanged** (diff empty vs baseline) |
+| transmission guide | **unaffected** by this PR |
+| runtime v3 | **NON ADOPTED** |
+
+DB sha256 (observed; not mutated): `077b595c6f3e14cb9be7b986b81f2d4549cac67f59682aadc07d53d02cf69a8f`
 
 ---
 
-## 6. Anti-claims
+## 3. Local pre-commit bar (recorded)
 
-Do NOT claim: Attempt 3 Product PASS; Product Journey READY/COMPLETE; live Nora proven; automatic replan/HumanDecision; Attempt 4; new REAL; runtime v3 ADOPTED; global L5; merge completed (this pack is PRE-PR).
+Focused Vitest: **8 files / 148 PASS** · typecheck PASS · diff-check PASS
 
 ---
 
-## 7. Full unified diffs (committed)
+## 4. Claims / anti-claims
+
+### Allowed
+
+- evidence-backed NOT_PROVEN recovery integrated on main
+- Product UNCLAIMED post-Evidence recovery supported at tested scope
+- CR-PJR-01/02/03 closed
+- future explicit immutable claim re-evaluation lifecycle supported
+- W3-C current-CE stale-recommendation protection integrated
+- portable deterministic PJR tests integrated
+- ZERO new Studio/Cursor REAL
+
+### Forbidden
+
+- Attempt 3 Product PASS
+- Product Journey READY / COMPLETE
+- live Nora cognitive quality proven
+- full REAL post-Evidence loop newly proven
+- automatic structural replan / HumanDecision
+- Attempt 4
+- runtime v3 ADOPTED
+- global L5
+
+---
+
+## 5. Next (recommendation only — not authorization)
+
+Optional later Morris GO candidates (not started):
+
+- governed Pilote path for evaluate_claim / evidence completion on historical Attempt 3
+- documentary follow-up only if Roadmap tip lifecycle wording is judged stale vs RESOLVE FROM GIT / PR EVIDENCE
+
+No automatic follow-up started by this pack.
+
+---
+
+## 6. Full unified diffs (merged)
 
 
 ### `projects/sfia-studio/app/__tests__/project-assistant/productJourneyPostExecutionReplan.d0.test.ts`
@@ -2185,7 +2148,7 @@ index d3747d85..0d45305d 100644
 
 ---
 
-## 8. Full file contents (committed)
+## 7. Full file contents (on merge SHA)
 
 ### `projects/sfia-studio/app/__tests__/project-assistant/productJourneyPostExecutionReplan.d0.test.ts`
 
@@ -3018,7 +2981,6 @@ describe("CR-PJR portable docs_write UNCLAIMED recover (temp DB)", () => {
     if (!refused.ok) expect(refused.code).toBe("PRODUCT_UNCLAIMED");
   });
 });
-
 ```
 
 ### `projects/sfia-studio/app/__tests__/project-assistant/w3cPostEvidenceCorrection.test.ts`
@@ -4095,7 +4057,6 @@ describe("W3C-R15 real D5 contract fidelity", () => {
     expect(rec.nextStep).toBe("coordinate_solicit_morris_go");
   });
 });
-
 ```
 
 ### `projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts`
@@ -4465,7 +4426,6 @@ export function extractW3cRecommendationPayloadJsonForEvidence(
   const json = rest.slice(0, end).trim();
   return json.length > 0 ? json : null;
 }
-
 ```
 
 ### `projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts`
@@ -5110,7 +5070,6 @@ export const materializeProductOutcomeFromAttempt = materializeW3bProductTermina
 export const rehydrateProductOutcomeFromAttempt = rehydrateW3bProductTerminal;
 export const rehydrateLatestProductOutcomeForContract =
   rehydrateLatestW3bProductTerminalForContract;
-
 ```
 
 ### `projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts`
@@ -5392,7 +5351,6 @@ export async function requalifyDocsWriteContractResult(
     reusedFromIdempotencyKey: evaluated.reusedFromIdempotencyKey,
   };
 }
-
 ```
 
 ### `projects/sfia-studio/app/features/project-assistant/w2/resolvePostEvidenceRecoveryContext.ts`
@@ -5734,7 +5692,6 @@ export function buildRecoveryCognitionSection(
     `- Rationale W3C (bornée): ${context.rationale}`,
   ].join("\n");
 }
-
 ```
 
 ### `projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts`
@@ -7267,7 +7224,6 @@ export async function rehydrateW3cPostEvidenceFromLps(input: {
     productOutcome: product.outcome,
   };
 }
-
 ```
 
 ### `projects/sfia-studio/convergence/sfia-studio-contract-result-extensibility-framing.md`
@@ -7798,7 +7754,6 @@ Si une migration s’avérait nécessaire → **STOP** / Morris structural gate 
 
 Tip actuel déjà correct : next = R13 framing · NOT STARTED.
 **Ne pas modifier** la Roadmap dans R13. Après décision Morris + éventuelle intégration doc, tip factuel du type : « R13 framing QUALIFIED / decision PENDING|CONSUMED ».
-
 ```
 
 ### `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
@@ -8939,11 +8894,10 @@ Ne pas mettre à jour pour chaque micro-commit sans impact de trajectoire.
 - CKC coverage : current **4/15** detailed pilots + **11/15** synthetic fallback · target = 100 % du catalogue applicable · `15` non structurel · optional later v2.6 capitalization under distinct method gate
 - Audit handoff historique : `sfia/review-handoff` @ `c5b417dc13fa3700787d28571e5b5abe0599ae98` / `31a5db07fba2555a59ee8c65ad76b537bbd8a73d`
 - Framing : `projects/sfia-studio/sfia-v3-framing/30`–`37` (dont `34` · DOC-DEBT-M1-01 traité dans la candidate sur `32`, clôture pending integration)
-
 ```
 
 ---
 
-## 9. Stop line (PRE-PR)
+## 8. Final stop line
 
-PRODUCT JOURNEY POST-EXECUTION REPLAN — PROJECT COMMIT CREATED — AWAITING PUSH / PR / CI / CONDITIONAL MERGE
+PRODUCT JOURNEY POST-EXECUTION REPLAN — INTEGRATED ON MAIN / POST-MERGE VERIFIED — CR-PJR-01/02/03 CLOSED — NOT_PROVEN RECOVERY + FUTURE CLAIM RE-EVALUATION LIFECYCLE INTEGRATED — ATTEMPT 3 STRICT NOT_PROVEN RESERVE PRESERVED — ZERO NEW REAL
