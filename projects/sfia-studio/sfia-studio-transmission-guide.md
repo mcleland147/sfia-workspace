@@ -603,7 +603,8 @@ Fiches ancrées sur `origin/main` `ca77b400…` (chemins relatifs à `projects/s
 - **Persistence** : `oa_claim_evaluations` (+ idempotency) — table **existante** (pas de migration #502).
 - **Paths** : `sqliteClaimEvaluationRepository.ts` ; `resolveCurrentContractResultClaimEvaluation.ts` ; `confirmClaimEvaluation.ts` / `rejectClaimEvaluation.ts`.
 - **Relations** : Attempt terminal → Evidence → ReviewBundle frozen → EvaluateContractResult → CE ; CE courant peut être **supersédé** (immutable history).
-- **Fail-closed / soft** : hard fail (pas de CE) vs soft durable `not_proven` (règle absente, EO/ER non satisfaits, ambiguïté).
+- **Fail-closed / soft** : hard fail (pas de CE) sur incohérence structurelle, Evidence/ReviewBundle invalide ou ambiguïté de sémantique ; soft durable `not_proven` sur snapshot manquant, aucune règle applicable / zero-match, sélection Evidence incomplète ou EO/ER non satisfaits.
+- **Current CE ambiguity** : plusieurs ClaimEvaluations courantes non superseded → resolver `ambiguous` / fail-closed ; **≠** création d’une CE `not_proven`.
 - **Anti-claims** : CE `not_proven` ≠ échec d’architecture registry · ≠ Product Journey READY · Attempt3 CE **not_proven** historiquement (#501/#502).
 - **PR** : `#413` (fondation) · `#502` (ContractResult extensibility / current CE resolution).
 
@@ -613,7 +614,7 @@ Fiches ancrées sur `origin/main` `ca77b400…` (chemins relatifs à `projects/s
 - **Owner** : OA evidence-review application.
 - **Persistence** : **pas de table ContractResult** ; résultat matérialisé via **ClaimEvaluation** (`oa_claim_evaluations`).
 - **Paths** : `evaluateContractResult.ts` ; `contractResultSemantics.ts` ; `docsWriteContractResultSemantic.ts` ; `tempArtifactContractResultSemantic.ts` ; `resolveCurrentContractResultClaimEvaluation.ts`.
-- **Invariants** : Evidence selection **frozen** depuis RB ; multi-Evidence **AND** ; fail-closed unknown/ambiguous ; supersession CE immutable.
+- **Invariants** : Evidence selection **frozen** depuis RB ; multi-Evidence **AND** ; unknown/zero-match → soft `not_proven` · ambiguous multiple-match → hard fail ; supersession CE immutable.
 - **Preuve** : #502 MERGED · **ZERO NEW REAL** · Attempt3 CE **not_proven** (évidence gap / conformité EO) — **≠** Product Result PROVEN.
 - **Anti-claims** : ≠ sémantiques Git/PR/CI · ≠ generic CR toutes classes d’effets · ≠ Product Journey READY · ≠ runtime v3 ADOPTED.
 - **PR** : `#502` (impl) ; déclencheur campagne `#501`.
@@ -1682,7 +1683,7 @@ Les preuves MW isolées ne garantissent pas qu’un Pilote traverse **le produit
 - **Anti-claim :** **jamais** « Product Journey REAL PASS ».
 
 #### #502 — ContractResult extensibility (`ca77b400`)
-- Result Semantics Registry · `EvaluateContractResult` · temp-artifact + docs_write semantics · frozen Evidence selection · RB multi-Evidence **AND** · immutable ClaimEvaluation supersession · fail-closed unknown/ambiguous · **HOW≠WHAT**.
+- Result Semantics Registry · `EvaluateContractResult` · temp-artifact + docs_write semantics · frozen Evidence selection · RB multi-Evidence **AND** · immutable ClaimEvaluation supersession · unknown/zero-match → soft `not_proven` · ambiguous multiple-match → hard fail · **HOW≠WHAT**.
 - **no DB migration** · **ZERO NEW REAL** · Attempt3 CE **not_proven**.
 - Paths : `evaluateContractResult.ts`, `contractResultSemantics.ts`, `docsWriteContractResultSemantic.ts`, `tempArtifactContractResultSemantic.ts`, `resolveCurrentContractResultClaimEvaluation.ts`, `sqliteClaimEvaluationRepository.ts` (`oa_claim_evaluations` existing).
 - **Anti-claim :** ≠ generic CR all effects · ≠ CE not_proven = registry failure · ≠ Product Journey READY.
