@@ -243,6 +243,7 @@ export function createSqliteEvidenceReviewServices(
       clock,
       audit,
       ids,
+      evidenceReader,
     ),
     confirmClaimEvaluation: new ConfirmClaimEvaluation(
       claimEvaluationRepository,

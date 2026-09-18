@@ -2,13 +2,19 @@
  * W3-B FC-12 — Materialize + rehydrate Product Terminal from durable facts.
  * Ingest all terminals → ReviewBundle → EvaluateContractResult → FC-11 projection.
  * W3-C: after successful projection, consume Evidence via post-Evidence loop (no re-ingest).
+ * Docs-write: freeze rb:docs-write + evaluate docs-write CE (may supersede w3b CE).
  */
 import { createHash } from "node:crypto";
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
 import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
 import type { ExecutionContract } from "@/lib/oa/execution-contract";
-import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
+import {
+  type ExecutionAttempt,
+  M4_BOUNDED_DOCS_WRITE_ACTION,
+} from "@/lib/oa/execution-attempt";
 import type { ClaimEvaluation, Evidence, ReviewBundle } from "@/lib/oa/evidence-review";
+import { resolveCurrentContractResultClaimEvaluation } from "@/lib/oa/evidence-review";
+import { requalifyDocsWriteContractResult } from "./requalifyDocsWriteContractResult";
 import {
   projectW3bProductTerminal,
   productReservationsForAttempt,
@@ -118,6 +124,95 @@ function projectFromFacts(input: {
   return projectW3bProductTerminal(input);
 }
 
+function boundActionOf(
+  attempt: ExecutionAttempt,
+  contract: ExecutionContract,
+): string {
+  return (
+    attempt.boundExecutionContract?.semanticMaterial?.action ?? contract.action
+  );
+}
+
+async function materializeDocsWriteProductTerminal(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+  readonly attempt: ExecutionAttempt;
+  readonly contract: ExecutionContract;
+}): Promise<MaterializeW3bProductTerminalResult> {
+  const services = input.oa.evidenceReviewServices!;
+  const requalified = await requalifyDocsWriteContractResult({
+    evidenceReviewServices: services,
+    attempt: input.attempt,
+    contract: input.contract,
+    actor: LOCAL_PILOTE_ACTOR,
+  });
+  if (!requalified.ok) {
+    return {
+      ok: false,
+      code: requalified.code,
+      message: requalified.message,
+    };
+  }
+
+  const segment = input.attempt.attemptId.replace(/[^a-zA-Z0-9:_-]/g, "");
+  const evidenceId = `ev:docs-write:${segment}`.slice(0, 128);
+  const evidence = await services.evidenceReader.findById(evidenceId);
+
+  const product = projectFromFacts({
+    attempt: input.attempt,
+    contract: input.contract,
+    evidence: evidence ?? null,
+    reviewBundle: requalified.reviewBundle,
+    claimEvaluation: requalified.claimEvaluation,
+  });
+
+  const reusedFromIdempotency = Boolean(requalified.reusedFromIdempotencyKey);
+
+  if (product.evidenceId) {
+    const existing = await findExistingW3cPostEvidence({
+      oa: input.oa,
+      projectId: input.projectId,
+      evidenceId: product.evidenceId,
+      attemptId: input.attempt.attemptId,
+    });
+    if (existing) {
+      return {
+        ok: true,
+        reusedFromIdempotency,
+        product,
+        postEvidence: existing,
+      };
+    }
+    const rehydrated = await rehydrateW3cPostEvidenceFromLps({
+      oa: input.oa,
+      projectId: input.projectId,
+      product,
+    });
+    if (rehydrated.ok) {
+      return {
+        ok: true,
+        reusedFromIdempotency,
+        product,
+        postEvidence: rehydrated,
+      };
+    }
+  }
+
+  const postEvidence = await runW3cPostEvidenceLoop({
+    oa: input.oa,
+    projectId: input.projectId,
+    attemptId: input.attempt.attemptId,
+    product,
+  });
+
+  return {
+    ok: true,
+    reusedFromIdempotency,
+    product,
+    postEvidence,
+  };
+}
+
 /** Write path — ingest Evidence + RB + Contract Result CE + project. */
 export async function materializeW3bProductTerminal(input: {
   readonly oa: RuntimeOaStack;
@@ -134,6 +229,26 @@ export async function materializeW3bProductTerminal(input: {
   const loaded = await loadAttemptAndContract(input);
   if (!loaded.ok) return loaded;
   const { attempt, contract } = loaded;
+
+  // Docs-write Product claim path only when Artifact Evidence exists (typically
+  // succeeded REAL/fixture ingest). Failed docs_write Attempts without Artifact
+  // Evidence keep the technical W3-B materialize path for recovery/UNCLAIMED.
+  if (boundActionOf(attempt, contract) === M4_BOUNDED_DOCS_WRITE_ACTION) {
+    const servicesProbe = input.oa.evidenceReviewServices!;
+    const segment = attempt.attemptId.replace(/[^a-zA-Z0-9:_-]/g, "");
+    const docsWriteEvidenceId = `ev:docs-write:${segment}`.slice(0, 128);
+    const docsWriteEvidence =
+      await servicesProbe.evidenceReader.findById(docsWriteEvidenceId);
+    if (docsWriteEvidence) {
+      return materializeDocsWriteProductTerminal({
+        oa: input.oa,
+        projectId: input.projectId,
+        attempt,
+        contract,
+      });
+    }
+  }
+
   const ids = w3bEvidenceIdentity(attempt.attemptId);
   const services = input.oa.evidenceReviewServices!;
 
@@ -255,13 +370,13 @@ export async function materializeW3bProductTerminal(input: {
     reviewBundle: frozenReviewBundle,
   });
 
-    if (!evaluated.ok) {
-      // Surface shape reason in test/dev failures.
-      const detail = evaluated.error.internalCauseRef ?? evaluated.error.message;
-      return {
-        ok: false,
-        code: evaluated.error.detailCode,
-        message: detail,
+  if (!evaluated.ok) {
+    // Surface shape reason in test/dev failures.
+    const detail = evaluated.error.internalCauseRef ?? evaluated.error.message;
+    return {
+      ok: false,
+      code: evaluated.error.detailCode,
+      message: detail,
       product: projectFromFacts({
         attempt,
         contract,
@@ -342,16 +457,59 @@ export async function rehydrateW3bProductTerminal(input: {
   const loaded = await loadAttemptAndContract(input);
   if (!loaded.ok) return loaded;
   const { attempt, contract } = loaded;
-  const ids = w3bEvidenceIdentity(attempt.attemptId);
   const services = input.oa.evidenceReviewServices!;
+  const isDocsWrite =
+    boundActionOf(attempt, contract) === M4_BOUNDED_DOCS_WRITE_ACTION;
 
-  const evidence = await services.evidenceReader.findById(ids.evidenceId);
-  const reviewBundle = await services.reviewBundleReader.findById(
-    ids.reviewBundleId,
-  );
-  const claimEvaluation = await services.claimEvaluationReader.findById(
-    ids.claimEvaluationId,
-  );
+  let evidence: Evidence | null = null;
+  let reviewBundle: ReviewBundle | null = null;
+  let claimEvaluation: ClaimEvaluation | null = null;
+
+  if (isDocsWrite) {
+    const segment = attempt.attemptId.replace(/[^a-zA-Z0-9:_-]/g, "");
+    const evidenceId = `ev:docs-write:${segment}`.slice(0, 128);
+    const reviewBundleId = `rb:docs-write:${segment}`.slice(0, 128);
+    evidence = (await services.evidenceReader.findById(evidenceId)) ?? null;
+    reviewBundle =
+      (await services.reviewBundleReader.findById(reviewBundleId)) ?? null;
+    const resolved = await resolveCurrentContractResultClaimEvaluation({
+      repo: services.claimEvaluationRepository,
+      projectId: input.projectId,
+      executionAttemptId: attempt.attemptId,
+    });
+    if (resolved.status === "ambiguous") {
+      return {
+        ok: false,
+        code: "CONTRACT_RESULT_CLAIM_LINEAGE_AMBIGUOUS",
+        message: `Multiple active ContractResult CEs — fail-closed: ${resolved.claimEvaluationIds.join(",")}`,
+      };
+    }
+    claimEvaluation =
+      resolved.status === "one" ? resolved.claimEvaluation : null;
+  } else {
+    const ids = w3bEvidenceIdentity(attempt.attemptId);
+    evidence = (await services.evidenceReader.findById(ids.evidenceId)) ?? null;
+    reviewBundle =
+      (await services.reviewBundleReader.findById(ids.reviewBundleId)) ?? null;
+    const resolved = await resolveCurrentContractResultClaimEvaluation({
+      repo: services.claimEvaluationRepository,
+      projectId: input.projectId,
+      executionAttemptId: attempt.attemptId,
+    });
+    if (resolved.status === "ambiguous") {
+      return {
+        ok: false,
+        code: "CONTRACT_RESULT_CLAIM_LINEAGE_AMBIGUOUS",
+        message: `Multiple active ContractResult CEs — fail-closed: ${resolved.claimEvaluationIds.join(",")}`,
+      };
+    }
+    claimEvaluation =
+      resolved.status === "one"
+        ? resolved.claimEvaluation
+        : ((await services.claimEvaluationReader.findById(
+            ids.claimEvaluationId,
+          )) ?? null);
+  }
 
   if (!evidence || !reviewBundle || !claimEvaluation) {
     return {

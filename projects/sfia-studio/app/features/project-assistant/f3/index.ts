@@ -111,3 +111,9 @@ export {
   createF3TestExecutionAdapter,
 } from "./fixtureAgent";
 export { createAttemptReaderBridge } from "./attemptReaderBridge";
+export { BOUNDED_DOCS_WRITE_EO_TEMPLATE } from "@/lib/oa/evidence-review";
+export { requalifyDocsWriteContractResult } from "../w2/requalifyDocsWriteContractResult";
+export type {
+  RequalifyDocsWriteContractResultInput,
+  RequalifyDocsWriteContractResultResult,
+} from "../w2/requalifyDocsWriteContractResult";
