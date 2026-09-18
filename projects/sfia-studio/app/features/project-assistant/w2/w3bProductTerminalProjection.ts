@@ -235,7 +235,7 @@ export function projectW3bProductTerminal(input: {
         reviewBundleId: input.reviewBundle.reviewBundleId,
         frozenVersion: input.reviewBundle.frozenVersion,
       },
-      evidenceIds: [input.evidence.evidenceId],
+      evidenceIds: input.reviewBundle.evidenceRefs,
       projectId: input.contract.projectId,
       cycleInstanceId: input.contract.cycleInstanceId ?? null,
     })
