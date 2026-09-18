@@ -61,6 +61,24 @@ const PRODUCT_RESERVATIONS = [
   "Aucun READY",
 ] as const;
 
+/** Honest reservation when a REAL process was durably launched (vs substitution wording). */
+export function productReservationsForAttempt(
+  attempt: ExecutionAttempt,
+): readonly string[] {
+  const realInvoked =
+    attempt.processDiagnostic?.realProcessInvoked === true ||
+    attempt.irreversibleEffectsPossible === true ||
+    (typeof attempt.stopReason === "string" &&
+      attempt.stopReason.startsWith("REAL_"));
+  if (!realInvoked) return [...PRODUCT_RESERVATIONS];
+  return [
+    PRODUCT_RESERVATIONS[0],
+    PRODUCT_RESERVATIONS[1],
+    "Process Cursor REAL invoqué — effet métier non prouvé",
+    PRODUCT_RESERVATIONS[3],
+  ];
+}
+
 const ANTI = {
   ready: false,
   w3Closed: false,
@@ -160,7 +178,7 @@ export function projectW3bProductTerminal(input: {
       executionContractId: input.contract.executionContractId,
       executionContractVersion: input.attempt.executionContractVersion,
     },
-    reservations: [...PRODUCT_RESERVATIONS],
+    reservations: [...productReservationsForAttempt(input.attempt)],
     antiClaims: ANTI,
     cycleInstanceClosed: false as const,
     projectArchived: false as const,

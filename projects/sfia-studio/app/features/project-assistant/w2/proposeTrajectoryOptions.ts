@@ -61,6 +61,11 @@ import {
   deriveTrajectoryRecommendation,
   type TrajectoryOptionInputs,
 } from "./trajectoryOptions";
+import {
+  buildRecoveryCognitionSection,
+  resolvePostEvidenceRecoveryContext,
+  type PostEvidenceRecoveryContext,
+} from "./resolvePostEvidenceRecoveryContext";
 import type {
   CkcRecommendationProvenanceDto,
   ProposeTrajectoryOptionsResult,
@@ -222,6 +227,14 @@ export async function proposeTrajectoryOptions(
     }
     return { ok: true, ...activeSubject.optionSet };
   }
+  if (activeSubject.kind === "pursue_prepare_ready") {
+    return {
+      ok: false,
+      code: "PREPARE_CONTINUATION_OWNS_NEXT_ACTION",
+      message:
+        "Une décision pursue durable attend la préparation du contrat d'exécution — aucune nouvelle instruction d'options.",
+    };
+  }
   if (
     activeSubject.kind === "pending_reinstruction_required" &&
     !opaqueProposalIdEarly
@@ -297,10 +310,33 @@ export async function proposeTrajectoryOptions(
     };
   }
 
+  // R7 — durable RecoveryContext for ProjectTrajectory path only.
+  // Proposal subject path keeps sealed Proposal as subject (no recovery inject).
+  let recoveryContext: PostEvidenceRecoveryContext | null = null;
+  if (!proposalSubject) {
+    const recovered = await resolvePostEvidenceRecoveryContext({
+      oa,
+      projectId: input.projectId,
+    });
+    if (!recovered.ok) {
+      return {
+        ok: false,
+        code: recovered.code,
+        message: recovered.message,
+      };
+    }
+    recoveryContext = recovered.context;
+  }
+
   const ckcPromptSection = buildCkcCognitivePromptSection(ckcContent);
+  const recoveryCognitionSection = recoveryContext
+    ? buildRecoveryCognitionSection(recoveryContext)
+    : null;
   const cognitionUserContent = proposalSubject
     ? `Instruire Options/Recommendation pour la Proposal ${proposalSubject.proposalId} (sujet: ${proposalSubject.sealedExecutionBasis.objective})`
-    : `Instruire Options/Recommendation pour le cycle ${input.cycleTypeId}`;
+    : recoveryContext
+      ? `Instruire Options/Recommendation de recovery/replan après FAIL durable (${recoveryContext.attemptId}) — sujet courant = recovery du même cycle, PAS un nouveau cadrage fonctionnel.`
+      : `Instruire Options/Recommendation pour le cycle ${input.cycleTypeId}`;
   let cognitiveRecommendation: string;
   try {
     const reasoning = await reasonWithResolvedCkcContext({
@@ -316,12 +352,24 @@ export async function proposeTrajectoryOptions(
               `targetPath=${proposalSubject.sealedExecutionBasis.targetPath ?? ""}`,
               `requestedOperation=${proposalSubject.sealedExecutionBasis.requestedOperation}`,
             ]
-          : []),
+          : recoveryContext
+            ? [
+                `recoverySubject=post_evidence`,
+                `attemptId=${recoveryContext.attemptId}`,
+                `evidenceId=${recoveryContext.evidenceId}`,
+                `recommendationKind=${recoveryContext.recommendationKind}`,
+                `realProcessInvoked=${recoveryContext.realProcessInvoked}`,
+              ]
+            : []),
       ].join(" | "),
       intentSummary: proposalSubject
         ? `Proposal subject ${proposalSubject.proposalId} · profil ${input.recommendedProfile}`
-        : `Cycle ${input.cycleTypeId} · profil ${input.recommendedProfile}`,
-      ckcPromptSection,
+        : recoveryContext
+          ? `Recovery/replan post-Evidence · cycle ${input.cycleTypeId} · profil ${input.recommendedProfile} · Recommendation ≠ HumanDecision`
+          : `Cycle ${input.cycleTypeId} · profil ${input.recommendedProfile}`,
+      ckcPromptSection: recoveryCognitionSection
+        ? `${ckcPromptSection}\n\n${recoveryCognitionSection}`
+        : ckcPromptSection,
     });
     cognitiveRecommendation = reasoning.recommendation;
   } catch (error) {
@@ -505,6 +553,7 @@ export async function proposeTrajectoryOptions(
     irreversible: input.irreversible,
     reservations: input.reservations,
     ckcAttribution: input.ckcAttribution,
+    recoveryContext,
   };
 
   const options = deriveTrajectoryOptions(inputs);

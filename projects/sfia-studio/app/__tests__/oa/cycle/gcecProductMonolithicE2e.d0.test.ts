@@ -678,17 +678,9 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () => 
     if (!durableEc.ok) return;
     let contract = durableEc.contract;
     expect(contract.action).toBe(M4_BOUNDED_DOCS_WRITE_ACTION);
-    expect(contract.evidenceRequirements).toEqual(
-      expect.arrayContaining([
-        "git:local_commit",
-        "git:remote_push",
-        "git:pull_request",
-        "git:ci_status",
-        "git:review_status",
-        "git:merge",
-        "git:post_merge_verification",
-      ]),
-    );
+    // R4 — bounded docs_write rematerializes EvidenceRequirements to artifact-only
+    // (sandbox target must not inherit contradictory Git lifecycle ERs).
+    expect(contract.evidenceRequirements).toEqual(["evreq:docs_write_artifact"]);
 
     const execAuth = registerLocalPiloteAuthority({
       authorityResolver: oa.authorityResolver,

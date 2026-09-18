@@ -21,6 +21,8 @@ const {
   executeCompleteMock,
   readActiveDecisionSubjectMock,
   readGovernedExecutionContinuityMock,
+  readRecoveryExecutionBindingMock,
+  prepareRecoveryDocsWriteMock,
   readPreCycleMock,
   readApprovalMock,
   prepareCycleMock,
@@ -40,6 +42,8 @@ const {
   executeCompleteMock: vi.fn(),
   readActiveDecisionSubjectMock: vi.fn(),
   readGovernedExecutionContinuityMock: vi.fn(),
+  readRecoveryExecutionBindingMock: vi.fn(),
+  prepareRecoveryDocsWriteMock: vi.fn(),
   readPreCycleMock: vi.fn(),
   readApprovalMock: vi.fn(),
   prepareCycleMock: vi.fn(),
@@ -78,6 +82,10 @@ vi.mock("@/features/project-assistant/w2/actions", () => ({
     readActiveDecisionSubjectMock(...args),
   w2ReadCurrentGovernedExecutionContinuityAction: (...args: unknown[]) =>
     readGovernedExecutionContinuityMock(...args),
+  w2ReadRecoveryExecutionBindingAction: (...args: unknown[]) =>
+    readRecoveryExecutionBindingMock(...args),
+  w2PrepareRecoveryDocsWriteAction: (...args: unknown[]) =>
+    prepareRecoveryDocsWriteMock(...args),
   w2ReadProjectHistoryAction: vi.fn().mockResolvedValue({
     ok: false,
     code: "UNUSED",
@@ -119,6 +127,8 @@ beforeEach(() => {
   executeCompleteMock.mockReset();
   readActiveDecisionSubjectMock.mockReset();
   readGovernedExecutionContinuityMock.mockReset();
+  readRecoveryExecutionBindingMock.mockReset();
+  prepareRecoveryDocsWriteMock.mockReset();
   readPreCycleMock.mockReset();
   readApprovalMock.mockReset();
   prepareCycleMock.mockReset();
@@ -131,6 +141,15 @@ beforeEach(() => {
   readGovernedExecutionContinuityMock.mockResolvedValue({
     ok: true,
     kind: "none",
+  });
+  readRecoveryExecutionBindingMock.mockResolvedValue({
+    ok: true,
+    binding: null,
+  });
+  prepareRecoveryDocsWriteMock.mockResolvedValue({
+    ok: false,
+    code: "UNUSED",
+    message: "unused",
   });
   readPreCycleMock.mockResolvedValue({
     ok: true,
@@ -290,6 +309,376 @@ describe("W2 TrajectorySurface", () => {
     expect(screen.getByTestId("w2-prepare-contract")).toBeVisible();
     expect(screen.queryByTestId("w2-amend-next-action")).toBeNull();
   });
+
+  it("CHECKPOINT-E resume — pursue_prepare_ready rehydrates PREPARE CTA without instruct", async () => {
+    readActiveDecisionSubjectMock.mockResolvedValue({
+      ok: true,
+      kind: "pursue_prepare_ready",
+      decision: {
+        decisionId: "dec:w2-prop:resume-ui",
+        selectedOptionRef: PROPOSAL_SUBJECT_PURSUE_REF,
+        actorRole: "Pilote",
+        authorityClass: "morris",
+        statusLabel: "DÉCISION HUMAINE PRISE",
+        capturedAt: "2026-09-17T18:36:50.105Z",
+        decisionBasisLinked: true,
+        reservesText: null,
+        proposalId: "prop:f2:3b788c52-5139-4b71-b00b-a45a0224b56f",
+      },
+    });
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "none",
+    });
+
+    render(<TrajectorySurface projectId="prj:w2-ui" />);
+
+    expect(await screen.findByTestId("w2-decision")).toBeVisible();
+    expect(screen.getByTestId("w2-proposal-backed-prepare")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.getByTestId("w2-prepare-contract")).toBeEnabled();
+    });
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+    expect(screen.queryByTestId("w2-options")).toBeNull();
+
+    prepareM3Mock.mockResolvedValue({
+      ok: true,
+      text: "Contrat préparé",
+      f3: {
+        successor: {
+          executionContractId: "xct:m3:decw2propresume-ui",
+          version: 1,
+          status: "validated",
+          action: "cursor.docs_write.apply",
+          target: "workspace.isolated.docs_write",
+          scope: "decision:dec:w2-prop:resume-ui",
+          requiredAuthority: "MORRIS",
+          constraints: ["PREPARE_ONLY"],
+          stopConditions: ["AUTHORITY_DENIED"],
+          requiredCapabilities: ["cap:cursor.docs_write"],
+          reversibility: "irreversible",
+          semanticFingerprint: "a".repeat(64),
+          inspectionDisclosure: {
+            action: "cursor.docs_write.apply",
+            target: "workspace.isolated.docs_write",
+            scope: "decision:dec:w2-prop:resume-ui",
+            requiredCapabilities: ["cap:cursor.docs_write"],
+            requiredAuthority: "MORRIS",
+            constraints: ["PREPARE_ONLY"],
+            stopConditions: ["AUTHORITY_DENIED"],
+            evidenceRequirements: ["git:local_commit"],
+            reversibility: "irreversible",
+          },
+        },
+      },
+    });
+    fireEvent.click(screen.getByTestId("w2-prepare-contract"));
+    await waitFor(() => {
+      expect(prepareM3Mock).toHaveBeenCalledWith({
+        projectId: "prj:w2-ui",
+        decisionId: "dec:w2-prop:resume-ui",
+      });
+    });
+  });
+
+  it("R8 — recovery docs_write binding hides W3-A catalog; PREPARE remains explicit", async () => {
+    const TARGET =
+      "projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md";
+    proposeMock.mockResolvedValue({
+      ok: true,
+      optionSetRef: "optset:w2-recovery",
+      cycleTypeId: "cyc:delivery",
+      recommendedProfile: "Critical",
+      options: [
+        {
+          kind: "OPTION",
+          optionRef: "opt:trajectory:governed-gated",
+          label: "Nouvelle tentative gouvernée",
+          intent: "Reprendre après FAIL",
+          impacts: [],
+          reservations: [],
+          steps: [],
+        },
+      ],
+      recommendation: {
+        label: "RECOMMANDATION — PAS UNE DÉCISION",
+        recommendedOptionRef: "opt:trajectory:clarify-first",
+        rationale: "Diagnostiquer.",
+        isHumanDecision: false,
+        promotesTrajectory: false,
+        ckcAttribution: null,
+      },
+      epistemicRefs: [],
+      proposedTrajectory: {
+        trajectoryId: "trj:w2-recovery",
+        version: 1,
+      },
+      phase: "OPTIONS_PROPOSED",
+      autoDecisionPerformed: false,
+      executionPerformed: false,
+      ckcCognitionCompletedBeforeMutation: true,
+    });
+    decideMock.mockResolvedValue({
+      ok: true,
+      decision: {
+        decisionId: "dec:w2-trj:recovery-ui",
+        selectedOptionRef: "opt:trajectory:governed-gated",
+        actorRole: "Pilote",
+        authorityClass: "morris",
+        statusLabel: "DÉCISION HUMAINE PRISE",
+        capturedAt: "2026-09-17T21:00:00.000Z",
+        decisionBasisLinked: true,
+        reservesText: null,
+        proposalId: null,
+      },
+      trajectory: { trajectoryId: "trj:w2-recovery", version: 3 },
+      livingProjectStateVersion: 4,
+      executionPerformed: false,
+      promotesProjectTrajectory: true,
+      decisionSubjectMode: "project_trajectory",
+    });
+    readRecoveryExecutionBindingMock.mockResolvedValue({
+      ok: true,
+      binding: {
+        kind: "post_evidence_recovery_execution",
+        recovery: {
+          kind: "post_evidence_recovery",
+          attemptId: "xat:w3a:1f49d8e25e20837a",
+          attemptStatus: "failed",
+          stopReason: "REAL_PROCESS_NONZERO_EXIT",
+          executionContractId: "xct:m3-ev:8aaa188b3a3bd7a7",
+          evidenceId: "ev:w3b:seed",
+          reviewBundleId: "rb:w3b:seed",
+          productOutcome: "FAIL",
+          recommendationKind: "recover",
+          headline: "Échec",
+          rationale: "r",
+          nextStep: "recovery_diagnose_or_replan",
+          realProcessInvoked: true,
+          businessEffectProven: false,
+          w3cEpistemicItemId: "epi:w3c-rec:seed",
+        },
+        sourceExecutionContractId: "xct:m3-ev:8aaa188b3a3bd7a7",
+        sourceAttemptId: "xat:w3a:1f49d8e25e20837a",
+        action: "cursor.docs_write.apply",
+        target: "workspace.isolated.docs_write",
+        targetPath: TARGET,
+        scope: "studio.gcec.docs_write",
+        requiredCapabilities: ["cap:cursor.docs_write"],
+        evidenceRequirements: ["evreq:docs_write_artifact"],
+        constraints: ["NO_COMMIT", "NO_PUSH"],
+        stopConditions: [],
+        expectedOutputs: [],
+        inputs: { targetPath: TARGET },
+        projectId: "prj:w2-ui",
+        cycleInstanceId: null,
+        sourceSemanticFingerprint: null,
+        sourceStatus: "failed",
+      },
+    });
+
+    render(<TrajectorySurface projectId="prj:w2-ui" />);
+    fireEvent.click(await screen.findByTestId("w2-propose-options"));
+    await screen.findByTestId("w2-options");
+    fireEvent.click(
+      screen.getByTestId("w2-decide-opt:trajectory:governed-gated"),
+    );
+    expect(await screen.findByTestId("w2-decision")).toBeVisible();
+    expect(
+      await screen.findByTestId("w2-recovery-docs-write-prepare"),
+    ).toBeVisible();
+    expect(screen.getByTestId("w2-recovery-docs-write-path")).toHaveTextContent(
+      TARGET,
+    );
+    expect(screen.queryByTestId("w3a-operation-kind")).toBeNull();
+    expect(screen.queryByTestId("w3a-qualify-execution-work")).toBeNull();
+    expect(screen.getByTestId("w2-prepare-recovery-docs-write")).toBeEnabled();
+    expect(prepareRecoveryDocsWriteMock).not.toHaveBeenCalled();
+    expect(prepareContractMock).not.toHaveBeenCalled();
+  });
+
+  it("R10 — restart: decision=null + continuityDecisionRef loads binding; wrong generic current → CTA primary", async () => {
+    const TARGET =
+      "projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md";
+    const recoveryHd = "dec:w2-trj:7e6ca68a-a31b-448c-9ae8-648de8772988";
+    const wrongEcId = "xct:w3a:dec:w2-trj:7e6ca68a-a31b-448c-9ae8-648de8772988";
+
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "active",
+      decisionRef: recoveryHd,
+      contract: {
+        executionContractId: wrongEcId,
+        version: 2,
+        status: "confirmation_required",
+        action: "product:generate-temporary-artifact",
+        target: "product:project-workspace",
+        scope: "product:temporary-local-artifact",
+        requiredAuthority: "LOCAL_PILOTE",
+        constraints: ["FIXTURE_EXECUTOR_BOUNDARY_ONLY", "NO_REAL", "NO_CURSOR_REAL"],
+        stopConditions: [],
+        requiredCapabilities: ["cap:product-temp-artifact"],
+        reversibility: "reversible",
+        semanticFingerprint: "fp:wrong",
+        effectConfirmationRequired: true,
+        effectConfirmationLevel: null,
+        inspectionDisclosure: {
+          action: "product:generate-temporary-artifact",
+          target: "product:project-workspace",
+          scope: "product:temporary-local-artifact",
+          constraints: ["NO_REAL"],
+          stopConditions: [],
+          requiredCapabilities: ["cap:product-temp-artifact"],
+          requiredAuthority: "LOCAL_PILOTE",
+          reversibility: "reversible",
+          evidenceRequirements: ["evreq:generate-temporary-artifact"],
+          expectedOutputs: [],
+        },
+      },
+      inspection: {
+        executionContractId: wrongEcId,
+        contractVersion: 2,
+        semanticFingerprint: "fp:wrong",
+        statusLabel: "non inspecté",
+        inspectionSufficient: false,
+        attestationRef: null,
+        attestedVersion: null,
+        staleAttestationRef: null,
+        reinspectionRequired: true,
+        reason: "not_inspected",
+        grantsAuthority: false,
+      },
+    });
+
+    readRecoveryExecutionBindingMock.mockResolvedValue({
+      ok: true,
+      binding: {
+        kind: "post_evidence_recovery_execution",
+        recovery: {
+          kind: "post_evidence_recovery",
+          attemptId: "xat:w3a:1f49d8e25e20837a",
+          attemptStatus: "failed",
+          stopReason: "REAL_PROCESS_NONZERO_EXIT",
+          executionContractId: "xct:m3-ev:8aaa188b3a3bd7a7",
+          evidenceId: "ev:w3b:seed",
+          reviewBundleId: "rb:w3b:seed",
+          productOutcome: "FAIL",
+          recommendationKind: "recover",
+          headline: "Échec",
+          rationale: "r",
+          nextStep: "recovery_diagnose_or_replan",
+          realProcessInvoked: true,
+          businessEffectProven: false,
+          w3cEpistemicItemId: "epi:w3c-rec:seed",
+        },
+        sourceExecutionContractId: "xct:m3-ev:8aaa188b3a3bd7a7",
+        sourceAttemptId: "xat:w3a:1f49d8e25e20837a",
+        action: "cursor.docs_write.apply",
+        target: "workspace.isolated.docs_write",
+        targetPath: TARGET,
+        scope: "studio.gcec.docs_write",
+        requiredCapabilities: ["cap:cursor.docs_write"],
+        evidenceRequirements: ["evreq:docs_write_artifact"],
+        constraints: ["NO_COMMIT", "NO_PUSH"],
+        stopConditions: [],
+        expectedOutputs: [],
+        inputs: { targetPath: TARGET },
+        projectId: "prj:w2-ui",
+        cycleInstanceId: null,
+        sourceSemanticFingerprint: null,
+        sourceStatus: "failed",
+      },
+    });
+
+    render(<TrajectorySurface projectId="prj:w2-ui" />);
+
+    // T1 — binding loaded with continuity decisionRef (decision client null)
+    await waitFor(() => {
+      expect(readRecoveryExecutionBindingMock).toHaveBeenCalledWith({
+        projectId: "prj:w2-ui",
+        decisionId: recoveryHd,
+      });
+    });
+
+    // T2/T4 — recovery CTA visible as primary; wrong EC still visible; Inspect demoted
+    expect(
+      await screen.findByTestId("w2-recovery-docs-write-prepare"),
+    ).toBeVisible();
+    expect(screen.getByTestId("w2-recovery-docs-write-path")).toHaveTextContent(
+      TARGET,
+    );
+    expect(screen.getByTestId("w2-recovery-replaceable-generic-note")).toBeVisible();
+    expect(screen.getByTestId("w2-contract")).toBeVisible();
+    expect(screen.getByTestId("w2-contract-action")).toHaveTextContent(
+      "product:generate-temporary-artifact",
+    );
+    expect(screen.getByTestId("w2-contract-next-action")).toHaveTextContent(
+      /Préparer le contrat recovery/i,
+    );
+    expect(screen.getByTestId("w2-prepare-recovery-docs-write")).toBeEnabled();
+    expect(screen.getByTestId("w2-inspect-contract").className).not.toMatch(
+      /primaryAction/,
+    );
+    expect(screen.queryByTestId("w2-confirm-contract")).toBeNull();
+    expect(screen.getByTestId("w2-authorize-contract")).toBeDisabled();
+
+    // T3 — no mutation on reload (no prepare/cancel called)
+    expect(prepareRecoveryDocsWriteMock).not.toHaveBeenCalled();
+    expect(prepareContractMock).not.toHaveBeenCalled();
+
+    // T5 — explicit PREPARE click routes to R8 action
+    prepareRecoveryDocsWriteMock.mockResolvedValue({
+      ok: true,
+      contract: {
+        executionContractId: "xct:m3-res:recovery-successor",
+        version: 2,
+        status: "confirmation_required",
+        action: "cursor.docs_write.apply",
+        target: "workspace.isolated.docs_write",
+        scope: "studio.gcec.docs_write",
+        requiredAuthority: "MORRIS",
+        constraints: ["NO_COMMIT", "NO_PUSH", "NO_PR", "NO_MERGE"],
+        stopConditions: [],
+        requiredCapabilities: ["cap:cursor.docs_write"],
+        reversibility: "reversible",
+        semanticFingerprint: "fp:successor",
+        supersedesExecutionContractId: null,
+        supersessionReason: null,
+        inspectionDisclosure: {
+          action: "cursor.docs_write.apply",
+          target: "workspace.isolated.docs_write",
+          targetPath: TARGET,
+          scope: "studio.gcec.docs_write",
+          constraints: ["NO_COMMIT"],
+          stopConditions: [],
+          requiredCapabilities: ["cap:cursor.docs_write"],
+          requiredAuthority: "MORRIS",
+          reversibility: "reversible",
+          evidenceRequirements: ["evreq:docs_write_artifact"],
+          expectedOutputs: [],
+        },
+      },
+      decisionId: recoveryHd,
+      cancelledWrongGenericContractId: wrongEcId,
+      reusedFromIdempotency: false,
+      f3SemanticOverwrite: false,
+      executionPerformed: false,
+      attemptCreated: false,
+      binding: {},
+    });
+
+    fireEvent.click(screen.getByTestId("w2-prepare-recovery-docs-write"));
+    await waitFor(() => {
+      expect(prepareRecoveryDocsWriteMock).toHaveBeenCalledWith({
+        projectId: "prj:w2-ui",
+        decisionId: recoveryHd,
+      });
+    });
+    expect(await screen.findByTestId("w2-contract-action")).toHaveTextContent(
+      "cursor.docs_write.apply",
+    );
+  });
+
   it("labels Options and Recommendation distinctly and never auto-decides", async () => {
     proposeMock.mockResolvedValue({
       ok: true,

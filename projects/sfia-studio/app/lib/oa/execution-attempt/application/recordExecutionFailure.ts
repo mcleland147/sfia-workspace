@@ -126,6 +126,9 @@ export class RecordExecutionFailure {
         technicalExitCode: request.technicalExitCode,
         durationMs: request.durationMs,
         logRefs: request.logRefs ? [...request.logRefs] : attempt.logRefs,
+        ...(request.processDiagnostic
+          ? { processDiagnostic: request.processDiagnostic }
+          : {}),
         updatedAt: timestamp,
         version: attempt.version + 1,
       };
