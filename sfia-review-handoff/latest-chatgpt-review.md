@@ -1,11 +1,11 @@
-# PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01 — CR-CEC-01/02/03 CORRECTION — Review Pack FULL
+# PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01 — CR-CEC FOLLOW-UP PACK FULL
 
-**Timestamp (UTC):** 2026-09-18T15:40:37Z
-**Timestamp (local):** 2026-09-18 17:40:37 CEST
-**Pack revision:** PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01 / CR-CEC CORRECTION
-**Morris GO consumed:** YES — CHATGPT CRITICAL REVIEW CORRECTION / SAME MACRO / ZERO NEW CURSOR REAL / ZERO NEW ATTEMPT / NO PROJECT COMMIT
-**Prior reviewed handoff:** `e4e9b36c336175c98dbf5c0c6bf9ad57732aaa6c`
-**Verdict:** CR-CEC-01/02/03 CLOSED — SUCCESSOR CE `evidence-completion-v2` PASS — HISTORICAL v1 PASS IMMUTABLE — ZERO NEW REAL / ATTEMPT
+**Timestamp (UTC):** 2026-09-18T16:44:38Z
+**Timestamp (local):** 2026-09-18 18:44:38 CEST
+**Pack revision:** PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01 / CR-CEC FOLLOW-UP (missing diffs + distinct binding tests)
+**Morris GO consumed:** YES — BOUNDED FOLLOW-UP / SAME MACRO / ZERO REAL / ZERO NEW ATTEMPT / NO PROJECT COMMIT
+**Prior CR handoff:** `dd9252292fae1968dcec2e712a5912d6f69b4b06`
+**Verdict:** CR-CEC FOLLOW-UP CLOSED — 3 PREVIOUSLY MISSING MODIFIED CONTENTS INCLUDED — DISTINCT ATTEMPT/EC/PROJECT/CYCLE TESTS — TYPECHECK + DIFF-CHECK + FOCUSED REGRESSION PASS — DB POST-REMATERIALIZE DELTA EXPLAINED
 
 ---
 
@@ -17,7 +17,7 @@
 | Worktree | `/Users/morris/Projects/sfia-studio-product-journey-claim-evidence-completion-01` |
 | Branch | `qa/sfia-studio-product-journey-claim-evidence-completion-01` |
 | HEAD / origin/main | `9c6ac90974113044330284dd110108287ba2319e` / `9c6ac90974113044330284dd110108287ba2319e` |
-| Baseline match | **YES** — HEAD = origin/main = `9c6ac90974113044330284dd110108287ba2319e` |
+| Baseline match | **YES** |
 | Project commit/push/PR | **NOT DONE** (forbidden) |
 | ZERO new Cursor REAL | **YES** |
 | Attempts | **3 → 3** |
@@ -57,109 +57,215 @@
 
 ---
 
-## 2. CR findings closed
+## 2. Follow-up scope
 
-| ID | Requirement | Resolution |
-|---|---|---|
-| **CR-CEC-01** | Bound oracle ONLY from `attempt.boundExecutionContract.semanticMaterial.inputs` — no `contract.inputs` fallback | `extractDocsWriteMinConformityCriteriaFromBoundAttempt` · missing bound snapshot/inputs → `BOUND_ACCEPTANCE_ORACLE_MISSING` · no Evidence/RB/CE |
-| **CR-CEC-02** | Conformity attestation bound to exact oracle via deterministic fingerprint | `technicalResultRef = docs_write_min_conformity:v2:oracle:<sha256>` · semantic re-derives expected fingerprint from bound Attempt and requires equality · source string alone insufficient |
-| **CR-CEC-03** | Closed validationExpectations + fence-safe headings + artifactType check | Exact supported VE templates only · unknown → `BOUND_ACCEPTANCE_ORACLE_UNSUPPORTED` · `stripMarkdownFencedCodeBlocks` before heading regex |
+| Item | Status |
+|---|---|
+| Republish FULL pack with 3 missing modified contents | **DONE** (section 7) |
+| Distinct Attempt / EC / project / cycle tests | **DONE** (EC-06, EC-07, EC-08, EC-08b) |
+| typecheck | **PASS** (`tsc --noEmit`) |
+| `git diff --check` | **PASS** (tracked + untracked product files) |
+| Focused regression | **PASS** — claimEvidenceCompletion **18** + w3cPostEvidenceCorrection **17** = **35** |
+| Explain DB post-rematerialize delta | **DONE** (section 5) |
+| Republish Review Handoff | **THIS PACK** |
 
-No architecture reopen. No second ContractResult engine. No ExecutionContract mutation. No weakened ExpectedOutputs. No schema migration.
+No architecture change. No REAL. No new Attempt. No project Git.
 
 ---
 
-## 3. Campaign successor evaluation
+## 3. Campaign truth (unchanged since CR-CEC v2)
 
 | Item | Value |
 |---|---|
-| DB | `/Users/morris/Projects/sfia-studio-product-journey-e2e-real-reconciliation-01/projects/sfia-studio/.sfia-exec/pje2e-real-01/product/oa-product.sqlite` |
-| Pre sha256 (before v2) | `6101e20ce49a7243c489ecd237319a3a4d68daa429294b2024ed6931709bcf81` |
-| Post sha256 (after v2 CE) | `623a7d2e9d01afa4134bb94d2376d8e92abd8ebc38b1906ac842af0519c020cd` |
-| Post rematerialize sha256 | `edf1824bda2d7fe54c24e2a19565873d4eab2768eb78115d9e419f497b08efe1` |
-| Forensic backup | `/tmp/oa-product.pje2e-real-01.pre-cec-v2.*` |
-| Historical CE v1 | `clm:docs-write:evidence-completion-v1:xat:w3a:c4c5670edb4658cc` = **pass IMMUTABLE** (`v1Immutable: true`) |
-| Successor CE v2 | `clm:docs-write:evidence-completion-v2:xat:w3a:c4c5670edb4658cc` = **pass** |
-| Supersedes | v2 supersedes v1 |
-| Conformity Evidence v2 | `ev:docs-write-conformity:evidence-completion-v2:xat:w3a:c4c5670edb4658cc` |
-| technicalResultRef | `docs_write_min_conformity:v2:oracle:bc23f356e6c22edd39a875ab36357fc8faa0ec1069268df97db0087b80005841` |
-| oracleFingerprint | `bc23f356e6c22edd39a875ab36357fc8faa0ec1069268df97db0087b80005841` |
-| Successor RB | `rb:docs-write:evidence-completion-v2:xat:w3a:c4c5670edb4658cc` frozenVersion=2 |
-| EO assessments | PASS / PASS |
-| ER | SATISFIED |
+| CE v1 | `evidence-completion-v1` **pass IMMUTABLE** |
+| CE v2 | `evidence-completion-v2` **pass** (current) |
 | Product | **SUCCESS** |
-| LPS | **29** (v28→v29) |
-| Trajectory | v4 unchanged |
-| HumanDecisions | 5 (unchanged) |
-| ZERO REAL / no new Attempt | **YES** / **YES** |
-
-Bound oracle (Attempt 3 snapshot — read, not trusted from prompt):
-
-- targetPath: `projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md`
-- contentRequirements: Objectif, Périmètre inclus, Périmètre exclu, Besoins principaux, Critères de succès, Prochaine étape
-- validationExpectations (exact):
-  - `Vérifier que le fichier existe au chemin cible`
-  - `Vérifier la présence de l’objectif, du périmètre inclus et exclu, des besoins principaux, des critères de succès et de la prochaine étape` (U+2019)
-- artifactType: `Markdown`
-- boundSemanticFingerprint: `3cc524c541b934c3136d8fb0c34a8348591bb162472e12dde51bb9af8573602f`
-
-Artifact digest MATCH: `sha256:3cb08ee5fa2dabb1d75b7e90b65c4843935cdda75767fbfd6ff9e7fcd0b6bccf` (M4 WT)
+| LPS | **29** |
+| Trajectory | v4 |
+| Attempts / HD | 3 / 5 |
+| oracleFingerprint | `bc23f356e6c22edd39a875ab36357fc8faa0ec1069268df97db0087b80005841` |
+| technicalResultRef | `docs_write_min_conformity:v2:oracle:bc23f356e6c22edd39a875ab36357fc8faa0ec1069268df97db0087b80005841` |
 
 ---
 
-## 4. Tests
+## 4. Tests — distinct binding fail-closed
 
-```
-claimEvidenceCompletion.d0.test.ts — 15 passed (EC-01..23 + CR-CEC-01/02/03)
-w3cPostEvidenceCorrection.test.ts — 17 passed
-```
+Previously EC-06/07/08 was a single combined case (project mismatch only).
 
-CR-CEC coverage:
+Now:
 
-- bound inputs present → proceed
-- bound inputs absent + live contract populated → FAIL-CLOSED
-- bound snapshot absent + live contract populated → FAIL-CLOSED
-- live criteria differ from bound → bound wins
-- v1 static technicalResultRef rejected
-- unknown validationExpectation → BOUND_ACCEPTANCE_ORACLE_UNSUPPORTED
-- headings inside fenced code → CONFORMITY_HEADINGS_MISSING (no false PASS)
+| Test | Mutation | Expected |
+|---|---|---|
+| EC-06 | wrong `executionAttemptId` | CE `not_proven` |
+| EC-07 | wrong `executionContractId` | CE `not_proven` |
+| EC-08 | wrong `projectId` | CE `not_proven` |
+| EC-08b | wrong `cycleInstanceId` | CE `not_proven` |
 
 ---
 
-## 5. Server-owned trust boundary
+## 5. DB delta post-rematerialize (explained)
 
-RegisterEvidence still accepts caller `source` / `technicalResultRef` metadata.
+SHA chain:
 
-ContractResult semantic does **not** trust them alone. `docsWriteConformityFactsHold` requires:
+| Step | sha256 |
+|---|---|
+| Pre v2 CE (forensic `/tmp/...pre-cec-v2...`) | `6101e20ce49a7243c489ecd237319a3a4d68daa429294b2024ed6931709bcf81` |
+| After evidence-completion-v2 CE write | `623a7d2e9d01afa4134bb94d2376d8e92abd8ebc38b1906ac842af0519c020cd` |
+| After rematerialize (current) | `edf1824bda2d7fe54c24e2a19565873d4eab2768eb78115d9e419f497b08efe1` |
 
-- type `attestation`
-- sourceKind `system`
-- source = `docs_write_min_conformity_verifier:v2`
-- technicalResultRef oracle fingerprint **equals** server-derived fingerprint from Attempt bound snapshot
-- digest equality with artifact Evidence
-- location equality
-- same Attempt / EC / project / cycle
-- positive Evidence version (freeze path re-checks exact snapshot version)
+`phase14.preSha === phase12.postSha` → rematerialize starts from the post-CE DB.
 
-No new authentication subsystem. No persistence schema migration.
+### A) Delta of CE write (pre-v2 → post-CE) — claim/evidence only
+
+- `oa_claim_evaluations` +1 → `clm:docs-write:evidence-completion-v2:…` **pass** (supersedes v1)
+- `oa_claim_evaluation_idempotency` +1
+- `oa_evidence` +1 → `ev:docs-write-conformity:evidence-completion-v2:…` (v2 oracle fingerprint)
+- `oa_evidence_idempotency` +1
+- `oa_review_bundles` +1 → `rb:docs-write:evidence-completion-v2:…` frozen
+- `oa_review_bundle_idempotency` +2 (create + freeze)
+- Attempts **unchanged** (3)
+- HumanDecisions **unchanged** (5)
+- Historical v1 CE/Evidence/RB **unchanged**
+
+### B) Delta of rematerialize only (post-CE → current) — projection / LPS / W3-C
+
+Not a new claim evaluation. Rematerialize updates living project state + post-evidence recommendation:
+
+- `oa_lps` +1 → **v29** (current pointer advanced; v28 preserved historically)
+- `oa_epistemic_items` +1 → `epi:w3c-rec:5a313ba8a1747455`
+  - `recommendationKind: continue`
+  - `nextStep: continue_with_recommendation`
+  - `productOutcome: SUCCESS`
+  - `claimEvaluationId: evidence-completion-v2`
+  - `reviewBundleId: rb:docs-write:evidence-completion-v2:…`
+  - `recommendNextGateStatus: not_recommended` (D5 next-gate not recommended — expected for SUCCESS/continue; ≠ failure)
+  - Fake Nora analysis only (`fake-test`) — **ZERO LIVE / ZERO REAL**
+- `oa_audit_events` +1 (coordination recommendation audit)
+- **No** new Attempt / EC / HD / Artifact Evidence
+- **No** mutation of v1 or v2 CE rows beyond current-resolution reading v2
+
+Net: rematerialize DB growth is LPS tip + W3-C continue recommendation epistemic + audit — not a second proof engine and not a REAL.
 
 ---
 
 ## 6. Anti-claims
 
-- ≠ Product Journey READY / COMPLETE
+- ≠ Product Journey READY/COMPLETE
+- ≠ project Git authorized
 - ≠ new Cursor REAL / Attempt 4
-- ≠ project Git commit / push / PR / merge authorized
-- ≠ runtime v3 ADOPTED
-- ≠ v1 CE mutated or deleted (immutable historical PASS)
-- ≠ ExecutionContract / ExpectedOutputs weakened
-- ≠ NLP / LLM interpretation of validationExpectations
+- ≠ v1 CE mutated
+- ≠ schema migration
 
 ---
 
-## 7. Implementation (reviewable)
+## 7. Previously missing modified contents (REQUIRED)
 
-### index.ts diff
+### PREVIOUSLY MISSING — DIFF `projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts b/projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts
+index 5b166f42..b0d83f34 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts
+@@ -58,6 +58,11 @@ export type RequalifyDocsWriteContractResultInput = {
+    * (never overwrites prior docs_write / W3-B CE ids).
+    */
+   correctionRef?: string;
++  /**
++   * With correctionRef: use successor ReviewBundle id scoped by correction
++   * (historical rb:docs-write remains untouched).
++   */
++  scopeReviewBundle?: boolean;
+ };
+
+ export type RequalifyDocsWriteContractResultResult =
+@@ -85,6 +90,7 @@ export async function requalifyDocsWriteContractResult(
+
+   const ids = docsWriteContractResultIdentity(input.attempt.attemptId, {
+     ...(input.correctionRef ? { correctionRef: input.correctionRef } : {}),
++    ...(input.scopeReviewBundle ? { scopeReviewBundle: true } : {}),
+   });
+   const evidence = await services.evidenceReader.findById(ids.evidenceId);
+   if (!evidence) {
+@@ -163,20 +169,30 @@ export async function requalifyDocsWriteContractResult(
+     // conflicting docs-write identity when a docs-write CE is already current.
+     if (!input.correctionRef) {
+       if (currentIsDocsWriteLineage) {
++        // Prefer the ReviewBundle identity bound into the current CE
++        // (successor RB after evidence-completion), not the historical default.
++        const boundRbId = currentCe.reviewBundleId;
++        const boundRb = boundRbId
++          ? await services.reviewBundleReader.findById(boundRbId)
++          : null;
+         return {
+           ok: true,
+           claimEvaluation: currentCe,
+-          reviewBundle,
++          reviewBundle: boundRb ?? reviewBundle,
+           reusedFromIdempotencyKey: true,
+         };
+       }
+       supersededClaimEvaluationId = currentCe.claimEvaluationId;
+     } else if (ids.claimEvaluationId === currentCe.claimEvaluationId) {
+       // CASE C — same correctionRef already current.
++      const boundRbId = currentCe.reviewBundleId;
++      const boundRb = boundRbId
++        ? await services.reviewBundleReader.findById(boundRbId)
++        : null;
+       return {
+         ok: true,
+         claimEvaluation: currentCe,
+-        reviewBundle,
++        reviewBundle: boundRb ?? reviewBundle,
+         reusedFromIdempotencyKey: true,
+       };
+     } else {
+```
+
+### PREVIOUSLY MISSING — DIFF `projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts b/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
+index 03b384d4..e46773d2 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
+@@ -235,7 +235,7 @@ export function projectW3bProductTerminal(input: {
+         reviewBundleId: input.reviewBundle.reviewBundleId,
+         frozenVersion: input.reviewBundle.frozenVersion,
+       },
+-      evidenceIds: [input.evidence.evidenceId],
++      evidenceIds: input.reviewBundle.evidenceRefs,
+       projectId: input.contract.projectId,
+       cycleInstanceId: input.contract.cycleInstanceId ?? null,
+     })
+```
+
+### PREVIOUSLY MISSING — DIFF `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+
+```diff
+diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+index 0d45305d..c8e705a2 100644
+--- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
++++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+@@ -4,7 +4,9 @@
+ | --- | --- |
+ | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
+ | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
+-| **Timestamp maintenance PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** | 2026-09-18 15:30:00 CEST (+0200) — **PRODUCT JOURNEY POST-EXECUTION REPLAN — PROJECT GIT INTEGRATION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** · CR-PJR-01/02/03 **CLOSED / PRESERVED** · original macro baseline `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` (PR **#502** ContractResult A+B merge) · **requalified current baseline** `origin/main` `9be4b80629cb594821cc7b35abf22c89df65acc1` after documentation-only PR **#503** (`sfia-studio-transmission-guide.md` only · **NON-OVERLAPPING DOCUMENTARY MAIN ADVANCE**) · branche `qa/sfia-studio-product-journey-post-execution-replan-01` · Attempt 3 current CE strict **not_proven** preserved · Product **UNCLAIMED** · portable PJR + correctionRef + current-CE W3-C semantics preserved · Attempts **3→3** · **ZERO NEW STUDIO/CURSOR REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **PROJECT GIT INTEGRATION — RESOLVE FROM GIT / PR EVIDENCE** · **≠** READY · **≠** Attempt 3 Product PASS · next = PR CI / conditional merge / post-merge verification |
++| **Timestamp maintenance PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01** | 2026-09-18 17:40:00 CEST (+0200) — **PRODUCT JOURNEY CLAIM EVIDENCE COMPLETION — CR-CEC-01/02/03 CORRECTION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01** · baseline `origin/main` `9c6ac90974113044330284dd110108287ba2319e` · branche `qa/sfia-studio-product-journey-claim-evidence-completion-01` · CR-CEC-01 bound-snapshot oracle only · CR-CEC-02 oracle fingerprint attestation · CR-CEC-03 closed validationExpectations + fence-safe headings · historical CE `evidence-completion-v1` **pass IMMUTABLE** · successor CE `evidence-completion-v2` **pass** · Product **SUCCESS** · LPS v28→v29 · Trajectory v4 unchanged · Attempts **3→3** · **ZERO NEW CURSOR REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **LOCAL / IN PROGRESS — RESOLVE FROM GIT / PR EVIDENCE** · project Git integration **NOT AUTHORIZED** by this tip · **≠** Product Journey READY/COMPLETE · **≠** new REAL proof · next = ChatGPT Critical Review / Morris Git gate |
++| **Timestamp maintenance historique PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01 first pass (pre-CR-CEC)** | *(historique tip · superseded as tip by CR-CEC-01/02/03 correction)* — 2026-09-18 16:15:00 CEST (+0200) — first evidence-completion pass · correctionRef `evidence-completion-v1` · CE **pass** superseding strict-eo-v1 **not_proven** · Product **SUCCESS** · LPS v27→v28 · Attempts **3→3** · ZERO REAL · ChatGPT Critical Review then required CR-CEC-01/02/03 before Git acceptance |
++| **Timestamp maintenance historique PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 (pre-CLAIM-EVIDENCE-COMPLETION-01)** | 2026-09-18 15:30:00 CEST (+0200) — **PRODUCT JOURNEY POST-EXECUTION REPLAN — PROJECT GIT INTEGRATION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** · CR-PJR-01/02/03 **CLOSED / PRESERVED** · original macro baseline `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` (PR **#502** ContractResult A+B merge) · **requalified current baseline** `origin/main` `9be4b80629cb594821cc7b35abf22c89df65acc1` after documentation-only PR **#503** (`sfia-studio-transmission-guide.md` only · **NON-OVERLAPPING DOCUMENTARY MAIN ADVANCE**) · branche `qa/sfia-studio-product-journey-post-execution-replan-01` · Attempt 3 current CE strict **not_proven** preserved · Product **UNCLAIMED** · portable PJR + correctionRef + current-CE W3-C semantics preserved · Attempts **3→3** · **ZERO NEW STUDIO/CURSOR REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **PROJECT GIT INTEGRATION — RESOLVE FROM GIT / PR EVIDENCE** · **≠** READY · **≠** Attempt 3 Product PASS · next = PR CI / conditional merge / post-merge verification |
+ | **Timestamp maintenance historique CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 (pre-PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01)** | *(tip superseded by PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-18 09:10:00 CEST (+0200) — **CONTRACT RESULT EXTENSIBILITY — FINAL PR-READINESS CORRECTION** · EVOL · CRITICAL · Macro **CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01** · CR-BLK-01/02/03/04 **CLOSED** · baseline `bb6af3ca` · branche `feat/sfia-studio-contract-result-extensibility-01` · later **INTEGRATED ON MAIN / POST-MERGE VERIFIED** via PR **#502** merge `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` · docs-write M3 profile resolves **HOW** only (no `expectedOutputs` injection; predecessor WHAT preserved by SupersedeExecutionContract) · Attempt 3 current CE strict **not_proven** preserved · Attempts **3→3** · **ZERO REAL** · runtime v3 = **NON ADOPTED** · **≠** Product Journey READY · **≠** Attempt 3 Product PASS · historical tip wording **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** was pre-merge · Git/PR #502 are authoritative |
+ | **Timestamp maintenance historique PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 (pre-CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01)** | *(tip superseded by CONTRACT-RESULT-EXTENSIBILITY-IMPLEMENTATION-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-18 05:15:00 CEST (+0200) — **PRODUCT JOURNEY E2E REAL RECONCILIATION INTEGRATION** · Cycle **15** · Capitalisation / REX + intégration Git · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01** · parent campagne **PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-01** · baseline pré-intégration `origin/main` `26478b1ea5b010c625f0c6039c969fac5c135cf5` · branche `qa/sfia-studio-product-journey-e2e-real-reconciliation-01` · checkpoints **R1–R12** consolidés · Product fixes **R1/R3/R4/R6/R7/R8/R10** = intégration candidate this PR · Attempt 1 FAIL · Attempt 2 FAIL Authentication required · Attempt 3 Cursor REAL **technical SUCCESS** · bounded docs_write filesystem effect + Artifact Evidence **PROVEN** in M4 isolated WT · Product Result remains **UNCLAIMED** · blocker = **ContractResult extensibility / Evidence wiring** (`no_applicable_contract_result_rule` for `cursor.docs_write.apply`) · capitalisation `projects/sfia-studio/convergence/product-journey-e2e-real-reconciliation-01-capitalization.md` · **ZERO REAL** this integration macro · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **≠** Product Journey E2E READY / COMPLETE · **≠** ContractResult docs_write PASS · **≠** runtime v3 ADOPTED · next after integration verified = **R13 — Contract Result extensibility framing — ZERO REAL** · **NOT STARTED / NOT AUTHORIZED** by this tip · repository lifecycle = **RESOLVE FROM GIT / PR evidence** |
+ | **Timestamp maintenance historique PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01 (pre-PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01)** | *(tip superseded by PRODUCT-JOURNEY-E2E-REAL-RECONCILIATION-INTEGRATION-01 — HISTORICAL / SUPERSEDED AS CURRENT TIP)* — 2026-09-17 18:25:36 CEST (+0200) — **PRODUCT DOCS_WRITE REAL PASS POST-MERGE TRUTH-SYNC** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Macro **PRODUCT-DOCS-WRITE-REAL-PASS-POST-MERGE-TRUTH-SYNC-01** · parent macro **PRODUCT-DOCS-WRITE-REAL-PASS-CAPITALISATION-01** · GO Morris post-merge documentary truth-sync #499 **CONSUMED** (local docs + commit only) · PR **#499 MERGED** `docs(sfia-studio): capitalize Product docs-write REAL proof` · head `9981483f8c158bec07364e14e626cdf2c3fd1e34` · merge `3907177f7788d23d640c5bdcd1cee8e01615762f` · parents `b739ddd3826ea4df640e3f34f97a966d85f8d214` + `9981483f8c158bec07364e14e626cdf2c3fd1e34` · capitalisation = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · pre-merge CI **`35236024162` SUCCESS** · Required Gate **PASS** · post-merge CI **`35245046244` SUCCESS** · Required Gate **PASS** · `headSha=3907177f7788d23d640c5bdcd1cee8e01615762f` · merge lifecycle #499 = **COMPLETED / CONSUMED** · post-merge verification = **PASS** · claim **AUTHENTICATED PRODUCT DOCS_WRITE REAL PROVEN AT TESTED HISTORICAL PROJECT SCOPE** · **ZERO REAL** · Product code **UNCHANGED** · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION** **PRESERVED** · next Product capability candidate = **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN** · **NOT STARTED / NOT AUTHORIZED** by this truth-sync · this documentary truth-sync = **LOCAL CANDIDATE** · Review Handoff publication **PENDING** (distinct Morris remote push gate) · push/PR/merge of this truth-sync = **DISTINCT Morris gates** · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / origin/main / PR evidence** · **≠** E2E FULL REAL PROVEN · **≠** Product Journey complete to Nora replanning · **≠** docs_write generalized · **≠** Cursor autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **≠** new REAL authorization · **≠** PRODUCT-JOURNEY-POST-EXECUTION-REPLAN started · **≠** push/PR/merge authorized by proof |
+```
+
+
+---
+
+## 8. Full implementation (reviewable)
+
+### DIFF `projects/sfia-studio/app/lib/oa/evidence-review/index.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/index.ts b/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
@@ -205,7 +311,242 @@ index 4e1133f0..e47aa89b 100644
    type ResolveCurrentContractResultClaimEvaluationResult,
 ```
 
-### NEW FILE projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteMinConformityVerifier.ts
+### DIFF `projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts b/projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts
+index 066aa8a7..ca8f4c71 100644
+--- a/projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts
++++ b/projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts
+@@ -11,6 +11,11 @@ import type {
+   ContractResultEvidenceSelection,
+   ContractResultSemantic,
+ } from "./contractResultSemantics";
++import {
++  DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
++  expectedDocsWriteConformityOracleFingerprint,
++  parseDocsWriteConformityOracleFingerprint,
++} from "./docsWriteMinConformityVerifier";
+ import { isW3bContractResultEvidenceUsable } from "./tempArtifactContractResultSemantic";
+
+ export const DOCS_WRITE_CONTRACT_RESULT_RULE_REF =
+@@ -31,31 +36,69 @@ export const DOCS_WRITE_ARTIFACT_EVIDENCE_SOURCE =
+  */
+ export const DOCS_WRITE_STRICT_EO_CORRECTION_REF = "strict-eo-v1" as const;
+
++/**
++ * Evidence-completion re-evaluation identity (successor RB + conformity Evidence).
++ * Does not mutate the historical rb:docs-write freeze.
++ * v1 = historical immutable PASS (headings-only / unbound oracle) — do not reuse.
++ * v2 = CR-CEC-01/02/03 bound-oracle + fingerprint attestation.
++ */
++export const DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF_V1 =
++  "evidence-completion-v1" as const;
++
++export const DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF =
++  "evidence-completion-v2" as const;
++
++/**
++ * Exact historically-bound EO templates (versioned named semantics — no NLP).
++ * Apostrophe in EO1 is U+2019 (bound Attempt 3 EC truth).
++ */
++export const DOCS_WRITE_EO_MATERIALIZED_MARKDOWN_AT_TARGET =
++  "Le fichier Markdown matérialisé au chemin cible" as const;
++
++export const DOCS_WRITE_EO_MIN_CONFORMITY_VERIFICATION =
++  "Vérification de l\u2019existence et de la conformité minimale du fichier" as const;
++
+ /** Identity helpers for docs-write Contract Result ClaimEvaluations. */
+ export function docsWriteContractResultIdentity(
+   attemptId: string,
+-  options?: { readonly correctionRef?: string },
++  options?: {
++    readonly correctionRef?: string;
++    /**
++     * When true with correctionRef, allocate a successor ReviewBundle id
++     * (`rb:docs-write:{correction}:{attempt}`) leaving historical RB untouched.
++     */
++    readonly scopeReviewBundle?: boolean;
++  },
+ ): {
+   claimEvaluationId: string;
+   claimEvaluationIdempotencyKey: string;
+   evidenceId: string;
+   reviewBundleId: string;
++  conformityEvidenceId: string;
+ } {
+   const segment = attemptId.replace(/[^a-zA-Z0-9:_-]/g, "");
+   const correction = options?.correctionRef?.replace(/[^a-zA-Z0-9:_-]/g, "");
++  const baseEvidence = `ev:docs-write:${segment}`.slice(0, 128);
++  const baseRb = `rb:docs-write:${segment}`.slice(0, 128);
+   if (correction) {
++    const scopedRb = options?.scopeReviewBundle
++      ? `rb:docs-write:${correction}:${segment}`.slice(0, 128)
++      : baseRb;
+     return {
+       claimEvaluationId: `clm:docs-write:${correction}:${segment}`.slice(0, 128),
+       claimEvaluationIdempotencyKey: `idem:docs-write-ce:${correction}:${attemptId}`,
+-      evidenceId: `ev:docs-write:${segment}`.slice(0, 128),
+-      reviewBundleId: `rb:docs-write:${segment}`.slice(0, 128),
++      evidenceId: baseEvidence,
++      reviewBundleId: scopedRb,
++      conformityEvidenceId:
++        `ev:docs-write-conformity:${correction}:${segment}`.slice(0, 128),
+     };
+   }
+   return {
+     claimEvaluationId: `clm:docs-write:${segment}`.slice(0, 128),
+     claimEvaluationIdempotencyKey: `idem:docs-write-ce:${attemptId}`,
+-    evidenceId: `ev:docs-write:${segment}`.slice(0, 128),
+-    reviewBundleId: `rb:docs-write:${segment}`.slice(0, 128),
++    evidenceId: baseEvidence,
++    reviewBundleId: baseRb,
++    conformityEvidenceId: `ev:docs-write-conformity:${segment}`.slice(0, 128),
+   };
+ }
+
+@@ -123,6 +166,75 @@ function pickDocsWriteArtifactEvidence(
+   return matches.length === 1 ? matches[0] : undefined;
+ }
+
++export function docsWriteConformityFactsHold(input: {
++  attempt: ExecutionAttemptSnapshot;
++  evidence: Evidence;
++  artifact: Evidence;
++  material: {
++    executionContractId?: string;
++    projectId?: string;
++    cycleInstanceId?: string;
++  };
++}): boolean {
++  const { attempt, evidence, artifact, material } = input;
++  if (attempt.status !== "succeeded") return false;
++  if (evidence.type !== "attestation") return false;
++  // Server-owned: exact v2 verifier profile — never trust caller-only source strings.
++  if (evidence.source !== DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE) return false;
++  if (evidence.sourceKind !== "system") return false;
++
++  const expectedFp = expectedDocsWriteConformityOracleFingerprint(attempt);
++  if (!expectedFp) return false;
++  const attestedFp = parseDocsWriteConformityOracleFingerprint(
++    evidence.technicalResultRef,
++  );
++  if (!attestedFp || attestedFp !== expectedFp) return false;
++
++  if (evidence.bindings.executionAttemptId !== attempt.attemptId) return false;
++  const contractId =
++    material.executionContractId ?? attempt.executionContractId;
++  if (!evidence.bindings.executionContractId) return false;
++  if (evidence.bindings.executionContractId !== contractId) return false;
++  const projectId = material.projectId;
++  if (projectId) {
++    if (!evidence.bindings.projectId) return false;
++    if (evidence.bindings.projectId !== projectId) return false;
++  }
++  const cycleId = material.cycleInstanceId;
++  if (cycleId) {
++    if (!evidence.bindings.cycleInstanceId) return false;
++    if (evidence.bindings.cycleInstanceId !== cycleId) return false;
++  }
++  if (!evidence.digest) return false;
++  if (evidence.digest !== artifact.digest) return false;
++  if (evidence.status !== "available" && evidence.status !== "verified") {
++    return false;
++  }
++  const artifactLocation = artifact.location?.trim() ?? "";
++  const evidenceLocation = evidence.location?.trim() ?? "";
++  if (!artifactLocation || evidenceLocation !== artifactLocation) return false;
++  // OCC version must be a positive integer (frozen snapshot path re-checks exact version).
++  if (!Number.isInteger(evidence.version) || evidence.version < 1) return false;
++  return true;
++}
++
++function pickDocsWriteConformityEvidence(
++  evidences: readonly Evidence[],
++  attempt: ExecutionAttemptSnapshot,
++  artifact: Evidence,
++  material: {
++    executionContractId?: string;
++    projectId?: string;
++    cycleInstanceId?: string;
++  },
++): Evidence | undefined {
++  const matches = evidences.filter((e) =>
++    docsWriteConformityFactsHold({ attempt, evidence: e, artifact, material }),
++  );
++  // Ambiguous duplicate conformity Evidence → fail-closed (undefined).
++  return matches.length === 1 ? matches[0] : undefined;
++}
++
+ function isPathShapedExpectedOutput(expectation: string): boolean {
+   return (
+     expectation.includes("/") ||
+@@ -130,10 +242,21 @@ function isPathShapedExpectedOutput(expectation: string): boolean {
+   );
+ }
+
++function boundTargetPath(
++  inputs: Record<string, unknown> | undefined,
++): string | undefined {
++  const raw = inputs?.targetPath;
++  return typeof raw === "string" && raw.trim().length > 0
++    ? raw.trim()
++    : undefined;
++}
++
+ /**
+  * docs_write EO PASS only for deterministic forms:
+  * 1) exact canonical bounded EO template;
+- * 2) path-shaped EO that exactly equals durable Artifact Evidence.location.
++ * 2) path-shaped EO that exactly equals durable Artifact Evidence.location;
++ * 3) named EO materialized-markdown-at-target (bound inputs.targetPath);
++ * 4) named EO min-conformity (requires matching conformity attestation Evidence).
+  * Unknown / free-form prose → NOT_PROVEN (no NLP, no fuzzy PASS).
+  */
+ export function assessDocsWriteExpectedOutput(input: {
+@@ -147,6 +270,7 @@ export function assessDocsWriteExpectedOutput(input: {
+     cycleInstanceId?: string;
+     inputs?: Record<string, unknown>;
+   };
++  evidences?: readonly Evidence[];
+ }): "PASS" | "NOT_PROVEN" | "FAIL" {
+   if (input.attempt.status === "failed" || input.attempt.status === "timeout") {
+     return "FAIL";
+@@ -166,6 +290,23 @@ export function assessDocsWriteExpectedOutput(input: {
+   if (expectation === BOUNDED_DOCS_WRITE_EO_TEMPLATE) {
+     return "PASS";
+   }
++  if (expectation === DOCS_WRITE_EO_MATERIALIZED_MARKDOWN_AT_TARGET) {
++    const target = boundTargetPath(input.material.inputs);
++    if (!target) return "NOT_PROVEN";
++    return location.length > 0 && location === target ? "PASS" : "NOT_PROVEN";
++  }
++  if (expectation === DOCS_WRITE_EO_MIN_CONFORMITY_VERIFICATION) {
++    const pool = input.evidences ?? [input.evidence];
++    const conformity = pickDocsWriteConformityEvidence(
++      pool,
++      input.attempt,
++      input.evidence,
++      input.material,
++    );
++    if (!conformity) return "NOT_PROVEN";
++    // Existence is implied by matching digest+location on usable attestation.
++    return "PASS";
++  }
+   if (isPathShapedExpectedOutput(expectation)) {
+     return location.length > 0 && expectation === location
+       ? "PASS"
+@@ -245,6 +386,7 @@ export const docsWriteContractResultSemantic: ContractResultSemantic = {
+       attempt: input.attempt,
+       evidence,
+       material: input.material,
++      evidences: input.evidences,
+     });
+   },
+   assessEvidenceRequirement(input) {
+```
+
+### NEW FILE `projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteMinConformityVerifier.ts`
 
 ```typescript
 /**
@@ -678,7 +1019,7 @@ export function expectedDocsWriteConformityOracleFingerprint(
 
 ```
 
-### NEW FILE projects/sfia-studio/app/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion.ts
+### NEW FILE `projects/sfia-studio/app/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion.ts`
 
 ```typescript
 /**
@@ -999,242 +1340,7 @@ export async function completeDocsWriteClaimEvidenceCompletion(
 
 ```
 
-### DIFF projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts
-
-```typescript
-diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts b/projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts
-index 066aa8a7..ca8f4c71 100644
---- a/projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts
-+++ b/projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts
-@@ -11,6 +11,11 @@ import type {
-   ContractResultEvidenceSelection,
-   ContractResultSemantic,
- } from "./contractResultSemantics";
-+import {
-+  DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
-+  expectedDocsWriteConformityOracleFingerprint,
-+  parseDocsWriteConformityOracleFingerprint,
-+} from "./docsWriteMinConformityVerifier";
- import { isW3bContractResultEvidenceUsable } from "./tempArtifactContractResultSemantic";
-
- export const DOCS_WRITE_CONTRACT_RESULT_RULE_REF =
-@@ -31,31 +36,69 @@ export const DOCS_WRITE_ARTIFACT_EVIDENCE_SOURCE =
-  */
- export const DOCS_WRITE_STRICT_EO_CORRECTION_REF = "strict-eo-v1" as const;
-
-+/**
-+ * Evidence-completion re-evaluation identity (successor RB + conformity Evidence).
-+ * Does not mutate the historical rb:docs-write freeze.
-+ * v1 = historical immutable PASS (headings-only / unbound oracle) — do not reuse.
-+ * v2 = CR-CEC-01/02/03 bound-oracle + fingerprint attestation.
-+ */
-+export const DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF_V1 =
-+  "evidence-completion-v1" as const;
-+
-+export const DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF =
-+  "evidence-completion-v2" as const;
-+
-+/**
-+ * Exact historically-bound EO templates (versioned named semantics — no NLP).
-+ * Apostrophe in EO1 is U+2019 (bound Attempt 3 EC truth).
-+ */
-+export const DOCS_WRITE_EO_MATERIALIZED_MARKDOWN_AT_TARGET =
-+  "Le fichier Markdown matérialisé au chemin cible" as const;
-+
-+export const DOCS_WRITE_EO_MIN_CONFORMITY_VERIFICATION =
-+  "Vérification de l\u2019existence et de la conformité minimale du fichier" as const;
-+
- /** Identity helpers for docs-write Contract Result ClaimEvaluations. */
- export function docsWriteContractResultIdentity(
-   attemptId: string,
--  options?: { readonly correctionRef?: string },
-+  options?: {
-+    readonly correctionRef?: string;
-+    /**
-+     * When true with correctionRef, allocate a successor ReviewBundle id
-+     * (`rb:docs-write:{correction}:{attempt}`) leaving historical RB untouched.
-+     */
-+    readonly scopeReviewBundle?: boolean;
-+  },
- ): {
-   claimEvaluationId: string;
-   claimEvaluationIdempotencyKey: string;
-   evidenceId: string;
-   reviewBundleId: string;
-+  conformityEvidenceId: string;
- } {
-   const segment = attemptId.replace(/[^a-zA-Z0-9:_-]/g, "");
-   const correction = options?.correctionRef?.replace(/[^a-zA-Z0-9:_-]/g, "");
-+  const baseEvidence = `ev:docs-write:${segment}`.slice(0, 128);
-+  const baseRb = `rb:docs-write:${segment}`.slice(0, 128);
-   if (correction) {
-+    const scopedRb = options?.scopeReviewBundle
-+      ? `rb:docs-write:${correction}:${segment}`.slice(0, 128)
-+      : baseRb;
-     return {
-       claimEvaluationId: `clm:docs-write:${correction}:${segment}`.slice(0, 128),
-       claimEvaluationIdempotencyKey: `idem:docs-write-ce:${correction}:${attemptId}`,
--      evidenceId: `ev:docs-write:${segment}`.slice(0, 128),
--      reviewBundleId: `rb:docs-write:${segment}`.slice(0, 128),
-+      evidenceId: baseEvidence,
-+      reviewBundleId: scopedRb,
-+      conformityEvidenceId:
-+        `ev:docs-write-conformity:${correction}:${segment}`.slice(0, 128),
-     };
-   }
-   return {
-     claimEvaluationId: `clm:docs-write:${segment}`.slice(0, 128),
-     claimEvaluationIdempotencyKey: `idem:docs-write-ce:${attemptId}`,
--    evidenceId: `ev:docs-write:${segment}`.slice(0, 128),
--    reviewBundleId: `rb:docs-write:${segment}`.slice(0, 128),
-+    evidenceId: baseEvidence,
-+    reviewBundleId: baseRb,
-+    conformityEvidenceId: `ev:docs-write-conformity:${segment}`.slice(0, 128),
-   };
- }
-
-@@ -123,6 +166,75 @@ function pickDocsWriteArtifactEvidence(
-   return matches.length === 1 ? matches[0] : undefined;
- }
-
-+export function docsWriteConformityFactsHold(input: {
-+  attempt: ExecutionAttemptSnapshot;
-+  evidence: Evidence;
-+  artifact: Evidence;
-+  material: {
-+    executionContractId?: string;
-+    projectId?: string;
-+    cycleInstanceId?: string;
-+  };
-+}): boolean {
-+  const { attempt, evidence, artifact, material } = input;
-+  if (attempt.status !== "succeeded") return false;
-+  if (evidence.type !== "attestation") return false;
-+  // Server-owned: exact v2 verifier profile — never trust caller-only source strings.
-+  if (evidence.source !== DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE) return false;
-+  if (evidence.sourceKind !== "system") return false;
-+
-+  const expectedFp = expectedDocsWriteConformityOracleFingerprint(attempt);
-+  if (!expectedFp) return false;
-+  const attestedFp = parseDocsWriteConformityOracleFingerprint(
-+    evidence.technicalResultRef,
-+  );
-+  if (!attestedFp || attestedFp !== expectedFp) return false;
-+
-+  if (evidence.bindings.executionAttemptId !== attempt.attemptId) return false;
-+  const contractId =
-+    material.executionContractId ?? attempt.executionContractId;
-+  if (!evidence.bindings.executionContractId) return false;
-+  if (evidence.bindings.executionContractId !== contractId) return false;
-+  const projectId = material.projectId;
-+  if (projectId) {
-+    if (!evidence.bindings.projectId) return false;
-+    if (evidence.bindings.projectId !== projectId) return false;
-+  }
-+  const cycleId = material.cycleInstanceId;
-+  if (cycleId) {
-+    if (!evidence.bindings.cycleInstanceId) return false;
-+    if (evidence.bindings.cycleInstanceId !== cycleId) return false;
-+  }
-+  if (!evidence.digest) return false;
-+  if (evidence.digest !== artifact.digest) return false;
-+  if (evidence.status !== "available" && evidence.status !== "verified") {
-+    return false;
-+  }
-+  const artifactLocation = artifact.location?.trim() ?? "";
-+  const evidenceLocation = evidence.location?.trim() ?? "";
-+  if (!artifactLocation || evidenceLocation !== artifactLocation) return false;
-+  // OCC version must be a positive integer (frozen snapshot path re-checks exact version).
-+  if (!Number.isInteger(evidence.version) || evidence.version < 1) return false;
-+  return true;
-+}
-+
-+function pickDocsWriteConformityEvidence(
-+  evidences: readonly Evidence[],
-+  attempt: ExecutionAttemptSnapshot,
-+  artifact: Evidence,
-+  material: {
-+    executionContractId?: string;
-+    projectId?: string;
-+    cycleInstanceId?: string;
-+  },
-+): Evidence | undefined {
-+  const matches = evidences.filter((e) =>
-+    docsWriteConformityFactsHold({ attempt, evidence: e, artifact, material }),
-+  );
-+  // Ambiguous duplicate conformity Evidence → fail-closed (undefined).
-+  return matches.length === 1 ? matches[0] : undefined;
-+}
-+
- function isPathShapedExpectedOutput(expectation: string): boolean {
-   return (
-     expectation.includes("/") ||
-@@ -130,10 +242,21 @@ function isPathShapedExpectedOutput(expectation: string): boolean {
-   );
- }
-
-+function boundTargetPath(
-+  inputs: Record<string, unknown> | undefined,
-+): string | undefined {
-+  const raw = inputs?.targetPath;
-+  return typeof raw === "string" && raw.trim().length > 0
-+    ? raw.trim()
-+    : undefined;
-+}
-+
- /**
-  * docs_write EO PASS only for deterministic forms:
-  * 1) exact canonical bounded EO template;
-- * 2) path-shaped EO that exactly equals durable Artifact Evidence.location.
-+ * 2) path-shaped EO that exactly equals durable Artifact Evidence.location;
-+ * 3) named EO materialized-markdown-at-target (bound inputs.targetPath);
-+ * 4) named EO min-conformity (requires matching conformity attestation Evidence).
-  * Unknown / free-form prose → NOT_PROVEN (no NLP, no fuzzy PASS).
-  */
- export function assessDocsWriteExpectedOutput(input: {
-@@ -147,6 +270,7 @@ export function assessDocsWriteExpectedOutput(input: {
-     cycleInstanceId?: string;
-     inputs?: Record<string, unknown>;
-   };
-+  evidences?: readonly Evidence[];
- }): "PASS" | "NOT_PROVEN" | "FAIL" {
-   if (input.attempt.status === "failed" || input.attempt.status === "timeout") {
-     return "FAIL";
-@@ -166,6 +290,23 @@ export function assessDocsWriteExpectedOutput(input: {
-   if (expectation === BOUNDED_DOCS_WRITE_EO_TEMPLATE) {
-     return "PASS";
-   }
-+  if (expectation === DOCS_WRITE_EO_MATERIALIZED_MARKDOWN_AT_TARGET) {
-+    const target = boundTargetPath(input.material.inputs);
-+    if (!target) return "NOT_PROVEN";
-+    return location.length > 0 && location === target ? "PASS" : "NOT_PROVEN";
-+  }
-+  if (expectation === DOCS_WRITE_EO_MIN_CONFORMITY_VERIFICATION) {
-+    const pool = input.evidences ?? [input.evidence];
-+    const conformity = pickDocsWriteConformityEvidence(
-+      pool,
-+      input.attempt,
-+      input.evidence,
-+      input.material,
-+    );
-+    if (!conformity) return "NOT_PROVEN";
-+    // Existence is implied by matching digest+location on usable attestation.
-+    return "PASS";
-+  }
-   if (isPathShapedExpectedOutput(expectation)) {
-     return location.length > 0 && expectation === location
-       ? "PASS"
-@@ -245,6 +386,7 @@ export const docsWriteContractResultSemantic: ContractResultSemantic = {
-       attempt: input.attempt,
-       evidence,
-       material: input.material,
-+      evidences: input.evidences,
-     });
-   },
-   assessEvidenceRequirement(input) {
-```
-
-### NEW FILE projects/sfia-studio/app/__tests__/project-assistant/claimEvidenceCompletion.d0.test.ts
+### NEW FILE `projects/sfia-studio/app/__tests__/project-assistant/claimEvidenceCompletion.d0.test.ts`
 
 ```typescript
 /**
@@ -1653,7 +1759,20 @@ describe("claim evidence completion EC-01..EC-23", () => {
     );
   });
 
-  it("EC-06/07/08 — wrong Attempt / EC / project bindings → no PASS", async () => {
+  async function seedWrongConformityBinding(input: {
+    correctionRef: string;
+    mutateBindings: (correct: {
+      projectId: string;
+      cycleInstanceId: string;
+      executionContractId: string;
+      executionAttemptId: string;
+    }) => {
+      projectId: string;
+      cycleInstanceId: string;
+      executionContractId: string;
+      executionAttemptId: string;
+    };
+  }) {
     const services = createInMemoryEvidenceReviewServices({
       clock: new FixedClock(NOW),
     });
@@ -1662,22 +1781,23 @@ describe("claim evidence completion EC-01..EC-23", () => {
     const bytes = Buffer.from(GOOD_MARKDOWN, "utf8");
     await seedArtifactOnly({ services, contract, attempt, bytes });
     const ids = docsWriteContractResultIdentity(ATTEMPT_ID, {
-      correctionRef: "bind-fail-v1",
+      correctionRef: input.correctionRef,
       scopeReviewBundle: true,
     });
+    const correct = {
+      projectId: PROJECT_ID,
+      cycleInstanceId: CYCLE_ID,
+      executionContractId: contract.executionContractId,
+      executionAttemptId: ATTEMPT_ID,
+    };
     await services.registerEvidence.execute({
       evidenceId: ids.conformityEvidenceId,
-      idempotencyKey: "idem:bind-fail",
+      idempotencyKey: `idem:bind-${input.correctionRef}`,
       actor: ACTOR,
       type: "attestation",
       source: DOCS_WRITE_MIN_CONFORMITY_VERIFIER_SOURCE,
       sourceKind: "system",
-      bindings: {
-        projectId: "prj:other",
-        cycleInstanceId: CYCLE_ID,
-        executionContractId: contract.executionContractId,
-        executionAttemptId: ATTEMPT_ID,
-      },
+      bindings: input.mutateBindings(correct),
       classification: "internal",
       storageMode: "metadata_only",
       status: "available",
@@ -1688,7 +1808,7 @@ describe("claim evidence completion EC-01..EC-23", () => {
     });
     await services.createReviewBundle.execute({
       reviewBundleId: ids.reviewBundleId,
-      idempotencyKey: "idem:rb-bind",
+      idempotencyKey: `idem:rb-${input.correctionRef}`,
       actor: ACTOR,
       projectId: PROJECT_ID,
       cycleInstanceId: CYCLE_ID,
@@ -1700,18 +1820,55 @@ describe("claim evidence completion EC-01..EC-23", () => {
     await services.freezeReviewBundle.execute({
       reviewBundleId: ids.reviewBundleId,
       expectedVersion: rb!.version,
-      idempotencyKey: "idem:freeze-bind",
+      idempotencyKey: `idem:freeze-${input.correctionRef}`,
       actor: ACTOR,
       nowIso: NOW,
     });
-    const rq = await requalifyDocsWriteContractResult({
+    return requalifyDocsWriteContractResult({
       evidenceReviewServices: services,
       attempt,
       contract,
       actor: ACTOR,
       nowIso: NOW,
-      correctionRef: "bind-fail-v1",
+      correctionRef: input.correctionRef,
       scopeReviewBundle: true,
+    });
+  }
+
+  it("EC-06 — wrong Attempt binding → no PASS", async () => {
+    const rq = await seedWrongConformityBinding({
+      correctionRef: "bind-fail-attempt",
+      mutateBindings: (c) => ({ ...c, executionAttemptId: "xat:w3a:other-attempt" }),
+    });
+    expect(rq.ok).toBe(true);
+    if (!rq.ok) return;
+    expect(rq.claimEvaluation.status).toBe("not_proven");
+  });
+
+  it("EC-07 — wrong EC binding → no PASS", async () => {
+    const rq = await seedWrongConformityBinding({
+      correctionRef: "bind-fail-ec",
+      mutateBindings: (c) => ({ ...c, executionContractId: "xct:other-contract" }),
+    });
+    expect(rq.ok).toBe(true);
+    if (!rq.ok) return;
+    expect(rq.claimEvaluation.status).toBe("not_proven");
+  });
+
+  it("EC-08 — wrong project binding → no PASS", async () => {
+    const rq = await seedWrongConformityBinding({
+      correctionRef: "bind-fail-project",
+      mutateBindings: (c) => ({ ...c, projectId: "prj:other" }),
+    });
+    expect(rq.ok).toBe(true);
+    if (!rq.ok) return;
+    expect(rq.claimEvaluation.status).toBe("not_proven");
+  });
+
+  it("EC-08b — wrong cycle binding → no PASS", async () => {
+    const rq = await seedWrongConformityBinding({
+      correctionRef: "bind-fail-cycle",
+      mutateBindings: (c) => ({ ...c, cycleInstanceId: "cyc:other-cycle" }),
     });
     expect(rq.ok).toBe(true);
     if (!rq.ok) return;
@@ -2085,6 +2242,6 @@ describe("claim evidence completion EC-01..EC-23", () => {
 
 ---
 
-## 8. Next gate
+## 9. Next gate
 
-ChatGPT Critical Review of CR-CEC-01/02/03 correction → Morris decision on project Git integration (DISTINCT GO).
+ChatGPT Critical Review of this follow-up pack → Morris decision on project Git integration (DISTINCT GO).
