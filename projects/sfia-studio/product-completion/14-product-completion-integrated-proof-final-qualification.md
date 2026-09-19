@@ -543,3 +543,20 @@ Sous `.tmp-sfia-review/product-completion-integrated-qa/screenshots/` :
 ---
 
 *Fin DOC14 — PC-INTEGRATED-QA-01 (+ CORR-01 technique · CORR-02 cohérence documentaire).*
+
+---
+
+## Amendment 2026-09-19 — Clarification preuve (PRODUCT-PWR-01)
+
+**CR-PWR-01…04 (same macro):** invalid path fail-closed · CREATE/UPDATE/ASK avant HD · collision workspace fail-closed · Product Create config précondition · TOCTOU PREPARE **et** execution-time (Fake/REAL) · Evidence `unavailable` contradiction fail-closed · deterministic E2E Evidence+ReviewBundle.
+
+**Historique DOC14 PRESERVED.** Les preuves integrated/deterministic antérieures **ne couvrent pas** Project Repository Workspace & Cycle-aware Artifact Routing.
+
+| Claim | État |
+| --- | --- |
+| Historical docs_write REAL at prior tested scope | **PRESERVED** |
+| Nouvelle capacité workspace/cycle routing | **DETERMINISTIC candidate** this macro · **REAL NOT PROVEN** |
+| Product Completion globally COMPLETE | **INTERDIT** |
+| OBS-PJ-CLOUD-01 | traité comme symptôme du gap produit plus large ; correction = capacité cible, pas patch symptôme seul |
+
+Aucun claim rétroactif falsifié.

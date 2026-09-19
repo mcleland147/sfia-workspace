@@ -6,7 +6,7 @@
  * Requires ProcessRunner + RealExecutionWorkspacePort (no Fake defaults).
  * Order: enablement → bin resolve → prepareWorkspace → runner.invoke.
  */
-import { accessSync, constants } from "node:fs";
+import { accessSync, constants, existsSync } from "node:fs";
 import path from "node:path";
 import {
   isStudioCursorRealEnabled,
@@ -23,6 +23,10 @@ import type {
   RealLaunchResult,
   RealProcessObservation,
 } from "../ports/realExecutionLaunchPort";
+import {
+  assertArtifactWriteModeAtExecution,
+  isAutomaticProductDocsWriteTargetPath,
+} from "@/lib/oa/project/domain/artifactTargetRouting";
 import type { RealExecutionWorkspacePort } from "../ports/realExecutionWorkspacePort";
 import { DisabledRealProcessRunner } from "./nodeCursorProcessRunner";
 import { assertResolvedTimeoutMs } from "@/lib/oa/execution-contract";
@@ -809,6 +813,35 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
           gatewayId: this.gatewayId,
           attemptId: request.attemptId,
           reason: resolvedPaths.reason,
+          realProcessInvoked: false,
+          detailCode: "REAL_WORKSPACE_INVALID",
+        };
+      }
+      // Execution-time TOCTOU — same invariant as FakeDocsWriteLaunchPort,
+      // before Cursor REAL process is invoked.
+      let targetExists: boolean | null = null;
+      try {
+        if (!existsSync(workspacePath)) {
+          targetExists = null;
+        } else {
+          targetExists = existsSync(resolvedPaths.absoluteTargetPath);
+        }
+      } catch {
+        targetExists = null;
+      }
+      const writeGuard = assertArtifactWriteModeAtExecution({
+        artifactWriteMode: spec.artifactWriteMode,
+        targetExists,
+        requireResolvedWriteMode: isAutomaticProductDocsWriteTargetPath(
+          resolvedPaths.sealedTargetPath,
+        ),
+      });
+      if (!writeGuard.ok) {
+        return {
+          outcome: "reject",
+          gatewayId: this.gatewayId,
+          attemptId: request.attemptId,
+          reason: writeGuard.code,
           realProcessInvoked: false,
           detailCode: "REAL_WORKSPACE_INVALID",
         };

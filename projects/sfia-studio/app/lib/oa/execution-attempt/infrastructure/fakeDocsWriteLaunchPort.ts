@@ -11,6 +11,7 @@
  * for unit tests only.
  */
 import { createHash } from "node:crypto";
+import { existsSync } from "node:fs";
 import { mkdir, writeFile, readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import {
@@ -21,6 +22,10 @@ import {
   type RealLaunchResult,
   type RealProcessObservation,
 } from "@/lib/oa/execution-attempt";
+import {
+  assertArtifactWriteModeAtExecution,
+  isAutomaticProductDocsWriteTargetPath,
+} from "@/lib/oa/project/domain/artifactTargetRouting";
 import { M4_BOUNDED_LOCAL_COMMIT_ACTION } from "./m4BoundedLocalCommitCursorAgent";
 import { M4_BOUNDED_REMOTE_PUSH_ACTION } from "./m4BoundedRemotePushCursorAgent";
 import { M4_BOUNDED_PR_CREATE_ACTION } from "./m4BoundedPrCreateCursorAgent";
@@ -472,6 +477,35 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
     const canFsModify = !isCommitOnly && authorized.has("filesystem.modify");
 
     if (canFsCreate || canFsModify) {
+      // Execution-time TOCTOU — probe BEFORE mkdir/write (never mutate first).
+      const worktreePresent = existsSync(root);
+      let targetExists: boolean | null = null;
+      if (!worktreePresent) {
+        targetExists = null;
+      } else {
+        try {
+          targetExists = existsSync(abs);
+        } catch {
+          targetExists = null;
+        }
+      }
+      const writeMode = spec?.artifactWriteMode;
+      const guard = assertArtifactWriteModeAtExecution({
+        artifactWriteMode: writeMode,
+        targetExists,
+        requireResolvedWriteMode: isAutomaticProductDocsWriteTargetPath(rel),
+      });
+      if (!guard.ok) {
+        return {
+          outcome: "reject",
+          gatewayId: this.gatewayId,
+          attemptId: request.attemptId,
+          reason: guard.code,
+          realProcessInvoked: false,
+          detailCode: "REAL_WORKSPACE_INVALID",
+        };
+      }
+
       await mkdir(path.dirname(abs), { recursive: true });
       const brief = spec?.artifactBrief ?? "Functional design";
       const contentReqs = (spec?.contentRequirements ?? []).join(", ");
@@ -482,13 +516,7 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
           `attempt=${request.attemptId}\n` +
           `brief=${brief}\n` +
           `contentRequirements=${contentReqs}\n`;
-      let existed = false;
-      try {
-        await readFile(abs);
-        existed = true;
-      } catch {
-        existed = false;
-      }
+      const existed = targetExists === true;
       await writeFile(abs, body, "utf8");
       this.touchedFiles.push(rel);
       const digest = `sha256:${createHash("sha256").update(body).digest("hex")}`;

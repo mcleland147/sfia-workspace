@@ -20,3 +20,19 @@ process.env.SFIA_STUDIO_NORA_SESSION_DB_PATH = path.join(
   sessionDir,
   "nora-session.sqlite",
 );
+
+/**
+ * CR-PWR-04 — Product Create requires server-owned repository config.
+ * Provide deterministic test defaults so Product-path suites remain green.
+ * Tests that intentionally clear these vars must restore them in afterEach.
+ */
+if (!process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY?.trim()) {
+  process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY = "acme/vitest-default";
+}
+if (!process.env.SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL?.trim()) {
+  process.env.SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL =
+    "https://github.com/acme/vitest-default.git";
+}
+if (!process.env.SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH?.trim()) {
+  process.env.SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH = "main";
+}

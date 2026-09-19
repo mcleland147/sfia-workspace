@@ -215,6 +215,12 @@ export function extractDocsWriteLaunchSpec(
     asNonEmptyString(inputs.repositoryIdentity) ??
     repositoryRef;
 
+  const rawMode = inputs.artifactWriteMode;
+  const artifactWriteMode =
+    rawMode === "CREATE" || rawMode === "UPDATE" || rawMode === "ASK"
+      ? rawMode
+      : undefined;
+
   return {
     ok: true,
     spec: {
@@ -231,6 +237,7 @@ export function extractDocsWriteLaunchSpec(
       evidenceRequirements: evidenceRequirements ?? [],
       createOrModify: true,
       noDelete: true,
+      ...(artifactWriteMode ? { artifactWriteMode } : {}),
     },
     repositoryBindingIdentity: bindingIdentity ?? undefined,
   };

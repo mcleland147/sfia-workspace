@@ -43,10 +43,14 @@ function step(
 
 function subjectSummary(sealed: SealedProposalExecutionBasis): string {
   const path = sealed.targetPath == null ? null : sealed.targetPath.trim() || null;
+  const fileName = sealed.artifactFileName?.trim() || null;
+  const writeMode = sealed.artifactWriteMode;
   const op = sealed.requestedOperation.trim() || null;
   const parts = [
     sealed.objective.trim(),
     path ? `cible ${path}` : null,
+    fileName && !path ? `fichier ${fileName}` : null,
+    writeMode ? `mode ${writeMode}` : null,
     op ? `effet ${op}` : null,
   ].filter((p): p is string => Boolean(p));
   return parts.join(" · ");
@@ -105,20 +109,57 @@ export function deriveProposalSubjectOptions(
   const pathNote = sealed.targetPath
     ? `Chemin scellé: ${sealed.targetPath}`
     : "Aucun targetPath scellé";
+  const fileNote = sealed.artifactFileName
+    ? `Filename: ${sealed.artifactFileName}`
+    : "Filename: (dérivé du targetPath si présent)";
+  const writeNote =
+    sealed.artifactWriteMode === "CREATE"
+      ? "Effet fichier: CREATE (cible absente)"
+      : sealed.artifactWriteMode === "UPDATE"
+        ? "Effet fichier: UPDATE — Evidence Artifact durable exacte pour ce Project/target"
+        : sealed.artifactWriteMode === "ASK"
+          ? "Effet fichier: ASK — ambiguïté d'existence/intention ; Proposal non exécutable"
+          : "Effet fichier: non résolu";
+  const workspaceNotes = [
+    sealed.projectWorkspaceRoot
+      ? `Workspace projet: ${sealed.projectWorkspaceRoot}/`
+      : null,
+    sealed.cycleWorkspaceRoot
+      ? `Workspace cycle: ${sealed.cycleWorkspaceRoot}/`
+      : null,
+  ].filter((n): n is string => Boolean(n));
   const opNote = `Opération scellée: ${sealed.requestedOperation}`;
+  const automaticDocsWrite =
+    sealed.intentKind === "docs_write" &&
+    Boolean(
+      sealed.projectWorkspaceRoot?.startsWith("projects/") ||
+        sealed.targetPath?.startsWith("projects/"),
+    );
+  const askBlocksPursue =
+    sealed.artifactWriteMode === "ASK" ||
+    (automaticDocsWrite && sealed.artifactWriteMode == null);
 
   return [
     {
       kind: "OPTION",
       optionRef: PROPOSAL_SUBJECT_PURSUE_REF,
       label: "Poursuivre le sujet proposé",
-      intent: `Décider sur la Proposal ${proposalId} — ${summary}. ${pathNote}. ${opNote}.`,
+      intent: askBlocksPursue
+        ? `Sujet ${proposalId} non exécutable — effet fichier ASK. ${pathNote}. ${fileNote}. ${writeNote}.`
+        : `Décider sur la Proposal ${proposalId} — ${summary}. ${pathNote}. ${fileNote}. ${writeNote}. ${opNote}.`,
       impacts: [
         "HumanDecision liée à cette Proposal",
-        "DecisionBasis conserve targetPath / requestedOperation scellés",
+        "DecisionBasis conserve targetPath / requestedOperation / artifactWriteMode scellés",
         "Pas de promotion ProjectTrajectory automatique",
+        ...workspaceNotes,
+        writeNote,
+        ...(askBlocksPursue
+          ? ["PREPARE / exécution fermés tant que ASK"]
+          : []),
       ],
-      reservations,
+      reservations: askBlocksPursue
+        ? ["ARTIFACT_WRITE_MODE_ASK", ...reservations]
+        : reservations,
       steps: pursueSteps(sealed),
     },
     {
@@ -157,11 +198,22 @@ export function deriveProposalSubjectRecommendation(
   const { sealed, proposalId } = inputs;
   const summary = subjectSummary(sealed);
 
-  if (sealed.reservations.length > 0) {
+  if (
+    sealed.reservations.length > 0 ||
+    sealed.artifactWriteMode === "ASK" ||
+    (sealed.intentKind === "docs_write" &&
+      (sealed.projectWorkspaceRoot?.startsWith("projects/") ||
+        sealed.targetPath?.startsWith("projects/")) &&
+      sealed.artifactWriteMode == null)
+  ) {
     return {
       label: "RECOMMANDATION — PAS UNE DÉCISION",
       recommendedOptionRef: PROPOSAL_SUBJECT_AMEND_REF,
-      rationale: `Réserves explicites sur la Proposal ${proposalId} (${sealed.reservations.length}) — amender ou clarifier avant de poursuivre « ${summary} ».`,
+      rationale:
+        sealed.artifactWriteMode === "ASK" ||
+        sealed.artifactWriteMode == null
+          ? `Effet fichier ASK/non résolu sur la Proposal ${proposalId} — clarifier CREATE ou UPDATE (Evidence durable requise pour UPDATE) avant de poursuivre « ${summary} ».`
+          : `Réserves explicites sur la Proposal ${proposalId} (${sealed.reservations.length}) — amender ou clarifier avant de poursuivre « ${summary} ».`,
       isHumanDecision: false,
       promotesTrajectory: false,
       ckcAttribution: null,

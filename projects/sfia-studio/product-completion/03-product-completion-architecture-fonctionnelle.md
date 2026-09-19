@@ -931,3 +931,37 @@ Conserve : **capability-driven trajectory** + **cycle-driven maturation**.
 ---
 
 *VALIDATED BY MORRIS — INTEGRATED ON MAIN via PR #378 — POST-MERGE COHERENCE COMPLETE via PR #379 — FA-R01…FA-R12 CLOSED — NO CODE — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED — NEXT CYCLE NOT SELECTED — SOURCE BRANCH CLEANUP NOT PERFORMED*
+
+---
+
+## Amendment 2026-09-19 — Functional architecture (D-PC-09)
+
+**Architecture retenue :** ADAPT `ProjectRepositoryBinding` + CycleTypeCatalog segment + ArtifactTargetResolver (fonctions domaine) · **aucune** architecture parallèle · **aucune** nouvelle persistence engine.
+
+```text
+CreateProject (Product boundary)
+  → server-owned repository config REQUIRED (else FAIL CLOSED pre-persist)
+  → projectWorkspaceKey (durable)
+  → repositoryBinding.pathRoot = projects/<key>
+
+ActiveCycleGovernedContinuation
+  → CycleTypeCatalog.repositoryWorkspaceSegment
+  → resolveArtifactTargetUnderCycleWorkspace(filename|path candidate)
+     · invalid path → FAIL CLOSED (no basename salvage)
+  → managed-repo read fact (existence / workspace inventory)
+     · UNKNOWN (null inventory / missing managed base|clone) → ASK / fail-closed (≠ absent_ok / ≠ CREATE)
+  → workspace collision qualify (absent_ok | reuse_same_project | ASK | unknown_inventory)
+  → hasDurableSameArtifactEvidence(projectId, targetPath, Evidence[])
+     · UPDATE only with exact durable Evidence — never targetExists alone
+     · contradiction (rejected/superseded/stale/unavailable) → fail closed
+  → classifyArtifactWriteMode (CREATE | UPDATE | ASK)
+  → Proposal seals exact targetPath + artifactWriteMode
+  → HumanDecision (existante) — ASK / null non exécutable sur docs_write automatique
+  → PREPARE revalidates sealed WRITE mode (TOCTOU; probe null → STOP)
+  → ExecutionContract.inputs.targetPath + artifactWriteMode
+  → execution-time TOCTOU (Fake/REAL, before mutation; probe null → STOP)
+  → docs_write Attempt (mkdir parents + write)
+  → Artifact Evidence + ReviewBundle
+```
+
+UI Product : `RepositoryBindingForm` retiré du parcours normal · panneau read-only Workspace projet / cycle (chemin prévu / logique — jamais MATERIALIZED sans Evidence).

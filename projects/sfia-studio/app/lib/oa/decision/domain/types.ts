@@ -168,6 +168,10 @@ export type DecisionBasis = {
     artifactType?: string;
     targetRepositoryRef?: string;
     targetPath?: string;
+    /** Server-sealed leaf filename (presentation + digest continuity). */
+    artifactFileName?: string;
+    /** Server-sealed CREATE/UPDATE from repository existence fact at Proposal. */
+    artifactWriteMode?: "CREATE" | "UPDATE" | "ASK";
     scopeIn?: string[];
     scopeOut?: string[];
     expectedOutputs?: string[];

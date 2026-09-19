@@ -75,6 +75,17 @@ export function bootW2Runtime(input: {
 }): RuntimeApplicationService {
   process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
   process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
+  // CR-PWR-04 — Product Create requires server-owned repository config.
+  if (!process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY?.trim()) {
+    process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY = "acme/w2-harness";
+  }
+  if (!process.env.SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL?.trim()) {
+    process.env.SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL =
+      "https://github.com/acme/w2-harness.git";
+  }
+  if (!process.env.SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH?.trim()) {
+    process.env.SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH = "main";
+  }
   resetRuntimeApplicationServiceForTests();
   return getRuntimeApplicationService({
     registryRoot: W2_REGISTRY_ROOT,

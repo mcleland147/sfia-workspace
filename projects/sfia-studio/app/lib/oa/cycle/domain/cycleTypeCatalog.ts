@@ -90,6 +90,11 @@ export type CycleTypeDefinition = {
   ckc: CycleTypeCkcMapping;
   /** Controlled aliases (1→1). Empty in D1 — no initial aliases. */
   aliases: readonly string[];
+  /**
+   * Stable repository workspace segment under Project pathRoot.
+   * PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01 — NOT derived from displayOrder.
+   */
+  repositoryWorkspaceSegment: string;
 };
 
 export type CycleTypeCatalog = {
@@ -148,6 +153,7 @@ const CYCLE_TYPE_ENTRIES: readonly CycleTypeDefinition[] = Object.freeze([
     methodReference: methodRef("§4.1"),
     ckc: Object.freeze(detailedCkc(CKC_PILOT_CADRAGE_PATH)),
     aliases: Object.freeze([] as string[]),
+    repositoryWorkspaceSegment: "01-cadrage",
   }),
   Object.freeze({
     cycleTypeId: "cyc:functional-design",
@@ -160,6 +166,7 @@ const CYCLE_TYPE_ENTRIES: readonly CycleTypeDefinition[] = Object.freeze([
     methodReference: methodRef("§4.2"),
     ckc: Object.freeze(detailedCkc(CKC_PILOT_CONCEPTION_PATH)),
     aliases: Object.freeze([] as string[]),
+    repositoryWorkspaceSegment: "02-conception-fonctionnelle",
   }),
   Object.freeze({
     cycleTypeId: "cyc:functional-architecture",
@@ -172,6 +179,7 @@ const CYCLE_TYPE_ENTRIES: readonly CycleTypeDefinition[] = Object.freeze([
     methodReference: methodRef("§4.3"),
     ckc: Object.freeze(syntheticCkc()),
     aliases: Object.freeze([] as string[]),
+    repositoryWorkspaceSegment: "03-architecture-fonctionnelle",
   }),
   Object.freeze({
     cycleTypeId: "cyc:ux-ui",
@@ -184,6 +192,7 @@ const CYCLE_TYPE_ENTRIES: readonly CycleTypeDefinition[] = Object.freeze([
     methodReference: methodRef("§4.4"),
     ckc: Object.freeze(syntheticCkc()),
     aliases: Object.freeze([] as string[]),
+    repositoryWorkspaceSegment: "04-ux-ui",
   }),
   Object.freeze({
     cycleTypeId: "cyc:backlog",
@@ -196,6 +205,7 @@ const CYCLE_TYPE_ENTRIES: readonly CycleTypeDefinition[] = Object.freeze([
     methodReference: methodRef("§4.5"),
     ckc: Object.freeze(syntheticCkc()),
     aliases: Object.freeze([] as string[]),
+    repositoryWorkspaceSegment: "05-backlog-user-stories",
   }),
   Object.freeze({
     cycleTypeId: "cyc:technical-architecture",
@@ -208,6 +218,7 @@ const CYCLE_TYPE_ENTRIES: readonly CycleTypeDefinition[] = Object.freeze([
     methodReference: methodRef("§4.6"),
     ckc: Object.freeze(detailedCkc(CKC_PILOT_ARCHITECTURE_TECHNIQUE_PATH)),
     aliases: Object.freeze([] as string[]),
+    repositoryWorkspaceSegment: "06-architecture-technique",
   }),
   Object.freeze({
     cycleTypeId: "cyc:integration-devops",
@@ -220,6 +231,7 @@ const CYCLE_TYPE_ENTRIES: readonly CycleTypeDefinition[] = Object.freeze([
     methodReference: methodRef("§4.7"),
     ckc: Object.freeze(syntheticCkc()),
     aliases: Object.freeze([] as string[]),
+    repositoryWorkspaceSegment: "07-integration-devops",
   }),
   Object.freeze({
     cycleTypeId: "cyc:delivery",
@@ -232,6 +244,7 @@ const CYCLE_TYPE_ENTRIES: readonly CycleTypeDefinition[] = Object.freeze([
     methodReference: methodRef("§4.8"),
     ckc: Object.freeze(syntheticCkc()),
     aliases: Object.freeze([] as string[]),
+    repositoryWorkspaceSegment: "08-delivery-implementation",
   }),
   Object.freeze({
     cycleTypeId: "cyc:qa-validation",
@@ -244,6 +257,7 @@ const CYCLE_TYPE_ENTRIES: readonly CycleTypeDefinition[] = Object.freeze([
     methodReference: methodRef("§4.9"),
     ckc: Object.freeze(detailedCkc(CKC_PILOT_QA_VALIDATION_PATH)),
     aliases: Object.freeze([] as string[]),
+    repositoryWorkspaceSegment: "09-qa-validation",
   }),
   Object.freeze({
     cycleTypeId: "cyc:security",
@@ -256,6 +270,7 @@ const CYCLE_TYPE_ENTRIES: readonly CycleTypeDefinition[] = Object.freeze([
     methodReference: methodRef("§4.10"),
     ckc: Object.freeze(syntheticCkc()),
     aliases: Object.freeze([] as string[]),
+    repositoryWorkspaceSegment: "10-securite-rssi",
   }),
   Object.freeze({
     cycleTypeId: "cyc:release",
@@ -268,6 +283,7 @@ const CYCLE_TYPE_ENTRIES: readonly CycleTypeDefinition[] = Object.freeze([
     methodReference: methodRef("§4.11"),
     ckc: Object.freeze(syntheticCkc()),
     aliases: Object.freeze([] as string[]),
+    repositoryWorkspaceSegment: "11-deploiement-release",
   }),
   Object.freeze({
     cycleTypeId: "cyc:observability",
@@ -280,6 +296,7 @@ const CYCLE_TYPE_ENTRIES: readonly CycleTypeDefinition[] = Object.freeze([
     methodReference: methodRef("§4.12"),
     ckc: Object.freeze(syntheticCkc()),
     aliases: Object.freeze([] as string[]),
+    repositoryWorkspaceSegment: "12-observabilite-run-readiness",
   }),
   Object.freeze({
     cycleTypeId: "cyc:pr-readiness",
@@ -292,6 +309,7 @@ const CYCLE_TYPE_ENTRIES: readonly CycleTypeDefinition[] = Object.freeze([
     methodReference: methodRef("§4.13"),
     ckc: Object.freeze(syntheticCkc()),
     aliases: Object.freeze([] as string[]),
+    repositoryWorkspaceSegment: "13-pr-readiness",
   }),
   Object.freeze({
     cycleTypeId: "cyc:post-merge",
@@ -304,6 +322,7 @@ const CYCLE_TYPE_ENTRIES: readonly CycleTypeDefinition[] = Object.freeze([
     methodReference: methodRef("§4.14"),
     ckc: Object.freeze(syntheticCkc()),
     aliases: Object.freeze([] as string[]),
+    repositoryWorkspaceSegment: "14-post-merge",
   }),
   Object.freeze({
     cycleTypeId: CAPITALIZATION_CYCLE_TYPE_ID,
@@ -316,6 +335,7 @@ const CYCLE_TYPE_ENTRIES: readonly CycleTypeDefinition[] = Object.freeze([
     methodReference: methodRef("§4.15"),
     ckc: Object.freeze(syntheticCkc()),
     aliases: Object.freeze([] as string[]),
+    repositoryWorkspaceSegment: "15-capitalisation-rex",
   }),
 ]) as readonly CycleTypeDefinition[];
 
@@ -409,6 +429,7 @@ export function validateCycleTypeCatalog(
   const keys = new Set<string>();
   const numbers = new Set<number>();
   const orders = new Set<number>();
+  const workspaceSegments = new Set<string>();
 
   for (const entry of entries) {
     if (!isOaIdentifier(entry.cycleTypeId)) {
@@ -438,6 +459,31 @@ export function validateCycleTypeCatalog(
       });
     }
     keys.add(entry.canonicalKey);
+
+    const seg = entry.repositoryWorkspaceSegment?.trim() ?? "";
+    if (!seg) {
+      issues.push({
+        code: "WORKSPACE_SEGMENT_EMPTY",
+        message: `missing repositoryWorkspaceSegment: ${entry.cycleTypeId}`,
+      });
+    } else if (
+      seg.includes("/") ||
+      seg.includes("\\") ||
+      seg.includes("..") ||
+      !/^[a-z0-9][a-z0-9._-]{0,80}$/i.test(seg)
+    ) {
+      issues.push({
+        code: "WORKSPACE_SEGMENT_INVALID",
+        message: `invalid repositoryWorkspaceSegment for ${entry.cycleTypeId}: ${seg}`,
+      });
+    } else if (workspaceSegments.has(seg)) {
+      issues.push({
+        code: "WORKSPACE_SEGMENT_DUPLICATE",
+        message: `duplicate repositoryWorkspaceSegment: ${seg}`,
+      });
+    } else {
+      workspaceSegments.add(seg);
+    }
 
     if (numbers.has(entry.methodCycleNumber)) {
       issues.push({

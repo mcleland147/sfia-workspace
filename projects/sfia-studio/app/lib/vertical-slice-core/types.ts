@@ -55,6 +55,11 @@ export interface LocalProjectCreationView {
    * null = honestly unbound; never invent a sample.
    */
   readonly repositoryBinding: ProjectRepositoryBinding | null;
+  /**
+   * Durable Project workspace key (PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01).
+   * Set once at create; never recomputed from title rename.
+   */
+  readonly projectWorkspaceKey: string | null;
   readonly localMode: true;
   readonly iam: "NOT_SELECTED";
   readonly productPersistence: "SQLITE_OA_PRODUCT_STORE";

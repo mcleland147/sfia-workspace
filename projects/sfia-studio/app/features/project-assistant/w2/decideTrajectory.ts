@@ -463,6 +463,13 @@ export async function decideTrajectory(
           artifactType: sealed!.artifactType ?? undefined,
           targetRepositoryRef: sealed!.targetRepositoryRef ?? undefined,
           targetPath: sealed!.targetPath ?? undefined,
+          artifactFileName: sealed!.artifactFileName ?? undefined,
+          artifactWriteMode:
+            sealed!.artifactWriteMode === "CREATE" ||
+            sealed!.artifactWriteMode === "UPDATE" ||
+            sealed!.artifactWriteMode === "ASK"
+              ? sealed!.artifactWriteMode
+              : undefined,
           scopeIn: [...sealed!.scopeIn],
           scopeOut: [...sealed!.scopeOut],
           expectedOutputs: [...sealed!.expectedOutputs],

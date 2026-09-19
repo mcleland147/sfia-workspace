@@ -1248,3 +1248,24 @@ Ce document **ne dit pas** :
 ---
 
 *SFIA Studio — Product Completion — Cycle 2 Conception fonctionnelle — VALIDATED BY MORRIS — INTEGRATED ON MAIN VIA PR #369 / `2406ccda211842fc7f8da3699bb186a30f7dc105` — POST-MERGE METADATA COHERENCE SYNC CARRIED BY PR #370 — GIT/PR EVIDENCE AUTHORITATIVE — NO DELIVERY — NO NEXT-CAPABILITY EXECUTION — RUNTIME V3 NON ADOPTED — ZERO REAL*
+
+---
+
+## Amendment 2026-09-19 — Behavioural contract (D-PC-09 / PRODUCT-PWR-01)
+
+**Décision Morris :** D-PC-09 consommée · capacité MUST · **≠** réécriture historique C2.
+
+### Comportement fonctionnel (additive)
+
+1. **Create Project** — aucun RepositoryBinding manuel ; workspace key durable dérivé du titre une fois ; `pathRoot = projects/<key>` lorsque config serveur présente.
+2. **Rename titre** — ne recalcule / ne déplace **pas** le workspace durable existant.
+3. **Cycle workspace** — `<projectRoot>/<repositoryWorkspaceSegment>` depuis CycleTypeCatalog (segments stables 01-cadrage…15-capitalisation-rex pour le snapshot courant ; catalogue évolutif ; pas d’invariant « exactement 15 »).
+4. **Filename** — Pilote explicite conservé comme candidat ; absent → Nora peut proposer un leaf Markdown non autoritaire.
+5. **targetPath** — composition / validation **server-owned** ; hors Project/Cycle workspace **ou path invalide** (absolu / traversal / malformé) → **FAIL CLOSED** (jamais de salvage basename / rewrite silencieux).
+6. **Proposal / HumanDecision** — présente workspace projet, workspace cycle, filename, target exact, **Effet fichier CREATE/UPDATE** scellé **avant** HumanDecision ; options poursuivre / amender / refuser suffisent. **ASK** / **null** (docs_write automatique) → Proposal non exécutable (poursuivre bloqué). **UPDATE** exige une Evidence Artifact durable exacte (`projectId` + `location` canonique + status admissible) — **existence fichier seule ≠ same deliverable**. Contradiction Evidence sur le même target (rejected / superseded / stale / **unavailable** status ou availability) → **fail closed** (pas de sameDeliverable).
+7. **Collision** — workspace existant sans preuve d'appartenance durable → ASK / fail-closed (slug ≠ ownership ; existence dossier ≠ ownership). **inventory UNKNOWN (`null`) ≠ ABSENT** — fail closed (jamais `absent_ok`). listProjects / Evidence indisponibles sur workspace occupé → ASK / fail-closed.
+8. **Matérialisation** — aucun mkdir gratuit à Create ; parents créés au premier Attempt docs_write utile. **TOCTOU** : CREATE/UPDATE scellés revalidés **à PREPARE** et **juste avant mutation** (Fake/REAL ; fichier apparu/disparu → STOP ; **probe UNKNOWN → STOP**). Repository fact UNKNOWN (managed base / clone) → ASK / fail-closed (jamais null→CREATE).
+9. **Legacy** — anciens bindings `docs/` etc. restent lisibles ; pas de faux claim de migration.
+10. **Create Product** — config repository server-owned = **précondition** ; absente/invalide → FAIL CLOSED avant persistence (aucun Project/LPS orphelin ; pas de formulaire manuel).
+
+**Preuve :** deterministic E2E Proposal→HD→EC→Attempt→Evidence→**ReviewBundle** PASS (FakeDocsWrite) · REAL reproof = gate Morris distinct · même macro · CR-PWR-01…04 CLOSED (deterministic scope + execution-time safety).

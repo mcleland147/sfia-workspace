@@ -95,11 +95,68 @@ describe("V3.1-D1 cycle type catalog", () => {
           unavailableBehavior: "fail-closed",
         },
         aliases: [],
+        repositoryWorkspaceSegment: "16-w3d-extension-probe",
       });
       return entries;
     });
     expect(extended.entries).toHaveLength(16);
     expect(validateCycleTypeCatalog(extended)).toEqual([]);
+  });
+
+  it("PRODUCT-PWR-01: stable repositoryWorkspaceSegment per cycle (not displayOrder-derived)", () => {
+    const framing = getCycleTypeById("cyc:framing");
+    const delivery = getCycleTypeById("cyc:delivery");
+    expect(framing?.repositoryWorkspaceSegment).toBe("01-cadrage");
+    expect(delivery?.repositoryWorkspaceSegment).toBe(
+      "08-delivery-implementation",
+    );
+    const segments = CYCLE_TYPE_CATALOG.entries.map(
+      (e) => e.repositoryWorkspaceSegment,
+    );
+    expect(new Set(segments).size).toBe(segments.length);
+    // Must not equal String(displayOrder) padding alone as the sole source of truth
+    for (const e of CYCLE_TYPE_CATALOG.entries) {
+      expect(e.repositoryWorkspaceSegment).not.toBe(String(e.displayOrder));
+      expect(e.repositoryWorkspaceSegment.length).toBeGreaterThan(2);
+    }
+  });
+
+  it("PRODUCT-PWR-01: rejects empty/duplicate/unsafe workspace segments", () => {
+    const empty = cloneCatalog((entries) => {
+      entries[0] = { ...entries[0], repositoryWorkspaceSegment: "" };
+      return entries;
+    });
+    expect(
+      validateCycleTypeCatalog(empty).some(
+        (i) => i.code === "WORKSPACE_SEGMENT_EMPTY",
+      ),
+    ).toBe(true);
+
+    const dup = cloneCatalog((entries) => {
+      entries[1] = {
+        ...entries[1],
+        repositoryWorkspaceSegment: entries[0].repositoryWorkspaceSegment,
+      };
+      return entries;
+    });
+    expect(
+      validateCycleTypeCatalog(dup).some(
+        (i) => i.code === "WORKSPACE_SEGMENT_DUPLICATE",
+      ),
+    ).toBe(true);
+
+    const unsafe = cloneCatalog((entries) => {
+      entries[0] = {
+        ...entries[0],
+        repositoryWorkspaceSegment: "../escape",
+      };
+      return entries;
+    });
+    expect(
+      validateCycleTypeCatalog(unsafe).some(
+        (i) => i.code === "WORKSPACE_SEGMENT_INVALID",
+      ),
+    ).toBe(true);
   });
 
   it("lists exact adopted cycleTypeId set in order", () => {

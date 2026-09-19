@@ -110,6 +110,7 @@ function buildDecisionBasis(input: {
             artifactType: ei.artifactType ?? null,
             targetRepositoryRef: ei.targetRepositoryRef ?? null,
             targetPath: ei.targetPath ?? null,
+            artifactFileName: ei.artifactFileName ?? null,
             scopeIn: ei.scopeIn ?? [],
             scopeOut: ei.scopeOut ?? [],
             expectedOutputs: ei.expectedOutputs ?? [],
@@ -165,6 +166,13 @@ function buildDecisionBasis(input: {
             artifactType: ei.artifactType ?? undefined,
             targetRepositoryRef: ei.targetRepositoryRef ?? undefined,
             targetPath: ei.targetPath ?? undefined,
+            artifactFileName: ei.artifactFileName ?? undefined,
+            artifactWriteMode:
+              ei.artifactWriteMode === "CREATE" ||
+              ei.artifactWriteMode === "UPDATE" ||
+              ei.artifactWriteMode === "ASK"
+                ? ei.artifactWriteMode
+                : undefined,
             scopeIn: ei.scopeIn ? [...ei.scopeIn] : undefined,
             scopeOut: ei.scopeOut ? [...ei.scopeOut] : undefined,
             expectedOutputs: ei.expectedOutputs

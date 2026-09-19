@@ -17,6 +17,7 @@ import {
   assessResumeReconciliation,
   deriveLifecycleBlockersFromEpistemicItems,
 } from "@/lib/oa/cycle";
+import { getCycleTypeById } from "@/lib/oa/cycle/domain/cycleTypeCatalog";
 import type { LifecycleRecommendationMaterialDimension } from "@/lib/oa/cycle/application/lifecycleRecommendation/materialReaderContract";
 import { F2_PROCESS_LOCAL_NOTICE } from "./f2/proposalStore";
 import type { F2DecisionKind } from "./f2/types";
@@ -1368,6 +1369,39 @@ export async function projectAssistantPilotLifecycleProjection(input: {
     activeCycleInstanceId: projection.activeCycleInstanceId,
     selectionAmbiguous: projection.selectionAmbiguous,
     cta: projection.cta,
+  };
+}
+
+/**
+ * PRODUCT-PWR-01 — active cycle workspace segment (server-owned catalog metadata).
+ * Client UI must not import CycleTypeCatalog (doctrine / node:fs).
+ */
+export async function projectAssistantActiveCycleWorkspaceAction(input: {
+  projectId: string;
+}): Promise<{
+  ok: boolean;
+  cycleTypeId: string | null;
+  repositoryWorkspaceSegment: string | null;
+  message?: string;
+}> {
+  const life = await projectAssistantPilotLifecycleProjection({
+    projectId: input.projectId,
+  });
+  if (!life.ok || !life.projection?.activeCycle) {
+    return {
+      ok: true,
+      cycleTypeId: null,
+      repositoryWorkspaceSegment: null,
+    };
+  }
+  const cycleTypeId = life.projection.activeCycle.cycleTypeId ?? null;
+  const segment = cycleTypeId
+    ? getCycleTypeById(cycleTypeId)?.repositoryWorkspaceSegment ?? null
+    : null;
+  return {
+    ok: true,
+    cycleTypeId,
+    repositoryWorkspaceSegment: segment,
   };
 }
 

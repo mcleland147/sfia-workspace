@@ -33,6 +33,16 @@ export type SealedProposalExecutionBasis = {
   readonly artifactType: string | null;
   readonly targetRepositoryRef: string | null;
   readonly targetPath: string | null;
+  /** Non-authoritative leaf filename candidate sealed for HD presentation. */
+  readonly artifactFileName: string | null;
+  /**
+   * Server-derived CREATE/UPDATE when existence was resolved.
+   * ASK = ambiguity sealed — Proposal not executable until clarified.
+   * null = legacy / unresolved (treat as non-executable for docs_write materialization).
+   */
+  readonly artifactWriteMode: "CREATE" | "UPDATE" | "ASK" | null;
+  readonly projectWorkspaceRoot: string | null;
+  readonly cycleWorkspaceRoot: string | null;
   readonly scopeIn: readonly string[];
   readonly scopeOut: readonly string[];
   readonly expectedOutputs: readonly string[];
@@ -62,6 +72,13 @@ function asStringArray(value: readonly string[] | null | undefined): string[] {
   return value ? [...value] : [];
 }
 
+function sealArtifactWriteMode(
+  raw: unknown,
+): "CREATE" | "UPDATE" | "ASK" | null {
+  if (raw === "CREATE" || raw === "UPDATE" || raw === "ASK") return raw;
+  return null;
+}
+
 /**
  * Canonical sealed execution basis — every authoritative field is materialised
  * with deterministic null/empty defaults for digest stability.
@@ -70,6 +87,21 @@ export function sealProposalExecutionBasis(
   proposal: ProposalDto,
 ): SealedProposalExecutionBasis {
   const ei: ExecutionIntentPayload | null | undefined = proposal.executionIntent;
+  const targetPath = ei?.targetPath ?? null;
+  const artifactFileName =
+    ei?.artifactFileName?.trim() ||
+    (targetPath ? targetPath.split("/").pop()?.trim() || null : null);
+  const scopeIn = asStringArray(ei?.scopeIn);
+  const cycleWorkspaceRoot = scopeIn[0]?.trim() || null;
+  let projectWorkspaceRoot: string | null = null;
+  if (cycleWorkspaceRoot && cycleWorkspaceRoot.includes("/")) {
+    const parts = cycleWorkspaceRoot.split("/");
+    if (parts.length >= 2 && parts[0] === "projects") {
+      projectWorkspaceRoot = parts.slice(0, 2).join("/");
+    } else if (parts.length >= 2) {
+      projectWorkspaceRoot = parts.slice(0, -1).join("/");
+    }
+  }
   return {
     objective: proposal.objective,
     scope: proposal.scope,
@@ -85,8 +117,12 @@ export function sealProposalExecutionBasis(
     intentKind: ei?.intentKind ?? null,
     artifactType: ei?.artifactType ?? null,
     targetRepositoryRef: ei?.targetRepositoryRef ?? null,
-    targetPath: ei?.targetPath ?? null,
-    scopeIn: asStringArray(ei?.scopeIn),
+    targetPath,
+    artifactFileName,
+    artifactWriteMode: sealArtifactWriteMode(ei?.artifactWriteMode),
+    projectWorkspaceRoot,
+    cycleWorkspaceRoot,
+    scopeIn,
     scopeOut: asStringArray(ei?.scopeOut),
     expectedOutputs: asStringArray(ei?.expectedOutputs),
     requiredCapabilities: asStringArray(ei?.requiredCapabilities),
@@ -124,6 +160,10 @@ export function computeProposalSubjectDigest(
     artifactType: sealed.artifactType,
     targetRepositoryRef: sealed.targetRepositoryRef,
     targetPath: sealed.targetPath,
+    artifactFileName: sealed.artifactFileName,
+    artifactWriteMode: sealed.artifactWriteMode,
+    projectWorkspaceRoot: sealed.projectWorkspaceRoot,
+    cycleWorkspaceRoot: sealed.cycleWorkspaceRoot,
     scopeIn: [...sealed.scopeIn],
     scopeOut: [...sealed.scopeOut],
     expectedOutputs: [...sealed.expectedOutputs],

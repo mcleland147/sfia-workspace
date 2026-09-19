@@ -17,6 +17,8 @@ import { DEFAULT_PRODUCT_DOCTRINE_PIN } from "@/lib/oa/doctrine/product/constant
 import {
   MemoryProjectAuditJournal,
   createSqliteProductProjectServices,
+  describeServerOwnedRepositoryConfigGap,
+  resolveServerOwnedRepositoryConfig,
   type LivingProjectState,
   type Project,
   type ProjectServices,
@@ -282,6 +284,7 @@ function buildProjection(
       ckcResolutionRef: lps.ckcResolutionRef ?? null,
     }),
     repositoryBinding: projectRepositoryBindingProjection(project),
+    projectWorkspaceKey: project.projectWorkspaceKey?.trim() || null,
     localMode: true,
     iam: "NOT_SELECTED",
     productPersistence: "SQLITE_OA_PRODUCT_STORE",
@@ -342,6 +345,33 @@ class LocalProjectFacadeImpl implements LocalProjectFacade {
       return Object.freeze({
         ok: false,
         error: invalid,
+        auditStatus: this.auditStatus(auditFailed),
+      });
+    }
+
+    // CR-PWR-04 — Product Create authoritative boundary: server-owned repository
+    // config is a precondition. Fail closed BEFORE any Project/LPS persistence.
+    // Low-level OA CreateProject remains available for legacy/fixture reload.
+    const serverRepo = resolveServerOwnedRepositoryConfig(process.env);
+    if (!serverRepo) {
+      const configError = projectError(
+        "PROJECT_CREATION_FAILED",
+        describeServerOwnedRepositoryConfigGap(process.env),
+        { projectDetailCode: "PROJECT_INVALID" },
+      );
+      auditFailed =
+        !this.appendAudit({
+          event: "LOCAL_PROJECT_CREATION_FAILED",
+          timestamp,
+          correlationId,
+          idempotencyKey: command.idempotencyKey ?? "missing",
+          projectId: requestedProjectId,
+          result: "FAILED",
+          errorCode: configError.code,
+        }) || auditFailed;
+      return Object.freeze({
+        ok: false,
+        error: configError,
         auditStatus: this.auditStatus(auditFailed),
       });
     }
