@@ -2,25 +2,82 @@
 
 | Field | Value |
 | --- | --- |
-| **Date/time (UTC)** | 2026-09-19T06:10:06Z |
+| **Date/time (UTC)** | 2026-09-19T06:22:33Z |
 | **Macro** | PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01 |
 | **Cycle** | 8 — Delivery / implémentation |
 | **Profil** | Critical |
 | **Typologie** | EVOL |
 | **Workspace** | /tmp/sfia-pwr-01-dev |
-| **Branch** | delivery/sfia-studio-project-workspace-artifact-routing-01 |
-| **origin/main** | a6dba9776bfb1b4cb1570a87b20b0c71e546e441 |
-| **HEAD** | a6dba9776bfb1b4cb1570a87b20b0c71e546e441 |
+| **Branch** | `delivery/sfia-studio-project-workspace-artifact-routing-01` |
+| **origin/main** | `a6dba9776bfb1b4cb1570a87b20b0c71e546e441` |
+| **HEAD** | `a6dba9776bfb1b4cb1570a87b20b0c71e546e441` |
 | **Project commit** | NONE (this pass) |
 | **Project push/PR/merge** | NONE |
+| **Pack level** | FULL — complete created files + complete diffs for every modified project file |
+| **Synthesis-only** | NO |
+
+## Completeness checklist
+
+- Created project files: **7** (full content below)
+- Modified project files: **32** (complete `git diff` per file below)
+- `.tmp-sfia-review/**` excluded from product index (pack source only; never staged/committed)
+- Secrets / `.env.local`: none included
+
+### Created file list
+
+- `projects/sfia-studio/app/__tests__/oa/project/projectWorkspaceArtifactRouting.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/projectWorkspaceRouting.ui.test.tsx`
+- `projects/sfia-studio/app/__tests__/project-assistant/productWorkspaceArtifactRouting.applicationPath.d0.test.ts`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ProjectWorkspaceRoutingPanel.tsx`
+- `projects/sfia-studio/app/lib/oa/project/domain/artifactTargetRouting.ts`
+- `projects/sfia-studio/app/lib/oa/project/domain/projectWorkspaceKey.ts`
+- `projects/sfia-studio/app/lib/oa/project/domain/serverOwnedRepositoryConfig.ts`
+
+### Modified file list
+
+- `projects/sfia-studio/app/__tests__/oa/cycle/cycleTypeCatalog.test.ts`
+- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx`
+- `projects/sfia-studio/app/__tests__/project-assistant/corrProof09.materializationIntentContract.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/project-assistant/w3dFullCkcCatalog.test.ts`
+- `projects/sfia-studio/app/__tests__/vertical-slice-core/localProjectComposition.test.ts`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx`
+- `projects/sfia-studio/app/features/project-assistant/actions.ts`
+- `projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts`
+- `projects/sfia-studio/app/features/project-assistant/f2/executionIntentSchema.ts`
+- `projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts`
+- `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts`
+- `projects/sfia-studio/app/features/project-assistant/f2/recordDecision.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/proposalSubjectIntegrity.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/proposalSubjectOptions.ts`
+- `projects/sfia-studio/app/lib/oa/cycle/domain/cycleTypeCatalog.ts`
+- `projects/sfia-studio/app/lib/oa/project/application/createProject.ts`
+- `projects/sfia-studio/app/lib/oa/project/domain/types.ts`
+- `projects/sfia-studio/app/lib/oa/project/index.ts`
+- `projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts`
+- `projects/sfia-studio/app/lib/vertical-slice-core/localProjectComposition.ts`
+- `projects/sfia-studio/app/lib/vertical-slice-core/types.ts`
+- `projects/sfia-studio/app/lib/vertical-slice-runtime/mapping.ts`
+- `projects/sfia-studio/app/lib/vertical-slice-runtime/types.ts`
+- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
+- `projects/sfia-studio/product-completion/02-product-completion-conception-fonctionnelle.md`
+- `projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md`
+- `projects/sfia-studio/product-completion/06-product-completion-architecture-technique-delta.md`
+- `projects/sfia-studio/product-completion/14-product-completion-integrated-proof-final-qualification.md`
+- `projects/sfia-studio/product-completion/ux-product-experience/01-experience-architecture.md`
+- `projects/sfia-studio/product-completion/ux-product-experience/02-end-to-end-wireframes-interaction-model.md`
+- `projects/sfia-studio/product-completion/ux-product-experience/03-product-screens-visual-state-contract.md`
 
 ## Local Git Truth Check
 
 ```
-origin/main == a6dba9776bfb1b4cb1570a87b20b0c71e546e441 — VERIFIED
+origin/main == a6dba9776bfb1b4cb1570a87b20b0c71e546e441
+expected baseline a6dba9776bfb1b4cb1570a87b20b0c71e546e441
+baseline_match = True
 branch: delivery/sfia-studio-project-workspace-artifact-routing-01
 HEAD: a6dba9776bfb1b4cb1570a87b20b0c71e546e441
-status:
+status --short (incl. pack source; pack not product):
+ M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/app/__tests__/oa/cycle/cycleTypeCatalog.test.ts
  M projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx
  M projects/sfia-studio/app/__tests__/project-assistant/corrProof09.materializationIntentContract.d0.test.ts
@@ -65,10 +122,10 @@ status:
 ## Sources consulted (role)
 
 - Process/method templates + routing + operating model + guardrails + v2.5 cycles — method constraints
-- Convergence Build Doctrine (READ ONLY) + Roadmap (UPDATE)
-- Product Completion C1/C2/C3/06/14 + UX PE 01–03 — amendements additifs
+- Convergence Build Doctrine (READ ONLY) + Roadmap (UPDATE one macro entry)
+- Product Completion C1/C2/C3/06/14 + UX PE 01–03 — amendements additifs datés 2026-09-19
 - v3 framing 17/19/30–37/ckc — READ ONLY destination; routing segment = catalog/runtime
-- Code audit: Project binding, createProject, cycleTypeCatalog, F2 enrich, Proposal, EC, docs_write, UI
+- Code: Project binding, createProject, cycleTypeCatalog, F2 enrich, Proposal, EC, docs_write, UI
 
 ## Morris decisions consumed
 
@@ -78,34 +135,35 @@ status:
 - mkdir in same Attempt; no empty Git folders; legacy readable without silent migration
 - Same macro / no micro-cycles; no project commit this pass; Review Handoff L3 authorized
 
-## Implementation map (pre-code audit summary)
+## Implementation map
 
 | Concern | Location |
 | --- | --- |
-| Binding create | createProject + setProjectRepositoryBinding (internal) |
-| Binding persist | Project.payload_json / repositoryBinding |
-| pathRoot apply | enrichExecutionIntentFromBinding → scopeIn; docsWrite pathAllowlist |
-| OBS-PJ-CLOUD-01 | enrich cleared/null targetPath when unbound or out-of-bounds; no cycle compose; clarification loop |
-| Cycle catalog | cycleTypeCatalog.ts |
-| docs_write write | fakeDocsWriteLaunchPort mkdir+write; studioCursorRealLaunchGateway |
-| RepositoryBindingForm | was ProjectWorkspacePage — **replaced** by ProjectWorkspaceRoutingPanel |
+| Binding create | `createProject` + internal `setProjectRepositoryBinding` |
+| Binding persist | `Project.repositoryBinding` in payload JSON |
+| pathRoot apply | enrich → scopeIn; docsWrite pathAllowlist |
+| OBS-PJ-CLOUD-01 | null/missing target after enrich → clarification; no cycle compose |
+| Cycle catalog | `cycleTypeCatalog.ts` + `repositoryWorkspaceSegment` |
+| Target resolve | `artifactTargetRouting.ts` |
+| docs_write | Fake/REAL launch mkdir+write same Attempt |
+| UI | `RepositoryBindingForm` unmounted; `ProjectWorkspaceRoutingPanel` |
 
 ## Architecture retained
 
-- ADAPT ProjectRepositoryBinding as internal server-owned projection
-- projectWorkspaceKey durable at create; pathRoot=projects/<key> when server env present
-- CycleTypeDefinition.repositoryWorkspaceSegment stable metadata + validation
-- resolveArtifactTargetUnderCycleWorkspace for projects/<key> roots only; legacy clamp preserved
-- artifactFileName on ExecutionIntent (non-authoritative)
-- No second engine / no new SQL table
+- ADAPT `ProjectRepositoryBinding` as internal server-owned projection
+- Durable `projectWorkspaceKey`; `pathRoot=projects/<key>` when server env present
+- Stable `repositoryWorkspaceSegment` (not displayOrder-derived)
+- Cycle routing only for automatic `projects/<key>` roots; legacy clamp preserved
+- `artifactFileName` non-authoritative; server composes exact `targetPath`
+- No second engine / no new SQL table / no doctrine mutation
 
 ## OBS-PJ-CLOUD-01 resolution
 
-**Root cause:** F2 active-cycle path required an explicit in-bounds targetPath under pathRoot; when missing/null after enrich, orchestrateF2 always clarified. No Project+cycle workspace composition existed; manual pathRoot docs/ + full path could still be lost/nullified depending on binding/enrich. Product gap = no automatic Project/cycle routing.
+**Root cause:** F2 active-cycle materialization required an in-bounds `targetPath`; enrich left null / unbound cases clarified repeatedly; no Project+cycle workspace composition existed.
 
-**Correction:** server composes exact target under projects/<key>/<segment>/ from artifactFileName or in-bounds candidate; clarification only when filename/routing truly insufficient; auto binding at create when server config present.
+**Correction:** server composes exact target under `projects/<key>/<segment>/` from leaf filename or in-bounds candidate; clarification only when truly insufficient; auto binding at create when server config present.
 
-**Anti-regression proof:** productWorkspaceArtifactRouting.applicationPath + enrich unit tests + naturalMaterialization + corrProof07 PASS.
+**Anti-regression:** `productWorkspaceArtifactRouting.applicationPath`, enrich unit tests, `naturalMaterialization`, `corrProof07` PASS.
 
 ## Git Review Index — created
 
@@ -122,7 +180,6 @@ projects/sfia-studio/app/lib/oa/project/domain/serverOwnedRepositoryConfig.ts
 ## Git Review Index — modified
 
 ```
-M	.tmp-sfia-review/chatgpt-review.md
 M	projects/sfia-studio/app/__tests__/oa/cycle/cycleTypeCatalog.test.ts
 M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx
 M	projects/sfia-studio/app/__tests__/project-assistant/corrProof09.materializationIntentContract.d0.test.ts
@@ -158,468 +215,6 @@ M	projects/sfia-studio/product-completion/ux-product-experience/03-product-scree
 ```
 
 ## Created files — FULL CONTENT
-
-### `projects/sfia-studio/app/lib/oa/project/domain/projectWorkspaceKey.ts`
-
-```typescript
-/**
- * PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01
- * Stable Project workspace key derived once from title at create time.
- * Rename of title must NOT recompute an existing durable key.
- */
-export const PROJECT_WORKSPACE_PREFIX = "projects" as const;
-
-/**
- * Derive a stable kebab workspace key from a Project title.
- * Deterministic, ASCII-leaning, path-safe leaf (no slashes).
- */
-export function deriveProjectWorkspaceKeyFromTitle(title: string): string {
-  const normalized = title
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .replace(/-{2,}/g, "-");
-  const key = normalized.slice(0, 80).replace(/-+$/g, "");
-  return key.length > 0 ? key : "project";
-}
-
-/** Repo-relative Project workspace root: projects/<key> */
-export function composeProjectWorkspacePathRoot(workspaceKey: string): string {
-  const key = workspaceKey.trim().replace(/^\/+|\/+$/g, "");
-  if (!key || key.includes("/") || key.includes("\\") || key.includes("..")) {
-    throw new Error("invalid_project_workspace_key");
-  }
-  return `${PROJECT_WORKSPACE_PREFIX}/${key}`;
-}
-
-export function isValidProjectWorkspaceKey(key: string): boolean {
-  return (
-    typeof key === "string" &&
-    /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(key) &&
-    key.length >= 1 &&
-    key.length <= 80
-  );
-}
-```
-
-### `projects/sfia-studio/app/lib/oa/project/domain/serverOwnedRepositoryConfig.ts`
-
-```typescript
-/**
- * Server-owned default Product repository identity for automatic Project binding.
- * Never hardcode owner/repo in domain. Never accept client-supplied ambient cwd.
- */
-export const SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY_ENV =
-  "SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY" as const;
-export const SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL_ENV =
-  "SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL" as const;
-export const SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH_ENV =
-  "SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH" as const;
-
-export type ServerOwnedRepositoryConfig = {
-  provider: "github";
-  identity: string;
-  remoteUrl: string;
-  defaultBranch: string;
-};
-
-/**
- * Resolve explicit server repository config.
- * Returns null when incomplete — CreateProject then skips auto-binding
- * (legacy-compatible) rather than inventing ambient identity.
- */
-export function resolveServerOwnedRepositoryConfig(
-  env: NodeJS.ProcessEnv | Record<string, string | undefined> = process.env,
-): ServerOwnedRepositoryConfig | null {
-  const identity = env[SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY_ENV]?.trim() ?? "";
-  const remoteUrl =
-    env[SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL_ENV]?.trim() ?? "";
-  const defaultBranch =
-    env[SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH_ENV]?.trim() || "main";
-  if (!identity || !remoteUrl) return null;
-  if (!/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(identity)) return null;
-  if (!remoteUrl.startsWith("https://") && !remoteUrl.startsWith("git@")) {
-    return null;
-  }
-  return {
-    provider: "github",
-    identity,
-    remoteUrl,
-    defaultBranch,
-  };
-}
-```
-
-### `projects/sfia-studio/app/lib/oa/project/domain/artifactTargetRouting.ts`
-
-```typescript
-/**
- * Cycle-aware artifact target composition / validation (server-owned).
- * Nora filename proposals are non-authoritative candidates only.
- * Pure domain — no features/ imports.
- */
-
-function normalizeRepoRelativePath(raw: string): string | null {
-  const n = raw.replace(/\\/g, "/").replace(/^\.\//, "").replace(/\/+$/, "");
-  if (!n || n.startsWith("/")) return null;
-  const segs = n.split("/");
-  if (segs.some((seg) => seg === ".." || seg === "")) return null;
-  return n;
-}
-
-export type ArtifactTargetRoutingResult =
-  | {
-      ok: true;
-      projectRoot: string;
-      cycleRoot: string;
-      artifactFileName: string;
-      targetPath: string;
-      needsTargetClarification: false;
-    }
-  | {
-      ok: false;
-      needsTargetClarification: true;
-      code: string;
-      reason: string;
-      projectRoot?: string;
-      cycleRoot?: string;
-    };
-
-const MARKDOWN_LEAF = /^[a-zA-Z0-9][a-zA-Z0-9._-]{0,120}\.md$/;
-
-export function isSafeArtifactFileNameLeaf(name: string): boolean {
-  const trimmed = name.trim();
-  if (!trimmed || trimmed.includes("/") || trimmed.includes("\\")) return false;
-  if (trimmed.includes("..")) return false;
-  return MARKDOWN_LEAF.test(trimmed);
-}
-
-export function extractArtifactFileNameCandidate(input: {
-  artifactFileName?: string | null;
-  targetPath?: string | null;
-}): string | null {
-  const explicit = input.artifactFileName?.trim() || "";
-  if (explicit && isSafeArtifactFileNameLeaf(explicit)) return explicit;
-  const rawPath = input.targetPath?.trim() || "";
-  if (!rawPath) return null;
-  const normalized = normalizeRepoRelativePath(rawPath);
-  if (!normalized) {
-    // bare leaf may fail normalize if treated oddly — try basename
-    const base = rawPath.split("/").pop()?.trim() || "";
-    return isSafeArtifactFileNameLeaf(base) ? base : null;
-  }
-  if (!normalized.includes("/")) {
-    return isSafeArtifactFileNameLeaf(normalized) ? normalized : null;
-  }
-  const leaf = normalized.split("/").pop() || "";
-  return isSafeArtifactFileNameLeaf(leaf) ? leaf : null;
-}
-
-export function isPathWithinRoot(targetRaw: string, pathRootRaw: string): boolean {
-  const target = normalizeRepoRelativePath(targetRaw);
-  const root = normalizeRepoRelativePath(pathRootRaw);
-  if (!target || !root) return false;
-  if (target === root) return true;
-  return target.startsWith(root + "/");
-}
-
-export function composeCycleWorkspaceRoot(input: {
-  projectPathRoot: string;
-  repositoryWorkspaceSegment: string;
-}): string | null {
-  const projectRoot = normalizeRepoRelativePath(input.projectPathRoot);
-  const segment = input.repositoryWorkspaceSegment.trim().replace(/^\/+|\/+$/g, "");
-  if (!projectRoot || !segment) return null;
-  if (segment.includes("/") || segment.includes("\\") || segment.includes("..")) {
-    return null;
-  }
-  if (!/^[a-z0-9][a-z0-9._-]{0,80}$/i.test(segment)) return null;
-  return `${projectRoot}/${segment}`;
-}
-
-/**
- * Compose exact server-owned target under Project + Cycle workspace.
- * - Full in-bounds targetPath accepted when under cycle root.
- * - Leaf filename (or artifactFileName) composed under cycle root.
- * - Out-of-bounds paths rejected (no silent rewrite).
- */
-export function resolveArtifactTargetUnderCycleWorkspace(input: {
-  projectPathRoot: string;
-  repositoryWorkspaceSegment: string;
-  artifactFileName?: string | null;
-  proposedTargetPath?: string | null;
-}): ArtifactTargetRoutingResult {
-  const projectRoot = normalizeRepoRelativePath(input.projectPathRoot);
-  if (!projectRoot) {
-    return {
-      ok: false,
-      needsTargetClarification: true,
-      code: "PROJECT_ROOT_INVALID",
-      reason: "project_path_root_invalid",
-    };
-  }
-  const cycleRoot = composeCycleWorkspaceRoot({
-    projectPathRoot: projectRoot,
-    repositoryWorkspaceSegment: input.repositoryWorkspaceSegment,
-  });
-  if (!cycleRoot) {
-    return {
-      ok: false,
-      needsTargetClarification: true,
-      code: "CYCLE_SEGMENT_INVALID",
-      reason: "cycle_workspace_segment_invalid",
-      projectRoot,
-    };
-  }
-
-  const proposed = input.proposedTargetPath?.trim() || "";
-  if (proposed) {
-    const normalizedProposed = normalizeRepoRelativePath(proposed);
-    if (
-      normalizedProposed &&
-      isPathWithinRoot(normalizedProposed, cycleRoot) &&
-      normalizedProposed !== cycleRoot
-    ) {
-      const leaf = normalizedProposed.split("/").pop() || "";
-      if (!isSafeArtifactFileNameLeaf(leaf)) {
-        return {
-          ok: false,
-          needsTargetClarification: true,
-          code: "TARGET_LEAF_INVALID",
-          reason: "target_leaf_not_safe_markdown",
-          projectRoot,
-          cycleRoot,
-        };
-      }
-      return {
-        ok: true,
-        projectRoot,
-        cycleRoot,
-        artifactFileName: leaf,
-        targetPath: normalizedProposed,
-        needsTargetClarification: false,
-      };
-    }
-    // Proposed full path outside cycle workspace — fail closed (no silent rewrite).
-    if (normalizedProposed && normalizedProposed.includes("/")) {
-      return {
-        ok: false,
-        needsTargetClarification: true,
-        code: "TARGET_OUTSIDE_CYCLE_WORKSPACE",
-        reason: "proposed_target_outside_cycle_workspace",
-        projectRoot,
-        cycleRoot,
-      };
-    }
-  }
-
-  const fileName = extractArtifactFileNameCandidate({
-    artifactFileName: input.artifactFileName,
-    targetPath: proposed || null,
-  });
-  if (!fileName) {
-    return {
-      ok: false,
-      needsTargetClarification: true,
-      code: "ARTIFACT_FILENAME_REQUIRED",
-      reason: "artifact_filename_absent_or_invalid",
-      projectRoot,
-      cycleRoot,
-    };
-  }
-
-  const targetPath = `${cycleRoot}/${fileName}`;
-  return {
-    ok: true,
-    projectRoot,
-    cycleRoot,
-    artifactFileName: fileName,
-    targetPath,
-    needsTargetClarification: false,
-  };
-}
-
-/**
- * Classify CREATE vs UPDATE from a filesystem existence fact (never LLM).
- * Ambiguous / unknown existence → ASK (caller must not overwrite silently).
- */
-export function classifyArtifactWriteMode(input: {
-  targetExists: boolean | null | undefined;
-  intentClearlySameDeliverable?: boolean;
-}): "CREATE" | "UPDATE" | "ASK" {
-  if (input.targetExists === true) {
-    if (input.intentClearlySameDeliverable === false) return "ASK";
-    return "UPDATE";
-  }
-  if (input.targetExists === false) return "CREATE";
-  return "ASK";
-}
-
-/**
- * Collision check for Project workspace directory before first materialization.
- * existingPaths = repo-relative paths known to exist (read-only inventory).
- */
-export function assessProjectWorkspaceCollision(input: {
-  projectPathRoot: string;
-  existingRepoRelativePaths: readonly string[];
-  /** When the existing tree is already claimed by this same durable key. */
-  durableOwnershipMatches?: boolean;
-}): "absent_ok" | "reuse_same_project" | "ambiguous_collision" {
-  const root = normalizeRepoRelativePath(input.projectPathRoot);
-  if (!root) return "ambiguous_collision";
-  const occupied = input.existingRepoRelativePaths.some((p) => {
-    const n = normalizeRepoRelativePath(p);
-    if (!n) return false;
-    return n === root || n.startsWith(root + "/") || root.startsWith(n + "/");
-  });
-  if (!occupied) return "absent_ok";
-  if (input.durableOwnershipMatches === true) return "reuse_same_project";
-  return "ambiguous_collision";
-}
-```
-
-### `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ProjectWorkspaceRoutingPanel.tsx`
-
-```typescript
-"use client";
-
-/**
- * Read-only Project / Cycle workspace projection.
- * PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01 — no manual RepositoryBinding edit.
- * Wording is honest: logical planned workspace until Evidence proves materialization.
- * Client-safe: no CycleTypeCatalog / doctrine imports (server supplies segment).
- */
-
-import { useEffect, useState } from "react";
-import styles from "../ProjectWorkspacePage.module.css";
-
-export type ProjectWorkspaceRoutingPanelProps = {
-  projectId: string;
-  projectWorkspaceKey?: string | null;
-  pathRoot?: string | null;
-  repositoryIdentity?: string | null;
-  /** Active cycle type id — display only. */
-  activeCycleTypeId?: string | null;
-  /** Stable catalog segment supplied by server (never derived client-side from displayOrder). */
-  activeCycleWorkspaceSegment?: string | null;
-};
-
-function composeCycleRoot(
-  pathRoot: string | null,
-  segment: string | null,
-): string | null {
-  if (!pathRoot || !segment) return null;
-  const root = pathRoot.replace(/\/+$/, "");
-  const seg = segment.trim().replace(/^\/+|\/+$/g, "");
-  if (!root || !seg || seg.includes("/") || seg.includes("..")) return null;
-  return `${root}/${seg}`;
-}
-
-export function ProjectWorkspaceRoutingPanel(
-  props: ProjectWorkspaceRoutingPanelProps,
-) {
-  const pathRoot = props.pathRoot?.trim() || null;
-  const key = props.projectWorkspaceKey?.trim() || null;
-  const projectWorkspace = pathRoot
-    ? `${pathRoot.replace(/\/+$/, "")}/`
-    : key
-      ? `projects/${key}/`
-      : null;
-
-  const cycleRoot = composeCycleRoot(
-    pathRoot,
-    props.activeCycleWorkspaceSegment?.trim() || null,
-  );
-
-  return (
-    <section
-      className={styles.stateTrajectoryNote}
-      data-testid="project-workspace-routing"
-      aria-label="Workspace repository du Project"
-    >
-      <h3 className={styles.stateTrajectoryTitle}>Workspace repository</h3>
-      <p className={styles.stateTrajectoryNote}>
-        Chemins logiques prévus pour les livrables gouvernés. Aucune
-        matérialisation Git n&apos;est affirmée ici sans Evidence
-        correspondante.
-      </p>
-      {props.repositoryIdentity ? (
-        <p data-testid="project-workspace-repo-identity">
-          <strong>Repository :</strong> {props.repositoryIdentity}
-        </p>
-      ) : (
-        <p data-testid="project-workspace-repo-identity-missing">
-          Repository cible non encore projeté (configuration serveur
-          absente ou Project legacy).
-        </p>
-      )}
-      <p data-testid="project-workspace-path">
-        <strong>Workspace projet :</strong>{" "}
-        {projectWorkspace ?? "non déterminé"}
-      </p>
-      <p data-testid="project-cycle-workspace-path">
-        <strong>Workspace cycle actif :</strong>{" "}
-        {cycleRoot
-          ? `${cycleRoot}/`
-          : "aucun cycle actif / segment indisponible"}
-      </p>
-      {props.activeCycleTypeId ? (
-        <p data-testid="project-active-cycle-type">
-          <strong>Cycle type :</strong> {props.activeCycleTypeId}
-        </p>
-      ) : null}
-    </section>
-  );
-}
-
-export function ProjectWorkspaceRoutingPanelLazy(
-  props: ProjectWorkspaceRoutingPanelProps & {
-    loadActiveCycleWorkspace?: () => Promise<{
-      cycleTypeId: string | null;
-      repositoryWorkspaceSegment: string | null;
-    }>;
-  },
-) {
-  const [cycleTypeId, setCycleTypeId] = useState<string | null>(
-    props.activeCycleTypeId ?? null,
-  );
-  const [segment, setSegment] = useState<string | null>(
-    props.activeCycleWorkspaceSegment ?? null,
-  );
-  useEffect(() => {
-    let cancelled = false;
-    if (props.activeCycleTypeId && props.activeCycleWorkspaceSegment) {
-      setCycleTypeId(props.activeCycleTypeId);
-      setSegment(props.activeCycleWorkspaceSegment);
-      return;
-    }
-    if (!props.loadActiveCycleWorkspace) return;
-    void props.loadActiveCycleWorkspace().then((info) => {
-      if (cancelled) return;
-      setCycleTypeId(info.cycleTypeId);
-      setSegment(info.repositoryWorkspaceSegment);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [
-    props.activeCycleTypeId,
-    props.activeCycleWorkspaceSegment,
-    props.loadActiveCycleWorkspace,
-    props.projectId,
-  ]);
-
-  return (
-    <ProjectWorkspaceRoutingPanel
-      {...props}
-      activeCycleTypeId={cycleTypeId}
-      activeCycleWorkspaceSegment={segment}
-    />
-  );
-}
-```
 
 ### `projects/sfia-studio/app/__tests__/oa/project/projectWorkspaceArtifactRouting.d0.test.ts`
 
@@ -1248,9 +843,651 @@ describe("PRODUCT-PWR-01 deterministic workspace routing journey", () => {
 });
 ```
 
-## Modified files — useful diffs / sections
+### `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ProjectWorkspaceRoutingPanel.tsx`
 
+```typescript
+"use client";
+
+/**
+ * Read-only Project / Cycle workspace projection.
+ * PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01 — no manual RepositoryBinding edit.
+ * Wording is honest: logical planned workspace until Evidence proves materialization.
+ * Client-safe: no CycleTypeCatalog / doctrine imports (server supplies segment).
+ */
+
+import { useEffect, useState } from "react";
+import styles from "../ProjectWorkspacePage.module.css";
+
+export type ProjectWorkspaceRoutingPanelProps = {
+  projectId: string;
+  projectWorkspaceKey?: string | null;
+  pathRoot?: string | null;
+  repositoryIdentity?: string | null;
+  /** Active cycle type id — display only. */
+  activeCycleTypeId?: string | null;
+  /** Stable catalog segment supplied by server (never derived client-side from displayOrder). */
+  activeCycleWorkspaceSegment?: string | null;
+};
+
+function composeCycleRoot(
+  pathRoot: string | null,
+  segment: string | null,
+): string | null {
+  if (!pathRoot || !segment) return null;
+  const root = pathRoot.replace(/\/+$/, "");
+  const seg = segment.trim().replace(/^\/+|\/+$/g, "");
+  if (!root || !seg || seg.includes("/") || seg.includes("..")) return null;
+  return `${root}/${seg}`;
+}
+
+export function ProjectWorkspaceRoutingPanel(
+  props: ProjectWorkspaceRoutingPanelProps,
+) {
+  const pathRoot = props.pathRoot?.trim() || null;
+  const key = props.projectWorkspaceKey?.trim() || null;
+  const projectWorkspace = pathRoot
+    ? `${pathRoot.replace(/\/+$/, "")}/`
+    : key
+      ? `projects/${key}/`
+      : null;
+
+  const cycleRoot = composeCycleRoot(
+    pathRoot,
+    props.activeCycleWorkspaceSegment?.trim() || null,
+  );
+
+  return (
+    <section
+      className={styles.stateTrajectoryNote}
+      data-testid="project-workspace-routing"
+      aria-label="Workspace repository du Project"
+    >
+      <h3 className={styles.stateTrajectoryTitle}>Workspace repository</h3>
+      <p className={styles.stateTrajectoryNote}>
+        Chemins logiques prévus pour les livrables gouvernés. Aucune
+        matérialisation Git n&apos;est affirmée ici sans Evidence
+        correspondante.
+      </p>
+      {props.repositoryIdentity ? (
+        <p data-testid="project-workspace-repo-identity">
+          <strong>Repository :</strong> {props.repositoryIdentity}
+        </p>
+      ) : (
+        <p data-testid="project-workspace-repo-identity-missing">
+          Repository cible non encore projeté (configuration serveur
+          absente ou Project legacy).
+        </p>
+      )}
+      <p data-testid="project-workspace-path">
+        <strong>Workspace projet :</strong>{" "}
+        {projectWorkspace ?? "non déterminé"}
+      </p>
+      <p data-testid="project-cycle-workspace-path">
+        <strong>Workspace cycle actif :</strong>{" "}
+        {cycleRoot
+          ? `${cycleRoot}/`
+          : "aucun cycle actif / segment indisponible"}
+      </p>
+      {props.activeCycleTypeId ? (
+        <p data-testid="project-active-cycle-type">
+          <strong>Cycle type :</strong> {props.activeCycleTypeId}
+        </p>
+      ) : null}
+    </section>
+  );
+}
+
+export function ProjectWorkspaceRoutingPanelLazy(
+  props: ProjectWorkspaceRoutingPanelProps & {
+    loadActiveCycleWorkspace?: () => Promise<{
+      cycleTypeId: string | null;
+      repositoryWorkspaceSegment: string | null;
+    }>;
+  },
+) {
+  const [cycleTypeId, setCycleTypeId] = useState<string | null>(
+    props.activeCycleTypeId ?? null,
+  );
+  const [segment, setSegment] = useState<string | null>(
+    props.activeCycleWorkspaceSegment ?? null,
+  );
+  useEffect(() => {
+    let cancelled = false;
+    if (props.activeCycleTypeId && props.activeCycleWorkspaceSegment) {
+      setCycleTypeId(props.activeCycleTypeId);
+      setSegment(props.activeCycleWorkspaceSegment);
+      return;
+    }
+    if (!props.loadActiveCycleWorkspace) return;
+    void props.loadActiveCycleWorkspace().then((info) => {
+      if (cancelled) return;
+      setCycleTypeId(info.cycleTypeId);
+      setSegment(info.repositoryWorkspaceSegment);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [
+    props.activeCycleTypeId,
+    props.activeCycleWorkspaceSegment,
+    props.loadActiveCycleWorkspace,
+    props.projectId,
+  ]);
+
+  return (
+    <ProjectWorkspaceRoutingPanel
+      {...props}
+      activeCycleTypeId={cycleTypeId}
+      activeCycleWorkspaceSegment={segment}
+    />
+  );
+}
 ```
+
+### `projects/sfia-studio/app/lib/oa/project/domain/artifactTargetRouting.ts`
+
+```typescript
+/**
+ * Cycle-aware artifact target composition / validation (server-owned).
+ * Nora filename proposals are non-authoritative candidates only.
+ * Pure domain — no features/ imports.
+ */
+
+function normalizeRepoRelativePath(raw: string): string | null {
+  const n = raw.replace(/\\/g, "/").replace(/^\.\//, "").replace(/\/+$/, "");
+  if (!n || n.startsWith("/")) return null;
+  const segs = n.split("/");
+  if (segs.some((seg) => seg === ".." || seg === "")) return null;
+  return n;
+}
+
+export type ArtifactTargetRoutingResult =
+  | {
+      ok: true;
+      projectRoot: string;
+      cycleRoot: string;
+      artifactFileName: string;
+      targetPath: string;
+      needsTargetClarification: false;
+    }
+  | {
+      ok: false;
+      needsTargetClarification: true;
+      code: string;
+      reason: string;
+      projectRoot?: string;
+      cycleRoot?: string;
+    };
+
+const MARKDOWN_LEAF = /^[a-zA-Z0-9][a-zA-Z0-9._-]{0,120}\.md$/;
+
+export function isSafeArtifactFileNameLeaf(name: string): boolean {
+  const trimmed = name.trim();
+  if (!trimmed || trimmed.includes("/") || trimmed.includes("\\")) return false;
+  if (trimmed.includes("..")) return false;
+  return MARKDOWN_LEAF.test(trimmed);
+}
+
+export function extractArtifactFileNameCandidate(input: {
+  artifactFileName?: string | null;
+  targetPath?: string | null;
+}): string | null {
+  const explicit = input.artifactFileName?.trim() || "";
+  if (explicit && isSafeArtifactFileNameLeaf(explicit)) return explicit;
+  const rawPath = input.targetPath?.trim() || "";
+  if (!rawPath) return null;
+  const normalized = normalizeRepoRelativePath(rawPath);
+  if (!normalized) {
+    // bare leaf may fail normalize if treated oddly — try basename
+    const base = rawPath.split("/").pop()?.trim() || "";
+    return isSafeArtifactFileNameLeaf(base) ? base : null;
+  }
+  if (!normalized.includes("/")) {
+    return isSafeArtifactFileNameLeaf(normalized) ? normalized : null;
+  }
+  const leaf = normalized.split("/").pop() || "";
+  return isSafeArtifactFileNameLeaf(leaf) ? leaf : null;
+}
+
+export function isPathWithinRoot(targetRaw: string, pathRootRaw: string): boolean {
+  const target = normalizeRepoRelativePath(targetRaw);
+  const root = normalizeRepoRelativePath(pathRootRaw);
+  if (!target || !root) return false;
+  if (target === root) return true;
+  return target.startsWith(root + "/");
+}
+
+export function composeCycleWorkspaceRoot(input: {
+  projectPathRoot: string;
+  repositoryWorkspaceSegment: string;
+}): string | null {
+  const projectRoot = normalizeRepoRelativePath(input.projectPathRoot);
+  const segment = input.repositoryWorkspaceSegment.trim().replace(/^\/+|\/+$/g, "");
+  if (!projectRoot || !segment) return null;
+  if (segment.includes("/") || segment.includes("\\") || segment.includes("..")) {
+    return null;
+  }
+  if (!/^[a-z0-9][a-z0-9._-]{0,80}$/i.test(segment)) return null;
+  return `${projectRoot}/${segment}`;
+}
+
+/**
+ * Compose exact server-owned target under Project + Cycle workspace.
+ * - Full in-bounds targetPath accepted when under cycle root.
+ * - Leaf filename (or artifactFileName) composed under cycle root.
+ * - Out-of-bounds paths rejected (no silent rewrite).
+ */
+export function resolveArtifactTargetUnderCycleWorkspace(input: {
+  projectPathRoot: string;
+  repositoryWorkspaceSegment: string;
+  artifactFileName?: string | null;
+  proposedTargetPath?: string | null;
+}): ArtifactTargetRoutingResult {
+  const projectRoot = normalizeRepoRelativePath(input.projectPathRoot);
+  if (!projectRoot) {
+    return {
+      ok: false,
+      needsTargetClarification: true,
+      code: "PROJECT_ROOT_INVALID",
+      reason: "project_path_root_invalid",
+    };
+  }
+  const cycleRoot = composeCycleWorkspaceRoot({
+    projectPathRoot: projectRoot,
+    repositoryWorkspaceSegment: input.repositoryWorkspaceSegment,
+  });
+  if (!cycleRoot) {
+    return {
+      ok: false,
+      needsTargetClarification: true,
+      code: "CYCLE_SEGMENT_INVALID",
+      reason: "cycle_workspace_segment_invalid",
+      projectRoot,
+    };
+  }
+
+  const proposed = input.proposedTargetPath?.trim() || "";
+  if (proposed) {
+    const normalizedProposed = normalizeRepoRelativePath(proposed);
+    if (
+      normalizedProposed &&
+      isPathWithinRoot(normalizedProposed, cycleRoot) &&
+      normalizedProposed !== cycleRoot
+    ) {
+      const leaf = normalizedProposed.split("/").pop() || "";
+      if (!isSafeArtifactFileNameLeaf(leaf)) {
+        return {
+          ok: false,
+          needsTargetClarification: true,
+          code: "TARGET_LEAF_INVALID",
+          reason: "target_leaf_not_safe_markdown",
+          projectRoot,
+          cycleRoot,
+        };
+      }
+      return {
+        ok: true,
+        projectRoot,
+        cycleRoot,
+        artifactFileName: leaf,
+        targetPath: normalizedProposed,
+        needsTargetClarification: false,
+      };
+    }
+    // Proposed full path outside cycle workspace — fail closed (no silent rewrite).
+    if (normalizedProposed && normalizedProposed.includes("/")) {
+      return {
+        ok: false,
+        needsTargetClarification: true,
+        code: "TARGET_OUTSIDE_CYCLE_WORKSPACE",
+        reason: "proposed_target_outside_cycle_workspace",
+        projectRoot,
+        cycleRoot,
+      };
+    }
+  }
+
+  const fileName = extractArtifactFileNameCandidate({
+    artifactFileName: input.artifactFileName,
+    targetPath: proposed || null,
+  });
+  if (!fileName) {
+    return {
+      ok: false,
+      needsTargetClarification: true,
+      code: "ARTIFACT_FILENAME_REQUIRED",
+      reason: "artifact_filename_absent_or_invalid",
+      projectRoot,
+      cycleRoot,
+    };
+  }
+
+  const targetPath = `${cycleRoot}/${fileName}`;
+  return {
+    ok: true,
+    projectRoot,
+    cycleRoot,
+    artifactFileName: fileName,
+    targetPath,
+    needsTargetClarification: false,
+  };
+}
+
+/**
+ * Classify CREATE vs UPDATE from a filesystem existence fact (never LLM).
+ * Ambiguous / unknown existence → ASK (caller must not overwrite silently).
+ */
+export function classifyArtifactWriteMode(input: {
+  targetExists: boolean | null | undefined;
+  intentClearlySameDeliverable?: boolean;
+}): "CREATE" | "UPDATE" | "ASK" {
+  if (input.targetExists === true) {
+    if (input.intentClearlySameDeliverable === false) return "ASK";
+    return "UPDATE";
+  }
+  if (input.targetExists === false) return "CREATE";
+  return "ASK";
+}
+
+/**
+ * Collision check for Project workspace directory before first materialization.
+ * existingPaths = repo-relative paths known to exist (read-only inventory).
+ */
+export function assessProjectWorkspaceCollision(input: {
+  projectPathRoot: string;
+  existingRepoRelativePaths: readonly string[];
+  /** When the existing tree is already claimed by this same durable key. */
+  durableOwnershipMatches?: boolean;
+}): "absent_ok" | "reuse_same_project" | "ambiguous_collision" {
+  const root = normalizeRepoRelativePath(input.projectPathRoot);
+  if (!root) return "ambiguous_collision";
+  const occupied = input.existingRepoRelativePaths.some((p) => {
+    const n = normalizeRepoRelativePath(p);
+    if (!n) return false;
+    return n === root || n.startsWith(root + "/") || root.startsWith(n + "/");
+  });
+  if (!occupied) return "absent_ok";
+  if (input.durableOwnershipMatches === true) return "reuse_same_project";
+  return "ambiguous_collision";
+}
+```
+
+### `projects/sfia-studio/app/lib/oa/project/domain/projectWorkspaceKey.ts`
+
+```typescript
+/**
+ * PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01
+ * Stable Project workspace key derived once from title at create time.
+ * Rename of title must NOT recompute an existing durable key.
+ */
+export const PROJECT_WORKSPACE_PREFIX = "projects" as const;
+
+/**
+ * Derive a stable kebab workspace key from a Project title.
+ * Deterministic, ASCII-leaning, path-safe leaf (no slashes).
+ */
+export function deriveProjectWorkspaceKeyFromTitle(title: string): string {
+  const normalized = title
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .replace(/-{2,}/g, "-");
+  const key = normalized.slice(0, 80).replace(/-+$/g, "");
+  return key.length > 0 ? key : "project";
+}
+
+/** Repo-relative Project workspace root: projects/<key> */
+export function composeProjectWorkspacePathRoot(workspaceKey: string): string {
+  const key = workspaceKey.trim().replace(/^\/+|\/+$/g, "");
+  if (!key || key.includes("/") || key.includes("\\") || key.includes("..")) {
+    throw new Error("invalid_project_workspace_key");
+  }
+  return `${PROJECT_WORKSPACE_PREFIX}/${key}`;
+}
+
+export function isValidProjectWorkspaceKey(key: string): boolean {
+  return (
+    typeof key === "string" &&
+    /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(key) &&
+    key.length >= 1 &&
+    key.length <= 80
+  );
+}
+```
+
+### `projects/sfia-studio/app/lib/oa/project/domain/serverOwnedRepositoryConfig.ts`
+
+```typescript
+/**
+ * Server-owned default Product repository identity for automatic Project binding.
+ * Never hardcode owner/repo in domain. Never accept client-supplied ambient cwd.
+ */
+export const SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY_ENV =
+  "SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY" as const;
+export const SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL_ENV =
+  "SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL" as const;
+export const SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH_ENV =
+  "SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH" as const;
+
+export type ServerOwnedRepositoryConfig = {
+  provider: "github";
+  identity: string;
+  remoteUrl: string;
+  defaultBranch: string;
+};
+
+/**
+ * Resolve explicit server repository config.
+ * Returns null when incomplete — CreateProject then skips auto-binding
+ * (legacy-compatible) rather than inventing ambient identity.
+ */
+export function resolveServerOwnedRepositoryConfig(
+  env: NodeJS.ProcessEnv | Record<string, string | undefined> = process.env,
+): ServerOwnedRepositoryConfig | null {
+  const identity = env[SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY_ENV]?.trim() ?? "";
+  const remoteUrl =
+    env[SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL_ENV]?.trim() ?? "";
+  const defaultBranch =
+    env[SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH_ENV]?.trim() || "main";
+  if (!identity || !remoteUrl) return null;
+  if (!/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(identity)) return null;
+  if (!remoteUrl.startsWith("https://") && !remoteUrl.startsWith("git@")) {
+    return null;
+  }
+  return {
+    provider: "github",
+    identity,
+    remoteUrl,
+    defaultBranch,
+  };
+}
+```
+
+## Modified files — COMPLETE DIFFS (one section per file)
+
+Each section is the full `git diff -- <path>` output (no truncation).
+
+### `projects/sfia-studio/app/__tests__/oa/cycle/cycleTypeCatalog.test.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/cycleTypeCatalog.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/cycleTypeCatalog.test.ts
+index 01814905..c4af1686 100644
+--- a/projects/sfia-studio/app/__tests__/oa/cycle/cycleTypeCatalog.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/cycle/cycleTypeCatalog.test.ts
+@@ -95,6 +95,7 @@ describe("V3.1-D1 cycle type catalog", () => {
+           unavailableBehavior: "fail-closed",
+         },
+         aliases: [],
++        repositoryWorkspaceSegment: "16-w3d-extension-probe",
+       });
+       return entries;
+     });
+@@ -102,6 +103,62 @@ describe("V3.1-D1 cycle type catalog", () => {
+     expect(validateCycleTypeCatalog(extended)).toEqual([]);
+   });
+
++  it("PRODUCT-PWR-01: stable repositoryWorkspaceSegment per cycle (not displayOrder-derived)", () => {
++    const framing = getCycleTypeById("cyc:framing");
++    const delivery = getCycleTypeById("cyc:delivery");
++    expect(framing?.repositoryWorkspaceSegment).toBe("01-cadrage");
++    expect(delivery?.repositoryWorkspaceSegment).toBe(
++      "08-delivery-implementation",
++    );
++    const segments = CYCLE_TYPE_CATALOG.entries.map(
++      (e) => e.repositoryWorkspaceSegment,
++    );
++    expect(new Set(segments).size).toBe(segments.length);
++    // Must not equal String(displayOrder) padding alone as the sole source of truth
++    for (const e of CYCLE_TYPE_CATALOG.entries) {
++      expect(e.repositoryWorkspaceSegment).not.toBe(String(e.displayOrder));
++      expect(e.repositoryWorkspaceSegment.length).toBeGreaterThan(2);
++    }
++  });
++
++  it("PRODUCT-PWR-01: rejects empty/duplicate/unsafe workspace segments", () => {
++    const empty = cloneCatalog((entries) => {
++      entries[0] = { ...entries[0], repositoryWorkspaceSegment: "" };
++      return entries;
++    });
++    expect(
++      validateCycleTypeCatalog(empty).some(
++        (i) => i.code === "WORKSPACE_SEGMENT_EMPTY",
++      ),
++    ).toBe(true);
++
++    const dup = cloneCatalog((entries) => {
++      entries[1] = {
++        ...entries[1],
++        repositoryWorkspaceSegment: entries[0].repositoryWorkspaceSegment,
++      };
++      return entries;
++    });
++    expect(
++      validateCycleTypeCatalog(dup).some(
++        (i) => i.code === "WORKSPACE_SEGMENT_DUPLICATE",
++      ),
++    ).toBe(true);
++
++    const unsafe = cloneCatalog((entries) => {
++      entries[0] = {
++        ...entries[0],
++        repositoryWorkspaceSegment: "../escape",
++      };
++      return entries;
++    });
++    expect(
++      validateCycleTypeCatalog(unsafe).some(
++        (i) => i.code === "WORKSPACE_SEGMENT_INVALID",
++      ),
++    ).toBe(true);
++  });
++
+   it("lists exact adopted cycleTypeId set in order", () => {
+     expect(listCycleTypes().map((e) => e.cycleTypeId)).toEqual([
+       ...EXPECTED_IDS,
+```
+
+### `projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx`
+
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx
+index 49d22f19..9b380cb7 100644
+--- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx
++++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx
+@@ -39,6 +39,11 @@ vi.mock("@/features/pre-m6-product-ui/hooks/useProductConversation", () => ({
+ vi.mock("@/features/project-assistant/actions", () => ({
+   projectAssistantPilotLifecycleProjection: (...args: unknown[]) =>
+     lifecycleProjectionMock(...args),
++  projectAssistantActiveCycleWorkspaceAction: vi.fn().mockResolvedValue({
++    ok: true,
++    cycleTypeId: null,
++    repositoryWorkspaceSegment: null,
++  }),
+   projectAssistantPilotLifecycleAction: vi.fn(),
+   projectAssistantRecordObligationPolicyAction: vi.fn(),
+   projectAssistantCompleteTrajectoryStepAction: vi.fn(),
+@@ -125,6 +130,7 @@ const PROJECT = {
+       defaultBranch: "main",
+       pathRoot: "projects/sfia-studio/.sandbox",
+     },
++    projectWorkspaceKey: null as string | null,
+   },
+   doctrine: {
+     id: "pkg:studio-v3-oa",
+@@ -293,12 +299,11 @@ describe("JOURNEY-INTEGRITY — ProjectWorkspace CASE A composition", () => {
+     expect(
+       screen.getByTestId("lifecycle-require-artifact-continuation"),
+     ).toBeTruthy();
+-    expect(await screen.findByTestId("repo-binding-status")).toHaveTextContent(
+-      /Binding durable chargé/i,
+-    );
+-    expect(screen.getByTestId("repo-binding-identity")).toHaveValue(
+-      "mcleland147/sfia-workspace",
++    expect(await screen.findByTestId("project-workspace-routing")).toBeTruthy();
++    expect(screen.getByTestId("project-workspace-path")).toHaveTextContent(
++      /projects\/sfia-studio\/\.sandbox/i,
+     );
++    expect(screen.queryByTestId("repository-binding-form")).toBeNull();
+   });
+
+   it("CTA-5 — no Proposal ownership restores Recovery requalify + Lifecycle Nora CTA", async () => {
+```
+
+### `projects/sfia-studio/app/__tests__/project-assistant/corrProof09.materializationIntentContract.d0.test.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/corrProof09.materializationIntentContract.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/corrProof09.materializationIntentContract.d0.test.ts
+index 904d19a7..b00d535b 100644
+--- a/projects/sfia-studio/app/__tests__/project-assistant/corrProof09.materializationIntentContract.d0.test.ts
++++ b/projects/sfia-studio/app/__tests__/project-assistant/corrProof09.materializationIntentContract.d0.test.ts
+@@ -43,6 +43,7 @@ function ei(overrides?: Record<string, unknown>) {
+     artifactType: null,
+     targetRepositoryRef: null,
+     targetPath: null,
++    artifactFileName: null,
+     scopeIn: [],
+     scopeOut: [],
+     expectedOutputs: [],
+```
+
+### `projects/sfia-studio/app/__tests__/project-assistant/w3dFullCkcCatalog.test.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/w3dFullCkcCatalog.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/w3dFullCkcCatalog.test.ts
+index 8feb00aa..6713d45d 100644
+--- a/projects/sfia-studio/app/__tests__/project-assistant/w3dFullCkcCatalog.test.ts
++++ b/projects/sfia-studio/app/__tests__/project-assistant/w3dFullCkcCatalog.test.ts
+@@ -121,6 +121,7 @@ function extensionCatalogEntry(): CycleTypeDefinition {
+       unavailableBehavior: "fail-closed",
+     },
+     aliases: [],
++    repositoryWorkspaceSegment: "16-w3d-extension-probe",
+   };
+ }
+```
+
+### `projects/sfia-studio/app/__tests__/vertical-slice-core/localProjectComposition.test.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/vertical-slice-core/localProjectComposition.test.ts b/projects/sfia-studio/app/__tests__/vertical-slice-core/localProjectComposition.test.ts
+index 98026767..e4556b6b 100644
+--- a/projects/sfia-studio/app/__tests__/vertical-slice-core/localProjectComposition.test.ts
++++ b/projects/sfia-studio/app/__tests__/vertical-slice-core/localProjectComposition.test.ts
+@@ -160,6 +160,7 @@ describe("visible slice V1 Project/LPS happy path", () => {
+         ckcResolutionRef: null,
+       },
+       repositoryBinding: null,
++      projectWorkspaceKey: "visible-slice-v1",
+       localMode: true,
+       iam: "NOT_SELECTED",
+       productPersistence: "SQLITE_OA_PRODUCT_STORE",
+```
+
+### `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx`
+
+```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
 index a8c7c3af..a2eaab89 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
@@ -1311,6 +1548,68 @@ index a8c7c3af..a2eaab89 100644
                  <TrajectorySurface
                    projectId={projectId}
                    composition="lps-embedded"
+```
+
+### `projects/sfia-studio/app/features/project-assistant/actions.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/actions.ts b/projects/sfia-studio/app/features/project-assistant/actions.ts
+index 3c7b294e..022fc92e 100644
+--- a/projects/sfia-studio/app/features/project-assistant/actions.ts
++++ b/projects/sfia-studio/app/features/project-assistant/actions.ts
+@@ -17,6 +17,7 @@ import {
+   assessResumeReconciliation,
+   deriveLifecycleBlockersFromEpistemicItems,
+ } from "@/lib/oa/cycle";
++import { getCycleTypeById } from "@/lib/oa/cycle/domain/cycleTypeCatalog";
+ import type { LifecycleRecommendationMaterialDimension } from "@/lib/oa/cycle/application/lifecycleRecommendation/materialReaderContract";
+ import { F2_PROCESS_LOCAL_NOTICE } from "./f2/proposalStore";
+ import type { F2DecisionKind } from "./f2/types";
+@@ -1371,6 +1372,39 @@ export async function projectAssistantPilotLifecycleProjection(input: {
+   };
+ }
+
++/**
++ * PRODUCT-PWR-01 — active cycle workspace segment (server-owned catalog metadata).
++ * Client UI must not import CycleTypeCatalog (doctrine / node:fs).
++ */
++export async function projectAssistantActiveCycleWorkspaceAction(input: {
++  projectId: string;
++}): Promise<{
++  ok: boolean;
++  cycleTypeId: string | null;
++  repositoryWorkspaceSegment: string | null;
++  message?: string;
++}> {
++  const life = await projectAssistantPilotLifecycleProjection({
++    projectId: input.projectId,
++  });
++  if (!life.ok || !life.projection?.activeCycle) {
++    return {
++      ok: true,
++      cycleTypeId: null,
++      repositoryWorkspaceSegment: null,
++    };
++  }
++  const cycleTypeId = life.projection.activeCycle.cycleTypeId ?? null;
++  const segment = cycleTypeId
++    ? getCycleTypeById(cycleTypeId)?.repositoryWorkspaceSegment ?? null
++    : null;
++  return {
++    ok: true,
++    cycleTypeId,
++    repositoryWorkspaceSegment: segment,
++  };
++}
++
+ /**
+  * CORR-PROOF-05 — Pilot lifecycle transitions (START/PAUSE/RESUME/FINALIZE/CANCEL).
+  * Never uses morrisGateRequired as Pilot lifecycle authority.
+```
+
+### `projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts`
+
+```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts b/projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
 index cc09bca1..453a60e4 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
@@ -1475,6 +1774,11 @@ index cc09bca1..453a60e4 100644
        needsClarification = true;
        targetPath = null;
      } else {
+```
+
+### `projects/sfia-studio/app/features/project-assistant/f2/executionIntentSchema.ts`
+
+```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/executionIntentSchema.ts b/projects/sfia-studio/app/features/project-assistant/f2/executionIntentSchema.ts
 index dab3a06c..9a06221c 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f2/executionIntentSchema.ts
@@ -1515,6 +1819,32 @@ index dab3a06c..9a06221c 100644
        scopeIn: scopeIn ?? [],
        scopeOut: scopeOut ?? [],
        expectedOutputs: expectedOutputs ?? [],
+```
+
+### `projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts b/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+index 075ee19b..b6de6112 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+@@ -635,7 +635,10 @@ Si le Project a déjà un cycle actif et que la demande porte sur la matérialis
+   * requestedOperation (top-level) ET executionIntent.requestedOperation restent génériques ailleurs ; pour CETTE continuation Artifact, les laisser null (préféré) ou exactement cursor.docs_write.apply — JAMAIS une valeur contradictoire (ex. github.pr.merge) ;
+   * si des requiredCapabilities sont fournies pour ce chemin → « cap:cursor.docs_write » (le serveur reste autoritaire après acceptation) ;
+   * la description naturelle du livrable va dans objective / rephrasedRequest / artifactBrief / contentRequirements — JAMAIS dans artifactMaterializationOperation ;
+-  * targetPath / targetRepositoryRef PEUVENT rester null (le serveur utilise Project.repositoryBinding) — ne PAS inventer de chemin ;
++  * targetPath / targetRepositoryRef PEUVENT rester null (le serveur compose sous Project workspace + cycle segment) — ne PAS inventer de chemin repository complet ;
++  * si le Pilote a fourni un filename leaf sûr (ex. note-de-cadrage.md), le reporter dans artifactFileName ;
++  * si aucun filename n'est fourni, proposer un artifactFileName Markdown cohérent avec le livrable/cycle (NON-AUTORITAIRE) ;
++  * ne PAS demander au Pilote de construire un path technique repository complet lorsque workspace Project+cycle est déterminable ;
+   * reversibilityExpectation pour cette continuation : null ou unknown seulement — NE PAS affirmer reversible/irreversible sans provenance serveur ;
+ - définition seule du livrable (sans effet de matérialisation) → informative, continuationKind=null, artifactMaterializationOperation=null.
+ Aucune phrase magique exacte n'autorise seule cette continuation.`;
+```
+
+### `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts`
+
+```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
 index 4e4424e9..be507e1e 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
@@ -1548,6 +1878,160 @@ index 4e4424e9..be507e1e 100644
            "Votre décision et la préparation de l'action restent fermées tant que la cible n'est pas clarifiée.",
            "Rien n'a encore été exécuté.",
          ].join(" "),
+```
+
+### `projects/sfia-studio/app/features/project-assistant/f2/recordDecision.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/recordDecision.ts b/projects/sfia-studio/app/features/project-assistant/f2/recordDecision.ts
+index b0322ea3..72f89e65 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/recordDecision.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/recordDecision.ts
+@@ -110,6 +110,7 @@ function buildDecisionBasis(input: {
+             artifactType: ei.artifactType ?? null,
+             targetRepositoryRef: ei.targetRepositoryRef ?? null,
+             targetPath: ei.targetPath ?? null,
++            artifactFileName: ei.artifactFileName ?? null,
+             scopeIn: ei.scopeIn ?? [],
+             scopeOut: ei.scopeOut ?? [],
+             expectedOutputs: ei.expectedOutputs ?? [],
+```
+
+### `projects/sfia-studio/app/features/project-assistant/w2/proposalSubjectIntegrity.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/proposalSubjectIntegrity.ts b/projects/sfia-studio/app/features/project-assistant/w2/proposalSubjectIntegrity.ts
+index ae56b2f1..3e89e0ce 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/proposalSubjectIntegrity.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/proposalSubjectIntegrity.ts
+@@ -33,6 +33,12 @@ export type SealedProposalExecutionBasis = {
+   readonly artifactType: string | null;
+   readonly targetRepositoryRef: string | null;
+   readonly targetPath: string | null;
++  /** Non-authoritative leaf filename candidate sealed for HD presentation. */
++  readonly artifactFileName: string | null;
++  /** Server-derived CREATE/UPDATE when existence was resolved; else null. */
++  readonly artifactWriteMode: "CREATE" | "UPDATE" | null;
++  readonly projectWorkspaceRoot: string | null;
++  readonly cycleWorkspaceRoot: string | null;
+   readonly scopeIn: readonly string[];
+   readonly scopeOut: readonly string[];
+   readonly expectedOutputs: readonly string[];
+@@ -70,6 +76,21 @@ export function sealProposalExecutionBasis(
+   proposal: ProposalDto,
+ ): SealedProposalExecutionBasis {
+   const ei: ExecutionIntentPayload | null | undefined = proposal.executionIntent;
++  const targetPath = ei?.targetPath ?? null;
++  const artifactFileName =
++    ei?.artifactFileName?.trim() ||
++    (targetPath ? targetPath.split("/").pop()?.trim() || null : null);
++  const scopeIn = asStringArray(ei?.scopeIn);
++  const cycleWorkspaceRoot = scopeIn[0]?.trim() || null;
++  let projectWorkspaceRoot: string | null = null;
++  if (cycleWorkspaceRoot && cycleWorkspaceRoot.includes("/")) {
++    const parts = cycleWorkspaceRoot.split("/");
++    if (parts.length >= 2 && parts[0] === "projects") {
++      projectWorkspaceRoot = parts.slice(0, 2).join("/");
++    } else if (parts.length >= 2) {
++      projectWorkspaceRoot = parts.slice(0, -1).join("/");
++    }
++  }
+   return {
+     objective: proposal.objective,
+     scope: proposal.scope,
+@@ -85,8 +106,14 @@ export function sealProposalExecutionBasis(
+     intentKind: ei?.intentKind ?? null,
+     artifactType: ei?.artifactType ?? null,
+     targetRepositoryRef: ei?.targetRepositoryRef ?? null,
+-    targetPath: ei?.targetPath ?? null,
+-    scopeIn: asStringArray(ei?.scopeIn),
++    targetPath,
++    artifactFileName,
++    // Existence is resolved at PREPARE/Attempt — Proposal presents planned mode as null
++    // unless a future caller injects a resolved fact (kept null for digest stability).
++    artifactWriteMode: null,
++    projectWorkspaceRoot,
++    cycleWorkspaceRoot,
++    scopeIn,
+     scopeOut: asStringArray(ei?.scopeOut),
+     expectedOutputs: asStringArray(ei?.expectedOutputs),
+     requiredCapabilities: asStringArray(ei?.requiredCapabilities),
+@@ -124,6 +151,10 @@ export function computeProposalSubjectDigest(
+     artifactType: sealed.artifactType,
+     targetRepositoryRef: sealed.targetRepositoryRef,
+     targetPath: sealed.targetPath,
++    artifactFileName: sealed.artifactFileName,
++    artifactWriteMode: sealed.artifactWriteMode,
++    projectWorkspaceRoot: sealed.projectWorkspaceRoot,
++    cycleWorkspaceRoot: sealed.cycleWorkspaceRoot,
+     scopeIn: [...sealed.scopeIn],
+     scopeOut: [...sealed.scopeOut],
+     expectedOutputs: [...sealed.expectedOutputs],
+```
+
+### `projects/sfia-studio/app/features/project-assistant/w2/proposalSubjectOptions.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/proposalSubjectOptions.ts b/projects/sfia-studio/app/features/project-assistant/w2/proposalSubjectOptions.ts
+index 8b05d2de..e87b8d2d 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/proposalSubjectOptions.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/proposalSubjectOptions.ts
+@@ -43,10 +43,14 @@ function step(
+
+ function subjectSummary(sealed: SealedProposalExecutionBasis): string {
+   const path = sealed.targetPath == null ? null : sealed.targetPath.trim() || null;
++  const fileName = sealed.artifactFileName?.trim() || null;
++  const writeMode = sealed.artifactWriteMode;
+   const op = sealed.requestedOperation.trim() || null;
+   const parts = [
+     sealed.objective.trim(),
+     path ? `cible ${path}` : null,
++    fileName && !path ? `fichier ${fileName}` : null,
++    writeMode ? `mode ${writeMode}` : null,
+     op ? `effet ${op}` : null,
+   ].filter((p): p is string => Boolean(p));
+   return parts.join(" · ");
+@@ -105,6 +109,20 @@ export function deriveProposalSubjectOptions(
+   const pathNote = sealed.targetPath
+     ? `Chemin scellé: ${sealed.targetPath}`
+     : "Aucun targetPath scellé";
++  const fileNote = sealed.artifactFileName
++    ? `Filename: ${sealed.artifactFileName}`
++    : "Filename: (dérivé du targetPath si présent)";
++  const writeNote = sealed.artifactWriteMode
++    ? `Effet fichier: ${sealed.artifactWriteMode}`
++    : "Effet fichier: à confirmer à la préparation (CREATE si absent, UPDATE si existant)";
++  const workspaceNotes = [
++    sealed.projectWorkspaceRoot
++      ? `Workspace projet: ${sealed.projectWorkspaceRoot}/`
++      : null,
++    sealed.cycleWorkspaceRoot
++      ? `Workspace cycle: ${sealed.cycleWorkspaceRoot}/`
++      : null,
++  ].filter((n): n is string => Boolean(n));
+   const opNote = `Opération scellée: ${sealed.requestedOperation}`;
+
+   return [
+@@ -112,11 +130,13 @@ export function deriveProposalSubjectOptions(
+       kind: "OPTION",
+       optionRef: PROPOSAL_SUBJECT_PURSUE_REF,
+       label: "Poursuivre le sujet proposé",
+-      intent: `Décider sur la Proposal ${proposalId} — ${summary}. ${pathNote}. ${opNote}.`,
++      intent: `Décider sur la Proposal ${proposalId} — ${summary}. ${pathNote}. ${fileNote}. ${writeNote}. ${opNote}.`,
+       impacts: [
+         "HumanDecision liée à cette Proposal",
+         "DecisionBasis conserve targetPath / requestedOperation scellés",
+         "Pas de promotion ProjectTrajectory automatique",
++        ...workspaceNotes,
++        writeNote,
+       ],
+       reservations,
+       steps: pursueSteps(sealed),
+```
+
+### `projects/sfia-studio/app/lib/oa/cycle/domain/cycleTypeCatalog.ts`
+
+```diff
 diff --git a/projects/sfia-studio/app/lib/oa/cycle/domain/cycleTypeCatalog.ts b/projects/sfia-studio/app/lib/oa/cycle/domain/cycleTypeCatalog.ts
 index 1c8710a5..17d30c77 100644
 --- a/projects/sfia-studio/app/lib/oa/cycle/domain/cycleTypeCatalog.ts
@@ -1724,6 +2208,11 @@ index 1c8710a5..17d30c77 100644
      if (numbers.has(entry.methodCycleNumber)) {
        issues.push({
          code: "METHOD_NUMBER_DUPLICATE",
+```
+
+### `projects/sfia-studio/app/lib/oa/project/application/createProject.ts`
+
+```diff
 diff --git a/projects/sfia-studio/app/lib/oa/project/application/createProject.ts b/projects/sfia-studio/app/lib/oa/project/application/createProject.ts
 index 8f307e45..24dd6807 100644
 --- a/projects/sfia-studio/app/lib/oa/project/application/createProject.ts
@@ -1773,6 +2262,262 @@ index 8f307e45..24dd6807 100644
          createdAt: timestamp,
          updatedAt: timestamp,
          createdBy: structuredClone(request.createdBy),
+```
+
+### `projects/sfia-studio/app/lib/oa/project/domain/types.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/project/domain/types.ts b/projects/sfia-studio/app/lib/oa/project/domain/types.ts
+index ef28417f..3e6c5323 100644
+--- a/projects/sfia-studio/app/lib/oa/project/domain/types.ts
++++ b/projects/sfia-studio/app/lib/oa/project/domain/types.ts
+@@ -50,7 +50,11 @@ export type ProjectRepositoryBinding = {
+   defaultBranch: string;
+   /** Optional pin; otherwise resolved at PREPARE/Gate D. */
+   baseSha?: string;
+-  /** Relative allowlist root (e.g. docs/). */
++  /**
++   * Relative allowlist root.
++   * New Projects: `projects/<stable-workspace-key>` (server-owned).
++   * Legacy Projects may retain historical roots (e.g. docs/).
++   */
+   pathRoot?: string;
+ };
+
+@@ -62,7 +66,15 @@ export type Project = {
+   currentLpsVersionId?: string;
+   doctrinePackageRef?: DoctrinePackageRef;
+   activeCycleInstanceId?: string;
+-  /** Explicit Product target repository — never ambient sfia-workspace. */
++  /**
++   * Durable Project workspace key (PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01).
++   * Set once at create; title rename must NOT recompute.
++   */
++  projectWorkspaceKey?: string;
++  /**
++   * Explicit Product target repository — never ambient sfia-workspace.
++   * For new Projects this is an internal server-owned projection (no manual UI).
++   */
+   repositoryBinding?: ProjectRepositoryBinding;
+   createdAt: string;
+   updatedAt?: string;
+```
+
+### `projects/sfia-studio/app/lib/oa/project/index.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/project/index.ts b/projects/sfia-studio/app/lib/oa/project/index.ts
+index fbe35858..3d2f0c93 100644
+--- a/projects/sfia-studio/app/lib/oa/project/index.ts
++++ b/projects/sfia-studio/app/lib/oa/project/index.ts
+@@ -9,6 +9,9 @@
+ export * from "./domain/types";
+ export * from "./domain/errors";
+ export * from "./domain/invariants";
++export * from "./domain/projectWorkspaceKey";
++export * from "./domain/serverOwnedRepositoryConfig";
++export * from "./domain/artifactTargetRouting";
+
+ export * from "./ports/projectRepositoryPort";
+ export * from "./ports/livingProjectStateRepositoryPort";
+```
+
+### `projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
+index acf9ffe9..2c8f0097 100644
+--- a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
++++ b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
+@@ -59,16 +59,37 @@ function extractSingleRepoRelativeMdPath(probe: string): string | null {
+   return path;
+ }
+
++/** Exactly one safe Markdown leaf filename (no slash); else null. */
++function extractSingleMdFileNameLeaf(probe: string): string | null {
++  const re =
++    /(?:^|[\s`"'(])([A-Za-z0-9][A-Za-z0-9._-]{0,120}\.md)(?=$|[\s`"'),.])/g;
++  const hits: string[] = [];
++  let m: RegExpExecArray | null;
++  while ((m = re.exec(probe)) !== null) {
++    // Skip if the hit is part of a path (preceded by /)
++    const idx = m.index ?? 0;
++    if (idx > 0 && probe[idx] === "/") continue;
++    const before = probe.slice(Math.max(0, idx - 1), idx + 1);
++    if (before.includes("/")) continue;
++    hits.push(m[1]!);
++  }
++  // Filter out hits that appear as path suffixes already counted elsewhere
++  const leaves = hits.filter((h) => !probe.includes(`/${h}`));
++  if (leaves.length !== 1) return null;
++  return leaves[0]!;
++}
++
+ /**
+  * Narrow natural Pilot contract for artifact materialization (no synonym engine).
+  * Requires ALL of:
+  * 1) materialize wording family
+- * 2) exactly one repo-relative .md path
++ * 2) exactly one repo-relative .md path OR one safe .md leaf OR framing note cue
+  * 3) explicit proposal / decision preparation
+  * 4) explicit no-execution guard
+  */
+ function matchNaturalArtifactMaterialization(probe: string): {
+-  targetPath: string;
++  targetPath: string | null;
++  artifactFileName: string;
+   artifactBrief: string;
+   contentRequirement: string;
+ } | null {
+@@ -83,11 +104,25 @@ function matchNaturalArtifactMaterialization(probe: string): {
+   if (!hasProposalOrDecision || !hasNoExecution) return null;
+
+   const targetPath = extractSingleRepoRelativeMdPath(probe);
+-  if (!targetPath) return null;
++  const leafFromPath = targetPath
++    ? targetPath.split("/").pop() || null
++    : null;
++  const bareLeaf = extractSingleMdFileNameLeaf(probe);
++  let artifactFileName = leafFromPath || bareLeaf || null;
++  // Framing note cue without explicit filename — Nora-like non-authoritative candidate
++  if (
++    !artifactFileName &&
++    /\bnote\b/.test(normalized) &&
++    /\bcadrage\b/.test(normalized)
++  ) {
++    artifactFileName = "note-de-cadrage.md";
++  }
++  if (!artifactFileName) return null;
+
+   const brief = probe.replace(/\s+/g, " ").trim().slice(0, 240);
+   return {
+     targetPath,
++    artifactFileName,
+     artifactBrief: brief,
+     contentRequirement: brief,
+   };
+@@ -95,15 +130,19 @@ function matchNaturalArtifactMaterialization(probe: string): {
+
+ /** Shared F2 artifact-materialization analysis payload (sentinel + natural). */
+ function buildArtifactMaterializationAnalysis(input: {
+-  targetPath: string;
++  targetPath?: string | null;
++  artifactFileName?: string | null;
+   challengeResponseAssessment?: FakeChallengeAssessment;
+   artifactBrief?: string;
+   contentRequirements?: string[];
+ }): Record<string, unknown> {
+-  const targetPath = input.targetPath;
+-  const parentSlash = targetPath.lastIndexOf("/");
++  const targetPath = input.targetPath ?? null;
++  const artifactFileName =
++    input.artifactFileName?.trim() ||
++    (targetPath ? targetPath.split("/").pop() || null : null);
++  const parentSlash = targetPath ? targetPath.lastIndexOf("/") : -1;
+   const scopeIn =
+-    parentSlash > 0 ? [targetPath.slice(0, parentSlash + 1)] : ["docs/"];
++    parentSlash > 0 ? [targetPath!.slice(0, parentSlash + 1)] : [];
+   return {
+     intentClass: "execution_request",
+     candidateCycleTypeId: "cyc:framing",
+@@ -136,9 +175,10 @@ function buildArtifactMaterializationAnalysis(input: {
+       artifactType: "deliverable_document",
+       targetRepositoryRef: null,
+       targetPath,
++      artifactFileName,
+       scopeIn,
+       scopeOut: [],
+-      expectedOutputs: [targetPath],
++      expectedOutputs: targetPath ? [targetPath] : artifactFileName ? [artifactFileName] : [],
+       requiredCapabilities: ["cap:cursor.docs_write"],
+       validationExpectations: [],
+       evidenceRequirements: [],
+@@ -1128,6 +1168,7 @@ export class FakeConversationProvider implements ConversationProvider {
+           this.callCount,
+           buildArtifactMaterializationAnalysis({
+             targetPath: naturalMaterialization.targetPath,
++            artifactFileName: naturalMaterialization.artifactFileName,
+             artifactBrief: naturalMaterialization.artifactBrief,
+             contentRequirements: [naturalMaterialization.contentRequirement],
+           }),
+```
+
+### `projects/sfia-studio/app/lib/vertical-slice-core/localProjectComposition.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/vertical-slice-core/localProjectComposition.ts b/projects/sfia-studio/app/lib/vertical-slice-core/localProjectComposition.ts
+index 93e90ab3..dadbc3e4 100644
+--- a/projects/sfia-studio/app/lib/vertical-slice-core/localProjectComposition.ts
++++ b/projects/sfia-studio/app/lib/vertical-slice-core/localProjectComposition.ts
+@@ -282,6 +282,7 @@ function buildProjection(
+       ckcResolutionRef: lps.ckcResolutionRef ?? null,
+     }),
+     repositoryBinding: projectRepositoryBindingProjection(project),
++    projectWorkspaceKey: project.projectWorkspaceKey?.trim() || null,
+     localMode: true,
+     iam: "NOT_SELECTED",
+     productPersistence: "SQLITE_OA_PRODUCT_STORE",
+```
+
+### `projects/sfia-studio/app/lib/vertical-slice-core/types.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/vertical-slice-core/types.ts b/projects/sfia-studio/app/lib/vertical-slice-core/types.ts
+index 30d9f409..353cda27 100644
+--- a/projects/sfia-studio/app/lib/vertical-slice-core/types.ts
++++ b/projects/sfia-studio/app/lib/vertical-slice-core/types.ts
+@@ -55,6 +55,11 @@ export interface LocalProjectCreationView {
+    * null = honestly unbound; never invent a sample.
+    */
+   readonly repositoryBinding: ProjectRepositoryBinding | null;
++  /**
++   * Durable Project workspace key (PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01).
++   * Set once at create; never recomputed from title rename.
++   */
++  readonly projectWorkspaceKey: string | null;
+   readonly localMode: true;
+   readonly iam: "NOT_SELECTED";
+   readonly productPersistence: "SQLITE_OA_PRODUCT_STORE";
+```
+
+### `projects/sfia-studio/app/lib/vertical-slice-runtime/mapping.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/mapping.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/mapping.ts
+index 488e37aa..5af395c2 100644
+--- a/projects/sfia-studio/app/lib/vertical-slice-runtime/mapping.ts
++++ b/projects/sfia-studio/app/lib/vertical-slice-runtime/mapping.ts
+@@ -77,6 +77,7 @@ export function toRuntimeProjectState(
+     localMode: true,
+     source: "REAL_LOCAL_CORE",
+     fixture: false,
++    projectWorkspaceKey: view.projectWorkspaceKey ?? null,
+     repositoryBinding: binding
+       ? Object.freeze({
+           provider: binding.provider,
+```
+
+### `projects/sfia-studio/app/lib/vertical-slice-runtime/types.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/types.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/types.ts
+index fc84a352..c7990160 100644
+--- a/projects/sfia-studio/app/lib/vertical-slice-runtime/types.ts
++++ b/projects/sfia-studio/app/lib/vertical-slice-runtime/types.ts
+@@ -62,6 +62,8 @@ export interface RuntimeProjectState {
+     readonly pathRoot?: string;
+     readonly baseSha?: string;
+   } | null;
++  /** Durable Project workspace key — null for legacy / unbound. */
++  readonly projectWorkspaceKey?: string | null;
+ }
+
+ export interface RuntimeErrorDto {
+```
+
+### `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+
+```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 index a8331fd5..5229fffb 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -1787,238 +2532,243 @@ index a8331fd5..5229fffb 100644
  | **Timestamp maintenance historique PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01 (pre-CLAIM-EVIDENCE-COMPLETION-01)** | 2026-09-18 15:30:00 CEST (+0200) — **PRODUCT JOURNEY POST-EXECUTION REPLAN — PROJECT GIT INTEGRATION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-POST-EXECUTION-REPLAN-01** · CR-PJR-01/02/03 **CLOSED / PRESERVED** · original macro baseline `ca77b400f9b2e91557ccded2a304c2ec68fbc14c` (PR **#502** ContractResult A+B merge) · **requalified current baseline** `origin/main` `9be4b80629cb594821cc7b35abf22c89df65acc1` after documentation-only PR **#503** (`sfia-studio-transmission-guide.md` only · **NON-OVERLAPPING DOCUMENTARY MAIN ADVANCE**) · branche `qa/sfia-studio-product-journey-post-execution-replan-01` · Attempt 3 current CE strict **not_proven** preserved · Product **UNCLAIMED** · portable PJR + correctionRef + current-CE W3-C semantics preserved · Attempts **3→3** · **ZERO NEW STUDIO/CURSOR REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **PROJECT GIT INTEGRATION — RESOLVE FROM GIT / PR EVIDENCE** · **≠** READY · **≠** Attempt 3 Product PASS · next = PR CI / conditional merge / post-merge verification |
 ```
 
-## Documentary amendments (excerpt)
+### `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
 
-### `projects/sfia-studio/product-completion/01-product-completion-cadrage.md` (amendment tail)
+```diff
+diff --git a/projects/sfia-studio/product-completion/01-product-completion-cadrage.md b/projects/sfia-studio/product-completion/01-product-completion-cadrage.md
+index 29ec4a33..baf91f84 100644
+--- a/projects/sfia-studio/product-completion/01-product-completion-cadrage.md
++++ b/projects/sfia-studio/product-completion/01-product-completion-cadrage.md
+@@ -1133,3 +1133,28 @@ C1 INTEGRATED ON MAIN
+ ---
 
-```markdown
-- nouvelle preuve REAL.
-
-### Y.6 Gate final
-
-```text
-C1 INTEGRATED ON MAIN
-  → POST-MERGE REPO COHERENCE
-  → MORRIS GATE FOR C2 EXECUTION
+ *SFIA Studio — Product Completion — Cycle 1 Cadrage — VALIDATED BY MORRIS — INTEGRATED ON MAIN — GOVERNANCE/DOCTRINE SYNC INTEGRATED ON MAIN via PR #365 / `dbd5ff99…` — POST-MERGE REPO COHERENCE CURRENT GATE — RUNTIME V3 NON ADOPTED.*
++
++---
++
++## Amendment 2026-09-19 — D-PC-09 Project Repository Workspace & Cycle-aware Artifact Routing
++
++| Métadonnée | Valeur |
++| --- | --- |
++| **Date** | 2026-09-19 |
++| **Macro** | PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01 |
++| **Décision Morris** | **D-PC-09** — capacité Product Completion MUST · construction autorisée · **≠** promotion globale · **≠** REAL AUTHORIZED |
++| **Origine** | Product Journey manuel « Mini cadrage — Suivi de tâches » · OBS-PJ-CLOUD-01 (targetPath explicite non reconnu / clarification répétée) |
++| **État historique C1** | **PRESERVED** — ce MUST n’était **pas** couvert historiquement par C1 ; aucun claim rétroactif |
++| **Implémentation courante** | **implementation candidate** (même macro) |
++| **Preuve courante** | **DETERMINISTIC PROVEN** si tests PASS · **REAL NOT PROVEN** |
++| **Anti-claims** | ≠ Product Completion COMPLETE · ≠ runtime v3 ADOPTED · ≠ REAL PROVEN |
++
++### Disposition adoptée (additive)
++
++- Project Repository Workspace & Cycle-aware Artifact Routing = **MUST** Product Completion.
++- RepositoryBinding manuel Pilote **RETIRE** du parcours Product normal ; projection technique **server-owned** (ADAPT, pas second engine).
++- Workspace Project stable sous `projects/<project-workspace-key>/` à Create Project (aucune écriture Git à la création).
++- Cycle actif → segment catalogue stable `repositoryWorkspaceSegment` (≠ displayOrder recalculé).
++- Filename Pilote/Nora = candidat non autoritaire ; serveur compose `targetPath` exact ; Proposal/HD existante absorbe la validation (pas de micro-gate).
++- CREATE vs UPDATE honnête ; mkdir parents dans le même Attempt docs_write.
++- Legacy Projects lisibles sans migration silencieuse.
 ```
 
-**Aucune transition automatique vers C2.**
+### `projects/sfia-studio/product-completion/02-product-completion-conception-fonctionnelle.md`
 
----
+```diff
+diff --git a/projects/sfia-studio/product-completion/02-product-completion-conception-fonctionnelle.md b/projects/sfia-studio/product-completion/02-product-completion-conception-fonctionnelle.md
+index ead9b433..3b5a281e 100644
+--- a/projects/sfia-studio/product-completion/02-product-completion-conception-fonctionnelle.md
++++ b/projects/sfia-studio/product-completion/02-product-completion-conception-fonctionnelle.md
+@@ -1248,3 +1248,23 @@ Ce document **ne dit pas** :
+ ---
 
-*SFIA Studio — Product Completion — Cycle 1 Cadrage — VALIDATED BY MORRIS — INTEGRATED ON MAIN — GOVERNANCE/DOCTRINE SYNC INTEGRATED ON MAIN via PR #365 / `dbd5ff99…` — POST-MERGE REPO COHERENCE CURRENT GATE — RUNTIME V3 NON ADOPTED.*
-
----
-
-## Amendment 2026-09-19 — D-PC-09 Project Repository Workspace & Cycle-aware Artifact Routing
-
-| Métadonnée | Valeur |
-| --- | --- |
-| **Date** | 2026-09-19 |
-| **Macro** | PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01 |
-| **Décision Morris** | **D-PC-09** — capacité Product Completion MUST · construction autorisée · **≠** promotion globale · **≠** REAL AUTHORIZED |
-| **Origine** | Product Journey manuel « Mini cadrage — Suivi de tâches » · OBS-PJ-CLOUD-01 (targetPath explicite non reconnu / clarification répétée) |
-| **État historique C1** | **PRESERVED** — ce MUST n’était **pas** couvert historiquement par C1 ; aucun claim rétroactif |
-| **Implémentation courante** | **implementation candidate** (même macro) |
-| **Preuve courante** | **DETERMINISTIC PROVEN** si tests PASS · **REAL NOT PROVEN** |
-| **Anti-claims** | ≠ Product Completion COMPLETE · ≠ runtime v3 ADOPTED · ≠ REAL PROVEN |
-
-### Disposition adoptée (additive)
-
-- Project Repository Workspace & Cycle-aware Artifact Routing = **MUST** Product Completion.
-- RepositoryBinding manuel Pilote **RETIRE** du parcours Product normal ; projection technique **server-owned** (ADAPT, pas second engine).
-- Workspace Project stable sous `projects/<project-workspace-key>/` à Create Project (aucune écriture Git à la création).
-- Cycle actif → segment catalogue stable `repositoryWorkspaceSegment` (≠ displayOrder recalculé).
-- Filename Pilote/Nora = candidat non autoritaire ; serveur compose `targetPath` exact ; Proposal/HD existante absorbe la validation (pas de micro-gate).
-- CREATE vs UPDATE honnête ; mkdir parents dans le même Attempt docs_write.
-- Legacy Projects lisibles sans migration silencieuse.
+ *SFIA Studio — Product Completion — Cycle 2 Conception fonctionnelle — VALIDATED BY MORRIS — INTEGRATED ON MAIN VIA PR #369 / `2406ccda211842fc7f8da3699bb186a30f7dc105` — POST-MERGE METADATA COHERENCE SYNC CARRIED BY PR #370 — GIT/PR EVIDENCE AUTHORITATIVE — NO DELIVERY — NO NEXT-CAPABILITY EXECUTION — RUNTIME V3 NON ADOPTED — ZERO REAL*
++
++---
++
++## Amendment 2026-09-19 — Behavioural contract (D-PC-09 / PRODUCT-PWR-01)
++
++**Décision Morris :** D-PC-09 consommée · capacité MUST · **≠** réécriture historique C2.
++
++### Comportement fonctionnel (additive)
++
++1. **Create Project** — aucun RepositoryBinding manuel ; workspace key durable dérivé du titre une fois ; `pathRoot = projects/<key>` lorsque config serveur présente.
++2. **Rename titre** — ne recalcule / ne déplace **pas** le workspace durable existant.
++3. **Cycle workspace** — `<projectRoot>/<repositoryWorkspaceSegment>` depuis CycleTypeCatalog (segments stables 01-cadrage…15-capitalisation-rex pour le snapshot courant ; catalogue évolutif ; pas d’invariant « exactement 15 »).
++4. **Filename** — Pilote explicite conservé comme candidat ; absent → Nora peut proposer un leaf Markdown non autoritaire.
++5. **targetPath** — composition / validation **server-owned** ; hors Project/Cycle workspace → refuse (pas de rewrite silencieux).
++6. **Proposal / HumanDecision** — présente workspace projet, workspace cycle, filename, target exact, CREATE/UPDATE ; options poursuivre / amender / refuser suffisent.
++7. **Collision** — workspace existant sans preuve d’appartenance → ASK / fail-closed.
++8. **Matérialisation** — aucun mkdir gratuit à Create ; parents créés au premier Attempt docs_write utile.
++9. **Legacy** — anciens bindings `docs/` etc. restent lisibles ; pas de faux claim de migration.
++
++**Preuve :** deterministic candidate · REAL reproof = gate Morris distinct · même macro.
 ```
 
-### `projects/sfia-studio/product-completion/02-product-completion-conception-fonctionnelle.md` (amendment tail)
+### `projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md`
 
-```markdown
-- architecture · persistence · schema · API choisis
-- UX/Figma · backlog · Delivery autorisés
-- runtime v3 **ADOPTED** · READY FOR DELIVERY
-- capacité suivante **autorisée** · C3/C4/C5 **automatiques**
-- Architecture fonctionnelle selected · UX selected
-- Morris persona runtime · Morris « autorité L0 »
-- 15 cycles = invariant · M6/M7 forward
-- v2.6 = doctrine Studio
-- REAL autorisé
-- modèle fonctionnel = architecture de données / state-machine technique
-- Genericity proof = REAL-boundary proof
-- UserSource promu MUST (reste SHOULD C1)
-- Review Handoff = merge C2
-- anomalie `780ab4c5` **résolue** · commit supprimé · branche régularisée · historique nettoyé
+```diff
+diff --git a/projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md b/projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md
+index c5e2fc4a..d17814ea 100644
+--- a/projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md
++++ b/projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md
+@@ -931,3 +931,27 @@ Conserve : **capability-driven trajectory** + **cycle-driven maturation**.
+ ---
 
-**Historical integration anomaly :** remote commit `780ab4c5` was produced without the required project Git gate ; it is **superseded for integration** and **preserved as audit evidence**. Clean source branch `docs/sfia-studio-product-completion-c2-integration-clean` @ `3c78c676…` is **PRESERVED**.
-
----
-
-*SFIA Studio — Product Completion — Cycle 2 Conception fonctionnelle — VALIDATED BY MORRIS — INTEGRATED ON MAIN VIA PR #369 / `2406ccda211842fc7f8da3699bb186a30f7dc105` — POST-MERGE METADATA COHERENCE SYNC CARRIED BY PR #370 — GIT/PR EVIDENCE AUTHORITATIVE — NO DELIVERY — NO NEXT-CAPABILITY EXECUTION — RUNTIME V3 NON ADOPTED — ZERO REAL*
-
----
-
-## Amendment 2026-09-19 — Behavioural contract (D-PC-09 / PRODUCT-PWR-01)
-
-**Décision Morris :** D-PC-09 consommée · capacité MUST · **≠** réécriture historique C2.
-
-### Comportement fonctionnel (additive)
-
-1. **Create Project** — aucun RepositoryBinding manuel ; workspace key durable dérivé du titre une fois ; `pathRoot = projects/<key>` lorsque config serveur présente.
-2. **Rename titre** — ne recalcule / ne déplace **pas** le workspace durable existant.
-3. **Cycle workspace** — `<projectRoot>/<repositoryWorkspaceSegment>` depuis CycleTypeCatalog (segments stables 01-cadrage…15-capitalisation-rex pour le snapshot courant ; catalogue évolutif ; pas d’invariant « exactement 15 »).
-4. **Filename** — Pilote explicite conservé comme candidat ; absent → Nora peut proposer un leaf Markdown non autoritaire.
-5. **targetPath** — composition / validation **server-owned** ; hors Project/Cycle workspace → refuse (pas de rewrite silencieux).
-6. **Proposal / HumanDecision** — présente workspace projet, workspace cycle, filename, target exact, CREATE/UPDATE ; options poursuivre / amender / refuser suffisent.
-7. **Collision** — workspace existant sans preuve d’appartenance → ASK / fail-closed.
-8. **Matérialisation** — aucun mkdir gratuit à Create ; parents créés au premier Attempt docs_write utile.
-9. **Legacy** — anciens bindings `docs/` etc. restent lisibles ; pas de faux claim de migration.
-
-**Preuve :** deterministic candidate · REAL reproof = gate Morris distinct · même macro.
+ *VALIDATED BY MORRIS — INTEGRATED ON MAIN via PR #378 — POST-MERGE COHERENCE COMPLETE via PR #379 — FA-R01…FA-R12 CLOSED — NO CODE — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED — NEXT CYCLE NOT SELECTED — SOURCE BRANCH CLEANUP NOT PERFORMED*
++
++---
++
++## Amendment 2026-09-19 — Functional architecture (D-PC-09)
++
++**Architecture retenue :** ADAPT `ProjectRepositoryBinding` + CycleTypeCatalog segment + ArtifactTargetResolver (fonctions domaine) · **aucune** architecture parallèle · **aucune** nouvelle persistence engine.
++
++```text
++CreateProject
++  → projectWorkspaceKey (durable)
++  → server-owned repository config (env)
++  → repositoryBinding.pathRoot = projects/<key>
++
++ActiveCycleGovernedContinuation
++  → CycleTypeCatalog.repositoryWorkspaceSegment
++  → resolveArtifactTargetUnderCycleWorkspace(filename|path candidate)
++  → Proposal seals exact targetPath
++  → HumanDecision (existante)
++  → ExecutionContract.inputs.targetPath
++  → docs_write Attempt (mkdir parents + write)
++  → Artifact Evidence
++```
++
++UI Product : `RepositoryBindingForm` retiré du parcours normal · panneau read-only Workspace projet / cycle (chemin prévu / logique — jamais MATERIALIZED sans Evidence).
 ```
 
-### `projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md` (amendment tail)
+### `projects/sfia-studio/product-completion/06-product-completion-architecture-technique-delta.md`
 
-```markdown
-## 24. Critical path statement
+```diff
+diff --git a/projects/sfia-studio/product-completion/06-product-completion-architecture-technique-delta.md b/projects/sfia-studio/product-completion/06-product-completion-architecture-technique-delta.md
+index a734efe5..c413b02b 100644
+--- a/projects/sfia-studio/product-completion/06-product-completion-architecture-technique-delta.md
++++ b/projects/sfia-studio/product-completion/06-product-completion-architecture-technique-delta.md
+@@ -764,3 +764,20 @@ Do **not** declare:
+ ---
 
-Product Completion target → **functional architecture (this candidate)** → technical-delta qualification → backlog → capability-driven Delivery
-
-est plus cohérent que :
-
-- component-first ;
-- waterfall automatique de tous les cycles ;
-- Delivery direct sans architecture ;
-- réécriture complète du backbone.
-
-Conserve : **capability-driven trajectory** + **cycle-driven maturation**.
-
----
-
-*VALIDATED BY MORRIS — INTEGRATED ON MAIN via PR #378 — POST-MERGE COHERENCE COMPLETE via PR #379 — FA-R01…FA-R12 CLOSED — NO CODE — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED — NEXT CYCLE NOT SELECTED — SOURCE BRANCH CLEANUP NOT PERFORMED*
-
----
-
-## Amendment 2026-09-19 — Functional architecture (D-PC-09)
-
-**Architecture retenue :** ADAPT `ProjectRepositoryBinding` + CycleTypeCatalog segment + ArtifactTargetResolver (fonctions domaine) · **aucune** architecture parallèle · **aucune** nouvelle persistence engine.
-
-```text
-CreateProject
-  → projectWorkspaceKey (durable)
-  → server-owned repository config (env)
-  → repositoryBinding.pathRoot = projects/<key>
-
-ActiveCycleGovernedContinuation
-  → CycleTypeCatalog.repositoryWorkspaceSegment
-  → resolveArtifactTargetUnderCycleWorkspace(filename|path candidate)
-  → Proposal seals exact targetPath
-  → HumanDecision (existante)
-  → ExecutionContract.inputs.targetPath
-  → docs_write Attempt (mkdir parents + write)
-  → Artifact Evidence
+ *ARCHITECTURE DIRECTION ADOPTED BY MORRIS · CLOSURE INTEGRATED ON MAIN · POST-MERGE TRUTH SATISFIED · C6 CLOSED BY MORRIS · FINAL COHERENCE TRANSPORTED VIA PR #384 · STATE RESOLVE FROM GIT · NO CODE · NO MIGRATION · NO BACKLOG · NO DELIVERY · ZERO REAL · RUNTIME V3 NON ADOPTED · ADOPTION ≠ IMPLEMENTATION*
++
++---
++
++## Amendment 2026-09-19 — Technical delta (PRODUCT-PWR-01)
++
++| Élément | Disposition |
++| --- | --- |
++| `ProjectRepositoryBinding` | ADAPT — projection interne server-owned |
++| Config | `SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY` / `_REMOTE_URL` / `_DEFAULT_BRANCH` (pas de hardcode owner/repo domaine) |
++| `projectWorkspaceKey` | champ durable additif sur Project |
++| `CycleTypeDefinition.repositoryWorkspaceSegment` | metadata stable + validation unicité/sûreté |
++| F2 `artifactFileName` | candidat non autoritaire |
++| `enrichExecutionIntentFromBinding` | compose target sous cycle root pour workspaces `projects/<key>` ; legacy clamp préservé |
++| docs_write | mkdir parents déjà dans Fake/REAL boundary — même Attempt |
++| Persistence | **aucune** nouvelle table / engine |
++| Legacy | load-compatible · pas de migration silencieuse |
++| Build Doctrine / framing 30–37 | **READ ONLY** — non modifiés |
 ```
 
-UI Product : `RepositoryBindingForm` retiré du parcours normal · panneau read-only Workspace projet / cycle (chemin prévu / logique — jamais MATERIALIZED sans Evidence).
+### `projects/sfia-studio/product-completion/14-product-completion-integrated-proof-final-qualification.md`
+
+```diff
+diff --git a/projects/sfia-studio/product-completion/14-product-completion-integrated-proof-final-qualification.md b/projects/sfia-studio/product-completion/14-product-completion-integrated-proof-final-qualification.md
+index 37472b7c..1fdf10d1 100644
+--- a/projects/sfia-studio/product-completion/14-product-completion-integrated-proof-final-qualification.md
++++ b/projects/sfia-studio/product-completion/14-product-completion-integrated-proof-final-qualification.md
+@@ -543,3 +543,18 @@ Sous `.tmp-sfia-review/product-completion-integrated-qa/screenshots/` :
+ ---
+
+ *Fin DOC14 — PC-INTEGRATED-QA-01 (+ CORR-01 technique · CORR-02 cohérence documentaire).*
++
++---
++
++## Amendment 2026-09-19 — Clarification preuve (PRODUCT-PWR-01)
++
++**Historique DOC14 PRESERVED.** Les preuves integrated/deterministic antérieures **ne couvrent pas** Project Repository Workspace & Cycle-aware Artifact Routing.
++
++| Claim | État |
++| --- | --- |
++| Historical docs_write REAL at prior tested scope | **PRESERVED** |
++| Nouvelle capacité workspace/cycle routing | **DETERMINISTIC candidate** this macro · **REAL NOT PROVEN** |
++| Product Completion globally COMPLETE | **INTERDIT** |
++| OBS-PJ-CLOUD-01 | traité comme symptôme du gap produit plus large ; correction = capacité cible, pas patch symptôme seul |
++
++Aucun claim rétroactif falsifié.
 ```
 
-### `projects/sfia-studio/product-completion/06-product-completion-architecture-technique-delta.md` (amendment tail)
+### `projects/sfia-studio/product-completion/ux-product-experience/01-experience-architecture.md`
 
-```markdown
-- treat proposed Trajectory as current effective Trajectory
-- invent a second Attempt lifecycle
-- hard-code PR **#384** Draft/open/merged as a durable documentary invariant (state **RESOLVE FROM GIT**)
-- execute NEXT-CYCLE REQUALIFICATION in this pass
-- select a next capability / cycle
+```diff
+diff --git a/projects/sfia-studio/product-completion/ux-product-experience/01-experience-architecture.md b/projects/sfia-studio/product-completion/ux-product-experience/01-experience-architecture.md
+index 16429a9a..e6440abe 100644
+--- a/projects/sfia-studio/product-completion/ux-product-experience/01-experience-architecture.md
++++ b/projects/sfia-studio/product-completion/ux-product-experience/01-experience-architecture.md
+@@ -637,3 +637,12 @@ Ce document **ne dit pas** :
+ ---
 
----
-
-## 26. Final candidate verdict
-
-**C6 CONSOLIDATED TECHNICAL ARCHITECTURE — TD-C6-01…06 ADOPTED BY MORRIS — ARCHITECTURE INTEGRATED ON MAIN VIA PR #382 — CLOSURE DOCUMENTATION INTEGRATED ON MAIN VIA PR #383 — POST-MERGE TRUTH SATISFIED — EXIT PROOF ACCEPTED BY MORRIS — C6 CLOSED BY MORRIS — FINAL DOCUMENTARY COHERENCE TRANSPORTED VIA PR #384 — CURRENT PR/INTEGRATION STATE RESOLVE FROM GIT — NOT IMPLEMENTED — NO BACKLOG — NO DELIVERY — ZERO REAL — RUNTIME V3 NON ADOPTED**
-
-Do **not** declare:
-- READY FOR DELIVERY
-- IMPLEMENTED / MIGRATED
-- RUNTIME V3 ADOPTED
-- NEXT-CYCLE REQUALIFICATION executed
-- next capability / Backlog / Delivery cycle selected
-- PR **#384** MERGED / post-merge truth for #384 already PASS *(unless Git itself proves it)*
-
----
-
-*ARCHITECTURE DIRECTION ADOPTED BY MORRIS · CLOSURE INTEGRATED ON MAIN · POST-MERGE TRUTH SATISFIED · C6 CLOSED BY MORRIS · FINAL COHERENCE TRANSPORTED VIA PR #384 · STATE RESOLVE FROM GIT · NO CODE · NO MIGRATION · NO BACKLOG · NO DELIVERY · ZERO REAL · RUNTIME V3 NON ADOPTED · ADOPTION ≠ IMPLEMENTATION*
-
----
-
-## Amendment 2026-09-19 — Technical delta (PRODUCT-PWR-01)
-
-| Élément | Disposition |
-| --- | --- |
-| `ProjectRepositoryBinding` | ADAPT — projection interne server-owned |
-| Config | `SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY` / `_REMOTE_URL` / `_DEFAULT_BRANCH` (pas de hardcode owner/repo domaine) |
-| `projectWorkspaceKey` | champ durable additif sur Project |
-| `CycleTypeDefinition.repositoryWorkspaceSegment` | metadata stable + validation unicité/sûreté |
-| F2 `artifactFileName` | candidat non autoritaire |
-| `enrichExecutionIntentFromBinding` | compose target sous cycle root pour workspaces `projects/<key>` ; legacy clamp préservé |
-| docs_write | mkdir parents déjà dans Fake/REAL boundary — même Attempt |
-| Persistence | **aucune** nouvelle table / engine |
-| Legacy | load-compatible · pas de migration silencieuse |
-| Build Doctrine / framing 30–37 | **READ ONLY** — non modifiés |
+ *SFIA Studio — Product Completion — UX Experience Architecture — VALIDATED BY MORRIS — INTEGRATED ON MAIN via PR #372 — NO DELIVERY — NO REAL — NEXT UX SUBCYCLE NOT SELECTED — RUNTIME V3 NON ADOPTED*
++
++---
++
++## Amendment 2026-09-19 — Workspace routing UX (D-PC-09)
++
++- **RETIRE** : configuration manuelle RepositoryBinding (provider / identity / remote / branch / pathRoot) comme responsabilité Pilote dans le parcours Product normal.
++- **EXPOSE** (read-only) : Workspace projet `projects/<key>/` · Workspace cycle actif `<project>/<segment>/` · wording « chemin prévu / workspace logique » avant Evidence.
++- **Proposal** : affiche targetPath exact + filename + CREATE/UPDATE ; **pas** de nouveau micro-gate filename.
++- **INTERDIT** : badge MATERIALIZED sur seul path calculé.
 ```
 
-### `projects/sfia-studio/product-completion/14-product-completion-integrated-proof-final-qualification.md` (amendment tail)
+### `projects/sfia-studio/product-completion/ux-product-experience/02-end-to-end-wireframes-interaction-model.md`
 
-```markdown
+```diff
+diff --git a/projects/sfia-studio/product-completion/ux-product-experience/02-end-to-end-wireframes-interaction-model.md b/projects/sfia-studio/product-completion/ux-product-experience/02-end-to-end-wireframes-interaction-model.md
+index f2a7e5b9..33f35c73 100644
+--- a/projects/sfia-studio/product-completion/ux-product-experience/02-end-to-end-wireframes-interaction-model.md
++++ b/projects/sfia-studio/product-completion/ux-product-experience/02-end-to-end-wireframes-interaction-model.md
+@@ -724,3 +724,12 @@ C1 INTEGRATED → C2 INTEGRATED → UX EXPERIENCE ARCHITECTURE INTEGRATED → E2
+ ---
 
-## Annexe A — Spec E2E créée
+ *SFIA Studio — Product Completion — UX E2E Wireframes & Interaction Model — **VALIDATED BY MORRIS — INTEGRATED ON MAIN** via PR #374 — H-01…H-04 CARRY — NO SCREENS — NO COMPONENTS — NO DELIVERY — NO REAL — NEXT CAPABILITY NOT SELECTED — RUNTIME V3 NON ADOPTED*
++
++---
++
++## Amendment 2026-09-19 — Workspace routing UX (D-PC-09)
++
++- **RETIRE** : configuration manuelle RepositoryBinding (provider / identity / remote / branch / pathRoot) comme responsabilité Pilote dans le parcours Product normal.
++- **EXPOSE** (read-only) : Workspace projet `projects/<key>/` · Workspace cycle actif `<project>/<segment>/` · wording « chemin prévu / workspace logique » avant Evidence.
++- **Proposal** : affiche targetPath exact + filename + CREATE/UPDATE ; **pas** de nouveau micro-gate filename.
++- **INTERDIT** : badge MATERIALIZED sur seul path calculé.
+```
 
-`projects/sfia-studio/app/e2e/studio-product-completion-integrated-proof.spec.ts`
+### `projects/sfia-studio/product-completion/ux-product-experience/03-product-screens-visual-state-contract.md`
 
----
+```diff
+diff --git a/projects/sfia-studio/product-completion/ux-product-experience/03-product-screens-visual-state-contract.md b/projects/sfia-studio/product-completion/ux-product-experience/03-product-screens-visual-state-contract.md
+index eee0d8ed..88691232 100644
+--- a/projects/sfia-studio/product-completion/ux-product-experience/03-product-screens-visual-state-contract.md
++++ b/projects/sfia-studio/product-completion/ux-product-experience/03-product-screens-visual-state-contract.md
+@@ -225,3 +225,12 @@ Remaining product gate **after** this post-merge coherence is integrated on main
+ ---
 
-## Annexe B — Inventaire captures
-
-Sous `.tmp-sfia-review/product-completion-integrated-qa/screenshots/` :
-
-- QA-INT-01-pre-execute.png
-- QA-INT-01-success-post-evidence.png
-- QA-INT-02-governed-stop.png
-- QA-INT-03-fail-recovery.png
-- QA-INT-04-stale-auth-blocked.png
-- QA-INT-05-reload-after-success.png
-- QA-INT-05A-before-reload.png
-- QA-INT-05A-after-reload.png
-- QA-INT-07-case-a-delivery.png *(Case A browser only — pas de capture Case B : chemin OA applicatif, non browser)*
-- manifest.jsonl
-
----
-
-*Fin DOC14 — PC-INTEGRATED-QA-01 (+ CORR-01 technique · CORR-02 cohérence documentaire).*
-
----
-
-## Amendment 2026-09-19 — Clarification preuve (PRODUCT-PWR-01)
-
-**Historique DOC14 PRESERVED.** Les preuves integrated/deterministic antérieures **ne couvrent pas** Project Repository Workspace & Cycle-aware Artifact Routing.
-
-| Claim | État |
-| --- | --- |
-| Historical docs_write REAL at prior tested scope | **PRESERVED** |
-| Nouvelle capacité workspace/cycle routing | **DETERMINISTIC candidate** this macro · **REAL NOT PROVEN** |
-| Product Completion globally COMPLETE | **INTERDIT** |
-| OBS-PJ-CLOUD-01 | traité comme symptôme du gap produit plus large ; correction = capacité cible, pas patch symptôme seul |
-
-Aucun claim rétroactif falsifié.
+ *VALIDATED BY MORRIS — INTEGRATED ON MAIN — PR #376 — H-01…H-04 CARRY — NO COMPONENTS — NO DELIVERY — NO REAL — NEXT CAPABILITY NOT SELECTED — RUNTIME V3 NON ADOPTED*
++
++---
++
++## Amendment 2026-09-19 — Workspace routing UX (D-PC-09)
++
++- **RETIRE** : configuration manuelle RepositoryBinding (provider / identity / remote / branch / pathRoot) comme responsabilité Pilote dans le parcours Product normal.
++- **EXPOSE** (read-only) : Workspace projet `projects/<key>/` · Workspace cycle actif `<project>/<segment>/` · wording « chemin prévu / workspace logique » avant Evidence.
++- **Proposal** : affiche targetPath exact + filename + CREATE/UPDATE ; **pas** de nouveau micro-gate filename.
++- **INTERDIT** : badge MATERIALIZED sur seul path calculé.
 ```
 
 ## Tests executed
 
-- vitest targeted PWR + corrProof07/09 + naturalMaterialization + cycleTypeCatalog + UI coherence: **PASS** (120+)
-- tsc --noEmit: **PASS**
-- next build: **PASS** (after client/catalog boundary fix)
+- Vitest targeted PWR + corrProof07/09 + naturalMaterialization + cycleTypeCatalog + UI: **120 PASS**
+- `tsc --noEmit`: **PASS**
+- `next build`: **PASS** (client/catalog boundary fixed)
 - OpenAI LIVE calls: **0**
 - Cursor REAL calls: **0**
 
@@ -2035,20 +2785,20 @@ Aucun claim rétroactif falsifié.
 
 ## Evidence deterministic
 
-- Auto workspace projects/mini-cadrage-suivi-de-taches
-- Cycle cyc:framing → 01-cadrage
-- Proposal target projects/.../01-cadrage/note-de-cadrage.md
+- Auto workspace `projects/mini-cadrage-suivi-de-taches`
+- Cycle `cyc:framing` → `01-cadrage`
+- Proposal target `projects/.../01-cadrage/note-de-cadrage.md`
 - FakeDocsWrite mkdir parents + write under cycle root
-- RepositoryBindingForm absent from ProjectWorkspacePage source
+- `RepositoryBindingForm` absent from `ProjectWorkspacePage` source
 
 ## Reserves
 
 - Blocking: none for deterministic scope
-- Non-blocking: no runtime UI screenshot captured this pass; REAL reproof pending Morris GO
+- Non-blocking: no runtime UI screenshot this pass; REAL reproof pending Morris GO
 
 ## Temporary debt
 
-- RepositoryBindingForm file retained (not mounted in normal Product path); setter remains for tests/legacy
+- `RepositoryBindingForm` file retained (not mounted in normal Product path); setter remains for tests/legacy
 - Legacy projects not migrated (by design)
 
 ## Morris decisions still required
@@ -2057,6 +2807,14 @@ Aucun claim rétroactif falsifié.
 2. GO project Git integration / commit (if review PASS) — distinct
 3. GO Cursor REAL / OpenAI LIVE bounded reproof — same macro — distinct
 4. push/PR/merge remain distinct
+
+## Pack integrity self-check
+
+- created_count=7
+- modified_count=32
+- missing_diffs=NONE
+- synthesis_only=NO
+- truncated_diffs=NO
 
 ## Verdict
 
