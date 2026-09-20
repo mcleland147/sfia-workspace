@@ -237,8 +237,8 @@ export function deriveTrajectoryOptions(
         intent:
           "Approfondir le diagnostic du livrable et des preuves disponibles avant toute préparation d'une nouvelle tentative.",
         impacts: [
-          "Aucune préparation d'exécution à ce stade",
-          "Nouvelle décision humaine requise après clarification",
+          "Préparation d'un contrat diagnostique possible (pas de relance automatique)",
+          "Nouvelle décision humaine requise avant toute nouvelle tentative d'exécution",
           `stopReason: ${recovery.stopReason ?? "n/a"}`,
         ],
         reservations,
@@ -284,7 +284,7 @@ export function deriveTrajectoryOptions(
       intent:
         "Lever les réserves, requalifier le cycle, puis réinstruire les options avant toute décision structurante.",
       impacts: [
-        "Aucune préparation d'exécution à ce stade",
+        "Préparation d'un contrat diagnostique possible (pas d'exécution automatique)",
         "Nouvelle décision humaine requise après clarification",
       ],
       reservations,

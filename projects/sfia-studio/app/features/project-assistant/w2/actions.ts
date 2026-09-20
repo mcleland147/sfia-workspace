@@ -344,8 +344,10 @@ export async function w2PrepareExecutionContractAction(input: {
   projectId: string;
   decisionId: string;
   /**
-   * Explicit Pilot/Nora operation kind. Required — W2 trajectory alone
-   * never selects the execution action. Allowlisted server-side.
+   * PJ-REPROOF-04 — Product UI sends projectId + decisionId only.
+   * Studio derives ActualExecutionWork from durable Product context.
+   * Optional qualifiedOperationKind remains for tests/compat only; ignored
+   * when durable diagnostic derivation applies; hostile kinds fail closed.
    */
   qualifiedOperationKind?: unknown;
   /** Hostile — ignored. */

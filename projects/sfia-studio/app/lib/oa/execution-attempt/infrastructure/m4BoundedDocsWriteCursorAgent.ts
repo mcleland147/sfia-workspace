@@ -88,11 +88,14 @@ export function isM4BoundedDocsWriteRealAgent(
   );
 }
 
-/** REAL Cursor allowlist — RO | docs-write | local-commit | push | PR create | PR merge. */
+import { isStudioCursorGeneralistRealAgent } from "./studioCursorGeneralistAgent";
+
+/** REAL Cursor allowlist — generalist | RO | docs-write | local-commit | push | PR create | PR merge. */
 export function isM4AuthorizedCursorRealAgent(
   agent: AgentDescriptor,
 ): boolean {
   return (
+    isStudioCursorGeneralistRealAgent(agent) ||
     isM4BoundedReadOnlyRealAgent(agent) ||
     isM4BoundedDocsWriteRealAgent(agent) ||
     isM4BoundedLocalCommitRealAgent(agent) ||

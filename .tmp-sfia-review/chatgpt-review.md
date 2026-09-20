@@ -1,625 +1,3892 @@
-# SFIA STUDIO — PRODUCT JOURNEY CAMPAIGN CORRECTION CONTINUATION
-## PJ-REPROOF-01 / PJ-REPROOF-02 — FINAL REVIEW CORRECTIONS (CR-PJ-01 / CR-PJ-02 / CR-PJ-03)
+# PJ-REPROOF-04 — GENERIC EXECUTOR ISOLATION CLOSED
+## PRODUCT-JOURNEY-EXECUTION-CONTRACT-SEMANTIC-BRIDGE-01
+## FULL Review Pack (publish-in-cycle)
 
-**Campaign:** PRODUCT-JOURNEY-E2E-CURRENT-MAIN-CLOUD-REPROOF-01
-**Cycle:** 8 — DELIVERY / IMPLEMENTATION
-**Type:** EVOL · **Profile:** CRITICAL
-**Mode:** SAME CAMPAIGN · SAME MACRO · NO MICRO-CYCLE
-**Timestamp (UTC):** 2026-09-20T15:18:05Z
+timestamp: 2026-09-20T21:11:31Z
+macro: PRODUCT-JOURNEY-EXECUTION-CONTRACT-SEMANTIC-BRIDGE-01
+finding: PJ-REPROOF-04 — HumanDecision → ExecutionContract → Cursor → ExecutionReport
+parent: PRODUCT-JOURNEY-E2E-CURRENT-MAIN-CLOUD-REPROOF-01 — PAUSED
+cycle: 8 — DELIVERY / IMPLEMENTATION
+profile: CRITICAL
+project commit/push/PR/merge: **0 / 0 / 0 / 0**
+NEW Product REAL: ZERO · NEW Cursor REAL: ZERO
 
 ---
 
-## 1. Morris GO consumed
+## 1. Timestamp
 
-Morris GO authorizes continuation of the SAME correction macro to close ChatGPT reserves:
-
-- **CR-PJ-01** — Provider prose must not be authoritative primary Recommendation copy.
-- **CR-PJ-02** — Remove remaining SFIA/runtime vocabulary from Pilote primary UX.
-- **CR-PJ-03** — Replace illustrative HTML visual proof with proof from the REAL SFIA Studio runtime surface.
-
-Authorized: bounded Product/UI/test edits; local runtime validation; real Studio UI screenshot; FULL Review Pack; L3 Review Handoff publication.
-
-**NOT authorized (honored):** project commit; project push; PR; merge; branch deletion; new Product Journey REAL; new Cursor REAL; architecture pivot; persistence/schema migration; new recommendation engine; new UI/design system; Roadmap/C1/C2/Build Doctrine/v3 framing mutation; Figma; Penpot; runtime v3 adoption; global L5.
+2026-09-20T21:11:31Z
 
 ---
 
 ## 2. Local Git Truth
 
-| Field | Value |
-|---|---|
-| Repository root | `/tmp/sfia-pj-reproof-corr-01` (worktree of `mcleland147/sfia-workspace`) |
-| Worktree path | `/tmp/sfia-pj-reproof-corr-01` |
-| Current branch | `fix/sfia-studio-recommendation-decision-ux-integrity` |
-| HEAD | `89dc915d7e685ee775922c02314a8eb39a2921fa` |
-| origin/main (after fetch) | `89dc915d7e685ee775922c02314a8eb39a2921fa` |
-| Baseline drift | **NONE** — HEAD == origin/main |
-| Staged files | *(none)* |
-| Project commit | **0** |
-| Project push | **0** |
-| Project PR | **0** |
-| Project merge | **0** |
-
-**git status --short (post-correction):**
-
 ```
- M .tmp-sfia-review/chatgpt-review.md
+worktree: /tmp/sfia-pj-ec-bridge-01
+branch: fix/sfia-studio-execution-contract-semantic-bridge
+HEAD: 163a05e542d4c8d65e710cf27fb2f7eec9414844
+origin/main: 163a05e542d4c8d65e710cf27fb2f7eec9414844
+BASELINE: MATCH (pre-check + post-fix)
+working tree: UNCOMMITTED (project commit NOT AUTHORIZED)
+```
+
+status:
+```
+M .tmp-sfia-review/chatgpt-review.md
+ M projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01AttemptProfile.d0.test.ts
+ M projects/sfia-studio/app/__tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx
  M projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
- M projects/sfia-studio/app/__tests__/project-assistant/checkpointF.recoveryOptionsContext.d0.test.ts
+ M projects/sfia-studio/app/__tests__/project-assistant/w3aGovernedExecute.test.ts
+ M projects/sfia-studio/app/e2e/studio-product-completion-integrated-proof.spec.ts
+ M projects/sfia-studio/app/e2e/studio-w2-g3-correction-runtime.spec.ts
+ M projects/sfia-studio/app/e2e/studio-w3a-governed-execute-runtime.spec.ts
+ M projects/sfia-studio/app/e2e/studio-w3b-terminal-evidence-runtime.spec.ts
+ M projects/sfia-studio/app/e2e/studio-w3c-post-evidence-replan-runtime.spec.ts
+ M projects/sfia-studio/app/e2e/studio-w4b-single-authority-path.spec.ts
+ M projects/sfia-studio/app/e2e/studio-w4c-evidence-recovery-replan-product-experience.spec.ts
+ M projects/sfia-studio/app/e2e/studio-w4d-product-screens-visual-closure.spec.ts
  M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
- M projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts
- M projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
- M projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/actions.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts
  M projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
- M projects/sfia-studio/app/features/project-assistant/w2/types.ts
-?? projects/sfia-studio/app/__tests__/project-assistant/recommendationDecisionIntegrity.pjReproof.d0.test.ts
-?? projects/sfia-studio/app/features/project-assistant/w2/recommendationDecisionIntegrity.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/w3aProductExecutionSemantics.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/domain/cursorExecutionReport.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts
+ M projects/sfia-studio/app/lib/oa/execution-contract/index.ts
+ M projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+ M projects/sfia-studio/app/lib/vertical-slice-runtime/w3aProductFixtureWiring.ts
+?? .tmp-sfia-review/runtime-captures/
+?? projects/sfia-studio/app/__tests__/project-assistant/pjReproof04.executionContractSemanticBridge.d0.test.ts
+?? projects/sfia-studio/app/features/project-assistant/w2/deriveActualExecutionWorkFromProductContext.ts
+?? projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorGeneralistAgent.ts
+?? projects/sfia-studio/app/lib/oa/execution-contract/projection/projectExecutionContractToCursorPrompt.ts
 ```
 
-**Baseline CI (unchanged):** GitHub Actions run `35511985937` attempt 2 = SUCCESS · SFIA Studio Required Gate = PASS.
-
-**Prior Review Handoff tip (pre-this-pass):** branch `sfia/review-handoff` commit `86a76199df86a5677c4e7ff68fcaf76c36a23d8c` blob `0a3ee067edf78c0194d5acb0717f2c796d1798de`.
-
-**Expected correction worktree present:** YES — preserved; no reset/stash/overwrite; no new branch created.
-
----
-
-## 3. Exact baseline
-
-- `origin/main` = `89dc915d7e685ee775922c02314a8eb39a2921fa`
-- Correction branch HEAD base = same SHA (uncommitted corrections only)
-- Convergence: NORA COGNITIVE COMPLETION PRESERVED · Runtime v3 NON ADOPTED · Global L5 NOT ADOPTED
-- Architecture disposition honored: KEEP OptionSet / PresentedOptionSet / recommendedOptionRef / selectedOptionRef / HumanDecision / TrajectorySurface structure / existing styles; ADAPT Recommendation cognitive projection + Pilote wording + visual/runtime validation
-
----
-
-## 4. Current modified / new files
-
-### Modified
-1. `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx`
-2. `projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts`
-3. `projects/sfia-studio/app/features/project-assistant/presentationLabels.ts` *(prior pass helpers retained)*
-4. `projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts`
-5. `projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts`
-6. `projects/sfia-studio/app/features/project-assistant/w2/types.ts` — optional `cognitiveAnalysis?: string | null`
-7. `projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx`
-8. `projects/sfia-studio/app/__tests__/project-assistant/checkpointF.recoveryOptionsContext.d0.test.ts`
-9. `.tmp-sfia-review/chatgpt-review.md` *(this pack)*
-
-### New
-1. `projects/sfia-studio/app/features/project-assistant/w2/recommendationDecisionIntegrity.ts`
-2. `projects/sfia-studio/app/__tests__/project-assistant/recommendationDecisionIntegrity.pjReproof.d0.test.ts`
-
----
-
-## 5. CR-PJ-01 — Diagnosis and correction
-
-### Diagnosis (pre-correction)
-Prior pass correctly:
-- bound `recommendedOptionRef` to OptionSet (fail-closed mismatch);
-- removed soft `options[0]` fallback;
-- blocked O1/O2/O3 invented packs from becoming Options;
-- scrubbed Markdown/IDs from primary display.
-
-**Remaining semantic weakness:** `projectPiloteRecommendationRationale` still used non-invented provider cognition as the **primary** `rationale`. Hostile non-numbered prose such as « Je conseille finalement de préparer directement une nouvelle tentative. » could therefore own Pilote-facing WHAT while canonical `recommendedOptionRef` remained `opt:trajectory:clarify-first`. Structural binding correct; cognitive projection contradictory.
-
-### Correction
-**ONE canonical decision truth for primary Pilote Recommendation:**
-
-`PresentedOptionSet.options` + `Recommendation.recommendedOptionRef` (+ later `HumanDecision.selectedOptionRef`)
-
-Primary `rationale` is **always** grounded in:
-- deterministic canonical base rationale (from `deriveTrajectoryRecommendation` / option label context);
-- safe CKC guidance text when present;
-- business-first scrubbing.
-
-Provider/Nora free prose:
-- may enrich WHY as optional secondary `cognitiveAnalysis`;
-- is retained under collapsed disclosure « Analyse Nora » when safe/useful;
-- is **dropped** when it looks like an invented option pack (O1/O2/O3 hygiene retained as defense-in-depth, not sole mechanism);
-- **never** replaces primary WHAT — including non-numbered contradiction.
-
-Optional DTO field (no DB migration):
-
-```ts
-cognitiveAnalysis?: string | null  // on TrajectoryRecommendationDto
+diff --stat (tracked; excludes review pack):
+```
+.../gcecAgent01AttemptProfile.d0.test.ts           | 12 ++-
+ .../postExecutionTrajectorySurface.ui.test.tsx     |  4 +-
+ .../trajectorySurface.ui.test.tsx                  | 19 +++--
+ .../project-assistant/w3aGovernedExecute.test.ts   | 11 +--
+ ...dio-product-completion-integrated-proof.spec.ts | 10 +--
+ .../e2e/studio-w2-g3-correction-runtime.spec.ts    |  7 +-
+ .../studio-w3a-governed-execute-runtime.spec.ts    | 48 +++++-------
+ .../studio-w3b-terminal-evidence-runtime.spec.ts   |  5 +-
+ ...studio-w3c-post-evidence-replan-runtime.spec.ts |  5 +-
+ .../e2e/studio-w4b-single-authority-path.spec.ts   | 10 +--
+ ...ence-recovery-replan-product-experience.spec.ts |  5 +-
+ ...udio-w4d-product-screens-visual-closure.spec.ts |  5 +-
+ .../surfaces/TrajectorySurface.tsx                 | 64 ++-------------
+ .../app/features/project-assistant/w2/actions.ts   |  6 +-
+ .../w2/authorizeExecutionContract.ts               | 41 +++++++---
+ .../w2/prepareExecutionContractFromW2Decision.ts   | 61 +++++++--------
+ .../project-assistant/w2/trajectoryOptions.ts      |  6 +-
+ .../w2/w3aProductExecutionSemantics.ts             | 91 ++++++++++++++++------
+ .../application/selectExecutionAgent.ts            |  3 +
+ .../application/startExecution.ts                  | 46 +++++++++++
+ .../domain/cursorExecutionReport.ts                | 70 +++++++++++++++++
+ .../execution-attempt/domain/realLaunchSafety.ts   |  8 ++
+ .../domain/resolveAttemptExecutionProfile.ts       | 62 +++++++++++++--
+ .../app/lib/oa/execution-attempt/index.ts          |  9 +++
+ .../infrastructure/fakeDocsWriteLaunchPort.ts      |  9 +++
+ .../m4BoundedDocsWriteCursorAgent.ts               |  5 +-
+ .../studioCursorRealLaunchGateway.ts               | 46 +++++++----
+ .../ports/realExecutionLaunchPort.ts               |  7 ++
+ .../app/lib/oa/execution-contract/index.ts         |  7 ++
+ .../app/lib/vertical-slice-runtime/service.ts      |  2 +
+ .../w3aProductFixtureWiring.ts                     | 56 ++++++++++---
+ 31 files changed, 502 insertions(+), 238 deletions(-)
 ```
 
-Justification: existing serialized PresentedOptionSet is JSON Observation-shaped; optional field is presentation-compatible; no schema/database migration; no second OptionSet / engine.
-
-### Projection invariant (code)
-
-```ts
-// Primary ALWAYS = scrubbed base (+ guidance)
-// Cognitive → cognitiveAnalysis secondary OR null (invented packs)
-export function projectPiloteRecommendationRationale(...)
-export function projectCkcAttributedRecommendation(...) // CKC wrapper
-// enrichRecommendationWithCognition sets rationale + cognitiveAnalysis
-```
+Untracked (new):
+- `pjReproof04.executionContractSemanticBridge.d0.test.ts`
+- `deriveActualExecutionWorkFromProductContext.ts`
+- `studioCursorGeneralistAgent.ts`
+- `projectExecutionContractToCursorPrompt.ts`
 
 ---
 
-## 6. Proof — canonical option owns primary recommendation semantics
+## 3. Exact root cause (review finding)
 
-| Layer | Owner of WHAT | Owner of WHY enrichment |
-|---|---|---|
-| OptionSet.options | Deterministic derive | — |
-| recommendedOptionRef | Deterministic derive + integrity assert | — |
-| Recommendation.rationale (primary) | Canonical base + safe guidance only | — |
-| Recommendation.cognitiveAnalysis | — | Provider/Nora (secondary, optional) |
-| UI primary (`w2-recommendation-rationale`) | `recommendation.rationale` | — |
-| UI secondary (`w2-recommendation-nora-analysis`) | — | `cognitiveAnalysis` under « Analyse Nora » |
-| UI technical (`w2-recommendation-tech`) | refs / labels audit | — |
-
-Even if provider says the opposite of clarify-first, primary still communicates diagnostiquer/clarifier from canonical base.
-
-Structural acceptances from prior pass **preserved** (no regression):
-- recommendedOptionRef resolves exactly once;
-- RECOMMENDATION_OPTION_REF_MISMATCH fail-closed;
-- soft options[0] fallback removed;
-- proposed trajectory steps from canonical recommended option;
-- recommended badge from ref equality;
-- Decide sends canonical card optionRef;
-- HumanDecision keeps selectedOptionRef durable;
-- technical details progressively disclosed;
-- primary UI no longer needs raw IDs.
-
----
-
-## 7. Hostile non-numbered provider test (T15)
-
-**Given:**
-- Canonical recommended option: diagnostiquer / clarifier (`opt:trajectory:clarify-first`)
-- Provider cognition: `Je conseille finalement de préparer directement une nouvelle tentative.`
-- `looksLikeInventedOptionPack(hostile) === false` (no O1/O2/O3)
-
-**Expect / observed:**
-- Primary rationale still matches `/diagnostiquer|clarifier/i`
-- Primary does **not** contain « Je conseille finalement de préparer directement »
-- Primary does **not** contain « préparer directement une nouvelle tentative » as the recommendation WHAT
-- `recommendedOptionRef` remains `CLARIFY_OPTION_REF`
-- Hostile sentence may appear only in `cognitiveAnalysis` (secondary), never as primary
-
-**Result:** PASS (unit test in `recommendationDecisionIntegrity.pjReproof.d0.test.ts`)
-
----
-
-## 8. CR-PJ-02 — Wording changes (before / after)
-
-| Surface | Before | After |
-|---|---|---|
-| Recovery base rationale | `… Recommendation ≠ HumanDecision — cette recommandation n'est pas une décision et ne lance aucune action automatiquement.` | `… Votre décision reste nécessaire — cette recommandation ne lance aucune action automatiquement.` |
-| Primary footer | Already Pilote-first (prior) | Kept: « Cette recommandation vous aide à décider. Elle ne lance aucune action automatiquement. » |
-| Constrained cognition ask | « Rappeler que Recommendation ≠ HumanDecision… » | « Rappeler que la recommandation aide à décider et ne lance aucune action automatiquement. » |
-| CKC integrity system rules | « Recommendation ≠ HumanDecision ; aucune autorité d'exécution. » | « La recommandation aide le Pilote à décider ; elle ne lance aucune action automatiquement. » + forbid contradicting canonical option |
-| proposeTrajectoryOptions intentSummary | `Recommendation ≠ HumanDecision` | `recommandation ≠ décision Pilote` (cognition context, not primary UI) |
-| Primary recommendation title | Option label via `pilotPresentedOptionLabel` | Unchanged (Pilote label) |
-| Post-evidence technical details | `none — Recommendation ≠ HumanDecision` under `<details>` | **Kept under secondary technical disclosure only** (audit honesty) |
-
-Primary-copy absence asserted for at least: `HumanDecision`, `ProductOutcome`, `ContractResult`, `optionRef` on default primary rationale surface (not collapsed tech audit).
-
----
-
-## 9. Exact primary vs secondary information contract
-
-### Primary (default visible)
-1. Que recommande Studio ? → recommended option **label**
-2. Pourquoi ? → deterministic canonical `rationale` (scrubbed)
-3. Qu'est-ce que cela implique ? → option intent + functional impacts (non-technical partition)
-4. Que doit faire l'utilisateur maintenant ? → explicit « Décider cette option » CTA
-5. Action automatique ? → **non** (footer)
-
-### Secondary (collapsed by default)
-- « Analyse Nora » → `cognitiveAnalysis` (provider WHY only)
-- « Détails techniques de la recommandation / option » → `recommendedOptionRef`, `optionSetRef`, Attempt/Evidence/ReviewBundle lines, raw enums, structural label `RECOMMANDATION — PAS UNE DÉCISION`
-- After decision: selected option **label** primary; `selectedOptionRef` under technical details only
-
-### Not primary
-- Raw Markdown / LLM dump
-- O1/O2/O3 provider packs
-- Internal IDs / engine codes
-- `Recommendation ≠ HumanDecision` ontology slogan
-- Execution trace / debug panel aesthetics
-
----
-
-## 10–14. CR-PJ-03 — Actual Studio runtime proof
-
-### Attempted
-- Studio process: `next-server` cwd = `/tmp/sfia-pj-reproof-corr-01/projects/sfia-studio/app` on **localhost:3020** (correction worktree — correct)
-- `/login` → HTTP 200
-- `/studio` → **307** → `/login?error=AUTH_CONFIG_ERROR`
-- `/studio/projects/test` → **307** → `/login?error=AUTH_CONFIG_ERROR`
-
-### Root cause (honest)
-Better Auth / GitHub OAuth secrets are **unset** in this environment:
-- `BETTER_AUTH_SECRET` UNSET
-- `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` UNSET
-- `SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS` UNSET
-- No `.env.local` present
-
-Middleware fail-closed: protected Product surfaces unreachable without valid GitHub OAuth session.
-
-### What was NOT done (policy)
-- No forged browser auth / fake cookies / middleware bypass
-- No DB state injection
-- No new illustrative HTML mock
-- No new Product REAL / Cursor REAL / fabricated HumanDecision
-
-### Actual URLs used
-- `http://localhost:3020/studio` → final `http://localhost:3020/login?error=AUTH_CONFIG_ERROR`
-- `http://localhost:3020/login`
-- `http://localhost:3020/studio/projects/test` → same AUTH_CONFIG_ERROR redirect
-
-### Viewport
-**1280 × 800**
-
-### Screenshots (blocker evidence — NOT Recommendation UX proof)
-- `/opt/cursor/artifacts/pj-reproof-cr-pj-03-auth-blocker-studio-redirect.png`
-- `/opt/cursor/artifacts/pj-reproof-cr-pj-03-auth-blocker-login.png`
-
-Visible: SFIA Studio login shell; French message « Configuration d'authentification indisponible (fail-closed). »; URL shows `AUTH_CONFIG_ERROR`.
-
-### Recommendation surface screenshot from `/studio/projects/<project>`
-**NOT OBTAINED** — blocked by AUTH_CONFIG_ERROR without forging auth.
-
-### Prior HTML mock
-`127.0.0.1:8765/pj-reproof-recommendation-pilote-ux-after.html` — **NOT reused** as final proof (disqualified per GO).
-
----
-
-## 15. Tests / typecheck / lint
-
-### Targeted suite (combined run)
-```
-Test Files  7 passed (7)
-Tests       84 passed (84)
-```
-
-Files:
-1. `recommendationDecisionIntegrity.pjReproof.d0.test.ts` — T1–T7, T9, T10, **T15**, primary-copy Pilote asserts, constrained ask
-2. `trajectorySurface.ui.test.tsx` — includes PJ-REPROOF primary/secondary UI asserts
-3. `postExecutionTrajectorySurface.ui.test.tsx`
-4. `checkpointF.recoveryOptionsContext.d0.test.ts` — rationale expectation updated to Pilote wording
-5. `recommendation-vs-decision.test.tsx`
-6. `w1CkcSemanticSeam.test.ts` (Track D / cognition)
-7. `mw2.s02.ckcAuthority.d0.test.ts` (W2 Track D / cognition)
-
-### Typecheck
-`npm run typecheck` (`tsc --noEmit`) → **PASS** (exit 0)
-
-### Lint
-`npm run lint` (`next lint`) → **PASS** — No ESLint warnings or errors
-
-### Coverage mapping
-| ID | Status |
-|---|---|
-| T1 recommendedOptionRef resolves exactly once | PASS |
-| T2 mismatch fails closed | PASS |
-| T3 provider O1/O2/O3 cannot create canonical options | PASS |
-| T4 no raw Markdown primary | PASS |
-| T5 no internal IDs primary | PASS |
-| T6 technical details secondary | PASS |
-| T7 badge maps from recommendedOptionRef | PASS |
-| T8 Decide sends exact canonical optionRef | PASS (prior UI tests preserved) |
-| T9 decision displays option label | PASS |
-| T10 Recommendation does not decide/promote | PASS |
-| T11 post-execution continuity | PASS (postExecutionTrajectorySurface) |
-| T12 Proposal path preserved | PASS (trajectorySurface suite) |
-| T13 PresentedOptionSet rehydration binding | PASS (suite + optional field compatible) |
-| T14 accessibility basics | PASS (prior aria/labels retained) |
-| **T15 contradictory non-numbered provider prose** | **PASS** |
-| Primary-copy absence HumanDecision/ProductOutcome/ContractResult/optionRef | PASS |
-
-Logs: `/opt/cursor/artifacts/pj-reproof-tests-full-targeted.log`, `pj-reproof-typecheck.log`, `pj-reproof-lint.log`
-
----
-
-## 16. Files modified (summary)
-
-See §4. Diffstat (excluding this pack rewrite magnitude in prior iterations):
+A prior local approach achieved Product generality by weakening the **global**
+matcher:
 
 ```
-TrajectorySurface.tsx                         | ~100 lines adapted
-ckcCognitiveContext.ts                        | +projectCkcAttributedRecommendation
-proposeTrajectoryOptions.ts                   | enrich → rationale + cognitiveAnalysis
-trajectoryOptions.ts                          | Pilote recovery rationale
-types.ts                                      | optional cognitiveAnalysis
-recommendationDecisionIntegrity.ts            | NEW (projection + integrity)
-recommendationDecisionIntegrity.*.test.ts     | NEW (+ T15)
-trajectorySurface.ui.test.tsx                 | primary/secondary asserts
-checkpointF.recoveryOptionsContext.d0.test.ts | Pilote rationale expects
+agentMatchViolation(agent, criteria):
+  if agent.agentId === STUDIO_CURSOR_GENERALIST_AGENT_ID → return null
 ```
 
----
-
-## 17. Useful modified sections (excerpts)
-
-### A. Canonical-owned primary projection
-`recommendationDecisionIntegrity.ts` — `projectPiloteRecommendationRationale`:
-- primary = scrubbed base (+ guidance)
-- cognitive → `cognitiveAnalysis` secondary OR null if invented pack
-
-### B. CKC enrichment seam
-`ckcCognitiveContext.ts` — `projectCkcAttributedRecommendation` + `deriveCkcAttributedRecommendation` returns primary only.
-
-### C. Enrich path
-`proposeTrajectoryOptions.ts` — `enrichRecommendationWithCognition` sets both `rationale` and `cognitiveAnalysis`.
-
-### D. UI contract
-`TrajectorySurface.tsx` — primary rationale + footer; optional `<details>Analyse Nora</details>`; tech details collapsed.
-
-### E. Recovery Pilote rationale
-`trajectoryOptions.ts` — « Votre décision reste nécessaire — cette recommandation ne lance aucune action automatiquement. »
+That made `agt:studio.cursor.generalist` a valid candidate for **any**
+`AgentMatchCriteria`, including sealed GCEC progressive profiles
+(`docs_write`, `local_commit`, `remote_push`, `pr_create`, `pr_merge`) and
+M4 RO. Canonical Product generality must **not** be achieved by weakening
+deny-by-default matching.
 
 ---
 
-## 18. Fake / Real qualification
+## 4. Before / after matching model
 
-| Claim | Status |
-|---|---|
-| New Product REAL | **ZERO** |
-| New Cursor REAL Product execution | **ZERO** |
-| Deterministic correction proven (CR-PJ-01/02 + tests) | **YES** |
-| Real Product UI visual proof of Recommendation surface | **NO — BLOCKED** |
-| Runtime screenshot of login fail-closed | YES (blocker evidence only) |
-| Evidence payload REAL adapter | NOT proven |
-| Runtime v3 adoption | NOT proven |
-| Generalized autonomy | NOT proven |
+### BEFORE (incorrect)
 
-**Level expected vs achieved:**
-- Expected: DETERMINISTIC CORRECTION PROVEN + REAL PRODUCT UI VISUAL PROOF
-- Achieved: DETERMINISTIC CORRECTION PROVEN + REAL PRODUCT UI VISUAL PROOF **BLOCKED** (AUTH_CONFIG_ERROR)
+```
+arbitrary contract criteria
+  → global generalist bypass in agentMatchViolation
+  → prefer-generalist branch in Select / authorize
+  → GCEC profiles can fall through to generalist
+```
 
----
+### AFTER (approved simplification)
 
-## 19. Reserves
+```
+contract_legacy
+  → ONE generalist technical quartet (cap/action/target/scope)
+  → normal exact agentMatchViolation
+  → Select binds agt:studio.cursor.generalist (or REAL-off fixture declaring same quartet)
 
-1. **R-CR-PJ-03-AUTH** — Authentic `/studio/projects/<project>` Recommendation screenshot blocked by unset Better Auth / GitHub OAuth secrets (`AUTH_CONFIG_ERROR`). Forging auth not authorized. Requires Morris-authorized local auth configuration (real secrets) before CR-PJ-03 can close.
-2. **R-SECONDARY-AMBIGUITY** — Non-invented contradictory provider prose may still appear under collapsed « Analyse Nora ». Primary WHAT is unambiguous; secondary disclosure could still confuse if expanded. Acceptable per GO (« place under Analyse Nora or omit »); further semantic filtering without regex guessing would need a separate design decision.
-3. **R-POST-EVIDENCE-TECH** — Post-evidence technical `<details>` still contains audit string `Recommendation ≠ HumanDecision` (intentionally secondary). Not primary Pilote copy.
-4. **R-OPTIONAL-DTO** — `cognitiveAnalysis` optional field relies on JSON PresentedOptionSet compatibility; no DB migration performed. Rehydration of older bindings without the field remains valid (`undefined`/`null`).
+GCEC progressive / sealed RO
+  → specialized exact criteria
+  → generalist does NOT match
+  → missing specialized agent → AGENT_NOT_FOUND / fail-closed
+```
 
----
-
-## 20. Anti-claims
-
-- This pass does **NOT** claim a new Product Journey E2E REAL.
-- This pass does **NOT** claim Evidence payload REAL adapter closure.
-- This pass does **NOT** claim runtime v3 adoption or global L5.
-- This pass does **NOT** claim pixel-perfect / design-system / Figma-Penpot validation.
-- This pass does **NOT** claim CR-PJ-03 Recommendation UX screenshot from authenticated Studio route.
-- Prior HTML mock is **NOT** final visual proof.
-- Project merge remains **NOT authorized**. Project commit/push/PR performed under Morris PROJECT GIT INTEGRATION GO (PR #509).
-- No second recommendation engine; no schema migration; no doctrine/Roadmap mutation.
+No second selector. No second gateway. No Product task-specific capabilities.
 
 ---
 
-## 21. Final verdict
+## 5. contract_legacy generic criteria
 
-**STOP — RUNTIME VISUAL PROOF BLOCKED — AUTH_CONFIG_ERROR (Better Auth / GitHub OAuth secrets unset; `/studio/projects/...` unreachable without forging browser auth, which is not authorized)**
-
-### Accompanying qualification (for ChatGPT / Morris)
-- **CR-PJ-01** — CLOSED at code + T15 deterministic level (canonical owns primary WHAT).
-- **CR-PJ-02** — CLOSED at primary Pilote UX / wording + primary-copy tests level.
-- **CR-PJ-03** — **OPEN / BLOCKED** pending authentic authenticated Studio session on correction worktree `:3020`.
-
-Awaiting ChatGPT / Morris review. No project commit. No project push. No PR. No automatic Product Journey REAL resume.
-
-
----
-
-## 22. MORRIS VALIDATION + PROJECT GIT INTEGRATION GO (APPEND)
-
-**Timestamp (UTC):** 2026-09-20T15:38:39Z
-
-### Morris decision recorded
-
-Morris explicitly validates the correction macro at **deterministic scope** and authorizes **PROJECT GIT INTEGRATION**.
-
-| Item | Morris status |
-|---|---|
-| Correction macro | VALIDATED |
-| Deterministic scope | ACCEPTED |
-| CR-PJ-01 | **CLOSED — DETERMINISTIC PROVEN** |
-| CR-PJ-02 | **CLOSED — DETERMINISTIC PROVEN** |
-| CR-PJ-03 authentic Studio Recommendation screenshot | **DEFERRED BY MORRIS TO PRODUCT JOURNEY CAMPAIGN RESUME** |
-| AUTH_CONFIG_ERROR | Environment validation blocker — **NOT treated as a Product defect** |
-| Visual proof blocking Git integration? | **NO — NON-BLOCKING** |
-| Who will observe visual later? | Product Journey campaign resume |
-| New Product REAL | **ZERO** |
-| New Cursor REAL | **ZERO** |
-| Runtime v3 | **NON ADOPTED** |
-| Global L5 | **NOT ADOPTED** |
-| PROJECT GIT INTEGRATION | **AUTHORIZED** |
-| MERGE | **NOT AUTHORIZED** |
-
-Do **NOT** claim CR-PJ-03 visually proven.
-
-### Pre-commit validation (this integration pass — re-run, not copied)
-
-| Check | Result |
-|---|---|
-| Targeted suites (7 files) | **84 passed / 84** |
-| T15 hostile non-numbered provider | **PASS** |
-| `npm run typecheck` | **PASS** |
-| `npm run lint` | **PASS** |
-| New Product/Cursor REAL | **ZERO** |
-
-### Local Git Truth (pre-commit)
+From `resolveAttemptExecutionProfile.ts` → `contractLegacyProfile`:
 
 | Field | Value |
-|---|---|
-| Worktree | `/tmp/sfia-pj-reproof-corr-01` |
-| Branch | `fix/sfia-studio-recommendation-decision-ux-integrity` |
-| HEAD (pre-commit) | `89dc915d7e685ee775922c02314a8eb39a2921fa` |
-| origin/main | `89dc915d7e685ee775922c02314a8eb39a2921fa` |
-| Baseline drift | NONE |
-| Remote fix branch (pre-push) | ABSENT |
+| --- | --- |
+| requiredCapabilities | `cap:studio.cursor.generalist` |
+| action | `studio.cursor.generalist.execute` |
+| target | `studio.cursor.generalist.workspace` |
+| scope | `studio.cursor.generalist.authorized_contract` |
 
-### Integration scope files (exact)
+Functional mission remains exclusively on ExecutionContract /
+`cursorMissionPrompt`. The technical profile only means:
+“executed by the Studio generic Cursor executor”.
 
-- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx`
-- `projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts`
-- `projects/sfia-studio/app/features/project-assistant/presentationLabels.ts`
-- `projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts`
-- `projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts`
-- `projects/sfia-studio/app/features/project-assistant/w2/types.ts`
-- `projects/sfia-studio/app/features/project-assistant/w2/recommendationDecisionIntegrity.ts`
-- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx`
-- `projects/sfia-studio/app/__tests__/project-assistant/checkpointF.recoveryOptionsContext.d0.test.ts`
-- `projects/sfia-studio/app/__tests__/project-assistant/recommendationDecisionIntegrity.pjReproof.d0.test.ts`
-- `.tmp-sfia-review/chatgpt-review.md`
-
-No Roadmap / Build Doctrine / C1/C2 / v3 framing / CI / secrets / env config in scope.
-
-### Post-integration fields (filled after commit/push/PR)
-
-- Project commit SHA: `10752b658b4b28495ebd69c3ce34d3df5d1d56c9`
-- Project commit tree: `729abc5c4ac2eade33570ed87e58694b27a241a8`
-- Pushed branch SHA: `10752b658b4b28495ebd69c3ce34d3df5d1d56c9` (= local HEAD)
-- PR number/URL: **#509** — https://github.com/mcleland147/sfia-workspace/pull/509
-- PR head/base: head `10752b658b4b28495ebd69c3ce34d3df5d1d56c9` / base `89dc915d7e685ee775922c02314a8eb39a2921fa` (`main`)
-- CI status: **PENDING** (SFIA Studio CI — Detect SFIA Studio changes QUEUED; run 35520249777)
-- Review Handoff remote commit/blob after this pass: commit `e3d399df9bed02315b41dfcd672377a25ac38332` / blob `6ccc430361203d0144f32bdc7744aeac117be26c`
-
-### Integration completion (2026-09-20T15:39:27Z)
-
-| Field | Value |
-|---|---|
-| Project commit | `10752b658b4b28495ebd69c3ce34d3df5d1d56c9` |
-| Commit tree | `729abc5c4ac2eade33570ed87e58694b27a241a8` |
-| Files in commit | 11 (+1406 / −326) |
-| Pushed branch | `origin/fix/sfia-studio-recommendation-decision-ux-integrity` @ same SHA |
-| origin/main | `89dc915d7e685ee775922c02314a8eb39a2921fa` (unchanged) |
-| Commits ahead of main | 1 (then +1 pack finalization if present) |
-| PR | **#509** OPEN, not draft |
-| PR URL | https://github.com/mcleland147/sfia-workspace/pull/509 |
-| mergeable | MERGEABLE |
-| mergeStateStatus | BLOCKED (expected — merge NOT authorized / checks pending) |
-| CI | **PENDING** |
-| Merge performed | **NO** |
-| Auto-merge | **NO** |
-| Branch deleted | **NO** |
-
-### Final integration verdict
-
-**PASS WITH RESERVES — PROJECT GIT INTEGRATION COMPLETE — PR OPEN / MERGE GATE PENDING**
-
-Reserves carried:
-1. CR-PJ-03 visual proof DEFERRED BY MORRIS TO CAMPAIGN RESUME (non-blocking).
-2. PR CI PENDING at handoff time.
-3. R-SECONDARY-AMBIGUITY / R-POST-EVIDENCE-TECH / R-OPTIONAL-DTO unchanged.
-4. REAL Evidence payload adapter reserve unchanged/open.
-
+Sealed historical M4 RO is isolated as `read_only` profile with exact RO
+quartet (does **not** use generalist). Progressive GCEC profiles unchanged.
 
 ---
 
-## 23. CI MERGE-GATE FIX — postExecutionProductContinuity (append)
+## 6. Proof — global bypass removed
 
-**Timestamp (UTC):** 2026-09-20T15:48:09Z
+`agentMatchViolation` (current; no agentId short-circuit):
 
-### Failure
-PR #509 CI run `35520294202` failed Required Gate because Vitest asserted recovery primary rationale still matched raw `/UNCLAIMED/`:
+```typescript
+export function agentMatchViolation(
+  agent: AgentDescriptor,
+  criteria: AgentMatchCriteria,
+): InvariantViolation | null {
+  if (agent.enabled !== true) {
+    return { detailCode: "AGENT_DISABLED", reason: "agent_disabled" };
+  }
+  if (agent.healthStatus !== "healthy") {
+    return {
+      detailCode: "AGENT_UNHEALTHY",
+      reason: `agent_health_${agent.healthStatus}`,
+    };
+  }
+  for (const capability of criteria.requiredCapabilities) {
+    if (!agent.supportedCapabilities.includes(capability)) {
+      return {
+        detailCode: "AGENT_CAPABILITY_MISMATCH",
+        reason: "capability_not_supported",
+      };
+    }
+  }
+  if (!agent.allowedActions.includes(criteria.action)) {
+    return { detailCode: "AGENT_SCOPE_MISMATCH", reason: "action_not_allowed" };
+  }
+  if (!agent.allowedTargets.includes(criteria.target)) {
+    return { detailCode: "AGENT_SCOPE_MISMATCH", reason: "target_not_allowed" };
+  }
+  if (!agent.allowedScopes.includes(criteria.scope)) {
+    return { detailCode: "AGENT_SCOPE_MISMATCH", reason: "scope_not_allowed" };
+  }
+  return null;
+}
 
-- file: `projects/sfia-studio/app/__tests__/project-assistant/postExecutionProductContinuity.d0.test.ts`
-- assertion conflicted with CR-PJ-02 Pilote-first recovery rationale (`non encore pleinement confirmé`).
+/* -------------------------------------------------------------------------- */
+/* Selection strategy / profile                                                */
+/* -------------------------------------------------------------------------- */
+```
 
-### Fix
-Update the test only (no Product behavior change):
-- expect Pilote soft wording `/non encore pleinement confirmé/i`
-- assert absence of raw `UNCLAIMED` / `ProductOutcome` in primary rationale
-- keep anti-claim that UNCLAIMED+succeeded is not presented as technical FAIL
+Grep proof (isolation sources):
+`NO_BYPASS_REMAINING` — no `STUDIO_CURSOR_GENERALIST_AGENT_ID` short-circuit in
+`invariants.ts`, `selectExecutionAgent.ts`, or `authorizeExecutionContract.ts`.
 
-Local re-run: postExecutionProductContinuity + integrity + checkpointF → **42 passed**.
+Select: prefer-generalist branch **removed**; first lexicographic candidate of
+normal `findCandidates(criteria)` wins.
+Authorize: uses **same** `resolveAttemptExecutionProfile` criteria (no prefer
+branch).
 
-Product code unchanged in this fix commit.
-
----
-
-## 24. CI RESULT — PR #509 (append)
-
-**Timestamp (UTC):** 2026-09-20T15:55:28Z
-
-Head SHA: `1e08df388acc27f6e5eaa43dab0c314601dbd422`
-
-| Check | Result |
-|---|---|
-| Detect SFIA Studio changes | PASS |
-| Build and validate SFIA Studio | PASS |
-| SFIA Studio Required Gate | PASS |
-
-Merge / auto-merge: **NOT performed** — awaiting Morris merge decision.
-
----
-
-## 25. CI FLAKE on docs tip 22ac8b71 (append)
-
-**Timestamp (UTC):** 2026-09-20T16:07:20Z
-
-Run `35521088736` failed Required Gate with **4× Test timed out in 5000ms** on suites unrelated to this PR delta:
-
-- `__tests__/nora-eval/g2.catalog-versioning-mw6.test.ts`
-- `__tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts`
-- `__tests__/project-assistant/candidateTrajectoryCycleStart.d0.test.ts` (×2)
-
-Diff `1e08df38..22ac8b71` = Review Pack docs only.
-
-Prior head `1e08df38` CI run `35520718786` = **PASS** (Required Gate green).
-
-Classification: **CI-load timeout flake**. Timeout policy **not** modified (per campaign guardrail).
-
-Action: `gh run rerun 35521088736 --failed` — no Product code change.
-
----
-
-## 26. CI tip flake recurrence — merge-gate status for Morris (append)
-
-**Timestamp (UTC):** 2026-09-20T16:18:48Z
-
-### Facts
-| SHA | Kind | CI |
-|---|---|---|
-| `1e08df388acc27f6e5eaa43dab0c314601dbd422` | Product continuity test fix (CR-PJ-02 assert) | Run `35520718786` **PASS** (Required Gate green) |
-| `22ac8b71…` | Docs-only CI PASS note | Run `35521088736` FAIL — 4× 5s timeouts unrelated suites |
-| `019d3a596e4225b87463db3ae1cbc795b0c4f7ed` (tip) | Docs-only flake classification | Run `35521718494` FAIL — 5× 5s timeouts unrelated suites |
-
-### Timed-out suites (tip) — not in Product delta
-- `g2.catalog-versioning-mw6.test.ts` (historical D0 suite)
-- `mw0.corr07.offlineRescoreFailClosed.test.ts` (CASE H)
-- `activeCycleCognitiveWork.d0.test.ts` (CR-ACW-04 catalog-wide)
-- `candidateTrajectoryCycleStart.d0.test.ts` (BAR-START-CORR / CORR2)
-
-Same suites **PASS** on green run `35520718786`.
-
-### Guardrails honored
-- No global `testTimeout` raise
-- No Product behavior change for flake
-- Existing CI `maxWorkers: 2` left unchanged
-- `gh run rerun` unavailable (integration permission)
-
-### Classification
-**CI-load timeout flake** on Review Pack tip commits. Deterministic Product correction + Required Gate green proven at `1e08df38`.
-
-### Merge posture
-- Merge / auto-merge: **NOT performed**
-- Tip Required Gate: currently red (flake)
-- Substantive merge-candidate SHA with green Required Gate: `1e08df38…`
-- Awaiting Morris decision (retrigger vs merge at green SHA vs authorize CI-policy work)
+W3A fixture (REAL-off): additionally declares the generalist technical quartet
+so contract_legacy matching selects the fixture without a global bypass.
 
 ---
 
-## 27. CI tip GREEN — PR #509 (append)
+## 7. Canonical generic selection proofs
 
-**Timestamp (UTC):** 2026-09-20T16:26:38Z
+Acceptance tests in
+`pjReproof04.executionContractSemanticBridge.d0.test.ts`:
 
-Tip SHA `334af4a9db8a17928d33193c02aa1e349ddf31d2` — all 3 checks PASS:
+1. **Non-mutating** analyse EC → `contract_legacy` → `agt:studio.cursor.generalist` → StartExecution → `cursorMissionPrompt` captured — PASS
+2. **Mutating** local docs EC → SAME generalist → SAME prompt bridge — PASS
+3. **Novel future** unknown action/scope/capability → no registry/task-profile addition → SAME generalist — PASS
 
-| Check | Result |
-|---|---|
-| Detect SFIA Studio changes | PASS |
-| Build and validate SFIA Studio | PASS |
-| SFIA Studio Required Gate | PASS |
+Hostile Product `requestedAgentRef` = docs_write agent → fail-closed
+(`AGENT_*` mismatch); honest Select still binds generalist — PASS
 
-PR mergeable / mergeStateStatus: CLEAN (at tip).
+---
 
-Merge / auto-merge: **NOT performed** — awaiting Morris merge decision.
+## 8. GCEC isolation proof
+
+For each progressive + RO specialized criteria:
+- `agentMatchViolation(generalist, criteria) ≠ null`
+- specialized agent matches exactly
+
+Select with generalist + docs_write registered on docs_write EC:
+- candidates = `[agt:…docs_write…]` only
+- generalist **not** a candidate
+- selected = docs_write agent
+
+GCEC fail-closed: docs_write EC with **only** generalist registered →
+`AGENT_NOT_FOUND` (generalist does **not** silently substitute).
+
+Hostile GCEC: `requestedAgentRef=agt:studio.cursor.generalist` on docs_write →
+fail-closed.
+
+m4RealOffCorrectionR2 (RO sealed path): 12/12 PASS after RO profile isolation.
+
+---
+
+## 9. StartExecution bridge (unchanged / kept)
+
+```
+durable ExecutionContract
+  → projectExecutionContractToCursorPrompt
+  → assert parity
+  → cursorMissionPrompt
+  → RealExecutionLaunchPort
+  → StudioCursorRealLaunchGateway
+```
+
+Exact EC version/fingerprint · Attempt binding · report identity triad ·
+no automatic execution · generic HOW.
+
+---
+
+## 10. Tests
+
+| Suite | Result |
+| --- | --- |
+| pjReproof04.executionContractSemanticBridge.d0.test.ts | 12 PASS |
+| gcecAgent01AttemptProfile.d0.test.ts (AP-14 generalist criteria) | 15 PASS |
+| m4RealOffCorrectionR2.test.ts | 12 PASS |
+| trajectorySurface.ui.test.tsx | 46 PASS |
+| postExecutionTrajectorySurface.ui.test.tsx | 2 PASS |
+| w3aGovernedExecute.test.ts | 24 PASS |
+| **Batch** | **111 PASS** |
+| `tsc --noEmit` | PASS |
+| `next lint` | PASS (0 warnings/errors) |
+
+No live Cursor REAL.
+
+---
+
+## 11. Project counters / reserves
+
+| Counter | Value |
+| --- | --- |
+| project commit | **0** |
+| project push | **0** |
+| PR | **0** |
+| merge | **0** |
+| NEW Product REAL | **ZERO** |
+| NEW Cursor REAL | **ZERO** |
+
+Reserves:
+- Product Journey remains PAUSED after this handoff.
+- Historical GCEC sealed consumers remain on specialized profiles.
+- Fixture REAL-off path declares generalist technical quartet without becoming
+  a Product task catalogue.
+
+Canonical sources unchanged: cycle template, Build Doctrine, Roadmap, C1, C2, v3.
+
+---
+
+## 12. Expected verdict
+
+**PASS — PJ-REPROOF-04 GENERIC EXECUTOR ISOLATION CLOSED — CANONICAL PRODUCT USES ONE GENERALIST CURSOR VIA NORMAL MATCHING — HISTORICAL GCEC REMAINS FAIL-CLOSED AND CANNOT FALL THROUGH TO GENERALIST — READY FOR CHATGPT REVIEW**
+
+---
+
+## 13. Isolation-core diff (tracked)
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts b/projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts
+index 959bbec9..74d0db97 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts
+@@ -29,7 +29,10 @@ import type {
+   AuthorityVerificationBlockedReason,
+   ExecutionContract,
+ } from "@/lib/oa/execution-contract";
+-import { agentMatchViolation } from "@/lib/oa/execution-attempt";
++import {
++  agentMatchViolation,
++  resolveAttemptExecutionProfile,
++} from "@/lib/oa/execution-attempt";
+ import type { AgentRegistryPort } from "@/lib/oa/execution-attempt";
+ import { readContractInspectionState } from "./inspectExecutionContract";
+ import type {
+@@ -108,22 +111,40 @@ export function resolveConfirmationRequirement(
+
+ /**
+  * AgentCapability as a governance envelope: does any registered executor
+- * cover the contract's required capabilities and action/target/scope?
+- * Deny-by-default, reusing the OA agent match invariant.
++ * satisfy the SAME AttemptExecutionProfile criteria Select/Start use?
++ *
++ * PJ-REPROOF-04: canonical Product resolves to contract_legacy → generalist
++ * technical quartet (normal matching). GCEC progressive profiles keep exact
++ * specialized criteria. No global agentMatchViolation bypass.
+  */
+ export function evaluateAgentCapability(
+   registry: AgentRegistryPort,
+   contract: Pick<
+     ExecutionContract,
+-    "requiredCapabilities" | "action" | "target" | "scope"
++    | "executionContractId"
++    | "projectId"
++    | "requiredCapabilities"
++    | "action"
++    | "target"
++    | "scope"
++    | "evidenceRequirements"
++    | "expectedOutputs"
++    | "inputs"
+   >,
+ ): AgentCapabilitySufficiency {
+-  const criteria = {
+-    requiredCapabilities: [...contract.requiredCapabilities],
+-    action: contract.action,
+-    target: contract.target,
+-    scope: contract.scope,
+-  };
++  const profileResolved = resolveAttemptExecutionProfile({
++    contract: contract as ExecutionContract,
++    attempts: [],
++    evidence: [],
++  });
++  const criteria = profileResolved.ok
++    ? profileResolved.profile.criteria
++    : {
++        requiredCapabilities: [...contract.requiredCapabilities],
++        action: contract.action,
++        target: contract.target,
++        scope: contract.scope,
++      };
+   // Prefer findCandidates (deny-by-default port API) so contract-shaped
+   // fixture composition can adapt AFTER EC preparation (B4).
+   const candidates = registry.findCandidates(criteria);
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts
+index 9b958fca..e971da91 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts
+@@ -219,6 +219,9 @@ export class SelectExecutionAgent {
+         return fail("AGENT_NOT_FOUND", "no_registry_candidate");
+       }
+       // Deterministic tie-break: agentId lexicographic (registry order).
++      // contract_legacy criteria bind ONLY the Product generalist (or fixture
++      // that declares the same technical quartet). Specialized GCEC agents do
++      // not match — no prefer-generalist exception required.
+       const proposedAgentRef = candidates[0].agentId;
+
+       let selectedAgentRef = request.requestedAgentRef ?? proposedAgentRef;
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts
+index ce18901c..9443e0dc 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts
+@@ -20,6 +20,12 @@ import {
+   M4_BOUNDED_DOCS_WRITE_SCOPE,
+   M4_BOUNDED_DOCS_WRITE_TARGET,
+ } from "../infrastructure/m4BoundedDocsWriteCursorAgent";
++import {
++  M4_BOUNDED_RO_ACTION,
++  M4_BOUNDED_RO_CAPABILITY,
++  M4_BOUNDED_RO_SCOPE,
++  M4_BOUNDED_RO_TARGET,
++} from "../infrastructure/m4BoundedReadOnlyCursorAgent";
+ import {
+   M4_BOUNDED_LOCAL_COMMIT_ACTION,
+   M4_BOUNDED_LOCAL_COMMIT_CAPABILITY,
+@@ -44,6 +50,12 @@ import {
+   M4_BOUNDED_PR_MERGE_SCOPE,
+   M4_BOUNDED_PR_MERGE_TARGET,
+ } from "../infrastructure/m4BoundedPrMergeCursorAgent";
++import {
++  STUDIO_CURSOR_GENERALIST_ACTION,
++  STUDIO_CURSOR_GENERALIST_CAPABILITY,
++  STUDIO_CURSOR_GENERALIST_SCOPE,
++  STUDIO_CURSOR_GENERALIST_TARGET,
++} from "../infrastructure/studioCursorGeneralistAgent";
+ import type { CursorAuthorizedEffectId } from "./cursorExecutionReport";
+ import {
+   resolveVerifiedDocsWritePriorAttempt,
+@@ -66,6 +78,7 @@ export type AttemptExecutionProfileKind =
+   | "remote_push"
+   | "pr_create"
+   | "pr_merge"
++  | "read_only"
+   | "contract_legacy";
+
+ /** Non-persistent lineage facts for progressive profiles. */
+@@ -91,6 +104,7 @@ export type AttemptExecutionProfile = {
+     | "git.push"
+     | "github.pr.create"
+     | "github.pr.merge"
++    | "read_only"
+     | "contract_legacy";
+   /** Present when kind has verified prior lineage. */
+   readonly lineage?: AttemptExecutionProfileLineage;
+@@ -248,8 +262,13 @@ function prMergeProfile(
+   };
+ }
+
++/**
++ * PJ-REPROOF-04 — canonical Product profile.
++ * Technical executor binding ONLY (generic Cursor). Functional mission remains
++ * exclusively on ExecutionContract / cursorMissionPrompt — never agent types.
++ */
+ function contractLegacyProfile(
+-  contract: ResolveAttemptExecutionProfileInput["contract"],
++  _contract: ResolveAttemptExecutionProfileInput["contract"],
+   reason: string,
+ ): AttemptExecutionProfile {
+   return {
+@@ -257,10 +276,28 @@ function contractLegacyProfile(
+     effectClass: "contract_legacy",
+     reason,
+     criteria: {
+-      requiredCapabilities: [...(contract.requiredCapabilities ?? [])],
+-      action: contract.action,
+-      target: contract.target,
+-      scope: contract.scope,
++      requiredCapabilities: [STUDIO_CURSOR_GENERALIST_CAPABILITY],
++      action: STUDIO_CURSOR_GENERALIST_ACTION,
++      target: STUDIO_CURSOR_GENERALIST_TARGET,
++      scope: STUDIO_CURSOR_GENERALIST_SCOPE,
++    },
++  };
++}
++
++/**
++ * Historical sealed M4 RO GCEC path — exact specialized criteria.
++ * Must NOT fall through to Product generalist matching.
++ */
++function readOnlyProfile(reason: string): AttemptExecutionProfile {
++  return {
++    kind: "read_only",
++    effectClass: "read_only",
++    reason,
++    criteria: {
++      requiredCapabilities: [M4_BOUNDED_RO_CAPABILITY],
++      action: M4_BOUNDED_RO_ACTION,
++      target: M4_BOUNDED_RO_TARGET,
++      scope: M4_BOUNDED_RO_SCOPE,
+     },
+   };
+ }
+@@ -762,7 +799,20 @@ export function resolveAttemptExecutionProfile(
+     return { ok: false, reason: "attempt_profile_effect_not_supported" };
+   }
+
+-  // Non-M4 / RO / W3A / other → preserve historical contract quartet matching.
++  // Sealed historical M4 RO GCEC — exact specialized criteria (not generalist).
++  const isM4RoContract =
++    contract.action === M4_BOUNDED_RO_ACTION &&
++    (contract.requiredCapabilities ?? []).includes(M4_BOUNDED_RO_CAPABILITY);
++  if (isM4RoContract) {
++    return {
++      ok: true,
++      profile: readOnlyProfile("m4_bounded_readonly_sealed"),
++    };
++  }
++
++  // Non-M4 / W3A / other → contract_legacy binds the ONE Product
++  // generalist technical quartet (normal matching). Functional mission stays
++  // on ExecutionContract / cursorMissionPrompt — never agent types.
+   if (
+     !contract.action?.trim() ||
+     !contract.target?.trim() ||
+diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/w3aProductFixtureWiring.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/w3aProductFixtureWiring.ts
+index 352d9858..259b2b39 100644
+--- a/projects/sfia-studio/app/lib/vertical-slice-runtime/w3aProductFixtureWiring.ts
++++ b/projects/sfia-studio/app/lib/vertical-slice-runtime/w3aProductFixtureWiring.ts
+@@ -1,14 +1,20 @@
+ /**
+  * W3-A — BOUNDED deterministic fixture agent (Morris B2/B3 / B4).
+  *
+- * Fixture capabilities are DECLARED UP FRONT and independent of the contract.
+- * They must NOT be synthesized from EC criteria (that made sufficiency tautological).
+- * They must NOT shape EC action/target/scope.
++ * HISTORICAL / DETERMINISTIC SUBSTITUTE for Cursor on Product fixture path.
++ * NOT a Product task-category catalogue. NOT Pilot HOW choices.
+  *
+- * SUPPORTED (deterministic W3-A proof):
+- * - product:generate-temporary-artifact / cap:product-temp-artifact
+- * - product:simulate / cap:product-simulate
+- * - scopes: product:temporary-local-artifact, product:simulate-sandbox
++ * PJ-REPROOF-04: canonical Product execution is
++ *   ExecutionContract → cursorMissionPrompt → generalist Cursor.
++ * Fixture agent remains only for deterministic adapter_sync_fixture Attempts
++ * when REAL Cursor is off. Supported actions/capabilities are technical
++ * sufficiency declarations for the fixture adapter — not mission types.
++ *
++ * SUPPORTED (deterministic fixture sufficiency):
++ * - product:generate-temporary-artifact / cap:product-temp-artifact (HISTORICAL)
++ * - product:simulate / cap:product-simulate (HISTORICAL)
++ * - product:read / cap:product-read (HISTORICAL internal effect-control mapping)
++ * - scopes: product:temporary-local-artifact, product:simulate-sandbox, product:read-only
+  * - target: product:project-workspace
+  *
+  * UNSUPPORTED (must yield SC-CAP / no Attempt):
+@@ -21,6 +27,12 @@
+
+ import type { ProvenanceRecord } from "@/lib/oa/doctrine";
+ import type { AgentDescriptor } from "@/lib/oa/execution-attempt";
++import {
++  STUDIO_CURSOR_GENERALIST_ACTION,
++  STUDIO_CURSOR_GENERALIST_CAPABILITY,
++  STUDIO_CURSOR_GENERALIST_SCOPE,
++  STUDIO_CURSOR_GENERALIST_TARGET,
++} from "@/lib/oa/execution-attempt/infrastructure/studioCursorGeneralistAgent";
+ import { F3_RUNTIME_ADAPTER_ID } from "./f3FixtureWiring";
+
+ export const W3A_BOUNDED_FIXTURE_AGENT_ID = "agt:w3a-bounded-fixture" as const;
+@@ -29,20 +41,23 @@ export const W3A_BOUNDED_FIXTURE_AGENT_ID = "agt:w3a-bounded-fixture" as const;
+ export const W3A_FIXTURE_SUPPORTED_ACTIONS = [
+   "product:generate-temporary-artifact",
+   "product:simulate",
++  "product:read",
+ ] as const;
+
+ export const W3A_FIXTURE_SUPPORTED_CAPABILITIES = [
+   "cap:product-temp-artifact",
+   "cap:product-simulate",
++  "cap:product-read",
+ ] as const;
+
+ /** Must match W3A_PRODUCT_TARGET_WORKSPACE — duplicated to avoid @/features import. */
+ export const W3A_FIXTURE_STABLE_TARGET = "product:project-workspace" as const;
+
+-/** Must match W3A_PRODUCT_SCOPE TEMP_ARTIFACT / SIMULATE — no @/features import. */
++/** Must match W3A_PRODUCT_SCOPE TEMP_ARTIFACT / SIMULATE / READ — no @/features import. */
+ export const W3A_FIXTURE_ALLOWED_SCOPES = [
+   "product:temporary-local-artifact",
+   "product:simulate-sandbox",
++  "product:read-only",
+ ] as const;
+
+ function fixtureProvenance(nowIso: string): ProvenanceRecord {
+@@ -62,6 +77,11 @@ function fixtureProvenance(nowIso: string): ProvenanceRecord {
+
+ /**
+  * Bounded fixture AgentDescriptor — support declared independently of EC.
++ *
++ * PJ-REPROOF-04: also declares the ONE Studio generalist technical quartet so
++ * contract_legacy normal matching can select this fixture when REAL Cursor is
++ * off. Historical product:* tokens remain for adapter_sync_fixture semantics —
++ * they are NOT Product mission types and do NOT expand the generalist matcher.
+  */
+ export function createW3ABoundedFixtureAgentDescriptor(
+   nowIso = "2026-08-11T00:00:00.000Z",
+@@ -71,10 +91,22 @@ export function createW3ABoundedFixtureAgentDescriptor(
+     agentId: W3A_BOUNDED_FIXTURE_AGENT_ID,
+     agentType: "product_bounded_fixture",
+     adapterRef: F3_RUNTIME_ADAPTER_ID,
+-    supportedCapabilities: [...W3A_FIXTURE_SUPPORTED_CAPABILITIES],
+-    allowedActions: [...W3A_FIXTURE_SUPPORTED_ACTIONS],
+-    allowedTargets: [W3A_FIXTURE_STABLE_TARGET],
+-    allowedScopes: [...W3A_FIXTURE_ALLOWED_SCOPES],
++    supportedCapabilities: [
++      ...W3A_FIXTURE_SUPPORTED_CAPABILITIES,
++      STUDIO_CURSOR_GENERALIST_CAPABILITY,
++    ],
++    allowedActions: [
++      ...W3A_FIXTURE_SUPPORTED_ACTIONS,
++      STUDIO_CURSOR_GENERALIST_ACTION,
++    ],
++    allowedTargets: [
++      W3A_FIXTURE_STABLE_TARGET,
++      STUDIO_CURSOR_GENERALIST_TARGET,
++    ],
++    allowedScopes: [
++      ...W3A_FIXTURE_ALLOWED_SCOPES,
++      STUDIO_CURSOR_GENERALIST_SCOPE,
++    ],
+     trustLevel: "fixture",
+     executionMode: "adapter_sync_fixture",
+     healthStatus: "healthy",
+
+```
+
+---
+
+## 14. Complete tracked diff (project sources; excludes `.tmp-sfia-review`)
+
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01AttemptProfile.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01AttemptProfile.d0.test.ts
+index a0caf2d9..a89a6876 100644
+--- a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01AttemptProfile.d0.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01AttemptProfile.d0.test.ts
+@@ -16,6 +16,10 @@ import {
+   M4_BOUNDED_LOCAL_COMMIT_SCOPE,
+   M4_BOUNDED_LOCAL_COMMIT_TARGET,
+   resolveAttemptExecutionProfile,
++  STUDIO_CURSOR_GENERALIST_ACTION,
++  STUDIO_CURSOR_GENERALIST_CAPABILITY,
++  STUDIO_CURSOR_GENERALIST_SCOPE,
++  STUDIO_CURSOR_GENERALIST_TARGET,
+ } from "@/lib/oa/execution-attempt";
+
+ const NOW = "2026-09-11T20:00:00.000Z";
+@@ -290,7 +294,7 @@ describe("D-GCEC-AGENT-01 AttemptExecutionProfile AP", () => {
+     if (!r.ok) expect(r.reason).toMatch(/without_verified_pr_identity/);
+   });
+
+-  it("AP-14 non-M4 historical contract → contract_legacy still works", () => {
++  it("AP-14 non-M4 historical contract → contract_legacy generalist technical criteria", () => {
+     const r = resolveAttemptExecutionProfile({
+       contract: contract({
+         action: "fixture.action",
+@@ -307,6 +311,12 @@ describe("D-GCEC-AGENT-01 AttemptExecutionProfile AP", () => {
+     expect(r.ok).toBe(true);
+     if (!r.ok) return;
+     expect(r.profile.kind).toBe("contract_legacy");
++    expect(r.profile.criteria).toEqual({
++      requiredCapabilities: [STUDIO_CURSOR_GENERALIST_CAPABILITY],
++      action: STUDIO_CURSOR_GENERALIST_ACTION,
++      target: STUDIO_CURSOR_GENERALIST_TARGET,
++      scope: STUDIO_CURSOR_GENERALIST_SCOPE,
++    });
+   });
+
+   it("AP-16 validation-only M4 slice → fail closed", () => {
+diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx
+index e4c3d76d..934a8b64 100644
+--- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx
++++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx
+@@ -494,9 +494,7 @@ describe("CR-PCONT-05 TrajectorySurface post-execution recovery", () => {
+     );
+     await screen.findByTestId("w2-decision");
+
+-    fireEvent.change(screen.getByTestId("w3a-operation-kind"), {
+-      target: { value: "generate-temporary-artifact" },
+-    });
++    // PJ-REPROOF-04 — no Pilot HOW selection; Studio derives mission.
+     fireEvent.click(screen.getByTestId("w2-prepare-contract-sandbox"));
+     await screen.findByTestId("w2-contract");
+     fireEvent.click(screen.getByTestId("w2-inspect-contract"));
+diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
+index ae97f9c2..5d0680d6 100644
+--- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
++++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
+@@ -948,16 +948,23 @@ describe("W2 TrajectorySurface", () => {
+       },
+     });
+
+-    // Generic ProjectTrajectory decision — no sealed Proposal operation, so the
+-    // legacy sandbox qualification selector still owns the PREPARE affordance.
+-    expect(screen.getByTestId("w3a-qualify-execution-work")).toBeVisible();
++    // PJ-REPROOF-04 — no Pilot-facing technical operation dropdown.
++    expect(
++      screen.getByTestId("w3a-prepare-execution-from-decision"),
++    ).toBeVisible();
++    expect(screen.queryByTestId("w3a-operation-kind")).toBeNull();
++    expect(screen.queryByTestId("w3a-qualify-execution-work")).toBeNull();
+     expect(screen.queryByTestId("w2-proposal-backed-prepare")).toBeNull();
+     expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
+-    fireEvent.change(screen.getByTestId("w3a-operation-kind"), {
+-      target: { value: "generate-temporary-artifact" },
+-    });
+     fireEvent.click(screen.getByTestId("w2-prepare-contract-sandbox"));
+     expect(await screen.findByTestId("w2-contract")).toBeVisible();
++    expect(prepareContractMock).toHaveBeenCalledWith({
++      projectId: "prj:w2-ui",
++      decisionId: "dec:w2-ui",
++    });
++    expect(prepareContractMock.mock.calls[0][0]).not.toHaveProperty(
++      "qualifiedOperationKind",
++    );
+     expect(prepareM3Mock).not.toHaveBeenCalled();
+     expect(screen.getByTestId("w2-contract-action")).toHaveTextContent(
+       "product:generate-temporary-artifact",
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/w3aGovernedExecute.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/w3aGovernedExecute.test.ts
+index d8e589f9..1df6cbfc 100644
+--- a/projects/sfia-studio/app/__tests__/project-assistant/w3aGovernedExecute.test.ts
++++ b/projects/sfia-studio/app/__tests__/project-assistant/w3aGovernedExecute.test.ts
+@@ -475,6 +475,7 @@ describe("W3-A effects → authority / Confirmation", () => {
+     expect([...W3A_FIXTURE_ALLOWED_SCOPES]).toEqual([
+       W3A_PRODUCT_SCOPE.TEMP_ARTIFACT,
+       W3A_PRODUCT_SCOPE.SIMULATE,
++      W3A_PRODUCT_SCOPE.READ,
+     ]);
+     expect(W3A_FIXTURE_ALLOWED_SCOPES[0]).not.toContain("décider");
+   });
+@@ -639,7 +640,7 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
+     expect(terminal.realExecution).toBe(false);
+   });
+
+-  it("read → N1 · Confirmation NOT_REQUIRED marker · validated · SC-CAP (R15/R16)", async () => {
++  it("read → N1 · Confirmation NOT_REQUIRED marker · validated · fixture agent selectable (PJ-REPROOF-04)", async () => {
+     const ctx = await decideGoverned("read");
+     const context = await currentF2Context(ctx.runtime, ctx.seeded.projectId);
+     const prepared = await prepareExecutionContractFromW2Decision({
+@@ -682,9 +683,7 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
+     });
+     expect(authorized.ok).toBe(true);
+     if (!authorized.ok) return;
+-    // Fixture does not support read — truthful SC-CAP / executor insufficiency.
+-    expect(authorized.outcome).toBe("BLOCKED");
+-    expect(authorized.reasonCode).toMatch(/executor|capability|insufficient/i);
++    expect(authorized.outcome).toBe("AUTHORIZED");
+     const launchBefore = ctx.oa.fixtureAdapter.launchCallCount;
+     const selected = await governedExecuteSelectAgent({
+       oa: ctx.oa,
+@@ -692,7 +691,9 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
+       executionContractId,
+       forceLocalAuthority: true,
+     });
+-    expect(selected.ok).toBe(false);
++    expect(selected.ok).toBe(true);
++    if (!selected.ok) return;
++    expect(selected.selectedAgentRef).toBe(W3A_BOUNDED_FIXTURE_AGENT_ID);
+     expect(ctx.oa.fixtureAdapter.launchCallCount).toBe(launchBefore);
+   });
+
+diff --git a/projects/sfia-studio/app/e2e/studio-product-completion-integrated-proof.spec.ts b/projects/sfia-studio/app/e2e/studio-product-completion-integrated-proof.spec.ts
+index a102b96b..7001429b 100644
+--- a/projects/sfia-studio/app/e2e/studio-product-completion-integrated-proof.spec.ts
++++ b/projects/sfia-studio/app/e2e/studio-product-completion-integrated-proof.spec.ts
+@@ -146,10 +146,7 @@ async function decideTrajectoryUi(page: Page) {
+ }
+
+ async function prepareInspectConfirmAuthorize(page: Page) {
+-  await page
+-    .getByTestId("w3a-operation-kind")
+-    .selectOption("generate-temporary-artifact");
+-  await page.getByTestId("w2-prepare-contract-sandbox").click();
++    await page.getByTestId("w2-prepare-contract-sandbox").click();
+   await expect(page.getByTestId("w2-contract")).toBeVisible({
+     timeout: 45_000,
+   });
+@@ -605,10 +602,7 @@ test.describe("PC Integrated Proof — Product Completion final QA", () => {
+     );
+     await decideTrajectoryUi(page);
+
+-    await page
+-      .getByTestId("w3a-operation-kind")
+-      .selectOption("generate-temporary-artifact");
+-    await page.getByTestId("w2-prepare-contract-sandbox").click();
++        await page.getByTestId("w2-prepare-contract-sandbox").click();
+     await expect(page.getByTestId("w2-contract")).toBeVisible({
+       timeout: 45_000,
+     });
+diff --git a/projects/sfia-studio/app/e2e/studio-w2-g3-correction-runtime.spec.ts b/projects/sfia-studio/app/e2e/studio-w2-g3-correction-runtime.spec.ts
+index 562ff54c..8f4f2b59 100644
+--- a/projects/sfia-studio/app/e2e/studio-w2-g3-correction-runtime.spec.ts
++++ b/projects/sfia-studio/app/e2e/studio-w2-g3-correction-runtime.spec.ts
+@@ -164,11 +164,8 @@ test.describe("W2 final-closure /studio product correction proof", () => {
+
+     // --- W3-A current product invariant: qualify actual work before Prepare ---
+     // (stale W2 oracle remédiation — does not reopen W2; setup only)
+-    await expect(page.getByTestId("w3a-operation-kind")).toBeVisible();
+-    await page
+-      .getByTestId("w3a-operation-kind")
+-      .selectOption("generate-temporary-artifact");
+-    await expect(page.getByTestId("w2-prepare-contract-sandbox")).toBeEnabled();
++    await expect(page.getByTestId("w3a-prepare-execution-from-decision")).toBeVisible();
++        await expect(page.getByTestId("w2-prepare-contract-sandbox")).toBeEnabled();
+
+     // --- R02: prepare → inspect → material amend → block → reinspect → auth ---
+     await page.getByTestId("w2-prepare-contract-sandbox").click();
+diff --git a/projects/sfia-studio/app/e2e/studio-w3a-governed-execute-runtime.spec.ts b/projects/sfia-studio/app/e2e/studio-w3a-governed-execute-runtime.spec.ts
+index 3505b043..006e45c1 100644
+--- a/projects/sfia-studio/app/e2e/studio-w3a-governed-execute-runtime.spec.ts
++++ b/projects/sfia-studio/app/e2e/studio-w3a-governed-execute-runtime.spec.ts
+@@ -190,9 +190,16 @@ async function openQualifiedStudioProject(page: Page, name: string) {
+     throw new Error(`w2 propose failed: ${err}`);
+   }
+
+-  const decideButtons = page.locator("[data-testid^='w2-decide-']");
+-  await expect(decideButtons.first()).toBeVisible();
+-  await decideButtons.first().click();
++  const clarifyDecide = page.getByTestId(
++    "w2-decide-opt:trajectory:clarify-first",
++  );
++  if (await clarifyDecide.isVisible().catch(() => false)) {
++    await clarifyDecide.click();
++  } else {
++    const decideButtons = page.locator("[data-testid^='w2-decide-']");
++    await expect(decideButtons.first()).toBeVisible();
++    await decideButtons.first().click();
++  }
+   await expect(page.getByTestId("w2-decision")).toBeVisible({
+     timeout: 45_000,
+   });
+@@ -213,14 +220,11 @@ test.describe("W3-A R09 /studio governed execute product proof", () => {
+       state: "after_w2_decision",
+     });
+
+-    // Actual work qualification — not W2 trajectory alone.
+-    await expect(page.getByTestId("w3a-qualify-execution-work")).toBeVisible();
+-    await page
+-      .getByTestId("w3a-operation-kind")
+-      .selectOption("generate-temporary-artifact");
+-    await capture(page, "02-actual-work-qualified", {
++    // PJ-REPROOF-04 — Studio derives mission; no Pilot HOW dropdown.
++    await expect(page.getByTestId("w3a-prepare-execution-from-decision")).toBeVisible();
++    await capture(page, "02-mission-prepare-ready", {
+       screen: "TrajectorySurface",
+-      state: "actual_work_temp_artifact",
++      state: "prepare_from_decision",
+     });
+
+     await page.getByTestId("w2-prepare-contract-sandbox").click();
+@@ -230,25 +234,16 @@ test.describe("W3-A R09 /studio governed execute product proof", () => {
+
+     const actionText =
+       (await page.getByTestId("w2-contract-action").textContent()) ?? "";
+-    expect(actionText).toContain("product:generate-temporary-artifact");
+-    expect(actionText).not.toMatch(/trajectory-governed|trajectory-bounded/);
+-    await expect(page.getByTestId("w2-contract-authority")).toHaveText("N1");
+-    await expect(page.getByTestId("w2-contract-scope")).toHaveText(
+-      "product:temporary-local-artifact",
+-    );
++    // Internal effect control may be product:read for non-mutating mission —
++    // never a trajectory option string.
++    expect(actionText).not.toMatch(/trajectory-governed|trajectory-bounded|clarify-first/);
++    expect(actionText.length).toBeGreaterThan(0);
+     await expect(page.getByTestId("w2-contract-target")).toHaveText(
+       "product:project-workspace",
+     );
+-    await expect(page.getByTestId("w2-contract-status")).toHaveText(
+-      "Confirmation requise",
+-    );
+-    await expect(page.getByTestId("w2-contract-status")).toHaveAttribute(
+-      "data-status",
+-      "confirmation_required",
+-    );
+-    await expect(page.getByTestId("w2-contract-status-tech")).toHaveText(
+-      "confirmation_required",
+-    );
++    // Non-mutating mission may be validated (no Confirmation); mutating paths still confirmation_required.
++    const statusTech = (await page.getByTestId("w2-contract-status-tech").textContent()) ?? "";
++    expect(["validated", "confirmation_required", "confirmed"]).toContain(statusTech.trim());
+     await expect(page.getByTestId("w2-contract-reversibility")).toContainText(
+       "reversible",
+     );
+@@ -417,7 +412,6 @@ test.describe("W3-A R09 /studio governed execute product proof", () => {
+   }) => {
+     await openQualifiedStudioProject(page, "W3-A R09 Blocked No Work");
+     // Empty operation kind → Prepare disabled → no Execute → no Attempt.
+-    await page.getByTestId("w3a-operation-kind").selectOption("");
+     await expect(page.getByTestId("w2-prepare-contract-sandbox")).toBeDisabled();
+     await expect(page.getByTestId("w3a-governed-execute")).toHaveCount(0);
+     await expect(page.getByTestId("w3a-attempt")).toHaveCount(0);
+diff --git a/projects/sfia-studio/app/e2e/studio-w3b-terminal-evidence-runtime.spec.ts b/projects/sfia-studio/app/e2e/studio-w3b-terminal-evidence-runtime.spec.ts
+index 36c7d7e7..e463d9af 100644
+--- a/projects/sfia-studio/app/e2e/studio-w3b-terminal-evidence-runtime.spec.ts
++++ b/projects/sfia-studio/app/e2e/studio-w3b-terminal-evidence-runtime.spec.ts
+@@ -144,10 +144,7 @@ async function openThroughAuthorized(page: Page, name: string) {
+     timeout: 45_000,
+   });
+
+-  await page
+-    .getByTestId("w3a-operation-kind")
+-    .selectOption("generate-temporary-artifact");
+-  await page.getByTestId("w2-prepare-contract-sandbox").click();
++    await page.getByTestId("w2-prepare-contract-sandbox").click();
+   await expect(page.getByTestId("w2-contract")).toBeVisible({
+     timeout: 45_000,
+   });
+diff --git a/projects/sfia-studio/app/e2e/studio-w3c-post-evidence-replan-runtime.spec.ts b/projects/sfia-studio/app/e2e/studio-w3c-post-evidence-replan-runtime.spec.ts
+index c6c20e2f..23312026 100644
+--- a/projects/sfia-studio/app/e2e/studio-w3c-post-evidence-replan-runtime.spec.ts
++++ b/projects/sfia-studio/app/e2e/studio-w3c-post-evidence-replan-runtime.spec.ts
+@@ -91,10 +91,7 @@ async function openThroughAuthorized(page: Page, name: string) {
+     timeout: 45_000,
+   });
+
+-  await page
+-    .getByTestId("w3a-operation-kind")
+-    .selectOption("generate-temporary-artifact");
+-  await page.getByTestId("w2-prepare-contract-sandbox").click();
++    await page.getByTestId("w2-prepare-contract-sandbox").click();
+   await expect(page.getByTestId("w2-contract")).toBeVisible({
+     timeout: 45_000,
+   });
+diff --git a/projects/sfia-studio/app/e2e/studio-w4b-single-authority-path.spec.ts b/projects/sfia-studio/app/e2e/studio-w4b-single-authority-path.spec.ts
+index 0a71bcd8..79aebee0 100644
+--- a/projects/sfia-studio/app/e2e/studio-w4b-single-authority-path.spec.ts
++++ b/projects/sfia-studio/app/e2e/studio-w4b-single-authority-path.spec.ts
+@@ -193,10 +193,7 @@ test.describe("W4-B single authority path /studio", () => {
+       observation: "Single structural HumanDecision",
+     });
+
+-    await page
+-      .getByTestId("w3a-operation-kind")
+-      .selectOption("generate-temporary-artifact");
+-    await page.getByTestId("w2-prepare-contract-sandbox").click();
++        await page.getByTestId("w2-prepare-contract-sandbox").click();
+     await expect(page.getByTestId("w2-contract")).toBeVisible({ timeout: 45_000 });
+     await expect(page.getByTestId("w2-contract-status")).toHaveText(
+       "Confirmation requise",
+@@ -339,10 +336,7 @@ test.describe("W4-B single authority path /studio", () => {
+     await expect(page.getByTestId("w2-options")).toBeVisible({ timeout: 60_000 });
+     await page.locator("[data-testid^='w2-decide-']").first().click();
+     await expect(page.getByTestId("w2-decision")).toBeVisible({ timeout: 45_000 });
+-    await page
+-      .getByTestId("w3a-operation-kind")
+-      .selectOption("generate-temporary-artifact");
+-    await page.getByTestId("w2-prepare-contract-sandbox").click();
++        await page.getByTestId("w2-prepare-contract-sandbox").click();
+     await expect(page.getByTestId("w2-contract")).toBeVisible({ timeout: 45_000 });
+     // Authorize WITHOUT inspect → blocked
+     await page.getByTestId("w2-authorize-contract").click();
+diff --git a/projects/sfia-studio/app/e2e/studio-w4c-evidence-recovery-replan-product-experience.spec.ts b/projects/sfia-studio/app/e2e/studio-w4c-evidence-recovery-replan-product-experience.spec.ts
+index 614d2f88..6f856e73 100644
+--- a/projects/sfia-studio/app/e2e/studio-w4c-evidence-recovery-replan-product-experience.spec.ts
++++ b/projects/sfia-studio/app/e2e/studio-w4c-evidence-recovery-replan-product-experience.spec.ts
+@@ -89,10 +89,7 @@ async function openThroughAuthorized(page: Page, name: string) {
+     timeout: 45_000,
+   });
+
+-  await page
+-    .getByTestId("w3a-operation-kind")
+-    .selectOption("generate-temporary-artifact");
+-  await page.getByTestId("w2-prepare-contract-sandbox").click();
++    await page.getByTestId("w2-prepare-contract-sandbox").click();
+   await expect(page.getByTestId("w2-contract")).toBeVisible({
+     timeout: 45_000,
+   });
+diff --git a/projects/sfia-studio/app/e2e/studio-w4d-product-screens-visual-closure.spec.ts b/projects/sfia-studio/app/e2e/studio-w4d-product-screens-visual-closure.spec.ts
+index 64b6ed86..a00ea3e5 100644
+--- a/projects/sfia-studio/app/e2e/studio-w4d-product-screens-visual-closure.spec.ts
++++ b/projects/sfia-studio/app/e2e/studio-w4d-product-screens-visual-closure.spec.ts
+@@ -230,10 +230,7 @@ test.describe("W4-D product screens visual closure", () => {
+       observation: "HumanDecision visually distinct",
+     });
+
+-    await page
+-      .getByTestId("w3a-operation-kind")
+-      .selectOption("generate-temporary-artifact");
+-    await page.getByTestId("w2-prepare-contract-sandbox").click();
++        await page.getByTestId("w2-prepare-contract-sandbox").click();
+     await expect(page.getByTestId("w2-contract")).toBeVisible({ timeout: 45_000 });
+     await expect(page.getByTestId("w2-contract-status")).not.toHaveText(
+       "confirmation_required",
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+index 93c40e0d..31c8ca8e 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+@@ -156,9 +156,6 @@ function toInspectionDisclosureView(
+   };
+ }
+
+-/** Explicit Pilot-qualified operation — never inferred from W2 trajectory alone. */
+-type QualifiedOperationKind = "generate-temporary-artifact" | "simulate" | "read";
+-
+ type InspectionDisclosureView = {
+   readonly action: string;
+   readonly technicalTarget: string;
+@@ -354,8 +351,6 @@ export function TrajectorySurface({
+   const [postEvidence, setPostEvidence] =
+     useState<W3cPostEvidenceLoopDto | null>(null);
+   const [productEvidencePending, setProductEvidencePending] = useState(false);
+-  const [qualifiedOperationKind, setQualifiedOperationKind] =
+-    useState<QualifiedOperationKind | null>(null);
+   const [recoveryBinding, setRecoveryBinding] =
+     useState<RecoveryExecutionBinding | null>(null);
+
+@@ -924,13 +919,14 @@ export function TrajectorySurface({
+
+   const prepareContract = useCallback(async () => {
+     if (continuityMutationBlocked) return;
+-    if (!decision || !qualifiedOperationKind) return;
++    if (!decision) return;
+     setBusy("contract");
+     setError(null);
++    // PJ-REPROOF-04 — Studio derives ActualExecutionWork from durable context.
++    // Pilote never sends qualifiedOperationKind / technical HOW.
+     const result = await w2PrepareExecutionContractAction({
+       projectId,
+       decisionId: decision.decisionId,
+-      qualifiedOperationKind,
+     });
+     setBusy(null);
+     if (!result.ok) {
+@@ -973,7 +969,6 @@ export function TrajectorySurface({
+     continuityMutationBlocked,
+     decision,
+     projectId,
+-    qualifiedOperationKind,
+     onDurableFactsChanged,
+   ]);
+
+@@ -2233,62 +2228,19 @@ export function TrajectorySurface({
+           !recoveryDocsWritePrepareReady ? (
+           <div
+             className={styles.actions}
+-            data-testid="w3a-qualify-execution-work"
++            data-testid="w3a-prepare-execution-from-decision"
+           >
+             <p className={styles.blockNote}>
+-              Qualifier le travail d&apos;exécution réel (indépendant de
+-              l&apos;option de trajectoire déjà décidée).
++              Studio prépare le contrat d&apos;exécution à partir de la
++              décision et du contexte produit durable — sans choix technique
++              (lecture, simulation, artefact…).
+             </p>
+-            <label className={styles.amendmentLabel} htmlFor="w3a-operation-kind">
+-              Opération d&apos;exécution
+-            </label>
+-            <select
+-              id="w3a-operation-kind"
+-              className={styles.amendmentInput}
+-              data-testid="w3a-operation-kind"
+-              value={qualifiedOperationKind ?? ""}
+-              disabled={busy !== null || continuityMutationBlocked}
+-              onChange={(event) => {
+-                if (continuityMutationBlocked) return;
+-                const value = event.target.value;
+-                if (
+-                  value === "generate-temporary-artifact" ||
+-                  value === "simulate" ||
+-                  value === "read"
+-                ) {
+-                  setQualifiedOperationKind(value);
+-                  setContract(null);
+-                  setInspection(null);
+-                  setAuthorization(null);
+-                  setAttempt(null);
+-                  setAttemptPhase(null);
+-                } else {
+-                  setQualifiedOperationKind(null);
+-                }
+-              }}
+-            >
+-              <option value="">— Choisir —</option>
+-              <option value="generate-temporary-artifact">
+-                Générer un artefact temporaire local (réversible)
+-              </option>
+-              <option value="simulate">Simuler (sandbox)</option>
+-              <option value="read">Lecture seule</option>
+-            </select>
+             <button
+               type="button"
+               className={styles.primaryAction}
+               data-testid="w2-prepare-contract-sandbox"
+               onClick={() => void prepareContract()}
+-              disabled={
+-                busy !== null ||
+-                continuityMutationBlocked ||
+-                qualifiedOperationKind === null
+-              }
+-              title={
+-                qualifiedOperationKind === null
+-                  ? "Qualifier d'abord le travail d'exécution"
+-                  : undefined
+-              }
++              disabled={busy !== null || continuityMutationBlocked}
+             >
+               Préparer le contrat d&apos;exécution
+             </button>
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/actions.ts b/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
+index cafa61f8..66a6d75e 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
+@@ -344,8 +344,10 @@ export async function w2PrepareExecutionContractAction(input: {
+   projectId: string;
+   decisionId: string;
+   /**
+-   * Explicit Pilot/Nora operation kind. Required — W2 trajectory alone
+-   * never selects the execution action. Allowlisted server-side.
++   * PJ-REPROOF-04 — Product UI sends projectId + decisionId only.
++   * Studio derives ActualExecutionWork from durable Product context.
++   * Optional qualifiedOperationKind remains for tests/compat only; ignored
++   * when durable diagnostic derivation applies; hostile kinds fail closed.
+    */
+   qualifiedOperationKind?: unknown;
+   /** Hostile — ignored. */
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts b/projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts
+index 959bbec9..74d0db97 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts
+@@ -29,7 +29,10 @@ import type {
+   AuthorityVerificationBlockedReason,
+   ExecutionContract,
+ } from "@/lib/oa/execution-contract";
+-import { agentMatchViolation } from "@/lib/oa/execution-attempt";
++import {
++  agentMatchViolation,
++  resolveAttemptExecutionProfile,
++} from "@/lib/oa/execution-attempt";
+ import type { AgentRegistryPort } from "@/lib/oa/execution-attempt";
+ import { readContractInspectionState } from "./inspectExecutionContract";
+ import type {
+@@ -108,22 +111,40 @@ export function resolveConfirmationRequirement(
+
+ /**
+  * AgentCapability as a governance envelope: does any registered executor
+- * cover the contract's required capabilities and action/target/scope?
+- * Deny-by-default, reusing the OA agent match invariant.
++ * satisfy the SAME AttemptExecutionProfile criteria Select/Start use?
++ *
++ * PJ-REPROOF-04: canonical Product resolves to contract_legacy → generalist
++ * technical quartet (normal matching). GCEC progressive profiles keep exact
++ * specialized criteria. No global agentMatchViolation bypass.
+  */
+ export function evaluateAgentCapability(
+   registry: AgentRegistryPort,
+   contract: Pick<
+     ExecutionContract,
+-    "requiredCapabilities" | "action" | "target" | "scope"
++    | "executionContractId"
++    | "projectId"
++    | "requiredCapabilities"
++    | "action"
++    | "target"
++    | "scope"
++    | "evidenceRequirements"
++    | "expectedOutputs"
++    | "inputs"
+   >,
+ ): AgentCapabilitySufficiency {
+-  const criteria = {
+-    requiredCapabilities: [...contract.requiredCapabilities],
+-    action: contract.action,
+-    target: contract.target,
+-    scope: contract.scope,
+-  };
++  const profileResolved = resolveAttemptExecutionProfile({
++    contract: contract as ExecutionContract,
++    attempts: [],
++    evidence: [],
++  });
++  const criteria = profileResolved.ok
++    ? profileResolved.profile.criteria
++    : {
++        requiredCapabilities: [...contract.requiredCapabilities],
++        action: contract.action,
++        target: contract.target,
++        scope: contract.scope,
++      };
+   // Prefer findCandidates (deny-by-default port API) so contract-shaped
+   // fixture composition can adapt AFTER EC preparation (B4).
+   const candidates = registry.findCandidates(criteria);
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts b/projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts
+index 006de271..9005e978 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts
+@@ -26,12 +26,9 @@ import {
+   assertNotF3FixtureSemantics,
+   deriveW3AExecutionEnvelope,
+ } from "./w3aProductExecutionSemantics";
+-import {
+-  buildActualExecutionWork,
+-  isActualExecutionOperationKind,
+-  isHighRiskPolicyOnlyOperationKind,
+-  type ActualExecutionWork,
+-} from "./w3aActualExecutionWork";
++import { deriveActualExecutionWorkFromProductContext } from "./deriveActualExecutionWorkFromProductContext";
++import { resolvePostEvidenceRecoveryContext } from "./resolvePostEvidenceRecoveryContext";
++import type { ActualExecutionWork } from "./w3aActualExecutionWork";
+ import type { QualifiedExecutionEffects } from "./w3aQualifiedExecutionEffects";
+
+ export type PreparedExecutionContractDto = {
+@@ -150,9 +147,9 @@ export async function prepareExecutionContractFromW2Decision(input: {
+     { ok: true }
+   >;
+   /**
+-   * Explicit Pilot/Nora operation kind — REQUIRED for product path.
+-   * W2 trajectory alone never selects the execution action.
+-   * Hostile clients cannot invent kinds outside the allowlist.
++   * Optional compat / test operation kind. Product UI no longer sends this.
++   * When durable Product context yields a diagnostic mission, client kind is
++   * ignored. Hostile high-risk kinds fail closed.
+    */
+   readonly qualifiedOperationKind?: unknown;
+   /** Same product path — optional Nora/test-injected qualified effects. */
+@@ -354,37 +351,38 @@ export async function prepareExecutionContractFromW2Decision(input: {
+   // Note: cycleProfile is loaded for scrutiny/context only — NEVER for requiredAuthority.
+   void cycleBinding.cycleProfile;
+
+-  let actualWork = undefined;
++  let actualWork: ActualExecutionWork | undefined = undefined;
++  let mission:
++    | import("./deriveActualExecutionWorkFromProductContext").ProductMissionFields
++    | null = null;
++
+   if (!input.explicitEffects && !input.forceEffectsUnresolved) {
+-    // R15 — high-risk kinds are policy taxonomy only; reject before EC.
+-    if (isHighRiskPolicyOnlyOperationKind(input.qualifiedOperationKind)) {
+-      return {
+-        ok: false,
+-        code: "PREPARATION_BLOCKED",
+-        message:
+-          "Opération à risque non qualifiable depuis operationKind seul — ActualExecutionWork refuse push/write/commit/PR/merge/delete/doctrine/baseline sans facts produit.",
+-      };
+-    }
+-    if (!isActualExecutionOperationKind(input.qualifiedOperationKind)) {
++    const recovered = await resolvePostEvidenceRecoveryContext({
++      oa,
++      projectId: input.projectId,
++    });
++    if (!recovered.ok) {
+       return {
+         ok: false,
+-        code: "EFFECTS_UNRESOLVED",
+-        message:
+-          "Aucun travail d'exécution qualifié (operationKind) — W2 trajectory seule ne sélectionne pas l'action. Chemin canonique: read | simulate | generate-temporary-artifact.",
++        code: recovered.code,
++        message: recovered.message,
+       };
+     }
+-    const builtWork = buildActualExecutionWork({
+-      operationKind: input.qualifiedOperationKind,
++
++    const derived = deriveActualExecutionWorkFromProductContext({
+       projectId: input.projectId,
+       projectTitle,
+-      objective: projectObjective,
+-      qualificationSource:
+-        "studio.nora.actual-execution-work.from-explicit-operation-kind",
++      projectObjective,
++      basis,
++      selectedOptionRef,
++      recoveryContext: recovered.context,
++      clientOperationKind: input.qualifiedOperationKind,
+     });
+-    if ("ok" in builtWork && builtWork.ok === false) {
+-      return builtWork;
++    if (!derived.ok) {
++      return derived;
+     }
+-    actualWork = builtWork as ActualExecutionWork;
++    actualWork = derived.work;
++    mission = derived.mission;
+   }
+
+   const envelopeResult = deriveW3AExecutionEnvelope({
+@@ -398,6 +396,7 @@ export async function prepareExecutionContractFromW2Decision(input: {
+     actualWork,
+     explicitEffects: input.explicitEffects,
+     forceEffectsUnresolved: input.forceEffectsUnresolved,
++    mission,
+   });
+   if (!envelopeResult.ok) {
+     return envelopeResult;
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts b/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
+index 0aab77ab..5279492c 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
+@@ -237,8 +237,8 @@ export function deriveTrajectoryOptions(
+         intent:
+           "Approfondir le diagnostic du livrable et des preuves disponibles avant toute préparation d'une nouvelle tentative.",
+         impacts: [
+-          "Aucune préparation d'exécution à ce stade",
+-          "Nouvelle décision humaine requise après clarification",
++          "Préparation d'un contrat diagnostique possible (pas de relance automatique)",
++          "Nouvelle décision humaine requise avant toute nouvelle tentative d'exécution",
+           `stopReason: ${recovery.stopReason ?? "n/a"}`,
+         ],
+         reservations,
+@@ -284,7 +284,7 @@ export function deriveTrajectoryOptions(
+       intent:
+         "Lever les réserves, requalifier le cycle, puis réinstruire les options avant toute décision structurante.",
+       impacts: [
+-        "Aucune préparation d'exécution à ce stade",
++        "Préparation d'un contrat diagnostique possible (pas d'exécution automatique)",
+         "Nouvelle décision humaine requise après clarification",
+       ],
+       reservations,
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/w3aProductExecutionSemantics.ts b/projects/sfia-studio/app/features/project-assistant/w2/w3aProductExecutionSemantics.ts
+index fdec5bd0..601c2b69 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/w3aProductExecutionSemantics.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/w3aProductExecutionSemantics.ts
+@@ -16,6 +16,7 @@
+ import type { DecisionBasis } from "@/lib/oa/decision";
+ import type { AuthorityClass, Reversibility } from "@/lib/oa/execution-contract";
+ import { EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED } from "@/lib/oa/execution-contract";
++import type { ProductMissionFields } from "./deriveActualExecutionWorkFromProductContext";
+ import {
+   BOUNDED_OPTION_REF,
+   CLARIFY_OPTION_REF,
+@@ -112,6 +113,9 @@ function productStopConditions(basis: DecisionBasis): string[] {
+  *
+  * Requires ActualExecutionWork OR explicitEffects.
+  * W2 trajectory alone NEVER selects the execution action.
++ *
++ * PJ-REPROOF-04 — clarify-first IS preparable when Studio derived diagnostic
++ * ActualExecutionWork (or explicitEffects). The option remains provenance only.
+  */
+ export function deriveW3AExecutionEnvelope(input: {
+   readonly projectId: string;
+@@ -127,27 +131,34 @@ export function deriveW3AExecutionEnvelope(input: {
+   readonly explicitEffects?: QualifiedExecutionEffects;
+   /** Force unknown-effects fail-closed for negative proof. */
+   readonly forceEffectsUnresolved?: boolean;
++  /** Optional product mission overlay (durable WHAT — not HOW). */
++  readonly mission?: ProductMissionFields | null;
+ }):
+   | { readonly ok: true; readonly envelope: W3AExecutionEnvelope }
+   | EnvelopePrepareFailure {
+-  if (
+-    input.selectedOptionRef !== GOVERNED_OPTION_REF &&
+-    input.selectedOptionRef !== BOUNDED_OPTION_REF
+-  ) {
+-    if (input.selectedOptionRef === CLARIFY_OPTION_REF) {
+-      return {
+-        ok: false,
+-        code: "TRAJECTORY_NOT_EXECUTABLE",
+-        message:
+-          "Trajectoire « clarifier d'abord » — aucune préparation d'exécution autorisée.",
+-      };
+-    }
++  const optionAllowed =
++    input.selectedOptionRef === GOVERNED_OPTION_REF ||
++    input.selectedOptionRef === BOUNDED_OPTION_REF ||
++    input.selectedOptionRef === CLARIFY_OPTION_REF;
++  if (!optionAllowed) {
+     return {
+       ok: false,
+       code: "TRAJECTORY_NOT_EXECUTABLE",
+       message: `Option ${input.selectedOptionRef} — enveloppe d'exécution non préparable.`,
+     };
+   }
++  if (
++    input.selectedOptionRef === CLARIFY_OPTION_REF &&
++    !input.actualWork &&
++    !input.explicitEffects
++  ) {
++    return {
++      ok: false,
++      code: "EFFECTS_UNRESOLVED",
++      message:
++        "Clarifier d'abord exige un travail diagnostique dérivé du contexte produit — trajectoire seule insuffisante.",
++    };
++  }
+
+   if (input.forceEffectsUnresolved === true) {
+     return {
+@@ -259,13 +270,31 @@ export function deriveW3AExecutionEnvelope(input: {
+       : null;
+
+   const eb = input.basis.executionBasis;
+-  const expectedOutputs =
+-    effects.effectClass === "generate-temporary-artifact"
++  const mission = input.mission ?? null;
++  const expectedOutputs = mission
++    ? [...mission.expectedOutputs]
++    : effects.effectClass === "generate-temporary-artifact"
+       ? [W3B_TEMP_ARTIFACT_EO_TEMPLATE]
+       : eb.expectedOutcome
+         ? [eb.expectedOutcome]
+         : [`Résultat d'exécution — ${effects.effectClass}`];
+
++  const stopConditions = [
++    ...productStopConditions(input.basis),
++    ...(mission?.stopConditions ?? []),
++  ];
++  // De-dupe while preserving order
++  const stopSeen = new Set<string>();
++  const mergedStops = stopConditions.filter((s) => {
++    if (stopSeen.has(s)) return false;
++    stopSeen.add(s);
++    return true;
++  });
++
++  const evidenceRequirements = mission
++    ? [...new Set([...effects.evidenceRequirements, ...mission.evidenceRequirements])]
++    : [...effects.evidenceRequirements];
++
+   return {
+     ok: true,
+     envelope: {
+@@ -274,13 +303,18 @@ export function deriveW3AExecutionEnvelope(input: {
+       scope: effects.scopeIn,
+       requiredCapabilities: [...effects.requiredCapabilities],
+       requiredAuthority: authority.requiredAuthority,
+-      constraints: productConstraints(
+-        input.basis,
+-        effects,
+-        confirmationConstraint,
+-      ),
+-      stopConditions: productStopConditions(input.basis),
+-      evidenceRequirements: [...effects.evidenceRequirements],
++      constraints: [
++        ...productConstraints(input.basis, effects, confirmationConstraint),
++        ...(mission
++          ? [
++              "PRODUCT_MISSION_FROM_DURABLE_CONTEXT",
++              ...mission.scopeIn.map((s) => `MISSION_SCOPE_IN:${s}`),
++              ...mission.scopeOut.map((s) => `MISSION_SCOPE_OUT:${s}`),
++            ]
++          : []),
++      ],
++      stopConditions: mergedStops,
++      evidenceRequirements,
+       reversibility: reversibility.reversibility,
+       expectedOutputs,
+       effects,
+@@ -307,7 +341,7 @@ export function deriveW3AExecutionEnvelope(input: {
+           ? confirmationOk.level
+           : null,
+         implementationMarker: W3A_IMPLEMENTATION_MARKER,
+-        objective: eb.objective ?? input.projectObjective,
++        objective: mission?.objective ?? eb.objective ?? input.projectObjective,
+         cycleTypeId: eb.cycleTypeId,
+         recommendedProfile: eb.recommendedProfile,
+         sourceRef: input.basis.sourceRef,
+@@ -317,6 +351,19 @@ export function deriveW3AExecutionEnvelope(input: {
+         reversibilitySource: "EFFECTS_PLUS_ROLLBACK_FACTS",
+         morrisConstructionGateRequired: effects.morrisConstructionGateRequired,
+         qualificationSource: effects.provenance.qualificationSource,
++        cursorDeterminesHow: true,
++        ...(mission
++          ? {
++              sourcesToRead: [...mission.sourcesToRead],
++              diagnosticScopeIn: [...mission.scopeIn],
++              diagnosticScopeOut: [...mission.scopeOut],
++              recoveryAttemptId: mission.recoveryAttemptId,
++              recoveryEvidenceId: mission.recoveryEvidenceId,
++              recoveryReviewBundleId: mission.recoveryReviewBundleId,
++              recoveryExecutionContractId: mission.recoveryExecutionContractId,
++              productOutcome: mission.productOutcome,
++            }
++          : {}),
+       },
+     },
+   };
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts
+index 9b958fca..e971da91 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts
+@@ -219,6 +219,9 @@ export class SelectExecutionAgent {
+         return fail("AGENT_NOT_FOUND", "no_registry_candidate");
+       }
+       // Deterministic tie-break: agentId lexicographic (registry order).
++      // contract_legacy criteria bind ONLY the Product generalist (or fixture
++      // that declares the same technical quartet). Specialized GCEC agents do
++      // not match — no prefer-generalist exception required.
+       const proposedAgentRef = candidates[0].agentId;
+
+       let selectedAgentRef = request.requestedAgentRef ?? proposedAgentRef;
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
+index 8b504414..e60e8899 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
+@@ -33,8 +33,10 @@ import type {
+   ExecutionContractRepositoryPort,
+ } from "@/lib/oa/execution-contract";
+ import {
++  assertCursorPromptParityWithInspection,
+   computeExecutionContractSemanticFingerprint,
+   DEFAULT_BOUNDED_READ_ONLY_M3_EXECUTION_WINDOW_CLASS,
++  projectExecutionContractToCursorPrompt,
+   resolveExecutionWindowForStart,
+   type ResolvedExecutionWindow,
+ } from "@/lib/oa/execution-contract";
+@@ -1711,6 +1713,49 @@ export class StartExecution {
+       gitPrMergeSpec = builtMerge.spec;
+     }
+
++    // PJ-REPROOF-04 — EC → Cursor prompt projection at Start (server-side only).
++    // Exact durable contract + Attempt identity; no client-supplied prompt.
++    const repositoryRefForPrompt =
++      docsWriteSpec?.repositoryRef?.trim() ||
++      repositoryBindingIdentity?.trim() ||
++      (typeof (contract.inputs as Record<string, unknown> | undefined)
++        ?.repositoryRef === "string"
++        ? String(
++            (contract.inputs as Record<string, unknown>).repositoryRef,
++          ).trim()
++        : "") ||
++      null;
++    const missionProjection = projectExecutionContractToCursorPrompt({
++      contract,
++      attemptId: attempt.attemptId,
++      repositoryRef: repositoryRefForPrompt,
++      baseSha: baseHeadSha,
++      branch:
++        typeof (contract.inputs as Record<string, unknown> | undefined)
++          ?.workingBranch === "string"
++          ? String(
++              (contract.inputs as Record<string, unknown>).workingBranch,
++            ).trim() || null
++          : null,
++    });
++    const parity = assertCursorPromptParityWithInspection({
++      projection: missionProjection,
++    });
++    if (!parity.ok) {
++      return fail("ATTEMPT_INVALID", parity.code.toLowerCase(), {
++        executionContractId: contract.executionContractId,
++      });
++    }
++    if (
++      missionProjection.semanticFingerprint &&
++      missionProjection.semanticFingerprint !== fingerprint
++    ) {
++      return fail("ATTEMPT_INVALID", "prompt_fingerprint_drift", {
++        executionContractId: contract.executionContractId,
++      });
++    }
++    const cursorMissionPrompt = missionProjection.promptText;
++
+     let launch;
+     try {
+       launch = await this.realLaunchPort.launch({
+@@ -1726,6 +1771,7 @@ export class StartExecution {
+         target: contract.target,
+         scope: contract.scope,
+         timeoutMs: window.resolvedMaxDurationMs,
++        cursorMissionPrompt,
+         ...(docsWriteSpec ? { docsWriteSpec } : {}),
+         ...(gitCommitSpec ? { gitCommitSpec } : {}),
+         ...(gitPushSpec ? { gitPushSpec } : {}),
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/cursorExecutionReport.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/cursorExecutionReport.ts
+index 6e555b3b..c32da092 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/cursorExecutionReport.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/cursorExecutionReport.ts
+@@ -1,6 +1,11 @@
+ /**
+  * Product CursorExecutionReport — claim/report DTO (D-GCEC-11).
+  * NOT trusted Evidence. REAL and Fake MUST share this shape.
++ *
++ * PJ-REPROOF-04 — report identity triad:
++ *   reportId (independent)
++ *   executionContractId (exact contract executed)
++ *   attemptId (exact attempt producing report)
+  */
+ export const OA_CURSOR_EXECUTION_REPORT_SCHEMA =
+   "oa.cursor-execution-report.1" as const;
+@@ -66,6 +71,8 @@ export type CursorAuthorizedEffectId =
+
+ export type CursorExecutionReport = {
+   schemaVersion: typeof OA_CURSOR_EXECUTION_REPORT_SCHEMA;
++  /** Independent report identity — distinct from attemptId / executionContractId. */
++  reportId: string;
+   attemptId: string;
+   executionContractId: string;
+   repositoryRef: string;
+@@ -80,6 +87,17 @@ export type CursorExecutionReport = {
+   stoppedBeforeEffects?: CursorAuthorizedEffectId[];
+ };
+
++export function mintCursorExecutionReportId(input: {
++  readonly attemptId: string;
++  readonly executionContractId: string;
++}): string {
++  const safeAttempt = input.attemptId.replace(/[^a-zA-Z0-9:_-]/g, "").slice(-24);
++  const safeContract = input.executionContractId
++    .replace(/[^a-zA-Z0-9:_-]/g, "")
++    .slice(-24);
++  return `rpt:cursor:${safeContract}:${safeAttempt}`;
++}
++
+ export function isCursorExecutionReport(
+   value: unknown,
+ ): value is CursorExecutionReport {
+@@ -87,6 +105,8 @@ export function isCursorExecutionReport(
+   const v = value as Record<string, unknown>;
+   return (
+     v.schemaVersion === OA_CURSOR_EXECUTION_REPORT_SCHEMA &&
++    typeof v.reportId === "string" &&
++    (v.reportId as string).trim().length > 0 &&
+     typeof v.attemptId === "string" &&
+     typeof v.executionContractId === "string" &&
+     typeof v.repositoryRef === "string" &&
+@@ -106,3 +126,53 @@ export function parseCursorExecutionReport(
+   }
+   return { ok: true, report: raw };
+ }
++
++/**
++ * Fail-closed correspondence: report ↔ Attempt ↔ ExecutionContract.
++ * Does NOT treat report as Evidence.
++ */
++export function bindCursorExecutionReportToAttempt(input: {
++  readonly report: CursorExecutionReport;
++  readonly expectedAttemptId: string;
++  readonly expectedExecutionContractId: string;
++  /** Optional: Attempt's bound contract id when loaded from store. */
++  readonly attemptExecutionContractId?: string | null;
++}):
++  | { readonly ok: true }
++  | { readonly ok: false; readonly code: string; readonly message: string } {
++  const { report } = input;
++  if (!report.reportId?.trim()) {
++    return {
++      ok: false,
++      code: "REPORT_ID_REQUIRED",
++      message: "CursorExecutionReport.reportId requis.",
++    };
++  }
++  if (report.attemptId !== input.expectedAttemptId) {
++    return {
++      ok: false,
++      code: "REPORT_ATTEMPT_MISMATCH",
++      message: "report.attemptId ≠ Attempt courant.",
++    };
++  }
++  if (report.executionContractId !== input.expectedExecutionContractId) {
++    return {
++      ok: false,
++      code: "REPORT_CONTRACT_MISMATCH",
++      message: "report.executionContractId ≠ ExecutionContract courant.",
++    };
++  }
++  if (
++    input.attemptExecutionContractId != null &&
++    input.attemptExecutionContractId !== "" &&
++    input.attemptExecutionContractId !== report.executionContractId
++  ) {
++    return {
++      ok: false,
++      code: "REPORT_ATTEMPT_CONTRACT_MISMATCH",
++      message:
++        "Attempt.executionContractId ≠ report.executionContractId — correspondance refusée.",
++    };
++  }
++  return { ok: true };
++}
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts
+index 6ef10db7..91542613 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts
+@@ -28,6 +28,14 @@ export const M4_BOUNDED_PR_CREATE_CURSOR_AGENT_ID =
+ export const M4_BOUNDED_PR_MERGE_CURSOR_AGENT_ID =
+   "agt:m4.cursor.bounded_pr_merge" as const;
+
++/**
++ * PJ-REPROOF-04 — canonical Product Cursor executor.
++ * ONE identity for any ExecutionContract mission. Mission differences live in
++ * the EC prompt — not in agent-type / capability / profile routing.
++ */
++export const STUDIO_CURSOR_GENERALIST_AGENT_ID =
++  "agt:studio.cursor.generalist" as const;
++
+ export type RealLaunchReconcileDisposition =
+   | "CLEAR"
+   | "UNKNOWN"
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts
+index ce18901c..9443e0dc 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts
+@@ -20,6 +20,12 @@ import {
+   M4_BOUNDED_DOCS_WRITE_SCOPE,
+   M4_BOUNDED_DOCS_WRITE_TARGET,
+ } from "../infrastructure/m4BoundedDocsWriteCursorAgent";
++import {
++  M4_BOUNDED_RO_ACTION,
++  M4_BOUNDED_RO_CAPABILITY,
++  M4_BOUNDED_RO_SCOPE,
++  M4_BOUNDED_RO_TARGET,
++} from "../infrastructure/m4BoundedReadOnlyCursorAgent";
+ import {
+   M4_BOUNDED_LOCAL_COMMIT_ACTION,
+   M4_BOUNDED_LOCAL_COMMIT_CAPABILITY,
+@@ -44,6 +50,12 @@ import {
+   M4_BOUNDED_PR_MERGE_SCOPE,
+   M4_BOUNDED_PR_MERGE_TARGET,
+ } from "../infrastructure/m4BoundedPrMergeCursorAgent";
++import {
++  STUDIO_CURSOR_GENERALIST_ACTION,
++  STUDIO_CURSOR_GENERALIST_CAPABILITY,
++  STUDIO_CURSOR_GENERALIST_SCOPE,
++  STUDIO_CURSOR_GENERALIST_TARGET,
++} from "../infrastructure/studioCursorGeneralistAgent";
+ import type { CursorAuthorizedEffectId } from "./cursorExecutionReport";
+ import {
+   resolveVerifiedDocsWritePriorAttempt,
+@@ -66,6 +78,7 @@ export type AttemptExecutionProfileKind =
+   | "remote_push"
+   | "pr_create"
+   | "pr_merge"
++  | "read_only"
+   | "contract_legacy";
+
+ /** Non-persistent lineage facts for progressive profiles. */
+@@ -91,6 +104,7 @@ export type AttemptExecutionProfile = {
+     | "git.push"
+     | "github.pr.create"
+     | "github.pr.merge"
++    | "read_only"
+     | "contract_legacy";
+   /** Present when kind has verified prior lineage. */
+   readonly lineage?: AttemptExecutionProfileLineage;
+@@ -248,8 +262,13 @@ function prMergeProfile(
+   };
+ }
+
++/**
++ * PJ-REPROOF-04 — canonical Product profile.
++ * Technical executor binding ONLY (generic Cursor). Functional mission remains
++ * exclusively on ExecutionContract / cursorMissionPrompt — never agent types.
++ */
+ function contractLegacyProfile(
+-  contract: ResolveAttemptExecutionProfileInput["contract"],
++  _contract: ResolveAttemptExecutionProfileInput["contract"],
+   reason: string,
+ ): AttemptExecutionProfile {
+   return {
+@@ -257,10 +276,28 @@ function contractLegacyProfile(
+     effectClass: "contract_legacy",
+     reason,
+     criteria: {
+-      requiredCapabilities: [...(contract.requiredCapabilities ?? [])],
+-      action: contract.action,
+-      target: contract.target,
+-      scope: contract.scope,
++      requiredCapabilities: [STUDIO_CURSOR_GENERALIST_CAPABILITY],
++      action: STUDIO_CURSOR_GENERALIST_ACTION,
++      target: STUDIO_CURSOR_GENERALIST_TARGET,
++      scope: STUDIO_CURSOR_GENERALIST_SCOPE,
++    },
++  };
++}
++
++/**
++ * Historical sealed M4 RO GCEC path — exact specialized criteria.
++ * Must NOT fall through to Product generalist matching.
++ */
++function readOnlyProfile(reason: string): AttemptExecutionProfile {
++  return {
++    kind: "read_only",
++    effectClass: "read_only",
++    reason,
++    criteria: {
++      requiredCapabilities: [M4_BOUNDED_RO_CAPABILITY],
++      action: M4_BOUNDED_RO_ACTION,
++      target: M4_BOUNDED_RO_TARGET,
++      scope: M4_BOUNDED_RO_SCOPE,
+     },
+   };
+ }
+@@ -762,7 +799,20 @@ export function resolveAttemptExecutionProfile(
+     return { ok: false, reason: "attempt_profile_effect_not_supported" };
+   }
+
+-  // Non-M4 / RO / W3A / other → preserve historical contract quartet matching.
++  // Sealed historical M4 RO GCEC — exact specialized criteria (not generalist).
++  const isM4RoContract =
++    contract.action === M4_BOUNDED_RO_ACTION &&
++    (contract.requiredCapabilities ?? []).includes(M4_BOUNDED_RO_CAPABILITY);
++  if (isM4RoContract) {
++    return {
++      ok: true,
++      profile: readOnlyProfile("m4_bounded_readonly_sealed"),
++    };
++  }
++
++  // Non-M4 / W3A / other → contract_legacy binds the ONE Product
++  // generalist technical quartet (normal matching). Functional mission stays
++  // on ExecutionContract / cursorMissionPrompt — never agent types.
+   if (
+     !contract.action?.trim() ||
+     !contract.target?.trim() ||
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+index 934247b3..c9e7c1d9 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+@@ -192,6 +192,15 @@ export {
+   M4_BOUNDED_RO_TARGET,
+   M4_BOUNDED_RO_SCOPE,
+ } from "./infrastructure/m4BoundedReadOnlyCursorAgent";
++export {
++  createStudioCursorGeneralistAgentDescriptor,
++  isStudioCursorGeneralistAgent,
++  isStudioCursorGeneralistRealAgent,
++  STUDIO_CURSOR_GENERALIST_CAPABILITY,
++  STUDIO_CURSOR_GENERALIST_ACTION,
++  STUDIO_CURSOR_GENERALIST_TARGET,
++  STUDIO_CURSOR_GENERALIST_SCOPE,
++} from "./infrastructure/studioCursorGeneralistAgent";
+ export {
+   createM4BoundedDocsWriteCursorAgentDescriptor,
+   isM4BoundedDocsWriteRealAgent,
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts
+index 95946715..0229be55 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts
+@@ -59,6 +59,7 @@ import type {
+   CursorExecutionReport,
+   CursorGitEffectClaims,
+ } from "../domain/cursorExecutionReport";
++import { mintCursorExecutionReportId } from "../domain/cursorExecutionReport";
+ import {
+   FakeCursorGitExternalState,
+ } from "./fakeCursorGitExternalState";
+@@ -661,6 +662,10 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
+       const reason = err instanceof Error ? err.message : "fake_git_effect_failed";
+       const report: CursorExecutionReport = {
+         schemaVersion: "oa.cursor-execution-report.1",
++        reportId: mintCursorExecutionReportId({
++          attemptId: request.attemptId,
++          executionContractId: request.executionContractId,
++        }),
+         attemptId: request.attemptId,
+         executionContractId: request.executionContractId,
+         repositoryRef,
+@@ -738,6 +743,10 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
+
+     const report: CursorExecutionReport = {
+       schemaVersion: "oa.cursor-execution-report.1",
++      reportId: mintCursorExecutionReportId({
++        attemptId: request.attemptId,
++        executionContractId: request.executionContractId,
++      }),
+       attemptId: request.attemptId,
+       executionContractId: request.executionContractId,
+       repositoryRef,
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent.ts
+index c40903ea..67cfd2af 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent.ts
+@@ -88,11 +88,14 @@ export function isM4BoundedDocsWriteRealAgent(
+   );
+ }
+
+-/** REAL Cursor allowlist — RO | docs-write | local-commit | push | PR create | PR merge. */
++import { isStudioCursorGeneralistRealAgent } from "./studioCursorGeneralistAgent";
++
++/** REAL Cursor allowlist — generalist | RO | docs-write | local-commit | push | PR create | PR merge. */
+ export function isM4AuthorizedCursorRealAgent(
+   agent: AgentDescriptor,
+ ): boolean {
+   return (
++    isStudioCursorGeneralistRealAgent(agent) ||
+     isM4BoundedReadOnlyRealAgent(agent) ||
+     isM4BoundedDocsWriteRealAgent(agent) ||
+     isM4BoundedLocalCommitRealAgent(agent) ||
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
+index f84459d0..8db2943b 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
+@@ -873,36 +873,50 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
+         `scope=${request.scope ?? ""}`,
+         `fingerprint=${request.semanticFingerprint}`,
+       ].join("\n");
+-    } else {
++    } else if (
++      typeof request.cursorMissionPrompt === "string" &&
++      request.cursorMissionPrompt.trim().length > 0
++    ) {
++      // PJ-REPROOF-04 — generalist Cursor mission = authorized EC projection.
++      // Cursor determines HOW inside the contract; no mandatory step sequence.
++      // Product StartExecution always supplies this prompt for non-specialized agents.
+       instruction = [
+-        "TÂCHE UNIQUE — preuve read-only déterministe.",
+-        "Lire uniquement le fichier README.md à la racine du workspace.",
+-        "Ne modifier aucun fichier.",
+-        "Ne créer aucun fichier.",
+-        "Ne lancer aucune commande Shell.",
+-        "Ne faire aucune recherche récursive, Glob ou Grep.",
+-        "Ne consulter aucun autre fichier.",
+-        "Si README.md peut être lu, répondre exactement :",
+-        "M4_READ_ONLY_OK",
+-        "Si README.md ne peut pas être lu, répondre exactement :",
+-        "M4_READ_ONLY_UNAVAILABLE",
++        request.cursorMissionPrompt.trim(),
++        "",
++        `attemptId=${request.attemptId}`,
++        `executionContractId=${request.executionContractId}`,
++        `fingerprint=${request.semanticFingerprint}`,
+         `target=${request.target ?? ""}`,
+         `action=${request.action ?? ""}`,
+         `scope=${request.scope ?? ""}`,
++      ].join("\n");
++    } else {
++      // Fail-closed: StartExecution must project EC → cursorMissionPrompt.
++      // Historical M4 RO README probe removed from canonical Product path.
++      instruction = [
++        "STOP — aucune mission Cursor fournie (cursorMissionPrompt manquant).",
++        "Studio doit projeter ExecutionContract → prompt avant launch.",
++        `attemptId=${request.attemptId}`,
++        `executionContractId=${request.executionContractId}`,
+         `fingerprint=${request.semanticFingerprint}`,
+-        "Aucune mutation, aucun git remote/commit/push/PR/merge.",
++        `target=${request.target ?? ""}`,
++        `action=${request.action ?? ""}`,
++        `scope=${request.scope ?? ""}`,
+       ].join("\n");
+     }
+
+     // Full-capability native mode: --sandbox disabled --force (parity with Cursor CLI).
+-    // Docs-write + git mutation profiles: default agent mode (omit --mode ask).
+-    // RO: --mode ask. Capability does not depend on effect class.
++    // Docs-write + git mutation profiles + generalist mission prompt: agent mode.
++    const hasMissionPrompt =
++      typeof request.cursorMissionPrompt === "string" &&
++      request.cursorMissionPrompt.trim().length > 0;
+     const usesAgentMode =
+       isDocsWrite ||
+       isLocalCommitProfile ||
+       isRemotePushProfile ||
+       isPrCreateProfile ||
+-      isPrMergeProfile;
++      isPrMergeProfile ||
++      hasMissionPrompt;
+     const argv = usesAgentMode
+       ? [
+           "agent",
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts
+index a1e8dd1c..52f15a95 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts
+@@ -88,6 +88,13 @@ export type RealLaunchRequest = {
+    * Cursor profile (Attempt E). REAL merge not claimed executed in PATH B lot.
+    */
+   readonly gitPrMergeSpec?: GitPrMergeLaunchSpec;
++  /**
++   * PJ-REPROOF-04 — Cursor-consumable projection of the authorized ExecutionContract.
++   * When present, generic (non docs_write / non git-mutation) launches use this
++   * mission prompt instead of the hardcoded RO README probe.
++   * MUST preserve semantic parity with the inspected contract.
++   */
++  readonly cursorMissionPrompt?: string;
+   /** Optional Project binding identity (owner/repo) for workspace resolution. */
+   readonly repositoryBindingIdentity?: string;
+   /** Server-resolved absolute managed clone root (docs-write). */
+diff --git a/projects/sfia-studio/app/lib/oa/execution-contract/index.ts b/projects/sfia-studio/app/lib/oa/execution-contract/index.ts
+index 1fc7d1b9..4baedb0f 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-contract/index.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-contract/index.ts
+@@ -97,6 +97,13 @@ export {
+   type InspectionDisclosureProjectionResult,
+ } from "./projection/inspectionDisclosure";
+
++export {
++  projectExecutionContractToCursorPrompt,
++  assertCursorPromptParityWithInspection,
++  CURSOR_PROMPT_SHAPE_REFERENCE,
++  type CursorMissionPromptProjection,
++} from "./projection/projectExecutionContractToCursorPrompt";
++
+ export { MemoryExecutionContractStore } from "./infrastructure/memoryExecutionContractStore";
+ export { MemoryExecutionContractRepository } from "./infrastructure/memoryExecutionContractRepository";
+ export { MemoryInspectionAttestationRepository } from "./infrastructure/memoryInspectionAttestationRepository";
+diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+index 0cfac44a..f4f1fd7b 100644
+--- a/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
++++ b/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+@@ -35,6 +35,7 @@ import {
+ import {
+   createInMemoryExecutionAttemptServices,
+   createSqliteExecutionAttemptServices,
++  createStudioCursorGeneralistAgentDescriptor,
+   createM4BoundedReadOnlyCursorAgentDescriptor,
+   createM4BoundedDocsWriteCursorAgentDescriptor,
+   createM4BoundedLocalCommitCursorAgentDescriptor,
+@@ -445,6 +446,7 @@ function wireOaStack(
+     ? [
+         fixtureAgent,
+         w3aBoundedAgent,
++        createStudioCursorGeneralistAgentDescriptor(clock.nowIso()),
+         createM4BoundedReadOnlyCursorAgentDescriptor(clock.nowIso()),
+         createM4BoundedDocsWriteCursorAgentDescriptor(clock.nowIso()),
+         createM4BoundedLocalCommitCursorAgentDescriptor(clock.nowIso()),
+diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/w3aProductFixtureWiring.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/w3aProductFixtureWiring.ts
+index 352d9858..259b2b39 100644
+--- a/projects/sfia-studio/app/lib/vertical-slice-runtime/w3aProductFixtureWiring.ts
++++ b/projects/sfia-studio/app/lib/vertical-slice-runtime/w3aProductFixtureWiring.ts
+@@ -1,14 +1,20 @@
+ /**
+  * W3-A — BOUNDED deterministic fixture agent (Morris B2/B3 / B4).
+  *
+- * Fixture capabilities are DECLARED UP FRONT and independent of the contract.
+- * They must NOT be synthesized from EC criteria (that made sufficiency tautological).
+- * They must NOT shape EC action/target/scope.
++ * HISTORICAL / DETERMINISTIC SUBSTITUTE for Cursor on Product fixture path.
++ * NOT a Product task-category catalogue. NOT Pilot HOW choices.
+  *
+- * SUPPORTED (deterministic W3-A proof):
+- * - product:generate-temporary-artifact / cap:product-temp-artifact
+- * - product:simulate / cap:product-simulate
+- * - scopes: product:temporary-local-artifact, product:simulate-sandbox
++ * PJ-REPROOF-04: canonical Product execution is
++ *   ExecutionContract → cursorMissionPrompt → generalist Cursor.
++ * Fixture agent remains only for deterministic adapter_sync_fixture Attempts
++ * when REAL Cursor is off. Supported actions/capabilities are technical
++ * sufficiency declarations for the fixture adapter — not mission types.
++ *
++ * SUPPORTED (deterministic fixture sufficiency):
++ * - product:generate-temporary-artifact / cap:product-temp-artifact (HISTORICAL)
++ * - product:simulate / cap:product-simulate (HISTORICAL)
++ * - product:read / cap:product-read (HISTORICAL internal effect-control mapping)
++ * - scopes: product:temporary-local-artifact, product:simulate-sandbox, product:read-only
+  * - target: product:project-workspace
+  *
+  * UNSUPPORTED (must yield SC-CAP / no Attempt):
+@@ -21,6 +27,12 @@
+
+ import type { ProvenanceRecord } from "@/lib/oa/doctrine";
+ import type { AgentDescriptor } from "@/lib/oa/execution-attempt";
++import {
++  STUDIO_CURSOR_GENERALIST_ACTION,
++  STUDIO_CURSOR_GENERALIST_CAPABILITY,
++  STUDIO_CURSOR_GENERALIST_SCOPE,
++  STUDIO_CURSOR_GENERALIST_TARGET,
++} from "@/lib/oa/execution-attempt/infrastructure/studioCursorGeneralistAgent";
+ import { F3_RUNTIME_ADAPTER_ID } from "./f3FixtureWiring";
+
+ export const W3A_BOUNDED_FIXTURE_AGENT_ID = "agt:w3a-bounded-fixture" as const;
+@@ -29,20 +41,23 @@ export const W3A_BOUNDED_FIXTURE_AGENT_ID = "agt:w3a-bounded-fixture" as const;
+ export const W3A_FIXTURE_SUPPORTED_ACTIONS = [
+   "product:generate-temporary-artifact",
+   "product:simulate",
++  "product:read",
+ ] as const;
+
+ export const W3A_FIXTURE_SUPPORTED_CAPABILITIES = [
+   "cap:product-temp-artifact",
+   "cap:product-simulate",
++  "cap:product-read",
+ ] as const;
+
+ /** Must match W3A_PRODUCT_TARGET_WORKSPACE — duplicated to avoid @/features import. */
+ export const W3A_FIXTURE_STABLE_TARGET = "product:project-workspace" as const;
+
+-/** Must match W3A_PRODUCT_SCOPE TEMP_ARTIFACT / SIMULATE — no @/features import. */
++/** Must match W3A_PRODUCT_SCOPE TEMP_ARTIFACT / SIMULATE / READ — no @/features import. */
+ export const W3A_FIXTURE_ALLOWED_SCOPES = [
+   "product:temporary-local-artifact",
+   "product:simulate-sandbox",
++  "product:read-only",
+ ] as const;
+
+ function fixtureProvenance(nowIso: string): ProvenanceRecord {
+@@ -62,6 +77,11 @@ function fixtureProvenance(nowIso: string): ProvenanceRecord {
+
+ /**
+  * Bounded fixture AgentDescriptor — support declared independently of EC.
++ *
++ * PJ-REPROOF-04: also declares the ONE Studio generalist technical quartet so
++ * contract_legacy normal matching can select this fixture when REAL Cursor is
++ * off. Historical product:* tokens remain for adapter_sync_fixture semantics —
++ * they are NOT Product mission types and do NOT expand the generalist matcher.
+  */
+ export function createW3ABoundedFixtureAgentDescriptor(
+   nowIso = "2026-08-11T00:00:00.000Z",
+@@ -71,10 +91,22 @@ export function createW3ABoundedFixtureAgentDescriptor(
+     agentId: W3A_BOUNDED_FIXTURE_AGENT_ID,
+     agentType: "product_bounded_fixture",
+     adapterRef: F3_RUNTIME_ADAPTER_ID,
+-    supportedCapabilities: [...W3A_FIXTURE_SUPPORTED_CAPABILITIES],
+-    allowedActions: [...W3A_FIXTURE_SUPPORTED_ACTIONS],
+-    allowedTargets: [W3A_FIXTURE_STABLE_TARGET],
+-    allowedScopes: [...W3A_FIXTURE_ALLOWED_SCOPES],
++    supportedCapabilities: [
++      ...W3A_FIXTURE_SUPPORTED_CAPABILITIES,
++      STUDIO_CURSOR_GENERALIST_CAPABILITY,
++    ],
++    allowedActions: [
++      ...W3A_FIXTURE_SUPPORTED_ACTIONS,
++      STUDIO_CURSOR_GENERALIST_ACTION,
++    ],
++    allowedTargets: [
++      W3A_FIXTURE_STABLE_TARGET,
++      STUDIO_CURSOR_GENERALIST_TARGET,
++    ],
++    allowedScopes: [
++      ...W3A_FIXTURE_ALLOWED_SCOPES,
++      STUDIO_CURSOR_GENERALIST_SCOPE,
++    ],
+     trustLevel: "fixture",
+     executionMode: "adapter_sync_fixture",
+     healthStatus: "healthy",
+
+```
+
+---
+
+## 15. New untracked source files (diff vs /dev/null)
+
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/pjReproof04.executionContractSemanticBridge.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/pjReproof04.executionContractSemanticBridge.d0.test.ts
+new file mode 100644
+index 00000000..5251763c
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/project-assistant/pjReproof04.executionContractSemanticBridge.d0.test.ts
+@@ -0,0 +1,913 @@
++// @vitest-environment node
++/**
++ * PJ-REPROOF-04 — ONE generic Cursor executor for canonical Product path.
++ *
++ * Acceptance:
++ * 1. Non-mutating EC → generalist → StartExecution → cursorMissionPrompt
++ * 2. Mutating EC → SAME generalist → StartExecution → cursorMissionPrompt
++ * 3. Novel future EC → SAME generalist, no registry/capability change
++ *
++ * NEW TASK = NEW ExecutionContract ONLY.
++ */
++import { afterEach, beforeEach, describe, expect, it } from "vitest";
++import { mkdtempSync } from "node:fs";
++import os from "node:os";
++import path from "node:path";
++import { prepareExecutionContractFromW2Decision } from "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision";
++import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
++import { proposeTrajectoryOptions } from "@/features/project-assistant/w2/proposeTrajectoryOptions";
++import { resolveW2QualificationInputs } from "@/features/project-assistant/w2/qualificationInputs";
++import { CLARIFY_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
++import {
++  assertCursorPromptParityWithInspection,
++  projectExecutionContractToCursorPrompt,
++  CURSOR_PROMPT_SHAPE_REFERENCE,
++} from "@/lib/oa/execution-contract";
++import {
++  agentMatchViolation,
++  assertStudioCursorRealOffForTests,
++  bindCursorExecutionReportToAttempt,
++  createM4BoundedDocsWriteCursorAgentDescriptor,
++  createM4BoundedLocalCommitCursorAgentDescriptor,
++  createM4BoundedPrCreateCursorAgentDescriptor,
++  createM4BoundedPrMergeCursorAgentDescriptor,
++  createM4BoundedRemotePushCursorAgentDescriptor,
++  createM4BoundedReadOnlyCursorAgentDescriptor,
++  createStudioCursorGeneralistAgentDescriptor,
++  createTestExecutionAttemptServices,
++  M4_BOUNDED_DOCS_WRITE_ACTION,
++  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
++  M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
++  M4_BOUNDED_DOCS_WRITE_SCOPE,
++  M4_BOUNDED_DOCS_WRITE_TARGET,
++  M4_BOUNDED_LOCAL_COMMIT_ACTION,
++  M4_BOUNDED_LOCAL_COMMIT_CAPABILITY,
++  M4_BOUNDED_LOCAL_COMMIT_SCOPE,
++  M4_BOUNDED_LOCAL_COMMIT_TARGET,
++  M4_BOUNDED_PR_CREATE_ACTION,
++  M4_BOUNDED_PR_CREATE_CAPABILITY,
++  M4_BOUNDED_PR_CREATE_SCOPE,
++  M4_BOUNDED_PR_CREATE_TARGET,
++  M4_BOUNDED_PR_MERGE_ACTION,
++  M4_BOUNDED_PR_MERGE_CAPABILITY,
++  M4_BOUNDED_PR_MERGE_SCOPE,
++  M4_BOUNDED_PR_MERGE_TARGET,
++  M4_BOUNDED_REMOTE_PUSH_ACTION,
++  M4_BOUNDED_REMOTE_PUSH_CAPABILITY,
++  M4_BOUNDED_REMOTE_PUSH_SCOPE,
++  M4_BOUNDED_REMOTE_PUSH_TARGET,
++  M4_BOUNDED_RO_ACTION,
++  M4_BOUNDED_RO_CAPABILITY,
++  M4_BOUNDED_RO_SCOPE,
++  M4_BOUNDED_RO_TARGET,
++  mintCursorExecutionReportId,
++  parseCursorExecutionReport,
++  resolveAttemptExecutionProfile,
++  SqliteRealLaunchSafetyJournal,
++  STUDIO_CURSOR_GENERALIST_AGENT_ID,
++  STUDIO_CURSOR_GENERALIST_ACTION,
++  STUDIO_CURSOR_GENERALIST_CAPABILITY,
++  STUDIO_CURSOR_GENERALIST_SCOPE,
++  STUDIO_CURSOR_GENERALIST_TARGET,
++  TestExecutionAdapter,
++  type CursorExecutionReport,
++} from "@/lib/oa/execution-attempt";
++import { setConversationProviderForTests } from "@/lib/platform/ai";
++import type { ExecutionContract } from "@/lib/oa/execution-contract";
++import {
++  bootW2Runtime,
++  cleanupW2TempDirs,
++  currentF2Context,
++  seedQualifiedProject,
++  tempProductDbPath,
++} from "./w2Harness";
++import {
++  MORRIS_ACTOR,
++  NOW,
++  baseBuildRequest,
++  buildStack,
++  grantContractConfirmation,
++  registerMorris,
++  seedAcceptedDecision,
++  seedProject,
++  seedStandardCycle,
++  selectStandardAgent,
++} from "../oa/execution-attempt/helpers";
++import {
++  M4_EVIDENCE,
++  M4_TEST_BASE_HEAD_SHA,
++  m4ContractInputs,
++} from "../oa/execution-attempt/support/m4Fixtures";
++import { TestOnlyRealExecutionLaunchPort } from "../oa/execution-attempt/support/testOnlyRealExecutionLaunchPort";
++
++beforeEach(() => {
++  process.env.OPS1_CONVERSATION_PROVIDER = "fake";
++  setConversationProviderForTests(null);
++  assertStudioCursorRealOffForTests();
++});
++
++afterEach(() => {
++  cleanupW2TempDirs();
++  assertStudioCursorRealOffForTests();
++});
++
++async function startWithGeneralist(input: {
++  readonly executionContractId: string;
++  readonly attemptId: string;
++  readonly grantId: string;
++  readonly action: string;
++  readonly target: string;
++  readonly scope: string;
++  readonly requiredCapabilities: readonly string[];
++  readonly objective: string;
++  readonly inputsExtra?: Record<string, unknown>;
++  readonly stopConditions?: readonly string[];
++  readonly expectedOutputs?: readonly string[];
++  readonly evidenceRequirements?: readonly string[];
++  readonly constraints?: readonly string[];
++}): Promise<{
++  readonly launchPort: TestOnlyRealExecutionLaunchPort;
++  readonly selectedAgentRef: string;
++  readonly prompt: string;
++  readonly contractId: string;
++  readonly fingerprint: string;
++}> {
++  const dir = mkdtempSync(path.join(os.tmpdir(), "pj-reproof04-gen-"));
++  const journal = new SqliteRealLaunchSafetyJournal({
++    databasePath: path.join(dir, "safety.sqlite"),
++  });
++  const launchPort = new TestOnlyRealExecutionLaunchPort();
++  const generalist = createStudioCursorGeneralistAgentDescriptor(NOW);
++  const fixtureAdapter = new TestExecutionAdapter();
++  const stack = buildStack({ agents: [generalist], adapter: fixtureAdapter });
++  stack.attempts = createTestExecutionAttemptServices({
++    decisionServices: stack.decisions,
++    executionContractServices: stack.execution,
++    agents: [generalist],
++    adapter: fixtureAdapter,
++    realBoundary: { launchPort, safetyJournal: journal },
++    fixedNowIso: NOW,
++  }) as typeof stack.attempts;
++
++  await seedProject(stack.projects);
++  registerMorris(stack.decisions.authority, input.scope, M4_EVIDENCE);
++  await seedAcceptedDecision(stack);
++  await seedStandardCycle(stack);
++
++  const built = await stack.execution.buildExecutionContract.execute(
++    baseBuildRequest({
++      cycleInstanceId: "cyc:std-001",
++      executionContractId: input.executionContractId,
++      idempotencyKey: `idem:${input.executionContractId}`,
++      action: input.action,
++      target: input.target,
++      scope: input.scope,
++      requiredCapabilities: [...input.requiredCapabilities],
++      authorityEvidenceId: M4_EVIDENCE,
++      stopConditions: [
++        ...(input.stopConditions ?? [
++          "PROTECTED_EFFECT_OUTSIDE_AUTHORIZED_CONTRACT",
++        ]),
++      ],
++      expectedOutputs: [
++        ...(input.expectedOutputs ?? ["Résultat de mission Cursor"]),
++      ],
++      evidenceRequirements: [
++        ...(input.evidenceRequirements ?? [
++          "evreq:mission-result-for-nora-reevaluation",
++        ]),
++      ],
++      ...(input.constraints && input.constraints.length > 0
++        ? { constraints: [...input.constraints] }
++        : {}),
++      inputs: {
++        ...m4ContractInputs(),
++        objective: input.objective,
++        ...input.inputsExtra,
++      },
++    }),
++  );
++  if (!built.ok) {
++    throw new Error(
++      `build failed: ${built.error.detailCode} ${built.error.internalCauseRef ?? ""} ${built.error.message}`,
++    );
++  }
++  expect(built.ok).toBe(true);
++
++  const validated = await stack.execution.validateExecutionContract.execute({
++    executionContractId: built.contract.executionContractId,
++    actor: MORRIS_ACTOR,
++    authorityEvidenceId: M4_EVIDENCE,
++  });
++  expect(validated.ok).toBe(true);
++  if (!validated.ok) throw new Error("validate failed");
++
++  const confirmationId = await grantContractConfirmation(stack, {
++    scope: input.scope,
++    evidenceId: M4_EVIDENCE,
++  });
++  const confirmed = await stack.execution.confirmExecutionContract.execute({
++    executionContractId: validated.contract.executionContractId,
++    confirmationId,
++    actor: MORRIS_ACTOR,
++    authorityEvidenceId: M4_EVIDENCE,
++    expectedVersion: validated.contract.version,
++  });
++  expect(confirmed.ok).toBe(true);
++  if (!confirmed.ok) throw new Error("confirm failed");
++
++  // Prefer automatic generalist selection (no specialized M4 RO request).
++  const selected = await selectStandardAgent(stack, {
++    attemptId: input.attemptId,
++    executionContractId: confirmed.contract.executionContractId,
++    authorityEvidenceId: M4_EVIDENCE,
++    // omit requestedAgentRef — Select binds generalist via contract_legacy criteria
++  });
++  expect(selected.ok).toBe(true);
++  if (!selected.ok) throw new Error("select failed");
++  expect(selected.attempt.selectedAgentRef).toBe(
++    STUDIO_CURSOR_GENERALIST_AGENT_ID,
++  );
++
++  const granted = await stack.attempts.grantRealExecutionGate!.execute({
++    grantId: input.grantId,
++    attemptId: input.attemptId,
++    actor: MORRIS_ACTOR,
++    expiresAt: "2026-07-25T07:00:00.000Z",
++    authorityEvidenceId: M4_EVIDENCE,
++  });
++  expect(granted.ok).toBe(true);
++
++  const started = await stack.attempts.startExecution.execute({
++    attemptId: input.attemptId,
++    actor: MORRIS_ACTOR,
++    authorityEvidenceId: M4_EVIDENCE,
++  });
++  expect(started.ok).toBe(true);
++  if (!started.ok) throw new Error("start failed");
++  expect(launchPort.calls).toHaveLength(1);
++  const prompt = launchPort.calls[0]!.cursorMissionPrompt ?? "";
++  expect(prompt.length).toBeGreaterThan(0);
++  journal.close();
++  return {
++    launchPort,
++    selectedAgentRef: selected.attempt.selectedAgentRef!,
++    prompt,
++    contractId: confirmed.contract.executionContractId,
++    fingerprint: confirmed.contract.semanticFingerprint ?? "",
++  };
++}
++
++describe("A — coverage + no Pilot HOW", () => {
++  it("template axes mapped; clarify prepare without operationKind", async () => {
++    expect(CURSOR_PROMPT_SHAPE_REFERENCE).toContain(
++      "sfia-cycle-execution-template.md",
++    );
++    const db = tempProductDbPath("pj-reproof04-gen-prep.sqlite");
++    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "pjgen" });
++    const seeded = await seedQualifiedProject(runtime, { suffix: "gen" });
++    const oa = runtime.oa!;
++    const qualification = await resolveW2QualificationInputs({
++      oa,
++      projectId: seeded.projectId,
++    });
++    expect(qualification.ok).toBe(true);
++    if (!qualification.ok) throw new Error("qual");
++    const proposed = await proposeTrajectoryOptions({
++      oa,
++      projectId: seeded.projectId,
++      ...qualification.qualification.inputs,
++      packagePin: qualification.qualification.packagePin,
++      objective: qualification.qualification.objective,
++      projectTitle: qualification.qualification.projectTitle,
++    });
++    expect(proposed.ok).toBe(true);
++    if (!proposed.ok) throw new Error("propose");
++    const decided = await decideTrajectory({
++      oa,
++      projectId: seeded.projectId,
++      optionSetRef: proposed.optionSetRef,
++      options: proposed.options,
++      recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
++      selectedOptionRef: CLARIFY_OPTION_REF,
++      trajectoryId: proposed.proposedTrajectory!.trajectoryId,
++      candidateVersion: proposed.proposedTrajectory!.version,
++      forceLocalAuthority: true,
++    });
++    expect(decided.ok).toBe(true);
++    if (!decided.ok) throw new Error("decide");
++    const prepared = await prepareExecutionContractFromW2Decision({
++      oa,
++      projectId: seeded.projectId,
++      decisionId: decided.decision.decisionId,
++      currentContext: await currentF2Context(runtime, seeded.projectId),
++      forceLocalAuthority: true,
++    });
++    expect(prepared.ok).toBe(true);
++    if (!prepared.ok) throw new Error(prepared.code);
++    expect(prepared.attemptCreated).toBe(false);
++    expect(prepared.contract.constraints).toContain(
++      "PRODUCT_MISSION_FROM_DURABLE_CONTEXT",
++    );
++  });
++});
++
++describe("Acceptance 1 — non-mutating via generic Cursor executor", () => {
++  it("analyse mission → agt:studio.cursor.generalist → StartExecution prompt", async () => {
++    const objective =
++      "Analyser les faits projet et diagnostiquer les preuves manquantes";
++    const r = await startWithGeneralist({
++      executionContractId: "xct:pj-reproof04:analyse",
++      attemptId: "xat:pj-reproof04:analyse",
++      grantId: "gd:pj-reproof04:analyse",
++      action: "product:analyse-facts",
++      target: "product:current-project",
++      scope: "product:mission-read-perimeter",
++      requiredCapabilities: ["cap:product-analyse"],
++      objective,
++      inputsExtra: {
++        sourcesToRead: ["product:current-project-facts"],
++        diagnosticScopeIn: ["product:current-project-facts"],
++        diagnosticScopeOut: ["DURABLE_PROJECT_WRITE", "GIT_PUSH"],
++      },
++      stopConditions: [
++        "PROTECTED_EFFECT_OUTSIDE_AUTHORIZED_CONTRACT",
++        "NO_AUTOMATIC_RELAUNCH",
++      ],
++    });
++    expect(r.selectedAgentRef).toBe(STUDIO_CURSOR_GENERALIST_AGENT_ID);
++    expect(r.prompt).toContain(objective);
++    expect(r.prompt).toContain(r.contractId);
++    expect(r.prompt).toContain("xat:pj-reproof04:analyse");
++    expect(r.prompt).toContain(r.fingerprint);
++    expect(r.prompt).toContain("PROTECTED_EFFECT_OUTSIDE_AUTHORIZED_CONTRACT");
++    expect(r.prompt).toContain("Cursor détermine le HOW");
++    expect(r.prompt).not.toMatch(/first read, then write, then commit/i);
++    expect(r.launchPort.calls[0]!.selectedAgentRef).toBe(
++      STUDIO_CURSOR_GENERALIST_AGENT_ID,
++    );
++    expect(r.launchPort.calls[0]!.baseHeadSha).toBe(M4_TEST_BASE_HEAD_SHA);
++  });
++});
++
++describe("Acceptance 2 — mutating via SAME generic Cursor executor", () => {
++  it("local docs mutation mission → same generalist; no docs_write/commit agent", async () => {
++    const objective =
++      "Modifier docs/notes.md dans le périmètre et valider le résultat";
++    const r = await startWithGeneralist({
++      executionContractId: "xct:pj-reproof04:mutate",
++      attemptId: "xat:pj-reproof04:mutate",
++      grantId: "gd:pj-reproof04:mutate",
++      action: "product:local-docs-mutation",
++      target: "product:current-project",
++      scope: "product:mission-local-mutation",
++      requiredCapabilities: ["cap:product-local-mutation"],
++      objective,
++      inputsExtra: {
++        sourcesToRead: ["docs/notes.md"],
++        diagnosticScopeIn: ["docs/notes.md", "path:docs/"],
++        diagnosticScopeOut: ["GIT_PUSH", "GIT_PR", "GIT_MERGE"],
++        filesToModify: ["docs/notes.md"],
++      },
++      constraints: [
++        "SCOPE_OUT:GIT_PUSH",
++        "SCOPE_OUT:GIT_PR",
++        "SCOPE_OUT:GIT_MERGE",
++      ],
++      stopConditions: [
++        "PROTECTED_EFFECT_OUTSIDE_AUTHORIZED_CONTRACT",
++        "NO_REMOTE_GIT",
++      ],
++      expectedOutputs: ["docs/notes.md mis à jour"],
++    });
++    expect(r.selectedAgentRef).toBe(STUDIO_CURSOR_GENERALIST_AGENT_ID);
++    expect(r.selectedAgentRef).not.toContain("docs_write");
++    expect(r.selectedAgentRef).not.toContain("local_commit");
++    expect(r.selectedAgentRef).not.toContain("bounded_readonly");
++    expect(r.prompt).toContain(objective);
++    expect(r.prompt).toContain("docs/notes.md");
++    expect(r.prompt).toMatch(/GIT_PUSH|push/i);
++    expect(r.prompt).toContain("Cursor détermine le HOW");
++    expect(r.launchPort.calls[0]!.selectedAgentRef).toBe(
++      STUDIO_CURSOR_GENERALIST_AGENT_ID,
++    );
++    expect(r.launchPort.calls[0]!.action).toBe("product:local-docs-mutation");
++  });
++});
++
++describe("Acceptance 3 — novel future task = new EC only", () => {
++  it("arbitrary unknown objective launches via same generalist without registry change", async () => {
++    const objective =
++      "Inventaire des réserves LPS jamais vu par le runtime — mission ad hoc 2026-Q4";
++    const r = await startWithGeneralist({
++      executionContractId: "xct:pj-reproof04:novel-future",
++      attemptId: "xat:pj-reproof04:novel-future",
++      grantId: "gd:pj-reproof04:novel-future",
++      action: "product:novel-lps-inventory",
++      target: "product:current-project",
++      scope: "product:novel-mission-2026q4",
++      requiredCapabilities: ["cap:product-novel-never-registered"],
++      objective,
++      inputsExtra: {
++        sourcesToRead: ["product:lps"],
++        diagnosticScopeIn: ["product:lps", "product:reservations"],
++        diagnosticScopeOut: ["GIT_MERGE", "doctrine-promotion"],
++      },
++    });
++    expect(r.selectedAgentRef).toBe(STUDIO_CURSOR_GENERALIST_AGENT_ID);
++    expect(r.prompt).toContain(objective);
++    expect(r.prompt).toContain("xct:pj-reproof04:novel-future");
++    // Same shapeReference / executor — no new operationKind or agent type.
++    const projection = projectExecutionContractToCursorPrompt({
++      contract: {
++        schemaVersion: "oa.execution-contract.0.2.0",
++        executionContractId: r.contractId,
++        projectId: "prj:demo",
++        version: 1,
++        status: "confirmed",
++        action: "product:novel-lps-inventory",
++        target: "product:current-project",
++        scope: "product:novel-mission-2026q4",
++        requiredAuthority: "N1",
++        constraints: [],
++        stopConditions: ["PROTECTED_EFFECT_OUTSIDE_AUTHORIZED_CONTRACT"],
++        requiredCapabilities: ["cap:product-novel-never-registered"],
++        reversibility: "reversible",
++        semanticFingerprint: r.fingerprint,
++        expectedOutputs: ["Résultat"],
++        evidenceRequirements: ["evreq:mission-result-for-nora-reevaluation"],
++        inputs: { objective },
++      } as unknown as ExecutionContract,
++      attemptId: "xat:pj-reproof04:novel-future",
++    });
++    expect(projection.shapeReference).toBe(CURSOR_PROMPT_SHAPE_REFERENCE);
++    expect(
++      assertCursorPromptParityWithInspection({ projection }).ok,
++    ).toBe(true);
++  });
++});
++
++describe("E/F — report identity triad", () => {
++  it("reportId + attemptId + executionContractId; mismatch fails closed", () => {
++    const attemptId = "xat:1";
++    const executionContractId = "xct:1";
++    const reportId = mintCursorExecutionReportId({
++      attemptId,
++      executionContractId,
++    });
++    const good: CursorExecutionReport = {
++      schemaVersion: "oa.cursor-execution-report.1",
++      reportId,
++      attemptId,
++      executionContractId,
++      repositoryRef: "mcleland147/sfia-workspace",
++      baseSha: "a".repeat(40),
++      status: "succeeded",
++      authorizedEffectsExecuted: [],
++    };
++    expect(parseCursorExecutionReport(good).ok).toBe(true);
++    expect(
++      bindCursorExecutionReportToAttempt({
++        report: good,
++        expectedAttemptId: attemptId,
++        expectedExecutionContractId: executionContractId,
++      }).ok,
++    ).toBe(true);
++    expect(parseCursorExecutionReport({ ...good, reportId: "" }).ok).toBe(
++      false,
++    );
++    expect(
++      bindCursorExecutionReportToAttempt({
++        report: good,
++        expectedAttemptId: "xat:other",
++        expectedExecutionContractId: executionContractId,
++      }).ok,
++    ).toBe(false);
++  });
++});
++
++describe("Critical question", () => {
++  it("YES — arbitrary future EC reaches Cursor without new operationKind/capability profile/executor type", () => {
++    expect(STUDIO_CURSOR_GENERALIST_AGENT_ID).toBe(
++      "agt:studio.cursor.generalist",
++    );
++  });
++});
++
++const DOCS_WRITE_TARGET_PATH = "docs/functional-design.md";
++
++function docsWriteBuildOverrides(ids: {
++  readonly executionContractId: string;
++  readonly idempotencyKey: string;
++}) {
++  return {
++    cycleInstanceId: "cyc:std-001",
++    executionContractId: ids.executionContractId,
++    idempotencyKey: ids.idempotencyKey,
++    action: M4_BOUNDED_DOCS_WRITE_ACTION,
++    target: M4_BOUNDED_DOCS_WRITE_TARGET,
++    scope: M4_BOUNDED_DOCS_WRITE_SCOPE,
++    requiredCapabilities: [M4_BOUNDED_DOCS_WRITE_CAPABILITY],
++    authorityEvidenceId: M4_EVIDENCE,
++    evidenceRequirements: ["git:local_commit"],
++    expectedOutputs: ["artifact", DOCS_WRITE_TARGET_PATH],
++    inputs: {
++      ...m4ContractInputs(),
++      targetPath: DOCS_WRITE_TARGET_PATH,
++      evidenceRequirements: ["artifact", "git:local_commit"],
++      commitMessage: "docs: isolation proof",
++      expectedOutputs: [DOCS_WRITE_TARGET_PATH],
++    },
++  };
++}
++
++describe("Acceptance 4 — GCEC isolation (generalist must NOT satisfy specialized criteria)", () => {
++  const generalist = createStudioCursorGeneralistAgentDescriptor(NOW);
++  const specializedProfiles = [
++    {
++      name: "read_only",
++      criteria: {
++        requiredCapabilities: [M4_BOUNDED_RO_CAPABILITY],
++        action: M4_BOUNDED_RO_ACTION,
++        target: M4_BOUNDED_RO_TARGET,
++        scope: M4_BOUNDED_RO_SCOPE,
++      },
++      specialized: createM4BoundedReadOnlyCursorAgentDescriptor(NOW),
++    },
++    {
++      name: "docs_write",
++      criteria: {
++        requiredCapabilities: [M4_BOUNDED_DOCS_WRITE_CAPABILITY],
++        action: M4_BOUNDED_DOCS_WRITE_ACTION,
++        target: M4_BOUNDED_DOCS_WRITE_TARGET,
++        scope: M4_BOUNDED_DOCS_WRITE_SCOPE,
++      },
++      specialized: createM4BoundedDocsWriteCursorAgentDescriptor(NOW),
++    },
++    {
++      name: "local_commit",
++      criteria: {
++        requiredCapabilities: [M4_BOUNDED_LOCAL_COMMIT_CAPABILITY],
++        action: M4_BOUNDED_LOCAL_COMMIT_ACTION,
++        target: M4_BOUNDED_LOCAL_COMMIT_TARGET,
++        scope: M4_BOUNDED_LOCAL_COMMIT_SCOPE,
++      },
++      specialized: createM4BoundedLocalCommitCursorAgentDescriptor(NOW),
++    },
++    {
++      name: "remote_push",
++      criteria: {
++        requiredCapabilities: [M4_BOUNDED_REMOTE_PUSH_CAPABILITY],
++        action: M4_BOUNDED_REMOTE_PUSH_ACTION,
++        target: M4_BOUNDED_REMOTE_PUSH_TARGET,
++        scope: M4_BOUNDED_REMOTE_PUSH_SCOPE,
++      },
++      specialized: createM4BoundedRemotePushCursorAgentDescriptor(NOW),
++    },
++    {
++      name: "pr_create",
++      criteria: {
++        requiredCapabilities: [M4_BOUNDED_PR_CREATE_CAPABILITY],
++        action: M4_BOUNDED_PR_CREATE_ACTION,
++        target: M4_BOUNDED_PR_CREATE_TARGET,
++        scope: M4_BOUNDED_PR_CREATE_SCOPE,
++      },
++      specialized: createM4BoundedPrCreateCursorAgentDescriptor(NOW),
++    },
++    {
++      name: "pr_merge",
++      criteria: {
++        requiredCapabilities: [M4_BOUNDED_PR_MERGE_CAPABILITY],
++        action: M4_BOUNDED_PR_MERGE_ACTION,
++        target: M4_BOUNDED_PR_MERGE_TARGET,
++        scope: M4_BOUNDED_PR_MERGE_SCOPE,
++      },
++      specialized: createM4BoundedPrMergeCursorAgentDescriptor(NOW),
++    },
++  ] as const;
++
++  it("agentMatchViolation: generalist fails every progressive GCEC profile; specialized passes", () => {
++    for (const profile of specializedProfiles) {
++      const criteria = {
++        requiredCapabilities: [...profile.criteria.requiredCapabilities],
++        action: profile.criteria.action,
++        target: profile.criteria.target,
++        scope: profile.criteria.scope,
++      };
++      const genViolation = agentMatchViolation(generalist, criteria);
++      expect(genViolation, profile.name).not.toBeNull();
++      expect(genViolation?.detailCode).toMatch(
++        /AGENT_CAPABILITY_MISMATCH|AGENT_SCOPE_MISMATCH/,
++      );
++      expect(agentMatchViolation(profile.specialized, criteria)).toBeNull();
++    }
++  });
++
++  it("Select: specialized candidate wins when present; generalist is not a candidate", async () => {
++    const docsWrite = createM4BoundedDocsWriteCursorAgentDescriptor(NOW);
++    const stack = buildStack({
++      agents: [generalist, docsWrite],
++      adapter: new TestExecutionAdapter(),
++    });
++    await seedProject(stack.projects);
++    registerMorris(stack.decisions.authority, M4_BOUNDED_DOCS_WRITE_SCOPE, M4_EVIDENCE);
++    await seedAcceptedDecision(stack);
++    await seedStandardCycle(stack);
++
++    const built = await stack.execution.buildExecutionContract.execute(
++      baseBuildRequest(
++        docsWriteBuildOverrides({
++          executionContractId: "xct:pj-reproof04:gcec-iso",
++          idempotencyKey: "idem:pj-reproof04:gcec-iso",
++        }),
++      ),
++    );
++    if (!built.ok) {
++      throw new Error(
++        `build failed: ${built.error.detailCode} ${built.error.message} ${built.error.internalCauseRef ?? ""}`,
++      );
++    }
++    expect(built.ok).toBe(true);
++    const validated = await stack.execution.validateExecutionContract.execute({
++      executionContractId: built.contract.executionContractId,
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(validated.ok).toBe(true);
++    if (!validated.ok) return;
++    const confirmationId = await grantContractConfirmation(stack, {
++      scope: M4_BOUNDED_DOCS_WRITE_SCOPE,
++      evidenceId: M4_EVIDENCE,
++    });
++    const confirmed = await stack.execution.confirmExecutionContract.execute({
++      executionContractId: validated.contract.executionContractId,
++      confirmationId,
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++      expectedVersion: validated.contract.version,
++    });
++    expect(confirmed.ok).toBe(true);
++    if (!confirmed.ok) return;
++
++    const profile = resolveAttemptExecutionProfile({
++      contract: confirmed.contract,
++      attempts: [],
++      evidence: [],
++    });
++    expect(profile.ok).toBe(true);
++    if (!profile.ok) return;
++    expect(profile.profile.kind).toBe("docs_write");
++
++    const candidates = stack.attempts.registry.findCandidates(
++      profile.profile.criteria,
++    );
++    expect(candidates.map((c) => c.agentId)).toEqual([
++      M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
++    ]);
++    expect(
++      candidates.some((c) => c.agentId === STUDIO_CURSOR_GENERALIST_AGENT_ID),
++    ).toBe(false);
++
++    const selected = await selectStandardAgent(stack, {
++      attemptId: "xat:pj-reproof04:gcec-iso",
++      executionContractId: confirmed.contract.executionContractId,
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(selected.ok).toBe(true);
++    if (!selected.ok) return;
++    expect(selected.attempt.selectedAgentRef).toBe(
++      M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
++    );
++  });
++});
++
++describe("Acceptance 5 — GCEC fail-closed (generalist must NOT silently substitute)", () => {
++  it("docs_write profile with only generalist registered → AGENT_NOT_FOUND", async () => {
++    const generalist = createStudioCursorGeneralistAgentDescriptor(NOW);
++    const stack = buildStack({
++      agents: [generalist],
++      adapter: new TestExecutionAdapter(),
++    });
++    await seedProject(stack.projects);
++    registerMorris(stack.decisions.authority, M4_BOUNDED_DOCS_WRITE_SCOPE, M4_EVIDENCE);
++    await seedAcceptedDecision(stack);
++    await seedStandardCycle(stack);
++
++    const built = await stack.execution.buildExecutionContract.execute(
++      baseBuildRequest(
++        docsWriteBuildOverrides({
++          executionContractId: "xct:pj-reproof04:gcec-fail",
++          idempotencyKey: "idem:pj-reproof04:gcec-fail",
++        }),
++      ),
++    );
++    expect(built.ok).toBe(true);
++    if (!built.ok) return;
++    const validated = await stack.execution.validateExecutionContract.execute({
++      executionContractId: built.contract.executionContractId,
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(validated.ok).toBe(true);
++    if (!validated.ok) return;
++    const confirmationId = await grantContractConfirmation(stack, {
++      scope: M4_BOUNDED_DOCS_WRITE_SCOPE,
++      evidenceId: M4_EVIDENCE,
++    });
++    const confirmed = await stack.execution.confirmExecutionContract.execute({
++      executionContractId: validated.contract.executionContractId,
++      confirmationId,
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++      expectedVersion: validated.contract.version,
++    });
++    expect(confirmed.ok).toBe(true);
++    if (!confirmed.ok) return;
++
++    const selected = await selectStandardAgent(stack, {
++      attemptId: "xat:pj-reproof04:gcec-fail",
++      executionContractId: confirmed.contract.executionContractId,
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(selected.ok).toBe(false);
++    if (selected.ok) return;
++    expect(selected.error.detailCode).toMatch(
++      /AGENT_NOT_FOUND|AGENT_CAPABILITY_MISMATCH/,
++    );
++  });
++});
++
++describe("Acceptance 6 — hostile requestedAgentRef", () => {
++  it("canonical Product: specialized requestedAgentRef must NOT route away from generalist (fail-closed)", async () => {
++    const generalist = createStudioCursorGeneralistAgentDescriptor(NOW);
++    const docsWrite = createM4BoundedDocsWriteCursorAgentDescriptor(NOW);
++    const stack = buildStack({
++      agents: [generalist, docsWrite],
++      adapter: new TestExecutionAdapter(),
++    });
++    await seedProject(stack.projects);
++    registerMorris(stack.decisions.authority, "product:mission-read-perimeter", M4_EVIDENCE);
++    await seedAcceptedDecision(stack);
++    await seedStandardCycle(stack);
++
++    const built = await stack.execution.buildExecutionContract.execute(
++      baseBuildRequest({
++        cycleInstanceId: "cyc:std-001",
++        executionContractId: "xct:pj-reproof04:hostile-product",
++        idempotencyKey: "idem:pj-reproof04:hostile-product",
++        action: "product:analyse-facts",
++        target: "product:current-project",
++        scope: "product:mission-read-perimeter",
++        requiredCapabilities: ["cap:product-analyse"],
++        authorityEvidenceId: M4_EVIDENCE,
++        inputs: {
++          ...m4ContractInputs(),
++          objective: "hostile specialized request on Product",
++        },
++      }),
++    );
++    expect(built.ok).toBe(true);
++    if (!built.ok) return;
++    const validated = await stack.execution.validateExecutionContract.execute({
++      executionContractId: built.contract.executionContractId,
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(validated.ok).toBe(true);
++    if (!validated.ok) return;
++    const confirmationId = await grantContractConfirmation(stack, {
++      scope: "product:mission-read-perimeter",
++      evidenceId: M4_EVIDENCE,
++    });
++    const confirmed = await stack.execution.confirmExecutionContract.execute({
++      executionContractId: validated.contract.executionContractId,
++      confirmationId,
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++      expectedVersion: validated.contract.version,
++    });
++    expect(confirmed.ok).toBe(true);
++    if (!confirmed.ok) return;
++
++    const profile = resolveAttemptExecutionProfile({
++      contract: confirmed.contract,
++      attempts: [],
++      evidence: [],
++    });
++    expect(profile.ok).toBe(true);
++    if (!profile.ok) return;
++    expect(profile.profile.kind).toBe("contract_legacy");
++    expect(profile.profile.criteria).toEqual({
++      requiredCapabilities: [STUDIO_CURSOR_GENERALIST_CAPABILITY],
++      action: STUDIO_CURSOR_GENERALIST_ACTION,
++      target: STUDIO_CURSOR_GENERALIST_TARGET,
++      scope: STUDIO_CURSOR_GENERALIST_SCOPE,
++    });
++
++    const hostile = await selectStandardAgent(stack, {
++      attemptId: "xat:pj-reproof04:hostile-product",
++      executionContractId: confirmed.contract.executionContractId,
++      authorityEvidenceId: M4_EVIDENCE,
++      requestedAgentRef: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
++    });
++    expect(hostile.ok).toBe(false);
++    if (hostile.ok) return;
++    expect(hostile.error.detailCode).toMatch(
++      /AGENT_NOT_FOUND|AGENT_CAPABILITY_MISMATCH|AGENT_SCOPE_MISMATCH/,
++    );
++
++    const honest = await selectStandardAgent(stack, {
++      attemptId: "xat:pj-reproof04:hostile-product-ok",
++      executionContractId: confirmed.contract.executionContractId,
++      authorityEvidenceId: M4_EVIDENCE,
++      idempotencyKey: "idem:pj-reproof04:hostile-product-ok",
++    });
++    expect(honest.ok).toBe(true);
++    if (!honest.ok) return;
++    expect(honest.attempt.selectedAgentRef).toBe(
++      STUDIO_CURSOR_GENERALIST_AGENT_ID,
++    );
++  });
++
++  it("GCEC: requestedAgentRef=generalist must NOT bypass specialized profile matching", async () => {
++    const generalist = createStudioCursorGeneralistAgentDescriptor(NOW);
++    const docsWrite = createM4BoundedDocsWriteCursorAgentDescriptor(NOW);
++    const stack = buildStack({
++      agents: [generalist, docsWrite],
++      adapter: new TestExecutionAdapter(),
++    });
++    await seedProject(stack.projects);
++    registerMorris(stack.decisions.authority, M4_BOUNDED_DOCS_WRITE_SCOPE, M4_EVIDENCE);
++    await seedAcceptedDecision(stack);
++    await seedStandardCycle(stack);
++
++    const built = await stack.execution.buildExecutionContract.execute(
++      baseBuildRequest(
++        docsWriteBuildOverrides({
++          executionContractId: "xct:pj-reproof04:hostile-gcec",
++          idempotencyKey: "idem:pj-reproof04:hostile-gcec",
++        }),
++      ),
++    );
++    expect(built.ok).toBe(true);
++    if (!built.ok) return;
++    const validated = await stack.execution.validateExecutionContract.execute({
++      executionContractId: built.contract.executionContractId,
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++    });
++    expect(validated.ok).toBe(true);
++    if (!validated.ok) return;
++    const confirmationId = await grantContractConfirmation(stack, {
++      scope: M4_BOUNDED_DOCS_WRITE_SCOPE,
++      evidenceId: M4_EVIDENCE,
++    });
++    const confirmed = await stack.execution.confirmExecutionContract.execute({
++      executionContractId: validated.contract.executionContractId,
++      confirmationId,
++      actor: MORRIS_ACTOR,
++      authorityEvidenceId: M4_EVIDENCE,
++      expectedVersion: validated.contract.version,
++    });
++    expect(confirmed.ok).toBe(true);
++    if (!confirmed.ok) return;
++
++    const hostile = await selectStandardAgent(stack, {
++      attemptId: "xat:pj-reproof04:hostile-gcec",
++      executionContractId: confirmed.contract.executionContractId,
++      authorityEvidenceId: M4_EVIDENCE,
++      requestedAgentRef: STUDIO_CURSOR_GENERALIST_AGENT_ID,
++    });
++    expect(hostile.ok).toBe(false);
++    if (hostile.ok) return;
++    expect(hostile.error.detailCode).toMatch(
++      /AGENT_NOT_FOUND|AGENT_CAPABILITY_MISMATCH|AGENT_SCOPE_MISMATCH/,
++    );
++  });
++});
++
++describe("Proof — global agentMatchViolation bypass removed", () => {
++  it("generalist matches ONLY generalist technical criteria, never arbitrary AgentMatchCriteria", () => {
++    const generalist = createStudioCursorGeneralistAgentDescriptor(NOW);
++    expect(
++      agentMatchViolation(generalist, {
++        requiredCapabilities: [STUDIO_CURSOR_GENERALIST_CAPABILITY],
++        action: STUDIO_CURSOR_GENERALIST_ACTION,
++        target: STUDIO_CURSOR_GENERALIST_TARGET,
++        scope: STUDIO_CURSOR_GENERALIST_SCOPE,
++      }),
++    ).toBeNull();
++    expect(
++      agentMatchViolation(generalist, {
++        requiredCapabilities: ["cap:anything"],
++        action: "any.action",
++        target: "any.target",
++        scope: "any.scope",
++      }),
++    ).not.toBeNull();
++    // Source shape: no agentId short-circuit in agentMatchViolation.
++    const src = agentMatchViolation.toString();
++    expect(src).not.toMatch(/STUDIO_CURSOR_GENERALIST_AGENT_ID/);
++    expect(src).not.toMatch(/generalist/);
++  });
++});
+
+```
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/deriveActualExecutionWorkFromProductContext.ts b/projects/sfia-studio/app/features/project-assistant/w2/deriveActualExecutionWorkFromProductContext.ts
+new file mode 100644
+index 00000000..37fd647d
+--- /dev/null
++++ b/projects/sfia-studio/app/features/project-assistant/w2/deriveActualExecutionWorkFromProductContext.ts
+@@ -0,0 +1,368 @@
++/**
++ * PJ-REPROOF-04 — Product state → ExecutionContract mission derivation.
++ *
++ * Application helper ONLY (non-durable). Populates WHAT/mission fields from
++ * durable Product facts so the Pilote never selects low-level HOW.
++ *
++ * Internal ActualExecutionWork remains an authority/effect control ONLY
++ * (Confirmation / capability projection for fixture-safe Attempts).
++ * It is NOT a Product mission category and NOT Cursor HOW.
++ *
++ * Derived from whether the mission perimeter authorizes mutating effects —
++ * NEVER from selectedOptionRef === clarify-first (no option→operation table).
++ *
++ * Future tasks: create a new ExecutionContract (mission fields) — do NOT add
++ * a new operation kind or executor type.
++ *
++ * Forbidden:
++ * - selectedOptionRef → EC.action / EC.scope
++ * - clarify-first → read hardcode
++ * - diagnosticExecutor / mission-type switch
++ * - client path / authority / capability injection
++ */
++
++import type { DecisionBasis } from "@/lib/oa/decision";
++import {
++  buildActualExecutionWork,
++  isActualExecutionOperationKind,
++  isHighRiskPolicyOnlyOperationKind,
++  type ActualExecutionWork,
++  type W3ACanonicalActualOperationKind,
++} from "./w3aActualExecutionWork";
++import type { EffectQualificationFailure } from "./w3aQualifiedExecutionEffects";
++import type { PostEvidenceRecoveryContext } from "./resolvePostEvidenceRecoveryContext";
++import {
++  BOUNDED_OPTION_REF,
++  CLARIFY_OPTION_REF,
++  GOVERNED_OPTION_REF,
++} from "./trajectoryOptions";
++
++/** Mission WHAT fields folded into ExecutionContract.inputs / envelope. */
++export type ProductMissionFields = {
++  readonly objective: string;
++  readonly expectedOutputs: readonly string[];
++  readonly scopeIn: readonly string[];
++  readonly scopeOut: readonly string[];
++  readonly stopConditions: readonly string[];
++  readonly evidenceRequirements: readonly string[];
++  readonly sourcesToRead: readonly string[];
++  readonly contextNotes: readonly string[];
++  /** True when mission perimeter allows mutating filesystem/git effects. */
++  readonly authorizesMutatingEffects: boolean;
++  readonly recoveryAttemptId: string | null;
++  readonly recoveryEvidenceId: string | null;
++  readonly recoveryReviewBundleId: string | null;
++  readonly recoveryExecutionContractId: string | null;
++  readonly productOutcome: string | null;
++};
++
++export type DeriveProductMissionResult =
++  | {
++      readonly ok: true;
++      readonly work: ActualExecutionWork;
++      readonly mission: ProductMissionFields;
++      readonly derivationSource: "durable_product_mission" | "compat_operation_kind";
++    }
++  | EffectQualificationFailure
++  | {
++      readonly ok: false;
++      readonly code: string;
++      readonly message: string;
++    };
++
++/** @deprecated Use ProductMissionFields — alias during simplify transition. */
++export type DiagnosticMissionSemantics = ProductMissionFields & {
++  readonly kind?: string;
++};
++
++/** Trajectory governance marker — never an executable EC action. */
++export function isNonExecutableTrajectoryRequestedOperation(
++  requestedOperation: string | null | undefined,
++): boolean {
++  const op = requestedOperation?.trim() ?? "";
++  return op.length === 0 || op.startsWith("w2:decide-trajectory:");
++}
++
++function missionFromRecovery(
++  recovery: PostEvidenceRecoveryContext,
++  projectObjective: string | null,
++): ProductMissionFields {
++  const outcomeLabel =
++    recovery.productOutcome === "UNCLAIMED"
++      ? "non encore pleinement démontré"
++      : recovery.productOutcome === "STOP"
++        ? "arrêté de façon gouvernée"
++        : "en échec";
++  return {
++    objective:
++      `Déterminer pourquoi le résultat produit précédent est ${outcomeLabel} ` +
++      `et ce qui manque avant une nouvelle tentative` +
++      (projectObjective ? ` — contexte projet: ${projectObjective}` : ""),
++    expectedOutputs: [
++      "Diagnostic utilisable des preuves manquantes / expected outcomes non tenus",
++      "Prochaine étape produit recommandée (sans relance automatique)",
++      `Trace d'inspection Attempt ${recovery.attemptId} / Evidence ${recovery.evidenceId} / ReviewBundle ${recovery.reviewBundleId}`,
++    ],
++    scopeIn: [
++      "product:current-project",
++      `attempt:${recovery.attemptId}`,
++      `evidence:${recovery.evidenceId}`,
++      `reviewBundle:${recovery.reviewBundleId}`,
++      `executionContract:${recovery.executionContractId}`,
++      "product:durable-facts-required-for-mission",
++    ],
++    scopeOut: [
++      "unrelated-project-mutation",
++      "automatic-relaunch",
++      "claim-product-success-from-technical-success",
++      "protected-boundary-without-authorization",
++      "doctrine-or-baseline-promotion",
++      "DURABLE_PROJECT_WRITE",
++      "GIT_PUSH",
++      "GIT_PR",
++      "GIT_MERGE",
++    ],
++    stopConditions: [
++      "REQUIRED_EVIDENCE_UNAVAILABLE",
++      "CONTRADICTORY_DURABLE_TRUTH",
++      "CAPABILITY_OR_AUTHORITY_INSUFFICIENT",
++      "PROTECTED_EFFECT_OUTSIDE_AUTHORIZED_CONTRACT",
++      "NO_AUTOMATIC_RELAUNCH",
++    ],
++    evidenceRequirements: [
++      "evreq:mission-trace-of-inspected-durable-facts",
++      "evreq:mission-result-for-nora-reevaluation",
++    ],
++    sourcesToRead: [
++      `attempt:${recovery.attemptId}`,
++      `evidence:${recovery.evidenceId}`,
++      `reviewBundle:${recovery.reviewBundleId}`,
++      `executionContract:${recovery.executionContractId}`,
++    ],
++    contextNotes: [
++      `productOutcome=${recovery.productOutcome}`,
++      `recommendationKind=${recovery.recommendationKind}`,
++      `attemptStatus=${recovery.attemptStatus}`,
++      `headline=${recovery.headline}`,
++      `businessEffectProven=false`,
++      `realProcessInvoked=${recovery.realProcessInvoked}`,
++    ],
++    // Perimeter forbids mutations — internal effect control, not option→op.
++    authorizesMutatingEffects: false,
++    recoveryAttemptId: recovery.attemptId,
++    recoveryEvidenceId: recovery.evidenceId,
++    recoveryReviewBundleId: recovery.reviewBundleId,
++    recoveryExecutionContractId: recovery.executionContractId,
++    productOutcome: recovery.productOutcome,
++  };
++}
++
++function missionFromClarifyWithoutRecovery(
++  projectObjective: string | null,
++  basis: DecisionBasis,
++): ProductMissionFields {
++  const reserves = basis.executionBasis.reservations ?? [];
++  return {
++    objective:
++      "Clarifier le contexte durable et les réserves avant d'engager une exécution structurante" +
++      (projectObjective ? ` — ${projectObjective}` : ""),
++    expectedOutputs: [
++      "Diagnostic des réserves / incertitudes bloquantes",
++      "Prochaine étape produit recommandée (sans exécution automatique)",
++    ],
++    scopeIn: [
++      "product:current-project-facts",
++      "product:decision-basis-and-lps",
++      ...reserves.map((r) => `reservation:${r}`),
++    ],
++    scopeOut: [
++      "unrelated-project-mutation",
++      "automatic-execute",
++      "protected-boundary-without-authorization",
++      "DURABLE_PROJECT_WRITE",
++      "GIT_PUSH",
++      "GIT_PR",
++      "GIT_MERGE",
++    ],
++    stopConditions: [
++      "REQUIRED_CONTEXT_UNAVAILABLE",
++      "CAPABILITY_OR_AUTHORITY_INSUFFICIENT",
++      "NO_AUTOMATIC_EXECUTE",
++    ],
++    evidenceRequirements: ["evreq:mission-result-for-nora-reevaluation"],
++    sourcesToRead: ["product:current-project-facts", "product:decision-basis-and-lps"],
++    contextNotes: ["pre_engagement_clarify", ...reserves.slice(0, 5)],
++    authorizesMutatingEffects: false,
++    recoveryAttemptId: null,
++    recoveryEvidenceId: null,
++    recoveryReviewBundleId: null,
++    recoveryExecutionContractId: null,
++    productOutcome: null,
++  };
++}
++
++/**
++ * Internal effect control from mission perimeter — NOT from trajectory option.
++ * Non-mutating perimeter → weak reversible control suitable for Confirmation projection.
++ */
++function buildInternalWorkFromMissionPerimeter(input: {
++  readonly projectId: string;
++  readonly projectTitle: string | null;
++  readonly mission: ProductMissionFields;
++  readonly qualificationSource: string;
++}): ActualExecutionWork | EffectQualificationFailure {
++  // Mutating missions still need sealed docs_write / GCEC path today —
++  // do not invent a generalist mutator from trajectory alone.
++  if (input.mission.authorizesMutatingEffects) {
++    return {
++      ok: false,
++      code: "EFFECTS_UNRESOLVED",
++      message:
++        "Mission mutante sans sealed docs_write / GCEC — utiliser le chemin Proposal/M3 ou facts produit scellés.",
++    };
++  }
++  const built = buildActualExecutionWork({
++    operationKind: "read",
++    projectId: input.projectId,
++    projectTitle: input.projectTitle,
++    objective: input.mission.objective,
++    qualificationSource: input.qualificationSource,
++  });
++  if ("ok" in built && built.ok === false) return built;
++  const work = built as ActualExecutionWork;
++  return {
++    ...work,
++    notes: [
++      ...work.notes,
++      "INTERNAL_EFFECT_CONTROL_FROM_MISSION_PERIMETER",
++      "NOT_OPTION_TO_OPERATION",
++      "CURSOR_DETERMINES_HOW",
++      ...input.mission.contextNotes,
++    ],
++  };
++}
++
++/**
++ * Derive mission + internal effect control from durable Product context.
++ */
++export function deriveActualExecutionWorkFromProductContext(input: {
++  readonly projectId: string;
++  readonly projectTitle: string | null;
++  readonly projectObjective: string | null;
++  readonly basis: DecisionBasis;
++  readonly selectedOptionRef: string;
++  readonly recoveryContext: PostEvidenceRecoveryContext | null;
++  /** Hostile / optional — never overrides durable mission derivation. */
++  readonly clientOperationKind?: unknown;
++}): DeriveProductMissionResult {
++  const { selectedOptionRef, recoveryContext, basis } = input;
++
++  if (isHighRiskPolicyOnlyOperationKind(input.clientOperationKind)) {
++    return {
++      ok: false,
++      code: "PREPARATION_BLOCKED",
++      message:
++        "Opération à risque non qualifiable depuis operationKind client — refuse push/write/commit/PR/merge/delete/doctrine/baseline sans facts produit.",
++    };
++  }
++
++  const clientKind: W3ACanonicalActualOperationKind | null =
++    isActualExecutionOperationKind(input.clientOperationKind)
++      ? input.clientOperationKind
++      : null;
++
++  // Durable mission from Product facts (recovery and/or clarify intent).
++  // Option ref is provenance — never the operation selector.
++  const canPrepareDurableMission =
++    recoveryContext != null || selectedOptionRef === CLARIFY_OPTION_REF;
++
++  if (canPrepareDurableMission) {
++    const mission = recoveryContext
++      ? missionFromRecovery(recoveryContext, input.projectObjective)
++      : missionFromClarifyWithoutRecovery(input.projectObjective, basis);
++
++    const work = buildInternalWorkFromMissionPerimeter({
++      projectId: input.projectId,
++      projectTitle: input.projectTitle,
++      mission,
++      qualificationSource:
++        "studio.nora.mission-perimeter.internal-effect-control",
++    });
++    if ("ok" in work && work.ok === false) return work;
++    void clientKind; // durable mission wins — ignore client HOW
++    return {
++      ok: true,
++      work: work as ActualExecutionWork,
++      mission,
++      derivationSource: "durable_product_mission",
++    };
++  }
++
++  if (
++    selectedOptionRef !== GOVERNED_OPTION_REF &&
++    selectedOptionRef !== BOUNDED_OPTION_REF
++  ) {
++    return {
++      ok: false,
++      code: "TRAJECTORY_NOT_EXECUTABLE",
++      message: `Option ${selectedOptionRef} — mission d'exécution non dérivable.`,
++    };
++  }
++
++  const requested = basis.executionBasis.requestedOperation?.trim() ?? "";
++  if (
++    !isNonExecutableTrajectoryRequestedOperation(requested) &&
++    (basis.executionBasis.intentKind === "docs_write" ||
++      requested === "cursor.docs_write.apply")
++  ) {
++    return {
++      ok: false,
++      code: "PREPARE_ROUTE_DOCS_WRITE",
++      message:
++        "DecisionBasis scellée docs_write — utiliser le chemin PREPARE Proposal/M3, pas le sandbox W3-A.",
++    };
++  }
++
++  // Compat: allowlisted client kind for historical tests only — not Product UI.
++  if (clientKind) {
++    const built = buildActualExecutionWork({
++      operationKind: clientKind,
++      projectId: input.projectId,
++      projectTitle: input.projectTitle,
++      objective: input.projectObjective,
++      qualificationSource:
++        "studio.nora.actual-execution-work.from-compat-operation-kind",
++    });
++    if ("ok" in built && built.ok === false) return built;
++    const work = built as ActualExecutionWork;
++    const mission: ProductMissionFields = {
++      objective: input.projectObjective ?? `Exécution ${clientKind}`,
++      expectedOutputs: [`Résultat d'exécution — ${clientKind}`],
++      scopeIn: [work.scopeIn],
++      scopeOut: [...work.scopeOut],
++      stopConditions: [],
++      evidenceRequirements: [],
++      sourcesToRead: [],
++      contextNotes: ["compat_operation_kind"],
++      authorizesMutatingEffects: clientKind === "generate-temporary-artifact",
++      recoveryAttemptId: null,
++      recoveryEvidenceId: null,
++      recoveryReviewBundleId: null,
++      recoveryExecutionContractId: null,
++      productOutcome: null,
++    };
++    return {
++      ok: true,
++      work,
++      mission,
++      derivationSource: "compat_operation_kind",
++    };
++  }
++
++  return {
++    ok: false,
++    code: "EFFECTS_UNRESOLVED",
++    message:
++      "Aucune mission dérivable du contexte produit durable — Studio n'invente pas de HOW depuis la trajectoire seule.",
++  };
++}
+
+```
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorGeneralistAgent.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorGeneralistAgent.ts
+new file mode 100644
+index 00000000..dbec0095
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorGeneralistAgent.ts
+@@ -0,0 +1,93 @@
++/**
++ * PJ-REPROOF-04 — Studio Cursor generalist executor (canonical Product path).
++ *
++ * ONE agent identity for ANY authorized ExecutionContract mission.
++ * Cursor determines HOW from the projected prompt.
++ *
++ * Do NOT grow supportedCapabilities / allowedActions by Product task type.
++ * Exact non-wildcard technical tokens satisfy REAL allowlist shape only.
++ */
++import type { ProvenanceRecord } from "@/lib/oa/doctrine";
++import {
++  M4_REAL_GATEWAY_ADAPTER_ID,
++  STUDIO_CURSOR_GENERALIST_AGENT_ID,
++} from "../domain/realLaunchSafety";
++import type { AgentDescriptor } from "../domain/types";
++
++/** Single generic Product capability — not a task catalogue. */
++export const STUDIO_CURSOR_GENERALIST_CAPABILITY =
++  "cap:studio.cursor.generalist" as const;
++export const STUDIO_CURSOR_GENERALIST_ACTION =
++  "studio.cursor.generalist.execute" as const;
++export const STUDIO_CURSOR_GENERALIST_TARGET =
++  "studio.cursor.generalist.workspace" as const;
++export const STUDIO_CURSOR_GENERALIST_SCOPE =
++  "studio.cursor.generalist.authorized_contract" as const;
++
++export function createStudioCursorGeneralistAgentDescriptor(
++  nowIso: string,
++  provenance?: ProvenanceRecord,
++): AgentDescriptor {
++  const defaultProvenance: ProvenanceRecord = {
++    schemaVersion: "0.1.0-oa",
++    provenanceRecordId: "prv:studio-cursor-generalist-agent",
++    actor: {
++      actorId: "actor:system",
++      role: "system",
++      authorityLevel: "N1",
++    },
++    source: "system",
++    timestamp: nowIso,
++    correlationId: "cor:studio-cursor-generalist-agent",
++  };
++  const descriptor: AgentDescriptor = {
++    schemaVersion: "0.1.0-oa",
++    agentId: STUDIO_CURSOR_GENERALIST_AGENT_ID,
++    agentType: "cursor_cli_generalist",
++    adapterRef: M4_REAL_GATEWAY_ADAPTER_ID,
++    supportedCapabilities: [STUDIO_CURSOR_GENERALIST_CAPABILITY],
++    allowedActions: [STUDIO_CURSOR_GENERALIST_ACTION],
++    allowedTargets: [STUDIO_CURSOR_GENERALIST_TARGET],
++    allowedScopes: [STUDIO_CURSOR_GENERALIST_SCOPE],
++    trustLevel: "bounded",
++    executionMode: "cursor_cli_real",
++    healthStatus: "healthy",
++    version: 1,
++    enabled: true,
++    provenance: provenance ?? defaultProvenance,
++    createdAt: nowIso,
++  };
++  return Object.freeze(descriptor);
++}
++
++export function isStudioCursorGeneralistAgent(
++  agent: Pick<AgentDescriptor, "agentId">,
++): boolean {
++  return agent.agentId === STUDIO_CURSOR_GENERALIST_AGENT_ID;
++}
++
++export function isStudioCursorGeneralistRealAgent(
++  agent: AgentDescriptor,
++): boolean {
++  const hasWildcard = (values: readonly string[]) =>
++    values.some((v) => v === "*" || v.includes("*"));
++  return (
++    isStudioCursorGeneralistAgent(agent) &&
++    agent.executionMode === "cursor_cli_real" &&
++    agent.trustLevel === "bounded" &&
++    agent.adapterRef === M4_REAL_GATEWAY_ADAPTER_ID &&
++    agent.enabled === true &&
++    agent.supportedCapabilities.length === 1 &&
++    agent.supportedCapabilities[0] === STUDIO_CURSOR_GENERALIST_CAPABILITY &&
++    agent.allowedActions.length === 1 &&
++    agent.allowedActions[0] === STUDIO_CURSOR_GENERALIST_ACTION &&
++    agent.allowedTargets.length === 1 &&
++    agent.allowedTargets[0] === STUDIO_CURSOR_GENERALIST_TARGET &&
++    agent.allowedScopes.length === 1 &&
++    agent.allowedScopes[0] === STUDIO_CURSOR_GENERALIST_SCOPE &&
++    !hasWildcard(agent.supportedCapabilities) &&
++    !hasWildcard(agent.allowedActions) &&
++    !hasWildcard(agent.allowedTargets) &&
++    !hasWildcard(agent.allowedScopes)
++  );
++}
+
+```
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/execution-contract/projection/projectExecutionContractToCursorPrompt.ts b/projects/sfia-studio/app/lib/oa/execution-contract/projection/projectExecutionContractToCursorPrompt.ts
+new file mode 100644
+index 00000000..2afe844d
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/oa/execution-contract/projection/projectExecutionContractToCursorPrompt.ts
+@@ -0,0 +1,339 @@
++/**
++ * PJ-REPROOF-04 Bridge 3 — ExecutionContract → Cursor-consumable prompt.
++ *
++ * ONE semantic contract, TWO representations:
++ * - durable structured ExecutionContract (SoT)
++ * - text projection for Cursor (transport)
++ *
++ * Harvests the proven §5 axes of the external v2.6 template shape.
++ * Does NOT promote the template as Studio runtime doctrine.
++ * Does NOT encode a mandatory step-by-step HOW — Cursor decides HOW
++ * inside the authorized perimeter.
++ */
++
++import { createHash } from "node:crypto";
++import type { ExecutionContract } from "../domain/types";
++import {
++  projectExecutionContractInspectionDisclosure,
++  type ExecutionContractInspectionDisclosure,
++} from "./inspectionDisclosure";
++
++/** Reference path only — not loaded as runtime doctrine. */
++export const CURSOR_PROMPT_SHAPE_REFERENCE =
++  "prompts/templates/sfia-cycle-execution-template.md" as const;
++
++export type CursorMissionPromptProjection = {
++  readonly promptText: string;
++  /** Deterministic digest of execution-significant prompt body. */
++  readonly promptDigest: string;
++  readonly executionContractId: string;
++  readonly contractVersion: number;
++  readonly semanticFingerprint: string | null;
++  readonly attemptId: string | null;
++  readonly reportIdHint: string | null;
++  readonly shapeReference: typeof CURSOR_PROMPT_SHAPE_REFERENCE;
++  readonly disclosure: ExecutionContractInspectionDisclosure;
++};
++
++function asString(value: unknown): string | null {
++  if (typeof value !== "string") return null;
++  const t = value.trim();
++  return t.length > 0 ? t : null;
++}
++
++function asStringList(value: unknown): string[] {
++  if (!Array.isArray(value)) return [];
++  return value
++    .filter((v): v is string => typeof v === "string")
++    .map((v) => v.trim())
++    .filter((v) => v.length > 0);
++}
++
++function bullet(items: readonly string[], empty = "(aucun)"): string {
++  if (items.length === 0) return empty;
++  return items.map((i) => `- ${i}`).join("\n");
++}
++
++/**
++ * Project authorized ExecutionContract into a Cursor mission prompt.
++ * Semantic parity with Pilot inspection disclosure is required.
++ */
++export function projectExecutionContractToCursorPrompt(input: {
++  readonly contract: ExecutionContract;
++  readonly attemptId?: string | null;
++  readonly reportIdHint?: string | null;
++  readonly projectTitle?: string | null;
++  readonly repositoryRef?: string | null;
++  readonly baseSha?: string | null;
++  readonly branch?: string | null;
++}): CursorMissionPromptProjection {
++  const projected = projectExecutionContractInspectionDisclosure(input.contract);
++  const d = projected.disclosure;
++  const inputs = input.contract.inputs ?? {};
++
++  const objective =
++    d.objective ??
++    asString(inputs.objective) ??
++    `Exécuter le contrat ${input.contract.executionContractId}`;
++
++  const contextLines = [
++    input.projectTitle ? `Projet: ${input.projectTitle}` : null,
++    `projectId: ${input.contract.projectId}`,
++    input.contract.cycleInstanceId
++      ? `cycleInstanceId: ${input.contract.cycleInstanceId}`
++      : null,
++    ...(input.contract.decisionRefs ?? []).map((r) => `decisionRef: ${r}`),
++    asString(inputs.selectedOptionLabel)
++      ? `décision trajectoire (provenance, pas action): ${asString(inputs.selectedOptionLabel)}`
++      : null,
++    asString(inputs.productOutcome)
++      ? `productOutcome antérieur: ${asString(inputs.productOutcome)}`
++      : null,
++    asString(inputs.recoveryAttemptId)
++      ? `attempt antérieur: ${asString(inputs.recoveryAttemptId)}`
++      : null,
++    asString(inputs.recoveryEvidenceId)
++      ? `evidence antérieure: ${asString(inputs.recoveryEvidenceId)}`
++      : null,
++  ].filter((x): x is string => Boolean(x));
++
++  const sources = [
++    ...asStringList(inputs.sourcesToRead),
++    ...asStringList(inputs.diagnosticScopeIn),
++    ...(d.scopeIn ?? []),
++  ];
++  const uniqueSources = [...new Set(sources)];
++
++  const scopeIn = [
++    ...(d.scopeIn ?? []),
++    ...asStringList(inputs.diagnosticScopeIn),
++    d.targetPath ? `path:${d.targetPath}` : null,
++  ].filter((x): x is string => Boolean(x));
++
++  const scopeOut = [
++    ...(d.scopeOut ?? []),
++    ...asStringList(inputs.diagnosticScopeOut),
++    "élargir le périmètre sans nouveau contrat",
++    "acquérir de l'autorité seule",
++    "merge / doctrine / baseline promotion hors contrat",
++  ];
++
++  const forbidden = [
++    ...d.constraints.filter(
++      (c) =>
++        c.startsWith("SCOPE_OUT:") ||
++        c.startsWith("PROTECTED:") ||
++        c.startsWith("OUT_OF_SCOPE:") ||
++        c.includes("NO_") ||
++        c.startsWith("MISSION_SCOPE_OUT:"),
++    ),
++    "git push projet / main hors gate",
++    "force push",
++    "merge hors contrat autorisé",
++  ];
++
++  const expectedOutputs = d.expectedOutputs ?? [
++    ...asStringList(input.contract.expectedOutputs),
++  ];
++  const validations = d.validationExpectations ?? [];
++  const evidence = d.evidenceRequirements;
++  const stops = d.stopConditions;
++
++  const filesCreate = asStringList(inputs.filesToCreate);
++  const filesModify = asStringList(inputs.filesToModify);
++  const filesForbidden = asStringList(inputs.filesForbidden);
++
++  // Significant body — excludes volatile reportIdHint for digest stability
++  // when hint is only a suggestion. attemptId included when bound.
++  const significantBody = [
++    `executionContractId: ${d.executionContractId}`,
++    `contractVersion: ${d.contractVersion}`,
++    `semanticFingerprint: ${d.semanticFingerprint ?? ""}`,
++    input.attemptId ? `attemptId: ${input.attemptId}` : null,
++    `Objectif :`,
++    objective,
++    `Contexte :`,
++    ...contextLines,
++    `Sources à lire :`,
++    ...uniqueSources,
++    `Périmètre autorisé :`,
++    ...scopeIn,
++    `Hors périmètre :`,
++    ...scopeOut,
++    `Fichiers à créer :`,
++    ...filesCreate,
++    `Fichiers à modifier :`,
++    ...filesModify,
++    `Fichiers interdits :`,
++    ...filesForbidden,
++    `Stop conditions :`,
++    ...stops,
++    `Validations attendues :`,
++    ...validations,
++    `Evidence / report requirements :`,
++    ...evidence,
++    `Expected outputs :`,
++    ...expectedOutputs,
++    `requiredAuthority: ${d.requiredAuthority}`,
++    `requiredCapabilities: ${d.requiredCapabilities.join(",")}`,
++    `reversibility: ${d.reversibility}`,
++  ]
++    .filter((x): x is string => x != null)
++    .join("\n");
++
++  const promptDigest = createHash("sha256")
++    .update(significantBody, "utf8")
++    .digest("hex")
++    .slice(0, 32);
++
++  const promptText = [
++    `# Mission Cursor — projection du ExecutionContract Studio`,
++    ``,
++    `shapeReference: ${CURSOR_PROMPT_SHAPE_REFERENCE}`,
++    `executionContractId: ${d.executionContractId}`,
++    `contractVersion: ${d.contractVersion}`,
++    `semanticFingerprint: ${d.semanticFingerprint ?? "(none)"}`,
++    `promptDigest: ${promptDigest}`,
++    input.attemptId ? `attemptId: ${input.attemptId}` : `attemptId: (bound at launch)`,
++    input.reportIdHint
++      ? `reportIdHint: ${input.reportIdHint}`
++      : `reportId: (minted at report ingestion)`,
++    input.repositoryRef ? `repositoryRef: ${input.repositoryRef}` : null,
++    input.baseSha ? `baseSha: ${input.baseSha}` : null,
++    input.branch ? `branch: ${input.branch}` : null,
++    ``,
++    `## Objectif`,
++    objective,
++    ``,
++    `## Contexte`,
++    bullet(contextLines, "(contexte minimal — contract ids ci-dessus)"),
++    ``,
++    `## Sources à lire`,
++    bullet(uniqueSources, "(découvrir localement dans le périmètre)"),
++    ``,
++    `## Périmètre autorisé (scope IN)`,
++    bullet([...new Set(scopeIn)], "(périmètre contractuel — ne pas élargir)"),
++    ``,
++    `## Hors périmètre (scope OUT)`,
++    bullet([...new Set(scopeOut)]),
++    ``,
++    `## Fichiers`,
++    `À créer:`,
++    bullet(filesCreate, "aucun imposé — Cursor décide si nécessaire dans le périmètre"),
++    `À modifier:`,
++    bullet(filesModify, "aucun imposé — Cursor décide si nécessaire dans le périmètre"),
++    `Interdits:`,
++    bullet(filesForbidden.length > 0 ? filesForbidden : ["chemins protégés hors contrat"]),
++    ``,
++    `## Effets / garde-fous`,
++    bullet([...new Set(forbidden)]),
++    `- Ne pas élargir le périmètre ni l'autorité.`,
++    `- Si un effet hors contrat est nécessaire: STOP et rapporter le besoin d'escalade.`,
++    `- Technical SUCCESS ≠ Product SUCCESS.`,
++    ``,
++    `## Stop conditions`,
++    bullet(stops),
++    ``,
++    `## Validations attendues`,
++    bullet(validations, "(selon mission — tests/lints/diff si pertinents)"),
++    ``,
++    `## Evidence / rapport attendus`,
++    bullet(evidence),
++    `Expected outputs:`,
++    bullet(expectedOutputs),
++    ``,
++    `## HOW`,
++    `Cursor détermine le HOW à l'intérieur de ce contrat.`,
++    `Aucune séquence obligatoire read→write→commit n'est imposée.`,
++    `Aucun choix Pilote d'opération technique (read/simulate/docs_write/commit/push/PR/merge).`,
++    ``,
++    `## Rapport final attendu`,
++    `- reportId (identité propre du rapport)`,
++    `- executionContractId: ${d.executionContractId} (exact)`,
++    input.attemptId
++      ? `- attemptId: ${input.attemptId} (exact)`
++      : `- attemptId: (celui de l'Attempt lancé)`,
++    `- status: succeeded | failed | stopped | timeout`,
++    `- effets fichiers / validations / git le cas échéant`,
++    `- stops/blockers`,
++    `- verdict/status — claim seulement, pas Evidence produit`,
++    ``,
++    `## Secondaire technique (audit)`,
++    `- action: ${d.action}`,
++    `- technicalTarget: ${d.technicalTarget}`,
++    `- scope: ${d.scope}`,
++    `- requiredAuthority: ${d.requiredAuthority}`,
++    `- requiredCapabilities: ${d.requiredCapabilities.join(", ") || "(none)"}`,
++    `- reversibility: ${d.reversibility}`,
++  ]
++    .filter((x): x is string => x != null)
++    .join("\n");
++
++  return {
++    promptText,
++    promptDigest,
++    executionContractId: d.executionContractId,
++    contractVersion: d.contractVersion,
++    semanticFingerprint: d.semanticFingerprint,
++    attemptId: input.attemptId ?? null,
++    reportIdHint: input.reportIdHint ?? null,
++    shapeReference: CURSOR_PROMPT_SHAPE_REFERENCE,
++    disclosure: d,
++  };
++}
++
++/**
++ * Assert prompt projection preserves Pilot-inspection semantics (no silent widen).
++ */
++export function assertCursorPromptParityWithInspection(input: {
++  readonly projection: CursorMissionPromptProjection;
++}):
++  | { readonly ok: true }
++  | { readonly ok: false; readonly code: string; readonly message: string } {
++  const { projection } = input;
++  const d = projection.disclosure;
++  const text = projection.promptText;
++
++  if (!text.includes(d.executionContractId)) {
++    return {
++      ok: false,
++      code: "PROMPT_CONTRACT_ID_MISSING",
++      message: "Prompt must cite executionContractId.",
++    };
++  }
++  if (d.semanticFingerprint && !text.includes(d.semanticFingerprint)) {
++    return {
++      ok: false,
++      code: "PROMPT_FINGERPRINT_MISSING",
++      message: "Prompt must cite semanticFingerprint.",
++    };
++  }
++  if (d.objective && !text.includes(d.objective)) {
++    return {
++      ok: false,
++      code: "PROMPT_OBJECTIVE_DRIFT",
++      message: "Prompt objective diverges from inspection disclosure.",
++    };
++  }
++  for (const stop of d.stopConditions) {
++    if (!text.includes(stop)) {
++      return {
++        ok: false,
++        code: "PROMPT_STOP_MISSING",
++        message: `Stop condition absent from prompt: ${stop}`,
++      };
++    }
++  }
++  // Must not inject mandatory HOW sequence markers
++  if (
++    /Étapes d'exécution\s*:\s*\n\s*1\.\s*Local Git Truth Check/i.test(text) ||
++    /first read, then write, then (test|commit)/i.test(text)
++  ) {
++    return {
++      ok: false,
++      code: "PROMPT_ENCODES_HOW",
++      message: "Prompt must not encode a mandatory step-by-step HOW.",
++    };
++  }
++  return { ok: true };
++}
+
+```
+
+---
+
+## 16. Stop
+
+Stop after L3 handoff.
+Do not resume Product Journey.
+Project commit / push / PR / merge still NOT AUTHORIZED.

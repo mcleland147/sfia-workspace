@@ -33,8 +33,10 @@ import type {
   ExecutionContractRepositoryPort,
 } from "@/lib/oa/execution-contract";
 import {
+  assertCursorPromptParityWithInspection,
   computeExecutionContractSemanticFingerprint,
   DEFAULT_BOUNDED_READ_ONLY_M3_EXECUTION_WINDOW_CLASS,
+  projectExecutionContractToCursorPrompt,
   resolveExecutionWindowForStart,
   type ResolvedExecutionWindow,
 } from "@/lib/oa/execution-contract";
@@ -1711,6 +1713,49 @@ export class StartExecution {
       gitPrMergeSpec = builtMerge.spec;
     }
 
+    // PJ-REPROOF-04 — EC → Cursor prompt projection at Start (server-side only).
+    // Exact durable contract + Attempt identity; no client-supplied prompt.
+    const repositoryRefForPrompt =
+      docsWriteSpec?.repositoryRef?.trim() ||
+      repositoryBindingIdentity?.trim() ||
+      (typeof (contract.inputs as Record<string, unknown> | undefined)
+        ?.repositoryRef === "string"
+        ? String(
+            (contract.inputs as Record<string, unknown>).repositoryRef,
+          ).trim()
+        : "") ||
+      null;
+    const missionProjection = projectExecutionContractToCursorPrompt({
+      contract,
+      attemptId: attempt.attemptId,
+      repositoryRef: repositoryRefForPrompt,
+      baseSha: baseHeadSha,
+      branch:
+        typeof (contract.inputs as Record<string, unknown> | undefined)
+          ?.workingBranch === "string"
+          ? String(
+              (contract.inputs as Record<string, unknown>).workingBranch,
+            ).trim() || null
+          : null,
+    });
+    const parity = assertCursorPromptParityWithInspection({
+      projection: missionProjection,
+    });
+    if (!parity.ok) {
+      return fail("ATTEMPT_INVALID", parity.code.toLowerCase(), {
+        executionContractId: contract.executionContractId,
+      });
+    }
+    if (
+      missionProjection.semanticFingerprint &&
+      missionProjection.semanticFingerprint !== fingerprint
+    ) {
+      return fail("ATTEMPT_INVALID", "prompt_fingerprint_drift", {
+        executionContractId: contract.executionContractId,
+      });
+    }
+    const cursorMissionPrompt = missionProjection.promptText;
+
     let launch;
     try {
       launch = await this.realLaunchPort.launch({
@@ -1726,6 +1771,7 @@ export class StartExecution {
         target: contract.target,
         scope: contract.scope,
         timeoutMs: window.resolvedMaxDurationMs,
+        cursorMissionPrompt,
         ...(docsWriteSpec ? { docsWriteSpec } : {}),
         ...(gitCommitSpec ? { gitCommitSpec } : {}),
         ...(gitPushSpec ? { gitPushSpec } : {}),

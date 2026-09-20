@@ -16,6 +16,7 @@
 import type { DecisionBasis } from "@/lib/oa/decision";
 import type { AuthorityClass, Reversibility } from "@/lib/oa/execution-contract";
 import { EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED } from "@/lib/oa/execution-contract";
+import type { ProductMissionFields } from "./deriveActualExecutionWorkFromProductContext";
 import {
   BOUNDED_OPTION_REF,
   CLARIFY_OPTION_REF,
@@ -112,6 +113,9 @@ function productStopConditions(basis: DecisionBasis): string[] {
  *
  * Requires ActualExecutionWork OR explicitEffects.
  * W2 trajectory alone NEVER selects the execution action.
+ *
+ * PJ-REPROOF-04 — clarify-first IS preparable when Studio derived diagnostic
+ * ActualExecutionWork (or explicitEffects). The option remains provenance only.
  */
 export function deriveW3AExecutionEnvelope(input: {
   readonly projectId: string;
@@ -127,25 +131,32 @@ export function deriveW3AExecutionEnvelope(input: {
   readonly explicitEffects?: QualifiedExecutionEffects;
   /** Force unknown-effects fail-closed for negative proof. */
   readonly forceEffectsUnresolved?: boolean;
+  /** Optional product mission overlay (durable WHAT — not HOW). */
+  readonly mission?: ProductMissionFields | null;
 }):
   | { readonly ok: true; readonly envelope: W3AExecutionEnvelope }
   | EnvelopePrepareFailure {
-  if (
-    input.selectedOptionRef !== GOVERNED_OPTION_REF &&
-    input.selectedOptionRef !== BOUNDED_OPTION_REF
-  ) {
-    if (input.selectedOptionRef === CLARIFY_OPTION_REF) {
-      return {
-        ok: false,
-        code: "TRAJECTORY_NOT_EXECUTABLE",
-        message:
-          "Trajectoire « clarifier d'abord » — aucune préparation d'exécution autorisée.",
-      };
-    }
+  const optionAllowed =
+    input.selectedOptionRef === GOVERNED_OPTION_REF ||
+    input.selectedOptionRef === BOUNDED_OPTION_REF ||
+    input.selectedOptionRef === CLARIFY_OPTION_REF;
+  if (!optionAllowed) {
     return {
       ok: false,
       code: "TRAJECTORY_NOT_EXECUTABLE",
       message: `Option ${input.selectedOptionRef} — enveloppe d'exécution non préparable.`,
+    };
+  }
+  if (
+    input.selectedOptionRef === CLARIFY_OPTION_REF &&
+    !input.actualWork &&
+    !input.explicitEffects
+  ) {
+    return {
+      ok: false,
+      code: "EFFECTS_UNRESOLVED",
+      message:
+        "Clarifier d'abord exige un travail diagnostique dérivé du contexte produit — trajectoire seule insuffisante.",
     };
   }
 
@@ -259,12 +270,30 @@ export function deriveW3AExecutionEnvelope(input: {
       : null;
 
   const eb = input.basis.executionBasis;
-  const expectedOutputs =
-    effects.effectClass === "generate-temporary-artifact"
+  const mission = input.mission ?? null;
+  const expectedOutputs = mission
+    ? [...mission.expectedOutputs]
+    : effects.effectClass === "generate-temporary-artifact"
       ? [W3B_TEMP_ARTIFACT_EO_TEMPLATE]
       : eb.expectedOutcome
         ? [eb.expectedOutcome]
         : [`Résultat d'exécution — ${effects.effectClass}`];
+
+  const stopConditions = [
+    ...productStopConditions(input.basis),
+    ...(mission?.stopConditions ?? []),
+  ];
+  // De-dupe while preserving order
+  const stopSeen = new Set<string>();
+  const mergedStops = stopConditions.filter((s) => {
+    if (stopSeen.has(s)) return false;
+    stopSeen.add(s);
+    return true;
+  });
+
+  const evidenceRequirements = mission
+    ? [...new Set([...effects.evidenceRequirements, ...mission.evidenceRequirements])]
+    : [...effects.evidenceRequirements];
 
   return {
     ok: true,
@@ -274,13 +303,18 @@ export function deriveW3AExecutionEnvelope(input: {
       scope: effects.scopeIn,
       requiredCapabilities: [...effects.requiredCapabilities],
       requiredAuthority: authority.requiredAuthority,
-      constraints: productConstraints(
-        input.basis,
-        effects,
-        confirmationConstraint,
-      ),
-      stopConditions: productStopConditions(input.basis),
-      evidenceRequirements: [...effects.evidenceRequirements],
+      constraints: [
+        ...productConstraints(input.basis, effects, confirmationConstraint),
+        ...(mission
+          ? [
+              "PRODUCT_MISSION_FROM_DURABLE_CONTEXT",
+              ...mission.scopeIn.map((s) => `MISSION_SCOPE_IN:${s}`),
+              ...mission.scopeOut.map((s) => `MISSION_SCOPE_OUT:${s}`),
+            ]
+          : []),
+      ],
+      stopConditions: mergedStops,
+      evidenceRequirements,
       reversibility: reversibility.reversibility,
       expectedOutputs,
       effects,
@@ -307,7 +341,7 @@ export function deriveW3AExecutionEnvelope(input: {
           ? confirmationOk.level
           : null,
         implementationMarker: W3A_IMPLEMENTATION_MARKER,
-        objective: eb.objective ?? input.projectObjective,
+        objective: mission?.objective ?? eb.objective ?? input.projectObjective,
         cycleTypeId: eb.cycleTypeId,
         recommendedProfile: eb.recommendedProfile,
         sourceRef: input.basis.sourceRef,
@@ -317,6 +351,19 @@ export function deriveW3AExecutionEnvelope(input: {
         reversibilitySource: "EFFECTS_PLUS_ROLLBACK_FACTS",
         morrisConstructionGateRequired: effects.morrisConstructionGateRequired,
         qualificationSource: effects.provenance.qualificationSource,
+        cursorDeterminesHow: true,
+        ...(mission
+          ? {
+              sourcesToRead: [...mission.sourcesToRead],
+              diagnosticScopeIn: [...mission.scopeIn],
+              diagnosticScopeOut: [...mission.scopeOut],
+              recoveryAttemptId: mission.recoveryAttemptId,
+              recoveryEvidenceId: mission.recoveryEvidenceId,
+              recoveryReviewBundleId: mission.recoveryReviewBundleId,
+              recoveryExecutionContractId: mission.recoveryExecutionContractId,
+              productOutcome: mission.productOutcome,
+            }
+          : {}),
       },
     },
   };

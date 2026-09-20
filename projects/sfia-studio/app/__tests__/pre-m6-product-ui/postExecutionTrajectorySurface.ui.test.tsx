@@ -494,9 +494,7 @@ describe("CR-PCONT-05 TrajectorySurface post-execution recovery", () => {
     );
     await screen.findByTestId("w2-decision");
 
-    fireEvent.change(screen.getByTestId("w3a-operation-kind"), {
-      target: { value: "generate-temporary-artifact" },
-    });
+    // PJ-REPROOF-04 — no Pilot HOW selection; Studio derives mission.
     fireEvent.click(screen.getByTestId("w2-prepare-contract-sandbox"));
     await screen.findByTestId("w2-contract");
     fireEvent.click(screen.getByTestId("w2-inspect-contract"));

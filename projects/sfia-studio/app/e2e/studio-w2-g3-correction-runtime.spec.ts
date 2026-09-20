@@ -164,11 +164,8 @@ test.describe("W2 final-closure /studio product correction proof", () => {
 
     // --- W3-A current product invariant: qualify actual work before Prepare ---
     // (stale W2 oracle remédiation — does not reopen W2; setup only)
-    await expect(page.getByTestId("w3a-operation-kind")).toBeVisible();
-    await page
-      .getByTestId("w3a-operation-kind")
-      .selectOption("generate-temporary-artifact");
-    await expect(page.getByTestId("w2-prepare-contract-sandbox")).toBeEnabled();
+    await expect(page.getByTestId("w3a-prepare-execution-from-decision")).toBeVisible();
+        await expect(page.getByTestId("w2-prepare-contract-sandbox")).toBeEnabled();
 
     // --- R02: prepare → inspect → material amend → block → reinspect → auth ---
     await page.getByTestId("w2-prepare-contract-sandbox").click();

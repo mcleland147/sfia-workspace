@@ -219,6 +219,9 @@ export class SelectExecutionAgent {
         return fail("AGENT_NOT_FOUND", "no_registry_candidate");
       }
       // Deterministic tie-break: agentId lexicographic (registry order).
+      // contract_legacy criteria bind ONLY the Product generalist (or fixture
+      // that declares the same technical quartet). Specialized GCEC agents do
+      // not match — no prefer-generalist exception required.
       const proposedAgentRef = candidates[0].agentId;
 
       let selectedAgentRef = request.requestedAgentRef ?? proposedAgentRef;

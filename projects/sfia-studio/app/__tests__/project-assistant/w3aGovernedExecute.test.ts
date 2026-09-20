@@ -475,6 +475,7 @@ describe("W3-A effects → authority / Confirmation", () => {
     expect([...W3A_FIXTURE_ALLOWED_SCOPES]).toEqual([
       W3A_PRODUCT_SCOPE.TEMP_ARTIFACT,
       W3A_PRODUCT_SCOPE.SIMULATE,
+      W3A_PRODUCT_SCOPE.READ,
     ]);
     expect(W3A_FIXTURE_ALLOWED_SCOPES[0]).not.toContain("décider");
   });
@@ -639,7 +640,7 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
     expect(terminal.realExecution).toBe(false);
   });
 
-  it("read → N1 · Confirmation NOT_REQUIRED marker · validated · SC-CAP (R15/R16)", async () => {
+  it("read → N1 · Confirmation NOT_REQUIRED marker · validated · fixture agent selectable (PJ-REPROOF-04)", async () => {
     const ctx = await decideGoverned("read");
     const context = await currentF2Context(ctx.runtime, ctx.seeded.projectId);
     const prepared = await prepareExecutionContractFromW2Decision({
@@ -682,9 +683,7 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
     });
     expect(authorized.ok).toBe(true);
     if (!authorized.ok) return;
-    // Fixture does not support read — truthful SC-CAP / executor insufficiency.
-    expect(authorized.outcome).toBe("BLOCKED");
-    expect(authorized.reasonCode).toMatch(/executor|capability|insufficient/i);
+    expect(authorized.outcome).toBe("AUTHORIZED");
     const launchBefore = ctx.oa.fixtureAdapter.launchCallCount;
     const selected = await governedExecuteSelectAgent({
       oa: ctx.oa,
@@ -692,7 +691,9 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
       executionContractId,
       forceLocalAuthority: true,
     });
-    expect(selected.ok).toBe(false);
+    expect(selected.ok).toBe(true);
+    if (!selected.ok) return;
+    expect(selected.selectedAgentRef).toBe(W3A_BOUNDED_FIXTURE_AGENT_ID);
     expect(ctx.oa.fixtureAdapter.launchCallCount).toBe(launchBefore);
   });
 

@@ -873,36 +873,50 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
         `scope=${request.scope ?? ""}`,
         `fingerprint=${request.semanticFingerprint}`,
       ].join("\n");
-    } else {
+    } else if (
+      typeof request.cursorMissionPrompt === "string" &&
+      request.cursorMissionPrompt.trim().length > 0
+    ) {
+      // PJ-REPROOF-04 — generalist Cursor mission = authorized EC projection.
+      // Cursor determines HOW inside the contract; no mandatory step sequence.
+      // Product StartExecution always supplies this prompt for non-specialized agents.
       instruction = [
-        "TÂCHE UNIQUE — preuve read-only déterministe.",
-        "Lire uniquement le fichier README.md à la racine du workspace.",
-        "Ne modifier aucun fichier.",
-        "Ne créer aucun fichier.",
-        "Ne lancer aucune commande Shell.",
-        "Ne faire aucune recherche récursive, Glob ou Grep.",
-        "Ne consulter aucun autre fichier.",
-        "Si README.md peut être lu, répondre exactement :",
-        "M4_READ_ONLY_OK",
-        "Si README.md ne peut pas être lu, répondre exactement :",
-        "M4_READ_ONLY_UNAVAILABLE",
+        request.cursorMissionPrompt.trim(),
+        "",
+        `attemptId=${request.attemptId}`,
+        `executionContractId=${request.executionContractId}`,
+        `fingerprint=${request.semanticFingerprint}`,
         `target=${request.target ?? ""}`,
         `action=${request.action ?? ""}`,
         `scope=${request.scope ?? ""}`,
+      ].join("\n");
+    } else {
+      // Fail-closed: StartExecution must project EC → cursorMissionPrompt.
+      // Historical M4 RO README probe removed from canonical Product path.
+      instruction = [
+        "STOP — aucune mission Cursor fournie (cursorMissionPrompt manquant).",
+        "Studio doit projeter ExecutionContract → prompt avant launch.",
+        `attemptId=${request.attemptId}`,
+        `executionContractId=${request.executionContractId}`,
         `fingerprint=${request.semanticFingerprint}`,
-        "Aucune mutation, aucun git remote/commit/push/PR/merge.",
+        `target=${request.target ?? ""}`,
+        `action=${request.action ?? ""}`,
+        `scope=${request.scope ?? ""}`,
       ].join("\n");
     }
 
     // Full-capability native mode: --sandbox disabled --force (parity with Cursor CLI).
-    // Docs-write + git mutation profiles: default agent mode (omit --mode ask).
-    // RO: --mode ask. Capability does not depend on effect class.
+    // Docs-write + git mutation profiles + generalist mission prompt: agent mode.
+    const hasMissionPrompt =
+      typeof request.cursorMissionPrompt === "string" &&
+      request.cursorMissionPrompt.trim().length > 0;
     const usesAgentMode =
       isDocsWrite ||
       isLocalCommitProfile ||
       isRemotePushProfile ||
       isPrCreateProfile ||
-      isPrMergeProfile;
+      isPrMergeProfile ||
+      hasMissionPrompt;
     const argv = usesAgentMode
       ? [
           "agent",

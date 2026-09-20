@@ -59,6 +59,7 @@ import type {
   CursorExecutionReport,
   CursorGitEffectClaims,
 } from "../domain/cursorExecutionReport";
+import { mintCursorExecutionReportId } from "../domain/cursorExecutionReport";
 import {
   FakeCursorGitExternalState,
 } from "./fakeCursorGitExternalState";
@@ -661,6 +662,10 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
       const reason = err instanceof Error ? err.message : "fake_git_effect_failed";
       const report: CursorExecutionReport = {
         schemaVersion: "oa.cursor-execution-report.1",
+        reportId: mintCursorExecutionReportId({
+          attemptId: request.attemptId,
+          executionContractId: request.executionContractId,
+        }),
         attemptId: request.attemptId,
         executionContractId: request.executionContractId,
         repositoryRef,
@@ -738,6 +743,10 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
 
     const report: CursorExecutionReport = {
       schemaVersion: "oa.cursor-execution-report.1",
+      reportId: mintCursorExecutionReportId({
+        attemptId: request.attemptId,
+        executionContractId: request.executionContractId,
+      }),
       attemptId: request.attemptId,
       executionContractId: request.executionContractId,
       repositoryRef,
