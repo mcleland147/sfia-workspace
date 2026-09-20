@@ -1,15 +1,16 @@
-# ChatGPT Review Pack — FULL (PROJECT GIT INTEGRATION + PR READINESS)
+# ChatGPT Review Pack — FULL (PROJECT GIT INTEGRATION + PR READINESS — CI FAILED)
 
-- **Timestamp UTC:** 2026-09-20T05:23:04Z
-- **Timestamp Europe/Paris:** 2026-09-20T07:23:04+0200
+- **Timestamp UTC:** 2026-09-20T05:28:57Z
+- **Timestamp Europe/Paris:** 2026-09-20T07:28:57+0200
 - **Macro:** PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01
 - **Mode:** SAME MACRO / NO MICRO-CYCLE
-- **Cycle:** 13 — PR readiness
+- **Cycle:** 13 — PR readiness (CI outcome report)
 - **Typologie:** EVOL
 - **Profil:** Critical
 - **Morris GO consumed:** GO MORRIS — PROJECT GIT INTEGRATION + PR READINESS on exact candidate `f57fc6cd56900cd19df961dbe8b788a0b89937ca`
 - **Input REAL handoff:** `b8ee0f405a011577cd14be0cae266d83f0475fc9`
-- **Claim maximal autorisé:** PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01 — PROJECT GIT INTEGRATION PASS — PR CREATED — CI PENDING — MERGE NOT AUTHORIZED — MORRIS MERGE GATE NOT READY UNTIL CHECKS RESOLVE
+- **Prior PR-readiness handoff:** `5f31448d…` (PR CREATED / CI PENDING)
+- **Claim maximal autorisé:** PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01 — PROJECT GIT INTEGRATION PASS — PR CREATED — CI FAILED — MERGE BLOCKED — NO SOURCE FIX AUTHORIZED IN THIS CYCLE
 
 ## 1. Local Git Truth
 
@@ -33,298 +34,226 @@
 
 ```
 ed3cc66b feat(sfia-studio): add project workspace artifact routing
-f57fc6cd (HEAD -> delivery/sfia-studio-project-workspace-artifact-routing-01, origin/delivery/sfia-studio-project-workspace-artifact-routing-01) fix(sfia-studio): preserve post-execution product continuity
+f57fc6cd fix(sfia-studio): preserve post-execution product continuity
 ```
 
-### git status --short
+Exact chain matches reviewed candidate: `origin/main` → `ed3cc66b…` → `f57fc6cd…`.
+
+### git status --short (accepted residue only)
 
 ```
  M .tmp-sfia-review/chatgpt-review.md
 ?? .tmp-sfia-review/pcont-real-reproof/
 ```
 
-Accepted residuals only: `.tmp-sfia-review/**` (not pushed).
+### git status --short -- projects/sfia-studio/app
 
-`git status --short -- projects/sfia-studio/app` → empty.
+```
+(empty — no Product source mutation)
+```
 
-## 2. Full branch diff readiness
-
-`git diff --check origin/main...HEAD` → **PASS**
+## 2. Full branch diff (unchanged since candidate freeze)
 
 | Metric | Value |
 |---|---|
 | commits | **2** |
-| files | **77** |
-| added | **12** |
-| modified | **65** |
-| deleted | **0** |
-| renames | **0** |
-| insertions/deletions | **+6900 / -172** |
-| reviewed-set match | **YES** (union of ed3cc66 + f57fc6cd = full branch) |
+| files changed | **77** |
+| insertions | **6900** |
+| deletions | **172** |
+| unexpected deletes/renames | **none** |
+| `git diff --check origin/main...HEAD` | **PASS (clean)** |
+| reviewed-set match | **PASS** (D-PC-09 + post-execution continuity) |
+| files outside reviewed set | **0** |
 
-### git diff --stat origin/main...HEAD
+## 3. Project remote branch
 
-```
- .../__tests__/oa/cycle/cycleTypeCatalog.test.ts    |   57 +
- .../oa/cycle/gcecCr01F2DecisionBasis.d0.test.ts    |    2 +
- .../oa/cycle/gcecCr23StartExecution.d0.test.ts     |    1 +
- .../cycle/gcecCursorRealDocsWrite.real.d0.test.ts  |    3 +-
- .../gcecCursorRealSameEcCommit.real.d0.test.ts     |    3 +-
- .../oa/cycle/gcecProductMonolithicE2e.d0.test.ts   |    3 +-
- .../oa/decision/m3RestartProcessWorker.ts          |    9 +
- .../projectWorkspaceArtifactRouting.d0.test.ts     |  484 ++++++
- .../postExecutionTrajectorySurface.ui.test.tsx     |  645 +++++++
- .../productJourneyProjectionCoherence.ui.test.tsx  |   15 +-
- .../projectWorkspaceRouting.ui.test.tsx            |   70 +
- .../corrProof02.b1.advisory.d0.test.ts             |    1 +
- .../corrProof07.artifactMaterialization.d0.test.ts |    2 +
- ...roof09.materializationIntentContract.d0.test.ts |    1 +
- .../project-assistant/f2.orchestrate.test.ts       |    4 +
- .../f3.fixtureVerticalSlice.test.ts                |    3 +-
- .../m5C1PrepareMemoryDisclosure.test.ts            |    9 +
- .../postExecutionProductContinuity.d0.test.ts      | 1290 ++++++++++++++
- .../preM6.realProductWiringAmend.test.ts           |    3 +-
- .../preM6.realProductWiringResidual.test.ts        |    3 +-
- ...roductJourneyGovernedDocsWriteWiring.d0.test.ts |    3 +
- ...spaceArtifactRouting.applicationPath.d0.test.ts | 1761 ++++++++++++++++++++
- .../qa-pre-m6-01.finalHardening.test.ts            |    6 +-
- .../qa-pre-m6-01.postGoDurableM3Path.test.ts       |    4 +-
- .../app/__tests__/project-assistant/w2Harness.ts   |   11 +
- .../project-assistant/w3dFullCkcCatalog.test.ts    |    1 +
- projects/sfia-studio/app/__tests__/setup.ts        |   16 +
- .../localProjectComposition.test.ts                |   36 +-
- .../deterministicCursorBoundary.test.ts            |    3 +-
- .../liveManagedRepoComposition.d0.test.ts          |    4 +-
- .../pre-m6-product-ui/ProjectWorkspacePage.tsx     |   42 +-
- .../surfaces/ProjectWorkspaceRoutingPanel.tsx      |  136 ++
- .../surfaces/TrajectorySurface.tsx                 |   19 +-
- .../app/features/project-assistant/actions.ts      |   35 +
- .../f2/activeCycleGovernedContinuation.ts          |  397 ++++-
- .../project-assistant/f2/executionIntentSchema.ts  |   13 +
- .../project-assistant/f2/intentAnalysis.ts         |    5 +-
- .../features/project-assistant/f2/orchestrateF2.ts |   41 +-
- .../project-assistant/f2/recordDecision.ts         |  146 +-
- .../project-assistant/f3/prepareM3FromDecision.ts  |  126 ++
- ...advanceProductExecutionContractAfterEvidence.ts |  111 ++
- .../w2/closeProposalDecisionSubject.ts             |  116 ++
- .../project-assistant/w2/decideTrajectory.ts       |   56 +-
- .../w2/governedExecuteAuthorizedContract.ts        |   31 +-
- .../w2/proposalSubjectIntegrity.ts                 |   44 +-
- .../project-assistant/w2/proposalSubjectOptions.ts |   62 +-
- .../w2/proposeTrajectoryOptions.ts                 |    7 +-
- .../w2/readCurrentGovernedExecutionContinuity.ts   |   53 +
- .../project-assistant/w2/trajectoryOptions.ts      |   52 +-
- .../cycle/application/proposeTrajectoryVersion.ts  |   25 +-
- .../app/lib/oa/cycle/domain/cycleTypeCatalog.ts    |   46 +
- .../app/lib/oa/decision/domain/types.ts            |    4 +
- .../application/startExecution.ts                  |    7 +
- .../infrastructure/fakeDocsWriteLaunchPort.ts      |   42 +-
- .../studioCursorRealLaunchGateway.ts               |   35 +-
- .../ports/realExecutionLaunchPort.ts               |    6 +
- .../lib/oa/project/application/createProject.ts    |   24 +
- .../lib/oa/project/domain/artifactTargetRouting.ts |  447 +++++
- .../lib/oa/project/domain/projectWorkspaceKey.ts   |   40 +
- .../project/domain/serverOwnedRepositoryConfig.ts  |   70 +
- .../sfia-studio/app/lib/oa/project/domain/types.ts |   16 +-
- projects/sfia-studio/app/lib/oa/project/index.ts   |    8 +
- .../project/infrastructure/managedRepoPathFacts.ts |  114 ++
- .../app/lib/platform/ai/fakeProvider.ts            |   57 +-
- .../vertical-slice-core/localProjectComposition.ts |   30 +
- .../app/lib/vertical-slice-core/types.ts           |    5 +
- .../app/lib/vertical-slice-runtime/mapping.ts      |    1 +
- .../app/lib/vertical-slice-runtime/types.ts        |    2 +
- .../convergence/sfia-studio-convergence-roadmap.md |    1 +
- .../01-product-completion-cadrage.md               |   25 +
- ...-product-completion-conception-fonctionnelle.md |   21 +
- ...roduct-completion-architecture-fonctionnelle.md |   34 +
- ...duct-completion-architecture-technique-delta.md |   23 +
- ...pletion-integrated-proof-final-qualification.md |   17 +
- .../01-experience-architecture.md                  |    9 +
- .../02-end-to-end-wireframes-interaction-model.md  |    9 +
- .../03-product-screens-visual-state-contract.md    |    9 +
- 77 files changed, 6900 insertions(+), 172 deletions(-)
-```
+| Check | Result |
+|---|---|
+| precheck / post | `origin/delivery/sfia-studio-project-workspace-artifact-routing-01` |
+| remote SHA | `f57fc6cd56900cd19df961dbe8b788a0b89937ca` |
+| force push | **0** |
+| match reviewed candidate | **YES** |
 
-### git diff --name-status origin/main...HEAD
-
-```
-M	projects/sfia-studio/app/__tests__/oa/cycle/cycleTypeCatalog.test.ts
-M	projects/sfia-studio/app/__tests__/oa/cycle/gcecCr01F2DecisionBasis.d0.test.ts
-M	projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts
-M	projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealDocsWrite.real.d0.test.ts
-M	projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealSameEcCommit.real.d0.test.ts
-M	projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts
-M	projects/sfia-studio/app/__tests__/oa/decision/m3RestartProcessWorker.ts
-A	projects/sfia-studio/app/__tests__/oa/project/projectWorkspaceArtifactRouting.d0.test.ts
-A	projects/sfia-studio/app/__tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx
-M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx
-A	projects/sfia-studio/app/__tests__/pre-m6-product-ui/projectWorkspaceRouting.ui.test.tsx
-M	projects/sfia-studio/app/__tests__/project-assistant/corrProof02.b1.advisory.d0.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/corrProof09.materializationIntentContract.d0.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/f2.orchestrate.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/f3.fixtureVerticalSlice.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/m5C1PrepareMemoryDisclosure.test.ts
-A	projects/sfia-studio/app/__tests__/project-assistant/postExecutionProductContinuity.d0.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/preM6.realProductWiringAmend.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/preM6.realProductWiringResidual.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/productJourneyGovernedDocsWriteWiring.d0.test.ts
-A	projects/sfia-studio/app/__tests__/project-assistant/productWorkspaceArtifactRouting.applicationPath.d0.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/qa-pre-m6-01.finalHardening.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/qa-pre-m6-01.postGoDurableM3Path.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/w3dFullCkcCatalog.test.ts
-M	projects/sfia-studio/app/__tests__/setup.ts
-M	projects/sfia-studio/app/__tests__/vertical-slice-core/localProjectComposition.test.ts
-M	projects/sfia-studio/app/__tests__/vertical-slice-runtime/deterministicCursorBoundary.test.ts
-M	projects/sfia-studio/app/__tests__/vertical-slice-runtime/liveManagedRepoComposition.d0.test.ts
-M	projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
-A	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ProjectWorkspaceRoutingPanel.tsx
-M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-M	projects/sfia-studio/app/features/project-assistant/actions.ts
-M	projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
-M	projects/sfia-studio/app/features/project-assistant/f2/executionIntentSchema.ts
-M	projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
-M	projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-M	projects/sfia-studio/app/features/project-assistant/f2/recordDecision.ts
-M	projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
-A	projects/sfia-studio/app/features/project-assistant/w2/advanceProductExecutionContractAfterEvidence.ts
-A	projects/sfia-studio/app/features/project-assistant/w2/closeProposalDecisionSubject.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/decideTrajectory.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/proposalSubjectIntegrity.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/proposalSubjectOptions.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/readCurrentGovernedExecutionContinuity.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
-M	projects/sfia-studio/app/lib/oa/cycle/application/proposeTrajectoryVersion.ts
-M	projects/sfia-studio/app/lib/oa/cycle/domain/cycleTypeCatalog.ts
-M	projects/sfia-studio/app/lib/oa/decision/domain/types.ts
-M	projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
-M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts
-M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
-M	projects/sfia-studio/app/lib/oa/execution-attempt/ports/realExecutionLaunchPort.ts
-M	projects/sfia-studio/app/lib/oa/project/application/createProject.ts
-A	projects/sfia-studio/app/lib/oa/project/domain/artifactTargetRouting.ts
-A	projects/sfia-studio/app/lib/oa/project/domain/projectWorkspaceKey.ts
-A	projects/sfia-studio/app/lib/oa/project/domain/serverOwnedRepositoryConfig.ts
-M	projects/sfia-studio/app/lib/oa/project/domain/types.ts
-M	projects/sfia-studio/app/lib/oa/project/index.ts
-A	projects/sfia-studio/app/lib/oa/project/infrastructure/managedRepoPathFacts.ts
-M	projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-M	projects/sfia-studio/app/lib/vertical-slice-core/localProjectComposition.ts
-M	projects/sfia-studio/app/lib/vertical-slice-core/types.ts
-M	projects/sfia-studio/app/lib/vertical-slice-runtime/mapping.ts
-M	projects/sfia-studio/app/lib/vertical-slice-runtime/types.ts
-M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-M	projects/sfia-studio/product-completion/01-product-completion-cadrage.md
-M	projects/sfia-studio/product-completion/02-product-completion-conception-fonctionnelle.md
-M	projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md
-M	projects/sfia-studio/product-completion/06-product-completion-architecture-technique-delta.md
-M	projects/sfia-studio/product-completion/14-product-completion-integrated-proof-final-qualification.md
-M	projects/sfia-studio/product-completion/ux-product-experience/01-experience-architecture.md
-M	projects/sfia-studio/product-completion/ux-product-experience/02-end-to-end-wireframes-interaction-model.md
-M	projects/sfia-studio/product-completion/ux-product-experience/03-product-screens-visual-state-contract.md
-```
-
-## 3. Local readiness gates
-
-- `git diff --check origin/main...HEAD` PASS
-- `npx tsc --noEmit` PASS (exit 0)
-- Deterministic proofs reused (tree unchanged): CR-PCONT-01…06 closed; E2E PASS; UI PASS; matrix 189 PASS; bounded REAL PASS on f57fc6cd…
-- No Cursor REAL relaunch
-
-## 4. Remote branch push
-
-Precheck: no remote ref.
-
-Push: `git push -u origin HEAD:delivery/sfia-studio-project-workspace-artifact-routing-01`
-
-Post:
-
-```
-f57fc6cd56900cd19df961dbe8b788a0b89937ca	refs/heads/delivery/sfia-studio-project-workspace-artifact-routing-01
-```
-
-Remote SHA = `f57fc6cd56900cd19df961dbe8b788a0b89937ca` — **MATCH**
-
-## 5. Pull Request
+## 4. Pull Request
 
 | Field | Value |
 |---|---|
-| number | **#506** |
+| number | **506** |
 | URL | https://github.com/mcleland147/sfia-workspace/pull/506 |
 | title | feat(sfia-studio): add project workspace routing and post-execution continuity |
 | state | **OPEN** |
-| draft | False |
-| base | `main` @ `a6dba9776bfb1b4cb1570a87b20b0c71e546e441` |
-| head | `delivery/sfia-studio-project-workspace-artifact-routing-01` @ `f57fc6cd56900cd19df961dbe8b788a0b89937ca` |
+| baseRefName | `main` |
+| base SHA | `a6dba9776bfb1b4cb1570a87b20b0c71e546e441` |
+| headRefName | `delivery/sfia-studio-project-workspace-artifact-routing-01` |
+| head SHA | `f57fc6cd56900cd19df961dbe8b788a0b89937ca` |
 | mergeable | MERGEABLE |
-| mergeStateStatus | BLOCKED |
-| autoMergeRequest | `None` |
+| mergeStateStatus | **BLOCKED** |
+| autoMergeRequest | **null (OFF)** |
+| draft | false |
+| project merge performed | **0** |
 
-Head SHA verification: **PASS** (= f57fc6cd…)
+## 5. CI / checks (terminal)
 
-### CI / checks (at pack time)
+Workflow run: `35491519992`
+URL: https://github.com/mcleland147/sfia-workspace/actions/runs/35491519992
 
-```json
-[
-  {
-    "__typename": "CheckRun",
-    "completedAt": "0001-01-01T00:00:00Z",
-    "conclusion": "",
-    "detailsUrl": "https://github.com/mcleland147/sfia-workspace/actions/runs/35491519992/job/106027162181",
-    "name": "Detect SFIA Studio changes",
-    "startedAt": "2026-09-20T05:22:45Z",
-    "status": "IN_PROGRESS",
-    "workflowName": "SFIA Studio CI"
-  }
-]
-```
+| Check | Conclusion |
+|---|---|
+| Detect SFIA Studio changes | **PASS** |
+| Build and validate SFIA Studio | **FAIL** |
+| SFIA Studio Required Gate | **FAIL** (`validate_result=failure`, `studio_changed=true`) |
 
-Status: **CI PENDING** (`Detect SFIA Studio changes` IN_PROGRESS).
+### Vitest summary (Build and validate)
 
-MERGE NOT AUTHORIZED regardless of eventual CI outcome without a new Morris GO.
+- Test Files: **9 failed** | 385 passed | 17 skipped (411)
+- Tests: **25 failed** | 4364 passed | 137 skipped (4526)
 
-## 6. Deterministic + bounded REAL proof summary (entry)
+### Failed test files (inventory)
 
-Deterministic:
-- CR-PCONT-01…06 DETERMINISTICALLY CLOSED
-- Product-native E2E PASS
-- UI state proof PASS
-- matrix 189 tests PASS
-- tsc PASS
+| File | Failed / total in file |
+|---|---|
+| `__tests__/project-assistant/corrProof10.decisionContextContinuity.d0.test.ts` | 4 / 45 |
+| `__tests__/project-assistant/ecRehydrationContinuity.d0.test.ts` | 10 / 14 |
+| `__tests__/oa/execution-contract/m3ExecutionContractPrepare.test.ts` | 3 / 16 |
+| `__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts` | 2 / 10 |
+| `__tests__/vertical-slice-runtime/repositoryBindingProjection.d0.test.ts` | 2 / 2 |
+| `__tests__/project-assistant/productProofJourneyIntegrity.d0.test.ts` | 1 / 13 |
+| `__tests__/oa/execution-attempt/gcecCursorFullCapabilityParity.d0.test.ts` | 1 / 16 |
+| `__tests__/vertical-slice-runtime/importBoundaries.test.ts` | 1 / 5 |
+| `__tests__/project-assistant/m5C1PrepareMemoryDisclosure.test.ts` | 1 / 1 (timeout 5000ms) |
 
-Bounded REAL on f57fc6cd… (handoff `b8ee0f40…`):
-- Cursor REAL launches = 1 (`pid:195573`)
-- Attempt succeeded
-- real Artifact filesystem effect + digest binding
-- Evidence available (not verified)
-- Proposal DecisionRef durable closure
-- continuity kind=none
-- ProductOutcome UNCLAIMED / CE not_proven
-- recovery context + succeeded/UNCLAIMED semantics
-- zero relaunch
+### Representative failure signatures (no source fix)
 
-## 7. Realism reserve
+- `corrProof10` — subject text missing `cursor.docs_write.apply`; PREPARE pursue sealed-lineage assertions `expected false to be true`
+- `ecRehydrationContinuity` — `Cannot read properties of undefined (reading 'execute')` across G3–P5 / campaign shape (10)
+- `m3ExecutionContractPrepare` — CHECKPOINT-E docs_write prepare path `expected false to be true`
+- `gcecCr23StartExecution` — expected `no_authorized_effect`, got `projected_repository_ref_mismatch_pro…`
+- `repositoryBindingProjection` — expected binding `null`, got `{ provider: 'github', … }`
+- `gcecCursorFullCapabilityParity` — expected `ack`, got `reject`
+- `importBoundaries` — expected Set size 59, got 63
+- `m5C1PrepareMemoryDisclosure` — test timed out in 5000ms
+- `productProofJourneyIntegrity` — pursue → PREPARE sandbox targetPath assertion fail
 
-**REAL EVIDENCE PAYLOAD VERIFICATION ADAPTER ABSENT**
+Artifact refs:
 
-Therefore NOT claimed:
+- `/opt/cursor/artifacts/pr-506-ci-failed.log`
+- `/opt/cursor/artifacts/pr-506-checks.txt`
+- `/opt/cursor/artifacts/pr-506-view.json`
+
+## 6. Source integrity
+
+| Rule | Status |
+|---|---|
+| no formatter / lint --fix | **held** |
+| no Product / test / package mutation | **held** |
+| no amend / rebase / squash / cherry-pick | **held** |
+| candidate remains exact `f57fc6cd…` | **held** |
+| CI fix in this cycle | **NOT AUTHORIZED — STOP** |
+
+**STOP classification:** CI FAILED does **not** authorize source correction in this pass.
+Any remediation requires a **new Morris GO**.
+
+## 7. Deterministic proof summary (reusable — pre-PR, tree unchanged)
+
+| Proof | Result | Note |
+|---|---|---|
+| CR-PCONT-01…06 | DETERMINISTICALLY CLOSED | product corrections on continuity path |
+| CR-PCONT-06 A/B/C/D | PASS | fail-closed proof (Cycle 9 TEST-ONLY) |
+| Product-native E2E | PASS | cited; not re-run this CI-report pass |
+| UI component / state proof | PASS | cited |
+| matrix 189 tests | PASS | cited under prior load-safe serial run |
+| `tsc --noEmit` | PASS | cited |
+
+CI Vitest failure above is a **separate GitHub Actions matrix outcome** on the same SHA; it does not rewrite the prior deterministic campaign citations, but it **blocks merge**.
+
+## 8. Bounded REAL proof summary (reusable)
+
+Candidate: `f57fc6cd56900cd19df961dbe8b788a0b89937ca`
+Authoritative REAL handoff: `b8ee0f405a011577cd14be0cae266d83f0475fc9`
+
+| Fact | Status |
+|---|---|
+| Cursor REAL launches | **1** (prior cycle; **0** this cycle) |
+| Attempt | succeeded |
+| Artifact filesystem effect | real |
+| Evidence | available; digest binding matches filesystem |
+| Proposal | durable closure |
+| current governed continuity | `kind=none` |
+| ProductOutcome | UNCLAIMED |
+| ClaimEvaluation | not_proven |
+| recovery context | succeeded + UNCLAIMED semantics proven |
+| attempts | 1→1; zero second launch |
+| Product source mutation in REAL | 0 |
+
+**Claim bound:** UNCLAIMED+SUCCEEDED RECOVERY CONTEXT + SEMANTICS PROVEN.
+**Not claimed:** FULL RECOVERY-OPTIONS ORCHESTRATION REAL PROVEN.
+
+## 9. REALISM RESERVE (open — does not alone block PR; CI failure does)
+
+`REAL EVIDENCE PAYLOAD VERIFICATION ADAPTER ABSENT`
+
+Therefore this macro still does **NOT** claim:
+
 - REAL Evidence verified
 - REAL EC completed via verified Evidence
-- Product Journey READY / Product Completion COMPLETE / runtime v3 ADOPTED
+- full Product Journey READY
+- Product Completion COMPLETE
+- runtime v3 ADOPTED
 
-## 8. Next Morris gate
+## 10. Claims authorized / forbidden (this pack)
 
-**MORRIS MERGE GATE PENDING** (after CI resolves; no merge without new GO).
+**Authorized**
 
-## 9. Verdict
+- PROJECT GIT INTEGRATION PASS at exact reviewed SHA
+- PR #506 OPEN with head = `f57fc6cd…`, base = `main`
+- CI FAILED / Required Gate FAIL reported honestly
+- MERGE BLOCKED
+- NO SOURCE FIX AUTHORIZED IN THIS CYCLE
+- prior deterministic + bounded REAL citations remain as historical evidence on unchanged tree
 
+**Forbidden**
+
+- merge / auto-merge
+- source correction / opportunistic test fixes
+- claiming Required Checks PASS
+- claiming REAL Evidence verified / REAL EC completed
+- claiming full Product Journey REAL-ready / runtime v3 ADOPTED
+
+## 11. Merge gate
+
+| Action | Status |
+|---|---|
+| `gh pr merge` | **NOT PERFORMED** |
+| auto-merge | **OFF** |
+| main update | **0** |
+| next gate | **MORRIS GO required** for any CI remediation or merge |
+
+## 12. Review handoff
+
+- Mode: publish-in-cycle
+- Source: `.tmp-sfia-review/chatgpt-review.md`
+- Destination: `sfia-review-handoff/latest-chatgpt-review.md`
+- Branch: `sfia/review-handoff`
+- Publisher: `scripts/sfia/publish-review-handoff.sh`
+- Intended commit message: `docs(review-handoff): publish workspace routing pr ci failure`
+- Project branch after handoff: return to `delivery/sfia-studio-project-workspace-artifact-routing-01` @ `f57fc6cd…`
+
+*(Remote commit/blob filled after publish.)*
+
+## 13. Verdict
+
+```
 PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01
 — PROJECT GIT INTEGRATION PASS
 — PR CREATED
-— CI PENDING
+— CI FAILED
+— MERGE BLOCKED
+— NO SOURCE FIX AUTHORIZED IN THIS CYCLE
 — SAME MACRO / NO MICRO-CYCLE
 — MERGE NOT AUTHORIZED
-— MORRIS MERGE GATE NOT READY UNTIL CHECKS RESOLVE
+— MORRIS MERGE GATE NOT READY (CI FAIL)
+```
+
+PR: https://github.com/mcleland147/sfia-workspace/pull/506
+Head SHA: `f57fc6cd56900cd19df961dbe8b788a0b89937ca`
+CI run: https://github.com/mcleland147/sfia-workspace/actions/runs/35491519992
