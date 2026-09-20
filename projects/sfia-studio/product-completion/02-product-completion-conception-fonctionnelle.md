@@ -1268,4 +1268,19 @@ Ce document **ne dit pas** :
 9. **Legacy** — anciens bindings `docs/` etc. restent lisibles ; pas de faux claim de migration.
 10. **Create Product** — config repository server-owned = **précondition** ; absente/invalide → FAIL CLOSED avant persistence (aucun Project/LPS orphelin ; pas de formulaire manuel).
 
-**Preuve :** deterministic E2E Proposal→HD→EC→Attempt→Evidence→**ReviewBundle** PASS (FakeDocsWrite) · REAL reproof = gate Morris distinct · même macro · CR-PWR-01…04 CLOSED (deterministic scope + execution-time safety).
+**Preuve (historical 2026-09-19 construction wording preserved as chronology):** deterministic E2E Proposal→HD→EC→Attempt→Evidence→**ReviewBundle** PASS (FakeDocsWrite) · même macro · CR-PWR-01…04 CLOSED (deterministic scope + execution-time safety).
+
+### Post-merge proof status — 2026-09-20
+
+Functional D-PC-09 behavioural contract above remains **unchanged** (no scope expansion).
+
+| Claim | Status |
+| --- | --- |
+| Deterministic Proposal→HD→EC→Attempt→Evidence→ReviewBundle | **PASS** |
+| CR-PWR-01…04 / CR-PCONT-01…06 | **CLOSED** |
+| Bounded REAL Product-source reproof | **PASS AT TESTED SCOPE** (`f57fc6cd…`) |
+| Product source on integrated main | behaviorally **unchanged** from that REAL-proven Product source (test-only `8488e827…`) |
+| Git integration | PR **#506 MERGED** · merge `8448c3f5…` |
+| Post-merge Required Gate | **PASS** (attempt 2 after diagnosed **CI_LOAD_TIMING_FLAKE**) |
+| Reserve | **REAL EVIDENCE PAYLOAD VERIFICATION ADAPTER ABSENT** (open) |
+| Explicit non-claims | ≠ full REAL Evidence verification · ≠ full recovery-options REAL orchestration · ≠ browser-real Product Journey · ≠ runtime v3 ADOPTED · ≠ Product Completion newly COMPLETE/CLOSED |
