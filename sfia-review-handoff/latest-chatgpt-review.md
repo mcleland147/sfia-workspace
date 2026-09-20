@@ -1,1015 +1,406 @@
-# ChatGPT Review Pack — FULL
-## PRODUCT JOURNEY CAMPAIGN CORRECTION — Recommendation / OptionSet integrity + Pilote UX
+# SFIA STUDIO — PRODUCT JOURNEY CAMPAIGN CORRECTION CONTINUATION
+## PJ-REPROOF-01 / PJ-REPROOF-02 — FINAL REVIEW CORRECTIONS (CR-PJ-01 / CR-PJ-02 / CR-PJ-03)
 
-- **Timestamp UTC:** 2026-09-20T14:54:45Z
-- **Timestamp Europe/Paris:** 2026-09-20T16:54:45+0200
-- **Parent campaign:** PRODUCT-JOURNEY-E2E-CURRENT-MAIN-CLOUD-REPROOF-01
-- **Mode:** SAME CAMPAIGN / NO MICRO-CYCLE
-- **Cycle:** 8 — Delivery / Implementation
-- **Type:** EVOL · **Profile:** CRITICAL
-- **Morris GO consumed:** PJ-REPROOF-01 + PJ-REPROOF-02 bounded Product/UI correction + tests + Review Handoff. No project push/PR/merge. ZERO NEW REAL.
+**Campaign:** PRODUCT-JOURNEY-E2E-CURRENT-MAIN-CLOUD-REPROOF-01
+**Cycle:** 8 — DELIVERY / IMPLEMENTATION
+**Type:** EVOL · **Profile:** CRITICAL
+**Mode:** SAME CAMPAIGN · SAME MACRO · NO MICRO-CYCLE
+**Timestamp (UTC):** 2026-09-20T15:18:05Z
 
-## 1. Local Git Truth
+---
+
+## 1. Morris GO consumed
+
+Morris GO authorizes continuation of the SAME correction macro to close ChatGPT reserves:
+
+- **CR-PJ-01** — Provider prose must not be authoritative primary Recommendation copy.
+- **CR-PJ-02** — Remove remaining SFIA/runtime vocabulary from Pilote primary UX.
+- **CR-PJ-03** — Replace illustrative HTML visual proof with proof from the REAL SFIA Studio runtime surface.
+
+Authorized: bounded Product/UI/test edits; local runtime validation; real Studio UI screenshot; FULL Review Pack; L3 Review Handoff publication.
+
+**NOT authorized (honored):** project commit; project push; PR; merge; branch deletion; new Product Journey REAL; new Cursor REAL; architecture pivot; persistence/schema migration; new recommendation engine; new UI/design system; Roadmap/C1/C2/Build Doctrine/v3 framing mutation; Figma; Penpot; runtime v3 adoption; global L5.
+
+---
+
+## 2. Local Git Truth
 
 | Field | Value |
 |---|---|
-| Worktree | `/tmp/sfia-pj-reproof-corr-01` |
-| Branch | `fix/sfia-studio-recommendation-decision-ux-integrity` (**NOT pushed**) |
-| HEAD / origin/main | `89dc915d7e685ee775922c02314a8eb39a2921fa` |
-| Baseline CI | `35511985937` attempt 2 SUCCESS · Required Gate PASS |
-| Project commit/push/PR/merge | **0/0/0/0** |
-| New REAL / LIVE | **0 / 0** |
+| Repository root | `/tmp/sfia-pj-reproof-corr-01` (worktree of `mcleland147/sfia-workspace`) |
+| Worktree path | `/tmp/sfia-pj-reproof-corr-01` |
+| Current branch | `fix/sfia-studio-recommendation-decision-ux-integrity` |
+| HEAD | `89dc915d7e685ee775922c02314a8eb39a2921fa` |
+| origin/main (after fetch) | `89dc915d7e685ee775922c02314a8eb39a2921fa` |
+| Baseline drift | **NONE** — HEAD == origin/main |
+| Staged files | *(none)* |
+| Project commit | **0** |
+| Project push | **0** |
+| Project PR | **0** |
+| Project merge | **0** |
 
-## 2. Convergence
-
-KEEP OptionSet / PresentedOptionSet / recommendedOptionRef / selectedOptionRef. ADAPT cognition order + Pilote projection. Build Doctrine / Roadmap / C1 / C2 / v3 framing **UNCHANGED**. Capability V3-F05/F06.
-
-## 3. Root cause PJ-REPROOF-01
-
-Canonical binding was sound. Provider cognition ran before Options derive with prompt « Instruire Options/Recommendation », injecting O1/O2/O3-style prose into durable rationale; UI showed it raw. Soft `options[0]` fallback was not fail-closed.
-
-## 4. Root cause PJ-REPROOF-02
-
-`TrajectorySurface` rendered rationale as plain `<p>` without `formatNoraAssistantDisplayText`. Recovery impacts exposed Attempt/Evidence/productOutcome primarily. Trajectory HD showed raw optionRef.
-
-## 5. Implemented
-
-- Derive → integrity assert → constrained cognition → enrich → seal
-- `RECOMMENDATION_OPTION_REF_MISMATCH` fail-closed
-- Projection fallback when invented option pack detected
-- Pilote-first Recommendation title/label + scrubbed rationale + footer + technical details
-- Option impact partition primary/technical
-- Trajectory HD label via `pilotPresentedOptionLabel`
-
-## 6. Changed files
+**git status --short (post-correction):**
 
 ```
- .../trajectorySurface.ui.test.tsx                  |  79 ++++++++
- .../surfaces/TrajectorySurface.tsx                 |  88 +++++++--
- .../project-assistant/f2/ckcCognitiveContext.ts    |  40 ++--
- .../project-assistant/presentationLabels.ts        |  41 ++++
- .../w2/proposeTrajectoryOptions.ts                 | 216 +++++++++++++++------
- .../project-assistant/w2/trajectoryOptions.ts      |  10 +-
- 6 files changed, 383 insertions(+), 91 deletions(-)
+ M .tmp-sfia-review/chatgpt-review.md
+ M projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
+ M projects/sfia-studio/app/__tests__/project-assistant/checkpointF.recoveryOptionsContext.d0.test.ts
+ M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+ M projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts
+ M projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/types.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/recommendationDecisionIntegrity.pjReproof.d0.test.ts
+?? projects/sfia-studio/app/features/project-assistant/w2/recommendationDecisionIntegrity.ts
 ```
 
-New: `recommendationDecisionIntegrity.ts` + `recommendationDecisionIntegrity.pjReproof.d0.test.ts`
+**Baseline CI (unchanged):** GitHub Actions run `35511985937` attempt 2 = SUCCESS · SFIA Studio Required Gate = PASS.
 
-## 7. Tests
+**Prior Review Handoff tip (pre-this-pass):** branch `sfia/review-handoff` commit `86a76199df86a5677c4e7ff68fcaf76c36a23d8c` blob `0a3ee067edf78c0194d5acb0717f2c796d1798de`.
 
-Targeted **94 PASS** (integrity + trajectorySurface + postExecution + checkpointF recovery + recommendation-vs-decision + w2TrackDPhaseB). New PJ-REPROOF UI assert PASS. `tsc --noEmit` PASS.
+**Expected correction worktree present:** YES — preserved; no reset/stash/overwrite; no new branch created.
 
-## 8. Visual proof
+---
 
-- HTML: `/opt/cursor/artifacts/pj-reproof-recommendation-pilote-ux-after.html`
-- Screenshot: `/opt/cursor/artifacts/pj-reproof-recommendation-pilote-ux-after.webp` (~1280×800)
-- AFTER primary: no `##` / `**` / O1–O4 / Attempt IDs
-- Studio correction worktree on :3020 login 200
+## 3. Exact baseline
 
-## 9. Mapping proof
+- `origin/main` = `89dc915d7e685ee775922c02314a8eb39a2921fa`
+- Correction branch HEAD base = same SHA (uncommitted corrections only)
+- Convergence: NORA COGNITIVE COMPLETION PRESERVED · Runtime v3 NON ADOPTED · Global L5 NOT ADOPTED
+- Architecture disposition honored: KEEP OptionSet / PresentedOptionSet / recommendedOptionRef / selectedOptionRef / HumanDecision / TrajectorySurface structure / existing styles; ADAPT Recommendation cognitive projection + Pilote wording + visual/runtime validation
 
-recommendedOptionRef ∈ options · provider O1/O2/O3 ≠ Options · badge from ref equality · decide uses card optionRef · HD trajectory label · Recommendation ≠ Decision.
+---
 
-## 10. Reserves
+## 4. Current modified / new files
 
-REAL Evidence payload adapter OPEN (unchanged). Product Journey REAL resume = distinct Morris gate. Provider may still emit O1/O2/O3 — mitigated by prompt + projection fallback.
+### Modified
+1. `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx`
+2. `projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts`
+3. `projects/sfia-studio/app/features/project-assistant/presentationLabels.ts` *(prior pass helpers retained)*
+4. `projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts`
+5. `projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts`
+6. `projects/sfia-studio/app/features/project-assistant/w2/types.ts` — optional `cognitiveAnalysis?: string | null`
+7. `projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx`
+8. `projects/sfia-studio/app/__tests__/project-assistant/checkpointF.recoveryOptionsContext.d0.test.ts`
+9. `.tmp-sfia-review/chatgpt-review.md` *(this pack)*
 
-## 11. Anti-claims
+### New
+1. `projects/sfia-studio/app/features/project-assistant/w2/recommendationDecisionIntegrity.ts`
+2. `projects/sfia-studio/app/__tests__/project-assistant/recommendationDecisionIntegrity.pjReproof.d0.test.ts`
 
-No project push/PR/merge · no doctrine/Roadmap/C1/C2/v3 mutation · no schema pivot · no new engine · ZERO NEW REAL · no v3 ADOPTION · no Figma/Penpot.
+---
 
-## 12. New integrity module
+## 5. CR-PJ-01 — Diagnosis and correction
+
+### Diagnosis (pre-correction)
+Prior pass correctly:
+- bound `recommendedOptionRef` to OptionSet (fail-closed mismatch);
+- removed soft `options[0]` fallback;
+- blocked O1/O2/O3 invented packs from becoming Options;
+- scrubbed Markdown/IDs from primary display.
+
+**Remaining semantic weakness:** `projectPiloteRecommendationRationale` still used non-invented provider cognition as the **primary** `rationale`. Hostile non-numbered prose such as « Je conseille finalement de préparer directement une nouvelle tentative. » could therefore own Pilote-facing WHAT while canonical `recommendedOptionRef` remained `opt:trajectory:clarify-first`. Structural binding correct; cognitive projection contradictory.
+
+### Correction
+**ONE canonical decision truth for primary Pilote Recommendation:**
+
+`PresentedOptionSet.options` + `Recommendation.recommendedOptionRef` (+ later `HumanDecision.selectedOptionRef`)
+
+Primary `rationale` is **always** grounded in:
+- deterministic canonical base rationale (from `deriveTrajectoryRecommendation` / option label context);
+- safe CKC guidance text when present;
+- business-first scrubbing.
+
+Provider/Nora free prose:
+- may enrich WHY as optional secondary `cognitiveAnalysis`;
+- is retained under collapsed disclosure « Analyse Nora » when safe/useful;
+- is **dropped** when it looks like an invented option pack (O1/O2/O3 hygiene retained as defense-in-depth, not sole mechanism);
+- **never** replaces primary WHAT — including non-numbered contradiction.
+
+Optional DTO field (no DB migration):
 
 ```ts
-/**
- * PJ-REPROOF-01/02 — Recommendation ↔ OptionSet integrity + Pilote projection.
- *
- * Canonical decision semantics remain OptionSet / recommendedOptionRef /
- * selectedOptionRef. Provider prose may enrich WHY, never WHAT the Options are.
- */
-
-import type { TrajectoryOptionDto } from "./types";
-
-export const RECOMMENDATION_OPTION_REF_MISMATCH =
-  "RECOMMENDATION_OPTION_REF_MISMATCH" as const;
-
-export type RecommendedOptionIntegrityResult =
-  | { readonly ok: true; readonly option: TrajectoryOptionDto }
-  | {
-      readonly ok: false;
-      readonly code: typeof RECOMMENDATION_OPTION_REF_MISMATCH;
-      readonly message: string;
-    };
-
-/** A1 — recommendedOptionRef must resolve to exactly one presented option. */
-export function assertRecommendedOptionInPresentedSet(input: {
-  readonly options: readonly TrajectoryOptionDto[];
-  readonly recommendedOptionRef: string;
-}): RecommendedOptionIntegrityResult {
-  const matches = input.options.filter(
-    (o) => o.optionRef === input.recommendedOptionRef,
-  );
-  if (matches.length === 1) {
-    return { ok: true, option: matches[0]! };
-  }
-  return {
-    ok: false,
-    code: RECOMMENDATION_OPTION_REF_MISMATCH,
-    message:
-      matches.length === 0
-        ? `recommendedOptionRef « ${input.recommendedOptionRef} » n'appartient pas à l'OptionSet présenté — surface HumanDecision refusée.`
-        : `recommendedOptionRef « ${input.recommendedOptionRef} » apparaît ${matches.length} fois — OptionSet incohérent.`,
-  };
-}
-
-/**
- * Detect provider prose that invents a competing numbered option pack
- * (O1/O2/O3, "Option 1", etc.). Not a sole integrity mechanism — used to
- * fall back to deterministic base rationale for Pilote primary copy.
- */
-export function looksLikeInventedOptionPack(text: string): boolean {
-  const raw = text ?? "";
-  if (!raw.trim()) return false;
-  const numbered =
-    (raw.match(/(?:^|\n)\s*O\s*[1-9]\b/gim) ?? []).length +
-    (raw.match(/(?:^|\n)\s*Option\s*[1-9]\b/gim) ?? []).length +
-    (raw.match(/\bO[1-9]\s*[:.)\-–—]/g) ?? []).length +
-    (raw.match(/\bO[1-9]\s+[A-ZÀ-Ü]/g) ?? []).length;
-  if (numbered >= 2) return true;
-  // Two or more "Alternative N" / "Choix N" style lines.
-  const alt =
-    (raw.match(/(?:^|\n)\s*(?:Alternative|Choix|Piste)\s*[1-9]/gim) ?? [])
-      .length;
-  return alt >= 2;
-}
-
-/** Technical impact / jargon lines — secondary disclosure only. */
-export function isTechnicalOptionImpact(line: string): boolean {
-  const t = line.trim();
-  if (!t) return false;
-  return (
-    /\bAttempt\b/i.test(t) ||
-    /\bEvidence\b/i.test(t) ||
-    /\bReviewBundle\b/i.test(t) ||
-    /\bContractResult\b/i.test(t) ||
-    /\bProductOutcome\b/i.test(t) ||
-    /\bproductOutcome\s*:/i.test(t) ||
-    /\bstopReason\s*:/i.test(t) ||
-    /\brealProcessInvoked\b/i.test(t) ||
-    /\bW3C\s*:/i.test(t) ||
-    /\bopt:[a-z0-9:_-]+/i.test(t) ||
-    /\bepi:[a-z0-9:_-]+/i.test(t) ||
-    /\batt:[a-z0-9:_-]+/i.test(t) ||
-    /\bevi:[a-z0-9:_-]+/i.test(t) ||
-    /\boutcome:\s*(FAIL|STOP|UNCLAIMED|PASS)\b/i.test(t)
-  );
-}
-
-export function partitionOptionImpactsForPilote(
-  impacts: readonly string[],
-): {
-  readonly primary: readonly string[];
-  readonly technical: readonly string[];
-} {
-  const primary: string[] = [];
-  const technical: string[] = [];
-  for (const line of impacts) {
-    if (isTechnicalOptionImpact(line)) technical.push(line);
-    else primary.push(line);
-  }
-  return { primary, technical };
-}
-
-/**
- * Scrub primary Recommendation prose: Markdown markers, code ticks, bare
- * internal refs/IDs. Deterministic; no HTML rendering.
- */
-export function scrubPiloteRecommendationProse(text: string): string {
-  let out = (text ?? "").replace(/\r\n/g, "\n");
-  out = out.replace(/\\n/g, "\n").replace(/\\t/g, "\t");
-  out = out.replace(/\*\*([^*]+)\*\*/g, "$1");
-  out = out.replace(/__([^_]+)__/g, "$1");
-  out = out.replace(/(^|\n)#{1,6}\s+/g, "$1");
-  out = out.replace(/`([^`]+)`/g, "$1");
-  out = out.replace(/\|.+\|/g, " "); // crude table remnant neutralization
-  out = out.replace(/\bopt:[a-z0-9:_-]+\b/gi, "");
-  out = out.replace(/\bepi:[a-z0-9:_-]+\b/gi, "");
-  out = out.replace(/\batt:[a-z0-9:_-]+\b/gi, "");
-  out = out.replace(/\bevi:[a-z0-9:_-]+\b/gi, "");
-  out = out.replace(/\brb:[a-z0-9:_-]+\b/gi, "");
-  out = out.replace(/\bsha256:[a-f0-9]{16,}\b/gi, "");
-  out = out.replace(/\bContractResult\b/g, "résultat du contrat");
-  out = out.replace(/\bProductOutcome\b/g, "résultat produit");
-  out = out.replace(/\bexpectedOutputs\b/g, "résultats attendus");
-  out = out.replace(/\bstopReason\b/g, "motif d'arrêt");
-  out = out.replace(/\bHumanDecision\b/g, "décision Pilote");
-  out = out.replace(/[^\S\n]{2,}/g, " ");
-  out = out.replace(/ *\n */g, "\n").trim();
-  return out;
-}
-
-/**
- * Project durable Recommendation rationale for Pilote primary surface.
- * If cognitive prose invents a competing option pack, fall back to base.
- */
-export function projectPiloteRecommendationRationale(input: {
-  readonly baseRationale: string;
-  readonly cognitiveRecommendation?: string | null;
-  readonly guidanceText?: string | null;
-}): {
-  readonly rationale: string;
-  readonly usedCognitive: boolean;
-  readonly fellBackToBase: boolean;
-} {
-  const base = scrubPiloteRecommendationProse(input.baseRationale);
-  const cognitiveRaw = (input.cognitiveRecommendation ?? "").trim();
-  const cognitive = scrubPiloteRecommendationProse(cognitiveRaw);
-  const guidance = scrubPiloteRecommendationProse(input.guidanceText ?? "");
-
-  if (
-    cognitive &&
-    !looksLikeInventedOptionPack(cognitiveRaw) &&
-    !looksLikeInventedOptionPack(cognitive)
-  ) {
-    const combined = guidance
-      ? `${cognitive} ${guidance}`.replace(/\s{2,}/g, " ").trim()
-      : cognitive;
-    return {
-      rationale: combined || base,
-      usedCognitive: true,
-      fellBackToBase: false,
-    };
-  }
-
-  if (cognitive && looksLikeInventedOptionPack(cognitiveRaw)) {
-    const fallback = guidance ? `${base} ${guidance}`.trim() : base;
-    return {
-      rationale: fallback,
-      usedCognitive: false,
-      fellBackToBase: true,
-    };
-  }
-
-  if (guidance && /^[a-z0-9_]+$/i.test(base.trim())) {
-    return { rationale: guidance, usedCognitive: false, fellBackToBase: true };
-  }
-  const withGuidance = guidance ? `${base} ${guidance}`.trim() : base;
-  return {
-    rationale: withGuidance,
-    usedCognitive: false,
-    fellBackToBase: false,
-  };
-}
-
-/** Constrained cognition ask — explain canonical recommended option only. */
-export function buildConstrainedRecommendationCognitionAsk(input: {
-  readonly recommendedOptionLabel: string;
-  readonly recommendedOptionRef: string;
-  readonly subjectLine: string;
-}): string {
-  return [
-    input.subjectLine,
-    "",
-    `Option canonique recommandée (seule identité de décision): « ${input.recommendedOptionLabel} ».`,
-    `Réf. technique (audit seulement, ne pas citer au Pilote): ${input.recommendedOptionRef}.`,
-    "",
-    "Mission:",
-    "- Expliquer POURQUOI cette option canonique convient au contexte métier actuel.",
-    "- Donner une conséquence / prochain pas attendu en langage Pilote.",
-    "- Rappeler que Recommendation ≠ HumanDecision et qu'aucune action n'est automatique.",
-    "",
-    "Interdictions strictes:",
-    "- Ne pas inventer d'autres options (pas de O1/O2/O3, pas de liste Alternative 1/2/3).",
-    "- Ne pas redéfinir le pack de décision — le OptionSet présenté est déjà scellé.",
-    "- Pas de Markdown (pas de ##, **, tableaux, fences).",
-    "- Pas d'identifiants internes (Attempt/Evidence/ReviewBundle/opt:/epi:) dans la prose Pilote.",
-    "- Ne pas décider à la place du Pilote ; ne pas revendiquer d'autorité d'exécution.",
-    "",
-    "Réponds en français métier, 3 à 6 phrases maximum, texte brut uniquement.",
-  ].join("\n");
-}
+cognitiveAnalysis?: string | null  // on TrajectoryRecommendationDto
 ```
 
-## 13. Useful diffs
+Justification: existing serialized PresentedOptionSet is JSON Observation-shaped; optional field is presentation-compatible; no schema/database migration; no second OptionSet / engine.
 
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
-index 71e40913..b617f747 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
-@@ -746,6 +746,85 @@ describe("W2 TrajectorySurface", () => {
-     });
-   });
+### Projection invariant (code)
 
-+  it("PJ-REPROOF — primary Recommendation is Pilote-first; Markdown/IDs stay out of primary rationale", async () => {
-+    proposeMock.mockResolvedValue({
-+      ok: true,
-+      optionSetRef: "optset:w2-ui-pj",
-+      cycleTypeId: "cyc:delivery",
-+      recommendedProfile: "Standard",
-+      options: [
-+        {
-+          kind: "OPTION",
-+          optionRef: "opt:trajectory:clarify-first",
-+          label: "Diagnostiquer / clarifier avant nouvelle tentative",
-+          intent: "Approfondir le diagnostic",
-+          impacts: [
-+            "Aucune préparation d'exécution à ce stade",
-+            "Attempt succeeded: att:demo",
-+            "Evidence: evi:demo",
-+          ],
-+          reservations: [],
-+          steps: [],
-+        },
-+        {
-+          kind: "OPTION",
-+          optionRef: "opt:trajectory:governed-gated",
-+          label: "Préparer une nouvelle tentative gouvernée",
-+          intent: "Décider puis préparer",
-+          impacts: ["Décision humaine requise avant préparation"],
-+          reservations: [],
-+          steps: [],
-+        },
-+      ],
-+      recommendation: {
-+        label: "RECOMMANDATION — PAS UNE DÉCISION",
-+        recommendedOptionRef: "opt:trajectory:clarify-first",
-+        rationale:
-+          "## Diagnostic\n**Important** : Attempt `att:demo` Evidence `evi:xyz` — clarifier avant relance.",
-+        isHumanDecision: false,
-+        promotesTrajectory: false,
-+        ckcAttribution: null,
-+        ckcProvenance: null,
-+      },
-+      epistemicRefs: [],
-+      proposedTrajectory: {
-+        trajectoryId: "trj:w2-ui-pj",
-+        version: 1,
-+        status: "candidate",
-+        statusLabel: "TRAJECTOIRE PROPOSÉE",
-+        isCurrent: false,
-+      },
-+      phase: "OPTIONS_PROPOSED",
-+      autoDecisionPerformed: false,
-+      executionPerformed: false,
-+    });
-+
-+    render(<TrajectorySurface projectId="prj:w2-ui-pj" />);
-+    fireEvent.click(await screen.findByTestId("w2-propose-options"));
-+    expect(await screen.findByTestId("w2-recommendation")).toBeVisible();
-+
-+    const rationale = screen.getByTestId("w2-recommendation-rationale");
-+    expect(rationale).toHaveTextContent(/clarifier avant relance/i);
-+    expect(rationale.textContent ?? "").not.toMatch(/##/);
-+    expect(rationale.textContent ?? "").not.toContain("**");
-+    expect(rationale.textContent ?? "").not.toContain("`");
-+    expect(rationale.textContent ?? "").not.toMatch(/\batt:demo\b/);
-+    expect(rationale.textContent ?? "").not.toMatch(/\bevi:xyz\b/);
-+
-+    expect(screen.getByTestId("w2-recommendation")).toHaveTextContent(
-+      "Diagnostiquer / clarifier avant nouvelle tentative",
-+    );
-+    expect(screen.getByTestId("w2-recommendation-footer")).toHaveTextContent(
-+      /ne lance aucune action automatiquement/i,
-+    );
-+    expect(
-+      screen.getByTestId("w2-option-opt:trajectory:clarify-first"),
-+    ).toHaveTextContent("Recommandée — pas décidée");
-+    expect(
-+      screen.getByTestId("w2-option-tech-opt:trajectory:clarify-first"),
-+    ).toBeInTheDocument();
-+  });
-+
-   it("records an explicit Pilote decision and shows STOP BEFORE EXECUTE on the verdict", async () => {
-     proposeMock.mockResolvedValue({
-       ok: true,
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-index d98f0636..d0b7dd7f 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-@@ -73,9 +73,15 @@ import {
-   pilotAmbiguousPendingTitle,
-   pilotLostPendingTitle,
-   pilotPrepareNotApplicableMessage,
-+  pilotPresentedOptionLabel,
-   pilotProposalOptionLabel,
-   pilotRecoverablePendingTitle,
-+  formatNoraAssistantDisplayText,
- } from "@/features/project-assistant/presentationLabels";
-+import {
-+  partitionOptionImpactsForPilote,
-+  scrubPiloteRecommendationProse,
-+} from "@/features/project-assistant/w2/recommendationDecisionIntegrity";
- import {
-   PROPOSAL_SUBJECT_AMEND_REF,
-   PROPOSAL_SUBJECT_PURSUE_REF,
-@@ -1970,6 +1976,9 @@ export function TrajectorySurface({
-                 const isRecommended =
-                   option.optionRef ===
-                   optionSet.recommendation.recommendedOptionRef;
-+                const impactParts = partitionOptionImpactsForPilote(
-+                  option.impacts,
-+                );
-                 return (
-                   <li
-                     key={option.optionRef}
-@@ -1986,11 +1995,33 @@ export function TrajectorySurface({
-                       <span className={styles.optionLabel}>{option.label}</span>
-                     </div>
-                     <p className={styles.optionIntent}>{option.intent}</p>
--                    <ul className={styles.impacts}>
--                      {option.impacts.map((impact) => (
--                        <li key={impact}>{impact}</li>
--                      ))}
--                    </ul>
-+                    {impactParts.primary.length > 0 ? (
-+                      <ul className={styles.impacts}>
-+                        {impactParts.primary.map((impact) => (
-+                          <li key={impact}>{impact}</li>
-+                        ))}
-+                      </ul>
-+                    ) : null}
-+                    {impactParts.technical.length > 0 ? (
-+                      <details data-testid={`w2-option-tech-${option.optionRef}`}>
-+                        <summary>Détails techniques de l&apos;option</summary>
-+                        <ul className={styles.impacts}>
-+                          {impactParts.technical.map((impact) => (
-+                            <li key={impact}>{impact}</li>
-+                          ))}
-+                        </ul>
-+                        <p className={styles.blockNote}>
-+                          Réf. option : <code>{option.optionRef}</code>
-+                        </p>
-+                      </details>
-+                    ) : (
-+                      <details data-testid={`w2-option-tech-${option.optionRef}`}>
-+                        <summary>Détails techniques de l&apos;option</summary>
-+                        <p className={styles.blockNote}>
-+                          Réf. option : <code>{option.optionRef}</code>
-+                        </p>
-+                      </details>
-+                    )}
-                     <button
-                       type="button"
-                       className={styles.decideAction}
-@@ -2020,17 +2051,41 @@ export function TrajectorySurface({
-               <span className={styles.sectionKind} data-kind="recommendation">
-                 Recommandation
-               </span>
--              {optionSet.recommendation.label}
-+              {pilotPresentedOptionLabel({
-+                optionRef: optionSet.recommendation.recommendedOptionRef,
-+                options: optionSet.options,
-+              })}
-             </h3>
--            <p className={styles.blockBody}>
--              {optionSet.recommendation.rationale}
-+            <p
-+              className={styles.blockBody}
-+              data-testid="w2-recommendation-rationale"
-+            >
-+              {scrubPiloteRecommendationProse(
-+                formatNoraAssistantDisplayText(
-+                  optionSet.recommendation.rationale,
-+                ),
-+              )}
-             </p>
--            <p className={styles.blockNote}>
--              Cette recommandation ne promeut aucune trajectoire.
-+            <p className={styles.blockNote} data-testid="w2-recommendation-footer">
-+              Cette recommandation vous aide à décider. Elle ne lance aucune
-+              action automatiquement.
-               {optionSet.recommendation.ckcAttribution
-                 ? " Contexte de cycle rattaché."
--                : " Aucun contexte de cycle rattaché."}
-+                : ""}
-             </p>
-+            <details data-testid="w2-recommendation-tech">
-+              <summary>Détails techniques de la recommandation</summary>
-+              <p className={styles.blockNote}>
-+                {optionSet.recommendation.label} · optionRef{" "}
-+                <code>{optionSet.recommendation.recommendedOptionRef}</code>
-+                {optionSet.optionSetRef ? (
-+                  <>
-+                    {" "}
-+                    · optionSetRef <code>{optionSet.optionSetRef}</code>
-+                  </>
-+                ) : null}
-+              </p>
-+            </details>
-           </section>
-         </>
-       ) : null}
-@@ -2057,7 +2112,10 @@ export function TrajectorySurface({
-                 {optionSet?.decisionSubjectMode === "proposal" ||
-                 decision.proposalId
-                   ? pilotProposalOptionLabel(decision.selectedOptionRef)
--                  : decision.selectedOptionRef}
-+                  : pilotPresentedOptionLabel({
-+                      optionRef: decision.selectedOptionRef,
-+                      options: optionSet?.options,
-+                    })}
-               </dd>
-             </div>
-             <div>
-@@ -2905,7 +2963,11 @@ export function TrajectorySurface({
-                 {postEvidence.recommendation.headline}
-               </p>
-               <p className={styles.blockBody} data-testid="w3c-recommendation-rationale">
--                {postEvidence.recommendation.rationale}
-+                {scrubPiloteRecommendationProse(
-+                  formatNoraAssistantDisplayText(
-+                    postEvidence.recommendation.rationale,
-+                  ),
-+                )}
-               </p>
-               <p className={styles.blockBody} data-testid="w3c-next-step">
-                 <strong>{W4C_NEXT_ACTION_LEAD} :</strong>{" "}
-diff --git a/projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts b/projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts
-index 85368728..d29288e5 100644
---- a/projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts
-@@ -26,6 +26,7 @@ import {
-   loadProductCkcIndexSync,
- } from "@/lib/oa/doctrine/product/productCkcIndex";
- import type { QualificationDto } from "./types";
-+import { projectPiloteRecommendationRationale } from "../w2/recommendationDecisionIntegrity";
-
- export {
-   DEFAULT_PRODUCT_DOCTRINE_PIN,
-@@ -42,6 +43,15 @@ export const CKC_ATTRIBUTION_MARKER_PREFIX =
- export const CKC_COGNITIVE_REASONING_SYSTEM_MARKER =
-   "SFIA Studio CKC COGNITIVE REASONING" as const;
-
-+/** Appended to system prompt — Pilote Recommendation integrity (PJ-REPROOF-01/02). */
-+export const CKC_COGNITIVE_RECOMMENDATION_INTEGRITY_RULES = [
-+  "Recommendation ≠ HumanDecision ; aucune autorité d'exécution.",
-+  "Explique uniquement l'option canonique recommandée fournie — ne redéfinis pas le pack d'options.",
-+  "Interdit: inventer O1/O2/O3 ou une liste Alternative 1/2/3 concurrente.",
-+  "Interdit: Markdown (##, **, tableaux, fences) et identifiants internes (opt:/epi:/Attempt/Evidence) dans la prose Pilote.",
-+  "Texte métier brut, concis, en français.",
-+].join(" ");
-+
- export type CkcCognitiveProvenance = {
-   readonly ckcId: string;
-   readonly cycleTypeId: string;
-@@ -321,9 +331,10 @@ export function buildCkcCognitivePromptSection(
- }
-
- /**
-- * Business-first Recommendation rationale (R1-03).
-- * Cognitive guidance may inform the text; CKC IDs / package digests / fingerprints
-- * must not appear as Pilote-facing prose. Structured provenance is separate.
-+ * Business-first Recommendation rationale (R1-03 + PJ-REPROOF-01/02).
-+ * Cognitive guidance may inform WHY the canonical recommendation fits;
-+ * it must not invent a competing Option pack. CKC IDs / digests stay out of
-+ * Pilote-facing prose. Structured provenance is separate.
-  */
- export function deriveCkcAttributedRecommendation(input: {
-   baseRationale: string;
-@@ -331,9 +342,11 @@ export function deriveCkcAttributedRecommendation(input: {
-   cognitiveRecommendation?: string | null;
- }): string {
-   // Keep engine codes out of primary Pilote Pourquoi — map at presentation.
--  // Prefer cognitive / CKC guidance prose; fall back to base only if no guidance.
-   if (!input.content) {
--    return input.baseRationale;
-+    return projectPiloteRecommendationRationale({
-+      baseRationale: input.baseRationale,
-+      cognitiveRecommendation: input.cognitiveRecommendation,
-+    }).rationale;
-   }
-   const guidance = extractCkcGuidanceFromMarkdown(input.content.markdown);
-   const guidanceText =
-@@ -342,14 +355,11 @@ export function deriveCkcAttributedRecommendation(input: {
-   const cognitive = scrubTechnicalCkcMechanics(
-     input.cognitiveRecommendation?.trim() ?? "",
-   );
--  if (cognitive) {
--    return `${cognitive} · ${guidanceText}`;
--  }
--  // If base is a known engine code, prefer guidance alone for Pilote primary.
--  if (/^[a-z0-9_]+$/i.test(input.baseRationale.trim())) {
--    return guidanceText;
--  }
--  return `${input.baseRationale} ${guidanceText}`;
-+  return projectPiloteRecommendationRationale({
-+    baseRationale: input.baseRationale,
-+    cognitiveRecommendation: cognitive,
-+    guidanceText,
-+  }).rationale;
- }
-
- /** Strip technical CKC mechanics that must not leak into Pilote-facing prose. */
-@@ -457,8 +467,8 @@ export async function reasonWithResolvedCkcContext(input: {
-     provider.providerId === "fake-test" ? "test_provider" : "openai_live";
-
-   const systemContent = input.ckcPromptSection?.trim()
--    ? `${CKC_COGNITIVE_REASONING_SYSTEM_MARKER}\nContexte CKC résolu (guidance seulement — pas d'autorité, pas de décision humaine):\n${input.ckcPromptSection.trim()}`
--    : `${CKC_COGNITIVE_REASONING_SYSTEM_MARKER}\nAucun contexte CKC package résolu — recommandation générique uniquement.`;
-+    ? `${CKC_COGNITIVE_REASONING_SYSTEM_MARKER}\n${CKC_COGNITIVE_RECOMMENDATION_INTEGRITY_RULES}\nContexte CKC résolu (guidance seulement — pas d'autorité, pas de décision humaine):\n${input.ckcPromptSection.trim()}`
-+    : `${CKC_COGNITIVE_REASONING_SYSTEM_MARKER}\n${CKC_COGNITIVE_RECOMMENDATION_INTEGRITY_RULES}\nAucun contexte CKC package résolu — recommandation générique uniquement.`;
-
-   const completion = await provider.complete([
-     { role: "system", content: systemContent },
-diff --git a/projects/sfia-studio/app/features/project-assistant/presentationLabels.ts b/projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
-index 08acc0ae..57fcc7e2 100644
---- a/projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
-@@ -787,6 +787,41 @@ export function pilotProposalOptionLabel(
-   }
- }
-
-+/**
-+ * Pilote labels for ProjectTrajectory option refs (PJ-REPROOF-01/02).
-+ * Raw optionRef stays secondary/audit only.
-+ */
-+export function pilotTrajectoryOptionLabel(
-+  optionRef: string | null | undefined,
-+): string {
-+  switch ((optionRef ?? "").trim()) {
-+    case "opt:trajectory:governed-gated":
-+      return "Préparer une nouvelle tentative gouvernée";
-+    case "opt:trajectory:bounded-direct":
-+      return "Replanifier ou suspendre sans relance immédiate";
-+    case "opt:trajectory:clarify-first":
-+      return "Diagnostiquer / clarifier avant nouvelle tentative";
-+    case "opt:proposal-subject:pursue":
-+    case "opt:proposal-subject:amend":
-+    case "opt:proposal-subject:refuse":
-+      return pilotProposalOptionLabel(optionRef);
-+    default:
-+      return nonempty(optionRef) ?? "Option";
-+  }
-+}
-+
-+/** Resolve Pilote label from PresentedOptionSet when available; else trajectory map. */
-+export function pilotPresentedOptionLabel(input: {
-+  readonly optionRef: string | null | undefined;
-+  readonly options?: readonly { readonly optionRef: string; readonly label: string }[];
-+}): string {
-+  const ref = (input.optionRef ?? "").trim();
-+  if (!ref) return "Option";
-+  const fromSet = input.options?.find((o) => o.optionRef === ref)?.label?.trim();
-+  if (fromSet) return fromSet;
-+  return pilotTrajectoryOptionLabel(ref);
-+}
-+
- export function pilotPrepareNotApplicableMessage(): string {
-   return "La préparation d'exécution ne s'applique pas après une décision de modification ou de refus — poursuivez avec Nora.";
- }
-@@ -815,7 +850,13 @@ export function formatNoraAssistantDisplayText(text: string | null | undefined):
-   out = out.replace(/\bdocs_write\b/g, "écriture de document");
-   // Soften markdown emphasis / headings leftovers without rendering HTML.
-   out = out.replace(/\*\*([^*]+)\*\*/g, "$1");
-+  out = out.replace(/__([^_]+)__/g, "$1");
-   out = out.replace(/(^|\n)#{1,6}\s+/g, "$1");
-+  out = out.replace(/`([^`]+)`/g, "$1");
-+  out = out.replace(/\bopt:[a-z0-9:_-]+\b/gi, "");
-+  out = out.replace(/\bepi:[a-z0-9:_-]+\b/gi, "");
-+  out = out.replace(/\batt:[a-z0-9:_-]+\b/gi, "");
-+  out = out.replace(/\bevi:[a-z0-9:_-]+\b/gi, "");
-   out = out.replace(/[^\S\n]{2,}/g, " ").replace(/ *\n */g, "\n").trim();
-   return scrubPiloteFacingEngineJargon(out);
- }
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts b/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
-index 0c8ee704..c7a3d23f 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
-@@ -4,8 +4,10 @@
-  * trajectory.
-  *
-  * Phase B order (binding):
-- *   resolve inputs → load product CKC → provider cognition → derive Options →
-- *   enrich Recommendation → digests → ONLY THEN durable trajectory/epistemic writes.
-+ *   resolve inputs → load product CKC → derive Options + base Recommendation →
-+ *   integrity assert (recommendedOptionRef ∈ OptionSet) → constrained provider
-+ *   cognition (explain WHY only) → enrich Recommendation → digests → ONLY THEN
-+ *   durable trajectory/epistemic writes.
-  *
-  * Durability follows D-W2-01. D-W2-A3-01 idempotence uses stable CKC semantic
-  * fingerprint (not raw provider prose). STOP BEFORE EXECUTE.
-@@ -61,6 +63,10 @@ import {
-   deriveTrajectoryRecommendation,
-   type TrajectoryOptionInputs,
- } from "./trajectoryOptions";
-+import {
-+  assertRecommendedOptionInPresentedSet,
-+  buildConstrainedRecommendationCognitionAsk,
-+} from "./recommendationDecisionIntegrity";
- import {
-   buildRecoveryCognitionSection,
-   resolvePostEvidenceRecoveryContext,
-@@ -73,6 +79,40 @@ import type {
-   TrajectoryRecommendationDto,
- } from "./types";
-
-+/**
-+ * Phase B cognition AFTER deterministic Options/Recommendation identity.
-+ * Provider may explain WHY the canonical recommended option fits — never WHAT
-+ * the OptionSet is.
-+ */
-+async function reasonCanonicalRecommendationCognition(input: {
-+  readonly ckcPromptSection: string;
-+  readonly recoveryCognitionSection: string | null;
-+  readonly recommendedOptionLabel: string;
-+  readonly recommendedOptionRef: string;
-+  readonly subjectLine: string;
-+  readonly projectSummary: string;
-+  readonly intentSummary: string;
-+}): Promise<{ ok: true; recommendation: string } | { ok: false; detail: string }> {
-+  try {
-+    const reasoning = await reasonWithResolvedCkcContext({
-+      userContent: buildConstrainedRecommendationCognitionAsk({
-+        recommendedOptionLabel: input.recommendedOptionLabel,
-+        recommendedOptionRef: input.recommendedOptionRef,
-+        subjectLine: input.subjectLine,
-+      }),
-+      projectSummary: input.projectSummary,
-+      intentSummary: input.intentSummary,
-+      ckcPromptSection: input.recoveryCognitionSection
-+        ? `${input.ckcPromptSection}\n\n${input.recoveryCognitionSection}`
-+        : input.ckcPromptSection,
-+    });
-+    return { ok: true, recommendation: reasoning.recommendation };
-+  } catch (error) {
-+    const detail = error instanceof Error ? error.message : "provider_error";
-+    return { ok: false, detail };
-+  }
-+}
-+
- /** Nora proposes; it never decides. Kept N1 so it can never satisfy a gate. */
- const NORA_OPTION_AUTHOR = Object.freeze({
-   actorId: "actor:nora-w2",
-@@ -332,59 +372,6 @@ export async function proposeTrajectoryOptions(
-   const recoveryCognitionSection = recoveryContext
-     ? buildRecoveryCognitionSection(recoveryContext)
-     : null;
--  const cognitionUserContent = proposalSubject
--    ? `Instruire Options/Recommendation pour la Proposal ${proposalSubject.proposalId} (sujet: ${proposalSubject.sealedExecutionBasis.objective})`
--    : recoveryContext
--      ? `Instruire Options/Recommendation de recovery/replan après ${
--          recoveryContext.productOutcome === "UNCLAIMED" &&
--          recoveryContext.attemptStatus === "succeeded"
--            ? "succès technique / résultat produit non prouvé"
--            : `${recoveryContext.productOutcome} durable`
--        } (${recoveryContext.attemptId}, attempt=${recoveryContext.attemptStatus}) — sujet courant = recovery du même cycle, PAS un nouveau cadrage fonctionnel.`
--      : `Instruire Options/Recommendation pour le cycle ${input.cycleTypeId}`;
--  let cognitiveRecommendation: string;
--  try {
--    const reasoning = await reasonWithResolvedCkcContext({
--      userContent: cognitionUserContent,
--      projectSummary: [
--        `name=${input.projectTitle}`,
--        `objective=${input.objective}`,
--        `projectId=${input.projectId}`,
--        ...(proposalSubject
--          ? [
--              `proposalId=${proposalSubject.proposalId}`,
--              `subjectObjective=${proposalSubject.sealedExecutionBasis.objective}`,
--              `targetPath=${proposalSubject.sealedExecutionBasis.targetPath ?? ""}`,
--              `requestedOperation=${proposalSubject.sealedExecutionBasis.requestedOperation}`,
--            ]
--          : recoveryContext
--            ? [
--                `recoverySubject=post_evidence`,
--                `attemptId=${recoveryContext.attemptId}`,
--                `evidenceId=${recoveryContext.evidenceId}`,
--                `recommendationKind=${recoveryContext.recommendationKind}`,
--                `realProcessInvoked=${recoveryContext.realProcessInvoked}`,
--              ]
--            : []),
--      ].join(" | "),
--      intentSummary: proposalSubject
--        ? `Proposal subject ${proposalSubject.proposalId} · profil ${input.recommendedProfile}`
--        : recoveryContext
--          ? `Recovery/replan post-Evidence · cycle ${input.cycleTypeId} · profil ${input.recommendedProfile} · Recommendation ≠ HumanDecision`
--          : `Cycle ${input.cycleTypeId} · profil ${input.recommendedProfile}`,
--      ckcPromptSection: recoveryCognitionSection
--        ? `${ckcPromptSection}\n\n${recoveryCognitionSection}`
--        : ckcPromptSection,
--    });
--    cognitiveRecommendation = reasoning.recommendation;
--  } catch (error) {
--    const detail = error instanceof Error ? error.message : "provider_error";
--    return {
--      ok: false,
--      code: "PROVIDER_COGNITION_FAILED",
--      message: `Cognition Nora/provider échouée (${detail}) — aucune mutation de trajectoire/OptionSet.`,
--    };
--  }
-
-   const semanticFingerprint = computeCkcSemanticFingerprint(
-     ckcContent.provenance,
-@@ -403,6 +390,33 @@ export async function proposeTrajectoryOptions(
-   const optionSetRef = `optset:w2-${shortId()}`;
-   const correlationId = input.correlationId ?? `cor:w2-opt-${shortId()}`;
-
-+  const projectSummary = [
-+    `name=${input.projectTitle}`,
-+    `objective=${input.objective}`,
-+    `projectId=${input.projectId}`,
-+    ...(proposalSubject
-+      ? [
-+          `proposalId=${proposalSubject.proposalId}`,
-+          `subjectObjective=${proposalSubject.sealedExecutionBasis.objective}`,
-+          `targetPath=${proposalSubject.sealedExecutionBasis.targetPath ?? ""}`,
-+          `requestedOperation=${proposalSubject.sealedExecutionBasis.requestedOperation}`,
-+        ]
-+      : recoveryContext
-+        ? [
-+            `recoverySubject=post_evidence`,
-+            `attemptId=${recoveryContext.attemptId}`,
-+            `evidenceId=${recoveryContext.evidenceId}`,
-+            `recommendationKind=${recoveryContext.recommendationKind}`,
-+            `realProcessInvoked=${recoveryContext.realProcessInvoked}`,
-+          ]
-+        : []),
-+  ].join(" | ");
-+  const intentSummary = proposalSubject
-+    ? `Proposal subject ${proposalSubject.proposalId} · profil ${input.recommendedProfile}`
-+    : recoveryContext
-+      ? `Recovery/replan post-Evidence · cycle ${input.cycleTypeId} · profil ${input.recommendedProfile} · Recommendation ≠ HumanDecision`
-+      : `Cycle ${input.cycleTypeId} · profil ${input.recommendedProfile}`;
-+
-   // ── CORR-PROOF-10 proposal subject — ZERO ProjectTrajectory ───────────
-   if (proposalSubject) {
-     const options = deriveProposalSubjectOptions({
-@@ -413,12 +427,50 @@ export async function proposeTrajectoryOptions(
-       sealed: proposalSubject.sealedExecutionBasis,
-       proposalId: proposalSubject.proposalId,
-     });
-+    const integrity = assertRecommendedOptionInPresentedSet({
-+      options,
-+      recommendedOptionRef: baseRecommendation.recommendedOptionRef,
-+    });
-+    if (!integrity.ok) {
-+      return {
-+        ok: false,
-+        code: integrity.code,
-+        message: integrity.message,
-+      };
-+    }
-+    const cognition = await reasonCanonicalRecommendationCognition({
-+      ckcPromptSection,
-+      recoveryCognitionSection,
-+      recommendedOptionLabel: integrity.option.label,
-+      recommendedOptionRef: baseRecommendation.recommendedOptionRef,
-+      subjectLine: `Expliquer la recommandation canonique pour la Proposal ${proposalSubject.proposalId} (sujet: ${proposalSubject.sealedExecutionBasis.objective}).`,
-+      projectSummary,
-+      intentSummary,
-+    });
-+    if (!cognition.ok) {
-+      return {
-+        ok: false,
-+        code: "PROVIDER_COGNITION_FAILED",
-+        message: `Cognition Nora/provider échouée (${cognition.detail}) — aucune mutation de trajectoire/OptionSet.`,
-+      };
-+    }
-     const recommendation = enrichRecommendationWithCognition({
-       base: baseRecommendation,
-       content: ckcContent,
--      cognitiveRecommendation,
-+      cognitiveRecommendation: cognition.recommendation,
-       fingerprint: semanticFingerprint,
-     });
-+    const postEnrichIntegrity = assertRecommendedOptionInPresentedSet({
-+      options,
-+      recommendedOptionRef: recommendation.recommendedOptionRef,
-+    });
-+    if (!postEnrichIntegrity.ok) {
-+      return {
-+        ok: false,
-+        code: postEnrichIntegrity.code,
-+        message: postEnrichIntegrity.message,
-+      };
-+    }
-     const optionSetDigest = computeOptionSetDigest({
-       cycleTypeId: input.cycleTypeId,
-       recommendedProfile: input.recommendedProfile,
-@@ -563,12 +615,58 @@ export async function proposeTrajectoryOptions(
-
-   const options = deriveTrajectoryOptions(inputs);
-   const baseRecommendation = deriveTrajectoryRecommendation(inputs);
-+  const integrity = assertRecommendedOptionInPresentedSet({
-+    options,
-+    recommendedOptionRef: baseRecommendation.recommendedOptionRef,
-+  });
-+  if (!integrity.ok) {
-+    return {
-+      ok: false,
-+      code: integrity.code,
-+      message: integrity.message,
-+    };
-+  }
-+  const cognitionSubjectLine = recoveryContext
-+    ? `Expliquer la recommandation canonique de recovery/replan après ${
-+        recoveryContext.productOutcome === "UNCLAIMED" &&
-+        recoveryContext.attemptStatus === "succeeded"
-+          ? "succès technique / résultat produit non prouvé"
-+          : `${recoveryContext.productOutcome} durable`
-+      } (${recoveryContext.attemptId}, attempt=${recoveryContext.attemptStatus}) — sujet courant = recovery du même cycle, PAS un nouveau cadrage fonctionnel.`
-+    : `Expliquer la recommandation canonique pour le cycle ${input.cycleTypeId}.`;
-+  const cognition = await reasonCanonicalRecommendationCognition({
-+    ckcPromptSection,
-+    recoveryCognitionSection,
-+    recommendedOptionLabel: integrity.option.label,
-+    recommendedOptionRef: baseRecommendation.recommendedOptionRef,
-+    subjectLine: cognitionSubjectLine,
-+    projectSummary,
-+    intentSummary,
-+  });
-+  if (!cognition.ok) {
-+    return {
-+      ok: false,
-+      code: "PROVIDER_COGNITION_FAILED",
-+      message: `Cognition Nora/provider échouée (${cognition.detail}) — aucune mutation de trajectoire/OptionSet.`,
-+    };
-+  }
-   const recommendation = enrichRecommendationWithCognition({
-     base: baseRecommendation,
-     content: ckcContent,
--    cognitiveRecommendation,
-+    cognitiveRecommendation: cognition.recommendation,
-     fingerprint: semanticFingerprint,
-   });
-+  const postEnrichIntegrity = assertRecommendedOptionInPresentedSet({
-+    options,
-+    recommendedOptionRef: recommendation.recommendedOptionRef,
-+  });
-+  if (!postEnrichIntegrity.ok) {
-+    return {
-+      ok: false,
-+      code: postEnrichIntegrity.code,
-+      message: postEnrichIntegrity.message,
-+    };
-+  }
-
-   const optionSetDigest = computeOptionSetDigest({
-     cycleTypeId: input.cycleTypeId,
-@@ -583,9 +681,9 @@ export async function proposeTrajectoryOptions(
-     decisionSubjectMode: "project_trajectory",
-   });
-
-+  const recommendedOption = postEnrichIntegrity.option;
-   const proposedSteps: TrajectoryStep[] = structuredClone(
--    (options.find((o) => o.optionRef === recommendation.recommendedOptionRef) ??
--      options[0]!).steps,
-+    recommendedOption.steps,
-   ) as TrajectoryStep[];
-
-   const latest = await resolveLatestTrajectory(oa, input.projectId);
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts b/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
-index 8ca5a6a9..6ec7ff5a 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts
-@@ -206,9 +206,11 @@ export function deriveTrajectoryOptions(
-         label: "Préparer une nouvelle tentative gouvernée",
-         intent: `À partir du ${outcomePhrase}, décider explicitement puis préparer / inspecter / autoriser un nouveau contrat — sans Execute automatique.`,
-         impacts: [
-+          "Reprend à partir du résultat déjà observé",
-+          "Aucun succès métier revendiqué automatiquement",
-+          "Décision humaine requise avant préparation",
-           attemptImpact,
-           `Evidence: ${recovery.evidenceId}`,
--          "Aucun succès métier revendiqué",
-           `productOutcome: ${outcome}`,
-           `realProcessInvoked durable: ${recovery.realProcessInvoked}`,
-         ],
-@@ -233,11 +235,11 @@ export function deriveTrajectoryOptions(
-         optionRef: CLARIFY_OPTION_REF,
-         label: "Diagnostiquer / clarifier avant nouvelle tentative",
-         intent:
--          "Approfondir le diagnostic (Evidence, stopReason, observabilité) avant toute préparation d'une nouvelle tentative.",
-+          "Approfondir le diagnostic du livrable et des preuves disponibles avant toute préparation d'une nouvelle tentative.",
-         impacts: [
-           "Aucune préparation d'exécution à ce stade",
--          `stopReason: ${recovery.stopReason ?? "n/a"}`,
-           "Nouvelle décision humaine requise après clarification",
-+          `stopReason: ${recovery.stopReason ?? "n/a"}`,
-         ],
-         reservations,
-         steps: recoveryClarifySteps(),
-@@ -304,7 +306,7 @@ export function deriveTrajectoryRecommendation(
-     return {
-       label: "RECOMMANDATION — PAS UNE DÉCISION",
-       recommendedOptionRef: CLARIFY_OPTION_REF,
--      rationale: `Épisode post-Evidence ${recovery.productOutcome} (${recovery.attemptId}) — ${recovery.headline}. Diagnostiquer / clarifier avant toute nouvelle tentative. Recommendation ≠ HumanDecision ; aucun Execute automatique.`,
-+      rationale: `L'épisode précédent s'est terminé avec un résultat produit ${recovery.productOutcome === "UNCLAIMED" ? "non encore pleinement confirmé" : recovery.productOutcome === "STOP" ? "arrêté de façon gouvernée" : "en échec"}. ${recovery.headline} Studio recommande de diagnostiquer / clarifier avant toute nouvelle tentative. Recommendation ≠ HumanDecision — cette recommandation n'est pas une décision et ne lance aucune action automatiquement.`,
-       isHumanDecision: false,
-       promotesTrajectory: false,
-       ckcAttribution: inputs.ckcAttribution,
-
+```ts
+// Primary ALWAYS = scrubbed base (+ guidance)
+// Cognitive → cognitiveAnalysis secondary OR null (invented packs)
+export function projectPiloteRecommendationRationale(...)
+export function projectCkcAttributedRecommendation(...) // CKC wrapper
+// enrichRecommendationWithCognition sets rationale + cognitiveAnalysis
 ```
 
-## 14. Next gate
+---
 
-After ChatGPT PASS → DISTINCT MORRIS GO — PROJECT GIT INTEGRATION (commit+push+PR). Merge separate.
+## 6. Proof — canonical option owns primary recommendation semantics
 
-## 15. Verdict
+| Layer | Owner of WHAT | Owner of WHY enrichment |
+|---|---|---|
+| OptionSet.options | Deterministic derive | — |
+| recommendedOptionRef | Deterministic derive + integrity assert | — |
+| Recommendation.rationale (primary) | Canonical base + safe guidance only | — |
+| Recommendation.cognitiveAnalysis | — | Provider/Nora (secondary, optional) |
+| UI primary (`w2-recommendation-rationale`) | `recommendation.rationale` | — |
+| UI secondary (`w2-recommendation-nora-analysis`) | — | `cognitiveAnalysis` under « Analyse Nora » |
+| UI technical (`w2-recommendation-tech`) | refs / labels audit | — |
+
+Even if provider says the opposite of clarify-first, primary still communicates diagnostiquer/clarifier from canonical base.
+
+Structural acceptances from prior pass **preserved** (no regression):
+- recommendedOptionRef resolves exactly once;
+- RECOMMENDATION_OPTION_REF_MISMATCH fail-closed;
+- soft options[0] fallback removed;
+- proposed trajectory steps from canonical recommended option;
+- recommended badge from ref equality;
+- Decide sends canonical card optionRef;
+- HumanDecision keeps selectedOptionRef durable;
+- technical details progressively disclosed;
+- primary UI no longer needs raw IDs.
+
+---
+
+## 7. Hostile non-numbered provider test (T15)
+
+**Given:**
+- Canonical recommended option: diagnostiquer / clarifier (`opt:trajectory:clarify-first`)
+- Provider cognition: `Je conseille finalement de préparer directement une nouvelle tentative.`
+- `looksLikeInventedOptionPack(hostile) === false` (no O1/O2/O3)
+
+**Expect / observed:**
+- Primary rationale still matches `/diagnostiquer|clarifier/i`
+- Primary does **not** contain « Je conseille finalement de préparer directement »
+- Primary does **not** contain « préparer directement une nouvelle tentative » as the recommendation WHAT
+- `recommendedOptionRef` remains `CLARIFY_OPTION_REF`
+- Hostile sentence may appear only in `cognitiveAnalysis` (secondary), never as primary
+
+**Result:** PASS (unit test in `recommendationDecisionIntegrity.pjReproof.d0.test.ts`)
+
+---
+
+## 8. CR-PJ-02 — Wording changes (before / after)
+
+| Surface | Before | After |
+|---|---|---|
+| Recovery base rationale | `… Recommendation ≠ HumanDecision — cette recommandation n'est pas une décision et ne lance aucune action automatiquement.` | `… Votre décision reste nécessaire — cette recommandation ne lance aucune action automatiquement.` |
+| Primary footer | Already Pilote-first (prior) | Kept: « Cette recommandation vous aide à décider. Elle ne lance aucune action automatiquement. » |
+| Constrained cognition ask | « Rappeler que Recommendation ≠ HumanDecision… » | « Rappeler que la recommandation aide à décider et ne lance aucune action automatiquement. » |
+| CKC integrity system rules | « Recommendation ≠ HumanDecision ; aucune autorité d'exécution. » | « La recommandation aide le Pilote à décider ; elle ne lance aucune action automatiquement. » + forbid contradicting canonical option |
+| proposeTrajectoryOptions intentSummary | `Recommendation ≠ HumanDecision` | `recommandation ≠ décision Pilote` (cognition context, not primary UI) |
+| Primary recommendation title | Option label via `pilotPresentedOptionLabel` | Unchanged (Pilote label) |
+| Post-evidence technical details | `none — Recommendation ≠ HumanDecision` under `<details>` | **Kept under secondary technical disclosure only** (audit honesty) |
+
+Primary-copy absence asserted for at least: `HumanDecision`, `ProductOutcome`, `ContractResult`, `optionRef` on default primary rationale surface (not collapsed tech audit).
+
+---
+
+## 9. Exact primary vs secondary information contract
+
+### Primary (default visible)
+1. Que recommande Studio ? → recommended option **label**
+2. Pourquoi ? → deterministic canonical `rationale` (scrubbed)
+3. Qu'est-ce que cela implique ? → option intent + functional impacts (non-technical partition)
+4. Que doit faire l'utilisateur maintenant ? → explicit « Décider cette option » CTA
+5. Action automatique ? → **non** (footer)
+
+### Secondary (collapsed by default)
+- « Analyse Nora » → `cognitiveAnalysis` (provider WHY only)
+- « Détails techniques de la recommandation / option » → `recommendedOptionRef`, `optionSetRef`, Attempt/Evidence/ReviewBundle lines, raw enums, structural label `RECOMMANDATION — PAS UNE DÉCISION`
+- After decision: selected option **label** primary; `selectedOptionRef` under technical details only
+
+### Not primary
+- Raw Markdown / LLM dump
+- O1/O2/O3 provider packs
+- Internal IDs / engine codes
+- `Recommendation ≠ HumanDecision` ontology slogan
+- Execution trace / debug panel aesthetics
+
+---
+
+## 10–14. CR-PJ-03 — Actual Studio runtime proof
+
+### Attempted
+- Studio process: `next-server` cwd = `/tmp/sfia-pj-reproof-corr-01/projects/sfia-studio/app` on **localhost:3020** (correction worktree — correct)
+- `/login` → HTTP 200
+- `/studio` → **307** → `/login?error=AUTH_CONFIG_ERROR`
+- `/studio/projects/test` → **307** → `/login?error=AUTH_CONFIG_ERROR`
+
+### Root cause (honest)
+Better Auth / GitHub OAuth secrets are **unset** in this environment:
+- `BETTER_AUTH_SECRET` UNSET
+- `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` UNSET
+- `SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS` UNSET
+- No `.env.local` present
+
+Middleware fail-closed: protected Product surfaces unreachable without valid GitHub OAuth session.
+
+### What was NOT done (policy)
+- No forged browser auth / fake cookies / middleware bypass
+- No DB state injection
+- No new illustrative HTML mock
+- No new Product REAL / Cursor REAL / fabricated HumanDecision
+
+### Actual URLs used
+- `http://localhost:3020/studio` → final `http://localhost:3020/login?error=AUTH_CONFIG_ERROR`
+- `http://localhost:3020/login`
+- `http://localhost:3020/studio/projects/test` → same AUTH_CONFIG_ERROR redirect
+
+### Viewport
+**1280 × 800**
+
+### Screenshots (blocker evidence — NOT Recommendation UX proof)
+- `/opt/cursor/artifacts/pj-reproof-cr-pj-03-auth-blocker-studio-redirect.png`
+- `/opt/cursor/artifacts/pj-reproof-cr-pj-03-auth-blocker-login.png`
+
+Visible: SFIA Studio login shell; French message « Configuration d'authentification indisponible (fail-closed). »; URL shows `AUTH_CONFIG_ERROR`.
+
+### Recommendation surface screenshot from `/studio/projects/<project>`
+**NOT OBTAINED** — blocked by AUTH_CONFIG_ERROR without forging auth.
+
+### Prior HTML mock
+`127.0.0.1:8765/pj-reproof-recommendation-pilote-ux-after.html` — **NOT reused** as final proof (disqualified per GO).
+
+---
+
+## 15. Tests / typecheck / lint
+
+### Targeted suite (combined run)
+```
+Test Files  7 passed (7)
+Tests       84 passed (84)
+```
+
+Files:
+1. `recommendationDecisionIntegrity.pjReproof.d0.test.ts` — T1–T7, T9, T10, **T15**, primary-copy Pilote asserts, constrained ask
+2. `trajectorySurface.ui.test.tsx` — includes PJ-REPROOF primary/secondary UI asserts
+3. `postExecutionTrajectorySurface.ui.test.tsx`
+4. `checkpointF.recoveryOptionsContext.d0.test.ts` — rationale expectation updated to Pilote wording
+5. `recommendation-vs-decision.test.tsx`
+6. `w1CkcSemanticSeam.test.ts` (Track D / cognition)
+7. `mw2.s02.ckcAuthority.d0.test.ts` (W2 Track D / cognition)
+
+### Typecheck
+`npm run typecheck` (`tsc --noEmit`) → **PASS** (exit 0)
+
+### Lint
+`npm run lint` (`next lint`) → **PASS** — No ESLint warnings or errors
+
+### Coverage mapping
+| ID | Status |
+|---|---|
+| T1 recommendedOptionRef resolves exactly once | PASS |
+| T2 mismatch fails closed | PASS |
+| T3 provider O1/O2/O3 cannot create canonical options | PASS |
+| T4 no raw Markdown primary | PASS |
+| T5 no internal IDs primary | PASS |
+| T6 technical details secondary | PASS |
+| T7 badge maps from recommendedOptionRef | PASS |
+| T8 Decide sends exact canonical optionRef | PASS (prior UI tests preserved) |
+| T9 decision displays option label | PASS |
+| T10 Recommendation does not decide/promote | PASS |
+| T11 post-execution continuity | PASS (postExecutionTrajectorySurface) |
+| T12 Proposal path preserved | PASS (trajectorySurface suite) |
+| T13 PresentedOptionSet rehydration binding | PASS (suite + optional field compatible) |
+| T14 accessibility basics | PASS (prior aria/labels retained) |
+| **T15 contradictory non-numbered provider prose** | **PASS** |
+| Primary-copy absence HumanDecision/ProductOutcome/ContractResult/optionRef | PASS |
+
+Logs: `/opt/cursor/artifacts/pj-reproof-tests-full-targeted.log`, `pj-reproof-typecheck.log`, `pj-reproof-lint.log`
+
+---
+
+## 16. Files modified (summary)
+
+See §4. Diffstat (excluding this pack rewrite magnitude in prior iterations):
 
 ```
-PASS — RECOMMENDATION / DECISION INTEGRITY + PILOTE UX CORRECTION READY FOR CHATGPT REVIEW
+TrajectorySurface.tsx                         | ~100 lines adapted
+ckcCognitiveContext.ts                        | +projectCkcAttributedRecommendation
+proposeTrajectoryOptions.ts                   | enrich → rationale + cognitiveAnalysis
+trajectoryOptions.ts                          | Pilote recovery rationale
+types.ts                                      | optional cognitiveAnalysis
+recommendationDecisionIntegrity.ts            | NEW (projection + integrity)
+recommendationDecisionIntegrity.*.test.ts     | NEW (+ T15)
+trajectorySurface.ui.test.tsx                 | primary/secondary asserts
+checkpointF.recoveryOptionsContext.d0.test.ts | Pilote rationale expects
 ```
 
-Fin.
+---
+
+## 17. Useful modified sections (excerpts)
+
+### A. Canonical-owned primary projection
+`recommendationDecisionIntegrity.ts` — `projectPiloteRecommendationRationale`:
+- primary = scrubbed base (+ guidance)
+- cognitive → `cognitiveAnalysis` secondary OR null if invented pack
+
+### B. CKC enrichment seam
+`ckcCognitiveContext.ts` — `projectCkcAttributedRecommendation` + `deriveCkcAttributedRecommendation` returns primary only.
+
+### C. Enrich path
+`proposeTrajectoryOptions.ts` — `enrichRecommendationWithCognition` sets both `rationale` and `cognitiveAnalysis`.
+
+### D. UI contract
+`TrajectorySurface.tsx` — primary rationale + footer; optional `<details>Analyse Nora</details>`; tech details collapsed.
+
+### E. Recovery Pilote rationale
+`trajectoryOptions.ts` — « Votre décision reste nécessaire — cette recommandation ne lance aucune action automatiquement. »
+
+---
+
+## 18. Fake / Real qualification
+
+| Claim | Status |
+|---|---|
+| New Product REAL | **ZERO** |
+| New Cursor REAL Product execution | **ZERO** |
+| Deterministic correction proven (CR-PJ-01/02 + tests) | **YES** |
+| Real Product UI visual proof of Recommendation surface | **NO — BLOCKED** |
+| Runtime screenshot of login fail-closed | YES (blocker evidence only) |
+| Evidence payload REAL adapter | NOT proven |
+| Runtime v3 adoption | NOT proven |
+| Generalized autonomy | NOT proven |
+
+**Level expected vs achieved:**
+- Expected: DETERMINISTIC CORRECTION PROVEN + REAL PRODUCT UI VISUAL PROOF
+- Achieved: DETERMINISTIC CORRECTION PROVEN + REAL PRODUCT UI VISUAL PROOF **BLOCKED** (AUTH_CONFIG_ERROR)
+
+---
+
+## 19. Reserves
+
+1. **R-CR-PJ-03-AUTH** — Authentic `/studio/projects/<project>` Recommendation screenshot blocked by unset Better Auth / GitHub OAuth secrets (`AUTH_CONFIG_ERROR`). Forging auth not authorized. Requires Morris-authorized local auth configuration (real secrets) before CR-PJ-03 can close.
+2. **R-SECONDARY-AMBIGUITY** — Non-invented contradictory provider prose may still appear under collapsed « Analyse Nora ». Primary WHAT is unambiguous; secondary disclosure could still confuse if expanded. Acceptable per GO (« place under Analyse Nora or omit »); further semantic filtering without regex guessing would need a separate design decision.
+3. **R-POST-EVIDENCE-TECH** — Post-evidence technical `<details>` still contains audit string `Recommendation ≠ HumanDecision` (intentionally secondary). Not primary Pilote copy.
+4. **R-OPTIONAL-DTO** — `cognitiveAnalysis` optional field relies on JSON PresentedOptionSet compatibility; no DB migration performed. Rehydration of older bindings without the field remains valid (`undefined`/`null`).
+
+---
+
+## 20. Anti-claims
+
+- This pass does **NOT** claim a new Product Journey E2E REAL.
+- This pass does **NOT** claim Evidence payload REAL adapter closure.
+- This pass does **NOT** claim runtime v3 adoption or global L5.
+- This pass does **NOT** claim pixel-perfect / design-system / Figma-Penpot validation.
+- This pass does **NOT** claim CR-PJ-03 Recommendation UX screenshot from authenticated Studio route.
+- Prior HTML mock is **NOT** final visual proof.
+- Project commit/push/PR/merge remain **0** (not authorized).
+- No second recommendation engine; no schema migration; no doctrine/Roadmap mutation.
+
+---
+
+## 21. Final verdict
+
+**STOP — RUNTIME VISUAL PROOF BLOCKED — AUTH_CONFIG_ERROR (Better Auth / GitHub OAuth secrets unset; `/studio/projects/...` unreachable without forging browser auth, which is not authorized)**
+
+### Accompanying qualification (for ChatGPT / Morris)
+- **CR-PJ-01** — CLOSED at code + T15 deterministic level (canonical owns primary WHAT).
+- **CR-PJ-02** — CLOSED at primary Pilote UX / wording + primary-copy tests level.
+- **CR-PJ-03** — **OPEN / BLOCKED** pending authentic authenticated Studio session on correction worktree `:3020`.
+
+Awaiting ChatGPT / Morris review. No project commit. No project push. No PR. No automatic Product Journey REAL resume.
