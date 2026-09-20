@@ -213,9 +213,10 @@ Also unit: LPS v1 current + propose v2 candidate → repo+LPS stay v1 → promot
 - File: `sfia-review-handoff/latest-chatgpt-review.md`
 - Commit message: `docs(review-handoff): publish post-execution continuity implementation`
 - Push: `origin/sfia/review-handoff` fast-forward only
-- **Remote commit:** `b2b108c1eec12c062b394009d1f063e6a6c9b53e`
-- **Remote blob:** `432a9b97ff758b3a65e9dd4e8daf97c64baf9ea1`
+- **Remote commit:** `1522b77b2a1fca1f190f020b57d73b46c5cb23f6`
+- **Remote blob:** `cbbfe2c7eb81c542302844f53b24476910629248`
 - **Publisher verdict:** HANDOFF UPDATED — REMOTE VERIFIED
+- **Prior handoff in series:** `b2b108c1…` / blob `432a9b97…` (same pack body; verification fields refreshed)
 - Returned to: `delivery/sfia-studio-project-workspace-artifact-routing-01` @ `ed3cc66b…` (no project push)
 
 ---
