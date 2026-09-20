@@ -2,6 +2,11 @@
 /**
  * JOURNEY-INTEGRITY — RepositoryBinding durable → LocalProjectCreationView →
  * RuntimeProjectState projection (application path, isolated Product DB).
+ *
+ * D-PC-09 / CR-PWR-04 — normal Product createProject persists server-owned
+ * repository configuration before persistence (see __tests__/setup.ts defaults).
+ * Legacy unbound Projects are constructed explicitly by stripping binding after
+ * create — never by expecting createProject to fabricate a null binding.
  */
 import fs from "node:fs";
 import os from "node:os";
@@ -70,7 +75,7 @@ afterEach(() => {
 });
 
 describe("JOURNEY-INTEGRITY — RepositoryBinding runtime projection", () => {
-  it("B1–B6 — getProject returns exact durable binding after setProjectRepositoryBinding", async () => {
+  it("B1–B5 — createProject persists server-owned binding; setProjectRepositoryBinding updates durable projection", async () => {
     const productDbPath = tempDb();
     const runtime = createRuntimeApplicationService({
       registryRoot: REGISTRY_ROOT,
@@ -85,11 +90,19 @@ describe("JOURNEY-INTEGRITY — RepositoryBinding runtime projection", () => {
     expect(created.ok).toBe(true);
     if (!created.ok) return;
 
-    // B6 — unbound project remains honestly null
-    const unbound = await runtime.getProject(created.projectId);
-    expect(unbound.ok).toBe(true);
-    if (!unbound.ok) return;
-    expect(unbound.project.repositoryBinding).toBeNull();
+    // D-PC-09 — new Product Project is server-bound (not null).
+    const afterCreate = await runtime.getProject(created.projectId);
+    expect(afterCreate.ok).toBe(true);
+    if (!afterCreate.ok) return;
+    expect(afterCreate.project.repositoryBinding).not.toBeNull();
+    expect(afterCreate.project.repositoryBinding?.provider).toBe("github");
+    expect(afterCreate.project.repositoryBinding?.identity).toBeTruthy();
+    expect(afterCreate.project.repositoryBinding?.remoteUrl).toBeTruthy();
+    expect(afterCreate.project.repositoryBinding?.defaultBranch).toBeTruthy();
+    expect(afterCreate.project.repositoryBinding?.pathRoot).toBeTruthy();
+    expect(String(afterCreate.project.repositoryBinding?.identity)).not.toMatch(
+      /acme\/widget/i,
+    );
 
     const set = await runtime.setProjectRepositoryBinding({
       projectId: created.projectId,
@@ -117,7 +130,7 @@ describe("JOURNEY-INTEGRITY — RepositoryBinding runtime projection", () => {
     );
   });
 
-  it("B6 — project without binding stays null after create (no sample)", async () => {
+  it("LEGACY unbound — stripping durable binding stays honestly null (not createProject)", async () => {
     const runtime = createRuntimeApplicationService({
       registryRoot: REGISTRY_ROOT,
       schemasRoot: SCHEMAS_ROOT,
@@ -128,11 +141,24 @@ describe("JOURNEY-INTEGRITY — RepositoryBinding runtime projection", () => {
     });
     const created = await runtime.createProject({
       ...INPUT,
-      idempotencyKey: "idem:binding-unbound",
+      idempotencyKey: "idem:binding-legacy-unbound",
     });
     expect(created.ok).toBe(true);
     if (!created.ok) return;
-    expect(created.project.repositoryBinding).toBeNull();
-    expect(JSON.stringify(created.project)).not.toMatch(/acme\/widget/i);
+    // createProject under D-PC-09 is bound — fabricate LEGACY unbound explicitly.
+    expect(created.project.repositoryBinding).not.toBeNull();
+
+    const oa = runtime.oa!;
+    const found = await oa.projectServices.projects.findById(created.projectId);
+    expect(found).not.toBeNull();
+    if (!found) return;
+    delete found.repositoryBinding;
+    await oa.projectServices.projects.save(found);
+
+    const reloaded = await runtime.getProject(created.projectId);
+    expect(reloaded.ok).toBe(true);
+    if (!reloaded.ok) return;
+    expect(reloaded.project.repositoryBinding).toBeNull();
+    expect(JSON.stringify(reloaded.project)).not.toMatch(/acme\/widget/i);
   });
 });

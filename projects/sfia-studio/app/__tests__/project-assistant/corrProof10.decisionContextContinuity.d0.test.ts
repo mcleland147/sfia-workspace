@@ -125,7 +125,6 @@ function docsWriteProposal(input: {
     executionIntent: {
       intentKind: "docs_write",
       artifactType: null,
-      targetRepositoryRef: null,
       targetPath: input.targetPath ?? TARGET_PATH,
       scopeIn: ["sandbox"],
       scopeOut: ["git"],
@@ -139,6 +138,12 @@ function docsWriteProposal(input: {
       artifactBrief: "Note gestion de tâches",
       contentRequirements: [],
       exitRequirementKinds: [],
+      // CR-CI506-03 — automatic projects/… docs_write must seal CREATE/UPDATE
+      // AND a coherent repository identity for PREPARE revalidation.
+      artifactWriteMode: "CREATE",
+      targetRepositoryRef:
+        process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY?.trim() ||
+        "acme/vitest-default",
       ...input.eiOverrides,
     },
   });

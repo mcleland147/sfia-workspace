@@ -50,6 +50,8 @@ import type {
   RuntimeApplicationService,
   RuntimeOaStack,
 } from "@/lib/vertical-slice-runtime";
+import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
 
 const TARGET_PATH = "projects/sfia-studio/.sandbox/gestion-de-taches.md";
 const NON_ACME_BINDING = {
@@ -67,6 +69,7 @@ function docsWriteProposal(input: {
   activeCycleInstanceId: string;
   proposalId?: string;
   status?: ProposalDto["status"];
+  targetRepositoryRef?: string;
 }): ProposalDto {
   return saveProposal({
     proposalId: input.proposalId ?? `prop:f2:jint-${Date.now()}`,
@@ -102,7 +105,6 @@ function docsWriteProposal(input: {
     executionIntent: {
       intentKind: "docs_write",
       artifactType: null,
-      targetRepositoryRef: null,
       targetPath: TARGET_PATH,
       scopeIn: ["sandbox"],
       scopeOut: ["git"],
@@ -115,6 +117,12 @@ function docsWriteProposal(input: {
       artifactBrief: "Note gestion de tâches",
       contentRequirements: [],
       exitRequirementKinds: [],
+      // CR-CI506-03 — seal CREATE + coherent repository identity for PREPARE.
+      artifactWriteMode: "CREATE",
+      targetRepositoryRef:
+        input.targetRepositoryRef ??
+        (process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY?.trim() ||
+          "acme/vitest-default"),
     },
   });
 }
@@ -520,6 +528,14 @@ describe("PRODUCT-PROOF-JOURNEY-INTEGRITY — T02–T07 / N03 / N05 / T15–T17"
     });
     expect(bound.ok).toBe(true);
     if (!bound.ok) return;
+    const managedBase = process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV];
+    expect(managedBase).toBeTruthy();
+    if (managedBase) {
+      ensureManagedRepoCloneSkeleton({
+        managedRepoRootBase: managedBase,
+        identity: NON_ACME_BINDING.identity,
+      });
+    }
     const binding = bound.repositoryBinding as {
       identity?: string;
       pathRoot?: string;
@@ -535,6 +551,7 @@ describe("PRODUCT-PROOF-JOURNEY-INTEGRITY — T02–T07 / N03 / N05 / T15–T17"
       doctrineDigest: ctx.doctrineDigest,
       activeCycleInstanceId: cycleInstanceId,
       proposalId: "prop:f2:jint-t15",
+      targetRepositoryRef: NON_ACME_BINDING.identity,
     });
     expect(proposal.executionIntent?.targetPath).toBe(TARGET_PATH);
 

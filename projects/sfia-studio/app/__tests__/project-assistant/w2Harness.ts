@@ -14,6 +14,8 @@ import {
   resetRuntimeApplicationServiceForTests,
   type RuntimeApplicationService,
 } from "@/lib/vertical-slice-runtime";
+import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
+import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
 
 const APP_ROOT = path.resolve(__dirname, "../..");
 export const W2_REGISTRY_ROOT = path.join(APP_ROOT, "lib/oa/doctrine/product");
@@ -50,6 +52,8 @@ class SeededIdSource implements LocalProjectIdSource {
 }
 
 const tempDirs: string[] = [];
+let harnessManagedEnvPrevious: string | undefined;
+let harnessManagedEnvOwned = false;
 
 export function tempProductDbPath(name = "w2-product.sqlite"): string {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-w2-"));
@@ -66,6 +70,16 @@ export function cleanupW2TempDirs(): void {
     } catch {
       /* ignore */
     }
+  }
+  if (harnessManagedEnvOwned) {
+    if (harnessManagedEnvPrevious === undefined) {
+      delete process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV];
+    } else {
+      process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV] =
+        harnessManagedEnvPrevious;
+    }
+    harnessManagedEnvOwned = false;
+    harnessManagedEnvPrevious = undefined;
   }
 }
 
@@ -86,6 +100,21 @@ export function bootW2Runtime(input: {
   if (!process.env.SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH?.trim()) {
     process.env.SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH = "main";
   }
+  // CR-CI506-03 — PREPARE revalidation probes managed-repo filesystem facts.
+  // Provide a deterministic local clone skeleton when the suite did not already
+  // configure SFIA_STUDIO_MANAGED_REPO_ROOT_BASE (EMPTY ≠ UNKNOWN).
+  if (!process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]?.trim()) {
+    harnessManagedEnvPrevious =
+      process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV];
+    const managedBase = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-w2-managed-"));
+    tempDirs.push(managedBase);
+    process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV] = managedBase;
+    harnessManagedEnvOwned = true;
+  }
+  ensureManagedRepoCloneSkeleton({
+    managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
+    identity: process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY!,
+  });
   resetRuntimeApplicationServiceForTests();
   return getRuntimeApplicationService({
     registryRoot: W2_REGISTRY_ROOT,

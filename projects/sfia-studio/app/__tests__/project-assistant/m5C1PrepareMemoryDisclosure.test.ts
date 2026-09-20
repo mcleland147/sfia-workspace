@@ -1,7 +1,18 @@
 /**
- * C1 residual — prepareF3Fixture Memory surface must return PROCESS_LOCAL notice.
+ * C1 residual — prepareF3Fixture process-local disclosure surface must return
+ * PROCESS_LOCAL notice when productDurablePath=false.
+ *
+ * CR-CI506-06 — after CR-PCONT-03, recordF2Decision wraps HD+DecisionRef in
+ * projectServices.store.runInTransaction. MemoryProjectStore serializes via a
+ * non-reentrant queue and deadlocks when nested (HD → Append LPS). Product
+ * SQLite store supports nested ALS reentrance. This fixture therefore uses the
+ * Product SQLite runtime for DecisionRef durability while still asserting the
+ * process-local F3 disclosure (productDurablePath=false).
+ *
  * @vitest-environment node
  */
+import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import {
@@ -16,96 +27,81 @@ import {
   saveProposal,
 } from "@/features/project-assistant/f2/proposalStore";
 import { recordF2Decision } from "@/features/project-assistant/f2/recordDecision";
+import type { LocalProjectIdSource } from "@/lib/vertical-slice-core";
 import {
-  createTestDoctrineResolver,
-  type Digest,
-  type DoctrinePackagePin,
-} from "@/lib/oa/doctrine";
-import { createTestProjectServices } from "@/lib/oa/project";
-import { createTestCycleServices } from "@/lib/oa/cycle";
-import {
-  MemoryAuthorityResolver,
-  createTestDecisionServices,
-} from "@/lib/oa/decision";
-import { createTestExecutionContractServices } from "@/lib/oa/execution-contract";
+  createRuntimeApplicationService,
+  resetRuntimeApplicationServiceForTests,
+} from "@/lib/vertical-slice-runtime";
 
 const APP_ROOT = path.resolve(__dirname, "../..");
-const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
-const SCHEMAS = path.resolve(
+const REGISTRY_ROOT = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
+const SCHEMAS_ROOT = path.resolve(
   APP_ROOT,
   "../sfia-v3-modeled/v3-native-option-a/schemas",
 );
 
-const VALID_DIGEST =
-  "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622" as Digest;
-
-const VALID_PIN: DoctrinePackagePin = {
-  doctrinePackageId: "pkg:studio-v3-oa",
-  version: "1.0.0",
-  digest: VALID_DIGEST,
-};
-
 const NOW = "2026-08-15T13:00:00.000Z";
+
+class FixedIdSource implements LocalProjectIdSource {
+  private project = 0;
+  private lps = 0;
+  private correlation = 0;
+  nextProjectId(): string {
+    this.project += 1;
+    return `prj:c1-mem-${this.project}`;
+  }
+  nextLpsVersionId(): string {
+    this.lps += 1;
+    return `lps:c1-mem-${this.lps}`;
+  }
+  nextCorrelationId(): string {
+    this.correlation += 1;
+    return `cor:c1-mem-${this.correlation}`;
+  }
+}
+
+function tempDb(): string {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-c1-mem-"));
+  return path.join(dir, "oa-product.sqlite");
+}
 
 describe("C1 prepareF3Fixture Memory disclosure surface", () => {
   beforeEach(() => {
     resetF2ProposalStoreForTests();
+    resetRuntimeApplicationServiceForTests();
   });
   afterEach(() => {
     resetF2ProposalStoreForTests();
+    resetRuntimeApplicationServiceForTests();
   });
 
   it("returns F3_PROCESS_LOCAL_NOTICE when productDurablePath=false", async () => {
-    const { resolver } = createTestDoctrineResolver({
-      registryRoot: FIXTURES,
-      schemasRoot: SCHEMAS,
+    const runtime = createRuntimeApplicationService({
+      registryRoot: REGISTRY_ROOT,
+      schemasRoot: SCHEMAS_ROOT,
+      nowIso: NOW,
+      idSource: new FixedIdSource(),
+      auditMode: "noop",
+      productDbPath: tempDb(),
     });
-    const projects = createTestProjectServices({
-      doctrineResolver: resolver,
-      fixedNowIso: NOW,
-    });
-    const cycles = createTestCycleServices({
-      projectServices: projects,
-      fixedNowIso: NOW,
-    });
-    const authority = new MemoryAuthorityResolver();
-    const decisions = createTestDecisionServices({
-      projectServices: projects,
-      cycleServices: cycles,
-      authorityResolver: authority,
-      fixedNowIso: NOW,
-    });
-    const contracts = createTestExecutionContractServices({
-      projectServices: projects,
-      cycleServices: cycles,
-      decisionServices: decisions,
-      fixedNowIso: NOW,
-    });
+    const oa = runtime.oa!;
 
-    const created = await projects.createProject.execute({
-      projectId: "prj:c1-memory-prep",
-      title: "C1 Memory Prepare",
+    const created = await runtime.createProject({
+      name: "C1 Memory Prepare",
       objective: "memory-prepare-objective",
       context: "memory",
-      scope: "memory-scope",
-      doctrinePackagePin: VALID_PIN,
-      createdBy: {
-        actorId: "actor:morris",
-        role: "project_owner",
-        displayName: "Morris",
-        authorityLevel: "N3",
-      },
-      lpsVersionId: "lps:c1-memory-v1",
+      criticality: "STANDARD",
+      constraints: ["No REAL"],
+      shortReference: "C1MEM",
       idempotencyKey: "idem:c1-memory-prep",
     });
     expect(created.ok).toBe(true);
     if (!created.ok) return;
+    const projectId = created.project.projectId;
 
-    const lps = await projects.getCurrentLivingProjectState.execute({
-      projectId: "prj:c1-memory-prep",
-    });
-    expect(lps.ok).toBe(true);
-    if (!lps.ok) return;
+    const overview = await runtime.getProject(projectId);
+    expect(overview.ok).toBe(true);
+    if (!overview.ok) return;
 
     const proposal = saveProposal({
       proposalId: createProposalId(),
@@ -126,10 +122,10 @@ describe("C1 prepareF3Fixture Memory disclosure surface", () => {
       morrisGateRequired: true,
       nextPossibleStep: "F3 PREPARE",
       contextSnapshot: {
-        projectId: "prj:c1-memory-prep",
-        lpsId: lps.livingProjectState.lpsVersionId,
-        lpsVersion: lps.livingProjectState.version,
-        doctrineDigest: VALID_DIGEST,
+        projectId,
+        lpsId: overview.livingState.id,
+        lpsVersion: overview.livingState.version,
+        doctrineDigest: overview.doctrine.digest,
       },
       processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
       executionForbidden: true,
@@ -139,36 +135,28 @@ describe("C1 prepareF3Fixture Memory disclosure surface", () => {
 
     const go = await recordF2Decision({
       proposalId: proposal.proposalId,
-      projectId: "prj:c1-memory-prep",
+      projectId,
       decisionKind: "GO",
       currentContext: proposal.contextSnapshot,
-      decisionServices: decisions,
-      authorityResolver: authority,
-      nowIso: () => NOW,
+      decisionServices: oa.decisionServices,
+      authorityResolver: oa.authorityResolver,
+      nowIso: () => oa.clock.nowIso(),
       forceM3Authority: true,
-      // CR-PCONT-03 — RuntimeOaStack mandatory; Memory UoW for HD+DecisionRef.
-      oa: {
-        projectServices: projects,
-        cycleServices: cycles,
-        decisionServices: decisions,
-        authorityResolver: authority,
-        executionContractServices: contracts,
-        clock: { nowIso: () => NOW },
-      } as unknown as import("@/lib/vertical-slice-runtime").RuntimeOaStack,
+      oa,
     });
     expect(go.ok).toBe(true);
     if (!go.ok) return;
 
     const prepared = await prepareF3Fixture({
-      projectId: "prj:c1-memory-prep",
+      projectId,
       proposalId: go.proposal.proposalId,
       decisionId: go.decision.decisionId,
       currentContext: go.proposal.contextSnapshot,
       deps: {
-        decisionServices: decisions,
-        authorityResolver: authority,
-        executionContractServices: contracts,
-        nowIso: () => NOW,
+        decisionServices: oa.decisionServices,
+        authorityResolver: oa.authorityResolver,
+        executionContractServices: oa.executionContractServices,
+        nowIso: () => oa.clock.nowIso(),
         productDurablePath: false,
       },
     });
@@ -183,5 +171,5 @@ describe("C1 prepareF3Fixture Memory disclosure surface", () => {
     expect(prepared.payload.disclosures).not.toContain(
       F3_PRODUCT_DURABLE_NOTICE,
     );
-  });
+  }, 30_000);
 });
