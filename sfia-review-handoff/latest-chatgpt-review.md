@@ -1,292 +1,254 @@
 # ChatGPT Review Pack — FULL
 
-- **Timestamp UTC:** 2026-09-19T14:25:16Z
-- **Timestamp Europe/Paris:** 2026-09-19T16:25:17+0200
-- **Macro:** PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01
-- **Capacity:** D-PC-09 Project Repository Workspace & Cycle-aware Artifact Routing
-- **Cycle:** 8 — Delivery / implémentation
+- **Timestamp UTC:** 2026-09-20T02:52:00Z
+- **Timestamp Europe/Paris:** 2026-09-20T04:52:00+0200
+- **Macro label (observation only):** OBS-PJ-CONT-01
+- **Pass type:** POST-EXECUTION CONTINUITY / RECOVERY — READ-ONLY DIAGNOSTIC
+- **Cycle:** 9 — QA / validation
 - **Profil:** Critical
-- **Typologie:** EVOL
-- **SAME MACRO / NO MICRO-CYCLE**
-- **Pass type:** BOUNDED REAL REPROOF (preuve, pas développement)
+- **Typologie:** RUN
+- **SAME MACRO / NO MICRO-CYCLE** — aucun nouveau macro de construction créé
 
-## Décision Morris / GO consommé
+## Décision Morris / GO
 
-**BOUNDED REAL REPROOF — AUTHORIZED / CONSUMED** par cette exécution.
+Diagnostic READ-ONLY autorisé. Aucune correction. Aucun REAL. Aucune mutation source/DB/UI.
 
-Consomme le GO Morris pour UNE session REAL bornée (≤1 Cursor REAL spawn ; OpenAI LIVE limité au parcours Nora de cette session).
-
-Ne consomme / n'autorise PAS : project push · PR · merge · force push · mutation source · retry Cursor · campagne Nora · runtime v3 ADOPTED · Product Completion COMPLETE.
-
-Previous Final Critical Review PASS handoff: `6179499d45d87714440213720761bd2bff7f1f18`
-Latest Git-integration handoff: `8cd39c40a1d0cc164daee212bea3f9fe2b4e0a90`
-Entrée preuve: DETERMINISTIC E2E + EXECUTION-TIME SAFETY PROVEN
-
-## Local Git Truth Check (avant LIVE/REAL)
+## Local Git Truth
 
 ```
 worktree: /tmp/sfia-pwr-01-dev
-toplevel: /tmp/sfia-pwr-01-dev
 branch: delivery/sfia-studio-project-workspace-artifact-routing-01
 HEAD: ed3cc66b25d260a67437fc07e163ef5fcc2244a9
 parent: a6dba9776bfb1b4cb1570a87b20b0c71e546e441
-origin/main (after fetch): a6dba9776bfb1b4cb1570a87b20b0c71e546e441
-git status --short: M .tmp-sfia-review/chatgpt-review.md
+origin/main: a6dba9776bfb1b4cb1570a87b20b0c71e546e441
+status: M .tmp-sfia-review/chatgpt-review.md
 staged: NONE
-git diff --check HEAD^..HEAD: PASS
-HEAD == ed3cc66b25d260a67437fc07e163ef5fcc2244a9: YES
-parent == a6dba9776bfb1b4cb1570a87b20b0c71e546e441: YES
-origin/main compatible (== parent baseline): YES
+HEAD == ed3cc66b…: YES
+parent/origin.main == a6dba977…: YES
 ```
 
-**Verdict Local Git Truth:** PASS — REAL STARTED
+Verdict Local Git Truth: PASS
 
-État résiduel observé avant exécution: `M .tmp-sfia-review/chatgpt-review.md` (historique / pack local — non source projet).
+## Runtime / DB identifiés (non secret)
 
-## Sources lues (guidance ; non mutées)
-
-Processus: sfia-cycle-execution-template · cycle-routing-guide · v2.5 project-cycles method · chatgpt-cursor operating model · rules-and-guardrails
-Convergence: build-doctrine · roadmap · product-completion cadrage
-Doctrine v3: framing 32, 34, 35, 37 · ckc/08-delivery-implementation
-Nora: 08-nora-openai-native-first-cognitive-trajectory
-Handoffs: origin/sfia/review-handoff latest + previous FULL `6179499d…`
-Candidat D-PC-09: projectWorkspaceKey · serverOwnedRepositoryConfig · artifactTargetRouting · managedRepoPathFacts · CycleTypeCatalog.repositoryWorkspaceSegment · activeCycleGovernedContinuation · prepareM3FromDecision · startExecution · FakeDocsWriteLaunchPort · StudioCursorRealLaunchGateway · ProjectWorkspaceRoutingPanel · tests associés
-
-**Mutation source pendant cette passe:** NONE
-
-## Configuration Nora / OpenAI (non secrète)
-
-| Clé | Valeur |
-|-----|--------|
-| OPENAI_MODEL (env) | gpt-5.6-sol |
-| OPENAI_REASONING_EFFORT (env) | high |
-| requireLiveConversationSecrets().model | gpt-5.6-sol |
-| requireLiveConversationSecrets().reasoningEffort | high |
-| OPENAI_API_KEY | PRESENT (valeur non affichée) |
-| OPS1_CONVERSATION_PROVIDER | UNSET (pas de fake forcé) |
-| Astra / GPT-6 | ABSENT sur runtime de cette reproof |
-| Production model routing | NON SELECTED (inchangé) |
-| Mode conversation observé | `[Mode réel]` dans message assistant session |
-| providerResponseId / usage tokens | NON CAPTURÉS par le harness (réserve) — secrets LIVE résolus ; 1 tour LIVE réussi |
+| Champ | Valeur |
+|-------|--------|
+| UI | localhost:3020 |
+| next-server PID (observé) | 156162 |
+| cwd app | /tmp/sfia-pwr-01-dev/projects/sfia-studio/app |
+| Product DB (.env.local) | /workspace/projects/sfia-studio/.sfia-exec/pwr-dpc09-real-reproof-01/product/oa-product.sqlite |
+| Project présent dans cette DB | YES (unique hit) |
+| Inspection | copie RO /tmp/obs-pj-cont-01-oa-product.sqlite |
+| OPENAI_MODEL | gpt-5.6-sol |
+| OPENAI_REASONING_EFFORT | high |
 | SFIA_STUDIO_CURSOR_REAL | 1 |
-| SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY | 1 (authority locale pour path application) |
+| Secrets | non affichés |
 
-**Verdict Nora config gate:** PASS
-
-## Environnement de preuve — FRESH
-
-| Élément | Valeur |
-|---------|--------|
-| Product DB | `/workspace/projects/sfia-studio/.sfia-exec/pwr-dpc09-real-reproof-apppath/product/oa-product.sqlite` (frais, isolé) |
-| Anciennes DB campagne | NON mutées |
-| Managed repo identity | `mcleland147/sfia-workspace` |
-| Managed repo root base | `/tmp/sfia-pj-cloud-01-managed` |
-| Managed primary checkout | `/tmp/sfia-pj-cloud-01-managed/mcleland147__sfia-workspace` @ `a6dba977…` |
-| Repository engine | unique (M4 isolated worktree lié au managed repo) — pas de second engine |
-
-## Parcours réellement exécuté
-
-**Chemin:** application Product path (HD → PREPARE → EC → inspect → Confirmation → authorization → governedExecute).
-**UI browser:** BLOCKED (GitHub OAuth NO_SESSION dans ce VM) — mêmes actions Product que l'UI ; pas d'injection DB directe de décision.
-
-### Project / Cycle
+## Project exact
 
 | Champ | Valeur |
 |-------|--------|
-| projectId | `prj:pwrreal-1` |
-| title | Mini cadrage — Suivi de tâches PWR |
-| projectWorkspaceKey | `mini-cadrage-suivi-de-taches-pwr` |
-| pathRoot (server-owned) | `projects/mini-cadrage-suivi-de-taches-pwr` |
-| identity | `mcleland147/sfia-workspace` |
-| mkdir gratuit à Create Project | NON (workspace absent du filesystem avant execute) |
-| cycleInstanceId | `cyc:pwr-real-framing-wrreal-1` |
-| cycleTypeId | `cyc:framing` |
-| repositoryWorkspaceSegment | `01-cadrage` |
-| CycleInstance parasites | NON observés (seed unique) |
-| RepositoryBinding manuel Pilote | NON demandé |
+| projectId | prj:21e87219-9d46-483a-8206-722e25f2fb24 |
+| title | Batch Cookinb |
+| projectWorkspaceKey | batch-cookinb |
+| pathRoot | projects/batch-cookinb |
+| identity | mcleland147/sfia-workspace |
+| activeCycle | cyc:trj-36aa59ca7db349999c3298e5 (cyc:framing, active) |
+| parasite cycle | cyc:f2-0497dd7f7f01e651 acknowledged (framing) |
+| LPS current | lps:9e104e7cab802ac2 v13 |
+| LPS nextStep | evaluate_claim |
+| Artifact FS | M4 worktree …/wt-0dbb634dbfc99674aae9aaad/projects/batch-cookinb/01-cadrage/note-de-cadrage.md |
+| Digest | sha256:494076a7febfaf8228056531b0bc964ae917bfaebbf168d738f242d34026009c |
 
-### Nora LIVE
+## Matrice chaîne durable (Proposal → Recovery)
 
-| Champ | Valeur |
-|-------|--------|
-| OpenAI LIVE rounds | **1** |
-| Message Pilote | naturel FR cadrage suivi de tâches — **aucun** targetPath / pathRoot / chemin repository fourni |
-| Demande technique de path au Pilote | **NON** (`askedTechnicalPath=false`) |
-| Clarifications métier | 0 (Proposal au tour 1) |
-| turnKind | `f2_proposal` |
-| Session assistant | `[Mode réel] … Une proposition pour matérialiser le livrable est prête…` |
+| Élément | État | IDs |
+|---------|------|-----|
+| Proposal subject | PRESENT (décidé) | prop:f2:a5043337-1992-4a23-a928-c85a10d81654 |
+| PendingDecisionSubjectMarker | PRESENT / resolved | epi:pending-subject:…:prop:f2:a5043337-… (resolved:option_set_bound) |
+| PresentedOptionSet Proposal | PRESENT / status=active physiquement / shadowed par DecisionRef | epi:set-w2-c922b0a58094 / optset:w2-c922b0a58094 |
+| DecisionRef closure | PRESENT / active | epi:w2-decref-prop:optset:w2-c922b0a58094 (optset+prop) |
+| HumanDecision Proposal | PRESENT / accepted | dec:w2-prop:80d86c6b-55d8-42a4-8b53-70573a8a793e (sourceType=proposal, option pursue) |
+| ExecutionContract | PRESENT / confirmed (pas completed) | xct:m3-res:dec:w2-prop:80d86c6b-… (+ superseded prep xct:m3:…) |
+| Attempt | PRESENT / succeeded | xat:w3a:88504db017622d1e · realProcessInvoked=true · exit 0 · cursor_real |
+| Artifact Evidence | PRESENT / available | ev:docs-write:xat:w3a:88504db017622d1e · location exacte |
+| ReviewBundle | PRESENT / ready_for_review / complete | rb:docs-write:xat:w3a:88504db017622d1e |
+| ClaimEvaluation | PRESENT / not_proven | clm:docs-write:xat:w3a:88504db017622d1e · EO×3 NOT_PROVEN · ER SATISFIED |
+| W3C Recommendation | PRESENT / recover | epi:w3c-rec:d2e1913db84b1a95 · productOutcome UNCLAIMED |
+| Recovery PresentedOptionSet | PRESENT / active (awaiting HD) | epi:set-w2-2e084d4fe533 / optset:w2-2e084d4fe533 |
+| ProjectTrajectory | PRESENT | current pointer v1 validated ; LPS refs v2 candidate (désalignement) |
 
-### Proposal / Target / Write mode (avant HD)
+Chemin de décision observé : decideTrajectory proposal-subject mode (HD dec:w2-prop:…) — pas recordF2Decision Conversation F2 GO.
 
-| Champ | Valeur |
-|-------|--------|
-| Proposal ID | `prop:f2:2186400f-5d3e-4f7e-baaa-79552813fc47` |
-| filename candidat | `note-de-cadrage.md` |
-| targetPath exact (server-owned) | `projects/mini-cadrage-suivi-de-taches-pwr/01-cadrage/note-de-cadrage.md` |
-| scopeIn / cycle workspace | `projects/mini-cadrage-suivi-de-taches-pwr/01-cadrage` |
-| artifactWriteMode | **CREATE** |
-| ASK / null | NON |
-| basename salvage | NON |
-| Facts repo classification | target ABSENT → CREATE ; fresh Project ; workspace key nouveau |
+## Hypothèses
 
-### HumanDecision / PREPARE / EC / inspect / Confirm / auth
+### A — Proposal closure manquante via recordF2Decision
 
-| Champ | Valeur |
-|-------|--------|
-| HumanDecision ID | `dec:f2:3f2be038-5f40-4261-ad3f-467236f8e249` |
-| DecisionBasis | via `recordF2Decision` Product path (`forceM3Authority` local pour reproof) — GO |
-| PREPARE | PASS — mode `M3_RESOLVED_BOUNDED_DOCS_WRITE` |
-| ExecutionContract ID | `xct:m3-res:dec:f2:3f2be038-5f40-4261-ad3f-467236f8e249` |
-| EC inputs.targetPath | `projects/mini-cadrage-suivi-de-taches-pwr/01-cadrage/note-de-cadrage.md` |
-| EC inputs.artifactWriteMode | CREATE |
-| EC pathAllowlist | `projects/mini-cadrage-suivi-de-taches-pwr/01-cadrage` |
-| inspect | PASS |
-| Confirmation ID | `cfm:w2:xct:m3-res:dec:f2:3f2be038-5f40-4261-ad3f-467236f8e249:v2` |
-| authorization | AUTHORIZED |
-| execution-time TOCTOU | PASS (Attempt succeeded ; real process ; mode CREATE honoré) |
+Pour ce Project Batch Cooking : RÉFUTÉE comme cause du blocage observé.
 
-### Cursor REAL (1 spawn max)
+Faits :
+- HD Proposal = dec:w2-prop:… (W2 arbitration)
+- DecisionRef closure PRESENT avec optset: + prop:
+- Pending marker RESOLVED
+- findActiveAwaitingProposalPresentedOptionSet shadow correctement optset:w2-c922b0a58094 (awaiting_decision=false)
 
-| Champ | Valeur |
-|-------|--------|
-| Cursor REAL spawn count | **1** (aucun retry) |
-| Gateway | StudioCursorRealLaunchGateway / `adp:m4-cursor-cli-real` |
-| selectedAgentRef | `agt:m4.cursor.bounded_docs_write` |
-| Attempt ID | `xat:w3a:7bd710974c9e51b9` |
-| Attempt status | **succeeded** (terminal) |
-| realExecution | **true** |
-| boundaryProofMode | `cursor_real` |
-| realProcessInvoked | true |
-| technicalExitCode | 0 |
-| durationMs | 33445 |
-| processRef | pid:128407 |
-| Cursor CLI version | `2026.09.18-9a7762b` |
-| semantic target | `workspace.isolated.docs_write` |
-| target transmis | exact relative path sous worktree préparé |
-| second Attempt REAL | NONE |
+Risque architecture PREEXISTING conservé (hors cause de ce incident) :
+recordF2Decision() n’écrit toujours pas de DecisionRef épistémique ; decideTrajectory proposal mode oui. Un parcours Conversation F2 GO direct pourrait encore laisser un sujet Proposal unresolved côté W2 readers. Non observé ici.
 
-### Filesystem / Digest
+### B — UNCLAIMED + succeeded affiché comme FAIL technique
 
-| Champ | Valeur |
-|-------|--------|
-| Relative target | `projects/mini-cadrage-suivi-de-taches-pwr/01-cadrage/note-de-cadrage.md` |
-| Absolu (execution worktree M4) | `/tmp/sfia-pwr-01-dev/projects/sfia-studio/.sfia-exec/m4-worktrees/wt-270831d7b741cb09769832da/projects/mini-cadrage-suivi-de-taches-pwr/01-cadrage/note-de-cadrage.md` |
-| Execution worktree root | `/tmp/sfia-pwr-01-dev/projects/sfia-studio/.sfia-exec/m4-worktrees/wt-270831d7b741cb09769832da` |
-| Présent | **YES** |
-| Digest fichier | `sha256:8e6cc1d01142234a171b86dc9689cb92da24a1a8be1d48d9a58ea86e6af951b9` |
-| Digest Evidence | `sha256:8e6cc1d01142234a171b86dc9689cb92da24a1a8be1d48d9a58ea86e6af951b9` |
-| Match | **YES** |
-| Contenu | Markdown non vide — objectifs, périmètre, critères de succès (cohérent demande) |
-| Primary managed checkout | fichier **absent** (attendu : isolated docs_write ; pas de commit/push auto) |
-| Écriture hors allowlist | NON observée |
-| Mutation source SFIA Studio | NONE |
-| Commit/push repository auto | NONE |
+CONFIRMÉE.
 
-**Note harness:** le check initial pointait le checkout primary managed (absPath) → `fileExists=false` faux négatif. Correction read-only : fichier au target exact **dans le worktree d'exécution M4** (architecture Product existante). **Aucun retry Cursor.**
+| Champ durable | Valeur |
+|---------------|--------|
+| Attempt.status | succeeded |
+| productOutcome (W3C) | UNCLAIMED |
+| ClaimEvaluation.status | not_proven |
+| resolvePostEvidenceRecoveryContext | accepte UNCLAIMED + succeeded |
 
-### Artifact Evidence / ReviewBundle / Product
+Mais optset:w2-2e084d4fe533 (durable) contient :
+- intent : « À partir du FAIL durable… »
+- impacts : « Attempt failed: xat:w3a:88504db017622d1e »
 
-| Champ | Valeur |
-|-------|--------|
-| Evidence ID | `ev:docs-write:xat:w3a:7bd710974c9e51b9` |
-| status | available |
-| location | exact target relatif |
-| projectId | `prj:pwrreal-1` |
-| executionContractId | exact EC |
-| executionAttemptId | exact Attempt |
-| provenance REAL | source `execution_attempt:docs_write` · boundary `cursor_real` · realProcessInvoked |
-| ReviewBundle ID | `rb:docs-write:xat:w3a:7bd710974c9e51b9` |
-| RB projectId / EC | match |
-| evidenceRefs | `[ev:docs-write:xat:w3a:7bd710974c9e51b9]` |
-| completeness | complete |
-| ClaimEvaluation | 0 rows (pas inventé) |
-| Product result | Attempt succeeded + Evidence available + RB draft complete — **honest** ; pas de SUCCESS inventé au-delà des faits |
-| LPS / workspace key after | `mini-cadrage-suivi-de-taches-pwr` durable |
-| restart/readback | evidenceCount=1 · bundleCount=1 · **no second execute / no relaunch** |
+Code : trajectoryOptions.ts / proposeTrajectoryOptions.ts hard-codent FAIL pour tout recoveryContext.
 
-## Budget / bornes
+### C — Tentative d’exécution vide après « Proposer des options »
 
-| Borne | Observé |
-|-------|---------|
-| Sessions reproof | 1 (plus abort harness false-positive path-ask avant spawn ; spawn unique sur session conclusive) |
-| Cursor REAL spawns | **1** |
-| Retry Cursor | **0** |
-| OpenAI LIVE rounds (session conclusive) | **1** |
-| Coût estimé USD | non instrumenté précisément ; enveloppe indicative < 5 USD respectée (1 tour sol/high + 1 agent ~33s) |
-| Morris re-GO | NON requis |
+CONFIRMÉE — BUG PRODUCT STATE PROJECTION (client), pas perte durable.
 
-## Fake / REAL qualification
+TrajectorySurface.proposeOptions (TrajectorySurface.tsx) :
+- setAttempt(null) / phase / productOutcome / postEvidence → null
+- Attempt durable reste succeeded en DB
 
-- Entrée: DETERMINISTIC E2E + EXECUTION-TIME SAFETY PROVEN (FakeConversationProvider + FakeDocsWriteLaunchPort)
-- Cette passe: OpenAI/Nora LIVE · Cursor CLI REAL · filesystem worktree M4 réel · Product DB fraîche
-- Parité orchestration: Proposal → HD → PREPARE → EC → inspect → Confirmation → auth → execution-time revalidation → Attempt → Artifact Evidence → ReviewBundle — **observée**
-- Niveau atteint: **BOUNDED END-TO-END REAL PROVEN AT TESTED SCOPE**
+Surface Tentative affiche alors « — ».
 
-## Écarts / réserves / risques
+### Contradiction UI exacte observée
 
-1. **UI OAuth bloqué** dans ce VM → preuve via application Product path (mêmes étapes gouvernées), pas via clic navigateur.
-2. **providerResponseId / usage tokens** non persistés par le harness — model/effort LIVE prouvés via `requireLiveConversationSecrets` + `[Mode réel]` ; pas de raw provider id.
-3. **Artifact durable dans M4 worktree**, pas dans le checkout primary managed — conforme `workspace.isolated.docs_write` sans commit/push ; à ne pas confondre avec absence d'écriture.
-4. **clock fixture** Attempt timestamps `2026-08-23T04:30:00.000Z` (runtime nowIso harness) — ne confond pas avec wall-clock spawn (~2026-09-19T14:23Z).
-5. forceM3Authority / LOCAL_MORRIS pour autoriser le path application en l'absence de session GitHub OAuth UI.
-6. Première tentative harness: faux positif `askedTechnicalPath` (heuristique matchait JSON `targetPath`) — corrigé avant spawn ; **pas un bug Product**.
+Message :
+« Contradiction de continuité — un sujet de décision Proposal non résolu coexiste avec un contrat d'exécution courant. »
 
-## Claims autorisés
+Cause racine CONFIRMÉE (faux positif UI + EC post-attempt encore current) :
 
-- **D-PC-09 — BOUNDED END-TO-END REAL PROVEN AT TESTED SCOPE**
-- Project workspace server-owned + cycle segment `01-cadrage` sans targetPath technique Pilote
-- CREATE scellé → HD Product → PREPARE → EC → 1× Cursor REAL → Evidence + ReviewBundle
+1. Après propose recovery, client a optionSet != null && decision == null.
+2. Gate rehydrateGovernedExecutionContinuity :
+   subjectCompetes = pendingReinstruction != null || (optionSet != null && decision == null)
+   — ne distingue pas OptionSet Proposal vs OptionSet recovery trajectoire.
+3. Server continuity lit encore l’EC confirmed comme PRE_EXECUTION current (readCurrentGovernedExecutionContinuity inclut confirmed).
+4. EC n’a pas avancé vers completed après Attempt succeeded + Evidence (advanceExecutionContractCompletion existe D-GCEC-15 mais non branché sur le path Product docs_write ; usage test-only).
+5. Gate affiche contradiction et efface la projection EC client.
+
+Donc : le sujet Proposal est clos durablement ; la contradiction affiche un libellé Proposal incorrect pour une compétition Recovery OptionSet ↔ EC confirmed residual.
+
+### « Recharger résultat produit »
+
+Action : w2RehydrateProductOutcomeAction → relecture durable Attempt/Evidence/RB/CE.
+- Si vérité durable inchangée : EXPECTED NO-OP WITH SAME DURABLE STATE (faible feedback).
+- Après wipe client propose-options : devrait pouvoir reprojecter Attempt si non bloqué par continuityMutationBlocked / conflict.
+- Qualifié : UI FEEDBACK GAP (non-blocker métier isolé) + interaction avec conflict gate.
+
+## Causalité D-PC-09 (ed3cc66b vs a6dba977)
+
+| Défaut | Classification |
+|--------|----------------|
+| Gate UI subjectCompetes trop large | PREEXISTING |
+| FAIL wording sur UNCLAIMED recovery | PREEXISTING |
+| Wipe Attempt client après propose | PREEXISTING |
+| EC reste confirmed post-Attempt (advance non branché docs_write) | PREEXISTING |
+| recordF2Decision sans DecisionRef (risque) | PREEXISTING |
+| D-PC-09 routing / artifactWriteMode seal | INTRODUCED (orthogonal) |
+| Atteignabilité du parcours docs_write → UNCLAIMED → propose | EXPOSED BY D-PC-09 |
+
+ed3cc66b ne modifie recordDecision.ts / decideTrajectory.ts que pour sceller artifactFileName/WriteMode (+15 lignes). Pas d’introduction du gap DecisionRef / FAIL copy / Attempt wipe.
+
+## Test coverage gap
+
+| Suite | Couvre F2 Proposal docs_write → HD → EC → Attempt → Evidence → UNCLAIMED → propose recovery ? |
+|-------|--------------------------------------------------------------------------------------------------|
+| studio-w4c-evidence-recovery-replan-product-experience.spec.ts | NON — ProjectTrajectory générique / sandbox gated |
+| productJourneyPostExecutionReplan.d0.test.ts | UNCLAIMED engine partiel — pas gate UI subjectCompetes ni FAIL copy |
+| w3cPostEvidence*.test.ts | boucle W3C — pas parcours Proposal UI continuity |
+| Tests D-PC-09 | s’arrêtent Evidence/RB — pas post-exécution recovery continuity |
+
+Gap exact : absence de test E2E/UI pour Proposal subject decided + EC confirmed residual + Attempt succeeded + UNCLAIMED + propose recovery options → pas de contradiction faux-positif ; Attempt reprojecté ; wording UNCLAIMED≠FAIL.
+
+## Actifs / classification (recommandation, non décision)
+
+| Actif | Class |
+|-------|-------|
+| ProposalStore | KEEP |
+| PendingDecisionSubjectMarker | KEEP |
+| PresentedOptionSet | ADAPT (lifecycle post-DecisionRef / post-recovery) |
+| DecisionRef | KEEP / COMPLETE usage convergence |
+| HumanDecision / DecisionBasis | KEEP |
+| ExecutionContract | ADAPT (terminalité post-Attempt / continuity eligibility) |
+| Attempt | KEEP |
+| Evidence / ReviewBundle | KEEP |
+| ClaimEvaluation | KEEP |
+| W3C post-Evidence | KEEP |
+| ProjectTrajectory | ADAPT (pointer v1 vs LPS v2) |
+| TrajectorySurface continuity gate | ADAPT |
+| recordF2Decision vs decideTrajectory | COMPLETE convergence (anti second moteur) |
+| advanceExecutionContractCompletion | COMPLETE wiring Product path ou ADAPT continuity reader |
+
+Architecture decision required later? YES (convergence F2 HD ↔ W2 Proposal subject ; terminalité EC vs continuity PRE_EXECUTION) — pas dans cette passe.
+
+## Périmètre cohérent recommandé (futur lot — NON CONSTRUIT)
+
+Outcome utilisateur unique :
+
+Après une exécution d’Artifact gouvernée, Studio doit conserver une continuité honnête du sujet décidé, du résultat Product (TECH SUCCESS ≠ PRODUCT PROVEN) et du recovery, puis permettre d’instruire la trajectoire suivante sans redemander une décision déjà consommée ni présenter un succès technique comme un échec technique, ni déclencher une contradiction faux-positif OptionSet↔EC.
+
+Couverture cohérente suggérée (un lot, pas micro-lots) :
+1. Gate continuity UI : distinguer Proposal-unresolved réel vs Recovery OptionSet post-Evidence
+2. Sémantique recovery UNCLAIMED+succeeded (copy + options)
+3. Continuité Attempt / ProductOutcome après propose-options / rehydrate
+4. EC post-Attempt : completed wiring ou exclusion continuity PRE_EXECUTION quand Attempt terminal existe
+5. Convergence F2 recordF2Decision ↔ DecisionRef closure (prévention parcours alternatifs)
+6. Tests : Proposal docs_write → post-Evidence recovery → propose options sans faux conflit
+7. Ensuite seulement : trajectoire/cycle suivant
+
+## Réserves
+
+1. Diagnostic sans clic UI — reconstruction code+DB ; message contradiction localisé dans TrajectorySurface.tsx (gate subjectCompetes).
+2. Contradictions ACW actives (cycle encore obligation ouverte) = dette lifecycle séparée ; pas la cause du message continuity OptionSet↔EC.
+3. Désalignement Trajectory pointer v1 vs LPS v2 = secondary gap.
+4. Aucune correction / REAL / mutation effectuée.
+5. Forensic dump : /opt/cursor/artifacts/OBS-PJ-CONT-01-forensic-report.json
 
 ## Anti-claims
 
-- Product Completion global COMPLETE — **NON**
-- Product Journey READY/COMPLETE — **NON**
-- Nora Cognitive Completion — **NON**
-- production model routing selected — **NON**
-- runtime v3 ADOPTED — **NON**
-- global L5 — **NON**
-- project push / PR / merge autorisés — **NON**
-- généralisation tous types d'artefacts — **NON**
+- defect fixed — NON
+- correction proven — NON
+- Product Journey READY — NON
+- Product Completion COMPLETE — NON
+- runtime v3 ADOPTED — NON
+- new REAL proof — NON
 
-## Validations finales Git projet
+## Review Handoff Git (section 18)
 
-```
-branch: delivery/sfia-studio-project-workspace-artifact-routing-01
-HEAD: ed3cc66b25d260a67437fc07e163ef5fcc2244a9
-source mutation due to reproof: NONE
-staged project: NONE
-project push: NONE
-project PR: NONE
-project merge: NONE
-Cursor REAL spawn count: 1
-OpenAI LIVE rounds (conclusive): 1
-managed-repo artifact (execution worktree): projects/mini-cadrage-suivi-de-taches-pwr/01-cadrage/note-de-cadrage.md
-```
-
-## Review Handoff Git (section 19)
-
-- Mode: publish-in-cycle L3 borné
-- Branche: `sfia/review-handoff`
-- Fichier: `sfia-review-handoff/latest-chatgpt-review.md`
-- Message attendu: `docs(review-handoff): publish pwr bounded real reproof`
-- (détails SHA remote remplis après publication)
+(à compléter après publish)
 
 ## Instruction ChatGPT (obligatoire)
 
-Avant de répondre à Morris sur ce rapport, ChatGPT doit lire depuis Git :
-- branche : `sfia/review-handoff`
-- fichier : `sfia-review-handoff/latest-chatgpt-review.md`
+Avant de répondre à Morris, ChatGPT doit lire depuis Git :
+- branche : sfia/review-handoff
+- fichier : sfia-review-handoff/latest-chatgpt-review.md
 
-ChatGPT doit vérifier la cohérence cycle/profil, branche projet, HEAD/base, configuration non secrète, parcours REAL, nombre de spawns, target, Attempt, Evidence, ReviewBundle, risques/réserves, verdict, commit handoff et vérification distante.
+Puis vérifier : HEAD/base, Project/DB, Proposal/DecisionRef/HD, EC/Attempt/Evidence/RB, ClaimEvaluation, W3C recovery, ProjectTrajectory, causalité D-PC-09, test gap, réserves, verdict, commit handoff distant.
 
-Si le handoff est absent, incohérent, incomplet ou synthesis-only :
-`REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING`
-
-Si Cursor annonce une publication mais que le fichier distant n'est pas à jour :
-`REVIEW HANDOFF INCOMPLETE — CANONICAL REMOTE NOT UPDATED`
+Aucune correction ne doit être proposée comme décidée tant que Morris n’a pas validé la qualification.
 
 ## Verdict final
 
-**D-PC-09 BOUNDED REAL REPROOF — PASS — END-TO-END REAL PROVEN AT TESTED SCOPE — PROJECT PUSH NOT AUTHORIZED — MORRIS PUSH GATE PENDING**
+**POST-EXECUTION CONTINUITY DIAGNOSTIC — ROOT CAUSE QUALIFIED — NO MUTATION — CORRECTION SCOPE READY FOR MORRIS REVIEW**
 
-Proof level: **D-PC-09 — BOUNDED END-TO-END REAL PROVEN AT TESTED SCOPE**
+### Synthèse qualification
+
+| Classe | Contenu |
+|--------|---------|
+| CONFIRMED ROOT CAUSE | Faux positif UI subjectCompetes (OptionSet sans decision locale) + EC confirmed encore éligible PRE_EXECUTION après Attempt succeeded → message « Proposal non résolu » incorrect après propose recovery |
+| CONFIRMED SECONDARY GAPS | FAIL wording sur UNCLAIMED+succeeded ; wipe Attempt client ; EC non advanced to completed ; risk recordF2Decision sans DecisionRef ; Trajectory v1/v2 skew ; ACW contradictions lifecycle |
+| NON-BLOCKING UX DEBT | « Recharger résultat produit » no-op / feedback faible |
+| PREEXISTING / EXPOSED BY D-PC-09 | Gaps continuity PREEXISTING ; D-PC-09 EXPOSE le parcours docs_write jusqu’au recovery |
+| RECOMMENDED COHERENT CORRECTION SCOPE | Un lot continuité post-exécution (gate + UNCLAIMED semantics + Attempt projection + EC terminalité/continuity + tests Proposal→recovery) |
+| ARCHITECTURE DECISION REQUIRED? | YES (convergence F2/W2 + terminalité EC) — hors scope de ce diagnostic |
