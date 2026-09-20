@@ -552,11 +552,25 @@ Sous `.tmp-sfia-review/product-completion-integrated-qa/screenshots/` :
 
 **Historique DOC14 PRESERVED.** Les preuves integrated/deterministic antérieures **ne couvrent pas** Project Repository Workspace & Cycle-aware Artifact Routing.
 
-| Claim | État |
+| Claim | État *(2026-09-19 construction chronology)* |
 | --- | --- |
 | Historical docs_write REAL at prior tested scope | **PRESERVED** |
-| Nouvelle capacité workspace/cycle routing | **DETERMINISTIC candidate** this macro · **REAL NOT PROVEN** |
+| Nouvelle capacité workspace/cycle routing *(as of 2026-09-19 construction tip)* | was **DETERMINISTIC candidate** / **REAL NOT PROVEN** at that dated tip — **superseded as current tip** by post-merge truth-sync 2026-09-20 below |
 | Product Completion globally COMPLETE | **INTERDIT** |
 | OBS-PJ-CLOUD-01 | traité comme symptôme du gap produit plus large ; correction = capacité cible, pas patch symptôme seul |
 
 Aucun claim rétroactif falsifié.
+
+### Post-merge truth-sync — 2026-09-20 — PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01
+
+**Historical DOC14 campaign:** **PRESERVED.**
+
+| Claim | Current état |
+| --- | --- |
+| D-PC-09 deterministic | **DETERMINISTIC PROVEN** |
+| Product-source REAL | **BOUNDED REAL PROVEN AT TESTED SCOPE** (`f57fc6cd…`) |
+| Git integration | PR **#506 MERGED** · merge `8448c3f5…` · tree `7daf6d6c…` · HEAD→MERGE parity **PROVEN** |
+| Post-merge Required Gate | **PASS** after one diagnosed **CI_LOAD_TIMING_FLAKE** rerun (attempt 2) |
+| Reserve | **REAL EVIDENCE PAYLOAD VERIFICATION ADAPTER ABSENT** |
+
+This macro does **NOT** prove: full REAL Evidence verification · full recovery-options REAL orchestration · browser-real Product Journey · runtime v3 ADOPTED · generalized Cursor autonomy · a new global Product Completion COMPLETE/CLOSED decision.

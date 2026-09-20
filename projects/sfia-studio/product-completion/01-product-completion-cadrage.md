@@ -1140,14 +1140,14 @@ C1 INTEGRATED ON MAIN
 
 | Métadonnée | Valeur |
 | --- | --- |
-| **Date** | 2026-09-19 |
+| **Date** | 2026-09-19 *(construction / amendment dated history PRESERVED)* |
 | **Macro** | PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01 |
 | **Décision Morris** | **D-PC-09** — capacité Product Completion MUST · construction autorisée · **≠** promotion globale · **≠** REAL AUTHORIZED |
 | **Origine** | Product Journey manuel « Mini cadrage — Suivi de tâches » · OBS-PJ-CLOUD-01 (targetPath explicite non reconnu / clarification répétée) |
 | **État historique C1** | **PRESERVED** — ce MUST n’était **pas** couvert historiquement par C1 ; aucun claim rétroactif |
-| **Implémentation courante** | **implementation candidate** (même macro) |
-| **Preuve courante** | **DETERMINISTIC PROVEN** si tests PASS · **REAL NOT PROVEN** |
-| **Anti-claims** | ≠ Product Completion COMPLETE · ≠ runtime v3 ADOPTED · ≠ REAL PROVEN |
+| **Implémentation courante** | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** via PR **#506** / merge `8448c3f514fdaad631e1b5865859f9b8a3663fc7` |
+| **Preuve courante** | **DETERMINISTIC PROVEN** + **PRODUCT SOURCE BOUNDED REAL PROVEN AT TESTED SCOPE** + **POST-MERGE REQUIRED GATE PASS** |
+| **Anti-claims** | ≠ Product Completion COMPLETE · ≠ runtime v3 ADOPTED · ≠ merge SHA REAL-proven · ≠ REAL Evidence payload verified |
 
 ### Disposition adoptée (additive)
 
@@ -1158,3 +1158,15 @@ C1 INTEGRATED ON MAIN
 - Filename Pilote/Nora = candidat non autoritaire ; serveur compose `targetPath` exact ; Proposal/HD existante absorbe la validation (pas de micro-gate).
 - CREATE vs UPDATE honnête ; mkdir parents dans le même Attempt docs_write.
 - Legacy Projects lisibles sans migration silencieuse.
+
+### Post-merge truth-sync — 2026-09-20
+
+| Fact | Value |
+| --- | --- |
+| Historical C1 chronology (2026-09-19 construction) | **PRESERVED** — additive D-PC-09 only · no retroactive falsification |
+| Product-source REAL | bounded REAL reproof **PASS AT TESTED SCOPE** on Product source `f57fc6cd56900cd19df961dbe8b788a0b89937ca` |
+| Test-only corrective | `8488e827…` — **Product source unchanged** from REAL-proven Product bytes |
+| Git integration | PR **#506 MERGED** · merge `8448c3f5…` · tree `7daf6d6c…` · **HEAD→MERGE tree parity PROVEN** |
+| Post-merge CI | attempt 1 FAIL = three timing timeouts (**CI_LOAD_TIMING_FLAKE**) · attempt 2 **SUCCESS** · Required Gate **PASS** |
+| Reserve | **REAL EVIDENCE PAYLOAD VERIFICATION ADAPTER ABSENT** |
+| Explicit non-claims | ≠ merge `8448c3f5` itself called REAL-proven · ≠ Product Completion newly COMPLETE/CLOSED · ≠ runtime v3 ADOPTED · ≠ global L5 ADOPTED · ≠ next capability started |
