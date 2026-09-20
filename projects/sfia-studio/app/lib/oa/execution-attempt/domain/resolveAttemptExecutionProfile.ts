@@ -847,7 +847,8 @@ export function resolveAttemptExecutionProfile(
   }
 
   // Sealed standalone GCEC specialized contracts (phase-scoped / non-progressive
-  // parent). Criteria-only seal for Select; Start re-resolves prior lineage.
+  // parent). Criteria-only seal for Select; Start re-resolves prior lineage and
+  // remains fail-closed on missing cross-EC binding / Evidence.
   // Must NOT fall through to Product generalist matching.
   const caps = contract.requiredCapabilities ?? [];
   if (
