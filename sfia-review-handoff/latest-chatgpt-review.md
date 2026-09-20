@@ -235,10 +235,11 @@ Therefore this macro still does **NOT** claim:
 - Destination: `sfia-review-handoff/latest-chatgpt-review.md`
 - Branch: `sfia/review-handoff`
 - Publisher: `scripts/sfia/publish-review-handoff.sh`
-- Intended commit message: `docs(review-handoff): publish workspace routing pr ci failure`
-- Project branch after handoff: return to `delivery/sfia-studio-project-workspace-artifact-routing-01` @ `f57fc6cd…`
-
-*(Remote commit/blob filled after publish.)*
+- Commit message: `docs(review-handoff): publish workspace routing pr ci failure`
+- Handoff remote commit: `ff9c22892ead015a59d2dabdd274b08f54118682`
+- Handoff blob SHA: `f638911c7903688ce41da6969f1313171c7708ca`
+- Remote verdict: HANDOFF UPDATED — REMOTE VERIFIED
+- Project branch after handoff: `delivery/sfia-studio-project-workspace-artifact-routing-01` @ `f57fc6cd56900cd19df961dbe8b788a0b89937ca`
 
 ## 13. Verdict
 
