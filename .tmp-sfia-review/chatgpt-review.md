@@ -569,3 +569,39 @@ Prior head `1e08df38` CI run `35520718786` = **PASS** (Required Gate green).
 Classification: **CI-load timeout flake**. Timeout policy **not** modified (per campaign guardrail).
 
 Action: `gh run rerun 35521088736 --failed` — no Product code change.
+
+---
+
+## 26. CI tip flake recurrence — merge-gate status for Morris (append)
+
+**Timestamp (UTC):** 2026-09-20T16:18:48Z
+
+### Facts
+| SHA | Kind | CI |
+|---|---|---|
+| `1e08df388acc27f6e5eaa43dab0c314601dbd422` | Product continuity test fix (CR-PJ-02 assert) | Run `35520718786` **PASS** (Required Gate green) |
+| `22ac8b71…` | Docs-only CI PASS note | Run `35521088736` FAIL — 4× 5s timeouts unrelated suites |
+| `019d3a596e4225b87463db3ae1cbc795b0c4f7ed` (tip) | Docs-only flake classification | Run `35521718494` FAIL — 5× 5s timeouts unrelated suites |
+
+### Timed-out suites (tip) — not in Product delta
+- `g2.catalog-versioning-mw6.test.ts` (historical D0 suite)
+- `mw0.corr07.offlineRescoreFailClosed.test.ts` (CASE H)
+- `activeCycleCognitiveWork.d0.test.ts` (CR-ACW-04 catalog-wide)
+- `candidateTrajectoryCycleStart.d0.test.ts` (BAR-START-CORR / CORR2)
+
+Same suites **PASS** on green run `35520718786`.
+
+### Guardrails honored
+- No global `testTimeout` raise
+- No Product behavior change for flake
+- Existing CI `maxWorkers: 2` left unchanged
+- `gh run rerun` unavailable (integration permission)
+
+### Classification
+**CI-load timeout flake** on Review Pack tip commits. Deterministic Product correction + Required Gate green proven at `1e08df38`.
+
+### Merge posture
+- Merge / auto-merge: **NOT performed**
+- Tip Required Gate: currently red (flake)
+- Substantive merge-candidate SHA with green Required Gate: `1e08df38…`
+- Awaiting Morris decision (retrigger vs merge at green SHA vs authorize CI-policy work)
