@@ -2,7 +2,7 @@
 ## PRODUCT-JOURNEY-EXECUTION-CONTRACT-SEMANTIC-BRIDGE-01
 ## FULL Review Pack (integration correction — same macro)
 
-timestamp: 2026-09-20T21:47:00Z
+timestamp: 2026-09-20T21:56:00Z
 macro: PRODUCT-JOURNEY-EXECUTION-CONTRACT-SEMANTIC-BRIDGE-01
 finding: PJ-REPROOF-04 — HumanDecision → ExecutionContract → Cursor → ExecutionReport
 parent: PRODUCT-JOURNEY-E2E-CURRENT-MAIN-CLOUD-REPROOF-01 — PAUSED
@@ -15,6 +15,11 @@ NEW Product REAL: ZERO · NEW Cursor REAL: ZERO
 Product Journey: PAUSED
 runtime v3: NON ADOPTED
 Global L5: NOT ADOPTED
+
+CI note (run 35539804692 on ff233782):
+- Unit/typecheck/lint path reached Trailing whitespace check only as failure
+- Cause: markdown hard-break trailing spaces in this Review Pack
+- Bounded fix: strip trailing whitespace; no product code change
 
 ---
 
@@ -89,10 +94,10 @@ Previously failing CI suites (re-run local):
   m4RealOffBoundary, m4RealOffCorrectionR1, registryAndAdapters, gcecAgent01
 - **118 PASS**
 
-`npm run typecheck` → PASS  
-`npm run lint` → PASS  
+`npm run typecheck` → PASS
+`npm run lint` → PASS
 
-Playwright foreign `:3020` reserve: accepted (non-blocking).  
+Playwright foreign `:3020` reserve: accepted (non-blocking).
 NEW REAL = ZERO. No Product REAL. No Cursor REAL.
 
 ---
