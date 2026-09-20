@@ -144,7 +144,10 @@ describe("Axe C — UNCLAIMED + succeeded semantics", () => {
     );
     const rec = deriveTrajectoryRecommendation(inputs);
     expect(rec.isHumanDecision).toBe(false);
-    expect(rec.rationale).toMatch(/UNCLAIMED/);
+    // CR-PJ-02 — primary rationale is Pilote-first; raw ProductOutcome enum stays out.
+    expect(rec.rationale).toMatch(/non encore pleinement confirmé/i);
+    expect(rec.rationale).not.toContain("UNCLAIMED");
+    expect(rec.rationale).not.toContain("ProductOutcome");
     expect(rec.rationale).not.toMatch(/FAIL durable/);
   });
 

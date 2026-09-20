@@ -746,6 +746,98 @@ describe("W2 TrajectorySurface", () => {
     });
   });
 
+  it("PJ-REPROOF — primary Recommendation is Pilote-first; Markdown/IDs stay out of primary rationale", async () => {
+    proposeMock.mockResolvedValue({
+      ok: true,
+      optionSetRef: "optset:w2-ui-pj",
+      cycleTypeId: "cyc:delivery",
+      recommendedProfile: "Standard",
+      options: [
+        {
+          kind: "OPTION",
+          optionRef: "opt:trajectory:clarify-first",
+          label: "Diagnostiquer / clarifier avant nouvelle tentative",
+          intent: "Approfondir le diagnostic",
+          impacts: [
+            "Aucune préparation d'exécution à ce stade",
+            "Attempt succeeded: att:demo",
+            "Evidence: evi:demo",
+          ],
+          reservations: [],
+          steps: [],
+        },
+        {
+          kind: "OPTION",
+          optionRef: "opt:trajectory:governed-gated",
+          label: "Préparer une nouvelle tentative gouvernée",
+          intent: "Décider puis préparer",
+          impacts: ["Décision humaine requise avant préparation"],
+          reservations: [],
+          steps: [],
+        },
+      ],
+      recommendation: {
+        label: "RECOMMANDATION — PAS UNE DÉCISION",
+        recommendedOptionRef: "opt:trajectory:clarify-first",
+        rationale:
+          "Studio recommande de diagnostiquer / clarifier avant toute nouvelle tentative. Votre décision reste nécessaire.",
+        cognitiveAnalysis:
+          "## Diagnostic\n**Important** : Attempt `att:demo` Evidence `evi:xyz` — analyse secondaire Nora.",
+        isHumanDecision: false,
+        promotesTrajectory: false,
+        ckcAttribution: null,
+        ckcProvenance: null,
+      },
+      epistemicRefs: [],
+      proposedTrajectory: {
+        trajectoryId: "trj:w2-ui-pj",
+        version: 1,
+        status: "candidate",
+        statusLabel: "TRAJECTOIRE PROPOSÉE",
+        isCurrent: false,
+      },
+      phase: "OPTIONS_PROPOSED",
+      autoDecisionPerformed: false,
+      executionPerformed: false,
+    });
+
+    render(<TrajectorySurface projectId="prj:w2-ui-pj" />);
+    fireEvent.click(await screen.findByTestId("w2-propose-options"));
+    expect(await screen.findByTestId("w2-recommendation")).toBeVisible();
+
+    const rationale = screen.getByTestId("w2-recommendation-rationale");
+    expect(rationale).toHaveTextContent(/diagnostiquer|clarifier/i);
+    expect(rationale.textContent ?? "").not.toMatch(/##/);
+    expect(rationale.textContent ?? "").not.toContain("**");
+    expect(rationale.textContent ?? "").not.toContain("`");
+    expect(rationale.textContent ?? "").not.toMatch(/\batt:demo\b/);
+    expect(rationale.textContent ?? "").not.toMatch(/\bevi:xyz\b/);
+    expect(rationale.textContent ?? "").not.toContain("HumanDecision");
+    expect(rationale.textContent ?? "").not.toContain("ProductOutcome");
+    expect(rationale.textContent ?? "").not.toContain("ContractResult");
+    expect(rationale.textContent ?? "").not.toContain("optionRef");
+    expect(rationale.textContent ?? "").not.toMatch(
+      /Recommendation\s*≠\s*HumanDecision/i,
+    );
+
+    expect(screen.getByTestId("w2-recommendation")).toHaveTextContent(
+      "Diagnostiquer / clarifier avant nouvelle tentative",
+    );
+    expect(screen.getByTestId("w2-recommendation-footer")).toHaveTextContent(
+      /ne lance aucune action automatiquement/i,
+    );
+    // Secondary Nora analysis disclosure — not primary WHAT.
+    expect(
+      screen.getByTestId("w2-recommendation-nora-analysis"),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByTestId("w2-option-opt:trajectory:clarify-first"),
+    ).toHaveTextContent("Recommandée — pas décidée");
+    expect(
+      screen.getByTestId("w2-option-tech-opt:trajectory:clarify-first"),
+    ).toBeInTheDocument();
+  });
+
   it("records an explicit Pilote decision and shows STOP BEFORE EXECUTE on the verdict", async () => {
     proposeMock.mockResolvedValue({
       ok: true,

@@ -214,8 +214,10 @@ describe("R7 — pure derivation / cognition (T2–T5 unit)", () => {
     expect(rec.isHumanDecision).toBe(false);
     expect(rec.promotesTrajectory).toBe(false);
     expect(rec.recommendedOptionRef).toBe(CLARIFY_OPTION_REF);
-    expect(rec.rationale).toMatch(/post-Evidence|FAIL|Diagnostiquer/i);
-    expect(rec.rationale).toMatch(/Recommendation ≠ HumanDecision/);
+    expect(rec.rationale).toMatch(/Diagnostiquer|clarifier|diagnostiquer/i);
+    expect(rec.rationale).toMatch(/ne lance aucune action automatiquement/i);
+    expect(rec.rationale).not.toMatch(/Recommendation\s*≠\s*HumanDecision/);
+    expect(rec.rationale).not.toContain("HumanDecision");
   });
 
   it("T6 — without RecoveryContext, generic trajectory unchanged", () => {

@@ -36,7 +36,17 @@ export type CkcRecommendationProvenanceDto = {
 export type TrajectoryRecommendationDto = {
   readonly label: "RECOMMANDATION — PAS UNE DÉCISION";
   readonly recommendedOptionRef: string;
+  /**
+   * Primary Pilote rationale — grounded in the canonical recommended option
+   * (deterministic base + safe guidance). Provider prose must not own this.
+   */
   readonly rationale: string;
+  /**
+   * Optional secondary Nora/provider analysis (WHY enrichment only).
+   * Never authoritative for WHAT Studio recommends. Compatible optional
+   * presentation field on existing serialized PresentedOptionSet (no DB migration).
+   */
+  readonly cognitiveAnalysis?: string | null;
   /** Structural denials — a Recommendation never decides nor promotes. */
   readonly isHumanDecision: false;
   readonly promotesTrajectory: false;
