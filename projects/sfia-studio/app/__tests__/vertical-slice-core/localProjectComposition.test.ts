@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { BoundedAtomicAuditStore } from "@/lib/d1/boundedAtomicAudit";
 import { resetD1DbForTests } from "@/lib/d1/db";
 import {
@@ -63,6 +63,31 @@ function createOptions() {
     idSource: new FixedIdSource(),
   };
 }
+
+function restoreEnv(name: string, previous: string | undefined): void {
+  if (previous === undefined) delete process.env[name];
+  else process.env[name] = previous;
+}
+
+let prevIdentity: string | undefined;
+let prevRemote: string | undefined;
+let prevBranch: string | undefined;
+
+beforeEach(() => {
+  prevIdentity = process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY;
+  prevRemote = process.env.SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL;
+  prevBranch = process.env.SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH;
+  process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY = "acme/visible-slice";
+  process.env.SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL =
+    "https://github.com/acme/visible-slice.git";
+  process.env.SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH = "main";
+});
+
+afterEach(() => {
+  restoreEnv("SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY", prevIdentity);
+  restoreEnv("SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL", prevRemote);
+  restoreEnv("SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH", prevBranch);
+});
 
 describe("visible slice V1 local composition", () => {
   it("creates services without React, network, fixtures, or IAM", () => {
@@ -159,7 +184,14 @@ describe("visible slice V1 Project/LPS happy path", () => {
         activeCycleInstanceId: null,
         ckcResolutionRef: null,
       },
-      repositoryBinding: null,
+      repositoryBinding: {
+        provider: "github",
+        identity: "acme/visible-slice",
+        remoteUrl: "https://github.com/acme/visible-slice.git",
+        defaultBranch: "main",
+        pathRoot: "projects/visible-slice-v1",
+      },
+      projectWorkspaceKey: "visible-slice-v1",
       localMode: true,
       iam: "NOT_SELECTED",
       productPersistence: "SQLITE_OA_PRODUCT_STORE",

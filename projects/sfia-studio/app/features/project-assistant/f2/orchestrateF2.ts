@@ -1155,17 +1155,48 @@ export async function orchestrateAssistantSend(input: {
     });
 
     if (continuation.needsTargetClarification) {
+      const hasBinding = Boolean(continuation.repositoryBinding);
+      const hasPathRoot = Boolean(
+        continuation.repositoryBinding?.pathRoot?.trim(),
+      );
+      const reason = continuation.clarificationReason ?? "target_unresolved";
+      const clarificationText =
+        reason === "workspace_collision_ambiguous"
+          ? [
+              "Le workspace Project cible existe déjà sans preuve d'appartenance durable à ce Project.",
+              "Collision ambiguë — aucune Proposal exécutable d'écriture sur ce workspace.",
+              "Clarifiez l'ownership ou choisissez un autre Project avant de continuer.",
+            ]
+          : reason === "repository_fact_unavailable"
+            ? [
+                "Le fait d'existence repository (managed clone / inventory) est indisponible.",
+                "Aucune Proposal exécutable tant que la vérité read-only du dépôt n'est pas lisible.",
+                "UNKNOWN ≠ CREATE — configuration managed-repo / clone requis.",
+              ]
+            : reason === "artifact_write_mode_ask"
+              ? [
+                  "La cible exacte est résolue, mais l'effet fichier (CREATE/UPDATE) est ambigu (ASK).",
+                  "UPDATE exige une Evidence Artifact durable exacte pour CE Project et CE target — l'existence fichier seule ne suffit pas.",
+                  "Votre décision et la préparation restent fermées tant que CREATE ou UPDATE n'est pas scellé.",
+                ]
+              : [
+                  hasPathRoot
+                    ? "Le nom de fichier du livrable n'est pas encore déterminé (ou le chemin proposé sort du workspace Project/cycle / est invalide)."
+                    : "Le chemin cible du livrable n'est pas encore déterminé.",
+                  hasPathRoot
+                    ? "Indiquez un filename Markdown sûr (ex. note-de-cadrage.md) — le serveur composera le chemin exact sous le workspace Project et le cycle actif. Un chemin invalide (traversal/absolu) est refusé sans rewrite."
+                    : hasBinding
+                      ? "Précisez le chemin cible dans les bornes du dépôt lié avant de continuer."
+                      : "Le dépôt cible n'est pas encore projeté — configuration serveur requise, ou Project legacy sans binding.",
+                  "Votre décision et la préparation de l'action restent fermées tant que la cible n'est pas clarifiée.",
+                ];
       return f2ConversationalSuccess({
         userText: content,
         sessionDbPath: input.sessionDbPath,
         text: [
           presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
           "Le cycle en cours est conservé.",
-          "Le chemin cible du livrable n'est pas encore déterminé.",
-          continuation.repositoryBinding
-            ? "Précisez le chemin cible dans les bornes du dépôt lié avant de continuer."
-            : "Configurez le dépôt lié ou précisez le chemin avant de proposer un effet.",
-          "Votre décision et la préparation de l'action restent fermées tant que la cible n'est pas clarifiée.",
+          ...clarificationText,
           "Rien n'a encore été exécuté.",
         ].join(" "),
         mode: modeResolution.mode as "fixture" | "live",

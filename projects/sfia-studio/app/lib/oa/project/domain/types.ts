@@ -50,7 +50,11 @@ export type ProjectRepositoryBinding = {
   defaultBranch: string;
   /** Optional pin; otherwise resolved at PREPARE/Gate D. */
   baseSha?: string;
-  /** Relative allowlist root (e.g. docs/). */
+  /**
+   * Relative allowlist root.
+   * New Projects: `projects/<stable-workspace-key>` (server-owned).
+   * Legacy Projects may retain historical roots (e.g. docs/).
+   */
   pathRoot?: string;
 };
 
@@ -62,7 +66,15 @@ export type Project = {
   currentLpsVersionId?: string;
   doctrinePackageRef?: DoctrinePackageRef;
   activeCycleInstanceId?: string;
-  /** Explicit Product target repository — never ambient sfia-workspace. */
+  /**
+   * Durable Project workspace key (PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01).
+   * Set once at create; title rename must NOT recompute.
+   */
+  projectWorkspaceKey?: string;
+  /**
+   * Explicit Product target repository — never ambient sfia-workspace.
+   * For new Projects this is an internal server-owned projection (no manual UI).
+   */
   repositoryBinding?: ProjectRepositoryBinding;
   createdAt: string;
   updatedAt?: string;

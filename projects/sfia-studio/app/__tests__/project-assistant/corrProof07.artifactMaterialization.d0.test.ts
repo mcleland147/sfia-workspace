@@ -441,6 +441,7 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
       decisionServices: runtime.oa!.decisionServices,
       authorityResolver: runtime.oa!.authorityResolver,
       nowIso: () => "2026-09-14T08:05:00.000Z",
+      oa: runtime.oa!,
       forceM3Authority: true,
     });
     expect(go.ok).toBe(true);
@@ -1094,6 +1095,7 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
       decisionServices: runtime.oa!.decisionServices,
       authorityResolver: runtime.oa!.authorityResolver,
       nowIso: () => "2026-09-14T08:05:00.000Z",
+      oa: runtime.oa!,
       forceM3Authority: true,
     });
     expect(go.ok).toBe(true);

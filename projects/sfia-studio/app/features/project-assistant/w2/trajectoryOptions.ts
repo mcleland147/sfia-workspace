@@ -110,9 +110,15 @@ function clarifySteps(): TrajectoryStep[] {
   ];
 }
 
-function recoveryRetrySteps(): TrajectoryStep[] {
+function recoveryRetrySteps(outcome: "FAIL" | "STOP" | "UNCLAIMED"): TrajectoryStep[] {
+  const diagnoseLabel =
+    outcome === "UNCLAIMED"
+      ? "Prendre en compte le succès technique et le résultat produit non prouvé"
+      : outcome === "STOP"
+        ? "Prendre en compte l'arrêt gouverné (STOP) et l'Evidence durables"
+        : "Prendre en compte l'échec et l'Evidence durables";
   return [
-    step(1, "w2-rec-diagnose", "Prendre en compte l'échec et l'Evidence durables"),
+    step(1, "w2-rec-diagnose", diagnoseLabel),
     step(2, "w2-rec-decide", "Décision humaine explicite de recovery", {
       dependencies: ["stp:w2-rec-diagnose"],
       gate: "human_decision",
@@ -146,9 +152,15 @@ function recoveryClarifySteps(): TrajectoryStep[] {
   ];
 }
 
-function recoverySuspendSteps(): TrajectoryStep[] {
+function recoverySuspendSteps(outcome: "FAIL" | "STOP" | "UNCLAIMED"): TrajectoryStep[] {
+  const ackLabel =
+    outcome === "UNCLAIMED"
+      ? "Conserver le succès technique et le résultat produit non prouvé comme vérité durable"
+      : outcome === "STOP"
+        ? "Conserver le STOP / arrêt gouverné comme vérité durable"
+        : "Conserver l'échec comme vérité durable";
   return [
-    step(1, "w2-rec-hold-ack", "Conserver l'échec comme vérité durable"),
+    step(1, "w2-rec-hold-ack", ackLabel),
     step(2, "w2-rec-hold-decide", "Décision humaine de suspension / replan", {
       dependencies: ["stp:w2-rec-hold-ack"],
       gate: "human_decision",
@@ -170,35 +182,51 @@ export function deriveTrajectoryOptions(
   const reservations = [...inputs.reservations];
   const recovery = inputs.recoveryContext ?? null;
   if (recovery) {
+    // CR-PCONT-02 — discriminate FAIL / STOP / UNCLAIMED (not a boolean).
+    const outcome = recovery.productOutcome;
+    const outcomePhrase =
+      outcome === "UNCLAIMED" && recovery.attemptStatus === "succeeded"
+        ? "exécution technique réussie, résultat produit non encore prouvé"
+        : outcome === "UNCLAIMED"
+          ? "résultat produit non encore prouvé (UNCLAIMED)"
+          : outcome === "STOP"
+            ? "STOP durable / arrêt gouverné"
+            : "FAIL durable";
+    const attemptImpact = `Attempt ${recovery.attemptStatus}: ${recovery.attemptId}`;
+    const holdIntent =
+      outcome === "UNCLAIMED"
+        ? "Conserver le succès technique et le résultat produit non prouvé comme vérité, décider de suspendre ou replanifier — aucune nouvelle tentative immédiate."
+        : outcome === "STOP"
+          ? "Conserver le STOP / arrêt gouverné comme vérité, décider de suspendre ou replanifier — aucune nouvelle tentative immédiate."
+          : "Conserver l'échec comme vérité, décider de suspendre ou replanifier — aucune nouvelle tentative immédiate.";
     return [
       {
         kind: "OPTION",
         optionRef: GOVERNED_OPTION_REF,
         label: "Préparer une nouvelle tentative gouvernée",
-        intent:
-          "À partir du FAIL durable, décider explicitement puis préparer / inspecter / autoriser un nouveau contrat — sans Execute automatique.",
+        intent: `À partir du ${outcomePhrase}, décider explicitement puis préparer / inspecter / autoriser un nouveau contrat — sans Execute automatique.`,
         impacts: [
-          `Attempt failed: ${recovery.attemptId}`,
+          attemptImpact,
           `Evidence: ${recovery.evidenceId}`,
           "Aucun succès métier revendiqué",
+          `productOutcome: ${outcome}`,
           `realProcessInvoked durable: ${recovery.realProcessInvoked}`,
         ],
         reservations,
-        steps: recoveryRetrySteps(),
+        steps: recoveryRetrySteps(outcome),
       },
       {
         kind: "OPTION",
         optionRef: BOUNDED_OPTION_REF,
         label: "Replanifier ou suspendre sans relance immédiate",
-        intent:
-          "Conserver l'échec comme vérité, décider de suspendre ou replanifier — aucune nouvelle tentative immédiate.",
+        intent: holdIntent,
         impacts: [
           "Pas de relance Execute dans cette option",
           `W3C: ${recovery.recommendationKind}`,
-          `outcome: ${recovery.productOutcome}`,
+          `outcome: ${outcome}`,
         ],
         reservations,
-        steps: recoverySuspendSteps(),
+        steps: recoverySuspendSteps(outcome),
       },
       {
         kind: "OPTION",

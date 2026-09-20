@@ -225,3 +225,12 @@ Remaining product gate **after** this post-merge coherence is integrated on main
 ---
 
 *VALIDATED BY MORRIS — INTEGRATED ON MAIN — PR #376 — H-01…H-04 CARRY — NO COMPONENTS — NO DELIVERY — NO REAL — NEXT CAPABILITY NOT SELECTED — RUNTIME V3 NON ADOPTED*
+
+---
+
+## Amendment 2026-09-19 — Workspace routing UX (D-PC-09)
+
+- **RETIRE** : configuration manuelle RepositoryBinding (provider / identity / remote / branch / pathRoot) comme responsabilité Pilote dans le parcours Product normal.
+- **EXPOSE** (read-only) : Workspace projet `projects/<key>/` · Workspace cycle actif `<project>/<segment>/` · wording « chemin prévu / workspace logique » avant Evidence.
+- **Proposal** : affiche targetPath exact + filename + **Effet fichier CREATE/UPDATE** (scellé avant HD) ; ASK → non exécutable ; **pas** de nouveau micro-gate filename.
+- **INTERDIT** : badge MATERIALIZED sur seul path calculé.

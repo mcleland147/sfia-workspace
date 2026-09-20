@@ -23,7 +23,20 @@ import {
   OBLIGATION_POLICY_REQUIRE_ARTIFACT,
   type CycleInstance,
 } from "@/lib/oa/cycle";
-import type { ProjectRepositoryBinding } from "@/lib/oa/project";
+import type { Project, ProjectRepositoryBinding } from "@/lib/oa/project";
+import {
+  assessProjectWorkspaceCollision,
+  classifyArtifactWriteMode,
+  hasDurableSameArtifactEvidence,
+  resolveArtifactTargetUnderCycleWorkspace,
+} from "@/lib/oa/project/domain/artifactTargetRouting";
+import { isValidProjectWorkspaceKey } from "@/lib/oa/project/domain/projectWorkspaceKey";
+import {
+  listManagedRepoPathsUnderRoot,
+  probeManagedRepoRelativePathExists,
+} from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import { resolveManagedRepoRootBaseFromEnv } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
+import { getCycleTypeById } from "@/lib/oa/cycle/domain/cycleTypeCatalog";
 import type { ProjectAssistantContextDto } from "../types";
 import { classifyHumanDecisionLifecycle } from "./studioCognitiveContext";
 import type { ExecutionIntentPayload } from "./executionIntentSchema";
@@ -32,6 +45,21 @@ import {
   F2_ARTIFACT_MATERIALIZATION_OPERATION,
 } from "./f2CanonicalOperations";
 import type { F2ContinuationKind, IntentAnalysisDto } from "./types";
+
+/**
+ * Automatic Project workspace roots are exactly `projects/<workspace-key>`.
+ * Legacy roots (docs/, projects/sfia-studio/.sandbox, …) keep prior clamp semantics.
+ */
+export function isAutomaticProjectWorkspacePathRoot(pathRoot: string): boolean {
+  const n = normalizeRepoRelativePath(pathRoot);
+  if (!n) return false;
+  const parts = n.split("/");
+  return (
+    parts.length === 2 &&
+    parts[0] === "projects" &&
+    isValidProjectWorkspaceKey(parts[1]!)
+  );
+}
 
 /** Re-export canonical constants (single source: f2CanonicalOperations). */
 export {
@@ -77,9 +105,26 @@ export type ActiveCycleContinuationOa = {
       }): Promise<
         | {
             ok: true;
-            project: { repositoryBinding?: ProjectRepositoryBinding };
+            project: {
+              projectId: string;
+              projectWorkspaceKey?: string;
+              repositoryBinding?: ProjectRepositoryBinding;
+            };
           }
         | { ok: false }
+      >;
+    };
+    readonly listProjects: {
+      execute(): Promise<
+        | { ok: true; projects: readonly Project[] }
+        | { ok: false }
+      >;
+    };
+  };
+  readonly evidenceReviewServices?: {
+    readonly repository: {
+      listByProject(projectId: string): Promise<
+        ReadonlyArray<{ location?: string; source?: string }>
       >;
     };
   };
@@ -105,7 +150,14 @@ export type ContinuationBlockedReason =
   | "no_require_artifact"
   | "artifact_already_satisfied"
   | "lifecycle_assess_failed"
-  | "incompatible_execution_intent";
+  | "incompatible_execution_intent"
+  | "workspace_collision_ambiguous";
+
+export type ActiveCycleContinuationClarificationReason =
+  | "target_unresolved"
+  | "workspace_collision_ambiguous"
+  | "artifact_write_mode_ask"
+  | "repository_fact_unavailable";
 
 export function parseContinuationKind(
   raw: unknown,
@@ -289,6 +341,7 @@ export type ActiveCycleContinuationResolution =
       readonly activeCycle: CycleInstance;
       readonly repositoryBinding: ProjectRepositoryBinding | null;
       readonly needsTargetClarification: boolean;
+      readonly clarificationReason?: ActiveCycleContinuationClarificationReason;
       readonly enrichedExecutionIntent: ExecutionIntentPayload | null;
     }
   | {
@@ -362,10 +415,18 @@ export async function resolveActiveCycleGovernedContinuation(input: {
   }
 
   // CR-07-05 — assess failure is FAIL-CLOSED (not "probably missing").
-  const assessed = await input.oa.cycleServices.pilotLifecycle.assess({
-    cycleInstanceId: activeId,
-    projectId: input.project.projectId,
-  });
+  // Evidence repository throws during assess must not escape as an uncaught error.
+  let assessed: Awaited<
+    ReturnType<typeof input.oa.cycleServices.pilotLifecycle.assess>
+  >;
+  try {
+    assessed = await input.oa.cycleServices.pilotLifecycle.assess({
+      cycleInstanceId: activeId,
+      projectId: input.project.projectId,
+    });
+  } catch {
+    return blocked("lifecycle_assess_failed", activeCycle);
+  }
   if (!assessed.ok) {
     return blocked("lifecycle_assess_failed", activeCycle);
   }
@@ -375,25 +436,263 @@ export async function resolveActiveCycleGovernedContinuation(input: {
 
   // Authoritative Project.repositoryBinding — never invent a second SoT.
   let repositoryBinding: ProjectRepositoryBinding | null = null;
+  let projectWorkspaceKey: string | undefined;
   const proj = await input.oa.projectServices.getProject.execute({
     projectId: input.project.projectId,
   });
   if (proj.ok) {
     repositoryBinding = proj.project.repositoryBinding ?? null;
+    projectWorkspaceKey = proj.project.projectWorkspaceKey;
   }
 
   const enriched = enrichExecutionIntentFromBinding({
     analysisIntent: input.analysis.executionIntent,
     binding: repositoryBinding,
+    activeCycleTypeId: activeCycle.cycleTypeId,
   });
+
+  if (enriched.needsTargetClarification) {
+    return {
+      mode: "ACTIVE_CYCLE_GOVERNED_CONTINUATION",
+      activeCycle,
+      repositoryBinding,
+      needsTargetClarification: true,
+      clarificationReason: "target_unresolved",
+      enrichedExecutionIntent: enriched.executionIntent,
+    };
+  }
+
+  // CR-PWR-03 — workspace collision before first materialization (automatic roots).
+  // Automatic Product workspaces require a readable managed-repo fact (UNKNOWN ≠ ABSENT).
+  const pathRoot = repositoryBinding?.pathRoot?.trim() || "";
+  const isAutomaticRoot =
+    Boolean(pathRoot) && isAutomaticProjectWorkspacePathRoot(pathRoot);
+  const managedBase = resolveManagedRepoRootBaseFromEnv();
+
+  if (isAutomaticRoot && repositoryBinding?.identity) {
+    if (!managedBase) {
+      return {
+        mode: "ACTIVE_CYCLE_GOVERNED_CONTINUATION",
+        activeCycle,
+        repositoryBinding,
+        needsTargetClarification: true,
+        clarificationReason: "repository_fact_unavailable",
+        enrichedExecutionIntent: {
+          ...(enriched.executionIntent ?? {}),
+          intentKind: "docs_write",
+          targetPath: enriched.executionIntent?.targetPath ?? null,
+          artifactWriteMode: "ASK",
+        },
+      };
+    }
+
+    const collision = await qualifyProjectWorkspaceCollision({
+      oa: input.oa,
+      projectId: input.project.projectId,
+      pathRoot,
+      workspaceKey: projectWorkspaceKey,
+      identity: repositoryBinding.identity,
+      managedRepoRootBase: managedBase,
+    });
+    if (
+      collision === "ambiguous_collision" ||
+      collision === "unknown_inventory"
+    ) {
+      return {
+        mode: "ACTIVE_CYCLE_GOVERNED_CONTINUATION",
+        activeCycle,
+        repositoryBinding,
+        needsTargetClarification: true,
+        clarificationReason:
+          collision === "unknown_inventory"
+            ? "repository_fact_unavailable"
+            : "workspace_collision_ambiguous",
+        enrichedExecutionIntent: {
+          ...(enriched.executionIntent ?? {}),
+          intentKind: "docs_write",
+          targetPath: null,
+          artifactWriteMode: "ASK",
+        },
+      };
+    }
+  }
+
+  // CR-PWR-02 — repository existence + Evidence same-deliverable → CREATE/UPDATE/ASK.
+  // Automatic Product workspace: UNKNOWN repo fact MUST fail closed (never null→CREATE).
+  const targetPath = enriched.executionIntent?.targetPath?.trim() || "";
+  let withMode: ExecutionIntentPayload = { ...(enriched.executionIntent ?? {}) };
+
+  if (isAutomaticRoot && repositoryBinding?.identity) {
+    if (!managedBase || !targetPath) {
+      return {
+        mode: "ACTIVE_CYCLE_GOVERNED_CONTINUATION",
+        activeCycle,
+        repositoryBinding,
+        needsTargetClarification: true,
+        clarificationReason: "repository_fact_unavailable",
+        enrichedExecutionIntent: {
+          ...withMode,
+          intentKind: "docs_write",
+          artifactWriteMode: "ASK",
+        },
+      };
+    }
+
+    const targetExists = probeManagedRepoRelativePathExists({
+      identity: repositoryBinding.identity,
+      repoRelativePath: targetPath,
+      managedRepoRootBase: managedBase,
+    });
+
+    if (targetExists === null) {
+      return {
+        mode: "ACTIVE_CYCLE_GOVERNED_CONTINUATION",
+        activeCycle,
+        repositoryBinding,
+        needsTargetClarification: true,
+        clarificationReason: "repository_fact_unavailable",
+        enrichedExecutionIntent: {
+          ...withMode,
+          intentKind: "docs_write",
+          artifactWriteMode: "ASK",
+        },
+      };
+    }
+
+    let intentClearlySameDeliverable: boolean | undefined;
+    if (targetExists === true) {
+      let evidenceList: ReadonlyArray<{
+        type?: string;
+        source?: string;
+        sourceKind?: string;
+        location?: string;
+        status?: string;
+        availability?: string;
+        bindings?: { projectId?: string };
+      }> = [];
+      let evidenceReadOk = false;
+      if (input.oa.evidenceReviewServices) {
+        try {
+          evidenceList =
+            await input.oa.evidenceReviewServices.repository.listByProject(
+              input.project.projectId,
+            );
+          evidenceReadOk = true;
+        } catch {
+          evidenceReadOk = false;
+        }
+      }
+      if (!evidenceReadOk) {
+        intentClearlySameDeliverable = false;
+      } else {
+        intentClearlySameDeliverable = hasDurableSameArtifactEvidence({
+          projectId: input.project.projectId,
+          targetPath,
+          evidence: evidenceList,
+        });
+      }
+    }
+
+    const artifactWriteMode = classifyArtifactWriteMode({
+      targetExists,
+      intentClearlySameDeliverable,
+    });
+    withMode = { ...withMode, artifactWriteMode };
+
+    if (artifactWriteMode === "ASK") {
+      return {
+        mode: "ACTIVE_CYCLE_GOVERNED_CONTINUATION",
+        activeCycle,
+        repositoryBinding,
+        needsTargetClarification: true,
+        clarificationReason: "artifact_write_mode_ask",
+        enrichedExecutionIntent: withMode,
+      };
+    }
+  }
 
   return {
     mode: "ACTIVE_CYCLE_GOVERNED_CONTINUATION",
     activeCycle,
     repositoryBinding,
-    needsTargetClarification: enriched.needsTargetClarification,
-    enrichedExecutionIntent: enriched.executionIntent,
+    needsTargetClarification: false,
+    enrichedExecutionIntent: withMode,
   };
+}
+
+/**
+ * CR-PWR-03 — ownership only from durable Project/Evidence truths.
+ * Slug match alone is never ownership. Directory existence alone is never ownership.
+ * UNKNOWN inventory / failed listProjects / failed Evidence on occupied tree → not absent_ok.
+ */
+async function qualifyProjectWorkspaceCollision(input: {
+  oa: ActiveCycleContinuationOa;
+  projectId: string;
+  pathRoot: string;
+  workspaceKey: string | undefined;
+  identity: string;
+  managedRepoRootBase: string;
+}): Promise<
+  | "absent_ok"
+  | "reuse_same_project"
+  | "ambiguous_collision"
+  | "unknown_inventory"
+> {
+  const inventory = listManagedRepoPathsUnderRoot({
+    identity: input.identity,
+    pathRoot: input.pathRoot,
+    managedRepoRootBase: input.managedRepoRootBase,
+  });
+  // CR-PWR-03 — UNKNOWN ≠ ABSENT.
+  if (inventory === null) {
+    return "unknown_inventory";
+  }
+
+  const listed = await input.oa.projectServices.listProjects.execute();
+  if (!listed.ok) {
+    if (inventory.length > 0) return "ambiguous_collision";
+    return "unknown_inventory";
+  }
+
+  const otherClaimants = listed.projects.filter((p) => {
+    if (p.projectId === input.projectId) return false;
+    if (input.workspaceKey && p.projectWorkspaceKey === input.workspaceKey) {
+      return true;
+    }
+    const otherRoot = p.repositoryBinding?.pathRoot?.trim() || "";
+    return otherRoot === input.pathRoot;
+  });
+  if (otherClaimants.length > 0) {
+    return "ambiguous_collision";
+  }
+
+  if (inventory.length === 0) {
+    return "absent_ok";
+  }
+
+  if (!input.oa.evidenceReviewServices) {
+    return "ambiguous_collision";
+  }
+  let durableOwnershipMatches = false;
+  try {
+    const evidence =
+      await input.oa.evidenceReviewServices.repository.listByProject(
+        input.projectId,
+      );
+    durableOwnershipMatches = evidence.some((ev) => {
+      const loc = (ev.location ?? "").trim();
+      if (!loc) return false;
+      return isPathWithinRoot(loc, input.pathRoot);
+    });
+  } catch {
+    return "ambiguous_collision";
+  }
+
+  return assessProjectWorkspaceCollision({
+    projectPathRoot: input.pathRoot,
+    existingRepoRelativePaths: inventory,
+    durableOwnershipMatches,
+  });
 }
 
 /**
@@ -413,14 +712,19 @@ function withCanonicalArtifactMaterializationAction(
 }
 
 /**
- * Bound Nora-proposed path/scope to authoritative binding.
- * Never invent identity/path; never widen pathRoot via scopeIn (CR-07-01);
- * never accept traversal targets (CR-07-02); never invent reversibility (CR-07-03);
- * never preserve contradictory / arbitrary action or capabilities (CR-07-06).
+ * Bound Nora-proposed path/scope to authoritative binding + cycle workspace.
+ * PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01:
+ * - leaf filename / artifactFileName → server composes exact target under cycle root
+ * - full in-bounds target accepted
+ * - out-of-bounds / missing filename → clarify (fail-closed)
+ * Never invent identity; never widen pathRoot via scopeIn (CR-07-01);
+ * never invent reversibility (CR-07-03).
  */
 export function enrichExecutionIntentFromBinding(input: {
   analysisIntent: ExecutionIntentPayload | null;
   binding: ProjectRepositoryBinding | null;
+  /** Active cycle type id — used to resolve stable repositoryWorkspaceSegment. */
+  activeCycleTypeId?: string | null;
 }): {
   executionIntent: ExecutionIntentPayload | null;
   needsTargetClarification: boolean;
@@ -431,8 +735,6 @@ export function enrichExecutionIntentFromBinding(input: {
   };
 
   // CORR-PROOF-09 — unsourced affirmative reversibility is never trusted fact
-  // on the Artifact materialization enrich path. Preserve null/unknown only;
-  // never invent "reversible". Provider "reversible"|"irreversible" → null.
   const rawRev = base.reversibilityExpectation;
   const reversibilityExpectation: "unknown" | null =
     rawRev === "unknown" ? "unknown" : null;
@@ -451,7 +753,6 @@ export function enrichExecutionIntentFromBinding(input: {
 
   const rawRoot = input.binding.pathRoot?.trim() || "";
   const canonicalRoot = rawRoot ? normalizeRepoRelativePath(rawRoot) : null;
-  // Invalid pathRoot on binding → fail closed (clarify), do not invent.
   if (rawRoot && !canonicalRoot) {
     return {
       executionIntent: withCanonicalArtifactMaterializationAction({
@@ -466,23 +767,71 @@ export function enrichExecutionIntentFromBinding(input: {
     };
   }
 
-  // CR-07-01 — effective scopeIn is authoritative pathRoot only.
-  // MODEL ∩ BINDING = binding bound; Nora must never widen.
-  const effectiveScopeIn: string[] = canonicalRoot ? [canonicalRoot] : [];
+  if (!canonicalRoot) {
+    return {
+      executionIntent: withCanonicalArtifactMaterializationAction({
+        ...base,
+        intentKind: "docs_write",
+        targetRepositoryRef: input.binding.identity,
+        targetPath: null,
+        scopeIn: [],
+        reversibilityExpectation,
+      }),
+      needsTargetClarification: true,
+    };
+  }
 
+  const cycleTypeId = input.activeCycleTypeId?.trim() || "";
+  const cycleDef = cycleTypeId ? getCycleTypeById(cycleTypeId) : undefined;
+  const segment = cycleDef?.repositoryWorkspaceSegment?.trim() || "";
+
+  // New automatic Project workspaces (projects/<key>) use cycle segment routing.
+  // Legacy pathRoots (docs/, sandbox, …) keep prior pathRoot∩target semantics.
+  if (segment && isAutomaticProjectWorkspacePathRoot(canonicalRoot)) {
+    const routed = resolveArtifactTargetUnderCycleWorkspace({
+      projectPathRoot: canonicalRoot,
+      repositoryWorkspaceSegment: segment,
+      artifactFileName: base.artifactFileName,
+      proposedTargetPath: base.targetPath,
+    });
+    if (!routed.ok) {
+      return {
+        executionIntent: withCanonicalArtifactMaterializationAction({
+          ...base,
+          intentKind: "docs_write",
+          targetRepositoryRef: input.binding.identity,
+          targetPath: null,
+          scopeIn: [routed.cycleRoot ?? canonicalRoot],
+          reversibilityExpectation,
+        }),
+        needsTargetClarification: true,
+      };
+    }
+    return {
+      executionIntent: withCanonicalArtifactMaterializationAction({
+        ...base,
+        intentKind: "docs_write",
+        targetRepositoryRef: input.binding.identity,
+        targetPath: routed.targetPath,
+        artifactFileName: routed.artifactFileName,
+        scopeIn: [routed.cycleRoot],
+        reversibilityExpectation,
+      }),
+      needsTargetClarification: false,
+    };
+  }
+
+  // Legacy binding (or cycle segment unavailable): pathRoot-only clamp.
+  const effectiveScopeIn: string[] = [canonicalRoot];
   const proposedPath = base.targetPath?.trim() || "";
   let targetPath: string | null = null;
   let needsClarification = false;
 
   if (!proposedPath) {
     needsClarification = true;
-  } else if (!canonicalRoot) {
-    // Binding without usable pathRoot — cannot authorize a write target.
-    needsClarification = true;
   } else {
     const normalizedTarget = normalizeRepoRelativePath(proposedPath);
     if (!normalizedTarget || !isPathWithinRoot(proposedPath, canonicalRoot)) {
-      // Hostile / out-of-bounds — null target, no silent rewrite (CR-07-02).
       needsClarification = true;
       targetPath = null;
     } else {
@@ -538,5 +887,7 @@ export function continuationBlockedMessage(
       return `Continuation Artifact demandée, mais l'évaluation Pilot lifecycle a échoué (fail-closed).${cycleHint} Aucun nouveau CycleInstance créé.`;
     case "incompatible_execution_intent":
       return `Continuation Artifact signalée, mais l'intention d'effet docs_write compatible est absente.${cycleHint} Aucune proposition de matérialisation. Aucun nouveau CycleInstance créé.`;
+    case "workspace_collision_ambiguous":
+      return `Workspace Project déjà présent sans preuve d'appartenance durable — collision ambiguë.${cycleHint} Aucune Proposal exécutable. Aucun nouveau CycleInstance créé.`;
   }
 }

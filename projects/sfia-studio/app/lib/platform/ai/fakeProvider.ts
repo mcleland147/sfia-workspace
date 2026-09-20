@@ -59,16 +59,37 @@ function extractSingleRepoRelativeMdPath(probe: string): string | null {
   return path;
 }
 
+/** Exactly one safe Markdown leaf filename (no slash); else null. */
+function extractSingleMdFileNameLeaf(probe: string): string | null {
+  const re =
+    /(?:^|[\s`"'(])([A-Za-z0-9][A-Za-z0-9._-]{0,120}\.md)(?=$|[\s`"'),.])/g;
+  const hits: string[] = [];
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(probe)) !== null) {
+    // Skip if the hit is part of a path (preceded by /)
+    const idx = m.index ?? 0;
+    if (idx > 0 && probe[idx] === "/") continue;
+    const before = probe.slice(Math.max(0, idx - 1), idx + 1);
+    if (before.includes("/")) continue;
+    hits.push(m[1]!);
+  }
+  // Filter out hits that appear as path suffixes already counted elsewhere
+  const leaves = hits.filter((h) => !probe.includes(`/${h}`));
+  if (leaves.length !== 1) return null;
+  return leaves[0]!;
+}
+
 /**
  * Narrow natural Pilot contract for artifact materialization (no synonym engine).
  * Requires ALL of:
  * 1) materialize wording family
- * 2) exactly one repo-relative .md path
+ * 2) exactly one repo-relative .md path OR one safe .md leaf OR framing note cue
  * 3) explicit proposal / decision preparation
  * 4) explicit no-execution guard
  */
 function matchNaturalArtifactMaterialization(probe: string): {
-  targetPath: string;
+  targetPath: string | null;
+  artifactFileName: string;
   artifactBrief: string;
   contentRequirement: string;
 } | null {
@@ -83,11 +104,25 @@ function matchNaturalArtifactMaterialization(probe: string): {
   if (!hasProposalOrDecision || !hasNoExecution) return null;
 
   const targetPath = extractSingleRepoRelativeMdPath(probe);
-  if (!targetPath) return null;
+  const leafFromPath = targetPath
+    ? targetPath.split("/").pop() || null
+    : null;
+  const bareLeaf = extractSingleMdFileNameLeaf(probe);
+  let artifactFileName = leafFromPath || bareLeaf || null;
+  // Framing note cue without explicit filename — Nora-like non-authoritative candidate
+  if (
+    !artifactFileName &&
+    /\bnote\b/.test(normalized) &&
+    /\bcadrage\b/.test(normalized)
+  ) {
+    artifactFileName = "note-de-cadrage.md";
+  }
+  if (!artifactFileName) return null;
 
   const brief = probe.replace(/\s+/g, " ").trim().slice(0, 240);
   return {
     targetPath,
+    artifactFileName,
     artifactBrief: brief,
     contentRequirement: brief,
   };
@@ -95,15 +130,19 @@ function matchNaturalArtifactMaterialization(probe: string): {
 
 /** Shared F2 artifact-materialization analysis payload (sentinel + natural). */
 function buildArtifactMaterializationAnalysis(input: {
-  targetPath: string;
+  targetPath?: string | null;
+  artifactFileName?: string | null;
   challengeResponseAssessment?: FakeChallengeAssessment;
   artifactBrief?: string;
   contentRequirements?: string[];
 }): Record<string, unknown> {
-  const targetPath = input.targetPath;
-  const parentSlash = targetPath.lastIndexOf("/");
+  const targetPath = input.targetPath ?? null;
+  const artifactFileName =
+    input.artifactFileName?.trim() ||
+    (targetPath ? targetPath.split("/").pop() || null : null);
+  const parentSlash = targetPath ? targetPath.lastIndexOf("/") : -1;
   const scopeIn =
-    parentSlash > 0 ? [targetPath.slice(0, parentSlash + 1)] : ["docs/"];
+    parentSlash > 0 ? [targetPath!.slice(0, parentSlash + 1)] : [];
   return {
     intentClass: "execution_request",
     candidateCycleTypeId: "cyc:framing",
@@ -136,9 +175,10 @@ function buildArtifactMaterializationAnalysis(input: {
       artifactType: "deliverable_document",
       targetRepositoryRef: null,
       targetPath,
+      artifactFileName,
       scopeIn,
       scopeOut: [],
-      expectedOutputs: [targetPath],
+      expectedOutputs: targetPath ? [targetPath] : artifactFileName ? [artifactFileName] : [],
       requiredCapabilities: ["cap:cursor.docs_write"],
       validationExpectations: [],
       evidenceRequirements: [],
@@ -1128,6 +1168,7 @@ export class FakeConversationProvider implements ConversationProvider {
           this.callCount,
           buildArtifactMaterializationAnalysis({
             targetPath: naturalMaterialization.targetPath,
+            artifactFileName: naturalMaterialization.artifactFileName,
             artifactBrief: naturalMaterialization.artifactBrief,
             contentRequirements: [naturalMaterialization.contentRequirement],
           }),

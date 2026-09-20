@@ -216,6 +216,15 @@ async function main(): Promise<void> {
         authorityResolver: stack.authority,
         nowIso: () => "2026-08-13T16:00:00.000Z",
         forceM3Authority: true,
+        // CR-PCONT-03 — RuntimeOaStack mandatory for DecisionRef closure.
+        oa: {
+          projectServices: stack.projects,
+          cycleServices: stack.cycles,
+          decisionServices: stack.decisions,
+          authorityResolver: stack.authority,
+          executionContractServices: stack.contracts,
+          clock: { nowIso: () => "2026-08-13T16:00:00.000Z" },
+        } as unknown as import("@/lib/vertical-slice-runtime").RuntimeOaStack,
       });
       if (!decided.ok) {
         console.error(JSON.stringify(decided));

@@ -55,10 +55,20 @@ function stubOa(
     clock: { nowIso: () => nowIso },
     projectServices: stack.projects,
     cycleServices: stack.cycles,
+    // CR-CI506-01 — continuity now reads terminal Attempt presence via
+    // listExecutionAttempts.execute. Ordinary rehydration fixtures have no
+    // Attempts: return a deterministic empty list (EMPTY ≠ UNKNOWN).
     executionAttemptServices: {
       registry: {
         listAgents: () => [],
         findCandidates: () => [],
+      },
+      listExecutionAttempts: {
+        execute: async () =>
+          ({
+            ok: true as const,
+            attempts: [],
+          }) as never,
       },
     },
   } as unknown as Parameters<

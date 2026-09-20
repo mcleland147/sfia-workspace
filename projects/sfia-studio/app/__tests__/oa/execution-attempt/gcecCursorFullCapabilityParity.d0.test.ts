@@ -25,6 +25,8 @@ import {
   StudioCursorRealLaunchGateway,
 } from "@/lib/oa/execution-attempt";
 import path from "node:path";
+import fs from "node:fs";
+import os from "node:os";
 import { FakeProcessRunner } from "./support/fakeProcessRunner";
 import {
   FakeRealExecutionWorkspacePort,
@@ -38,6 +40,15 @@ const MSG = "docs: add task manager functional design";
 const DIGEST =
   "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622";
 
+/** CR-CI506-R1 — unique temp roots owned by this file; cleaned in afterEach. */
+const ownedTempRoots: string[] = [];
+
+function cleanupOwnedTempRoots(): void {
+  while (ownedTempRoots.length) {
+    const root = ownedTempRoots.pop();
+    if (root) fs.rmSync(root, { recursive: true, force: true });
+  }
+}
 function baseEnv(
   overrides: Record<string, string | undefined> = {},
 ): NodeJS.ProcessEnv {
@@ -183,16 +194,25 @@ function roRequest(
 
 function gateway(env: NodeJS.ProcessEnv = baseEnv()) {
   const runner = new FakeProcessRunner();
+  // CR-CI506-R1 — unique mkdtemp root per setup; no fixed /tmp/fake-exec-root residue.
+  const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-fcp-"));
+  ownedTempRoots.push(tempRoot);
+  const workspacePath = path.join(tempRoot, "wt-fresh-fcp");
+  const resumePath = path.join(tempRoot, "wt-prior-fcp");
+  // CR-CI506-04 — execution write-mode revalidation probes existsSync(workspace).
+  // Fake port returns paths without creating them; mkdir so CREATE sees targetExists=false.
+  fs.mkdirSync(workspacePath, { recursive: true });
+  fs.mkdirSync(resumePath, { recursive: true });
   const gw = new StudioCursorRealLaunchGateway({
     processRunner: runner,
     workspacePort: new FakeRealExecutionWorkspacePort({
-      resumePath: "/tmp/fake-exec-root/wt-prior-fcp",
-      workspacePath: "/tmp/fake-exec-root/wt-fresh-fcp",
+      resumePath,
+      workspacePath,
     }),
     env,
     resolveCursorBin: () => "/tmp/fake-cursor-bin",
   });
-  return { gw, runner, env };
+  return { gw, runner, env, workspacePath, resumePath, tempRoot };
 }
 
 function expectFullCapabilityArgv(
@@ -226,6 +246,7 @@ describe("GCEC Cursor full-capability executor parity", () => {
     assertStudioCursorRealOffForTests();
   });
   afterEach(() => {
+    cleanupOwnedTempRoots();
     assertStudioCursorRealOffForTests();
   });
 
@@ -246,7 +267,7 @@ describe("GCEC Cursor full-capability executor parity", () => {
     const sealed =
       "projects/sfia-studio/.sandbox/gestion-de-taches.md";
     const allow = "projects/sfia-studio/.sandbox";
-    const { gw, runner } = gateway();
+    const { gw, runner, workspacePath } = gateway();
     const result = await gw.launch(
       docsWriteRequest({
         docsWriteSpec: {
@@ -263,17 +284,19 @@ describe("GCEC Cursor full-capability executor parity", () => {
           evidenceRequirements: ["artifact"],
           createOrModify: true,
           noDelete: true,
+          // CR-CI506-04 — automatic projects/… target requires sealed write mode.
+          artifactWriteMode: "CREATE",
         },
       }),
     );
     expect(result.outcome).toBe("ack");
     const instruction = runner.calls[0]!.argv.at(-1) as string;
     const absTarget = path.resolve(
-      "/tmp/fake-exec-root/wt-fresh-fcp",
+      workspacePath,
       ...sealed.split("/"),
     );
     const absAllow = path.resolve(
-      "/tmp/fake-exec-root/wt-fresh-fcp",
+      workspacePath,
       ...allow.split("/"),
     );
     expect(instruction).toContain(`EXACT AUTHORIZED FILE`);
@@ -496,5 +519,46 @@ describe("GCEC Cursor full-capability executor parity", () => {
     const argv = runner.calls[0]!.argv.join(" ");
     expect(argv).not.toMatch(/cli-config\.json/);
     expect(JSON.stringify(runner.calls[0]!.env)).not.toMatch(/cli-config\.json/);
+  });
+});
+
+/**
+ * CR-CI506-R1 — Cursor parity filesystem isolation negatives.
+ * Unique mkdtemp roots; cleanup removes owned root; no cross-run residue.
+ */
+describe("CR-CI506-R1 Cursor parity filesystem isolation", () => {
+  afterEach(() => {
+    cleanupOwnedTempRoots();
+  });
+
+  it("independent gateway() setups receive distinct temp roots", () => {
+    const a = gateway();
+    const b = gateway();
+    expect(a.tempRoot).not.toBe(b.tempRoot);
+    expect(a.workspacePath).not.toBe(b.workspacePath);
+    expect(fs.existsSync(a.tempRoot)).toBe(true);
+    expect(fs.existsSync(b.tempRoot)).toBe(true);
+  });
+
+  it("cleanup removes owned root so prior residue cannot force targetExists", () => {
+    const { tempRoot, workspacePath } = gateway();
+    const marker = path.join(
+      workspacePath,
+      "projects/sfia-studio/.sandbox/gestion-de-taches.md",
+    );
+    fs.mkdirSync(path.dirname(marker), { recursive: true });
+    fs.writeFileSync(marker, "residue");
+    expect(fs.existsSync(marker)).toBe(true);
+    cleanupOwnedTempRoots();
+    expect(fs.existsSync(tempRoot)).toBe(false);
+    expect(fs.existsSync(marker)).toBe(false);
+    // Fresh setup must not observe the prior file via reused fixed paths.
+    const next = gateway();
+    const nextMarker = path.join(
+      next.workspacePath,
+      "projects/sfia-studio/.sandbox/gestion-de-taches.md",
+    );
+    expect(fs.existsSync(nextMarker)).toBe(false);
+    expect(next.tempRoot).not.toBe(tempRoot);
   });
 });

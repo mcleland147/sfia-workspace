@@ -17,6 +17,7 @@ import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
 } from "@/lib/oa/decision";
+import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
 import type {
   DecisionDto,
   F2ContextSnapshot,
@@ -27,8 +28,13 @@ import {
   contextMatches,
   getProposal,
   markProposalStale,
-  updateProposalStatus,
 } from "./proposalStore";
+import {
+  f2DirectOptionSetRef,
+  finalizeProposalSubjectAfterDurableClosure,
+  writeProposalDecisionRef,
+  type ProposalClosureMarkerReason,
+} from "../w2/closeProposalDecisionSubject";
 
 /** @deprecated M2 demo actor — prefer LOCAL_MORRIS_M3_ACTOR when M3 authority enabled. */
 export const LOCAL_MORRIS_ACTOR = Object.freeze({
@@ -110,6 +116,7 @@ function buildDecisionBasis(input: {
             artifactType: ei.artifactType ?? null,
             targetRepositoryRef: ei.targetRepositoryRef ?? null,
             targetPath: ei.targetPath ?? null,
+            artifactFileName: ei.artifactFileName ?? null,
             scopeIn: ei.scopeIn ?? [],
             scopeOut: ei.scopeOut ?? [],
             expectedOutputs: ei.expectedOutputs ?? [],
@@ -165,6 +172,13 @@ function buildDecisionBasis(input: {
             artifactType: ei.artifactType ?? undefined,
             targetRepositoryRef: ei.targetRepositoryRef ?? undefined,
             targetPath: ei.targetPath ?? undefined,
+            artifactFileName: ei.artifactFileName ?? undefined,
+            artifactWriteMode:
+              ei.artifactWriteMode === "CREATE" ||
+              ei.artifactWriteMode === "UPDATE" ||
+              ei.artifactWriteMode === "ASK"
+                ? ei.artifactWriteMode
+                : undefined,
             scopeIn: ei.scopeIn ? [...ei.scopeIn] : undefined,
             scopeOut: ei.scopeOut ? [...ei.scopeOut] : undefined,
             expectedOutputs: ei.expectedOutputs
@@ -208,6 +222,13 @@ export async function recordF2Decision(input: {
   nowIso: () => string;
   /** Test inject for M3 authority. */
   forceM3Authority?: boolean;
+  /**
+   * D-MORRIS-PCONT-02 / CR-PCONT-03 — RuntimeOaStack is mandatory on the Product
+   * path. HumanDecision + DecisionRef close atomically in one SQLite UoW.
+   * No durable success without DecisionRef; no skipDecisionRef; no silent
+   * degradation when OA is absent.
+   */
+  oa: RuntimeOaStack;
 }): Promise<
   | {
       ok: true;
@@ -224,6 +245,15 @@ export async function recordF2Decision(input: {
   // Never trust client authority claims.
   void input.canActAsMorris;
   void input.claimedAuthorityLevel;
+
+  if (!input.oa) {
+    return {
+      ok: false,
+      code: "OA_STACK_REQUIRED",
+      message:
+        "RuntimeOaStack obligatoire pour recordF2Decision — DecisionRef Proposal non optionnelle.",
+    };
+  }
 
   const proposal = getProposal(input.proposalId);
   if (!proposal) {
@@ -339,39 +369,101 @@ export async function recordF2Decision(input: {
       })
     : undefined;
 
-  const result = await input.decisionServices.recordHumanDecision.execute({
-    decisionId,
-    projectId: input.projectId,
-    cycleInstanceId: decisionBasis?.cycleInstanceId,
-    subject: `F2 gate for ${proposal.proposalId}`,
-    options,
-    selectedOptionId: mapped.selectedOptionId,
-    actor: LOCAL_PILOTE_ACTOR,
-    authority: "morris",
-    status: mapped.humanStatus,
-    reversible: true,
-    scope,
-    reservations,
-    rationale: `F2 ${input.decisionKind} on ${proposal.proposalId}`,
-    authorityEvidenceId: authority.evidenceId,
-    decisionBasis,
-    linkToLivingProjectState: isGoAccepted,
-    expectedLpsVersion: isGoAccepted
-      ? input.currentContext.lpsVersion
-      : undefined,
-    correlationId: `f2-dec:${proposal.proposalId}`,
-  });
+  const markerReason: ProposalClosureMarkerReason =
+    mapped.humanStatus === "refused"
+      ? "refused"
+      : mapped.humanStatus === "amended"
+        ? "amended"
+        : "decided";
+  const optionSetRef = f2DirectOptionSetRef(proposal.proposalId);
 
-  if (!result.ok) {
+  class RecordF2AtomicFailure extends Error {
+    readonly code: string;
+    constructor(code: string, message: string) {
+      super(message);
+      this.name = "RecordF2AtomicFailure";
+      this.code = code;
+    }
+  }
+
+  // CR-PCONT-03 — throw inside UoW so SQLite/nested ALS rolls back HD when
+  // DecisionRef persist fails (returning ok:false would commit the orphan HD).
+  try {
+    await input.oa.projectServices.store.runInTransaction(async () => {
+      const result = await input.decisionServices.recordHumanDecision.execute({
+        decisionId,
+        projectId: input.projectId,
+        cycleInstanceId: decisionBasis?.cycleInstanceId,
+        subject: `F2 gate for ${proposal.proposalId}`,
+        options,
+        selectedOptionId: mapped.selectedOptionId,
+        actor: LOCAL_PILOTE_ACTOR,
+        authority: "morris",
+        status: mapped.humanStatus,
+        reversible: true,
+        scope,
+        reservations,
+        rationale: `F2 ${input.decisionKind} on ${proposal.proposalId}`,
+        authorityEvidenceId: authority.evidenceId,
+        decisionBasis,
+        linkToLivingProjectState: isGoAccepted,
+        expectedLpsVersion: isGoAccepted
+          ? input.currentContext.lpsVersion
+          : undefined,
+        correlationId: `f2-dec:${proposal.proposalId}`,
+      });
+
+      if (!result.ok) {
+        throw new RecordF2AtomicFailure(
+          result.error.detailCode,
+          result.error.message,
+        );
+      }
+
+      const closure = await writeProposalDecisionRef({
+        oa: input.oa,
+        projectId: input.projectId,
+        decisionId,
+        proposalId: proposal.proposalId,
+        selectedOptionRef: mapped.selectedOptionId,
+        optionSetRef,
+        markerReason,
+        nextProposalStatus: mapped.proposalStatus,
+      });
+      if (!closure.ok) {
+        throw new RecordF2AtomicFailure(closure.code, closure.message);
+      }
+    });
+  } catch (err) {
+    if (err instanceof RecordF2AtomicFailure) {
+      return {
+        ok: false,
+        code: err.code,
+        message: err.message,
+        proposal,
+      };
+    }
     return {
       ok: false,
-      code: result.error.detailCode,
-      message: result.error.message,
+      code: "PERSISTENCE_FAILURE",
+      message:
+        err instanceof Error
+          ? err.message
+          : "Échec atomique HumanDecision+DecisionRef Proposal.",
       proposal,
     };
   }
 
-  const updated = updateProposalStatus(proposal.proposalId, mapped.proposalStatus);
+  // Process-local ProposalStore only after durable HD + DecisionRef.
+  await finalizeProposalSubjectAfterDurableClosure({
+    oa: input.oa,
+    projectId: input.projectId,
+    proposalId: proposal.proposalId,
+    markerReason,
+    nextProposalStatus: mapped.proposalStatus,
+  });
+  const updated = getProposal(proposal.proposalId);
+
   const decision: DecisionDto = {
     decisionId,
     proposalId: proposal.proposalId,

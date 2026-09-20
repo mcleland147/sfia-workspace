@@ -24,6 +24,12 @@ export type DocsWriteLaunchSpec = {
   readonly evidenceRequirements: readonly string[];
   readonly createOrModify: true;
   readonly noDelete: true;
+  /**
+   * Server-sealed CREATE/UPDATE from DecisionBasis (Product automatic workspace).
+   * ASK / missing on automatic Product path → execution-time fail-closed.
+   * Legacy docs/ paths may omit (createOrModify envelope).
+   */
+  readonly artifactWriteMode?: "CREATE" | "UPDATE" | "ASK";
 };
 
 /** Canonical Git launch specs — single source from domain. */

@@ -9,6 +9,14 @@
 export * from "./domain/types";
 export * from "./domain/errors";
 export * from "./domain/invariants";
+export * from "./domain/projectWorkspaceKey";
+export * from "./domain/serverOwnedRepositoryConfig";
+export * from "./domain/artifactTargetRouting";
+export {
+  probeManagedRepoRelativePathExists,
+  listManagedRepoPathsUnderRoot,
+  ensureManagedRepoCloneSkeleton,
+} from "./infrastructure/managedRepoPathFacts";
 
 export * from "./ports/projectRepositoryPort";
 export * from "./ports/livingProjectStateRepositoryPort";

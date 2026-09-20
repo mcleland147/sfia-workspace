@@ -31,6 +31,8 @@ import {
 import { prepareM3FromDecision } from "@/features/project-assistant/f3/prepareM3FromDecision";
 import { F3_ACTION } from "@/features/project-assistant/f3/constants";
 import { RUNTIME_DISCLOSURES } from "@/lib/vertical-slice-runtime/disclosures";
+import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
 
 const APP_ROOT = path.resolve(__dirname, "../../..");
 const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
@@ -50,8 +52,12 @@ const VALID_PIN: DoctrinePackagePin = {
 
 const tempDirs: string[] = [];
 const openServices: Array<{ dispose: () => void }> = [];
+/** CR-CI506-R1 — capture prior managed-root env so afterEach restores exactly. */
+let managedEnvPrevious: string | undefined;
+let managedEnvWasPresent = false;
+let managedEnvOwned = false;
 
-afterEach(() => {
+function cleanupM3Temps(): void {
   while (openServices.length) {
     try {
       openServices.pop()?.dispose();
@@ -63,12 +69,43 @@ afterEach(() => {
     const dir = tempDirs.pop();
     if (dir) fs.rmSync(dir, { recursive: true, force: true });
   }
+  // Restore env AFTER removing temp dirs so no residual pointer at deleted paths.
+  if (managedEnvOwned) {
+    if (!managedEnvWasPresent) {
+      delete process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV];
+    } else {
+      process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV] = managedEnvPrevious;
+    }
+    managedEnvOwned = false;
+    managedEnvWasPresent = false;
+    managedEnvPrevious = undefined;
+  }
+}
+
+afterEach(() => {
+  cleanupM3Temps();
 });
 
 async function boot(name: string) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-m3-xc-"));
   tempDirs.push(dir);
   const dbPath = path.join(dir, name);
+  // CR-CI506-03 — PREPARE revalidation needs a managed clone skeleton.
+  // CR-CI506-R1 — capture prior env (absent vs present) before overwrite.
+  if (!managedEnvOwned) {
+    managedEnvWasPresent = Object.prototype.hasOwnProperty.call(
+      process.env,
+      SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV,
+    );
+    managedEnvPrevious = process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV];
+    managedEnvOwned = true;
+  }
+  const managedBase = path.join(dir, "managed");
+  process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV] = managedBase;
+  ensureManagedRepoCloneSkeleton({
+    managedRepoRootBase: managedBase,
+    identity: "mcleland147/sfia-workspace",
+  });
   const { resolver } = createTestDoctrineResolver({
     registryRoot: FIXTURES,
     schemasRoot: SCHEMAS,
@@ -558,6 +595,9 @@ describe("M3 ExecutionContract UNRESOLVED semantics (R1)", () => {
           "Vérification de l’existence et de la conformité minimale du fichier",
         ],
         reversibilityExpectation: "unknown",
+        // CR-CI506-03 — Product refuses null mode on automatic projects/…
+        // (ARTIFACT_WRITE_MODE_UNRESOLVED). Seal CREATE; managed skeleton in boot().
+        artifactWriteMode: "CREATE",
       },
       "dec:m3:ckpt-e-nora-evidence",
     );
@@ -595,6 +635,7 @@ describe("M3 ExecutionContract UNRESOLVED semantics (R1)", () => {
           "Résultat de l’écriture du fichier",
           "Résultat de la vérification du contenu",
         ],
+        artifactWriteMode: "CREATE",
       },
       "dec:m3:ckpt-e-r4-local-evidence",
     );
@@ -633,6 +674,7 @@ describe("M3 ExecutionContract UNRESOLVED semantics (R1)", () => {
           "evreq:file-write-result",
           "evreq:content-verification",
         ],
+        artifactWriteMode: "CREATE",
       },
       "dec:m3:ckpt-e-valid-evidence",
     );
@@ -691,5 +733,45 @@ describe("M3 ExecutionContract UNRESOLVED semantics (R1)", () => {
     expect(src).not.toMatch(/cap:m3-prepare-from-decision/);
     expect(src).not.toMatch(/`cycle:\$\{/);
     expect(src).not.toMatch(/`project:\$\{basis\.projectId\}/);
+  });
+});
+
+/**
+ * CR-CI506-R1 — managed-root env isolation negatives.
+ * Independent of suite ordering: each case captures pre-state, boots, then
+ * relies on afterEach restore and asserts post-state equals pre-state.
+ */
+describe("CR-CI506-R1 m3 managed-root env isolation", () => {
+  it("Case A — env absent before boot → absent after cleanup", async () => {
+    delete process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV];
+    expect(
+      Object.prototype.hasOwnProperty.call(
+        process.env,
+        SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV,
+      ),
+    ).toBe(false);
+    await boot("r1-case-a.sqlite");
+    expect(
+      process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV],
+    ).toBeDefined();
+    cleanupM3Temps();
+    expect(
+      Object.prototype.hasOwnProperty.call(
+        process.env,
+        SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV,
+      ),
+    ).toBe(false);
+  });
+
+  it("Case B — env preset to sentinel → exact sentinel after cleanup", async () => {
+    const sentinel = "/tmp/sfia-r1-managed-sentinel-do-not-use";
+    process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV] = sentinel;
+    await boot("r1-case-b.sqlite");
+    expect(process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]).not.toBe(
+      sentinel,
+    );
+    cleanupM3Temps();
+    expect(process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]).toBe(sentinel);
+    delete process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV];
   });
 });

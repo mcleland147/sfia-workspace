@@ -43,6 +43,7 @@ function ei(overrides?: Record<string, unknown>) {
     artifactType: null,
     targetRepositoryRef: null,
     targetPath: null,
+    artifactFileName: null,
     scopeIn: [],
     scopeOut: [],
     expectedOutputs: [],

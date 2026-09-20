@@ -121,6 +121,7 @@ function extensionCatalogEntry(): CycleTypeDefinition {
       unavailableBehavior: "fail-closed",
     },
     aliases: [],
+    repositoryWorkspaceSegment: "16-w3d-extension-probe",
   };
 }
 

@@ -62,6 +62,8 @@ export interface RuntimeProjectState {
     readonly pathRoot?: string;
     readonly baseSha?: string;
   } | null;
+  /** Durable Project workspace key — null for legacy / unbound. */
+  readonly projectWorkspaceKey?: string | null;
 }
 
 export interface RuntimeErrorDto {

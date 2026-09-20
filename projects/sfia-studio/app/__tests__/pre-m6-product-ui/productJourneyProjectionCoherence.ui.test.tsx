@@ -39,6 +39,11 @@ vi.mock("@/features/pre-m6-product-ui/hooks/useProductConversation", () => ({
 vi.mock("@/features/project-assistant/actions", () => ({
   projectAssistantPilotLifecycleProjection: (...args: unknown[]) =>
     lifecycleProjectionMock(...args),
+  projectAssistantActiveCycleWorkspaceAction: vi.fn().mockResolvedValue({
+    ok: true,
+    cycleTypeId: null,
+    repositoryWorkspaceSegment: null,
+  }),
   projectAssistantPilotLifecycleAction: vi.fn(),
   projectAssistantRecordObligationPolicyAction: vi.fn(),
   projectAssistantCompleteTrajectoryStepAction: vi.fn(),
@@ -125,6 +130,7 @@ const PROJECT = {
       defaultBranch: "main",
       pathRoot: "projects/sfia-studio/.sandbox",
     },
+    projectWorkspaceKey: null as string | null,
   },
   doctrine: {
     id: "pkg:studio-v3-oa",
@@ -293,12 +299,11 @@ describe("JOURNEY-INTEGRITY — ProjectWorkspace CASE A composition", () => {
     expect(
       screen.getByTestId("lifecycle-require-artifact-continuation"),
     ).toBeTruthy();
-    expect(await screen.findByTestId("repo-binding-status")).toHaveTextContent(
-      /Binding durable chargé/i,
+    expect(await screen.findByTestId("project-workspace-routing")).toBeTruthy();
+    expect(screen.getByTestId("project-workspace-path")).toHaveTextContent(
+      /projects\/sfia-studio\/\.sandbox/i,
     );
-    expect(screen.getByTestId("repo-binding-identity")).toHaveValue(
-      "mcleland147/sfia-workspace",
-    );
+    expect(screen.queryByTestId("repository-binding-form")).toBeNull();
   });
 
   it("CTA-5 — no Proposal ownership restores Recovery requalify + Lifecycle Nora CTA", async () => {

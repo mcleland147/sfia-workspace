@@ -764,3 +764,26 @@ Do **not** declare:
 ---
 
 *ARCHITECTURE DIRECTION ADOPTED BY MORRIS · CLOSURE INTEGRATED ON MAIN · POST-MERGE TRUTH SATISFIED · C6 CLOSED BY MORRIS · FINAL COHERENCE TRANSPORTED VIA PR #384 · STATE RESOLVE FROM GIT · NO CODE · NO MIGRATION · NO BACKLOG · NO DELIVERY · ZERO REAL · RUNTIME V3 NON ADOPTED · ADOPTION ≠ IMPLEMENTATION*
+
+---
+
+## Amendment 2026-09-19 — Technical delta (PRODUCT-PWR-01)
+
+| Élément | Disposition |
+| --- | --- |
+| `ProjectRepositoryBinding` | ADAPT — projection interne server-owned |
+| Config | `SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY` / `_REMOTE_URL` / `_DEFAULT_BRANCH` (pas de hardcode owner/repo domaine) |
+| `projectWorkspaceKey` | champ durable additif sur Project |
+| `CycleTypeDefinition.repositoryWorkspaceSegment` | metadata stable + validation unicité/sûreté |
+| F2 `artifactFileName` | candidat non autoritaire |
+| `enrichExecutionIntentFromBinding` | compose target sous cycle root pour workspaces `projects/<key>` ; legacy clamp préservé ; invalid path FAIL CLOSED |
+| `classifyArtifactWriteMode` | CREATE/UPDATE/ASK from managed-repo existence fact — wired into Proposal seal (CR-PWR-02) |
+| `assessProjectWorkspaceCollision` | wired before materialization Proposal (CR-PWR-03) |
+| Product Create boundary | LocalProjectComposition fail-closed si config server-owned absente/invalide (CR-PWR-04) |
+| PREPARE TOCTOU | `revalidateSealedArtifactWriteMode` — CREATE/UPDATE stale → STOP |
+| Execution-time TOCTOU | `assertArtifactWriteModeAtExecution` in FakeDocsWrite + StudioCursorRealLaunchGateway — same sealed mode vs existence; stale/unknown → reject before write |
+| same-deliverable Evidence | `hasDurableSameArtifactEvidence` — contradiction incl. status/availability `unavailable` → fail closed |
+| docs_write | mkdir parents déjà dans Fake/REAL boundary — même Attempt |
+| Persistence | **aucune** nouvelle table / engine |
+| Legacy | load-compatible · pas de migration silencieuse |
+| Build Doctrine / framing 30–37 | **READ ONLY** — non modifiés |

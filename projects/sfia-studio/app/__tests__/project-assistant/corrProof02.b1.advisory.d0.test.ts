@@ -726,6 +726,7 @@ describe("CORR-PROOF-02 B1 advisory-default T1–T15", () => {
       decisionServices: runtime.oa!.decisionServices,
       authorityResolver: runtime.oa!.authorityResolver,
       nowIso: () => runtime.oa!.clock.nowIso(),
+      oa: runtime.oa!,
       forceM3Authority: true,
     });
     expect(decided.ok).toBe(true);

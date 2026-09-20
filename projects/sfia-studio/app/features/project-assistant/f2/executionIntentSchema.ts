@@ -36,6 +36,7 @@ export const F2_EXECUTION_INTENT_JSON_SCHEMA: Record<string, unknown> = {
     artifactType: NULLABLE_STRING,
     targetRepositoryRef: NULLABLE_STRING,
     targetPath: NULLABLE_STRING,
+    artifactFileName: NULLABLE_STRING,
     scopeIn: STRING_ARRAY,
     scopeOut: STRING_ARRAY,
     expectedOutputs: STRING_ARRAY,
@@ -61,6 +62,7 @@ export const F2_EXECUTION_INTENT_JSON_SCHEMA: Record<string, unknown> = {
     "artifactType",
     "targetRepositoryRef",
     "targetPath",
+    "artifactFileName",
     "scopeIn",
     "scopeOut",
     "expectedOutputs",
@@ -80,6 +82,16 @@ export type ExecutionIntentPayload = {
   artifactType?: string | null;
   targetRepositoryRef?: string | null;
   targetPath?: string | null;
+  /**
+   * Non-authoritative leaf filename candidate (Pilote or Nora).
+   * Server composes exact targetPath under Project+Cycle workspace.
+   */
+  artifactFileName?: string | null;
+  /**
+   * Server-owned CREATE/UPDATE/ASK from repository existence fact.
+   * Never produced by Nora — injected after enrich + managed-repo probe.
+   */
+  artifactWriteMode?: "CREATE" | "UPDATE" | "ASK" | null;
   scopeIn?: string[];
   scopeOut?: string[];
   expectedOutputs?: string[];
@@ -196,6 +208,7 @@ export function validateExecutionIntentPayload(
       artifactType: asNullableString(r.artifactType) ?? null,
       targetRepositoryRef: asNullableString(r.targetRepositoryRef) ?? null,
       targetPath: asNullableString(r.targetPath) ?? null,
+      artifactFileName: asNullableString(r.artifactFileName) ?? null,
       scopeIn: scopeIn ?? [],
       scopeOut: scopeOut ?? [],
       expectedOutputs: expectedOutputs ?? [],

@@ -285,6 +285,20 @@ async function bootToConfirmedEc(
       },
     });
     expect(bound.ok).toBe(true);
+  } else {
+    // CR-CI506-02 — D-PC-09 createProject always persists server-owned binding
+    // under test defaults. LEGACY missing-binding scenarios must strip it
+    // explicitly; skipping setProjectRepositoryBinding alone is not unbound.
+    const found = await oa.projectServices.projects.findById(projectId);
+    expect(found).not.toBeNull();
+    if (!found) throw new Error("project missing after create");
+    delete found.repositoryBinding;
+    await oa.projectServices.projects.save(found);
+    const cleared = await oa.projectServices.getProject.execute({ projectId });
+    expect(cleared.ok).toBe(true);
+    if (cleared.ok) {
+      expect(cleared.project.repositoryBinding).toBeUndefined();
+    }
   }
 
   const cycles0 = await oa.cycleServices.cycles.listByProject(projectId);
@@ -468,6 +482,7 @@ async function bootToConfirmedEc(
     decisionServices: oa.decisionServices,
     authorityResolver: oa.authorityResolver,
     nowIso: () => oa.clock.nowIso(),
+    oa,
     forceM3Authority: true,
   });
   expect(go.ok).toBe(true);

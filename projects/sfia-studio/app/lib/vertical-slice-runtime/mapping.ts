@@ -77,6 +77,7 @@ export function toRuntimeProjectState(
     localMode: true,
     source: "REAL_LOCAL_CORE",
     fixture: false,
+    projectWorkspaceKey: view.projectWorkspaceKey ?? null,
     repositoryBinding: binding
       ? Object.freeze({
           provider: binding.provider,

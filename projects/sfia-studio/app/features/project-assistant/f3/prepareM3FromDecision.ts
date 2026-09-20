@@ -29,6 +29,110 @@ import {
   PROPOSAL_SUBJECT_PURSUE_REF,
 } from "../w2/proposalSubjectOptions";
 import { BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS } from "./boundedDocsWriteM3ResolutionProfile";
+import { probeManagedRepoRelativePathExists } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import {
+  assertSealedArtifactWriteModeAgainstExistence,
+  isAutomaticProductDocsWriteTargetPath,
+} from "@/lib/oa/project/domain/artifactTargetRouting";
+
+/**
+ * CR-PWR-02 TOCTOU (PREPARE) — sealed CREATE must not overwrite a file that appeared;
+ * sealed UPDATE must not silently create a file that disappeared;
+ * ASK / null / UNKNOWN probe never prepares for automatic Product docs_write.
+ *
+ * Execution-time revalidation uses the same pure assert with EXECUTION_* codes
+ * at Fake/REAL launch boundaries (see assertArtifactWriteModeAtExecution).
+ */
+export function revalidateSealedArtifactWriteMode(input: {
+  artifactWriteMode: "CREATE" | "UPDATE" | "ASK" | null | undefined;
+  targetPath: string | null | undefined;
+  targetRepositoryRef: string | null | undefined;
+  managedRepoRootBase?: string | null;
+  /** When true (automatic Product workspace docs_write), null mode is refused. */
+  requireResolvedWriteMode?: boolean;
+}):
+  | { ok: true; targetExists: boolean | null }
+  | { ok: false; code: string; message: string } {
+  const mode = input.artifactWriteMode ?? null;
+  if (mode === "CREATE" || mode === "UPDATE") {
+    const targetPath = input.targetPath?.trim() || "";
+    const identity = input.targetRepositoryRef?.trim() || "";
+    if (!targetPath || !identity) {
+      return {
+        ok: false,
+        code: "TARGET_UNRESOLVED",
+        message:
+          "targetPath / repositoryRef absents pour revalidation WRITE mode.",
+      };
+    }
+  }
+  const targetExists =
+    mode === "CREATE" || mode === "UPDATE"
+      ? probeManagedRepoRelativePathExists({
+          identity: input.targetRepositoryRef!.trim(),
+          repoRelativePath: input.targetPath!.trim(),
+          managedRepoRootBase: input.managedRepoRootBase,
+        })
+      : null;
+  const check = assertSealedArtifactWriteModeAgainstExistence({
+    artifactWriteMode: mode,
+    targetExists,
+    requireResolvedWriteMode: input.requireResolvedWriteMode,
+  });
+  if (!check.ok) {
+    switch (check.kind) {
+      case "ASK":
+        return {
+          ok: false,
+          code: "ARTIFACT_WRITE_MODE_ASK",
+          message:
+            "Effet fichier ASK — PREPARE refusé jusqu'à clarification CREATE/UPDATE.",
+        };
+      case "UNRESOLVED":
+        return {
+          ok: false,
+          code: "ARTIFACT_WRITE_MODE_UNRESOLVED",
+          message:
+            "Effet fichier non scellé (null) sur docs_write Product automatique — PREPARE refusé.",
+        };
+      case "UNAVAILABLE":
+        return {
+          ok: false,
+          code: "ARTIFACT_WRITE_MODE_REVALIDATION_UNAVAILABLE",
+          message:
+            "Fait d'existence repository indisponible à la revalidation PREPARE — aucune écriture.",
+        };
+      case "STALE_CREATE":
+        return {
+          ok: false,
+          code: "ARTIFACT_WRITE_MODE_STALE_CREATE",
+          message:
+            "CREATE scellé obsolète — le fichier cible est apparu depuis la Proposal. Requalification requise.",
+        };
+      case "STALE_UPDATE":
+        return {
+          ok: false,
+          code: "ARTIFACT_WRITE_MODE_STALE_UPDATE",
+          message:
+            "UPDATE scellé obsolète — le fichier cible a disparu depuis la Proposal. Requalification requise.",
+        };
+      default:
+        return {
+          ok: false,
+          code: "TARGET_UNRESOLVED",
+          message: "Revalidation WRITE mode impossible.",
+        };
+    }
+  }
+  return { ok: true, targetExists };
+}
+
+/**
+ * @deprecated Prefer assertArtifactWriteModeAtExecution from
+ * `@/lib/oa/project/domain/artifactTargetRouting` (shared Fake/REAL seam).
+ * Re-export kept for call-site compatibility within f3.
+ */
+export { assertArtifactWriteModeAtExecution } from "@/lib/oa/project/domain/artifactTargetRouting";
 
 /**
  * EC.evidenceRequirements must be OA identifiers (`prefix:value`).
@@ -164,6 +268,10 @@ function fieldsFromBasis(basis: DecisionBasis, decisionId: string) {
       inputs.scopeOut = eb.scopeOut ?? [];
       inputs.createOrModify = true;
       inputs.noDelete = true;
+      if (eb.artifactWriteMode === "CREATE" || eb.artifactWriteMode === "UPDATE") {
+        inputs.artifactWriteMode = eb.artifactWriteMode;
+      }
+      if (eb.artifactFileName) inputs.artifactFileName = eb.artifactFileName;
       if (eb.artifactType) inputs.artifactType = eb.artifactType;
       if (eb.artifactBrief) inputs.artifactBrief = eb.artifactBrief;
       if (eb.contentRequirements)
@@ -355,6 +463,24 @@ export async function prepareM3FromDecision(input: {
       message:
         "DecisionBasis LPS version is ahead of current context — inconsistent state.",
     };
+  }
+
+  const eb = basis.executionBasis;
+  const docsWriteIntent =
+    eb.intentKind === "docs_write" ||
+    eb.requestedOperation?.trim() === "cursor.docs_write.apply";
+  if (docsWriteIntent) {
+    const targetPath = eb.targetPath?.trim() || "";
+    const writeCheck = revalidateSealedArtifactWriteMode({
+      artifactWriteMode: eb.artifactWriteMode,
+      targetPath: eb.targetPath,
+      targetRepositoryRef: eb.targetRepositoryRef,
+      requireResolvedWriteMode:
+        isAutomaticProductDocsWriteTargetPath(targetPath),
+    });
+    if (!writeCheck.ok) {
+      return writeCheck;
+    }
   }
 
   const fields = fieldsFromBasis(basis, decision.decisionId);
