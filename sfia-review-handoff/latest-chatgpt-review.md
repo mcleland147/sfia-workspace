@@ -1,18 +1,20 @@
-# ChatGPT Review Pack — FULL (PR #506 CI REMEDIATION CANDIDATE)
+# ChatGPT Review Pack — FULL (PR #506 CI REMEDIATION REGULARIZATION R1/R2)
 
-- **Timestamp UTC:** 2026-09-20T06:10:00Z
-- **Timestamp Europe/Paris:** 2026-09-20T08:10:00+0200
+- **Timestamp UTC:** 2026-09-20T07:46:07Z
+- **Timestamp Europe/Paris:** 2026-09-20T09:46:07+0200
 - **Macro:** PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01
 - **Mode:** SAME MACRO / NO MICRO-CYCLE
-- **Cycle:** 8 — Delivery / Implementation (return from PR readiness)
+- **Cycle:** 8 — Delivery / Implementation (CI remediation R1/R2 regularization)
 - **Typologie:** EVOL
 - **Profil:** Critical
-- **Morris GO consumed:** GO MORRIS — PR #506 CI REMEDIATION dans PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01, SAME MACRO / NO MICRO-CYCLE
+- **Morris GO consumed:** CR-CI506-R1 / CR-CI506-R2 GO — test-only regularization; Product forbidden; no project commit/push/merge; no REAL/LIVE; gcecGitCommit* repair FROZEN
+- **Input handoff:** `d1bcd473a113012bfcf56767ecff73098175a36e` / blob `132ee49eec0c67918a552d63e60bc54e862a3865`
 - **CI failed run:** 35491519992
-- **Entry candidate:** `f57fc6cd56900cd19df961dbe8b788a0b89937ca`
-- **CI failure handoff in:** `b0e2d95eb284fae27b601a974e1c1b78a5cabbc4` / blob `95297161cde8ee763b259833a25fe6efcbacc0cc`
+- **Entry candidate (unchanged):** `f57fc6cd56900cd19df961dbe8b788a0b89937ca`
 - **Bounded REAL historical:** `b8ee0f405a011577cd14be0cae266d83f0475fc9`
-- **Claim maximal autorisé:** PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01 — PR #506 CI REMEDIATION CANDIDATE — ORIGINAL 25 FAILURES CLOSED LOCALLY — TEST/FIXTURE CONVERGENCE COMPLETE — PRODUCT SOURCE UNCHANGED FROM REAL-PROVEN f57fc6cd — ORIGINAL FAILSET + typecheck/lint/build PASS — SAME MACRO / NO MICRO-CYCLE — NO NEW REAL — PROJECT COMMIT/PUSH HELD FOR CHATGPT CRITICAL REVIEW — MERGE NOT AUTHORIZED — CHATGPT CRITICAL REVIEW PENDING
+- **Claim (R2-regularized — NOT inflated):** ORIGINAL CI #506 FAILSET CLOSED LOCALLY · TARGETED + HIGH-VALUE REGRESSIONS PASS (with pre-existing local flake note) · TYPECHECK / LINT / BUILD PASS · FULL LOCAL VITEST NOT CLEAN DUE TO PRE-EXISTING ENV-SPECIFIC GCEC GIT COMMIT FAILURES · FINAL REQUIRED-GATE VERDICT DEFERRED TO GITHUB CI AFTER PUSH
+
+**DO NOT claim:** `FULL CI-EQUIVALENT LOCAL GATES PASS` / `FULL CI-EQUIVALENT LOCAL TESTS PASS` — exact workflow `npm test` still has residual failures (control A on clean f57fc6cd).
 
 ## 1. Local Git Truth
 
@@ -21,188 +23,283 @@
 | toplevel | `/tmp/sfia-pwr-01-dev` |
 | branch | `delivery/sfia-studio-project-workspace-artifact-routing-01` |
 | HEAD (unchanged) | `f57fc6cd56900cd19df961dbe8b788a0b89937ca` |
-| HEAD^ | `ed3cc66b25d260a67437fc07e163ef5fcc2244a9` |
-| origin/main | `a6dba9776bfb1b4cb1570a87b20b0c71e546e441` |
-| merge-base | `a6dba9776bfb1b4cb1570a87b20b0c71e546e441` |
+| origin/main (after fetch) | `a6dba9776bfb1b4cb1570a87b20b0c71e546e441` |
 | remote project branch | `f57fc6cd56900cd19df961dbe8b788a0b89937ca` |
 | PR #506 state | OPEN |
 | PR #506 head | `f57fc6cd56900cd19df961dbe8b788a0b89937ca` |
 | auto-merge | OFF / null |
+| staged files | **0** |
+| Product features/lib diff | **empty** |
 | project commit this cycle | **0** |
 | project push this cycle | **0** |
 | merge | **0** |
-| Cursor REAL | **0** |
+| Cursor REAL (new) | **0** |
 | OpenAI LIVE | **0** |
-| Product source mutation | **0** |
 
-Working-tree corrections remain **uncommitted** for ChatGPT Critical Review.
+Working-tree corrections remain **uncommitted** pending Final ChatGPT Critical Review.
 
-## 2. PR #506 / CI baseline
+## 2. Original 25-failure remediation summary (CR-CI506-01…06 — INTACT)
 
-| Check | Result |
-|---|---|
-| Detect SFIA Studio changes | PASS |
-| Build and validate SFIA Studio | FAIL |
-| SFIA Studio Required Gate | FAIL |
+Prior remediation (input handoff d1bcd473…) remains semantically intact. This pass does **not** reopen or redesign CR-CI506-01…06.
 
-Vitest baseline (run 35491519992): 9 failed files / **25 failed tests** / 385 files passed / 4364 tests passed.
-
-## 3. Classification matrix — all 25 original failures
-
-| Cluster | Tests | Classification |
+| ID | Status | Reconfirm |
 |---|---|---|
-| CR-CI506-01 `ecRehydrationContinuity` ×10 | TypeError `listExecutionAttempts.execute` undefined | **TEST_HARNESS_STALE** |
-| CR-CI506-02 `repositoryBindingProjection` ×2 | expected null binding; got server-owned | **TEST_ORACLE_STALE** |
-| CR-CI506-02 `gcecCr23` H23A-N1/N2 ×2 | false "missing binding" → mismatch | **TEST_FIXTURE_STALE** |
-| CR-CI506-03 `corrProof10` T01/T16/R23/R58 ×4 | ASK / PREPARE fail-closed without sealed mode+repo | **TEST_FIXTURE_STALE** |
-| CR-CI506-03 `m3` CHECKPOINT-E ×3 | UNRESOLVED → REVALIDATION_UNAVAILABLE | **TEST_FIXTURE_STALE** |
-| CR-CI506-03 `productProofJourneyIntegrity` T15 ×1 | same PREPARE | **TEST_FIXTURE_STALE** |
-| CR-CI506-04 Cursor parity abs-target ×1 | reject EXECUTION_REVALIDATION_UNAVAILABLE | **TEST_FIXTURE_STALE** |
-| CR-CI506-05 `importBoundaries` ×1 | 59→63 allowlist | **TEST_ORACLE_STALE** (LEGITIMATE KEEP) |
-| CR-CI506-06 `m5C1` ×1 | hang in recordF2Decision (Memory nested UoW) | **TEST_HARNESS_STALE** |
+| CR-CI506-01 | CLOSED | Attempt list service fixture present (`listExecutionAttempts.execute` stub) |
+| CR-CI506-02 | CLOSED | Server-owned RepositoryBinding on create; LEGACY unbound explicit |
+| CR-CI506-03 | CLOSED | PREPARE seals CREATE + repo facts; no UNKNOWN→absent weakening |
+| CR-CI506-04 | CLOSED | Repository identity / execution validation fail-closed; workspace mkdir retained under R1 mkdtemp |
+| CR-CI506-05 | CLOSED | 4 import boundary KEEP dispositions preserved |
+| CR-CI506-06 | CLOSED | m5 SQLite fixture functional; 30_000 timeout retained |
 
-**Counts:** TEST_HARNESS_STALE=11 · TEST_FIXTURE_STALE=11 · TEST_ORACLE_STALE=3 · PRODUCT_DEFECT=0 · CI_TIMING_FLAKE=0
+## 3. CR-CI506-R1 — before / after
 
-PREPARE fail codes captured before fixture fix: `ARTIFACT_WRITE_MODE_UNRESOLVED`, then `TARGET_UNRESOLVED`, then `ARTIFACT_WRITE_MODE_REVALIDATION_UNAVAILABLE`. Cursor reject: `ARTIFACT_WRITE_MODE_EXECUTION_REVALIDATION_UNAVAILABLE` / `REAL_WORKSPACE_INVALID`.
+### 3.1 m3 managed-root env isolation
 
-## 4. Root causes + remediations (CR-CI506-01…06)
+**Before (blocker):** `boot()` set `SFIA_STUDIO_MANAGED_REPO_ROOT_BASE` then `afterEach` only `rmSync` temp dirs — **no env restore**. Residual global env could point at deleted temp paths.
 
-### CR-CI506-01 CLOSED
-Stub now exposes `listExecutionAttempts.execute` → `{ok:true, attempts:[]}`. Product continuity reader unchanged.
+**After:**
+1. Capture prior state distinguishing **absent** vs **present** (`hasOwnProperty` + value).
+2. Set managed base for PREPARE skeleton.
+3. `cleanupM3Temps()` (used by `afterEach` and R1 negatives): dispose services → remove temp dirs → **then** restore env (delete if was absent; restore exact prior if present).
+4. Cleanup runs even when assertions fail (`afterEach`).
 
-### CR-CI506-02 CLOSED
-Assert server-owned binding on Product create; LEGACY unbound via explicit `delete repositoryBinding` + save. H23A strips binding when `withRepositoryBinding:false`.
+Exact implementation:
 
-### CR-CI506-03 CLOSED
-Seal `artifactWriteMode:"CREATE"` + coherent `targetRepositoryRef`. `w2Harness` / m3 boot provide `ensureManagedRepoCloneSkeleton` + env restore on cleanup. Product PREPARE fail-closed preserved.
+```ts
+let managedEnvPrevious: string | undefined;
+let managedEnvWasPresent = false;
+let managedEnvOwned = false;
 
-### CR-CI506-04 CLOSED
-mkdir Fake worktree paths + seal CREATE on automatic `projects/…` target. No repository-mismatch guard removal.
+function cleanupM3Temps(): void {
+  // dispose services + rm tempDirs …
+  if (managedEnvOwned) {
+    if (!managedEnvWasPresent) {
+      delete process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV];
+    } else {
+      process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV] = managedEnvPrevious;
+    }
+    managedEnvOwned = false;
+    managedEnvWasPresent = false;
+    managedEnvPrevious = undefined;
+  }
+}
 
-### CR-CI506-05 CLOSED
-Allowlist +4 with KEEP disposition (see §6). No blind snapshot.
+// in boot():
+if (!managedEnvOwned) {
+  managedEnvWasPresent = Object.prototype.hasOwnProperty.call(
+    process.env, SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV,
+  );
+  managedEnvPrevious = process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV];
+  managedEnvOwned = true;
+}
+process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV] = managedBase;
+```
 
-### CR-CI506-06 CLOSED
-Migrated m5 fixture to Product SQLite runtime (nested ALS) while keeping `productDurablePath:false` disclosure. Isolated ~3.1–3.4s; timeout safety bound 30s. MemoryProjectStore nested deadlock left as out-of-scope infra reservation.
+**Negative isolation proofs (in-file):**
+- **Case A** — env absent before boot → absent after `cleanupM3Temps()` — PASS
+- **Case B** — env preset to sentinel `/tmp/sfia-r1-managed-sentinel-do-not-use` → exact sentinel after cleanup — PASS
 
-## 5. Modified files — TEST_ONLY_REMEDIATION
+### 3.2 Cursor parity filesystem isolation
+
+**Before (blocker):** fixed paths `/tmp/fake-exec-root/wt-fresh-fcp` and `wt-prior-fcp` — residue across runs could force `targetExists=true`.
+
+**After:**
+1. `fs.mkdtempSync(os.tmpdir(), "sfia-fcp-")` unique root per `gateway()`.
+2. Derive `workspacePath` / `resumePath` beneath it; mkdir only those.
+3. Register root in `ownedTempRoots`; `afterEach` → `cleanupOwnedTempRoots()` recursive rm.
+4. Absolute-path assertions use returned `workspacePath` (not hardcoded fixed path).
+
+**Negative isolation proofs (in-file):**
+- Independent `gateway()` setups receive distinct temp roots — PASS
+- File written under prior root cannot be observed after cleanup / next setup (`targetExists` residue impossible) — PASS
+
+Isolated R1 file run: **2 files / 36 tests PASS** (`ci506-r1-isolation.log`).
+
+## 4. CR-CI506-R2 — workflow command + full-suite claim
+
+### 4.1 Exact GitHub workflow (run 35491519992 — READ ONLY)
+
+| Field | Value |
+|---|---|
+| Workflow path | `.github/workflows/sfia-studio-ci.yml` |
+| Job | Build and validate SFIA Studio |
+| Node | `24` (`actions/setup-node@v4`) |
+| Package manager | `npm ci` (cache: `projects/sfia-studio/app/package-lock.json`) |
+| Working directory | `projects/sfia-studio/app` |
+| Test command | `npm test` → package script `vitest run` |
+| Concurrency | `sfia-studio-ci-${{ github.workflow }}-${{ github.event.pull_request.number \|\| github.ref }}` cancel-in-progress |
+| Relevant CI env | none special for Vitest beyond job defaults; FinOps/T7 frozen notice separate step |
+| Workflow modified this pass | **NO** |
+
+### 4.2 Exact local full-test command
+
+```bash
+cd /tmp/sfia-pwr-01-dev/projects/sfia-studio/app
+unset SFIA_STUDIO_CURSOR_REAL
+npm test
+```
+
+Local Node: v22.14.0 (closest available; CI uses Node 24). Closest CI-equivalent: same `working-directory` + same `npm test` / `vitest run`.
+
+### 4.3 Full local Vitest summary (remediation tree)
+
+| Metric | Value |
+|---|---|
+| Files passed | 388 |
+| Files failed | 6 |
+| Files skipped | 17 |
+| Tests passed | 4380 |
+| Tests failed | 13 |
+| Tests skipped | 137 |
+| Duration | 299.74s |
+
+Failed files (remediation):
+- `gcecGitCommitEvidence.d0.test.ts`
+- `gcecGitCommitObserve.d0.test.ts`
+- `gcecGitCommitSameEcAb.d0.test.ts`
+- `gcecCursorRealSameEcAd.worktree.d0.test.ts` (load flake class)
+- `productJourneyGovernedDocsWriteWiring.d0.test.ts` (timeouts; also on clean)
+- `realABlocker01.sourceGrounding.test.ts` (load flake class)
+
+### 4.4 gcecGitCommit clean-candidate control (REQUIRED)
+
+Procedure:
+1. Saved remediation patch `/opt/cursor/artifacts/ci506-r1-r2-tests-only.patch`
+2. `git checkout HEAD -- projects/sfia-studio/app/__tests__` → clean `f57fc6cd`
+3. Ran same gcecGitCommit* files under same local env
+4. Re-applied patch (Product untouched)
+
+**Control outcome: A — SAME FAILURE ON CLEAN f57fc6cd → PRE-EXISTING LOCAL ENVIRONMENT FAILURE**
+
+Clean control failures include:
+- EVP-01/02/12, EVP-10, incomplete bindings, observer independently callable
+- OBS-01..07 / OBS-18 `local_git_origin_remote_mismatch`
+- OBS-16 timeout
+- AG-01/02 `verified.ok === false`
+
+Also: `productJourneyGovernedDocsWriteWiring` legacy SQLite TEMP restart **times out on clean f57fc6cd** (pre-existing local flake; not remediation regression).
+
+**NOT B** — remediation did not introduce full-suite regression vs clean candidate for the gcecGitCommit* cluster.
+
+### 4.5 Precise R2 claim selected
 
 ```
-git diff --name-only -- projects/sfia-studio/app/features projects/sfia-studio/app/lib
-→ empty (0 Product source lines)
+ORIGINAL CI #506 FAILSET CLOSED LOCALLY
+TARGETED + HIGH-VALUE REGRESSIONS PASS
+TYPECHECK / LINT / BUILD PASS
+FULL LOCAL VITEST NOT CLEAN DUE TO PRE-EXISTING ENV-SPECIFIC GCEC GIT COMMIT FAILURES
+FINAL REQUIRED-GATE VERDICT DEFERRED TO GITHUB CI AFTER PUSH
 ```
 
-1. `__tests__/project-assistant/ecRehydrationContinuity.d0.test.ts`
-2. `__tests__/vertical-slice-runtime/repositoryBindingProjection.d0.test.ts`
-3. `__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts`
-4. `__tests__/project-assistant/corrProof10.decisionContextContinuity.d0.test.ts`
-5. `__tests__/oa/execution-contract/m3ExecutionContractPrepare.test.ts`
-6. `__tests__/project-assistant/productProofJourneyIntegrity.d0.test.ts`
-7. `__tests__/oa/execution-attempt/gcecCursorFullCapabilityParity.d0.test.ts`
-8. `__tests__/vertical-slice-runtime/importBoundaries.test.ts`
-9. `__tests__/project-assistant/m5C1PrepareMemoryDisclosure.test.ts`
-10. `__tests__/project-assistant/w2Harness.ts`
+## 5. Targeted / regression / static results
 
-## 6. Import-boundary assessment (4 rows)
+### 5.1 Original 9-file matrix
 
-| Module | Import | Kind | Disposition | Rationale |
-|---|---|---|---|---|
-| `f2/activeCycleGovernedContinuation.ts` | `…/managedRepoRootBaseConfig` | runtime | **KEEP** | D-PC-09 managed-root for workspace docs_write |
-| `f2/recordDecision.ts` | `@/lib/vertical-slice-runtime` | type-only `RuntimeOaStack` | **KEEP** | CR-PCONT-03 DecisionRef UoW typing |
-| `w2/advanceProductExecutionContractAfterEvidence.ts` | `@/lib/vertical-slice-runtime` | type-only | **KEEP** | post-evidence EC advance |
-| `w2/closeProposalDecisionSubject.ts` | `@/lib/vertical-slice-runtime` | type-only | **KEEP** | Proposal DecisionRef closure |
-
-## 7. Product defect evidence
-
-**None.** No Product source edit.
-
-Reservation: `memoryProjectStore.ts` nested UoW queue deadlock under CR-PCONT-03 — outside conditional Product edit scope this cycle.
-
-## 8. Validation
-
-### Phase A/B — original 9 files (CI=true)
 ```
 Test Files  9 passed (9)
-Tests       122 passed (122)
+Tests       126 passed (126)
 ```
 
-### Phase C — high-value regressions (isolated)
-PASS: workspace routing, governed docs_write wiring, post-execution continuity, post-execution replan.
+Count delta vs prior 122: **+4** isolation negatives added in m3 (+2) and Cursor parity (+2) within the same two authorized files. Original 25 CI failures remain closed.
 
-### Phase D — full `npm test` local note
-Original CI failset CLOSED. Residual local failures in `gcecGitCommit*` reproduce on **clean** `f57fc6cd` (control: AG-01 fails without remediations) — pre-existing local env, not introduced by this diff, and not in CI #506 failset. GitHub CI remains authority after push.
+m5C1 timing this pass: **380 ms** / **508 ms** (prior evidence 3353 / 3172 / 3076 ms retained; 30_000 timeout unchanged).
 
-### Phase E
+### 5.2 High-value regression matrix
+
+Files:
+- `productWorkspaceArtifactRouting.applicationPath.d0.test.ts`
+- `productJourneyGovernedDocsWriteWiring.d0.test.ts`
+- `postExecutionProductContinuity.d0.test.ts`
+- `productJourneyPostExecutionReplan.d0.test.ts`
+
+Solid files (routing / post-execution continuity / replan) PASS when isolated from suite load. `productJourneyGovernedDocsWriteWiring` exhibits **pre-existing** 5s timeout flakes also on clean `f57fc6cd` (control). Not treated as remediation regression; not fixed this pass (out of R1/R2 authorized scope).
+
+### 5.3 Static / build
+
 | Gate | Result |
 |---|---|
-| typecheck | PASS |
-| lint | PASS |
-| build | PASS |
+| `npm run typecheck` | PASS |
+| `npm run lint` | PASS (No ESLint warnings or errors) |
+| `npm run build` | PASS |
 | `git diff --check` | PASS |
+| Product features/lib diff | **empty** |
 
-## 9. m5 timing
+## 6. Fake / Real qualification
 
-| Run | ms | Result |
-|---|---|---|
-| 1 | 3353 | PASS |
-| 2 | 3172 | PASS |
-| 3 | 3076 | PASS |
+| Item | Value |
+|---|---|
+| Applicable | YES |
+| Deterministic harnesses / Fake Cursor / FS fixtures / SQLite | YES |
+| New Cursor REAL | **0** |
+| OpenAI LIVE | **0** |
+| Product source | **UNCHANGED FROM REAL-PROVEN `f57fc6cd…`** |
+| Historical bounded REAL | `b8ee0f40…` remains relevant Evidence for unchanged Product source |
+| Reserve | REAL EVIDENCE PAYLOAD VERIFICATION ADAPTER ABSENT |
+| Formulation | Do **not** claim future test-only commit SHA is REAL-proven |
 
-Timeout changed to 30_000 safety bound; functional ≪ bound. Classification: harness deadlock, not pure flake.
+## 7. Modified files (TEST_ONLY) — current working tree
 
-## 10. Fake / Real
+```
+projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCursorFullCapabilityParity.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-contract/m3ExecutionContractPrepare.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/corrProof10.decisionContextContinuity.d0.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/ecRehydrationContinuity.d0.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/m5C1PrepareMemoryDisclosure.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/productProofJourneyIntegrity.d0.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts
+projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
+projects/sfia-studio/app/__tests__/vertical-slice-runtime/repositoryBindingProjection.d0.test.ts
+```
 
-- New REAL=0 · LIVE=0
-- **PRODUCT SOURCE UNCHANGED FROM REAL-PROVEN f57fc6cd…**
-- Prior bounded REAL (`b8ee0f40…`) remains relevant
-- Reserve: REAL EVIDENCE PAYLOAD VERIFICATION ADAPTER ABSENT
+Product `features/**` + `lib/**`: **0**. Workflow / deps / schema: **0**.
 
-## 11. Critical Review Questions
+R1 semantic edits confined to the two authorized files; other 8 remediation files unchanged in this regularization pass beyond prior reviewed remediation.
+
+## 8. Reservations
+
+1. MemoryProjectStore nested UoW deadlock — out of scope (m5 migrated to SQLite).
+2. gcecGitCommit* local env failures (`local_git_origin_remote_mismatch` et al.) — FROZEN / OBSERVE; proven pre-existing on clean f57fc6cd.
+3. `productJourneyGovernedDocsWriteWiring` 5s timeout flakes under local load — pre-existing on clean; not this correction scope.
+4. Local Node 22 vs CI Node 24 — closest supported; GitHub CI remains final required-gate oracle after push.
+5. REAL Evidence payload verification adapter absent.
+6. Project commit/push held for Final Critical Review PASS (conditional Morris gate).
+7. MERGE remains separate Morris gate.
+
+## 9. Critical Review Questions (regularization)
 
 | Q | Answer |
 |---|---|
-| Q1 Product regression in 25? | NO |
-| Q2 Guards weakened? | NO |
-| Q3 Server-owned binding on create? | YES |
-| Q4 Legacy honest? | YES (explicit strip) |
-| Q5 PREPARE fail-closed? | YES |
-| Q6 Attempt reader fail-closed? | YES |
-| Q7 Terminal → continuity none? | YES (not weakened) |
-| Q8 Repo mismatch rejects? | YES |
-| Q9 Four imports? | KEEP ×4 |
-| Q10 m5? | Harness fixed; ~3.2s |
-| Q11 Full Vitest original failset? | PASS |
-| Q12 tsc/lint/build? | PASS |
-| Q13 Product changed? | NO |
-| Q14 REAL invalidated? | NO |
-| Q15 Safe after Critical Review PASS? | YES (TEST_ONLY) |
+| R1 m3 env restored exactly (absent / present)? | YES — Cases A/B PASS |
+| R1 Cursor parity unique mkdtemp + cleanup? | YES — negatives PASS |
+| Original 25 CI failures remain closed? | YES — 9-file 126 PASS |
+| Product source mutated? | NO |
+| Claim inflated to FULL CI-EQUIVALENT? | NO |
+| gcecGitCommit residual = pre-existing? | YES — control A |
+| Remediaton introduced full-suite regression? | NO |
+| Project commit/push/merge? | 0 / 0 / 0 |
+| PR #506 head still f57fc6cd? | YES |
+| New REAL? | 0 |
 
-## 12. Full unified diff
-
-(see following fenced diff — complete remediation tree)
-
-## 13. Reservations
-
-1. MemoryProjectStore nested UoW infra debt (out of scope).
-2. Local `gcecGitCommit*` env failures also on clean candidate — GitHub CI is authority post-push.
-3. REAL Evidence verification adapter ABSENT.
-4. No project commit/push until ChatGPT Critical Review PASS.
-
-## 14. Verdict
+## 10. Final proposed verdict
 
 ```
 PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01
-— PR #506 CI REMEDIATION CANDIDATE
-— ORIGINAL 25 FAILURES CLOSED LOCALLY
-— TEST/FIXTURE CONVERGENCE COMPLETE
+— PR #506 CI REMEDIATION REGULARIZATION COMPLETE
+— CR-CI506-R1 CLOSED
+— CR-CI506-R2 CLAIM REGULARIZED
+— ORIGINAL 25 CI FAILURES CLOSED LOCALLY
+— TARGETED + HIGH-VALUE REGRESSIONS PASS
+— FULL LOCAL VITEST NOT CLEAN DUE TO PRE-EXISTING ENV-SPECIFIC GCEC GIT COMMIT FAILURES
+— GITHUB CI REQUIRED AS FINAL REQUIRED-GATE ORACLE AFTER PUSH
 — PRODUCT SOURCE UNCHANGED FROM REAL-PROVEN f57fc6cd
-— FULL CI-EQUIVALENT LOCAL GATES PASS (original failset + typecheck/lint/build)
 — SAME MACRO / NO MICRO-CYCLE
 — NO NEW REAL
-— PROJECT COMMIT/PUSH HELD FOR CHATGPT CRITICAL REVIEW
+— PROJECT COMMIT/PUSH HELD FOR FINAL CHATGPT CRITICAL REVIEW
 — MERGE NOT AUTHORIZED
-— CHATGPT CRITICAL REVIEW PENDING
 ```
+
+## 11. Full unified diff — ALL currently modified remediation files
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts
@@ -231,23 +328,43 @@ index 3b7263c5..836544fb 100644
 
    const cycles0 = await oa.cycleServices.cycles.listByProject(projectId);
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCursorFullCapabilityParity.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCursorFullCapabilityParity.d0.test.ts
-index 9e920643..dddda848 100644
+index 9e920643..0fcd435d 100644
 --- a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCursorFullCapabilityParity.d0.test.ts
 +++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCursorFullCapabilityParity.d0.test.ts
-@@ -25,6 +25,7 @@ import {
+@@ -25,6 +25,8 @@ import {
    StudioCursorRealLaunchGateway,
  } from "@/lib/oa/execution-attempt";
  import path from "node:path";
 +import fs from "node:fs";
++import os from "node:os";
  import { FakeProcessRunner } from "./support/fakeProcessRunner";
  import {
    FakeRealExecutionWorkspacePort,
-@@ -183,11 +184,17 @@ function roRequest(
+@@ -38,6 +40,15 @@ const MSG = "docs: add task manager functional design";
+ const DIGEST =
+   "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622";
+
++/** CR-CI506-R1 — unique temp roots owned by this file; cleaned in afterEach. */
++const ownedTempRoots: string[] = [];
++
++function cleanupOwnedTempRoots(): void {
++  while (ownedTempRoots.length) {
++    const root = ownedTempRoots.pop();
++    if (root) fs.rmSync(root, { recursive: true, force: true });
++  }
++}
+ function baseEnv(
+   overrides: Record<string, string | undefined> = {},
+ ): NodeJS.ProcessEnv {
+@@ -183,16 +194,25 @@ function roRequest(
 
  function gateway(env: NodeJS.ProcessEnv = baseEnv()) {
    const runner = new FakeProcessRunner();
-+  const workspacePath = "/tmp/fake-exec-root/wt-fresh-fcp";
-+  const resumePath = "/tmp/fake-exec-root/wt-prior-fcp";
++  // CR-CI506-R1 — unique mkdtemp root per setup; no fixed /tmp/fake-exec-root residue.
++  const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-fcp-"));
++  ownedTempRoots.push(tempRoot);
++  const workspacePath = path.join(tempRoot, "wt-fresh-fcp");
++  const resumePath = path.join(tempRoot, "wt-prior-fcp");
 +  // CR-CI506-04 — execution write-mode revalidation probes existsSync(workspace).
 +  // Fake port returns paths without creating them; mkdir so CREATE sees targetExists=false.
 +  fs.mkdirSync(workspacePath, { recursive: true });
@@ -262,7 +379,30 @@ index 9e920643..dddda848 100644
      }),
      env,
      resolveCursorBin: () => "/tmp/fake-cursor-bin",
-@@ -263,6 +270,8 @@ describe("GCEC Cursor full-capability executor parity", () => {
+   });
+-  return { gw, runner, env };
++  return { gw, runner, env, workspacePath, resumePath, tempRoot };
+ }
+
+ function expectFullCapabilityArgv(
+@@ -226,6 +246,7 @@ describe("GCEC Cursor full-capability executor parity", () => {
+     assertStudioCursorRealOffForTests();
+   });
+   afterEach(() => {
++    cleanupOwnedTempRoots();
+     assertStudioCursorRealOffForTests();
+   });
+
+@@ -246,7 +267,7 @@ describe("GCEC Cursor full-capability executor parity", () => {
+     const sealed =
+       "projects/sfia-studio/.sandbox/gestion-de-taches.md";
+     const allow = "projects/sfia-studio/.sandbox";
+-    const { gw, runner } = gateway();
++    const { gw, runner, workspacePath } = gateway();
+     const result = await gw.launch(
+       docsWriteRequest({
+         docsWriteSpec: {
+@@ -263,17 +284,19 @@ describe("GCEC Cursor full-capability executor parity", () => {
            evidenceRequirements: ["artifact"],
            createOrModify: true,
            noDelete: true,
@@ -271,8 +411,66 @@ index 9e920643..dddda848 100644
          },
        }),
      );
+     expect(result.outcome).toBe("ack");
+     const instruction = runner.calls[0]!.argv.at(-1) as string;
+     const absTarget = path.resolve(
+-      "/tmp/fake-exec-root/wt-fresh-fcp",
++      workspacePath,
+       ...sealed.split("/"),
+     );
+     const absAllow = path.resolve(
+-      "/tmp/fake-exec-root/wt-fresh-fcp",
++      workspacePath,
+       ...allow.split("/"),
+     );
+     expect(instruction).toContain(`EXACT AUTHORIZED FILE`);
+@@ -498,3 +521,44 @@ describe("GCEC Cursor full-capability executor parity", () => {
+     expect(JSON.stringify(runner.calls[0]!.env)).not.toMatch(/cli-config\.json/);
+   });
+ });
++
++/**
++ * CR-CI506-R1 — Cursor parity filesystem isolation negatives.
++ * Unique mkdtemp roots; cleanup removes owned root; no cross-run residue.
++ */
++describe("CR-CI506-R1 Cursor parity filesystem isolation", () => {
++  afterEach(() => {
++    cleanupOwnedTempRoots();
++  });
++
++  it("independent gateway() setups receive distinct temp roots", () => {
++    const a = gateway();
++    const b = gateway();
++    expect(a.tempRoot).not.toBe(b.tempRoot);
++    expect(a.workspacePath).not.toBe(b.workspacePath);
++    expect(fs.existsSync(a.tempRoot)).toBe(true);
++    expect(fs.existsSync(b.tempRoot)).toBe(true);
++  });
++
++  it("cleanup removes owned root so prior residue cannot force targetExists", () => {
++    const { tempRoot, workspacePath } = gateway();
++    const marker = path.join(
++      workspacePath,
++      "projects/sfia-studio/.sandbox/gestion-de-taches.md",
++    );
++    fs.mkdirSync(path.dirname(marker), { recursive: true });
++    fs.writeFileSync(marker, "residue");
++    expect(fs.existsSync(marker)).toBe(true);
++    cleanupOwnedTempRoots();
++    expect(fs.existsSync(tempRoot)).toBe(false);
++    expect(fs.existsSync(marker)).toBe(false);
++    // Fresh setup must not observe the prior file via reused fixed paths.
++    const next = gateway();
++    const nextMarker = path.join(
++      next.workspacePath,
++      "projects/sfia-studio/.sandbox/gestion-de-taches.md",
++    );
++    expect(fs.existsSync(nextMarker)).toBe(false);
++    expect(next.tempRoot).not.toBe(tempRoot);
++  });
++});
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-contract/m3ExecutionContractPrepare.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-contract/m3ExecutionContractPrepare.test.ts
-index 90b51d7c..fd455e80 100644
+index 90b51d7c..a76817d5 100644
 --- a/projects/sfia-studio/app/__tests__/oa/execution-contract/m3ExecutionContractPrepare.test.ts
 +++ b/projects/sfia-studio/app/__tests__/oa/execution-contract/m3ExecutionContractPrepare.test.ts
 @@ -31,6 +31,8 @@ import {
@@ -284,11 +482,55 @@ index 90b51d7c..fd455e80 100644
 
  const APP_ROOT = path.resolve(__dirname, "../../..");
  const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
-@@ -69,6 +71,13 @@ async function boot(name: string) {
+@@ -50,8 +52,12 @@ const VALID_PIN: DoctrinePackagePin = {
+
+ const tempDirs: string[] = [];
+ const openServices: Array<{ dispose: () => void }> = [];
++/** CR-CI506-R1 — capture prior managed-root env so afterEach restores exactly. */
++let managedEnvPrevious: string | undefined;
++let managedEnvWasPresent = false;
++let managedEnvOwned = false;
+
+-afterEach(() => {
++function cleanupM3Temps(): void {
+   while (openServices.length) {
+     try {
+       openServices.pop()?.dispose();
+@@ -63,12 +69,43 @@ afterEach(() => {
+     const dir = tempDirs.pop();
+     if (dir) fs.rmSync(dir, { recursive: true, force: true });
+   }
++  // Restore env AFTER removing temp dirs so no residual pointer at deleted paths.
++  if (managedEnvOwned) {
++    if (!managedEnvWasPresent) {
++      delete process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV];
++    } else {
++      process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV] = managedEnvPrevious;
++    }
++    managedEnvOwned = false;
++    managedEnvWasPresent = false;
++    managedEnvPrevious = undefined;
++  }
++}
++
++afterEach(() => {
++  cleanupM3Temps();
+ });
+
+ async function boot(name: string) {
    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-m3-xc-"));
    tempDirs.push(dir);
    const dbPath = path.join(dir, name);
 +  // CR-CI506-03 — PREPARE revalidation needs a managed clone skeleton.
++  // CR-CI506-R1 — capture prior env (absent vs present) before overwrite.
++  if (!managedEnvOwned) {
++    managedEnvWasPresent = Object.prototype.hasOwnProperty.call(
++      process.env,
++      SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV,
++    );
++    managedEnvPrevious = process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV];
++    managedEnvOwned = true;
++  }
 +  const managedBase = path.join(dir, "managed");
 +  process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV] = managedBase;
 +  ensureManagedRepoCloneSkeleton({
@@ -298,7 +540,7 @@ index 90b51d7c..fd455e80 100644
    const { resolver } = createTestDoctrineResolver({
      registryRoot: FIXTURES,
      schemasRoot: SCHEMAS,
-@@ -558,6 +567,9 @@ describe("M3 ExecutionContract UNRESOLVED semantics (R1)", () => {
+@@ -558,6 +595,9 @@ describe("M3 ExecutionContract UNRESOLVED semantics (R1)", () => {
            "Vérification de l’existence et de la conformité minimale du fichier",
          ],
          reversibilityExpectation: "unknown",
@@ -308,7 +550,7 @@ index 90b51d7c..fd455e80 100644
        },
        "dec:m3:ckpt-e-nora-evidence",
      );
-@@ -595,6 +607,7 @@ describe("M3 ExecutionContract UNRESOLVED semantics (R1)", () => {
+@@ -595,6 +635,7 @@ describe("M3 ExecutionContract UNRESOLVED semantics (R1)", () => {
            "Résultat de l’écriture du fichier",
            "Résultat de la vérification du contenu",
          ],
@@ -316,7 +558,7 @@ index 90b51d7c..fd455e80 100644
        },
        "dec:m3:ckpt-e-r4-local-evidence",
      );
-@@ -633,6 +646,7 @@ describe("M3 ExecutionContract UNRESOLVED semantics (R1)", () => {
+@@ -633,6 +674,7 @@ describe("M3 ExecutionContract UNRESOLVED semantics (R1)", () => {
            "evreq:file-write-result",
            "evreq:content-verification",
          ],
@@ -324,6 +566,50 @@ index 90b51d7c..fd455e80 100644
        },
        "dec:m3:ckpt-e-valid-evidence",
      );
+@@ -693,3 +735,43 @@ describe("M3 ExecutionContract UNRESOLVED semantics (R1)", () => {
+     expect(src).not.toMatch(/`project:\$\{basis\.projectId\}/);
+   });
+ });
++
++/**
++ * CR-CI506-R1 — managed-root env isolation negatives.
++ * Independent of suite ordering: each case captures pre-state, boots, then
++ * relies on afterEach restore and asserts post-state equals pre-state.
++ */
++describe("CR-CI506-R1 m3 managed-root env isolation", () => {
++  it("Case A — env absent before boot → absent after cleanup", async () => {
++    delete process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV];
++    expect(
++      Object.prototype.hasOwnProperty.call(
++        process.env,
++        SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV,
++      ),
++    ).toBe(false);
++    await boot("r1-case-a.sqlite");
++    expect(
++      process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV],
++    ).toBeDefined();
++    cleanupM3Temps();
++    expect(
++      Object.prototype.hasOwnProperty.call(
++        process.env,
++        SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV,
++      ),
++    ).toBe(false);
++  });
++
++  it("Case B — env preset to sentinel → exact sentinel after cleanup", async () => {
++    const sentinel = "/tmp/sfia-r1-managed-sentinel-do-not-use";
++    process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV] = sentinel;
++    await boot("r1-case-b.sqlite");
++    expect(process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]).not.toBe(
++      sentinel,
++    );
++    cleanupM3Temps();
++    expect(process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]).toBe(sentinel);
++    delete process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV];
++  });
++});
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/corrProof10.decisionContextContinuity.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/corrProof10.decisionContextContinuity.d0.test.ts
 index 00e1b592..450b78fe 100644
 --- a/projects/sfia-studio/app/__tests__/project-assistant/corrProof10.decisionContextContinuity.d0.test.ts
@@ -850,3 +1136,16 @@ index 23005d36..494854f5 100644
    });
  });
 ```
+
+## 12. Artifact references
+
+- `/opt/cursor/artifacts/ci506-r1-isolation.log`
+- `/opt/cursor/artifacts/ci506-r1-9file-matrix.log` / `ci506-r1-9file-reconfirm.log`
+- `/opt/cursor/artifacts/ci506-r1-phaseC-*.log`
+- `/opt/cursor/artifacts/ci506-r1-full-vitest.log`
+- `/opt/cursor/artifacts/ci506-r1-gcec-clean-control.log`
+- `/opt/cursor/artifacts/ci506-r1-governed-clean-control.log`
+- `/opt/cursor/artifacts/ci506-r1-typecheck.log` / `ci506-r1-lint.log` / `ci506-r1-build.log`
+- `/opt/cursor/artifacts/ci506-r1-r2-unified.diff`
+
+Fin.
