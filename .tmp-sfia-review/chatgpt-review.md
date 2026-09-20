@@ -549,3 +549,23 @@ Head SHA: `1e08df388acc27f6e5eaa43dab0c314601dbd422`
 | SFIA Studio Required Gate | PASS |
 
 Merge / auto-merge: **NOT performed** — awaiting Morris merge decision.
+
+---
+
+## 25. CI FLAKE on docs tip 22ac8b71 (append)
+
+**Timestamp (UTC):** 2026-09-20T16:07:20Z
+
+Run `35521088736` failed Required Gate with **4× Test timed out in 5000ms** on suites unrelated to this PR delta:
+
+- `__tests__/nora-eval/g2.catalog-versioning-mw6.test.ts`
+- `__tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts`
+- `__tests__/project-assistant/candidateTrajectoryCycleStart.d0.test.ts` (×2)
+
+Diff `1e08df38..22ac8b71` = Review Pack docs only.
+
+Prior head `1e08df38` CI run `35520718786` = **PASS** (Required Gate green).
+
+Classification: **CI-load timeout flake**. Timeout policy **not** modified (per campaign guardrail).
+
+Action: `gh run rerun 35521088736 --failed` — no Product code change.
