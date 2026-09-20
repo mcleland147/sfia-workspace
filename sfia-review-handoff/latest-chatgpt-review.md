@@ -314,5 +314,6 @@ Mode: `publish-in-cycle` via `scripts/sfia/publish-review-handoff.sh`
 Branch: `sfia/review-handoff`
 Canonical: `sfia-review-handoff/latest-chatgpt-review.md`
 Source: `.tmp-sfia-review/chatgpt-review.md`
-
-(Remote commit/blob filled after publish.)
+Remote commit: `bdf8c369c6eb8f11e9529b3ee3b32eeda741c05c`
+Remote blob: `9a1b6f82ce5b1ffa715cd4f814467367d27588d4`
+Verdict: HANDOFF UPDATED — REMOTE VERIFIED
