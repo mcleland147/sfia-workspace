@@ -79,6 +79,7 @@ export type AttemptExecutionProfileKind =
   | "pr_create"
   | "pr_merge"
   | "read_only"
+  | "f3_fixture"
   | "contract_legacy";
 
 /** Non-persistent lineage facts for progressive profiles. */
@@ -105,6 +106,7 @@ export type AttemptExecutionProfile = {
     | "github.pr.create"
     | "github.pr.merge"
     | "read_only"
+    | "f3_fixture"
     | "contract_legacy";
   /** Present when kind has verified prior lineage. */
   readonly lineage?: AttemptExecutionProfileLineage;
@@ -298,6 +300,29 @@ function readOnlyProfile(reason: string): AttemptExecutionProfile {
       action: M4_BOUNDED_RO_ACTION,
       target: M4_BOUNDED_RO_TARGET,
       scope: M4_BOUNDED_RO_SCOPE,
+    },
+  };
+}
+
+/**
+ * Historical sealed F3 fixture path — exact specialized criteria.
+ * Literal tokens match vertical-slice F3 fixture agent (no features import).
+ */
+const F3_FIXTURE_CAPABILITY = "cap:f3-fixture-docs";
+const F3_FIXTURE_ACTION = "fixture-docs-prepare";
+const F3_FIXTURE_TARGET = "sfia-studio/f3-fixture-only";
+const F3_FIXTURE_SCOPE = "f3-fixture:docs+metadata-only";
+
+function f3FixtureProfile(reason: string): AttemptExecutionProfile {
+  return {
+    kind: "f3_fixture",
+    effectClass: "f3_fixture",
+    reason,
+    criteria: {
+      requiredCapabilities: [F3_FIXTURE_CAPABILITY],
+      action: F3_FIXTURE_ACTION,
+      target: F3_FIXTURE_TARGET,
+      scope: F3_FIXTURE_SCOPE,
     },
   };
 }
@@ -807,6 +832,17 @@ export function resolveAttemptExecutionProfile(
     return {
       ok: true,
       profile: readOnlyProfile("m4_bounded_readonly_sealed"),
+    };
+  }
+
+  // Sealed historical F3 fixture — exact specialized criteria (not generalist).
+  const isF3FixtureContract =
+    contract.action === F3_FIXTURE_ACTION &&
+    (contract.requiredCapabilities ?? []).includes(F3_FIXTURE_CAPABILITY);
+  if (isF3FixtureContract) {
+    return {
+      ok: true,
+      profile: f3FixtureProfile("f3_fixture_sealed"),
     };
   }
 

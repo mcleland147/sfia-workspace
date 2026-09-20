@@ -450,7 +450,11 @@ describe("R8 — prepare recovery docs_write successor (durable)", () => {
     });
     expect(wrong.ok).toBe(true);
     if (!wrong.ok) return;
-    expect(wrong.contract.action).toContain("generate-temporary-artifact");
+    // PJ-REPROOF-04 — durable recovery/Product mission wins over client
+    // operationKind. Wrong current EC is a non-docs_write Product EC
+    // (diagnostic/read), not a Pilot HOW selection of generate-temporary-artifact.
+    expect(wrong.contract.action).not.toContain("docs_write");
+    expect(wrong.contract.action).not.toBe(M4_BOUNDED_DOCS_WRITE_ACTION);
 
     const attemptsBefore =
       await oa.executionAttemptServices!.listExecutionAttempts.execute({
