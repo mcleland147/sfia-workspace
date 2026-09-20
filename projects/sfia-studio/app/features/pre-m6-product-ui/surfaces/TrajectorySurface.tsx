@@ -73,9 +73,15 @@ import {
   pilotAmbiguousPendingTitle,
   pilotLostPendingTitle,
   pilotPrepareNotApplicableMessage,
+  pilotPresentedOptionLabel,
   pilotProposalOptionLabel,
   pilotRecoverablePendingTitle,
+  formatNoraAssistantDisplayText,
 } from "@/features/project-assistant/presentationLabels";
+import {
+  partitionOptionImpactsForPilote,
+  scrubPiloteRecommendationProse,
+} from "@/features/project-assistant/w2/recommendationDecisionIntegrity";
 import {
   PROPOSAL_SUBJECT_AMEND_REF,
   PROPOSAL_SUBJECT_PURSUE_REF,
@@ -1970,6 +1976,9 @@ export function TrajectorySurface({
                 const isRecommended =
                   option.optionRef ===
                   optionSet.recommendation.recommendedOptionRef;
+                const impactParts = partitionOptionImpactsForPilote(
+                  option.impacts,
+                );
                 return (
                   <li
                     key={option.optionRef}
@@ -1986,11 +1995,33 @@ export function TrajectorySurface({
                       <span className={styles.optionLabel}>{option.label}</span>
                     </div>
                     <p className={styles.optionIntent}>{option.intent}</p>
-                    <ul className={styles.impacts}>
-                      {option.impacts.map((impact) => (
-                        <li key={impact}>{impact}</li>
-                      ))}
-                    </ul>
+                    {impactParts.primary.length > 0 ? (
+                      <ul className={styles.impacts}>
+                        {impactParts.primary.map((impact) => (
+                          <li key={impact}>{impact}</li>
+                        ))}
+                      </ul>
+                    ) : null}
+                    {impactParts.technical.length > 0 ? (
+                      <details data-testid={`w2-option-tech-${option.optionRef}`}>
+                        <summary>Détails techniques de l&apos;option</summary>
+                        <ul className={styles.impacts}>
+                          {impactParts.technical.map((impact) => (
+                            <li key={impact}>{impact}</li>
+                          ))}
+                        </ul>
+                        <p className={styles.blockNote}>
+                          Réf. option : <code>{option.optionRef}</code>
+                        </p>
+                      </details>
+                    ) : (
+                      <details data-testid={`w2-option-tech-${option.optionRef}`}>
+                        <summary>Détails techniques de l&apos;option</summary>
+                        <p className={styles.blockNote}>
+                          Réf. option : <code>{option.optionRef}</code>
+                        </p>
+                      </details>
+                    )}
                     <button
                       type="button"
                       className={styles.decideAction}
@@ -2020,17 +2051,53 @@ export function TrajectorySurface({
               <span className={styles.sectionKind} data-kind="recommendation">
                 Recommandation
               </span>
-              {optionSet.recommendation.label}
+              {pilotPresentedOptionLabel({
+                optionRef: optionSet.recommendation.recommendedOptionRef,
+                options: optionSet.options,
+              })}
             </h3>
-            <p className={styles.blockBody}>
-              {optionSet.recommendation.rationale}
+            <p
+              className={styles.blockBody}
+              data-testid="w2-recommendation-rationale"
+            >
+              {scrubPiloteRecommendationProse(
+                formatNoraAssistantDisplayText(
+                  optionSet.recommendation.rationale,
+                ),
+              )}
             </p>
-            <p className={styles.blockNote}>
-              Cette recommandation ne promeut aucune trajectoire.
+            <p className={styles.blockNote} data-testid="w2-recommendation-footer">
+              Cette recommandation vous aide à décider. Elle ne lance aucune
+              action automatiquement.
               {optionSet.recommendation.ckcAttribution
                 ? " Contexte de cycle rattaché."
-                : " Aucun contexte de cycle rattaché."}
+                : ""}
             </p>
+            {optionSet.recommendation.cognitiveAnalysis ? (
+              <details data-testid="w2-recommendation-nora-analysis">
+                <summary>Analyse Nora</summary>
+                <p className={styles.blockBody}>
+                  {scrubPiloteRecommendationProse(
+                    formatNoraAssistantDisplayText(
+                      optionSet.recommendation.cognitiveAnalysis,
+                    ),
+                  )}
+                </p>
+              </details>
+            ) : null}
+            <details data-testid="w2-recommendation-tech">
+              <summary>Détails techniques de la recommandation</summary>
+              <p className={styles.blockNote}>
+                {optionSet.recommendation.label} · optionRef{" "}
+                <code>{optionSet.recommendation.recommendedOptionRef}</code>
+                {optionSet.optionSetRef ? (
+                  <>
+                    {" "}
+                    · optionSetRef <code>{optionSet.optionSetRef}</code>
+                  </>
+                ) : null}
+              </p>
+            </details>
           </section>
         </>
       ) : null}
@@ -2057,7 +2124,10 @@ export function TrajectorySurface({
                 {optionSet?.decisionSubjectMode === "proposal" ||
                 decision.proposalId
                   ? pilotProposalOptionLabel(decision.selectedOptionRef)
-                  : decision.selectedOptionRef}
+                  : pilotPresentedOptionLabel({
+                      optionRef: decision.selectedOptionRef,
+                      options: optionSet?.options,
+                    })}
               </dd>
             </div>
             <div>
@@ -2905,7 +2975,11 @@ export function TrajectorySurface({
                 {postEvidence.recommendation.headline}
               </p>
               <p className={styles.blockBody} data-testid="w3c-recommendation-rationale">
-                {postEvidence.recommendation.rationale}
+                {scrubPiloteRecommendationProse(
+                  formatNoraAssistantDisplayText(
+                    postEvidence.recommendation.rationale,
+                  ),
+                )}
               </p>
               <p className={styles.blockBody} data-testid="w3c-next-step">
                 <strong>{W4C_NEXT_ACTION_LEAD} :</strong>{" "}

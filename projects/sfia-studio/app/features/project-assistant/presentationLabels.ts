@@ -787,6 +787,41 @@ export function pilotProposalOptionLabel(
   }
 }
 
+/**
+ * Pilote labels for ProjectTrajectory option refs (PJ-REPROOF-01/02).
+ * Raw optionRef stays secondary/audit only.
+ */
+export function pilotTrajectoryOptionLabel(
+  optionRef: string | null | undefined,
+): string {
+  switch ((optionRef ?? "").trim()) {
+    case "opt:trajectory:governed-gated":
+      return "Préparer une nouvelle tentative gouvernée";
+    case "opt:trajectory:bounded-direct":
+      return "Replanifier ou suspendre sans relance immédiate";
+    case "opt:trajectory:clarify-first":
+      return "Diagnostiquer / clarifier avant nouvelle tentative";
+    case "opt:proposal-subject:pursue":
+    case "opt:proposal-subject:amend":
+    case "opt:proposal-subject:refuse":
+      return pilotProposalOptionLabel(optionRef);
+    default:
+      return nonempty(optionRef) ?? "Option";
+  }
+}
+
+/** Resolve Pilote label from PresentedOptionSet when available; else trajectory map. */
+export function pilotPresentedOptionLabel(input: {
+  readonly optionRef: string | null | undefined;
+  readonly options?: readonly { readonly optionRef: string; readonly label: string }[];
+}): string {
+  const ref = (input.optionRef ?? "").trim();
+  if (!ref) return "Option";
+  const fromSet = input.options?.find((o) => o.optionRef === ref)?.label?.trim();
+  if (fromSet) return fromSet;
+  return pilotTrajectoryOptionLabel(ref);
+}
+
 export function pilotPrepareNotApplicableMessage(): string {
   return "La préparation d'exécution ne s'applique pas après une décision de modification ou de refus — poursuivez avec Nora.";
 }
@@ -815,7 +850,13 @@ export function formatNoraAssistantDisplayText(text: string | null | undefined):
   out = out.replace(/\bdocs_write\b/g, "écriture de document");
   // Soften markdown emphasis / headings leftovers without rendering HTML.
   out = out.replace(/\*\*([^*]+)\*\*/g, "$1");
+  out = out.replace(/__([^_]+)__/g, "$1");
   out = out.replace(/(^|\n)#{1,6}\s+/g, "$1");
+  out = out.replace(/`([^`]+)`/g, "$1");
+  out = out.replace(/\bopt:[a-z0-9:_-]+\b/gi, "");
+  out = out.replace(/\bepi:[a-z0-9:_-]+\b/gi, "");
+  out = out.replace(/\batt:[a-z0-9:_-]+\b/gi, "");
+  out = out.replace(/\bevi:[a-z0-9:_-]+\b/gi, "");
   out = out.replace(/[^\S\n]{2,}/g, " ").replace(/ *\n */g, "\n").trim();
   return scrubPiloteFacingEngineJargon(out);
 }

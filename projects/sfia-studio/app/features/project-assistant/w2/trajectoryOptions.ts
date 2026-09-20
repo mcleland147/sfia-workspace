@@ -206,9 +206,11 @@ export function deriveTrajectoryOptions(
         label: "Préparer une nouvelle tentative gouvernée",
         intent: `À partir du ${outcomePhrase}, décider explicitement puis préparer / inspecter / autoriser un nouveau contrat — sans Execute automatique.`,
         impacts: [
+          "Reprend à partir du résultat déjà observé",
+          "Aucun succès métier revendiqué automatiquement",
+          "Décision humaine requise avant préparation",
           attemptImpact,
           `Evidence: ${recovery.evidenceId}`,
-          "Aucun succès métier revendiqué",
           `productOutcome: ${outcome}`,
           `realProcessInvoked durable: ${recovery.realProcessInvoked}`,
         ],
@@ -233,11 +235,11 @@ export function deriveTrajectoryOptions(
         optionRef: CLARIFY_OPTION_REF,
         label: "Diagnostiquer / clarifier avant nouvelle tentative",
         intent:
-          "Approfondir le diagnostic (Evidence, stopReason, observabilité) avant toute préparation d'une nouvelle tentative.",
+          "Approfondir le diagnostic du livrable et des preuves disponibles avant toute préparation d'une nouvelle tentative.",
         impacts: [
           "Aucune préparation d'exécution à ce stade",
-          `stopReason: ${recovery.stopReason ?? "n/a"}`,
           "Nouvelle décision humaine requise après clarification",
+          `stopReason: ${recovery.stopReason ?? "n/a"}`,
         ],
         reservations,
         steps: recoveryClarifySteps(),
@@ -304,7 +306,7 @@ export function deriveTrajectoryRecommendation(
     return {
       label: "RECOMMANDATION — PAS UNE DÉCISION",
       recommendedOptionRef: CLARIFY_OPTION_REF,
-      rationale: `Épisode post-Evidence ${recovery.productOutcome} (${recovery.attemptId}) — ${recovery.headline}. Diagnostiquer / clarifier avant toute nouvelle tentative. Recommendation ≠ HumanDecision ; aucun Execute automatique.`,
+      rationale: `L'épisode précédent s'est terminé avec un résultat produit ${recovery.productOutcome === "UNCLAIMED" ? "non encore pleinement confirmé" : recovery.productOutcome === "STOP" ? "arrêté de façon gouvernée" : "en échec"}. ${recovery.headline} Studio recommande de diagnostiquer / clarifier avant toute nouvelle tentative. Votre décision reste nécessaire — cette recommandation ne lance aucune action automatiquement.`,
       isHumanDecision: false,
       promotesTrajectory: false,
       ckcAttribution: inputs.ckcAttribution,

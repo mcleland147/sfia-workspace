@@ -26,6 +26,7 @@ import {
   loadProductCkcIndexSync,
 } from "@/lib/oa/doctrine/product/productCkcIndex";
 import type { QualificationDto } from "./types";
+import { projectPiloteRecommendationRationale } from "../w2/recommendationDecisionIntegrity";
 
 export {
   DEFAULT_PRODUCT_DOCTRINE_PIN,
@@ -41,6 +42,16 @@ export const CKC_ATTRIBUTION_MARKER_PREFIX =
 
 export const CKC_COGNITIVE_REASONING_SYSTEM_MARKER =
   "SFIA Studio CKC COGNITIVE REASONING" as const;
+
+/** Appended to system prompt — Pilote Recommendation integrity (PJ-REPROOF-01/02). */
+export const CKC_COGNITIVE_RECOMMENDATION_INTEGRITY_RULES = [
+  "La recommandation aide le Pilote à décider ; elle ne lance aucune action automatiquement.",
+  "Explique uniquement l'option canonique recommandée fournie — ne redéfinis pas le pack d'options.",
+  "Interdit: inventer O1/O2/O3 ou une liste Alternative 1/2/3 concurrente.",
+  "Interdit: contredire ou remplacer l'option canonique (même sans numérotation).",
+  "Interdit: Markdown (##, **, tableaux, fences) et identifiants internes (opt:/epi:/Attempt/Evidence) dans la prose Pilote.",
+  "Texte métier brut, concis, en français.",
+].join(" ");
 
 export type CkcCognitiveProvenance = {
   readonly ckcId: string;
@@ -321,19 +332,25 @@ export function buildCkcCognitivePromptSection(
 }
 
 /**
- * Business-first Recommendation rationale (R1-03).
- * Cognitive guidance may inform the text; CKC IDs / package digests / fingerprints
- * must not appear as Pilote-facing prose. Structured provenance is separate.
+ * Business-first Recommendation projection (R1-03 + PJ-REPROOF CR-PJ-01).
+ * Primary rationale is ALWAYS the canonical deterministic base (+ safe guidance).
+ * Provider cognition may enrich WHY as secondary analysis only — never WHAT.
  */
-export function deriveCkcAttributedRecommendation(input: {
+export function projectCkcAttributedRecommendation(input: {
   baseRationale: string;
   content: ProductCkcCognitiveContent | null;
   cognitiveRecommendation?: string | null;
-}): string {
-  // Keep engine codes out of primary Pilote Pourquoi — map at presentation.
-  // Prefer cognitive / CKC guidance prose; fall back to base only if no guidance.
+}): {
+  readonly rationale: string;
+  readonly cognitiveAnalysis: string | null;
+  readonly usedCognitive: boolean;
+  readonly fellBackToBase: boolean;
+} {
   if (!input.content) {
-    return input.baseRationale;
+    return projectPiloteRecommendationRationale({
+      baseRationale: input.baseRationale,
+      cognitiveRecommendation: input.cognitiveRecommendation,
+    });
   }
   const guidance = extractCkcGuidanceFromMarkdown(input.content.markdown);
   const guidanceText =
@@ -342,14 +359,24 @@ export function deriveCkcAttributedRecommendation(input: {
   const cognitive = scrubTechnicalCkcMechanics(
     input.cognitiveRecommendation?.trim() ?? "",
   );
-  if (cognitive) {
-    return `${cognitive} · ${guidanceText}`;
-  }
-  // If base is a known engine code, prefer guidance alone for Pilote primary.
-  if (/^[a-z0-9_]+$/i.test(input.baseRationale.trim())) {
-    return guidanceText;
-  }
-  return `${input.baseRationale} ${guidanceText}`;
+  return projectPiloteRecommendationRationale({
+    baseRationale: input.baseRationale,
+    cognitiveRecommendation: cognitive,
+    guidanceText,
+  });
+}
+
+/**
+ * Business-first Recommendation rationale (R1-03 + PJ-REPROOF-01/02).
+ * Returns primary Pilote copy only (canonical base). Cognitive stays secondary
+ * via projectCkcAttributedRecommendation / Recommendation.cognitiveAnalysis.
+ */
+export function deriveCkcAttributedRecommendation(input: {
+  baseRationale: string;
+  content: ProductCkcCognitiveContent | null;
+  cognitiveRecommendation?: string | null;
+}): string {
+  return projectCkcAttributedRecommendation(input).rationale;
 }
 
 /** Strip technical CKC mechanics that must not leak into Pilote-facing prose. */
@@ -457,8 +484,8 @@ export async function reasonWithResolvedCkcContext(input: {
     provider.providerId === "fake-test" ? "test_provider" : "openai_live";
 
   const systemContent = input.ckcPromptSection?.trim()
-    ? `${CKC_COGNITIVE_REASONING_SYSTEM_MARKER}\nContexte CKC résolu (guidance seulement — pas d'autorité, pas de décision humaine):\n${input.ckcPromptSection.trim()}`
-    : `${CKC_COGNITIVE_REASONING_SYSTEM_MARKER}\nAucun contexte CKC package résolu — recommandation générique uniquement.`;
+    ? `${CKC_COGNITIVE_REASONING_SYSTEM_MARKER}\n${CKC_COGNITIVE_RECOMMENDATION_INTEGRITY_RULES}\nContexte CKC résolu (guidance seulement — pas d'autorité, pas de décision humaine):\n${input.ckcPromptSection.trim()}`
+    : `${CKC_COGNITIVE_REASONING_SYSTEM_MARKER}\n${CKC_COGNITIVE_RECOMMENDATION_INTEGRITY_RULES}\nAucun contexte CKC package résolu — recommandation générique uniquement.`;
 
   const completion = await provider.complete([
     { role: "system", content: systemContent },

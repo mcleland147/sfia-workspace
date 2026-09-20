@@ -4,8 +4,10 @@
  * trajectory.
  *
  * Phase B order (binding):
- *   resolve inputs → load product CKC → provider cognition → derive Options →
- *   enrich Recommendation → digests → ONLY THEN durable trajectory/epistemic writes.
+ *   resolve inputs → load product CKC → derive Options + base Recommendation →
+ *   integrity assert (recommendedOptionRef ∈ OptionSet) → constrained provider
+ *   cognition (explain WHY only) → enrich Recommendation → digests → ONLY THEN
+ *   durable trajectory/epistemic writes.
  *
  * Durability follows D-W2-01. D-W2-A3-01 idempotence uses stable CKC semantic
  * fingerprint (not raw provider prose). STOP BEFORE EXECUTE.
@@ -29,7 +31,7 @@ import type { DoctrinePackagePin } from "@/lib/oa/doctrine";
 import {
   buildCkcCognitivePromptSection,
   computeCkcSemanticFingerprint,
-  deriveCkcAttributedRecommendation,
+  projectCkcAttributedRecommendation,
   loadProductCkcCognitiveContent,
   reasonWithResolvedCkcContext,
   type CkcCognitiveProvenance,
@@ -62,6 +64,10 @@ import {
   type TrajectoryOptionInputs,
 } from "./trajectoryOptions";
 import {
+  assertRecommendedOptionInPresentedSet,
+  buildConstrainedRecommendationCognitionAsk,
+} from "./recommendationDecisionIntegrity";
+import {
   buildRecoveryCognitionSection,
   resolvePostEvidenceRecoveryContext,
   type PostEvidenceRecoveryContext,
@@ -72,6 +78,40 @@ import type {
   TrajectoryOptionDto,
   TrajectoryRecommendationDto,
 } from "./types";
+
+/**
+ * Phase B cognition AFTER deterministic Options/Recommendation identity.
+ * Provider may explain WHY the canonical recommended option fits — never WHAT
+ * the OptionSet is.
+ */
+async function reasonCanonicalRecommendationCognition(input: {
+  readonly ckcPromptSection: string;
+  readonly recoveryCognitionSection: string | null;
+  readonly recommendedOptionLabel: string;
+  readonly recommendedOptionRef: string;
+  readonly subjectLine: string;
+  readonly projectSummary: string;
+  readonly intentSummary: string;
+}): Promise<{ ok: true; recommendation: string } | { ok: false; detail: string }> {
+  try {
+    const reasoning = await reasonWithResolvedCkcContext({
+      userContent: buildConstrainedRecommendationCognitionAsk({
+        recommendedOptionLabel: input.recommendedOptionLabel,
+        recommendedOptionRef: input.recommendedOptionRef,
+        subjectLine: input.subjectLine,
+      }),
+      projectSummary: input.projectSummary,
+      intentSummary: input.intentSummary,
+      ckcPromptSection: input.recoveryCognitionSection
+        ? `${input.ckcPromptSection}\n\n${input.recoveryCognitionSection}`
+        : input.ckcPromptSection,
+    });
+    return { ok: true, recommendation: reasoning.recommendation };
+  } catch (error) {
+    const detail = error instanceof Error ? error.message : "provider_error";
+    return { ok: false, detail };
+  }
+}
 
 /** Nora proposes; it never decides. Kept N1 so it can never satisfy a gate. */
 const NORA_OPTION_AUTHOR = Object.freeze({
@@ -154,14 +194,15 @@ function enrichRecommendationWithCognition(input: {
   cognitiveRecommendation: string;
   fingerprint: string;
 }): TrajectoryRecommendationDto {
-  const rationale = deriveCkcAttributedRecommendation({
+  const projected = projectCkcAttributedRecommendation({
     baseRationale: input.base.rationale,
     content: input.content,
     cognitiveRecommendation: input.cognitiveRecommendation,
   });
   return {
     ...input.base,
-    rationale,
+    rationale: projected.rationale,
+    cognitiveAnalysis: projected.cognitiveAnalysis,
     ckcProvenance: toProvenanceDto(input.content.provenance, input.fingerprint),
   };
 }
@@ -332,59 +373,6 @@ export async function proposeTrajectoryOptions(
   const recoveryCognitionSection = recoveryContext
     ? buildRecoveryCognitionSection(recoveryContext)
     : null;
-  const cognitionUserContent = proposalSubject
-    ? `Instruire Options/Recommendation pour la Proposal ${proposalSubject.proposalId} (sujet: ${proposalSubject.sealedExecutionBasis.objective})`
-    : recoveryContext
-      ? `Instruire Options/Recommendation de recovery/replan après ${
-          recoveryContext.productOutcome === "UNCLAIMED" &&
-          recoveryContext.attemptStatus === "succeeded"
-            ? "succès technique / résultat produit non prouvé"
-            : `${recoveryContext.productOutcome} durable`
-        } (${recoveryContext.attemptId}, attempt=${recoveryContext.attemptStatus}) — sujet courant = recovery du même cycle, PAS un nouveau cadrage fonctionnel.`
-      : `Instruire Options/Recommendation pour le cycle ${input.cycleTypeId}`;
-  let cognitiveRecommendation: string;
-  try {
-    const reasoning = await reasonWithResolvedCkcContext({
-      userContent: cognitionUserContent,
-      projectSummary: [
-        `name=${input.projectTitle}`,
-        `objective=${input.objective}`,
-        `projectId=${input.projectId}`,
-        ...(proposalSubject
-          ? [
-              `proposalId=${proposalSubject.proposalId}`,
-              `subjectObjective=${proposalSubject.sealedExecutionBasis.objective}`,
-              `targetPath=${proposalSubject.sealedExecutionBasis.targetPath ?? ""}`,
-              `requestedOperation=${proposalSubject.sealedExecutionBasis.requestedOperation}`,
-            ]
-          : recoveryContext
-            ? [
-                `recoverySubject=post_evidence`,
-                `attemptId=${recoveryContext.attemptId}`,
-                `evidenceId=${recoveryContext.evidenceId}`,
-                `recommendationKind=${recoveryContext.recommendationKind}`,
-                `realProcessInvoked=${recoveryContext.realProcessInvoked}`,
-              ]
-            : []),
-      ].join(" | "),
-      intentSummary: proposalSubject
-        ? `Proposal subject ${proposalSubject.proposalId} · profil ${input.recommendedProfile}`
-        : recoveryContext
-          ? `Recovery/replan post-Evidence · cycle ${input.cycleTypeId} · profil ${input.recommendedProfile} · Recommendation ≠ HumanDecision`
-          : `Cycle ${input.cycleTypeId} · profil ${input.recommendedProfile}`,
-      ckcPromptSection: recoveryCognitionSection
-        ? `${ckcPromptSection}\n\n${recoveryCognitionSection}`
-        : ckcPromptSection,
-    });
-    cognitiveRecommendation = reasoning.recommendation;
-  } catch (error) {
-    const detail = error instanceof Error ? error.message : "provider_error";
-    return {
-      ok: false,
-      code: "PROVIDER_COGNITION_FAILED",
-      message: `Cognition Nora/provider échouée (${detail}) — aucune mutation de trajectoire/OptionSet.`,
-    };
-  }
 
   const semanticFingerprint = computeCkcSemanticFingerprint(
     ckcContent.provenance,
@@ -403,6 +391,33 @@ export async function proposeTrajectoryOptions(
   const optionSetRef = `optset:w2-${shortId()}`;
   const correlationId = input.correlationId ?? `cor:w2-opt-${shortId()}`;
 
+  const projectSummary = [
+    `name=${input.projectTitle}`,
+    `objective=${input.objective}`,
+    `projectId=${input.projectId}`,
+    ...(proposalSubject
+      ? [
+          `proposalId=${proposalSubject.proposalId}`,
+          `subjectObjective=${proposalSubject.sealedExecutionBasis.objective}`,
+          `targetPath=${proposalSubject.sealedExecutionBasis.targetPath ?? ""}`,
+          `requestedOperation=${proposalSubject.sealedExecutionBasis.requestedOperation}`,
+        ]
+      : recoveryContext
+        ? [
+            `recoverySubject=post_evidence`,
+            `attemptId=${recoveryContext.attemptId}`,
+            `evidenceId=${recoveryContext.evidenceId}`,
+            `recommendationKind=${recoveryContext.recommendationKind}`,
+            `realProcessInvoked=${recoveryContext.realProcessInvoked}`,
+          ]
+        : []),
+  ].join(" | ");
+  const intentSummary = proposalSubject
+    ? `Proposal subject ${proposalSubject.proposalId} · profil ${input.recommendedProfile}`
+    : recoveryContext
+      ? `Recovery/replan post-preuve · cycle ${input.cycleTypeId} · profil ${input.recommendedProfile} · recommandation ≠ décision Pilote`
+      : `Cycle ${input.cycleTypeId} · profil ${input.recommendedProfile}`;
+
   // ── CORR-PROOF-10 proposal subject — ZERO ProjectTrajectory ───────────
   if (proposalSubject) {
     const options = deriveProposalSubjectOptions({
@@ -413,12 +428,50 @@ export async function proposeTrajectoryOptions(
       sealed: proposalSubject.sealedExecutionBasis,
       proposalId: proposalSubject.proposalId,
     });
+    const integrity = assertRecommendedOptionInPresentedSet({
+      options,
+      recommendedOptionRef: baseRecommendation.recommendedOptionRef,
+    });
+    if (!integrity.ok) {
+      return {
+        ok: false,
+        code: integrity.code,
+        message: integrity.message,
+      };
+    }
+    const cognition = await reasonCanonicalRecommendationCognition({
+      ckcPromptSection,
+      recoveryCognitionSection,
+      recommendedOptionLabel: integrity.option.label,
+      recommendedOptionRef: baseRecommendation.recommendedOptionRef,
+      subjectLine: `Expliquer la recommandation canonique pour la Proposal ${proposalSubject.proposalId} (sujet: ${proposalSubject.sealedExecutionBasis.objective}).`,
+      projectSummary,
+      intentSummary,
+    });
+    if (!cognition.ok) {
+      return {
+        ok: false,
+        code: "PROVIDER_COGNITION_FAILED",
+        message: `Cognition Nora/provider échouée (${cognition.detail}) — aucune mutation de trajectoire/OptionSet.`,
+      };
+    }
     const recommendation = enrichRecommendationWithCognition({
       base: baseRecommendation,
       content: ckcContent,
-      cognitiveRecommendation,
+      cognitiveRecommendation: cognition.recommendation,
       fingerprint: semanticFingerprint,
     });
+    const postEnrichIntegrity = assertRecommendedOptionInPresentedSet({
+      options,
+      recommendedOptionRef: recommendation.recommendedOptionRef,
+    });
+    if (!postEnrichIntegrity.ok) {
+      return {
+        ok: false,
+        code: postEnrichIntegrity.code,
+        message: postEnrichIntegrity.message,
+      };
+    }
     const optionSetDigest = computeOptionSetDigest({
       cycleTypeId: input.cycleTypeId,
       recommendedProfile: input.recommendedProfile,
@@ -563,12 +616,58 @@ export async function proposeTrajectoryOptions(
 
   const options = deriveTrajectoryOptions(inputs);
   const baseRecommendation = deriveTrajectoryRecommendation(inputs);
+  const integrity = assertRecommendedOptionInPresentedSet({
+    options,
+    recommendedOptionRef: baseRecommendation.recommendedOptionRef,
+  });
+  if (!integrity.ok) {
+    return {
+      ok: false,
+      code: integrity.code,
+      message: integrity.message,
+    };
+  }
+  const cognitionSubjectLine = recoveryContext
+    ? `Expliquer la recommandation canonique de recovery/replan après ${
+        recoveryContext.productOutcome === "UNCLAIMED" &&
+        recoveryContext.attemptStatus === "succeeded"
+          ? "succès technique / résultat produit non prouvé"
+          : `${recoveryContext.productOutcome} durable`
+      } (${recoveryContext.attemptId}, attempt=${recoveryContext.attemptStatus}) — sujet courant = recovery du même cycle, PAS un nouveau cadrage fonctionnel.`
+    : `Expliquer la recommandation canonique pour le cycle ${input.cycleTypeId}.`;
+  const cognition = await reasonCanonicalRecommendationCognition({
+    ckcPromptSection,
+    recoveryCognitionSection,
+    recommendedOptionLabel: integrity.option.label,
+    recommendedOptionRef: baseRecommendation.recommendedOptionRef,
+    subjectLine: cognitionSubjectLine,
+    projectSummary,
+    intentSummary,
+  });
+  if (!cognition.ok) {
+    return {
+      ok: false,
+      code: "PROVIDER_COGNITION_FAILED",
+      message: `Cognition Nora/provider échouée (${cognition.detail}) — aucune mutation de trajectoire/OptionSet.`,
+    };
+  }
   const recommendation = enrichRecommendationWithCognition({
     base: baseRecommendation,
     content: ckcContent,
-    cognitiveRecommendation,
+    cognitiveRecommendation: cognition.recommendation,
     fingerprint: semanticFingerprint,
   });
+  const postEnrichIntegrity = assertRecommendedOptionInPresentedSet({
+    options,
+    recommendedOptionRef: recommendation.recommendedOptionRef,
+  });
+  if (!postEnrichIntegrity.ok) {
+    return {
+      ok: false,
+      code: postEnrichIntegrity.code,
+      message: postEnrichIntegrity.message,
+    };
+  }
 
   const optionSetDigest = computeOptionSetDigest({
     cycleTypeId: input.cycleTypeId,
@@ -583,9 +682,9 @@ export async function proposeTrajectoryOptions(
     decisionSubjectMode: "project_trajectory",
   });
 
+  const recommendedOption = postEnrichIntegrity.option;
   const proposedSteps: TrajectoryStep[] = structuredClone(
-    (options.find((o) => o.optionRef === recommendation.recommendedOptionRef) ??
-      options[0]!).steps,
+    recommendedOption.steps,
   ) as TrajectoryStep[];
 
   const latest = await resolveLatestTrajectory(oa, input.projectId);
