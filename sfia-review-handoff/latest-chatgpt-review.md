@@ -2,7 +2,7 @@
 ## Recommendation / Decision Integrity + Pilote UX
 ## FINAL POST-MERGE VERIFICATION / MACRO CLOSEOUT / BRANCH CLEANUP
 
-**Timestamp (UTC):** 2026-09-20T18:01:11Z
+**Timestamp (UTC):** 2026-09-20T18:02:35Z
 
 **Cycle:** 14 — POST-MERGE
 **Type:** POST-MERGE / CLOSEOUT / CLEANUP
@@ -21,9 +21,9 @@ Morris has explicitly:
 - authorized PR #509 merge;
 - authorized this post-merge cycle and cleanup of the merged PR branch when safety conditions are satisfied.
 
-**This cycle authorizes:** post-merge Git truth; merge/CI verification; FULL Review Pack; L3 Review Handoff; safe remote/local branch + worktree cleanup.
+**Authorized:** post-merge Git truth; merge/CI verification; FULL Review Pack; L3 Review Handoff; safe remote/local branch + worktree cleanup.
 
-**This cycle does NOT authorize:** force deletion; force push; Product/code/test changes; Roadmap/Build Doctrine/C1/C2/v3 framing/CI mutation; new PR/merge; Product Journey REAL resume; auth configuration; CR-PJ-03 visual execution; runtime v3; global L5.
+**Not authorized:** force deletion; force push; Product/code/test changes; Roadmap/Build Doctrine/C1/C2/v3 framing/CI mutation; new PR/merge; Product Journey REAL resume; auth configuration; CR-PJ-03 visual execution; runtime v3; global L5.
 
 ---
 
@@ -32,9 +32,9 @@ Morris has explicitly:
 | Field | Value |
 |---|---|
 | Repository | `mcleland147/sfia-workspace` |
-| Safe verification CWD | `/workspace` (branch `qa/sfia-studio-product-journey-claim-evidence-completion-01`) |
-| Correction worktree | `/tmp/sfia-pj-reproof-corr-01` |
-| Correction branch | `fix/sfia-studio-recommendation-decision-ux-integrity` |
+| Verification CWD | `/workspace` |
+| Historical correction worktree | `/tmp/sfia-pj-reproof-corr-01` (removed) |
+| Correction branch | `fix/sfia-studio-recommendation-decision-ux-integrity` (removed local+remote) |
 | `git fetch origin --prune` | executed |
 
 ---
@@ -44,35 +44,20 @@ Morris has explicitly:
 | Field | Value |
 |---|---|
 | PR | **#509** — https://github.com/mcleland147/sfia-workspace/pull/509 |
-| Title | fix(sfia-studio): align recommendation decision integrity and pilote UX |
-| State | **MERGED** |
-| mergedAt | 2026-09-20T17:26:40Z |
+| State | **MERGED** (mergedAt 2026-09-20T17:26:40Z) |
 | Merge commit | `163a05e542d4c8d65e710cf27fb2f7eec9414844` |
 | PR head | `79b73df7abd3265841d9ad17cbeccf05decce2ac` |
-| Base at merge | `89dc915d7e685ee775922c02314a8eb39a2921fa` (`main`) |
 
 ---
 
-## 7–9. origin/main and SHAs
+## 7–10. origin/main + ancestry
 
 | Field | Value |
 |---|---|
-| origin/main (post-fetch) | `163a05e542d4c8d65e710cf27fb2f7eec9414844` |
-| Equals merge SHA | **YES** |
-| Remote correction tip (pre-cleanup) | `79b73df7abd3265841d9ad17cbeccf05decce2ac` (= PR head) |
-
----
-
-## 10. Ancestry checks
-
-| Check | Result |
-|---|---|
-| Merge `163a05e…` is ancestor of `origin/main` | **YES** |
-| PR head `79b73df7…` is ancestor of `origin/main` | **YES** |
-| Remote correction tip is ancestor of `origin/main` | **YES** |
-| Commits on remote correction branch not in main | **NONE** |
-
-Main advance beyond merge SHA: **NO** (main tip == merge SHA).
+| origin/main | `163a05e542d4c8d65e710cf27fb2f7eec9414844` |
+| Merge ancestor of main | **YES** |
+| PR head ancestor of main | **YES** |
+| Remote tip unique unmerged commits (pre-delete) | **NONE** |
 
 ---
 
@@ -80,115 +65,74 @@ Main advance beyond merge SHA: **NO** (main tip == merge SHA).
 
 | Field | Value |
 |---|---|
-| Run | **35525882973** — https://github.com/mcleland147/sfia-workspace/actions/runs/35525882973 |
-| Event | `push` |
-| Branch | `main` |
+| Run | **35525882973** |
+| Event / branch | `push` / `main` |
 | Head SHA | `163a05e542d4c8d65e710cf27fb2f7eec9414844` |
 | Conclusion | **SUCCESS** |
-
-| Job | Result |
-|---|---|
 | Detect SFIA Studio changes | **SUCCESS** |
 | Build and validate SFIA Studio | **SUCCESS** |
 | SFIA Studio Required Gate | **SUCCESS** |
 
-No rerun performed (already SUCCESS). No local Product test execution required.
-
 ---
 
-## 12. CR-PJ-01 final status
+## 12–14. Correction statuses
 
-**CLOSED — DETERMINISTIC PROVEN / INTEGRATED ON MAIN / POST-MERGE VERIFIED**
+| Item | Status |
+|---|---|
+| CR-PJ-01 | **CLOSED — DETERMINISTIC PROVEN / INTEGRATED ON MAIN / POST-MERGE VERIFIED** |
+| CR-PJ-02 | **CLOSED — DETERMINISTIC PROVEN / INTEGRATED ON MAIN / POST-MERGE VERIFIED** |
+| CR-PJ-03 | **VISUAL PROOF DEFERRED BY MORRIS TO PRODUCT JOURNEY CAMPAIGN RESUME** (not visually proven) |
 
-Canonical `OptionSet` + `recommendedOptionRef` owns WHAT; `HumanDecision` consumes canonical `selectedOptionRef`; provider cognition cannot own primary decision semantics. Fail-closed mismatch preserved. Soft `options[0]` fallback removed.
-
----
-
-## 13. CR-PJ-02 final status
-
-**CLOSED — DETERMINISTIC PROVEN / INTEGRATED ON MAIN / POST-MERGE VERIFIED**
-
-Pilote primary Recommendation copy is business-first; internal SFIA/runtime vocabulary moved away from primary presentation (technical details remain under progressive disclosure).
-
----
-
-## 14. CR-PJ-03 deferral decision
-
-**VISUAL PROOF DEFERRED BY MORRIS TO PRODUCT JOURNEY CAMPAIGN RESUME**
-
-Explicitly accepted non-blocking reserve. **NOT** CLOSED / NOT visually proven in this cycle.
-`AUTH_CONFIG_ERROR` treated as historical validation-environment blocker only — Better Auth **not** configured here.
+AUTH_CONFIG_ERROR: historical validation-environment blocker only; Better Auth not configured in this cycle.
 
 ---
 
 ## 15. Accepted / open reserves
 
-Non-blocking / observable (not solved in Post-merge):
-1. Secondary Nora analysis may still be semantically awkward when expanded.
+1. Secondary Nora analysis may still be awkward when expanded.
 2. Post-evidence technical audit language remains secondary.
-3. Optional `cognitiveAnalysis` DTO compatibility (JSON PresentedOptionSet; no DB migration).
+3. Optional `cognitiveAnalysis` DTO compatibility.
 4. REAL Evidence payload verification adapter reserve remains **OPEN**.
 
 ---
 
-## 16–18. Governance anti-claims (this cycle)
+## 16–18. Governance
 
 | Claim | Status |
 |---|---|
-| New Product REAL | **ZERO** |
-| New Cursor REAL | **ZERO** |
-| Runtime v3 | **NON ADOPTED** |
-| Global L5 | **NOT ADOPTED** |
-| Roadmap / Build Doctrine / C1/C2 / v3 framing mutation | **NONE** |
-| Product Journey campaign COMPLETE | **NOT claimed** |
-| Product Journey E2E READY | **NOT claimed** |
-| CR-PJ-03 visually proven | **NOT claimed** |
-| REAL Evidence payload adapter closed | **NOT claimed** |
-| Project commit / push / PR / merge in this cycle | **0 / 0 / 0 / 0** |
-
-Parent campaign: **STILL ACTIVE** — resumes from current main after this closeout.
+| New Product REAL / Cursor REAL | **ZERO / ZERO** |
+| Runtime v3 / Global L5 | **NON ADOPTED / NOT ADOPTED** |
+| Roadmap / doctrine / C1/C2 / v3 framing / CI mutation | **NONE** |
+| Project commit/push/PR/merge this cycle | **0 / 0 / 0 / 0** |
+| Parent campaign | **STILL ACTIVE** |
 
 ---
 
-## 19. Branch cleanup safety checks (pre-delete)
-
-| Check | Result |
-|---|---|
-| PR #509 MERGED | YES |
-| Merge ancestor of main | YES |
-| PR head ancestor of main | YES |
-| Post-merge CI SUCCESS | YES |
-| Required Gate PASS | YES |
-| Remote tip = PR head / no unique unmerged commits | YES |
-| Correction worktree clean (`git status --short` empty) | YES (pre-pack) |
-
----
-
-## 20–21. Cleanup results
-
-*(Filled after cleanup execution)*
+## 19–21. Cleanup results
 
 | Action | Result |
 |---|---|
-| `git push origin --delete fix/sfia-studio-recommendation-decision-ux-integrity` | **DONE** (tip was `79b73df7…`) |
-| `git fetch --prune` | **DONE** |
-| Remote branch absent | **YES** (`git branch -r --list` empty) |
-| Review Handoff publish | _(this publication)_ |
-| Restore pack to branch HEAD in correction worktree | _(after handoff)_ |
-| `git worktree remove` (non-force) | _(after restore)_ |
-| `git branch -d fix/sfia-studio-recommendation-decision-ux-integrity` | _(after worktree remove)_ |
-| `git worktree prune` | _(after branch -d)_ |
+| Handoff (first publish) | commit `a1517ee6fbbe8ad7d7abb4a3175519fd2245643f` / blob `9c48575e1755154c49fbc1edd90f89883b20bdca` |
+| Restore pack to branch HEAD before cleanup | **DONE** (worktree clean) |
+| Remote branch delete | **DONE** |
+| Remote branch absent | **YES** |
+| `git worktree remove` (non-force) | **DONE** (`/tmp/sfia-pj-reproof-corr-01` gone) |
+| `git branch -d` (from temp worktree at origin/main; no `-D`) | **DONE** |
+| `git worktree prune` | **DONE** |
+| Local branch absent | **YES** |
+| Correction worktree absent | **YES** |
+| main / sfia/review-handoff untouched by cleanup | **YES** |
+
+Note: first `git branch -d` from qa HEAD refused (not merged into qa); succeeded with `-d` only while HEAD=origin/main merge tip — still non-force.
 
 ---
 
-## 22. Anti-claims (summary)
+## 22. Anti-claims
 
-This Post-merge cycle proves only: **INTEGRATED ON MAIN + POST-MERGE CI VERIFIED** for the deterministic correction scope (CR-PJ-01/02). It does not resume Product Journey REAL, does not prove CR-PJ-03 visually, and does not adopt runtime v3 / L5.
+Proves only: **INTEGRATED ON MAIN + POST-MERGE CI VERIFIED** for deterministic CR-PJ-01/02. Does not claim Product Journey E2E COMPLETE, CR-PJ-03 visual proof, Evidence REAL adapter closure, or runtime v3 adoption.
 
 ---
 
-## 23. Final verdict (pre-cleanup placeholder)
-
-Proceeding to Handoff publish then safe cleanup. Expected terminal verdict after cleanup:
+## 23. Final verdict
 
 **PASS WITH ACCEPTED RESERVES — PR #509 POST-MERGE VERIFIED — CORRECTION MACRO CLOSED AT DETERMINISTIC SCOPE — BRANCH CLEANUP COMPLETE — RETURN TO PRODUCT JOURNEY CAMPAIGN**
