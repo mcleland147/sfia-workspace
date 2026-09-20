@@ -480,7 +480,7 @@ No Roadmap / Build Doctrine / C1/C2 / v3 framing / CI / secrets / env config in 
 - PR number/URL: **#509** — https://github.com/mcleland147/sfia-workspace/pull/509
 - PR head/base: head `10752b658b4b28495ebd69c3ce34d3df5d1d56c9` / base `89dc915d7e685ee775922c02314a8eb39a2921fa` (`main`)
 - CI status: **PENDING** (SFIA Studio CI — Detect SFIA Studio changes QUEUED; run 35520249777)
-- Review Handoff remote commit/blob after this pass: _(filled after handoff publish)_
+- Review Handoff remote commit/blob after this pass: commit `e3d399df9bed02315b41dfcd672377a25ac38332` / blob `6ccc430361203d0144f32bdc7744aeac117be26c`
 
 ### Integration completion (2026-09-20T15:39:27Z)
 
@@ -510,4 +510,3 @@ Reserves carried:
 2. PR CI PENDING at handoff time.
 3. R-SECONDARY-AMBIGUITY / R-POST-EVIDENCE-TECH / R-OPTIONAL-DTO unchanged.
 4. REAL Evidence payload adapter reserve unchanged/open.
-
