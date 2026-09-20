@@ -389,7 +389,7 @@ checkpointF.recoveryOptionsContext.d0.test.ts | Pilote rationale expects
 - This pass does **NOT** claim pixel-perfect / design-system / Figma-Penpot validation.
 - This pass does **NOT** claim CR-PJ-03 Recommendation UX screenshot from authenticated Studio route.
 - Prior HTML mock is **NOT** final visual proof.
-- Project commit/push/PR/merge remain **0** (not authorized).
+- Project merge remains **NOT authorized**. Project commit/push/PR performed under Morris PROJECT GIT INTEGRATION GO (PR #509).
 - No second recommendation engine; no schema migration; no doctrine/Roadmap mutation.
 
 ---
@@ -404,3 +404,109 @@ checkpointF.recoveryOptionsContext.d0.test.ts | Pilote rationale expects
 - **CR-PJ-03** — **OPEN / BLOCKED** pending authentic authenticated Studio session on correction worktree `:3020`.
 
 Awaiting ChatGPT / Morris review. No project commit. No project push. No PR. No automatic Product Journey REAL resume.
+
+
+---
+
+## 22. MORRIS VALIDATION + PROJECT GIT INTEGRATION GO (APPEND)
+
+**Timestamp (UTC):** 2026-09-20T15:38:39Z
+
+### Morris decision recorded
+
+Morris explicitly validates the correction macro at **deterministic scope** and authorizes **PROJECT GIT INTEGRATION**.
+
+| Item | Morris status |
+|---|---|
+| Correction macro | VALIDATED |
+| Deterministic scope | ACCEPTED |
+| CR-PJ-01 | **CLOSED — DETERMINISTIC PROVEN** |
+| CR-PJ-02 | **CLOSED — DETERMINISTIC PROVEN** |
+| CR-PJ-03 authentic Studio Recommendation screenshot | **DEFERRED BY MORRIS TO PRODUCT JOURNEY CAMPAIGN RESUME** |
+| AUTH_CONFIG_ERROR | Environment validation blocker — **NOT treated as a Product defect** |
+| Visual proof blocking Git integration? | **NO — NON-BLOCKING** |
+| Who will observe visual later? | Product Journey campaign resume |
+| New Product REAL | **ZERO** |
+| New Cursor REAL | **ZERO** |
+| Runtime v3 | **NON ADOPTED** |
+| Global L5 | **NOT ADOPTED** |
+| PROJECT GIT INTEGRATION | **AUTHORIZED** |
+| MERGE | **NOT AUTHORIZED** |
+
+Do **NOT** claim CR-PJ-03 visually proven.
+
+### Pre-commit validation (this integration pass — re-run, not copied)
+
+| Check | Result |
+|---|---|
+| Targeted suites (7 files) | **84 passed / 84** |
+| T15 hostile non-numbered provider | **PASS** |
+| `npm run typecheck` | **PASS** |
+| `npm run lint` | **PASS** |
+| New Product/Cursor REAL | **ZERO** |
+
+### Local Git Truth (pre-commit)
+
+| Field | Value |
+|---|---|
+| Worktree | `/tmp/sfia-pj-reproof-corr-01` |
+| Branch | `fix/sfia-studio-recommendation-decision-ux-integrity` |
+| HEAD (pre-commit) | `89dc915d7e685ee775922c02314a8eb39a2921fa` |
+| origin/main | `89dc915d7e685ee775922c02314a8eb39a2921fa` |
+| Baseline drift | NONE |
+| Remote fix branch (pre-push) | ABSENT |
+
+### Integration scope files (exact)
+
+- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx`
+- `projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts`
+- `projects/sfia-studio/app/features/project-assistant/presentationLabels.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/trajectoryOptions.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/types.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/recommendationDecisionIntegrity.ts`
+- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx`
+- `projects/sfia-studio/app/__tests__/project-assistant/checkpointF.recoveryOptionsContext.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/project-assistant/recommendationDecisionIntegrity.pjReproof.d0.test.ts`
+- `.tmp-sfia-review/chatgpt-review.md`
+
+No Roadmap / Build Doctrine / C1/C2 / v3 framing / CI / secrets / env config in scope.
+
+### Post-integration fields (filled after commit/push/PR)
+
+- Project commit SHA: `10752b658b4b28495ebd69c3ce34d3df5d1d56c9`
+- Project commit tree: `729abc5c4ac2eade33570ed87e58694b27a241a8`
+- Pushed branch SHA: `10752b658b4b28495ebd69c3ce34d3df5d1d56c9` (= local HEAD)
+- PR number/URL: **#509** — https://github.com/mcleland147/sfia-workspace/pull/509
+- PR head/base: head `10752b658b4b28495ebd69c3ce34d3df5d1d56c9` / base `89dc915d7e685ee775922c02314a8eb39a2921fa` (`main`)
+- CI status: **PENDING** (SFIA Studio CI — Detect SFIA Studio changes QUEUED; run 35520249777)
+- Review Handoff remote commit/blob after this pass: _(filled after handoff publish)_
+
+### Integration completion (2026-09-20T15:39:27Z)
+
+| Field | Value |
+|---|---|
+| Project commit | `10752b658b4b28495ebd69c3ce34d3df5d1d56c9` |
+| Commit tree | `729abc5c4ac2eade33570ed87e58694b27a241a8` |
+| Files in commit | 11 (+1406 / −326) |
+| Pushed branch | `origin/fix/sfia-studio-recommendation-decision-ux-integrity` @ same SHA |
+| origin/main | `89dc915d7e685ee775922c02314a8eb39a2921fa` (unchanged) |
+| Commits ahead of main | 1 (then +1 pack finalization if present) |
+| PR | **#509** OPEN, not draft |
+| PR URL | https://github.com/mcleland147/sfia-workspace/pull/509 |
+| mergeable | MERGEABLE |
+| mergeStateStatus | BLOCKED (expected — merge NOT authorized / checks pending) |
+| CI | **PENDING** |
+| Merge performed | **NO** |
+| Auto-merge | **NO** |
+| Branch deleted | **NO** |
+
+### Final integration verdict
+
+**PASS WITH RESERVES — PROJECT GIT INTEGRATION COMPLETE — PR OPEN / MERGE GATE PENDING**
+
+Reserves carried:
+1. CR-PJ-03 visual proof DEFERRED BY MORRIS TO CAMPAIGN RESUME (non-blocking).
+2. PR CI PENDING at handoff time.
+3. R-SECONDARY-AMBIGUITY / R-POST-EVIDENCE-TECH / R-OPTIONAL-DTO unchanged.
+4. REAL Evidence payload adapter reserve unchanged/open.
