@@ -605,3 +605,21 @@ Same suites **PASS** on green run `35520718786`.
 - Tip Required Gate: currently red (flake)
 - Substantive merge-candidate SHA with green Required Gate: `1e08df38…`
 - Awaiting Morris decision (retrigger vs merge at green SHA vs authorize CI-policy work)
+
+---
+
+## 27. CI tip GREEN — PR #509 (append)
+
+**Timestamp (UTC):** 2026-09-20T16:26:38Z
+
+Tip SHA `334af4a9db8a17928d33193c02aa1e349ddf31d2` — all 3 checks PASS:
+
+| Check | Result |
+|---|---|
+| Detect SFIA Studio changes | PASS |
+| Build and validate SFIA Studio | PASS |
+| SFIA Studio Required Gate | PASS |
+
+PR mergeable / mergeStateStatus: CLEAN (at tip).
+
+Merge / auto-merge: **NOT performed** — awaiting Morris merge decision.
