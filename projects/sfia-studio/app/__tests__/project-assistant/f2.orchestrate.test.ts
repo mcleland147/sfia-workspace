@@ -506,6 +506,7 @@ describe("F2 decisions with shared OA stack", () => {
       decisionServices: runtime.oa!.decisionServices,
       authorityResolver: runtime.oa!.authorityResolver,
       nowIso: () => runtime.oa!.clock.nowIso(),
+      oa: runtime.oa!,
       forceM3Authority: true,
     });
     expect(go.ok).toBe(true);
@@ -523,6 +524,7 @@ describe("F2 decisions with shared OA stack", () => {
       decisionServices: runtime.oa!.decisionServices,
       authorityResolver: runtime.oa!.authorityResolver,
       nowIso: () => runtime.oa!.clock.nowIso(),
+      oa: runtime.oa!,
       forceM3Authority: true,
     });
     expect(noGo.ok).toBe(true);
@@ -539,6 +541,7 @@ describe("F2 decisions with shared OA stack", () => {
       decisionServices: runtime.oa!.decisionServices,
       authorityResolver: runtime.oa!.authorityResolver,
       nowIso: () => runtime.oa!.clock.nowIso(),
+      oa: runtime.oa!,
       forceM3Authority: true,
     });
     expect(amend.ok).toBe(true);
@@ -560,6 +563,7 @@ describe("F2 decisions with shared OA stack", () => {
       decisionServices: runtime.oa!.decisionServices,
       authorityResolver: runtime.oa!.authorityResolver,
       nowIso: () => runtime.oa!.clock.nowIso(),
+          oa: runtime.oa!,
     });
     expect(stale.ok).toBe(false);
     if (stale.ok) return;

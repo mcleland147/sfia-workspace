@@ -255,6 +255,25 @@ export class ProposeTrajectoryVersion {
           throw new Error("missing_current_lps");
         }
 
+        // D-MORRIS-PCONT-03 / CR-PCONT-01 — candidate ≠ current.
+        // LPS current trajectory refs must follow the repository CURRENT decided
+        // trajectory (findCurrentByProjectId), NOT the lineage head status.
+        // candidate→candidate with a decided current elsewhere must keep LPS on
+        // that current; only promote updates LPS to the promoted version.
+        const repoCurrent = await this.trajectories.findCurrentByProjectId(
+          request.projectId,
+        );
+        const decidedCurrent =
+          repoCurrent &&
+          (repoCurrent.status === "validated" ||
+            repoCurrent.status === "active")
+            ? repoCurrent
+            : null;
+        const lpsTrajectoryVersion =
+          status === "candidate" && decidedCurrent
+            ? decidedCurrent.version
+            : nextVersion;
+
         const appended =
           await this.projectServices.appendLivingProjectStateVersion.execute({
             projectId: request.projectId,
@@ -264,8 +283,10 @@ export class ProposeTrajectoryVersion {
             correlationId,
             context: currentLps.livingProjectState.context,
             scope: currentLps.livingProjectState.scope,
-            trajectoryId: request.trajectoryId,
-            trajectoryVersion: nextVersion,
+            trajectoryId: decidedCurrent
+              ? decidedCurrent.trajectoryId
+              : request.trajectoryId,
+            trajectoryVersion: lpsTrajectoryVersion,
           });
 
         if (!appended.ok) {

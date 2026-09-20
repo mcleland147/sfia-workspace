@@ -227,6 +227,7 @@ export async function projectAssistantDecideAction(input: {
     decisionServices: runtime.oa.decisionServices,
     authorityResolver: runtime.oa.authorityResolver,
     nowIso: () => runtime.oa!.clock.nowIso(),
+    oa: runtime.oa,
   });
 
   if (!recorded.ok) {

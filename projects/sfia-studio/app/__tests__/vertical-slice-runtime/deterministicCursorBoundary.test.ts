@@ -186,7 +186,8 @@ async function seedGo(runtime: RuntimeApplicationService, label: string) {
     decisionServices: runtime.oa!.decisionServices,
     authorityResolver: runtime.oa!.authorityResolver,
     nowIso: () => runtime.oa!.clock.nowIso(),
-    forceM3Authority: true,
+    oa: runtime.oa!,
+      forceM3Authority: true,
   });
   if (!go.ok) throw new Error("go failed");
   const after = await runtime.getProject(projectId);

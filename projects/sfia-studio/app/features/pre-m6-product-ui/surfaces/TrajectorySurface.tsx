@@ -480,11 +480,9 @@ export function TrajectorySurface({
     setAuthorization(null);
     setAmendmentDraft("");
     setAmendmentNotice(null);
-    setAttempt(null);
-    setAttemptPhase(null);
-    setAttemptStatusLabel(null);
-    setProductOutcome(null);
-    setPostEvidence(null);
+    // D-MORRIS-PCONT — recovery OptionSet is additive: keep durable Attempt /
+    // ProductOutcome / postEvidence projection (rehydrate, do not wipe).
+    // Only clear EC/authorization which belong to a fresh framing subject.
     onDurableFactsChanged?.();
   }, [
     continuityMutationBlocked,
@@ -586,10 +584,15 @@ export function TrajectorySurface({
       return;
     }
 
-    // Fail-closed contradiction: unresolved Proposal Decision Subject + current EC.
-    const subjectCompetes =
+    // Fail-closed: unresolved Proposal Decision Subject + current pre-execution EC.
+    // Recovery / ProjectTrajectory OptionSet awaiting HD is NOT a Proposal subject.
+    // pursue_prepare_ready and closed Proposal subjects never compete.
+    const unresolvedProposalSubject =
       pendingReinstruction != null ||
-      (optionSet != null && decision == null);
+      (optionSet != null &&
+        decision == null &&
+        optionSet.decisionSubjectMode === "proposal");
+    const subjectCompetes = unresolvedProposalSubject;
     if (subjectCompetes) {
       setExecutionContinuityConflict(true);
       setError(

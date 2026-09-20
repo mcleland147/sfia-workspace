@@ -29,6 +29,16 @@ import { inspectExecutionContract } from "@/features/project-assistant/w2/inspec
 import { confirmExecutionContractForAuthorization } from "@/features/project-assistant/w2/confirmForAuthorization";
 import { evaluateExecutionAuthorization } from "@/features/project-assistant/w2/authorizeExecutionContract";
 import { governedExecuteAuthorizedContract } from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
+import { readCurrentGovernedExecutionContinuity } from "@/features/project-assistant/w2/readCurrentGovernedExecutionContinuity";
+import { materializeProductOutcomeFromAttempt } from "@/features/project-assistant/w2/materializeW3bProductTerminal";
+import { resolvePostEvidenceRecoveryContext } from "@/features/project-assistant/w2/resolvePostEvidenceRecoveryContext";
+import { proposeTrajectoryOptions } from "@/features/project-assistant/w2/proposeTrajectoryOptions";
+import { resolveW2QualificationInputs } from "@/features/project-assistant/w2/qualificationInputs";
+import { deriveTrajectoryOptions } from "@/features/project-assistant/w2/trajectoryOptions";
+import {
+  closedProposalIdsFromProposalDecisionRefs,
+  readActiveProposalDecisionSubject,
+} from "@/features/project-assistant/w2/activeProposalDecisionSubject";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
@@ -1044,6 +1054,7 @@ describe("CR-PWR-01…04 + DETERMINISTIC E2E Proposal→Evidence", () => {
       authorityResolver: oa.authorityResolver,
       nowIso: () => oa.clock.nowIso(),
       forceM3Authority: true,
+      oa,
     });
     expect(decided.ok).toBe(true);
     if (!decided.ok) throw new Error(`decide: ${decided.message}`);
@@ -1203,6 +1214,126 @@ describe("CR-PWR-01…04 + DETERMINISTIC E2E Proposal→Evidence", () => {
     const cycles = await oa.cycleServices.cycles.listByProject(projectId);
     const active = cycles.filter((c) => c.status === "active");
     expect(active.map((c) => c.cycleInstanceId)).toEqual([cycleInstanceId]);
+
+    // ——— POST-EXECUTION CONTINUITY (D-MORRIS-PCONT) ———
+    const ecAfter =
+      await oa.executionContractServices.getExecutionContract.execute({
+        executionContractId,
+      });
+    expect(ecAfter.ok).toBe(true);
+    if (!ecAfter.ok) throw new Error("ecAfter");
+    // Option A: verified docs_write artifact ⇒ completed (or honest non-completed).
+    expect(["completed", "confirmed"]).toContain(ecAfter.contract.status);
+    if (artifact!.status === "verified") {
+      expect(ecAfter.contract.status).toBe("completed");
+    }
+
+    const epistemic = await oa.cycleServices.epistemic.listByProject(projectId);
+    expect(
+      closedProposalIdsFromProposalDecisionRefs(epistemic).has(proposalId),
+    ).toBe(true);
+    const subject = await readActiveProposalDecisionSubject(oa, projectId);
+    expect(subject.ok).toBe(true);
+    if (subject.ok) {
+      expect(subject.kind).not.toBe("bound_awaiting_decision");
+      expect(subject.kind).not.toBe("pending_reinstruction_required");
+    }
+
+    const continuity = await readCurrentGovernedExecutionContinuity({
+      oa,
+      projectId,
+    });
+    expect(continuity.ok).toBe(true);
+    if (continuity.ok) {
+      // Terminal Attempt ⇒ not pre-execution current (no false EC conflict).
+      expect(continuity.kind).toBe("none");
+    }
+
+    const materialized = await materializeProductOutcomeFromAttempt({
+      oa,
+      projectId,
+      attemptId,
+    });
+    expect(materialized.ok).toBe(true);
+    if (!materialized.ok) throw new Error(materialized.message);
+    expect(materialized.product.outcome).toBe("UNCLAIMED");
+
+    const recovery = await resolvePostEvidenceRecoveryContext({
+      oa,
+      projectId,
+    });
+    expect(recovery.ok).toBe(true);
+    if (!recovery.ok) throw new Error(recovery.message);
+    expect(recovery.context).not.toBeNull();
+    if (!recovery.context) throw new Error("recovery");
+    expect(recovery.context.productOutcome).toBe("UNCLAIMED");
+    expect(recovery.context.attemptStatus).toBe("succeeded");
+
+    const recoveryOptions = deriveTrajectoryOptions({
+      cycleTypeId: "cyc:framing",
+      recommendedProfile: "Critical",
+      criticalSignalsPresent: true,
+      irreversible: false,
+      reservations: [],
+      ckcAttribution: null,
+      recoveryContext: recovery.context,
+    });
+    const recoveryBlob = JSON.stringify(recoveryOptions);
+    expect(recoveryBlob).not.toMatch(/FAIL durable/i);
+    expect(recoveryBlob).not.toMatch(/Attempt failed/i);
+    expect(recoveryBlob).toMatch(
+      /technique réussie|non encore prouvé|non prouvé|Attempt succeeded/i,
+    );
+
+    const qualification = await resolveW2QualificationInputs({
+      oa,
+      projectId,
+    });
+    expect(qualification.ok).toBe(true);
+    if (!qualification.ok) throw new Error("qual");
+    const proposed = await proposeTrajectoryOptions({
+      oa,
+      projectId,
+      ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
+    });
+    expect(proposed.ok).toBe(true);
+    if (!proposed.ok) throw new Error(proposed.message);
+    expect(proposed.decisionSubjectMode).toBe("project_trajectory");
+
+    const subjectAfterPropose = await readActiveProposalDecisionSubject(
+      oa,
+      projectId,
+    );
+    expect(subjectAfterPropose.ok).toBe(true);
+    if (subjectAfterPropose.ok) {
+      expect(subjectAfterPropose.kind).not.toBe("bound_awaiting_decision");
+    }
+    const continuityAfterPropose = await readCurrentGovernedExecutionContinuity({
+      oa,
+      projectId,
+    });
+    expect(continuityAfterPropose.ok).toBe(true);
+    if (continuityAfterPropose.ok) {
+      expect(continuityAfterPropose.kind).toBe("none");
+    }
+
+    const rehydrated = await materializeProductOutcomeFromAttempt({
+      oa,
+      projectId,
+      attemptId,
+    });
+    expect(rehydrated.ok).toBe(true);
+    if (!rehydrated.ok) throw new Error(rehydrated.message);
+    expect(rehydrated.product.outcome).toBe("UNCLAIMED");
+
+    const cyclesAfter = await oa.cycleServices.cycles.listByProject(projectId);
+    expect(cyclesAfter.filter((c) => c.status === "active")).toHaveLength(1);
+    expect(cyclesAfter.map((c) => c.cycleInstanceId)).toEqual(
+      expect.arrayContaining([cycleInstanceId]),
+    );
   });
 
   async function reachAuthorizedDocsWrite(input: {
@@ -1229,6 +1360,7 @@ describe("CR-PWR-01…04 + DETERMINISTIC E2E Proposal→Evidence", () => {
       authorityResolver: oa.authorityResolver,
       nowIso: () => oa.clock.nowIso(),
       forceM3Authority: true,
+      oa,
     });
     expect(decided.ok).toBe(true);
     if (!decided.ok) throw new Error(decided.message);

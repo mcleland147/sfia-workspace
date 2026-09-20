@@ -39,7 +39,6 @@ import {
   isProposalSubjectPresentedSet,
   loadPresentedOptionSet,
 } from "./presentedOptionSet";
-import { resolvePendingDecisionSubjectMarker } from "./pendingDecisionSubjectMarker";
 import {
   PROPOSAL_SUBJECT_AMEND_REF,
   PROPOSAL_SUBJECT_PURSUE_REF,
@@ -47,8 +46,11 @@ import {
 } from "./proposalSubjectOptions";
 import { resolveW2QualificationInputs } from "./qualificationInputs";
 import type { DecideTrajectoryResult, TrajectoryOptionDto } from "./types";
-import { updateProposalStatus } from "../f2/proposalStore";
 import type { F2ProposalStatus } from "../f2/types";
+import {
+  finalizeProposalSubjectAfterDurableClosure,
+  writeProposalDecisionRef,
+} from "./closeProposalDecisionSubject";
 
 function shortId(): string {
   return randomBytes(6).toString("hex");
@@ -608,35 +610,21 @@ export async function decideTrajectory(
           markerReason = "decided";
         }
 
-        const closure = await oa.cycleServices.updateEpistemicState.execute({
+        const closure = await writeProposalDecisionRef({
+          oa,
           projectId: input.projectId,
-          items: [
-            {
-              epistemicItemId: `epi:w2-decref-prop:${input.optionSetRef.replace(/[^a-zA-Z0-9:_-]/g, "-")}`.slice(
-                0,
-                180,
-              ),
-              type: "DecisionRef",
-              statement: `Décision humaine ${decisionId} — option retenue ${input.selectedOptionRef} — sujet Proposal ${presented.proposalId} (ProjectTrajectory non promue).`,
-              status: "active",
-              source: decisionId,
-              relatedObjects: [
-                input.projectId,
-                decisionId,
-                input.selectedOptionRef,
-                input.optionSetRef,
-                presented.proposalId!,
-                ...epistemicRefs,
-              ],
-            },
-          ],
-          createdBy: LOCAL_PILOTE_ACTOR,
-          correlationId: `w2-decref-prop:${input.optionSetRef}`,
+          decisionId,
+          proposalId: presented.proposalId!,
+          selectedOptionRef: input.selectedOptionRef,
+          optionSetRef: input.optionSetRef,
+          epistemicRefs,
+          markerReason,
+          nextProposalStatus,
         });
         if (!closure.ok) {
           throw new DecideAtomicFailure(
-            closure.error.detailCode,
-            `Closure DecisionRef Proposal échouée (${closure.error.detailCode}) — HumanDecision non autoritaire; rollback UoW.`,
+            closure.code,
+            closure.message,
           );
         }
 
@@ -716,13 +704,12 @@ export async function decideTrajectory(
 
   if (atomic.mode === "proposal") {
     // Process-local ProposalStore is NOT transactional — update only after durable success.
-    updateProposalStatus(atomic.proposalId, atomic.nextProposalStatus);
-    await resolvePendingDecisionSubjectMarker({
+    await finalizeProposalSubjectAfterDurableClosure({
       oa,
       projectId: input.projectId,
       proposalId: atomic.proposalId,
-      reason: atomic.markerReason,
-      correlationId: `cor:pending-decide:${atomic.proposalId}`,
+      markerReason: atomic.markerReason,
+      nextProposalStatus: atomic.nextProposalStatus,
     });
 
     return {

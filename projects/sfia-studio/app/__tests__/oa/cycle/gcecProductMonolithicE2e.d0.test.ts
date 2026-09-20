@@ -636,7 +636,8 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () => 
       decisionServices: oa.decisionServices,
       authorityResolver: oa.authorityResolver,
       nowIso: () => oa.clock.nowIso(),
-      forceM3Authority: true,
+      oa,
+    forceM3Authority: true,
     });
     expect(go.ok).toBe(true);
     if (!go.ok) return;

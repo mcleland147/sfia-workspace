@@ -35,6 +35,51 @@ const TERMINAL_STATUSES = new Set<ExecutionContract["status"]>([
   "superseded",
 ]);
 
+const TERMINAL_ATTEMPT_STATUSES = new Set<string>([
+  "succeeded",
+  "failed",
+  "timeout",
+  "cancelled",
+]);
+
+/**
+ * D-MORRIS-PCONT-01 / CR-PCONT-06 — confirmed/validated EC with a terminal
+ * Attempt is in post-execution / Evidence phase, not pre-execution current.
+ *
+ * UNKNOWN ≠ NO TERMINAL ATTEMPT: missing Attempt services or list failure is
+ * fail-closed (integrity failure), never treated as "no terminal Attempt".
+ */
+async function readTerminalAttemptPresence(
+  oa: RuntimeOaStack,
+  executionContractId: string,
+): Promise<
+  | { ok: true; hasTerminal: boolean }
+  | W2Failure
+> {
+  const attempts = oa.executionAttemptServices;
+  if (!attempts) {
+    return fail(
+      "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
+      "Services Attempt indisponibles — continuité pré-exécution refusée (UNKNOWN ≠ absent).",
+    );
+  }
+  const listed = await attempts.listExecutionAttempts.execute({
+    executionContractId,
+  });
+  if (!listed.ok) {
+    return fail(
+      "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
+      "Lecture des Attempts impossible — continuité pré-exécution refusée (UNKNOWN ≠ absent).",
+    );
+  }
+  return {
+    ok: true,
+    hasTerminal: listed.attempts.some((a) =>
+      TERMINAL_ATTEMPT_STATUSES.has(a.status),
+    ),
+  };
+}
+
 function fail(
   code: string,
   message: string,
@@ -213,6 +258,14 @@ export async function readCurrentGovernedExecutionContinuity(input: {
     if (TERMINAL_STATUSES.has(contract.status)) continue;
     if (!PRE_EXECUTION_STATUSES.has(contract.status)) continue;
     if (!(await isCurrentInSupersessionLineage(oa, contract))) continue;
+    // Post-execution Evidence phase: terminal Attempt ⇒ not pre-execution current.
+    // Attempt reader UNKNOWN ⇒ fail-closed (never kind=active by default).
+    const terminal = await readTerminalAttemptPresence(
+      oa,
+      contract.executionContractId,
+    );
+    if (!terminal.ok) return terminal;
+    if (terminal.hasTerminal) continue;
     preExecution.push(contract);
   }
 

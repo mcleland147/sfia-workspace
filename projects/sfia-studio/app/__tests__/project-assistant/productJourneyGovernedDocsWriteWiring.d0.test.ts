@@ -458,6 +458,7 @@ async function bootDocsWriteJourney(suffix: string, withBoundary: boolean) {
     decisionServices: oa.decisionServices,
     authorityResolver: oa.authorityResolver,
     nowIso: () => oa.clock.nowIso(),
+    oa,
     forceM3Authority: true,
   });
   expect(go.ok).toBe(true);
@@ -961,6 +962,7 @@ describe("B2 — no DecisionBasis / intent widening", () => {
       decisionServices: ctx.oa.decisionServices,
       authorityResolver: ctx.oa.authorityResolver,
       nowIso: () => ctx.oa.clock.nowIso(),
+      oa: ctx.oa,
       forceM3Authority: true,
     });
     expect(go.ok).toBe(true);
@@ -1072,6 +1074,7 @@ describe("B2 — no DecisionBasis / intent widening", () => {
       decisionServices: oa.decisionServices,
       authorityResolver: oa.authorityResolver,
       nowIso: () => oa.clock.nowIso(),
+      oa: runtime.oa!,
       forceM3Authority: true,
     });
     expect(go.ok).toBe(true);

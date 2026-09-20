@@ -38,6 +38,7 @@ import { completeBoundedDocsWriteLaunch } from "@/features/project-assistant/f3/
 import { ingestDocsWriteArtifactEvidence } from "@/features/project-assistant/f3/ingestDocsWriteArtifactEvidence";
 import { deriveAttemptProvenance } from "@/features/project-assistant/f3/deriveAttemptProvenance";
 import { authorizedM3ResolutionKind } from "@/features/project-assistant/f3/selectProductM3ResolutionProfile";
+import { advanceProductExecutionContractAfterEvidence } from "./advanceProductExecutionContractAfterEvidence";
 import { evaluateExecutionAuthorization } from "./authorizeExecutionContract";
 import type {
   GovernedExecuteAuthorizedContractResult,
@@ -787,7 +788,7 @@ export async function governedExecuteRecordResult(
         completed.facts &&
         contract.cycleInstanceId
       ) {
-        await ingestDocsWriteArtifactEvidence({
+        const ingested = await ingestDocsWriteArtifactEvidence({
           evidenceReviewServices: input.oa.evidenceReviewServices,
           projectId: input.projectId,
           cycleInstanceId: contract.cycleInstanceId,
@@ -797,6 +798,34 @@ export async function governedExecuteRecordResult(
           digest: completed.facts.digest,
           nowIso: input.oa.clock.nowIso(),
         });
+        // CR-PCONT-06 — Attempt succeeded stays durable; ingest / advance failure
+        // must surface as post-execution continuity failure (never silent).
+        if (!ingested.ok) {
+          return {
+            ok: false,
+            code: "POST_EXECUTION_CONTINUITY_ADVANCE_FAILED",
+            message: `Attempt succeeded durable — ingest Evidence post-exécution échoué (${ingested.code}): ${ingested.message}`,
+            attempt: projectAttempt(attempt, adapterId),
+          };
+        }
+        // D-MORRIS-PCONT-01 Option A — qualify completion after Evidence update.
+        // available ≠ verified; advance only completes when requirements are satisfied.
+        // CR-PCONT-04 — never pass digest/script; Product is payload-agnostic.
+        const advanced = await advanceProductExecutionContractAfterEvidence({
+          oa: input.oa,
+          projectId: input.projectId,
+          executionContractId: contract.executionContractId,
+          cycleInstanceId: contract.cycleInstanceId,
+          freshlyIngestedEvidenceId: ingested.evidenceId,
+        });
+        if (!advanced.ok) {
+          return {
+            ok: false,
+            code: "POST_EXECUTION_CONTINUITY_ADVANCE_FAILED",
+            message: `Attempt succeeded durable — avancement EC post-Evidence échoué (${advanced.reason}).`,
+            attempt: projectAttempt(attempt, adapterId),
+          };
+        }
       }
     }
     return buildTechnicalTerminal({

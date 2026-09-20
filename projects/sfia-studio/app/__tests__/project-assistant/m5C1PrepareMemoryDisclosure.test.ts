@@ -146,6 +146,15 @@ describe("C1 prepareF3Fixture Memory disclosure surface", () => {
       authorityResolver: authority,
       nowIso: () => NOW,
       forceM3Authority: true,
+      // CR-PCONT-03 — RuntimeOaStack mandatory; Memory UoW for HD+DecisionRef.
+      oa: {
+        projectServices: projects,
+        cycleServices: cycles,
+        decisionServices: decisions,
+        authorityResolver: authority,
+        executionContractServices: contracts,
+        clock: { nowIso: () => NOW },
+      } as unknown as import("@/lib/vertical-slice-runtime").RuntimeOaStack,
     });
     expect(go.ok).toBe(true);
     if (!go.ok) return;

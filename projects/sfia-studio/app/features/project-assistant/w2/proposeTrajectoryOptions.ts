@@ -335,7 +335,12 @@ export async function proposeTrajectoryOptions(
   const cognitionUserContent = proposalSubject
     ? `Instruire Options/Recommendation pour la Proposal ${proposalSubject.proposalId} (sujet: ${proposalSubject.sealedExecutionBasis.objective})`
     : recoveryContext
-      ? `Instruire Options/Recommendation de recovery/replan après FAIL durable (${recoveryContext.attemptId}) — sujet courant = recovery du même cycle, PAS un nouveau cadrage fonctionnel.`
+      ? `Instruire Options/Recommendation de recovery/replan après ${
+          recoveryContext.productOutcome === "UNCLAIMED" &&
+          recoveryContext.attemptStatus === "succeeded"
+            ? "succès technique / résultat produit non prouvé"
+            : `${recoveryContext.productOutcome} durable`
+        } (${recoveryContext.attemptId}, attempt=${recoveryContext.attemptStatus}) — sujet courant = recovery du même cycle, PAS un nouveau cadrage fonctionnel.`
       : `Instruire Options/Recommendation pour le cycle ${input.cycleTypeId}`;
   let cognitiveRecommendation: string;
   try {

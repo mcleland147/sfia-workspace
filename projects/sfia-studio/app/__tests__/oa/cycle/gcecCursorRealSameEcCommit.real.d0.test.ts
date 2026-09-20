@@ -1533,7 +1533,8 @@ describe.skipIf(!ENABLED)(
           decisionServices: oa.decisionServices,
           authorityResolver: oa.authorityResolver,
           nowIso: () => oa.clock.nowIso(),
-          forceM3Authority: true,
+          oa,
+    forceM3Authority: true,
         });
         expect(go.ok).toBe(true);
         if (!go.ok) throw new Error("go");

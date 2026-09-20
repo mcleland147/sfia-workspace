@@ -113,6 +113,7 @@ describe("CR-GCEC-01 — F2 executionIntent → DecisionBasis → PREPARE", () =
       decisionServices: runtime.oa!.decisionServices,
       authorityResolver: runtime.oa!.authorityResolver,
       nowIso: () => runtime.oa!.clock.nowIso(),
+      oa: runtime.oa!,
       forceM3Authority: true,
     });
     expect(go.ok).toBe(true);
@@ -257,6 +258,7 @@ describe("CR-GCEC-01 — F2 executionIntent → DecisionBasis → PREPARE", () =
       decisionServices: runtime.oa!.decisionServices,
       authorityResolver: runtime.oa!.authorityResolver,
       nowIso: () => runtime.oa!.clock.nowIso(),
+      oa: runtime.oa!,
       forceM3Authority: true,
     });
     expect(go.ok).toBe(true);

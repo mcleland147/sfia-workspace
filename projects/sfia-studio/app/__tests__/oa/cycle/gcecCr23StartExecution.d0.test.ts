@@ -468,6 +468,7 @@ async function bootToConfirmedEc(
     decisionServices: oa.decisionServices,
     authorityResolver: oa.authorityResolver,
     nowIso: () => oa.clock.nowIso(),
+    oa,
     forceM3Authority: true,
   });
   expect(go.ok).toBe(true);

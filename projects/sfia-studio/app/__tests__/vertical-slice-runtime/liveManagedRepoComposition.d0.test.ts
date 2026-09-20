@@ -561,6 +561,7 @@ async function bootBareSingletonDocsWriteJourney(input: {
     decisionServices: oa.decisionServices,
     authorityResolver: oa.authorityResolver,
     nowIso: () => oa.clock.nowIso(),
+    oa,
     forceM3Authority: true,
   });
   expect(go.ok).toBe(true);
@@ -1021,7 +1022,8 @@ describe("injected FakeDocsWrite composition regression (NOT exit proof)", () =>
       decisionServices: oa.decisionServices,
       authorityResolver: oa.authorityResolver,
       nowIso: () => oa.clock.nowIso(),
-      forceM3Authority: true,
+      oa,
+    forceM3Authority: true,
     });
     expect(go.ok).toBe(true);
     if (!go.ok) throw new Error("go");

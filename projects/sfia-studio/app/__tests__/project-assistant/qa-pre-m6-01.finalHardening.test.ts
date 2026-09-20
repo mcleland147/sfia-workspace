@@ -138,7 +138,8 @@ async function seedGo(runtime: RuntimeApplicationService) {
     decisionServices: runtime.oa!.decisionServices,
     authorityResolver: runtime.oa!.authorityResolver,
     nowIso: () => runtime.oa!.clock.nowIso(),
-    forceM3Authority: true,
+    oa: runtime.oa!,
+      forceM3Authority: true,
   });
   expect(go.ok).toBe(true);
   if (!go.ok) throw new Error("go");
@@ -631,7 +632,8 @@ describe("QA-PRE-M6-01 final hardening — shared pipeline + M3 boundary", () =>
         decisionServices: runtime.oa!.decisionServices,
         authorityResolver: runtime.oa!.authorityResolver,
         nowIso: () => runtime.oa!.clock.nowIso(),
-        forceM3Authority: true,
+        oa: runtime.oa!,
+      forceM3Authority: true,
       });
       expect(go2.ok).toBe(true);
       if (!go2.ok) return;
