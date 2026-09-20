@@ -533,3 +533,19 @@ Update the test only (no Product behavior change):
 Local re-run: postExecutionProductContinuity + integrity + checkpointF → **42 passed**.
 
 Product code unchanged in this fix commit.
+
+---
+
+## 24. CI RESULT — PR #509 (append)
+
+**Timestamp (UTC):** 2026-09-20T15:55:28Z
+
+Head SHA: `1e08df388acc27f6e5eaa43dab0c314601dbd422`
+
+| Check | Result |
+|---|---|
+| Detect SFIA Studio changes | PASS |
+| Build and validate SFIA Studio | PASS |
+| SFIA Studio Required Gate | PASS |
+
+Merge / auto-merge: **NOT performed** — awaiting Morris merge decision.
