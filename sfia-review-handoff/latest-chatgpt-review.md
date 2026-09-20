@@ -510,3 +510,26 @@ Reserves carried:
 2. PR CI PENDING at handoff time.
 3. R-SECONDARY-AMBIGUITY / R-POST-EVIDENCE-TECH / R-OPTIONAL-DTO unchanged.
 4. REAL Evidence payload adapter reserve unchanged/open.
+
+
+---
+
+## 23. CI MERGE-GATE FIX — postExecutionProductContinuity (append)
+
+**Timestamp (UTC):** 2026-09-20T15:48:09Z
+
+### Failure
+PR #509 CI run `35520294202` failed Required Gate because Vitest asserted recovery primary rationale still matched raw `/UNCLAIMED/`:
+
+- file: `projects/sfia-studio/app/__tests__/project-assistant/postExecutionProductContinuity.d0.test.ts`
+- assertion conflicted with CR-PJ-02 Pilote-first recovery rationale (`non encore pleinement confirmé`).
+
+### Fix
+Update the test only (no Product behavior change):
+- expect Pilote soft wording `/non encore pleinement confirmé/i`
+- assert absence of raw `UNCLAIMED` / `ProductOutcome` in primary rationale
+- keep anti-claim that UNCLAIMED+succeeded is not presented as technical FAIL
+
+Local re-run: postExecutionProductContinuity + integrity + checkpointF → **42 passed**.
+
+Product code unchanged in this fix commit.
