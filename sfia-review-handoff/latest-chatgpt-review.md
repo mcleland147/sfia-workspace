@@ -1,83 +1,137 @@
-# ChatGPT Review Pack — FULL (D-PC-09 FINAL MACRO CLOSEOUT / CAPITALISATION)
+# ChatGPT Review Pack — FULL (D-PC-09 FINAL ROADMAP CLOSEOUT PROJECT GIT INTEGRATION)
 
-- **Timestamp UTC:** 2026-09-20T11:37:39Z
-- **Timestamp Europe/Paris:** 2026-09-20T13:37:39+0200
+- **Timestamp UTC:** 2026-09-20T11:48:26Z
+- **Timestamp Europe/Paris:** 2026-09-20T13:48:26+0200
 - **Macro:** PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01
 - **Mode:** SAME MACRO / NO MICRO-CYCLE
-- **Cycle:** 15 — Capitalisation / REX
-- **Typologie:** CAPA
+- **Business cycle:** 15 — Capitalisation / REX
+- **Repository lifecycle lens:** 13 — PR Readiness / Git Integration
+- **Typologie:** CAPA / DOC integration
 - **Profil:** Capitalization
 - **Depth:** Critical
-- **Morris GO consumed:** Final macro closeout / capitalization after PR #506 Product integration · bounded REAL Product-source reproof · post-merge verification · PR #507 documentary truth-sync integration · PR #507 post-merge Required Gate PASS
-- **Prior handoff (superseded for final repository lifecycle):** `23248fc9d7f8bd0a3c68da33e7f671be0ef4d02e` / blob `fe2feab1e8b558edcc1836bb68b1f407794e6f3d`
+- **Morris GO consumed:** PROJECT GIT INTEGRATION OF THE FINAL ROADMAP CLOSEOUT — commit + push + PR of the single Roadmap file (merge remains distinct)
+- **Input Final Capitalization handoff:** `45ca27d5a6e9cf0a5795f8fd418d99575262f3cd` / blob `aaf72630d1c4156fff0167529ae6fc17fb899bd3`
 
-## 1. Local Git Truth
+## 1. Local Git Truth (pre-commit)
 
 | Field | Value |
 |---|---|
-| Documentary worktree | `/tmp/sfia-dpc09-final-closeout` |
-| Local branch | `docs/dpc09-final-macro-closeout-local` (**NOT pushed**) |
+| Worktree | `/tmp/sfia-dpc09-final-closeout` |
+| Branch | `docs/dpc09-final-macro-closeout-local` |
+| HEAD (pre-commit) | `469760a7ae1b10b5a5f149ec954ab957de4d3016` |
 | origin/main | `469760a7ae1b10b5a5f149ec954ab957de4d3016` |
 | origin/main tree | `0a08159312f6d175f3c10aaf4594f37316f42d9c` |
-| Parents | `8448c3f5…` + `746c65fb…` |
-| Working tree before edit | clean |
-| Project commit / push / PR / merge this cycle | **0 / 0 / 0 / 0** |
+| Project files differing | **1** (Roadmap) |
+| `.tmp` residue staged | **0** |
+| Tip identity vs handoff `45ca27d5…` | **MATCH** |
+| `git diff --check` | **PASS** |
 
-## 2. Authoritative final facts
+## 2. Reviewed candidate identity
 
-### Product integration (PR #506)
+Active D-PC-09 Roadmap tip contains approved final state:
 
-| Item | Value |
+- FINAL MACRO CLOSEOUT / CAPITALISATION
+- D-PC-09 · Post-execution Product Continuity & Recovery
+- CR-PWR-01…04 / CR-PCONT-01…06 CLOSED
+- Product-source bounded REAL PASS AT TESTED SCOPE
+- PR #506 MERGED · Product POST-MERGE VERIFIED
+- PR #507 MERGED · documentary truth-sync POST-MERGE VERIFIED
+- COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE WITH EXPLICIT NON-BLOCKING REALISM RESERVE
+- REAL EVIDENCE PAYLOAD VERIFICATION ADAPTER ABSENT = OPEN / NON-BLOCKING FOR THIS MACRO
+- NORA COGNITIVE COMPLETION PRESERVED · next capability NOT STARTED
+- runtime v3 NON ADOPTED · global L5 NOT ADOPTED
+- CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / origin/main / PR evidence
+
+No recursive “pending Git integration” clause. Content **not modified** this cycle.
+
+Active-row stale scan: NOT CONSUMED / PENDING / READY FOR / implementation candidate / REAL NOT PROVEN = **clear** (CURRENT STALE = 0).
+
+## 3. Staging
+
+| Check | Result |
 |---|---|
-| State | **MERGED** |
-| Product merge | `8448c3f514fdaad631e1b5865859f9b8a3663fc7` |
-| Product tree | `7daf6d6c97ff20a1e48ef2969840c5afb6138496` |
-| Product-source REAL | `f57fc6cd…` · **BOUNDED REAL REPROOF PASS AT TESTED SCOPE** |
-| Test-only corrective | `8488e827…` · Product source unchanged |
-| Post-merge CI | `35498525775` attempt 1 FAIL (3× timeouts) → **CI_LOAD_TIMING_FLAKE** (handoff `004341f3…`) → attempt 2 **SUCCESS** · Required Gate **PASS** |
-| Product capability | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** |
+| Exact path staged | `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` |
+| Cached file count | **1** |
+| `.tmp` / handoff / Product staged | **0** |
+| `git diff --cached --check` | **PASS** |
+| Cached stat | 1 file changed, 1 insertion(+), 1 deletion(-) |
 
-### Documentary truth-sync (PR #507)
+## 4. Project commit
 
-| Item | Value |
+| Field | Value |
 |---|---|
-| Project commit / head | `746c65fb5709aa640b7d2017faa136fb3d8edd3e` |
-| State | **MERGED** |
-| Documentary merge | `469760a7ae1b10b5a5f149ec954ab957de4d3016` |
-| Documentary tree | `0a08159312f6d175f3c10aaf4594f37316f42d9c` |
-| Post-merge CI | `35507610874` **SUCCESS** |
-| Required Gate | **SUCCESS** |
-| Documentary truth-sync | **INTEGRATED ON MAIN / POST-MERGE VERIFIED** |
+| NEW_SHA | `1c1000f54a22f08f7dd53d548476213e910ccde8` |
+| PARENT | `469760a7ae1b10b5a5f149ec954ab957de4d3016` |
+| TREE | `ef38c3db1238d036de84df54e2e5b3cafbdde29f` |
+| Message | `docs(sfia-studio): close dpc09 macro in roadmap` |
+| Changed files | Roadmap only |
+| `git diff-tree --check HEAD^ HEAD` | **PASS** |
+| Amend / squash / rewrite | **0** |
 
-## 3. Closure qualification / Morris closeout decision recorded
+## 5. Push
+
+| Field | Value |
+|---|---|
+| Branch | `docs/dpc09-final-macro-closeout-local` |
+| Remote before | *(absent — first push)* |
+| Remote after | `1c1000f54a22f08f7dd53d548476213e910ccde8` |
+| Force | **NO** |
+
+## 6. Pull Request
+
+| Field | Value |
+|---|---|
+| Number | **#508** |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/508 |
+| State | **OPEN** (draft) |
+| Title | `docs(sfia-studio): close D-PC-09 macro in roadmap` |
+| Head | `docs/dpc09-final-macro-closeout-local` @ `1c1000f54a22f08f7dd53d548476213e910ccde8` |
+| Base | `main` @ `469760a7ae1b10b5a5f149ec954ab957de4d3016` |
+| Changed files | **1** · Roadmap only |
+| Auto-merge | **OFF** |
+| Merge this cycle | **0 / NOT AUTHORIZED** |
+
+## 7. CI observation (initial only — no remediation)
 
 ```
-PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01
-= COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE
-  WITH EXPLICIT NON-BLOCKING REALISM RESERVE
+run: 35508817551
+head: 1c1000f54a22f08f7dd53d548476213e910ccde8
+status: in_progress
+url: https://github.com/mcleland147/sfia-workspace/actions/runs/35508817551
+jobs:
+  - Detect SFIA Studio changes = SUCCESS
+  - Build and validate SFIA Studio = IN_PROGRESS
+  - SFIA Studio Required Gate = not yet available
 ```
 
-Covers: D-PC-09 · Post-execution Product Continuity & Recovery · CR-PWR-01…04 · CR-PCONT-01…06 · deterministic Product evidence · bounded REAL Product-source evidence at tested scope · Product Git integration · documentary truth-sync · post-merge Required Gates.
+**CI state for verdict:** **PENDING**
 
-## 4. Roadmap — before stale clause → after final state
+## 8. Mutation ledger
 
-### Before (stale final clause)
+| Surface | Count |
+|---|---|
+| Roadmap project file | **1** |
+| Other project files | **0** |
+| Product / tests / workflow / doctrine / v3 / method | **0** |
+| New REAL / OpenAI LIVE | **0** |
+| Project commits | **1** |
+| Project pushes | **1** |
+| Project PRs | **1** (#508) |
+| Project merges | **0** |
+| Handoff L3 | **1** (this pack) |
 
-Documentary project Git integration of this truth-sync = **DISTINCT Morris gate / NOT CONSUMED**
+## 9. Reserve / trajectory / anti-claims
 
-Full previous tip:
+| Item | Status |
+|---|---|
+| REAL EVIDENCE PAYLOAD VERIFICATION ADAPTER ABSENT | **OPEN / NON-BLOCKING FOR THIS MACRO** |
+| NORA COGNITIVE COMPLETION | **PRESERVED** |
+| Next capability | **NOT STARTED** |
+| runtime v3 | **NON ADOPTED** |
+| global L5 | **NOT ADOPTED** |
+| Proof upgrade this cycle | **NONE** (historical Product-source REAL PRESERVED) |
 
-```
-| **Timestamp maintenance PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01** | 2026-09-20 — **POST-MERGE CLOSEOUT / TRUTH-SYNC** · Cycle **14** · Capitalisation / REX · DOC · CRITICAL · Macro **PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01** · **SAME MACRO / NO MICRO-CYCLE** · Morris D-PC-09 **CONSUMED** · capacité **Project Repository Workspace & Cycle-aware Artifact Routing** · associated same-macro correction **Post-execution Product Continuity & Recovery** · **CR-PWR-01…04 CLOSED** · **CR-PCONT-01…06 CLOSED** · deterministic E2E **PASS** · Product-source bounded REAL reproof **PASS AT TESTED SCOPE** (REAL Product source `f57fc6cd56900cd19df961dbe8b788a0b89937ca`) · test-only corrective commit `8488e82724ea70e91ba206aefe039e69749774d6` (**Product source unchanged**) · PR **#506 MERGED** · merge `8448c3f514fdaad631e1b5865859f9b8a3663fc7` · tree `7daf6d6c97ff20a1e48ef2969840c5afb6138496` · **HEAD→MERGE tree parity PROVEN** · pre-merge CI `35498091602` **SUCCESS** · post-merge attempt 1 FAIL = three 5000 ms Vitest timeouts · diagnostic **CI_LOAD_TIMING_FLAKE** (handoff `004341f3327e3ed41511289d2af0d6f32f33ed6f`) · bounded rerun attempt 2 **SUCCESS** · post-merge **SFIA Studio Required Gate PASS** · repository lifecycle = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · reserve **REAL EVIDENCE PAYLOAD VERIFICATION ADAPTER ABSENT** · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION PRESERVED** · **next capability NOT STARTED** · **≠** merge SHA REAL-proven · **≠** Product Completion COMPLETE/CLOSED by this truth-sync · **≠** REAL Evidence verified · **≠** browser-real Product Journey · documentary project Git integration of this truth-sync = **DISTINCT Morris gate / NOT CONSUMED** |
-```
-
-### After (final closeout tip)
-
-```
-| **Timestamp maintenance PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01** | 2026-09-20 — **FINAL MACRO CLOSEOUT / CAPITALISATION** · Cycle **15** · Capitalisation / REX · CAPA · CRITICAL · Macro **PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01** · **SAME MACRO / NO MICRO-CYCLE** · Morris final closeout GO **CONSUMED** · capacité **D-PC-09 Project Repository Workspace & Cycle-aware Artifact Routing** · associated same-macro correction **Post-execution Product Continuity & Recovery** · **CR-PWR-01…04 CLOSED** · **CR-PCONT-01…06 CLOSED** · deterministic E2E **PASS** · Product-source bounded REAL reproof **PASS AT TESTED SCOPE** (REAL Product source `f57fc6cd56900cd19df961dbe8b788a0b89937ca`) · test-only corrective commit `8488e82724ea70e91ba206aefe039e69749774d6` (**Product source unchanged**) · PR **#506 MERGED** · Product merge `8448c3f514fdaad631e1b5865859f9b8a3663fc7` · Product tree `7daf6d6c97ff20a1e48ef2969840c5afb6138496` · **HEAD→MERGE tree parity PROVEN** · Product post-merge CI `35498525775` attempt 1 FAIL = three 5000 ms Vitest timeouts · diagnostic **CI_LOAD_TIMING_FLAKE** (handoff `004341f3327e3ed41511289d2af0d6f32f33ed6f`) · bounded rerun attempt 2 **SUCCESS** · Product post-merge **SFIA Studio Required Gate PASS** · Product capability = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · documentary truth-sync project commit `746c65fb5709aa640b7d2017faa136fb3d8edd3e` · PR **#507 MERGED** · documentary merge `469760a7ae1b10b5a5f149ec954ab957de4d3016` · documentary merge tree `0a08159312f6d175f3c10aaf4594f37316f42d9c` · documentary post-merge CI `35507610874` **SUCCESS** · documentary post-merge **SFIA Studio Required Gate PASS** · documentary truth-sync = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · macro = **COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE WITH EXPLICIT NON-BLOCKING REALISM RESERVE** · reserve **REAL EVIDENCE PAYLOAD VERIFICATION ADAPTER ABSENT** = **OPEN / NON-BLOCKING FOR THIS MACRO** (future trajectory = **REQUALIFY WHEN A CAPABILITY REQUIRES REAL EVIDENCE PAYLOAD VERIFICATION** · **≠** CLOSED) · capitalisation facts (compact · **≠** doctrine promotion): server-owned Project/Cycle/Artifact routing removed Pilot `targetPath` plumbing · post-execution continuity must reconcile EC/Attempt/Evidence before trajectory recovery · same-tree post-merge timing failures diagnosed as CI load timing flake and cleared by one bounded rerun · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION PRESERVED** · **next capability NOT STARTED** · **≠** Product merge SHA REAL-proven · **≠** Product Completion newly COMPLETE/CLOSED by this macro · **≠** REAL Evidence payload verified · **≠** REAL EC completion driven by verified Evidence payload · **≠** full recovery-options REAL orchestration · **≠** browser-real Product Journey · **≠** generalized Cursor autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
-```
-
-## 5. Exact one-file diff
+## 10. Full useful Roadmap diff
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -96,101 +150,33 @@ index 30802104..df2ad6f3 100644
 
 ```
 
-## 6. Stale-state scan (active D-PC-09 row)
+## 11. Next gate
 
-| Phrase | Result |
-|---|---|
-| NOT CONSUMED | **clear** |
-| PENDING | **clear** |
-| READY FOR | **clear** |
-| REAL NOT PROVEN | **clear** |
-| implementation candidate | **clear** |
-| CURRENT STALE — BLOCK | **0** |
+**CHATGPT PR READINESS REVIEW** then distinct **Morris merge decision**.
 
-Historical occurrences elsewhere in Roadmap intentionally retained.
-
-## 7. Reserve
-
-| Item | Status |
-|---|---|
-| REAL EVIDENCE PAYLOAD VERIFICATION ADAPTER ABSENT | **OPEN / NON-BLOCKING FOR THIS MACRO** |
-| Future trajectory | **REQUALIFY WHEN A CAPABILITY REQUIRES REAL EVIDENCE PAYLOAD VERIFICATION** |
-| Closed by this closeout? | **NO** |
-
-## 8. Trajectory / anti-claims
-
-| Item | Status |
-|---|---|
-| ACTIVE CONSTRUCTION PRIORITY | **NORA COGNITIVE COMPLETION PRESERVED** |
-| Next capability | **NOT STARTED** |
-| runtime v3 | **NON ADOPTED** |
-| global L5 | **NOT ADOPTED** |
-| Product Completion newly COMPLETE/CLOSED | **NO** |
-| REAL Evidence payload verified | **NO** |
-| Full recovery-options REAL | **NO** |
-| Browser-real Product Journey | **NO** |
-| Generalized Cursor autonomy | **NO** |
-| Product merge SHA called REAL-proven | **NO** |
-
-Capitalisation facts recorded compactly in Roadmap tip only (**≠** Build Doctrine / method promotion).
-
-## 9. Mutation ledger
-
-| Surface | Count |
-|---|---|
-| Roadmap | **1** (authorized) |
-| C1 / C2 / DOC14 | **0** |
-| Product source | **0** |
-| Tests / workflows | **0** |
-| Build Doctrine / v3 / method | **0** |
-| New capitalisation document | **0** |
-| New REAL / OpenAI LIVE | **0** |
-| Project commit / push / PR / merge | **0 / 0 / 0 / 0** |
-
-## 10. Fake / REAL qualification
-
-| Claim | Status |
-|---|---|
-| New REAL this cycle | **0** |
-| Historical bounded REAL | **PRESERVED** |
-| Product source | **BOUNDED REAL PROVEN AT TESTED SCOPE** |
-| Repository integration | **POST-MERGE VERIFIED** (Product + documentary) |
-| REAL Evidence payload verification | **NOT PROVEN** |
-| Full browser-real Product Journey | **NOT PROVEN** |
-| Full recovery-options REAL orchestration | **NOT PROVEN** |
-| runtime v3 adoption | **NOT PROVEN / NON ADOPTED** |
-
-## 11. Recommendation / next gate
-
-**READY FOR CHATGPT FINAL CAPITALIZATION REVIEW**
-
-Next repository lifecycle gate only after ChatGPT PASS:
-
-**DISTINCT MORRIS GO — PROJECT GIT INTEGRATION OF THE FINAL ROADMAP CLOSEOUT**
-
-(not consumed in this cycle)
+MERGE **NOT AUTHORIZED** in this cycle.
 
 ## 12. Verdict
 
 ```
 PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01
-— FINAL MACRO CLOSEOUT / CAPITALISATION CANDIDATE PREPARED
+— FINAL ROADMAP CLOSEOUT PROJECT GIT INTEGRATION EXECUTED
+— EXACT ONE ROADMAP FILE COMMITTED
+— PROJECT BRANCH PUSHED
+— PR CREATED
+— FINAL CAPITALIZATION CONTENT INTACT
 — D-PC-09 COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE
-— PRODUCT SOURCE BOUNDED REAL PROVEN AT TESTED SCOPE
-— PRODUCT INTEGRATION POST-MERGE VERIFIED
-— DOCUMENTARY TRUTH-SYNC POST-MERGE VERIFIED
-— CR-PWR-01…04 CLOSED
-— CR-PCONT-01…06 CLOSED
-— REAL EVIDENCE PAYLOAD VERIFICATION ADAPTER ABSENT — OPEN NON-BLOCKING RESERVE
+— REAL EVIDENCE PAYLOAD VERIFICATION ADAPTER ABSENT
+  — OPEN NON-BLOCKING RESERVE
 — NORA COGNITIVE COMPLETION PRIORITY PRESERVED
 — NEXT CAPABILITY NOT STARTED
 — RUNTIME V3 NON ADOPTED
 — GLOBAL L5 NOT ADOPTED
 — SAME MACRO / NO MICRO-CYCLE
 — ZERO NEW REAL
-— EXACT ONE ROADMAP FILE MODIFIED
-— PROJECT GIT INTEGRATION NOT AUTHORIZED
-— READY FOR CHATGPT FINAL CAPITALIZATION REVIEW
+— MERGE NOT AUTHORIZED
+— CI PENDING
+— READY FOR CHATGPT PR READINESS REVIEW WHEN EVIDENCE AVAILABLE
 ```
 
 Fin.
