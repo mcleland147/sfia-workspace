@@ -846,6 +846,98 @@ export function resolveAttemptExecutionProfile(
     };
   }
 
+  // Sealed standalone GCEC specialized contracts (phase-scoped / non-progressive
+  // parent). Criteria-only seal for Select; Start re-resolves prior lineage.
+  // Must NOT fall through to Product generalist matching.
+  const caps = contract.requiredCapabilities ?? [];
+  if (
+    contract.action === M4_BOUNDED_PR_CREATE_ACTION &&
+    caps.includes(M4_BOUNDED_PR_CREATE_CAPABILITY)
+  ) {
+    return {
+      ok: true,
+      profile: {
+        kind: "pr_create",
+        effectClass: "github.pr.create",
+        reason: "standalone_pr_create_sealed",
+        criteria: {
+          requiredCapabilities: [M4_BOUNDED_PR_CREATE_CAPABILITY],
+          action: M4_BOUNDED_PR_CREATE_ACTION,
+          target: M4_BOUNDED_PR_CREATE_TARGET,
+          scope: M4_BOUNDED_PR_CREATE_SCOPE,
+        },
+      },
+    };
+  }
+  if (
+    contract.action === M4_BOUNDED_REMOTE_PUSH_ACTION &&
+    caps.includes(M4_BOUNDED_REMOTE_PUSH_CAPABILITY)
+  ) {
+    return {
+      ok: true,
+      profile: {
+        kind: "remote_push",
+        effectClass: "git.push",
+        reason: "standalone_remote_push_sealed",
+        criteria: {
+          requiredCapabilities: [M4_BOUNDED_REMOTE_PUSH_CAPABILITY],
+          action: M4_BOUNDED_REMOTE_PUSH_ACTION,
+          target: M4_BOUNDED_REMOTE_PUSH_TARGET,
+          scope: M4_BOUNDED_REMOTE_PUSH_SCOPE,
+        },
+      },
+    };
+  }
+  if (
+    contract.action === M4_BOUNDED_LOCAL_COMMIT_ACTION &&
+    caps.includes(M4_BOUNDED_LOCAL_COMMIT_CAPABILITY)
+  ) {
+    return {
+      ok: true,
+      profile: {
+        kind: "local_commit",
+        effectClass: "git.commit",
+        reason: "standalone_local_commit_sealed",
+        criteria: {
+          requiredCapabilities: [M4_BOUNDED_LOCAL_COMMIT_CAPABILITY],
+          action: M4_BOUNDED_LOCAL_COMMIT_ACTION,
+          target: M4_BOUNDED_LOCAL_COMMIT_TARGET,
+          scope: M4_BOUNDED_LOCAL_COMMIT_SCOPE,
+        },
+      },
+    };
+  }
+  if (
+    contract.action === M4_BOUNDED_PR_MERGE_ACTION &&
+    caps.includes(M4_BOUNDED_PR_MERGE_CAPABILITY)
+  ) {
+    return {
+      ok: true,
+      profile: {
+        kind: "pr_merge",
+        effectClass: "github.pr.merge",
+        reason: "standalone_pr_merge_sealed",
+        criteria: {
+          requiredCapabilities: [M4_BOUNDED_PR_MERGE_CAPABILITY],
+          action: M4_BOUNDED_PR_MERGE_ACTION,
+          target: M4_BOUNDED_PR_MERGE_TARGET,
+          scope: M4_BOUNDED_PR_MERGE_SCOPE,
+        },
+      },
+    };
+  }
+  if (
+    contract.action === M4_BOUNDED_DOCS_WRITE_ACTION &&
+    caps.includes(M4_BOUNDED_DOCS_WRITE_CAPABILITY)
+  ) {
+    // Docs-write without progressive evidenceRequirements classification —
+    // still sealed specialized (not generalist).
+    return {
+      ok: true,
+      profile: docsWriteProfile("standalone_docs_write_sealed"),
+    };
+  }
+
   // Non-M4 / W3A / other → contract_legacy binds the ONE Product
   // generalist technical quartet (normal matching). Functional mission stays
   // on ExecutionContract / cursorMissionPrompt — never agent types.

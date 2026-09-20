@@ -10,22 +10,22 @@ import {
   MemoryExecutionAttemptAuditJournal,
   NoOpExecutionAdapter,
   resolveAttemptPolicy,
+  STUDIO_CURSOR_GENERALIST_ACTION,
+  STUDIO_CURSOR_GENERALIST_CAPABILITY,
+  STUDIO_CURSOR_GENERALIST_SCOPE,
+  STUDIO_CURSOR_GENERALIST_TARGET,
   TestExecutionAdapter,
 } from "@/lib/oa/execution-attempt";
 import {
   agentDescriptor,
-  CONTRACT_ACTION,
-  CONTRACT_CAPABILITY,
-  CONTRACT_SCOPE,
-  CONTRACT_TARGET,
   defaultAgents,
 } from "./helpers";
 
 const criteria = {
-  requiredCapabilities: [CONTRACT_CAPABILITY],
-  action: CONTRACT_ACTION,
-  target: CONTRACT_TARGET,
-  scope: CONTRACT_SCOPE,
+  requiredCapabilities: [STUDIO_CURSOR_GENERALIST_CAPABILITY],
+  action: STUDIO_CURSOR_GENERALIST_ACTION,
+  target: STUDIO_CURSOR_GENERALIST_TARGET,
+  scope: STUDIO_CURSOR_GENERALIST_SCOPE,
 };
 
 describe("T-A5 MemoryAgentRegistry", () => {
@@ -73,7 +73,7 @@ describe("T-A5 MemoryAgentRegistry", () => {
     }
     expect(registry.getAgent("agt:alpha")?.enabled).toBe(true);
     expect(registry.getAgent("agt:alpha")?.allowedScopes).toEqual([
-      CONTRACT_SCOPE,
+      STUDIO_CURSOR_GENERALIST_SCOPE,
     ]);
     expect(
       Object.keys(registry).some((key) => /add|register|set|remove/i.test(key)),

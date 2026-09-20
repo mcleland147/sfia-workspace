@@ -13,6 +13,7 @@ import {
   M4_BOUNDED_PR_CREATE_CURSOR_AGENT_ID,
   M4_BOUNDED_PR_MERGE_CURSOR_AGENT_ID,
   M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID,
+  M4_BOUNDED_RO_CURSOR_AGENT_ID,
   M4_REAL_GATEWAY_ADAPTER_ID,
   SFIA_STUDIO_CURSOR_REAL_FLAG,
 } from "../domain/realLaunchSafety";
@@ -39,6 +40,7 @@ import { M4_BOUNDED_LOCAL_COMMIT_ACTION } from "./m4BoundedLocalCommitCursorAgen
 import { M4_BOUNDED_REMOTE_PUSH_ACTION } from "./m4BoundedRemotePushCursorAgent";
 import { M4_BOUNDED_PR_CREATE_ACTION } from "./m4BoundedPrCreateCursorAgent";
 import { M4_BOUNDED_PR_MERGE_ACTION } from "./m4BoundedPrMergeCursorAgent";
+import { M4_BOUNDED_RO_ACTION } from "./m4BoundedReadOnlyCursorAgent";
 import { isBoundedGitCommitOnlySlice } from "../domain/verifyLocalCommitFacts";
 import { buildGitCommitLaunchSpec } from "../domain/gitCommitLaunchSpec";
 import {
@@ -874,6 +876,29 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
         `fingerprint=${request.semanticFingerprint}`,
       ].join("\n");
     } else if (
+      request.action === M4_BOUNDED_RO_ACTION ||
+      request.selectedAgentRef === M4_BOUNDED_RO_CURSOR_AGENT_ID
+    ) {
+      // Historical sealed M4 RO GCEC — deterministic README probe (not Product).
+      instruction = [
+        "TÂCHE UNIQUE — preuve read-only déterministe.",
+        "Lire uniquement le fichier README.md à la racine du workspace.",
+        "Ne modifier aucun fichier.",
+        "Ne créer aucun fichier.",
+        "Ne lancer aucune commande Shell.",
+        "Ne faire aucune recherche récursive, Glob ou Grep.",
+        "Ne consulter aucun autre fichier.",
+        "Si README.md peut être lu, répondre exactement :",
+        "M4_READ_ONLY_OK",
+        "Si README.md ne peut pas être lu, répondre exactement :",
+        "M4_READ_ONLY_UNAVAILABLE",
+        `target=${request.target ?? ""}`,
+        `action=${request.action ?? ""}`,
+        `scope=${request.scope ?? ""}`,
+        `fingerprint=${request.semanticFingerprint}`,
+        "Aucune mutation, aucun git remote/commit/push/PR/merge.",
+      ].join("\n");
+    } else if (
       typeof request.cursorMissionPrompt === "string" &&
       request.cursorMissionPrompt.trim().length > 0
     ) {
@@ -892,7 +917,7 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
       ].join("\n");
     } else {
       // Fail-closed: StartExecution must project EC → cursorMissionPrompt.
-      // Historical M4 RO README probe removed from canonical Product path.
+      // Historical M4 RO is handled above; Product generalist requires prompt.
       instruction = [
         "STOP — aucune mission Cursor fournie (cursorMissionPrompt manquant).",
         "Studio doit projeter ExecutionContract → prompt avant launch.",
