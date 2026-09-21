@@ -156,9 +156,6 @@ function toInspectionDisclosureView(
   };
 }
 
-/** Explicit Pilot-qualified operation — never inferred from W2 trajectory alone. */
-type QualifiedOperationKind = "generate-temporary-artifact" | "simulate" | "read";
-
 type InspectionDisclosureView = {
   readonly action: string;
   readonly technicalTarget: string;
@@ -354,8 +351,6 @@ export function TrajectorySurface({
   const [postEvidence, setPostEvidence] =
     useState<W3cPostEvidenceLoopDto | null>(null);
   const [productEvidencePending, setProductEvidencePending] = useState(false);
-  const [qualifiedOperationKind, setQualifiedOperationKind] =
-    useState<QualifiedOperationKind | null>(null);
   const [recoveryBinding, setRecoveryBinding] =
     useState<RecoveryExecutionBinding | null>(null);
 
@@ -924,13 +919,14 @@ export function TrajectorySurface({
 
   const prepareContract = useCallback(async () => {
     if (continuityMutationBlocked) return;
-    if (!decision || !qualifiedOperationKind) return;
+    if (!decision) return;
     setBusy("contract");
     setError(null);
+    // PJ-REPROOF-04 — Studio derives ActualExecutionWork from durable context.
+    // Pilote never sends qualifiedOperationKind / technical HOW.
     const result = await w2PrepareExecutionContractAction({
       projectId,
       decisionId: decision.decisionId,
-      qualifiedOperationKind,
     });
     setBusy(null);
     if (!result.ok) {
@@ -973,7 +969,6 @@ export function TrajectorySurface({
     continuityMutationBlocked,
     decision,
     projectId,
-    qualifiedOperationKind,
     onDurableFactsChanged,
   ]);
 
@@ -2233,62 +2228,19 @@ export function TrajectorySurface({
           !recoveryDocsWritePrepareReady ? (
           <div
             className={styles.actions}
-            data-testid="w3a-qualify-execution-work"
+            data-testid="w3a-prepare-execution-from-decision"
           >
             <p className={styles.blockNote}>
-              Qualifier le travail d&apos;exécution réel (indépendant de
-              l&apos;option de trajectoire déjà décidée).
+              Studio prépare le contrat d&apos;exécution à partir de la
+              décision et du contexte produit durable — sans choix technique
+              (lecture, simulation, artefact…).
             </p>
-            <label className={styles.amendmentLabel} htmlFor="w3a-operation-kind">
-              Opération d&apos;exécution
-            </label>
-            <select
-              id="w3a-operation-kind"
-              className={styles.amendmentInput}
-              data-testid="w3a-operation-kind"
-              value={qualifiedOperationKind ?? ""}
-              disabled={busy !== null || continuityMutationBlocked}
-              onChange={(event) => {
-                if (continuityMutationBlocked) return;
-                const value = event.target.value;
-                if (
-                  value === "generate-temporary-artifact" ||
-                  value === "simulate" ||
-                  value === "read"
-                ) {
-                  setQualifiedOperationKind(value);
-                  setContract(null);
-                  setInspection(null);
-                  setAuthorization(null);
-                  setAttempt(null);
-                  setAttemptPhase(null);
-                } else {
-                  setQualifiedOperationKind(null);
-                }
-              }}
-            >
-              <option value="">— Choisir —</option>
-              <option value="generate-temporary-artifact">
-                Générer un artefact temporaire local (réversible)
-              </option>
-              <option value="simulate">Simuler (sandbox)</option>
-              <option value="read">Lecture seule</option>
-            </select>
             <button
               type="button"
               className={styles.primaryAction}
               data-testid="w2-prepare-contract-sandbox"
               onClick={() => void prepareContract()}
-              disabled={
-                busy !== null ||
-                continuityMutationBlocked ||
-                qualifiedOperationKind === null
-              }
-              title={
-                qualifiedOperationKind === null
-                  ? "Qualifier d'abord le travail d'exécution"
-                  : undefined
-              }
+              disabled={busy !== null || continuityMutationBlocked}
             >
               Préparer le contrat d&apos;exécution
             </button>

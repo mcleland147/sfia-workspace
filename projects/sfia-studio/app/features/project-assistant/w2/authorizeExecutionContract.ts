@@ -29,7 +29,10 @@ import type {
   AuthorityVerificationBlockedReason,
   ExecutionContract,
 } from "@/lib/oa/execution-contract";
-import { agentMatchViolation } from "@/lib/oa/execution-attempt";
+import {
+  agentMatchViolation,
+  resolveAttemptExecutionProfile,
+} from "@/lib/oa/execution-attempt";
 import type { AgentRegistryPort } from "@/lib/oa/execution-attempt";
 import { readContractInspectionState } from "./inspectExecutionContract";
 import type {
@@ -108,22 +111,40 @@ export function resolveConfirmationRequirement(
 
 /**
  * AgentCapability as a governance envelope: does any registered executor
- * cover the contract's required capabilities and action/target/scope?
- * Deny-by-default, reusing the OA agent match invariant.
+ * satisfy the SAME AttemptExecutionProfile criteria Select/Start use?
+ *
+ * PJ-REPROOF-04: canonical Product resolves to contract_legacy → generalist
+ * technical quartet (normal matching). GCEC progressive profiles keep exact
+ * specialized criteria. No global agentMatchViolation bypass.
  */
 export function evaluateAgentCapability(
   registry: AgentRegistryPort,
   contract: Pick<
     ExecutionContract,
-    "requiredCapabilities" | "action" | "target" | "scope"
+    | "executionContractId"
+    | "projectId"
+    | "requiredCapabilities"
+    | "action"
+    | "target"
+    | "scope"
+    | "evidenceRequirements"
+    | "expectedOutputs"
+    | "inputs"
   >,
 ): AgentCapabilitySufficiency {
-  const criteria = {
-    requiredCapabilities: [...contract.requiredCapabilities],
-    action: contract.action,
-    target: contract.target,
-    scope: contract.scope,
-  };
+  const profileResolved = resolveAttemptExecutionProfile({
+    contract: contract as ExecutionContract,
+    attempts: [],
+    evidence: [],
+  });
+  const criteria = profileResolved.ok
+    ? profileResolved.profile.criteria
+    : {
+        requiredCapabilities: [...contract.requiredCapabilities],
+        action: contract.action,
+        target: contract.target,
+        scope: contract.scope,
+      };
   // Prefer findCandidates (deny-by-default port API) so contract-shaped
   // fixture composition can adapt AFTER EC preparation (B4).
   const candidates = registry.findCandidates(criteria);

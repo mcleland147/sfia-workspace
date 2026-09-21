@@ -27,6 +27,10 @@ import {
 import { createTestSqliteExecutionContractServices } from "@/lib/oa/execution-contract";
 import {
   createTestSqliteExecutionAttemptServices,
+  STUDIO_CURSOR_GENERALIST_ACTION,
+  STUDIO_CURSOR_GENERALIST_CAPABILITY,
+  STUDIO_CURSOR_GENERALIST_SCOPE,
+  STUDIO_CURSOR_GENERALIST_TARGET,
   TestExecutionAdapter,
   type AgentDescriptor,
 } from "@/lib/oa/execution-attempt";
@@ -97,10 +101,11 @@ function agentDescriptor(
     schemaVersion: "0.1.0-oa",
     agentType: "docs_writer",
     adapterRef: "adp:test-fixture",
-    supportedCapabilities: [CONTRACT_CAPABILITY],
-    allowedActions: [CONTRACT_ACTION],
-    allowedTargets: [CONTRACT_TARGET],
-    allowedScopes: [CONTRACT_SCOPE],
+    // PJ-REPROOF-04 — contract_legacy → generalist technical quartet.
+    supportedCapabilities: [STUDIO_CURSOR_GENERALIST_CAPABILITY],
+    allowedActions: [STUDIO_CURSOR_GENERALIST_ACTION],
+    allowedTargets: [STUDIO_CURSOR_GENERALIST_TARGET],
+    allowedScopes: [STUDIO_CURSOR_GENERALIST_SCOPE],
     trustLevel: "fixture",
     executionMode: "adapter_sync_fixture",
     healthStatus: "healthy",

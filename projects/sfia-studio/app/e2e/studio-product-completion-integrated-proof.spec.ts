@@ -146,10 +146,7 @@ async function decideTrajectoryUi(page: Page) {
 }
 
 async function prepareInspectConfirmAuthorize(page: Page) {
-  await page
-    .getByTestId("w3a-operation-kind")
-    .selectOption("generate-temporary-artifact");
-  await page.getByTestId("w2-prepare-contract-sandbox").click();
+    await page.getByTestId("w2-prepare-contract-sandbox").click();
   await expect(page.getByTestId("w2-contract")).toBeVisible({
     timeout: 45_000,
   });
@@ -605,10 +602,7 @@ test.describe("PC Integrated Proof — Product Completion final QA", () => {
     );
     await decideTrajectoryUi(page);
 
-    await page
-      .getByTestId("w3a-operation-kind")
-      .selectOption("generate-temporary-artifact");
-    await page.getByTestId("w2-prepare-contract-sandbox").click();
+        await page.getByTestId("w2-prepare-contract-sandbox").click();
     await expect(page.getByTestId("w2-contract")).toBeVisible({
       timeout: 45_000,
     });

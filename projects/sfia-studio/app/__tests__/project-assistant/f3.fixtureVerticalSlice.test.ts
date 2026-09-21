@@ -39,17 +39,20 @@ class FixedIdSource implements LocalProjectIdSource {
   private project = 0;
   private lps = 0;
   private correlation = 0;
+  private readonly run = `${Date.now().toString(36)}-${Math.random()
+    .toString(36)
+    .slice(2, 8)}`;
   nextProjectId(): string {
     this.project += 1;
-    return `prj:f3-${this.project}`;
+    return `prj:f3-${this.run}-${this.project}`;
   }
   nextLpsVersionId(): string {
     this.lps += 1;
-    return `lps:f3-${this.lps}`;
+    return `lps:f3-${this.run}-${this.lps}`;
   }
   nextCorrelationId(): string {
     this.correlation += 1;
-    return `cor:f3-${this.correlation}`;
+    return `cor:f3-${this.run}-${this.correlation}`;
   }
 }
 

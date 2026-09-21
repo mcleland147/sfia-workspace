@@ -88,6 +88,13 @@ export type RealLaunchRequest = {
    * Cursor profile (Attempt E). REAL merge not claimed executed in PATH B lot.
    */
   readonly gitPrMergeSpec?: GitPrMergeLaunchSpec;
+  /**
+   * PJ-REPROOF-04 — Cursor-consumable projection of the authorized ExecutionContract.
+   * When present, generic (non docs_write / non git-mutation) launches use this
+   * mission prompt instead of the hardcoded RO README probe.
+   * MUST preserve semantic parity with the inspected contract.
+   */
+  readonly cursorMissionPrompt?: string;
   /** Optional Project binding identity (owner/repo) for workspace resolution. */
   readonly repositoryBindingIdentity?: string;
   /** Server-resolved absolute managed clone root (docs-write). */

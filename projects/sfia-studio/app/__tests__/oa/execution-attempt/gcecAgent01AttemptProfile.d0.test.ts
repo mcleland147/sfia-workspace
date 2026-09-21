@@ -16,6 +16,10 @@ import {
   M4_BOUNDED_LOCAL_COMMIT_SCOPE,
   M4_BOUNDED_LOCAL_COMMIT_TARGET,
   resolveAttemptExecutionProfile,
+  STUDIO_CURSOR_GENERALIST_ACTION,
+  STUDIO_CURSOR_GENERALIST_CAPABILITY,
+  STUDIO_CURSOR_GENERALIST_SCOPE,
+  STUDIO_CURSOR_GENERALIST_TARGET,
 } from "@/lib/oa/execution-attempt";
 
 const NOW = "2026-09-11T20:00:00.000Z";
@@ -290,7 +294,7 @@ describe("D-GCEC-AGENT-01 AttemptExecutionProfile AP", () => {
     if (!r.ok) expect(r.reason).toMatch(/without_verified_pr_identity/);
   });
 
-  it("AP-14 non-M4 historical contract → contract_legacy still works", () => {
+  it("AP-14 non-M4 historical contract → contract_legacy generalist technical criteria", () => {
     const r = resolveAttemptExecutionProfile({
       contract: contract({
         action: "fixture.action",
@@ -307,6 +311,12 @@ describe("D-GCEC-AGENT-01 AttemptExecutionProfile AP", () => {
     expect(r.ok).toBe(true);
     if (!r.ok) return;
     expect(r.profile.kind).toBe("contract_legacy");
+    expect(r.profile.criteria).toEqual({
+      requiredCapabilities: [STUDIO_CURSOR_GENERALIST_CAPABILITY],
+      action: STUDIO_CURSOR_GENERALIST_ACTION,
+      target: STUDIO_CURSOR_GENERALIST_TARGET,
+      scope: STUDIO_CURSOR_GENERALIST_SCOPE,
+    });
   });
 
   it("AP-16 validation-only M4 slice → fail closed", () => {

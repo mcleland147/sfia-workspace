@@ -13,6 +13,7 @@ import {
   M4_BOUNDED_PR_CREATE_CURSOR_AGENT_ID,
   M4_BOUNDED_PR_MERGE_CURSOR_AGENT_ID,
   M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID,
+  M4_BOUNDED_RO_CURSOR_AGENT_ID,
   M4_REAL_GATEWAY_ADAPTER_ID,
   SFIA_STUDIO_CURSOR_REAL_FLAG,
 } from "../domain/realLaunchSafety";
@@ -39,6 +40,7 @@ import { M4_BOUNDED_LOCAL_COMMIT_ACTION } from "./m4BoundedLocalCommitCursorAgen
 import { M4_BOUNDED_REMOTE_PUSH_ACTION } from "./m4BoundedRemotePushCursorAgent";
 import { M4_BOUNDED_PR_CREATE_ACTION } from "./m4BoundedPrCreateCursorAgent";
 import { M4_BOUNDED_PR_MERGE_ACTION } from "./m4BoundedPrMergeCursorAgent";
+import { M4_BOUNDED_RO_ACTION } from "./m4BoundedReadOnlyCursorAgent";
 import { isBoundedGitCommitOnlySlice } from "../domain/verifyLocalCommitFacts";
 import { buildGitCommitLaunchSpec } from "../domain/gitCommitLaunchSpec";
 import {
@@ -873,7 +875,11 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
         `scope=${request.scope ?? ""}`,
         `fingerprint=${request.semanticFingerprint}`,
       ].join("\n");
-    } else {
+    } else if (
+      request.action === M4_BOUNDED_RO_ACTION ||
+      request.selectedAgentRef === M4_BOUNDED_RO_CURSOR_AGENT_ID
+    ) {
+      // Historical sealed M4 RO GCEC — deterministic README probe (not Product).
       instruction = [
         "TÂCHE UNIQUE — preuve read-only déterministe.",
         "Lire uniquement le fichier README.md à la racine du workspace.",
@@ -892,17 +898,50 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
         `fingerprint=${request.semanticFingerprint}`,
         "Aucune mutation, aucun git remote/commit/push/PR/merge.",
       ].join("\n");
+    } else if (
+      typeof request.cursorMissionPrompt === "string" &&
+      request.cursorMissionPrompt.trim().length > 0
+    ) {
+      // PJ-REPROOF-04 — generalist Cursor mission = authorized EC projection.
+      // Cursor determines HOW inside the contract; no mandatory step sequence.
+      // Product StartExecution always supplies this prompt for non-specialized agents.
+      instruction = [
+        request.cursorMissionPrompt.trim(),
+        "",
+        `attemptId=${request.attemptId}`,
+        `executionContractId=${request.executionContractId}`,
+        `fingerprint=${request.semanticFingerprint}`,
+        `target=${request.target ?? ""}`,
+        `action=${request.action ?? ""}`,
+        `scope=${request.scope ?? ""}`,
+      ].join("\n");
+    } else {
+      // Fail-closed: StartExecution must project EC → cursorMissionPrompt.
+      // Historical M4 RO is handled above; Product generalist requires prompt.
+      instruction = [
+        "STOP — aucune mission Cursor fournie (cursorMissionPrompt manquant).",
+        "Studio doit projeter ExecutionContract → prompt avant launch.",
+        `attemptId=${request.attemptId}`,
+        `executionContractId=${request.executionContractId}`,
+        `fingerprint=${request.semanticFingerprint}`,
+        `target=${request.target ?? ""}`,
+        `action=${request.action ?? ""}`,
+        `scope=${request.scope ?? ""}`,
+      ].join("\n");
     }
 
     // Full-capability native mode: --sandbox disabled --force (parity with Cursor CLI).
-    // Docs-write + git mutation profiles: default agent mode (omit --mode ask).
-    // RO: --mode ask. Capability does not depend on effect class.
+    // Docs-write + git mutation profiles + generalist mission prompt: agent mode.
+    const hasMissionPrompt =
+      typeof request.cursorMissionPrompt === "string" &&
+      request.cursorMissionPrompt.trim().length > 0;
     const usesAgentMode =
       isDocsWrite ||
       isLocalCommitProfile ||
       isRemotePushProfile ||
       isPrCreateProfile ||
-      isPrMergeProfile;
+      isPrMergeProfile ||
+      hasMissionPrompt;
     const argv = usesAgentMode
       ? [
           "agent",

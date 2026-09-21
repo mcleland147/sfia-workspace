@@ -28,6 +28,14 @@ export const M4_BOUNDED_PR_CREATE_CURSOR_AGENT_ID =
 export const M4_BOUNDED_PR_MERGE_CURSOR_AGENT_ID =
   "agt:m4.cursor.bounded_pr_merge" as const;
 
+/**
+ * PJ-REPROOF-04 — canonical Product Cursor executor.
+ * ONE identity for any ExecutionContract mission. Mission differences live in
+ * the EC prompt — not in agent-type / capability / profile routing.
+ */
+export const STUDIO_CURSOR_GENERALIST_AGENT_ID =
+  "agt:studio.cursor.generalist" as const;
+
 export type RealLaunchReconcileDisposition =
   | "CLEAR"
   | "UNKNOWN"

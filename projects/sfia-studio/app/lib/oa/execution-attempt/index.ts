@@ -193,6 +193,15 @@ export {
   M4_BOUNDED_RO_SCOPE,
 } from "./infrastructure/m4BoundedReadOnlyCursorAgent";
 export {
+  createStudioCursorGeneralistAgentDescriptor,
+  isStudioCursorGeneralistAgent,
+  isStudioCursorGeneralistRealAgent,
+  STUDIO_CURSOR_GENERALIST_CAPABILITY,
+  STUDIO_CURSOR_GENERALIST_ACTION,
+  STUDIO_CURSOR_GENERALIST_TARGET,
+  STUDIO_CURSOR_GENERALIST_SCOPE,
+} from "./infrastructure/studioCursorGeneralistAgent";
+export {
   createM4BoundedDocsWriteCursorAgentDescriptor,
   isM4BoundedDocsWriteRealAgent,
   isM4AuthorizedCursorRealAgent,

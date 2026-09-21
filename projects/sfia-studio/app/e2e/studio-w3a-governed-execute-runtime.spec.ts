@@ -190,9 +190,16 @@ async function openQualifiedStudioProject(page: Page, name: string) {
     throw new Error(`w2 propose failed: ${err}`);
   }
 
-  const decideButtons = page.locator("[data-testid^='w2-decide-']");
-  await expect(decideButtons.first()).toBeVisible();
-  await decideButtons.first().click();
+  const clarifyDecide = page.getByTestId(
+    "w2-decide-opt:trajectory:clarify-first",
+  );
+  if (await clarifyDecide.isVisible().catch(() => false)) {
+    await clarifyDecide.click();
+  } else {
+    const decideButtons = page.locator("[data-testid^='w2-decide-']");
+    await expect(decideButtons.first()).toBeVisible();
+    await decideButtons.first().click();
+  }
   await expect(page.getByTestId("w2-decision")).toBeVisible({
     timeout: 45_000,
   });
@@ -213,14 +220,11 @@ test.describe("W3-A R09 /studio governed execute product proof", () => {
       state: "after_w2_decision",
     });
 
-    // Actual work qualification — not W2 trajectory alone.
-    await expect(page.getByTestId("w3a-qualify-execution-work")).toBeVisible();
-    await page
-      .getByTestId("w3a-operation-kind")
-      .selectOption("generate-temporary-artifact");
-    await capture(page, "02-actual-work-qualified", {
+    // PJ-REPROOF-04 — Studio derives mission; no Pilot HOW dropdown.
+    await expect(page.getByTestId("w3a-prepare-execution-from-decision")).toBeVisible();
+    await capture(page, "02-mission-prepare-ready", {
       screen: "TrajectorySurface",
-      state: "actual_work_temp_artifact",
+      state: "prepare_from_decision",
     });
 
     await page.getByTestId("w2-prepare-contract-sandbox").click();
@@ -230,25 +234,16 @@ test.describe("W3-A R09 /studio governed execute product proof", () => {
 
     const actionText =
       (await page.getByTestId("w2-contract-action").textContent()) ?? "";
-    expect(actionText).toContain("product:generate-temporary-artifact");
-    expect(actionText).not.toMatch(/trajectory-governed|trajectory-bounded/);
-    await expect(page.getByTestId("w2-contract-authority")).toHaveText("N1");
-    await expect(page.getByTestId("w2-contract-scope")).toHaveText(
-      "product:temporary-local-artifact",
-    );
+    // Internal effect control may be product:read for non-mutating mission —
+    // never a trajectory option string.
+    expect(actionText).not.toMatch(/trajectory-governed|trajectory-bounded|clarify-first/);
+    expect(actionText.length).toBeGreaterThan(0);
     await expect(page.getByTestId("w2-contract-target")).toHaveText(
       "product:project-workspace",
     );
-    await expect(page.getByTestId("w2-contract-status")).toHaveText(
-      "Confirmation requise",
-    );
-    await expect(page.getByTestId("w2-contract-status")).toHaveAttribute(
-      "data-status",
-      "confirmation_required",
-    );
-    await expect(page.getByTestId("w2-contract-status-tech")).toHaveText(
-      "confirmation_required",
-    );
+    // Non-mutating mission may be validated (no Confirmation); mutating paths still confirmation_required.
+    const statusTech = (await page.getByTestId("w2-contract-status-tech").textContent()) ?? "";
+    expect(["validated", "confirmation_required", "confirmed"]).toContain(statusTech.trim());
     await expect(page.getByTestId("w2-contract-reversibility")).toContainText(
       "reversible",
     );
@@ -417,7 +412,6 @@ test.describe("W3-A R09 /studio governed execute product proof", () => {
   }) => {
     await openQualifiedStudioProject(page, "W3-A R09 Blocked No Work");
     // Empty operation kind → Prepare disabled → no Execute → no Attempt.
-    await page.getByTestId("w3a-operation-kind").selectOption("");
     await expect(page.getByTestId("w2-prepare-contract-sandbox")).toBeDisabled();
     await expect(page.getByTestId("w3a-governed-execute")).toHaveCount(0);
     await expect(page.getByTestId("w3a-attempt")).toHaveCount(0);

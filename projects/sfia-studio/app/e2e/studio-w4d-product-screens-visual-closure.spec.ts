@@ -230,10 +230,7 @@ test.describe("W4-D product screens visual closure", () => {
       observation: "HumanDecision visually distinct",
     });
 
-    await page
-      .getByTestId("w3a-operation-kind")
-      .selectOption("generate-temporary-artifact");
-    await page.getByTestId("w2-prepare-contract-sandbox").click();
+        await page.getByTestId("w2-prepare-contract-sandbox").click();
     await expect(page.getByTestId("w2-contract")).toBeVisible({ timeout: 45_000 });
     await expect(page.getByTestId("w2-contract-status")).not.toHaveText(
       "confirmation_required",

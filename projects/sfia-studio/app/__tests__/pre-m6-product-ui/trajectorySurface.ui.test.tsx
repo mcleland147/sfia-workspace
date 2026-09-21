@@ -948,16 +948,23 @@ describe("W2 TrajectorySurface", () => {
       },
     });
 
-    // Generic ProjectTrajectory decision — no sealed Proposal operation, so the
-    // legacy sandbox qualification selector still owns the PREPARE affordance.
-    expect(screen.getByTestId("w3a-qualify-execution-work")).toBeVisible();
+    // PJ-REPROOF-04 — no Pilot-facing technical operation dropdown.
+    expect(
+      screen.getByTestId("w3a-prepare-execution-from-decision"),
+    ).toBeVisible();
+    expect(screen.queryByTestId("w3a-operation-kind")).toBeNull();
+    expect(screen.queryByTestId("w3a-qualify-execution-work")).toBeNull();
     expect(screen.queryByTestId("w2-proposal-backed-prepare")).toBeNull();
     expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
-    fireEvent.change(screen.getByTestId("w3a-operation-kind"), {
-      target: { value: "generate-temporary-artifact" },
-    });
     fireEvent.click(screen.getByTestId("w2-prepare-contract-sandbox"));
     expect(await screen.findByTestId("w2-contract")).toBeVisible();
+    expect(prepareContractMock).toHaveBeenCalledWith({
+      projectId: "prj:w2-ui",
+      decisionId: "dec:w2-ui",
+    });
+    expect(prepareContractMock.mock.calls[0][0]).not.toHaveProperty(
+      "qualifiedOperationKind",
+    );
     expect(prepareM3Mock).not.toHaveBeenCalled();
     expect(screen.getByTestId("w2-contract-action")).toHaveTextContent(
       "product:generate-temporary-artifact",

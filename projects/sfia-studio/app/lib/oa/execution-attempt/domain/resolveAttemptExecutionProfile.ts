@@ -21,6 +21,12 @@ import {
   M4_BOUNDED_DOCS_WRITE_TARGET,
 } from "../infrastructure/m4BoundedDocsWriteCursorAgent";
 import {
+  M4_BOUNDED_RO_ACTION,
+  M4_BOUNDED_RO_CAPABILITY,
+  M4_BOUNDED_RO_SCOPE,
+  M4_BOUNDED_RO_TARGET,
+} from "../infrastructure/m4BoundedReadOnlyCursorAgent";
+import {
   M4_BOUNDED_LOCAL_COMMIT_ACTION,
   M4_BOUNDED_LOCAL_COMMIT_CAPABILITY,
   M4_BOUNDED_LOCAL_COMMIT_SCOPE,
@@ -44,6 +50,12 @@ import {
   M4_BOUNDED_PR_MERGE_SCOPE,
   M4_BOUNDED_PR_MERGE_TARGET,
 } from "../infrastructure/m4BoundedPrMergeCursorAgent";
+import {
+  STUDIO_CURSOR_GENERALIST_ACTION,
+  STUDIO_CURSOR_GENERALIST_CAPABILITY,
+  STUDIO_CURSOR_GENERALIST_SCOPE,
+  STUDIO_CURSOR_GENERALIST_TARGET,
+} from "../infrastructure/studioCursorGeneralistAgent";
 import type { CursorAuthorizedEffectId } from "./cursorExecutionReport";
 import {
   resolveVerifiedDocsWritePriorAttempt,
@@ -66,6 +78,8 @@ export type AttemptExecutionProfileKind =
   | "remote_push"
   | "pr_create"
   | "pr_merge"
+  | "read_only"
+  | "f3_fixture"
   | "contract_legacy";
 
 /** Non-persistent lineage facts for progressive profiles. */
@@ -91,6 +105,8 @@ export type AttemptExecutionProfile = {
     | "git.push"
     | "github.pr.create"
     | "github.pr.merge"
+    | "read_only"
+    | "f3_fixture"
     | "contract_legacy";
   /** Present when kind has verified prior lineage. */
   readonly lineage?: AttemptExecutionProfileLineage;
@@ -248,8 +264,13 @@ function prMergeProfile(
   };
 }
 
+/**
+ * PJ-REPROOF-04 — canonical Product profile.
+ * Technical executor binding ONLY (generic Cursor). Functional mission remains
+ * exclusively on ExecutionContract / cursorMissionPrompt — never agent types.
+ */
 function contractLegacyProfile(
-  contract: ResolveAttemptExecutionProfileInput["contract"],
+  _contract: ResolveAttemptExecutionProfileInput["contract"],
   reason: string,
 ): AttemptExecutionProfile {
   return {
@@ -257,10 +278,51 @@ function contractLegacyProfile(
     effectClass: "contract_legacy",
     reason,
     criteria: {
-      requiredCapabilities: [...(contract.requiredCapabilities ?? [])],
-      action: contract.action,
-      target: contract.target,
-      scope: contract.scope,
+      requiredCapabilities: [STUDIO_CURSOR_GENERALIST_CAPABILITY],
+      action: STUDIO_CURSOR_GENERALIST_ACTION,
+      target: STUDIO_CURSOR_GENERALIST_TARGET,
+      scope: STUDIO_CURSOR_GENERALIST_SCOPE,
+    },
+  };
+}
+
+/**
+ * Historical sealed M4 RO GCEC path — exact specialized criteria.
+ * Must NOT fall through to Product generalist matching.
+ */
+function readOnlyProfile(reason: string): AttemptExecutionProfile {
+  return {
+    kind: "read_only",
+    effectClass: "read_only",
+    reason,
+    criteria: {
+      requiredCapabilities: [M4_BOUNDED_RO_CAPABILITY],
+      action: M4_BOUNDED_RO_ACTION,
+      target: M4_BOUNDED_RO_TARGET,
+      scope: M4_BOUNDED_RO_SCOPE,
+    },
+  };
+}
+
+/**
+ * Historical sealed F3 fixture path — exact specialized criteria.
+ * Literal tokens match vertical-slice F3 fixture agent (no features import).
+ */
+const F3_FIXTURE_CAPABILITY = "cap:f3-fixture-docs";
+const F3_FIXTURE_ACTION = "fixture-docs-prepare";
+const F3_FIXTURE_TARGET = "sfia-studio/f3-fixture-only";
+const F3_FIXTURE_SCOPE = "f3-fixture:docs+metadata-only";
+
+function f3FixtureProfile(reason: string): AttemptExecutionProfile {
+  return {
+    kind: "f3_fixture",
+    effectClass: "f3_fixture",
+    reason,
+    criteria: {
+      requiredCapabilities: [F3_FIXTURE_CAPABILITY],
+      action: F3_FIXTURE_ACTION,
+      target: F3_FIXTURE_TARGET,
+      scope: F3_FIXTURE_SCOPE,
     },
   };
 }
@@ -762,7 +824,124 @@ export function resolveAttemptExecutionProfile(
     return { ok: false, reason: "attempt_profile_effect_not_supported" };
   }
 
-  // Non-M4 / RO / W3A / other → preserve historical contract quartet matching.
+  // Sealed historical M4 RO GCEC — exact specialized criteria (not generalist).
+  const isM4RoContract =
+    contract.action === M4_BOUNDED_RO_ACTION &&
+    (contract.requiredCapabilities ?? []).includes(M4_BOUNDED_RO_CAPABILITY);
+  if (isM4RoContract) {
+    return {
+      ok: true,
+      profile: readOnlyProfile("m4_bounded_readonly_sealed"),
+    };
+  }
+
+  // Sealed historical F3 fixture — exact specialized criteria (not generalist).
+  const isF3FixtureContract =
+    contract.action === F3_FIXTURE_ACTION &&
+    (contract.requiredCapabilities ?? []).includes(F3_FIXTURE_CAPABILITY);
+  if (isF3FixtureContract) {
+    return {
+      ok: true,
+      profile: f3FixtureProfile("f3_fixture_sealed"),
+    };
+  }
+
+  // Sealed standalone GCEC specialized contracts (phase-scoped / non-progressive
+  // parent). Criteria-only seal for Select; Start re-resolves prior lineage and
+  // remains fail-closed on missing cross-EC binding / Evidence.
+  // Must NOT fall through to Product generalist matching.
+  const caps = contract.requiredCapabilities ?? [];
+  if (
+    contract.action === M4_BOUNDED_PR_CREATE_ACTION &&
+    caps.includes(M4_BOUNDED_PR_CREATE_CAPABILITY)
+  ) {
+    return {
+      ok: true,
+      profile: {
+        kind: "pr_create",
+        effectClass: "github.pr.create",
+        reason: "standalone_pr_create_sealed",
+        criteria: {
+          requiredCapabilities: [M4_BOUNDED_PR_CREATE_CAPABILITY],
+          action: M4_BOUNDED_PR_CREATE_ACTION,
+          target: M4_BOUNDED_PR_CREATE_TARGET,
+          scope: M4_BOUNDED_PR_CREATE_SCOPE,
+        },
+      },
+    };
+  }
+  if (
+    contract.action === M4_BOUNDED_REMOTE_PUSH_ACTION &&
+    caps.includes(M4_BOUNDED_REMOTE_PUSH_CAPABILITY)
+  ) {
+    return {
+      ok: true,
+      profile: {
+        kind: "remote_push",
+        effectClass: "git.push",
+        reason: "standalone_remote_push_sealed",
+        criteria: {
+          requiredCapabilities: [M4_BOUNDED_REMOTE_PUSH_CAPABILITY],
+          action: M4_BOUNDED_REMOTE_PUSH_ACTION,
+          target: M4_BOUNDED_REMOTE_PUSH_TARGET,
+          scope: M4_BOUNDED_REMOTE_PUSH_SCOPE,
+        },
+      },
+    };
+  }
+  if (
+    contract.action === M4_BOUNDED_LOCAL_COMMIT_ACTION &&
+    caps.includes(M4_BOUNDED_LOCAL_COMMIT_CAPABILITY)
+  ) {
+    return {
+      ok: true,
+      profile: {
+        kind: "local_commit",
+        effectClass: "git.commit",
+        reason: "standalone_local_commit_sealed",
+        criteria: {
+          requiredCapabilities: [M4_BOUNDED_LOCAL_COMMIT_CAPABILITY],
+          action: M4_BOUNDED_LOCAL_COMMIT_ACTION,
+          target: M4_BOUNDED_LOCAL_COMMIT_TARGET,
+          scope: M4_BOUNDED_LOCAL_COMMIT_SCOPE,
+        },
+      },
+    };
+  }
+  if (
+    contract.action === M4_BOUNDED_PR_MERGE_ACTION &&
+    caps.includes(M4_BOUNDED_PR_MERGE_CAPABILITY)
+  ) {
+    return {
+      ok: true,
+      profile: {
+        kind: "pr_merge",
+        effectClass: "github.pr.merge",
+        reason: "standalone_pr_merge_sealed",
+        criteria: {
+          requiredCapabilities: [M4_BOUNDED_PR_MERGE_CAPABILITY],
+          action: M4_BOUNDED_PR_MERGE_ACTION,
+          target: M4_BOUNDED_PR_MERGE_TARGET,
+          scope: M4_BOUNDED_PR_MERGE_SCOPE,
+        },
+      },
+    };
+  }
+  if (
+    contract.action === M4_BOUNDED_DOCS_WRITE_ACTION &&
+    caps.includes(M4_BOUNDED_DOCS_WRITE_CAPABILITY)
+  ) {
+    // Docs-write without progressive evidenceRequirements classification —
+    // still sealed specialized (not generalist).
+    return {
+      ok: true,
+      profile: docsWriteProfile("standalone_docs_write_sealed"),
+    };
+  }
+
+  // Non-M4 / W3A / other → contract_legacy binds the ONE Product
+  // generalist technical quartet (normal matching). Functional mission stays
+  // on ExecutionContract / cursorMissionPrompt — never agent types.
   if (
     !contract.action?.trim() ||
     !contract.target?.trim() ||

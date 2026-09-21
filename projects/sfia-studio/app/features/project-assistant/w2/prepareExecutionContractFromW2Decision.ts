@@ -26,12 +26,9 @@ import {
   assertNotF3FixtureSemantics,
   deriveW3AExecutionEnvelope,
 } from "./w3aProductExecutionSemantics";
-import {
-  buildActualExecutionWork,
-  isActualExecutionOperationKind,
-  isHighRiskPolicyOnlyOperationKind,
-  type ActualExecutionWork,
-} from "./w3aActualExecutionWork";
+import { deriveActualExecutionWorkFromProductContext } from "./deriveActualExecutionWorkFromProductContext";
+import { resolvePostEvidenceRecoveryContext } from "./resolvePostEvidenceRecoveryContext";
+import type { ActualExecutionWork } from "./w3aActualExecutionWork";
 import type { QualifiedExecutionEffects } from "./w3aQualifiedExecutionEffects";
 
 export type PreparedExecutionContractDto = {
@@ -150,9 +147,9 @@ export async function prepareExecutionContractFromW2Decision(input: {
     { ok: true }
   >;
   /**
-   * Explicit Pilot/Nora operation kind — REQUIRED for product path.
-   * W2 trajectory alone never selects the execution action.
-   * Hostile clients cannot invent kinds outside the allowlist.
+   * Optional compat / test operation kind. Product UI no longer sends this.
+   * When durable Product context yields a diagnostic mission, client kind is
+   * ignored. Hostile high-risk kinds fail closed.
    */
   readonly qualifiedOperationKind?: unknown;
   /** Same product path — optional Nora/test-injected qualified effects. */
@@ -354,37 +351,38 @@ export async function prepareExecutionContractFromW2Decision(input: {
   // Note: cycleProfile is loaded for scrutiny/context only — NEVER for requiredAuthority.
   void cycleBinding.cycleProfile;
 
-  let actualWork = undefined;
+  let actualWork: ActualExecutionWork | undefined = undefined;
+  let mission:
+    | import("./deriveActualExecutionWorkFromProductContext").ProductMissionFields
+    | null = null;
+
   if (!input.explicitEffects && !input.forceEffectsUnresolved) {
-    // R15 — high-risk kinds are policy taxonomy only; reject before EC.
-    if (isHighRiskPolicyOnlyOperationKind(input.qualifiedOperationKind)) {
+    const recovered = await resolvePostEvidenceRecoveryContext({
+      oa,
+      projectId: input.projectId,
+    });
+    if (!recovered.ok) {
       return {
         ok: false,
-        code: "PREPARATION_BLOCKED",
-        message:
-          "Opération à risque non qualifiable depuis operationKind seul — ActualExecutionWork refuse push/write/commit/PR/merge/delete/doctrine/baseline sans facts produit.",
+        code: recovered.code,
+        message: recovered.message,
       };
     }
-    if (!isActualExecutionOperationKind(input.qualifiedOperationKind)) {
-      return {
-        ok: false,
-        code: "EFFECTS_UNRESOLVED",
-        message:
-          "Aucun travail d'exécution qualifié (operationKind) — W2 trajectory seule ne sélectionne pas l'action. Chemin canonique: read | simulate | generate-temporary-artifact.",
-      };
-    }
-    const builtWork = buildActualExecutionWork({
-      operationKind: input.qualifiedOperationKind,
+
+    const derived = deriveActualExecutionWorkFromProductContext({
       projectId: input.projectId,
       projectTitle,
-      objective: projectObjective,
-      qualificationSource:
-        "studio.nora.actual-execution-work.from-explicit-operation-kind",
+      projectObjective,
+      basis,
+      selectedOptionRef,
+      recoveryContext: recovered.context,
+      clientOperationKind: input.qualifiedOperationKind,
     });
-    if ("ok" in builtWork && builtWork.ok === false) {
-      return builtWork;
+    if (!derived.ok) {
+      return derived;
     }
-    actualWork = builtWork as ActualExecutionWork;
+    actualWork = derived.work;
+    mission = derived.mission;
   }
 
   const envelopeResult = deriveW3AExecutionEnvelope({
@@ -398,6 +396,7 @@ export async function prepareExecutionContractFromW2Decision(input: {
     actualWork,
     explicitEffects: input.explicitEffects,
     forceEffectsUnresolved: input.forceEffectsUnresolved,
+    mission,
   });
   if (!envelopeResult.ok) {
     return envelopeResult;

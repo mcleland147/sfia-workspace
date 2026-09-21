@@ -35,6 +35,7 @@ import {
 import {
   createInMemoryExecutionAttemptServices,
   createSqliteExecutionAttemptServices,
+  createStudioCursorGeneralistAgentDescriptor,
   createM4BoundedReadOnlyCursorAgentDescriptor,
   createM4BoundedDocsWriteCursorAgentDescriptor,
   createM4BoundedLocalCommitCursorAgentDescriptor,
@@ -445,6 +446,7 @@ function wireOaStack(
     ? [
         fixtureAgent,
         w3aBoundedAgent,
+        createStudioCursorGeneralistAgentDescriptor(clock.nowIso()),
         createM4BoundedReadOnlyCursorAgentDescriptor(clock.nowIso()),
         createM4BoundedDocsWriteCursorAgentDescriptor(clock.nowIso()),
         createM4BoundedLocalCommitCursorAgentDescriptor(clock.nowIso()),

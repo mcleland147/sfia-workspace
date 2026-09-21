@@ -97,6 +97,13 @@ export {
   type InspectionDisclosureProjectionResult,
 } from "./projection/inspectionDisclosure";
 
+export {
+  projectExecutionContractToCursorPrompt,
+  assertCursorPromptParityWithInspection,
+  CURSOR_PROMPT_SHAPE_REFERENCE,
+  type CursorMissionPromptProjection,
+} from "./projection/projectExecutionContractToCursorPrompt";
+
 export { MemoryExecutionContractStore } from "./infrastructure/memoryExecutionContractStore";
 export { MemoryExecutionContractRepository } from "./infrastructure/memoryExecutionContractRepository";
 export { MemoryInspectionAttestationRepository } from "./infrastructure/memoryInspectionAttestationRepository";
