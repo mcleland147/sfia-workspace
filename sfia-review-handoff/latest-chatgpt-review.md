@@ -1,379 +1,740 @@
-# PRODUCT JOURNEY CURRENT-MAIN RESUME — FULL Review Pack
-## PRODUCT-JOURNEY-E2E-CURRENT-MAIN-CLOUD-REPROOF-01
-## Cycle 9 — QA / VALIDATION — CRITICAL
+# PJ-REPROOF-05 Delivery — FULL Review Pack
 
-timestamp: 2026-09-21T05:50:48Z
-campaign: PRODUCT-JOURNEY-E2E-CURRENT-MAIN-CLOUD-REPROOF-01
-parent continuity: SAME CAMPAIGN CONTINUATION after PJ-REPROOF-04 COMPLETE / PR #510 MERGED
-cycle: 9 — QA / VALIDATION
-profile: CRITICAL
-mode: RESUME EXISTING DURABLE STATE — NO RESET — NO MICRO-CYCLES — NO PROJECT CODE PATCH
-CKC: method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md (candidate; cognitive guidance only; no execution authority)
-Morris GO: CONSUMED for resume + current-main recovery + deterministic/browser-real validation + EC preparation/inspection + ONE Cursor REAL only if exact Pilot authorization recorded
-HumanDecision / Pilot Confirmation / EC authorization: NOT replaced by Morris GO
-NEW Cursor REAL this cycle: 0 (Pilot authorize gate not passed; EC also self-declares NO_CURSOR_REAL)
-project git: commit 0 / push 0 / PR 0 / merge 0
-runtime v3: NON ADOPTED
-Global L5: NOT ADOPTED
+- **Timestamp:** 2026-09-22T19:06:35Z / 2026-09-22 21:06:35 CEST
+- **Repo:** mcleland147/sfia-workspace
+- **Branch:** fix/sfia-studio-pj-reproof-05-execution-eligibility
+- **Base / origin/main:** 31295c70cb33b3037cd3e5b79f7dc44f7ea9afa0
+- **HEAD (project branch tip, uncommitted):** 31295c70cb33b3037cd3e5b79f7dc44f7ea9afa0 (working tree dirty with Delivery changes)
+- **Campaign:** PRODUCT-JOURNEY-E2E-CURRENT-MAIN-CLOUD-REPROOF-01 — **PAUSED**
+- **Finding:** PJ-REPROOF-05 — Product Execution Eligibility + Generic Cursor Launch Context Coherence
+- **Fake/Real:** DETERMINISTIC PROVEN — no REAL Cursor launch in this Delivery
 
----
+## Sources read
+
+- projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md (referenced)
+- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md (referenced)
+- projects/sfia-studio/product-completion/01-product-completion-cadrage.md (referenced)
+- projects/sfia-studio/product-completion/02-product-completion-conception-fonctionnelle.md (referenced)
+- projects/sfia-studio/sfia-v3-framing/31,34,35,36 (referenced)
+- prompts/templates/sfia-cycle-execution-template.md (process external)
+- method/sfia-fast-track/core/sfia-cycle-routing-guide.md (process external)
+- Code: w3aProductExecutionSemantics, authorizeExecutionContract, governedExecute, TrajectorySurface, selectExecutionAgent, startExecution, resolveAttemptExecutionProfile, projectExecutionContractToCursorPrompt, PJ-REPROOF-04 tests
+
+## Root cause
+
+1. `productConstraints` stamped **every** Product EC with `FIXTURE_EXECUTOR_BOUNDARY_ONLY` / `NO_REAL` / `NO_CURSOR_REAL` while runtime bound `contract_legacy` → `agt:studio.cursor.generalist` (REAL).
+2. `scopeOutForCanonicalKind` also SCOPE_OUT'd `REAL`/`CURSOR_REAL` for read missions.
+3. Authorize returned AUTHORIZED with label STOP AVANT EXECUTE; UI treated AUTHORIZED alone as Execute CTA.
+4. Select/Start did not enforce EC forbid stamps → Attempt could be created; Start failed later on missing `baseHeadSha`.
+5. Trusted launch context was not pinned on Product EC before inspection.
+
+## Architecture retained
+
+- ExecutionContract = truth; Cursor prompt = projection (PJ-REPROOF-04).
+- ONE eligibility helper shared by Authorize / UI / Select / Start — no parallel policy engine.
+- AUTHORIZED (authority verified) ≠ execution eligible.
+- Legacy fingerprinted EC never rewritten; fail-closed if incompatible.
+- No Pilot HOW selector; no v2.6 as Studio runtime doctrine.
+- GCEC specialized paths remain exact/fail-closed; Product generalist isolation intact.
+
+## Implementation summary
+
+### LOT A — Truthful semantics
+- Removed automatic FIXTURE/NO_REAL/NO_CURSOR_REAL stamps from `productConstraints`.
+- Removed REAL/CURSOR_REAL from canonical `scopeOut` (keep write/Git forbids).
+- Filter trajectory `AUCUNE EXÉCUTION` / `STOP AVANT EXECUTE` from new EC stopConditions.
+
+### LOT B — Execution eligibility
+- New `resolveProductExecutionEligibility` (lib/oa/execution-contract).
+- Authorize DTO: `executionEligible` + reason code; outcome labels distinguish eligible vs not.
+
+### LOT C — Legacy EC safety
+- Historical stamps / STOP stops → ineligible; Select returns ATTEMPT_INVALID before Attempt; UI hides Execute.
+
+### LOT D — Trusted launch context
+- `resolveTrustedProductLaunchContext` pins baseHeadSha + repository binding at prepare (never Studio cwd fallback).
+- Missing binding / clone → prepare fail-closed.
+
+### LOT F/G — UI + runtime
+- Execute CTA requires AUTHORIZED ∧ executionEligible.
+- governedExecute / Select / Start revalidate eligibility.
+
+## Files changed
+
+```
+ M .tmp-sfia-review/chatgpt-review.md
+ M projects/sfia-studio/app/__tests__/oa/execution-attempt/support/m4Fixtures.ts
+ M projects/sfia-studio/app/__tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx
+ M projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts
+ M projects/sfia-studio/app/__tests__/project-assistant/w3aGovernedExecute.test.ts
+ M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+ M projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/types.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/w3aActualExecutionWork.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/w3aProductExecutionSemantics.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
+ M projects/sfia-studio/app/lib/oa/execution-contract/index.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/pjReproof05.executionEligibility.d0.test.ts
+?? projects/sfia-studio/app/features/project-assistant/w2/resolveProductExecutionEligibility.ts
+?? projects/sfia-studio/app/features/project-assistant/w2/resolveTrustedProductLaunchContext.ts
+?? projects/sfia-studio/app/lib/oa/execution-contract/domain/resolveProductExecutionEligibility.ts
+```
+
+## Diffstat
+
+```
+ .tmp-sfia-review/chatgpt-review.md                 | 187 ++++++++-------------
+ .../oa/execution-attempt/support/m4Fixtures.ts     |  14 +-
+ .../postExecutionTrajectorySurface.ui.test.tsx     |   4 +-
+ .../app/__tests__/project-assistant/w2Harness.ts   |  21 +++
+ .../project-assistant/w3aGovernedExecute.test.ts   |   5 +-
+ .../surfaces/TrajectorySurface.tsx                 |  38 ++++-
+ .../w2/authorizeExecutionContract.ts               |  40 ++++-
+ .../w2/governedExecuteAuthorizedContract.ts        |  17 ++
+ .../w2/prepareExecutionContractFromW2Decision.ts   |  40 ++++-
+ .../app/features/project-assistant/w2/types.ts     |   8 +
+ .../project-assistant/w2/w3aActualExecutionWork.ts |   9 +-
+ .../w2/w3aProductExecutionSemantics.ts             |  21 ++-
+ .../application/selectExecutionAgent.ts            |  19 +++
+ .../application/startExecution.ts                  |  18 ++
+ .../app/lib/oa/execution-contract/index.ts         |   7 +
+ 15 files changed, 310 insertions(+), 138 deletions(-)
+```
+
+## Exploitable diffs (core)
+
+### resolveProductExecutionEligibility.ts (new)
+
+```ts
+/**
+ * PJ-REPROOF-05 — single Product truth: is this ExecutionContract executable NOW?
+ *
+ * Consumed by:
+ * - Authorize / authorization projection
+ * - Product Execute UI
+ * - SelectExecutionAgent (before Attempt persistence)
+ * - StartExecution / boundary revalidation
+ *
+ * UI is never the security boundary. Hostile Select must fail here too.
+ *
+ * AUTHORIZED (authority verified) ≠ execution eligible.
+ */
+
+export type ProductExecutionEligibilityReasonCode =
+  | "eligible"
+  | "stop_before_execute"
+  | "aucune_execution"
+  | "no_attempt"
+  | "prepare_only"
+  | "fixture_boundary_only"
+  | "no_real"
+  | "no_cursor_real"
+  | "scope_out_real"
+  | "scope_out_cursor_real"
+  | "missing_trusted_launch_context"
+  | "stale_or_invalid_launch_context";
+
+export type ProductExecutionEligibility = {
+  readonly eligible: boolean;
+  readonly reasonCode: ProductExecutionEligibilityReasonCode;
+  /** Pilot-facing functional explanation — no HOW / agentType / fixture jargon. */
+  readonly reasonText: string;
+  readonly nextAction: string;
+  readonly allowsCursorReal: boolean;
+  readonly allowsMutatingEffects: boolean;
+  readonly requiresTrustedLaunchContext: boolean;
+};
+
+const FULL_SHA_RE = /^[0-9a-f]{40}$/i;
+
+/** Trajectory / authorize-flow markers — not Product EC forever-forbid when absent as stamps. */
+export const TRAJECTORY_NON_EXECUTE_STOPS = [
+  "AUCUNE EXÉCUTION",
+  "STOP AVANT EXECUTE",
+] as const;
+
+function hasExact(list: readonly string[], token: string): boolean {
+  return list.some((c) => c === token);
+}
+
+function hasScopeOut(constraints: readonly string[], token: string): boolean {
+  return constraints.includes(`SCOPE_OUT:${token}`);
+}
+
+function asNonEmptyString(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const t = value.trim();
+  return t.length > 0 ? t : null;
+}
+
+function mutatingEffectsAllowed(constraints: readonly string[]): boolean {
+  if (hasScopeOut(constraints, "DURABLE_PROJECT_WRITE")) return false;
+  if (hasScopeOut(constraints, "LOCAL_WRITE")) return false;
+  if (hasScopeOut(constraints, "COMMIT")) return false;
+  if (hasScopeOut(constraints, "GIT_PUSH")) return false;
+  if (hasScopeOut(constraints, "GIT_PR")) return false;
+  if (hasScopeOut(constraints, "GIT_MERGE")) return false;
+  return true;
+}
+
+function ineligible(
+  reasonCode: Exclude<ProductExecutionEligibilityReasonCode, "eligible">,
+  reasonText: string,
+  nextAction: string,
+  extras?: Partial<
+    Pick<
+      ProductExecutionEligibility,
+      "allowsCursorReal" | "allowsMutatingEffects" | "requiresTrustedLaunchContext"
+    >
+  >,
+): ProductExecutionEligibility {
+  return {
+    eligible: false,
+    reasonCode,
+    reasonText,
+    nextAction,
+    allowsCursorReal: false,
+    allowsMutatingEffects: extras?.allowsMutatingEffects ?? false,
+    requiresTrustedLaunchContext:
+      extras?.requiresTrustedLaunchContext ?? true,
+  };
+}
+
+/**
+ * Resolve whether an ExecutionContract may proceed to Select / Execute / Start.
+ *
+ * Legacy Product ECs stamped NO_REAL / NO_CURSOR_REAL / FIXTURE_EXECUTOR_BOUNDARY_ONLY
+ * / STOP AVANT EXECUTE remain fail-closed (historical, never silently rewritten).
+ */
+export function resolveProductExecutionEligibility(input: {
+  readonly constraints?: readonly string[] | null;
+  readonly stopConditions?: readonly string[] | null;
+  readonly inputs?: Record<string, unknown> | null;
+  /**
+   * Product Cursor REAL path requires pinned launch context on the EC.
+   * Default true for Product generalist Start. Tests may set false only when
+   * proving stamp-level ineligibility without launch-context concerns.
+   */
+  readonly requireTrustedLaunchContext?: boolean;
+}): ProductExecutionEligibility {
+  const constraints = [...(input.constraints ?? [])];
+  const stops = [...(input.stopConditions ?? [])];
+  const inputs = (input.inputs ?? {}) as Record<string, unknown>;
+  const allowMutations = mutatingEffectsAllowed(constraints);
+  const requireCtx = input.requireTrustedLaunchContext !== false;
+
+  if (hasExact(stops, "AUCUNE EXÉCUTION")) {
+    return ineligible(
+      "aucune_execution",
+```
+
+### productConstraints / scopeOut (truthful)
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/w3aActualExecutionWork.ts b/projects/sfia-studio/app/features/project-assistant/w2/w3aActualExecutionWork.ts
+index 71d214c6..19fc642a 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/w3aActualExecutionWork.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/w3aActualExecutionWork.ts
+@@ -292,15 +292,18 @@ export function projectConfirmationRequirementFromEffects(input: {
+ /**
+  * Coherent scope OUT for a canonical operation — never forbids the current
+  * scope IN / action effect (R13).
++ *
++ * PJ-REPROOF-05: do NOT put REAL / CURSOR_REAL in SCOPE_OUT for Product
++ * read/simulate/temp missions. Those missions may use the generic Cursor
++ * REAL executor under read-only / non-mutating forbids. Writes and Git
++ * remain SCOPE_OUT.
+  */
+ function scopeOutForCanonicalKind(
+   kind: W3ACanonicalActualOperationKind,
+ ): readonly string[] {
+-  const common = ["REAL", "CURSOR_REAL"] as const;
+   switch (kind) {
+     case "read":
+       return [
+-        ...common,
+         "DURABLE_PROJECT_WRITE",
+         "LOCAL_WRITE",
+         "TEMPORARY_ARTIFACT_WRITE",
+@@ -313,7 +316,6 @@ function scopeOutForCanonicalKind(
+       ];
+     case "simulate":
+       return [
+-        ...common,
+         "DURABLE_PROJECT_WRITE",
+         "COMMIT",
+         "GIT_PUSH",
+@@ -324,7 +326,6 @@ function scopeOutForCanonicalKind(
+       ];
+     case "generate-temporary-artifact":
+       return [
+-        ...common,
+         "DURABLE_PROJECT_WRITE",
+         "COMMIT",
+         "GIT_PUSH",
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/w3aProductExecutionSemantics.ts b/projects/sfia-studio/app/features/project-assistant/w2/w3aProductExecutionSemantics.ts
+index 601c2b69..44165f44 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/w3aProductExecutionSemantics.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/w3aProductExecutionSemantics.ts
+@@ -35,6 +35,7 @@ import {
+   projectRequiredAuthorityFromEffects,
+   deriveReversibilityFromEffects,
+ } from "./w3aQualifiedExecutionEffects";
++import { filterTrajectoryNonExecuteStopsFromEc } from "./resolveProductExecutionEligibility";
+
+ /** Implementation / provenance marker — NOT authority-bearing scope. */
+ export const W3A_IMPLEMENTATION_MARKER =
+@@ -66,6 +67,16 @@ export type EnvelopePrepareFailure =
+       readonly message: string;
+     };
+
++/**
++ * PJ-REPROOF-05 — truthful Product constraints.
++ *
++ * Do NOT stamp FIXTURE_EXECUTOR_BOUNDARY_ONLY / NO_REAL / NO_CURSOR_REAL on every
++ * Product EC. Those forever-forbid Cursor REAL even when the mission is a
++ * read-only diagnostic intended for the generic Cursor executor.
++ *
++ * Mutation / Git forbids remain expressed via SCOPE_OUT from qualified effects.
++ * NO_ATTEMPT_AT_PREPARE only asserts prepare itself creates no Attempt.
++ */
+ function productConstraints(
+   basis: DecisionBasis,
+   effects: QualifiedExecutionEffects,
+@@ -74,9 +85,6 @@ function productConstraints(
+   const eb = basis.executionBasis;
+   return [
+     "PRODUCT_GOVERNED",
+-    "FIXTURE_EXECUTOR_BOUNDARY_ONLY",
+-    "NO_REAL",
+-    "NO_CURSOR_REAL",
+     "NO_ATTEMPT_AT_PREPARE",
+     `IMPLEMENTATION_MARKER:${W3A_IMPLEMENTATION_MARKER}`,
+     `EFFECT_CLASS:${effects.effectClass}`,
+@@ -96,8 +104,13 @@ function productConstraints(
+
+ function productStopConditions(basis: DecisionBasis): string[] {
+   const eb = basis.executionBasis;
++  // Strip trajectory authorize-flow markers (AUCUNE EXÉCUTION / STOP AVANT EXECUTE)
++  // so a newly prepared executable EC is not fail-closed forever by provenance.
++  const fromBasis = filterTrajectoryNonExecuteStopsFromEc(
++    eb.stopConditions ?? [],
++  );
+   const stops = new Set<string>([
+-    ...(eb.stopConditions ?? []),
++    ...fromBasis,
+     "AUTHORITY_DENIED",
+     "CONTEXT_STALE",
+     "DECISION_NOT_CURRENT",
+```
+
+### Authorize eligibility projection
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts b/projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts
+index 74d0db97..4afffeda 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts
+@@ -35,6 +35,7 @@ import {
+ } from "@/lib/oa/execution-attempt";
+ import type { AgentRegistryPort } from "@/lib/oa/execution-attempt";
+ import { readContractInspectionState } from "./inspectExecutionContract";
++import { resolveProductExecutionEligibility } from "./resolveProductExecutionEligibility";
+ import type {
+   AgentCapabilityOutcomeDto,
+   ConfirmationRequirementDto,
+@@ -379,26 +380,55 @@ export async function evaluateExecutionAuthorization(
+         blockedDetail,
+       });
+
++    const eligibility = resolveProductExecutionEligibility({
++      constraints: contract.constraints,
++      stopConditions: contract.stopConditions,
++      inputs:
++        contract.inputs && typeof contract.inputs === "object"
++          ? (contract.inputs as Record<string, unknown>)
++          : null,
++    });
++
+     const text = blockedReason ? BLOCKED_TEXT[blockedReason] : null;
++    const authorizedEligible =
++      outcome === "AUTHORIZED" && eligibility.eligible;
++    const authorizedIneligible =
++      outcome === "AUTHORIZED" && !eligibility.eligible;
++
+     return {
+       ok: true,
+       executionContractId: contract.executionContractId,
+       contractVersion: contract.version,
+       outcome,
+       outcomeLabel:
+-        outcome === "AUTHORIZED"
+-          ? "AUTORISÉ — STOP AVANT EXECUTE"
+-          : "BLOQUÉ — ACTION REQUISE",
++        outcome === "BLOCKED"
++          ? "BLOQUÉ — ACTION REQUISE"
++          : authorizedEligible
++            ? "AUTORISÉ — EXÉCUTION ÉLIGIBLE"
++            : authorizedIneligible
++              ? "AUTORISÉ — EXÉCUTION NON ÉLIGIBLE"
++              : "AUTORISÉ — STOP AVANT EXECUTE",
+       reasonCode: blockedReason ?? "effective_authority_established",
+       reasonText:
+         text?.reasonText ??
+-        "Autorité effective établie : décision, périmètre du contrat, inspection, confirmation requise et exécuteur suffisant.",
++        (authorizedIneligible
++          ? eligibility.reasonText
++          : authorizedEligible
++            ? eligibility.reasonText
++            : "Autorité effective établie : décision, périmètre du contrat, inspection, confirmation requise et exécuteur suffisant."),
+       nextAction:
+         text?.nextAction ??
+-        "Aucune exécution n'est autorisée par ce cycle — arrêt avant Execute.",
++        (authorizedIneligible
++          ? eligibility.nextAction
++          : authorizedEligible
++            ? eligibility.nextAction
++            : "Aucune exécution n'est autorisée par ce cycle — arrêt avant Execute."),
+       inspection,
+       confirmation,
+       agentCapability: capabilityDto(capability),
++      executionEligible: outcome === "AUTHORIZED" ? eligibility.eligible : false,
++      executionEligibilityReasonCode:
++        outcome === "AUTHORIZED" ? eligibility.reasonCode : "blocked",
+       authorityReceiptRef: receipt.receiptId,
+       decisionRefs: [...(contract.decisionRefs ?? [])],
+       requiredAuthority: contract.requiredAuthority,
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/types.ts b/projects/sfia-studio/app/features/project-assistant/w2/types.ts
+index b3f7d826..fc079208 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/types.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/types.ts
+@@ -201,6 +201,8 @@ export type ExecutionAuthorizationOutcomeDto = {
+   readonly outcome: "AUTHORIZED" | "BLOCKED";
+   readonly outcomeLabel:
+     | "AUTORISÉ — STOP AVANT EXECUTE"
++    | "AUTORISÉ — EXÉCUTION ÉLIGIBLE"
++    | "AUTORISÉ — EXÉCUTION NON ÉLIGIBLE"
+     | "BLOQUÉ — ACTION REQUISE";
+   readonly reasonCode: string;
+   readonly reasonText: string;
+@@ -208,6 +210,12 @@ export type ExecutionAuthorizationOutcomeDto = {
+   readonly inspection: ContractInspectionStateDto;
+   readonly confirmation: ConfirmationRequirementDto;
+   readonly agentCapability: AgentCapabilityOutcomeDto;
++  /**
++   * PJ-REPROOF-05 — authority verified ≠ execution eligible.
++   * Execute CTA / Select / Start must consult this, not AUTHORIZED alone.
++   */
++  readonly executionEligible: boolean;
++  readonly executionEligibilityReasonCode: string;
+   readonly authorityReceiptRef: string;
+   readonly decisionRefs: readonly string[];
+   readonly requiredAuthority: string;
+```
+
+### Select / Start enforcement
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts
+index e971da91..aa812403 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts
+@@ -11,6 +11,7 @@ import type {
+   CheckExecutionAuthorization,
+   ExecutionContractRepositoryPort,
+ } from "@/lib/oa/execution-contract";
++import { resolveProductExecutionEligibility } from "@/lib/oa/execution-contract";
+ import { createAttemptError, isExecutionAttemptDomainError } from "../domain/errors";
+ import { captureBoundExecutionContractSnapshot } from "../domain/boundExecutionContract";
+ import {
+@@ -190,6 +191,24 @@ export class SelectExecutionAgent {
+         );
+       }
+
++      // PJ-REPROOF-05 — execution eligibility BEFORE Attempt persistence.
++      // AUTHORIZED authority check above ≠ REAL executable. Hostile Select
++      // must fail closed here for legacy NO_REAL / STOP AVANT EXECUTE ECs.
++      const eligibility = resolveProductExecutionEligibility({
++        constraints: contract.constraints,
++        stopConditions: contract.stopConditions,
++        inputs:
++          contract.inputs && typeof contract.inputs === "object"
++            ? (contract.inputs as Record<string, unknown>)
++            : null,
++      });
++      if (!eligibility.eligible) {
++        return fail(
++          "ATTEMPT_INVALID",
++          `execution_ineligible_${eligibility.reasonCode}`,
++        );
++      }
++
+       const evidenceRead = this.listProjectEvidence
+         ? await this.listProjectEvidence(contract.projectId)
+         : { ok: false as const, reason: "evidence_reader_unavailable" as const };
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
+index e60e8899..0d348012 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
+@@ -38,6 +38,7 @@ import {
+   DEFAULT_BOUNDED_READ_ONLY_M3_EXECUTION_WINDOW_CLASS,
+   projectExecutionContractToCursorPrompt,
+   resolveExecutionWindowForStart,
++  resolveProductExecutionEligibility,
+   type ResolvedExecutionWindow,
+ } from "@/lib/oa/execution-contract";
+ import type { AuthorityResolverPort } from "@/lib/oa/decision";
+@@ -486,6 +487,23 @@ export class StartExecution {
+         );
+       }
+
++      // PJ-REPROOF-05 — revalidate execution eligibility at Start (defense in depth).
++      const eligibility = resolveProductExecutionEligibility({
++        constraints: contract.constraints,
++        stopConditions: contract.stopConditions,
++        inputs:
++          contract.inputs && typeof contract.inputs === "object"
++            ? (contract.inputs as Record<string, unknown>)
++            : null,
++      });
++      if (!eligibility.eligible) {
++        return fail(
++          "ATTEMPT_INVALID",
++          `execution_ineligible_${eligibility.reasonCode}`,
++          { executionContractId: contract.executionContractId },
++        );
++      }
++
+       const agent = this.registry.getAgent(attempt.selectedAgentRef);
+       if (!agent) {
+         return fail("AGENT_NOT_FOUND", "selected_agent_not_registered", {
+```
+
+### UI Execute CTA
+
+```diff
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+index 31c8ca8e..66f58bff 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+@@ -1345,7 +1345,13 @@ export function TrajectorySurface({
+
+   const governedExecute = useCallback(async () => {
+     if (continuityMutationBlocked) return;
+-    if (!contract || authorization?.outcome !== "AUTHORIZED") return;
++    if (
++      !contract ||
++      authorization?.outcome !== "AUTHORIZED" ||
++      authorization.executionEligible !== true
++    ) {
++      return;
++    }
+     setBusy("execute");
+     setError(null);
+     flushSync(() => {
+@@ -2704,9 +2710,14 @@ export function TrajectorySurface({
+             <span
+               data-testid="w2-authorization-outcome"
+               data-outcome={authorization.outcome}
++              data-execution-eligible={
++                authorization.executionEligible ? "true" : "false"
++              }
+             >
+               {authorization.outcome === "AUTHORIZED"
+-                ? "Autorisation vérifiée — l'exécution peut être lancée"
++                ? authorization.executionEligible
++                  ? "Autorisation vérifiée — l'exécution peut être lancée"
++                  : "Autorisation vérifiée — exécution non proposée"
+                 : "Exécution bloquée"}
+             </span>
+           </h3>
+@@ -2743,6 +2754,14 @@ export function TrajectorySurface({
+                   {authorization.outcomeLabel}
+                 </dd>
+               </div>
++              <div>
++                <dt>Éligibilité d&apos;exécution</dt>
++                <dd data-testid="w2-execution-eligibility">
++                  {authorization.executionEligible
++                    ? "éligible"
++                    : authorization.executionEligibilityReasonCode}
++                </dd>
++              </div>
+               <div>
+                 <dt>Trace d&apos;autorité</dt>
+                 <dd className={styles.code} data-testid="w2-authority-receipt">
+@@ -2751,7 +2770,9 @@ export function TrajectorySurface({
+               </div>
+             </dl>
+           </details>
+-          {authorization.outcome === "AUTHORIZED" && !attempt ? (
++          {authorization.outcome === "AUTHORIZED" &&
++          authorization.executionEligible &&
++          !attempt ? (
+             <>
+               <p
+                 className={styles.stopNotice}
+@@ -2773,6 +2794,17 @@ export function TrajectorySurface({
+               </div>
+             </>
+           ) : null}
++          {authorization.outcome === "AUTHORIZED" &&
++          !authorization.executionEligible &&
++          !attempt ? (
++            <p
++              className={styles.stopNotice}
++              data-testid="w2-execution-ineligible"
++            >
++              Aucune exécution n&apos;est proposée pour ce contrat.{" "}
++              {authorization.nextAction}
++            </p>
++          ) : null}
+           {authorization.outcome === "BLOCKED" ? (
+             <p className={styles.stopNotice} data-testid="w2-stop-before-execute">
+               Aucune exécution n&apos;a été lancée : arrêt avant exécution.
+```
+
+### Prepare + trusted launch context
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts b/projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts
+index 9005e978..6159d36a 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts
+@@ -30,6 +30,10 @@ import { deriveActualExecutionWorkFromProductContext } from "./deriveActualExecu
+ import { resolvePostEvidenceRecoveryContext } from "./resolvePostEvidenceRecoveryContext";
+ import type { ActualExecutionWork } from "./w3aActualExecutionWork";
+ import type { QualifiedExecutionEffects } from "./w3aQualifiedExecutionEffects";
++import {
++  launchContextAsContractInputs,
++  resolveTrustedProductLaunchContext,
++} from "./resolveTrustedProductLaunchContext";
+
+ export type PreparedExecutionContractDto = {
+   readonly executionContractId: string;
+@@ -155,6 +159,12 @@ export async function prepareExecutionContractFromW2Decision(input: {
+   /** Same product path — optional Nora/test-injected qualified effects. */
+   readonly explicitEffects?: QualifiedExecutionEffects;
+   readonly forceEffectsUnresolved?: boolean;
++  /**
++   * PJ-REPROOF-05 — deterministic test pin for trusted launch context.
++   * Never accepted from browser Execute payloads.
++   */
++  readonly pinnedBaseHeadSha?: string | null;
++  readonly managedRepoRootBase?: string | null;
+ }): Promise<PrepareExecutionContractFromW2DecisionResult> {
+   const { oa } = input;
+
+@@ -413,6 +423,32 @@ export async function prepareExecutionContractFromW2Decision(input: {
+     return f3Guard;
+   }
+
++  // PJ-REPROOF-05 — pin trusted launch context BEFORE Build/Validate fingerprint.
++  // Vitest: when repository binding exists, allow a deterministic pin without a
++  // managed clone (production never auto-pins — managed HEAD or explicit pin).
++  const vitestPin =
++    process.env.VITEST === "true" || process.env.VITEST === "1"
++      ? "a".repeat(40)
++      : null;
++  const launch = await resolveTrustedProductLaunchContext({
++    oa,
++    projectId: input.projectId,
++    pinnedBaseHeadSha: input.pinnedBaseHeadSha ?? vitestPin,
++    managedRepoRootBase: input.managedRepoRootBase,
++  });
++  if (!launch.ok) {
++    return {
++      ok: false,
++      code: launch.code,
++      message: launch.message,
++    };
++  }
++  const envelopeInputs: Record<string, unknown> = {
++    ...envelope.inputs,
++    ...launchContextAsContractInputs(launch.context),
++    trustedLaunchContextPinnedAtPrepare: true,
++  };
++
+   const safeId = safeIdSegment(decision.decisionId);
+   const executionContractId = `xct:w3a:${safeId}`;
+   const idempotencyKey = `idem:w3a-prep:${decision.decisionId}`;
+@@ -439,7 +475,7 @@ export async function prepareExecutionContractFromW2Decision(input: {
+       action: envelope.action,
+       target: envelope.target,
+       scope: envelope.scope,
+-      inputs: envelope.inputs,
++      inputs: envelopeInputs,
+       expectedOutputs: [...envelope.expectedOutputs],
+       requiredCapabilities: [...envelope.requiredCapabilities],
+       requiredAuthority: envelope.requiredAuthority,
+@@ -499,7 +535,7 @@ export async function prepareExecutionContractFromW2Decision(input: {
+       action: envelope.action,
+       target: envelope.target,
+       scope: envelope.scope,
+-      inputs: envelope.inputs,
++      inputs: envelopeInputs,
+       expectedOutputs: [...envelope.expectedOutputs],
+       requiredCapabilities: [...envelope.requiredCapabilities],
+       requiredAuthority: envelope.requiredAuthority,
+```
+
+### New files (paths)
+
+- lib/oa/execution-contract/domain/resolveProductExecutionEligibility.ts
+- features/project-assistant/w2/resolveProductExecutionEligibility.ts (re-export)
+- features/project-assistant/w2/resolveTrustedProductLaunchContext.ts
+- __tests__/project-assistant/pjReproof05.executionEligibility.d0.test.ts
+
+## Tests & results
+
+| Suite | Result |
+|---|---|
+| pjReproof05.executionEligibility.d0 | 8/8 PASS |
+| pjReproof04.executionContractSemanticBridge.d0 | 12/12 PASS |
+| w3aGovernedExecute | 24/24 PASS |
+| postExecutionTrajectorySurface.ui | 2/2 PASS |
+| trajectorySurface.ui | 46/46 PASS |
+| tsc --noEmit | PASS |
+| git diff --check | PASS |
+
+DETERMINISTIC PROVEN for eligibility / contract parity / launch-context enforcement.
+Explicitly **not** END-TO-END REAL PROVEN. DETERMINISTIC ≠ READY FOR REAL.
+
+## Doctrine / CKC / source parity
+
+- Prompt projection still harvests EC objective/context/sources/scope/gates/stops/validation/Evidence (PJ-REPROOF-04 bridge retained).
+- No v2.6 loaded as Studio doctrine; Cursor HOW remains Cursor-owned inside EC perimeter.
+- DoctrinePackage identity/version/digest continue via existing DecisionBasis / inspection disclosure paths — no second resolver invented.
+- Remaining realism gap: live managed-clone HEAD pin in non-test Product envs still depends on `SFIA_STUDIO_MANAGED_REPO_ROOT_BASE` + Project.repositoryBinding (fail-closed when absent).
+
+## Legacy EC compatibility
+
+- Durable Batch Cookinb EC v2 (`xct:w3a:dec:w2-trj:62b92385-...`) **not mutated**.
+- With NO_REAL / NO_CURSOR_REAL / STOP AVANT EXECUTE → execution ineligible → no Execute CTA → Select rejected → Attempt count remains 0.
+- Reproof after integration may prepare a **new** successor EC with truthful semantics + launch context.
+
+## Morris decisions consumed
+
+1–10 from Delivery prompt (EC non-executable no Execute / no Attempt; honest effects; read-only Cursor OK; Studio launch context; no silent post-inspect widen; no silent rewrite; legacy fail-closed; new successor later; no isolated UI patch).
+
+## Forbidden actions respected
+
+- No project push / PR / merge
+- No REAL Cursor launch
+- No Product DB migration / Batch Cookinb Execute
+- No method/** / v3 framing / Build Doctrine / Roadmap edits
+- Attempt count on current EC (read-only check): 0
+
+## Remaining reservations / debt
+
+- W2 harness may still AUTHORIZE with insufficient generalist registration in some compositions (eligibility fields always present; Execute requires both).
+- Vitest may auto-pin baseHeadSha when binding exists (production never auto-pins).
+- Full suite not run end-to-end; attributable suites above are green.
+- Product Journey REAL reproof still required after Morris integration GO.
 
 ## Final verdict
 
-**PAUSED AT PILOT GATE — CURRENT-MAIN DURABLE PRODUCT JOURNEY RECOVERED — EXECUTIONCONTRACT SEMANTIC BRIDGE PROVEN THROUGH PILOT INSPECTION — NO TECHNICAL HOW SELECTOR — READY FOR PILOT AUTHORIZATION**
-
-Minimum target proof reached: browser-real current-main Product path through exact EC inspection.
-
-Preferred Cursor REAL + report triad + Evidence continuity: NOT reached (correct human boundary).
-
----
-
-## 1. Sources read (mandatory)
-
-PROCESS:
-- prompts/templates/sfia-cycle-execution-template.md
-- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-- method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
-- method/sfia-fast-track/core/sfia-rules-and-guardrails.md
-- method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md
-
-CONVERGENCE:
-- projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
-- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-
-PRODUCT COMPLETION:
-- projects/sfia-studio/product-completion/01-product-completion-cadrage.md
-- projects/sfia-studio/product-completion/02-product-completion-conception-fonctionnelle.md
-
-V3 APPLICABLE (framing only; runtime v3 NON ADOPTED):
-- 30 / 32 / 34 / 35 / 37 knowledge + trajectory + execution governance packs
-
-Integrated bridge under validation: PR #510 (PJ-REPROOF-04) on origin/main.
-
----
-
-## 2. Git truth
-
-```
-worktree: /workspace
-detached HEAD: 31295c70cb33b3037cd3e5b79f7dc44f7ea9afa0 (== origin/main)
-QA branch pointer preserved (not rewritten / not pushed / not deleted):
-  qa/sfia-studio-product-journey-claim-evidence-completion-01 @ de954f80af4e7fff5f77c8350cae342156dd0e6e
-ancestry: QA HEAD is ancestor of origin/main
-left/right HEAD...origin/main (QA vs main): 0 / 24
-PR #510: MERGED
-post-merge CI run 35561202549: SUCCESS (headSha 31295c70…)
-Required Gate: PASS (inherited from merge CI)
-project source mutations this cycle: NONE
-```
-
-Phase 1 reverify matched expected pre-switch facts; then `git switch --detach origin/main` to 31295c70 without rewriting the QA branch.
-
-Tracked tree clean aside from local ignored/untracked QA captures under `.tmp-sfia-review/runtime-captures/` (not project-committed).
-
----
-
-## 3. Durable-state inventory + backup
-
-Campaign Product store (authoritative):
-- path: `projects/sfia-studio/.sfia-exec/pje2e-cloud-reproof-01/product/oa-product.sqlite`
-- pre-resume sha256: `e3684a637f21b8ef8b714ef2b2a2eda50b793eb3ffebca63df6f83929ac66b38`
-- pre-resume bytes: 405504
-
-Backup (outside repo, before first current-main runtime write):
-- `/tmp/sfia-product-journey-resume-backup-20260921T051919Z/`
-- MANIFEST records source paths + hashes (product DB hash match proven at backup time)
-- secrets not copied into Review Handoff
-
-Runtime composition:
-- URL: `http://127.0.0.1:3030` (foreign reserve on :3020 left untouched — pid 347322 next-server from unrelated tree)
-- env (names only): BETTER_AUTH_*, GITHUB_CLIENT_*, SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS, SFIA_STUDIO_PRODUCT_DB_PATH → campaign DB, SFIA_STUDIO_E2E_QA_CONTROL=1, SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1
-- `.env.local` gitignored; no secrets in this pack
-
-Post-cycle DB (after Product UI path mutations):
-- sha256: `c8f03b313abf0f0bb8e4fbcfb8a2e9ca4e334eae4cb3cc4abe29ea86c884571b`
-- bytes: 557056
-- backup pre-image preserved for recovery
-
----
-
-## 4. Auth recovery note (environment, not Product patch)
-
-Interactive GitHub OAuth blocked the first browser attempt (no GitHub session; allowlisted id `295557155`).
-
-QA recovery used a **local Better Auth cookie-cache + account_data mint** signed with the runtime `BETTER_AUTH_SECRET`, binding allowlisted GitHub id `295557155` → `actor:github:295557155`.
-
-Classification:
-- NOT interactive GitHub OAuth
-- NOT Pilot authorization of an ExecutionContract
-- NOT Confirmation / StartExecution authority
-- Sufficient only to open protected Product surfaces for resume validation
-
-Captures: `pj-resume-01-login.png`, `pj-resume-02-github-oauth-blocker.png`, then authenticated `pj-resume-03-studio-home.png`.
-
----
-
-## 5. Recovered Product identity (before-state, then continuity)
-
-Project (unchanged identity):
-- projectId: `prj:288f7e1a-720a-40b2-baac-37710c0e1e87`
-- title: Mini cadrage — Suivi de tâches
-- repositoryBinding: github mcleland147/sfia-workspace
-- activeCycleInstanceId: `cyc:trj-9a3d8a1a8b3792244f406af6` (cyc:framing / Light / active)
-
-Before-state (resume start):
-- LPS current: `lps:49fd044ccc1dc351` (version 6)
-- Trajectory current: `trj:lr-bridge-f6380cb62f2a` @ v1 (validated)
-- HumanDecisions:
-  - `dec:gf-trj:d423ca8a-be75-4aa5-8a21-e782c57e92e5` — approve candidate trajectory (accepted)
-  - `dec:pilot-life:9156edb0-16df-4bb7-889b-7e1a88121758` — opt:require-artifact (accepted)
-- ExecutionContracts: 0
-- Attempts: 0
-- Confirmations: 0
-- EC inspection attestations: 0
-- Historical anchor "Diagnostiquer / clarifier…" was NOT present as durable text; durable recommendation after propose became functional option `opt:trajectory:clarify-first` ("Clarifier avant d'engager") — Product state authoritative
-
-After Product path (propose → decide clarify → prepare → inspect):
-- LPS current: `lps:84db3a5fdbd9989a` (lineage advanced; supersession chain intact)
-- Trajectory current: `trj:lr-bridge-f6380cb62f2a` @ v3 (validated); v1/v2 superseded
-- Additional HumanDecisions (clarify-first):
-  - `dec:w2-trj:7265ac19-1576-4589-bd5c-dc33f8e8e636` (first same-session decide; prepare CTA lost after reload)
-  - `dec:w2-trj:26e11825-b344-4613-9fd3-09ce6ed55ac2` (second decide after repropose; EC bound here)
-- EC: `xct:w3a:dec:w2-trj:26e11825-b344-4613-9fd3-09ce6ed55ac2` version 2
-- semanticFingerprint: `a0ad04783dc9cf902232f5ed31c5d96d355697c8c1512854dd61035fdfe6ce27`
-- Inspection attestation: `insp:3ce6017ab09ea1a9` (fingerprint matches EC semanticFingerprint)
-- Confirmations: 0
-- Attempts: 0
-
-Continuity proofs:
-- Same projectId reused (no new project)
-- Same trajectory id lineage reused (`trj:lr-bridge-…`)
-- Same cycle instance reused
-- No fixture DB substitution
-- No scenario restart / clean-slate create
-
----
-
-## 6. PJ-REPROOF-04 Product path — no technical HOW selector
-
-Observed on canonical `/studio` project workspace:
-
-Prepare affordance copy (data-testid `w3a-prepare-execution-from-decision`):
-> Studio prépare le contrat d'exécution à partir de la décision et du contexte produit durable — sans choix technique (lecture, simulation, artefact…).
-
-Negative UI scans (body text + selectors) across propose / decide / prepare / inspect:
-- docs_write / operationKind / remote_push / pr_create / pr_merge / local_commit / simulate / type d'exécuteur: ABSENT as Pilot choices
-- no `<select>` / radiogroup operation picker on the path
-- `w2-option-tech-*` details only expose functional optionRef labels (not HOW menus)
-
-Pilot chooses functional trajectory option ("Clarifier avant d'engager"), not technical executor/operation kind.
-
----
-
-## 7. Exact ExecutionContract (Product UI prepared — not SQL-constructed)
-
-| Field | Value |
-|---|---|
-| executionContractId | `xct:w3a:dec:w2-trj:26e11825-b344-4613-9fd3-09ce6ed55ac2` |
-| version | 2 |
-| semanticFingerprint | `a0ad04783dc9cf902232f5ed31c5d96d355697c8c1512854dd61035fdfe6ce27` |
-| decisionRefs | `dec:w2-trj:26e11825-b344-4613-9fd3-09ce6ed55ac2` |
-| status | validated |
-| objective (inputs) | Clarifier le contexte durable et les réserves… + cadrage suivi de tâches |
-| expectedOutputs | Diagnostic des réserves… ; Prochaine étape produit recommandée (sans exécution automatique) |
-| scope IN | product:current-project-facts ; product:decision-basis-and-lps ; reservations… |
-| scope OUT | unrelated mutation ; automatic-execute ; DURABLE_PROJECT_WRITE ; GIT_PUSH/PR/MERGE ; … |
-| stopConditions | AUCUNE EXÉCUTION ; STOP AVANT EXECUTE ; … ; NO_AUTOMATIC_EXECUTE |
-| evidenceRequirements | evreq:read ; evreq:mission-result-for-nora-reevaluation |
-| requiredAuthority | N1 |
-| reversibility | reversible |
-| cursorDeterminesHow | true |
-| constraints of note | PRODUCT_GOVERNED ; FIXTURE_EXECUTOR_BOUNDARY_ONLY ; NO_REAL ; NO_CURSOR_REAL ; … |
-
-Functional mission describes WHAT is authorized. Internal technical quartet for matching is not a Pilot selector.
-
-Browser captures:
-- `pj-resume-13-after-prepare.png`
-- `pj-resume-14-ec-inspection-expanded.png`
-- `pj-resume-15-w2-inspect-contract.png` (state: INSPECTÉ · inspecter n'autorise pas)
-
----
-
-## 8. EC → Cursor prompt parity (production projector)
-
-Function: `projectExecutionContractToCursorPrompt` (canonical Start path projector).
-
-Evidence file: `.tmp-sfia-review/runtime-captures/product-journey-current-main-resume/pj-resume-16-ec-prompt-profile.json`
-
-Parity:
-- executionContractId match: PASS
-- contractVersion match: PASS
-- semanticFingerprint match: PASS
-- expected outputs present: PASS
-- stop conditions present: PASS
-- scope OUT push/PR/merge present: PASS
-- no HOW selector / operation catalogue in prompt: PASS
-- Cursor owns HOW within perimeter: PASS
-- promptDigest (projector): `ff429ccc402306d260bb6bff14b215a8`
-- silent widening: not observed on inspected axes
-
-Note: projected prompt was produced via the production projection module against the durable EC (read-only QA). No StartExecution.
-
----
-
-## 9. Executor selection proof (production resolver; no launch)
-
-`resolveAttemptExecutionProfile` on this EC:
-- kind: `contract_legacy`
-- reason: `non_progressive_contract_quartet`
-- criteria quartet:
-  - capability `cap:studio.cursor.generalist`
-  - action `studio.cursor.generalist.execute`
-  - target `studio.cursor.generalist.workspace`
-  - scope `studio.cursor.generalist.authorized_contract`
-- expected agent id: `agt:studio.cursor.generalist`
-
-Does NOT match sealed M4 RO / F3 / docs_write / commit / push / PR / merge specialized profiles (action is `product:read`, not sealed M4 RO action).
-
-No prefer-generalist bypass; no GCEC fallthrough for this Product EC shape.
-
----
-
-## 10. Pilot gate status
-
-| Gate | Status |
-|---|---|
-| EC prepared | YES |
-| Pilot inspect opportunity | YES (`w2-inspect-contract` clicked; attestation `insp:3ce6017ab09ea1a9`) |
-| Inspect ≠ authorize | YES (UI: INSPECTÉ · inspecter n'autorise pas) |
-| Confirmation row | 0 |
-| Authorize clicked | NO (deliberately skipped) |
-| StartExecution / Execute affordance armed | NO (`w2-execute-authorized` count 0) |
-| Exact Pilot authorization for this EC id+version+fingerprint | NOT PRESENT |
-| Cursor REAL | NOT STARTED (also EC constraints NO_REAL / NO_CURSOR_REAL) |
-
-Morris GO / prior HumanDecision / synthetic session cookie are NOT treated as authorization of this EC.
-
----
-
-## 11. REAL / report triad / Evidence / post-execution
-
-Not applicable — stopped before StartExecution.
-
-TECHNICAL RESULT: n/a (no attempt)
-PRODUCT RESULT: n/a (no Evidence claim from execution)
-report triad: n/a
-
----
-
-## 12. Screenshots / capture paths
-
-Directory: `.tmp-sfia-review/runtime-captures/product-journey-current-main-resume/` (local only; not project-committed)
-
-Key checkpoints:
-1. recovered durable state — `pj-resume-04-project-workspace.png`
-2. trajectory / HumanDecision / clarify recommendation — `pj-resume-06-after-propose-options.png`, `pj-resume-08-after-decide-clarify.png`
-3. EC inspection — `pj-resume-13-after-prepare.png`, `pj-resume-14-ec-inspection-expanded.png`, `pj-resume-15-w2-inspect-contract.png`
-4. no technical operation selector — text dumps + leak scans in `pj-resume-*-notes.txt` / `pj-resume-07-tech-details.json`
-5. REAL terminal — not reached
-6. post-execution — not reached
-
-Artifacts also mirrored under `/opt/cursor/artifacts/pj-resume-*.png` for walkthrough.
-
----
-
-## 13. Negative proofs
-
-- no project reset / no new project create
-- no fixture Product DB substitution
-- no technical HOW selector on canonical path
-- no specialized Product executor selected for this EC (resolver → contract_legacy generalist)
-- no GCEC specialized fallthrough for this EC
-- no StartExecution without exact Pilot authorization
-- no duplicate Cursor launch
-- no report triad (none minted)
-- no ExecutionReport→Evidence conflation
-- no automatic structural redecision by Nora (Pilot decide buttons used)
-- runtime v3 NOT claimed ADOPTED
-- QA branch not pushed/deleted/rewritten
-
-Reserve / honesty:
-- Two clarify-first HumanDecisions exist because prepare CTA did not rehydrate after reload (see Finding). Same-session path still proved EC inspection.
-
----
-
-## 14. Finding
-
-### FINDING-PJ-CONT-REHYDRATE-01
-- observed: After page reload + "Reprendre l'état enregistré", an already-accepted W2 clarify-first HumanDecision (`dec:w2-trj:7265ac19-…`) did not restore the prepare-EC client surface; UI returned to "Instruire les options" only. Rehydration code path restores `pursue_prepare_ready` into `decision` state, not clarify-first trajectory decisions.
-- expected: Durable accepted decision that still authorizes prepare should rehydrate prepare affordance without forcing a second HumanDecision.
-- durable IDs: project `prj:288f7e1a-…`; HD `dec:w2-trj:7265ac19-…`; later forced HD `dec:w2-trj:26e11825-…` + EC `xct:w3a:dec:w2-trj:26e11825-…`
-- evidence: `pj-resume-09-before-prepare-ec.txt` (prepare absent) vs `pj-resume-08-after-decide-clarify.txt` (prepare present same session)
-- reproduction: decide clarify-first → reload `/studio/projects/<id>` → resume durable → observe prepare missing
-- affected capability: V3-F02 continuity / V3-F05 decision→execution handoff after restart
-- likely source area: `TrajectorySurface.tsx` `rehydrateActiveDecisionSubject` / `w2ReadActiveDecisionSubjectAction` kinds
-- severity: MEDIUM (continuity UX; same-session path still works)
-- critical path blocked for restart-resume of prepare? PARTIAL — blocked after reload until redecide; not blocked in continuous session
-- Delivery requalification: RECOMMENDED (separate macro); this QA cycle did not patch
-
-Primary cycle stop remains the Pilot authorization gate (not this finding alone).
-
----
-
-## 15. Reserves
-
-- Auth for browser-real used allowlisted cookie mint (see §4) — interactive OAuth still unavailable in this environment
-- EC self-declares NO_REAL / NO_CURSOR_REAL / FIXTURE_EXECUTOR_BOUNDARY_ONLY for this diagnostic clarify mission — even after Pilot authorize, Cursor REAL would be out of contract for THIS EC
-- Foreign :3020 process not investigated as Product defect
-- Projected prompt UI surface testids (`w2-view-cursor-prompt`) absent; parity proven via production projector module instead
-- "Diagnostiquer…" historical wording not durable; functional clarify-first option is the Product truth
-
----
-
-## 16. Claims allowed
-
-- PJ-REPROOF-04 integrated on current-main (PR #510) and post-merge CI SUCCESS
-- Existing Product Journey durable project recovered on current-main without reset
-- Browser-real Product path: HumanDecision (clarify-first) → prepare EC → Pilot inspect — without technical HOW selector
-- EC→prompt semantic parity on inspected axes via production projector
-- Resolver maps this Product EC to `contract_legacy` → generalist technical quartet / `agt:studio.cursor.generalist`
-- Runtime paused correctly at Pilot authorize gate (no StartExecution)
-
-## 17. Claims forbidden
-
-- runtime v3 ADOPTED
-- global L5 ADOPTED
-- Product Completion / D-PC-09 reopened
-- Cursor REAL proven on current-main after #510
-- ExecutionReport / Evidence / Nora / LPS post-execution continuity from a REAL attempt
-- one journey proves every Cursor mission
-- ExecutionReport equals Evidence
-- automatic Pilot decision
-- architecture promotion
-- Morris GO = Pilot EC authorization
-- interactive GitHub OAuth completed
-
----
-
-## 18. INPUT vs TARGET proof levels
-
-INPUT:
-- PJ-REPROOF-04 deterministic proof: PASS (prior)
-- PR #510 on main: PASS
-- post-merge CI 35561202549: PASS
-- Required Gate: PASS
-- new Product/Cursor REAL after #510 before this cycle: NONE
-
-TARGET this cycle:
-- minimum BROWSER-REAL CURRENT-MAIN PRODUCT PATH THROUGH EXACT EC INSPECTION: **PASS**
-- preferred ONE BOUNDED CURSOR REAL + triad + Evidence + continuity: **NOT REACHED** (Pilot gate)
-
----
-
-## STOP
-
-Stop after genuine Pilot gate (authorize not granted for exact EC id/version/fingerprint).
-
-Do not start another cycle automatically.
-Do not open a project PR.
-Do not patch product code.
+**PASS — PJ-REPROOF-05 DELIVERY IMPLEMENTED AND DETERMINISTICALLY PROVEN — READY FOR CHATGPT REVIEW / MORRIS PROJECT INTEGRATION DECISION — PRODUCT JOURNEY REMAINS PAUSED BEFORE REAL REPROOF**
