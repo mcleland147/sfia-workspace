@@ -1,19 +1,17 @@
-# PJ-REPROOF-05 Delivery Regularization — FULL Review Pack
+# PJ-REPROOF-05 — Generic Product Execution Path — FULL Review Pack
 
-- **Timestamp:** 2026-09-22T19:36:55Z / 2026-09-22 21:36:55 CEST
+- **Timestamp:** 2026-09-22T20:18:41Z / 2026-09-22 22:18:41 CEST
 - **Repo:** mcleland147/sfia-workspace
 - **Branch:** fix/sfia-studio-pj-reproof-05-execution-eligibility
 - **Base / origin/main:** 31295c70cb33b3037cd3e5b79f7dc44f7ea9afa0
-- **HEAD (project tip, uncommitted Delivery):** 31295c70cb33b3037cd3e5b79f7dc44f7ea9afa0
+- **HEAD (uncommitted Delivery):** 31295c70cb33b3037cd3e5b79f7dc44f7ea9afa0
 - **Campaign:** PRODUCT-JOURNEY-E2E-CURRENT-MAIN-CLOUD-REPROOF-01 — **PAUSED**
-- **Finding:** PJ-REPROOF-05 — Product Execution Eligibility + Generic Cursor Launch Context Coherence
-- **Mode:** REVIEW REGULARIZATION (same Delivery — not a new cycle)
-- **Prior handoff SHA (superseded):** 19ad5939d5be69c118bc1cc2b6c501c706aeb8ae
-- **Fake/Real:** DETERMINISTIC PROVEN — no REAL Cursor launch
+- **Finding:** PJ-REPROOF-05
+- **Mode:** SAME DELIVERY continuation — Morris generic Product EC decision alignment
+- **Prior handoff SHA (superseded):** aa44124a1946fe7233ae53002c4a9d0914b1b20c
+- **Fake/Real:** DETERMINISTIC PROVEN — REAL Cursor processes = 0
 
-## A. Git truth / sources / Morris decisions consumed
-
-### Git status (short)
+## Git truth
 ```
  M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/app/__tests__/oa/execution-attempt/support/m4Fixtures.ts
@@ -23,11 +21,13 @@
  M projects/sfia-studio/app/__tests__/project-assistant/w3aGovernedExecute.test.ts
  M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
  M projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/deriveActualExecutionWorkFromProductContext.ts
  M projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
  M projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts
  M projects/sfia-studio/app/features/project-assistant/w2/types.ts
  M projects/sfia-studio/app/features/project-assistant/w2/w3aActualExecutionWork.ts
  M projects/sfia-studio/app/features/project-assistant/w2/w3aProductExecutionSemantics.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/application/grantGateD.ts
  M projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts
  M projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
  M projects/sfia-studio/app/lib/oa/execution-contract/index.ts
@@ -37,83 +37,78 @@
 ?? projects/sfia-studio/app/lib/oa/execution-contract/domain/resolveProductExecutionEligibility.ts
 ```
 
-### Sources read (Delivery + regularization)
-- projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
-- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-- projects/sfia-studio/product-completion/01-product-completion-cadrage.md
-- projects/sfia-studio/product-completion/02-product-completion-conception-fonctionnelle.md
-- projects/sfia-studio/sfia-v3-framing/31, 34, 35, 36
-- prompts/templates/sfia-cycle-execution-template.md (process external)
-- method/sfia-fast-track/core/sfia-cycle-routing-guide.md (process external)
-- Code path: prepare / semantics / authorize / TrajectorySurface / select / start / launch context / eligibility
+## Sources reread
+- convergence build doctrine / roadmap; product-completion 01–02
+- sfia-v3-framing 31, 34, 35, 36
+- process: sfia-cycle-execution-template; cycle-routing-guide (external)
+- prior handoff aa44124a (Vitest regularization pack)
+- code: prepare / semantics / deriveActualWork / governedExecute / eligibility / Gate D / Select / Start / generalist / prompt projection
 
-### Morris decisions consumed
-1–10 from Delivery prompt (EC non-executable no Execute / no Attempt; honest effects; read-only Cursor OK;
-Studio launch context; no silent post-inspect widen; no silent rewrite; legacy fail-closed; successor later;
-no isolated UI patch).
+## Morris decision consumed (this pass)
 
-Regularization decision (this pass):
-- Remove product-code `process.env.VITEST` auto-pin of `baseHeadSha`.
-- Tests/harness must inject trusted context explicitly via `pinnedBaseHeadSha`.
-- Republish FULL handoff with complete new-file content + complete tracked diffs.
+1. Product ExecutionContract = ONE generic execution contract.
+2. No Product categories: read-only / write / docs-write / fixture / REAL / test / diagnostic executor / operationKind routing.
+3. Pilot never chooses those categories.
+4. Nora+Studio prepare mission envelope BEFORE execution.
+5. Authorized EC → generic Cursor → Cursor owns HOW.
+6. Cursor may inspect/read/analyze/run/write within contract authority.
+7. ActionPolicy taxonomy = INTERNAL protection only — not Product types/routing.
+8. Runtime does not re-qualify mission after Nora/Studio.
+9. Runtime protection = mechanical enforcement of prior limits.
+10. Authority gap → Cursor reports → Nora/Studio requalify → HumanDecision / successor — no silent widen.
+11. Fixtures = TEST only — not canonical Product path.
+12. Historical GCEC may stay isolated — must not dictate Product architecture.
 
-## B. Finding + architecture retained
+Aligns framing 34; no doctrine document edits.
 
-### Root cause
-1. `productConstraints` stamped every Product EC with FIXTURE/NO_REAL/NO_CURSOR_REAL while runtime bound generalist REAL.
-2. Authorize AUTHORIZED alone drove Execute CTA.
-3. Select/Start did not enforce forbid stamps before Attempt.
-4. Trusted launch context not pinned before fingerprint.
-5. (Regularization) Product prepare auto-pinned SHA when `VITEST` set — test env ≠ trusted authority.
+## Architecture before → after
 
-### Architecture retained
-- ExecutionContract = truth; Cursor prompt = projection.
-- ONE eligibility helper shared by Authorize / UI / Select / Start.
-- AUTHORIZED ≠ executionEligible.
-- Legacy fingerprinted EC never rewritten; fail-closed.
-- No Pilot HOW; no v2.6 Studio runtime doctrine.
-- GCEC specialized paths exact/fail-closed; Product generalist isolation intact.
+### Before (categorical residue)
+- EC surface stamped `product:read` / `product:read-only` / `cap:product-read` from effect class.
+- GCEC fork: non–docs-write → F3 fixture boundary; docs-write → REAL + Gate D.
+- Product Select could bind fixture when REAL off; Gate D required `confirmed` only.
+- Eligibility helper risked reading as a second policy engine.
 
-## C. Vitest regularization
+### After (Morris-aligned)
+- EC surface = Studio generalist quartet (`studio.cursor.generalist.*` / `cap:studio.cursor.generalist`).
+- Internal effect-class tokens retained in `inputs.effectClass` / `internalEffect*` + SCOPE_OUT/PROTECTED (ActionPolicy).
+- Canonical `PRODUCT_GOVERNED` → generic Cursor REAL boundary + mechanical Gate D auto-grant.
+- Sealed docs-write GCEC remains isolated specialized path.
+- Explicit `FIXTURE_EXECUTOR_BOUNDARY_ONLY` only → historical fixture adapter.
+- Gate D accepts Execute-ready (`validated`+NOT_REQUIRED OR `confirmed`) — no second Pilot decision.
+- Eligibility = mechanical Start invariants + legacy stamp fail-closed (not mission re-qualification).
 
-### Before
-`prepareExecutionContractFromW2Decision` used:
-```
-const vitestPin = process.env.VITEST === "true" || process.env.VITEST === "1" ? "a".repeat(40) : null;
-pinnedBaseHeadSha: input.pinnedBaseHeadSha ?? vitestPin
-```
-So Vitest alone made prepare succeed without an explicit trusted pin.
+## Removed from Product path
+- Product fixture default (`F3_ADAPTER_ID` for PRODUCT_GOVERNED)
+- Product docsWrite-vs-fixture executor routing
+- Product EC categories product:read / product:read-only / cap:product-read as routing surface
+- Gate D hard-require `confirmed` when Confirmation evaluated NOT_REQUIRED
+- Vitest auto-pin (prior regularization retained)
 
-### After
-- Product prepare passes `input.pinnedBaseHeadSha` / `managedRepoRootBase` only.
-- Without managed clone HEAD and without explicit pin → `MANAGED_REPO_UNAVAILABLE` fail-closed.
-- Tests pass `pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA` visibly at call sites / harness constant.
+## Roles
+- **Nora/Studio:** mission understanding, DoctrinePackage/CKC/LPS, envelope, gates/stops/Evidence, inspectable EC.
+- **Cursor:** HOW inside authorized envelope; cannot widen authority.
+- **Effects/gates:** mechanical protections only.
+- **No second Product policy engine.**
 
-### Anti-regression test
-`PJ-REPROOF-05 — VITEST env ≠ trusted launch authority` in `pjReproof05.executionEligibility.d0.test.ts`:
-- asserts VITEST is set by runner;
-- prepare WITHOUT pin → fail `MANAGED_REPO_UNAVAILABLE`;
-- eligibility without launch inputs → ineligible;
-- prepare WITH explicit pin → eligible + `baseHeadSha` pinned.
-
-## D. NEW FILES — FULL CONTENT (no truncation)
+## D. NEW FILES — FULL CONTENT
 
 ### FILE: `projects/sfia-studio/app/lib/oa/execution-contract/domain/resolveProductExecutionEligibility.ts`
-- bytes: 9255
-- sha256: b21ab567ec7f4516797582146cedc861d12a0e75cb66045a1594813094e8d2fe
-- lines: 244
+- sha256: 69ef4e31d6524f49d91a8c64d9ff501c8a0f944464f8efdad73b6ffc95545f0a
+- lines: 245
 
 ```typescript
 /**
- * PJ-REPROOF-05 — single Product truth: is this ExecutionContract executable NOW?
+ * PJ-REPROOF-05 — mechanical Product Start invariants (NOT a second policy engine).
  *
- * Consumed by:
- * - Authorize / authorization projection
- * - Product Execute UI
- * - SelectExecutionAgent (before Attempt persistence)
- * - StartExecution / boundary revalidation
+ * Answers: may this already-built ExecutionContract proceed to Select / Execute / Start?
  *
- * UI is never the security boundary. Hostile Select must fail here too.
+ * Checks are mechanical / fail-closed:
+ * - historical forever-forbid stamps (legacy EC compatibility)
+ * - trusted launch context present when required
+ *
+ * Does NOT re-qualify mission, choose read/write/docs-write, or route executors.
+ * Consumed by Authorize projection, UI Execute, Select (pre-Attempt), Start.
  *
  * AUTHORIZED (authority verified) ≠ execution eligible.
  */
@@ -351,7 +346,6 @@ export function filterTrajectoryNonExecuteStopsFromEc(
 ```
 
 ### FILE: `projects/sfia-studio/app/features/project-assistant/w2/resolveProductExecutionEligibility.ts`
-- bytes: 437
 - sha256: 8d0e804f9e38b3812e090e9b5b18c3e2c0a1019a5fc732d4eb2e39fda9be460d
 - lines: 11
 
@@ -370,7 +364,6 @@ export {
 ```
 
 ### FILE: `projects/sfia-studio/app/features/project-assistant/w2/resolveTrustedProductLaunchContext.ts`
-- bytes: 4808
 - sha256: 93ea4b81a0c2fbefda99bce2080265e05b0e5ec76a88ce725d9a42c5d6a3474f
 - lines: 151
 
@@ -529,9 +522,8 @@ export function launchContextAsContractInputs(
 ```
 
 ### FILE: `projects/sfia-studio/app/__tests__/project-assistant/pjReproof05.executionEligibility.d0.test.ts`
-- bytes: 19085
-- sha256: f563b24821c04ed4147517d504c797cb908cc946123affb32af2eada742c926c
-- lines: 485
+- sha256: 9698a58f7030cf7fbf1342d7ad7f28dd3d752a4236c847a896af74307286f6a8
+- lines: 613
 
 ```typescript
 // @vitest-environment node
@@ -547,18 +539,24 @@ import path from "node:path";
 import { prepareExecutionContractFromW2Decision } from "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision";
 import { evaluateExecutionAuthorization } from "@/features/project-assistant/w2/authorizeExecutionContract";
 import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
+import {
+  governedExecuteSelectAgent,
+  governedExecuteStart,
+} from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
 import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
 import { proposeTrajectoryOptions } from "@/features/project-assistant/w2/proposeTrajectoryOptions";
 import { resolveW2QualificationInputs } from "@/features/project-assistant/w2/qualificationInputs";
 import { CLARIFY_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
 import {
   resolveProductExecutionEligibility,
+  projectExecutionContractToCursorPrompt,
 } from "@/lib/oa/execution-contract";
 import {
   assertStudioCursorRealOffForTests,
   createStudioCursorGeneralistAgentDescriptor,
   createTestExecutionAttemptServices,
   SqliteRealLaunchSafetyJournal,
+  STUDIO_CURSOR_GENERALIST_AGENT_ID,
   TestExecutionAdapter,
 } from "@/lib/oa/execution-attempt";
 import { setConversationProviderForTests } from "@/lib/platform/ai";
@@ -711,6 +709,17 @@ describe("PJ-REPROOF-05 — new Product EC truthful semantics", () => {
     expect(prepared.contract.constraints).not.toContain("SCOPE_OUT:REAL");
     expect(prepared.contract.stopConditions).not.toContain("STOP AVANT EXECUTE");
     expect(prepared.contract.stopConditions).not.toContain("AUCUNE EXÉCUTION");
+    // Morris — generic Product EC surface (not read/docs-write/fixture categories).
+    expect(prepared.contract.action).toBe("studio.cursor.generalist.execute");
+    expect(prepared.contract.target).toBe("studio.cursor.generalist.workspace");
+    expect(prepared.contract.scope).toBe(
+      "studio.cursor.generalist.authorized_contract",
+    );
+    expect(prepared.contract.requiredCapabilities).toEqual([
+      "cap:studio.cursor.generalist",
+    ]);
+    expect(prepared.contract.action).not.toBe("product:read");
+    expect(prepared.contract.scope).not.toBe("product:read-only");
 
     const loaded = await oa.executionContractServices.getExecutionContract.execute({
       executionContractId: prepared.contract.executionContractId,
@@ -1019,11 +1028,120 @@ describe("PJ-REPROOF-05 — Product authorize eligibility fields", () => {
     }
   });
 });
+
+describe("PJ-REPROOF-05 — generic Product Cursor path (Morris)", () => {
+  it("Prepare→Inspect→Authorize→Select→Start reaches deterministic generalist launch", async () => {
+    const db = tempProductDbPath("pj-reproof05-generic.sqlite");
+    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "pj05g" });
+    const seeded = await seedQualifiedProject(runtime, { suffix: "g05" });
+    const oa = runtime.oa!;
+    const qualification = await resolveW2QualificationInputs({
+      oa,
+      projectId: seeded.projectId,
+    });
+    if (!qualification.ok) throw new Error("qual");
+    const proposed = await proposeTrajectoryOptions({
+      oa,
+      projectId: seeded.projectId,
+      ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
+    });
+    if (!proposed.ok) throw new Error("propose");
+    const decided = await decideTrajectory({
+      oa,
+      projectId: seeded.projectId,
+      optionSetRef: proposed.optionSetRef,
+      options: proposed.options,
+      recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
+      selectedOptionRef: CLARIFY_OPTION_REF,
+      trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory!.version,
+      forceLocalAuthority: true,
+    });
+    if (!decided.ok) throw new Error("decide");
+    const prepared = await prepareExecutionContractFromW2Decision({
+      oa,
+      projectId: seeded.projectId,
+      decisionId: decided.decision.decisionId,
+      currentContext: await currentF2Context(runtime, seeded.projectId),
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(prepared.ok).toBe(true);
+    if (!prepared.ok) throw new Error(prepared.code);
+
+    const loaded = await oa.executionContractServices.getExecutionContract.execute({
+      executionContractId: prepared.contract.executionContractId,
+    });
+    expect(loaded.ok).toBe(true);
+    if (!loaded.ok) throw new Error("load");
+    const contract = loaded.contract;
+    expect(contract.action).toBe("studio.cursor.generalist.execute");
+    expect(contract.constraints).toContain("PRODUCT_GOVERNED");
+    expect(contract.constraints).not.toContain("FIXTURE_EXECUTOR_BOUNDARY_ONLY");
+
+    const prompt = projectExecutionContractToCursorPrompt({ contract });
+    expect(prompt.promptText.length).toBeGreaterThan(40);
+    expect(prompt.executionContractId).toBe(contract.executionContractId);
+    expect(prompt.semanticFingerprint).toBe(contract.semanticFingerprint ?? null);
+
+    await inspectExecutionContract({
+      oa,
+      projectId: seeded.projectId,
+      executionContractId: contract.executionContractId,
+    });
+    const authz = await evaluateExecutionAuthorization({
+      oa,
+      projectId: seeded.projectId,
+      executionContractId: contract.executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(authz.ok).toBe(true);
+    if (!authz.ok) throw new Error(authz.code);
+    expect(authz.outcome).toBe("AUTHORIZED");
+    expect(authz.executionEligible).toBe(true);
+
+    const launchPort = oa.executionAttemptServices!.realBoundary!.launchPort;
+    const before =
+      "calls" in launchPort && Array.isArray(launchPort.calls)
+        ? launchPort.calls.length
+        : 0;
+
+    const selected = await governedExecuteSelectAgent({
+      oa,
+      projectId: seeded.projectId,
+      executionContractId: contract.executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(selected.ok).toBe(true);
+    if (!selected.ok) throw new Error(selected.code);
+    expect(selected.selectedAgentRef).toBe(STUDIO_CURSOR_GENERALIST_AGENT_ID);
+
+    const started = await governedExecuteStart({
+      oa,
+      projectId: seeded.projectId,
+      executionContractId: contract.executionContractId,
+      attemptId: selected.attemptId,
+      forceLocalAuthority: true,
+    });
+    if (!started.ok) {
+      throw new Error(`start failed: ${started.code} ${started.message}`);
+    }
+    expect(started.ok).toBe(true);
+    expect(started.phase).toBe("running");
+    const after =
+      "calls" in launchPort && Array.isArray(launchPort.calls)
+        ? launchPort.calls.length
+        : 0;
+    expect(after).toBeGreaterThan(before);
+    expect(started.selectedAgentRef).toBe(STUDIO_CURSOR_GENERALIST_AGENT_ID);
+  });
+});
 ```
 
-## E. COMPLETE tracked diffs (PJ-REPROOF-05 modified files)
-
-Excludes `.tmp-sfia-review/chatgpt-review.md` only.
+## E. COMPLETE tracked diffs
 
 ### DIFF: `projects/sfia-studio/app/__tests__/oa/execution-attempt/support/m4Fixtures.ts`
 
@@ -1105,10 +1223,77 @@ index 5251763c..01ba57c5 100644
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts b/projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts
-index d8b8428f..d87c96d5 100644
+index d8b8428f..6f31bd98 100644
 --- a/projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts
 +++ b/projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts
-@@ -205,6 +205,24 @@ export async function seedQualifiedProject(
+@@ -1,7 +1,10 @@
+ /**
+  * Shared harness for W2 (E+A+B+C) product-path tests.
+  * Product SQLite on a temp file so restart proofs reopen the same store.
+- * No REAL boundary, no execution: every helper here stops before Execute.
++ *
++ * PJ-REPROOF-05 — Product canonical path uses a DETERMINISTIC fake Cursor
++ * REAL boundary (TestOnlyRealExecutionLaunchPort). Never enables production
++ * SFIA_STUDIO_CURSOR_REAL. Fixtures remain available for historical F3 tests.
+  */
+ import fs from "node:fs";
+ import os from "node:os";
+@@ -16,6 +19,8 @@ import {
+ } from "@/lib/vertical-slice-runtime";
+ import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
+ import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
++import { SqliteRealLaunchSafetyJournal } from "@/lib/oa/execution-attempt";
++import { TestOnlyRealExecutionLaunchPort } from "../oa/execution-attempt/support/testOnlyRealExecutionLaunchPort";
+
+ const APP_ROOT = path.resolve(__dirname, "../..");
+ export const W2_REGISTRY_ROOT = path.join(APP_ROOT, "lib/oa/doctrine/product");
+@@ -86,6 +91,11 @@ export function cleanupW2TempDirs(): void {
+ export function bootW2Runtime(input: {
+   productDbPath: string;
+   idPrefix?: string;
++  /**
++   * When false, omit deterministic Cursor REAL boundary (historical fixture-only
++   * compositions). Default true so Product governed Execute can select generalist.
++   */
++  readonly withDeterministicProductCursorBoundary?: boolean;
+ }): RuntimeApplicationService {
+   process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+   process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
+@@ -116,6 +126,25 @@ export function bootW2Runtime(input: {
+     identity: process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY!,
+   });
+   resetRuntimeApplicationServiceForTests();
++
++  const withCursorBoundary = input.withDeterministicProductCursorBoundary !== false;
++  let realBoundary:
++    | {
++        launchPort: TestOnlyRealExecutionLaunchPort;
++        safetyJournal: SqliteRealLaunchSafetyJournal;
++      }
++    | undefined;
++  if (withCursorBoundary) {
++    const safetyDir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-w2-gate-"));
++    tempDirs.push(safetyDir);
++    realBoundary = {
++      launchPort: new TestOnlyRealExecutionLaunchPort({ holdCompletion: true }),
++      safetyJournal: new SqliteRealLaunchSafetyJournal({
++        databasePath: path.join(safetyDir, "safety.sqlite"),
++      }),
++    };
++  }
++
+   return getRuntimeApplicationService({
+     registryRoot: W2_REGISTRY_ROOT,
+     schemasRoot: W2_SCHEMAS_ROOT,
+@@ -123,6 +152,7 @@ export function bootW2Runtime(input: {
+     idSource: new SeededIdSource(input.idPrefix ?? "w2"),
+     auditMode: "noop",
+     productDbPath: input.productDbPath,
++    ...(realBoundary ? { realBoundary } : {}),
+   });
+ }
+
+@@ -205,6 +235,24 @@ export async function seedQualifiedProject(
    const after = await runtime.getProject(projectId);
    if (!after.ok) throw new Error("seed: getProject(after) failed");
 
@@ -1133,7 +1318,7 @@ index d8b8428f..d87c96d5 100644
    return {
      projectId,
      cycleInstanceId,
-@@ -212,6 +230,13 @@ export async function seedQualifiedProject(
+@@ -212,6 +260,13 @@ export async function seedQualifiedProject(
    };
  }
 
@@ -1153,10 +1338,28 @@ index d8b8428f..d87c96d5 100644
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/w3aGovernedExecute.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/w3aGovernedExecute.test.ts
-index 1df6cbfc..8c4f5845 100644
+index 1df6cbfc..9124d220 100644
 --- a/projects/sfia-studio/app/__tests__/project-assistant/w3aGovernedExecute.test.ts
 +++ b/projects/sfia-studio/app/__tests__/project-assistant/w3aGovernedExecute.test.ts
-@@ -60,6 +60,7 @@ import {
+@@ -7,6 +7,10 @@ import { prepareExecutionContractFromW2Decision } from "@/features/project-assis
+ import {
+   assertNotF3FixtureSemantics,
+   deriveW3AExecutionEnvelope,
++  PRODUCT_CANONICAL_EXECUTION_ACTION,
++  PRODUCT_CANONICAL_EXECUTION_CAPABILITY,
++  PRODUCT_CANONICAL_EXECUTION_SCOPE,
++  PRODUCT_CANONICAL_EXECUTION_TARGET,
+ } from "@/features/project-assistant/w2/w3aProductExecutionSemantics";
+ import {
+   buildActualExecutionWork,
+@@ -54,12 +58,14 @@ import {
+   W3A_BOUNDED_FIXTURE_AGENT_ID,
+   W3A_FIXTURE_ALLOWED_SCOPES,
+ } from "@/lib/vertical-slice-runtime/w3aProductFixtureWiring";
++import { STUDIO_CURSOR_GENERALIST_AGENT_ID } from "@/lib/oa/execution-attempt";
+ import {
+   bootW2Runtime,
+   cleanupW2TempDirs,
    currentF2Context,
    seedQualifiedProject,
    tempProductDbPath,
@@ -1164,7 +1367,7 @@ index 1df6cbfc..8c4f5845 100644
  } from "./w2Harness";
 
  beforeEach(() => {
-@@ -164,7 +165,10 @@ describe("W3-A actual work provenance", () => {
+@@ -164,7 +170,10 @@ describe("W3-A actual work provenance", () => {
      expect(actual.target).toBe(W3A_PRODUCT_TARGET_WORKSPACE);
      expect(actual.scopeOut).toContain("DURABLE_PROJECT_WRITE");
      expect(actual.scopeOut).toContain("GIT_PUSH");
@@ -1176,7 +1379,59 @@ index 1df6cbfc..8c4f5845 100644
      // R13 — scopeOut must not forbid the current action/scopeIn effect.
      expect(actual.scopeOut).not.toContain("TEMPORARY_ARTIFACT");
      expect(actual.scopeOut).not.toContain(W3A_PRODUCT_SCOPE.TEMP_ARTIFACT);
-@@ -547,6 +551,7 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
+@@ -183,10 +192,17 @@ describe("W3-A actual work provenance", () => {
+     });
+     expect(env.ok).toBe(true);
+     if (!env.ok) return;
+-    expect(env.envelope.action).toBe("product:generate-temporary-artifact");
+-    expect(env.envelope.scope).toBe(W3A_PRODUCT_SCOPE.TEMP_ARTIFACT);
++    expect(env.envelope.action).toBe(PRODUCT_CANONICAL_EXECUTION_ACTION);
++    expect(env.envelope.scope).toBe(PRODUCT_CANONICAL_EXECUTION_SCOPE);
++    expect(env.envelope.target).toBe(PRODUCT_CANONICAL_EXECUTION_TARGET);
++    expect(env.envelope.requiredCapabilities).toEqual([
++      PRODUCT_CANONICAL_EXECUTION_CAPABILITY,
++    ]);
++    expect(env.envelope.inputs.effectClass).toBe("generate-temporary-artifact");
++    expect(env.envelope.inputs.internalEffectAction).toBe(
++      "product:generate-temporary-artifact",
++    );
+     expect(env.envelope.scope).not.toContain("décider");
+-    expect(env.envelope.target).toBe(W3A_PRODUCT_TARGET_WORKSPACE);
+     expect(env.envelope.requiredAuthority).toBe("N1");
+     expect(env.envelope.effectConfirmationRequired).toBe(true);
+     expect(env.envelope.effectConfirmationLevel).toBe("N1");
+@@ -255,11 +271,16 @@ describe("W3-A actual work provenance", () => {
+     });
+     expect(envSim.ok && envRead.ok).toBe(true);
+     if (!envSim.ok || !envRead.ok) return;
+-    expect(envSim.envelope.action).toBe("product:simulate");
+-    expect(envRead.envelope.action).toBe("product:read");
+-    expect(envSim.envelope.scope).toBe(W3A_PRODUCT_SCOPE.SIMULATE);
+-    expect(envRead.envelope.scope).toBe(W3A_PRODUCT_SCOPE.READ);
+-    expect(envSim.envelope.scope).not.toBe(envRead.envelope.scope);
++    // Canonical Product EC surface is ONE generic Cursor quartet.
++    expect(envSim.envelope.action).toBe(PRODUCT_CANONICAL_EXECUTION_ACTION);
++    expect(envRead.envelope.action).toBe(PRODUCT_CANONICAL_EXECUTION_ACTION);
++    expect(envSim.envelope.scope).toBe(PRODUCT_CANONICAL_EXECUTION_SCOPE);
++    expect(envRead.envelope.scope).toBe(PRODUCT_CANONICAL_EXECUTION_SCOPE);
++    // Internal effect-control facts remain distinct (ActionPolicy — not Product types).
++    expect(envSim.envelope.inputs.effectClass).toBe("simulate");
++    expect(envRead.envelope.inputs.effectClass).toBe("read");
++    expect(envSim.envelope.inputs.internalEffectAction).toBe("product:simulate");
++    expect(envRead.envelope.inputs.internalEffectAction).toBe("product:read");
+   });
+ });
+
+@@ -537,7 +558,7 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
+     expect(prepared.code).toBe("EFFECTS_UNRESOLVED");
+   });
+
+-  it("temp artifact N1 + Confirmation N1 → AUTHORIZED → accepted→running→terminal", async () => {
++  it("temp artifact Confirmation gate → AUTHORIZED → generalist Select→Start (deterministic launch)", async () => {
+     const ctx = await decideGoverned("pos");
+     const context = await currentF2Context(ctx.runtime, ctx.seeded.projectId);
+     const prepared = await prepareExecutionContractFromW2Decision({
+@@ -547,14 +568,18 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
        currentContext: context,
        forceLocalAuthority: true,
        qualifiedOperationKind: "generate-temporary-artifact",
@@ -1184,7 +1439,94 @@ index 1df6cbfc..8c4f5845 100644
      });
      expect(prepared.ok).toBe(true);
      if (!prepared.ok) throw new Error(`prepare ${prepared.code}`);
-@@ -650,6 +655,7 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
+-    expect(prepared.contract.action).toBe("product:generate-temporary-artifact");
++    expect(prepared.contract.action).toBe(PRODUCT_CANONICAL_EXECUTION_ACTION);
+     expect(prepared.contract.action).not.toContain("trajectory");
+-    expect(prepared.contract.scope).toBe(W3A_PRODUCT_SCOPE.TEMP_ARTIFACT);
++    expect(prepared.contract.scope).toBe(PRODUCT_CANONICAL_EXECUTION_SCOPE);
+     expect(prepared.contract.scope).not.toContain("décider");
+-    expect(prepared.contract.target).toBe(W3A_PRODUCT_TARGET_WORKSPACE);
++    expect(prepared.contract.target).toBe(PRODUCT_CANONICAL_EXECUTION_TARGET);
++    expect(prepared.contract.requiredCapabilities).toEqual([
++      PRODUCT_CANONICAL_EXECUTION_CAPABILITY,
++    ]);
+     expect(prepared.contract.requiredAuthority).toBe("N1");
+     expect(prepared.contract.status).toBe("confirmation_required");
+     expect(prepared.contract.effectConfirmationRequired).toBe(true);
+@@ -562,6 +587,10 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
+     expect(prepared.contract.constraints.some((c) =>
+       c.startsWith("EFFECT_CONFIRMATION_REQUIRED"),
+     )).toBe(true);
++    expect(prepared.contract.constraints).toContain("PRODUCT_GOVERNED");
++    expect(prepared.contract.constraints).not.toContain(
++      "FIXTURE_EXECUTOR_BOUNDARY_ONLY",
++    );
+
+     const executionContractId = prepared.contract.executionContractId;
+     const inspected = await inspectExecutionContract({
+@@ -600,7 +629,12 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
+     expect(authorized.ok).toBe(true);
+     if (!authorized.ok) throw new Error("auth");
+     expect(authorized.outcome).toBe("AUTHORIZED");
+-    expect(ctx.oa.executionAttemptServices.registry.getAgent(W3A_BOUNDED_FIXTURE_AGENT_ID)).toBeTruthy();
++    expect(authorized.executionEligible).toBe(true);
++
++    const launchPort = ctx.oa.executionAttemptServices!.realBoundary!.launchPort;
++    const launchBefore = "calls" in launchPort && Array.isArray(launchPort.calls)
++      ? launchPort.calls.length
++      : 0;
+
+     const selected = await governedExecuteSelectAgent({
+       oa: ctx.oa,
+@@ -611,7 +645,9 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
+     expect(selected.ok).toBe(true);
+     if (!selected.ok) return;
+     expect(selected.phase).toBe("accepted");
+-    expect(selected.selectedAgentRef).toBe(W3A_BOUNDED_FIXTURE_AGENT_ID);
++    expect(selected.selectedAgentRef).toBe(STUDIO_CURSOR_GENERALIST_AGENT_ID);
++    expect(selected.adapterId).not.toContain("f3");
++    expect(selected.selectedAgentRef).not.toBe(W3A_BOUNDED_FIXTURE_AGENT_ID);
+
+     const started = await governedExecuteStart({
+       oa: ctx.oa,
+@@ -624,23 +660,27 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
+     if (!started.ok) return;
+     expect(started.phase).toBe("running");
+     expect(started.attemptId).toBe(selected.attemptId);
+-
+-    const terminal = await governedExecuteRecordResult({
++    expect(started.selectedAgentRef).toBe(STUDIO_CURSOR_GENERALIST_AGENT_ID);
++    const launchAfter = "calls" in launchPort && Array.isArray(launchPort.calls)
++      ? launchPort.calls.length
++      : 0;
++    expect(launchAfter).toBeGreaterThan(launchBefore);
++
++    // No second Pilot Confirmation invented for Cursor REAL — Gate D is mechanical.
++    // Record awaits Cursor report (no F3 fixture fallback).
++    const pending = await governedExecuteRecordResult({
+       oa: ctx.oa,
+       projectId: ctx.seeded.projectId,
+       executionContractId,
+       attemptId: started.attemptId,
+       forceLocalAuthority: true,
+     });
+-    expect(terminal.ok).toBe(true);
+-    if (!terminal.ok) return;
+-    expect(terminal.phase).toBe("terminal");
+-    expect(terminal.attemptId).toBe(selected.attemptId);
+-    expect(terminal.cycleInstanceClosed).toBe(false);
+-    expect(terminal.realExecution).toBe(false);
++    expect(pending.ok).toBe(false);
++    if (pending.ok) return;
++    expect(pending.code).toBe("CURSOR_REPORT_PENDING");
+   });
+
+-  it("read → N1 · Confirmation NOT_REQUIRED marker · validated · fixture agent selectable (PJ-REPROOF-04)", async () => {
++  it("compat read kind → N1 · no Confirmation · generalist Select (not fixture)", async () => {
+     const ctx = await decideGoverned("read");
+     const context = await currentF2Context(ctx.runtime, ctx.seeded.projectId);
+     const prepared = await prepareExecutionContractFromW2Decision({
+@@ -650,6 +690,7 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
        currentContext: context,
        forceLocalAuthority: true,
        qualifiedOperationKind: "read",
@@ -1192,6 +1534,38 @@ index 1df6cbfc..8c4f5845 100644
      });
      expect(prepared.ok).toBe(true);
      if (!prepared.ok) return;
+@@ -666,8 +707,10 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
+         constraints: prepared.contract.constraints,
+       }),
+     ).toBe(true);
+-    expect(prepared.contract.action).toBe("product:read");
+-    expect(prepared.contract.scope).toBe(W3A_PRODUCT_SCOPE.READ);
++    expect(prepared.contract.action).toBe(PRODUCT_CANONICAL_EXECUTION_ACTION);
++    expect(prepared.contract.scope).toBe(PRODUCT_CANONICAL_EXECUTION_SCOPE);
++    expect(prepared.contract.action).not.toBe("product:read");
++    expect(prepared.contract.scope).not.toBe(W3A_PRODUCT_SCOPE.READ);
+
+     const executionContractId = prepared.contract.executionContractId;
+     await inspectExecutionContract({
+@@ -684,7 +727,6 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
+     expect(authorized.ok).toBe(true);
+     if (!authorized.ok) return;
+     expect(authorized.outcome).toBe("AUTHORIZED");
+-    const launchBefore = ctx.oa.fixtureAdapter.launchCallCount;
+     const selected = await governedExecuteSelectAgent({
+       oa: ctx.oa,
+       projectId: ctx.seeded.projectId,
+@@ -693,8 +735,8 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
+     });
+     expect(selected.ok).toBe(true);
+     if (!selected.ok) return;
+-    expect(selected.selectedAgentRef).toBe(W3A_BOUNDED_FIXTURE_AGENT_ID);
+-    expect(ctx.oa.fixtureAdapter.launchCallCount).toBe(launchBefore);
++    expect(selected.selectedAgentRef).toBe(STUDIO_CURSOR_GENERALIST_AGENT_ID);
++    expect(selected.selectedAgentRef).not.toBe(W3A_BOUNDED_FIXTURE_AGENT_ID);
+   });
+
+   it("high-risk push operationKind rejected before EC (R15)", async () => {
 ```
 
 ### DIFF: `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx`
@@ -1356,14 +1730,60 @@ index 74d0db97..4afffeda 100644
        requiredAuthority: contract.requiredAuthority,
 ```
 
+### DIFF: `projects/sfia-studio/app/features/project-assistant/w2/deriveActualExecutionWorkFromProductContext.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/deriveActualExecutionWorkFromProductContext.ts b/projects/sfia-studio/app/features/project-assistant/w2/deriveActualExecutionWorkFromProductContext.ts
+index 37fd647d..f97e5499 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/deriveActualExecutionWorkFromProductContext.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/deriveActualExecutionWorkFromProductContext.ts
+@@ -202,8 +202,9 @@ function missionFromClarifyWithoutRecovery(
+ }
+
+ /**
+- * Internal effect control from mission perimeter — NOT from trajectory option.
+- * Non-mutating perimeter → weak reversible control suitable for Confirmation projection.
++ * Internal effect-control scaffold from mission perimeter — NOT a Product
++ * contract category. `operationKind: "read"` here is ActionPolicy taxonomy only;
++ * the durable EC surface is stamped as the generic Cursor quartet by the envelope.
+  */
+ function buildInternalWorkFromMissionPerimeter(input: {
+   readonly projectId: string;
+```
+
 ### DIFF: `projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts b/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
-index 3a1295b6..bde6f0c2 100644
+index 3a1295b6..dbb87ac6 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
-@@ -40,6 +40,7 @@ import { deriveAttemptProvenance } from "@/features/project-assistant/f3/deriveA
+@@ -5,10 +5,12 @@
+  * Phase 2 (start): continue durable Attempt → running (no re-authorize on executing EC)
+  * Phase 3 (record): continue running Attempt → technical terminal
+  *
+- * Dual Product orchestration (ONE state machine):
+- * - Sandbox / fixture-safe EC → F3 fixture adapter (existing)
+- * - Resolved M4 bounded docs-write EC → OA Select → Gate D → StartExecution
+- *   with Fake or REAL launch port from composition (client real/adapter ignored)
++ * PJ-REPROOF-05 / Morris — Product orchestration:
++ * - Canonical PRODUCT_GOVERNED EC → generic Cursor REAL boundary + mechanical Gate D
++ * - Sealed historical M4 bounded docs-write EC → docs-write agent + Gate D (isolated GCEC)
++ * - Explicit FIXTURE_EXECUTOR_BOUNDARY_ONLY / historical F3-only → fixture adapter (test)
++ *
++ * Effects / ActionPolicy remain internal protections — not Product executor routing.
+  */
+
+ import { createHash } from "node:crypto";
+@@ -31,6 +33,7 @@ import {
+   M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+   M4_REAL_GATEWAY_ADAPTER_ID,
+   resolveSelectionStrategy,
++  STUDIO_CURSOR_GENERALIST_AGENT_ID,
+ } from "@/lib/oa/execution-attempt";
+ import type { CycleProfile } from "@/lib/oa/cycle";
+ import { F3_ADAPTER_ID } from "@/features/project-assistant/f3/constants";
+@@ -40,6 +43,7 @@ import { deriveAttemptProvenance } from "@/features/project-assistant/f3/deriveA
  import { authorizedM3ResolutionKind } from "@/features/project-assistant/f3/selectProductM3ResolutionProfile";
  import { advanceProductExecutionContractAfterEvidence } from "./advanceProductExecutionContractAfterEvidence";
  import { evaluateExecutionAuthorization } from "./authorizeExecutionContract";
@@ -1371,7 +1791,150 @@ index 3a1295b6..bde6f0c2 100644
  import type {
    GovernedExecuteAuthorizedContractResult,
    GovernedExecuteAttemptProjection,
-@@ -459,6 +460,22 @@ export async function governedExecuteSelectAgent(
+@@ -54,13 +58,40 @@ function mapCycleProfileToSelectionProfile(
+   return "standard";
+ }
+
++function isBoundedDocsWriteContract(contract: ExecutionContract): boolean {
++  return authorizedM3ResolutionKind(contract) === "bounded_docs_write";
++}
++
++/**
++ * Canonical Product EC: Nora/Studio-prepared PRODUCT_GOVERNED envelope.
++ * Not a sealed GCEC docs-write profile. Not an explicit fixture-only stamp.
++ */
++function isCanonicalProductGovernedContract(
++  contract: ExecutionContract,
++): boolean {
++  if (isBoundedDocsWriteContract(contract)) return false;
++  if (contract.constraints.includes("FIXTURE_EXECUTOR_BOUNDARY_ONLY")) {
++    return false;
++  }
++  return contract.constraints.includes("PRODUCT_GOVERNED");
++}
++
++/** Generic Cursor REAL launch boundary (Product or sealed docs-write). */
++function usesGenericCursorRealBoundary(contract: ExecutionContract): boolean {
++  return (
++    isBoundedDocsWriteContract(contract) ||
++    isCanonicalProductGovernedContract(contract)
++  );
++}
++
+ /**
+- * adapterId = contractual M4 gateway identity for docs-write ECs
++ * adapterId = contractual M4 gateway identity for Cursor REAL ECs
+  * (Fake and REAL share M4_REAL_GATEWAY_ADAPTER_ID). Physical Fake vs REAL is
+  * carried by boundaryProofMode / realExecution from deriveAttemptProvenance.
++ * Fixture adapter is historical / test-only when EC explicitly fixture-stamped.
+  */
+ function adapterIdForContract(contract: ExecutionContract): string {
+-  return isBoundedDocsWriteContract(contract)
++  return usesGenericCursorRealBoundary(contract)
+     ? M4_REAL_GATEWAY_ADAPTER_ID
+     : F3_ADAPTER_ID;
+ }
+@@ -115,10 +146,6 @@ export type GovernedExecuteAuthorizedContractInput = {
+
+ type Failure = GovernedExecuteAuthorizedContractResult;
+
+-function isBoundedDocsWriteContract(contract: ExecutionContract): boolean {
+-  return authorizedM3ResolutionKind(contract) === "bounded_docs_write";
+-}
+-
+ function fixtureBoundaryFailure(oa: RuntimeOaStack): Failure | null {
+   if (!oa.fixtureAdapter || !oa.executionAttemptServices) {
+     return {
+@@ -145,8 +172,11 @@ function fixtureBoundaryFailure(oa: RuntimeOaStack): Failure | null {
+   return null;
+ }
+
+-/** Docs-write path: require composed launch boundary (Fake in tests / REAL when opted-in). */
+-function docsWriteBoundaryFailure(oa: RuntimeOaStack): Failure | null {
++/**
++ * Generic Cursor REAL boundary (canonical Product + sealed docs-write).
++ * Mechanical Gate D / launchPort presence — not a Pilot-facing second decision.
++ */
++function cursorRealBoundaryFailure(oa: RuntimeOaStack): Failure | null {
+   if (!oa.executionAttemptServices) {
+     return {
+       ok: false,
+@@ -159,7 +189,7 @@ function docsWriteBoundaryFailure(oa: RuntimeOaStack): Failure | null {
+       ok: false,
+       code: "REAL_BOUNDARY_REQUIRED",
+       message:
+-        "Contrat bounded docs-write refusé — realBoundary absent (fail-closed, pas de fallback fixture).",
++        "Exécution Cursor refusée — realBoundary absent (fail-closed, pas de fallback fixture Product).",
+     };
+   }
+   if (!oa.executionAttemptServices.grantRealExecutionGate) {
+@@ -167,12 +197,33 @@ function docsWriteBoundaryFailure(oa: RuntimeOaStack): Failure | null {
+       ok: false,
+       code: "GATE_D_REQUIRED",
+       message:
+-        "Contrat bounded docs-write refusé — Gate D non disponible (fail-closed).",
++        "Exécution Cursor refusée — journal Gate D mécanique indisponible (fail-closed).",
+     };
+   }
+   return null;
+ }
+
++function executionBoundaryFailure(
++  oa: RuntimeOaStack,
++  contract: ExecutionContract,
++): Failure | null {
++  return usesGenericCursorRealBoundary(contract)
++    ? cursorRealBoundaryFailure(oa)
++    : fixtureBoundaryFailure(oa);
++}
++
++function launchCountBeforeFor(
++  oa: RuntimeOaStack,
++  contract: ExecutionContract,
++): number {
++  if (usesGenericCursorRealBoundary(contract)) {
++    return launchCallCountOf(
++      oa.executionAttemptServices!.realBoundary!.launchPort,
++    );
++  }
++  return oa.fixtureAdapter!.launchCallCount;
++}
++
+ function launchCallCountOf(port: unknown): number {
+   if (port && typeof port === "object") {
+     if ("launchCallCount" in port) {
+@@ -310,9 +361,8 @@ function buildTechnicalTerminal(input: {
+   launchCountBefore: number;
+   statusLabel?: string;
+ }): GovernedExecuteAuthorizedContractResult {
+-  const docsWrite = isBoundedDocsWriteContract(input.contract);
+   const adapterId = adapterIdForContract(input.contract);
+-  const launchCount = docsWrite
++  const launchCount = usesGenericCursorRealBoundary(input.contract)
+     ? launchCallCountOf(
+         input.oa.executionAttemptServices?.realBoundary?.launchPort,
+       )
+@@ -412,15 +462,13 @@ export async function governedExecuteSelectAgent(
+   }
+   const { contract, selectionProfile } = loaded;
+   const docsWrite = isBoundedDocsWriteContract(contract);
+-  const boundary = docsWrite
+-    ? docsWriteBoundaryFailure(input.oa)
+-    : fixtureBoundaryFailure(input.oa);
++  const productCursor = isCanonicalProductGovernedContract(contract);
++  const cursorReal = usesGenericCursorRealBoundary(contract);
++  const boundary = executionBoundaryFailure(input.oa, contract);
+   if (boundary) return boundary;
+
+   const adapterId = adapterIdForContract(contract);
+-  const launchCountBefore = docsWrite
+-    ? launchCallCountOf(input.oa.executionAttemptServices!.realBoundary!.launchPort)
+-    : input.oa.fixtureAdapter!.launchCallCount;
++  const launchCountBefore = launchCountBeforeFor(input.oa, contract);
+
+   const succeeded = await findSucceededAttempt(
+     input.oa,
+@@ -459,6 +507,22 @@ export async function governedExecuteSelectAgent(
      };
    }
 
@@ -1394,6 +1957,169 @@ index 3a1295b6..bde6f0c2 100644
    const authority = registerPiloteAuthority(
      input.oa,
      contract.scope,
+@@ -468,12 +532,12 @@ export async function governedExecuteSelectAgent(
+     return { ok: false, code: authority.code, message: authority.message };
+   }
+
+-  // Docs-write shares F3 M4 selection: capabilities_deterministic + requested
+-  // M4 agent (system-initiated). Cycle Critical must not invent a second
+-  // agent-confirmation Product path for an already Confirmation-gated EC.
++  // Cursor REAL paths (canonical Product + sealed docs-write): mechanical
++  // capabilities_deterministic selection — no Pilot agent-selection HOW.
++  // Sealed docs-write still requests its specialized agent; Product uses generalist.
+   let effectiveProfile: SelectionProfile = selectionProfile;
+   let selectionStrategy: SelectionStrategy;
+-  if (docsWrite) {
++  if (cursorReal) {
+     effectiveProfile = "standard";
+     selectionStrategy = "capabilities_deterministic";
+   } else {
+@@ -511,10 +575,12 @@ export async function governedExecuteSelectAgent(
+       expectedContractVersion: contract.version,
+       selectionProfile: effectiveProfile,
+       selectionStrategy,
+-      systemInitiated: docsWrite,
++      systemInitiated: cursorReal,
+       ...(docsWrite
+         ? { requestedAgentRef: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID }
+-        : {}),
++        : productCursor
++          ? { requestedAgentRef: STUDIO_CURSOR_GENERALIST_AGENT_ID }
++          : {}),
+     });
+   if (!selected.ok) {
+     return {
+@@ -554,15 +620,13 @@ export async function governedExecuteStart(
+   if (!loaded.ok) return loaded.result;
+   const { contract, selectionProfile } = loaded;
+   const docsWrite = isBoundedDocsWriteContract(contract);
+-  const boundary = docsWrite
+-    ? docsWriteBoundaryFailure(input.oa)
+-    : fixtureBoundaryFailure(input.oa);
++  void docsWrite;
++  const cursorReal = usesGenericCursorRealBoundary(contract);
++  const boundary = executionBoundaryFailure(input.oa, contract);
+   if (boundary) return boundary;
+
+   const adapterId = adapterIdForContract(contract);
+-  const launchCountBefore = docsWrite
+-    ? launchCallCountOf(input.oa.executionAttemptServices!.realBoundary!.launchPort)
+-    : input.oa.fixtureAdapter!.launchCallCount;
++  const launchCountBefore = launchCountBeforeFor(input.oa, contract);
+
+   const succeeded = await findSucceededAttempt(
+     input.oa,
+@@ -588,10 +652,12 @@ export async function governedExecuteStart(
+     return { ok: false, code: authority.code, message: authority.message };
+   }
+
+-  if (!docsWrite) {
++  if (!cursorReal) {
+     // R-W3B-04 — TEST-ONLY external adapter fail arm (never a product UI outcome).
+     applyW3bAdapterFailArmIfPresent(input.oa.fixtureAdapter);
+   } else {
++    // Mechanical Gate D launch-safety grant — bound to Attempt/EC/fingerprint.
++    // Not a Pilot-facing second Confirmation (docs-write + canonical Product).
+     const grantId = `gd:w3a:${input.attemptId.replace(/^xat:/, "")}`;
+     const nowMs = Date.parse(input.oa.clock.nowIso());
+     const expiresAt = new Date(
+@@ -652,7 +718,8 @@ export async function governedExecuteStart(
+   }
+
+   // R-W3B-03 — TEST-ONLY governed stop arm: FC-10 SystemGovernedStop (not human Cancel).
+-  if (!docsWrite) {
++  // Fixture / historical paths only — Product Cursor REAL does not use fixture arms.
++  if (!cursorReal) {
+     const stopArm = consumeW3bBoundaryArm();
+     if (stopArm?.kind === "governed_stop") {
+       const onContract =
+@@ -717,15 +784,12 @@ export async function governedExecuteRecordResult(
+   if (!loaded.ok) return loaded.result;
+   const { contract, selectionProfile } = loaded;
+   const docsWrite = isBoundedDocsWriteContract(contract);
+-  const boundary = docsWrite
+-    ? docsWriteBoundaryFailure(input.oa)
+-    : fixtureBoundaryFailure(input.oa);
++  const productCursor = isCanonicalProductGovernedContract(contract);
++  const boundary = executionBoundaryFailure(input.oa, contract);
+   if (boundary) return boundary;
+
+   const adapterId = adapterIdForContract(contract);
+-  const launchCountBefore = docsWrite
+-    ? launchCallCountOf(input.oa.executionAttemptServices!.realBoundary!.launchPort)
+-    : input.oa.fixtureAdapter!.launchCallCount;
++  const launchCountBefore = launchCountBeforeFor(input.oa, contract);
+
+   const succeeded = await findSucceededAttempt(
+     input.oa,
+@@ -842,6 +906,47 @@ export async function governedExecuteRecordResult(
+     });
+   }
+
++  // Canonical Product generic Cursor: Record waits for Cursor report / process
++  // observation — do NOT fall through to F3 fixture adapter.
++  if (productCursor) {
++    const existing =
++      await input.oa.executionAttemptServices!.getExecutionAttempt.execute({
++        attemptId: input.attemptId,
++      });
++    if (!existing.ok || !existing.attempt) {
++      return {
++        ok: false,
++        code: existing.ok ? "ATTEMPT_NOT_FOUND" : existing.error.detailCode,
++        message: existing.ok
++          ? "Attempt introuvable pour completion Product Cursor."
++          : existing.error.message,
++      };
++    }
++    const attempt = existing.attempt;
++    if (
++      attempt.status === "succeeded" ||
++      attempt.status === "failed" ||
++      attempt.status === "timeout" ||
++      attempt.status === "cancelled"
++    ) {
++      return buildTechnicalTerminal({
++        contract,
++        attempt,
++        selectionProfile,
++        oa: input.oa,
++        reusedExistingAttempt: false,
++        launchCountBefore,
++      });
++    }
++    return {
++      ok: false,
++      code: "CURSOR_REPORT_PENDING",
++      message:
++        "Tentative Cursor générique en cours — le rapport d'exécution / Evidence n'est pas encore disponible (pas de fallback fixture).",
++      attempt: projectAttempt(attempt, adapterId),
++    };
++  }
++
+   const identities = attemptIdentities(
+     contract.executionContractId,
+     contract.version,
+@@ -936,17 +1041,10 @@ export async function governedExecuteCancel(
+   const loaded = await loadContract(input.oa, input);
+   if (!loaded.ok) return loaded.result;
+   const { contract, selectionProfile } = loaded;
+-  const docsWrite = isBoundedDocsWriteContract(contract);
+-  const boundary = docsWrite
+-    ? docsWriteBoundaryFailure(input.oa)
+-    : fixtureBoundaryFailure(input.oa);
++  const boundary = executionBoundaryFailure(input.oa, contract);
+   if (boundary) return boundary;
+
+-  const launchCountBefore = docsWrite
+-    ? launchCallCountOf(
+-        input.oa.executionAttemptServices!.realBoundary!.launchPort,
+-      )
+-    : input.oa.fixtureAdapter!.launchCallCount;
++  const launchCountBefore = launchCountBeforeFor(input.oa, contract);
+
+   registerPiloteAuthority(
+     input.oa,
 ```
 
 ### DIFF: `projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts`
@@ -1558,35 +2284,60 @@ index 71d214c6..19fc642a 100644
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/w3aProductExecutionSemantics.ts b/projects/sfia-studio/app/features/project-assistant/w2/w3aProductExecutionSemantics.ts
-index 601c2b69..44165f44 100644
+index 601c2b69..ade56e2d 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/w3aProductExecutionSemantics.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/w3aProductExecutionSemantics.ts
-@@ -35,6 +35,7 @@ import {
+@@ -35,11 +35,32 @@ import {
    projectRequiredAuthorityFromEffects,
    deriveReversibilityFromEffects,
  } from "./w3aQualifiedExecutionEffects";
 +import { filterTrajectoryNonExecuteStopsFromEc } from "./resolveProductExecutionEligibility";
++import {
++  STUDIO_CURSOR_GENERALIST_ACTION,
++  STUDIO_CURSOR_GENERALIST_CAPABILITY,
++  STUDIO_CURSOR_GENERALIST_SCOPE,
++  STUDIO_CURSOR_GENERALIST_TARGET,
++} from "@/lib/oa/execution-attempt/infrastructure/studioCursorGeneralistAgent";
 
  /** Implementation / provenance marker — NOT authority-bearing scope. */
  export const W3A_IMPLEMENTATION_MARKER =
-@@ -66,6 +67,16 @@ export type EnvelopePrepareFailure =
+   "w3:governed-execute:studio-canonical" as const;
+
++/**
++ * PJ-REPROOF-05 / Morris — canonical Product EC surface is ONE generic
++ * Cursor execution quartet. Effect-class tokens (product:read, …) remain
++ * INTERNAL ActionPolicy facts in inputs/constraints — not EC routing types.
++ */
++export const PRODUCT_CANONICAL_EXECUTION_ACTION =
++  STUDIO_CURSOR_GENERALIST_ACTION;
++export const PRODUCT_CANONICAL_EXECUTION_TARGET =
++  STUDIO_CURSOR_GENERALIST_TARGET;
++export const PRODUCT_CANONICAL_EXECUTION_SCOPE =
++  STUDIO_CURSOR_GENERALIST_SCOPE;
++export const PRODUCT_CANONICAL_EXECUTION_CAPABILITY =
++  STUDIO_CURSOR_GENERALIST_CAPABILITY;
++
+ export type W3AExecutionEnvelope = {
+   readonly action: string;
+   readonly scope: string;
+@@ -66,6 +87,16 @@ export type EnvelopePrepareFailure =
        readonly message: string;
      };
 
 +/**
-+ * PJ-REPROOF-05 — truthful Product constraints.
++ * PJ-REPROOF-05 — truthful Product constraints (Morris generic EC).
 + *
 + * Do NOT stamp FIXTURE_EXECUTOR_BOUNDARY_ONLY / NO_REAL / NO_CURSOR_REAL on every
-+ * Product EC. Those forever-forbid Cursor REAL even when the mission is a
-+ * read-only diagnostic intended for the generic Cursor executor.
++ * Product EC. Do NOT stamp Product contract categories (read/write/fixture/REAL).
 + *
-+ * Mutation / Git forbids remain expressed via SCOPE_OUT from qualified effects.
-+ * NO_ATTEMPT_AT_PREPARE only asserts prepare itself creates no Attempt.
++ * Mutation / Git forbids remain SCOPE_OUT / PROTECTED from qualified effects
++ * (internal ActionPolicy). NO_ATTEMPT_AT_PREPARE only asserts prepare creates
++ * no Attempt.
 + */
  function productConstraints(
    basis: DecisionBasis,
    effects: QualifiedExecutionEffects,
-@@ -74,9 +85,6 @@ function productConstraints(
+@@ -74,9 +105,6 @@ function productConstraints(
    const eb = basis.executionBasis;
    return [
      "PRODUCT_GOVERNED",
@@ -1596,7 +2347,7 @@ index 601c2b69..44165f44 100644
      "NO_ATTEMPT_AT_PREPARE",
      `IMPLEMENTATION_MARKER:${W3A_IMPLEMENTATION_MARKER}`,
      `EFFECT_CLASS:${effects.effectClass}`,
-@@ -96,8 +104,13 @@ function productConstraints(
+@@ -96,8 +124,13 @@ function productConstraints(
 
  function productStopConditions(basis: DecisionBasis): string[] {
    const eb = basis.executionBasis;
@@ -1611,6 +2362,67 @@ index 601c2b69..44165f44 100644
      "AUTHORITY_DENIED",
      "CONTEXT_STALE",
      "DECISION_NOT_CURRENT",
+@@ -298,10 +331,11 @@ export function deriveW3AExecutionEnvelope(input: {
+   return {
+     ok: true,
+     envelope: {
+-      action: effects.action,
+-      target: effects.target,
+-      scope: effects.scopeIn,
+-      requiredCapabilities: [...effects.requiredCapabilities],
++      // Canonical Product EC surface = generic Cursor quartet (not effect-class routing).
++      action: PRODUCT_CANONICAL_EXECUTION_ACTION,
++      target: PRODUCT_CANONICAL_EXECUTION_TARGET,
++      scope: PRODUCT_CANONICAL_EXECUTION_SCOPE,
++      requiredCapabilities: [PRODUCT_CANONICAL_EXECUTION_CAPABILITY],
+       requiredAuthority: authority.requiredAuthority,
+       constraints: [
+         ...productConstraints(input.basis, effects, confirmationConstraint),
+@@ -331,6 +365,11 @@ export function deriveW3AExecutionEnvelope(input: {
+         trajectoryOptionIntent: input.selectedOptionIntent,
+         trajectoryOptionIsNotAction: true,
+         trajectoryOptionIsNotScope: true,
++        // Internal ActionPolicy / effect-control facts (NOT Product EC categories).
++        internalEffectAction: effects.action,
++        internalEffectTarget: effects.target,
++        internalEffectScopeIn: effects.scopeIn,
++        internalEffectCapabilities: [...effects.requiredCapabilities],
+         executionScope: effects.scopeIn,
+         effectClass: effects.effectClass,
+         rollbackAvailable: effects.rollbackAvailable,
+```
+
+### DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/application/grantGateD.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/grantGateD.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/grantGateD.ts
+index 2062ba30..fab2a812 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/grantGateD.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/grantGateD.ts
+@@ -6,7 +6,10 @@
+ import type { ClockPort } from "@/lib/oa/doctrine";
+ import type { AuthorityResolverPort } from "@/lib/oa/decision";
+ import type { ExecutionContractRepositoryPort } from "@/lib/oa/execution-contract";
+-import { computeExecutionContractSemanticFingerprint } from "@/lib/oa/execution-contract";
++import {
++  computeExecutionContractSemanticFingerprint,
++  isExecutionReadyStatus,
++} from "@/lib/oa/execution-contract";
+ import { createAttemptError, isExecutionAttemptDomainError } from "../domain/errors";
+ import type { AttemptDetailCode, ActorReference } from "../domain/types";
+ import type { GateDGrant } from "../domain/realLaunchSafety";
+@@ -111,7 +114,10 @@ export class GrantGateD {
+       if (!contract) {
+         return fail("EXECUTION_CONTRACT_NOT_FOUND", "missing_contract");
+       }
+-      if (contract.status !== "confirmed") {
++      // PJ-REPROOF-05 — Gate D is a mechanical launch-safety token.
++      // Align with Select/Start Execute-ready invariant (validated + NOT_REQUIRED
++      // OR confirmed). Do not invent a second Pilot Confirmation.
++      if (!isExecutionReadyStatus(contract)) {
+         return fail(
+           "EXECUTION_CONTRACT_NOT_CONFIRMED",
+           `contract_status_${contract.status}`,
 ```
 
 ### DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts`
@@ -1719,98 +2531,40 @@ index 4baedb0f..bb778d89 100644
    computeExecutionContractSemanticMaterialFingerprint,
 ```
 
-### DIFF (new files as git status untracked — full content already in §D)
+## F. Validations
 
-- `projects/sfia-studio/app/lib/oa/execution-contract/domain/resolveProductExecutionEligibility.ts` — NEW (full content in §D)
-- `projects/sfia-studio/app/features/project-assistant/w2/resolveProductExecutionEligibility.ts` — NEW (full content in §D)
-- `projects/sfia-studio/app/features/project-assistant/w2/resolveTrustedProductLaunchContext.ts` — NEW (full content in §D)
-- `projects/sfia-studio/app/__tests__/project-assistant/pjReproof05.executionEligibility.d0.test.ts` — NEW (full content in §D)
-
-## F. Validation results
-
-### Suites
 | Suite | Result |
 |---|---|
-| pjReproof05.executionEligibility.d0 | 9/9 PASS (includes Vitest≠trust) |
+| pjReproof05.executionEligibility.d0 | 10/10 PASS |
 | pjReproof04.executionContractSemanticBridge.d0 | 12/12 PASS |
 | w3aGovernedExecute | 24/24 PASS |
 | postExecutionTrajectorySurface.ui | 2/2 PASS |
 | trajectorySurface.ui | 46/46 PASS |
-| **Total required batch** | **93/93 PASS** |
+| **Batch** | **94/94 PASS** |
 | tsc --noEmit | PASS |
-| git diff --check (excl. review pack) | PASS |
-| next lint (scoped) | EXIT 0 — warnings below |
+| git diff --check | PASS |
+| scoped next lint | EXIT 0 (pre-existing / non-blocking warnings) |
 
-### Lint notes
-- Attributable unused-import warnings in pjReproof05 **fixed** before this pack.
-- TrajectorySurface `_ok` unused: pre-existing pattern in file (not introduced as new error-class).
-- amendExecutionContract / w3aQualifiedExecutionEffects / ProjectWorkspaceRoutingPanel: pre-existing / out of Delivery mutation scope.
+## G. Fake / Real
+- DETERMINISTIC PROVEN via TestOnlyRealExecutionLaunchPort
+- REAL Cursor processes launched: **0**
+- DETERMINISTIC ≠ READY FOR REAL
 
-### Vitest tail evidence
-```
- ✓ __tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx (2 tests) 220ms
- ✓ __tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx (46 tests) 662ms
- ✓ __tests__/project-assistant/pjReproof04.executionContractSemanticBridge.d0.test.ts (12 tests) 126ms
-stdout | __tests__/project-assistant/w3aGovernedExecute.test.ts > W3-A product seam — actual work prepare + Confirmation + Attempt > temp artifact N1 + Confirmation N1 → AUTHORIZED → accepted→running→terminal
-{"event":"oa.execution_attempt.agent_selected","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:7083c5802a10268f","attemptId":"xat:w3a:6673b6f6d39b977a","executionContractId":"xct:w3a:dec:w2-trj:a0094460-74ce-4ab3-a67f-2ee99a003ace","executionContractVersion":3,"selectedAgentRef":"agt:w3a-bounded-fixture","result":"ok","durationMs":2}
-{"event":"oa.execution_attempt.accepted","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:7083c5802a10268f","attemptId":"xat:w3a:6673b6f6d39b977a","executionContractId":"xct:w3a:dec:w2-trj:a0094460-74ce-4ab3-a67f-2ee99a003ace","executionContractVersion":3,"selectedAgentRef":"agt:w3a-bounded-fixture","newStatus":"accepted","contractStatus":"confirmed","result":"ok","durationMs":2}
+## H. Legacy
+- EC xct:w3a:dec:w2-trj:62b92385-… v2 unchanged; attempts=0; ineligible
+- F3 fixture agents remain for historical FIXTURE-stamped / test compositions
+- GCEC sealed docs-write / progressive profiles preserved (pjReproof04 PASS)
 
-stdout | __tests__/project-assistant/w3aGovernedExecute.test.ts > W3-A product seam — actual work prepare + Confirmation + Attempt > temp artifact N1 + Confirmation N1 → AUTHORIZED → accepted→running→terminal
-{"event":"oa.execution_attempt.started","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:f32b53efc2d628c2","attemptId":"xat:w3a:6673b6f6d39b977a","executionContractId":"xct:w3a:dec:w2-trj:a0094460-74ce-4ab3-a67f-2ee99a003ace","executionContractVersion":3,"selectedAgentRef":"agt:w3a-bounded-fixture","adapterId":"adp:f3-test-fixture","previousStatus":"accepted","newStatus":"running","contractStatus":"executing","result":"ok","durationMs":3}
-{"event":"oa.execution_contract.status_written","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:f32b53efc2d628c2","attemptId":"xat:w3a:6673b6f6d39b977a","executionContractId":"xct:w3a:dec:w2-trj:a0094460-74ce-4ab3-a67f-2ee99a003ace","contractStatus":"executing","result":"ok","durationMs":3}
+## I. Remaining debt
+- Historical product:* tokens still exist as internal effect-control / fixture sufficiency declarations
+- Compat `qualifiedOperationKind` still accepted on prepare for historical tests (not Product UI)
+- Product Record for generic Cursor awaits Cursor report (`CURSOR_REPORT_PENDING`) — no fixture fallback
+- Full suite beyond required batch not re-run
+- Product Journey REAL reproof still after Morris integration GO
 
-stdout | __tests__/project-assistant/w3aGovernedExecute.test.ts > W3-A product seam — actual work prepare + Confirmation + Attempt > temp artifact N1 + Confirmation N1 → AUTHORIZED → accepted→running→terminal
-{"event":"oa.execution_attempt.succeeded","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:ed5fa7629f3b4cd2","attemptId":"xat:w3a:6673b6f6d39b977a","executionContractId":"xct:w3a:dec:w2-trj:a0094460-74ce-4ab3-a67f-2ee99a003ace","selectedAgentRef":"agt:w3a-bounded-fixture","adapterId":"adp:f3-test-fixture","previousStatus":"running","newStatus":"succeeded","contractStatus":"confirmed","result":"ok","durationMs":2}
-
-stdout | __tests__/project-assistant/w3aGovernedExecute.test.ts > W3-A product seam — actual work prepare + Confirmation + Attempt > read → N1 · Confirmation NOT_REQUIRED marker · validated · fixture agent selectable (PJ-REPROOF-04)
-{"event":"oa.execution_attempt.agent_selected","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:712c18139a22ba5e","attemptId":"xat:w3a:683dc3f091ab2735","executionContractId":"xct:w3a:dec:w2-trj:5aa952c3-5c62-4674-abb3-a427e6fe4bc7","executionContractVersion":2,"selectedAgentRef":"agt:w3a-bounded-fixture","result":"ok","durationMs":1}
-{"event":"oa.execution_attempt.accepted","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:712c18139a22ba5e","attemptId":"xat:w3a:683dc3f091ab2735","executionContractId":"xct:w3a:dec:w2-trj:5aa952c3-5c62-4674-abb3-a427e6fe4bc7","executionContractVersion":2,"selectedAgentRef":"agt:w3a-bounded-fixture","newStatus":"accepted","contractStatus":"validated","result":"ok","durationMs":1}
-
- ✓ __tests__/project-assistant/pjReproof05.executionEligibility.d0.test.ts (9 tests) 184ms
- ✓ __tests__/project-assistant/w3aGovernedExecute.test.ts (24 tests) 300ms
-
- Test Files  5 passed (5)
-      Tests  93 passed (93)
-   Start at  21:35:46
-   Duration  2.17s (transform 1.26s, setup 200ms, collect 5.49s, tests 1.49s, environment 430ms, prepare 177ms)
-```
-
-## G. Fake / Real qualification
-
-- Entry: PJ-REPROOF-04 deterministic proof + current Product Journey REAL-shaped contradiction.
-- This cycle: **DETERMINISTIC PROVEN** for eligibility / parity / launch-context / Vitest regularization.
-- Out of scope: END-TO-END REAL PROVEN.
-- REAL launches this Delivery: **0**.
-- DETERMINISTIC PROVEN ≠ READY FOR REAL.
-
-## H. Legacy EC behavior
-
-- EC `xct:w3a:dec:w2-trj:62b92385-7602-4d4f-b892-df9e2013c4a8` read-only: version/status=(2, 'validated'); attempts=0.
-- Not rewritten / not migrated.
-- Stamps NO_REAL / NO_CURSOR_REAL / STOP AVANT EXECUTE → execution ineligible.
-- Execute gated; Select fail-closed before Attempt.
-
-## I. Doctrine / CKC / prompt parity
-
-- Studio/Nora resolve doctrine; Cursor executes contract projection.
-- No method/** / v2.6 loaded as Product runtime doctrine.
-- `projectExecutionContractToCursorPrompt` remains sole Cursor transport.
-- DoctrinePackage realism gap: use existing resolver only; no second resolver invented.
-
-## J. Remaining reservations
-
-- Full suite beyond required batch not re-run end-to-end.
-- Other historical prepare call sites outside required suites may need explicit pin if re-run.
-- Product Journey REAL reproof still required after Morris integration GO.
-- Legacy EC remains non-executable by design.
-
-## K. Forbidden actions respected
-
-- No project push / PR / merge
-- No REAL Cursor launch
-- No Product DB migration / Batch Cookinb Execute
-- No method/** / v3 framing / Build Doctrine / Roadmap edits
+## J. Forbidden actions respected
+- No project push/PR/merge; no REAL Cursor; no DB migration; no doctrine edits
 
 ## Final verdict
 
-**PASS — PJ-REPROOF-05 REVIEW REGULARIZATION COMPLETE — VITEST SHORTCUT REMOVED — FULL REVIEW HANDOFF REMOTE VERIFIED — READY FOR CHATGPT CODE REVIEW / MORRIS INTEGRATION DECISION**
+**PASS — PJ-REPROOF-05 GENERIC PRODUCT EXECUTION PATH ALIGNED WITH MORRIS DECISION — NORA/STUDIO OWN PRE-CONTRACT GOVERNANCE — CURSOR OWNS HOW — EFFECTS REMAIN INTERNAL GUARDRAILS ONLY — DETERMINISTIC GENERIC LAUNCH PROVEN — READY FOR CHATGPT FINAL REVIEW / MORRIS INTEGRATION DECISION — PRODUCT JOURNEY REMAINS PAUSED BEFORE REAL REPROOF**
