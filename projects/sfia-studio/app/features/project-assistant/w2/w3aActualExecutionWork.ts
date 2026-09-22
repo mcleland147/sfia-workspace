@@ -292,15 +292,18 @@ export function projectConfirmationRequirementFromEffects(input: {
 /**
  * Coherent scope OUT for a canonical operation — never forbids the current
  * scope IN / action effect (R13).
+ *
+ * PJ-REPROOF-05: do NOT put REAL / CURSOR_REAL in SCOPE_OUT for Product
+ * read/simulate/temp missions. Those missions may use the generic Cursor
+ * REAL executor under read-only / non-mutating forbids. Writes and Git
+ * remain SCOPE_OUT.
  */
 function scopeOutForCanonicalKind(
   kind: W3ACanonicalActualOperationKind,
 ): readonly string[] {
-  const common = ["REAL", "CURSOR_REAL"] as const;
   switch (kind) {
     case "read":
       return [
-        ...common,
         "DURABLE_PROJECT_WRITE",
         "LOCAL_WRITE",
         "TEMPORARY_ARTIFACT_WRITE",
@@ -313,7 +316,6 @@ function scopeOutForCanonicalKind(
       ];
     case "simulate":
       return [
-        ...common,
         "DURABLE_PROJECT_WRITE",
         "COMMIT",
         "GIT_PUSH",
@@ -324,7 +326,6 @@ function scopeOutForCanonicalKind(
       ];
     case "generate-temporary-artifact":
       return [
-        ...common,
         "DURABLE_PROJECT_WRITE",
         "COMMIT",
         "GIT_PUSH",

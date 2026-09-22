@@ -6,7 +6,10 @@
 import type { ClockPort } from "@/lib/oa/doctrine";
 import type { AuthorityResolverPort } from "@/lib/oa/decision";
 import type { ExecutionContractRepositoryPort } from "@/lib/oa/execution-contract";
-import { computeExecutionContractSemanticFingerprint } from "@/lib/oa/execution-contract";
+import {
+  computeExecutionContractSemanticFingerprint,
+  isExecutionReadyStatus,
+} from "@/lib/oa/execution-contract";
 import { createAttemptError, isExecutionAttemptDomainError } from "../domain/errors";
 import type { AttemptDetailCode, ActorReference } from "../domain/types";
 import type { GateDGrant } from "../domain/realLaunchSafety";
@@ -111,7 +114,10 @@ export class GrantGateD {
       if (!contract) {
         return fail("EXECUTION_CONTRACT_NOT_FOUND", "missing_contract");
       }
-      if (contract.status !== "confirmed") {
+      // PJ-REPROOF-05 — Gate D is a mechanical launch-safety token.
+      // Align with Select/Start Execute-ready invariant (validated + NOT_REQUIRED
+      // OR confirmed). Do not invent a second Pilot Confirmation.
+      if (!isExecutionReadyStatus(contract)) {
         return fail(
           "EXECUTION_CONTRACT_NOT_CONFIRMED",
           `contract_status_${contract.status}`,

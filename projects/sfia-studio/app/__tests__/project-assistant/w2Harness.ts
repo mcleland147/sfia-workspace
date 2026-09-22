@@ -1,7 +1,10 @@
 /**
  * Shared harness for W2 (E+A+B+C) product-path tests.
  * Product SQLite on a temp file so restart proofs reopen the same store.
- * No REAL boundary, no execution: every helper here stops before Execute.
+ *
+ * PJ-REPROOF-05 — Product canonical path uses a DETERMINISTIC fake Cursor
+ * REAL boundary (TestOnlyRealExecutionLaunchPort). Never enables production
+ * SFIA_STUDIO_CURSOR_REAL. Fixtures remain available for historical F3 tests.
  */
 import fs from "node:fs";
 import os from "node:os";
@@ -16,6 +19,8 @@ import {
 } from "@/lib/vertical-slice-runtime";
 import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
 import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import { SqliteRealLaunchSafetyJournal } from "@/lib/oa/execution-attempt";
+import { TestOnlyRealExecutionLaunchPort } from "../oa/execution-attempt/support/testOnlyRealExecutionLaunchPort";
 
 const APP_ROOT = path.resolve(__dirname, "../..");
 export const W2_REGISTRY_ROOT = path.join(APP_ROOT, "lib/oa/doctrine/product");
@@ -86,6 +91,11 @@ export function cleanupW2TempDirs(): void {
 export function bootW2Runtime(input: {
   productDbPath: string;
   idPrefix?: string;
+  /**
+   * When false, omit deterministic Cursor REAL boundary (historical fixture-only
+   * compositions). Default true so Product governed Execute can select generalist.
+   */
+  readonly withDeterministicProductCursorBoundary?: boolean;
 }): RuntimeApplicationService {
   process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
   process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
@@ -116,6 +126,25 @@ export function bootW2Runtime(input: {
     identity: process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY!,
   });
   resetRuntimeApplicationServiceForTests();
+
+  const withCursorBoundary = input.withDeterministicProductCursorBoundary !== false;
+  let realBoundary:
+    | {
+        launchPort: TestOnlyRealExecutionLaunchPort;
+        safetyJournal: SqliteRealLaunchSafetyJournal;
+      }
+    | undefined;
+  if (withCursorBoundary) {
+    const safetyDir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-w2-gate-"));
+    tempDirs.push(safetyDir);
+    realBoundary = {
+      launchPort: new TestOnlyRealExecutionLaunchPort({ holdCompletion: true }),
+      safetyJournal: new SqliteRealLaunchSafetyJournal({
+        databasePath: path.join(safetyDir, "safety.sqlite"),
+      }),
+    };
+  }
+
   return getRuntimeApplicationService({
     registryRoot: W2_REGISTRY_ROOT,
     schemasRoot: W2_SCHEMAS_ROOT,
@@ -123,6 +152,7 @@ export function bootW2Runtime(input: {
     idSource: new SeededIdSource(input.idPrefix ?? "w2"),
     auditMode: "noop",
     productDbPath: input.productDbPath,
+    ...(realBoundary ? { realBoundary } : {}),
   });
 }
 
@@ -205,12 +235,37 @@ export async function seedQualifiedProject(
   const after = await runtime.getProject(projectId);
   if (!after.ok) throw new Error("seed: getProject(after) failed");
 
+  // PJ-REPROOF-05 — Product executable EC prepare requires durable repository
+  // binding. Ambient Studio checkout is never implied.
+  if (oa.projectServices.setProjectRepositoryBinding) {
+    const bound = await oa.projectServices.setProjectRepositoryBinding.execute({
+      projectId,
+      actor: W2_TEST_ACTOR,
+      binding: {
+        provider: "github",
+        identity: `acme/w2-harness-${suffix}`,
+        remoteUrl: `https://github.com/acme/w2-harness-${suffix}.git`,
+        defaultBranch: "main",
+        pathRoot: `projects/w2-harness-${suffix}`,
+      },
+    });
+    expect(bound.ok).toBe(true);
+    if (!bound.ok) throw new Error("seed: setProjectRepositoryBinding failed");
+  }
+
   return {
     projectId,
     cycleInstanceId,
     lpsVersion: after.livingState.version,
   };
 }
+
+/**
+ * Deterministic full SHA for Product prepare / eligibility tests (not live git).
+ * Must be passed explicitly via prepareExecutionContractFromW2Decision
+ * `pinnedBaseHeadSha` — product code never auto-pins from VITEST.
+ */
+export const W2_TEST_PINNED_BASE_HEAD_SHA = "a".repeat(40);
 
 /** Resolve qualification + propose Options on the production W2 Phase B path. */
 export async function proposeW2OptionsForProject(

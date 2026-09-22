@@ -201,6 +201,8 @@ export type ExecutionAuthorizationOutcomeDto = {
   readonly outcome: "AUTHORIZED" | "BLOCKED";
   readonly outcomeLabel:
     | "AUTORISÉ — STOP AVANT EXECUTE"
+    | "AUTORISÉ — EXÉCUTION ÉLIGIBLE"
+    | "AUTORISÉ — EXÉCUTION NON ÉLIGIBLE"
     | "BLOQUÉ — ACTION REQUISE";
   readonly reasonCode: string;
   readonly reasonText: string;
@@ -208,6 +210,12 @@ export type ExecutionAuthorizationOutcomeDto = {
   readonly inspection: ContractInspectionStateDto;
   readonly confirmation: ConfirmationRequirementDto;
   readonly agentCapability: AgentCapabilityOutcomeDto;
+  /**
+   * PJ-REPROOF-05 — authority verified ≠ execution eligible.
+   * Execute CTA / Select / Start must consult this, not AUTHORIZED alone.
+   */
+  readonly executionEligible: boolean;
+  readonly executionEligibilityReasonCode: string;
   readonly authorityReceiptRef: string;
   readonly decisionRefs: readonly string[];
   readonly requiredAuthority: string;

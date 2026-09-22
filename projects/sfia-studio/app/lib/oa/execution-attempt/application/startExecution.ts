@@ -38,6 +38,8 @@ import {
   DEFAULT_BOUNDED_READ_ONLY_M3_EXECUTION_WINDOW_CLASS,
   projectExecutionContractToCursorPrompt,
   resolveExecutionWindowForStart,
+  resolveProductExecutionEligibility,
+  shouldApplyProductExecutionEligibility,
   type ResolvedExecutionWindow,
 } from "@/lib/oa/execution-contract";
 import type { AuthorityResolverPort } from "@/lib/oa/decision";
@@ -484,6 +486,34 @@ export class StartExecution {
           `check_authorization_${authorization.error.detailCode}`,
           { executionContractId: contract.executionContractId },
         );
+      }
+
+      // PJ-REPROOF-05 — Product Start invariants ONLY for Product-family ECs
+      // (defense in depth; same applicability as Select).
+      if (
+        shouldApplyProductExecutionEligibility({
+          constraints: contract.constraints,
+          action: contract.action,
+          target: contract.target,
+          scope: contract.scope,
+          requiredCapabilities: contract.requiredCapabilities,
+        })
+      ) {
+        const eligibility = resolveProductExecutionEligibility({
+          constraints: contract.constraints,
+          stopConditions: contract.stopConditions,
+          inputs:
+            contract.inputs && typeof contract.inputs === "object"
+              ? (contract.inputs as Record<string, unknown>)
+              : null,
+        });
+        if (!eligibility.eligible) {
+          return fail(
+            "ATTEMPT_INVALID",
+            `execution_ineligible_${eligibility.reasonCode}`,
+            { executionContractId: contract.executionContractId },
+          );
+        }
       }
 
       const agent = this.registry.getAgent(attempt.selectedAgentRef);

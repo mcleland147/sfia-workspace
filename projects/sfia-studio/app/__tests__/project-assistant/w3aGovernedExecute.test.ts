@@ -7,6 +7,10 @@ import { prepareExecutionContractFromW2Decision } from "@/features/project-assis
 import {
   assertNotF3FixtureSemantics,
   deriveW3AExecutionEnvelope,
+  PRODUCT_CANONICAL_EXECUTION_ACTION,
+  PRODUCT_CANONICAL_EXECUTION_CAPABILITY,
+  PRODUCT_CANONICAL_EXECUTION_SCOPE,
+  PRODUCT_CANONICAL_EXECUTION_TARGET,
 } from "@/features/project-assistant/w2/w3aProductExecutionSemantics";
 import {
   buildActualExecutionWork,
@@ -54,12 +58,14 @@ import {
   W3A_BOUNDED_FIXTURE_AGENT_ID,
   W3A_FIXTURE_ALLOWED_SCOPES,
 } from "@/lib/vertical-slice-runtime/w3aProductFixtureWiring";
+import { STUDIO_CURSOR_GENERALIST_AGENT_ID } from "@/lib/oa/execution-attempt";
 import {
   bootW2Runtime,
   cleanupW2TempDirs,
   currentF2Context,
   seedQualifiedProject,
   tempProductDbPath,
+  W2_TEST_PINNED_BASE_HEAD_SHA,
 } from "./w2Harness";
 
 beforeEach(() => {
@@ -164,7 +170,10 @@ describe("W3-A actual work provenance", () => {
     expect(actual.target).toBe(W3A_PRODUCT_TARGET_WORKSPACE);
     expect(actual.scopeOut).toContain("DURABLE_PROJECT_WRITE");
     expect(actual.scopeOut).toContain("GIT_PUSH");
-    expect(actual.scopeOut).toContain("REAL");
+    // PJ-REPROOF-05 — REAL/CURSOR_REAL are no longer blanket SCOPE_OUT for
+    // Product canonical missions (Cursor generalist may execute read-only).
+    expect(actual.scopeOut).not.toContain("REAL");
+    expect(actual.scopeOut).not.toContain("CURSOR_REAL");
     // R13 — scopeOut must not forbid the current action/scopeIn effect.
     expect(actual.scopeOut).not.toContain("TEMPORARY_ARTIFACT");
     expect(actual.scopeOut).not.toContain(W3A_PRODUCT_SCOPE.TEMP_ARTIFACT);
@@ -183,10 +192,17 @@ describe("W3-A actual work provenance", () => {
     });
     expect(env.ok).toBe(true);
     if (!env.ok) return;
-    expect(env.envelope.action).toBe("product:generate-temporary-artifact");
-    expect(env.envelope.scope).toBe(W3A_PRODUCT_SCOPE.TEMP_ARTIFACT);
+    expect(env.envelope.action).toBe(PRODUCT_CANONICAL_EXECUTION_ACTION);
+    expect(env.envelope.scope).toBe(PRODUCT_CANONICAL_EXECUTION_SCOPE);
+    expect(env.envelope.target).toBe(PRODUCT_CANONICAL_EXECUTION_TARGET);
+    expect(env.envelope.requiredCapabilities).toEqual([
+      PRODUCT_CANONICAL_EXECUTION_CAPABILITY,
+    ]);
+    expect(env.envelope.inputs.effectClass).toBe("generate-temporary-artifact");
+    expect(env.envelope.inputs.internalEffectAction).toBe(
+      "product:generate-temporary-artifact",
+    );
     expect(env.envelope.scope).not.toContain("décider");
-    expect(env.envelope.target).toBe(W3A_PRODUCT_TARGET_WORKSPACE);
     expect(env.envelope.requiredAuthority).toBe("N1");
     expect(env.envelope.effectConfirmationRequired).toBe(true);
     expect(env.envelope.effectConfirmationLevel).toBe("N1");
@@ -255,11 +271,16 @@ describe("W3-A actual work provenance", () => {
     });
     expect(envSim.ok && envRead.ok).toBe(true);
     if (!envSim.ok || !envRead.ok) return;
-    expect(envSim.envelope.action).toBe("product:simulate");
-    expect(envRead.envelope.action).toBe("product:read");
-    expect(envSim.envelope.scope).toBe(W3A_PRODUCT_SCOPE.SIMULATE);
-    expect(envRead.envelope.scope).toBe(W3A_PRODUCT_SCOPE.READ);
-    expect(envSim.envelope.scope).not.toBe(envRead.envelope.scope);
+    // Canonical Product EC surface is ONE generic Cursor quartet.
+    expect(envSim.envelope.action).toBe(PRODUCT_CANONICAL_EXECUTION_ACTION);
+    expect(envRead.envelope.action).toBe(PRODUCT_CANONICAL_EXECUTION_ACTION);
+    expect(envSim.envelope.scope).toBe(PRODUCT_CANONICAL_EXECUTION_SCOPE);
+    expect(envRead.envelope.scope).toBe(PRODUCT_CANONICAL_EXECUTION_SCOPE);
+    // Internal effect-control facts remain distinct (ActionPolicy — not Product types).
+    expect(envSim.envelope.inputs.effectClass).toBe("simulate");
+    expect(envRead.envelope.inputs.effectClass).toBe("read");
+    expect(envSim.envelope.inputs.internalEffectAction).toBe("product:simulate");
+    expect(envRead.envelope.inputs.internalEffectAction).toBe("product:read");
   });
 });
 
@@ -537,7 +558,7 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
     expect(prepared.code).toBe("EFFECTS_UNRESOLVED");
   });
 
-  it("temp artifact N1 + Confirmation N1 → AUTHORIZED → accepted→running→terminal", async () => {
+  it("temp artifact Confirmation gate → AUTHORIZED → generalist Select→Start (deterministic launch)", async () => {
     const ctx = await decideGoverned("pos");
     const context = await currentF2Context(ctx.runtime, ctx.seeded.projectId);
     const prepared = await prepareExecutionContractFromW2Decision({
@@ -547,14 +568,18 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
       currentContext: context,
       forceLocalAuthority: true,
       qualifiedOperationKind: "generate-temporary-artifact",
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
     expect(prepared.ok).toBe(true);
     if (!prepared.ok) throw new Error(`prepare ${prepared.code}`);
-    expect(prepared.contract.action).toBe("product:generate-temporary-artifact");
+    expect(prepared.contract.action).toBe(PRODUCT_CANONICAL_EXECUTION_ACTION);
     expect(prepared.contract.action).not.toContain("trajectory");
-    expect(prepared.contract.scope).toBe(W3A_PRODUCT_SCOPE.TEMP_ARTIFACT);
+    expect(prepared.contract.scope).toBe(PRODUCT_CANONICAL_EXECUTION_SCOPE);
     expect(prepared.contract.scope).not.toContain("décider");
-    expect(prepared.contract.target).toBe(W3A_PRODUCT_TARGET_WORKSPACE);
+    expect(prepared.contract.target).toBe(PRODUCT_CANONICAL_EXECUTION_TARGET);
+    expect(prepared.contract.requiredCapabilities).toEqual([
+      PRODUCT_CANONICAL_EXECUTION_CAPABILITY,
+    ]);
     expect(prepared.contract.requiredAuthority).toBe("N1");
     expect(prepared.contract.status).toBe("confirmation_required");
     expect(prepared.contract.effectConfirmationRequired).toBe(true);
@@ -562,6 +587,10 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
     expect(prepared.contract.constraints.some((c) =>
       c.startsWith("EFFECT_CONFIRMATION_REQUIRED"),
     )).toBe(true);
+    expect(prepared.contract.constraints).toContain("PRODUCT_GOVERNED");
+    expect(prepared.contract.constraints).not.toContain(
+      "FIXTURE_EXECUTOR_BOUNDARY_ONLY",
+    );
 
     const executionContractId = prepared.contract.executionContractId;
     const inspected = await inspectExecutionContract({
@@ -600,7 +629,12 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
     expect(authorized.ok).toBe(true);
     if (!authorized.ok) throw new Error("auth");
     expect(authorized.outcome).toBe("AUTHORIZED");
-    expect(ctx.oa.executionAttemptServices.registry.getAgent(W3A_BOUNDED_FIXTURE_AGENT_ID)).toBeTruthy();
+    expect(authorized.executionEligible).toBe(true);
+
+    const launchPort = ctx.oa.executionAttemptServices!.realBoundary!.launchPort;
+    const launchBefore = "calls" in launchPort && Array.isArray(launchPort.calls)
+      ? launchPort.calls.length
+      : 0;
 
     const selected = await governedExecuteSelectAgent({
       oa: ctx.oa,
@@ -611,7 +645,9 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
     expect(selected.ok).toBe(true);
     if (!selected.ok) return;
     expect(selected.phase).toBe("accepted");
-    expect(selected.selectedAgentRef).toBe(W3A_BOUNDED_FIXTURE_AGENT_ID);
+    expect(selected.selectedAgentRef).toBe(STUDIO_CURSOR_GENERALIST_AGENT_ID);
+    expect(selected.adapterId).not.toContain("f3");
+    expect(selected.selectedAgentRef).not.toBe(W3A_BOUNDED_FIXTURE_AGENT_ID);
 
     const started = await governedExecuteStart({
       oa: ctx.oa,
@@ -624,23 +660,27 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
     if (!started.ok) return;
     expect(started.phase).toBe("running");
     expect(started.attemptId).toBe(selected.attemptId);
+    expect(started.selectedAgentRef).toBe(STUDIO_CURSOR_GENERALIST_AGENT_ID);
+    const launchAfter = "calls" in launchPort && Array.isArray(launchPort.calls)
+      ? launchPort.calls.length
+      : 0;
+    expect(launchAfter).toBeGreaterThan(launchBefore);
 
-    const terminal = await governedExecuteRecordResult({
+    // No second Pilot Confirmation invented for Cursor REAL — Gate D is mechanical.
+    // Record awaits Cursor report (no F3 fixture fallback).
+    const pending = await governedExecuteRecordResult({
       oa: ctx.oa,
       projectId: ctx.seeded.projectId,
       executionContractId,
       attemptId: started.attemptId,
       forceLocalAuthority: true,
     });
-    expect(terminal.ok).toBe(true);
-    if (!terminal.ok) return;
-    expect(terminal.phase).toBe("terminal");
-    expect(terminal.attemptId).toBe(selected.attemptId);
-    expect(terminal.cycleInstanceClosed).toBe(false);
-    expect(terminal.realExecution).toBe(false);
+    expect(pending.ok).toBe(false);
+    if (pending.ok) return;
+    expect(pending.code).toBe("CURSOR_REPORT_PENDING");
   });
 
-  it("read → N1 · Confirmation NOT_REQUIRED marker · validated · fixture agent selectable (PJ-REPROOF-04)", async () => {
+  it("compat read kind → N1 · no Confirmation · generalist Select (not fixture)", async () => {
     const ctx = await decideGoverned("read");
     const context = await currentF2Context(ctx.runtime, ctx.seeded.projectId);
     const prepared = await prepareExecutionContractFromW2Decision({
@@ -650,6 +690,7 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
       currentContext: context,
       forceLocalAuthority: true,
       qualifiedOperationKind: "read",
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
     expect(prepared.ok).toBe(true);
     if (!prepared.ok) return;
@@ -666,8 +707,10 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
         constraints: prepared.contract.constraints,
       }),
     ).toBe(true);
-    expect(prepared.contract.action).toBe("product:read");
-    expect(prepared.contract.scope).toBe(W3A_PRODUCT_SCOPE.READ);
+    expect(prepared.contract.action).toBe(PRODUCT_CANONICAL_EXECUTION_ACTION);
+    expect(prepared.contract.scope).toBe(PRODUCT_CANONICAL_EXECUTION_SCOPE);
+    expect(prepared.contract.action).not.toBe("product:read");
+    expect(prepared.contract.scope).not.toBe(W3A_PRODUCT_SCOPE.READ);
 
     const executionContractId = prepared.contract.executionContractId;
     await inspectExecutionContract({
@@ -684,7 +727,6 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
     expect(authorized.ok).toBe(true);
     if (!authorized.ok) return;
     expect(authorized.outcome).toBe("AUTHORIZED");
-    const launchBefore = ctx.oa.fixtureAdapter.launchCallCount;
     const selected = await governedExecuteSelectAgent({
       oa: ctx.oa,
       projectId: ctx.seeded.projectId,
@@ -693,8 +735,8 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
     });
     expect(selected.ok).toBe(true);
     if (!selected.ok) return;
-    expect(selected.selectedAgentRef).toBe(W3A_BOUNDED_FIXTURE_AGENT_ID);
-    expect(ctx.oa.fixtureAdapter.launchCallCount).toBe(launchBefore);
+    expect(selected.selectedAgentRef).toBe(STUDIO_CURSOR_GENERALIST_AGENT_ID);
+    expect(selected.selectedAgentRef).not.toBe(W3A_BOUNDED_FIXTURE_AGENT_ID);
   });
 
   it("high-risk push operationKind rejected before EC (R15)", async () => {

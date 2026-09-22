@@ -80,6 +80,7 @@ import {
   currentF2Context,
   seedQualifiedProject,
   tempProductDbPath,
+  W2_TEST_PINNED_BASE_HEAD_SHA,
 } from "./w2Harness";
 import {
   MORRIS_ACTOR,
@@ -302,6 +303,7 @@ describe("A — coverage + no Pilot HOW", () => {
       decisionId: decided.decision.decisionId,
       currentContext: await currentF2Context(runtime, seeded.projectId),
       forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
     expect(prepared.ok).toBe(true);
     if (!prepared.ok) throw new Error(prepared.code);
