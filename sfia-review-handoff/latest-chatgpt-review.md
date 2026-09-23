@@ -164,10 +164,27 @@ But that applies to **new** Decision IDs — not to superseding the existing Bat
 - DB digest unchanged intent (no Product control-plane writes attempted for successor)
 
 ## Review pack
-- reset: yes (overwrite)
+- reset initially: yes (overwrite)
 - level: FULL
+- completed: yes
 - mono-cycle: yes
 - synthesis-only: **no**
+- content coverage: complete for PRE-SPAWN STOP (no Attempt/Evidence/W3-B/W3-C — path never reached)
+
+## Review Handoff
+- decision: required
+- mode: publish-in-cycle
+- source: `.tmp-sfia-review/chatgpt-review.md`
+- branch: `sfia/review-handoff`
+- canonical file: `sfia-review-handoff/latest-chatgpt-review.md`
+- remote commit before: `4e764176fbb928c987c17c42f2e006cb8ed2d75c`
+- handoff local/remote commit after: `63518e04f1befb5efc5487293bbfd0efaa389127`
+- blob after: `3570c1ad0274b55a3d138b9d278a8c043dd8383f`
+- push: done
+- remote verification: yes
+- remote file reread: yes
+- return initial branch: yes (`fix/sfia-studio-product-real-readiness-pathroot-semantics` @ `128f3b7e…`)
+- final handoff verdict: **HANDOFF UPDATED — REMOTE VERIFIED**
 
 ## Verdict
 **INCOMPLETE / TOOLING GAP — CANONICAL PRODUCT SUCCESSOR PATH MISSING**
