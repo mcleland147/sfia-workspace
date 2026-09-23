@@ -4,7 +4,7 @@
  *
  * Applicability: exact generic Cursor quartet + PRODUCT_MISSION_FROM_DURABLE_CONTEXT
  * + evreq:mission-result-for-nora-reevaluation. Never matches temp-artifact / docs_write.
- * Attempt succeeded alone is NOT enough — mission Evidence payload required.
+ * Attempt succeeded alone is NOT enough — verified Mission Evidence payload required.
  */
 import {
   STUDIO_CURSOR_GENERALIST_ACTION,
@@ -25,6 +25,7 @@ import {
   MISSION_RESULT_ER_KEY,
   MISSION_TRACE_EO_PREFIX,
   PRODUCT_MISSION_FROM_DURABLE_CONTEXT,
+  digestMissionResultPayload,
   isMissionResultPayload,
   missionResultHasForbiddenEffects,
   type MissionResultPayload,
@@ -34,10 +35,11 @@ import fs from "node:fs";
 export const MISSION_RESULT_RULE_REF =
   "w3b-contract-result/product-mission-result-v1" as const;
 
+/** Legacy source label — preferential identity is evidenceId + sourceKind. */
 export const MISSION_RESULT_EVIDENCE_SOURCE =
   "execution_attempt:mission_result" as const;
 
-const USABLE_STATUSES = new Set<EvidenceStatus>(["available", "verified"]);
+const USABLE_FROZEN_STATUSES = new Set<EvidenceStatus>(["verified"]);
 const USABLE_FRESHNESS = new Set(["fresh"]);
 
 function isGenericProductQuartet(
@@ -62,6 +64,12 @@ export function isMissionResultContractResultApplicable(
   return true;
 }
 
+export function isMissionResultEvidenceIdentity(evidence: Evidence): boolean {
+  if (evidence.evidenceId.startsWith("ev:mission-result:")) return true;
+  if (evidence.source === MISSION_RESULT_EVIDENCE_SOURCE) return true;
+  return false;
+}
+
 function loadMissionPayload(evidence: Evidence): MissionResultPayload | null {
   const loc = evidence.location?.trim();
   if (!loc) return null;
@@ -82,7 +90,12 @@ export function missionResultEvidenceFactsHold(input: {
   if (input.attempt.status !== "succeeded") return false;
   if (!input.attempt.resultRef?.trim()) return false;
   const e = input.evidence;
-  if (e.source !== MISSION_RESULT_EVIDENCE_SOURCE) return false;
+  if (!isMissionResultEvidenceIdentity(e)) return false;
+  // Product PASS requires integrity-verified Evidence (available ≠ verified).
+  if (e.status !== "verified") return false;
+  if (e.sourceKind !== "execution_attempt" && e.source !== MISSION_RESULT_EVIDENCE_SOURCE) {
+    return false;
+  }
   if (e.type !== "attestation" && e.type !== "artifact") return false;
   if (!e.digest?.startsWith("sha256:")) return false;
   if (!e.location?.trim()) return false;
@@ -94,8 +107,18 @@ export function missionResultEvidenceFactsHold(input: {
   ) {
     return false;
   }
+  if (
+    e.technicalResultRef &&
+    input.attempt.resultRef &&
+    e.technicalResultRef !== input.attempt.resultRef
+  ) {
+    return false;
+  }
   const payload = loadMissionPayload(e);
   if (!payload) return false;
+  // Defense in depth — recomputed digest must match Evidence.digest.
+  const recomputed = digestMissionResultPayload(payload);
+  if (recomputed !== e.digest) return false;
   if (payload.attemptId !== input.attempt.attemptId) return false;
   if (
     input.attempt.executionContractId &&
@@ -121,9 +144,11 @@ function isUsableFrozen(input: {
   if (snapshot.evidenceId !== evidence.evidenceId) return false;
   if (snapshot.evidenceVersion !== evidence.version) return false;
   if (snapshot.availability !== "available") return false;
-  if (!USABLE_STATUSES.has(snapshot.status as EvidenceStatus)) return false;
+  if (!USABLE_FROZEN_STATUSES.has(snapshot.status as EvidenceStatus)) {
+    return false;
+  }
   if (evidence.availability !== "available") return false;
-  if (!USABLE_STATUSES.has(evidence.status)) return false;
+  if (evidence.status !== "verified") return false;
   if (!evidence.freshness || !USABLE_FRESHNESS.has(evidence.freshness)) {
     return false;
   }
@@ -137,7 +162,7 @@ function pickMissionEvidence(
   const bound = evidences.filter(
     (e) =>
       e.bindings.executionAttemptId === attempt.attemptId &&
-      e.source === MISSION_RESULT_EVIDENCE_SOURCE,
+      isMissionResultEvidenceIdentity(e),
   );
   return bound.length === 1 ? bound[0] : undefined;
 }
@@ -177,7 +202,6 @@ export function assessMissionResultExpectedOutput(input: {
       ? "PASS"
       : "NOT_PROVEN";
   }
-  // Unknown free-form EO — fail-closed soft.
   return "NOT_PROVEN";
 }
 
@@ -197,8 +221,6 @@ export function assessMissionResultEvidenceRequirement(input: {
     return "NOT_PROVEN";
   }
   if (input.requirement !== MISSION_RESULT_ER_KEY) {
-    // Other ERs (e.g. evreq:read, mission-trace) — soft not_proven unless
-    // same mission Evidence already proves durable inspection.
     if (
       input.requirement === "evreq:mission-trace-of-inspected-durable-facts" ||
       input.requirement === "evreq:read"
@@ -227,8 +249,23 @@ export const missionResultContractResultSemantic: ContractResultSemantic = {
         incompleteReason: "no_frozen_evidence_snapshots",
       };
     }
+    const mission = frozen.filter((s) =>
+      s.evidenceId.startsWith("ev:mission-result:"),
+    );
+    if (mission.length === 0) {
+      return {
+        requiredEvidenceIds: [],
+        incompleteReason: "mission_evidence_absent_from_frozen_bundle",
+      };
+    }
+    if (mission.length > 1) {
+      return {
+        requiredEvidenceIds: [],
+        incompleteReason: "mission_evidence_ambiguous",
+      };
+    }
     return {
-      requiredEvidenceIds: frozen.map((s) => s.evidenceId),
+      requiredEvidenceIds: [mission[0]!.evidenceId],
     };
   },
   assessExpectedOutput(input) {

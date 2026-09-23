@@ -11,9 +11,42 @@ import {
   resolveManagedRepoRootBaseFromEnv,
   SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV,
 } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
-import { resolveStudioCursorBinPath } from "@/lib/oa/execution-attempt";
+import {
+  ManagedProjectRepositoryResolver,
+  resolveStudioCursorBinPath,
+} from "@/lib/oa/execution-attempt";
 
 const FULL_SHA_RE = /^[0-9a-f]{40}$/i;
+
+/**
+ * Fail-closed Project pathRoot containment under managed repo root.
+ * Relative only; no `..`; resolved path must be repo or child of repo.
+ */
+export function resolveContainedPathRoot(input: {
+  readonly repoRoot: string;
+  readonly pathRoot: string;
+}):
+  | { ok: true; absolutePath: string }
+  | { ok: false; code: string } {
+  const raw = input.pathRoot.trim();
+  if (!raw) return { ok: false, code: "PROJECT_PATH_ROOT_EMPTY" };
+  if (path.isAbsolute(raw)) {
+    return { ok: false, code: "PROJECT_PATH_ROOT_ABSOLUTE" };
+  }
+  if (raw.includes("\0")) {
+    return { ok: false, code: "PROJECT_PATH_ROOT_INVALID" };
+  }
+  const segments = raw.split(/[\\/]+/).filter((s) => s.length > 0);
+  if (segments.some((s) => s === "..")) {
+    return { ok: false, code: "PROJECT_PATH_ROOT_TRAVERSAL" };
+  }
+  const repo = path.resolve(input.repoRoot);
+  const candidate = path.resolve(repo, raw);
+  if (candidate !== repo && !candidate.startsWith(repo + path.sep)) {
+    return { ok: false, code: "PROJECT_PATH_ROOT_ESCAPE" };
+  }
+  return { ok: true, absolutePath: candidate };
+}
 
 export type ProductRealAuthReadiness =
   | "UNKNOWN"
@@ -59,10 +92,6 @@ export type ProductRealReadinessResult = {
   };
   readonly blockers: readonly string[];
 };
-
-function sanitizeIdentity(identity: string): string {
-  return identity.replace(/[^a-zA-Z0-9._-]+/g, "__");
-}
 
 function projectExistsInSqlite(dbPath: string, projectId: string): boolean {
   // Prefer sqlite3 CLI (no native bundling) — better-sqlite3 is optional.
@@ -190,9 +219,25 @@ export function evaluateProductRealReadiness(
   let resolvedManagedRepoPath: string | null = null;
   let repoExists = false;
   if (managedBase && identity) {
-    resolvedManagedRepoPath = path.join(managedBase, sanitizeIdentity(identity));
-    repoExists = fs.existsSync(path.join(resolvedManagedRepoPath, ".git"));
-    if (!repoExists) blockers.push("MANAGED_REPO_ABSENT");
+    const resolver = new ManagedProjectRepositoryResolver();
+    const resolved = resolver.resolveLocalRepoRoot(
+      { identity },
+      managedBase,
+    );
+    if (!resolved) {
+      blockers.push("MANAGED_REPO_ABSENT");
+      // Distinguish invalid/traversal identity from mere absence when possible.
+      if (
+        identity.includes("..") ||
+        identity.startsWith("/") ||
+        identity.trim() === ".."
+      ) {
+        blockers.push("REPOSITORY_BINDING_IDENTITY_INVALID");
+      }
+    } else {
+      resolvedManagedRepoPath = resolved;
+      repoExists = true;
+    }
   } else if (managedConfigured && !identity) {
     blockers.push("REPOSITORY_BINDING_IDENTITY_REQUIRED");
   }
@@ -200,8 +245,17 @@ export function evaluateProductRealReadiness(
   const pathRoot = input.pathRoot?.trim() || null;
   let pathRootExists: boolean | null = null;
   if (pathRoot && resolvedManagedRepoPath && repoExists) {
-    pathRootExists = fs.existsSync(path.join(resolvedManagedRepoPath, pathRoot));
-    if (!pathRootExists) blockers.push("PROJECT_PATH_ROOT_ABSENT");
+    const contained = resolveContainedPathRoot({
+      repoRoot: resolvedManagedRepoPath,
+      pathRoot,
+    });
+    if (!contained.ok) {
+      pathRootExists = false;
+      blockers.push(contained.code);
+    } else {
+      pathRootExists = fs.existsSync(contained.absolutePath);
+      if (!pathRootExists) blockers.push("PROJECT_PATH_ROOT_ABSENT");
+    }
   } else if (pathRoot && (!resolvedManagedRepoPath || !repoExists)) {
     pathRootExists = false;
   }

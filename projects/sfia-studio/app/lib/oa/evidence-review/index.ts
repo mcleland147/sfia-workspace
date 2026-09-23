@@ -130,6 +130,7 @@ export {
   missionResultEvidenceFactsHold,
   assessMissionResultExpectedOutput,
   assessMissionResultEvidenceRequirement,
+  isMissionResultEvidenceIdentity,
 } from "./application/missionResultContractResultSemantic";
 export {
   OA_MISSION_RESULT_SCHEMA,
@@ -213,6 +214,8 @@ export {
   type SqliteEvidenceReviewServices,
 } from "./infrastructure/sqlite/createSqliteEvidenceReviewServices";
 export { FakeEvidencePayloadAdapter } from "./infrastructure/fakeEvidencePayloadAdapter";
+export { FilesystemEvidencePayloadAdapter } from "./infrastructure/filesystemEvidencePayloadAdapter";
+export { PreferFilesystemEvidencePayloadAdapter } from "./infrastructure/preferFilesystemEvidencePayloadAdapter";
 export type { FakePayloadScript } from "./infrastructure/fakeEvidencePayloadAdapter";
 export { FakeExecutionAttemptReader } from "./infrastructure/fakeExecutionAttemptReader";
 export { EvidenceRepositoryReader } from "./infrastructure/evidenceRepositoryReader";

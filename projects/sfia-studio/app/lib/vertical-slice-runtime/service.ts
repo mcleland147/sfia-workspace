@@ -58,6 +58,7 @@ import {
 import {
   createInMemoryEvidenceReviewServices,
   createSqliteEvidenceReviewServices,
+  PreferFilesystemEvidencePayloadAdapter,
   type EvidenceReviewServices,
   type SqliteEvidenceReviewServices,
 } from "@/lib/oa/evidence-review";
@@ -515,6 +516,7 @@ function wireOaStack(
         attemptReader: createAttemptReaderBridge(
           executionAttemptServices.attempts,
         ),
+        payload: new PreferFilesystemEvidencePayloadAdapter(),
       })
     : createInMemoryEvidenceReviewServices({
         clock,

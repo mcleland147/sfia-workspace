@@ -333,4 +333,63 @@ describe("B3+B4 evaluateProductRealReadiness", () => {
     expect(r.readyForProductRealExecute).toBe(false);
     expect(r.readyForDeterministicPreReal).toBe(true);
   });
+
+  it("identity traversal / invalid → NOT READY", () => {
+    const root = tempDir("sfia-idtrav-");
+    const dbPath = path.join(root, "p.sqlite");
+    makeSqliteWithProject(dbPath, "prj:x");
+    const managedBase = path.join(root, "managed");
+    fs.mkdirSync(managedBase, { recursive: true });
+    for (const identity of ["..", "../../other", "/abs/repo"]) {
+      const r = evaluateProductRealReadiness({
+        env: {
+          SFIA_STUDIO_PRODUCT_DB_PATH: dbPath,
+          [SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]: managedBase,
+          SFIA_CURSOR_BIN: "/x",
+        },
+        expectedProjectId: "prj:x",
+        repositoryBindingIdentity: identity,
+        resolveCursorBin: () => "/x",
+      });
+      expect(r.readyForDeterministicPreReal).toBe(false);
+      expect(
+        r.blockers.some(
+          (b) =>
+            b === "MANAGED_REPO_ABSENT" ||
+            b === "REPOSITORY_BINDING_IDENTITY_INVALID",
+        ),
+      ).toBe(true);
+    }
+  });
+
+  it("pathRoot traversal / absolute → NOT READY", () => {
+    const root = tempDir("sfia-pathtrav-");
+    const dbPath = path.join(root, "p.sqlite");
+    makeSqliteWithProject(dbPath, "prj:x");
+    const managedBase = path.join(root, "managed");
+    makeGitRepo(path.join(managedBase, "acme__safe"));
+    for (const pathRoot of ["../../outside", "/abs/path"]) {
+      const r = evaluateProductRealReadiness({
+        env: {
+          SFIA_STUDIO_PRODUCT_DB_PATH: dbPath,
+          [SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]: managedBase,
+          SFIA_CURSOR_BIN: "/x",
+        },
+        expectedProjectId: "prj:x",
+        repositoryBindingIdentity: "acme/safe",
+        pathRoot,
+        resolveCursorBin: () => "/x",
+        resolveBaseHeadSha: () => ({ ok: true, sha: "f".repeat(40) }),
+      });
+      expect(r.readyForDeterministicPreReal).toBe(false);
+      expect(
+        r.blockers.some(
+          (b) =>
+            b === "PROJECT_PATH_ROOT_TRAVERSAL" ||
+            b === "PROJECT_PATH_ROOT_ABSOLUTE" ||
+            b === "PROJECT_PATH_ROOT_ESCAPE",
+        ),
+      ).toBe(true);
+    }
+  });
 });

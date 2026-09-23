@@ -127,13 +127,13 @@ function makeMissionEvidence(absolutePath: string, digest: string): Evidence {
     evidenceId: "ev:mission-result:xatmission1",
     type: "attestation",
     source: MISSION_RESULT_EVIDENCE_SOURCE,
-    sourceKind: "external",
+    sourceKind: "execution_attempt",
     location: absolutePath,
     digest: digest as never,
     producedBy: { actorId: "actor:t", role: "project_owner" },
     producedAt: NOW,
     freshness: "fresh",
-    status: "available",
+    status: "verified",
     classification: "internal",
     storageMode: "external_payload_ref",
     availability: "available",
@@ -146,6 +146,7 @@ function makeMissionEvidence(absolutePath: string, digest: string): Evidence {
       cycleInstanceId: "cyc:1",
     },
     containsSecrets: false,
+    technicalResultRef: "res:w3a:abc123",
     provenance: {
       schemaVersion: "0.1.0-oa",
       provenanceRecordId: "prv:mission",
@@ -281,7 +282,7 @@ describe("B1 mission Result Semantic", () => {
       {
         evidenceId: evidence.evidenceId,
         evidenceVersion: 1,
-        status: "available",
+        status: "verified",
         availability: "available",
       },
     ];

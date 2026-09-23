@@ -66,16 +66,32 @@ import type {
 function tryParseReportFromStdout(
   stdout: string,
 ): CursorExecutionReportWithMission | null {
+  const trimmed = stdout.trim();
+  if (!trimmed) return null;
   const marker = "CURSOR_EXECUTION_REPORT_JSON=";
-  const idx = stdout.indexOf(marker);
-  if (idx < 0) return null;
-  const json = stdout.slice(idx + marker.length).trim().split("\n")[0] ?? "";
-  try {
-    const parsed = parseCursorExecutionReport(JSON.parse(json));
-    return parsed.ok ? (parsed.report as CursorExecutionReportWithMission) : null;
-  } catch {
-    return null;
+  const idx = trimmed.indexOf(marker);
+  const candidates: string[] = [];
+  if (idx >= 0) {
+    candidates.push(
+      trimmed.slice(idx + marker.length).trim().split("\n")[0] ?? "",
+    );
   }
+  // Raw JSON stdout (deterministic TestOnly / structured Cursor claim).
+  if (trimmed.startsWith("{")) {
+    candidates.push(trimmed);
+  }
+  for (const json of candidates) {
+    if (!json) continue;
+    try {
+      const parsed = parseCursorExecutionReport(JSON.parse(json));
+      if (parsed.ok) {
+        return parsed.report as CursorExecutionReportWithMission;
+      }
+    } catch {
+      /* try next candidate */
+    }
+  }
+  return null;
 }
 function mapCycleProfileToSelectionProfile(
   profile: CycleProfile | string | null | undefined,

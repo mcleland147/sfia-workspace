@@ -14,6 +14,11 @@ import {
 } from "@/lib/oa/execution-attempt";
 import type { ClaimEvaluation, Evidence, ReviewBundle } from "@/lib/oa/evidence-review";
 import { resolveCurrentContractResultClaimEvaluation } from "@/lib/oa/evidence-review";
+import { PRODUCT_MISSION_FROM_DURABLE_CONTEXT } from "@/lib/oa/evidence-review/application/missionResultPayload";
+import {
+  isMissionResultEvidenceId,
+  missionResultEvidenceIdForAttempt,
+} from "@/features/project-assistant/f3/ingestMissionResultEvidence";
 import { requalifyDocsWriteContractResult } from "./requalifyDocsWriteContractResult";
 import {
   projectW3bProductTerminal,
@@ -284,6 +289,27 @@ export async function materializeW3bProductTerminal(input: {
     };
   }
 
+  // Mission Product path: W3-B frozen RB must contain verified Mission Evidence
+  // as the sole evidenceRefs set consumed by EvaluateContractResult (CE bindings
+  // = selectEvidenceIds mission-only). Technical Attempt Evidence alone remains
+  // the fallback when Mission Evidence is absent/unverified → NOT_PROVEN honest.
+  const isMissionProduct = contract.constraints.includes(
+    PRODUCT_MISSION_FROM_DURABLE_CONTEXT,
+  );
+  let evidenceIdsForBundle: string[] = [ingested.evidence.evidenceId];
+  let primaryEvidence = ingested.evidence;
+  if (isMissionProduct) {
+    const missionEvidenceId = missionResultEvidenceIdForAttempt(attempt.attemptId);
+    const missionEvidence =
+      await services.evidenceReader.findById(missionEvidenceId);
+    if (missionEvidence && missionEvidence.status === "verified") {
+      evidenceIdsForBundle = [missionEvidence.evidenceId];
+      primaryEvidence = missionEvidence;
+    }
+    // Missing / unverified Mission Evidence → tech-only RB; mission semantic
+    // yields NOT_PROVEN / Product UNCLAIMED (honest).
+  }
+
   const bundle = await services.createReviewBundle.execute({
     reviewBundleId: ids.reviewBundleId,
     idempotencyKey: ids.reviewBundleIdempotencyKey,
@@ -291,7 +317,7 @@ export async function materializeW3bProductTerminal(input: {
     projectId: input.projectId,
     executionContractId: contract.executionContractId,
     ...(contract.cycleInstanceId ? { cycleInstanceId: contract.cycleInstanceId } : {}),
-    evidenceIds: [ingested.evidence.evidenceId],
+    evidenceIds: evidenceIdsForBundle,
     reservations: [...productReservationsForAttempt(attempt)],
   });
 
@@ -341,6 +367,14 @@ export async function materializeW3bProductTerminal(input: {
     };
   }
 
+  // Mission semantic selectEvidenceIds is mission-only. Passing tech Evidence
+  // as request.evidence when Mission Evidence is absent would hard-fail
+  // (evidence_not_selected_by_semantic). Omit it so incomplete → not_proven.
+  const evidenceForEvaluate =
+    isMissionProduct && !isMissionResultEvidenceId(primaryEvidence.evidenceId)
+      ? undefined
+      : primaryEvidence;
+
   const evaluated = await services.evaluateContractResult.execute({
     claimEvaluationId: ids.claimEvaluationId,
     idempotencyKey: ids.claimEvaluationIdempotencyKey,
@@ -367,7 +401,7 @@ export async function materializeW3bProductTerminal(input: {
       completedAt: attempt.completedAt,
       selectedAgentRef: attempt.selectedAgentRef,
     },
-    evidence: ingested.evidence,
+    ...(evidenceForEvaluate ? { evidence: evidenceForEvaluate } : {}),
     reviewBundle: frozenReviewBundle,
   });
 
@@ -381,7 +415,7 @@ export async function materializeW3bProductTerminal(input: {
       product: projectFromFacts({
         attempt,
         contract,
-        evidence: ingested.evidence,
+        evidence: primaryEvidence,
         reviewBundle: frozenReviewBundle,
         claimEvaluation: evaluated.claimEvaluation ?? null,
       }),
@@ -391,7 +425,7 @@ export async function materializeW3bProductTerminal(input: {
   const product = projectFromFacts({
     attempt,
     contract,
-    evidence: ingested.evidence,
+    evidence: primaryEvidence,
     reviewBundle: frozenReviewBundle,
     claimEvaluation: evaluated.claimEvaluation,
   });

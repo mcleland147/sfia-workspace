@@ -134,11 +134,27 @@ async function authorizeClarifyMission(suffix: string) {
   expect(authorized.ok).toBe(true);
   if (!authorized.ok) throw new Error("auth");
   expect(authorized.outcome).toBe("AUTHORIZED");
+  const live =
+    (await oa.executionContractServices.contracts.findById(executionContractId)) ??
+    prepared.contract;
+  const inputs = (live as { inputs?: Record<string, unknown> }).inputs ?? {};
+  const repositoryRef =
+    typeof inputs.repositoryBindingIdentity === "string"
+      ? inputs.repositoryBindingIdentity
+      : typeof inputs.repositoryRef === "string"
+        ? inputs.repositoryRef
+        : "acme/w2-harness";
+  const baseSha =
+    typeof inputs.baseHeadSha === "string"
+      ? inputs.baseHeadSha
+      : W2_TEST_PINNED_BASE_HEAD_SHA;
   return {
     oa,
     projectId: seeded.projectId,
     executionContractId,
-    contract: prepared.contract,
+    contract: live as typeof prepared.contract,
+    repositoryRef,
+    baseSha,
   };
 }
 
@@ -240,8 +256,8 @@ describe("B2 generic Cursor completion", () => {
           reportId: "rpt:cursor:b2ok",
           attemptId: started.attemptId,
           executionContractId: ctx.executionContractId,
-          repositoryRef: "acme/w2-harness",
-          baseSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+          repositoryRef: ctx.repositoryRef,
+          baseSha: ctx.baseSha,
           status: "succeeded",
           authorizedEffectsExecuted: [],
           missionResult: {

@@ -1,6 +1,7 @@
 /**
- * Persist + ingest mission-result Evidence (docs_write pattern: location + digest).
- * No new Evidence table. Payload is a durable JSON file under refsRoot.
+ * Persist + ingest mission-result Evidence via IngestExecutionAttemptEvidence.
+ * Owns payload + Evidence + integrity verify. Does NOT create a parallel ReviewBundle —
+ * W3-B materialize owns the frozen ReviewBundle consumed by EvaluateContractResult.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -9,12 +10,21 @@ import type {
   EvidenceReviewServices,
 } from "@/lib/oa/evidence-review";
 import {
+  canonicalizeMissionResultPayload,
   digestMissionResultPayload,
   missionResultLocationForAttempt,
   type MissionResultPayload,
 } from "@/lib/oa/evidence-review/application/missionResultPayload";
-import { MISSION_RESULT_EVIDENCE_SOURCE } from "@/lib/oa/evidence-review/application/missionResultContractResultSemantic";
-import { LOCAL_MORRIS_ACTOR } from "../f2/recordDecision";
+import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
+
+export function missionResultEvidenceIdForAttempt(attemptId: string): string {
+  const segment = attemptId.replace(/[^a-zA-Z0-9:_-]/g, "");
+  return `ev:mission-result:${segment}`.slice(0, 128);
+}
+
+export function isMissionResultEvidenceId(evidenceId: string): boolean {
+  return evidenceId.startsWith("ev:mission-result:");
+}
 
 export type IngestMissionResultEvidenceInput = {
   evidenceReviewServices: EvidenceReviewServices;
@@ -35,10 +45,10 @@ export type IngestMissionResultEvidenceResult =
   | {
       ok: true;
       evidenceId: string;
-      reviewBundleId: string;
       evidenceStatus: string;
       location: string;
       digest: string;
+      technicalResultRef?: string;
     }
   | { ok: false; code: string; message: string };
 
@@ -46,14 +56,17 @@ export function persistMissionResultPayload(input: {
   refsRoot: string;
   attemptId: string;
   payload: MissionResultPayload;
-}): { ok: true; absolutePath: string; digest: string } | { ok: false; code: string; message: string } {
+}):
+  | { ok: true; absolutePath: string; digest: string }
+  | { ok: false; code: string; message: string } {
   try {
     fs.mkdirSync(input.refsRoot, { recursive: true });
     const relative = missionResultLocationForAttempt(input.attemptId);
     const absolutePath = path.join(input.refsRoot, relative);
     fs.mkdirSync(path.dirname(absolutePath), { recursive: true });
+    // Same canonical representation for persist + digest (no pretty-print drift).
+    const body = canonicalizeMissionResultPayload(input.payload);
     const digest = digestMissionResultPayload(input.payload);
-    const body = JSON.stringify(input.payload, null, 2);
     fs.writeFileSync(absolutePath, body, "utf8");
     return { ok: true, absolutePath, digest };
   } catch (err) {
@@ -68,10 +81,8 @@ export function persistMissionResultPayload(input: {
 export async function ingestMissionResultEvidence(
   input: IngestMissionResultEvidenceInput,
 ): Promise<IngestMissionResultEvidenceResult> {
-  const actor = input.actor ?? LOCAL_MORRIS_ACTOR;
-  const segment = input.executionAttemptId.replace(/[^a-zA-Z0-9:_-]/g, "");
-  const evidenceId = `ev:mission-result:${segment}`.slice(0, 128);
-  const reviewBundleId = `rb:mission-result:${segment}`.slice(0, 128);
+  const actor = input.actor ?? LOCAL_PILOTE_ACTOR;
+  const evidenceId = missionResultEvidenceIdForAttempt(input.executionAttemptId);
 
   const persisted = persistMissionResultPayload({
     refsRoot: input.refsRoot,
@@ -80,67 +91,62 @@ export async function ingestMissionResultEvidence(
   });
   if (!persisted.ok) return persisted;
 
-  const registered = await input.evidenceReviewServices.registerEvidence.execute({
-    evidenceId,
-    type: "attestation",
-    status: "available",
-    digest: persisted.digest as never,
-    location: persisted.absolutePath,
-    source: MISSION_RESULT_EVIDENCE_SOURCE,
-    sourceKind: "external",
-    classification: "internal",
-    storageMode: "external_payload_ref",
-    bindings: {
-      projectId: input.projectId,
-      cycleInstanceId: input.cycleInstanceId,
-      executionContractId: input.executionContractId,
+  const ingested =
+    await input.evidenceReviewServices.ingestExecutionAttemptEvidence.execute({
+      evidenceId,
       executionAttemptId: input.executionAttemptId,
-    },
-    actor,
-    correlationId: input.correlationId ?? `cor:mission-result:${segment}`,
-    nowIso: input.nowIso,
-    idempotencyKey: `idem:mission-result:${evidenceId}`,
-  });
-  if (!registered.ok) {
+      idempotencyKey: `idem:mission-result:${evidenceId}`,
+      actor,
+      classification: "internal",
+      type: "attestation",
+      storageMode: "external_payload_ref",
+      location: persisted.absolutePath,
+      digest: persisted.digest as never,
+      bindings: {
+        projectId: input.projectId,
+        cycleInstanceId: input.cycleInstanceId,
+        executionContractId: input.executionContractId,
+      },
+      correlationId:
+        input.correlationId ?? `cor:mission-result:${evidenceId}`,
+      nowIso: input.nowIso,
+    });
+  if (!ingested.ok || !ingested.evidence) {
     return {
       ok: false,
-      code: registered.error.detailCode,
-      message: registered.error.message,
+      code: ingested.ok ? "MISSION_EVIDENCE_MISSING" : ingested.error.detailCode,
+      message: ingested.ok
+        ? "IngestExecutionAttemptEvidence returned no evidence."
+        : ingested.error.message,
     };
   }
 
-  // Attach technicalResultRef when available (attempt.resultRef).
-  if (input.technicalResultRef && registered.evidence) {
-    // registerEvidence may not accept technicalResultRef — if field exists on
-    // returned evidence from ingest path we're fine; otherwise Evidence stays
-    // linked via bindings + digest. Optional best-effort already covered.
-  }
-
-  const bundle = await input.evidenceReviewServices.createReviewBundle.execute({
-    reviewBundleId,
-    projectId: input.projectId,
-    cycleInstanceId: input.cycleInstanceId,
-    executionContractId: input.executionContractId,
-    evidenceIds: [evidenceId],
-    actor,
-    correlationId: input.correlationId ?? `cor:mission-result-rb:${segment}`,
-    nowIso: input.nowIso,
-    idempotencyKey: `idem:mission-result-rb:${reviewBundleId}`,
-  });
-  if (!bundle.ok) {
-    return {
-      ok: false,
-      code: bundle.error.detailCode,
-      message: bundle.error.message,
-    };
+  // available → VerifyEvidenceIntegrity → verified (filesystem probe).
+  let evidence = ingested.evidence;
+  if (evidence.status === "available" && evidence.digest) {
+    const verified =
+      await input.evidenceReviewServices.verifyEvidenceIntegrity.execute({
+        evidenceId: evidence.evidenceId,
+        expectedVersion: evidence.version,
+        actor,
+        correlationId:
+          input.correlationId ?? `cor:mission-result-verify:${evidenceId}`,
+        nowIso: input.nowIso,
+      });
+    if (verified.ok && verified.evidence) {
+      evidence = verified.evidence;
+    }
+    // If verify fails, Evidence stays available — Product PASS remains forbidden.
   }
 
   return {
     ok: true,
-    evidenceId,
-    reviewBundleId,
-    evidenceStatus: registered.evidence.status,
+    evidenceId: evidence.evidenceId,
+    evidenceStatus: evidence.status,
     location: persisted.absolutePath,
     digest: persisted.digest,
+    ...(evidence.technicalResultRef
+      ? { technicalResultRef: evidence.technicalResultRef }
+      : {}),
   };
 }
