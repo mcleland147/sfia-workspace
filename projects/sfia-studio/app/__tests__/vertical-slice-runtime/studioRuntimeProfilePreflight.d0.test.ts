@@ -4,7 +4,7 @@
  * @vitest-environment node
  */
 import { afterEach, describe, expect, it } from "vitest";
-import { mkdtempSync, mkdirSync, rmSync } from "node:fs";
+import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
@@ -171,6 +171,51 @@ describe("studioRuntimeProfilePreflight", () => {
 
   it("T8 — .env.local persistence / startup proof via @next/env child process", () => {
     const appDir = path.resolve(__dirname, "../..");
+    const managedBase = mkdtempSync(path.join(tmpdir(), "sfia-rt-t8-mgr-"));
+    tmpDirs.push(managedBase);
+    seedManagedClone(managedBase, IDENTITY);
+
+    // CI-safe fixture: prove @next/env loads .env.local without shell exports.
+    // Does not depend on developer machine .env.local (absent in CI).
+    const fixtureDir = mkdtempSync(path.join(tmpdir(), "sfia-rt-t8-env-"));
+    tmpDirs.push(fixtureDir);
+    writeFileSync(
+      path.join(fixtureDir, ".env.local"),
+      [
+        `SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY=${IDENTITY}`,
+        `SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL=${REMOTE}`,
+        "SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH=main",
+        `${M3_LOCAL_AUTHORITY_ENV}=1`,
+        `${SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV}=${managedBase}`,
+        `${SFIA_STUDIO_CURSOR_REAL_FLAG}=0`,
+        "",
+      ].join("\n"),
+      "utf8",
+    );
+
+    // Runner must live under appDir so Node resolves @next/env from app node_modules.
+    const runnerDir = path.join(appDir, ".sfia-exec");
+    mkdirSync(runnerDir, { recursive: true });
+    const runnerPath = path.join(runnerDir, `t8-loadenv-runner-${Date.now()}.ts`);
+    writeFileSync(
+      runnerPath,
+      `
+import { loadEnvConfig } from "@next/env";
+import { runStudioRuntimeProfilePreflight } from "../lib/vertical-slice-runtime/studioRuntimeProfilePreflight";
+
+loadEnvConfig(${JSON.stringify(fixtureDir)});
+const r = runStudioRuntimeProfilePreflight({ env: process.env });
+if (!r.ok) {
+  console.error(r.message);
+  process.exit(1);
+}
+console.log("STUDIO RUNTIME PROFILE READY");
+console.log(\`repository: \${r.repositoryIdentity} (PASS)\`);
+`,
+      "utf8",
+    );
+    tmpDirs.push(runnerPath);
+
     const cleanEnv: NodeJS.ProcessEnv = { ...process.env };
     for (const k of STUDIO_RUNTIME_PROFILE_ENV_KEYS) {
       delete cleanEnv[k];
@@ -182,24 +227,26 @@ describe("studioRuntimeProfilePreflight", () => {
     delete cleanEnv.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY;
     delete cleanEnv.SFIA_STUDIO_CURSOR_REAL;
     delete cleanEnv.SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY;
-
-    // No shell export of Product profile — child must load .env.local via @next/env.
-    // Next skips .env.local when NODE_ENV=test; simulate `npm start` with production.
+    // Next skips .env.local when NODE_ENV=test; simulate production load.
     Object.assign(cleanEnv, { NODE_ENV: "production" });
 
     const result = spawnSync(
       path.join(appDir, "node_modules/.bin/tsx"),
-      [path.join(appDir, "scripts/studio-runtime-preflight.ts")],
+      [runnerPath],
       {
         cwd: appDir,
         env: cleanEnv,
         encoding: "utf8",
       },
     );
+    try {
+      rmSync(runnerPath, { force: true });
+    } catch {
+      /* ignore */
+    }
     expect(result.status, result.stderr || result.stdout).toBe(0);
     expect(result.stdout).toContain("STUDIO RUNTIME PROFILE READY");
     expect(result.stdout).toMatch(/repository: .+\(PASS\)/);
-    // T9 adjacent — no secret material in CLI output
     expect(result.stdout.toLowerCase()).not.toMatch(
       /replace-with|client.secret|better_auth_secret=|ghp_|github_pat_/,
     );
