@@ -177,9 +177,10 @@ But that applies to **new** Decision IDs — not to superseding the existing Bat
 - source: `.tmp-sfia-review/chatgpt-review.md`
 - branch: `sfia/review-handoff`
 - canonical file: `sfia-review-handoff/latest-chatgpt-review.md`
-- remote commit before: `4e764176fbb928c987c17c42f2e006cb8ed2d75c`
-- handoff local/remote commit after: `63518e04f1befb5efc5487293bbfd0efaa389127`
-- blob after: `3570c1ad0274b55a3d138b9d278a8c043dd8383f`
+- remote commit before (cycle start): `4e764176fbb928c987c17c42f2e006cb8ed2d75c`
+- handoff local/remote commit after: `35bb5cb756751dfa2195ecb95cb2a6f6c2113724`
+- blob after: `397d224d5ac07b57330ea720e254c564663a0e5b`
+- note: intermediate STOP pack tip `63518e04…` superseded by this verify-complete tip within the same mono-cycle
 - push: done
 - remote verification: yes
 - remote file reread: yes
