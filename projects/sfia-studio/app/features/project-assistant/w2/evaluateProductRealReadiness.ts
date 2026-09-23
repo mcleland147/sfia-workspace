@@ -70,7 +70,16 @@ export type ProductRealReadinessResult = {
     readonly resolvedManagedRepoPath: string | null;
     readonly repoExists: boolean;
     readonly pathRoot: string | null;
+    /**
+     * Physical materialization of pathRoot under managed repo (observational).
+     * Absence alone does NOT fail-close generic launch readiness.
+     */
     readonly pathRootExists: boolean | null;
+    /**
+     * Containment/validity of pathRoot (relative, no traversal/escape).
+     * null when pathRoot is absent from durable binding.
+     */
+    readonly pathRootContainmentValid: boolean | null;
     readonly defaultBranch: string | null;
     readonly trustedBaseHeadSha: string | null;
   };
@@ -244,20 +253,28 @@ export function evaluateProductRealReadiness(
 
   const pathRoot = input.pathRoot?.trim() || null;
   let pathRootExists: boolean | null = null;
+  let pathRootContainmentValid: boolean | null = null;
   if (pathRoot && resolvedManagedRepoPath && repoExists) {
     const contained = resolveContainedPathRoot({
       repoRoot: resolvedManagedRepoPath,
       pathRoot,
     });
     if (!contained.ok) {
+      pathRootContainmentValid = false;
       pathRootExists = false;
       blockers.push(contained.code);
     } else {
+      // Valid containment — physical absence is informational only
+      // (D-PC-09 workspace may materialize later; generic read does not require it).
+      pathRootContainmentValid = true;
       pathRootExists = fs.existsSync(contained.absolutePath);
-      if (!pathRootExists) blockers.push("PROJECT_PATH_ROOT_ABSENT");
     }
   } else if (pathRoot && (!resolvedManagedRepoPath || !repoExists)) {
+    // Cannot evaluate containment without a resolved managed repo.
     pathRootExists = false;
+    pathRootContainmentValid = null;
+  } else if (!pathRoot) {
+    pathRootContainmentValid = null;
   }
 
   let trustedBaseHeadSha: string | null = null;
@@ -290,13 +307,16 @@ export function evaluateProductRealReadiness(
     }
   }
 
+  // Launch context mirrors resolveTrustedProductLaunchContext:
+  // pathRoot is carried as binding input; physical existence is NOT required.
+  // Invalid containment still fail-closes.
   const launchContextResolvable = Boolean(
     identity &&
       trustedBaseHeadSha &&
       baseHeadShaFullSha &&
       managedConfigured &&
       repoExists &&
-      (pathRoot == null || pathRootExists === true),
+      (pathRoot == null || pathRootContainmentValid === true),
   );
   if (!launchContextResolvable && !blockers.includes("MANAGED_REPO_ROOT_BASE_UNCONFIGURED")) {
     if (!blockers.some((b) => b.startsWith("TRUSTED_BASE_HEAD") || b.includes("MANAGED") || b.includes("PATH_ROOT") || b.includes("BINDING"))) {
@@ -321,7 +341,7 @@ export function evaluateProductRealReadiness(
     (expectedProjectFound === null || expectedProjectFound === true) &&
     managedConfigured &&
     repoExists &&
-    (pathRoot == null || pathRootExists === true) &&
+    (pathRoot == null || pathRootContainmentValid === true) &&
     baseHeadShaFullSha &&
     executable;
 
@@ -347,6 +367,7 @@ export function evaluateProductRealReadiness(
       repoExists,
       pathRoot,
       pathRootExists,
+      pathRootContainmentValid,
       defaultBranch: input.defaultBranch?.trim() || null,
       trustedBaseHeadSha,
     },
