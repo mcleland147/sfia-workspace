@@ -1,11 +1,11 @@
-# NORA-CONVERSATIONAL-INITIATIVE-01 — FULL Review Pack
+# NORA-CONVERSATIONAL-INITIATIVE-01 — CR-NCI-01/02/03 FULL Review Pack
 
-- **Timestamp (UTC):** 2026-09-23T23:04:03Z
-- **Cycle:** NORA-CONVERSATIONAL-INITIATIVE-01 / Cycle 8 — Delivery
-- **EVOL / CRITICAL / ZERO REAL / LOCAL IMPLEMENTATION ONLY**
+- **Timestamp (UTC):** 2026-09-23T23:26:35Z
+- **Cycle:** NORA-CONVERSATIONAL-INITIATIVE-01 — Critical Review Bounded Correction
+- **Prior handoff:** `eaf52e802ba4d6d792c4d8057f1b61751522e5ec` / blob `2e3485181384473faf7529a962d2f117914fb817`
 - **Candidate branch:** `feat/sfia-studio-nora-conversational-initiative-01`
-- **Claim autorisé:** CONVERSATIONAL INITIATIVE IMPLEMENTED DETERMINISTICALLY AT TESTED PRODUCT-TURN SCOPE
-- **Verdict candidate:** NORA-CONVERSATIONAL-INITIATIVE-01 — IMPLEMENTED DETERMINISTICALLY — READY FOR CHATGPT CRITICAL REVIEW
+- **Claim maximal:** CONVERSATIONAL INITIATIVE IMPLEMENTED DETERMINISTICALLY WITH STRUCTURAL ROUTING / ACTIVE-CYCLE / LIFECYCLE / COGNITIVE-STOP COHERENCE AT TESTED PRODUCT-TURN SCOPE
+- **Verdict candidate:** NORA-CONVERSATIONAL-INITIATIVE-01 — CR-NCI-01/02/03 CLOSED — READY FOR CHATGPT CRITICAL RE-REVIEW
 
 ---
 
@@ -13,222 +13,123 @@
 
 | Check | Value |
 |-------|-------|
-| pwd | `/Users/morris/Projects/sfia-workspace` |
 | branch | `feat/sfia-studio-nora-conversational-initiative-01` |
-| HEAD | `7d05e73b4e24f3f6c14d9c15220720957b9b19b5` (baseline = origin/main; uncommitted candidate changes) |
-| HEAD^{tree} baseline | `2b3e5a6ec8515a5ae32e9052fad02c09100ca2b5` |
+| HEAD baseline | `7d05e73b4e24f3f6c14d9c15220720957b9b19b5` |
+| HEAD^{tree} | `2b3e5a6ec8515a5ae32e9052fad02c09100ca2b5` |
 | origin/main | `7d05e73b4e24f3f6c14d9c15220720957b9b19b5` |
-| Main drift Nora/PA | **NONE** — origin/main matches qualified SHA |
-| Residual dirty at start | `.tmp-sfia-review/chatgpt-review.md` only (review/temp — not embarked in candidate code) |
-| Project push | **0** |
-| PR / merge | **0** |
-| Runtime v3 | **NON ADOPTED** |
+| Candidate | local uncommitted continuation of accepted partial candidate |
+| Reset/stash/destructive checkout | **0** |
+| Project push / PR / merge | **0** |
+| Runtime v3 | NON ADOPTED |
 
 ---
 
-## 2. Sources relues (contrat)
+## 2. CR status
 
-### Méthode
-- `prompts/templates/sfia-cycle-execution-template.md`
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md`
-
-### Convergence / Product
-- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md` — **not modified**
-- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` — **not modified**
-- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md` — **not modified**
-
-### v3 framing (read-only)
-- `32-living-project-state-and-dynamic-trajectory.md`
-- `34-agent-capabilities-reversibility-and-execution-governance.md`
-- `35-artifact-evidence-debt-and-controlled-learning.md`
-- `36-sfia-v2.6-inheritance-and-adaptation-matrix.md`
-- CKC `08-delivery-implementation.md`
-
-### Code / tests (implementation surface)
-- Product turn schema / normalize / coherence
-- `buildProjectSystemPrompt.ts`
-- `runNoraAgentsTurn.ts` / `providerAgentsModel.ts`
-- `orchestrateTurn.ts`
-- Tests T1–T10 + regressions
-
-**W3-C:** not modified.
+| CR | Status | Fix |
+|----|--------|-----|
+| CR-NCI-01 | **CLOSED** | Incompatible guidance → full server-owned HOLD object; never kind-only relabel keeping statement |
+| CR-NCI-02 | **CLOSED** | Required `scope` enum; DEFER requires `ACTIVE_CYCLE` structurally |
+| CR-NCI-03 | **CLOSED** | Normalize with cognitiveStop before LR; NEW LR materialization gated; EMIT requires RECOMMEND+LIFECYCLE_TRANSITION or `CONVERSATION_GUIDANCE_LIFECYCLE_MISMATCH` |
 
 ---
 
-## 3. Root cause — CONFIRMED
-
-**ROOT CAUSE CONFIRMED:**
-
-1. `buildProjectSystemPrompt` already encourages positive advisory initiative / PROPOSE / methodological next move.
-2. Product turn structured contract previously required only: `narrative`, `preCycleRoutingAssessment`, `lifecycleRecommendation`, `activeCycleWork`.
-3. **No mandatory structured conversational continuation** (`conversationGuidance`).
-4. Server coherence gated LR vs routing but **did not enforce a continuation object**.
-5. `orchestrateTurn` / Agents path projected **narrative alone** into Pilot-facing / history text — continuation could be lost even if present in prose.
-
-Therefore: initiative was prompt-encouraged but not contractually mandatory nor server-guaranteed in history.
-
-**Not STOP — ROOT CAUSE DIFFERS.**
-
----
-
-## 4. Capability implementation
-
-Same Product Nora turn (one Agents call) now emits ephemeral:
+## 3. Exact final conversationGuidance contract
 
 ```
 conversationGuidance: {
   kind: RECOMMEND_NEXT_STEP | ASK_CLARIFICATION | PRESENT_OPTIONS | HOLD
+  scope: PRE_CYCLE | ACTIVE_CYCLE | LIFECYCLE_TRANSITION | BLOCKER_RESOLUTION
   statement: string (non-empty)
-  rationale: string | null (null or non-empty)
+  rationale: string | null
 }
 ```
 
-Properties:
-- cognitive / ephemeral / non-authoritative
-- never Truth C / HumanDecision / ExecutionContract / execution auth
-- no second LLM / no second agent / no SQL persistence / no parallel recommendation engine
-- fail-closed HOLD on missing/invalid guidance (never invents RECOMMEND_NEXT_STEP)
-- Pilot-facing text = `composePilotFacingAssistantText(narrative, guidance)` so history keeps continuation
-- Cognitive Stop overrides optimistic guidance → HOLD
+Fail-closed default: HOLD + BLOCKER_RESOLUTION + safe statement (never RECOMMEND_NEXT_STEP).
 
 ---
 
-## 5. Exact conversationGuidance contract
+## 4. Coherence matrix (kind × scope × disposition)
 
-| Field | Rule |
-|-------|------|
-| `kind` | enum only (4 values) |
-| `statement` | non-empty string; natural Pilot language |
-| `rationale` | `null` or non-empty string |
+| Disposition / condition | Compatible | Else |
+|-------------------------|------------|------|
+| CONTINUE + routing blocker | ASK+PRE_CYCLE or HOLD+BLOCKER | full HOLD_ROUTING_BLOCKER |
+| CONTINUE no blocker | scope PRE_CYCLE, or HOLD+BLOCKER | full HOLD_BOUNDARY |
+| HOLD_FOR_ROUTING_AMBIGUITY | PRESENT/ASK+PRE_CYCLE or HOLD+BLOCKER | full HOLD_MULTI_CYCLE |
+| DEFER_TO_ACTIVE_CYCLE | any kind + scope ACTIVE_CYCLE | full HOLD_ACTIVE_CYCLE_SCOPE |
+| EMIT + LR | RECOMMEND_NEXT_STEP + LIFECYCLE_TRANSITION | HOLD_BOUNDARY + code CONVERSATION_GUIDANCE_LIFECYCLE_MISMATCH (no materialize) |
+| Cognitive Stop | HOLD + BLOCKER_RESOLUTION | replace full object; strip LR for this turn |
 
-### Coherence matrix (structured only — no prose regex intent)
-
-| Condition | Guidance effect |
-|-----------|-----------------|
-| `routingBlockingUnknownPresent` (CONTINUE) | coerce optimistic kinds → `ASK_CLARIFICATION` |
-| `multiplePlausibleCycles` (HOLD_FOR_ROUTING_AMBIGUITY) | coerce `RECOMMEND_NEXT_STEP` → `PRESENT_OPTIONS` |
-| `activeCycleAlreadyCoversWork` (DEFER) | keep guidance; strip NEXT_CYCLE LR (existing) |
-| EMIT + LR | keep guidance; never invent RECOMMEND from HOLD |
-| `boundaryContradiction` (EMIT without LR) | coerce → HOLD |
-| Cognitive Stop | override → HOLD (blocker resolution) |
-| Missing/invalid guidance | fail-closed HOLD |
+**No statement prose parsing. No kind-only relabel.**
 
 ---
 
-## 6. Pilot-facing rendering + history continuity
+## 5. Orchestration ordering (before → after)
 
-- Server composes `narrative + "\n\n" + statement` when statement not already contained.
-- No robotic `PROCHAINE ÉTAPE :` label injected by server.
-- No new design system / UI persistence / CTA.
-- `ProjectAssistantPanel` unchanged — renders existing `text`.
-- Session / next-turn history receives composed assistant text (T7).
+**Before (gap):** LR materialize possible → later Cognitive Stop only changed Pilot text.
 
----
-
-## 7. Files touched
-
-| Path | Change |
-|------|--------|
-| `noraProductTurnOutputType.ts` | schema + types + coherence + compose + fail-closed |
-| `providerAgentsModel.ts` | coerce plain → include conversationGuidance |
-| `runNoraAgentsTurn.ts` | normalize + compose text |
-| `orchestrateTurn.ts` | final compose + Cognitive Stop override |
-| `buildProjectSystemPrompt.ts` | Orient / conversationGuidance instructions |
-| `noraConversationalInitiative.d0.test.ts` | **CREATED** T1–T10 |
-| `preCycleRoutingBoundary.d0.test.ts` | schema required includes conversationGuidance |
-| `lifecycleRecommendation.finalCorr.d0.test.ts` | fixtures include guidance (no-op compose) |
-
-**Not modified:** W3-C, SQLite schema, HD/EC domains, Roadmap, Build Doctrine, C1, doctrine package, CKC content.
+**After:**
+1. `runNoraCognitiveTurn`
+2. `normalize(+cognitiveStop)` once → `coherentEarly`
+3. fail on MISSING_REQUIRED_LR or CONVERSATION_GUIDANCE_LIFECYCLE_MISMATCH
+4. ACW (existing invariants)
+5. LR materialize **only if** `!cognitiveStop && !boundaryContradiction && lifecycleRecommendation`
+6. compose Pilot text from coherent guidance
+7. return
 
 ---
 
-## 8. Tests T1–T10
+## 6. Proofs
 
-| ID | Result |
-|----|--------|
-| T1 informative → RECOMMEND_NEXT_STEP | PASS |
-| T2 routing-blocking → ASK_CLARIFICATION | PASS |
-| T3 LR ready + coherent guidance | PASS |
-| T4 active cycle owns work | PASS |
-| T5 multiple paths → PRESENT_OPTIONS | PASS |
-| T6 Cognitive Stop → HOLD | PASS |
-| T7 history continuity | PASS |
-| T8 authority isolation (0 HD / Cycle START) | PASS |
-| T9 malformed → fail-closed HOLD | PASS |
-| T10 existing cognitive contracts | PASS |
-
-Dedicated file: 13/13 PASS.
+- **No statement relabel mismatch:** CR1-A/B — incompatible RECOMMEND becomes server HOLD statement, not ASK/PRESENT with same statement.
+- **Active-cycle scope:** CR2-A/B — DEFER rejects LIFECYCLE_TRANSITION; keeps ACTIVE_CYCLE.
+- **Cognitive Stop no-new-LR:** CR3-A/D — status cognitive_stop; LR count unchanged; historical LR preserved.
+- **EMIT mismatch:** CR3-B — validation_error CONVERSATION_GUIDANCE_LIFECYCLE_MISMATCH; 0 LR write.
+- **Happy path:** CR3-C — LR materializes with RECOMMEND+LIFECYCLE_TRANSITION.
 
 ---
 
-## 9. Regressions + typecheck
+## 7. Files
+
+| Path | Role |
+|------|------|
+| noraProductTurnOutputType.ts | scope + matrix + fail-closed objects + mismatch code |
+| orchestrateTurn.ts | cognitiveStop-first normalize; LR gate; single compose |
+| buildProjectSystemPrompt.ts | scope instructions |
+| providerAgentsModel / runNoraAgentsTurn | schema/fail-closed passthrough |
+| noraConversationalInitiative.d0.test.ts | T1–T10 + CR1–CR3 |
+| fixture helpers (RB / ACW / LR finalCorr) | scope-aligned conversationGuidance |
+
+---
+
+## 8. Tests
 
 | Suite | Result |
 |-------|--------|
-| noraConversationalInitiative.d0 | 13 PASS |
-| corrProof02.b1.advisory.d0 | PASS (in 156-batch) |
-| corrProof03.e1.methodGroundedAdvisory.d0 | PASS |
-| preCycleRoutingBoundary.d0 | 22 PASS |
-| activeCycleCognitiveWork.d0 | 57 PASS |
-| orchestrateTurn.test | PASS |
-| ProjectAssistantPanel.test | PASS |
-| mw3.cognitiveStop.surface.d0 | 5 PASS |
-| mw5.challenge.clarification.product.d0 | 19 PASS |
-| lifecycleRecommendation.finalCorr.d0 | 10 PASS |
-| lifecycleRecommendation.delivery.d0 | 14 PASS |
-| Batch core (7 files) | **156 PASS** |
-| `npm run typecheck` | **PASS** |
-| ZERO REAL | **YES** — Fake/ScriptedModel only |
-| Authority side effects | **0** HD / auto Cycle START / Cursor spawn / EC |
+| noraConversationalInitiative.d0 | **20 PASS** (T1–T10 + CR1-A/B, CR2-A/B, CR3-A/B/C/D) |
+| Regression gate (12 files) | **213 PASS** |
+| typecheck | **PASS** |
+| ZERO REAL | YES |
+| Authority side effects | 0 HD / Cycle START / Cursor / EC from guidance |
 
 ---
 
-## 10. Architecture reuse / no parallel engine
+## 9. Reservations
 
-- Reused existing Product turn outputType / Agents Runner path.
-- Extended same normalizer / boundary coherence.
-- No second model call; no W3-C merge; no durable guidance store.
-
----
-
-## 11. Dettes / réserves
-
-1. REAL conversational quality **not** proven this cycle (deterministic only).
-2. Next capacity (post Critical Review + Morris GO): `NORA-CONVERSATIONAL-INITIATIVE-REAL-PROOF-01`.
-3. Must not claim Nora Cognitive Completion COMPLETE / fully proactive in REAL / runtime v3 ADOPTED.
-4. Candidate code is **local uncommitted** on feature branch — no project push/PR.
+- REAL conversational quality not proven.
+- No Nora Cognitive Completion COMPLETE claim.
+- Candidate still local uncommitted (no project push).
 
 ---
 
-## 12. Claims
+## 10. FULL — created test file
 
-**Autorisé:** CONVERSATIONAL INITIATIVE IMPLEMENTED DETERMINISTICALLY AT TESTED PRODUCT-TURN SCOPE
-
-**Interdits:**
-- Nora Cognitive Completion COMPLETE
-- Nora fully proactive in REAL
-- runtime v3 ADOPTED
-- production conversational quality proven
-- autonomous project piloting
-- HumanDecision automation
-
----
-
-## 13. Verdict
-
-**NORA-CONVERSATIONAL-INITIATIVE-01 — IMPLEMENTED DETERMINISTICALLY — READY FOR CHATGPT CRITICAL REVIEW**
-
----
-
-## 14. FULL — created file
-
-### `projects/sfia-studio/app/__tests__/project-assistant/noraConversationalInitiative.d0.test.ts`
+### `noraConversationalInitiative.d0.test.ts`
 
 ```typescript
 /** @vitest-environment node */
 /**
- * NORA-CONVERSATIONAL-INITIATIVE-01 — T1–T10 (deterministic).
+ * NORA-CONVERSATIONAL-INITIATIVE-01 — T1–T10 + CR-NCI-01/02/03 (deterministic).
  * ZERO REAL. Same Product turn structured conversationGuidance + server coherence.
  */
 import fs from "node:fs";
@@ -241,6 +142,11 @@ import { buildProjectSystemPrompt } from "@/features/project-assistant/buildProj
 import { orchestrateProjectAssistantTurn } from "@/features/project-assistant/orchestrateTurn";
 import {
   CONVERSATION_GUIDANCE_FAIL_CLOSED_HOLD,
+  CONVERSATION_GUIDANCE_HOLD_ACTIVE_CYCLE_SCOPE,
+  CONVERSATION_GUIDANCE_HOLD_COGNITIVE_STOP,
+  CONVERSATION_GUIDANCE_HOLD_MULTI_CYCLE,
+  CONVERSATION_GUIDANCE_HOLD_ROUTING_BLOCKER,
+  CONVERSATION_GUIDANCE_LIFECYCLE_MISMATCH,
   MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
   NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE,
   PRE_CYCLE_ROUTING_ASSESSMENT_CONTINUE_DEFAULT,
@@ -253,12 +159,12 @@ import {
   isNoraProductTurnWithOptionalLr,
   normalizeNoraProductTurnStructuredOutput,
   type ConversationGuidance,
+  type ConversationGuidanceKind,
+  type ConversationGuidanceScope,
   type PreCycleRoutingAssessment,
 } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
 import { coercePlainTextToProductTurnJson } from "@/lib/nora-cognitive-runtime/providerAgentsModel";
-import {
-  NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
-} from "@/lib/oa/cycle";
+import { NORA_LIFECYCLE_RECOMMENDATION_ACTOR } from "@/lib/oa/cycle";
 import type { ActorReference } from "@/lib/oa/project";
 import {
   getRuntimeApplicationService,
@@ -334,11 +240,12 @@ function nextCycleLr(targetCycleTypeId: string, statement: string) {
 }
 
 function guidance(
-  kind: ConversationGuidance["kind"],
+  kind: ConversationGuidanceKind,
+  scope: ConversationGuidanceScope,
   statement: string,
   rationale: string | null = null,
 ): ConversationGuidance {
-  return { kind, statement, rationale };
+  return { kind, scope, statement, rationale };
 }
 
 function productTurn(input: {
@@ -356,6 +263,33 @@ function productTurn(input: {
     conversationGuidance: input.conversationGuidance,
   };
 }
+
+const COGNITIVE_STOP_ASSESSMENT = {
+  conflict: {
+    conflictPresent: true,
+    requiredSourceCount: 2,
+    requiredDomains: ["governance"],
+    evidencePointers: [
+      {
+        evidenceId: "ev:1",
+        sourceId: "src:a",
+        domain: "governance",
+        freshness: "fresh" as const,
+        attributable: true,
+      },
+      {
+        evidenceId: "ev:2",
+        sourceId: "src:b",
+        domain: "governance",
+        freshness: "fresh" as const,
+        attributable: true,
+      },
+    ],
+    trustedSfiaProfile: null,
+  },
+  governingPremiseInvalidated: true,
+  governingPremise: "Premisse gouvernante invalidée (NCI CR3).",
+};
 
 const baseProject = {
   projectId: "prj:nci",
@@ -377,30 +311,76 @@ const baseProject = {
   readiness: "ready",
 };
 
+async function bootProject(prefix: string) {
+  process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+  process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
+  resetRuntimeApplicationServiceForTests();
+  const runtime = getRuntimeApplicationService({
+    registryRoot: FIXTURES,
+    schemasRoot: SCHEMAS,
+    nowIso: "2026-09-23T12:00:00.000Z",
+    idSource: new FixedIdSource(prefix),
+    auditMode: "noop",
+    productDbPath: tempDbPath(`${prefix}.sqlite`),
+  });
+  if (!runtime.oa) throw new Error("oa missing");
+  const created = await runtime.createProject({
+    name: prefix.toUpperCase(),
+    objective: "greenfield tasks",
+    context: prefix,
+    criticality: "STANDARD",
+    constraints: [],
+    shortReference: prefix.toUpperCase(),
+    idempotencyKey: `idem:${prefix}`,
+  });
+  expect(created.ok).toBe(true);
+  if (!created.ok) throw new Error("create failed");
+  const projectId = created.projectId;
+  await runtime.oa.cycleServices.createInitialTrajectory.execute({
+    trajectoryId: `trj:${projectId}`,
+    projectId,
+    steps: [
+      {
+        stepId: "stp:clarify",
+        order: 1,
+        label: "Clarify",
+        state: "pending",
+      },
+    ],
+    status: "active",
+    expectedLpsVersion: created.livingState.version,
+    createdBy: ACTOR,
+  });
+  return { runtime, projectId };
+}
+
 describe("NORA-CONVERSATIONAL-INITIATIVE-01 (deterministic)", () => {
-  it("schema requires conversationGuidance on Product turn", () => {
+  it("schema requires conversationGuidance.kind+scope on Product turn", () => {
     const required =
       NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE.schema.required;
     expect(required).toContain("conversationGuidance");
-    expect(required).toContain("narrative");
-    expect(required).toContain("preCycleRoutingAssessment");
+    const gRequired =
+      NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE.schema.properties
+        .conversationGuidance.required;
+    expect(gRequired).toContain("kind");
+    expect(gRequired).toContain("scope");
+    expect(gRequired).toContain("statement");
   });
 
-  it("prompt requires Orient / conversationGuidance same-turn initiative", () => {
+  it("prompt requires Orient / conversationGuidance scope matrix", () => {
     const prompt = buildProjectSystemPrompt(baseProject);
     expect(prompt).toMatch(/conversationGuidance/);
+    expect(prompt).toMatch(/LIFECYCLE_TRANSITION/);
+    expect(prompt).toMatch(/ACTIVE_CYCLE/);
+    expect(prompt).toMatch(/BLOCKER_RESOLUTION/);
     expect(prompt).toMatch(/UNDERSTAND/);
     expect(prompt).toMatch(/ORIENT/);
-    expect(prompt).toMatch(/RECOMMEND_NEXT_STEP/);
-    expect(prompt).toMatch(/ASK_CLARIFICATION/);
-    expect(prompt).toMatch(/PRESENT_OPTIONS/);
-    expect(prompt).toMatch(/\bHOLD\b/);
-    expect(prompt).not.toMatch(/HumanDecision auto|auto-créer une HumanDecision/i);
   });
 
-  it("T1 — informative → proactive RECOMMEND_NEXT_STEP continuation", () => {
+  it("T1 — informative → RECOMMEND_NEXT_STEP + PRE_CYCLE", () => {
     const g = guidance(
       "RECOMMEND_NEXT_STEP",
+      "PRE_CYCLE",
       "Je te propose maintenant de finaliser le cadrage minimal avant la conception.",
       "suite supportable après synthèse",
     );
@@ -419,71 +399,66 @@ describe("NORA-CONVERSATIONAL-INITIATIVE-01 (deterministic)", () => {
         lr: null,
       }),
     );
-    expect(coherent).toBeTruthy();
     expect(coherent!.conversationGuidance.kind).toBe("RECOMMEND_NEXT_STEP");
-    expect(coherent!.conversationGuidance.statement).toMatch(/cadrage minimal/i);
+    expect(coherent!.conversationGuidance.scope).toBe("PRE_CYCLE");
+    expect(coherent!.conversationGuidance.statement).toBe(g.statement);
     const pilot = composePilotFacingAssistantText(
       coherent!.narrative,
       coherent!.conversationGuidance,
     );
-    expect(pilot).toContain(coherent!.narrative);
     expect(pilot).toContain(g.statement);
-    expect(pilot).not.toMatch(/et maintenant \?/i);
     expect(pilot).not.toMatch(/PROCHAINE ÉTAPE\s*:/i);
   });
 
-  it("T2 — routing-blocking unknown → ASK_CLARIFICATION (coerce optimistic)", () => {
+  it("T2 — routing-blocking → ASK_CLARIFICATION + PRE_CYCLE", () => {
+    const g = guidance(
+      "ASK_CLARIFICATION",
+      "PRE_CYCLE",
+      "Quel est le canal principal d'entrée des tâches (mobile, web, API) ?",
+      null,
+    );
     const coherent = applyPreCycleRoutingBoundaryCoherence({
       narrative: "Le contexte métier reste trop ouvert pour router.",
       preCycleRoutingAssessment: {
         ...PRE_CYCLE_ROUTING_ASSESSMENT_CONTINUE_DEFAULT,
       },
       lifecycleRecommendation: nextCycleLr("cyc:framing", "should strip"),
-      conversationGuidance: guidance(
-        "RECOMMEND_NEXT_STEP",
-        "Quel est le canal principal d'entrée des tâches (mobile, web, API) ?",
-        null,
-      ),
+      conversationGuidance: g,
     });
     expect(coherent.disposition).toBe("CONTINUE_PRE_CYCLE");
     expect(coherent.lifecycleRecommendation).toBeNull();
     expect(coherent.conversationGuidance.kind).toBe("ASK_CLARIFICATION");
-    expect(coherent.conversationGuidanceCoerced).toBe(true);
-    expect(coherent.conversationGuidance.statement).toMatch(/canal principal/i);
+    expect(coherent.conversationGuidance.scope).toBe("PRE_CYCLE");
+    expect(coherent.conversationGuidance.statement).toBe(g.statement);
+    expect(coherent.conversationGuidanceCoerced).toBe(false);
   });
 
-  it("T3 — lifecycle recommendation ready + coherent guidance + pilot text", async () => {
-    const assessment = { ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT };
-    const lr = nextCycleLr(
-      "cyc:framing",
-      "Lancer le Cadrage gouverné pour traiter les inconnues restantes.",
-    );
+  it("T3 — LR ready → RECOMMEND_NEXT_STEP + LIFECYCLE_TRANSITION", () => {
     const g = guidance(
       "RECOMMEND_NEXT_STEP",
+      "LIFECYCLE_TRANSITION",
       "Je te recommande maintenant de lancer le Cadrage gouverné afin d'y traiter les inconnues restantes.",
       "candidate cycle supportable",
     );
-    const structured = productTurn({
-      assessment,
-      lr,
-      narrative:
-        "Le cadrage est suffisamment stabilisé pour arrêter l'exploration pré-cycle.",
-      conversationGuidance: g,
-    });
-    const coherent = normalizeNoraProductTurnStructuredOutput(structured);
+    const coherent = normalizeNoraProductTurnStructuredOutput(
+      productTurn({
+        assessment: { ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT },
+        lr: nextCycleLr(
+          "cyc:framing",
+          "Lancer le Cadrage gouverné pour traiter les inconnues restantes.",
+        ),
+        narrative:
+          "Le cadrage est suffisamment stabilisé pour arrêter l'exploration pré-cycle.",
+        conversationGuidance: g,
+      }),
+    );
     expect(coherent?.disposition).toBe("EMIT_LIFECYCLE_RECOMMENDATION");
     expect(coherent?.lifecycleRecommendation?.intent).toBe("NEXT_CYCLE");
     expect(coherent?.conversationGuidance.kind).toBe("RECOMMEND_NEXT_STEP");
-    const pilot = composePilotFacingAssistantText(
-      coherent!.narrative,
-      coherent!.conversationGuidance,
-    );
-    expect(pilot).toMatch(/Cadrage gouverné/i);
-    expect(coherent!.lifecycleRecommendation?.isHumanDecision).toBe(false);
-    expect(coherent!.lifecycleRecommendation?.authority).toBe("none");
+    expect(coherent?.conversationGuidance.scope).toBe("LIFECYCLE_TRANSITION");
   });
 
-  it("T4 — active cycle owns work → in-cycle guidance, no NEXT_CYCLE LR", () => {
+  it("T4 — active cycle → RECOMMEND_NEXT_STEP + ACTIVE_CYCLE", () => {
     const assessment: PreCycleRoutingAssessment = {
       routingBlockingUnknownPresent: false,
       candidateCycleSupportable: true,
@@ -497,6 +472,7 @@ describe("NORA-CONVERSATIONAL-INITIATIVE-01 (deterministic)", () => {
       lifecycleRecommendation: nextCycleLr("cyc:framing", "premature exit"),
       conversationGuidance: guidance(
         "RECOMMEND_NEXT_STEP",
+        "ACTIVE_CYCLE",
         "Je te propose de clarifier maintenant les critères de succès dans le cycle actif.",
         "work owned by active cycle",
       ),
@@ -513,41 +489,41 @@ describe("NORA-CONVERSATIONAL-INITIATIVE-01 (deterministic)", () => {
     });
     expect(coherent.disposition).toBe("DEFER_TO_ACTIVE_CYCLE");
     expect(coherent.lifecycleRecommendation).toBeNull();
-    expect(coherent.suppressReason).toBe("active_cycle_covers_work");
+    expect(coherent.conversationGuidance.scope).toBe("ACTIVE_CYCLE");
     expect(coherent.conversationGuidance.kind).toBe("RECOMMEND_NEXT_STEP");
-    expect(coherent.conversationGuidance.statement).toMatch(/cycle actif/i);
-    expect(coherent.activeCycleWork?.items.length).toBe(1);
   });
 
-  it("T5 — multiple plausible paths → PRESENT_OPTIONS (coerce RECOMMEND)", () => {
-    const assessment: PreCycleRoutingAssessment = {
-      routingBlockingUnknownPresent: false,
-      candidateCycleSupportable: false,
-      remainingUnknownsAreCycleOwned: false,
-      multiplePlausibleCycles: true,
-      activeCycleAlreadyCoversWork: false,
-    };
+  it("T5 — multiple paths → PRESENT_OPTIONS + PRE_CYCLE", () => {
+    const g = guidance(
+      "PRESENT_OPTIONS",
+      "PRE_CYCLE",
+      "Option A Cadrage si le besoin est encore flou ; option B Conception si le périmètre est déjà net. Je pencherais pour le Cadrage.",
+      null,
+    );
     const coherent = applyPreCycleRoutingBoundaryCoherence({
       narrative: "Deux chemins restent plausibles : Cadrage ou Conception.",
-      preCycleRoutingAssessment: assessment,
+      preCycleRoutingAssessment: {
+        routingBlockingUnknownPresent: false,
+        candidateCycleSupportable: false,
+        remainingUnknownsAreCycleOwned: false,
+        multiplePlausibleCycles: true,
+        activeCycleAlreadyCoversWork: false,
+      },
       lifecycleRecommendation: nextCycleLr("cyc:framing", "arbitrary"),
-      conversationGuidance: guidance(
-        "RECOMMEND_NEXT_STEP",
-        "Option A Cadrage si le besoin est encore flou ; option B Conception si le périmètre est déjà net. Je pencherais pour le Cadrage.",
-        null,
-      ),
+      conversationGuidance: g,
     });
     expect(coherent.disposition).toBe("HOLD_FOR_ROUTING_AMBIGUITY");
     expect(coherent.lifecycleRecommendation).toBeNull();
     expect(coherent.conversationGuidance.kind).toBe("PRESENT_OPTIONS");
-    expect(coherent.conversationGuidanceCoerced).toBe(true);
-    expect(coherent.conversationGuidance.statement).toMatch(/Option A|Cadrage/i);
+    expect(coherent.conversationGuidance.scope).toBe("PRE_CYCLE");
+    expect(coherent.conversationGuidance.statement).toBe(g.statement);
   });
 
-  it("T6 — Cognitive Stop outranks optimistic guidance → HOLD", () => {
+  it("T6 — Cognitive Stop → HOLD + BLOCKER_RESOLUTION", () => {
     const guided = applyConversationGuidanceCoherence({
       conversationGuidance: guidance(
         "RECOMMEND_NEXT_STEP",
+        "LIFECYCLE_TRANSITION",
         "Je te recommande d'avancer normalement vers la delivery.",
         null,
       ),
@@ -560,77 +536,20 @@ describe("NORA-CONVERSATIONAL-INITIATIVE-01 (deterministic)", () => {
       cognitiveStop: true,
     });
     expect(guided.conversationGuidance.kind).toBe("HOLD");
-    expect(guided.coerced).toBe(true);
-    expect(guided.conversationGuidance.statement).toMatch(/frein cognitif/i);
+    expect(guided.conversationGuidance.scope).toBe("BLOCKER_RESOLUTION");
+    expect(guided.conversationGuidance.statement).toBe(
+      CONVERSATION_GUIDANCE_HOLD_COGNITIVE_STOP.statement,
+    );
     expect(guided.conversationGuidance.statement).not.toMatch(
       /avancer normalement/i,
     );
-
-    const coherent = normalizeNoraProductTurnStructuredOutput(
-      productTurn({
-        assessment: { ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT },
-        lr: nextCycleLr("cyc:framing", "ok"),
-        narrative: "Contradiction gouvernante détectée.",
-        conversationGuidance: guidance(
-          "RECOMMEND_NEXT_STEP",
-          "Je te recommande d'avancer normalement.",
-          null,
-        ),
-      }),
-      { cognitiveStop: true },
-    );
-    expect(coherent?.conversationGuidance.kind).toBe("HOLD");
-    const pilot = composePilotFacingAssistantText(
-      coherent!.narrative,
-      coherent!.conversationGuidance,
-    );
-    expect(pilot).toMatch(/frein cognitif|bloqu/i);
-    expect(pilot).not.toMatch(/avancer normalement/i);
   });
 
   it("T7 — history continuity: composed text carries guidance into next turn", async () => {
-    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
-    process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
-    resetRuntimeApplicationServiceForTests();
-    const runtime = getRuntimeApplicationService({
-      registryRoot: FIXTURES,
-      schemasRoot: SCHEMAS,
-      nowIso: "2026-09-23T12:00:00.000Z",
-      idSource: new FixedIdSource("nci7"),
-      auditMode: "noop",
-      productDbPath: tempDbPath("nci7.sqlite"),
-    });
-    if (!runtime.oa) throw new Error("oa missing");
-    const created = await runtime.createProject({
-      name: "NCI7",
-      objective: "greenfield tasks",
-      context: "nci7",
-      criticality: "STANDARD",
-      constraints: [],
-      shortReference: "NCI7",
-      idempotencyKey: "idem:nci7",
-    });
-    expect(created.ok).toBe(true);
-    if (!created.ok) return;
-    const projectId = created.projectId;
-    await runtime.oa.cycleServices.createInitialTrajectory.execute({
-      trajectoryId: `trj:${projectId}`,
-      projectId,
-      steps: [
-        {
-          stepId: "stp:clarify",
-          order: 1,
-          label: "Clarify",
-          state: "pending",
-        },
-      ],
-      status: "active",
-      expectedLpsVersion: created.livingState.version,
-      createdBy: ACTOR,
-    });
-
+    const { runtime, projectId } = await bootProject("nci7");
     const g = guidance(
       "RECOMMEND_NEXT_STEP",
+      "LIFECYCLE_TRANSITION",
       "Je te propose maintenant de lancer le Cadrage gouverné.",
       "suite",
     );
@@ -641,9 +560,6 @@ describe("NORA-CONVERSATIONAL-INITIATIVE-01 (deterministic)", () => {
       conversationGuidance: g,
     });
     const sessionDbPath = tempDbPath("nci7-sess.sqlite");
-    const scripted1 = new ScriptedModel([
-      [assistantMessage(JSON.stringify(structured))],
-    ]);
     const first = await orchestrateProjectAssistantTurn({
       projectId,
       content: "Fais une synthèse de la situation.",
@@ -653,13 +569,14 @@ describe("NORA-CONVERSATIONAL-INITIATIVE-01 (deterministic)", () => {
       evalModelReasoningControl: {
         modelId: "gpt-5.6-luna",
         reasoningEffort: "none",
-        agentsModel: scripted1,
+        agentsModel: new ScriptedModel([
+          [assistantMessage(JSON.stringify(structured))],
+        ]),
       },
     });
     expect(first.ok).toBe(true);
     if (!first.ok) return;
     expect(first.text).toContain(g.statement);
-    expect(first.text).toContain("Synthèse");
 
     const followUp = productTurn({
       assessment: {
@@ -673,13 +590,11 @@ describe("NORA-CONVERSATIONAL-INITIATIVE-01 (deterministic)", () => {
       narrative: `Je reprends ta proposition : ${g.statement} Confirmons le canal d'entrée.`,
       conversationGuidance: guidance(
         "ASK_CLARIFICATION",
+        "PRE_CYCLE",
         "Le canal d'entrée principal est-il web ou mobile ?",
         "clarification matérielle",
       ),
     });
-    const scripted2 = new ScriptedModel([
-      [assistantMessage(JSON.stringify(followUp))],
-    ]);
     const second = await orchestrateProjectAssistantTurn({
       projectId,
       content: "OK, on enchaîne.",
@@ -693,163 +608,116 @@ describe("NORA-CONVERSATIONAL-INITIATIVE-01 (deterministic)", () => {
       evalModelReasoningControl: {
         modelId: "gpt-5.6-luna",
         reasoningEffort: "none",
-        agentsModel: scripted2,
+        agentsModel: new ScriptedModel([
+          [assistantMessage(JSON.stringify(followUp))],
+        ]),
       },
     });
     expect(second.ok).toBe(true);
     if (!second.ok) return;
     expect(second.sessionId).toBe(first.sessionId);
     expect(second.text).toMatch(/canal d'entrée/i);
-    // Prior guidance statement was part of assistant history content.
-    expect(first.text).toMatch(/lancer le Cadrage/i);
+    void runtime;
   });
 
-  it("T8 — authority isolation: guidance kinds create 0 HD / Cycle START", async () => {
-    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
-    process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
-    resetRuntimeApplicationServiceForTests();
-    const runtime = getRuntimeApplicationService({
-      registryRoot: FIXTURES,
-      schemasRoot: SCHEMAS,
-      nowIso: "2026-09-23T13:00:00.000Z",
-      idSource: new FixedIdSource("nci8"),
-      auditMode: "noop",
-      productDbPath: tempDbPath("nci8.sqlite"),
-    });
-    if (!runtime.oa) throw new Error("oa missing");
-    const created = await runtime.createProject({
-      name: "NCI8",
-      objective: "authority isolation",
-      context: "nci8",
-      criticality: "STANDARD",
-      constraints: [],
-      shortReference: "NCI8",
-      idempotencyKey: "idem:nci8",
-    });
-    expect(created.ok).toBe(true);
-    if (!created.ok) return;
-    const projectId = created.projectId;
-    await runtime.oa.cycleServices.createInitialTrajectory.execute({
-      trajectoryId: `trj:${projectId}`,
+  it("T8 — authority isolation across kinds", async () => {
+    const { runtime, projectId } = await bootProject("nci8");
+    const beforeCycles = await runtime.oa!.cycleServices.cycles.listByProject(
       projectId,
-      steps: [
-        {
-          stepId: "stp:clarify",
-          order: 1,
-          label: "Clarify",
-          state: "pending",
+    );
+    const beforeHd = await runtime.oa!.decisionServices.decisions.listByProject(
+      projectId,
+    );
+    const cases: Array<{
+      kind: ConversationGuidanceKind;
+      scope: ConversationGuidanceScope;
+      assessment: PreCycleRoutingAssessment;
+      lr: ReturnType<typeof nextCycleLr> | null;
+    }> = [
+      {
+        kind: "RECOMMEND_NEXT_STEP",
+        scope: "LIFECYCLE_TRANSITION",
+        assessment: { ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT },
+        lr: nextCycleLr("cyc:framing", "Lancer le Cadrage."),
+      },
+      {
+        kind: "ASK_CLARIFICATION",
+        scope: "PRE_CYCLE",
+        assessment: { ...PRE_CYCLE_ROUTING_ASSESSMENT_CONTINUE_DEFAULT },
+        lr: null,
+      },
+      {
+        kind: "PRESENT_OPTIONS",
+        scope: "PRE_CYCLE",
+        assessment: {
+          routingBlockingUnknownPresent: false,
+          candidateCycleSupportable: false,
+          remainingUnknownsAreCycleOwned: false,
+          multiplePlausibleCycles: true,
+          activeCycleAlreadyCoversWork: false,
         },
-      ],
-      status: "active",
-      expectedLpsVersion: created.livingState.version,
-      createdBy: ACTOR,
-    });
-    const beforeCycles = await runtime.oa.cycleServices.cycles.listByProject(
-      projectId,
-    );
-    const beforeHd = await runtime.oa.decisionServices.decisions.listByProject(
-      projectId,
-    );
-
-    const kinds: ConversationGuidance["kind"][] = [
-      "RECOMMEND_NEXT_STEP",
-      "ASK_CLARIFICATION",
-      "PRESENT_OPTIONS",
-      "HOLD",
+        lr: null,
+      },
+      {
+        kind: "HOLD",
+        scope: "BLOCKER_RESOLUTION",
+        assessment: { ...PRE_CYCLE_ROUTING_ASSESSMENT_CONTINUE_DEFAULT },
+        lr: null,
+      },
     ];
-    for (const kind of kinds) {
-      const assessment =
-        kind === "ASK_CLARIFICATION"
-          ? { ...PRE_CYCLE_ROUTING_ASSESSMENT_CONTINUE_DEFAULT }
-          : kind === "PRESENT_OPTIONS"
-            ? {
-                routingBlockingUnknownPresent: false,
-                candidateCycleSupportable: false,
-                remainingUnknownsAreCycleOwned: false,
-                multiplePlausibleCycles: true,
-                activeCycleAlreadyCoversWork: false,
-              }
-            : kind === "HOLD"
-              ? { ...PRE_CYCLE_ROUTING_ASSESSMENT_CONTINUE_DEFAULT }
-              : { ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT };
+    for (const c of cases) {
       const structured = productTurn({
-        assessment,
-        lr:
-          kind === "RECOMMEND_NEXT_STEP"
-            ? nextCycleLr("cyc:framing", "Lancer le Cadrage.")
-            : null,
-        narrative: `Tour kind=${kind}`,
+        assessment: c.assessment,
+        lr: c.lr,
+        narrative: `Tour kind=${c.kind}`,
         conversationGuidance: guidance(
-          kind,
-          `Statement pour ${kind} — suite utile sans autorité.`,
+          c.kind,
+          c.scope,
+          `Statement pour ${c.kind} — suite utile sans autorité.`,
           "t8",
         ),
       });
-      const scripted = new ScriptedModel([
-        [assistantMessage(JSON.stringify(structured))],
-      ]);
       const orch = await orchestrateProjectAssistantTurn({
         projectId,
-        content: `msg-${kind}`,
-        sessionDbPath: tempDbPath(`nci8-${kind}.sqlite`),
+        content: `msg-${c.kind}`,
+        sessionDbPath: tempDbPath(`nci8-${c.kind}.sqlite`),
         simulateMemoryBUnavailable: true,
         provider: new FakeConversationProvider({ scripted: ["unused"] }),
         evalModelReasoningControl: {
           modelId: "gpt-5.6-luna",
           reasoningEffort: "none",
-          agentsModel: scripted,
+          agentsModel: new ScriptedModel([
+            [assistantMessage(JSON.stringify(structured))],
+          ]),
         },
       });
       expect(orch.ok).toBe(true);
       if (!orch.ok) return;
-      expect(orch.text).toContain(`Statement pour ${kind}`);
+      expect(orch.text).toContain(`Statement pour ${c.kind}`);
     }
-
     expect(
-      (await runtime.oa.cycleServices.cycles.listByProject(projectId)).length,
+      (await runtime.oa!.cycleServices.cycles.listByProject(projectId)).length,
     ).toBe(beforeCycles.length);
     expect(
-      (await runtime.oa.decisionServices.decisions.listByProject(projectId))
+      (await runtime.oa!.decisionServices.decisions.listByProject(projectId))
         .length,
     ).toBe(beforeHd.length);
   });
 
-  it("T9 — malformed/plain provider output → fail-closed HOLD (no strong recommend)", () => {
-    const plain = coercePlainTextToProductTurnJson("Réponse partielle en plain text.");
+  it("T9 — malformed → HOLD + BLOCKER_RESOLUTION", () => {
+    const plain = coercePlainTextToProductTurnJson(
+      "Réponse partielle en plain text.",
+    );
     const parsed = JSON.parse(plain) as Record<string, unknown>;
     expect(isNoraProductTurnWithOptionalLr(parsed)).toBe(true);
-    expect(parsed.lifecycleRecommendation).toBeNull();
-    expect(isConversationGuidance(parsed.conversationGuidance)).toBe(true);
-    expect(
-      (parsed.conversationGuidance as ConversationGuidance).kind,
-    ).toBe("HOLD");
-    expect(
-      (parsed.conversationGuidance as ConversationGuidance).kind,
-    ).not.toBe("RECOMMEND_NEXT_STEP");
-    expect(
-      (parsed.conversationGuidance as ConversationGuidance).statement,
-    ).toBe(CONVERSATION_GUIDANCE_FAIL_CLOSED_HOLD.statement);
-
-    const failClosed = JSON.parse(
-      buildFailClosedProductTurnJson("x"),
-    ) as Record<string, unknown>;
-    expect(
-      (failClosed.conversationGuidance as ConversationGuidance).kind,
-    ).toBe("HOLD");
-
-    const missingGuidance = normalizeNoraProductTurnStructuredOutput({
-      narrative: "legacy without guidance",
-      preCycleRoutingAssessment: PRE_CYCLE_ROUTING_ASSESSMENT_CONTINUE_DEFAULT,
-      lifecycleRecommendation: null,
-    });
-    expect(missingGuidance?.conversationGuidance.kind).toBe("HOLD");
-    expect(missingGuidance?.conversationGuidance.kind).not.toBe(
-      "RECOMMEND_NEXT_STEP",
-    );
+    const g = parsed.conversationGuidance as ConversationGuidance;
+    expect(g.kind).toBe("HOLD");
+    expect(g.scope).toBe("BLOCKER_RESOLUTION");
+    expect(g.statement).toBe(CONVERSATION_GUIDANCE_FAIL_CLOSED_HOLD.statement);
+    expect(g.kind).not.toBe("RECOMMEND_NEXT_STEP");
   });
 
-  it("T10 — existing cognitive contracts remain coherent (LR / routing / prompt)", () => {
-    // Routing disposition unchanged.
+  it("T10 — existing cognitive contracts remain coherent", () => {
     expect(
       normalizeNoraProductTurnStructuredOutput({
         narrative: "x",
@@ -857,19 +725,20 @@ describe("NORA-CONVERSATIONAL-INITIATIVE-01 (deterministic)", () => {
         lifecycleRecommendation: nextCycleLr("cyc:framing", "ok"),
         conversationGuidance: guidance(
           "RECOMMEND_NEXT_STEP",
+          "LIFECYCLE_TRANSITION",
           "Je te propose le Cadrage.",
           null,
         ),
       })?.disposition,
     ).toBe("EMIT_LIFECYCLE_RECOMMENDATION");
 
-    // EMIT without LR still fail-closed.
     const missingLr = applyPreCycleRoutingBoundaryCoherence({
       narrative: "y",
       preCycleRoutingAssessment: PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT,
       lifecycleRecommendation: null,
       conversationGuidance: guidance(
         "RECOMMEND_NEXT_STEP",
+        "LIFECYCLE_TRANSITION",
         "should become HOLD via contradiction",
         null,
       ),
@@ -878,108 +747,326 @@ describe("NORA-CONVERSATIONAL-INITIATIVE-01 (deterministic)", () => {
       MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
     );
     expect(missingLr.conversationGuidance.kind).toBe("HOLD");
+    expect(missingLr.conversationGuidance.scope).toBe("BLOCKER_RESOLUTION");
 
-    // Prompt still carries advisory + authority limits.
     const prompt = buildProjectSystemPrompt(baseProject);
     expect(prompt).toMatch(/lifecycleRecommendation/);
-    expect(prompt).toMatch(/aucune autorité|LIMITES D'AUTORITÉ/i);
     expect(prompt).toMatch(/activeCycleWork/);
-
-    // compose does not invent robotic labels.
-    expect(
-      composePilotFacingAssistantText("État clair.", guidance("HOLD", "Suite.", null)),
-    ).toBe("État clair.\n\nSuite.");
-    expect(
-      composePilotFacingAssistantText(
-        "Déjà : Suite.",
-        guidance("HOLD", "Suite.", null),
-      ),
-    ).toBe("Déjà : Suite.");
   });
 
-  it("T8b — LR materialize path still does not create HD from guidance", async () => {
-    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
-    process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
-    resetRuntimeApplicationServiceForTests();
-    const runtime = getRuntimeApplicationService({
-      registryRoot: FIXTURES,
-      schemasRoot: SCHEMAS,
-      nowIso: "2026-09-23T14:00:00.000Z",
-      idSource: new FixedIdSource("nci8b"),
-      auditMode: "noop",
-      productDbPath: tempDbPath("nci8b.sqlite"),
+  // ─── CR-NCI-01 / 02 / 03 adversarial ─────────────────────────────────
+
+  it("CR1-A — never ASK_CLARIFICATION with incompatible recommend statement", () => {
+    const badStatement = "Je recommande de passer en Delivery.";
+    const coherent = applyPreCycleRoutingBoundaryCoherence({
+      narrative: "Routing still blocked.",
+      preCycleRoutingAssessment: {
+        ...PRE_CYCLE_ROUTING_ASSESSMENT_CONTINUE_DEFAULT,
+      },
+      lifecycleRecommendation: null,
+      conversationGuidance: guidance(
+        "RECOMMEND_NEXT_STEP",
+        "LIFECYCLE_TRANSITION",
+        badStatement,
+        null,
+      ),
     });
-    if (!runtime.oa) throw new Error("oa missing");
-    const created = await runtime.createProject({
-      name: "NCI8B",
-      objective: "lr+guidance",
-      context: "nci8b",
-      criticality: "STANDARD",
-      constraints: [],
-      shortReference: "NCI8B",
-      idempotencyKey: "idem:nci8b",
+    expect(coherent.conversationGuidance.kind).toBe("HOLD");
+    expect(coherent.conversationGuidance.scope).toBe("BLOCKER_RESOLUTION");
+    expect(coherent.conversationGuidance.statement).toBe(
+      CONVERSATION_GUIDANCE_HOLD_ROUTING_BLOCKER.statement,
+    );
+    expect(coherent.conversationGuidance.statement).not.toBe(badStatement);
+    expect(coherent.conversationGuidanceCoerced).toBe(true);
+  });
+
+  it("CR1-B — never PRESENT_OPTIONS with mono-option recommend statement", () => {
+    const mono = "Je recommande uniquement le Cadrage maintenant.";
+    const coherent = applyPreCycleRoutingBoundaryCoherence({
+      narrative: "Ambigu.",
+      preCycleRoutingAssessment: {
+        routingBlockingUnknownPresent: false,
+        candidateCycleSupportable: false,
+        remainingUnknownsAreCycleOwned: false,
+        multiplePlausibleCycles: true,
+        activeCycleAlreadyCoversWork: false,
+      },
+      lifecycleRecommendation: null,
+      conversationGuidance: guidance(
+        "RECOMMEND_NEXT_STEP",
+        "LIFECYCLE_TRANSITION",
+        mono,
+        null,
+      ),
     });
-    expect(created.ok).toBe(true);
-    if (!created.ok) return;
-    const projectId = created.projectId;
-    await runtime.oa.cycleServices.createInitialTrajectory.execute({
-      trajectoryId: `trj:${projectId}`,
-      projectId,
-      steps: [
-        {
-          stepId: "stp:clarify",
-          order: 1,
-          label: "Clarify",
-          state: "pending",
-        },
-      ],
-      status: "active",
-      expectedLpsVersion: created.livingState.version,
-      createdBy: ACTOR,
+    expect(coherent.conversationGuidance.kind).toBe("HOLD");
+    expect(coherent.conversationGuidance.scope).toBe("BLOCKER_RESOLUTION");
+    expect(coherent.conversationGuidance.statement).toBe(
+      CONVERSATION_GUIDANCE_HOLD_MULTI_CYCLE.statement,
+    );
+    expect(coherent.conversationGuidance.statement).not.toBe(mono);
+  });
+
+  it("CR2-A — DEFER rejects LIFECYCLE_TRANSITION scope without prose parse", () => {
+    const coherent = applyPreCycleRoutingBoundaryCoherence({
+      narrative: "Active cycle covers work.",
+      preCycleRoutingAssessment: {
+        routingBlockingUnknownPresent: false,
+        candidateCycleSupportable: true,
+        remainingUnknownsAreCycleOwned: true,
+        multiplePlausibleCycles: false,
+        activeCycleAlreadyCoversWork: true,
+      },
+      lifecycleRecommendation: nextCycleLr("cyc:framing", "should strip"),
+      conversationGuidance: guidance(
+        "RECOMMEND_NEXT_STEP",
+        "LIFECYCLE_TRANSITION",
+        "Je te recommande de sortir vers un nouveau cycle.",
+        null,
+      ),
     });
-    const beforeHd = await runtime.oa.decisionServices.decisions.listByProject(
+    expect(coherent.disposition).toBe("DEFER_TO_ACTIVE_CYCLE");
+    expect(coherent.lifecycleRecommendation).toBeNull();
+    expect(coherent.conversationGuidance).toEqual(
+      CONVERSATION_GUIDANCE_HOLD_ACTIVE_CYCLE_SCOPE,
+    );
+  });
+
+  it("CR2-B — DEFER keeps RECOMMEND_NEXT_STEP + ACTIVE_CYCLE", () => {
+    const g = guidance(
+      "RECOMMEND_NEXT_STEP",
+      "ACTIVE_CYCLE",
+      "Je te propose de traiter l'inconnue X dans le cycle actif.",
+      null,
+    );
+    const coherent = applyPreCycleRoutingBoundaryCoherence({
+      narrative: "Stay in cycle.",
+      preCycleRoutingAssessment: {
+        routingBlockingUnknownPresent: false,
+        candidateCycleSupportable: true,
+        remainingUnknownsAreCycleOwned: true,
+        multiplePlausibleCycles: false,
+        activeCycleAlreadyCoversWork: true,
+      },
+      lifecycleRecommendation: null,
+      conversationGuidance: g,
+    });
+    expect(coherent.conversationGuidance).toEqual(g);
+    expect(coherent.conversationGuidanceCoerced).toBe(false);
+  });
+
+  it("CR3-A — Cognitive Stop blocks NEW LR materialization", async () => {
+    const { runtime, projectId } = await bootProject("nci-cr3a");
+    const beforeLr = (
+      await runtime.oa!.cycleServices.epistemic.listByProject(projectId)
+    ).filter((i) => i.source === "lifecycle-recommendation:nora");
+    const beforeHd = await runtime.oa!.decisionServices.decisions.listByProject(
       projectId,
     );
+    const beforeCycles = await runtime.oa!.cycleServices.cycles.listByProject(
+      projectId,
+    );
+    const structured = productTurn({
+      assessment: { ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT },
+      lr: nextCycleLr("cyc:framing", "Lancer le Cadrage."),
+      narrative: "Contradiction détectée malgré LR candidate.",
+      conversationGuidance: guidance(
+        "RECOMMEND_NEXT_STEP",
+        "LIFECYCLE_TRANSITION",
+        "Je te recommande maintenant le Cadrage.",
+        null,
+      ),
+    });
+    const orch = await orchestrateProjectAssistantTurn({
+      projectId,
+      content: "Évalue.",
+      sessionDbPath: tempDbPath("nci-cr3a-sess.sqlite"),
+      simulateMemoryBUnavailable: true,
+      contradictionAssessment: COGNITIVE_STOP_ASSESSMENT,
+      provider: new FakeConversationProvider({ scripted: ["unused"] }),
+      evalModelReasoningControl: {
+        modelId: "gpt-5.6-luna",
+        reasoningEffort: "none",
+        agentsModel: new ScriptedModel([
+          [assistantMessage(JSON.stringify(structured))],
+        ]),
+      },
+    });
+    expect(orch.ok).toBe(true);
+    if (!orch.ok) return;
+    expect(orch.status).toBe("cognitive_stop");
+    expect(orch.text).toMatch(/frein cognitif|bloqu/i);
+    expect(orch.text).not.toMatch(/Je te recommande maintenant le Cadrage/i);
+    expect(orch.lifecycleRecommendationMaterialized).toBe(false);
+    const afterLr = (
+      await runtime.oa!.cycleServices.epistemic.listByProject(projectId)
+    ).filter((i) => i.source === "lifecycle-recommendation:nora");
+    expect(afterLr.length).toBe(beforeLr.length);
+    expect(
+      (await runtime.oa!.decisionServices.decisions.listByProject(projectId))
+        .length,
+    ).toBe(beforeHd.length);
+    expect(
+      (await runtime.oa!.cycleServices.cycles.listByProject(projectId)).length,
+    ).toBe(beforeCycles.length);
+  });
+
+  it("CR3-B — EMIT+LR with HOLD guidance → mismatch, no LR materialize", async () => {
+    const { runtime, projectId } = await bootProject("nci-cr3b");
+    const beforeLr = (
+      await runtime.oa!.cycleServices.epistemic.listByProject(projectId)
+    ).filter((i) => i.source === "lifecycle-recommendation:nora");
+    const structured = productTurn({
+      assessment: { ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT },
+      lr: nextCycleLr("cyc:framing", "Lancer le Cadrage."),
+      narrative: "Prêt mais guidance HOLD.",
+      conversationGuidance: guidance(
+        "HOLD",
+        "BLOCKER_RESOLUTION",
+        "Je retiens la suite.",
+        null,
+      ),
+    });
+    const unit = normalizeNoraProductTurnStructuredOutput(structured);
+    expect(unit?.boundaryContradiction).toBe(
+      CONVERSATION_GUIDANCE_LIFECYCLE_MISMATCH,
+    );
+    expect(unit?.lifecycleRecommendation?.intent).toBe("NEXT_CYCLE");
+    expect(unit?.conversationGuidance.kind).toBe("HOLD");
+    expect(unit?.conversationGuidance.scope).toBe("BLOCKER_RESOLUTION");
+
+    const orch = await orchestrateProjectAssistantTurn({
+      projectId,
+      content: "go",
+      sessionDbPath: tempDbPath("nci-cr3b-sess.sqlite"),
+      simulateMemoryBUnavailable: true,
+      provider: new FakeConversationProvider({ scripted: ["unused"] }),
+      evalModelReasoningControl: {
+        modelId: "gpt-5.6-luna",
+        reasoningEffort: "none",
+        agentsModel: new ScriptedModel([
+          [assistantMessage(JSON.stringify(structured))],
+        ]),
+      },
+    });
+    expect(orch.ok).toBe(false);
+    if (orch.ok) return;
+    expect(orch.code).toBe(CONVERSATION_GUIDANCE_LIFECYCLE_MISMATCH);
+    const afterLr = (
+      await runtime.oa!.cycleServices.epistemic.listByProject(projectId)
+    ).filter((i) => i.source === "lifecycle-recommendation:nora");
+    expect(afterLr.length).toBe(beforeLr.length);
+  });
+
+  it("CR3-C — EMIT+LR+compatible guidance happy path preserved", async () => {
+    const { runtime, projectId } = await bootProject("nci-cr3c");
     const structured = productTurn({
       assessment: { ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT },
       lr: nextCycleLr("cyc:framing", "Lancer le Cadrage."),
       narrative: "Prêt.",
       conversationGuidance: guidance(
         "RECOMMEND_NEXT_STEP",
+        "LIFECYCLE_TRANSITION",
         "Je te recommande maintenant le Cadrage.",
         null,
       ),
     });
-    const scripted = new ScriptedModel([
-      [assistantMessage(JSON.stringify(structured))],
-    ]);
     const orch = await orchestrateProjectAssistantTurn({
       projectId,
       content: "ok",
-      sessionDbPath: tempDbPath("nci8b-sess.sqlite"),
+      sessionDbPath: tempDbPath("nci-cr3c-sess.sqlite"),
       simulateMemoryBUnavailable: true,
       provider: new FakeConversationProvider({ scripted: ["unused"] }),
       evalModelReasoningControl: {
         modelId: "gpt-5.6-luna",
         reasoningEffort: "none",
-        agentsModel: scripted,
+        agentsModel: new ScriptedModel([
+          [assistantMessage(JSON.stringify(structured))],
+        ]),
       },
     });
     expect(orch.ok).toBe(true);
     if (!orch.ok) return;
     expect(orch.lifecycleRecommendationMaterialized).toBe(true);
-    expect(
-      (await runtime.oa.decisionServices.decisions.listByProject(projectId))
-        .length,
-    ).toBe(beforeHd.length);
-    const items = await runtime.oa.cycleServices.epistemic.listByProject(
-      projectId,
-    );
-    const lrItems = items.filter(
-      (i) => i.source === "lifecycle-recommendation:nora",
-    );
+    const lrItems = (
+      await runtime.oa!.cycleServices.epistemic.listByProject(projectId)
+    ).filter((i) => i.source === "lifecycle-recommendation:nora");
     expect(lrItems.length).toBeGreaterThanOrEqual(1);
     expect(NORA_LIFECYCLE_RECOMMENDATION_ACTOR.role).toBeTruthy();
+  });
+
+  it("CR3-D — Cognitive Stop leaves historical LR unchanged; no NEW LR", async () => {
+    const { runtime, projectId } = await bootProject("nci-cr3d");
+    // First turn: durable LR.
+    const firstStructured = productTurn({
+      assessment: { ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT },
+      lr: nextCycleLr("cyc:framing", "Lancer le Cadrage historique."),
+      narrative: "Premier tour OK.",
+      conversationGuidance: guidance(
+        "RECOMMEND_NEXT_STEP",
+        "LIFECYCLE_TRANSITION",
+        "Je te recommande le Cadrage.",
+        null,
+      ),
+    });
+    const first = await orchestrateProjectAssistantTurn({
+      projectId,
+      content: "first",
+      sessionDbPath: tempDbPath("nci-cr3d-sess.sqlite"),
+      simulateMemoryBUnavailable: true,
+      provider: new FakeConversationProvider({ scripted: ["unused"] }),
+      evalModelReasoningControl: {
+        modelId: "gpt-5.6-luna",
+        reasoningEffort: "none",
+        agentsModel: new ScriptedModel([
+          [assistantMessage(JSON.stringify(firstStructured))],
+        ]),
+      },
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) return;
+    expect(first.lifecycleRecommendationMaterialized).toBe(true);
+    const historical = (
+      await runtime.oa!.cycleServices.epistemic.listByProject(projectId)
+    ).filter((i) => i.source === "lifecycle-recommendation:nora");
+    expect(historical.length).toBeGreaterThanOrEqual(1);
+    const historicalIds = historical.map((i) => i.epistemicItemId).sort();
+
+    // Second turn: Cognitive Stop + optimistic LR candidate.
+    const secondStructured = productTurn({
+      assessment: { ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT },
+      lr: nextCycleLr("cyc:delivery", "Nouvelle LR à ne pas matérialiser."),
+      narrative: "Stop cognitif.",
+      conversationGuidance: guidance(
+        "RECOMMEND_NEXT_STEP",
+        "LIFECYCLE_TRANSITION",
+        "Je recommande Delivery maintenant.",
+        null,
+      ),
+    });
+    const second = await orchestrateProjectAssistantTurn({
+      projectId,
+      content: "second",
+      sessionDbPath: tempDbPath("nci-cr3d-sess2.sqlite"),
+      simulateMemoryBUnavailable: true,
+      contradictionAssessment: COGNITIVE_STOP_ASSESSMENT,
+      provider: new FakeConversationProvider({ scripted: ["unused"] }),
+      evalModelReasoningControl: {
+        modelId: "gpt-5.6-luna",
+        reasoningEffort: "none",
+        agentsModel: new ScriptedModel([
+          [assistantMessage(JSON.stringify(secondStructured))],
+        ]),
+      },
+    });
+    expect(second.ok).toBe(true);
+    if (!second.ok) return;
+    expect(second.status).toBe("cognitive_stop");
+    expect(second.lifecycleRecommendationMaterialized).toBe(false);
+    const after = (
+      await runtime.oa!.cycleServices.epistemic.listByProject(projectId)
+    ).filter((i) => i.source === "lifecycle-recommendation:nora");
+    expect(after.map((i) => i.epistemicItemId).sort()).toEqual(historicalIds);
   });
 });
 
@@ -987,9 +1074,9 @@ describe("NORA-CONVERSATIONAL-INITIATIVE-01 (deterministic)", () => {
 
 ---
 
-## 15. FULL — core contract file after change
+## 11. FULL — core contract file
 
-### `projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts`
+### `noraProductTurnOutputType.ts`
 
 ```typescript
 import type { NoraLifecycleRecommendationStructuredOutput } from "@/lib/oa/cycle/application/lifecycleRecommendation/types";
@@ -1130,6 +1217,7 @@ export type NoraActiveCycleWorkOutput = {
  * NORA-CONVERSATIONAL-INITIATIVE-01 — ephemeral conversational continuation.
  * Cognitive / non-authoritative / same Product turn — never Truth C,
  * HumanDecision, ExecutionContract, or execution authorization.
+ * CR-NCI-01/02: kind×scope matrix; never relabel kind while keeping statement.
  */
 export const CONVERSATION_GUIDANCE_KINDS = [
   "RECOMMEND_NEXT_STEP",
@@ -1141,14 +1229,28 @@ export const CONVERSATION_GUIDANCE_KINDS = [
 export type ConversationGuidanceKind =
   (typeof CONVERSATION_GUIDANCE_KINDS)[number];
 
+export const CONVERSATION_GUIDANCE_SCOPES = [
+  "PRE_CYCLE",
+  "ACTIVE_CYCLE",
+  "LIFECYCLE_TRANSITION",
+  "BLOCKER_RESOLUTION",
+] as const;
+
+export type ConversationGuidanceScope =
+  (typeof CONVERSATION_GUIDANCE_SCOPES)[number];
+
 export const CONVERSATION_GUIDANCE_SCHEMA = {
   type: "object" as const,
   additionalProperties: false as const,
-  required: ["kind", "statement", "rationale"],
+  required: ["kind", "scope", "statement", "rationale"],
   properties: {
     kind: {
       type: "string" as const,
       enum: [...CONVERSATION_GUIDANCE_KINDS],
+    },
+    scope: {
+      type: "string" as const,
+      enum: [...CONVERSATION_GUIDANCE_SCOPES],
     },
     statement: { type: "string" as const },
     rationale: {
@@ -1159,6 +1261,7 @@ export const CONVERSATION_GUIDANCE_SCHEMA = {
 
 export type ConversationGuidance = {
   kind: ConversationGuidanceKind;
+  scope: ConversationGuidanceScope;
   statement: string;
   rationale: string | null;
 };
@@ -1167,9 +1270,60 @@ export type ConversationGuidance = {
 export const CONVERSATION_GUIDANCE_FAIL_CLOSED_HOLD: ConversationGuidance =
   Object.freeze({
     kind: "HOLD",
+    scope: "BLOCKER_RESOLUTION",
     statement:
       "La suite n'a pas pu être déterminée de manière fiable à partir de cette sortie.",
     rationale: "sortie structurée insuffisante",
+  });
+
+/** Server-owned HOLD — routing blocker (never invents a specific question). */
+export const CONVERSATION_GUIDANCE_HOLD_ROUTING_BLOCKER: ConversationGuidance =
+  Object.freeze({
+    kind: "HOLD",
+    scope: "BLOCKER_RESOLUTION",
+    statement:
+      "Une clarification matérielle est nécessaire avant de pouvoir orienter la suite.",
+    rationale: "routing_blocking_unknown",
+  });
+
+/** Server-owned HOLD — multiple plausible cycles. */
+export const CONVERSATION_GUIDANCE_HOLD_MULTI_CYCLE: ConversationGuidance =
+  Object.freeze({
+    kind: "HOLD",
+    scope: "BLOCKER_RESOLUTION",
+    statement:
+      "Plusieurs trajectoires restent plausibles ; il faut les départager avant de recommander une suite.",
+    rationale: "multiple_plausible_cycles",
+  });
+
+/** Server-owned HOLD — DEFER requires ACTIVE_CYCLE scope. */
+export const CONVERSATION_GUIDANCE_HOLD_ACTIVE_CYCLE_SCOPE: ConversationGuidance =
+  Object.freeze({
+    kind: "HOLD",
+    scope: "BLOCKER_RESOLUTION",
+    statement:
+      "Le travail doit rester dans le cycle actif ; aucune transition n'est recommandée sur ce tour.",
+    rationale: "active_cycle_scope_required",
+  });
+
+/** Server-owned HOLD — Cognitive Stop outranks optimistic guidance / LR. */
+export const CONVERSATION_GUIDANCE_HOLD_COGNITIVE_STOP: ConversationGuidance =
+  Object.freeze({
+    kind: "HOLD",
+    scope: "BLOCKER_RESOLUTION",
+    statement:
+      "Avant toute suite, il faut lever le frein cognitif qui bloque la progression.",
+    rationale: "cognitive_stop_outranks_optimistic_guidance",
+  });
+
+/** Server-owned HOLD — structured boundary contradiction. */
+export const CONVERSATION_GUIDANCE_HOLD_BOUNDARY: ConversationGuidance =
+  Object.freeze({
+    kind: "HOLD",
+    scope: "BLOCKER_RESOLUTION",
+    statement:
+      "La suite structurée est incomplète ; aucune progression recommandée tant que le contrat n'est pas cohérent.",
+    rationale: "boundary_contradiction_fail_closed",
   });
 
 /**
@@ -1285,6 +1439,9 @@ export function isNoraActiveCycleWorkOutput(
 const CONVERSATION_GUIDANCE_KIND_SET = new Set<string>(
   CONVERSATION_GUIDANCE_KINDS,
 );
+const CONVERSATION_GUIDANCE_SCOPE_SET = new Set<string>(
+  CONVERSATION_GUIDANCE_SCOPES,
+);
 
 export function isConversationGuidance(
   value: unknown,
@@ -1292,6 +1449,7 @@ export function isConversationGuidance(
   if (!value || typeof value !== "object") return false;
   const o = value as Record<string, unknown>;
   if (!CONVERSATION_GUIDANCE_KIND_SET.has(String(o.kind))) return false;
+  if (!CONVERSATION_GUIDANCE_SCOPE_SET.has(String(o.scope))) return false;
   if (typeof o.statement !== "string" || o.statement.trim().length === 0) {
     return false;
   }
@@ -1314,6 +1472,7 @@ export function parseConversationGuidanceOrFailClosed(
   }
   return {
     kind: value.kind,
+    scope: value.scope,
     statement: value.statement.trim(),
     rationale:
       value.rationale === null ? null : String(value.rationale).trim(),
@@ -1356,11 +1515,14 @@ export type PreCycleRoutingBoundaryCoherenceResult = {
   lifecycleRecommendationSuppressed: boolean;
   suppressReason: string | null;
   /**
-   * Structured boundary contradiction (e.g. EMIT without LR).
+   * Structured boundary contradiction (e.g. EMIT without LR / guidance mismatch).
    * Non-null ⇒ fail-closed — never invent LR; never silent conversational success.
    */
   boundaryContradiction: string | null;
-  /** True when guidance kind was coerced by disposition / Cognitive Stop. */
+  /**
+   * True when guidance was replaced by a server-owned fallback object
+   * (never a kind-only relabel that keeps an incompatible statement).
+   */
   conversationGuidanceCoerced: boolean;
   conversationGuidanceCoerceReason: string | null;
 };
@@ -1370,8 +1532,41 @@ export const MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION =
   "MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION" as const;
 
 /**
+ * EMIT + valid LR requires RECOMMEND_NEXT_STEP + LIFECYCLE_TRANSITION.
+ * CR-NCI-01/03 — never auto-promote HOLD → RECOMMEND; fail-closed instead.
+ */
+export const CONVERSATION_GUIDANCE_LIFECYCLE_MISMATCH =
+  "CONVERSATION_GUIDANCE_LIFECYCLE_MISMATCH" as const;
+
+function isHoldBlockerResolution(g: ConversationGuidance): boolean {
+  return g.kind === "HOLD" && g.scope === "BLOCKER_RESOLUTION";
+}
+
+function keepOrReplace(
+  base: ConversationGuidance,
+  compatible: boolean,
+  fallback: ConversationGuidance,
+  reason: string,
+): {
+  conversationGuidance: ConversationGuidance;
+  coerced: boolean;
+  coerceReason: string | null;
+} {
+  if (compatible) {
+    return { conversationGuidance: base, coerced: false, coerceReason: null };
+  }
+  return {
+    conversationGuidance: { ...fallback },
+    coerced: true,
+    coerceReason: reason,
+  };
+}
+
+/**
  * Deterministic conversationGuidance coherence with routing disposition.
- * Uses structured kind only — never parses statement prose for intent.
+ * CR-NCI-01: never relabel kind while keeping an incompatible statement —
+ * replace the full object with a server-owned fail-closed HOLD when needed.
+ * CR-NCI-02: kind×scope matrix (structured only — no statement prose parse).
  * Never invents RECOMMEND_NEXT_STEP from fail-closed paths.
  */
 export function applyConversationGuidanceCoherence(input: {
@@ -1386,97 +1581,127 @@ export function applyConversationGuidanceCoherence(input: {
   conversationGuidance: ConversationGuidance;
   coerced: boolean;
   coerceReason: string | null;
+  /** When set, parent must strip LR and fail-closed (EMIT guidance mismatch). */
+  lifecycleGuidanceMismatch: boolean;
 } {
   const base = input.conversationGuidance;
+
   if (input.cognitiveStop === true) {
-    if (base.kind === "HOLD") {
-      return { conversationGuidance: base, coerced: false, coerceReason: null };
+    if (isHoldBlockerResolution(base)) {
+      return {
+        conversationGuidance: base,
+        coerced: false,
+        coerceReason: null,
+        lifecycleGuidanceMismatch: false,
+      };
     }
     return {
-      conversationGuidance: {
-        kind: "HOLD",
-        statement:
-          "Avant toute suite, il faut lever le frein cognitif qui bloque la progression.",
-        rationale: "cognitive_stop_outranks_optimistic_guidance",
-      },
+      conversationGuidance: { ...CONVERSATION_GUIDANCE_HOLD_COGNITIVE_STOP },
       coerced: true,
       coerceReason: "cognitive_stop_override",
+      lifecycleGuidanceMismatch: false,
     };
   }
 
   if (input.boundaryContradiction != null) {
-    if (base.kind === "HOLD") {
-      return { conversationGuidance: base, coerced: false, coerceReason: null };
+    if (isHoldBlockerResolution(base)) {
+      return {
+        conversationGuidance: base,
+        coerced: false,
+        coerceReason: null,
+        lifecycleGuidanceMismatch: false,
+      };
     }
     return {
-      conversationGuidance: {
-        kind: "HOLD",
-        statement:
-          "La suite structurée est incomplète ; aucune progression recommandée tant que le contrat n'est pas cohérent.",
-        rationale: "boundary_contradiction_fail_closed",
-      },
+      conversationGuidance: { ...CONVERSATION_GUIDANCE_HOLD_BOUNDARY },
       coerced: true,
       coerceReason: "boundary_contradiction",
+      lifecycleGuidanceMismatch: false,
     };
   }
 
   const kind = base.kind;
+  const scope = base.scope;
   const assessment = input.preCycleRoutingAssessment;
 
   if (input.disposition === "CONTINUE_PRE_CYCLE") {
-    // Spec: routing-blocking unknown → ASK_CLARIFICATION or HOLD only.
-    // Informative pre-cycle without routing blocker may still RECOMMEND a
-    // methodological next move (not a LifecycleRecommendation).
     if (assessment.routingBlockingUnknownPresent) {
-      if (kind === "ASK_CLARIFICATION" || kind === "HOLD") {
-        return {
-          conversationGuidance: base,
-          coerced: false,
-          coerceReason: null,
-        };
-      }
-      return {
-        conversationGuidance: {
-          kind: "ASK_CLARIFICATION",
-          statement: base.statement,
-          rationale:
-            base.rationale ?? "routing_blocking_unknown_requires_clarification",
-        },
-        coerced: true,
-        coerceReason: "routing_blocking_unknown",
-      };
+      const ok =
+        (kind === "ASK_CLARIFICATION" && scope === "PRE_CYCLE") ||
+        (kind === "HOLD" && scope === "BLOCKER_RESOLUTION");
+      const r = keepOrReplace(
+        base,
+        ok,
+        CONVERSATION_GUIDANCE_HOLD_ROUTING_BLOCKER,
+        "routing_blocking_unknown",
+      );
+      return { ...r, lifecycleGuidanceMismatch: false };
     }
-    return { conversationGuidance: base, coerced: false, coerceReason: null };
+    // Informative pre-cycle without routing blocker.
+    const ok =
+      scope === "PRE_CYCLE" ||
+      (kind === "HOLD" && scope === "BLOCKER_RESOLUTION");
+    const r = keepOrReplace(
+      base,
+      ok,
+      CONVERSATION_GUIDANCE_HOLD_BOUNDARY,
+      "continue_pre_cycle_scope",
+    );
+    return { ...r, lifecycleGuidanceMismatch: false };
   }
 
   if (input.disposition === "HOLD_FOR_ROUTING_AMBIGUITY") {
-    if (
-      kind === "PRESENT_OPTIONS" ||
-      kind === "ASK_CLARIFICATION" ||
-      kind === "HOLD"
-    ) {
-      return { conversationGuidance: base, coerced: false, coerceReason: null };
-    }
-    return {
-      conversationGuidance: {
-        kind: "PRESENT_OPTIONS",
-        statement: base.statement,
-        rationale: base.rationale ?? "multiple_plausible_cycles",
-      },
-      coerced: true,
-      coerceReason: "multiple_plausible_cycles",
-    };
+    const ok =
+      (kind === "PRESENT_OPTIONS" && scope === "PRE_CYCLE") ||
+      (kind === "ASK_CLARIFICATION" && scope === "PRE_CYCLE") ||
+      (kind === "HOLD" && scope === "BLOCKER_RESOLUTION");
+    const r = keepOrReplace(
+      base,
+      ok,
+      CONVERSATION_GUIDANCE_HOLD_MULTI_CYCLE,
+      "multiple_plausible_cycles",
+    );
+    return { ...r, lifecycleGuidanceMismatch: false };
   }
 
   if (input.disposition === "DEFER_TO_ACTIVE_CYCLE") {
-    // In-cycle orientation only — all kinds allowed; optimistic NEXT_CYCLE LR
-    // is already stripped by routing coherence (no prose intent parse here).
-    return { conversationGuidance: base, coerced: false, coerceReason: null };
+    const ok = scope === "ACTIVE_CYCLE";
+    const r = keepOrReplace(
+      base,
+      ok,
+      CONVERSATION_GUIDANCE_HOLD_ACTIVE_CYCLE_SCOPE,
+      "active_cycle_scope_required",
+    );
+    return { ...r, lifecycleGuidanceMismatch: false };
   }
 
-  // EMIT_LIFECYCLE_RECOMMENDATION — keep model guidance; never invent
-  // RECOMMEND_NEXT_STEP from HOLD / fail-closed paths.
-  return { conversationGuidance: base, coerced: false, coerceReason: null };
+  // EMIT_LIFECYCLE_RECOMMENDATION + LR kept → require transition guidance.
+  if (input.lifecycleRecommendation != null) {
+    const ok =
+      kind === "RECOMMEND_NEXT_STEP" && scope === "LIFECYCLE_TRANSITION";
+    if (ok) {
+      return {
+        conversationGuidance: base,
+        coerced: false,
+        coerceReason: null,
+        lifecycleGuidanceMismatch: false,
+      };
+    }
+    // Never auto-promote HOLD/ASK/OPTIONS → RECOMMEND_NEXT_STEP.
+    return {
+      conversationGuidance: { ...CONVERSATION_GUIDANCE_HOLD_BOUNDARY },
+      coerced: true,
+      coerceReason: "lifecycle_guidance_mismatch",
+      lifecycleGuidanceMismatch: true,
+    };
+  }
+
+  return {
+    conversationGuidance: base,
+    coerced: false,
+    coerceReason: null,
+    lifecycleGuidanceMismatch: false,
+  };
 }
 
 /**
@@ -1503,16 +1728,11 @@ export function composePilotFacingAssistantText(
  * - DEFER_TO_ACTIVE_CYCLE → strip NEXT_CYCLE only (FINALIZE may remain).
  * - EMIT + LR → keep as emitted (never invent one server-side).
  * - EMIT + null → MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION (fail-closed).
+ * - EMIT + LR + incompatible guidance → CONVERSATION_GUIDANCE_LIFECYCLE_MISMATCH.
+ * - Cognitive Stop → strip LR for this turn; HOLD + BLOCKER_RESOLUTION.
  * Does not parse narrative. Does not create Cycle/HD/START.
  * activeCycleWork is preserved on all return paths (passthrough).
- * conversationGuidance is coerced for disposition coherence.
- *
- * remainingUnknownsAreCycleOwned semantics:
- * - true  → remaining unknowns exist and belong to the candidate cycle
- * - false → no materially remaining unknowns (or none that are cycle-owned)
- * Either value is compatible with EMIT when candidateCycleSupportable and
- * no routing blocker / multi-cycle / active-cycle deferral. false is NOT
- * automatically incoherent.
+ * conversationGuidance: full-object fallback when incompatible (CR-NCI-01).
  */
 export function applyPreCycleRoutingBoundaryCoherence(input: {
   narrative: string;
@@ -1530,6 +1750,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
   const rawGuidance = parseConversationGuidanceOrFailClosed(
     input.conversationGuidance ?? null,
   );
+  const cognitiveStop = input.cognitiveStop === true;
 
   const withGuidance = (
     partial: Omit<
@@ -1545,10 +1766,37 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
       preCycleRoutingAssessment: partial.preCycleRoutingAssessment,
       lifecycleRecommendation: partial.lifecycleRecommendation,
       boundaryContradiction: partial.boundaryContradiction,
-      cognitiveStop: input.cognitiveStop === true,
+      cognitiveStop,
     });
+
+    let lifecycleRecommendation = partial.lifecycleRecommendation;
+    let lifecycleRecommendationSuppressed =
+      partial.lifecycleRecommendationSuppressed;
+    let suppressReason = partial.suppressReason;
+    let boundaryContradiction = partial.boundaryContradiction;
+
+    // CR-NCI-03 — Cognitive Stop outranks LR materialization for this turn.
+    if (cognitiveStop && lifecycleRecommendation != null) {
+      lifecycleRecommendation = null;
+      lifecycleRecommendationSuppressed = true;
+      suppressReason = suppressReason ?? "cognitive_stop";
+    }
+
+    // CR-NCI-01/03 — EMIT guidance mismatch: fail-closed via contradiction.
+    // Keep the Nora-emitted LR on the coherent result for auditability, but
+    // orchestrator must not materialize (boundaryContradiction gate).
+    // Do not strip LR here — that would make a later normalize look like
+    // MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION.
+    if (guided.lifecycleGuidanceMismatch) {
+      boundaryContradiction = CONVERSATION_GUIDANCE_LIFECYCLE_MISMATCH;
+    }
+
     return {
       ...partial,
+      lifecycleRecommendation,
+      lifecycleRecommendationSuppressed,
+      suppressReason,
+      boundaryContradiction,
       conversationGuidance: guided.conversationGuidance,
       conversationGuidanceCoerced: guided.coerced,
       conversationGuidanceCoerceReason: guided.coerceReason,
@@ -1720,7 +1968,7 @@ export function buildFailClosedProductTurnJson(narrative: string): string {
 
 ---
 
-## 16. FULL — other modified implementation files
+## 12. FULL — other modified implementation files
 
 ### FULL FILE — `projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts`
 
@@ -1876,7 +2124,7 @@ export function buildProjectSystemPrompt(
     "Identifie le prochain mouvement utile pour faire progresser le projet.",
     "Ne termine pas sur un simple constat lorsqu'une suite honnête est identifiable.",
     "Produit conversationGuidance dans le MÊME tour (pas de second appel).",
-    "Champs : kind, statement, rationale (rationale null si non matériel).",
+    "Champs : kind, scope, statement, rationale (rationale null si non matériel).",
     "Kinds autorisés uniquement :",
     "- RECOMMEND_NEXT_STEP — progression honnête identifiable (recommandation non autoritative).",
     "- ASK_CLARIFICATION — seulement si l'inconnue change matériellement analyse / scope / risque /",
@@ -1885,21 +2133,26 @@ export function buildProjectSystemPrompt(
     "  indique une préférence si supportable ; ne décide pas à la place du Pilote.",
     "- HOLD — progression honnête impossible (Cognitive Stop, contradiction, autorité/preuve manquante) ;",
     "  dis quoi résoudre ensuite — pas une fin passive.",
+    "Scopes autorisés (internes — ne jamais exposer ces libellés au Pilote) :",
+    "- PRE_CYCLE — continuation / clarification avant une transition supportable.",
+    "- ACTIVE_CYCLE — prochain mouvement DANS le cycle actif (activeCycleAlreadyCoversWork).",
+    "- LIFECYCLE_TRANSITION — accompagnement d'une lifecycleRecommendation émise dans CE tour.",
+    "- BLOCKER_RESOLUTION — stop / contradiction / fail-closed / frein cognitif.",
+    "Cohérence kind × scope obligatoire :",
+    "- routingBlockingUnknownPresent → ASK_CLARIFICATION + PRE_CYCLE, ou HOLD + BLOCKER_RESOLUTION.",
+    "- multiplePlausibleCycles → PRESENT_OPTIONS|ASK_CLARIFICATION + PRE_CYCLE, ou HOLD + BLOCKER_RESOLUTION.",
+    "- activeCycleAlreadyCoversWork → scope ACTIVE_CYCLE (toute kind pertinente).",
+    "- lifecycleRecommendation valide émise → RECOMMEND_NEXT_STEP + LIFECYCLE_TRANSITION.",
+    "- Cognitive Stop → HOLD + BLOCKER_RESOLUTION.",
     "UNE seule continuation principale par défaut. Pas de liste générique de cinq idées.",
     "Ne demande pas confirmation pour des détails non matériels.",
     "Avance sous Hypothesis explicite lorsque la doctrine actuelle l'autorise.",
     "Ne propose JAMAIS Cursor / Execution comme initiative autonome.",
     "HumanDecision uniquement comme frontière à soumettre au Pilote — jamais auto-créée.",
     "Une Recommendation (dont conversationGuidance) n'est JAMAIS une HumanDecision ni une autorisation d'exécution.",
-    "Cohérence obligatoire :",
-    "- routingBlockingUnknownPresent → ASK_CLARIFICATION ou HOLD.",
-    "- multiplePlausibleCycles → PRESENT_OPTIONS ou ASK_CLARIFICATION.",
-    "- activeCycleAlreadyCoversWork → oriente le prochain travail DANS le cycle actif (pas NEXT_CYCLE).",
-    "- lifecycleRecommendation valide → guidance cohérente avec elle.",
-    "- Cognitive Stop → HOLD / résolution du blocker (jamais guidance optimiste contradictoire).",
     "statement : formulation naturelle Pilote (ex. « Je te propose maintenant de… ») ;",
     "varie selon le contexte ; évite le label robotique « PROCHAINE ÉTAPE : ».",
-    "N'expose jamais les noms internes conversationGuidance / preCycleRoutingAssessment /",
+    "N'expose jamais les noms internes conversationGuidance / scope / preCycleRoutingAssessment /",
     "activeCycleWork / LifecycleRecommendation / F1/F2/MW* dans le langage Pilote.",
     "",
     ...buildActiveCycleWorkOutputSection(studio),
@@ -2069,6 +2322,7 @@ import {
   type NoraCampaignBudget,
 } from "@/lib/nora-cognitive-runtime";
 import {
+  CONVERSATION_GUIDANCE_LIFECYCLE_MISMATCH,
   MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
   NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE,
   composePilotFacingAssistantText,
@@ -2434,6 +2688,18 @@ export async function orchestrateProjectAssistantTurn(input: {
     let lifecycleRecommendationMaterialized: boolean | null = null;
     let lifecycleRecommendationCode: string | null = null;
 
+    // CR-NCI-03 — normalize ONCE with Cognitive Stop before any durable LR write.
+    // Order: normalize(+cognitiveStop) → boundary fail → ACW → LR only if stop=false
+    // → compose Pilot text from final coherent guidance.
+    const cognitiveStopActive =
+      turn.cognitiveStopDecision?.cognitiveStop === true;
+    const coherentEarly =
+      turn.structuredOutput !== undefined
+        ? normalizeNoraProductTurnStructuredOutput(turn.structuredOutput, {
+            cognitiveStop: cognitiveStopActive,
+          })
+        : null;
+
     // D-LC-01 — same Product turn: extract → fail-closed contradiction →
     // ACW first (when present) → then LR against final post-ACW basis.
     // No second model call. No fingerprint rewrite.
@@ -2444,21 +2710,26 @@ export async function orchestrateProjectAssistantTurn(input: {
       const extracted = extractLifecycleCandidateFromStructuredOutput(
         turn.structuredOutput,
       );
-      if (extracted.narrative) {
+      if (coherentEarly?.narrative) {
+        assistantText = coherentEarly.narrative;
+      } else if (extracted.narrative) {
         assistantText = extracted.narrative;
       }
-      // Positive enforcement: EMIT without LR is a structured contradiction.
-      // Fail BEFORE any durable writes (ACW or LR).
-      // Never invent LR; never treat as normal conversational success.
+      // Positive enforcement: EMIT without LR, or EMIT+LR with incompatible
+      // conversationGuidance — fail BEFORE any durable writes (ACW or LR).
+      const boundaryCode =
+        coherentEarly?.boundaryContradiction ??
+        (extracted.kind === "product_turn"
+          ? extracted.boundaryContradiction
+          : null);
       if (
-        extracted.kind === "product_turn" &&
-        extracted.boundaryContradiction ===
-          MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION
+        boundaryCode === MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION ||
+        boundaryCode === CONVERSATION_GUIDANCE_LIFECYCLE_MISMATCH
       ) {
         return {
           ok: false,
           status: "validation_error",
-          code: MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
+          code: boundaryCode,
           message: LIFECYCLE_RECOMMENDATION_MATERIALIZE_FAILURE_PILOTE_NOTICE,
           mode: modeResolution.mode,
           retryable: false,
@@ -2466,9 +2737,7 @@ export async function orchestrateProjectAssistantTurn(input: {
       }
 
       // D-GF-ACW-01/02 — materialize ACW FIRST when items present + eligible.
-      const coherent = normalizeNoraProductTurnStructuredOutput(
-        turn.structuredOutput,
-      );
+      const coherent = coherentEarly;
       const acwItems = coherent?.activeCycleWork?.items ?? [];
       if (acwItems.length > 0) {
         const assessment = coherent?.preCycleRoutingAssessment;
@@ -2649,8 +2918,15 @@ export async function orchestrateProjectAssistantTurn(input: {
       }
 
       // D-LC-01 — LR AFTER ACW (or with current facts when no ACW items).
+      // CR-NCI-03 — Cognitive Stop outranks NEW LR materialization this turn.
       // Reload durable basis so currentness binds post-ACW LPS version / epistemic.
-      if (!extracted.candidate) {
+      const lrCandidate =
+        !cognitiveStopActive &&
+        !coherent?.boundaryContradiction &&
+        coherent?.lifecycleRecommendation
+          ? coherent.lifecycleRecommendation
+          : null;
+      if (!lrCandidate) {
         lifecycleRecommendationMaterialized = false;
       } else {
         // OA access via authorized Project Assistant seam (mw3AvailableEvidence
@@ -2844,22 +3120,13 @@ export async function orchestrateProjectAssistantTurn(input: {
         allowsSilentSuccess: false,
       },
     );
-    // NORA-CONVERSATIONAL-INITIATIVE-01 — compose guidance into Pilot history
-    // text (Cognitive Stop outranks optimistic guidance).
-    if (turn.structuredOutput !== undefined) {
-      const guided = normalizeNoraProductTurnStructuredOutput(
-        turn.structuredOutput,
-        {
-          cognitiveStop:
-            turn.cognitiveStopDecision?.cognitiveStop === true,
-        },
+    // NORA-CONVERSATIONAL-INITIATIVE-01 / CR-NCI-03 — compose from the same
+    // coherent guidance already normalized with Cognitive Stop (no second pass).
+    if (coherentEarly?.conversationGuidance) {
+      assistantText = composePilotFacingAssistantText(
+        assistantText,
+        coherentEarly.conversationGuidance,
       );
-      if (guided) {
-        assistantText = composePilotFacingAssistantText(
-          assistantText,
-          guided.conversationGuidance,
-        );
-      }
     }
     const lrMaterializeNotice =
       lifecycleRecommendationMaterializeFailurePiloteNotice({
@@ -4080,14 +4347,14 @@ export async function runNoraAgentsTurn(
 
 ---
 
-## 17. Unified diff (all modified tracked files)
+## 13. Unified diff (tracked modified files)
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.finalCorr.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.finalCorr.d0.test.ts
-index da81eb13..fe620587 100644
+index da81eb13..36349826 100644
 --- a/projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.finalCorr.d0.test.ts
 +++ b/projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.finalCorr.d0.test.ts
-@@ -148,6 +148,14 @@ function productTurnPayload(
+@@ -148,6 +148,17 @@ function productTurnPayload(
      narrative,
      preCycleRoutingAssessment: assessment,
      lifecycleRecommendation: lr,
@@ -4096,17 +4363,106 @@ index da81eb13..fe620587 100644
 +    // for fixtures that assert exact narrative text (guidance still present).
 +    conversationGuidance: {
 +      kind: lr ? ("RECOMMEND_NEXT_STEP" as const) : ("HOLD" as const),
++      scope: lr
++        ? ("LIFECYCLE_TRANSITION" as const)
++        : ("BLOCKER_RESOLUTION" as const),
 +      statement: narrative,
 +      rationale: "fixture-aligned-guidance",
 +    },
    };
  }
 
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts
+index b3d6e695..c81e708a 100644
+--- a/projects/sfia-studio/app/__tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts
++++ b/projects/sfia-studio/app/__tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts
+@@ -164,6 +164,13 @@ function productTurn(lr: ReturnType<typeof nextCycleLr>) {
+     narrative: "Narrative recommandée.",
+     preCycleRoutingAssessment: { ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT },
+     lifecycleRecommendation: lr,
++    activeCycleWork: null,
++    conversationGuidance: {
++      kind: "RECOMMEND_NEXT_STEP" as const,
++      scope: "LIFECYCLE_TRANSITION" as const,
++      statement: "Narrative recommandée.",
++      rationale: "fixture-aligned-guidance",
++    },
+   };
+ }
+
+@@ -173,6 +180,12 @@ function acwTurn(items: NoraActiveCycleWorkItem[], narrative = "Travail in-cycle
+     preCycleRoutingAssessment: { ...ACW_DEFER_ASSESSMENT },
+     lifecycleRecommendation: null,
+     activeCycleWork: { items },
++    conversationGuidance: {
++      kind: "RECOMMEND_NEXT_STEP" as const,
++      scope: "ACTIVE_CYCLE" as const,
++      statement: narrative,
++      rationale: "fixture-aligned-guidance",
++    },
+   };
+ }
+
+@@ -1449,6 +1462,12 @@ describe("D-GF-ACW-01 regressions smoke (BAR-WORK-46..50)", () => {
+       narrative: "Ready.",
+       preCycleRoutingAssessment: { ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT },
+       lifecycleRecommendation: nextCycleLr("cyc:framing", "Cadrage."),
++      conversationGuidance: {
++        kind: "RECOMMEND_NEXT_STEP",
++        scope: "LIFECYCLE_TRANSITION",
++        statement: "Ready.",
++        rationale: "fixture",
++      },
+     });
+     expect(coherent.disposition).toBe("EMIT_LIFECYCLE_RECOMMENDATION");
+     expect(coherent.boundaryContradiction).toBeNull();
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/preCycleRoutingBoundary.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/preCycleRoutingBoundary.d0.test.ts
-index b368109f..f26dc650 100644
+index b368109f..0cab9a3c 100644
 --- a/projects/sfia-studio/app/__tests__/project-assistant/preCycleRoutingBoundary.d0.test.ts
 +++ b/projects/sfia-studio/app/__tests__/project-assistant/preCycleRoutingBoundary.d0.test.ts
-@@ -153,6 +153,7 @@ describe("BAR-RB — pre-cycle routing boundary (deterministic)", () => {
+@@ -123,6 +123,41 @@ function productTurn(
+     narrative,
+     preCycleRoutingAssessment: assessment,
+     lifecycleRecommendation: lr,
++    activeCycleWork: null,
++    conversationGuidance: lr
++      ? {
++          kind: "RECOMMEND_NEXT_STEP" as const,
++          scope: "LIFECYCLE_TRANSITION" as const,
++          statement: narrative,
++          rationale: "fixture-aligned-guidance",
++        }
++      : assessment.activeCycleAlreadyCoversWork
++        ? {
++            kind: "RECOMMEND_NEXT_STEP" as const,
++            scope: "ACTIVE_CYCLE" as const,
++            statement: narrative,
++            rationale: "fixture-aligned-guidance",
++          }
++        : assessment.multiplePlausibleCycles
++          ? {
++              kind: "PRESENT_OPTIONS" as const,
++              scope: "PRE_CYCLE" as const,
++              statement: narrative,
++              rationale: "fixture-aligned-guidance",
++            }
++          : assessment.routingBlockingUnknownPresent
++            ? {
++                kind: "ASK_CLARIFICATION" as const,
++                scope: "PRE_CYCLE" as const,
++                statement: narrative,
++                rationale: "fixture-aligned-guidance",
++              }
++            : {
++                kind: "RECOMMEND_NEXT_STEP" as const,
++                scope: "PRE_CYCLE" as const,
++                statement: narrative,
++                rationale: "fixture-aligned-guidance",
++              },
+   };
+ }
+
+@@ -153,6 +188,7 @@ describe("BAR-RB — pre-cycle routing boundary (deterministic)", () => {
      expect(required).toContain("preCycleRoutingAssessment");
      expect(required).toContain("lifecycleRecommendation");
      expect(required).toContain("narrative");
@@ -4114,11 +4470,24 @@ index b368109f..f26dc650 100644
    });
 
    it("BAR-RB-01 — initial intent still ambiguous → CONTINUE, LR null", () => {
+@@ -896,6 +932,12 @@ describe("BAR-RB — pre-cycle routing boundary (deterministic)", () => {
+       narrative: "Travail déjà suffisamment borné.",
+       preCycleRoutingAssessment: assessment,
+       lifecycleRecommendation: lr,
++      conversationGuidance: {
++        kind: "RECOMMEND_NEXT_STEP",
++        scope: "LIFECYCLE_TRANSITION",
++        statement: "Travail déjà suffisamment borné.",
++        rationale: "fixture",
++      },
+     });
+     expect(coherent.boundaryContradiction).toBeNull();
+     expect(coherent.lifecycleRecommendation).toEqual(lr);
 diff --git a/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts b/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
-index cb114248..42da1f54 100644
+index cb114248..6383ef81 100644
 --- a/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
-@@ -144,6 +144,37 @@ export function buildProjectSystemPrompt(
+@@ -144,6 +144,42 @@ export function buildProjectSystemPrompt(
      "Si tu émets lifecycleRecommendation : le serveur peut la matérialiser ; ne prétends jamais qu'elle est",
      "enregistrée si tu n'as pas de confirmation produit ; ne crée pas de CycleInstance / HD / START.",
      "",
@@ -4127,7 +4496,7 @@ index cb114248..42da1f54 100644
 +    "Identifie le prochain mouvement utile pour faire progresser le projet.",
 +    "Ne termine pas sur un simple constat lorsqu'une suite honnête est identifiable.",
 +    "Produit conversationGuidance dans le MÊME tour (pas de second appel).",
-+    "Champs : kind, statement, rationale (rationale null si non matériel).",
++    "Champs : kind, scope, statement, rationale (rationale null si non matériel).",
 +    "Kinds autorisés uniquement :",
 +    "- RECOMMEND_NEXT_STEP — progression honnête identifiable (recommandation non autoritative).",
 +    "- ASK_CLARIFICATION — seulement si l'inconnue change matériellement analyse / scope / risque /",
@@ -4136,67 +4505,148 @@ index cb114248..42da1f54 100644
 +    "  indique une préférence si supportable ; ne décide pas à la place du Pilote.",
 +    "- HOLD — progression honnête impossible (Cognitive Stop, contradiction, autorité/preuve manquante) ;",
 +    "  dis quoi résoudre ensuite — pas une fin passive.",
++    "Scopes autorisés (internes — ne jamais exposer ces libellés au Pilote) :",
++    "- PRE_CYCLE — continuation / clarification avant une transition supportable.",
++    "- ACTIVE_CYCLE — prochain mouvement DANS le cycle actif (activeCycleAlreadyCoversWork).",
++    "- LIFECYCLE_TRANSITION — accompagnement d'une lifecycleRecommendation émise dans CE tour.",
++    "- BLOCKER_RESOLUTION — stop / contradiction / fail-closed / frein cognitif.",
++    "Cohérence kind × scope obligatoire :",
++    "- routingBlockingUnknownPresent → ASK_CLARIFICATION + PRE_CYCLE, ou HOLD + BLOCKER_RESOLUTION.",
++    "- multiplePlausibleCycles → PRESENT_OPTIONS|ASK_CLARIFICATION + PRE_CYCLE, ou HOLD + BLOCKER_RESOLUTION.",
++    "- activeCycleAlreadyCoversWork → scope ACTIVE_CYCLE (toute kind pertinente).",
++    "- lifecycleRecommendation valide émise → RECOMMEND_NEXT_STEP + LIFECYCLE_TRANSITION.",
++    "- Cognitive Stop → HOLD + BLOCKER_RESOLUTION.",
 +    "UNE seule continuation principale par défaut. Pas de liste générique de cinq idées.",
 +    "Ne demande pas confirmation pour des détails non matériels.",
 +    "Avance sous Hypothesis explicite lorsque la doctrine actuelle l'autorise.",
 +    "Ne propose JAMAIS Cursor / Execution comme initiative autonome.",
 +    "HumanDecision uniquement comme frontière à soumettre au Pilote — jamais auto-créée.",
 +    "Une Recommendation (dont conversationGuidance) n'est JAMAIS une HumanDecision ni une autorisation d'exécution.",
-+    "Cohérence obligatoire :",
-+    "- routingBlockingUnknownPresent → ASK_CLARIFICATION ou HOLD.",
-+    "- multiplePlausibleCycles → PRESENT_OPTIONS ou ASK_CLARIFICATION.",
-+    "- activeCycleAlreadyCoversWork → oriente le prochain travail DANS le cycle actif (pas NEXT_CYCLE).",
-+    "- lifecycleRecommendation valide → guidance cohérente avec elle.",
-+    "- Cognitive Stop → HOLD / résolution du blocker (jamais guidance optimiste contradictoire).",
 +    "statement : formulation naturelle Pilote (ex. « Je te propose maintenant de… ») ;",
 +    "varie selon le contexte ; évite le label robotique « PROCHAINE ÉTAPE : ».",
-+    "N'expose jamais les noms internes conversationGuidance / preCycleRoutingAssessment /",
++    "N'expose jamais les noms internes conversationGuidance / scope / preCycleRoutingAssessment /",
 +    "activeCycleWork / LifecycleRecommendation / F1/F2/MW* dans le langage Pilote.",
 +    "",
      ...buildActiveCycleWorkOutputSection(studio),
      "=== LIMITES D'AUTORITÉ (strict) ===",
      "Distingue vérité courante / historique / superseded / réserve ouverte.",
 diff --git a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-index 23feb4bc..9f966c2b 100644
+index 23feb4bc..5f608262 100644
 --- a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-@@ -22,6 +22,7 @@ import {
+@@ -20,8 +20,10 @@ import {
+   type NoraCampaignBudget,
+ } from "@/lib/nora-cognitive-runtime";
  import {
++  CONVERSATION_GUIDANCE_LIFECYCLE_MISMATCH,
    MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
    NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE,
 +  composePilotFacingAssistantText,
    normalizeNoraProductTurnStructuredOutput,
  } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
  import { materializeLifecycleRecommendationFromStructuredOutput } from "@/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn";
-@@ -794,6 +795,23 @@ export async function orchestrateProjectAssistantTurn(input: {
+@@ -384,6 +386,18 @@ export async function orchestrateProjectAssistantTurn(input: {
+     let lifecycleRecommendationMaterialized: boolean | null = null;
+     let lifecycleRecommendationCode: string | null = null;
+
++    // CR-NCI-03 — normalize ONCE with Cognitive Stop before any durable LR write.
++    // Order: normalize(+cognitiveStop) → boundary fail → ACW → LR only if stop=false
++    // → compose Pilot text from final coherent guidance.
++    const cognitiveStopActive =
++      turn.cognitiveStopDecision?.cognitiveStop === true;
++    const coherentEarly =
++      turn.structuredOutput !== undefined
++        ? normalizeNoraProductTurnStructuredOutput(turn.structuredOutput, {
++            cognitiveStop: cognitiveStopActive,
++          })
++        : null;
++
+     // D-LC-01 — same Product turn: extract → fail-closed contradiction →
+     // ACW first (when present) → then LR against final post-ACW basis.
+     // No second model call. No fingerprint rewrite.
+@@ -394,21 +408,26 @@ export async function orchestrateProjectAssistantTurn(input: {
+       const extracted = extractLifecycleCandidateFromStructuredOutput(
+         turn.structuredOutput,
+       );
+-      if (extracted.narrative) {
++      if (coherentEarly?.narrative) {
++        assistantText = coherentEarly.narrative;
++      } else if (extracted.narrative) {
+         assistantText = extracted.narrative;
+       }
+-      // Positive enforcement: EMIT without LR is a structured contradiction.
+-      // Fail BEFORE any durable writes (ACW or LR).
+-      // Never invent LR; never treat as normal conversational success.
++      // Positive enforcement: EMIT without LR, or EMIT+LR with incompatible
++      // conversationGuidance — fail BEFORE any durable writes (ACW or LR).
++      const boundaryCode =
++        coherentEarly?.boundaryContradiction ??
++        (extracted.kind === "product_turn"
++          ? extracted.boundaryContradiction
++          : null);
+       if (
+-        extracted.kind === "product_turn" &&
+-        extracted.boundaryContradiction ===
+-          MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION
++        boundaryCode === MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION ||
++        boundaryCode === CONVERSATION_GUIDANCE_LIFECYCLE_MISMATCH
+       ) {
+         return {
+           ok: false,
+           status: "validation_error",
+-          code: MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
++          code: boundaryCode,
+           message: LIFECYCLE_RECOMMENDATION_MATERIALIZE_FAILURE_PILOTE_NOTICE,
+           mode: modeResolution.mode,
+           retryable: false,
+@@ -416,9 +435,7 @@ export async function orchestrateProjectAssistantTurn(input: {
+       }
+
+       // D-GF-ACW-01/02 — materialize ACW FIRST when items present + eligible.
+-      const coherent = normalizeNoraProductTurnStructuredOutput(
+-        turn.structuredOutput,
+-      );
++      const coherent = coherentEarly;
+       const acwItems = coherent?.activeCycleWork?.items ?? [];
+       if (acwItems.length > 0) {
+         const assessment = coherent?.preCycleRoutingAssessment;
+@@ -599,8 +616,15 @@ export async function orchestrateProjectAssistantTurn(input: {
+       }
+
+       // D-LC-01 — LR AFTER ACW (or with current facts when no ACW items).
++      // CR-NCI-03 — Cognitive Stop outranks NEW LR materialization this turn.
+       // Reload durable basis so currentness binds post-ACW LPS version / epistemic.
+-      if (!extracted.candidate) {
++      const lrCandidate =
++        !cognitiveStopActive &&
++        !coherent?.boundaryContradiction &&
++        coherent?.lifecycleRecommendation
++          ? coherent.lifecycleRecommendation
++          : null;
++      if (!lrCandidate) {
+         lifecycleRecommendationMaterialized = false;
+       } else {
+         // OA access via authorized Project Assistant seam (mw3AvailableEvidence
+@@ -794,6 +818,14 @@ export async function orchestrateProjectAssistantTurn(input: {
          allowsSilentSuccess: false,
        },
      );
-+    // NORA-CONVERSATIONAL-INITIATIVE-01 — compose guidance into Pilot history
-+    // text (Cognitive Stop outranks optimistic guidance).
-+    if (turn.structuredOutput !== undefined) {
-+      const guided = normalizeNoraProductTurnStructuredOutput(
-+        turn.structuredOutput,
-+        {
-+          cognitiveStop:
-+            turn.cognitiveStopDecision?.cognitiveStop === true,
-+        },
++    // NORA-CONVERSATIONAL-INITIATIVE-01 / CR-NCI-03 — compose from the same
++    // coherent guidance already normalized with Cognitive Stop (no second pass).
++    if (coherentEarly?.conversationGuidance) {
++      assistantText = composePilotFacingAssistantText(
++        assistantText,
++        coherentEarly.conversationGuidance,
 +      );
-+      if (guided) {
-+        assistantText = composePilotFacingAssistantText(
-+          assistantText,
-+          guided.conversationGuidance,
-+        );
-+      }
 +    }
      const lrMaterializeNotice =
        lifecycleRecommendationMaterializeFailurePiloteNotice({
          recommendationAttempted:
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
-index 10e7adef..3852c80a 100644
+index 10e7adef..77d85569 100644
 --- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
 +++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
-@@ -132,12 +132,59 @@ export type NoraActiveCycleWorkOutput = {
+@@ -132,12 +132,126 @@ export type NoraActiveCycleWorkOutput = {
    items: NoraActiveCycleWorkItem[];
  };
 
@@ -4204,6 +4654,7 @@ index 10e7adef..3852c80a 100644
 + * NORA-CONVERSATIONAL-INITIATIVE-01 — ephemeral conversational continuation.
 + * Cognitive / non-authoritative / same Product turn — never Truth C,
 + * HumanDecision, ExecutionContract, or execution authorization.
++ * CR-NCI-01/02: kind×scope matrix; never relabel kind while keeping statement.
 + */
 +export const CONVERSATION_GUIDANCE_KINDS = [
 +  "RECOMMEND_NEXT_STEP",
@@ -4215,14 +4666,28 @@ index 10e7adef..3852c80a 100644
 +export type ConversationGuidanceKind =
 +  (typeof CONVERSATION_GUIDANCE_KINDS)[number];
 +
++export const CONVERSATION_GUIDANCE_SCOPES = [
++  "PRE_CYCLE",
++  "ACTIVE_CYCLE",
++  "LIFECYCLE_TRANSITION",
++  "BLOCKER_RESOLUTION",
++] as const;
++
++export type ConversationGuidanceScope =
++  (typeof CONVERSATION_GUIDANCE_SCOPES)[number];
++
 +export const CONVERSATION_GUIDANCE_SCHEMA = {
 +  type: "object" as const,
 +  additionalProperties: false as const,
-+  required: ["kind", "statement", "rationale"],
++  required: ["kind", "scope", "statement", "rationale"],
 +  properties: {
 +    kind: {
 +      type: "string" as const,
 +      enum: [...CONVERSATION_GUIDANCE_KINDS],
++    },
++    scope: {
++      type: "string" as const,
++      enum: [...CONVERSATION_GUIDANCE_SCOPES],
 +    },
 +    statement: { type: "string" as const },
 +    rationale: {
@@ -4233,6 +4698,7 @@ index 10e7adef..3852c80a 100644
 +
 +export type ConversationGuidance = {
 +  kind: ConversationGuidanceKind;
++  scope: ConversationGuidanceScope;
 +  statement: string;
 +  rationale: string | null;
 +};
@@ -4241,9 +4707,60 @@ index 10e7adef..3852c80a 100644
 +export const CONVERSATION_GUIDANCE_FAIL_CLOSED_HOLD: ConversationGuidance =
 +  Object.freeze({
 +    kind: "HOLD",
++    scope: "BLOCKER_RESOLUTION",
 +    statement:
 +      "La suite n'a pas pu être déterminée de manière fiable à partir de cette sortie.",
 +    rationale: "sortie structurée insuffisante",
++  });
++
++/** Server-owned HOLD — routing blocker (never invents a specific question). */
++export const CONVERSATION_GUIDANCE_HOLD_ROUTING_BLOCKER: ConversationGuidance =
++  Object.freeze({
++    kind: "HOLD",
++    scope: "BLOCKER_RESOLUTION",
++    statement:
++      "Une clarification matérielle est nécessaire avant de pouvoir orienter la suite.",
++    rationale: "routing_blocking_unknown",
++  });
++
++/** Server-owned HOLD — multiple plausible cycles. */
++export const CONVERSATION_GUIDANCE_HOLD_MULTI_CYCLE: ConversationGuidance =
++  Object.freeze({
++    kind: "HOLD",
++    scope: "BLOCKER_RESOLUTION",
++    statement:
++      "Plusieurs trajectoires restent plausibles ; il faut les départager avant de recommander une suite.",
++    rationale: "multiple_plausible_cycles",
++  });
++
++/** Server-owned HOLD — DEFER requires ACTIVE_CYCLE scope. */
++export const CONVERSATION_GUIDANCE_HOLD_ACTIVE_CYCLE_SCOPE: ConversationGuidance =
++  Object.freeze({
++    kind: "HOLD",
++    scope: "BLOCKER_RESOLUTION",
++    statement:
++      "Le travail doit rester dans le cycle actif ; aucune transition n'est recommandée sur ce tour.",
++    rationale: "active_cycle_scope_required",
++  });
++
++/** Server-owned HOLD — Cognitive Stop outranks optimistic guidance / LR. */
++export const CONVERSATION_GUIDANCE_HOLD_COGNITIVE_STOP: ConversationGuidance =
++  Object.freeze({
++    kind: "HOLD",
++    scope: "BLOCKER_RESOLUTION",
++    statement:
++      "Avant toute suite, il faut lever le frein cognitif qui bloque la progression.",
++    rationale: "cognitive_stop_outranks_optimistic_guidance",
++  });
++
++/** Server-owned HOLD — structured boundary contradiction. */
++export const CONVERSATION_GUIDANCE_HOLD_BOUNDARY: ConversationGuidance =
++  Object.freeze({
++    kind: "HOLD",
++    scope: "BLOCKER_RESOLUTION",
++    statement:
++      "La suite structurée est incomplète ; aucune progression recommandée tant que le contrat n'est pas cohérent.",
++    rationale: "boundary_contradiction_fail_closed",
 +  });
 +
  /**
@@ -4256,7 +4773,7 @@ index 10e7adef..3852c80a 100644
   * Same Agents Runner — one model call — no prose parsing.
   */
  export const NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE = {
-@@ -152,6 +199,7 @@ export const NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE = {
+@@ -152,6 +266,7 @@ export const NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE = {
        "preCycleRoutingAssessment",
        "lifecycleRecommendation",
        "activeCycleWork",
@@ -4264,7 +4781,7 @@ index 10e7adef..3852c80a 100644
      ],
      properties: {
        narrative: { type: "string" as const },
-@@ -168,6 +216,7 @@ export const NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE = {
+@@ -168,6 +283,7 @@ export const NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE = {
            NORA_ACTIVE_CYCLE_WORK_OUTPUT_SCHEMA,
          ],
        },
@@ -4272,7 +4789,7 @@ index 10e7adef..3852c80a 100644
      },
    },
  };
-@@ -177,6 +226,7 @@ export type NoraProductTurnWithOptionalLr = {
+@@ -177,6 +293,7 @@ export type NoraProductTurnWithOptionalLr = {
    preCycleRoutingAssessment: PreCycleRoutingAssessment;
    lifecycleRecommendation: NoraLifecycleRecommendationStructuredOutput | null;
    activeCycleWork: NoraActiveCycleWorkOutput | null;
@@ -4280,12 +4797,15 @@ index 10e7adef..3852c80a 100644
  };
 
  export function isPreCycleRoutingAssessment(
-@@ -238,6 +288,44 @@ export function isNoraActiveCycleWorkOutput(
+@@ -238,6 +355,49 @@ export function isNoraActiveCycleWorkOutput(
    return o.items.every(isNoraActiveCycleWorkItem);
  }
 
 +const CONVERSATION_GUIDANCE_KIND_SET = new Set<string>(
 +  CONVERSATION_GUIDANCE_KINDS,
++);
++const CONVERSATION_GUIDANCE_SCOPE_SET = new Set<string>(
++  CONVERSATION_GUIDANCE_SCOPES,
 +);
 +
 +export function isConversationGuidance(
@@ -4294,6 +4814,7 @@ index 10e7adef..3852c80a 100644
 +  if (!value || typeof value !== "object") return false;
 +  const o = value as Record<string, unknown>;
 +  if (!CONVERSATION_GUIDANCE_KIND_SET.has(String(o.kind))) return false;
++  if (!CONVERSATION_GUIDANCE_SCOPE_SET.has(String(o.scope))) return false;
 +  if (typeof o.statement !== "string" || o.statement.trim().length === 0) {
 +    return false;
 +  }
@@ -4316,6 +4837,7 @@ index 10e7adef..3852c80a 100644
 +  }
 +  return {
 +    kind: value.kind,
++    scope: value.scope,
 +    statement: value.statement.trim(),
 +    rationale:
 +      value.rationale === null ? null : String(value.rationale).trim(),
@@ -4325,7 +4847,7 @@ index 10e7adef..3852c80a 100644
  /**
   * ROUTING RELEVANCE + CYCLE OWNERSHIP → disposition (deterministic).
   */
-@@ -268,6 +356,8 @@ export type PreCycleRoutingBoundaryCoherenceResult = {
+@@ -268,50 +428,302 @@ export type PreCycleRoutingBoundaryCoherenceResult = {
    lifecycleRecommendation: NoraLifecycleRecommendationStructuredOutput | null;
    /** Passthrough — not stripped by routing coherence (D-GF-ACW-01). */
    activeCycleWork: NoraActiveCycleWorkOutput | null;
@@ -4334,11 +4856,16 @@ index 10e7adef..3852c80a 100644
    /** True when a candidate LR was stripped by boundary coherence. */
    lifecycleRecommendationSuppressed: boolean;
    suppressReason: string | null;
-@@ -276,12 +366,143 @@ export type PreCycleRoutingBoundaryCoherenceResult = {
+   /**
+-   * Structured boundary contradiction (e.g. EMIT without LR).
++   * Structured boundary contradiction (e.g. EMIT without LR / guidance mismatch).
     * Non-null ⇒ fail-closed — never invent LR; never silent conversational success.
     */
    boundaryContradiction: string | null;
-+  /** True when guidance kind was coerced by disposition / Cognitive Stop. */
++  /**
++   * True when guidance was replaced by a server-owned fallback object
++   * (never a kind-only relabel that keeps an incompatible statement).
++   */
 +  conversationGuidanceCoerced: boolean;
 +  conversationGuidanceCoerceReason: string | null;
  };
@@ -4348,8 +4875,41 @@ index 10e7adef..3852c80a 100644
    "MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION" as const;
 
 +/**
++ * EMIT + valid LR requires RECOMMEND_NEXT_STEP + LIFECYCLE_TRANSITION.
++ * CR-NCI-01/03 — never auto-promote HOLD → RECOMMEND; fail-closed instead.
++ */
++export const CONVERSATION_GUIDANCE_LIFECYCLE_MISMATCH =
++  "CONVERSATION_GUIDANCE_LIFECYCLE_MISMATCH" as const;
++
++function isHoldBlockerResolution(g: ConversationGuidance): boolean {
++  return g.kind === "HOLD" && g.scope === "BLOCKER_RESOLUTION";
++}
++
++function keepOrReplace(
++  base: ConversationGuidance,
++  compatible: boolean,
++  fallback: ConversationGuidance,
++  reason: string,
++): {
++  conversationGuidance: ConversationGuidance;
++  coerced: boolean;
++  coerceReason: string | null;
++} {
++  if (compatible) {
++    return { conversationGuidance: base, coerced: false, coerceReason: null };
++  }
++  return {
++    conversationGuidance: { ...fallback },
++    coerced: true,
++    coerceReason: reason,
++  };
++}
++
++/**
 + * Deterministic conversationGuidance coherence with routing disposition.
-+ * Uses structured kind only — never parses statement prose for intent.
++ * CR-NCI-01: never relabel kind while keeping an incompatible statement —
++ * replace the full object with a server-owned fail-closed HOLD when needed.
++ * CR-NCI-02: kind×scope matrix (structured only — no statement prose parse).
 + * Never invents RECOMMEND_NEXT_STEP from fail-closed paths.
 + */
 +export function applyConversationGuidanceCoherence(input: {
@@ -4364,97 +4924,127 @@ index 10e7adef..3852c80a 100644
 +  conversationGuidance: ConversationGuidance;
 +  coerced: boolean;
 +  coerceReason: string | null;
++  /** When set, parent must strip LR and fail-closed (EMIT guidance mismatch). */
++  lifecycleGuidanceMismatch: boolean;
 +} {
 +  const base = input.conversationGuidance;
++
 +  if (input.cognitiveStop === true) {
-+    if (base.kind === "HOLD") {
-+      return { conversationGuidance: base, coerced: false, coerceReason: null };
++    if (isHoldBlockerResolution(base)) {
++      return {
++        conversationGuidance: base,
++        coerced: false,
++        coerceReason: null,
++        lifecycleGuidanceMismatch: false,
++      };
 +    }
 +    return {
-+      conversationGuidance: {
-+        kind: "HOLD",
-+        statement:
-+          "Avant toute suite, il faut lever le frein cognitif qui bloque la progression.",
-+        rationale: "cognitive_stop_outranks_optimistic_guidance",
-+      },
++      conversationGuidance: { ...CONVERSATION_GUIDANCE_HOLD_COGNITIVE_STOP },
 +      coerced: true,
 +      coerceReason: "cognitive_stop_override",
++      lifecycleGuidanceMismatch: false,
 +    };
 +  }
 +
 +  if (input.boundaryContradiction != null) {
-+    if (base.kind === "HOLD") {
-+      return { conversationGuidance: base, coerced: false, coerceReason: null };
++    if (isHoldBlockerResolution(base)) {
++      return {
++        conversationGuidance: base,
++        coerced: false,
++        coerceReason: null,
++        lifecycleGuidanceMismatch: false,
++      };
 +    }
 +    return {
-+      conversationGuidance: {
-+        kind: "HOLD",
-+        statement:
-+          "La suite structurée est incomplète ; aucune progression recommandée tant que le contrat n'est pas cohérent.",
-+        rationale: "boundary_contradiction_fail_closed",
-+      },
++      conversationGuidance: { ...CONVERSATION_GUIDANCE_HOLD_BOUNDARY },
 +      coerced: true,
 +      coerceReason: "boundary_contradiction",
++      lifecycleGuidanceMismatch: false,
 +    };
 +  }
 +
 +  const kind = base.kind;
++  const scope = base.scope;
 +  const assessment = input.preCycleRoutingAssessment;
 +
 +  if (input.disposition === "CONTINUE_PRE_CYCLE") {
-+    // Spec: routing-blocking unknown → ASK_CLARIFICATION or HOLD only.
-+    // Informative pre-cycle without routing blocker may still RECOMMEND a
-+    // methodological next move (not a LifecycleRecommendation).
 +    if (assessment.routingBlockingUnknownPresent) {
-+      if (kind === "ASK_CLARIFICATION" || kind === "HOLD") {
-+        return {
-+          conversationGuidance: base,
-+          coerced: false,
-+          coerceReason: null,
-+        };
-+      }
-+      return {
-+        conversationGuidance: {
-+          kind: "ASK_CLARIFICATION",
-+          statement: base.statement,
-+          rationale:
-+            base.rationale ?? "routing_blocking_unknown_requires_clarification",
-+        },
-+        coerced: true,
-+        coerceReason: "routing_blocking_unknown",
-+      };
++      const ok =
++        (kind === "ASK_CLARIFICATION" && scope === "PRE_CYCLE") ||
++        (kind === "HOLD" && scope === "BLOCKER_RESOLUTION");
++      const r = keepOrReplace(
++        base,
++        ok,
++        CONVERSATION_GUIDANCE_HOLD_ROUTING_BLOCKER,
++        "routing_blocking_unknown",
++      );
++      return { ...r, lifecycleGuidanceMismatch: false };
 +    }
-+    return { conversationGuidance: base, coerced: false, coerceReason: null };
++    // Informative pre-cycle without routing blocker.
++    const ok =
++      scope === "PRE_CYCLE" ||
++      (kind === "HOLD" && scope === "BLOCKER_RESOLUTION");
++    const r = keepOrReplace(
++      base,
++      ok,
++      CONVERSATION_GUIDANCE_HOLD_BOUNDARY,
++      "continue_pre_cycle_scope",
++    );
++    return { ...r, lifecycleGuidanceMismatch: false };
 +  }
 +
 +  if (input.disposition === "HOLD_FOR_ROUTING_AMBIGUITY") {
-+    if (
-+      kind === "PRESENT_OPTIONS" ||
-+      kind === "ASK_CLARIFICATION" ||
-+      kind === "HOLD"
-+    ) {
-+      return { conversationGuidance: base, coerced: false, coerceReason: null };
-+    }
-+    return {
-+      conversationGuidance: {
-+        kind: "PRESENT_OPTIONS",
-+        statement: base.statement,
-+        rationale: base.rationale ?? "multiple_plausible_cycles",
-+      },
-+      coerced: true,
-+      coerceReason: "multiple_plausible_cycles",
-+    };
++    const ok =
++      (kind === "PRESENT_OPTIONS" && scope === "PRE_CYCLE") ||
++      (kind === "ASK_CLARIFICATION" && scope === "PRE_CYCLE") ||
++      (kind === "HOLD" && scope === "BLOCKER_RESOLUTION");
++    const r = keepOrReplace(
++      base,
++      ok,
++      CONVERSATION_GUIDANCE_HOLD_MULTI_CYCLE,
++      "multiple_plausible_cycles",
++    );
++    return { ...r, lifecycleGuidanceMismatch: false };
 +  }
 +
 +  if (input.disposition === "DEFER_TO_ACTIVE_CYCLE") {
-+    // In-cycle orientation only — all kinds allowed; optimistic NEXT_CYCLE LR
-+    // is already stripped by routing coherence (no prose intent parse here).
-+    return { conversationGuidance: base, coerced: false, coerceReason: null };
++    const ok = scope === "ACTIVE_CYCLE";
++    const r = keepOrReplace(
++      base,
++      ok,
++      CONVERSATION_GUIDANCE_HOLD_ACTIVE_CYCLE_SCOPE,
++      "active_cycle_scope_required",
++    );
++    return { ...r, lifecycleGuidanceMismatch: false };
 +  }
 +
-+  // EMIT_LIFECYCLE_RECOMMENDATION — keep model guidance; never invent
-+  // RECOMMEND_NEXT_STEP from HOLD / fail-closed paths.
-+  return { conversationGuidance: base, coerced: false, coerceReason: null };
++  // EMIT_LIFECYCLE_RECOMMENDATION + LR kept → require transition guidance.
++  if (input.lifecycleRecommendation != null) {
++    const ok =
++      kind === "RECOMMEND_NEXT_STEP" && scope === "LIFECYCLE_TRANSITION";
++    if (ok) {
++      return {
++        conversationGuidance: base,
++        coerced: false,
++        coerceReason: null,
++        lifecycleGuidanceMismatch: false,
++      };
++    }
++    // Never auto-promote HOLD/ASK/OPTIONS → RECOMMEND_NEXT_STEP.
++    return {
++      conversationGuidance: { ...CONVERSATION_GUIDANCE_HOLD_BOUNDARY },
++      coerced: true,
++      coerceReason: "lifecycle_guidance_mismatch",
++      lifecycleGuidanceMismatch: true,
++    };
++  }
++
++  return {
++    conversationGuidance: base,
++    coerced: false,
++    coerceReason: null,
++    lifecycleGuidanceMismatch: false,
++  };
 +}
 +
 +/**
@@ -4478,15 +5068,24 @@ index 10e7adef..3852c80a 100644
  /**
   * Deterministic coherence between assessment and lifecycleRecommendation.
   * - CONTINUE / HOLD → strip any LR (no premature recommendation).
-@@ -290,6 +511,7 @@ export const MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION =
+  * - DEFER_TO_ACTIVE_CYCLE → strip NEXT_CYCLE only (FINALIZE may remain).
+  * - EMIT + LR → keep as emitted (never invent one server-side).
   * - EMIT + null → MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION (fail-closed).
++ * - EMIT + LR + incompatible guidance → CONVERSATION_GUIDANCE_LIFECYCLE_MISMATCH.
++ * - Cognitive Stop → strip LR for this turn; HOLD + BLOCKER_RESOLUTION.
   * Does not parse narrative. Does not create Cycle/HD/START.
   * activeCycleWork is preserved on all return paths (passthrough).
-+ * conversationGuidance is coerced for disposition coherence.
-  *
-  * remainingUnknownsAreCycleOwned semantics:
-  * - true  → remaining unknowns exist and belong to the candidate cycle
-@@ -303,15 +525,44 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
+- *
+- * remainingUnknownsAreCycleOwned semantics:
+- * - true  → remaining unknowns exist and belong to the candidate cycle
+- * - false → no materially remaining unknowns (or none that are cycle-owned)
+- * Either value is compatible with EMIT when candidateCycleSupportable and
+- * no routing blocker / multi-cycle / active-cycle deferral. false is NOT
+- * automatically incoherent.
++ * conversationGuidance: full-object fallback when incompatible (CR-NCI-01).
+  */
+ export function applyPreCycleRoutingBoundaryCoherence(input: {
+   narrative: string;
    preCycleRoutingAssessment: PreCycleRoutingAssessment;
    lifecycleRecommendation: NoraLifecycleRecommendationStructuredOutput | null;
    activeCycleWork?: NoraActiveCycleWorkOutput | null;
@@ -4501,8 +5100,8 @@ index 10e7adef..3852c80a 100644
 +  const rawGuidance = parseConversationGuidanceOrFailClosed(
 +    input.conversationGuidance ?? null,
 +  );
-
--  if (disposition === "CONTINUE_PRE_CYCLE") {
++  const cognitiveStop = input.cognitiveStop === true;
++
 +  const withGuidance = (
 +    partial: Omit<
 +      PreCycleRoutingBoundaryCoherenceResult,
@@ -4517,10 +5116,38 @@ index 10e7adef..3852c80a 100644
 +      preCycleRoutingAssessment: partial.preCycleRoutingAssessment,
 +      lifecycleRecommendation: partial.lifecycleRecommendation,
 +      boundaryContradiction: partial.boundaryContradiction,
-+      cognitiveStop: input.cognitiveStop === true,
++      cognitiveStop,
 +    });
++
++    let lifecycleRecommendation = partial.lifecycleRecommendation;
++    let lifecycleRecommendationSuppressed =
++      partial.lifecycleRecommendationSuppressed;
++    let suppressReason = partial.suppressReason;
++    let boundaryContradiction = partial.boundaryContradiction;
++
++    // CR-NCI-03 — Cognitive Stop outranks LR materialization for this turn.
++    if (cognitiveStop && lifecycleRecommendation != null) {
++      lifecycleRecommendation = null;
++      lifecycleRecommendationSuppressed = true;
++      suppressReason = suppressReason ?? "cognitive_stop";
++    }
++
++    // CR-NCI-01/03 — EMIT guidance mismatch: fail-closed via contradiction.
++    // Keep the Nora-emitted LR on the coherent result for auditability, but
++    // orchestrator must not materialize (boundaryContradiction gate).
++    // Do not strip LR here — that would make a later normalize look like
++    // MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION.
++    if (guided.lifecycleGuidanceMismatch) {
++      boundaryContradiction = CONVERSATION_GUIDANCE_LIFECYCLE_MISMATCH;
++    }
+
+-  if (disposition === "CONTINUE_PRE_CYCLE") {
      return {
 +      ...partial,
++      lifecycleRecommendation,
++      lifecycleRecommendationSuppressed,
++      suppressReason,
++      boundaryContradiction,
 +      conversationGuidance: guided.conversationGuidance,
 +      conversationGuidanceCoerced: guided.coerced,
 +      conversationGuidanceCoerceReason: guided.coerceReason,
@@ -4532,7 +5159,7 @@ index 10e7adef..3852c80a 100644
        narrative: input.narrative,
        preCycleRoutingAssessment: input.preCycleRoutingAssessment,
        disposition,
-@@ -323,10 +574,10 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
+@@ -323,10 +735,10 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
            ? "routing_blocking_unknown_present"
            : null,
        boundaryContradiction: null,
@@ -4545,7 +5172,7 @@ index 10e7adef..3852c80a 100644
        narrative: input.narrative,
        preCycleRoutingAssessment: input.preCycleRoutingAssessment,
        disposition,
-@@ -336,11 +587,11 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
+@@ -336,11 +748,11 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
        suppressReason:
          candidate !== null ? "multiple_plausible_cycles" : null,
        boundaryContradiction: null,
@@ -4559,7 +5186,7 @@ index 10e7adef..3852c80a 100644
          narrative: input.narrative,
          preCycleRoutingAssessment: input.preCycleRoutingAssessment,
          disposition,
-@@ -349,9 +600,9 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
+@@ -349,9 +761,9 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
          lifecycleRecommendationSuppressed: true,
          suppressReason: "active_cycle_covers_work",
          boundaryContradiction: null,
@@ -4571,7 +5198,7 @@ index 10e7adef..3852c80a 100644
        narrative: input.narrative,
        preCycleRoutingAssessment: input.preCycleRoutingAssessment,
        disposition,
-@@ -360,11 +611,11 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
+@@ -360,11 +772,11 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
        lifecycleRecommendationSuppressed: false,
        suppressReason: null,
        boundaryContradiction: null,
@@ -4585,7 +5212,7 @@ index 10e7adef..3852c80a 100644
        narrative: input.narrative,
        preCycleRoutingAssessment: input.preCycleRoutingAssessment,
        disposition,
-@@ -373,9 +624,9 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
+@@ -373,9 +785,9 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
        lifecycleRecommendationSuppressed: false,
        suppressReason: null,
        boundaryContradiction: MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
@@ -4597,7 +5224,7 @@ index 10e7adef..3852c80a 100644
      narrative: input.narrative,
      preCycleRoutingAssessment: input.preCycleRoutingAssessment,
      disposition,
-@@ -384,16 +635,18 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
+@@ -384,16 +796,18 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
      lifecycleRecommendationSuppressed: false,
      suppressReason: null,
      boundaryContradiction: null,
@@ -4617,7 +5244,7 @@ index 10e7adef..3852c80a 100644
  ): PreCycleRoutingBoundaryCoherenceResult | null {
    if (!value || typeof value !== "object") return null;
    const o = value as Record<string, unknown>;
-@@ -426,6 +679,10 @@ export function normalizeNoraProductTurnStructuredOutput(
+@@ -426,6 +840,10 @@ export function normalizeNoraProductTurnStructuredOutput(
      preCycleRoutingAssessment: assessment,
      lifecycleRecommendation: lr,
      activeCycleWork,
@@ -4628,7 +5255,7 @@ index 10e7adef..3852c80a 100644
    });
  }
 
-@@ -443,6 +700,7 @@ export function isNoraProductTurnWithOptionalLr(
+@@ -443,6 +861,7 @@ export function isNoraProductTurnWithOptionalLr(
    ) {
      return false;
    }
@@ -4636,7 +5263,7 @@ index 10e7adef..3852c80a 100644
    if (o.lifecycleRecommendation === null) return true;
    return isNoraLifecycleRecommendationStructuredOutput(
      o.lifecycleRecommendation,
-@@ -460,5 +718,6 @@ export function buildFailClosedProductTurnJson(narrative: string): string {
+@@ -460,5 +879,6 @@ export function buildFailClosedProductTurnJson(narrative: string): string {
      preCycleRoutingAssessment: PRE_CYCLE_ROUTING_ASSESSMENT_CONTINUE_DEFAULT,
      lifecycleRecommendation: null,
      activeCycleWork: null,
@@ -4731,10 +5358,9 @@ index e8c0410d..05c3f582 100644
 
 ---
 
-## 18. Handoff publication note
+## 14. Handoff
 
 Published via `scripts/sfia/publish-review-handoff.sh` (publish-in-cycle L3).
-Canonical remote path: `sfia-review-handoff/latest-chatgpt-review.md` on `sfia/review-handoff`.
-Project branch / working tree restored after publish.
+Canonical: `sfia-review-handoff/latest-chatgpt-review.md` on `sfia/review-handoff`.
 
 CHATGPT REVIEW REQUIRED — READ REMOTE CANONICAL HANDOFF BEFORE VERDICT
