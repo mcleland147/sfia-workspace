@@ -14,6 +14,7 @@
  */
 
 import { createHash } from "node:crypto";
+import path from "node:path";
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
 import {
   applyW3bAdapterFailArmIfPresent,
@@ -47,11 +48,11 @@ import {
 } from "@/features/project-assistant/f3/buildMissionResultPayloadFromReport";
 import { deriveAttemptProvenance } from "@/features/project-assistant/f3/deriveAttemptProvenance";
 import { authorizedM3ResolutionKind } from "@/features/project-assistant/f3/selectProductM3ResolutionProfile";
+import { completeDocsWriteClaimEvidenceCompletion } from "./completeDocsWriteClaimEvidenceCompletion";
 import {
   bindCursorExecutionReportToAttempt,
   parseCursorExecutionReport,
 } from "@/lib/oa/execution-attempt";
-import path from "node:path";
 import { PRODUCT_MISSION_FROM_DURABLE_CONTEXT } from "@/lib/oa/evidence-review/application/missionResultPayload";
 import { advanceProductExecutionContractAfterEvidence } from "./advanceProductExecutionContractAfterEvidence";
 import { evaluateExecutionAuthorization } from "./authorizeExecutionContract";
@@ -981,6 +982,21 @@ export async function governedExecuteRecordResult(
             attempt: projectAttempt(attempt, adapterId),
           };
         }
+        // Automatic Product result qualification while worktree is still hot.
+        // Failures stay fail-closed on Product claim; technical Attempt unchanged.
+        if (completed.facts.worktreeRef) {
+          await completeDocsWriteClaimEvidenceCompletion({
+            evidenceReviewServices: input.oa.evidenceReviewServices!,
+            attempt,
+            contract,
+            actor: LOCAL_PILOTE_ACTOR,
+            artifactAbsolutePath: path.join(
+              completed.facts.worktreeRef,
+              completed.facts.targetPath,
+            ),
+            nowIso: input.oa.clock.nowIso(),
+          });
+        }
       }
     }
     return buildTechnicalTerminal({
@@ -992,7 +1008,7 @@ export async function governedExecuteRecordResult(
       launchCountBefore,
       statusLabel:
         attempt.status === "succeeded"
-          ? "TERMINAL TECHNIQUE DOCS-WRITE — RÉSULTAT PRODUIT À QUALIFIER"
+          ? "TERMINAL TECHNIQUE DOCS-WRITE — QUALIFICATION PRODUIT AUTOMATIQUE"
           : undefined,
     });
   }

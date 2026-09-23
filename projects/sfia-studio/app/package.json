@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "next dev --port 3020",
     "build": "next build",
-    "start": "next start --port 3020",
+    "preflight:runtime": "tsx scripts/studio-runtime-preflight.ts",
+    "start": "npm run preflight:runtime && next start --port 3020",
+    "start:skip-preflight": "next start --port 3020",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
@@ -18,6 +20,7 @@
     "finops:t7:rollout": "tsx scripts/finops-t7-shadow-rollout.ts"
   },
   "dependencies": {
+    "@next/env": "^15.3.3",
     "@openai/agents": "^0.17.0",
     "ajv": "^6.15.0",
     "better-auth": "1.7.2",
@@ -26,6 +29,7 @@
     "pg": "~8.22.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "tsx": "^4.20.5",
     "zod": "^4.5.4"
   },
   "devDependencies": {
@@ -43,7 +47,6 @@
     "eslint-config-next": "^15.3.3",
     "jsdom": "^26.1.0",
     "node-pg-migrate": "^8.0.4",
-    "tsx": "^4.20.5",
     "typescript": "^5.8.3",
     "vitest": "^3.1.2"
   }

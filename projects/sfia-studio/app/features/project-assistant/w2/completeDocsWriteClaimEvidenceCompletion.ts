@@ -23,6 +23,7 @@ import {
   DOCS_WRITE_EVIDENCE_COMPLETION_CORRECTION_REF,
   docsWriteContractResultIdentity,
   extractDocsWriteMinConformityCriteriaFromBoundAttempt,
+  parseDocsWriteConformityOracleFingerprint,
   verifyDocsWriteMinConformityFromBytes,
   verifyDocsWriteMinConformityFromFile,
 } from "@/lib/oa/evidence-review";
@@ -84,11 +85,105 @@ export async function completeDocsWriteClaimEvidenceCompletion(
   const historicalRb = await services.reviewBundleReader.findById(
     docsWriteContractResultIdentity(input.attempt.attemptId).reviewBundleId,
   );
-  if (!historicalRb?.frozenAt || !historicalRb.frozenVersion) {
+  if (!historicalRb) {
+    return {
+      ok: false,
+      code: "DOCS_WRITE_REVIEW_BUNDLE_MISSING",
+      message: "Historical docs_write RB introuvable.",
+    };
+  }
+  let historicalFrozen = historicalRb;
+  if (!historicalFrozen.frozenAt || !historicalFrozen.frozenVersion) {
+    if (historicalFrozen.status !== "draft") {
+      return {
+        ok: false,
+        code: "DOCS_WRITE_REVIEW_BUNDLE_NOT_FROZEN",
+        message: "Historical docs_write RB must remain frozen/auditable.",
+      };
+    }
+    const frozenHistorical = await services.freezeReviewBundle.execute({
+      reviewBundleId: historicalFrozen.reviewBundleId,
+      expectedVersion: historicalFrozen.version,
+      idempotencyKey: `idem:docs-write-rb-freeze:${input.attempt.attemptId}`,
+      actor,
+      correlationId: input.correlationId,
+      nowIso: input.nowIso,
+    });
+    if (!frozenHistorical.ok) {
+      return {
+        ok: false,
+        code: frozenHistorical.error.detailCode,
+        message:
+          frozenHistorical.error.internalCauseRef ??
+          frozenHistorical.error.message,
+      };
+    }
+    historicalFrozen = frozenHistorical.reviewBundle;
+  }
+  if (!historicalFrozen.frozenAt || !historicalFrozen.frozenVersion) {
     return {
       ok: false,
       code: "DOCS_WRITE_REVIEW_BUNDLE_NOT_FROZEN",
       message: "Historical docs_write RB must remain frozen/auditable.",
+    };
+  }
+
+  // Restart-safe idempotence: when conformity Evidence + frozen successor RB
+  // already exist, requalify without re-reading the ephemeral worktree payload.
+  const existingConformity = await services.evidenceReader.findById(
+    ids.conformityEvidenceId,
+  );
+  const existingSuccessorRb = await services.reviewBundleReader.findById(
+    ids.reviewBundleId,
+  );
+  if (
+    existingConformity &&
+    existingSuccessorRb?.frozenAt &&
+    existingSuccessorRb.frozenVersion &&
+    !input.artifactBytes &&
+    !input.artifactAbsolutePath
+  ) {
+    const requalified = await requalifyDocsWriteContractResult({
+      evidenceReviewServices: services,
+      attempt: input.attempt,
+      contract: input.contract,
+      actor,
+      correlationId: input.correlationId,
+      nowIso: input.nowIso,
+      correctionRef,
+      scopeReviewBundle: true,
+    });
+    if (!requalified.ok) {
+      return {
+        ok: false,
+        code: requalified.code,
+        message: requalified.message,
+      };
+    }
+    // CR-ARQ-01 — parse canonical technicalResultRef only (never ad-hoc strip).
+    const oracleFromRef = parseDocsWriteConformityOracleFingerprint(
+      typeof existingConformity.technicalResultRef === "string"
+        ? existingConformity.technicalResultRef
+        : undefined,
+    );
+    if (!oracleFromRef) {
+      return {
+        ok: false,
+        code: "DOCS_WRITE_CONFORMITY_ORACLE_FINGERPRINT_UNPARSEABLE",
+        message:
+          "Conformity Evidence technicalResultRef is not a canonical v2 oracle fingerprint.",
+      };
+    }
+    return {
+      ok: true,
+      claimEvaluation: requalified.claimEvaluation,
+      reviewBundle: requalified.reviewBundle,
+      conformityEvidence: existingConformity,
+      artifactEvidence,
+      supersededClaimEvaluationId: requalified.supersededClaimEvaluationId,
+      verifierMatchedHeadings: [],
+      oracleFingerprint: oracleFromRef,
+      reusedFromIdempotencyKey: true,
     };
   }
 
@@ -136,10 +231,9 @@ export async function completeDocsWriteClaimEvidenceCompletion(
   }
 
   // Idempotent: if conformity Evidence + successor RB + CE already exist, requalify.
-  const existingConformity = await services.evidenceReader.findById(
-    ids.conformityEvidenceId,
-  );
-  let conformityEvidence = existingConformity ?? undefined;
+  let conformityEvidence =
+    (await services.evidenceReader.findById(ids.conformityEvidenceId)) ??
+    undefined;
   if (!conformityEvidence) {
     const registered = await services.registerEvidence.execute({
       evidenceId: ids.conformityEvidenceId,

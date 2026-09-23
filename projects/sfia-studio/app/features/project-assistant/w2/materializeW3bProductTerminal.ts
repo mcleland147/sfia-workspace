@@ -20,9 +20,12 @@ import {
   missionResultEvidenceIdForAttempt,
 } from "@/features/project-assistant/f3/ingestMissionResultEvidence";
 import { requalifyDocsWriteContractResult } from "./requalifyDocsWriteContractResult";
+import { completeDocsWriteClaimEvidenceCompletion } from "./completeDocsWriteClaimEvidenceCompletion";
+import { resolveDocsWriteArtifactAbsolutePath } from "./resolveDocsWriteArtifactAbsolutePath";
 import {
   projectW3bProductTerminal,
   productReservationsForAttempt,
+  withNoraUnavailableReserve,
   type W3BProductTerminalProjection,
 } from "./w3bProductTerminalProjection";
 import {
@@ -31,6 +34,36 @@ import {
   runW3cPostEvidenceLoop,
   type W3cPostEvidenceLoopResult,
 } from "./w3cPostEvidenceLoop";
+import { resolveManagedRepoRootBaseFromEnv } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
+
+function w3cUnavailableFailure(
+  cause: unknown,
+): Extract<W3cPostEvidenceLoopResult, { ok: false }> {
+  const message =
+    cause instanceof Error && cause.message.trim()
+      ? cause.message
+      : "Analyse Nora indisponible";
+  return {
+    ok: false,
+    code: "W3C_POST_EVIDENCE_UNAVAILABLE",
+    message,
+    failClosed: true,
+  };
+}
+
+function finishWithOptionalPostEvidence(input: {
+  readonly product: W3BProductTerminalProjection;
+  readonly reusedFromIdempotency: boolean;
+  readonly postEvidence: W3cPostEvidenceLoopResult | undefined;
+}): Extract<MaterializeW3bProductTerminalResult, { ok: true }> {
+  const postOk = input.postEvidence?.ok === true;
+  return {
+    ok: true,
+    reusedFromIdempotency: input.reusedFromIdempotency,
+    product: withNoraUnavailableReserve(input.product, postOk),
+    postEvidence: input.postEvidence,
+  };
+}
 
 export type { W3BProductTerminalProjection as W3BProductOutcomeProjection };
 
@@ -143,80 +176,126 @@ async function materializeDocsWriteProductTerminal(input: {
   readonly projectId: string;
   readonly attempt: ExecutionAttempt;
   readonly contract: ExecutionContract;
+  /** Hot worktree from the just-completed docs_write launch (optional). */
+  readonly docsWriteWorktreeRef?: string | null;
 }): Promise<MaterializeW3bProductTerminalResult> {
   const services = input.oa.evidenceReviewServices!;
-  const requalified = await requalifyDocsWriteContractResult({
+  const managedRepoRootBase =
+    input.oa.executionAttemptServices?.realBoundary?.managedRepoRootBase ??
+    resolveManagedRepoRootBaseFromEnv() ??
+    null;
+
+  const segment = input.attempt.attemptId.replace(/[^a-zA-Z0-9:_-]/g, "");
+  const evidenceId = `ev:docs-write:${segment}`.slice(0, 128);
+  const artifactEvidence = await services.evidenceReader.findById(evidenceId);
+
+  const artifactAbsolutePath = resolveDocsWriteArtifactAbsolutePath({
+    attempt: input.attempt,
+    contract: input.contract,
+    evidence: artifactEvidence ?? null,
+    worktreeRef: input.docsWriteWorktreeRef,
+    managedRepoRootBase,
+  });
+
+  // Automatic Product qualification — reuse completeDocsWriteClaimEvidenceCompletion.
+  // Prefer hot worktree / managed path; restart-safe when conformity already persisted.
+  const completed = await completeDocsWriteClaimEvidenceCompletion({
     evidenceReviewServices: services,
     attempt: input.attempt,
     contract: input.contract,
     actor: LOCAL_PILOTE_ACTOR,
+    ...(artifactAbsolutePath
+      ? { artifactAbsolutePath }
+      : {}),
   });
-  if (!requalified.ok) {
-    return {
-      ok: false,
-      code: requalified.code,
-      message: requalified.message,
-    };
-  }
 
-  const segment = input.attempt.attemptId.replace(/[^a-zA-Z0-9:_-]/g, "");
-  const evidenceId = `ev:docs-write:${segment}`.slice(0, 128);
-  const evidence = await services.evidenceReader.findById(evidenceId);
+  let claimEvaluation: ClaimEvaluation;
+  let reviewBundle: ReviewBundle;
+  let evidence: Evidence | null = artifactEvidence ?? null;
+  let reusedFromIdempotency = false;
+
+  if (completed.ok) {
+    claimEvaluation = completed.claimEvaluation;
+    reviewBundle = completed.reviewBundle;
+    evidence = completed.artifactEvidence;
+    reusedFromIdempotency = Boolean(completed.reusedFromIdempotencyKey);
+  } else {
+    // Fail-closed Product claim: keep technical Attempt as-is; project from
+    // historical artifact RB (typically NOT_PROVEN without conformity).
+    const requalified = await requalifyDocsWriteContractResult({
+      evidenceReviewServices: services,
+      attempt: input.attempt,
+      contract: input.contract,
+      actor: LOCAL_PILOTE_ACTOR,
+    });
+    if (!requalified.ok) {
+      return {
+        ok: false,
+        code: completed.code,
+        message: `${completed.message} — fallback requalify: ${requalified.message}`,
+      };
+    }
+    claimEvaluation = requalified.claimEvaluation;
+    reviewBundle = requalified.reviewBundle;
+    reusedFromIdempotency = Boolean(requalified.reusedFromIdempotencyKey);
+  }
 
   const product = projectFromFacts({
     attempt: input.attempt,
     contract: input.contract,
-    evidence: evidence ?? null,
-    reviewBundle: requalified.reviewBundle,
-    claimEvaluation: requalified.claimEvaluation,
+    evidence,
+    reviewBundle,
+    claimEvaluation,
   });
 
-  const reusedFromIdempotency = Boolean(requalified.reusedFromIdempotencyKey);
+  // W3-C is best-effort after Product CE is durable — never erase a qualified
+  // Product outcome if Nora/LPS rehydrate fails; surface Pilot-facing reserve.
+  let postEvidence: W3cPostEvidenceLoopResult | undefined;
+  try {
+    if (product.evidenceId) {
+      const existing = await findExistingW3cPostEvidence({
+        oa: input.oa,
+        projectId: input.projectId,
+        evidenceId: product.evidenceId,
+        attemptId: input.attempt.attemptId,
+        product,
+      });
+      if (existing) {
+        return finishWithOptionalPostEvidence({
+          reusedFromIdempotency,
+          product,
+          postEvidence: existing,
+        });
+      }
+      const rehydrated = await rehydrateW3cPostEvidenceFromLps({
+        oa: input.oa,
+        projectId: input.projectId,
+        product,
+      });
+      if (rehydrated.ok) {
+        return finishWithOptionalPostEvidence({
+          reusedFromIdempotency,
+          product,
+          postEvidence: rehydrated,
+        });
+      }
+    }
 
-  if (product.evidenceId) {
-    const existing = await findExistingW3cPostEvidence({
+    postEvidence = await runW3cPostEvidenceLoop({
       oa: input.oa,
       projectId: input.projectId,
-      evidenceId: product.evidenceId,
       attemptId: input.attempt.attemptId,
       product,
     });
-    if (existing) {
-      return {
-        ok: true,
-        reusedFromIdempotency,
-        product,
-        postEvidence: existing,
-      };
-    }
-    const rehydrated = await rehydrateW3cPostEvidenceFromLps({
-      oa: input.oa,
-      projectId: input.projectId,
-      product,
-    });
-    if (rehydrated.ok) {
-      return {
-        ok: true,
-        reusedFromIdempotency,
-        product,
-        postEvidence: rehydrated,
-      };
-    }
+  } catch (cause) {
+    postEvidence = w3cUnavailableFailure(cause);
   }
 
-  const postEvidence = await runW3cPostEvidenceLoop({
-    oa: input.oa,
-    projectId: input.projectId,
-    attemptId: input.attempt.attemptId,
-    product,
-  });
-
-  return {
-    ok: true,
+  return finishWithOptionalPostEvidence({
     reusedFromIdempotency,
     product,
     postEvidence,
-  };
+  });
 }
 
 /** Write path — ingest Evidence + RB + Contract Result CE + project. */
@@ -227,6 +306,8 @@ export async function materializeW3bProductTerminal(input: {
   readonly claimedProductOutcome?: unknown;
   readonly cycleProfile?: unknown;
   readonly ckcId?: unknown;
+  /** Optional hot worktree from docs_write completion (same request). */
+  readonly docsWriteWorktreeRef?: string | null;
 }): Promise<MaterializeW3bProductTerminalResult> {
   void input.claimedProductOutcome;
   void input.cycleProfile;
@@ -251,6 +332,7 @@ export async function materializeW3bProductTerminal(input: {
         projectId: input.projectId,
         attempt,
         contract,
+        docsWriteWorktreeRef: input.docsWriteWorktreeRef,
       });
     }
   }
@@ -505,10 +587,7 @@ export async function rehydrateW3bProductTerminal(input: {
   if (isDocsWrite) {
     const segment = attempt.attemptId.replace(/[^a-zA-Z0-9:_-]/g, "");
     const evidenceId = `ev:docs-write:${segment}`.slice(0, 128);
-    const reviewBundleId = `rb:docs-write:${segment}`.slice(0, 128);
     evidence = (await services.evidenceReader.findById(evidenceId)) ?? null;
-    reviewBundle =
-      (await services.reviewBundleReader.findById(reviewBundleId)) ?? null;
     const resolved = await resolveCurrentContractResultClaimEvaluation({
       repo: services.claimEvaluationRepository,
       projectId: input.projectId,
@@ -523,6 +602,12 @@ export async function rehydrateW3bProductTerminal(input: {
     }
     claimEvaluation =
       resolved.status === "one" ? resolved.claimEvaluation : null;
+    // Prefer RB bound by current CE (successor after evidence-completion-v2).
+    const boundRbId =
+      claimEvaluation?.contractResultBindings?.reviewBundleId ??
+      `rb:docs-write:${segment}`.slice(0, 128);
+    reviewBundle =
+      (await services.reviewBundleReader.findById(boundRbId)) ?? null;
   } else {
     const ids = w3bEvidenceIdentity(attempt.attemptId);
     evidence = (await services.evidenceReader.findById(ids.evidenceId)) ?? null;
@@ -586,12 +671,11 @@ export async function rehydrateW3bProductTerminal(input: {
     product,
   });
 
-  return {
-    ok: true,
+  return finishWithOptionalPostEvidence({
     reusedFromIdempotency: true,
     product,
     postEvidence,
-  };
+  });
 }
 
 const TERMINAL_STATUSES = new Set([

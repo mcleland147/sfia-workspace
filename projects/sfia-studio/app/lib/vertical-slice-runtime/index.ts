@@ -39,6 +39,15 @@ export {
   SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV,
 } from "./managedRepoRootBaseConfig";
 export {
+  runStudioRuntimeProfilePreflight,
+  STUDIO_RUNTIME_PROFILE_NOT_READY,
+  STUDIO_RUNTIME_PROFILE_ENV_KEYS,
+  type StudioRuntimeProfilePreflightInput,
+  type StudioRuntimeProfilePreflightResult,
+  type StudioRuntimeProfilePreflightSections,
+  type StudioRuntimeCursorRealMode,
+} from "./studioRuntimeProfilePreflight";
+export {
   resolveBoundedReadOnlyBaseHeadSha,
   validateBaseHeadSha,
 } from "./resolveBoundedReadOnlyBaseHeadSha";

@@ -61,6 +61,29 @@ const PRODUCT_RESERVATIONS = [
   "Aucun READY",
 ] as const;
 
+/** Pilot-facing reserve when Product CE is durable but Nora/W3-C is unavailable. */
+export const NORA_ANALYSIS_UNAVAILABLE_RESERVE =
+  "Analyse Nora indisponible — aucune décision automatique prise." as const;
+
+/**
+ * CR-ARQ-03 — keep Product outcome; surface Nora unavailability as a clear reserve.
+ * Does not mutate ContractResult / CE lineage.
+ */
+export function withNoraUnavailableReserve(
+  product: W3BProductTerminalProjection,
+  postEvidenceOk: boolean | undefined,
+): W3BProductTerminalProjection {
+  if (postEvidenceOk === true) return product;
+  if (!product.evidenceId) return product;
+  if (product.reservations.includes(NORA_ANALYSIS_UNAVAILABLE_RESERVE)) {
+    return product;
+  }
+  return {
+    ...product,
+    reservations: [...product.reservations, NORA_ANALYSIS_UNAVAILABLE_RESERVE],
+  };
+}
+
 /** Honest reservation when a REAL process was durably launched (vs substitution wording). */
 export function productReservationsForAttempt(
   attempt: ExecutionAttempt,
@@ -270,6 +293,42 @@ export function projectW3bProductTerminal(input: {
       claimAllowed: true,
       governedBoundary: null,
       evidenceSummary: evidenceSummaryFor("SUCCESS", input.attempt.status),
+    };
+  }
+
+  // Succeeded Attempt + Contract Result not_proven/fail → honest Product projection
+  // (technical success preserved; no SUCCESS claim).
+  if (
+    input.attempt.status === "succeeded" &&
+    (ce.status === "not_proven" || ce.status === "fail")
+  ) {
+    const assessments = ce.expectedOutputAssessments ?? [];
+    const gaps = assessments
+      .filter((a) => a.result !== "PASS")
+      .map((a) => `${a.expectation}: ${a.result}`);
+    const produced =
+      assessments
+        .filter((a) => a.result === "PASS")
+        .map((a) => a.expectation)
+        .join(" · ") || "livrable technique enregistré";
+    const gapText =
+      gaps.length > 0
+        ? gaps.join(" · ")
+        : "critères de conformité du contrat non satisfaits";
+    return {
+      ...base,
+      outcome: ce.status === "fail" ? "FAIL" : "UNCLAIMED",
+      businessHeadline:
+        ce.status === "fail"
+          ? "Livrable non conforme"
+          : "Conformité non prouvée",
+      businessReason: `Produit : ${produced}. Écarts : ${gapText}. Aucune relance automatique.`,
+      claimAllowed: false,
+      governedBoundary: null,
+      evidenceSummary:
+        ce.status === "fail"
+          ? evidenceSummaryFor("FAIL", input.attempt.status)
+          : "Evidence artifact présente — conformité Contract Result non prouvée.",
     };
   }
 
