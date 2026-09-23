@@ -1,102 +1,114 @@
 # PRODUCT-JOURNEY-REAL-BEHAVIOR-REPROOF-01
-# FINAL MISSION EVIDENCE PROVENANCE HARDENING
-# PR #512 — ZERO REAL
+# PR #512 MORRIS MERGE + POST-MERGE VERIFICATION
+# ZERO REAL
 
 ## 1. Timestamp
-2026-09-23T13:24:00+02:00 (Europe/Paris local hardening close)
+2026-09-23T13:46:00+02:00 (Europe/Paris) — post-merge verification close
+mergedAt (GitHub): 2026-09-23T11:39:01Z
 
-## 2. Git Truth
+## 2. Morris merge GO
+GO Morris MERGE PR #512 / PRODUCT-JOURNEY-REAL-BEHAVIOR-REPROOF-01
+— **CONSUMED**
+
+## 3. SAME MACRO / NO MICRO-CYCLE
+Same macro PRODUCT-JOURNEY-REAL-BEHAVIOR-REPROOF-01.
+No micro-cycle. Merge commit + post-merge verification + Review Handoff only.
+
+## 4. Local Git Truth (before merge)
 - Workspace: `/Users/morris/Projects/sfia-workspace`
 - Branch: `fix/sfia-studio-product-journey-real-behavior-readiness-01`
-- Pre-hardening HEAD: `89ef9be9e35958d8bf951bbd602fe17a025c290a`
-- origin/main: `8f53d724813afdc027c18898467c465abc3ca3db`
-- PR #512: OPEN, NON MERGED
-- Only `.tmp-sfia-review/chatgpt-review.md` dirty outside scope
+- HEAD: `7b3b9b73c332d321d7ec4186b114d0bfd78fc975`
+- Staged: empty
+- Project dirty: none (only `.tmp-sfia-review/chatgpt-review.md`)
 
-## 3. Morris final hardening GO
-GO Morris final Mission Evidence provenance hardening — same PR #512
-— **CONSUMED** (same macro / no micro-cycle).
+## 5. Source SHAs
+- Branch: `fix/sfia-studio-product-journey-real-behavior-readiness-01`
+- Reviewed head: `7b3b9b73c332d321d7ec4186b114d0bfd78fc975`
 
-## 4. SAME MACRO / NO MICRO-CYCLE
-PRODUCT-JOURNEY-REAL-BEHAVIOR-REPROOF-01 Delivery B1+B2+B3+B4.
-No new micro-cycle. Third project commit on same branch/PR only.
+## 6. Pre-merge main
+`8f53d724813afdc027c18898467c465abc3ca3db`
 
-## 5. Sources
-- cycle execution template / routing guide / convergence doctrine+roadmap / cadrage
-- sfia-v3-framing 34 + 36 (read-only)
-- `missionResultContractResultSemantic.ts`
-- `ingestExecutionAttemptEvidence.ts` / `ingestMissionResultEvidence.ts`
-- prior Review Handoff `93c40b6b` / blob `b55bf763`
+## 7. Pre-merge PR head
+`7b3b9b73c332d321d7ec4186b114d0bfd78fc975`
 
-## 6. Prior final-review blocker
-`missionResultEvidenceFactsHold()` accepted:
-- `sourceKind != execution_attempt` IF `source === MISSION_RESULT_EVIDENCE_SOURCE`
-- missing `technicalResultRef` (only mismatched non-null refs refused)
-- missing EC binding (only mismatched present EC refused)
+## 8. PR pre-merge state
+- #512 OPEN
+- mergeable = MERGEABLE
+- mergeStateStatus = CLEAN
+- mergedAt = null
+- URL: https://github.com/mcleland147/sfia-workspace/pull/512
 
-## 7. Old permissive sourceKind logic
-`sourceKind !== "execution_attempt" && source !== MISSION_RESULT_EVIDENCE_SOURCE`
-→ legacy label could authorize PASS for `external` Evidence.
+## 9. Required pre-merge checks
+CI `35854418638`:
+- Detect SFIA Studio changes = SUCCESS
+- Build and validate SFIA Studio = SUCCESS
+- SFIA Studio Required Gate = SUCCESS
 
-## 8. New exact sourceKind requirement
-**P1:** `e.sourceKind === "execution_attempt"` (mandatory).
-`MISSION_RESULT_EVIDENCE_SOURCE` remains exported for identity/diagnostics only — **not PASS authority**.
+## 10. Merge method
+MERGE COMMIT (repo precedent PR #511). No squash. No rebase. No `--delete-branch`.
 
-## 9. provenance.source requirement
-**P2:** `e.provenance.source === "execution_adapter"` (exact).
-No actor role/name authority.
+## 11. Exact merge command
+`gh pr merge 512 --merge`
 
-## 10. technicalResultRef exact requirement
-**P5/P6:** Attempt.resultRef non-empty; `e.technicalResultRef === attempt.resultRef` (exact).
-Missing or wrong → fail.
+## 12. Merge result
+exit status = 0 (accepted by GitHub)
 
-## 11. EC binding exact requirement
-**P3/P4:** Attempt binding exact; `e.bindings.executionContractId === attempt.executionContractId` (exact; missing fails).
+## 13. mergedAt
+`2026-09-23T11:39:01Z`
+PR state after merge = **MERGED**
 
-## 12. Positive Mission Evidence invariant
-Canonical IngestExecutionAttemptEvidence path still satisfies P1–P11 + verified + digest + payload Attempt/EC + no forbidden effects → PASS.
+## 14. MERGE_SHA
+`2543a5bb9f62a23863ec4e74928ac6fc1a6b542a`
 
-## 13. External spoof negative
-**P-N1:** `sourceKind=external` + `source=MISSION_RESULT_EVIDENCE_SOURCE` → EO NOT_PROVEN / ER not SATISFIED / no ContractResult PASS.
+## 15. Merge parents
+Exactly two parents:
+- parent 1 = `8f53d724813afdc027c18898467c465abc3ca3db` (pre-merge main)
+- parent 2 = `7b3b9b73c332d321d7ec4186b114d0bfd78fc975` (reviewed PR head)
 
-## 14. Missing technicalResultRef negative
-**P-N2:** PASS.
+Message:
+`Merge pull request #512 from mcleland147/fix/sfia-studio-product-journey-real-behavior-readiness-01`
 
-## 15. Wrong technicalResultRef negative
-**P-N3:** PASS.
+## 16. origin/main post-merge
+`2543a5bb9f62a23863ec4e74928ac6fc1a6b542a` — **MATCH MERGE_SHA**
 
-## 16. Wrong provenance negative
-**P-N4:** `provenance.source=human_decision` → no PASS.
+## 17. Tree equality result
+`git diff --exit-code 7b3b9b73… 2543a5bb…` → exit 0
+Merged tree **exactly equals** reviewed PR head tree.
 
-## 17. Missing/wrong EC binding negatives
-**P-N5 / P-N6:** PASS.
+## 18. Integrated diff verification
+`git diff --stat 8f53d724… 2543a5bb…`:
+21 files changed, 3329 insertions(+), 42 deletions(-)
+Reviewed PR set only (mission semantic, Evidence chain, readiness, adapters, E2E/tests).
+No unexpected merge-only source change.
 
-## 18. Positive E2E
-`productMissionEvidenceChain.e2e.d0.test.ts` PASS with strengthened assertions:
-- `sourceKind === execution_attempt`
-- `provenance.source === execution_adapter`
-- `technicalResultRef === Attempt.resultRef`
-- EC/Attempt bindings exact
-- CE pass → Product SUCCESS → postEvidence.ok → launch count 1
+## 19. Source branch preservation
+`git ls-remote --heads origin fix/sfia-studio-product-journey-real-behavior-readiness-01`
+→ `7b3b9b73c332d321d7ec4186b114d0bfd78fc975`
+**Branch NOT deleted.**
 
-## 19. B2 non-regression
-`productGenericCursorCompletion.d0.test.ts` PASS — unchanged behavior.
+## 20. Local main / worktree state
+- Current workspace remains on source branch `fix/sfia-studio-product-journey-real-behavior-readiness-01` @ `7b3b9b73…`
+- Multiple worktrees exist; local `main` not force-switched (remote truth used)
+- `.tmp-sfia-review` preserved
+- Handoff worktree: `/Users/morris/Projects/sfia-workspace/sfia-review-handoff`
 
-## 20. B3 non-regression
-`evaluateProductRealReadiness.d0.test.ts` PASS — ManagedProjectRepositoryResolver + containment unchanged.
+## 21. Post-merge CI run ID
+`35855766415`
+https://github.com/mcleland147/sfia-workspace/actions/runs/35855766415
+event = push to main @ MERGE_SHA
 
-## 21. B4 non-regression
-auth.state EXTERNAL_PREFLIGHT_REQUIRED; proven=false; readyForProductRealExecute=false. No auth call.
+## 22. Post-merge CI jobs
+- Detect SFIA Studio changes = **SUCCESS**
+- Build and validate SFIA Studio = **SUCCESS**
+- SFIA Studio Required Gate = **SUCCESS**
 
-## 22. Targeted tests
-mission semantic + E2E + B2 + B3: **40 PASS**
-ContractResult registry / W3-A / PCONT / import boundaries: PASS
-
-## 23. Full npm test
-**401 files PASS / 4480 tests PASS / 137 skipped** (was 4474; +6 provenance negatives)
+## 23. Post-merge Vitest totals
+401 test files passed | 17 skipped
+**4480 tests passed** | 137 skipped
+0 failed
 
 ## 24. Typecheck
-PASS
+PASS (post-merge Build job)
 
 ## 25. Lint
 PASS
@@ -104,48 +116,71 @@ PASS
 ## 26. Build
 PASS
 
-## 27. Diff-check
-project files clean (review pack local only under `.tmp-sfia-review/**`)
+## 27. Governance checks
+Modeled governance PASS; secret scan PASS; trailing whitespace PASS
 
-## 28. ZERO REAL
-`SFIA_STUDIO_CURSOR_REAL` unset; no REAL process/provider/auth; no Batch Cookinb mutation; REAL budget 1/0 UNUSED.
+## 28. B1 Mission Evidence invariant preserved
+On main:
+- Mission Result Semantic in Result Semantics Registry
+- PASS requires sourceKind=execution_attempt, provenance.source=execution_adapter,
+  Attempt/EC bindings exact, technicalResultRef=Attempt.resultRef, verified + digest integrity
+- Mission Evidence included in frozen W3-B RB evaluated by ContractResult
+- Product deterministic E2E: Complete → verified Mission Evidence → CE pass → Product SUCCESS → W3-C
 
-## 29. Batch Cookinb RO
-DB: `projects/sfia-studio/.sfia-exec/pwr-dpc09-real-reproof-01/product/oa-product.sqlite`
-Project present; legacy EC status validated; **no mutation**.
+## 29. B2 generic completion invariant preserved
+Complete → completeBoundedReadOnlyLaunch → awaitIfPending → governed terminal.
+CURSOR_REPORT_PENDING preserved for non-blocking path.
 
-## 30. Legacy fingerprint
-`ca296bb5609fb21edc19b75b64013a9020fef3097a81ee116a149c7ede20ccac` — MATCH
+## 30. B3 managed resolver invariant preserved
+ManagedProjectRepositoryResolver canonical; pathRoot containment fail-closed; no parallel sanitizer.
 
-## 31. Legacy attempts
-**0** — MATCH
+## 31. B4 auth state preserved
+auth.state = EXTERNAL_PREFLIGHT_REQUIRED; auth.proven = false; readyForProductRealExecute = false.
 
-## 32. Final diff
-Production: `missionResultContractResultSemantic.ts` only.
-Tests: semantic P-N1..P-N6 + E2E provenance assertions.
+## 32. ZERO REAL
+SFIA_STUDIO_CURSOR_REAL unset.
+No Product REAL Execute.
+No Cursor REAL process.
+No Cursor auth/provider call.
+No successor Batch Cookinb EC.
+No new REAL Attempt.
 
-## 33. Third commit SHA
-`7b3b9b73c332d321d7ec4186b114d0bfd78fc975`
-
-## 34. Remote head
-`7b3b9b73c332d321d7ec4186b114d0bfd78fc975`
-
-## 35. CI
-Run `35854418638` — Detect / Build and validate / Required Gate — all **SUCCESS**
-(typecheck, lint, build, Vitest, modeled governance, secret scan, whitespace)
-
-## 36. Remaining gaps
-- Cursor REAL / auth not proven
-- DETERMINISTIC PRE-REAL ≠ READY FOR REAL
-- Merge not authorized without new Morris GO
-
-## 37. REAL budget
+## 33. REAL budget unused
 1 spawn / 0 retry — **UNUSED**
 
-## 38. Verdict
-**PRODUCT-JOURNEY-REAL-BEHAVIOR-REPROOF-01 FINAL PROVENANCE HARDENING COMPLETE —**
-**MISSION EVIDENCE STRICTLY BOUND TO EXECUTION ATTEMPT —**
-**PR #512 GREEN —**
-**READY FOR CHATGPT FINAL PR REVIEW —**
-**ZERO REAL —**
-**MERGE NOT AUTHORIZED**
+## 34. Product Journey state
+**PAUSED**
+
+## 35. Runtime v3 state
+**NON ADOPTED**
+
+## 36. Remaining gap = REAL/auth proof
+- Cursor auth not proven
+- DETERMINISTIC PRE-REAL readiness integrated ≠ READY FOR REAL EXECUTION
+- Separate Morris REAL gate required before any spawn
+
+## 37. Forbidden actions respected
+No branch deletion, squash, rebase, amend, force push, functional patch, REAL, provider/auth,
+SFIA_STUDIO_CURSOR_REAL=1, Batch Cookinb mutation, doctrine/roadmap/framing edits, runtime v3 promotion.
+
+## 38. Source branch NOT deleted
+Confirmed remote head still `7b3b9b73…`
+
+## 39. Verdict
+**PRODUCT-JOURNEY-REAL-BEHAVIOR-REPROOF-01 PR #512 MERGED —**
+**MAIN POST-MERGE VERIFIED —**
+**DETERMINISTIC PRE-REAL READINESS INTEGRATED —**
+**SOURCE BRANCH PRESERVED —**
+**ZERO REAL**
+
+### Claims allowed
+- PR #512 INTEGRATED ON MAIN
+- DETERMINISTIC PRE-REAL READINESS INTEGRATED
+- POST-MERGE CI VERIFIED
+
+### Claims forbidden
+- REAL PROVEN
+- CURSOR AUTH PROVEN
+- READY FOR REAL EXECUTION
+- Product Journey COMPLETE
+- runtime v3 ADOPTED
