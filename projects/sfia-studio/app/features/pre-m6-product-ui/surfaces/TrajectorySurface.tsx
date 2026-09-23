@@ -2874,17 +2874,19 @@ export function TrajectorySurface({
           ) : null}
           <p className={styles.blockNote} data-testid="w3a-terminal-honesty">
             {productOutcome?.claimAllowed
-              ? "Terminal technique consommé — résultat produit qualifié ci-dessous."
-              : productEvidencePending
-                ? "Terminal technique — Evidence en cours / claim produit non encore émis."
-                : "Terminal technique — résultat produit non encore qualifié."}
+              ? "Exécution terminée — résultat produit qualifié ci-dessous."
+              : productOutcome
+                ? "Exécution terminée — résultat produit évalué (voir conformité et recommandation)."
+                : productEvidencePending
+                  ? "Exécution terminée — qualification produit en cours…"
+                  : "Exécution terminée — résultat produit en attente de matérialisation."}
           </p>
           {productEvidencePending ? (
             <p
               className={styles.blockNote}
               data-testid="w3b-evidence-pending"
             >
-              Evidence requise avant tout claim de résultat produit.
+              Qualification automatique du résultat en cours (Evidence / conformité).
             </p>
           ) : null}
           {attempt?.attemptId && !productOutcome ? (
@@ -3021,6 +3023,15 @@ export function TrajectorySurface({
                 </button>
               ) : null}
             </section>
+          ) : productOutcome.claimEvaluationId &&
+            (!postEvidence || !postEvidence.ok) ? (
+            <p
+              className={styles.blockNote}
+              data-testid="w3c-nora-unavailable-reserve"
+              role="status"
+            >
+              Analyse Nora indisponible — aucune décision automatique prise.
+            </p>
           ) : null}
           <details className={styles.technicalDetails}>
             <summary data-testid="w3b-technical-details-toggle">
