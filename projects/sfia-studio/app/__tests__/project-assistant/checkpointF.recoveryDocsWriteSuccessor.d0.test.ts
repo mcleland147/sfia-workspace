@@ -39,6 +39,7 @@ import {
   currentF2Context,
   seedQualifiedProject,
   tempProductDbPath,
+  W2_TEST_PINNED_BASE_HEAD_SHA,
 } from "./w2Harness";
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
 
@@ -447,6 +448,7 @@ describe("R8 — prepare recovery docs_write successor (durable)", () => {
       currentContext: context,
       qualifiedOperationKind: "generate-temporary-artifact",
       forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
     expect(wrong.ok).toBe(true);
     if (!wrong.ok) return;

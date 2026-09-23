@@ -22,15 +22,25 @@ export type ContractResultEvidenceSelection = {
   readonly incompleteReason?: string;
 };
 
+/**
+ * Fields available to Result Semantic applicability / dispatch.
+ * Reuses ExecutionContractSemanticMaterial — no parallel DTO.
+ * HOW (quartet) + WHAT (EO/ER) may both participate in dispatch.
+ */
+export type ContractResultSemanticApplicabilityMaterial = Pick<
+  ExecutionContractSemanticMaterial,
+  | "action"
+  | "target"
+  | "scope"
+  | "requiredCapabilities"
+  | "expectedOutputs"
+  | "evidenceRequirements"
+>;
+
 export type ContractResultSemantic = {
   readonly id: string;
   readonly ruleRef: string;
-  isApplicable(
-    material: Pick<
-      ExecutionContractSemanticMaterial,
-      "action" | "requiredCapabilities"
-    >,
-  ): boolean;
+  isApplicable(material: ContractResultSemanticApplicabilityMaterial): boolean;
   /** Select Evidence ids from frozen snapshots only — AND semantics */
   selectEvidenceIds(input: {
     material: ExecutionContractSemanticMaterial;
@@ -66,13 +76,7 @@ export type ResolveApplicableContractResultSemanticsResult =
   | { status: "ambiguous"; ruleRefs: string[] };
 
 export function resolveApplicableContractResultSemantics(
-  material: Pick<
-    ExecutionContractSemanticMaterial,
-    | "action"
-    | "requiredCapabilities"
-    | "evidenceRequirements"
-    | "expectedOutputs"
-  >,
+  material: ContractResultSemanticApplicabilityMaterial,
 ): ResolveApplicableContractResultSemanticsResult {
   const matches = CONTRACT_RESULT_SEMANTICS.filter((s) =>
     s.isApplicable(material),
@@ -93,10 +97,7 @@ export type ApplicableContractResultRule =
   | { readonly applicable: false; readonly ruleRef: null };
 
 export function resolveApplicableContractResultRule(
-  material: Pick<
-    ExecutionContractSemanticMaterial,
-    "action" | "requiredCapabilities" | "evidenceRequirements" | "expectedOutputs"
-  >,
+  material: ContractResultSemanticApplicabilityMaterial,
 ): ApplicableContractResultRule {
   const resolved = resolveApplicableContractResultSemantics(material);
   if (resolved.status === "one") {

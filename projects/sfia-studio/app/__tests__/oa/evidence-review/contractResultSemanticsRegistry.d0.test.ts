@@ -34,6 +34,10 @@ import type { ExecutionContract } from "@/lib/oa/execution-contract";
 import {
   computeExecutionContractSemanticMaterialFingerprint,
   executionContractSemanticMaterial,
+  STUDIO_CURSOR_GENERALIST_ACTION,
+  STUDIO_CURSOR_GENERALIST_CAPABILITY,
+  STUDIO_CURSOR_GENERALIST_SCOPE,
+  STUDIO_CURSOR_GENERALIST_TARGET,
 } from "@/lib/oa/execution-contract";
 import { captureBoundExecutionContractSnapshot } from "@/lib/oa/execution-attempt/domain/boundExecutionContract";
 import {
@@ -387,6 +391,8 @@ describe("Contract Result Semantics Registry (T1–T20)", () => {
     // registry (disjoint actions). Instead assert the fail path via direct status.
     const ambiguous = resolveApplicableContractResultSemantics({
       action: "product:generate-temporary-artifact",
+      target: "product:project-workspace",
+      scope: "product:temporary-local-artifact",
       requiredCapabilities: ["cap:product-temp-artifact"],
       evidenceRequirements: [],
       expectedOutputs: [],
@@ -1091,5 +1097,194 @@ describe("Contract Result Semantics Registry (T1–T20)", () => {
     });
     expect(services.evaluateContractResult).toBeInstanceOf(EvaluateContractResult);
     expect(services.evidenceReader).toBeDefined();
+  });
+});
+
+/* -------------------------------------------------------------------------- */
+/* PJ-REPROOF-05 Cause E — generic Product Cursor ↔ temp-artifact CE bridge   */
+/* -------------------------------------------------------------------------- */
+
+function genericProductTempContract(
+  overrides: Partial<ExecutionContract> = {},
+): ExecutionContract {
+  return tempContract({
+    executionContractId: "xct:reg:generic-temp",
+    action: STUDIO_CURSOR_GENERALIST_ACTION,
+    target: STUDIO_CURSOR_GENERALIST_TARGET,
+    scope: STUDIO_CURSOR_GENERALIST_SCOPE,
+    requiredCapabilities: [STUDIO_CURSOR_GENERALIST_CAPABILITY],
+    evidenceRequirements: [W3B_TEMP_ARTIFACT_ER_KEY],
+    expectedOutputs: [W3B_TEMP_ARTIFACT_EO_TEMPLATE],
+    idempotencyKey: "idem:ec:reg:generic-temp",
+    correlationId: "cor:ec:reg:generic-temp",
+    ...overrides,
+  });
+}
+
+describe("PJ-REPROOF-05 Cause E — generic Product temp-artifact CE bridge", () => {
+  it("T-LEGACY-1 — legacy product:* + cap:product-temp-artifact → one temp-artifact", () => {
+    const material = executionContractSemanticMaterial(tempContract());
+    const r = resolveApplicableContractResultSemantics(material);
+    expect(r.status).toBe("one");
+    if (r.status === "one") {
+      expect(r.semantic.id).toBe("temp-artifact");
+      expect(r.semantic.ruleRef).toBe(W3B_TEMP_ARTIFACT_RULE_REF);
+    }
+  });
+
+  it("T-GENERIC-1 — exact generalist quartet + EO/ER temp → one temp-artifact", () => {
+    const material = executionContractSemanticMaterial(genericProductTempContract());
+    const r = resolveApplicableContractResultSemantics(material);
+    expect(r.status).toBe("one");
+    if (r.status === "one") {
+      expect(r.semantic.id).toBe("temp-artifact");
+      expect(r.semantic.ruleRef).toBe(W3B_TEMP_ARTIFACT_RULE_REF);
+    }
+  });
+
+  it("T-GENERIC-2 — generalist quartet + EO temp without ER → none", () => {
+    const material = executionContractSemanticMaterial(
+      genericProductTempContract({ evidenceRequirements: [] }),
+    );
+    expect(resolveApplicableContractResultSemantics(material).status).toBe(
+      "none",
+    );
+  });
+
+  it("T-GENERIC-3 — generalist quartet + ER temp without EO → none", () => {
+    const material = executionContractSemanticMaterial(
+      genericProductTempContract({ expectedOutputs: [] }),
+    );
+    expect(resolveApplicableContractResultSemantics(material).status).toBe(
+      "none",
+    );
+  });
+
+  it("T-GENERIC-4 — generalist quartet + unrelated EO/ER → none", () => {
+    const material = executionContractSemanticMaterial(
+      genericProductTempContract({
+        expectedOutputs: ["Résultat d'exécution — other-mission"],
+        evidenceRequirements: ["evreq:other-mission"],
+      }),
+    );
+    expect(resolveApplicableContractResultSemantics(material).status).toBe(
+      "none",
+    );
+  });
+
+  it("T-GENERIC-5 — generic temp + succeeded + valid resultRef → EO PASS / ER SATISFIED / pass", () => {
+    const c = genericProductTempContract();
+    const material = executionContractSemanticMaterial(c);
+    const evidence = makeTempEvidence("xat:reg:generic-1");
+    evidence.bindings.executionContractId = c.executionContractId;
+    const attempt = {
+      attemptId: "xat:reg:generic-1",
+      executionContractId: c.executionContractId,
+      executionContractVersion: 1,
+      executionContractSemanticFingerprint: c.semanticFingerprint as string,
+      status: "succeeded" as const,
+      resultRef: "res:w3a:abc123",
+    };
+    const snap = [
+      {
+        evidenceId: evidence.evidenceId,
+        evidenceVersion: 1,
+        status: "available",
+        availability: "available",
+      },
+    ];
+    const eo = assessExpectedOutputs({
+      semanticMaterial: material,
+      semanticFingerprint: c.semanticFingerprint as string,
+      attempt,
+      evidences: [evidence],
+      evaluatedAt: NOW,
+      frozenEvidenceSnapshots: snap,
+    });
+    const er = assessEvidenceRequirements({
+      semanticMaterial: material,
+      semanticFingerprint: c.semanticFingerprint as string,
+      attempt,
+      evidences: [evidence],
+      evaluatedAt: NOW,
+      frozenEvidenceSnapshots: snap,
+    });
+    expect(eo[0]?.result).toBe("PASS");
+    expect(er[0]?.result).toBe("SATISFIED");
+    expect(
+      deriveCanonicalContractResultStatus({
+        attemptStatus: "succeeded",
+        expectedOutputAssessments: eo,
+        evidenceRequirementAssessments: er,
+      }),
+    ).toBe("pass");
+  });
+
+  it("T-GENERIC-6 — generic temp with resultRef mismatch → NOT_PROVEN / NOT_SATISFIED", () => {
+    const c = genericProductTempContract();
+    const material = executionContractSemanticMaterial(c);
+    const evidence = makeTempEvidence("xat:reg:generic-2");
+    evidence.technicalResultRef = "res:w3a:abc123";
+    const attempt = {
+      attemptId: "xat:reg:generic-2",
+      executionContractId: c.executionContractId,
+      executionContractVersion: 1,
+      executionContractSemanticFingerprint: c.semanticFingerprint as string,
+      status: "succeeded" as const,
+      resultRef: "res:w3a:deadbeef",
+    };
+    const snap = [
+      {
+        evidenceId: evidence.evidenceId,
+        evidenceVersion: 1,
+        status: "available",
+        availability: "available",
+      },
+    ];
+    const eo = assessExpectedOutputs({
+      semanticMaterial: material,
+      semanticFingerprint: c.semanticFingerprint as string,
+      attempt,
+      evidences: [evidence],
+      evaluatedAt: NOW,
+      frozenEvidenceSnapshots: snap,
+    });
+    const er = assessEvidenceRequirements({
+      semanticMaterial: material,
+      semanticFingerprint: c.semanticFingerprint as string,
+      attempt,
+      evidences: [evidence],
+      evaluatedAt: NOW,
+      frozenEvidenceSnapshots: snap,
+    });
+    expect(eo[0]?.result).toBe("NOT_PROVEN");
+    expect(er[0]?.result).toBe("NOT_SATISFIED");
+  });
+
+  it("T-DOCS-1 — docs_write still resolves exactly its semantic", () => {
+    const material = executionContractSemanticMaterial(docsWriteContract());
+    const r = resolveApplicableContractResultSemantics(material);
+    expect(r.status).toBe("one");
+    if (r.status === "one") {
+      expect(r.semantic.ruleRef).toBe(DOCS_WRITE_CONTRACT_RESULT_RULE_REF);
+      expect(r.semantic.id).toBe("docs-write");
+    }
+  });
+
+  it("T-AMBIGUITY — standard materials never match temp-artifact + docs_write together", () => {
+    for (const c of [
+      tempContract(),
+      genericProductTempContract(),
+      docsWriteContract(),
+    ]) {
+      const material = executionContractSemanticMaterial(c);
+      const matches = CONTRACT_RESULT_SEMANTICS.filter((s) =>
+        s.isApplicable(material),
+      );
+      expect(matches.length).toBe(1);
+      expect(
+        resolveApplicableContractResultSemantics(material).status,
+      ).not.toBe("ambiguous");
+    }
   });
 });

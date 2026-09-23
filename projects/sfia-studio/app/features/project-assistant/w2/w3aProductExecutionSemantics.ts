@@ -15,7 +15,13 @@
 
 import type { DecisionBasis } from "@/lib/oa/decision";
 import type { AuthorityClass, Reversibility } from "@/lib/oa/execution-contract";
-import { EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED } from "@/lib/oa/execution-contract";
+import {
+  EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED,
+  STUDIO_CURSOR_GENERALIST_ACTION,
+  STUDIO_CURSOR_GENERALIST_CAPABILITY,
+  STUDIO_CURSOR_GENERALIST_SCOPE,
+  STUDIO_CURSOR_GENERALIST_TARGET,
+} from "@/lib/oa/execution-contract";
 import type { ProductMissionFields } from "./deriveActualExecutionWorkFromProductContext";
 import {
   BOUNDED_OPTION_REF,
@@ -36,12 +42,6 @@ import {
   deriveReversibilityFromEffects,
 } from "./w3aQualifiedExecutionEffects";
 import { filterTrajectoryNonExecuteStopsFromEc } from "./resolveProductExecutionEligibility";
-import {
-  STUDIO_CURSOR_GENERALIST_ACTION,
-  STUDIO_CURSOR_GENERALIST_CAPABILITY,
-  STUDIO_CURSOR_GENERALIST_SCOPE,
-  STUDIO_CURSOR_GENERALIST_TARGET,
-} from "@/lib/oa/execution-attempt/infrastructure/studioCursorGeneralistAgent";
 
 /** Implementation / provenance marker — NOT authority-bearing scope. */
 export const W3A_IMPLEMENTATION_MARKER =

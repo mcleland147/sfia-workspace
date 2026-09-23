@@ -42,7 +42,10 @@ import {
   cleanupW2TempDirs,
   currentF2Context,
   seedQualifiedProject,
+  settleDeterministicProductCursorFailure,
+  settleDeterministicProductCursorSuccess,
   tempProductDbPath,
+  W2_TEST_PINNED_BASE_HEAD_SHA,
 } from "./w2Harness";
 
 beforeEach(() => {
@@ -122,6 +125,7 @@ async function authorizeTempArtifact(suffix: string, dbPath?: string) {
     currentContext: context,
     forceLocalAuthority: true,
     qualifiedOperationKind: "generate-temporary-artifact",
+    pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
   });
   expect(prepared.ok).toBe(true);
   if (!prepared.ok) throw new Error(prepared.code);
@@ -152,10 +156,6 @@ async function authorizeTempArtifact(suffix: string, dbPath?: string) {
 async function materializeFail(
   ctx: Awaited<ReturnType<typeof authorizeTempArtifact>>,
 ) {
-  armW3bBoundary({
-    kind: "adapter_fail",
-    reason: "adapter_unavailable",
-  });
   const selected = await governedExecuteSelectAgent({
     oa: ctx.oa,
     projectId: ctx.seeded.projectId,
@@ -173,7 +173,14 @@ async function materializeFail(
   });
   expect(started.ok).toBe(true);
   if (!started.ok) throw new Error(started.code);
-  expect(started.attemptStatus).toBe("failed");
+  expect(started.phase).toBe("running");
+  const failed = await settleDeterministicProductCursorFailure({
+    oa: ctx.oa,
+    attemptId: started.attemptId,
+  });
+  expect(failed.ok).toBe(true);
+  if (!failed.ok) throw new Error(failed.code);
+  expect(failed.attempt.status).toBe("failed");
   const materialized = await materializeProductOutcomeFromAttempt({
     oa: ctx.oa,
     projectId: ctx.seeded.projectId,
@@ -326,6 +333,12 @@ describe("R7 — durable RecoveryContext integration", () => {
     });
     expect(started.ok).toBe(true);
     if (!started.ok) return;
+    const settled = await settleDeterministicProductCursorSuccess({
+      oa: ctx.oa,
+      attemptId: started.attemptId,
+    });
+    expect(settled.ok).toBe(true);
+    if (!settled.ok) return;
     const { governedExecuteRecordResult } = await import(
       "@/features/project-assistant/w2/governedExecuteAuthorizedContract"
     );

@@ -36,6 +36,12 @@ export {
   type ProductExecutionEligibilityReasonCode,
 } from "./domain/resolveProductExecutionEligibility";
 export {
+  STUDIO_CURSOR_GENERALIST_ACTION,
+  STUDIO_CURSOR_GENERALIST_CAPABILITY,
+  STUDIO_CURSOR_GENERALIST_SCOPE,
+  STUDIO_CURSOR_GENERALIST_TARGET,
+} from "./domain/generalistExecutionSurface";
+export {
   computeExecutionContractSemanticFingerprint,
   computeExecutionContractSemanticMaterialFingerprint,
   executionContractSemanticMaterial,
