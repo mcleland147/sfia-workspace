@@ -7,6 +7,7 @@ import type { ExecutionContractSemanticMaterial } from "@/lib/oa/execution-contr
 import type { Evidence, ExecutionAttemptSnapshot } from "../domain/types";
 import type { ReviewBundleEvidenceSnapshot } from "../domain/reviewBundleTypes";
 import { docsWriteContractResultSemantic } from "./docsWriteContractResultSemantic";
+import { missionResultContractResultSemantic } from "./missionResultContractResultSemantic";
 import {
   tempArtifactContractResultSemantic,
   W3B_TEMP_ARTIFACT_RULE_REF,
@@ -25,7 +26,9 @@ export type ContractResultEvidenceSelection = {
 /**
  * Fields available to Result Semantic applicability / dispatch.
  * Reuses ExecutionContractSemanticMaterial — no parallel DTO.
- * HOW (quartet) + WHAT (EO/ER) may both participate in dispatch.
+ * HOW (quartet) + WHAT (EO/ER) + constraints may participate in dispatch.
+ * `constraints` optional for callers that only supply HOW/WHAT (fail-closed
+ * mission semantic treats missing constraints as empty).
  */
 export type ContractResultSemanticApplicabilityMaterial = Pick<
   ExecutionContractSemanticMaterial,
@@ -35,7 +38,9 @@ export type ContractResultSemanticApplicabilityMaterial = Pick<
   | "requiredCapabilities"
   | "expectedOutputs"
   | "evidenceRequirements"
->;
+> & {
+  readonly constraints?: ExecutionContractSemanticMaterial["constraints"];
+};
 
 export type ContractResultSemantic = {
   readonly id: string;
@@ -68,6 +73,7 @@ export type ContractResultSemantic = {
 export const CONTRACT_RESULT_SEMANTICS: readonly ContractResultSemantic[] = [
   tempArtifactContractResultSemantic,
   docsWriteContractResultSemantic,
+  missionResultContractResultSemantic,
 ];
 
 export type ResolveApplicableContractResultSemanticsResult =

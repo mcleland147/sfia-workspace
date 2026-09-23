@@ -554,6 +554,8 @@ export async function w2GovernedExecuteCompleteAction(input: {
     canActAsMorris: input.canActAsMorris,
     authorityReceiptRef: input.authorityReceiptRef,
     real: input.real,
+    // Product Complete — await REAL pending spawn-ACK to terminal (docs_write parity).
+    awaitIfPending: true,
   });
 }
 

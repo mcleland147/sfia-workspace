@@ -85,6 +85,15 @@ export type CursorExecutionReport = {
   authorizedEffectsExecuted: CursorAuthorizedEffectId[];
   /** Protected effects not yet authorized — Cursor stopped. */
   stoppedBeforeEffects?: CursorAuthorizedEffectId[];
+  /**
+   * Optional structured mission/diagnostic claim (additive).
+   * NOT Evidence — must be validated and persisted as MissionResultPayload.
+   */
+  missionResult?: {
+    diagnosticSummary: string;
+    recommendedNextProductStep: string;
+    inspectedDurableTrace?: string;
+  };
 };
 
 export function mintCursorExecutionReportId(input: {
@@ -137,6 +146,9 @@ export function bindCursorExecutionReportToAttempt(input: {
   readonly expectedExecutionContractId: string;
   /** Optional: Attempt's bound contract id when loaded from store. */
   readonly attemptExecutionContractId?: string | null;
+  /** Optional trusted launch correspondence (generic Product REAL). */
+  readonly expectedRepositoryRef?: string | null;
+  readonly expectedBaseSha?: string | null;
 }):
   | { readonly ok: true }
   | { readonly ok: false; readonly code: string; readonly message: string } {
@@ -172,6 +184,28 @@ export function bindCursorExecutionReportToAttempt(input: {
       code: "REPORT_ATTEMPT_CONTRACT_MISMATCH",
       message:
         "Attempt.executionContractId ≠ report.executionContractId — correspondance refusée.",
+    };
+  }
+  if (
+    input.expectedRepositoryRef != null &&
+    input.expectedRepositoryRef.trim() !== "" &&
+    report.repositoryRef !== input.expectedRepositoryRef
+  ) {
+    return {
+      ok: false,
+      code: "REPORT_REPOSITORY_MISMATCH",
+      message: "report.repositoryRef ≠ trusted repository identity.",
+    };
+  }
+  if (
+    input.expectedBaseSha != null &&
+    input.expectedBaseSha.trim() !== "" &&
+    report.baseSha !== input.expectedBaseSha
+  ) {
+    return {
+      ok: false,
+      code: "REPORT_BASE_SHA_MISMATCH",
+      message: "report.baseSha ≠ pinned baseHeadSha.",
     };
   }
   return { ok: true };
