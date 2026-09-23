@@ -285,6 +285,7 @@ describe("B1 Product mission Evidence chain E2E", () => {
       );
     expect(missionEvidence).toBeTruthy();
     expect(missionEvidence!.sourceKind).toBe("execution_attempt");
+    expect(missionEvidence!.provenance.source).toBe("execution_adapter");
     expect(missionEvidence!.status).toBe("verified");
     expect(missionEvidence!.bindings.projectId).toBe(ctx.projectId);
     expect(missionEvidence!.bindings.executionContractId).toBe(
@@ -293,7 +294,12 @@ describe("B1 Product mission Evidence chain E2E", () => {
     expect(missionEvidence!.bindings.executionAttemptId).toBe(
       started.attemptId,
     );
-    expect(missionEvidence!.technicalResultRef).toBeTruthy();
+    const attemptAfter =
+      await ctx.oa.executionAttemptServices!.attempts.findById(
+        started.attemptId,
+      );
+    expect(attemptAfter?.resultRef).toBeTruthy();
+    expect(missionEvidence!.technicalResultRef).toBe(attemptAfter!.resultRef);
     expect(missionEvidence!.digest?.startsWith("sha256:")).toBe(true);
     expect(fs.existsSync(missionEvidence!.location!)).toBe(true);
 

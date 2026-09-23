@@ -318,6 +318,145 @@ describe("B1 mission Result Semantic", () => {
     ).toBe("pass");
   });
 
+  function assessMissionWithEvidence(evidence: Evidence) {
+    const c = missionContract();
+    const material = executionContractSemanticMaterial(c);
+    const attempt = {
+      attemptId: "xat:mission:1",
+      executionContractId: c.executionContractId,
+      executionContractVersion: 1,
+      executionContractSemanticFingerprint: c.semanticFingerprint as string,
+      status: "succeeded" as const,
+      resultRef: "res:w3a:abc123",
+    };
+    const snap = [
+      {
+        evidenceId: evidence.evidenceId,
+        evidenceVersion: evidence.version,
+        status: evidence.status,
+        availability: "available" as const,
+      },
+    ];
+    const eo = assessExpectedOutputs({
+      semanticMaterial: material,
+      semanticFingerprint: c.semanticFingerprint as string,
+      attempt,
+      evidences: [evidence],
+      evaluatedAt: NOW,
+      frozenEvidenceSnapshots: snap,
+    });
+    const er = assessEvidenceRequirements({
+      semanticMaterial: material,
+      semanticFingerprint: c.semanticFingerprint as string,
+      attempt,
+      evidences: [evidence],
+      evaluatedAt: NOW,
+      frozenEvidenceSnapshots: snap,
+    });
+    const status = deriveCanonicalContractResultStatus({
+      attemptStatus: "succeeded",
+      expectedOutputAssessments: eo,
+      evidenceRequirementAssessments: er.filter(
+        (x) => x.requirement === MISSION_RESULT_ER_KEY,
+      ),
+    });
+    return { eo, er, status };
+  }
+
+  function persistCanonicalPayload(): { absolutePath: string; digest: string } {
+    const refs = fs.mkdtempSync(path.join(os.tmpdir(), "mission-prov-"));
+    refsDirs.push(refs);
+    const payload = samplePayload();
+    const persisted = persistMissionResultPayload({
+      refsRoot: refs,
+      attemptId: payload.attemptId,
+      payload,
+    });
+    if (!persisted.ok) throw new Error(persisted.message);
+    return {
+      absolutePath: persisted.absolutePath,
+      digest: persisted.digest,
+    };
+  }
+
+  it("P-N1 — external sourceKind + legacy source label → NOT_PROVEN / no PASS", () => {
+    const { absolutePath, digest } = persistCanonicalPayload();
+    const evidence = makeMissionEvidence(absolutePath, digest);
+    // Spoof: trusted-looking label but external sourceKind.
+    (evidence as { sourceKind: string }).sourceKind = "external";
+    evidence.source = MISSION_RESULT_EVIDENCE_SOURCE;
+    const { eo, er, status } = assessMissionWithEvidence(evidence);
+    expect(eo.every((x) => x.result === "NOT_PROVEN")).toBe(true);
+    expect(
+      er.find((x) => x.requirement === MISSION_RESULT_ER_KEY)?.result,
+    ).not.toBe("SATISFIED");
+    expect(status).not.toBe("pass");
+  });
+
+  it("P-N2 — technicalResultRef missing → NOT_PROVEN / no PASS", () => {
+    const { absolutePath, digest } = persistCanonicalPayload();
+    const evidence = makeMissionEvidence(absolutePath, digest);
+    delete (evidence as { technicalResultRef?: string }).technicalResultRef;
+    const { eo, er, status } = assessMissionWithEvidence(evidence);
+    expect(eo.every((x) => x.result === "NOT_PROVEN")).toBe(true);
+    expect(
+      er.find((x) => x.requirement === MISSION_RESULT_ER_KEY)?.result,
+    ).not.toBe("SATISFIED");
+    expect(status).not.toBe("pass");
+  });
+
+  it("P-N3 — technicalResultRef mismatch → NOT_PROVEN / no PASS", () => {
+    const { absolutePath, digest } = persistCanonicalPayload();
+    const evidence = makeMissionEvidence(absolutePath, digest);
+    evidence.technicalResultRef = "res:w3a:other";
+    const { eo, er, status } = assessMissionWithEvidence(evidence);
+    expect(eo.every((x) => x.result === "NOT_PROVEN")).toBe(true);
+    expect(
+      er.find((x) => x.requirement === MISSION_RESULT_ER_KEY)?.result,
+    ).not.toBe("SATISFIED");
+    expect(status).not.toBe("pass");
+  });
+
+  it("P-N4 — provenance.source != execution_adapter → NOT_PROVEN / no PASS", () => {
+    const { absolutePath, digest } = persistCanonicalPayload();
+    const evidence = makeMissionEvidence(absolutePath, digest);
+    (evidence.provenance as { source: string }).source = "human_decision";
+    const { eo, er, status } = assessMissionWithEvidence(evidence);
+    expect(eo.every((x) => x.result === "NOT_PROVEN")).toBe(true);
+    expect(
+      er.find((x) => x.requirement === MISSION_RESULT_ER_KEY)?.result,
+    ).not.toBe("SATISFIED");
+    expect(status).not.toBe("pass");
+  });
+
+  it("P-N5 — missing executionContractId binding → NOT_PROVEN / no PASS", () => {
+    const { absolutePath, digest } = persistCanonicalPayload();
+    const evidence = makeMissionEvidence(absolutePath, digest);
+    delete (evidence.bindings as { executionContractId?: string })
+      .executionContractId;
+    const { eo, er, status } = assessMissionWithEvidence(evidence);
+    expect(eo.every((x) => x.result === "NOT_PROVEN")).toBe(true);
+    expect(
+      er.find((x) => x.requirement === MISSION_RESULT_ER_KEY)?.result,
+    ).not.toBe("SATISFIED");
+    expect(status).not.toBe("pass");
+  });
+
+  it("P-N6 — wrong executionContractId binding → NOT_PROVEN / no PASS", () => {
+    const { absolutePath, digest } = persistCanonicalPayload();
+    const evidence = makeMissionEvidence(absolutePath, digest);
+    evidence.bindings = {
+      ...evidence.bindings,
+      executionContractId: "xct:mission:wrong",
+    };
+    const { eo, er, status } = assessMissionWithEvidence(evidence);
+    expect(eo.every((x) => x.result === "NOT_PROVEN")).toBe(true);
+    expect(
+      er.find((x) => x.requirement === MISSION_RESULT_ER_KEY)?.result,
+    ).not.toBe("SATISFIED");
+    expect(status).not.toBe("pass");
+  });
+
   it("A8/A9/A10 — report Attempt / EC / repository-baseSha mismatch → reject", () => {
     const report: CursorExecutionReport = {
       schemaVersion: "oa.cursor-execution-report.1",

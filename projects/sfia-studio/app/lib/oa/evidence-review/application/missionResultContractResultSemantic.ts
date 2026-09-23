@@ -35,7 +35,7 @@ import fs from "node:fs";
 export const MISSION_RESULT_RULE_REF =
   "w3b-contract-result/product-mission-result-v1" as const;
 
-/** Legacy source label — preferential identity is evidenceId + sourceKind. */
+/** Legacy/diagnostic source label — NOT PASS authority. Prefer evidenceId + sourceKind. */
 export const MISSION_RESULT_EVIDENCE_SOURCE =
   "execution_attempt:mission_result" as const;
 
@@ -88,44 +88,42 @@ export function missionResultEvidenceFactsHold(input: {
   evidence: Evidence;
 }): boolean {
   if (input.attempt.status !== "succeeded") return false;
+  // P5 — Attempt.resultRef must be present for Product PASS.
   if (!input.attempt.resultRef?.trim()) return false;
   const e = input.evidence;
+  // Candidate identity ≠ proof authority.
   if (!isMissionResultEvidenceIdentity(e)) return false;
-  // Product PASS requires integrity-verified Evidence (available ≠ verified).
+  // P7 — Product PASS requires integrity-verified Evidence (available ≠ verified).
   if (e.status !== "verified") return false;
-  if (e.sourceKind !== "execution_attempt" && e.source !== MISSION_RESULT_EVIDENCE_SOURCE) {
-    return false;
-  }
+  // P1 — sourceKind must be canonical ExecutionAttempt (source label is not authority).
+  if (e.sourceKind !== "execution_attempt") return false;
+  // P2 — provenance must be the ExecutionAttempt ingest bridge.
+  if (e.provenance?.source !== "execution_adapter") return false;
   if (e.type !== "attestation" && e.type !== "artifact") return false;
   if (!e.digest?.startsWith("sha256:")) return false;
   if (!e.location?.trim()) return false;
+  // P3 — Attempt binding exact.
   if (e.bindings.executionAttemptId !== input.attempt.attemptId) return false;
+  // P4 — EC binding exact (missing EC binding cannot support PASS).
   if (
-    e.bindings.executionContractId &&
-    input.attempt.executionContractId &&
+    !e.bindings.executionContractId ||
     e.bindings.executionContractId !== input.attempt.executionContractId
   ) {
     return false;
   }
-  if (
-    e.technicalResultRef &&
-    input.attempt.resultRef &&
-    e.technicalResultRef !== input.attempt.resultRef
-  ) {
-    return false;
-  }
+  // P6 — technicalResultRef exact equality (missing or wrong → fail).
+  if (e.technicalResultRef !== input.attempt.resultRef) return false;
   const payload = loadMissionPayload(e);
   if (!payload) return false;
-  // Defense in depth — recomputed digest must match Evidence.digest.
+  // P8 — recomputed digest must match Evidence.digest.
   const recomputed = digestMissionResultPayload(payload);
   if (recomputed !== e.digest) return false;
+  // P9 / P10 — payload Attempt/EC exact.
   if (payload.attemptId !== input.attempt.attemptId) return false;
-  if (
-    input.attempt.executionContractId &&
-    payload.executionContractId !== input.attempt.executionContractId
-  ) {
+  if (payload.executionContractId !== input.attempt.executionContractId) {
     return false;
   }
+  // P11 — forbidden effects rejected.
   if (missionResultHasForbiddenEffects(payload.authorizedEffectsExecuted)) {
     return false;
   }
