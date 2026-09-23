@@ -38,11 +38,24 @@ import {
 import type { CycleProfile } from "@/lib/oa/cycle";
 import { F3_ADAPTER_ID } from "@/features/project-assistant/f3/constants";
 import { completeBoundedDocsWriteLaunch } from "@/features/project-assistant/f3/completeBoundedDocsWriteLaunch";
+import { completeBoundedReadOnlyLaunch } from "@/features/project-assistant/f3/completeBoundedReadOnlyLaunch";
 import { ingestDocsWriteArtifactEvidence } from "@/features/project-assistant/f3/ingestDocsWriteArtifactEvidence";
+import { ingestMissionResultEvidence } from "@/features/project-assistant/f3/ingestMissionResultEvidence";
+import {
+  buildMissionResultPayloadFromReport,
+  type CursorExecutionReportWithMission,
+} from "@/features/project-assistant/f3/buildMissionResultPayloadFromReport";
 import { deriveAttemptProvenance } from "@/features/project-assistant/f3/deriveAttemptProvenance";
 import { authorizedM3ResolutionKind } from "@/features/project-assistant/f3/selectProductM3ResolutionProfile";
+import {
+  bindCursorExecutionReportToAttempt,
+  parseCursorExecutionReport,
+} from "@/lib/oa/execution-attempt";
+import path from "node:path";
+import { PRODUCT_MISSION_FROM_DURABLE_CONTEXT } from "@/lib/oa/evidence-review/application/missionResultPayload";
 import { advanceProductExecutionContractAfterEvidence } from "./advanceProductExecutionContractAfterEvidence";
 import { evaluateExecutionAuthorization } from "./authorizeExecutionContract";
+import { evaluateProductRealReadiness } from "./evaluateProductRealReadiness";
 import { resolveProductExecutionEligibility } from "./resolveProductExecutionEligibility";
 import type {
   GovernedExecuteAuthorizedContractResult,
@@ -50,6 +63,36 @@ import type {
   GovernedExecutePhaseResult,
 } from "./types";
 
+function tryParseReportFromStdout(
+  stdout: string,
+): CursorExecutionReportWithMission | null {
+  const trimmed = stdout.trim();
+  if (!trimmed) return null;
+  const marker = "CURSOR_EXECUTION_REPORT_JSON=";
+  const idx = trimmed.indexOf(marker);
+  const candidates: string[] = [];
+  if (idx >= 0) {
+    candidates.push(
+      trimmed.slice(idx + marker.length).trim().split("\n")[0] ?? "",
+    );
+  }
+  // Raw JSON stdout (deterministic TestOnly / structured Cursor claim).
+  if (trimmed.startsWith("{")) {
+    candidates.push(trimmed);
+  }
+  for (const json of candidates) {
+    if (!json) continue;
+    try {
+      const parsed = parseCursorExecutionReport(JSON.parse(json));
+      if (parsed.ok) {
+        return parsed.report as CursorExecutionReportWithMission;
+      }
+    } catch {
+      /* try next candidate */
+    }
+  }
+  return null;
+}
 function mapCycleProfileToSelectionProfile(
   profile: CycleProfile | string | null | undefined,
 ): SelectionProfile {
@@ -142,6 +185,13 @@ export type GovernedExecuteAuthorizedContractInput = {
   readonly real?: unknown;
   readonly adapterRef?: unknown;
   readonly forceLocalAuthority?: boolean;
+  /**
+   * Product Cursor Complete: when true (default), await process terminal like
+   * docs_write. When false, running Attempts may surface CURSOR_REPORT_PENDING.
+   */
+  readonly awaitIfPending?: boolean;
+  /** Absolute refs root for mission-result Evidence JSON (tests / campaign). */
+  readonly missionResultRefsRoot?: string;
 };
 
 type Failure = GovernedExecuteAuthorizedContractResult;
@@ -620,6 +670,7 @@ export async function governedExecuteStart(
   if (!loaded.ok) return loaded.result;
   const { contract, selectionProfile } = loaded;
   const docsWrite = isBoundedDocsWriteContract(contract);
+  const productCursor = isCanonicalProductGovernedContract(contract);
   void docsWrite;
   const cursorReal = usesGenericCursorRealBoundary(contract);
   const boundary = executionBoundaryFailure(input.oa, contract);
@@ -656,6 +707,46 @@ export async function governedExecuteStart(
     // R-W3B-04 — TEST-ONLY external adapter fail arm (never a product UI outcome).
     applyW3bAdapterFailArmIfPresent(input.oa.fixtureAdapter);
   } else {
+    // B3+B4 — Product generic Cursor REAL only (not sealed docs_write Fake/REAL).
+    // Deterministic TestOnly paths keep SFIA_STUDIO_CURSOR_REAL unset (ZERO REAL).
+    // Auth remains EXTERNAL_PREFLIGHT_REQUIRED — never inferred true here.
+    if (productCursor && process.env.SFIA_STUDIO_CURSOR_REAL === "1") {
+      const identity =
+        typeof contract.inputs?.repositoryBindingIdentity === "string"
+          ? contract.inputs.repositoryBindingIdentity
+          : typeof contract.inputs?.repositoryIdentity === "string"
+            ? contract.inputs.repositoryIdentity
+            : null;
+      const pathRoot =
+        typeof contract.inputs?.pathRoot === "string"
+          ? contract.inputs.pathRoot
+          : null;
+      const readiness = evaluateProductRealReadiness({
+        expectedProjectId: contract.projectId,
+        repositoryBindingIdentity: identity,
+        pathRoot,
+        defaultBranch:
+          typeof contract.inputs?.defaultBranch === "string"
+            ? contract.inputs.defaultBranch
+            : null,
+      });
+      if (!readiness.readyForDeterministicPreReal) {
+        return {
+          ok: false,
+          code: "PRODUCT_REAL_READINESS_NOT_MET",
+          message: `Product REAL readiness fail-closed: ${readiness.blockers.join(",") || "not_ready"}`,
+        };
+      }
+      // Auth is never proven in this ZERO REAL delivery — binary ≠ auth.
+      if (readiness.auth.proven || readiness.readyForProductRealExecute) {
+        return {
+          ok: false,
+          code: "PRODUCT_REAL_AUTH_CLAIM_FORBIDDEN",
+          message:
+            "Cursor auth must remain unproven until external preflight under a distinct Morris REAL GO.",
+        };
+      }
+    }
     // Mechanical Gate D launch-safety grant — bound to Attempt/EC/fingerprint.
     // Not a Pilot-facing second Confirmation (docs-write + canonical Product).
     const grantId = `gd:w3a:${input.attemptId.replace(/^xat:/, "")}`;
@@ -906,8 +997,8 @@ export async function governedExecuteRecordResult(
     });
   }
 
-  // Canonical Product generic Cursor: Record waits for Cursor report / process
-  // observation — do NOT fall through to F3 fixture adapter.
+  // Canonical Product generic Cursor: await REAL completion (docs_write pattern).
+  // CURSOR_REPORT_PENDING remains when awaitIfPending===false and Attempt still running.
   if (productCursor) {
     const existing =
       await input.oa.executionAttemptServices!.getExecutionAttempt.execute({
@@ -922,7 +1013,7 @@ export async function governedExecuteRecordResult(
           : existing.error.message,
       };
     }
-    const attempt = existing.attempt;
+    let attempt = existing.attempt;
     if (
       attempt.status === "succeeded" ||
       attempt.status === "failed" ||
@@ -938,13 +1029,138 @@ export async function governedExecuteRecordResult(
         launchCountBefore,
       });
     }
-    return {
-      ok: false,
-      code: "CURSOR_REPORT_PENDING",
-      message:
-        "Tentative Cursor générique en cours — le rapport d'exécution / Evidence n'est pas encore disponible (pas de fallback fixture).",
-      attempt: projectAttempt(attempt, adapterId),
-    };
+
+    const awaitIfPending = input.awaitIfPending !== false;
+    if (attempt.status === "running") {
+      const completed = await completeBoundedReadOnlyLaunch({
+        attempt: attempt as never,
+        services: input.oa.executionAttemptServices!,
+        awaitIfPending,
+      });
+      if (!completed.ok) {
+        return {
+          ok: false,
+          code: completed.code,
+          message: completed.message,
+          attempt: projectAttempt(attempt, adapterId),
+        };
+      }
+      if (completed.status === "running") {
+        return {
+          ok: false,
+          code: "CURSOR_REPORT_PENDING",
+          message:
+            "Tentative Cursor générique en cours — le rapport d'exécution / Evidence n'est pas encore disponible (pas de fallback fixture).",
+          attempt: projectAttempt(completed.attempt, adapterId),
+        };
+      }
+      attempt = completed.attempt;
+
+      if (
+        completed.status === "succeeded" &&
+        completed.facts &&
+        contract.cycleInstanceId &&
+        contract.constraints.includes(PRODUCT_MISSION_FROM_DURABLE_CONTEXT)
+      ) {
+        const stdout = completed.observation?.stdout ?? "";
+        const report = tryParseReportFromStdout(stdout);
+        const expectedRepo =
+          typeof contract.inputs?.repositoryBindingIdentity === "string"
+            ? contract.inputs.repositoryBindingIdentity
+            : null;
+        const expectedSha =
+          typeof contract.inputs?.baseHeadSha === "string"
+            ? contract.inputs.baseHeadSha
+            : null;
+        if (report) {
+          const bound = bindCursorExecutionReportToAttempt({
+            report,
+            expectedAttemptId: attempt.attemptId,
+            expectedExecutionContractId: contract.executionContractId,
+            attemptExecutionContractId: attempt.executionContractId,
+            expectedRepositoryRef: expectedRepo,
+            expectedBaseSha: expectedSha,
+          });
+          if (!bound.ok) {
+            return {
+              ok: false,
+              code: bound.code,
+              message: bound.message,
+              attempt: projectAttempt(attempt, adapterId),
+            };
+          }
+        }
+        const built = report
+          ? buildMissionResultPayloadFromReport({ report })
+          : ({
+              ok: false as const,
+              code: "MISSION_RESULT_REPORT_REQUIRED",
+              message:
+                "Mission Result Evidence requires a structured CursorExecutionReport with missionResult fields.",
+            } as const);
+        if (built.ok) {
+          const refsRoot =
+            input.missionResultRefsRoot?.trim() ||
+            path.join(
+              path.dirname(
+                typeof process.env.SFIA_STUDIO_PRODUCT_DB_PATH === "string" &&
+                  process.env.SFIA_STUDIO_PRODUCT_DB_PATH.trim()
+                  ? process.env.SFIA_STUDIO_PRODUCT_DB_PATH
+                  : path.join(process.cwd(), "..", ".sfia-exec", "product", "oa-product.sqlite"),
+              ),
+              "mission-result-refs",
+            );
+          const ingested = await ingestMissionResultEvidence({
+            evidenceReviewServices: input.oa.evidenceReviewServices,
+            projectId: input.projectId,
+            cycleInstanceId: contract.cycleInstanceId,
+            executionContractId: contract.executionContractId,
+            executionAttemptId: attempt.attemptId,
+            payload: built.payload,
+            refsRoot,
+            technicalResultRef: attempt.resultRef,
+          });
+          if (!ingested.ok) {
+            return {
+              ok: false,
+              code: "POST_EXECUTION_CONTINUITY_ADVANCE_FAILED",
+              message: `Attempt succeeded durable — ingest Mission Evidence échoué (${ingested.code}): ${ingested.message}`,
+              attempt: projectAttempt(attempt, adapterId),
+            };
+          }
+          const advanced = await advanceProductExecutionContractAfterEvidence({
+            oa: input.oa,
+            projectId: input.projectId,
+            executionContractId: contract.executionContractId,
+            cycleInstanceId: contract.cycleInstanceId,
+            freshlyIngestedEvidenceId: ingested.evidenceId,
+          });
+          if (!advanced.ok) {
+            return {
+              ok: false,
+              code: "POST_EXECUTION_CONTINUITY_ADVANCE_FAILED",
+              message: `Attempt succeeded durable — avancement EC post-Evidence échoué (${advanced.reason}).`,
+              attempt: projectAttempt(attempt, adapterId),
+            };
+          }
+        }
+        // Technical succeed without mission payload → Attempt remains succeeded;
+        // ContractResult stays not_proven (honest). Do not invent Evidence.
+      }
+    }
+
+    return buildTechnicalTerminal({
+      contract,
+      attempt,
+      selectionProfile,
+      oa: input.oa,
+      reusedExistingAttempt: false,
+      launchCountBefore,
+      statusLabel:
+        attempt.status === "succeeded"
+          ? "TERMINAL TECHNIQUE PRODUCT CURSOR — RÉSULTAT PRODUIT À QUALIFIER"
+          : undefined,
+    });
   }
 
   const identities = attemptIdentities(

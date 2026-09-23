@@ -123,6 +123,34 @@ export {
   assessTempArtifactEvidenceRequirement,
 } from "./application/tempArtifactContractResultSemantic";
 export {
+  MISSION_RESULT_RULE_REF,
+  MISSION_RESULT_EVIDENCE_SOURCE,
+  missionResultContractResultSemantic,
+  isMissionResultContractResultApplicable,
+  missionResultEvidenceFactsHold,
+  assessMissionResultExpectedOutput,
+  assessMissionResultEvidenceRequirement,
+  isMissionResultEvidenceIdentity,
+} from "./application/missionResultContractResultSemantic";
+export {
+  OA_MISSION_RESULT_SCHEMA,
+  PRODUCT_MISSION_FROM_DURABLE_CONTEXT,
+  MISSION_RESULT_ER_KEY,
+  MISSION_CLARIFY_DIAGNOSTIC_EO_TEMPLATE,
+  MISSION_CLARIFY_NEXT_STEP_EO_TEMPLATE,
+  MISSION_DIAGNOSTIC_EO_TEMPLATES,
+  MISSION_NEXT_STEP_EO_TEMPLATES,
+  MISSION_DIAGNOSTIC_EO_TEMPLATE,
+  MISSION_NEXT_STEP_EO_TEMPLATE,
+  MISSION_TRACE_EO_PREFIX,
+  digestMissionResultPayload,
+  canonicalizeMissionResultPayload,
+  isMissionResultPayload,
+  missionResultLocationForAttempt,
+  missionResultHasForbiddenEffects,
+  type MissionResultPayload,
+} from "./application/missionResultPayload";
+export {
   DOCS_WRITE_CONTRACT_RESULT_RULE_REF,
   DOCS_WRITE_CONTRACT_RESULT_ER_KEY,
   BOUNDED_DOCS_WRITE_EO_TEMPLATE,
@@ -186,6 +214,8 @@ export {
   type SqliteEvidenceReviewServices,
 } from "./infrastructure/sqlite/createSqliteEvidenceReviewServices";
 export { FakeEvidencePayloadAdapter } from "./infrastructure/fakeEvidencePayloadAdapter";
+export { FilesystemEvidencePayloadAdapter } from "./infrastructure/filesystemEvidencePayloadAdapter";
+export { PreferFilesystemEvidencePayloadAdapter } from "./infrastructure/preferFilesystemEvidencePayloadAdapter";
 export type { FakePayloadScript } from "./infrastructure/fakeEvidencePayloadAdapter";
 export { FakeExecutionAttemptReader } from "./infrastructure/fakeExecutionAttemptReader";
 export { EvidenceRepositoryReader } from "./infrastructure/evidenceRepositoryReader";

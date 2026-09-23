@@ -667,13 +667,14 @@ describe("W3-A product seam — actual work prepare + Confirmation + Attempt", (
     expect(launchAfter).toBeGreaterThan(launchBefore);
 
     // No second Pilot Confirmation invented for Cursor REAL — Gate D is mechanical.
-    // Record awaits Cursor report (no F3 fixture fallback).
+    // Non-blocking observation: CURSOR_REPORT_PENDING remains valid before Complete.
     const pending = await governedExecuteRecordResult({
       oa: ctx.oa,
       projectId: ctx.seeded.projectId,
       executionContractId,
       attemptId: started.attemptId,
       forceLocalAuthority: true,
+      awaitIfPending: false,
     });
     expect(pending.ok).toBe(false);
     if (pending.ok) return;

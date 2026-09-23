@@ -857,13 +857,14 @@ describe("CR-PCONT-04 — Product helper never scripts FakeEvidencePayloadAdapte
     expect(src).not.toMatch(/instanceof\s+Fake/);
   });
 
-  it("available Evidence does not complete EC; harness-scripted verify can", async () => {
+  it("available Evidence does not complete EC; filesystem verify can when payload matches", async () => {
     const { advanceProductExecutionContractAfterEvidence } = await import(
       "@/features/project-assistant/w2/advanceProductExecutionContractAfterEvidence"
     );
-    const { FakeEvidencePayloadAdapter } = await import(
-      "@/lib/oa/evidence-review"
-    );
+    const { createHash } = await import("node:crypto");
+    const fs = await import("node:fs");
+    const os = await import("node:os");
+    const path = await import("node:path");
     const db = tempProductDbPath("pcont-evidence-boundary.sqlite");
     const runtime = bootW2Runtime({
       productDbPath: db,
@@ -872,23 +873,21 @@ describe("CR-PCONT-04 — Product helper never scripts FakeEvidencePayloadAdapte
     const seeded = await seedQualifiedProject(runtime, { suffix: "evb" });
     const oa = runtime.oa!;
 
-    // Harness-only Fake scripting — NEVER from Product code.
-    const payload =
-      oa.evidenceReviewServices.payload instanceof FakeEvidencePayloadAdapter
-        ? oa.evidenceReviewServices.payload
-        : null;
-    expect(payload).toBeTruthy();
-
+    // Product path uses FilesystemEvidencePayloadAdapter — never Fake scripting.
+    const missingLoc = path.join(
+      os.tmpdir(),
+      `pcont-missing-${Date.now()}.md`,
+    );
     const registered = await oa.evidenceReviewServices.registerEvidence.execute({
       evidenceId: "ev:pcont-boundary",
       type: "artifact",
       status: "available",
       digest: VALID_DIGEST,
-      location: "docs/x.md",
+      location: missingLoc,
       source: "test",
       sourceKind: "external",
       classification: "internal",
-      storageMode: "metadata_only",
+      storageMode: "external_payload_ref",
       bindings: {
         projectId: seeded.projectId,
         cycleInstanceId: seeded.cycleInstanceId,
@@ -906,31 +905,52 @@ describe("CR-PCONT-04 — Product helper never scripts FakeEvidencePayloadAdapte
       );
     }
 
-    // Without harness script: verify fails → EC not completed.
-    const withoutScript = await advanceProductExecutionContractAfterEvidence({
+    // Missing payload file → verify fails → EC not completed.
+    const withoutFile = await advanceProductExecutionContractAfterEvidence({
       oa,
       projectId: seeded.projectId,
       executionContractId: "xct:pcont-boundary",
       cycleInstanceId: seeded.cycleInstanceId,
       freshlyIngestedEvidenceId: "ev:pcont-boundary",
     });
-    // May fail if no EC exists — that's honest; Product must not mint verify.
-    if (withoutScript.ok) {
-      expect(withoutScript.complete).toBe(false);
-      expect(withoutScript.verifiedEvidenceIds).not.toContain(
+    if (withoutFile.ok) {
+      expect(withoutFile.complete).toBe(false);
+      expect(withoutFile.verifiedEvidenceIds).not.toContain(
         "ev:pcont-boundary",
       );
     }
 
-    // External harness scripts observed digest independently of Product.
-    payload!.setScript("ev:pcont-boundary", {
-      availability: "available",
-      digest: VALID_DIGEST,
+    // Independent filesystem payload whose digest matches Evidence.digest.
+    const body = "pcont-boundary-payload-body\n";
+    const digest = `sha256:${createHash("sha256").update(body, "utf8").digest("hex")}`;
+    const loc = path.join(os.tmpdir(), `pcont-present-${Date.now()}.md`);
+    fs.writeFileSync(loc, body, "utf8");
+    const registered2 = await oa.evidenceReviewServices.registerEvidence.execute({
+      evidenceId: "ev:pcont-boundary-2",
+      type: "artifact",
+      status: "available",
+      digest: digest as never,
+      location: loc,
+      source: "test",
+      sourceKind: "external",
+      classification: "internal",
+      storageMode: "external_payload_ref",
+      bindings: {
+        projectId: seeded.projectId,
+        cycleInstanceId: seeded.cycleInstanceId,
+        executionContractId: "xct:pcont-boundary",
+        executionAttemptId: "xat:pcont-boundary",
+      },
+      actor: LOCAL_PILOTE_ACTOR,
+      correlationId: "cor:pcont-boundary-2",
+      idempotencyKey: "idem:pcont-boundary-2",
     });
+    expect(registered2.ok).toBe(true);
+    if (!registered2.ok) return;
     const verified =
       await oa.evidenceReviewServices.verifyEvidenceIntegrity.execute({
-        evidenceId: "ev:pcont-boundary",
-        expectedVersion: registered.evidence.version,
+        evidenceId: "ev:pcont-boundary-2",
+        expectedVersion: registered2.evidence.version,
         actor: LOCAL_PILOTE_ACTOR,
       });
     expect(verified.ok).toBe(true);
