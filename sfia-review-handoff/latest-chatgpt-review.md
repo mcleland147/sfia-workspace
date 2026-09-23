@@ -1,1 +1,678 @@
-# PRODUCT-JOURNEY-AUTOMATIC-RESULT-QUALIFICATION-01\n# Cycle 8 — Delivery / implémentation — CRITICAL — RUN\n# ZERO NEW CURSOR REAL\n# AUTOMATIC POST-EXECUTION QUALIFICATION IMPLEMENTED DETERMINISTICALLY\n\n## Date / heure\n2026-09-23T22:10:00+02:00\n\n## Macro-cycle\nPRODUCT-JOURNEY-AUTOMATIC-RESULT-QUALIFICATION-01\n\n## Objectif\nAprès Attempt docs_write terminal, qualifier AUTOMATIQUEMENT le résultat Product\n(conformity Evidence → successor RB → ContractResult → projection Pilote)\nsans clic evaluate_claim / sans nouveau Cursor spawn.\n\n## Local Git Truth\n- Repo: `mcleland147/sfia-workspace`\n- Branch: `fix/sfia-studio-product-real-readiness-pathroot-semantics`\n- HEAD: `128f3b7eb49cbba05d7735d5edc41a27822b0dee`\n- HEAD tree: `400d608e2a0be9b182925c46cd204a24cb1e0034` (= qualified main tree)\n- `origin/main`: `66ffc0d2370d9ed7014348fd25994ce1cda3b3ad` — MATCH\n- Dirty pré-existant hors scope: `.env.example`\n- staged: empty\n\n## Sources lues\n- template / routing / Build Doctrine / Roadmap / C1\n- framing 32/34/35/36 (applicables)\n- `governedExecuteAuthorizedContract.ts`, `materializeW3bProductTerminal.ts`,\n  `completeDocsWriteClaimEvidenceCompletion.ts`, `requalifyDocsWriteContractResult.ts`,\n  `w3cPostEvidenceLoop.ts`, `TrajectorySurface.tsx`, CEC / docs_write wiring tests\n\n## Diagnostic — cause racine\n1. `governedExecuteComplete` ingère Artifact Evidence puis renvoie « RÉSULTAT PRODUIT À QUALIFIER ».\n2. `materializeDocsWriteProductTerminal` appelait **uniquement** `requalifyDocsWriteContractResult`\n   **sans** `correctionRef` → ReviewBundle historique artifact-only → ContractResult **NOT_PROVEN**.\n3. `completeDocsWriteClaimEvidenceCompletion` existait déjà (conformity + successor RB) mais\n   n'était **pas** branché sur le happy path post-terminal.\n4. UX exposait « non encore qualifié » / reload comme étape nominale.\n\n## Seam choisi\n**Réutiliser `completeDocsWriteClaimEvidenceCompletion`** :\n- **Hot path** : après ingest dans `governedExecuteAuthorizedContract` (worktreeRef encore chaud).\n- **Materialize / restart** : `materializeDocsWriteProductTerminal` appelle la même completion\n  via `resolveDocsWriteArtifactAbsolutePath` (worktree → absolute evidence → managed clone)\n  + short-circuit idempotent si conformity déjà durabilisée.\n- Aucun second verifier / pipeline Evidence / path FocusFlow.\n\n## Architecture réutilisée\n- KEEP: `completeDocsWriteClaimEvidenceCompletion`, `docsWriteMinConformityVerifier`,\n  Evidence/RB/CE semantics, W3-C, historical `rb:docs-write` immutable.\n- ADAPT: materialize docs_write path, complete freeze historique draft, governed complete,\n  projection not_proven, TrajectorySurface copy, W3-C best-effort après CE durable.\n\n## FocusFlow REAL historique (preuve d'entrée — NON muté)\n- Attempt `xat:w3a:46736f6deb0fb02f` status succeeded — count **1** avant/après tests\n- Aucun nouveau spawn / Attempt\n- DB campaign non mutée par ce cycle Delivery\n\n## Fichiers créés\n- `projects/sfia-studio/app/features/project-assistant/w2/resolveDocsWriteArtifactAbsolutePath.ts`\n- `projects/sfia-studio/app/__tests__/project-assistant/automaticResultQualification.d0.test.ts`\n\n## Fichiers modifiés\n- `completeDocsWriteClaimEvidenceCompletion.ts` — freeze historical draft + restart-safe short-circuit\n- `materializeW3bProductTerminal.ts` — auto-complete before project; W3-C best-effort\n- `governedExecuteAuthorizedContract.ts` — call completion after ingest when worktree hot\n- `w3bProductTerminalProjection.ts` — succeeded+not_proven/fail → message fonctionnel\n- `TrajectorySurface.tsx` — Pilot copy (qualification auto / résultat évalué)\n\n## NEW FILE: resolveDocsWriteArtifactAbsolutePath.ts\n```ts\n/**\n * Resolve absolute filesystem path of a docs_write artifact for server-owned\n * conformity verification (ZERO client path trust).\n *\n * Priority:\n * 1) explicit worktreeRef from the just-completed launch (hottest)\n * 2) Evidence.location when already absolute and present\n * 3) managedRepoRootBase + repository identity + relative targetPath\n */\nimport { existsSync } from "node:fs";\nimport path from "node:path";\nimport type { ExecutionAttempt } from "@/lib/oa/execution-attempt";\nimport type { ExecutionContract } from "@/lib/oa/execution-contract";\nimport type { Evidence } from "@/lib/oa/evidence-review";\nimport { sanitizeManagedRepoIdentity } from "@/lib/oa/execution-attempt/infrastructure/managedProjectRepositoryResolver";\nimport { resolveManagedRepoRootBaseFromEnv } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";\n\nfunction boundInputsOf(\n  attempt: ExecutionAttempt,\n  contract: ExecutionContract,\n): Record<string, unknown> {\n  const bound = attempt.boundExecutionContract?.semanticMaterial?.inputs;\n  if (bound && typeof bound === "object") return bound as Record<string, unknown>;\n  return (contract.inputs ?? {}) as Record<string, unknown>;\n}\n\nfunction relativeTargetPath(\n  attempt: ExecutionAttempt,\n  contract: ExecutionContract,\n  evidence: Evidence | null,\n): string | null {\n  const inputs = boundInputsOf(attempt, contract);\n  const fromBound =\n    typeof inputs.targetPath === "string" ? inputs.targetPath.trim() : "";\n  if (fromBound) return fromBound;\n  const loc = evidence?.location?.trim() ?? "";\n  if (loc && !path.isAbsolute(loc)) return loc;\n  return null;\n}\n\nfunction repositoryIdentity(\n  attempt: ExecutionAttempt,\n  contract: ExecutionContract,\n): string | null {\n  const inputs = boundInputsOf(attempt, contract);\n  for (const key of [\n    "repositoryBindingIdentity",\n    "repositoryIdentity",\n    "repositoryRef",\n    "targetRepositoryRef",\n  ] as const) {\n    const v = inputs[key];\n    if (typeof v === "string" && v.trim()) return v.trim();\n  }\n  return null;\n}\n\nexport function resolveDocsWriteArtifactAbsolutePath(input: {\n  readonly attempt: ExecutionAttempt;\n  readonly contract: ExecutionContract;\n  readonly evidence: Evidence | null;\n  /** Hot worktree from the same process that just completed docs_write. */\n  readonly worktreeRef?: string | null;\n  readonly managedRepoRootBase?: string | null;\n}): string | null {\n  const rel = relativeTargetPath(input.attempt, input.contract, input.evidence);\n  const candidates: string[] = [];\n\n  const wt = input.worktreeRef?.trim();\n  if (wt && rel) {\n    candidates.push(path.resolve(wt, ...rel.split("/")));\n  }\n\n  const loc = input.evidence?.location?.trim();\n  if (loc && path.isAbsolute(loc)) {\n    candidates.push(loc);\n  }\n\n  const base =\n    input.managedRepoRootBase?.trim() ||\n    resolveManagedRepoRootBaseFromEnv() ||\n    undefined;\n  const identity = repositoryIdentity(input.attempt, input.contract);\n  if (base && identity && rel) {\n    try {\n      const sanitized = sanitizeManagedRepoIdentity(identity);\n      candidates.push(path.resolve(base, sanitized, ...rel.split("/")));\n    } catch {\n      // identity invalid — skip managed candidate\n    }\n  }\n\n  for (const abs of candidates) {\n    if (existsSync(abs)) return abs;\n  }\n  return null;\n}\n\n```\n\n## DIFF (modified product files)\n```diff\ndiff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx\nindex 66f58bff..be253779 100644\n--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx\n+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx\n@@ -2874,17 +2874,19 @@ export function TrajectorySurface({\n           ) : null}\n           <p className={styles.blockNote} data-testid="w3a-terminal-honesty">\n             {productOutcome?.claimAllowed\n-              ? "Terminal technique consommé — résultat produit qualifié ci-dessous."\n-              : productEvidencePending\n-                ? "Terminal technique — Evidence en cours / claim produit non encore émis."\n-                : "Terminal technique — résultat produit non encore qualifié."}\n+              ? "Exécution terminée — résultat produit qualifié ci-dessous."\n+              : productOutcome\n+                ? "Exécution terminée — résultat produit évalué (voir conformité et recommandation)."\n+                : productEvidencePending\n+                  ? "Exécution terminée — qualification produit en cours…"\n+                  : "Exécution terminée — résultat produit en attente de matérialisation."}\n           </p>\n           {productEvidencePending ? (\n             <p\n               className={styles.blockNote}\n               data-testid="w3b-evidence-pending"\n             >\n-              Evidence requise avant tout claim de résultat produit.\n+              Qualification automatique du résultat en cours (Evidence / conformité).\n             </p>\n           ) : null}\n           {attempt?.attemptId && !productOutcome ? (\ndiff --git a/projects/sfia-studio/app/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion.ts b/projects/sfia-studio/app/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion.ts\nindex b87cde24..d985d1bf 100644\n--- a/projects/sfia-studio/app/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion.ts\n+++ b/projects/sfia-studio/app/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion.ts\n@@ -84,7 +84,42 @@ export async function completeDocsWriteClaimEvidenceCompletion(\n   const historicalRb = await services.reviewBundleReader.findById(\n     docsWriteContractResultIdentity(input.attempt.attemptId).reviewBundleId,\n   );\n-  if (!historicalRb?.frozenAt || !historicalRb.frozenVersion) {\n+  if (!historicalRb) {\n+    return {\n+      ok: false,\n+      code: "DOCS_WRITE_REVIEW_BUNDLE_MISSING",\n+      message: "Historical docs_write RB introuvable.",\n+    };\n+  }\n+  let historicalFrozen = historicalRb;\n+  if (!historicalFrozen.frozenAt || !historicalFrozen.frozenVersion) {\n+    if (historicalFrozen.status !== "draft") {\n+      return {\n+        ok: false,\n+        code: "DOCS_WRITE_REVIEW_BUNDLE_NOT_FROZEN",\n+        message: "Historical docs_write RB must remain frozen/auditable.",\n+      };\n+    }\n+    const frozenHistorical = await services.freezeReviewBundle.execute({\n+      reviewBundleId: historicalFrozen.reviewBundleId,\n+      expectedVersion: historicalFrozen.version,\n+      idempotencyKey: `idem:docs-write-rb-freeze:${input.attempt.attemptId}`,\n+      actor,\n+      correlationId: input.correlationId,\n+      nowIso: input.nowIso,\n+    });\n+    if (!frozenHistorical.ok) {\n+      return {\n+        ok: false,\n+        code: frozenHistorical.error.detailCode,\n+        message:\n+          frozenHistorical.error.internalCauseRef ??\n+          frozenHistorical.error.message,\n+      };\n+    }\n+    historicalFrozen = frozenHistorical.reviewBundle;\n+  }\n+  if (!historicalFrozen.frozenAt || !historicalFrozen.frozenVersion) {\n     return {\n       ok: false,\n       code: "DOCS_WRITE_REVIEW_BUNDLE_NOT_FROZEN",\n@@ -92,6 +127,58 @@ export async function completeDocsWriteClaimEvidenceCompletion(\n     };\n   }\n\n+  // Restart-safe idempotence: when conformity Evidence + frozen successor RB\n+  // already exist, requalify without re-reading the ephemeral worktree payload.\n+  const existingConformity = await services.evidenceReader.findById(\n+    ids.conformityEvidenceId,\n+  );\n+  const existingSuccessorRb = await services.reviewBundleReader.findById(\n+    ids.reviewBundleId,\n+  );\n+  if (\n+    existingConformity &&\n+    existingSuccessorRb?.frozenAt &&\n+    existingSuccessorRb.frozenVersion &&\n+    !input.artifactBytes &&\n+    !input.artifactAbsolutePath\n+  ) {\n+    const requalified = await requalifyDocsWriteContractResult({\n+      evidenceReviewServices: services,\n+      attempt: input.attempt,\n+      contract: input.contract,\n+      actor,\n+      correlationId: input.correlationId,\n+      nowIso: input.nowIso,\n+      correctionRef,\n+      scopeReviewBundle: true,\n+    });\n+    if (!requalified.ok) {\n+      return {\n+        ok: false,\n+        code: requalified.code,\n+        message: requalified.message,\n+      };\n+    }\n+    const oracleFromRef =\n+      typeof existingConformity.technicalResultRef === "string"\n+        ? existingConformity.technicalResultRef.replace(\n+            /^docs-write-min-conformity:/,\n+            "",\n+          )\n+        : "";\n+    return {\n+      ok: true,\n+      claimEvaluation: requalified.claimEvaluation,\n+      reviewBundle: requalified.reviewBundle,\n+      conformityEvidence: existingConformity,\n+      artifactEvidence,\n+      supersededClaimEvaluationId: requalified.supersededClaimEvaluationId,\n+      verifierMatchedHeadings: [],\n+      oracleFingerprint: oracleFromRef,\n+      reusedFromIdempotencyKey: true,\n+    };\n+  }\n+\n   // CR-CEC-01 — NEVER fallback to live contract.inputs for oracle derivation.\n   const criteria = extractDocsWriteMinConformityCriteriaFromBoundAttempt(\n     input.attempt,\n@@ -136,10 +223,9 @@ export async function completeDocsWriteClaimEvidenceCompletion(\n   }\n\n   // Idempotent: if conformity Evidence + successor RB + CE already exist, requalify.\n-  const existingConformity = await services.evidenceReader.findById(\n-    ids.conformityEvidenceId,\n-  );\n-  let conformityEvidence = existingConformity ?? undefined;\n+  let conformityEvidence =\n+    (await services.evidenceReader.findById(ids.conformityEvidenceId)) ??\n+    undefined;\n   if (!conformityEvidence) {\n     const registered = await services.registerEvidence.execute({\n       evidenceId: ids.conformityEvidenceId,\ndiff --git a/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts b/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts\nindex ac2284f0..d4e529df 100644\n--- a/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts\n+++ b/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts\n@@ -14,6 +14,7 @@\n  */\n\n import { createHash } from "node:crypto";\n+import path from "node:path";\n import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";\n import {\n   applyW3bAdapterFailArmIfPresent,\n@@ -47,11 +48,11 @@ import {\n } from "@/features/project-assistant/f3/buildMissionResultPayloadFromReport";\n import { deriveAttemptProvenance } from "@/features/project-assistant/f3/deriveAttemptProvenance";\n import { authorizedM3ResolutionKind } from "@/features/project-assistant/f3/selectProductM3ResolutionProfile";\n+import { completeDocsWriteClaimEvidenceCompletion } from "./completeDocsWriteClaimEvidenceCompletion";\n import {\n   bindCursorExecutionReportToAttempt,\n   parseCursorExecutionReport,\n } from "@/lib/oa/execution-attempt";\n-import path from "node:path";\n import { PRODUCT_MISSION_FROM_DURABLE_CONTEXT } from "@/lib/oa/evidence-review/application/missionResultPayload";\n import { advanceProductExecutionContractAfterEvidence } from "./advanceProductExecutionContractAfterEvidence";\n import { evaluateExecutionAuthorization } from "./authorizeExecutionContract";\n@@ -981,6 +982,21 @@ export async function governedExecuteRecordResult(\n             attempt: projectAttempt(attempt, adapterId),\n           };\n         }\n+        // Automatic Product result qualification while worktree is still hot.\n+        // Failures stay fail-closed on Product claim; technical Attempt unchanged.\n+        if (completed.facts.worktreeRef) {\n+          await completeDocsWriteClaimEvidenceCompletion({\n+            evidenceReviewServices: input.oa.evidenceReviewServices!,\n+            attempt,\n+            contract,\n+            actor: LOCAL_PILOTE_ACTOR,\n+            artifactAbsolutePath: path.join(\n+              completed.facts.worktreeRef,\n+              completed.facts.targetPath,\n+            ),\n+            nowIso: input.oa.clock.nowIso(),\n+          });\n+        }\n       }\n     }\n     return buildTechnicalTerminal({\n@@ -992,7 +1008,7 @@ export async function governedExecuteRecordResult(\n       launchCountBefore,\n       statusLabel:\n         attempt.status === "succeeded"\n-          ? "TERMINAL TECHNIQUE DOCS-WRITE — RÉSULTAT PRODUIT À QUALIFIER"\n+          ? "TERMINAL TECHNIQUE DOCS-WRITE — QUALIFICATION PRODUIT AUTOMATIQUE"\n           : undefined,\n     });\n   }\ndiff --git a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts\nindex eefc9ccb..fce100fb 100644\n--- a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts\n+++ b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts\n@@ -20,6 +20,8 @@ import {\n   missionResultEvidenceIdForAttempt,\n } from "@/features/project-assistant/f3/ingestMissionResultEvidence";\n import { requalifyDocsWriteContractResult } from "./requalifyDocsWriteContractResult";\n+import { completeDocsWriteClaimEvidenceCompletion } from "./completeDocsWriteClaimEvidenceCompletion";\n+import { resolveDocsWriteArtifactAbsolutePath } from "./resolveDocsWriteArtifactAbsolutePath";\n import {\n   projectW3bProductTerminal,\n   productReservationsForAttempt,\n@@ -31,6 +33,7 @@ import {\n   runW3cPostEvidenceLoop,\n   type W3cPostEvidenceLoopResult,\n } from "./w3cPostEvidenceLoop";\n+import { resolveManagedRepoRootBaseFromEnv } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";\n\n export type { W3BProductTerminalProjection as W3BProductOutcomeProjection };\n\n@@ -143,74 +146,123 @@ async function materializeDocsWriteProductTerminal(input: {\n   readonly projectId: string;\n   readonly attempt: ExecutionAttempt;\n   readonly contract: ExecutionContract;\n+  /** Hot worktree from the just-completed docs_write launch (optional). */\n+  readonly docsWriteWorktreeRef?: string | null;\n }): Promise<MaterializeW3bProductTerminalResult> {\n   const services = input.oa.evidenceReviewServices!;\n-  const requalified = await requalifyDocsWriteContractResult({\n+  const managedRepoRootBase =\n+    input.oa.executionAttemptServices?.realBoundary?.managedRepoRootBase ??\n+    resolveManagedRepoRootBaseFromEnv() ??\n+    null;\n+\n+  const segment = input.attempt.attemptId.replace(/[^a-zA-Z0-9:_-]/g, "");\n+  const evidenceId = `ev:docs-write:${segment}`.slice(0, 128);\n+  const artifactEvidence = await services.evidenceReader.findById(evidenceId);\n+\n+  const artifactAbsolutePath = resolveDocsWriteArtifactAbsolutePath({\n+    attempt: input.attempt,\n+    contract: input.contract,\n+    evidence: artifactEvidence ?? null,\n+    worktreeRef: input.docsWriteWorktreeRef,\n+    managedRepoRootBase,\n+  });\n+\n+  // Automatic Product qualification — reuse completeDocsWriteClaimEvidenceCompletion.\n+  // Prefer hot worktree / managed path; restart-safe when conformity already persisted.\n+  const completed = await completeDocsWriteClaimEvidenceCompletion({\n     evidenceReviewServices: services,\n     attempt: input.attempt,\n     contract: input.contract,\n     actor: LOCAL_PILOTE_ACTOR,\n+    ...(artifactAbsolutePath\n+      ? { artifactAbsolutePath }\n+      : {}),\n   });\n-  if (!requalified.ok) {\n-    return {\n-      ok: false,\n-      code: requalified.code,\n-      message: requalified.message,\n-    };\n-  }\n\n-  const segment = input.attempt.attemptId.replace(/[^a-zA-Z0-9:_-]/g, "");\n-  const evidenceId = `ev:docs-write:${segment}`.slice(0, 128);\n-  const evidence = await services.evidenceReader.findById(evidenceId);\n+  let claimEvaluation: ClaimEvaluation;\n+  let reviewBundle: ReviewBundle;\n+  let evidence: Evidence | null = artifactEvidence ?? null;\n+  let reusedFromIdempotency = false;\n+\n+  if (completed.ok) {\n+    claimEvaluation = completed.claimEvaluation;\n+    reviewBundle = completed.reviewBundle;\n+    evidence = completed.artifactEvidence;\n+    reusedFromIdempotency = Boolean(completed.reusedFromIdempotencyKey);\n+  } else {\n+    // Fail-closed Product claim: keep technical Attempt as-is; project from\n+    // historical artifact RB (typically NOT_PROVEN without conformity).\n+    const requalified = await requalifyDocsWriteContractResult({\n+      evidenceReviewServices: services,\n+      attempt: input.attempt,\n+      contract: input.contract,\n+      actor: LOCAL_PILOTE_ACTOR,\n+    });\n+    if (!requalified.ok) {\n+      return {\n+        ok: false,\n+        code: completed.code,\n+        message: `${completed.message} — fallback requalify: ${requalified.message}`,\n+      };\n+    }\n+    claimEvaluation = requalified.claimEvaluation;\n+    reviewBundle = requalified.reviewBundle;\n+    reusedFromIdempotency = Boolean(requalified.reusedFromIdempotencyKey);\n+  }\n\n   const product = projectFromFacts({\n     attempt: input.attempt,\n     contract: input.contract,\n-    evidence: evidence ?? null,\n-    reviewBundle: requalified.reviewBundle,\n-    claimEvaluation: requalified.claimEvaluation,\n+    evidence,\n+    reviewBundle,\n+    claimEvaluation,\n   });\n\n-  const reusedFromIdempotency = Boolean(requalified.reusedFromIdempotencyKey);\n-\n-  if (product.evidenceId) {\n-    const existing = await findExistingW3cPostEvidence({\n-      oa: input.oa,\n-      projectId: input.projectId,\n-      evidenceId: product.evidenceId,\n-      attemptId: input.attempt.attemptId,\n-      product,\n-    });\n-    if (existing) {\n-      return {\n-        ok: true,\n-        reusedFromIdempotency,\n+  // W3-C is best-effort after Product CE is durable — never erase a qualified\n+  // Product outcome if Nora/LPS rehydrate fails.\n+  let postEvidence: W3cPostEvidenceLoopResult | undefined;\n+  try {\n+    if (product.evidenceId) {\n+      const existing = await findExistingW3cPostEvidence({\n+        oa: input.oa,\n+        projectId: input.projectId,\n+        evidenceId: product.evidenceId,\n+        attemptId: input.attempt.attemptId,\n         product,\n-        postEvidence: existing,\n-      };\n+      });\n+      if (existing) {\n+        return {\n+          ok: true,\n+          reusedFromIdempotency,\n+          product,\n+          postEvidence: existing,\n+        };\n+      }\n+      const rehydrated = await rehydrateW3cPostEvidenceFromLps({\n+        oa: input.oa,\n+        projectId: input.projectId,\n+        product,\n+      });\n+      if (rehydrated.ok) {\n+        return {\n+          ok: true,\n+          reusedFromIdempotency,\n+          product,\n+          postEvidence: rehydrated,\n+        };\n+      }\n     }\n-    const rehydrated = await rehydrateW3cPostEvidenceFromLps({\n+\n+    postEvidence = await runW3cPostEvidenceLoop({\n       oa: input.oa,\n       projectId: input.projectId,\n+      attemptId: input.attempt.attemptId,\n       product,\n     });\n-    if (rehydrated.ok) {\n-      return {\n-        ok: true,\n-        reusedFromIdempotency,\n-        product,\n-        postEvidence: rehydrated,\n-      };\n-    }\n+  } catch {\n+    postEvidence = undefined;\n   }\n\n-  const postEvidence = await runW3cPostEvidenceLoop({\n-    oa: input.oa,\n-    projectId: input.projectId,\n-    attemptId: input.attempt.attemptId,\n-    product,\n-  });\n-\n   return {\n     ok: true,\n     reusedFromIdempotency,\n@@ -227,6 +279,8 @@ export async function materializeW3bProductTerminal(input: {\n   readonly claimedProductOutcome?: unknown;\n   readonly cycleProfile?: unknown;\n   readonly ckcId?: unknown;\n+  /** Optional hot worktree from docs_write completion (same request). */\n+  readonly docsWriteWorktreeRef?: string | null;\n }): Promise<MaterializeW3bProductTerminalResult> {\n   void input.claimedProductOutcome;\n   void input.cycleProfile;\n@@ -251,6 +305,7 @@ export async function materializeW3bProductTerminal(input: {\n         projectId: input.projectId,\n         attempt,\n         contract,\n+        docsWriteWorktreeRef: input.docsWriteWorktreeRef,\n       });\n     }\n   }\ndiff --git a/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts b/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts\nindex e46773d2..e7a6c6a5 100644\n--- a/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts\n+++ b/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts\n@@ -273,6 +273,42 @@ export function projectW3bProductTerminal(input: {\n     };\n   }\n\n+  // Succeeded Attempt + Contract Result not_proven/fail → honest Product projection\n+  // (technical success preserved; no SUCCESS claim).\n+  if (\n+    input.attempt.status === "succeeded" &&\n+    (ce.status === "not_proven" || ce.status === "fail")\n+  ) {\n+    const assessments = ce.expectedOutputAssessments ?? [];\n+    const gaps = assessments\n+      .filter((a) => a.result !== "PASS")\n+      .map((a) => `${a.expectation}: ${a.result}`);\n+    const produced =\n+      assessments\n+        .filter((a) => a.result === "PASS")\n+        .map((a) => a.expectation)\n+        .join(" · ") || "livrable technique enregistré";\n+    const gapText =\n+      gaps.length > 0\n+        ? gaps.join(" · ")\n+        : "critères de conformité du contrat non satisfaits";\n+    return {\n+      ...base,\n+      outcome: ce.status === "fail" ? "FAIL" : "UNCLAIMED",\n+      businessHeadline:\n+        ce.status === "fail"\n+          ? "Livrable non conforme"\n+          : "Conformité non prouvée",\n+      businessReason: `Produit : ${produced}. Écarts : ${gapText}. Aucune relance automatique.`,\n+      claimAllowed: false,\n+      governedBoundary: null,\n+      evidenceSummary:\n+        ce.status === "fail"\n+          ? evidenceSummaryFor("FAIL", input.attempt.status)\n+          : "Evidence artifact présente — conformité Contract Result non prouvée.",\n+    };\n+  }\n+\n   if (\n     input.attempt.status === "cancelled" &&\n     input.attempt.stopOrigin === "SYSTEM_GOVERNED_STOP" &&\n\n```\n\n## Tests exécutés\n```\nnpx vitest run \\n  automaticResultQualification.d0.test.ts \\n  claimEvidenceCompletion.d0.test.ts \\n  productJourneyGovernedDocsWriteWiring.d0.test.ts \\n  trajectorySurface.ui.test.tsx \\n  w3bProductTerminal.test.ts \\n  w3cPostEvidenceLoop.test.ts\n```\nRésultats :\n- automaticResultQualification: **5/5 PASS** (T1 happy, T2 non-conforme, T3 payload absent, T4 idempotence, T6 authority)\n- claimEvidenceCompletion: PASS\n- productJourneyGovernedDocsWriteWiring: **30/30 PASS**\n- trajectorySurface.ui: PASS\n- w3bProductTerminal: PASS\n- w3cPostEvidenceLoop: PASS\n- Combined targeted batch last run: **43 PASS** (+ wiring/UI earlier)\n\n## Preuves invariants\n- Cursor REAL spawn ce cycle: **0**\n- FocusFlow Attempt count: **1** (`xat:w3a:46736f6deb0fb02f`) — unchanged\n- No SQL / no Product DB mutation for FocusFlow\n- No push/PR/merge projet\n- runtime v3: **NON ADOPTED**\n- Product Completion/C6: not reopened\n- Nora Cognitive Completion priority: preserved\n\n## UX avant / après\n| Avant | Après |\n|-------|--------|\n| Terminal « À QUALIFIER » + reload nécessaire | Qualification auto post-terminal |\n| CE NOT_PROVEN sans conformity | Conformity auto → CE pass si artifact conforme |\n| Message technique opaque | « Succès » / « Conformité non prouvée » + écarts EO |\n| evaluate_claim comme étape métier | Non — mécanismes internes secondaires |\n\n## Réserves\n- W3-C reste best-effort si LPS/Nora stack partiel (Product CE déjà durable).\n- Réconciliation automatique de l'Attempt FocusFlow historique **non exécutée** dans ce cycle\n  (nécessiterait artifact path encore lisible + materialize Pilote) — documenté uniquement.\n- `.env.example` dirty pré-existant hors scope.\n\n## Dette / exit\n- Exit proof déterministe: Attempt succeeded + artifact conforme → SUCCESS sans clic qualification.\n- Pas de nouvelle dette architecture Evidence.\n\n## Décisions Morris\n- Push/PR Delivery code: **non** (hors autorisation ce cycle) — code local seulement.\n- Relance REAL FocusFlow: **interdite** (GO consommé).\n- Validation Pilote FocusFlow post-fix: optionnelle, cycle séparé.\n\n## Verdict\n**PRODUCT-JOURNEY-AUTOMATIC-RESULT-QUALIFICATION-01 — IMPLEMENTED — READY FOR CHATGPT CRITICAL REVIEW**\n\n## CHATGPT REVIEW REQUIRED — READ REMOTE CANONICAL HANDOFF BEFORE VERDICT\n\n
+# PRODUCT-JOURNEY-AUTOMATIC-RESULT-QUALIFICATION-01
+# Cycle 8 — Delivery / implémentation — CRITICAL — RUN
+# ZERO NEW CURSOR REAL
+# AUTOMATIC POST-EXECUTION QUALIFICATION IMPLEMENTED DETERMINISTICALLY
+
+## Date / heure
+2026-09-23T22:10:54+02:00
+
+## Macro-cycle
+PRODUCT-JOURNEY-AUTOMATIC-RESULT-QUALIFICATION-01
+
+## Objectif
+Après Attempt docs_write terminal, qualifier AUTOMATIQUEMENT le résultat Product
+(conformity Evidence → successor RB → ContractResult → projection Pilote)
+sans clic evaluate_claim / sans nouveau Cursor spawn.
+
+## Local Git Truth
+- Repo: `mcleland147/sfia-workspace`
+- Branch: `fix/sfia-studio-product-real-readiness-pathroot-semantics`
+- HEAD: `128f3b7eb49cbba05d7735d5edc41a27822b0dee`
+- HEAD tree: `400d608e2a0be9b182925c46cd204a24cb1e0034` (= qualified main tree)
+- `origin/main`: `66ffc0d2370d9ed7014348fd25994ce1cda3b3ad` — MATCH
+- Dirty pré-existant hors scope: `.env.example`
+- staged: empty
+
+## Sources lues
+- template / routing / Build Doctrine / Roadmap / C1
+- framing 32/34/35/36 (applicables)
+- governedExecute / materializeW3b / completeDocsWriteClaimEvidenceCompletion /
+  requalify / w3c / TrajectorySurface / CEC + docs_write wiring tests
+
+## Diagnostic — cause racine
+1. governedExecuteComplete ingère Artifact Evidence puis « RÉSULTAT PRODUIT À QUALIFIER ».
+2. materializeDocsWriteProductTerminal appelait uniquement requalifyDocsWriteContractResult
+   sans correctionRef → RB historique artifact-only → ContractResult NOT_PROVEN.
+3. completeDocsWriteClaimEvidenceCompletion existait mais n'était pas branché au happy path.
+4. UX exposait « non encore qualifié » / reload comme étape nominale.
+
+## Seam choisi
+Réutiliser completeDocsWriteClaimEvidenceCompletion :
+- Hot path: après ingest dans governedExecuteAuthorizedContract (worktreeRef chaud).
+- Materialize/restart: materializeDocsWriteProductTerminal + resolveDocsWriteArtifactAbsolutePath
+  + short-circuit idempotent si conformity déjà durable.
+- Aucun second verifier / pipeline Evidence / path FocusFlow.
+
+## Architecture réutilisée
+- KEEP: completeDocsWriteClaimEvidenceCompletion, docsWriteMinConformityVerifier,
+  Evidence/RB/CE semantics, W3-C, historical rb:docs-write immutable.
+- ADAPT: materialize docs_write, freeze historique draft, governed complete,
+  projection not_proven, TrajectorySurface copy, W3-C best-effort après CE durable.
+
+## FocusFlow REAL historique (preuve d'entrée — NON muté)
+- Attempt `xat:w3a:46736f6deb0fb02f` succeeded — count 1 avant/après
+- Aucun nouveau spawn / Attempt
+- DB campaign non mutée
+
+## Fichiers créés
+- projects/sfia-studio/app/features/project-assistant/w2/resolveDocsWriteArtifactAbsolutePath.ts
+- projects/sfia-studio/app/__tests__/project-assistant/automaticResultQualification.d0.test.ts
+
+## Fichiers modifiés
+- completeDocsWriteClaimEvidenceCompletion.ts
+- materializeW3bProductTerminal.ts
+- governedExecuteAuthorizedContract.ts
+- w3bProductTerminalProjection.ts
+- TrajectorySurface.tsx
+
+## NEW FILE: resolveDocsWriteArtifactAbsolutePath.ts
+```ts
+/**
+ * Resolve absolute filesystem path of a docs_write artifact for server-owned
+ * conformity verification (ZERO client path trust).
+ *
+ * Priority:
+ * 1) explicit worktreeRef from the just-completed launch (hottest)
+ * 2) Evidence.location when already absolute and present
+ * 3) managedRepoRootBase + repository identity + relative targetPath
+ */
+import { existsSync } from "node:fs";
+import path from "node:path";
+import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
+import type { ExecutionContract } from "@/lib/oa/execution-contract";
+import type { Evidence } from "@/lib/oa/evidence-review";
+import { sanitizeManagedRepoIdentity } from "@/lib/oa/execution-attempt/infrastructure/managedProjectRepositoryResolver";
+import { resolveManagedRepoRootBaseFromEnv } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
+
+function boundInputsOf(
+  attempt: ExecutionAttempt,
+  contract: ExecutionContract,
+): Record<string, unknown> {
+  const bound = attempt.boundExecutionContract?.semanticMaterial?.inputs;
+  if (bound && typeof bound === "object") return bound as Record<string, unknown>;
+  return (contract.inputs ?? {}) as Record<string, unknown>;
+}
+
+function relativeTargetPath(
+  attempt: ExecutionAttempt,
+  contract: ExecutionContract,
+  evidence: Evidence | null,
+): string | null {
+  const inputs = boundInputsOf(attempt, contract);
+  const fromBound =
+    typeof inputs.targetPath === "string" ? inputs.targetPath.trim() : "";
+  if (fromBound) return fromBound;
+  const loc = evidence?.location?.trim() ?? "";
+  if (loc && !path.isAbsolute(loc)) return loc;
+  return null;
+}
+
+function repositoryIdentity(
+  attempt: ExecutionAttempt,
+  contract: ExecutionContract,
+): string | null {
+  const inputs = boundInputsOf(attempt, contract);
+  for (const key of [
+    "repositoryBindingIdentity",
+    "repositoryIdentity",
+    "repositoryRef",
+    "targetRepositoryRef",
+  ] as const) {
+    const v = inputs[key];
+    if (typeof v === "string" && v.trim()) return v.trim();
+  }
+  return null;
+}
+
+export function resolveDocsWriteArtifactAbsolutePath(input: {
+  readonly attempt: ExecutionAttempt;
+  readonly contract: ExecutionContract;
+  readonly evidence: Evidence | null;
+  /** Hot worktree from the same process that just completed docs_write. */
+  readonly worktreeRef?: string | null;
+  readonly managedRepoRootBase?: string | null;
+}): string | null {
+  const rel = relativeTargetPath(input.attempt, input.contract, input.evidence);
+  const candidates: string[] = [];
+
+  const wt = input.worktreeRef?.trim();
+  if (wt && rel) {
+    candidates.push(path.resolve(wt, ...rel.split("/")));
+  }
+
+  const loc = input.evidence?.location?.trim();
+  if (loc && path.isAbsolute(loc)) {
+    candidates.push(loc);
+  }
+
+  const base =
+    input.managedRepoRootBase?.trim() ||
+    resolveManagedRepoRootBaseFromEnv() ||
+    undefined;
+  const identity = repositoryIdentity(input.attempt, input.contract);
+  if (base && identity && rel) {
+    try {
+      const sanitized = sanitizeManagedRepoIdentity(identity);
+      candidates.push(path.resolve(base, sanitized, ...rel.split("/")));
+    } catch {
+      // identity invalid — skip managed candidate
+    }
+  }
+
+  for (const abs of candidates) {
+    if (existsSync(abs)) return abs;
+  }
+  return null;
+}
+```
+
+## DIFF (modified product files)
+```diff
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+index 66f58bff..be253779 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+@@ -2874,17 +2874,19 @@ export function TrajectorySurface({
+           ) : null}
+           <p className={styles.blockNote} data-testid="w3a-terminal-honesty">
+             {productOutcome?.claimAllowed
+-              ? "Terminal technique consommé — résultat produit qualifié ci-dessous."
+-              : productEvidencePending
+-                ? "Terminal technique — Evidence en cours / claim produit non encore émis."
+-                : "Terminal technique — résultat produit non encore qualifié."}
++              ? "Exécution terminée — résultat produit qualifié ci-dessous."
++              : productOutcome
++                ? "Exécution terminée — résultat produit évalué (voir conformité et recommandation)."
++                : productEvidencePending
++                  ? "Exécution terminée — qualification produit en cours…"
++                  : "Exécution terminée — résultat produit en attente de matérialisation."}
+           </p>
+           {productEvidencePending ? (
+             <p
+               className={styles.blockNote}
+               data-testid="w3b-evidence-pending"
+             >
+-              Evidence requise avant tout claim de résultat produit.
++              Qualification automatique du résultat en cours (Evidence / conformité).
+             </p>
+           ) : null}
+           {attempt?.attemptId && !productOutcome ? (
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion.ts b/projects/sfia-studio/app/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion.ts
+index b87cde24..d985d1bf 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion.ts
+@@ -84,7 +84,42 @@ export async function completeDocsWriteClaimEvidenceCompletion(
+   const historicalRb = await services.reviewBundleReader.findById(
+     docsWriteContractResultIdentity(input.attempt.attemptId).reviewBundleId,
+   );
+-  if (!historicalRb?.frozenAt || !historicalRb.frozenVersion) {
++  if (!historicalRb) {
++    return {
++      ok: false,
++      code: "DOCS_WRITE_REVIEW_BUNDLE_MISSING",
++      message: "Historical docs_write RB introuvable.",
++    };
++  }
++  let historicalFrozen = historicalRb;
++  if (!historicalFrozen.frozenAt || !historicalFrozen.frozenVersion) {
++    if (historicalFrozen.status !== "draft") {
++      return {
++        ok: false,
++        code: "DOCS_WRITE_REVIEW_BUNDLE_NOT_FROZEN",
++        message: "Historical docs_write RB must remain frozen/auditable.",
++      };
++    }
++    const frozenHistorical = await services.freezeReviewBundle.execute({
++      reviewBundleId: historicalFrozen.reviewBundleId,
++      expectedVersion: historicalFrozen.version,
++      idempotencyKey: `idem:docs-write-rb-freeze:${input.attempt.attemptId}`,
++      actor,
++      correlationId: input.correlationId,
++      nowIso: input.nowIso,
++    });
++    if (!frozenHistorical.ok) {
++      return {
++        ok: false,
++        code: frozenHistorical.error.detailCode,
++        message:
++          frozenHistorical.error.internalCauseRef ??
++          frozenHistorical.error.message,
++      };
++    }
++    historicalFrozen = frozenHistorical.reviewBundle;
++  }
++  if (!historicalFrozen.frozenAt || !historicalFrozen.frozenVersion) {
+     return {
+       ok: false,
+       code: "DOCS_WRITE_REVIEW_BUNDLE_NOT_FROZEN",
+@@ -92,6 +127,58 @@ export async function completeDocsWriteClaimEvidenceCompletion(
+     };
+   }
+
++  // Restart-safe idempotence: when conformity Evidence + frozen successor RB
++  // already exist, requalify without re-reading the ephemeral worktree payload.
++  const existingConformity = await services.evidenceReader.findById(
++    ids.conformityEvidenceId,
++  );
++  const existingSuccessorRb = await services.reviewBundleReader.findById(
++    ids.reviewBundleId,
++  );
++  if (
++    existingConformity &&
++    existingSuccessorRb?.frozenAt &&
++    existingSuccessorRb.frozenVersion &&
++    !input.artifactBytes &&
++    !input.artifactAbsolutePath
++  ) {
++    const requalified = await requalifyDocsWriteContractResult({
++      evidenceReviewServices: services,
++      attempt: input.attempt,
++      contract: input.contract,
++      actor,
++      correlationId: input.correlationId,
++      nowIso: input.nowIso,
++      correctionRef,
++      scopeReviewBundle: true,
++    });
++    if (!requalified.ok) {
++      return {
++        ok: false,
++        code: requalified.code,
++        message: requalified.message,
++      };
++    }
++    const oracleFromRef =
++      typeof existingConformity.technicalResultRef === "string"
++        ? existingConformity.technicalResultRef.replace(
++            /^docs-write-min-conformity:/,
++            "",
++          )
++        : "";
++    return {
++      ok: true,
++      claimEvaluation: requalified.claimEvaluation,
++      reviewBundle: requalified.reviewBundle,
++      conformityEvidence: existingConformity,
++      artifactEvidence,
++      supersededClaimEvaluationId: requalified.supersededClaimEvaluationId,
++      verifierMatchedHeadings: [],
++      oracleFingerprint: oracleFromRef,
++      reusedFromIdempotencyKey: true,
++    };
++  }
++
+   // CR-CEC-01 — NEVER fallback to live contract.inputs for oracle derivation.
+   const criteria = extractDocsWriteMinConformityCriteriaFromBoundAttempt(
+     input.attempt,
+@@ -136,10 +223,9 @@ export async function completeDocsWriteClaimEvidenceCompletion(
+   }
+
+   // Idempotent: if conformity Evidence + successor RB + CE already exist, requalify.
+-  const existingConformity = await services.evidenceReader.findById(
+-    ids.conformityEvidenceId,
+-  );
+-  let conformityEvidence = existingConformity ?? undefined;
++  let conformityEvidence =
++    (await services.evidenceReader.findById(ids.conformityEvidenceId)) ??
++    undefined;
+   if (!conformityEvidence) {
+     const registered = await services.registerEvidence.execute({
+       evidenceId: ids.conformityEvidenceId,
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts b/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
+index ac2284f0..d4e529df 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
+@@ -14,6 +14,7 @@
+  */
+
+ import { createHash } from "node:crypto";
++import path from "node:path";
+ import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
+ import {
+   applyW3bAdapterFailArmIfPresent,
+@@ -47,11 +48,11 @@ import {
+ } from "@/features/project-assistant/f3/buildMissionResultPayloadFromReport";
+ import { deriveAttemptProvenance } from "@/features/project-assistant/f3/deriveAttemptProvenance";
+ import { authorizedM3ResolutionKind } from "@/features/project-assistant/f3/selectProductM3ResolutionProfile";
++import { completeDocsWriteClaimEvidenceCompletion } from "./completeDocsWriteClaimEvidenceCompletion";
+ import {
+   bindCursorExecutionReportToAttempt,
+   parseCursorExecutionReport,
+ } from "@/lib/oa/execution-attempt";
+-import path from "node:path";
+ import { PRODUCT_MISSION_FROM_DURABLE_CONTEXT } from "@/lib/oa/evidence-review/application/missionResultPayload";
+ import { advanceProductExecutionContractAfterEvidence } from "./advanceProductExecutionContractAfterEvidence";
+ import { evaluateExecutionAuthorization } from "./authorizeExecutionContract";
+@@ -981,6 +982,21 @@ export async function governedExecuteRecordResult(
+             attempt: projectAttempt(attempt, adapterId),
+           };
+         }
++        // Automatic Product result qualification while worktree is still hot.
++        // Failures stay fail-closed on Product claim; technical Attempt unchanged.
++        if (completed.facts.worktreeRef) {
++          await completeDocsWriteClaimEvidenceCompletion({
++            evidenceReviewServices: input.oa.evidenceReviewServices!,
++            attempt,
++            contract,
++            actor: LOCAL_PILOTE_ACTOR,
++            artifactAbsolutePath: path.join(
++              completed.facts.worktreeRef,
++              completed.facts.targetPath,
++            ),
++            nowIso: input.oa.clock.nowIso(),
++          });
++        }
+       }
+     }
+     return buildTechnicalTerminal({
+@@ -992,7 +1008,7 @@ export async function governedExecuteRecordResult(
+       launchCountBefore,
+       statusLabel:
+         attempt.status === "succeeded"
+-          ? "TERMINAL TECHNIQUE DOCS-WRITE — RÉSULTAT PRODUIT À QUALIFIER"
++          ? "TERMINAL TECHNIQUE DOCS-WRITE — QUALIFICATION PRODUIT AUTOMATIQUE"
+           : undefined,
+     });
+   }
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
+index eefc9ccb..fce100fb 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
+@@ -20,6 +20,8 @@ import {
+   missionResultEvidenceIdForAttempt,
+ } from "@/features/project-assistant/f3/ingestMissionResultEvidence";
+ import { requalifyDocsWriteContractResult } from "./requalifyDocsWriteContractResult";
++import { completeDocsWriteClaimEvidenceCompletion } from "./completeDocsWriteClaimEvidenceCompletion";
++import { resolveDocsWriteArtifactAbsolutePath } from "./resolveDocsWriteArtifactAbsolutePath";
+ import {
+   projectW3bProductTerminal,
+   productReservationsForAttempt,
+@@ -31,6 +33,7 @@ import {
+   runW3cPostEvidenceLoop,
+   type W3cPostEvidenceLoopResult,
+ } from "./w3cPostEvidenceLoop";
++import { resolveManagedRepoRootBaseFromEnv } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
+
+ export type { W3BProductTerminalProjection as W3BProductOutcomeProjection };
+
+@@ -143,74 +146,123 @@ async function materializeDocsWriteProductTerminal(input: {
+   readonly projectId: string;
+   readonly attempt: ExecutionAttempt;
+   readonly contract: ExecutionContract;
++  /** Hot worktree from the just-completed docs_write launch (optional). */
++  readonly docsWriteWorktreeRef?: string | null;
+ }): Promise<MaterializeW3bProductTerminalResult> {
+   const services = input.oa.evidenceReviewServices!;
+-  const requalified = await requalifyDocsWriteContractResult({
++  const managedRepoRootBase =
++    input.oa.executionAttemptServices?.realBoundary?.managedRepoRootBase ??
++    resolveManagedRepoRootBaseFromEnv() ??
++    null;
++
++  const segment = input.attempt.attemptId.replace(/[^a-zA-Z0-9:_-]/g, "");
++  const evidenceId = `ev:docs-write:${segment}`.slice(0, 128);
++  const artifactEvidence = await services.evidenceReader.findById(evidenceId);
++
++  const artifactAbsolutePath = resolveDocsWriteArtifactAbsolutePath({
++    attempt: input.attempt,
++    contract: input.contract,
++    evidence: artifactEvidence ?? null,
++    worktreeRef: input.docsWriteWorktreeRef,
++    managedRepoRootBase,
++  });
++
++  // Automatic Product qualification — reuse completeDocsWriteClaimEvidenceCompletion.
++  // Prefer hot worktree / managed path; restart-safe when conformity already persisted.
++  const completed = await completeDocsWriteClaimEvidenceCompletion({
+     evidenceReviewServices: services,
+     attempt: input.attempt,
+     contract: input.contract,
+     actor: LOCAL_PILOTE_ACTOR,
++    ...(artifactAbsolutePath
++      ? { artifactAbsolutePath }
++      : {}),
+   });
+-  if (!requalified.ok) {
+-    return {
+-      ok: false,
+-      code: requalified.code,
+-      message: requalified.message,
+-    };
+-  }
+
+-  const segment = input.attempt.attemptId.replace(/[^a-zA-Z0-9:_-]/g, "");
+-  const evidenceId = `ev:docs-write:${segment}`.slice(0, 128);
+-  const evidence = await services.evidenceReader.findById(evidenceId);
++  let claimEvaluation: ClaimEvaluation;
++  let reviewBundle: ReviewBundle;
++  let evidence: Evidence | null = artifactEvidence ?? null;
++  let reusedFromIdempotency = false;
++
++  if (completed.ok) {
++    claimEvaluation = completed.claimEvaluation;
++    reviewBundle = completed.reviewBundle;
++    evidence = completed.artifactEvidence;
++    reusedFromIdempotency = Boolean(completed.reusedFromIdempotencyKey);
++  } else {
++    // Fail-closed Product claim: keep technical Attempt as-is; project from
++    // historical artifact RB (typically NOT_PROVEN without conformity).
++    const requalified = await requalifyDocsWriteContractResult({
++      evidenceReviewServices: services,
++      attempt: input.attempt,
++      contract: input.contract,
++      actor: LOCAL_PILOTE_ACTOR,
++    });
++    if (!requalified.ok) {
++      return {
++        ok: false,
++        code: completed.code,
++        message: `${completed.message} — fallback requalify: ${requalified.message}`,
++      };
++    }
++    claimEvaluation = requalified.claimEvaluation;
++    reviewBundle = requalified.reviewBundle;
++    reusedFromIdempotency = Boolean(requalified.reusedFromIdempotencyKey);
++  }
+
+   const product = projectFromFacts({
+     attempt: input.attempt,
+     contract: input.contract,
+-    evidence: evidence ?? null,
+-    reviewBundle: requalified.reviewBundle,
+-    claimEvaluation: requalified.claimEvaluation,
++    evidence,
++    reviewBundle,
++    claimEvaluation,
+   });
+
+-  const reusedFromIdempotency = Boolean(requalified.reusedFromIdempotencyKey);
+-
+-  if (product.evidenceId) {
+-    const existing = await findExistingW3cPostEvidence({
+-      oa: input.oa,
+-      projectId: input.projectId,
+-      evidenceId: product.evidenceId,
+-      attemptId: input.attempt.attemptId,
+-      product,
+-    });
+-    if (existing) {
+-      return {
+-        ok: true,
+-        reusedFromIdempotency,
++  // W3-C is best-effort after Product CE is durable — never erase a qualified
++  // Product outcome if Nora/LPS rehydrate fails.
++  let postEvidence: W3cPostEvidenceLoopResult | undefined;
++  try {
++    if (product.evidenceId) {
++      const existing = await findExistingW3cPostEvidence({
++        oa: input.oa,
++        projectId: input.projectId,
++        evidenceId: product.evidenceId,
++        attemptId: input.attempt.attemptId,
+         product,
+-        postEvidence: existing,
+-      };
++      });
++      if (existing) {
++        return {
++          ok: true,
++          reusedFromIdempotency,
++          product,
++          postEvidence: existing,
++        };
++      }
++      const rehydrated = await rehydrateW3cPostEvidenceFromLps({
++        oa: input.oa,
++        projectId: input.projectId,
++        product,
++      });
++      if (rehydrated.ok) {
++        return {
++          ok: true,
++          reusedFromIdempotency,
++          product,
++          postEvidence: rehydrated,
++        };
++      }
+     }
+-    const rehydrated = await rehydrateW3cPostEvidenceFromLps({
++
++    postEvidence = await runW3cPostEvidenceLoop({
+       oa: input.oa,
+       projectId: input.projectId,
++      attemptId: input.attempt.attemptId,
+       product,
+     });
+-    if (rehydrated.ok) {
+-      return {
+-        ok: true,
+-        reusedFromIdempotency,
+-        product,
+-        postEvidence: rehydrated,
+-      };
+-    }
++  } catch {
++    postEvidence = undefined;
+   }
+
+-  const postEvidence = await runW3cPostEvidenceLoop({
+-    oa: input.oa,
+-    projectId: input.projectId,
+-    attemptId: input.attempt.attemptId,
+-    product,
+-  });
+-
+   return {
+     ok: true,
+     reusedFromIdempotency,
+@@ -227,6 +279,8 @@ export async function materializeW3bProductTerminal(input: {
+   readonly claimedProductOutcome?: unknown;
+   readonly cycleProfile?: unknown;
+   readonly ckcId?: unknown;
++  /** Optional hot worktree from docs_write completion (same request). */
++  readonly docsWriteWorktreeRef?: string | null;
+ }): Promise<MaterializeW3bProductTerminalResult> {
+   void input.claimedProductOutcome;
+   void input.cycleProfile;
+@@ -251,6 +305,7 @@ export async function materializeW3bProductTerminal(input: {
+         projectId: input.projectId,
+         attempt,
+         contract,
++        docsWriteWorktreeRef: input.docsWriteWorktreeRef,
+       });
+     }
+   }
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts b/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
+index e46773d2..e7a6c6a5 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
+@@ -273,6 +273,42 @@ export function projectW3bProductTerminal(input: {
+     };
+   }
+
++  // Succeeded Attempt + Contract Result not_proven/fail → honest Product projection
++  // (technical success preserved; no SUCCESS claim).
++  if (
++    input.attempt.status === "succeeded" &&
++    (ce.status === "not_proven" || ce.status === "fail")
++  ) {
++    const assessments = ce.expectedOutputAssessments ?? [];
++    const gaps = assessments
++      .filter((a) => a.result !== "PASS")
++      .map((a) => `${a.expectation}: ${a.result}`);
++    const produced =
++      assessments
++        .filter((a) => a.result === "PASS")
++        .map((a) => a.expectation)
++        .join(" · ") || "livrable technique enregistré";
++    const gapText =
++      gaps.length > 0
++        ? gaps.join(" · ")
++        : "critères de conformité du contrat non satisfaits";
++    return {
++      ...base,
++      outcome: ce.status === "fail" ? "FAIL" : "UNCLAIMED",
++      businessHeadline:
++        ce.status === "fail"
++          ? "Livrable non conforme"
++          : "Conformité non prouvée",
++      businessReason: `Produit : ${produced}. Écarts : ${gapText}. Aucune relance automatique.`,
++      claimAllowed: false,
++      governedBoundary: null,
++      evidenceSummary:
++        ce.status === "fail"
++          ? evidenceSummaryFor("FAIL", input.attempt.status)
++          : "Evidence artifact présente — conformité Contract Result non prouvée.",
++    };
++  }
++
+   if (
+     input.attempt.status === "cancelled" &&
+     input.attempt.stopOrigin === "SYSTEM_GOVERNED_STOP" &&
+```
+
+## Tests exécutés
+```
+npx vitest run automaticResultQualification.d0.test.ts claimEvidenceCompletion.d0.test.ts
+  productJourneyGovernedDocsWriteWiring.d0.test.ts trajectorySurface.ui.test.tsx
+  w3bProductTerminal.test.ts w3cPostEvidenceLoop.test.ts
+```
+- automaticResultQualification: 5/5 PASS (T1–T4, T6)
+- claimEvidenceCompletion: PASS
+- productJourneyGovernedDocsWriteWiring: 30/30 PASS
+- trajectorySurface / w3b / w3c: PASS
+- Combined targeted: 43 PASS
+
+## Preuves invariants
+- Cursor REAL spawn: 0
+- FocusFlow Attempt count: 1 unchanged
+- No SQL / no FocusFlow DB mutation
+- No push/PR/merge projet
+- runtime v3 NON ADOPTED
+- Product Completion/C6 not reopened
+
+## UX avant / après
+| Avant | Après |
+|-------|--------|
+| À QUALIFIER + reload | Qualification auto post-terminal |
+| CE NOT_PROVEN sans conformity | Conformity auto → CE pass si conforme |
+| Message opaque | Succès / Conformité non prouvée + écarts |
+| evaluate_claim métier | Non — internes secondaires |
+
+## Réserves
+- W3-C best-effort si LPS/Nora partiel (CE Product déjà durable).
+- Réconciliation FocusFlow historique non exécutée (GO REAL consommé).
+- .env.example dirty pré-existant hors scope.
+
+## Dette / exit
+- Exit proof déterministe: succeeded + artifact conforme → SUCCESS sans clic qualification.
+- Pas de nouvelle dette Evidence.
+
+## Décisions Morris
+- Push/PR code: non (hors GO ce cycle) — code local seulement.
+- Relance REAL FocusFlow: interdite.
+
+## Verdict
+**PRODUCT-JOURNEY-AUTOMATIC-RESULT-QUALIFICATION-01 — IMPLEMENTED — READY FOR CHATGPT CRITICAL REVIEW**
+
+## CHATGPT REVIEW REQUIRED — READ REMOTE CANONICAL HANDOFF BEFORE VERDICT
