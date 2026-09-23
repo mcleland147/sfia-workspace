@@ -1,11 +1,11 @@
 # STUDIO-RUNTIME-BOOTSTRAP-PROFILE-01
+# SAME MACRO — PRODUCTION PACKAGING BOUNDED CORRECTION
 # Cycle 7 — Intégration / DevOps — CRITICAL — RUN
-# LOCAL RUNTIME CONFIG HARDENING
 # ZERO CURSOR PRODUCT REAL
-# RUNTIME PROFILE PERSISTENT / STARTUP PREFLIGHT PROVEN
+# PRODUCTION PACKAGING CORRECTION COMPLETE
 
 ## Date / heure
-2026-09-23T22:48:46+02:00
+2026-09-23T23:04:06+02:00
 
 ## Local Git Truth
 - repo root: /Users/morris/Projects/sfia-workspace
@@ -15,6 +15,7 @@
 - origin/main: 66ffc0d2370d9ed7014348fd25994ce1cda3b3ad
 - origin/main tree: 400d608e2a0be9b182925c46cd204a24cb1e0034
 - tree vs qualified main: MATCH
+- superseded handoff: 78905a3bd6ed481deb4664e10f297a2c263025f2 / blob 543734f7d17800d3fb01fff4862db939ffa42d6f
 - git status --short:
 
 ```
@@ -27,6 +28,7 @@ M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
  M projects/sfia-studio/app/features/project-assistant/w2/w3bProductTerminalProjection.ts
  M projects/sfia-studio/app/lib/vertical-slice-runtime/index.ts
+ M projects/sfia-studio/app/package-lock.json
  M projects/sfia-studio/app/package.json
 ?? projects/sfia-studio/app/__tests__/project-assistant/automaticResultQualification.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/vertical-slice-runtime/studioRuntimeProfilePreflight.d0.test.ts
@@ -35,445 +37,479 @@ M .tmp-sfia-review/chatgpt-review.md
 ?? projects/sfia-studio/app/scripts/studio-runtime-preflight.ts
 ```
 
-- ARQ macro files: PRESERVED (dirty from prior cycle; not modified in this cycle)
+- ARQ + prior bootstrap logic: PRESERVED (not modified this cycle except packaging test T11 append)
 - project push: NONE
 - Cursor Product REAL spawn: 0
-- new ExecutionAttempt: 0
+- ExecutionAttempt: 0
 
-## Diagnostic — cause racine
+## Finding RUNTIME-BOOTSTRAP-PACKAGING-01 — confirmed
 
-### A. Next.js 15 env loading
-- `npm run dev` / `npm start` → Next native `@next/env` loads `.env`, `.env.local`, `.env.production` (etc.).
-- `.env.local` is loaded for all modes **except** `NODE_ENV=test`.
-- Server-only keys (`SFIA_STUDIO_*`, auth secrets) are available on `process.env` without shell export.
-- No proprietary env loader required for the Next process.
+Nominal path:
+`npm start` → `npm run preflight:runtime` → `tsx scripts/studio-runtime-preflight.ts` → `next start`
 
-### B. Product local profile keys required
-- SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY (non-secret, server-owned)
-- SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL (non-secret, server-owned)
-- SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH (non-secret, optional→main)
-- SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY (non-secret gate, TEMPORARY WITH EXIT)
-- SFIA_STUDIO_MANAGED_REPO_ROOT_BASE (non-secret, host-specific absolute path)
-- SFIA_STUDIO_CURSOR_REAL (non-secret gate, OFF-by-default in Git)
+Before correction:
+- `tsx` was only in **devDependencies** → missing after `npm ci --omit=dev` → `tsx: command not found`
+- `@next/env` imported directly but only available **transitively** via `next` (hoisting)
 
-### C. Categories
-| Key | Secret | Host-specific | Gate |
+## Solution applied
+Declare both as **direct runtime dependencies**; remove `tsx` from devDependencies; regenerate lock via `npm install --package-lock-only` (no hand-edit).
+
+No preflight architecture change. No JS rewrite. No second env loader.
+
+## Versions before / after
+
+| Package | Before | After (declared) | Resolved |
 |---|---|---|---|
-| BETTER_AUTH_SECRET / GITHUB_CLIENT_SECRET | yes | no | auth |
-| Repository IDENTITY/REMOTE/BRANCH | no | no | Product Create |
-| M3_LOCAL_MORRIS_AUTHORITY | no | no | authority |
-| MANAGED_REPO_ROOT_BASE | no | yes | managed docs_write |
-| CURSOR_REAL | no | no | REAL OFF/READY |
-| E2E_DETERMINISTIC_CURSOR_BOUNDARY | no | no | test-only; XOR REAL |
+| tsx | devDependencies ^4.20.5 | dependencies ^4.20.5 | 4.23.11 |
+| @next/env | transitive only (via next) | dependencies ^15.3.3 | 15.5.20 |
+| next | ^15.3.3 | unchanged | 15.5.20 |
 
-### D. Why campaign needed manual injection
-1. Incomplete `.env.example` contract (authority / REAL / deterministic docs missing or partial).
-2. No startup preflight → Pilote discovered blockers mid-journey.
-3. Operators re-exported vars in shell instead of relying on persisted `.env.local`.
-4. Not a Next loading bug once `.env.local` is present.
+`@next/env` range aligned with `next` (^15.3.3); resolved versions match (15.5.20).
 
-### E. Current `.env.local` key status (secret values NEVER printed)
-- SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY = PRESENT / VALID
-- SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL = PRESENT / VALID
-- SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH = PRESENT / VALID
-- SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = PRESENT / VALID
-- SFIA_STUDIO_MANAGED_REPO_ROOT_BASE = PRESENT / VALID
-- SFIA_STUDIO_CURSOR_REAL = PRESENT / VALID
-- SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY = MISSING (correct for REAL profile)
-- BETTER_AUTH_SECRET = PRESENT (secret)
-- GITHUB_CLIENT_SECRET = PRESENT (secret)
-- `.env.local` content: NOT included in this pack
-- No `.env.local` mutation required this cycle (all Product profile keys already present)
-
-### F. Root cause combination
-Absence of complete versioned contract + absence of fail-closed startup preflight.
-Persistent values were already in `.env.local`; friction was operational discoverability / fail-fast.
-
-## Solution retained
-1. Complete `.env.example` documentary contract (REAL OFF-by-default; TEMPORARY WITH EXIT).
-2. Server-owned `runStudioRuntimeProfilePreflight` reusing existing resolvers only.
-3. CLI uses Next canonical `loadEnvConfig` from `@next/env` — not a parallel config system.
-4. `npm start` = `preflight:runtime && next start`.
-5. README documents persistence + preflight.
-6. `.env.local` remains gitignored; REAL=1 never committed.
-
-## Why no parallel config
-- Persistence: native Next `.env.local`
-- CLI loader: `@next/env` (same as Next)
-- Checks: existing resolvers only
-- No second schema, no hardcoding owner/repo in domain, no Morris absolute path in source
-
-## Fichiers créés
-1. lib/vertical-slice-runtime/studioRuntimeProfilePreflight.ts
-2. scripts/studio-runtime-preflight.ts
-3. __tests__/vertical-slice-runtime/studioRuntimeProfilePreflight.d0.test.ts
-
-## Fichiers modifiés
-1. .env.example
-2. package.json
-3. README.md
-4. lib/vertical-slice-runtime/index.ts
-
-## Tests (exact)
-| Suite | Count | Result |
-|---|---|---|
-| studioRuntimeProfilePreflight.d0.test.ts | 10 (T1–T10) | PASS |
-
-### T1–T10
-- T1 repository complete → PASS
-- T2 missing identity/remote → FAIL-CLOSED
-- T3 authority missing → FAIL-CLOSED
-- T4 managed root missing → FAIL-CLOSED
-- T5 managed clone absent → FAIL-CLOSED + expected= path
-- T6 deterministic+REAL → DETERMINISTIC_AND_REAL_MUTUALLY_EXCLUSIVE
-- T7 REAL OFF → realBoundaryConstructed=false
-- T8 child process NODE_ENV=production, SFIA keys stripped, loads `.env.local` via @next/env → READY
-- T9 secrets absent from messages
-- T10 REAL READY display without boundary construction / Cursor launch
-
-## Startup proof
+## package.json final runtime deps (relevant)
+```json
+{
+  "@next/env": "^15.3.3",
+  "next": "^15.3.3",
+  "tsx": "^4.20.5"
+}
 ```
-env -u SFIA_* npm run preflight:runtime
+tsx in devDependencies: None
+
+## package-lock top-level truth
+```
+lockfileVersion: 3
+root.dependencies.tsx = ^4.20.5
+root.dependencies.@next/env = ^15.3.3
+root.devDependencies.tsx = None
+node_modules/tsx.version = 4.23.11  (dev flag=None)
+node_modules/@next/env.version = 15.5.20  (dev flag=None)
+node_modules/next.version = 15.5.20
+
+```
+
+## package-lock diff stat
+```
+projects/sfia-studio/app/package-lock.json | 225 +++++++++++------------------
+ 1 file changed, 85 insertions(+), 140 deletions(-)
+```
+
+## package-lock useful excerpt (tsx / @next/env / former dev:true removals)
+```diff
+diff --git a/projects/sfia-studio/app/package-lock.json b/projects/sfia-studio/app/package-lock.json
+index a511e682..3f81fe9c 100644
+--- a/projects/sfia-studio/app/package-lock.json
++++ b/projects/sfia-studio/app/package-lock.json
+@@ -9,4 +9,5 @@
++        "@next/env": "^15.3.3",
+@@ -17,4 +18,5 @@
++        "tsx": "^4.20.5",
+@@ -34,5 +36,4 @@
+-        "tsx": "^4.20.5",
+@@ -50,5 +51,5 @@
+-      "dev": true,
+@@ -232,5 +233,5 @@
+-      "dev": true,
+@@ -252,5 +253,5 @@
+-      "dev": true,
+@@ -276,5 +277,5 @@
+-      "dev": true,
+@@ -304,5 +305,5 @@
+-      "dev": true,
+@@ -327,5 +328,5 @@
+-      "dev": true,
+@@ -383,5 +384,4 @@
+-      "dev": true,
+@@ -400,5 +400,4 @@
+-      "dev": true,
+@@ -417,5 +416,4 @@
+-      "dev": true,
+@@ -434,5 +432,4 @@
+-      "dev": true,
+@@ -451,5 +448,4 @@
+-      "dev": true,
+@@ -468,5 +464,4 @@
+-      "dev": true,
+@@ -485,5 +480,4 @@
+-      "dev": true,
+@@ -502,5 +496,4 @@
+-      "dev": true,
+@@ -519,5 +512,4 @@
+-      "dev": true,
+@@ -536,5 +528,4 @@
+-      "dev": true,
+@@ -553,5 +544,4 @@
+-      "dev": true,
+@@ -570,5 +560,4 @@
+-      "dev": true,
+@@ -587,5 +576,4 @@
+-      "dev": true,
+@@ -604,5 +592,4 @@
+-      "dev": true,
+@@ -621,5 +608,4 @@
+-      "dev": true,
+@@ -638,5 +624,4 @@
+-      "dev": true,
+@@ -655,5 +640,4 @@
+-      "dev": true,
+@@ -672,5 +656,4 @@
+-      "dev": true,
+@@ -689,5 +672,4 @@
+-      "dev": true,
+@@ -706,5 +688,4 @@
+-      "dev": true,
+@@ -723,5 +704,4 @@
+-      "dev": true,
+@@ -740,5 +720,4 @@
+-      "dev": true,
+@@ -757,5 +736,4 @@
+-      "dev": true,
+@@ -774,5 +752,4 @@
+-      "dev": true,
+@@ -791,5 +768,4 @@
+-      "dev": true,
+@@ -808,5 +784,4 @@
+-      "dev": true,
+@@ -1556,5 +1531,5 @@
+-      "dev": true,
+@@ -2029,5 +2004,5 @@
+-      "dev": true,
+@@ -2048,5 +2023,4 @@
+-      "dev": true,
+@@ -2062,5 +2036,4 @@
+-      "dev": true,
+@@ -2076,5 +2049,4 @@
+-      "dev": true,
+@@ -2090,5 +2062,4 @@
+-      "dev": true,
+@@ -2104,5 +2075,4 @@
+-      "dev": true,
+@@ -2118,5 +2088,4 @@
+-      "dev": true,
+@@ -2132,5 +2101,4 @@
+-      "dev": true,
+@@ -2149,5 +2117,4 @@
+-      "dev": true,
+@@ -2166,5 +2133,4 @@
+-      "dev": true,
+@@ -2183,5 +2149,4 @@
+-      "dev": true,
+@@ -2200,5 +2165,4 @@
+-      "dev": true,
+@@ -2217,5 +2181,4 @@
+-      "dev": true,
+@@ -2234,5 +2197,4 @@
+-      "dev": true,
+@@ -2251,5 +2213,4 @@
+-      "dev": true,
+@@ -2268,5 +2229,4 @@
+-      "dev": true,
+@@ -2285,5 +2245,4 @@
+-      "dev": true,
+@@ -2302,5 +2261,4 @@
+-      "dev": true,
+@@ -2319,5 +2277,4 @@
+-      "dev": true,
+@@ -2336,5 +2293,4 @@
+-      "dev": true,
+@@ -2353,5 +2309,4 @@
+-      "dev": true,
+@@ -2367,5 +2322,4 @@
+-      "dev": true,
+@@ -2381,5 +2335,4 @@
+-      "dev": true,
+@@ -2395,5 +2348,4 @@
+-      "dev": true,
+@@ -2409,5 +2361,4 @@
+-      "dev": true,
+@@ -2423,5 +2374,4 @@
+-      "dev": true,
+@@ -2570,5 +2520,5 @@
+-      "dev": true,
+@@ -2581,5 +2531,5 @@
+-      "dev": true,
+@@ -2588,5 +2538,5 @@
+-      "dev": true,
+@@ -3295,5 +3245,5 @@
+-      "dev": true,
+@@ -3312,5 +3262,5 @@
+-      "dev": true,
+@@ -3339,5 +3289,5 @@
+-      "dev": true,
+@@ -3352,5 +3302,5 @@
+-      "dev": true,
+@@ -3367,5 +3317,5 @@
+-      "dev": true,
+@@ -3382,5 +3332,5 @@
+-      "dev": true,
+@@ -3395,5 +3345,5 @@
+-      "dev": true,
+@@ -3433,5 +3383,5 @@
+-      "dev": true,
+@@ -3662,5 +3612,5 @@
+-      "dev": true,
+@@ -3890,5 +3840,5 @@
+-      "dev": true,
+@@ -3980,5 +3930,5 @@
+-      "dev": true,
+@@ -4014,5 +3964,5 @@
+-      "dev": true,
+@@ -4094,5 +4044,5 @@
+-      "dev": true,
+@@ -4122,5 +4072,5 @@
+-      "dev": true,
+@@ -4207,5 +4157,5 @@
+-      "dev": true,
+@@ -4214,5 +4164,5 @@
+-      "dev": true,
+@@ -4335,5 +4285,5 @@
+-      "dev": true,
+@@ -4484,5 +4434,5 @@
+-      "dev": true,
+@@ -4554,5 +4504,4 @@
+-      "dev": true,
+@@ -5026,5 +4975,5 @@
+-      "dev": true,
+@@ -5069,5 +5018,5 @@
+-      "dev": true,
+@@ -5235,5 +5184,4 @@
+-      "dev": true,
+@@ -5598,5 +5546,5 @@
+-      "dev": true,
+@@ -5611,5 +5559,5 @@
+-      "dev": true,
+@@ -5625,5 +5573,5 @@
+-      "dev": true,
+@@ -5639,5 +5587,5 @@
+-      "dev": true,
+@@ -5997,5 +5945,5 @@
+-      "dev": true,
+@@ -6236,5 +6184,5 @@
+-      "dev": true,
+@@ -6414,5 +6362,5 @@
+-      "dev": true,
+@@ -6421,5 +6369,5 @@
+-      "dev": true,
+@@ -6438,5 +6386,5 @@
+-      "dev": true,
+@@ -6694,5 +6642,5 @@
+-      "dev": true,
+@@ -6942,5 +6890,5 @@
+-      "dev": true,
+```
+
+## DIFF — package.json
+```diff
+diff --git a/projects/sfia-studio/app/package.json b/projects/sfia-studio/app/package.json
+index 7e975028..302de252 100644
+--- a/projects/sfia-studio/app/package.json
++++ b/projects/sfia-studio/app/package.json
+@@ -6,7 +6,9 @@
+   "scripts": {
+     "dev": "next dev --port 3020",
+     "build": "next build",
+-    "start": "next start --port 3020",
++    "preflight:runtime": "tsx scripts/studio-runtime-preflight.ts",
++    "start": "npm run preflight:runtime && next start --port 3020",
++    "start:skip-preflight": "next start --port 3020",
+     "lint": "next lint",
+     "typecheck": "tsc --noEmit",
+     "test": "vitest run",
+@@ -18,6 +20,7 @@
+     "finops:t7:rollout": "tsx scripts/finops-t7-shadow-rollout.ts"
+   },
+   "dependencies": {
++    "@next/env": "^15.3.3",
+     "@openai/agents": "^0.17.0",
+     "ajv": "^6.15.0",
+     "better-auth": "1.7.2",
+@@ -26,6 +29,7 @@
+     "pg": "~8.22.0",
+     "react": "^19.1.0",
+     "react-dom": "^19.1.0",
++    "tsx": "^4.20.5",
+     "zod": "^4.5.4"
+   },
+   "devDependencies": {
+@@ -43,7 +47,6 @@
+     "eslint-config-next": "^15.3.3",
+     "jsdom": "^26.1.0",
+     "node-pg-migrate": "^8.0.4",
+-    "tsx": "^4.20.5",
+     "typescript": "^5.8.3",
+     "vitest": "^3.1.2"
+   }
+
+```
+
+## DIFF — README.md
+```diff
+diff --git a/projects/sfia-studio/app/README.md b/projects/sfia-studio/app/README.md
+index 5f1b2a54..602d55f4 100644
+--- a/projects/sfia-studio/app/README.md
++++ b/projects/sfia-studio/app/README.md
+@@ -9,17 +9,38 @@ Frontend Next.js 15 pour les 4 écrans Figma P0 (`lrjA1WEyRpL05vKR8k29LO`).
+ - Port local : **3020**
+ - Fixtures locales uniquement — **aucun backend**
+
++## Runtime profile (Product local)
++
++Persistance locale : `app/.env.local` (gitignored). Contrat versionné : `app/.env.example`.
++
++Next.js 15 charge `.env.local` automatiquement pour `npm run dev` et `npm start` (server-side). Aucun export shell manuel n'est requis.
++
++```bash
++cp .env.example .env.local   # puis renseigner le profil Product local
++npm run preflight:runtime    # fail-closed avant parcours produit
++npm run build && npm start   # start exécute le preflight automatiquement
++```
++
++`SFIA_STUDIO_CURSOR_REAL` reste **OFF by default** dans Git. Ne jamais committer `=1`.
++`SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY` est **TEMPORARY WITH EXIT**.
++
++`tsx` et `@next/env` sont des **dependencies runtime** (pas seulement dev) : `npm start` → `preflight:runtime` doit fonctionner après `npm ci --omit=dev`.
++
++`npm run start:skip-preflight` n'est **pas** le démarrage Product normal — uniquement diagnostic / récupération opérateur explicite.
++
+ ## Scripts
+
+ ```bash
+ npm install
+ npm run dev          # http://127.0.0.1:3020
++npm run preflight:runtime
+ npm run lint
+ npm run typecheck
+ npm test
+ npm run test:e2e
+ npm run build
+-npm start
++npm start            # preflight:runtime && next start (chemin Product nominal)
++# npm run start:skip-preflight  # diagnostic only — NOT Product normal start
+ ```
+
+ ## Routes P0
+@@ -33,30 +54,8 @@ npm start
+
+ ## Contraintes P0
+
+-- **Pas** de `app/api`, middleware auth, `.env`, Tailwind, ni appels Git distants
+-- Actions Git/Cursor **simulées** (`Simulation — aucune action Git réelle`)
++- **Pas** de secrets commités, ni `NEXT_PUBLIC_*` pour les clés SFIA server-owned
++- Actions Git/Cursor **simulées** hors profil REAL local explicite
+ - `Recommendation` (copilot) ≠ `MorrisDecision` (gate humain)
+ - Onglet **Preuves** et gear rail : désactivés (simulation)
+ - Captures E2E 1440×1024 → `../../.tmp-sfia-review/screenshots/`
+-
+-## Structure
+-
+-```
+-app/                 # App Router pages
+-components/shell/    # StudioShell, rail, topbar, copilot
+-components/ui/       # Card, pills, gates, evidence, metrics
+-features/            # Écrans P0
+-fixtures/            # Données déterministes FR
+-lib/domain/          # Types + guards
+-lib/adapters/        # Ports fixtures-only
+-styles/              # tokens.css, shell.module.css
+-__tests__/           # Vitest + Testing Library
+-e2e/                 # Playwright smoke
+-```
+-
+-## Figma frames
+-
+-- P0-00C `19:2` — shell **floating** (rail/workspace/copilot inset)
+-- P0-01/02/03 — shell **flush** (rail pleine hauteur + topbar)
+-
+-Tokens extraits manuellement depuis `get_design_context` (variables Figma vides).
+
+```
+
+## COLD PROD INSTALL PROVEN — `npm ci --omit=dev`
+
+Isolated temp dir with only package.json + package-lock.json:
+
+```
+PROOF_DIR=/tmp/sfia-runtime-packaging-X2xGsj
+npm ci --omit=dev → added 179 packages
+tsx_bin=PRESENT
+@next/env 15.5.20
+tsx 4.23.11
+next 15.5.20
+direct_runtime_deps=OK
+tsx --version → tsx v4.23.11
+tsx -e "import { loadEnvConfig } from '@next/env'" → loadEnvConfig function
+eslint=ABSENT
+```
+
+Claim: **COLD PROD INSTALL PROVEN** for tsx + @next/env runtime availability.
+
+Reserve: `vitest` still appears under omit=dev because **better-auth@1.7.2** depends on it (pre-existing; unrelated to this finding).
+
+## Startup proof (workspace)
+```
+env -u SFIA_STUDIO_* npm run preflight:runtime
 → STUDIO RUNTIME PROFILE READY
 → repository: mcleland147/sfia-workspace (PASS)
 → cursorReal: READY
 → realBoundaryConstructed: false
 ```
 
-## ZERO REAL / Attempts
-- Cursor Product REAL spawn this cycle: 0
-- ExecutionAttempt created: 0
-- FocusFlow Attempt untouched
-- Preflight never calls StartExecution / process runner
+`npm start` chain (short-lived; preflight observed before next listen):
+```
+> npm run preflight:runtime && next start --port 3020
+STUDIO RUNTIME PROFILE READY
+… then next start hit EADDRINUSE :3020 (existing local `npm run dev`) — preflight PASS proven; process stopped; no Product interaction.
+```
 
-## Secrets
-- `.env.local` NOT in pack
-- No secret values printed
-- `.env.example` placeholders only; CURSOR_REAL documented OFF-by-default (commented)
+## Tests
+| Suite | Count | Result |
+|---|---|---|
+| studioRuntimeProfilePreflight.d0.test.ts | 11 (T1–T10 + T11 packaging) | PASS |
+
+T11 asserts `dependencies.tsx` + `dependencies[@next/env]` present and `devDependencies.tsx` absent.
+
+## ZERO REAL / Attempts / Secrets
+- Cursor Product REAL spawn: 0
+- ExecutionAttempt: 0
+- StartExecution: 0
+- FocusFlow untouched
+- `.env.local` NOT included; no secrets logged
+
+## Fichiers modifiés (this correction)
+1. projects/sfia-studio/app/package.json
+2. projects/sfia-studio/app/package-lock.json
+3. projects/sfia-studio/app/README.md (start:skip-preflight = diagnostic only; runtime deps note)
+4. projects/sfia-studio/app/__tests__/vertical-slice-runtime/studioRuntimeProfilePreflight.d0.test.ts (T11 only)
+
+Not modified: studioRuntimeProfilePreflight.ts, studio-runtime-preflight.ts, .env.local, ARQ files, doctrine/roadmap/C1.
+
+## Success criteria
+- SC-01 tsx runtime under omit=dev: PASS
+- SC-02 @next/env direct: PASS
+- SC-03 lock coherent: PASS
+- SC-04 cold install proven: PASS
+- SC-05 preflight sans export shell: PASS
+- SC-06 bootstrap tests PASS (11/11)
+- SC-07 ZERO REAL: PASS
+- SC-08 Attempts 0: PASS
+- SC-09 secrets not exposed: PASS
+- SC-10 prior macros preserved: PASS
 
 ## Décisions Morris
-- GO runtime bootstrap only
-- No project push / PR / merge / doctrine / REAL spawn
+- GO packaging only
+- No project push / PR / merge
 
 ## Réserves
-- `npm start` now requires Product local profile (fail-closed). Escape hatch: `npm run start:skip-preflight`.
-- `dev` left unwrapped so UI work without Product profile remains possible; operators should run `preflight:runtime` before Product journeys.
-- Host-specific MANAGED_REPO_ROOT_BASE stays in `.env.local` only.
+- better-auth still pulls vitest into omit=dev installs (pre-existing).
+- `npm start` proof hit EADDRINUSE because Studio `dev` already bound :3020; preflight portion of the chain still proven.
+- `start:skip-preflight` retained as diagnostic/recovery only — not Product nominal.
 
 ## Verdict
-**STUDIO-RUNTIME-BOOTSTRAP-PROFILE-01 — IMPLEMENTED — RUNTIME PROFILE PERSISTENT / STARTUP PREFLIGHT PROVEN — READY FOR CHATGPT REVIEW**
+**STUDIO-RUNTIME-BOOTSTRAP-PROFILE-01 — PRODUCTION PACKAGING CORRECTION COMPLETE — READY FOR CHATGPT RE-REVIEW**
 
 ---
 
-## CONTENU INTÉGRAL — studioRuntimeProfilePreflight.ts (CREATED)
-
-```typescript
-/**
- * STUDIO-RUNTIME-BOOTSTRAP-PROFILE-01
- * Server-owned Product local runtime profile preflight.
- *
- * Reuses existing resolvers only — no parallel config system.
- * Does NOT spawn Cursor. Does NOT create ExecutionAttempt.
- * Does NOT enable REAL. Does NOT print secrets.
- */
-import { existsSync } from "node:fs";
-import path from "node:path";
-import {
-  describeServerOwnedRepositoryConfigGap,
-  resolveServerOwnedRepositoryConfig,
-  SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH_ENV,
-  SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY_ENV,
-  SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL_ENV,
-} from "@/lib/oa/project/domain/serverOwnedRepositoryConfig";
-import {
-  isM3LocalAuthorityEnabled,
-  M3_LOCAL_AUTHORITY_ENV,
-} from "@/lib/oa/decision/infrastructure/localSingleUserAuthority";
-import {
-  resolveManagedRepoRootBaseFromEnv,
-  SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV,
-} from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
-import {
-  assertDeterministicAndRealMutuallyExclusive,
-  DETERMINISTIC_AND_REAL_MUTUALLY_EXCLUSIVE,
-  SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY_FLAG,
-} from "@/lib/vertical-slice-runtime/deterministicExternalLaunchBoundary";
-import { composeStudioProductRealBoundary } from "@/lib/vertical-slice-runtime/composeStudioProductRealBoundary";
-import {
-  isStudioCursorRealEnabled,
-  ManagedProjectRepositoryResolver,
-  sanitizeManagedRepoIdentity,
-  SFIA_STUDIO_CURSOR_REAL_FLAG,
-} from "@/lib/oa/execution-attempt";
-
-export const STUDIO_RUNTIME_PROFILE_NOT_READY =
-  "STUDIO RUNTIME PROFILE NOT READY" as const;
-
-export type StudioRuntimeCursorRealMode = "READY" | "OFF";
-
-export type StudioRuntimeProfilePreflightSections = {
-  readonly repository: "PASS" | "FAIL";
-  readonly authority: "PASS" | "FAIL";
-  readonly managedRepository: "PASS" | "FAIL";
-  readonly cursorReal: StudioRuntimeCursorRealMode;
-  readonly deterministicRealExclusive: "PASS" | "FAIL";
-};
-
-export type StudioRuntimeProfilePreflightResult =
-  | {
-      readonly ok: true;
-      readonly sections: StudioRuntimeProfilePreflightSections;
-      readonly managedRepoRoot: string;
-      readonly managedClonePath: string;
-      readonly repositoryIdentity: string;
-      readonly cursorReal: StudioRuntimeCursorRealMode;
-      readonly realBoundaryConstructed: boolean;
-    }
-  | {
-      readonly ok: false;
-      readonly code: typeof STUDIO_RUNTIME_PROFILE_NOT_READY;
-      readonly message: string;
-      readonly blockers: readonly string[];
-      readonly sections: StudioRuntimeProfilePreflightSections;
-    };
-
-export type StudioRuntimeProfilePreflightInput = {
-  readonly env?: NodeJS.ProcessEnv | Record<string, string | undefined>;
-  /**
-   * When false, skip managed-clone filesystem presence (unit tests of config
-   * parsing only). Default true for Product local startup.
-   */
-  readonly requireManagedClonePresent?: boolean;
-  /**
-   * When REAL=OFF, optionally assert composeStudioProductRealBoundary returns
-   * undefined (no REAL wiring). Default true.
-   */
-  readonly assertRealOffConstructsNothing?: boolean;
-};
-
-function pushUnique(blockers: string[], code: string): void {
-  if (!blockers.includes(code)) blockers.push(code);
-}
-
-/**
- * Fail-closed Product local runtime profile check.
- * Cursor launch count remains 0 — read-only filesystem + env resolvers only.
- */
-export function runStudioRuntimeProfilePreflight(
-  input: StudioRuntimeProfilePreflightInput = {},
-): StudioRuntimeProfilePreflightResult {
-  const env = input.env ?? process.env;
-  const requireManagedClone = input.requireManagedClonePresent !== false;
-  const assertRealOff = input.assertRealOffConstructsNothing !== false;
-  const blockers: string[] = [];
-
-  // --- Deterministic ⊕ REAL mutual exclusion (canonical rule only) ---
-  let deterministicRealExclusive: "PASS" | "FAIL" = "PASS";
-  try {
-    assertDeterministicAndRealMutuallyExclusive(env as NodeJS.ProcessEnv);
-  } catch (err) {
-    deterministicRealExclusive = "FAIL";
-    const msg = err instanceof Error ? err.message : String(err);
-    pushUnique(
-      blockers,
-      msg === DETERMINISTIC_AND_REAL_MUTUALLY_EXCLUSIVE
-        ? "DETERMINISTIC_AND_REAL_MUTUALLY_EXCLUSIVE"
-        : `DETERMINISTIC_REAL_EXCLUSIVE:${msg}`,
-    );
-  }
-
-  // --- Repository (server-owned) ---
-  const repo = resolveServerOwnedRepositoryConfig(env);
-  let repository: "PASS" | "FAIL" = "PASS";
-  if (!repo) {
-    repository = "FAIL";
-    const gap = describeServerOwnedRepositoryConfigGap(env);
-    if (!(env[SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY_ENV]?.trim())) {
-      pushUnique(blockers, "REPOSITORY_IDENTITY_MISSING");
-    } else if (
-      !/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(
-        env[SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY_ENV]!.trim(),
-      )
-    ) {
-      pushUnique(blockers, "REPOSITORY_IDENTITY_INVALID");
-    }
-    if (!(env[SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL_ENV]?.trim())) {
-      pushUnique(blockers, "REPOSITORY_REMOTE_MISSING");
-    } else {
-      const remote = env[SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL_ENV]!.trim();
-      if (!remote.startsWith("https://") && !remote.startsWith("git@")) {
-        pushUnique(blockers, "REPOSITORY_REMOTE_INVALID");
-      }
-    }
-    if (blockers.every((b) => !b.startsWith("REPOSITORY_"))) {
-      pushUnique(blockers, `REPOSITORY_CONFIG_GAP:${gap}`);
-    }
-  }
-
-  // --- Local single-user authority (TEMPORARY WITH EXIT) ---
-  let authority: "PASS" | "FAIL" = "PASS";
-  if (!isM3LocalAuthorityEnabled(env as NodeJS.ProcessEnv)) {
-    authority = "FAIL";
-    pushUnique(blockers, "LOCAL_AUTHORITY_NOT_CONFIGURED");
-  }
-
-  // --- Managed repository base + expected clone ---
-  let managedRepository: "PASS" | "FAIL" = "PASS";
-  const managedRoot = resolveManagedRepoRootBaseFromEnv(env);
-  let managedClonePath = "";
-  if (!managedRoot) {
-    managedRepository = "FAIL";
-    pushUnique(blockers, "MANAGED_REPO_ROOT_BASE_UNCONFIGURED");
-  } else if (!path.isAbsolute(managedRoot)) {
-    managedRepository = "FAIL";
-    pushUnique(blockers, "MANAGED_REPO_ROOT_BASE_NOT_ABSOLUTE");
-  } else if (requireManagedClone) {
-    if (!existsSync(managedRoot)) {
-      managedRepository = "FAIL";
-      pushUnique(blockers, "MANAGED_REPO_ROOT_BASE_ABSENT");
-    } else if (repo) {
-      let sanitized: string;
-      try {
-        sanitized = sanitizeManagedRepoIdentity(repo.identity);
-      } catch {
-        managedRepository = "FAIL";
-        pushUnique(blockers, "MANAGED_REPO_IDENTITY_INVALID");
-        sanitized = "";
-      }
-      if (sanitized) {
-        const expected = path.join(managedRoot, sanitized);
-        const resolver = new ManagedProjectRepositoryResolver();
-        const resolved = resolver.resolveLocalRepoRoot(
-          { identity: repo.identity },
-          managedRoot,
-        );
-        if (!resolved) {
-          managedRepository = "FAIL";
-          pushUnique(
-            blockers,
-            `MANAGED_REPO_ABSENT:expected=${expected}`,
-          );
-        } else {
-          managedClonePath = resolved;
-        }
-      }
-    }
-  }
-
-  // --- Cursor REAL mode (OFF-by-default; display only) ---
-  const cursorReal: StudioRuntimeCursorRealMode = isStudioCursorRealEnabled(
-    env as NodeJS.ProcessEnv,
-  )
-    ? "READY"
-    : "OFF";
-
-  let realBoundaryConstructed = false;
-  if (deterministicRealExclusive === "PASS") {
-    if (cursorReal === "OFF" && assertRealOff) {
-      const wiring = composeStudioProductRealBoundary({
-        env: env as NodeJS.ProcessEnv,
-      });
-      if (wiring !== undefined) {
-        pushUnique(blockers, "REAL_OFF_BUT_BOUNDARY_PRESENT");
-      }
-      realBoundaryConstructed = wiring !== undefined;
-    } else if (cursorReal === "READY") {
-      // Flag READY — do NOT launch; construction check is optional and avoided
-      // here to keep preflight side-effect free (no safety DB / worktree mkdir).
-      realBoundaryConstructed = false;
-    }
-  }
-
-  const sections: StudioRuntimeProfilePreflightSections = {
-    repository,
-    authority,
-    managedRepository,
-    cursorReal,
-    deterministicRealExclusive,
-  };
-
-  if (blockers.length > 0) {
-    return {
-      ok: false,
-      code: STUDIO_RUNTIME_PROFILE_NOT_READY,
-      message: `${STUDIO_RUNTIME_PROFILE_NOT_READY}\n- ${blockers.join("\n- ")}`,
-      blockers,
-      sections,
-    };
-  }
-
-  return {
-    ok: true,
-    sections,
-    managedRepoRoot: managedRoot!,
-    managedClonePath,
-    repositoryIdentity: repo!.identity,
-    cursorReal,
-    realBoundaryConstructed,
-  };
-}
-
-/** Keys documented for Product local profile (non-secret). */
-export const STUDIO_RUNTIME_PROFILE_ENV_KEYS = [
-  SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY_ENV,
-  SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL_ENV,
-  SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH_ENV,
-  M3_LOCAL_AUTHORITY_ENV,
-  SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV,
-  SFIA_STUDIO_CURSOR_REAL_FLAG,
-  SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY_FLAG,
-] as const;
-```
-
----
-
-## CONTENU INTÉGRAL — studio-runtime-preflight.ts (CREATED)
-
-```typescript
-/**
- * CLI preflight for Product local runtime profile.
- * Loads env via Next's canonical @next/env (same as next start / next dev).
- * ZERO Cursor Product REAL. Never prints secret values.
- */
-import path from "node:path";
-import { loadEnvConfig } from "@next/env";
-import {
-  runStudioRuntimeProfilePreflight,
-  STUDIO_RUNTIME_PROFILE_NOT_READY,
-} from "../lib/vertical-slice-runtime/studioRuntimeProfilePreflight";
-
-const appDir = path.resolve(__dirname, "..");
-// Same loader Next uses for `next start` / `next dev` — not a parallel config system.
-loadEnvConfig(appDir);
-
-const result = runStudioRuntimeProfilePreflight({
-  env: process.env,
-  requireManagedClonePresent: true,
-  assertRealOffConstructsNothing: true,
-});
-
-if (!result.ok) {
-  console.error(result.message);
-  console.error(
-    `\nFix: copy projects/sfia-studio/app/.env.example → .env.local and set the Product local profile (server-only). See README Runtime profile.`,
-  );
-  process.exit(1);
-}
-
-console.log("STUDIO RUNTIME PROFILE READY");
-console.log(`- repository: ${result.repositoryIdentity} (${result.sections.repository})`);
-console.log(`- authority: ${result.sections.authority}`);
-console.log(`- managedRoot: ${result.managedRepoRoot}`);
-console.log(`- managedClone: ${result.managedClonePath || "(skipped)"}`);
-console.log(`- cursorReal: ${result.cursorReal}`);
-console.log(`- deterministic⊕REAL: ${result.sections.deterministicRealExclusive}`);
-console.log(`- realBoundaryConstructed: ${result.realBoundaryConstructed}`);
-void STUDIO_RUNTIME_PROFILE_NOT_READY;
-```
-
----
-
-## CONTENU INTÉGRAL — studioRuntimeProfilePreflight.d0.test.ts (CREATED)
+## CONTENU INTÉGRAL — studioRuntimeProfilePreflight.d0.test.ts (updated; T11 packaging)
 
 ```typescript
 /**
@@ -717,254 +753,19 @@ describe("studioRuntimeProfilePreflight", () => {
     expect(r.cursorReal).toBe("READY");
     expect(r.realBoundaryConstructed).toBe(false);
   });
+
+  it("T11 — packaging: tsx + @next/env are direct runtime dependencies", () => {
+    const pkgPath = path.resolve(__dirname, "../../package.json");
+    const pkg = JSON.parse(
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      require("node:fs").readFileSync(pkgPath, "utf8"),
+    ) as {
+      dependencies?: Record<string, string>;
+      devDependencies?: Record<string, string>;
+    };
+    expect(pkg.dependencies?.tsx).toBeTruthy();
+    expect(pkg.dependencies?.["@next/env"]).toBeTruthy();
+    expect(pkg.devDependencies?.tsx).toBeUndefined();
+  });
 });
-```
-
----
-
-## DIFF — .env.example
-
-```diff
-diff --git a/projects/sfia-studio/app/.env.example b/projects/sfia-studio/app/.env.example
-index 57636a01..06ee4b49 100644
---- a/projects/sfia-studio/app/.env.example
-+++ b/projects/sfia-studio/app/.env.example
-@@ -1,32 +1,105 @@
- # SFIA Studio — Auth foundation (Better Auth + GitHub multi-user)
- # Copy to .env.local for local development. NEVER commit real secrets.
-+# Next.js 15 loads .env.local automatically for `npm run dev` and `npm start`
-+# (server-side only). Never use NEXT_PUBLIC_* for SFIA server-owned keys.
-
--# Better Auth (required)
-+# Better Auth (required for auth routes)
-+# Role: session signing secret. Required: yes (auth). Secret: yes. Server-only.
-+# Fail-closed: Better Auth refuses to start without a secret.
- BETTER_AUTH_SECRET=replace-with-long-random-secret
- # Studio local port is 3020 (see package.json scripts)
-+# Role: public base URL for auth callbacks. Required: yes (auth). Secret: no. Server-only.
- BETTER_AUTH_URL=http://localhost:3020
-
- # GitHub OAuth App credentials (identity-only; no repo write scopes required)
- # Create the OAuth App separately under a Morris GO — not in this Delivery cycle.
- # Callback URL must be: http://localhost:3020/api/auth/callback/github
-+# Role: OAuth client id. Required: yes (auth). Secret: no (public client id). Server-only.
- GITHUB_CLIENT_ID=replace-with-github-oauth-app-client-id
-+# Role: OAuth client secret. Required: yes (auth). Secret: yes. Server-only.
- GITHUB_CLIENT_SECRET=replace-with-github-oauth-app-client-secret
-
- # Server-owned multi-user allowlist — immutable GitHub numeric user ids (comma-separated)
- # Example placeholders only (not real accounts):
-+# Role: allowlist. Required: optional for local single-user Product profile.
-+# Secret: no. Server-only.
- SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS=11111111,22222222
-
-+# ===========================================================================
-+# Product local runtime profile (STUDIO-RUNTIME-BOOTSTRAP-PROFILE-01)
-+# Persist in .env.local (gitignored). Validated by: npm run preflight:runtime
-+# ===========================================================================
-+
-+# ---------------------------------------------------------------------------
-+# Server-owned Product Create — RepositoryBinding (CR-PWR-04 / D-PC-09)
-+# ---------------------------------------------------------------------------
-+# Explicit server-owned repository identity for normal Product Project create.
-+# Never accept browser/client-supplied binding. Never infer from cwd/origin.
-+# Never set NEXT_PUBLIC_* for these keys.
-+#
-+# Required for Product Create via LocalProjectComposition / runtime preflight:
-+# - IDENTITY (owner/repo) and REMOTE_URL (https://… or git@…) must both be set
-+# - DEFAULT_BRANCH is optional; domain falls back to "main" when blank
-+# Absent/invalid identity or remote → fail-closed PROJECT_CREATION_FAILED /
-+# PROJECT_INVALID / STUDIO RUNTIME PROFILE NOT READY — no partial Project.
-+#
-+# Placeholders only (replace with your deployment's server-owned values):
-+# Role: repository identity. Required: yes (Product local). Secret: no. Server-only.
-+SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY=owner/repository
-+# Role: repository remote URL. Required: yes (Product local). Secret: no. Server-only.
-+SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL=https://github.com/owner/repository.git
-+# Role: default branch. Required: optional (defaults to main). Secret: no. Server-only.
-+SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH=main
-+
-+# ---------------------------------------------------------------------------
-+# Local single-user structuring authority (TEMPORARY WITH EXIT)
-+# ---------------------------------------------------------------------------
-+# Enables Pilote N3 structuring decisions on a single-user Product local profile.
-+# TEMPORARY WITH EXIT — not a multi-user production authority model.
-+# Never trust client canActAsMorris. Never set NEXT_PUBLIC_*.
-+#
-+# Role: authority gate. Required: yes (Product local single-user profile).
-+# Secret: no (boolean gate). Server-only.
-+# Fail-closed: AUTHORITY_NOT_CONFIGURED / LOCAL_AUTHORITY_NOT_CONFIGURED.
-+# SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1
-+
- # ---------------------------------------------------------------------------
- # Server-owned managed repository base (docs_write REAL composition)
- # ---------------------------------------------------------------------------
- # Absolute directory under which Project.repositoryBinding.identity maps to a
- # local Git checkout: {SFIA_STUDIO_MANAGED_REPO_ROOT_BASE}/{sanitizedIdentity}
--# (see ManagedProjectRepositoryResolver). Required when SFIA_STUDIO_CURSOR_REAL=1
--# and Product StartExecution runs bounded docs_write.
-+# (see ManagedProjectRepositoryResolver). Required for Product local preflight
-+# and when SFIA_STUDIO_CURSOR_REAL=1 runs bounded docs_write.
- #
- # Operational precondition: the managed clone must already exist locally.
- # This variable does not clone, fetch, or mutate remotes.
--# Absent/blank → fail-closed (docs_write_managed_repo_root_base_unconfigured).
-+# Absent/blank → fail-closed (docs_write_managed_repo_root_base_unconfigured /
-+# MANAGED_REPO_ROOT_BASE_UNCONFIGURED).
- # Never set NEXT_PUBLIC_* for this path. Never put secrets here.
-+# Host-specific absolute path — do not commit machine-specific .env.local.
-+#
-+# Role: managed repo root. Required: yes (Product local). Secret: no. Server-only.
- # Example (local only — replace with your host absolute path):
- # SFIA_STUDIO_MANAGED_REPO_ROOT_BASE=/absolute/path/to/managed-repos
-+
-+# ---------------------------------------------------------------------------
-+# Cursor Product REAL gate (OFF by default in Git)
-+# ---------------------------------------------------------------------------
-+# OFF by default.
-+# Set to 1 only in a local/deployment profile explicitly authorized for REAL.
-+# Never NEXT_PUBLIC_*.
-+# Never commit SFIA_STUDIO_CURSOR_REAL=1 to the repository.
-+# Mutually exclusive with SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY=1
-+# (assertDeterministicAndRealMutuallyExclusive).
-+#
-+# Role: REAL enablement. Required: optional (default OFF). Secret: no. Server-only.
-+# Fail-closed: REAL stays OFF unless exactly "1"; mutual exclusion throws when
-+# deterministic boundary is also "1".
-+# SFIA_STUDIO_CURSOR_REAL=0
-+
-+# ---------------------------------------------------------------------------
-+# Deterministic Cursor boundary (TEST/E2E ONLY — never with REAL=1)
-+# ---------------------------------------------------------------------------
-+# Role: test double for external Cursor boundary. Required: no for Product local.
-+# Secret: no. Server-only. Must remain unset/0 when CURSOR_REAL=1.
-+# SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY=0
-```
-
----
-
-## DIFF — package.json
-
-```diff
-diff --git a/projects/sfia-studio/app/package.json b/projects/sfia-studio/app/package.json
-index 7e975028..4f1b9a34 100644
---- a/projects/sfia-studio/app/package.json
-+++ b/projects/sfia-studio/app/package.json
-@@ -6,7 +6,9 @@
-   "scripts": {
-     "dev": "next dev --port 3020",
-     "build": "next build",
--    "start": "next start --port 3020",
-+    "preflight:runtime": "tsx scripts/studio-runtime-preflight.ts",
-+    "start": "npm run preflight:runtime && next start --port 3020",
-+    "start:skip-preflight": "next start --port 3020",
-     "lint": "next lint",
-     "typecheck": "tsc --noEmit",
-     "test": "vitest run",
-```
-
----
-
-## DIFF — README.md
-
-```diff
-diff --git a/projects/sfia-studio/app/README.md b/projects/sfia-studio/app/README.md
-index 5f1b2a54..26b813c9 100644
---- a/projects/sfia-studio/app/README.md
-+++ b/projects/sfia-studio/app/README.md
-@@ -9,17 +9,33 @@ Frontend Next.js 15 pour les 4 écrans Figma P0 (`lrjA1WEyRpL05vKR8k29LO`).
- - Port local : **3020**
- - Fixtures locales uniquement — **aucun backend**
-
-+## Runtime profile (Product local)
-+
-+Persistance locale : `app/.env.local` (gitignored). Contrat versionné : `app/.env.example`.
-+
-+Next.js 15 charge `.env.local` automatiquement pour `npm run dev` et `npm start` (server-side). Aucun export shell manuel n'est requis.
-+
-+```bash
-+cp .env.example .env.local   # puis renseigner le profil Product local
-+npm run preflight:runtime    # fail-closed avant parcours produit
-+npm run build && npm start   # start exécute le preflight automatiquement
-+```
-+
-+`SFIA_STUDIO_CURSOR_REAL` reste **OFF by default** dans Git. Ne jamais committer `=1`.
-+`SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY` est **TEMPORARY WITH EXIT**.
-+
- ## Scripts
-
- ```bash
- npm install
- npm run dev          # http://127.0.0.1:3020
-+npm run preflight:runtime
- npm run lint
- npm run typecheck
- npm test
- npm run test:e2e
- npm run build
--npm start
-+npm start            # preflight:runtime && next start
- ```
-
- ## Routes P0
-@@ -33,30 +49,8 @@ npm start
-
- ## Contraintes P0
-
--- **Pas** de `app/api`, middleware auth, `.env`, Tailwind, ni appels Git distants
--- Actions Git/Cursor **simulées** (`Simulation — aucune action Git réelle`)
-+- **Pas** de secrets commités, ni `NEXT_PUBLIC_*` pour les clés SFIA server-owned
-+- Actions Git/Cursor **simulées** hors profil REAL local explicite
- - `Recommendation` (copilot) ≠ `MorrisDecision` (gate humain)
- - Onglet **Preuves** et gear rail : désactivés (simulation)
- - Captures E2E 1440×1024 → `../../.tmp-sfia-review/screenshots/`
--
--## Structure
--
--```
--app/                 # App Router pages
--components/shell/    # StudioShell, rail, topbar, copilot
--components/ui/       # Card, pills, gates, evidence, metrics
--features/            # Écrans P0
--fixtures/            # Données déterministes FR
--lib/domain/          # Types + guards
--lib/adapters/        # Ports fixtures-only
--styles/              # tokens.css, shell.module.css
--__tests__/           # Vitest + Testing Library
--e2e/                 # Playwright smoke
--```
--
--## Figma frames
--
--- P0-00C `19:2` — shell **floating** (rail/workspace/copilot inset)
--- P0-01/02/03 — shell **flush** (rail pleine hauteur + topbar)
--
--Tokens extraits manuellement depuis `get_design_context` (variables Figma vides).
-```
-
----
-
-## DIFF — vertical-slice-runtime/index.ts
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/index.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/index.ts
-index faf37e34..01348d1f 100644
---- a/projects/sfia-studio/app/lib/vertical-slice-runtime/index.ts
-+++ b/projects/sfia-studio/app/lib/vertical-slice-runtime/index.ts
-@@ -38,6 +38,15 @@ export {
-   resolveManagedRepoRootBaseFromEnv,
-   SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV,
- } from "./managedRepoRootBaseConfig";
-+export {
-+  runStudioRuntimeProfilePreflight,
-+  STUDIO_RUNTIME_PROFILE_NOT_READY,
-+  STUDIO_RUNTIME_PROFILE_ENV_KEYS,
-+  type StudioRuntimeProfilePreflightInput,
-+  type StudioRuntimeProfilePreflightResult,
-+  type StudioRuntimeProfilePreflightSections,
-+  type StudioRuntimeCursorRealMode,
-+} from "./studioRuntimeProfilePreflight";
- export {
-   resolveBoundedReadOnlyBaseHeadSha,
-   validateBaseHeadSha,
 ```
