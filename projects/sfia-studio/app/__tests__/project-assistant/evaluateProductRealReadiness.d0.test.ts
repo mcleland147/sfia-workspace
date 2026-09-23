@@ -128,6 +128,7 @@ describe("B3+B4 evaluateProductRealReadiness", () => {
     expect(result.productDb.expectedProjectFound).toBe(true);
     expect(result.managedRepository.repoExists).toBe(true);
     expect(result.managedRepository.pathRootExists).toBe(true);
+    expect(result.managedRepository.pathRootContainmentValid).toBe(true);
     expect(result.managedRepository.trustedBaseHeadSha).toBe(sha);
     expect(result.cursorBinary.configuredOverride).toBe(true);
     expect(result.cursorBinary.executable).toBe(true);
@@ -215,13 +216,19 @@ describe("B3+B4 evaluateProductRealReadiness", () => {
     expect(r.readyForDeterministicPreReal).toBe(false);
   });
 
-  it("C5 — pathRoot absent → NOT READY (no silent create)", () => {
+  it("C5 — valid contained pathRoot absent → READY (no silent create)", () => {
     const root = tempDir("sfia-nopath-");
     const dbPath = path.join(root, "p.sqlite");
     makeSqliteWithProject(dbPath, "prj:x");
     const managedBase = path.join(root, "managed");
     const identity = "acme/y";
     makeGitRepo(path.join(managedBase, "acme__y"));
+    const pathRootAbs = path.join(
+      managedBase,
+      "acme__y",
+      "projects/batch-cookinb",
+    );
+    expect(fs.existsSync(pathRootAbs)).toBe(false);
     const r = evaluateProductRealReadiness({
       env: {
         SFIA_STUDIO_PRODUCT_DB_PATH: dbPath,
@@ -235,13 +242,13 @@ describe("B3+B4 evaluateProductRealReadiness", () => {
       resolveBaseHeadSha: () => ({ ok: true, sha: "b".repeat(40) }),
     });
     expect(r.managedRepository.pathRootExists).toBe(false);
-    expect(r.blockers).toContain("PROJECT_PATH_ROOT_ABSENT");
-    expect(
-      fs.existsSync(
-        path.join(managedBase, "acme__y", "projects/batch-cookinb"),
-      ),
-    ).toBe(false);
-    expect(r.readyForDeterministicPreReal).toBe(false);
+    expect(r.managedRepository.pathRootContainmentValid).toBe(true);
+    expect(r.blockers).not.toContain("PROJECT_PATH_ROOT_ABSENT");
+    expect(r.contractReadiness.launchContextResolvable).toBe(true);
+    expect(r.readyForDeterministicPreReal).toBe(true);
+    expect(r.readyForProductRealExecute).toBe(false);
+    // Proves no silent materialization of the Product workspace.
+    expect(fs.existsSync(pathRootAbs)).toBe(false);
   });
 
   it("C6 — trusted HEAD invalid → NOT READY", () => {
@@ -381,6 +388,8 @@ describe("B3+B4 evaluateProductRealReadiness", () => {
         resolveCursorBin: () => "/x",
         resolveBaseHeadSha: () => ({ ok: true, sha: "f".repeat(40) }),
       });
+      expect(r.managedRepository.pathRootContainmentValid).toBe(false);
+      expect(r.contractReadiness.launchContextResolvable).toBe(false);
       expect(r.readyForDeterministicPreReal).toBe(false);
       expect(
         r.blockers.some(
@@ -391,5 +400,48 @@ describe("B3+B4 evaluateProductRealReadiness", () => {
         ),
       ).toBe(true);
     }
+  });
+
+  it("parity — valid unmaterialized pathRoot aligns with launch readiness (no Cursor)", () => {
+    const root = tempDir("sfia-parity-");
+    const dbPath = path.join(root, "p.sqlite");
+    const projectId = "prj:parity-batch";
+    makeSqliteWithProject(dbPath, projectId);
+    const managedBase = path.join(root, "managed");
+    const identity = "mcleland147/sfia-workspace";
+    const repoPath = path.join(managedBase, "mcleland147__sfia-workspace");
+    const sha = makeGitRepo(repoPath); // no projects/batch-cookinb
+    const fakeBin = path.join(root, "fake-cursor");
+    fs.writeFileSync(fakeBin, "#!/bin/sh\necho ok\n", { mode: 0o755 });
+    const pathRootAbs = path.join(repoPath, "projects/batch-cookinb");
+    expect(fs.existsSync(pathRootAbs)).toBe(false);
+
+    const r = evaluateProductRealReadiness({
+      env: {
+        SFIA_STUDIO_PRODUCT_DB_PATH: dbPath,
+        [SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]: managedBase,
+        SFIA_CURSOR_BIN: fakeBin,
+      },
+      expectedProjectId: projectId,
+      repositoryBindingIdentity: identity,
+      pathRoot: "projects/batch-cookinb",
+      defaultBranch: "main",
+      resolveBaseHeadSha: () => ({ ok: true, sha }),
+    });
+
+    expect(r.managedRepository.pathRootExists).toBe(false);
+    expect(r.managedRepository.pathRootContainmentValid).toBe(true);
+    expect(r.blockers).not.toContain("PROJECT_PATH_ROOT_ABSENT");
+    expect(r.contractReadiness.launchContextResolvable).toBe(true);
+    expect(r.readyForDeterministicPreReal).toBe(true);
+    expect(r.readyForProductRealExecute).toBe(false);
+    expect(r.auth.proven).toBe(false);
+    expect(fs.existsSync(pathRootAbs)).toBe(false);
+
+    // Lightweight parity with resolveTrustedProductLaunchContext inputs:
+    // managed repo + full HEAD + contained pathRoot — no physical pathRoot required.
+    expect(r.managedRepository.resolvedManagedRepoPath).toBe(repoPath);
+    expect(r.managedRepository.trustedBaseHeadSha).toBe(sha);
+    expect(r.managedRepository.pathRoot).toBe("projects/batch-cookinb");
   });
 });
