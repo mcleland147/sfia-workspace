@@ -1,28 +1,38 @@
 /**
- * PJ-REPROOF-04 — Studio Cursor generalist executor (canonical Product path).
+ * PJ-REPROOF-04 / PJ-REPROOF-05 — Studio Cursor generalist executor
+ * (AgentDescriptor owner for the canonical Product path).
  *
  * ONE agent identity for ANY authorized ExecutionContract mission.
  * Cursor determines HOW from the projected prompt.
+ *
+ * Contract-surface quartet tokens are owned by execution-contract domain
+ * (`generalistExecutionSurface`). This module builds the AgentDescriptor and
+ * re-exports the quartet for historical consumers — it does NOT redefine the
+ * string literals.
  *
  * Do NOT grow supportedCapabilities / allowedActions by Product task type.
  * Exact non-wildcard technical tokens satisfy REAL allowlist shape only.
  */
 import type { ProvenanceRecord } from "@/lib/oa/doctrine";
 import {
+  STUDIO_CURSOR_GENERALIST_ACTION,
+  STUDIO_CURSOR_GENERALIST_CAPABILITY,
+  STUDIO_CURSOR_GENERALIST_SCOPE,
+  STUDIO_CURSOR_GENERALIST_TARGET,
+} from "@/lib/oa/execution-contract/domain/generalistExecutionSurface";
+import {
   M4_REAL_GATEWAY_ADAPTER_ID,
   STUDIO_CURSOR_GENERALIST_AGENT_ID,
 } from "../domain/realLaunchSafety";
 import type { AgentDescriptor } from "../domain/types";
 
-/** Single generic Product capability — not a task catalogue. */
-export const STUDIO_CURSOR_GENERALIST_CAPABILITY =
-  "cap:studio.cursor.generalist" as const;
-export const STUDIO_CURSOR_GENERALIST_ACTION =
-  "studio.cursor.generalist.execute" as const;
-export const STUDIO_CURSOR_GENERALIST_TARGET =
-  "studio.cursor.generalist.workspace" as const;
-export const STUDIO_CURSOR_GENERALIST_SCOPE =
-  "studio.cursor.generalist.authorized_contract" as const;
+/** Compatibility re-exports — canonical source is execution-contract domain. */
+export {
+  STUDIO_CURSOR_GENERALIST_ACTION,
+  STUDIO_CURSOR_GENERALIST_CAPABILITY,
+  STUDIO_CURSOR_GENERALIST_SCOPE,
+  STUDIO_CURSOR_GENERALIST_TARGET,
+};
 
 export function createStudioCursorGeneralistAgentDescriptor(
   nowIso: string,

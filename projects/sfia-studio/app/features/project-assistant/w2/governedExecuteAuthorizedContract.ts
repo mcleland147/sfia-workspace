@@ -5,10 +5,12 @@
  * Phase 2 (start): continue durable Attempt → running (no re-authorize on executing EC)
  * Phase 3 (record): continue running Attempt → technical terminal
  *
- * Dual Product orchestration (ONE state machine):
- * - Sandbox / fixture-safe EC → F3 fixture adapter (existing)
- * - Resolved M4 bounded docs-write EC → OA Select → Gate D → StartExecution
- *   with Fake or REAL launch port from composition (client real/adapter ignored)
+ * PJ-REPROOF-05 / Morris — Product orchestration:
+ * - Canonical PRODUCT_GOVERNED EC → generic Cursor REAL boundary + mechanical Gate D
+ * - Sealed historical M4 bounded docs-write EC → docs-write agent + Gate D (isolated GCEC)
+ * - Explicit FIXTURE_EXECUTOR_BOUNDARY_ONLY / historical F3-only → fixture adapter (test)
+ *
+ * Effects / ActionPolicy remain internal protections — not Product executor routing.
  */
 
 import { createHash } from "node:crypto";
@@ -31,6 +33,7 @@ import {
   M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
   M4_REAL_GATEWAY_ADAPTER_ID,
   resolveSelectionStrategy,
+  STUDIO_CURSOR_GENERALIST_AGENT_ID,
 } from "@/lib/oa/execution-attempt";
 import type { CycleProfile } from "@/lib/oa/cycle";
 import { F3_ADAPTER_ID } from "@/features/project-assistant/f3/constants";
@@ -40,6 +43,7 @@ import { deriveAttemptProvenance } from "@/features/project-assistant/f3/deriveA
 import { authorizedM3ResolutionKind } from "@/features/project-assistant/f3/selectProductM3ResolutionProfile";
 import { advanceProductExecutionContractAfterEvidence } from "./advanceProductExecutionContractAfterEvidence";
 import { evaluateExecutionAuthorization } from "./authorizeExecutionContract";
+import { resolveProductExecutionEligibility } from "./resolveProductExecutionEligibility";
 import type {
   GovernedExecuteAuthorizedContractResult,
   GovernedExecuteAttemptProjection,
@@ -54,13 +58,40 @@ function mapCycleProfileToSelectionProfile(
   return "standard";
 }
 
+function isBoundedDocsWriteContract(contract: ExecutionContract): boolean {
+  return authorizedM3ResolutionKind(contract) === "bounded_docs_write";
+}
+
 /**
- * adapterId = contractual M4 gateway identity for docs-write ECs
+ * Canonical Product EC: Nora/Studio-prepared PRODUCT_GOVERNED envelope.
+ * Not a sealed GCEC docs-write profile. Not an explicit fixture-only stamp.
+ */
+function isCanonicalProductGovernedContract(
+  contract: ExecutionContract,
+): boolean {
+  if (isBoundedDocsWriteContract(contract)) return false;
+  if (contract.constraints.includes("FIXTURE_EXECUTOR_BOUNDARY_ONLY")) {
+    return false;
+  }
+  return contract.constraints.includes("PRODUCT_GOVERNED");
+}
+
+/** Generic Cursor REAL launch boundary (Product or sealed docs-write). */
+function usesGenericCursorRealBoundary(contract: ExecutionContract): boolean {
+  return (
+    isBoundedDocsWriteContract(contract) ||
+    isCanonicalProductGovernedContract(contract)
+  );
+}
+
+/**
+ * adapterId = contractual M4 gateway identity for Cursor REAL ECs
  * (Fake and REAL share M4_REAL_GATEWAY_ADAPTER_ID). Physical Fake vs REAL is
  * carried by boundaryProofMode / realExecution from deriveAttemptProvenance.
+ * Fixture adapter is historical / test-only when EC explicitly fixture-stamped.
  */
 function adapterIdForContract(contract: ExecutionContract): string {
-  return isBoundedDocsWriteContract(contract)
+  return usesGenericCursorRealBoundary(contract)
     ? M4_REAL_GATEWAY_ADAPTER_ID
     : F3_ADAPTER_ID;
 }
@@ -115,10 +146,6 @@ export type GovernedExecuteAuthorizedContractInput = {
 
 type Failure = GovernedExecuteAuthorizedContractResult;
 
-function isBoundedDocsWriteContract(contract: ExecutionContract): boolean {
-  return authorizedM3ResolutionKind(contract) === "bounded_docs_write";
-}
-
 function fixtureBoundaryFailure(oa: RuntimeOaStack): Failure | null {
   if (!oa.fixtureAdapter || !oa.executionAttemptServices) {
     return {
@@ -145,8 +172,11 @@ function fixtureBoundaryFailure(oa: RuntimeOaStack): Failure | null {
   return null;
 }
 
-/** Docs-write path: require composed launch boundary (Fake in tests / REAL when opted-in). */
-function docsWriteBoundaryFailure(oa: RuntimeOaStack): Failure | null {
+/**
+ * Generic Cursor REAL boundary (canonical Product + sealed docs-write).
+ * Mechanical Gate D / launchPort presence — not a Pilot-facing second decision.
+ */
+function cursorRealBoundaryFailure(oa: RuntimeOaStack): Failure | null {
   if (!oa.executionAttemptServices) {
     return {
       ok: false,
@@ -159,7 +189,7 @@ function docsWriteBoundaryFailure(oa: RuntimeOaStack): Failure | null {
       ok: false,
       code: "REAL_BOUNDARY_REQUIRED",
       message:
-        "Contrat bounded docs-write refusé — realBoundary absent (fail-closed, pas de fallback fixture).",
+        "Exécution Cursor refusée — realBoundary absent (fail-closed, pas de fallback fixture Product).",
     };
   }
   if (!oa.executionAttemptServices.grantRealExecutionGate) {
@@ -167,10 +197,31 @@ function docsWriteBoundaryFailure(oa: RuntimeOaStack): Failure | null {
       ok: false,
       code: "GATE_D_REQUIRED",
       message:
-        "Contrat bounded docs-write refusé — Gate D non disponible (fail-closed).",
+        "Exécution Cursor refusée — journal Gate D mécanique indisponible (fail-closed).",
     };
   }
   return null;
+}
+
+function executionBoundaryFailure(
+  oa: RuntimeOaStack,
+  contract: ExecutionContract,
+): Failure | null {
+  return usesGenericCursorRealBoundary(contract)
+    ? cursorRealBoundaryFailure(oa)
+    : fixtureBoundaryFailure(oa);
+}
+
+function launchCountBeforeFor(
+  oa: RuntimeOaStack,
+  contract: ExecutionContract,
+): number {
+  if (usesGenericCursorRealBoundary(contract)) {
+    return launchCallCountOf(
+      oa.executionAttemptServices!.realBoundary!.launchPort,
+    );
+  }
+  return oa.fixtureAdapter!.launchCallCount;
 }
 
 function launchCallCountOf(port: unknown): number {
@@ -310,9 +361,8 @@ function buildTechnicalTerminal(input: {
   launchCountBefore: number;
   statusLabel?: string;
 }): GovernedExecuteAuthorizedContractResult {
-  const docsWrite = isBoundedDocsWriteContract(input.contract);
   const adapterId = adapterIdForContract(input.contract);
-  const launchCount = docsWrite
+  const launchCount = usesGenericCursorRealBoundary(input.contract)
     ? launchCallCountOf(
         input.oa.executionAttemptServices?.realBoundary?.launchPort,
       )
@@ -412,15 +462,13 @@ export async function governedExecuteSelectAgent(
   }
   const { contract, selectionProfile } = loaded;
   const docsWrite = isBoundedDocsWriteContract(contract);
-  const boundary = docsWrite
-    ? docsWriteBoundaryFailure(input.oa)
-    : fixtureBoundaryFailure(input.oa);
+  const productCursor = isCanonicalProductGovernedContract(contract);
+  const cursorReal = usesGenericCursorRealBoundary(contract);
+  const boundary = executionBoundaryFailure(input.oa, contract);
   if (boundary) return boundary;
 
   const adapterId = adapterIdForContract(contract);
-  const launchCountBefore = docsWrite
-    ? launchCallCountOf(input.oa.executionAttemptServices!.realBoundary!.launchPort)
-    : input.oa.fixtureAdapter!.launchCallCount;
+  const launchCountBefore = launchCountBeforeFor(input.oa, contract);
 
   const succeeded = await findSucceededAttempt(
     input.oa,
@@ -459,6 +507,22 @@ export async function governedExecuteSelectAgent(
     };
   }
 
+  const eligibility = resolveProductExecutionEligibility({
+    constraints: contract.constraints,
+    stopConditions: contract.stopConditions,
+    inputs:
+      contract.inputs && typeof contract.inputs === "object"
+        ? (contract.inputs as Record<string, unknown>)
+        : null,
+  });
+  if (!eligibility.eligible) {
+    return {
+      ok: false,
+      code: "EXECUTION_INELIGIBLE",
+      message: eligibility.reasonText,
+    };
+  }
+
   const authority = registerPiloteAuthority(
     input.oa,
     contract.scope,
@@ -468,12 +532,12 @@ export async function governedExecuteSelectAgent(
     return { ok: false, code: authority.code, message: authority.message };
   }
 
-  // Docs-write shares F3 M4 selection: capabilities_deterministic + requested
-  // M4 agent (system-initiated). Cycle Critical must not invent a second
-  // agent-confirmation Product path for an already Confirmation-gated EC.
+  // Cursor REAL paths (canonical Product + sealed docs-write): mechanical
+  // capabilities_deterministic selection — no Pilot agent-selection HOW.
+  // Sealed docs-write still requests its specialized agent; Product uses generalist.
   let effectiveProfile: SelectionProfile = selectionProfile;
   let selectionStrategy: SelectionStrategy;
-  if (docsWrite) {
+  if (cursorReal) {
     effectiveProfile = "standard";
     selectionStrategy = "capabilities_deterministic";
   } else {
@@ -511,10 +575,12 @@ export async function governedExecuteSelectAgent(
       expectedContractVersion: contract.version,
       selectionProfile: effectiveProfile,
       selectionStrategy,
-      systemInitiated: docsWrite,
+      systemInitiated: cursorReal,
       ...(docsWrite
         ? { requestedAgentRef: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID }
-        : {}),
+        : productCursor
+          ? { requestedAgentRef: STUDIO_CURSOR_GENERALIST_AGENT_ID }
+          : {}),
     });
   if (!selected.ok) {
     return {
@@ -554,15 +620,13 @@ export async function governedExecuteStart(
   if (!loaded.ok) return loaded.result;
   const { contract, selectionProfile } = loaded;
   const docsWrite = isBoundedDocsWriteContract(contract);
-  const boundary = docsWrite
-    ? docsWriteBoundaryFailure(input.oa)
-    : fixtureBoundaryFailure(input.oa);
+  void docsWrite;
+  const cursorReal = usesGenericCursorRealBoundary(contract);
+  const boundary = executionBoundaryFailure(input.oa, contract);
   if (boundary) return boundary;
 
   const adapterId = adapterIdForContract(contract);
-  const launchCountBefore = docsWrite
-    ? launchCallCountOf(input.oa.executionAttemptServices!.realBoundary!.launchPort)
-    : input.oa.fixtureAdapter!.launchCallCount;
+  const launchCountBefore = launchCountBeforeFor(input.oa, contract);
 
   const succeeded = await findSucceededAttempt(
     input.oa,
@@ -588,10 +652,12 @@ export async function governedExecuteStart(
     return { ok: false, code: authority.code, message: authority.message };
   }
 
-  if (!docsWrite) {
+  if (!cursorReal) {
     // R-W3B-04 — TEST-ONLY external adapter fail arm (never a product UI outcome).
     applyW3bAdapterFailArmIfPresent(input.oa.fixtureAdapter);
   } else {
+    // Mechanical Gate D launch-safety grant — bound to Attempt/EC/fingerprint.
+    // Not a Pilot-facing second Confirmation (docs-write + canonical Product).
     const grantId = `gd:w3a:${input.attemptId.replace(/^xat:/, "")}`;
     const nowMs = Date.parse(input.oa.clock.nowIso());
     const expiresAt = new Date(
@@ -652,7 +718,8 @@ export async function governedExecuteStart(
   }
 
   // R-W3B-03 — TEST-ONLY governed stop arm: FC-10 SystemGovernedStop (not human Cancel).
-  if (!docsWrite) {
+  // Fixture / historical paths only — Product Cursor REAL does not use fixture arms.
+  if (!cursorReal) {
     const stopArm = consumeW3bBoundaryArm();
     if (stopArm?.kind === "governed_stop") {
       const onContract =
@@ -717,15 +784,12 @@ export async function governedExecuteRecordResult(
   if (!loaded.ok) return loaded.result;
   const { contract, selectionProfile } = loaded;
   const docsWrite = isBoundedDocsWriteContract(contract);
-  const boundary = docsWrite
-    ? docsWriteBoundaryFailure(input.oa)
-    : fixtureBoundaryFailure(input.oa);
+  const productCursor = isCanonicalProductGovernedContract(contract);
+  const boundary = executionBoundaryFailure(input.oa, contract);
   if (boundary) return boundary;
 
   const adapterId = adapterIdForContract(contract);
-  const launchCountBefore = docsWrite
-    ? launchCallCountOf(input.oa.executionAttemptServices!.realBoundary!.launchPort)
-    : input.oa.fixtureAdapter!.launchCallCount;
+  const launchCountBefore = launchCountBeforeFor(input.oa, contract);
 
   const succeeded = await findSucceededAttempt(
     input.oa,
@@ -842,6 +906,47 @@ export async function governedExecuteRecordResult(
     });
   }
 
+  // Canonical Product generic Cursor: Record waits for Cursor report / process
+  // observation — do NOT fall through to F3 fixture adapter.
+  if (productCursor) {
+    const existing =
+      await input.oa.executionAttemptServices!.getExecutionAttempt.execute({
+        attemptId: input.attemptId,
+      });
+    if (!existing.ok || !existing.attempt) {
+      return {
+        ok: false,
+        code: existing.ok ? "ATTEMPT_NOT_FOUND" : existing.error.detailCode,
+        message: existing.ok
+          ? "Attempt introuvable pour completion Product Cursor."
+          : existing.error.message,
+      };
+    }
+    const attempt = existing.attempt;
+    if (
+      attempt.status === "succeeded" ||
+      attempt.status === "failed" ||
+      attempt.status === "timeout" ||
+      attempt.status === "cancelled"
+    ) {
+      return buildTechnicalTerminal({
+        contract,
+        attempt,
+        selectionProfile,
+        oa: input.oa,
+        reusedExistingAttempt: false,
+        launchCountBefore,
+      });
+    }
+    return {
+      ok: false,
+      code: "CURSOR_REPORT_PENDING",
+      message:
+        "Tentative Cursor générique en cours — le rapport d'exécution / Evidence n'est pas encore disponible (pas de fallback fixture).",
+      attempt: projectAttempt(attempt, adapterId),
+    };
+  }
+
   const identities = attemptIdentities(
     contract.executionContractId,
     contract.version,
@@ -936,17 +1041,10 @@ export async function governedExecuteCancel(
   const loaded = await loadContract(input.oa, input);
   if (!loaded.ok) return loaded.result;
   const { contract, selectionProfile } = loaded;
-  const docsWrite = isBoundedDocsWriteContract(contract);
-  const boundary = docsWrite
-    ? docsWriteBoundaryFailure(input.oa)
-    : fixtureBoundaryFailure(input.oa);
+  const boundary = executionBoundaryFailure(input.oa, contract);
   if (boundary) return boundary;
 
-  const launchCountBefore = docsWrite
-    ? launchCallCountOf(
-        input.oa.executionAttemptServices!.realBoundary!.launchPort,
-      )
-    : input.oa.fixtureAdapter!.launchCallCount;
+  const launchCountBefore = launchCountBeforeFor(input.oa, contract);
 
   registerPiloteAuthority(
     input.oa,

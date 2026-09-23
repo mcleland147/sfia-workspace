@@ -11,6 +11,7 @@ import type {
   CheckExecutionAuthorization,
   ExecutionContractRepositoryPort,
 } from "@/lib/oa/execution-contract";
+import { resolveProductExecutionEligibility, shouldApplyProductExecutionEligibility } from "@/lib/oa/execution-contract";
 import { createAttemptError, isExecutionAttemptDomainError } from "../domain/errors";
 import { captureBoundExecutionContractSnapshot } from "../domain/boundExecutionContract";
 import {
@@ -188,6 +189,34 @@ export class SelectExecutionAgent {
           mapContractAuthorizationDetail(authorization.error.detailCode),
           `check_authorization_${authorization.error.detailCode}`,
         );
+      }
+
+      // PJ-REPROOF-05 — Product Start invariants ONLY for Product-family ECs.
+      // F3 / OA foundation / sealed GCEC share these use-cases and must not
+      // receive Product trusted-launch / stamp fail-closed rules.
+      if (
+        shouldApplyProductExecutionEligibility({
+          constraints: contract.constraints,
+          action: contract.action,
+          target: contract.target,
+          scope: contract.scope,
+          requiredCapabilities: contract.requiredCapabilities,
+        })
+      ) {
+        const eligibility = resolveProductExecutionEligibility({
+          constraints: contract.constraints,
+          stopConditions: contract.stopConditions,
+          inputs:
+            contract.inputs && typeof contract.inputs === "object"
+              ? (contract.inputs as Record<string, unknown>)
+              : null,
+        });
+        if (!eligibility.eligible) {
+          return fail(
+            "ATTEMPT_INVALID",
+            `execution_ineligible_${eligibility.reasonCode}`,
+          );
+        }
       }
 
       const evidenceRead = this.listProjectEvidence

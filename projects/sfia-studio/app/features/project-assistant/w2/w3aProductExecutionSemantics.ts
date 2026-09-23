@@ -15,7 +15,13 @@
 
 import type { DecisionBasis } from "@/lib/oa/decision";
 import type { AuthorityClass, Reversibility } from "@/lib/oa/execution-contract";
-import { EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED } from "@/lib/oa/execution-contract";
+import {
+  EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED,
+  STUDIO_CURSOR_GENERALIST_ACTION,
+  STUDIO_CURSOR_GENERALIST_CAPABILITY,
+  STUDIO_CURSOR_GENERALIST_SCOPE,
+  STUDIO_CURSOR_GENERALIST_TARGET,
+} from "@/lib/oa/execution-contract";
 import type { ProductMissionFields } from "./deriveActualExecutionWorkFromProductContext";
 import {
   BOUNDED_OPTION_REF,
@@ -35,10 +41,25 @@ import {
   projectRequiredAuthorityFromEffects,
   deriveReversibilityFromEffects,
 } from "./w3aQualifiedExecutionEffects";
+import { filterTrajectoryNonExecuteStopsFromEc } from "./resolveProductExecutionEligibility";
 
 /** Implementation / provenance marker — NOT authority-bearing scope. */
 export const W3A_IMPLEMENTATION_MARKER =
   "w3:governed-execute:studio-canonical" as const;
+
+/**
+ * PJ-REPROOF-05 / Morris — canonical Product EC surface is ONE generic
+ * Cursor execution quartet. Effect-class tokens (product:read, …) remain
+ * INTERNAL ActionPolicy facts in inputs/constraints — not EC routing types.
+ */
+export const PRODUCT_CANONICAL_EXECUTION_ACTION =
+  STUDIO_CURSOR_GENERALIST_ACTION;
+export const PRODUCT_CANONICAL_EXECUTION_TARGET =
+  STUDIO_CURSOR_GENERALIST_TARGET;
+export const PRODUCT_CANONICAL_EXECUTION_SCOPE =
+  STUDIO_CURSOR_GENERALIST_SCOPE;
+export const PRODUCT_CANONICAL_EXECUTION_CAPABILITY =
+  STUDIO_CURSOR_GENERALIST_CAPABILITY;
 
 export type W3AExecutionEnvelope = {
   readonly action: string;
@@ -66,6 +87,16 @@ export type EnvelopePrepareFailure =
       readonly message: string;
     };
 
+/**
+ * PJ-REPROOF-05 — truthful Product constraints (Morris generic EC).
+ *
+ * Do NOT stamp FIXTURE_EXECUTOR_BOUNDARY_ONLY / NO_REAL / NO_CURSOR_REAL on every
+ * Product EC. Do NOT stamp Product contract categories (read/write/fixture/REAL).
+ *
+ * Mutation / Git forbids remain SCOPE_OUT / PROTECTED from qualified effects
+ * (internal ActionPolicy). NO_ATTEMPT_AT_PREPARE only asserts prepare creates
+ * no Attempt.
+ */
 function productConstraints(
   basis: DecisionBasis,
   effects: QualifiedExecutionEffects,
@@ -74,9 +105,6 @@ function productConstraints(
   const eb = basis.executionBasis;
   return [
     "PRODUCT_GOVERNED",
-    "FIXTURE_EXECUTOR_BOUNDARY_ONLY",
-    "NO_REAL",
-    "NO_CURSOR_REAL",
     "NO_ATTEMPT_AT_PREPARE",
     `IMPLEMENTATION_MARKER:${W3A_IMPLEMENTATION_MARKER}`,
     `EFFECT_CLASS:${effects.effectClass}`,
@@ -96,8 +124,13 @@ function productConstraints(
 
 function productStopConditions(basis: DecisionBasis): string[] {
   const eb = basis.executionBasis;
+  // Strip trajectory authorize-flow markers (AUCUNE EXÉCUTION / STOP AVANT EXECUTE)
+  // so a newly prepared executable EC is not fail-closed forever by provenance.
+  const fromBasis = filterTrajectoryNonExecuteStopsFromEc(
+    eb.stopConditions ?? [],
+  );
   const stops = new Set<string>([
-    ...(eb.stopConditions ?? []),
+    ...fromBasis,
     "AUTHORITY_DENIED",
     "CONTEXT_STALE",
     "DECISION_NOT_CURRENT",
@@ -298,10 +331,11 @@ export function deriveW3AExecutionEnvelope(input: {
   return {
     ok: true,
     envelope: {
-      action: effects.action,
-      target: effects.target,
-      scope: effects.scopeIn,
-      requiredCapabilities: [...effects.requiredCapabilities],
+      // Canonical Product EC surface = generic Cursor quartet (not effect-class routing).
+      action: PRODUCT_CANONICAL_EXECUTION_ACTION,
+      target: PRODUCT_CANONICAL_EXECUTION_TARGET,
+      scope: PRODUCT_CANONICAL_EXECUTION_SCOPE,
+      requiredCapabilities: [PRODUCT_CANONICAL_EXECUTION_CAPABILITY],
       requiredAuthority: authority.requiredAuthority,
       constraints: [
         ...productConstraints(input.basis, effects, confirmationConstraint),
@@ -331,6 +365,11 @@ export function deriveW3AExecutionEnvelope(input: {
         trajectoryOptionIntent: input.selectedOptionIntent,
         trajectoryOptionIsNotAction: true,
         trajectoryOptionIsNotScope: true,
+        // Internal ActionPolicy / effect-control facts (NOT Product EC categories).
+        internalEffectAction: effects.action,
+        internalEffectTarget: effects.target,
+        internalEffectScopeIn: effects.scopeIn,
+        internalEffectCapabilities: [...effects.requiredCapabilities],
         executionScope: effects.scopeIn,
         effectClass: effects.effectClass,
         rollbackAvailable: effects.rollbackAvailable,

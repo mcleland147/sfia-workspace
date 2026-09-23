@@ -32,7 +32,11 @@ import {
   cleanupW2TempDirs,
   currentF2Context,
   seedQualifiedProject,
+  settleDeterministicProductCursorFailure,
+  settleDeterministicProductCursorGovernedStop,
+  settleDeterministicProductCursorSuccess,
   tempProductDbPath,
+  W2_TEST_PINNED_BASE_HEAD_SHA,
 } from "./w2Harness";
 
 beforeEach(() => {
@@ -92,6 +96,7 @@ async function authorizeTempArtifact(suffix: string, dbPath?: string) {
     currentContext: context,
     forceLocalAuthority: true,
     qualifiedOperationKind: "generate-temporary-artifact",
+    pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
   });
   expect(prepared.ok).toBe(true);
   if (!prepared.ok) throw new Error(prepared.code);
@@ -142,20 +147,38 @@ async function selectAndStart(
   return { selected, started };
 }
 
+async function settleRunningSuccess(
+  ctx: Awaited<ReturnType<typeof authorizeTempArtifact>>,
+  attemptId: string,
+) {
+  const settled = await settleDeterministicProductCursorSuccess({
+    oa: ctx.oa,
+    attemptId,
+  });
+  expect(settled.ok).toBe(true);
+  if (!settled.ok) throw new Error(settled.code);
+  const projected = await governedExecuteRecordResult({
+    oa: ctx.oa,
+    projectId: ctx.seeded.projectId,
+    executionContractId: ctx.executionContractId,
+    attemptId,
+    forceLocalAuthority: true,
+  });
+  expect(projected.ok).toBe(true);
+  if (!projected.ok) throw new Error(projected.code);
+  return { settled, projected };
+}
+
+
 describe("W3-B SUCCESS / governed STOP / adapter FAIL + Evidence", () => {
   it("SUCCESS: technical terminal → Evidence → complete RB → Product SUCCESS", async () => {
     const ctx = await authorizeTempArtifact("ok");
     const { started } = await selectAndStart(ctx);
     expect(started.phase).toBe("running");
-    const terminal = await governedExecuteRecordResult({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      executionContractId: ctx.executionContractId,
-      attemptId: started.attemptId,
-      forceLocalAuthority: true,
-    });
-    expect(terminal.ok).toBe(true);
-    if (!terminal.ok) return;
+    const { projected: terminal } = await settleRunningSuccess(
+      ctx,
+      started.attemptId,
+    );
     expect(terminal.productSuccessSemantics).toBe(false);
 
     const beforeClaim = await rehydrateProductOutcomeFromAttempt({
@@ -230,13 +253,17 @@ describe("W3-B SUCCESS / governed STOP / adapter FAIL + Evidence", () => {
 
   it("governed STOP: EC stopCondition cancel → Evidence → Product STOP", async () => {
     const ctx = await authorizeTempArtifact("govstop");
-    armW3bBoundary({
-      kind: "governed_stop",
-      stopCondition: "EXECUTOR_INSUFFICIENT",
-    });
     const { started } = await selectAndStart(ctx);
-    expect(started.phase).toBe("terminal");
-    expect(started.attemptStatus).toBe("cancelled");
+    expect(started.phase).toBe("running");
+    const stopped = await settleDeterministicProductCursorGovernedStop({
+      oa: ctx.oa,
+      attemptId: started.attemptId,
+      stopCode: "EXECUTOR_INSUFFICIENT",
+    });
+    expect(stopped.ok).toBe(true);
+    if (!stopped.ok) return;
+    expect(stopped.attempt.status).toBe("cancelled");
+    expect(stopped.attempt.stopOrigin).toBe("SYSTEM_GOVERNED_STOP");
 
     const materialized = await materializeProductOutcomeFromAttempt({
       oa: ctx.oa,
@@ -252,29 +279,15 @@ describe("W3-B SUCCESS / governed STOP / adapter FAIL + Evidence", () => {
 
   it("FAIL: TestExecutionAdapter fail via Start → Evidence → Product FAIL", async () => {
     const ctx = await authorizeTempArtifact("adaptfail");
-    armW3bBoundary({
-      kind: "adapter_fail",
-      reason: "adapter_unavailable",
-    });
-    const selected = await governedExecuteSelectAgent({
+    const { started } = await selectAndStart(ctx);
+    expect(started.phase).toBe("running");
+    const failed = await settleDeterministicProductCursorFailure({
       oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      executionContractId: ctx.executionContractId,
-      forceLocalAuthority: true,
+      attemptId: started.attemptId,
     });
-    expect(selected.ok).toBe(true);
-    if (!selected.ok) return;
-    const started = await governedExecuteStart({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      executionContractId: ctx.executionContractId,
-      attemptId: selected.attemptId,
-      forceLocalAuthority: true,
-    });
-    expect(started.ok).toBe(true);
-    if (!started.ok) return;
-    expect(started.phase).toBe("terminal");
-    expect(started.attemptStatus).toBe("failed");
+    expect(failed.ok).toBe(true);
+    if (!failed.ok) return;
+    expect(failed.attempt.status).toBe("failed");
 
     const materialized = await materializeProductOutcomeFromAttempt({
       oa: ctx.oa,
@@ -295,13 +308,7 @@ describe("W3-B SUCCESS / governed STOP / adapter FAIL + Evidence", () => {
   it("rejects Evidence binding mismatch (other project)", async () => {
     const ctx = await authorizeTempArtifact("mismatch");
     const { started } = await selectAndStart(ctx);
-    await governedExecuteRecordResult({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      executionContractId: ctx.executionContractId,
-      attemptId: started.attemptId,
-      forceLocalAuthority: true,
-    });
+    await settleRunningSuccess(ctx, started.attemptId);
     const bad = await materializeProductOutcomeFromAttempt({
       oa: ctx.oa,
       projectId: "prj:other-hostile",
@@ -316,13 +323,7 @@ describe("W3-B SUCCESS / governed STOP / adapter FAIL + Evidence", () => {
     const db = tempProductDbPath("w3b-restart.sqlite");
     const ctxA = await authorizeTempArtifact("resta", db);
     const { started } = await selectAndStart(ctxA);
-    await governedExecuteRecordResult({
-      oa: ctxA.oa,
-      projectId: ctxA.seeded.projectId,
-      executionContractId: ctxA.executionContractId,
-      attemptId: started.attemptId,
-      forceLocalAuthority: true,
-    });
+    await settleRunningSuccess(ctxA, started.attemptId);
     const materialized = await materializeProductOutcomeFromAttempt({
       oa: ctxA.oa,
       projectId: ctxA.seeded.projectId,

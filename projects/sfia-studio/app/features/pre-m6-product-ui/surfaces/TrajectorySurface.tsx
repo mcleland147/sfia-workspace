@@ -1345,7 +1345,13 @@ export function TrajectorySurface({
 
   const governedExecute = useCallback(async () => {
     if (continuityMutationBlocked) return;
-    if (!contract || authorization?.outcome !== "AUTHORIZED") return;
+    if (
+      !contract ||
+      authorization?.outcome !== "AUTHORIZED" ||
+      authorization.executionEligible !== true
+    ) {
+      return;
+    }
     setBusy("execute");
     setError(null);
     flushSync(() => {
@@ -2704,9 +2710,14 @@ export function TrajectorySurface({
             <span
               data-testid="w2-authorization-outcome"
               data-outcome={authorization.outcome}
+              data-execution-eligible={
+                authorization.executionEligible ? "true" : "false"
+              }
             >
               {authorization.outcome === "AUTHORIZED"
-                ? "Autorisation vérifiée — l'exécution peut être lancée"
+                ? authorization.executionEligible
+                  ? "Autorisation vérifiée — l'exécution peut être lancée"
+                  : "Autorisation vérifiée — exécution non proposée"
                 : "Exécution bloquée"}
             </span>
           </h3>
@@ -2744,6 +2755,14 @@ export function TrajectorySurface({
                 </dd>
               </div>
               <div>
+                <dt>Éligibilité d&apos;exécution</dt>
+                <dd data-testid="w2-execution-eligibility">
+                  {authorization.executionEligible
+                    ? "éligible"
+                    : authorization.executionEligibilityReasonCode}
+                </dd>
+              </div>
+              <div>
                 <dt>Trace d&apos;autorité</dt>
                 <dd className={styles.code} data-testid="w2-authority-receipt">
                   {authorization.authorityReceiptRef}
@@ -2751,7 +2770,9 @@ export function TrajectorySurface({
               </div>
             </dl>
           </details>
-          {authorization.outcome === "AUTHORIZED" && !attempt ? (
+          {authorization.outcome === "AUTHORIZED" &&
+          authorization.executionEligible &&
+          !attempt ? (
             <>
               <p
                 className={styles.stopNotice}
@@ -2772,6 +2793,17 @@ export function TrajectorySurface({
                 </button>
               </div>
             </>
+          ) : null}
+          {authorization.outcome === "AUTHORIZED" &&
+          !authorization.executionEligible &&
+          !attempt ? (
+            <p
+              className={styles.stopNotice}
+              data-testid="w2-execution-ineligible"
+            >
+              Aucune exécution n&apos;est proposée pour ce contrat.{" "}
+              {authorization.nextAction}
+            </p>
           ) : null}
           {authorization.outcome === "BLOCKED" ? (
             <p className={styles.stopNotice} data-testid="w2-stop-before-execute">

@@ -331,10 +331,12 @@ describe("CR-PCONT-05 TrajectorySurface post-execution recovery", () => {
       executionContractId: "xct:pcont-ui",
       contractVersion: 1,
       outcome: "AUTHORIZED",
-      outcomeLabel: "AUTORISÉ",
+      outcomeLabel: "AUTORISÉ — EXÉCUTION ÉLIGIBLE",
       reasonCode: "authorized",
       reasonText: "Autorisé.",
       nextAction: "Exécuter",
+      executionEligible: true,
+      executionEligibilityReasonCode: "eligible",
       inspection: {
         executionContractId: "xct:pcont-ui",
         contractVersion: 1,

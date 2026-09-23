@@ -30,6 +30,10 @@ import { deriveActualExecutionWorkFromProductContext } from "./deriveActualExecu
 import { resolvePostEvidenceRecoveryContext } from "./resolvePostEvidenceRecoveryContext";
 import type { ActualExecutionWork } from "./w3aActualExecutionWork";
 import type { QualifiedExecutionEffects } from "./w3aQualifiedExecutionEffects";
+import {
+  launchContextAsContractInputs,
+  resolveTrustedProductLaunchContext,
+} from "./resolveTrustedProductLaunchContext";
 
 export type PreparedExecutionContractDto = {
   readonly executionContractId: string;
@@ -155,6 +159,12 @@ export async function prepareExecutionContractFromW2Decision(input: {
   /** Same product path — optional Nora/test-injected qualified effects. */
   readonly explicitEffects?: QualifiedExecutionEffects;
   readonly forceEffectsUnresolved?: boolean;
+  /**
+   * Explicit server/test pin for trusted launch context (full SHA).
+   * Never accepted from browser Execute payloads. Never inferred from VITEST.
+   */
+  readonly pinnedBaseHeadSha?: string | null;
+  readonly managedRepoRootBase?: string | null;
 }): Promise<PrepareExecutionContractFromW2DecisionResult> {
   const { oa } = input;
 
@@ -413,6 +423,29 @@ export async function prepareExecutionContractFromW2Decision(input: {
     return f3Guard;
   }
 
+  // PJ-REPROOF-05 — pin trusted launch context BEFORE Build/Validate fingerprint.
+  // Production: managed clone HEAD only (or explicit server pin when provided).
+  // Tests must pass pinnedBaseHeadSha / managedRepoRootBase explicitly — never
+  // inferred from process.env.VITEST.
+  const launch = await resolveTrustedProductLaunchContext({
+    oa,
+    projectId: input.projectId,
+    pinnedBaseHeadSha: input.pinnedBaseHeadSha,
+    managedRepoRootBase: input.managedRepoRootBase,
+  });
+  if (!launch.ok) {
+    return {
+      ok: false,
+      code: launch.code,
+      message: launch.message,
+    };
+  }
+  const envelopeInputs: Record<string, unknown> = {
+    ...envelope.inputs,
+    ...launchContextAsContractInputs(launch.context),
+    trustedLaunchContextPinnedAtPrepare: true,
+  };
+
   const safeId = safeIdSegment(decision.decisionId);
   const executionContractId = `xct:w3a:${safeId}`;
   const idempotencyKey = `idem:w3a-prep:${decision.decisionId}`;
@@ -439,7 +472,7 @@ export async function prepareExecutionContractFromW2Decision(input: {
       action: envelope.action,
       target: envelope.target,
       scope: envelope.scope,
-      inputs: envelope.inputs,
+      inputs: envelopeInputs,
       expectedOutputs: [...envelope.expectedOutputs],
       requiredCapabilities: [...envelope.requiredCapabilities],
       requiredAuthority: envelope.requiredAuthority,
@@ -499,7 +532,7 @@ export async function prepareExecutionContractFromW2Decision(input: {
       action: envelope.action,
       target: envelope.target,
       scope: envelope.scope,
-      inputs: envelope.inputs,
+      inputs: envelopeInputs,
       expectedOutputs: [...envelope.expectedOutputs],
       requiredCapabilities: [...envelope.requiredCapabilities],
       requiredAuthority: envelope.requiredAuthority,

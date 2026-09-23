@@ -32,7 +32,11 @@ import {
   cleanupW2TempDirs,
   currentF2Context,
   seedQualifiedProject,
+  settleDeterministicProductCursorFailure,
+  settleDeterministicProductCursorGovernedStop,
+  settleDeterministicProductCursorSuccess,
   tempProductDbPath,
+  W2_TEST_PINNED_BASE_HEAD_SHA,
 } from "./w2Harness";
 
 beforeEach(() => {
@@ -93,6 +97,7 @@ async function authorizeTempArtifact(suffix: string, dbPath?: string) {
     currentContext: context,
     forceLocalAuthority: true,
     qualifiedOperationKind: "generate-temporary-artifact",
+    pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
   });
   expect(prepared.ok).toBe(true);
   if (!prepared.ok) throw new Error(prepared.code);
@@ -157,6 +162,13 @@ async function materializeSuccess(
   ctx: Awaited<ReturnType<typeof authorizeTempArtifact>>,
 ) {
   const { started } = await selectAndStart(ctx);
+  expect(started.phase).toBe("running");
+  const settled = await settleDeterministicProductCursorSuccess({
+    oa: ctx.oa,
+    attemptId: started.attemptId,
+  });
+  expect(settled.ok).toBe(true);
+  if (!settled.ok) throw new Error(settled.code);
   await governedExecuteRecordResult({
     oa: ctx.oa,
     projectId: ctx.seeded.projectId,
@@ -380,12 +392,15 @@ describe("W3C-P07 SUCCESS → continue", () => {
 describe("W3C-P08 STOP → recover", () => {
   it("P08: STOP → kind recover", async () => {
     const ctx = await authorizeTempArtifact("p08");
-    armW3bBoundary({
-      kind: "governed_stop",
-      stopCondition: "EXECUTOR_INSUFFICIENT",
-    });
     const { started } = await selectAndStart(ctx);
-    expect(started.phase).toBe("terminal");
+    expect(started.phase).toBe("running");
+    const stopped = await settleDeterministicProductCursorGovernedStop({
+      oa: ctx.oa,
+      attemptId: started.attemptId,
+      stopCode: "EXECUTOR_INSUFFICIENT",
+    });
+    expect(stopped.ok).toBe(true);
+    if (!stopped.ok) return;
     const materialized = await materializeProductOutcomeFromAttempt({
       oa: ctx.oa,
       projectId: ctx.seeded.projectId,
@@ -409,27 +424,14 @@ describe("W3C-P08 STOP → recover", () => {
 describe("W3C-P09 FAIL → recover", () => {
   it("P09: FAIL → recover distinct from SUCCESS", async () => {
     const ctx = await authorizeTempArtifact("p09");
-    armW3bBoundary({
-      kind: "adapter_fail",
-      reason: "adapter_unavailable",
-    });
-    const selected = await governedExecuteSelectAgent({
+    const { started } = await selectAndStart(ctx);
+    expect(started.phase).toBe("running");
+    const failed = await settleDeterministicProductCursorFailure({
       oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      executionContractId: ctx.executionContractId,
-      forceLocalAuthority: true,
+      attemptId: started.attemptId,
     });
-    expect(selected.ok).toBe(true);
-    if (!selected.ok) return;
-    const started = await governedExecuteStart({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      executionContractId: ctx.executionContractId,
-      attemptId: selected.attemptId,
-      forceLocalAuthority: true,
-    });
-    expect(started.ok).toBe(true);
-    if (!started.ok) return;
+    expect(failed.ok).toBe(true);
+    if (!failed.ok) return;
     const materialized = await materializeProductOutcomeFromAttempt({
       oa: ctx.oa,
       projectId: ctx.seeded.projectId,

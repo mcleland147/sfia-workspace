@@ -202,8 +202,9 @@ function missionFromClarifyWithoutRecovery(
 }
 
 /**
- * Internal effect control from mission perimeter — NOT from trajectory option.
- * Non-mutating perimeter → weak reversible control suitable for Confirmation projection.
+ * Internal effect-control scaffold from mission perimeter — NOT a Product
+ * contract category. `operationKind: "read"` here is ActionPolicy taxonomy only;
+ * the durable EC surface is stamped as the generic Cursor quartet by the envelope.
  */
 function buildInternalWorkFromMissionPerimeter(input: {
   readonly projectId: string;

@@ -48,7 +48,10 @@ import {
   cleanupW2TempDirs,
   currentF2Context,
   seedQualifiedProject,
+  settleDeterministicProductCursorGovernedStop,
+  settleDeterministicProductCursorSuccess,
   tempProductDbPath,
+  W2_TEST_PINNED_BASE_HEAD_SHA,
 } from "./w2Harness";
 
 beforeEach(() => {
@@ -111,6 +114,7 @@ async function authorizeTempArtifact(suffix: string, dbPath?: string) {
     currentContext: context,
     forceLocalAuthority: true,
     qualifiedOperationKind: "generate-temporary-artifact",
+    pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
   });
   expect(prepared.ok).toBe(true);
   if (!prepared.ok) throw new Error(prepared.code);
@@ -165,6 +169,13 @@ async function selectStartRecord(
   });
   expect(started.ok).toBe(true);
   if (!started.ok) throw new Error(started.code);
+  expect(started.phase).toBe("running");
+  const settled = await settleDeterministicProductCursorSuccess({
+    oa: ctx.oa,
+    attemptId: started.attemptId,
+  });
+  expect(settled.ok).toBe(true);
+  if (!settled.ok) throw new Error(settled.code);
   await governedExecuteRecordResult({
     oa: ctx.oa,
     projectId: ctx.seeded.projectId,
@@ -187,6 +198,39 @@ async function materializeSuccess(
   expect(materialized.ok).toBe(true);
   if (!materialized.ok) throw new Error(materialized.code);
   return { attemptId, materialized };
+}
+
+
+async function selectStartGovernedStop(
+  ctx: Awaited<ReturnType<typeof authorizeTempArtifact>>,
+  stopCode = "EXECUTOR_INSUFFICIENT",
+) {
+  const selected = await governedExecuteSelectAgent({
+    oa: ctx.oa,
+    projectId: ctx.seeded.projectId,
+    executionContractId: ctx.executionContractId,
+    forceLocalAuthority: true,
+  });
+  expect(selected.ok).toBe(true);
+  if (!selected.ok) throw new Error(selected.code);
+  const started = await governedExecuteStart({
+    oa: ctx.oa,
+    projectId: ctx.seeded.projectId,
+    executionContractId: ctx.executionContractId,
+    attemptId: selected.attemptId,
+    forceLocalAuthority: true,
+  });
+  expect(started.ok).toBe(true);
+  if (!started.ok) throw new Error(started.code);
+  expect(started.phase).toBe("running");
+  const stopped = await settleDeterministicProductCursorGovernedStop({
+    oa: ctx.oa,
+    attemptId: started.attemptId,
+    stopCode,
+  });
+  expect(stopped.ok).toBe(true);
+  if (!stopped.ok) throw new Error(stopped.code);
+  return { attemptId: started.attemptId, stopped };
 }
 
 /** Second SUCCESS terminal on the same project (new propose→decide→contract→attempt). */
@@ -230,6 +274,7 @@ async function secondSuccessOnSameProject(
     currentContext: context,
     forceLocalAuthority: true,
     qualifiedOperationKind: "generate-temporary-artifact",
+    pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
   });
   expect(prepared.ok).toBe(true);
   if (!prepared.ok) throw new Error(prepared.code);
@@ -258,31 +303,11 @@ async function secondSuccessOnSameProject(
 describe("W3C-R01 recovery CTA without automatic HD", () => {
   it("R01: STOP recover requiresHumanDecision false; propose available", async () => {
     const ctx = await authorizeTempArtifact("r01");
-    armW3bBoundary({
-      kind: "governed_stop",
-      stopCondition: "EXECUTOR_INSUFFICIENT",
-    });
-    const selected = await governedExecuteSelectAgent({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      executionContractId: ctx.executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(selected.ok).toBe(true);
-    if (!selected.ok) return;
-    const started = await governedExecuteStart({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      executionContractId: ctx.executionContractId,
-      attemptId: selected.attemptId,
-      forceLocalAuthority: true,
-    });
-    expect(started.ok).toBe(true);
-    if (!started.ok) return;
+    const { attemptId } = await selectStartGovernedStop(ctx);
     const materialized = await materializeProductOutcomeFromAttempt({
       oa: ctx.oa,
       projectId: ctx.seeded.projectId,
-      attemptId: started.attemptId,
+      attemptId,
     });
     expect(materialized.ok).toBe(true);
     if (!materialized.ok) return;
@@ -504,29 +529,11 @@ describe("W3C-R08/R09 epistemic supersession", () => {
 describe("W3C-R10 STOP no automatic HD", () => {
   it("R10: STOP requiresHumanDecision false; no HD created", async () => {
     const ctx = await authorizeTempArtifact("r10");
-    armW3bBoundary({
-      kind: "governed_stop",
-      stopCondition: "EXECUTOR_INSUFFICIENT",
-    });
-    const selected = await governedExecuteSelectAgent({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      executionContractId: ctx.executionContractId,
-      forceLocalAuthority: true,
-    });
-    if (!selected.ok) throw new Error(selected.code);
-    const started = await governedExecuteStart({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      executionContractId: ctx.executionContractId,
-      attemptId: selected.attemptId,
-      forceLocalAuthority: true,
-    });
-    if (!started.ok) throw new Error(started.code);
+    const { attemptId } = await selectStartGovernedStop(ctx);
     const materialized = await materializeProductOutcomeFromAttempt({
       oa: ctx.oa,
       projectId: ctx.seeded.projectId,
-      attemptId: started.attemptId,
+      attemptId,
     });
     expect(materialized.ok).toBe(true);
     if (!materialized.ok || !materialized.postEvidence?.ok) return;
@@ -873,32 +880,14 @@ describe("W3C-R14 partial-write recovery", () => {
       scripted: Array(32).fill("NORA_STOP_R14B_RECOVER"),
     });
     setConversationProviderForTests(fake);
-    armW3bBoundary({
-      kind: "governed_stop",
-      stopCondition: "EXECUTOR_INSUFFICIENT",
-    });
     armW3cEpistemicMaterializeFailOnceForTests();
 
-    const selected = await governedExecuteSelectAgent({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      executionContractId: ctx.executionContractId,
-      forceLocalAuthority: true,
-    });
-    if (!selected.ok) throw new Error(selected.code);
-    const started = await governedExecuteStart({
-      oa: ctx.oa,
-      projectId: ctx.seeded.projectId,
-      executionContractId: ctx.executionContractId,
-      attemptId: selected.attemptId,
-      forceLocalAuthority: true,
-    });
-    if (!started.ok) throw new Error(started.code);
+    const { attemptId } = await selectStartGovernedStop(ctx);
 
     const first = await materializeProductOutcomeFromAttempt({
       oa: ctx.oa,
       projectId: ctx.seeded.projectId,
-      attemptId: started.attemptId,
+      attemptId,
     });
     expect(first.ok).toBe(true);
     if (!first.ok) throw new Error(first.code);
@@ -908,7 +897,7 @@ describe("W3C-R14 partial-write recovery", () => {
     const retry = await materializeProductOutcomeFromAttempt({
       oa: ctx.oa,
       projectId: ctx.seeded.projectId,
-      attemptId: started.attemptId,
+      attemptId,
     });
     expect(retry.ok && retry.postEvidence?.ok).toBe(true);
     if (!retry.ok || !retry.postEvidence || !retry.postEvidence.ok) return;

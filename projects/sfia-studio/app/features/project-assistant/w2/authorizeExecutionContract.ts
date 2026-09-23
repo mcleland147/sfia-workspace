@@ -35,6 +35,7 @@ import {
 } from "@/lib/oa/execution-attempt";
 import type { AgentRegistryPort } from "@/lib/oa/execution-attempt";
 import { readContractInspectionState } from "./inspectExecutionContract";
+import { resolveProductExecutionEligibility } from "./resolveProductExecutionEligibility";
 import type {
   AgentCapabilityOutcomeDto,
   ConfirmationRequirementDto,
@@ -379,26 +380,55 @@ export async function evaluateExecutionAuthorization(
         blockedDetail,
       });
 
+    const eligibility = resolveProductExecutionEligibility({
+      constraints: contract.constraints,
+      stopConditions: contract.stopConditions,
+      inputs:
+        contract.inputs && typeof contract.inputs === "object"
+          ? (contract.inputs as Record<string, unknown>)
+          : null,
+    });
+
     const text = blockedReason ? BLOCKED_TEXT[blockedReason] : null;
+    const authorizedEligible =
+      outcome === "AUTHORIZED" && eligibility.eligible;
+    const authorizedIneligible =
+      outcome === "AUTHORIZED" && !eligibility.eligible;
+
     return {
       ok: true,
       executionContractId: contract.executionContractId,
       contractVersion: contract.version,
       outcome,
       outcomeLabel:
-        outcome === "AUTHORIZED"
-          ? "AUTORISÉ — STOP AVANT EXECUTE"
-          : "BLOQUÉ — ACTION REQUISE",
+        outcome === "BLOCKED"
+          ? "BLOQUÉ — ACTION REQUISE"
+          : authorizedEligible
+            ? "AUTORISÉ — EXÉCUTION ÉLIGIBLE"
+            : authorizedIneligible
+              ? "AUTORISÉ — EXÉCUTION NON ÉLIGIBLE"
+              : "AUTORISÉ — STOP AVANT EXECUTE",
       reasonCode: blockedReason ?? "effective_authority_established",
       reasonText:
         text?.reasonText ??
-        "Autorité effective établie : décision, périmètre du contrat, inspection, confirmation requise et exécuteur suffisant.",
+        (authorizedIneligible
+          ? eligibility.reasonText
+          : authorizedEligible
+            ? eligibility.reasonText
+            : "Autorité effective établie : décision, périmètre du contrat, inspection, confirmation requise et exécuteur suffisant."),
       nextAction:
         text?.nextAction ??
-        "Aucune exécution n'est autorisée par ce cycle — arrêt avant Execute.",
+        (authorizedIneligible
+          ? eligibility.nextAction
+          : authorizedEligible
+            ? eligibility.nextAction
+            : "Aucune exécution n'est autorisée par ce cycle — arrêt avant Execute."),
       inspection,
       confirmation,
       agentCapability: capabilityDto(capability),
+      executionEligible: outcome === "AUTHORIZED" ? eligibility.eligible : false,
+      executionEligibilityReasonCode:
+        outcome === "AUTHORIZED" ? eligibility.reasonCode : "blocked",
       authorityReceiptRef: receipt.receiptId,
       decisionRefs: [...(contract.decisionRefs ?? [])],
       requiredAuthority: contract.requiredAuthority,

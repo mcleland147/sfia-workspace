@@ -23,6 +23,25 @@ export * from "./domain/types";
 export * from "./domain/errors";
 export * from "./domain/invariants";
 export {
+  TRAJECTORY_NON_EXECUTE_STOPS,
+  filterTrajectoryNonExecuteStopsFromEc,
+  resolveProductExecutionEligibility,
+  shouldApplyProductExecutionEligibility,
+  PRODUCT_GOVERNED_CONSTRAINT,
+  LEGACY_PRODUCT_COMPAT_ACTION,
+  LEGACY_PRODUCT_COMPAT_TARGET,
+  LEGACY_PRODUCT_COMPAT_SCOPE,
+  LEGACY_PRODUCT_COMPAT_CAPABILITY,
+  type ProductExecutionEligibility,
+  type ProductExecutionEligibilityReasonCode,
+} from "./domain/resolveProductExecutionEligibility";
+export {
+  STUDIO_CURSOR_GENERALIST_ACTION,
+  STUDIO_CURSOR_GENERALIST_CAPABILITY,
+  STUDIO_CURSOR_GENERALIST_SCOPE,
+  STUDIO_CURSOR_GENERALIST_TARGET,
+} from "./domain/generalistExecutionSurface";
+export {
   computeExecutionContractSemanticFingerprint,
   computeExecutionContractSemanticMaterialFingerprint,
   executionContractSemanticMaterial,

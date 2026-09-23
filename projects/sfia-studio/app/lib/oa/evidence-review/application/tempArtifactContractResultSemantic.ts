@@ -1,13 +1,23 @@
 /**
  * Contract Result semantic entry #1 — product:generate-temporary-artifact (W3-B).
  * Ported from the former hard-coded contractResultSemanticEvaluator.
+ *
+ * PJ-REPROOF-05 Cause E — applicability also covers canonical generic Product
+ * Cursor EC when WHAT (exact EO+ER temp-artifact tokens) still identifies this
+ * result semantic. Quartet = HOW; EO/ER = WHAT. No NLP / effect-class heuristics.
  */
-import type { ExecutionContractSemanticMaterial } from "@/lib/oa/execution-contract";
+import {
+  STUDIO_CURSOR_GENERALIST_ACTION,
+  STUDIO_CURSOR_GENERALIST_CAPABILITY,
+  STUDIO_CURSOR_GENERALIST_SCOPE,
+  STUDIO_CURSOR_GENERALIST_TARGET,
+} from "@/lib/oa/execution-contract";
 import type { Evidence, EvidenceStatus, ExecutionAttemptSnapshot } from "../domain/types";
 import type { ReviewBundleEvidenceSnapshot } from "../domain/reviewBundleTypes";
 import type {
   ContractResultEvidenceSelection,
   ContractResultSemantic,
+  ContractResultSemanticApplicabilityMaterial,
 } from "./contractResultSemantics";
 
 export const W3B_TEMP_ARTIFACT_RULE_REF =
@@ -121,14 +131,51 @@ function pickTempArtifactEvidence(
   return bound.length === 1 ? bound[0] : undefined;
 }
 
+function isLegacyTempArtifactApplicable(
+  material: ContractResultSemanticApplicabilityMaterial,
+): boolean {
+  if (material.action !== W3B_TEMP_ARTIFACT_OPERATION_KEY) return false;
+  return Boolean(
+    material.requiredCapabilities?.includes(W3B_TEMP_ARTIFACT_CAPABILITY),
+  );
+}
+
+/**
+ * Canonical Product EC (generic Cursor quartet) + exact temp-artifact WHAT.
+ * Fail-closed: missing EO or ER → not applicable.
+ */
+function isGenericProductTempArtifactApplicable(
+  material: ContractResultSemanticApplicabilityMaterial,
+): boolean {
+  if (material.action !== STUDIO_CURSOR_GENERALIST_ACTION) return false;
+  if (material.target !== STUDIO_CURSOR_GENERALIST_TARGET) return false;
+  if (material.scope !== STUDIO_CURSOR_GENERALIST_SCOPE) return false;
+  if (
+    !material.requiredCapabilities?.includes(STUDIO_CURSOR_GENERALIST_CAPABILITY)
+  ) {
+    return false;
+  }
+  const outputs = material.expectedOutputs ?? [];
+  const requirements = material.evidenceRequirements ?? [];
+  if (!outputs.includes(W3B_TEMP_ARTIFACT_EO_TEMPLATE)) return false;
+  if (!requirements.includes(W3B_TEMP_ARTIFACT_ER_KEY)) return false;
+  return true;
+}
+
+export function isTempArtifactContractResultApplicable(
+  material: ContractResultSemanticApplicabilityMaterial,
+): boolean {
+  return (
+    isLegacyTempArtifactApplicable(material) ||
+    isGenericProductTempArtifactApplicable(material)
+  );
+}
+
 export const tempArtifactContractResultSemantic: ContractResultSemantic = {
   id: "temp-artifact",
   ruleRef: W3B_TEMP_ARTIFACT_RULE_REF,
   isApplicable(material) {
-    if (material.action !== W3B_TEMP_ARTIFACT_OPERATION_KEY) return false;
-    return Boolean(
-      material.requiredCapabilities?.includes(W3B_TEMP_ARTIFACT_CAPABILITY),
-    );
+    return isTempArtifactContractResultApplicable(material);
   },
   selectEvidenceIds(input): ContractResultEvidenceSelection {
     const frozen = input.frozenSnapshots;
@@ -170,10 +217,7 @@ export const tempArtifactContractResultSemantic: ContractResultSemantic = {
 };
 
 export function isTempArtifactMaterialApplicable(
-  material: Pick<
-    ExecutionContractSemanticMaterial,
-    "action" | "requiredCapabilities"
-  >,
+  material: ContractResultSemanticApplicabilityMaterial,
 ): boolean {
   return tempArtifactContractResultSemantic.isApplicable(material);
 }
