@@ -1,237 +1,191 @@
 # PRODUCT-JOURNEY-REAL-BEHAVIOR-REPROOF-01
-# PATHROOT READINESS SEMANTICS — PROJECT GIT INTEGRATION
-# PUSH + PR + CI — NO MERGE — ZERO PRODUCT EXECUTE
+# PR #513 CI RETRY ONLY
+# NO CODE CHANGE — NO MERGE — ZERO PRODUCT EXECUTE
 
 ## 1. Timestamp
-2026-09-23T15:08:00+02:00 (Europe/Paris)
+2026-09-23T15:22:00+02:00 (Europe/Paris)
 
-## 2. Git Truth before push
-- Workspace: `/Users/morris/Projects/sfia-workspace`
-- Branch: `fix/sfia-studio-product-real-readiness-pathroot-semantics`
-- HEAD: `128f3b7eb49cbba05d7735d5edc41a27822b0dee`
-- Parent: `2543a5bb9f62a23863ec4e74928ac6fc1a6b542a`
-- `origin/main`: `2543a5bb9f62a23863ec4e74928ac6fc1a6b542a` — MATCH
-- Staged: empty
-- Tracked working tree: clean (only `.tmp-sfia-review/**` dirty)
-- `SFIA_STUDIO_CURSOR_REAL`: unset
-
-## 3. Morris integration GO
-GO Morris project Git integration — pathRoot readiness semantics correction — push branch + PR + CI — no merge
+## 2. Morris retry GO
+GO Morris CI retry only — PR #513 — rerun failed workflow jobs — no code change — no merge
 — **CONSUMED**
 
-Authorized: verify candidate; push; create one PR; observe CI; Review Pack; L3 handoff.
-NOT authorized: code edit; corrective commit; amend; rebase; force push; merge; Product Execute; REAL; auth probe.
+Authorized: verify PR/main/head; `gh run rerun … --failed`; observe; logs; Review Pack; L3 handoff.
+NOT authorized: code/test/timeout edits; commits; push; merge; Product Execute; third retry.
 
-## 4. SAME MACRO / NO MICRO-CYCLE
-- Macro: `PRODUCT-JOURNEY-REAL-BEHAVIOR-REPROOF-01`
-- Pass: PROJECT GIT INTEGRATION — PATHROOT READINESS SEMANTICS
-- Same macro: YES
-- Micro-cycle: NO
-- Type 13 — PR readiness / CRITICAL / EVOL
+## 3. Git Truth
+- Branch: `fix/sfia-studio-product-real-readiness-pathroot-semantics`
+- HEAD: `128f3b7eb49cbba05d7735d5edc41a27822b0dee` (unchanged)
+- `origin/main`: `2543a5bb9f62a23863ec4e74928ac6fc1a6b542a` (unchanged)
+- Remote project branch SHA: `128f3b7eb49cbba05d7735d5edc41a27822b0dee`
+- Project dirty: only `.tmp-sfia-review/**`
+- `SFIA_STUDIO_CURSOR_REAL`: unset
 
-## 5. Sources
-- cycle template / routing / doctrine / roadmap / C1 / framing 34+36 (from origin/main)
-- Critical Review handoff `0337e4b224fa4c80ae4471b48c0dffd602760b2f` / blob `0923392ac9a8957eb9264bba913bbec2e6e8e881`
-- Candidate commit `128f3b7e` (two-file pathRoot semantics correction)
+## 4. PR state / head / base
+- PR **#513** OPEN (`mergedAt=null`)
+- base: `main` @ `2543a5bb…542a`
+- head: `fix/sfia-studio-product-real-readiness-pathroot-semantics` @ `128f3b7e…`
+- After retry: `mergeable=MERGEABLE`, `mergeStateStatus=CLEAN`
+- URL: https://github.com/mcleland147/sfia-workspace/pull/513
 
-## 6. Candidate SHA
+## 5. Candidate SHA
 `128f3b7eb49cbba05d7735d5edc41a27822b0dee`
-Message: `fix(studio): align Product REAL readiness pathRoot semantics`
+Two files only (pathRoot readiness + tests). Unchanged throughout retry.
 
-## 7. Candidate parent / base
-`2543a5bb9f62a23863ec4e74928ac6fc1a6b542a` (= origin/main at push)
+## 6. Initial CI run ID
+`35863263472` — attempt **1** — conclusion **failure**
+https://github.com/mcleland147/sfia-workspace/actions/runs/35863263472
 
-## 8. Exact two-file diff identity
-```
-M projects/sfia-studio/app/__tests__/project-assistant/evaluateProductRealReadiness.d0.test.ts
-M projects/sfia-studio/app/features/project-assistant/w2/evaluateProductRealReadiness.ts
-2 files changed, 84 insertions(+), 11 deletions(-)
-```
-`git diff --check` vs main: PASS
-Matches Critical Review evidence.
+## 7. Initial failure classification (pre-retry hypothesis)
+CI FAILURE CONSISTENT WITH TRANSIENT VITEST RUNNER CONTENTION — **not** code regression proven.
+(Confirmed after green retry — see §36.)
 
-## 9. ChatGPT Critical Review PASS reference
-Handoff commit: `0337e4b224fa4c80ae4471b48c0dffd602760b2f`
-Blob: `0923392ac9a8957eb9264bba913bbec2e6e8e881`
-Verdict: PASS — PATHROOT READINESS SEMANTICS CORRECTION — READY FOR MORRIS PROJECT GIT INTEGRATION DECISION
+## 8. Initial failed jobs
+| Job | Result | Job ID |
+|-----|--------|--------|
+| Detect SFIA Studio changes | SUCCESS | 107188423034 |
+| Build and validate SFIA Studio | FAILURE | 107188489906 |
+| SFIA Studio Required Gate | FAILURE | 107193802052 |
 
-## 10. Pre-push validation
-- typecheck PASS
-- lint PASS
-- targeted: readiness 12/12 + B1 Evidence E2E + generic Cursor completion + D-PC-09 routing suites: **74/74 PASS**
-- No code change under this GO
+Build: Typecheck/Lint/Build SUCCESS; Unit tests FAILURE; governance/secret/whitespace SKIPPED.
 
-## 11. origin/main before push
-`2543a5bb9f62a23863ec4e74928ac6fc1a6b542a`
+## 9. Initial failed suites
+All failures = `Test timed out in 5000ms` (unrelated to pathRoot files):
+- nora-eval: g2.catalog-versioning-mw6, mw0.corr05, mw0.corr07, mw1.s01, mw1.s02
+- oa/cycle: corrProof05.pilotLifecycle
+- project-assistant: activeCycleCognitiveWork, candidateTrajectoryCycleStart
 
-## 12. Remote branch state before push
-ABSENT (empty `git ls-remote --heads`)
+Plus Vitest worker RPC: `Timeout calling "onTaskUpdate"` (initial attempt evidence).
 
-## 13. Exact push command
-```
-git push -u origin fix/sfia-studio-product-real-readiness-pathroot-semantics
-```
-No force.
-
-## 14. Remote branch SHA after push
-`128f3b7eb49cbba05d7735d5edc41a27822b0dee` — MATCH candidate
-
-## 15. PR number
-**513**
-
-## 16. PR URL
-https://github.com/mcleland147/sfia-workspace/pull/513
-
-## 17. PR title
-SFIA Studio — align Product REAL readiness pathRoot semantics
-
-## 18. PR base / head
-- base: `main`
-- head: `fix/sfia-studio-product-real-readiness-pathroot-semantics`
-
-## 19. PR head SHA
-`128f3b7eb49cbba05d7735d5edc41a27822b0dee`
-
-## 20. PR mergeability state
-- state: OPEN
-- mergeable: MERGEABLE
-- mergeStateStatus: BLOCKED (required checks failed)
-- Merge: **NOT PERFORMED**
-- Auto-merge: **NOT ENABLED**
-
-## 21. CI run ID
-`35863263472`
-URL: https://github.com/mcleland147/sfia-workspace/actions/runs/35863263472
-
-## 22. CI workflow
-SFIA Studio CI (`pull_request`)
-headSha: `128f3b7eb49cbba05d7735d5edc41a27822b0dee`
-conclusion: **failure**
-
-## 23. CI jobs / results
-| Job | Result |
-|-----|--------|
-| Detect SFIA Studio changes | **SUCCESS** |
-| Build and validate SFIA Studio | **FAILURE** |
-| SFIA Studio Required Gate | **FAILURE** (aggregate of validate failure) |
-
-Build steps:
-| Step | Result |
-|------|--------|
-| Typecheck | SUCCESS |
-| Lint | SUCCESS |
-| Build | SUCCESS |
-| Unit tests (Vitest) | **FAILURE** |
-| Modeled governance tests | SKIPPED (after Vitest fail) |
-| Secret pattern scan | SKIPPED |
-| Trailing whitespace check | SKIPPED |
-
-## 24. Vitest totals (CI)
+## 10. Initial Vitest totals
 ```
 Test Files  8 failed | 393 passed | 17 skipped (418)
 Tests       11 failed | 4470 passed | 137 skipped (4618)
 ```
-All 11 failures: `Test timed out in 5000ms`.
 
-Failed timeout sites (none are pathRoot readiness files):
-- `__tests__/nora-eval/g2.catalog-versioning-mw6.test.ts`
-- `__tests__/nora-eval/mw0.corr05.evidenceIntegrity.test.ts`
-- `__tests__/nora-eval/mw0.corr07.offlineRescoreFailClosed.test.ts`
-- `__tests__/nora-eval/mw1.s01.honestMemoryB.eval.test.ts`
-- `__tests__/nora-eval/mw1.s02.compaction.eval.test.ts`
-- `__tests__/oa/cycle/corrProof05.pilotLifecycle.d0.test.ts`
-- `__tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts`
-- `__tests__/project-assistant/candidateTrajectoryCycleStart.d0.test.ts`
+## 11. Initial duration
+Build job ≈ 14m24s; Vitest wall ≈ **759.66s** (prior integration report)
 
-Local reference for same candidate: **401 files / 4481 passed / 137 skipped** (PASS).
-CI delta vs local: timeouts under 5s default; not a pathRoot assertion failure.
+## 12. Worker RPC timeout evidence
+Initial attempt: Vitest worker `onTaskUpdate` timeout alongside suite 5s timeouts.
 
-**No corrective commit authorized under this GO.**
+## 13. Green-main comparison
+Reference green main run `35855766415`:
+- 401 files / 4480 passed / 137 skipped
+- duration ≈ 256.22s
+Same unrelated suites were green on that main run.
 
-## 25. Typecheck
-CI PASS / local PASS
+## 14. Exact retry command
+```
+gh run rerun 35863263472 --failed
+```
 
-## 26. Lint
-CI PASS / local PASS
+## 15. Retry command result
+Exit status **0**. Retry started successfully.
 
-## 27. Build
-CI PASS / local PASS
+## 16. Workflow run attempt
+- Same run ID: `35863263472`
+- Attempt: **2**
+- headSha: `128f3b7eb49cbba05d7735d5edc41a27822b0dee` (unchanged)
+- event: `pull_request`
+- workflow: SFIA Studio CI
+- final conclusion: **success**
 
-## 28. Governance checks
-SKIPPED in CI (Vitest failed first)
+## 17. Retry job IDs
+| Job | Job ID | Result | Duration |
+|-----|--------|--------|----------|
+| Detect SFIA Studio changes | 107196817642 | SUCCESS | 9s (reused success from attempt semantics) |
+| Build and validate SFIA Studio | 107196817567 | SUCCESS | **6m21s** |
+| SFIA Studio Required Gate | 107199297957 | SUCCESS | 3s |
 
-## 29. Secret scan
-SKIPPED in CI (Vitest failed first)
+## 18. Retry job results
+All required jobs **SUCCESS**.
 
-## 30. Whitespace
-SKIPPED in CI (Vitest failed first)
-Local candidate `git diff --check` vs main: PASS
+Build steps all SUCCESS:
+Typecheck · Lint · Build · Unit tests · FinOps/T7 freeze notice · Modeled governance · Secret scan · Trailing whitespace.
 
-## 31. pathRoot semantics invariant
-Unchanged vs accepted Critical Review:
-- containment controls readiness
-- existence observational
-- valid unmaterialized pathRoot must not emit `PROJECT_PATH_ROOT_ABSENT`
+## 19. Retry Vitest totals
+```
+Test Files  401 passed | 17 skipped (418)
+Tests       4481 passed | 137 skipped (4618)
+```
+Matches candidate local reference (401 / 4481 / 137). **0 failures.**
 
-## 32. Fail-closed containment preserved
-Traversal / absolute / escape remain fail-closed (candidate unchanged).
+## 20. Retry duration
+Vitest Duration: **255.76s**
+(Build job wall ≈ 6m21s)
+Comparable to green main ≈ 256s; sharply below initial ≈ 760s.
 
-## 33. No silent pathRoot materialization
-Candidate tests prove FS path remains absent; no CI evidence of silent create.
+## 21. Typecheck
+PASS (retry)
 
-## 34. D-PC-09 unchanged
-No D-PC-09 source edits in candidate; write-layer untouched.
+## 22. Lint
+PASS (retry)
 
-## 35. B1 / B2 / B4 unchanged
-No Mission Evidence / ContractResult / auth inference changes in candidate.
+## 23. Build
+PASS (retry)
 
-## 36. ZERO PRODUCT EXECUTE
-Confirmed throughout integration cycle.
+## 24. Governance
+Modeled governance tests: PASS (retry)
 
-## 37. Product Attempt count
-0
+## 25. Secret scan
+PASS (retry)
 
-## 38. Mission spawn count
-0
+## 26. Whitespace
+Trailing whitespace check: PASS (retry)
 
-## 39. Provider call count
-0
+## 27. Required Gate
+SUCCESS (retry)
 
-## 40. REAL budget
+## 28. PR checks final state
+Detect / Build / Required Gate = **SUCCESS**
+`mergeStateStatus=CLEAN` · Merge **NOT** performed · Auto-merge **NOT** enabled
+
+## 29. Same candidate SHA confirmation
+`128f3b7eb49cbba05d7735d5edc41a27822b0dee` before and after retry.
+
+## 30. No code change
+Confirmed. No project source/test edits.
+
+## 31. No project commit
+Confirmed.
+
+## 32. No push
+Confirmed (project branch). Handoff L3 only after this pack.
+
+## 33. No merge
+Confirmed.
+
+## 34. ZERO PRODUCT EXECUTE
+Confirmed. Cursor REAL unset. Attempts 0. Spawn 0. Provider calls 0.
+
+## 35. REAL budget
 1 spawn / 0 retry — **UNUSED**
+Product Journey **PAUSED** · runtime v3 **NON ADOPTED**
 
-## 41. Product Journey
-**PAUSED**
+## 36. Classification
+**transient contention confirmed**
 
-## 42. Runtime v3
-**NON ADOPTED**
+Evidence:
+- retry green on identical candidate SHA without code change;
+- Vitest totals match local candidate (4481 passed);
+- duration normalized (~256s vs ~760s);
+- 0 timeouts / 0 `onTaskUpdate` on retry;
+- initial failing suites unrelated to pathRoot candidate files.
 
-## 43. Remaining environment blocker
-Campaign: `MANAGED_REPO_ROOT_BASE_UNCONFIGURED` (unchanged; not this PR's CI failure cause).
+## 37. Remaining environment blocker
+Campaign: `MANAGED_REPO_ROOT_BASE_UNCONFIGURED` (unchanged; not a PR CI issue).
 
-## 44. Merge NOT performed
-Confirmed. No `gh pr merge`. No auto-merge.
-
-## 45. Branch NOT deleted
-Confirmed. Remote branch still present at candidate SHA.
-
-## 46. Verdict
-**STOP — PATHROOT READINESS SEMANTICS PR NOT READY —
-CI FAILURE —
-NO CORRECTIVE COMMIT AUTHORIZED —
+## 38. Verdict
+**PR #513 CI RETRY PASS —
+INITIAL VITEST FAILURE QUALIFIED AS TRANSIENT RUNNER CONTENTION —
+CANDIDATE SHA UNCHANGED —
+NO CODE CHANGE —
+READY FOR CHATGPT FINAL PR REVIEW —
 ZERO PRODUCT EXECUTE —
 MERGE NOT AUTHORIZED**
 
-Qualification for Morris/ChatGPT:
-- Project push + PR creation succeeded with exact candidate SHA.
-- Required CI Gate failed due to Vitest 5s timeouts in unrelated suites.
-- Candidate pathRoot files are not among the timeout failure sites.
-- Automatic remediation is **forbidden** under this GO.
-- Next action requires a distinct Morris decision (e.g. CI re-run / separate timeout qualification / corrective GO if a real regression is proven).
-
-## Exploitable changed-content reference
-- Commit: https://github.com/mcleland147/sfia-workspace/commit/128f3b7eb49cbba05d7735d5edc41a27822b0dee
+## Exploitable references
 - PR: https://github.com/mcleland147/sfia-workspace/pull/513
-- Diff: https://github.com/mcleland147/sfia-workspace/pull/513/files
-- CI: https://github.com/mcleland147/sfia-workspace/actions/runs/35863263472
-- Critical Review evidence (prior): handoff `0337e4b2` appendices A–E with full `git show` + file bodies
+- Commit: https://github.com/mcleland147/sfia-workspace/commit/128f3b7eb49cbba05d7735d5edc41a27822b0dee
+- CI run (attempt 2 SUCCESS): https://github.com/mcleland147/sfia-workspace/actions/runs/35863263472
+- Build job retry: https://github.com/mcleland147/sfia-workspace/actions/runs/35863263472/job/107196817567
