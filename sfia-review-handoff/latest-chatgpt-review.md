@@ -1,306 +1,192 @@
 # SFIA Studio — Review Pack FULL
-## MACRO CYCLE MERGE — PR #516 — Cycle Journal + Conversation Continuity
+## PILOTABILITY & JOURNAL SEMANTIC INTEGRITY
 
-- **timestamp**: `2026-09-24T17:28:45+02:00` (Europe/Paris)
-- **timestamp UTC**: `2026-09-24T15:28:45Z`
-- **cycle**: 8 — Delivery / intégration / merge
+- **timestamp**: `2026-09-24T19:46:18+02:00` (Europe/Paris)
+- **cycle**: macro-lot construction / EVOL
 - **profil SFIA**: Critical
-- **typologie**: EVOL / integration
-- **CKC**: `projects/sfia-studio/sfia-v3-framing/ckc/08-delivery-implementation.md` · `ckc:studio:delivery` · `cyc:delivery` · contractVersion `0.1.0` · contentStatus VALIDATED · cognitive guidance only
-- **GO Morris**: **MORRIS MERGE GO — PR #516 — CONSUMED**
+- **GO Morris**: CONSUMED — construction locale + Review Pack + Handoff L3
+- **NON autorisé ce cycle**: commit/push/PR/merge produit ; convergence/** ; doctrine v3 ; runtime v3 ADOPTED
+- **branche**: `feat/sfia-studio-pilotability-journal-integrity-01` @ `dc462d9f` (= origin/main tip, uncommitted WIP)
+- **base / origin/main**: `dc462d9f43661fb63f222f37691e80efb8650157` (PR #516 INTEGRATED)
 - **runtime v3**: **NON ADOPTED**
-- **Fake/Real**: DETERMINISTIC PRODUCT PROOF + local browser proof. REAL Journal semantic quality **NOT PROVEN**. DETERMINISTIC PROVEN ≠ READY FOR REAL.
+- **Fake/Real**: DETERMINISTIC PRODUCT PROOF + local browser MealFlow reopen. REAL Journal semantic quality **NOT PROVEN**. DETERMINISTIC PROVEN ≠ READY FOR REAL.
 
 ## Verdict
 
-**PR #516 — INTEGRATED ON MAIN / POST-MERGE VERIFIED**
+**READY FOR MACRO PR READINESS**
 
 ---
 
-## 1. Sources consultées
+## 1. Git Truth
 
-1. `prompts/templates/sfia-cycle-execution-template.md`
-2. `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-3. `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md` (ACTIVE / READ)
-4. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` (READ ONLY — no edit)
-5. `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
-6. `projects/sfia-studio/sfia-v3-framing/ckc/08-delivery-implementation.md`
-7. Doctrine v3 applicable 30 / 32 / 33 / 35 (guidance)
-8. Handoff canonique pré-merge `sfia-review-handoff/latest-chatgpt-review.md` @ `7a8e2ee6fae03b35d7a13c87035705a0f09bb986`
-9. PR #516 metadata + commits + files + checks (GitHub / `gh`)
-
-v2.6 = processus externe uniquement.
+| Check | Result |
+| --- | --- |
+| Branch | `feat/sfia-studio-pilotability-journal-integrity-01` created from `origin/main` |
+| HEAD / origin/main | `dc462d9f…` |
+| Dirty | product WIP intentional + `.tmp-sfia-review/**` only |
+| Foreign worktree main stale | known / not modified |
+| Protected convergence | untouched |
 
 ---
 
-## 2. Pre-merge Git Truth (confirmé avant merge)
+## 2. Sources
 
-| Check | Attendu | Observé |
+Build Doctrine, Roadmap (READ ONLY), C1, framing 30/32/33/35, UX PE 01/02, CKC Delivery, cycle template, routing guide, handoff `33152dfc…` (PR #516 post-merge).
+
+v2.6 = external process only.
+
+---
+
+## 3. Capacité v3
+
+**PILOTABILITY & JOURNAL SEMANTIC INTEGRITY** — ADAPT/COMPLETE of PROJECT CONVERSATIONAL CONTINUITY & CYCLE JOURNAL (#516).
+
+Serves V3-F02 / V3-F05 / epistemic integrity / Product Experience / Nora Cognitive Completion (bounded).
+
+---
+
+## 4. MealFlow observations → root causes
+
+| Observation | Confirmed cause | Fix track |
 | --- | --- | --- |
-| Branche feature locale | `feat/sfia-studio-cycle-journal-continuity-01` | OK |
-| HEAD feature | `f7ecf203dd393bbd70b81224b6b9f67ec9c5abb3` | OK |
-| Remote feature | même SHA | OK |
-| `origin/main` | `aad8bc8456b3a64d37be4e12f969f09da5467c09` | OK |
-| Working tree produit | propre (hors `.tmp-sfia-review`) | OK |
-| Nouveaux commits non qualifiés | aucun | OK |
+| Sources `pt:*` before reload | UI messages local ids; refresh did not reconcile messages | A |
+| No Sujet N / unstable order | list by `updated_at`; no ordinal | B |
+| All `Actif` ≠ current | status conflated with current | B |
+| Thin entry (no stab/open) | schema/delta lacked points | C |
+| Topics too broad / SPLIT weak | prompt weak on granularity | D |
+| Stabilized constraints as blocking | Nora emitted Reservation blocking; Observation could carry blocking | E |
+| Lifecycle title `Cycle` | no catalog label on projection | F |
+| Duplicate applicability labels | 5 unknown blockers → same string | F |
+| Restored hint after live turns | hint keyed only on `available` | G |
 
-STOP conditions pré-merge : **aucune déclenchée**.
-
----
-
-## 3. PR #516 pre-merge
-
-| Champ | Attendu | Observé |
-| --- | --- | --- |
-| Number | #516 | #516 |
-| Title | SFIA Studio — durable cycle journal and conversation continuity | match |
-| State | open | open |
-| Draft | false | false |
-| Head branch | `feat/sfia-studio-cycle-journal-continuity-01` | match |
-| Head SHA | `f7ecf203dd393bbd70b81224b6b9f67ec9c5abb3` | match |
-| Base | `main` | match |
-| Base SHA | `aad8bc8456b3a64d37be4e12f969f09da5467c09` | match |
-| mergeable_state | clean | clean |
-| Commits | 1 | 1 |
-| Files / delta | 46 / +4085 / −175 | match |
+Rejected: second Journal engine, regex summarizer, RAG, parallel blockers store, new EpistemicItemType.
 
 ---
 
-## 4. CI pré-merge
+## 5. Architecture KEEP / ADAPT / COMPLETE
 
-- Workflow: **SFIA Studio CI**
-- Run connu: **#591** / id `36017692334`
-- Conclusion: **SUCCESS**
-- Jobs:
-  - Detect SFIA Studio changes — success
-  - Build and validate SFIA Studio — success
-  - SFIA Studio Required Gate — success
-
----
-
-## 5. Merge method
-
-- **MERGE COMMIT** (convention repo / aligné PR #515)
-- **NE PAS** squash
-- **NE PAS** rebase-merge
-- **NE PAS** supprimer la branche après merge
-
-Commande effective: `gh pr merge 516 --merge`
-
----
-
-## 6. Merge result
-
-| Champ | Valeur |
+| Asset | Disposition |
 | --- | --- |
-| merged | **true** |
-| PR state | **MERGED** / closed |
-| mergedAt | `2026-09-24T15:19:19Z` |
-| Merge commit SHA | `dc462d9f43661fb63f222f37691e80efb8650157` |
-| Parents | `aad8bc8456b3a64d37be4e12f969f09da5467c09` + `f7ecf203dd393bbd70b81224b6b9f67ec9c5abb3` |
-| Tree SHA | `e5dc08d875d80111ca8a4c5512b650ef3a608a70` |
-| Title | Merge pull request #516 from mcleland147/feat/sfia-studio-cycle-journal-continuity-01 |
+| ProductSqliteSession + journal tables | KEEP + ALTER migration |
+| journalDelta same-turn structured output | ADAPT (points fields) |
+| Journal Agents tools | ADAPT (return ordinal/points) |
+| JournalSurface / useProductConversation | ADAPT |
+| Active Cycle Work materialize | ADAPT (blocking gate) |
+| Lifecycle projection / presentation | ADAPT |
+| Automatic Resume presentation | ADAPT (one-shot hint) |
 
-Aucun autre changement produit dans l’opération de merge.
+No parallel architecture.
 
 ---
 
-## 7. Post-merge Git verification
+## 6. Migrations
 
-| Check | Résultat |
+`ensureCycleJournalRichColumns()`:
+
+- `topic_ordinal INTEGER` + deterministic backfill (created_at + id)
+- `stabilized_points_json` / `open_points_json` DEFAULT `[]`
+- idempotent ALTER; no DROP; legacy rows readable
+
+---
+
+## 7. Files changed (product)
+
+21 product files + 1 new test file (+726 / −93 vs HEAD excluding `.tmp`).
+
+Key seams: `cycleJournal*`, `productSqliteSession`, `noraProductTurnOutputType`, `useProductConversation`, `JournalSurface*`, `presentationLabels`, `LifecycleSurface` / `lifecyclePresentation`, `lifecycleProjection`, `actions`, `buildProjectSystemPrompt`, `materializeActiveCycleWork`, tests.
+
+---
+
+## 8. Test matrix
+
+### JPI-01…18 / EPI / LIFE / ARH
+
+Covered by `pilotabilityJournalIntegrity.d0.test.ts` + UI/AR/journey updates:
+
+- Ordinals stable / UPDATE order / ARCHIVE·MERGE·SPLIT no renumber
+- Rich points persist; legacy empty; compact prompt
+- CREATE/UPDATE/SPLIT/MERGE generic semantics
+- Resume hint only with `allowRestoredHint`
+- Framing catalog label; applicability grouped
+- Blocking gate: only Reservation; derive ignores Observation blocking
+
+### #516 regression
+
+`cycleJournalContinuity.d0` + `cycleJournalSurface` + `automaticProjectResume` + `w1RecoveryFoundation` — PASS.
+
+### Validations
+
+| Gate | Result |
 | --- | --- |
-| `git fetch origin` | OK |
-| `origin/main` | `dc462d9f43661fb63f222f37691e80efb8650157` |
-| Feature in main (ancestor) | **FEATURE_IN_MAIN_OK** |
-| Primary worktree HEAD | `dc462d9f…` (on feature branch tip aligned to merge commit locally) |
-| Local `refs/heads/main` | **STALE REF LOCKED** — checked out in foreign worktree `…/finops-t2-main` @ `4b1a0580…`; FF blocked by untracked `.tmp-sfia-review/chatgpt-review.md` conflict in that worktree. **No hard reset / no force.** Remote main remains authoritative. |
-| Product commits after merge | **none** (authorized: validations + handoff only) |
-
-### Feature branch preservation
-
-| Location | SHA | Status |
-| --- | --- | --- |
-| `origin/feat/sfia-studio-cycle-journal-continuity-01` | `f7ecf203dd393bbd70b81224b6b9f67ec9c5abb3` | **PRESERVED** |
-| Branch deletion | — | **NOT PERFORMED / NOT AUTHORIZED** |
+| typecheck | PASS |
+| lint | PASS |
+| build | PASS |
+| full suite | **4580 passed / 137 skipped** (409 files + 17 skipped) |
 
 ---
 
-## 8. Tree equivalence
+## 9. Runtime proof (local MealFlow)
 
-```
-PR head tree  f7ecf203^{tree} = e5dc08d875d80111ca8a4c5512b650ef3a608a70
-origin/main   dc462d9f^{tree} = e5dc08d875d80111ca8a4c5512b650ef3a608a70
-git diff f7ecf203 origin/main → empty
-```
+Project `prj:7c3d2c3d-…` MealFlow reopen on localhost:3020:
 
-**TREE_HASH_EQ_OK** / **TREE_EQ_OK**
+1. Restored hint on open — observed
+2. Journal **Sujet 1 / Sujet 2**, **En cours** on current — observed
+3. Exchanges expand → **Pilote/Nora** readable excerpts (no raw `pt:*`) — observed
+4. Lifecycle title **Cadrage** — observed
+5. Blockers: **Effets gouvernés à qualifier (5 familles)** grouped — observed
+6. Historical Reservation blocking statements still listed (pre-existing MealFlow data) — documented reserve
 
-Merge commit metadata/parents differ; product tree content identical to reviewed candidate.
+Screenshots (`.tmp` only, never commit):
 
----
-
-## 9. Post-merge local validation
-
-Scripts canoniques (`projects/sfia-studio/app/package.json`): `typecheck`, `test` (vitest), `lint`, `build`.
-
-Exécuté post-merge sur tree `dc462d9f` / équivalent `f7ecf203`:
-
-| Validation | Résultat |
-| --- | --- |
-| `npm run typecheck` | **PASS** (exit 0) |
-| Targeted Continuity / Journal / Resume / orchestrate / lifecycle / journey coherence (16 files) | **137 passed / 0 failed** |
-| Full suite re-run | Not re-executed post-merge (pre-merge full suite **408 passed / 17 skipped** + tree equivalence + CI main SUCCESS = proportional) |
-| `git status --short` (primary) | only `.tmp-sfia-review/**` dirty/untracked (review artifacts; no product source drift) |
+- `pilotability-journal-integrity-proof/mealfow-desktop-1440-journal-exchanges.png`
+- `pilotability-journal-integrity-proof/mealfow-desktop-lifecycle-cadrage.png`
+- `pilotability-journal-integrity-proof/mealfow-mobile-390-journal.png`
 
 ---
 
-## 10. Post-merge CI
+## 10. Fake / Real
 
-- Workflow: **SFIA Studio CI**
-- Event: `push` on `main`
-- Run id: **`36019316288`**
-- URL: https://github.com/mcleland147/sfia-workspace/actions/runs/36019316288
-- headSha: `dc462d9f43661fb63f222f37691e80efb8650157`
-- Conclusion: **SUCCESS**
-- Jobs:
-  - Detect SFIA Studio changes — **success**
-  - Build and validate SFIA Studio — **success** (Install / Typecheck / Lint / Build / Unit tests / FinOps / Modeled governance / Secret scan / Trailing whitespace)
-  - SFIA Studio Required Gate — **success**
-
-**POST-MERGE CI VERIFIED**
-
-Rerun: **none** (no failure).
-
-Annotations non-bloquantes: Node.js 20 deprecation / ubuntu-latest migration notices.
+- Deterministic unit/UI + local authenticated browser reopen of MealFlow
+- **≠** REAL provider Journal semantic quality campaign
+- **≠** READY FOR REAL
 
 ---
 
-## 11. Capacités — claims bornés après merge
+## 11. Réserves / dette
 
-### AUTORISÉ (intégré sur main)
-
-- Cycle Journal intégré sur main
-- Transcript Pilot↔Nora durable intégré
-- Provider context borné (12 turns / 8k) intégré
-- Journal retrieval same-turn (`cycle_journal_*`) intégré
-- Automatic Project Resume intégré
-- Option A responsive workspace intégré
-- Anomaly-only Recovery intégré
-- Deterministic tests + local browser proof existants
-- CI main green observé
-
-### INTERDIT / NON CLAIMÉ
-
-- REAL Journal semantic quality proven
-- runtime v3 ADOPTED
-- READY FOR REAL
-- Product Completion global complete grâce à ce seul merge
-- Nora Cognitive Completion COMPLETE grâce à ce seul merge
+1. **Existing MealFlow Reservation blocking=true** for stabilized/out-of-scope statements remain until Pilot resolve or a future reclassification GO — gate+prompt prevent *new* Observation-as-blocker and instruct Nora; no silent auto-resolve.
+2. **Legacy journal entries** have empty `stabilizedPoints`/`openPoints` until next CREATE/UPDATE with enriched delta.
+3. **Live mid-session reconcile** proven by code path + tests; browser proof used reopen (reload) where durable ids already match — mid-turn live proof deferred to PR readiness / usage.
+4. Roadmap tip still pre-#516 formally — truth-sync REQUIRED (below).
 
 ---
 
-## 12. CR-CJ-01…06 — CLOSED (conservés)
+## 12. ROADMAP TRUTH-SYNC
 
-| ID | Status |
-| --- | --- |
-| CR-CJ-01 bounded provider context | CLOSED |
-| CR-CJ-02 Journal tools product path | CLOSED |
-| CR-CJ-03 >24 subject recovery | CLOSED |
-| CR-CJ-04 multi-exchange navigation | CLOSED |
-| CR-CJ-05 responsive 1100px | CLOSED |
-| CR-CJ-06 integrity fail-closed | CLOSED |
-
-## 13. AR-01…10 — PASS (conservés)
-
-AR-01…10 remain **PASS** at deterministic / local-browser proof ceiling (pre-merge exit proof; tree-equivalent on main; CI SUCCESS).
+- **REQUIRED**
+- Sections: tip maintenance / Snapshot Git / Intégration Git / Nora programme / Product Experience continuity
+- Delta: #516 + this lot (pilotability integrity) INTEGRATED pending PR; ordinals/rich journal/epistemic blocking gate/Lifecycle Cadrage/grouped applicability/one-shot resume hint
+- **Aucune modification appliquée** this cycle
 
 ---
 
-## 14. Architecture finale (résumé)
+## 13. Décisions Morris encore nécessaires
 
-- Durable Pilot↔Nora transcript in `ProductSqliteSession` (visible transcript ≠ exhaustive provider history)
-- Provider recent history bounded
-- Cycle-aware Journal store + CREATE/UPDATE/MERGE/SPLIT/ARCHIVE + source refs / lineage / idempotence
-- Same-turn Agents tools `cycle_journal_*` (UNKNOWN_TOOL skip-safe)
-- Working set + full-cycle search + targeted transcript retrieval
-- JournalSurface + Option A Project workspace
-- Automatic Project Resume; Recovery anomaly-only
-- Journal ≠ Truth C / HD / Evidence
+1. MACRO PR READINESS GO (commit/push/PR) — next
+2. Optional Roadmap truth-sync GO
+3. Optional MealFlow epistemic cleanup / resolve of legacy blocking reservations
+4. Branch cleanup — out of scope
 
 ---
 
-## 15. Réserves / dette (non bloquantes pour ce merge)
+## 14. Anti-claims
 
-1. **REAL Journal semantic quality** — NOT PROVEN (deterministic + local browser only).
-2. **Roadmap living tip** still points to prior macro closeout (PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01 / D-PC-09) — factual obsolescence vs PR #516 integration (see §16).
-3. **Local `refs/heads/main` stale** in foreign worktree — operational hygiene; remote main authoritative; no product impact.
-4. **Runtime v3** remains NON ADOPTED (explicit).
-5. Pre-existing governance debts unchanged by this merge (M5-C temporary journal, etc.) — out of scope.
-
-Correction on main: **NOT AUTHORIZED** this cycle. New branch/PR would require distinct Morris GO if needed.
+- NOT runtime v3 ADOPTED
+- NOT Product Completion COMPLETE
+- NOT Nora Cognitive Completion COMPLETE
+- NOT READY FOR REAL
+- NOT REAL Journal semantic quality PROVEN
 
 ---
 
-## 16. ROADMAP TRUTH-SYNC
-
-- **REQUIRED / NOT REQUIRED**: **REQUIRED**
-- **Modification applied this cycle**: **aucune** (`projects/sfia-studio/convergence/**` READ ONLY)
-- **Sections concernées** (qualifiées, non éditées):
-  - Tip maintenance / Snapshot Git courant / ACTIVE CONSTRUCTION PRIORITY framing
-  - Intégration Git / Gates courants (missing PR #516 anchor)
-  - Continuity / Product Experience / Nora Cognitive Completion programme register (capacity now integrated but undocumented on living tip)
-- **Faits désormais intégrés à refléter** (delta recommandé pour un futur GO docs distinct):
-  - PR **#516 MERGED**
-  - head `f7ecf203…` · merge `dc462d9f…` · tree `e5dc08d8…`
-  - HEAD→MERGE tree parity **PROVEN**
-  - post-merge CI `36019316288` **SUCCESS** / Required Gate **PASS**
-  - capacité **PROJECT CONVERSATIONAL CONTINUITY & CYCLE JOURNAL** = **INTEGRATED ON MAIN / POST-MERGE VERIFIED**
-  - sous-capacités: durable transcript · bounded provider context · cycle journal CRUD/lineage · same-turn tools · Automatic Project Resume · Option A · anomaly-only Recovery
-  - CR-CJ-01…06 CLOSED · AR-01…10 PASS (deterministic ceiling)
-  - Fake/Real ceiling: DETERMINISTIC + local browser · REAL Journal semantic **NOT PROVEN**
-  - runtime v3 **NON ADOPTED** · source branch **PRESERVED** @ `f7ecf203…`
-  - **≠** Product Completion newly COMPLETE · **≠** Nora Cognitive Completion COMPLETE · **≠** READY FOR REAL
-- **Prochaines capacités significatives** (hors scope; non autorisées ici): remain under NORA-FIRST / Product Experience sequencing as governed by Morris — not rewritten in this merge cycle.
-
----
-
-## 17. Fichiers modifiés dans CE cycle merge
-
-- **Produit**: aucun commit produit post-merge
-- **Merge GitHub**: merge commit `dc462d9f…` only
-- **Local non versionné**: `.tmp-sfia-review/chatgpt-review.md` (ce pack) + dirs de preuve historiques untracked (continuity / nora conversational initiative) — **hors produit**, non commités
-
----
-
-## 18. Décisions Morris encore nécessaires
-
-1. **Roadmap / convergence truth-sync** — GO distinct si publication documentaire souhaitée (REQUIRED qualifié; non exécuté).
-2. **Branch cleanup** `feat/sfia-studio-cycle-journal-continuity-01` — OUT OF SCOPE / requires separate authorization.
-3. Any **REAL Journal semantic quality** campaign — distinct GO; not implied by this merge.
-4. **runtime v3 ADOPTED** — NOT requested / NOT authorized.
-5. Optional: align foreign worktree local `main` ref (ops hygiene).
-
----
-
-## 19. Review Handoff Git
-
-- mode: **publish-in-cycle** (L3 borné)
-- branch: `sfia/review-handoff`
-- canonical: `sfia-review-handoff/latest-chatgpt-review.md`
-- commit message cible: `docs(review-handoff): publish PR 516 post-merge verification`
-- prior remote tip: `7a8e2ee6fae03b35d7a13c87035705a0f09bb986`
-- post-publish: verify remote tip + merge SHA / main SHA / CI / verdict present
-
----
-
-## 20. Anti-claims (rappel)
-
-- DETERMINISTIC PROVEN ≠ READY FOR REAL
-- INTEGRATED ON MAIN ≠ Product Completion COMPLETE
-- INTEGRATED ON MAIN ≠ Nora Cognitive Completion COMPLETE
-- INTEGRATED ON MAIN ≠ runtime v3 ADOPTED
-- Tree equivalence ≠ REAL semantic Journal quality
-
----
-
-**END FULL REVIEW PACK — PR #516 POST-MERGE**
+**END FULL REVIEW PACK**
