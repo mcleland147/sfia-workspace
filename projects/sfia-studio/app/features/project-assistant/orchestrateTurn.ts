@@ -20,13 +20,24 @@ import {
   type NoraCampaignBudget,
 } from "@/lib/nora-cognitive-runtime";
 import {
+  CONVERSATION_GUIDANCE_LIFECYCLE_MISMATCH,
   MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
   NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE,
+  PRE_CYCLE_ROUTING_ASSESSMENT_CONTINUE_DEFAULT,
+  composePilotFacingAssistantText,
+  derivePreCycleRoutingDisposition,
+  isPreCycleRoutingAssessment,
   normalizeNoraProductTurnStructuredOutput,
 } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
 import { materializeLifecycleRecommendationFromStructuredOutput } from "@/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn";
 import { NORA_LIFECYCLE_RECOMMENDATION_ACTOR } from "@/lib/oa/cycle/application/lifecycleRecommendation/noraActor";
 import type { LifecycleRecommendationMaterialDimension } from "@/lib/oa/cycle/application/lifecycleRecommendation/materialReaderContract";
+import {
+  revalidateExactCurrentNextCycleLifecycleRecommendationContinuity,
+  type LifecycleRecommendationContinuityRevalidationStatus,
+} from "@/lib/oa/cycle/application/lifecycleRecommendation/currentLifecycleRecommendationContinuity";
+import { deriveLifecycleBlockersFromEpistemicItems } from "@/lib/oa/cycle/application/deriveLifecycleBlockers";
+import { resolveTrajectoryBootstrapPresence } from "@/lib/oa/cycle/application/lifecycleRecommendation/greenfieldLifecycleBootstrap";
 import {
   LIFECYCLE_RECOMMENDATION_MATERIALIZE_FAILURE_PILOTE_NOTICE,
   lifecycleRecommendationMaterializeFailurePiloteNotice,
@@ -56,7 +67,6 @@ import type {
   ProjectAssistantContextDto,
   ProjectAssistantSendResult,
 } from "./types";
-import { resolveTrajectoryBootstrapPresence } from "@/lib/oa/cycle/application/lifecycleRecommendation/greenfieldLifecycleBootstrap";
 
 // PRODUCT_TURN_MAX_HISTORY_MESSAGES imported from turnPayloadCanonical (shared).
 
@@ -383,6 +393,200 @@ export async function orchestrateProjectAssistantTurn(input: {
     let assistantText = turn.text;
     let lifecycleRecommendationMaterialized: boolean | null = null;
     let lifecycleRecommendationCode: string | null = null;
+    let lifecycleRecommendationContinuity:
+      | "NONE"
+      | "NEW_CANDIDATE"
+      | "REUSE_CURRENT"
+      | null = null;
+    let lifecycleRecommendationContinuityRevalidation: LifecycleRecommendationContinuityRevalidationStatus | null =
+      null;
+
+    // CR-NCI-03 — normalize ONCE with Cognitive Stop before any durable LR write.
+    // CR-LRC-01 — REUSE_CURRENT must NOT trust pre-model satisfies alone.
+    // Order: detect reuse candidate → reload durable facts → exact-id revalidate
+    // → normalize(+cognitiveStop, post-model satisfies) → boundary fail → ACW
+    // → LR only if stop=false → compose Pilot text from final coherent guidance.
+    const cognitiveStopActive =
+      turn.cognitiveStopDecision?.cognitiveStop === true;
+
+    const preModelLrCurrent =
+      input.studioCognitiveContext?.lifecycleRecommendation?.current ?? null;
+    const preModelRecommendationId =
+      preModelLrCurrent?.recommendationId?.trim() || null;
+    const preModelSemanticKey =
+      preModelLrCurrent?.semanticKey?.trim() || null;
+    const expectedTargetCycleTypeId =
+      preModelLrCurrent?.targetCycleTypeId?.trim() ||
+      (input.studioCognitiveContext?.method.orientation.state ===
+      "RESOLVED_FROM_INTENT_CANDIDATE"
+        ? input.studioCognitiveContext.method.orientation.candidateCycleTypeId
+        : null);
+
+    let postModelCurrentLrSatisfiesTransition = false;
+    lifecycleRecommendationContinuityRevalidation = "NOT_REQUIRED";
+
+    if (
+      turn.structuredOutput !== undefined &&
+      !cognitiveStopActive &&
+      turn.structuredOutput &&
+      typeof turn.structuredOutput === "object"
+    ) {
+      const raw = turn.structuredOutput as Record<string, unknown>;
+      const assessment = isPreCycleRoutingAssessment(
+        raw.preCycleRoutingAssessment,
+      )
+        ? raw.preCycleRoutingAssessment
+        : PRE_CYCLE_ROUTING_ASSESSMENT_CONTINUE_DEFAULT;
+      const disposition = derivePreCycleRoutingDisposition(assessment);
+      const lrAbsent = raw.lifecycleRecommendation == null;
+      const reuseCandidate =
+        disposition === "EMIT_LIFECYCLE_RECOMMENDATION" && lrAbsent;
+
+      if (reuseCandidate && preModelRecommendationId) {
+        // CR-LRC-01 — reload durable Product facts AFTER model return.
+        const oaResolved = await resolveOaStackForLifecycleRecommendation();
+        if (!oaResolved.ok) {
+          lifecycleRecommendationContinuityRevalidation = "UNAVAILABLE";
+          postModelCurrentLrSatisfiesTransition = false;
+        } else {
+          const oa = oaResolved.oa;
+          const failedMaterialDimensions =
+            new Set<LifecycleRecommendationMaterialDimension>();
+
+          let cycles: Awaited<
+            ReturnType<typeof oa.cycleServices.cycles.listByProject>
+          > = [];
+          try {
+            cycles = await oa.cycleServices.cycles.listByProject(
+              project.projectId,
+            );
+          } catch {
+            failedMaterialDimensions.add("cycles");
+            cycles = [];
+          }
+
+          let lpsActiveCycleInstanceId: string | null = null;
+          let lpsVersion: number | null = null;
+          const lps =
+            await oa.projectServices.getCurrentLivingProjectState.execute({
+              projectId: project.projectId,
+            });
+          if (!lps.ok) {
+            failedMaterialDimensions.add("lps");
+          } else {
+            lpsActiveCycleInstanceId =
+              lps.livingProjectState.activeCycleInstanceId ?? null;
+            lpsVersion = lps.livingProjectState.version;
+          }
+
+          const projectRow = await oa.projectServices.getProject.execute({
+            projectId: project.projectId,
+          });
+          const doctrinePin = projectRow.ok
+            ? (projectRow.project.doctrinePackageRef ??
+              (lps.ok
+                ? lps.livingProjectState.doctrinePackageRef
+                : undefined))
+            : undefined;
+          if (
+            !doctrinePin?.doctrinePackageId ||
+            !doctrinePin.version ||
+            !doctrinePin.digest
+          ) {
+            failedMaterialDimensions.add("doctrine");
+          }
+
+          let trajectory = null;
+          const trajPresence = await resolveTrajectoryBootstrapPresence(
+            oa.cycleServices.trajectories,
+            project.projectId,
+          );
+          if (trajPresence.kind === "unknown") {
+            failedMaterialDimensions.add("trajectory");
+          } else if (trajPresence.kind === "current") {
+            trajectory = trajPresence.trajectory;
+          }
+
+          let decisions: Awaited<
+            ReturnType<typeof oa.decisionServices.decisions.listByProject>
+          > = [];
+          try {
+            decisions = await oa.decisionServices.decisions.listByProject(
+              project.projectId,
+            );
+          } catch {
+            failedMaterialDimensions.add("decisions");
+            decisions = [];
+          }
+
+          let evidence: Awaited<
+            ReturnType<
+              typeof oa.evidenceReviewServices.repository.listByProject
+            >
+          > = [];
+          try {
+            evidence =
+              await oa.evidenceReviewServices.repository.listByProject(
+                project.projectId,
+              );
+          } catch {
+            evidence = [];
+          }
+
+          let epistemicItems: Awaited<
+            ReturnType<typeof oa.cycleServices.epistemic.listByProject>
+          > = [];
+          try {
+            epistemicItems = await oa.cycleServices.epistemic.listByProject(
+              project.projectId,
+            );
+          } catch {
+            failedMaterialDimensions.add("epistemic_blockers");
+            epistemicItems = [];
+          }
+
+          const blockers = failedMaterialDimensions.has("epistemic_blockers")
+            ? { statements: [] as string[] }
+            : deriveLifecycleBlockersFromEpistemicItems(epistemicItems);
+
+          const revalidated =
+            revalidateExactCurrentNextCycleLifecycleRecommendationContinuity({
+              expectedRecommendationId: preModelRecommendationId,
+              expectedSemanticKey: preModelSemanticKey,
+              facts: {
+                items: epistemicItems,
+                cycles,
+                lpsActiveCycleInstanceId,
+                lpsVersion,
+                doctrinePackageId: doctrinePin?.doctrinePackageId ?? null,
+                doctrinePackageVersion: doctrinePin?.version ?? null,
+                doctrinePackageDigest: doctrinePin?.digest ?? null,
+                trajectory,
+                decisions,
+                evidence,
+                blockingReservationStatements: blockers.statements,
+                failedMaterialDimensions,
+                activeCycleInstanceId: lpsActiveCycleInstanceId,
+                expectedTargetCycleTypeId,
+              },
+            });
+          lifecycleRecommendationContinuityRevalidation = revalidated.status;
+          postModelCurrentLrSatisfiesTransition = revalidated.ok;
+        }
+      } else if (reuseCandidate && !preModelRecommendationId) {
+        lifecycleRecommendationContinuityRevalidation = "NOT_APPLICABLE";
+        postModelCurrentLrSatisfiesTransition = false;
+      }
+    }
+
+    const coherentEarly =
+      turn.structuredOutput !== undefined
+        ? normalizeNoraProductTurnStructuredOutput(turn.structuredOutput, {
+            cognitiveStop: cognitiveStopActive,
+            currentLifecycleRecommendationSatisfiesTransition:
+              postModelCurrentLrSatisfiesTransition,
+          })
+        : null;
 
     // D-LC-01 — same Product turn: extract → fail-closed contradiction →
     // ACW first (when present) → then LR against final post-ACW basis.
@@ -393,32 +597,45 @@ export async function orchestrateProjectAssistantTurn(input: {
       );
       const extracted = extractLifecycleCandidateFromStructuredOutput(
         turn.structuredOutput,
+        {
+          cognitiveStop: cognitiveStopActive,
+          currentLifecycleRecommendationSatisfiesTransition:
+            postModelCurrentLrSatisfiesTransition,
+        },
       );
-      if (extracted.narrative) {
+      if (coherentEarly) {
+        lifecycleRecommendationContinuity =
+          coherentEarly.lifecycleRecommendationContinuity;
+      }
+      if (coherentEarly?.narrative) {
+        assistantText = coherentEarly.narrative;
+      } else if (extracted.narrative) {
         assistantText = extracted.narrative;
       }
-      // Positive enforcement: EMIT without LR is a structured contradiction.
-      // Fail BEFORE any durable writes (ACW or LR).
-      // Never invent LR; never treat as normal conversational success.
+      // Positive enforcement: EMIT without LR, or EMIT+LR with incompatible
+      // conversationGuidance — fail BEFORE any durable writes (ACW or LR).
+      const boundaryCode =
+        coherentEarly?.boundaryContradiction ??
+        (extracted.kind === "product_turn"
+          ? extracted.boundaryContradiction
+          : null);
       if (
-        extracted.kind === "product_turn" &&
-        extracted.boundaryContradiction ===
-          MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION
+        boundaryCode === MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION ||
+        boundaryCode === CONVERSATION_GUIDANCE_LIFECYCLE_MISMATCH
       ) {
         return {
           ok: false,
           status: "validation_error",
-          code: MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
+          code: boundaryCode,
           message: LIFECYCLE_RECOMMENDATION_MATERIALIZE_FAILURE_PILOTE_NOTICE,
           mode: modeResolution.mode,
           retryable: false,
+          lifecycleRecommendationContinuityRevalidation,
         };
       }
 
       // D-GF-ACW-01/02 — materialize ACW FIRST when items present + eligible.
-      const coherent = normalizeNoraProductTurnStructuredOutput(
-        turn.structuredOutput,
-      );
+      const coherent = coherentEarly;
       const acwItems = coherent?.activeCycleWork?.items ?? [];
       if (acwItems.length > 0) {
         const assessment = coherent?.preCycleRoutingAssessment;
@@ -599,8 +816,15 @@ export async function orchestrateProjectAssistantTurn(input: {
       }
 
       // D-LC-01 — LR AFTER ACW (or with current facts when no ACW items).
+      // CR-NCI-03 — Cognitive Stop outranks NEW LR materialization this turn.
       // Reload durable basis so currentness binds post-ACW LPS version / epistemic.
-      if (!extracted.candidate) {
+      const lrCandidate =
+        !cognitiveStopActive &&
+        !coherent?.boundaryContradiction &&
+        coherent?.lifecycleRecommendation
+          ? coherent.lifecycleRecommendation
+          : null;
+      if (!lrCandidate) {
         lifecycleRecommendationMaterialized = false;
       } else {
         // OA access via authorized Project Assistant seam (mw3AvailableEvidence
@@ -794,6 +1018,14 @@ export async function orchestrateProjectAssistantTurn(input: {
         allowsSilentSuccess: false,
       },
     );
+    // NORA-CONVERSATIONAL-INITIATIVE-01 / CR-NCI-03 — compose from the same
+    // coherent guidance already normalized with Cognitive Stop (no second pass).
+    if (coherentEarly?.conversationGuidance) {
+      assistantText = composePilotFacingAssistantText(
+        assistantText,
+        coherentEarly.conversationGuidance,
+      );
+    }
     const lrMaterializeNotice =
       lifecycleRecommendationMaterializeFailurePiloteNotice({
         recommendationAttempted:
@@ -837,6 +1069,8 @@ export async function orchestrateProjectAssistantTurn(input: {
       mw4,
       lifecycleRecommendationMaterialized,
       lifecycleRecommendationCode,
+      lifecycleRecommendationContinuity,
+      lifecycleRecommendationContinuityRevalidation,
       logicalTurnId,
     };
   } catch (error) {

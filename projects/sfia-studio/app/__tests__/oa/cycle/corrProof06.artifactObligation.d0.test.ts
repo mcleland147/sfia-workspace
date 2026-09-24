@@ -714,6 +714,11 @@ describe("CORR-PROOF-06 — Artifact obligation selection & recovery", () => {
       evidence: { state: "NONE" as const, items: [] },
       review: { state: "NONE" as const, items: [] },
       trajectory: { state: "ABSENT" as const, current: null },
+      lifecycleRecommendation: {
+        state: "NONE" as const,
+        current: null,
+        satisfiesPreCycleNextCycleTransition: false,
+      },
       limits: {
         oaAvailable: true,
         truthOutranksConversation: true as const,

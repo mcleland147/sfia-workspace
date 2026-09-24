@@ -536,6 +536,11 @@ describe("CORR-PROOF-04 studioCognitiveContext composer", () => {
       },
       review: { state: "NONE" as const, items: [] },
       trajectory: { state: "ABSENT" as const, current: null },
+      lifecycleRecommendation: {
+        state: "NONE" as const,
+        current: null,
+        satisfiesPreCycleNextCycleTransition: false,
+      },
       limits: {
         oaAvailable: true,
         truthOutranksConversation: true as const,

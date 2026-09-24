@@ -123,6 +123,41 @@ function productTurn(
     narrative,
     preCycleRoutingAssessment: assessment,
     lifecycleRecommendation: lr,
+    activeCycleWork: null,
+    conversationGuidance: lr
+      ? {
+          kind: "RECOMMEND_NEXT_STEP" as const,
+          scope: "LIFECYCLE_TRANSITION" as const,
+          statement: narrative,
+          rationale: "fixture-aligned-guidance",
+        }
+      : assessment.activeCycleAlreadyCoversWork
+        ? {
+            kind: "RECOMMEND_NEXT_STEP" as const,
+            scope: "ACTIVE_CYCLE" as const,
+            statement: narrative,
+            rationale: "fixture-aligned-guidance",
+          }
+        : assessment.multiplePlausibleCycles
+          ? {
+              kind: "PRESENT_OPTIONS" as const,
+              scope: "PRE_CYCLE" as const,
+              statement: narrative,
+              rationale: "fixture-aligned-guidance",
+            }
+          : assessment.routingBlockingUnknownPresent
+            ? {
+                kind: "ASK_CLARIFICATION" as const,
+                scope: "PRE_CYCLE" as const,
+                statement: narrative,
+                rationale: "fixture-aligned-guidance",
+              }
+            : {
+                kind: "RECOMMEND_NEXT_STEP" as const,
+                scope: "PRE_CYCLE" as const,
+                statement: narrative,
+                rationale: "fixture-aligned-guidance",
+              },
   };
 }
 
@@ -153,6 +188,7 @@ describe("BAR-RB — pre-cycle routing boundary (deterministic)", () => {
     expect(required).toContain("preCycleRoutingAssessment");
     expect(required).toContain("lifecycleRecommendation");
     expect(required).toContain("narrative");
+    expect(required).toContain("conversationGuidance");
   });
 
   it("BAR-RB-01 — initial intent still ambiguous → CONTINUE, LR null", () => {
@@ -896,6 +932,12 @@ describe("BAR-RB — pre-cycle routing boundary (deterministic)", () => {
       narrative: "Travail déjà suffisamment borné.",
       preCycleRoutingAssessment: assessment,
       lifecycleRecommendation: lr,
+      conversationGuidance: {
+        kind: "RECOMMEND_NEXT_STEP",
+        scope: "LIFECYCLE_TRANSITION",
+        statement: "Travail déjà suffisamment borné.",
+        rationale: "fixture",
+      },
     });
     expect(coherent.boundaryContradiction).toBeNull();
     expect(coherent.lifecycleRecommendation).toEqual(lr);

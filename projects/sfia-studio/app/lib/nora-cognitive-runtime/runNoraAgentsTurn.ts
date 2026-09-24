@@ -34,6 +34,9 @@ import {
 } from "./providerAgentsModel";
 import {
   buildFailClosedProductTurnJson,
+  composePilotFacingAssistantText,
+  isConversationGuidance,
+  isNoraProductTurnWithOptionalLr,
   normalizeNoraProductTurnStructuredOutput,
 } from "./noraProductTurnOutputType";
 import { createSfiaRouteToolAdapters } from "./sfiaAgentsTools";
@@ -597,18 +600,44 @@ export async function runNoraAgentsTurn(
             buildFailClosedProductTurnJson(structuredOutput),
           ) as unknown;
         } else if (isProductTurnOutput && structuredOutput) {
-          const coherent =
-            normalizeNoraProductTurnStructuredOutput(structuredOutput);
-          if (coherent) {
-            structuredOutput = {
-              narrative: coherent.narrative,
-              preCycleRoutingAssessment: coherent.preCycleRoutingAssessment,
-              lifecycleRecommendation: coherent.lifecycleRecommendation,
-              activeCycleWork: coherent.activeCycleWork ?? null,
-            };
+          // NORA-LIFECYCLE-RECOMMENDATION-CONTINUITY-01 — do NOT rewrite a valid
+          // Product turn via normalize here: that path lacks server-derived
+          // CURRENT LR continuity and would coerce EMIT+null → HOLD guidance,
+          // then orchestrateTurn+continuity would fail as LIFECYCLE_MISMATCH.
+          // Preserve raw model output; orchestrateTurn owns boundary coherence.
+          if (!isNoraProductTurnWithOptionalLr(structuredOutput)) {
+            const coherent =
+              normalizeNoraProductTurnStructuredOutput(structuredOutput);
+            if (coherent) {
+              structuredOutput = {
+                narrative: coherent.narrative,
+                preCycleRoutingAssessment: coherent.preCycleRoutingAssessment,
+                lifecycleRecommendation: coherent.lifecycleRecommendation,
+                activeCycleWork: coherent.activeCycleWork ?? null,
+                conversationGuidance: coherent.conversationGuidance,
+              };
+            }
           }
         }
         if (
+          isProductTurnOutput &&
+          structuredOutput &&
+          typeof structuredOutput === "object"
+        ) {
+          const so = structuredOutput as {
+            narrative?: unknown;
+            conversationGuidance?: unknown;
+          };
+          if (typeof so.narrative === "string") {
+            // Preview only — orchestrateTurn re-composes with full Product context.
+            text = isConversationGuidance(so.conversationGuidance)
+              ? composePilotFacingAssistantText(
+                  so.narrative,
+                  so.conversationGuidance,
+                )
+              : so.narrative;
+          }
+        } else if (
           structuredOutput &&
           typeof structuredOutput === "object" &&
           "narrative" in structuredOutput &&

@@ -164,6 +164,13 @@ function productTurn(lr: ReturnType<typeof nextCycleLr>) {
     narrative: "Narrative recommandée.",
     preCycleRoutingAssessment: { ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT },
     lifecycleRecommendation: lr,
+    activeCycleWork: null,
+    conversationGuidance: {
+      kind: "RECOMMEND_NEXT_STEP" as const,
+      scope: "LIFECYCLE_TRANSITION" as const,
+      statement: "Narrative recommandée.",
+      rationale: "fixture-aligned-guidance",
+    },
   };
 }
 
@@ -173,6 +180,12 @@ function acwTurn(items: NoraActiveCycleWorkItem[], narrative = "Travail in-cycle
     preCycleRoutingAssessment: { ...ACW_DEFER_ASSESSMENT },
     lifecycleRecommendation: null,
     activeCycleWork: { items },
+    conversationGuidance: {
+      kind: "RECOMMEND_NEXT_STEP" as const,
+      scope: "ACTIVE_CYCLE" as const,
+      statement: narrative,
+      rationale: "fixture-aligned-guidance",
+    },
   };
 }
 
@@ -1449,6 +1462,12 @@ describe("D-GF-ACW-01 regressions smoke (BAR-WORK-46..50)", () => {
       narrative: "Ready.",
       preCycleRoutingAssessment: { ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT },
       lifecycleRecommendation: nextCycleLr("cyc:framing", "Cadrage."),
+      conversationGuidance: {
+        kind: "RECOMMEND_NEXT_STEP",
+        scope: "LIFECYCLE_TRANSITION",
+        statement: "Ready.",
+        rationale: "fixture",
+      },
     });
     expect(coherent.disposition).toBe("EMIT_LIFECYCLE_RECOMMENDATION");
     expect(coherent.boundaryContradiction).toBeNull();

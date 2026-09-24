@@ -20,7 +20,7 @@ import {
 } from "@/lib/platform/tools";
 import {
   buildFailClosedProductTurnJson,
-  isPreCycleRoutingAssessment,
+  isNoraProductTurnWithOptionalLr,
   normalizeNoraProductTurnStructuredOutput,
 } from "./noraProductTurnOutputType";
 
@@ -195,19 +195,19 @@ export function coercePlainTextToProductTurnJson(text: string): string {
       typeof parsed === "object" &&
       typeof (parsed as { narrative?: unknown }).narrative === "string"
     ) {
-      const o = parsed as Record<string, unknown>;
-      if (isPreCycleRoutingAssessment(o.preCycleRoutingAssessment)) {
-        // Ensure schema-required activeCycleWork key (default null).
-        if (!("activeCycleWork" in o)) {
-          return JSON.stringify({ ...o, activeCycleWork: null });
-        }
-        return text;
+      // NORA-LIFECYCLE-RECOMMENDATION-CONTINUITY-01 — preserve a valid Product turn.
+      // Early normalize without server CURRENT LR continuity would coerce
+      // EMIT + lifecycleRecommendation=null → HOLD guidance and break reuse.
+      if (isNoraProductTurnWithOptionalLr(parsed)) {
+        return JSON.stringify(parsed);
       }
+      const o = parsed as Record<string, unknown>;
       const coherent = normalizeNoraProductTurnStructuredOutput({
         narrative: o.narrative,
         lifecycleRecommendation: o.lifecycleRecommendation ?? null,
         preCycleRoutingAssessment: o.preCycleRoutingAssessment,
         activeCycleWork: o.activeCycleWork ?? null,
+        conversationGuidance: o.conversationGuidance ?? null,
       });
       if (coherent) {
         return JSON.stringify({
@@ -215,6 +215,7 @@ export function coercePlainTextToProductTurnJson(text: string): string {
           preCycleRoutingAssessment: coherent.preCycleRoutingAssessment,
           lifecycleRecommendation: coherent.lifecycleRecommendation,
           activeCycleWork: coherent.activeCycleWork ?? null,
+          conversationGuidance: coherent.conversationGuidance,
         });
       }
       return buildFailClosedProductTurnJson(String(o.narrative));
