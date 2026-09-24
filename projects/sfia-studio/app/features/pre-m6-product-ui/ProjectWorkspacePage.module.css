@@ -2,6 +2,9 @@
   display: flex;
   flex-direction: column;
   gap: var(--pm6-space-4);
+  max-width: var(--pm6-content-max-workspace);
+  margin-inline: auto;
+  width: 100%;
 }
 
 .loading {
@@ -69,13 +72,18 @@
   color: var(--pm6-muted-strong);
 }
 
-/* ---------- layout ---------- */
+/* ---------- layout — Option A: Journal | Conversation | Pilotage ---------- */
 
 .layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) var(--pm6-lps-width);
   gap: var(--pm6-space-5);
   align-items: start;
+}
+
+.journalColumn {
+  display: none;
+  min-width: 0;
 }
 
 .main {
@@ -93,6 +101,31 @@
   position: sticky;
   top: 88px;
   min-width: 0;
+}
+
+/* Desktop large: three zones — Journal rail + dominant conversation + pilotage */
+@media (min-width: 1200px) {
+  .layout {
+    grid-template-columns:
+      var(--pm6-journal-width)
+      minmax(0, 1fr)
+      var(--pm6-lps-width);
+  }
+
+  .journalColumn {
+    display: block;
+    position: sticky;
+    top: 88px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .layout {
+    grid-template-columns:
+      var(--pm6-journal-width)
+      minmax(0, 1fr)
+      var(--pm6-lps-width-wide);
+  }
 }
 
 /* Above 1024px the project state is always alongside the conversation. */
@@ -173,15 +206,25 @@
 
 @media (min-width: 1400px) {
   .layout {
-    grid-template-columns: minmax(0, 1fr) var(--pm6-lps-width-wide);
+    grid-template-columns:
+      var(--pm6-journal-width)
+      minmax(0, 1fr)
+      var(--pm6-lps-width-wide);
   }
 }
 
-/* ---------- <=1024: stack conversation then État/Trajectoire (H-01) ---------- */
+/* ---------- <1200: Journal always accessible (stack); conversation dominant ---------- */
+/* CR-CJ-05 — no dead zone between 1025–1199 (was hidden until 1200). */
 
-@media (max-width: 1024px) {
+@media (max-width: 1199px) {
   .layout {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .journalColumn {
+    display: block;
+    position: static;
+    order: -1;
   }
 
   .lpsToggle {

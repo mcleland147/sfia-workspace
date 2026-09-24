@@ -46,6 +46,12 @@ const {
 }));
 
 vi.mock("@/features/project-assistant/actions", () => ({
+  projectAssistantConversationContinuityAction: vi.fn(async () => ({
+    ok: true,
+    transcriptAvailability: "empty",
+    messages: [],
+    journal: { cycleInstanceId: null, entries: [] },
+  })),
   projectAssistantPrepareResolvedM3Action: vi.fn(),
   projectAssistantResolveLegacyM3DocsWriteAction: vi.fn(),
 }));

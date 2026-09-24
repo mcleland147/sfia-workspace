@@ -100,6 +100,11 @@ export function deriveRecommendationFreshness(input: {
 /**
  * F10 — Recovery is contextual. Nominal project open is not Recovery.
  * Use only signals already available from durable reads / LPS projection.
+ *
+ * AUTOMATIC PROJECT RESUME (2026-09): Product Workspace (`ProjectWorkspacePage`)
+ * no longer mounts a generic Recovery CTA on open — opening a Project already
+ * rehydrates durable state. This helper remains for legacy surfaces
+ * (`ProjectPrincipalClient`) and unit tests of the historical F10 rule.
  */
 export function shouldShowProjectRecovery(input: {
   hasDurableEvidenceOutcome: boolean;
@@ -117,12 +122,60 @@ export function shouldShowProjectRecovery(input: {
   return false;
 }
 
+/** Product open — automatic resume presentation (no generic Recovery CTAs). */
+export type TranscriptAvailabilityUi =
+  | "available"
+  | "empty"
+  | "unavailable"
+  | "pending";
+
+export type ProjectOpenContinuityPresentation =
+  | { readonly kind: "none" }
+  | { readonly kind: "restored_hint"; readonly message: string }
+  | { readonly kind: "transcript_unavailable"; readonly message: string };
+
+export const W1_AUTO_RESUME_RESTORED_HINT =
+  "Projet restauré · état courant, conversation et Journal chargés.";
+
+export const W1_TRANSCRIPT_UNAVAILABLE_DISCLOSURE =
+  "Projet restauré depuis son état durable. L'historique de conversation n'est actuellement pas disponible.";
+
+/**
+ * Opening Project == automatic durable resume.
+ * - pending / empty → silence (no Recovery flash, empty is valid)
+ * - available → optional light hint (no CTA)
+ * - unavailable → precise anomaly disclosure only
+ */
+export function resolveProjectOpenContinuityPresentation(
+  transcriptAvailability: TranscriptAvailabilityUi,
+): ProjectOpenContinuityPresentation {
+  switch (transcriptAvailability) {
+    case "available":
+      return {
+        kind: "restored_hint",
+        message: W1_AUTO_RESUME_RESTORED_HINT,
+      };
+    case "unavailable":
+      return {
+        kind: "transcript_unavailable",
+        message: W1_TRANSCRIPT_UNAVAILABLE_DISCLOSURE,
+      };
+    case "empty":
+    case "pending":
+    default:
+      return { kind: "none" };
+  }
+}
+
 /** W1 Track E — honest durable vs non-durable disclosure strings (Pilote-facing). */
 export const W1_DURABLE_DISCLOSURE =
   "Conservé : projet, état vivant (LPS), trajectoire décidée, confirmations déjà accordées, preuves / résultats déjà enregistrés.";
 
+export const W1_TRANSCRIPT_AVAILABLE_DISCLOSURE =
+  "Conversation Pilote ↔ Nora enregistrée : reprise visible au rechargement lorsque le transcript est disponible.";
+
 export const W1_NON_DURABLE_DISCLOSURE =
-  "Peut devoir être repris : conversation en cours, confirmation encore demandée, propositions non encore enregistrées.";
+  "Peut devoir être repris : confirmation encore demandée, propositions non encore enregistrées ; conversation absente seulement si le transcript n'est pas disponible.";
 
 export const W1_PROPOSED_NOT_DECIDED_DISCLOSURE =
   "Une trajectoire proposée (recommandation) n'est pas encore la trajectoire décidée.";
@@ -191,13 +244,27 @@ export function w1RecoveryDisclosures(): {
   });
 }
 
-export function w1RestartHonestyMessage(): string {
-  return [
+export function w1RestartHonestyMessage(options?: {
+  transcriptAvailability?: "available" | "empty" | "unavailable" | "pending";
+}): string {
+  const availability = options?.transcriptAvailability;
+  if (availability === "available") {
+    return W1_AUTO_RESUME_RESTORED_HINT;
+  }
+  if (availability === "unavailable") {
+    return W1_TRANSCRIPT_UNAVAILABLE_DISCLOSURE;
+  }
+  if (availability === "empty" || availability === "pending") {
+    return "";
+  }
+  // Legacy callers without availability — keep full honesty copy.
+  const parts = [
     W1_DURABLE_DISCLOSURE,
     W1_NON_DURABLE_DISCLOSURE,
     W1_PROPOSED_NOT_DECIDED_DISCLOSURE,
     W1_RESTORED_GRANTED_NOT_CURRENT_AUTHORITY,
-  ].join(" ");
+  ];
+  return parts.join(" ");
 }
 
 /**

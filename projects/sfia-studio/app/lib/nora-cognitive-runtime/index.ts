@@ -378,3 +378,29 @@ export {
   normalizeOpenAiHostedWebSearchObservations,
 } from "./openaiHostedWebSearchAdapter";
 export type { NoraHostedWebSearchToolOptions } from "./openaiHostedWebSearchAdapter";
+export type {
+  CycleJournalEntry,
+  CycleJournalCompactProjection,
+  NoraJournalDelta,
+  PilotTranscriptTurnRef,
+} from "./cycleJournalTypes";
+export {
+  appendPilotTranscriptTurn,
+  listPilotTranscriptTurns,
+  listCycleJournalEntries,
+  getCycleJournalEntry,
+  buildCycleJournalCompactProjection,
+  searchCycleJournalIndex,
+  filterValidSourceTurnRefs,
+  retrievePilotTurnsByRefs,
+  materializeCycleJournalDelta,
+} from "./cycleJournalStore";
+export {
+  formatCycleJournalCompactForPrompt,
+  loadCycleJournalCompactForPrompt,
+  retrieveJournalEntrySourceExcerpts,
+} from "./cycleJournalPrompt";
+export {
+  createCycleJournalAgentsTools,
+  type CycleJournalToolContext,
+} from "./cycleJournalAgentsTools";

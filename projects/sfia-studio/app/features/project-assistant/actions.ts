@@ -988,6 +988,105 @@ export async function projectAssistantConfirmAndExecuteResolvedM3Action(input: {
 }
 
 /**
+ * CYCLE JOURNAL & PILOT TRANSCRIPT — restart-visible conversation continuity.
+ * Session SQLite projection only — NEVER Truth C / HumanDecision / Evidence.
+ */
+export async function projectAssistantConversationContinuityAction(input: {
+  projectId: string;
+  cycleInstanceId?: string | null;
+}): Promise<{
+  ok: true;
+  transcriptAvailability: "available" | "empty" | "unavailable";
+  messages: { id: string; role: "user" | "assistant"; content: string }[];
+  journal: {
+    cycleInstanceId: string | null;
+    entries: {
+      journalEntryId: string;
+      title: string;
+      currentSummary: string;
+      status: string;
+      updatedAt: string;
+      sourceTurnRefs: string[];
+      sourceTurnCount: number;
+    }[];
+  };
+} | {
+  ok: false;
+  transcriptAvailability: "unavailable";
+  code: string;
+  message: string;
+}> {
+  const projectId = input.projectId?.trim();
+  if (!projectId) {
+    return {
+      ok: false,
+      transcriptAvailability: "unavailable",
+      code: "PROJECT_ID_REQUIRED",
+      message: "Identifiant projet requis.",
+    };
+  }
+  try {
+    const { ProductSqliteSession, resolveNoraSessionSqlitePath } = await import(
+      "@/lib/nora-cognitive-runtime"
+    );
+    const {
+      listPilotTranscriptTurns,
+      listCycleJournalEntries,
+    } = await import("@/lib/nora-cognitive-runtime/cycleJournalStore");
+    const { CANONICAL_CONVERSATION_SESSION_KEY } = await import(
+      "./f2/canonicalConversationSession"
+    );
+    const dbPath = resolveNoraSessionSqlitePath();
+    const session = new ProductSqliteSession({
+      projectId,
+      dbPath,
+      sessionKey: CANONICAL_CONVERSATION_SESSION_KEY,
+    });
+    try {
+      const turns = listPilotTranscriptTurns(session);
+      const messages = turns
+        .filter((t) => t.role === "user" || t.role === "assistant")
+        .map((t) => ({
+          id: t.turnId,
+          role: t.role as "user" | "assistant",
+          content: t.content,
+        }));
+      const cycleInstanceId = input.cycleInstanceId?.trim() || null;
+      const entries = cycleInstanceId
+        ? listCycleJournalEntries(session, cycleInstanceId).map((e) => ({
+            journalEntryId: e.journalEntryId,
+            title: e.title,
+            currentSummary: e.currentSummary,
+            status: e.status,
+            updatedAt: e.updatedAt,
+            sourceTurnRefs: [...e.sourceTurnRefs],
+            sourceTurnCount: e.sourceTurnRefs.length,
+          }))
+        : [];
+      return {
+        ok: true,
+        transcriptAvailability:
+          messages.length > 0 ? "available" : "empty",
+        messages,
+        journal: { cycleInstanceId, entries },
+      };
+    } finally {
+      session.close();
+    }
+  } catch (error) {
+    return {
+      ok: false,
+      transcriptAvailability: "unavailable",
+      code: "TRANSCRIPT_UNAVAILABLE",
+      message:
+        error instanceof Error
+          ? error.message
+          : "Conversation persistée indisponible.",
+    };
+  }
+}
+
+/**
  * M5 durable Nora/F3 readback — LPS evidence/RB refs → RecommendNextGate.
  * Strictly read-only: no Decision, no gate consume, no Attempt launch.
  */

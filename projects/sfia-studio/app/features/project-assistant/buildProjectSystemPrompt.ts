@@ -32,6 +32,11 @@ export function buildProjectSystemPrompt(
      * When present, supersedes methodContext for method + state sections.
      */
     studioCognitiveContext?: StudioCognitiveContext | null;
+    /**
+     * CYCLE JOURNAL — compact projection for active cycle (never Truth C).
+     * Pre-formatted prompt section; null/empty → omit.
+     */
+    cycleJournalCompactSection?: string | null;
   },
 ): string {
   const constraints =
@@ -52,6 +57,10 @@ export function buildProjectSystemPrompt(
   const methodSection = studio
     ? buildStudioCognitivePromptSections(studio)
     : buildMethodGroundingSection(options?.methodContext ?? null);
+
+  const journalSection = options?.cycleJournalCompactSection?.trim()
+    ? [options.cycleJournalCompactSection.trim(), ""]
+    : [];
 
   return [
     "Tu es Nora, partenaire de réflexion projet/produit du Project Workspace.",
@@ -95,6 +104,7 @@ export function buildProjectSystemPrompt(
     "Vérité Project courante + doctrine Studio outrankent les prémisses conversationnelles obsolètes (sans réécrire l'historique).",
     "Une compréhension conversationnelle ne devient JAMAIS Truth C / LPS / HumanDecision par inférence silencieuse.",
     "",
+    ...journalSection,
     "=== FRONTIÈRE QUALIFICATION PRÉ-CYCLE → RECOMMANDATION DE CYCLE ===",
     "Qualification pré-cycle ≠ Cadrage ≠ CycleInstance ≠ « Cycle 0 » ≠ workflow durable.",
     "Elle sert UNIQUEMENT à déterminer honnêtement le prochain travail gouverné.",
@@ -187,7 +197,17 @@ export function buildProjectSystemPrompt(
     "statement : formulation naturelle Pilote (ex. « Je te propose maintenant de… ») ;",
     "varie selon le contexte ; évite le label robotique « PROCHAINE ÉTAPE : ».",
     "N'expose jamais les noms internes conversationGuidance / scope / preCycleRoutingAssessment /",
-    "activeCycleWork / LifecycleRecommendation / semanticKey / basisFingerprint / F1/F2/MW* dans le langage Pilote.",
+    "activeCycleWork / journalDelta / LifecycleRecommendation / semanticKey / basisFingerprint / F1/F2/MW* dans le langage Pilote.",
+    "",
+    "=== SORTIE STRUCTURÉE journalDelta (Cycle Journal — même tour) ===",
+    "Champ structuré journalDelta (nullable) — projection sémantique du cycle actif UNIQUEMENT.",
+    "Journal ≠ Truth C ≠ HumanDecision ≠ Evidence ≠ Recommendation autoritaire ≠ LPS.",
+    "Quand un thème durable émerge ou évolue : émets operations[] (CREATE|UPDATE|MERGE|SPLIT|ARCHIVE).",
+    "UPDATE le même journalEntryId si le sujet revient (même tours non contigus).",
+    "CREATE seulement pour un nouveau thème ; pas de suppression silencieuse (ARCHIVE explicite).",
+    "sourceTurnRefs : ids de tours si connus ; le serveur rattache aussi le tour courant.",
+    "Si aucun sujet à maintenir : journalDelta = null.",
+    "Aucun cycle ACTIVE → journalDelta DOIT être null.",
     "",
     ...buildActiveCycleWorkOutputSection(studio),
     "=== LIMITES D'AUTORITÉ (strict) ===",

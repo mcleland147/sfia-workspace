@@ -20,6 +20,12 @@ import {
   type NoraCampaignBudget,
 } from "@/lib/nora-cognitive-runtime";
 import {
+  appendPilotTranscriptTurn,
+  materializeCycleJournalDelta,
+} from "@/lib/nora-cognitive-runtime/cycleJournalStore";
+import { loadCycleJournalCompactForPrompt } from "@/lib/nora-cognitive-runtime/cycleJournalPrompt";
+import { CANONICAL_CONVERSATION_SESSION_KEY } from "./f2/canonicalConversationSession";
+import {
   CONVERSATION_GUIDANCE_LIFECYCLE_MISMATCH,
   MISSING_REQUIRED_LIFECYCLE_RECOMMENDATION,
   NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE,
@@ -346,6 +352,26 @@ export async function orchestrateProjectAssistantTurn(input: {
         truthCContext: input.truthCContext,
         methodContext: input.methodContext ?? null,
         studioCognitiveContext: input.studioCognitiveContext ?? null,
+        cycleJournalCompactSection: (() => {
+          const cycleId =
+            input.studioCognitiveContext?.activeCycle?.cycleInstanceId ?? null;
+          if (!cycleId) return null;
+          try {
+            const dbPath = resolveNoraSessionSqlitePath(input.sessionDbPath);
+            const session = new ProductSqliteSession({
+              projectId: project.projectId,
+              dbPath,
+              sessionKey: CANONICAL_CONVERSATION_SESSION_KEY,
+            });
+            try {
+              return loadCycleJournalCompactForPrompt(session, cycleId);
+            } finally {
+              session.close();
+            }
+          } catch {
+            return null;
+          }
+        })(),
       }),
     },
     ...history.map((m) => ({ role: m.role, content: m.content })),
@@ -388,6 +414,8 @@ export async function orchestrateProjectAssistantTurn(input: {
       usdAccounting: input.usdAccounting,
       campaignBudget: input.campaignBudget,
       outputType: NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE,
+      cycleJournalCycleInstanceId:
+        input.studioCognitiveContext?.activeCycle?.cycleInstanceId ?? null,
     });
 
     let assistantText = turn.text;
@@ -1026,6 +1054,53 @@ export async function orchestrateProjectAssistantTurn(input: {
         coherentEarly.conversationGuidance,
       );
     }
+
+    // Pilot transcript + Cycle Journal — fail-closed locally; never blocks reply.
+    const activeCycleIdForJournal =
+      input.studioCognitiveContext?.activeCycle?.cycleInstanceId?.trim() ||
+      null;
+    if (!input.simulateMemoryBUnavailable) {
+      try {
+        const dbPath = resolveNoraSessionSqlitePath(input.sessionDbPath);
+        const session = new ProductSqliteSession({
+          projectId: project.projectId,
+          dbPath,
+          sessionKey: CANONICAL_CONVERSATION_SESSION_KEY,
+        });
+        try {
+          const userTurn = appendPilotTranscriptTurn(session, {
+            role: "user",
+            content,
+            logicalTurnId,
+            cycleInstanceId: activeCycleIdForJournal,
+          });
+          const assistantTurn = appendPilotTranscriptTurn(session, {
+            role: "assistant",
+            content: assistantText,
+            logicalTurnId,
+            cycleInstanceId: activeCycleIdForJournal,
+          });
+          if (
+            activeCycleIdForJournal &&
+            logicalTurnId &&
+            coherentEarly?.journalDelta
+          ) {
+            materializeCycleJournalDelta({
+              session,
+              cycleInstanceId: activeCycleIdForJournal,
+              logicalTurnId,
+              delta: coherentEarly.journalDelta,
+              boundSourceTurnIds: [userTurn.turnId, assistantTurn.turnId],
+            });
+          }
+        } finally {
+          session.close();
+        }
+      } catch {
+        /* Journal/transcript persistence must not block conversational reply. */
+      }
+    }
+
     const lrMaterializeNotice =
       lifecycleRecommendationMaterializeFailurePiloteNotice({
         recommendationAttempted:

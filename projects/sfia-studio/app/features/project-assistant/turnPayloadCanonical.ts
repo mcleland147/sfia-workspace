@@ -11,7 +11,9 @@
  * Digest/payload is conflict detection ONLY — never Product turn identity.
  */
 
-export const PRODUCT_TURN_MAX_HISTORY_MESSAGES = 20;
+export const PRODUCT_TURN_MAX_HISTORY_MESSAGES = 12;
+/** Soft cap on total history content chars injected into the provider envelope. */
+export const PRODUCT_TURN_MAX_HISTORY_CHARS = 8000;
 
 export type CanonicalHistoryMessage = {
   readonly role: "user" | "assistant";
@@ -34,11 +36,18 @@ export type PendingTurnRetryEnvelope = {
   readonly history: readonly CanonicalHistoryMessage[];
 };
 
-/** Normalize history exactly as the Product Assistant provider path does. */
+/**
+ * Normalize + bound provider-facing recent history (CR-CJ-01).
+ * Visible transcript may be longer; this function is the ONLY server/client
+ * path that shapes what the model receives as conversational history.
+ * - last N user/assistant messages
+ * - total content char budget
+ * - prefer keeping coherent trailing pairs when trimming by chars
+ */
 export function normalizeProductTurnHistory(
   history: readonly { role: string; content: string }[] | null | undefined,
 ): CanonicalHistoryMessage[] {
-  return (history ?? [])
+  const filtered = (history ?? [])
     .filter(
       (m) =>
         (m.role === "user" || m.role === "assistant") &&
@@ -50,6 +59,40 @@ export function normalizeProductTurnHistory(
       content: m.content.trim(),
     }))
     .slice(-PRODUCT_TURN_MAX_HISTORY_MESSAGES);
+
+  let total = filtered.reduce((sum, m) => sum + m.content.length, 0);
+  if (total <= PRODUCT_TURN_MAX_HISTORY_CHARS) {
+    return filtered;
+  }
+
+  // Drop oldest messages until under char budget; keep at least the last message.
+  const bounded = [...filtered];
+  while (bounded.length > 1 && total > PRODUCT_TURN_MAX_HISTORY_CHARS) {
+    const removed = bounded.shift();
+    total -= removed?.content.length ?? 0;
+  }
+  if (bounded.length === 1 && bounded[0]!.content.length > PRODUCT_TURN_MAX_HISTORY_CHARS) {
+    bounded[0] = {
+      role: bounded[0]!.role,
+      content: bounded[0]!.content.slice(-PRODUCT_TURN_MAX_HISTORY_CHARS),
+    };
+  }
+  return bounded;
+}
+
+/** Observability helper for CR-CJ-01 proofs. */
+export function measureProductTurnHistoryBounds(
+  history: readonly CanonicalHistoryMessage[],
+): { messageCount: number; totalChars: number; withinBounds: boolean } {
+  const messageCount = history.length;
+  const totalChars = history.reduce((s, m) => s + m.content.length, 0);
+  return {
+    messageCount,
+    totalChars,
+    withinBounds:
+      messageCount <= PRODUCT_TURN_MAX_HISTORY_MESSAGES &&
+      totalChars <= PRODUCT_TURN_MAX_HISTORY_CHARS,
+  };
 }
 
 export function buildCanonicalTurnPayload(

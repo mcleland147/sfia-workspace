@@ -252,8 +252,57 @@ export const CONVERSATION_GUIDANCE_HOLD_BOUNDARY: ConversationGuidance =
  * - optional Lifecycle Recommendation candidate (nullable)
  * - optional active-cycle work items (nullable; D-GF-ACW-01)
  * - conversationGuidance (required; ephemeral continuation; non-authoritative)
+ * - journalDelta (nullable; Cycle Journal projection — NEVER Truth C)
  * Same Agents Runner — one model call — no prose parsing.
  */
+export const NORA_JOURNAL_DELTA_OPERATION_SCHEMA = {
+  type: "object" as const,
+  additionalProperties: false as const,
+  required: [
+    "op",
+    "targetEntryId",
+    "title",
+    "currentSummary",
+    "sourceTurnRefs",
+    "relatedEntryIds",
+  ],
+  properties: {
+    op: {
+      type: "string" as const,
+      enum: ["CREATE", "UPDATE", "MERGE", "SPLIT", "ARCHIVE"] as const,
+    },
+    targetEntryId: {
+      anyOf: [{ type: "null" as const }, { type: "string" as const }],
+    },
+    title: {
+      anyOf: [{ type: "null" as const }, { type: "string" as const }],
+    },
+    currentSummary: {
+      anyOf: [{ type: "null" as const }, { type: "string" as const }],
+    },
+    sourceTurnRefs: {
+      type: "array" as const,
+      items: { type: "string" as const },
+    },
+    relatedEntryIds: {
+      type: "array" as const,
+      items: { type: "string" as const },
+    },
+  },
+};
+
+export const NORA_JOURNAL_DELTA_SCHEMA = {
+  type: "object" as const,
+  additionalProperties: false as const,
+  required: ["operations"],
+  properties: {
+    operations: {
+      type: "array" as const,
+      items: NORA_JOURNAL_DELTA_OPERATION_SCHEMA,
+    },
+  },
+};
+
 export const NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE = {
   type: "json_schema" as const,
   name: "nora_product_turn_with_optional_lr",
@@ -267,6 +316,7 @@ export const NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE = {
       "lifecycleRecommendation",
       "activeCycleWork",
       "conversationGuidance",
+      "journalDelta",
     ],
     properties: {
       narrative: { type: "string" as const },
@@ -284,8 +334,24 @@ export const NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE = {
         ],
       },
       conversationGuidance: CONVERSATION_GUIDANCE_SCHEMA,
+      journalDelta: {
+        anyOf: [{ type: "null" as const }, NORA_JOURNAL_DELTA_SCHEMA],
+      },
     },
   },
+};
+
+export type NoraJournalDeltaOperationStructured = {
+  op: "CREATE" | "UPDATE" | "MERGE" | "SPLIT" | "ARCHIVE";
+  targetEntryId: string | null;
+  title: string | null;
+  currentSummary: string | null;
+  sourceTurnRefs: string[];
+  relatedEntryIds: string[];
+};
+
+export type NoraJournalDeltaStructured = {
+  operations: NoraJournalDeltaOperationStructured[];
 };
 
 export type NoraProductTurnWithOptionalLr = {
@@ -294,6 +360,8 @@ export type NoraProductTurnWithOptionalLr = {
   lifecycleRecommendation: NoraLifecycleRecommendationStructuredOutput | null;
   activeCycleWork: NoraActiveCycleWorkOutput | null;
   conversationGuidance: ConversationGuidance;
+  /** Cycle Journal delta — projection only; null when no journal mutation. */
+  journalDelta: NoraJournalDeltaStructured | null;
 };
 
 export function isPreCycleRoutingAssessment(
@@ -430,6 +498,11 @@ export type PreCycleRoutingBoundaryCoherenceResult = {
   activeCycleWork: NoraActiveCycleWorkOutput | null;
   /** Ephemeral conversational continuation (coherent with disposition). */
   conversationGuidance: ConversationGuidance;
+  /**
+   * Cycle Journal delta passthrough — projection only.
+   * Invalid / missing → null (fail-closed Journal; never blocks narrative).
+   */
+  journalDelta: NoraJournalDeltaStructured | null;
   /** True when a candidate LR was stripped by boundary coherence. */
   lifecycleRecommendationSuppressed: boolean;
   suppressReason: string | null;
@@ -672,12 +745,51 @@ export function composePilotFacingAssistantText(
  * activeCycleWork is preserved on all return paths (passthrough).
  * conversationGuidance: full-object fallback when incompatible (CR-NCI-01).
  */
+export function isNoraJournalDeltaOperationStructured(
+  value: unknown,
+): value is NoraJournalDeltaOperationStructured {
+  if (!value || typeof value !== "object") return false;
+  const o = value as Record<string, unknown>;
+  if (
+    o.op !== "CREATE" &&
+    o.op !== "UPDATE" &&
+    o.op !== "MERGE" &&
+    o.op !== "SPLIT" &&
+    o.op !== "ARCHIVE"
+  ) {
+    return false;
+  }
+  if (o.targetEntryId != null && typeof o.targetEntryId !== "string") {
+    return false;
+  }
+  if (o.title != null && typeof o.title !== "string") return false;
+  if (o.currentSummary != null && typeof o.currentSummary !== "string") {
+    return false;
+  }
+  if (!Array.isArray(o.sourceTurnRefs)) return false;
+  if (!o.sourceTurnRefs.every((x) => typeof x === "string")) return false;
+  if (!Array.isArray(o.relatedEntryIds)) return false;
+  if (!o.relatedEntryIds.every((x) => typeof x === "string")) return false;
+  return true;
+}
+
+export function isNoraJournalDeltaStructured(
+  value: unknown,
+): value is NoraJournalDeltaStructured {
+  if (!value || typeof value !== "object") return false;
+  const o = value as Record<string, unknown>;
+  if (!Array.isArray(o.operations)) return false;
+  return o.operations.every(isNoraJournalDeltaOperationStructured);
+}
+
 export function applyPreCycleRoutingBoundaryCoherence(input: {
   narrative: string;
   preCycleRoutingAssessment: PreCycleRoutingAssessment;
   lifecycleRecommendation: NoraLifecycleRecommendationStructuredOutput | null;
   activeCycleWork?: NoraActiveCycleWorkOutput | null;
   conversationGuidance?: ConversationGuidance | null;
+  /** Invalid delta coerced to null — never fails the Product turn. */
+  journalDelta?: NoraJournalDeltaStructured | null;
   cognitiveStop?: boolean;
   /**
    * Server-derived from selectCurrentLifecycleRecommendations + applicability.
@@ -690,6 +802,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
   );
   const candidate = input.lifecycleRecommendation;
   const activeCycleWork = input.activeCycleWork ?? null;
+  const journalDelta = input.journalDelta ?? null;
   const rawGuidance = parseConversationGuidanceOrFailClosed(
     input.conversationGuidance ?? null,
   );
@@ -703,6 +816,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
       | "conversationGuidance"
       | "conversationGuidanceCoerced"
       | "conversationGuidanceCoerceReason"
+      | "journalDelta"
     >,
   ): PreCycleRoutingBoundaryCoherenceResult => {
     const guided = applyConversationGuidanceCoherence({
@@ -756,6 +870,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
 
     return {
       ...partial,
+      journalDelta,
       lifecycleRecommendation,
       lifecycleRecommendationSuppressed,
       suppressReason,
@@ -918,11 +1033,20 @@ export function normalizeNoraProductTurnStructuredOutput(
     activeCycleWork = o.activeCycleWork;
   }
 
+  // Journal fail-closed locally: invalid delta → null, turn still coherent.
+  let journalDelta: NoraJournalDeltaStructured | null = null;
+  if (o.journalDelta != null) {
+    journalDelta = isNoraJournalDeltaStructured(o.journalDelta)
+      ? o.journalDelta
+      : null;
+  }
+
   return applyPreCycleRoutingBoundaryCoherence({
     narrative: o.narrative,
     preCycleRoutingAssessment: assessment,
     lifecycleRecommendation: lr,
     activeCycleWork,
+    journalDelta,
     conversationGuidance: parseConversationGuidanceOrFailClosed(
       o.conversationGuidance,
     ),
@@ -947,6 +1071,10 @@ export function isNoraProductTurnWithOptionalLr(
     return false;
   }
   if (!isConversationGuidance(o.conversationGuidance)) return false;
+  // Backward compat: missing journalDelta treated as null for fixtures.
+  if (o.journalDelta != null && !isNoraJournalDeltaStructured(o.journalDelta)) {
+    return false;
+  }
   if (o.lifecycleRecommendation === null) return true;
   return isNoraLifecycleRecommendationStructuredOutput(
     o.lifecycleRecommendation,
@@ -965,5 +1093,6 @@ export function buildFailClosedProductTurnJson(narrative: string): string {
     lifecycleRecommendation: null,
     activeCycleWork: null,
     conversationGuidance: { ...CONVERSATION_GUIDANCE_FAIL_CLOSED_HOLD },
+    journalDelta: null,
   });
 }

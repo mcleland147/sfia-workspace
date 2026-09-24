@@ -51,6 +51,12 @@ export const PRODUCT_SESSION_ALLOWED_TABLES = [
   "session_items",
   "logical_product_turns",
   "logical_product_turn_retry_bindings",
+  /** Pilote-facing transcript — survives Memory B compaction. */
+  "pilot_transcript_turns",
+  /** Cycle Journal projection — NEVER Truth C / HD / Evidence. */
+  "cycle_journal_entries",
+  /** Idempotence ledger for journal mutations per logical turn. */
+  "cycle_journal_mutation_ledger",
 ] as const;
 
 /**
@@ -80,6 +86,7 @@ export class ProductSqliteSession implements Session {
       );
     `);
     this.ensureLogicalTurnSchema();
+    this.ensurePilotTranscriptAndJournalSchema();
   }
 
   /**
@@ -105,6 +112,57 @@ export class ProductSqliteSession implements Session {
         payload_digest TEXT NOT NULL,
         created_at TEXT NOT NULL,
         PRIMARY KEY (project_id, session_key, retry_key)
+      );
+    `);
+  }
+
+  /**
+   * Pilot transcript + Cycle Journal — Session-adjacent, never Truth C.
+   * Compaction of session_items MUST NOT touch these tables.
+   */
+  ensurePilotTranscriptAndJournalSchema(): void {
+    this.db.exec(`
+      CREATE TABLE IF NOT EXISTS pilot_transcript_turns (
+        project_id TEXT NOT NULL,
+        session_key TEXT NOT NULL,
+        turn_id TEXT NOT NULL,
+        seq INTEGER NOT NULL,
+        role TEXT NOT NULL,
+        content TEXT NOT NULL,
+        created_at TEXT NOT NULL,
+        logical_turn_id TEXT,
+        cycle_instance_id TEXT,
+        PRIMARY KEY (project_id, session_key, turn_id)
+      );
+      CREATE UNIQUE INDEX IF NOT EXISTS pilot_transcript_seq_uq
+        ON pilot_transcript_turns(project_id, session_key, seq);
+      CREATE TABLE IF NOT EXISTS cycle_journal_entries (
+        project_id TEXT NOT NULL,
+        session_key TEXT NOT NULL,
+        journal_entry_id TEXT NOT NULL,
+        cycle_instance_id TEXT NOT NULL,
+        title TEXT NOT NULL,
+        current_summary TEXT NOT NULL,
+        status TEXT NOT NULL,
+        created_at TEXT NOT NULL,
+        updated_at TEXT NOT NULL,
+        source_turn_refs_json TEXT NOT NULL,
+        lineage_parent_ids_json TEXT NOT NULL,
+        superseded_by_id TEXT,
+        last_logical_turn_id TEXT,
+        PRIMARY KEY (project_id, session_key, journal_entry_id)
+      );
+      CREATE INDEX IF NOT EXISTS cycle_journal_cycle_idx
+        ON cycle_journal_entries(project_id, session_key, cycle_instance_id);
+      CREATE TABLE IF NOT EXISTS cycle_journal_mutation_ledger (
+        project_id TEXT NOT NULL,
+        session_key TEXT NOT NULL,
+        logical_turn_id TEXT NOT NULL,
+        op_index INTEGER NOT NULL,
+        op TEXT NOT NULL,
+        journal_entry_id TEXT NOT NULL,
+        created_at TEXT NOT NULL,
+        PRIMARY KEY (project_id, session_key, logical_turn_id, op_index)
       );
     `);
   }

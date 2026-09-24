@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useTransition } from "react";
 import {
   projectAssistantConfirmAndExecuteF3FixtureAction,
   projectAssistantConfirmAndExecuteResolvedM3Action,
+  projectAssistantConversationContinuityAction,
   projectAssistantDecideAction,
   projectAssistantPrepareF3FixtureAction,
   projectAssistantPrepareResolvedM3Action,
@@ -34,16 +35,24 @@ import {
 import { lifecycleRecommendationMaterializeFailurePiloteNotice } from "@/features/project-assistant/lifecycleRecommendationPiloteNotice";
 import { createTurnRetryKey } from "@/features/project-assistant/turnRetryKey";
 import {
+  normalizeProductTurnHistory,
   preparePendingTurnRetryEnvelope,
   type PendingTurnRetryEnvelope,
 } from "@/features/project-assistant/turnPayloadCanonical";
 import { useRunningAttemptO3Observation } from "./useRunningAttemptO3Observation";
+import type { JournalSurfaceEntry } from "../surfaces/JournalSurface";
 
 export type ProductMessage = {
   id: string;
   role: "user" | "assistant" | "system";
   content: string;
 };
+
+export type TranscriptAvailability =
+  | "available"
+  | "empty"
+  | "unavailable"
+  | "pending";
 
 export type ProductConversationUiState =
   | "INITIAL"
@@ -57,6 +66,8 @@ export type ProductConversationUiState =
 
 export type UseProductConversationInput = {
   projectId: string;
+  /** Active cycle for Journal isolation (null → empty journal). */
+  activeCycleInstanceId?: string | null;
   /** Fired after a successful durable Product mutation (not process-local). */
   onDurableFactsChanged?: () => void;
   /** Mirrors the latest durable Evidence/ReviewBundle rehydrate for History. */
@@ -95,6 +106,7 @@ function modeFromResult(result: {
  */
 export function useProductConversation({
   projectId,
+  activeCycleInstanceId = null,
   onDurableFactsChanged,
   onDurableEvidenceOutcomeChange,
 }: UseProductConversationInput) {
@@ -126,6 +138,18 @@ export function useProductConversation({
   const [durableRehydrateError, setDurableRehydrateError] = useState<
     string | null
   >(null);
+  const [transcriptAvailability, setTranscriptAvailability] =
+    useState<TranscriptAvailability>("pending");
+  const [journalEntries, setJournalEntries] = useState<JournalSurfaceEntry[]>(
+    [],
+  );
+  const [journalCycleInstanceId, setJournalCycleInstanceId] = useState<
+    string | null
+  >(null);
+  const [selectedJournalEntryId, setSelectedJournalEntryId] = useState<
+    string | null
+  >(null);
+  const [focusTurnId, setFocusTurnId] = useState<string | null>(null);
   const [f3Busy, setF3Busy] = useState(false);
   const [isPending, startTransition] = useTransition();
   /** D-GF-ACW-02 — last server-issued logical turn; re-present only on failed retry. */
@@ -185,6 +209,38 @@ export function useProductConversation({
   useEffect(() => {
     setUiState((prev) => (prev === "INITIAL" ? "READY" : prev));
   }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    setTranscriptAvailability("pending");
+    void projectAssistantConversationContinuityAction({
+      projectId,
+      cycleInstanceId: activeCycleInstanceId,
+    }).then((result) => {
+      if (cancelled) return;
+      if (!result.ok) {
+        setTranscriptAvailability("unavailable");
+        setJournalEntries([]);
+        setJournalCycleInstanceId(null);
+        return;
+      }
+      setTranscriptAvailability(result.transcriptAvailability);
+      if (result.messages.length > 0) {
+        setMessages(
+          result.messages.map((m) => ({
+            id: m.id,
+            role: m.role,
+            content: m.content,
+          })),
+        );
+      }
+      setJournalCycleInstanceId(result.journal.cycleInstanceId);
+      setJournalEntries(result.journal.entries);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [projectId, activeCycleInstanceId]);
 
   useEffect(() => {
     let cancelled = false;
@@ -262,10 +318,52 @@ export function useProductConversation({
     activeProposal?.morrisGateRequired === true &&
     activeProposal.status === "DECISION_REQUIRED";
 
-  function historyForRequest(): AssistantHistoryMessage[] {
+  async function refreshConversationContinuity() {
+    const result = await projectAssistantConversationContinuityAction({
+      projectId,
+      cycleInstanceId: activeCycleInstanceId,
+    });
+    if (!result.ok) {
+      setTranscriptAvailability("unavailable");
+      return;
+    }
+    setTranscriptAvailability(result.transcriptAvailability);
+    setJournalCycleInstanceId(result.journal.cycleInstanceId);
+    setJournalEntries(result.journal.entries);
+  }
+
+  function focusJournalExchanges(entry: JournalSurfaceEntry) {
+    setSelectedJournalEntryId(entry.journalEntryId);
+  }
+
+  function focusTranscriptTurn(turnId: string) {
+    const id = turnId.trim();
+    if (!id) return;
+    setFocusTurnId(id);
+  }
+
+  function clearFocusTurn() {
+    setFocusTurnId(null);
+  }
+
+  /** Full visible transcript roles for request shaping — not yet bounded. */
+  function visibleTranscriptForRequest(): AssistantHistoryMessage[] {
     return messages
       .filter((m) => m.role === "user" || m.role === "assistant")
       .map((m) => ({ role: m.role as "user" | "assistant", content: m.content }));
+  }
+
+  /**
+   * CR-CJ-01 — providerRecentHistory only.
+   * Visible transcript may be long; model receives a bounded recent window.
+   * Server re-applies the same bound (hostile/old clients cannot inject 500 msgs).
+   */
+  function providerRecentHistory(): AssistantHistoryMessage[] {
+    return normalizeProductTurnHistory(visibleTranscriptForRequest());
+  }
+
+  function historyForRequest(): AssistantHistoryMessage[] {
+    return providerRecentHistory();
   }
 
   function sendMessage(
@@ -426,6 +524,7 @@ export function useProductConversation({
         setActiveProposal(null);
       }
       setUiState("ANSWERED");
+      void refreshConversationContinuity();
     });
   }
 
@@ -715,6 +814,16 @@ export function useProductConversation({
     f3Execute,
     durableEvidenceOutcome,
     durableRehydrateError,
+    transcriptAvailability,
+    journalEntries,
+    journalCycleInstanceId,
+    selectedJournalEntryId,
+    setSelectedJournalEntryId,
+    focusTurnId,
+    focusJournalExchanges,
+    focusTranscriptTurn,
+    clearFocusTurn,
+    refreshConversationContinuity,
     busy,
     blocked,
     canSend,

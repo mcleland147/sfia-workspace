@@ -40,6 +40,10 @@ import {
   normalizeNoraProductTurnStructuredOutput,
 } from "./noraProductTurnOutputType";
 import { createSfiaRouteToolAdapters } from "./sfiaAgentsTools";
+import {
+  createCycleJournalAgentsTools,
+  type CycleJournalToolContext,
+} from "./cycleJournalAgentsTools";
 import type { MemoryBAvailability } from "./memoryBAvailability";
 import {
   createNoraTurnBudget,
@@ -150,6 +154,11 @@ export type RunNoraAgentsTurnInput = {
    * When set, finalOutput may be a structured object (candidate data only).
    */
   outputType?: AgentOutputType;
+  /**
+   * CYCLE JOURNAL — same-turn READ-ONLY tools bound to Product session + cycle.
+   * Never Truth C. Optional; omitted when no active cycle / session.
+   */
+  cycleJournalTools?: CycleJournalToolContext | null;
 };
 
 export type RunNoraAgentsTurnHostedSearchObserve = {
@@ -482,7 +491,20 @@ export async function runNoraAgentsTurn(
   const hostedTool = enableHostedWebSearch
     ? createNoraHostedWebSearchTool(input.hostedWebSearchToolOptions)
     : null;
-  const tools = hostedTool ? [...sfiaTools, hostedTool] : sfiaTools;
+  const journalTools =
+    input.cycleJournalTools &&
+    input.cycleJournalTools.cycleInstanceId.trim() &&
+    enableTools
+      ? createCycleJournalAgentsTools({
+          ...input.cycleJournalTools,
+          budget,
+        })
+      : [];
+  const tools = [
+    ...sfiaTools,
+    ...journalTools,
+    ...(hostedTool ? [hostedTool] : []),
+  ];
 
   const agent = new Agent({
     name: "NoraProjectAssistant",
@@ -615,6 +637,7 @@ export async function runNoraAgentsTurn(
                 lifecycleRecommendation: coherent.lifecycleRecommendation,
                 activeCycleWork: coherent.activeCycleWork ?? null,
                 conversationGuidance: coherent.conversationGuidance,
+                journalDelta: coherent.journalDelta ?? null,
               };
             }
           }

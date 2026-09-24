@@ -441,8 +441,11 @@ describe("MW1-S01 — Session ≠ Truth C under availability paths", () => {
     // Session still must not own Truth C / LPS / HD / Evidence tables.
     expect(sessionTables.sort()).toEqual(
       [
+        "cycle_journal_entries",
+        "cycle_journal_mutation_ledger",
         "logical_product_turn_retry_bindings",
         "logical_product_turns",
+        "pilot_transcript_turns",
         "session_items",
       ].sort(),
     );

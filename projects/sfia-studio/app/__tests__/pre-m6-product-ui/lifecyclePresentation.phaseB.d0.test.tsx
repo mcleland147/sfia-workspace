@@ -58,6 +58,12 @@ const { projectionMock } = vi.hoisted(() => ({
 }));
 
 vi.mock("@/features/project-assistant/actions", () => ({
+  projectAssistantConversationContinuityAction: vi.fn(async () => ({
+    ok: true,
+    transcriptAvailability: "empty",
+    messages: [],
+    journal: { cycleInstanceId: null, entries: [] },
+  })),
   projectAssistantPilotLifecycleProjection: (...args: unknown[]) =>
     projectionMock(...args),
   projectAssistantPilotLifecycleAction: vi.fn(),

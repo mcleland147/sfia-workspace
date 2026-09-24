@@ -202,6 +202,9 @@ export async function observeMw1S01FromRuntime(): Promise<DeterministicObservati
       "session_items",
       "logical_product_turns",
       "logical_product_turn_retry_bindings",
+      "pilot_transcript_turns",
+      "cycle_journal_entries",
+      "cycle_journal_mutation_ledger",
     ]);
     let sessionNeqTruthC = truthUnchanged;
     if (fs.existsSync(sessionDbPath)) {

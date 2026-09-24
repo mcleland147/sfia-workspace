@@ -26,7 +26,10 @@ export function ProductShell({
   return (
     <div className={styles.shell} data-testid="studio-shell">
       <header className={styles.header}>
-        <div className={styles.headerInner}>
+        <div className={[
+          styles.headerInner,
+          activeNav === "current" ? styles.headerInnerWide : "",
+        ].filter(Boolean).join(" ")}>
           <Link href="/studio" className={styles.brand}>
             <span className={styles.brandMark} aria-hidden>
               <svg
@@ -89,7 +92,16 @@ export function ProductShell({
         </div>
       </header>
 
-      <main className={styles.main}>{children}</main>
+      <main
+        className={[
+          styles.main,
+          activeNav === "current" ? styles.mainWide : "",
+        ]
+          .filter(Boolean)
+          .join(" ")}
+      >
+        {children}
+      </main>
     </div>
   );
 }
