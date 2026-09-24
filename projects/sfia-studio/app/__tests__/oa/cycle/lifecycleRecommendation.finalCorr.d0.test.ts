@@ -148,6 +148,17 @@ function productTurnPayload(
     narrative,
     preCycleRoutingAssessment: assessment,
     lifecycleRecommendation: lr,
+    activeCycleWork: null,
+    // Statement equals narrative so composePilotFacingAssistantText is a no-op
+    // for fixtures that assert exact narrative text (guidance still present).
+    conversationGuidance: {
+      kind: lr ? ("RECOMMEND_NEXT_STEP" as const) : ("HOLD" as const),
+      scope: lr
+        ? ("LIFECYCLE_TRANSITION" as const)
+        : ("BLOCKER_RESOLUTION" as const),
+      statement: narrative,
+      rationale: "fixture-aligned-guidance",
+    },
   };
 }
 

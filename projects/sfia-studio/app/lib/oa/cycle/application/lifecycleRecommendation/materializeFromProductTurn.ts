@@ -70,6 +70,10 @@ export type MaterializeFromProductTurnResult = {
 
 export function extractLifecycleCandidateFromStructuredOutput(
   structuredOutput: unknown,
+  options?: {
+    cognitiveStop?: boolean;
+    currentLifecycleRecommendationSatisfiesTransition?: boolean;
+  },
 ): {
   narrative: string | null;
   candidate: NoraLifecycleRecommendationStructuredOutput | null;
@@ -78,8 +82,15 @@ export function extractLifecycleCandidateFromStructuredOutput(
   routingDisposition?: PreCycleRoutingDisposition | null;
   lifecycleRecommendationSuppressed?: boolean;
   boundaryContradiction?: string | null;
+  lifecycleRecommendationContinuity?:
+    | "NONE"
+    | "NEW_CANDIDATE"
+    | "REUSE_CURRENT";
 } {
-  const coherent = normalizeNoraProductTurnStructuredOutput(structuredOutput);
+  const coherent = normalizeNoraProductTurnStructuredOutput(
+    structuredOutput,
+    options,
+  );
   if (coherent) {
     return {
       narrative: coherent.narrative,
@@ -90,6 +101,8 @@ export function extractLifecycleCandidateFromStructuredOutput(
       lifecycleRecommendationSuppressed:
         coherent.lifecycleRecommendationSuppressed,
       boundaryContradiction: coherent.boundaryContradiction,
+      lifecycleRecommendationContinuity:
+        coherent.lifecycleRecommendationContinuity,
     };
   }
   if (isNoraLifecycleRecommendationStructuredOutput(structuredOutput)) {

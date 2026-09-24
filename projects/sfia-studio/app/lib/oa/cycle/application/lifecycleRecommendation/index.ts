@@ -4,6 +4,7 @@ export * from "./resolveCanonicalBasis";
 export * from "./validateLifecycleRecommendation";
 export * from "./materializeLifecycleRecommendation";
 export * from "./currentness";
+export * from "./currentLifecycleRecommendationContinuity";
 export * from "./produceLifecycleRecommendation";
 export * from "./materializeFromProductTurn";
 export * from "./materialReaderContract";

@@ -228,6 +228,27 @@ export type ProjectAssistantSendSuccess = {
   /** Fail-closed detail code when materialization was attempted and refused. */
   lifecycleRecommendationCode?: string | null;
   /**
+   * NORA-LIFECYCLE-RECOMMENDATION-CONTINUITY-01 — ephemeral server surface.
+   * REUSE_CURRENT = durable CURRENT NEXT_CYCLE satisfied EMIT without a new write.
+   */
+  lifecycleRecommendationContinuity?:
+    | "NONE"
+    | "NEW_CANDIDATE"
+    | "REUSE_CURRENT"
+    | null;
+  /**
+   * CR-LRC-01 — ephemeral post-model currentness revalidation status.
+   * Never Pilot-facing; never persisted.
+   */
+  lifecycleRecommendationContinuityRevalidation?:
+    | "NOT_REQUIRED"
+    | "PASS"
+    | "STALE"
+    | "IDENTITY_CHANGED"
+    | "UNAVAILABLE"
+    | "NOT_APPLICABLE"
+    | null;
+  /**
    * D-GF-ACW-02 Option A — server-owned logical Product turn id (`ltu:…`).
    * Session-adjacent replay/idempotence identity; never Epistemic SoT.
    */
@@ -267,6 +288,18 @@ export type ProjectAssistantSendFailure = {
   f2?: F2TurnPayload;
   /** Present when a logical turn was minted/accepted before the failure. */
   logicalTurnId?: string | null;
+  /**
+   * CR-LRC-01 — ephemeral post-model currentness revalidation (fail-closed path).
+   * Never Pilot-facing; never persisted.
+   */
+  lifecycleRecommendationContinuityRevalidation?:
+    | "NOT_REQUIRED"
+    | "PASS"
+    | "STALE"
+    | "IDENTITY_CHANGED"
+    | "UNAVAILABLE"
+    | "NOT_APPLICABLE"
+    | null;
 };
 
 export type ProjectAssistantSendResult =

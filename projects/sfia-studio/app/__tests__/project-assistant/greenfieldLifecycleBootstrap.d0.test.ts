@@ -130,10 +130,26 @@ function productTurn(
     ? { ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT }
     : { ...PRE_CYCLE_ROUTING_ASSESSMENT_CONTINUE_DEFAULT },
 ) {
+  // NCI: Product turn requires conversationGuidance. Fixture-only — keep
+  // structurally compatible with disposition (EMIT→LIFECYCLE_TRANSITION).
+  const conversationGuidance = lr
+    ? {
+        kind: "RECOMMEND_NEXT_STEP" as const,
+        scope: "LIFECYCLE_TRANSITION" as const,
+        statement: narrative,
+        rationale: "Suite méthodologique cohérente avec la recommandation.",
+      }
+    : {
+        kind: "ASK_CLARIFICATION" as const,
+        scope: "PRE_CYCLE" as const,
+        statement: narrative,
+        rationale: "Clarification pré-cycle encore nécessaire.",
+      };
   return {
     narrative,
     preCycleRoutingAssessment: assessment,
     lifecycleRecommendation: lr,
+    conversationGuidance,
   };
 }
 

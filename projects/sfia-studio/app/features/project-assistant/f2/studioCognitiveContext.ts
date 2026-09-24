@@ -21,7 +21,16 @@ import type {
 import {
   obligationPolicySubjectFor,
   OBLIGATION_POLICY_REQUIRE_ARTIFACT,
+  getCycleTypeById,
 } from "@/lib/oa/cycle";
+import { deriveLifecycleBlockersFromEpistemicItems } from "@/lib/oa/cycle/application/deriveLifecycleBlockers";
+import {
+  evaluateCurrentNextCycleLifecycleRecommendationContinuity,
+  type CurrentLifecycleRecommendationContinuityState,
+  type CurrentLifecycleRecommendationProjectionCurrent,
+} from "@/lib/oa/cycle/application/lifecycleRecommendation/currentLifecycleRecommendationContinuity";
+import type { LifecycleRecommendationMaterialDimension } from "@/lib/oa/cycle/application/lifecycleRecommendation/materialReaderContract";
+import { resolveTrajectoryBootstrapPresence } from "@/lib/oa/cycle/application/lifecycleRecommendation/greenfieldLifecycleBootstrap";
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
 import type { ProjectAssistantContextDto } from "../types";
 import type { IntentAnalysisDto } from "./types";
@@ -205,6 +214,20 @@ export type StudioActiveCycleWorkProjection = {
   readonly status: EpistemicItemStatus;
 };
 
+/**
+ * Server-derived CURRENT LifecycleRecommendation continuity projection.
+ * Recommendation ≠ HumanDecision. Never Truth C / never auto-START.
+ */
+export type StudioLifecycleRecommendationContinuityProjection = {
+  readonly state: CurrentLifecycleRecommendationContinuityState;
+  readonly current: CurrentLifecycleRecommendationProjectionCurrent | null;
+  /**
+   * True only when exactly one CURRENT NEXT_CYCLE is applicable for pre-cycle
+   * EMIT continuity (server-derived — never client/model supplied).
+   */
+  readonly satisfiesPreCycleNextCycleTransition: boolean;
+};
+
 export type StudioCognitiveContext = {
   readonly projectTruth: StudioProjectTruthProjection;
   readonly method: AdvisoryMethodContext;
@@ -229,6 +252,11 @@ export type StudioCognitiveContext = {
     readonly state: TrajectoryPresenceState;
     readonly current: StudioTrajectoryProjection | null;
   };
+  /**
+   * NORA-LIFECYCLE-RECOMMENDATION-CONTINUITY-01 — durable CURRENT NEXT_CYCLE
+   * recommendation projection (selectCurrentLifecycleRecommendations).
+   */
+  readonly lifecycleRecommendation: StudioLifecycleRecommendationContinuityProjection;
   readonly limits: {
     readonly oaAvailable: boolean;
     readonly truthOutranksConversation: true;
@@ -236,6 +264,33 @@ export type StudioCognitiveContext = {
     readonly composerDoesNotSelectTrajectory: true;
   };
 };
+
+const LIFECYCLE_RECOMMENDATION_UNAVAILABLE: StudioLifecycleRecommendationContinuityProjection =
+  Object.freeze({
+    state: "UNAVAILABLE" as const,
+    current: null,
+    satisfiesPreCycleNextCycleTransition: false,
+  });
+
+const LIFECYCLE_RECOMMENDATION_NONE: StudioLifecycleRecommendationContinuityProjection =
+  Object.freeze({
+    state: "NONE" as const,
+    current: null,
+    satisfiesPreCycleNextCycleTransition: false,
+  });
+
+function toStudioLifecycleRecommendationProjection(input: {
+  state: CurrentLifecycleRecommendationContinuityState;
+  current: CurrentLifecycleRecommendationProjectionCurrent | null;
+  satisfiesPreCycleNextCycleTransition: boolean;
+}): StudioLifecycleRecommendationContinuityProjection {
+  return Object.freeze({
+    state: input.state,
+    current: input.current,
+    satisfiesPreCycleNextCycleTransition:
+      input.satisfiesPreCycleNextCycleTransition,
+  });
+}
 
 export type ComposeStudioCognitiveContextResult =
   | { readonly ok: true; readonly context: StudioCognitiveContext }
@@ -433,6 +488,7 @@ export async function composeStudioCognitiveContext(input: {
           state: "UNAVAILABLE" as const,
           current: null,
         }),
+        lifecycleRecommendation: LIFECYCLE_RECOMMENDATION_UNAVAILABLE,
         limits: Object.freeze({
           oaAvailable: false,
           truthOutranksConversation: true as const,
@@ -551,6 +607,125 @@ export async function composeStudioCognitiveContext(input: {
     }
   }
 
+  // NORA-LIFECYCLE-RECOMMENDATION-CONTINUITY-01 — full material facts (not budgeted
+  // decision/evidence slices). UNKNOWN ≠ KNOWN EMPTY.
+  let lifecycleRecommendation: StudioLifecycleRecommendationContinuityProjection =
+    LIFECYCLE_RECOMMENDATION_NONE;
+  {
+    const failedMaterialDimensions =
+      new Set<LifecycleRecommendationMaterialDimension>();
+
+    let cycles: Awaited<
+      ReturnType<typeof oa.cycleServices.cycles.listByProject>
+    > = [];
+    try {
+      cycles = await oa.cycleServices.cycles.listByProject(projectId);
+    } catch {
+      failedMaterialDimensions.add("cycles");
+      cycles = [];
+    }
+
+    let lpsActiveCycleInstanceId: string | null = activeCycleInstanceId;
+    let lpsVersion: number | null = input.project.lpsVersion ?? null;
+    try {
+      const lps =
+        await oa.projectServices.getCurrentLivingProjectState.execute({
+          projectId,
+        });
+      if (!lps.ok) {
+        failedMaterialDimensions.add("lps");
+      } else {
+        lpsActiveCycleInstanceId =
+          lps.livingProjectState.activeCycleInstanceId ?? null;
+        lpsVersion = lps.livingProjectState.version;
+      }
+    } catch {
+      failedMaterialDimensions.add("lps");
+    }
+
+    const doctrinePackageId = input.project.doctrineId ?? null;
+    const doctrinePackageVersion = input.project.doctrineVersion ?? null;
+    const doctrinePackageDigest = input.project.doctrineDigest ?? null;
+    if (!doctrinePackageId || !doctrinePackageVersion || !doctrinePackageDigest) {
+      failedMaterialDimensions.add("doctrine");
+    }
+
+    let trajectory: ProjectTrajectory | null = null;
+    const trajPresence = await resolveTrajectoryBootstrapPresence(
+      oa.cycleServices.trajectories,
+      projectId,
+    );
+    if (trajPresence.kind === "unknown") {
+      failedMaterialDimensions.add("trajectory");
+      trajectory = null;
+    } else if (trajPresence.kind === "current") {
+      trajectory = trajPresence.trajectory;
+    } else {
+      trajectory = null;
+    }
+
+    let decisionsFull: HumanDecision[] = [];
+    try {
+      decisionsFull = await oa.decisionServices.decisions.listByProject(
+        projectId,
+      );
+    } catch {
+      failedMaterialDimensions.add("decisions");
+      decisionsFull = [];
+    }
+
+    let evidenceFull: Evidence[] = [];
+    try {
+      evidenceFull =
+        await oa.evidenceReviewServices.repository.listByProject(projectId);
+    } catch {
+      // Evidence is FINALIZE-only for required dimensions — still load for basis
+      // rebuild when available; NEXT_CYCLE does not require it.
+      evidenceFull = [];
+    }
+
+    let epistemicItems: EpistemicItem[] = [];
+    try {
+      epistemicItems = await oa.cycleServices.epistemic.listByProject(projectId);
+    } catch {
+      failedMaterialDimensions.add("epistemic_blockers");
+      epistemicItems = [];
+    }
+
+    const blockers = failedMaterialDimensions.has("epistemic_blockers")
+      ? { statements: [] as string[] }
+      : deriveLifecycleBlockersFromEpistemicItems(epistemicItems);
+
+    const expectedTargetCycleTypeId =
+      method.orientation.state === "RESOLVED_FROM_INTENT_CANDIDATE"
+        ? method.orientation.candidateCycleTypeId
+        : null;
+
+    const evaluated = evaluateCurrentNextCycleLifecycleRecommendationContinuity({
+      items: epistemicItems,
+      cycles,
+      lpsActiveCycleInstanceId,
+      lpsVersion,
+      doctrinePackageId,
+      doctrinePackageVersion,
+      doctrinePackageDigest,
+      trajectory,
+      decisions: decisionsFull,
+      evidence: evidenceFull,
+      blockingReservationStatements: blockers.statements,
+      failedMaterialDimensions,
+      activeCycleInstanceId: lpsActiveCycleInstanceId,
+      expectedTargetCycleTypeId,
+    });
+
+    lifecycleRecommendation = toStudioLifecycleRecommendationProjection({
+      state: evaluated.projection.state,
+      current: evaluated.projection.current,
+      satisfiesPreCycleNextCycleTransition:
+        evaluated.satisfiesPreCycleNextCycleTransition,
+    });
+  }
+
   return {
     ok: true,
     context: Object.freeze({
@@ -577,6 +752,7 @@ export async function composeStudioCognitiveContext(input: {
         state: trajectoryState,
         current: trajectoryCurrent,
       }),
+      lifecycleRecommendation,
       limits: Object.freeze({
         oaAvailable: true,
         truthOutranksConversation: true as const,
@@ -853,6 +1029,47 @@ export function buildStudioCognitivePromptSections(
     );
     if (t.stepSummaries.length > 0) {
       lines.push(`Étapes : ${t.stepSummaries.join(" → ")}`);
+    }
+  }
+  lines.push("");
+
+  // NORA-LIFECYCLE-RECOMMENDATION-CONTINUITY-01 — business-readable only.
+  lines.push("— Recommendation lifecycle courante (non autoritative) —");
+  const lr = ctx.lifecycleRecommendation;
+  if (lr.state === "NONE") {
+    lines.push(
+      "Aucune Recommendation lifecycle CURRENT applicable — si une transition est supportable, émets lifecycleRecommendation structurée.",
+    );
+  } else if (lr.state === "UNAVAILABLE") {
+    lines.push(
+      "Recommendation lifecycle : UNAVAILABLE (lecteurs matériels) — ne pas inventer ; ne pas réutiliser une ancienne Recommendation.",
+    );
+  } else if (lr.state === "AMBIGUOUS") {
+    lines.push(
+      "Plusieurs Recommendations lifecycle CURRENT concurrentes — ne choisis pas arbitrairement ; clarifie ou émets une nouvelle Recommendation structurée résolvant la transition.",
+    );
+  } else if (lr.current) {
+    const cur = lr.current;
+    const label =
+      cur.targetCycleTypeId != null
+        ? (getCycleTypeById(cur.targetCycleTypeId)?.label ??
+          cur.targetCycleTypeId)
+        : "(cible non précisée)";
+    lines.push(
+      `Recommendation lifecycle courante : ${cur.intent} vers ${label}.`,
+    );
+    lines.push(
+      "Elle reste une Recommendation non autoritative ; aucun CycleInstance n'est démarré ; ce n'est PAS une HumanDecision.",
+    );
+    lines.push(`Énoncé durable : ${cur.statement}`);
+    if (lr.satisfiesPreCycleNextCycleTransition) {
+      lines.push(
+        "Continuité : cette Recommendation CURRENT porte déjà le prochain mouvement gouverné supportable — ne la réémets PAS uniquement parce qu'un nouveau message conversationnel arrive ; réponds à la demande ; utilise conversationGuidance (RECOMMEND_NEXT_STEP + LIFECYCLE_TRANSITION) ; lifecycleRecommendation peut rester null sur CE tour.",
+      );
+    } else {
+      lines.push(
+        "Continuité : cette Recommendation CURRENT n'est PAS suffisante seule pour ce tour (cycle actif, cible non alignée, ou transition non applicable) — n'invente pas de continuité ; émets une nouvelle lifecycleRecommendation si une transition différente est désormais supportable.",
+      );
     }
   }
   lines.push("");
