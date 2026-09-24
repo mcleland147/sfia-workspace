@@ -368,8 +368,9 @@ UI = Option A Journal | Conversation | Pilotage; Recovery = anomaly only.
 
 - branch: `sfia/review-handoff`
 - file: `sfia-review-handoff/latest-chatgpt-review.md`
-- commit: (filled after)
-- remote SHA: (filled after)
+- commit: `33114bce5c74148adfc61ce9638f8d6dcf9a0d5f`
+- remote SHA: `33114bce5c74148adfc61ce9638f8d6dcf9a0d5f`
+- verified: remote tip re-read; contains PR #516 + CI SUCCESS + MERGE NOT AUTHORIZED
 
 ## 14. Instruction ChatGPT
 
