@@ -143,14 +143,19 @@ export const W1_TRANSCRIPT_UNAVAILABLE_DISCLOSURE =
 /**
  * Opening Project == automatic durable resume.
  * - pending / empty → silence (no Recovery flash, empty is valid)
- * - available → optional light hint (no CTA)
+ * - available + allowRestoredHint → optional light one-shot hint (initial open/reload only)
+ * - available without allowRestoredHint → silence (live session transcript became available)
  * - unavailable → precise anomaly disclosure only
  */
 export function resolveProjectOpenContinuityPresentation(
   transcriptAvailability: TranscriptAvailabilityUi,
+  options?: { allowRestoredHint?: boolean },
 ): ProjectOpenContinuityPresentation {
   switch (transcriptAvailability) {
     case "available":
+      if (options?.allowRestoredHint !== true) {
+        return { kind: "none" };
+      }
       return {
         kind: "restored_hint",
         message: W1_AUTO_RESUME_RESTORED_HINT,

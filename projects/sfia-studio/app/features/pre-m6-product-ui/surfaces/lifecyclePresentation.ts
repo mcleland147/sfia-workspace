@@ -76,7 +76,8 @@ export function blockerLabel(blockerId: string): string {
     case "evidence_applicability_unknown":
     case "review_bundle_applicability_unknown":
     case "git_repository_applicability_unknown":
-      return "Applicabilité des effets gouvernés à confirmer";
+    case "governed_effects_applicability_group":
+      return "Effets gouvernés à qualifier";
     case "blocking_reservations":
       return "Réserve bloquante à résoudre";
     case FINALIZE_HD_BLOCKER:
@@ -84,6 +85,48 @@ export function blockerLabel(blockerId: string): string {
     default:
       return blockerId;
   }
+}
+
+const APPLICABILITY_UNKNOWN_BLOCKERS = new Set([
+  "artifact_applicability_unknown",
+  "execution_contract_applicability_unknown",
+  "evidence_applicability_unknown",
+  "review_bundle_applicability_unknown",
+  "git_repository_applicability_unknown",
+]);
+
+/**
+ * UX projection only — groups duplicate applicability unknowns into one line.
+ * Underlying assessment.blockers / obligations remain unchanged.
+ */
+export function presentLifecycleBlockerRows(
+  blockerIds: readonly string[],
+): ReadonlyArray<{
+  readonly id: string;
+  readonly label: string;
+  readonly memberIds?: readonly string[];
+}> {
+  const rows: Array<{
+    id: string;
+    label: string;
+    memberIds?: readonly string[];
+  }> = [];
+  const applicabilityMembers: string[] = [];
+  for (const id of blockerIds) {
+    if (APPLICABILITY_UNKNOWN_BLOCKERS.has(id)) {
+      applicabilityMembers.push(id);
+      continue;
+    }
+    rows.push({ id, label: blockerLabel(id) });
+  }
+  if (applicabilityMembers.length > 0) {
+    rows.unshift({
+      id: "governed_effects_applicability_group",
+      label: blockerLabel("governed_effects_applicability_group"),
+      memberIds: applicabilityMembers,
+    });
+  }
+  return rows;
 }
 
 export function obligationStatusLabel(o: FinalizationObligation): string {

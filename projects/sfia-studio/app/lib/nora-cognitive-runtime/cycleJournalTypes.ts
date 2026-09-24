@@ -26,8 +26,14 @@ export type CycleJournalEntry = {
   readonly journalEntryId: string;
   readonly projectId: string;
   readonly cycleInstanceId: string;
+  /** Stable Pilot-facing topic number within the cycle (1-based). Never renumbered. */
+  readonly topicOrdinal: number;
   readonly title: string;
   readonly currentSummary: string;
+  /** Settled navigable points for this subject (projection only). */
+  readonly stabilizedPoints: readonly string[];
+  /** Still-open navigable points for this subject (projection only). */
+  readonly openPoints: readonly string[];
   readonly status: CycleJournalEntryStatus;
   readonly createdAt: string;
   readonly updatedAt: string;
@@ -45,6 +51,9 @@ export type NoraJournalDeltaOperation = {
   readonly targetEntryId: string | null;
   readonly title: string | null;
   readonly currentSummary: string | null;
+  /** Optional — null/omit keeps or defaults empty; UPDATE replaces when provided. */
+  readonly stabilizedPoints?: readonly string[] | null;
+  readonly openPoints?: readonly string[] | null;
   /** Additional source turn ids to attach (server also binds current turn). */
   readonly sourceTurnRefs: readonly string[];
   /** MERGE: ids absorbed into target; SPLIT: sibling titles optional via title. */
@@ -57,12 +66,17 @@ export type NoraJournalDelta = {
 
 export type CycleJournalCompactProjection = {
   readonly cycleInstanceId: string;
+  readonly currentTopicEntryId: string | null;
   readonly entries: readonly {
     readonly journalEntryId: string;
+    readonly topicOrdinal: number;
     readonly title: string;
     readonly currentSummary: string;
+    readonly stabilizedPoints: readonly string[];
+    readonly openPoints: readonly string[];
     readonly status: CycleJournalEntryStatus;
     readonly sourceTurnCount: number;
     readonly updatedAt: string;
+    readonly isCurrentTopic: boolean;
   }[];
 };

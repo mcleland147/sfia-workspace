@@ -768,6 +768,7 @@ async function f2ConversationalSuccess(input: {
     sessionDbPath: input.sessionDbPath,
     userText: input.userText,
     assistantText: input.text,
+    cycleInstanceId: input.project.activeCycleInstanceId ?? null,
   });
   return f2Success(input);
 }

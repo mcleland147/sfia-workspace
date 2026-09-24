@@ -150,6 +150,9 @@ export class ProductSqliteSession implements Session {
         lineage_parent_ids_json TEXT NOT NULL,
         superseded_by_id TEXT,
         last_logical_turn_id TEXT,
+        topic_ordinal INTEGER,
+        stabilized_points_json TEXT NOT NULL DEFAULT '[]',
+        open_points_json TEXT NOT NULL DEFAULT '[]',
         PRIMARY KEY (project_id, session_key, journal_entry_id)
       );
       CREATE INDEX IF NOT EXISTS cycle_journal_cycle_idx
@@ -165,6 +168,78 @@ export class ProductSqliteSession implements Session {
         PRIMARY KEY (project_id, session_key, logical_turn_id, op_index)
       );
     `);
+    this.ensureCycleJournalRichColumns();
+  }
+
+  /**
+   * Backwards-compatible ALTER for #516 DBs opened after pilotability lot.
+   * Idempotent: ignore duplicate-column errors; deterministic ordinal backfill.
+   */
+  private ensureCycleJournalRichColumns(): void {
+    const addColumn = (sql: string) => {
+      try {
+        this.db.exec(sql);
+      } catch (error) {
+        const msg = error instanceof Error ? error.message : String(error);
+        if (!/duplicate column/i.test(msg)) throw error;
+      }
+    };
+    addColumn(
+      `ALTER TABLE cycle_journal_entries ADD COLUMN topic_ordinal INTEGER`,
+    );
+    addColumn(
+      `ALTER TABLE cycle_journal_entries ADD COLUMN stabilized_points_json TEXT NOT NULL DEFAULT '[]'`,
+    );
+    addColumn(
+      `ALTER TABLE cycle_journal_entries ADD COLUMN open_points_json TEXT NOT NULL DEFAULT '[]'`,
+    );
+    // Deterministic backfill: creation order + stable id tie-break; never renumber later.
+    const missing = this.db
+      .prepare(
+        `SELECT project_id, session_key, cycle_instance_id, journal_entry_id, created_at
+         FROM cycle_journal_entries
+         WHERE topic_ordinal IS NULL
+         ORDER BY project_id ASC, session_key ASC, cycle_instance_id ASC,
+                  created_at ASC, journal_entry_id ASC`,
+      )
+      .all() as Array<{
+      project_id: string;
+      session_key: string;
+      cycle_instance_id: string;
+      journal_entry_id: string;
+      created_at: string;
+    }>;
+    if (missing.length === 0) return;
+    const counters = new Map<string, number>();
+    const maxStmt = this.db.prepare(
+      `SELECT COALESCE(MAX(topic_ordinal), 0) AS m
+       FROM cycle_journal_entries
+       WHERE project_id = ? AND session_key = ? AND cycle_instance_id = ?`,
+    );
+    const update = this.db.prepare(
+      `UPDATE cycle_journal_entries
+       SET topic_ordinal = ?
+       WHERE project_id = ? AND session_key = ? AND journal_entry_id = ?`,
+    );
+    for (const row of missing) {
+      const key = `${row.project_id}\0${row.session_key}\0${row.cycle_instance_id}`;
+      if (!counters.has(key)) {
+        const maxRow = maxStmt.get(
+          row.project_id,
+          row.session_key,
+          row.cycle_instance_id,
+        ) as { m: number };
+        counters.set(key, Number(maxRow.m) || 0);
+      }
+      const next = (counters.get(key) ?? 0) + 1;
+      counters.set(key, next);
+      update.run(
+        next,
+        row.project_id,
+        row.session_key,
+        row.journal_entry_id,
+      );
+    }
   }
 
   getLogicalProductTurnRetryBinding(

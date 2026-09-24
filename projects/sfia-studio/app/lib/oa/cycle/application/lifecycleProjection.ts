@@ -35,6 +35,8 @@ export type PilotLifecycleProjection = {
   selectedCycleInstanceId: string | null;
   selectedStatus: CycleInstanceStatus | null;
   selectionAmbiguous: boolean;
+  /** Catalog label for selected/active cycle (server-resolved; client must not import catalog). */
+  selectedCycleCatalogLabel?: string | null;
   assessment?: FinalizationAssessment | null;
   cta: {
     canStart: boolean;

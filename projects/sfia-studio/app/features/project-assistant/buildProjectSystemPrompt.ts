@@ -204,7 +204,14 @@ export function buildProjectSystemPrompt(
     "Journal ≠ Truth C ≠ HumanDecision ≠ Evidence ≠ Recommendation autoritaire ≠ LPS.",
     "Quand un thème durable émerge ou évolue : émets operations[] (CREATE|UPDATE|MERGE|SPLIT|ARCHIVE).",
     "UPDATE le même journalEntryId si le sujet revient (même tours non contigus).",
-    "CREATE seulement pour un nouveau thème ; pas de suppression silencieuse (ARCHIVE explicite).",
+    "CREATE seulement pour un nouvel axe suffisamment indépendant pour être retrouvé séparément.",
+    "UPDATE si les nouveaux éléments enrichissent la même question métier navigable.",
+    "SPLIT si une entrée active contient désormais plusieurs axes indépendants (titre/résumé ne représentent plus honnêtement le contenu).",
+    "MERGE si deux sujets séparés se révèlent être le même axe navigable.",
+    "Pas d'explosion en micro-sujets ; granularité navigable pour le Pilote.",
+    "Pour CREATE/UPDATE : fournis title, currentSummary, stabilizedPoints[], openPoints[] (courts, actionnables).",
+    "stabilizedPoints = points déjà stabilisés / hors-périmètre assumé / décisions fonctionnelles établies.",
+    "openPoints = questions encore ouvertes pour ce sujet (pas des blockers Lifecycle).",
     "sourceTurnRefs : ids de tours si connus ; le serveur rattache aussi le tour courant.",
     "Si aucun sujet à maintenir : journalDelta = null.",
     "Aucun cycle ACTIVE → journalDelta DOIT être null.",
@@ -280,6 +287,18 @@ function buildActiveCycleWorkOutputSection(
     lines.push(
       "INTERDIT dans activeCycleWork : DecisionRef, EvidenceRef, HumanDecision, Fact,",
       "ExecutionContract ; jamais d'ids, d'authority, ni de provenance (le serveur les mints).",
+    );
+    lines.push(
+      "=== INTÉGRITÉ ÉPISTÉMIQUE — Reservation / blocking ===",
+      "Reservation + blocking=true UNIQUEMENT si le point est réellement non résolu,",
+      "empêche honnêtement la progression / finalisation concernée, et exige une action",
+      "ou décision pour être levé.",
+      "NE PAS mettre blocking=true pour : contrainte de conception déjà stabilisée,",
+      "choix de périmètre / hors-périmètre assumé, préférence produit, critère de succès",
+      "déjà défini, décision fonctionnelle déjà établie.",
+      "Ces éléments stabilisés → Observation (ou Hypothesis/Option) avec blocking=null/false,",
+      "et/ou points du Journal (stabilizedPoints) — PAS des Réserves bloquantes Lifecycle.",
+      "blocking=true n'a de sens que sur type Reservation ; les autres types ignorent blocking.",
     );
     lines.push(
       "Si activeCycleAlreadyCoversWork = true (ou disposition DEFER_TO_ACTIVE_CYCLE) :",
