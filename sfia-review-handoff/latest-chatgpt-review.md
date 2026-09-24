@@ -3852,8 +3852,9 @@ Diffs complets disponibles via `git diff` sur working tree (non commités).
 
 - branch: `sfia/review-handoff`
 - file: `sfia-review-handoff/latest-chatgpt-review.md`
-- commit: (filled after)
-- remote SHA: (filled after)
+- commit: `5f512a29d6cbc7b6de51d727bfd918f972ef0c0c`
+- remote SHA: `5f512a29d6cbc7b6de51d727bfd918f972ef0c0c`
+- verified: remote head == local handoff commit; mono-fichier; cycle/branche/HEAD cohérents
 
 ---
 
