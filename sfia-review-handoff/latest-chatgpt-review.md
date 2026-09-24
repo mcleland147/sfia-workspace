@@ -1,19 +1,19 @@
 # SFIA Studio — Review Pack FULL
 ## PILOTABILITY & JOURNAL SEMANTIC INTEGRITY
 
-- **timestamp**: `2026-09-24T19:46:18+02:00` (Europe/Paris)
-- **cycle**: macro-lot construction / EVOL
+- **timestamp**: `2026-09-24T20:48:30+02:00` (Europe/Paris) — SAME-MACRO EVIDENCE COMPLETION update
+- **cycle**: macro-lot Delivery / EVOL — SAME-MACRO EVIDENCE COMPLETION (Track A live)
 - **profil SFIA**: Critical
-- **GO Morris**: CONSUMED — construction locale + Review Pack + Handoff L3
+- **GO Morris**: CONSUMED — live mid-session proof + bornée Track A F2 transcript fix + Review Pack + Handoff L3
 - **NON autorisé ce cycle**: commit/push/PR/merge produit ; convergence/** ; doctrine v3 ; runtime v3 ADOPTED
 - **branche**: `feat/sfia-studio-pilotability-journal-integrity-01` @ `dc462d9f` (= origin/main tip, uncommitted WIP)
 - **base / origin/main**: `dc462d9f43661fb63f222f37691e80efb8650157` (PR #516 INTEGRATED)
 - **runtime v3**: **NON ADOPTED**
-- **Fake/Real**: DETERMINISTIC PRODUCT PROOF + local browser MealFlow reopen. REAL Journal semantic quality **NOT PROVEN**. DETERMINISTIC PROVEN ≠ READY FOR REAL.
+- **Fake/Real**: DETERMINISTIC PRODUCT PROOF + LOCAL RUNTIME USER-FLOW PROOF (MealFlow mid-session, no reload). REAL Journal semantic quality **NOT PROVEN**. ≠ READY FOR REAL.
 
 ## Verdict
 
-**READY FOR MACRO PR READINESS**
+**PILOTABILITY & JOURNAL SEMANTIC INTEGRITY — SAME-MACRO EVIDENCE COMPLETE — READY FOR MACRO PR READINESS**
 
 ---
 
@@ -144,33 +144,95 @@ Screenshots (`.tmp` only, never commit):
 
 ---
 
-## 10. Fake / Real
+## 10. LIVE MID-SESSION RUNTIME PROOF
 
-- Deterministic unit/UI + local authenticated browser reopen of MealFlow
+- **timestamp**: `2026-09-24T20:03→20:48 Europe/Paris`
+- **branche / HEAD base**: `feat/sfia-studio-pilotability-journal-integrity-01` @ `dc462d9f` (dirty WIP expected)
+- **runtime URL**: `http://localhost:3020/studio/projects/prj:7c3d2c3d-0b11-42d1-a01d-ffad41f402dd`
+- **projet**: MealFlow (existing)
+- **aucun reload** between send and Journal validation (same browser session; URL unchanged)
+
+### Discovery during proof
+
+1. First attempts (`LIVE-PROOF-…-A/B`) were routed to **F2 formalization** (`update_existing_project_topic` DECISION_REQUIRED). F2 persisted Memory B `session_items` only — **not** `pilot_transcript_turns` — so post-turn reconcile wiped local UI messages and Journal was not updated.
+2. **Same-macro Track A correction**: `persistCanonicalF2AssistantTurn` now also appends Pilote durable transcript turns (`canonicalConversationSession.ts` + `orchestrateF2.ts` pass `cycleInstanceId`).
+3. Soft framing continuation (`LIVE-PROOF-…-C/D`) routed **F1** → transcript + `journalDelta` UPDATE with new `pt:*` refs.
+
+### LIVE-01…08
+
+| ID | Result |
+| --- | --- |
+| LIVE-01 | **PASS** — new Pilote exchange in Journal sources immediately (`LIVE-PROOF-20260924-C`) |
+| LIVE-02 | **PASS** — Nora reply source present immediately |
+| LIVE-03 | **PASS** — labels `Pilote` / `Nora` |
+| LIVE-04 | **PASS** — human excerpts |
+| LIVE-05 | **PASS** — no nominal raw `pt:*` |
+| LIVE-06 | **PASS** — click Pilote source → transcript turn in view (`ConversationSurface_turnMine`, LIVE-C visible) |
+| LIVE-07 | **PASS** — click Nora source → Nora reply focused |
+| LIVE-08 | **PASS** — no reload/reopen |
+
+### Second turn (anti-fluke)
+
+| Marker | Result |
+| --- | --- |
+| `LIVE-PROOF-20260924-D` | **PASS** — transcript rows `pt:4ed1e255…` / `pt:067e155f…`; Journal UPDATE; Journal source preview `Pilote LIVE-PROOF-20260924-D…` + Nora; click navigates; still no reload |
+
+### Screenshots (`.tmp-sfia-review/pilotability-journal-integrity-proof/`)
+
+1. `live-mid-session-journal-preview-before-reload.png`
+2. `live-mid-session-journal-focus-before-reload.png`
+3. `live-mid-session-second-turn-before-reload.png`
+
+### Code touch (same macro only)
+
+- `app/features/project-assistant/f2/canonicalConversationSession.ts` — F2 persist also writes `pilot_transcript_turns`
+- `app/features/project-assistant/f2/orchestrateF2.ts` — pass `activeCycleInstanceId`
+
+### Tests rejoués after code change
+
+- `pilotabilityJournalIntegrity.d0` — 8 PASS
+- `cycleJournalSurface.ui` — 6 PASS
+- `automaticProjectResume.ui` — 4 PASS
+- `tsc --noEmit` — PASS
+- Prior full suite reference unchanged: **4580 / 137** (no full re-run required beyond targeted; material F2 seam covered by targeted + live proof)
+
+### Fake/Real (this proof)
+
+- **LOCAL RUNTIME USER-FLOW PROOF** (closes MealFlow live-before-reload anomaly)
+- **≠** REAL Journal semantic quality PROVEN
+- **≠** READY FOR REAL
+- **≠** runtime v3 ADOPTED
+
+---
+
+## 11. Fake / Real
+
+- Deterministic unit/UI + local MealFlow reopen (prior) + **live mid-session user-flow** (this update)
 - **≠** REAL provider Journal semantic quality campaign
 - **≠** READY FOR REAL
 
 ---
 
-## 11. Réserves / dette
+## 12. Réserves / dette
 
 1. **Existing MealFlow Reservation blocking=true** for stabilized/out-of-scope statements remain until Pilot resolve or a future reclassification GO — gate+prompt prevent *new* Observation-as-blocker and instruct Nora; no silent auto-resolve.
 2. **Legacy journal entries** have empty `stabilizedPoints`/`openPoints` until next CREATE/UPDATE with enriched delta.
-3. **Live mid-session reconcile** proven by code path + tests; browser proof used reopen (reload) where durable ids already match — mid-turn live proof deferred to PR readiness / usage.
+3. ~~Live mid-session reconcile deferred~~ — **CLOSED** by LIVE-01…08 + second-turn proof (this update).
 4. Roadmap tip still pre-#516 formally — truth-sync REQUIRED (below).
+5. F2 formalization still does not emit `journalDelta` (by design); Journal updates remain on F1/cognitive structured path. F2 now at least keeps Pilote transcript coherent for reconcile.
 
 ---
 
-## 12. ROADMAP TRUTH-SYNC
+## 13. ROADMAP TRUTH-SYNC
 
-- **REQUIRED**
+- **REQUIRED** (READ ONLY this cycle)
 - Sections: tip maintenance / Snapshot Git / Intégration Git / Nora programme / Product Experience continuity
-- Delta: #516 + this lot (pilotability integrity) INTEGRATED pending PR; ordinals/rich journal/epistemic blocking gate/Lifecycle Cadrage/grouped applicability/one-shot resume hint
+- Delta: #516 + this lot (pilotability integrity + live mid-session evidence + F2 pilot transcript seam) INTEGRATED pending PR
 - **Aucune modification appliquée** this cycle
 
 ---
 
-## 13. Décisions Morris encore nécessaires
+## 14. Décisions Morris encore nécessaires
 
 1. MACRO PR READINESS GO (commit/push/PR) — next
 2. Optional Roadmap truth-sync GO
@@ -179,7 +241,7 @@ Screenshots (`.tmp` only, never commit):
 
 ---
 
-## 14. Anti-claims
+## 15. Anti-claims
 
 - NOT runtime v3 ADOPTED
 - NOT Product Completion COMPLETE
