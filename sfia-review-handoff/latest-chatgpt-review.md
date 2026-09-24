@@ -1,92 +1,40 @@
-# SFIA Studio Review Pack — CYCLE JOURNAL & PILOT CONVERSATION CONTINUITY
+# SFIA Studio — Review Pack FULL
+## CYCLE JOURNAL & PILOT CONVERSATION CONTINUITY — SAME-MACRO CORRECTION CR-CJ-01…06
 
-## Meta
-- **Timestamp republish**: 2026-09-24 16:00:00 CEST (+0200)
-- **Cycle**: CYCLE JOURNAL & PILOT CONVERSATION CONTINUITY
-- **Profil SFIA**: Critical
-- **Type**: 8 — Delivery / implémentation · Typologie EVOL
-- **Milestone**: Post-#515 manual product usage — long-cycle pilotability / conversation continuity completion
-- **Objectif**: Transcript Pilote restart-visible + Journal du cycle (CREATE/UPDATE/MERGE/SPLIT/ARCHIVE) + Option A desktop (Journal gauche / conversation / pilotage) + contexte Journal compact Nora same-turn — Journal ≠ Truth C/HD/Evidence/Recommendation
-- **Republish reason**: contenu intégral des 7 fichiers créés + diffs exploitables des fichiers modifiés significatifs (reviewability ChatGPT)
+- **timestamp**: `2026-09-24T16:29:59+02:00` (Europe/Paris local)
+- **cycle**: 8 — Delivery / implémentation
+- **profil SFIA**: Critical
+- **typologie**: EVOL / SAME-MACRO CORRECTION
+- **GO correction**: CONSUMED (Morris — conversation courante)
+- **branche projet**: `feat/sfia-studio-cycle-journal-continuity-01`
+- **HEAD projet**: `aad8bc8456b3a64d37be4e12f969f09da5467c09`
+- **base attendue / origin/main**: `aad8bc8456b3a64d37be4e12f969f09da5467c09`
+- **source handoff précédente**: `f0deee096a8e1f5fc469a60393f3fa239e26b4cd` (`sfia/review-handoff`)
+- **commit projet**: AUCUN (interdit par GO)
+- **push/PR/merge projet**: AUCUN
+- **runtime v3**: NON ADOPTED
+- **Fake/Real**: DETERMINISTIC PRODUCT PROOF + local browser runtime. REAL Journal semantic quality NOT PROVEN. DETERMINISTIC PROVEN ≠ READY FOR REAL.
 
-## Décision Morris consommée
-- GO construction de ce slice : **CONSUMED**
-- Arbitrage UX sans Figma/Penpot · Option A desktop : **CONSUMED**
-- Push projet / PR / merge : **NOT AUTHORIZED**
-- REAL provider campaign : **NOT AUTHORIZED**
-- Modification Build Doctrine / framing / baseline : **NOT AUTHORIZED**
-- Republish handoff L3 (contenu exploitable) : **AUTHORIZED by this message**
+## Verdict
 
-## Local Git Truth Check
-- workspace: `mcleland147/sfia-workspace`
-- branche projet: `feat/sfia-studio-cycle-journal-continuity-01`
-- HEAD / origin/main: `aad8bc8456b3a64d37be4e12f969f09da5467c09` (alignés)
-- staged: aucun
-- working tree: modifications locales non commitées (aucun commit projet)
-- handoff précédent: `e103ea5d36901de379b234999706688f4ffa841a` (sera remplacé par ce republish)
+**READY FOR PR READINESS**
 
-## Sources consultées (obligatoires)
-1. `convergence/sfia-studio-convergence-build-doctrine.md` (READ)
-2. `convergence/sfia-studio-convergence-roadmap.md` (READ ONLY — non modifié)
-3. `product-completion/01-product-completion-cadrage.md`
-4. `product-completion/ux-product-experience/01-experience-architecture.md`
-5. `product-completion/ux-product-experience/02-end-to-end-wireframes-interaction-model.md`
-6–9. framing 30/32/33/35 (READ)
-10. `nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md`
-11. CKC delivery (guidance only)
-12–13. method + cycle-execution template (process)
-15–26. code paths ProductSqliteSession, canonicalConversationSession, memoryB, noraProductTurnOutputType, orchestrateTurn, useProductConversation, ConversationSurface, ProjectWorkspacePage, HistorySurface, RecoverySurface
+Tous les CR-CJ-01…06 sont CLOSED avec preuves déterministes et/ou runtime local.
 
-## Discovery & reuse map
-| Actif | Classification | Rôle |
-|---|---|---|
-| ProductSqliteSession | KEEP/ADAPT | Session SQLite ; tables transcript+journal ajoutées ; ≠ Truth C |
-| canonicalConversationSession | KEEP | sessionKey `f1-default` |
-| Memory B / compaction | KEEP | compaction session_items inchangée ; transcript append-only séparé |
-| Agents SDK structured Product turn | KEEP/ADAPT | `journalDelta` same-turn nullable required |
-| ConversationSurface / useProductConversation | ADAPT | rehydrate + focus turn |
-| ProjectWorkspacePage + CSS | ADAPT | Option A 3 zones |
-| HistorySurface | KEEP | historique factuel distinct du Journal |
-| LPS / Epistemic / HD / Evidence | KEEP | aucune mutation depuis Journal |
-| Nouveau store Journal | COMPLETE | `cycleJournalStore` / types / prompt |
+---
 
-**Seams critiques**
-- Memory B compaction peut supprimer `session_items` → transcript Pilote-facing dans `pilot_transcript_turns` (append-only, retry-safe).
-- Journal matérialisé via ledger `cycle_journal_mutation_ledger` (logical_turn_id + op_index).
-- Invalid `journalDelta` → null (fail-closed Journal) sans bloquer narrative.
+## 1. Local Git Truth Check
 
-## OpenAI Capability Fit Check (R22)
-- **Besoin**: delta Journal structuré au même rythme que le Product turn.
-- **État fournisseur**: Agents SDK + outputType JSON schema strict déjà en place.
-- **Disposition**: KEEP Agents · ADAPT Product turn (`journalDelta`) · COMBINE primitive OpenAI + métier SFIA · KEEP Session/Memory B · BUILD Journal persistence/UI · REJECT second summarizer / second model call.
-- **Verdict R22**: same-turn **possible et retenu** — aucun STOP Morris pour second appel.
+- Branch: `feat/sfia-studio-cycle-journal-continuity-01`
+- HEAD = base = origin/main = `aad8bc8456b3a64d37be4e12f969f09da5467c09`
+- Aucun commit projet du lot
+- Aucun staged
+- Working tree dirty = candidat Journal + correction CR (attendu)
 
-## Architecture delta retenue
-1. Tables Session: `pilot_transcript_turns`, `cycle_journal_entries`, `cycle_journal_mutation_ledger`.
-2. Product turn schema + normalize passthrough `journalDelta`.
-3. `orchestrateTurn`: inject compact Journal prompt ; post-turn append transcript + materialize delta (try/catch fail-closed).
-4. Server action `projectAssistantConversationContinuityAction` pour rehydrate UI.
-5. `JournalSurface` + layout Option A (≥1200px: 280 | 1fr | 380–400).
-6. Recovery wording conditionné par `transcriptAvailability`.
+### git status --short (candidat; hors artefacts proof/tmp non-candidats)
 
-## Invariants
-- Transcript = trace Pilote-facing durable (≠ Memory B compactée seule).
-- Journal = projection sémantique cycle-aware ; JAMAIS Truth C / HD / Evidence / Recommendation authority / LPS fact.
-- Retry: ledger + transcript append-once par (logicalTurnId, role).
-- Cycle isolation: queries filtrées par `cycleInstanceId`.
-- Source refs: `sourceTurnRefs` ordonnées/dédupliquées ; DOM `pilot-turn-{{turnId}}`.
-- Invalid journalDelta n'empêche pas la réponse conversationnelle.
-
-## Contrat visuel (pré-code, runtime existant)
-- Viewport desktop cible observé: 1440×900
-- Content max workspace: 1680px (`--pm6-content-max-workspace`)
-- Journal cible: 280px (`--pm6-journal-width`)
-- Pilotage: 380–400px
-- Conversation: `minmax(0,1fr)` dominante
-- Responsive: 3 colonnes ≥1200px ; <1200 Journal non forcé en 3 colonnes (stack / hide rail selon media)
-
-## git status --short (app)
 ```
+ M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw1.s01.honestMemoryB.d0.test.ts
  M projects/sfia-studio/app/__tests__/nora-cognitive-runtime/session.d0.test.ts
  M projects/sfia-studio/app/__tests__/nora-cognitive-runtime/sessionTruthC.d0.test.ts
@@ -99,6 +47,7 @@
  M projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
  M projects/sfia-studio/app/__tests__/project-assistant/mw3.cognitiveStop.panel.ux.d0.test.tsx
  M projects/sfia-studio/app/__tests__/project-assistant/mw3.correction.panel.ux.d0.test.tsx
+ M projects/sfia-studio/app/__tests__/project-assistant/orchestrateTurn.test.ts
  M projects/sfia-studio/app/__tests__/studio-projects/projectPrincipalAmend.test.tsx
  M projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.module.css
  M projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx
@@ -108,27 +57,33 @@
  M projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css
  M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
  M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/RecoverySurface.tsx
+ M projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
  M projects/sfia-studio/app/features/project-assistant/actions.ts
  M projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
  M projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
  M projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
+ M projects/sfia-studio/app/features/project-assistant/turnPayloadCanonical.ts
  M projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
  M projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
  M projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts
  M projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
  M projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
+ M projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
  M projects/sfia-studio/app/lib/nora-eval/mw1S01Observe.ts
+?? .tmp-sfia-review/cycle-journal-continuity-proof/
 ?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/cycleJournalContinuity.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/cycleJournalSurface.ui.test.tsx
 ?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.module.css
 ?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx
+?? projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalAgentsTools.ts
 ?? projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalPrompt.ts
 ?? projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalStore.ts
 ?? projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalTypes.ts
 ```
 
-## git diff --name-status (app tracked)
+### git diff --name-status
 ```
+M	.tmp-sfia-review/chatgpt-review.md
 M	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw1.s01.honestMemoryB.d0.test.ts
 M	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/session.d0.test.ts
 M	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/sessionTruthC.d0.test.ts
@@ -141,6 +96,7 @@ M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test
 M	projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
 M	projects/sfia-studio/app/__tests__/project-assistant/mw3.cognitiveStop.panel.ux.d0.test.tsx
 M	projects/sfia-studio/app/__tests__/project-assistant/mw3.correction.panel.ux.d0.test.tsx
+M	projects/sfia-studio/app/__tests__/project-assistant/orchestrateTurn.test.ts
 M	projects/sfia-studio/app/__tests__/studio-projects/projectPrincipalAmend.test.tsx
 M	projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.module.css
 M	projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx
@@ -150,20 +106,25 @@ M	projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversati
 M	projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css
 M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
 M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/RecoverySurface.tsx
+M	projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
 M	projects/sfia-studio/app/features/project-assistant/actions.ts
 M	projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
 M	projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
 M	projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
+M	projects/sfia-studio/app/features/project-assistant/turnPayloadCanonical.ts
 M	projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
 M	projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
 M	projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts
 M	projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
 M	projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
 M	projects/sfia-studio/app/lib/nora-eval/mw1S01Observe.ts
+
 ```
 
-## git diff --stat (app tracked)
+### git diff --stat
 ```
+ .tmp-sfia-review/chatgpt-review.md                 | 133 ---------------------
  .../mw1.s01.honestMemoryB.d0.test.ts               |   3 +
  .../nora-cognitive-runtime/session.d0.test.ts      |   3 +
  .../sessionTruthC.d0.test.ts                       |   3 +
@@ -176,42 +137,75 @@ M	projects/sfia-studio/app/lib/nora-eval/mw1S01Observe.ts
  .../ProjectAssistantPanel.test.tsx                 |   6 +
  .../mw3.cognitiveStop.panel.ux.d0.test.tsx         |   6 +
  .../mw3.correction.panel.ux.d0.test.tsx            |   6 +
+ .../project-assistant/orchestrateTurn.test.ts      |  85 +++++++++++--
  .../studio-projects/projectPrincipalAmend.test.tsx |   6 +
  .../pre-m6-product-ui/ProductShell.module.css      |   8 ++
  .../features/pre-m6-product-ui/ProductShell.tsx    |  16 ++-
- .../ProjectWorkspacePage.module.css                |  46 +++++++-
- .../pre-m6-product-ui/ProjectWorkspacePage.tsx     |  24 +++-
- .../hooks/useProductConversation.ts                |  89 ++++++++++++++
+ .../ProjectWorkspacePage.module.css                |  51 +++++++-
+ .../pre-m6-product-ui/ProjectWorkspacePage.tsx     |  26 +++-
+ .../hooks/useProductConversation.ts                | 111 ++++++++++++++++-
  .../features/pre-m6-product-ui/product-tokens.css  |   6 +-
  .../surfaces/ConversationSurface.tsx               |  17 ++-
  .../pre-m6-product-ui/surfaces/RecoverySurface.tsx |  23 +++-
- .../app/features/project-assistant/actions.ts      |  99 ++++++++++++++++
+ .../project-assistant/ProjectAssistantPanel.tsx    |  12 +-
+ .../app/features/project-assistant/actions.ts      |  99 +++++++++++++++
  .../project-assistant/buildProjectSystemPrompt.ts  |  22 +++-
- .../features/project-assistant/orchestrateTurn.ts  |  73 ++++++++++++
+ .../features/project-assistant/orchestrateTurn.ts  |  75 ++++++++++++
  .../project-assistant/presentationLabels.ts        |  19 ++-
- .../app/lib/nora-cognitive-runtime/index.ts        |  20 ++++
- .../noraProductTurnOutputType.ts                   | 129 +++++++++++++++++++++
+ .../project-assistant/turnPayloadCanonical.ts      |  49 +++++++-
+ .../app/lib/nora-cognitive-runtime/index.ts        |  26 ++++
+ .../noraProductTurnOutputType.ts                   | 129 ++++++++++++++++++++
  .../nora-cognitive-runtime/productSqliteSession.ts |  58 +++++++++
- .../nora-cognitive-runtime/providerAgentsModel.ts  |   2 +
- .../nora-cognitive-runtime/runNoraAgentsTurn.ts    |   1 +
+ .../nora-cognitive-runtime/providerAgentsModel.ts  |  12 ++
+ .../nora-cognitive-runtime/runNoraAgentsTurn.ts    |  25 +++-
+ .../nora-cognitive-runtime/runNoraCognitiveTurn.ts |  15 +++
  .../sfia-studio/app/lib/nora-eval/mw1S01Observe.ts |   3 +
- 31 files changed, 704 insertions(+), 20 deletions(-)
+ 36 files changed, 916 insertions(+), 173 deletions(-)
+
 ```
 
-## Inventaire 7 fichiers créés
-1. `projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalTypes.ts` (2276 bytes, 68 lines)
-2. `projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalStore.ts` (17446 bytes, 556 lines)
-3. `projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalPrompt.ts` (3254 bytes, 100 lines)
-4. `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx` (5270 bytes, 161 lines)
-5. `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.module.css` (3147 bytes, 179 lines)
-6. `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/cycleJournalContinuity.d0.test.ts` (17652 bytes, 599 lines)
-7. `projects/sfia-studio/app/__tests__/pre-m6-product-ui/cycleJournalSurface.ui.test.tsx` (2317 bytes, 69 lines)
+`git diff --check`: clean (aucun conflit whitespace bloquant).
 
 ---
 
-# CONTENU INTÉGRAL — 7 FICHIERS CRÉÉS
+## 2. Matrice CR → cause → fix → preuve
 
-## CREATED: `projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalTypes.ts`
+| CR | Cause | Fichiers | Fix | Preuve | Status |
+|----|-------|----------|-----|--------|--------|
+| CR-CJ-01 | `historyForRequest` réinjectait tout le transcript | `turnPayloadCanonical.ts`, `useProductConversation.ts`, `ProjectAssistantPanel.tsx`, `orchestrateTurn.ts` | Découplage visibleTranscript vs providerRecentHistory; borne **12 msgs / 8000 chars** client+serveur | normalize 160 msgs + orchestrateTurn spy 150 hostile msgs — OLD marker absent | CLOSED |
+| CR-CJ-02 | retrieval helper non câblé production | `cycleJournalAgentsTools.ts`, `runNoraAgentsTurn.ts`, `runNoraCognitiveTurn.ts`, `orchestrateTurn.ts`, `providerAgentsModel.ts` | Tools Agents READ-ONLY same-turn `cycle_journal_search/get_entry/get_sources` | tools.invoke + Fake skip CT projection; product path no UNKNOWN_TOOL | CLOSED |
+| CR-CJ-03 | compact max 24 coupe anciens sujets | `cycleJournalPrompt.ts`, `searchCycleJournalIndex`, tools | Working set 24 + index/search all-cycle; instruction BEFORE CREATE | 40 sujets; #1 hors compact; search+UPDATE même id | CLOSED |
+| CR-CJ-04 | Voir échanges → seul `sourceTurnRefs[0]` | `JournalSurface.tsx/.css`, hook, workspace | Liste cliquable de tous les refs; focus turn exact | UI test 6 refs non contigus; click pt:c/pt:f | CLOSED |
+| CR-CJ-05 | journal `display:none` 1025–1199 | `ProjectWorkspacePage.module.css` | stack `@media (max-width:1199px)` journal block | runtime 1440 3-zones; 1100 journal accessible; 390 stack | CLOSED |
+| CR-CJ-06 | refs/MERGE non validés | `cycleJournalStore.ts` materialize | fail-closed drop refs; reject self-merge/dup/wrong-cycle/archived UPDATE | adversarial tests | CLOSED |
+
+---
+
+## 3. Architecture corrective retenue
+
+KEEP: ProductSqliteSession, Memory B, Agents SDK, HistorySurface, LPS/HD/Evidence/Truth C.
+
+ADAPT:
+- providerRecentHistory borné (12/8k) server+client
+- Journal Agents tools same-turn (pas second model call)
+- working set compact + index/search
+- Journal UI multi-exchange
+- responsive <1200 stack
+- integrity fail-closed materialize
+
+COMPLETE: CR-CJ-01…06.
+
+REPLACE: aucun. Architecture parallèle: INTERDITE.
+
+### OpenAI Capability Fit Check — R22
+
+KEEP/ADAPT Agents tool seam. Journal tools attachés comme hosted web search: exécutés par Runner `tool.invoke`, pas via Control Tower. Fake adapter skip `cycle_journal_*` dans `toolDefinitionsFromModelRequest` (même pattern hosted). structured `journalDelta` inchangé same Product turn. Pas de second model call / vector DB / RAG.
+
+---
+
+## 4. Fichiers créés (contenu complet)
+
+### `projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalTypes.ts`
 
 ```typescript
 /**
@@ -285,7 +279,7 @@ export type CycleJournalCompactProjection = {
 
 ```
 
-## CREATED: `projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalStore.ts`
+### `projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalStore.ts`
 
 ```typescript
 /**
@@ -564,6 +558,64 @@ export function buildCycleJournalCompactProjection(
   });
 }
 
+/**
+ * Lightweight index over ALL cycle journal entries (CR-CJ-03).
+ * Metadata only — no full summaries dump by default.
+ */
+export function searchCycleJournalIndex(
+  session: ProductSqliteSession,
+  cycleInstanceId: string,
+  options?: {
+    query?: string;
+    includeNonActive?: boolean;
+    maxResults?: number;
+  },
+): ReadonlyArray<{
+  journalEntryId: string;
+  title: string;
+  status: CycleJournalEntryStatus;
+  sourceTurnCount: number;
+  updatedAt: string;
+  summaryPreview: string;
+}> {
+  const cycle = cycleInstanceId.trim();
+  if (!cycle) return [];
+  const q = (options?.query ?? "").trim().toLowerCase();
+  const includeNonActive = options?.includeNonActive === true;
+  const maxResults = Math.min(Math.max(options?.maxResults ?? 40, 1), 80);
+  let rows = listCycleJournalEntries(session, cycle);
+  if (!includeNonActive) {
+    rows = rows.filter((e) => e.status === "active");
+  }
+  if (q) {
+    rows = rows.filter(
+      (e) =>
+        e.title.toLowerCase().includes(q) ||
+        e.currentSummary.toLowerCase().includes(q) ||
+        e.journalEntryId.toLowerCase().includes(q),
+    );
+  }
+  // Prefer most recently updated when listing without query; keep all matches capped.
+  const sorted = [...rows].sort((a, b) =>
+    a.updatedAt < b.updatedAt ? 1 : a.updatedAt > b.updatedAt ? -1 : 0,
+  );
+  return Object.freeze(
+    sorted.slice(0, maxResults).map((e) =>
+      Object.freeze({
+        journalEntryId: e.journalEntryId,
+        title: e.title,
+        status: e.status,
+        sourceTurnCount: e.sourceTurnRefs.length,
+        updatedAt: e.updatedAt,
+        summaryPreview:
+          e.currentSummary.length > 120
+            ? `${e.currentSummary.slice(0, 120)}…`
+            : e.currentSummary,
+      }),
+    ),
+  );
+}
+
 export function retrievePilotTurnsByRefs(
   session: ProductSqliteSession,
   turnIds: readonly string[],
@@ -589,8 +641,45 @@ function mergeUniqueRefs(
 }
 
 /**
+ * CR-CJ-06 — keep only transcript turns that exist in this session and
+ * are not cross-cycle (null cycleInstanceId allowed as legacy/pre-cycle).
+ */
+export function filterValidSourceTurnRefs(
+  session: ProductSqliteSession,
+  cycleInstanceId: string,
+  candidateRefs: readonly string[],
+): { valid: string[]; dropped: string[] } {
+  const cycle = cycleInstanceId.trim();
+  const turns = listPilotTranscriptTurns(session);
+  const byId = new Map(turns.map((t) => [t.turnId, t]));
+  const valid: string[] = [];
+  const dropped: string[] = [];
+  const seen = new Set<string>();
+  for (const raw of candidateRefs) {
+    const id = raw.trim();
+    if (!id || seen.has(id)) {
+      if (id && seen.has(id)) continue;
+      if (!id) continue;
+    }
+    seen.add(id);
+    const t = byId.get(id);
+    if (!t) {
+      dropped.push(id);
+      continue;
+    }
+    if (t.cycleInstanceId && cycle && t.cycleInstanceId !== cycle) {
+      dropped.push(id);
+      continue;
+    }
+    valid.push(id);
+  }
+  return { valid, dropped };
+}
+
+/**
  * Apply structured journalDelta idempotently for a logical turn.
  * Fail-closed per-op: invalid op skipped; ledger prevents duplicate apply.
+ * CR-CJ-06: source refs / related IDs validated against session transcript + cycle.
  */
 export function materializeCycleJournalDelta(input: {
   session: ProductSqliteSession;
@@ -603,7 +692,9 @@ export function materializeCycleJournalDelta(input: {
   ok: boolean;
   applied: number;
   skippedDuplicate: number;
+  skippedInvalid: number;
   entryIds: string[];
+  droppedSourceRefs: string[];
   code: string | null;
 } {
   const { session } = input;
@@ -615,7 +706,9 @@ export function materializeCycleJournalDelta(input: {
       ok: false,
       applied: 0,
       skippedDuplicate: 0,
+      skippedInvalid: 0,
       entryIds: [],
+      droppedSourceRefs: [],
       code: "JOURNAL_CONTEXT_MISSING",
     };
   }
@@ -624,7 +717,9 @@ export function materializeCycleJournalDelta(input: {
       ok: true,
       applied: 0,
       skippedDuplicate: 0,
+      skippedInvalid: 0,
       entryIds: [],
+      droppedSourceRefs: [],
       code: null,
     };
   }
@@ -632,7 +727,9 @@ export function materializeCycleJournalDelta(input: {
   const now = input.nowIso ?? new Date().toISOString();
   let applied = 0;
   let skippedDuplicate = 0;
+  let skippedInvalid = 0;
   const entryIds: string[] = [];
+  const droppedSourceRefs: string[] = [];
 
   db.exec("BEGIN IMMEDIATE");
   try {
@@ -651,10 +748,13 @@ export function materializeCycleJournalDelta(input: {
         continue;
       }
 
-      const boundRefs = mergeUniqueRefs(
-        op.sourceTurnRefs ?? [],
-        input.boundSourceTurnIds,
+      const filtered = filterValidSourceTurnRefs(
+        session,
+        cycle,
+        mergeUniqueRefs(op.sourceTurnRefs ?? [], input.boundSourceTurnIds),
       );
+      droppedSourceRefs.push(...filtered.dropped);
+      const boundRefs = filtered.valid;
 
       let journalEntryId = op.targetEntryId?.trim() || "";
 
@@ -682,9 +782,13 @@ export function materializeCycleJournalDelta(input: {
           ltu,
         );
       } else if (op.op === "UPDATE") {
-        if (!journalEntryId) continue;
+        if (!journalEntryId) {
+          skippedInvalid += 1;
+          continue;
+        }
         const cur = getCycleJournalEntry(session, journalEntryId);
         if (!cur || cur.cycleInstanceId !== cycle || cur.status !== "active") {
+          skippedInvalid += 1;
           continue;
         }
         const title = (op.title?.trim() || cur.title).slice(0, 200);
@@ -708,30 +812,72 @@ export function materializeCycleJournalDelta(input: {
           journalEntryId,
         );
       } else if (op.op === "ARCHIVE") {
-        if (!journalEntryId) continue;
+        if (!journalEntryId) {
+          skippedInvalid += 1;
+          continue;
+        }
         const cur = getCycleJournalEntry(session, journalEntryId);
-        if (!cur || cur.cycleInstanceId !== cycle) continue;
+        // Only active → archived (never from merged/split).
+        if (!cur || cur.cycleInstanceId !== cycle || cur.status !== "active") {
+          skippedInvalid += 1;
+          continue;
+        }
         db.prepare(
           `UPDATE cycle_journal_entries
            SET status = 'archived', updated_at = ?, last_logical_turn_id = ?
            WHERE project_id = ? AND session_key = ? AND journal_entry_id = ?`,
         ).run(now, ltu, session.projectId, session.sessionKey, journalEntryId);
       } else if (op.op === "MERGE") {
-        const related = (op.relatedEntryIds ?? [])
+        const relatedRaw = (op.relatedEntryIds ?? [])
           .map((x: string) => x.trim())
           .filter(Boolean);
-        if (!journalEntryId || related.length === 0) continue;
+        const relatedSeen = new Set<string>();
+        const related: string[] = [];
+        for (const rid of relatedRaw) {
+          if (relatedSeen.has(rid)) continue;
+          relatedSeen.add(rid);
+          related.push(rid);
+        }
+        if (!journalEntryId || related.length === 0) {
+          skippedInvalid += 1;
+          continue;
+        }
+        if (related.includes(journalEntryId)) {
+          skippedInvalid += 1;
+          continue;
+        }
         const target = getCycleJournalEntry(session, journalEntryId);
-        if (!target || target.cycleInstanceId !== cycle || target.status !== "active") {
+        if (
+          !target ||
+          target.cycleInstanceId !== cycle ||
+          target.status !== "active"
+        ) {
+          skippedInvalid += 1;
+          continue;
+        }
+        const validRelated: string[] = [];
+        let relatedInvalid = false;
+        for (const rid of related) {
+          const src = getCycleJournalEntry(session, rid);
+          if (
+            !src ||
+            src.cycleInstanceId !== cycle ||
+            src.status !== "active"
+          ) {
+            relatedInvalid = true;
+            break;
+          }
+          validRelated.push(rid);
+        }
+        if (relatedInvalid || validRelated.length === 0) {
+          skippedInvalid += 1;
           continue;
         }
         let refs = [...target.sourceTurnRefs];
-        const parents = [...target.lineageParentIds];
-        for (const rid of related) {
-          const src = getCycleJournalEntry(session, rid);
-          if (!src || src.cycleInstanceId !== cycle) continue;
+        const parents = mergeUniqueRefs(target.lineageParentIds, validRelated);
+        for (const rid of validRelated) {
+          const src = getCycleJournalEntry(session, rid)!;
           refs = mergeUniqueRefs(refs, src.sourceTurnRefs);
-          parents.push(rid);
           db.prepare(
             `UPDATE cycle_journal_entries
              SET status = 'merged', superseded_by_id = ?, updated_at = ?,
@@ -769,9 +915,13 @@ export function materializeCycleJournalDelta(input: {
           journalEntryId,
         );
       } else if (op.op === "SPLIT") {
-        if (!journalEntryId) continue;
+        if (!journalEntryId) {
+          skippedInvalid += 1;
+          continue;
+        }
         const cur = getCycleJournalEntry(session, journalEntryId);
         if (!cur || cur.cycleInstanceId !== cycle || cur.status !== "active") {
+          skippedInvalid += 1;
           continue;
         }
         const siblingId = mintId("cje");
@@ -806,6 +956,7 @@ export function materializeCycleJournalDelta(input: {
         ).run(now, ltu, session.projectId, session.sessionKey, journalEntryId);
         journalEntryId = siblingId;
       } else {
+        skippedInvalid += 1;
         continue;
       }
 
@@ -840,14 +991,16 @@ export function materializeCycleJournalDelta(input: {
     ok: true,
     applied,
     skippedDuplicate,
+    skippedInvalid,
     entryIds,
+    droppedSourceRefs: [...new Set(droppedSourceRefs)],
     code: null,
   };
 }
 
 ```
 
-## CREATED: `projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalPrompt.ts`
+### `projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalPrompt.ts`
 
 ```typescript
 /**
@@ -894,6 +1047,10 @@ export function formatCycleJournalCompactForPrompt(
     "Si le sujet revient : UPDATE le même journalEntryId (même identité).",
     "CREATE seulement pour un nouveau thème ; MERGE/SPLIT/ARCHIVE explicites.",
     "N'invente pas d'ids ; targetEntryId = id listé ci-dessus ou null pour CREATE.",
+    "Working set borné : si le thème peut déjà exister hors de cette liste,",
+    "appelle d'abord l'outil cycle_journal_search (index du cycle) AVANT CREATE.",
+    "Pour le détail d'un sujet : cycle_journal_get_entry / cycle_journal_get_sources.",
+    "Ces outils relisent le transcript durable — ce n'est PAS Evidence / Truth C.",
     "",
   );
   return lines.join("\n");
@@ -953,11 +1110,236 @@ export function loadCycleJournalCompactForPrompt(
 
 ```
 
-## CREATED: `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx`
+### `projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalAgentsTools.ts`
 
-```tsx
+```typescript
+/**
+ * Cycle Journal Agents tools — READ-ONLY same-turn retrieval.
+ * Attached alongside SFIA route tools (like hosted web search).
+ * NEVER Truth C / HumanDecision / Evidence authority.
+ * Project/session/cycle bound server-side — model cannot switch projectId.
+ */
+import { tool } from "@openai/agents";
+import type { ProductSqliteSession } from "./productSqliteSession";
+import {
+  buildCycleJournalCompactProjection,
+  getCycleJournalEntry,
+  searchCycleJournalIndex,
+} from "./cycleJournalStore";
+import { retrieveJournalEntrySourceExcerpts } from "./cycleJournalPrompt";
+import type { NoraTurnBudget } from "./turnBudget";
+import {
+  TOOL_TURN_BUDGET_EXCEEDED_RESULT,
+  claimToolSlot,
+} from "./turnBudget";
+
+export type CycleJournalToolContext = {
+  readonly session: ProductSqliteSession;
+  readonly cycleInstanceId: string;
+  readonly budget?: NoraTurnBudget;
+};
+
+function requireCycle(ctx: CycleJournalToolContext): string | null {
+  const c = ctx.cycleInstanceId.trim();
+  return c || null;
+}
+
+/**
+ * Same-turn Journal tools for Nora Agents Runner.
+ * Bound to one ProductSqliteSession + cycleInstanceId.
+ */
+export function createCycleJournalAgentsTools(ctx: CycleJournalToolContext) {
+  const search = tool({
+    name: "cycle_journal_search",
+    description:
+      "Search the active Cycle Journal index (all subjects of this cycle, not only the compact working set). " +
+      "Use BEFORE CREATE when a theme may already exist. Returns bounded id/title/status metadata — never Evidence or Truth C.",
+    parameters: {
+      type: "object",
+      additionalProperties: false,
+      required: ["query"],
+      properties: {
+        query: {
+          type: "string",
+          description:
+            "Substring match on title/summary, or empty string to list recent index rows.",
+        },
+        includeNonActive: {
+          type: "boolean",
+          description: "When true, include archived/merged/split. Default false.",
+        },
+      },
+    } as never,
+    strict: false,
+    execute: async (args: unknown) => {
+      if (ctx.budget && !claimToolSlot(ctx.budget)) {
+        return TOOL_TURN_BUDGET_EXCEEDED_RESULT;
+      }
+      const cycle = requireCycle(ctx);
+      if (!cycle) {
+        return JSON.stringify({
+          ok: false,
+          code: "JOURNAL_CYCLE_REQUIRED",
+          entries: [],
+        });
+      }
+      const o =
+        args && typeof args === "object"
+          ? (args as Record<string, unknown>)
+          : {};
+      const query = typeof o.query === "string" ? o.query : "";
+      const includeNonActive = o.includeNonActive === true;
+      const entries = searchCycleJournalIndex(ctx.session, cycle, {
+        query,
+        includeNonActive,
+        maxResults: 40,
+      });
+      return JSON.stringify({
+        ok: true,
+        cycleInstanceId: cycle,
+        count: entries.length,
+        entries,
+        disclosure:
+          "Cycle Journal index only — projection, not Truth C / HumanDecision / Evidence.",
+      });
+    },
+  });
+
+  const getEntry = tool({
+    name: "cycle_journal_get_entry",
+    description:
+      "Fetch one Cycle Journal subject by journalEntryId (same cycle only). Use to recover an older subject before UPDATE.",
+    parameters: {
+      type: "object",
+      additionalProperties: false,
+      required: ["journalEntryId"],
+      properties: {
+        journalEntryId: { type: "string" },
+      },
+    } as never,
+    strict: false,
+    execute: async (args: unknown) => {
+      if (ctx.budget && !claimToolSlot(ctx.budget)) {
+        return TOOL_TURN_BUDGET_EXCEEDED_RESULT;
+      }
+      const cycle = requireCycle(ctx);
+      if (!cycle) {
+        return JSON.stringify({ ok: false, code: "JOURNAL_CYCLE_REQUIRED" });
+      }
+      const o =
+        args && typeof args === "object"
+          ? (args as Record<string, unknown>)
+          : {};
+      const id =
+        typeof o.journalEntryId === "string" ? o.journalEntryId.trim() : "";
+      if (!id) {
+        return JSON.stringify({ ok: false, code: "JOURNAL_ENTRY_ID_REQUIRED" });
+      }
+      const entry = getCycleJournalEntry(ctx.session, id);
+      if (!entry || entry.cycleInstanceId !== cycle) {
+        return JSON.stringify({
+          ok: false,
+          code: "JOURNAL_ENTRY_NOT_FOUND",
+          journalEntryId: id,
+        });
+      }
+      return JSON.stringify({
+        ok: true,
+        entry: {
+          journalEntryId: entry.journalEntryId,
+          title: entry.title,
+          currentSummary: entry.currentSummary,
+          status: entry.status,
+          sourceTurnCount: entry.sourceTurnRefs.length,
+          sourceTurnRefs: entry.sourceTurnRefs.slice(-12),
+          updatedAt: entry.updatedAt,
+        },
+        disclosure:
+          "Cycle Journal entry — projection only; not Evidence / Truth C.",
+      });
+    },
+  });
+
+  const getSources = tool({
+    name: "cycle_journal_get_sources",
+    description:
+      "Retrieve bounded Pilot transcript excerpts linked to a Journal subject. Use when the compact summary lacks needed detail. Not Evidence.",
+    parameters: {
+      type: "object",
+      additionalProperties: false,
+      required: ["journalEntryId"],
+      properties: {
+        journalEntryId: { type: "string" },
+      },
+    } as never,
+    strict: false,
+    execute: async (args: unknown) => {
+      if (ctx.budget && !claimToolSlot(ctx.budget)) {
+        return TOOL_TURN_BUDGET_EXCEEDED_RESULT;
+      }
+      const cycle = requireCycle(ctx);
+      if (!cycle) {
+        return JSON.stringify({ ok: false, code: "JOURNAL_CYCLE_REQUIRED" });
+      }
+      const o =
+        args && typeof args === "object"
+          ? (args as Record<string, unknown>)
+          : {};
+      const id =
+        typeof o.journalEntryId === "string" ? o.journalEntryId.trim() : "";
+      if (!id) {
+        return JSON.stringify({ ok: false, code: "JOURNAL_ENTRY_ID_REQUIRED" });
+      }
+      const entry = getCycleJournalEntry(ctx.session, id);
+      if (!entry || entry.cycleInstanceId !== cycle) {
+        return JSON.stringify({
+          ok: false,
+          code: "JOURNAL_ENTRY_NOT_FOUND",
+          journalEntryId: id,
+        });
+      }
+      const excerpts = retrieveJournalEntrySourceExcerpts(ctx.session, id);
+      return JSON.stringify({
+        ok: excerpts.ok,
+        journalEntryId: id,
+        title: entry.title,
+        excerpts: excerpts.excerpts,
+        code: excerpts.code,
+        disclosure:
+          "Pilot transcript excerpts only — not Evidence / Truth C / HumanDecision.",
+      });
+    },
+  });
+
+  return [search, getEntry, getSources];
+}
+
+/** Test helper — working-set vs full index sizes. */
+export function journalWorkingSetVsIndexSizes(
+  session: ProductSqliteSession,
+  cycleInstanceId: string,
+): { workingSet: number; indexActive: number } {
+  const working = buildCycleJournalCompactProjection(
+    session,
+    cycleInstanceId,
+    24,
+  );
+  const index = searchCycleJournalIndex(session, cycleInstanceId, {
+    query: "",
+    includeNonActive: false,
+    maxResults: 200,
+  });
+  return { workingSet: working.entries.length, indexActive: index.length };
+}
+
+```
+
+### `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx`
+
+```typescript
 "use client";
 
+import { useState } from "react";
 import styles from "./JournalSurface.module.css";
 
 export type JournalSurfaceEntry = {
@@ -970,12 +1352,23 @@ export type JournalSurfaceEntry = {
   sourceTurnCount: number;
 };
 
+export type JournalTranscriptMessage = {
+  id: string;
+  role: string;
+  content: string;
+};
+
 export type JournalSurfaceProps = {
   entries: JournalSurfaceEntry[];
   cycleInstanceId: string | null;
   selectedEntryId: string | null;
   onSelectEntry: (entryId: string) => void;
+  /** Expand linked-exchange index for a subject (does not alone scroll). */
   onViewExchanges: (entry: JournalSurfaceEntry) => void;
+  /** Focus/scroll to one exact transcript turn. */
+  onFocusTurn: (turnId: string) => void;
+  /** Visible transcript messages — used for short exchange previews. */
+  transcriptMessages?: JournalTranscriptMessage[];
   collapsed?: boolean;
   onToggleCollapsed?: () => void;
 };
@@ -995,6 +1388,27 @@ function statusLabel(status: string): string {
   }
 }
 
+function roleLabel(role: string): string {
+  if (role === "user") return "Pilote";
+  if (role === "assistant") return "Nora";
+  return role;
+}
+
+function previewFor(
+  turnId: string,
+  messages: JournalTranscriptMessage[] | undefined,
+): { role: string; excerpt: string } {
+  const msg = messages?.find((m) => m.id === turnId);
+  if (!msg) {
+    return { role: "échange", excerpt: turnId };
+  }
+  const excerpt =
+    msg.content.trim().length > 96
+      ? `${msg.content.trim().slice(0, 93)}…`
+      : msg.content.trim();
+  return { role: roleLabel(msg.role), excerpt: excerpt || "(vide)" };
+}
+
 /**
  * Cycle Journal rail — semantic projection only.
  * NEVER presented as Truth C / History durable / HumanDecision.
@@ -1005,11 +1419,14 @@ export function JournalSurface({
   selectedEntryId,
   onSelectEntry,
   onViewExchanges,
+  onFocusTurn,
+  transcriptMessages = [],
   collapsed = false,
   onToggleCollapsed,
 }: JournalSurfaceProps) {
   const safeEntries = Array.isArray(entries) ? entries : [];
   const activeCount = safeEntries.filter((e) => e.status === "active").length;
+  const [expandedEntryId, setExpandedEntryId] = useState<string | null>(null);
 
   return (
     <aside
@@ -1063,6 +1480,7 @@ export function JournalSurface({
           ) : (
             safeEntries.map((entry) => {
               const selected = selectedEntryId === entry.journalEntryId;
+              const expanded = expandedEntryId === entry.journalEntryId;
               return (
                 <article
                   key={entry.journalEntryId}
@@ -1103,10 +1521,48 @@ export function JournalSurface({
                       type="button"
                       className={styles.viewExchanges}
                       data-testid={`cycle-journal-view-${entry.journalEntryId}`}
-                      onClick={() => onViewExchanges(entry)}
+                      aria-expanded={expanded}
+                      aria-controls={`cycle-journal-exchanges-${entry.journalEntryId}`}
+                      onClick={() => {
+                        onViewExchanges(entry);
+                        setExpandedEntryId((prev) =>
+                          prev === entry.journalEntryId
+                            ? null
+                            : entry.journalEntryId,
+                        );
+                      }}
                     >
-                      Voir les échanges
+                      {expanded ? "Masquer les échanges" : "Voir les échanges"}
                     </button>
+                  ) : null}
+                  {expanded && entry.sourceTurnRefs.length > 0 ? (
+                    <ul
+                      id={`cycle-journal-exchanges-${entry.journalEntryId}`}
+                      className={styles.exchangeList}
+                      data-testid={`cycle-journal-exchanges-${entry.journalEntryId}`}
+                      aria-label={`Échanges liés — ${entry.title}`}
+                    >
+                      {entry.sourceTurnRefs.map((turnId, index) => {
+                        const preview = previewFor(turnId, transcriptMessages);
+                        return (
+                          <li key={`${turnId}-${index}`}>
+                            <button
+                              type="button"
+                              className={styles.exchangeItem}
+                              data-testid={`cycle-journal-exchange-${turnId}`}
+                              onClick={() => onFocusTurn(turnId)}
+                            >
+                              <span className={styles.exchangeRole}>
+                                {preview.role}
+                              </span>
+                              <span className={styles.exchangeExcerpt}>
+                                {preview.excerpt}
+                              </span>
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ul>
                   ) : null}
                 </article>
               );
@@ -1120,9 +1576,9 @@ export function JournalSurface({
 
 ```
 
-## CREATED: `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.module.css`
+### `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.module.css`
 
-```css
+```typescript
 .root {
   display: flex;
   flex-direction: column;
@@ -1303,9 +1759,56 @@ export function JournalSurface({
   border-radius: 2px;
 }
 
+.exchangeList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.exchangeItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  text-align: left;
+  border: 1px solid var(--pm6-border-soft);
+  border-radius: var(--pm6-radius-sm);
+  background: var(--pm6-canvas-raised);
+  padding: 6px 8px;
+  cursor: pointer;
+  color: inherit;
+}
+
+.exchangeItem:hover {
+  border-color: var(--pm6-forest);
+}
+
+.exchangeItem:focus-visible {
+  outline: none;
+  box-shadow: var(--pm6-focus-ring);
+}
+
+.exchangeRole {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--pm6-forest);
+}
+
+.exchangeExcerpt {
+  font-size: 0.76rem;
+  line-height: 1.4;
+  color: var(--pm6-ink-soft);
+  overflow-wrap: anywhere;
+}
+
 ```
 
-## CREATED: `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/cycleJournalContinuity.d0.test.ts`
+### `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/cycleJournalContinuity.d0.test.ts`
 
 ```typescript
 /**
@@ -1908,15 +2411,403 @@ describe("Journal ≠ Truth C / HD promotion", () => {
   });
 });
 
+describe("CR-CJ-01 providerRecentHistory bounds", () => {
+  it("bounds ≥150-message visible transcript; old content not injected", async () => {
+    const {
+      normalizeProductTurnHistory,
+      measureProductTurnHistoryBounds,
+      PRODUCT_TURN_MAX_HISTORY_MESSAGES,
+      PRODUCT_TURN_MAX_HISTORY_CHARS,
+    } = await import("@/features/project-assistant/turnPayloadCanonical");
+
+    const OLD = "UNIQUE_OLD_MARKER_CR_CJ_01_SHOULD_NOT_REACH_PROVIDER";
+    const visible: { role: "user" | "assistant"; content: string }[] = [];
+    for (let i = 0; i < 160; i += 1) {
+      visible.push({
+        role: i % 2 === 0 ? "user" : "assistant",
+        content: i === 0 ? OLD : `recent-turn-${i}`,
+      });
+    }
+    const providerRecent = normalizeProductTurnHistory(visible);
+    const bounds = measureProductTurnHistoryBounds(providerRecent);
+    expect(bounds.withinBounds).toBe(true);
+    expect(bounds.messageCount).toBeLessThanOrEqual(
+      PRODUCT_TURN_MAX_HISTORY_MESSAGES,
+    );
+    expect(bounds.totalChars).toBeLessThanOrEqual(
+      PRODUCT_TURN_MAX_HISTORY_CHARS,
+    );
+    expect(providerRecent.some((m) => m.content.includes(OLD))).toBe(false);
+    expect(providerRecent.some((m) => m.content.includes("recent-turn-159"))).toBe(
+      true,
+    );
+    expect(visible).toHaveLength(160);
+  });
+});
+
+describe("CR-CJ-02/03 Journal tools + >24 subject recovery", () => {
+  it("search index recovers subject #1 outside compact working set; UPDATE keeps id", async () => {
+    const s = tmpSession("proj-gt24");
+    const cycle = "cyc:gt24";
+    const ids: string[] = [];
+    for (let i = 0; i < 40; i += 1) {
+      const turn = appendPilotTranscriptTurn(s, {
+        role: "user",
+        content: `seed-${i}`,
+        logicalTurnId: `ltu:seed:${i}`,
+        cycleInstanceId: cycle,
+      });
+      const r = materializeCycleJournalDelta({
+        session: s,
+        cycleInstanceId: cycle,
+        logicalTurnId: `ltu:seed:${i}`,
+        boundSourceTurnIds: [turn.turnId],
+        delta: {
+          operations: [
+            {
+              op: "CREATE",
+              targetEntryId: null,
+              title: i === 0 ? "Sujet primordial unique" : `Sujet ${i}`,
+              currentSummary: i === 0 ? "summary-first" : `summary-${i}`,
+              sourceTurnRefs: [],
+              relatedEntryIds: [],
+            },
+          ],
+        },
+      });
+      ids.push(r.entryIds[0]!);
+    }
+    const firstId = ids[0]!;
+    const compact = buildCycleJournalCompactProjection(s, cycle, 24);
+    expect(compact.entries).toHaveLength(24);
+    expect(
+      compact.entries.some((e) => e.journalEntryId === firstId),
+    ).toBe(false);
+
+    const { searchCycleJournalIndex } = await import(
+      "@/lib/nora-cognitive-runtime/cycleJournalStore"
+    );
+    const { createCycleJournalAgentsTools } = await import(
+      "@/lib/nora-cognitive-runtime/cycleJournalAgentsTools"
+    );
+
+    const found = searchCycleJournalIndex(s, cycle, {
+      query: "primordial",
+      maxResults: 40,
+    });
+    expect(found.some((e) => e.journalEntryId === firstId)).toBe(true);
+
+    const tools = createCycleJournalAgentsTools({
+      session: s,
+      cycleInstanceId: cycle,
+    });
+    expect(tools.map((t) => t.name).sort()).toEqual([
+      "cycle_journal_get_entry",
+      "cycle_journal_get_sources",
+      "cycle_journal_search",
+    ]);
+    const { RunContext } = await import("@openai/agents");
+    const runCtx = new RunContext({});
+    const searchTool = tools.find((t) => t.name === "cycle_journal_search")!;
+    const searchRaw = await searchTool.invoke(
+      runCtx,
+      JSON.stringify({ query: "primordial" }),
+    );
+    const searchJson = JSON.parse(String(searchRaw)) as {
+      ok: boolean;
+      entries: { journalEntryId: string }[];
+    };
+    expect(searchJson.ok).toBe(true);
+    expect(
+      searchJson.entries.some((e) => e.journalEntryId === firstId),
+    ).toBe(true);
+
+    const getTool = tools.find((t) => t.name === "cycle_journal_get_entry")!;
+    const getRaw = await getTool.invoke(
+      runCtx,
+      JSON.stringify({ journalEntryId: firstId }),
+    );
+    const getJson = JSON.parse(String(getRaw)) as {
+      ok: boolean;
+      entry: { journalEntryId: string; title: string };
+    };
+    expect(getJson.ok).toBe(true);
+    expect(getJson.entry.journalEntryId).toBe(firstId);
+
+    const later = appendPilotTranscriptTurn(s, {
+      role: "user",
+      content: "revive first",
+      logicalTurnId: "ltu:revive",
+      cycleInstanceId: cycle,
+    });
+    materializeCycleJournalDelta({
+      session: s,
+      cycleInstanceId: cycle,
+      logicalTurnId: "ltu:revive",
+      boundSourceTurnIds: [later.turnId],
+      delta: {
+        operations: [
+          {
+            op: "UPDATE",
+            targetEntryId: firstId,
+            title: null,
+            currentSummary: "revived-after-search",
+            sourceTurnRefs: [],
+            relatedEntryIds: [],
+          },
+        ],
+      },
+    });
+    const active = listCycleJournalEntries(s, cycle).filter(
+      (e) => e.status === "active",
+    );
+    expect(active.filter((e) => e.title.includes("primordial")).length).toBe(1);
+    expect(
+      active.find((e) => e.journalEntryId === firstId)?.currentSummary,
+    ).toBe("revived-after-search");
+    s.close();
+  });
+});
+
+describe("CR-CJ-06 adversarial integrity", () => {
+  it("drops phantom/cross-cycle refs; rejects self-merge and bad relations", async () => {
+    const s = tmpSession("proj-adv");
+    const cycle = "cyc:adv";
+    const other = "cyc:other";
+    const tOk = appendPilotTranscriptTurn(s, {
+      role: "user",
+      content: "ok-turn",
+      logicalTurnId: "ltu:ok",
+      cycleInstanceId: cycle,
+    });
+    const tOther = appendPilotTranscriptTurn(s, {
+      role: "user",
+      content: "other-cycle",
+      logicalTurnId: "ltu:other",
+      cycleInstanceId: other,
+    });
+
+    const create = materializeCycleJournalDelta({
+      session: s,
+      cycleInstanceId: cycle,
+      logicalTurnId: "ltu:c1",
+      boundSourceTurnIds: [tOk.turnId],
+      delta: {
+        operations: [
+          {
+            op: "CREATE",
+            targetEntryId: null,
+            title: "A",
+            currentSummary: "a",
+            sourceTurnRefs: ["pt:phantom", tOther.turnId],
+            relatedEntryIds: [],
+          },
+          {
+            op: "CREATE",
+            targetEntryId: null,
+            title: "B",
+            currentSummary: "b",
+            sourceTurnRefs: [],
+            relatedEntryIds: [],
+          },
+        ],
+      },
+    });
+    expect(create.droppedSourceRefs).toEqual(
+      expect.arrayContaining(["pt:phantom", tOther.turnId]),
+    );
+    const [a, b] = listCycleJournalEntries(s, cycle);
+    expect(a!.sourceTurnRefs).toEqual([tOk.turnId]);
+    expect(a!.sourceTurnRefs).not.toContain("pt:phantom");
+    expect(a!.sourceTurnRefs).not.toContain(tOther.turnId);
+
+    const selfMerge = materializeCycleJournalDelta({
+      session: s,
+      cycleInstanceId: cycle,
+      logicalTurnId: "ltu:self",
+      boundSourceTurnIds: [],
+      delta: {
+        operations: [
+          {
+            op: "MERGE",
+            targetEntryId: a!.journalEntryId,
+            title: null,
+            currentSummary: null,
+            sourceTurnRefs: [],
+            relatedEntryIds: [a!.journalEntryId],
+          },
+        ],
+      },
+    });
+    expect(selfMerge.applied).toBe(0);
+    expect(selfMerge.skippedInvalid).toBe(1);
+    expect(listCycleJournalEntries(s, cycle).find((e) => e.journalEntryId === a!.journalEntryId)?.status).toBe(
+      "active",
+    );
+
+    const dupRelated = materializeCycleJournalDelta({
+      session: s,
+      cycleInstanceId: cycle,
+      logicalTurnId: "ltu:dup",
+      boundSourceTurnIds: [],
+      delta: {
+        operations: [
+          {
+            op: "MERGE",
+            targetEntryId: a!.journalEntryId,
+            title: "merged",
+            currentSummary: "m",
+            sourceTurnRefs: [],
+            relatedEntryIds: [b!.journalEntryId, b!.journalEntryId],
+          },
+        ],
+      },
+    });
+    expect(dupRelated.applied).toBe(1);
+    expect(
+      listCycleJournalEntries(s, cycle).find((e) => e.journalEntryId === b!.journalEntryId)
+        ?.status,
+    ).toBe("merged");
+
+    // Archive then UPDATE archived → skip
+    const cCreate = materializeCycleJournalDelta({
+      session: s,
+      cycleInstanceId: cycle,
+      logicalTurnId: "ltu:c3",
+      boundSourceTurnIds: [],
+      delta: {
+        operations: [
+          {
+            op: "CREATE",
+            targetEntryId: null,
+            title: "C",
+            currentSummary: "c",
+            sourceTurnRefs: [],
+            relatedEntryIds: [],
+          },
+        ],
+      },
+    });
+    const cId = cCreate.entryIds[0]!;
+    materializeCycleJournalDelta({
+      session: s,
+      cycleInstanceId: cycle,
+      logicalTurnId: "ltu:arch",
+      boundSourceTurnIds: [],
+      delta: {
+        operations: [
+          {
+            op: "ARCHIVE",
+            targetEntryId: cId,
+            title: null,
+            currentSummary: null,
+            sourceTurnRefs: [],
+            relatedEntryIds: [],
+          },
+        ],
+      },
+    });
+    const updArch = materializeCycleJournalDelta({
+      session: s,
+      cycleInstanceId: cycle,
+      logicalTurnId: "ltu:upd-arch",
+      boundSourceTurnIds: [],
+      delta: {
+        operations: [
+          {
+            op: "UPDATE",
+            targetEntryId: cId,
+            title: null,
+            currentSummary: "should-fail",
+            sourceTurnRefs: [],
+            relatedEntryIds: [],
+          },
+        ],
+      },
+    });
+    expect(updArch.applied).toBe(0);
+    expect(updArch.skippedInvalid).toBe(1);
+    expect(
+      listCycleJournalEntries(s, cycle).find((e) => e.journalEntryId === cId)
+        ?.currentSummary,
+    ).toBe("c");
+
+    // Idempotent retry of successful ARCHIVE
+    const retryArch = materializeCycleJournalDelta({
+      session: s,
+      cycleInstanceId: cycle,
+      logicalTurnId: "ltu:arch",
+      boundSourceTurnIds: [],
+      delta: {
+        operations: [
+          {
+            op: "ARCHIVE",
+            targetEntryId: cId,
+            title: null,
+            currentSummary: null,
+            sourceTurnRefs: [],
+            relatedEntryIds: [],
+          },
+        ],
+      },
+    });
+    expect(retryArch.skippedDuplicate).toBe(1);
+    expect(retryArch.applied).toBe(0);
+
+    // Missing related
+    const d = materializeCycleJournalDelta({
+      session: s,
+      cycleInstanceId: cycle,
+      logicalTurnId: "ltu:d",
+      boundSourceTurnIds: [],
+      delta: {
+        operations: [
+          {
+            op: "CREATE",
+            targetEntryId: null,
+            title: "D",
+            currentSummary: "d",
+            sourceTurnRefs: [],
+            relatedEntryIds: [],
+          },
+        ],
+      },
+    });
+    const missingRel = materializeCycleJournalDelta({
+      session: s,
+      cycleInstanceId: cycle,
+      logicalTurnId: "ltu:miss",
+      boundSourceTurnIds: [],
+      delta: {
+        operations: [
+          {
+            op: "MERGE",
+            targetEntryId: d.entryIds[0]!,
+            title: null,
+            currentSummary: null,
+            sourceTurnRefs: [],
+            relatedEntryIds: ["cje:does-not-exist"],
+          },
+        ],
+      },
+    });
+    expect(missingRel.skippedInvalid).toBe(1);
+    expect(missingRel.applied).toBe(0);
+    s.close();
+  });
+});
+
 ```
 
-## CREATED: `projects/sfia-studio/app/__tests__/pre-m6-product-ui/cycleJournalSurface.ui.test.tsx`
+### `projects/sfia-studio/app/__tests__/pre-m6-product-ui/cycleJournalSurface.ui.test.tsx`
 
-```tsx
+```typescript
 /** @vitest-environment jsdom */
 import { describe, expect, it } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import fs from "node:fs";
+import path from "node:path";
 import {
   JournalSurface,
   type JournalSurfaceEntry,
@@ -1931,16 +2822,26 @@ const sample: JournalSurfaceEntry[] = [
     currentSummary: "Clarifier le périmètre livrable",
     status: "active",
     updatedAt: "2026-09-24T12:00:00.000Z",
-    sourceTurnRefs: ["pt:a", "pt:b"],
-    sourceTurnCount: 2,
+    sourceTurnRefs: ["pt:a", "pt:b", "pt:c", "pt:d", "pt:e", "pt:f"],
+    sourceTurnCount: 6,
   },
 ];
 
+const transcript = [
+  { id: "pt:a", role: "user", content: "Premier échange périmètre" },
+  { id: "pt:b", role: "assistant", content: "Nora répond A" },
+  { id: "pt:c", role: "user", content: "Échange intermédiaire C" },
+  { id: "pt:d", role: "assistant", content: "Nora répond D" },
+  { id: "pt:e", role: "user", content: "Échange final E" },
+  { id: "pt:f", role: "assistant", content: "Nora répond F" },
+];
+
 describe("JournalSurface UI", () => {
-  it("renders journal entries and view exchanges action", async () => {
+  it("lists all linked exchanges and focuses exact turn (CR-CJ-04)", async () => {
     const user = userEvent.setup();
     let viewed: string | null = null;
     let selected: string | null = null;
+    let focused: string | null = null;
     render(
       <JournalSurface
         entries={sample}
@@ -1952,6 +2853,10 @@ describe("JournalSurface UI", () => {
         onViewExchanges={(e) => {
           viewed = e.journalEntryId;
         }}
+        onFocusTurn={(id) => {
+          focused = id;
+        }}
+        transcriptMessages={transcript}
       />,
     );
     expect(screen.getByTestId("cycle-journal-rail")).toBeTruthy();
@@ -1959,6 +2864,13 @@ describe("JournalSurface UI", () => {
     expect(screen.getByText("Périmètre")).toBeTruthy();
     await user.click(screen.getByTestId("cycle-journal-view-cje:1"));
     expect(viewed).toBe("cje:1");
+    const list = screen.getByTestId("cycle-journal-exchanges-cje:1");
+    expect(within(list).getAllByRole("button")).toHaveLength(6);
+    expect(within(list).getByText("Échange intermédiaire C")).toBeTruthy();
+    await user.click(screen.getByTestId("cycle-journal-exchange-pt:c"));
+    expect(focused).toBe("pt:c");
+    await user.click(screen.getByTestId("cycle-journal-exchange-pt:f"));
+    expect(focused).toBe("pt:f");
     await user.click(screen.getByText("Périmètre"));
     expect(selected).toBe("cje:1");
   });
@@ -1970,6 +2882,21 @@ describe("layout Option A CSS tokens", () => {
     expect(styles.layout).toBeTruthy();
     expect(styles.main).toBeTruthy();
     expect(styles.lpsColumn).toBeTruthy();
+  });
+
+  it("CR-CJ-05 — Journal accessible below 1200 (no 1025–1199 dead zone)", () => {
+    const cssPath = path.resolve(
+      __dirname,
+      "../../features/pre-m6-product-ui/ProjectWorkspacePage.module.css",
+    );
+    const css = fs.readFileSync(cssPath, "utf8");
+    expect(css).toMatch(/@media\s*\(\s*max-width:\s*1199px\s*\)/);
+    expect(css).toMatch(/@media\s*\(\s*min-width:\s*1200px\s*\)/);
+    // Mid-band must show journalColumn as block inside <1200 stack.
+    const stackBlock = css.match(
+      /@media\s*\(\s*max-width:\s*1199px\s*\)\s*\{([\s\S]*?)\n\}/,
+    );
+    expect(stackBlock?.[1]).toMatch(/\.journalColumn\s*\{[^}]*display:\s*block/);
   });
 });
 
@@ -1985,442 +2912,96 @@ describe("recovery transcript honesty", () => {
 
 ```
 
----
+## 5. Diffs significatifs (modifications)
 
-# DIFFS EXPLOITABLES — FICHIERS MODIFIÉS SIGNIFICATIFS
-
-Chaque bloc ci-dessous est le `git diff` intégral du fichier vs HEAD de la branche projet (base `aad8bc84…`).
-
-## MODIFIED (significant): `projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts`
+### `projects/sfia-studio/app/features/project-assistant/turnPayloadCanonical.ts`
 
 ```diff
-diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts
-index b91bb299..98f7492e 100644
---- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts
-+++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts
-@@ -51,6 +51,12 @@ export const PRODUCT_SESSION_ALLOWED_TABLES = [
-   "session_items",
-   "logical_product_turns",
-   "logical_product_turn_retry_bindings",
-+  /** Pilote-facing transcript — survives Memory B compaction. */
-+  "pilot_transcript_turns",
-+  /** Cycle Journal projection — NEVER Truth C / HD / Evidence. */
-+  "cycle_journal_entries",
-+  /** Idempotence ledger for journal mutations per logical turn. */
-+  "cycle_journal_mutation_ledger",
- ] as const;
- 
- /**
-@@ -80,6 +86,7 @@ export class ProductSqliteSession implements Session {
-       );
-     `);
-     this.ensureLogicalTurnSchema();
-+    this.ensurePilotTranscriptAndJournalSchema();
-   }
- 
-   /**
-@@ -109,6 +116,57 @@ export class ProductSqliteSession implements Session {
-     `);
-   }
- 
-+  /**
-+   * Pilot transcript + Cycle Journal — Session-adjacent, never Truth C.
-+   * Compaction of session_items MUST NOT touch these tables.
-+   */
-+  ensurePilotTranscriptAndJournalSchema(): void {
-+    this.db.exec(`
-+      CREATE TABLE IF NOT EXISTS pilot_transcript_turns (
-+        project_id TEXT NOT NULL,
-+        session_key TEXT NOT NULL,
-+        turn_id TEXT NOT NULL,
-+        seq INTEGER NOT NULL,
-+        role TEXT NOT NULL,
-+        content TEXT NOT NULL,
-+        created_at TEXT NOT NULL,
-+        logical_turn_id TEXT,
-+        cycle_instance_id TEXT,
-+        PRIMARY KEY (project_id, session_key, turn_id)
-+      );
-+      CREATE UNIQUE INDEX IF NOT EXISTS pilot_transcript_seq_uq
-+        ON pilot_transcript_turns(project_id, session_key, seq);
-+      CREATE TABLE IF NOT EXISTS cycle_journal_entries (
-+        project_id TEXT NOT NULL,
-+        session_key TEXT NOT NULL,
-+        journal_entry_id TEXT NOT NULL,
-+        cycle_instance_id TEXT NOT NULL,
-+        title TEXT NOT NULL,
-+        current_summary TEXT NOT NULL,
-+        status TEXT NOT NULL,
-+        created_at TEXT NOT NULL,
-+        updated_at TEXT NOT NULL,
-+        source_turn_refs_json TEXT NOT NULL,
-+        lineage_parent_ids_json TEXT NOT NULL,
-+        superseded_by_id TEXT,
-+        last_logical_turn_id TEXT,
-+        PRIMARY KEY (project_id, session_key, journal_entry_id)
-+      );
-+      CREATE INDEX IF NOT EXISTS cycle_journal_cycle_idx
-+        ON cycle_journal_entries(project_id, session_key, cycle_instance_id);
-+      CREATE TABLE IF NOT EXISTS cycle_journal_mutation_ledger (
-+        project_id TEXT NOT NULL,
-+        session_key TEXT NOT NULL,
-+        logical_turn_id TEXT NOT NULL,
-+        op_index INTEGER NOT NULL,
-+        op TEXT NOT NULL,
-+        journal_entry_id TEXT NOT NULL,
-+        created_at TEXT NOT NULL,
-+        PRIMARY KEY (project_id, session_key, logical_turn_id, op_index)
-+      );
-+    `);
-+  }
-+
-   getLogicalProductTurnRetryBinding(
-     retryKey: string,
-   ): LogicalProductTurnRetryBinding | null {
-
-```
-
-## MODIFIED (significant): `projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
-index d771f5d3..21383736 100644
---- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
-+++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
-@@ -252,8 +252,57 @@ export const CONVERSATION_GUIDANCE_HOLD_BOUNDARY: ConversationGuidance =
-  * - optional Lifecycle Recommendation candidate (nullable)
-  * - optional active-cycle work items (nullable; D-GF-ACW-01)
-  * - conversationGuidance (required; ephemeral continuation; non-authoritative)
-+ * - journalDelta (nullable; Cycle Journal projection — NEVER Truth C)
-  * Same Agents Runner — one model call — no prose parsing.
+diff --git a/projects/sfia-studio/app/features/project-assistant/turnPayloadCanonical.ts b/projects/sfia-studio/app/features/project-assistant/turnPayloadCanonical.ts
+index 9c257f39..1cf94ade 100644
+--- a/projects/sfia-studio/app/features/project-assistant/turnPayloadCanonical.ts
++++ b/projects/sfia-studio/app/features/project-assistant/turnPayloadCanonical.ts
+@@ -11,7 +11,9 @@
+  * Digest/payload is conflict detection ONLY — never Product turn identity.
   */
-+export const NORA_JOURNAL_DELTA_OPERATION_SCHEMA = {
-+  type: "object" as const,
-+  additionalProperties: false as const,
-+  required: [
-+    "op",
-+    "targetEntryId",
-+    "title",
-+    "currentSummary",
-+    "sourceTurnRefs",
-+    "relatedEntryIds",
-+  ],
-+  properties: {
-+    op: {
-+      type: "string" as const,
-+      enum: ["CREATE", "UPDATE", "MERGE", "SPLIT", "ARCHIVE"] as const,
-+    },
-+    targetEntryId: {
-+      anyOf: [{ type: "null" as const }, { type: "string" as const }],
-+    },
-+    title: {
-+      anyOf: [{ type: "null" as const }, { type: "string" as const }],
-+    },
-+    currentSummary: {
-+      anyOf: [{ type: "null" as const }, { type: "string" as const }],
-+    },
-+    sourceTurnRefs: {
-+      type: "array" as const,
-+      items: { type: "string" as const },
-+    },
-+    relatedEntryIds: {
-+      type: "array" as const,
-+      items: { type: "string" as const },
-+    },
-+  },
-+};
-+
-+export const NORA_JOURNAL_DELTA_SCHEMA = {
-+  type: "object" as const,
-+  additionalProperties: false as const,
-+  required: ["operations"],
-+  properties: {
-+    operations: {
-+      type: "array" as const,
-+      items: NORA_JOURNAL_DELTA_OPERATION_SCHEMA,
-+    },
-+  },
-+};
-+
- export const NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE = {
-   type: "json_schema" as const,
-   name: "nora_product_turn_with_optional_lr",
-@@ -267,6 +316,7 @@ export const NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE = {
-       "lifecycleRecommendation",
-       "activeCycleWork",
-       "conversationGuidance",
-+      "journalDelta",
-     ],
-     properties: {
-       narrative: { type: "string" as const },
-@@ -284,16 +334,34 @@ export const NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE = {
-         ],
-       },
-       conversationGuidance: CONVERSATION_GUIDANCE_SCHEMA,
-+      journalDelta: {
-+        anyOf: [{ type: "null" as const }, NORA_JOURNAL_DELTA_SCHEMA],
-+      },
-     },
-   },
+ 
+-export const PRODUCT_TURN_MAX_HISTORY_MESSAGES = 20;
++export const PRODUCT_TURN_MAX_HISTORY_MESSAGES = 12;
++/** Soft cap on total history content chars injected into the provider envelope. */
++export const PRODUCT_TURN_MAX_HISTORY_CHARS = 8000;
+ 
+ export type CanonicalHistoryMessage = {
+   readonly role: "user" | "assistant";
+@@ -34,11 +36,18 @@ export type PendingTurnRetryEnvelope = {
+   readonly history: readonly CanonicalHistoryMessage[];
  };
  
-+export type NoraJournalDeltaOperationStructured = {
-+  op: "CREATE" | "UPDATE" | "MERGE" | "SPLIT" | "ARCHIVE";
-+  targetEntryId: string | null;
-+  title: string | null;
-+  currentSummary: string | null;
-+  sourceTurnRefs: string[];
-+  relatedEntryIds: string[];
-+};
+-/** Normalize history exactly as the Product Assistant provider path does. */
++/**
++ * Normalize + bound provider-facing recent history (CR-CJ-01).
++ * Visible transcript may be longer; this function is the ONLY server/client
++ * path that shapes what the model receives as conversational history.
++ * - last N user/assistant messages
++ * - total content char budget
++ * - prefer keeping coherent trailing pairs when trimming by chars
++ */
+ export function normalizeProductTurnHistory(
+   history: readonly { role: string; content: string }[] | null | undefined,
+ ): CanonicalHistoryMessage[] {
+-  return (history ?? [])
++  const filtered = (history ?? [])
+     .filter(
+       (m) =>
+         (m.role === "user" || m.role === "assistant") &&
+@@ -50,6 +59,40 @@ export function normalizeProductTurnHistory(
+       content: m.content.trim(),
+     }))
+     .slice(-PRODUCT_TURN_MAX_HISTORY_MESSAGES);
 +
-+export type NoraJournalDeltaStructured = {
-+  operations: NoraJournalDeltaOperationStructured[];
-+};
++  let total = filtered.reduce((sum, m) => sum + m.content.length, 0);
++  if (total <= PRODUCT_TURN_MAX_HISTORY_CHARS) {
++    return filtered;
++  }
 +
- export type NoraProductTurnWithOptionalLr = {
-   narrative: string;
-   preCycleRoutingAssessment: PreCycleRoutingAssessment;
-   lifecycleRecommendation: NoraLifecycleRecommendationStructuredOutput | null;
-   activeCycleWork: NoraActiveCycleWorkOutput | null;
-   conversationGuidance: ConversationGuidance;
-+  /** Cycle Journal delta — projection only; null when no journal mutation. */
-+  journalDelta: NoraJournalDeltaStructured | null;
- };
- 
- export function isPreCycleRoutingAssessment(
-@@ -430,6 +498,11 @@ export type PreCycleRoutingBoundaryCoherenceResult = {
-   activeCycleWork: NoraActiveCycleWorkOutput | null;
-   /** Ephemeral conversational continuation (coherent with disposition). */
-   conversationGuidance: ConversationGuidance;
-+  /**
-+   * Cycle Journal delta passthrough — projection only.
-+   * Invalid / missing → null (fail-closed Journal; never blocks narrative).
-+   */
-+  journalDelta: NoraJournalDeltaStructured | null;
-   /** True when a candidate LR was stripped by boundary coherence. */
-   lifecycleRecommendationSuppressed: boolean;
-   suppressReason: string | null;
-@@ -672,12 +745,51 @@ export function composePilotFacingAssistantText(
-  * activeCycleWork is preserved on all return paths (passthrough).
-  * conversationGuidance: full-object fallback when incompatible (CR-NCI-01).
-  */
-+export function isNoraJournalDeltaOperationStructured(
-+  value: unknown,
-+): value is NoraJournalDeltaOperationStructured {
-+  if (!value || typeof value !== "object") return false;
-+  const o = value as Record<string, unknown>;
-+  if (
-+    o.op !== "CREATE" &&
-+    o.op !== "UPDATE" &&
-+    o.op !== "MERGE" &&
-+    o.op !== "SPLIT" &&
-+    o.op !== "ARCHIVE"
-+  ) {
-+    return false;
++  // Drop oldest messages until under char budget; keep at least the last message.
++  const bounded = [...filtered];
++  while (bounded.length > 1 && total > PRODUCT_TURN_MAX_HISTORY_CHARS) {
++    const removed = bounded.shift();
++    total -= removed?.content.length ?? 0;
 +  }
-+  if (o.targetEntryId != null && typeof o.targetEntryId !== "string") {
-+    return false;
++  if (bounded.length === 1 && bounded[0]!.content.length > PRODUCT_TURN_MAX_HISTORY_CHARS) {
++    bounded[0] = {
++      role: bounded[0]!.role,
++      content: bounded[0]!.content.slice(-PRODUCT_TURN_MAX_HISTORY_CHARS),
++    };
 +  }
-+  if (o.title != null && typeof o.title !== "string") return false;
-+  if (o.currentSummary != null && typeof o.currentSummary !== "string") {
-+    return false;
-+  }
-+  if (!Array.isArray(o.sourceTurnRefs)) return false;
-+  if (!o.sourceTurnRefs.every((x) => typeof x === "string")) return false;
-+  if (!Array.isArray(o.relatedEntryIds)) return false;
-+  if (!o.relatedEntryIds.every((x) => typeof x === "string")) return false;
-+  return true;
++  return bounded;
 +}
 +
-+export function isNoraJournalDeltaStructured(
-+  value: unknown,
-+): value is NoraJournalDeltaStructured {
-+  if (!value || typeof value !== "object") return false;
-+  const o = value as Record<string, unknown>;
-+  if (!Array.isArray(o.operations)) return false;
-+  return o.operations.every(isNoraJournalDeltaOperationStructured);
-+}
-+
- export function applyPreCycleRoutingBoundaryCoherence(input: {
-   narrative: string;
-   preCycleRoutingAssessment: PreCycleRoutingAssessment;
-   lifecycleRecommendation: NoraLifecycleRecommendationStructuredOutput | null;
-   activeCycleWork?: NoraActiveCycleWorkOutput | null;
-   conversationGuidance?: ConversationGuidance | null;
-+  /** Invalid delta coerced to null — never fails the Product turn. */
-+  journalDelta?: NoraJournalDeltaStructured | null;
-   cognitiveStop?: boolean;
-   /**
-    * Server-derived from selectCurrentLifecycleRecommendations + applicability.
-@@ -690,6 +802,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
-   );
-   const candidate = input.lifecycleRecommendation;
-   const activeCycleWork = input.activeCycleWork ?? null;
-+  const journalDelta = input.journalDelta ?? null;
-   const rawGuidance = parseConversationGuidanceOrFailClosed(
-     input.conversationGuidance ?? null,
-   );
-@@ -703,6 +816,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
-       | "conversationGuidance"
-       | "conversationGuidanceCoerced"
-       | "conversationGuidanceCoerceReason"
-+      | "journalDelta"
-     >,
-   ): PreCycleRoutingBoundaryCoherenceResult => {
-     const guided = applyConversationGuidanceCoherence({
-@@ -756,6 +870,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
- 
-     return {
-       ...partial,
-+      journalDelta,
-       lifecycleRecommendation,
-       lifecycleRecommendationSuppressed,
-       suppressReason,
-@@ -918,11 +1033,20 @@ export function normalizeNoraProductTurnStructuredOutput(
-     activeCycleWork = o.activeCycleWork;
-   }
- 
-+  // Journal fail-closed locally: invalid delta → null, turn still coherent.
-+  let journalDelta: NoraJournalDeltaStructured | null = null;
-+  if (o.journalDelta != null) {
-+    journalDelta = isNoraJournalDeltaStructured(o.journalDelta)
-+      ? o.journalDelta
-+      : null;
-+  }
-+
-   return applyPreCycleRoutingBoundaryCoherence({
-     narrative: o.narrative,
-     preCycleRoutingAssessment: assessment,
-     lifecycleRecommendation: lr,
-     activeCycleWork,
-+    journalDelta,
-     conversationGuidance: parseConversationGuidanceOrFailClosed(
-       o.conversationGuidance,
-     ),
-@@ -947,6 +1071,10 @@ export function isNoraProductTurnWithOptionalLr(
-     return false;
-   }
-   if (!isConversationGuidance(o.conversationGuidance)) return false;
-+  // Backward compat: missing journalDelta treated as null for fixtures.
-+  if (o.journalDelta != null && !isNoraJournalDeltaStructured(o.journalDelta)) {
-+    return false;
-+  }
-   if (o.lifecycleRecommendation === null) return true;
-   return isNoraLifecycleRecommendationStructuredOutput(
-     o.lifecycleRecommendation,
-@@ -965,5 +1093,6 @@ export function buildFailClosedProductTurnJson(narrative: string): string {
-     lifecycleRecommendation: null,
-     activeCycleWork: null,
-     conversationGuidance: { ...CONVERSATION_GUIDANCE_FAIL_CLOSED_HOLD },
-+    journalDelta: null,
-   });
++/** Observability helper for CR-CJ-01 proofs. */
++export function measureProductTurnHistoryBounds(
++  history: readonly CanonicalHistoryMessage[],
++): { messageCount: number; totalChars: number; withinBounds: boolean } {
++  const messageCount = history.length;
++  const totalChars = history.reduce((s, m) => s + m.content.length, 0);
++  return {
++    messageCount,
++    totalChars,
++    withinBounds:
++      messageCount <= PRODUCT_TURN_MAX_HISTORY_MESSAGES &&
++      totalChars <= PRODUCT_TURN_MAX_HISTORY_CHARS,
++  };
  }
+ 
+ export function buildCanonicalTurnPayload(
 
 ```
 
-## MODIFIED (significant): `projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
-index cbdde04d..187c9fac 100644
---- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
-+++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
-@@ -208,6 +208,7 @@ export function coercePlainTextToProductTurnJson(text: string): string {
-         preCycleRoutingAssessment: o.preCycleRoutingAssessment,
-         activeCycleWork: o.activeCycleWork ?? null,
-         conversationGuidance: o.conversationGuidance ?? null,
-+        journalDelta: o.journalDelta ?? null,
-       });
-       if (coherent) {
-         return JSON.stringify({
-@@ -216,6 +217,7 @@ export function coercePlainTextToProductTurnJson(text: string): string {
-           lifecycleRecommendation: coherent.lifecycleRecommendation,
-           activeCycleWork: coherent.activeCycleWork ?? null,
-           conversationGuidance: coherent.conversationGuidance,
-+          journalDelta: coherent.journalDelta ?? null,
-         });
-       }
-       return buildFailClosedProductTurnJson(String(o.narrative));
-
-```
-
-## MODIFIED (significant): `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
-index 208cd8a6..a8bd525f 100644
---- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
-+++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
-@@ -615,6 +615,7 @@ export async function runNoraAgentsTurn(
-                 lifecycleRecommendation: coherent.lifecycleRecommendation,
-                 activeCycleWork: coherent.activeCycleWork ?? null,
-                 conversationGuidance: coherent.conversationGuidance,
-+                journalDelta: coherent.journalDelta ?? null,
-               };
-             }
-           }
-
-```
-
-## MODIFIED (significant): `projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-index 3515c084..6492f341 100644
---- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-+++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-@@ -378,3 +378,23 @@ export {
-   normalizeOpenAiHostedWebSearchObservations,
- } from "./openaiHostedWebSearchAdapter";
- export type { NoraHostedWebSearchToolOptions } from "./openaiHostedWebSearchAdapter";
-+export type {
-+  CycleJournalEntry,
-+  CycleJournalCompactProjection,
-+  NoraJournalDelta,
-+  PilotTranscriptTurnRef,
-+} from "./cycleJournalTypes";
-+export {
-+  appendPilotTranscriptTurn,
-+  listPilotTranscriptTurns,
-+  listCycleJournalEntries,
-+  getCycleJournalEntry,
-+  buildCycleJournalCompactProjection,
-+  retrievePilotTurnsByRefs,
-+  materializeCycleJournalDelta,
-+} from "./cycleJournalStore";
-+export {
-+  formatCycleJournalCompactForPrompt,
-+  loadCycleJournalCompactForPrompt,
-+  retrieveJournalEntrySourceExcerpts,
-+} from "./cycleJournalPrompt";
-
-```
-
-## MODIFIED (significant): `projects/sfia-studio/app/lib/nora-eval/mw1S01Observe.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/nora-eval/mw1S01Observe.ts b/projects/sfia-studio/app/lib/nora-eval/mw1S01Observe.ts
-index ffcdcf02..f7db74e3 100644
---- a/projects/sfia-studio/app/lib/nora-eval/mw1S01Observe.ts
-+++ b/projects/sfia-studio/app/lib/nora-eval/mw1S01Observe.ts
-@@ -202,6 +202,9 @@ export async function observeMw1S01FromRuntime(): Promise<DeterministicObservati
-       "session_items",
-       "logical_product_turns",
-       "logical_product_turn_retry_bindings",
-+      "pilot_transcript_turns",
-+      "cycle_journal_entries",
-+      "cycle_journal_mutation_ledger",
-     ]);
-     let sessionNeqTruthC = truthUnchanged;
-     if (fs.existsSync(sessionDbPath)) {
-
-```
-
-## MODIFIED (significant): `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`
+### `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-index 0f6b6ce5..668e289a 100644
+index 0f6b6ce5..1755cb34 100644
 --- a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
 @@ -19,6 +19,12 @@ import {
@@ -2463,7 +3044,16 @@ index 0f6b6ce5..668e289a 100644
        }),
      },
      ...history.map((m) => ({ role: m.role, content: m.content })),
-@@ -1026,6 +1052,53 @@ export async function orchestrateProjectAssistantTurn(input: {
+@@ -388,6 +414,8 @@ export async function orchestrateProjectAssistantTurn(input: {
+       usdAccounting: input.usdAccounting,
+       campaignBudget: input.campaignBudget,
+       outputType: NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE,
++      cycleJournalCycleInstanceId:
++        input.studioCognitiveContext?.activeCycle?.cycleInstanceId ?? null,
+     });
+ 
+     let assistantText = turn.text;
+@@ -1026,6 +1054,53 @@ export async function orchestrateProjectAssistantTurn(input: {
          coherentEarly.conversationGuidance,
        );
      }
@@ -2520,234 +3110,163 @@ index 0f6b6ce5..668e289a 100644
 
 ```
 
-## MODIFIED (significant): `projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts`
+### `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts`
 
 ```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts b/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
-index a49c45d8..b996d4a1 100644
---- a/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
-@@ -32,6 +32,11 @@ export function buildProjectSystemPrompt(
-      * When present, supersedes methodContext for method + state sections.
-      */
-     studioCognitiveContext?: StudioCognitiveContext | null;
-+    /**
-+     * CYCLE JOURNAL — compact projection for active cycle (never Truth C).
-+     * Pre-formatted prompt section; null/empty → omit.
-+     */
-+    cycleJournalCompactSection?: string | null;
-   },
- ): string {
-   const constraints =
-@@ -53,6 +58,10 @@ export function buildProjectSystemPrompt(
-     ? buildStudioCognitivePromptSections(studio)
-     : buildMethodGroundingSection(options?.methodContext ?? null);
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
+index 208cd8a6..d07acc73 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
+@@ -40,6 +40,10 @@ import {
+   normalizeNoraProductTurnStructuredOutput,
+ } from "./noraProductTurnOutputType";
+ import { createSfiaRouteToolAdapters } from "./sfiaAgentsTools";
++import {
++  createCycleJournalAgentsTools,
++  type CycleJournalToolContext,
++} from "./cycleJournalAgentsTools";
+ import type { MemoryBAvailability } from "./memoryBAvailability";
+ import {
+   createNoraTurnBudget,
+@@ -150,6 +154,11 @@ export type RunNoraAgentsTurnInput = {
+    * When set, finalOutput may be a structured object (candidate data only).
+    */
+   outputType?: AgentOutputType;
++  /**
++   * CYCLE JOURNAL — same-turn READ-ONLY tools bound to Product session + cycle.
++   * Never Truth C. Optional; omitted when no active cycle / session.
++   */
++  cycleJournalTools?: CycleJournalToolContext | null;
+ };
  
-+  const journalSection = options?.cycleJournalCompactSection?.trim()
-+    ? [options.cycleJournalCompactSection.trim(), ""]
-+    : [];
-+
-   return [
-     "Tu es Nora, partenaire de réflexion projet/produit du Project Workspace.",
-     "Périmètre : ANALYSE / CONVERSATION / CONSEIL / LECTURE SEULE.",
-@@ -95,6 +104,7 @@ export function buildProjectSystemPrompt(
-     "Vérité Project courante + doctrine Studio outrankent les prémisses conversationnelles obsolètes (sans réécrire l'historique).",
-     "Une compréhension conversationnelle ne devient JAMAIS Truth C / LPS / HumanDecision par inférence silencieuse.",
-     "",
-+    ...journalSection,
-     "=== FRONTIÈRE QUALIFICATION PRÉ-CYCLE → RECOMMANDATION DE CYCLE ===",
-     "Qualification pré-cycle ≠ Cadrage ≠ CycleInstance ≠ « Cycle 0 » ≠ workflow durable.",
-     "Elle sert UNIQUEMENT à déterminer honnêtement le prochain travail gouverné.",
-@@ -187,7 +197,17 @@ export function buildProjectSystemPrompt(
-     "statement : formulation naturelle Pilote (ex. « Je te propose maintenant de… ») ;",
-     "varie selon le contexte ; évite le label robotique « PROCHAINE ÉTAPE : ».",
-     "N'expose jamais les noms internes conversationGuidance / scope / preCycleRoutingAssessment /",
--    "activeCycleWork / LifecycleRecommendation / semanticKey / basisFingerprint / F1/F2/MW* dans le langage Pilote.",
-+    "activeCycleWork / journalDelta / LifecycleRecommendation / semanticKey / basisFingerprint / F1/F2/MW* dans le langage Pilote.",
-+    "",
-+    "=== SORTIE STRUCTURÉE journalDelta (Cycle Journal — même tour) ===",
-+    "Champ structuré journalDelta (nullable) — projection sémantique du cycle actif UNIQUEMENT.",
-+    "Journal ≠ Truth C ≠ HumanDecision ≠ Evidence ≠ Recommendation autoritaire ≠ LPS.",
-+    "Quand un thème durable émerge ou évolue : émets operations[] (CREATE|UPDATE|MERGE|SPLIT|ARCHIVE).",
-+    "UPDATE le même journalEntryId si le sujet revient (même tours non contigus).",
-+    "CREATE seulement pour un nouveau thème ; pas de suppression silencieuse (ARCHIVE explicite).",
-+    "sourceTurnRefs : ids de tours si connus ; le serveur rattache aussi le tour courant.",
-+    "Si aucun sujet à maintenir : journalDelta = null.",
-+    "Aucun cycle ACTIVE → journalDelta DOIT être null.",
-     "",
-     ...buildActiveCycleWorkOutputSection(studio),
-     "=== LIMITES D'AUTORITÉ (strict) ===",
+ export type RunNoraAgentsTurnHostedSearchObserve = {
+@@ -482,7 +491,20 @@ export async function runNoraAgentsTurn(
+   const hostedTool = enableHostedWebSearch
+     ? createNoraHostedWebSearchTool(input.hostedWebSearchToolOptions)
+     : null;
+-  const tools = hostedTool ? [...sfiaTools, hostedTool] : sfiaTools;
++  const journalTools =
++    input.cycleJournalTools &&
++    input.cycleJournalTools.cycleInstanceId.trim() &&
++    enableTools
++      ? createCycleJournalAgentsTools({
++          ...input.cycleJournalTools,
++          budget,
++        })
++      : [];
++  const tools = [
++    ...sfiaTools,
++    ...journalTools,
++    ...(hostedTool ? [hostedTool] : []),
++  ];
+ 
+   const agent = new Agent({
+     name: "NoraProjectAssistant",
+@@ -615,6 +637,7 @@ export async function runNoraAgentsTurn(
+                 lifecycleRecommendation: coherent.lifecycleRecommendation,
+                 activeCycleWork: coherent.activeCycleWork ?? null,
+                 conversationGuidance: coherent.conversationGuidance,
++                journalDelta: coherent.journalDelta ?? null,
+               };
+             }
+           }
 
 ```
 
-## MODIFIED (significant): `projects/sfia-studio/app/features/project-assistant/actions.ts`
+### `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts`
 
 ```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/actions.ts b/projects/sfia-studio/app/features/project-assistant/actions.ts
-index bb6a7321..510ac583 100644
---- a/projects/sfia-studio/app/features/project-assistant/actions.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/actions.ts
-@@ -987,6 +987,105 @@ export async function projectAssistantConfirmAndExecuteResolvedM3Action(input: {
-   };
- }
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
+index ac09a67f..82649cfc 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
+@@ -212,6 +212,11 @@ export type RunNoraCognitiveTurnInput = {
+    * Threaded identically on Memory-B available and unavailable paths.
+    */
+   outputType?: import("@openai/agents").AgentOutputType;
++  /**
++   * CYCLE JOURNAL — active cycle for same-turn Journal tools (READ-ONLY).
++   * Bound to ProductSqliteSession from Memory B probe when available.
++   */
++  cycleJournalCycleInstanceId?: string | null;
+ };
  
-+/**
-+ * CYCLE JOURNAL & PILOT TRANSCRIPT — restart-visible conversation continuity.
-+ * Session SQLite projection only — NEVER Truth C / HumanDecision / Evidence.
-+ */
-+export async function projectAssistantConversationContinuityAction(input: {
-+  projectId: string;
-+  cycleInstanceId?: string | null;
-+}): Promise<{
-+  ok: true;
-+  transcriptAvailability: "available" | "empty" | "unavailable";
-+  messages: { id: string; role: "user" | "assistant"; content: string }[];
-+  journal: {
-+    cycleInstanceId: string | null;
-+    entries: {
-+      journalEntryId: string;
-+      title: string;
-+      currentSummary: string;
-+      status: string;
-+      updatedAt: string;
-+      sourceTurnRefs: string[];
-+      sourceTurnCount: number;
-+    }[];
-+  };
-+} | {
-+  ok: false;
-+  transcriptAvailability: "unavailable";
-+  code: string;
-+  message: string;
-+}> {
-+  const projectId = input.projectId?.trim();
-+  if (!projectId) {
-+    return {
-+      ok: false,
-+      transcriptAvailability: "unavailable",
-+      code: "PROJECT_ID_REQUIRED",
-+      message: "Identifiant projet requis.",
-+    };
-+  }
-+  try {
-+    const { ProductSqliteSession, resolveNoraSessionSqlitePath } = await import(
-+      "@/lib/nora-cognitive-runtime"
-+    );
-+    const {
-+      listPilotTranscriptTurns,
-+      listCycleJournalEntries,
-+    } = await import("@/lib/nora-cognitive-runtime/cycleJournalStore");
-+    const { CANONICAL_CONVERSATION_SESSION_KEY } = await import(
-+      "./f2/canonicalConversationSession"
-+    );
-+    const dbPath = resolveNoraSessionSqlitePath();
-+    const session = new ProductSqliteSession({
-+      projectId,
-+      dbPath,
-+      sessionKey: CANONICAL_CONVERSATION_SESSION_KEY,
-+    });
-+    try {
-+      const turns = listPilotTranscriptTurns(session);
-+      const messages = turns
-+        .filter((t) => t.role === "user" || t.role === "assistant")
-+        .map((t) => ({
-+          id: t.turnId,
-+          role: t.role as "user" | "assistant",
-+          content: t.content,
-+        }));
-+      const cycleInstanceId = input.cycleInstanceId?.trim() || null;
-+      const entries = cycleInstanceId
-+        ? listCycleJournalEntries(session, cycleInstanceId).map((e) => ({
-+            journalEntryId: e.journalEntryId,
-+            title: e.title,
-+            currentSummary: e.currentSummary,
-+            status: e.status,
-+            updatedAt: e.updatedAt,
-+            sourceTurnRefs: [...e.sourceTurnRefs],
-+            sourceTurnCount: e.sourceTurnRefs.length,
-+          }))
-+        : [];
-+      return {
-+        ok: true,
-+        transcriptAvailability:
-+          messages.length > 0 ? "available" : "empty",
-+        messages,
-+        journal: { cycleInstanceId, entries },
-+      };
-+    } finally {
-+      session.close();
+ /**
+@@ -751,6 +756,7 @@ export async function runNoraCognitiveTurn(
+             }
+           : undefined,
+       outputType: input.outputType,
++      cycleJournalTools: null,
+     });
+     const observations = [
+       ...(input.sourceObservationFacts ?? []),
+@@ -917,6 +923,15 @@ export async function runNoraCognitiveTurn(
+             }
+           : undefined,
+       outputType: input.outputType,
++      cycleJournalTools:
++        probe.session &&
++        typeof input.cycleJournalCycleInstanceId === "string" &&
++        input.cycleJournalCycleInstanceId.trim()
++          ? {
++              session: probe.session,
++              cycleInstanceId: input.cycleJournalCycleInstanceId.trim(),
++            }
++          : null,
+     });
+     const observations = [
+       ...(input.sourceObservationFacts ?? []),
+
+```
+
+### `projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
+index cbdde04d..d1e13af3 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
+@@ -140,6 +140,16 @@ export function toolDefinitionsFromModelRequest(
+     }
+     const name = String(t.name ?? "");
+     if (!name) continue;
++    // CYCLE JOURNAL — Agents-local READ-ONLY tools on the same Runner.
++    // Executed by Agents SDK tool.invoke, not via ConversationProvider.completeRound.
++    // Skip from Fake/provider ToolDefinition projection (same pattern as hosted web_search).
++    if (
++      name === "cycle_journal_search" ||
++      name === "cycle_journal_get_entry" ||
++      name === "cycle_journal_get_sources"
++    ) {
++      continue;
 +    }
-+  } catch (error) {
-+    return {
-+      ok: false,
-+      transcriptAvailability: "unavailable",
-+      code: "TRANSCRIPT_UNAVAILABLE",
-+      message:
-+        error instanceof Error
-+          ? error.message
-+          : "Conversation persistée indisponible.",
-+    };
-+  }
-+}
-+
- /**
-  * M5 durable Nora/F3 readback — LPS evidence/RB refs → RecommendNextGate.
-  * Strictly read-only: no Decision, no gate consume, no Attempt launch.
+     const def = byName.get(name);
+     if (!def) {
+       throw new Error(`NORA_PROVIDER_MODEL_UNKNOWN_TOOL:${name}`);
+@@ -208,6 +218,7 @@ export function coercePlainTextToProductTurnJson(text: string): string {
+         preCycleRoutingAssessment: o.preCycleRoutingAssessment,
+         activeCycleWork: o.activeCycleWork ?? null,
+         conversationGuidance: o.conversationGuidance ?? null,
++        journalDelta: o.journalDelta ?? null,
+       });
+       if (coherent) {
+         return JSON.stringify({
+@@ -216,6 +227,7 @@ export function coercePlainTextToProductTurnJson(text: string): string {
+           lifecycleRecommendation: coherent.lifecycleRecommendation,
+           activeCycleWork: coherent.activeCycleWork ?? null,
+           conversationGuidance: coherent.conversationGuidance,
++          journalDelta: coherent.journalDelta ?? null,
+         });
+       }
+       return buildFailClosedProductTurnJson(String(o.narrative));
 
 ```
 
-## MODIFIED (significant): `projects/sfia-studio/app/features/project-assistant/presentationLabels.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/presentationLabels.ts b/projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
-index 57fcc7e2..f59f212f 100644
---- a/projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
-@@ -121,8 +121,11 @@ export function shouldShowProjectRecovery(input: {
- export const W1_DURABLE_DISCLOSURE =
-   "Conservé : projet, état vivant (LPS), trajectoire décidée, confirmations déjà accordées, preuves / résultats déjà enregistrés.";
- 
-+export const W1_TRANSCRIPT_AVAILABLE_DISCLOSURE =
-+  "Conversation Pilote ↔ Nora enregistrée : reprise visible au rechargement lorsque le transcript est disponible.";
-+
- export const W1_NON_DURABLE_DISCLOSURE =
--  "Peut devoir être repris : conversation en cours, confirmation encore demandée, propositions non encore enregistrées.";
-+  "Peut devoir être repris : confirmation encore demandée, propositions non encore enregistrées ; conversation absente seulement si le transcript n'est pas disponible.";
- 
- export const W1_PROPOSED_NOT_DECIDED_DISCLOSURE =
-   "Une trajectoire proposée (recommandation) n'est pas encore la trajectoire décidée.";
-@@ -191,13 +194,19 @@ export function w1RecoveryDisclosures(): {
-   });
- }
- 
--export function w1RestartHonestyMessage(): string {
--  return [
--    W1_DURABLE_DISCLOSURE,
-+export function w1RestartHonestyMessage(options?: {
-+  transcriptAvailability?: "available" | "empty" | "unavailable" | "pending";
-+}): string {
-+  const parts = [W1_DURABLE_DISCLOSURE];
-+  if (options?.transcriptAvailability === "available") {
-+    parts.push(W1_TRANSCRIPT_AVAILABLE_DISCLOSURE);
-+  }
-+  parts.push(
-     W1_NON_DURABLE_DISCLOSURE,
-     W1_PROPOSED_NOT_DECIDED_DISCLOSURE,
-     W1_RESTORED_GRANTED_NOT_CURRENT_AUTHORITY,
--  ].join(" ");
-+  );
-+  return parts.join(" ");
- }
- 
- /**
-
-```
-
-## MODIFIED (significant): `projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts`
+### `projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
-index eb15e095..1f506c14 100644
+index eb15e095..c28b7505 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
 @@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useTransition } from "react";
@@ -2758,7 +3277,12 @@ index eb15e095..1f506c14 100644
    projectAssistantDecideAction,
    projectAssistantPrepareF3FixtureAction,
    projectAssistantPrepareResolvedM3Action,
-@@ -38,6 +39,7 @@ import {
+@@ -34,10 +35,12 @@ import {
+ import { lifecycleRecommendationMaterializeFailurePiloteNotice } from "@/features/project-assistant/lifecycleRecommendationPiloteNotice";
+ import { createTurnRetryKey } from "@/features/project-assistant/turnRetryKey";
+ import {
++  normalizeProductTurnHistory,
+   preparePendingTurnRetryEnvelope,
    type PendingTurnRetryEnvelope,
  } from "@/features/project-assistant/turnPayloadCanonical";
  import { useRunningAttemptO3Observation } from "./useRunningAttemptO3Observation";
@@ -2766,7 +3290,7 @@ index eb15e095..1f506c14 100644
  
  export type ProductMessage = {
    id: string;
-@@ -45,6 +47,12 @@ export type ProductMessage = {
+@@ -45,6 +48,12 @@ export type ProductMessage = {
    content: string;
  };
  
@@ -2779,7 +3303,7 @@ index eb15e095..1f506c14 100644
  export type ProductConversationUiState =
    | "INITIAL"
    | "READY"
-@@ -57,6 +65,8 @@ export type ProductConversationUiState =
+@@ -57,6 +66,8 @@ export type ProductConversationUiState =
  
  export type UseProductConversationInput = {
    projectId: string;
@@ -2788,7 +3312,7 @@ index eb15e095..1f506c14 100644
    /** Fired after a successful durable Product mutation (not process-local). */
    onDurableFactsChanged?: () => void;
    /** Mirrors the latest durable Evidence/ReviewBundle rehydrate for History. */
-@@ -95,6 +105,7 @@ function modeFromResult(result: {
+@@ -95,6 +106,7 @@ function modeFromResult(result: {
   */
  export function useProductConversation({
    projectId,
@@ -2796,7 +3320,7 @@ index eb15e095..1f506c14 100644
    onDurableFactsChanged,
    onDurableEvidenceOutcomeChange,
  }: UseProductConversationInput) {
-@@ -126,6 +137,18 @@ export function useProductConversation({
+@@ -126,6 +138,18 @@ export function useProductConversation({
    const [durableRehydrateError, setDurableRehydrateError] = useState<
      string | null
    >(null);
@@ -2815,7 +3339,7 @@ index eb15e095..1f506c14 100644
    const [f3Busy, setF3Busy] = useState(false);
    const [isPending, startTransition] = useTransition();
    /** D-GF-ACW-02 — last server-issued logical turn; re-present only on failed retry. */
-@@ -186,6 +209,38 @@ export function useProductConversation({
+@@ -186,6 +210,38 @@ export function useProductConversation({
      setUiState((prev) => (prev === "INITIAL" ? "READY" : prev));
    }, []);
  
@@ -2854,10 +3378,11 @@ index eb15e095..1f506c14 100644
    useEffect(() => {
      let cancelled = false;
      applyDurableEvidenceOutcome(null);
-@@ -262,6 +317,30 @@ export function useProductConversation({
+@@ -262,12 +318,54 @@ export function useProductConversation({
      activeProposal?.morrisGateRequired === true &&
      activeProposal.status === "DECISION_REQUIRED";
  
+-  function historyForRequest(): AssistantHistoryMessage[] {
 +  async function refreshConversationContinuity() {
 +    const result = await projectAssistantConversationContinuityAction({
 +      projectId,
@@ -2874,18 +3399,42 @@ index eb15e095..1f506c14 100644
 +
 +  function focusJournalExchanges(entry: JournalSurfaceEntry) {
 +    setSelectedJournalEntryId(entry.journalEntryId);
-+    const first = entry.sourceTurnRefs[0] ?? null;
-+    setFocusTurnId(first);
++  }
++
++  function focusTranscriptTurn(turnId: string) {
++    const id = turnId.trim();
++    if (!id) return;
++    setFocusTurnId(id);
 +  }
 +
 +  function clearFocusTurn() {
 +    setFocusTurnId(null);
 +  }
 +
-   function historyForRequest(): AssistantHistoryMessage[] {
++  /** Full visible transcript roles for request shaping — not yet bounded. */
++  function visibleTranscriptForRequest(): AssistantHistoryMessage[] {
      return messages
        .filter((m) => m.role === "user" || m.role === "assistant")
-@@ -426,6 +505,7 @@ export function useProductConversation({
+       .map((m) => ({ role: m.role as "user" | "assistant", content: m.content }));
+   }
+ 
++  /**
++   * CR-CJ-01 — providerRecentHistory only.
++   * Visible transcript may be long; model receives a bounded recent window.
++   * Server re-applies the same bound (hostile/old clients cannot inject 500 msgs).
++   */
++  function providerRecentHistory(): AssistantHistoryMessage[] {
++    return normalizeProductTurnHistory(visibleTranscriptForRequest());
++  }
++
++  function historyForRequest(): AssistantHistoryMessage[] {
++    return providerRecentHistory();
++  }
++
+   function sendMessage(
+     contentOverride?: string,
+     options?: {
+@@ -426,6 +524,7 @@ export function useProductConversation({
          setActiveProposal(null);
        }
        setUiState("ANSWERED");
@@ -2893,7 +3442,7 @@ index eb15e095..1f506c14 100644
      });
    }
  
-@@ -715,6 +795,15 @@ export function useProductConversation({
+@@ -715,6 +814,16 @@ export function useProductConversation({
      f3Execute,
      durableEvidenceOutcome,
      durableRehydrateError,
@@ -2904,6 +3453,7 @@ index eb15e095..1f506c14 100644
 +    setSelectedJournalEntryId,
 +    focusTurnId,
 +    focusJournalExchanges,
++    focusTranscriptTurn,
 +    clearFocusTurn,
 +    refreshConversationContinuity,
      busy,
@@ -2912,205 +3462,11 @@ index eb15e095..1f506c14 100644
 
 ```
 
-## MODIFIED (significant): `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx`
-
-```diff
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-index 6a2811d3..1da26eac 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-@@ -92,6 +92,8 @@ export function ConversationSurface({
-     f3Execute,
-     durableEvidenceOutcome,
-     durableRehydrateError,
-+    focusTurnId,
-+    clearFocusTurn,
-     busy,
-     blocked,
-     canSend,
-@@ -121,6 +123,16 @@ export function ConversationSurface({
-     window.dispatchEvent(new CustomEvent(SFIA_ASSISTANT_ANSWERED_EVENT));
-   }, [uiState, messages.length]);
- 
-+  useEffect(() => {
-+    if (!focusTurnId) return;
-+    const el = document.getElementById(`pilot-turn-${focusTurnId}`);
-+    if (el instanceof HTMLElement) {
-+      el.scrollIntoView({ behavior: "smooth", block: "center" });
-+      el.focus({ preventScroll: true });
-+    }
-+    clearFocusTurn();
-+  }, [focusTurnId, clearFocusTurn, messages.length]);
-+
-   const attemptLabel = f3Execute
-     ? attemptStatusUserLabel(f3Execute.attempt.status)
-     : null;
-@@ -244,14 +256,17 @@ export function ConversationSurface({
-             </p>
-           </div>
-         ) : (
--          messages.map((message) => (
-+              messages.map((message) => (
-             <article
-               key={message.id}
-+              id={`pilot-turn-${message.id}`}
-               className={
-                 message.role === "user" ? styles.turnMine : styles.turnNora
-               }
-               data-testid={`project-assistant-turn-${message.role}`}
-+              data-turn-id={message.id}
-               data-role={message.role}
-+              tabIndex={-1}
-             >
-               <span className={styles.turnAvatar} aria-hidden>
-                 {message.role === "user" ? "P" : "N"}
-
-```
-
-## MODIFIED (significant): `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/RecoverySurface.tsx`
-
-```diff
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/RecoverySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/RecoverySurface.tsx
-index cca2472c..6686e67e 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/RecoverySurface.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/RecoverySurface.tsx
-@@ -6,17 +6,19 @@ import {
-   W1_PROPOSED_NOT_DECIDED_DISCLOSURE,
-   W1_REQUALIFY_CTA,
-   W1_RESTORED_GRANTED_NOT_CURRENT_AUTHORITY,
-+  W1_TRANSCRIPT_AVAILABLE_DISCLOSURE,
- } from "@/features/project-assistant/presentationLabels";
- import styles from "./RecoverySurface.module.css";
- 
- /**
-- * F10 — honest recovery. Durable facts can be replayed; conversation,
-- * proposal and confirmation cannot. No invented persistence.
-+ * F10 — honest recovery. Durable facts can be replayed; process-local
-+ * confirmations/proposals cannot. Transcript honesty depends on availability.
-  */
- export function RecoverySurface({
-   onResumeDurable,
-   onRequalify,
-   suppressGenericIntentionCta = false,
-+  transcriptAvailability = "pending",
- }: {
-   onResumeDurable?: () => void;
-   onRequalify?: () => void;
-@@ -26,7 +28,9 @@ export function RecoverySurface({
-    * Resume/navigation may remain.
-    */
-   suppressGenericIntentionCta?: boolean;
-+  transcriptAvailability?: "available" | "empty" | "unavailable" | "pending";
- }) {
-+  const transcriptRestored = transcriptAvailability === "available";
-   return (
-     <section
-       className={styles.root}
-@@ -39,12 +43,21 @@ export function RecoverySurface({
-           Reprenez où le projet en est réellement
-         </h2>
-         <p className={styles.text}>
--          {suppressGenericIntentionCta
--            ? "Studio relit seulement ce qui a été réellement enregistré. Une proposition active porte déjà la prochaine action métier — reprenez l'état enregistré pour l'inspecter, sans ouvrir une intention concurrente."
--            : "Studio relit seulement ce qui a été réellement enregistré. La conversation, une confirmation encore demandée ou une proposition non enregistrée ne sont pas inventées au rechargement — vous pouvez reprendre l'état enregistré ou repartir d'une intention claire."}
-+          {transcriptRestored
-+            ? suppressGenericIntentionCta
-+              ? "Studio relit l'état enregistré et restaure la conversation visible. Une proposition active porte déjà la prochaine action métier — reprenez l'état enregistré pour l'inspecter, sans ouvrir une intention concurrente."
-+              : "Studio relit l'état enregistré et restaure la conversation Pilote ↔ Nora lorsqu'elle est disponible. Les confirmations ou propositions non enregistrées ne sont pas inventées — vous pouvez reprendre l'état enregistré ou repartir d'une intention claire."
-+            : suppressGenericIntentionCta
-+              ? "Studio relit seulement ce qui a été réellement enregistré. Une proposition active porte déjà la prochaine action métier — reprenez l'état enregistré pour l'inspecter, sans ouvrir une intention concurrente."
-+              : "Studio relit seulement ce qui a été réellement enregistré. Une confirmation encore demandée ou une proposition non enregistrée ne sont pas inventées au rechargement — vous pouvez reprendre l'état enregistré ou repartir d'une intention claire."}
-         </p>
-         <ul className={styles.disclosureList} data-testid="w1-recovery-disclosures">
-           <li>{W1_DURABLE_DISCLOSURE}</li>
-+          {transcriptRestored ? (
-+            <li data-testid="w1-transcript-available-disclosure">
-+              {W1_TRANSCRIPT_AVAILABLE_DISCLOSURE}
-+            </li>
-+          ) : null}
-           <li>{W1_NON_DURABLE_DISCLOSURE}</li>
-           <li>{W1_PROPOSED_NOT_DECIDED_DISCLOSURE}</li>
-           <li>{W1_RESTORED_GRANTED_NOT_CURRENT_AUTHORITY}</li>
-
-```
-
-## MODIFIED (significant): `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx`
-
-```diff
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
-index a2eaab89..0d8a8415 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
-@@ -7,6 +7,7 @@ import type { ProjectAssistantRehydrateEvidenceOutcomeSuccess } from "@/features
- import { getProjectRuntimeAction } from "@/lib/vertical-slice-runtime/actions";
- import { useProductConversation } from "./hooks/useProductConversation";
- import { ConversationSurface } from "./surfaces/ConversationSurface";
-+import { JournalSurface } from "./surfaces/JournalSurface";
- import { HistorySurface } from "./surfaces/HistorySurface";
- import { LpsSurface } from "./surfaces/LpsSurface";
- import { RecoverySurface } from "./surfaces/RecoverySurface";
-@@ -27,6 +28,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
-   const [durableOutcome, setDurableOutcome] =
-     useState<ProjectAssistantRehydrateEvidenceOutcomeSuccess | null>(null);
-   const [lpsOpen, setLpsOpen] = useState(false);
-+  const [journalCollapsed, setJournalCollapsed] = useState(false);
-   const [trajectoryRefreshSignal, setTrajectoryRefreshSignal] = useState(0);
-   /** B1 — bump so LifecycleSurface reloads after Trajectory (or other) durable mutations. */
-   const [lifecycleRefreshSignal, setLifecycleRefreshSignal] = useState(0);
-@@ -87,6 +89,9 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
- 
-   const controller = useProductConversation({
-     projectId,
-+    activeCycleInstanceId: result?.ok
-+      ? result.livingState.activeCycleInstanceId
-+      : null,
-     onDurableFactsChanged: notifyDurableFactsChanged,
-     onDurableEvidenceOutcomeChange: setDurableOutcome,
-   });
-@@ -155,6 +160,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
-       {showRecovery ? (
-         <RecoverySurface
-           suppressGenericIntentionCta={suppressGenericIntentionCta}
-+          transcriptAvailability={controller.transcriptAvailability}
-           onResumeDurable={() => {
-             setLpsOpen(true);
-             focusConversation();
-@@ -165,11 +171,25 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
-         />
-       ) : (
-         <p className={styles.durabilityHint} data-testid="project-durability-hint">
--          {w1RestartHonestyMessage()}
-+          {w1RestartHonestyMessage({
-+            transcriptAvailability: controller.transcriptAvailability,
-+          })}
-         </p>
-       )}
- 
--      <div className={styles.layout}>
-+      <div className={styles.layout} data-testid="project-workspace-layout">
-+        <div className={styles.journalColumn} data-testid="project-journal-column">
-+          <JournalSurface
-+            entries={controller.journalEntries}
-+            cycleInstanceId={controller.journalCycleInstanceId}
-+            selectedEntryId={controller.selectedJournalEntryId}
-+            onSelectEntry={controller.setSelectedJournalEntryId}
-+            onViewExchanges={controller.focusJournalExchanges}
-+            collapsed={journalCollapsed}
-+            onToggleCollapsed={() => setJournalCollapsed((v) => !v)}
-+          />
-+        </div>
-+
-         <div className={styles.main} ref={conversationRef}>
-           <div className={styles.conversation} data-testid="project-conversation-main">
-             <ConversationSurface controller={controller} />
-
-```
-
-## MODIFIED (significant): `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css`
+### `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css`
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css
-index 7e97d515..cab0c156 100644
+index 7e97d515..a3848221 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css
 @@ -2,6 +2,9 @@
@@ -3176,7 +3532,7 @@ index 7e97d515..cab0c156 100644
  /* Above 1024px the project state is always alongside the conversation. */
  .lpsClosed,
  .lpsOpen {
-@@ -173,7 +206,10 @@
+@@ -173,17 +206,27 @@
  
  @media (min-width: 1400px) {
    .layout {
@@ -3188,7 +3544,13 @@ index 7e97d515..cab0c156 100644
    }
  }
  
-@@ -184,6 +220,12 @@
+-/* ---------- <=1024: stack conversation then État/Trajectoire (H-01) ---------- */
++/* ---------- <1200: Journal always accessible (stack); conversation dominant ---------- */
++/* CR-CJ-05 — no dead zone between 1025–1199 (was hidden until 1200). */
+ 
+-@media (max-width: 1024px) {
++@media (max-width: 1199px) {
+   .layout {
      grid-template-columns: minmax(0, 1fr);
    }
  
@@ -3204,471 +3566,299 @@ index 7e97d515..cab0c156 100644
 
 ```
 
-## MODIFIED (significant): `projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx`
+### `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx`
 
 ```diff
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx
-index 2a304a13..ac52f4d1 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx
-@@ -26,7 +26,10 @@ export function ProductShell({
-   return (
-     <div className={styles.shell} data-testid="studio-shell">
-       <header className={styles.header}>
--        <div className={styles.headerInner}>
-+        <div className={[
-+          styles.headerInner,
-+          activeNav === "current" ? styles.headerInnerWide : "",
-+        ].filter(Boolean).join(" ")}>
-           <Link href="/studio" className={styles.brand}>
-             <span className={styles.brandMark} aria-hidden>
-               <svg
-@@ -89,7 +92,16 @@ export function ProductShell({
-         </div>
-       </header>
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
+index a2eaab89..0bd8ffe9 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
+@@ -7,6 +7,7 @@ import type { ProjectAssistantRehydrateEvidenceOutcomeSuccess } from "@/features
+ import { getProjectRuntimeAction } from "@/lib/vertical-slice-runtime/actions";
+ import { useProductConversation } from "./hooks/useProductConversation";
+ import { ConversationSurface } from "./surfaces/ConversationSurface";
++import { JournalSurface } from "./surfaces/JournalSurface";
+ import { HistorySurface } from "./surfaces/HistorySurface";
+ import { LpsSurface } from "./surfaces/LpsSurface";
+ import { RecoverySurface } from "./surfaces/RecoverySurface";
+@@ -27,6 +28,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+   const [durableOutcome, setDurableOutcome] =
+     useState<ProjectAssistantRehydrateEvidenceOutcomeSuccess | null>(null);
+   const [lpsOpen, setLpsOpen] = useState(false);
++  const [journalCollapsed, setJournalCollapsed] = useState(false);
+   const [trajectoryRefreshSignal, setTrajectoryRefreshSignal] = useState(0);
+   /** B1 — bump so LifecycleSurface reloads after Trajectory (or other) durable mutations. */
+   const [lifecycleRefreshSignal, setLifecycleRefreshSignal] = useState(0);
+@@ -87,6 +89,9 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
  
--      <main className={styles.main}>{children}</main>
-+      <main
-+        className={[
-+          styles.main,
-+          activeNav === "current" ? styles.mainWide : "",
-+        ]
-+          .filter(Boolean)
-+          .join(" ")}
-+      >
-+        {children}
-+      </main>
-     </div>
-   );
- }
-
-```
-
-## MODIFIED (significant): `projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.module.css`
-
-```diff
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.module.css b/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.module.css
-index b64627eb..211a612f 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.module.css
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.module.css
-@@ -132,6 +132,14 @@
-   padding: var(--pm6-space-6) var(--pm6-space-5) var(--pm6-space-7);
- }
+   const controller = useProductConversation({
+     projectId,
++    activeCycleInstanceId: result?.ok
++      ? result.livingState.activeCycleInstanceId
++      : null,
+     onDurableFactsChanged: notifyDurableFactsChanged,
+     onDurableEvidenceOutcomeChange: setDurableOutcome,
+   });
+@@ -155,6 +160,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+       {showRecovery ? (
+         <RecoverySurface
+           suppressGenericIntentionCta={suppressGenericIntentionCta}
++          transcriptAvailability={controller.transcriptAvailability}
+           onResumeDurable={() => {
+             setLpsOpen(true);
+             focusConversation();
+@@ -165,11 +171,27 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+         />
+       ) : (
+         <p className={styles.durabilityHint} data-testid="project-durability-hint">
+-          {w1RestartHonestyMessage()}
++          {w1RestartHonestyMessage({
++            transcriptAvailability: controller.transcriptAvailability,
++          })}
+         </p>
+       )}
  
-+.mainWide {
-+  max-width: var(--pm6-content-max-workspace);
-+}
+-      <div className={styles.layout}>
++      <div className={styles.layout} data-testid="project-workspace-layout">
++        <div className={styles.journalColumn} data-testid="project-journal-column">
++          <JournalSurface
++            entries={controller.journalEntries}
++            cycleInstanceId={controller.journalCycleInstanceId}
++            selectedEntryId={controller.selectedJournalEntryId}
++            onSelectEntry={controller.setSelectedJournalEntryId}
++            onViewExchanges={controller.focusJournalExchanges}
++            onFocusTurn={controller.focusTranscriptTurn}
++            transcriptMessages={controller.messages}
++            collapsed={journalCollapsed}
++            onToggleCollapsed={() => setJournalCollapsed((v) => !v)}
++          />
++        </div>
 +
-+.headerInnerWide {
-+  max-width: var(--pm6-content-max-workspace);
-+}
-+
- .srOnly {
-   position: absolute;
-   width: 1px;
+         <div className={styles.main} ref={conversationRef}>
+           <div className={styles.conversation} data-testid="project-conversation-main">
+             <ConversationSurface controller={controller} />
 
 ```
 
-## MODIFIED (significant): `projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css`
+### `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx`
+
+(voir contenu complet §4 — fichier créé)
+
+### `projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalStore.ts`
+
+(voir contenu complet §4 — fichier créé)
+
+### `projects/sfia-studio/app/__tests__/project-assistant/orchestrateTurn.test.ts`
 
 ```diff
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css b/projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css
-index cdda1f8b..3aa7d039 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css
-@@ -62,7 +62,9 @@
-   --pm6-space-6: 32px;
-   --pm6-space-7: 48px;
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/orchestrateTurn.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/orchestrateTurn.test.ts
+index 7b4dca3c..a6eb227b 100644
+--- a/projects/sfia-studio/app/__tests__/project-assistant/orchestrateTurn.test.ts
++++ b/projects/sfia-studio/app/__tests__/project-assistant/orchestrateTurn.test.ts
+@@ -211,15 +211,80 @@ describe("F1 project assistant orchestration", () => {
+     expect(result.message).toMatch(/Aucun basculement silencieux/i);
+   });
  
--  --pm6-lps-width: 420px;
--  --pm6-lps-width-wide: 480px;
-+  --pm6-lps-width: 380px;
-+  --pm6-lps-width-wide: 400px;
-+  --pm6-journal-width: 280px;
-   --pm6-content-max: 1180px;
-+  --pm6-content-max-workspace: 1680px;
- }
+-  it("does not import or require OPS1 session APIs", async () => {
+-    setConversationProviderForTests(new FakeConversationProvider());
+-    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+-    const result = await orchestrateProjectAssistantTurn({
+-      projectId: "prj:f1-demo",
+-      content: "Ping",
+-      sessionDbPath,
+-    });
+-    expect(result.ok).toBe(true);
+-    expect(getProjectRuntimeActionMock).toHaveBeenCalled();
++  it("CR-CJ-01 — server-bounds hostile 150-message history before cognitive envelope", async () => {
++    const cognitive = await import(
++      "@/lib/nora-cognitive-runtime/runNoraCognitiveTurn"
++    );
++    const {
++      PRODUCT_TURN_MAX_HISTORY_MESSAGES,
++      PRODUCT_TURN_MAX_HISTORY_CHARS,
++    } = await import("@/features/project-assistant/turnPayloadCanonical");
++
++    const OLD = "HOSTILE_OLD_MARKER_MUST_NOT_REACH_ENVELOPE";
++    const hostileHistory = Array.from({ length: 150 }, (_, i) => ({
++      role: (i % 2 === 0 ? "user" : "assistant") as "user" | "assistant",
++      content: i === 0 ? OLD : `hostile-${i}`,
++    }));
++
++    const captured: { messages: Array<{ role: string; content: string }> } = {
++      messages: [],
++    };
++    const spy = vi
++      .spyOn(cognitive, "runNoraCognitiveTurn")
++      .mockImplementation(async (input) => {
++        captured.messages = input.messages.map((m) => ({
++          role: m.role,
++          content: m.content,
++        }));
++        return {
++          text: "TEST/FAKE · NON LIVE bounded",
++          usage: {
++            inputTokens: null,
++            outputTokens: null,
++            totalTokens: null,
++            model: null,
++            providerResponseId: null,
++          },
++          toolRounds: 0,
++          toolCalls: 0,
++          limitReached: false,
++          cognitiveRuntime: "agents",
++          sessionId: "sess-test",
++          memoryBAvailability: "unavailable",
++          memoryBCompactionState: "none",
++          memoryBCompactionDetails: null,
++        } as unknown as Awaited<
++          ReturnType<typeof cognitive.runNoraCognitiveTurn>
++        >;
++      });
++
++    try {
++      const result = await orchestrateProjectAssistantTurn({
++        projectId: "prj:f1-demo",
++        content: "nouveau tour après rehydrate",
++        history: hostileHistory,
++        sessionDbPath,
++        provider: new FakeConversationProvider(),
++      });
++      expect(result.ok).toBe(true);
++      expect(spy).toHaveBeenCalled();
++      const msgs = captured.messages;
++      expect(msgs.length).toBeGreaterThan(0);
++      const nonSystem = msgs.filter(
++        (m) => m.role === "user" || m.role === "assistant",
++      );
++      // bounded recent history + current user message
++      expect(nonSystem.length).toBeLessThanOrEqual(
++        PRODUCT_TURN_MAX_HISTORY_MESSAGES + 1,
++      );
++      const prior = nonSystem.slice(0, -1);
++      const priorChars = prior.reduce((s, m) => s + m.content.length, 0);
++      expect(prior.length).toBeLessThanOrEqual(PRODUCT_TURN_MAX_HISTORY_MESSAGES);
++      expect(priorChars).toBeLessThanOrEqual(PRODUCT_TURN_MAX_HISTORY_CHARS);
++      expect(msgs.some((m) => m.content.includes(OLD))).toBe(false);
++      expect(hostileHistory).toHaveLength(150);
++    } finally {
++      spy.mockRestore();
++    }
+   });
+ });
 
 ```
+
+## 6. Autres fichiers modifiés (mocks / continuity)
+
+Mocks UI/tests: `projectAssistantConversationContinuityAction` stubs; session table allowlists; ProductShell / tokens / ConversationSurface / RecoverySurface / actions continuity / buildProjectSystemPrompt / noraProductTurnOutputType / productSqliteSession schema / index exports / mw1S01Observe — tous dans le candidat Journal, pas hors-scope doctrine.
+
+Diffs complets disponibles via `git diff` sur working tree (non commités).
 
 ---
 
-# DIFFS — FICHIERS MODIFIÉS SECONDAIRES (tests / allowlists / mocks)
+## 7. Preuves CR par CR
 
-## MODIFIED (secondary): `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/session.d0.test.ts`
+### CR-CJ-01 — CLOSED
+- Policy: `PRODUCT_TURN_MAX_HISTORY_MESSAGES=12`, `PRODUCT_TURN_MAX_HISTORY_CHARS=8000`
+- Client: `providerRecentHistory()` via `normalizeProductTurnHistory`
+- Server: `orchestrateTurn` appelle `normalizeProductTurnHistory(input.history)` avant envelope
+- Test `cycleJournalContinuity` — 160 msgs, OLD marker absent
+- Test `orchestrateTurn` — 150 hostile msgs spy `runNoraCognitiveTurn`; OLD absent; bounds respectés
+- Transcript UI reste complet (messages React non tronqués)
 
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/session.d0.test.ts b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/session.d0.test.ts
-index ec477430..e7ad91c4 100644
---- a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/session.d0.test.ts
-+++ b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/session.d0.test.ts
-@@ -100,8 +100,11 @@ describe("MW1 Option C — ProductSqliteSession D0 (corrected)", () => {
-     // coordination only — never Epistemic/LPS/HD/Evidence/Truth C storage.
-     expect(tables.sort()).toEqual(
-       [
-+        "cycle_journal_entries",
-+        "cycle_journal_mutation_ledger",
-         "logical_product_turn_retry_bindings",
-         "logical_product_turns",
-+        "pilot_transcript_turns",
-         "session_items",
-       ].sort(),
-     );
+### CR-CJ-02 — CLOSED
+- `createCycleJournalAgentsTools` attaché dans `runNoraAgentsTurn` quand cycle+session+enableTools
+- `cycleJournalCycleInstanceId` threadé orchestrate → cognitive → agents
+- Tools: search / get_entry / get_sources READ-ONLY, cycle-bound, budget slots
+- Fake path: skip CT unknown tool → suite journey integrity PASS
+- Test invoke Agents `RunContext` + search recovers subject
 
-```
+### CR-CJ-03 — CLOSED
+- Compact working set max 24
+- `searchCycleJournalIndex` all active subjects
+- Prompt: BEFORE CREATE, call `cycle_journal_search`
+- Test: 40 subjects; #1 hors compact; search+UPDATE same `journalEntryId`; no thematic duplication
 
-## MODIFIED (secondary): `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/sessionTruthC.d0.test.ts`
+### CR-CJ-04 — CLOSED
+- Expanded exchange list; each ref button → `onFocusTurn` → `pilot-turn-*`
+- UI test: 6 non-contiguous refs listed; click intermediate/final
 
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/sessionTruthC.d0.test.ts b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/sessionTruthC.d0.test.ts
-index 654271c7..348576c9 100644
---- a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/sessionTruthC.d0.test.ts
-+++ b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/sessionTruthC.d0.test.ts
-@@ -62,8 +62,11 @@ describe("MW1 Option C — Session ≠ Truth C D0", () => {
-     // still must never hold oa_* Truth C / LPS / HD / Evidence tables.
-     expect(sessionTables.sort()).toEqual(
-       [
-+        "cycle_journal_entries",
-+        "cycle_journal_mutation_ledger",
-         "logical_product_turn_retry_bindings",
-         "logical_product_turns",
-+        "pilot_transcript_turns",
-         "session_items",
-       ].sort(),
-     );
+### CR-CJ-05 — CLOSED
+- CSS `@media (max-width: 1199px)` journal `display:block; order:-1`
+- Runtime CDP:
+  - 1440: journalDisplay=block, Option A
+  - 1100: journalDisplay=block, order=-1, railVisible=true
+  - 390: threeCol=false, journal=true
+- Screenshots:
+  - `.tmp-sfia-review/cycle-journal-continuity-proof/cr-cj-05-desktop-1440.png`
+  - `.tmp-sfia-review/cycle-journal-continuity-proof/cr-cj-05-midband-1100.png`
+  - `.tmp-sfia-review/cycle-journal-continuity-proof/cr-cj-05-mobile-390.png`
 
-```
-
-## MODIFIED (secondary): `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw1.s01.honestMemoryB.d0.test.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw1.s01.honestMemoryB.d0.test.ts b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw1.s01.honestMemoryB.d0.test.ts
-index 6c461453..f427e8ac 100644
---- a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw1.s01.honestMemoryB.d0.test.ts
-+++ b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw1.s01.honestMemoryB.d0.test.ts
-@@ -441,8 +441,11 @@ describe("MW1-S01 — Session ≠ Truth C under availability paths", () => {
-     // Session still must not own Truth C / LPS / HD / Evidence tables.
-     expect(sessionTables.sort()).toEqual(
-       [
-+        "cycle_journal_entries",
-+        "cycle_journal_mutation_ledger",
-         "logical_product_turn_retry_bindings",
-         "logical_product_turns",
-+        "pilot_transcript_turns",
-         "session_items",
-       ].sort(),
-     );
-
-```
-
-## MODIFIED (secondary): `projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx`
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx
-index 5aa747b0..52b93e56 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx
-@@ -36,6 +36,12 @@ const {
- }));
- 
- vi.mock("@/features/project-assistant/actions", () => ({
-+  projectAssistantConversationContinuityAction: vi.fn(async () => ({
-+    ok: true,
-+    transcriptAvailability: "empty",
-+    messages: [],
-+    journal: { cycleInstanceId: null, entries: [] },
-+  })),
-   projectAssistantSendAction: (...args: unknown[]) =>
-     projectAssistantSendActionMock(...args),
-   projectAssistantDecideAction: (...args: unknown[]) =>
-
-```
-
-## MODIFIED (secondary): `projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx`
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx
-index 9b380cb7..18f5f1ae 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx
-@@ -37,6 +37,12 @@ vi.mock("@/features/pre-m6-product-ui/hooks/useProductConversation", () => ({
- }));
- 
- vi.mock("@/features/project-assistant/actions", () => ({
-+  projectAssistantConversationContinuityAction: vi.fn(async () => ({
-+    ok: true,
-+    transcriptAvailability: "empty",
-+    messages: [],
-+    journal: { cycleInstanceId: null, entries: [] },
-+  })),
-   projectAssistantPilotLifecycleProjection: (...args: unknown[]) =>
-     lifecycleProjectionMock(...args),
-   projectAssistantActiveCycleWorkspaceAction: vi.fn().mockResolvedValue({
-
-```
-
-## MODIFIED (secondary): `projects/sfia-studio/app/__tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx`
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx
-index 9269d3dc..b5d0ffb9 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx
-@@ -46,6 +46,12 @@ const {
- }));
- 
- vi.mock("@/features/project-assistant/actions", () => ({
-+  projectAssistantConversationContinuityAction: vi.fn(async () => ({
-+    ok: true,
-+    transcriptAvailability: "empty",
-+    messages: [],
-+    journal: { cycleInstanceId: null, entries: [] },
-+  })),
-   projectAssistantPrepareResolvedM3Action: vi.fn(),
-   projectAssistantResolveLegacyM3DocsWriteAction: vi.fn(),
- }));
-
-```
-
-## MODIFIED (secondary): `projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx`
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
-index 5d0680d6..8d38956f 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
-@@ -56,6 +56,12 @@ const {
-  * entrypoint (prepareAndResolve → successor), matching TrajectorySurface.
-  */
- vi.mock("@/features/project-assistant/actions", () => ({
-+  projectAssistantConversationContinuityAction: vi.fn(async () => ({
-+    ok: true,
-+    transcriptAvailability: "empty",
-+    messages: [],
-+    journal: { cycleInstanceId: null, entries: [] },
-+  })),
-   projectAssistantPrepareResolvedM3Action: (...args: unknown[]) =>
-     prepareM3Mock(...args),
-   projectAssistantResolveLegacyM3DocsWriteAction: (...args: unknown[]) =>
-
-```
-
-## MODIFIED (secondary): `projects/sfia-studio/app/__tests__/pre-m6-product-ui/preCycleTrajectoryCta.ui.test.tsx`
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/preCycleTrajectoryCta.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/preCycleTrajectoryCta.ui.test.tsx
-index d6eebb67..145252f0 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/preCycleTrajectoryCta.ui.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/preCycleTrajectoryCta.ui.test.tsx
-@@ -66,6 +66,12 @@ vi.mock("@/features/project-assistant/preCycleCandidateTrajectoryActions", () =>
- }));
- 
- vi.mock("@/features/project-assistant/actions", () => ({
-+  projectAssistantConversationContinuityAction: vi.fn(async () => ({
-+    ok: true,
-+    transcriptAvailability: "empty",
-+    messages: [],
-+    journal: { cycleInstanceId: null, entries: [] },
-+  })),
-   projectAssistantPilotLifecycleProjection: (...args: unknown[]) =>
-     lifecycleProjectionMock(...args),
-   projectAssistantPilotLifecycleAction: vi.fn(),
-
-```
-
-## MODIFIED (secondary): `projects/sfia-studio/app/__tests__/pre-m6-product-ui/lifecyclePresentation.phaseB.d0.test.tsx`
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/lifecyclePresentation.phaseB.d0.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/lifecyclePresentation.phaseB.d0.test.tsx
-index 38233a2c..9f668d9e 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/lifecyclePresentation.phaseB.d0.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/lifecyclePresentation.phaseB.d0.test.tsx
-@@ -58,6 +58,12 @@ const { projectionMock } = vi.hoisted(() => ({
- }));
- 
- vi.mock("@/features/project-assistant/actions", () => ({
-+  projectAssistantConversationContinuityAction: vi.fn(async () => ({
-+    ok: true,
-+    transcriptAvailability: "empty",
-+    messages: [],
-+    journal: { cycleInstanceId: null, entries: [] },
-+  })),
-   projectAssistantPilotLifecycleProjection: (...args: unknown[]) =>
-     projectionMock(...args),
-   projectAssistantPilotLifecycleAction: vi.fn(),
-
-```
-
-## MODIFIED (secondary): `projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx`
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx b/projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
-index b981465d..b7e02e44 100644
---- a/projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/ProjectAssistantPanel.test.tsx
-@@ -31,6 +31,12 @@ const {
- }));
- 
- vi.mock("@/features/project-assistant/actions", () => ({
-+  projectAssistantConversationContinuityAction: vi.fn(async () => ({
-+    ok: true,
-+    transcriptAvailability: "empty",
-+    messages: [],
-+    journal: { cycleInstanceId: null, entries: [] },
-+  })),
-   projectAssistantSendAction: (...args: unknown[]) =>
-     projectAssistantSendActionMock(...args),
-   projectAssistantDecideAction: (...args: unknown[]) =>
-
-```
-
-## MODIFIED (secondary): `projects/sfia-studio/app/__tests__/project-assistant/mw3.cognitiveStop.panel.ux.d0.test.tsx`
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/mw3.cognitiveStop.panel.ux.d0.test.tsx b/projects/sfia-studio/app/__tests__/project-assistant/mw3.cognitiveStop.panel.ux.d0.test.tsx
-index 80556cc3..4c5a1dad 100644
---- a/projects/sfia-studio/app/__tests__/project-assistant/mw3.cognitiveStop.panel.ux.d0.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/mw3.cognitiveStop.panel.ux.d0.test.tsx
-@@ -16,6 +16,12 @@ const {
- }));
- 
- vi.mock("@/features/project-assistant/actions", () => ({
-+  projectAssistantConversationContinuityAction: vi.fn(async () => ({
-+    ok: true,
-+    transcriptAvailability: "empty",
-+    messages: [],
-+    journal: { cycleInstanceId: null, entries: [] },
-+  })),
-   projectAssistantSendAction: (...args: unknown[]) =>
-     projectAssistantSendActionMock(...args),
-   projectAssistantDecideAction: vi.fn(),
-
-```
-
-## MODIFIED (secondary): `projects/sfia-studio/app/__tests__/project-assistant/mw3.correction.panel.ux.d0.test.tsx`
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/mw3.correction.panel.ux.d0.test.tsx b/projects/sfia-studio/app/__tests__/project-assistant/mw3.correction.panel.ux.d0.test.tsx
-index 4b2d7c62..86d66c14 100644
---- a/projects/sfia-studio/app/__tests__/project-assistant/mw3.correction.panel.ux.d0.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/mw3.correction.panel.ux.d0.test.tsx
-@@ -16,6 +16,12 @@ const {
- }));
- 
- vi.mock("@/features/project-assistant/actions", () => ({
-+  projectAssistantConversationContinuityAction: vi.fn(async () => ({
-+    ok: true,
-+    transcriptAvailability: "empty",
-+    messages: [],
-+    journal: { cycleInstanceId: null, entries: [] },
-+  })),
-   projectAssistantSendAction: (...args: unknown[]) =>
-     projectAssistantSendActionMock(...args),
-   projectAssistantDecideAction: vi.fn(),
-
-```
-
-## MODIFIED (secondary): `projects/sfia-studio/app/__tests__/studio-projects/projectPrincipalAmend.test.tsx`
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/studio-projects/projectPrincipalAmend.test.tsx b/projects/sfia-studio/app/__tests__/studio-projects/projectPrincipalAmend.test.tsx
-index aac890b6..70736dab 100644
---- a/projects/sfia-studio/app/__tests__/studio-projects/projectPrincipalAmend.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/studio-projects/projectPrincipalAmend.test.tsx
-@@ -16,6 +16,12 @@ vi.mock("@/lib/vertical-slice-runtime/actions", () => ({
- }));
- 
- vi.mock("@/features/project-assistant/actions", () => ({
-+  projectAssistantConversationContinuityAction: vi.fn(async () => ({
-+    ok: true,
-+    transcriptAvailability: "empty",
-+    messages: [],
-+    journal: { cycleInstanceId: null, entries: [] },
-+  })),
-   projectAssistantRehydrateEvidenceOutcomeAction:
-     projectAssistantRehydrateEvidenceOutcomeActionMock,
-   projectAssistantDecideAction: vi.fn(),
-
-```
+### CR-CJ-06 — CLOSED
+- `filterValidSourceTurnRefs`: drop phantom + cross-cycle
+- MERGE: reject self, require active same-cycle related, dedupe
+- ARCHIVE: active→archived only
+- UPDATE: active only
+- Adversarial tests PASS; ledger idempotence preserved
 
 ---
 
-# Persistence / migration
-- `CREATE TABLE IF NOT EXISTS` dans `ensurePilotTranscriptAndJournalSchema()` — backward-compatible, non destructive.
-- Aucune nouvelle DB ; mêmes fichiers Session SQLite.
-- Compaction Memory B ne touche pas ces tables.
+## 8. Validations globales
 
-# CREATE / UPDATE / MERGE / SPLIT / ARCHIVE
-- CREATE: mint `cje:*`, status active, bind source refs.
-- UPDATE: même `journalEntryId`, merge refs, refresh summary/title.
-- ARCHIVE: status archived (pas de DELETE).
-- MERGE: related → status merged + supersededById ; target absorbe refs/lineage.
-- SPLIT: parent → split ; sibling active avec lineageParentIds.
-- Idempotence: ledger skip duplicate (logical_turn_id, op_index).
+- Targeted CR tests: PASS
+- typecheck: PASS
+- lint: PASS (No ESLint warnings or errors)
+- Full Studio suite: **407 passed | 17 skipped** (4565 tests passed / 137 skipped)
+- git diff --check: clean
 
-# Transcript rehydrate
-- `listPilotTranscriptTurns` + action continuity → `useProductConversation` charge messages au mount.
-- Disponibilité: available | empty | unavailable (fail-closed).
-- Preuve: test reopen session SQLite + suite continuity.
+---
 
-# Cognitive compact + retrieval
-- `formatCycleJournalCompactForPrompt` / `loadCycleJournalCompactForPrompt` dans system prompt.
-- `retrieveJournalEntrySourceExcerpts` / `retrievePilotTurnsByRefs` — bornés (max turns/chars).
-- Pas de vector DB / RAG.
+## 9. Fake / Real
 
-# UI Option A + Recovery
-- Journal rail gauche ; conversation centre ; pilotage droite.
-- CDP runtime 1440px: `gridTemplateColumns = 280px 664px 400px`.
-- HistorySurface inchangé (historique factuel).
-- Recovery: `W1_TRANSCRIPT_AVAILABLE_DISCLOSURE` si transcript available.
+| Claim | Status |
+|-------|--------|
+| bounded model context proven deterministically | YES |
+| targeted Journal retrieval product seam implemented/tested | YES |
+| >24 subject identity recovery proven deterministically | YES |
+| linked exchanges navigation proven | YES (UI test) |
+| responsive accessibility proven local runtime | YES |
+| data integrity guards proven | YES |
+| Journal semantic quality REAL proven | NO |
+| READY FOR REAL | NO |
+| runtime v3 ADOPTED | NO |
 
-# Tests & résultats (conservés)
-- Targeted: `cycleJournalContinuity.d0.test.ts` **13 PASS** (schema, create/update/archive, merge/split, retry, cycle isolation, compact+retrieval, ≥110 turns long-cycle, Journal≠oa_*)
-- UI: `cycleJournalSurface.ui.test.tsx` **3 PASS**
-- Typecheck: **PASS** (`tsc --noEmit`)
-- Lint: **PASS** (`next lint`)
-- Full Studio suite: **407 passed | 17 skipped** (4561 tests passed | 137 skipped) — 2026-09-24 15:53 CEST
-- Adaptations tests session/eval pour tables Session autorisées + mocks continuity action
+---
 
-# Screenshot / runtime proof (conservés)
-- Paths:
-  - `.tmp-sfia-review/cycle-journal-continuity-proof/cycle-journal-option-a-desktop-1440.png`
-  - `.tmp-sfia-review/cycle-journal-continuity-proof/cycle-journal-option-a-scrolled-three-zones.png`
-- Runtime: Studio `localhost:3020` · projet KidPlan · viewport 1440×900
-- CDP geometry: journal x=24 w=280 · conversation x=328 w=664 · lps x=1016 w=400
-- Journal UI visible (« Journal du cycle »)
+## 10. Réserves / dette
 
-# Long-cycle proof (conservé)
-- Deterministic ≥110 turns: identité sujet stable sur UPDATE non contigus (0/30/70/100), 2 sujets actifs, compact prompt <8k sans dump transcript, ops <120, elapsed <5s.
+- Qualité sémantique Journal sous provider REAL: NOT PROVEN (gate Morris distinct)
+- Screenshots runtime: Journal empty (0 sujets) sur KidPlan local — accessibilité layout prouvée; navigation multi-échanges prouvée en jsdom UI test
+- ProjectAssistantPanel legacy boundé aussi (défense en profondeur)
+- Aucune virtualisation transcript (non requise)
 
-# Fake / Real Qualification (conservé)
-- applicable: oui
-- niveau ce cycle: **DETERMINISTIC PRODUCT PROOF** + runtime browser locale
-- REAL provider Journal quality: **NOT PROVEN** / hors scope
-- claims autorisés: implemented/tested deterministically ; transcript restart proof (tests) ; UI runtime observed
-- claims interdits: semantic quality REAL proven ; READY FOR REAL ; runtime v3 adopted
+---
 
-# Risques / réserves / dette (conservés)
-1. Qualité clustering/synthèse Journal dépend du modèle REAL (non prouvée ici) — owner Morris ; retrait via campagne REAL distincte si besoin.
-2. Virtualisation transcript UI ≥centaines de tours non implémentée — acceptable maintenant ; owner Studio UI ; condition: perf mesurée dégradée.
-3. Journal entries historiques (cycles antérieurs à ce code) vides jusqu'aux prochains tours — attendu.
-4. Aucun commit projet dans ce cycle (GO construction only).
+## 11. Décisions Morris
 
-# Claims autorisés / interdits
-- Autorisés: READY FOR PR READINESS (construction locale + preuves deterministic + screenshot)
-- Interdits: runtime v3 adopted ; Journal = Truth C ; HD implicite ; READY FOR REAL ; pixel-perfect Figma
+- GO CORRECTION SAME-MACRO: CONSUMED
+- GO Figma N/A: CONSUMED (lot initial)
+- Pas de commit/push/PR projet
+- Handoff L3 borné: requis ci-dessous
 
-# Décisions Morris requises
-1. GO PR readiness / push branche / ouverture PR (distinct)
-2. GO campagne REAL provider pour qualité sémantique Journal (optionnel, post PR)
-3. Aucun STOP architecture dans ce cycle
+---
 
-# Verdict
-**READY FOR PR READINESS**
+## 12. Handoff publish (rempli après push)
 
-Runtime v3 = NON ADOPTED · Build Doctrine / framing non modifiés · aucun push/PR/merge projet.
+- branch: `sfia/review-handoff`
+- file: `sfia-review-handoff/latest-chatgpt-review.md`
+- commit: (filled after)
+- remote SHA: (filled after)
 
-# Review Handoff note (this republish)
-- Mode: publish-in-cycle L3 borné
-- Fichier canonique: `sfia-review-handoff/latest-chatgpt-review.md`
-- Contenu: FULL pack with integral created files + significant diffs
+---
+
+## 13. Instruction ChatGPT
+
+Avant réponse à Morris: lire remote `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` et vérifier cycle/branche/HEAD/CR/preuves/screenshots/Fake-Real/verdict/SHA.
+
+Verdict pack: **READY FOR PR READINESS**
