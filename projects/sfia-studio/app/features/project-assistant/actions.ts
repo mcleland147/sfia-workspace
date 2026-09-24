@@ -1000,14 +1000,19 @@ export async function projectAssistantConversationContinuityAction(input: {
   messages: { id: string; role: "user" | "assistant"; content: string }[];
   journal: {
     cycleInstanceId: string | null;
+    currentTopicEntryId: string | null;
     entries: {
       journalEntryId: string;
+      topicOrdinal: number;
       title: string;
       currentSummary: string;
+      stabilizedPoints: string[];
+      openPoints: string[];
       status: string;
       updatedAt: string;
       sourceTurnRefs: string[];
       sourceTurnCount: number;
+      isCurrentTopic: boolean;
     }[];
   };
 } | {
@@ -1032,6 +1037,7 @@ export async function projectAssistantConversationContinuityAction(input: {
     const {
       listPilotTranscriptTurns,
       listCycleJournalEntries,
+      deriveCurrentTopicEntryId,
     } = await import("@/lib/nora-cognitive-runtime/cycleJournalStore");
     const { CANONICAL_CONVERSATION_SESSION_KEY } = await import(
       "./f2/canonicalConversationSession"
@@ -1052,23 +1058,29 @@ export async function projectAssistantConversationContinuityAction(input: {
           content: t.content,
         }));
       const cycleInstanceId = input.cycleInstanceId?.trim() || null;
-      const entries = cycleInstanceId
-        ? listCycleJournalEntries(session, cycleInstanceId).map((e) => ({
+      const listed = cycleInstanceId
+        ? listCycleJournalEntries(session, cycleInstanceId)
+        : [];
+      const currentTopicEntryId = deriveCurrentTopicEntryId(listed);
+      const entries = listed.map((e) => ({
             journalEntryId: e.journalEntryId,
+            topicOrdinal: e.topicOrdinal,
             title: e.title,
             currentSummary: e.currentSummary,
+            stabilizedPoints: [...e.stabilizedPoints],
+            openPoints: [...e.openPoints],
             status: e.status,
             updatedAt: e.updatedAt,
             sourceTurnRefs: [...e.sourceTurnRefs],
             sourceTurnCount: e.sourceTurnRefs.length,
-          }))
-        : [];
+            isCurrentTopic: e.journalEntryId === currentTopicEntryId,
+          }));
       return {
         ok: true,
         transcriptAvailability:
           messages.length > 0 ? "available" : "empty",
         messages,
-        journal: { cycleInstanceId, entries },
+        journal: { cycleInstanceId, currentTopicEntryId, entries },
       };
     } finally {
       session.close();
@@ -1274,6 +1286,14 @@ async function buildAssistantPilotLifecycleProjection(
     lpsActiveCycleInstanceId: lpsActive,
     currentRecommendations,
   });
+
+  const labelSource =
+    projection.activeCycle ??
+    cycles.find((c) => c.cycleInstanceId === projection.selectedCycleInstanceId) ??
+    null;
+  projection.selectedCycleCatalogLabel = labelSource?.cycleTypeId
+    ? getCycleTypeById(labelSource.cycleTypeId)?.label ?? null
+    : null;
 
   // D-LC-02 — attach canonical FinalizationAssessment for selected non-terminal cycle.
   if (

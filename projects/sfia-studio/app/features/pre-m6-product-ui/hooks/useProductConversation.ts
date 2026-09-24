@@ -30,6 +30,7 @@ import {
   G_UX_08_AMEND_DEFERRED_MESSAGE,
   deriveRecommendationFreshness,
   isBoundedRunningAttemptRefreshable,
+  resolveProjectOpenContinuityPresentation,
   type RecommendationFreshness,
 } from "@/features/project-assistant/presentationLabels";
 import { lifecycleRecommendationMaterializeFailurePiloteNotice } from "@/features/project-assistant/lifecycleRecommendationPiloteNotice";
@@ -146,6 +147,9 @@ export function useProductConversation({
   const [journalCycleInstanceId, setJournalCycleInstanceId] = useState<
     string | null
   >(null);
+  /** One-shot restored hint for true project open/reload — never for live turns. */
+  const [allowRestoredHint, setAllowRestoredHint] = useState(false);
+  const initialContinuityResolvedRef = useRef(false);
   const [selectedJournalEntryId, setSelectedJournalEntryId] = useState<
     string | null
   >(null);
@@ -213,6 +217,8 @@ export function useProductConversation({
   useEffect(() => {
     let cancelled = false;
     setTranscriptAvailability("pending");
+    initialContinuityResolvedRef.current = false;
+    setAllowRestoredHint(false);
     void projectAssistantConversationContinuityAction({
       projectId,
       cycleInstanceId: activeCycleInstanceId,
@@ -222,20 +228,24 @@ export function useProductConversation({
         setTranscriptAvailability("unavailable");
         setJournalEntries([]);
         setJournalCycleInstanceId(null);
+        initialContinuityResolvedRef.current = true;
         return;
       }
       setTranscriptAvailability(result.transcriptAvailability);
-      if (result.messages.length > 0) {
-        setMessages(
-          result.messages.map((m) => ({
-            id: m.id,
-            role: m.role,
-            content: m.content,
-          })),
-        );
-      }
+      // Always reconcile visible conversation to durable pt:* ids (Track A).
+      setMessages(
+        result.messages.map((m) => ({
+          id: m.id,
+          role: m.role,
+          content: m.content,
+        })),
+      );
       setJournalCycleInstanceId(result.journal.cycleInstanceId);
       setJournalEntries(result.journal.entries);
+      if (!initialContinuityResolvedRef.current) {
+        initialContinuityResolvedRef.current = true;
+        setAllowRestoredHint(result.transcriptAvailability === "available");
+      }
     });
     return () => {
       cancelled = true;
@@ -317,8 +327,22 @@ export function useProductConversation({
   const gateOpen =
     activeProposal?.morrisGateRequired === true &&
     activeProposal.status === "DECISION_REQUIRED";
+  const openContinuityPresentation = resolveProjectOpenContinuityPresentation(
+    transcriptAvailability,
+    { allowRestoredHint },
+  );
 
-  async function refreshConversationContinuity() {
+  async function refreshConversationContinuity(options?: {
+    /** When true (default), replace UI messages with durable transcript (pt:*). */
+    reconcileMessages?: boolean;
+    /** Disarm restored hint (default true after live session activity). */
+    disarmRestoredHint?: boolean;
+  }) {
+    const reconcileMessages = options?.reconcileMessages !== false;
+    const disarmRestoredHint = options?.disarmRestoredHint !== false;
+    if (disarmRestoredHint) {
+      setAllowRestoredHint(false);
+    }
     const result = await projectAssistantConversationContinuityAction({
       projectId,
       cycleInstanceId: activeCycleInstanceId,
@@ -328,6 +352,15 @@ export function useProductConversation({
       return;
     }
     setTranscriptAvailability(result.transcriptAvailability);
+    if (reconcileMessages) {
+      setMessages(
+        result.messages.map((m) => ({
+          id: m.id,
+          role: m.role,
+          content: m.content,
+        })),
+      );
+    }
     setJournalCycleInstanceId(result.journal.cycleInstanceId);
     setJournalEntries(result.journal.entries);
   }
@@ -524,7 +557,10 @@ export function useProductConversation({
         setActiveProposal(null);
       }
       setUiState("ANSWERED");
-      void refreshConversationContinuity();
+      void refreshConversationContinuity({
+        reconcileMessages: true,
+        disarmRestoredHint: true,
+      });
     });
   }
 
@@ -815,6 +851,7 @@ export function useProductConversation({
     durableEvidenceOutcome,
     durableRehydrateError,
     transcriptAvailability,
+    openContinuityPresentation,
     journalEntries,
     journalCycleInstanceId,
     selectedJournalEntryId,

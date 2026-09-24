@@ -77,9 +77,21 @@ describe("W1 Track E — recovery foundation helpers", () => {
       kind: "none",
     });
     expect(resolveProjectOpenContinuityPresentation("available")).toEqual({
+      kind: "none",
+    });
+    expect(
+      resolveProjectOpenContinuityPresentation("available", {
+        allowRestoredHint: true,
+      }),
+    ).toEqual({
       kind: "restored_hint",
       message: W1_AUTO_RESUME_RESTORED_HINT,
     });
+    expect(
+      resolveProjectOpenContinuityPresentation("available", {
+        allowRestoredHint: false,
+      }),
+    ).toEqual({ kind: "none" });
     expect(resolveProjectOpenContinuityPresentation("unavailable")).toEqual({
       kind: "transcript_unavailable",
       message: W1_TRANSCRIPT_UNAVAILABLE_DISCLOSURE,

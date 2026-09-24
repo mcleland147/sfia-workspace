@@ -1,6 +1,6 @@
 /** @vitest-environment jsdom */
-import { describe, expect, it } from "vitest";
-import { render, screen, within } from "@testing-library/react";
+import { afterEach, describe, expect, it } from "vitest";
+import { cleanup, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import fs from "node:fs";
 import path from "node:path";
@@ -11,15 +11,23 @@ import {
 import { w1RestartHonestyMessage } from "@/features/project-assistant/presentationLabels";
 import styles from "@/features/pre-m6-product-ui/ProjectWorkspacePage.module.css";
 
+afterEach(() => {
+  cleanup();
+});
+
 const sample: JournalSurfaceEntry[] = [
   {
     journalEntryId: "cje:1",
+    topicOrdinal: 1,
     title: "Périmètre",
     currentSummary: "Clarifier le périmètre livrable",
+    stabilizedPoints: ["Hors stocks V1"],
+    openPoints: ["Qui décide ?"],
     status: "active",
     updatedAt: "2026-09-24T12:00:00.000Z",
     sourceTurnRefs: ["pt:a", "pt:b", "pt:c", "pt:d", "pt:e", "pt:f"],
     sourceTurnCount: 6,
+    isCurrentTopic: true,
   },
 ];
 
@@ -69,6 +77,58 @@ describe("JournalSurface UI", () => {
     expect(focused).toBe("pt:f");
     await user.click(screen.getByText("Périmètre"));
     expect(selected).toBe("cje:1");
+    expect(screen.getByTestId("cycle-journal-ordinal-cje:1").textContent).toBe(
+      "Sujet 1",
+    );
+    expect(screen.getByTestId("cycle-journal-current-cje:1").textContent).toBe(
+      "En cours",
+    );
+  });
+
+  it("JPI-04 — never shows raw pt:* as nominal exchange label", async () => {
+    const user = userEvent.setup();
+    const { container } = render(
+      <JournalSurface
+        entries={sample}
+        cycleInstanceId="cyc:1"
+        selectedEntryId={null}
+        onSelectEntry={() => {}}
+        onViewExchanges={() => {}}
+        onFocusTurn={() => {}}
+        transcriptMessages={[]}
+      />,
+    );
+    await user.click(screen.getByTestId("cycle-journal-view-cje:1"));
+    const excerpts = container.querySelectorAll(
+      '[data-testid^="cycle-journal-exchange-"] [class*="exchangeExcerpt"]',
+    );
+    expect(excerpts.length).toBeGreaterThan(0);
+    for (const el of excerpts) {
+      expect(el.textContent ?? "").not.toMatch(/^pt:/);
+      expect(el.textContent ?? "").toContain("synchronisation");
+    }
+  });
+
+  it("shows stabilized/open points via progressive disclosure", async () => {
+    const user = userEvent.setup();
+    render(
+      <JournalSurface
+        entries={sample}
+        cycleInstanceId="cyc:1"
+        selectedEntryId={null}
+        onSelectEntry={() => {}}
+        onViewExchanges={() => {}}
+        onFocusTurn={() => {}}
+        transcriptMessages={transcript}
+      />,
+    );
+    const card = screen.getByTestId("cycle-journal-entry-cje:1");
+    await user.click(within(card).getByTestId("cycle-journal-points-cje:1"));
+    expect(
+      within(card).getByTestId("cycle-journal-points-body-cje:1"),
+    ).toBeTruthy();
+    expect(within(card).getByText("Hors stocks V1")).toBeTruthy();
+    expect(within(card).getByText("Qui décide ?")).toBeTruthy();
   });
 });
 

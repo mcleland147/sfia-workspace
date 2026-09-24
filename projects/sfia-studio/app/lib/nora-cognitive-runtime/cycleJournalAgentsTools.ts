@@ -132,8 +132,11 @@ export function createCycleJournalAgentsTools(ctx: CycleJournalToolContext) {
         ok: true,
         entry: {
           journalEntryId: entry.journalEntryId,
+          topicOrdinal: entry.topicOrdinal,
           title: entry.title,
           currentSummary: entry.currentSummary,
+          stabilizedPoints: entry.stabilizedPoints,
+          openPoints: entry.openPoints,
           status: entry.status,
           sourceTurnCount: entry.sourceTurnRefs.length,
           sourceTurnRefs: entry.sourceTurnRefs.slice(-12),

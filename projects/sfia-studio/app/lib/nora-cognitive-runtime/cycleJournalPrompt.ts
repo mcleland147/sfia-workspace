@@ -34,13 +34,28 @@ export function formatCycleJournalCompactForPrompt(
       e.currentSummary.length > MAX_SUMMARY_CHARS
         ? `${e.currentSummary.slice(0, MAX_SUMMARY_CHARS)}…`
         : e.currentSummary;
+    const stabilizedPreview = e.stabilizedPoints
+      .slice(0, 3)
+      .map((p) => p.slice(0, 80))
+      .join(" · ");
+    const openPreview = e.openPoints
+      .slice(0, 3)
+      .map((p) => p.slice(0, 80))
+      .join(" · ");
+    const currentMark = e.isCurrentTopic ? " · EN_COURS" : "";
     lines.push(
-      `- [${e.journalEntryId}] ${e.title} · refs=${e.sourceTurnCount} · ${summary}`,
+      `- [Sujet ${e.topicOrdinal}] [${e.journalEntryId}] ${e.title}${currentMark} · refs=${e.sourceTurnCount} · stab=${e.stabilizedPoints.length} · open=${e.openPoints.length} · ${summary}`,
     );
+    if (stabilizedPreview) {
+      lines.push(`    stabilisé: ${stabilizedPreview}`);
+    }
+    if (openPreview) {
+      lines.push(`    ouvert: ${openPreview}`);
+    }
   }
   lines.push(
-    "Si le sujet revient : UPDATE le même journalEntryId (même identité).",
-    "CREATE seulement pour un nouveau thème ; MERGE/SPLIT/ARCHIVE explicites.",
+    "Si le sujet revient : UPDATE le même journalEntryId (même identité / Sujet N).",
+    "CREATE seulement pour un nouvel axe indépendant ; SPLIT si multi-axes ; MERGE si convergence.",
     "N'invente pas d'ids ; targetEntryId = id listé ci-dessus ou null pour CREATE.",
     "Working set borné : si le thème peut déjà exister hors de cette liste,",
     "appelle d'abord l'outil cycle_journal_search (index du cycle) AVANT CREATE.",

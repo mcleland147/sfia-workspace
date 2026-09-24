@@ -263,6 +263,8 @@ export const NORA_JOURNAL_DELTA_OPERATION_SCHEMA = {
     "targetEntryId",
     "title",
     "currentSummary",
+    "stabilizedPoints",
+    "openPoints",
     "sourceTurnRefs",
     "relatedEntryIds",
   ],
@@ -279,6 +281,18 @@ export const NORA_JOURNAL_DELTA_OPERATION_SCHEMA = {
     },
     currentSummary: {
       anyOf: [{ type: "null" as const }, { type: "string" as const }],
+    },
+    stabilizedPoints: {
+      anyOf: [
+        { type: "null" as const },
+        { type: "array" as const, items: { type: "string" as const } },
+      ],
+    },
+    openPoints: {
+      anyOf: [
+        { type: "null" as const },
+        { type: "array" as const, items: { type: "string" as const } },
+      ],
     },
     sourceTurnRefs: {
       type: "array" as const,
@@ -346,6 +360,8 @@ export type NoraJournalDeltaOperationStructured = {
   targetEntryId: string | null;
   title: string | null;
   currentSummary: string | null;
+  stabilizedPoints?: string[] | null;
+  openPoints?: string[] | null;
   sourceTurnRefs: string[];
   relatedEntryIds: string[];
 };
@@ -764,6 +780,25 @@ export function isNoraJournalDeltaOperationStructured(
   }
   if (o.title != null && typeof o.title !== "string") return false;
   if (o.currentSummary != null && typeof o.currentSummary !== "string") {
+    return false;
+  }
+  // Back-compat: missing points arrays treated as null (legacy fixtures / #516 rows).
+  if (
+    o.stabilizedPoints != null &&
+    !(
+      Array.isArray(o.stabilizedPoints) &&
+      o.stabilizedPoints.every((x) => typeof x === "string")
+    )
+  ) {
+    return false;
+  }
+  if (
+    o.openPoints != null &&
+    !(
+      Array.isArray(o.openPoints) &&
+      o.openPoints.every((x) => typeof x === "string")
+    )
+  ) {
     return false;
   }
   if (!Array.isArray(o.sourceTurnRefs)) return false;

@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { resolveProjectOpenContinuityPresentation } from "@/features/project-assistant/presentationLabels";
 import type { ProjectAssistantRehydrateEvidenceOutcomeSuccess } from "@/features/project-assistant/types";
 import { getProjectRuntimeAction } from "@/lib/vertical-slice-runtime/actions";
 import { useProductConversation } from "./hooks/useProductConversation";
@@ -122,10 +121,9 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
   /**
    * AUTOMATIC PROJECT RESUME — durable state already loads with the page.
    * No generic « Reprendre / nouvelle intention » chooser on open.
+   * Restored hint is one-shot on initial open/reload only (Track G).
    */
-  const continuity = resolveProjectOpenContinuityPresentation(
-    controller.transcriptAvailability,
-  );
+  const continuity = controller.openContinuityPresentation ?? { kind: "none" as const };
 
   /** Suppress competing generic Nora/intention CTAs while subject is owned or unknown. */
   const suppressGenericIntentionCta =

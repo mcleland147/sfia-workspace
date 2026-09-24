@@ -39,6 +39,20 @@ export const ACTIVE_CYCLE_WORK_ALLOWED_TYPES: ReadonlySet<EpistemicItemType> =
     "Contradiction",
   ]);
 
+/**
+ * EPI — only Reservation may carry blocking into Product EpistemicItems.
+ * Stabilized constraints / out-of-scope choices must not become lifecycle blockers
+ * via Observation|Hypothesis|… with blocking=true.
+ */
+export function resolveActiveCycleWorkBlockingFlag(
+  type: EpistemicItemType,
+  blocking: boolean | null | undefined,
+): boolean | undefined {
+  if (type !== "Reservation") return undefined;
+  if (blocking === null || blocking === undefined) return undefined;
+  return blocking;
+}
+
 export type ActiveCycleWorkMaterializationFacts = {
   readonly projectId: string;
   readonly activeCycleInstanceId: string;
@@ -400,10 +414,7 @@ export async function materializeActiveCycleWork(input: {
           raw.confidence === null || raw.confidence === undefined
             ? undefined
             : (raw.confidence as EpistemicConfidence);
-        const blocking =
-          raw.blocking === null || raw.blocking === undefined
-            ? undefined
-            : raw.blocking;
+        const blocking = resolveActiveCycleWorkBlockingFlag(type, raw.blocking);
 
         if (existing) {
           if (

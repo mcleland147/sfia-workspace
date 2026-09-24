@@ -9,20 +9,25 @@ import {
   projectAssistantResolveBlockingReservationAction,
 } from "@/features/project-assistant/actions";
 import { projectAssistantPrepareCandidateTrajectoryAction } from "@/features/project-assistant/preCycleCandidateTrajectoryActions";
-import type { PilotLifecycleProjection } from "@/lib/oa/cycle";
+import type { PilotLifecycleProjection } from "@/lib/oa/cycle/application/lifecycleProjection";
 import { SFIA_ASSISTANT_ANSWERED_EVENT } from "@/features/project-assistant/presentationLabels";
 import {
-  blockerLabel,
   lifecycleCtaPresentation,
   lifecycleStatusBadge,
   nonHumanDecisionBlockers,
   obligationFamilyLabel,
   obligationStatusLabel,
+  presentLifecycleBlockerRows,
   primaryFinalizeRecommendation,
   primaryNextCycleRecommendation,
   readyExceptFinalizeDecision,
 } from "./lifecyclePresentation";
 import styles from "./LifecycleSurface.module.css";
+
+function cycleCatalogLabel(projection: PilotLifecycleProjection | null): string {
+  const label = projection?.selectedCycleCatalogLabel?.trim();
+  return label && label.length > 0 ? label : "Cycle";
+}
 
 /**
  * LifecycleSurface — Recommend→Decide presentation only.
@@ -235,11 +240,13 @@ export function LifecycleSurface({
     );
   }
 
+  const cycleTitle = cycleCatalogLabel(projection);
   const badge = lifecycleStatusBadge(projection);
   const cta = lifecycleCtaPresentation(projection);
   const finalizeRec = primaryFinalizeRecommendation(projection);
   const nextRec = primaryNextCycleRecommendation(projection);
   const nonHd = nonHumanDecisionBlockers(projection.assessment);
+  const blockerRows = presentLifecycleBlockerRows(nonHd);
   const ready = readyExceptFinalizeDecision(projection.assessment);
   const terminalDisplay =
     projection.selectedStatus === "completed" ||
@@ -258,11 +265,13 @@ export function LifecycleSurface({
     <aside
       className={styles.panel}
       data-testid="lifecycle-surface"
-      aria-label="Cycle"
+      aria-label={cycleTitle}
     >
       <header className={styles.head}>
         <p className={styles.eyebrow}>CYCLE</p>
-        <h2 className={styles.title}>Cycle</h2>
+        <h2 className={styles.title} data-testid="lifecycle-cycle-title">
+          {cycleTitle}
+        </h2>
         <p
           className={styles.badge}
           data-testid="lifecycle-status-badge"
@@ -329,11 +338,21 @@ export function LifecycleSurface({
               Prêt pour décision de finalisation — seule la décision Pilote
               « Finaliser » reste requise.
             </p>
-          ) : nonHd.length > 0 ? (
+          ) : blockerRows.length > 0 ? (
             <ul data-testid="lifecycle-blocker-list">
-              {nonHd.map((b) => (
-                <li key={b} data-blocker={b}>
-                  {blockerLabel(b)}
+              {blockerRows.map((row) => (
+                <li
+                  key={row.id}
+                  data-blocker={row.id}
+                  data-member-count={row.memberIds?.length ?? undefined}
+                >
+                  {row.label}
+                  {row.memberIds && row.memberIds.length > 1 ? (
+                    <span className={styles.muted}>
+                      {" "}
+                      ({row.memberIds.length} familles)
+                    </span>
+                  ) : null}
                 </li>
               ))}
             </ul>

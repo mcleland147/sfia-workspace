@@ -217,6 +217,9 @@ export async function persistCanonicalF2AssistantTurn(input: {
   sessionDbPath?: string;
   userText: string;
   assistantText: string;
+  /** Optional active cycle — binds pilot transcript rows for Journal source resolve. */
+  cycleInstanceId?: string | null;
+  logicalTurnId?: string | null;
 }): Promise<void> {
   const session = openCanonicalConversationSession({
     projectId: input.projectId,
@@ -227,6 +230,24 @@ export async function persistCanonicalF2AssistantTurn(input: {
       session,
       userText: input.userText,
       assistantText: input.assistantText,
+    });
+    // Track A — Pilote-facing durable transcript must match Memory B session_items
+    // on F2-owned replies. Otherwise post-turn reconcile (pt:*) wipes local UI
+    // messages and Journal source refs cannot resolve mid-session.
+    const { appendPilotTranscriptTurn } = await import(
+      "@/lib/nora-cognitive-runtime/cycleJournalStore"
+    );
+    appendPilotTranscriptTurn(session, {
+      role: "user",
+      content: input.userText.trim(),
+      logicalTurnId: input.logicalTurnId ?? null,
+      cycleInstanceId: input.cycleInstanceId ?? null,
+    });
+    appendPilotTranscriptTurn(session, {
+      role: "assistant",
+      content: input.assistantText.trim(),
+      logicalTurnId: input.logicalTurnId ?? null,
+      cycleInstanceId: input.cycleInstanceId ?? null,
     });
   } finally {
     session.close();

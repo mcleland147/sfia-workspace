@@ -5,12 +5,16 @@ import styles from "./JournalSurface.module.css";
 
 export type JournalSurfaceEntry = {
   journalEntryId: string;
+  topicOrdinal: number;
   title: string;
   currentSummary: string;
+  stabilizedPoints: string[];
+  openPoints: string[];
   status: string;
   updatedAt: string;
   sourceTurnRefs: string[];
   sourceTurnCount: number;
+  isCurrentTopic?: boolean;
 };
 
 export type JournalTranscriptMessage = {
@@ -58,16 +62,25 @@ function roleLabel(role: string): string {
 function previewFor(
   turnId: string,
   messages: JournalTranscriptMessage[] | undefined,
-): { role: string; excerpt: string } {
+): { role: string; excerpt: string; resolvable: boolean } {
   const msg = messages?.find((m) => m.id === turnId);
   if (!msg) {
-    return { role: "échange", excerpt: turnId };
+    // Never show raw pt:* as the nominal Pilot label — pending reconcile / missing.
+    return {
+      role: "échange",
+      excerpt: "Échange en cours de synchronisation…",
+      resolvable: false,
+    };
   }
   const excerpt =
     msg.content.trim().length > 96
       ? `${msg.content.trim().slice(0, 93)}…`
       : msg.content.trim();
-  return { role: roleLabel(msg.role), excerpt: excerpt || "(vide)" };
+  return {
+    role: roleLabel(msg.role),
+    excerpt: excerpt || "(vide)",
+    resolvable: true,
+  };
 }
 
 /**
@@ -88,6 +101,7 @@ export function JournalSurface({
   const safeEntries = Array.isArray(entries) ? entries : [];
   const activeCount = safeEntries.filter((e) => e.status === "active").length;
   const [expandedEntryId, setExpandedEntryId] = useState<string | null>(null);
+  const [pointsOpenId, setPointsOpenId] = useState<string | null>(null);
 
   return (
     <aside
@@ -142,6 +156,12 @@ export function JournalSurface({
             safeEntries.map((entry) => {
               const selected = selectedEntryId === entry.journalEntryId;
               const expanded = expandedEntryId === entry.journalEntryId;
+              const pointsOpen = pointsOpenId === entry.journalEntryId;
+              const hasPoints =
+                entry.stabilizedPoints.length > 0 ||
+                entry.openPoints.length > 0;
+              const ordinal =
+                entry.topicOrdinal > 0 ? entry.topicOrdinal : null;
               return (
                 <article
                   key={entry.journalEntryId}
@@ -150,11 +170,14 @@ export function JournalSurface({
                     styles.card,
                     selected ? styles.cardSelected : "",
                     entry.status !== "active" ? styles.cardMuted : "",
+                    entry.isCurrentTopic ? styles.cardCurrent : "",
                   ]
                     .filter(Boolean)
                     .join(" ")}
                   data-testid={`cycle-journal-entry-${entry.journalEntryId}`}
                   data-status={entry.status}
+                  data-topic-ordinal={ordinal ?? undefined}
+                  data-current-topic={entry.isCurrentTopic ? "true" : "false"}
                   aria-current={selected ? "true" : undefined}
                 >
                   <button
@@ -163,6 +186,24 @@ export function JournalSurface({
                     onClick={() => onSelectEntry(entry.journalEntryId)}
                     aria-pressed={selected}
                   >
+                    <span className={styles.cardHeading}>
+                      {ordinal != null ? (
+                        <span
+                          className={styles.ordinal}
+                          data-testid={`cycle-journal-ordinal-${entry.journalEntryId}`}
+                        >
+                          Sujet {ordinal}
+                        </span>
+                      ) : null}
+                      {entry.isCurrentTopic ? (
+                        <span
+                          className={styles.currentBadge}
+                          data-testid={`cycle-journal-current-${entry.journalEntryId}`}
+                        >
+                          En cours
+                        </span>
+                      ) : null}
+                    </span>
                     <span className={styles.cardTitle}>{entry.title}</span>
                     <span className={styles.cardSummary}>
                       {entry.currentSummary}
@@ -177,6 +218,52 @@ export function JournalSurface({
                       </span>
                     </span>
                   </button>
+                  {hasPoints ? (
+                    <button
+                      type="button"
+                      className={styles.viewExchanges}
+                      data-testid={`cycle-journal-points-${entry.journalEntryId}`}
+                      aria-expanded={pointsOpen}
+                      onClick={() =>
+                        setPointsOpenId((prev) =>
+                          prev === entry.journalEntryId
+                            ? null
+                            : entry.journalEntryId,
+                        )
+                      }
+                    >
+                      {pointsOpen
+                        ? "Masquer les points"
+                        : "Points stabilisés / ouverts"}
+                    </button>
+                  ) : null}
+                  {pointsOpen && hasPoints ? (
+                    <div
+                      className={styles.pointsBlock}
+                      data-testid={`cycle-journal-points-body-${entry.journalEntryId}`}
+                    >
+                      {entry.stabilizedPoints.length > 0 ? (
+                        <div>
+                          <p className={styles.pointsLabel}>Stabilisés</p>
+                          <ul className={styles.pointsList}>
+                            {entry.stabilizedPoints.map((p, i) => (
+                              <li key={`s-${i}`}>{p}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      ) : null}
+                      {entry.openPoints.length > 0 ? (
+                        <div>
+                          <p className={styles.pointsLabel}>Ouverts</p>
+                          <ul className={styles.pointsList}>
+                            {entry.openPoints.map((p, i) => (
+                              <li key={`o-${i}`}>{p}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      ) : null}
+                    </div>
+                  ) : null}
                   {entry.sourceTurnRefs.length > 0 ? (
                     <button
                       type="button"
@@ -211,7 +298,13 @@ export function JournalSurface({
                               type="button"
                               className={styles.exchangeItem}
                               data-testid={`cycle-journal-exchange-${turnId}`}
-                              onClick={() => onFocusTurn(turnId)}
+                              data-resolvable={
+                                preview.resolvable ? "true" : "false"
+                              }
+                              onClick={() => {
+                                if (preview.resolvable) onFocusTurn(turnId);
+                              }}
+                              disabled={!preview.resolvable}
                             >
                               <span className={styles.exchangeRole}>
                                 {preview.role}

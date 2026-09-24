@@ -223,6 +223,7 @@ function baseController(overrides: Record<string, unknown> = {}) {
     refreshResolvedM3RunningAttempt: vi.fn(),
     retryLastUserMessage: vi.fn(),
     transcriptAvailability: "empty",
+    openContinuityPresentation: { kind: "none" as const },
     journalEntries: [],
     journalCycleInstanceId: "cyc:1",
     selectedJournalEntryId: null,
@@ -259,6 +260,10 @@ describe("AUTOMATIC PROJECT RESUME — ProjectWorkspacePage", () => {
     useProductConversationMock.mockReturnValue(
       baseController({
         transcriptAvailability: "available",
+        openContinuityPresentation: {
+          kind: "restored_hint",
+          message: W1_AUTO_RESUME_RESTORED_HINT,
+        },
         messages: [
           { id: "pt:1", role: "user", content: "Bonjour" },
           { id: "pt:2", role: "assistant", content: "Salut" },
@@ -266,12 +271,16 @@ describe("AUTOMATIC PROJECT RESUME — ProjectWorkspacePage", () => {
         journalEntries: [
           {
             journalEntryId: "cje:1",
+            topicOrdinal: 1,
             title: "Périmètre",
             currentSummary: "ok",
+            stabilizedPoints: [],
+            openPoints: [],
             status: "active",
             updatedAt: "2026-09-24T12:00:00.000Z",
             sourceTurnRefs: ["pt:1"],
             sourceTurnCount: 1,
+            isCurrentTopic: true,
           },
         ],
       }),
@@ -317,16 +326,24 @@ describe("AUTOMATIC PROJECT RESUME — ProjectWorkspacePage", () => {
     useProductConversationMock.mockReturnValue(
       baseController({
         transcriptAvailability: "unavailable",
+        openContinuityPresentation: {
+          kind: "transcript_unavailable",
+          message: W1_TRANSCRIPT_UNAVAILABLE_DISCLOSURE,
+        },
         refreshConversationContinuity: retry,
         journalEntries: [
           {
             journalEntryId: "cje:1",
+            topicOrdinal: 1,
             title: "Sujet durable",
             currentSummary: "kept",
+            stabilizedPoints: [],
+            openPoints: [],
             status: "active",
             updatedAt: "2026-09-24T12:00:00.000Z",
             sourceTurnRefs: [],
             sourceTurnCount: 0,
+            isCurrentTopic: true,
           },
         ],
       }),

@@ -16,17 +16,45 @@ function mintId(prefix: string): string {
   return `${prefix}:${randomBytes(8).toString("hex")}`;
 }
 
-function parseJsonArray(raw: string): string[] {
+function parseJsonArray(raw: string | null | undefined): string[] {
+  if (raw == null || raw === "") return [];
   try {
     const v = JSON.parse(raw) as unknown;
     if (!Array.isArray(v)) return [];
-    return v.map((x) => String(x)).filter((s) => s.trim() !== "");
+    return v
+      .map((x) => String(x).trim())
+      .filter((s) => s !== "")
+      .slice(0, 24);
   } catch {
     return [];
   }
 }
 
-function rowToEntry(row: {
+function normalizePointList(
+  points: readonly string[] | null | undefined,
+): string[] {
+  if (!points) return [];
+  const out: string[] = [];
+  const seen = new Set<string>();
+  for (const raw of points) {
+    const t = String(raw ?? "").trim().slice(0, 280);
+    if (!t || seen.has(t)) continue;
+    seen.add(t);
+    out.push(t);
+    if (out.length >= 12) break;
+  }
+  return out;
+}
+
+function mergePointLists(
+  existing: readonly string[],
+  incoming: readonly string[] | null | undefined,
+): string[] {
+  if (incoming == null) return [...existing];
+  return normalizePointList([...existing, ...incoming]);
+}
+
+type JournalRow = {
   journal_entry_id: string;
   project_id: string;
   cycle_instance_id: string;
@@ -39,13 +67,28 @@ function rowToEntry(row: {
   lineage_parent_ids_json: string;
   superseded_by_id: string | null;
   last_logical_turn_id: string | null;
-}): CycleJournalEntry {
+  topic_ordinal: number | null;
+  stabilized_points_json: string | null;
+  open_points_json: string | null;
+};
+
+const JOURNAL_SELECT_COLS = `journal_entry_id, project_id, cycle_instance_id, title, current_summary,
+              status, created_at, updated_at, source_turn_refs_json,
+              lineage_parent_ids_json, superseded_by_id, last_logical_turn_id,
+              topic_ordinal, stabilized_points_json, open_points_json`;
+
+function rowToEntry(row: JournalRow): CycleJournalEntry {
   return Object.freeze({
     journalEntryId: row.journal_entry_id,
     projectId: row.project_id,
     cycleInstanceId: row.cycle_instance_id,
+    topicOrdinal: Number(row.topic_ordinal) > 0 ? Number(row.topic_ordinal) : 0,
     title: row.title,
     currentSummary: row.current_summary,
+    stabilizedPoints: Object.freeze(
+      parseJsonArray(row.stabilized_points_json),
+    ),
+    openPoints: Object.freeze(parseJsonArray(row.open_points_json)),
     status: row.status as CycleJournalEntryStatus,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
@@ -54,6 +97,39 @@ function rowToEntry(row: {
     supersededById: row.superseded_by_id,
     lastLogicalTurnId: row.last_logical_turn_id,
   });
+}
+
+function allocateNextTopicOrdinal(
+  session: ProductSqliteSession,
+  cycleInstanceId: string,
+): number {
+  const row = session
+    .getSqlite()
+    .prepare(
+      `SELECT COALESCE(MAX(topic_ordinal), 0) AS m
+       FROM cycle_journal_entries
+       WHERE project_id = ? AND session_key = ? AND cycle_instance_id = ?`,
+    )
+    .get(session.projectId, session.sessionKey, cycleInstanceId) as {
+    m: number;
+  };
+  return Number(row.m) + 1;
+}
+
+/** Current topic = most recently updated active entry (reload-safe; not status). */
+export function deriveCurrentTopicEntryId(
+  entries: readonly CycleJournalEntry[],
+): string | null {
+  const active = entries.filter((e) => e.status === "active");
+  if (active.length === 0) return null;
+  let best = active[0]!;
+  for (const e of active.slice(1)) {
+    if (e.updatedAt > best.updatedAt) best = e;
+    else if (e.updatedAt === best.updatedAt && e.topicOrdinal > best.topicOrdinal) {
+      best = e;
+    }
+  }
+  return best.journalEntryId;
 }
 
 export function appendPilotTranscriptTurn(
@@ -189,27 +265,13 @@ export function listCycleJournalEntries(
   const rows = session
     .getSqlite()
     .prepare(
-      `SELECT journal_entry_id, project_id, cycle_instance_id, title, current_summary,
-              status, created_at, updated_at, source_turn_refs_json,
-              lineage_parent_ids_json, superseded_by_id, last_logical_turn_id
+      `SELECT ${JOURNAL_SELECT_COLS}
        FROM cycle_journal_entries
        WHERE project_id = ? AND session_key = ? AND cycle_instance_id = ?
-       ORDER BY updated_at ASC`,
+       ORDER BY COALESCE(topic_ordinal, 2147483647) ASC,
+                created_at ASC, journal_entry_id ASC`,
     )
-    .all(session.projectId, session.sessionKey, cycle) as Array<{
-    journal_entry_id: string;
-    project_id: string;
-    cycle_instance_id: string;
-    title: string;
-    current_summary: string;
-    status: string;
-    created_at: string;
-    updated_at: string;
-    source_turn_refs_json: string;
-    lineage_parent_ids_json: string;
-    superseded_by_id: string | null;
-    last_logical_turn_id: string | null;
-  }>;
+    .all(session.projectId, session.sessionKey, cycle) as JournalRow[];
   return rows.map(rowToEntry);
 }
 
@@ -223,28 +285,11 @@ export function getCycleJournalEntry(
   const row = session
     .getSqlite()
     .prepare(
-      `SELECT journal_entry_id, project_id, cycle_instance_id, title, current_summary,
-              status, created_at, updated_at, source_turn_refs_json,
-              lineage_parent_ids_json, superseded_by_id, last_logical_turn_id
+      `SELECT ${JOURNAL_SELECT_COLS}
        FROM cycle_journal_entries
        WHERE project_id = ? AND session_key = ? AND journal_entry_id = ?`,
     )
-    .get(session.projectId, session.sessionKey, id) as
-    | {
-        journal_entry_id: string;
-        project_id: string;
-        cycle_instance_id: string;
-        title: string;
-        current_summary: string;
-        status: string;
-        created_at: string;
-        updated_at: string;
-        source_turn_refs_json: string;
-        lineage_parent_ids_json: string;
-        superseded_by_id: string | null;
-        last_logical_turn_id: string | null;
-      }
-    | undefined;
+    .get(session.projectId, session.sessionKey, id) as JournalRow | undefined;
   return row ? rowToEntry(row) : null;
 }
 
@@ -257,17 +302,23 @@ export function buildCycleJournalCompactProjection(
     (e) => e.status === "active",
   );
   const sliced = all.slice(-Math.max(1, maxEntries));
+  const currentTopicEntryId = deriveCurrentTopicEntryId(all);
   return Object.freeze({
     cycleInstanceId: cycleInstanceId.trim(),
+    currentTopicEntryId,
     entries: Object.freeze(
       sliced.map((e) =>
         Object.freeze({
           journalEntryId: e.journalEntryId,
+          topicOrdinal: e.topicOrdinal,
           title: e.title,
           currentSummary: e.currentSummary,
+          stabilizedPoints: e.stabilizedPoints,
+          openPoints: e.openPoints,
           status: e.status,
           sourceTurnCount: e.sourceTurnRefs.length,
           updatedAt: e.updatedAt,
+          isCurrentTopic: e.journalEntryId === currentTopicEntryId,
         }),
       ),
     ),
@@ -308,7 +359,9 @@ export function searchCycleJournalIndex(
       (e) =>
         e.title.toLowerCase().includes(q) ||
         e.currentSummary.toLowerCase().includes(q) ||
-        e.journalEntryId.toLowerCase().includes(q),
+        e.journalEntryId.toLowerCase().includes(q) ||
+        e.stabilizedPoints.some((p) => p.toLowerCase().includes(q)) ||
+        e.openPoints.some((p) => p.toLowerCase().includes(q)),
     );
   }
   // Prefer most recently updated when listing without query; keep all matches capped.
@@ -478,13 +531,17 @@ export function materializeCycleJournalDelta(input: {
         journalEntryId = mintId("cje");
         const title = (op.title?.trim() || "Sujet").slice(0, 200);
         const summary = (op.currentSummary?.trim() || title).slice(0, 2000);
+        const stabilized = normalizePointList(op.stabilizedPoints);
+        const openPts = normalizePointList(op.openPoints);
+        const ordinal = allocateNextTopicOrdinal(session, cycle);
         db.prepare(
           `INSERT INTO cycle_journal_entries(
              project_id, session_key, journal_entry_id, cycle_instance_id,
              title, current_summary, status, created_at, updated_at,
              source_turn_refs_json, lineage_parent_ids_json, superseded_by_id,
-             last_logical_turn_id
-           ) VALUES (?, ?, ?, ?, ?, ?, 'active', ?, ?, ?, '[]', NULL, ?)`,
+             last_logical_turn_id, topic_ordinal, stabilized_points_json,
+             open_points_json
+           ) VALUES (?, ?, ?, ?, ?, ?, 'active', ?, ?, ?, '[]', NULL, ?, ?, ?, ?)`,
         ).run(
           session.projectId,
           session.sessionKey,
@@ -496,6 +553,9 @@ export function materializeCycleJournalDelta(input: {
           now,
           JSON.stringify(boundRefs),
           ltu,
+          ordinal,
+          JSON.stringify(stabilized),
+          JSON.stringify(openPts),
         );
       } else if (op.op === "UPDATE") {
         if (!journalEntryId) {
@@ -512,10 +572,19 @@ export function materializeCycleJournalDelta(input: {
           op.currentSummary?.trim() || cur.currentSummary
         ).slice(0, 2000);
         const refs = mergeUniqueRefs(cur.sourceTurnRefs, boundRefs);
+        const stabilized =
+          op.stabilizedPoints == null
+            ? [...cur.stabilizedPoints]
+            : normalizePointList(op.stabilizedPoints);
+        const openPts =
+          op.openPoints == null
+            ? [...cur.openPoints]
+            : normalizePointList(op.openPoints);
         db.prepare(
           `UPDATE cycle_journal_entries
            SET title = ?, current_summary = ?, updated_at = ?,
-               source_turn_refs_json = ?, last_logical_turn_id = ?
+               source_turn_refs_json = ?, last_logical_turn_id = ?,
+               stabilized_points_json = ?, open_points_json = ?
            WHERE project_id = ? AND session_key = ? AND journal_entry_id = ?`,
         ).run(
           title,
@@ -523,6 +592,8 @@ export function materializeCycleJournalDelta(input: {
           now,
           JSON.stringify(refs),
           ltu,
+          JSON.stringify(stabilized),
+          JSON.stringify(openPts),
           session.projectId,
           session.sessionKey,
           journalEntryId,
@@ -613,11 +684,27 @@ export function materializeCycleJournalDelta(input: {
         const summary = (
           op.currentSummary?.trim() || target.currentSummary
         ).slice(0, 2000);
+        let stabilized = [...target.stabilizedPoints];
+        let openPts = [...target.openPoints];
+        for (const rid of validRelated) {
+          const src = getCycleJournalEntry(session, rid);
+          if (!src) continue;
+          stabilized = mergePointLists(stabilized, src.stabilizedPoints);
+          openPts = mergePointLists(openPts, src.openPoints);
+        }
+        if (op.stabilizedPoints != null) {
+          stabilized = normalizePointList(op.stabilizedPoints);
+        }
+        if (op.openPoints != null) {
+          openPts = normalizePointList(op.openPoints);
+        }
+        // MERGE: target keeps its topicOrdinal; absorbed sources keep historical ordinals.
         db.prepare(
           `UPDATE cycle_journal_entries
            SET title = ?, current_summary = ?, updated_at = ?,
                source_turn_refs_json = ?, lineage_parent_ids_json = ?,
-               last_logical_turn_id = ?
+               last_logical_turn_id = ?, stabilized_points_json = ?,
+               open_points_json = ?
            WHERE project_id = ? AND session_key = ? AND journal_entry_id = ?`,
         ).run(
           title,
@@ -626,6 +713,8 @@ export function materializeCycleJournalDelta(input: {
           JSON.stringify(refs),
           JSON.stringify(parents),
           ltu,
+          JSON.stringify(stabilized),
+          JSON.stringify(openPts),
           session.projectId,
           session.sessionKey,
           journalEntryId,
@@ -645,13 +734,17 @@ export function materializeCycleJournalDelta(input: {
         const summary = (
           op.currentSummary?.trim() || cur.currentSummary
         ).slice(0, 2000);
+        const stabilized = normalizePointList(op.stabilizedPoints);
+        const openPts = normalizePointList(op.openPoints);
+        const siblingOrdinal = allocateNextTopicOrdinal(session, cycle);
         db.prepare(
           `INSERT INTO cycle_journal_entries(
              project_id, session_key, journal_entry_id, cycle_instance_id,
              title, current_summary, status, created_at, updated_at,
              source_turn_refs_json, lineage_parent_ids_json, superseded_by_id,
-             last_logical_turn_id
-           ) VALUES (?, ?, ?, ?, ?, ?, 'active', ?, ?, ?, ?, NULL, ?)`,
+             last_logical_turn_id, topic_ordinal, stabilized_points_json,
+             open_points_json
+           ) VALUES (?, ?, ?, ?, ?, ?, 'active', ?, ?, ?, ?, NULL, ?, ?, ?, ?)`,
         ).run(
           session.projectId,
           session.sessionKey,
@@ -664,7 +757,11 @@ export function materializeCycleJournalDelta(input: {
           JSON.stringify(boundRefs),
           JSON.stringify([journalEntryId]),
           ltu,
+          siblingOrdinal,
+          JSON.stringify(stabilized),
+          JSON.stringify(openPts),
         );
+        // Parent keeps its ordinal; only status changes — no renumber.
         db.prepare(
           `UPDATE cycle_journal_entries
            SET status = 'split', updated_at = ?, last_logical_turn_id = ?
