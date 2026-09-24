@@ -2,11 +2,12 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { shouldShowProjectRecovery, w1RestartHonestyMessage } from "@/features/project-assistant/presentationLabels";
+import { resolveProjectOpenContinuityPresentation } from "@/features/project-assistant/presentationLabels";
 import type { ProjectAssistantRehydrateEvidenceOutcomeSuccess } from "@/features/project-assistant/types";
 import { getProjectRuntimeAction } from "@/lib/vertical-slice-runtime/actions";
 import { useProductConversation } from "./hooks/useProductConversation";
 import { ConversationSurface } from "./surfaces/ConversationSurface";
+import { JournalSurface } from "./surfaces/JournalSurface";
 import { HistorySurface } from "./surfaces/HistorySurface";
 import { LpsSurface } from "./surfaces/LpsSurface";
 import { RecoverySurface } from "./surfaces/RecoverySurface";
@@ -27,6 +28,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
   const [durableOutcome, setDurableOutcome] =
     useState<ProjectAssistantRehydrateEvidenceOutcomeSuccess | null>(null);
   const [lpsOpen, setLpsOpen] = useState(false);
+  const [journalCollapsed, setJournalCollapsed] = useState(false);
   const [trajectoryRefreshSignal, setTrajectoryRefreshSignal] = useState(0);
   /** B1 — bump so LifecycleSurface reloads after Trajectory (or other) durable mutations. */
   const [lifecycleRefreshSignal, setLifecycleRefreshSignal] = useState(0);
@@ -78,15 +80,11 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
     if (input instanceof HTMLTextAreaElement) input.focus();
   }, []);
 
-  const onRequalify = useCallback(async () => {
-    // JOURNEY-INTEGRITY — "nouvelle intention" focuses Nora for qualification.
-    // Must NOT bypass to proposeOptions / Trajectory instruction.
-    focusConversation();
-    void loadProject();
-  }, [focusConversation, loadProject]);
-
   const controller = useProductConversation({
     projectId,
+    activeCycleInstanceId: result?.ok
+      ? result.livingState.activeCycleInstanceId
+      : null,
     onDurableFactsChanged: notifyDurableFactsChanged,
     onDurableEvidenceOutcomeChange: setDurableOutcome,
   });
@@ -121,11 +119,13 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
 
   const success: GetProjectSuccess = result;
 
-  const showRecovery = shouldShowProjectRecovery({
-    hasDurableEvidenceOutcome: Boolean(durableOutcome),
-    livingStateVersion: success.livingState.version,
-    activeCycleInstanceId: success.livingState.activeCycleInstanceId,
-  });
+  /**
+   * AUTOMATIC PROJECT RESUME — durable state already loads with the page.
+   * No generic « Reprendre / nouvelle intention » chooser on open.
+   */
+  const continuity = resolveProjectOpenContinuityPresentation(
+    controller.transcriptAvailability,
+  );
 
   /** Suppress competing generic Nora/intention CTAs while subject is owned or unknown. */
   const suppressGenericIntentionCta =
@@ -152,24 +152,38 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
         </button>
       </header>
 
-      {showRecovery ? (
+      {continuity.kind === "restored_hint" ? (
+        <p
+          className={styles.durabilityHint}
+          data-testid="project-auto-resume-hint"
+        >
+          {continuity.message}
+        </p>
+      ) : null}
+      {continuity.kind === "transcript_unavailable" ? (
         <RecoverySurface
-          suppressGenericIntentionCta={suppressGenericIntentionCta}
-          onResumeDurable={() => {
-            setLpsOpen(true);
-            focusConversation();
-          }}
-          onRequalify={() => {
-            void onRequalify();
+          message={continuity.message}
+          onRetryTranscript={() => {
+            void controller.refreshConversationContinuity();
           }}
         />
-      ) : (
-        <p className={styles.durabilityHint} data-testid="project-durability-hint">
-          {w1RestartHonestyMessage()}
-        </p>
-      )}
+      ) : null}
 
-      <div className={styles.layout}>
+      <div className={styles.layout} data-testid="project-workspace-layout">
+        <div className={styles.journalColumn} data-testid="project-journal-column">
+          <JournalSurface
+            entries={controller.journalEntries}
+            cycleInstanceId={controller.journalCycleInstanceId}
+            selectedEntryId={controller.selectedJournalEntryId}
+            onSelectEntry={controller.setSelectedJournalEntryId}
+            onViewExchanges={controller.focusJournalExchanges}
+            onFocusTurn={controller.focusTranscriptTurn}
+            transcriptMessages={controller.messages}
+            collapsed={journalCollapsed}
+            onToggleCollapsed={() => setJournalCollapsed((v) => !v)}
+          />
+        </div>
+
         <div className={styles.main} ref={conversationRef}>
           <div className={styles.conversation} data-testid="project-conversation-main">
             <ConversationSurface controller={controller} />

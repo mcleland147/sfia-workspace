@@ -37,6 +37,12 @@ vi.mock("@/features/pre-m6-product-ui/hooks/useProductConversation", () => ({
 }));
 
 vi.mock("@/features/project-assistant/actions", () => ({
+  projectAssistantConversationContinuityAction: vi.fn(async () => ({
+    ok: true,
+    transcriptAvailability: "empty",
+    messages: [],
+    journal: { cycleInstanceId: null, entries: [] },
+  })),
   projectAssistantPilotLifecycleProjection: (...args: unknown[]) =>
     lifecycleProjectionMock(...args),
   projectAssistantActiveCycleWorkspaceAction: vi.fn().mockResolvedValue({
@@ -261,11 +267,21 @@ beforeEach(() => {
     confirmAndExecuteLegacyFixture: vi.fn(),
     refreshResolvedM3RunningAttempt: vi.fn(),
     retryLastUserMessage: vi.fn(),
+    transcriptAvailability: "empty",
+    journalEntries: [],
+    journalCycleInstanceId: null,
+    selectedJournalEntryId: null,
+    setSelectedJournalEntryId: vi.fn(),
+    focusJournalExchanges: vi.fn(),
+    focusTranscriptTurn: vi.fn(),
+    clearFocusTurn: vi.fn(),
+    focusTurnId: null,
+    refreshConversationContinuity: vi.fn(),
   });
 });
 
 describe("JOURNEY-INTEGRITY — ProjectWorkspace CASE A composition", () => {
-  it("CTA-1 cross-surface — Reformuler owns next action; Recovery/Lifecycle generics absent", async () => {
+  it("CTA-1 cross-surface — Reformuler owns next action; Recovery generics absent (auto-resume)", async () => {
     readActiveDecisionSubjectMock.mockResolvedValue({
       ok: true,
       kind: "pending_reinstruction_required",
@@ -278,8 +294,11 @@ describe("JOURNEY-INTEGRITY — ProjectWorkspace CASE A composition", () => {
     render(<ProjectWorkspacePage projectId="prj:case-a" />);
 
     expect(await screen.findByTestId("project-principal")).toBeTruthy();
-    expect(await screen.findByTestId("project-recovery-banner")).toBeTruthy();
-    expect(screen.getByTestId("recovery-resume-durable")).toBeTruthy();
+    // AUTOMATIC RESUME — no generic Recovery chooser on Project open.
+    expect(screen.queryByTestId("project-recovery-banner")).toBeNull();
+    expect(screen.queryByTestId("recovery-resume-durable")).toBeNull();
+    expect(screen.queryByTestId("recovery-requalify")).toBeNull();
+    expect(screen.queryByText(/Reprendre l'état enregistré/i)).toBeNull();
 
     fireEvent.click(screen.getByTestId("lps-drawer-toggle"));
 
@@ -287,10 +306,10 @@ describe("JOURNEY-INTEGRITY — ProjectWorkspace CASE A composition", () => {
     expect(screen.queryByTestId("w2-propose-options")).toBeNull();
     expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
     expect(screen.queryByTestId("w2-prepare-contract-sandbox")).toBeNull();
+    expect(screen.queryByTestId("w2-prepare-contract-sandbox")).toBeNull();
     expect(screen.queryByTestId("w3a-execute")).toBeNull();
 
     await waitFor(() => {
-      expect(screen.queryByTestId("recovery-requalify")).toBeNull();
       expect(
         screen.queryByTestId("lifecycle-define-deliverable-cta"),
       ).toBeNull();
@@ -306,18 +325,19 @@ describe("JOURNEY-INTEGRITY — ProjectWorkspace CASE A composition", () => {
     expect(screen.queryByTestId("repository-binding-form")).toBeNull();
   });
 
-  it("CTA-5 — no Proposal ownership restores Recovery requalify + Lifecycle Nora CTA", async () => {
+  it("CTA-5 — no Proposal ownership restores Lifecycle Nora CTA; still no Recovery chooser", async () => {
     readActiveDecisionSubjectMock.mockResolvedValue({
       ok: true,
       kind: "none",
     });
 
     render(<ProjectWorkspacePage projectId="prj:case-a" />);
-    expect(await screen.findByTestId("project-recovery-banner")).toBeTruthy();
+    expect(await screen.findByTestId("project-principal")).toBeTruthy();
+    expect(screen.queryByTestId("project-recovery-banner")).toBeNull();
+    expect(screen.queryByTestId("recovery-requalify")).toBeNull();
     fireEvent.click(screen.getByTestId("lps-drawer-toggle"));
 
     await waitFor(() => {
-      expect(screen.getByTestId("recovery-requalify")).toBeTruthy();
       expect(
         screen.getByTestId("lifecycle-define-deliverable-cta"),
       ).toBeTruthy();
@@ -333,13 +353,14 @@ describe("JOURNEY-INTEGRITY — ProjectWorkspace CASE A composition", () => {
     });
 
     render(<ProjectWorkspacePage projectId="prj:case-a" />);
-    expect(await screen.findByTestId("project-recovery-banner")).toBeTruthy();
+    expect(await screen.findByTestId("project-principal")).toBeTruthy();
+    expect(screen.queryByTestId("project-recovery-banner")).toBeNull();
+    expect(screen.queryByTestId("recovery-requalify")).toBeNull();
     fireEvent.click(screen.getByTestId("lps-drawer-toggle"));
 
     await waitFor(() => {
       expect(readActiveDecisionSubjectMock).toHaveBeenCalled();
     });
-    expect(screen.queryByTestId("recovery-requalify")).toBeNull();
     expect(
       screen.queryByTestId("lifecycle-define-deliverable-cta"),
     ).toBeNull();

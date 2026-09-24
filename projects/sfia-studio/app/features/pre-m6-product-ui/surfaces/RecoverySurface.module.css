@@ -10,6 +10,19 @@
   padding: var(--pm6-space-4) var(--pm6-space-5);
 }
 
+/* AUTOMATIC RESUME — compact anomaly disclosure (not happy-path REPRISE). */
+.anomaly {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--pm6-space-3);
+  border-radius: var(--pm6-radius-md);
+  border: 1px solid var(--pm6-border);
+  background: var(--pm6-canvas-raised);
+  padding: var(--pm6-space-3) var(--pm6-space-4);
+}
+
 .body {
   display: flex;
   flex-direction: column;

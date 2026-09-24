@@ -211,15 +211,80 @@ describe("F1 project assistant orchestration", () => {
     expect(result.message).toMatch(/Aucun basculement silencieux/i);
   });
 
-  it("does not import or require OPS1 session APIs", async () => {
-    setConversationProviderForTests(new FakeConversationProvider());
-    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-    const result = await orchestrateProjectAssistantTurn({
-      projectId: "prj:f1-demo",
-      content: "Ping",
-      sessionDbPath,
-    });
-    expect(result.ok).toBe(true);
-    expect(getProjectRuntimeActionMock).toHaveBeenCalled();
+  it("CR-CJ-01 — server-bounds hostile 150-message history before cognitive envelope", async () => {
+    const cognitive = await import(
+      "@/lib/nora-cognitive-runtime/runNoraCognitiveTurn"
+    );
+    const {
+      PRODUCT_TURN_MAX_HISTORY_MESSAGES,
+      PRODUCT_TURN_MAX_HISTORY_CHARS,
+    } = await import("@/features/project-assistant/turnPayloadCanonical");
+
+    const OLD = "HOSTILE_OLD_MARKER_MUST_NOT_REACH_ENVELOPE";
+    const hostileHistory = Array.from({ length: 150 }, (_, i) => ({
+      role: (i % 2 === 0 ? "user" : "assistant") as "user" | "assistant",
+      content: i === 0 ? OLD : `hostile-${i}`,
+    }));
+
+    const captured: { messages: Array<{ role: string; content: string }> } = {
+      messages: [],
+    };
+    const spy = vi
+      .spyOn(cognitive, "runNoraCognitiveTurn")
+      .mockImplementation(async (input) => {
+        captured.messages = input.messages.map((m) => ({
+          role: m.role,
+          content: m.content,
+        }));
+        return {
+          text: "TEST/FAKE · NON LIVE bounded",
+          usage: {
+            inputTokens: null,
+            outputTokens: null,
+            totalTokens: null,
+            model: null,
+            providerResponseId: null,
+          },
+          toolRounds: 0,
+          toolCalls: 0,
+          limitReached: false,
+          cognitiveRuntime: "agents",
+          sessionId: "sess-test",
+          memoryBAvailability: "unavailable",
+          memoryBCompactionState: "none",
+          memoryBCompactionDetails: null,
+        } as unknown as Awaited<
+          ReturnType<typeof cognitive.runNoraCognitiveTurn>
+        >;
+      });
+
+    try {
+      const result = await orchestrateProjectAssistantTurn({
+        projectId: "prj:f1-demo",
+        content: "nouveau tour après rehydrate",
+        history: hostileHistory,
+        sessionDbPath,
+        provider: new FakeConversationProvider(),
+      });
+      expect(result.ok).toBe(true);
+      expect(spy).toHaveBeenCalled();
+      const msgs = captured.messages;
+      expect(msgs.length).toBeGreaterThan(0);
+      const nonSystem = msgs.filter(
+        (m) => m.role === "user" || m.role === "assistant",
+      );
+      // bounded recent history + current user message
+      expect(nonSystem.length).toBeLessThanOrEqual(
+        PRODUCT_TURN_MAX_HISTORY_MESSAGES + 1,
+      );
+      const prior = nonSystem.slice(0, -1);
+      const priorChars = prior.reduce((s, m) => s + m.content.length, 0);
+      expect(prior.length).toBeLessThanOrEqual(PRODUCT_TURN_MAX_HISTORY_MESSAGES);
+      expect(priorChars).toBeLessThanOrEqual(PRODUCT_TURN_MAX_HISTORY_CHARS);
+      expect(msgs.some((m) => m.content.includes(OLD))).toBe(false);
+      expect(hostileHistory).toHaveLength(150);
+    } finally {
+      spy.mockRestore();
+    }
   });
 });

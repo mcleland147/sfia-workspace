@@ -16,6 +16,12 @@ vi.mock("@/lib/vertical-slice-runtime/actions", () => ({
 }));
 
 vi.mock("@/features/project-assistant/actions", () => ({
+  projectAssistantConversationContinuityAction: vi.fn(async () => ({
+    ok: true,
+    transcriptAvailability: "empty",
+    messages: [],
+    journal: { cycleInstanceId: null, entries: [] },
+  })),
   projectAssistantRehydrateEvidenceOutcomeAction:
     projectAssistantRehydrateEvidenceOutcomeActionMock,
   projectAssistantDecideAction: vi.fn(),

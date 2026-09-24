@@ -132,6 +132,14 @@
   padding: var(--pm6-space-6) var(--pm6-space-5) var(--pm6-space-7);
 }
 
+.mainWide {
+  max-width: var(--pm6-content-max-workspace);
+}
+
+.headerInnerWide {
+  max-width: var(--pm6-content-max-workspace);
+}
+
 .srOnly {
   position: absolute;
   width: 1px;

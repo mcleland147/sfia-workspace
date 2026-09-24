@@ -100,8 +100,11 @@ describe("MW1 Option C — ProductSqliteSession D0 (corrected)", () => {
     // coordination only — never Epistemic/LPS/HD/Evidence/Truth C storage.
     expect(tables.sort()).toEqual(
       [
+        "cycle_journal_entries",
+        "cycle_journal_mutation_ledger",
         "logical_product_turn_retry_bindings",
         "logical_product_turns",
+        "pilot_transcript_turns",
         "session_items",
       ].sort(),
     );

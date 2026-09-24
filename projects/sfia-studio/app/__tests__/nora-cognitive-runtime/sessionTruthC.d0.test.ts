@@ -62,8 +62,11 @@ describe("MW1 Option C — Session ≠ Truth C D0", () => {
     // still must never hold oa_* Truth C / LPS / HD / Evidence tables.
     expect(sessionTables.sort()).toEqual(
       [
+        "cycle_journal_entries",
+        "cycle_journal_mutation_ledger",
         "logical_product_turn_retry_bindings",
         "logical_product_turns",
+        "pilot_transcript_turns",
         "session_items",
       ].sort(),
     );

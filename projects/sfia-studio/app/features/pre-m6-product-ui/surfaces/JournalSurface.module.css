@@ -1,0 +1,226 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-3);
+  min-width: 0;
+  max-height: calc(100vh - 120px);
+  overflow: hidden;
+  padding: var(--pm6-space-3);
+  background: var(--pm6-canvas-raised);
+  border: 1px solid var(--pm6-border);
+  border-radius: var(--pm6-radius-lg);
+}
+
+.collapsed {
+  max-height: none;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--pm6-space-2);
+}
+
+.headerText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--pm6-forest);
+}
+
+.title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--pm6-ink);
+}
+
+.meta {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--pm6-muted-strong);
+}
+
+.toggle {
+  flex-shrink: 0;
+  border-radius: var(--pm6-radius-pill);
+  border: 1px solid var(--pm6-border-strong);
+  background: var(--pm6-surface);
+  color: var(--pm6-ink-soft);
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.toggle:focus-visible {
+  outline: none;
+  box-shadow: var(--pm6-focus-ring);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-2);
+  overflow-y: auto;
+  min-height: 0;
+  padding-right: 2px;
+}
+
+.empty {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--pm6-muted-strong);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-2);
+  border: 1px solid var(--pm6-border-soft);
+  border-radius: var(--pm6-radius-md);
+  background: var(--pm6-surface);
+  padding: var(--pm6-space-2);
+}
+
+.cardSelected {
+  border-color: var(--pm6-forest);
+  box-shadow: inset 3px 0 0 var(--pm6-forest);
+}
+
+.cardMuted {
+  opacity: 0.72;
+}
+
+.cardSelect {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+}
+
+.cardSelect:focus-visible {
+  outline: none;
+  box-shadow: var(--pm6-focus-ring);
+  border-radius: var(--pm6-radius-sm);
+}
+
+.cardTitle {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--pm6-ink);
+  overflow-wrap: anywhere;
+}
+
+.cardSummary {
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--pm6-muted-strong);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cardMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pm6-space-2);
+  align-items: center;
+  font-size: 0.72rem;
+  color: var(--pm6-muted);
+}
+
+.status {
+  font-weight: 600;
+  color: var(--pm6-forest);
+}
+
+.status[data-status="archived"],
+.status[data-status="merged"],
+.status[data-status="split"] {
+  color: var(--pm6-muted-strong);
+}
+
+.viewExchanges {
+  align-self: flex-start;
+  border: none;
+  background: transparent;
+  color: var(--pm6-forest);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.viewExchanges:focus-visible {
+  outline: none;
+  box-shadow: var(--pm6-focus-ring);
+  border-radius: 2px;
+}
+
+.exchangeList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.exchangeItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  text-align: left;
+  border: 1px solid var(--pm6-border-soft);
+  border-radius: var(--pm6-radius-sm);
+  background: var(--pm6-canvas-raised);
+  padding: 6px 8px;
+  cursor: pointer;
+  color: inherit;
+}
+
+.exchangeItem:hover {
+  border-color: var(--pm6-forest);
+}
+
+.exchangeItem:focus-visible {
+  outline: none;
+  box-shadow: var(--pm6-focus-ring);
+}
+
+.exchangeRole {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--pm6-forest);
+}
+
+.exchangeExcerpt {
+  font-size: 0.76rem;
+  line-height: 1.4;
+  color: var(--pm6-ink-soft);
+  overflow-wrap: anywhere;
+}

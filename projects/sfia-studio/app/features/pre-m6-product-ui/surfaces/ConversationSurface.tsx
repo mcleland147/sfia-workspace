@@ -92,6 +92,8 @@ export function ConversationSurface({
     f3Execute,
     durableEvidenceOutcome,
     durableRehydrateError,
+    focusTurnId,
+    clearFocusTurn,
     busy,
     blocked,
     canSend,
@@ -120,6 +122,16 @@ export function ConversationSurface({
     if (typeof window === "undefined") return;
     window.dispatchEvent(new CustomEvent(SFIA_ASSISTANT_ANSWERED_EVENT));
   }, [uiState, messages.length]);
+
+  useEffect(() => {
+    if (!focusTurnId) return;
+    const el = document.getElementById(`pilot-turn-${focusTurnId}`);
+    if (el instanceof HTMLElement) {
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+      el.focus({ preventScroll: true });
+    }
+    clearFocusTurn();
+  }, [focusTurnId, clearFocusTurn, messages.length]);
 
   const attemptLabel = f3Execute
     ? attemptStatusUserLabel(f3Execute.attempt.status)
@@ -244,14 +256,17 @@ export function ConversationSurface({
             </p>
           </div>
         ) : (
-          messages.map((message) => (
+              messages.map((message) => (
             <article
               key={message.id}
+              id={`pilot-turn-${message.id}`}
               className={
                 message.role === "user" ? styles.turnMine : styles.turnNora
               }
               data-testid={`project-assistant-turn-${message.role}`}
+              data-turn-id={message.id}
               data-role={message.role}
+              tabIndex={-1}
             >
               <span className={styles.turnAvatar} aria-hidden>
                 {message.role === "user" ? "P" : "N"}

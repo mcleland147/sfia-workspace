@@ -212,6 +212,11 @@ export type RunNoraCognitiveTurnInput = {
    * Threaded identically on Memory-B available and unavailable paths.
    */
   outputType?: import("@openai/agents").AgentOutputType;
+  /**
+   * CYCLE JOURNAL — active cycle for same-turn Journal tools (READ-ONLY).
+   * Bound to ProductSqliteSession from Memory B probe when available.
+   */
+  cycleJournalCycleInstanceId?: string | null;
 };
 
 /**
@@ -751,6 +756,7 @@ export async function runNoraCognitiveTurn(
             }
           : undefined,
       outputType: input.outputType,
+      cycleJournalTools: null,
     });
     const observations = [
       ...(input.sourceObservationFacts ?? []),
@@ -917,6 +923,15 @@ export async function runNoraCognitiveTurn(
             }
           : undefined,
       outputType: input.outputType,
+      cycleJournalTools:
+        probe.session &&
+        typeof input.cycleJournalCycleInstanceId === "string" &&
+        input.cycleJournalCycleInstanceId.trim()
+          ? {
+              session: probe.session,
+              cycleInstanceId: input.cycleJournalCycleInstanceId.trim(),
+            }
+          : null,
     });
     const observations = [
       ...(input.sourceObservationFacts ?? []),

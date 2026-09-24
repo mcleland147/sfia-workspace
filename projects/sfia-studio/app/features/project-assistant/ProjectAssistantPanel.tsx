@@ -41,6 +41,7 @@ import {
 import {
   lifecycleRecommendationMaterializeFailurePiloteNotice,
 } from "./lifecycleRecommendationPiloteNotice";
+import { normalizeProductTurnHistory } from "./turnPayloadCanonical";
 import styles from "./project-assistant.module.css";
 
 type UiMessage = {
@@ -356,9 +357,14 @@ export function ProjectAssistantPanel({
   }
 
   function historyForRequest(): AssistantHistoryMessage[] {
-    return messages
-      .filter((m) => m.role === "user" || m.role === "assistant")
-      .map((m) => ({ role: m.role as "user" | "assistant", content: m.content }));
+    return normalizeProductTurnHistory(
+      messages
+        .filter((m) => m.role === "user" || m.role === "assistant")
+        .map((m) => ({
+          role: m.role as "user" | "assistant",
+          content: m.content,
+        })),
+    );
   }
 
   function sendMessage(contentOverride?: string) {
