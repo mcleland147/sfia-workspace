@@ -1,76 +1,254 @@
-# NORA-CONVERSATIONAL-INITIATIVE-CONSOLIDATED-GIT-INTEGRATION-01 — FULL Review Pack
+# NORA-CONVERSATIONAL-INITIATIVE — FINAL INTEGRATION REVIEW HANDOFF
 
-- **Timestamp:** 2026-09-24T08:29:11Z / 2026-09-24 10:29:11 CEST
+## PR #515 — anchored on `017682e0`
+
+- **Timestamp:** 2026-09-24T09:20:20Z / 2026-09-24 11:20:20 CEST
 - **Repo:** mcleland147/sfia-workspace
-- **Cycle:** 8 — Delivery / Git integration — EVOL / CRITICAL
-- **Macro:** NORA-CONVERSATIONAL-INITIATIVE-CONSOLIDATED-GIT-INTEGRATION-01
-- **Branch:** `feat/sfia-studio-nora-conversational-initiative-01`
-- **HEAD:** `017682e0bc05d3979f6dd195cd4faed84549b0e7`
-- **HEAD tree:** `74b75f87b0b398919370759178c52848e40f7bdd`
-- **origin/main:** `7d05e73b4e24f3f6c14d9c15220720957b9b19b5`
-- **origin/main tree:** `2b3e5a6ec8515a5ae32e9052fad02c09100ca2b5`
 - **PR:** https://github.com/mcleland147/sfia-workspace/pull/515
-- **Merge:** NOT AUTHORIZED / NOT PERFORMED
-- **ZERO NEW REAL:** confirmed
+- **Title:** SFIA Studio — Nora conversational initiative and lifecycle continuity
+- **Base:** `main` (`7d05e73b4e24f3f6c14d9c15220720957b9b19b5` / tree `2b3e5a6ec8515a5ae32e9052fad02c09100ca2b5`)
+- **Head branch:** `feat/sfia-studio-nora-conversational-initiative-01`
+- **Head SHA (anchor):** `017682e0bc05d3979f6dd195cd4faed84549b0e7`
+- **Head tree:** `74b75f87b0b398919370759178c52848e40f7bdd`
+- **State:** OPEN · MERGEABLE · CLEAN
+- **Merge:** NOT AUTHORIZED / NOT PERFORMED — Morris merge gate remains separate
+- **ZERO NEW REAL** during Git integration
 
-## 1. Local Git Truth (pre-integration baseline)
+---
 
-At cycle start (after `git fetch origin`):
+## 1. Purpose of this handoff
+
+Final Integration Review Handoff for ChatGPT / Morris merge decision on PR #515.
+
+This pack consolidates:
+
+1. NORA-CONVERSATIONAL-INITIATIVE-01 (NCI)
+2. NORA-LIFECYCLE-RECOMMENDATION-CONTINUITY-01 (incl. CR-LRC-01)
+3. Bounded REAL-PROOF-02 already accepted
+4. Consolidated Git integration + CI PASS on head `017682e0`
+
+---
+
+## 2. Local / remote Git Truth (at handoff)
 
 ```
-ROOT=/Users/morris/Projects/sfia-workspace
 BRANCH=feat/sfia-studio-nora-conversational-initiative-01
-HEAD=7d05e73b4e24f3f6c14d9c15220720957b9b19b5
-HEAD_TREE=2b3e5a6ec8515a5ae32e9052fad02c09100ca2b5
+HEAD=017682e0bc05d3979f6dd195cd4faed84549b0e7
+HEAD_TREE=74b75f87b0b398919370759178c52848e40f7bdd
 ORIGIN_MAIN=7d05e73b4e24f3f6c14d9c15220720957b9b19b5
 ORIGIN_MAIN_TREE=2b3e5a6ec8515a5ae32e9052fad02c09100ca2b5
-ahead/behind vs origin/main: 0/0
-remote feature branch: ABSENT (created by this push)
+ORIGIN_FEAT=017682e0bc05d3979f6dd195cd4faed84549b0e7
+COMMITS_AHEAD_OF_MAIN=2
 ```
 
-No main Nora/LR/F2 functional drift. No reset/stash/destructive checkout. No rebase onto main.
+Commits on PR:
 
-## 2. Source handoffs
+```
+017682e0bc05d3979f6dd195cd4faed84549b0e7 test(sfia-studio): supply conversationGuidance in greenfield BAR-BOOT fixtures
+9e412fac19b38c8fe66eca0b1db0bf2966a8c25c feat(sfia-studio): add Nora conversational initiative continuity
+```
 
-| Evidence | Commit | Blob |
-|----------|--------|------|
-| Deterministic Continuity + CR-LRC-01 | `222ff57ff659ae060ff5fcfb1b1726e2d4f8445b` | `c7a00b8426aa4bb5bc98c03d7b87a89b748ec1ac` |
-| REAL-PROOF-02 | `3bedc0d307cddbd987d24ac2dd944a8edc3e84a8` | `3423d0fffa25a505017a24545025f71cfb2ce4bd` |
+---
 
-Accepted deterministic claim:
+## 3. Exact PR file scope — 18 files
 
-> CURRENT LIFECYCLE RECOMMENDATION CONTINUITY IMPLEMENTED DETERMINISTICALLY WITH POST-MODEL DURABLE CURRENTNESS REVALIDATION FOR TESTED PRE-CYCLE NEXT_CYCLE MULTI-TURN PRODUCT SCOPE
+`git diff --name-status origin/main...017682e0` (mechanical count = **18**):
 
-Accepted REAL claim (ChatGPT REAL Review):
-
-> CONVERSATIONAL INITIATIVE PROVEN IN BOUNDED REAL PRODUCT-EQUIVALENT MULTI-TURN CONVERSATION
-
-## 3. Exact candidate scope (reconciled)
-
-**Product commit `9e412fac` — exactly 17 files:**
-
-1. `projects/sfia-studio/app/__tests__/oa/cycle/corrProof06.artifactObligation.d0.test.ts` (M)
-2. `projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.finalCorr.d0.test.ts` (M)
-3. `projects/sfia-studio/app/__tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts` (M)
-4. `projects/sfia-studio/app/__tests__/project-assistant/preCycleRoutingBoundary.d0.test.ts` (M)
-5. `projects/sfia-studio/app/__tests__/project-assistant/studioCognitiveContext.test.ts` (M)
-6. `projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts` (M)
-7. `projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts` (M)
-8. `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts` (M)
-9. `projects/sfia-studio/app/features/project-assistant/types.ts` (M)
-10. `projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts` (M)
-11. `projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts` (M)
-12. `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts` (M)
-13. `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/index.ts` (M)
-14. `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn.ts` (M)
-15. `projects/sfia-studio/app/__tests__/project-assistant/noraConversationalInitiative.d0.test.ts` (A)
-16. `projects/sfia-studio/app/__tests__/project-assistant/noraLifecycleRecommendationContinuity.d0.test.ts` (A)
-17. `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/currentLifecycleRecommendationContinuity.ts` (A)
+```
+M	projects/sfia-studio/app/__tests__/oa/cycle/corrProof06.artifactObligation.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.finalCorr.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/greenfieldLifecycleBootstrap.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/noraConversationalInitiative.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/noraLifecycleRecommendationContinuity.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/preCycleRoutingBoundary.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/studioCognitiveContext.test.ts
+M	projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
+M	projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts
+M	projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+M	projects/sfia-studio/app/features/project-assistant/types.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
+A	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/currentLifecycleRecommendationContinuity.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/index.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn.ts
+```
 
 Stat:
 
 ```
 .../corrProof06.artifactObligation.d0.test.ts      |    5 +
+ .../lifecycleRecommendation.finalCorr.d0.test.ts   |   11 +
+ .../activeCycleCognitiveWork.d0.test.ts            |   19 +
+ .../greenfieldLifecycleBootstrap.d0.test.ts        |   16 +
+ .../noraConversationalInitiative.d0.test.ts        |  942 +++++++++++
+ ...oraLifecycleRecommendationContinuity.d0.test.ts | 1694 ++++++++++++++++++++
+ .../preCycleRoutingBoundary.d0.test.ts             |   42 +
+ .../studioCognitiveContext.test.ts                 |    5 +
+ .../project-assistant/buildProjectSystemPrompt.ts  |   47 +-
+ .../project-assistant/f2/studioCognitiveContext.ts |  217 +++
+ .../features/project-assistant/orchestrateTurn.ts  |  260 ++-
+ .../app/features/project-assistant/types.ts        |   33 +
+ .../noraProductTurnOutputType.ts                   |  551 ++++++-
+ .../nora-cognitive-runtime/providerAgentsModel.ts  |   17 +-
+ .../nora-cognitive-runtime/runNoraAgentsTurn.ts    |   47 +-
+ .../currentLifecycleRecommendationContinuity.ts    |  292 ++++
+ .../application/lifecycleRecommendation/index.ts   |    1 +
+ .../materializeFromProductTurn.ts                  |   15 +-
+ 18 files changed, 4159 insertions(+), 55 deletions(-)
+```
+
+### Breakdown
+
+**Product candidate (commit `9e412fac`) — 17 files:**
+
+| # | Path | Change |
+|---|------|--------|
+| 1 | `__tests__/oa/cycle/corrProof06.artifactObligation.d0.test.ts` | M |
+| 2 | `__tests__/oa/cycle/lifecycleRecommendation.finalCorr.d0.test.ts` | M |
+| 3 | `__tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts` | M |
+| 4 | `__tests__/project-assistant/preCycleRoutingBoundary.d0.test.ts` | M |
+| 5 | `__tests__/project-assistant/studioCognitiveContext.test.ts` | M |
+| 6 | `features/project-assistant/buildProjectSystemPrompt.ts` | M |
+| 7 | `features/project-assistant/f2/studioCognitiveContext.ts` | M |
+| 8 | `features/project-assistant/orchestrateTurn.ts` | M |
+| 9 | `features/project-assistant/types.ts` | M |
+| 10 | `lib/nora-cognitive-runtime/noraProductTurnOutputType.ts` | M |
+| 11 | `lib/nora-cognitive-runtime/providerAgentsModel.ts` | M |
+| 12 | `lib/nora-cognitive-runtime/runNoraAgentsTurn.ts` | M |
+| 13 | `lib/oa/cycle/application/lifecycleRecommendation/index.ts` | M |
+| 14 | `lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn.ts` | M |
+| 15 | `__tests__/project-assistant/noraConversationalInitiative.d0.test.ts` | A |
+| 16 | `__tests__/project-assistant/noraLifecycleRecommendationContinuity.d0.test.ts` | A |
+| 17 | `lib/oa/cycle/application/lifecycleRecommendation/currentLifecycleRecommendationContinuity.ts` | A |
+
+**Mechanical CI fixture (commit `017682e0`) — +1 file:**
+
+| # | Path | Change |
+|---|------|--------|
+| 18 | `__tests__/project-assistant/greenfieldLifecycleBootstrap.d0.test.ts` | M |
+
+Root cause of #18: BAR-BOOT-13 scripted Product turn lacked required `conversationGuidance` after NCI. Fixture-only; no Product semantics change.
+
+**Excluded from PR (never staged):** `.tmp-sfia-review/**`, REAL QA DBs, transcripts, ledgers, `.env.local`.
+
+---
+
+## 4. Two capabilities delivered
+
+### A. NORA-CONVERSATIONAL-INITIATIVE-01 (NCI)
+
+- Mandatory structured `conversationGuidance` on Nora Product turns: `kind`, `scope`, `statement`, `rationale`
+- Kinds: `RECOMMEND_NEXT_STEP` | `ASK_CLARIFICATION` | `PRESENT_OPTIONS` | `HOLD`
+- Scopes: `PRE_CYCLE` | `ACTIVE_CYCLE` | `LIFECYCLE_TRANSITION` | `BLOCKER_RESOLUTION`
+- Routing / active-cycle / Cognitive Stop coherence (fail-closed HOLD when required)
+- History continuity; no prose-intent parsing; no second model call; no parallel recommendation engine
+
+**Critical Reviews closed:** CR-NCI-01 / CR-NCI-02 / CR-NCI-03
+
+### B. NORA-LIFECYCLE-RECOMMENDATION-CONTINUITY-01 (+ CR-LRC-01)
+
+- Canonical CURRENT NEXT_CYCLE Recommendation may satisfy subsequent EMIT without duplicate write (`REUSE_CURRENT`)
+- Pre-model CURRENT projection remains cognitive context only
+- **Post-model** durable fact reload + exact `recommendationId` revalidation before reuse
+- Fail-closed: `STALE` / `IDENTITY_CHANGED` / `UNAVAILABLE` / active-cycle / MISSING_REQUIRED without valid reuse
+- Recommendation ≠ HumanDecision
+
+**Critical Reviews closed:** LR Continuity Critical Review PASS; **CR-LRC-01 CLOSED**
+
+Accepted deterministic claim:
+
+> CURRENT LIFECYCLE RECOMMENDATION CONTINUITY IMPLEMENTED DETERMINISTICALLY WITH POST-MODEL DURABLE CURRENTNESS REVALIDATION FOR TESTED PRE-CYCLE NEXT_CYCLE MULTI-TURN PRODUCT SCOPE
+
+---
+
+## 5. Closed Critical Reviews (reference handoffs)
+
+| Topic | Handoff commit | Blob |
+|-------|----------------|------|
+| Continuity + CR-LRC-01 (deterministic) | `222ff57ff659ae060ff5fcfb1b1726e2d4f8445b` | `c7a00b8426aa4bb5bc98c03d7b87a89b748ec1ac` |
+| REAL-PROOF-02 (bounded REAL) | `3bedc0d307cddbd987d24ac2dd944a8edc3e84a8` | `3423d0fffa25a505017a24545025f71cfb2ce4bd` |
+| Prior Git-integration pack | `2916164665a6f9fac2b0e2da2e7bd88f8667a0a1` | `9b5850affcf70b26ff602fefb63eddba6d8ffd94` |
+
+NCI deterministic Critical Review: PASS.
+LR Continuity deterministic Critical Review: PASS.
+CR-NCI-01/02/03: CLOSED.
+CR-LRC-01: CLOSED.
+
+---
+
+## 6. Bounded REAL already accepted
+
+**Campaign:** NORA-CONVERSATIONAL-INITIATIVE-REAL-PROOF-02
+**Not re-run** for Git integration (ZERO NEW REAL).
+
+| Turn | Result |
+|------|--------|
+| REAL-01 | `NEW_CANDIDATE` → Cadrage proposed |
+| REAL-02 | `REUSE_CURRENT` + post-model revalidation `PASS` → same LR X, zero duplicate write |
+| REAL-03 | After “OK, c’est clair.” → Nora proposed continuing with Cadrage |
+
+Authority side effects observed: HD 0 · Cycle START 0 · EC 0 · Cursor REAL 0 · ExecutionAttempt 0 · hosted web 0 · one durable LR total.
+
+Accepted REAL claim (ChatGPT REAL Review):
+
+> CONVERSATIONAL INITIATIVE PROVEN IN BOUNDED REAL PRODUCT-EQUIVALENT MULTI-TURN CONVERSATION
+
+---
+
+## 7. Deterministic / local gates (pre-push)
+
+| Gate | Result |
+|------|--------|
+| Continuity + NCI + LR adjacent (9 files) | **178 PASS** |
+| Continuity suite | 26 PASS |
+| NCI suite | 20 PASS |
+| typecheck | PASS |
+| lint | PASS |
+| build | PASS |
+
+After mechanical fixture: greenfield BAR-BOOT **22 PASS**.
+
+---
+
+## 8. CI on head `017682e0` — three jobs green
+
+| Job | Conclusion |
+|-----|------------|
+| Detect SFIA Studio changes | **SUCCESS / PASS** |
+| Build and validate SFIA Studio | **SUCCESS / PASS** |
+| SFIA Studio Required Gate | **SUCCESS / PASS** |
+
+Run: https://github.com/mcleland147/sfia-workspace/actions/runs/35974802853
+
+Prior head `9e412fac`: Build failed on BAR-BOOT-13 (missing fixture `conversationGuidance`); corrected by `017682e0` (fixture-only). Re-run → all three green.
+
+---
+
+## 9. Commit details
+
+### Product commit
+
+```
+commit 9e412fac19b38c8fe66eca0b1db0bf2966a8c25c
+Author:     Morris Cleland <morris@macbook-air.home>
+AuthorDate: Thu Sep 24 10:12:25 2026 +0200
+Commit:     Morris Cleland <morris@macbook-air.home>
+CommitDate: Thu Sep 24 10:12:25 2026 +0200
+
+    feat(sfia-studio): add Nora conversational initiative continuity
+
+    Make conversational continuation contractual in Nora Product turns.
+    Preserve routing / active-cycle / Cognitive Stop coherence.
+    Reuse durable CURRENT lifecycle recommendations across turns with
+    post-model exact-identity currentness revalidation before REUSE_CURRENT.
+    Preserve Recommendation ≠ HumanDecision. Bounded REAL multi-turn
+    Product proof completed separately (not in this commit).
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+ .../corrProof06.artifactObligation.d0.test.ts      |    5 +
  .../lifecycleRecommendation.finalCorr.d0.test.ts   |   11 +
  .../activeCycleCognitiveWork.d0.test.ts            |   19 +
  .../noraConversationalInitiative.d0.test.ts        |  942 +++++++++++
@@ -90,163 +268,58 @@ Stat:
  17 files changed, 4143 insertions(+), 55 deletions(-)
 ```
 
-Tree of Product commit: `7d39cbef47d8cfc0caadf8e6f8e7975bc7cddb38`
-
-## 4. Excluded evidence (never staged)
-
-- `.tmp-sfia-review/chatgpt-review.md`
-- `.tmp-sfia-review/nora-conversational-initiative-real-proof/**`
-- `.tmp-sfia-review/nora-conversational-initiative-real-proof-02/**`
-- QA SQLite DBs, transcripts, ledgers, `.env.local`, logs, build output
-
-Residual local status after commits (expected):
+### Mechanical CI fixture commit
 
 ```
-M .tmp-sfia-review/chatgpt-review.md
-?? .tmp-sfia-review/nora-conversational-initiative-real-proof-02/
-?? .tmp-sfia-review/nora-conversational-initiative-real-proof/
-```
+commit 017682e0bc05d3979f6dd195cd4faed84549b0e7
+Author:     Morris Cleland <morris@macbook-air.home>
+AuthorDate: Thu Sep 24 10:21:50 2026 +0200
+Commit:     Morris Cleland <morris@macbook-air.home>
+CommitDate: Thu Sep 24 10:21:50 2026 +0200
 
-## 5. Diff integrity (accepted behavior preserved)
+    test(sfia-studio): supply conversationGuidance in greenfield BAR-BOOT fixtures
 
-### Conversational initiative
-- Required `conversationGuidance` {kind, scope, statement, rationale}
-- Kinds: RECOMMEND_NEXT_STEP / ASK_CLARIFICATION / PRESENT_OPTIONS / HOLD
-- Scopes: PRE_CYCLE / ACTIVE_CYCLE / LIFECYCLE_TRANSITION / BLOCKER_RESOLUTION
-- No prose intent parsing; no second model call; no parallel recommendation engine
+    BAR-BOOT-13 scripted Product turns lacked required conversationGuidance after
+    NCI made the field mandatory on the Agents/Product path. Fixture-only update:
+    compatible LIFECYCLE_TRANSITION / PRE_CYCLE guidance; no Product semantics change.
 
-### Structural coherence
-- Routing blocker → HOLD / clarification
-- Multi-cycle ambiguity → options / clarification / HOLD
-- Active cycle → ACTIVE_CYCLE scope
-- Lifecycle transition → compatible guidance
-- Cognitive Stop → HOLD / no new LR
+    Co-authored-by: Cursor <cursoragent@cursor.com>
 
-### LifecycleRecommendation continuity + CR-LRC-01
-- Pre-model CURRENT alone cannot authorize reuse
-- Post-model durable reload + exact `recommendationId` revalidation
-- PASS → REUSE_CURRENT zero write; STALE / IDENTITY_CHANGED / UNAVAILABLE / active cycle → no reuse
-- MISSING_REQUIRED preserved without valid reuse
-
-### Authority
-- Recommendation ≠ HumanDecision
-- No auto HD / START / EC / Cursor / Execution / trajectory decision
-
-## 6. Pre-commit QA gate
-
-| Gate | Result |
-|------|--------|
-| 9-file Continuity/NCI/LR gate | **178 PASS** |
-| Continuity | 26 PASS |
-| NCI | 20 PASS |
-| typecheck | PASS |
-| lint | PASS |
-| build | PASS |
-| trailing whitespace on candidate | clean |
-| ZERO REAL | confirmed |
-
-## 7. Staged files (Product commit)
-
-Exactly the 17 files listed in §3. `git diff --cached --name-status` matched expected list before commit. No `.tmp-sfia-review`.
-
-## 8. Commits
-
-### Product (consolidated)
-
-- **SHA:** `9e412fac19b38c8fe66eca0b1db0bf2966a8c25c`
-- **Tree:** `7d39cbef47d8cfc0caadf8e6f8e7975bc7cddb38`
-- **Parent:** `7d05e73b4e24f3f6c14d9c15220720957b9b19b5` (= origin/main)
-- **Files:** 17 (+4143 / −55)
-- **Message:** `feat(sfia-studio): add Nora conversational initiative continuity`
-
-### Mechanical CI fixture (separate)
-
-- **SHA:** `017682e0bc05d3979f6dd195cd4faed84549b0e7`
-- **Parent:** `9e412fac…`
-- **File:** `greenfieldLifecycleBootstrap.d0.test.ts` only (+16)
-- **Root cause:** BAR-BOOT-13 scripted Product turn lacked required `conversationGuidance` after NCI → CI Vitest fail (`expected false to be true` on `result.ok`)
-- **Fix class:** mechanical / fixture-only — structurally compatible guidance; **no Product semantics change**
-- **Local proof:** greenfield 22 PASS; 178 gate PASS; typecheck PASS
-
-```
-.../greenfieldLifecycleBootstrap.d0.test.ts              | 16 ++++++++++++++++
+ .../greenfieldLifecycleBootstrap.d0.test.ts              | 16 ++++++++++++++++
  1 file changed, 16 insertions(+)
 ```
 
-## 9. Post-commit / push proof
+---
 
-```
-origin/main..HEAD:
-017682e0 test(sfia-studio): supply conversationGuidance in greenfield BAR-BOOT fixtures
-9e412fac feat(sfia-studio): add Nora conversational initiative continuity
-```
+## 10. Non-claims (must remain)
 
-- Push: `feat/sfia-studio-nora-conversational-initiative-01` (no force)
-- local HEAD == `origin/feat/...` == `017682e0bc05d3979f6dd195cd4faed84549b0e7`
+Even with PR CI PASS and accepted bounded REAL:
 
-## 10. PR
+- **runtime v3:** NON ADOPTED
+- **No automatic authority:** no auto HumanDecision / Cycle START / ExecutionContract / Cursor Product REAL / ExecutionAttempt from Recommendation
+- **FINALIZE_CURRENT_CYCLE continuity:** NOT YET QUALIFIED (debt kept)
+- Nora Cognitive Completion COMPLETE — **not** claimed
+- All conversational contexts proven — **not** claimed
+- Autonomous project progression — **not** claimed
+- **Merge not authorized** by this handoff — Morris gate only
 
-- **Number:** 515
-- **URL:** https://github.com/mcleland147/sfia-workspace/pull/515
-- **Base:** main
-- **Head:** feat/sfia-studio-nora-conversational-initiative-01 @ `017682e0`
-- **State:** OPEN
-- **Merge:** not performed
+Roadmap / Build Doctrine / C1 / CKC: unchanged by this PR.
 
-## 11. CI jobs / results (head `017682e0`)
+---
 
-| Job | Result | Duration |
-|-----|--------|----------|
-| Detect SFIA Studio changes | **PASS** | ~8s |
-| Build and validate SFIA Studio | **PASS** | ~5m40s |
-| SFIA Studio Required Gate | **PASS** | ~3s |
+## 11. Debt / next gate
 
-Run: https://github.com/mcleland147/sfia-workspace/actions/runs/35974802853
+- **KEEP:** `FINALIZE_CURRENT_CYCLE CONTINUITY NOT YET QUALIFIED`
+- **Next:** Morris merge decision on PR #515 only (separate GO)
+- No force-push; no branch delete; no additional REAL
 
-### Prior CI on `9e412fac` (documented)
+---
 
-- Detect PASS
-- Build FAIL — Unit tests: `greenfieldLifecycleBootstrap.d0.test.ts` BAR-BOOT-13
-- Required Gate FAIL (aggregate)
+## 12. Verdict (integration readiness)
 
-Corrected by fixture commit `017682e0` (see §8).
+**NORA-CONVERSATIONAL-INITIATIVE CONSOLIDATED GIT INTEGRATION — PR #515 @ `017682e0` — CI PASS (3/3) — READY FOR MORRIS MERGE DECISION**
 
-## 12. ZERO NEW REAL
-
-No OpenAI live. No Cursor Product REAL. No ExecutionAttempt. REAL-PROOF-02 not re-run (already accepted).
-
-## 13. Authority / non-claim preservation
-
-Non-claims retained:
-
-- Nora Cognitive Completion COMPLETE — not claimed
-- all conversational contexts proven — not claimed
-- FINALIZE_CURRENT_CYCLE continuity — **NOT YET QUALIFIED** (debt kept)
-- runtime v3 — NOT ADOPTED
-- autonomous project progression — not claimed
-- merge — **not authorized**
-
-## 14. Debt / reservations
-
-- **KEEP:** FINALIZE_CURRENT_CYCLE CONTINUITY NOT YET QUALIFIED
-- Roadmap / Build Doctrine / C1 / CKC unchanged
-- Next: Morris merge decision only (separate GO)
-
-## 15. Current Local Git Truth (post-integration)
-
-```
-BRANCH=feat/sfia-studio-nora-conversational-initiative-01
-HEAD=017682e0bc05d3979f6dd195cd4faed84549b0e7
-HEAD_TREE=74b75f87b0b398919370759178c52848e40f7bdd
-ORIGIN_MAIN=7d05e73b4e24f3f6c14d9c15220720957b9b19b5
-PARENT_OF_HEAD=9e412fac19b38c8fe66eca0b1db0bf2966a8c25c
-PR=515 OPEN
-MERGE=0
-```
-
-## 16. Verdict
-
-**NORA-CONVERSATIONAL-INITIATIVE-CONSOLIDATED-GIT-INTEGRATION-01 — PR CI PASS — READY FOR MORRIS MERGE DECISION**
+18 files · NCI + LR Continuity · CR-NCI-01/02/03 + CR-LRC-01 closed · bounded REAL accepted · non-claims preserved · merge NOT performed.
 
 ---
 
