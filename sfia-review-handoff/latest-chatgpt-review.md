@@ -1,19 +1,23 @@
 # SFIA Studio — Review Pack FULL
 ## PILOTABILITY & JOURNAL SEMANTIC INTEGRITY
 
-- **timestamp**: `2026-09-24T21:30:30+02:00` (Europe/Paris) — SAME-MACRO FINAL VALIDATION (POST-F2-FIX)
-- **cycle**: macro-lot Delivery / EVOL — SAME-MACRO FINAL VALIDATION
+- **timestamp**: `2026-09-24T21:43:45+02:00` (Europe/Paris) — MACRO PR READINESS & INTEGRATION
+- **cycle**: Macro PR Readiness / intégration Git — EVOL — Critical
 - **profil SFIA**: Critical
-- **GO Morris**: CONSUMED — final validation post-F2 live fix + Review Pack + Handoff L3
-- **NON autorisé ce cycle**: commit/push/PR/merge produit ; convergence/** ; doctrine v3 ; runtime v3 ADOPTED
-- **branche**: `feat/sfia-studio-pilotability-journal-integrity-01` @ `dc462d9f` (= origin/main tip, uncommitted WIP)
-- **base / origin/main**: `dc462d9f43661fb63f222f37691e80efb8650157` (PR #516 INTEGRATED)
+- **GO Morris**: CONSUMED — inspection + commit + push + PR + CI + Review Pack + Handoff L3
+- **NON autorisé ce cycle**: **MERGE** ; suppression branche ; convergence/** ; doctrine v3 ; runtime v3 ADOPTED ; cleanup MealFlow historique ; pivot architecture
+- **branche**: `feat/sfia-studio-pilotability-journal-integrity-01`
+- **base / origin/main**: `dc462d9f43661fb63f222f37691e80efb8650157` (PR #516 INTEGRATED; main unchanged)
+- **commit produit**: `c0bb0236ebbbb45824958cc7e9ecef6277d440ab`
+- **PR**: [#517](https://github.com/mcleland147/sfia-workspace/pull/517)
 - **runtime v3**: **NON ADOPTED**
 - **Fake/Real**: DETERMINISTIC PRODUCT PROOF + LOCAL RUNTIME USER-FLOW PROOF (MealFlow mid-session, no reload). REAL Journal semantic quality **NOT PROVEN**. ≠ READY FOR REAL.
 
 ## Verdict
 
-**PILOTABILITY & JOURNAL SEMANTIC INTEGRITY — FINAL VALIDATION COMPLETE — READY FOR MACRO PR READINESS**
+**PR OPEN — READY FOR MERGE REVIEW**
+
+**MERGE NOT AUTHORIZED**
 
 ---
 
@@ -121,7 +125,7 @@ Covered by `pilotabilityJournalIntegrity.d0.test.ts` + UI/AR/journey updates:
 | typecheck | PASS |
 | lint | PASS |
 | build | PASS |
-| full suite | **4580 passed / 137 skipped** (409 files + 17 skipped) |
+| full suite | **4580 passed / 137 skipped** (409 files + 17 skipped) — *historical pre-F2-seam; superseded by authoritative **4582 / 137*** |
 
 ---
 
@@ -194,7 +198,7 @@ Screenshots (`.tmp` only, never commit):
 - `cycleJournalSurface.ui` — 6 PASS
 - `automaticProjectResume.ui` — 4 PASS
 - `tsc --noEmit` — PASS
-- Prior full suite reference unchanged: **4580 / 137** (no full re-run required beyond targeted; material F2 seam covered by targeted + live proof)
+- Prior full suite reference **4580 / 137** was pre-F2-seam; authoritative post-F2 validation is **4582 / 137**
 
 ### Fake/Real (this proof)
 
@@ -234,7 +238,7 @@ Screenshots (`.tmp` only, never commit):
 
 ## 14. Décisions Morris encore nécessaires
 
-1. MACRO PR READINESS GO (commit/push/PR) — next
+1. **MERGE GO** — cycle Morris distinct (NOT authorized here)
 2. Optional Roadmap truth-sync GO
 3. Optional MealFlow epistemic cleanup / resolve of legacy blocking reservations
 4. Branch cleanup — out of scope
@@ -248,22 +252,18 @@ Screenshots (`.tmp` only, never commit):
 - NOT Nora Cognitive Completion COMPLETE
 - NOT READY FOR REAL
 - NOT REAL Journal semantic quality PROVEN
+- **MERGE NOT AUTHORIZED**
 
 ---
 
-## 16. POST-F2-FIX FINAL VALIDATION
+## 16. POST-F2-FIX FINAL VALIDATION (pre-integration evidence)
 
 - **timestamp**: `2026-09-24T21:28→21:30 Europe/Paris`
 - **branche**: `feat/sfia-studio-pilotability-journal-integrity-01`
-- **HEAD / origin/main**: `dc462d9f43661fb63f222f37691e80efb8650157` (ahead=0)
-- **Dirty WIP**: expected product macro-lot + `.tmp-sfia-review/**` (never candidate)
+- **HEAD / origin/main then**: `dc462d9f43661fb63f222f37691e80efb8650157` (ahead=0, dirty WIP)
 - **Parasites**: `.tmp-sfia-review/**`, sqlite proofs — **excluded** from Git candidate
 
 ### F2 seam coverage
-
-Existing Journal/transcript tests covered F1 `appendPilotTranscriptTurn` only — **not** `persistCanonicalF2AssistantTurn`.
-
-Added deterministic:
 
 `app/__tests__/project-assistant/f2PilotTranscriptPersist.d0.test.ts`
 
@@ -275,18 +275,89 @@ Added deterministic:
 | reconcile-shaped messages retain turn content | **PASS** |
 | no invented `journalDelta` / mutation ledger empty | **PASS** (2/2) |
 
-### Validations (current candidate)
+### Validations (authoritative local)
 
 | Gate | Result |
 | --- | --- |
 | typecheck | **PASS** |
 | lint | **PASS** (0 warnings/errors) |
 | build | **PASS** (pre-existing `better-sqlite3` resolve warning on w2 eval path — not new) |
-| full Studio suite | **4582 passed / 137 skipped** (410 files + 17 skipped) — +2 vs prior 4580 from F2 seam tests |
+| full Studio suite | **4582 passed / 137 skipped** (410 files + 17 skipped) — authoritative; supersedes historical 4580 |
 
-### Verdict gate
+---
 
-All final-validation gates green. No further same-macro construction required.
+## 17. MACRO PR READINESS & INTEGRATION
+
+- **timestamp**: `2026-09-24T21:36→21:43 Europe/Paris`
+- **pre-check SoT** (READ ONLY, matched expected):
+  - Build Doctrine `99232e4582e4ef4cf489020a46b818ebb41ac397`
+  - Roadmap `df2ad6f3c4cd5504d586f344bc0d76f737b0ce65`
+  - C1 `806d672fe21ad82a641bf88fe95fc87870481105`
+  - Template `948156a21309ef99c3aaed6410947dc6b9bc569a`
+  - Routing `8949e764d96faf3fa812d39307dbc298b500f5ef`
+  - prior handoff tip `d1241164…` / blob `ed23c8a4…`
+
+### Git Truth pré-intégration
+
+| Check | Result |
+| --- | --- |
+| Branch | `feat/sfia-studio-pilotability-journal-integrity-01` |
+| HEAD then | `dc462d9f43661fb63f222f37691e80efb8650157` |
+| origin/main | `dc462d9f43661fb63f222f37691e80efb8650157` (ahead/behind 0/0) |
+| Dirty | product candidate + `.tmp-sfia-review/**` only |
+| convergence/** | untouched |
+| Secrets / DB / PNG in product | none |
+
+### Candidate purity / staging
+
+- Explicit path staging only (no `git add .`)
+- **25 files** product+tests — **1425 insertions / 93 deletions**
+- Excluded: `.tmp-sfia-review/**` (pack, screenshots, sqlite proofs)
+
+### Critical seams confirmed in commit
+
+1. Migration additive/idempotent (`topic_ordinal`, points JSON; no DROP)
+2. Journal ordinal / En cours / stabilized+open / lineage / durable refs
+3. Live reconcile UI → `pt:*` without reload
+4. F2 durable pilot transcript + retry-safe `logicalTurnId` + `cycleInstanceId`; no invented journalDelta
+5. Epistemic: only Reservation+blocking → blockers
+6. Lifecycle Cadrage + applicability UX grouping (Truth C unchanged)
+7. Automatic Resume one-shot hint
+
+### Commit / push / PR
+
+| Field | Value |
+| --- | --- |
+| Commit | `c0bb0236ebbbb45824958cc7e9ecef6277d440ab` |
+| Message | `feat(studio): strengthen journal pilotability and semantic integrity` |
+| Remote head | `c0bb0236…` == local HEAD (no force push) |
+| origin/main | still `dc462d9f…` |
+| PR | **#517** — https://github.com/mcleland147/sfia-workspace/pull/517 |
+| Base / Head OID | `dc462d9f…` / `c0bb0236…` |
+| Files / +/- | **25** / **+1425 / −93** |
+| mergeable | **MERGEABLE** |
+| mergeStateStatus | **CLEAN** |
+
+### CI (required)
+
+| Check | Result |
+| --- | --- |
+| Detect SFIA Studio changes | **SUCCESS** |
+| Build and validate SFIA Studio | **SUCCESS** (6m25s) |
+| SFIA Studio Required Gate | **SUCCESS** |
+| Workflow | https://github.com/mcleland147/sfia-workspace/actions/runs/36049317065 |
+
+### Local validation (pre-commit evidence, no product drift)
+
+**4582 passed / 137 skipped** — authoritative
+
+### Roadmap truth-sync
+
+**REQUIRED** — document only: #516 + this lot (rich Journal, ordinal/order/current, semantic integrity, Lifecycle Cadrage, applicability grouping, AR one-shot, F2 durable transcript, live proofs). **NOT in PR #517**.
+
+### MERGE
+
+**NOT AUTHORIZED** — distinct Morris cycle.
 
 ---
 
