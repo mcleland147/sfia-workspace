@@ -1181,8 +1181,9 @@ export function RecoverySurface({
 
 - branch: `sfia/review-handoff`
 - file: `sfia-review-handoff/latest-chatgpt-review.md`
-- commit: (filled after)
-- remote SHA: (filled after)
+- commit: `51bcd298c7f9acfbab9897cb4ab47d8381255ac3`
+- remote SHA: `51bcd298c7f9acfbab9897cb4ab47d8381255ac3`
+- verified: remote tip matches; mono-fichier handoff
 
 ## 12. Instruction ChatGPT
 
