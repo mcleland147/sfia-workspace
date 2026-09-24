@@ -1,10 +1,10 @@
 # SFIA Studio — Review Pack FULL
 ## PILOTABILITY & JOURNAL SEMANTIC INTEGRITY
 
-- **timestamp**: `2026-09-24T20:48:30+02:00` (Europe/Paris) — SAME-MACRO EVIDENCE COMPLETION update
-- **cycle**: macro-lot Delivery / EVOL — SAME-MACRO EVIDENCE COMPLETION (Track A live)
+- **timestamp**: `2026-09-24T21:30:30+02:00` (Europe/Paris) — SAME-MACRO FINAL VALIDATION (POST-F2-FIX)
+- **cycle**: macro-lot Delivery / EVOL — SAME-MACRO FINAL VALIDATION
 - **profil SFIA**: Critical
-- **GO Morris**: CONSUMED — live mid-session proof + bornée Track A F2 transcript fix + Review Pack + Handoff L3
+- **GO Morris**: CONSUMED — final validation post-F2 live fix + Review Pack + Handoff L3
 - **NON autorisé ce cycle**: commit/push/PR/merge produit ; convergence/** ; doctrine v3 ; runtime v3 ADOPTED
 - **branche**: `feat/sfia-studio-pilotability-journal-integrity-01` @ `dc462d9f` (= origin/main tip, uncommitted WIP)
 - **base / origin/main**: `dc462d9f43661fb63f222f37691e80efb8650157` (PR #516 INTEGRATED)
@@ -13,7 +13,7 @@
 
 ## Verdict
 
-**PILOTABILITY & JOURNAL SEMANTIC INTEGRITY — SAME-MACRO EVIDENCE COMPLETE — READY FOR MACRO PR READINESS**
+**PILOTABILITY & JOURNAL SEMANTIC INTEGRITY — FINAL VALIDATION COMPLETE — READY FOR MACRO PR READINESS**
 
 ---
 
@@ -248,6 +248,45 @@ Screenshots (`.tmp` only, never commit):
 - NOT Nora Cognitive Completion COMPLETE
 - NOT READY FOR REAL
 - NOT REAL Journal semantic quality PROVEN
+
+---
+
+## 16. POST-F2-FIX FINAL VALIDATION
+
+- **timestamp**: `2026-09-24T21:28→21:30 Europe/Paris`
+- **branche**: `feat/sfia-studio-pilotability-journal-integrity-01`
+- **HEAD / origin/main**: `dc462d9f43661fb63f222f37691e80efb8650157` (ahead=0)
+- **Dirty WIP**: expected product macro-lot + `.tmp-sfia-review/**` (never candidate)
+- **Parasites**: `.tmp-sfia-review/**`, sqlite proofs — **excluded** from Git candidate
+
+### F2 seam coverage
+
+Existing Journal/transcript tests covered F1 `appendPilotTranscriptTurn` only — **not** `persistCanonicalF2AssistantTurn`.
+
+Added deterministic:
+
+`app/__tests__/project-assistant/f2PilotTranscriptPersist.d0.test.ts`
+
+| Invariant | Result |
+| --- | --- |
+| F2 persist writes durable user+assistant `pt:*` | **PASS** |
+| `cycleInstanceId` attached when provided | **PASS** |
+| retry same `logicalTurnId` → no transcript duplicate | **PASS** |
+| reconcile-shaped messages retain turn content | **PASS** |
+| no invented `journalDelta` / mutation ledger empty | **PASS** (2/2) |
+
+### Validations (current candidate)
+
+| Gate | Result |
+| --- | --- |
+| typecheck | **PASS** |
+| lint | **PASS** (0 warnings/errors) |
+| build | **PASS** (pre-existing `better-sqlite3` resolve warning on w2 eval path — not new) |
+| full Studio suite | **4582 passed / 137 skipped** (410 files + 17 skipped) — +2 vs prior 4580 from F2 seam tests |
+
+### Verdict gate
+
+All final-validation gates green. No further same-macro construction required.
 
 ---
 
