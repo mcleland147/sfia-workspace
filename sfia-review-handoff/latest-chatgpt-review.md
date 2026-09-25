@@ -1,7 +1,7 @@
 # SFIA Studio — Review Pack FULL
 ## CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING
 
-- **timestamp**: `2026-09-25T04:01:20+02:00` (Europe/Paris)
+- **timestamp**: `2026-09-25T06:09:55+02:00` (Europe/Paris)
 - **Macro ID**: `CYCLE-RESERVATION-PILOTING-01`
 - **cycle**: 8 — Delivery / implémentation — EVOL — Critical
 - **profil SFIA**: Critical
@@ -10,11 +10,11 @@
 - **branche**: `feat/sfia-studio-cycle-reservation-piloting-01`
 - **HEAD / origin/main**: `385c764458c5212913388d5e0e5b80f5390c23db` (PR #517 merged; dirty WIP expected)
 - **runtime v3**: **NON ADOPTED**
-- **Fake/Real**: DETERMINISTIC PRODUCT PROOF + LOCAL USER-FLOW PROOF (MealFlow legacy surface). REAL semantic reservation quality **NOT PROVEN**. ≠ READY FOR REAL.
+- **Fake/Real**: DETERMINISTIC PRODUCT PROOF + LOCAL USER-FLOW PROOF + **BOUNDED REAL RESERVATION LIFECYCLE PROOF**. ≠ READY FOR REAL global. ≠ runtime v3 ADOPTED.
 
 ## Verdict
 
-**CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING — LOCAL MACRO COMPLETE — READY FOR MACRO PR READINESS**
+**CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING — SAME-MACRO COMPLETION COMPLETE — READY FOR MACRO PR READINESS**
 
 **MERGE / PRODUCT COMMIT / PRODUCT PUSH / PRODUCT PR — NOT AUTHORIZED**
 
@@ -275,3 +275,174 @@ Integrate at next GO:
 ---
 
 **END FULL REVIEW PACK**
+
+
+---
+
+## SAME-MACRO COMPLETION — REAL LIFECYCLE & DEFER
+
+- **timestamp**: `2026-09-25T06:09:55+02:00`
+- **Macro ID**: `CYCLE-RESERVATION-PILOTING-01`
+- **GO Morris**: CONSUMED — same-macro completion (Track A REAL + Track B Defer)
+- **NON autorisé**: commit/push/PR/merge produit ; convergence/** ; doctrine v3 ; runtime v3 ADOPTED ; nouveau store / nouvelle classe d’autorité
+
+### Git Truth
+
+| Check | Result |
+| --- | --- |
+| Branch | `feat/sfia-studio-cycle-reservation-piloting-01` |
+| HEAD / origin/main | `385c764458c5212913388d5e0e5b80f5390c23db` |
+| Dirty WIP | product WIP intentional + `.tmp-sfia-review/**` |
+| Prior handoff | `origin/sfia/review-handoff` @ `c39894f1834556830562641a5403a898a45c7fcc` |
+| Protected convergence | untouched |
+
+### Exact WIP (this pass)
+
+**Track B Defer+HD (product):**
+- `deferReservationAction` → HumanDecision (`opt:defer-reservation`) then `reservation.deferred` in same Product UoW
+- `resolveHonestReservationDeferTarget` / `canDeferReservation` / projection `canDefer` + labels
+- JournalSurface: Reporter → confirmation (zero writes) → Confirmer le report / Annuler
+- REPORTÉE / Vers : \<cible\> / Décision du Pilote
+- Tests CR-RSV-43…52 + UI CR-RSV-50
+
+**Track A REAL (bounded):**
+- Isolated QA DB disposable project `prj:rsv-real-1` / cycle `cyc:rsv-real:*`
+- Path: `orchestrateProjectAssistantTurn` (F1 Product turn) — avoids F2 NEW_CYCLE_FORMALIZATION
+- Bounded prompt/materialize fix: PROPOSE_RESOLUTION `clarification` + empty `basisRefs` → pin `logicalTurnId`
+
+**NOT done:** product commit / push / PR
+
+### Décisions / GO
+
+- Defer **without** new store / new authority class — reuse `RecordHumanDecision` + Epistemic metadata (STOP Morris **not** required)
+- REAL proof via Product turn runner (not SQL mutation, not fixture cognitive)
+- Browser UI chrome-error blocked live screenshots of disposable project; MealFlow local UX screenshots retained; REAL evidence boards from ledger
+
+### REAL project / provider
+
+| Field | Value |
+| --- | --- |
+| Project | `RSV REAL Proof — CritèreFlow` · `prj:rsv-real-1` |
+| Cycle | Cadrage ACTIVE · `cyc:rsv-real:09124914` |
+| Trajectory | framing → functional-design → delivery (honest defer target) |
+| Provider | `openai` / model `gpt-5.6-luna` |
+| Path | OpenAI live F1 · Agents native · `/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/cycle-reservation-piloting-proof/qa-dbs/oa-product.sqlite` |
+| Budget | 4/8 live invocations consumed · hard cap $2.00 |
+
+### Messages utilisateur (REAL)
+
+1. **CREATE** — in-cycle: critère de succès V1 volontairement indéterminé → reservationDelta CREATE must_resolve
+2. **TREAT_UPDATE** — traiter la réserve existante sans en créer une nouvelle
+3. **PROPOSE** — clarification critère binaire 3/4 semaines → PROPOSE_RESOLUTION
+4. **MAY_AFFECT** — libellé marketing major/may_affect (nonblocking) pour defer
+
+### reservationDelta / durable ids
+
+| Item | Value |
+| --- | --- |
+| CREATE reservationId | `epi:rsv:9fbe878788ea4591dce0bed1` |
+| Final resolved | `epi:rsv:9fbe878788ea4591dce0bed1` |
+| Deferred may_affect | `epi:rsv:9d0a8ab6130693a13705df91` |
+| Defer HumanDecision | `dec:rsv-defer:c769e0a5-f75a-484f-92a6-5aaac003449b` |
+| Defer target | `cyc:functional-design` |
+
+### REAL-RSV-01…27
+
+| ID | Result |\n| --- | --- |\n| REAL-RSV-01 | `True` |\n| REAL-RSV-02 | `True` |\n| REAL-RSV-03 | `True` |\n| REAL-RSV-04 | `True` |\n| REAL-RSV-05 | `True` |\n| REAL-RSV-06 | `True` |\n| REAL-RSV-07 | `True` |\n| REAL-RSV-08 | `True` |\n| REAL-RSV-09 | `True` |\n| REAL-RSV-10 | `True` |\n| REAL-RSV-15 | `True` |\n| REAL-RSV-16 | `True` |\n| REAL-RSV-17 | `True` |\n| REAL-RSV-18 | `True` |\n| REAL-RSV-19 | `True` |\n| REAL-RSV-20 | `True` |\n| REAL-RSV-21 | `True` |\n| REAL-RSV-22 | `True` |\n| REAL-RSV-23 | `True` |\n| REAL-RSV-24 | `True` |\n| REAL-RSV-25 | `True` |\n| REAL-RSV-26 | `True` |\n| REAL-RSV-27 | `True` |\n\n### REAL-GATE-01…10\n\n| ID | Result |\n| --- | --- |\n| REAL-GATE-01 | `True` |\n| REAL-GATE-03 | `True` |\n| REAL-GATE-05 | `True` |\n| REAL-GATE-07 | `True` |\n| REAL-GATE-08 | `True` |\n| REAL-GATE-09 | `True` |\n| REAL-GATE-10 | `True` |
+
+### Defer architecture qualification
+
+- **PASS** — no new DeferredDecision store; no second decision engine
+- Honest target from ProjectTrajectory next step (`resolveHonestReservationDeferTarget`)
+- `must_resolve` → Reporter absent/refusé
+- Atomicité: `cycleServices.store.runInTransaction` wraps HD + epistemic update (shared Product SQLite UoW)
+- CR-RSV-51/52: HD failure → no deferred; reservation write failure → fail-closed
+
+### DEFER-01…14
+
+| ID | Result |\n| --- | --- |\n| DEFER-06 | `True` |\n| DEFER-08 | `True` |\n| DEFER-09 | `True` |\n| DEFER-10 | `True` |\n| DEFER-11 | `True` |\n| DEFER-12 | `True` |\n| DEFER-13 | `True` |\n| DEFER-decisionId | `dec:rsv-defer:c769e0a5-f75a-484f-92a6-5aaac003449b` |
+
+### CR-RSV-43…52
+
+| ID | Status |
+| --- | --- |
+| CR-RSV-43 report explicite | **PASS** |
+| CR-RSV-44 report ne supprime pas Reservation | **PASS** |
+| CR-RSV-45 HumanDecision structurante | **PASS** |
+| CR-RSV-46 deferred provenance + target | **PASS** |
+| CR-RSV-47 deferred nonblocking ≠ FINALIZE blocker | **PASS** |
+| CR-RSV-48 must_resolve cannot defer | **PASS** |
+| CR-RSV-49 no target cannot defer | **PASS** |
+| CR-RSV-50 cancel confirmation = zero writes | **PASS** |
+| CR-RSV-51 HD write failure = non-deferred | **PASS** |
+| CR-RSV-52 reservation write failure fail-closed | **PASS** |
+
+### HumanDecision evidence
+
+- Subject: `reservation-defer:<epistemicItemId>`
+- Option: `opt:defer-reservation` / « Reporter la réserve »
+- Authority: existing Pilote structuring class (`authority: "morris"` technical OA — not Morris gate UX)
+- Linked on `reservation.deferred.humanDecisionId`
+
+### Screenshots (`.tmp-sfia-review/cycle-reservation-piloting-proof/`)
+
+- `real-reservation-created-live.png` — REAL ledger evidence board (CREATE)
+- `real-reservation-treat-with-nora.png` — REAL UPDATE + MealFlow draft UX cross-ref
+- `real-reservation-propose-resolution.png`
+- `real-reservation-resolved.png`
+- `real-finalization-blocked-by-reservation.png`
+- `real-finalization-reservation-cleared.png`
+- `reservation-defer-confirmation.png`
+- `reservation-deferred-with-target.png`
+- MealFlow local UX retained: `mealfow-desktop-*` / `mealfow-mobile-390-reserves.png`
+
+**Note:** IDE browser hit `chrome-error` for disposable-project UI capture this pass; REAL lifecycle proven via Product turn ledger + deterministic UI tests.
+
+### Tests / suite finale
+
+| Check | Result |
+| --- | --- |
+| typecheck | PASS |
+| lint | PASS |
+| build | PASS (Next.js compile OK) |
+| CR-RSV + Defer targeted | PASS |
+| Full Studio suite | **4603 passed / 137 skipped** (430 files: 413 passed / 17 skipped) |
+| Prior historical suite | 4591/137 — superseded by this candidate |
+
+### Fake/Real
+
+| Claim | Status |
+| --- | --- |
+| DETERMINISTIC PRODUCT PROOF | YES |
+| LOCAL USER-FLOW PROOF | YES (Memory rail + Defer UI tests + MealFlow surface) |
+| BOUNDED REAL RESERVATION LIFECYCLE PROOF | YES (CREATE→UPDATE→PROPOSE→confirm→gate→may_affect→defer) |
+| global semantic reservation quality PROVEN | **NO** |
+| READY FOR REAL global | **NO** |
+| runtime v3 ADOPTED | **NO** |
+| Nora Cognitive Completion COMPLETE | **NO** |
+
+### Gaps restants / debt / exit
+
+- IDE browser automation unstable (chrome-error) for disposable project screenshots
+- Documentary Roadmap still lags #516/#517/this macro (**ROADMAP TRUTH-SYNC REQUIRED** — READ ONLY)
+- MealFlow 11 legacy À QUALIFIER unchanged (no bulk cleanup)
+- Next: MealFlow semantic campaign (separate GO); MACRO PR READINESS GO distinct
+
+### Roadmap truth-sync (READ ONLY recommendation)
+
+Recommend future delta mentions: #516 · #517 · this macro once proven · REAL bounded lifecycle proof · Defer PASS · next MealFlow semantic campaign · runtime v3 **NON ADOPTED**.
+
+### Anti-claims
+
+- ≠ runtime v3 ADOPTED
+- ≠ READY FOR REAL global
+- ≠ global semantic reservation quality PROVEN
+- ≠ Nora Cognitive Completion COMPLETE
+- ≠ new Product Completion closure
+- ≠ product commit/push/PR authorized
+
+### Verdict (same-macro completion)
+
+**CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING — SAME-MACRO COMPLETION COMPLETE — READY FOR MACRO PR READINESS**
+
+**MERGE / PRODUCT COMMIT / PRODUCT PUSH / PRODUCT PR — NOT AUTHORIZED** (GO Morris distinct required)
