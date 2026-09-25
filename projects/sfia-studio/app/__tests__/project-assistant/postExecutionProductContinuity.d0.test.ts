@@ -100,6 +100,7 @@ const UNCLAIMED_RECOVERY: PostEvidenceRecoveryContext = {
   reviewBundleId: "rb:docs-write:xatpcont",
   productOutcome: "UNCLAIMED",
   recommendationKind: "recover",
+  requiresHumanDecision: false,
   headline: "Exécution technique réussie — résultat produit non prouvé",
   rationale: "Attempt succeeded; ClaimEvaluation not_proven; Product UNCLAIMED.",
   nextStep: "recovery_diagnose_or_replan",

@@ -594,6 +594,9 @@ export async function projectAssistantPrepareResolvedM3Action(input: {
       authorityResolver: runtime.oa.authorityResolver,
       executionContractServices: runtime.oa.executionContractServices,
       nowIso: () => runtime.oa!.clock.nowIso(),
+      // Product UI — Pilot/N2 for local docs_write; legacy tests omit this.
+      productRuntimeAuthority: "N2",
+      oa: runtime.oa,
     },
   });
 

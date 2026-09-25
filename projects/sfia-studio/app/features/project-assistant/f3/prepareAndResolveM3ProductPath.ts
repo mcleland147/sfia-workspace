@@ -26,6 +26,11 @@ import {
   resolveBoundedReadOnlyBaseHeadSha,
   validateBaseHeadSha,
 } from "@/lib/vertical-slice-runtime/resolveBoundedReadOnlyBaseHeadSha";
+import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
+import {
+  launchContextAsContractInputs,
+  resolveTrustedProductLaunchContext,
+} from "../w2/resolveTrustedProductLaunchContext";
 
 export type PrepareAndResolveM3Deps = PrepareM3Deps &
   ResolveM3Deps & {
@@ -59,6 +64,17 @@ export type PrepareAndResolveM3Deps = PrepareM3Deps &
     resolveBoundedReadOnlyHead?: () => Promise<string | null> | string | null;
     gitCommandRunner?: GitCommandRunner;
     gitStartDir?: string;
+    /**
+     * Product UI path — Pilot/N2 for local docs_write.
+     * Legacy callers omit this (defaults MORRIS in prepareM3FromDecision).
+     */
+    productRuntimeAuthority?: "N2" | "MORRIS";
+    /**
+     * When set, docs_write resolution pins trusted launch context
+     * (managed clone HEAD + repositoryBinding) via resolveTrustedProductLaunchContext.
+     * Never from the browser.
+     */
+    oa?: RuntimeOaStack;
   };
 
 export type F3M3ResolvedPayload = {
@@ -109,7 +125,10 @@ export async function prepareAndResolveM3ProductPath(input: {
     projectId: input.projectId,
     decisionId: input.decisionId,
     currentContext: input.currentContext,
-    deps: input.deps,
+    deps: {
+      ...input.deps,
+      productRuntimeAuthority: input.deps.productRuntimeAuthority,
+    },
   });
   if (!prepared.ok) {
     return prepared;
@@ -152,28 +171,53 @@ export async function prepareAndResolveM3ProductPath(input: {
     selected.kind === "bounded_docs_write"
   ) {
     let sha: string | null = null;
-    const pinned =
-      selected.kind === "bounded_docs_write"
-        ? (input.deps.boundedDocsWriteBaseHeadSha ??
-          input.deps.boundedReadOnlyBaseHeadSha)
-        : input.deps.boundedReadOnlyBaseHeadSha;
-    if (pinned !== undefined) {
-      sha = validateBaseHeadSha(pinned);
-    } else if (input.deps.resolveBoundedReadOnlyHead) {
-      sha = validateBaseHeadSha(await input.deps.resolveBoundedReadOnlyHead());
-    } else {
-      const resolved = await resolveBoundedReadOnlyBaseHeadSha({
-        gitRunner: input.deps.gitCommandRunner,
-        startDir: input.deps.gitStartDir,
+    let trustedInputs: Record<string, string> = {};
+    /** RC-03 — marker only when resolveTrustedProductLaunchContext succeeded. */
+    let trustedLaunchPinned = false;
+    if (selected.kind === "bounded_docs_write" && input.deps.oa) {
+      const launch = await resolveTrustedProductLaunchContext({
+        oa: input.deps.oa,
+        projectId: input.projectId,
+        pinnedBaseHeadSha:
+          input.deps.boundedDocsWriteBaseHeadSha ??
+          input.deps.boundedReadOnlyBaseHeadSha,
       });
-      if (!resolved.ok) {
+      if (!launch.ok) {
         return {
           ok: false,
-          code: resolved.code,
-          message: resolved.message,
+          code: launch.code,
+          message: launch.message,
         };
       }
-      sha = resolved.sha;
+      sha = launch.context.baseHeadSha;
+      trustedInputs = launchContextAsContractInputs(launch.context);
+      trustedLaunchPinned = true;
+    } else {
+      const pinned =
+        selected.kind === "bounded_docs_write"
+          ? (input.deps.boundedDocsWriteBaseHeadSha ??
+            input.deps.boundedReadOnlyBaseHeadSha)
+          : input.deps.boundedReadOnlyBaseHeadSha;
+      if (pinned !== undefined) {
+        sha = validateBaseHeadSha(pinned);
+      } else if (input.deps.resolveBoundedReadOnlyHead) {
+        sha = validateBaseHeadSha(await input.deps.resolveBoundedReadOnlyHead());
+      } else {
+        const resolved = await resolveBoundedReadOnlyBaseHeadSha({
+          gitRunner: input.deps.gitCommandRunner,
+          startDir: input.deps.gitStartDir,
+        });
+        if (!resolved.ok) {
+          return {
+            ok: false,
+            code: resolved.code,
+            message: resolved.message,
+          };
+        }
+        sha = resolved.sha;
+      }
+      // Legacy / no-OA: SHA may exist; never claim trusted launch pack.
+      trustedLaunchPinned = false;
     }
     if (!sha) {
       return {
@@ -187,7 +231,11 @@ export async function prepareAndResolveM3ProductPath(input: {
       ...selected.profile,
       inputs: {
         ...(selected.profile.inputs ?? {}),
+        ...trustedInputs,
         baseHeadSha: sha,
+        ...(trustedLaunchPinned
+          ? { trustedLaunchContextPinnedAtPrepare: "true" }
+          : {}),
       },
     };
   }

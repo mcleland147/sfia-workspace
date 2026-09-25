@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo } from "react";
-import { authClient } from "@/lib/auth/auth-client";
 
 const ERROR_MESSAGES: Record<string, string> = {
   github_user_not_allowlisted:
@@ -38,6 +37,8 @@ export function LoginClient({
       ? fromPath
       : "/studio";
 
+  const githubStartHref = `/api/auth/github-start?from=${encodeURIComponent(callbackURL)}`;
+
   return (
     <div
       style={{
@@ -46,7 +47,8 @@ export function LoginClient({
         alignItems: "center",
         justifyContent: "center",
         padding: "2rem",
-        background: "linear-gradient(160deg, #0f172a 0%, #1e293b 55%, #0f172a 100%)",
+        background:
+          "linear-gradient(160deg, #0f172a 0%, #1e293b 55%, #0f172a 100%)",
         color: "#e2e8f0",
         fontFamily: "var(--font-inter), system-ui, sans-serif",
       }}
@@ -97,17 +99,18 @@ export function LoginClient({
           </p>
         ) : null}
 
-        <button
-          type="button"
+        {/*
+          Native <a> — OAuth must work even when client chunks fail to hydrate
+          (observed: /_next/.../login/page.js → 404 left a dead <button>).
+          No preventDefault: href always navigates to public /api/auth/github-start.
+        */}
+        <a
+          href={githubStartHref}
           data-testid="login-github"
-          onClick={() => {
-            void authClient.signIn.social({
-              provider: "github",
-              callbackURL,
-            });
-          }}
           style={{
+            display: "block",
             width: "100%",
+            boxSizing: "border-box",
             border: 0,
             borderRadius: "8px",
             padding: "0.85rem 1rem",
@@ -115,10 +118,12 @@ export function LoginClient({
             color: "#0f172a",
             fontWeight: 600,
             cursor: "pointer",
+            textAlign: "center",
+            textDecoration: "none",
           }}
         >
           Se connecter avec GitHub
-        </button>
+        </a>
       </main>
     </div>
   );

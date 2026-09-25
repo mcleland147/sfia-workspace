@@ -14,6 +14,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
+    "e2e:auth:bootstrap": "PLAYWRIGHT_BASE_URL=http://localhost:3020 tsx scripts/e2e-auth-bootstrap.ts",
+    "e2e:visual:auth": "PLAYWRIGHT_BASE_URL=http://localhost:3020 playwright test e2e/pilot-execution-experience-visual.spec.ts",
     "test:db": "vitest run __tests__/oa/finops/postgres",
     "migrate:up": "node-pg-migrate up --migrations-dir db/migrations --database-url-var DATABASE_URL_DIRECT",
     "migrate:down": "node-pg-migrate down --migrations-dir db/migrations --database-url-var DATABASE_URL_DIRECT",

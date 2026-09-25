@@ -108,8 +108,9 @@
   .layout {
     grid-template-columns:
       var(--pm6-journal-width)
-      minmax(0, 1fr)
+      minmax(620px, 1fr)
       var(--pm6-lps-width);
+    gap: var(--pm6-space-4);
   }
 
   .journalColumn {
@@ -119,12 +120,23 @@
   }
 }
 
+/* ~1440: journal 270–290 · conversation ≥620 · rail 510–550 */
 @media (min-width: 1400px) {
   .layout {
     grid-template-columns:
-      var(--pm6-journal-width)
-      minmax(0, 1fr)
-      var(--pm6-lps-width-wide);
+      clamp(270px, 18vw, 290px)
+      minmax(620px, 1fr)
+      clamp(510px, 32vw, 550px);
+  }
+}
+
+/* ~1600: journal 270–290 · conversation ≥650 · rail 550–600 */
+@media (min-width: 1600px) {
+  .layout {
+    grid-template-columns:
+      clamp(270px, 18vw, 290px)
+      minmax(650px, 1fr)
+      clamp(550px, 34vw, 600px);
   }
 }
 
@@ -202,15 +214,6 @@
   font-size: 0.82rem;
   font-weight: 600;
   cursor: pointer;
-}
-
-@media (min-width: 1400px) {
-  .layout {
-    grid-template-columns:
-      var(--pm6-journal-width)
-      minmax(0, 1fr)
-      var(--pm6-lps-width-wide);
-  }
 }
 
 /* ---------- <1200: Journal always accessible (stack); conversation dominant ---------- */

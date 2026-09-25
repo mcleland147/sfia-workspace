@@ -10,7 +10,6 @@ import type { F2ContextSnapshot } from "@/features/project-assistant/f2/types";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalAuthorityForExecutionClass,
-  registerLocalMorrisGateAuthority,
 } from "@/lib/oa/decision";
 import {
   M4_BOUNDED_DOCS_WRITE_ACTION,
@@ -18,9 +17,9 @@ import {
   M4_BOUNDED_DOCS_WRITE_TARGET,
 } from "@/lib/oa/execution-attempt";
 import {
-  resolveBoundedReadOnlyBaseHeadSha,
-  validateBaseHeadSha,
-} from "@/lib/vertical-slice-runtime/resolveBoundedReadOnlyBaseHeadSha";
+  launchContextAsContractInputs,
+  resolveTrustedProductLaunchContext,
+} from "./resolveTrustedProductLaunchContext";
 import {
   boundedDocsWriteM3ResolutionProfile,
   BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS,
@@ -207,12 +206,14 @@ export async function prepareDocsWriteRecoverySuccessorFromDecision(input: {
   const binding = bound.binding;
 
   const issuedAt = oa.clock.nowIso();
-  // Recovery prepare builds a MORRIS-gated docs_write EC — explicit Morris grant.
-  const authority = registerLocalMorrisGateAuthority({
+  // Product recovery same-scope — Pilot/N2 (not Morris construction gate).
+  const requiredAuthority = "N2";
+  const authority = registerLocalAuthorityForExecutionClass({
     authorityResolver: oa.authorityResolver,
     scope: binding.scope || "studio.gcec.docs_write",
     issuedAt,
-    evidenceId: `evd:m3-rec-prep:${input.decisionId}`,
+    requiredAuthority,
+    evidenceId: `evd:m3-rec-prep-pilote:${input.decisionId}`,
     forceEnable: input.forceLocalAuthority === true,
   });
   if (!authority.ok) {
@@ -362,7 +363,7 @@ export async function prepareDocsWriteRecoverySuccessorFromDecision(input: {
             ? [...binding.expectedOutputs]
             : undefined,
         requiredCapabilities: [M4_BOUNDED_DOCS_WRITE_CAPABILITY],
-        requiredAuthority: "MORRIS",
+        requiredAuthority,
         constraints: prepareConstraints,
         stopConditions: prepareStops,
         evidenceRequirements: evidenceFromSource,
@@ -399,18 +400,27 @@ export async function prepareDocsWriteRecoverySuccessorFromDecision(input: {
   }
 
   let sha: string | null = null;
-  if (input.boundedDocsWriteBaseHeadSha !== undefined) {
-    sha = validateBaseHeadSha(input.boundedDocsWriteBaseHeadSha);
+  let trustedInputs: Record<string, string> = {};
+  /** RC-03 — marker only when trusted resolver succeeded with full pack. */
+  let trustedLaunchPinned = false;
+  // Always resolve via trusted launch when OA is present; pinned SHA is a
+  // harness hint, not a bypass of repositoryBinding / managed clone identity.
+  const launch = await resolveTrustedProductLaunchContext({
+    oa,
+    projectId: input.projectId,
+    pinnedBaseHeadSha: input.boundedDocsWriteBaseHeadSha,
+  });
+  if (launch.ok) {
+    sha = launch.context.baseHeadSha;
+    trustedInputs = launchContextAsContractInputs(launch.context);
+    trustedLaunchPinned = true;
   } else {
-    const resolvedSha = await resolveBoundedReadOnlyBaseHeadSha({});
-    if (!resolvedSha.ok) {
-      return {
-        ok: false,
-        code: resolvedSha.code,
-        message: resolvedSha.message,
-      };
-    }
-    sha = resolvedSha.sha;
+    // Fail closed — do not invent trusted marker from a bare pinned SHA.
+    return {
+      ok: false,
+      code: launch.code,
+      message: launch.message,
+    };
   }
   if (!sha) {
     return {
@@ -427,7 +437,11 @@ export async function prepareDocsWriteRecoverySuccessorFromDecision(input: {
     inputs: {
       ...(profile.inputs ?? {}),
       ...inputs,
+      ...trustedInputs,
       baseHeadSha: sha,
+      ...(trustedLaunchPinned
+        ? { trustedLaunchContextPinnedAtPrepare: "true" }
+        : {}),
     },
   };
 

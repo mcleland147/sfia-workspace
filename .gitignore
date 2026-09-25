@@ -14,6 +14,9 @@ projects/sfia-studio/.sandbox/**
 # SFIA Studio OPS1 local runtime state and append-only execution artifacts
 projects/sfia-studio/.sfia-exec/**
 
+# Local Better Auth visual QA session (never commit)
+.tmp-sfia-review/auth/
+
 # Exports JSON — versionner les snapshots Notion
 exports/**
 !exports/notion/
