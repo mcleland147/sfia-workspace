@@ -92,6 +92,43 @@ export function buildReservationCompactForPrompt(
   return rows.slice(0, limit);
 }
 
+/**
+ * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — focused treatment block.
+ * Binds Nora to one active Reservation without claiming durable resolution.
+ */
+export function formatReservationFocusForPrompt(input: {
+  epistemicItemId: string;
+  ordinal: number | null;
+  title: string;
+  resolutionCondition?: string | null;
+  cycleInstanceId: string;
+  cycleLabel?: string | null;
+}): string {
+  const label =
+    input.ordinal != null && input.ordinal > 0
+      ? `Réserve ${input.ordinal}`
+      : "Réserve";
+  const lines = [
+    "=== TRAITEMENT RÉSERVE (contexte structuré actif) ===",
+    `Sujet actif : ${label} — « ${input.title} »`,
+    `epistemicItemId=${input.epistemicItemId}`,
+    `cycleInstanceId=${input.cycleInstanceId}` +
+      (input.cycleLabel ? ` (« ${input.cycleLabel} »)` : ""),
+    "Ce tour traite CETTE réserve — pas une nouvelle qualification de cycle.",
+    "INTERDIT : proposer un « nouveau Cadrage » / F2 générique parce que le Pilote clarifie une réserve.",
+    "INTERDIT : écrire que la réserve « est levée » / « est résolue » avant confirmation Pilote.",
+    "Si la base manque : explique ce qui manque ; reservationDelta=null ou UPDATE ; PAS de PROPOSE_RESOLUTION.",
+    "Si la clarification Pilote satisfait la condition de levée : émets PROPOSE_RESOLUTION",
+    `  avec targetReservationId=${input.epistemicItemId}, rationale, basisType=clarification,`,
+    "  basisRefs non vides (tour courant inclus). NE RÉSOUT PAS.",
+    "Autorisé : « je propose de lever… », « la levée attend votre confirmation ».",
+  ];
+  if (input.resolutionCondition?.trim()) {
+    lines.push(`Condition de levée connue : ${input.resolutionCondition.trim()}`);
+  }
+  return lines.join("\n");
+}
+
 export function formatReservationCompactForPrompt(
   rows: readonly ReservationCompactPromptRow[],
 ): string {

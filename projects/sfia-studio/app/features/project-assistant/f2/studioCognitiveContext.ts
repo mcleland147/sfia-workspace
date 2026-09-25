@@ -46,7 +46,9 @@ import { ACTIVE_CYCLE_WORK_SOURCE } from "../materializeActiveCycleWork";
 import {
   buildReservationCompactForPrompt,
   formatReservationCompactForPrompt,
+  formatReservationFocusForPrompt,
 } from "@/lib/nora-cognitive-runtime/reservationPrompt";
+import type { ValidatedReservationInteractionContext } from "../reservationInteractionContext";
 
 /** Conservative composition budgets — implementation policy, not doctrine. */
 export const STUDIO_COGNITIVE_CONTEXT_BUDGET = Object.freeze({
@@ -265,6 +267,10 @@ export type StudioCognitiveContext = {
    * CYCLE-RESERVATION-PILOTING-01 — bounded reservation prompt block (or null).
    */
   readonly reservationCompactSection: string | null;
+  /**
+   * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — focused treatment block (or null).
+   */
+  readonly reservationFocusSection: string | null;
   readonly limits: {
     readonly oaAvailable: boolean;
     readonly truthOutranksConversation: true;
@@ -404,6 +410,10 @@ export async function composeStudioCognitiveContext(input: {
   truthCContext?: string | null;
   oa: RuntimeOaStack | null;
   activeCycleInstanceId?: string | null;
+  /**
+   * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — server-validated focus only.
+   */
+  reservationFocus?: ValidatedReservationInteractionContext | null;
 }): Promise<ComposeStudioCognitiveContextResult> {
   const activeCycleInstanceId =
     input.activeCycleInstanceId ??
@@ -498,6 +508,7 @@ export async function composeStudioCognitiveContext(input: {
         }),
         lifecycleRecommendation: LIFECYCLE_RECOMMENDATION_UNAVAILABLE,
         reservationCompactSection: null,
+        reservationFocusSection: null,
         limits: Object.freeze({
           oaAvailable: false,
           truthOutranksConversation: true as const,
@@ -621,6 +632,7 @@ export async function composeStudioCognitiveContext(input: {
   let lifecycleRecommendation: StudioLifecycleRecommendationContinuityProjection =
     LIFECYCLE_RECOMMENDATION_NONE;
   let reservationCompactSection: string | null = null;
+  let reservationFocusSection: string | null = null;
   {
     const failedMaterialDimensions =
       new Set<LifecycleRecommendationMaterialDimension>();
@@ -742,6 +754,24 @@ export async function composeStudioCognitiveContext(input: {
           lpsActiveCycleInstanceId,
         ),
       );
+      const focus = input.reservationFocus;
+      if (
+        focus &&
+        focus.cycleInstanceId === lpsActiveCycleInstanceId
+      ) {
+        const focused = epistemicItems.find(
+          (i) => i.epistemicItemId === focus.epistemicItemId,
+        );
+        reservationFocusSection = formatReservationFocusForPrompt({
+          epistemicItemId: focus.epistemicItemId,
+          ordinal: focus.ordinal,
+          title: focus.title,
+          resolutionCondition:
+            focused?.reservation?.resolutionCondition ?? null,
+          cycleInstanceId: lpsActiveCycleInstanceId,
+          cycleLabel: activeCycle?.cycleLabel ?? null,
+        });
+      }
     }
   }
 
@@ -773,6 +803,7 @@ export async function composeStudioCognitiveContext(input: {
       }),
       lifecycleRecommendation,
       reservationCompactSection,
+      reservationFocusSection,
       limits: Object.freeze({
         oaAvailable: true,
         truthOutranksConversation: true as const,
@@ -876,6 +907,10 @@ export function buildStudioCognitivePromptSections(
       );
     } else {
       lines.push("Travail cognitif cycle ACTIVE : aucun item matérialisé encore.");
+    }
+    if (ctx.reservationFocusSection) {
+      lines.push("");
+      lines.push(ctx.reservationFocusSection);
     }
     if (ctx.reservationCompactSection) {
       lines.push("");

@@ -16,6 +16,7 @@ import type {
   AssistantToolEventDto,
   F2TurnPayload,
   ProjectAssistantRehydrateEvidenceOutcomeSuccess,
+  ReservationResolutionProposalDto,
 } from "@/features/project-assistant/types";
 import type {
   F2DecisionKind,
@@ -169,6 +170,14 @@ export function useProductConversation({
   /** CORR-PROOF-11 — armed opaque proposalId for explicit reinstruction send. */
   const [armedReinstructionOfProposalId, setArmedReinstructionOfProposalId] =
     useState<string | null>(null);
+  /**
+   * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — armed structured Reservation
+   * binding for subsequent send(s). Prefill-only Treat does not send.
+   */
+  const [armedReservationInteractionContext, setArmedReservationInteractionContext] =
+    useState<{ cycleInstanceId: string; epistemicItemId: string } | null>(null);
+  const [reservationResolutionProposal, setReservationResolutionProposal] =
+    useState<ReservationResolutionProposalDto | null>(null);
 
   const listRef = useRef<HTMLDivElement | null>(null);
   const f3InFlightRef = useRef(false);
@@ -419,6 +428,14 @@ export function useProductConversation({
       reinstructionOfProposalId?: string | null;
       /** Fired after a successful send that included reinstructionOfProposalId. */
       onReinstructionConsumed?: () => void;
+      /**
+       * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — override armed Reservation
+       * binding for this send (tests / explicit callers).
+       */
+      reservationInteractionContext?: {
+        cycleInstanceId: string;
+        epistemicItemId: string;
+      } | null;
     },
   ) {
     const usingRetryEnvelope = Boolean(options?.turnRetryKey?.trim());
@@ -461,6 +478,10 @@ export function useProductConversation({
       typeof options?.reinstructionOfProposalId === "string"
         ? options.reinstructionOfProposalId.trim() || null
         : armedReinstructionOfProposalId;
+    const reservationInteractionContext =
+      options?.reservationInteractionContext !== undefined
+        ? options.reservationInteractionContext
+        : armedReservationInteractionContext;
 
     startTransition(async () => {
       setUiState("ASSISTANT_WORKING");
@@ -476,6 +497,9 @@ export function useProductConversation({
             : {}),
           ...(reinstructionOfProposalId
             ? { reinstructionOfProposalId }
+            : {}),
+          ...(reservationInteractionContext
+            ? { reservationInteractionContext }
             : {}),
         });
       } catch {
@@ -495,6 +519,14 @@ export function useProductConversation({
           lastLogicalTurnIdRef.current = result.logicalTurnId;
         } else if (presentedLogicalTurnId) {
           lastLogicalTurnIdRef.current = presentedLogicalTurnId;
+        }
+        if (
+          typeof result.code === "string" &&
+          result.code.startsWith("RESERVATION_CONTEXT_")
+        ) {
+          // Stale/hostile Reservation binding — clear arm; do not retarget.
+          setArmedReservationInteractionContext(null);
+          setReservationResolutionProposal(null);
         }
         if (result.status === "provider_unavailable") {
           setUiState("BLOCKED");
@@ -518,6 +550,18 @@ export function useProductConversation({
       }
       if (result.f2?.proposal?.status === "DECISION_REQUIRED") {
         // A committed decision subject is a durable Epistemic marker write.
+        notifyDurableFactsChanged();
+      }
+      if (result.reservationResolutionProposal) {
+        setReservationResolutionProposal(result.reservationResolutionProposal);
+      } else if (!reservationInteractionContext) {
+        setReservationResolutionProposal(null);
+      }
+      if (
+        (result.reservationProposedIds?.length ?? 0) > 0 ||
+        result.reservationResolutionProposal?.proposed === true
+      ) {
+        // PROPOSE_RESOLUTION wrote durable Truth C — refresh Journal / Lifecycle.
         notifyDurableFactsChanged();
       }
 
@@ -879,6 +923,28 @@ export function useProductConversation({
       if (trimmed) setArmedReinstructionOfProposalId(trimmed);
     },
     armedReinstructionOfProposalId,
+    armReservationInteractionContext: (ctx: {
+      cycleInstanceId: string;
+      epistemicItemId: string;
+    } | null) => {
+      if (!ctx) {
+        setArmedReservationInteractionContext(null);
+        return;
+      }
+      const cycleInstanceId = ctx.cycleInstanceId.trim();
+      const epistemicItemId = ctx.epistemicItemId.trim();
+      if (!cycleInstanceId || !epistemicItemId) return;
+      setArmedReservationInteractionContext({
+        cycleInstanceId,
+        epistemicItemId,
+      });
+      setReservationResolutionProposal(null);
+    },
+    armedReservationInteractionContext,
+    reservationResolutionProposal,
+    clearReservationResolutionProposal: () => {
+      setReservationResolutionProposal(null);
+    },
     decide,
     prepareResolvedM3,
     prepareLegacyFixture,

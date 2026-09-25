@@ -23,6 +23,19 @@ import { useEffect, useId } from "react";
 import type { ProductConversationController } from "../hooks/useProductConversation";
 import styles from "./ConversationSurface.module.css";
 
+/**
+ * RC-02 — human-facing active-cycle label (pure presentation; no OA import).
+ * Mirrors formatReservationActiveCycleFacingLabel without pulling server modules.
+ */
+function formatReservationActiveCycleFacingLabel(
+  cycleLabel: string | null | undefined,
+): string {
+  const t = typeof cycleLabel === "string" ? cycleLabel.trim() : "";
+  if (!t) return "Cycle actif";
+  if (/\bacti[fv]\b/i.test(t)) return t;
+  return `${t} actif`;
+}
+
 const DECISION_ACTIONS: readonly {
   kind: F2DecisionKind;
   label: string;
@@ -57,6 +70,12 @@ export type ConversationSurfaceProps = {
    * unset/false so TrajectorySurface remains the sole authority/execute chain.
    */
   exposeLegacyAuthorityPath?: boolean;
+  /**
+   * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — same governed Pilot confirm
+   * as Journal « Confirmer la levée » (no duplicate mutation path).
+   */
+  onConfirmReservationResolve?: (epistemicItemId: string) => void;
+  reservationConfirmBusyId?: string | null;
 };
 
 /**
@@ -68,6 +87,8 @@ export type ConversationSurfaceProps = {
 export function ConversationSurface({
   controller,
   exposeLegacyAuthorityPath = false,
+  onConfirmReservationResolve,
+  reservationConfirmBusyId = null,
 }: ConversationSurfaceProps) {
   const fieldId = useId();
   const liveRegionId = useId();
@@ -114,6 +135,7 @@ export function ConversationSurface({
     confirmAndExecuteLegacyFixture,
     refreshResolvedM3RunningAttempt,
     retryLastUserMessage,
+    reservationResolutionProposal,
   } = controller;
 
   // Notify LifecycleSurface after Nora answers so CURRENT LR can reproject.
@@ -298,7 +320,7 @@ export function ConversationSurface({
           {f2.labels.proposition ? (
             <span className={styles.chip}>{f2.labels.proposition}</span>
           ) : null}
-          {f2.labels.decisionRequired ? (
+          {f2.labels.decisionRequired && !reservationResolutionProposal ? (
             <span className={styles.chipGold}>{f2.labels.decisionRequired}</span>
           ) : null}
           {f2.labels.decisionTaken ? (
@@ -308,7 +330,87 @@ export function ConversationSurface({
         </div>
       ) : null}
 
-      {f2?.qualification ? (
+      {reservationResolutionProposal ? (
+        <section
+          className={styles.card}
+          data-testid="reservation-resolution-proposal"
+          aria-labelledby={`${fieldId}-rsv-proposal`}
+        >
+          <header className={styles.cardHead}>
+            <p className={styles.cardEyebrow}>Lecture de Nora</p>
+            <h3 id={`${fieldId}-rsv-proposal`} className={styles.cardTitle}>
+              {reservationResolutionProposal.proposed
+                ? "Proposition de levée"
+                : "Traitement de réserve"}
+            </h3>
+            <p
+              className={styles.cardNote}
+              data-testid="reservation-resolution-context"
+            >
+              Contexte :{" "}
+              {reservationResolutionProposal.ordinal != null &&
+              reservationResolutionProposal.ordinal > 0
+                ? `Réserve ${reservationResolutionProposal.ordinal}`
+                : "Réserve"}{" "}
+              ·{" "}
+              {formatReservationActiveCycleFacingLabel(
+                reservationResolutionProposal.cycleLabel,
+              )}
+            </p>
+            <p
+              className={styles.cardNote}
+              data-testid="reservation-resolution-cycle-id"
+              hidden
+            >
+              {reservationResolutionProposal.cycleInstanceId}
+            </p>
+            {reservationResolutionProposal.proposed ? (
+              <p
+                className={styles.cardNote}
+                data-testid="reservation-pilot-confirmation-required"
+              >
+                Confirmation Pilote requise
+              </p>
+            ) : null}
+            <p className={styles.cardNote}>
+              {reservationResolutionProposal.proposed
+                ? "La condition paraît satisfaite. La levée attend votre confirmation Pilote — la réserve reste active."
+                : "Nora traite cette réserve. Une recommandation n’est pas une levée."}
+            </p>
+          </header>
+          {reservationResolutionProposal.proposed &&
+          onConfirmReservationResolve ? (
+            <div className={styles.decisionActions}>
+              <button
+                type="button"
+                className={styles.decisionButton}
+                data-tone="primary"
+                data-testid={`reservation-confirm-from-proposal-${reservationResolutionProposal.epistemicItemId}`}
+                disabled={
+                  busy ||
+                  reservationConfirmBusyId ===
+                    reservationResolutionProposal.epistemicItemId
+                }
+                onClick={() =>
+                  onConfirmReservationResolve(
+                    reservationResolutionProposal.epistemicItemId,
+                  )
+                }
+              >
+                {reservationConfirmBusyId ===
+                reservationResolutionProposal.epistemicItemId
+                  ? "Confirmation…"
+                  : "Confirmer la levée"}
+              </button>
+            </div>
+          ) : null}
+          <p className={styles.stamp} data-testid="reservation-no-auto-resolve">
+            AUCUNE LEVÉE AUTOMATIQUE
+          </p>
+        </section>
+      ) : null}
+
+      {f2?.qualification && !reservationResolutionProposal ? (
         <section
           className={styles.card}
           data-testid="project-assistant-qualification"
@@ -392,7 +494,7 @@ export function ConversationSurface({
         </section>
       ) : null}
 
-      {activeProposal ? (
+      {activeProposal && !reservationResolutionProposal ? (
         <section
           className={styles.card}
           data-testid="project-assistant-proposal"
@@ -475,7 +577,7 @@ export function ConversationSurface({
         </section>
       ) : null}
 
-      {gateOpen && !exposeLegacyAuthorityPath ? (
+      {gateOpen && !exposeLegacyAuthorityPath && !reservationResolutionProposal ? (
         <section
           className={styles.card}
           data-testid="product-authority-path-guidance"

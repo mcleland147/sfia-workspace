@@ -173,6 +173,25 @@ export type F2TurnPayload = {
   processLocalNotice: string;
 };
 
+/**
+ * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — ephemeral client surface for a
+ * validated Reservation focus / PROPOSE_RESOLUTION. Not Truth C; not Confirmation.
+ */
+export type ReservationResolutionProposalDto = {
+  epistemicItemId: string;
+  cycleInstanceId: string;
+  /**
+   * Human-facing active-cycle label from composed Product context
+   * (e.g. « Cadrage »). Not a second authority; technical id remains
+   * on cycleInstanceId for tests / details.
+   */
+  cycleLabel: string | null;
+  ordinal: number | null;
+  title: string;
+  /** true only when materialize wrote a resolutionProposal this turn. */
+  proposed: boolean;
+};
+
 export type ProjectAssistantSendSuccess = {
   ok: true;
   status: "ok" | "cognitive_stop";
@@ -253,6 +272,16 @@ export type ProjectAssistantSendSuccess = {
    * Session-adjacent replay/idempotence identity; never Epistemic SoT.
    */
   logicalTurnId?: string | null;
+  /**
+   * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — ids that received PROPOSE_RESOLUTION
+   * this Product turn (after durable materialize). Empty when none.
+   */
+  reservationProposedIds?: string[];
+  /**
+   * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — validated Reservation focus surface
+   * for Pilot presentation (proposal-state wording; never auto-resolved).
+   */
+  reservationResolutionProposal?: ReservationResolutionProposalDto | null;
   /**
    * MW6↔Auth — present when send used executionContractId governed composition.
    * Server-built; never a client-supplied authority object.

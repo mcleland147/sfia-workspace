@@ -623,6 +623,8 @@ export async function orchestrateProjectAssistantTurn(input: {
     // D-LC-01 — same Product turn: extract → fail-closed contradiction →
     // ACW first (when present) → then LR against final post-ACW basis.
     // No second model call. No fingerprint rewrite.
+    // RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — hoist for success return.
+    let reservationProposedIds: string[] = [];
     if (turn.structuredOutput !== undefined) {
       const { extractLifecycleCandidateFromStructuredOutput } = await import(
         "@/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn"
@@ -922,6 +924,7 @@ export async function orchestrateProjectAssistantTurn(input: {
                 logicalTurnId,
               };
             }
+            reservationProposedIds = [...rsvMat.proposedIds];
           }
         }
       }
@@ -1230,6 +1233,7 @@ export async function orchestrateProjectAssistantTurn(input: {
       lifecycleRecommendationContinuity,
       lifecycleRecommendationContinuityRevalidation,
       logicalTurnId,
+      reservationProposedIds,
     };
   } catch (error) {
     const message =

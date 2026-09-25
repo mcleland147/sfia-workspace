@@ -722,6 +722,7 @@ describe("CORR-PROOF-06 — Artifact obligation selection & recovery", () => {
         satisfiesPreCycleNextCycleTransition: false,
       },
       reservationCompactSection: null,
+      reservationFocusSection: null,
       limits: {
         oaAvailable: true,
         truthOutranksConversation: true as const,
