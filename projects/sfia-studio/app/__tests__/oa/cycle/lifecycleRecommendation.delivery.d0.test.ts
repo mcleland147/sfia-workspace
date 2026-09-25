@@ -146,6 +146,7 @@ function authorityAdapter(authority: MemoryAuthorityResolver) {
       scope: string;
       evidenceId?: string;
       requiredLevel?: "N1" | "N2" | "N3";
+      requirePilotGate?: boolean;
       requireMorrisGate?: boolean;
     }) => {
       const r = authority.verify({
@@ -153,7 +154,8 @@ function authorityAdapter(authority: MemoryAuthorityResolver) {
         requiredLevel: req.requiredLevel ?? "N3",
         scope: req.scope,
         evidenceId: req.evidenceId,
-        requireMorrisGate: req.requireMorrisGate ?? true,
+        requirePilotGate: req.requirePilotGate ?? true,
+        requireMorrisGate: req.requireMorrisGate ?? false,
       });
       return { ok: r.ok, reason: r.reason };
     },
@@ -876,7 +878,7 @@ describe("R10 authoritative RESUME projection", () => {
           effectiveAt: "2026-09-08T08:01:00.000Z",
           reversible: true,
           actor: LOCAL_PILOTE_ACTOR,
-          authority: "morris",
+          authority: "pilot",
         },
       ],
       evidence: [],

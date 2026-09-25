@@ -35,6 +35,7 @@ import type { Confirmation } from "@/lib/oa/decision";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
+  registerLocalMorrisGateAuthority,
 } from "@/lib/oa/decision";
 import {
   computeExecutionContractSemanticFingerprint,

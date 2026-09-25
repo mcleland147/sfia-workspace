@@ -14,7 +14,10 @@
  */
 
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
-import { LOCAL_PILOTE_ACTOR, registerLocalPiloteAuthority } from "@/lib/oa/decision";
+import {
+  LOCAL_PILOTE_ACTOR,
+  registerLocalAuthorityForExecutionClass,
+} from "@/lib/oa/decision";
 import { readContractInspectionState } from "./inspectExecutionContract";
 import type { ConfirmForAuthorizationResult } from "./types";
 
@@ -135,10 +138,11 @@ export async function confirmExecutionContractForAuthorization(
     };
   }
 
-  const authority = registerLocalPiloteAuthority({
+  const authority = registerLocalAuthorityForExecutionClass({
     authorityResolver: oa.authorityResolver,
     scope: contract.scope,
     issuedAt: oa.clock.nowIso(),
+    requiredAuthority: contract.requiredAuthority,
     evidenceId: `evd:w2-cfm:${contract.executionContractId}`,
     forceEnable: input.forceLocalAuthority === true,
   });

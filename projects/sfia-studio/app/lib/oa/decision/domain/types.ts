@@ -3,13 +3,14 @@
  * Modeled schemas are the reference contract; adoption is T-A3-scoped only.
  *
  * Dual enums are intentional:
- * - HumanDecision.authority: morris | delegated | system_non_structuring
+ * - HumanDecision.authority: pilot | morris | delegated | system_non_structuring
  * - Confirmation.level / ActorReference.authorityLevel: N1 | N2 | N3 | none
  *
  * Actor.authorityLevel MUST NOT be trusted from the client — verify via
- * AuthorityResolverPort. N3 verified level does NOT automatically grant Morris
- * gate; HumanDecision.authority === "morris" requires explicit evidence flag
- * `canActAsMorris: true` (or dedicated morrisGrant).
+ * AuthorityResolverPort.
+ * - authority === "pilot" requires N3 + canActAsPilot
+ * - authority === "morris" requires N3 + canActAsMorris
+ * N3 alone grants neither gate. Identity/displayName grant neither.
  */
 
 import type {
@@ -24,6 +25,7 @@ export type { ActorReference, ProvenanceRecord };
 export type OaActorReference = ActorReference;
 
 export type DecisionAuthority =
+  | "pilot"
   | "morris"
   | "delegated"
   | "system_non_structuring";
@@ -234,7 +236,8 @@ export type Confirmation = {
 
 /**
  * Authority evidence registry record.
- * `canActAsMorris` is SEPARATE from level N3 — N3 ≠ Morris gate.
+ * `canActAsPilot` and `canActAsMorris` are SEPARATE from level N3 —
+ * N3 ≠ Pilot automatically; N3 ≠ Morris automatically.
  */
 export type AuthorityEvidence = {
   evidenceId: string;
@@ -244,6 +247,8 @@ export type AuthorityEvidence = {
   issuedAt: string;
   expiresAt?: string;
   source: string;
+  /** Explicit Pilot-gate grant. Absent/false → cannot claim authority=pilot. */
+  canActAsPilot?: boolean;
   /** Explicit Morris-gate grant. Absent/false → cannot claim authority=morris. */
   canActAsMorris?: boolean;
 };
@@ -256,13 +261,16 @@ export type VerifyAuthorityRequest = {
   /** Hostile injection — IGNORED. Never trusted. */
   authorityLevel?: AuthorityLevel | "none";
   displayName?: string;
-  /** When true, also require canActAsMorris on matching evidence. */
+  /** When true, require canActAsPilot on matching evidence. */
+  requirePilotGate?: boolean;
+  /** When true, require canActAsMorris on matching evidence. */
   requireMorrisGate?: boolean;
 };
 
 export type VerifyAuthorityResult = {
   ok: boolean;
   verifiedLevel?: AuthorityLevel;
+  canActAsPilot?: boolean;
   canActAsMorris?: boolean;
   reason:
     | "verified"
@@ -270,6 +278,7 @@ export type VerifyAuthorityResult = {
     | "expired"
     | "level_insufficient"
     | "scope_mismatch"
+    | "pilot_gate_denied"
     | "morris_gate_denied"
     | "evidence_not_found"
     | "actor_mismatch";
@@ -285,8 +294,10 @@ export type RecordHumanDecisionRequest = {
   selectedOptionId: string;
   actor: OaActorReference;
   /**
-   * Claimed decision authority. For "morris", AuthorityResolver must verify
-   * N3 + canActAsMorris. Never inferred from actorId/displayName.
+   * Claimed decision authority.
+   * - "pilot": N3 + canActAsPilot (runtime Project structuring)
+   * - "morris": N3 + canActAsMorris (true Morris gate)
+   * Never inferred from actorId/displayName.
    */
   authority: DecisionAuthority;
   status?: HumanDecisionStatus;

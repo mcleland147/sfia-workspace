@@ -358,6 +358,7 @@ function wireOaStack(
       scope: string;
       evidenceId?: string;
       requiredLevel?: "N1" | "N2" | "N3";
+      requirePilotGate?: boolean;
       requireMorrisGate?: boolean;
     }) => {
       const r = authorityResolver.verify({
@@ -365,7 +366,9 @@ function wireOaStack(
         requiredLevel: req.requiredLevel ?? "N3",
         scope: req.scope,
         evidenceId: req.evidenceId,
-        requireMorrisGate: req.requireMorrisGate ?? true,
+        // Default Pilot gate for lifecycle mutations (Option A).
+        requirePilotGate: req.requirePilotGate ?? true,
+        requireMorrisGate: req.requireMorrisGate ?? false,
       });
       return { ok: r.ok, reason: r.reason };
     },

@@ -6,7 +6,6 @@ import {
   validateDecisionFields,
 } from "../domain/invariants";
 import type {
-  AuthorityLevel,
   DecisionAuthority,
   DecisionResult,
   HumanDecision,
@@ -17,17 +16,13 @@ import type { AuthorityResolverPort } from "../ports/authorityResolver";
 import type { DecisionAuditPort } from "../ports/decisionAudit";
 import type { DecisionPersistenceUnitOfWorkPort } from "../ports/decisionPersistenceUnitOfWorkPort";
 import type { DecisionRepositoryPort } from "../ports/decisionRepository";
+import {
+  authorityGateFlags,
+  requiredLevelForAuthority,
+} from "./authorityRequirements";
 
 function newId(prefix: "cor" | "prv"): string {
   return `${prefix}:${randomBytes(8).toString("hex")}`;
-}
-
-function requiredLevelForAuthority(
-  authority: DecisionAuthority,
-): AuthorityLevel {
-  if (authority === "morris") return "N3";
-  if (authority === "delegated") return "N2";
-  return "N1";
 }
 
 function isSupersedableStatus(status: HumanDecision["status"]): boolean {
@@ -192,8 +187,8 @@ export class SupersedeHumanDecision {
       }
 
       const scope = snap.scope ?? prior.scope ?? prior.subject;
-      const requireMorris = snap.authority === "morris";
       const requiredLevel = requiredLevelForAuthority(snap.authority);
+      const gates = authorityGateFlags(snap.authority);
 
       const verification = this.authority.verify({
         actorId: snap.actor.actorId,
@@ -202,7 +197,8 @@ export class SupersedeHumanDecision {
         evidenceId: snap.authorityEvidenceId,
         authorityLevel: snap.actor.authorityLevel,
         displayName: snap.actor.displayName,
-        requireMorrisGate: requireMorris,
+        requirePilotGate: gates.requirePilotGate,
+        requireMorrisGate: gates.requireMorrisGate,
       });
 
       this.audit.append({
@@ -215,6 +211,7 @@ export class SupersedeHumanDecision {
         ok: verification.ok,
         verifiedLevel: verification.verifiedLevel,
         reason: verification.reason,
+        canActAsPilot: verification.canActAsPilot,
         canActAsMorris: verification.canActAsMorris,
         durationMs: Date.now() - started,
       });

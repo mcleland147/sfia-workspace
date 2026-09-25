@@ -10,9 +10,9 @@ import type {
 } from "@/lib/oa/decision";
 import {
   LOCAL_PILOTE_ACTOR,
-  registerLocalPiloteAuthority,
+  registerLocalMorrisGateAuthority,
 } from "@/lib/oa/decision";
-/** W2: Pilote is the product decision-maker; Morris remains authority CLASS only. */
+/** W2: Pilote is the product decision-maker; Morris remains a distinct EC gate class. */
 import type {
   CursorPrepareOnlyProjection,
   ExecutionContractInspectionDisclosure,
@@ -485,7 +485,8 @@ export async function prepareM3FromDecision(input: {
 
   const fields = fieldsFromBasis(basis, decision.decisionId);
   const issuedAt = input.deps.nowIso();
-  const authority = registerLocalPiloteAuthority({
+  // True Morris EC gate — separate from Pilot HD grant (Option A).
+  const authority = registerLocalMorrisGateAuthority({
     authorityResolver: input.deps.authorityResolver,
     scope: fields.scope,
     issuedAt,

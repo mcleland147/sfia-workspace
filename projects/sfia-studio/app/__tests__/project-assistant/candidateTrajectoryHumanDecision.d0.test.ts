@@ -630,7 +630,7 @@ describe("GREENFIELD CANDIDATE → HUMANDECISION — BAR-HD", () => {
     if (!hd.ok) return;
     expect(hd.decision.status).toBe("accepted");
     expect(hd.decision.actor.actorId).toBe(LOCAL_PILOTE_ACTOR_ID);
-    expect(hd.decision.authority).toBe("morris");
+    expect(hd.decision.authority).toBe("pilot");
     expect(hd.decision.options).toHaveLength(1);
     expect(hd.decision.options[0]!.optionId).toBe(
       CANDIDATE_TRAJECTORY_APPROVAL_OPTION_ID,

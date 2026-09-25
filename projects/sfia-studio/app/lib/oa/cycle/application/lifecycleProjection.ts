@@ -15,6 +15,49 @@ import {
 } from "../domain/lifecycleInvariants";
 import type { LifecycleRecommendationEnvelope } from "./lifecycleRecommendation/types";
 
+/**
+ * CYCLE-RESERVATION-PILOTING-01 — presentation card for one cycle-scoped
+ * Reservation (derived from EpistemicItem + reservationSemantics; never a
+ * second store). Labels are server-resolved French presentation strings.
+ */
+export type CycleReservationProjectionCard = {
+  epistemicItemId: string;
+  ordinal: number;
+  title: string;
+  summary: string;
+  statement: string;
+  presentationState: string;
+  presentationStateLabel: string;
+  impactLabel: string;
+  attentionLabel: string;
+  finalizationRelevanceLabel: string;
+  rationale: string;
+  resolutionCondition: string;
+  journalEntryRefs: string[];
+  sourceTurnRefs: string[];
+  hasResolutionProposal: boolean;
+  resolutionProposalRationale?: string;
+  isLegacy: boolean;
+  /**
+   * DEFER V1 — true only when nonblocking + honest trajectory target exists.
+   * Never invent a target; UI must not show Reporter without this.
+   */
+  canDefer: boolean;
+  deferTargetCycleTypeId?: string | null;
+  deferTargetLabel?: string | null;
+  /** Present when already REPORTÉE — human-readable cycle cible. */
+  deferredTargetLabel?: string | null;
+  /** Present when already REPORTÉE — Pilot decision label (no raw id as primary). */
+  deferredHumanDecisionLabel?: string | null;
+};
+
+export type CycleReservationSummary = {
+  activeCount: number;
+  mayAffectCount: number;
+  mustResolveCount: number;
+  toQualifyCount: number;
+};
+
 export type PilotLifecycleProjection = {
   projectId: string;
   activeCycleInstanceId: string | null;
@@ -50,11 +93,19 @@ export type PilotLifecycleProjection = {
    * Recommendation ≠ canFinalize / canStart / HumanDecision.
    */
   currentRecommendations?: LifecycleRecommendationEnvelope[];
-  /** D-LC-05 aids — blocking reservations visible for explicit Pilot resolve. */
+  /**
+   * FINALIZE gate blockers ONLY (must_resolve / legacy blocking fail-closed).
+   * Used for the blocked-finalization mode of LifecycleSurface — NOT a
+   * permanent resolve list. Impact alone never blocks.
+   */
   blockingReservations?: ReadonlyArray<{
     epistemicItemId: string;
     statement: string;
   }>;
+  /** CYCLE-RESERVATION-PILOTING-01 — all Reservations scoped to the selected cycle. */
+  cycleReservations?: ReadonlyArray<CycleReservationProjectionCard>;
+  /** Counts over cycleReservations (active only for activeCount / relevance buckets). */
+  reservationSummary?: CycleReservationSummary;
   /** Resume reconciliation when selected cycle is paused — never cleared by HD alone. */
   resumeReconciliation?: {
     clean: boolean;

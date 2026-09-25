@@ -42,6 +42,7 @@ export class VerifyAuthority {
       ok: result.ok,
       verifiedLevel: result.verifiedLevel,
       reason: result.reason,
+      canActAsPilot: result.canActAsPilot,
       canActAsMorris: result.canActAsMorris,
       durationMs,
     });

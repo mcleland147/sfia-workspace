@@ -151,6 +151,7 @@ function authorityAdapter(authority: MemoryAuthorityResolver) {
       scope: string;
       evidenceId?: string;
       requiredLevel?: "N1" | "N2" | "N3";
+      requirePilotGate?: boolean;
       requireMorrisGate?: boolean;
     }) => {
       const r = authority.verify({
@@ -158,7 +159,8 @@ function authorityAdapter(authority: MemoryAuthorityResolver) {
         requiredLevel: req.requiredLevel ?? "N3",
         scope: req.scope,
         evidenceId: req.evidenceId,
-        requireMorrisGate: req.requireMorrisGate ?? true,
+        requirePilotGate: req.requirePilotGate ?? true,
+        requireMorrisGate: req.requireMorrisGate ?? false,
       });
       return { ok: r.ok, reason: r.reason };
     },
@@ -330,7 +332,7 @@ async function recordHd(input: {
     ],
     selectedOptionId: input.selectedOptionId ?? "opt:accept",
     actor: LOCAL_PILOTE_ACTOR,
-    authority: "morris",
+    authority: "pilot",
     status: "accepted",
     reversible: false,
     scope,
@@ -386,7 +388,7 @@ function makeObligationPolicyDecision(
     ],
     selectedOptionId,
     actor: LOCAL_PILOTE_ACTOR,
-    authority: "morris",
+    authority: "pilot",
     status: "accepted",
     reversible: false,
     effectiveAt: "2026-09-07T16:00:00.000Z",
@@ -1094,7 +1096,7 @@ describe("A — finalization applicability (A1–A10)", () => {
           ],
           selectedOptionId: "opt:accept",
           actor: LOCAL_PILOTE_ACTOR,
-          authority: "morris",
+          authority: "pilot",
           status: "accepted",
           reversible: false,
           effectiveAt: "2026-09-07T16:00:00.000Z",
@@ -2219,7 +2221,7 @@ describe("AP — Product-derived applicability", () => {
       ],
       selectedOptionId: OBLIGATION_POLICY_NO_GOVERNED_EFFECTS,
       actor: LOCAL_PILOTE_ACTOR,
-      authority: "morris",
+      authority: "pilot",
       status: "accepted",
       reversible: false,
       scope: `pilot-lifecycle:${cycleInstanceId}`,
@@ -2238,7 +2240,7 @@ describe("AP — Product-derived applicability", () => {
       ],
       selectedOptionId: "opt:accept",
       actor: LOCAL_PILOTE_ACTOR,
-      authority: "morris",
+      authority: "pilot",
       status: "accepted",
       reversible: false,
       scope: `pilot-lifecycle:${cycleInstanceId}`,

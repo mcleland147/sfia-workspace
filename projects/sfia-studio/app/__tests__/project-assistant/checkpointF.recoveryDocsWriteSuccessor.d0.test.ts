@@ -10,7 +10,8 @@ import {
   M4_BOUNDED_DOCS_WRITE_CAPABILITY,
   M4_BOUNDED_DOCS_WRITE_TARGET,
 } from "@/lib/oa/execution-attempt";
-import { LOCAL_PILOTE_ACTOR, registerLocalPiloteAuthority } from "@/lib/oa/decision";
+import { LOCAL_PILOTE_ACTOR, registerLocalPiloteAuthority,
+  registerLocalMorrisGateAuthority } from "@/lib/oa/decision";
 import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
 import { prepareExecutionContractFromW2Decision } from "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision";
 import { prepareDocsWriteRecoverySuccessorFromDecision } from "@/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor";
@@ -115,7 +116,7 @@ async function seedFailedDocsWriteEpisode(input: {
   const ecId = `xct:m3-ev:r8-${Math.random().toString(16).slice(2, 10)}`;
   const ids = w3bEvidenceIdentity(attemptId);
 
-  const authority = registerLocalPiloteAuthority({
+  const authority = registerLocalMorrisGateAuthority({
     authorityResolver: oa.authorityResolver,
     scope: "studio.gcec.docs_write",
     issuedAt: oa.clock.nowIso(),

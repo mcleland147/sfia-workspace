@@ -53,7 +53,8 @@ import {
   seedQualifiedProject,
   tempProductDbPath,
 } from "./w2Harness";
-import { LOCAL_PILOTE_ACTOR, registerLocalPiloteAuthority } from "@/lib/oa/decision";
+import { LOCAL_PILOTE_ACTOR, registerLocalPiloteAuthority,
+  registerLocalMorrisGateAuthority } from "@/lib/oa/decision";
 import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
 import { GOVERNED_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
 
@@ -518,7 +519,7 @@ describe("CR-PJR portable docs_write UNCLAIMED recover (temp DB)", () => {
     if (!decided.ok) throw new Error("decide");
     const decisionId = decided.decision.decisionId;
 
-    const authority = registerLocalPiloteAuthority({
+    const authority = registerLocalMorrisGateAuthority({
       authorityResolver: oa.authorityResolver,
       scope: "studio.gcec.docs_write",
       issuedAt: oa.clock.nowIso(),

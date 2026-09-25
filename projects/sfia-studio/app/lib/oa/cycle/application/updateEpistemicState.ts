@@ -136,6 +136,9 @@ export class UpdateEpistemicState {
             lifecycleRecommendation: raw.lifecycleRecommendation
               ? structuredClone(raw.lifecycleRecommendation)
               : undefined,
+            reservation: raw.reservation
+              ? structuredClone(raw.reservation)
+              : undefined,
           };
 
           if (this.epistemic.saveForProject) {

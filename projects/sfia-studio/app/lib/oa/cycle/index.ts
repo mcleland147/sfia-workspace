@@ -6,6 +6,7 @@
  */
 
 export * from "./domain/types";
+export * from "./domain/reservationSemantics";
 export * from "./domain/errors";
 export * from "./domain/invariants";
 export * from "./domain/qualification";
@@ -61,11 +62,14 @@ export {
   projectPilotLifecycle,
   selectLatestTerminalCycle,
   type PilotLifecycleProjection,
+  type CycleReservationProjectionCard,
+  type CycleReservationSummary,
 } from "./application/lifecycleProjection";
 export * from "./application/lifecycleRecommendation";
 export {
   deriveLifecycleBlockersFromEpistemicItems,
   lifecycleBlockersFromReaderFailure,
+  listFinalizationBlockingReservations,
   type LifecycleBlockerSnapshot,
 } from "./application/deriveLifecycleBlockers";
 export {

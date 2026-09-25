@@ -102,6 +102,7 @@ export type PilotLifecycleAuthorityPort = {
     scope: string;
     evidenceId?: string;
     requiredLevel?: "N1" | "N2" | "N3";
+    requirePilotGate?: boolean;
     requireMorrisGate?: boolean;
   }): { ok: boolean; reason?: string };
 };
@@ -1490,7 +1491,7 @@ export class PilotLifecycleTransitions {
       scope: `pilot-lifecycle:${input.cycleInstanceId}`,
       evidenceId: input.evidenceId,
       requiredLevel: "N3",
-      requireMorrisGate: true,
+      requirePilotGate: true,
     });
     if (result.ok) return { ok: true };
     if (authorityNotConfiguredReason(result.reason)) {

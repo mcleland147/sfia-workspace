@@ -613,7 +613,7 @@ export async function approveCandidateTrajectory(
         ],
         selectedOptionId: CANDIDATE_TRAJECTORY_APPROVAL_OPTION_ID,
         actor: LOCAL_PILOTE_ACTOR,
-        authority: "morris",
+        authority: "pilot",
         status: "accepted",
         reversible: true,
         scope: subject,

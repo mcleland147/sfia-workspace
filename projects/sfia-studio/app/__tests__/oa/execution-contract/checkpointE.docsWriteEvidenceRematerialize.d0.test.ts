@@ -20,6 +20,7 @@ import {
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
+  registerLocalMorrisGateAuthority,
 } from "@/lib/oa/decision";
 
 const APP_ROOT = path.resolve(__dirname, "../../..");
@@ -76,7 +77,7 @@ describe("CHECKPOINT-E R4 T9 — rematerialize evidenceRequirements", () => {
     if (!created.ok) return;
     const projectId = created.project.projectId;
 
-    const authority = registerLocalPiloteAuthority({
+    const authority = registerLocalMorrisGateAuthority({
       authorityResolver: oa.authorityResolver,
       scope: "studio.gcec.docs_write",
       issuedAt: oa.clock.nowIso(),

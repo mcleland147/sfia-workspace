@@ -374,7 +374,7 @@ describe("LR CORR-DELIVERY-02 material basis", () => {
             effectiveAt: "2026-09-08T09:01:00.000Z",
             reversible: true,
             actor: LOCAL_PILOTE_ACTOR,
-            authority: "morris",
+            authority: "pilot",
           },
         ],
         evidence: [],

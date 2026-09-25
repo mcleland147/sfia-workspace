@@ -338,10 +338,20 @@ export type EpistemicItem = {
   createdAt: string;
   supersedes?: string;
   relatedObjects?: string[];
+  /**
+   * Legacy generic flag. New Reservations must not rely on this as nominal
+   * FINALIZE semantics — use reservation.finalizationRelevance instead.
+   * Historical blocking=true without reservation metadata remains fail-closed.
+   */
   blocking?: boolean;
   provenance?: ProvenanceRecord;
   /** Optional — absent on historical / non-lifecycle Recommendations. */
   lifecycleRecommendation?: EpistemicLifecycleRecommendation;
+  /**
+   * CYCLE-RESERVATION-PILOTING-01 — optional typed Reservation metadata.
+   * Absent on legacy MealFlow / pre-metadata Reservations.
+   */
+  reservation?: import("./reservationSemantics").EpistemicReservationMetadata;
 };
 
 export type CkcResolution = {
@@ -468,6 +478,7 @@ export type UpdateEpistemicStateRequest = {
     blocking?: boolean;
     provenance?: ProvenanceRecord;
     lifecycleRecommendation?: EpistemicLifecycleRecommendation;
+    reservation?: import("./reservationSemantics").EpistemicReservationMetadata;
     /**
      * Forbidden auto-promotion signal — if true and type is DecisionRef
      * while superseding a Hypothesis, refused.

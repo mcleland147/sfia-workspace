@@ -25,6 +25,7 @@ import {
 import type { DecisionBasis, HumanDecision } from "@/lib/oa/decision";
 import {
   computeDecisionBasisSourceDigest,
+  isRuntimeStructuringAuthority,
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
 } from "@/lib/oa/decision";
@@ -91,7 +92,7 @@ export function assertDecisionAuthorizesPromotion(input: {
       message: `Décision humaine au statut ${decision.status} — promotion refusée.`,
     };
   }
-  if (decision.authority !== "morris") {
+  if (!isRuntimeStructuringAuthority(decision.authority)) {
     return {
       ok: false,
       code: "AUTHORITY_DENIED",
@@ -559,7 +560,7 @@ export async function decideTrajectory(
         })),
         selectedOptionId: input.selectedOptionRef,
         actor: LOCAL_PILOTE_ACTOR,
-        authority: "morris",
+        authority: "pilot",
         status: "accepted",
         reversible: true,
         scope,

@@ -32,6 +32,11 @@ export { ConsumeConfirmation } from "./application/consumeConfirmation";
 export { CancelConfirmation } from "./application/cancelConfirmation";
 export { SupersedeHumanDecision } from "./application/supersedeHumanDecision";
 export { VerifyAuthority } from "./application/verifyAuthority";
+export {
+  authorityGateFlags,
+  isRuntimeStructuringAuthority,
+  requiredLevelForAuthority,
+} from "./application/authorityRequirements";
 
 export { MemoryDecisionStore } from "./infrastructure/memoryDecisionStore";
 export { MemoryDecisionRepository } from "./infrastructure/memoryDecisionRepository";
@@ -45,11 +50,17 @@ export {
   M3_LOCAL_MORRIS_ACTOR_ID,
   M3_LOCAL_AUTHORITY_SOURCE,
   M3_LOCAL_AUTHORITY_ENV,
+  LOCAL_PILOT_AUTHORITY_ENV,
+  LOCAL_MORRIS_GATE_AUTHORITY_ENV,
   LOCAL_MORRIS_M3_ACTOR,
   LOCAL_PILOTE_ACTOR,
   LOCAL_PILOTE_ACTOR_ID,
+  isLocalPilotAuthorityEnabled,
+  isLocalMorrisGateAuthorityEnabled,
   isM3LocalAuthorityEnabled,
   registerLocalPiloteAuthority,
+  registerLocalMorrisGateAuthority,
+  registerLocalAuthorityForExecutionClass,
   registerM3LocalMorrisAuthority,
 } from "./infrastructure/localSingleUserAuthority";
 export { SqliteDecisionRepository } from "./infrastructure/sqlite/sqliteDecisionRepository";

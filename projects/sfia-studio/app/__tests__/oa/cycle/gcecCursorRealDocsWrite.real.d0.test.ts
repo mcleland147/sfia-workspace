@@ -25,6 +25,7 @@ import type { Confirmation } from "@/lib/oa/decision";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
+  registerLocalMorrisGateAuthority,
 } from "@/lib/oa/decision";
 import {
   M4_BOUNDED_DOCS_WRITE_ACTION,

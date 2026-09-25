@@ -10,7 +10,6 @@ import {
   validateDecisionFields,
 } from "../domain/invariants";
 import type {
-  AuthorityLevel,
   DecisionAuthority,
   DecisionResult,
   HumanDecision,
@@ -22,17 +21,13 @@ import type { AuthorityResolverPort } from "../ports/authorityResolver";
 import type { DecisionAuditPort } from "../ports/decisionAudit";
 import type { DecisionPersistenceUnitOfWorkPort } from "../ports/decisionPersistenceUnitOfWorkPort";
 import type { DecisionRepositoryPort } from "../ports/decisionRepository";
+import {
+  authorityGateFlags,
+  requiredLevelForAuthority,
+} from "./authorityRequirements";
 
 function newId(prefix: "cor" | "prv" | "epi"): string {
   return `${prefix}:${randomBytes(8).toString("hex")}`;
-}
-
-function requiredLevelForAuthority(
-  authority: DecisionAuthority,
-): AuthorityLevel {
-  if (authority === "morris") return "N3";
-  if (authority === "delegated") return "N2";
-  return "N1";
 }
 
 type DecisionFieldSnapshot = {
@@ -59,8 +54,9 @@ type DecisionFieldSnapshot = {
 
 /**
  * RecordHumanDecision — create an explicit human decision.
- * Structuring (morris) requires verified N3 + canActAsMorris.
- * Never invents Morris from actorId/displayName.
+ * - authority=pilot → N3 + canActAsPilot (runtime Project structuring)
+ * - authority=morris → N3 + canActAsMorris (true Morris gate)
+ * Neither inferred from actor identity / displayName.
  * Critical cycle stays proposed — this use-case does NOT mutate cycle status
  * (R-T-A3-1: no public AcknowledgeCriticalCycle API on T-A2).
  *
@@ -227,8 +223,8 @@ export class RecordHumanDecision {
         // Critical stays proposed — no auto-ack (no public T-A2 acknowledge API).
       }
 
-      const requireMorris = snap.authority === "morris";
       const requiredLevel = requiredLevelForAuthority(snap.authority);
+      const gates = authorityGateFlags(snap.authority);
 
       // Hostile: never use actor.authorityLevel / displayName as proof.
       const verification = this.authority.verify({
@@ -238,7 +234,8 @@ export class RecordHumanDecision {
         evidenceId: snap.authorityEvidenceId,
         authorityLevel: snap.actor.authorityLevel,
         displayName: snap.actor.displayName,
-        requireMorrisGate: requireMorris,
+        requirePilotGate: gates.requirePilotGate,
+        requireMorrisGate: gates.requireMorrisGate,
       });
 
       if (!verification.ok) {
@@ -256,6 +253,7 @@ export class RecordHumanDecision {
           ok: false,
           verifiedLevel: verification.verifiedLevel,
           reason: verification.reason,
+          canActAsPilot: verification.canActAsPilot,
           canActAsMorris: verification.canActAsMorris,
           durationMs: Date.now() - started,
         });
@@ -276,6 +274,7 @@ export class RecordHumanDecision {
         ok: true,
         verifiedLevel: verification.verifiedLevel,
         reason: verification.reason,
+        canActAsPilot: verification.canActAsPilot,
         canActAsMorris: verification.canActAsMorris,
         durationMs: Date.now() - started,
       });

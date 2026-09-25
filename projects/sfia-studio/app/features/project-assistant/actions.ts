@@ -16,7 +16,25 @@ import {
   isTerminalCycleStatus,
   assessResumeReconciliation,
   deriveLifecycleBlockersFromEpistemicItems,
+  listFinalizationBlockingReservations,
+  isLegacyReservation,
+  presentReservationState,
+  presentReservationStateLabel,
+  presentReservationImpactLabel,
+  presentReservationAttentionLabel,
+  presentFinalizationRelevanceLabel,
+  projectReservationOrdinal,
+  reservationBelongsToCycle,
+  canDeferReservation,
+  resolveHonestReservationDeferTarget,
+  presentDeferredTargetLabel,
+  type CycleReservationProjectionCard,
+  type CycleReservationSummary,
 } from "@/lib/oa/cycle";
+import type {
+  EpistemicItem,
+  ProjectTrajectory,
+} from "@/lib/oa/cycle/domain/types";
 import { getCycleTypeById } from "@/lib/oa/cycle/domain/cycleTypeCatalog";
 import type { LifecycleRecommendationMaterialDimension } from "@/lib/oa/cycle/application/lifecycleRecommendation/materialReaderContract";
 import { F2_PROCESS_LOCAL_NOTICE } from "./f2/proposalStore";
@@ -1180,6 +1198,144 @@ export async function projectAssistantRehydrateEvidenceOutcomeAction(input: {
 }
 
 
+/**
+ * CYCLE-RESERVATION-PILOTING-01 — Reservation is in scope of the selected cycle when
+ * it carries that cycle in provenance / relatedObjects, OR when it is a legacy
+ * project-level Reservation (no cycle provenance, no other cycle referenced).
+ * Legacy project-level items still gate FINALIZE project-wide, so they must be visible.
+ */
+function reservationInSelectedCycleScope(
+  item: EpistemicItem,
+  cycleInstanceId: string,
+  allCycleIds: readonly string[],
+): boolean {
+  if (item.type !== "Reservation") return false;
+  if (reservationBelongsToCycle(item, cycleInstanceId)) return true;
+  if (item.provenance?.cycleInstanceId) return false;
+  const referencesOtherCycle = (item.relatedObjects ?? []).some(
+    (ref) => ref !== cycleInstanceId && allCycleIds.includes(ref),
+  );
+  return !referencesOtherCycle;
+}
+
+function formatDeferredDecisionLabel(input: {
+  decisionId?: string;
+  deferredAt?: string;
+  decisions: ReadonlyArray<{ decisionId: string; effectiveAt?: string }>;
+}): string | null {
+  const id = input.decisionId?.trim();
+  if (!id) return null;
+  const match = input.decisions.find((d) => d.decisionId === id);
+  const at = match?.effectiveAt ?? input.deferredAt;
+  if (at) {
+    try {
+      const d = new Date(at);
+      if (!Number.isNaN(d.getTime())) {
+        return `Décision du Pilote · ${d.toLocaleString("fr-FR", {
+          dateStyle: "medium",
+          timeStyle: "short",
+        })}`;
+      }
+    } catch {
+      /* fall through */
+    }
+  }
+  return "Décision du Pilote enregistrée";
+}
+
+function projectCycleReservations(input: {
+  items: readonly EpistemicItem[];
+  cycleInstanceId: string;
+  allCycleIds: readonly string[];
+  currentCycleTypeId: string | null;
+  trajectory: ProjectTrajectory | null;
+  decisions: ReadonlyArray<{ decisionId: string; effectiveAt?: string }>;
+}): {
+  cards: CycleReservationProjectionCard[];
+  summary: CycleReservationSummary;
+} {
+  const deferTarget = resolveHonestReservationDeferTarget({
+    trajectory: input.trajectory,
+    currentCycleTypeId: input.currentCycleTypeId,
+  });
+  const scopedItems = input.items.filter((i) =>
+    reservationInSelectedCycleScope(i, input.cycleInstanceId, input.allCycleIds),
+  );
+  const cards: CycleReservationProjectionCard[] = scopedItems
+    .map((item) => {
+      const meta = item.reservation;
+      const state = presentReservationState(item);
+      const legacy = isLegacyReservation(item);
+      const eligible = canDeferReservation(item);
+      const showDefer = eligible && deferTarget != null;
+      const deferredTargetLabel = meta?.deferred
+        ? presentDeferredTargetLabel(meta.deferred.targetCycleTypeId)
+        : null;
+      return {
+        epistemicItemId: item.epistemicItemId,
+        ordinal: projectReservationOrdinal(
+          item,
+          scopedItems,
+          input.cycleInstanceId,
+        ),
+        title: meta?.title?.trim() || item.statement,
+        summary: meta?.summary?.trim() || item.statement,
+        statement: item.statement,
+        presentationState: state,
+        presentationStateLabel: presentReservationStateLabel(state),
+        impactLabel: presentReservationImpactLabel(meta?.impact),
+        attentionLabel: presentReservationAttentionLabel(meta?.attentionBy),
+        finalizationRelevanceLabel: presentFinalizationRelevanceLabel(
+          meta?.finalizationRelevance,
+        ),
+        rationale: meta?.rationale ?? "",
+        resolutionCondition: meta?.resolutionCondition ?? "",
+        journalEntryRefs: [...(meta?.journalEntryRefs ?? [])],
+        sourceTurnRefs: [...(meta?.sourceTurnRefs ?? [])],
+        hasResolutionProposal: Boolean(
+          item.status === "active" && meta?.resolutionProposal,
+        ),
+        resolutionProposalRationale: meta?.resolutionProposal?.rationale,
+        isLegacy: legacy,
+        canDefer: showDefer,
+        deferTargetCycleTypeId: showDefer ? deferTarget!.targetCycleTypeId : null,
+        deferTargetLabel: showDefer ? deferTarget!.targetLabel : null,
+        deferredTargetLabel,
+        deferredHumanDecisionLabel: meta?.deferred
+          ? formatDeferredDecisionLabel({
+              decisionId: meta.deferred.humanDecisionId,
+              deferredAt: meta.deferred.deferredAt,
+              decisions: input.decisions,
+            })
+          : null,
+      };
+    })
+    .sort((a, b) => {
+      if (a.ordinal !== b.ordinal) return a.ordinal - b.ordinal;
+      return a.epistemicItemId.localeCompare(b.epistemicItemId);
+    });
+
+  const summary: CycleReservationSummary = {
+    activeCount: 0,
+    mayAffectCount: 0,
+    mustResolveCount: 0,
+    toQualifyCount: 0,
+  };
+  for (const item of scopedItems) {
+    if (item.status !== "active") continue;
+    summary.activeCount += 1;
+    if (item.reservation?.deferred) continue;
+    if (isLegacyReservation(item)) {
+      summary.toQualifyCount += 1;
+      continue;
+    }
+    const relevance = item.reservation?.finalizationRelevance;
+    if (relevance === "must_resolve") summary.mustResolveCount += 1;
+    else if (relevance === "may_affect") summary.mayAffectCount += 1;
+  }
+  return { cards, summary };
+}
+
 async function buildAssistantPilotLifecycleProjection(
   projectId: string,
 ): Promise<PilotLifecycleProjection | null> {
@@ -1314,17 +1470,29 @@ async function buildAssistantPilotLifecycleProjection(
     } catch {
       projection.assessment = null;
     }
-    projection.blockingReservations = epistemicItems
-      .filter(
-        (i) =>
-          i.type === "Reservation" &&
-          i.status === "active" &&
-          i.blocking === true,
-      )
-      .map((i) => ({
-        epistemicItemId: i.epistemicItemId,
-        statement: i.statement,
-      }));
+    // CYCLE-RESERVATION-PILOTING-01 — gate blockers only (must_resolve / legacy fail-closed).
+    projection.blockingReservations = listFinalizationBlockingReservations(
+      epistemicItems,
+    ).map((i) => ({
+      epistemicItemId: i.epistemicItemId,
+      statement: i.reservation?.title?.trim() || i.statement,
+    }));
+    const selectedCycle = cycles.find(
+      (c) => c.cycleInstanceId === projection.selectedCycleInstanceId,
+    );
+    const scoped = projectCycleReservations({
+      items: epistemicItems,
+      cycleInstanceId: projection.selectedCycleInstanceId,
+      allCycleIds: cycles.map((c) => c.cycleInstanceId),
+      currentCycleTypeId: selectedCycle?.cycleTypeId ?? null,
+      trajectory,
+      decisions: decisions.map((d) => ({
+        decisionId: d.decisionId,
+        effectiveAt: d.effectiveAt,
+      })),
+    });
+    projection.cycleReservations = scoped.cards;
+    projection.reservationSummary = scoped.summary;
   }
 
   if (
@@ -1847,5 +2015,134 @@ export async function projectAssistantResolveBlockingReservationAction(input: {
     assessment: executed.assessment,
     projection: projection ?? undefined,
     message: "Réserve bloquante résolue.",
+  };
+}
+
+/**
+ * CYCLE-RESERVATION-PILOTING-01 — Pilot confirms a Nora resolution proposal.
+ * Thin wrapper; basis validation + durable write live in f2/pilotLifecycleActions.
+ */
+export async function projectAssistantConfirmReservationResolutionAction(input: {
+  projectId: string;
+  cycleInstanceId: string;
+  epistemicItemId: string;
+}): Promise<{
+  ok: boolean;
+  status: string;
+  code?: string;
+  message?: string;
+  assessment?: unknown;
+  projection?: PilotLifecycleProjection;
+}> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      status: "oa_unavailable",
+      code: "OA_STACK_UNAVAILABLE",
+      message: "Confirmation de levée indisponible.",
+    };
+  }
+  const oa = runtime.oa;
+  const { confirmReservationResolutionAction } = await import(
+    "./f2/pilotLifecycleActions"
+  );
+  const executed = await confirmReservationResolutionAction({
+    projectId: input.projectId,
+    cycleInstanceId: input.cycleInstanceId,
+    epistemicItemId: input.epistemicItemId,
+    cycleServices: oa.cycleServices,
+    authorityResolver: oa.authorityResolver,
+    nowIso: () => oa.clock.nowIso(),
+    basisReaders: {
+      findDecisionById: (decisionId) =>
+        oa.decisionServices.decisions.findById(decisionId),
+      findEvidenceById: (evidenceId) =>
+        oa.evidenceReviewServices.repository.findById(evidenceId),
+    },
+  });
+  const projection = await buildAssistantPilotLifecycleProjection(
+    input.projectId,
+  );
+  if (!executed.ok) {
+    return {
+      ok: false,
+      status: "lifecycle_error",
+      code: executed.code,
+      message: executed.message,
+      projection: projection ?? undefined,
+    };
+  }
+  return {
+    ok: true,
+    status: "ok",
+    assessment: executed.assessment,
+    projection: projection ?? undefined,
+    message: "Levée de la réserve confirmée.",
+  };
+}
+
+/**
+ * CYCLE-RESERVATION-PILOTING-01 — Pilot explicit defer with durable HumanDecision.
+ * Requires honest targetCycleTypeId; refused for must_resolve / no target / legacy.
+ */
+export async function projectAssistantDeferReservationAction(input: {
+  projectId: string;
+  cycleInstanceId: string;
+  epistemicItemId: string;
+  targetCycleTypeId: string;
+  targetLabel?: string;
+  rationale?: string;
+}): Promise<{
+  ok: boolean;
+  status: string;
+  code?: string;
+  message?: string;
+  assessment?: unknown;
+  decisionId?: string;
+  projection?: PilotLifecycleProjection;
+}> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      status: "oa_unavailable",
+      code: "OA_STACK_UNAVAILABLE",
+      message: "Report de réserve indisponible.",
+    };
+  }
+  const oa = runtime.oa;
+  const { deferReservationAction } = await import("./f2/pilotLifecycleActions");
+  const executed = await deferReservationAction({
+    projectId: input.projectId,
+    cycleInstanceId: input.cycleInstanceId,
+    epistemicItemId: input.epistemicItemId,
+    rationale: input.rationale,
+    targetCycleTypeId: input.targetCycleTypeId,
+    targetLabel: input.targetLabel,
+    cycleServices: oa.cycleServices,
+    decisionServices: oa.decisionServices,
+    authorityResolver: oa.authorityResolver,
+    nowIso: () => oa.clock.nowIso(),
+  });
+  const projection = await buildAssistantPilotLifecycleProjection(
+    input.projectId,
+  );
+  if (!executed.ok) {
+    return {
+      ok: false,
+      status: "lifecycle_error",
+      code: executed.code,
+      message: executed.message,
+      projection: projection ?? undefined,
+    };
+  }
+  return {
+    ok: true,
+    status: "ok",
+    assessment: executed.assessment,
+    decisionId: executed.decisionId,
+    projection: projection ?? undefined,
+    message: "Réserve reportée — décision du Pilote enregistrée.",
   };
 }
