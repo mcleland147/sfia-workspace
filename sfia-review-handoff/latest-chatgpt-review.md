@@ -1,22 +1,157 @@
 # SFIA Studio — Review Pack FULL
 ## CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING
+### + PILOT RUNTIME AUTHORITY SEPARATION — OPTION A
 
-- **timestamp**: `2026-09-25T06:09:55+02:00` (Europe/Paris)
+- **timestamp**: `2026-09-25T07:02:05+02:00` (Europe/Paris)
 - **Macro ID**: `CYCLE-RESERVATION-PILOTING-01`
+- **Correction**: `PILOT-RUNTIME-AUTHORITY-SEPARATION` (same macro)
 - **cycle**: 8 — Delivery / implémentation — EVOL — Critical
 - **profil SFIA**: Critical
-- **GO Morris**: CONSUMED — construction locale + runtime proof + Review Pack + Handoff L3
+- **GO Morris**: CONSUMED — Option A authority separation + Review Pack + Handoff L3
 - **NON autorisé ce cycle**: commit/push/PR/merge produit ; convergence/** ; doctrine v3 ; runtime v3 ADOPTED
 - **branche**: `feat/sfia-studio-cycle-reservation-piloting-01`
-- **HEAD / origin/main**: `385c764458c5212913388d5e0e5b80f5390c23db` (PR #517 merged; dirty WIP expected)
+- **HEAD / origin/main**: `385c764458c5212913388d5e0e5b80f5390c23db` (dirty WIP intentional; not remote)
 - **runtime v3**: **NON ADOPTED**
-- **Fake/Real**: DETERMINISTIC PRODUCT PROOF + LOCAL USER-FLOW PROOF + **BOUNDED REAL RESERVATION LIFECYCLE PROOF**. ≠ READY FOR REAL global. ≠ runtime v3 ADOPTED.
+- **Fake/Real**: DETERMINISTIC AUTHORITY SEPARATION PROOF + GENERIC NON-MORRIS PILOT PROOF + BOUNDED DEFER RUNTIME REPROOF (+ prior REAL reservation lifecycle preserved)
 
 ## Verdict
 
-**CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING — SAME-MACRO COMPLETION COMPLETE — READY FOR MACRO PR READINESS**
+**CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING — OPTION A AUTHORITY CORRECTION COMPLETE — SAME-MACRO COMPLETE — READY FOR MACRO PR READINESS**
 
 **MERGE / PRODUCT COMMIT / PRODUCT PUSH / PRODUCT PR — NOT AUTHORIZED**
+
+---
+
+## PILOT RUNTIME AUTHORITY SEPARATION — OPTION A
+
+### Git Truth (exact)
+
+| Check | Result |
+| --- | --- |
+| Branch | `feat/sfia-studio-cycle-reservation-piloting-01` |
+| HEAD | `385c764458c5212913388d5e0e5b80f5390c23db` |
+| origin/main | `385c764458c5212913388d5e0e5b80f5390c23db` |
+| WIP | preserved (Reservation + Option A); **not remote** |
+| Destructive git | none |
+
+### GO Morris
+
+**OPTION A** — séparer techniquement Pilot vs Morris. Consommé et implémenté.
+
+### Sources (READ ONLY) + SHA
+
+| Source | SHA |
+| --- | --- |
+| Build Doctrine | `99232e4582e4ef4cf489020a46b818ebb41ac397` |
+| Roadmap | `df2ad6f3c4cd5504d586f344bc0d76f737b0ce65` |
+| C1 Product Completion | `806d672fe21ad82a641bf88fe95fc87870481105` |
+| Framing 30 HumanDecision | `b2d122e2229196d6e104f45706e0cc086a457561` |
+| Framing 07 automation/HD | `a2330c67db13de3b703fcc9f209864edd95eb2e7` |
+| Cycle template | `948156a21309ef99c3aaed6410947dc6b9bc569a` |
+| Routing guide | `8949e764d96faf3fa812d39307dbc298b500f5ef` |
+
+### Impact scan — `authority: "morris"` classification
+
+| Usage | Real category | Target | Adapted |
+| --- | --- | --- | --- |
+| `pilotLifecycleActions` HD (lifecycle/obligation/defer) | Runtime Pilot structuring | PILOT | YES → `authority:"pilot"` + `requirePilotGate` |
+| `decideTrajectory` HD | Runtime Pilot structuring | PILOT | YES |
+| `recordDecision` (F2 GO) HD | Runtime Pilot structuring | PILOT | YES |
+| `approveCandidateTrajectory` HD | Runtime Pilot structuring | PILOT | YES |
+| Promotion guards (`candidateTrajectoryPromotionGuard`, `decideTrajectory` assert) | Structuring eligibility | PILOT (+ historical morris readable) | YES via `isRuntimeStructuringAuthority` |
+| `registerLocalPiloteAuthority` | Local Pilot grant | canActAsPilot only | YES |
+| `registerM3LocalMorrisAuthority` / `registerLocalMorrisGateAuthority` | True Morris EC gate | MORRIS | YES (separate) |
+| ExecutionContract `requiredAuthority:"MORRIS"` (M3/docs_write) | True Morris EC gate | MORRIS | YES — `registerLocalAuthorityForExecutionClass` |
+| Auth S1 / MW6 | Must NOT grant Morris | unchanged | KEEP (`canActAsMorris:false`) |
+| Historical HD rows `authority:"morris"` | Historical truth | readable unchanged | NO rewrite |
+| Memory B Class 3 | Rejects construction morris; accepts Pilot/delegated | PILOT/DELEGATED | YES accepts `pilot` |
+| Client `canActAsMorris` / displayName | Hostile | ignored | KEEP |
+
+### Domain diff
+
+- `DecisionAuthority` += `"pilot"`
+- `AuthorityEvidence.canActAsPilot?: boolean`
+- `VerifyAuthorityRequest.requirePilotGate?: boolean`
+- `VerifyAuthorityResult` += `canActAsPilot` + reason `pilot_gate_denied`
+- Shared `authorityRequirements.ts`: level/gate mapping + `isRuntimeStructuringAuthority`
+
+### Resolver / localSingleUserAuthority
+
+- Pilot gate: N3 + `canActAsPilot===true` (Morris alone insufficient)
+- Morris gate: N3 + `canActAsMorris===true` (Pilot alone insufficient)
+- `registerLocalPiloteAuthority` → Pilot only
+- `registerLocalMorrisGateAuthority` → Morris only (product dual-grant for MORRIS EC)
+- Env `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY` kept as temporary enable (legacy name) — **no longer conflates Pilot→Morris**
+
+### Runtime writers
+
+All new Project structuring HumanDecisions use `authority:"pilot"`.
+
+### Reservation Defer
+
+- HD `authority:"pilot"`, actor Pilote, validated via `canActAsPilot`
+- Atomic HD + `reservation.deferred` KEEP
+- Deterministic repro: `__tests__/nora-cognitive-runtime/cycleReservationDefer.d0.test.ts` asserts `authority==="pilot"`
+
+### Persistence / backcompat
+
+- SQLite JSON payload additive — `"pilot"` accepted
+- No DROP / no historical rewrite
+- AUTH-CORR-10/21: historical `morris` remains readable
+
+### Generic non-Morris Pilot proof
+
+`actor:test-generic-pilot` + N3 + `canActAsPilot=true` + `canActAsMorris=false`:
+- PASS Pilot HD
+- DENY Morris HD (`morris_gate_denied`)
+- displayName "Morris Pilote Alias" grants nothing
+
+### AUTH-PILOT / AUTH-MORRIS / AUTH-CORR
+
+Suite: `__tests__/oa/decision/pilotMorrisAuthoritySeparation.d0.test.ts`
+
+| ID | Result |
+| --- | --- |
+| AUTH-PILOT-01…06 | PASS |
+| AUTH-MORRIS-01…02 | PASS |
+| AUTH-BOTH-01 | PASS |
+| AUTH-NO-INFERENCE-01 | PASS |
+| AUTH-CORR-01…26 | PASS (covered by separation + product writer + Defer + suite) |
+
+### Tests / gates
+
+| Check | Result |
+| --- | --- |
+| typecheck | PASS |
+| lint | PASS |
+| build | PASS |
+| Targeted authority/decision/lifecycle/EC | PASS |
+| Full Studio suite | **4619 passed / 137 skipped** |
+| Bounded Defer repro (authority=pilot) | PASS |
+| Previous REAL Reservation proof | PRESERVED (pre-Option-A HD used conflated morris label; new Defer uses pilot) |
+
+### Identity ≠ authority
+
+Morris-the-human may act as Pilote → `authority:"pilot"`. True Morris construction/EC gates remain `authority:"morris"` / EC `MORRIS` with `canActAsMorris`.
+
+### Dettes + exit
+
+- Legacy env name `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY` — rename when Pilot-only env needed
+- Historical Project HDs labeled `morris` remain; new writers use `pilot`
+- ROADMAP TRUTH-SYNC must mention Pilot/Morris separation (READ ONLY here)
+
+### Anti-claims
+
+- ≠ runtime v3 ADOPTED
+- ≠ READY FOR REAL global
+- ≠ global semantic reservation quality PROVEN
+- ≠ Nora Cognitive Completion COMPLETE
+- ≠ new Product Completion closure
+- ≠ product commit/push/PR
+
+### Exact modified files (Option A core)
+
+`app/lib/oa/decision/domain/types.ts`, `invariants.ts`, `authorityRequirements.ts`, `recordHumanDecision.ts`, `supersedeHumanDecision.ts`, `verifyAuthority.ts`, `memoryAuthorityResolver.ts`, `localSingleUserAuthority.ts`, ports, index; product writers (`pilotLifecycleActions`, `decideTrajectory`, `recordDecision`, `approveCandidateTrajectory`, promotion guard); EC local register helpers (`prepareM3`, authorize/confirm/amend/governedExecute/recovery/rematerialize); `pilotLifecycleTransitions` + vertical-slice authority port; `materializeFromMemoryB`; AUTH + adapted tests.
 
 ---
 
@@ -360,6 +495,10 @@ Integrate at next GO:
 | REAL-RSV-08 | `True` |
 | REAL-RSV-09 | `True` |
 | REAL-RSV-10 | `True` |
+| REAL-RSV-11 | **PASS** — Journal Memory rail lists durable reservation (`mealfow-desktop-journal-sujets-1440.png` + deterministic Memory rail UI) |
+| REAL-RSV-12 | **PASS** — Lifecycle / Réserves projection shows reservation state (`mealfow-desktop-reserves-a-qualifier-1440.png`) |
+| REAL-RSV-13 | **PASS** — Treat-with-Nora draft continuity (`mealfow-desktop-treat-with-nora-draft-1440.png` + REAL UPDATE turn) |
+| REAL-RSV-14 | **PASS** — Mobile reserves surface (`mealfow-mobile-390-reserves.png`) |
 | REAL-RSV-15 | `True` |
 | REAL-RSV-16 | `True` |
 | REAL-RSV-17 | `True` |
@@ -378,9 +517,12 @@ Integrate at next GO:
 
 | ID | Result |
 | --- | --- |
-| REAL-GATE-01 | `True` |
-| REAL-GATE-03 | `True` |
+| REAL-GATE-01 | `True` — must_resolve blocks FINALIZE (REAL ledger + assess) |
+| REAL-GATE-02 | **PASS** — must_resolve item remains active until confirm (checklist `createdMustResolve`) |
+| REAL-GATE-03 | `True` — confirm resolution clears gate |
+| REAL-GATE-04 | **PASS** — may_affect control does **not** block FINALIZE alone (REAL control path) |
 | REAL-GATE-05 | `True` |
+| REAL-GATE-06 | **PASS** — after confirm, gate no longer blocks (`real-finalization-reservation-cleared` evidence family) |
 | REAL-GATE-07 | `True` |
 | REAL-GATE-08 | `True` |
 | REAL-GATE-09 | `True` |
@@ -398,14 +540,21 @@ Integrate at next GO:
 
 | ID | Result |
 | --- | --- |
+| DEFER-01 | **PASS** — Reporter UX available for nonblocking (`canDeferReservation`) — CR-RSV + UI |
+| DEFER-02 | **PASS** — confirmation required before write — JournalSurface |
+| DEFER-03 | **PASS** — honest target from trajectory (`resolveHonestReservationDeferTarget`) |
+| DEFER-04 | **PASS** — subject `reservation-defer:<id>` |
+| DEFER-05 | **PASS** — option `opt:defer-reservation` |
 | DEFER-06 | `True` |
+| DEFER-07 | **PASS** — actor `LOCAL_PILOTE_ACTOR` / Pilote |
 | DEFER-08 | `True` |
 | DEFER-09 | `True` |
 | DEFER-10 | `True` |
 | DEFER-11 | `True` |
 | DEFER-12 | `True` |
 | DEFER-13 | `True` |
-| DEFER-decisionId | `dec:rsv-defer:c769e0a5-f75a-484f-92a6-5aaac003449b` |
+| DEFER-14 | **PASS** — atomic rollback proven CR-RSV-51/52; Option A repro: authority=`pilot` on new HD |
+| DEFER-decisionId | `dec:rsv-defer:c769e0a5-f75a-484f-92a6-5aaac003449b` (pre-Option-A REAL; new Defer HDs use authority=`pilot`) |
 
 ### CR-RSV-43…52
 
@@ -426,7 +575,7 @@ Integrate at next GO:
 
 - Subject: `reservation-defer:<epistemicItemId>`
 - Option: `opt:defer-reservation` / « Reporter la réserve »
-- Authority: existing Pilote structuring class (`authority: "morris"` technical OA — not Morris gate UX)
+- Authority: **`pilot`** (Option A) — Pilote runtime structuring; `canActAsPilot`; **not** `canActAsMorris`
 - Linked on `reservation.deferred.humanDecisionId`
 
 ### Screenshots (`.tmp-sfia-review/cycle-reservation-piloting-proof/`)
@@ -451,8 +600,9 @@ Integrate at next GO:
 | lint | PASS |
 | build | PASS (Next.js compile OK) |
 | CR-RSV + Defer targeted | PASS |
-| Full Studio suite | **4603 passed / 137 skipped** (430 files: 413 passed / 17 skipped) |
-| Prior historical suite | 4591/137 — superseded by this candidate |
+| Full Studio suite (post Option A) | **4619 passed / 137 skipped** (431 files: 414 passed / 17 skipped) |
+| Prior same-macro suite | 4603/137 — superseded by Option A |
+| Prior historical before reservation | 4591/137 |
 
 ### Fake/Real
 
