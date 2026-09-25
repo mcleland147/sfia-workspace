@@ -636,8 +636,8 @@ Recommend future delta mentions: #516 · #517 · this macro once proven · REAL 
 - ≠ new Product Completion closure
 - ≠ product commit/push/PR authorized
 
-### Verdict (same-macro completion)
+### Verdict (same-macro + Option A)
 
-**CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING — SAME-MACRO COMPLETION COMPLETE — READY FOR MACRO PR READINESS**
+**CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING — OPTION A AUTHORITY CORRECTION COMPLETE — SAME-MACRO COMPLETE — READY FOR MACRO PR READINESS**
 
-**MERGE / PRODUCT COMMIT / PRODUCT PUSH / PRODUCT PR — NOT AUTHORIZED** (GO Morris distinct required)
+**MERGE / PRODUCT COMMIT / PRODUCT PUSH / PRODUCT PR — NOT AUTHORIZED** (MACRO PR READINESS — Morris GO distinct)
