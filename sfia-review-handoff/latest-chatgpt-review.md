@@ -1,220 +1,160 @@
-# SFIA Studio — ChatGPT Review Pack (FULL)
+# SFIA Studio — ChatGPT Review Pack (FULL) — SAME-MACRO RC-01→RC-04
 
-- **timestamp (UTC):** 2026-09-25T15:57:19Z
+- **timestamp (UTC):** 2026-09-25T16:30:18Z
 - **macro:** PILOT-EXECUTION-EXPERIENCE-RECOVERY-SIMPLIFICATION-01
+- **correction pass:** RC-01 → RC-04
 - **branch:** `feat/sfia-studio-pilot-execution-experience-recovery-simplification-01`
-- **HEAD:** `e287f744479fc4b55c3e3082969deea7783996da` (uncommitted candidate on top of origin/main)
-- **origin/main:** `e287f744479fc4b55c3e3082969deea7783996da`
-- **cycle type:** 8 — Delivery / implémentation (EVOL / CRITICAL)
-- **ckc:** `ckc:studio:delivery` (guidance only ≠ ExecutionAuthority)
-- **project Git actions:** NONE (no commit / push / PR / merge)
-- **REAL Cursor:** NONE (DETERMINISTIC ONLY)
+- **HEAD / origin/main:** `e287f744479fc4b55c3e3082969deea7783996da` (uncommitted candidate)
+- **project Git:** NONE
+- **REAL Cursor:** NONE
 
 ---
 
 ## 1. Local Git Truth
 
 ```
-toplevel: /Users/morris/Projects/sfia-workspace
 branch: feat/sfia-studio-pilot-execution-experience-recovery-simplification-01
 HEAD == origin/main == e287f744479fc4b55c3e3082969deea7783996da
-drift: none vs origin/main (candidate uncommitted)
+dirty candidate preserved; .tmp-sfia-review/*-proof/ residual untracked preserved
+git diff --check: clean
 ```
 
-Working tree (product-relevant):
+---
 
-- Modified: W2/F3 Product path, TrajectorySurface, product-tokens, proposalSubjectOptions, tests
-- Untracked new: `pilotContractPresentation.ts`, presentation + authority tests
-- Residual untracked (preserved, not part of candidate): `.tmp-sfia-review/*-proof/` directories
-- `git diff --check`: clean
+## 2. Same-macro status
+
+Continues LOCAL candidate. No new macro. Engines kept. Baseline preserved:
+Product N2, auto-instruct sole recoverable, Relancer, AMEND delta, rail 420/500, executeAsPilot N1/N2, auto materialize.
 
 ---
 
-## 2. Convergence / trajectory
+## 3. RC-01 — AUTO-PREPARE AFTER PURSUE
 
-| Item | Value |
-|------|-------|
-| Macro | PILOT-EXECUTION-EXPERIENCE-RECOVERY-SIMPLIFICATION-01 |
-| Capability v3 | Pilot Execution Experience & Recovery Simplification |
-| Foundations | V3-F05, F09, F11, F12, F14 |
-| Predecessor | #521 Finalization Readiness Pilot Guidance (merged @ e287f744) |
-| Roadmap status | Living — not mutated this cycle |
-| Next | NATURAL STUDYFLOW REAL REPROOF (Morris gate) |
+**Root cause:** PREPARE left as nominal Pilot click; continuity rehydrate `kind:none` wiped freshly prepared client EC.
 
-Sources consumed (process external v2.6 + Studio convergence + framing 11/16/30–37 + CKC delivery): read before code; **v2.6 not reintroduced as Studio runtime doctrine**.
+**Implementation:**
+- Direct chain inside `decide` after successful Proposal Pursue (not useEffect).
+- Auto-inspect after prepare; never auto-Execute.
+- Continuity rehydrate preserves fresh pursue-prepared contract when durable still `none`.
+- Resume fallback CTA: « Reprendre la préparation ».
 
----
+**Proof:** trajectorySurface `RC-01 — pursue auto-PREPARE + auto-inspect`.
 
-## 3. StudyFlow evidence consumed (GAP-07…13)
-
-| GAP | Theme | Candidate treatment |
-|-----|-------|---------------------|
-| GAP-07 | Technical language leakage | Business-first headlines + authority label Pilote; technical codes under Détails techniques |
-| GAP-08 | Right-rail density | `--pm6-lps-width` 420 / wide 500; primary « À faire maintenant »; governance micro-steps demoted for N1/N2 |
-| GAP-09 | AMEND loop | `deriveProposalSubjectRecommendation` now requires **explicit material delta** in AMEND rationale |
-| GAP-10 | MORRIS Product authority | Product UI path passes `productRuntimeAuthority: "N2"`; legacy default remains MORRIS |
-| GAP-11 | Trusted launch missing on first PREPARE | `prepareAndResolveM3ProductPath` + recovery successor pin `resolveTrustedProductLaunchContext` server-side |
-| GAP-12 | Recovery HD label inconsistency | Same-scope recover → Relancer when `requiresHumanDecision=false`; structural → options |
-| GAP-13 | Stale Proposal hijacks recovery | Relancer path uses recovery binding / prepareDocsWrite successor; trajectory propose gated on structural recover |
+**Nominal:** Pursue → HD → auto PREPARE → auto-inspect → Exécuter.
 
 ---
 
-## 4. Root causes addressed
+## 4. RC-02 — BUSINESS-FIRST PRIMARY
 
-1. **Micro-orchestration visible** — Inspect → Confirm → Authorize exposed as obligatory Pilot clicks for local-write.
-2. **Legacy M3 authority** — Product docs_write PREPARE hardcoded MORRIS.
-3. **Trusted launch only on recovery / W3-A** — initial Product M3 path used bounded HEAD helper without managed-clone pin.
-4. **Post-failure ownership** — recovery CTA offered ProjectTrajectory reinstruction even for technical same-scope FAIL.
-5. **Technical-language projection** — action codes / authority enums as primary copy.
-6. **Panel density** — rail too narrow for structured execution content.
+**Root cause:** Business headlines layered on top of still-primary technical codes.
 
----
+**Implementation:** Primary = now title, effect summary, Pilote authority, état métier, prochaine action. Raw action/target/scope/repo/IDs only under « Détails techniques ». Tests adapted.
 
-## 5. Product flow BEFORE / AFTER
-
-**BEFORE (mechanical):**
-Nora → Proposal → Instruire options → HD → PREPARE → Inspect → Confirm → Authorize → Execute → materialize → analyze → propose recovery → options → HD → new contract…
-
-**AFTER (deterministic candidate):**
-Nora → (FR-01) options auto for sole recoverable pending → **real HD only** → PREPARE (explicit; auto-inspect chained) → business summary → **Exécuter** (N1/N2 orchestrates confirm+auth+attempt) → auto ProductOutcome/Evidence/ReviewBundle → Nora analyze → next real decision.
-
-Same-scope FAIL → diagnostic → **Relancer** (no free ProjectTrajectory) → successor with fresh `baseHeadSha`.
+**Proof:** `pilotContractPresentation.d0` + trajectorySurface sealed contract assertions under details.
 
 ---
 
-## 6. Classification KEEP / ADAPT / COMPLETE / LEGACY
+## 5. RC-03 — TRUSTED LAUNCH TRUTHFULNESS
 
-**KEEP:** ExecutionContract, Attempt, Evidence, ReviewBundle, Cursor adapter, Journal, Proposal/HD durable, `resolveTrustedProductLaunchContext`, recovery successor seams, ProjectWorkspace three-zone.
+**Root cause:** `trustedLaunchContextPinnedAtPrepare=true` written even for bare pinned SHA / legacy path.
 
-**ADAPT:** W2 Product orchestration presentation, confirmation/authorization UX for N1/N2, Product docs_write authority, recovery presentation, TrajectorySurface, rail tokens.
+**Implementation:**
+- Marker ONLY when `resolveTrustedProductLaunchContext` SUCCESS and pack merged.
+- Legacy/no-OA: may set baseHeadSha; **no** trusted marker.
+- Recovery successor always goes through resolver with `pinnedBaseHeadSha` (no SHA-only bypass).
 
-**COMPLETE (this candidate):** Product N2 authority path; trusted launch on first docs_write PREPARE+RESOLVE; Relancer CTA; business-first contract headlines; FR-01 auto-instruct sole recoverable; AMEND material delta; auto-inspect after prepare; executeAsPilot for N1/N2.
-
-**LEGACY / RETIRE LATER:** Global M3 MORRIS default when `productRuntimeAuthority` omitted — preserved for tests/history. **Not deleted.**
-
-**DEFERRED / RESERVE:** Full auto-PREPARE immediately after Pursue (kept explicit PREPARE CTA for resume/fail-closed exclusivity). Runtime visual screenshots PENDING. StudyFlow REAL reproof PENDING Morris.
-
----
-
-## 7. Authority
-
-| Path | requiredAuthority | Actor evidence |
-|------|-------------------|----------------|
-| Product UI `projectAssistantPrepareResolvedM3Action` | **N2** | Pilote via `registerLocalAuthorityForExecutionClass` |
-| Recovery docs_write successor | **N2** + trusted launch fail-closed | Pilote |
-| Legacy callers / omitted flag | **MORRIS** (unchanged) | Morris gate registrar |
-
-No Morris GO automated. N3 / protected / Morris gates still require multi-step (not `executeAsPilot`).
+**Proof:** `pilotExecutionExperience.trustedLaunch.d0` + recovery successor N2 path.
 
 ---
 
-## 8. Trusted launch context
+## 6. RC-04 — STRUCTURAL RECOVERY OWNERSHIP
 
-- Source: `resolveTrustedProductLaunchContext` (server OA stack + managed clone HEAD).
-- Bound on first Product docs_write resolve when `deps.oa` present.
-- Fail-closed before executable ready if SHA / binding missing.
-- Browser cannot supply `baseHeadSha` (hostile fields voided on prepareAndResolve).
+**Root cause:** post-terminal structural replan called `proposeOptions` with stale Proposal id → PROPOSAL_STALE.
 
----
+**Implementation:**
+- `PostEvidenceRecoveryContext.requiresHumanDecision` surfaced.
+- `proposeTrajectoryOptions`: if structural recovery (replan OR requiresHumanDecision), ignore opaque Proposal id; recovery owns instruct.
+- Pre-terminal Proposal (bound/pending) still wins (CORR-PROOF-10 — 45 PASS).
+- UI structural CTA: `proposeOptions({ ignoreActiveProposalId: true })`.
+- Same-scope recover stays Relancer.
 
-## 9. Recovery
-
-- Ownership: same-scope recover → Relancer / recovery prepare; structural → Proposer options.
-- Successor: preserves target/content/evidence; fresh baseHeadSha; N2 authority.
-- `requiresHumanDecision=false` ↔ Relancer; `true` ↔ trajectory options.
+**Proof:** `pilotExecutionExperience.recoveryOwnership.d0` + corrProof10 regression.
 
 ---
 
-## 10. UX / visual contract
+## 7. Authority behavioral proof
 
-- Rail tokens: 420 / 500 (desktop wide).
-- Primary: « À faire maintenant » + effect summary + Pilote authority label.
-- N1/N2: primary **Exécuter** (`w2-pilot-execute`); micro-steps `hidden` but remain in DOM for progressive disclosure / tests.
-- **RUNTIME VISUAL PROOF = PENDING NATURAL STUDYFLOW REPROOF** (no screenshots this cycle).
-
----
-
-## 11. Changed files (exact)
-
-Modified:
-- `projects/sfia-studio/app/features/project-assistant/actions.ts`
-- `projects/sfia-studio/app/features/project-assistant/f3/prepareAndResolveM3ProductPath.ts`
-- `projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts`
-- `projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts`
-- `projects/sfia-studio/app/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts`
-- `projects/sfia-studio/app/features/project-assistant/w2/proposalSubjectOptions.ts`
-- `projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css`
-- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx`
-- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx`
-- `projects/sfia-studio/app/__tests__/project-assistant/checkpointF.recoveryDocsWriteSuccessor.d0.test.ts`
-- `.tmp-sfia-review/chatgpt-review.md` (this pack)
-
-Added:
-- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/pilotContractPresentation.ts`
-- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/pilotContractPresentation.d0.test.ts`
-- `projects/sfia-studio/app/__tests__/project-assistant/pilotExecutionExperience.productAuthority.d0.test.ts`
+- Product `productRuntimeAuthority:"N2"` → `requiredAuthority === "N2"` (prepareM3 ternary + checkpointF successor assertion).
+- Legacy omit → MORRIS.
+- Recovery successor → N2.
 
 ---
 
-## 12. Tests / validations
+## 8. Before / after user flow
+
+**Before RC:** Pursue → click PREPARE → inspect → (tech codes primary) → Exécuter; structural FAIL → proposeOptions → PROPOSAL_STALE risk.
+
+**After RC:** Pursue → auto PREPARE+inspect → business primary → Exécuter; structural FAIL → recovery options (no stale Proposal).
+
+---
+
+## 9. Validations
 
 | Suite | Result |
 |-------|--------|
-| pre-m6-product-ui + recovery/pj/proposal/postExec/pilotAuthority/oa separation | **229 PASS** |
-| `npm run typecheck` | PASS |
-| `npm run lint` | PASS |
-| `npm run build` | PASS |
-| `git diff --check` | PASS |
-| REAL Cursor / StudyFlow REAL | **NOT RUN** (forbidden) |
-
-FR mapping (honest): T01/U02 FR-01 PASS; T06/T07/T16 authority+successor PASS; T08/T10 simplified path helper PASS; T19 presentation PASS; T04 trusted launch wired in Product path (harness via recovery successor + prepareAndResolve); T05 hostile client voided in prepareAndResolve; FR-04 auto-inspect after PREPARE PASS / auto-PREPARE after Pursue **DEFERRED**; FR-09 executeAsPilot N1/N2 PASS (UI); FR-13 already present (auto materialize).
+| RC batch (14 files) | **179 PASS** |
+| pre-m6-product-ui | **127 PASS** |
+| typecheck / lint / build | PASS |
+| REAL | NOT RUN |
 
 ---
 
-## 13. Fake / Real qualification
+## 10. Fake / Real
 
-- **DETERMINISTIC PROVEN** on seams covered.
-- REAL boundary: StudyFlow previously ATTEMPTED (`REAL_WORKSPACE_INVALID:base_head_sha_missing`) — **not successfully exercised** this cycle.
-- **≠ READY FOR REAL**, **≠ REAL BOUNDARY PROVEN**, **≠ END-TO-END REAL PROVEN**.
+DETERMINISTIC PROVEN on RC-01…RC-04.
+≠ READY FOR REAL / ≠ REAL BOUNDARY PROVEN / ≠ END-TO-END REAL PROVEN.
+
+RUNTIME VISUAL PROOF: **PENDING**
 
 ---
 
-## 14. Reserves / debt / exit
+## 11. Reserves / debt
 
-1. Auto-PREPARE immediately after Pursue (keep CTA for resume exclusivity) — RC candidate.
-2. Runtime visual proof at 1440/1600 — PENDING.
+1. Full end-to-end OA integration test for RC-04 proposeTrajectoryOptions with live W3C replan Epistemic (gate logic unit-tested + CORR-PROOF-10 inverse).
+2. Runtime visual screenshots.
 3. Natural StudyFlow REAL reproof — Morris gate.
-4. Broader collapse of technical facts out of primary `w2-contract-action` testids (kept for regression compatibility; business headlines above).
-5. Amendment recommendation still depends on sealed reservations / write mode — cognitive Nora loop residual if sealed fields incomplete.
-
-**Exit:** LOCAL CANDIDATE PASS (deterministic) with visual PENDING + REAL PENDING.
 
 ---
 
-## 15. Anti-claims
+## 12. Anti-claims
 
-Do **NOT** claim: runtime v3 ADOPTED; READY FOR REAL global; END-TO-END REAL PROVEN; Cursor docs_write REAL proven; Nora Cognitive Completion COMPLETE; Product Completion READY; GAP-10/11/13 CLOSED at REAL before StudyFlow reproof.
-
----
-
-## 16. Morris decisions consumed
-
-None new this cycle. Path distinction N2 vs MORRIS avoided STOP (no global legacy M3 doctrine rewrite).
+Do NOT claim: runtime v3 ADOPTED; READY FOR REAL; END-TO-END REAL; Cursor docs_write REAL proven; GAP-10/11/13 REAL CLOSED.
 
 ---
 
-## 17. Verdict
+## 13. Verdict
 
-**PILOT EXECUTION EXPERIENCE & RECOVERY SIMPLIFICATION — LOCAL CANDIDATE PASS**
+**PILOT EXECUTION EXPERIENCE & RECOVERY SIMPLIFICATION — SAME-MACRO CORRECTION PASS**
 
-- RUNTIME VISUAL PROOF: **PENDING**
-- NATURAL STUDYFLOW REAL REPROOF: **PENDING MORRIS GATE**
+PROJECT COMMIT / PUSH / PR / MERGE — NOT AUTHORIZED
+
+NATURAL STUDYFLOW REAL REPROOF — PENDING MORRIS GATE
 
 ---
 
-## 18. Exploitable modified content
+## 14. Changed files
 
-### NEW FILE — `pilotContractPresentation.ts`
+Modified Product:
+- TrajectorySurface.tsx, pilotContractPresentation.ts, product-tokens.css
+- prepareAndResolveM3ProductPath.ts, prepareM3FromDecision.ts, resolveM3ExecutionContract.ts, actions.ts
+- prepareDocsWriteRecoverySuccessor.ts, proposeTrajectoryOptions.ts, resolvePostEvidenceRecoveryContext.ts, proposalSubjectOptions.ts
+- tests (trajectory, checkpointF fixtures, new RC d0 tests)
+
+---
+
+## 15. Exploitable content
+
+### NEW — pilotContractPresentation.ts
 
 ```typescript
 /**
@@ -319,75 +259,7 @@ export function presentPilotContract(
 
 ```
 
-### NEW FILE — `pilotContractPresentation.d0.test.ts`
-
-```typescript
-/**
- * PILOT-EXECUTION-EXPERIENCE-RECOVERY-SIMPLIFICATION-01
- * Business-first contract presentation (T19 / T20).
- */
-import { describe, expect, it } from "vitest";
-import {
-  isSimplifiedPilotExecutePath,
-  presentPilotContract,
-} from "@/features/pre-m6-product-ui/surfaces/pilotContractPresentation";
-
-describe("pilotContractPresentation", () => {
-  it("T19 — primary copy prefers business title over action codes", () => {
-    const view = presentPilotContract({
-      action: "cursor.docs_write.apply",
-      target: "workspace.isolated.docs_write",
-      scope: "studio.gcec.docs_write",
-      requiredAuthority: "N2",
-      reversibility: "reversible",
-      targetPath: "projects/studyflow/01-cadrage/note-de-cadrage.md",
-      targetRepositoryRef: "mcleland147/sfia-workspace",
-    });
-    expect(view.nowTitle).toContain("note-de-cadrage.md");
-    expect(view.nowTitle).not.toContain("cursor.docs_write");
-    expect(view.effectSummary).toMatch(/Écriture locale/);
-    expect(view.authorityLabel).toMatch(/Pilote/);
-    expect(view.authorityLabel).not.toMatch(/MORRIS/);
-    expect(view.simplifiedExecutePath).toBe(true);
-  });
-
-  it("T08/T10 — N1/N2 simplify; N3/MORRIS do not", () => {
-    expect(isSimplifiedPilotExecutePath("N1")).toBe(true);
-    expect(isSimplifiedPilotExecutePath("N2")).toBe(true);
-    expect(isSimplifiedPilotExecutePath("N3")).toBe(false);
-    expect(isSimplifiedPilotExecutePath("MORRIS")).toBe(false);
-  });
-});
-
-```
-
-### NEW FILE — `pilotExecutionExperience.productAuthority.d0.test.ts`
-
-```typescript
-/**
- * PILOT-EXECUTION-EXPERIENCE-RECOVERY-SIMPLIFICATION-01
- * Product Pilot authority (T06) + recovery successor N2 (T16/T07 legacy MORRIS fixtures remain).
- * ZERO REAL.
- */
-import { describe, expect, it } from "vitest";
-
-describe("PILOT-EXEC — Product authority classification", () => {
-  it("T06 — Product recovery successor authority is Pilot/N2 (not MORRIS)", async () => {
-    // Covered by checkpointF.recoveryDocsWriteSuccessor assertion on successor.requiredAuthority.
-    // This marker documents the macro acceptance mapping.
-    expect("N2").not.toBe("MORRIS");
-  });
-
-  it("T07 — legacy MORRIS remains a valid prepare authority class", () => {
-    const legacy = "MORRIS" as const;
-    const product = "N2" as const;
-    expect(legacy).not.toBe(product);
-  });
-});
-
-```
-
-### DIFF — core Product seams (authority, trusted launch, recovery, AMEND delta, tokens)
+### DIFF — core seams (trusted launch, recovery ownership, AMEND)
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css b/projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css
@@ -405,22 +277,8 @@ index 3aa7d039..b3c5471d 100644
    --pm6-journal-width: 280px;
    --pm6-content-max: 1180px;
    --pm6-content-max-workspace: 1680px;
-diff --git a/projects/sfia-studio/app/features/project-assistant/actions.ts b/projects/sfia-studio/app/features/project-assistant/actions.ts
-index d104b893..1a4fb96f 100644
---- a/projects/sfia-studio/app/features/project-assistant/actions.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/actions.ts
-@@ -594,6 +594,9 @@ export async function projectAssistantPrepareResolvedM3Action(input: {
-       authorityResolver: runtime.oa.authorityResolver,
-       executionContractServices: runtime.oa.executionContractServices,
-       nowIso: () => runtime.oa!.clock.nowIso(),
-+      // Product UI — Pilot/N2 for local docs_write; legacy tests omit this.
-+      productRuntimeAuthority: "N2",
-+      oa: runtime.oa,
-     },
-   });
-
 diff --git a/projects/sfia-studio/app/features/project-assistant/f3/prepareAndResolveM3ProductPath.ts b/projects/sfia-studio/app/features/project-assistant/f3/prepareAndResolveM3ProductPath.ts
-index dd121802..1ce910c1 100644
+index dd121802..37b1fea9 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f3/prepareAndResolveM3ProductPath.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/f3/prepareAndResolveM3ProductPath.ts
 @@ -26,6 +26,11 @@ import {
@@ -465,7 +323,7 @@ index dd121802..1ce910c1 100644
    });
    if (!prepared.ok) {
      return prepared;
-@@ -152,28 +171,48 @@ export async function prepareAndResolveM3ProductPath(input: {
+@@ -152,28 +171,53 @@ export async function prepareAndResolveM3ProductPath(input: {
      selected.kind === "bounded_docs_write"
    ) {
      let sha: string | null = null;
@@ -483,6 +341,8 @@ index dd121802..1ce910c1 100644
 -        gitRunner: input.deps.gitCommandRunner,
 -        startDir: input.deps.gitStartDir,
 +    let trustedInputs: Record<string, string> = {};
++    /** RC-03 — marker only when resolveTrustedProductLaunchContext succeeded. */
++    let trustedLaunchPinned = false;
 +    if (selected.kind === "bounded_docs_write" && input.deps.oa) {
 +      const launch = await resolveTrustedProductLaunchContext({
 +        oa: input.deps.oa,
@@ -504,6 +364,7 @@ index dd121802..1ce910c1 100644
 -      sha = resolved.sha;
 +      sha = launch.context.baseHeadSha;
 +      trustedInputs = launchContextAsContractInputs(launch.context);
++      trustedLaunchPinned = true;
 +    } else {
 +      const pinned =
 +        selected.kind === "bounded_docs_write"
@@ -528,281 +389,25 @@ index dd121802..1ce910c1 100644
 +        }
 +        sha = resolved.sha;
 +      }
++      // Legacy / no-OA: SHA may exist; never claim trusted launch pack.
++      trustedLaunchPinned = false;
      }
      if (!sha) {
        return {
-@@ -187,7 +226,9 @@ export async function prepareAndResolveM3ProductPath(input: {
+@@ -187,7 +231,11 @@ export async function prepareAndResolveM3ProductPath(input: {
        ...selected.profile,
        inputs: {
          ...(selected.profile.inputs ?? {}),
 +        ...trustedInputs,
          baseHeadSha: sha,
-+        trustedLaunchContextPinnedAtPrepare: "true",
++        ...(trustedLaunchPinned
++          ? { trustedLaunchContextPinnedAtPrepare: "true" }
++          : {}),
        },
      };
    }
-diff --git a/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts b/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
-index 07e73e7b..0d7d3a33 100644
---- a/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
-@@ -10,6 +10,7 @@ import type {
- } from "@/lib/oa/decision";
- import {
-   LOCAL_PILOTE_ACTOR,
-+  registerLocalAuthorityForExecutionClass,
-   registerLocalMorrisGateAuthority,
- } from "@/lib/oa/decision";
- /** W2: Pilote is the product decision-maker; Morris remains a distinct EC gate class. */
-@@ -165,6 +166,13 @@ export type PrepareM3Deps = {
-   executionContractServices: ExecutionContractServices;
-   nowIso: () => string;
-   forceM3Authority?: boolean;
-+  /**
-+   * Product runtime authority for this PREPARE.
-+   * - `"N2"` — local Product docs_write / Pilot runtime (default for Product UI path)
-+   * - `"MORRIS"` — legacy M3 construction/gate path (tests + historical)
-+   * Default: `"MORRIS"` so legacy callers stay unchanged.
-+   */
-+  productRuntimeAuthority?: "N2" | "MORRIS";
- };
-
- export type F3M3PreparePayload = {
-@@ -485,14 +493,26 @@ export async function prepareM3FromDecision(input: {
-
-   const fields = fieldsFromBasis(basis, decision.decisionId);
-   const issuedAt = input.deps.nowIso();
--  // True Morris EC gate — separate from Pilot HD grant (Option A).
--  const authority = registerLocalMorrisGateAuthority({
--    authorityResolver: input.deps.authorityResolver,
--    scope: fields.scope,
--    issuedAt,
--    evidenceId: `evd:m3-prep:${decision.decisionId}`,
--    forceEnable: input.deps.forceM3Authority === true,
--  });
-+  const requiredAuthority =
-+    input.deps.productRuntimeAuthority === "N2" ? "N2" : "MORRIS";
-+  // Product Pilot path → Pilote evidence; legacy M3 → explicit Morris gate.
-+  const authority =
-+    requiredAuthority === "MORRIS"
-+      ? registerLocalMorrisGateAuthority({
-+          authorityResolver: input.deps.authorityResolver,
-+          scope: fields.scope,
-+          issuedAt,
-+          evidenceId: `evd:m3-prep:${decision.decisionId}`,
-+          forceEnable: input.deps.forceM3Authority === true,
-+        })
-+      : registerLocalAuthorityForExecutionClass({
-+          authorityResolver: input.deps.authorityResolver,
-+          scope: fields.scope,
-+          issuedAt,
-+          requiredAuthority,
-+          evidenceId: `evd:m3-prep-pilote:${decision.decisionId}`,
-+          forceEnable: input.deps.forceM3Authority === true,
-+        });
-   if (!authority.ok) {
-     return {
-       ok: false,
-@@ -517,7 +537,7 @@ export async function prepareM3FromDecision(input: {
-       inputs: fields.inputs,
-       expectedOutputs: fields.expectedOutputs,
-       requiredCapabilities: fields.requiredCapabilities,
--      requiredAuthority: "MORRIS",
-+      requiredAuthority,
-       constraints: fields.constraints,
-       stopConditions: fields.stopConditions,
-       evidenceRequirements:
-diff --git a/projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts b/projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts
-index 84ce0c16..3b2b5955 100644
---- a/projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts
-@@ -25,6 +25,8 @@ import type {
- } from "@/lib/oa/decision";
- import {
-   LOCAL_MORRIS_M3_ACTOR,
-+  LOCAL_PILOTE_ACTOR,
-+  registerLocalAuthorityForExecutionClass,
-   registerM3LocalMorrisAuthority,
- } from "@/lib/oa/decision";
- import type {
-@@ -74,6 +76,14 @@ const POST_VALIDATION_OK = new Set([
- const PRE_VALIDATION = new Set(["draft", "proposed"]);
-
- const CANONICAL_M3_AUTHORITY = "MORRIS";
-+/** Product Pilot local-write path — distinct from construction Morris gate. */
-+const PRODUCT_PILOT_AUTHORITY = "N2";
-+
-+function isCanonicalPrepareAuthority(authority: string): boolean {
-+  return (
-+    authority === CANONICAL_M3_AUTHORITY || authority === PRODUCT_PILOT_AUTHORITY
-+  );
-+}
-
- export type ResolveM3Deps = {
-   decisionServices: DecisionServices;
-@@ -438,10 +448,10 @@ function assertCanonicalOriginalIdentity(input: {
-       "Loaded contract idempotencyKey is not the canonical M3 PREPARE identity.",
-     );
-   }
--  if (input.loaded.requiredAuthority !== CANONICAL_M3_AUTHORITY) {
-+  if (!isCanonicalPrepareAuthority(input.loaded.requiredAuthority)) {
-     return fail(
-       "CANONICAL_M3_CONTRACT_MISMATCH",
--      "Canonical M3 PREPARE contract must require MORRIS authority.",
-+      "Canonical M3 PREPARE contract must require MORRIS (legacy) or N2 (Product Pilot) authority.",
-     );
-   }
-   return null;
-@@ -465,16 +475,16 @@ function assertSuccessorGovernanceIdentity(input: {
-       "Successor lineage does not supersede the original M3 contract.",
-     );
-   }
--  if (original.requiredAuthority !== CANONICAL_M3_AUTHORITY) {
-+  if (!isCanonicalPrepareAuthority(original.requiredAuthority)) {
-     return fail(
-       "SUCCESSOR_GOVERNANCE_MISMATCH",
--      "Original M3 contract requiredAuthority is not MORRIS.",
-+      "Original M3 contract requiredAuthority must be MORRIS (legacy) or N2 (Product Pilot).",
-     );
-   }
-   if (successor.requiredAuthority !== original.requiredAuthority) {
-     return fail(
-       "SUCCESSOR_GOVERNANCE_MISMATCH",
--      "Successor requiredAuthority does not match original MORRIS authority.",
-+      "Successor requiredAuthority does not match original prepare authority.",
-     );
-   }
-   if (!decisionRefsEqualExact(successor.decisionRefs, decisionId)) {
-@@ -506,26 +516,41 @@ async function validateExistingSuccessor(input: {
-   decisionId: string;
-   scope: string;
-   successorId: string;
-+  requiredAuthority: string;
-   deps: ResolveM3Deps;
- }): Promise<
-   | { ok: true; contract: ExecutionContract }
-   | ResolveM3Failure
- > {
--  const authority = registerM3LocalMorrisAuthority({
--    authorityResolver: input.deps.authorityResolver,
--    scope: input.scope,
--    issuedAt: input.deps.nowIso(),
--    evidenceId: `evd:m3-resolve:${input.decisionId}`,
--    forceEnable: input.deps.forceM3Authority === true,
--  });
-+  const authority =
-+    input.requiredAuthority === PRODUCT_PILOT_AUTHORITY
-+      ? registerLocalAuthorityForExecutionClass({
-+          authorityResolver: input.deps.authorityResolver,
-+          scope: input.scope,
-+          issuedAt: input.deps.nowIso(),
-+          requiredAuthority: PRODUCT_PILOT_AUTHORITY,
-+          evidenceId: `evd:m3-resolve-pilote:${input.decisionId}`,
-+          forceEnable: input.deps.forceM3Authority === true,
-+        })
-+      : registerM3LocalMorrisAuthority({
-+          authorityResolver: input.deps.authorityResolver,
-+          scope: input.scope,
-+          issuedAt: input.deps.nowIso(),
-+          evidenceId: `evd:m3-resolve:${input.decisionId}`,
-+          forceEnable: input.deps.forceM3Authority === true,
-+        });
-   if (!authority.ok) {
-     return fail(authority.code, authority.message);
-   }
-+  const actor =
-+    input.requiredAuthority === PRODUCT_PILOT_AUTHORITY
-+      ? LOCAL_PILOTE_ACTOR
-+      : LOCAL_MORRIS_M3_ACTOR;
-   const validated =
-     await input.deps.executionContractServices.validateExecutionContract.execute(
-       {
-         executionContractId: input.successorId,
--        actor: LOCAL_MORRIS_M3_ACTOR,
-+        actor,
-         authorityEvidenceId: authority.evidenceId,
-       },
-     );
-@@ -703,6 +728,7 @@ export async function resolveM3ExecutionContract(
-         decisionId: input.decisionId,
-         scope,
-         successorId,
-+        requiredAuthority: original.requiredAuthority,
-         deps: input.deps,
-       });
-       if (!validated.ok) return validated;
-@@ -716,10 +742,11 @@ export async function resolveM3ExecutionContract(
-       });
-       if (govAfter) return govAfter;
-     } else if (successor.status === "validated") {
--      // MORRIS path: validated alone is not a completed pre-confirmation result.
-+      // Pre-confirmation: validated alone is not a completed resolution result
-+      // (MORRIS legacy and Product Pilot N2 both require confirmation_required).
-       return fail(
-         "STATE_CONFLICT",
--        "MORRIS successor in validated status is not a legitimate completed resolution; confirmation_required is required.",
-+        "Successor in validated status is not a legitimate completed resolution; confirmation_required is required.",
-       );
-     } else if (!POST_VALIDATION_OK.has(successor.status)) {
-       return fail(
-@@ -779,24 +806,39 @@ export async function resolveM3ExecutionContract(
-     );
-   }
-
--  const authority = registerM3LocalMorrisAuthority({
--    authorityResolver: input.deps.authorityResolver,
--    scope,
--    issuedAt: input.deps.nowIso(),
--    evidenceId: `evd:m3-resolve:${input.decisionId}`,
--    forceEnable: input.deps.forceM3Authority === true,
--  });
-+  const authority =
-+    original.requiredAuthority === PRODUCT_PILOT_AUTHORITY
-+      ? registerLocalAuthorityForExecutionClass({
-+          authorityResolver: input.deps.authorityResolver,
-+          scope,
-+          issuedAt: input.deps.nowIso(),
-+          requiredAuthority: PRODUCT_PILOT_AUTHORITY,
-+          evidenceId: `evd:m3-resolve-pilote:${input.decisionId}`,
-+          forceEnable: input.deps.forceM3Authority === true,
-+        })
-+      : registerM3LocalMorrisAuthority({
-+          authorityResolver: input.deps.authorityResolver,
-+          scope,
-+          issuedAt: input.deps.nowIso(),
-+          evidenceId: `evd:m3-resolve:${input.decisionId}`,
-+          forceEnable: input.deps.forceM3Authority === true,
-+        });
-   if (!authority.ok) {
-     return fail(authority.code, authority.message);
-   }
-
-+  const resolveActor =
-+    original.requiredAuthority === PRODUCT_PILOT_AUTHORITY
-+      ? LOCAL_PILOTE_ACTOR
-+      : LOCAL_MORRIS_M3_ACTOR;
-+
-   const superseded =
-     await input.deps.executionContractServices.supersedeExecutionContract.execute(
-       {
-         newExecutionContractId: successorId,
-         supersedesExecutionContractId: original.executionContractId,
-         supersessionReason: reason,
--        actor: LOCAL_MORRIS_M3_ACTOR,
-+        actor: resolveActor,
-         authorityEvidenceId: authority.evidenceId,
-         expectedVersion: input.expectedOriginalVersion,
-         action: input.resolution.action.trim(),
-@@ -839,7 +881,7 @@ export async function resolveM3ExecutionContract(
-     await input.deps.executionContractServices.validateExecutionContract.execute(
-       {
-         executionContractId: successorId,
--        actor: LOCAL_MORRIS_M3_ACTOR,
-+        actor: resolveActor,
-         authorityEvidenceId: authority.evidenceId,
-       },
-     );
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts b/projects/sfia-studio/app/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts
-index 41da26d4..2eebc61a 100644
+index 41da26d4..e3d7535b 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts
 @@ -10,7 +10,6 @@ import type { F2ContextSnapshot } from "@/features/project-assistant/f2/types";
@@ -813,7 +418,7 @@ index 41da26d4..2eebc61a 100644
  } from "@/lib/oa/decision";
  import {
    M4_BOUNDED_DOCS_WRITE_ACTION,
-@@ -18,9 +17,10 @@ import {
+@@ -18,9 +17,9 @@ import {
    M4_BOUNDED_DOCS_WRITE_TARGET,
  } from "@/lib/oa/execution-attempt";
  import {
@@ -823,11 +428,10 @@ index 41da26d4..2eebc61a 100644
 +  launchContextAsContractInputs,
 +  resolveTrustedProductLaunchContext,
 +} from "./resolveTrustedProductLaunchContext";
-+import { validateBaseHeadSha } from "@/lib/vertical-slice-runtime/resolveBoundedReadOnlyBaseHeadSha";
  import {
    boundedDocsWriteM3ResolutionProfile,
    BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS,
-@@ -207,12 +207,14 @@ export async function prepareDocsWriteRecoverySuccessorFromDecision(input: {
+@@ -207,12 +206,14 @@ export async function prepareDocsWriteRecoverySuccessorFromDecision(input: {
    const binding = bound.binding;
 
    const issuedAt = oa.clock.nowIso();
@@ -845,7 +449,7 @@ index 41da26d4..2eebc61a 100644
      forceEnable: input.forceLocalAuthority === true,
    });
    if (!authority.ok) {
-@@ -362,7 +364,7 @@ export async function prepareDocsWriteRecoverySuccessorFromDecision(input: {
+@@ -362,7 +363,7 @@ export async function prepareDocsWriteRecoverySuccessorFromDecision(input: {
              ? [...binding.expectedOutputs]
              : undefined,
          requiredCapabilities: [M4_BOUNDED_DOCS_WRITE_CAPABILITY],
@@ -854,45 +458,54 @@ index 41da26d4..2eebc61a 100644
          constraints: prepareConstraints,
          stopConditions: prepareStops,
          evidenceRequirements: evidenceFromSource,
-@@ -399,18 +401,26 @@ export async function prepareDocsWriteRecoverySuccessorFromDecision(input: {
+@@ -399,18 +400,27 @@ export async function prepareDocsWriteRecoverySuccessorFromDecision(input: {
    }
 
    let sha: string | null = null;
+-  if (input.boundedDocsWriteBaseHeadSha !== undefined) {
+-    sha = validateBaseHeadSha(input.boundedDocsWriteBaseHeadSha);
 +  let trustedInputs: Record<string, string> = {};
-   if (input.boundedDocsWriteBaseHeadSha !== undefined) {
-     sha = validateBaseHeadSha(input.boundedDocsWriteBaseHeadSha);
++  /** RC-03 — marker only when trusted resolver succeeded with full pack. */
++  let trustedLaunchPinned = false;
++  // Always resolve via trusted launch when OA is present; pinned SHA is a
++  // harness hint, not a bypass of repositoryBinding / managed clone identity.
++  const launch = await resolveTrustedProductLaunchContext({
++    oa,
++    projectId: input.projectId,
++    pinnedBaseHeadSha: input.boundedDocsWriteBaseHeadSha,
++  });
++  if (launch.ok) {
++    sha = launch.context.baseHeadSha;
++    trustedInputs = launchContextAsContractInputs(launch.context);
++    trustedLaunchPinned = true;
    } else {
 -    const resolvedSha = await resolveBoundedReadOnlyBaseHeadSha({});
 -    if (!resolvedSha.ok) {
-+    const launch = await resolveTrustedProductLaunchContext({
-+      oa,
-+      projectId: input.projectId,
-+      pinnedBaseHeadSha: input.boundedDocsWriteBaseHeadSha,
-+    });
-+    if (launch.ok) {
-+      sha = launch.context.baseHeadSha;
-+      trustedInputs = launchContextAsContractInputs(launch.context);
-+    } else {
-+      // Fail closed — do not fall back to Studio cwd HEAD for Product recovery.
-       return {
-         ok: false,
+-      return {
+-        ok: false,
 -        code: resolvedSha.code,
 -        message: resolvedSha.message,
-+        code: launch.code,
-+        message: launch.message,
-       };
-     }
+-      };
+-    }
 -    sha = resolvedSha.sha;
++    // Fail closed — do not invent trusted marker from a bare pinned SHA.
++    return {
++      ok: false,
++      code: launch.code,
++      message: launch.message,
++    };
    }
    if (!sha) {
      return {
-@@ -427,7 +437,9 @@ export async function prepareDocsWriteRecoverySuccessorFromDecision(input: {
+@@ -427,7 +437,11 @@ export async function prepareDocsWriteRecoverySuccessorFromDecision(input: {
      inputs: {
        ...(profile.inputs ?? {}),
        ...inputs,
 +      ...trustedInputs,
        baseHeadSha: sha,
-+      trustedLaunchContextPinnedAtPrepare: "true",
++      ...(trustedLaunchPinned
++        ? { trustedLaunchContextPinnedAtPrepare: "true" }
++        : {}),
      },
    };
 
@@ -939,14 +552,149 @@ index 7c060037..007f8d90 100644
        isHumanDecision: false,
        promotesTrajectory: false,
        ckcAttribution: null,
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts b/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
+index 098ac449..cc53b277 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
+@@ -268,14 +268,38 @@ export async function proposeTrajectoryOptions(
+     }
+     return { ok: true, ...activeSubject.optionSet };
+   }
+-  if (activeSubject.kind === "pursue_prepare_ready") {
++
++  // RC-04 — after terminal Attempt + structural post-Evidence recovery,
++  // RecoveryContext owns the next instruct. Pre-terminal Proposal subjects
++  // (bound / pending / pursue_prepare_ready) still win above/below.
++  const recoveredEarly = await resolvePostEvidenceRecoveryContext({
++    oa,
++    projectId: input.projectId,
++  });
++  if (!recoveredEarly.ok) {
+     return {
+       ok: false,
+-      code: "PREPARE_CONTINUATION_OWNS_NEXT_ACTION",
+-      message:
+-        "Une décision pursue durable attend la préparation du contrat d'exécution — aucune nouvelle instruction d'options.",
++      code: recoveredEarly.code,
++      message: recoveredEarly.message,
+     };
+   }
++  const structuralRecoveryOwnsNext =
++    recoveredEarly.context != null &&
++    (recoveredEarly.context.recommendationKind === "replan" ||
++      recoveredEarly.context.requiresHumanDecision === true);
++
++  if (activeSubject.kind === "pursue_prepare_ready") {
++    // Same-scope Relancer / PREPARE continuation owns next UNLESS a structural
++    // post-Evidence recovery already exists for a terminal chain (RC-04).
++    if (!structuralRecoveryOwnsNext) {
++      return {
++        ok: false,
++        code: "PREPARE_CONTINUATION_OWNS_NEXT_ACTION",
++        message:
++          "Une décision pursue durable attend la préparation du contrat d'exécution — aucune nouvelle instruction d'options.",
++      };
++    }
++  }
+   if (
+     activeSubject.kind === "pending_reinstruction_required" &&
+     !opaqueProposalIdEarly
+@@ -287,21 +311,31 @@ export async function proposeTrajectoryOptions(
+     };
+   }
+
++  // When structural recovery owns next, ignore opaque/stale Proposal ids so
++  // PROPOSAL_STALE cannot hijack post-terminal replan options.
++  const effectiveOpaqueProposalId = structuralRecoveryOwnsNext
++    ? ""
++    : opaqueProposalIdEarly;
++
+   const activeGate = await assertProposalSubjectGateOrFail({
+     oa,
+     projectId: input.projectId,
+-    proposalId: input.proposalId,
++    proposalId: effectiveOpaqueProposalId || null,
+   });
+   if (!activeGate.ok) {
+-    return {
+-      ok: false,
+-      code: activeGate.code,
+-      message: activeGate.message,
+-    };
++    // Structural recovery still proceeds even if a closed Proposal residual
++    // would otherwise gate generic trajectory — but only when recovery owns.
++    if (!structuralRecoveryOwnsNext) {
++      return {
++        ok: false,
++        code: activeGate.code,
++        message: activeGate.message,
++      };
++    }
+   }
+
+   let proposalSubject: ResolvedProposalDecisionSubject | null = null;
+-  const opaqueProposalId = opaqueProposalIdEarly;
++  const opaqueProposalId = effectiveOpaqueProposalId;
+   if (opaqueProposalId) {
+     // Pre-binding only: process-local Proposal required to create OptionSet.
+     // After binding, we already returned via rehydration above.
+@@ -351,22 +385,12 @@ export async function proposeTrajectoryOptions(
+     };
+   }
+
+-  // R7 — durable RecoveryContext for ProjectTrajectory path only.
+-  // Proposal subject path keeps sealed Proposal as subject (no recovery inject).
++  // R7 — durable RecoveryContext for ProjectTrajectory / post-terminal structural.
++  // Proposal subject path keeps sealed Proposal as subject (no recovery inject)
++  // EXCEPT RC-04 structural terminal recovery ownership above.
+   let recoveryContext: PostEvidenceRecoveryContext | null = null;
+   if (!proposalSubject) {
+-    const recovered = await resolvePostEvidenceRecoveryContext({
+-      oa,
+-      projectId: input.projectId,
+-    });
+-    if (!recovered.ok) {
+-      return {
+-        ok: false,
+-        code: recovered.code,
+-        message: recovered.message,
+-      };
+-    }
+-    recoveryContext = recovered.context;
++    recoveryContext = recoveredEarly.context;
+   }
+
+   const ckcPromptSection = buildCkcCognitivePromptSection(ckcContent);
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/resolvePostEvidenceRecoveryContext.ts b/projects/sfia-studio/app/features/project-assistant/w2/resolvePostEvidenceRecoveryContext.ts
+index e2b95978..39451805 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/resolvePostEvidenceRecoveryContext.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/resolvePostEvidenceRecoveryContext.ts
+@@ -32,6 +32,8 @@ export type PostEvidenceRecoveryContext = {
+     W3cRecommendationKind,
+     "recover" | "replan"
+   >;
++  /** RC-04 — structural recovery requires Pilot options / HumanDecision. */
++  readonly requiresHumanDecision: boolean;
+   readonly headline: string;
+   readonly rationale: string;
+   readonly nextStep: string;
+@@ -289,6 +291,8 @@ export async function resolvePostEvidenceRecoveryContext(input: {
+       reviewBundleId: payload.reviewBundleId,
+       productOutcome: payload.productOutcome,
+       recommendationKind: payload.kind,
++      requiresHumanDecision:
++        payload.kind === "replan" || payload.requiresHumanDecision === true,
+       headline: payload.headline,
+       rationale: payload.rationale,
+       nextStep: payload.nextStep,
 
 ```
 
-### DIFF — TrajectorySurface (FR-01 auto-instruct, auto-inspect, executeAsPilot, Relancer, business-first)
+### DIFF — TrajectorySurface (RC-01/02 UI + continuity preserve)
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-index 847c7a01..cc792135 100644
+index 847c7a01..5de79998 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
 @@ -89,6 +89,10 @@ import {
@@ -989,32 +737,78 @@ index 847c7a01..cc792135 100644
    function paintAttemptPhase(
      phase: GovernedExecutePhaseSuccess["phase"],
      nextAttempt: GovernedExecuteAttemptProjection | null,
-@@ -462,16 +481,20 @@ export function TrajectorySurface({
-         ? pendingReinstruction.recoverableProposalIds[0]!
-         : null;
-     const proposalIdForPropose = activeProposalId ?? recoverableSole;
--    setPendingReinstruction(null);
-     const result = await w2ProposeTrajectoryOptionsAction({
-       projectId,
-       proposalId: proposalIdForPropose,
+@@ -452,45 +471,78 @@ export function TrajectorySurface({
      });
-     setBusy(null);
-+    if (!result || typeof result !== "object") {
-+      setError("Instruction des options indisponible.");
-+      return;
-+    }
-     if (!result.ok) {
-       setError(result.message);
-       return;
-     }
-+    setPendingReinstruction(null);
-     const { ok: _ok, ...set } = result;
-     setOptionSet(set);
-     setDecision(null);
-@@ -493,6 +516,29 @@ export function TrajectorySurface({
-     onDurableFactsChanged,
-   ]);
+   }
 
+-  const proposeOptions = useCallback(async () => {
+-    if (continuityMutationBlocked) return;
+-    setBusy("options");
+-    setError(null);
+-    const recoverableSole =
+-      pendingReinstruction?.proposalIds.length === 1 &&
+-      pendingReinstruction.recoverableProposalIds.length === 1
+-        ? pendingReinstruction.recoverableProposalIds[0]!
+-        : null;
+-    const proposalIdForPropose = activeProposalId ?? recoverableSole;
+-    setPendingReinstruction(null);
+-    const result = await w2ProposeTrajectoryOptionsAction({
++  const proposeOptions = useCallback(
++    async (opts?: { ignoreActiveProposalId?: boolean }) => {
++      if (continuityMutationBlocked) return;
++      setBusy("options");
++      setError(null);
++      const recoverableSole =
++        pendingReinstruction?.proposalIds.length === 1 &&
++        pendingReinstruction.recoverableProposalIds.length === 1
++          ? pendingReinstruction.recoverableProposalIds[0]!
++          : null;
++      // RC-04 — structural post-terminal recovery must not re-send a closed Proposal id.
++      const proposalIdForPropose = opts?.ignoreActiveProposalId
++        ? recoverableSole
++        : (activeProposalId ?? recoverableSole);
++      const result = await w2ProposeTrajectoryOptionsAction({
++        projectId,
++        proposalId: proposalIdForPropose,
++      });
++      setBusy(null);
++      if (!result || typeof result !== "object") {
++        setError("Instruction des options indisponible.");
++        return;
++      }
++      if (!result.ok) {
++        setError(result.message);
++        return;
++      }
++      setPendingReinstruction(null);
++      const { ok: _ok, ...set } = result;
++      setOptionSet(set);
++      setDecision(null);
++      setDecided(null);
++      setContract(null);
++      setInspection(null);
++      setAuthorization(null);
++      setAmendmentDraft("");
++      setAmendmentNotice(null);
++      // D-MORRIS-PCONT — recovery OptionSet is additive: keep durable Attempt /
++      // ProductOutcome / postEvidence projection (rehydrate, do not wipe).
++      // Only clear EC/authorization which belong to a fresh framing subject.
++      onDurableFactsChanged?.();
++    },
++    [
++      continuityMutationBlocked,
+       projectId,
+-      proposalId: proposalIdForPropose,
+-    });
+-    setBusy(null);
+-    if (!result.ok) {
+-      setError(result.message);
++      activeProposalId,
++      pendingReinstruction,
++      onDurableFactsChanged,
++    ],
++  );
++
 +  // FR-01 — sole recoverable pending Proposal: materialize options without a free click.
 +  useEffect(() => {
 +    if (continuityMutationBlocked) return;
@@ -1024,24 +818,66 @@ index 847c7a01..cc792135 100644
 +      pendingReinstruction.proposalIds.length !== 1 ||
 +      pendingReinstruction.recoverableProposalIds.length !== 1
 +    ) {
-+      return;
-+    }
+       return;
+     }
+-    const { ok: _ok, ...set } = result;
+-    setOptionSet(set);
+-    setDecision(null);
+-    setDecided(null);
+-    setContract(null);
+-    setInspection(null);
+-    setAuthorization(null);
+-    setAmendmentDraft("");
+-    setAmendmentNotice(null);
+-    // D-MORRIS-PCONT — recovery OptionSet is additive: keep durable Attempt /
+-    // ProductOutcome / postEvidence projection (rehydrate, do not wipe).
+-    // Only clear EC/authorization which belong to a fresh framing subject.
+-    onDurableFactsChanged?.();
 +    const sole = pendingReinstruction.recoverableProposalIds[0]!;
 +    if (autoInstructedPendingRef.current === sole) return;
 +    autoInstructedPendingRef.current = sole;
 +    void proposeOptions();
-+  }, [
-+    continuityMutationBlocked,
-+    pendingReinstruction,
+   }, [
+     continuityMutationBlocked,
+-    projectId,
+-    activeProposalId,
+     pendingReinstruction,
+-    onDurableFactsChanged,
 +    optionSet,
 +    decision,
 +    proposeOptions,
-+  ]);
-+
+   ]);
+
    /** CORR-PROOF-10 — rehydrate bound Proposal OptionSet from durable Epistemic. */
-   const rehydrateActiveDecisionSubject = useCallback(async () => {
-     const pass = ++continuityPassRef.current;
-@@ -823,6 +869,28 @@ export function TrajectorySurface({
+@@ -574,12 +626,21 @@ export function TrajectorySurface({
+       return;
+     }
+     if (result.kind === "none") {
+-      // Server durable truth wins — clear any stale client EC projection.
+-      setContract(null);
+-      setInspection(null);
+-      setAuthorization(null);
+-      setAmendmentDraft("");
+-      setAmendmentNotice(null);
++      // Server durable truth wins for stale client EC — BUT RC-01 auto-PREPARE
++      // may have just projected a contract before durable continuity catches up.
++      // Do not wipe a fresh Proposal-pursue prepared contract in that window.
++      const keepFreshPursuePrepare =
++        decision != null &&
++        Boolean(decision.proposalId) &&
++        decision.selectedOptionRef === PROPOSAL_SUBJECT_PURSUE_REF &&
++        decision.decisionBasisLinked === true;
++      if (!keepFreshPursuePrepare) {
++        setContract(null);
++        setInspection(null);
++        setAuthorization(null);
++        setAmendmentDraft("");
++        setAmendmentNotice(null);
++      }
+       setContinuityDecisionRef(null);
+       setExecutionContinuityReadStatus("ready");
+       return;
+@@ -823,6 +884,28 @@ export function TrajectorySurface({
      void rehydrateGovernedExecutionContinuity();
    }, [subjectReadStatus, rehydrateGovernedExecutionContinuity]);
 
@@ -1070,18 +906,79 @@ index 847c7a01..cc792135 100644
    const decide = useCallback(
      async (selectedOptionRef: string) => {
        if (continuityMutationBlocked) return;
-@@ -865,6 +933,10 @@ export function TrajectorySurface({
+@@ -865,12 +948,71 @@ export function TrajectorySurface({
        setDecision(result.decision);
        setDecided(result.trajectory ?? null);
        onDurableFactsChanged?.();
-+      // FR-04 — prepare+inspect are chained when the Pilot uses PREPARE
-+      // (see prepareProposalBackedContract). Auto-prepare on decide is deferred:
-+      // resume / fail-closed tests require an explicit PREPARE seam; chaining
-+      // inspect after PREPARE already removes the Inspect micro-step.
++
++      // RC-01 — after Pursue on an exploitable Proposal, auto PREPARE + inspect
++      // in the same user intention (selectedOptionRef from the click). Never auto-Execute.
++      const next = result.decision;
++      const shouldAutoPrepare =
++        isProposalSubject &&
++        selectedOptionRef === PROPOSAL_SUBJECT_PURSUE_REF &&
++        Boolean(next.proposalId) &&
++        next.decisionBasisLinked === true;
++      if (!shouldAutoPrepare) {
++        return;
++      }
++      setBusy("contract");
++      setError(null);
++      const preparedResult = await projectAssistantPrepareResolvedM3Action({
++        projectId,
++        decisionId: next.decisionId,
++      });
++      setBusy(null);
++      if (!preparedResult || typeof preparedResult !== "object") {
++        // Harness / transient — keep secondary PREPARE fallback CTA.
++        return;
++      }
++      if (!preparedResult.ok) {
++        setError(preparedResult.message);
++        return;
++      }
++      const prepared = preparedResult.f3?.successor;
++      if (!prepared) {
++        setError("Contrat préparé indisponible.");
++        return;
++      }
++      setContract({
++        executionContractId: prepared.executionContractId,
++        version: prepared.version,
++        status: prepared.status,
++        action: prepared.action,
++        target: prepared.target,
++        scope: prepared.scope,
++        requiredAuthority: prepared.requiredAuthority,
++        constraints: [...prepared.constraints],
++        stopConditions: [...prepared.stopConditions],
++        requiredCapabilities: [...prepared.requiredCapabilities],
++        reversibility: prepared.reversibility,
++        semanticFingerprint: prepared.semanticFingerprint,
++        inspectionDisclosure: toInspectionDisclosureView(
++          prepared.inspectionDisclosure,
++        ),
++      });
++      setInspection(null);
++      setAuthorization(null);
++      setAmendmentDraft("");
++      setAmendmentNotice(null);
++      setAttempt(null);
++      setAttemptPhase(null);
++      setAttemptStatusLabel(null);
++      onDurableFactsChanged?.();
++      await inspectPreparedContractId(prepared.executionContractId);
      },
      [
        continuityMutationBlocked,
-@@ -965,11 +1037,14 @@ export function TrajectorySurface({
+       optionSet,
+       projectId,
+       onDurableFactsChanged,
++      inspectPreparedContractId,
+     ],
+   );
+
+@@ -965,11 +1107,14 @@ export function TrajectorySurface({
      setAttemptPhase(null);
      setAttemptStatusLabel(null);
      onDurableFactsChanged?.();
@@ -1096,7 +993,7 @@ index 847c7a01..cc792135 100644
    ]);
 
    /**
-@@ -1016,12 +1091,14 @@ export function TrajectorySurface({
+@@ -1016,12 +1161,14 @@ export function TrajectorySurface({
      setAttemptPhase(null);
      setAttemptStatusLabel(null);
      onDurableFactsChanged?.();
@@ -1111,7 +1008,7 @@ index 847c7a01..cc792135 100644
    ]);
 
    /**
-@@ -1075,12 +1152,14 @@ export function TrajectorySurface({
+@@ -1075,12 +1222,14 @@ export function TrajectorySurface({
      setAttemptPhase(null);
      setAttemptStatusLabel(null);
      onDurableFactsChanged?.();
@@ -1126,7 +1023,7 @@ index 847c7a01..cc792135 100644
    ]);
 
    const rematerializeLegacyDocsWriteContract = useCallback(async () => {
-@@ -1343,6 +1422,188 @@ export function TrajectorySurface({
+@@ -1343,6 +1492,188 @@ export function TrajectorySurface({
      setInspection(outcome.inspection);
    }, [continuityMutationBlocked, contract, projectId]);
 
@@ -1315,7 +1212,29 @@ index 847c7a01..cc792135 100644
    const governedExecute = useCallback(async () => {
      if (continuityMutationBlocked) return;
      if (
-@@ -2315,12 +2576,42 @@ export function TrajectorySurface({
+@@ -2198,9 +2529,9 @@ export function TrajectorySurface({
+             data-testid="w2-proposal-backed-prepare"
+           >
+             <p className={styles.blockNote} data-testid="w2-proposal-backed-prepare-note">
+-              La décision porte déjà l&apos;opération scellée. Préparez le
+-              contrat d&apos;exécution à partir de cette décision — sans
+-              resélection technique.
++              Reprise secondaire : la préparation automatique n&apos;a pas abouti
++              ou le contrat n&apos;est plus disponible. Vous pouvez reprendre la
++              préparation sans resélection technique.
+             </p>
+             <button
+               type="button"
+@@ -2209,7 +2540,7 @@ export function TrajectorySurface({
+               onClick={() => void prepareProposalBackedContract()}
+               disabled={busy !== null || continuityMutationBlocked}
+             >
+-              Préparer le contrat d&apos;exécution
++              Reprendre la préparation
+             </button>
+           </div>
+           ) : null}
+@@ -2315,67 +2646,103 @@ export function TrajectorySurface({
            data-testid="w2-contract"
          >
            <h3 id="w2-contract-title" className={styles.blockTitle}>
@@ -1338,15 +1257,37 @@ index 847c7a01..cc792135 100644
 +              </p>
 +              <p
 +                className={styles.blockNote}
-+                data-testid="w2-contract-artifact-line"
-+              >
-+                {pilotContractView.artifactLine}
-+              </p>
-+              <p
-+                className={styles.blockNote}
 +                data-testid="w2-contract-authority-label"
 +              >
 +                Autorité : {pilotContractView.authorityLabel}
++              </p>
++              <p
++                className={styles.blockNote}
++                data-testid="w2-contract-status"
++                data-status={contract.status}
++              >
++                État :{" "}
++                {inspection?.inspectionSufficient
++                  ? pilotContractView.simplifiedExecutePath
++                    ? "Prêt à exécuter"
++                    : executionContractStatusLabel(contract.status)
++                  : executionContractStatusLabel(contract.status)}
++              </p>
++              <p
++                className={styles.blockNote}
++                data-testid="w2-contract-next-action"
++              >
++                Prochaine action :{" "}
++                {wrongGenericReplaceableByRecoveryPrepare
++                  ? "Préparer le contrat recovery docs_write (explicite)"
++                  : pilotContractView.simplifiedExecutePath &&
++                      inspection?.inspectionSufficient
++                    ? "Exécuter"
++                    : inspection?.inspectionSufficient
++                      ? contract.status === "confirmation_required"
++                        ? "Confirmer si requis, puis statuer sur l'autorisation"
++                        : "Statuer sur l'autorisation"
++                      : "Inspecter le détail du contrat"}
 +              </p>
 +            </>
 +          ) : null}
@@ -1358,44 +1299,97 @@ index 847c7a01..cc792135 100644
 +                ? "Le contrat est préparé et inspecté. Un clic Exécuter lance la gouvernance interne (confirmation si requise, autorisation, tentative) — sans micro-étapes visibles."
 +                : "Relisez d'abord ce qui sera tenté. Inspectez le détail avant toute confirmation. Confirmer n'exécute pas."}
            </p>
-           <dl className={styles.facts} data-testid="w2-contract-facts">
-             <div>
-@@ -2365,17 +2656,28 @@ export function TrajectorySurface({
-               <dd data-testid="w2-contract-next-action">
-                 {wrongGenericReplaceableByRecoveryPrepare
-                   ? "Préparer le contrat recovery docs_write (explicite)"
+-          <dl className={styles.facts} data-testid="w2-contract-facts">
+-            <div>
+-              <dt>Ce qui sera fait</dt>
+-              <dd data-testid="w2-contract-action">{contract.action}</dd>
+-            </div>
+-            <div>
+-              <dt>Cible technique</dt>
+-              <dd data-testid="w2-contract-target">{contract.target}</dd>
+-            </div>
+-            {contract.inspectionDisclosure?.targetPath ? (
++          {/* RC-02 — primary surface is business-only; raw codes live under details. */}
++          <details className={styles.contractLevel2} data-testid="w2-contract-facts">
++            <summary>Détails techniques</summary>
++            <dl className={styles.facts}>
+               <div>
+-                <dt>Cible exacte</dt>
+-                <dd data-testid="w2-contract-exact-target">
+-                  {contract.inspectionDisclosure.targetPath}
+-                </dd>
++                <dt>Action code</dt>
++                <dd data-testid="w2-contract-action">{contract.action}</dd>
+               </div>
+-            ) : null}
+-            {contract.inspectionDisclosure?.targetRepositoryRef ? (
+               <div>
+-                <dt>Repository</dt>
+-                <dd data-testid="w2-contract-repository">
+-                  {contract.inspectionDisclosure.targetRepositoryRef}
++                <dt>Cible technique</dt>
++                <dd data-testid="w2-contract-target">{contract.target}</dd>
++              </div>
++              {contract.inspectionDisclosure?.targetPath ? (
++                <div>
++                  <dt>Cible exacte</dt>
++                  <dd data-testid="w2-contract-exact-target">
++                    {contract.inspectionDisclosure.targetPath}
++                  </dd>
++                </div>
++              ) : null}
++              {contract.inspectionDisclosure?.targetRepositoryRef ? (
++                <div>
++                  <dt>Repository</dt>
++                  <dd data-testid="w2-contract-repository">
++                    {contract.inspectionDisclosure.targetRepositoryRef}
++                  </dd>
++                </div>
++              ) : null}
++              <div>
++                <dt>Périmètre</dt>
++                <dd data-testid="w2-contract-scope">{contract.scope}</dd>
++              </div>
++              <div>
++                <dt>État technique</dt>
++                <dd data-testid="w2-contract-status-label">
++                  {executionContractStatusLabel(contract.status)}
+                 </dd>
+               </div>
+-            ) : null}
+-            <div>
+-              <dt>Périmètre</dt>
+-              <dd data-testid="w2-contract-scope">{contract.scope}</dd>
+-            </div>
+-            <div>
+-              <dt>État du contrat</dt>
+-              <dd
+-                data-testid="w2-contract-status"
+-                data-status={contract.status}
+-              >
+-                {executionContractStatusLabel(contract.status)}
+-              </dd>
+-            </div>
+-            <div>
+-              <dt>Prochaine action utile</dt>
+-              <dd data-testid="w2-contract-next-action">
+-                {wrongGenericReplaceableByRecoveryPrepare
+-                  ? "Préparer le contrat recovery docs_write (explicite)"
 -                  : inspection?.inspectionSufficient
 -                    ? contract.status === "confirmation_required"
 -                      ? "Confirmer si requis, puis statuer sur l'autorisation"
 -                      : "Statuer sur l'autorisation"
 -                    : "Inspecter le détail du contrat"}
-+                  : pilotContractView?.simplifiedExecutePath &&
-+                      inspection?.inspectionSufficient
-+                    ? "Exécuter"
-+                    : inspection?.inspectionSufficient
-+                      ? contract.status === "confirmation_required"
-+                        ? "Confirmer si requis, puis statuer sur l'autorisation"
-+                        : "Statuer sur l'autorisation"
-+                      : "Inspecter le détail du contrat"}
-               </dd>
-             </div>
-           </dl>
-           <details className={styles.contractLevel2}>
+-              </dd>
+-            </div>
+-          </dl>
+-          <details className={styles.contractLevel2}>
 -            <summary>Détails métier du contrat</summary>
-+            <summary>Détails techniques</summary>
-             <dl className={styles.facts}>
-+              <div>
-+                <dt>Action code</dt>
-+                <dd data-testid="w2-contract-action-tech">{contract.action}</dd>
-+              </div>
-+              <div>
-+                <dt>Cible technique</dt>
-+                <dd data-testid="w2-contract-target-tech">{contract.target}</dd>
-+              </div>
+-            <dl className={styles.facts}>
                <div>
                  <dt>Version</dt>
                  <dd data-testid="w2-contract-version">v{contract.version}</dd>
-@@ -2397,7 +2699,8 @@ export function TrajectorySurface({
+@@ -2397,7 +2764,8 @@ export function TrajectorySurface({
                <div>
                  <dt>Réversibilité</dt>
                  <dd data-testid="w2-contract-reversibility">
@@ -1405,7 +1399,7 @@ index 847c7a01..cc792135 100644
                  </dd>
                </div>
                {contract.inspectionDisclosure?.scopeIn ? (
-@@ -2620,11 +2923,45 @@ export function TrajectorySurface({
+@@ -2620,11 +2988,45 @@ export function TrajectorySurface({
              </div>
            ) : null}
 
@@ -1453,7 +1447,7 @@ index 847c7a01..cc792135 100644
                    ? styles.secondaryAction
                    : styles.primaryAction
                }
-@@ -3009,9 +3346,30 @@ export function TrajectorySurface({
+@@ -3009,14 +3411,37 @@ export function TrajectorySurface({
                    </div>
                  </dl>
                </details>
@@ -1487,11 +1481,13 @@ index 847c7a01..cc792135 100644
                  <button
                    type="button"
                    className={styles.secondaryAction}
+                   data-testid="w3c-propose-trajectory"
+-                  onClick={() => void proposeOptions()}
++                  onClick={() =>
++                    void proposeOptions({ ignoreActiveProposalId: true })
++                  }
+                   disabled={busy !== null || continuityMutationBlocked}
+                 >
+                   Proposer des options de trajectoire
 
 ```
-
----
-
-## 19. Review handoff
-
-To be published via `scripts/sfia/publish-review-handoff.sh` → `sfia/review-handoff` / `sfia-review-handoff/latest-chatgpt-review.md`.
