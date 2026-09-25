@@ -71,6 +71,11 @@ import {
   reasonWithResolvedCkcContext,
 } from "./ckcCognitiveContext";
 import { composeStudioCognitiveContext } from "./studioCognitiveContext";
+import {
+  parseReservationInteractionContextInput,
+  validateReservationInteractionContext,
+  type ValidatedReservationInteractionContext,
+} from "../reservationInteractionContext";
 import { projectCkcResolutionRef, qualifyWithCkc } from "./qualify";
 import { reconcileQualificationSignals } from "./qualificationSignalCoherence";
 import { resolveProductDoctrineRegistryRoot } from "@/lib/vertical-slice-runtime/paths";
@@ -803,6 +808,11 @@ export async function orchestrateAssistantSend(input: {
    */
   reinstructionOfProposalId?: string | null;
   /**
+   * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — untrusted client binding.
+   * Server revalidates; invalid → fail-closed product message (no retarget).
+   */
+  reservationInteractionContext?: unknown;
+  /**
    * INTERNAL / EVAL-ONLY — Stage A constitutive model×effort pin.
    * Propagated to analyzeIntent + F1 cognitive path. Never a client DTO field.
    */
@@ -881,6 +891,21 @@ export async function orchestrateAssistantSend(input: {
 
   let analysisResult: Awaited<ReturnType<typeof analyzeIntent>>;
   let truthCContextForF1: string | undefined;
+  let reservationFocus: ValidatedReservationInteractionContext | null = null;
+  const parsedReservationContext = parseReservationInteractionContextInput(
+    input.reservationInteractionContext,
+  );
+  // RC-01 — present-but-malformed must fail closed (never silent generic F2).
+  if (parsedReservationContext.status === "invalid") {
+    return {
+      ok: false,
+      status: "validation_error",
+      code: parsedReservationContext.code,
+      message: parsedReservationContext.message,
+      mode: modeResolution.mode,
+      retryable: true,
+    };
+  }
   try {
     const cognitive = await resolveCognitiveIntentProjectSummary(project);
     if (!cognitive.ok) {
@@ -897,6 +922,64 @@ export async function orchestrateAssistantSend(input: {
       cognitive.contextSource === "TRUTH_C_LPS"
         ? cognitive.truthCContext
         : undefined;
+
+    // RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — revalidate client binding.
+    if (parsedReservationContext.status === "ok") {
+      const claimedReservationContext = parsedReservationContext.value;
+      const oaForRsv = getRuntimeApplicationService().oa;
+      const activeCycleId =
+        project.activeCycleInstanceId?.trim() ||
+        (await (async () => {
+          if (!oaForRsv) return null;
+          try {
+            const lps =
+              await oaForRsv.projectServices.getCurrentLivingProjectState.execute(
+                { projectId: project.projectId },
+              );
+            return lps.ok
+              ? lps.livingProjectState.activeCycleInstanceId ?? null
+              : null;
+          } catch {
+            return null;
+          }
+        })());
+      let items: Awaited<
+        ReturnType<
+          NonNullable<
+            ReturnType<typeof getRuntimeApplicationService>["oa"]
+          >["cycleServices"]["epistemic"]["listByProject"]
+        >
+      > = [];
+      if (oaForRsv) {
+        try {
+          items = await oaForRsv.cycleServices.epistemic.listByProject(
+            project.projectId,
+          );
+        } catch {
+          items = [];
+        }
+      }
+      const validated = validateReservationInteractionContext({
+        claimed: claimedReservationContext,
+        activeCycleInstanceId: activeCycleId,
+        items,
+      });
+      if (!validated.ok) {
+        return {
+          ok: false,
+          status: "validation_error",
+          code: validated.code,
+          message: validated.message,
+          mode: modeResolution.mode,
+          retryable: true,
+        };
+      }
+      reservationFocus = validated.value;
+      // Keep LPS activeCycle on DTO for downstream F1 composition.
+      if (!project.activeCycleInstanceId && activeCycleId) {
+        project = { ...project, activeCycleInstanceId: activeCycleId };
+      }
+    }
 
     // CORR-PROOF-01 D1 CR-03/CR-04 — Memory B replay semantics; EMPTY ≠ UNAVAILABLE.
     const canonicalLoad = await loadCanonicalConversationForAnalysis({
@@ -984,9 +1067,13 @@ export async function orchestrateAssistantSend(input: {
   // CORR-PROOF-02 B1 — deterministic transition gate.
   // Safe advisory (incl. ambiguous / parse-fail / incomplete formalization fields) → F1.
   // Governed formalization only when readiness is fully established.
+  // RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — valid Reservation focus suppresses
+  // generic F2 formalization hijack for this turn (keep Nora cognitive path).
+  const forceReservationResolutionAdvisory = reservationFocus != null;
   const transition = resolveTransitionReadiness({
     analysis,
-    forceRepoInformative,
+    forceRepoInformative:
+      forceRepoInformative || forceReservationResolutionAdvisory,
   });
 
   if (!transition.formalizationReady) {
@@ -1000,7 +1087,11 @@ export async function orchestrateAssistantSend(input: {
       registryRoot,
       truthCContext: truthCContextForF1,
       oa,
-      activeCycleInstanceId: project.activeCycleInstanceId ?? null,
+      activeCycleInstanceId:
+        reservationFocus?.cycleInstanceId ??
+        project.activeCycleInstanceId ??
+        null,
+      reservationFocus,
     });
     if (!studioComposed.ok) {
       return {
@@ -1035,7 +1126,7 @@ export async function orchestrateAssistantSend(input: {
         analysis.intentClass === "ambiguous" ||
         analysis.intentClass === "actionable" ||
         analysis.intentClass === "execution_request")
-        ? forceRepoInformative
+        ? forceRepoInformative || forceReservationResolutionAdvisory
           ? "informative"
           : analysis.intentClass
         : "ambiguous";
@@ -1044,7 +1135,25 @@ export async function orchestrateAssistantSend(input: {
     const executionBlocked =
       analysis.parseOk === true &&
       analysis.intentClass === "execution_request" &&
-      !forceRepoInformative;
+      !forceRepoInformative &&
+      !forceReservationResolutionAdvisory;
+    const proposedIds = f1.reservationProposedIds ?? [];
+    // RC-02 — human-facing cycle label from already-composed Studio context.
+    const composedCycleLabel =
+      studioCognitiveContext.activeCycle?.cycleLabel?.trim() ||
+      studioCognitiveContext.activeCycle?.cycleTypeId?.trim() ||
+      null;
+    const reservationResolutionProposal =
+      reservationFocus != null
+        ? {
+            epistemicItemId: reservationFocus.epistemicItemId,
+            cycleInstanceId: reservationFocus.cycleInstanceId,
+            cycleLabel: composedCycleLabel,
+            ordinal: reservationFocus.ordinal,
+            title: reservationFocus.title,
+            proposed: proposedIds.includes(reservationFocus.epistemicItemId),
+          }
+        : null;
     return {
       ...f1,
       model: f1.model ?? model,
@@ -1053,6 +1162,8 @@ export async function orchestrateAssistantSend(input: {
       reinstructionTransition: resolveReinstructionTransition({
         reinstructionOfProposalId,
       }),
+      reservationProposedIds: proposedIds,
+      reservationResolutionProposal,
       f2: {
         turnKind: "f1_informative",
         intentClass: reportedIntent,
@@ -1061,7 +1172,11 @@ export async function orchestrateAssistantSend(input: {
         decision: null,
         labels: {
           recommendation: null,
-          proposition: null,
+          proposition: reservationResolutionProposal?.proposed
+            ? "PROPOSITION"
+            : null,
+          // RC-02 — do not reuse generic F2 « DÉCISION REQUISE » for
+          // Reservation Pilot confirmation (local surface wording only).
           decisionRequired: null,
           decisionTaken: null,
           noExecution: "AUCUNE EXÉCUTION",

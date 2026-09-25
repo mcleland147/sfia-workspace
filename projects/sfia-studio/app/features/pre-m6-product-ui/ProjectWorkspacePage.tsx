@@ -157,6 +157,14 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
       null;
     controller.setDraft(reservationDraftForNora(card));
     setReservationNotice(null);
+    if (reservationCycleInstanceId && epistemicItemId.trim()) {
+      controller.armReservationInteractionContext({
+        cycleInstanceId: reservationCycleInstanceId,
+        epistemicItemId: epistemicItemId.trim(),
+      });
+    } else {
+      controller.armReservationInteractionContext(null);
+    }
     focusConversation();
   };
 
@@ -180,12 +188,14 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
         }
         setReservationNotice(outcome.message ?? "Levée de la réserve confirmée.");
         if (outcome.projection) setLifecycleProjection(outcome.projection);
+        controller.armReservationInteractionContext(null);
+        controller.clearReservationResolutionProposal();
         notifyDurableFactsChanged();
       } finally {
         setReservationBusyId(null);
       }
     },
-    [projectId, reservationCycleInstanceId, notifyDurableFactsChanged],
+    [projectId, reservationCycleInstanceId, notifyDurableFactsChanged, controller],
   );
 
   const confirmReservationDefer = useCallback(
@@ -351,7 +361,11 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
 
         <div className={styles.main} ref={conversationRef}>
           <div className={styles.conversation} data-testid="project-conversation-main">
-            <ConversationSurface controller={controller} />
+            <ConversationSurface
+              controller={controller}
+              onConfirmReservationResolve={confirmReservationResolution}
+              reservationConfirmBusyId={reservationBusyId}
+            />
           </div>
           <HistorySurface result={success} durableOutcome={durableOutcome} />
         </div>

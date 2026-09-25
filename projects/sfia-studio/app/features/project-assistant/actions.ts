@@ -121,6 +121,14 @@ export async function projectAssistantSendAction(input: {
    * Untrusted until server validates against effective pending markers.
    */
   reinstructionOfProposalId?: string | null;
+  /**
+   * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — untrusted client binding.
+   * Server revalidates project/cycle/Reservation; invalid → fail-closed.
+   */
+  reservationInteractionContext?: {
+    cycleInstanceId?: unknown;
+    epistemicItemId?: unknown;
+  } | null;
 }): Promise<ProjectAssistantSendResult> {
   const executionContractId =
     typeof input.executionContractId === "string"
@@ -161,6 +169,7 @@ export async function projectAssistantSendAction(input: {
     logicalTurnId: input.logicalTurnId,
     turnRetryKey: input.turnRetryKey,
     reinstructionOfProposalId,
+    reservationInteractionContext: input.reservationInteractionContext,
   });
 }
 
