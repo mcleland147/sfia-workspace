@@ -348,7 +348,43 @@ Integrate at next GO:
 
 ### REAL-RSV-01…27
 
-| ID | Result |\n| --- | --- |\n| REAL-RSV-01 | `True` |\n| REAL-RSV-02 | `True` |\n| REAL-RSV-03 | `True` |\n| REAL-RSV-04 | `True` |\n| REAL-RSV-05 | `True` |\n| REAL-RSV-06 | `True` |\n| REAL-RSV-07 | `True` |\n| REAL-RSV-08 | `True` |\n| REAL-RSV-09 | `True` |\n| REAL-RSV-10 | `True` |\n| REAL-RSV-15 | `True` |\n| REAL-RSV-16 | `True` |\n| REAL-RSV-17 | `True` |\n| REAL-RSV-18 | `True` |\n| REAL-RSV-19 | `True` |\n| REAL-RSV-20 | `True` |\n| REAL-RSV-21 | `True` |\n| REAL-RSV-22 | `True` |\n| REAL-RSV-23 | `True` |\n| REAL-RSV-24 | `True` |\n| REAL-RSV-25 | `True` |\n| REAL-RSV-26 | `True` |\n| REAL-RSV-27 | `True` |\n\n### REAL-GATE-01…10\n\n| ID | Result |\n| --- | --- |\n| REAL-GATE-01 | `True` |\n| REAL-GATE-03 | `True` |\n| REAL-GATE-05 | `True` |\n| REAL-GATE-07 | `True` |\n| REAL-GATE-08 | `True` |\n| REAL-GATE-09 | `True` |\n| REAL-GATE-10 | `True` |
+| ID | Result |
+| --- | --- |
+| REAL-RSV-01 | `True` |
+| REAL-RSV-02 | `True` |
+| REAL-RSV-03 | `True` |
+| REAL-RSV-04 | `True` |
+| REAL-RSV-05 | `True` |
+| REAL-RSV-06 | `True` |
+| REAL-RSV-07 | `True` |
+| REAL-RSV-08 | `True` |
+| REAL-RSV-09 | `True` |
+| REAL-RSV-10 | `True` |
+| REAL-RSV-15 | `True` |
+| REAL-RSV-16 | `True` |
+| REAL-RSV-17 | `True` |
+| REAL-RSV-18 | `True` |
+| REAL-RSV-19 | `True` |
+| REAL-RSV-20 | `True` |
+| REAL-RSV-21 | `True` |
+| REAL-RSV-22 | `True` |
+| REAL-RSV-23 | `True` |
+| REAL-RSV-24 | `True` |
+| REAL-RSV-25 | `True` |
+| REAL-RSV-26 | `True` |
+| REAL-RSV-27 | `True` |
+
+### REAL-GATE-01…10
+
+| ID | Result |
+| --- | --- |
+| REAL-GATE-01 | `True` |
+| REAL-GATE-03 | `True` |
+| REAL-GATE-05 | `True` |
+| REAL-GATE-07 | `True` |
+| REAL-GATE-08 | `True` |
+| REAL-GATE-09 | `True` |
+| REAL-GATE-10 | `True` |
 
 ### Defer architecture qualification
 
@@ -360,7 +396,16 @@ Integrate at next GO:
 
 ### DEFER-01…14
 
-| ID | Result |\n| --- | --- |\n| DEFER-06 | `True` |\n| DEFER-08 | `True` |\n| DEFER-09 | `True` |\n| DEFER-10 | `True` |\n| DEFER-11 | `True` |\n| DEFER-12 | `True` |\n| DEFER-13 | `True` |\n| DEFER-decisionId | `dec:rsv-defer:c769e0a5-f75a-484f-92a6-5aaac003449b` |
+| ID | Result |
+| --- | --- |
+| DEFER-06 | `True` |
+| DEFER-08 | `True` |
+| DEFER-09 | `True` |
+| DEFER-10 | `True` |
+| DEFER-11 | `True` |
+| DEFER-12 | `True` |
+| DEFER-13 | `True` |
+| DEFER-decisionId | `dec:rsv-defer:c769e0a5-f75a-484f-92a6-5aaac003449b` |
 
 ### CR-RSV-43…52
 
