@@ -1,98 +1,132 @@
 # SFIA Studio — Review Pack FULL
 ## CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING
-### POST-MERGE DOCUMENTARY TRUTH-SYNC — ROADMAP PROTECTED PATH ONLY
+### DOCUMENTARY PROJECT GIT INTEGRATION — COMMIT + PUSH + OPEN PR
 
-- **timestamp**: `2026-09-25T08:31:10+02:00` (Europe/Paris)
+- **timestamp**: `2026-09-25T08:39:56+02:00` (Europe/Paris)
 - **Macro ID**: `CYCLE-RESERVATION-PILOTING-01`
-- **cycle**: 14 — Post-merge — DOC — Critical
-- **GO Morris**: **CONSUMED** — `POST-MERGE DOCUMENTARY TRUTH-SYNC — ROADMAP PROTECTED PATH ONLY`
-- **NON autorisé ce cycle**: product/docs commit · push branche projet · PR · merge · MealFlow execution · runtime v3 · new macro · REAL · code produit
-- **branche locale**: `docs/sfia-studio-cycle-reservation-postmerge-truth-sync-01`
-- **base / HEAD**: `29f1597951bd6e4d779cc728f46396e28b8f5aa0` (= `origin/main`)
+- **sous-cycle**: POST-MERGE DOCUMENTARY TRUTH-SYNC — ROADMAP PROTECTED PATH ONLY
+- **cycle**: 13 — PR readiness / documentary repository integration continuation — DOC — Critical
+- **GO Morris**: **CONSUMED** — `DOCUMENTARY COMMIT + PUSH + OPEN PR`
+- **NON autorisé**: merge · force push · product change · MealFlow execution · runtime v3 · new macro · REAL
+- **branche**: `docs/sfia-studio-cycle-reservation-postmerge-truth-sync-01`
+- **documentary commit**: `87863f308b430ee1e81a623722f26b95b5189923`
 - **origin/main**: `29f1597951bd6e4d779cc728f46396e28b8f5aa0`
+- **remote branch**: `87863f308b430ee1e81a623722f26b95b5189923` (MATCH)
+- **ahead/behind**: ahead 1 / behind 0
+- **PR**: [#519](https://github.com/mcleland147/sfia-workspace/pull/519) — OPEN / non-draft / NOT MERGED
 - **runtime v3**: **NON ADOPTED**
 
 ## Verdict
 
-**POST-MERGE DOCUMENTARY TRUTH-SYNC — PASS**
-**ROADMAP CURRENT TRUTH — ALIGNED**
-**HISTORICAL PROVENANCE — PRESERVED**
+**DOCUMENTARY PROJECT GIT INTEGRATION — PASS**
+**ROADMAP TRUTH-SYNC COMMIT CREATED**
+**DOCUMENTARY BRANCH PUSHED — REMOTE VERIFIED**
+**DOCUMENTARY PR OPENED — REMOTE VERIFIED**
+**ROADMAP ONLY — VERIFIED**
 **PRODUCT CODE — UNCHANGED**
 **REVIEW HANDOFF — REMOTE VERIFIED** *(after this publish)*
-**READY FOR MORRIS GO: DOCUMENTARY COMMIT + PUSH + OPEN PR**
+**READY FOR DOCUMENTARY PR / CI REVIEW**
+**MERGE NOT AUTHORIZED**
+
+Next gate: **DOCUMENTARY PR / CI REVIEW** → then distinct **MORRIS MERGE DECISION**.
 
 ---
 
-## 1. Git Truth
+## A. Git Truth before
 
 | Check | Result |
 | --- | --- |
+| Branch | `docs/sfia-studio-cycle-reservation-postmerge-truth-sync-01` |
+| HEAD before | `29f1597951bd6e4d779cc728f46396e28b8f5aa0` |
 | origin/main | `29f1597951bd6e4d779cc728f46396e28b8f5aa0` |
-| Local branch | `docs/sfia-studio-cycle-reservation-postmerge-truth-sync-01` |
-| Base exact | `29f1597951bd6e4d779cc728f46396e28b8f5aa0` |
-| Working tree product/docs dirty before edit | clean (only `.tmp-sfia-review/**`) |
-| Prior feature branch | not modified for this sync |
-| PR #518 | MERGED · mergeCommit `29f1597951bd6e4d779cc728f46396e28b8f5aa0` · head `f0874ec05fec4237a6f39311b90c9233debce5f5` |
-| PR CI #595 | run `36100845339` · head `f0874ec0…` · SUCCESS / Required Gate PASS |
-| Post-merge CI #596 | run `36101841229` · head `29f15979…` · SUCCESS / Required Gate PASS |
+| Candidate blob | `4f69330dec43d16ffcf194f304e13bfecb2d9788` — MATCH entry handoff |
+| Diff | 4 insertions / 3 deletions — MATCH |
+| Project files | 1 — Roadmap only |
+| Remote docs branch before | ABSENT |
+| Existing PR before | ABSENT |
+| Entry handoff | `804f8384` / blob `65cc477f` |
+| Build Doctrine | `99232e4582e4ef4cf489020a46b818ebb41ac397` unchanged |
+| C1 | `806d672fe21ad82a641bf88fe95fc87870481105` unchanged |
 
-## 2. Convergence pre-check
+## B. Convergence pre-check
 
-| Source | Status |
+| Fact | Status |
 | --- | --- |
-| Build Doctrine | VALIDATED / ACTIVE ON MAIN · `99232e4582e4ef4cf489020a46b818ebb41ac397` · READ ONLY |
-| C1 | VALIDATED BY MORRIS / INTEGRATED ON MAIN · `806d672fe21ad82a641bf88fe95fc87870481105` · READ ONLY |
-| Roadmap before | blob `a8dc6c56361ce215e3d24b7b693a265e2d8d19aa` (stale current-truth pre-merge wording) |
-| Roadmap after (local WIP) | blob `4f69330dec43d16ffcf194f304e13bfecb2d9788` |
-| runtime v3 | **NON ADOPTED** |
-| Product Completion | historical COMPLETE/CLOSED ≠ runtime v3 adopted |
-| Nora Cognitive Completion | **NOT COMPLETE** |
-| global L5 | **NOT ADOPTED** |
-| v2.6 | external process only |
-| Capability | CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** |
-| Next trajectory | MealFlow semantic reservation campaign = observation/qualification · **NOT STARTED** · next macro **NOT YET DETERMINED** |
+| Build Doctrine VALIDATED / ACTIVE ON MAIN | YES |
+| C1 VALIDATED / INTEGRATED | YES |
+| runtime v3 NON ADOPTED | YES |
+| Product Completion historical COMPLETE/CLOSED | YES |
+| Nora Cognitive Completion NOT COMPLETE | YES |
+| global L5 NOT ADOPTED | YES |
+| global semantic Reservation quality NOT PROVEN | YES |
+| READY FOR REAL global NO | YES |
+| Reservation capability INTEGRATED / POST-MERGE VERIFIED | YES |
+| MealFlow = next observation/qualification only | YES |
+| next macro NOT YET DETERMINED | YES |
 
-Trajectory link:
-Reservation management → PR #518 → merge `29f15979` → post-merge CI #596 PASS → documentary truth-sync → MealFlow → observe/classify gaps → eventual next macro from evidence.
+Trajectory: Reservation → PR #518 → merge `29f15979` → CI #596 PASS → Roadmap truth-sync → this Git integration → MealFlow campaign → observe gaps → eventual next macro from evidence.
 
-**STOP — TRAJECTORY LINK MISSING**: not triggered.
-
-## 3. Cause of truth-sync
-
-Integrated Roadmap still stated current macro as LOCAL CANDIDATE / NOT YET INTEGRATED / next = COMMIT+PUSH+OPEN PR after Git proved PR #518 MERGED + CI #595/#596 PASS.
-
-## 4. Exact modification
+## C. Candidate integrity
 
 | Item | Value |
 | --- | --- |
-| Project files modified | **1** |
-| Exact file | `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` |
-| App/code/test | **UNCHANGED** |
-| Build Doctrine / C1 / framing / method / prompts | **UNCHANGED** |
-| diff --check | PASS |
-| diff --stat | ` .../sfia-studio/convergence/sfia-studio-convergence-roadmap.md     | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)` |
-| diff --numstat | `4	3	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` |
+| Pre-commit blob | `4f69330dec43d16ffcf194f304e13bfecb2d9788` |
+| Post-commit tree blob | `4f69330dec43d16ffcf194f304e13bfecb2d9788` |
+| Content modified this cycle | **NO** (byte-identical to reviewed candidate) |
 
-### Classification
+## D–F. Staging / commit / push
 
-**KEEP:** historical #516/#517 · historical known-reserves tip as dated provenance · Product Completion historical closure · anti-claims v3 · Nora open · architecture
-
-**UPDATE:** new post-merge tip · CURRENT REPOSITORY TRANSITION · NEXT ORDERED STEP · NEXT PRODUCT CAPABILITY
-
-**DO NOT PROMOTE:** runtime v3 · global REAL readiness · Nora Cognitive Completion · MealFlow observations not yet made · next macro selection
-
-### Historical vs current
-
-| Layer | Treatment |
+| Step | Result |
 | --- | --- |
-| Tip `… known-reserves closure` | **PRESERVED** as dated pre-merge provenance (may still say LOCAL CANDIDATE historically) |
-| Tip `… post-merge verification` | **NEW current fact** — INTEGRATED / POST-MERGE VERIFIED |
-| CURRENT / NEXT rows | **SYNCED** to Git truth · MealFlow next campaign only |
+| Staged | Roadmap only — STAGED SCOPE OK |
+| Commit message | `docs(sfia-studio): sync reservation post-merge roadmap truth` |
+| Commit SHA | `87863f308b430ee1e81a623722f26b95b5189923` |
+| Push | `-u origin HEAD` — remote MATCH |
+| Force push | NO |
 
-## 5. Full Roadmap diff
+```
+commit 87863f308b430ee1e81a623722f26b95b5189923
+Author:     Morris Cleland <morris@macbook-air.home>
+AuthorDate: Fri Sep 25 08:39:13 2026 +0200
+Commit:     Morris Cleland <morris@macbook-air.home>
+CommitDate: Fri Sep 25 08:39:13 2026 +0200
+
+    docs(sfia-studio): sync reservation post-merge roadmap truth
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+ .../sfia-studio/convergence/sfia-studio-convergence-roadmap.md     | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+```
+
+## G–J. PR proof
+
+| Item | Value |
+| --- | --- |
+| PR | **#519** |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/519 |
+| Title | docs(sfia-studio): sync Reservation post-merge roadmap truth |
+| Base | `main` @ `29f1597951bd6e4d779cc728f46396e28b8f5aa0` |
+| Head | `docs/sfia-studio-cycle-reservation-postmerge-truth-sync-01` @ `87863f308b430ee1e81a623722f26b95b5189923` |
+| Draft | NO |
+| State | OPEN |
+| Merged | NO |
+| changed_files | **1** — `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` |
+| additions/deletions | +4 / −3 |
+| CI at observation | Detect SFIA Studio changes = QUEUED (not assumed PASS) |
+
+## Roadmap diff (complete)
 
 ```diff
+commit 87863f308b430ee1e81a623722f26b95b5189923
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Fri Sep 25 08:39:13 2026 +0200
+
+    docs(sfia-studio): sync reservation post-merge roadmap truth
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 index a8dc6c56..4f69330d 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -121,42 +155,31 @@ index a8dc6c56..4f69330d 100644
 
 ```
 
-## 6. Fake / Real
+## Claims / anti-claims
 
-N/A for documentary cycle. No new REAL. Consumed proofs only: PR #518 merge · CI #595 · CI #596 · prior macro proofs.
+**Authorized:** PR #518 MERGED · merge/main `29f15979…` · CI #595/#596 PASS · Reservation INTEGRATED/POST-MERGE VERIFIED · Roadmap documentary Git integration · MealFlow = next campaign activity
 
-## 7. Claims / anti-claims
+**Denied:** runtime v3 ADOPTED · Nora COMPLETE · semantic Reservation PROVEN · READY FOR REAL · MealFlow executed · next macro selected · new capability authorized · documentary PR merged · truth-sync integrated on main before merge · MERGE authorized
 
-**Authorized:**
-- CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING = INTEGRATED ON MAIN / POST-MERGE VERIFIED
-- PR #518 MERGED
-- CI #595 PASS · CI #596 PASS
-- MealFlow = next campaign activity
+## Remaining gates
 
-**Forbidden / denied:**
-- Nora Cognitive Completion COMPLETE = NO
-- global semantic Reservation quality PROVEN = NO
-- READY FOR REAL global = NO
-- runtime v3 ADOPTED = NO
-- MealFlow already executed = NO
-- next macro already selected = NO
-- new capability authorized = NO
-- documentary commit/push/PR this cycle = NO
+1. DOCUMENTARY PR / CI REVIEW
+2. MORRIS MERGE DECISION (distinct GO only after qualified review)
+3. Then MealFlow natural campaign (NOT STARTED)
 
-## 8. Remaining gates
+## Instruction for ChatGPT
 
-**NEXT (distinct Morris GO):** DOCUMENTARY COMMIT + PUSH + OPEN PR for this Roadmap-only candidate on `docs/sfia-studio-cycle-reservation-postmerge-truth-sync-01`.
-
-Not authorized now: commit · push · PR · merge · MealFlow execution · new macro.
-
-## 9. Instruction for ChatGPT
-
-Analyse ce rapport comme POST-MERGE DOCUMENTARY TRUTH-SYNC du macro
+Analyse ce rapport comme DOCUMENTARY PROJECT GIT INTEGRATION
+du POST-MERGE TRUTH-SYNC du macro
 CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING.
-Vérifie que la Roadmap reflète PR #518 MERGED, main 29f15979…, CI #595/#596 PASS,
-que l’historique pré-merge est préservé comme historique,
-que MealFlow est uniquement la prochaine campagne d’observation,
-et qu’aucun nouveau macro/runtime v3/REAL n’est promu.
-Si le diff est conforme, qualifier le gate distinct
-COMMIT + PUSH + OPEN PR documentaire.
-Ne pas autoriser de commit/push/PR sans GO Morris distinct.
+
+Revalide Git distant, la PR documentaire, son scope Roadmap-only,
+le CI disponible et le Review Handoff.
+
+Vérifie qu’aucun changement produit n’a été introduit,
+que MealFlow reste seulement la prochaine campagne d’observation,
+que le prochain macro reste NOT YET DETERMINED,
+et qu’aucun runtime v3 / REAL / Nora Cognitive Completion n’est promu.
+
+Ne recommande aucun merge sans CI/review qualifiés
+et GO Morris MERGE distinct.
