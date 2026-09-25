@@ -131,7 +131,7 @@ export function presentLifecycleBlockerRows(
 
 export function obligationStatusLabel(o: FinalizationObligation): string {
   if (o.applicability === "NOT_APPLICABLE") return "Non applicable";
-  if (o.applicability === "UNKNOWN") return "À confirmer";
+  if (o.applicability === "UNKNOWN") return "À qualifier";
   if (o.status === "SATISFIED") return "Satisfait";
   if (o.status === "BLOCKING" || o.blocking) return "Bloquant";
   if (o.status === "PENDING") return "En attente";
@@ -352,4 +352,580 @@ export function lifecycleCtaPresentation(projection: PilotLifecycleProjection): 
       projection.cta.canResume && resumeClean && !dirtyResume && !terminalDisplay,
     readyExceptFinalize: ready && !terminalDisplay,
   };
+}
+
+/* -------------------------------------------------------------------------- */
+/* FINALIZATION-READINESS-PILOT-GUIDANCE-01 — presentation-only helpers       */
+/* UI classification / explanations. Never mutate assessment Truth C.         */
+/* -------------------------------------------------------------------------- */
+
+export type FinalizationReadinessKind =
+  | "SATISFIED"
+  | "NOT_APPLICABLE"
+  | "TO_QUALIFY"
+  | "TO_TREAT"
+  | "AWAITING_PILOT_DECISION";
+
+export type FinalizationConditionGroupId =
+  | "work_of_cycle"
+  | "governed_effects"
+  | "pilot_authority";
+
+const WORK_FAMILIES = new Set(["exit_criteria", "blockers"]);
+const PILOT_FAMILIES = new Set(["human_decision"]);
+
+/**
+ * UI-only readiness class mapped transparently from domain obligation state.
+ */
+export function classifyObligationPresentation(
+  o: FinalizationObligation,
+  _assessment: FinalizationAssessment | null | undefined,
+): FinalizationReadinessKind {
+  if (o.applicability === "UNKNOWN") return "TO_QUALIFY";
+  if (o.applicability === "NOT_APPLICABLE" || o.status === "NOT_APPLICABLE") {
+    return "NOT_APPLICABLE";
+  }
+  if (o.status === "SATISFIED") return "SATISFIED";
+  // RC-02 — final Pilot decision is waiting, never a current "to treat" work item.
+  if (o.family === "human_decision") {
+    return "AWAITING_PILOT_DECISION";
+  }
+  if (
+    o.status === "BLOCKING" ||
+    o.status === "MISSING" ||
+    o.status === "PENDING" ||
+    o.blocking
+  ) {
+    return "TO_TREAT";
+  }
+  return "TO_TREAT";
+}
+
+export function readinessKindLabel(kind: FinalizationReadinessKind): string {
+  switch (kind) {
+    case "SATISFIED":
+      return "Satisfait";
+    case "NOT_APPLICABLE":
+      return "Non applicable";
+    case "TO_QUALIFY":
+      return "À qualifier";
+    case "TO_TREAT":
+      return "À traiter";
+    case "AWAITING_PILOT_DECISION":
+      return "En attente";
+  }
+}
+
+/**
+ * Human explanation for a known obligation. Presentation only — no invention
+ * of provenance. Unknown details fall back to conservative generic wording.
+ */
+export function obligationExplanation(o: FinalizationObligation): string {
+  const detail = typeof o.detail === "string" ? o.detail.trim() : "";
+  const naReason =
+    typeof o.notApplicableReason === "string"
+      ? o.notApplicableReason.trim()
+      : "";
+
+  if (o.applicability === "UNKNOWN") {
+    switch (o.family) {
+      case "artifact":
+        return "Il faut préciser si un livrable est requis pour ce cycle.";
+      case "execution_contract":
+        return "Il faut préciser si une exécution gouvernée est requise pour ce cycle.";
+      case "evidence":
+        return "Il faut préciser si une Evidence est requise pour ce cycle.";
+      case "review_bundle":
+        return "Il faut préciser si un ReviewBundle est requis pour ce cycle.";
+      case "git_repository":
+        return "Il faut préciser si un effet Git est requis pour ce cycle.";
+      default:
+        return "Il faut encore préciser si cet effet s’applique à ce cycle.";
+    }
+  }
+
+  if (o.applicability === "NOT_APPLICABLE" || o.status === "NOT_APPLICABLE") {
+    return explainNotApplicable(o.family, naReason);
+  }
+
+  if (o.status === "SATISFIED") {
+    if (detail === "no_blocking_reservations") {
+      return "Aucune réserve bloquante active.";
+    }
+    if (detail === "trajectory_steps_closed_or_skipped") {
+      return "L’étape de trajectoire liée est clôturée ou écartée.";
+    }
+    if (detail === "bound_trajectory_step_completed") {
+      return "L’étape de trajectoire liée est clôturée.";
+    }
+    if (detail === "artifact_proof_present") {
+      return "Une preuve de livrable est présente pour ce cycle.";
+    }
+    if (detail === "contracts_completed") {
+      return "Les contrats d’exécution requis sont terminés.";
+    }
+    if (detail.startsWith("supporting_evidence:")) {
+      return "Des Evidence de soutien sont disponibles pour ce cycle.";
+    }
+    if (detail.startsWith("accepted_review_bundles:")) {
+      return "Des ReviewBundle acceptés sont disponibles.";
+    }
+    if (detail === "git_proof_present") {
+      return "Une preuve Git requise est présente.";
+    }
+    if (detail.startsWith("finalize_decision:")) {
+      return "La décision Pilote de finalisation est enregistrée.";
+    }
+    return "Condition satisfaite selon l’assessment courant.";
+  }
+
+  if (o.status === "MISSING" || o.status === "BLOCKING" || o.blocking) {
+    if (
+      detail === "finalize_human_decision_absent" ||
+      detail === "human_decision_finalize_missing"
+    ) {
+      return "La décision finale du Pilote n’a pas encore été prise.";
+    }
+    if (
+      detail.startsWith("open_steps:") ||
+      detail === "bound_trajectory_step_incomplete" ||
+      detail === "exit_criteria_incomplete"
+    ) {
+      return "L’étape de trajectoire liée au cycle est encore ouverte.";
+    }
+    if (
+      detail === "artifact_required_but_proof_absent" ||
+      detail === "artifact_missing"
+    ) {
+      return "Un livrable est requis, mais aucune preuve n’est encore présente.";
+    }
+    if (detail === "execution_required_but_no_contract") {
+      return "Une exécution gouvernée est requise, mais aucun contrat n’est présent.";
+    }
+    if (detail.startsWith("open_contracts:")) {
+      return "Des contrats d’exécution restent ouverts.";
+    }
+    if (detail === "evidence_required_but_absent") {
+      return "Une Evidence est requise, mais absente.";
+    }
+    if (detail.startsWith("pending_evidence:")) {
+      return "Des Evidence restent en attente.";
+    }
+    if (detail === "review_required_but_absent") {
+      return "Un ReviewBundle est requis, mais absent.";
+    }
+    if (detail.startsWith("open_review_bundles:")) {
+      return "Des ReviewBundle restent ouverts.";
+    }
+    if (detail === "git_applicable_but_no_proof") {
+      return "Une preuve Git est requise, mais absente.";
+    }
+    if (detail.includes("|") || detail.length > 0) {
+      if (o.family === "blockers" && detail !== "no_blocking_reservations") {
+        return "Une ou plusieurs réserves bloquantes restent actives.";
+      }
+    }
+    if (o.family === "exit_criteria") {
+      return "Des critères de sortie restent ouverts.";
+    }
+    if (o.family === "blockers") {
+      return "Une réserve bloquante empêche la finalisation.";
+    }
+    return "Cette condition n’est pas encore remplie.";
+  }
+
+  if (o.status === "PENDING") {
+    return "Cette condition est encore en cours d’évaluation ou d’attente.";
+  }
+
+  return "État reconnu par l’assessment — vérifier le détail du cycle.";
+}
+
+/**
+ * RC-03 — business-facing N/A copy only. Never surface snake_case / policy ids.
+ */
+function explainNotApplicable(family: string, naReason: string): string {
+  const reason = naReason.trim();
+  if (
+    reason === "pilot_declared_no_governed_effects" ||
+    reason === "pilot_confirmed_no_governed_effects" ||
+    reason.includes("opt:no-governed-effects")
+  ) {
+    return "Le Pilote a confirmé qu’aucun effet gouverné n’est requis pour ce cycle.";
+  }
+  if (reason.includes("opt:no-artifact")) {
+    return "Aucun livrable n’est requis pour ce cycle.";
+  }
+  if (reason.includes("opt:no-execution")) {
+    return "Aucune exécution gouvernée n’est requise pour ce cycle.";
+  }
+  if (reason.includes("opt:no-evidence")) {
+    return "Aucune Evidence n’est requise pour ce cycle.";
+  }
+  if (reason.includes("opt:no-review")) {
+    return "Aucun ReviewBundle n’est requis pour ce cycle.";
+  }
+  if (reason.includes("opt:no-git")) {
+    return "Aucun effet Git n’est requis pour ce cycle.";
+  }
+  if (reason === "no_positive_sources") {
+    return "Aucun signal positif n’a rendu cet effet applicable à ce cycle.";
+  }
+  if (reason.startsWith("pilot_hd_obligation_policy:")) {
+    // Known prefix but unrecognized option — still business-facing, no raw id.
+    switch (family) {
+      case "artifact":
+        return "Aucun livrable n’est requis pour ce cycle.";
+      case "execution_contract":
+        return "Aucune exécution gouvernée n’est requise pour ce cycle.";
+      case "evidence":
+        return "Aucune Evidence n’est requise pour ce cycle.";
+      case "review_bundle":
+        return "Aucun ReviewBundle n’est requis pour ce cycle.";
+      case "git_repository":
+        return "Aucun effet Git n’est requis pour ce cycle.";
+      default:
+        return "Cette condition a été explicitement déclarée non applicable pour ce cycle.";
+    }
+  }
+  if (reason.length > 0) {
+    return "Cette condition a été explicitement déclarée non applicable pour ce cycle.";
+  }
+  switch (family) {
+    case "artifact":
+      return "Aucun livrable n’est requis pour ce cycle.";
+    case "execution_contract":
+      return "Aucune exécution gouvernée n’est requise pour ce cycle.";
+    case "evidence":
+      return "Aucune Evidence n’est requise pour ce cycle.";
+    case "review_bundle":
+      return "Aucun ReviewBundle n’est requis pour ce cycle.";
+    case "git_repository":
+      return "Aucun effet Git n’est requis pour ce cycle.";
+    default:
+      return "Cette condition a été explicitement déclarée non applicable pour ce cycle.";
+  }
+}
+
+export function formatAssessedAt(assessedAt: string | null | undefined): string | null {
+  if (!assessedAt || typeof assessedAt !== "string") return null;
+  const d = new Date(assessedAt);
+  if (Number.isNaN(d.getTime())) return assessedAt;
+  try {
+    return new Intl.DateTimeFormat("fr-FR", {
+      dateStyle: "short",
+      timeStyle: "short",
+    }).format(d);
+  } catch {
+    return assessedAt;
+  }
+}
+
+export type FinalizationReadinessSummary = {
+  readonly satisfiedCount: number;
+  readonly toTreatCount: number;
+  readonly toQualifyCount: number;
+  readonly notApplicableCount: number;
+  /** True when a human_decision obligation is awaiting Pilot (not Satisfied). */
+  readonly pilotDecisionPending: boolean;
+  /**
+   * True when non-human blockers are clear and only finalize HD remains
+   * (`readyExceptFinalizeDecision`). Distinct from pilotDecisionPending.
+   */
+  readonly awaitingPilotDecision: boolean;
+  readonly headline: string;
+  readonly countLine: string;
+  readonly assessedAtLabel: string | null;
+};
+
+/**
+ * Build concise French readiness fragments; omit zero-count parts.
+ */
+export function formatReadinessCountParts(
+  summary: Pick<
+    FinalizationReadinessSummary,
+    | "satisfiedCount"
+    | "toTreatCount"
+    | "toQualifyCount"
+    | "notApplicableCount"
+    | "pilotDecisionPending"
+  >,
+): string[] {
+  const parts: string[] = [];
+  if (summary.satisfiedCount > 0) {
+    parts.push(
+      `${summary.satisfiedCount} satisfaite${summary.satisfiedCount > 1 ? "s" : ""}`,
+    );
+  }
+  if (summary.toTreatCount > 0) {
+    parts.push(`${summary.toTreatCount} à traiter`);
+  }
+  if (summary.toQualifyCount > 0) {
+    parts.push(`${summary.toQualifyCount} à qualifier`);
+  }
+  if (summary.notApplicableCount > 0) {
+    parts.push(
+      `${summary.notApplicableCount} non applicable${summary.notApplicableCount > 1 ? "s" : ""}`,
+    );
+  }
+  if (summary.pilotDecisionPending) {
+    parts.push("décision Pilote en attente");
+  }
+  return parts;
+}
+
+/**
+ * Deterministic readiness summary from current assessment (presentation only).
+ */
+export function summarizeFinalizationReadiness(
+  assessment: FinalizationAssessment | null | undefined,
+): FinalizationReadinessSummary | null {
+  if (!assessment) return null;
+  let satisfiedCount = 0;
+  let toTreatCount = 0;
+  let toQualifyCount = 0;
+  let notApplicableCount = 0;
+  let pilotDecisionPending = false;
+  for (const o of assessment.obligations) {
+    const kind = classifyObligationPresentation(o, assessment);
+    if (kind === "SATISFIED") satisfiedCount += 1;
+    else if (kind === "TO_QUALIFY") toQualifyCount += 1;
+    else if (kind === "NOT_APPLICABLE") notApplicableCount += 1;
+    else if (kind === "AWAITING_PILOT_DECISION") {
+      pilotDecisionPending = true;
+    } else toTreatCount += 1;
+  }
+  const awaitingPilotDecision = readyExceptFinalizeDecision(assessment);
+  const countParts = formatReadinessCountParts({
+    satisfiedCount,
+    toTreatCount,
+    toQualifyCount,
+    notApplicableCount,
+    pilotDecisionPending,
+  });
+  const countLine = countParts.join(" · ");
+  let headline: string;
+  if (awaitingPilotDecision) {
+    headline =
+      "Conditions satisfaites — prêt pour décision du Pilote";
+  } else if (countParts.length > 0) {
+    headline = `Vérification terminée — ${countParts.join(" · ")}`;
+  } else {
+    headline = "Vérification terminée";
+  }
+  return {
+    satisfiedCount,
+    toTreatCount,
+    toQualifyCount,
+    notApplicableCount,
+    pilotDecisionPending,
+    awaitingPilotDecision,
+    headline,
+    countLine,
+    assessedAtLabel: formatAssessedAt(assessment.assessedAt),
+  };
+}
+
+/**
+ * ASSESS feedback — deterministic French summary from returned assessment.
+ */
+export function formatAssessFeedback(
+  assessment: FinalizationAssessment | null | undefined,
+): string {
+  const summary = summarizeFinalizationReadiness(assessment);
+  if (!summary) {
+    return "Vérification terminée — assessment indisponible (fail-closed).";
+  }
+  if (summary.awaitingPilotDecision) {
+    return "Vérification terminée — toutes les conditions non humaines sont satisfaites. Le cycle peut être soumis à la décision finale du Pilote.";
+  }
+  if (summary.countLine.length === 0) {
+    return "Vérification terminée.";
+  }
+  return `Vérification terminée — ${summary.countLine.replace(/ · /g, ", ")}.`;
+}
+
+export type FinalizationConditionRow = {
+  readonly family: string;
+  readonly title: string;
+  readonly kind: FinalizationReadinessKind;
+  readonly statusLabel: string;
+  readonly explanation: string;
+  readonly obligation: FinalizationObligation;
+};
+
+export type FinalizationConditionGroup = {
+  readonly id: FinalizationConditionGroupId;
+  readonly title: string;
+  readonly summaryLabel: string;
+  readonly summaryExplanation: string;
+  readonly rows: readonly FinalizationConditionRow[];
+  readonly allUnknownGoverned: boolean;
+};
+
+function groupSummaryFor(
+  id: FinalizationConditionGroupId,
+  rows: readonly FinalizationConditionRow[],
+  assessment: FinalizationAssessment,
+): { summaryLabel: string; summaryExplanation: string; allUnknownGoverned: boolean } {
+  // RC-01 — deterministic precedence; never claim Satisfait while UNKNOWN remains.
+  const anyTreat = rows.some((r) => r.kind === "TO_TREAT");
+  const anyQualify = rows.some((r) => r.kind === "TO_QUALIFY");
+  const allNa =
+    rows.length > 0 && rows.every((r) => r.kind === "NOT_APPLICABLE");
+  const allUnknown =
+    rows.length > 0 && rows.every((r) => r.kind === "TO_QUALIFY");
+
+  if (id === "governed_effects") {
+    if (anyTreat) {
+      return {
+        summaryLabel: "À traiter",
+        summaryExplanation:
+          "Au moins un effet gouverné applicable n’est pas encore satisfait.",
+        allUnknownGoverned: false,
+      };
+    }
+    if (anyQualify) {
+      if (allUnknown) {
+        return {
+          summaryLabel: "À décider",
+          summaryExplanation:
+            "Il faut préciser si ce cycle doit produire un livrable ou d’autres effets gouvernés.",
+          allUnknownGoverned: true,
+        };
+      }
+      return {
+        summaryLabel: "À qualifier",
+        summaryExplanation:
+          "Certains effets gouvernés restent à qualifier avant finalisation.",
+        allUnknownGoverned: false,
+      };
+    }
+    if (allNa) {
+      return {
+        summaryLabel: "Non applicable",
+        summaryExplanation:
+          "Aucun effet gouverné n’est requis pour ce cycle selon l’assessment.",
+        allUnknownGoverned: false,
+      };
+    }
+    return {
+      summaryLabel: "Satisfait",
+      summaryExplanation: "Les effets gouvernés applicables sont satisfaits.",
+      allUnknownGoverned: false,
+    };
+  }
+  if (id === "work_of_cycle") {
+    if (anyTreat) {
+      return {
+        summaryLabel: "À traiter",
+        summaryExplanation:
+          "Du travail de cycle reste ouvert (critères de sortie ou réserves).",
+        allUnknownGoverned: false,
+      };
+    }
+    if (anyQualify) {
+      return {
+        summaryLabel: "À qualifier",
+        summaryExplanation:
+          "Une condition de travail du cycle reste à qualifier.",
+        allUnknownGoverned: false,
+      };
+    }
+    if (allNa) {
+      return {
+        summaryLabel: "Non applicable",
+        summaryExplanation:
+          "Les conditions de travail du cycle ne s’appliquent pas.",
+        allUnknownGoverned: false,
+      };
+    }
+    return {
+      summaryLabel: "Satisfait",
+      summaryExplanation: "Le travail de cycle requis pour finaliser est satisfait.",
+      allUnknownGoverned: false,
+    };
+  }
+  // pilot_authority
+  if (readyExceptFinalizeDecision(assessment)) {
+    return {
+      summaryLabel: "Prêt pour décision du Pilote",
+      summaryExplanation:
+        "Les conditions précédentes sont satisfaites. Seule la décision « Finaliser » reste.",
+      allUnknownGoverned: false,
+    };
+  }
+  return {
+    summaryLabel: "En attente",
+    summaryExplanation:
+      "Disponible lorsque les conditions précédentes sont satisfaites.",
+    allUnknownGoverned: false,
+  };
+}
+
+/**
+ * Group obligations into Work / Governed effects / Pilot authority.
+ */
+export function groupFinalizationObligations(
+  assessment: FinalizationAssessment | null | undefined,
+): readonly FinalizationConditionGroup[] {
+  if (!assessment) return [];
+  const work: FinalizationConditionRow[] = [];
+  const governed: FinalizationConditionRow[] = [];
+  const pilot: FinalizationConditionRow[] = [];
+  for (const o of assessment.obligations) {
+    const kind = classifyObligationPresentation(o, assessment);
+    const row: FinalizationConditionRow = {
+      family: o.family,
+      title: obligationFamilyLabel(o.family),
+      kind,
+      statusLabel: readinessKindLabel(kind),
+      explanation: obligationExplanation(o),
+      obligation: o,
+    };
+    if (WORK_FAMILIES.has(o.family)) work.push(row);
+    else if (PILOT_FAMILIES.has(o.family)) pilot.push(row);
+    else if (
+      (GOVERNED_EFFECT_FAMILIES as readonly string[]).includes(o.family)
+    ) {
+      governed.push(row);
+    } else {
+      work.push(row);
+    }
+  }
+  const groups: FinalizationConditionGroup[] = [];
+  if (work.length > 0) {
+    const s = groupSummaryFor("work_of_cycle", work, assessment);
+    groups.push({
+      id: "work_of_cycle",
+      title: "Travail du cycle",
+      summaryLabel: s.summaryLabel,
+      summaryExplanation: s.summaryExplanation,
+      rows: work,
+      allUnknownGoverned: false,
+    });
+  }
+  if (governed.length > 0) {
+    const s = groupSummaryFor("governed_effects", governed, assessment);
+    groups.push({
+      id: "governed_effects",
+      title: "Effets gouvernés",
+      summaryLabel: s.summaryLabel,
+      summaryExplanation: s.summaryExplanation,
+      rows: governed,
+      allUnknownGoverned: s.allUnknownGoverned,
+    });
+  }
+  if (pilot.length > 0) {
+    const s = groupSummaryFor("pilot_authority", pilot, assessment);
+    groups.push({
+      id: "pilot_authority",
+      title: "Décision du Pilote",
+      summaryLabel: s.summaryLabel,
+      summaryExplanation: s.summaryExplanation,
+      rows: pilot,
+      allUnknownGoverned: false,
+    });
+  }
+  return groups;
 }
