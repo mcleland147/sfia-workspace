@@ -1,289 +1,87 @@
 # SFIA Review Pack — FULL
-## FINALIZATION-READINESS-PILOT-GUIDANCE-01 — LOCAL CANDIDATE
+## FINALIZATION-READINESS-PILOT-GUIDANCE-01 — SAME-MACRO CORRECTION (RC-01..RC-04)
 
-Timestamp (UTC): `2026-09-25T12:37:04Z`
+Timestamp (UTC): `2026-09-25T12:50:32Z`
 
 ## 1. GIT TRUTH
 
 | Field | Value |
 |---|---|
-| Repository | `mcleland147/sfia-workspace` |
-| Construction branch | `feat/sfia-studio-finalization-readiness-pilot-guidance-01` |
-| HEAD | `6ac7eafb1f9177d3ccb9a129de7cfbc51195de7f` (same as origin/main — uncommitted local Product work) |
+| Repo | `mcleland147/sfia-workspace` |
+| Branch | `feat/sfia-studio-finalization-readiness-pilot-guidance-01` |
+| HEAD | `6ac7eafb1f9177d3ccb9a129de7cfbc51195de7f` |
 | origin/main | `6ac7eafb1f9177d3ccb9a129de7cfbc51195de7f` |
-| Expected base | `6ac7eafb1f9177d3ccb9a129de7cfbc51195de7f` — **MATCH** |
 | Remote base drift | **NONE** |
-| Project commit / push / PR | **NOT AUTHORIZED / NOT EXECUTED** |
+| Candidate | LOCAL DIRTY / UNCOMMITTED |
+| Project commit/push/PR | **NOT AUTHORIZED / NOT EXECUTED** |
 
-### Local status (explicit)
+### Local status
 
-**Modified (unstaged Product / cycle work):**
+**Modified Product (reviewed five + pack):**
 - `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts`
 - `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx`
-- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.module.css`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.module.css` (prior candidate; unchanged this correction)
 - `projects/sfia-studio/app/__tests__/pre-m6-product-ui/lifecyclePresentation.phaseB.d0.test.tsx`
-- `projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts` (GAP-01 wording-only)
-- `.tmp-sfia-review/chatgpt-review.md` (this pack)
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts` (GAP-01 prior; unchanged this correction)
+- `.tmp-sfia-review/chatgpt-review.md`
 
-**Untracked residual (preserved, not Product source):**
-- `.tmp-sfia-review/cycle-journal-continuity-proof/`
-- `.tmp-sfia-review/cycle-reservation-piloting-proof/`
-- `.tmp-sfia-review/nora-conversational-initiative-real-proof/`
-- `.tmp-sfia-review/nora-conversational-initiative-real-proof-02/`
-- `.tmp-sfia-review/pilotability-journal-integrity-proof/`
-- `.tmp-sfia-review/finalization-readiness-pilot-guidance/` (diffs companion)
+**Untracked residual preserved:** `.tmp-sfia-review/**` proof dirs + `finalization-readiness-pilot-guidance/`
 
-**Staged:** none
+**Staged:** none · Unexpected Product paths outside the five: **NONE**
 
-Branch created from exact `origin/main` without discarding residual `.tmp-sfia-review/**`.
+`git diff --check`: clean after EOF trim.
 
-## 2. Convergence / qualification
+## 2. Qualification
 
-| Item | Value |
-|---|---|
-| Cycle | Delivery / Implementation |
-| studio cycleType | `cyc:delivery` |
-| Typology | EVOL |
-| Profile | Critical |
-| Primary CKC | `ckc:studio:delivery` — `projects/sfia-studio/sfia-v3-framing/ckc/08-delivery-implementation.md` |
-| Companion UX CKC | `ckc:studio:ux-ui` — guidance only; no second design authority |
-| Macro | `FINALIZATION-READINESS-PILOT-GUIDANCE-01` |
-| User-facing capability | FINALIZATION READINESS & PILOT GUIDANCE |
+Delivery / EVOL / Critical · Macro `FINALIZATION-READINESS-PILOT-GUIDANCE-01` · `ckc:studio:delivery` · UX companion guidance only · **presentation-led** · assessment engine / eligibility / HD authority / persistence **KEEP / UNCHANGED**
 
-### Git sources + SHAs read (READ ONLY)
+Pre-correction handoff tip (historical): commit `956c3542…` / blob `b69104ce…`
 
-| Path | Blob SHA @ origin/main |
-|---|---|
-| `convergence/sfia-studio-convergence-build-doctrine.md` | `99232e4582e4ef4cf489020a46b818ebb41ac397` |
-| `convergence/sfia-studio-convergence-roadmap.md` | `4f69330dec43d16ffcf194f304e13bfecb2d9788` |
-| `product-completion/01-product-completion-cadrage.md` | `806d672fe21ad82a641bf88fe95fc87870481105` |
-| `sfia-v3-framing/ckc/04-ux-ui.md` | `88a77170c7c7b74bf71e0bcd7408d47f07eb6ce8` |
-| `sfia-v3-framing/ckc/08-delivery-implementation.md` | `69d1257a5ca9045964b68410c07728c2f8264491` |
-| `ux-product-experience/02-end-to-end-wireframes-interaction-model.md` | `d0c8578b99371ff9cd0ffe1c7735710cf605094f` |
-| `ux-product-experience/03-product-screens-visual-state-contract.md` | `1a35c7ae72b1bf987c6cae1be88236dc93398f78` |
-| `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` | `8949e764d96faf3fa812d39307dbc298b500f5ef` |
-| `prompts/templates/sfia-cycle-execution-template.md` | `948156a21309ef99c3aaed6410947dc6b9bc569a` |
+## 3. Review findings → corrections
 
-Protected sources **NOT modified**. Roadmap may still describe pre-#520 MealFlow state — **Roadmap truth-sync NOT AUTHORIZED / NOT EXECUTED**.
+### RC-01 — Mixed group roll-up
 
-## 3. Trajectory link
+**Finding:** `groupSummaryFor(governed_effects)` fell through to Satisfait when mixed SATISFIED/N/A + TO_QUALIFY; `work_of_cycle` only tested TO_TREAT.
 
-- Predecessor: **RESERVATION CONTEXT CONTINUITY & PILOT CONFIRMATION** — PR **#520** MERGED @ `6ac7eafb…`
-- Post-merge CI: run **#600** / `36130906057` — SUCCESS / Required Gate PASS
-- Observed Product gap consumed: **STUDYFLOW-GAP-04** — assessment engine truthful; Pilot-facing condition area insufficiently explanatory
-- Next after integrate: resume SAME StudyFlow finalization path naturally; next macro after that **NOT YET DETERMINED**
+**Correction:** deterministic precedence for both groups:
+1. any TO_TREAT → À traiter
+2. else any TO_QUALIFY → À qualifier (governed all-unknown still « À décider »)
+3. else all NOT_APPLICABLE → Non applicable
+4. else Satisfait
 
-## 4. StudyFlow evidence consumed
+### RC-02 — Pilot decision waiting
 
-After « Vérifier les conditions de finalisation »:
-- Project state / lifecycle projection refreshed; toast « Conditions de finalisation actualisées. »
-- Nora: « Je recommande de finaliser le cycle de Cadrage de StudyFlow. »
-- Condition area still showed opaque rows (À confirmer / Bloquant) without: what passed, why, remaining actions, when Finaliser unlocks
-- Root cause: **Pilotability / presentation gap**, not missing domain assessment
+**Finding:** HD MISSING classified TO_TREAT when not readyExceptFinalize → inflated toTreatCount.
 
-## 5. Morris UX direction consumed
+**Correction:**
+- `classifyObligationPresentation`: non-satisfied `human_decision` → always `AWAITING_PILOT_DECISION` (before generic MISSING/BLOCKING)
+- counters: HD awaiting excluded from `toTreatCount`; `pilotDecisionPending` exposed
+- `countLine` / headline / `formatAssessFeedback` omit zero fragments; include N/A and « décision Pilote en attente » when useful
+- Pilot group: En attente (no Finaliser) until readyExceptFinalize → Prêt + Finaliser
 
-Transform « Conditions de finalisation » → **État de préparation à la finalisation** answering:
-1. What was checked?
-2. What is satisfied and why?
-3. What remains and what must I do?
-4. When may I make the final Pilot decision?
+### RC-03 — N/A code leak
 
-Groups: Work of cycle · Governed effects · Pilot authority. ASSESS feedback deterministic from assessment. Recommendation ≠ execution.
+**Finding:** `humanizeSnake(notApplicableReason)` could surface internal codes.
 
-## 6. Architecture classification
+**Correction:** `explainNotApplicable()` maps known `opt:no-*` / Pilot-policy reasons to French business copy; unrecognized → conservative « explicitement déclarée non applicable »; **no** snake_case / humanized enum in UI copy. `humanizeSnake` removed.
 
-| Class | Items |
-|---|---|
-| **KEEP** | `FinalizationAssessment` / obligations / `assessFinalizationObligations` / applicability & status enums / blockers / `assessedAt` / `canComplete` / finalize HD / LifecycleProjection / pilot lifecycle actions ASSESS+FINALIZE / obligation policy / Reservation summary/gate / authority checks / persistence |
-| **ADAPT** | `LifecycleSurface.tsx` · `lifecyclePresentation.ts` · `LifecycleSurface.module.css` · `lifecyclePresentation.phaseB.d0.test.tsx` |
-| **COMPLETE** | readiness summary · grouped presentation · human explanations · action-to-condition · explicit ASSESS feedback · Pilot decision progression |
-| **NOT DONE** | new store / second assessment engine / domain eligibility change / Roadmap / doctrine / C1 / v3 / method / prompts / Penpot / Figma |
+### RC-04 — Single Finaliser
 
-Presentation-only classification kinds (UI): `SATISFIED` · `NOT_APPLICABLE` · `TO_QUALIFY` · `TO_TREAT` · `AWAITING_PILOT_DECISION`.
+**Finding:** `lifecycle-finalize-from-readiness` duplicated generic primary/secondary Finaliser when assessment colocated + ready.
 
-## 7. Visual contract / tooling qualification
+**Correction:** `showGroupedFinalize = colocateGuidance && ready && pilot_authority group present` → suppress generic Finaliser CTAs; both paths still call `runAction("FINALIZE")` only.
 
-- Sources: Product Completion E2E wireframes + Visual State Contract + existing LifecycleSurface tokens
-- Penpot = reference design workspace for future Studio design — **NOT mutated**
-- Historical Figma D1/1440 Cycle Review node 3:73 — ChatGPT Figma MCP access/edit-permission failure → **no fresh Figma verification claimed**; **no Figma mutation**; **no replacement Figma design**
-- Optimize narrow contextual rail; no shell redesign
-- Runtime visual proof: **NOT EXECUTED** (no safe live Product/StudyFlow capture session in this cycle) → **do not claim VISUAL UX PASS**
+### Kept accepted parts
 
-## 8. Implementation summary
+Grouping / readiness heading / assessedAt / UNKNOWN progressive disclosure / colocated trajectory+Reservation+policy+deliverable / recommendation clarity / GAP-01 HOLD wording / CSS tokens — **unchanged**.
 
-### Presentation helpers (`lifecyclePresentation.ts`)
+## 4. COMPLETE USEFUL DIFFS
 
-New exports:
-- `classifyObligationPresentation` / `readinessKindLabel`
-- `obligationExplanation` (French; known details; conservative fallback; no raw codes as primary copy)
-- `formatAssessedAt` / `summarizeFinalizationReadiness` / `formatAssessFeedback`
-- `groupFinalizationObligations` → `work_of_cycle` · `governed_effects` · `pilot_authority`
-- UNKNOWN governed group → summary « À décider » + progressive disclosure of five families
-- UNKNOWN applicability → UI « À qualifier » (never Manquant/Satisfait)
-- Existing helpers (`readyExceptFinalizeDecision`, CTA honesty, obligation policy offers) **unchanged in semantics**
-
-### LifecycleSurface
-
-- Heading: « État de préparation à la finalisation »
-- Readiness summary + Dernière vérification from `assessment.assessedAt`
-- Grouped condition sections with status pills + explanations
-- Colocated actions: trajectory close · Voir les réserves · obligation policy · define deliverable · Finaliser (when ready)
-- ASSESS → `formatAssessFeedback(...)` into `lifecycle-info` `role="status"` (no longer generic « actualisées » only)
-- Finalize recommendation clarity: engage finalization + cycle remains active until Pilot finalizes
-- Terminal cycles: no assessment/mutation controls (existing CR-LC-B-01 preserved)
-
-### GAP-01 (wording-only)
-
-`CONVERSATION_GUIDANCE_HOLD_ACTIVE_CYCLE_SCOPE.statement` clarified to:
-« Le cycle reste actif sur ce tour ; aucune transition n’est exécutée sans décision du Pilote. »
-No cognitive routing / prompt / structured-output change.
-
-## 9. Exact modified files
-
-1. `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts`
-2. `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx`
-3. `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.module.css`
-4. `projects/sfia-studio/app/__tests__/pre-m6-product-ui/lifecyclePresentation.phaseB.d0.test.tsx`
-5. `projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts`
-
-Companion diff artifacts (not Product source):
-- `.tmp-sfia-review/finalization-readiness-pilot-guidance/*.diff`
-
-## 10. COMPLETE USEFUL DIFFS
-
-### 10.a GAP-01 HOLD wording (full)
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
-index bb44df2e..5e30e9d7 100644
---- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
-+++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
-@@ -235,7 +235,7 @@ export const CONVERSATION_GUIDANCE_HOLD_ACTIVE_CYCLE_SCOPE: ConversationGuidance
-     kind: "HOLD",
-     scope: "BLOCKER_RESOLUTION",
-     statement:
--      "Le travail doit rester dans le cycle actif ; aucune transition n'est recommandée sur ce tour.",
-+      "Le cycle reste actif sur ce tour ; aucune transition n’est exécutée sans décision du Pilote.",
-     rationale: "active_cycle_scope_required",
-   });
-
-
-```
-
-### 10.b LifecycleSurface.module.css (full)
-
-```diff
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.module.css b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.module.css
-index 6b3fa2c6..96dd9d6d 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.module.css
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.module.css
-@@ -123,3 +123,97 @@
-   outline: 2px solid var(--pm6-forest);
-   outline-offset: 2px;
- }
-+
-+.readinessSummary {
-+  display: flex;
-+  flex-direction: column;
-+  gap: var(--pm6-space-1);
-+}
-+
-+.readinessHeadline {
-+  margin: 0;
-+  font-size: 0.9rem;
-+  font-weight: 600;
-+  line-height: 1.4;
-+  color: var(--pm6-ink);
-+}
-+
-+.conditionGroup {
-+  display: flex;
-+  flex-direction: column;
-+  gap: var(--pm6-space-2);
-+  padding-top: var(--pm6-space-3);
-+  border-top: 1px solid var(--pm6-border-soft);
-+}
-+
-+.conditionGroupTitle {
-+  margin: 0;
-+  font-size: 0.78rem;
-+  font-weight: 700;
-+  color: var(--pm6-ink);
-+}
-+
-+.conditionGroupSummary {
-+  margin: 0;
-+  font-size: 0.8rem;
-+  line-height: 1.45;
-+  color: var(--pm6-ink-soft);
-+}
-+
-+.conditionList {
-+  margin: 0;
-+  padding: 0;
-+  list-style: none;
-+  display: flex;
-+  flex-direction: column;
-+  gap: var(--pm6-space-2);
-+}
-+
-+.conditionRow {
-+  display: flex;
-+  flex-direction: column;
-+  gap: 0.25rem;
-+  min-width: 0;
-+}
-+
-+.conditionRowHead {
-+  display: flex;
-+  flex-wrap: wrap;
-+  align-items: baseline;
-+  justify-content: space-between;
-+  gap: 0.35rem 0.75rem;
-+}
-+
-+.conditionTitle {
-+  font-size: 0.84rem;
-+  font-weight: 600;
-+  color: var(--pm6-ink);
-+  min-width: 0;
-+  overflow-wrap: anywhere;
-+}
-+
-+.statusPill {
-+  font-size: 0.72rem;
-+  font-weight: 700;
-+  letter-spacing: 0.02em;
-+  color: var(--pm6-forest);
-+  white-space: nowrap;
-+}
-+
-+.conditionExplain {
-+  margin: 0;
-+  font-size: 0.78rem;
-+  line-height: 1.45;
-+  color: var(--pm6-muted);
-+  overflow-wrap: anywhere;
-+}
-+
-+.conditionDetails {
-+  font-size: 0.8rem;
-+  color: var(--pm6-ink-soft);
-+}
-+
-+.conditionDetails summary {
-+  cursor: pointer;
-+  font-weight: 600;
-+}
-
-```
-
-### 10.c lifecyclePresentation.ts (full patch)
+### 4.a lifecyclePresentation.ts (full working-tree patch vs HEAD)
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts
-index 62516b61..b0e862c9 100644
+index 62516b61..80c92460 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts
 @@ -131,7 +131,7 @@ export function presentLifecycleBlockerRows(
@@ -295,7 +93,7 @@ index 62516b61..b0e862c9 100644
    if (o.status === "SATISFIED") return "Satisfait";
    if (o.status === "BLOCKING" || o.blocking) return "Bloquant";
    if (o.status === "PENDING") return "En attente";
-@@ -353,3 +353,496 @@ export function lifecycleCtaPresentation(projection: PilotLifecycleProjection):
+@@ -353,3 +353,579 @@ export function lifecycleCtaPresentation(projection: PilotLifecycleProjection):
      readyExceptFinalize: ready && !terminalDisplay,
    };
  }
@@ -325,17 +123,15 @@ index 62516b61..b0e862c9 100644
 + */
 +export function classifyObligationPresentation(
 +  o: FinalizationObligation,
-+  assessment: FinalizationAssessment | null | undefined,
++  _assessment: FinalizationAssessment | null | undefined,
 +): FinalizationReadinessKind {
 +  if (o.applicability === "UNKNOWN") return "TO_QUALIFY";
 +  if (o.applicability === "NOT_APPLICABLE" || o.status === "NOT_APPLICABLE") {
 +    return "NOT_APPLICABLE";
 +  }
 +  if (o.status === "SATISFIED") return "SATISFIED";
-+  if (
-+    o.family === "human_decision" &&
-+    readyExceptFinalizeDecision(assessment)
-+  ) {
++  // RC-02 — final Pilot decision is waiting, never a current "to treat" work item.
++  if (o.family === "human_decision") {
 +    return "AWAITING_PILOT_DECISION";
 +  }
 +  if (
@@ -393,30 +189,7 @@ index 62516b61..b0e862c9 100644
 +  }
 +
 +  if (o.applicability === "NOT_APPLICABLE" || o.status === "NOT_APPLICABLE") {
-+    if (
-+      naReason === "pilot_declared_no_governed_effects" ||
-+      naReason === "pilot_confirmed_no_governed_effects" ||
-+      naReason.startsWith("pilot_hd_obligation_policy:opt:no-governed-effects") ||
-+      naReason.includes("opt:no-governed-effects")
-+    ) {
-+      return "Le Pilote a confirmé qu’aucun effet gouverné n’est requis pour ce cycle.";
-+    }
-+    if (
-+      naReason.startsWith("pilot_hd_obligation_policy:opt:no-artifact") ||
-+      naReason.includes("opt:no-artifact")
-+    ) {
-+      return "Le Pilote a confirmé qu’aucun livrable n’est requis pour ce cycle.";
-+    }
-+    if (naReason === "no_positive_sources") {
-+      return "Aucun signal positif n’a rendu cet effet applicable à ce cycle.";
-+    }
-+    if (naReason.startsWith("pilot_hd_obligation_policy:")) {
-+      return "Le Pilote a déclaré cet effet non applicable via la politique d’obligations.";
-+    }
-+    if (naReason) {
-+      return `Non applicable — ${humanizeSnake(naReason)}.`;
-+    }
-+    return "Cet effet n’est pas applicable à ce cycle.";
++    return explainNotApplicable(o.family, naReason);
 +  }
 +
 +  if (o.status === "SATISFIED") {
@@ -512,8 +285,70 @@ index 62516b61..b0e862c9 100644
 +  return "État reconnu par l’assessment — vérifier le détail du cycle.";
 +}
 +
-+function humanizeSnake(raw: string): string {
-+  return raw.replace(/_/g, " ").trim();
++/**
++ * RC-03 — business-facing N/A copy only. Never surface snake_case / policy ids.
++ */
++function explainNotApplicable(family: string, naReason: string): string {
++  const reason = naReason.trim();
++  if (
++    reason === "pilot_declared_no_governed_effects" ||
++    reason === "pilot_confirmed_no_governed_effects" ||
++    reason.includes("opt:no-governed-effects")
++  ) {
++    return "Le Pilote a confirmé qu’aucun effet gouverné n’est requis pour ce cycle.";
++  }
++  if (reason.includes("opt:no-artifact")) {
++    return "Aucun livrable n’est requis pour ce cycle.";
++  }
++  if (reason.includes("opt:no-execution")) {
++    return "Aucune exécution gouvernée n’est requise pour ce cycle.";
++  }
++  if (reason.includes("opt:no-evidence")) {
++    return "Aucune Evidence n’est requise pour ce cycle.";
++  }
++  if (reason.includes("opt:no-review")) {
++    return "Aucun ReviewBundle n’est requis pour ce cycle.";
++  }
++  if (reason.includes("opt:no-git")) {
++    return "Aucun effet Git n’est requis pour ce cycle.";
++  }
++  if (reason === "no_positive_sources") {
++    return "Aucun signal positif n’a rendu cet effet applicable à ce cycle.";
++  }
++  if (reason.startsWith("pilot_hd_obligation_policy:")) {
++    // Known prefix but unrecognized option — still business-facing, no raw id.
++    switch (family) {
++      case "artifact":
++        return "Aucun livrable n’est requis pour ce cycle.";
++      case "execution_contract":
++        return "Aucune exécution gouvernée n’est requise pour ce cycle.";
++      case "evidence":
++        return "Aucune Evidence n’est requise pour ce cycle.";
++      case "review_bundle":
++        return "Aucun ReviewBundle n’est requis pour ce cycle.";
++      case "git_repository":
++        return "Aucun effet Git n’est requis pour ce cycle.";
++      default:
++        return "Cette condition a été explicitement déclarée non applicable pour ce cycle.";
++    }
++  }
++  if (reason.length > 0) {
++    return "Cette condition a été explicitement déclarée non applicable pour ce cycle.";
++  }
++  switch (family) {
++    case "artifact":
++      return "Aucun livrable n’est requis pour ce cycle.";
++    case "execution_contract":
++      return "Aucune exécution gouvernée n’est requise pour ce cycle.";
++    case "evidence":
++      return "Aucune Evidence n’est requise pour ce cycle.";
++    case "review_bundle":
++      return "Aucun ReviewBundle n’est requis pour ce cycle.";
++    case "git_repository":
++      return "Aucun effet Git n’est requis pour ce cycle.";
++    default:
++      return "Cette condition a été explicitement déclarée non applicable pour ce cycle.";
++  }
 +}
 +
 +export function formatAssessedAt(assessedAt: string | null | undefined): string | null {
@@ -535,10 +370,53 @@ index 62516b61..b0e862c9 100644
 +  readonly toTreatCount: number;
 +  readonly toQualifyCount: number;
 +  readonly notApplicableCount: number;
++  /** True when a human_decision obligation is awaiting Pilot (not Satisfied). */
++  readonly pilotDecisionPending: boolean;
++  /**
++   * True when non-human blockers are clear and only finalize HD remains
++   * (`readyExceptFinalizeDecision`). Distinct from pilotDecisionPending.
++   */
 +  readonly awaitingPilotDecision: boolean;
 +  readonly headline: string;
++  readonly countLine: string;
 +  readonly assessedAtLabel: string | null;
 +};
++
++/**
++ * Build concise French readiness fragments; omit zero-count parts.
++ */
++export function formatReadinessCountParts(
++  summary: Pick<
++    FinalizationReadinessSummary,
++    | "satisfiedCount"
++    | "toTreatCount"
++    | "toQualifyCount"
++    | "notApplicableCount"
++    | "pilotDecisionPending"
++  >,
++): string[] {
++  const parts: string[] = [];
++  if (summary.satisfiedCount > 0) {
++    parts.push(
++      `${summary.satisfiedCount} satisfaite${summary.satisfiedCount > 1 ? "s" : ""}`,
++    );
++  }
++  if (summary.toTreatCount > 0) {
++    parts.push(`${summary.toTreatCount} à traiter`);
++  }
++  if (summary.toQualifyCount > 0) {
++    parts.push(`${summary.toQualifyCount} à qualifier`);
++  }
++  if (summary.notApplicableCount > 0) {
++    parts.push(
++      `${summary.notApplicableCount} non applicable${summary.notApplicableCount > 1 ? "s" : ""}`,
++    );
++  }
++  if (summary.pilotDecisionPending) {
++    parts.push("décision Pilote en attente");
++  }
++  return parts;
++}
 +
 +/**
 + * Deterministic readiness summary from current assessment (presentation only).
@@ -551,51 +429,43 @@ index 62516b61..b0e862c9 100644
 +  let toTreatCount = 0;
 +  let toQualifyCount = 0;
 +  let notApplicableCount = 0;
++  let pilotDecisionPending = false;
 +  for (const o of assessment.obligations) {
 +    const kind = classifyObligationPresentation(o, assessment);
 +    if (kind === "SATISFIED") satisfiedCount += 1;
 +    else if (kind === "TO_QUALIFY") toQualifyCount += 1;
 +    else if (kind === "NOT_APPLICABLE") notApplicableCount += 1;
 +    else if (kind === "AWAITING_PILOT_DECISION") {
-+      /* counted via awaitingPilotDecision flag */
++      pilotDecisionPending = true;
 +    } else toTreatCount += 1;
 +  }
 +  const awaitingPilotDecision = readyExceptFinalizeDecision(assessment);
-+  if (awaitingPilotDecision) {
-+    // HD is "awaiting" not "to treat" for summary wording.
-+    toTreatCount = Math.max(0, toTreatCount);
-+  }
++  const countParts = formatReadinessCountParts({
++    satisfiedCount,
++    toTreatCount,
++    toQualifyCount,
++    notApplicableCount,
++    pilotDecisionPending,
++  });
++  const countLine = countParts.join(" · ");
 +  let headline: string;
 +  if (awaitingPilotDecision) {
 +    headline =
 +      "Conditions satisfaites — prêt pour décision du Pilote";
-+  } else if (toTreatCount === 0 && toQualifyCount === 0) {
-+    headline = "Vérification terminée — conditions non humaines satisfaites";
++  } else if (countParts.length > 0) {
++    headline = `Vérification terminée — ${countParts.join(" · ")}`;
 +  } else {
-+    const parts: string[] = [];
-+    if (satisfiedCount > 0) {
-+      parts.push(
-+        `${satisfiedCount} satisfaite${satisfiedCount > 1 ? "s" : ""}`,
-+      );
-+    }
-+    if (toTreatCount > 0) {
-+      parts.push(`${toTreatCount} à traiter`);
-+    }
-+    if (toQualifyCount > 0) {
-+      parts.push(`${toQualifyCount} à qualifier`);
-+    }
-+    headline =
-+      parts.length > 0
-+        ? `Vérification terminée — ${parts.join(" · ")}`
-+        : "Vérification terminée";
++    headline = "Vérification terminée";
 +  }
 +  return {
 +    satisfiedCount,
 +    toTreatCount,
 +    toQualifyCount,
 +    notApplicableCount,
++    pilotDecisionPending,
 +    awaitingPilotDecision,
 +    headline,
++    countLine,
 +    assessedAtLabel: formatAssessedAt(assessment.assessedAt),
 +  };
 +}
@@ -613,22 +483,10 @@ index 62516b61..b0e862c9 100644
 +  if (summary.awaitingPilotDecision) {
 +    return "Vérification terminée — toutes les conditions non humaines sont satisfaites. Le cycle peut être soumis à la décision finale du Pilote.";
 +  }
-+  const bits: string[] = [];
-+  if (summary.satisfiedCount > 0) {
-+    bits.push(
-+      `${summary.satisfiedCount} condition${summary.satisfiedCount > 1 ? "s" : ""} satisfaite${summary.satisfiedCount > 1 ? "s" : ""}`,
-+    );
-+  }
-+  if (summary.toTreatCount > 0) {
-+    bits.push(`${summary.toTreatCount} à traiter`);
-+  }
-+  if (summary.toQualifyCount > 0) {
-+    bits.push(`${summary.toQualifyCount} à qualifier`);
-+  }
-+  if (bits.length === 0) {
++  if (summary.countLine.length === 0) {
 +    return "Vérification terminée.";
 +  }
-+  return `Vérification terminée — ${bits.join(", ")}.`;
++  return `Vérification terminée — ${summary.countLine.replace(/ · /g, ", ")}.`;
 +}
 +
 +export type FinalizationConditionRow = {
@@ -654,35 +512,44 @@ index 62516b61..b0e862c9 100644
 +  rows: readonly FinalizationConditionRow[],
 +  assessment: FinalizationAssessment,
 +): { summaryLabel: string; summaryExplanation: string; allUnknownGoverned: boolean } {
++  // RC-01 — deterministic precedence; never claim Satisfait while UNKNOWN remains.
++  const anyTreat = rows.some((r) => r.kind === "TO_TREAT");
++  const anyQualify = rows.some((r) => r.kind === "TO_QUALIFY");
++  const allNa =
++    rows.length > 0 && rows.every((r) => r.kind === "NOT_APPLICABLE");
++  const allUnknown =
++    rows.length > 0 && rows.every((r) => r.kind === "TO_QUALIFY");
++
 +  if (id === "governed_effects") {
-+    const allUnknown =
-+      rows.length > 0 &&
-+      rows.every((r) => r.kind === "TO_QUALIFY");
-+    if (allUnknown) {
-+      return {
-+        summaryLabel: "À décider",
-+        summaryExplanation:
-+          "Il faut préciser si ce cycle doit produire un livrable ou d’autres effets gouvernés.",
-+        allUnknownGoverned: true,
-+      };
-+    }
-+    const allNa =
-+      rows.length > 0 &&
-+      rows.every((r) => r.kind === "NOT_APPLICABLE");
-+    if (allNa) {
-+      return {
-+        summaryLabel: "Non applicable",
-+        summaryExplanation:
-+          "Aucun effet gouverné n’est requis pour ce cycle selon l’assessment.",
-+        allUnknownGoverned: false,
-+      };
-+    }
-+    const anyTreat = rows.some((r) => r.kind === "TO_TREAT");
 +    if (anyTreat) {
 +      return {
 +        summaryLabel: "À traiter",
 +        summaryExplanation:
 +          "Au moins un effet gouverné applicable n’est pas encore satisfait.",
++        allUnknownGoverned: false,
++      };
++    }
++    if (anyQualify) {
++      if (allUnknown) {
++        return {
++          summaryLabel: "À décider",
++          summaryExplanation:
++            "Il faut préciser si ce cycle doit produire un livrable ou d’autres effets gouvernés.",
++          allUnknownGoverned: true,
++        };
++      }
++      return {
++        summaryLabel: "À qualifier",
++        summaryExplanation:
++          "Certains effets gouvernés restent à qualifier avant finalisation.",
++        allUnknownGoverned: false,
++      };
++    }
++    if (allNa) {
++      return {
++        summaryLabel: "Non applicable",
++        summaryExplanation:
++          "Aucun effet gouverné n’est requis pour ce cycle selon l’assessment.",
 +        allUnknownGoverned: false,
 +      };
 +    }
@@ -693,12 +560,27 @@ index 62516b61..b0e862c9 100644
 +    };
 +  }
 +  if (id === "work_of_cycle") {
-+    const anyTreat = rows.some((r) => r.kind === "TO_TREAT");
 +    if (anyTreat) {
 +      return {
 +        summaryLabel: "À traiter",
 +        summaryExplanation:
 +          "Du travail de cycle reste ouvert (critères de sortie ou réserves).",
++        allUnknownGoverned: false,
++      };
++    }
++    if (anyQualify) {
++      return {
++        summaryLabel: "À qualifier",
++        summaryExplanation:
++          "Une condition de travail du cycle reste à qualifier.",
++        allUnknownGoverned: false,
++      };
++    }
++    if (allNa) {
++      return {
++        summaryLabel: "Non applicable",
++        summaryExplanation:
++          "Les conditions de travail du cycle ne s’appliquent pas.",
 +        allUnknownGoverned: false,
 +      };
 +    }
@@ -791,15 +673,14 @@ index 62516b61..b0e862c9 100644
 +  }
 +  return groups;
 +}
-+
 
 ```
 
-### 10.d LifecycleSurface.tsx (full patch)
+### 4.b LifecycleSurface.tsx (full working-tree patch vs HEAD)
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx
-index bf43dbe4..14f9963f 100644
+index bf43dbe4..8d1cf279 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx
 @@ -9,17 +9,19 @@ import {
@@ -841,7 +722,7 @@ index bf43dbe4..14f9963f 100644
          } else {
            setInfo(null);
          }
-@@ -257,6 +267,10 @@ export function LifecycleSurface({
+@@ -257,6 +267,16 @@ export function LifecycleSurface({
      : (projection.reservationSummary ?? null);
    const showAssessment =
      !terminalDisplay && Boolean(projection.assessment);
@@ -849,10 +730,16 @@ index bf43dbe4..14f9963f 100644
 +  const conditionGroups = groupFinalizationObligations(projection.assessment);
 +  // When assessment UI is shown, colocate exit/policy CTAs in groups (avoid duplicate strips).
 +  const colocateGuidance = showAssessment;
++  // RC-04 — one Finaliser when Pilot authority group already owns it.
++  const showGroupedFinalize =
++    colocateGuidance &&
++    ready &&
++    conditionGroups.some((g) => g.id === "pilot_authority");
++  const suppressGenericFinalize = showGroupedFinalize;
 
    return (
      <aside
-@@ -304,7 +318,7 @@ export function LifecycleSurface({
+@@ -304,7 +324,7 @@ export function LifecycleSurface({
            </p>
            {finalizeRec ? (
              <p className={styles.recMeta} data-testid="lifecycle-finalize-rec-notice">
@@ -861,7 +748,7 @@ index bf43dbe4..14f9963f 100644
              </p>
            ) : (
              <p className={styles.recMeta}>
-@@ -312,8 +326,16 @@ export function LifecycleSurface({
+@@ -312,8 +332,16 @@ export function LifecycleSurface({
              </p>
            )}
            <p className={styles.distinction}>
@@ -879,7 +766,7 @@ index bf43dbe4..14f9963f 100644
          </section>
        ) : (
          <section className={styles.recBlock} data-testid="lifecycle-recommendation-empty">
-@@ -328,8 +350,46 @@ export function LifecycleSurface({
+@@ -328,8 +356,43 @@ export function LifecycleSurface({
          <section
            className={styles.block}
            data-testid="lifecycle-finalization-obligations"
@@ -915,19 +802,16 @@ index bf43dbe4..14f9963f 100644
 +                className={styles.muted}
 +                data-testid="lifecycle-readiness-counts"
 +              >
-+                {readinessSummary.satisfiedCount} satisfaite
-+                {readinessSummary.satisfiedCount === 1 ? "" : "s"}
-+                {" · "}
-+                {readinessSummary.toTreatCount} à traiter
-+                {" · "}
-+                {readinessSummary.toQualifyCount} à qualifier
++                {readinessSummary.countLine.length > 0
++                  ? readinessSummary.countLine
++                  : "Aucun compteur de condition à afficher."}
 +              </p>
 +            </div>
 +          ) : null}
            {ready ? (
              <p className={styles.muted} data-testid="lifecycle-ready-finalize">
                Prêt pour décision de finalisation — seule la décision Pilote
-@@ -353,32 +413,256 @@ export function LifecycleSurface({
+@@ -353,32 +416,256 @@ export function LifecycleSurface({
                  </li>
                ))}
              </ul>
@@ -1164,7 +1048,7 @@ index bf43dbe4..14f9963f 100644
 +                </div>
 +              ) : null}
 +
-+              {group.id === "pilot_authority" && ready ? (
++              {group.id === "pilot_authority" && showGroupedFinalize ? (
 +                <div className={styles.ctaRow}>
 +                  <button
 +                    type="button"
@@ -1198,7 +1082,7 @@ index bf43dbe4..14f9963f 100644
          <section className={styles.block} data-testid="lifecycle-exit-criteria-resolve">
            <h3 className={styles.blockTitle}>Critères de sortie</h3>
            <p className={styles.muted}>
-@@ -466,7 +750,8 @@ export function LifecycleSurface({
+@@ -466,7 +753,8 @@ export function LifecycleSurface({
          </section>
        ) : null}
 
@@ -1208,7 +1092,7 @@ index bf43dbe4..14f9963f 100644
          <section className={styles.block} data-testid="lifecycle-obligation-policy">
            <h3 className={styles.blockTitle}>Effets gouvernés</h3>
            <p className={styles.muted}>
-@@ -554,7 +839,9 @@ export function LifecycleSurface({
+@@ -554,7 +842,9 @@ export function LifecycleSurface({
          </section>
        ) : null}
 
@@ -1219,134 +1103,1394 @@ index bf43dbe4..14f9963f 100644
          <section
            className={styles.block}
            data-testid="lifecycle-require-artifact-continuation"
+@@ -644,7 +934,7 @@ export function LifecycleSurface({
+             Vérifier les conditions de finalisation
+           </button>
+         ) : null}
+-        {cta.showFinalizePrimary ? (
++        {cta.showFinalizePrimary && !suppressGenericFinalize ? (
+           <button
+             type="button"
+             className={styles.btnPrimary}
+@@ -655,7 +945,7 @@ export function LifecycleSurface({
+             Finaliser
+           </button>
+         ) : null}
+-        {cta.showFinalizeSecondary ? (
++        {cta.showFinalizeSecondary && !suppressGenericFinalize ? (
+           <button
+             type="button"
+             className={styles.btnSecondary}
 
 ```
 
-### 10.e Tests
+### 4.c LifecycleSurface.module.css (prior candidate; retained)
 
-Extended `lifecyclePresentation.phaseB.d0.test.tsx` with FR scenarios A–J (helpers + LifecycleSurface). Existing LC-B / JOURNEY tests retained. Diff size large; scenarios cover:
-- A UNKNOWN governed group
-- B exit criteria + reservations satisfied
-- C artifact MISSING
-- D NOT_APPLICABLE reasons
-- E readyExceptFinalize + Finaliser
-- F blocking Reservation colocated action
-- G terminal no mutation
-- H ASSESS feedback role=status
-- I recommendation clarity
-- J unknown detail fallback
+```diff
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.module.css b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.module.css
+index 6b3fa2c6..96dd9d6d 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.module.css
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.module.css
+@@ -123,3 +123,97 @@
+   outline: 2px solid var(--pm6-forest);
+   outline-offset: 2px;
+ }
++
++.readinessSummary {
++  display: flex;
++  flex-direction: column;
++  gap: var(--pm6-space-1);
++}
++
++.readinessHeadline {
++  margin: 0;
++  font-size: 0.9rem;
++  font-weight: 600;
++  line-height: 1.4;
++  color: var(--pm6-ink);
++}
++
++.conditionGroup {
++  display: flex;
++  flex-direction: column;
++  gap: var(--pm6-space-2);
++  padding-top: var(--pm6-space-3);
++  border-top: 1px solid var(--pm6-border-soft);
++}
++
++.conditionGroupTitle {
++  margin: 0;
++  font-size: 0.78rem;
++  font-weight: 700;
++  color: var(--pm6-ink);
++}
++
++.conditionGroupSummary {
++  margin: 0;
++  font-size: 0.8rem;
++  line-height: 1.45;
++  color: var(--pm6-ink-soft);
++}
++
++.conditionList {
++  margin: 0;
++  padding: 0;
++  list-style: none;
++  display: flex;
++  flex-direction: column;
++  gap: var(--pm6-space-2);
++}
++
++.conditionRow {
++  display: flex;
++  flex-direction: column;
++  gap: 0.25rem;
++  min-width: 0;
++}
++
++.conditionRowHead {
++  display: flex;
++  flex-wrap: wrap;
++  align-items: baseline;
++  justify-content: space-between;
++  gap: 0.35rem 0.75rem;
++}
++
++.conditionTitle {
++  font-size: 0.84rem;
++  font-weight: 600;
++  color: var(--pm6-ink);
++  min-width: 0;
++  overflow-wrap: anywhere;
++}
++
++.statusPill {
++  font-size: 0.72rem;
++  font-weight: 700;
++  letter-spacing: 0.02em;
++  color: var(--pm6-forest);
++  white-space: nowrap;
++}
++
++.conditionExplain {
++  margin: 0;
++  font-size: 0.78rem;
++  line-height: 1.45;
++  color: var(--pm6-muted);
++  overflow-wrap: anywhere;
++}
++
++.conditionDetails {
++  font-size: 0.8rem;
++  color: var(--pm6-ink-soft);
++}
++
++.conditionDetails summary {
++  cursor: pointer;
++  font-weight: 600;
++}
 
-## 11. Acceptance matrix FR-01…FR-15
+```
 
-| ID | Result | Notes |
-|---|---|---|
-| FR-01 ASSESS feedback | **PASS** | `formatAssessFeedback` → `lifecycle-info` role=status |
-| FR-02 Assessment time | **PASS** | `Dernière vérification` from `assessedAt` |
-| FR-03 Work-of-cycle grouping | **PASS** | exit_criteria + blockers |
-| FR-04 Governed effects grouping | **PASS** | all-UNKNOWN → À décider + details |
-| FR-05 Pilot authority grouping | **PASS** | last; waiting vs ready + Finaliser |
-| FR-06 Explanations | **PASS** | every visible row |
-| FR-07 Unknown honesty | **PASS** | À qualifier |
-| FR-08 N/A honesty | **PASS** | distinguishable + recognized reasons |
-| FR-09 Actions colocated | **PASS** | trajectory / reserves / policy / deliverable / Finaliser |
-| FR-10 Rec clarity | **PASS** | LifecycleSurface + GAP-01 HOLD wording |
-| FR-11 Eligibility unchanged | **PASS** | domain/assessment engine untouched |
-| FR-12 Reservation regression | **PASS** | summary/gate + adjacent UI tests green |
-| FR-13 Terminal states | **PASS** | G scenario |
-| FR-14 Accessibility | **PASS** | headings, text status, focus-visible, status live |
-| FR-15 Narrow rail | **PASS** (structure) | CSS wrap/min-width:0; **runtime overflow not screenshot-proven** |
+### 4.d GAP-01 HOLD wording (prior candidate; retained)
 
-## 12. Tests / validations
+```diff
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
+index bb44df2e..5e30e9d7 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
+@@ -235,7 +235,7 @@ export const CONVERSATION_GUIDANCE_HOLD_ACTIVE_CYCLE_SCOPE: ConversationGuidance
+     kind: "HOLD",
+     scope: "BLOCKER_RESOLUTION",
+     statement:
+-      "Le travail doit rester dans le cycle actif ; aucune transition n'est recommandée sur ce tour.",
++      "Le cycle reste actif sur ce tour ; aucune transition n’est exécutée sans décision du Pilote.",
+     rationale: "active_cycle_scope_required",
+   });
 
-| Command | Result |
+
+```
+
+### 4.e lifecyclePresentation.phaseB.d0.test.tsx (FULL exploitable patch — REQUIRED)
+
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/lifecyclePresentation.phaseB.d0.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/lifecyclePresentation.phaseB.d0.test.tsx
+index 9f668d9e..dfaa4bab 100644
+--- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/lifecyclePresentation.phaseB.d0.test.tsx
++++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/lifecyclePresentation.phaseB.d0.test.tsx
+@@ -3,23 +3,29 @@
+  * ZERO REAL — mocked server actions only.
+  * @vitest-environment jsdom
+  */
+-import { cleanup, render, waitFor } from "@testing-library/react";
++import { cleanup, fireEvent, render, waitFor } from "@testing-library/react";
+ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+ import { LifecycleSurface } from "@/features/pre-m6-product-ui/surfaces/LifecycleSurface";
+ import type {
+   FinalizationAssessment,
++  FinalizationObligation,
+   LifecycleRecommendationEnvelope,
+   PilotLifecycleProjection,
+ } from "@/lib/oa/cycle";
+ import {
+   canOfferGroupedNoGovernedEffects,
+   canOfferRequireArtifact,
++  classifyObligationPresentation,
++  FINALIZE_HD_BLOCKER,
++  formatAssessFeedback,
++  groupFinalizationObligations,
+   lifecycleCtaPresentation,
+   lifecycleStatusBadge,
+   nonHumanDecisionBlockers,
++  obligationExplanation,
+   readyExceptFinalizeDecision,
+   showsRequireArtifactContinuation,
+-  FINALIZE_HD_BLOCKER,
++  summarizeFinalizationReadiness,
+   blockerLabel,
+ } from "@/features/pre-m6-product-ui/surfaces/lifecyclePresentation";
+
+@@ -53,8 +59,9 @@ function fakeFinalizeEnvelope(): LifecycleRecommendationEnvelope {
+   };
+ }
+
+-const { projectionMock } = vi.hoisted(() => ({
++const { projectionMock, lifecycleActionMock } = vi.hoisted(() => ({
+   projectionMock: vi.fn(),
++  lifecycleActionMock: vi.fn(),
+ }));
+
+ vi.mock("@/features/project-assistant/actions", () => ({
+@@ -66,7 +73,8 @@ vi.mock("@/features/project-assistant/actions", () => ({
+   })),
+   projectAssistantPilotLifecycleProjection: (...args: unknown[]) =>
+     projectionMock(...args),
+-  projectAssistantPilotLifecycleAction: vi.fn(),
++  projectAssistantPilotLifecycleAction: (...args: unknown[]) =>
++    lifecycleActionMock(...args),
+   projectAssistantRecordObligationPolicyAction: vi.fn(),
+   projectAssistantCompleteTrajectoryStepAction: vi.fn(),
+   projectAssistantResolveBlockingReservationAction: vi.fn(),
+@@ -82,6 +90,7 @@ afterEach(() => {
+
+ beforeEach(() => {
+   projectionMock.mockReset();
++  lifecycleActionMock.mockReset();
+ });
+
+ function assessment(
+@@ -348,4 +357,1123 @@ describe("JOURNEY-INTEGRITY — Lifecycle generic Nora CTA precedence", () => {
+       ),
+     ).not.toBeNull();
+   });
++})
++
++const governedUnknown: FinalizationObligation[] = [
++  {
++    family: "artifact",
++    status: "PENDING",
++    applicability: "UNKNOWN",
++    detail: "artifact_applicability_unknown",
++    blocking: false,
++  },
++  {
++    family: "execution_contract",
++    status: "PENDING",
++    applicability: "UNKNOWN",
++    detail: "execution_contract_applicability_unknown",
++    blocking: false,
++  },
++  {
++    family: "evidence",
++    status: "PENDING",
++    applicability: "UNKNOWN",
++    detail: "evidence_applicability_unknown",
++    blocking: false,
++  },
++  {
++    family: "review_bundle",
++    status: "PENDING",
++    applicability: "UNKNOWN",
++    detail: "review_bundle_applicability_unknown",
++    blocking: false,
++  },
++  {
++    family: "git_repository",
++    status: "PENDING",
++    applicability: "UNKNOWN",
++    detail: "git_repository_applicability_unknown",
++    blocking: false,
++  },
++];
++
++describe("FR — finalization readiness presentation helpers", () => {
++  it("J — unknown internal detail falls back to generic wording (no fabricated reason)", () => {
++    expect(
++      obligationExplanation({
++        family: "artifact",
++        status: "PENDING",
++        applicability: "UNKNOWN",
++        detail: "artifact_applicability_unknown",
++        blocking: false,
++      }),
++    ).toBe("Il faut préciser si un livrable est requis pour ce cycle.");
++    expect(
++      obligationExplanation({
++        family: "artifact",
++        status: "MISSING",
++        applicability: "APPLICABLE",
++        detail: "totally_unknown_code_xyz",
++        blocking: true,
++      }),
++    ).toBe("Cette condition n’est pas encore remplie.");
++    expect(
++      classifyObligationPresentation(
++        {
++          family: "artifact",
++          status: "PENDING",
++          applicability: "UNKNOWN",
++          blocking: false,
++        },
++        null,
++      ),
++    ).toBe("TO_QUALIFY");
++  });
++
++  it("A — all governed effects UNKNOWN → group À décider + transparent families", () => {
++    const a = assessment({
++      canComplete: false,
++      blockers: [
++        "artifact_applicability_unknown",
++        "execution_contract_applicability_unknown",
++        "evidence_applicability_unknown",
++        "review_bundle_applicability_unknown",
++        "git_repository_applicability_unknown",
++        FINALIZE_HD_BLOCKER,
++      ],
++      obligations: [
++        {
++          family: "exit_criteria",
++          status: "SATISFIED",
++          applicability: "APPLICABLE",
++          detail: "trajectory_steps_closed_or_skipped",
++          blocking: false,
++        },
++        {
++          family: "blockers",
++          status: "SATISFIED",
++          applicability: "APPLICABLE",
++          detail: "no_blocking_reservations",
++          blocking: false,
++        },
++        ...governedUnknown,
++        {
++          family: "human_decision",
++          status: "MISSING",
++          applicability: "APPLICABLE",
++          detail: "finalize_human_decision_absent",
++          blocking: true,
++        },
++      ],
++    });
++    const groups = groupFinalizationObligations(a);
++    const governed = groups.find((g) => g.id === "governed_effects");
++    expect(governed?.allUnknownGoverned).toBe(true);
++    expect(governed?.summaryLabel).toBe("À décider");
++    expect(governed?.rows).toHaveLength(5);
++    const summary = summarizeFinalizationReadiness(a);
++    expect(summary?.toQualifyCount).toBe(5);
++    expect(formatAssessFeedback(a)).toMatch(/à qualifier/);
++  });
++});
++
++describe("FR — LifecycleSurface readiness guidance", () => {
++  it("A — UNKNOWN governed effects use group summary, not five unexplained primary rows", async () => {
++    projectionMock.mockResolvedValue({
++      ok: true,
++      projection: baseProjection({
++        assessment: assessment({
++          canComplete: false,
++          blockers: [
++            "artifact_applicability_unknown",
++            "execution_contract_applicability_unknown",
++            "evidence_applicability_unknown",
++            "review_bundle_applicability_unknown",
++            "git_repository_applicability_unknown",
++            FINALIZE_HD_BLOCKER,
++          ],
++          obligations: [
++            {
++              family: "exit_criteria",
++              status: "SATISFIED",
++              applicability: "APPLICABLE",
++              detail: "trajectory_steps_closed_or_skipped",
++              blocking: false,
++            },
++            {
++              family: "blockers",
++              status: "SATISFIED",
++              applicability: "APPLICABLE",
++              detail: "no_blocking_reservations",
++              blocking: false,
++            },
++            ...governedUnknown,
++            {
++              family: "human_decision",
++              status: "MISSING",
++              applicability: "APPLICABLE",
++              detail: "finalize_human_decision_absent",
++              blocking: true,
++            },
++          ],
++        }),
++      }),
++    });
++    render(<LifecycleSurface projectId="prj:ui" />);
++    await waitFor(() => {
++      expect(
++        document.querySelector("[data-testid='lifecycle-readiness-summary']"),
++      ).not.toBeNull();
++    });
++    expect(
++      document.querySelector(
++        "[data-testid='lifecycle-condition-group-governed_effects-summary']",
++      )?.textContent,
++    ).toMatch(/À décider/);
++    expect(
++      document.querySelector("[data-testid='lifecycle-obligation-policy']"),
++    ).not.toBeNull();
++    expect(
++      document.querySelector("[data-testid='lifecycle-governed-effects-details']"),
++    ).not.toBeNull();
++    expect(
++      document.querySelector("[data-testid='lifecycle-obligation-list']"),
++    ).not.toBeNull();
++  });
++
++  it("B — exit criteria blocking + Reservations satisfied; trajectory action colocated", async () => {
++    projectionMock.mockResolvedValue({
++      ok: true,
++      projection: baseProjection({
++        assessment: assessment({
++          canComplete: false,
++          blockers: ["exit_criteria_open", FINALIZE_HD_BLOCKER],
++          obligations: [
++            {
++              family: "exit_criteria",
++              status: "BLOCKING",
++              applicability: "APPLICABLE",
++              detail: "open_steps:step:1",
++              blocking: true,
++            },
++            {
++              family: "blockers",
++              status: "SATISFIED",
++              applicability: "APPLICABLE",
++              detail: "no_blocking_reservations",
++              blocking: false,
++            },
++            {
++              family: "human_decision",
++              status: "MISSING",
++              applicability: "APPLICABLE",
++              detail: "finalize_human_decision_absent",
++              blocking: true,
++            },
++          ],
++        }),
++      }),
++    });
++    render(<LifecycleSurface projectId="prj:ui" />);
++    await waitFor(() => {
++      expect(
++        document.querySelector(
++          "[data-testid='lifecycle-complete-trajectory-step']",
++        ),
++      ).not.toBeNull();
++    });
++    const work = document.querySelector(
++      "[data-testid='lifecycle-obligation-list-work']",
++    );
++    expect(work?.textContent).toMatch(/Étape de trajectoire|Critères de sortie/);
++    expect(work?.textContent).toMatch(/Aucune réserve bloquante active/);
++    expect(work?.textContent).not.toMatch(/À confirmer/);
++  });
++
++  it("C — APPLICABLE artifact MISSING → À traiter + continuation action", async () => {
++    projectionMock.mockResolvedValue({
++      ok: true,
++      projection: baseProjection({
++        assessment: assessment({
++          canComplete: false,
++          blockers: ["artifact_missing", FINALIZE_HD_BLOCKER],
++          obligations: [
++            {
++              family: "artifact",
++              status: "MISSING",
++              applicability: "APPLICABLE",
++              detail: "artifact_required_but_proof_absent",
++              blocking: true,
++            },
++            {
++              family: "human_decision",
++              status: "MISSING",
++              applicability: "APPLICABLE",
++              detail: "finalize_human_decision_absent",
++              blocking: true,
++            },
++          ],
++        }),
++      }),
++    });
++    render(<LifecycleSurface projectId="prj:ui" />);
++    await waitFor(() => {
++      expect(
++        document.querySelector(
++          "[data-testid='lifecycle-define-deliverable-cta']",
++        ),
++      ).not.toBeNull();
++    });
++    const row = document.querySelector('[data-family="artifact"]');
++    expect(row?.textContent).toMatch(/À traiter/);
++    expect(row?.textContent).toMatch(/livrable|preuve/i);
++    expect(row?.textContent).not.toMatch(/artifact_required_but_proof_absent/);
++  });
++
++  it("D — governed effects NOT_APPLICABLE show reasons, not missing", async () => {
++    const naReason = "pilot_hd_obligation_policy:opt:no-governed-effects";
++    projectionMock.mockResolvedValue({
++      ok: true,
++      projection: baseProjection({
++        assessment: assessment({
++          canComplete: false,
++          blockers: [FINALIZE_HD_BLOCKER],
++          obligations: [
++            {
++              family: "artifact",
++              status: "NOT_APPLICABLE",
++              applicability: "NOT_APPLICABLE",
++              notApplicableReason: naReason,
++              blocking: false,
++            },
++            {
++              family: "execution_contract",
++              status: "NOT_APPLICABLE",
++              applicability: "NOT_APPLICABLE",
++              notApplicableReason: naReason,
++              blocking: false,
++            },
++            {
++              family: "evidence",
++              status: "NOT_APPLICABLE",
++              applicability: "NOT_APPLICABLE",
++              notApplicableReason: naReason,
++              blocking: false,
++            },
++            {
++              family: "review_bundle",
++              status: "NOT_APPLICABLE",
++              applicability: "NOT_APPLICABLE",
++              notApplicableReason: naReason,
++              blocking: false,
++            },
++            {
++              family: "git_repository",
++              status: "NOT_APPLICABLE",
++              applicability: "NOT_APPLICABLE",
++              notApplicableReason: naReason,
++              blocking: false,
++            },
++            {
++              family: "human_decision",
++              status: "MISSING",
++              applicability: "APPLICABLE",
++              detail: "finalize_human_decision_absent",
++              blocking: true,
++            },
++          ],
++        }),
++      }),
++    });
++    render(<LifecycleSurface projectId="prj:ui" />);
++    await waitFor(() => {
++      expect(
++        document.querySelector('[data-family="artifact"]'),
++      ).not.toBeNull();
++    });
++    const artifact = document.querySelector('[data-family="artifact"]');
++    expect(artifact?.textContent).toMatch(/Non applicable/);
++    expect(artifact?.textContent).toMatch(/aucun effet gouverné/i);
++    expect(artifact?.textContent).not.toMatch(/Manquant|À confirmer/);
++    expect(
++      document.querySelector(
++        "[data-testid='lifecycle-condition-group-governed_effects-summary']",
++      )?.textContent,
++    ).toMatch(/Non applicable/);
++  });
++
++  it("E — only finalize HD remains → ready for Pilot + Finaliser", async () => {
++    projectionMock.mockResolvedValue({
++      ok: true,
++      projection: baseProjection({
++        assessment: assessment({
++          canComplete: false,
++          blockers: [FINALIZE_HD_BLOCKER],
++          obligations: [
++            {
++              family: "exit_criteria",
++              status: "SATISFIED",
++              applicability: "APPLICABLE",
++              detail: "trajectory_steps_closed_or_skipped",
++              blocking: false,
++            },
++            {
++              family: "blockers",
++              status: "SATISFIED",
++              applicability: "APPLICABLE",
++              detail: "no_blocking_reservations",
++              blocking: false,
++            },
++            {
++              family: "artifact",
++              status: "NOT_APPLICABLE",
++              applicability: "NOT_APPLICABLE",
++              notApplicableReason:
++                "pilot_hd_obligation_policy:opt:no-governed-effects",
++              blocking: false,
++            },
++            {
++              family: "human_decision",
++              status: "MISSING",
++              applicability: "APPLICABLE",
++              detail: "finalize_human_decision_absent",
++              blocking: true,
++            },
++          ],
++        }),
++        currentRecommendations: [fakeFinalizeEnvelope()],
++      }),
++    });
++    render(<LifecycleSurface projectId="prj:ui" />);
++    await waitFor(() => {
++      expect(
++        document.querySelector(
++          "[data-testid='lifecycle-finalize-from-readiness']",
++        ),
++      ).not.toBeNull();
++    });
++    expect(
++      document.querySelector("[data-testid='lifecycle-readiness-summary']")
++        ?.textContent,
++    ).toMatch(/prêt pour décision du Pilote/i);
++    expect(
++      document.querySelector(
++        "[data-testid='lifecycle-condition-group-pilot_authority-summary']",
++      )?.textContent,
++    ).toMatch(/Prêt pour décision du Pilote/);
++    const finalize = document.querySelector(
++      "[data-testid='lifecycle-finalize-from-readiness']",
++    ) as HTMLButtonElement;
++    expect(finalize.disabled).toBe(false);
++  });
++
++  it("F — blocking Reservation preserves Voir les réserves action", async () => {
++    projectionMock.mockResolvedValue({
++      ok: true,
++      projection: baseProjection({
++        assessment: assessment({
++          canComplete: false,
++          blockers: ["blocking_reservations", FINALIZE_HD_BLOCKER],
++          obligations: [
++            {
++              family: "blockers",
++              status: "BLOCKING",
++              applicability: "APPLICABLE",
++              detail: "res:1|blocking",
++              blocking: true,
++            },
++            {
++              family: "human_decision",
++              status: "MISSING",
++              applicability: "APPLICABLE",
++              detail: "finalize_human_decision_absent",
++              blocking: true,
++            },
++          ],
++        }),
++        blockingReservations: [
++          {
++            epistemicItemId: "epi:res:1",
++            statement: "Réserve bloquante de test",
++          },
++        ],
++        reservationSummary: {
++          activeCount: 1,
++          mayAffectCount: 0,
++          mustResolveCount: 1,
++          toQualifyCount: 0,
++        },
++      }),
++    });
++    render(
++      <LifecycleSurface
++        projectId="prj:ui"
++        onOpenReservations={() => undefined}
++      />,
++    );
++    await waitFor(() => {
++      expect(
++        document.querySelector(
++          "[data-testid='lifecycle-open-reservations-from-condition']",
++        ),
++      ).not.toBeNull();
++    });
++    const blockers = document.querySelector('[data-family="blockers"]');
++    expect(blockers?.textContent).toMatch(/À traiter/);
++    expect(blockers?.textContent).toMatch(/réserve bloquante/i);
++  });
++
++  it("G — terminal cycle has no assessment/mutation controls", async () => {
++    projectionMock.mockResolvedValue({
++      ok: true,
++      projection: baseProjection({
++        selectedStatus: "completed",
++        assessment: null,
++        cta: {
++          canStart: false,
++          canPause: false,
++          canResume: false,
++          canFinalize: false,
++          canCancel: false,
++        },
++      }),
++    });
++    render(<LifecycleSurface projectId="prj:ui" />);
++    await waitFor(() => {
++      expect(
++        document.querySelector("[data-testid='lifecycle-status-badge']")
++          ?.textContent,
++      ).toMatch(/Terminé/);
++    });
++    expect(
++      document.querySelector("[data-testid='lifecycle-assess-cta']"),
++    ).toBeNull();
++    expect(
++      document.querySelector("[data-testid='lifecycle-finalize-cta-primary']"),
++    ).toBeNull();
++    expect(
++      document.querySelector("[data-testid='lifecycle-finalize-from-readiness']"),
++    ).toBeNull();
++    expect(
++      document.querySelector("[data-testid='lifecycle-readiness-summary']"),
++    ).toBeNull();
++  });
++
++  it("H — ASSESS feedback reflects returned assessment counts; role=status", async () => {
++    const before = assessment({
++      canComplete: false,
++      blockers: [
++        "exit_criteria_open",
++        "artifact_applicability_unknown",
++        FINALIZE_HD_BLOCKER,
++      ],
++      obligations: [
++        {
++          family: "exit_criteria",
++          status: "BLOCKING",
++          applicability: "APPLICABLE",
++          detail: "open_steps:step:1",
++          blocking: true,
++        },
++        ...governedUnknown,
++        {
++          family: "human_decision",
++          status: "MISSING",
++          applicability: "APPLICABLE",
++          detail: "finalize_human_decision_absent",
++          blocking: true,
++        },
++      ],
++    });
++    const after = assessment({
++      assessedAt: "2026-09-25T12:00:00.000Z",
++      canComplete: false,
++      blockers: [
++        "artifact_applicability_unknown",
++        "execution_contract_applicability_unknown",
++        "evidence_applicability_unknown",
++        "review_bundle_applicability_unknown",
++        "git_repository_applicability_unknown",
++        FINALIZE_HD_BLOCKER,
++      ],
++      obligations: [
++        {
++          family: "exit_criteria",
++          status: "SATISFIED",
++          applicability: "APPLICABLE",
++          detail: "trajectory_steps_closed_or_skipped",
++          blocking: false,
++        },
++        {
++          family: "blockers",
++          status: "SATISFIED",
++          applicability: "APPLICABLE",
++          detail: "no_blocking_reservations",
++          blocking: false,
++        },
++        ...governedUnknown,
++        {
++          family: "human_decision",
++          status: "MISSING",
++          applicability: "APPLICABLE",
++          detail: "finalize_human_decision_absent",
++          blocking: true,
++        },
++      ],
++    });
++    projectionMock.mockResolvedValue({
++      ok: true,
++      projection: baseProjection({ assessment: before }),
++    });
++    lifecycleActionMock.mockResolvedValue({
++      ok: true,
++      assessment: after,
++      projection: baseProjection({ assessment: after }),
++    });
++    render(<LifecycleSurface projectId="prj:ui" />);
++    await waitFor(() => {
++      expect(
++        document.querySelector("[data-testid='lifecycle-assess-cta']"),
++      ).not.toBeNull();
++    });
++    fireEvent.click(
++      document.querySelector(
++        "[data-testid='lifecycle-assess-cta']",
++      ) as HTMLButtonElement,
++    );
++    await waitFor(() => {
++      const feedback = document.querySelector(
++        "[data-testid='lifecycle-info']",
++      );
++      expect(feedback?.getAttribute("role")).toBe("status");
++      expect(feedback?.textContent).toMatch(/Vérification terminée/);
++      expect(feedback?.textContent).toMatch(/satisfaites/);
++      expect(feedback?.textContent).toMatch(/à qualifier/);
++      expect(feedback?.textContent).not.toBe(
++        "Conditions de finalisation actualisées.",
++      );
++    });
++  });
++
++  it("I — finalize Recommendation clarifies cycle remains active until Pilot finalizes", async () => {
++    projectionMock.mockResolvedValue({
++      ok: true,
++      projection: baseProjection({
++        currentRecommendations: [
++          {
++            ...fakeFinalizeEnvelope(),
++            statement:
++              "Je recommande de finaliser le cycle de Cadrage de StudyFlow.",
++          },
++        ],
++        assessment: assessment({
++          canComplete: false,
++          blockers: ["exit_criteria_open", FINALIZE_HD_BLOCKER],
++          obligations: [
++            {
++              family: "exit_criteria",
++              status: "BLOCKING",
++              applicability: "APPLICABLE",
++              detail: "open_steps:step:1",
++              blocking: true,
++            },
++            {
++              family: "human_decision",
++              status: "MISSING",
++              applicability: "APPLICABLE",
++              detail: "finalize_human_decision_absent",
++              blocking: true,
++            },
++          ],
++        }),
++      }),
++    });
++    render(<LifecycleSurface projectId="prj:ui" />);
++    await waitFor(() => {
++      expect(
++        document.querySelector(
++          "[data-testid='lifecycle-finalize-rec-active-cycle']",
++        ),
++      ).not.toBeNull();
++    });
++    expect(
++      document.querySelector("[data-testid='lifecycle-finalize-rec-notice']")
++        ?.textContent,
++    ).toMatch(/engager la finalisation/i);
++    expect(
++      document.querySelector(
++        "[data-testid='lifecycle-finalize-rec-active-cycle']",
++      )?.textContent,
++    ).toMatch(/reste actif tant que le Pilote n’a pas finalisé/i);
++  });
++});
++
++
++describe("RC-01 — mixed group roll-up never Satisfait with UNKNOWN", () => {
++  it("A — SATISFIED + TO_QUALIFY → governed group NOT Satisfait", () => {
++    const a = assessment({
++      canComplete: false,
++      blockers: ["artifact_applicability_unknown", FINALIZE_HD_BLOCKER],
++      obligations: [
++        {
++          family: "artifact",
++          status: "SATISFIED",
++          applicability: "APPLICABLE",
++          detail: "artifact_proof_present",
++          blocking: false,
++        },
++        {
++          family: "evidence",
++          status: "PENDING",
++          applicability: "UNKNOWN",
++          detail: "evidence_applicability_unknown",
++          blocking: false,
++        },
++      ],
++    });
++    const governed = groupFinalizationObligations(a).find(
++      (g) => g.id === "governed_effects",
++    );
++    expect(governed?.summaryLabel).toBe("À qualifier");
++    expect(governed?.summaryLabel).not.toBe("Satisfait");
++  });
++
++  it("B — NOT_APPLICABLE + TO_QUALIFY → group NOT Satisfait", () => {
++    const a = assessment({
++      canComplete: false,
++      blockers: ["evidence_applicability_unknown", FINALIZE_HD_BLOCKER],
++      obligations: [
++        {
++          family: "artifact",
++          status: "NOT_APPLICABLE",
++          applicability: "NOT_APPLICABLE",
++          notApplicableReason: "pilot_hd_obligation_policy:opt:no-artifact",
++          blocking: false,
++        },
++        {
++          family: "evidence",
++          status: "PENDING",
++          applicability: "UNKNOWN",
++          detail: "evidence_applicability_unknown",
++          blocking: false,
++        },
++      ],
++    });
++    const governed = groupFinalizationObligations(a).find(
++      (g) => g.id === "governed_effects",
++    );
++    expect(governed?.summaryLabel).toBe("À qualifier");
++    expect(governed?.summaryLabel).not.toBe("Satisfait");
++  });
++
++  it("C — SATISFIED + NOT_APPLICABLE → Satisfait / resolved without blocker", () => {
++    const a = assessment({
++      canComplete: false,
++      blockers: [FINALIZE_HD_BLOCKER],
++      obligations: [
++        {
++          family: "artifact",
++          status: "SATISFIED",
++          applicability: "APPLICABLE",
++          detail: "artifact_proof_present",
++          blocking: false,
++        },
++        {
++          family: "evidence",
++          status: "NOT_APPLICABLE",
++          applicability: "NOT_APPLICABLE",
++          notApplicableReason: "pilot_hd_obligation_policy:opt:no-evidence",
++          blocking: false,
++        },
++      ],
++    });
++    const governed = groupFinalizationObligations(a).find(
++      (g) => g.id === "governed_effects",
++    );
++    expect(governed?.summaryLabel).toBe("Satisfait");
++  });
++
++  it("D — work_of_cycle with TO_QUALIFY → À qualifier, never Satisfait", () => {
++    const a = assessment({
++      canComplete: false,
++      blockers: [FINALIZE_HD_BLOCKER],
++      obligations: [
++        {
++          family: "exit_criteria",
++          status: "SATISFIED",
++          applicability: "APPLICABLE",
++          detail: "trajectory_steps_closed_or_skipped",
++          blocking: false,
++        },
++        {
++          family: "blockers",
++          status: "PENDING",
++          applicability: "UNKNOWN",
++          detail: "reservation_applicability_unknown",
++          blocking: false,
++        },
++      ],
++    });
++    const work = groupFinalizationObligations(a).find(
++      (g) => g.id === "work_of_cycle",
++    );
++    expect(work?.summaryLabel).toBe("À qualifier");
++    expect(work?.summaryLabel).not.toBe("Satisfait");
++  });
++});
++
++describe("RC-02 — Pilot decision waiting, not a to-treat work item", () => {
++  it("human decision + another blocker → En attente; toTreat excludes HD; Finaliser absent", async () => {
++    const a = assessment({
++      canComplete: false,
++      blockers: ["exit_criteria_open", FINALIZE_HD_BLOCKER],
++      obligations: [
++        {
++          family: "exit_criteria",
++          status: "BLOCKING",
++          applicability: "APPLICABLE",
++          detail: "open_steps:step:1",
++          blocking: true,
++        },
++        {
++          family: "human_decision",
++          status: "MISSING",
++          applicability: "APPLICABLE",
++          detail: "finalize_human_decision_absent",
++          blocking: true,
++        },
++      ],
++    });
++    expect(
++      classifyObligationPresentation(a.obligations[1]!, a),
++    ).toBe("AWAITING_PILOT_DECISION");
++    const summary = summarizeFinalizationReadiness(a);
++    expect(summary?.toTreatCount).toBe(1);
++    expect(summary?.pilotDecisionPending).toBe(true);
++    expect(summary?.awaitingPilotDecision).toBe(false);
++    expect(summary?.countLine).toMatch(/décision Pilote en attente/);
++    expect(summary?.countLine).not.toMatch(/2 à traiter/);
++    expect(formatAssessFeedback(a)).toMatch(/décision Pilote en attente/);
++
++    projectionMock.mockResolvedValue({
++      ok: true,
++      projection: baseProjection({ assessment: a }),
++    });
++    render(<LifecycleSurface projectId="prj:ui" />);
++    await waitFor(() => {
++      expect(
++        document.querySelector(
++          "[data-testid='lifecycle-condition-group-pilot_authority-summary']",
++        ),
++      ).not.toBeNull();
++    });
++    expect(
++      document.querySelector(
++        "[data-testid='lifecycle-condition-group-pilot_authority-summary']",
++      )?.textContent,
++    ).toMatch(/En attente/);
++    expect(
++      document.querySelector('[data-family="human_decision"]')?.textContent,
++    ).toMatch(/En attente/);
++    expect(
++      document.querySelector("[data-testid='lifecycle-finalize-from-readiness']"),
++    ).toBeNull();
++    expect(
++      document.querySelector("[data-testid='lifecycle-finalize-cta-primary']"),
++    ).toBeNull();
++  });
++
++  it("only human decision remains → Prêt + Finaliser; N/A count when present", async () => {
++    const a = assessment({
++      canComplete: false,
++      blockers: [FINALIZE_HD_BLOCKER],
++      obligations: [
++        {
++          family: "artifact",
++          status: "NOT_APPLICABLE",
++          applicability: "NOT_APPLICABLE",
++          notApplicableReason:
++            "pilot_hd_obligation_policy:opt:no-governed-effects",
++          blocking: false,
++        },
++        {
++          family: "execution_contract",
++          status: "NOT_APPLICABLE",
++          applicability: "NOT_APPLICABLE",
++          notApplicableReason:
++            "pilot_hd_obligation_policy:opt:no-governed-effects",
++          blocking: false,
++        },
++        {
++          family: "evidence",
++          status: "NOT_APPLICABLE",
++          applicability: "NOT_APPLICABLE",
++          notApplicableReason:
++            "pilot_hd_obligation_policy:opt:no-governed-effects",
++          blocking: false,
++        },
++        {
++          family: "review_bundle",
++          status: "NOT_APPLICABLE",
++          applicability: "NOT_APPLICABLE",
++          notApplicableReason:
++            "pilot_hd_obligation_policy:opt:no-governed-effects",
++          blocking: false,
++        },
++        {
++          family: "git_repository",
++          status: "NOT_APPLICABLE",
++          applicability: "NOT_APPLICABLE",
++          notApplicableReason:
++            "pilot_hd_obligation_policy:opt:no-governed-effects",
++          blocking: false,
++        },
++        {
++          family: "human_decision",
++          status: "MISSING",
++          applicability: "APPLICABLE",
++          detail: "finalize_human_decision_absent",
++          blocking: true,
++        },
++      ],
++    });
++    const summary = summarizeFinalizationReadiness(a);
++    expect(summary?.awaitingPilotDecision).toBe(true);
++    expect(summary?.toTreatCount).toBe(0);
++    expect(summary?.notApplicableCount).toBe(5);
++    expect(summary?.pilotDecisionPending).toBe(true);
++    expect(summary?.headline).toMatch(/prêt pour décision du Pilote/i);
++    // countLine still exposes N/A accounting when useful
++    expect(summary?.countLine).toMatch(/non applicable/);
++
++    projectionMock.mockResolvedValue({
++      ok: true,
++      projection: baseProjection({
++        assessment: a,
++        currentRecommendations: [fakeFinalizeEnvelope()],
++      }),
++    });
++    render(<LifecycleSurface projectId="prj:ui" />);
++    await waitFor(() => {
++      expect(
++        document.querySelector(
++          "[data-testid='lifecycle-finalize-from-readiness']",
++        ),
++      ).not.toBeNull();
++    });
++    expect(
++      document.querySelector(
++        "[data-testid='lifecycle-condition-group-pilot_authority-summary']",
++      )?.textContent,
++    ).toMatch(/Prêt pour décision du Pilote/);
++  });
++
++  it("finalize decision satisfied → presentation Satisfait", () => {
++    const o = {
++      family: "human_decision" as const,
++      status: "SATISFIED" as const,
++      applicability: "APPLICABLE" as const,
++      detail: "finalize_decision:hd:1",
++      blocking: false,
++    };
++    expect(classifyObligationPresentation(o, null)).toBe("SATISFIED");
++    expect(obligationExplanation(o)).toMatch(/décision Pilote de finalisation/i);
++  });
++});
++
++describe("RC-03 — never expose internal notApplicableReason codes", () => {
++  it("recognized N/A reasons map to business French", () => {
++    expect(
++      obligationExplanation({
++        family: "artifact",
++        status: "NOT_APPLICABLE",
++        applicability: "NOT_APPLICABLE",
++        notApplicableReason: "pilot_hd_obligation_policy:opt:no-artifact",
++        blocking: false,
++      }),
++    ).toBe("Aucun livrable n’est requis pour ce cycle.");
++    expect(
++      obligationExplanation({
++        family: "execution_contract",
++        status: "NOT_APPLICABLE",
++        applicability: "NOT_APPLICABLE",
++        notApplicableReason: "pilot_hd_obligation_policy:opt:no-execution",
++        blocking: false,
++      }),
++    ).toBe("Aucune exécution gouvernée n’est requise pour ce cycle.");
++    expect(
++      obligationExplanation({
++        family: "evidence",
++        status: "NOT_APPLICABLE",
++        applicability: "NOT_APPLICABLE",
++        notApplicableReason: "pilot_hd_obligation_policy:opt:no-evidence",
++        blocking: false,
++      }),
++    ).toBe("Aucune Evidence n’est requise pour ce cycle.");
++    expect(
++      obligationExplanation({
++        family: "review_bundle",
++        status: "NOT_APPLICABLE",
++        applicability: "NOT_APPLICABLE",
++        notApplicableReason: "pilot_hd_obligation_policy:opt:no-review",
++        blocking: false,
++      }),
++    ).toBe("Aucun ReviewBundle n’est requis pour ce cycle.");
++    expect(
++      obligationExplanation({
++        family: "git_repository",
++        status: "NOT_APPLICABLE",
++        applicability: "NOT_APPLICABLE",
++        notApplicableReason: "pilot_hd_obligation_policy:opt:no-git",
++        blocking: false,
++      }),
++    ).toBe("Aucun effet Git n’est requis pour ce cycle.");
++  });
++
++  it("unknown synthetic reason never surfaces raw code", () => {
++    const reason = "some_new_internal_reason";
++    const text = obligationExplanation({
++      family: "artifact",
++      status: "NOT_APPLICABLE",
++      applicability: "NOT_APPLICABLE",
++      notApplicableReason: reason,
++      blocking: false,
++    });
++    expect(text).toBe(
++      "Cette condition a été explicitement déclarée non applicable pour ce cycle.",
++    );
++    expect(text).not.toContain(reason);
++    expect(text).not.toMatch(/some new internal reason/i);
++    expect(text).not.toMatch(/_/);
++  });
++});
++
++describe("RC-04 — single Finaliser affordance when guidance colocated", () => {
++  it("A — assessment shown + ready → exactly one Finaliser", async () => {
++    projectionMock.mockResolvedValue({
++      ok: true,
++      projection: baseProjection({
++        assessment: assessment({
++          canComplete: false,
++          blockers: [FINALIZE_HD_BLOCKER],
++          obligations: [
++            {
++              family: "human_decision",
++              status: "MISSING",
++              applicability: "APPLICABLE",
++              detail: "finalize_human_decision_absent",
++              blocking: true,
++            },
++          ],
++        }),
++        currentRecommendations: [fakeFinalizeEnvelope()],
++      }),
++    });
++    render(<LifecycleSurface projectId="prj:ui" />);
++    await waitFor(() => {
++      expect(
++        document.querySelector(
++          "[data-testid='lifecycle-finalize-from-readiness']",
++        ),
++      ).not.toBeNull();
++    });
++    const finalizeButtons = Array.from(
++      document.querySelectorAll("button"),
++    ).filter((b) => b.textContent?.trim() === "Finaliser");
++    expect(finalizeButtons).toHaveLength(1);
++    expect(
++      document.querySelector("[data-testid='lifecycle-finalize-cta-primary']"),
++    ).toBeNull();
++    expect(
++      document.querySelector("[data-testid='lifecycle-finalize-cta-secondary']"),
++    ).toBeNull();
++  });
++
++  it("B — no colocated assessment path preserves generic Finaliser", async () => {
++    // Assessment absent → no grouped Pilot CTA; legacy generic Finaliser when ready.
++    // readyExceptFinalize needs assessment with only HD blocker — without assessment,
++    // finalizeEnabled is false. Use assessment with empty obligations but still
++    // readyExceptFinalize, without pilot_authority row → generic remains.
++    projectionMock.mockResolvedValue({
++      ok: true,
++      projection: baseProjection({
++        assessment: assessment({
++          canComplete: false,
++          blockers: [FINALIZE_HD_BLOCKER],
++          obligations: [],
++        }),
++        currentRecommendations: [fakeFinalizeEnvelope()],
++      }),
++    });
++    render(<LifecycleSurface projectId="prj:ui" />);
++    await waitFor(() => {
++      expect(
++        document.querySelector("[data-testid='lifecycle-finalize-cta-primary']"),
++      ).not.toBeNull();
++    });
++    expect(
++      document.querySelector(
++        "[data-testid='lifecycle-finalize-from-readiness']",
++      ),
++    ).toBeNull();
++    const finalizeButtons = Array.from(
++      document.querySelectorAll("button"),
++    ).filter((b) => b.textContent?.trim() === "Finaliser");
++    expect(finalizeButtons).toHaveLength(1);
++  });
++
++  it("C — contextual Finaliser invokes FINALIZE once", async () => {
++    projectionMock.mockResolvedValue({
++      ok: true,
++      projection: baseProjection({
++        assessment: assessment({
++          canComplete: false,
++          blockers: [FINALIZE_HD_BLOCKER],
++          obligations: [
++            {
++              family: "human_decision",
++              status: "MISSING",
++              applicability: "APPLICABLE",
++              detail: "finalize_human_decision_absent",
++              blocking: true,
++            },
++          ],
++        }),
++        currentRecommendations: [fakeFinalizeEnvelope()],
++      }),
++    });
++    lifecycleActionMock.mockResolvedValue({
++      ok: true,
++      projection: baseProjection({
++        selectedStatus: "completed",
++        assessment: null,
++        cta: {
++          canStart: false,
++          canPause: false,
++          canResume: false,
++          canFinalize: false,
++          canCancel: false,
++        },
++      }),
++    });
++    render(<LifecycleSurface projectId="prj:ui" />);
++    await waitFor(() => {
++      expect(
++        document.querySelector(
++          "[data-testid='lifecycle-finalize-from-readiness']",
++        ),
++      ).not.toBeNull();
++    });
++    fireEvent.click(
++      document.querySelector(
++        "[data-testid='lifecycle-finalize-from-readiness']",
++      ) as HTMLButtonElement,
++    );
++    await waitFor(() => {
++      expect(lifecycleActionMock).toHaveBeenCalledTimes(1);
++    });
++    expect(lifecycleActionMock.mock.calls[0]?.[0]).toMatchObject({
++      action: "FINALIZE",
++    });
++  });
+ });
+
+```
+
+## 5. Tests / validations
+
+| Suite | Result |
 |---|---|
-| `npm test -- __tests__/pre-m6-product-ui/lifecyclePresentation.phaseB.d0.test.tsx` | **19/19 PASS** |
-| `npm test -- …corrProof05.pilotLifecycle.d0.test.ts` | **136/136 PASS** |
-| `npm test -- …corrProof06.artifactObligation.d0.test.ts` | **13/13 PASS** |
-| `npm test -- …lifecycleClosure.phaseB.d0.test.ts` | **12/12 PASS** |
-| `npm test -- …reservationContextProposal.ui.test.tsx` | **3/3 PASS** |
-| `npm test -- …cycleReservationMemoryRail.ui.test.tsx` | **2/2 PASS** |
-| `npm test -- …noraConversationalInitiative.d0.test.ts` | **PASS** (incl. HOLD constant equality) |
-| Broader adjacent batch (7 files) | **205/205 PASS** |
-| Full `__tests__/pre-m6-product-ui/` + corrProof06 | **15 files / 126 tests PASS** |
+| `lifecyclePresentation.phaseB.d0.test.tsx` | **31/31 PASS** (prior FR-A..J + RC-01..RC-04) |
+| Adjacent batch (7 files incl. corrProof05/06, lifecycleClosure.phaseB, reservation UI, Nora HOLD) | **217/217 PASS** |
+| Full `__tests__/pre-m6-product-ui/` | **14 files / 125 tests PASS** |
 | `npm run typecheck` | **PASS** |
-| `npm run lint` | **PASS** (0 warnings) |
-| `npm run build` | **PASS** (existing better-sqlite3 warning unchanged) |
+| `npm run lint` | **PASS** |
+| `npm run build` | **PASS** |
 
-Exact FR file count: **1** test file extended; **+11 FR cases** (helpers A/J + surface A–I).
+## 6. Runtime visual proof
 
-## 13. Runtime visual proof
+**RUNTIME VISUAL PROOF — PENDING NATURAL STUDYFLOW REPROOF**
 
-**RUNTIME VISUAL PROOF — NOT EXECUTED**
+No StudyFlow mutation/capture in this correction. **VISUAL UX PASS — NOT CLAIMED**.
 
-No safe live Studio Product + StudyFlow durable state capture session was available without manufacturing Product state. Later natural StudyFlow reproof by Morris remains authoritative UX proof.
+## 7. Remaining reserves
 
-→ **VISUAL UX PASS — NOT CLAIMED**
-→ **RUNTIME VISUAL PROOF — PENDING NATURAL STUDYFLOW REPROOF**
+- Natural StudyFlow finalization reproof (authoritative UX)
+- Deeper GAP-01 dialogue contradiction if still observed → reproof evidence only
+- Roadmap truth-sync / project Git — **NOT AUTHORIZED**
 
-## 14. Accessibility / responsive notes
+## 8. Anti-claims
 
-- Semantic `h3`/`h4` for readiness + groups
-- Text status labels via pills (`data-kind`); color supplemental
-- Buttons retain existing focus-visible outline
-- ASSESS feedback `role="status"` on `lifecycle-info`
-- `overflow-wrap: anywhere` / `min-width: 0` on condition rows for narrow rail
-- Desktop 1440 runtime capture: **not performed**
+- runtime v3 = NON ADOPTED
+- READY FOR REAL global = NO
+- Nora Cognitive Completion = NOT COMPLETE / NOT PROVEN
+- global finalization UX quality = NOT PROVEN until natural StudyFlow reproof
+- PROJECT COMMIT / PUSH / PR / MERGE = NOT AUTHORIZED
+- ROADMAP TRUTH-SYNC = NOT AUTHORIZED
 
-## 15. Remaining reserves / debt / exit
+## 9. Final verdict (local correction)
 
-| Item | Status |
-|---|---|
-| GAP-01 HOLD wording | **CLOSED** (trivial semantics-preserving string) |
-| GAP-01 deeper cognitive/routing contradiction if still observed in natural dialogue | **HOLD / observe on StudyFlow reproof** — do not expand macro |
-| Natural StudyFlow finalization reproof | **PENDING** (post-merge Morris gate) |
-| Roadmap truth-sync for MealFlow / #520 | **NOT AUTHORIZED** |
-| Runtime visual screenshots | **PENDING** |
-| Project Git integrate | **NOT AUTHORIZED this cycle** |
-
-## 16. Anti-claims
-
-- runtime v3 = **NON ADOPTED**
-- READY FOR REAL global = **NO**
-- Nora Cognitive Completion = **NOT COMPLETE / NOT PROVEN**
-- global lifecycle/finalization UX quality = **NOT PROVEN** until natural StudyFlow reproof
-- VISUAL UX PASS = **NOT CLAIMED**
-- PRODUCT COMMIT / PUSH / PR / MERGE = **NOT AUTHORIZED**
-
-## 17. Final verdict (local deterministic)
-
-**FINALIZATION READINESS & PILOT GUIDANCE — LOCAL CANDIDATE PASS**
+**FINALIZATION READINESS & PILOT GUIDANCE — SAME-MACRO CORRECTION PASS**
 
 | Gate | Verdict |
 |---|---|
-| FINALIZATION ASSESSMENT ENGINE | **UNCHANGED / KEEP** |
-| READINESS SUMMARY | **PASS** |
-| CONDITION GROUPING | **PASS** |
-| CONDITION EXPLANATIONS | **PASS** |
-| ASSESS FEEDBACK | **PASS** |
-| ACTION-TO-CONDITION GUIDANCE | **PASS** |
-| PILOT FINAL DECISION BOUNDARY | **PASS** |
-| FINALIZATION ELIGIBILITY SEMANTICS | **UNCHANGED** |
-| RESERVATION REGRESSION | **PASS** |
-| ACCESSIBILITY STRUCTURE | **PASS** |
-| PRODUCT CODE VALIDATIONS | **PASS** |
+| RC-01 MIXED GROUP TRUTH | **PASS** |
+| RC-02 PILOT DECISION WAITING | **PASS** |
+| RC-03 INTERNAL CODE LEAK | **NOT OBSERVED** |
+| RC-04 SINGLE FINALIZE AFFORDANCE | **PASS** |
+| FINALIZATION ASSESSMENT ENGINE | **UNCHANGED** |
+| FINALIZATION ELIGIBILITY | **UNCHANGED** |
+| PRODUCT VALIDATIONS | **PASS** |
 | RUNTIME VISUAL PROOF | **PENDING NATURAL STUDYFLOW REPROOF** |
-| PROJECT COMMIT | **NOT AUTHORIZED** |
-| PROJECT PUSH | **NOT AUTHORIZED** |
-| PR / MERGE | **NOT AUTHORIZED** |
-| ROADMAP TRUTH-SYNC | **NOT AUTHORIZED** |
 
-NEXT: ChatGPT review of local candidate. If qualified, distinct Morris gate for project Git integration. After merge/post-merge verification: resume StudyFlow at finalization readiness.
-
-## 18. Review Handoff publication (L3)
-
-| Field | Value |
-|---|---|
-| Branch | `sfia/review-handoff` |
-| Canonical file | `sfia-review-handoff/latest-chatgpt-review.md` |
-| Remote commit | `95eb5c827f2f3ed2c44b90210a13abec3b065555` |
-| Canonical blob | `74a69fe7ac2f160f1f8888a2acef499cc1645893` |
-| Verdict | **HANDOFF UPDATED — REMOTE VERIFIED** |
-| Product commit/push/PR | **NOT authorized by this L3 action** |
-
-Construction branch after publication: `feat/sfia-studio-finalization-readiness-pilot-guidance-01` @ `6ac7eafb1f9177d3ccb9a129de7cfbc51195de7f` (local uncommitted Product work preserved).
+NEXT: ChatGPT re-review. Only after PASS may Morris open the project Git integration gate.
