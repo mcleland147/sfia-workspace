@@ -9,17 +9,19 @@ import {
 } from "@/features/project-assistant/actions";
 import { projectAssistantPrepareCandidateTrajectoryAction } from "@/features/project-assistant/preCycleCandidateTrajectoryActions";
 import type { PilotLifecycleProjection } from "@/lib/oa/cycle/application/lifecycleProjection";
+import type { FinalizationAssessment } from "@/lib/oa/cycle";
 import { SFIA_ASSISTANT_ANSWERED_EVENT } from "@/features/project-assistant/presentationLabels";
 import {
+  formatAssessFeedback,
+  groupFinalizationObligations,
   lifecycleCtaPresentation,
   lifecycleStatusBadge,
   nonHumanDecisionBlockers,
-  obligationFamilyLabel,
-  obligationStatusLabel,
   presentLifecycleBlockerRows,
   primaryFinalizeRecommendation,
   primaryNextCycleRecommendation,
   readyExceptFinalizeDecision,
+  summarizeFinalizationReadiness,
 } from "./lifecyclePresentation";
 import styles from "./LifecycleSurface.module.css";
 
@@ -129,7 +131,15 @@ export function LifecycleSurface({
               "Finalisation incomplète — des conditions restent ouvertes.",
           );
         } else if (action === "ASSESS") {
-          setInfo("Conditions de finalisation actualisées.");
+          const assessed =
+            (result.projection?.assessment as
+              | FinalizationAssessment
+              | null
+              | undefined) ??
+            (result.assessment as FinalizationAssessment | null | undefined) ??
+            projection?.assessment ??
+            null;
+          setInfo(formatAssessFeedback(assessed));
         } else {
           setInfo(null);
         }
@@ -257,6 +267,16 @@ export function LifecycleSurface({
     : (projection.reservationSummary ?? null);
   const showAssessment =
     !terminalDisplay && Boolean(projection.assessment);
+  const readinessSummary = summarizeFinalizationReadiness(projection.assessment);
+  const conditionGroups = groupFinalizationObligations(projection.assessment);
+  // When assessment UI is shown, colocate exit/policy CTAs in groups (avoid duplicate strips).
+  const colocateGuidance = showAssessment;
+  // RC-04 — one Finaliser when Pilot authority group already owns it.
+  const showGroupedFinalize =
+    colocateGuidance &&
+    ready &&
+    conditionGroups.some((g) => g.id === "pilot_authority");
+  const suppressGenericFinalize = showGroupedFinalize;
 
   return (
     <aside
@@ -304,7 +324,7 @@ export function LifecycleSurface({
           </p>
           {finalizeRec ? (
             <p className={styles.recMeta} data-testid="lifecycle-finalize-rec-notice">
-              Nora recommande de finaliser ce cycle
+              Nora recommande d’engager la finalisation de ce cycle.
             </p>
           ) : (
             <p className={styles.recMeta}>
@@ -312,8 +332,16 @@ export function LifecycleSurface({
             </p>
           )}
           <p className={styles.distinction}>
-            Recommandation ≠ décision Pilote · n’active pas le cycle
+            Recommandation ≠ décision Pilote · n’exécute aucune transition
           </p>
+          {finalizeRec ? (
+            <p
+              className={styles.distinction}
+              data-testid="lifecycle-finalize-rec-active-cycle"
+            >
+              Le cycle reste actif tant que le Pilote n’a pas finalisé.
+            </p>
+          ) : null}
         </section>
       ) : (
         <section className={styles.recBlock} data-testid="lifecycle-recommendation-empty">
@@ -328,8 +356,43 @@ export function LifecycleSurface({
         <section
           className={styles.block}
           data-testid="lifecycle-finalization-obligations"
+          aria-labelledby="lifecycle-readiness-heading"
         >
-          <h3 className={styles.blockTitle}>Conditions de finalisation</h3>
+          <h3
+            id="lifecycle-readiness-heading"
+            className={styles.blockTitle}
+          >
+            État de préparation à la finalisation
+          </h3>
+          {readinessSummary ? (
+            <div
+              className={styles.readinessSummary}
+              data-testid="lifecycle-readiness-summary"
+            >
+              <p
+                className={styles.readinessHeadline}
+                data-testid="lifecycle-readiness-headline"
+              >
+                {readinessSummary.headline}
+              </p>
+              {readinessSummary.assessedAtLabel ? (
+                <p
+                  className={styles.muted}
+                  data-testid="lifecycle-assessed-at"
+                >
+                  Dernière vérification : {readinessSummary.assessedAtLabel}
+                </p>
+              ) : null}
+              <p
+                className={styles.muted}
+                data-testid="lifecycle-readiness-counts"
+              >
+                {readinessSummary.countLine.length > 0
+                  ? readinessSummary.countLine
+                  : "Aucun compteur de condition à afficher."}
+              </p>
+            </div>
+          ) : null}
           {ready ? (
             <p className={styles.muted} data-testid="lifecycle-ready-finalize">
               Prêt pour décision de finalisation — seule la décision Pilote
@@ -353,32 +416,256 @@ export function LifecycleSurface({
                 </li>
               ))}
             </ul>
-          ) : (
-            <p className={styles.muted}>
-              Assessment disponible — vérifiez les obligations ci-dessous.
-            </p>
-          )}
-          <ul data-testid="lifecycle-obligation-list">
-            {projection.assessment!.obligations.map((o) => (
-              <li key={o.family} data-family={o.family} data-status={o.status}>
-                {obligationFamilyLabel(o.family)} — {obligationStatusLabel(o)}
-              </li>
-            ))}
-          </ul>
+          ) : null}
+
+          {conditionGroups.map((group) => (
+            <div
+              key={group.id}
+              className={styles.conditionGroup}
+              data-testid={`lifecycle-condition-group-${group.id}`}
+              data-group={group.id}
+            >
+              <h4 className={styles.conditionGroupTitle}>{group.title}</h4>
+              <p
+                className={styles.conditionGroupSummary}
+                data-testid={`lifecycle-condition-group-${group.id}-summary`}
+              >
+                <span className={styles.statusPill} data-kind={group.summaryLabel}>
+                  {group.summaryLabel}
+                </span>
+                {" — "}
+                {group.summaryExplanation}
+              </p>
+
+              {group.id === "governed_effects" && group.allUnknownGoverned ? (
+                <details
+                  className={styles.conditionDetails}
+                  data-testid="lifecycle-governed-effects-details"
+                >
+                  <summary>Voir les familles concernées</summary>
+                  <ul
+                    className={styles.conditionList}
+                    data-testid="lifecycle-obligation-list"
+                  >
+                    {group.rows.map((row) => (
+                      <li
+                        key={row.family}
+                        className={styles.conditionRow}
+                        data-family={row.family}
+                        data-status={row.obligation.status}
+                        data-kind={row.kind}
+                      >
+                        <div className={styles.conditionRowHead}>
+                          <span className={styles.conditionTitle}>
+                            {row.title}
+                          </span>
+                          <span
+                            className={styles.statusPill}
+                            data-kind={row.kind}
+                          >
+                            {row.statusLabel}
+                          </span>
+                        </div>
+                        <p className={styles.conditionExplain}>{row.explanation}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              ) : (
+                <ul
+                  className={styles.conditionList}
+                  data-testid={
+                    group.id === "work_of_cycle"
+                      ? "lifecycle-obligation-list-work"
+                      : group.id === "pilot_authority"
+                        ? "lifecycle-obligation-list-pilot"
+                        : "lifecycle-obligation-list"
+                  }
+                >
+                  {group.rows.map((row) => (
+                    <li
+                      key={row.family}
+                      className={styles.conditionRow}
+                      data-family={row.family}
+                      data-status={row.obligation.status}
+                      data-kind={row.kind}
+                    >
+                      <div className={styles.conditionRowHead}>
+                        <span className={styles.conditionTitle}>{row.title}</span>
+                        <span className={styles.statusPill} data-kind={row.kind}>
+                          {row.statusLabel}
+                        </span>
+                      </div>
+                      <p className={styles.conditionExplain}>{row.explanation}</p>
+                      {row.family === "exit_criteria" &&
+                      row.kind === "TO_TREAT" &&
+                      exitOpen ? (
+                        <button
+                          type="button"
+                          className={styles.btnSecondary}
+                          disabled={busy !== null}
+                          data-testid="lifecycle-complete-trajectory-step"
+                          onClick={() => void completeTrajectoryStep()}
+                        >
+                          Clôturer l’étape de trajectoire liée
+                        </button>
+                      ) : null}
+                      {row.family === "blockers" &&
+                      row.kind === "TO_TREAT" &&
+                      onOpenReservations ? (
+                        <button
+                          type="button"
+                          className={styles.btnSecondary}
+                          data-testid="lifecycle-open-reservations-from-condition"
+                          onClick={onOpenReservations}
+                        >
+                          Voir les réserves
+                        </button>
+                      ) : null}
+                      {row.family === "artifact" &&
+                      cta.showRequireArtifactContinuation &&
+                      !suppressGenericNoraCta ? (
+                        <button
+                          type="button"
+                          className={styles.btnSecondary}
+                          disabled={busy !== null}
+                          data-testid="lifecycle-define-deliverable-cta"
+                          onClick={focusAssistantForDeliverable}
+                        >
+                          Définir le livrable avec Nora
+                        </button>
+                      ) : null}
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              {group.id === "governed_effects" &&
+              (cta.showGroupedObligationPolicy ||
+                cta.showRequireArtifactPolicy) &&
+              policyConfirmKind === null ? (
+                <div
+                  className={styles.ctaRow}
+                  data-testid="lifecycle-obligation-policy"
+                >
+                  {cta.showGroupedObligationPolicy ? (
+                    <button
+                      type="button"
+                      className={styles.btnSecondary}
+                      disabled={busy !== null}
+                      data-testid="lifecycle-obligation-policy-cta"
+                      onClick={() => setPolicyConfirmKind("no-governed-effects")}
+                    >
+                      Confirmer qu’aucun effet gouverné n’est requis pour ce cycle
+                    </button>
+                  ) : null}
+                  {cta.showRequireArtifactPolicy ? (
+                    <button
+                      type="button"
+                      className={styles.btnSecondary}
+                      disabled={busy !== null}
+                      data-testid="lifecycle-require-artifact-cta"
+                      onClick={() => setPolicyConfirmKind("require-artifact")}
+                    >
+                      Un livrable est requis avant finalisation
+                    </button>
+                  ) : null}
+                </div>
+              ) : null}
+
+              {group.id === "governed_effects" &&
+              policyConfirmKind === "no-governed-effects" ? (
+                <div data-testid="lifecycle-obligation-policy-confirm">
+                  <p className={styles.muted}>
+                    Cette décision signifie que ce cycle ne requiert pas de
+                    livrable, d’exécution gouvernée, d’Evidence, de ReviewBundle
+                    ni d’effet Git. Elle n’est jamais automatique et ne finalise
+                    pas le cycle.
+                  </p>
+                  <button
+                    type="button"
+                    className={styles.btnPrimary}
+                    disabled={busy !== null}
+                    data-testid="lifecycle-obligation-policy-confirm-cta"
+                    onClick={() =>
+                      void confirmObligationPolicy("no-governed-effects")
+                    }
+                  >
+                    Confirmer explicitement
+                  </button>
+                  <button
+                    type="button"
+                    className={styles.btnSecondary}
+                    disabled={busy !== null}
+                    data-testid="lifecycle-obligation-policy-cancel"
+                    onClick={() => setPolicyConfirmKind(null)}
+                  >
+                    Annuler
+                  </button>
+                </div>
+              ) : null}
+
+              {group.id === "governed_effects" &&
+              policyConfirmKind === "require-artifact" ? (
+                <div data-testid="lifecycle-require-artifact-confirm">
+                  <p className={styles.muted}>
+                    Un livrable devra être défini et matérialisé avant de
+                    finaliser ce cycle. Aucune exécution automatique n’est
+                    lancée. Vous pourrez ensuite préciser la forme du livrable
+                    avec Nora.
+                  </p>
+                  <button
+                    type="button"
+                    className={styles.btnPrimary}
+                    disabled={busy !== null}
+                    data-testid="lifecycle-require-artifact-confirm-cta"
+                    onClick={() =>
+                      void confirmObligationPolicy("require-artifact")
+                    }
+                  >
+                    Confirmer : livrable requis
+                  </button>
+                  <button
+                    type="button"
+                    className={styles.btnSecondary}
+                    disabled={busy !== null}
+                    data-testid="lifecycle-require-artifact-cancel"
+                    onClick={() => setPolicyConfirmKind(null)}
+                  >
+                    Annuler
+                  </button>
+                </div>
+              ) : null}
+
+              {group.id === "pilot_authority" && showGroupedFinalize ? (
+                <div className={styles.ctaRow}>
+                  <button
+                    type="button"
+                    className={styles.btnPrimary}
+                    disabled={busy !== null || !cta.finalizeEnabled}
+                    data-testid="lifecycle-finalize-from-readiness"
+                    onClick={() => void runAction("FINALIZE")}
+                  >
+                    Finaliser
+                  </button>
+                </div>
+              ) : null}
+            </div>
+          ))}
         </section>
       ) : !terminalDisplay &&
         (projection.selectedStatus === "active" ||
           projection.selectedStatus === "paused" ||
           projection.selectedStatus === "blocked") ? (
         <section className={styles.block} data-testid="lifecycle-assessment-unavailable">
-          <h3 className={styles.blockTitle}>Conditions de finalisation</h3>
+          <h3 className={styles.blockTitle}>État de préparation à la finalisation</h3>
           <p className={styles.muted}>
             Assessment indisponible — fail-closed (aucune finalisation).
           </p>
         </section>
       ) : null}
 
-      {exitOpen ? (
+      {!colocateGuidance && exitOpen ? (
         <section className={styles.block} data-testid="lifecycle-exit-criteria-resolve">
           <h3 className={styles.blockTitle}>Critères de sortie</h3>
           <p className={styles.muted}>
@@ -466,7 +753,8 @@ export function LifecycleSurface({
         </section>
       ) : null}
 
-      {cta.showGroupedObligationPolicy || cta.showRequireArtifactPolicy ? (
+      {!colocateGuidance &&
+      (cta.showGroupedObligationPolicy || cta.showRequireArtifactPolicy) ? (
         <section className={styles.block} data-testid="lifecycle-obligation-policy">
           <h3 className={styles.blockTitle}>Effets gouvernés</h3>
           <p className={styles.muted}>
@@ -554,7 +842,9 @@ export function LifecycleSurface({
         </section>
       ) : null}
 
-      {cta.showRequireArtifactContinuation && !suppressGenericNoraCta ? (
+      {!colocateGuidance &&
+      cta.showRequireArtifactContinuation &&
+      !suppressGenericNoraCta ? (
         <section
           className={styles.block}
           data-testid="lifecycle-require-artifact-continuation"
@@ -644,7 +934,7 @@ export function LifecycleSurface({
             Vérifier les conditions de finalisation
           </button>
         ) : null}
-        {cta.showFinalizePrimary ? (
+        {cta.showFinalizePrimary && !suppressGenericFinalize ? (
           <button
             type="button"
             className={styles.btnPrimary}
@@ -655,7 +945,7 @@ export function LifecycleSurface({
             Finaliser
           </button>
         ) : null}
-        {cta.showFinalizeSecondary ? (
+        {cta.showFinalizeSecondary && !suppressGenericFinalize ? (
           <button
             type="button"
             className={styles.btnSecondary}

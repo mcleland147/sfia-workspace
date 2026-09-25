@@ -235,7 +235,7 @@ export const CONVERSATION_GUIDANCE_HOLD_ACTIVE_CYCLE_SCOPE: ConversationGuidance
     kind: "HOLD",
     scope: "BLOCKER_RESOLUTION",
     statement:
-      "Le travail doit rester dans le cycle actif ; aucune transition n'est recommandée sur ce tour.",
+      "Le cycle reste actif sur ce tour ; aucune transition n’est exécutée sans décision du Pilote.",
     rationale: "active_cycle_scope_required",
   });
 
