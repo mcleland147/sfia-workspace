@@ -1,173 +1,145 @@
 # PILOT-EXECUTION-EXPERIENCE-RECOVERY-SIMPLIFICATION-01
-## CYCLE 9 — QA / validation — bounded CI correction (PR #522)
+## POST-MERGE VERIFICATION — PR #522
 ## FULL Review Pack — Cursor → ChatGPT
 
-Generated: 2026-09-25T19:27:11Z
+Generated: 2026-09-25T19:31:42Z
 Macro: PILOT-EXECUTION-EXPERIENCE-RECOVERY-SIMPLIFICATION-01
-Cycle: 9 — QA / validation — bounded CI correction inside existing PR #522
+Cycle: post-merge verification after GO MERGE #522
 Profile: CRITICAL
-Morris GO consumed: CI correction + commit + push + handoff (NOT merge)
+Morris GO consumed: **GO MERGE #522**
 Cursor REAL: NOT RUN
-Merge: NOT AUTHORIZED
+Roadmap/Product Completion sync: NOT DONE
+StudyFlow REAL: NOT STARTED
 
 ---
 
-## 1. GIT TRUTH BEFORE
+## 1. GO MORRIS CONSUMED
+
+GO MERGE #522 — authorized merge + post-merge Git verification + handoff.
+NOT authorized: branch delete · Product edit · Roadmap sync · GAP-15 fix · StudyFlow · Cursor REAL · new PR.
+
+---
+
+## 2. GIT TRUTH BEFORE MERGE
 
 | Field | Value |
 |-------|-------|
-| Repo | mcleland147/sfia-workspace |
-| Branch | `feat/sfia-studio-pilot-execution-experience-recovery-simplification-01` |
-| HEAD | `8416968532b757f52972a7dcbc347424182402ab` |
+| Local branch | `feat/sfia-studio-pilot-execution-experience-recovery-simplification-01` |
 | origin/main | `e287f744479fc4b55c3e3082969deea7783996da` |
-| Remote branch | same SHA |
-| PR #522 | OPEN / NOT MERGED / MERGEABLE |
-| Dirty unrelated | `.tmp-sfia-review/**` only (not staged) |
+| Dirty unrelated | `.tmp-sfia-review/**` only (not project code) |
 
----
+### PR #522 pre-merge
 
-## 2. MORRIS DECISION CONSUMED
-
-GO for: bounded CI correction in macro #522 · commit · push · handoff.
-NOT authorized: merge · new PR · Product change · GAP-15 · StudyFlow · Cursor REAL · architecture.
-
----
-
-## 3. DIAGNOSTIC CI #603
-
-Workflow: SFIA Studio CI · Run `36174748066` · number 603 · FAILURE  
-Failing test: `__tests__/vertical-slice-runtime/importBoundaries.test.ts` — V2-A1 allowlist exact equality.
-
-### Confirmed: MECHANICAL IMPORT-BOUNDARY ALLOWLIST DRIFT
-
-Code inspection:
-
-A. **Added by #522 (real import)** — `prepareAndResolveM3ProductPath.ts`:
-```ts
-import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
-```
-Still also imports `resolveBoundedReadOnlyBaseHeadSha` (already allowlisted).
-
-B. **Removed by #522 (stale allowlist)** — `prepareDocsWriteRecoverySuccessor.ts`:
-- no longer imports `@/lib/vertical-slice-runtime/resolveBoundedReadOnlyBaseHeadSha`
-- uses `resolveTrustedProductLaunchContext` instead
-- still imports `@/lib/vertical-slice-runtime` (RuntimeOaStack) — already allowlisted
-
-Not an architectural violation: top-level `RuntimeOaStack` type import matches existing allowlist pattern (`actions.ts`, other f3/w2 files). Equality oracle preserved (`toEqual(allowed)`).
-
----
-
-## 4. FILE MODIFIED
-
-**ONLY:** `projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts`
-
-Product files: READ ONLY / unchanged.
-
----
-
-## 5. EXACT DIFF
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts b/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-index 895ee15e..9d5b46ee 100644
---- a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-+++ b/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-@@ -86,6 +86,7 @@ describe("V2-A1 vertical-slice-runtime import boundaries", () => {
-       "features/project-assistant/f2/studioCognitiveContext.ts:@/lib/vertical-slice-runtime",
-       "features/project-assistant/f3/confirmAndExecuteResolvedM3.ts:@/lib/vertical-slice-runtime",
-       "features/project-assistant/f3/confirmAndExecuteResolvedM3.ts:@/lib/vertical-slice-runtime/e2eOptionAQaScenarioControl",
-+      "features/project-assistant/f3/prepareAndResolveM3ProductPath.ts:@/lib/vertical-slice-runtime",
-       "features/project-assistant/f3/prepareAndResolveM3ProductPath.ts:@/lib/vertical-slice-runtime/resolveBoundedReadOnlyBaseHeadSha",
-       "features/project-assistant/f3/rematerializeDocsWriteEvidenceRequirements.ts:@/lib/vertical-slice-runtime",
-       "features/project-assistant/f3/resolveDurableBoundaryProofMode.ts:@/lib/vertical-slice-runtime",
-@@ -115,7 +116,6 @@ describe("V2-A1 vertical-slice-runtime import boundaries", () => {
-       "app/api/e2e/w3b-boundary/route.ts:@/lib/vertical-slice-runtime/w3bE2eBoundaryControl",
-       "features/project-assistant/w2/pendingDecisionSubjectMarker.ts:@/lib/vertical-slice-runtime",
-       "features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts:@/lib/vertical-slice-runtime",
--      "features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts:@/lib/vertical-slice-runtime/resolveBoundedReadOnlyBaseHeadSha",
-       "features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts:@/lib/vertical-slice-runtime",
-       "features/project-assistant/w2/prepareReadyProposalPursueContinuation.ts:@/lib/vertical-slice-runtime",
-       "features/project-assistant/w2/presentedOptionSet.ts:@/lib/vertical-slice-runtime",
-
-```
-
----
-
-## 6. VALIDATIONS (local)
-
-| Gate | Result |
-|------|--------|
-| targeted importBoundaries | **5/5 PASS** |
-| full `npm test` | **4685 PASS** / 137 skipped |
-| typecheck | PASS |
-| lint | PASS |
-| build | PASS |
-| git diff --check | PASS |
-| Diff scope | single test file only |
-
----
-
-## 7. COMMIT / PUSH
-
-| | |
-|--|--|
-| Message | `test(studio): align runtime import boundary allowlist` |
-| Commit | `dbefeb15efa34c657b10b9501dbee90efe90bd92` |
-| Remote | identical — **PUSH VERIFIED** |
-
----
-
-## 8. PR #522 AFTER PUSH
-
-| | |
-|--|--|
-| URL | https://github.com/mcleland147/sfia-workspace/pull/522 |
-| State | OPEN / NOT MERGED |
+| Field | Value |
+|-------|-------|
+| State | OPEN |
+| Draft | false |
 | mergeable | MERGEABLE |
-| Head | `dbefeb15efa34c657b10b9501dbee90efe90bd92` |
-| Base | `e287f744479fc4b55c3e3082969deea7783996da` |
+| mergeStateStatus | CLEAN |
+| head | `dbefeb15efa34c657b10b9501dbee90efe90bd92` |
+| base | main @ `e287f744…` |
+| CI #604 | success (Detect / Build / Required Gate) |
+
+Merge method: `gh pr merge 522 --merge --match-head-commit dbefeb15efa34c657b10b9501dbee90efe90bd92`
 
 ---
 
-## 9. CI AFTER CORRECTION
+## 3. MERGE RESULT
 
-| | |
-|--|--|
-| Workflow | SFIA Studio CI |
-| Run | `36178978081` |
-| Number | **604** |
-| Head SHA | `dbefeb15…` |
+| Field | Value |
+|-------|-------|
+| PR state | **MERGED** |
+| mergedAt | 2026-09-25T19:30:14Z |
+| mergeCommit | `49249101bab1bd1e3a1d91b469fe7b41341c5a01` |
+| headRefOid | `dbefeb15efa34c657b10b9501dbee90efe90bd92` |
+
+---
+
+## 4. ORIGIN/MAIN AFTER FETCH
+
+| Field | Value |
+|-------|-------|
+| origin/main | `49249101bab1bd1e3a1d91b469fe7b41341c5a01` |
+| Tip message | Merge pull request #522 from mcleland147/feat/sfia-studio-pilot-execution-experience-recovery-simplification-01 |
+| Match mergeCommit | YES |
+
+---
+
+## 5. ANCESTRY VERIFICATION
+
+| Commit | Result |
+|--------|--------|
+| `84169685…` (macro feature) | **PASS** — ancestor of origin/main |
+| `dbefeb15…` (boundary allowlist) | **PASS** — ancestor of origin/main |
+
+---
+
+## 6. SOURCE BRANCH
+
+Remote branch **preserved** (not deleted):
+`feat/sfia-studio-pilot-execution-experience-recovery-simplification-01` → `dbefeb15…`
+
+---
+
+## 7. POST-MERGE CI
+
+| Field | Value |
+|-------|-------|
+| Workflow | SFIA Studio CI (push to main) |
+| Run | `36180077825` |
+| Number | **605** |
+| headSha | `49249101bab1bd1e3a1d91b469fe7b41341c5a01` |
 | Conclusion | **success** |
-| Detect SFIA Studio changes | **pass** |
-| Build and validate SFIA Studio | **pass** (6m41s) |
-| SFIA Studio Required Gate | **pass** |
+| Detect / Build / Required Gate | **pass** |
+| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/36180077825 |
 
 ---
 
-## 10. FAKE / REAL
+## 8. WHAT WAS INTEGRATED
 
-DETERMINISTIC QA correction only.  
-Cursor REAL / StudyFlow REAL / END-TO-END REAL — NOT RUN / NOT CLAIMED.
+Macro PILOT-EXECUTION-EXPERIENCE-RECOVERY-SIMPLIFICATION on main:
+- Pilot execution / recovery simplification Product + tests
+- Authenticated visual QA harness
+- Import-boundary allowlist CI correction (`dbefeb15`)
 
-### Anti-claims
+---
+
+## 9. RESERVES (PRESERVED)
+
+- **GAP-15** — OPEN RESERVE / OUT OF CURRENT MACRO / NON-BLOCKING — not corrected
+- Natural StudyFlow REAL — PENDING AFTER INTEGRATION
+- Cursor docs_write REAL E2E — NOT PROVEN
+- Roadmap documentary drift — NOT synced this cycle
+
+---
+
+## 10. ANTI-CLAIMS
+
 - runtime v3 ADOPTED — NO
+- Product Completion globally complete — NO
 - READY FOR REAL global — NO
 - END-TO-END REAL PROVEN — NO
-- Cursor docs_write REAL PROVEN — NO
-- GAP-15 CLOSED — NO
-- merge authorized — NO
+- Cursor docs_write REAL proven — NO
+- GAP-15 closed — NO
+- StudyFlow REAL reproof complete — NO
 
 ---
 
-## 11. RESERVES
+## 11. NEXT ACTION CANDIDATE
 
-- **GAP-15** — OPEN RESERVE / OUT OF CURRENT MACRO / NON-BLOCKING FOR PR #522 (unchanged)
-- Natural StudyFlow REAL — PENDING AFTER INTEGRATION
+Do **not** auto-start.
+Candidate for ChatGPT post-merge analysis: resume natural StudyFlow from durable state for REAL reproof post-integration and trajectory requalification.
 
 ---
 
-## 12. FINAL VERDICT
+## 12. VERDICT
 
-**CI CORRECTION PUSHED — PR #522 CI GREEN — READY FOR CHATGPT PRE-MERGE REVIEW**
+**PR #522 — MERGED / POST-MERGE GIT VERIFIED**
 
-MERGE — NOT AUTHORIZED (distinct Morris gate after ChatGPT pre-merge review).
+- merge commit: `49249101bab1bd1e3a1d91b469fe7b41341c5a01`
+- origin/main: `49249101bab1bd1e3a1d91b469fe7b41341c5a01`
+- ancestry: PASS
+- post-merge CI #605: success
+- source branch: preserved
+- GAP-15: still OPEN / non-blocking
+- StudyFlow REAL: still PENDING
