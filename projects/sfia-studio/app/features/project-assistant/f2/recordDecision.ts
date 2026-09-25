@@ -1,7 +1,7 @@
 /**
  * Record the structuring gate HumanDecision via OA DecisionServices (M3 durable).
  * The product runtime decision-maker is the generic Pilote actor; `authority:
- * "morris"` stays the OA domain authority class for structuring decisions.
+ * "pilot"` is the OA domain authority class for runtime structuring decisions.
  * Authority evidence is server-owned LOCAL_SINGLE_USER_AUTHORITY_TEMPORARY_WITH_EXIT
  * when configured; fail-closed otherwise. Client claims ignored.
  */
@@ -398,7 +398,7 @@ export async function recordF2Decision(input: {
         options,
         selectedOptionId: mapped.selectedOptionId,
         actor: LOCAL_PILOTE_ACTOR,
-        authority: "morris",
+        authority: "pilot",
         status: mapped.humanStatus,
         reversible: true,
         scope,

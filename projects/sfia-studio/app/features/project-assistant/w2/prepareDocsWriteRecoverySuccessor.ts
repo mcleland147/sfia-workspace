@@ -9,7 +9,8 @@ import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
 import type { F2ContextSnapshot } from "@/features/project-assistant/f2/types";
 import {
   LOCAL_PILOTE_ACTOR,
-  registerLocalPiloteAuthority,
+  registerLocalAuthorityForExecutionClass,
+  registerLocalMorrisGateAuthority,
 } from "@/lib/oa/decision";
 import {
   M4_BOUNDED_DOCS_WRITE_ACTION,
@@ -134,10 +135,11 @@ async function cancelWrongGenericCurrentIfNeeded(input: {
   }
 
   // Authority must match the wrong generic EC scope (not docs_write).
-  const cancelAuthority = registerLocalPiloteAuthority({
+  const cancelAuthority = registerLocalAuthorityForExecutionClass({
     authorityResolver: input.oa.authorityResolver,
     scope: current.scope,
     issuedAt: input.oa.clock.nowIso(),
+    requiredAuthority: current.requiredAuthority,
     evidenceId: `evd:m3-rec-cancel:${current.executionContractId}`,
     forceEnable: input.forceLocalAuthority === true,
   });
@@ -205,7 +207,8 @@ export async function prepareDocsWriteRecoverySuccessorFromDecision(input: {
   const binding = bound.binding;
 
   const issuedAt = oa.clock.nowIso();
-  const authority = registerLocalPiloteAuthority({
+  // Recovery prepare builds a MORRIS-gated docs_write EC — explicit Morris grant.
+  const authority = registerLocalMorrisGateAuthority({
     authorityResolver: oa.authorityResolver,
     scope: binding.scope || "studio.gcec.docs_write",
     issuedAt,

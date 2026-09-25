@@ -223,6 +223,7 @@ function authorityAdapter(authority: MemoryAuthorityResolver) {
       scope: string;
       evidenceId?: string;
       requiredLevel?: "N1" | "N2" | "N3";
+      requirePilotGate?: boolean;
       requireMorrisGate?: boolean;
     }) => {
       const r = authority.verify({
@@ -230,7 +231,8 @@ function authorityAdapter(authority: MemoryAuthorityResolver) {
         requiredLevel: req.requiredLevel ?? "N3",
         scope: req.scope,
         evidenceId: req.evidenceId,
-        requireMorrisGate: req.requireMorrisGate ?? true,
+        requirePilotGate: req.requirePilotGate ?? true,
+        requireMorrisGate: req.requireMorrisGate ?? false,
       });
       return { ok: r.ok, reason: r.reason };
     },
@@ -374,7 +376,7 @@ async function recordHd(input: {
     ],
     selectedOptionId: input.selectedOptionId ?? "opt:accept",
     actor: LOCAL_PILOTE_ACTOR,
-    authority: "morris",
+    authority: "pilot",
     status: "accepted",
     reversible: false,
     scope: `pilot-lifecycle:${input.cycleInstanceId}`,

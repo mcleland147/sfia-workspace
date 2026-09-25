@@ -43,6 +43,10 @@ import {
   type ActiveCycleCognitiveProjection,
 } from "./activeCycleCognitiveContext";
 import { ACTIVE_CYCLE_WORK_SOURCE } from "../materializeActiveCycleWork";
+import {
+  buildReservationCompactForPrompt,
+  formatReservationCompactForPrompt,
+} from "@/lib/nora-cognitive-runtime/reservationPrompt";
 
 /** Conservative composition budgets — implementation policy, not doctrine. */
 export const STUDIO_COGNITIVE_CONTEXT_BUDGET = Object.freeze({
@@ -257,6 +261,10 @@ export type StudioCognitiveContext = {
    * recommendation projection (selectCurrentLifecycleRecommendations).
    */
   readonly lifecycleRecommendation: StudioLifecycleRecommendationContinuityProjection;
+  /**
+   * CYCLE-RESERVATION-PILOTING-01 — bounded reservation prompt block (or null).
+   */
+  readonly reservationCompactSection: string | null;
   readonly limits: {
     readonly oaAvailable: boolean;
     readonly truthOutranksConversation: true;
@@ -489,6 +497,7 @@ export async function composeStudioCognitiveContext(input: {
           current: null,
         }),
         lifecycleRecommendation: LIFECYCLE_RECOMMENDATION_UNAVAILABLE,
+        reservationCompactSection: null,
         limits: Object.freeze({
           oaAvailable: false,
           truthOutranksConversation: true as const,
@@ -611,6 +620,7 @@ export async function composeStudioCognitiveContext(input: {
   // decision/evidence slices). UNKNOWN ≠ KNOWN EMPTY.
   let lifecycleRecommendation: StudioLifecycleRecommendationContinuityProjection =
     LIFECYCLE_RECOMMENDATION_NONE;
+  let reservationCompactSection: string | null = null;
   {
     const failedMaterialDimensions =
       new Set<LifecycleRecommendationMaterialDimension>();
@@ -724,6 +734,15 @@ export async function composeStudioCognitiveContext(input: {
       satisfiesPreCycleNextCycleTransition:
         evaluated.satisfiesPreCycleNextCycleTransition,
     });
+
+    if (lpsActiveCycleInstanceId) {
+      reservationCompactSection = formatReservationCompactForPrompt(
+        buildReservationCompactForPrompt(
+          epistemicItems,
+          lpsActiveCycleInstanceId,
+        ),
+      );
+    }
   }
 
   return {
@@ -753,6 +772,7 @@ export async function composeStudioCognitiveContext(input: {
         current: trajectoryCurrent,
       }),
       lifecycleRecommendation,
+      reservationCompactSection,
       limits: Object.freeze({
         oaAvailable: true,
         truthOutranksConversation: true as const,
@@ -856,6 +876,10 @@ export function buildStudioCognitivePromptSections(
       );
     } else {
       lines.push("Travail cognitif cycle ACTIVE : aucun item matérialisé encore.");
+    }
+    if (ctx.reservationCompactSection) {
+      lines.push("");
+      lines.push(ctx.reservationCompactSection);
     }
   }
   lines.push("");

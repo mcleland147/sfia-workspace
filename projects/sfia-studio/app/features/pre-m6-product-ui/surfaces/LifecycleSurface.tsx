@@ -1,12 +1,11 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   projectAssistantCompleteTrajectoryStepAction,
   projectAssistantPilotLifecycleAction,
   projectAssistantPilotLifecycleProjection,
   projectAssistantRecordObligationPolicyAction,
-  projectAssistantResolveBlockingReservationAction,
 } from "@/features/project-assistant/actions";
 import { projectAssistantPrepareCandidateTrajectoryAction } from "@/features/project-assistant/preCycleCandidateTrajectoryActions";
 import type { PilotLifecycleProjection } from "@/lib/oa/cycle/application/lifecycleProjection";
@@ -39,6 +38,9 @@ export function LifecycleSurface({
   onDurableFactsChanged,
   onEscalateTrajectory,
   suppressGenericNoraCta = false,
+  onOpenReservations,
+  onTreatReservationWithNora,
+  onProjectionChange,
 }: {
   projectId: string;
   /** B1 — parent bumps after Trajectory (or other) durable mutations. */
@@ -50,10 +52,21 @@ export function LifecycleSurface({
    * suppress competing generic Nora continuation CTAs (e.g. define deliverable).
    */
   suppressGenericNoraCta?: boolean;
+  /** CYCLE-RESERVATION-PILOTING-01 — open the Réserves tab of the memory rail. */
+  onOpenReservations?: () => void;
+  /** Gate-blocking Reservation → prefill Nora draft (never send). */
+  onTreatReservationWithNora?: (epistemicItemId: string) => void;
+  /** Parent mirror of the durable projection (Journal Réserves tab reads it). */
+  onProjectionChange?: (projection: PilotLifecycleProjection | null) => void;
 }) {
   const [projection, setProjection] = useState<PilotLifecycleProjection | null>(
     null,
   );
+  const onProjectionChangeRef = useRef(onProjectionChange);
+  onProjectionChangeRef.current = onProjectionChange;
+  useEffect(() => {
+    onProjectionChangeRef.current?.(projection);
+  }, [projection]);
   const [error, setError] = useState<string | null>(null);
   const [info, setInfo] = useState<string | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
@@ -198,30 +211,6 @@ export function LifecycleSurface({
     }
   }
 
-  async function resolveReservation(epistemicItemId: string) {
-    if (!projection?.selectedCycleInstanceId) return;
-    setBusy(`RESOLVE_RESERVATION:${epistemicItemId}`);
-    setInfo(null);
-    try {
-      const result = await projectAssistantResolveBlockingReservationAction({
-        projectId,
-        cycleInstanceId: projection.selectedCycleInstanceId,
-        epistemicItemId,
-      });
-      if (!result.ok) {
-        setError(result.message ?? result.code ?? "Résolution refusée.");
-      } else {
-        setError(null);
-        setInfo(result.message ?? "Réserve résolue.");
-        if (result.projection) setProjection(result.projection);
-        else await refresh();
-        onDurableFactsChanged?.();
-      }
-    } finally {
-      setBusy(null);
-    }
-  }
-
   if (!projection) {
     return (
       <aside
@@ -255,9 +244,17 @@ export function LifecycleSurface({
   // CR-LC-B-01 — no mutation aids / assessment obligation UI on terminal display.
   const exitOpen =
     !terminalDisplay && nonHd.includes("exit_criteria_open");
-  const reservations = terminalDisplay
+  // CYCLE-RESERVATION-PILOTING-01 — gate blockers only, in finalization context.
+  const gateReservations = terminalDisplay
     ? []
     : (projection.blockingReservations ?? []);
+  const reservationGateBlocked =
+    !terminalDisplay &&
+    projection.cta.canFinalize &&
+    (nonHd.includes("blocking_reservations") || gateReservations.length > 0);
+  const reservationSummary = terminalDisplay
+    ? null
+    : (projection.reservationSummary ?? null);
   const showAssessment =
     !terminalDisplay && Boolean(projection.assessment);
 
@@ -399,22 +396,71 @@ export function LifecycleSurface({
         </section>
       ) : null}
 
-      {reservations.length > 0 ? (
-        <section className={styles.block} data-testid="lifecycle-reservation-resolve">
-          <h3 className={styles.blockTitle}>Réserves bloquantes</h3>
-          {reservations.map((r) => (
+      {reservationSummary ? (
+        <section
+          className={styles.block}
+          data-testid="lifecycle-reservation-summary"
+          data-active-count={reservationSummary.activeCount}
+          data-may-affect-count={reservationSummary.mayAffectCount}
+          data-must-resolve-count={reservationSummary.mustResolveCount}
+        >
+          <h3 className={styles.blockTitle}>Réserves du cycle</h3>
+          <p className={styles.muted} data-testid="lifecycle-reservation-summary-line">
+            Réserves du cycle — {reservationSummary.activeCount} active
+            {reservationSummary.activeCount === 1 ? "" : "s"} ·{" "}
+            {reservationSummary.mayAffectCount} peut affecter la clôture
+            {reservationSummary.mustResolveCount > 0
+              ? ` · ${reservationSummary.mustResolveCount} à traiter avant finalisation`
+              : ""}
+            {reservationSummary.toQualifyCount > 0
+              ? ` · ${reservationSummary.toQualifyCount} à qualifier`
+              : ""}
+          </p>
+          {onOpenReservations ? (
+            <button
+              type="button"
+              className={styles.btnSecondary}
+              data-testid="lifecycle-open-reservations"
+              onClick={onOpenReservations}
+            >
+              Voir les réserves
+            </button>
+          ) : null}
+        </section>
+      ) : null}
+
+      {reservationGateBlocked ? (
+        <section
+          className={styles.block}
+          data-testid="lifecycle-reservation-gate"
+          data-gate-count={gateReservations.length}
+        >
+          <h3 className={styles.blockTitle}>Clôture indisponible</h3>
+          <p className={styles.muted} data-testid="lifecycle-reservation-gate-line">
+            Clôture indisponible — {gateReservations.length} réserve
+            {gateReservations.length === 1 ? "" : "s"} à traiter
+          </p>
+          {gateReservations.length === 0 ? (
+            <p className={styles.muted}>
+              L’assessment signale une réserve bloquante non lisible ici —
+              vérifiez les réserves du cycle.
+            </p>
+          ) : null}
+          {gateReservations.map((r) => (
             <div key={r.epistemicItemId} data-testid="lifecycle-blocking-reservation">
               <p className={styles.muted}>{r.statement}</p>
-              <button
-                type="button"
-                className={styles.btnSecondary}
-                disabled={busy !== null}
-                data-testid="lifecycle-resolve-reservation"
-                data-epistemic-id={r.epistemicItemId}
-                onClick={() => void resolveReservation(r.epistemicItemId)}
-              >
-                Marquer la réserve comme résolue
-              </button>
+              {onTreatReservationWithNora ? (
+                <button
+                  type="button"
+                  className={styles.btnSecondary}
+                  disabled={busy !== null}
+                  data-testid="lifecycle-treat-reservation"
+                  data-epistemic-id={r.epistemicItemId}
+                  onClick={() => onTreatReservationWithNora(r.epistemicItemId)}
+                >
+                  Traiter avec Nora
+                </button>
+              ) : null}
             </div>
           ))}
         </section>

@@ -541,6 +541,7 @@ describe("CORR-PROOF-04 studioCognitiveContext composer", () => {
         current: null,
         satisfiesPreCycleNextCycleTransition: false,
       },
+      reservationCompactSection: null,
       limits: {
         oaAvailable: true,
         truthOutranksConversation: true as const,

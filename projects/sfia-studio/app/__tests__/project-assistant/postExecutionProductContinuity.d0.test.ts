@@ -11,6 +11,7 @@ import {
   createInMemoryDecisionServices,
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
+  registerLocalMorrisGateAuthority,
 } from "@/lib/oa/decision";
 import {
   advanceExecutionContractCompletion,
@@ -1002,7 +1003,7 @@ describe("CR-PCONT-06 — Attempt reader fail-closed (deterministic EC oracle)",
     if (!decided.ok) throw new Error(decided.message);
     const decisionId = decided.decision.decisionId;
 
-    const authority = registerLocalPiloteAuthority({
+    const authority = registerLocalMorrisGateAuthority({
       authorityResolver: oa.authorityResolver,
       scope: "studio.gcec.docs_write",
       issuedAt: oa.clock.nowIso(),

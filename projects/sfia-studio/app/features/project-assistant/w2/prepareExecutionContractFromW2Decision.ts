@@ -11,7 +11,7 @@
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
 import {
   LOCAL_PILOTE_ACTOR,
-  registerLocalPiloteAuthority,
+  registerLocalAuthorityForExecutionClass,
 } from "@/lib/oa/decision";
 import { S1_MAX_TTL_SECONDS } from "@/lib/auth/constants";
 import { issueS1AuthorityEvidence } from "@/lib/auth/s1Authority";
@@ -506,10 +506,11 @@ export async function prepareExecutionContractFromW2Decision(input: {
     }
     authorityEvidenceId = issued.evidence.evidenceId;
   } else {
-    const authority = registerLocalPiloteAuthority({
+    const authority = registerLocalAuthorityForExecutionClass({
       authorityResolver: oa.authorityResolver,
       scope: envelope.scope,
       issuedAt,
+      requiredAuthority: envelope.requiredAuthority,
       evidenceId: `evd:w3a-prep:${decision.decisionId}`,
       forceEnable: input.forceLocalAuthority === true,
     });

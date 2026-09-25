@@ -13,6 +13,7 @@ import type { Confirmation } from "@/lib/oa/decision";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
+  registerLocalMorrisGateAuthority,
 } from "@/lib/oa/decision";
 import {
   buildGitEffectActionRef,
@@ -521,7 +522,7 @@ async function bootToConfirmedEc(
   if (!durableEc.ok) throw new Error("ec missing");
   let contract = durableEc.contract;
 
-  const execAuth = registerLocalPiloteAuthority({
+  const execAuth = registerLocalMorrisGateAuthority({
     authorityResolver: oa.authorityResolver,
     scope: contract.scope,
     issuedAt: NOW,

@@ -1,13 +1,24 @@
 /**
- * Server-owned local single-user decision authority (M3 → W2).
+ * Server-owned local single-user decision authority (M3 → W2 → Option A → R1).
  * TEMPORARY WITH EXIT — enabled only via env or explicit test inject.
- * Client canActAsMorris / claimedAuthorityLevel are never trusted.
+ * Client canActAsPilot / canActAsMorris / claimedAuthorityLevel are never trusted.
  *
- * W2 actor semantics: the product runtime decision-maker is the generic
- * **Pilote** (`LOCAL_PILOTE_ACTOR`). `authority: "morris"` remains the OA
- * domain authority CLASS for structuring decisions — it is not a persona.
- * The historical `LOCAL_MORRIS_M3_ACTOR` identity is preserved read-only so
- * decisions already recorded under it are never falsified or rewritten.
+ * Option A: Pilot and Morris are DISTINCT authority classes.
+ * - registerLocalPiloteAuthority → N3 + canActAsPilot (NOT canActAsMorris)
+ * - registerLocalMorrisGateAuthority → N3 + canActAsMorris (NOT canActAsPilot)
+ *
+ * R1 env naming:
+ * - Canonical Pilot: `SFIA_STUDIO_LOCAL_PILOT_AUTHORITY`
+ * - Canonical Morris gate: `SFIA_STUDIO_LOCAL_MORRIS_GATE_AUTHORITY`
+ * - Legacy alias (deprecated): `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY`
+ *
+ * Precedence (per gate family):
+ * 1. If the canonical env for that family is defined → its value wins (`=== "1"`).
+ * 2. Else legacy alias may enable that helper as compatibility only.
+ * 3. Each helper still creates ONLY its own grant — never dual-grant evidence.
+ *
+ * Pilot canonical alone never enables Morris. Morris canonical alone never enables Pilot.
+ * Legacy alone may enable either helper separately (each still single-grant).
  */
 import { randomUUID } from "node:crypto";
 import type { MemoryAuthorityResolver } from "./memoryAuthorityResolver";
@@ -20,6 +31,18 @@ export const LOCAL_PILOTE_ACTOR_ID = "actor:local-pilote" as const;
 export const M3_LOCAL_AUTHORITY_SOURCE =
   "LOCAL_SINGLE_USER_AUTHORITY_TEMPORARY_WITH_EXIT" as const;
 
+/** Canonical Pilot local-authority enable env. */
+export const LOCAL_PILOT_AUTHORITY_ENV =
+  "SFIA_STUDIO_LOCAL_PILOT_AUTHORITY" as const;
+
+/** Canonical Morris-gate local-authority enable env. */
+export const LOCAL_MORRIS_GATE_AUTHORITY_ENV =
+  "SFIA_STUDIO_LOCAL_MORRIS_GATE_AUTHORITY" as const;
+
+/**
+ * @deprecated Compatibility alias only. Prefer LOCAL_PILOT_AUTHORITY_ENV /
+ * LOCAL_MORRIS_GATE_AUTHORITY_ENV. Does not create dual-grant evidence.
+ */
 export const M3_LOCAL_AUTHORITY_ENV =
   "SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY" as const;
 
@@ -43,10 +66,47 @@ export const LOCAL_PILOTE_ACTOR: OaActorReference = Object.freeze({
   authorityLevel: "none" as const,
 });
 
+function envKeyDefined(
+  env: NodeJS.ProcessEnv,
+  key: string,
+): boolean {
+  return Object.prototype.hasOwnProperty.call(env, key);
+}
+
+/**
+ * Pilot enable with canonical-over-legacy precedence.
+ * Canonical defined (even as "0") → canonical wins; else legacy fallback.
+ */
+export function isLocalPilotAuthorityEnabled(
+  env: NodeJS.ProcessEnv = process.env,
+): boolean {
+  if (envKeyDefined(env, LOCAL_PILOT_AUTHORITY_ENV)) {
+    return env[LOCAL_PILOT_AUTHORITY_ENV] === "1";
+  }
+  return env[M3_LOCAL_AUTHORITY_ENV] === "1";
+}
+
+/**
+ * Morris-gate enable with canonical-over-legacy precedence.
+ * Pilot canonical alone does NOT enable Morris.
+ */
+export function isLocalMorrisGateAuthorityEnabled(
+  env: NodeJS.ProcessEnv = process.env,
+): boolean {
+  if (envKeyDefined(env, LOCAL_MORRIS_GATE_AUTHORITY_ENV)) {
+    return env[LOCAL_MORRIS_GATE_AUTHORITY_ENV] === "1";
+  }
+  return env[M3_LOCAL_AUTHORITY_ENV] === "1";
+}
+
+/**
+ * @deprecated Prefer isLocalPilotAuthorityEnabled. Kept for preflight/callers
+ * that historically checked the legacy env name.
+ */
 export function isM3LocalAuthorityEnabled(
   env: NodeJS.ProcessEnv = process.env,
 ): boolean {
-  return env[M3_LOCAL_AUTHORITY_ENV] === "1";
+  return isLocalPilotAuthorityEnabled(env);
 }
 
 export type RegisterM3LocalAuthorityResult =
@@ -62,24 +122,37 @@ export type RegisterM3LocalAuthorityResult =
       message: string;
     };
 
-function registerLocalStructuringAuthority(input: {
+type GateKind = "pilot" | "morris";
+
+function enableHint(gate: GateKind): string {
+  if (gate === "pilot") {
+    return `${LOCAL_PILOT_AUTHORITY_ENV}=1 (or deprecated ${M3_LOCAL_AUTHORITY_ENV}=1)`;
+  }
+  return `${LOCAL_MORRIS_GATE_AUTHORITY_ENV}=1 (or deprecated ${M3_LOCAL_AUTHORITY_ENV}=1)`;
+}
+
+function registerLocalGateAuthority(input: {
   authorityResolver: MemoryAuthorityResolver;
   actor: OaActorReference;
   evidenceIdPrefix: string;
   scope: string;
   issuedAt: string;
+  gate: GateKind;
   evidenceId?: string;
   forceEnable?: boolean;
   env?: NodeJS.ProcessEnv;
 }): RegisterM3LocalAuthorityResult {
+  const env = input.env ?? process.env;
   const enabled =
     input.forceEnable === true ||
-    isM3LocalAuthorityEnabled(input.env ?? process.env);
+    (input.gate === "pilot"
+      ? isLocalPilotAuthorityEnabled(env)
+      : isLocalMorrisGateAuthorityEnabled(env));
   if (!enabled) {
     return {
       ok: false,
       code: "AUTHORITY_NOT_CONFIGURED",
-      message: `Local single-user structuring authority is not configured (fail-closed). Set ${M3_LOCAL_AUTHORITY_ENV}=1.`,
+      message: `Local single-user ${input.gate} authority is not configured (fail-closed). Set ${enableHint(input.gate)}.`,
     };
   }
 
@@ -92,7 +165,9 @@ function registerLocalStructuringAuthority(input: {
     scope: input.scope,
     issuedAt: input.issuedAt,
     source: M3_LOCAL_AUTHORITY_SOURCE,
-    canActAsMorris: true,
+    ...(input.gate === "pilot"
+      ? { canActAsPilot: true }
+      : { canActAsMorris: true }),
   };
 
   try {
@@ -113,14 +188,15 @@ function registerLocalStructuringAuthority(input: {
       message:
         error instanceof Error
           ? error.message
-          : "Failed to register local structuring decision authority.",
+          : `Failed to register local ${input.gate} decision authority.`,
     };
   }
 }
 
 /**
- * W2 — register N3 + structuring-gate evidence for the generic Pilote actor.
- * Fail-closed when the local single-user authority env gate is off
+ * Register N3 + canActAsPilot for the generic Pilote actor.
+ * Does NOT grant canActAsMorris.
+ * Fail-closed when the local Pilot authority env gate is off
  * (unless forceEnable for tests).
  */
 export function registerLocalPiloteAuthority(input: {
@@ -132,16 +208,63 @@ export function registerLocalPiloteAuthority(input: {
   forceEnable?: boolean;
   env?: NodeJS.ProcessEnv;
 }): RegisterM3LocalAuthorityResult {
-  return registerLocalStructuringAuthority({
+  return registerLocalGateAuthority({
     ...input,
     actor: LOCAL_PILOTE_ACTOR,
     evidenceIdPrefix: "evd:local-pilote",
+    gate: "pilot",
   });
 }
 
 /**
- * Historical M3 registration for the legacy Morris runtime actor.
- * @deprecated W2 product runtime uses registerLocalPiloteAuthority.
+ * Explicit Morris-gate evidence for a given actor (local single-user).
+ * Separate from Pilot grant — same human may hold both, but each decision
+ * consumes only the gate it requests.
+ * Default actor = LOCAL_PILOTE_ACTOR (product dual-grant for true Morris EC).
+ */
+export function registerLocalMorrisGateAuthority(input: {
+  authorityResolver: MemoryAuthorityResolver;
+  scope: string;
+  issuedAt: string;
+  /** Defaults to LOCAL_PILOTE_ACTOR for product Morris EC dual-grant. */
+  actor?: OaActorReference;
+  evidenceId?: string;
+  forceEnable?: boolean;
+  env?: NodeJS.ProcessEnv;
+}): RegisterM3LocalAuthorityResult {
+  return registerLocalGateAuthority({
+    ...input,
+    actor: input.actor ?? LOCAL_PILOTE_ACTOR,
+    evidenceIdPrefix: "evd:local-morris-gate",
+    gate: "morris",
+  });
+}
+
+/**
+ * Select local single-user evidence for an ExecutionContract requiredAuthority.
+ * - MORRIS → explicit Morris gate (canActAsMorris)
+ * - N1|N2|N3 → Pilot evidence (N3 level; canActAsPilot; no Morris conflation)
+ */
+export function registerLocalAuthorityForExecutionClass(input: {
+  authorityResolver: MemoryAuthorityResolver;
+  scope: string;
+  issuedAt: string;
+  requiredAuthority: string;
+  evidenceId?: string;
+  forceEnable?: boolean;
+  env?: NodeJS.ProcessEnv;
+}): RegisterM3LocalAuthorityResult {
+  if (input.requiredAuthority === "MORRIS") {
+    return registerLocalMorrisGateAuthority(input);
+  }
+  return registerLocalPiloteAuthority(input);
+}
+
+/**
+ * Historical M3 registration for a true Morris authority evidence.
+ * Grants canActAsMorris only — does NOT implicitly grant canActAsPilot.
+ * @deprecated Prefer registerLocalMorrisGateAuthority for product dual-grant;
+ * kept so LOCAL_MORRIS_M3_ACTOR evidence remains creatable for historical tests.
  */
 export function registerM3LocalMorrisAuthority(input: {
   authorityResolver: MemoryAuthorityResolver;
@@ -152,9 +275,10 @@ export function registerM3LocalMorrisAuthority(input: {
   forceEnable?: boolean;
   env?: NodeJS.ProcessEnv;
 }): RegisterM3LocalAuthorityResult {
-  return registerLocalStructuringAuthority({
+  return registerLocalGateAuthority({
     ...input,
     actor: LOCAL_MORRIS_M3_ACTOR,
     evidenceIdPrefix: "evd:m3-local-morris",
+    gate: "morris",
   });
 }

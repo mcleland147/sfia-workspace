@@ -22,7 +22,7 @@ import {
 } from "@/lib/vertical-slice-runtime/w3bE2eBoundaryControl";
 import {
   LOCAL_PILOTE_ACTOR,
-  registerLocalPiloteAuthority,
+  registerLocalAuthorityForExecutionClass,
 } from "@/lib/oa/decision";
 import type { ExecutionContract } from "@/lib/oa/execution-contract";
 import type {
@@ -487,11 +487,13 @@ function registerPiloteAuthority(
   oa: RuntimeOaStack,
   scope: string,
   forceLocalAuthority?: boolean,
+  requiredAuthority: string = "N3",
 ) {
-  return registerLocalPiloteAuthority({
+  return registerLocalAuthorityForExecutionClass({
     authorityResolver: oa.authorityResolver,
     scope,
     issuedAt: oa.clock.nowIso(),
+    requiredAuthority,
     forceEnable: forceLocalAuthority === true,
   });
 }
@@ -578,6 +580,7 @@ export async function governedExecuteSelectAgent(
     input.oa,
     contract.scope,
     input.forceLocalAuthority,
+    contract.requiredAuthority,
   );
   if (!authority.ok) {
     return { ok: false, code: authority.code, message: authority.message };
@@ -699,6 +702,7 @@ export async function governedExecuteStart(
     input.oa,
     contract.scope,
     input.forceLocalAuthority,
+    contract.requiredAuthority,
   );
   if (!authority.ok) {
     return { ok: false, code: authority.code, message: authority.message };
@@ -1282,6 +1286,7 @@ export async function governedExecuteCancel(
     input.oa,
     contract.scope,
     input.forceLocalAuthority,
+    contract.requiredAuthority,
   );
 
   const reason = (input.reason && input.reason.trim()) || PILOT_CANCEL_REASON;

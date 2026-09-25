@@ -12,7 +12,7 @@ import { canonicalizeJson } from "@/lib/oa/doctrine";
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
 import {
   LOCAL_PILOTE_ACTOR,
-  registerLocalPiloteAuthority,
+  registerLocalAuthorityForExecutionClass,
 } from "@/lib/oa/decision";
 import {
   projectExecutionContractInspectionDisclosure,
@@ -250,10 +250,11 @@ export async function rematerializeDocsWriteEvidenceRequirements(
     }
 
     if (successor.status === "draft" || successor.status === "proposed") {
-      const authority = registerLocalPiloteAuthority({
+      const authority = registerLocalAuthorityForExecutionClass({
         authorityResolver: input.oa.authorityResolver,
         scope: prior.scope,
         issuedAt: input.oa.clock.nowIso(),
+        requiredAuthority: prior.requiredAuthority,
         evidenceId: `evd:m3-ev-remat:${digest}`,
         forceEnable: input.forceLocalAuthority === true,
       });
@@ -301,10 +302,11 @@ export async function rematerializeDocsWriteEvidenceRequirements(
     );
   }
 
-  const authority = registerLocalPiloteAuthority({
+  const authority = registerLocalAuthorityForExecutionClass({
     authorityResolver: input.oa.authorityResolver,
     scope: prior.scope,
     issuedAt: input.oa.clock.nowIso(),
+    requiredAuthority: prior.requiredAuthority,
     evidenceId: `evd:m3-ev-remat:${digest}`,
     forceEnable: input.forceLocalAuthority === true,
   });

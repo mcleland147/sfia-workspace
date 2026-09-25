@@ -68,6 +68,43 @@
   box-shadow: var(--pm6-focus-ring);
 }
 
+/* ---------- Mémoire de cycle — Sujets | Réserves tabs ---------- */
+
+.tabs {
+  display: flex;
+  gap: var(--pm6-space-1);
+  border-bottom: 1px solid var(--pm6-border-soft);
+  flex-shrink: 0;
+}
+
+.tab {
+  appearance: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  padding: 6px 10px;
+  margin-bottom: -1px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--pm6-muted-strong);
+  cursor: pointer;
+}
+
+.tab:hover {
+  color: var(--pm6-ink);
+}
+
+.tab:focus-visible {
+  outline: none;
+  box-shadow: var(--pm6-focus-ring);
+  border-radius: 2px;
+}
+
+.tabActive {
+  color: var(--pm6-forest);
+  border-bottom-color: var(--pm6-forest);
+}
+
 .list {
   display: flex;
   flex-direction: column;
@@ -280,4 +317,141 @@
   line-height: 1.4;
   color: var(--pm6-ink-soft);
   overflow-wrap: anywhere;
+}
+
+/* ---------- Réserves cards ---------- */
+
+.cardBlocking {
+  border-color: color-mix(in srgb, var(--pm6-danger, #8b2e2e) 45%, transparent);
+}
+
+.card .cardTitle,
+.card .cardSummary,
+.card .cardMeta {
+  margin: 0;
+}
+
+.stateBadge {
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pm6-ink);
+  background: color-mix(in srgb, var(--pm6-forest) 14%, transparent);
+  padding: 0.1rem 0.4rem;
+  border-radius: 2px;
+}
+
+.stateBadge[data-state="blocks_finalization"] {
+  color: #fff;
+  background: var(--pm6-danger, #8b2e2e);
+}
+
+.stateBadge[data-state="resolved"],
+.stateBadge[data-state="rejected"],
+.stateBadge[data-state="deferred"] {
+  color: var(--pm6-muted-strong);
+  background: color-mix(in srgb, var(--pm6-muted) 18%, transparent);
+}
+
+.stateBadge[data-state="to_qualify"] {
+  color: var(--pm6-ink);
+  background: color-mix(in srgb, #b98a1c 22%, transparent);
+}
+
+.finalizationHint {
+  margin: 0;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--pm6-muted-strong);
+}
+
+.card[data-state="blocks_finalization"] .finalizationHint {
+  color: var(--pm6-danger, #8b2e2e);
+}
+
+.proposalHint {
+  margin: 0;
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: var(--pm6-forest);
+}
+
+.detailText {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--pm6-ink);
+  overflow-wrap: anywhere;
+}
+
+.cardActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pm6-space-2);
+  padding-top: 2px;
+}
+
+.actionSecondary,
+.actionPrimary {
+  appearance: none;
+  border-radius: var(--pm6-radius-pill);
+  padding: 5px 11px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.actionSecondary {
+  border: 1px solid var(--pm6-border-strong);
+  background: var(--pm6-surface);
+  color: var(--pm6-ink-soft);
+}
+
+.actionSecondary:hover {
+  border-color: var(--pm6-forest);
+  color: var(--pm6-forest);
+}
+
+.actionPrimary {
+  border: 1px solid var(--pm6-forest);
+  background: var(--pm6-forest);
+  color: #fff;
+}
+
+.actionSecondary:disabled,
+.actionPrimary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.actionSecondary:focus-visible,
+.actionPrimary:focus-visible {
+  outline: none;
+  box-shadow: var(--pm6-focus-ring);
+}
+
+.deferredTarget {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--pm6-ink-soft);
+}
+
+.deferConfirm {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 6px;
+  padding: 8px 10px;
+  border: 1px solid var(--pm6-border-strong);
+  border-radius: var(--pm6-radius-sm);
+  background: var(--pm6-canvas-raised);
+}
+
+.deferConfirmTitle {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--pm6-ink);
 }

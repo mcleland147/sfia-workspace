@@ -777,10 +777,14 @@ export class MaterializeFromMemoryB {
           "system_non_structuring cannot authorize structural Class 3 mutation",
         );
       }
-      if (hd.decision.authority !== "delegated") {
+      // Option A: Pilot is the runtime structuring class; delegated remains valid.
+      if (
+        hd.decision.authority !== "delegated" &&
+        hd.decision.authority !== "pilot"
+      ) {
         return auditReject(
           "HUMAN_DECISION_AUTHORITY_INVALID",
-          "Class 3 requires runtime-compatible delegated Pilote HumanDecision authority",
+          "Class 3 requires runtime-compatible Pilot or delegated HumanDecision authority",
         );
       }
       if (hd.decision.actor.role !== "decision_maker") {

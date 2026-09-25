@@ -97,6 +97,7 @@ export type DecisionAuditEvent =
       ok: boolean;
       verifiedLevel?: string;
       reason: string;
+      canActAsPilot?: boolean;
       canActAsMorris?: boolean;
       durationMs: number;
     };

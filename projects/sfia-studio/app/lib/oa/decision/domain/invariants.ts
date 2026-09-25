@@ -131,6 +131,7 @@ export function validateDecisionFields(input: {
     };
   }
   if (
+    input.authority !== "pilot" &&
     input.authority !== "morris" &&
     input.authority !== "delegated" &&
     input.authority !== "system_non_structuring"

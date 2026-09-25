@@ -187,7 +187,7 @@ function makeObligationPolicyDecision(
     ],
     selectedOptionId,
     actor: LOCAL_PILOTE_ACTOR,
-    authority: "morris",
+    authority: "pilot",
     status: "accepted",
     reversible: false,
     effectiveAt: "2026-09-11T08:00:00.000Z",

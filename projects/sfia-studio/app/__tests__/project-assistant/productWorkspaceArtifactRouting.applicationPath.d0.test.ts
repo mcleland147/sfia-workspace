@@ -42,6 +42,7 @@ import {
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
+  registerLocalMorrisGateAuthority,
 } from "@/lib/oa/decision";
 import type { Digest } from "@/lib/oa/doctrine";
 import {

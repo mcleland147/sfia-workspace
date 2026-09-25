@@ -3,6 +3,20 @@ import {
   NORA_LIFECYCLE_RECOMMENDATION_OUTPUT_TYPE,
   isNoraLifecycleRecommendationStructuredOutput,
 } from "./noraLifecycleRecommendationOutputType";
+import {
+  NORA_RESERVATION_DELTA_SCHEMA,
+  isNoraReservationDeltaStructured,
+  type NoraReservationDeltaStructured,
+} from "./reservationDelta";
+
+export {
+  NORA_RESERVATION_DELTA_SCHEMA,
+  NORA_RESERVATION_DELTA_OPERATION_SCHEMA,
+  isNoraReservationDeltaStructured,
+  isNoraReservationDeltaOperationStructured,
+  type NoraReservationDeltaStructured,
+  type NoraReservationDeltaOperationStructured,
+} from "./reservationDelta";
 
 /**
  * Pre-cycle routing boundary assessment (same Product turn).
@@ -253,6 +267,7 @@ export const CONVERSATION_GUIDANCE_HOLD_BOUNDARY: ConversationGuidance =
  * - optional active-cycle work items (nullable; D-GF-ACW-01)
  * - conversationGuidance (required; ephemeral continuation; non-authoritative)
  * - journalDelta (nullable; Cycle Journal projection — NEVER Truth C)
+ * - reservationDelta (nullable; Reservation mutations — NEVER auto-RESOLVE / NEVER Truth C)
  * Same Agents Runner — one model call — no prose parsing.
  */
 export const NORA_JOURNAL_DELTA_OPERATION_SCHEMA = {
@@ -331,6 +346,7 @@ export const NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE = {
       "activeCycleWork",
       "conversationGuidance",
       "journalDelta",
+      "reservationDelta",
     ],
     properties: {
       narrative: { type: "string" as const },
@@ -350,6 +366,9 @@ export const NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE = {
       conversationGuidance: CONVERSATION_GUIDANCE_SCHEMA,
       journalDelta: {
         anyOf: [{ type: "null" as const }, NORA_JOURNAL_DELTA_SCHEMA],
+      },
+      reservationDelta: {
+        anyOf: [{ type: "null" as const }, NORA_RESERVATION_DELTA_SCHEMA],
       },
     },
   },
@@ -378,6 +397,8 @@ export type NoraProductTurnWithOptionalLr = {
   conversationGuidance: ConversationGuidance;
   /** Cycle Journal delta — projection only; null when no journal mutation. */
   journalDelta: NoraJournalDeltaStructured | null;
+  /** Reservation delta — EpistemicItem mutations; null when none. Never RESOLVE. */
+  reservationDelta: NoraReservationDeltaStructured | null;
 };
 
 export function isPreCycleRoutingAssessment(
@@ -519,6 +540,11 @@ export type PreCycleRoutingBoundaryCoherenceResult = {
    * Invalid / missing → null (fail-closed Journal; never blocks narrative).
    */
   journalDelta: NoraJournalDeltaStructured | null;
+  /**
+   * Reservation delta passthrough — EpistemicItem mutations only.
+   * Invalid / missing → null. Never includes RESOLVE (Pilot confirmation).
+   */
+  reservationDelta: NoraReservationDeltaStructured | null;
   /** True when a candidate LR was stripped by boundary coherence. */
   lifecycleRecommendationSuppressed: boolean;
   suppressReason: string | null;
@@ -825,6 +851,8 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
   conversationGuidance?: ConversationGuidance | null;
   /** Invalid delta coerced to null — never fails the Product turn. */
   journalDelta?: NoraJournalDeltaStructured | null;
+  /** Invalid reservation delta coerced to null — never fails the Product turn. */
+  reservationDelta?: NoraReservationDeltaStructured | null;
   cognitiveStop?: boolean;
   /**
    * Server-derived from selectCurrentLifecycleRecommendations + applicability.
@@ -838,6 +866,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
   const candidate = input.lifecycleRecommendation;
   const activeCycleWork = input.activeCycleWork ?? null;
   const journalDelta = input.journalDelta ?? null;
+  const reservationDelta = input.reservationDelta ?? null;
   const rawGuidance = parseConversationGuidanceOrFailClosed(
     input.conversationGuidance ?? null,
   );
@@ -852,6 +881,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
       | "conversationGuidanceCoerced"
       | "conversationGuidanceCoerceReason"
       | "journalDelta"
+      | "reservationDelta"
     >,
   ): PreCycleRoutingBoundaryCoherenceResult => {
     const guided = applyConversationGuidanceCoherence({
@@ -906,6 +936,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
     return {
       ...partial,
       journalDelta,
+      reservationDelta,
       lifecycleRecommendation,
       lifecycleRecommendationSuppressed,
       suppressReason,
@@ -1076,12 +1107,21 @@ export function normalizeNoraProductTurnStructuredOutput(
       : null;
   }
 
+  // Reservation fail-closed locally: invalid delta → null, turn still coherent.
+  let reservationDelta: NoraReservationDeltaStructured | null = null;
+  if (o.reservationDelta != null) {
+    reservationDelta = isNoraReservationDeltaStructured(o.reservationDelta)
+      ? o.reservationDelta
+      : null;
+  }
+
   return applyPreCycleRoutingBoundaryCoherence({
     narrative: o.narrative,
     preCycleRoutingAssessment: assessment,
     lifecycleRecommendation: lr,
     activeCycleWork,
     journalDelta,
+    reservationDelta,
     conversationGuidance: parseConversationGuidanceOrFailClosed(
       o.conversationGuidance,
     ),
@@ -1110,6 +1150,13 @@ export function isNoraProductTurnWithOptionalLr(
   if (o.journalDelta != null && !isNoraJournalDeltaStructured(o.journalDelta)) {
     return false;
   }
+  // Backward compat: missing reservationDelta treated as null for fixtures.
+  if (
+    o.reservationDelta != null &&
+    !isNoraReservationDeltaStructured(o.reservationDelta)
+  ) {
+    return false;
+  }
   if (o.lifecycleRecommendation === null) return true;
   return isNoraLifecycleRecommendationStructuredOutput(
     o.lifecycleRecommendation,
@@ -1129,5 +1176,6 @@ export function buildFailClosedProductTurnJson(narrative: string): string {
     activeCycleWork: null,
     conversationGuidance: { ...CONVERSATION_GUIDANCE_FAIL_CLOSED_HOLD },
     journalDelta: null,
+    reservationDelta: null,
   });
 }

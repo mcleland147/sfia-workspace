@@ -16,7 +16,7 @@ import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
 import { canonicalizeJson } from "@/lib/oa/doctrine";
 import {
   LOCAL_PILOTE_ACTOR,
-  registerLocalPiloteAuthority,
+  registerLocalAuthorityForExecutionClass,
 } from "@/lib/oa/decision";
 import {
   assertUserAmendableExecutionConstraint,
@@ -326,14 +326,16 @@ async function registerPiloteAuthority(
   input: AmendExecutionContractInput,
   scope: string,
   digest: string,
+  requiredAuthority: string,
 ): Promise<
   | { ok: true; evidenceId: string }
   | { ok: false; code: string; message: string }
 > {
-  const authority = registerLocalPiloteAuthority({
+  const authority = registerLocalAuthorityForExecutionClass({
     authorityResolver: input.oa.authorityResolver,
     scope,
     issuedAt: input.oa.clock.nowIso(),
+    requiredAuthority,
     evidenceId: `evd:w2-amend:${digest}`,
     forceEnable: input.forceLocalAuthority === true,
   });
@@ -373,6 +375,7 @@ async function recoverExistingSuccessor(input: {
       input.amendInput,
       input.prior.scope,
       input.digest,
+      input.prior.requiredAuthority,
     );
     if (!authority.ok) return authority;
 
@@ -534,6 +537,7 @@ export async function amendExecutionContractWithConstraint(
     input,
     prior.scope,
     digest,
+    prior.requiredAuthority,
   );
   if (!authority.ok) return authority;
 

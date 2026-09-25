@@ -49,6 +49,10 @@ import {
   lifecycleRecommendationMaterializeFailurePiloteNotice,
 } from "./lifecycleRecommendationPiloteNotice";
 import { materializeActiveCycleWork } from "./materializeActiveCycleWork";
+import {
+  materializeReservationDelta,
+  stripActiveCycleWorkReservationsWhenDeltaPresent,
+} from "./materializeReservationDelta";
 import { resolveOrMintLogicalProductTurn } from "./logicalProductTurn";
 import {
   normalizeProductTurnHistory,
@@ -663,8 +667,13 @@ export async function orchestrateProjectAssistantTurn(input: {
       }
 
       // D-GF-ACW-01/02 — materialize ACW FIRST when items present + eligible.
+      // CR-RSV-19 — strip Reservation from ACW when reservationDelta is present.
       const coherent = coherentEarly;
-      const acwItems = coherent?.activeCycleWork?.items ?? [];
+      const strippedAcw = stripActiveCycleWorkReservationsWhenDeltaPresent({
+        activeCycleWork: coherent?.activeCycleWork ?? null,
+        reservationDelta: coherent?.reservationDelta ?? null,
+      });
+      const acwItems = strippedAcw?.items ?? [];
       if (acwItems.length > 0) {
         const assessment = coherent?.preCycleRoutingAssessment;
         const disposition = coherent?.disposition;
@@ -839,6 +848,80 @@ export async function orchestrateProjectAssistantTurn(input: {
               retryable: false,
               logicalTurnId,
             };
+          }
+        }
+      }
+
+      // CYCLE-RESERVATION-PILOTING-01 — reservationDelta after ACW, same Product turn.
+      // Never auto-RESOLVE; CREATE/UPDATE/PROPOSE_RESOLUTION only.
+      if (
+        coherent?.reservationDelta &&
+        coherent.reservationDelta.operations.length > 0 &&
+        logicalTurnId
+      ) {
+        const studioRsv = input.studioCognitiveContext ?? null;
+        const cycleIdForRsv =
+          studioRsv?.activeCycle?.cycleInstanceId?.trim() || null;
+        if (cycleIdForRsv && studioRsv?.activeCycle?.workEligible === true) {
+          const oaResolvedRsv = await resolveOaStackForLifecycleRecommendation();
+          if (oaResolvedRsv.ok) {
+            const oaRsv = oaResolvedRsv.oa;
+            let existingRsv: Awaited<
+              ReturnType<typeof oaRsv.cycleServices.epistemic.listByProject>
+            > = [];
+            try {
+              existingRsv = await oaRsv.cycleServices.epistemic.listByProject(
+                project.projectId,
+              );
+            } catch {
+              existingRsv = [];
+            }
+            let validJournalIds: Set<string> | undefined;
+            try {
+              const dbPath = resolveNoraSessionSqlitePath(input.sessionDbPath);
+              const session = new ProductSqliteSession({
+                projectId: project.projectId,
+                dbPath,
+                sessionKey: CANONICAL_CONVERSATION_SESSION_KEY,
+              });
+              try {
+                const { listCycleJournalEntries } = await import(
+                  "@/lib/nora-cognitive-runtime/cycleJournalStore"
+                );
+                validJournalIds = new Set(
+                  listCycleJournalEntries(session, cycleIdForRsv).map(
+                    (e) => e.journalEntryId,
+                  ),
+                );
+              } finally {
+                session.close();
+              }
+            } catch {
+              validJournalIds = undefined;
+            }
+            const rsvMat = await materializeReservationDelta({
+              projectId: project.projectId,
+              cycleInstanceId: cycleIdForRsv,
+              logicalTurnId,
+              producedAt: new Date().toISOString(),
+              delta: coherent.reservationDelta,
+              existingItems: existingRsv,
+              updateEpistemicState: oaRsv.cycleServices.updateEpistemicState,
+              validJournalEntryIds: validJournalIds,
+            });
+            if (!rsvMat.ok) {
+              return {
+                ok: false,
+                status: "validation_error",
+                code: rsvMat.code,
+                message:
+                  rsvMat.reason ||
+                  "Échec de matérialisation du delta de réserves.",
+                mode: modeResolution.mode,
+                retryable: false,
+                logicalTurnId,
+              };
+            }
           }
         }
       }

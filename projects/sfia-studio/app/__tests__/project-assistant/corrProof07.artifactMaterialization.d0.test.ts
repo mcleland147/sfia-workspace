@@ -42,6 +42,7 @@ import type { ProjectRepositoryBinding } from "@/lib/oa/project";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
+  registerLocalMorrisGateAuthority,
   type HumanDecision,
 } from "@/lib/oa/decision";
 import {

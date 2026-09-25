@@ -24,6 +24,7 @@ import type { Confirmation } from "@/lib/oa/decision";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
+  registerLocalMorrisGateAuthority,
 } from "@/lib/oa/decision";
 import {
   finalizeSubjectFor,
@@ -683,7 +684,7 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () => 
     // (sandbox target must not inherit contradictory Git lifecycle ERs).
     expect(contract.evidenceRequirements).toEqual(["evreq:docs_write_artifact"]);
 
-    const execAuth = registerLocalPiloteAuthority({
+    const execAuth = registerLocalMorrisGateAuthority({
       authorityResolver: oa.authorityResolver,
       scope: contract.scope,
       issuedAt: NOW,

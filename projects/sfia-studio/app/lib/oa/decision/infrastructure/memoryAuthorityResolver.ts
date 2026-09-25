@@ -4,7 +4,9 @@
  * Critical rules:
  * - NEVER trust client authorityLevel / displayName / actorId heuristics
  * - Scope must match exactly (mismatch → reason scope_mismatch)
- * - N3 does NOT automatically grant Morris; require canActAsMorris
+ * - N3 does NOT automatically grant Pilot or Morris
+ * - requirePilotGate → canActAsPilot === true (canActAsMorris alone insufficient)
+ * - requireMorrisGate → canActAsMorris === true (canActAsPilot alone insufficient)
  * - Expired evidence is ignored
  */
 import { isConfirmationExpired, levelSatisfies } from "../domain/invariants";
@@ -92,23 +94,23 @@ export class MemoryAuthorityResolver implements AuthorityResolverPort {
     for (const e of scopeMatches) {
       if (isConfirmationExpired(e.expiresAt, nowIso)) continue;
       if (!levelSatisfies(e.level, request.requiredLevel)) continue;
-      if (
-        request.requireMorrisGate &&
-        e.canActAsMorris !== true
-      ) {
+      if (request.requirePilotGate && e.canActAsPilot !== true) {
+        continue;
+      }
+      if (request.requireMorrisGate && e.canActAsMorris !== true) {
         continue;
       }
       if (
         !best ||
         levelRank(e.level) > levelRank(best.level) ||
-        (e.canActAsMorris && !best.canActAsMorris)
+        gatePreferenceScore(e, request) > gatePreferenceScore(best, request)
       ) {
         best = e;
       }
     }
 
     if (!best) {
-      // Distinguish morris gate vs level vs expiry among scope matches.
+      // Distinguish pilot/morris gate vs level vs expiry among scope matches.
       const anyNonExpired = scopeMatches.some(
         (e) => !isConfirmationExpired(e.expiresAt, nowIso),
       );
@@ -119,20 +121,30 @@ export class MemoryAuthorityResolver implements AuthorityResolverPort {
           evidenceId: scopeMatches[0]?.evidenceId,
         };
       }
-      if (request.requireMorrisGate) {
-        const levelOk = scopeMatches.some(
-          (e) =>
-            !isConfirmationExpired(e.expiresAt, nowIso) &&
-            levelSatisfies(e.level, request.requiredLevel),
-        );
-        if (levelOk) {
-          return {
-            ok: false,
-            reason: "morris_gate_denied",
-            verifiedLevel: highestLevel(scopeMatches),
-            evidenceId: scopeMatches[0]?.evidenceId,
-          };
-        }
+      const levelOk = scopeMatches.some(
+        (e) =>
+          !isConfirmationExpired(e.expiresAt, nowIso) &&
+          levelSatisfies(e.level, request.requiredLevel),
+      );
+      if (levelOk && request.requirePilotGate) {
+        return {
+          ok: false,
+          reason: "pilot_gate_denied",
+          verifiedLevel: highestLevel(scopeMatches),
+          canActAsPilot: false,
+          canActAsMorris: scopeMatches.some((e) => e.canActAsMorris === true),
+          evidenceId: scopeMatches[0]?.evidenceId,
+        };
+      }
+      if (levelOk && request.requireMorrisGate) {
+        return {
+          ok: false,
+          reason: "morris_gate_denied",
+          verifiedLevel: highestLevel(scopeMatches),
+          canActAsPilot: scopeMatches.some((e) => e.canActAsPilot === true),
+          canActAsMorris: false,
+          evidenceId: scopeMatches[0]?.evidenceId,
+        };
       }
       return {
         ok: false,
@@ -145,11 +157,25 @@ export class MemoryAuthorityResolver implements AuthorityResolverPort {
     return {
       ok: true,
       verifiedLevel: best.level,
+      canActAsPilot: best.canActAsPilot === true,
       canActAsMorris: best.canActAsMorris === true,
       reason: "verified",
       evidenceId: best.evidenceId,
     };
   }
+}
+
+/** Prefer evidence that satisfies the requested gate(s) when ranking ties. */
+function gatePreferenceScore(
+  e: AuthorityEvidence,
+  request: VerifyAuthorityRequest,
+): number {
+  let score = 0;
+  if (request.requirePilotGate && e.canActAsPilot === true) score += 2;
+  if (request.requireMorrisGate && e.canActAsMorris === true) score += 2;
+  if (e.canActAsPilot === true) score += 1;
+  if (e.canActAsMorris === true) score += 1;
+  return score;
 }
 
 function levelRank(level: AuthorityLevel): number {

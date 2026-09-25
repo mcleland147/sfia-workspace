@@ -1,7 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import type { CycleReservationProjectionCard } from "@/lib/oa/cycle/application/lifecycleProjection";
 import styles from "./JournalSurface.module.css";
+
+export type JournalReservationCard = CycleReservationProjectionCard;
+
+export type JournalMemoryTab = "sujets" | "reserves";
 
 export type JournalSurfaceEntry = {
   journalEntryId: string;
@@ -36,7 +41,42 @@ export type JournalSurfaceProps = {
   transcriptMessages?: JournalTranscriptMessage[];
   collapsed?: boolean;
   onToggleCollapsed?: () => void;
+  /**
+   * CYCLE-RESERVATION-PILOTING-01 — cycle Reservations (projection cards).
+   * Same rail, second tab; never a second store nor a Pilot decision record.
+   */
+  reservations?: JournalReservationCard[];
+  /** Selected lifecycle cycle for Réserves (may differ from the Journal active cycle). */
+  reservationsCycleInstanceId?: string | null;
+  /** Controlled tab — when omitted the rail owns tab state (defaults to sujets). */
+  memoryTab?: JournalMemoryTab;
+  onMemoryTabChange?: (tab: JournalMemoryTab) => void;
+  /** Prefill a Nora draft about this Reservation — MUST NOT send. */
+  onTreatWithNora?: (epistemicItemId: string) => void;
+  /** Pilot confirms Nora's resolution proposal — only when hasResolutionProposal. */
+  onConfirmResolve?: (epistemicItemId: string) => void;
+  /**
+   * Pilot confirms defer after UI confirmation — NEVER called on Reporter alone.
+   * Caller must pass the projection's honest deferTargetCycleTypeId.
+   */
+  onConfirmDefer?: (input: {
+    epistemicItemId: string;
+    targetCycleTypeId: string;
+    targetLabel: string;
+  }) => void;
+  /** Jump to a linked Journal subject (switches to Sujets tab). */
+  onViewJournalSubject?: (journalEntryId: string) => void;
+  /** Epistemic id currently being confirmed (disables its CTA). */
+  reservationBusyId?: string | null;
 };
+
+function isOpenReservation(card: JournalReservationCard): boolean {
+  return (
+    card.presentationState !== "resolved" &&
+    card.presentationState !== "rejected" &&
+    card.presentationState !== "deferred"
+  );
+}
 
 function statusLabel(status: string): string {
   switch (status) {
@@ -97,28 +137,60 @@ export function JournalSurface({
   transcriptMessages = [],
   collapsed = false,
   onToggleCollapsed,
+  reservations = [],
+  reservationsCycleInstanceId,
+  memoryTab,
+  onMemoryTabChange,
+  onTreatWithNora,
+  onConfirmResolve,
+  onConfirmDefer,
+  onViewJournalSubject,
+  reservationBusyId = null,
 }: JournalSurfaceProps) {
   const safeEntries = Array.isArray(entries) ? entries : [];
+  const safeReservations = Array.isArray(reservations) ? reservations : [];
   const activeCount = safeEntries.filter((e) => e.status === "active").length;
+  const openReservationCount = safeReservations.filter(isOpenReservation).length;
   const [expandedEntryId, setExpandedEntryId] = useState<string | null>(null);
   const [pointsOpenId, setPointsOpenId] = useState<string | null>(null);
+  const [internalTab, setInternalTab] = useState<JournalMemoryTab>("sujets");
+  const [reservationDetailId, setReservationDetailId] = useState<string | null>(
+    null,
+  );
+  /** Epistemic id awaiting explicit Pilot confirm for defer — zero writes until confirm. */
+  const [deferConfirmId, setDeferConfirmId] = useState<string | null>(null);
+  const tab: JournalMemoryTab = memoryTab ?? internalTab;
+  const setTab = (next: JournalMemoryTab) => {
+    if (memoryTab === undefined) setInternalTab(next);
+    onMemoryTabChange?.(next);
+  };
+  const subjectOrdinalById = new Map(
+    safeEntries.map((e) => [e.journalEntryId, e.topicOrdinal] as const),
+  );
+  const paneId = tab === "sujets" ? "cycle-journal-list" : "cycle-reservations-list";
+  const reservationCycleId = reservationsCycleInstanceId ?? cycleInstanceId;
 
   return (
     <aside
       className={[styles.root, collapsed ? styles.collapsed : ""].join(" ")}
       data-testid="cycle-journal-rail"
+      data-memory-tab={tab}
       aria-label="Journal du cycle"
     >
       <header className={styles.header}>
         <div className={styles.headerText}>
           <p className={styles.eyebrow}>Mémoire de cycle</p>
           <h2 className={styles.title} id="cycle-journal-heading">
-            Journal du cycle
+            {tab === "sujets" ? "Journal du cycle" : "Réserves du cycle"}
           </h2>
           <p className={styles.meta}>
-            {cycleInstanceId
-              ? `${activeCount} sujet${activeCount === 1 ? "" : "s"}`
-              : "Aucun cycle actif"}
+            {tab === "sujets"
+              ? cycleInstanceId
+                ? `${activeCount} sujet${activeCount === 1 ? "" : "s"}`
+                : "Aucun cycle actif"
+              : reservationCycleId
+                ? `${openReservationCount} réserve${openReservationCount === 1 ? "" : "s"} ouverte${openReservationCount === 1 ? "" : "s"}`
+                : "Aucun cycle sélectionné"}
           </p>
         </div>
         {onToggleCollapsed ? (
@@ -127,7 +199,7 @@ export function JournalSurface({
             className={styles.toggle}
             data-testid="cycle-journal-toggle"
             aria-expanded={!collapsed}
-            aria-controls="cycle-journal-list"
+            aria-controls={paneId}
             onClick={onToggleCollapsed}
           >
             {collapsed ? "Ouvrir" : "Replier"}
@@ -136,6 +208,322 @@ export function JournalSurface({
       </header>
 
       {!collapsed ? (
+        <div
+          className={styles.tabs}
+          role="tablist"
+          aria-label="Mémoire de cycle"
+          data-testid="memory-rail-tabs"
+        >
+          <button
+            type="button"
+            role="tab"
+            id="memory-rail-tab-sujets"
+            className={[styles.tab, tab === "sujets" ? styles.tabActive : ""]
+              .filter(Boolean)
+              .join(" ")}
+            data-testid="memory-rail-tab-sujets"
+            aria-selected={tab === "sujets"}
+            aria-controls="cycle-journal-list"
+            onClick={() => setTab("sujets")}
+          >
+            Sujets ({activeCount})
+          </button>
+          <button
+            type="button"
+            role="tab"
+            id="memory-rail-tab-reserves"
+            className={[styles.tab, tab === "reserves" ? styles.tabActive : ""]
+              .filter(Boolean)
+              .join(" ")}
+            data-testid="memory-rail-tab-reserves"
+            aria-selected={tab === "reserves"}
+            aria-controls="cycle-reservations-list"
+            onClick={() => setTab("reserves")}
+          >
+            Réserves ({openReservationCount})
+          </button>
+        </div>
+      ) : null}
+
+      {!collapsed && tab === "reserves" ? (
+        <div
+          id="cycle-reservations-list"
+          className={styles.list}
+          role="tabpanel"
+          aria-labelledby="memory-rail-tab-reserves"
+          data-testid="cycle-reservations-list"
+        >
+          {!reservationCycleId ? (
+            <p className={styles.empty} data-testid="cycle-reservations-empty">
+              Les réserves s&apos;affichent lorsqu&apos;un cycle est sélectionné.
+            </p>
+          ) : safeReservations.length === 0 ? (
+            <p className={styles.empty} data-testid="cycle-reservations-empty">
+              Aucune réserve sur ce cycle. Nora en formulera si un point reste
+              incertain ou fragile.
+            </p>
+          ) : (
+            safeReservations.map((card) => {
+              const detailOpen = reservationDetailId === card.epistemicItemId;
+              const open = isOpenReservation(card);
+              const busy = reservationBusyId === card.epistemicItemId;
+              const subjectRefs = onViewJournalSubject
+                ? card.journalEntryRefs
+                : [];
+              return (
+                <article
+                  key={card.epistemicItemId}
+                  className={[
+                    styles.card,
+                    !open ? styles.cardMuted : "",
+                    card.presentationState === "blocks_finalization"
+                      ? styles.cardBlocking
+                      : "",
+                  ]
+                    .filter(Boolean)
+                    .join(" ")}
+                  data-testid={`cycle-reservation-card-${card.epistemicItemId}`}
+                  data-state={card.presentationState}
+                  data-ordinal={card.ordinal > 0 ? card.ordinal : undefined}
+                  data-legacy={card.isLegacy ? "true" : "false"}
+                >
+                  <div className={styles.cardHeading}>
+                    {card.ordinal > 0 ? (
+                      <span
+                        className={styles.ordinal}
+                        data-testid={`cycle-reservation-ordinal-${card.epistemicItemId}`}
+                      >
+                        Réserve {card.ordinal}
+                      </span>
+                    ) : null}
+                    <span
+                      className={styles.stateBadge}
+                      data-state={card.presentationState}
+                      data-testid={`cycle-reservation-state-${card.epistemicItemId}`}
+                    >
+                      {card.presentationStateLabel}
+                    </span>
+                  </div>
+                  <p className={styles.cardTitle}>{card.title}</p>
+                  {card.summary && card.summary !== card.title ? (
+                    <p className={styles.cardSummary}>{card.summary}</p>
+                  ) : null}
+                  {card.presentationState === "deferred" &&
+                  card.deferredTargetLabel ? (
+                    <p
+                      className={styles.deferredTarget}
+                      data-testid={`cycle-reservation-deferred-target-${card.epistemicItemId}`}
+                    >
+                      Vers : {card.deferredTargetLabel}
+                    </p>
+                  ) : null}
+                  <p className={styles.cardMeta}>
+                    <span>Impact : {card.impactLabel}</span>
+                    <span>Attention : {card.attentionLabel}</span>
+                  </p>
+                  <p
+                    className={styles.finalizationHint}
+                    data-testid={`cycle-reservation-finalization-${card.epistemicItemId}`}
+                  >
+                    {card.finalizationRelevanceLabel}
+                  </p>
+                  {card.hasResolutionProposal ? (
+                    <p
+                      className={styles.proposalHint}
+                      data-testid={`cycle-reservation-proposal-${card.epistemicItemId}`}
+                    >
+                      Nora propose de lever cette réserve — la décision vous
+                      appartient.
+                    </p>
+                  ) : null}
+                  <button
+                    type="button"
+                    className={styles.viewExchanges}
+                    data-testid={`cycle-reservation-detail-${card.epistemicItemId}`}
+                    aria-expanded={detailOpen}
+                    aria-controls={`cycle-reservation-detail-body-${card.epistemicItemId}`}
+                    onClick={() =>
+                      setReservationDetailId((prev) =>
+                        prev === card.epistemicItemId
+                          ? null
+                          : card.epistemicItemId,
+                      )
+                    }
+                  >
+                    {detailOpen ? "Masquer le détail" : "Voir le détail"}
+                  </button>
+                  {detailOpen ? (
+                    <div
+                      id={`cycle-reservation-detail-body-${card.epistemicItemId}`}
+                      className={styles.pointsBlock}
+                      data-testid={`cycle-reservation-detail-body-${card.epistemicItemId}`}
+                    >
+                      {card.rationale ? (
+                        <div>
+                          <p className={styles.pointsLabel}>Pourquoi</p>
+                          <p className={styles.detailText}>{card.rationale}</p>
+                        </div>
+                      ) : null}
+                      {card.resolutionCondition ? (
+                        <div>
+                          <p className={styles.pointsLabel}>Condition de levée</p>
+                          <p className={styles.detailText}>
+                            {card.resolutionCondition}
+                          </p>
+                        </div>
+                      ) : null}
+                      {card.resolutionProposalRationale ? (
+                        <div>
+                          <p className={styles.pointsLabel}>Proposition de Nora</p>
+                          <p className={styles.detailText}>
+                            {card.resolutionProposalRationale}
+                          </p>
+                        </div>
+                      ) : null}
+                      {card.isLegacy ? (
+                        <p className={styles.detailText}>
+                          Réserve issue du modèle précédent — non qualifiée
+                          (impact, attention, effet sur la clôture).
+                        </p>
+                      ) : null}
+                      {card.presentationState === "deferred" &&
+                      card.deferredHumanDecisionLabel ? (
+                        <div>
+                          <p className={styles.pointsLabel}>Décision du Pilote</p>
+                          <p
+                            className={styles.detailText}
+                            data-testid={`cycle-reservation-deferred-decision-${card.epistemicItemId}`}
+                          >
+                            {card.deferredHumanDecisionLabel}
+                          </p>
+                        </div>
+                      ) : null}
+                      {!card.rationale &&
+                      !card.resolutionCondition &&
+                      !card.resolutionProposalRationale &&
+                      !card.isLegacy &&
+                      card.presentationState !== "deferred" ? (
+                        <p className={styles.detailText}>{card.statement}</p>
+                      ) : null}
+                    </div>
+                  ) : null}
+                  {deferConfirmId === card.epistemicItemId &&
+                  card.canDefer &&
+                  card.deferTargetCycleTypeId &&
+                  card.deferTargetLabel ? (
+                    <div
+                      className={styles.deferConfirm}
+                      data-testid={`cycle-reservation-defer-confirm-${card.epistemicItemId}`}
+                      role="group"
+                      aria-label="Confirmer le report de la réserve"
+                    >
+                      <p className={styles.deferConfirmTitle}>
+                        Reporter Réserve {card.ordinal > 0 ? card.ordinal : ""}
+                      </p>
+                      <p className={styles.detailText}>
+                        Cible : <strong>{card.deferTargetLabel}</strong>
+                      </p>
+                      <p className={styles.detailText}>
+                        La réserve restera durable et ne sera pas considérée
+                        résolue. Le cycle source pourra continuer / se clôturer
+                        si aucun autre blocker. Ce report est une décision
+                        explicite du Pilote.
+                      </p>
+                      <div className={styles.cardActions}>
+                        <button
+                          type="button"
+                          className={styles.actionPrimary}
+                          data-testid={`cycle-reservation-defer-confirm-yes-${card.epistemicItemId}`}
+                          disabled={busy}
+                          onClick={() => {
+                            onConfirmDefer?.({
+                              epistemicItemId: card.epistemicItemId,
+                              targetCycleTypeId: card.deferTargetCycleTypeId!,
+                              targetLabel: card.deferTargetLabel!,
+                            });
+                            setDeferConfirmId(null);
+                          }}
+                        >
+                          {busy ? "Report…" : "Confirmer le report"}
+                        </button>
+                        <button
+                          type="button"
+                          className={styles.actionSecondary}
+                          data-testid={`cycle-reservation-defer-confirm-no-${card.epistemicItemId}`}
+                          disabled={busy}
+                          onClick={() => setDeferConfirmId(null)}
+                        >
+                          Annuler
+                        </button>
+                      </div>
+                    </div>
+                  ) : null}
+                  {open ? (
+                    <div className={styles.cardActions}>
+                      {onTreatWithNora ? (
+                        <button
+                          type="button"
+                          className={styles.actionSecondary}
+                          data-testid={`cycle-reservation-treat-${card.epistemicItemId}`}
+                          onClick={() => onTreatWithNora(card.epistemicItemId)}
+                        >
+                          Traiter avec Nora
+                        </button>
+                      ) : null}
+                      {subjectRefs.map((journalEntryId) => {
+                        const ord = subjectOrdinalById.get(journalEntryId);
+                        return (
+                          <button
+                            key={journalEntryId}
+                            type="button"
+                            className={styles.actionSecondary}
+                            data-testid={`cycle-reservation-subject-${card.epistemicItemId}-${journalEntryId}`}
+                            onClick={() => onViewJournalSubject?.(journalEntryId)}
+                          >
+                            {ord && ord > 0
+                              ? `Voir le sujet ${ord}`
+                              : "Voir le sujet"}
+                          </button>
+                        );
+                      })}
+                      {card.hasResolutionProposal && onConfirmResolve ? (
+                        <button
+                          type="button"
+                          className={styles.actionPrimary}
+                          data-testid={`cycle-reservation-confirm-${card.epistemicItemId}`}
+                          disabled={busy}
+                          onClick={() => onConfirmResolve(card.epistemicItemId)}
+                        >
+                          {busy ? "Confirmation…" : "Confirmer la levée"}
+                        </button>
+                      ) : null}
+                      {detailOpen &&
+                      card.canDefer &&
+                      card.deferTargetCycleTypeId &&
+                      onConfirmDefer &&
+                      deferConfirmId !== card.epistemicItemId ? (
+                        <button
+                          type="button"
+                          className={styles.actionSecondary}
+                          data-testid={`cycle-reservation-defer-${card.epistemicItemId}`}
+                          disabled={busy}
+                          onClick={() =>
+                            setDeferConfirmId(card.epistemicItemId)
+                          }
+                        >
+                          Reporter
+                        </button>
+                      ) : null}
+                    </div>
+                  ) : null}
+                </article>
+              );
+            })
+          )}
+        </div>
+      ) : null}
+
+      {!collapsed && tab === "sujets" ? (
         <div
           id="cycle-journal-list"
           className={styles.list}

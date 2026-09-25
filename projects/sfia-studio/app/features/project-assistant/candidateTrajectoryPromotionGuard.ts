@@ -4,7 +4,10 @@
  */
 
 import type { HumanDecision } from "@/lib/oa/decision";
-import { LOCAL_PILOTE_ACTOR_ID } from "@/lib/oa/decision";
+import {
+  isRuntimeStructuringAuthority,
+  LOCAL_PILOTE_ACTOR_ID,
+} from "@/lib/oa/decision";
 import {
   CANDIDATE_TRAJECTORY_APPROVAL_OPTION_ID,
   candidateTrajectoryApprovalSubject,
@@ -73,7 +76,7 @@ export function assertCandidateTrajectoryDecisionAuthorizesPromotion(input: {
       message: "Acteur Pilote local attendu — promotion refusée.",
     };
   }
-  if (decision.authority !== "morris") {
+  if (!isRuntimeStructuringAuthority(decision.authority)) {
     return {
       ok: false,
       code: "AUTHORITY_DENIED",

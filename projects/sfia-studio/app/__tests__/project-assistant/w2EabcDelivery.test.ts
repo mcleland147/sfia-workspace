@@ -39,7 +39,8 @@ import {
   deriveTrajectoryRecommendation,
 } from "@/features/project-assistant/w2/trajectoryOptions";
 import { w1RestartHonestyMessage } from "@/features/project-assistant/presentationLabels";
-import { LOCAL_PILOTE_ACTOR, registerLocalPiloteAuthority } from "@/lib/oa/decision";
+import { LOCAL_PILOTE_ACTOR, registerLocalPiloteAuthority,
+  registerLocalMorrisGateAuthority } from "@/lib/oa/decision";
 import type { TrajectoryStep } from "@/lib/oa/cycle";
 import { createExecutionError } from "@/lib/oa/execution-contract/domain/errors";
 import {
@@ -1918,7 +1919,7 @@ describe("W2 Track C — inspection binding + authorization mechanism proofs", (
     expect(afterConfirm.inspectionSufficient).toBe(true);
     expect(afterConfirm.grantsAuthority).toBe(false);
 
-    const amendAuthority = registerLocalPiloteAuthority({
+    const amendAuthority = registerLocalMorrisGateAuthority({
       authorityResolver: oa.authorityResolver,
       scope: prepared.payload.contract.scope,
       issuedAt: oa.clock.nowIso(),
@@ -2045,7 +2046,7 @@ describe("W2 Track C — inspection binding + authorization mechanism proofs", (
     expect(inspected.inspectionSufficient).toBe(true);
     expect(inspected.grantsAuthority).toBe(false);
 
-    const amendAuthority = registerLocalPiloteAuthority({
+    const amendAuthority = registerLocalMorrisGateAuthority({
       authorityResolver: oa.authorityResolver,
       scope: prepared.payload.contract.scope,
       issuedAt: oa.clock.nowIso(),
@@ -2125,7 +2126,7 @@ describe("W2 Track C — inspection binding + authorization mechanism proofs", (
 
     // Capable EC via OA build+validate with F3 fixture envelope (prepareM3 yields unresolved caps).
     const scope = F3_SCOPE;
-    const authority = registerLocalPiloteAuthority({
+    const authority = registerLocalMorrisGateAuthority({
       authorityResolver: oa.authorityResolver,
       scope,
       issuedAt: oa.clock.nowIso(),

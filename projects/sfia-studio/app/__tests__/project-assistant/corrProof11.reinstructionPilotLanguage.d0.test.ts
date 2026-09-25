@@ -53,6 +53,7 @@ import { recordObligationPolicyRequireArtifact } from "@/features/project-assist
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
+  registerLocalMorrisGateAuthority,
 } from "@/lib/oa/decision";
 import type {
   RuntimeApplicationService,

@@ -6,16 +6,52 @@ import type { ProjectAssistantRehydrateEvidenceOutcomeSuccess } from "@/features
 import { getProjectRuntimeAction } from "@/lib/vertical-slice-runtime/actions";
 import { useProductConversation } from "./hooks/useProductConversation";
 import { ConversationSurface } from "./surfaces/ConversationSurface";
-import { JournalSurface } from "./surfaces/JournalSurface";
+import {
+  JournalSurface,
+  type JournalMemoryTab,
+  type JournalReservationCard,
+} from "./surfaces/JournalSurface";
 import { HistorySurface } from "./surfaces/HistorySurface";
 import { LpsSurface } from "./surfaces/LpsSurface";
 import { RecoverySurface } from "./surfaces/RecoverySurface";
 import { LifecycleSurface } from "./surfaces/LifecycleSurface";
 import { TrajectorySurface } from "./surfaces/TrajectorySurface";
-import { projectAssistantActiveCycleWorkspaceAction } from "@/features/project-assistant/actions";
+import {
+  projectAssistantActiveCycleWorkspaceAction,
+  projectAssistantConfirmReservationResolutionAction,
+  projectAssistantDeferReservationAction,
+} from "@/features/project-assistant/actions";
+import type { PilotLifecycleProjection } from "@/lib/oa/cycle/application/lifecycleProjection";
 import { ProjectWorkspaceRoutingPanelLazy } from "./surfaces/ProjectWorkspaceRoutingPanel";
 import type { GetProjectResult, GetProjectSuccess } from "./types";
 import styles from "./ProjectWorkspacePage.module.css";
+
+/**
+ * CYCLE-RESERVATION-PILOTING-01 — explicit Pilot draft about one Reservation.
+ * Prefill only: the Pilot reads, edits and sends. NEVER auto-sent.
+ */
+function reservationDraftForNora(card: JournalReservationCard | null): string {
+  if (!card) {
+    return "Nora, aidons-nous à traiter une réserve de ce cycle : précise-moi ce qui reste incertain et ce qu’il faudrait clarifier pour la lever.";
+  }
+  const label = card.ordinal > 0 ? `réserve ${card.ordinal}` : "réserve";
+  const lines = [`Nora, traitons la ${label} du cycle : « ${card.title} ».`];
+  if (card.summary && card.summary !== card.title) {
+    lines.push(`Contexte : ${card.summary}`);
+  }
+  if (card.resolutionCondition) {
+    lines.push(`Condition de levée connue : ${card.resolutionCondition}`);
+  }
+  if (card.isLegacy) {
+    lines.push(
+      "Cette réserve vient du modèle précédent : qualifie d’abord son impact, le moment d’attention et son effet sur la clôture.",
+    );
+  }
+  lines.push(
+    "Dis-moi ce qui manque pour la lever, ou propose une levée si la base existe déjà. Je décide.",
+  );
+  return lines.join("\n");
+}
 
 /**
  * Product workspace: conversation-first, not conversation-only.
@@ -38,6 +74,16 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
   const [proposalSubjectOwnership, setProposalSubjectOwnership] = useState<
     "UNKNOWN" | "OWNED" | "NONE"
   >("UNKNOWN");
+  /**
+   * CYCLE-RESERVATION-PILOTING-01 — Journal rail tab + mirrored lifecycle projection.
+   * Reservations are read from the durable projection LifecycleSurface already loads
+   * (no second fetch, no parallel store).
+   */
+  const [memoryTab, setMemoryTab] = useState<JournalMemoryTab>("sujets");
+  const [lifecycleProjection, setLifecycleProjection] =
+    useState<PilotLifecycleProjection | null>(null);
+  const [reservationBusyId, setReservationBusyId] = useState<string | null>(null);
+  const [reservationNotice, setReservationNotice] = useState<string | null>(null);
   const conversationRef = useRef<HTMLDivElement | null>(null);
   const refreshInFlight = useRef(false);
 
@@ -87,6 +133,109 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
     onDurableFactsChanged: notifyDurableFactsChanged,
     onDurableEvidenceOutcomeChange: setDurableOutcome,
   });
+
+  const cycleReservations: JournalReservationCard[] =
+    lifecycleProjection?.cycleReservations
+      ? [...lifecycleProjection.cycleReservations]
+      : [];
+  const reservationCycleInstanceId =
+    lifecycleProjection?.selectedCycleInstanceId ?? null;
+
+  const openReservationsTab = useCallback(() => {
+    setMemoryTab("reserves");
+    setJournalCollapsed(false);
+    const rail = document.querySelector("[data-testid='cycle-journal-rail']");
+    if (rail instanceof HTMLElement) {
+      rail.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, []);
+
+  /** Prefill composer with an explicit Pilot draft — NEVER sendMessage. */
+  const treatReservationWithNora = (epistemicItemId: string) => {
+    const card =
+      cycleReservations.find((c) => c.epistemicItemId === epistemicItemId) ??
+      null;
+    controller.setDraft(reservationDraftForNora(card));
+    setReservationNotice(null);
+    focusConversation();
+  };
+
+  const confirmReservationResolution = useCallback(
+    async (epistemicItemId: string) => {
+      if (!reservationCycleInstanceId) return;
+      setReservationBusyId(epistemicItemId);
+      setReservationNotice(null);
+      try {
+        const outcome = await projectAssistantConfirmReservationResolutionAction({
+          projectId,
+          cycleInstanceId: reservationCycleInstanceId,
+          epistemicItemId,
+        });
+        if (!outcome.ok) {
+          setReservationNotice(
+            outcome.message ?? outcome.code ?? "Levée refusée.",
+          );
+          if (outcome.projection) setLifecycleProjection(outcome.projection);
+          return;
+        }
+        setReservationNotice(outcome.message ?? "Levée de la réserve confirmée.");
+        if (outcome.projection) setLifecycleProjection(outcome.projection);
+        notifyDurableFactsChanged();
+      } finally {
+        setReservationBusyId(null);
+      }
+    },
+    [projectId, reservationCycleInstanceId, notifyDurableFactsChanged],
+  );
+
+  const confirmReservationDefer = useCallback(
+    async (input: {
+      epistemicItemId: string;
+      targetCycleTypeId: string;
+      targetLabel: string;
+    }) => {
+      if (!reservationCycleInstanceId) return;
+      setReservationBusyId(input.epistemicItemId);
+      setReservationNotice(null);
+      try {
+        const outcome = await projectAssistantDeferReservationAction({
+          projectId,
+          cycleInstanceId: reservationCycleInstanceId,
+          epistemicItemId: input.epistemicItemId,
+          targetCycleTypeId: input.targetCycleTypeId,
+          targetLabel: input.targetLabel,
+        });
+        if (!outcome.ok) {
+          setReservationNotice(
+            outcome.message ?? outcome.code ?? "Report refusé.",
+          );
+          if (outcome.projection) setLifecycleProjection(outcome.projection);
+          return;
+        }
+        setReservationNotice(
+          outcome.message ?? "Réserve reportée — décision enregistrée.",
+        );
+        if (outcome.projection) setLifecycleProjection(outcome.projection);
+        notifyDurableFactsChanged();
+      } finally {
+        setReservationBusyId(null);
+      }
+    },
+    [projectId, reservationCycleInstanceId, notifyDurableFactsChanged],
+  );
+
+  const viewJournalSubject = (journalEntryId: string) => {
+    setMemoryTab("sujets");
+    controller.setSelectedJournalEntryId(journalEntryId);
+    window.setTimeout(() => {
+      const el = document.querySelector(
+        `[data-testid='cycle-journal-entry-${journalEntryId}']`,
+      );
+      if (el instanceof HTMLElement) {
+        el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    }, 0);
+  };
 
   if (!result) {
     return (
@@ -172,6 +321,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
           <JournalSurface
             entries={controller.journalEntries}
             cycleInstanceId={controller.journalCycleInstanceId}
+            reservationsCycleInstanceId={reservationCycleInstanceId}
             selectedEntryId={controller.selectedJournalEntryId}
             onSelectEntry={controller.setSelectedJournalEntryId}
             onViewExchanges={controller.focusJournalExchanges}
@@ -179,7 +329,24 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
             transcriptMessages={controller.messages}
             collapsed={journalCollapsed}
             onToggleCollapsed={() => setJournalCollapsed((v) => !v)}
+            reservations={cycleReservations}
+            memoryTab={memoryTab}
+            onMemoryTabChange={setMemoryTab}
+            onTreatWithNora={treatReservationWithNora}
+            onConfirmResolve={confirmReservationResolution}
+            onConfirmDefer={confirmReservationDefer}
+            onViewJournalSubject={viewJournalSubject}
+            reservationBusyId={reservationBusyId}
           />
+          {reservationNotice ? (
+            <p
+              className={styles.durabilityHint}
+              data-testid="cycle-reservation-notice"
+              role="status"
+            >
+              {reservationNotice}
+            </p>
+          ) : null}
         </div>
 
         <div className={styles.main} ref={conversationRef}>
@@ -230,6 +397,9 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
                   durableRefreshSignal={lifecycleRefreshSignal}
                   onDurableFactsChanged={notifyDurableFactsChanged}
                   suppressGenericNoraCta={suppressGenericIntentionCta}
+                  onProjectionChange={setLifecycleProjection}
+                  onOpenReservations={openReservationsTab}
+                  onTreatReservationWithNora={treatReservationWithNora}
                   onEscalateTrajectory={() => {
                     const el = document.querySelector(
                       "[data-testid='w2-trajectory-panel']",
