@@ -1,27 +1,26 @@
 # STUDYFLOW NATURAL POST-INTEGRATION REPROOF
-## Phase A — DURABLE STATE REHYDRATION / READ-ONLY
+## Phase B — FAILURE DIAGNOSIS & POST-#522 RETRY ELIGIBILITY
 ## FULL Review Pack — Cursor → ChatGPT
 
-Generated: 2026-09-25T19:58:42Z
+Generated: 2026-09-25T21:35:27Z
 Campaign: STUDYFLOW NATURAL POST-INTEGRATION REPROOF
-Phase: A — DURABLE STATE REHYDRATION / READ-ONLY
+Phase: B — FAILURE DIAGNOSIS & POST-#522 RETRY ELIGIBILITY
 Cycle: 9 — QA / validation
 Profile: CRITICAL
-Morris GO consumed: **GO STUDYFLOW RESUME — READ-ONLY DURABLE STATE REHYDRATION FIRST.**
+Morris GO consumed: **GO STUDYFLOW PHASE B — READ-ONLY FAILURE DIAGNOSIS**
 Cursor REAL: NOT RUN
 Product mutations: NONE
-HumanDecision / Reservation resolve / EC amend / Attempt: NONE
-Roadmap sync / GAP-15 fix / fresh Project: NONE
+Retry / StartExecution / Confirmation / HD / trajectory mutation: NONE
 
 ---
 
 ## 1. GO MORRIS CONSUMED
 
-GO STUDYFLOW RESUME — READ-ONLY DURABLE STATE REHYDRATION FIRST.
+GO STUDYFLOW PHASE B — READ-ONLY FAILURE DIAGNOSIS.
 
-Authorized and consumed: local Git Truth Check · safe FF to integrated main SHA · Product SQLite discovery · SQLite read-only · Journal/conversation implementation trace · StudyFlow durable qualification · Critical report · L3 handoff publish.
+Authorized: Git Truth · code/config non-secret read · Product SQLite RO · Nora Session RO if needed · Evidence/RB/Attempt/Claim inspect · managed repo Git RO · historical vs post-#522 comparison · FULL Review Pack · L3 handoff.
 
-Not authorized / not performed: Cursor REAL · `SFIA_STUDIO_CURSOR_REAL=1` · docs_write REAL · new Project · StudyFlow mutation · HD · Reservation resolve/defer · EC create/amend · Attempt launch/retry · Evidence write · durable Nora side-effects · Pilot action by Cursor · code change · project commit/push/PR/merge · Roadmap sync · GAP-15 fix · next macro auto-start.
+Not authorized / not performed: Cursor REAL · Retry · Select/StartExecution · EC prepare/amend · Confirmation · HD · trajectory/LPS/Evidence mutation · Reservation resolve · durable Nora · fresh StudyFlow · .env.local edit · managed fetch/pull/checkout/worktree · code change · project push/PR/merge · Roadmap · GAP-15.
 
 ---
 
@@ -29,306 +28,319 @@ Not authorized / not performed: Cursor REAL · `SFIA_STUDIO_CURSOR_REAL=1` · do
 
 | Field | Value |
 |-------|-------|
-| Repository | `mcleland147/sfia-workspace` |
 | Local branch | `feat/sfia-studio-pilot-execution-experience-recovery-simplification-01` |
-| Local HEAD | `49249101bab1bd1e3a1d91b469fe7b41341c5a01` |
+| HEAD | `49249101bab1bd1e3a1d91b469fe7b41341c5a01` |
 | `origin/main` | `49249101bab1bd1e3a1d91b469fe7b41341c5a01` |
-| Expected framing SHA | `49249101bab1bd1e3a1d91b469fe7b41341c5a01` |
-| Match | **YES** — merge commit of PR #522 |
-| Checkout note | Dedicated `main` worktree already occupied elsewhere; current branch was **fast-forward-only** from `dbefeb15` → `49249101` (no merge commit, no rebase, no hard reset). HEAD ≡ `origin/main`. |
-| Project dirty | None observed outside ignored `.tmp-sfia-review/**` |
-| PR #522 | MERGED |
-| Post-merge CI (cadrage) | SFIA Studio CI #605 · run `36180077825` · SUCCESS · Required Gate PASS (prior verification; not re-run this pass) |
+| Match expected post-#522 | **YES** |
+| Product dirty | none outside `.tmp-sfia-review/**` |
+| Reset/rebase/merge this pass | NONE |
 
 ---
 
-## 3. SOURCES READ (obligation set)
-
-Process: `prompts/templates/sfia-cycle-execution-template.md` · `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` · `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` · `method/sfia-fast-track/core/sfia-rules-and-guardrails.md` · `method/sfia-fast-track/checklists/sfia-validation-checklist.md` · `method/sfia-fast-track/automation/sfia-validation-engine.md` · `docs/architecture/2026-06-27-sfia-decision-engine.md` · `prompts/templates/04-validate-cursor-result.md` · `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md`
-
-Studio: `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md` · `sfia-studio-convergence-roadmap.md` · `product-completion/01-product-completion-cadrage.md`
-
-Doctrine v3: `32-living-project-state-and-dynamic-trajectory.md` · `34-agent-capabilities-reversibility-and-execution-governance.md` · `35-artifact-evidence-debt-and-controlled-learning.md` · `ckc/09-qa-validation.md`
-
-Runtime/persistence: `paths.ts` · `db.ts` · `sqliteProductStore.ts` · `vertical-slice-runtime/service.ts` · `liveProjectContext.ts` · `studio-projects/**` · `project-assistant/**` · `nora-cognitive-runtime/productSqliteSession.ts` · `cycleJournalStore.ts` · `sessionPaths.ts`
-
-Prior remote handoff: `origin/sfia/review-handoff` @ `dbef91dd…` · blob `92beef00e337cd84f225929f24845d96c4eaeea2` (post-merge #522 pack) — read before conclusion.
-
----
-
-## 4. PRODUCT SQLITE — READ-ONLY METHOD
+## 3. PHASE A ANCHOR
 
 | Field | Value |
 |-------|-------|
-| Override source | `projects/sfia-studio/app/.env.local` key `SFIA_STUDIO_PRODUCT_DB_PATH` only (no other secrets printed) |
-| DB path used | `/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/new-project-campaign-01/product/oa-product.sqlite` |
-| Default path (not used for StudyFlow) | `projects/sfia-studio/.sfia-exec/product/oa-product.sqlite` — exists but **does not** contain StudyFlow |
-| Exists | YES (~3.4 MB, mtime 2026-09-25) |
-| Open method | Python `sqlite3` URI `file:<path>?mode=ro` + `PRAGMA query_only=ON` (also verified with `sqlite3 -readonly`) |
-| Migrations / `openProductSqlite` | **NOT** used |
-| `integrity_check` | **ok** |
-| `schema_meta.schema_version` | `m8-0.1.0` |
-| Writes | NONE |
+| Handoff branch | `sfia/review-handoff` |
+| Commit | `f1cc8c01a3c44704bc283bada56cab463ddb2f1f` |
+| Canonical blob | `3609545c0efbcf8f92df1c66ccf2145ac2a5748a` |
+| Match expected | **YES** |
 
-Known Product tables present and used: `oa_projects`, `oa_lps`, `oa_lps_current`, `oa_cycle_instances`, `oa_human_decisions`, `oa_execution_contracts`, `oa_execution_attempts`, `oa_evidence`, `oa_review_bundles`, `oa_project_trajectories`, `oa_project_trajectory_current`, `oa_confirmations`, `oa_epistemic_items`, `oa_ec_inspection_attestations`, `oa_authority_verification_receipts`, `oa_claim_evaluations`, `oa_audit_events` (+ idempotency/budget helpers).
+Project: `prj:34e7351c-770c-474a-8edc-9c82a07be41d` · LPS v32 · cycle `cyc:trj-2ee956d99383359aadd408d1` · trajectory v3 **clarify-first** · Phase B = steps 1–2 only.
 
 ---
 
-## 5. STUDYFLOW PROJECT RESOLUTION
+## 4. SOURCES READ
+
+Process templates/checklists/operating model/validation + doctrine v3 32/34/35 + CKC QA + convergence/build/roadmap/product-completion (read-only).
+
+Diagnostic code: `resolveTrustedProductLaunchContext.ts` · `prepareDocsWriteRecoverySuccessor.ts` · `prepareAndResolveM3ProductPath.ts` · `processFailureDiagnostic.ts` · `resolvePostEvidenceRecoveryContext.ts` · `managedProjectRepositoryResolver.ts` · `studioGitWorktreeWorkspace.ts` · `studioCursorRealLaunchGateway.ts` · `startExecution.ts` · `resolveBoundedReadOnlyBaseHeadSha.ts` · `managedRepoRootBaseConfig.ts`.
+
+Remote Phase A handoff canonical file verified before conclusion.
+
+---
+
+## 5. PRODUCT SQLITE
 
 | Field | Value |
 |-------|-------|
-| Candidates titled StudyFlow | **1** |
-| `projectId` | `prj:34e7351c-770c-474a-8edc-9c82a07be41d` |
-| Title | StudyFlow |
-| Status | `active` |
-| `projectWorkspaceKey` | `studyflow` |
-| Repository binding | GitHub `mcleland147/sfia-workspace` · `pathRoot=projects/studyflow` · defaultBranch `main` |
-| Current LPS pointer | `lps:e6310b5566af7207` |
-| `activeCycleInstanceId` (project payload) | `cyc:trj-2ee956d99383359aadd408d1` |
-| Created | 2026-09-25T07:38:46.140Z |
-| Updated | 2026-09-25T17:00:18.732Z |
-| Uniqueness | **UNIQUELY RESOLVED** |
-
-Other projects in same DB (not StudyFlow): FocusFlow, KidPlan, MealFlow, multiple RC Visual/Debug/Smoke harness projects — ignored for resume.
-
-On-disk managed path `projects/studyflow/` / `01-cadrage/`: **absent** at inspection (consistent with failed REAL attempt; no artifact created).
+| Path | `…/.sfia-exec/new-project-campaign-01/product/oa-product.sqlite` (from `SFIA_STUDIO_PRODUCT_DB_PATH` only) |
+| Method | `file:…?mode=ro` + `PRAGMA query_only=ON` |
+| integrity_check | **ok** |
+| schema | `m8-0.1.0` |
+| Same StudyFlow truth as Phase A | **YES** |
 
 ---
 
-## 6. DURABLE STATE REHYDRATION
+## 6. HISTORICAL EPISODE (DURABLE)
 
-### A. Project
-See §5. Doctrine package `pkg:sfia-studio-doctrine-v3@1.0.0` resolved.
-
-### B. Living Project State (current)
+### ExecutionContract
 | Field | Value |
 |-------|-------|
-| LPS version | **32** |
-| `lpsVersionId` | `lps:e6310b5566af7207` |
-| Status | `active` |
-| Objective | Petite app web de révision étudiant (matières, tâches/objectifs, échéances, planning, suivi terminé/retard/à revoir) |
-| `activeCycleInstanceId` | `cyc:trj-2ee956d99383359aadd408d1` |
-| `ckcResolutionRef` | `ckc:m2-273168644546-400c74a1a3237135` |
-| Trajectory binding | `trj:lr-bridge-039d11e6fe6b` @ **v3** |
-| `nextStep` | `recovery_diagnose_or_replan` |
-| Evidence refs | `ev:w3b:7b9022c9c4221122` |
-| ReviewBundle refs | `rb:w3b:7b9022c9c4221122` |
-| Decision IDs (LPS) | 5 HDs listed (trajectory approvals + W2 props + recovery traj) |
-| Context tail | Durable W3C post-evidence Nora analysis embedded — FAIL / `base_head_sha_missing` / recover / no auto-success |
+| executionContractId | `xct:m3-res:dec:w2-prop:0d65e1cd-b259-4222-860b-a783a01bf4c0` |
+| Version at Attempt | **3** |
+| Status | confirmed |
+| semanticFingerprint | `bd43c1aa1b3b4a51b6fd0a10a2cd682fde18c1834d9f7efc05a1e01b9f2b1bb6` |
+| action | `cursor.docs_write.apply` |
+| target | `workspace.isolated.docs_write` |
+| scope | `studio.gcec.docs_write` |
+| requiredAuthority | MORRIS |
+| requiredCapabilities | `cap:cursor.docs_write` |
+| evidenceRequirements | `evreq:docs_write_artifact` |
 
-### C. Cycles
-| cycleInstanceId | type | profile | status | notes |
-|-----------------|------|---------|--------|-------|
-| `cyc:trj-2ee956d99383359aadd408d1` | `cyc:framing` | Light | **active** | Primary StudyFlow framing cycle; acknowledged 07:42Z; **not closed** |
-| `cyc:f2-539d66d7d03aaff6` | `cyc:framing` | Light | acknowledged | Secondary; no trajectory bind in payload |
+### Inputs (diagnostic-relevant)
+| Field | Status | Value |
+|-------|--------|-------|
+| baseHeadSha | **PRESENT** | `df6721edb4ce4e71166fe26ca0d369aebd278870` |
+| repositoryRef / repositoryBindingIdentity / repositoryIdentity | PRESENT | `mcleland147/sfia-workspace` |
+| remoteUrl | PRESENT | `https://github.com/mcleland147/sfia-workspace.git` |
+| defaultBranch | PRESENT | `main` |
+| pathRoot (EC inputs) | PRESENT | `projects/studyflow/01-cadrage` |
+| Project.repositoryBinding.pathRoot | PRESENT | `projects/studyflow` |
+| managedRepoRoot | **ABSENT** | — |
+| trustedLaunchContextPinnedAtPrepare | **ABSENT** | — |
+| targetPath | PRESENT | `projects/studyflow/01-cadrage/note-de-cadrage.md` |
+| pathAllowlist / scopeIn | PRESENT | `projects/studyflow/01-cadrage` |
 
-Cycle payload still references `trajectoryVersion: 1` / `trajectoryStepId: stp:cadrage-9ec83efa` while LPS/current trajectory are at **v3** — see findings.
-
-### D. ProjectTrajectory
+### Attempt
 | Field | Value |
 |-------|-------|
-| Current pointer | `trj:lr-bridge-039d11e6fe6b` @ **v3** |
-| Status | **validated** |
-| Decided by | `dec:w2-trj:328b70a0-9481-4e01-9bf0-a96aec87bb01` |
-| Decided option | `opt:trajectory:clarify-first` |
-| Steps | (1) Lire Evidence/RB/stopReason — **pending**; (2) Clarifier diagnostic — **pending**; (3) Réinstruire options recovery — **pending**, gate `human_decision` |
-| History | v1 superseded · v2 superseded · v3 current |
+| attemptId | `xat:w3a:0a9d88215cf8f884` |
+| status | failed |
+| createdAt | 2026-09-25T15:14:47.224Z |
+| failedAt | 2026-09-25T15:14:47.279Z (~55 ms) |
+| stopReason | `REAL_LAUNCH_FAILED: REAL_WORKSPACE_INVALID:base_head_sha_missing` |
+| selectedAgentRef | `agt:m4.cursor.bounded_docs_write` |
+| processDiagnostic | **ABSENT** (failure before Cursor process observation) |
+| realProcessInvoked / boundaryProofMode / executable basename / stdout/stderr | **ABSENT** on Attempt payload |
 
-### E. Epistemic / Reservations
-| Type | active | other |
-|------|--------|-------|
-| Observation | 42 | 2 resolved |
-| Recommendation | 25 | 2 superseded |
-| Option | 17 | — |
-| Hypothesis | 6 | — |
-| DecisionRef | 4 | — |
-| Contradiction | 1 | — |
-| **Reservation** | **0 active** | **1 resolved** |
-
-Only Reservation: `epi:rsv:9792a9411d8249f66077a99c` — « Rappels avant échéance… » — **resolved**, `blocking: false`, `finalizationRelevance: may_affect`. **No active Reservation blocks.**
-
-Journal `openPoints` are **not** Reservations (all four journal topics have `open_points_json: []`).
-
-### F. HumanDecisions (6, all `accepted` / pilot)
-1. `dec:gf-trj:…` — approve trajectory v1 as-is
-2. `dec:pilot-life:…` — **require artifact** before finalize (`opt:require-artifact`)
-3. `dec:w2-prop:b6cd4e21…` — **amend** proposal subject
-4. `dec:w2-prop:0d65e1cd…` — **pursue** proposal subject (docs_write framing note path)
-5. `dec:w2-trj:3e36856c…` — governed-gated retry (earlier recovery HD)
-6. `dec:w2-trj:328b70a0…` — **clarify-first** (current; owns trajectory v3)
-
-### G. ExecutionContracts
-| EC | status | action | authority | notes |
-|----|--------|--------|-----------|-------|
-| `xct:m3:dec:w2-prop:0d65e1cd…` | superseded | `cursor.docs_write.apply` | MORRIS | Pre-M6 prepare superseded |
-| `xct:m3-res:dec:w2-prop:0d65e1cd…` | **confirmed** @ v3 | `cursor.docs_write.apply` | MORRIS | Bounded docs-write; target `projects/studyflow/01-cadrage/note-de-cadrage.md` |
-
-### H. Inspections / authority
-- Inspection `insp:b9ff5388…` on successor EC @ v2 by Pilote
-- Authority receipts `avr:ad99db4b…` + `avr:56051c23…` — outcome **authorized**, requiredAuthority MORRIS, confirmationRefs to `cfm:w2:…:v2`
-
-### I. Attempts
-| Attempt | EC | status | stopReason |
-|---------|----|--------|------------|
-| `xat:w3a:0a9d88215cf8f884` | successor @ v3 | **failed** | `REAL_LAUNCH_FAILED: REAL_WORKSPACE_INVALID:base_head_sha_missing` |
-| failedAt | 2026-09-25T15:14:47.279Z | | |
-
-Contract inputs included a `baseHeadSha` value; REAL launch still failed with `base_head_sha_missing` — environmental/workspace invalidity, not a Product success.
-
-### J. Evidence
-`ev:w3b:7b9022c9c4221122` — status **available**, freshness **fresh**, `storageMode: metadata_only`, type `log_ref`, binds to failed attempt. **Not** claimable business success evidence.
-
-### K. ReviewBundles
-`rb:w3b:7b9022c9c4221122` — frozen with that Evidence; claim evaluation `clm:w3b:7b9022c9c4221122` status **fail** (`productOutcome` FAIL).
-
-### L. Confirmations
-`cfm:w2:xct:m3-res:dec:w2-prop:0d65e1cd…:v2` — status **consumed**; `project_id` column NULL but payload binds StudyFlow EC (related). ≠ HumanDecision.
-
-### M. Audit
-Recent `oa_audit_events` used as chronology only; Truth C objects above dominate.
+### Evidence / ReviewBundle / Claim
+| Object | Status |
+|--------|--------|
+| `ev:w3b:7b9022c9c4221122` | available · metadata_only · log_ref diagnostic |
+| `rb:w3b:7b9022c9c4221122` | ready_for_review · frozen Evidence |
+| `clm:w3b:7b9022c9c4221122` | **fail** · EO assessments FAIL |
+| Business success | **NOT PROVEN** |
 
 ---
 
-## 7. JOURNAL / CONVERSATION — IMPLEMENTATION QUALIFICATION
+## 7. HISTORICAL FAILURE MECHANICS — `base_head_sha_missing`
 
-| Question | Finding |
-|----------|---------|
-| Where durable? | Separate Nora **Session** SQLite (default `…/.sfia-exec/product/nora-session.sqlite`; no `SFIA_STUDIO_NORA_SESSION_DB_PATH` override) |
-| Tables | `cycle_journal_entries`, `cycle_journal_mutation_ledger`, `pilot_transcript_turns`, `session_items`, (+ logical turn tables) |
-| Code doctrine | `cycleJournalStore.ts`: « Session ≠ Truth C »; compaction of `session_items` must not mutate journal/transcript tables |
-| StudyFlow journal | **4** active entries on cycle `cyc:trj-2ee956d99383359aadd408d1`, topicOrdinal 1–4, rich `stabilizedPoints`, empty `openPoints` |
-| Transcript | **44** pilot turns (42 on active cycle) |
-| Classification | **Durable Memory B / Session store** — reconstructible resume aid; **not** Truth C LPS/HD/Evidence/Reservation |
-| Truth C Product DB | Does **not** host journal tables |
+Code (`StudioGitWorktreeWorkspace.prepareWorkspace`):
 
-Journal topics align with campaign V1 semantics (matières/tâches, lifecycle, planning today+7d, reminders excluded) — corroborates narration but does not replace Product objects.
+1. Validate `baseHeadSha` is full 40-hex (else `base_head_sha_invalid`).
+2. Choose `repoRoot` = `request.managedRepoRoot` if provided, else constructor ambient `repoRoot`.
+3. Run `git rev-parse --verify <baseHeadSha>^{commit}` in that `repoRoot`.
+4. Non-zero exit → throw `REAL_WORKSPACE_INVALID:base_head_sha_missing`.
 
----
+`StartExecution` for docs_write (current and historically for managed composition):
+- Rejects EC-supplied absolute `managedRepoRoot`.
+- Resolves managed clone via `ManagedProjectRepositoryResolver` under `SFIA_STUDIO_MANAGED_REPO_ROOT_BASE`.
+- Passes that path into workspace prepare.
 
-## 8. CURRENT RECOMMENDATION / RECOVERY CONTEXT
+### A. Historical baseHeadSha requested
+`df6721edb4ce4e71166fe26ca0d369aebd278870` — **PRESENT** on EC + bound Attempt material. Studio checkout: **exists** (`df6721ed` = finalization-readiness commit). Managed clone: **absent**.
 
-Reconstructible from durables only:
+### B. Historical repoRoot
+Not stored as durable field (`managedRepoRoot` ABSENT on EC). **Reconstructible by composition**: docs_write StartExecution resolves managed identity `mcleland147/sfia-workspace` → `…/managed-repos/mcleland147__sfia-workspace` when base configured. That clone still exists today and **does not** contain the historical SHA.
 
-| Question | Answer |
-|----------|--------|
-| Active durable Recommendation? | YES — W3C recover `epi:w3c-rec:8b8aa750bdc51ff8` + W2 recommend `epi:rec-w2-2100b28b16c3` (clarify-first) + LPS `nextStep=recovery_diagnose_or_replan` |
-| Process-local Proposal vanished? | Likely — Proposal IDs appear in HD subjects (`prop:f2:e55d6751…`) but are not Truth C rows; **do not reinstate by invention** |
-| Inspectable EC? | YES — confirmed successor docs_write EC (terminal episode already attempted) |
-| Terminal Attempt? | YES — failed `base_head_sha_missing` |
-| Sufficient Evidence for success claim? | NO — fail / metadata diagnostic only |
-| Legitimate recovery context? | **clarify-first** already decided (HD + trajectory v3); diagnose Evidence/stopReason before any new attempt/options reinstruction |
-| Should #522 naturally propose Relancer / structural recovery / new HD / none? | **None of “auto Relancer”** in this pass. Natural next is **execute clarify-first step 1–2 (read/diagnose)**; step 3 later needs Pilot HD. #522 recovery UX is integrated on main but **not exercised** here. |
+### C. Meaning of the failure
+| Hypothesis | Classification |
+|------------|----------------|
+| SHA formally valid 40-hex but absent from repoRoot used | **PROVEN** (object missing in managed clone; present in Studio) |
+| repoRoot = managed clone (not Studio cwd) | **STRONGLY SUPPORTED** (if Studio cwd had been repoRoot, `rev-parse` would have succeeded) |
+| Managed clone not synchronized to the SHA that was pinned | **STRONGLY SUPPORTED** |
+| Legacy pin from ambient Studio checkout / non-trusted prepare | **STRONGLY SUPPORTED** (`trustedLaunchContextPinnedAtPrepare` ABSENT; pin equals Studio-lineage SHA) |
 
----
-
-## 9. FINDINGS CLASSIFICATION
-
-| ID | Finding | Class |
-|----|---------|-------|
-| F1 | Unique StudyFlow Project + LPS v32 + active framing cycle reconstructible | EXPECTED |
-| F2 | Terminal REAL docs_write FAIL with `base_head_sha_missing`; no cadrage artifact on disk | EXPECTED |
-| F3 | Pilot HD chose clarify-first; trajectory v3 pending diagnosis steps | EXPECTED |
-| F4 | Zero active Reservations; reminders Reservation resolved | EXPECTED |
-| F5 | Cycle payload trajectory pointer still v1 / old step vs LPS/trajectory current v3 | LEGACY / NON-BLOCKING RESERVE (stale cycle payload field; LPS+trajectory_current authoritative) |
-| F6 | Secondary acknowledged framing cycle unused | LEGACY |
-| F7 | Roadmap still lists MealFlow as next campaign wording | DOCUMENTARY DRIFT — NON-BLOCKING RESERVE |
-| F8 | GAP-15 remains open reserve; StudyFlow existing path did **not** naturally re-hit greenfield START deadlock this pass | NON-BLOCKING RESERVE |
-| F9 | Natural StudyFlow REAL / docs_write REAL E2E post-#522 | NOT PROVEN (this pass read-only) — Fake/Real |
-| F10 | Journal durable in Session DB ≠ Truth C | EXPECTED (implementation truth) |
-| F11 | Product DB path via campaign override; default DB lacks StudyFlow | EXPECTED / ops note |
-
-No NEW SEMANTIC GAP opened that requires immediate construction. No REGRESSION claimed against #522 (not exercised live).
-
-### Challenge (grouped)
-- Useful now? Yes — resume StudyFlow without inventing state.
-- v3 capacity? Continuity LPS→Nora→HD→EC→Attempt→Evidence→replan (observe, don’t claim complete).
-- Bug vs reserve? Stale cycle traj pointer = reserve/legacy; REAL workspace SHA = environmental precondition for later REAL.
-- Simpler? Resume existing project; do not create fresh StudyFlow.
-- Reusable assets? Project, LPS, journal, clarify-first trajectory.
-- Parallel architecture? Not indicated.
-- E2E proof required? Later cycle only, after clarify + GO REAL.
-- Human arbitration? Yes at trajectory step 3 (reinstruct options).
-- Morris gate? Required before any Cursor REAL retry.
-- Next capability? **Not preselected** — derive after natural resume evidence.
+Cause class: **LEGACY PRE-#522 LAUNCH CONTEXT** (SHA↔repoRoot mismatch) with **ENVIRONMENT / MANAGED REPO PRECONDITION** as the concrete mismatch surface. Not a proven current Product path defect.
 
 ---
 
-## 10. GAP-15
+## 8. CURRENT MANAGED REPOSITORY
 
-Status unchanged: **OPEN RESERVE** · OUT OF #522 MACRO · **NON-BLOCKING**.
-Not reopened. Not reproduced on existing StudyFlow. No lifecycle/START/qualification edits.
-
----
-
-## 11. ROADMAP
-
-`sfia-studio-convergence-roadmap.md` still frames MealFlow as next campaign historically.
-Campaign truth transmitted: **StudyFlow**.
-Class: **DOCUMENTARY DRIFT — NON-BLOCKING RESERVE**.
-File **not** modified this pass.
-
----
-
-## 12. FAKE / REAL QUALIFICATION
-
-| Level | Status |
-|-------|--------|
-| #522 deterministic proof | PROVEN at declared scope (prior) |
-| Authenticated visual harness | PROVEN at declared scope (prior) |
-| Natural StudyFlow REAL reproof | **NOT PROVEN** |
-| Cursor docs_write REAL E2E post-#522 | **NOT PROVEN** |
-| This pass | **DURABLE STATE READ-ONLY REHYDRATION ONLY** |
-| REAL BOUNDARY PROVEN / E2E REAL PROVEN | **FORBIDDEN claims** — not made |
-| Fixtures used | NONE |
-| Gate Morris REAL | **REQUIRED** before any REAL boundary |
-
-Rule: DETERMINISTIC PROVEN ≠ READY FOR REAL.
+| Field | Value |
+|-------|-------|
+| `SFIA_STUDIO_MANAGED_REPO_ROOT_BASE` | `…/projects/sfia-studio/.sfia-exec/managed-repos` (**PRESENT**, directory exists) |
+| Canonical managedRepoRoot | `…/managed-repos/mcleland147__sfia-workspace` |
+| Exists / `.git` | YES |
+| `rev-parse --is-inside-work-tree` | true |
+| toplevel | same canonical path |
+| HEAD | `66ffc0d2370d9ed7014348fd25994ce1cda3b3ad` |
+| Branch | **detached HEAD** |
+| status --short | clean (0 lines) |
+| origin URL (diagnostic only) | `/Users/morris/Projects/sfia-workspace` (local path; **not** treated by code as workspace validity invariant) |
+| Historical SHA in managed clone | **NO** |
+| Current HEAD `rev-parse --verify <HEAD>^{commit}` in same clone | **YES** |
+| Managed HEAD vs `origin/main` Studio | Managed at #513-era merge; Studio main at #522 — **stale relative to main** (observation only; no fetch authorized) |
 
 ---
 
-## 13. CLAIMS AUTHORIZED / FORBIDDEN
+## 9. POST-#522 TRUSTED LAUNCH PATH (STATIC + FS/GIT FACTS)
 
-**Authorized:** StudyFlow durable state rehydrated; resume existing project recommended; next action = clarify-first inspect; gates as stated.
+Conceptual replay (not executed):
 
-**Forbidden (not claimed):** runtime v3 ADOPTED · global L5 ADOPTED · READY FOR REAL global · Product Completion newly COMPLETE · Nora Cognitive Completion complete · global semantic Reservation quality proven · StudyFlow E2E REAL proven · docs_write REAL proven · GAP-15 closed · Roadmap synced · next macro selected.
+`Project.repositoryBinding` → `resolveTrustedProductLaunchContext` → `ManagedProjectRepositoryResolver` → managedRepoRoot → `resolveBoundedReadOnlyBaseHeadSha(managedRepoRoot)` → current managed HEAD → `launchContextAsContractInputs` → EC successor → Confirmation → future StartExecution.
 
----
+Checklist:
 
-## 14. NEXT NATURAL ACTION (SINGLE)
+| # | Check | Result |
+|---|-------|--------|
+| 1 | repositoryBinding.identity present | YES `mcleland147/sfia-workspace` |
+| 2 | managed root base present | YES |
+| 3 | canonical managed clone exists | YES |
+| 4 | managed clone readable Git repo | YES |
+| 5 | current HEAD full 40-hex | YES `66ffc0d2…` |
+| 6 | that HEAD verifiable in **this** clone | YES |
+| 7 | Project pathRoot StudyFlow | YES `projects/studyflow` |
+| 8 | no silent fallback to process.cwd / Studio checkout in trusted resolver | YES — fail-closed `MANAGED_REPO_UNAVAILABLE` if clone missing |
+| 9 | post-#522 pins baseHeadSha from managed clone itself | YES |
+| 10 | `trustedLaunchContextPinnedAtPrepare` only after successful resolve | YES (`prepareAndResolveM3ProductPath` / recovery successor) |
+| 11 | recovery successor uses same resolver | YES (`prepareDocsWriteRecoverySuccessor`) |
+| 12 | client-supplied baseHeadSha cannot widen authority | YES — server resolve; StartExecution rejects EC absolute managedRepoRoot |
 
-**Business-first next action:**
-On existing StudyFlow, execute clarify-first step 1 — **inspect durable Evidence `ev:w3b:7b9022c9c4221122` / ReviewBundle `rb:w3b:…` / Attempt `xat:w3a:…` stopReason (`base_head_sha_missing`)** and confront them to the Pilot’s already-accepted clarify-first trajectory — without launching REAL, without new HD, without inventing a Proposal.
-
-**Authority / Gate:**
-**A — ordinary read / inspect** for this immediate step.
-Later: trajectory step 3 reinstruction = **PILOT ACTION REQUIRED** (HumanDecision).
-Any docs_write retry = **GO REAL REQUIRED** (+ Morris authority already latent on EC).
-No fresh Project. No Product/architecture change indicated.
-
----
-
-## 15. VERDICT
-
-**STUDYFLOW DURABLE STATE REHYDRATED — RESUME EXISTING PROJECT RECOMMENDED**
-
-- projectId: `prj:34e7351c-770c-474a-8edc-9c82a07be41d`
-- LPS: v32 (`lps:e6310b5566af7207`) · `nextStep=recovery_diagnose_or_replan`
-- Cycle: `cyc:trj-2ee956d99383359aadd408d1` framing Light **active**
-- Trajectory: `trj:lr-bridge-039d11e6fe6b` @ v3 **validated** · clarify-first · steps pending
-- Active Reservations: **0**
-- Latest HDs: require-artifact · pursue docs_write subject · **clarify-first** recovery
-- EC/Attempt/Evidence: confirmed docs_write EC · Attempt **failed** (`base_head_sha_missing`) · Evidence available fail diagnostic · claim **fail**
-- Recommendation/recovery: durable recover/clarify-first reconstructible
-- Next action: inspect Evidence/RB/stopReason (ordinary read)
-- Gate now: none structural beyond read-only resume; Pilot HD later; GO REAL before any REAL retry
+Note: `launchContextAsContractInputs` does **not** persist `managedRepoRoot` into EC inputs (by design); StartExecution re-resolves server-side.
 
 ---
 
-## 16. INSTRUCTION TO CHATGPT
+## 10. HISTORICAL vs POST-#522
 
-Analyser le Review Handoff distant et la vérité Git, qualifier si le Project StudyFlow existant peut reprendre naturellement, puis décider du prochain contrat.
+| Dimension | HISTORICAL ATTEMPT | CURRENT POST-#522 PATH |
+|-----------|--------------------|------------------------|
+| Source of baseHeadSha | Studio-lineage SHA `df6721ed…` without trusted pin marker | Managed clone HEAD via `resolveBoundedReadOnlyBaseHeadSha(startDir=managedRepoRoot)` |
+| Repository identity | Present on EC | From durable `Project.repositoryBinding` |
+| repoRoot at prepare | Managed clone (strongly supported) | Managed clone re-resolved at StartExecution |
+| Pin timing | Before #522 trusted pack | Before inspection/authorize when trusted resolve succeeds |
+| trusted launch context | ABSENT | Marker set only on success |
+| Validation before Confirm/Start | SHA present on EC but not proven in managed objects | Trusted resolve fail-closed before prepare; Start re-resolves managed root |
+| If managed repo absent | Historical episode still launched with mismatched pin | Fail-closed (`MANAGED_REPO_UNAVAILABLE` / `docs_write_managed_repo_unresolved`) |
+| Ambient Studio checkout fallback | Effective pin source (legacy) | Explicitly forbidden in trusted path comments + fail-closed |
+| Recovery successor | N/A for this episode | Same trusted resolver; fail-closed; no auto Execute |
+| SHA ↔ repoRoot mismatch | **Occurred** | **Guarded**: SHA derived from same clone used at prepare |
 
-NE PAS continuer automatiquement la campagne.
+Three notions:
+- **A. Historical cause explained** — YES (STRONGLY SUPPORTED / PROVEN mismatch class)
+- **B. Current path guards same failure class** — YES
+- **C. REAL retry actually proven** — **NOT PROVEN** (out of scope)
+
+---
+
+## 11. CAUSE CLASSIFICATION
+
+**Primary:** LEGACY PRE-#522 LAUNCH CONTEXT
+
+**Secondary surface:** ENVIRONMENT / MANAGED REPO PRECONDITION (managed object store lacked the pinned SHA)
+
+**Not used:** CURRENT PRODUCT PATH DEFECT SUSPECTED (no evidence the post-#522 trusted path still admits the same silent SHA↔repoRoot mismatch before REAL)
+
+Acceptable formulation: failure class is now guarded by the current trusted resolver; current non-REAL trusted-launch preconditions are satisfied; historical root cause reconstructed as SHA pinned outside managed object identity vs repoRoot = managed clone.
+
+Forbidden formulations avoided: fixed in production · retry will succeed · Cursor REAL proven · docs_write works · StudyFlow REAL validated.
+
+---
+
+## 12. CURRENT RETRY PRECONDITION QUALIFICATION
+
+| Precondition | Status |
+|--------------|--------|
+| StudyFlow Project durable coherent | YES |
+| Trajectory = clarify-first | YES |
+| No active blocking Reservation | YES (0 active) |
+| Repository binding coherent | YES |
+| Managed repository root configured | YES |
+| Managed clone available | YES |
+| Managed clone current HEAD valid | YES |
+| Trusted launch resolver can derive full launch context in principle | YES (would pin `66ffc0d2…`) |
+| No known structural Product contradiction before REAL | YES |
+| Existing failure Evidence correctly FAIL | YES |
+
+**PRECONDITIONS SATISFIED**
+
+(Meaning: sufficient facts to ask for the next governed decision — **≠ READY FOR REAL ≠ authorization to execute**.)
+
+Operational observation (non-blocking for this eligibility definition): managed clone HEAD is stale vs Studio `origin/main` and detached; any future REAL would pin that current managed HEAD until an **authorized** operational sync (not this GO).
+
+---
+
+## 13. FINDINGS
+
+| ID | Finding | Class | Diagnostic tag |
+|----|---------|-------|----------------|
+| B1 | `base_head_sha_missing` = managed `rev-parse` miss on historical SHA | EXPECTED | LEGACY PRE-#522 FAILURE |
+| B2 | Historical SHA in Studio, absent in managed clone | EXPECTED | ENVIRONMENTAL PRECONDITION |
+| B3 | No trusted pin marker on historical EC | EXPECTED | LEGACY PRE-#522 FAILURE |
+| B4 | Post-#522 trusted path derives SHA from managed clone | EXPECTED | CURRENT PATH GUARD |
+| B5 | Managed clone present, HEAD self-verifiable | EXPECTED | — |
+| B6 | Managed clone stale / detached vs main #522 | NON-BLOCKING RESERVE | ENVIRONMENTAL PRECONDITION |
+| B7 | origin URL is local filesystem path | NON-BLOCKING RESERVE | (diagnostic only; not code invariant) |
+| B8 | EC pathRoot `…/01-cadrage` vs Project pathRoot `projects/studyflow` | LEGACY | (historical EC inputs; Project binding remains StudyFlow root) |
+| B9 | processDiagnostic absent (fail before process) | EXPECTED | — |
+| B10 | REAL retry / docs_write success | NOT PROVEN | — |
+
+---
+
+## 14. GAP-15
+
+OPEN RESERVE · OUT OF CURRENT MACRO · NON-BLOCKING · not reopened · not reproduced.
+
+---
+
+## 15. ROADMAP
+
+MealFlow wording = DOCUMENTARY DRIFT — NON-BLOCKING RESERVE. Not modified.
+
+---
+
+## 16. FAKE / REAL QUALIFICATION
+
+| Item | Status |
+|------|--------|
+| Historical | REAL PROCESS ATTEMPTED · business FAIL / NOT PROVEN · fail at workspace prepare |
+| #522 deterministic | PROVEN at declared scope |
+| Phase B | READ-ONLY DIAGNOSIS ONLY |
+| Fixtures | NONE |
+| REAL BOUNDARY / E2E REAL | OUT OF SCOPE · NOT PROVEN |
+| Gate Morris REAL | **REQUIRED BEFORE ANY RETRY** |
+
+Hard rule preserved: DETERMINISTIC PROVEN ≠ CURRENT PRECONDITIONS SATISFIED ≠ READY FOR REAL ≠ REAL BOUNDARY PROVEN ≠ E2E REAL PROVEN.
+
+---
+
+## 17. CLAIMS
+
+**Authorized:** historical failure explained · current trusted launch preconditions satisfied · failure class guarded by current path · retry remains gated and unproven.
+
+**Forbidden (not claimed):** READY FOR REAL · Cursor REAL fixed · docs_write REAL proven · StudyFlow E2E proven · #522 fixes every recovery failure · runtime v3 ADOPTED · global L5 · Product READY · Nora Cognitive Completion complete · GAP-15 closed · Roadmap synced · next macro selected.
+
+---
+
+## 18. NEXT NATURAL ACTION CANDIDATE
+
+Return this diagnosis to ChatGPT for **trajectory step 3 requalification** (réinstruire options recovery — Pilot HumanDecision). Do **not** retry, do **not** REAL, do **not** create the HD in this cycle.
+
+Optional operational note for ChatGPT (not executed): managed clone freshness vs main may matter before any future REAL pin — requires separate authorized ops, not Phase B.
+
+---
+
+## 19. REQUIRED AUTHORITY / GATE
+
+- Now: none beyond ChatGPT/Morris requalification of next contract.
+- Trajectory step 3: **PILOT ACTION REQUIRED** (HumanDecision).
+- Any docs_write REAL retry: **GO REAL MORRIS DISTINCT** (after next natural action qualification).
+
+---
+
+## 20. FINAL VERDICT
+
+**LEGACY PRE-#522 LAUNCH CONTEXT FAILURE — CURRENT TRUSTED PATH PRECONDITIONS SATISFIED**
+
+This does **not** mean READY FOR REAL or REAL PROVEN.
+
+---
+
+## 21. INSTRUCTION TO CHATGPT
+
+NE PAS continuer automatiquement StudyFlow.
 NE PAS lancer Cursor REAL.
-NE PAS prendre une HumanDecision à la place du Pilote.
+NE PAS retry l’Attempt.
+NE PAS créer de HumanDecision.
+Retourner ce rapport pour requalification de la trajectoire.
