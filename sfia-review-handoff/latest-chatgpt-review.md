@@ -1344,8 +1344,8 @@ NEXT: ChatGPT review of local candidate. If qualified, distinct Morris gate for 
 |---|---|
 | Branch | `sfia/review-handoff` |
 | Canonical file | `sfia-review-handoff/latest-chatgpt-review.md` |
-| Remote commit | `75be7e77dc1ecabe4d8948d80616b2d89564067e` |
-| Canonical blob | `d7e3723807a0111bc2a7c5e884cb7ed8b36b3a4f` |
+| Remote commit | `95eb5c827f2f3ed2c44b90210a13abec3b065555` |
+| Canonical blob | `74a69fe7ac2f160f1f8888a2acef499cc1645893` |
 | Verdict | **HANDOFF UPDATED — REMOTE VERIFIED** |
 | Product commit/push/PR | **NOT authorized by this L3 action** |
 
