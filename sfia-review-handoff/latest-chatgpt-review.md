@@ -1,17 +1,15 @@
 # SFIA Review Pack — FULL
-## RESERVATION-CONTEXT-PILOT-CONFIRMATION-01
+## RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — SAME-MACRO CORRECTION RC-01 / RC-02
 
-Timestamp (UTC): `2026-09-25T09:40:01Z`
+Timestamp (UTC): `2026-09-25T11:16:22Z`
 
 ## 1. Git truth
 
-- Repo: `mcleland147/sfia-workspace` (`/Users/morris/Projects/sfia-workspace`)
-- Construction branch: `feat/sfia-studio-reservation-context-pilot-confirmation-01`
-- Base / origin/main expected: `e36eb0597657577191af9cbc5feac6f47219b1fc`
-- origin/main verified: `e36eb0597657577191af9cbc5feac6f47219b1fc` — **MATCH**
-- HEAD (uncommitted construction): `e36eb0597657577191af9cbc5feac6f47219b1fc` (= origin/main; work is local dirty only)
-- Project commit: **NOT AUTHORIZED / NOT EXECUTED**
-- Project push / PR / merge: **NOT AUTHORIZED / NOT EXECUTED**
+- Repo: `mcleland147/sfia-workspace`
+- Branch: `feat/sfia-studio-reservation-context-pilot-confirmation-01`
+- HEAD / origin/main: `e36eb0597657577191af9cbc5feac6f47219b1fc` / `e36eb0597657577191af9cbc5feac6f47219b1fc` — **MATCH** (`e36eb0597657577191af9cbc5feac6f47219b1fc`)
+- Construction: **LOCAL DIRTY / UNCOMMITTED** (same-macro candidate preserved)
+- Project commit / push / PR / merge: **NOT AUTHORIZED / NOT EXECUTED**
 
 ### git status --short
 
@@ -38,126 +36,509 @@ M .tmp-sfia-review/chatgpt-review.md
 ?? projects/sfia-studio/app/features/project-assistant/reservationInteractionContext.ts
 ```
 
-Note: `.tmp-sfia-review/*-proof/` directories are leftover campaign artifacts from prior macros; not part of this construction commit surface. Product construction files are the `projects/sfia-studio/app/**` modifications listed below.
+## 2. Convergence / cycle qualification (unchanged)
 
-## 2. Convergence / trajectory qualification
+- Delivery / `cyc:delivery` / EVOL / Critical
+- Macro: `RESERVATION-CONTEXT-PILOT-CONFIRMATION-01`
+- Protected sources READ ONLY (Build Doctrine, Roadmap, C1, v3, CKC, method, prompts)
+- Roadmap not modified
 
-- Cycle: Delivery / Implementation — `cyc:delivery`
-- CKC: `ckc:studio:delivery` / `projects/sfia-studio/sfia-v3-framing/ckc/08-delivery-implementation.md` — contentStatus VALIDATED (read-only)
-- Typology: EVOL — Profile: Critical
-- Macro ID: `RESERVATION-CONTEXT-PILOT-CONFIRMATION-01`
-- Macro capability: RESERVATION CONTEXT CONTINUITY & PILOT CONFIRMATION
-- Prior integrated capability: CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING (PR #518)
-- Roadmap: **NOT MODIFIED** (truth-sync deferred)
-- Protected Convergence / Build Doctrine / C1 / v3 framing / method / prompts: **READ ONLY — NOT MODIFIED**
+## 3. R22 OpenAI Capability Fit (unchanged)
 
-### Sources read (exact blob SHAs at HEAD/main)
+KEEP structured OpenAI path + reservationDelta; ADAPT context carriage; REJECT new engine / OpenAI HITL as Pilot confirmation.
 
-- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md` @ `99232e4582e4ef4cf489020a46b818ebb41ac397`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` @ `4f69330dec43d16ffcf194f304e13bfecb2d9788`
-- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md` @ `806d672fe21ad82a641bf88fe95fc87870481105`
-- `projects/sfia-studio/sfia-v3-framing/30-knowledge-context-human-decision-doctrine.md` @ `b2d122e2229196d6e104f45706e0cc086a457561`
-- `projects/sfia-studio/sfia-v3-framing/32-living-project-state-and-dynamic-trajectory.md` @ `5d90e8b0c849a803f94db106637d870ea45f4e8e`
-- `projects/sfia-studio/sfia-v3-framing/33-epistemology-provenance-and-contradiction-model.md` @ `a954e560a6d2062b7acb0b1db8e38de6b01e9c4e`
-- `projects/sfia-studio/sfia-v3-framing/34-agent-capabilities-reversibility-and-execution-governance.md` @ `0d81a3616d08e3c8d1b1d3e3ad982c1cc1cd077d`
-- `projects/sfia-studio/sfia-v3-framing/37-studio-v3-foundations-and-consolidation-decision-pack.md` @ `210e933ad0dae386d1880baaf04457ddd234e96a`
-- `projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md` @ `1dfd8fd49e4e1e90e3e781139bb0df5fd88fd389`
-- `projects/sfia-studio/sfia-v3-framing/ckc/08-delivery-implementation.md` @ `69d1257a5ca9045964b68410c07728c2f8264491`
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` @ `8949e764d96faf3fa812d39307dbc298b500f5ef`
-- `prompts/templates/sfia-cycle-execution-template.md` @ `948156a21309ef99c3aaed6410947dc6b9bc569a`
+## 4. RC-01 — Malformed Reservation context must fail closed
 
-## 3. R22 OpenAI Capability Fit Check
+### Finding
 
-Inspected installed path:
+`parseReservationInteractionContextInput` previously returned `null` for both:
+- context absent
+- context present but malformed
 
-- `OpenAIConversationProvider` (`lib/platform/ai/openaiProvider.ts`) — Responses API `json_schema` structured output KEEP
-- `NORA_PRODUCT_TURN_OUTPUT_TYPE` includes nullable `reservationDelta` with CREATE/UPDATE/PROPOSE_RESOLUTION (never RESOLVE) KEEP
-- Generic cognitive reasoning via F1 Agents path KEEP
-- Reservation-specific context carriage: **ADAPT / COMBINE** — new untrusted `reservationInteractionContext` client field + server `validateReservationInteractionContext` + `reservationFocusSection` prompt + force-F1 advisory override
-- Missing continuity: **COMPLETE** via binding → force F1 → PROPOSE_RESOLUTION materialize → Pilot confirm affordance
-- New generic internal cognitive engine: **REJECT**
-- New provider/session authority: **REJECT**
-- OpenAI HITL as SFIA Pilot confirmation replacement: **REJECT**
+`orchestrateAssistantSend` treated null as « no Reservation focus » → silent generic / F2 fallback for hostile payload.
 
-Disposition: provider contract remains compatible; no parallel cognitive engine required.
+### Exact fix
 
-OpenAI/model/session state is NOT Truth C / HumanDecision / Confirmation / authority / Evidence.
+Discriminated parse result:
 
-## 4. Campaign observations consumed (StudyFlow evidence only)
+- `{ status: "absent" }` — undefined/null only → generic conversation unchanged
+- `{ status: "invalid", code: "RESERVATION_CONTEXT_INVALID", message }` — string/array/{}/missing ids/blank/non-string → explicit `validation_error`
+- `{ status: "ok", value }` → existing server revalidation path
 
-KEEP findings preserved (routing CREATE/UPDATE, openPoint≠Reservation, CREATE, Journal Réserves, Treat prefill-only, fail-closed Pilot confirm, left/right projections complementary).
+`orchestrateF2` returns immediately on `invalid` before analysis / F2 / Reservation binding.
+Client arm clearing for `RESERVATION_CONTEXT_*` remains via existing `useProductConversation` handling.
 
-Failure chain addressed:
+### Tests
 
-1. Treat with Nora prefilled Reservation draft
-2. After clarification, generic F2 qualification/proposal hijacked subject (false “new Cadrage”)
-3. Narrative claimed levée while Truth C stayed active
-4. No resolutionProposal / no Confirmer CTA
+- undefined/null → absent
+- "hostile", [], {}, missing id, blank id, non-string id → INVALID
+- valid structured ids → ok
+- stale/foreign/inactive/wrong-type → existing fail-closed PASS
 
-Morris decisions consumed:
+## 5. RC-02 — Pilot-facing Reservation semantics
 
-- KEEP left/right Reservation composition AS-IS
-- No StudyFlow-specific code
-- No new store / parallel Reservation workflow
-- No REAL promotion / runtime v3 claim
+### Finding
 
-## 5. Root-cause analysis
+Proposal surface showed raw `cycle <cycleInstanceId>` and reused generic F2 `DÉCISION REQUISE` for Reservation confirmation (weaker than Pilot Confirmation of resolution proposal).
 
-Generic conversation routing (`resolveTransitionReadiness` → F2 formalization) treated Pilot clarification text as actionable cycle qualification. “Traiter avec Nora” only prefaced free-text; no structured Reservation identity survived into the Product turn. Therefore:
+### Exact fix
 
-- F2 proposed Cadrage (already active)
-- Nora narrative could claim resolution without `PROPOSE_RESOLUTION` materialization
-- Truth C correctly stayed active (protection worked) but pilotability continuity failed
+- `ReservationResolutionProposalDto.cycleLabel` from composed `studioCognitiveContext.activeCycle.cycleLabel` (no new lookup/store)
+- ConversationSurface primary context: `Contexte : Réserve N · Cadrage actif` via local pure formatter (client-safe; avoids OA/`node:path` bundle pull)
+- raw `cycleInstanceId` retained in hidden technical metadata test id
+- F2 `decisionRequired` forced `null` on Reservation focus turns (global F2 enum **unchanged**)
+- local surface: « Confirmation Pilote requise » when `proposed=true`
+- chip row suppresses any residual `DÉCISION REQUISE` while Reservation proposal is active
+- « Proposition de levée » + « Confirmer la levée » unchanged; same governed callback
 
-## 6. Architecture / reuse classification
+## 6. KEEP (accepted candidate)
 
-KEEP: Epistemic Reservation state, reservationDelta, materializeReservationDelta, resolutionProposal metadata, confirmReservationResolutionAction, Pilot authority, Journal/Lifecycle Reservation cards/projections, Product SQLite, generic F2 for non-Reservation work.
+Bounded `reservationInteractionContext` seam; force-F1; focus prompt; reservationDelta; PROPOSE_RESOLUTION; Journal + Proposal confirm same action; left/right projections AS-IS; generic F2 outside focus.
 
-ADAPT: Treat plumbing (arm structured context), send envelope, orchestrateF2 routing, studioCognitiveContext focus section, ConversationSurface proposal presentation when Reservation subject active.
+## 7. Changed files (this correction + full candidate)
 
-COMPLETE: structured binding + server revalidation; force F1 under valid Reservation focus; PROPOSE_RESOLUTION → proposedIds surface; Confirmer la levée on contextual Proposal + existing Journal CTA (same governed action).
+### Modified (relative to origin/main)
 
-NO REPLACE. No new persistence store. No parallel conversation aggregate.
+- `reservationInteractionContext.ts` (NEW)
+- `f2/orchestrateF2.ts`
+- `types.ts`
+- `ConversationSurface.tsx`
+- `useProductConversation.ts`
+- `ProjectWorkspacePage.tsx`
+- `actions.ts`
+- `studioCognitiveContext.ts`
+- `orchestrateTurn.ts`
+- `reservationPrompt.ts`
+- fixture null fields in studioCognitiveContext + corrProof06 tests
+- NEW tests: `reservationContextPilotConfirmation.d0.test.ts`, `reservationContextProposal.ui.test.tsx`
 
-### Design seam
+## 8. Diffs / full new file contents
+
+### RC-focused tracked diffs (orchestrateF2 / types / ConversationSurface)
+
+```diff
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+index 1da26eac..574feaaf 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+@@ -23,6 +23,19 @@ import { useEffect, useId } from "react";
+ import type { ProductConversationController } from "../hooks/useProductConversation";
+ import styles from "./ConversationSurface.module.css";
+
++/**
++ * RC-02 — human-facing active-cycle label (pure presentation; no OA import).
++ * Mirrors formatReservationActiveCycleFacingLabel without pulling server modules.
++ */
++function formatReservationActiveCycleFacingLabel(
++  cycleLabel: string | null | undefined,
++): string {
++  const t = typeof cycleLabel === "string" ? cycleLabel.trim() : "";
++  if (!t) return "Cycle actif";
++  if (/\bacti[fv]\b/i.test(t)) return t;
++  return `${t} actif`;
++}
++
+ const DECISION_ACTIONS: readonly {
+   kind: F2DecisionKind;
+   label: string;
+@@ -57,6 +70,12 @@ export type ConversationSurfaceProps = {
+    * unset/false so TrajectorySurface remains the sole authority/execute chain.
+    */
+   exposeLegacyAuthorityPath?: boolean;
++  /**
++   * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — same governed Pilot confirm
++   * as Journal « Confirmer la levée » (no duplicate mutation path).
++   */
++  onConfirmReservationResolve?: (epistemicItemId: string) => void;
++  reservationConfirmBusyId?: string | null;
+ };
+
+ /**
+@@ -68,6 +87,8 @@ export type ConversationSurfaceProps = {
+ export function ConversationSurface({
+   controller,
+   exposeLegacyAuthorityPath = false,
++  onConfirmReservationResolve,
++  reservationConfirmBusyId = null,
+ }: ConversationSurfaceProps) {
+   const fieldId = useId();
+   const liveRegionId = useId();
+@@ -114,6 +135,7 @@ export function ConversationSurface({
+     confirmAndExecuteLegacyFixture,
+     refreshResolvedM3RunningAttempt,
+     retryLastUserMessage,
++    reservationResolutionProposal,
+   } = controller;
+
+   // Notify LifecycleSurface after Nora answers so CURRENT LR can reproject.
+@@ -298,7 +320,7 @@ export function ConversationSurface({
+           {f2.labels.proposition ? (
+             <span className={styles.chip}>{f2.labels.proposition}</span>
+           ) : null}
+-          {f2.labels.decisionRequired ? (
++          {f2.labels.decisionRequired && !reservationResolutionProposal ? (
+             <span className={styles.chipGold}>{f2.labels.decisionRequired}</span>
+           ) : null}
+           {f2.labels.decisionTaken ? (
+@@ -308,7 +330,87 @@ export function ConversationSurface({
+         </div>
+       ) : null}
+
+-      {f2?.qualification ? (
++      {reservationResolutionProposal ? (
++        <section
++          className={styles.card}
++          data-testid="reservation-resolution-proposal"
++          aria-labelledby={`${fieldId}-rsv-proposal`}
++        >
++          <header className={styles.cardHead}>
++            <p className={styles.cardEyebrow}>Lecture de Nora</p>
++            <h3 id={`${fieldId}-rsv-proposal`} className={styles.cardTitle}>
++              {reservationResolutionProposal.proposed
++                ? "Proposition de levée"
++                : "Traitement de réserve"}
++            </h3>
++            <p
++              className={styles.cardNote}
++              data-testid="reservation-resolution-context"
++            >
++              Contexte :{" "}
++              {reservationResolutionProposal.ordinal != null &&
++              reservationResolutionProposal.ordinal > 0
++                ? `Réserve ${reservationResolutionProposal.ordinal}`
++                : "Réserve"}{" "}
++              ·{" "}
++              {formatReservationActiveCycleFacingLabel(
++                reservationResolutionProposal.cycleLabel,
++              )}
++            </p>
++            <p
++              className={styles.cardNote}
++              data-testid="reservation-resolution-cycle-id"
++              hidden
++            >
++              {reservationResolutionProposal.cycleInstanceId}
++            </p>
++            {reservationResolutionProposal.proposed ? (
++              <p
++                className={styles.cardNote}
++                data-testid="reservation-pilot-confirmation-required"
++              >
++                Confirmation Pilote requise
++              </p>
++            ) : null}
++            <p className={styles.cardNote}>
++              {reservationResolutionProposal.proposed
++                ? "La condition paraît satisfaite. La levée attend votre confirmation Pilote — la réserve reste active."
++                : "Nora traite cette réserve. Une recommandation n’est pas une levée."}
++            </p>
++          </header>
++          {reservationResolutionProposal.proposed &&
++          onConfirmReservationResolve ? (
++            <div className={styles.decisionActions}>
++              <button
++                type="button"
++                className={styles.decisionButton}
++                data-tone="primary"
++                data-testid={`reservation-confirm-from-proposal-${reservationResolutionProposal.epistemicItemId}`}
++                disabled={
++                  busy ||
++                  reservationConfirmBusyId ===
++                    reservationResolutionProposal.epistemicItemId
++                }
++                onClick={() =>
++                  onConfirmReservationResolve(
++                    reservationResolutionProposal.epistemicItemId,
++                  )
++                }
++              >
++                {reservationConfirmBusyId ===
++                reservationResolutionProposal.epistemicItemId
++                  ? "Confirmation…"
++                  : "Confirmer la levée"}
++              </button>
++            </div>
++          ) : null}
++          <p className={styles.stamp} data-testid="reservation-no-auto-resolve">
++            AUCUNE LEVÉE AUTOMATIQUE
++          </p>
++        </section>
++      ) : null}
++
++      {f2?.qualification && !reservationResolutionProposal ? (
+         <section
+           className={styles.card}
+           data-testid="project-assistant-qualification"
+@@ -392,7 +494,7 @@ export function ConversationSurface({
+         </section>
+       ) : null}
+
+-      {activeProposal ? (
++      {activeProposal && !reservationResolutionProposal ? (
+         <section
+           className={styles.card}
+           data-testid="project-assistant-proposal"
+@@ -475,7 +577,7 @@ export function ConversationSurface({
+         </section>
+       ) : null}
+
+-      {gateOpen && !exposeLegacyAuthorityPath ? (
++      {gateOpen && !exposeLegacyAuthorityPath && !reservationResolutionProposal ? (
+         <section
+           className={styles.card}
+           data-testid="product-authority-path-guidance"
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+index 504ddd7b..54b9213f 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+@@ -71,6 +71,11 @@ import {
+   reasonWithResolvedCkcContext,
+ } from "./ckcCognitiveContext";
+ import { composeStudioCognitiveContext } from "./studioCognitiveContext";
++import {
++  parseReservationInteractionContextInput,
++  validateReservationInteractionContext,
++  type ValidatedReservationInteractionContext,
++} from "../reservationInteractionContext";
+ import { projectCkcResolutionRef, qualifyWithCkc } from "./qualify";
+ import { reconcileQualificationSignals } from "./qualificationSignalCoherence";
+ import { resolveProductDoctrineRegistryRoot } from "@/lib/vertical-slice-runtime/paths";
+@@ -802,6 +807,11 @@ export async function orchestrateAssistantSend(input: {
+    * Server-validated against effective pending markers; never trusted alone.
+    */
+   reinstructionOfProposalId?: string | null;
++  /**
++   * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — untrusted client binding.
++   * Server revalidates; invalid → fail-closed product message (no retarget).
++   */
++  reservationInteractionContext?: unknown;
+   /**
+    * INTERNAL / EVAL-ONLY — Stage A constitutive model×effort pin.
+    * Propagated to analyzeIntent + F1 cognitive path. Never a client DTO field.
+@@ -881,6 +891,21 @@ export async function orchestrateAssistantSend(input: {
+
+   let analysisResult: Awaited<ReturnType<typeof analyzeIntent>>;
+   let truthCContextForF1: string | undefined;
++  let reservationFocus: ValidatedReservationInteractionContext | null = null;
++  const parsedReservationContext = parseReservationInteractionContextInput(
++    input.reservationInteractionContext,
++  );
++  // RC-01 — present-but-malformed must fail closed (never silent generic F2).
++  if (parsedReservationContext.status === "invalid") {
++    return {
++      ok: false,
++      status: "validation_error",
++      code: parsedReservationContext.code,
++      message: parsedReservationContext.message,
++      mode: modeResolution.mode,
++      retryable: true,
++    };
++  }
+   try {
+     const cognitive = await resolveCognitiveIntentProjectSummary(project);
+     if (!cognitive.ok) {
+@@ -898,6 +923,64 @@ export async function orchestrateAssistantSend(input: {
+         ? cognitive.truthCContext
+         : undefined;
+
++    // RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — revalidate client binding.
++    if (parsedReservationContext.status === "ok") {
++      const claimedReservationContext = parsedReservationContext.value;
++      const oaForRsv = getRuntimeApplicationService().oa;
++      const activeCycleId =
++        project.activeCycleInstanceId?.trim() ||
++        (await (async () => {
++          if (!oaForRsv) return null;
++          try {
++            const lps =
++              await oaForRsv.projectServices.getCurrentLivingProjectState.execute(
++                { projectId: project.projectId },
++              );
++            return lps.ok
++              ? lps.livingProjectState.activeCycleInstanceId ?? null
++              : null;
++          } catch {
++            return null;
++          }
++        })());
++      let items: Awaited<
++        ReturnType<
++          NonNullable<
++            ReturnType<typeof getRuntimeApplicationService>["oa"]
++          >["cycleServices"]["epistemic"]["listByProject"]
++        >
++      > = [];
++      if (oaForRsv) {
++        try {
++          items = await oaForRsv.cycleServices.epistemic.listByProject(
++            project.projectId,
++          );
++        } catch {
++          items = [];
++        }
++      }
++      const validated = validateReservationInteractionContext({
++        claimed: claimedReservationContext,
++        activeCycleInstanceId: activeCycleId,
++        items,
++      });
++      if (!validated.ok) {
++        return {
++          ok: false,
++          status: "validation_error",
++          code: validated.code,
++          message: validated.message,
++          mode: modeResolution.mode,
++          retryable: true,
++        };
++      }
++      reservationFocus = validated.value;
++      // Keep LPS activeCycle on DTO for downstream F1 composition.
++      if (!project.activeCycleInstanceId && activeCycleId) {
++        project = { ...project, activeCycleInstanceId: activeCycleId };
++      }
++    }
++
+     // CORR-PROOF-01 D1 CR-03/CR-04 — Memory B replay semantics; EMPTY ≠ UNAVAILABLE.
+     const canonicalLoad = await loadCanonicalConversationForAnalysis({
+       projectId: project.projectId,
+@@ -984,9 +1067,13 @@ export async function orchestrateAssistantSend(input: {
+   // CORR-PROOF-02 B1 — deterministic transition gate.
+   // Safe advisory (incl. ambiguous / parse-fail / incomplete formalization fields) → F1.
+   // Governed formalization only when readiness is fully established.
++  // RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — valid Reservation focus suppresses
++  // generic F2 formalization hijack for this turn (keep Nora cognitive path).
++  const forceReservationResolutionAdvisory = reservationFocus != null;
+   const transition = resolveTransitionReadiness({
+     analysis,
+-    forceRepoInformative,
++    forceRepoInformative:
++      forceRepoInformative || forceReservationResolutionAdvisory,
+   });
+
+   if (!transition.formalizationReady) {
+@@ -1000,7 +1087,11 @@ export async function orchestrateAssistantSend(input: {
+       registryRoot,
+       truthCContext: truthCContextForF1,
+       oa,
+-      activeCycleInstanceId: project.activeCycleInstanceId ?? null,
++      activeCycleInstanceId:
++        reservationFocus?.cycleInstanceId ??
++        project.activeCycleInstanceId ??
++        null,
++      reservationFocus,
+     });
+     if (!studioComposed.ok) {
+       return {
+@@ -1035,7 +1126,7 @@ export async function orchestrateAssistantSend(input: {
+         analysis.intentClass === "ambiguous" ||
+         analysis.intentClass === "actionable" ||
+         analysis.intentClass === "execution_request")
+-        ? forceRepoInformative
++        ? forceRepoInformative || forceReservationResolutionAdvisory
+           ? "informative"
+           : analysis.intentClass
+         : "ambiguous";
+@@ -1044,7 +1135,25 @@ export async function orchestrateAssistantSend(input: {
+     const executionBlocked =
+       analysis.parseOk === true &&
+       analysis.intentClass === "execution_request" &&
+-      !forceRepoInformative;
++      !forceRepoInformative &&
++      !forceReservationResolutionAdvisory;
++    const proposedIds = f1.reservationProposedIds ?? [];
++    // RC-02 — human-facing cycle label from already-composed Studio context.
++    const composedCycleLabel =
++      studioCognitiveContext.activeCycle?.cycleLabel?.trim() ||
++      studioCognitiveContext.activeCycle?.cycleTypeId?.trim() ||
++      null;
++    const reservationResolutionProposal =
++      reservationFocus != null
++        ? {
++            epistemicItemId: reservationFocus.epistemicItemId,
++            cycleInstanceId: reservationFocus.cycleInstanceId,
++            cycleLabel: composedCycleLabel,
++            ordinal: reservationFocus.ordinal,
++            title: reservationFocus.title,
++            proposed: proposedIds.includes(reservationFocus.epistemicItemId),
++          }
++        : null;
+     return {
+       ...f1,
+       model: f1.model ?? model,
+@@ -1053,6 +1162,8 @@ export async function orchestrateAssistantSend(input: {
+       reinstructionTransition: resolveReinstructionTransition({
+         reinstructionOfProposalId,
+       }),
++      reservationProposedIds: proposedIds,
++      reservationResolutionProposal,
+       f2: {
+         turnKind: "f1_informative",
+         intentClass: reportedIntent,
+@@ -1061,7 +1172,11 @@ export async function orchestrateAssistantSend(input: {
+         decision: null,
+         labels: {
+           recommendation: null,
+-          proposition: null,
++          proposition: reservationResolutionProposal?.proposed
++            ? "PROPOSITION"
++            : null,
++          // RC-02 — do not reuse generic F2 « DÉCISION REQUISE » for
++          // Reservation Pilot confirmation (local surface wording only).
+           decisionRequired: null,
+           decisionTaken: null,
+           noExecution: "AUCUNE EXÉCUTION",
+diff --git a/projects/sfia-studio/app/features/project-assistant/types.ts b/projects/sfia-studio/app/features/project-assistant/types.ts
+index 070fa422..daf8841d 100644
+--- a/projects/sfia-studio/app/features/project-assistant/types.ts
++++ b/projects/sfia-studio/app/features/project-assistant/types.ts
+@@ -173,6 +173,25 @@ export type F2TurnPayload = {
+   processLocalNotice: string;
+ };
+
++/**
++ * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — ephemeral client surface for a
++ * validated Reservation focus / PROPOSE_RESOLUTION. Not Truth C; not Confirmation.
++ */
++export type ReservationResolutionProposalDto = {
++  epistemicItemId: string;
++  cycleInstanceId: string;
++  /**
++   * Human-facing active-cycle label from composed Product context
++   * (e.g. « Cadrage »). Not a second authority; technical id remains
++   * on cycleInstanceId for tests / details.
++   */
++  cycleLabel: string | null;
++  ordinal: number | null;
++  title: string;
++  /** true only when materialize wrote a resolutionProposal this turn. */
++  proposed: boolean;
++};
++
+ export type ProjectAssistantSendSuccess = {
+   ok: true;
+   status: "ok" | "cognitive_stop";
+@@ -253,6 +272,16 @@ export type ProjectAssistantSendSuccess = {
+    * Session-adjacent replay/idempotence identity; never Epistemic SoT.
+    */
+   logicalTurnId?: string | null;
++  /**
++   * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — ids that received PROPOSE_RESOLUTION
++   * this Product turn (after durable materialize). Empty when none.
++   */
++  reservationProposedIds?: string[];
++  /**
++   * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — validated Reservation focus surface
++   * for Pilot presentation (proposal-state wording; never auto-resolved).
++   */
++  reservationResolutionProposal?: ReservationResolutionProposalDto | null;
+   /**
+    * MW6↔Auth — present when send used executionContractId governed composition.
+    * Server-built; never a client-supplied authority object.
 
 ```
-reservationInteractionContext?: { cycleInstanceId, epistemicItemId }  // client untrusted
-→ parseReservationInteractionContextInput
-→ validateReservationInteractionContext (project/cycle/item/active/type)
-→ ValidatedReservationInteractionContext { kind: reservation_resolution, ... }
-→ composeStudioCognitiveContext.reservationFocusSection
-→ forceRepoInformative (advisory F1; blocks F2 hijack)
-→ materializeReservationDelta PROPOSE_RESOLUTION
-→ reservationResolutionProposal DTO + Journal hasResolutionProposal
-→ projectAssistantConfirmReservationResolutionAction (Pilot only)
-```
 
-## 7. Modified / created files
-
-### Modified
-
-- `projects/sfia-studio/app/features/project-assistant/actions.ts`
-- `projects/sfia-studio/app/features/project-assistant/types.ts`
-- `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts`
-- `projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts`
-- `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`
-- `projects/sfia-studio/app/lib/nora-cognitive-runtime/reservationPrompt.ts`
-- `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx`
-- `projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts`
-- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx`
-- `projects/sfia-studio/app/__tests__/project-assistant/studioCognitiveContext.test.ts` (+`reservationFocusSection: null`)
-- `projects/sfia-studio/app/__tests__/oa/cycle/corrProof06.artifactObligation.d0.test.ts` (+`reservationFocusSection: null`)
-
-### Created
-
-- `projects/sfia-studio/app/features/project-assistant/reservationInteractionContext.ts`
-- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/reservationContextPilotConfirmation.d0.test.ts`
-- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/reservationContextProposal.ui.test.tsx`
-
-## 8. Complete diffs / new file contents
-
-### Tracked file diffs
+### Full tracked construction diff vs HEAD/main
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
@@ -335,10 +716,30 @@ index b88b7d32..6d040062 100644
      prepareResolvedM3,
      prepareLegacyFixture,
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-index 1da26eac..81c23ff2 100644
+index 1da26eac..574feaaf 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-@@ -57,6 +57,12 @@ export type ConversationSurfaceProps = {
+@@ -23,6 +23,19 @@ import { useEffect, useId } from "react";
+ import type { ProductConversationController } from "../hooks/useProductConversation";
+ import styles from "./ConversationSurface.module.css";
+
++/**
++ * RC-02 — human-facing active-cycle label (pure presentation; no OA import).
++ * Mirrors formatReservationActiveCycleFacingLabel without pulling server modules.
++ */
++function formatReservationActiveCycleFacingLabel(
++  cycleLabel: string | null | undefined,
++): string {
++  const t = typeof cycleLabel === "string" ? cycleLabel.trim() : "";
++  if (!t) return "Cycle actif";
++  if (/\bacti[fv]\b/i.test(t)) return t;
++  return `${t} actif`;
++}
++
+ const DECISION_ACTIONS: readonly {
+   kind: F2DecisionKind;
+   label: string;
+@@ -57,6 +70,12 @@ export type ConversationSurfaceProps = {
     * unset/false so TrajectorySurface remains the sole authority/execute chain.
     */
    exposeLegacyAuthorityPath?: boolean;
@@ -351,7 +752,7 @@ index 1da26eac..81c23ff2 100644
  };
 
  /**
-@@ -68,6 +74,8 @@ export type ConversationSurfaceProps = {
+@@ -68,6 +87,8 @@ export type ConversationSurfaceProps = {
  export function ConversationSurface({
    controller,
    exposeLegacyAuthorityPath = false,
@@ -360,7 +761,7 @@ index 1da26eac..81c23ff2 100644
  }: ConversationSurfaceProps) {
    const fieldId = useId();
    const liveRegionId = useId();
-@@ -114,6 +122,7 @@ export function ConversationSurface({
+@@ -114,6 +135,7 @@ export function ConversationSurface({
      confirmAndExecuteLegacyFixture,
      refreshResolvedM3RunningAttempt,
      retryLastUserMessage,
@@ -368,7 +769,16 @@ index 1da26eac..81c23ff2 100644
    } = controller;
 
    // Notify LifecycleSurface after Nora answers so CURRENT LR can reproject.
-@@ -308,7 +317,70 @@ export function ConversationSurface({
+@@ -298,7 +320,7 @@ export function ConversationSurface({
+           {f2.labels.proposition ? (
+             <span className={styles.chip}>{f2.labels.proposition}</span>
+           ) : null}
+-          {f2.labels.decisionRequired ? (
++          {f2.labels.decisionRequired && !reservationResolutionProposal ? (
+             <span className={styles.chipGold}>{f2.labels.decisionRequired}</span>
+           ) : null}
+           {f2.labels.decisionTaken ? (
+@@ -308,7 +330,87 @@ export function ConversationSurface({
          </div>
        ) : null}
 
@@ -395,9 +805,26 @@ index 1da26eac..81c23ff2 100644
 +              reservationResolutionProposal.ordinal > 0
 +                ? `Réserve ${reservationResolutionProposal.ordinal}`
 +                : "Réserve"}{" "}
-+              · « {reservationResolutionProposal.title} » · cycle{" "}
++              ·{" "}
++              {formatReservationActiveCycleFacingLabel(
++                reservationResolutionProposal.cycleLabel,
++              )}
++            </p>
++            <p
++              className={styles.cardNote}
++              data-testid="reservation-resolution-cycle-id"
++              hidden
++            >
 +              {reservationResolutionProposal.cycleInstanceId}
 +            </p>
++            {reservationResolutionProposal.proposed ? (
++              <p
++                className={styles.cardNote}
++                data-testid="reservation-pilot-confirmation-required"
++              >
++                Confirmation Pilote requise
++              </p>
++            ) : null}
 +            <p className={styles.cardNote}>
 +              {reservationResolutionProposal.proposed
 +                ? "La condition paraît satisfaite. La levée attend votre confirmation Pilote — la réserve reste active."
@@ -440,7 +867,7 @@ index 1da26eac..81c23ff2 100644
          <section
            className={styles.card}
            data-testid="project-assistant-qualification"
-@@ -392,7 +464,7 @@ export function ConversationSurface({
+@@ -392,7 +494,7 @@ export function ConversationSurface({
          </section>
        ) : null}
 
@@ -449,7 +876,7 @@ index 1da26eac..81c23ff2 100644
          <section
            className={styles.card}
            data-testid="project-assistant-proposal"
-@@ -475,7 +547,7 @@ export function ConversationSurface({
+@@ -475,7 +577,7 @@ export function ConversationSurface({
          </section>
        ) : null}
 
@@ -486,7 +913,7 @@ index d2caf1c2..d104b893 100644
  }
 
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-index 504ddd7b..ceefb038 100644
+index 504ddd7b..54b9213f 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
 @@ -71,6 +71,11 @@ import {
@@ -513,23 +940,35 @@ index 504ddd7b..ceefb038 100644
    /**
     * INTERNAL / EVAL-ONLY — Stage A constitutive model×effort pin.
     * Propagated to analyzeIntent + F1 cognitive path. Never a client DTO field.
-@@ -881,6 +891,10 @@ export async function orchestrateAssistantSend(input: {
+@@ -881,6 +891,21 @@ export async function orchestrateAssistantSend(input: {
 
    let analysisResult: Awaited<ReturnType<typeof analyzeIntent>>;
    let truthCContextForF1: string | undefined;
 +  let reservationFocus: ValidatedReservationInteractionContext | null = null;
-+  const claimedReservationContext = parseReservationInteractionContextInput(
++  const parsedReservationContext = parseReservationInteractionContextInput(
 +    input.reservationInteractionContext,
 +  );
++  // RC-01 — present-but-malformed must fail closed (never silent generic F2).
++  if (parsedReservationContext.status === "invalid") {
++    return {
++      ok: false,
++      status: "validation_error",
++      code: parsedReservationContext.code,
++      message: parsedReservationContext.message,
++      mode: modeResolution.mode,
++      retryable: true,
++    };
++  }
    try {
      const cognitive = await resolveCognitiveIntentProjectSummary(project);
      if (!cognitive.ok) {
-@@ -898,6 +912,63 @@ export async function orchestrateAssistantSend(input: {
+@@ -898,6 +923,64 @@ export async function orchestrateAssistantSend(input: {
          ? cognitive.truthCContext
          : undefined;
 
 +    // RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — revalidate client binding.
-+    if (claimedReservationContext) {
++    if (parsedReservationContext.status === "ok") {
++      const claimedReservationContext = parsedReservationContext.value;
 +      const oaForRsv = getRuntimeApplicationService().oa;
 +      const activeCycleId =
 +        project.activeCycleInstanceId?.trim() ||
@@ -588,7 +1027,7 @@ index 504ddd7b..ceefb038 100644
      // CORR-PROOF-01 D1 CR-03/CR-04 — Memory B replay semantics; EMPTY ≠ UNAVAILABLE.
      const canonicalLoad = await loadCanonicalConversationForAnalysis({
        projectId: project.projectId,
-@@ -984,9 +1055,13 @@ export async function orchestrateAssistantSend(input: {
+@@ -984,9 +1067,13 @@ export async function orchestrateAssistantSend(input: {
    // CORR-PROOF-02 B1 — deterministic transition gate.
    // Safe advisory (incl. ambiguous / parse-fail / incomplete formalization fields) → F1.
    // Governed formalization only when readiness is fully established.
@@ -603,7 +1042,7 @@ index 504ddd7b..ceefb038 100644
    });
 
    if (!transition.formalizationReady) {
-@@ -1000,7 +1075,11 @@ export async function orchestrateAssistantSend(input: {
+@@ -1000,7 +1087,11 @@ export async function orchestrateAssistantSend(input: {
        registryRoot,
        truthCContext: truthCContextForF1,
        oa,
@@ -616,7 +1055,7 @@ index 504ddd7b..ceefb038 100644
      });
      if (!studioComposed.ok) {
        return {
-@@ -1035,7 +1114,7 @@ export async function orchestrateAssistantSend(input: {
+@@ -1035,7 +1126,7 @@ export async function orchestrateAssistantSend(input: {
          analysis.intentClass === "ambiguous" ||
          analysis.intentClass === "actionable" ||
          analysis.intentClass === "execution_request")
@@ -625,7 +1064,7 @@ index 504ddd7b..ceefb038 100644
            ? "informative"
            : analysis.intentClass
          : "ambiguous";
-@@ -1044,7 +1123,19 @@ export async function orchestrateAssistantSend(input: {
+@@ -1044,7 +1135,25 @@ export async function orchestrateAssistantSend(input: {
      const executionBlocked =
        analysis.parseOk === true &&
        analysis.intentClass === "execution_request" &&
@@ -633,11 +1072,17 @@ index 504ddd7b..ceefb038 100644
 +      !forceRepoInformative &&
 +      !forceReservationResolutionAdvisory;
 +    const proposedIds = f1.reservationProposedIds ?? [];
++    // RC-02 — human-facing cycle label from already-composed Studio context.
++    const composedCycleLabel =
++      studioCognitiveContext.activeCycle?.cycleLabel?.trim() ||
++      studioCognitiveContext.activeCycle?.cycleTypeId?.trim() ||
++      null;
 +    const reservationResolutionProposal =
 +      reservationFocus != null
 +        ? {
 +            epistemicItemId: reservationFocus.epistemicItemId,
 +            cycleInstanceId: reservationFocus.cycleInstanceId,
++            cycleLabel: composedCycleLabel,
 +            ordinal: reservationFocus.ordinal,
 +            title: reservationFocus.title,
 +            proposed: proposedIds.includes(reservationFocus.epistemicItemId),
@@ -646,7 +1091,7 @@ index 504ddd7b..ceefb038 100644
      return {
        ...f1,
        model: f1.model ?? model,
-@@ -1053,6 +1144,8 @@ export async function orchestrateAssistantSend(input: {
+@@ -1053,6 +1162,8 @@ export async function orchestrateAssistantSend(input: {
        reinstructionTransition: resolveReinstructionTransition({
          reinstructionOfProposalId,
        }),
@@ -655,21 +1100,19 @@ index 504ddd7b..ceefb038 100644
        f2: {
          turnKind: "f1_informative",
          intentClass: reportedIntent,
-@@ -1061,8 +1154,12 @@ export async function orchestrateAssistantSend(input: {
+@@ -1061,7 +1172,11 @@ export async function orchestrateAssistantSend(input: {
          decision: null,
          labels: {
            recommendation: null,
 -          proposition: null,
--          decisionRequired: null,
 +          proposition: reservationResolutionProposal?.proposed
 +            ? "PROPOSITION"
 +            : null,
-+          decisionRequired: reservationResolutionProposal?.proposed
-+            ? "DÉCISION REQUISE"
-+            : null,
++          // RC-02 — do not reuse generic F2 « DÉCISION REQUISE » for
++          // Reservation Pilot confirmation (local surface wording only).
+           decisionRequired: null,
            decisionTaken: null,
            noExecution: "AUCUNE EXÉCUTION",
-         },
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts b/projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts
 index 32a25142..ea7a12fd 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts
@@ -796,10 +1239,10 @@ index 497e7e83..695b9f6c 100644
    } catch (error) {
      const message =
 diff --git a/projects/sfia-studio/app/features/project-assistant/types.ts b/projects/sfia-studio/app/features/project-assistant/types.ts
-index 070fa422..ec4613e8 100644
+index 070fa422..daf8841d 100644
 --- a/projects/sfia-studio/app/features/project-assistant/types.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/types.ts
-@@ -173,6 +173,19 @@ export type F2TurnPayload = {
+@@ -173,6 +173,25 @@ export type F2TurnPayload = {
    processLocalNotice: string;
  };
 
@@ -810,6 +1253,12 @@ index 070fa422..ec4613e8 100644
 +export type ReservationResolutionProposalDto = {
 +  epistemicItemId: string;
 +  cycleInstanceId: string;
++  /**
++   * Human-facing active-cycle label from composed Product context
++   * (e.g. « Cadrage »). Not a second authority; technical id remains
++   * on cycleInstanceId for tests / details.
++   */
++  cycleLabel: string | null;
 +  ordinal: number | null;
 +  title: string;
 +  /** true only when materialize wrote a resolutionProposal this turn. */
@@ -819,7 +1268,7 @@ index 070fa422..ec4613e8 100644
  export type ProjectAssistantSendSuccess = {
    ok: true;
    status: "ok" | "cognitive_stop";
-@@ -253,6 +266,16 @@ export type ProjectAssistantSendSuccess = {
+@@ -253,6 +272,16 @@ export type ProjectAssistantSendSuccess = {
     * Session-adjacent replay/idempotence identity; never Epistemic SoT.
     */
    logicalTurnId?: string | null;
@@ -887,7 +1336,7 @@ index 311204f1..38e592da 100644
 
 ```
 
-### NEW FILE: `projects/sfia-studio/app/features/project-assistant/reservationInteractionContext.ts`
+### NEW/UPDATED FILE: `projects/sfia-studio/app/features/project-assistant/reservationInteractionContext.ts`
 
 ```typescript
 /**
@@ -897,6 +1346,10 @@ index 311204f1..38e592da 100644
  * Client-supplied ids are UNTRUSTED. Server revalidates project / cycle /
  * Reservation identity / active status before any cognitive binding.
  * Not Truth C, not HumanDecision, not Confirmation, not authority.
+ *
+ * RC-01 — absent context ≠ present-but-malformed:
+ *   absent → generic conversation;
+ *   malformed → RESERVATION_CONTEXT_INVALID (fail closed, no F2 fallback).
  */
 import type { EpistemicItem } from "@/lib/oa/cycle/domain/types";
 import {
@@ -932,20 +1385,77 @@ export type ReservationInteractionValidationResult =
   | ReservationInteractionValidationFailure;
 
 /**
- * Normalize untrusted client payload. Returns null when absent/blank
- * (generic conversation — no Reservation binding).
+ * Parse untrusted client payload.
+ * - absent (undefined / null): no Reservation interaction requested
+ * - present but malformed: explicit INVALID (never silent generic fallback)
+ * - well-formed ids: ok → server revalidation
  */
+export type ReservationInteractionContextParseResult =
+  | { status: "absent" }
+  | {
+      status: "invalid";
+      code: "RESERVATION_CONTEXT_INVALID";
+      message: string;
+    }
+  | { status: "ok"; value: ReservationInteractionContextInput };
+
+const INVALID_MESSAGE =
+  "Contexte de réserve invalide. Rouvrez « Traiter avec Nora » depuis une réserve active du cycle courant.";
+
 export function parseReservationInteractionContextInput(
   raw: unknown,
-): ReservationInteractionContextInput | null {
-  if (raw == null || typeof raw !== "object") return null;
+): ReservationInteractionContextParseResult {
+  // CASE 1 — genuinely absent: generic conversation.
+  if (raw === undefined || raw === null) {
+    return { status: "absent" };
+  }
+
+  // CASE 2 — present but not a plain object (string / array / number / …).
+  if (typeof raw !== "object" || Array.isArray(raw)) {
+    return {
+      status: "invalid",
+      code: "RESERVATION_CONTEXT_INVALID",
+      message: INVALID_MESSAGE,
+    };
+  }
+
   const o = raw as Record<string, unknown>;
-  const cycleInstanceId =
-    typeof o.cycleInstanceId === "string" ? o.cycleInstanceId.trim() : "";
-  const epistemicItemId =
-    typeof o.epistemicItemId === "string" ? o.epistemicItemId.trim() : "";
-  if (!cycleInstanceId || !epistemicItemId) return null;
-  return { cycleInstanceId, epistemicItemId };
+  const hasCycleKey = Object.prototype.hasOwnProperty.call(o, "cycleInstanceId");
+  const hasItemKey = Object.prototype.hasOwnProperty.call(o, "epistemicItemId");
+
+  // Empty object or missing required keys → present-invalid.
+  if (!hasCycleKey || !hasItemKey) {
+    return {
+      status: "invalid",
+      code: "RESERVATION_CONTEXT_INVALID",
+      message: INVALID_MESSAGE,
+    };
+  }
+
+  const cycleRaw = o.cycleInstanceId;
+  const itemRaw = o.epistemicItemId;
+  if (typeof cycleRaw !== "string" || typeof itemRaw !== "string") {
+    return {
+      status: "invalid",
+      code: "RESERVATION_CONTEXT_INVALID",
+      message: INVALID_MESSAGE,
+    };
+  }
+
+  const cycleInstanceId = cycleRaw.trim();
+  const epistemicItemId = itemRaw.trim();
+  if (!cycleInstanceId || !epistemicItemId) {
+    return {
+      status: "invalid",
+      code: "RESERVATION_CONTEXT_INVALID",
+      message: INVALID_MESSAGE,
+    };
+  }
+
+  return {
+    status: "ok",
+    value: { cycleInstanceId, epistemicItemId },
+  };
 }
 
 /**
@@ -1022,17 +1532,32 @@ export function validateReservationInteractionContext(input: {
   };
 }
 
+/**
+ * RC-02 — human-facing active-cycle label for Reservation proposal context.
+ * Uses composed cycle label when present; does not invent a new lookup.
+ */
+export function formatReservationActiveCycleFacingLabel(
+  cycleLabel: string | null | undefined,
+): string {
+  const t = typeof cycleLabel === "string" ? cycleLabel.trim() : "";
+  if (!t) return "Cycle actif";
+  if (/\bacti[fv]\b/i.test(t)) return t;
+  return `${t} actif`;
+}
+
 ```
 
-### NEW FILE: `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/reservationContextPilotConfirmation.d0.test.ts`
+### NEW/UPDATED FILE: `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/reservationContextPilotConfirmation.d0.test.ts`
 
 ```typescript
 /**
  * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — structured binding + F2-hijack guard.
+ * RC-01 — absent ≠ present-malformed fail-closed.
  */
 import { describe, expect, it } from "vitest";
 import type { EpistemicItem } from "@/lib/oa/cycle/domain/types";
 import {
+  formatReservationActiveCycleFacingLabel,
   parseReservationInteractionContextInput,
   validateReservationInteractionContext,
 } from "@/features/project-assistant/reservationInteractionContext";
@@ -1118,23 +1643,43 @@ function actionableAnalysis(): IntentAnalysisDto {
 }
 
 describe("RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 binding", () => {
-  it("CR-RCP-01 — parse ignores blank / hostile shapes; accepts structured ids", () => {
-    expect(parseReservationInteractionContextInput(null)).toBeNull();
-    expect(parseReservationInteractionContextInput("hostile")).toBeNull();
-    expect(
-      parseReservationInteractionContextInput({
-        cycleInstanceId: "  ",
-        epistemicItemId: "epi:x",
-      }),
-    ).toBeNull();
+  it("CR-RCP-01 / RC-01 — absent → generic path; malformed → INVALID; valid → ok", () => {
+    expect(parseReservationInteractionContextInput(undefined)).toEqual({
+      status: "absent",
+    });
+    expect(parseReservationInteractionContextInput(null)).toEqual({
+      status: "absent",
+    });
+
+    for (const hostile of [
+      "hostile",
+      [],
+      {},
+      { cycleInstanceId: "cyc:a" },
+      { epistemicItemId: "epi:x" },
+      { cycleInstanceId: "  ", epistemicItemId: "epi:x" },
+      { cycleInstanceId: "cyc:a", epistemicItemId: "  " },
+      { cycleInstanceId: 1, epistemicItemId: "epi:x" },
+      { cycleInstanceId: "cyc:a", epistemicItemId: ["epi:x"] },
+    ]) {
+      const parsed = parseReservationInteractionContextInput(hostile);
+      expect(parsed.status).toBe("invalid");
+      if (parsed.status === "invalid") {
+        expect(parsed.code).toBe("RESERVATION_CONTEXT_INVALID");
+      }
+    }
+
     expect(
       parseReservationInteractionContextInput({
         cycleInstanceId: "cyc:active",
         epistemicItemId: "epi:rsv:1",
       }),
     ).toEqual({
-      cycleInstanceId: "cyc:active",
-      epistemicItemId: "epi:rsv:1",
+      status: "ok",
+      value: {
+        cycleInstanceId: "cyc:active",
+        epistemicItemId: "epi:rsv:1",
+      },
     });
   });
 
@@ -1273,15 +1818,27 @@ describe("RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 binding", () => {
     expect(section).toContain("PROPOSE_RESOLUTION");
     expect(section).not.toMatch(/émets RESOLVE/i);
   });
+
+  it("RC-02 — active cycle facing label is human-readable", () => {
+    expect(formatReservationActiveCycleFacingLabel("Cadrage")).toBe(
+      "Cadrage actif",
+    );
+    expect(formatReservationActiveCycleFacingLabel("Cadrage actif")).toBe(
+      "Cadrage actif",
+    );
+    expect(formatReservationActiveCycleFacingLabel(null)).toBe("Cycle actif");
+    expect(formatReservationActiveCycleFacingLabel("")).toBe("Cycle actif");
+  });
 });
 
 ```
 
-### NEW FILE: `projects/sfia-studio/app/__tests__/pre-m6-product-ui/reservationContextProposal.ui.test.tsx`
+### NEW/UPDATED FILE: `projects/sfia-studio/app/__tests__/pre-m6-product-ui/reservationContextProposal.ui.test.tsx`
 
 ```typescript
 /**
  * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — Proposal surface presentation.
+ * RC-02 — human-facing cycle label; no generic DÉCISION REQUISE semantics.
  */
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, render, screen, fireEvent } from "@testing-library/react";
@@ -1316,7 +1873,7 @@ function baseController(
       labels: {
         recommendation: null,
         proposition: "PROPOSITION",
-        decisionRequired: "DÉCISION REQUISE",
+        decisionRequired: null,
         decisionTaken: null,
         noExecution: "AUCUNE EXÉCUTION",
       },
@@ -1371,6 +1928,7 @@ function baseController(
     reservationResolutionProposal: {
       epistemicItemId: "epi:rsv:1",
       cycleInstanceId: "cyc:active",
+      cycleLabel: "Cadrage",
       ordinal: 3,
       title: "Rappels V1",
       proposed: true,
@@ -1388,7 +1946,7 @@ function baseController(
 }
 
 describe("Reservation resolution proposal surface", () => {
-  it("CR-RCP-10 — contextual Lecture de Nora + Confirmer la levée; no auto-resolve", () => {
+  it("CR-RCP-10 / RC-02 — human cycle label + Confirmation Pilote; Confirmer once", () => {
     const onConfirm = vi.fn();
     render(
       <ConversationSurface
@@ -1398,20 +1956,27 @@ describe("Reservation resolution proposal surface", () => {
     );
 
     expect(screen.getByTestId("reservation-resolution-proposal")).toBeTruthy();
-    expect(screen.getByTestId("reservation-resolution-context").textContent).toMatch(
-      /Réserve 3/,
-    );
-    expect(screen.getByTestId("reservation-resolution-context").textContent).toMatch(
-      /cyc:active/,
-    );
+    const context = screen.getByTestId("reservation-resolution-context");
+    expect(context.textContent).toMatch(/Réserve 3/);
+    expect(context.textContent).toMatch(/Cadrage actif/);
+    expect(context.textContent).not.toMatch(/cyc:active/);
     expect(screen.getByText("Proposition de levée")).toBeTruthy();
+    expect(
+      screen.getByTestId("reservation-pilot-confirmation-required").textContent,
+    ).toMatch(/Confirmation Pilote requise/i);
+    expect(screen.queryByText("DÉCISION REQUISE")).toBeNull();
     expect(screen.getByTestId("reservation-no-auto-resolve")).toBeTruthy();
     expect(screen.queryByTestId("project-assistant-qualification")).toBeNull();
     expect(screen.queryByTestId("product-authority-path-guidance")).toBeNull();
+    // Technical id retained for metadata/tests, not primary context.
+    expect(screen.getByTestId("reservation-resolution-cycle-id").textContent).toBe(
+      "cyc:active",
+    );
 
     fireEvent.click(
       screen.getByTestId("reservation-confirm-from-proposal-epi:rsv:1"),
     );
+    expect(onConfirm).toHaveBeenCalledTimes(1);
     expect(onConfirm).toHaveBeenCalledWith("epi:rsv:1");
   });
 
@@ -1422,6 +1987,7 @@ describe("Reservation resolution proposal surface", () => {
           reservationResolutionProposal: {
             epistemicItemId: "epi:rsv:1",
             cycleInstanceId: "cyc:active",
+            cycleLabel: "Cadrage",
             ordinal: 3,
             title: "Rappels V1",
             proposed: false,
@@ -1451,120 +2017,113 @@ describe("Reservation resolution proposal surface", () => {
     expect(
       screen.queryByTestId("reservation-confirm-from-proposal-epi:rsv:1"),
     ).toBeNull();
+    expect(
+      screen.queryByTestId("reservation-pilot-confirmation-required"),
+    ).toBeNull();
+  });
+
+  it("RC-02 — hostile DÉCISION REQUISE chip suppressed under Reservation proposal", () => {
+    render(
+      <ConversationSurface
+        controller={baseController({
+          f2: {
+            turnKind: "f1_informative",
+            intentClass: "informative",
+            qualification: null,
+            proposal: null,
+            decision: null,
+            labels: {
+              recommendation: null,
+              proposition: "PROPOSITION",
+              decisionRequired: "DÉCISION REQUISE",
+              decisionTaken: null,
+              noExecution: "AUCUNE EXÉCUTION",
+            },
+            executionBlocked: false,
+            processLocalNotice: "process-local",
+          },
+        })}
+      />,
+    );
+    expect(screen.queryByText("DÉCISION REQUISE")).toBeNull();
+    expect(
+      screen.getByTestId("reservation-pilot-confirmation-required"),
+    ).toBeTruthy();
   });
 });
 
 ```
 
 
-## 9. Acceptance matrix
+## 9. Acceptance / RC matrix
 
-| ID | Criterion | Evidence | Result |
-|----|-----------|----------|--------|
-| A | Treat With Nora = prefill only; no send/model/mutation | `treatReservationWithNora` sets draft + arms context; never calls sendMessage; existing CR-RSV-20/22 UI test | PASS |
-| B | Structured binding; hostile/stale fail-closed; generic unaffected | CR-RCP-01…03 validation tests | PASS |
-| C | Missing basis → no proposal CTA | CR-RCP-11 UI (`proposed:false`) | PASS |
-| D | Sufficient → PROPOSE_RESOLUTION materialize; stays active | Existing CR-RSV-15/16 + proposedIds surface wiring | PASS |
-| E | Presentation identifies Reservation + cycle; no F2 hijack under focus | force F1 CR-RCP-04; ConversationSurface CR-RCP-10; qualification/guidance suppressed when Reservation proposal active | PASS |
-| F | Nora cannot resolve; Pilot confirm uses existing action | materialize never RESOLVE; ConversationSurface + Journal call `confirmReservationResolution` | PASS |
-| G | Durable resolve after Pilot confirm | Existing confirmReservationResolutionAction path unchanged; arm cleared after success | PASS (reuse) |
-| H | Regression: F2 outside context; CREATE/UPDATE; gates; defer; L/R projections | f2.orchestrate + cycleReservation* suites green; L/R composition untouched | PASS |
+| ID | Result |
+|----|--------|
+| RC-01 absent → generic allowed | PASS |
+| RC-01 malformed → RESERVATION_CONTEXT_INVALID | PASS |
+| RC-01 valid → validate path | PASS |
+| RC-01 stale/foreign/inactive/wrong-type | PASS |
+| RC-02 human cycle label primary | PASS |
+| RC-02 no primary cyc:* | PASS |
+| RC-02 Confirmation Pilote requise | PASS |
+| RC-02 no DÉCISION REQUISE for Reservation | PASS |
+| RC-02 Confirmer la levée once | PASS |
+| Subject continuity / PROPOSE / Pilot affordance | PASS |
+| L/R projections unchanged | PASS |
 
 ## 10. Tests / validations
 
-Commands + outcomes:
-
 ```
-npx vitest run __tests__/nora-cognitive-runtime/reservationContextPilotConfirmation.d0.test.ts \
-  __tests__/pre-m6-product-ui/reservationContextProposal.ui.test.tsx \
-  __tests__/nora-cognitive-runtime/cycleReservationPiloting.d0.test.ts \
-  __tests__/nora-cognitive-runtime/cycleReservationDefer.d0.test.ts \
-  __tests__/pre-m6-product-ui/cycleReservationMemoryRail.ui.test.tsx
-→ 5 files / 28 tests PASS
-
-npx vitest run __tests__/nora-cognitive-runtime/ \
-  __tests__/pre-m6-product-ui/cycleReservationMemoryRail.ui.test.tsx \
-  __tests__/pre-m6-product-ui/reservationContextProposal.ui.test.tsx \
-  __tests__/pre-m6-product-ui/cycleJournalSurface.ui.test.tsx \
-  __tests__/project-assistant/studioCognitiveContext.test.ts \
-  __tests__/project-assistant/f2.orchestrate.test.ts \
-  __tests__/oa/cycle/corrProof06.artifactObligation.d0.test.ts
-→ 47 files / 527 tests PASS
-
+targeted RC + Reservation suites → 5 files / 30 tests PASS
+broader adjacent suite → 47 files / 529 tests PASS
 npm run typecheck → PASS
-npm run lint → PASS (No ESLint warnings or errors)
-npm run build → PASS (pre-existing better-sqlite3 warning only; compile OK)
+npm run lint → PASS
+npm run build → PASS
+  (interim failure: client import of reservationInteractionContext pulled node:path —
+   fixed by inlining pure facing-label helper in ConversationSurface)
 ```
 
-## 11. Product / UI / runtime proof
+## 11. Product / UI proof
 
-- Local Studio HTTP `http://localhost:3020/studio` responds `307` (service reachable).
-- Bounded manual LIVE provider sequence (Treat → insufficient → sufficient → propose → confirm → reload): **NOT EXECUTED**
-- Reason: REAL provider path / StudyFlow campaign reproof requires distinct Morris gate; prompt forbids REAL promotion and READY FOR REAL claim.
-- Marker: **REAL REPROOF — NOT AUTHORIZED / NOT EXECUTED**
-- Screenshots: none (UI presentation changed; deterministic UI tests cover Proposal surface; campaign screenshots deferred to StudyFlow reproof)
+REAL StudyFlow / LIVE OpenAI Product sequence: **NOT AUTHORIZED / NOT EXECUTED**
+Deterministic UI tests cover RC-02 presentation.
 
-## 12. Remaining reserves / debt / exit
+## 12. Remaining reserves
 
-Reserves:
+- StudyFlow campaign reproof after project Git integration
+- Global semantic Reservation quality NOT PROVEN until natural Product reproof
+- Nora Cognitive Completion NOT COMPLETE / NOT PROVEN
 
-- R1: Natural StudyFlow Product campaign reproof after project Git integration (Reservation → Nora → proposal → Pilot confirm → durable resolved → defer/finalization observations)
-- R2: Global semantic Reservation quality remains NOT PROVEN until campaign reproof
-- R3: No end-to-end LIVE OpenAI Product turn exercised in this cycle (deterministic + fixture only)
+## 13. Morris decisions / forbidden actions
 
-Debt:
-
-- F2TurnLabels literals reused (`PROPOSITION` / `DÉCISION REQUISE`) for Reservation proposal chips; contextual French titles live in ConversationSurface card body (acceptable minimal reuse; optional label enum extension deferred)
-
-Exit:
-
-- Local candidate ready for ChatGPT review
-- Distinct Morris gate required for project commit/push/PR
-- After merge + post-merge verification: resume StudyFlow campaign
-
-## 13. Explicit Morris decisions consumed
-
-- KEEP left/right Reservation projections
-- Structured context seam preferred over NL-only binding
-- No new store / engine / HumanDecision doctrine change
-- Confirmation remains Pilot-only via existing action
-- No Roadmap truth-sync in this cycle
+- Same-macro correction only; no architecture pivot; no new store; no protected edits
+- Project Git actions: **NONE**
 - Review Handoff L3 is the only authorized remote publication
 
-## 14. Forbidden actions respected
+## 14. Anti-claims
 
-- No project commit / push / PR / merge
-- No protected path edits (Convergence, Build Doctrine, C1, v3 framing, CKC source, method/**, prompts/**)
-- No REAL promotion / runtime v3 ADOPTED / Nora Cognitive Completion claim / READY FOR REAL
-
-## 15. Anti-claims
-
-- Product Completion historical closure ≠ runtime v3 adoption
-- Nora Cognitive Completion remains NOT COMPLETE / NOT PROVEN
-- Global semantic Reservation quality NOT PROVEN until campaign reproof
-- READY FOR REAL global = NO
 - runtime v3 = NON ADOPTED
+- READY FOR REAL global = NO
+- Nora Cognitive Completion = NOT COMPLETE / NOT PROVEN
+- global semantic Reservation quality = NOT PROVEN until natural Product reproof
 
-## 16. Final verdict
+## 15. Final verdict
 
-RESERVATION CONTEXT CONTINUITY & PILOT CONFIRMATION — LOCAL CANDIDATE PASS
+RESERVATION CONTEXT CONTINUITY & PILOT CONFIRMATION — SAME-MACRO CORRECTION PASS
+RC-01 MALFORMED CONTEXT FAIL-CLOSED — PASS
+RC-02 RESERVATION PILOT SEMANTICS — PASS
 RESERVATION SUBJECT CONTINUITY — PASS
 PROPOSE_RESOLUTION MATERIALIZATION — PASS
 PILOT CONFIRMATION AFFORDANCE — PASS
-NORA AUTO-RESOLUTION — NOT OBSERVED
-DURABLE RESOLUTION PATH — PASS
+NORA AUTO-RESOLUTION — NOT OBSERVED AT TESTED SCOPE
 GENERIC F2 HIJACK — NOT OBSERVED AT TESTED SCOPE
 LEFT/RIGHT RESERVATION PROJECTIONS — UNCHANGED
 PRODUCT CODE VALIDATIONS — PASS
-REVIEW HANDOFF — REMOTE VERIFIED
-
-Handoff remote commit: `d77340c4d38e9d5fec122ed73cb90deceb455382`
-Handoff blob: `a8f581bfa91f0f618ee164e05e263be9340863b4`
-Canonical: `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`
+REVIEW HANDOFF — see remote verification after publish (report actual SHA/blob)
 
 PROJECT COMMIT — NOT AUTHORIZED
 PROJECT PUSH — NOT AUTHORIZED
 PR — NOT AUTHORIZED
 MERGE — NOT AUTHORIZED
 
-NEXT: ChatGPT review of the local candidate. If qualified, distinct Morris gate for project Git integration. After integration/post-merge verification, resume natural StudyFlow campaign for Product reproof.
+NEXT: ChatGPT re-review. Only after PASS may a distinct Morris gate open for project commit + push + PR. REAL StudyFlow reproof remains after integration/post-merge verification.
